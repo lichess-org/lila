@@ -710,16 +710,7 @@ export function renderMainline(nodes: Tree.Node[], currentPath: Tree.Path, style
       node.ply & 1 ? plyToTurn(node.ply) + ' ' : null,
       renderSan(node.san, node.uci, style),
     ];
-    res.push(
-      h(
-        'move',
-        {
-          attrs: { p: path },
-          class: { active: path === currentPath },
-        },
-        content,
-      ),
-    );
+    res.push(h('move', { attrs: { p: path }, class: { active: path === currentPath } }, content));
     res.push(renderComments(node, style));
     res.push(', ');
     if (node.ply % 2 === 0) res.push(h('br'));

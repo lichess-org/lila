@@ -3,7 +3,7 @@
   <string name="welcome">Benvido!</string>
   <string name="welcomeToLichess">Benvido a lichess.org!</string>
   <string name="thisIsYourProfilePage">Esta é a túa páxina de perfil.</string>
-  <string name="enabledKidModeSuggestion">Un neno vai usar esta conta? Ó mellor deberías activar o %s.</string>
+  <string name="enabledKidModeSuggestion" comment="%s is 'Kid mode'.">Un neno vai usar esta conta? Ó mellor deberías activar o %s.</string>
   <string name="whatNowSuggestions">E agora que? Velaquí algunhas suxestións:</string>
   <string name="learnChessRules">Aprende as regras do xadrez.</string>
   <string name="improveWithChessTacticsPuzzles">Mellora cos exercicios de táctica.</string>
@@ -11,6 +11,7 @@
   <string name="playOpponentsFromAroundTheWorld">Xoga con rivais de todo o mundo.</string>
   <string name="followYourFriendsOnLichess">Sigue ós teus amigos en Lichess.</string>
   <string name="playInTournaments">Xoga en torneos.</string>
+  <string name="learnFromXAndY">Aprende de %1$s e de %2$s.</string>
   <string name="configureLichess">Configura Lichess ó teu gusto.</string>
   <string name="exploreTheSiteAndHaveFun">Explora o sitio e pásao ben:)</string>
 </resources>

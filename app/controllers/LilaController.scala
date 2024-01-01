@@ -238,7 +238,7 @@ abstract private[controllers] class LilaController(val env: Env)
   def handleScopedFail(accepted: EndpointScopes, e: OAuthServer.AuthError)(using RequestHeader) = e match
     case e @ lila.oauth.OAuthServer.MissingScope(available) =>
       OAuthServer.responseHeaders(accepted, available):
-        Forbidden(jsonError(e.message))
+        forbiddenJson(e.message)
     case e =>
       OAuthServer.responseHeaders(accepted, TokenScopes(Nil)):
         Unauthorized(jsonError(e.message))
@@ -330,6 +330,8 @@ abstract private[controllers] class LilaController(val env: Env)
     .soFu(me => env.user.api.withPerfs(me.value))
     .flatMap:
       f(using _)
+
+  given (using req: RequestHeader): lila.chat.AllMessages = lila.chat.AllMessages(HTTPRequest.isLitools(req))
 
   /* We roll our own action, as we don't want to compose play Actions. */
   private def action[A](parser: BodyParser[A])(handler: Request[A] ?=> Fu[Result]): EssentialAction = new:

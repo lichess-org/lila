@@ -41,4 +41,11 @@
   <plurals name="nbYearsAgo">
     <item quantity="other">%s năm trước</item>
   </plurals>
+  <plurals name="nbMinutesRemaining">
+    <item quantity="other">Còn lại %s phút</item>
+  </plurals>
+  <plurals name="nbHoursRemaining">
+    <item quantity="other">Còn lại %s giờ</item>
+  </plurals>
+  <string name="completed">đã hoàn thành</string>
 </resources>

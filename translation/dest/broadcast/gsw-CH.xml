@@ -1,16 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="broadcasts">Überträgige</string>
-  <string name="myBroadcasts">Mini Überträgige</string>
+  <string name="myBroadcasts">Eigeni Überträgige</string>
   <plurals name="nbBroadcasts">
     <item quantity="one">%s Überträgige</item>
     <item quantity="other">%s Überträgige</item>
   </plurals>
-  <string name="liveBroadcasts">Live Turnier Überträgige</string>
-  <string name="newBroadcast">Neui Live Überträgige</string>
+  <string name="liveBroadcasts">Live Turnier-Überträgige</string>
+  <string name="newBroadcast">Neui Live-Überträgige</string>
   <string name="aboutBroadcasts">Über Überträgige</string>
   <string name="noRoundsYet">No kei Rundene.</string>
-  <string name="howToUseLichessBroadcasts">Wie mer Lichess Überträgige benutzt.</string>
+  <string name="howToUseLichessBroadcasts">Wie mer Lichess-Überträgige benutzt.</string>
   <string name="theNewRoundHelp">Die neu Runde wird us de gliche Mitglieder und Mitwürkende beschtah, wie die Vorherig.</string>
   <string name="addRound">E Rundi zuefüege</string>
   <string name="ongoing">Laufend</string>

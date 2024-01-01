@@ -12,11 +12,11 @@
   <string name="cannotChallengeDueToProvisionalXRating">Ne c\'hallit ket daeañ abalamour d\'ar renkadur %s da c\'hortoz.</string>
   <string name="xOnlyAcceptsChallengesFromFriends">Ne vez ket degemeret daeoù nemet digant mignoned gant %s.</string>
   <string name="declineGeneric">Ne zegemeran ket daeoù er mare-mañ.</string>
-  <string name="declineLater" comment="One of the standard replies which players can use to decline challenges.">N\'on ket dijabl evit poent, kasit ur goulenn din en-dro diwezhatoc\'h mar plij ganeoc\'h.</string>
-  <string name="declineRated" comment="One of the standard replies which players can use to decline challenges.">Kasit din un dae renket kentoc\'h, mar plij ganeoc\'h.</string>
-  <string name="declineCasual" comment="One of the standard replies which players can use to decline challenges.">Kasit un dae ordin din kentoc\'h mar plij ganeoc\'h.</string>
-  <string name="declineVariant" comment="One of the standard replies which players can use to decline challenges.">Ne fell ket din c\'hoari an doare echedoù-mañ evit poent.</string>
+  <string name="declineLater">N\'on ket dijabl evit poent, kasit ur goulenn din en-dro diwezhatoc\'h mar plij ganeoc\'h.</string>
+  <string name="declineRated">Kasit din un dae renket kentoc\'h, mar plij ganeoc\'h.</string>
+  <string name="declineCasual">Kasit un dae ordin din kentoc\'h mar plij ganeoc\'h.</string>
+  <string name="declineVariant">Ne fell ket din c\'hoari an doare echedoù-mañ evit poent.</string>
   <string name="declineNoBot">Ne zegemeran ket daeoù kaset gant robotoù.</string>
   <string name="declineOnlyBot">Daeoù kaset gant robotoù a zegemeran nemetken.</string>
-  <string name="inviteLichessUser" comment="Appears when using the 'play with a friend' button. This option lets you create a challenge on Lichess. The alternative is to send the player a URL.">Pediñ ur c\'hoarier war Lichess mod-all:</string>
+  <string name="inviteLichessUser">Pediñ ur c\'hoarier war Lichess mod-all:</string>
 </resources>

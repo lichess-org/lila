@@ -28,7 +28,7 @@ final class KeyPages(val env: Env)(using Executor)
           .flatMap(env.tournament.featuring.homepage.get)
           .recoverDefault,
         swiss = env.swiss.feature.onHomepage.getUnit.getIfPresent,
-        events = env.event.api.promoteTo(ctx.req).recoverDefault,
+        events = env.event.api.promoteTo(ctx.acceptLanguages).recoverDefault,
         simuls = env.simul.allCreatedFeaturable.get {}.recoverDefault,
         streamerSpots = env.streamer.homepageMaxSetting.get()
       )

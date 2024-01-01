@@ -5,6 +5,7 @@
   <string name="toInviteSomeoneToPlayGiveThisUrl">Per convidar algú a jugar, envia-li aquest enllaç</string>
   <string name="gameOver">Partida finalitzada</string>
   <string name="waitingForOpponent">Esperant un adversari</string>
+  <string name="orLetYourOpponentScanQrCode">O deixeu que el vostre oponent escanegi aquest codi QR</string>
   <string name="waiting">Esperant</string>
   <string name="yourTurn">El teu torn</string>
   <string name="aiNameLevelAiLevel">%1$s nivell %2$s</string>
@@ -272,7 +273,6 @@
   <string name="playingRightNow">En joc</string>
   <string name="eventInProgress">Jugant-se ara mateix</string>
   <string name="finished">Acabat</string>
-  <string name="finishesX">finalitza %s</string>
   <string name="abortGame">Avortar la partida</string>
   <string name="gameAborted">Partida avortada</string>
   <string name="standard">Estàndard</string>
@@ -405,7 +405,7 @@
   <string name="importGame">Importa una partida</string>
   <string name="importGameExplanation">Enganxa el PGN d\'una partida per obtenir una repetició navegable, anàlisi computeritzada, xat de joc i enllaç per compartir.</string>
   <string name="importGameCaveat">S\'esborraran les variants. Per mantenir-les, importeu el PGN mitjançant un estudi.</string>
-  <string name="importGameCaveat2">El públic pot accedir a aquest PGN. Per a importar un joc de manera privada, utilitza un estudi.</string>
+  <string name="importGameDataPrivacyWarning">Aquest PGN és accessible públicament. Per a importar un joc de manera privada, utilitza un estudi.</string>
   <plurals name="nbImportedGames">
     <item quantity="one">%s partides importades</item>
     <item quantity="other">%s partides importades</item>
@@ -507,7 +507,7 @@
   <string name="editProfile">Edita el perfil</string>
   <string name="firstName">Nom</string>
   <string name="lastName">Cognoms</string>
-  <string name="setFlair">Defineix el teu estil:</string>
+  <string name="setFlair">Defineix el teu estil</string>
   <string name="flair">Icona</string>
   <string name="youCanHideFlair">Existeix una configuració per amagar els estils dels jugadors a tot el lloc web.</string>
   <string name="biography">Biografia</string>
@@ -862,9 +862,10 @@
     <item quantity="one">i guardar %s línia anticipada</item>
     <item quantity="other">i guardar %s línies anticipades</item>
   </plurals>
+  <string name="showUnreadLichessMessage">Has rebut un missatge privat de Lichess.</string>
+  <string name="clickHereToReadIt">Fes clic aquí per llegir-lo</string>
   <string name="sorry">Ho sentim :(</string>
   <string name="weHadToTimeYouOutForAWhile">Hem hagut de penalitzar-te una estona.</string>
-  <string name="timeoutExpires">La penalització acaba en %s.</string>
   <string name="why">Perquè?</string>
   <string name="pleasantChessExperience">Intentem donar una bona experiència d’escacs a tothom.</string>
   <string name="goodPractice">Per això, hem de garantir que tots els jugadors segueixin bones pràctiques.</string>
@@ -884,6 +885,7 @@
   <string name="agreementPolicy">Estic d’acord que seguiré totes les polítiques de Lichess.</string>
   <string name="searchOrStartNewDiscussion">Cerca o inicia una nova discusió</string>
   <string name="edit">Edita</string>
+  <string name="bullet" comment="Probably best left untranslated. Leave it as 'Bullet' unless your language has a better word for it.">Bullet</string>
   <string name="blitz" comment="Probably best left untranslated. Leave it as 'Blitz' unless your language has a better word for it.">Blitz</string>
   <string name="rapid">Ràpides</string>
   <string name="classical">Clàssic</string>

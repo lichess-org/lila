@@ -286,7 +286,6 @@
   <string name="playingRightNow">Upravo igraju</string>
   <string name="eventInProgress">Upravo igraju</string>
   <string name="finished">Završeno</string>
-  <string name="finishesX">završava %s</string>
   <string name="abortGame">Otkažite partiju</string>
   <string name="gameAborted">Partija otkazana</string>
   <string name="standard">Standardna</string>
@@ -889,7 +888,6 @@ računarsku analizu, mogućnost dopisivanja i link za slanje drugima.</string>
   </plurals>
   <string name="sorry">Izvinjavamo se :(</string>
   <string name="weHadToTimeYouOutForAWhile">Morali smo Vam staviti privremenu zabranu na igranje.</string>
-  <string name="timeoutExpires">Privremena zabrana ističe %s.</string>
   <string name="why">Zašto?</string>
   <string name="pleasantChessExperience">Naš cilj je da svima pružimo ugodno šahovsko iskustvo.</string>
   <string name="goodPractice">Zbog toga, moramo osigurati da svi igrači ispravno postupaju.</string>

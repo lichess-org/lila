@@ -99,7 +99,7 @@ Aqui está o link para acederes à aula.</string>
   <string name="newsEdit2">Adiciona as novidades recentes no topo. Não excluas novidades anteriores.</string>
   <string name="newsEdit3">Separa as novidades com --- tal irá mostrar uma linha horizontal.</string>
   <string name="invite">Convidar</string>
-  <string name="youHaveBeenInvitedByX" comment="youHaveBeenInvitedByX&#10;&#10;Appears in the notice that you have been invited to join a class by a teacher.">Foi convidado por %s.</string>
+  <string name="youHaveBeenInvitedByX">Foi convidado por %s.</string>
   <string name="youAcceptedThisInvitation">Aceitou este convite.</string>
   <string name="youDeclinedThisInvitation">Recusou este convite.</string>
   <string name="orSeparator" comment="Used as separator between invite sections. Shown as large '~ or ~'.">ou</string>

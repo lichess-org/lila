@@ -559,9 +559,8 @@ final class TournamentApi(
 
     def watcher(game: Game): Fu[Option[GameView]] =
       OfGame(game): tour =>
-        getTeamVs(tour, game) zip getGameRanks(tour, game) dmap { (teamVs, ranks) =>
+        getTeamVs(tour, game) zip getGameRanks(tour, game) dmap: (teamVs, ranks) =>
           GameView(tour, teamVs, ranks, none)
-        }
 
     def mobile(game: Game): Fu[Option[GameView]] =
       OfGame(game): tour =>

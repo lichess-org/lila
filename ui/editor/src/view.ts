@@ -14,12 +14,8 @@ import { dataIcon } from 'common/snabbdom';
 
 function castleCheckBox(ctrl: EditorCtrl, id: CastlingToggle, label: string, reversed: boolean): VNode {
   const input = h('input', {
-    attrs: {
-      type: 'checkbox',
-    },
-    props: {
-      checked: ctrl.castlingToggles[id],
-    },
+    attrs: { type: 'checkbox' },
+    props: { checked: ctrl.castlingToggles[id] },
     on: {
       change(e) {
         ctrl.setCastlingToggle(id, (e.target as HTMLInputElement).checked);
@@ -34,48 +30,25 @@ function optgroup(name: string, opts: VNode[]): VNode {
 }
 
 function studyButton(ctrl: EditorCtrl, state: EditorState): VNode {
-  return h(
-    'form',
-    {
-      attrs: {
-        method: 'post',
-        action: '/study/as',
+  return h('form', { attrs: { method: 'post', action: '/study/as' } }, [
+    h('input', { attrs: { type: 'hidden', name: 'orientation', value: ctrl.bottomColor() } }),
+    h('input', { attrs: { type: 'hidden', name: 'variant', value: ctrl.rules } }),
+    h('input', { attrs: { type: 'hidden', name: 'fen', value: state.legalFen || '' } }),
+    h(
+      'button',
+      {
+        attrs: { type: 'submit', 'data-icon': licon.StudyBoard, disabled: !state.legalFen },
+        class: { button: true, 'button-empty': true, text: true, disabled: !state.legalFen },
       },
-    },
-    [
-      h('input', { attrs: { type: 'hidden', name: 'orientation', value: ctrl.bottomColor() } }),
-      h('input', { attrs: { type: 'hidden', name: 'variant', value: ctrl.rules } }),
-      h('input', { attrs: { type: 'hidden', name: 'fen', value: state.legalFen || '' } }),
-      h(
-        'button',
-        {
-          attrs: {
-            type: 'submit',
-            'data-icon': licon.StudyBoard,
-            disabled: !state.legalFen,
-          },
-          class: {
-            button: true,
-            'button-empty': true,
-            text: true,
-            disabled: !state.legalFen,
-          },
-        },
-        ctrl.trans.noarg('toStudy'),
-      ),
-    ],
-  );
+      ctrl.trans.noarg('toStudy'),
+    ),
+  ]);
 }
 
 function variant2option(key: Rules, name: string, ctrl: EditorCtrl): VNode {
   return h(
     'option',
-    {
-      attrs: {
-        value: key,
-        selected: key == ctrl.rules,
-      },
-    },
+    { attrs: { value: key, selected: key == ctrl.rules } },
     `${ctrl.trans.noarg('variant')} | ${name}`,
   );
 }
@@ -93,34 +66,19 @@ const allVariants: Array<[Rules, string]> = [
 
 function controls(ctrl: EditorCtrl, state: EditorState): VNode {
   const endgamePosition2option = function (pos: Editor.EndgamePosition): VNode {
-    return h(
-      'option',
-      {
-        attrs: {
-          value: pos.epd || pos.fen,
-          'data-fen': pos.fen,
-        },
-      },
-      pos.name,
-    );
+    return h('option', { attrs: { value: pos.epd || pos.fen, 'data-fen': pos.fen } }, pos.name);
   };
 
   const buttonStart = (icon?: string) =>
     h(
       `a.button.button-empty${icon ? '.text' : ''}`,
-      {
-        on: { click: ctrl.startPosition },
-        attrs: icon ? dataIcon(icon) : {},
-      },
+      { on: { click: ctrl.startPosition }, attrs: icon ? dataIcon(icon) : {} },
       ctrl.trans.noarg('startPosition'),
     );
   const buttonClear = (icon?: string) =>
     h(
       `a.button.button-empty${icon ? '.text' : ''}`,
-      {
-        on: { click: ctrl.clearBoard },
-        attrs: icon ? dataIcon(icon) : {},
-      },
+      { on: { click: ctrl.clearBoard }, attrs: icon ? dataIcon(icon) : {} },
       ctrl.trans.noarg('clearBoard'),
     );
 
@@ -136,18 +94,13 @@ function controls(ctrl: EditorCtrl, state: EditorState): VNode {
                 ctrl.setTurn((e.target as HTMLSelectElement).value as Color);
               },
             },
-            props: {
-              value: ctrl.turn,
-            },
+            props: { value: ctrl.turn },
           },
           ['whitePlays', 'blackPlays'].map(function (key) {
             return h(
               'option',
               {
-                attrs: {
-                  value: key[0] === 'w' ? 'white' : 'black',
-                  selected: key[0] === ctrl.turn[0],
-                },
+                attrs: { value: key[0] === 'w' ? 'white' : 'black', selected: key[0] === ctrl.turn[0] },
               },
               ctrl.trans(key),
             );
@@ -175,9 +128,7 @@ function controls(ctrl: EditorCtrl, state: EditorState): VNode {
                 ctrl.setEnPassant(parseSquare((e.target as HTMLSelectElement).value));
               },
             },
-            props: {
-              value: ctrl.epSquare ? makeSquare(ctrl.epSquare) : '',
-            },
+            props: { value: ctrl.epSquare ? makeSquare(ctrl.epSquare) : '' },
           },
           ['', ...[ctrl.turn === 'black' ? 3 : 6].flatMap(r => 'abcdefgh'.split('').map(f => f + r))].map(
             key =>
@@ -204,12 +155,7 @@ function controls(ctrl: EditorCtrl, state: EditorState): VNode {
             const positionOption = (pos: Editor.OpeningPosition): VNode =>
               h(
                 'option',
-                {
-                  attrs: {
-                    value: pos.epd || pos.fen,
-                    'data-fen': pos.fen,
-                  },
-                },
+                { attrs: { value: pos.epd || pos.fen, 'data-fen': pos.fen } },
                 pos.eco ? `${pos.eco} ${pos.name}` : pos.name,
               );
             const epd = state.fen.split(' ').slice(0, 4).join(' ');
@@ -299,11 +245,7 @@ function controls(ctrl: EditorCtrl, state: EditorState): VNode {
             h(
               'button',
               {
-                class: {
-                  button: true,
-                  'button-empty': true,
-                  disabled: !state.playable,
-                },
+                class: { button: true, 'button-empty': true, disabled: !state.playable },
                 on: {
                   click: () => {
                     if (state.playable) domDialog({ cash: $('.continue-with'), show: 'modal' });
@@ -323,22 +265,12 @@ function controls(ctrl: EditorCtrl, state: EditorState): VNode {
           h('div.continue-with.none', [
             h(
               'a.button',
-              {
-                attrs: {
-                  href: '/?fen=' + state.legalFen + '#ai',
-                  rel: 'nofollow',
-                },
-              },
+              { attrs: { href: '/?fen=' + state.legalFen + '#ai', rel: 'nofollow' } },
               ctrl.trans.noarg('playWithTheMachine'),
             ),
             h(
               'a.button',
-              {
-                attrs: {
-                  href: '/?fen=' + state.legalFen + '#friend',
-                  rel: 'nofollow',
-                },
-              },
+              { attrs: { href: '/?fen=' + state.legalFen + '#friend', rel: 'nofollow' } },
               ctrl.trans.noarg('playWithAFriend'),
             ),
           ]),
@@ -352,13 +284,8 @@ function inputs(ctrl: EditorCtrl, fen: string): VNode | undefined {
     h('p', [
       h('strong', 'FEN'),
       h('input.copyable', {
-        attrs: {
-          spellcheck: 'false',
-          enterkeyhint: 'done',
-        },
-        props: {
-          value: fen,
-        },
+        attrs: { spellcheck: 'false', enterkeyhint: 'done' },
+        props: { value: fen },
         on: {
           change(e) {
             const el = e.target as HTMLInputElement;
@@ -387,11 +314,7 @@ function inputs(ctrl: EditorCtrl, fen: string): VNode | undefined {
     h('p', [
       h('strong.name', 'URL'),
       h('input.copyable.autoselect', {
-        attrs: {
-          readonly: true,
-          spellcheck: 'false',
-          value: ctrl.makeEditorUrl(fen, ctrl.bottomColor()),
-        },
+        attrs: { readonly: true, spellcheck: 'false', value: ctrl.makeEditorUrl(fen, ctrl.bottomColor()) },
       }),
     ]),
   ]);
@@ -413,11 +336,7 @@ function sparePieces(ctrl: EditorCtrl, color: Color, _orientation: Color, positi
 
   return h(
     'div',
-    {
-      attrs: {
-        class: ['spare', 'spare-' + position, 'spare-' + color].join(' '),
-      },
-    },
+    { attrs: { class: ['spare', 'spare-' + position, 'spare-' + color].join(' ') } },
     ['pointer', ...pieces, 'trash'].map((s: Selected) => {
       const className = selectedToClass(s);
       const attrs = {
@@ -466,15 +385,7 @@ function onSelectSparePiece(ctrl: EditorCtrl, s: Selected, upEvent: string): (e:
     } else {
       ctrl.selected('pointer');
 
-      dragNewPiece(
-        ctrl.chessground!.state,
-        {
-          color: s[0],
-          role: s[1],
-        },
-        e,
-        true,
-      );
+      dragNewPiece(ctrl.chessground!.state, { color: s[0], role: s[1] }, e, true);
 
       document.addEventListener(
         upEvent,
@@ -503,19 +414,11 @@ export default function (ctrl: EditorCtrl): VNode {
   const state = ctrl.getState();
   const color = ctrl.bottomColor();
 
-  return h(
-    'div.board-editor',
-    {
-      attrs: {
-        style: `cursor: ${makeCursor(ctrl.selected())}`,
-      },
-    },
-    [
-      sparePieces(ctrl, opposite(color), color, 'top'),
-      h('div.main-board', [chessground(ctrl)]),
-      sparePieces(ctrl, color, color, 'bottom'),
-      controls(ctrl, state),
-      inputs(ctrl, state.legalFen || state.fen),
-    ],
-  );
+  return h('div.board-editor', { attrs: { style: `cursor: ${makeCursor(ctrl.selected())}` } }, [
+    sparePieces(ctrl, opposite(color), color, 'top'),
+    h('div.main-board', [chessground(ctrl)]),
+    sparePieces(ctrl, color, color, 'bottom'),
+    controls(ctrl, state),
+    inputs(ctrl, state.legalFen || state.fen),
+  ]);
 }

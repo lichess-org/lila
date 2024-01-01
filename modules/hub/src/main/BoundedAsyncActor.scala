@@ -16,24 +16,24 @@ final class BoundedAsyncActor(maxSize: Max, name: String, logging: Boolean = tru
   import BoundedAsyncActor.*
 
   def !(msg: Matchable): Boolean =
-    stateRef.getAndUpdate { state =>
-      Some {
-        state.fold(emptyQueue) { q =>
-          if q.size >= maxSize.value then q
-          else q enqueue msg
-        }
-      }
-    } match
-      case None => // previous state was idle, we can run immediately
-        run(msg)
-        true
-      case Some(q) =>
-        val success = q.size < maxSize.value
-        if !success then
-          lila.mon.asyncActor.overflow(name).increment()
-          if logging then lila.log("asyncActor").warn(s"[$name] queue is full ($maxSize)")
-        else if logging && q.size >= monitorQueueSize then lila.mon.asyncActor.queueSize(name).record(q.size)
-        success
+    stateRef
+      .getAndUpdate: state =>
+        Some:
+          state.fold(emptyQueue): q =>
+            if q.size >= maxSize.value then q
+            else q enqueue msg
+      .match
+        case None => // previous state was idle, we can run immediately
+          run(msg)
+          true
+        case Some(q) =>
+          val success = q.size < maxSize.value
+          if !success then
+            lila.mon.asyncActor.overflow(name).increment()
+            if logging then lila.log("asyncActor").warn(s"[$name] queue is full ($maxSize)")
+          else if logging && q.size >= monitorQueueSize then
+            lila.mon.asyncActor.queueSize(name).record(q.size)
+          success
 
   def ask[A](makeMsg: Promise[A] => Matchable): Fu[A] =
     val promise = Promise[A]()

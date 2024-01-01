@@ -20,7 +20,6 @@ object JsonApi:
 
     case class Fishnet(
         version: Client.Version,
-        python: Option[Client.Python],
         apikey: Client.Key
     )
 

@@ -143,7 +143,7 @@ Klicke auf das Schlosssymbol neben der lichess.org Adresse in der URL-Leiste dei
 
 Wähle dann aus, ob Benachrichtigungen von Lichess erlaubt oder blockiert werden sollen.</string>
   <string name="enableAutoplayForSoundsQ">Das automatische Abspielen von Tönen erlauben?</string>
-  <string name="enableAutoplayForSoundsA">Die meisten Browser können die Tonwiedergabe auf einer neu geladenen Seite verhindern, um die Nutzer zu schützen. Stell dir vor, jede Website könnte dich sofort mit Audio-Werbung bombardieren.
+  <string name="enableAutoplayForSoundsA">Die meisten Browser können die Tonwiedergabe auf einer neu geladenen Seite unterbinden, um die Nutzer nicht zu belästigen. Stell dir vor, jede Website könnte dich sofort mit Audio-Werbung bombardieren.
 
 Das rote Stummschaltungssymbol erscheint, wenn dein Browser verhindert, dass lichess.org einen Ton abspielt. Normalerweise wird diese Einschränkung aufgehoben, sobald du etwas anklickst. Bei einigen mobilen Browsern gilt das Ziehen einer Figur durch Berührung nicht als Klick. In diesem Fall musst du zu Beginn einer Partie auf das Brett tippen, um den Ton zu aktivieren.
 

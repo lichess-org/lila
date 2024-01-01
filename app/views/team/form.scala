@@ -87,7 +87,7 @@ object form:
   private val explainInput = input(st.name := "explain", tpe := "hidden")
 
   private def flairField(form: Form[?], team: Team)(using Context) =
-    form3.flairPicker(form("flair"), Flair from form("flair").value):
+    form3.flairPickerGroup(form("flair"), Flair from form("flair").value, label = trans.setFlair()):
       span(cls := "flair-container".some)(team.name, teamFlair(team))
 
   private def textFields(form: Form[?])(using Context) = frag(

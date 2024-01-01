@@ -1,5 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+  <string name="communityBlogs">Blogge vun der Communautéit</string>
+  <string name="friendBlogs">Blogge vun de Kolleegen</string>
+  <string name="blogTopics">Blog-Theemen</string>
+  <string name="lichessOfficialBlog">Offizielle Lichess-Blog</string>
+  <string name="continueReadingPost">Virufuere mam Liese vun dësem Bäitrag</string>
+  <string name="lichessBlogPostsFromXYear">Lichess-Blog-Bäiträg vun %s</string>
+  <string name="previousBlogPosts">Virege Blog-Bäitrag</string>
   <string name="xBlog">%s säi Blog</string>
   <string name="newPost">Neie Bäitrag</string>
   <string name="editYourBlogPost">Beaarbecht däi Blog-Bäitrag</string>
@@ -43,5 +50,5 @@
   <string name="safeAndRespectfulContent">Wgl. post just sécher a respektvoll Inhalter. Kopéier net d\'Inhalter vun enger anerer Persoun.</string>
   <string name="inappropriateContentAccountClosed">Alles, wat net ubruecht ass, kann dozou féieren, datt däi Kont zougemaach gëtt.</string>
   <string name="blogTips">Eis einfach Tuyaue fir flott Blog-Bäiträg ze schreiwen</string>
-  <string name="discussThisBlogPostInTheForum" comment="A button at the bottom of blog posts which will take you to the forum discussion for that post.">Iwwert dëse Blog-Bäitrag am Forum diskutéieren</string>
+  <string name="discussThisBlogPostInTheForum">Iwwert dëse Blog-Bäitrag am Forum diskutéieren</string>
 </resources>

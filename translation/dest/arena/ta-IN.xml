@@ -39,7 +39,7 @@
   </plurals>
   <string name="thisIsPrivate">இது ஒரு தனிப்பட்ட போட்டி</string>
   <string name="shareUrl">மக்கள் சேர இந்த URL ஐப் பகிரவும்: %s</string>
-  <string name="drawStreakStandard" comment="%s is '30' as of 2023. Drawn games may keep a streak going if they are reasonably long games (30+ moves).">சமநிலை தொடர்கள்: ஒரு ஆட்டக்காரர் ஒரு கோதாவில் தொடர்ச்சியாகச் சமநிலைகளைப் பெற்றால், முதல் சமநிலை மட்டுமே ஒரு புள்ளியை ஏற்படுத்தும் அல்லது நிலையான விளையாட்டுகளில் %s நகர்வுகளுக்கு மேல் நீடிக்கும். சமநிலை தொடரை ஒரு வெற்றியால் மட்டுமே உடைக்க முடியும், தோல்வி அல்லது சமநிலை அல்ல.</string>
+  <string name="drawStreakStandard">சமநிலை தொடர்கள்: ஒரு ஆட்டக்காரர் ஒரு கோதாவில் தொடர்ச்சியாகச் சமநிலைகளைப் பெற்றால், முதல் சமநிலை மட்டுமே ஒரு புள்ளியை ஏற்படுத்தும் அல்லது நிலையான விளையாட்டுகளில் %s நகர்வுகளுக்கு மேல் நீடிக்கும். சமநிலை தொடரை ஒரு வெற்றியால் மட்டுமே உடைக்க முடியும், தோல்வி அல்லது சமநிலை அல்ல.</string>
   <string name="drawStreakVariants">புள்ளிகளைப் பெற வரையப்பட்ட ஆடங்களுக்கான குறைந்தபட்ச விளையாட்டு நீளம் மாறுபாட்டின் அடிப்படையில் வேறுபடும். கீழே உள்ள அட்டவணை ஒவ்வொரு மாறுபாட்டிற்கான வரம்பைப் பட்டியலிடுகிறது.</string>
   <string name="variant">மாறுபாடு</string>
   <string name="minimumGameLength">குறைந்தபட்ச விளையாட்டு நீளம்</string>
@@ -56,9 +56,9 @@
   <string name="allowChatHelp">வீரர்கள் அரட்டை அறையில் விவாதிக்கலாம்</string>
   <string name="arenaStreaks">கோதா தொடர்</string>
   <string name="arenaStreaksHelp">2 வெற்றிகளுக்குப் பிறகு, தொடர்ச்சியான வெற்றிகள் 2க்குப் பதிலாக 4 புள்ளிகளை வழங்குகின்றன.</string>
-  <string name="noBerserkAllowed" comment="A setting when creating an arena tournament, which disallows using Berserk.">மூர்க்கம் அனுமதிக்கப்படவில்லை</string>
+  <string name="noBerserkAllowed">மூர்க்கம் அனுமதிக்கப்படவில்லை</string>
   <string name="noArenaStreaks">கோதா தொடர் இல்லை</string>
   <string name="averagePerformance">சராசரி செயல்திறன்</string>
   <string name="averageScore">சராசரி மதிப்பெண்</string>
-  <string name="myTournaments" comment="Links to a page with a list of tournaments you have created.">எனது போட்டிகள்</string>
+  <string name="myTournaments">எனது போட்டிகள்</string>
 </resources>

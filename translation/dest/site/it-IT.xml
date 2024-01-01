@@ -5,6 +5,7 @@
   <string name="toInviteSomeoneToPlayGiveThisUrl">Per invitare qualcuno a giocare, dagli questo URL</string>
   <string name="gameOver">Partita terminata</string>
   <string name="waitingForOpponent">In attesa dell\'avversario</string>
+  <string name="orLetYourOpponentScanQrCode">O fai scansionare il Codice QR al tuo avversario</string>
   <string name="waiting">In attesa</string>
   <string name="yourTurn">Tocca a te</string>
   <string name="aiNameLevelAiLevel">%1$s livello %2$s</string>
@@ -272,7 +273,6 @@
   <string name="playingRightNow">Partita in corso</string>
   <string name="eventInProgress">In corso</string>
   <string name="finished">Terminati</string>
-  <string name="finishesX">finisce %s</string>
   <string name="abortGame">Interrompi la partita</string>
   <string name="gameAborted">Partita interrotta</string>
   <string name="standard">Standard</string>
@@ -406,6 +406,7 @@
   <string name="importGameExplanation">Quando incolli una partita tramite PGN potrai rivederla,
 analizzarla con il computer, commentarla in chat, e condividerla tramite un indirizzo URL.</string>
   <string name="importGameCaveat">Le varianti saranno cancellate. Per salvarle, importa il PGN in uno studio.</string>
+  <string name="importGameDataPrivacyWarning">Questo PGN è accessibile pubblicamente. Per importare una partita privatamente, utilizza uno studio.</string>
   <plurals name="nbImportedGames">
     <item quantity="one">%s partita importata</item>
     <item quantity="other">%s partite importate</item>
@@ -486,6 +487,7 @@ analizzarla con il computer, commentarla in chat, e condividerla tramite un indi
   <string name="movesPlayed">Mosse giocate</string>
   <string name="whiteWins">Il Bianco vince</string>
   <string name="blackWins">Il Nero vince</string>
+  <string name="drawRate">Tasso di pareggio</string>
   <string name="draws">Patte</string>
   <string name="nextXTournament">Prossimo torneo %s:</string>
   <string name="averageOpponent">Punteggio medio degli avversari</string>
@@ -506,6 +508,9 @@ analizzarla con il computer, commentarla in chat, e condividerla tramite un indi
   <string name="editProfile">Modifica profilo</string>
   <string name="firstName">Nome</string>
   <string name="lastName">Cognome</string>
+  <string name="setFlair">Imposta la tua icona</string>
+  <string name="flair">Icona</string>
+  <string name="youCanHideFlair">Esiste un\'impostazione per nascondere le icone di tutti gli utenti, sull\'intero sito.</string>
   <string name="biography">Biografia</string>
   <string name="countryRegion" comment="flag&#10;Appears when you edit your profile. Lets a player add a country/flag (not all flags are for countries) to their profile">Nazione o regione</string>
   <string name="thankYou">Grazie!</string>
@@ -744,6 +749,7 @@ analizzarla con il computer, commentarla in chat, e condividerla tramite un indi
   <string name="withFriends">Con gli amici</string>
   <string name="withEverybody">Con tutti</string>
   <string name="kidMode">Modalità bambino</string>
+  <string name="kidModeIsEnabled">La modalità bambini è attiva.</string>
   <string name="kidModeExplanation">Questa modalità riguarda la sicurezza: in modalità bambino tutte le comunicazioni sono disabilitate. Si consiglia di attivare questa modalità per bambini e studenti, in modo da proteggerli dagli altri utenti.</string>
   <string name="inKidModeTheLichessLogoGetsIconX">In \"modalità bambino\", al logo di lichess viene aggiunto %s, in questo modo sai che il bambino è sicuro.</string>
   <string name="askYourChessTeacherAboutLiftingKidMode">Il tuo account è gestito esternamente. Chiedi al tuo istruttore di disattivare la \"modalità bambino\".</string>
@@ -857,9 +863,10 @@ analizzarla con il computer, commentarla in chat, e condividerla tramite un indi
     <item quantity="one">e salva %s linea pre-mossa</item>
     <item quantity="other">e salva %s linee pre-mossa</item>
   </plurals>
+  <string name="showUnreadLichessMessage">Hai ricevuto un messaggio privato da Lichess.</string>
+  <string name="clickHereToReadIt">Clicca qui per leggerlo</string>
   <string name="sorry">Ci dispiace :(</string>
   <string name="weHadToTimeYouOutForAWhile">Abbiamo dovuto bloccarti per un po\' di tempo.</string>
-  <string name="timeoutExpires">Sarai sbloccato %s.</string>
   <string name="why">Perché?</string>
   <string name="pleasantChessExperience">Vogliamo offrire a tutti una esperienza di scacchi piacevole.</string>
   <string name="goodPractice">A tal fine, dobbiamo assicurarci che tutti i giocatori si comportino bene.</string>
@@ -879,6 +886,7 @@ analizzarla con il computer, commentarla in chat, e condividerla tramite un indi
   <string name="agreementPolicy">Dichiaro di acconsentire a tutte le politiche di Lichess.</string>
   <string name="searchOrStartNewDiscussion">Cerca o inizia una nuova conversazione</string>
   <string name="edit">Modifica</string>
+  <string name="bullet" comment="Probably best left untranslated. Leave it as 'Bullet' unless your language has a better word for it.">Bullet</string>
   <string name="blitz" comment="Probably best left untranslated. Leave it as 'Blitz' unless your language has a better word for it.">Blitz</string>
   <string name="rapid">Rapid</string>
   <string name="classical">Classical</string>

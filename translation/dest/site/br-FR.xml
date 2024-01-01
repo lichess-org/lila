@@ -218,7 +218,7 @@
     <item quantity="two">%s eur</item>
     <item quantity="few">%s eur</item>
     <item quantity="many">%s eur</item>
-    <item quantity="other">%s eurvezhioù</item>
+    <item quantity="other">%s eur</item>
   </plurals>
   <plurals name="nbMinutes">
     <item quantity="one">%s vunutenn</item>
@@ -305,7 +305,6 @@
   <string name="playingRightNow">O c\'hoari bremañ</string>
   <string name="eventInProgress">O c\'hoari bremañ</string>
   <string name="finished">Echu</string>
-  <string name="finishesX">a vo echu e %s</string>
   <string name="abortGame">Nullañ ar c\'hrogad</string>
   <string name="gameAborted">Krogad nullet</string>
   <string name="standard">Normal</string>
@@ -939,9 +938,10 @@
     <item quantity="many">hag enrollit %s linennoù raktaolioù</item>
     <item quantity="other">hag enrollit %s linennoù raktaolioù</item>
   </plurals>
+  <string name="showUnreadLichessMessage">Resevet ho peus ur gemennadenn brevez eus perzh Lichess.</string>
+  <string name="clickHereToReadIt">Klikit amañ evit lenn anezhi</string>
   <string name="sorry">Hon digarezit :(</string>
   <string name="weHadToTimeYouOutForAWhile">Ret e oa deomp ho skarzhañ e-pad ur prantad.</string>
-  <string name="timeoutExpires">Ne veoc\'h ket mui forbannet a-benn %s.</string>
   <string name="why">Perak?</string>
   <string name="pleasantChessExperience">Plijout a rafe deomp e vourrfe pep hini c\'hoari echedoù war Lichess.</string>
   <string name="goodPractice">Evit hen ober e dav deomp bezañ sur e vez graet gant doareoù dereat gant an holl.</string>

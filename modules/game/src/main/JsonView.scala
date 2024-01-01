@@ -95,12 +95,11 @@ final class JsonView(rematches: Rematches):
 
 object JsonView:
 
-  given OWrites[chess.Status] = OWrites { s =>
+  given OWrites[chess.Status] = OWrites: s =>
     Json.obj(
       "id"   -> s.id,
       "name" -> s.name
     )
-  }
 
   given OWrites[Crosstable.Result] = Json.writes
 

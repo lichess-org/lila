@@ -20,10 +20,7 @@ export function mainHook(ctrl: AnalyseCtrl): Hooks {
       const ctxMenuCallback = (e: MouseEvent) => {
         const path = eventPath(e);
         if (path !== null) {
-          contextMenu(e, {
-            path,
-            root: ctrl,
-          });
+          contextMenu(e, { path, root: ctrl });
         }
         ctrl.redraw();
         return false;

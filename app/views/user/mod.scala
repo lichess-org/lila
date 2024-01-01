@@ -312,7 +312,7 @@ object mod:
               " with ",
               c.serviceName,
               " on ",
-              showInstantUTC(c.date),
+              showInstant(c.date),
               " UTC"
             )
           }
@@ -581,7 +581,7 @@ object mod:
   private val reportban       = iconTag(licon.CautionTriangle)
   private val notesText       = iconTag(licon.Pencil)
   private def markTd(nb: Int, content: => Frag, date: Option[Instant] = None)(using ctx: Context) =
-    if nb > 0 then td(cls := "i", dataSort := nb, title := date.map(d => showInstantUTC(d)))(content)
+    if nb > 0 then td(cls := "i", dataSort := nb, title := date.map(showInstant))(content)
     else td
 
   def otherUsers(mod: Me, u: User, data: UserLogins.TableData[UserWithModlog], appeals: List[Appeal])(using
@@ -897,7 +897,7 @@ object mod:
     submitButton(
       title := {
         if r.open then "open"
-        else s"closed: ${r.done.fold("no data")(done => s"by ${done.by} at ${showInstantUTC(done.at)}")}"
+        else s"closed: ${r.done.fold("no data")(done => s"by ${done.by} at ${showInstant(done.at)}")}"
       }
     )(reportScore(r.score), " ", strong(r.reason.name))
 

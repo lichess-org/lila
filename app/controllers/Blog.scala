@@ -68,9 +68,8 @@ final class Blog(
     _.refreshAfterWrite(30.minutes)
       .buildAsyncFuture: _ =>
         blogApi.masterContext.flatMap: prismic =>
-          blogApi.recent(prismic.api, 1, MaxPerPage(50), none) mapz { docs =>
+          blogApi.recent(prismic.api, 1, MaxPerPage(50), none) mapz: docs =>
             views.html.blog.atom(docs)(using prismic).render
-          }
 
   def atom = Anon:
     atomCache.getUnit.map: xml =>

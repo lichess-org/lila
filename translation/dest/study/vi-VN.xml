@@ -28,7 +28,7 @@
     <item quantity="other">%s Thành viên</item>
   </plurals>
   <string name="inviteToTheStudy">Mời vào nghiên cứu</string>
-  <string name="pleaseOnlyInvitePeopleYouKnow">Vui lòng chỉ mời những người bạn biết và muốn tham gia.</string>
+  <string name="pleaseOnlyInvitePeopleYouKnow">Vui lòng chỉ mời những người bạn biết và những người tích cực muốn tham gia nghiên cứu này.</string>
   <string name="searchByUsername">Tìm kiếm theo tên người dùng</string>
   <string name="spectator">Khán giả</string>
   <string name="contributor">Người đóng góp</string>
@@ -59,7 +59,7 @@
   <string name="studyPgn">PGN nghiên cứu</string>
   <string name="downloadAllGames">Tải xuống tất cả ván đấu</string>
   <string name="chapterPgn">PGN chương</string>
-  <string name="copyChapterPgn">Sao chép PGN</string>
+  <string name="copyChapterPgn" comment="A button which lets you copy the PGN text to your clipboard (i.e. similar to ⌘+C or Ctrl+C).">Sao chép PGN</string>
   <string name="copyChapterPgnDescription">Sao chép PGN chương vào bảng nhớ tạm.</string>
   <string name="downloadGame">Tải xuống ván cờ</string>
   <string name="studyUrl">URL nghiên cứu</string>
@@ -97,12 +97,12 @@
   <string name="startFromCustomPosition">Bắt đầu từ thế cờ tùy chỉnh</string>
   <string name="loadAGameByUrl">Tải ván cờ bằng URL</string>
   <string name="loadAPositionFromFen">Tải thế cờ từ chuỗi FEN</string>
-  <string name="loadAGameFromPgn">Tải thế cờ từ PGN</string>
+  <string name="loadAGameFromPgn">Tải ván cờ từ PGN</string>
   <string name="automatic">Tự động</string>
   <plurals name="pasteYourPgnTextHereUpToNbGames">
     <item quantity="other">Dán PGN ở đây, tối đa %s ván</item>
   </plurals>
-  <string name="urlOfTheGame">Đường dẫn của các ván, một đường dẫn mỗi dòng</string>
+  <string name="urlOfTheGame">URL của các ván, một URL mỗi dòng</string>
   <string name="loadAGameFromXOrY">Tải ván cờ từ %1$s hoặc %2$s</string>
   <string name="createChapter">Tạo chương</string>
   <string name="createStudy">Tạo nghiên cứu</string>
@@ -141,7 +141,7 @@
   <string name="whiteIsSlightlyBetter">Bên trắng có một chút lợi thế</string>
   <string name="blackIsSlightlyBetter">Bên đen có một chút lợi thế</string>
   <string name="whiteIsBetter">Lợi thế bên trắng</string>
-  <string name="blackIsBetter">Lợi thế bên đen</string>
+  <string name="blackIsBetter">Bên đen lợi thế hơn</string>
   <string name="whiteIsWinning">Bên trắng đang thắng dần</string>
   <string name="blackIsWinning">Bên đen đang thắng dần</string>
   <string name="novelty" comment="novelty&#10;&#10;A move in the opening that has not been played before.&#10;https://en.wikipedia.org/wiki/Glossary_of_chess#theoretical_novelty">Nước cờ mới</string>

@@ -31,10 +31,7 @@ export class SoundCtrl {
     () => 1000,
     (soundSet: string) =>
       xhr
-        .text('/pref/soundSet', {
-          body: xhr.form({ soundSet }),
-          method: 'post',
-        })
+        .text('/pref/soundSet', { body: xhr.form({ soundSet }), method: 'post' })
         .catch(() => lichess.announce({ msg: 'Failed to save sound preference' })),
   );
 

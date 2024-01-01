@@ -12,9 +12,9 @@ import lila.common.config.Max
 opaque type StudyTopic = String
 object StudyTopic extends OpaqueString[StudyTopic]:
 
-  val minLength = 2
-  val maxLength = 50
-  val broadcast = "Broadcast"
+  val minLength             = 2
+  val maxLength             = 50
+  val broadcast: StudyTopic = "Broadcast"
 
   def fromStr(str: String): Option[StudyTopic] =
     str.trim match

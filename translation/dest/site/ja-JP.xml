@@ -5,6 +5,7 @@
   <string name="toInviteSomeoneToPlayGiveThisUrl">誰かを招待する時はこのURLを送ってください</string>
   <string name="gameOver">終局</string>
   <string name="waitingForOpponent">相手を待っています</string>
+  <string name="orLetYourOpponentScanQrCode">または相手にこの QR コードをスキャンさせてください</string>
   <string name="waiting">待機中</string>
   <string name="yourTurn">あなたの手番です</string>
   <string name="aiNameLevelAiLevel">%1$s レベル %2$s</string>
@@ -257,7 +258,6 @@
   <string name="playingRightNow">対局中</string>
   <string name="eventInProgress">対局中</string>
   <string name="finished">終了したトーナメント</string>
-  <string name="finishesX">終了は %s</string>
   <string name="abortGame">対局を中止する</string>
   <string name="gameAborted">対局を中止しました</string>
   <string name="standard">スタンダード</string>
@@ -378,7 +378,7 @@
   <string name="importGameExplanation">ゲームの PGN を貼りつけると、ブラウザ上でのリプレイ、
 コンピュータ解析、ゲームチャット、共有可能 URL が得られます。</string>
   <string name="importGameCaveat">変化手順は消えます。残したい場合は研究を経由して PGN をインポートしてください。</string>
-  <string name="importGameCaveat2">この PGN はすべての人に公開されます。非公開の状態で棋譜をインポートするには「研究」機能でどうぞ。</string>
+  <string name="importGameDataPrivacyWarning">この PGN はすべての人に公開されます。非公開の状態で棋譜をインポートするには「研究」機能でどうぞ。</string>
   <plurals name="nbImportedGames">
     <item quantity="other">%s 局をインポート</item>
   </plurals>
@@ -475,7 +475,8 @@
   <string name="editProfile">プロフィールの編集</string>
   <string name="firstName">名</string>
   <string name="lastName">姓</string>
-  <string name="setFlair">フレアを設定：</string>
+  <string name="setFlair">フレアを設定</string>
+  <string name="flair">フレア</string>
   <string name="youCanHideFlair">サイト全体でフレアを非表示にする設定があります。</string>
   <string name="biography">自己紹介</string>
   <string name="countryRegion" comment="flag&#10;Appears when you edit your profile. Lets a player add a country/flag (not all flags are for countries) to their profile">国・地域</string>
@@ -708,6 +709,7 @@
   <string name="withFriends">友達にだけ</string>
   <string name="withEverybody">誰にでも</string>
   <string name="kidMode">キッズモード</string>
+  <string name="kidModeIsEnabled">キッズモードが有効です。</string>
   <string name="kidModeExplanation">これは安全対策です。「キッズモード」ではサイト上の会話がすべて無効になります。子供や生徒のアカウントでこのモードを有効にしておけば、彼らを他のユーザーから守ることができます。</string>
   <string name="inKidModeTheLichessLogoGetsIconX">キッズモードでは Lichess のロゴに %s のアイコンが付き、安全であることを示します。</string>
   <string name="askYourChessTeacherAboutLiftingKidMode">あなたのアカウントは管理されています。キッズモードの停止は講師に依頼してください。</string>
@@ -817,9 +819,10 @@
   <plurals name="andSaveNbPremoveLines">
     <item quantity="other">%s 種のコンディショナルムーブを設定</item>
   </plurals>
+  <string name="showUnreadLichessMessage">Lichess からプライベートメッセージが来ました。</string>
+  <string name="clickHereToReadIt">ここをクリックして読む</string>
   <string name="sorry">残念です :(</string>
   <string name="weHadToTimeYouOutForAWhile">しばらく対局を禁止します。</string>
-  <string name="timeoutExpires">禁止は %s 後に解けます。</string>
   <string name="why">どうして？</string>
   <string name="pleasantChessExperience">Lichess ではすべての人に楽しいチェス体験を提供しています。</string>
   <string name="goodPractice">そのためには、すべての人にマナーを守っていただく必要があります。</string>
@@ -839,6 +842,7 @@
   <string name="agreementPolicy">私は Lichess のすべてのポリシーに従うことに同意します。</string>
   <string name="searchOrStartNewDiscussion">検索または新しいトピックを始める</string>
   <string name="edit">編集</string>
+  <string name="bullet" comment="Probably best left untranslated. Leave it as 'Bullet' unless your language has a better word for it.">ブレット</string>
   <string name="blitz" comment="Probably best left untranslated. Leave it as 'Blitz' unless your language has a better word for it.">ブリッツ</string>
   <string name="rapid">ラピッド</string>
   <string name="classical">クラシカル</string>

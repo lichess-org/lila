@@ -21,21 +21,27 @@ final class Timeline(env: Env) extends LilaController(env):
           yield html.timeline.entries(entries)
         else
           for
-            entries <- env.timeline.entryApi.moreUserEntries(me, Max(30))
+            entries <- env.timeline.entryApi.moreUserEntries(me, Max(30), since = getTimestamp("since"))
             _       <- env.user.lightUserApi.preloadMany(entries.flatMap(_.userIds))
           yield html.timeline.more(entries)
       ,
-      json = for
+      json =
         // Must be empty if nb is not given, because old versions of the
         // mobile app that do not send nb are vulnerable to XSS in
         // timeline entries.
-        entries <- env.timeline.entryApi
-          .moreUserEntries(me, Max(getInt("nb") | 0 atMost env.apiTimelineSetting.get()))
-        users <- env.user.lightUserApi.asyncManyFallback(entries.flatMap(_.userIds).distinct)
-        userMap = users.mapBy(_.id)
-      yield Ok(Json.obj("entries" -> entries, "users" -> Json.toJsObject(userMap)))
+        apiOutput(max = getIntAs[Max]("nb").fold(Max(0))(_ atMost env.apiTimelineSetting.get()))
     )
   }
+
+  def api = Scoped() {
+    apiOutput(getIntAs[Max]("nb").fold(Max(15))(_ atMost Max(30)))
+  }
+
+  private def apiOutput(max: Max)(using ctx: Context, me: Me) = for
+    entries <- env.timeline.entryApi.moreUserEntries(me, max, since = getTimestamp("since"))
+    users   <- env.user.lightUserApi.asyncManyFallback(entries.flatMap(_.userIds).distinct)
+    userMap = users.mapBy(_.id)
+  yield Ok(Json.obj("entries" -> entries, "users" -> Json.toJsObject(userMap)))
 
   def unsub(channel: String) = Auth { ctx ?=> me ?=>
     env.timeline.unsubApi.set(channel, me, ~get("unsub") == "on") inject NoContent

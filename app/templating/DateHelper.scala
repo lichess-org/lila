@@ -35,10 +35,10 @@ trait DateHelper:
       _ => DateTimeFormatter.ofLocalizedDate(FormatStyle.MEDIUM).withLocale(lang.toLocale)
     )
 
-  def showInstantUTC(instant: Instant)(using Lang): String =
+  def showInstant(instant: Instant)(using Lang): String =
     dateTimeFormatter print instant
 
-  def showDate(instant: Instant)(using lang: Lang): String =
+  def showDate(instant: Instant)(using Lang): String =
     showDate(instant.date)
 
   def showDate(date: LocalDate)(using lang: Lang): String =
@@ -81,8 +81,8 @@ trait DateHelper:
   def secondsFromNow(seconds: Int, alwaysRelative: Boolean = false): Tag =
     momentFromNow(nowInstant plusSeconds seconds, alwaysRelative)
 
-  def momentFromNowServer(instant: Instant): Frag =
-    timeTag(title := f"${showEnglishInstant(instant)} UTC")(momentFromNowServerText(instant))
+  def momentFromNowServer(instant: Instant)(using Lang): Frag =
+    timeTag(title := f"${showInstant(instant)} UTC")(momentFromNowServerText(instant))
 
   def momentFromNowServerText(instant: Instant, inFuture: Boolean = false): String =
     val (dateSec, nowSec) = (instant.toMillis / 1000, nowSeconds)
@@ -101,3 +101,6 @@ trait DateHelper:
     else if months == 0 then s"${pluralize("week", weeks)}$preposition"
     else if years == 0 then s"${pluralize("month", months)}$preposition"
     else s"${pluralize("year", years)}$preposition"
+
+  def timeRemaining(instant: Instant, once: Boolean = false): Tag =
+    timeTag(cls := s"timeago remaining${once so " once"}", datetimeAttr := isoDateTime(instant))(nbsp)

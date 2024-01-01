@@ -8,9 +8,7 @@ export function player(p: BasePlayer, asLink: boolean, withRating: boolean) {
     'a.ulpt.user-link' + (((p.user.title || '') + p.user.name).length > 15 ? '.long' : ''),
     {
       attrs: asLink ? { href: '/@/' + p.user.name } : { 'data-href': '/@/' + p.user.name },
-      hook: {
-        destroy: vnode => $.powerTip.destroy(vnode.elm as HTMLElement),
-      },
+      hook: { destroy: vnode => $.powerTip.destroy(vnode.elm as HTMLElement) },
     },
     [
       h('span.name', fullName(p.user)),

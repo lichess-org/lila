@@ -5,6 +5,7 @@
   <string name="toInviteSomeoneToPlayGiveThisUrl">Lähetä tämä linkki kaverillesi, jonka haluat kutsua pelaamaan</string>
   <string name="gameOver">Peli ohi</string>
   <string name="waitingForOpponent">Odotetaan vastustajaa</string>
+  <string name="orLetYourOpponentScanQrCode">Tai anna vastustajasi skannata tämä QR-koodi</string>
   <string name="waiting">Odotetaan</string>
   <string name="yourTurn">Sinun vuorosi</string>
   <string name="aiNameLevelAiLevel">%1$s taso %2$s</string>
@@ -272,7 +273,6 @@
   <string name="playingRightNow">Pelaamassa juuri nyt</string>
   <string name="eventInProgress">Parhaillaan menossa</string>
   <string name="finished">Päättynyt</string>
-  <string name="finishesX">päättyy %s</string>
   <string name="abortGame">Keskeytä peli</string>
   <string name="gameAborted">Peli keskeytetty</string>
   <string name="standard">Tavallinen</string>
@@ -405,7 +405,7 @@
   <string name="importGame">Tuo peli</string>
   <string name="importGameExplanation">Liitä pelin PGN, niin voit selata peliä ja saat sille tietokoneanalyysin, keskusteluhuoneen sekä URL:n, jonka voit jakaa.</string>
   <string name="importGameCaveat">Muunnelmat poistetaan. Jos haluat säilyttää ne, tuo PGN ensin tutkielmaan.</string>
-  <string name="importGameCaveat2">Tähän PGN:ään on julkinen pääsy. Käytä tutkielmaa halutessasi tuoda pelin ja pitää sen yksityisenä.</string>
+  <string name="importGameDataPrivacyWarning">Tähän PGN:ään on julkinen pääsy. Käytä tutkielmaa halutessasi tuoda pelin ja pitää sen yksityisenä.</string>
   <plurals name="nbImportedGames">
     <item quantity="one">%s Tuotua peliä</item>
     <item quantity="other">%s Tuotua peliä</item>
@@ -507,7 +507,8 @@
   <string name="editProfile">Muokkaa profiilia</string>
   <string name="firstName">Etunimi</string>
   <string name="lastName">Sukunimi</string>
-  <string name="setFlair">Valitse tyylisi:</string>
+  <string name="setFlair">Valitse tyylisi</string>
+  <string name="flair">Tyyli</string>
   <string name="youCanHideFlair">On olemassa asetus, jolla voit piilottaa kaikkien käyttäjien tyylit koko sivustolla.</string>
   <string name="biography">Kuvaus</string>
   <string name="countryRegion" comment="flag&#10;Appears when you edit your profile. Lets a player add a country/flag (not all flags are for countries) to their profile">Maa tai alue</string>
@@ -746,6 +747,7 @@
   <string name="withFriends">Kavereille</string>
   <string name="withEverybody">Kaikille</string>
   <string name="kidMode">Lapsitila</string>
+  <string name="kidModeIsEnabled">Lapsitila on käytössä.</string>
   <string name="kidModeExplanation">Turvallisuusasia. Lapsitilassa kaikki kommunikointi sivustolla on pois käytöstä. Käytä tätä suojaamaan lasta tai koululaista muilta internetin käyttäjiltä.</string>
   <string name="inKidModeTheLichessLogoGetsIconX">Lapsitilassa Lichessin logoon liitetään %s-kuvake, josta tiedät lastesi olevan turvassa.</string>
   <string name="askYourChessTeacherAboutLiftingKidMode">Käyttäjätunnuksesi on hallinnassa. Lapsitilan poistoa voit pyytää shakkiopettajaltasi.</string>
@@ -859,9 +861,10 @@
     <item quantity="one">ja tallenna %s esisiirtolinja</item>
     <item quantity="other">ja tallenna %s esisiirtolinjaa</item>
   </plurals>
+  <string name="showUnreadLichessMessage">Olet saanut henkilökohtaisen viestin Lichessiltä.</string>
+  <string name="clickHereToReadIt">Lue se napsauttamalla tästä</string>
   <string name="sorry">Pahoittelumme :(</string>
   <string name="weHadToTimeYouOutForAWhile">Meidän täytyi komentaa sinut jäähylle hetkeksi.</string>
-  <string name="timeoutExpires">Jäähy päättyy %s.</string>
   <string name="why">Miksi?</string>
   <string name="pleasantChessExperience">Haluamme tarjota mukavan shakkielämyksen kaikille.</string>
   <string name="goodPractice">Siksi meidän on huolehdittava siitä, että kaikki käyttäytyvät asiallisesti.</string>
@@ -881,6 +884,7 @@
   <string name="agreementPolicy">Vakuutan että noudatan Lichessin sääntöjä.</string>
   <string name="searchOrStartNewDiscussion">Hae tai aloita uusi keskustelu</string>
   <string name="edit">Muokkaa</string>
+  <string name="bullet" comment="Probably best left untranslated. Leave it as 'Bullet' unless your language has a better word for it.">Bullet</string>
   <string name="blitz" comment="Probably best left untranslated. Leave it as 'Blitz' unless your language has a better word for it.">Pikapeli</string>
   <string name="rapid">Nopea</string>
   <string name="classical">Klassinen</string>
@@ -919,7 +923,7 @@
   <string name="lostAgainstTOSViolator">Olet hävinnyt Lichessin käyttöehtoja rikkoneelle henkilölle</string>
   <string name="refundXpointsTimeControlY">Hyvitys: %1$s %2$s vahvuuslukupistettä.</string>
   <string name="timeAlmostUp">Aika on melkein lopussa!</string>
-  <string name="clickToRevealEmailAddress">[Paljasta sähköpostiosoite napsauttamalla tätä]</string>
+  <string name="clickToRevealEmailAddress">[Paljasta sähköpostiosoite napsauttamalla tästä]</string>
   <string name="download">Lataa</string>
   <string name="coachManager">Valmentaja-asetukset</string>
   <string name="streamerManager">Striimausasetukset</string>

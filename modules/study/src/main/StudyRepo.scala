@@ -79,8 +79,8 @@ final class StudyRepo(private[study] val coll: AsyncColl)(using
 
   def lookup(local: String) = $lookup.simple(coll, "study", local, "_id")
 
-  private[study] def selectOwnerId(ownerId: UserId)   = $doc("ownerId" -> ownerId)
-  private[study] def selectMemberId(memberId: UserId) = $doc(F.uids -> memberId)
+  private[study] def selectOwnerId(ownerId: UserId) = $doc("ownerId" -> ownerId)
+  def selectMemberId(memberId: UserId)              = $doc(F.uids -> memberId)
   private[study] val selectPublic = $doc:
     "visibility" -> (Study.Visibility.Public: Study.Visibility)
   private[study] val selectPrivateOrUnlisted =
@@ -91,6 +91,7 @@ final class StudyRepo(private[study] val coll: AsyncColl)(using
       $doc("ownerId" $ne userId) ++
       $doc(s"members.$userId.role" -> "w")
   private[study] def selectTopic(topic: StudyTopic) = $doc(F.topics -> topic)
+  def selectBroadcast                               = selectTopic(StudyTopic.broadcast)
   private[study] def selectNotBroadcast             = $doc(F.topics $ne StudyTopic.broadcast)
 
   def countByOwner(ownerId: UserId) = coll(_.countSel(selectOwnerId(ownerId)))
@@ -100,6 +101,14 @@ final class StudyRepo(private[study] val coll: AsyncColl)(using
       coll.map:
         _.find(selectOwnerId(ownerId) ++ (!isMe so selectPublic))
           .sort($sort desc "updatedAt")
+          .cursor[Study]()
+          .documentSource()
+
+  def sourceByMember(memberId: UserId, isMe: Boolean, select: Bdoc = $empty): Source[Study, ?] =
+    Source.futureSource:
+      coll.map:
+        _.find(selectMemberId(memberId) ++ select ++ (!isMe so selectPublic))
+          .sort($sort desc "rank")
           .cursor[Study]()
           .documentSource()
 

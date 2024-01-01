@@ -1,11 +1,10 @@
 .link-popup {
-  @extend %box-neat;
   font-size: 1.1em;
   padding: 0 !important;
   max-width: 600px;
 
   &__content {
-    @extend %flex-center-nowrap;
+    @extend %flex-center-nowrap, %box-radius-top;
     background: $c-bg-zebra;
     padding: 2em;
 

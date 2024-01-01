@@ -1,4 +1,4 @@
-import { h } from 'snabbdom';
+import { looseH as h } from 'common/snabbdom';
 import * as licon from 'common/licon';
 import { Player } from 'game';
 import { Position } from '../interfaces';
@@ -43,29 +43,19 @@ export function userHtml(ctrl: RoundController, player: Player, position: Positi
           online: false,
           line: false,
         }),
-        rating ? h('rating', rating + (player.provisional ? '?' : '')) : null,
-        rating ? ratingDiff(player) : null,
-        player.engine
-          ? h('span', {
-              attrs: {
-                'data-icon': licon.CautionCircle,
-                title: ctrl.noarg('thisAccountViolatedTos'),
-              },
-            })
-          : undefined,
+        !!rating && h('rating', `${rating + (player.provisional ? '?' : '')}`),
+        !!rating && ratingDiff(player),
+        player.engine &&
+          h('span', {
+            attrs: { 'data-icon': licon.CautionCircle, title: ctrl.noarg('thisAccountViolatedTos') },
+          }),
       ],
     );
   }
   const connecting = !player.onGame && ctrl.firstSeconds;
   return h(
     `div.ruser-${position}.ruser.user-link`,
-    {
-      class: {
-        online: player.onGame,
-        offline: !player.onGame,
-        connecting,
-      },
-    },
+    { class: { online: player.onGame, offline: !player.onGame, connecting } },
     [
       h('i.line', {
         attrs: {

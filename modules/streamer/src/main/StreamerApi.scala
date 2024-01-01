@@ -71,7 +71,7 @@ final class StreamerApi(
           q = $id(s.streamer.id),
           u = $set(
             "liveAt"         -> nowInstant,
-            "lastStreamLang" -> Lang.get(s.lang).map(_.language)
+            "lastStreamLang" -> s.language
           )
         )
       }.parallel

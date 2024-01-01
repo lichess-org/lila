@@ -33,7 +33,10 @@ final class Dev(env: Env) extends LilaController(env):
     env.tutor.nbAnalysisSetting,
     env.tutor.parallelismSetting,
     env.firefoxOriginTrial,
-    env.credentiallessUaRegex
+    env.credentiallessUaRegex,
+    env.relay.proxyDomainRegex,
+    env.relay.proxyHostPort,
+    env.relay.proxyCredentials
   )
 
   def settings = Secure(_.Settings) { _ ?=> _ ?=>

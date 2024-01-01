@@ -54,7 +54,7 @@ Xoga rápido e volta á sala de espera para xogar máis partidas e gañar máis 
   <string name="allowChatHelp">Permite que os xogadores se comuniquen nunha sala de conversas</string>
   <string name="arenaStreaks">Secuencia de vitorias na Arena</string>
   <string name="arenaStreaksHelp">Tras 2 vitorias, as seguintes vitorias consecutivas dan 4 puntos en lugar de 2.</string>
-  <string name="noBerserkAllowed" comment="A setting when creating an arena tournament, which disallows using Berserk.">Non está permitido facer o Berserk</string>
+  <string name="noBerserkAllowed">Non está permitido facer o Berserk</string>
   <string name="noArenaStreaks">Arena sen secuencias de vitorias</string>
   <string name="averagePerformance">Rendemento medio</string>
   <string name="averageScore">Puntuación media</string>

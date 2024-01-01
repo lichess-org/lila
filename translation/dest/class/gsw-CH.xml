@@ -100,7 +100,7 @@ Da isch de Link für de Zuegriff uf die Klass.</string>
   <string name="newsEdit3">Tränn Neuigkeite mit ---
 Es wird als horizontali Linie azeigt.</string>
   <string name="invite">ilade</string>
-  <string name="youHaveBeenInvitedByX" comment="youHaveBeenInvitedByX&#10;&#10;Appears in the notice that you have been invited to join a class by a teacher.">Du bisch iglade vu %s.</string>
+  <string name="youHaveBeenInvitedByX">Du bisch iglade vu %s.</string>
   <string name="youAcceptedThisInvitation">Du häsch die Iladig agnah.</string>
   <string name="youDeclinedThisInvitation">Du häsch die Iladig abglehnt.</string>
   <string name="orSeparator" comment="Used as separator between invite sections. Shown as large '~ or ~'.">oder</string>

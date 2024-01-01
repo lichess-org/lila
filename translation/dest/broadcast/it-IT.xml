@@ -8,10 +8,15 @@
   </plurals>
   <string name="liveBroadcasts">Tornei in diretta</string>
   <string name="newBroadcast">Nuova diretta</string>
+  <string name="aboutBroadcasts">Informazioni sulle trasmissioni</string>
+  <string name="noRoundsYet">Ancora nessun turno.</string>
+  <string name="howToUseLichessBroadcasts">Istruzioni delle trasmissioni Lichess.</string>
+  <string name="theNewRoundHelp">Il nuovo turno avrà gli stessi membri e contributori del precedente.</string>
   <string name="addRound">Aggiungi un turno</string>
   <string name="ongoing">In corso</string>
   <string name="upcoming">Prossimamente</string>
   <string name="completed">Conclusa</string>
+  <string name="completedHelp">Lichess rileva il completamento del turno a seconda delle partite di origine. Utilizza questo interruttore se non è presente alcuna origine.</string>
   <string name="roundName">Nome turno</string>
   <string name="roundNumber">Turno numero</string>
   <string name="tournamentName">Nome del torneo</string>
@@ -35,4 +40,14 @@
   <string name="editRoundStudy">Modifica lo studio del turno</string>
   <string name="deleteTournament">Elimina questo torneo</string>
   <string name="definitivelyDeleteTournament">Elimina definitivamente l\'intero torneo, tutti i turni e tutte le partite.</string>
+  <string name="automaticLeaderboard" comment="An option when creating a broadcast to calculate a leaderboard automatically from the players involved. Example: https://lichess.org/broadcast/2023-london-chess-classic/round-9/5icayRCY">Classifica automatica</string>
+  <string name="automaticLeaderboardHelp" comment="An option when creating a broadcast to calculate a leaderboard automatically from the players involved. Example: https://lichess.org/broadcast/2023-london-chess-classic/round-9/5icayRCY">Calcola e mostra una semplice classifica basata sui risultati delle partite</string>
+  <string name="replace">Facoltativo: sostituisci i nomi dei giocatori, i punteggi e i titoli</string>
+  <string name="replaceHelp">Una riga per giocatore, formattata come segue:
+Nome; Nome sostitutivo; Punteggio sostitutivo (facoltativo); Titolo sostitutivo (facoltativo)
+Esempi:
+DrNykterstein;Magnus Carlsen;2863
+AnishGiri;Anish Giri;2764;GM</string>
+  <string name="periodInSeconds">Intervallo in secondi</string>
+  <string name="periodInSecondsHelp">Facoltativo: quanto a lungo aspettare tra due richieste. Minimo 2s, massimo 60s. Il default è scelto in base al numeri di spettatori.</string>
 </resources>

@@ -19,7 +19,7 @@ export default new (class implements SoundI {
   music?: SoundMove;
   primerEvents = ['touchend', 'pointerup', 'pointerdown', 'mousedown', 'keydown'];
   primer = () =>
-    this.ctx.resume().then(() => {
+    this.ctx?.resume().then(() => {
       setTimeout(() => $('#warn-no-autoplay').removeClass('shown'), 500);
       for (const e of this.primerEvents) window.removeEventListener(e, this.primer, { capture: true });
     });
@@ -29,6 +29,7 @@ export default new (class implements SoundI {
   }
 
   async load(name: Name, path?: Path): Promise<Sound | undefined> {
+    if (!this.ctx) return;
     if (path) this.paths.set(name, path);
     else path = this.paths.get(name) ?? this.resolvePath(name);
     if (!path) return;
@@ -39,9 +40,9 @@ export default new (class implements SoundI {
 
     const arrayBuffer = await result.arrayBuffer();
     const audioBuffer = await new Promise<AudioBuffer>((resolve, reject) => {
-      if (this.ctx.decodeAudioData.length === 1)
-        this.ctx.decodeAudioData(arrayBuffer).then(resolve).catch(reject);
-      else this.ctx.decodeAudioData(arrayBuffer, resolve, reject);
+      if (this.ctx?.decodeAudioData.length === 1)
+        this.ctx?.decodeAudioData(arrayBuffer).then(resolve).catch(reject);
+      else this.ctx?.decodeAudioData(arrayBuffer, resolve, reject);
     });
     const sound = new Sound(this.ctx, audioBuffer);
     this.sounds.set(path, sound);
@@ -147,7 +148,7 @@ export default new (class implements SoundI {
   publish = () => pubsub.emit('sound_set', this.theme);
 
   changeSet = (s: string) => {
-    if (isIOS()) this.ctx.resume();
+    if (isIOS()) this.ctx?.resume();
     this.theme = s;
     this.publish();
   };
@@ -196,6 +197,7 @@ export default new (class implements SoundI {
   }
 
   async resumeWithTest(): Promise<boolean> {
+    if (!this.ctx) return false;
     if (this.ctx.state !== 'running' && this.ctx.state !== 'suspended') {
       // in addition to 'closed', iOS has 'interrupted'. who knows what else is out there
       if (this.ctx.state !== 'closed') this.ctx.close();
@@ -205,7 +207,7 @@ export default new (class implements SoundI {
       }
     }
     // if suspended, try audioContext.resume() with a timeout (sometimes it never resolves)
-    if (this.ctx.state === 'suspended')
+    if (this.ctx?.state === 'suspended')
       await new Promise<void>(resolve => {
         const resumeTimer = setTimeout(() => {
           $('#warn-no-autoplay').addClass('shown');
@@ -219,7 +221,7 @@ export default new (class implements SoundI {
           })
           .catch(resolve);
       });
-    if (this.ctx.state !== 'running') return false;
+    if (this.ctx?.state !== 'running') return false;
     $('#warn-no-autoplay').removeClass('shown');
     return true;
   }
@@ -257,6 +259,10 @@ class Sound {
   }
 }
 
-function makeAudioContext(): AudioContext {
-  return window.webkitAudioContext ? new window.webkitAudioContext() : new AudioContext();
+function makeAudioContext(): AudioContext | undefined {
+  return window.webkitAudioContext
+    ? new window.webkitAudioContext()
+    : typeof AudioContext !== 'undefined'
+    ? new AudioContext()
+    : undefined;
 }

@@ -24,7 +24,7 @@
   <string name="visibleByBothStudentsAndTeachers">Viditeľné aj pre učiteľov aj pre študentov triedy</string>
   <string name="teachersOfTheClass">Učitelia triedy</string>
   <string name="addLichessUsernames">Pridať Lichess užívateľov za účelom ich pozvania ako učiteľov. Jeden na riadok.</string>
-  <string name="resetPassword">Obnoviť heslo</string>
+  <string name="resetPassword">Vynulovať heslo</string>
   <string name="makeSureToCopy">Teraz si zkopírujte alebo zapíšte heslo! Nebude možné aby ste ho videli znovu.</string>
   <string name="passwordX">Heslo: %s</string>
   <string name="generateANewPassword">Vygenerovať nové heslo pre študenta</string>

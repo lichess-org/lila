@@ -6,7 +6,7 @@ import reactivemongo.api.bson.BSONHandler
 
 import lila.db.dsl.*
 import play.api.data.*, Forms.*
-import lila.common.{ Ints, Iso, Strings, UserIds }
+import lila.common.{ Ints, Iso, Strings, UserIds, config }
 
 final class SettingStore[A: BSONHandler: SettingStore.StringReader: SettingStore.Formable] private (
     coll: Coll,
@@ -60,15 +60,17 @@ object SettingStore:
   final class StringReader[A](val read: String => Option[A])
 
   object StringReader:
-    given StringReader[Boolean] = StringReader[Boolean]({
+    given StringReader[Boolean] = StringReader[Boolean]:
       case "on" | "yes" | "true" | "1"  => true.some
       case "off" | "no" | "false" | "0" => false.some
       case _                            => none
-    })
     given StringReader[Int]                     = StringReader[Int](_.toIntOption)
     given StringReader[Float]                   = StringReader[Float](_.toFloatOption)
     given StringReader[String]                  = StringReader[String](some)
     def fromIso[A](using iso: Iso.StringIso[A]) = StringReader[A](v => iso.from(v).some)
+
+  private type CredOption = Option[lila.common.config.Credentials]
+  private type HostOption = Option[lila.common.config.HostPort]
 
   object Strings:
     val stringsIso              = Iso.strings(",")
@@ -86,6 +88,14 @@ object SettingStore:
     val regexIso              = Iso.string[Regex](_.r, _.toString)
     given BSONHandler[Regex]  = lila.db.dsl.isoHandler(using regexIso)
     given StringReader[Regex] = StringReader.fromIso(using regexIso)
+  object CredentialsOption:
+    val credentialsIso             = Iso.string[CredOption](lila.common.config.Credentials.read, _.so(_.show))
+    given BSONHandler[CredOption]  = lila.db.dsl.isoHandler(using credentialsIso)
+    given StringReader[CredOption] = StringReader.fromIso(using credentialsIso)
+  object HostPortOption:
+    val hostPortIso                = Iso.string[HostOption](lila.common.config.HostPort.read, _.so(_.show))
+    given BSONHandler[HostOption]  = lila.db.dsl.isoHandler(using hostPortIso)
+    given StringReader[HostOption] = StringReader.fromIso(using hostPortIso)
 
   final class Formable[A](val form: A => Form[?])
   object Formable:
@@ -97,5 +107,11 @@ object SettingStore:
     given Formable[String]  = Formable[String](v => Form(single("v" -> text)) fill v)
     given Formable[Strings] = Formable[Strings](v => Form(single("v" -> text)) fill Strings.stringsIso.to(v))
     given Formable[UserIds] = Formable[UserIds](v => Form(single("v" -> text)) fill UserIds.userIdsIso.to(v))
+    given Formable[CredOption] = stringPair(using CredentialsOption.credentialsIso)
+    given Formable[HostOption] = stringPair(using HostPortOption.hostPortIso)
+    private def stringPair[A](using iso: Iso.StringIso[A]): Formable[A] = Formable[A]: v =>
+      Form(
+        single("v" -> text.verifying(t => t.isEmpty || t.count(_ == ':') == 1))
+      ) fill iso.to(v)
 
   private val dbField = "setting"

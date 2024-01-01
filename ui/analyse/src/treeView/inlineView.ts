@@ -112,11 +112,7 @@ function renderInline(ctx: Ctx, node: Tree.Node, opts: Opts): VNode {
   if (retro) return h('interrupt', h('lines', retro));
   return h(
     'inline',
-    renderMoveAndChildrenOf(ctx, node, {
-      withIndex: true,
-      parentPath: opts.parentPath,
-      isMainline: false,
-    }),
+    renderMoveAndChildrenOf(ctx, node, { withIndex: true, parentPath: opts.parentPath, isMainline: false }),
   );
 }
 
@@ -127,36 +123,23 @@ function renderMoveOf(ctx: Ctx, node: Tree.Node, opts: Opts): VNode {
       fixCrazySan(node.san!),
     ];
   if (node.glyphs && ctx.showGlyphs) node.glyphs.forEach(g => content.push(moveView.renderGlyph(g)));
-  return h(
-    'move',
-    {
-      attrs: { p: path },
-      class: nodeClasses(ctx, node, path),
-    },
-    content,
-  );
+  return h('move', { attrs: { p: path }, class: nodeClasses(ctx, node, path) }, content);
 }
 
 export default function (ctrl: AnalyseCtrl): VNode {
   const ctx: Ctx = {
     ctrl,
     truncateComments: false,
-    showComputer: ctrl.showComputer() && !ctrl.retro,
+    showComputer: ctrl.showComputer() && !ctrl.retro?.isSolving(),
     showGlyphs: !!ctrl.study || ctrl.showComputer(),
     showEval: !!ctrl.study || ctrl.showComputer(),
     currentPath: findCurrentPath(ctrl),
   };
-  return h(
-    'div.tview2.tview2-inline',
-    {
-      hook: mainHook(ctrl),
-    },
-    [
-      ...renderInlineCommentsOf(ctx, ctrl.tree.root, ''),
-      ...(renderChildrenOf(ctx, ctrl.tree.root, {
-        parentPath: '',
-        isMainline: true,
-      }) || []),
-    ],
-  );
+  return h('div.tview2.tview2-inline', { hook: mainHook(ctrl) }, [
+    ...renderInlineCommentsOf(ctx, ctrl.tree.root, ''),
+    ...(renderChildrenOf(ctx, ctrl.tree.root, {
+      parentPath: '',
+      isMainline: true,
+    }) || []),
+  ]);
 }

@@ -1,5 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+  <string name="communityBlogs">Blogy komunít</string>
+  <string name="friendBlogs">Blogy priateľov</string>
+  <string name="likedBlogs">Blogové príspevky, ktoré sa Vám páčia</string>
+  <string name="blogTopics">Témy blogov</string>
+  <string name="lichessOfficialBlog">Oficiálny blog Lichessu</string>
+  <string name="continueReadingPost">Pokračovať čítaním tohto blogu</string>
+  <string name="lichessBlogPostsFromXYear">Blogové príspevky na Lichesse v %s</string>
+  <string name="previousBlogPosts">Predchádzajúce blogové príspevky</string>
   <string name="xBlog">Blog užívateľa %s</string>
   <string name="newPost">Nový príspevok</string>
   <string name="editYourBlogPost">Upraviť príspevok</string>
@@ -49,5 +57,5 @@
   <string name="safeAndRespectfulContent">Prosím, dbajte na to aby vaše príspevky neboli pohoršujúce a rešpektovali ostatných. Nekopírujte príspevky niekoho iného.</string>
   <string name="inappropriateContentAccountClosed">Akýkoľvek nevhodný obsah môže mať za následok zrušenie Vášho účtu.</string>
   <string name="blogTips">Naše jednoduché tipy ako písať skvelé blogové príspevky</string>
-  <string name="discussThisBlogPostInTheForum" comment="A button at the bottom of blog posts which will take you to the forum discussion for that post.">Diskutovať o tomto príspevku na fóre</string>
+  <string name="discussThisBlogPostInTheForum">Diskutovať o tomto príspevku na fóre</string>
 </resources>

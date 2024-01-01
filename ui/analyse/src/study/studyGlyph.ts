@@ -18,9 +18,7 @@ const renderGlyph = (ctrl: GlyphForm, node: Tree.Node) => (glyph: Tree.Glyph) =>
     {
       hook: bind('click', () => ctrl.toggleGlyph(glyph.id)),
       attrs: { 'data-symbol': glyph.symbol, type: 'button' },
-      class: {
-        active: !!node.glyphs && !!node.glyphs.find(g => g.id === glyph.id),
-      },
+      class: { active: !!node.glyphs && !!node.glyphs.find(g => g.id === glyph.id) },
     },
     [glyph.name],
   );
@@ -52,9 +50,7 @@ export function view(ctrl: GlyphForm): VNode {
 
   return h(
     'div.study__glyphs' + (all ? '' : '.empty'),
-    {
-      hook: { insert: ctrl.loadGlyphs },
-    },
+    { hook: { insert: ctrl.loadGlyphs } },
     all
       ? [
           h('div.move', all.move.map(renderGlyph(ctrl, node))),

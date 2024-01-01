@@ -22,7 +22,7 @@ Berserk không áp dụng cho ván đấu không có thời gian bắt đầu (0
 
 Berserk chỉ thêm điểm nếu bạn chơi ít nhất 7 nước trong một ván.</string>
   <string name="howIsTheWinnerDecided">Cách xác định người chiến thắng?</string>
-  <string name="howIsTheWinnerDecidedAnswer">(Những) kỳ thủ có điểm cao nhất khi kết thúc giải đấu sẽ là (những) người thắng cuộc.
+  <string name="howIsTheWinnerDecidedAnswer">(Những) kỳ thủ có điểm cao nhất sau khi giải đấu kết thúc sẽ là (những) người thắng cuộc.
 
 Nếu hai kỳ thủ bằng điểm nhau, kết quả sẽ quyết định qua tie break.</string>
   <string name="howDoesPairingWork">Cặp đấu được chọn ra sao?</string>
@@ -37,7 +37,7 @@ Chơi nhanh và trở lại phòng chờ để chơi được nhiều ván và g
   </plurals>
   <string name="thisIsPrivate">Đây là giải đấu riêng tư</string>
   <string name="shareUrl">Chia sẻ URL này để mọi người tham gia: %s</string>
-  <string name="drawStreakStandard" comment="%s is '30' as of 2023. Drawn games may keep a streak going if they are reasonably long games (30+ moves).">Chuỗi hòa: Khi một người chơi hòa liên tục ở một đấu trường, chỉ có ván hòa đầu tiên mới được tính điểm hoặc các ván tiêu chuẩn hòa mà có nhiều hơn %s nước đi. Chuỗi hòa chỉ có thể bị phá vỡ bởi một ván thắng chứ không phải một ván thua hay hòa khác.</string>
+  <string name="drawStreakStandard">Chuỗi hòa: Khi một người chơi hòa liên tục ở một đấu trường, chỉ có ván hòa đầu tiên mới được tính điểm hoặc các ván tiêu chuẩn hòa mà có nhiều hơn %s nước đi. Chuỗi hòa chỉ có thể bị phá vỡ bởi một ván thắng chứ không phải một ván thua hay hòa khác.</string>
   <string name="drawStreakVariants">Độ dài ván đấu tối thiểu cho các ván hòa để vẫn có điểm là khác nhau theo từng biến thể. Bảng dưới đây liệt kê ngưỡng cho từng biến thể.</string>
   <string name="variant">Biến thể</string>
   <string name="minimumGameLength">Độ dài ván đấu tối thiểu</string>
@@ -53,9 +53,9 @@ Chơi nhanh và trở lại phòng chờ để chơi được nhiều ván và g
   <string name="allowChatHelp">Cho phép các kỳ thủ trò chuyện trong phòng trò chuyện</string>
   <string name="arenaStreaks">Chuỗi đấu trường</string>
   <string name="arenaStreaksHelp">Sau 2 ván thắng, mỗi ván thắng liên tiếp sẽ được 4 điểm thay vì 2 điểm.</string>
-  <string name="noBerserkAllowed" comment="A setting when creating an arena tournament, which disallows using Berserk.">Không cho phép Berserk</string>
+  <string name="noBerserkAllowed">Không cho phép Berserk</string>
   <string name="noArenaStreaks">Không có chuỗi Đấu trường</string>
   <string name="averagePerformance">Hiệu suất trung bình</string>
   <string name="averageScore">Điểm trung bình</string>
-  <string name="myTournaments" comment="Links to a page with a list of tournaments you have created.">Giải đấu của tôi</string>
+  <string name="myTournaments">Giải đấu của tôi</string>
 </resources>

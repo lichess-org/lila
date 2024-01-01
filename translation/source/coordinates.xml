@@ -4,7 +4,7 @@
   <string name="coordinateTraining">Coordinate training</string>
   <string name="averageScoreAsWhiteX">Average score as white: %s</string>
   <string name="averageScoreAsBlackX">Average score as black: %s</string>
-  <string name="knowingTheChessBoard">Knowing the chessboard coordinates is a very important chess skill:</string>
+  <string name="knowingTheChessBoard">Knowing the chessboard coordinates is a very important skill for several reasons:</string>
   <string name="mostChessCourses">Most chess courses and exercises use the algebraic notation extensively.</string>
   <string name="talkToYourChessFriends">It makes it easier to talk to your chess friends, since you both understand the 'language of chess'.</string>
   <string name="youCanAnalyseAGameMoreEffectively">You can analyse a game more effectively if you can quickly recognise coordinates.</string>

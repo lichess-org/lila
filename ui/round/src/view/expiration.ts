@@ -19,12 +19,7 @@ export default function (ctrl: RoundController): MaybeVNode {
   const side = myTurn != ctrl.flip ? 'bottom' : 'top';
   return h(
     'div.expiration.expiration-' + side,
-    {
-      class: {
-        emerg,
-        'bar-glider': myTurn,
-      },
-    },
+    { class: { emerg, 'bar-glider': myTurn } },
     ctrl.trans.vdomPlural('nbSecondsToPlayTheFirstMove', secondsLeft, h('strong', '' + secondsLeft)),
   );
 }

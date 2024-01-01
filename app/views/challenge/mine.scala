@@ -3,6 +3,7 @@ package views.html.challenge
 import lila.app.templating.Environment.{ given, * }
 import lila.app.ui.ScalatagsTemplate.{ *, given }
 import lila.challenge.Challenge.Status
+import lila.common.LightUser
 
 import controllers.routes
 
@@ -11,6 +12,7 @@ object mine:
   def apply(
       c: lila.challenge.Challenge,
       json: play.api.libs.json.JsObject,
+      friends: Seq[LightUser],
       error: Option[String],
       color: Option[chess.Color]
   )(using ctx: PageContext) =
@@ -49,7 +51,7 @@ object mine:
                 else
                   div(cls := "invite")(
                     div(
-                      h2(cls := "ninja-title", trans.toInviteSomeoneToPlayGiveThisUrl(), ": "),
+                      h2(cls := "ninja-title", trans.toInviteSomeoneToPlayGiveThisUrl()),
                       br,
                       p(cls := "challenge-id-form")(
                         input(
@@ -69,8 +71,13 @@ object mine:
                       ),
                       p(trans.theFirstPersonToComeOnThisUrlWillPlayWithYou())
                     ),
-                    ctx.isAuth option div(
+                    ctx.isAuth option div(cls := "invite__user")(
                       h2(cls := "ninja-title", trans.challenge.inviteLichessUser()),
+                      friends.nonEmpty option div(cls := "invite__user__recent")(
+                        friends.map: user =>
+                          button(cls := "button", dataUser := user.name):
+                            lightUserSpan(user, withOnline = true)
+                      ),
                       br,
                       postForm(
                         cls    := "user-invite complete-parent",
@@ -82,6 +89,13 @@ object mine:
                           placeholder := trans.search.search.txt()
                         ),
                         error.map { p(cls := "error")(_) }
+                      )
+                    ),
+                    div(cls := "invite__qrcode")(
+                      h2(cls := "ninja-title", trans.orLetYourOpponentScanQrCode()),
+                      img(
+                        src := s"https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=$challengeLink",
+                        alt := "QR Code"
                       )
                     )
                   )

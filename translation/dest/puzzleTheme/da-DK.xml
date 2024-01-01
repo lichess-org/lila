@@ -62,9 +62,9 @@
   <string name="long">Lang opgave</string>
   <string name="longDescription">Tre træk for at vinde.</string>
   <string name="master">Mesterpartier</string>
-  <string name="masterDescription">Opgaver fra partier af spillere med titel.</string>
+  <string name="masterDescription">Taktikopgaver fra partier af spillere med titel.</string>
   <string name="masterVsMaster">Mester mod mester partier</string>
-  <string name="masterVsMasterDescription">Opgaver fra partier mellem to spillere med titel.</string>
+  <string name="masterVsMasterDescription">Taktikopgaver fra partier mellem to spillere med titel.</string>
   <string name="mate">Mat</string>
   <string name="mateDescription">Vind spillet med stil.</string>
   <string name="mateIn1">Mat i 1</string>
@@ -80,7 +80,7 @@
   <string name="middlegame">Midtspil</string>
   <string name="middlegameDescription">En taktik i den anden fase af spillet.</string>
   <string name="oneMove">Et-træks opgave</string>
-  <string name="oneMoveDescription">En opgave der kun er ét træk lang.</string>
+  <string name="oneMoveDescription">En taktikopgave der kun er ét træk lang.</string>
   <string name="opening">Åbning</string>
   <string name="openingDescription">En taktik i den første fase af spillet.</string>
   <string name="pawnEndgame">Bondeslutspil</string>
@@ -101,19 +101,19 @@
   <string name="rookEndgameDescription">Et slutspil med kun tårne og bønder.</string>
   <string name="sacrifice">Offer</string>
   <string name="sacrificeDescription">En taktik der består i at opgive materiale på kort sigt for igen at få en fordel efter en tvungen træksekvens.</string>
-  <string name="short">Kort opgave</string>
+  <string name="short">Kort taktikopgave</string>
   <string name="shortDescription">To træk for at vinde.</string>
   <string name="skewer">Spid</string>
   <string name="skewerDescription">En manøvre hvor en brik af høj værdi angribes og må flyttes, hvorved en brik af lavere værdi bagved kan tages eller trues. Det omvendte af en binding.</string>
   <string name="smotheredMate">Kvalt mat</string>
   <string name="smotheredMateDescription">En skakmat leveret af en springer, hvor den matte konge er ude af stand til at bevæge sig, fordi den er omgivet (eller kvalt) af sine egne brikker.</string>
   <string name="superGM">Superstormester-partier</string>
-  <string name="superGMDescription">Opgaver fra partier spillet af verdens bedste spillere.</string>
+  <string name="superGMDescription">Taktikopgaver fra partier spillet af verdens bedste spillere.</string>
   <string name="trappedPiece">Fastlåste brikker</string>
   <string name="trappedPieceDescription">En brik er ude af stand til at undslippe fangst, da den har begrænsede trækmuligheder.</string>
   <string name="underPromotion">Underforvandling</string>
   <string name="underPromotionDescription">Forvandling til en springer, løber eller tårn.</string>
-  <string name="veryLong">Meget lang opgave</string>
+  <string name="veryLong">Meget lang taktikopgave</string>
   <string name="veryLongDescription">Fire træk eller mere for at vinde.</string>
   <string name="xRayAttack">Røngtenangreb</string>
   <string name="xRayAttackDescription">En brik angriber eller forsvarer et felt gennem en af modstanderens brikker.</string>
@@ -122,6 +122,6 @@
   <string name="healthyMix">Sund blanding</string>
   <string name="healthyMixDescription">Lidt af hvert. Du kan ikke vide, hvad du skal forvente, så du skal være klar til alt! Præcis som i rigtige spil.</string>
   <string name="playerGames">Spiller-partier</string>
-  <string name="playerGamesDescription">Find opgaver lavet ud fra dine egne partier eller fra en anden spillers partier.</string>
+  <string name="playerGamesDescription">Find taktikopgaver lavet ud fra dine egne partier eller fra en anden spillers partier.</string>
   <string name="puzzleDownloadInformation">Disse opgaver er i offentligt domæne og kan downloades fra %s.</string>
 </resources>

@@ -43,5 +43,5 @@
   <string name="safeAndRespectfulContent">Το περιεχόμενο που δημοσιεύετε πρέπει να είναι ασφαλές, με σεβασμό προς όλους και να μην αντιγράφει δημοσιεύσεις άλλων χρηστών.</string>
   <string name="inappropriateContentAccountClosed">Ο λογαριασμός σας ενδεχομένως να κλείσει αν εντοπίσουμε οτιδήποτε ακατάλληλο.</string>
   <string name="blogTips">Απλές συμβουλές μας για να γράψει φανταστικές δημοσιεύσεις</string>
-  <string name="discussThisBlogPostInTheForum" comment="A button at the bottom of blog posts which will take you to the forum discussion for that post.">Σχολιάστε αυτήν τη δημοσίευση στο φόρουμ</string>
+  <string name="discussThisBlogPostInTheForum">Σχολιάστε αυτήν τη δημοσίευση στο φόρουμ</string>
 </resources>

@@ -251,7 +251,6 @@ PlayFirstOpeningEndgameExplorerMove
   <string name="playingRightNow">දැන් තරඟ කරයි</string>
   <string name="eventInProgress">දැන් තරඟ කරයි</string>
   <string name="finished">අවසානයි</string>
-  <string name="finishesX">%sකින් ඉවරවේ</string>
   <string name="abortGame">තරඟය නවත්වන්න</string>
   <string name="gameAborted">තරගය අත්හැර දැමුනි</string>
   <string name="standard">සම්මත</string>

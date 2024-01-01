@@ -151,7 +151,13 @@ export default class StudyCtrl {
     this.relay =
       relayData &&
       new RelayCtrl(this.data.id, relayData, this.send, this.redraw, this.members, this.data.chapter);
-    this.multiBoard = new MultiBoardCtrl(this.data.id, this.redraw, this.ctrl.trans);
+    this.multiBoard = new MultiBoardCtrl(
+      this.data.id,
+      this.redraw,
+      this.ctrl.trans,
+      this.ctrl.socket.send,
+      () => this.data.chapter.setup.variant.key,
+    );
     this.form = new StudyForm(
       (d, isNew) => {
         this.send('editStudy', d);

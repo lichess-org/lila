@@ -1,34 +1,27 @@
 import { prop } from 'common';
 import * as licon from 'common/licon';
-import { bind, dataIcon } from 'common/snabbdom';
+import { bind, dataIcon, looseH as h } from 'common/snabbdom';
 import { text as xhrText, url as xhrUrl } from 'common/xhr';
-import { h, VNode } from 'snabbdom';
+import { VNode } from 'snabbdom';
 import { renderIndexAndMove } from '../view/moveView';
 import { baseUrl } from '../view/util';
 import { StudyChapterMeta, StudyData } from './interfaces';
 import RelayCtrl from './relay/relayCtrl';
 
 function fromPly(ctrl: StudyShare): VNode {
-  const renderedMove = renderIndexAndMove(
-    {
-      withDots: true,
-      showEval: false,
-    },
-    ctrl.currentNode(),
-  );
+  const renderedMove = renderIndexAndMove({ withDots: true, showEval: false }, ctrl.currentNode());
   return h(
     'div.ply-wrap',
-    ctrl.onMainline()
-      ? h('label.ply', [
-          h('input', {
-            attrs: { type: 'checkbox', checked: ctrl.withPly() },
-            hook: bind('change', e => ctrl.withPly((e.target as HTMLInputElement).checked), ctrl.redraw),
-          }),
-          ...(renderedMove
-            ? ctrl.trans.vdom('startAtX', h('strong', renderedMove))
-            : [ctrl.trans.noarg('startAtInitialPosition')]),
-        ])
-      : null,
+    ctrl.onMainline() &&
+      h('label.ply', [
+        h('input', {
+          attrs: { type: 'checkbox', checked: ctrl.withPly() },
+          hook: bind('change', e => ctrl.withPly((e.target as HTMLInputElement).checked), ctrl.redraw),
+        }),
+        ...(renderedMove
+          ? ctrl.trans.vdom('startAtX', h('strong', renderedMove))
+          : [ctrl.trans.noarg('startAtInitialPosition')]),
+      ]),
   );
 }
 
@@ -71,12 +64,7 @@ async function writePgnClipboard(url: string): Promise<void> {
 }
 
 const copyButton = (rel: string) =>
-  h('button.button.copy', {
-    attrs: {
-      'data-rel': rel,
-      ...dataIcon(licon.Clipboard),
-    },
-  });
+  h('button.button.copy', { attrs: { 'data-rel': rel, ...dataIcon(licon.Clipboard) } });
 
 export function view(ctrl: StudyShare): VNode {
   const studyId = ctrl.studyId,
@@ -95,18 +83,12 @@ export function view(ctrl: StudyShare): VNode {
     ctrl.shareable()
       ? [
           h('div.downloads', [
-            ctrl.cloneable()
-              ? h(
-                  'a.button.text',
-                  {
-                    attrs: {
-                      ...dataIcon(licon.StudyBoard),
-                      href: `/study/${studyId}/clone`,
-                    },
-                  },
-                  ctrl.trans.noarg('cloneStudy'),
-                )
-              : null,
+            ctrl.cloneable() &&
+              h(
+                'a.button.text',
+                { attrs: { ...dataIcon(licon.StudyBoard), href: `/study/${studyId}/clone` } },
+                ctrl.trans.noarg('cloneStudy'),
+              ),
             ctrl.relay &&
               h(
                 'a.button.text',
@@ -220,14 +202,12 @@ export function view(ctrl: StudyShare): VNode {
                 h('label.form-label', ctrl.trans.noarg(i18n)),
                 h('div.form-control-with-clipboard', [
                   h(`input#study-share-${i18n}.form-control.copyable.autoselect`, {
-                    attrs: {
-                      readonly: true,
-                      value: `${baseUrl()}${path}`,
-                    },
+                    attrs: { readonly: true, value: `${baseUrl()}${path}` },
                   }),
                   copyButton(`study-share-${i18n}`),
                 ]),
-                ...(pastable ? [fromPly(ctrl), !isPrivate ? youCanPasteThis() : null] : []),
+                pastable && fromPly(ctrl),
+                pastable && isPrivate && youCanPasteThis(),
               ]),
             ),
             h(
@@ -274,10 +254,7 @@ export function view(ctrl: StudyShare): VNode {
               h('label.form-label', 'FEN'),
               h('div.form-control-with-clipboard', [
                 h('input#study-share-fen.form-control.copyable.autoselect', {
-                  attrs: {
-                    readonly: true,
-                    value: ctrl.currentNode().fen,
-                  },
+                  attrs: { readonly: true, value: ctrl.currentNode().fen },
                 }),
                 copyButton(`study-share-fen`),
               ]),

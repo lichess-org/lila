@@ -1,9 +1,9 @@
 import { h } from 'snabbdom';
 import { menu as menuDropdown } from 'board/menu';
-import { Controller } from '../interfaces';
 import { boolPrefXhrToggle } from 'common/controls';
+import PuzzleCtrl from '../ctrl';
 
-export default function (ctrl: Controller) {
+export default function (ctrl: PuzzleCtrl) {
   return menuDropdown(ctrl.trans, ctrl.redraw, ctrl.menu, menu => [
     h('section', [menu.flip(ctrl.trans.noarg('flipBoard'), ctrl.flipped(), ctrl.flip)]),
     h('section', [

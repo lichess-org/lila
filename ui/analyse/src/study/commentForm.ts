@@ -20,21 +20,12 @@ export class CommentForm {
 
   doSubmit = throttle(500, (text: string) => {
     const cur = this.current();
-    if (cur)
-      this.root.study!.makeChange('setComment', {
-        ch: cur.chapterId,
-        path: cur.path,
-        text,
-      });
+    if (cur) this.root.study!.makeChange('setComment', { ch: cur.chapterId, path: cur.path, text });
   });
 
   start = (chapterId: string, path: Tree.Path, node: Tree.Node): void => {
     this.opening(true);
-    this.current({
-      chapterId,
-      path,
-      node,
-    });
+    this.current({ chapterId, path, node });
     this.root.userJump(path);
   };
 
@@ -47,11 +38,7 @@ export class CommentForm {
     }
   };
   delete = (chapterId: string, path: Tree.Path, id: string) => {
-    this.root.study!.makeChange('deleteComment', {
-      ch: chapterId,
-      path,
-      id,
-    });
+    this.root.study!.makeChange('deleteComment', { ch: chapterId, path, id });
   };
 }
 
@@ -83,9 +70,7 @@ export function view(root: AnalyseCtrl): VNode {
 
   return h(
     'div.study__comments',
-    {
-      hook: onInsert(() => root.enableWiki(root.data.game.variant.key === 'standard')),
-    },
+    { hook: onInsert(() => root.enableWiki(root.data.game.variant.key === 'standard')) },
     [
       currentComments(root, !study.members.canContribute()),
       h('form.form3', [

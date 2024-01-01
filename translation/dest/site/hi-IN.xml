@@ -264,7 +264,6 @@
   <string name="playingRightNow">अभी खेला जा रहा</string>
   <string name="eventInProgress">अभी खेला जा रहा</string>
   <string name="finished">समाप्त</string>
-  <string name="finishesX">%s में खत्म</string>
   <string name="abortGame">खेल रद्द करें</string>
   <string name="gameAborted">खेल रद्द किया गया</string>
   <string name="standard">साधारण</string>
@@ -831,7 +830,6 @@
   </plurals>
   <string name="sorry">खेद :(</string>
   <string name="weHadToTimeYouOutForAWhile">हमें आपको कुछ समय के लिए प्रतिबंधित करना पड़ा।</string>
-  <string name="timeoutExpires">आपका प्रतिबंध %s समाप्त हो जाएगा।</string>
   <string name="why">क्यों?</string>
   <string name="pleasantChessExperience">हम सभी के लिए एक सुखद शतरंज अनुभव प्रदान करना चाहते हैं।</string>
   <string name="goodPractice">इसलिए, हमें यह सुनिश्चित करना होगा कि सभी खिलाड़ी अच्छे अभ्यास का पालन करें।</string>

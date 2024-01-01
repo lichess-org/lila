@@ -230,7 +230,6 @@
   <string name="playingRightNow">Управо игра</string>
   <string name="eventInProgress">Управо игра</string>
   <string name="finished">Завршен</string>
-  <string name="finishesX">завршава се %s</string>
   <string name="abortGame">Прекините партију</string>
   <string name="gameAborted">Партија прекинута</string>
   <string name="standard">Стандардно</string>
@@ -792,7 +791,6 @@
   </plurals>
   <string name="sorry">Извините :(</string>
   <string name="weHadToTimeYouOutForAWhile">Морали смо Вас привремено избацити.</string>
-  <string name="timeoutExpires">Тајм аут истиче %s.</string>
   <string name="why">Зашто?</string>
   <string name="pleasantChessExperience">Желимо да свима обезбедимо пријатно искуство у шаху.</string>
   <string name="goodPractice">Баш због тога, ми се морамо потрудити да се сви играчи држе добре праксе.</string>

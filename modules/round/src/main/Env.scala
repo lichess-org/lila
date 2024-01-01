@@ -83,7 +83,7 @@ final class Env(
   private lazy val roundDependencies = wire[RoundAsyncActor.Dependencies]
 
   private given lila.user.FlairApi.Getter = flairApi.getter
-  lazy val roundSocket: RoundSocket           = wire[RoundSocket]
+  lazy val roundSocket: RoundSocket       = wire[RoundSocket]
 
   private def resignAllGamesOf(userId: UserId) =
     gameRepo allPlaying userId foreach:
@@ -199,5 +199,5 @@ final class Env(
     if pov.game.abortableByUser then tellRound(pov.gameId, Abort(pov.playerId))
     else if pov.game.resignable then tellRound(pov.gameId, Resign(pov.playerId))
 
-trait SelfReportEndGame
-trait SelfReportMarkUser
+private trait SelfReportEndGame
+private trait SelfReportMarkUser

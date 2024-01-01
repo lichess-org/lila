@@ -78,7 +78,7 @@ final class Setup(
                     val message = lila.challenge.ChallengeDenied.translated(denied)
                     negotiate(
                       // 403 tells setupCtrl.ts to close the setup modal
-                      Forbidden(jsonError(message)), // TODO test
+                      forbiddenJson(message), // TODO test
                       BadRequest(jsonError(message))
                     )
                   case None =>

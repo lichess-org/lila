@@ -2,7 +2,7 @@
   --cols: 1; // ui/lobby/src/main.ts
   grid-area: main;
   display: grid;
-  grid-template-areas: 'app' 'table' 'side' 'blog' 'support' 'tv' 'puzzle' 'leader' 'winner' 'tours' 'timeline' 'about';
+  grid-template-areas: 'app' 'table' 'side' 'blog' 'support' 'feed' 'tv' 'puzzle' 'tours' 'leader' 'winner' 'timeline' 'about';
   grid-gap: $block-gap;
 
   &__tournaments,
@@ -11,20 +11,26 @@
   &__winners {
     max-height: 20em;
   }
+  // this helps in empty dev mode
+  &__leaderboard,
+  &__winners {
+    min-height: 20em;
+  }
 
   @include breakpoint($mq-col2) {
     --cols: 2; // ui/lobby/src/main.ts
     grid-template-columns: repeat(2, 1fr);
-    grid-template-rows: auto repeat(3, fit-content(0));
+    grid-template-rows: auto repeat(4, fit-content(0)) 20em;
     grid-template-areas:
       'app      app'
       'side     table'
       'blog     blog'
       'tv       puzzle'
       'support  support'
+      'feed     feed'
       'tours    tours'
-      'leader   winner'
       'timeline timeline'
+      'leader   winner'
       'about    about';
 
     &__support {
@@ -37,16 +43,19 @@
   @include breakpoint($mq-col3) {
     --cols: 3; // ui/lobby/src/main.ts
     grid-template-columns: repeat(3, 1fr);
-    grid-template-rows: 12em repeat(2, fit-content(0)) auto auto fit-content(0);
+    grid-template-rows: 12em repeat(2, fit-content(0)) auto fit-content(15em) repeat(2, fit-content(0)) minmax(
+        0,
+        1fr
+      );
     grid-template-areas:
       'table  app     app'
       'side   app     app'
       'tv     blog    blog'
       'tv     support support'
-      'puzzle tours   tours'
-      'puzzle leader  winner'
-      '.      leader  winner'
-      'about  about   about';
+      'puzzle feed    feed'
+      'leader tours   tours'
+      'winner tours   tours'
+      'winner about   about';
 
     &__start {
       margin: 2em 0 0 0;
@@ -68,13 +77,14 @@
   @include breakpoint($mq-col4) {
     --cols: 4; // ui/lobby/src/main.ts
     grid-template-columns: repeat(4, 1fr);
-    grid-template-rows: repeat(2, fit-content(0)) auto minmax(0, 1fr);
+    grid-template-rows: repeat(2, fit-content(0)) auto repeat(6, fit-content(0));
     grid-template-areas:
       'side   app     app     table'
       'tv     blog    blog    puzzle'
       'tv     support support puzzle'
-      'leader winner  tours   tours'
-      'about  about   about   about';
+      'feed   feed    tours   tours'
+      'feed   feed    leader  winner'
+      'about  about   leader  winner';
 
     &__start {
       justify-content: center;
@@ -148,6 +158,10 @@
 
   &__support {
     grid-area: support;
+  }
+
+  &__feed {
+    grid-area: feed;
   }
 
   &__about {

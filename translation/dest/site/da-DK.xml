@@ -5,6 +5,7 @@
   <string name="toInviteSomeoneToPlayGiveThisUrl">Invitér en til at spille ved at oplyse denne URL</string>
   <string name="gameOver">Spillet er slut</string>
   <string name="waitingForOpponent">Venter på modstander</string>
+  <string name="orLetYourOpponentScanQrCode">Eller lad din modstander scanne denne QR-kode</string>
   <string name="waiting">Venter</string>
   <string name="yourTurn">Din tur</string>
   <string name="aiNameLevelAiLevel">%1$s niveau %2$s</string>
@@ -175,7 +176,7 @@
   <string name="forum">Forum</string>
   <string name="xPostedInForumY">%1$s skrev i forum %2$s</string>
   <string name="latestForumPosts">Seneste debatindlæg</string>
-  <string name="players">Skakspillere</string>
+  <string name="players">Spillere</string>
   <string name="friends">Venner</string>
   <string name="discussions">Samtaler</string>
   <string name="today">I dag</string>
@@ -248,8 +249,8 @@
     <item quantity="other">Ranking opdateres hvert %s minut</item>
   </plurals>
   <plurals name="nbPuzzles">
-    <item quantity="one">%s opgave</item>
-    <item quantity="other">%s opgaver</item>
+    <item quantity="one">%s taktikopgave</item>
+    <item quantity="other">%s taktikopgaver</item>
   </plurals>
   <string name="gamesPlayed">Antal partier spillet</string>
   <plurals name="nbGamesWithYou">
@@ -272,7 +273,6 @@
   <string name="playingRightNow">Spilles lige nu</string>
   <string name="eventInProgress">Spilles lige nu</string>
   <string name="finished">Afsluttet</string>
-  <string name="finishesX">afsluttes %s</string>
   <string name="abortGame">Afbryd parti</string>
   <string name="gameAborted">Partiet blev afbrudt</string>
   <string name="standard">Standard</string>
@@ -405,7 +405,7 @@
   <string name="importGame">Importér parti</string>
   <string name="importGameExplanation">Når du indsætter et partis PGN, får du en afspillelig gengivelse, en computeranalyse, en spilchat og en URL til deling.</string>
   <string name="importGameCaveat">Varianter vil blive slettet. Hvis du vil beholde dem, skal du importere PGN\'en via et studie.</string>
-  <string name="importGameCaveat2">Denne PGN kan tilgås af offentligheden. For at importere et parti privat, skal du bruge et studie.</string>
+  <string name="importGameDataPrivacyWarning">Denne PGN kan tilgås af offentligheden. For at importere et parti privat, skal du bruge et studie.</string>
   <plurals name="nbImportedGames">
     <item quantity="one">%s importerede spil</item>
     <item quantity="other">%s importerede spil</item>
@@ -507,7 +507,7 @@
   <string name="editProfile">Redigér profil</string>
   <string name="firstName">Fornavn</string>
   <string name="lastName">Efternavn</string>
-  <string name="setFlair">Indstil dit ikon:</string>
+  <string name="setFlair">Indstil dit ikon</string>
   <string name="flair">Ikon</string>
   <string name="youCanHideFlair">Der er en indstilling til at skjule alle brugerikoner på tværs af hele webstedet.</string>
   <string name="biography">Biografi</string>
@@ -529,7 +529,7 @@
   </plurals>
   <string name="automaticallyProceedToNextGameAfterMoving">Automatisk videre til næste spil efter træk</string>
   <string name="autoSwitch">Autoskift</string>
-  <string name="puzzles">Opgaver</string>
+  <string name="puzzles">Taktikopgaver</string>
   <string name="tournamentWinners">Turneringsvindere</string>
   <string name="name">Navn</string>
   <string name="description">Beskrivelse</string>
@@ -862,9 +862,10 @@
     <item quantity="one">og gem %s serie af forhåndstræk</item>
     <item quantity="other">og gem %s serier af forhåndstræk</item>
   </plurals>
+  <string name="showUnreadLichessMessage">Du har modtaget en privat besked fra Lichess.</string>
+  <string name="clickHereToReadIt">Klik her for at læse den</string>
   <string name="sorry">Beklager :(</string>
   <string name="weHadToTimeYouOutForAWhile">Vi måtte give dig en timeout.</string>
-  <string name="timeoutExpires">Timeouten udløber %s.</string>
   <string name="why">Hvorfor?</string>
   <string name="pleasantChessExperience">Vi tilstræber at give alle en behagelig skakoplevelse.</string>
   <string name="goodPractice">I den forbindelse må vi sikre, at alle spillere følger god praksis.</string>
@@ -884,7 +885,8 @@
   <string name="agreementPolicy">Jeg lover, at jeg vil overholde alle Lichess-politikker.</string>
   <string name="searchOrStartNewDiscussion">Søg eller start ny diskussion</string>
   <string name="edit">Rediger</string>
-  <string name="blitz" comment="Probably best left untranslated. Leave it as 'Blitz' unless your language has a better word for it.">Lynskak</string>
+  <string name="bullet" comment="Probably best left untranslated. Leave it as 'Bullet' unless your language has a better word for it.">Bullet</string>
+  <string name="blitz" comment="Probably best left untranslated. Leave it as 'Blitz' unless your language has a better word for it.">Blitz</string>
   <string name="rapid">Rapid</string>
   <string name="classical">Classical</string>
   <string name="ultraBulletDesc">Vanvittigt hurtige spil: mindre end 30 sekunder</string>

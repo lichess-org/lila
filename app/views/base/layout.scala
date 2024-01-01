@@ -184,14 +184,14 @@ object layout:
       ctx.pref.bg == lila.pref.Pref.Bg.SYSTEM option embedJsUnsafe(systemThemePolyfillJs)
     )
 
-  private def hrefLang(lang: String, path: String) =
-    s"""<link rel="alternate" hreflang="$lang" href="$netBaseUrl$path"/>"""
+  private def hrefLang(langStr: String, path: String) =
+    s"""<link rel="alternate" hreflang="$langStr" href="$netBaseUrl$path"/>"""
 
   private def hrefLangs(path: LangPath) = raw {
     val pathEnd = if path.value == "/" then "" else path.value
     hrefLang("x-default", path.value) + hrefLang("en", path.value) +
-      lila.i18n.LangList.popularAlternateLanguageCodes.map { lang =>
-        hrefLang(lang, s"/$lang$pathEnd")
+      lila.i18n.LangList.popularAlternateLanguages.map { l =>
+        hrefLang(l.value, s"/$l$pathEnd")
       }.mkString
   }
 
@@ -208,13 +208,12 @@ object layout:
 
   private val dailyNewsAtom = link(
     href     := routes.DailyFeed.atom,
-    st.title := "Daily News",
+    st.title := "Lichess Updates Feed",
     tpe      := "application/atom+xml",
     rel      := "alternate"
   )
 
   private val dataVapid         = attr("data-vapid")
-  private val dataUser          = attr("data-user")
   private val dataSocketDomains = attr("data-socket-domains") := netConfig.socketDomains.mkString(",")
   private val dataNonce         = attr("data-nonce")
   private val dataAnnounce      = attr("data-announce")
@@ -458,7 +457,10 @@ object layout:
       trans.timeago.nbDaysAgo,
       trans.timeago.nbWeeksAgo,
       trans.timeago.nbMonthsAgo,
-      trans.timeago.nbYearsAgo
+      trans.timeago.nbYearsAgo,
+      trans.timeago.nbMinutesRemaining,
+      trans.timeago.nbHoursRemaining,
+      trans.timeago.completed
     )
 
     private val cache = new java.util.concurrent.ConcurrentHashMap[Lang, String]

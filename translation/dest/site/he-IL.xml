@@ -5,6 +5,7 @@
   <string name="toInviteSomeoneToPlayGiveThisUrl">כדי להזמין מישהו לשחק, שתפו את הכתובת הזאת</string>
   <string name="gameOver">המשחק הסתיים</string>
   <string name="waitingForOpponent">ממתין ליריב</string>
+  <string name="orLetYourOpponentScanQrCode">אפשר גם לתת ליריבך לסרוק את קוד ה־QR הזה</string>
   <string name="waiting">ממתין</string>
   <string name="yourTurn">תורך</string>
   <string name="aiNameLevelAiLevel">%1$s רמה %2$s</string>
@@ -302,7 +303,6 @@
   <string name="playingRightNow">מתקיים עכשיו</string>
   <string name="eventInProgress">מתקיים עכשיו</string>
   <string name="finished">הסתיים</string>
-  <string name="finishesX">נגמר %s</string>
   <string name="abortGame">ביטול המשחק</string>
   <string name="gameAborted">המשחק בוטל</string>
   <string name="standard">רגיל</string>
@@ -461,7 +461,7 @@
   <string name="importGame">ייבוא משחק</string>
   <string name="importGameExplanation">כשמדביקים משחק בפורמט PGN מקבלים אפשרות לצפות במשחק ולדפדף בו, ניתוח ממוחשב, צ׳אט וקישור לשיתוף.</string>
   <string name="importGameCaveat">וריאציות — כלומר רצפי מהלכים שאינם המסעים הראשיים (mainline) — יימחקו. כדי לשמור אותן, ייבאו את ה־PGN כלוח למידה.</string>
-  <string name="importGameCaveat2">ה-PGN הזה הוא ציבורי. כדי לייצא משחק באופן פרטי, השתמשו בלוח למידה.</string>
+  <string name="importGameDataPrivacyWarning">ה־PGN הזה זמין לציבור. כדי לייצא את המשחק באופן פרטי, השתמשו בלוח למידה.</string>
   <plurals name="nbImportedGames">
     <item quantity="one">משחק מיובא %s</item>
     <item quantity="two">%s משחקים מיובאים</item>
@@ -573,7 +573,7 @@
   <string name="editProfile">עריכת פרופיל</string>
   <string name="firstName">שם פרטי</string>
   <string name="lastName">שם משפחה</string>
-  <string name="setFlair">הגדירו את הסמליל שלכם:</string>
+  <string name="setFlair">הגדירו את הסמליל שלכם</string>
   <string name="flair">סמליל</string>
   <string name="youCanHideFlair">ישנה הגדרה שמאפשרת להסתיר את כל הסמלילים באתר.</string>
   <string name="biography">ביוגרפיה</string>
@@ -946,9 +946,10 @@
     <item quantity="many">ושמרו %s המשכים מוגדרים מראש</item>
     <item quantity="other">ושמרו %s המשכים מוגדרים מראש</item>
   </plurals>
+  <string name="showUnreadLichessMessage">קיבלתם הודעה פרטית מ-Lichess.</string>
+  <string name="clickHereToReadIt">לחצו כאן כדי לקרוא אותה</string>
   <string name="sorry">מצטערים :(</string>
   <string name="weHadToTimeYouOutForAWhile">נאלצנו להשעות אותך לזמן מה.</string>
-  <string name="timeoutExpires">ההשעיה תסתיים %s.</string>
   <string name="why">למה?</string>
   <string name="pleasantChessExperience">אנחנו מנסים לספק חווית שח נעימה לכולם.</string>
   <string name="goodPractice">בעקבות זאת, אנחנו חייבים לוודא שכל השחקנים ינהגו בכבוד.</string>
@@ -968,6 +969,7 @@
   <string name="agreementPolicy">אני מסכימ/ה לציית לכל מדיניות של Lichess.</string>
   <string name="searchOrStartNewDiscussion">חפשו את התחילו שיחה חדשה</string>
   <string name="edit">עריכה</string>
+  <string name="bullet" comment="Probably best left untranslated. Leave it as 'Bullet' unless your language has a better word for it.">Bullet</string>
   <string name="blitz" comment="Probably best left untranslated. Leave it as 'Blitz' unless your language has a better word for it.">Blitz</string>
   <string name="rapid">Rapid</string>
   <string name="classical">Classical</string>

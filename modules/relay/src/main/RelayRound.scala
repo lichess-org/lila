@@ -115,10 +115,10 @@ object RelayRound:
       def local = asUrl.fold(true)(_.isLocal)
     case class UpstreamUrl(url: String) extends Upstream:
       def isLocal = url.contains("://127.0.0.1") || url.contains("://[::1]") || url.contains("://localhost")
-      def withRound =
-        url.split(" ", 2) match
-          case Array(u, round) => UpstreamUrl.WithRound(u, round.toIntOption)
-          case _               => UpstreamUrl.WithRound(url, none)
+      def withRound = url.split(" ", 2) match
+        case Array(u, round) => UpstreamUrl.WithRound(u, round.toIntOption)
+        case _               => UpstreamUrl.WithRound(url, none)
+      def isLcc: Boolean = UpstreamUrl.LccRegex.matches(url)
     object UpstreamUrl:
       case class WithRound(url: String, round: Option[Int])
       val LccRegex = """.*view\.livechesscloud\.com/#?([0-9a-f\-]+)""".r
@@ -139,5 +139,6 @@ object RelayRound:
     def withStudy(study: Study) = WithTourAndStudy(round, tour, study)
 
   case class WithTourAndStudy(relay: RelayRound, tour: RelayTour, study: Study):
-    def path     = WithTour(relay, tour).path
-    def fullName = WithTour(relay, tour).fullName
+    def withTour = WithTour(relay, tour)
+    def path     = withTour.path
+    def fullName = withTour.fullName

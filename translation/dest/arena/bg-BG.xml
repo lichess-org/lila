@@ -54,7 +54,7 @@
   <string name="allowChatHelp">Позволи на играчите да обсъждат в чата</string>
   <string name="arenaStreaks">Поредици в арената</string>
   <string name="arenaStreaksHelp">След 2 победи, всяка последователна победа носи 4 точки вместо 2.</string>
-  <string name="noBerserkAllowed" comment="A setting when creating an arena tournament, which disallows using Berserk.">No Berserk allowed</string>
+  <string name="noBerserkAllowed">No Berserk allowed</string>
   <string name="noArenaStreaks">No Arena streaks</string>
   <string name="averagePerformance">Средна производителност</string>
   <string name="averageScore">Average score</string>

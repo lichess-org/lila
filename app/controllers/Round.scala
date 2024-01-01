@@ -141,13 +141,12 @@ final class Round(
             if pov.game.replayable then analyseC.replay(pov, userTv = userTv)
             else if HTTPRequest.isHuman(ctx.req) then
               for
-                users <- env.user.api.gamePlayers(pov.game.userIdPair, pov.game.perfType)
-                ((((tour, simul), chat), crosstable), bookmarked) <- env.tournament.api.gameView
-                  .watcher(pov.game) zip
-                  (pov.game.simulId so env.simul.repo.find) zip
-                  getWatcherChat(pov.game) zip
-                  (ctx.noBlind so env.game.crosstableApi.withMatchup(pov.game)) zip
-                  env.bookmark.api.exists(pov.game, ctx.me)
+                users      <- env.user.api.gamePlayers(pov.game.userIdPair, pov.game.perfType)
+                tour       <- env.tournament.api.gameView.watcher(pov.game)
+                simul      <- pov.game.simulId so env.simul.repo.find
+                chat       <- getWatcherChat(pov.game)
+                crosstable <- ctx.noBlind so env.game.crosstableApi.withMatchup(pov.game)
+                bookmarked <- env.bookmark.api.exists(pov.game, ctx.me)
                 tv = userTv.map: u =>
                   lila.round.OnTv.User(u.id)
                 data <- env.api.roundApi.watcher(pov, users, tour, tv)

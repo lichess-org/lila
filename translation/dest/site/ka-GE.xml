@@ -271,7 +271,6 @@
   <string name="playingRightNow">თამაშობს ამ დროს</string>
   <string name="eventInProgress">თამაშობს ამ დროს</string>
   <string name="finished">დამთავრებული</string>
-  <string name="finishesX">რჩება %s</string>
   <string name="abortGame">თამაშის შეწყვეტა</string>
   <string name="gameAborted">თამაში შეწყვეტილია</string>
   <string name="standard">სტანდარტი</string>
@@ -846,7 +845,6 @@
   </plurals>
   <string name="sorry">ბოდიში :(</string>
   <string name="weHadToTimeYouOutForAWhile">გარკვეული დროით უნდა შეგიჩეროთ თამაში.</string>
-  <string name="timeoutExpires">დროის ამოწურვა მთავრდება %s-ში.</string>
   <string name="why">რატომ?</string>
   <string name="pleasantChessExperience">ჩვენი მიზანია შევქმნათ სასიამოვნო გამოცდილება ჭადრაკის სათამაშოდ ყველასათვის.</string>
   <string name="goodPractice">ამიტომაც, ჩვენ უნდა დავრწმუნდეთ, რომ ყველა მოთამაშე იცავს თამაშის ეტიკეტს.</string>

@@ -339,7 +339,7 @@ object BSONHandlers:
   private[study] given (using handler: BSONHandler[Map[String, DbMember]]): BSONHandler[StudyMembers] =
     handler.as[StudyMembers](
       members =>
-        StudyMembers(members map { case (id, dbMember) =>
+        StudyMembers(members map { (id, dbMember) =>
           UserId(id) -> StudyMember(UserId(id), dbMember.role)
         }),
       _.members.view.map((id, m) => id.value -> DbMember(m.role)).toMap

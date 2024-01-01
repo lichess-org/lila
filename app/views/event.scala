@@ -108,11 +108,11 @@ object event:
                   )
                 ),
                 td(
-                  showInstantUTC(e.startsAt),
+                  showInstant(e.startsAt),
                   momentFromNow(e.startsAt)
                 ),
                 td(
-                  showInstantUTC(e.finishesAt),
+                  showInstant(e.finishesAt),
                   momentFromNow(e.finishesAt)
                 ),
                 td(a(cls := "text", href := routes.Event.show(e.id), dataIcon := licon.Eye))
@@ -170,20 +170,15 @@ object event:
         )
       ),
       form3.split(
-        form3.group(form("lang"), raw("Language"), half = true)(
-          form3.select(
-            _,
-            lila.i18n.LangList.popularNoRegion.map { l =>
-              l.code -> s"${l.language.toUpperCase} ${LangList name l}"
-            }
-          )
-        ),
+        form3.group(form("lang"), raw("Language"), half = true):
+          form3.select(_, lila.i18n.LangForm.popularLanguages.choices)
+        ,
         form3.group(
           form("hostedBy"),
           raw("Hosted by Lichess user"),
           help = raw("Username that must not be featured while the event is ongoing").some,
           half = true
-        ) { f =>
+        ): f =>
           div(cls := "complete-parent")(
             input(
               cls     := "form-control user-autocomplete",
@@ -193,7 +188,6 @@ object event:
               dataTag := "span"
             )
           )
-        }
       ),
       form3.split(
         form3.checkbox(form("enabled"), raw("Enabled"), help = raw("Display the event").some, half = true),

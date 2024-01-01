@@ -271,7 +271,6 @@
   <string name="playingRightNow">Po luhet tani</string>
   <string name="eventInProgress">Po luhet tani</string>
   <string name="finished">Përfundoi</string>
-  <string name="finishesX">përfundon %s</string>
   <string name="abortGame">Ndërprite lojën</string>
   <string name="gameAborted">Loja u ndërpre</string>
   <string name="standard">Standard</string>
@@ -738,6 +737,7 @@ loje dhe URL për ta ndarë me të tjerë.</string>
   <string name="withFriends">Me shokët</string>
   <string name="withEverybody">Me gjithkënd</string>
   <string name="kidMode">Mënyra për fëmijë</string>
+  <string name="kidModeIsEnabled">Mënyra për fëmijë është e aktivizuar.</string>
   <string name="kidModeExplanation">Kjo është për sigurinë. Nën mënyrën për fëmijë, krejt komunikimet në sajt janë të çaktivizuara. Aktivizojeni këtë për fëmijët dhe nxënësit tuaj të shkollave, për t’i mbrojtur ata nga të tjerë përdorues të internetit.</string>
   <string name="inKidModeTheLichessLogoGetsIconX">Nën mënyrën për fëmijë, stemës së Lichess-it i vihet një ikonë %s, që ta dini se fëmijët tuaj janë të parrezik.</string>
   <string name="askYourChessTeacherAboutLiftingKidMode">Llogaria juaj administrohet. Rreth heqjes së mënyrës “fëmijë” pyetni mëuesin tuaj të shahut.</string>
@@ -851,9 +851,10 @@ loje dhe URL për ta ndarë me të tjerë.</string>
     <item quantity="one">edhe ruaj %s linja premove</item>
     <item quantity="other">edhe ruaj %s linja premove</item>
   </plurals>
+  <string name="showUnreadLichessMessage">Morët një mesazh privat nga Lichess.</string>
+  <string name="clickHereToReadIt">Klikoni këtu që ta lexoni</string>
   <string name="sorry">Na ndjeni :(</string>
   <string name="weHadToTimeYouOutForAWhile">Na u desh t’ju ndalnim për ca kohë.</string>
-  <string name="timeoutExpires">Ndalesa skadon më %s.</string>
   <string name="why">Pse?</string>
   <string name="pleasantChessExperience">Synojmë të ofrojmë përvojë të këndshme me shahun për këdo.</string>
   <string name="goodPractice">Për këtë qëllim, duhet të garantojmë që krejt tarët të ndjekin praktikat e mira.</string>
