@@ -8,6 +8,8 @@ import {
   Title,
   Tooltip,
 } from 'chart.js';
+import dataLabels from 'chartjs-plugin-datalabels';
+import { fontColor, fontFamily, tooltipBgColor } from './common';
 
 declare module 'chart.js' {
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
@@ -18,16 +20,25 @@ declare module 'chart.js' {
   }
 }
 
-Chart.register(DoughnutController, ArcElement, Title, Tooltip);
+const v = {
+  server: -1,
+  network: -1,
+};
+
+Chart.register(DoughnutController, ArcElement, Tooltip, dataLabels, Title);
+Chart.defaults.font = fontFamily();
 
 export async function initModule() {
   lichess.StrongSocket.firstConnect.then(() => lichess.socket.send('moveLat', true));
   $('.meter canvas').each(function (this: HTMLCanvasElement, index) {
+    const colors = ['#55bf3b', '#dddf0d', '#df5353'];
     const dataset: ChartDataset<'doughnut'>[] = [
       {
         data: [500, 150, 100],
-        backgroundColor: ['#55bf3b', '#dddf0d', '#df5353'],
-        hoverBorderColor: 'white',
+        backgroundColor: colors,
+        hoverBackgroundColor: colors,
+        borderColor: '#d9d9d9',
+        borderWidth: 3,
         hoverBorderWidth: 4,
         circumference: 180,
         rotation: 270,
@@ -40,20 +51,32 @@ export async function initModule() {
         datasets: dataset,
       },
       options: {
+        interaction: {
+          mode: 'dataset',
+          axis: 'r',
+        },
         plugins: {
           title: {
             display: true,
-            text: (index ? 'Ping' : 'Server latency') + ' in milliseconds',
+            text: makeTitle(index, -1),
             padding: { top: 50 },
           },
           tooltip: {
+            backgroundColor: tooltipBgColor,
+            titleColor: fontColor,
+            borderColor: fontColor,
+            borderWidth: 1,
             callbacks: {
-              title: item => (item[0].dataIndex == 0 ? 'Good' : item[0].dataIndex == 1 ? 'Ok' : 'Bad'),
-              label: item => item.label,
+              title: () => (index ? `Ping: ${v.network}` : `Server Latency: ${v.server}`) + ' milliseconds',
+              label: () => '',
             },
           },
           needle: {
-            value: 0,
+            value: index ? v.network : v.server,
+          },
+          datalabels: {
+            color: 'black',
+            formatter: (_, ctx) => ctx.chart.data.labels![ctx.dataIndex],
           },
         },
       },
@@ -91,15 +114,35 @@ export async function initModule() {
     const chart = new Chart(this, config);
     if (index == 0)
       lichess.pubsub.on('socket.in.mlat', (d: number) => {
-        chart.options.plugins!.needle!.value = Math.min(750, d);
-        chart.update();
+        v.server = d;
+        chart.options.plugins!.needle!.value = Math.min(750, v.server);
+        chart.options.plugins!.title!.text! = makeTitle(index, v.server);
+        updateAnswer();
       });
     else {
       setInterval(function () {
-        const v = Math.round(lichess.socket.averageLag);
-        if (v) chart.options.plugins!.needle!.value = Math.min(750, v);
-        chart.update();
+        v.network = Math.round(lichess.socket.averageLag);
+        if (v) {
+          chart.options.plugins!.needle!.value = Math.min(750, v.network);
+          chart.options.plugins!.title!.text! = makeTitle(index, v.network);
+          updateAnswer();
+        }
       }, 1000);
     }
+    const updateAnswer = () => {
+      if (v.server === -1 || v.network === -1) return;
+      const c = v.server <= 100 && v.network <= 500 ? 'nope-nope' : v.server <= 100 ? 'nope-yep' : 'yep';
+      $('.lag .answer span')
+        .addClass('none')
+        .parent()
+        .find('.' + c)
+        .removeClass('none');
+      chart.update();
+    };
   });
 }
+
+const makeTitle = (index: number, lat: number) => [
+  (index ? 'Ping' : 'Server latency') + ' in milliseconds',
+  `${lat}`,
+];
