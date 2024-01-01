@@ -56,12 +56,12 @@
   <string name="computerAnalysis">تحليل رایانه‌ای</string>
   <string name="computerAnalysisAvailable">تحلیل رایانه‌ای موجود است</string>
   <string name="computerAnalysisDisabled">تحلیل رایانه‌ای غیرفعال شد</string>
-  <string name="analysis">تابلوی تجزیه و تحلیل</string>
+  <string name="analysis">تحلیل بازی</string>
   <string name="depthX">عمق بررسی تا %s حرکت</string>
-  <string name="usingServerAnalysis">استفاده از سرور برای تحلیل</string>
-  <string name="loadingEngine">موتور پردازش بارگذاری می‌گردد...</string>
-  <string name="calculatingMoves">محاسبه حرکت ها...</string>
-  <string name="engineFailed">مشکل در بارگذاری انجین</string>
+  <string name="usingServerAnalysis">استفاده از کارساز برای تحلیل</string>
+  <string name="loadingEngine">در حال بارگذاری پردازشگر شطرنج...</string>
+  <string name="calculatingMoves">در حال محاسبه حرکات...</string>
+  <string name="engineFailed">خطا در بارگذاری پردازشگر شطرنج</string>
   <string name="cloudAnalysis">تحلیل ابری</string>
   <string name="goDeeper">عمق و تعداد بیشتری از حرکتها را بررسی نمایید</string>
   <string name="showThreat">تهدید را نمایش بدهید</string>
@@ -109,7 +109,7 @@
   <string name="unknownDueToRounding">برد یا باخت تنها زمانی تضمین شده است که شاخه پیشنهاد شده توسط دیتابیس پس از آخرین گرفتن مهره یا حرکت پیاده اجرا شود. علت رند کردن احتمالی مقدار های DTZ در دیتابیس است.</string>
   <string name="allSet">همه چیز آماده است!</string>
   <string name="importPgn">PGN را وارد کنید</string>
-  <string name="delete">حذف نمایید</string>
+  <string name="delete">حذف</string>
   <string name="deleteThisImportedGame">آیا این بازیِ وارد شده حذف گردد؟</string>
   <string name="replayMode">سرعت بازپخش بازی</string>
   <string name="realtimeReplay">بازپخشِ بلادرنگ</string>
@@ -491,8 +491,8 @@
   <string name="nextXTournament">مسابقه ی %s بعدی:</string>
   <string name="averageOpponent">میانگین امتیاز حریف ها</string>
   <string name="boardEditor">صفحه ویرایشگر</string>
-  <string name="setTheBoard">پوزیشن را انتخاب کنید</string>
-  <string name="popularOpenings">گشایش های معروف</string>
+  <string name="setTheBoard">مهره‌ها را بچینید</string>
+  <string name="popularOpenings">گشایش‌های محبوب</string>
   <string name="endgamePositions">موقعیتهای پایان‌بخش بازی</string>
   <string name="chess960StartPosition">پوزیشن ابتدایی شطرنج960: %s</string>
   <string name="startPosition">موقعیت شروع</string>
@@ -618,7 +618,7 @@
   <string name="clock">ساعت</string>
   <string name="opponent">حریف</string>
   <string name="learnMenu">یادگیری</string>
-  <string name="studyMenu">مرور کردن</string>
+  <string name="studyMenu">مطالعه‌ها</string>
   <string name="practice">تمرین کردن</string>
   <string name="community">انجمن</string>
   <string name="tools">ابزارها</string>
@@ -650,7 +650,7 @@
   <string name="tpTimeSpentOnTV">مدت زمان سپری شده در تلویزیون: %s</string>
   <string name="watch">نگاه کردن</string>
   <string name="videoLibrary">فیلم ها</string>
-  <string name="streamersMenu">استریم کنندگان</string>
+  <string name="streamersMenu">بَرخَط-محتواسازها</string>
   <string name="mobileApp">برنامه ی موبایل</string>
   <string name="webmasters">وب مستر ها</string>
   <string name="about">درباره ما</string>
@@ -790,7 +790,7 @@
   <string name="backgroundImageUrl">لینک تصویر پس زمینه:</string>
   <string name="boardGeometry">بعد صفحه</string>
   <string name="boardTheme">تم صفحه</string>
-  <string name="boardSize">اندازه صفحه</string>
+  <string name="boardSize">اندازه صفحه بازی</string>
   <string name="pieceSet">نوع مهره</string>
   <string name="embedInYourWebsite">قرار دادن در سایت خود</string>
   <string name="usernameAlreadyUsed">این نام کاربری در حال حاضر انتخاب شده است.لطفا نام دیگری انتخاب کنید.</string>
