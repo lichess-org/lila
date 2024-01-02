@@ -5,7 +5,7 @@
   <string name="toInviteSomeoneToPlayGiveThisUrl">برای دعوت کردن حریف این لینک را برای او بفرستید</string>
   <string name="gameOver">پایان بازی</string>
   <string name="waitingForOpponent">انتطار برای حریف</string>
-  <string name="orLetYourOpponentScanQrCode">یا اجازه دهید حریف شما این QR کد را اسکن کند</string>
+  <string name="orLetYourOpponentScanQrCode">یا اجازه دهید حریف شما این QR کد را پویش کند</string>
   <string name="waiting">در حال انتظار</string>
   <string name="yourTurn">نوبت شماست</string>
   <string name="aiNameLevelAiLevel">%1$s سطح %2$s</string>
@@ -405,7 +405,7 @@
   <string name="importGame">بارگذاری بازی</string>
   <string name="importGameExplanation">در صورت بارگذاری فایل PGN،آنالیز کامپیوتری و لینک قابل به اشتراک گذاری در اختیار شما قرار خواهد گرفت.</string>
   <string name="importGameCaveat">تغییرات پاک خواهند شد. برای حفظ آنها، PGN را از طریق مطالعه وارد کنید.</string>
-  <string name="importGameDataPrivacyWarning">این PGN برای عموم در دسترس است، برای وارد کردن خصوصی یک بازی، یک مطالعه ایجاد کنید.</string>
+  <string name="importGameDataPrivacyWarning">این PGN برای عموم در دسترس است، برای وارد کردن یک بازی خصوصی، از *مطالعه* استفاده کنید.</string>
   <plurals name="nbImportedGames">
     <item quantity="one">%s بارگزاری شده</item>
     <item quantity="other">%s بارگزاری شده</item>
@@ -516,7 +516,7 @@
   <string name="socialMediaLinks">لینک های رسانه های اجتماعی</string>
   <string name="oneUrlPerLine">یک ادرس اینترنتی در هر خط.</string>
   <string name="inlineNotation">نمایش اطلاعات درون خطها</string>
-  <string name="makeAStudy">برای نگهداری مطمئن و اشتراک گذاری، ساختن یک پژوهش را در نظر بگیرید.</string>
+  <string name="makeAStudy">برای نگهداری مطمئن و اشتراک‌گذاری، ایجاد یک مطالعه را در نظر بگیرید.</string>
   <string name="clearSavedMoves">حرکت های واضح</string>
   <string name="previouslyOnLichessTV">بازی قبلی در لیچس</string>
   <string name="onlinePlayers">بازکنان آنلاین</string>
@@ -732,7 +732,7 @@
   <string name="weHaveSentYouAnEmailTo">ایمیل ارسال شد.بر روی لینک داخل ایمیل کلیک کنید تا پسورد شما ریست شود %s  به آدرس</string>
   <string name="byRegisteringYouAgreeToBeBoundByOur">ما پایبند خواهید بود %s با کلیک بر روی نام نویسی شما به</string>
   <string name="readAboutOur">درباره %s ما بخوانید.</string>
-  <string name="networkLagBetweenYouAndLichess">تاخیر شبکه بین شما و لیچس</string>
+  <string name="networkLagBetweenYouAndLichess">تاخیر شبکه بین شما و Lichess</string>
   <string name="timeToProcessAMoveOnLichessServer">زمان سپری شده برای پردازش یک حرکت</string>
   <string name="downloadAnnotated">دانلود محتوا</string>
   <string name="downloadRaw">دانلود خام</string>
@@ -862,8 +862,8 @@
     <item quantity="one">و پیش حرکت %s را حفظ کنید</item>
     <item quantity="other">و پیش حرکت های %s را حفظ کنید</item>
   </plurals>
-  <string name="showUnreadLichessMessage">شما یک پیام خصوصی از لیچس دریافت کرده‌اید.</string>
-  <string name="clickHereToReadIt">برای خواندن آنها اینجا کلیک کنید</string>
+  <string name="showUnreadLichessMessage">شما یک پیام خصوصی از Lichess دریافت کرده‌اید.</string>
+  <string name="clickHereToReadIt">برای خواندن، این را بزنید</string>
   <string name="sorry">متاسفم :(</string>
   <string name="weHadToTimeYouOutForAWhile">شما برای مدتی مسدود شدید.</string>
   <string name="why">چرا؟</string>
