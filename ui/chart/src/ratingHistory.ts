@@ -17,6 +17,8 @@ import 'chartjs-adapter-dayjs-4';
 import zoomPlugin from 'chartjs-plugin-zoom';
 import noUiSlider, { Options, PipsMode } from 'nouislider';
 import dayjs from 'dayjs';
+import duration from 'dayjs/plugin/duration';
+import dayOfYear from 'dayjs/plugin/dayOfYear';
 
 interface Opts {
   data: PerfRatingHistory[];
@@ -33,8 +35,12 @@ type ChartPerf = {
   name: string;
 };
 
+type TimeButton = 'all' | '1y' | 'YTD' | '6m' | '3m' | '1m';
+
 Chart.register(PointElement, LinearScale, TimeScale, Tooltip, LineController, LineElement, zoomPlugin);
 Chart.defaults.font = fontFamily();
+dayjs.extend(duration);
+dayjs.extend(dayOfYear);
 
 // order from RatingChartApi
 const styles: ChartPerf[] = [
@@ -67,15 +73,14 @@ export async function initModule({ data, singlePerfName }: Opts) {
     return;
   }
   const allData = makeDatasets(1, data, singlePerfName);
-  let startDate = allData.startDate;
-  const endDate = allData.endDate;
-  if (dayjs(startDate).diff(dayjs(endDate), 'D') < 1)
-    startDate = dayjs(startDate).subtract(1, 'day').valueOf();
+  let startDate = dayjs(allData.startDate);
+  const endDate = dayjs(allData.endDate);
+  if (startDate.diff(endDate, 'D') < 1) startDate = startDate.subtract(1, 'day');
   const weeklyData = makeDatasets(7, data, singlePerfName);
   const biweeklyData = makeDatasets(14, data, singlePerfName);
-  const threeMonthsAgo = dayjs(endDate).subtract(3, 'M').valueOf();
+  const threeMonthsAgo = endDate.subtract(3, 'M');
   const initial = startDate < threeMonthsAgo ? threeMonthsAgo : startDate;
-  let zoomedOut = initial == threeMonthsAgo;
+  let zoomedOut = initial.isSame(threeMonthsAgo);
   const config: ChartConfiguration<'line'> = {
     type: 'line',
     data: {
@@ -94,8 +99,8 @@ export async function initModule({ data, singlePerfName }: Opts) {
       responsive: true,
       scales: {
         x: {
-          min: initial,
-          max: endDate,
+          min: initial.valueOf(),
+          max: endDate.valueOf(),
           type: 'time',
           display: false,
           time: {
@@ -153,8 +158,8 @@ export async function initModule({ data, singlePerfName }: Opts) {
           },
           limits: {
             x: {
-              min: startDate,
-              max: endDate,
+              min: startDate.valueOf(),
+              max: endDate.valueOf(),
             },
           },
         },
@@ -174,25 +179,24 @@ export async function initModule({ data, singlePerfName }: Opts) {
   const chart = new Chart($el[0] as HTMLCanvasElement, config);
   const handlesSlider = $('#time-range-slider')[0];
   let yearPips = [];
-  for (let i = startDate; i <= endDate; i += oneDay) {
-    const date = dayjs(i);
-    if (date.date() == 1 && date.month() == 0) yearPips.push(i);
+  for (let i = startDate; i.isBefore(endDate); i = i.add(1, 'd')) {
+    if (i.date() == 1 && i.month() == 0) yearPips.push(i);
   }
   if (yearPips.length >= 7) yearPips = yearPips.filter((_, i) => i % 2 == 0);
   const opts: Options = {
-    start: [initial, endDate],
+    start: [initial.valueOf(), endDate.valueOf()],
     connect: true,
     margin: 1000 * 60 * 60 * 24 * 7,
     direction: 'ltr',
     behaviour: 'drag',
     step: oneDay * 7,
     range: {
-      min: startDate,
-      max: endDate,
+      min: startDate.valueOf(),
+      max: endDate.valueOf(),
     },
     pips: {
       mode: PipsMode.Values,
-      values: yearPips,
+      values: yearPips.map(y => y.valueOf()),
       filter: (val, tpe) => (tpe == 1 ? val : -1),
       format: {
         to: val => dayjs(val).format('YYYY'),
@@ -226,22 +230,28 @@ export async function initModule({ data, singlePerfName }: Opts) {
       slider.set([chart.scales.x.min, chart.scales.x.max]);
     });
     const timeBtn = (t: string) => `<button class = "btn-rack__btn">${t}</button>`;
-    const buttons = ['1m', '3m', '6m', 'YTD', '1y', 'all'].map(s => timeBtn(s));
-    $('.time-selector-buttons').html(buttons.join(''));
+    const buttons: { t: TimeButton; duration: duration.Duration }[] = [
+      { t: '1m', duration: dayjs.duration(1, 'months') },
+      { t: '3m', duration: dayjs.duration(3, 'months') },
+      { t: '6m', duration: dayjs.duration(6, 'months') },
+      { t: 'YTD', duration: dayjs.duration(endDate.dayOfYear(), 'd') },
+      { t: '1y', duration: dayjs.duration(1, 'y') },
+      { t: 'all', duration: dayjs.duration(endDate.diff(startDate, 'd'), 'd') },
+    ];
+    $('.time-selector-buttons').html(
+      buttons
+        .filter(b => startDate.isBefore(endDate.subtract(b.duration)) || b.t == 'all')
+        .map(b => timeBtn(b.t))
+        .join(''),
+    );
     const btnClick = (min: number) => {
       $('.time-selector-buttons .button').removeClass('active');
-      slider.set([min, endDate]);
-      chart.zoomScale('x', { min: min, max: endDate });
+      slider.set([min, endDate.valueOf()]);
+      chart.zoomScale('x', { min: min, max: endDate.valueOf() });
     };
     $('.time-selector-buttons').on('mousedown', 'button', function (this: HTMLButtonElement) {
-      let min;
-      if (this.textContent == 'all') min = dayjs(startDate);
-      if (this.textContent == '1y') min = dayjs(endDate).subtract(1, 'year');
-      if (this.textContent == 'YTD') min = dayjs(`01-01-${dayjs(endDate).year()}`, 'DD-MM-YYYY');
-      if (this.textContent == '6m') min = dayjs(endDate).subtract(6, 'months');
-      if (this.textContent == '3m') min = dayjs(endDate).subtract(3, 'months');
-      if (this.textContent == '1m') min = dayjs(endDate).subtract(1, 'months');
-      if (min) btnClick(Math.max(startDate, min.valueOf()));
+      const min = buttons.find(b => b.t == this.textContent);
+      if (min) btnClick(Math.max(startDate.valueOf(), endDate.subtract(min.duration).valueOf()));
       this.classList.add('active');
     });
   }
