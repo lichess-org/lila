@@ -14,13 +14,13 @@ export default async function initModule() {
     `Threads: ${lichess.storage.get('ceval.threads')}` +
     (logs ? `\n\n${logs}` : '');
 
-  processQueryParams();
-
+  const ops = processQueryParams();
+  const flash = ops > 0 ? `<p class="good">${ops} settings applied</p>` : '';
   const dlg = await domDialog({
     class: 'diagnostic',
     cssPath: 'diagnostic',
     htmlText:
-      `<h2>Diagnostics</h2><pre tabindex="0" class="err">${lichess.escapeHtml(text)}</pre>` +
+      `<h2>Diagnostics</h2>${flash}<pre tabindex="0" class="err">${lichess.escapeHtml(text)}</pre>` +
       '<span><button class="copy button">copy to clipboard</button>' +
       (logs
         ? '&nbsp;&nbsp;<button class="clear button button-empty button-red">clear logs</button></span>'
@@ -46,13 +46,44 @@ export default async function initModule() {
 }
 
 function processQueryParams() {
+  let changed = 0;
   for (const p of location.hash.split('?')[1]?.split('&') ?? []) {
-    const [op, value] = [p.slice(0, p.indexOf('=')), p.slice(p.indexOf('=') + 1)];
-    if (op !== 'set' || !value) continue;
-    const kvPair = atob(value).split('=');
-    if (kvPair[0] === 'pingInterval') {
-      const interval = parseInt(kvPair[1]);
-      if (interval > 249) lichess.storage.set('socket.ping.interval', `${interval}`);
-    }
+    const op = p.indexOf('=') > -1 ? p.slice(0, p.indexOf('=')) : p;
+    if (op in operations) changed += operations[op](p.slice(op.length + 1));
+    else console.error('Invalid query op', op);
   }
+  return changed;
 }
+
+const operations: { [op: string]: (val?: string) => number } = {
+  reset: (val: string) => {
+    if (!val) {
+      lichess.storage.remove('socket.ping.interval');
+      lichess.storage.remove('socket.host');
+      return 2;
+    } else if (val === 'wsPing') lichess.storage.remove('socket.ping.interval');
+    else if (val === 'wsHost') lichess.storage.remove('socket.host');
+    else return 0;
+    return 1;
+  },
+  set: (data: string) => {
+    try {
+      const kv = atob(data).split('=');
+      if (kv[0] === 'wsPing') {
+        const interval = parseInt(kv[1]);
+        if (interval > 249) {
+          lichess.storage.set('socket.ping.interval', `${interval}`);
+          return 1;
+        }
+      } else if (kv[0] === 'wsHost' && kv[1]?.length > 4) {
+        lichess.storage.set('socket.host', kv[1]);
+        return 1;
+      }
+      console.error('Invalid query set payload', kv);
+    } catch (_) {
+      //
+    }
+    console.error('Invalid base64', data);
+    return 0;
+  },
+};

@@ -334,6 +334,7 @@ export default class StrongSocket {
   };
 
   baseUrl = () => {
+    if (lichess.storage.get('socket.host')) return lichess.storage.get('socket.host'); // TODO - remove
     let url = this.storage.get();
     if (!url) {
       url = this.baseUrls[Math.floor(Math.random() * this.baseUrls.length)];
