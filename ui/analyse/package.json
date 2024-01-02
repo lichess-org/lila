@@ -29,6 +29,7 @@
     "game": "workspace:*",
     "nvui": "workspace:*",
     "prop-types": "^15.8.1",
+    "shepherd.js": "^11.2.0",
     "snabbdom": "^3.5.1",
     "tree": "workspace:*"
   },

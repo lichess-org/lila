@@ -11,7 +11,7 @@ import { StudySocketSend } from '../socket';
 import { spinnerVdom as spinner } from 'common/spinner';
 import { option } from '../view/util';
 import { ChapterData, ChapterMode, Orientation, StudyChapterMeta } from './interfaces';
-import { chapter as chapterTour } from './studyTour';
+import { chapterTour } from './studyTour';
 import { importPgn, variants as xhrVariants } from './studyXhr';
 
 export const modeChoices = [

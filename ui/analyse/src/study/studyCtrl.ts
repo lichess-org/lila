@@ -15,7 +15,7 @@ import { NotifCtrl } from './notif';
 import { StudyShare } from './studyShare';
 import { TagsForm } from './studyTags';
 import ServerEval from './serverEval';
-import * as tours from './studyTour';
+import { studyTour } from './studyTour';
 import * as xhr from './studyXhr';
 import { path as treePath } from 'tree';
 import {
@@ -239,7 +239,7 @@ export default class StudyCtrl {
   send = this.ctrl.socket.send;
   redraw = this.ctrl.redraw;
 
-  startTour = () => tours.study(this.ctrl);
+  startTour = () => studyTour(this.ctrl);
 
   setTab = (tab: Tab) => {
     this.relay?.tourShow(false);
