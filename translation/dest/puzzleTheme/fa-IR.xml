@@ -85,8 +85,8 @@
   <string name="openingDescription">تاکتیک در مرحله اول بازی.</string>
   <string name="pawnEndgame">پایان بازی با پیاده</string>
   <string name="pawnEndgameDescription">یک آخر بازی تنها با پیاده‌ها.</string>
-  <string name="pin">سنجاق کردن</string>
-  <string name="pinDescription">تاکتیک آچمز (پین)، جایی است که یک مهره مجبور است برای دفاع از یک مهره یا خانهٔ ارزشمند در جای خود میخکوب شود.</string>
+  <string name="pin">آچمزی</string>
+  <string name="pinDescription">راهکنش آچمزی، که یک مهره نمی‌تواند حرکت کند، مگر اینکه به مهره ارزشمندتر پشتش حمله می‌شود.</string>
   <string name="promotion">ترفیع</string>
   <string name="promotionDescription">یکی از پیاده های خود را به وزیر یا مهره دیگر ارتقا دهید.</string>
   <string name="queenEndgame">آخربازی وزیر</string>
@@ -103,8 +103,8 @@
   <string name="sacrificeDescription">یک تاکتیک شامل کنار از دست دادن مهره در کوتاه مدت، برای به دست آوردن مزیت دوباره پس از یک سری حرکات اجباری.</string>
   <string name="short">معمای کوتاه</string>
   <string name="shortDescription">دو حرکت تا پیروزی.</string>
-  <string name="skewer">حمله پیکانی</string>
-  <string name="skewerDescription">موتیف زمانی است که یک مهره با ارزش بالا مورد حمله قرار می گیرد تا از مسیر خارج شود، و مهره ای با ارزش کمتر که پشت آن قرار دارد گرفته شود، برعکس پین.</string>
+  <string name="skewer">سیخ‌کشی یا سیخ‌کباب</string>
+  <string name="skewerDescription">سیخ‌کشی، که به یک مهره باارزش حمله شده، به گونه‌ای جابجا می‌شود، و حالا امکان می‌دهد که مهره کم‌ارزش پشتش زده شود یا زیر ضرب قرار گیرد. برعکس آچمزی است.</string>
   <string name="smotheredMate">مات مختنق</string>
   <string name="smotheredMateDescription">ماتی که توسط یک اسب انجام می شود که در آن پادشاه قادر به حرکت نیست زیرا توسط مهره های خود احاطه شده.</string>
   <string name="superGM">بازی اَبَر استاد بزرگان</string>
