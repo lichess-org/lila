@@ -130,7 +130,7 @@ object JsonView:
       "move" -> List(
         good.copy(name = trans.goodMove.txt()),
         mistake.copy(name = trans.mistake.txt()),
-        brilliant.copy(name = trans.brilliantMove.txt()),
+        brillant.copy(name = trans.brilliantMove.txt()),
         blunder.copy(name = trans.blunder.txt()),
         interesting.copy(name = trans.interestingMove.txt()),
         dubious.copy(name = trans.dubiousMove.txt()),
