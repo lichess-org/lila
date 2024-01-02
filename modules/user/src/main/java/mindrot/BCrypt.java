@@ -435,7 +435,7 @@ public final class BCrypt {
 
   /**
    * Look up the 3 bits base64-encoded by the specified character,
-   * range-checking againt conversion table
+   * range-checking against conversion table
    * @param x the base64-encoded value
    * @return  the decoded value of x
    */
@@ -529,7 +529,7 @@ public final class BCrypt {
   }
 
   /**
-   * Cycically extract a word of key material
+   * Cyclically extract a word of key material
    * @param data  the string to extract the data from
    * @param offp  a "pointer" (as a one-entry array) to the
    * current offset into data
