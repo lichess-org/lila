@@ -67,10 +67,10 @@
   <string name="history">پیشینه معماها</string>
   <string name="solved">حل شده</string>
   <string name="failed">شکست!</string>
-  <string name="streakDescription">به تدریج معماهای پیچیده‌تری را حل کنید و یک توالی پیروزی بسازید. هیچ ساعتی در کار نیست، پس از زمان استفاده کنید. یک حرکت اشتباه لازم است تا بازی پایان یابد! اما می‌توانید در هر جلسه از یک حرکت چشم‌پوشی کنید.</string>
-  <string name="yourStreakX" comment="%s is the number of puzzles you fully solved in a run of Puzzle Streak (https://lichess.org/streak).&#10;&#10;Appears once you make a wrong move or skip a puzzle, ending your streak. There is a counter always running on the left-hand side of the page without words.">توالی شما: %s</string>
+  <string name="streakDescription">به تدریج معماهای سخت‌تری را حل کنید و یک دنباله بُرد بسازید. محدویت زمانی وجود ندارد، پس عجله نکنید. با یک حرکت اشتباه، بازی تمام می‌شود! در هر دور، می‌توانید یک حرکت را رَد کنید.</string>
+  <string name="yourStreakX" comment="%s is the number of puzzles you fully solved in a run of Puzzle Streak (https://lichess.org/streak).&#10;&#10;Appears once you make a wrong move or skip a puzzle, ending your streak. There is a counter always running on the left-hand side of the page without words.">دنباله بُردهایتان: %s</string>
   <string name="streakSkipExplanation">از این حرکت چشم‌پوشی کنید تا توالی خود را حفظ نمایید! فقط یک بار در هر اجرا کار می‌کند.</string>
-  <string name="continueTheStreak">توالی را ادامه دهید</string>
+  <string name="continueTheStreak">دنباله را ادامه دهید</string>
   <string name="newStreak">برد متوالی جدید</string>
   <string name="fromMyGames">از بازی های من</string>
   <string name="lookupOfPlayer">به دنبال معماهای برگرفته‌شده از بازی‌های یک بازیکن مشخص، بگردید</string>
