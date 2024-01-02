@@ -18,8 +18,7 @@ export async function makeCtrl(libots: Libots, zf: Zerofish): Promise<Ctrl> {
     bots: libots.bots,
     async setBot(id: string) {
       bot = libots.bots[id];
-      if (!bot.netName) throw new Error(`unknown bot ${id} or no net`);
-      if (zf.netName !== bot.netName) {
+      if (bot.netName && zf.netName !== bot.netName) {
         if (!nets.has(bot.netName)) {
           nets.set(bot.netName, await fetchNet(bot.netName));
         }

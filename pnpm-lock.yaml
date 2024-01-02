@@ -371,7 +371,7 @@ importers:
         specifier: workspace:*
         version: link:../tree
       zerofish:
-        specifier: link:/home/gamblej/ws/lichess/zerofish
+        specifier: link:/Users/gamblej/ws/lichess/zerofish
         version: link:../../../zerofish
 
   ui/lobby:

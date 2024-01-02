@@ -20,7 +20,7 @@ export class Ctrl {
   ) {
     this.loaded = lichess.asset.loadEsm<LibotCtrl>('libot').then(libot => {
       this.libot = libot;
-      this.libot.setBot('coral');
+      this.libot.setBot('babyhoward');
     });
   }
 
