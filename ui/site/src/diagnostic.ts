@@ -81,9 +81,8 @@ const operations: { [op: string]: (val?: string) => number } = {
       }
       console.error('Invalid query set payload', kv);
     } catch (_) {
-      //
+      console.error('Invalid base64', data);
     }
-    console.error('Invalid base64', data);
     return 0;
   },
 };
