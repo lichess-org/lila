@@ -28,6 +28,7 @@ type TsAndRating = { ts: number; rating: number };
 
 type ChartPerf = {
   color: string;
+  borderDash: number[];
   symbol: PointStyle;
   name: string;
 };
@@ -37,21 +38,21 @@ Chart.defaults.font = fontFamily();
 
 // order from RatingChartApi
 const styles: ChartPerf[] = [
-  { color: '#56B4E9', symbol: 'circle', name: 'Bullet' },
-  { color: '#0072B2', symbol: 'rectRot', name: 'Blitz' },
-  { color: '#009E73', symbol: 'rect', name: 'Rapid' },
-  { color: '#459f3b', symbol: 'triangle', name: 'Classical' },
-  { color: '#F0E442', symbol: 'triangle', name: 'Correspondence' },
-  { color: '#E69F00', symbol: 'circle', name: 'Chess960' },
-  { color: '#D55E00', symbol: 'rectRot', name: 'KingOfTheHill' },
-  { color: '#CC79A7', symbol: 'rect', name: 'ThreeCheck' },
-  { color: '#DF5353', symbol: 'triangle', name: 'Antichess' },
-  { color: '#66558C', symbol: 'triangle', name: 'Atomic' },
-  { color: '#99E699', symbol: 'circle', name: 'Horde' },
-  { color: '#FFAEAA', symbol: 'rectRot', name: 'RacingKings' },
-  { color: '#cc9c75', symbol: 'rectRounded', name: 'Crazyhouse' },
-  { color: '#737beb', symbol: 'triangle', name: 'Puzzle' },
-  { color: '#73eb99', symbol: 'triangle', name: 'Ultrabullet' },
+  { color: '#56B4E9', borderDash: [], symbol: 'circle', name: 'Bullet' },
+  { color: '#0072B2', borderDash: [], symbol: 'rectRot', name: 'Blitz' },
+  { color: '#009E73', borderDash: [], symbol: 'rect', name: 'Rapid' },
+  { color: '#459f3b', borderDash: [], symbol: 'triangle', name: 'Classical' },
+  { color: '#F0E442', borderDash: [3], symbol: 'triangle', name: 'Correspondence' },
+  { color: '#E69F00', borderDash: [3], symbol: 'circle', name: 'Chess960' },
+  { color: '#D55E00', borderDash: [3], symbol: 'rectRot', name: 'KingOfTheHill' },
+  { color: '#CC79A7', borderDash: [3], symbol: 'rect', name: 'ThreeCheck' },
+  { color: '#DF5353', borderDash: [3], symbol: 'triangle', name: 'Antichess' },
+  { color: '#66558C', borderDash: [3], symbol: 'triangle', name: 'Atomic' },
+  { color: '#99E699', borderDash: [10], symbol: 'circle', name: 'Horde' },
+  { color: '#FFAEAA', borderDash: [3], symbol: 'rectRot', name: 'RacingKings' },
+  { color: '#56B4E9', borderDash: [10], symbol: 'rectRounded', name: 'Crazyhouse' },
+  { color: '#0072B2', borderDash: [10], symbol: 'triangle', name: 'Puzzle' },
+  { color: '#009E73', borderDash: [10], symbol: 'triangle', name: 'Ultrabullet' },
 ];
 
 const oneDay = 24 * 60 * 60 * 1000;
@@ -66,8 +67,10 @@ export async function initModule({ data, singlePerfName }: Opts) {
     return;
   }
   const allData = makeDatasets(1, data, singlePerfName);
-  const startDate = allData.startDate;
+  let startDate = allData.startDate;
   const endDate = allData.endDate;
+  if (dayjs(startDate).diff(dayjs(endDate), 'D') < 1)
+    startDate = dayjs(startDate).subtract(1, 'day').valueOf();
   const weeklyData = makeDatasets(7, data, singlePerfName);
   const biweeklyData = makeDatasets(14, data, singlePerfName);
   const threeMonthsAgo = dayjs(endDate).subtract(3, 'M').valueOf();
@@ -170,11 +173,12 @@ export async function initModule({ data, singlePerfName }: Opts) {
   };
   const chart = new Chart($el[0] as HTMLCanvasElement, config);
   const handlesSlider = $('#time-range-slider')[0];
-  const yearPips = [];
+  let yearPips = [];
   for (let i = startDate; i <= endDate; i += oneDay) {
     const date = dayjs(i);
     if (date.date() == 1 && date.month() == 0) yearPips.push(i);
   }
+  if (yearPips.length >= 7) yearPips = yearPips.filter((_, i) => i % 2 == 0);
   const opts: Options = {
     start: [initial, endDate],
     connect: true,
@@ -221,7 +225,7 @@ export async function initModule({ data, singlePerfName }: Opts) {
     lichess.pubsub.on('chart.panning', () => {
       slider.set([chart.scales.x.min, chart.scales.x.max]);
     });
-    const timeBtn = (t: string) => `<button class = "btn-rack__btn">${t}</a>`;
+    const timeBtn = (t: string) => `<button class = "btn-rack__btn">${t}</button>`;
     const buttons = ['1m', '3m', '6m', 'YTD', '1y', 'all'].map(s => timeBtn(s));
     $('.time-selector-buttons').html(buttons.join(''));
     const btnClick = (min: number) => {
@@ -270,7 +274,7 @@ function makeDatasets(step: number, data: PerfRatingHistory[], name: string | un
       pointStyle: styles.filter(indexFilter)[i].symbol,
       borderWidth: 2,
       tension: 0,
-      borderDash: [],
+      borderDash: styles.filter(indexFilter)[i].borderDash,
       stepped: false,
       animation: false,
     };
@@ -280,6 +284,7 @@ function makeDatasets(step: number, data: PerfRatingHistory[], name: string | un
 function smoothDates(data: TsAndRating[], step: number, begin: number) {
   const oneStep = oneDay * step;
   if (!data.length) return [];
+  if (data.length == 1) return [{ x: begin, y: data[0].rating }];
 
   const end = data[data.length - 1].ts;
   const reversed = data.slice().reverse();

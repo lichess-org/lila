@@ -17,9 +17,10 @@
     margin: 120px auto 0 auto;
   }
 
-  .time-selector-buttons {
+  .time-selector-buttons button {
     display: inline-flex;
     text-transform: uppercase;
+    border: $border;
   }
 
   /* Functional styling;
