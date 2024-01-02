@@ -45,44 +45,60 @@ export default async function initModule() {
   dlg.showModal();
 }
 
+const storageProxy: { [key: string]: (val?: string) => string } = {
+  wsPing: (val?: string) => {
+    const storageKey = 'socket.ping.interval';
+    if (val === undefined) return storageKey;
+    if (parseInt(val) > 249) {
+      lichess.storage.set(storageKey, val);
+      return val;
+    }
+    return '';
+  },
+  wsHost: (val?: string) => {
+    const storageKey = 'socket.host';
+    if (val === undefined) return storageKey;
+    lichess.storage.set(storageKey, val);
+    return val;
+  },
+  forceLSFW: (val?: string) => {
+    const storageKey = 'ceval.lsfw.forceEnable';
+    if (val === undefined) return storageKey;
+    lichess.storage.set(storageKey, val);
+    return val;
+  },
+};
+
+const ops: { [op: string]: (val?: string) => number } = {
+  reset: (val: string) => {
+    if (!val) {
+      for (const key in storageProxy) lichess.storage.remove(storageProxy[key]?.());
+      return Object.keys(storageProxy).length;
+    } else if (val in storageProxy) {
+      lichess.storage.remove(storageProxy[val]?.());
+      return 1;
+    }
+    return 0;
+  },
+  set: (data: string) => {
+    let changed = 0;
+    try {
+      const kv = atob(data).split('=');
+      changed = storageProxy[kv[0]]?.(kv[1] ?? '') ? 1 : 0;
+      if (!changed) console.warn(`Invalid set payload '${data}'`, kv);
+    } catch (_) {
+      console.warn('Invalid base64', data);
+    }
+    return changed;
+  },
+};
+
 function processQueryParams() {
   let changed = 0;
   for (const p of location.hash.split('?')[1]?.split('&') ?? []) {
     const op = p.indexOf('=') > -1 ? p.slice(0, p.indexOf('=')) : p;
-    if (op in operations) changed += operations[op](p.slice(op.length + 1));
-    else console.error('Invalid query op', op);
+    if (op in ops) changed += ops[op](p.slice(op.length + 1));
+    else console.warn('Invalid query op', op);
   }
   return changed;
 }
-
-const operations: { [op: string]: (val?: string) => number } = {
-  reset: (val: string) => {
-    if (!val) {
-      lichess.storage.remove('socket.ping.interval');
-      lichess.storage.remove('socket.host');
-      return 2;
-    } else if (val === 'wsPing') lichess.storage.remove('socket.ping.interval');
-    else if (val === 'wsHost') lichess.storage.remove('socket.host');
-    else return 0;
-    return 1;
-  },
-  set: (data: string) => {
-    try {
-      const kv = atob(data).split('=');
-      if (kv[0] === 'wsPing') {
-        const interval = parseInt(kv[1]);
-        if (interval > 249) {
-          lichess.storage.set('socket.ping.interval', `${interval}`);
-          return 1;
-        }
-      } else if (kv[0] === 'wsHost' && kv[1]?.length > 4) {
-        lichess.storage.set('socket.host', kv[1]);
-        return 1;
-      }
-      console.error('Invalid query set payload', kv);
-    } catch (_) {
-      console.error('Invalid base64', data);
-    }
-    return 0;
-  },
-};
