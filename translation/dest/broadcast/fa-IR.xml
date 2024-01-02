@@ -32,13 +32,22 @@
   <string name="broadcastUrl">نشانی پخش همگانی</string>
   <string name="currentRoundUrl">نشانی دور کنونی</string>
   <string name="currentGameUrl">نشانی بازی کنونی</string>
-  <string name="downloadAllRounds">دانلود تمام بازی ها</string>
-  <string name="resetRound">بازی از اول! این دور بازی را نوسازی کنید</string>
-  <string name="deleteRound">این دور بازی را حذف نمایید</string>
-  <string name="definitivelyDeleteRound">حذف کردن دور و بازی ها.</string>
-  <string name="deleteAllGamesOfThisRound">حذف کردن تمام بازی های دور. منبع نیاز به فعال شدن برای ساخت مجدد آن ها دارد.</string>
-  <string name="editRoundStudy">ویرایش مطالعه راند</string>
-  <string name="deleteTournament">این مسابقه را حذف کن</string>
-  <string name="definitivelyDeleteTournament">به طور قطعی کل مسابقه٬ به شمول تمام دورها و تمام بازی‌ها٬ را حذف کن.</string>
-  <string name="automaticLeaderboard" comment="An option when creating a broadcast to calculate a leaderboard automatically from the players involved. Example: https://lichess.org/broadcast/2023-london-chess-classic/round-9/5icayRCY">لیدربورد خودکار</string>
+  <string name="downloadAllRounds">بارگیری همه دورها</string>
+  <string name="resetRound">ازنوکردن این دور</string>
+  <string name="deleteRound">حذف این دور</string>
+  <string name="definitivelyDeleteRound">این دور و همه بازی‌هایش را به طور کامل حذف کن.</string>
+  <string name="deleteAllGamesOfThisRound">همه بازی‌های این دور را حذف کن. منبع باید فعال باشد تا بتوان آنها را دوباره ایجاد کرد.</string>
+  <string name="editRoundStudy">ویرایش مطالعه دور</string>
+  <string name="deleteTournament">حذف این مسابقات</string>
+  <string name="definitivelyDeleteTournament">کل مسابقات، شامل همه دورها و بازی‌هایش را به طور کامل حذف کن.</string>
+  <string name="automaticLeaderboard" comment="An option when creating a broadcast to calculate a leaderboard automatically from the players involved. Example: https://lichess.org/broadcast/2023-london-chess-classic/round-9/5icayRCY">جدول رده‌بندی خودکار</string>
+  <string name="automaticLeaderboardHelp" comment="An option when creating a broadcast to calculate a leaderboard automatically from the players involved. Example: https://lichess.org/broadcast/2023-london-chess-classic/round-9/5icayRCY">یک جدول رده‌بندی ساده را بر اساس نتایج بازی‌ها حساب کن و نمایش بده</string>
+  <string name="replace">اختیاری: عوض کردن نام، درجه‌بندی و عنوان بازیکنان</string>
+  <string name="replaceHelp">یک خط برای هر بازیکن، به این صورت قالب‌بندی شده:
+نام اصلی؛ نام جایگزین؛ اختیاری-درجه‌بندی جایگزین؛ اختیاری-عنوان جایگزین
+مثال:
+دکترنیک‌سرشت؛مگنس کارلسن؛2863
+آنیش‌گیری؛آنیش گیری؛2764؛اُب</string>
+  <string name="periodInSeconds">مدت در واحد ثانیه</string>
+  <string name="periodInSecondsHelp">اختیاری است، چه مدت باید بین درخواست‌ها صبر کرد. حداقل 2 ثانیه، حداکثر 60 ثانیه. بر اساس تعداد بینندگان، پیشفرض‌ها، به صورت خودکار مقدار می‌گیرند.</string>
 </resources>
