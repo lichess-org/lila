@@ -245,7 +245,7 @@ export default class StudyCtrl {
       lichess.asset.loadCssPath('shepherd'),
     ]);
 
-    tour.studyTour(this.ctrl);
+    tour.study(this.ctrl);
   };
 
   setTab = (tab: Tab) => {

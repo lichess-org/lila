@@ -1,11 +1,11 @@
 import AnalyseCtrl from '../ctrl';
 import Shepherd from 'shepherd.js';
-import { Tab } from '../study/interfaces';
+import { StudyTour, Tab } from '../study/interfaces';
 
-export function initModule() {
+export function initModule(): StudyTour {
   return {
-    studyTour,
-    chapterTour,
+    study,
+    chapter,
   };
 
   function forceLtr(s: Shepherd.Step.StepOptions): Shepherd.Step.StepOptions {
@@ -13,7 +13,7 @@ export function initModule() {
     return s;
   }
 
-  function studyTour(ctrl: AnalyseCtrl) {
+  function study(ctrl: AnalyseCtrl) {
     if (ctrl.study?.data.chapter.gamebook) {
       return;
     }
@@ -161,7 +161,7 @@ export function initModule() {
     lichess.pubsub.on('analyse.close-all', tour.cancel);
   }
 
-  function chapterTour(setTab: (tab: string) => void) {
+  function chapter(setTab: (tab: string) => void) {
     const viewSel = 'dialog div.dialog-content';
 
     const tour = new Shepherd.Tour({

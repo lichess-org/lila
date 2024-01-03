@@ -11,8 +11,8 @@ export type RelayTab = 'overview' | 'schedule' | 'leaderboard';
 export type Visibility = 'public' | 'unlisted' | 'private';
 
 export interface StudyTour {
-  studyTour(ctrl: AnalyseCtrl): void;
-  chapterTour(cb: (tab: Tab) => void): void;
+  study(ctrl: AnalyseCtrl): void;
+  chapter(cb: (tab: string) => void): void;
 }
 
 export interface StudyVm {

@@ -77,7 +77,7 @@ export class StudyChapterNewForm {
       lichess.asset.loadCssPath('shepherd'),
     ]);
 
-    tour.chapterTour(tab => {
+    tour.chapter(tab => {
       this.tab(tab);
       this.redraw();
     });
