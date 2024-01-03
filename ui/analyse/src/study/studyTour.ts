@@ -15,7 +15,7 @@ export function studyTour(ctrl: AnalyseCtrl) {
   const helpButtonSelector = 'main.analyse .study__buttons .help';
   if (!$(helpButtonSelector).length) return;
 
-  lichess.asset.loadCss('vendor/shepherd.css');
+  lichess.asset.loadCssPath('shepherd');
 
   const tour = new Shepherd.Tour({
     defaultStepOptions: {
@@ -158,7 +158,7 @@ export function studyTour(ctrl: AnalyseCtrl) {
 }
 
 export const chapterTour = (setTab: (tab: string) => void) => {
-  lichess.asset.loadCss('vendor/shepherd.css');
+  lichess.asset.loadCssPath('shepherd');
 
   const viewSel = 'dialog div.dialog-content';
 
