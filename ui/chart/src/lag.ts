@@ -61,7 +61,6 @@ export async function initModule() {
             display: true,
             text: '',
             padding: { top: 100 },
-
           },
           tooltip: {
             backgroundColor: tooltipBgColor,
