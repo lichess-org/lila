@@ -9,7 +9,7 @@ import {
   Tooltip,
 } from 'chart.js';
 import dataLabels from 'chartjs-plugin-datalabels';
-import { fontColor, fontFamily, tooltipBgColor } from './common';
+import { fontColor, fontFamily, tooltipBgColor, resizePolyfill } from './common';
 
 declare module 'chart.js' {
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
@@ -20,13 +20,14 @@ declare module 'chart.js' {
   }
 }
 
+resizePolyfill();
+Chart.register(DoughnutController, ArcElement, Tooltip, dataLabels, Title);
+Chart.defaults.font = fontFamily();
+
 const v = {
   server: -1,
   network: -1,
 };
-
-Chart.register(DoughnutController, ArcElement, Tooltip, dataLabels, Title);
-Chart.defaults.font = fontFamily();
 
 export async function initModule() {
   lichess.StrongSocket.firstConnect.then(() => lichess.socket.send('moveLat', true));
@@ -58,8 +59,9 @@ export async function initModule() {
         plugins: {
           title: {
             display: true,
-            text: makeTitle(index, -1),
-            padding: { top: 50 },
+            text: '',
+            padding: { top: 100 },
+
           },
           tooltip: {
             backgroundColor: tooltipBgColor,
@@ -67,7 +69,12 @@ export async function initModule() {
             borderColor: fontColor,
             borderWidth: 1,
             callbacks: {
-              title: () => (index ? `Ping: ${v.network}` : `Server Latency: ${v.server}`) + ' milliseconds',
+              title: () => {
+                const lat = index ? v.network : v.server;
+                const text = index ? 'Ping:' : 'Server Latency:';
+                if (lat <= 0) return '';
+                return `${text} ${lat}` + ' milliseconds';
+              },
               label: () => '',
             },
           },
@@ -115,6 +122,7 @@ export async function initModule() {
     if (index == 0)
       lichess.pubsub.on('socket.in.mlat', (d: number) => {
         v.server = d;
+        if (v.server <= 0) return;
         chart.options.plugins!.needle!.value = Math.min(750, v.server);
         chart.options.plugins!.title!.text! = makeTitle(index, v.server);
         updateAnswer();
@@ -122,11 +130,10 @@ export async function initModule() {
     else {
       setInterval(function () {
         v.network = Math.round(lichess.socket.averageLag);
-        if (v) {
-          chart.options.plugins!.needle!.value = Math.min(750, v.network);
-          chart.options.plugins!.title!.text! = makeTitle(index, v.network);
-          updateAnswer();
-        }
+        if (v.network <= 0) return;
+        chart.options.plugins!.needle!.value = Math.min(750, v.network);
+        chart.options.plugins!.title!.text! = makeTitle(index, v.network);
+        updateAnswer();
       }, 1000);
     }
     const updateAnswer = () => {
