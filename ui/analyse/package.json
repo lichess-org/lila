@@ -44,7 +44,8 @@
         "src/main.ts": "analysisBoard",
         "src/plugins/studyMain.ts": "analysisBoard.study",
         "src/plugins/nvui.ts": "analysisBoard.nvui",
-        "src/plugins/studyTopicForm.ts": "study.topic.form"
+        "src/plugins/studyTopicForm.ts": "study.topic.form",
+        "src/plugins/studyTour.ts": "study.tour"
       }
     }
   }

@@ -15,7 +15,6 @@ import { NotifCtrl } from './notif';
 import { StudyShare } from './studyShare';
 import { TagsForm } from './studyTags';
 import ServerEval from './serverEval';
-import { studyTour } from './studyTour';
 import * as xhr from './studyXhr';
 import { path as treePath } from 'tree';
 import {
@@ -33,6 +32,7 @@ import {
   WithPosition,
   TagArray,
   StudyChapterRelay,
+  StudyTour,
 } from './interfaces';
 import GamebookPlayCtrl from './gamebook/gamebookPlayCtrl';
 import { DescriptionCtrl } from './description';
@@ -239,7 +239,11 @@ export default class StudyCtrl {
   send = this.ctrl.socket.send;
   redraw = this.ctrl.redraw;
 
-  startTour = () => studyTour(this.ctrl);
+  startTour = async () => {
+    lichess.asset.loadCssPath('shepherd');
+    const tour = await lichess.asset.loadEsm<StudyTour>('study.tour');
+    tour.studyTour(this.ctrl);
+  };
 
   setTab = (tab: Tab) => {
     this.relay?.tourShow(false);

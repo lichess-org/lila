@@ -3,11 +3,17 @@ import { Prop } from 'common';
 import { AnalyseData } from '../interfaces';
 import { GamebookOverride } from './gamebook/interfaces';
 import { Opening } from '../explorer/interfaces';
+import AnalyseCtrl from '../ctrl';
 
 export type Tab = 'intro' | 'members' | 'chapters';
 export type ToolTab = 'tags' | 'comments' | 'glyphs' | 'serverEval' | 'share' | 'multiBoard';
 export type RelayTab = 'overview' | 'schedule' | 'leaderboard';
 export type Visibility = 'public' | 'unlisted' | 'private';
+
+export interface StudyTour {
+  studyTour(ctrl: AnalyseCtrl): void;
+  chapterTour(cb: (tab: Tab) => void): void;
+}
 
 export interface StudyVm {
   loading: boolean;
