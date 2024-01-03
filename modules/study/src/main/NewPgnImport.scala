@@ -77,36 +77,32 @@ object NewPgnImport:
             )
     }
 
-  case class Context(game: chess.Game, path: UciPath)
-
   private def makeTree(
       setup: chess.Game,
       node: ParsedPgnTree,
       annotator: Option[Comment.Author]
   ): Option[PgnNode[NewBranch]] =
-    node.mapAccumlOption_(Context(setup, UciPath.root)): (context, data) =>
+    node.mapAccumlOption_(setup): (setup, data) =>
       transform(context, data, annotator)
 
   private def transform(
-      context: Context,
+      context: chess.Game,
       data: PgnNodeData,
       annotator: Option[Comment.Author]
   ): (Context, Option[NewBranch]) =
     data
-      .san(context.game.situation)
+      .san(context.situation)
       .map(moveOrDrop =>
-        val game   = moveOrDrop.applyGame(context.game)
+        val game   = moveOrDrop.applyGame(context)
         val uci    = moveOrDrop.toUci
         val id     = UciCharPair(uci)
-        val path   = context.path + id
         val sanStr = moveOrDrop.toSanStr
         (
-          Context(game, path),
+          game,
           PgnImport.parseComments(data.metas.comments, annotator) match
             case (shapes, clock, comments) =>
               NewBranch(
                 id = id,
-                path = path,
                 move = Uci.WithSan(uci, sanStr),
                 comp = false,
                 forceVariation = false,

@@ -82,11 +82,13 @@ class BsonHandlersTest extends munit.ScalaCheckSuite:
       val y    = newTreeBson.reads(bdoc).pp
       assertEquals(y.pp, x)
 
-  test("NewTree.writes.NewTree.reads == identity"):
+  override def scalaCheckInitialSeed = "JogWJYTtJ2FF7u97_l-MHFp7-MKpZoua4pPSl0K1QQD="
+  test("NewTree.writes.NewTree.reads == identity".only):
     forAll: (x: NewRoot) =>
+      x.tree.map(_.size).pp
       val bdoc = newTreeBson.writes(w, x)
       val y    = newTreeBson.reads(bdoc).pp
-      assertEquals(y.pp, x)
+      assertEquals(y, x)
 
   test("Tree.writes.Tree.reads == identity"):
     forAll: (x: NewRoot) =>

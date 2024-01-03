@@ -139,7 +139,7 @@ final class NewChapterRepo(val coll: AsyncColl)(using Executor, akka.stream.Mate
   private def subTreeToBsonElements(parentPath: UciPath, subTree: NewTree): List[(String, Bdoc)] =
     (parentPath.depth < Node.MAX_PLIES) so {
       val path = parentPath + subTree.id
-      List(path.toDbField -> writeNewBranch(subTree.value, None))
+      List(path.toDbField -> writeNewBranch(subTree.value, None)) // TODO fix order
     }
 
   private def setNodeValue[A: BSONWriter](

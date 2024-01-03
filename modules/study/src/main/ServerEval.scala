@@ -165,7 +165,6 @@ object ServerEval:
     private def makeNewBranch(g: chess.Game, m: Uci.WithSan): NewBranch =
       NewBranch(
         id = UciCharPair(m.uci),
-        path = UciPath.root,
         move = m,
         forceVariation = false,
         metas = Metas(

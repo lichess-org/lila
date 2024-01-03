@@ -79,7 +79,7 @@ private object StudyFlatTree:
     def newRootChildren(root: NewRoot): List[(String, Bdoc)] =
       Chronometer.syncMon(_.study.tree.write):
         root.tree.so:
-          _.foldLeft(List.empty)((acc, branch) => acc :+ writeBranch_(branch))
+          _.foldLeft(List.empty)((acc, branch) => acc +: writeBranch_(branch))
 
     // TODO: order should be a list of ids of the children & variations
     private def writeBranch_(branch: NewBranch): (String, BSONDocument) =

@@ -59,7 +59,6 @@ case class AnaMove(
             val fen     = chess.format.Fen write game
             NewBranch(
               id = UciCharPair(uci),
-              path = UciPath.root,
               move = Uci.WithSan(uci, san),
               metas = Metas(
                 ply = game.ply,
