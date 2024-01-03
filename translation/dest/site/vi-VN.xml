@@ -86,7 +86,7 @@
   <string name="whiteDrawBlack">Trắng / Hòa / Đen</string>
   <string name="averageRatingX">Xếp loại bình quân: %s</string>
   <string name="recentGames">Các ván cờ gần đây</string>
-  <string name="topGames">Các ván cờ hàng đầu</string>
+  <string name="topGames">Các ván đấu hàng đầu</string>
   <string name="masterDbExplanation">Các ván đấu OTB của các kỳ thủ có hệ số Elo %1$s+ do FIDE xếp hạng từ năm %2$s đến %3$s</string>
   <plurals name="mateInXHalfMoves">
     <item quantity="other">Chiếu hết trong %s nước</item>
@@ -561,7 +561,7 @@ trò chuyện trong ván đấu và có một URL có thể chia sẻ công khai
   <string name="onSlowGames">Chỉ khi chơi cờ chậm</string>
   <string name="always">Luôn luôn</string>
   <string name="never">Không bao giờ</string>
-  <string name="xCompetesInY">%1$s đã tham gia %2$s</string>
+  <string name="xCompetesInY">%1$s thi đấu ở %2$s</string>
   <string name="victory">Chiến thắng</string>
   <string name="defeat">Thua</string>
   <string name="victoryVsYInZ">%1$s %2$s trong %3$s</string>
