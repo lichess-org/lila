@@ -72,8 +72,10 @@ export class StudyChapterNewForm {
     this.setTab();
   };
   startTour = async () => {
-    lichess.asset.loadCssPath('shepherd');
-    const tour = await lichess.asset.loadEsm<StudyTour>('study.tour');
+    const [tour] = await Promise.all([
+      lichess.asset.loadEsm<StudyTour>('study.tour'),
+      lichess.asset.loadCssPath('shepherd'),
+    ]);
 
     tour.chapterTour(tab => {
       this.tab(tab);

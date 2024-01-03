@@ -240,8 +240,11 @@ export default class StudyCtrl {
   redraw = this.ctrl.redraw;
 
   startTour = async () => {
-    lichess.asset.loadCssPath('shepherd');
-    const tour = await lichess.asset.loadEsm<StudyTour>('study.tour');
+    const [tour] = await Promise.all([
+      lichess.asset.loadEsm<StudyTour>('study.tour'),
+      lichess.asset.loadCssPath('shepherd'),
+    ]);
+
     tour.studyTour(this.ctrl);
   };
 
