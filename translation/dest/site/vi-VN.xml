@@ -327,8 +327,7 @@
     <item quantity="other">%s nghiên cứu</item>
   </plurals>
   <plurals name="nbSimuls">
-    <item quantity="other">Chủ Trì %s
-Sự Kiện Cờ Đồng Loạt</item>
+    <item quantity="other">%s Sự Kiện Cờ Đồng Loạt</item>
   </plurals>
   <string name="viewTournament">Xem giải đấu</string>
   <string name="backToTournament">Quay lại giải đấu</string>
@@ -356,7 +355,7 @@ Sự Kiện Cờ Đồng Loạt</item>
   <string name="youAreNotInTeam">Bạn không ở trong đội %s</string>
   <string name="backToGame">Quay lại ván đấu</string>
   <string name="siteDescription">Chơi cờ vua trực tuyến miễn phí. Chơi cờ vua với giao diện đẹp. Không cần đăng ký, không có quảng cáo, không yêu cầu plugin. Chơi cờ vua với máy tính, bạn bè hoặc đối thủ ngẫu nhiên.</string>
-  <string name="xJoinedTeamY">%1$s đã tham gia đội %2$s</string>
+  <string name="xJoinedTeamY">%1$s đã gia nhập đội %2$s</string>
   <string name="xCreatedTeamY">%1$s đã tạo đội %2$s</string>
   <string name="startedStreaming">đã bắt đầu phát trực tiếp</string>
   <string name="xStartedStreaming">%s đã bắt đầu phát trực tiếp</string>
@@ -868,7 +867,7 @@ trò chuyện trong ván đấu và có một URL có thể chia sẻ công khai
   <string name="thisTopicIsArchived">Đề tài này đã bị đóng nên bạn không thể bình luận nữa.</string>
   <string name="joinTheTeamXToPost">Gia nhập %1$s để đăng trong diễn đàn này</string>
   <string name="teamNamedX">Đội %1$s</string>
-  <string name="youCannotPostYetPlaySomeGames">Bạn bây giờ chưa thể đăng bài lên diễn đàn được. Hãy chơi vài ván đã!</string>
+  <string name="youCannotPostYetPlaySomeGames">Bạn chưa thể đăng bài lên diễn đàn bây giờ. Hãy chơi vài ván đã!</string>
   <string name="subscribe">Đăng kí</string>
   <string name="unsubscribe">Hủy đăng ký</string>
   <string name="mentionedYouInX">đã nhắc đến bạn trong \"%1$s\".</string>
