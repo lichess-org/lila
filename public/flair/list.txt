@@ -434,7 +434,6 @@ nature.wing
 nature.wolf
 nature.wood
 nature.worm
-nature.xmas-tree
 nature.zebra
 objects.abacus
 objects.accordion
@@ -728,9 +727,6 @@ objects.womans-clothes
 objects.womans-hat
 objects.womans-sandal
 objects.wrench
-objects.xmas-bell
-objects.xmas-candle
-objects.xmas-hat
 objects.x-ray
 objects.yarn
 objects.yen-banknote
