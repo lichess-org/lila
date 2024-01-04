@@ -1,6 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="voiceCommands">Голосові команди</string>
+  <string name="watchTheVideoTutorial">Переглянути відеотуторіал</string>
+  <string name="moveToE4OrSelectE4Piece">Зробити хід на e4 або обрати фігуру на e4</string>
+  <string name="selectOrCaptureABishop">Обрати чи взяти слона</string>
+  <string name="takeRookWithQueen">Узяти туру ферзем</string>
+  <string name="castle">Рокіруватися (у будь-який бік)</string>
   <string name="phoneticAlphabetIsBest">Фонетичний алфавіт найкращий</string>
   <string name="turnOffVoiceRecognition">Вимкнути розпізнавання голосу</string>
 </resources>
