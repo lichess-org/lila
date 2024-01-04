@@ -6,6 +6,11 @@ import lila.challenge.Challenge.Status
 import lila.common.LightUser
 
 import controllers.routes
+import org.checkerframework.checker.units.qual.t
+import lila.challenge.Challenge.TimeControl.Unlimited
+import lila.challenge.Challenge.TimeControl.Correspondence
+import lila.challenge.Challenge.TimeControl.Clock
+import lila.insight.InsightEntry.BSONFields.userId
 
 object mine:
 
@@ -28,6 +33,10 @@ object mine:
       moreCss = cssTag("challenge.page")
     ):
       val challengeLink = s"$netBaseUrl${routes.Round.watcher(c.id, "white")}"
+      val isCorrespondence = c.timeControl match
+        case Unlimited            => true
+        case Correspondence(days) => true
+        case Clock(config)        => false
       main(cls := s"page-small challenge-page box box-pad challenge--${c.status.name}")(
         c.status match
           case Status.Created | Status.Offline =>
@@ -39,13 +48,17 @@ object mine:
               c.destUserId.map { destId =>
                 div(cls := "waiting")(
                   userIdLink(destId.some, cssClass = "target".some),
-                  spinner,
+                  if isCorrespondence then
+                    p(trans.challengeSent(), br, trans.challengeCanBeCanceledInSwordMenu())
+                  else spinner,
                   p(trans.waitingForOpponent())
                 )
               } getOrElse {
                 if c.isOpen then
                   div(cls := "waiting")(
-                    spinner,
+                    if isCorrespondence then
+                      p(trans.challengeSent(), br, trans.challengeCanBeCanceledInSwordMenu())
+                    else spinner,
                     p(trans.waitingForOpponent())
                   )
                 else
