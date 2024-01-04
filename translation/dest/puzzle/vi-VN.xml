@@ -2,7 +2,7 @@
 <resources>
   <string name="puzzles">Câu đố</string>
   <string name="puzzleThemes">Chủ đề câu đố</string>
-  <string name="recommended">Đề xuất</string>
+  <string name="recommended">Được đề xuất</string>
   <string name="phases">Giai đoạn</string>
   <string name="motifs">Các mô-típ</string>
   <string name="advanced">Nâng cao</string>

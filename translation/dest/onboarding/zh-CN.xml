@@ -4,4 +4,8 @@
   <string name="welcomeToLichess">欢迎来到 lichess.org。</string>
   <string name="thisIsYourProfilePage">这是你的个人资料页面。</string>
   <string name="enabledKidModeSuggestion" comment="%s is 'Kid mode'.">未成年人会使用此帐户吗？您可能想要启用 %s。</string>
+  <string name="playInTournaments">参与锦标赛</string>
+  <string name="learnFromXAndY">从%1$s与%2$s中学习</string>
+  <string name="configureLichess">根据您的喜好配置lichess</string>
+  <string name="exploreTheSiteAndHaveFun">探索这个网站，好好玩吧:)</string>
 </resources>

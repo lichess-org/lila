@@ -150,19 +150,19 @@ La icona vermella de silenci apareix quan el teu navegador impedeix que lichess.
 
 Mostrem la icona vermella per a avisar-te quan això ocorre. Sovint pots permetre que lichess.org reprodueixi sons explícitament. Aqui tens instruccions per a fer-ho en versions recents d\'alguns navegadors populars.</string>
   <string name="desktop">escriptori</string>
-  <string name="enableAutoplayForSoundsFirefox" comment="Guidance for Mozilla Firefox users on how to enable audio auto-play if they have sound issues.&#10;&#10;Please keep 'i' lowercase, for two reasons:&#10;1. Capital L and capital I are hard to differentiate for users.&#10;2. So users don't press Ctrl+Shift+I to get a capital I. This is a different shortcut in the browser.">1. Entreu a lichess.org
+  <string name="enableAutoplayForSoundsFirefox">1. Entreu a lichess.org
 2. Premeu Ctrl-i en Linux/Windows o cmd-i en MacOS
 3. Cliqueu la pestanya de permisos
 4. Permeteu àudio i vídeo a lichess.org</string>
-  <string name="enableAutoplayForSoundsChrome" comment="Guidance for Google Chrome users on how to enable audio auto-play if they have sound issues.">1. Entreu a lichess.org
+  <string name="enableAutoplayForSoundsChrome">1. Entreu a lichess.org
 2. Cliqueu la icona del cadenat a la barra d\'adreces
 3. Aneu a la configuració de lloc
 4. Permeteu l\'àudio</string>
-  <string name="enableAutoplayForSoundsSafari" comment="Guidance for Apple Safari users on how to enable audio auto-play if they have sound issues.">1. Entreu a lichess.org
+  <string name="enableAutoplayForSoundsSafari">1. Entreu a lichess.org
 2. Cliqueu a Safari a la barra de tasques
 3. Aneu a la Configuració per a lichess.org ... 
 4. Permeteu la reproducció automàtica</string>
-  <string name="enableAutoplayForSoundsMicrosoftEdge" comment="Guidance for Microsoft Edge users on desktop, for how to enable audio auto-play if they have sound issues.">1. Cliqueu els tres punts de la cantonada superior dreta
+  <string name="enableAutoplayForSoundsMicrosoftEdge">1. Cliqueu els tres punts de la cantonada superior dreta
 2. Cliqueu Configuració
 3. Cliqueu Galetes i Permisos del lloc
 4. Desplaceu-se cap avall i cliqueu Reproducció automàtica de contingut multimèdia

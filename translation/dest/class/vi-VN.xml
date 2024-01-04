@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="lichessClasses">Lớp học</string>
-  <string name="teachClassesOfChessStudents">Dạy các lớp học sinh chơi cờ với bộ công cụ Lớp học Lichess.</string>
+  <string name="teachClassesOfChessStudents">Dạy các lớp học viên chơi cờ với bộ công cụ Lớp học Lichess.</string>
   <string name="features">Tính năng</string>
   <string name="quicklyGenerateSafeUsernames">Tạo nhanh tên người dùng và mật khẩu an toàn cho các học viên</string>
   <string name="trackStudentProgress">Theo dõi sự tiến bộ của học viên trong các ván đấu và giải đố</string>
@@ -21,7 +21,7 @@
   <string name="aLinkToTheClassWillBeAdded">Một liên kết đến lớp sẽ được tự động thêm vào cuối tin nhắn, vì vậy bạn không cần phải tự đưa nó vào.</string>
   <string name="className">Tên lớp</string>
   <string name="classDescription">Mô tả lớp</string>
-  <string name="visibleByBothStudentsAndTeachers">Có thể xem bởi cả giáo viên và học sinh của lớp</string>
+  <string name="visibleByBothStudentsAndTeachers">Có thể xem bởi cả giáo viên và học viên của lớp</string>
   <string name="teachersOfTheClass">Giáo viên của lớp</string>
   <string name="addLichessUsernames">Thêm tên người dùng Lichess để mời họ làm giáo viên. Mỗi người một dòng.</string>
   <string name="resetPassword">Đặt lại mật khẩu</string>
@@ -46,7 +46,7 @@ Mật khẩu: %3$s</string>
   <string name="createDesc2">Không yêu cầu địa chỉ email. Một mật khẩu sẽ được tạo và bạn sẽ phải gửi nó cho học viên để họ có thể đăng nhập.</string>
   <string name="createDesc3">Quan trọng: một học viên không được có nhiều tài khoản.</string>
   <string name="createDesc4">Nếu họ đã có, hãy sử dụng biểu mẫu mời thay thế.</string>
-  <string name="createStudentWarning">Chỉ được tạo tài khoản cho học sinh có thật. Không được lợi dụng để tạo nhiều tài khoản cho bản thân. Bạn sẽ bị ban.</string>
+  <string name="createStudentWarning">Chỉ được tạo tài khoản cho học viên có thật. Không được lợi dụng để tạo nhiều tài khoản cho bản thân. Bạn sẽ bị cấm.</string>
   <string name="lichessUsername">Tên người dùng Lichess</string>
   <string name="generateANewUsername">Gợi ý tạo một tên người dùng mới</string>
   <string name="welcomeToClass">Chào mừng đến với lớp học của bạn: %s.
@@ -68,8 +68,8 @@ Mật khẩu: %3$s</string>
   <string name="realUniqueEmail">Địa chỉ email thực, duy nhất của học viên. Chúng tôi sẽ gửi email xác nhận tới đó, kèm theo liên kết để giải phóng tài khoản.</string>
   <string name="closeStudent">Đóng tài khoản</string>
   <string name="closeTheAccount">Đóng hẳn tài khoản của học trò.</string>
-  <string name="closeDesc1">Học sinh sẽ không bao giờ dùng được tài khoản này. Tài khoản đã bị khóa. Đảm bảo học sinh hiểu và đồng ý.</string>
-  <string name="closeDesc2">Có thể bạn sẽ muốn cho phép học sinh kiểm soát tài khoản thay bạn, sau đó chúng có thể tiếp tục sử dụng nó.</string>
+  <string name="closeDesc1">Học viên sẽ không bao giờ dùng được tài khoản này. Tài khoản đã bị khóa. Đảm bảo học viên hiểu và đồng ý.</string>
+  <string name="closeDesc2">Có thể bạn sẽ muốn cho phép học viên kiểm soát tài khoản thay bạn, sau đó chúng có thể tiếp tục sử dụng nó.</string>
   <string name="teachers">Giáo viên</string>
   <plurals name="nbTeachers">
     <item quantity="other">%s giáo viên</item>
@@ -101,12 +101,12 @@ Mật khẩu: %3$s</string>
   <string name="youDeclinedThisInvitation">Bạn đã từ chối lời mời.</string>
   <string name="orSeparator" comment="Used as separator between invite sections. Shown as large '~ or ~'.">hoặc</string>
   <string name="createMultipleAccounts">Tạo nhiều tài khoản Lichess cùng lúc</string>
-  <string name="multipleAccsFormDescription" comment="%s is a link and will be replaced with the translation of useThisForm. Make sure both strings fit together.">Bạn cũng có thể %s để tạo nhiều tài khoản Lichess từ một danh sách chứa tên các học sinh.</string>
+  <string name="multipleAccsFormDescription" comment="%s is a link and will be replaced with the translation of useThisForm. Make sure both strings fit together.">Bạn cũng có thể %s để tạo nhiều tài khoản Lichess từ một danh sách chứa tên các học viên.</string>
   <string name="useThisForm" comment="Link text in multipleAccsFromDescription">dùng biểu mẫu này</string>
-  <string name="maxStudentsNote" comment="%1$s will be replaced with a large number (currently 100).\n%2$s is a link and will be replaced with the translation of createMoreClasses. Make sure both strings fit together.">Chú ý rằng một lớp học chỉ có thể có tối đa %1$s học sinh. Để quản lý nhiều học sinh hơn, %2$s.</string>
+  <string name="maxStudentsNote" comment="%1$s will be replaced with a large number (currently 100).\n%2$s is a link and will be replaced with the translation of createMoreClasses. Make sure both strings fit together.">Chú ý rằng một lớp học chỉ có thể có tối đa %1$s học viên. Để quản lý nhiều học viên hơn, %2$s.</string>
   <string name="createMoreClasses" comment="Link text in maxStudentsNote">hãy tạo nhiều lớp học</string>
-  <string name="studentsRealNamesOnePerLine">Tên thật của học các học sinh, mỗi dòng một tên</string>
-  <string name="xisNowAStudentOfTheClass">%s bây giờ đã là học sinh của lớp học</string>
+  <string name="studentsRealNamesOnePerLine">Tên thật của các học viên, mỗi tên một dòng</string>
+  <string name="xisNowAStudentOfTheClass">%s bây giờ là một học viên của lớp</string>
   <string name="anInvitationHasBeenSentToX">Một lời mời đã được gửi tới %s</string>
   <string name="xAlreadyHasAPendingInvitation">%s đang có một lời mời chưa trả lời</string>
   <string name="xIsAKidAccountWarning">%1$s là một tài khoản trẻ em và không thể nhận tin nhắn từ bạn. Bạn phải gửi lời mời thông qua URL: %2$s</string>

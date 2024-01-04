@@ -56,7 +56,7 @@ export function maybeChart(el: HTMLCanvasElement): Chart | undefined {
   return undefined;
 }
 
-/**  Instead of using the annotation plugin, create a dataset to plot as a pseudo-annontation
+/**  Instead of using the annotation plugin, create a dataset to plot as a pseudo-annotation
  *  @returns a vertical line from {ply,-1.05} to {ply,+1.05}.
  * */
 export function plyLine(ply: number, mainline = true): ChartDataset<'line'> {

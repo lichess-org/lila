@@ -150,11 +150,11 @@ Kun selaimesi estää lichess.org-sivun äänten toiston, näytetään punainen 
 
 Tällöin sinulle ilmoitetaan asiasta näyttämällä punainen kuvake. Usein voit nimenomaisesti sallia sen, että lichess.org toistaa äänet. Ohessa ovat ohjeet äänten sallimiseksi joidenkin suosituimpien selainten viimeaikaisia versioita varten.</string>
   <string name="desktop">työpöytä</string>
-  <string name="enableAutoplayForSoundsFirefox" comment="Guidance for Mozilla Firefox users on how to enable audio auto-play if they have sound issues.&#10;&#10;Please keep 'i' lowercase, for two reasons:&#10;1. Capital L and capital I are hard to differentiate for users.&#10;2. So users don't press Ctrl+Shift+I to get a capital I. This is a different shortcut in the browser.">1. Mene osoitteeseen lichess.org
+  <string name="enableAutoplayForSoundsFirefox">1. Mene osoitteeseen lichess.org
 2. Paina Ctrl-i Linuxissa/Windowsissa tai cmd-i MacOS:ssa
 3. Klikkaa käyttöoikeusvälilehteä
 4. Salli ääni ja video lichess.org:issa</string>
-  <string name="enableAutoplayForSoundsChrome" comment="Guidance for Google Chrome users on how to enable audio auto-play if they have sound issues.">1. Mene osoitteeseen lichess.org
+  <string name="enableAutoplayForSoundsChrome">1. Mene osoitteeseen lichess.org
 2. Klikkaa lukituskuvaketta osoitepalkissa
 3. Valitse Sivuston asetukset
 4. Salli ääni</string>

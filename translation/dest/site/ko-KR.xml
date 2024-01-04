@@ -69,6 +69,7 @@
   <string name="makeMainLine">주 라인으로 하기</string>
   <string name="deleteFromHere">여기서부터 삭제</string>
   <string name="forceVariation">변화 강제하기</string>
+  <string name="copyVariationPgn">변동 PGN 복사</string>
   <string name="move">수</string>
   <string name="variantLoss">변형 체스에서 패배</string>
   <string name="variantWin">변형 체스에서 승리</string>
@@ -322,6 +323,9 @@
   <plurals name="nbStudies">
     <item quantity="other">%s 연구</item>
   </plurals>
+  <plurals name="nbSimuls">
+    <item quantity="other">%s 동시대국</item>
+  </plurals>
   <string name="viewTournament">토너먼트 보기</string>
   <string name="backToTournament">토너먼트로 돌아가기</string>
   <string name="noDrawBeforeSwissLimit">스위스 토너먼트에서는 30수 전에 무승부를 할 수 없습니다.</string>
@@ -445,6 +449,7 @@
   <string name="movesPlayed">말 이동 횟수</string>
   <string name="whiteWins">하얀 말로 우승</string>
   <string name="blackWins">검은 말로 우승</string>
+  <string name="drawRate">무승부 비율</string>
   <string name="draws">무승부</string>
   <string name="nextXTournament">다음 %s 대회:</string>
   <string name="averageOpponent">상대의 평균 승점</string>
@@ -466,6 +471,7 @@
   <string name="firstName">이름</string>
   <string name="lastName">성</string>
   <string name="biography">소개</string>
+  <string name="countryRegion" comment="flag&#10;Appears when you edit your profile. Lets a player add a country/flag (not all flags are for countries) to their profile">국가/지역</string>
   <string name="thankYou">감사합니다!</string>
   <string name="socialMediaLinks">소셜 미디어 링크</string>
   <string name="oneUrlPerLine">한 줄에 1개 URL</string>
@@ -517,7 +523,7 @@
   <string name="thisTopicIsNowClosed">이 토픽은 닫혔습니다.</string>
   <string name="blog">블로그</string>
   <string name="notes">노트</string>
-  <string name="typePrivateNotesHere">여기에 비밀 노트를 쓰세요</string>
+  <string name="typePrivateNotesHere">여기에 비공개 메모 작성하기</string>
   <string name="writeAPrivateNoteAboutThisUser">이 사용자에 대한 비공개 메모를 작성하세요</string>
   <string name="noNoteYet">아직 메모가 없습니다.</string>
   <string name="invalidUsernameOrPassword">사용자 이름이나 비밀번호가 잘못되었습니다.</string>
@@ -613,8 +619,10 @@
   <string name="simultaneousExhibitions">동시대국</string>
   <string name="host">호스트</string>
   <string name="hostColorX">호스트의 색: %s</string>
+  <string name="yourPendingSimuls">대기 중인 동시대국</string>
   <string name="createdSimuls">새롭게 생성된 동시대국</string>
   <string name="hostANewSimul">새 동시대국을 생성하기</string>
+  <string name="signUpToHostOrJoinASimul">동시대국을 생성/참가하려면 로그인하세요</string>
   <string name="noSimulFound">동시대국을 찾을 수 없습니다</string>
   <string name="noSimulExplanation">존재하지 않는 동시대국입니다.</string>
   <string name="returnToSimulHomepage">동시대국 홈으로 돌아가기</string>
@@ -646,9 +654,11 @@
   <string name="keyNextBlunder">다음 블런더</string>
   <string name="keyNextMistake">다음 실수</string>
   <string name="keyNextInaccuracy">다음 부정확한 수</string>
+  <string name="variationArrowsInfo">변형 화살표를 사용하면 이동 목록을 사용하지 않고 탐색이 가능합니다.</string>
+  <string name="playSelectedMove">선택한 수 두기</string>
   <string name="newTournament">새로운 토너먼트</string>
   <string name="tournamentHomeTitle">다양한 제한시간과 게임방식을 지원하는 체스 토너먼트</string>
-  <string name="tournamentHomeDescription">빠른 체스 토너먼트를 즐겨 보세요! 공식 일정이 잡힌 토너먼트에 참가할 수도, 당신만의 토너먼트를 만들 수도 있습니다. 불릿, 블릿츠, 클래식, 체스960, 언덕의 제왕, 삼연속체크를 비롯하여 다양한 게임방식을 즐길 수 있습니다.</string>
+  <string name="tournamentHomeDescription">빠른 체스 토너먼트를 즐겨 보세요! 공식 일정이 잡힌 토너먼트에 참가할 수도, 당신만의 토너먼트를 만들 수도 있습니다. 불릿, 블리츠, 클래식, 체스960, 언덕의 왕, 3체크를 비롯하여 다양한 게임방식을 즐길 수 있습니다.</string>
   <string name="tournamentNotFound">토너먼트를 찾을 수 없습니다</string>
   <string name="tournamentDoesNotExist">존재하지 않는 토너먼트입니다.</string>
   <string name="tournamentMayHaveBeenCanceled">모든 플레이어가 퇴장하여 취소된 게임일 수 있습니다.</string>
@@ -687,11 +697,12 @@
   <string name="withFriends">친구들만</string>
   <string name="withEverybody">공개</string>
   <string name="kidMode">어린이 모드</string>
-  <string name="kidModeExplanation">안전을 위해 그런것입니다. 아이 모드에서는 모든 통신이 비활성화됩니다. 당신의 아이들이나 학생들을 다른 인터넷 사용자들에서 보호하게 이 모드를 키십시오.</string>
-  <string name="inKidModeTheLichessLogoGetsIconX">아이 모드에서는 lichess 로고가 %s 아이콘이 뜨기 때문에 안심하셔도 됩니다.</string>
-  <string name="askYourChessTeacherAboutLiftingKidMode">당신의 계정은 관리되고 있습니다. 아이 모드 해제에 대해서는 체스 선생님께 문의하세요.</string>
-  <string name="enableKidMode">아이 모드 활성화하기</string>
-  <string name="disableKidMode">아이 모드 비활성화하기</string>
+  <string name="kidModeIsEnabled">어린이 모드가 활성화되었습니다.</string>
+  <string name="kidModeExplanation">이 모드는 안전에 관한 것입니다. 어린이 모드에서는 모든 통신이 비활성화됩니다. 당신의 아이들이나 학생들을 다른 인터넷 사용자들에서 보호하려면 이 모드를 켜십시오.</string>
+  <string name="inKidModeTheLichessLogoGetsIconX">어린이 모드에서는 lichess 로고가 %s 아이콘이 뜨기 때문에 안심하셔도 됩니다.</string>
+  <string name="askYourChessTeacherAboutLiftingKidMode">당신의 계정은 관리되고 있습니다. 어린이 모드 해제에 대해서는 체스 선생님께 문의하세요.</string>
+  <string name="enableKidMode">어린이 모드 활성화하기</string>
+  <string name="disableKidMode">어린이 모드 비활성화하기</string>
   <string name="security">보안</string>
   <string name="sessions">세션</string>
   <string name="revokeAllSessions">모든 세션 비활성화</string>
@@ -778,9 +789,9 @@
   <string name="noMistakesFoundForBlack">흑에게 악수는 없었습니다</string>
   <string name="doneReviewingWhiteMistakes">백의 악수 체크가 종료됨</string>
   <string name="doneReviewingBlackMistakes">흑의 악수 체크가 종료됨</string>
-  <string name="doItAgain">다시 하시길 바랍니다</string>
+  <string name="doItAgain">다시 하기</string>
   <string name="reviewWhiteMistakes">백의 악수를 체크</string>
-  <string name="reviewBlackMistakes">흑의 말의 실수 탐색하기</string>
+  <string name="reviewBlackMistakes">흑의 악수를 체크</string>
   <string name="advantage">이득</string>
   <plurals name="nbSeconds">
     <item quantity="other">%s초</item>
@@ -796,6 +807,8 @@
   <plurals name="andSaveNbPremoveLines">
     <item quantity="other">%s 종류의 조건 수를 설정</item>
   </plurals>
+  <string name="showUnreadLichessMessage">리체스로부터 비공개 메시지를 받았습니다.</string>
+  <string name="clickHereToReadIt">클릭하여 읽기</string>
   <string name="sorry">죄송합니다 :(</string>
   <string name="weHadToTimeYouOutForAWhile">짧은 시간동안 정지를 받으셨습니다.</string>
   <string name="why">왜 그런가요?</string>
@@ -817,6 +830,7 @@
   <string name="agreementPolicy">나는 모든 Lichess 정책을 따르겠습니다.</string>
   <string name="searchOrStartNewDiscussion">대화 찾기 또는 새 대화 시작하기</string>
   <string name="edit">편집</string>
+  <string name="bullet" comment="Probably best left untranslated. Leave it as 'Bullet' unless your language has a better word for it.">불릿</string>
   <string name="blitz" comment="Probably best left untranslated. Leave it as 'Blitz' unless your language has a better word for it.">블리츠</string>
   <string name="rapid">래피드</string>
   <string name="classical">클래시컬</string>
