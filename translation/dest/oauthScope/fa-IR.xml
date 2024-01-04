@@ -8,27 +8,29 @@
   <string name="whatTheTokenCanDo">انتخاب دسترسی های توکن:</string>
   <string name="doNotShareIt">این توکن دسترسی به اکانت شما را فراهم میکند. با فرد دیگری به اشتراک گذاشته نشود!</string>
   <string name="copyTokenNow">مطمعن شوید توکن را هم اکنون ذخیره کرده اید. در آینده دسترسی به آن امکان پذیر نیست!</string>
-  <string name="preferenceRead">خواندن تنظیمات</string>
-  <string name="preferenceWrite">ایجاد تنظیمات</string>
-  <string name="emailRead">خواندن ایمیل</string>
-  <string name="challengeRead">خواندن چالش های پیش رو</string>
-  <string name="challengeWrite">ارسال، پذیرش و رد چالش ها</string>
+  <string name="preferenceRead" comment="In the context of an authentication token, this is a setting that gives a third-party app permission to view the user's preferences.&#10;&#10;There is a separate setting to let applications write (edit) preferences.">خواندن تنظیمات</string>
+  <string name="preferenceWrite" comment="In the context of an authentication token, this is a setting that gives a third-party app permission to edit/change the user's preferences.&#10;&#10;There is a separate setting to let applications only read preferences, but not to write (edit) them.">ایجاد تنظیمات</string>
+  <string name="emailRead" comment="In the context of an authentication token, this is a setting that gives a third-party app permission to view the user's registered email address.">خواندن ایمیل</string>
+  <string name="challengeRead" comment="In the context of an authentication token, this is a setting that gives a third-party app permission to view game challenges from other players.&#10;&#10;There is a separate setting to let applications send, accept or reject challenges.">خواندن چالش های پیش رو</string>
+  <string name="challengeWrite" comment="challengeWrite&#10;&#10;In the context of an authentication token, a setting that permits third party software to send, accept and reject challenges on behalf of the player.">ارسال، پذیرش و رد چالش ها</string>
   <string name="challengeBulk">ایجاد یکباره بازی های زیاد برای دیگر بازیکنان</string>
-  <string name="studyRead">درس های خصوصی و پخش ها را بخوانید</string>
-  <string name="studyWrite">ایجاد، به روز رسانی، حذف درس ها و پخش</string>
-  <string name="tournamentWrite">ایجاد، به روز رسانی، و پیوستن به مسابقات</string>
-  <string name="racerWrite">مسابقات پازل را ایجاد کنید و به آن بپیوندید</string>
-  <string name="puzzleRead">خواندن فعالیت پازل ها</string>
-  <string name="teamRead">اطلاعات تیم خصوصی را بخوانید</string>
-  <string name="teamWrite">پیوستن و ترک کردن تیم ها</string>
+  <string name="studyRead" comment="Gives permission to third-party software to *read* information that already exists. However it won't be able to write (create) private studies or broadcasts.">درس های خصوصی و پخش ها را بخوانید</string>
+  <string name="studyWrite" comment="In the context of an access token, a setting that enables third party software to create, update or delete studies and broadcasts.">ایجاد، به روز رسانی، حذف درس ها و پخش</string>
+  <string name="tournamentWrite" comment="In the context of an access token, a setting that permits third party software to create, update or delete studies and join tournaments.">ایجاد، به روز رسانی، و پیوستن به مسابقات</string>
+  <string name="racerWrite" comment="In the context of an access token, a setting which permits third party software to create, and join puzzle races (this is for the activity/minigame Puzzle Racer: https://lichess.org/racer)">ایجاد کردن و پیوستن به مسابقات معما</string>
+  <string name="puzzleRead" comment="In the context of an access token, a setting which permits third-party software to view the user's puzzle solving history.">خواندن داده‌های معماها</string>
+  <string name="teamRead" comment="Gives permission to third-party software to *read* information that already exists. However it won't be able to write (create) private studies or broadcasts.">اطلاعات تیم خصوصی را بخوانید</string>
+  <string name="teamWrite" comment="In the context of an access token, a setting that permits the third party software to join or leave teams on your behalf.">پیوستن و ترک کردن تیم ها</string>
   <string name="teamLead">مدیریت تیم های تحت رهبری شما: ارسال پیام ها، حذف اعضاء</string>
-  <string name="followRead">بازیکنان دنبال شده را بخوانید</string>
-  <string name="followWrite">سایر بازیکنان را دنبال و آنفالو کنید</string>
-  <string name="msgWrite">برای سایر بازیکنان پیام خصوصی بفرستید</string>
-  <string name="boardPlay">بازی با رابط کاربری</string>
-  <string name="botPlay">با api ربات بازی کنید</string>
+  <string name="followRead" comment="In the context of an access token, a setting which permits third-party software to view (read) which players you are following.">بازیکنان دنبال شده را بخوانید</string>
+  <string name="followWrite" comment="In the context of an access token, a setting which permits third-party software to follow and unfollow other players on your behalf.">سایر بازیکنان را دنبال و آنفالو کنید</string>
+  <string name="msgWrite" comment="In the context of an access token, a setting which permits third-party software to send messages on your behalf.">برای سایر بازیکنان پیام خصوصی بفرستید</string>
+  <string name="boardPlay" comment="In the context of an access token, a setting which permits third-party software to play games using e-boards like DGT, through Lichess's board API.">بازی با رابط کاربری</string>
+  <string name="botPlay" comment="In the context of an access token, a setting which permits third-party software to play games over the bot API. This is intended mainly for having an engine account e.g. the accounts featured on https://lichess.org/player/bots">با api ربات بازی کنید</string>
   <string name="engineRead">انجین خارجی خود را مشاهده و استفاده کنید</string>
   <string name="engineWrite">ایجاد و به روز رسانی انجین خارجی</string>
-  <string name="webLogin">ایجاد بخش های تائید شده وبسایت (تضمین دسترسی کامل!)</string>
-  <string name="webMod">از ابزارهای مدیریت (در محدوده اجازه شما) استفاده کنید</string>
+  <string name="webLogin" comment="In the context of an access token, a setting which permits third-party software to create authenticated sessions - meaning effectively unlimited access to your account, using it as if it is you, instead of a third party program. It will be unable to view your password but it will be able to do almost everything else.">ایجاد بخش های تائید شده وبسایت (تضمین دسترسی کامل!)</string>
+  <string name="webMod" comment="In the context of an access token, this is a setting which permits third-party software to use moderator tools on your behalf. Most players will not be able to see this option.">از ابزارهای مدیریت (در محدوده اجازه شما) استفاده کنید</string>
+  <string name="forExample" comment="%s is an example URL.&#10;&#10;Please note the sentence continues on the next line. The complete sentence is:&#10;'For example: https://lichess.org/account/oauth/token/create?scopes[]=challenge:write&amp;scopes[]=puzzle:read&amp;description=Prefilled+token+example&#10;ticks the challenge:create and puzzle:read scopes, and sets the token description.'">برای نمونه: %s</string>
+  <string name="ticksTheScopes" comment="Part of a longer sentence, this is the second line:&#10;&#10;'For example: https://lichess.org/account/oauth/token/create?scopes[]=challenge:write&amp;scopes[]=puzzle:read&amp;description=Prefilled+token+example&#10;ticks the challenge:create and puzzle:read scopes, and sets the token description.'&#10;&#10;%1$s is 'challenge:create', %2$s is 'puzzle:read' which are both used as technical examples. These should not be translated which is why they are included as substituted strings.">گستره‌های %1$s و %2$s را علامت زده و توضیحات نِموداَفزار را تنظیم می‌کند.</string>
 </resources>

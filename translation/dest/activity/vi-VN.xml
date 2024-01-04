@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="activity">Hoạt động</string>
-  <string name="hostedALiveStream">Chủ trì một luồng trực tuyến</string>
+  <string name="hostedALiveStream">Đã chủ trì một luồng trực tiếp</string>
   <plurals name="supportedNbMonths">
     <item quantity="other">Đã hỗ trợ lichess.org %1$s tháng với tư cách là một %2$s</item>
   </plurals>
@@ -27,7 +27,7 @@
     <item quantity="other">Hoàn thành %s ván cờ qua thư</item>
   </plurals>
   <plurals name="followedNbPlayers">
-    <item quantity="other">Đã theo dõi %s người chơi</item>
+    <item quantity="other">Đã theo dõi %s người kỳ thủ</item>
   </plurals>
   <plurals name="gainedNbFollowers">
     <item quantity="other">Có %s người theo dõi mới</item>

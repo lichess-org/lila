@@ -38,7 +38,7 @@
   <string name="defensiveMoveDescription">حرکت یا دنباله ای از حرکات که برای جلوگیری از دست دادن مهره یا مزیت لازم است.</string>
   <string name="deflection">منحرف کردن</string>
   <string name="deflectionDescription">حرکتی که حواس مهره حریف را از وظیفه ای که دارد پرت کند (مانند نگهبانی از یک خانه). گاهی اوقات \"بارگذاری بیش از حد\" نیز نامیده می شود.</string>
-  <string name="discoveredAttack">حمله برخاستی</string>
+  <string name="discoveredAttack">حمله برخاست</string>
   <string name="discoveredAttackDescription">حرکت دادن یک مهره (مانند اسب)، که قبلا جلوی حمله مهره خودمان به یکی از مهره های دور حریف (مانند رخ)، از جلوی راه مهره حمله کننده.</string>
   <string name="doubleCheck">کیش دوگانه</string>
   <string name="doubleCheckDescription">کیش دادن به حریف با دو مهره به صورت هم زمان در نتیجهء یک حمله برخاستی که در آن هم مهره برخاست کننده و هم مهره پشت سر آن به شاه حریف حمله می کنند.</string>
@@ -62,9 +62,9 @@
   <string name="long">معمای طولانی</string>
   <string name="longDescription">سه حرکت برای پیروزی.</string>
   <string name="master">بازی‌های اساتید</string>
-  <string name="masterDescription">پازل های برگرفته شده از بازی هایی که توسط بازی کنان دارای عنوان انجام شده است.</string>
+  <string name="masterDescription">معماهای برگرفته‌شده از بازی‌های بازیکنان عنوان‌دار.</string>
   <string name="masterVsMaster">بازیهای استاد در مقابل استاد</string>
-  <string name="masterVsMasterDescription">پازل های برگرفته شده از بازی های بین دو بازی کن دارای عنوان.</string>
+  <string name="masterVsMasterDescription">معماهای برگرفته‌شده از بازی‌های بین دو بازیکن عنوان‌دار.</string>
   <string name="mate">کیش و مات</string>
   <string name="mateDescription">بازی را با سبک خاصی ببرید.</string>
   <string name="mateIn1">مات در یک حرکت</string>
@@ -85,8 +85,8 @@
   <string name="openingDescription">تاکتیک در مرحله اول بازی.</string>
   <string name="pawnEndgame">پایان بازی با پیاده</string>
   <string name="pawnEndgameDescription">یک آخر بازی تنها با پیاده‌ها.</string>
-  <string name="pin">سنجاق کردن</string>
-  <string name="pinDescription">تاکتیک آچمز (پین)، جایی است که یک مهره مجبور است برای دفاع از یک مهره یا خانهٔ ارزشمند در جای خود میخکوب شود.</string>
+  <string name="pin">آچمزی</string>
+  <string name="pinDescription">راهکنش آچمزی، که یک مهره نمی‌تواند حرکت کند، مگر اینکه به مهره ارزشمندتر پشتش حمله می‌شود.</string>
   <string name="promotion">ترفیع</string>
   <string name="promotionDescription">یکی از پیاده های خود را به وزیر یا مهره دیگر ارتقا دهید.</string>
   <string name="queenEndgame">آخربازی وزیر</string>
@@ -103,17 +103,17 @@
   <string name="sacrificeDescription">یک تاکتیک شامل کنار از دست دادن مهره در کوتاه مدت، برای به دست آوردن مزیت دوباره پس از یک سری حرکات اجباری.</string>
   <string name="short">معمای کوتاه</string>
   <string name="shortDescription">دو حرکت تا پیروزی.</string>
-  <string name="skewer">حمله پیکانی</string>
-  <string name="skewerDescription">موتیف زمانی است که یک مهره با ارزش بالا مورد حمله قرار می گیرد تا از مسیر خارج شود، و مهره ای با ارزش کمتر که پشت آن قرار دارد گرفته شود، برعکس پین.</string>
+  <string name="skewer">سیخ‌کشی یا سیخ‌کباب</string>
+  <string name="skewerDescription">سیخ‌کشی، که به یک مهره باارزش حمله شده، به گونه‌ای جابجا می‌شود، و حالا امکان می‌دهد که مهره کم‌ارزش پشتش زده شود یا زیر ضرب قرار گیرد. برعکس آچمزی است.</string>
   <string name="smotheredMate">مات مختنق</string>
   <string name="smotheredMateDescription">ماتی که توسط یک اسب انجام می شود که در آن پادشاه قادر به حرکت نیست زیرا توسط مهره های خود احاطه شده.</string>
-  <string name="superGM">بازی سوپر استاد بزرگ</string>
-  <string name="superGMDescription">پازل هایی از بازی های بهترین بازیکنان جهان.</string>
+  <string name="superGM">بازی اَبَر استاد بزرگان</string>
+  <string name="superGMDescription">معماهای برگرفته‌شده از بازی‌های بهترین بازیکنان جهان.</string>
   <string name="trappedPiece">مهره به‌دام‌افتاده</string>
   <string name="trappedPieceDescription">یک مهره قادر به فرار کردن از زده شدن نیست چون حرکات محدودی دارد.</string>
   <string name="underPromotion">ارتقا به غیر از وزیر</string>
   <string name="underPromotionDescription">ارتقا به اسب، فیل یا رخ.</string>
-  <string name="veryLong">پازل خیلی طولانی</string>
+  <string name="veryLong">معمای خیلی طولانی</string>
   <string name="veryLongDescription">چهار حرکت یا بیشتر برای برنده شدن.</string>
   <string name="xRayAttack">حمله پیکانی</string>
   <string name="xRayAttackDescription">یک مهره از طریق مهره حریف به یک خانه حمله میکند یا از آن دفاع می کند.</string>
@@ -122,6 +122,6 @@
   <string name="healthyMix">ترکیب سالم</string>
   <string name="healthyMixDescription">یک ذره از همه چیز. شما نمی دانید چه چیزی پیش روی شماست، بنابراین شما باید برای هر چیزی آماده باشید! دقیقا مثل بازی های واقعی.</string>
   <string name="playerGames">بازی‌های بازیکن</string>
-  <string name="playerGamesDescription">جستجوی پازل های تولید شده از بازی های شما یا بازی های بازیکنان دیگر.</string>
-  <string name="puzzleDownloadInformation">این پازل ها در مالکیت عمومی هستند و می توانند در %s دانلود شوند.</string>
+  <string name="playerGamesDescription">دنبال معماهای ایجادشده از بازی‌های خودتان یا بازی‌های سایر بازیکنان، بگردید.</string>
+  <string name="puzzleDownloadInformation">این معماها به صورت عمومی هستند و می توانند از %s بارگیری شوند.</string>
 </resources>
