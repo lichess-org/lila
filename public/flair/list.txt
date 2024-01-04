@@ -97,7 +97,6 @@ activity.video-game
 activity.volleyball
 activity.wind-chime
 activity.wrapped-gift
-activity.xmas-lichess-horsey
 activity.yo-yo
 food-drink.amphora
 food-drink.avocado
