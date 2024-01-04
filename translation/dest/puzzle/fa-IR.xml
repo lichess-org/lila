@@ -4,7 +4,7 @@
   <string name="puzzleThemes">موضوعات معما</string>
   <string name="recommended">توصیه</string>
   <string name="phases">مرحله‌ها</string>
-  <string name="motifs">بُن‌مایه‌ها</string>
+  <string name="motifs">موضوع</string>
   <string name="advanced">پیشرفته</string>
   <string name="lengths">تعداد حرکات</string>
   <string name="mates">مات‌ها</string>
@@ -22,7 +22,7 @@
   <string name="puzzleId" comment="%s is the ID of the puzzle, something like #a1b2c3.">معمای %s</string>
   <string name="puzzleOfTheDay">معمای روز</string>
   <string name="dailyPuzzle">معمای روزانه</string>
-  <string name="clickToSolve">برای جل کردن بزتیذ</string>
+  <string name="clickToSolve">برای حل کلیک کنید</string>
   <string name="goodMove">حرکتِ خوب</string>
   <string name="bestMove">بهترین حرکت!</string>
   <string name="keepGoing">ادامه دهید…</string>
@@ -31,7 +31,7 @@
   <string name="byOpenings">بر اساس گشایش‌ها</string>
   <string name="puzzlesByOpenings">معماها بر اساس گشایش‌ها</string>
   <string name="openingsYouPlayedTheMost">گشایش‌هایی که بیش از همه در بازی‌های امتیازی کرده‌اید</string>
-  <string name="useFindInPage" comment="useFindInPage&#10;&#10;Appears on https://lichess.org/training/openings&#10;Encourages players to use the built-in browser feature (Ctrl+F on most desktop computers) to find the opening they want to practice.">از گزینه «پیدا کردن در صفحه» مرورگر استفاده کنید تا گشایش مورد علاقه خود را پیدا کنید!</string>
+  <string name="useFindInPage" comment="useFindInPage&#10;&#10;Appears on https://lichess.org/training/openings&#10;Encourages players to use the built-in browser feature (Ctrl+F on most desktop computers) to find the opening they want to practice.">با استفاده از قابلیت \"جستجو در صفحه\" مرورگر خود گشایش محبوب خود را پیدا کنید!</string>
   <string name="useCtrlF">از Ctrl+f برای پیدا کردن گشایش مورد علاقه خود استفاده کنید!</string>
   <string name="notTheMove">ابن حرکت نیست!</string>
   <string name="trySomethingElse">چیز دیگری پیدا کنید</string>
@@ -44,12 +44,12 @@
   <string name="fromGameLink">برگرفته شده از بازی %s</string>
   <string name="continueTraining">ادامه دادن تمرین</string>
   <string name="difficultyLevel">میزان سختی</string>
-  <string name="normal">معمولی</string>
+  <string name="normal">متوسط</string>
   <string name="easier">آسان‌تر</string>
   <string name="easiest">آسان‌ترین</string>
   <plurals name="nbPointsBelowYourPuzzleRating">
-    <item quantity="one">یک امتیاز پایین‌تر از امتیازبندی معمایی‌تان</item>
-    <item quantity="other">%s امتیاز پایین‌تر از امتیازبندی معمایی‌تان</item>
+    <item quantity="one">یک امتیاز پایین‌تر از امتیاز شما در معماها</item>
+    <item quantity="other">%s امتیاز پایین‌تر از امتیاز شما در معماها</item>
   </plurals>
   <string name="harder">سخت‌تر</string>
   <string name="hardest">سخت‌ترین</string>
@@ -63,14 +63,14 @@
   <string name="jumpToNextPuzzleImmediately">فوراً به معمای بعدی بروید</string>
   <string name="puzzleDashboard">پیشخوان معماها</string>
   <string name="improvementAreas">نقاط ضعف</string>
-  <string name="strengths">استحکامات</string>
+  <string name="strengths">نقاط قوت</string>
   <string name="history">پیشینه معماها</string>
   <string name="solved">حل شده</string>
   <string name="failed">شکست!</string>
   <string name="streakDescription">به تدریج معماهای سخت‌تری را حل کنید و یک دنباله بُرد بسازید. محدویت زمانی وجود ندارد، پس عجله نکنید. با یک حرکت اشتباه، بازی تمام می‌شود! در هر دور، می‌توانید یک حرکت را رَد کنید.</string>
   <string name="yourStreakX" comment="%s is the number of puzzles you fully solved in a run of Puzzle Streak (https://lichess.org/streak).&#10;&#10;Appears once you make a wrong move or skip a puzzle, ending your streak. There is a counter always running on the left-hand side of the page without words.">دنباله بُردهایتان: %s</string>
   <string name="streakSkipExplanation">از این حرکت چشم‌پوشی کنید تا توالی خود را حفظ نمایید! فقط یک بار در هر اجرا کار می‌کند.</string>
-  <string name="continueTheStreak">دنباله را ادامه دهید</string>
+  <string name="continueTheStreak">توالی را ادامه دهید</string>
   <string name="newStreak">برد متوالی جدید</string>
   <string name="fromMyGames">از بازی های من</string>
   <string name="lookupOfPlayer">به دنبال معماهای برگرفته‌شده از بازی‌های یک بازیکن مشخص، بگردید</string>
