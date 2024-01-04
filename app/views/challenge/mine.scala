@@ -38,8 +38,15 @@ object mine:
               bits.details(c, color),
               c.destUserId.map { destId =>
                 div(cls := "waiting")(
+                  {println(s"Time Control: ${c.timeControl}")},
+                  {println(s"Time Control: ${c.unlimited}")},
+                  {println(s"Time Control: ${c.daysPerTurn}")},
                   userIdLink(destId.some, cssClass = "target".some),
-                  spinner,
+                  if ( c.unlimited || c.daysPerTurn != none) {
+                    h2("✅Challenge sent")
+                  } else {
+                    spinner
+                  },
                   p(trans.waitingForOpponent())
                 )
               } getOrElse {
