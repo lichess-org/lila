@@ -6,12 +6,13 @@
   <string name="blogTopics">موضوعات وبنوشت</string>
   <string name="lichessOfficialBlog">وبنوشت رسمی Lichess</string>
   <string name="continueReadingPost">ادامه مطلب</string>
+  <string name="lichessBlogPostsFromXYear">بلاگ های لیچس در %s</string>
   <string name="previousBlogPosts">وبنوشته‌های قبلی</string>
   <string name="xBlog">وبلاگ %s</string>
   <string name="newPost">نوشتهٔ جدید</string>
   <string name="editYourBlogPost">نوشتهٔ تارنگارِ خود را ویرایش نمایید</string>
   <string name="saveDraft">پیش‌نویس را ذخیره نمایید</string>
-  <string name="postTitle">عنوانِ نوشته</string>
+  <string name="postTitle">عنوان مطلب</string>
   <string name="postIntro">مقدمهٔ نوشته</string>
   <string name="postBody">متنِ نوشته</string>
   <string name="drafts">پیش‌نویس‌ها</string>
