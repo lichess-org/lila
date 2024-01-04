@@ -5,6 +5,7 @@
   <string name="toInviteSomeoneToPlayGiveThisUrl">Për të ftuar dikë të luajë, jepni këtë URL</string>
   <string name="gameOver">Loja mbaroi</string>
   <string name="waitingForOpponent">Në pritje të kundërshtarit</string>
+  <string name="orLetYourOpponentScanQrCode">Ose lëreni kundërshtarin tuaj të skanojë këtë kod QR</string>
   <string name="waiting">Në pritje</string>
   <string name="yourTurn">Radha juaj</string>
   <string name="aiNameLevelAiLevel">%1$s niveli %2$s</string>
@@ -405,6 +406,7 @@
 të lojës në shfletues, analizë kompjuterike, bisedë
 loje dhe URL për ta ndarë me të tjerë.</string>
   <string name="importGameCaveat">Variacionet do të fshihen. Për t\'i mbajtur ato, importoni PGN përmes një studimi.</string>
+  <string name="importGameDataPrivacyWarning">Kjo PGN mund të shihet nga publiku. Që të importoni privatisht një lojë, përdorni një ushtrim.</string>
   <plurals name="nbImportedGames">
     <item quantity="one">%s lojë e importuar</item>
     <item quantity="other">%s lojëra të importuara</item>
