@@ -6,6 +6,8 @@
   <string name="blogTopics">Теми дописів</string>
   <string name="lichessOfficialBlog">Офіційний блог Lichess</string>
   <string name="continueReadingPost">Продовжити читання цієї історії</string>
+  <string name="lichessBlogPostsFromXYear">Публікації блогу Lichess за %s</string>
+  <string name="previousBlogPosts">Попередні публікації блогу</string>
   <string name="xBlog">Блог %s</string>
   <string name="newPost">Новий допис</string>
   <string name="editYourBlogPost">Редагувати ваш запис</string>
