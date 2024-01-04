@@ -43,12 +43,11 @@ object dailyFeed:
       ups.view
         .filter(_.published || editor)
         .map: update =>
-          val exactDateTime = java.time.format.DateTimeFormatter.ofPattern("dd MMM yyyy, HH:mm").format(java.time.LocalDateTime.ofInstant(update.at, java.time.ZoneOffset.UTC))
           div(cls := "daily-feed__update", id := update.id)(
             marker(update.flair),
             div(cls := "daily-feed__update__content")(
               st.section(cls := "daily-feed__update__day")(
-                h2(a(href := s"#${update.id}")(raw(exactDateTime),raw(" UTC ("),span(momentFromNow(update.at)),raw(")"))),
+                h2(a(href := s"#${update.id}")(showEnglishInstant(update.at))),
                 editor option frag(
                   a(
                     href     := routes.DailyFeed.edit(update.id),
