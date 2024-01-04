@@ -38,15 +38,13 @@ object mine:
               bits.details(c, color),
               c.destUserId.map { destId =>
                 div(cls := "waiting")(
-                  {println(s"Time Control: ${c.timeControl}")},
-                  {println(s"Time Control: ${c.unlimited}")},
-                  {println(s"Time Control: ${c.daysPerTurn}")},
                   userIdLink(destId.some, cssClass = "target".some),
-                  if ( c.unlimited || c.daysPerTurn != none) {
-                    h2("✅Challenge sent")
-                  } else {
-                    spinner
-                  },
+                  if c.unlimited || c.daysPerTurn != none then
+                    div(cls := "correspondence-waiting")(
+                      p(cls := "challenge-successful")("Challenge sent"),
+                      p("Challenge can be canceled in the sword menu")
+                    )
+                  else spinner,
                   p(trans.waitingForOpponent())
                 )
               } getOrElse {
