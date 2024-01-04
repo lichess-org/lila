@@ -1,5 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+  <string name="communityBlogs">وبنوشت‌های اجتماع شطرنج‌بازان</string>
+  <string name="friendBlogs">وبنوشت‌های دوستان</string>
+  <string name="likedBlogs">وبنوشته‌های پسندشده</string>
+  <string name="blogTopics">موضوعات وبنوشت</string>
+  <string name="lichessOfficialBlog">وبنوشت رسمی Lichess</string>
+  <string name="continueReadingPost">ادامه مطلب</string>
+  <string name="previousBlogPosts">وبنوشته‌های قبلی</string>
   <string name="xBlog">وبلاگ %s</string>
   <string name="newPost">نوشتهٔ جدید</string>
   <string name="editYourBlogPost">نوشتهٔ تارنگارِ خود را ویرایش نمایید</string>

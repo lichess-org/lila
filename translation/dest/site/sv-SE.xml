@@ -5,6 +5,7 @@
   <string name="toInviteSomeoneToPlayGiveThisUrl">För att bjuda in någon att spela, ge dem den här länken</string>
   <string name="gameOver">Partiet är slut</string>
   <string name="waitingForOpponent">Väntar på motståndare</string>
+  <string name="orLetYourOpponentScanQrCode">Eller låt din motståndare skanna denna QR-kod</string>
   <string name="waiting">Väntar</string>
   <string name="yourTurn">Din tur</string>
   <string name="aiNameLevelAiLevel">%1$s nivå %2$s</string>

@@ -69,7 +69,7 @@ final class Env(
     "relayProxyCredentials",
     default = none,
     text =
-      "Broadcast: proxy credentials to fetch from external sources. Leave empty to use no proxy. Format: username:password".some
+      "Broadcast: proxy credentials to fetch from external sources. Leave empty to use no auth (?!). Format: username:password".some
   ).taggedWith[ProxyCredentials]
 
   import SettingStore.HostPortOption.given

@@ -1,5 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+  <string name="communityBlogs">Yhteisön blogit</string>
+  <string name="friendBlogs">Ystävien blogit</string>
+  <string name="likedBlogs">Tykätyt blogikirjoitukset</string>
   <string name="blogTopics">Blogin aiheet</string>
   <string name="lichessOfficialBlog">Lichessin virallinen blogi</string>
   <string name="continueReadingPost">Jatka tämän kirjoituksen lukemista</string>

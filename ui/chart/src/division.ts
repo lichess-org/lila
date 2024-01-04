@@ -14,7 +14,7 @@ export default function (trans: Trans, div?: Division) {
   }
   const annotationColor = '#707070';
 
-  /**  Instead of using the annotation plugin, create a dataset to plot as a pseudo-annontation
+  /**  Instead of using the annotation plugin, create a dataset to plot as a pseudo-annotation
    *  @returns An array of vertical lines from {div,-1.05} to {div,+1.05}.
    * */
   const annotations: ChartDataset<'line'>[] = lines.map(line => ({

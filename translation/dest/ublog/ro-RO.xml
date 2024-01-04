@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+  <string name="lichessOfficialBlog">Blog Oficial Lichess</string>
+  <string name="continueReadingPost">Continuă să citești această postare</string>
   <string name="xBlog">Blog-ul lui %s</string>
   <string name="newPost">Postare nouă</string>
   <string name="editYourBlogPost">Editează-ți postarea</string>
