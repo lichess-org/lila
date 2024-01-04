@@ -33,6 +33,9 @@ final class PuzzleApi(
           MaxPerPage(30)
         )
 
+    def setIssue(id: PuzzleId, issue: String): Fu[Boolean] =
+      colls.puzzle(_.updateField($id(id), Puzzle.BSONFields.issue, issue).map(_.n > 0))
+
   private[puzzle] object round:
 
     def find(user: User, puzzleId: PuzzleId): Fu[Option[PuzzleRound]] =
