@@ -776,6 +776,7 @@
   <string name="keyPreviousBranch">Попередній варіант</string>
   <string name="keyNextBranch">Наступний варіант</string>
   <string name="toggleVariationArrows">Показати стрілки варіантів</string>
+  <string name="playSelectedMove">зіграти обраний хід</string>
   <string name="newTournament">Новий турнір</string>
   <string name="tournamentHomeTitle">Шаховий турнір із різними контролем часу та варіантами</string>
   <string name="tournamentHomeDescription">Грайте у швидкі шахи на турнірі! Приєднуйтеся до запланованих офіційних турнірів або створіть власний. Куля, бліц, класичні шахи, шахи Фішера, \"Цар гори\", \"Три шахи\" та інші варіанти забезпечать нескінченне задоволення.</string>
@@ -1062,5 +1063,7 @@
   <string name="switchSides">Змінити сторону</string>
   <string name="closingAccountWithdrawAppeal">Закриття облікового запису призведе до скасування вашої апеляції</string>
   <string name="ourEventTips">Наші поради щодо організації подій</string>
+  <string name="instructions">Інструкція</string>
+  <string name="showMeEverything">Показати все</string>
   <string name="lichessPatronInfo">Lichess - це благодійне і абсолютно безкоштовне програмне забезпечення з відкритим кодом. Усі витрати на обслуговування, розробка та вміст фінансуються виключно за рахунок пожертвувань користувачів.</string>
 </resources>
