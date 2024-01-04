@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="advancedPawn">پیاده پیش رفته</string>
-  <string name="advancedPawnDescription">یکی از پیاده های شما در زمین حریف پیشروی کرده است. شاید خطر ارتقا پیاده وجود داشته باشد.</string>
+  <string name="advancedPawnDescription">یکی از پیاده های شما در زمین حریف پیشروی کرده، گویی تهدید به ارتقا میکنه.</string>
   <string name="advantage">برتری</string>
   <string name="advantageDescription" comment="advantageDescription&#10;&#10;'cp' stands for centipawn (1/100th of a pawn). It is used in computer analysis to assess a position.&#10;'eval' is short for evaluation.">از شانس خود برای بدست اوردن برتری قطعی استفاده کنید. (200cp ≤ eval ≤ 600cp)</string>
   <string name="anastasiaMate">مات آناستازیا</string>
