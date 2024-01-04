@@ -39,7 +39,12 @@ object mine:
               c.destUserId.map { destId =>
                 div(cls := "waiting")(
                   userIdLink(destId.some, cssClass = "target".some),
-                  spinner,
+                  if c.unlimited || c.daysPerTurn != none then
+                    div(cls := "correspondence-waiting")(
+                      p(cls := "challenge-successful")("Challenge sent"),
+                      p("Challenge can be canceled in the sword menu")
+                    )
+                  else spinner,
                   p(trans.waitingForOpponent())
                 )
               } getOrElse {
