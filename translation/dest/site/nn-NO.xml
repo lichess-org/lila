@@ -85,7 +85,7 @@
   <string name="unknown">Ukjend</string>
   <string name="database">Database</string>
   <string name="whiteDrawBlack">Kvit / Remis / Svart</string>
-  <string name="averageRatingX">Gjennomsnittleg rating: %s</string>
+  <string name="averageRatingX">Snittrating: %s</string>
   <string name="recentGames">Nylege parti</string>
   <string name="topGames">Topp-parti</string>
   <string name="masterDbExplanation">Brettsjakkparti med spelarar som har FIDE-rating %1$s+ frå %2$s til %3$s</string>
@@ -245,7 +245,7 @@
   <string name="rank">Rangering</string>
   <string name="rankX">Plassering: %s</string>
   <plurals name="rankIsUpdatedEveryNbMinutes">
-    <item quantity="one">Rating blir oppdatert kvart minutt</item>
+    <item quantity="one">Rangeringa blir oppdatert kvart minutt</item>
     <item quantity="other">Rating blir oppdatert kvart %s. minutt</item>
   </plurals>
   <plurals name="nbPuzzles">
@@ -374,7 +374,7 @@
     <item quantity="other">Du må spela endå %s rangerte parti</item>
   </plurals>
   <string name="yourPerfRatingIsProvisional">Ratinga di på %s er mellombels</string>
-  <string name="yourPerfRatingIsTooHigh">Ratinga di %1$s (%2$s) er for høg</string>
+  <string name="yourPerfRatingIsTooHigh">Ratinga di i %1$s (%2$s) er for høg</string>
   <string name="yourTopWeeklyPerfRatingIsTooHigh">Den beste vekesratinga di i %1$s (%2$s) er for høg</string>
   <string name="yourPerfRatingIsTooLow">Ratinga di i %1$s (%2$s) er for låg</string>
   <string name="ratedMoreThanInPerf">Rangert ≥ %1$s i %2$s</string>
@@ -387,7 +387,7 @@
   <string name="xCreatedTeamY">%1$s oppretta lag %2$s</string>
   <string name="startedStreaming">starta å strøyma</string>
   <string name="xStartedStreaming">%s starta å strøyme</string>
-  <string name="averageElo">Gjennomsnittleg rating</string>
+  <string name="averageElo">Snittrating</string>
   <string name="location">Stad</string>
   <string name="filterGames">Filtrer parti</string>
   <string name="reset">Attendestill</string>
@@ -723,7 +723,7 @@ få en computeranalyse, chatte eller dele ein URL.</string>
   <string name="youAreBetterThanPercentOfPerfTypePlayers">Du er betre enn %1$s av %2$s-spelarane.</string>
   <string name="userIsBetterThanPercentOfPerfTypePlayers">%1$s er betre enn %2$s av %3$s-spelarane.</string>
   <string name="betterThanPercentPlayers">Betre enn %1$s av %2$s spelarar</string>
-  <string name="youDoNotHaveAnEstablishedPerfTypeRating">Du har ikkje etablert ein %s rating.</string>
+  <string name="youDoNotHaveAnEstablishedPerfTypeRating">Du har ikkje etablert ein %s-rating.</string>
   <string name="yourRating">Ratinga di i er</string>
   <string name="cumulative">Akkumulert</string>
   <string name="glicko2Rating">Glicko-2 rating</string>
@@ -887,7 +887,7 @@ få en computeranalyse, chatte eller dele ein URL.</string>
   <string name="searchOrStartNewDiscussion">Søk eller start ein ny diskusjon</string>
   <string name="edit">Rediger</string>
   <string name="bullet" comment="Probably best left untranslated. Leave it as 'Bullet' unless your language has a better word for it.">Bullet</string>
-  <string name="blitz" comment="Probably best left untranslated. Leave it as 'Blitz' unless your language has a better word for it.">Blitz</string>
+  <string name="blitz" comment="Probably best left untranslated. Leave it as 'Blitz' unless your language has a better word for it.">Lyn</string>
   <string name="rapid">Snøggsjakk</string>
   <string name="classical">Langsjakk</string>
   <string name="ultraBulletDesc">Ekstremt snøgge parti: under 30 sekund</string>
@@ -922,7 +922,7 @@ få en computeranalyse, chatte eller dele ein URL.</string>
   <string name="congratsYouWon">Gratulerer, du vann!</string>
   <string name="gameVsX">Spel mot %1$s</string>
   <string name="resVsX">%1$s mot %2$s</string>
-  <string name="lostAgainstTOSViolator">Du tapte mot nokon som braut med Lichess TOS</string>
+  <string name="lostAgainstTOSViolator">Du tapte mot nokon som braut med Lichess\' sine vilkår</string>
   <string name="refundXpointsTimeControlY">Refundering: %1$s %2$s ratingpoeng.</string>
   <string name="timeAlmostUp">Tida er nesten ute!</string>
   <string name="clickToRevealEmailAddress">[Klikk for å visa epost-adresse]</string>

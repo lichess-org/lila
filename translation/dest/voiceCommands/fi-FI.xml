@@ -3,10 +3,10 @@
   <string name="voiceCommands">Äänikommennot</string>
   <string name="watchTheVideoTutorial">Katso opastusvideo</string>
   <string name="instructions1">Kytke äänentunnistus päälle ja pois %1$s-napista, avaa tämä apuikkunna %2$s-napista ja muokkaa puheasetuksia %3$s-valikosta.</string>
-  <string name="instructions2">Jos komento jää epäselväksi, laudalla näytetään usean siirron nuolet. Valitse haluamasi siirtonuoli lausumalla sen väri tai numero.</string>
-  <string name="instructions3">Jos nuoli näyttää tutkan pyyhkäisyn, siirto suoritetaan ympyrän tultua valmiiksi. Tänä aikana voit vain sanoa %1$s tehdäksesi siirron välittömästi, %2$s peruuttaaksesi sen, tai sanoa jonkin toisen nuolen värin tai numeron. Asetuksissa tätä ajastinta voi muokata tai sen voi poistaa kokonaan käytöstä.</string>
-  <string name="instructions4">Ota käyttöön %s meluisassa ympäristössä. Pidä Shift-näppäintä painettuna, kun sanot äänikomentoja tätä asetusta käyttäessäsi.</string>
-  <string name="instructions5">Foneettisia aakkosia käyttämällä shakkilaudan linjat ovat paremmin tunnistettavissa. </string>
+  <string name="instructions2" comment="Voice commands can be misheard and Lichess will not always be fully certain what you said. Several arrows will be shown to identify e.g. if the move was 'b4' or 'd4', which often sound similar.&#10;&#10;These arrows will be in different colours (green, blue, etc) or labelled 1, 2, 3....&#10;You can then say the colour of the arrow (e.g. 'green') - or its number (e.g. '1'), to select that move.&#10;Users can configure if they choose from multiple moves based on colours or numbers.">Jos komento jää epäselväksi, laudalla näytetään usean siirron nuolet. Valitse haluamasi siirtonuoli lausumalla sen väri tai numero.</string>
+  <string name="instructions3" comment="This is a complicated concept more easy to understand in practice. Voice commands can be misheard and Lichess will not always be fully certain what you said. Several arrows will be shown to identify e.g. if the move was 'b4' or 'd4', which often sound similar.&#10;The most likely move the player wants will have a circle showing around it, but it will be possible to cancel before it is played (for example, by shouting 'no!').&#10;&#10;You can see a visual example here: https://lichess.org/@/schlawg/blog/how-to-lichess-voice/nWrypoWI">Jos nuoli näyttää tutkan pyyhkäisyn, siirto suoritetaan ympyrän tultua valmiiksi. Tänä aikana voit vain sanoa %1$s tehdäksesi siirron välittömästi, %2$s peruuttaaksesi sen, tai sanoa jonkin toisen nuolen värin tai numeron. Asetuksissa tätä ajastinta voi muokata tai sen voi poistaa kokonaan käytöstä.</string>
+  <string name="instructions4" comment="%s is Push to Talk.">Ota käyttöön %s meluisassa ympäristössä. Pidä Shift-näppäintä painettuna, kun sanot äänikomentoja tätä asetusta käyttäessäsi.</string>
+  <string name="instructions5" comment="The phonetic alphabet is also known as the NATO alphabet (where A = Alpha, B = Bravo, etc. This makes the sounds easier to differentiate through a microphone). It is for English specifically, which as of the time of writing, is the only language supported by the Voice Commands feature.">Käyttäessäsi foneettisia aakkosia shakkilaudan linjat ovat paremmin tunnistettavissa. </string>
   <string name="instructions6">%s selitetään yksityiskohtaisesti ääniohjattujen siirtojen asetukset.</string>
   <string name="thisBlogPost">Tässä blogikirjoituksessa</string>
   <string name="moveToE4OrSelectE4Piece">Siirrä e4:ään tai valitse e4:ssä oleva nappula</string>
@@ -15,8 +15,8 @@
   <string name="castle">Tee linnoitus (kummalle tahansa puolelle)</string>
   <string name="phoneticAlphabetIsBest">Foneettiset aakkoset toimivat parhaiten</string>
   <string name="cancelTimerOrDenyARequest">Peruuta ajastin tai hylkää pyyntö</string>
-  <string name="playPreferredMoveOrConfirmSomething">Tee ensisijainen siirto tai vahvista jotain</string>
-  <string name="sleep">Nuku (jos herätyssana on käytössä)</string>
+  <string name="playPreferredMoveOrConfirmSomething" comment="Used in voice commands. When it is unclear what the player said (e.g. 'b4' and 'd4' sound similar), both moves will be shown, with the more likely one highlighted in a certain colour. By default, a countdown begins, and if no action is taken, the likely move (e.g. b4) will be played. Players can end the countdown early/confirm their move by saying 'yes'.&#10;&#10;For more details see https://lichess.org/@/schlawg/blog/how-to-lichess-voice/nWrypoWI">Tee ensisijainen siirto tai vahvista jotain</string>
+  <string name="sleep" comment="Used for voice commands.&#10;&#10;By default, voice commands are always-on after the feature is enabled. Users can optionally set a word for listening to start, or say 'sleep' to disable listening.&#10;&#10;(Please note - this is not the same as recording, since the recording is never sent to Lichess; the speech technology is entirely offline)">Nuku (jos herätyssana on käytössä)</string>
   <string name="turnOffVoiceRecognition">Poista äänen tunnistus käytöstä</string>
   <string name="showPuzzleSolution">Näytä tehtävän ratkaisu</string>
 </resources>

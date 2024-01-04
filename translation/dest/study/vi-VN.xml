@@ -117,7 +117,7 @@
   <string name="contributors">Những người đóng góp</string>
   <string name="members">Thành viên</string>
   <string name="everyone">Mọi người</string>
-  <string name="enableSync">Kích hoạt đồng bộ hóa</string>
+  <string name="enableSync">Kích hoạt tính năng đồng bộ hóa</string>
   <string name="yesKeepEveryoneOnTheSamePosition">Có: giữ tất cả mọi người trên 1 thế cờ</string>
   <string name="noLetPeopleBrowseFreely">Không: để mọi người tự do xem xét</string>
   <string name="pinnedStudyComment">Bình luận được ghim</string>

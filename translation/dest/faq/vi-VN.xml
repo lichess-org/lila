@@ -149,19 +149,19 @@ Biểu tượng tắt tiếng màu đỏ xuất hiện khi trình duyệt của 
 
 Chúng tôi hiển thị biểu tượng màu đỏ để cảnh báo bạn khi điều này xẩy ra. Thông thường, bạn có thể cho phép lichess.org phát âm thanh một cách rõ ràng. Dưới đây là hướng dẫn thực hiện trên các phiên bản gần đây của một số trình duyệt phổ biến.</string>
   <string name="desktop">máy tính để bàn</string>
-  <string name="enableAutoplayForSoundsFirefox" comment="Guidance for Mozilla Firefox users on how to enable audio auto-play if they have sound issues.&#10;&#10;Please keep 'i' lowercase, for two reasons:&#10;1. Capital L and capital I are hard to differentiate for users.&#10;2. So users don't press Ctrl+Shift+I to get a capital I. This is a different shortcut in the browser.">1. Truy cập vào lichess.org
+  <string name="enableAutoplayForSoundsFirefox">1. Truy cập vào lichess.org
 2. Nhấn tổ hợp phím Ctrl-i trên Windows/Linux hoặc cmd-i trên MacOS
 3. Nhấn vào tab Quyền (Permissions)
 4. Cho phép Video và Âm Thanh (Audio)</string>
-  <string name="enableAutoplayForSoundsChrome" comment="Guidance for Google Chrome users on how to enable audio auto-play if they have sound issues.">1. Truy cập vào lichess.org
+  <string name="enableAutoplayForSoundsChrome">1. Truy cập vào lichess.org
 2. Nhấn hình ổ khoá trên thanh tìm kiếm
 3. Nhấn Cài đặt trang web
 4. Cho phép Âm thanh</string>
-  <string name="enableAutoplayForSoundsSafari" comment="Guidance for Apple Safari users on how to enable audio auto-play if they have sound issues.">1. Truy cập vào lichess.org
+  <string name="enableAutoplayForSoundsSafari">1. Truy cập vào lichess.org
 2. Nhấn hình Safari trong thanh menu
 3. Nhấn vào Cài đặt cho lichess.org ...
 4. Cho phép Tất cả Tự động Phát</string>
-  <string name="enableAutoplayForSoundsMicrosoftEdge" comment="Guidance for Microsoft Edge users on desktop, for how to enable audio auto-play if they have sound issues.">1. Nhấp vào hình 3 dấu chấm ở góc bên phải
+  <string name="enableAutoplayForSoundsMicrosoftEdge">1. Nhấp vào hình 3 dấu chấm ở góc bên phải
 2. Nhấp vào Cài đặt
 3. Nhấn vào Cookie và Quyền của trang web
 4. Cuộn xuống và nhấn vào Phương tiện tự động phát (Media autoplay)

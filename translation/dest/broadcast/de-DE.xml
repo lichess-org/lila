@@ -16,7 +16,7 @@
   <string name="ongoing">Laufend</string>
   <string name="upcoming">Demnächst</string>
   <string name="completed">Beendet</string>
-  <string name="completedHelp">Lichess erkennt den Abschluss einer Runde anhand der Quellspiele. Verwenden Sie diesen Schalter, wenn keine Quelle vorhanden ist.</string>
+  <string name="completedHelp">Lichess erkennt Rundenabschlüsse basierend auf den Quellspielen. Verwende diesen Schalter, wenn keine Quelle vorhanden ist.</string>
   <string name="roundName">Rundenname</string>
   <string name="roundNumber">Rundennummer</string>
   <string name="tournamentName">Turniername</string>
@@ -40,8 +40,8 @@
   <string name="editRoundStudy">Rundenstudie bearbeiten</string>
   <string name="deleteTournament">Dieses Turnier löschen</string>
   <string name="definitivelyDeleteTournament">Lösche definitiv das gesamte Turnier, alle seine Runden und Partien.</string>
-  <string name="automaticLeaderboard">Automatische Rangliste</string>
-  <string name="automaticLeaderboardHelp">Berechne und zeige eine einfache Rangliste basierend auf den Spielergebnissen</string>
+  <string name="automaticLeaderboard" comment="An option when creating a broadcast to calculate a leaderboard automatically from the players involved. Example: https://lichess.org/broadcast/2023-london-chess-classic/round-9/5icayRCY">Automatische Rangliste</string>
+  <string name="automaticLeaderboardHelp" comment="An option when creating a broadcast to calculate a leaderboard automatically from the players involved. Example: https://lichess.org/broadcast/2023-london-chess-classic/round-9/5icayRCY">Berechne und zeige eine einfache Rangliste basierend auf den Spielergebnissen</string>
   <string name="replace">Optional: Spielernamen, Wertungen und Titel ersetzen</string>
   <string name="replaceHelp">Eine Zeile pro Spieler, wie folgt formatiert:
 Originalname; Ersatzname; optional Ersatzwertung; optional Ersatztitel
