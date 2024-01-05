@@ -130,4 +130,3 @@ export const Mask = ''; // e074
 export const Move = ''; // e075
 export const OneHalf = ''; // e076
 export const Mute = ''; // e077
-export const Blindfold = ''; // e078

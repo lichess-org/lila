@@ -230,7 +230,7 @@ final private class RoundAsyncActor(
     case Blindfold(playerId, value) =>
       handle(playerId): pov =>
         val progress = pov.game.setBlindfold(pov.color, value)
-        proxy.save(progress) >> gameRepo.setBlindfold(pov, value) inject progress.events
+        proxy.save(progress) >> gameRepo.setBlindfold(pov, value) inject Nil
 
     case ResignForce(playerId) =>
       handle(playerId): pov =>

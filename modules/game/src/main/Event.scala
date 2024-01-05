@@ -275,10 +275,6 @@ object Event:
     def typ  = "reload"
     def data = reloadOr("drawOffer", by)
 
-  case class Blindfold(by: Color, blindfold: Boolean) extends Event:
-    def typ  = "blindfold"
-    def data = Json.obj("color" -> by, "blindfold" -> blindfold)
-
   case class ClockInc(color: Color, time: Centis, newClock: ChessClock) extends Event:
     def typ = "clockInc"
     def data =

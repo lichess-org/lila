@@ -135,4 +135,3 @@ object licon:
   val Move: Icon            = "" // e075
   val OneHalf: Icon         = "" // e076
   val Mute: Icon            = "" // e077
-  val Blindfold: Icon       = "" // e078

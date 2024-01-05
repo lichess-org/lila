@@ -151,11 +151,6 @@ export function make(send: SocketSend, ctrl: RoundController): RoundSocket {
           `<a class="button" href="/simul/${simul.id}">Back to ${simul.name} simul</a></div>`,
       });
     },
-    blindfold(o: { color: Color; blindfold: boolean }) {
-      (ctrl.data.player.color === o.color ? ctrl.data.player : ctrl.data.opponent).blindfold = o.blindfold;
-      // should always be opponent, but just in case
-      ctrl.redraw();
-    },
   };
 
   lichess.pubsub.on('ab.rep', n => send('rep', { n }));

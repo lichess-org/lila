@@ -139,7 +139,5 @@ const clockSide = (ctrl: RoundController, color: Color, position: Position) => {
     ranks &&
       !showBerserk(ctrl, color) &&
       h('div.tour-rank.' + position, { attrs: { title: 'Current tournament rank' } }, '#' + ranks[color]),
-    (color === d.player.color ? d.player.blindfold : d.opponent.blindfold) &&
-      h('span.clock-blindfold', { attrs: { 'data-icon': licon.Blindfold, title: 'Blindfolded' } }),
   ]);
 };
