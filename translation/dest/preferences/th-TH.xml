@@ -16,6 +16,7 @@
   <string name="zenMode" comment="zenMode&#10;&#10;This is not the religious meaning. Turning this option on takes away make elements of the user interface.&#10;&#10;Can also translate as 'Focus mode' as one example.">โหมดซ่อนเร้น</string>
   <string name="showPlayerRatings">โชว์เรดติงผู้เล่น</string>
   <string name="showFlairs">โชว์รูปตกแต่งผู้เล่น</string>
+  <string name="explainShowPlayerRatings">นี้จะซ้อนเรดติ้งหมากรุกของผู้เล่นไว้ เพื่อให้คุณไม่เครียดกับเกมมากขึ้น แต่เกมคิดคะแนนยังคงส่งผลต่อเรดติ้งคุณ</string>
   <string name="displayBoardResizeHandle">แสดงตัวปรับขนาดกระดาน</string>
   <string name="onlyOnInitialPosition">เฉพาะก่อนเริ่มเดินหมาก</string>
   <string name="inGameOnly">ในเกมเท่านั้น</string>
@@ -35,10 +36,12 @@
   <string name="takebacksWithOpponentApproval">การเดินใหม่ (เมื่อคู่แข่งยินยอม)</string>
   <string name="inCasualGamesOnly">เฉพาะเกมธรรมดา</string>
   <string name="promoteToQueenAutomatically">เลื่อนขั้นเบี้ยเป็นควีนอัตโนมัติ</string>
+  <string name="explainPromoteToQueenAutomatically">กด&lt;ctrl&gt; ค้างไว้เพื่องดการเลื่อนขั้นเบี้ยแบบอัตโนมัติชั่วคราว</string>
   <string name="whenPremoving">เมื่อกำลังเดินล่วงหน้า</string>
   <string name="claimDrawOnThreefoldRepetitionAutomatically">อ้างสิทธิ์การเสมอโดยอัตโนมัติเมื่อเดินซ้ำ 3 รอบ</string>
   <string name="whenTimeRemainingLessThanThirtySeconds">เมื่อเหลือเวลา &lt; 30 วินาที</string>
   <string name="moveConfirmation">ยืนยันการเดิน</string>
+  <string name="explainCanThenBeTemporarilyDisabled">สามารถปิดการใช้งานระหว่างเกมได้ด้วยเมนูกระดาน</string>
   <string name="inCorrespondenceGames">เกมแบบยาวนาน</string>
   <string name="correspondenceAndUnlimited">แบบยาวนานและแบบไม่จำกัดเวลา</string>
   <string name="confirmResignationAndDrawOffers">ยืนยันการยอมแพ้และข้อเสนอการเสมอ</string>
@@ -47,6 +50,7 @@
   <string name="castleByMovingOntoTheRook">เดินคิงไปยังเรือ</string>
   <string name="inputMovesWithTheKeyboard">ทำการเดินด้วยแป้นพิมพ์</string>
   <string name="inputMovesWithVoice">เดนหมากโดยใข้เสียงของคุณ</string>
+  <string name="snapArrowsToValidMoves" comment="snapArrowsToValidMoves&#10;&#10;The 'arrows' are for quick annotations you can do on the board, by holding right mouse button. With this setting enabled, it means the arrows will align themselves to places were pieces can move.">ลูกศรสแน็ปเพื่อการเดินที่ถูกต้อง</string>
   <string name="sayGgWpAfterLosingOrDrawing" comment="sayGgWpAfterLosingOrDrawing&#10;&#10;When enabled, this setting will automatically send 'Good game, well played' to your opponent if you are lose or draw the game. It's meant as a courtesy message.&#10;&#10;The message will be sent in ENGLISH.&#10;&#10;It is up to you how to deal with this. For example, you may want to put '(message will be sent in English)' in your translated text as one example. Or you can leave the actual English text and put a brief translation in your own language.">ส่งคำว่า \"Good game, well played\" เมี่อแพ้หรือเสมอ</string>
   <string name="yourPreferencesHaveBeenSaved">การตั้งค่าของคุณถูกบันทึกแล้ว</string>
   <string name="scrollOnTheBoardToReplayMoves">เลื่อนกระดานลงเพื่อดูตาเดินที่ผ่านมา</string>

@@ -80,5 +80,17 @@
     <item quantity="many">%s років тому</item>
     <item quantity="other">%s років тому</item>
   </plurals>
+  <plurals name="nbMinutesRemaining">
+    <item quantity="one">залишилася %s хвилина</item>
+    <item quantity="few">залишилося %s хвилини</item>
+    <item quantity="many">залишилося %s хвилин</item>
+    <item quantity="other">залишилося %s хвилин</item>
+  </plurals>
+  <plurals name="nbHoursRemaining">
+    <item quantity="one">залишилася %s година</item>
+    <item quantity="few">залишилося %s години</item>
+    <item quantity="many">залишилося %s годин</item>
+    <item quantity="other">залишилося %s годин</item>
+  </plurals>
   <string name="completed">завершено</string>
 </resources>
