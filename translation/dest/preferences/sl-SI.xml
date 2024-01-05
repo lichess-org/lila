@@ -18,7 +18,6 @@
   <string name="explainShowPlayerRatings">Omogoča skrivanje vseh ratingov na spletnem mestu, da se osredotočite na igro. Igre same so še vedno lahko ratingirane, to je zgolj povezano z videzom.</string>
   <string name="displayBoardResizeHandle">Prikaži ročico za spremembo velikosti šahovnice</string>
   <string name="onlyOnInitialPosition">Samo ob začetni poziciji</string>
-  <string name="blindfoldChess">Slepi šah (nevidne figure)</string>
   <string name="chessClock">Šahovska ura</string>
   <string name="tenthsOfSeconds">Desetinke sekunde</string>
   <string name="whenTimeRemainingLessThanTenSeconds" comment="whenTimeRemainingLessThanTenSeconds&#10;&#10;The &amp;lt; symbol is not required (you can write it as a word), just do NOT use &lt; in its place.&#10;&#10;Technical information: &lt; is a reserved character in HTML, which is why it cannot be used.">Če je preostanek časa pod 10 sekundami</string>
