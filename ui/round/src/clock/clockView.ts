@@ -135,9 +135,9 @@ const clockSide = (ctrl: RoundController, color: Color, position: Position) => {
   console.log('dooky');
   const d = ctrl.data,
     ranks = d.tournament?.ranks || d.swiss?.ranks;
-  return h('div.clock-side', [
+  return (
     ranks &&
-      !showBerserk(ctrl, color) &&
-      h('div.tour-rank.' + position, { attrs: { title: 'Current tournament rank' } }, '#' + ranks[color]),
-  ]);
+    !showBerserk(ctrl, color) &&
+    h('div.tour-rank.' + position, { attrs: { title: 'Current tournament rank' } }, '#' + ranks[color])
+  );
 };
