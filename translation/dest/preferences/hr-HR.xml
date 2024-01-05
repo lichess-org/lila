@@ -19,7 +19,6 @@
   <string name="displayBoardResizeHandle">Prikaži ručicu za promjenu veličine ploče</string>
   <string name="onlyOnInitialPosition">Samo na početku partije</string>
   <string name="inGameOnly">Samo unutar igre</string>
-  <string name="blindfoldChess">Šah na slijepo (nevidljive figure)</string>
   <string name="chessClock">Sat</string>
   <string name="tenthsOfSeconds">Desetinke sekundi</string>
   <string name="whenTimeRemainingLessThanTenSeconds" comment="whenTimeRemainingLessThanTenSeconds&#10;&#10;The &amp;lt; symbol is not required (you can write it as a word), just do NOT use &lt; in its place.&#10;&#10;Technical information: &lt; is a reserved character in HTML, which is why it cannot be used.">Kad je ostalo manje od 10 sekundi</string>
