@@ -42,7 +42,7 @@ const formatRemaining = (seconds: number): string =>
 export const formatter = memoize(() =>
   window.Intl
     ? // for many users, using the islamic calendar is not practical on the internet
-      // due to international context, so we make sure it's displayed using the gregorian calender
+      // due to international context, so we make sure it's displayed using the gregorian calendar
       new Intl.DateTimeFormat(
         document.documentElement.lang.startsWith('ar-') ? 'ar-ly' : document.documentElement.lang,
         {

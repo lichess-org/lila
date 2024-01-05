@@ -1,18 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="voiceCommands">音声コマンド</string>
+  <string name="voiceCommands">音声コマンド（英語）</string>
   <string name="watchTheVideoTutorial">チュートリアル動画を見る</string>
   <string name="instructions1">%1$s ボタンで音声認識の切り替え、 %2$s ボタンでこのヘルプダイアログの表示、 %3$s メニューで音声設定の変更ができます。</string>
-  <string name="instructions2">はっきりしない場合は複数の手が矢印で表示されます。矢印の色や数字を発声すると選択できます。</string>
-  <string name="instructions3">矢印に回転するタイマーがついていると、1 周した時点でその手が指されます。この間、%1$s と言えば手がすぐに指され、%2$s で手がキャンセルされ、色・数字を言えば別の矢印に移ります。このタイマーの調整や停止は設定で行なえます。</string>
+  <string name="instructions2" comment="Voice commands can be misheard and Lichess will not always be fully certain what you said. Several arrows will be shown to identify e.g. if the move was 'b4' or 'd4', which often sound similar.&#10;&#10;These arrows will be in different colours (green, blue, etc) or labelled 1, 2, 3....&#10;You can then say the colour of the arrow (e.g. 'green') - or its number (e.g. '1'), to select that move.&#10;Users can configure if they choose from multiple moves based on colours or numbers.">はっきりしない場合は複数の手が矢印で表示されます。矢印の色や数字を発声すると選択できます。</string>
+  <string name="instructions3" comment="This is a complicated concept more easy to understand in practice. Voice commands can be misheard and Lichess will not always be fully certain what you said. Several arrows will be shown to identify e.g. if the move was 'b4' or 'd4', which often sound similar.&#10;The most likely move the player wants will have a circle showing around it, but it will be possible to cancel before it is played (for example, by shouting 'no!').&#10;&#10;You can see a visual example here: https://lichess.org/@/schlawg/blog/how-to-lichess-voice/nWrypoWI">矢印に回転するタイマーがついていると、1 周した時点でその手が指されます。この間、%1$s と言えば手がすぐに指され、%2$s で手がキャンセルされ、色・数字を言えば別の矢印に移ります。このタイマーの調整や停止は設定で行なえます。</string>
+  <string name="instructions4" comment="%s is Push to Talk.">騒がしい環境では %s を有効にしてください。これがオンの場合、Shift キーを押したままコマンドを発話します。</string>
+  <string name="instructions5" comment="The phonetic alphabet is also known as the NATO alphabet (where A = Alpha, B = Bravo, etc. This makes the sounds easier to differentiate through a microphone). It is for English specifically, which as of the time of writing, is the only language supported by the Voice Commands feature.">a - h に英語のフォネティック・アルファベットを使うと認識されやすくなります。 </string>
   <string name="instructions6">%s に音声入力設定の詳しい説明があります。</string>
   <string name="thisBlogPost">このブログ投稿</string>
   <string name="moveToE4OrSelectE4Piece">e4 に移動か e4 の駒を選択</string>
   <string name="selectOrCaptureABishop">ビショップを選択する、または取る</string>
   <string name="takeRookWithQueen">クイーンでルークを取る</string>
   <string name="castle">キャスリング（どちら側でも）</string>
+  <string name="phoneticAlphabetIsBest">フォネティック・アルファベット推奨</string>
   <string name="cancelTimerOrDenyARequest">タイマーのキャンセルかリクエストの拒否</string>
-  <string name="sleep">スリープ（ウェイクワードが有効な時）</string>
+  <string name="sleep" comment="Used for voice commands.&#10;&#10;By default, voice commands are always-on after the feature is enabled. Users can optionally set a word for listening to start, or say 'sleep' to disable listening.&#10;&#10;(Please note - this is not the same as recording, since the recording is never sent to Lichess; the speech technology is entirely offline)">スリープ（ウェイクワードが有効な時）</string>
   <string name="turnOffVoiceRecognition">音声認識をオフにする</string>
   <string name="showPuzzleSolution">問題の解答を表示</string>
 </resources>

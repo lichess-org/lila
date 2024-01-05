@@ -149,19 +149,19 @@ Das rote Stummschaltungssymbol erscheint, wenn dein Browser verhindert, dass lic
 
 Wir zeigen das rote Symbol an, um darauf aufmerksam zu machen, wenn dies geschieht. Oft kann man lichess.org ausdrücklich erlauben, Töne abzuspielen. Hier findest du eine Anleitung, wie dies in den neuesten Versionen einiger gängiger Browser funktioniert.</string>
   <string name="desktop">Desktop</string>
-  <string name="enableAutoplayForSoundsFirefox" comment="Guidance for Mozilla Firefox users on how to enable audio auto-play if they have sound issues.&#10;&#10;Please keep 'i' lowercase, for two reasons:&#10;1. Capital L and capital I are hard to differentiate for users.&#10;2. So users don't press Ctrl+Shift+I to get a capital I. This is a different shortcut in the browser.">1. Gehe zu lichess.org
+  <string name="enableAutoplayForSoundsFirefox">1. Gehe zu lichess.org
 2. Drücke Strg-i unter Linux/Windows oder cmd-i auf MacOS
 3. Klicke auf die Registerkarte Berechtigungen
 4. Audio und Video auf lichess.org erlauben</string>
-  <string name="enableAutoplayForSoundsChrome" comment="Guidance for Google Chrome users on how to enable audio auto-play if they have sound issues.">1. Gehe zu lichess.org
+  <string name="enableAutoplayForSoundsChrome">1. Gehe zu lichess.org
 2. Klicke auf das Schloss-Symbol in der Adressleiste
 3. Klicke auf die Seiten-Einstellungen
 4. Ton zulassen</string>
-  <string name="enableAutoplayForSoundsSafari" comment="Guidance for Apple Safari users on how to enable audio auto-play if they have sound issues.">1. Gehe zu lichess.org
+  <string name="enableAutoplayForSoundsSafari">1. Gehe zu lichess.org
 2. Klicke auf Safari in der Menüleiste
 3. Klicke auf Einstellungen für lichess.org ...
 4. Alle Auto-Abspielen erlauben</string>
-  <string name="enableAutoplayForSoundsMicrosoftEdge" comment="Guidance for Microsoft Edge users on desktop, for how to enable audio auto-play if they have sound issues.">1. Klicke auf die drei Punkte in der oberen rechten Ecke
+  <string name="enableAutoplayForSoundsMicrosoftEdge">1. Klicke auf die drei Punkte in der oberen rechten Ecke
 2. Klicke auf Einstellungen
 3. Klicke auf Cookies und Website-Berechtigungen
 4. Scrolle nach unten und klicke auf Medien-Autoplay

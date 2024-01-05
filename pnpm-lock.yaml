@@ -82,9 +82,6 @@ importers:
       '@types/debounce-promise':
         specifier: ^3.1.6
         version: 3.1.6
-      '@types/highcharts':
-        specifier: '=4.2.57'
-        version: 4.2.57
       '@types/yaireo__tagify':
         specifier: ^4.17.3
         version: 4.17.3
@@ -121,6 +118,9 @@ importers:
       prop-types:
         specifier: ^15.8.1
         version: 15.8.1
+      shepherd.js:
+        specifier: ^11.2.0
+        version: 11.2.0
       snabbdom:
         specifier: ^3.5.1
         version: 3.5.1
@@ -184,21 +184,30 @@ importers:
       '@juggle/resize-observer':
         specifier: ^3.4.0
         version: 3.4.0
-      '@types/highcharts':
-        specifier: '=4.2.57'
-        version: 4.2.57
       ceval:
         specifier: workspace:*
         version: link:../ceval
       chart.js:
         specifier: 4.4.0
         version: 4.4.0
+      chartjs-adapter-dayjs-4:
+        specifier: ^1.0.4
+        version: 1.0.4(chart.js@4.4.0)(dayjs@1.11.10)
       chartjs-plugin-datalabels:
         specifier: ^2.2.0
         version: 2.2.0(chart.js@4.4.0)
+      chartjs-plugin-zoom:
+        specifier: ^2.0.1
+        version: 2.0.1(chart.js@4.4.0)
       common:
         specifier: workspace:*
         version: link:../common
+      dayjs:
+        specifier: ^1.11.10
+        version: 1.11.10
+      nouislider:
+        specifier: ^15.7.1
+        version: 15.7.1
 
   ui/chat:
     dependencies:
@@ -301,9 +310,6 @@ importers:
 
   ui/insight:
     dependencies:
-      '@types/highcharts':
-        specifier: '=4.2.57'
-        version: 4.2.57
       chart:
         specifier: workspace:^
         version: link:../chart
@@ -598,9 +604,6 @@ importers:
       '@types/fnando__sparkline':
         specifier: ^0.3.4
         version: 0.3.4
-      '@types/highcharts':
-        specifier: '=4.2.57'
-        version: 4.2.57
       '@types/yaireo__tagify':
         specifier: ^4.17.0
         version: 4.17.3
@@ -628,9 +631,6 @@ importers:
       flatpickr:
         specifier: ^4.6.13
         version: 4.6.13
-      highcharts:
-        specifier: '=4.2.5'
-        version: 4.2.5
       hopscotch:
         specifier: ^0.3.1
         version: 0.3.1
@@ -1211,6 +1211,23 @@ packages:
     engines: {node: ^12.22.0 || ^14.17.0 || >=16.0.0}
     dev: false
 
+  /@floating-ui/core@1.5.2:
+    resolution: {integrity: sha512-Ii3MrfY/GAIN3OhXNzpCKaLxHQfJF9qvwq/kEJYdqDxeIHa01K8sldugal6TmeeXl+WMvhv9cnVzUTaFFJF09A==}
+    dependencies:
+      '@floating-ui/utils': 0.1.6
+    dev: false
+
+  /@floating-ui/dom@1.5.3:
+    resolution: {integrity: sha512-ClAbQnEqJAKCJOEbbLo5IUlZHkNszqhuxS4fHAVxRPXPya6Ysf2G8KypnYcOTpx6I8xcgF9bbHb6g/2KpbV8qA==}
+    dependencies:
+      '@floating-ui/core': 1.5.2
+      '@floating-ui/utils': 0.1.6
+    dev: false
+
+  /@floating-ui/utils@0.1.6:
+    resolution: {integrity: sha512-OfX7E2oUDYxtBvsuS4e/jSn4Q9Qb6DzgeYtsAdkPZ47znpoNsMgZw0+tVijiv3uGNR6dgNlty6r9rzIzHjtd/A==}
+    dev: false
+
   /@fnando/sparkline@0.3.10:
     resolution: {integrity: sha512-Rwz2swatdSU5F4sCOvYG8EOWdjtLgq5d8nmnqlZ3PXdWJI9Zq9BRUvJ/9ygjajJG8qOyNpMFX3GEVFjZIuB1Jg==}
     dev: false
@@ -1724,20 +1741,10 @@ packages:
     resolution: {integrity: sha512-FWU1zw7CVJYVeDk77FGphTUabfPims4F/Yq+WFB0Gh647lLtiXHWn8vpfT95Fl65IsNBDOhEbxJdhmERMGubNQ==}
     dev: false
 
-  /@types/geojson@7946.0.10:
-    resolution: {integrity: sha512-Nmh0K3iWQJzniTuPRcJn5hxXkfB1T1pgB89SBig5PlJQU5yocazeu4jATJlaA0GYFKWMqDdvYemoSnF2pXgLVA==}
-    dev: false
-
   /@types/graceful-fs@4.1.5:
     resolution: {integrity: sha512-anKkLmZZ+xm4p8JWBf4hElkM4XR+EZeA2M9BAkkTldmcyDY4mbdIJnRghDJH3Ov5ooY7/UAoENtmdMSkaAd7Cw==}
     dependencies:
       '@types/node': 20.9.1
-    dev: false
-
-  /@types/highcharts@4.2.57:
-    resolution: {integrity: sha512-8/RF3I2Zy4I8ll9Ksa+wTbHA7ne/OHilmaTBQTVpQdNtOX6dL7EWFXfcfwiXQAfL+0r48LifHjYDmqug0t8mQA==}
-    dependencies:
-      '@types/geojson': 7946.0.10
     dev: false
 
   /@types/istanbul-lib-coverage@2.0.4:
@@ -2331,6 +2338,15 @@ packages:
       chart.js: 4.4.0
     dev: false
 
+  /chartjs-plugin-zoom@2.0.1(chart.js@4.4.0):
+    resolution: {integrity: sha512-ogOmLu6e+Q7E1XWOCOz9YwybMslz9qNfGV2a+qjfmqJYpsw5ZMoRHZBUyW+NGhkpQ5PwwPA/+rikHpBZb7PZuA==}
+    peerDependencies:
+      chart.js: '>=3.2.0'
+    dependencies:
+      chart.js: 4.4.0
+      hammerjs: 2.0.8
+    dev: false
+
   /chessground@4.4.2:
     resolution: {integrity: sha512-cCAaTjsnE30hkWSPQRBOr2vlWSmxHS1hzz2kBM+b1VwLjvZRj5bohWtfZsznIgegfZUxZMOvtHsyde8/hhazLg==}
     dependencies:
@@ -2541,6 +2557,11 @@ packages:
 
   /deepmerge@4.2.2:
     resolution: {integrity: sha512-FJ3UgI4gIl+PHZm53knsuSFpE+nESMr7M4v9QcgB7S63Kj/6WqMiFQJpBBYz1Pt+66bZpP3Q7Lye0Oo9MPKEdg==}
+    engines: {node: '>=0.10.0'}
+    dev: false
+
+  /deepmerge@4.3.1:
+    resolution: {integrity: sha512-3sUqbMEc77XqpdNO7FRyRog+eW3ph+GYCbj+rK+uYyRMuwsVy0rMiVtPn+QJlKFvWP/1PYpapqYn0Me2knFn+A==}
     engines: {node: '>=0.10.0'}
     dev: false
 
@@ -3015,6 +3036,11 @@ packages:
     resolution: {integrity: sha512-EtKwoO6kxCL9WO5xipiHTZlSzBm7WLT627TqC/uVRd0HKmq8NXyebnNYxDoBi7wt8eTWrUrKXCOVaFq9x1kgag==}
     dev: false
 
+  /hammerjs@2.0.8:
+    resolution: {integrity: sha512-tSQXBXS/MWQOn/RKckawJ61vvsDpCom87JgxiYdGwHdOa0ht0vzUWDlfioofFCRU0L+6NGDt6XzbgoJvZkMeRQ==}
+    engines: {node: '>=0.8.0'}
+    dev: false
+
   /has-flag@3.0.0:
     resolution: {integrity: sha512-sKJf1+ceQBr4SMkvQnBDNDtf4TXpVhVGateu0t918bl30FnbE2m4vNLX+VWe/dpjlb+HugGYzW7uQXH98HPEYw==}
     engines: {node: '>=4'}
@@ -3030,10 +3056,6 @@ packages:
     engines: {node: '>= 0.4.0'}
     dependencies:
       function-bind: 1.1.1
-    dev: false
-
-  /highcharts@4.2.5:
-    resolution: {integrity: sha512-u6LPuWXaWPoU6MeGHoF/E4HSqN7tJTtWi0xDvtYJX1vRmhDe4LCNzTP5n+Mo9UudRhdIb30nyeJuvjipHn07Vg==}
     dev: false
 
   /hopscotch@0.3.1:
@@ -4108,6 +4130,10 @@ packages:
     engines: {node: '>=0.10.0'}
     dev: false
 
+  /nouislider@15.7.1:
+    resolution: {integrity: sha512-5N7C1ru/i8y3dg9+Z6ilj6+m1EfabvOoaRa7ztpxBSKKRZso4vA52DGSbBJjw5XLtFr/LZ9SgGAXqyVtlVHO5w==}
+    dev: false
+
   /npm-run-path@4.0.1:
     resolution: {integrity: sha512-S48WzZW777zhNIrn7gxOlISNAqi9ZC/uQFnRdbeIHhZhCA6UqpkOT8T1G7BvfdgP4Er8gF4sUbaS0i7QvIfCWw==}
     engines: {node: '>=8'}
@@ -4565,6 +4591,14 @@ packages:
   /shebang-regex@3.0.0:
     resolution: {integrity: sha512-7++dFhtcx3353uBaq8DDR4NuxBetBzC7ZQOhmTQInHEd6bSrXdiEyzCvG07Z44UYdLShWUyXt5M/yhz8ekcb1A==}
     engines: {node: '>=8'}
+    dev: false
+
+  /shepherd.js@11.2.0:
+    resolution: {integrity: sha512-2hbz3N7GuuTjI7y3sfnoqKnH0cNhExx67IJtCTGQI2KhBEyvegsDYW5qjj5BlvvVtQjmL/O/J1GQEciwfoZWpw==}
+    engines: {node: 16.* || >= 18}
+    dependencies:
+      '@floating-ui/dom': 1.5.3
+      deepmerge: 4.3.1
     dev: false
 
   /signal-exit@3.0.7:

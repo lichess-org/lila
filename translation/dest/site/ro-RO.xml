@@ -5,6 +5,7 @@
   <string name="toInviteSomeoneToPlayGiveThisUrl">Pentru a invita pe cineva să joace, folosiți acest URL</string>
   <string name="gameOver">Partidă încheiată</string>
   <string name="waitingForOpponent">Se așteaptă adversarul</string>
+  <string name="orLetYourOpponentScanQrCode">Sau lăsați oponentul să scaneze acest cod QR</string>
   <string name="waiting">Se așteaptă</string>
   <string name="yourTurn">Rândul tău</string>
   <string name="aiNameLevelAiLevel">%1$s nivel %2$s</string>
@@ -781,6 +782,7 @@
   <string name="withFriends">Cu prietenii</string>
   <string name="withEverybody">Cu toată lumea</string>
   <string name="kidMode">Mod pentru copii</string>
+  <string name="kidModeIsEnabled">Modul copil este activat.</string>
   <string name="kidModeExplanation">În modul „copil”, toate modalitățile de comunicare sunt dezactivate. Activează asta pentru copilul tău sau pentru școlari, pentru a-i proteja de alți utilizatori ai internetului.</string>
   <string name="inKidModeTheLichessLogoGetsIconX">În modul „copil”, sigla paginii va avea iconița %s, în felul acesta vei ști când copiii tăi sunt în siguranță.</string>
   <string name="askYourChessTeacherAboutLiftingKidMode">Contul tău este gestionat. Întreabă-ți profesorul de șah despre scoaterea modului copil.</string>
@@ -898,6 +900,8 @@
     <item quantity="few">și salvează %s variațiile cu mutare anticipată</item>
     <item quantity="other">și salvează %s variațiile cu mutare anticipată</item>
   </plurals>
+  <string name="showUnreadLichessMessage">Ați primit un mesaj privat de la Lichess.</string>
+  <string name="clickHereToReadIt">Click aici pentru a-l citi</string>
   <string name="sorry">Scuze :(</string>
   <string name="weHadToTimeYouOutForAWhile">Am fost nevoiți să suspendăm activitatea pentru puțin timp.</string>
   <string name="why">De ce?</string>

@@ -1,2 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+  <string name="moveToE4OrSelectE4Piece">移动到e4格或选中e4格的棋子</string>
+  <string name="selectOrCaptureABishop">选中象或吃象</string>
+  <string name="takeRookWithQueen">用后吃车</string>
+  <string name="castle">王车易位（任一侧）</string>
+  <string name="phoneticAlphabetIsBest">请最好使用语音字母表说这些格子从而使识别更准确</string>
+  <string name="cancelTimerOrDenyARequest">关闭计时器或拒绝请求</string>
+  <string name="playPreferredMoveOrConfirmSomething" comment="Used in voice commands. When it is unclear what the player said (e.g. 'b4' and 'd4' sound similar), both moves will be shown, with the more likely one highlighted in a certain colour. By default, a countdown begins, and if no action is taken, the likely move (e.g. b4) will be played. Players can end the countdown early/confirm their move by saying 'yes'.&#10;&#10;For more details see https://lichess.org/@/schlawg/blog/how-to-lichess-voice/nWrypoWI">走语音识别为更相似的一步或确认某事</string>
+</resources>

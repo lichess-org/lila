@@ -3,7 +3,7 @@
   <string name="playWithAFriend">Chơi với bạn bè</string>
   <string name="playWithTheMachine">Chơi với máy tính</string>
   <string name="toInviteSomeoneToPlayGiveThisUrl">Để mời ai đó chơi, hãy gửi URL này</string>
-  <string name="gameOver">Ván cờ kết thúc</string>
+  <string name="gameOver">Kết thúc ván cờ</string>
   <string name="waitingForOpponent">Đang chờ đối thủ</string>
   <string name="orLetYourOpponentScanQrCode">Hoặc để đối thủ của bạn quét mã QR này</string>
   <string name="waiting">Đang chờ</string>
@@ -86,7 +86,7 @@
   <string name="whiteDrawBlack">Trắng / Hòa / Đen</string>
   <string name="averageRatingX">Xếp loại bình quân: %s</string>
   <string name="recentGames">Các ván cờ gần đây</string>
-  <string name="topGames">Các ván cờ hàng đầu</string>
+  <string name="topGames">Các ván đấu hàng đầu</string>
   <string name="masterDbExplanation">Các ván đấu OTB của các kỳ thủ có hệ số Elo %1$s+ do FIDE xếp hạng từ năm %2$s đến %3$s</string>
   <plurals name="mateInXHalfMoves">
     <item quantity="other">Chiếu hết trong %s nước</item>
@@ -246,14 +246,14 @@
   <string name="whiteTimeOut">Trắng hết giờ</string>
   <string name="blackTimeOut">Đen hết giờ</string>
   <string name="drawOfferSent">Đã gửi đề nghị hòa</string>
-  <string name="drawOfferAccepted">Đồng ý hoà</string>
+  <string name="drawOfferAccepted">Đề nghị hoà được chấp nhận</string>
   <string name="drawOfferCanceled">Đã hủy bỏ đề nghị hoà</string>
   <string name="whiteOffersDraw">Trắng đề nghị hòa</string>
   <string name="blackOffersDraw">Đen đề nghị hòa</string>
   <string name="whiteDeclinesDraw">Trắng từ chối hòa</string>
   <string name="blackDeclinesDraw">Đen từ chối hòa</string>
   <string name="yourOpponentOffersADraw">Đối thủ xin hoà</string>
-  <string name="accept">Đồng ý</string>
+  <string name="accept">Chấp nhận</string>
   <string name="decline">Từ chối</string>
   <string name="playingRightNow">Đang diễn ra</string>
   <string name="eventInProgress">Đang diễn ra</string>
@@ -327,8 +327,7 @@
     <item quantity="other">%s nghiên cứu</item>
   </plurals>
   <plurals name="nbSimuls">
-    <item quantity="other">Chủ Trì %s
-Sự Kiện Cờ Đồng Loạt</item>
+    <item quantity="other">%s Sự Kiện Cờ Đồng Loạt</item>
   </plurals>
   <string name="viewTournament">Xem giải đấu</string>
   <string name="backToTournament">Quay lại giải đấu</string>
@@ -356,7 +355,7 @@ Sự Kiện Cờ Đồng Loạt</item>
   <string name="youAreNotInTeam">Bạn không ở trong đội %s</string>
   <string name="backToGame">Quay lại ván đấu</string>
   <string name="siteDescription">Chơi cờ vua trực tuyến miễn phí. Chơi cờ vua với giao diện đẹp. Không cần đăng ký, không có quảng cáo, không yêu cầu plugin. Chơi cờ vua với máy tính, bạn bè hoặc đối thủ ngẫu nhiên.</string>
-  <string name="xJoinedTeamY">%1$s đã tham gia đội %2$s</string>
+  <string name="xJoinedTeamY">%1$s đã gia nhập đội %2$s</string>
   <string name="xCreatedTeamY">%1$s đã tạo đội %2$s</string>
   <string name="startedStreaming">đã bắt đầu phát trực tiếp</string>
   <string name="xStartedStreaming">%s đã bắt đầu phát trực tiếp</string>
@@ -561,7 +560,7 @@ trò chuyện trong ván đấu và có một URL có thể chia sẻ công khai
   <string name="onSlowGames">Chỉ khi chơi cờ chậm</string>
   <string name="always">Luôn luôn</string>
   <string name="never">Không bao giờ</string>
-  <string name="xCompetesInY">%1$s đã tham gia %2$s</string>
+  <string name="xCompetesInY">%1$s thi đấu ở %2$s</string>
   <string name="victory">Chiến thắng</string>
   <string name="defeat">Thua</string>
   <string name="victoryVsYInZ">%1$s %2$s trong %3$s</string>
@@ -713,7 +712,7 @@ trò chuyện trong ván đấu và có một URL có thể chia sẻ công khai
   <string name="withEverybody">Với mọi người</string>
   <string name="kidMode">Chế độ trẻ em</string>
   <string name="kidModeIsEnabled">Chế độ trẻ em đã được bật.</string>
-  <string name="kidModeExplanation">Điều này là để an toàn. Trong chế độ trẻ em, tất cả mọi giao tiếp trên trang web đều bị tắt. Kích hoạt điều này cho con của bạn và học sinh trong lớp để bảo vệ chúng khỏi những người dùng khác trên Internet.</string>
+  <string name="kidModeExplanation">Điều này là để an toàn. Trong chế độ trẻ em, tất cả mọi giao tiếp trên trang web đều bị tắt. Kích hoạt điều này cho con của bạn và học viên trong lớp để bảo vệ chúng khỏi những người dùng khác trên Internet.</string>
   <string name="inKidModeTheLichessLogoGetsIconX">Trong chế độ trẻ em, biểu tượng Lichess có một biểu tượng %s, từ đó bạn biết con bạn được an toàn.</string>
   <string name="askYourChessTeacherAboutLiftingKidMode">Tài khoản của bạn đang bị quản lý. Hỏi giáo viên dạy cờ của bạn để lấy lại quyền điều khiển.</string>
   <string name="enableKidMode">Kích hoạt chế độ Trẻ em</string>
@@ -771,7 +770,7 @@ trò chuyện trong ván đấu và có một URL có thể chia sẻ công khai
   <string name="notificationsX">Thông báo: %1$s</string>
   <string name="perfRatingX">Hệ số: %s</string>
   <plurals name="nbSecondsToPlayTheFirstMove">
-    <item quantity="other">Còn %s giây để đi nước đầu tiên</item>
+    <item quantity="other">%s giây còn lại để đi nước đầu tiên</item>
   </plurals>
   <string name="practiceWithComputer">Luyện tập với máy tính</string>
   <string name="anotherWasX">Nước đi khác là %s</string>
@@ -868,7 +867,7 @@ trò chuyện trong ván đấu và có một URL có thể chia sẻ công khai
   <string name="thisTopicIsArchived">Đề tài này đã bị đóng nên bạn không thể bình luận nữa.</string>
   <string name="joinTheTeamXToPost">Gia nhập %1$s để đăng trong diễn đàn này</string>
   <string name="teamNamedX">Đội %1$s</string>
-  <string name="youCannotPostYetPlaySomeGames">Bạn bây giờ chưa thể đăng bài lên diễn đàn được. Hãy chơi vài ván đã!</string>
+  <string name="youCannotPostYetPlaySomeGames">Bạn chưa thể đăng bài lên diễn đàn bây giờ. Hãy chơi vài ván đã!</string>
   <string name="subscribe">Đăng kí</string>
   <string name="unsubscribe">Hủy đăng ký</string>
   <string name="mentionedYouInX">đã nhắc đến bạn trong \"%1$s\".</string>

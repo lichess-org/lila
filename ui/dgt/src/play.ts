@@ -931,7 +931,7 @@ export default function (token: string) {
                 'onmessage - Multiple moves received on single message - movesToProcess: ' + movesToProcess,
               );
             if (localBoard.turn == currentGameColor) {
-              //If more than one move is received when it's the DGT board player's turn this may be a invalid move
+              //If more than one move is received when it's the DGT board player's turn this may be an invalid move
               //Move will be quarantined by 2.5 seconds
               const quarantinedlastLegalParam = lastLegalParam;
               await sleep(2500);
@@ -957,7 +957,7 @@ export default function (token: string) {
               }
             }
           }
-          //Update the lastLegalParam object to to help prevent duplicates and detect when more than one move is received
+          //Update the lastLegalParam object to help prevent duplicates and detect when more than one move is received
           lastLegalParam = message.param;
           for (let i = movesToProcess; i > 0; i--) {
             //Get first move to process, usually the last since movesToProcess is usually 1

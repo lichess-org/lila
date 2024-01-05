@@ -143,4 +143,12 @@ Lichess 上的电脑分析是基于 Stockfish 的。</string>
  点击你的浏览器网址栏中 lichess.org 地址旁的锁形图标。
 
  然后选择是否允许或拦截来自 Lichess 的提醒。</string>
+  <string name="enableAutoplayForSoundsFirefox">1.前往lichess.org
+2.Linux与Windows系统请点击Ctrl键加i键，MacOS系统请点击cmd键加i键
+3.点击权限选项卡
+4.允许lichess.org的音频与视频权限</string>
+  <string name="enableAutoplayForSoundsChrome">1.前往lichess.org
+2.点击网址栏上的锁图标
+3.点击网站设置
+4.允许声音播放</string>
 </resources>

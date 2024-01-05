@@ -24,10 +24,10 @@ jobs:
         with:
           node-version: '19'
           cache: pnpm
-      - uses: github/codeql-action/init@v2
+      - uses: github/codeql-action/init@v3
         with:
           languages: javascript
-      - uses: github/codeql-action/analyze@v2
+      - uses: github/codeql-action/analyze@v3
       - run: pnpm install
       - run: pnpm run lint
       - run: pnpm run check-format

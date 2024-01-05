@@ -3,6 +3,7 @@ import idleTimer from './idleTimer';
 import sri from './sri';
 import { reload } from './reload';
 import { storage as makeStorage } from './storage';
+import { storedIntProp } from 'common/storage';
 import once from './once';
 
 type Sri = string;
@@ -66,7 +67,6 @@ export default class StrongSocket {
   private _sign?: string;
   private resendWhenOpen: [string, any, any][] = [];
   private baseUrls = document.body.dataset.socketDomains!.split(',');
-
   static defaultOptions: Options = {
     idle: false,
     pingMaxLag: 9000, // time to wait for pong before resetting the connection
@@ -97,9 +97,12 @@ export default class StrongSocket {
         ...(settings.params || {}),
       },
     };
+    const customPingDelay = storedIntProp('socket.ping.interval', 2500)();
+
     this.options = {
       ...StrongSocket.defaultOptions,
       ...(settings.options || {}),
+      pingDelay: customPingDelay > 400 ? customPingDelay : 2500,
     };
     this.version = version;
     this.pubsub.on('socket.send', this.send);
@@ -195,9 +198,8 @@ export default class StrongSocket {
       if (!this.tryOtherUrl) {
         // if this was set earlier, we've already logged the error
         this.tryOtherUrl = true;
-        const sri = this.settings.params?.sri;
         lichess.log(
-          `socket.ts:${sri ? ' sri ' + sri : ''} timeout ${delay}ms, rotating to ${this.baseUrl()}`,
+          `sri ${this.settings.params!.sri} timeout ${delay}ms, trying ${this.baseUrl()}${this.url}`,
         );
       }
       this.connect();
@@ -306,7 +308,7 @@ export default class StrongSocket {
     }
     if (e.wasClean && e.code < 1002) return;
 
-    lichess.log(`socket.ts:${sri ? ' sri ' + sri : ''} unclean close ${e.code} ${url} ${e.reason}`);
+    lichess.log(`${sri ? 'sri ' + sri : ''} unclean close ${e.code} ${url} ${e.reason}`);
     this.tryOtherUrl = true;
     clearTimeout(this.pingSchedule);
   };
@@ -332,6 +334,7 @@ export default class StrongSocket {
   };
 
   baseUrl = () => {
+    if (lichess.storage.get('socket.host')) return lichess.storage.get('socket.host'); // TODO - remove
     let url = this.storage.get();
     if (!url) {
       url = this.baseUrls[Math.floor(Math.random() * this.baseUrls.length)];

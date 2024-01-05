@@ -108,7 +108,7 @@
   <string name="smotheredMate">Chiếu kiểu kẹt</string>
   <string name="smotheredMateDescription">Một nước chiếu hết với quân mã mà trong đó vua đối phương không thể di chuyển vì bị bao vây bởi chính các quân cờ khác của họ.</string>
   <string name="superGM">Các ván đấu từ Siêu Đại Kiện Tướng</string>
-  <string name="superGMDescription">Câu đố từ những ván đấu đã được chơi bởi những kì thủ giỏi nhất trên thế giới.</string>
+  <string name="superGMDescription">Câu đố từ những ván đấu đã được chơi bởi những kỳ thủ giỏi nhất trên thế giới.</string>
   <string name="trappedPiece">Quân bị bẫy</string>
   <string name="trappedPieceDescription">Một quân cờ không thể thoát khỏi việc bị ăn vì nó bị giới hạn các nước đi.</string>
   <string name="underPromotion">Phong cấp thấp</string>

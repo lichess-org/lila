@@ -56,7 +56,7 @@ export default async function (el: HTMLCanvasElement, data: AnalyseData, trans: 
   for (let i = 0; i <= firstPly; i++) {
     labels.push('');
   }
-  let showTotal = !hunter;
+  const showTotal = !hunter;
 
   const logC = Math.pow(Math.log(3), 2);
 
@@ -65,6 +65,7 @@ export default async function (el: HTMLCanvasElement, data: AnalyseData, trans: 
 
   moveCentis.forEach((centis: number, x: number) => {
     const node = tree[x + 1];
+    if (!tree[x]) return;
     const ply = node ? node.ply : tree[x].ply + 1;
     const san = node ? node.san : '-';
     // Current behaviour: Game-ending action is assigned to the next color
@@ -97,8 +98,7 @@ export default async function (el: HTMLCanvasElement, data: AnalyseData, trans: 
 
     let clock = node ? node.clock : undefined;
     if (clock == undefined) {
-      if (x < moveCentis.length - 1) showTotal = false;
-      else if (data.game.status.name === 'outoftime') clock = 0;
+      if (data.game.status.name === 'outoftime') clock = 0;
       else if (data.clock) {
         const prevClock = tree[x - 1].clock;
         if (prevClock) clock = prevClock + data.clock.increment - centis;
@@ -159,7 +159,6 @@ export default async function (el: HTMLCanvasElement, data: AnalyseData, trans: 
       }))
     : lineBuilder(moveSeries, true);
   const divisionLines = division(trans, data.game.division);
-
   const datasets: ChartDataset[] = [...moveSeriesSet];
   if (showTotal) datasets.push(...lineBuilder(totalSeries, false));
   datasets.push(plyLine(firstPly), ...divisionLines);

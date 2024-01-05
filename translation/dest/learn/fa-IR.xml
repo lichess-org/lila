@@ -6,7 +6,7 @@
   <string name="progressX">پیشرفت: %s</string>
   <string name="resetMyProgress">تنظیم مجدد پیشرفت من</string>
   <string name="youWillLoseAllYourProgress">شما همه پیشرفت خود را از دست خواهید داد!</string>
-  <string name="play">بازی کن!</string>
+  <string name="play" comment="play&#10;&#10;A small ribbon that appears on your current chapter in the Chess Basics course. Please keep this string short.">بازی کن!</string>
   <string name="chessPieces">مهره های شطرنج</string>
   <string name="theRook">رخ</string>
   <string name="itMovesInStraightLines">در خط های مستقیم حرکت میکند</string>
@@ -21,7 +21,7 @@
   <string name="rookComplete">تبریک! شما با موفقیت در بازی با رخ استاد شدید.</string>
   <string name="theBishop">فیل</string>
   <string name="itMovesDiagonally">مورب حرکت میکنه</string>
-  <string name="bishopIntro">در مرحله بعدی یاد میگیریم که چگونه با فیل مانور دهیم!</string>
+  <string name="bishopIntro">در مرحله بعدی یاد می‌گیریم چگونه با فیل جولان دهیم!</string>
   <string name="youNeedBothBishops">یک فیل خونه سفید،
 یک فیل خونه سیاه.
 شما به هر دو نیاز دارید!</string>
@@ -39,7 +39,8 @@
   <string name="theKnight">اسب</string>
   <string name="itMovesInAnLShape">به صورت L حرکت میکند</string>
   <string name="knightIntro">چالشی برای شما. اسب... مهره فریبنده ایه.</string>
-  <string name="knightsHaveAFancyWay">اسب میتواند به صورت فریبنده به اطراف بپرد!</string>
+  <string name="knightsHaveAFancyWay">اسب‌ها حالت پریدن
+خاصی دارند!</string>
   <string name="knightsCanJumpOverObstacles">اسب میتونه از روی مانع ها بپره!
 فرار کن و ستاره ها رو بگیر!</string>
   <string name="knightComplete">تبریک! شما در بازی با اسب استاد شدید.</string>
@@ -108,7 +109,7 @@ in a way that cannot be defended!</string>
   <string name="intermediate">متوسط</string>
   <string name="boardSetup">چبدمان صفحه</string>
   <string name="howTheGameStarts">چگونه بازی شروع می شود</string>
-  <string name="boardSetupIntro">The two armies face each other, ready for the battle.</string>
+  <string name="boardSetupIntro">دو لشکر باهم رودررو می‌شوند و آماده نبرد هستند.</string>
   <string name="thisIsTheInitialPosition">This is the initial position
 of every game of chess!
 Make any move to continue.</string>
@@ -200,7 +201,7 @@ Pawn = 1</string>
   <string name="getAFreeLichessAccount">یک حساب کاربری رایگان در لیچس دریافت کنید</string>
   <string name="practice">تمرین</string>
   <string name="learnCommonChessPositions">وضعیت های متداول شطرنج را یاد بگیرید</string>
-  <string name="puzzles">معما</string>
+  <string name="puzzles">معماها</string>
   <string name="exerciseYourTacticalSkills">مهارت های تاکتیکی تان را تمرین کنید</string>
   <string name="videos">ویدیو ها</string>
   <string name="watchInstructiveChessVideos">فیلم های آموزنده شطرنج را ببینید</string>
@@ -224,6 +225,6 @@ Pawn = 1</string>
   <string name="next">بعدی</string>
   <string name="nextX">بعدی%s</string>
   <string name="backToMenu">برگشت به منو</string>
-  <string name="puzzleFailed">Puzzle failed!</string>
+  <string name="puzzleFailed">در حل معما موفق نشدید!</string>
   <string name="retry">تلاش مجدد</string>
 </resources>

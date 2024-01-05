@@ -19,6 +19,7 @@
       }
 
       &__desc {
+        @extend %break-word;
         flex: 1 1 auto;
       }
 

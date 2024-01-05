@@ -57,9 +57,9 @@
   <string name="correspondenceEmailNotification">Email thông báo hàng ngày sẽ bao gồm cả các ván cờ qua thư</string>
   <string name="notifyStreamStart">Streamer đang phát trực tiếp</string>
   <string name="notifyInboxMsg">Tin nhắn mới</string>
-  <string name="notifyForumMention">Bạn được nhắc đến trong một bình luận trên diễn đàn</string>
+  <string name="notifyForumMention">Có bình luận diễn đàn đề cập đến bạn</string>
   <string name="notifyInvitedStudy">Lời mời nghiên cứu</string>
-  <string name="notifyGameEvent">Cập nhật đánh cờ qua thư</string>
+  <string name="notifyGameEvent">Những cập nhật liên quan đến ván cờ qua thư</string>
   <string name="notifyChallenge">Các lời thách đấu</string>
   <string name="notifyTournamentSoon">Giải đấu sắp bắt đầu</string>
   <string name="notifyTimeAlarm">Thời gian đánh cờ qua thư sắp hết</string>

@@ -5,6 +5,7 @@
   <string name="toInviteSomeoneToPlayGiveThisUrl">邀人下棋，请分享这个网址</string>
   <string name="gameOver">棋局结束</string>
   <string name="waitingForOpponent">等待对手</string>
+  <string name="orLetYourOpponentScanQrCode">或请您的对手扫描此二维码</string>
   <string name="waiting">等待中</string>
   <string name="yourTurn">你的回合</string>
   <string name="aiNameLevelAiLevel">%1$s级別%2$s</string>
@@ -376,6 +377,7 @@
   <string name="importGame">导入棋局</string>
   <string name="importGameExplanation">粘贴PGN棋谱后可重放棋局、使用电脑分析、使用对局聊天室以及获得通往本局的链接。</string>
   <string name="importGameCaveat">变着分支将被删除。若要保存这些变着，请通过导入PGN棋谱创建一个研究。</string>
+  <string name="importGameDataPrivacyWarning">该PGN（用以记录棋类游戏棋谱的文件格式）可被公众访问。私人导入游戏请用研究研究</string>
   <plurals name="nbImportedGames">
     <item quantity="other">%s盘导入的棋局</item>
   </plurals>
@@ -473,6 +475,7 @@
   <string name="firstName">名</string>
   <string name="lastName">姓</string>
   <string name="setFlair">设置你的图标</string>
+  <string name="flair">头像</string>
   <string name="youCanHideFlair">有一个设置可以隐藏整个站点上的所有用户图标。</string>
   <string name="biography">个人简介</string>
   <string name="countryRegion" comment="flag&#10;Appears when you edit your profile. Lets a player add a country/flag (not all flags are for countries) to their profile">国家或地区</string>
@@ -662,6 +665,7 @@
   <string name="keyPreviousBranch">上一个分支</string>
   <string name="keyNextBranch">下一个分行</string>
   <string name="toggleVariationArrows">切换变化箭头</string>
+  <string name="playSelectedMove">走已选的棋步</string>
   <string name="newTournament">新锦标赛</string>
   <string name="tournamentHomeTitle">国际象棋锦标赛均设有不同的时间限制和变体</string>
   <string name="tournamentHomeDescription">参加快节奏的国际象棋锦标赛！欢迎参与 Lichess 官方的锦标赛，或创建自己的锦标赛。子弹超快棋，闪电超快棋，经典，菲舍尔任意制，王居中，三次将军，并提供更多的选择给你带来无尽的国际象棋乐趣。</string>
@@ -703,6 +707,7 @@
   <string name="withFriends">和朋友分享</string>
   <string name="withEverybody">和每个人分享</string>
   <string name="kidMode">儿童模式</string>
+  <string name="kidModeIsEnabled">儿童模式已启用</string>
   <string name="kidModeExplanation">安全第一。在儿童模式下，站内信无法使用。为了保护你的孩子和学生免受其他用户伤害，请启用儿童模式。</string>
   <string name="inKidModeTheLichessLogoGetsIconX">在儿童模式下，Lichess 标志前会有 %s 图标。出现该图标你就知道你的孩子是安全的。</string>
   <string name="askYourChessTeacherAboutLiftingKidMode">你的账户处于托管中，可以让你的老师解除儿童模式。</string>
@@ -812,6 +817,8 @@
   <plurals name="andSaveNbPremoveLines">
     <item quantity="other">已保存 %s 条先前的走子</item>
   </plurals>
+  <string name="showUnreadLichessMessage">您收到了一条来自Lichess的私人信息</string>
+  <string name="clickHereToReadIt">点此阅读</string>
   <string name="sorry">抱歉 :(</string>
   <string name="weHadToTimeYouOutForAWhile">我们必须将你停止一段时间。</string>
   <string name="why">为什么？</string>
@@ -833,6 +840,7 @@
   <string name="agreementPolicy">本人将遵守所有 Lichess 规范。</string>
   <string name="searchOrStartNewDiscussion">搜索或开始新对话</string>
   <string name="edit">编辑</string>
+  <string name="bullet" comment="Probably best left untranslated. Leave it as 'Bullet' unless your language has a better word for it.">闪击战</string>
   <string name="blitz" comment="Probably best left untranslated. Leave it as 'Blitz' unless your language has a better word for it.">快棋</string>
   <string name="rapid">快棋</string>
   <string name="classical">慢棋</string>
@@ -931,6 +939,7 @@
   <string name="switchSides">更换所持颜色</string>
   <string name="closingAccountWithdrawAppeal">关闭账户将撤回你的上诉</string>
   <string name="ourEventTips">举办赛事的小建议</string>
+  <string name="instructions">说明</string>
   <string name="showMeEverything">全部展示</string>
   <string name="lichessPatronInfo">Lichess 是一个非盈利、完全免费自由的开源软件。所有的运维成本、开发以及内容完全来自用户捐赠。</string>
 </resources>
