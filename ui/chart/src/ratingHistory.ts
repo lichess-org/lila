@@ -105,7 +105,7 @@ export function initModule({ data, singlePerfName }: Opts) {
           type: 'time',
           display: false,
           time: {
-            tooltipFormat: 'dddd, MMM DD, YYYY',
+            tooltipFormat: 'MMM DD, YYYY',
             minUnit: 'day',
           },
           clip: false,
