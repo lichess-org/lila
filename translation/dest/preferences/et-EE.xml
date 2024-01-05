@@ -18,7 +18,6 @@
   <string name="explainShowPlayerRatings">Kui valid \"Ei\", siis peidetakse kõikide mängijate reitingud, et saaksid paremini malele keskenduda. Partiidel on ikka reitingud, muutub ainult mida kuvatakse.</string>
   <string name="displayBoardResizeHandle">Näita laua suuruse muutmis suvandit</string>
   <string name="onlyOnInitialPosition">Ainult algasendis</string>
-  <string name="blindfoldChess">Pime male (nähtamatud nupud)</string>
   <string name="chessClock">Malekell</string>
   <string name="tenthsOfSeconds">Kümnendikku sekundit</string>
   <string name="whenTimeRemainingLessThanTenSeconds" comment="whenTimeRemainingLessThanTenSeconds&#10;&#10;The &amp;lt; symbol is not required (you can write it as a word), just do NOT use &lt; in its place.&#10;&#10;Technical information: &lt; is a reserved character in HTML, which is why it cannot be used.">Kui aega on jäänud &lt; 10 sekundit</string>
