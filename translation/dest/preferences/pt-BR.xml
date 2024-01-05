@@ -20,7 +20,6 @@
   <string name="displayBoardResizeHandle">Mostrar cursor de redimensionamento do tabuleiro</string>
   <string name="onlyOnInitialPosition">Apenas na posição inicial</string>
   <string name="inGameOnly">Durante partidas</string>
-  <string name="blindfoldChess">Xadrez cego (peças invisíveis)</string>
   <string name="chessClock">Relógio</string>
   <string name="tenthsOfSeconds">Décimos de segundo</string>
   <string name="whenTimeRemainingLessThanTenSeconds" comment="whenTimeRemainingLessThanTenSeconds&#10;&#10;The &amp;lt; symbol is not required (you can write it as a word), just do NOT use &lt; in its place.&#10;&#10;Technical information: &lt; is a reserved character in HTML, which is why it cannot be used.">Quando o tempo restante &lt; 10 segundos</string>
