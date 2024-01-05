@@ -39,7 +39,10 @@ object mine:
               c.destUserId.map { destId =>
                 div(cls := "waiting")(
                   userIdLink(destId.some, cssClass = "target".some),
-                  spinner,
+                  if !c.hasClock then
+                    div(cls := "correspondence-waiting text", dataIcon := licon.Checkmark):
+                      "Challenge sent"
+                  else spinner,
                   p(trans.waitingForOpponent())
                 )
               } getOrElse {
