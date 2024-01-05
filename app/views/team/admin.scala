@@ -178,13 +178,7 @@ $('#form3-message').val($('#form3-message').val() + e.target.dataset.copyurl + '
               case (remaining, until) =>
                 frag(
                   p(cls := (remaining <= 0).option("error"))(
-                    "You can send up to ",
-                    lila.app.mashup.TeamInfo.pmAllCredits,
-                    " team messages per week. ",
-                    strong(remaining),
-                    " messages remaining until ",
-                    momentFromNowOnce(until),
-                    "."
+                    sevenTeamMessagesPerWeek(lila.app.mashup.TeamInfo.pmAllCredits, momentFromNowOnce(until))
                   ),
                   form3.actions(
                     a(href := teamRoutes.show(t.slug))(trans.cancel()),
