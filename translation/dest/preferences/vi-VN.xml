@@ -20,7 +20,6 @@
   <string name="displayBoardResizeHandle">Hiện nút thay đổi kích cỡ bàn cờ</string>
   <string name="onlyOnInitialPosition">Chỉ ở thế cờ ban đầu</string>
   <string name="inGameOnly">Chỉ trong ván cờ</string>
-  <string name="blindfoldChess">Cờ tưởng (quân cờ vô hình)</string>
   <string name="chessClock">Đồng hồ cờ vua</string>
   <string name="tenthsOfSeconds">Một phần mười giây</string>
   <string name="whenTimeRemainingLessThanTenSeconds" comment="whenTimeRemainingLessThanTenSeconds&#10;&#10;The &amp;lt; symbol is not required (you can write it as a word), just do NOT use &lt; in its place.&#10;&#10;Technical information: &lt; is a reserved character in HTML, which is why it cannot be used.">Khi thời gian còn lại &lt; 10 giây</string>
