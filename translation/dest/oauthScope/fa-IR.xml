@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="newAccessToken">ساخت توکن جدید</string>
+  <string name="newAccessToken">API توکن دسترسی تازه</string>
   <string name="tokenGrantsPermission">توکن اجازه دسترسی دیگران به اکانت شما را میدهد.</string>
   <string name="carefullySelect">در انتخاب دسترسی های داده شده دقت کنید.</string>
   <string name="tokenDescription">توضیحات توکن</string>
@@ -46,6 +46,9 @@
   <string name="lastUsed" comment="%s is relative time, e.g. 2 hours ago. 'Last used' in this context means 'You used this most recently %s time ago'.">آخرین استفاده %s</string>
   <string name="alreadyHavePlayedGames">شما قبلا بازی کرده اید!</string>
   <string name="attentionOfDevelopers">نکته قابل توجه برای توسعه دهندگان:</string>
+  <string name="possibleToPrefill">ممکن است که این فرم را با استفاده از کوئری پارامترهای نشانی وب از قبل پر کنید.</string>
   <string name="forExample" comment="%s is an example URL.&#10;&#10;Please note the sentence continues on the next line. The complete sentence is:&#10;'For example: https://lichess.org/account/oauth/token/create?scopes[]=challenge:write&amp;scopes[]=puzzle:read&amp;description=Prefilled+token+example&#10;ticks the challenge:create and puzzle:read scopes, and sets the token description.'">برای نمونه: %s</string>
   <string name="ticksTheScopes" comment="Part of a longer sentence, this is the second line:&#10;&#10;'For example: https://lichess.org/account/oauth/token/create?scopes[]=challenge:write&amp;scopes[]=puzzle:read&amp;description=Prefilled+token+example&#10;ticks the challenge:create and puzzle:read scopes, and sets the token description.'&#10;&#10;%1$s is 'challenge:create', %2$s is 'puzzle:read' which are both used as technical examples. These should not be translated which is why they are included as substituted strings.">گستره‌های %1$s و %2$s را علامت زده و توضیحات نِموداَفزار را تنظیم می‌کند.</string>
+  <string name="scopesCanBeFound" comment="scopesCanBeFound&#10;&#10;For this page in particular, developers can link to it so that some options are pre-ticked when a user follows the URL.&#10;&#10;To pre-tick those options, developers need the scope codes, which they can find by inspecting the source code of the page itself.">محدوده ی کدها می تواند درون کد HTML فرم، ‌پیدا شود.</string>
+  <string name="givingPrefilledUrls">دادن این نشانی های وب از قبل پر شده به کاربرهایتان به آن ها در دریافت محدوده های نمودافزار درست کمک می کند.</string>
 </resources>
