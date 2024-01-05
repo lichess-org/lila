@@ -88,8 +88,6 @@ if (window.matchMedia('(prefers-color-scheme: dark)').media === 'not all')
   def captchaTag                             = jsModule("captcha")
   def cashTag                                = iifeModule("javascripts/vendor/cash.min.js")
   def fingerprintTag                         = iifeModule("javascripts/fipr.js")
-  def highchartsLatestTag                    = iifeModule("npm/highcharts-4.2.5/highcharts.js")
-  def highchartsMoreTag                      = iifeModule("npm/highcharts-4.2.5/highcharts-more.js")
   def chessgroundTag = script(tpe := "module", src := assetUrl("npm/chessground.min.js"))
 
   def prismicJs(using PageContext): Frag =

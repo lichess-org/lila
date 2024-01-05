@@ -95,12 +95,12 @@ final private class RelayFormatApi(
       hostPort <- proxyHostPort.get()
       if allowed.yes
       if proxyDomainRegex.get().unanchored.matches(url.host.toString)
-      creds <- proxyCredentials.get()
+      creds = proxyCredentials.get()
     yield DefaultWSProxyServer(
       host = hostPort.host,
       port = hostPort.port,
-      principal = Some(creds.user),
-      password = Some(creds.password.value)
+      principal = creds.map(_.user),
+      password = creds.map(_.password.value)
     )
     server.foldLeft(ws)(_ withProxyServer _) -> server.map(_.host)
 

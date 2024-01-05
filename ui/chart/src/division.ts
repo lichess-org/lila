@@ -6,11 +6,11 @@ export default function (trans: Trans, div?: Division) {
   const lines: { div: string; loc: number }[] = [];
   if (div?.middle) {
     if (div.middle > 1) lines.push({ div: trans('opening'), loc: 1 });
-    lines.push({ div: trans('middlegame'), loc: div.middle - 1 });
+    lines.push({ div: trans('middlegame'), loc: div.middle });
   }
   if (div?.end) {
     if (div.end > 1 && !div?.middle) lines.push({ div: trans('middlegame'), loc: 0 });
-    lines.push({ div: trans('endgame'), loc: div.end - 1 });
+    lines.push({ div: trans('endgame'), loc: div.end });
   }
   const annotationColor = '#707070';
 
