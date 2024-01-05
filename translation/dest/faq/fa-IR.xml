@@ -36,11 +36,11 @@
   <string name="whatIsACPL">میانگین باخت صدم ‌پیاده چیست?</string>
   <string name="acplExplanation">صدم پیاده شاخص اندازه گیری برتری است که در شطرنج اندازه گیری میشود. هر صدم پیاده معادل یک صدم ارزش یک پیاده است. بنابراین هر 100 صدم پیاده = یک پیاده. این ارزش ها نقش خاصی در بازی ایفا نمی‌کنند اما برای بازیکنان مفید هستند و برای محاسبه پوزیسیون توسط کامپیوتر ضروری. بهترین حرکت کامپیوتری هیچ صدم پیاده ای از دست نمی‌دهد، ولی حرکت های پایینتر موجب افت پوزیسیونی میشوند که توسط صدم‌پیاده اندازه گیری میشود. این مقدار می‌تواند به عنوان ابزار اندازه‌گیری کیفیت بازی استفاده شود. هرچه صدم‌پیاده ای که یک بازیکن با هر حرکت از دست میدهد کمتر باشد، بازی او بهتر است. آنالیز های کامپیوتری لیچس از استاکفیش قدرت گرفته تند.</string>
   <string name="insufficientMaterial">افتادن زمان، مساوی و مهره های ناکافی برای برد</string>
-  <string name="fideHandbook">کتابچه فدراسیون جهانی شطرنج</string>
-  <string name="fideHandbookX">بخش %s هندبوک فیده</string>
+  <string name="fideHandbook">دستینه فیده</string>
+  <string name="fideHandbookX">بخش %s از دستینه فیده</string>
   <string name="discoveringEnPassant">آیا یک پیاده میتواند یک پیاده دیگر را در حالی که از کنارش رد شده است بگیرد؟ (آن پاسان)</string>
   <string name="goodIntroduction">معرفی و مقدمه خوب</string>
-  <string name="lichessTraining">آموزش لایچس</string>
+  <string name="lichessTraining">آموزش Lichess</string>
   <string name="watchIMRosenCheckmate">کیش و مات شدن %s در مقابل استاد بین‌المللی اریک روزن را تماشا کنید.</string>
   <string name="threefoldRepetition">تکرار سه گانه</string>
   <string name="threefoldRepetitionExplanation">اگر پوزیشنی سه بار اتفاق افتاد، بازیکنان میتوانن با استفاده از %1$s ادعای مساوی کنند. لیچس قوانین رسمی FIDE را که در مقاله %2$s توضیح داده شده اجرا میکند.</string>
