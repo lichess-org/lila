@@ -20,7 +20,6 @@
   <string name="displayBoardResizeHandle">보드 크기 재조정 핸들 보이기</string>
   <string name="onlyOnInitialPosition">초기 상태에서만</string>
   <string name="inGameOnly">게임 도중에만 적용</string>
-  <string name="blindfoldChess">눈을 가리고 체스 (기물이 보이지 않음)</string>
   <string name="chessClock">체스 시계</string>
   <string name="tenthsOfSeconds">1/10초 단위</string>
   <string name="whenTimeRemainingLessThanTenSeconds" comment="whenTimeRemainingLessThanTenSeconds&#10;&#10;The &amp;lt; symbol is not required (you can write it as a word), just do NOT use &lt; in its place.&#10;&#10;Technical information: &lt; is a reserved character in HTML, which is why it cannot be used.">남은 시간이 10초 미만일 때</string>
