@@ -20,7 +20,6 @@
   <string name="displayBoardResizeHandle">Xake-taularen tamaina aldatzeko aukera erakutsi</string>
   <string name="onlyOnInitialPosition">Hasierako posizioan bakarrik</string>
   <string name="inGameOnly">Partidan zehar bakarrik</string>
-  <string name="blindfoldChess">Xakea itsu-itsuan (piezak ez dira ikusiko)</string>
   <string name="chessClock">Xake-erlojua</string>
   <string name="tenthsOfSeconds">Segundo-hamarrenak erakutsi</string>
   <string name="whenTimeRemainingLessThanTenSeconds" comment="whenTimeRemainingLessThanTenSeconds&#10;&#10;The &amp;lt; symbol is not required (you can write it as a word), just do NOT use &lt; in its place.&#10;&#10;Technical information: &lt; is a reserved character in HTML, which is why it cannot be used.">Denbora 10 segundotik behera dagoenean</string>
