@@ -16,7 +16,7 @@ object bits:
 
   def mini(pov: Pov): Tag => Tag =
     mini(
-      if pov.player.blindfold then Fen.writeBoard(pov.game.board) else BoardFen("8/8/8/8/8/8/8/8"),
+      if pov.player.blindfold then BoardFen("8/8/8/8/8/8/8/8") else Fen.writeBoard(pov.game.board),
       miniOrientation(pov),
       pov.game.history.lastMove
     )
