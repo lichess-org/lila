@@ -14,6 +14,7 @@ object categ:
     views.html.base.layout(
       title = trans.forum.txt(),
       moreCss = cssTag("forum"),
+      csp = defaultCsp.withInlineIconFont.some,
       openGraph = lila.app.ui
         .OpenGraph(
           title = "Lichess community forum",
@@ -71,6 +72,7 @@ object categ:
       title = categ.name,
       moreCss = cssTag("forum"),
       moreJs = infiniteScrollTag,
+      csp = defaultCsp.withInlineIconFont.some,
       openGraph = lila.app.ui
         .OpenGraph(
           title = s"Forum: ${categ.name}",
