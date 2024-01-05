@@ -10,8 +10,7 @@ import AnalyseCtrl from '../ctrl';
 import { StudySocketSend } from '../socket';
 import { spinnerVdom as spinner } from 'common/spinner';
 import { option } from '../view/util';
-import { ChapterData, ChapterMode, Orientation, StudyChapterMeta } from './interfaces';
-import { chapter as chapterTour } from './studyTour';
+import { ChapterData, ChapterMode, Orientation, StudyChapterMeta, StudyTour } from './interfaces';
 import { importPgn, variants as xhrVariants } from './studyXhr';
 
 export const modeChoices = [
@@ -72,11 +71,17 @@ export class StudyChapterNewForm {
     this.isOpen(false);
     this.setTab();
   };
-  startTour = () =>
-    chapterTour(tab => {
+  startTour = async () => {
+    const [tour] = await Promise.all([
+      lichess.asset.loadEsm<StudyTour>('study.tour'),
+      lichess.asset.loadCssPath('shepherd'),
+    ]);
+
+    tour.chapter(tab => {
       this.tab(tab);
       this.redraw();
     });
+  };
   redraw = this.root.redraw;
 }
 
