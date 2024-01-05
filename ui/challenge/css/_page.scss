@@ -62,19 +62,11 @@
     }
 
     .correspondence-waiting {
-      padding: 15px;
-      border-radius: 8px;
-      position: relative;
-    }
-
-    .challenge-successful::before {
-      content: '\2714   ';
-      font-size: 1.2em;
-      color: green;
-    }
-
-    .correspondence-waiting > p {
-      margin-bottom: 0.5em;
+      font-size: 1.5em;
+      margin: 2em auto;
+      &::before {
+        color: $c-good;
+      }
     }
   }
 

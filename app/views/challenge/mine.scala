@@ -39,11 +39,9 @@ object mine:
               c.destUserId.map { destId =>
                 div(cls := "waiting")(
                   userIdLink(destId.some, cssClass = "target".some),
-                  if c.unlimited || c.daysPerTurn != none then
-                    div(cls := "correspondence-waiting")(
-                      p(cls := "challenge-successful")("Challenge sent"),
-                      p("Challenge can be canceled in the sword menu")
-                    )
+                  if !c.hasClock then
+                    div(cls := "correspondence-waiting text", dataIcon := licon.Checkmark):
+                      "Challenge sent"
                   else spinner,
                   p(trans.waitingForOpponent())
                 )
