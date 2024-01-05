@@ -132,7 +132,6 @@ const goBerserk = (ctrl: RoundController) => {
 };
 
 const clockSide = (ctrl: RoundController, color: Color, position: Position) => {
-  console.log('dooky');
   const d = ctrl.data,
     ranks = d.tournament?.ranks || d.swiss?.ranks;
   return (
