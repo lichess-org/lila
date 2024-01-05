@@ -44,7 +44,6 @@ object help:
           header(trans.other()),
           flip,
           zen,
-          row(kbd("b"), "Blindfold"),
           helpDialog
         )
       )
@@ -61,7 +60,6 @@ object help:
           header(trans.other()),
           flip,
           zen,
-          row(kbd("b"), "Blindfold"),
           helpDialog
         )
       )
