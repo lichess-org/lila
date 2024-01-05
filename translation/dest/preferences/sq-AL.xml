@@ -18,7 +18,6 @@
   <string name="explainShowPlayerRatings">Kjo lejon të bëhet fshehja e krejt klasifikimeve në sajt, për të ndihmuar përqendrimin në shah. Lojërat prapë mund të vlerësohen, kjo ka të bëjë vetëm me ato çka shihni.</string>
   <string name="displayBoardResizeHandle">Shfaq mundësi ripërmasimi fushe</string>
   <string name="onlyOnInitialPosition">Vetëm në pozicionin fillestar</string>
-  <string name="blindfoldChess">Shah me sy mbyllur (gurë të padukshëm)</string>
   <string name="chessClock">Ora e shahut</string>
   <string name="tenthsOfSeconds">Të dhjeta të sekondës</string>
   <string name="whenTimeRemainingLessThanTenSeconds" comment="whenTimeRemainingLessThanTenSeconds&#10;&#10;The &amp;lt; symbol is not required (you can write it as a word), just do NOT use &lt; in its place.&#10;&#10;Technical information: &lt; is a reserved character in HTML, which is why it cannot be used.">Kur koha e mbetur &lt;10 sekonda</string>
