@@ -1,4 +1,4 @@
-import { initWith as initMiniBoard } from 'common/mini-board';
+import { initWith as initMiniBoard } from 'common/miniBoard';
 
 lichess.load.then(() => {
   const rootEl = document.querySelector('.puzzle-openings') as HTMLElement | undefined;

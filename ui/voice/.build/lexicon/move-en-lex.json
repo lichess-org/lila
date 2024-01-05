@@ -53,6 +53,7 @@
     { "in": "accept draw", "val": "draw", "tags": ["command", "round"] },
     { "in": "resign", "val": "resign", "tags": ["command", "round"] },
     { "in": "rematch", "val": "rematch", "tags": ["command", "round"] },
+
     { "in": "flip", "val": "flip", "tags": ["command"] },
     { "in": "clock", "val": "clock", "tags": ["command", "round"] },
     { "in": "opponent", "val": "who", "tags": ["command", "round"] },
@@ -65,9 +66,8 @@
     { "in": "stop", "val": "stop", "tags": ["command"] },
     { "in": "stop listening", "val": "mic-off", "tags": ["command"] },
     { "in": "stop recording", "val": "mic-off", "tags": ["command"] },
-    { "in": "list", "val": "list", "tags": ["command"] },
-    { "in": "list moves", "val": "list", "tags": ["command"] },
-    { "in": "show moves", "val": "list", "tags": ["command"] },
+    { "in": "blindfold", "val": "blindfold", "tags": ["command"] },
+    { "in": "vocabulary", "val": "vocabulary", "tags": ["command"] },
 
     { "in": "yes", "val": "yes", "tags": ["choice"] },
     { "in": "confirm", "val": "yes", "tags": ["choice"] },

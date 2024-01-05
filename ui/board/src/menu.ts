@@ -75,6 +75,14 @@ export class BoardMenu {
       disabled: this.anonymous || !enabled,
     });
 
+  blindfold = (toggle: Toggle, enabled = true) =>
+    this.cmnToggle({
+      name: 'Blindfold',
+      id: 'blindfold',
+      checked: toggle(),
+      change: toggle,
+      disabled: !enabled,
+    });
   confirmMove = (toggle: Toggle, enabled = true) =>
     this.cmnToggle({
       name: 'Confirm move',

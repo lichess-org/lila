@@ -13,8 +13,8 @@ import { Chess, normalizeMove } from 'chessops/chess';
 import { chessgroundDests, scalachessCharPair } from 'chessops/compat';
 import { Config as CgConfig } from 'chessground/config';
 import { CevalCtrl } from 'ceval';
-import { makeVoiceMove, VoiceMove, RootCtrl as VoiceRoot } from 'voice';
-import { ctrl as makeKeyboardMove, KeyboardMove, RootController as KeyboardRoot } from 'keyboardMove';
+import { makeVoiceMove, VoiceMove } from 'voice';
+import { ctrl as makeKeyboardMove, KeyboardMove, KeyboardMoveRootCtrl } from 'keyboardMove';
 import { Deferred, defer } from 'common/defer';
 import { defined, prop, Prop, propWithEffect, Toggle, toggle } from 'common';
 import { makeSanAndPlay } from 'chessops/san';
@@ -67,6 +67,7 @@ export default class PuzzleCtrl implements ParentCtrl {
   autoScrollNow: boolean;
   voteDisabled?: boolean;
   isDaily: boolean;
+  blindfolded = false;
 
   constructor(
     readonly opts: PuzzleOpts,
@@ -131,7 +132,7 @@ export default class PuzzleCtrl implements ParentCtrl {
 
   setChessground = (cg: CgApi): void => {
     this.ground(cg);
-    const makeRoot = () => ({
+    const makeRoot = (): KeyboardMoveRootCtrl => ({
       data: {
         game: { variant: { key: 'standard' } },
         player: { color: this.pov },
@@ -142,13 +143,16 @@ export default class PuzzleCtrl implements ParentCtrl {
       redraw: this.redraw,
       flipNow: this.flip,
       userJumpPlyDelta: this.userJumpPlyDelta,
-      next: this.nextPuzzle,
+      nextPuzzle: this.nextPuzzle,
       vote: this.vote,
       solve: this.viewSolution,
+      blindfold: this.blindfold,
     });
-    if (this.opts.pref.voiceMove) this.voiceMove = makeVoiceMove(makeRoot() as VoiceRoot, this.node.fen);
-    if (this.opts.pref.keyboardMove)
-      this.keyboardMove = makeKeyboardMove(makeRoot() as KeyboardRoot, { fen: this.node.fen });
+    if (this.opts.pref.voiceMove) {
+      this.voiceMove?.update(this.node.fen, true, cg);
+      this.voiceMove ??= makeVoiceMove(makeRoot(), this.node.fen);
+    }
+    if (this.opts.pref.keyboardMove) this.keyboardMove = makeKeyboardMove(makeRoot(), { fen: this.node.fen });
     requestAnimationFrame(() => this.redraw());
   };
 
@@ -605,7 +609,13 @@ export default class PuzzleCtrl implements ParentCtrl {
       this.redraw();
     }
   };
-
+  blindfold = (v?: boolean): boolean => {
+    if (v !== undefined && v !== this.blindfolded) {
+      this.blindfolded = v;
+      this.redraw();
+    }
+    return this.blindfolded;
+  };
   playBestMove = (): void => {
     const uci = this.nextNodeBest() || (this.node.ceval && this.node.ceval.pvs[0].moves[0]);
     if (uci) this.playUci(uci);

@@ -1,4 +1,4 @@
-import * as miniGame from './component/mini-game';
+import * as miniGame from './component/miniGame';
 import { embedChessground } from './component/assets';
 
 function resize() {

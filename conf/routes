@@ -837,7 +837,6 @@ GET   /variant/:key                    controllers.ContentPage.variant(key)
 # Help
 GET   /help/contribute                 controllers.ContentPage.help
 GET   /help/master                     controllers.ContentPage.master
-GET   /help/analyse/variation-arrow    controllers.Main.analyseVariationArrowHelp
 GET   /help/keyboard-move              controllers.Main.keyboardMoveHelp
 GET   /help/voice/:module              controllers.Main.voiceHelp(module)
 # DGT

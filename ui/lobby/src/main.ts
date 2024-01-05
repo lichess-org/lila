@@ -1,6 +1,6 @@
 import { init, classModule, attributesModule, eventListenersModule } from 'snabbdom';
 import { LobbyOpts } from './interfaces';
-import { init as initBoard } from 'common/mini-board';
+import { init as initBoard } from 'common/miniBoard';
 import makeCtrl from './ctrl';
 import appView from './view/main';
 import tableView from './view/table';

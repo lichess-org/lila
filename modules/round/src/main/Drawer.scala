@@ -31,6 +31,9 @@ final private[round] class Drawer(
       .parallel
       .dmap(_.flatten.headOption)
 
+  def apply(pov: Pov, confirm: Boolean)(using GameProxy): Fu[Events] =
+    if confirm then yes(pov) else no(pov)
+
   def yes(pov: Pov)(using proxy: GameProxy): Fu[Events] = pov.game.drawable.so:
     pov match
       case pov if pov.game.history.threefoldRepetition =>

@@ -28,7 +28,7 @@ export function main(ctrl: RoundController): VNode {
     ? ctrl.nvui.render(ctrl)
     : h('div.round__app.variant-' + d.game.variant.key, [
         h(
-          'div.round__app__board.main-board' + (ctrl.data.pref.blindfold ? '.blindfold' : ''),
+          'div.round__app__board.main-board' + (ctrl.data.player.blindfold ? '.blindfold' : ''),
           {
             hook:
               'ontouchstart' in window || !lichess.storage.boolean('scrollMoves').getOrDefault(true)

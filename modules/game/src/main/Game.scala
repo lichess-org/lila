@@ -359,6 +359,9 @@ case class Game(
             Event.Berserk(color)
           )
 
+  def setBlindfold(color: Color, blindfold: Boolean): Progress =
+    Progress(this, updatePlayer(color, _.copy(blindfold = blindfold)), Nil)
+
   def resignable      = playable && !abortable
   def forceResignable = resignable && nonAi && !fromFriend && hasClock && !isSwiss && !hasRule(_.NoClaimWin)
   def forceResignableNow = forceResignable && bothPlayersHaveMoved

@@ -1,19 +1,15 @@
 import * as cg from 'chessground/types';
-import { Api as CgApi } from 'chessground/api';
 import { h } from 'snabbdom';
 import { onInsert } from 'common/snabbdom';
 import { promote } from 'chess/promotion';
 import { snabDialog } from 'common/dialog';
 import { propWithEffect, Prop } from 'common';
-import { Player } from 'game';
+import { MoveRootCtrl } from 'chess/moveRootCtrl';
 import { load as loadKeyboardMove } from './plugins/keyboardMove';
 import KeyboardChecker from './plugins/keyboardChecker';
 
 export type KeyboardMoveHandler = (fen: Fen, dests?: cg.Dests, yourMove?: boolean) => void;
 
-interface ClockController {
-  millisOf: (color: Color) => number;
-}
 export interface KeyboardMove {
   drop(key: cg.Key, piece: string): void;
   promote(orig: cg.Key, dest: cg.Key, piece: string): void;
@@ -27,7 +23,6 @@ export interface KeyboardMove {
   usedSan: boolean;
   jump(delta: number): void;
   justSelected(): boolean;
-  clock(): ClockController | undefined;
   draw(): void;
   next(): void;
   vote(v: boolean): void;
@@ -35,6 +30,7 @@ export interface KeyboardMove {
   helpModalOpen: Prop<boolean>;
   checker?: KeyboardChecker;
   opponent?: string;
+  speakClock(): void;
 }
 
 const sanToRole: { [key: string]: cg.Role } = {
@@ -49,33 +45,28 @@ const sanToRole: { [key: string]: cg.Role } = {
 interface CrazyPocket {
   [role: string]: number;
 }
+
 export interface RootData {
   crazyhouse?: { pockets: [CrazyPocket, CrazyPocket] };
   game: { variant: { key: VariantKey } };
   player: { color: Color };
-  opponent?: Player;
+  opponent?: { color: Color; user?: { username: string } };
 }
-export interface RootController {
-  chessground: CgApi;
-  clock?: ClockController;
+
+export interface KeyboardMoveRootCtrl extends MoveRootCtrl {
+  sendNewPiece?: (role: cg.Role, key: cg.Key, isPredrop: boolean) => void;
+  userJumpPlyDelta?: (plyDelta: Ply) => void;
+  sendMove?: (orig: cg.Key, dest: cg.Key, prom: cg.Role | undefined, meta: cg.MoveMetadata) => void;
+  submitMove?: (v: boolean) => void;
   crazyValid?: (role: cg.Role, key: cg.Key) => boolean;
   data: RootData;
-  offerDraw?: (v: boolean, immediately?: boolean) => void;
-  resign?: (v: boolean, immediately?: boolean) => void;
-  auxMove: (orig: cg.Key, dest: cg.Key, prom: cg.Role | undefined) => void;
-  sendNewPiece?: (role: cg.Role, key: cg.Key, isPredrop: boolean) => void;
-  submitMove?: (v: boolean) => void;
-  userJumpPlyDelta?: (plyDelta: Ply) => void;
-  redraw: Redraw;
-  next?: () => void;
-  vote?: (v: boolean) => void;
 }
+
 interface Step {
   fen: string;
 }
-type Redraw = () => void;
 
-export function ctrl(root: RootController, step: Step): KeyboardMove {
+export function ctrl(root: KeyboardMoveRootCtrl, step: Step): KeyboardMove {
   const isFocused = propWithEffect(false, root.redraw);
   const helpModalOpen = propWithEffect(false, root.redraw);
   let handler: KeyboardMoveHandler | undefined;
@@ -139,15 +130,15 @@ export function ctrl(root: RootController, step: Step): KeyboardMove {
       root.redraw();
     },
     justSelected: () => performance.now() - lastSelect < 500,
-    clock: () => root.clock,
     draw: () => (root.offerDraw ? root.offerDraw(true, true) : null),
     resign: (v, immediately) => (root.resign ? root.resign(v, immediately) : null),
-    next: () => root.next?.(),
+    next: () => root.nextPuzzle?.(),
     vote: (v: boolean) => root.vote?.(v),
     helpModalOpen,
     isFocused,
-    checker: root.clock ? new KeyboardChecker() : undefined,
+    checker: root.speakClock ? new KeyboardChecker() : undefined,
     opponent: root.data.opponent?.user?.username,
+    speakClock: () => root.speakClock?.(),
   };
 }
 

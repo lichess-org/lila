@@ -175,6 +175,10 @@ final class GameRepo(val coll: Coll)(using Executor):
       )
       .void
 
+  def setBlindfold(pov: Pov, blindfold: Boolean): Funit =
+    val field = s"${pov.color.fold(F.whitePlayer, F.blackPlayer)}.${Player.BSONFields.blindfold}"
+    coll.update.one($id(pov.gameId), $setBoolOrUnset(field, blindfold)).void
+
   def update(progress: Progress): Funit =
     saveDiff(progress.origin, GameDiff(progress.origin, progress.game))
 

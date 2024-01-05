@@ -1,6 +1,7 @@
 import { uciChar } from './uciChar';
 
 export * from './sanWriter';
+export { type MoveRootCtrl } from './moveRootCtrl';
 export const initialFen: Fen = 'rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1';
 
 export function fixCrazySan(san: San): San {

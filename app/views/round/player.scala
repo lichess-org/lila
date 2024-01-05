@@ -79,7 +79,7 @@ object player:
             div(
               cls := List(
                 "round__now-playing" -> true,
-                "blindfold"          -> ctx.pref.isBlindfold
+                "blindfold"          -> pov.player.blindfold
               )
             )(bits.others(playing, simul.filter(_ isHost ctx.me)))
         ),
