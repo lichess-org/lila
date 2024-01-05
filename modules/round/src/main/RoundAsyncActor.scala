@@ -227,10 +227,10 @@ final private class RoundAsyncActor(
           proxy.save(progress) >> gameRepo.goBerserk(pov) inject progress.events
         } andDo promise.success(berserked.isDefined)
 
-    case Blindfold(playerId, current) =>
+    case Blindfold(playerId, value) =>
       handle(playerId): pov =>
-        val (blindfold, progress) = pov.game.setBlindfold(pov.color, current)
-        proxy.save(progress) >> gameRepo.setBlindfold(pov, blindfold) inject progress.events
+        val progress = pov.game.setBlindfold(pov.color, value)
+        proxy.save(progress) >> gameRepo.setBlindfold(pov, value) inject progress.events
 
     case ResignForce(playerId) =>
       handle(playerId): pov =>

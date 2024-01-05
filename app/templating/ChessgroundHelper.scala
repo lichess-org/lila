@@ -38,7 +38,7 @@ trait ChessgroundHelper:
       }
     }
 
-  def chessground(pov: Pov)(using ctx: Context): Frag =
+  def chessground(pov: Pov)(using Context): Frag =
     chessground(
       board = pov.game.board,
       orient = pov.color,
@@ -46,7 +46,7 @@ trait ChessgroundHelper:
         .map(_.origDest)
         .so: (orig, dest) =>
           List(orig, dest),
-      blindfold = pov.player.blindfold.nonEmpty
+      blindfold = pov.player.blindfold
     )
 
   private def wrap(content: Frag): Frag =

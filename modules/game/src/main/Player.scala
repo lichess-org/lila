@@ -20,7 +20,7 @@ case class Player(
     provisional: RatingProvisional = RatingProvisional.No,
     blurs: Blurs = Blurs.zeroBlurs.zero,
     berserk: Boolean = false,
-    blindfold: Option[Int] = None,
+    blindfold: Boolean = false,
     name: Option[String] = None
 ) derives Eq:
 
@@ -41,10 +41,6 @@ case class Player(
       Player.UserInfo(id, ra, provisional)
 
   def wins = ~isWinner
-
-  def setBlindfold(current: Boolean, onMove: Int = 0) = // onMove must be less than 2 to get credit
-    if blindfold.nonEmpty == current then this
-    else copy(blindfold = current option onMove)
 
   def goBerserk = copy(berserk = true)
 
@@ -173,7 +169,7 @@ object Player:
       provisional = p.provisional,
       blurs = doc.getAsOpt[Blurs](blursBits) getOrElse Blurs.zeroBlurs.zero,
       berserk = p.berserk,
-      blindfold = doc int blindfold,
+      blindfold = ~doc.getAsOpt[Boolean](blindfold),
       name = doc string name
     )
 

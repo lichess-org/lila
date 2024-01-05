@@ -83,8 +83,8 @@ final class JsonView(rematches: Rematches):
       .add("winner" -> pov.game.winnerColor)
       .add("ratingDiff" -> pov.player.ratingDiff)
 
-  def maybeFen(pov: Pov) =
-    if pov.player.blindfold.isEmpty then Fen.write(pov.game.chess).value else "8/8/8/8/8/8/8/8"
+  def maybeFen(pov: Pov): Fen.Epd =
+    if pov.player.blindfold then Fen.Epd("8/8/8/8/8/8/8/8") else Fen.write(pov.game.chess)
 
   def player(p: Player, user: Option[LightUser]) =
     Json

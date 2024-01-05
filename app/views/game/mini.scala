@@ -54,11 +54,10 @@ object mini:
     )
 
   def renderState(pov: Pov)(using me: Option[Me]) =
-    val fen =
-      if me.exists(pov.player.isUser) && pov.player.blindfold.nonEmpty ||
-        me.exists(pov.opponent.isUser) && pov.opponent.blindfold.nonEmpty
-      then "8/8/8/8/8/8/8/8"
-      else Fen.writeBoardAndColor(pov.game.situation).value
+    val fen: Any =
+      if me.flatMap(pov.game.player).exists(_.blindfold)
+      then chess.format.BoardAndColorFen("8/8/8/8/8/8/8/8 w")
+      else Fen.writeBoardAndColor(pov.game.situation)
 
     dataState := s"${fen},${pov.color.name},${~pov.game.lastMoveKeys}"
 
