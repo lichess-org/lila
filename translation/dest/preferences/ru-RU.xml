@@ -20,7 +20,6 @@
   <string name="displayBoardResizeHandle">Показывать ручку изменения размера доски</string>
   <string name="onlyOnInitialPosition">Только в начальном положении</string>
   <string name="inGameOnly">Только в игре</string>
-  <string name="blindfoldChess">Шахматы вслепую (фигуры не видны)</string>
   <string name="chessClock">Шахматные часы</string>
   <string name="tenthsOfSeconds">Десятые доли секунд</string>
   <string name="whenTimeRemainingLessThanTenSeconds" comment="whenTimeRemainingLessThanTenSeconds&#10;&#10;The &amp;lt; symbol is not required (you can write it as a word), just do NOT use &lt; in its place.&#10;&#10;Technical information: &lt; is a reserved character in HTML, which is why it cannot be used.">Когда остаётся меньше 10 секунд</string>
