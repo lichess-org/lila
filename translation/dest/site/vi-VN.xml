@@ -161,7 +161,7 @@
   <string name="signIn">Đăng nhập</string>
   <string name="rememberMe">Duy trì trạng thái đăng nhập</string>
   <string name="youNeedAnAccountToDoThat">Bạn cần một tài khoản để thực hiện điều đó</string>
-  <string name="signUp">Đăng kí</string>
+  <string name="signUp">Đăng ký</string>
   <string name="computersAreNotAllowedToPlay">Máy tính và người chơi có máy tính hỗ trợ không được phép chơi. Vui lòng không nhận hỗ trợ từ các công cụ cờ vua, cơ sở dữ liệu, hoặc từ những người chơi khác khi chơi. Cũng lưu ý rằng việc lập nhiều tài khoản không được khuyến khích và bạn có thể bị cấm vĩnh viễn nếu tạo quá nhiều tài khoản.</string>
   <string name="games">Các ván cờ</string>
   <string name="forum">Diễn đàn</string>
@@ -571,7 +571,7 @@ trò chuyện trong ván đấu và có một URL có thể chia sẻ công khai
   <string name="allInformationIsPublicAndOptional">Tất cả thông tin đều công khai và không bắt buộc.</string>
   <string name="biographyDescription">Giới thiệu gì đó về bạn như sở thích, bạn thích gì ở cờ, khai cuộc yêu thích, ván cờ yêu thích, thần tượng, ...</string>
   <plurals name="maximumNbCharacters">
-    <item quantity="other">Tối đa: %s kí tự.</item>
+    <item quantity="other">Tối đa: %s ký tự.</item>
   </plurals>
   <plurals name="blocks">
     <item quantity="other">Đang chặn %s thành viên</item>
