@@ -185,6 +185,12 @@
   <string name="queenOverBishop">จงกินหมาก
 ที่มีค่าสูงสุด!
 ควีน &gt; บิชอป</string>
+  <string name="pieceValueExchange">กินหมากที่มีค่ามากที่สุด
+ ห้ามแลกหมาก
+ หมากที่มีค่ามากกว่าสำหรับตัวที่ค่าน้อยกว่า</string>
+  <string name="pieceValueLegal">กินหมาก
+ที่มีค่าสูงสุด
+ดูให้แน่ใจว่าตาเดินคุฌถูกกฎ</string>
   <string name="takeThePieceWithTheHighestValue">จงกินหมาก
 ที่มีค่าสูงสุด!</string>
   <string name="pieceValueComplete">ยินดีด้วย! คุณรู้ค่าของวัสดุแล้ว!
