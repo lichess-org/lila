@@ -23,7 +23,7 @@ import dayOfYear from 'dayjs/plugin/dayOfYear';
 interface Opts {
   data: PerfRatingHistory[];
   singlePerfName?: string;
-  perfIndex: number;
+  perfIndex?: number;
 }
 
 type TsAndRating = { ts: number; rating: number };
@@ -59,7 +59,7 @@ const styles: ChartPerf[] = [
   { color: '#FFAEAA', borderDash: [3], symbol: 'rectRot', name: 'RacingKings' },
   { color: '#56B4E9', borderDash: [10], symbol: 'rectRounded', name: 'Crazyhouse' },
   { color: '#0072B2', borderDash: [10], symbol: 'triangle', name: 'Puzzle' },
-  { color: '#009E73', borderDash: [10], symbol: 'triangle', name: 'Ultrabullet' },
+  { color: '#009E73', borderDash: [10], symbol: 'triangle', name: 'UltraBullet' },
 ];
 
 const oneDay = 24 * 60 * 60 * 1000;
