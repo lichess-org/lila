@@ -3,14 +3,14 @@ import { defined, prop, Prop, toggle } from 'common';
 import * as licon from 'common/licon';
 import { snabDialog } from 'common/dialog';
 import { bind, bindSubmit, onInsert, looseH as h } from 'common/snabbdom';
-import { storedStringProp } from 'common/storage';
+import { storedProp } from 'common/storage';
 import * as xhr from 'common/xhr';
 import { VNode } from 'snabbdom';
 import AnalyseCtrl from '../ctrl';
 import { StudySocketSend } from '../socket';
 import { spinnerVdom as spinner } from 'common/spinner';
 import { option } from '../view/util';
-import { ChapterData, ChapterMode, Orientation, StudyChapterMeta, StudyTour } from './interfaces';
+import { ChapterData, ChapterMode, ChapterTab, Orientation, StudyChapterMeta, StudyTour } from './interfaces';
 import { importPgn, variants as xhrVariants } from './studyXhr';
 
 export const modeChoices = [
@@ -28,7 +28,12 @@ export class StudyChapterNewForm {
   variants: Variant[] = [];
   isOpen = toggle(false);
   initial = toggle(false);
-  tab = storedStringProp('analyse.study.form.tab', 'init');
+  tab = storedProp<ChapterTab>(
+    'analyse.study.form.tab',
+    'init',
+    str => str as ChapterTab,
+    v => v,
+  );
   editor: LichessEditor | null = null;
   editorFen: Prop<Fen | null> = prop(null);
   isDefaultName = toggle(true);
@@ -89,7 +94,7 @@ export function view(ctrl: StudyChapterNewForm): VNode {
   const trans = ctrl.root.trans,
     study = ctrl.root.study!;
   const activeTab = ctrl.tab();
-  const makeTab = (key: string, name: string, title: string) =>
+  const makeTab = (key: ChapterTab, name: string, title: string) =>
     h(
       'span.' + key,
       {
