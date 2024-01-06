@@ -1,7 +1,6 @@
 .rating-history-container {
   flex: 1 1 58%;
   height: 350px;
-  direction: ltr;
 
   .chart-container {
     height: 80%;
@@ -116,7 +115,7 @@
     top: -6px;
   }
   .noUi-txt-dir-rtl.noUi-horizontal .noUi-handle {
-    left: -17px;
+    left: 0px;
     right: auto;
   }
   /* Styling;
