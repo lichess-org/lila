@@ -239,8 +239,12 @@ const evalGauge = (chap: ChapterPreview, cloudEval: GetCloudEval): VNode =>
           const cev = cloudEval(chap) || prevNodeCloud;
           if (cev?.chances != prevNodeCloud?.chances) {
             const elm = vnode.elm as HTMLElement;
+            const gauge = elm.parentNode as HTMLElement;
             elm.style.height = `${((1 - (cev?.chances || 0)) / 2) * 100}%`;
-            if (cev) (elm.parentNode as HTMLElement).title = `Depth ${cev.depth}: ${renderScore(cev)}`;
+            if (cev) {
+              gauge.title = `Depth ${cev.depth}: ${renderScore(cev)}`;
+              gauge.classList.add('mini-game__gauge--set');
+            }
           }
           vnode.data!.cloud = cev;
         },
