@@ -6,8 +6,8 @@ import chessground from './chessground';
 import feedbackView from './feedback';
 import * as licon from 'common/licon';
 import { stepwiseScroll } from 'common/scroll';
-import { VNode } from 'snabbdom';
-import { onInsert, bindNonPassive, looseH as h } from 'common/snabbdom';
+import { VNode, h } from 'snabbdom';
+import { onInsert, bindNonPassive, looseH as lh } from 'common/snabbdom';
 import { bindMobileMousedown } from 'common/device';
 import { render as treeView } from './tree';
 import { view as cevalView } from 'ceval';
@@ -18,7 +18,7 @@ import boardMenu from './boardMenu';
 import * as Prefs from 'common/prefs';
 import PuzzleCtrl from '../ctrl';
 
-const renderAnalyse = (ctrl: PuzzleCtrl): VNode => h('div.puzzle__moves.areplay', [treeView(ctrl)]);
+const renderAnalyse = (ctrl: PuzzleCtrl): VNode => lh('div.puzzle__moves.areplay', [treeView(ctrl)]);
 
 function dataAct(e: Event): string | null {
   const target = e.target as HTMLElement;
@@ -26,15 +26,15 @@ function dataAct(e: Event): string | null {
 }
 
 function jumpButton(icon: string, effect: string, disabled: boolean, glowing = false): VNode {
-  return h('button.fbt', { class: { disabled, glowing }, attrs: { 'data-act': effect, 'data-icon': icon } });
+  return lh('button.fbt', { class: { disabled, glowing }, attrs: { 'data-act': effect, 'data-icon': icon } });
 }
 
 function controls(ctrl: PuzzleCtrl): VNode {
   const node = ctrl.node;
   const nextNode = node.children[0];
   const notOnLastMove = ctrl.mode == 'play' && nextNode && nextNode.puzzle != 'fail';
-  return h('div.puzzle__controls.analyse-controls', [
-    h(
+  return lh('div.puzzle__controls.analyse-controls', [
+    lh(
       'div.jumps',
       {
         hook: onInsert(
@@ -69,7 +69,7 @@ export default function (ctrl: PuzzleCtrl): VNode {
     if (!cevalShown) ctrl.autoScrollNow = true;
     cevalShown = showCeval;
   }
-  return h(
+  return lh(
     `main.puzzle.puzzle-${ctrl.data.replay ? 'replay' : 'play'}${ctrl.streak ? '.puzzle--streak' : ''}`,
     {
       class: { 'gauge-on': gaugeOn },
@@ -86,14 +86,14 @@ export default function (ctrl: PuzzleCtrl): VNode {
       },
     },
     [
-      h('aside.puzzle__side', [
+      lh('aside.puzzle__side', [
         side.replay(ctrl),
         side.puzzleBox(ctrl),
         ctrl.streak ? side.streakBox(ctrl) : side.userBox(ctrl),
         side.config(ctrl),
         theme(ctrl),
       ]),
-      h(
+      lh(
         'div.puzzle__board.main-board' + (ctrl.blindfold() ? '.blindfold' : ''),
         {
           hook:
@@ -119,11 +119,11 @@ export default function (ctrl: PuzzleCtrl): VNode {
         [chessground(ctrl), ctrl.promotion.view()],
       ),
       cevalView.renderGauge(ctrl),
-      h('div.puzzle__tools', [
+      lh('div.puzzle__tools', [
         ctrl.voiceMove ? renderVoiceBar(ctrl.voiceMove.ui, ctrl.redraw, 'puz') : null,
         // we need the wrapping div here
         // so the siblings are only updated when ceval is added
-        h(
+        lh(
           'div.ceval-wrap',
           { class: { none: !showCeval } },
           showCeval ? [...cevalView.renderCeval(ctrl), cevalView.renderPvs(ctrl)] : [],
@@ -142,13 +142,15 @@ export default function (ctrl: PuzzleCtrl): VNode {
 function session(ctrl: PuzzleCtrl) {
   const rounds = ctrl.session.get().rounds,
     current = ctrl.data.puzzle.id;
-  return h('div.puzzle__session', [
+  return lh('div.puzzle__session', [
     ...rounds.map(round => {
-      const rd = !ctrl.opts.showRatings
-        ? ''
-        : round.ratingDiff && round.ratingDiff > 0
-        ? '+' + round.ratingDiff
-        : round.ratingDiff;
+      const rd =
+        round.ratingDiff && ctrl.opts.showRatings
+          ? round.ratingDiff > 0
+            ? '+' + round.ratingDiff
+            : round.ratingDiff
+          : null;
+
       return h(
         `a.result-${round.result}${rd ? '' : '.result-empty'}`,
         {
@@ -159,12 +161,13 @@ function session(ctrl: PuzzleCtrl) {
             ...(ctrl.streak ? { target: '_blank', rel: 'noopener' } : {}),
           },
         },
-        `${rd}`,
+        rd,
       );
     }),
     rounds.find(r => r.id == current)
-      ? !ctrl.streak && h('a.session-new', { key: 'new', attrs: { href: `/training/${ctrl.session.theme}` } })
-      : h(
+      ? !ctrl.streak &&
+        lh('a.session-new', { key: 'new', attrs: { href: `/training/${ctrl.session.theme}` } })
+      : lh(
           'a.result-cursor.current',
           { key: current, attrs: ctrl.streak ? {} : { href: `/training/${ctrl.session.theme}/${current}` } },
           `${ctrl.streak?.data.index ?? 0}`,
