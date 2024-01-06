@@ -19,7 +19,6 @@
   <string name="displayBoardResizeHandle">调整棋盘大小</string>
   <string name="onlyOnInitialPosition">仅初始局面</string>
   <string name="inGameOnly">仅在对局中</string>
-  <string name="blindfoldChess">盲棋(看不见棋子)</string>
   <string name="chessClock">棋钟</string>
   <string name="tenthsOfSeconds">显示十分之一秒</string>
   <string name="whenTimeRemainingLessThanTenSeconds" comment="whenTimeRemainingLessThanTenSeconds&#10;&#10;The &amp;lt; symbol is not required (you can write it as a word), just do NOT use &lt; in its place.&#10;&#10;Technical information: &lt; is a reserved character in HTML, which is why it cannot be used.">当剩余时间小于10秒</string>

@@ -19,7 +19,6 @@
   <string name="displayBoardResizeHandle">Montri la grandecregilon de la ŝaktabulo</string>
   <string name="onlyOnInitialPosition">Nur sur komenca pozicio</string>
   <string name="inGameOnly">Nur en ludo</string>
-  <string name="blindfoldChess">Blinda ŝako (nevideblaj ŝakpecoj)</string>
   <string name="chessClock">Ŝakhorloĝo</string>
   <string name="tenthsOfSeconds">Dekonoj da sekundoj</string>
   <string name="whenTimeRemainingLessThanTenSeconds" comment="whenTimeRemainingLessThanTenSeconds&#10;&#10;The &amp;lt; symbol is not required (you can write it as a word), just do NOT use &lt; in its place.&#10;&#10;Technical information: &lt; is a reserved character in HTML, which is why it cannot be used.">Kiam restas malpli ol 10 sekundoj</string>

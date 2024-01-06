@@ -19,7 +19,6 @@
   <string name="displayBoardResizeHandle">बोर्ड आकार परिवर्तन करने वाली मूठ दिखाएं</string>
   <string name="onlyOnInitialPosition">केवल प्रारंभिक स्थिति पर</string>
   <string name="inGameOnly">केवल खेल में</string>
-  <string name="blindfoldChess">अदृश्य शतरंज (अदृश्य मोहरे )</string>
   <string name="chessClock">शतरंज की घड़ी</string>
   <string name="tenthsOfSeconds">सेकेंड का दसवाँ हिस्सा</string>
   <string name="whenTimeRemainingLessThanTenSeconds" comment="whenTimeRemainingLessThanTenSeconds&#10;&#10;The &amp;lt; symbol is not required (you can write it as a word), just do NOT use &lt; in its place.&#10;&#10;Technical information: &lt; is a reserved character in HTML, which is why it cannot be used.">जब बचा हुआ समय &lt; 10 सेकेंड</string>

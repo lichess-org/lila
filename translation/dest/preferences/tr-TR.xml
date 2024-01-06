@@ -19,7 +19,6 @@
   <string name="displayBoardResizeHandle">Tahta büyüklüğünü ayarlama kolunu göster</string>
   <string name="onlyOnInitialPosition">Sadece başlangıç konumunda</string>
   <string name="inGameOnly">Sadece oyun sırasında</string>
-  <string name="blindfoldChess">Körleme satranç (taşlar görünmez)</string>
   <string name="chessClock">Satranç saati</string>
   <string name="tenthsOfSeconds">Saniyenin onda biri</string>
   <string name="whenTimeRemainingLessThanTenSeconds" comment="whenTimeRemainingLessThanTenSeconds&#10;&#10;The &amp;lt; symbol is not required (you can write it as a word), just do NOT use &lt; in its place.&#10;&#10;Technical information: &lt; is a reserved character in HTML, which is why it cannot be used.">Kalan zaman 10 saniyeden az ise</string>

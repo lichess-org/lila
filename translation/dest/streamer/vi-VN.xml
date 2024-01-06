@@ -27,7 +27,7 @@
   <string name="perk4">Hiển thị luồng trực tiếp trong các ván đấu, giải đấu và nghiên cứu của bạn.</string>
   <string name="approved">Luồng của bạn đã được phê duyệt.</string>
   <string name="pendingReview">Luồng của bạn đang được quản trị viên đánh giá.</string>
-  <string name="pleaseFillIn">Hãy điền thông tin về luồng của bạn và tải lên một hình ảnh.</string>
+  <string name="pleaseFillIn">Hãy điền thông tin về luồng của bạn và tải lên một ảnh.</string>
   <string name="whenReady" comment="whenReady&#10;&#10;%s is &quot;request a moderator review&quot;">Khi bạn sẵn sàng trờ thành Streamer của Lichess, %s</string>
   <string name="requestReview" comment="requestReview&#10;&#10;Used as part of the longer sentence: &quot;When you are ready to be listed as a Lichess streamer, request a moderator review&quot;">yêu cầu các quản trị viên đánh giá</string>
   <string name="streamerLanguageSettings">Trang Streamer Lichess hướng đến người xem là những người dùng ngôn ngữ bằng ngôn ngữ do nền tảng phát trực tuyến của bạn cung cấp. Đặt ngôn ngữ mặc định chính xác cho luồng cờ vua của bạn trong ứng dụng hoặc dịch vụ mà bạn sử dụng để phát sóng.</string>
@@ -38,13 +38,13 @@
   <plurals name="keepItShort">
     <item quantity="other">Để tên ngắn gọn: tối đa %s ký tự</item>
   </plurals>
-  <string name="visibility">Hiện lên ở trang các streamer</string>
+  <string name="visibility">Hiện lên ở trang các Streamer</string>
   <string name="whenApproved">Khi được quản trị viên chấp thuận</string>
   <string name="headline">Tiêu đề</string>
   <string name="tellUsAboutTheStream">Giới thiệu về luồng của bạn trong một câu</string>
   <string name="longDescription">Miêu tả dài</string>
   <string name="xStreamerPicture">Ảnh streamer của %s</string>
   <string name="changePicture">Thay đổi/xóa ảnh của bạn</string>
-  <string name="uploadPicture">Tải lên hình ảnh</string>
+  <string name="uploadPicture">Tải lên một ảnh</string>
   <string name="maxSize">Kích cỡ tối đa: %s</string>
 </resources>

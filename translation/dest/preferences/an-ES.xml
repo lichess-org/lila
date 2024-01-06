@@ -20,7 +20,6 @@
   <string name="displayBoardResizeHandle">Amostrar lo control de grandaria d\'o escaquero</string>
   <string name="onlyOnInitialPosition">Nomás en posición inicial</string>
   <string name="inGameOnly">Nomás en a partida</string>
-  <string name="blindfoldChess">Escaques a ciegas (piezas invisibles)</string>
   <string name="chessClock">Reloch d\'escaques</string>
   <string name="tenthsOfSeconds">Decenas de segundo</string>
   <string name="whenTimeRemainingLessThanTenSeconds" comment="whenTimeRemainingLessThanTenSeconds&#10;&#10;The &amp;lt; symbol is not required (you can write it as a word), just do NOT use &lt; in its place.&#10;&#10;Technical information: &lt; is a reserved character in HTML, which is why it cannot be used.">Cuan queden menos de 10 segundos</string>

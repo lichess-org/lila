@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="newAccessToken">ساخت توکن جدید</string>
+  <string name="newAccessToken">API توکن دسترسی تازه</string>
   <string name="tokenGrantsPermission">توکن اجازه دسترسی دیگران به اکانت شما را میدهد.</string>
   <string name="carefullySelect">در انتخاب دسترسی های داده شده دقت کنید.</string>
   <string name="tokenDescription">توضیحات توکن</string>
@@ -31,6 +31,24 @@
   <string name="engineWrite">ایجاد و به روز رسانی انجین خارجی</string>
   <string name="webLogin" comment="In the context of an access token, a setting which permits third-party software to create authenticated sessions - meaning effectively unlimited access to your account, using it as if it is you, instead of a third party program. It will be unable to view your password but it will be able to do almost everything else.">ایجاد بخش های تائید شده وبسایت (تضمین دسترسی کامل!)</string>
   <string name="webMod" comment="In the context of an access token, this is a setting which permits third-party software to use moderator tools on your behalf. Most players will not be able to see this option.">از ابزارهای مدیریت (در محدوده اجازه شما) استفاده کنید</string>
+  <string name="personalAccessTokens">کلیدواژه خصوصی دسترسی به api</string>
+  <string name="canMakeOauthRequests" comment="%s is 'authorisation code flow' (flow, as in a process).">شما میتوانید درخواست های OAuth را بدون استفاده از %s ارسال نمایید.</string>
+  <string name="authorizationCodeFlow" comment="Part of longer string canMakeOauthRequests:&#10;You can make OAuth requests without going through the authorisation code flow.&#10;&#10;In this context, 'flow' means a process.&#10;&#10;This text is also a link which directs to https://lichess.org/api#section/Introduction/Authentication.">روند کد هویت سنجی</string>
+  <string name="insteadGenerateToken" comment="%s is 'generate a personal access token'.">به جایش، %s که می توانید مستقیم در درخواست های api استفاده کنید.</string>
+  <string name="generatePersonalToken" comment="Part of longer string insteadGenerateToken:&#10;'Instead, generate a personal access token you can directly use in API requests.'&#10;&#10;It is a link, which links to https://lichess.org/account/oauth/token/create and appears after you have created at least one token.">ساخت یک نمودافزار دسترسی خصوصی</string>
+  <string name="guardTokensCarefully">از این نمودافزارها محافظت کنید! آن‌ها مانند رمز عبورها هستند. فایده استفاده از این نمودافزارها جای نوشتن رمز عبور خود درون یک اسکریپت این که نمودافزارها می‌توانند لغو شوند و شما میتوانید تعداد زیادی از آن ها را ایجاد نمایید.</string>
+  <string name="apiDocumentationLinks" comment="%1$s links to a personal token app example (string: personalTokenAppExample).&#10;&#10;%2$s links to the API documentation (string: apiDocumentation).&#10;&#10;These can both be translated separately.">اینجا یک %1$s و %2$s.</string>
+  <string name="personalTokenAppExample" comment="Part of longer string apiDocumentationLinks:&#10;'Here's a personal token app example and the API documentation.'&#10;&#10;This text is also a link which directs to https://github.com/lichess-org/api/tree/master/example/oauth-personal-token.">نمونه برنامه نمودافزار خصوصی</string>
+  <string name="apiDocumentation" comment="Part of longer string apiDocumentationLinks:&#10;'Here's a personal token app example and the API documentation.'&#10;&#10;This text is also a link which directs to https://lichess.org/api.">مستندات API</string>
+  <string name="newToken">نمودافزار دسترسی تازه</string>
+  <string name="apiAccessTokens">API دسترسی نمودافزارها</string>
+  <string name="created" comment="%s is relative time, e.g. 2 hours ago.">%s ایجاد شده</string>
+  <string name="lastUsed" comment="%s is relative time, e.g. 2 hours ago. 'Last used' in this context means 'You used this most recently %s time ago'.">آخرین استفاده %s</string>
+  <string name="alreadyHavePlayedGames">شما قبلا بازی کرده اید!</string>
+  <string name="attentionOfDevelopers">نکته قابل توجه برای توسعه دهندگان:</string>
+  <string name="possibleToPrefill">ممکن است که این فرم را با استفاده از کوئری پارامترهای نشانی وب از قبل پر کنید.</string>
   <string name="forExample" comment="%s is an example URL.&#10;&#10;Please note the sentence continues on the next line. The complete sentence is:&#10;'For example: https://lichess.org/account/oauth/token/create?scopes[]=challenge:write&amp;scopes[]=puzzle:read&amp;description=Prefilled+token+example&#10;ticks the challenge:create and puzzle:read scopes, and sets the token description.'">برای نمونه: %s</string>
   <string name="ticksTheScopes" comment="Part of a longer sentence, this is the second line:&#10;&#10;'For example: https://lichess.org/account/oauth/token/create?scopes[]=challenge:write&amp;scopes[]=puzzle:read&amp;description=Prefilled+token+example&#10;ticks the challenge:create and puzzle:read scopes, and sets the token description.'&#10;&#10;%1$s is 'challenge:create', %2$s is 'puzzle:read' which are both used as technical examples. These should not be translated which is why they are included as substituted strings.">گستره‌های %1$s و %2$s را علامت زده و توضیحات نِموداَفزار را تنظیم می‌کند.</string>
+  <string name="scopesCanBeFound" comment="scopesCanBeFound&#10;&#10;For this page in particular, developers can link to it so that some options are pre-ticked when a user follows the URL.&#10;&#10;To pre-tick those options, developers need the scope codes, which they can find by inspecting the source code of the page itself.">محدوده ی کدها می تواند درون کد HTML فرم، ‌پیدا شود.</string>
+  <string name="givingPrefilledUrls">دادن این نشانی های وب از قبل پر شده به کاربرهایتان به آن ها در دریافت محدوده های نمودافزار درست کمک می کند.</string>
 </resources>

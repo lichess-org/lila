@@ -161,7 +161,7 @@
   <string name="signIn">Đăng nhập</string>
   <string name="rememberMe">Duy trì trạng thái đăng nhập</string>
   <string name="youNeedAnAccountToDoThat">Bạn cần một tài khoản để thực hiện điều đó</string>
-  <string name="signUp">Đăng kí</string>
+  <string name="signUp">Đăng ký</string>
   <string name="computersAreNotAllowedToPlay">Máy tính và người chơi có máy tính hỗ trợ không được phép chơi. Vui lòng không nhận hỗ trợ từ các công cụ cờ vua, cơ sở dữ liệu, hoặc từ những người chơi khác khi chơi. Cũng lưu ý rằng việc lập nhiều tài khoản không được khuyến khích và bạn có thể bị cấm vĩnh viễn nếu tạo quá nhiều tài khoản.</string>
   <string name="games">Các ván cờ</string>
   <string name="forum">Diễn đàn</string>
@@ -571,7 +571,7 @@ trò chuyện trong ván đấu và có một URL có thể chia sẻ công khai
   <string name="allInformationIsPublicAndOptional">Tất cả thông tin đều công khai và không bắt buộc.</string>
   <string name="biographyDescription">Giới thiệu gì đó về bạn như sở thích, bạn thích gì ở cờ, khai cuộc yêu thích, ván cờ yêu thích, thần tượng, ...</string>
   <plurals name="maximumNbCharacters">
-    <item quantity="other">Tối đa: %s kí tự.</item>
+    <item quantity="other">Tối đa: %s ký tự.</item>
   </plurals>
   <plurals name="blocks">
     <item quantity="other">Đang chặn %s thành viên</item>
@@ -697,10 +697,10 @@ trò chuyện trong ván đấu và có một URL có thể chia sẻ công khai
   <string name="readAboutOur">Đọc về %s của chúng tôi.</string>
   <string name="networkLagBetweenYouAndLichess">Độ trễ mạng giữa bạn và Lichess</string>
   <string name="timeToProcessAMoveOnLichessServer">Thời gian để tiến hành một nước đi trên máy chủ Lichess</string>
-  <string name="downloadAnnotated">Tải kèm chú thích</string>
-  <string name="downloadRaw">Tải bản thô</string>
-  <string name="downloadImported">Tải tệp đã được nhập</string>
-  <string name="crosstable">Bảng tổng điểm</string>
+  <string name="downloadAnnotated">Tải về kèm chú thích</string>
+  <string name="downloadRaw">Tải về bản thô</string>
+  <string name="downloadImported">Tải về tệp đã được nhập</string>
+  <string name="crosstable">Bảng tổng điểm đối đầu</string>
   <string name="youCanAlsoScrollOverTheBoardToMoveInTheGame">Bạn cũng có thể cuộn chuột trên bàn cờ để xem các nước đi của ván.</string>
   <string name="scrollOverComputerVariationsToPreviewThem">Cuộn qua các biến máy tính để xem trước chúng.</string>
   <string name="analysisShapesHowTo">Nhấn Shift+click hoặc nhấp chuột phải để vẽ vòng tròn, mũi tên trên bàn cờ.</string>
@@ -884,7 +884,7 @@ trò chuyện trong ván đấu và có một URL có thể chia sẻ công khai
   <string name="refundXpointsTimeControlY">Hoàn lại: %1$s điểm xếp hạng %2$s.</string>
   <string name="timeAlmostUp">Thời gian sắp hết!</string>
   <string name="clickToRevealEmailAddress">[Nhấp để tiết lộ địa chỉ email]</string>
-  <string name="download">Tải xuống</string>
+  <string name="download">Tải về</string>
   <string name="coachManager">Quản lý huấn luyện viên</string>
   <string name="streamerManager">Quản lý trang Streamer</string>
   <string name="cancelTournament">Hủy giải đấu</string>

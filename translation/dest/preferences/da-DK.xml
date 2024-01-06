@@ -20,7 +20,6 @@
   <string name="displayBoardResizeHandle">Vis brætstørrelse justering</string>
   <string name="onlyOnInitialPosition">Kun ved indledende position</string>
   <string name="inGameOnly">Kun i spillet</string>
-  <string name="blindfoldChess">Blindskak</string>
   <string name="chessClock">Skakur</string>
   <string name="tenthsOfSeconds">Tiendedele sekunder</string>
   <string name="whenTimeRemainingLessThanTenSeconds" comment="whenTimeRemainingLessThanTenSeconds&#10;&#10;The &amp;lt; symbol is not required (you can write it as a word), just do NOT use &lt; in its place.&#10;&#10;Technical information: &lt; is a reserved character in HTML, which is why it cannot be used.">Når resterende tid &lt; 10 sekunder</string>

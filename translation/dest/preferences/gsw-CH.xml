@@ -20,7 +20,6 @@
   <string name="displayBoardResizeHandle">Zeig de Brättgrössi Regler</string>
   <string name="onlyOnInitialPosition">Nur bi de Afangsschtellig</string>
   <string name="inGameOnly">Nur im Schpiel</string>
-  <string name="blindfoldChess">Blindeschach (unsichtbari Figure)</string>
   <string name="chessClock">Schachuhr</string>
   <string name="tenthsOfSeconds">Zähntelsekunde</string>
   <string name="whenTimeRemainingLessThanTenSeconds" comment="whenTimeRemainingLessThanTenSeconds&#10;&#10;The &amp;lt; symbol is not required (you can write it as a word), just do NOT use &lt; in its place.&#10;&#10;Technical information: &lt; is a reserved character in HTML, which is why it cannot be used.">Bi Reschtzit &lt; 10 Sekunde</string>

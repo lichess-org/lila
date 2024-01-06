@@ -20,7 +20,6 @@
   <string name="displayBoardResizeHandle">แสดงตัวปรับขนาดกระดาน</string>
   <string name="onlyOnInitialPosition">เฉพาะก่อนเริ่มเดินหมาก</string>
   <string name="inGameOnly">ในเกมเท่านั้น</string>
-  <string name="blindfoldChess">หมากรุกอำพราง (ไม่เห็นตัวหมาก)</string>
   <string name="chessClock">นาฬิกาหมากรุก</string>
   <string name="tenthsOfSeconds">ทศนิยมของวินาที</string>
   <string name="whenTimeRemainingLessThanTenSeconds" comment="whenTimeRemainingLessThanTenSeconds&#10;&#10;The &amp;lt; symbol is not required (you can write it as a word), just do NOT use &lt; in its place.&#10;&#10;Technical information: &lt; is a reserved character in HTML, which is why it cannot be used.">เมื่อเหลือเวลา &lt; 10 วินาที</string>

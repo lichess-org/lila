@@ -19,7 +19,6 @@
   <string name="displayBoardResizeHandle">Arată indicatorul de redimensionare a tablei</string>
   <string name="onlyOnInitialPosition">Doar inainte de prima mutare</string>
   <string name="inGameOnly">Doar în joc</string>
-  <string name="blindfoldChess">Șah ”legat la ochi” (piese invizibile)</string>
   <string name="chessClock">Ceasul de șah</string>
   <string name="tenthsOfSeconds">Zecimi de secundă</string>
   <string name="whenTimeRemainingLessThanTenSeconds" comment="whenTimeRemainingLessThanTenSeconds&#10;&#10;The &amp;lt; symbol is not required (you can write it as a word), just do NOT use &lt; in its place.&#10;&#10;Technical information: &lt; is a reserved character in HTML, which is why it cannot be used.">Când rămân mai puțin de 10 secunde</string>

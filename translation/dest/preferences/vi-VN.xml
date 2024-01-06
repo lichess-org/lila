@@ -10,7 +10,7 @@
   <string name="pieceDestinations">Các điểm đến của quân cờ (các nước đi hợp lý và nước đi dự đoán)</string>
   <string name="boardCoordinates">Tọa độ bàn cờ (A-H, 1-8)</string>
   <string name="moveListWhilePlaying">Biên bản ván đấu</string>
-  <string name="pgnPieceNotation">Kí hiệu nước cờ</string>
+  <string name="pgnPieceNotation">Ký hiệu nước cờ</string>
   <string name="chessPieceSymbol">Biểu tượng quân cờ</string>
   <string name="pgnLetter">Ký tự (K, Q, R, B, N)</string>
   <string name="zenMode" comment="zenMode&#10;&#10;This is not the religious meaning. Turning this option on takes away make elements of the user interface.&#10;&#10;Can also translate as 'Focus mode' as one example.">Chế độ tập trung</string>
@@ -20,7 +20,6 @@
   <string name="displayBoardResizeHandle">Hiện nút thay đổi kích cỡ bàn cờ</string>
   <string name="onlyOnInitialPosition">Chỉ ở thế cờ ban đầu</string>
   <string name="inGameOnly">Chỉ trong ván cờ</string>
-  <string name="blindfoldChess">Cờ tưởng (quân cờ vô hình)</string>
   <string name="chessClock">Đồng hồ cờ vua</string>
   <string name="tenthsOfSeconds">Một phần mười giây</string>
   <string name="whenTimeRemainingLessThanTenSeconds" comment="whenTimeRemainingLessThanTenSeconds&#10;&#10;The &amp;lt; symbol is not required (you can write it as a word), just do NOT use &lt; in its place.&#10;&#10;Technical information: &lt; is a reserved character in HTML, which is why it cannot be used.">Khi thời gian còn lại &lt; 10 giây</string>
