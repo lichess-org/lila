@@ -64,7 +64,7 @@ const styles: ChartPerf[] = [
 
 const oneDay = 24 * 60 * 60 * 1000;
 
-export function initModule({ data, singlePerfName }: Opts) {
+export function initModule({ data, singlePerfName, perfIndex }: Opts) {
   $('.spinner').remove();
 
   const $el = $('canvas.rating-history');
@@ -73,12 +73,12 @@ export function initModule({ data, singlePerfName }: Opts) {
     $el.hide();
     return;
   }
-  const allData = makeDatasets(1, data, singlePerfName);
+  const allData = makeDatasets(1, { data, singlePerfName, perfIndex }, singlePerfIndex);
   let startDate = dayjs(allData.startDate);
   const endDate = dayjs(allData.endDate);
   if (startDate.diff(endDate, 'D') < 1) startDate = startDate.subtract(1, 'day');
-  const weeklyData = makeDatasets(7, data, singlePerfName);
-  const biweeklyData = makeDatasets(14, data, singlePerfName);
+  const weeklyData = makeDatasets(7, { data, singlePerfName, perfIndex }, singlePerfIndex);
+  const biweeklyData = makeDatasets(14, { data, singlePerfName, perfIndex }, singlePerfIndex);
   const threeMonthsAgo = endDate.subtract(3, 'M');
   const initial = startDate < threeMonthsAgo ? threeMonthsAgo : startDate;
   let zoomedOut = initial.isSame(threeMonthsAgo);
@@ -258,34 +258,35 @@ export function initModule({ data, singlePerfName }: Opts) {
   }
 }
 
-function makeDatasets(step: number, data: PerfRatingHistory[], name: string | undefined) {
-  const indexFilter = (p: ChartPerf | PerfRatingHistory) => !name || p.name === name;
+function makeDatasets(step: number, { data, singlePerfName }: Opts, singlePerfIndex: number) {
+  const indexFilter = (_p: ChartPerf | PerfRatingHistory, i: number) =>
+    !singlePerfName || i === singlePerfIndex;
   const minMax = (d: PerfRatingHistory) => [getDate(d.points[0]), getDate(d.points[d.points.length - 1])];
-  const filtered = data.filter(indexFilter);
-  const dates = filtered.filter(p => p.points.length).flatMap(minMax);
+  const filteredData = data.filter(indexFilter);
+  const dates = filteredData.filter(p => p.points.length).flatMap(minMax);
   const startDate = Math.min(...dates);
   const endDate = Math.max(...dates);
-  const ds: ChartDataset<'line'>[] = filtered.map((serie, i) => {
+  const ds: ChartDataset<'line'>[] = filteredData.map((serie, i) => {
     const originalDatesAndRatings = serie.points.map(r => ({
       ts: getDate(r),
       rating: r[3],
     }));
-    const color = styles.filter(indexFilter)[i].color;
+    const perfStyle = styles.filter(indexFilter)[i];
     const data = smoothDates(originalDatesAndRatings, step, startDate);
     return {
       indexAxis: 'x',
       type: 'line',
       label: serie.name,
-      borderColor: color,
+      borderColor: perfStyle.color,
       hoverBorderColor: hoverBorderColor,
-      backgroundColor: color,
+      backgroundColor: perfStyle.color,
       pointRadius: 0,
       pointHoverRadius: 6,
       data: data,
-      pointStyle: styles.filter(indexFilter)[i].symbol,
+      pointStyle: perfStyle.symbol,
       borderWidth: 2,
       tension: 0,
-      borderDash: styles.filter(indexFilter)[i].borderDash,
+      borderDash: perfStyle.borderDash,
       stepped: false,
       animation: false,
     };
