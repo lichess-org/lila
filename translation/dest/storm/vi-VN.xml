@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="moveToStart">Đi quân để bắt đầu</string>
-  <string name="youPlayTheWhitePiecesInAllPuzzles" comment="Appears in Puzzle Storm (https://lichess.org/storm) and Puzzle Racer (https://lichess.org/racer), before you start, letting you know which side you will be playing in all the puzzles that will be presented to you over the next few minutes.">Bạn chơi quân trắng ở tất cả các câu đố</string>
+  <string name="youPlayTheWhitePiecesInAllPuzzles" comment="Appears in Puzzle Storm (https://lichess.org/storm) and Puzzle Racer (https://lichess.org/racer), before you start, letting you know which side you will be playing in all the puzzles that will be presented to you over the next few minutes.">Bạn cầm quân trắng ở tất cả các câu đố</string>
   <string name="youPlayTheBlackPiecesInAllPuzzles" comment="Appears in Puzzle Storm (https://lichess.org/storm) and Puzzle Racer (https://lichess.org/racer), before you start, letting you know which side you will be playing in all the puzzles that will be presented to you over the next few minutes.">Bạn cầm quân đen ở tất cả các câu đố</string>
   <string name="puzzlesSolved">câu đố đã giải</string>
   <string name="newDailyHighscore" comment="Appears when you achieve a new high score after a run of Puzzle Storm (https://lichess.org/storm).&#10;If you achieve a new best score for that week, month or all-time, strings for those will appear instead.&#10;&#10;'Daily' here refers to today's date.">Điểm cao hàng ngày mới!</string>
@@ -11,7 +11,7 @@
   <string name="previousHighscoreWasX" comment="%s is the number of puzzles solved as part of a run of Puzzle Storm.">Điểm cao trước đây là %s</string>
   <string name="playAgain">Chơi lại</string>
   <plurals name="xRuns">
-    <item quantity="other">%s lần chạy</item>
+    <item quantity="other">%s lần chơi</item>
   </plurals>
   <plurals name="playedNbRunsOfPuzzleStorm" comment="playedNbRunsOfPuzzleStorm [one] [other]&#10;&#10;%2$s can be either 'Puzzle Storm' or 'Puzzle Racer'.&#10;&#10;A run is an attempt/playthrough/session of Puzzle Storm or Puzzle Racer.&#10;&#10;Appears in the player's activity feed after they played some runs of these minigames.">
     <item quantity="other">Đã chơi %1$s lượt %2$s</item>
@@ -29,8 +29,8 @@
   <string name="endRun">Kết thúc (phím nhanh: Enter)</string>
   <string name="highscores" comment="A heading showing your high scores in Puzzle Storm.">Điểm cao</string>
   <string name="viewBestRuns" comment="Lets you view your best results in Puzzle Storm. Links to https://lichess.org/storm/dashboard">Xem các lần chạy tốt nhất</string>
-  <string name="bestRunOfDay">Lần chạy tốt nhất trong ngày</string>
-  <string name="runs" comment="A run is a complete session of Puzzle Storm as an activity.&#10;&#10;Appears in your Puzzle Storm dashboard: https://lichess.org/storm/dashboard">Lần chạy</string>
+  <string name="bestRunOfDay">Lần chạy tốt nhất của ngày</string>
+  <string name="runs" comment="A run is a complete session of Puzzle Storm as an activity.&#10;&#10;Appears in your Puzzle Storm dashboard: https://lichess.org/storm/dashboard">Số lần chạy</string>
   <string name="getReady">Chuẩn bị!</string>
   <string name="waitingForMorePlayers">Đang đợi thêm người chơi tham gia...</string>
   <string name="raceComplete">Cuộc đua kết thúc!</string>
