@@ -139,9 +139,10 @@ export function view(ctrl: MultiBoardCtrl, study: StudyCtrl): VNode | undefined 
 
 function renderPager(pager: Paginator<ChapterPreview>, study: StudyCtrl): MaybeVNodes {
   const ctrl = study.multiBoard;
+  const cloudEval = study.ctrl.ceval?.enabled() ? ctrl.getCloudEval : undefined;
   return [
     h('div.top', [renderPagerNav(pager, ctrl), renderPlayingToggle(ctrl)]),
-    h('div.now-playing', pager.currentPageResults.map(makePreview(study, ctrl.getCloudEval))),
+    h('div.now-playing', pager.currentPageResults.map(makePreview(study, cloudEval))),
   ];
 }
 
@@ -187,7 +188,7 @@ function pagerButton(
 
 type GetCloudEval = (preview: ChapterPreview) => CloudEval | undefined;
 
-const makePreview = (study: StudyCtrl, cloudEval: GetCloudEval) => (preview: ChapterPreview) =>
+const makePreview = (study: StudyCtrl, cloudEval?: GetCloudEval) => (preview: ChapterPreview) =>
   h(
     `a.mini-game.mini-game-${preview.id}.mini-game--init.is2d`,
     {
@@ -224,7 +225,10 @@ const makePreview = (study: StudyCtrl, cloudEval: GetCloudEval) => (preview: Cha
     },
     [
       boardPlayer(preview, CgOpposite(preview.orientation)),
-      h('span.cg-gauge', [h('span.mini-game__board', h('span.cg-wrap')), evalGauge(preview, cloudEval)]),
+      h('span.cg-gauge', [
+        h('span.mini-game__board', h('span.cg-wrap')),
+        cloudEval && evalGauge(preview, cloudEval),
+      ]),
       boardPlayer(preview, preview.orientation),
     ],
   );
