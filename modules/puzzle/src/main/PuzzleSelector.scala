@@ -62,20 +62,14 @@ final class PuzzleSelector(
           if (retryCount >= maxUniqueRetries) {
             fuccess(serveAndMonitor(puzzle))
           } else {
-            sessionApi
-              .previousPuzzle(session)
-              .flatMap {
-                case Some(prevPuzzle) if prevPuzzle.id == puzzle.id =>
-                  findNextPuzzleFor(angle, retries = retryCount + 1)
+            def findUniquePuzzle(): Fu[Puzzle] =
+              sessionApi.nextPuzzle(session).flatMap {
+                case Some(nextPuzzle) if nextPuzzle.id == puzzle.id =>
+                  findUniquePuzzle()
                 case _ =>
-                  sessionApi.nextPuzzle(session)
-                    .flatMap {
-                      case Some(nextPuzzle) if nextPuzzle.id == puzzle.id =>
-                        findNextPuzzleFor(angle, retries = retryCount + 1)
-                      case _ =>
-                        fuccess(serveAndMonitor(puzzle))
-                    }
-              }
+                  fuccess(serveAndMonitor(puzzle))
+             }
+            findUniquePuzzle()
           }
  
         nextPuzzleResult(session).flatMap:
