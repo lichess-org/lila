@@ -31,7 +31,7 @@
   <string name="broadcastUrl">URL phát sóng</string>
   <string name="currentRoundUrl">URL vòng đấu hiện tại</string>
   <string name="currentGameUrl">URL ván đấu hiện tại</string>
-  <string name="downloadAllRounds">Tải xuống tất cả ván đấu</string>
+  <string name="downloadAllRounds">Tải về tất cả ván đấu</string>
   <string name="resetRound">Đặt lại vòng này</string>
   <string name="deleteRound">Xóa vòng này</string>
   <string name="definitivelyDeleteRound">Xóa hoàn toàn vòng đấu và các ván đấu trong đó.</string>
