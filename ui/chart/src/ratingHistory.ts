@@ -23,7 +23,6 @@ import dayOfYear from 'dayjs/plugin/dayOfYear';
 interface Opts {
   data: PerfRatingHistory[];
   singlePerfName?: string;
-  perfIndex?: number;
 }
 
 type TsAndRating = { ts: number; rating: number };
@@ -64,7 +63,7 @@ const styles: ChartPerf[] = [
 
 const oneDay = 24 * 60 * 60 * 1000;
 
-export function initModule({ data, singlePerfName, perfIndex }: Opts) {
+export function initModule({ data, singlePerfName }: Opts) {
   $('.spinner').remove();
 
   const $el = $('canvas.rating-history');
@@ -73,12 +72,12 @@ export function initModule({ data, singlePerfName, perfIndex }: Opts) {
     $el.hide();
     return;
   }
-  const allData = makeDatasets(1, { data, singlePerfName, perfIndex }, singlePerfIndex);
+  const allData = makeDatasets(1, { data, singlePerfName }, singlePerfIndex);
   let startDate = dayjs(allData.startDate);
   const endDate = dayjs(allData.endDate);
   if (startDate.diff(endDate, 'D') < 1) startDate = startDate.subtract(1, 'day');
-  const weeklyData = makeDatasets(7, { data, singlePerfName, perfIndex }, singlePerfIndex);
-  const biweeklyData = makeDatasets(14, { data, singlePerfName, perfIndex }, singlePerfIndex);
+  const weeklyData = makeDatasets(7, { data, singlePerfName }, singlePerfIndex);
+  const biweeklyData = makeDatasets(14, { data, singlePerfName }, singlePerfIndex);
   const threeMonthsAgo = endDate.subtract(3, 'M');
   const initial = startDate < threeMonthsAgo ? threeMonthsAgo : startDate;
   let zoomedOut = initial.isSame(threeMonthsAgo);
