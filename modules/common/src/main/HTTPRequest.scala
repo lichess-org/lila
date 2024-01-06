@@ -39,7 +39,7 @@ object HTTPRequest:
 
   val isChrome96Plus                               = UaMatcher("""Chrome/(?:\d{3,}|9[6-9])""")
   val isChrome113Plus                              = UaMatcher("""Chrome/(?:11[3-9]|1[2-9]\d)""")
-  val isFirefox114Plus                             = UaMatcher("""Firefox/(?:11[4-9]|1[2-9]\d)""")
+  val isFirefox119Plus                             = UaMatcher("""Firefox/(?:119|1[2-9]\d)""")
   val isMobileBrowser                              = UaMatcher("""(?i)iphone|ipad|ipod|android.+mobile""")
   def isLichessMobile(ua: UserAgent): Boolean      = ua.value startsWith "Lichess Mobile/"
   def isLichessMobile(req: RequestHeader): Boolean = userAgent(req).exists(isLichessMobile)

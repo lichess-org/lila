@@ -25,11 +25,8 @@ trait CtrlExtensions extends ControllerHelpers:
     def enableSharedArrayBuffer(using req: RequestHeader): Result = {
       if HTTPRequest.isChrome96Plus(req) then
         result.withHeaders("Cross-Origin-Embedder-Policy" -> "credentialless")
-      else if HTTPRequest.isFirefox114Plus(req) && env.firefoxOriginTrial.get().nonEmpty then
-        result.withHeaders(
-          "Origin-Trial"                 -> env.firefoxOriginTrial.get(),
-          "Cross-Origin-Embedder-Policy" -> "credentialless"
-        )
+      else if HTTPRequest.isFirefox119Plus(req) then
+        result.withHeaders("Cross-Origin-Embedder-Policy"    -> "credentialless")
       else result.withHeaders("Cross-Origin-Embedder-Policy" -> "require-corp")
     }.withHeaders("Cross-Origin-Opener-Policy" -> "same-origin")
     def noCache: Result = result.withHeaders(

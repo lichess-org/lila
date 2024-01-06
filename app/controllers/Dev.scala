@@ -32,7 +32,6 @@ final class Dev(env: Env) extends LilaController(env):
     env.tournament.reloadEndpointSetting,
     env.tutor.nbAnalysisSetting,
     env.tutor.parallelismSetting,
-    env.firefoxOriginTrial,
     env.credentiallessUaRegex,
     env.relay.proxyDomainRegex,
     env.relay.proxyHostPort,
