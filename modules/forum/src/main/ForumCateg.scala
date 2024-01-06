@@ -37,11 +37,22 @@ case class ForumCateg(
       lastPostIdTroll = if topic.isTooBig then lastPostIdTroll else post.id
     )
 
+  def withoutTopic(topic: ForumTopic, lastPostId: ForumPostId, lastPostIdTroll: ForumPostId): ForumCateg =
+    copy(
+      nbTopics = nbTopics - 1,
+      nbTopicsTroll = nbTopicsTroll - 1,
+      nbPosts = nbPosts - topic.nbPosts,
+      nbPostsTroll = nbPostsTroll - topic.nbPostsTroll,
+      lastPostId = lastPostId,
+      lastPostIdTroll = lastPostIdTroll
+    )
+
   def slug = id
 
 object ForumCateg:
 
-  val ublogId = ForumCategId("community-blog-discussions")
+  val ublogId      = ForumCategId("community-blog-discussions")
+  val diagnosticId = ForumCategId("diagnostic")
 
   def isTeamSlug(id: ForumCategId) = id.value.startsWith("team-")
 

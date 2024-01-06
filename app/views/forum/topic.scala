@@ -8,11 +8,12 @@ import play.api.data.Form
 
 import lila.app.templating.Environment.{ given, * }
 import lila.app.ui.ScalatagsTemplate.{ *, given }
+import lila.common.Captcha
 import lila.common.paginator.Paginator
 
 object topic:
 
-  def form(categ: lila.forum.ForumCateg, form: Form[?], captcha: lila.common.Captcha)(using PageContext) =
+  def form(categ: lila.forum.ForumCateg, form: Form[?], captcha: Captcha)(using PageContext) =
     views.html.base.layout(
       title = "New forum topic",
       moreCss = cssTag("forum"),
@@ -71,7 +72,8 @@ object topic:
       posts: Paginator[lila.forum.ForumPost.WithFrag],
       formWithCaptcha: Option[FormWithCaptcha],
       unsub: Option[Boolean],
-      canModCateg: Boolean
+      canModCateg: Boolean,
+      formText: Option[String] = None
   )(using ctx: PageContext) =
     views.html.base.layout(
       title = s"${topic.name} • page ${posts.currentPage}/${posts.nbPages} • ${categ.name}",
@@ -90,20 +92,23 @@ object topic:
         .some,
       csp = defaultCsp.withInlineIconFont.withTwitter.some
     ):
+      import lila.forum.ForumCateg.diagnosticId
+      val isDiagnostic = categ.id == diagnosticId && (canModCateg || ctx.me.exists(topic.isAuthor))
+      val headerText   = if isDiagnostic then s"Troubleshooting" else topic.name
+      val backLink =
+        if isDiagnostic && !canModCateg then routes.ForumCateg.index.url
+        else
+          topic.ublogId.fold(s"${routes.ForumCateg.show(categ.slug)}"): id =>
+            routes.Ublog.redirect(id).url
+
       val teamOnly = categ.team.filterNot(isMyTeamSync)
       val pager = views.html.base.bits
         .paginationByQuery(routes.ForumTopic.show(categ.slug, topic.slug, 1), posts, showPost = true)
       main(cls := "forum forum-topic page-small box box-pad")(
         boxTop(
-          h1(
-            a(
-              href := topic.ublogId.fold(s"${routes.ForumCateg.show(categ.slug)}") { id =>
-                routes.Ublog.redirect(id).url
-              },
-              dataIcon := licon.LessThan,
-              cls      := "text"
-            ),
-            topic.name
+          h1(a(href := backLink, dataIcon := licon.LessThan, cls := "text"), headerText),
+          isDiagnostic option postForm(action := routes.ForumTopic.clearDiagnostic(topic.slug))(
+            button(cls := "button button-red")("erase diagnostics")
           )
         ),
         pager,
@@ -178,7 +183,9 @@ object topic:
                 "Forum etiquette"
               ).some
             ): f =>
-              form3.textarea(f, klass = "post-text-area")(rows := 10, bits.dataTopic := topic.id),
+              form3.textarea(f, klass = "post-text-area")(rows := 10, bits.dataTopic := topic.id)(
+                formText
+              ),
             views.html.base.captcha(form, captcha),
             form3.actions(
               a(href := routes.ForumCateg.show(categ.slug))(trans.cancel()),
@@ -191,6 +198,36 @@ object topic:
               form3.submit(trans.reply())
             )
           )
+      )
+
+  def makeDiagnostic(categ: lila.forum.ForumCateg, form: Form[?], captcha: Captcha, text: String)(using
+      PageContext
+  )(using me: Me) =
+    views.html.base.layout(
+      title = "Diagnostic report",
+      moreCss = cssTag("forum"),
+      moreJs = frag(
+        jsModule("forum"),
+        captchaTag
+      )
+    ):
+      main(cls := "forum forum-topic topic-form page-small box box-pad")(
+        boxTop(h1(dataIcon := licon.BubbleConvo, cls := "text")("Troubleshooting")),
+        st.section(cls := "warning")(
+          h2(dataIcon := licon.CautionTriangle, cls := "text")(trans.important()),
+          p("Unsolicited diagnostic reports will not be seen."),
+          p("Feel free to remove lines that are private or not relevant.")
+        ),
+        postForm(cls := "form3", action := routes.ForumTopic.create(categ.slug))(
+          form3.group(form("post")("text"), trans.message())(
+            form3.textarea(_, klass = "post-text-area")(rows := 10)(text)
+          ),
+          form3.group(form("name"), "")(
+            form3.input(_, typ = "hidden")(value := me.username.value)
+          ),
+          views.html.base.captcha(form("post"), captcha),
+          form3.actions(form3.submit("submit"))
+        )
       )
 
   private def deleteModal =

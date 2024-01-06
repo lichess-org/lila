@@ -25,6 +25,17 @@
     color: $c-good;
   }
 
+  .actions {
+    display: flex;
+    align-items: center;
+    width: 100%;
+    column-gap: 1em;
+  }
+
+  .spacer {
+    flex-grow: 1;
+  }
+
   pre {
     width: 100%;
     font-size: 12px;

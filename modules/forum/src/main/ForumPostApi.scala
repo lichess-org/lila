@@ -8,6 +8,7 @@ import lila.hub.actorApi.timeline.{ ForumPost as TimelinePost, Propagate }
 import lila.hub.actorApi.shutup.{ PublicSource, RecordPublicText, RecordTeamForumMessage }
 import lila.security.{ Granter as MasterGranter }
 import lila.user.{ Me, User }
+import lila.i18n.I18nKeys.learn.thenPlaceTheKnights
 
 final class ForumPostApi(
     postRepo: ForumPostRepo,
@@ -65,6 +66,10 @@ final class ForumPostApi(
             else if !post.troll && !categ.quiet then
               timeline ! Propagate(TimelinePost(me, topic.id, topic.name, post.id)).pipe {
                 _ toFollowersOf me toUsers topicUserIds exceptUser me withTeam categ.team
+              }
+            else if categ.id == ForumCateg.diagnosticId then
+              timeline ! Propagate(TimelinePost(me, topic.id, topic.name, post.id)).pipe {
+                _ toUsers topicUserIds
               }
             lila.mon.forum.post.create.increment()
             mentionNotifier.notifyMentionedUsers(post, topic)
@@ -175,8 +180,10 @@ final class ForumPostApi(
   def nbByUser(userId: UserId) = postRepo.coll.countSel($doc("userId" -> userId))
 
   def categsForUser(teams: Iterable[TeamId], forUser: Option[User]): Fu[List[CategView]] =
+    val isMod = forUser.fold(false)(MasterGranter.of(_.ModerateForum))
     for
-      categs <- categRepo visibleWithTeams teams
+      categs     <- categRepo.visibleWithTeams(teams, isMod)
+      diagnostic <- forUser so diagnosticForUser
       views <- categs.map { categ =>
         get(categ lastPostId forUser) map { topicPost =>
           CategView(
@@ -188,7 +195,18 @@ final class ForumPostApi(
           )
         }
       }.parallel
-    yield views
+    yield views ++ diagnostic.toList
+
+  private def diagnosticForUser(user: User): Fu[Option[CategView]] =
+    for
+      categOpt <- categRepo.byId(ForumCateg.diagnosticId)
+      topicOpt <- topicRepo.byTree(ForumCateg.diagnosticId, user.id.value)
+      postOpt  <- topicOpt.so(t => postRepo.coll.byId[ForumPost](t.lastPostId(user.some)))
+    yield for
+      post  <- postOpt
+      topic <- topicOpt
+      categ <- categOpt
+    yield CategView(categ, (topic, post, topic lastPage config.postMaxPerPage).some, user.some)
 
   private def recentUserIds(topic: ForumTopic, newPostNumber: Int) =
     postRepo.coll

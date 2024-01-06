@@ -189,4 +189,5 @@ lichess.load.then(() => {
     replyStorage.remove();
     submittingReply = true;
   });
+  if (replyEl?.value) replyEl.scrollIntoView(); // scrollto if pre-populated
 });

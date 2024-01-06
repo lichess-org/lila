@@ -588,10 +588,12 @@ GET   /forum/:categSlug/:slug          controllers.ForumTopic.show(categSlug, sl
 POST  /forum/:categSlug/:slug/close    controllers.ForumTopic.close(categSlug, slug)
 POST  /forum/:categSlug/:slug/sticky   controllers.ForumTopic.sticky(categSlug, slug)
 POST  /forum/:categSlug/:slug/new      controllers.ForumPost.create(categSlug, slug, page: Int ?= 1)
-POST  /forum/delete/:id     controllers.ForumPost.delete(id)
+POST  /forum/delete/:id                controllers.ForumPost.delete(id)
 POST  /forum/:categSlug/react/:id/:reaction/:v controllers.ForumPost.react(categSlug, id, reaction, v: Boolean)
 POST  /forum/post/:id                  controllers.ForumPost.edit(id)
 GET   /forum/redirect/post/:id         controllers.ForumPost.redirect(id)
+POST  /diagnostic                      controllers.ForumTopic.diagnostic
+POST  /diagnostic/clear/:slug          controllers.ForumTopic.clearDiagnostic(slug)
 
 # Msg compat
 POST  /inbox/new                       controllers.Msg.compatCreate
