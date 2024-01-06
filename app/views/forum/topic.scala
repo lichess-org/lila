@@ -215,8 +215,8 @@ object topic:
         boxTop(h1(dataIcon := licon.BubbleConvo, cls := "text")("Troubleshooting")),
         st.section(cls := "warning")(
           h2(dataIcon := licon.CautionTriangle, cls := "text")(trans.important()),
-          p("Unsolicited diagnostic reports will not be seen."),
-          p("Feel free to remove lines that are private or not relevant.")
+          p("Noone can see this forum except you and the Lichess moderators."),
+          p("Unsolicited diagnostic reports will be ignored.")
         ),
         postForm(cls := "form3", action := routes.ForumTopic.create(categ.slug))(
           form3.group(form("post")("text"), trans.message())(
