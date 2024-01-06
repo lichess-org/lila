@@ -398,6 +398,8 @@ export default class PuzzleCtrl implements ParentCtrl {
       this.data.user.provisional = next.user.provisional;
       this.round = res.round;
       if (res.round?.ratingDiff) this.session.setRatingDiff(this.data.puzzle.id, res.round.ratingDiff);
+    } else {
+      this.session.setRatingDiff(this.data.puzzle.id, 0);
     }
     if (win) lichess.sound.say('Success!');
     if (next) {
