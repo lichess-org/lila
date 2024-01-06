@@ -47,7 +47,7 @@ object dailyFeed:
             marker(update.flair),
             div(cls := "daily-feed__update__content")(
               st.section(cls := "daily-feed__update__day")(
-                h2(a(href := s"#${update.id}")(momentFromNow(update.at))),
+                h2(a(href := s"#${update.id}")(showInstant(update.at))),
                 editor option frag(
                   a(
                     href     := routes.DailyFeed.edit(update.id),
