@@ -209,8 +209,6 @@ function renderLine(ctrl: ChatCtrl, line: Line): VNode {
       .match(enhance.userPattern)
       ?.find(mention => mention.trim().toLowerCase() == `@${ctrl.data.userId}`);
 
-  console.log(ctrl.data.hostIds);
-
   return h(
     'li',
     {
