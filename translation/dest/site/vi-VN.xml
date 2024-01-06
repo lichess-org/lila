@@ -697,10 +697,10 @@ trò chuyện trong ván đấu và có một URL có thể chia sẻ công khai
   <string name="readAboutOur">Đọc về %s của chúng tôi.</string>
   <string name="networkLagBetweenYouAndLichess">Độ trễ mạng giữa bạn và Lichess</string>
   <string name="timeToProcessAMoveOnLichessServer">Thời gian để tiến hành một nước đi trên máy chủ Lichess</string>
-  <string name="downloadAnnotated">Tải kèm chú thích</string>
-  <string name="downloadRaw">Tải bản thô</string>
-  <string name="downloadImported">Tải tệp đã được nhập</string>
-  <string name="crosstable">Bảng tổng điểm</string>
+  <string name="downloadAnnotated">Tải về kèm chú thích</string>
+  <string name="downloadRaw">Tải về bản thô</string>
+  <string name="downloadImported">Tải về tệp đã được nhập</string>
+  <string name="crosstable">Bảng tổng điểm đối đầu</string>
   <string name="youCanAlsoScrollOverTheBoardToMoveInTheGame">Bạn cũng có thể cuộn chuột trên bàn cờ để xem các nước đi của ván.</string>
   <string name="scrollOverComputerVariationsToPreviewThem">Cuộn qua các biến máy tính để xem trước chúng.</string>
   <string name="analysisShapesHowTo">Nhấn Shift+click hoặc nhấp chuột phải để vẽ vòng tròn, mũi tên trên bàn cờ.</string>
@@ -884,7 +884,7 @@ trò chuyện trong ván đấu và có một URL có thể chia sẻ công khai
   <string name="refundXpointsTimeControlY">Hoàn lại: %1$s điểm xếp hạng %2$s.</string>
   <string name="timeAlmostUp">Thời gian sắp hết!</string>
   <string name="clickToRevealEmailAddress">[Nhấp để tiết lộ địa chỉ email]</string>
-  <string name="download">Tải xuống</string>
+  <string name="download">Tải về</string>
   <string name="coachManager">Quản lý huấn luyện viên</string>
   <string name="streamerManager">Quản lý trang Streamer</string>
   <string name="cancelTournament">Hủy giải đấu</string>
