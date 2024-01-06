@@ -30,7 +30,8 @@ final class PuzzleSelector(
         some
       )
       .mon(_.puzzle.selector.user.time(angle.key))
-
+  
+  private val maxUniqueRetries: Int = 10
   private def findNextPuzzleFor(angle: PuzzleAngle, retries: Int)(using me: Me, perf: Perf): Fu[Puzzle] =
     sessionApi
       .continueOrCreateSessionFor(angle, canFlush = retries == 0)
@@ -57,6 +58,26 @@ final class PuzzleSelector(
           mon.tier(session.path.tier.key, angle.key, session.settings.difficulty.key).increment()
           puzzle
 
+        def ensureUniquePuzzle(puzzle: Puzzle, retryCount: Int): Fu[Puzzle] =
+          if (retryCount >= maxUniqueRetries) {
+            fuccess(serveAndMonitor(puzzle))
+          } else {
+            sessionApi
+              .previousPuzzle(session)
+              .flatMap {
+                case Some(prevPuzzle) if prevPuzzle.id == puzzle.id =>
+                  findNextPuzzleFor(angle, retries = retryCount + 1)
+                case _ =>
+                  sessionApi.nextPuzzle(session)
+                    .flatMap {
+                      case Some(nextPuzzle) if nextPuzzle.id == puzzle.id =>
+                        findNextPuzzleFor(angle, retries = retryCount + 1)
+                      case _ =>
+                        fuccess(serveAndMonitor(puzzle))
+                    }
+              }
+          }
+ 
         nextPuzzleResult(session).flatMap:
           case PathMissing | PathEnded if retries < 10 => switchPath(retries)(session.path.tier)
           case PathMissing => fufail(s"Puzzle path missing for ${me.username} $session")
@@ -75,7 +96,7 @@ final class PuzzleSelector(
             findNextPuzzleFor(angle, retries = retries + 1)
           case WrongColor(puzzle) =>
             session.path.tier.stepDown.fold(fuccess(serveAndMonitor(puzzle)))(switchPath(retries - 5))
-          case PuzzleFound(puzzle) => fuccess(serveAndMonitor(puzzle))
+          case PuzzleFound(puzzle) => ensureUniquePuzzle(puzzle, retry)
       }
 
   private def nextPuzzleResult(session: PuzzleSession)(using me: Me): Fu[NextPuzzleResult] =
