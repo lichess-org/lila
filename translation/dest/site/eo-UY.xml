@@ -692,6 +692,9 @@
   <string name="keyNextBlunder">Sekva erarego</string>
   <string name="keyNextMistake">Sekva eraro</string>
   <string name="keyNextInaccuracy">Sekva erareto</string>
+  <string name="keyPreviousBranch">Antaŭa branĉo</string>
+  <string name="keyNextBranch">Sekva branĉo</string>
+  <string name="toggleVariationArrows">Baskuligi variaĵojn sagojn</string>
   <string name="newTournament">Nova konkurso</string>
   <string name="tournamentHomeTitle">Ŝaka konkurso kun diversaj tempokontroloj kaj variaĵoj</string>
   <string name="tournamentHomeDescription">Ludu en rapidaj konkursoj! Aliĝu al oficialaj konkursoj aŭ kreu vian propran. Unminuta ŝako, Kvinminuta ŝako, Klasika ŝako, Ŝak960, Triŝako kaj aliaj variaĵoj haveblas por senfina ĝuo.</string>
@@ -970,6 +973,8 @@ Lasi ĝin malplena por komenci ludojn de la norma komenca pozicio.</string>
   <string name="switchSides">Ŝanĝi flankojn</string>
   <string name="closingAccountWithdrawAppeal">Fermata de via konto estos eltiri vian apelacion</string>
   <string name="ourEventTips">Niaj konsiletoj por organizi eventojn</string>
+  <string name="instructions">Instrukcio</string>
+  <string name="showMeEverything">Ĉion montru al mi</string>
   <string name="lichessPatronInfo">Lichess estas almoza kaj tute libera malfermitkoda programaro.
 Ĉiu funkciada elspezo, ellaborado, kaj enhavo estas financita sole de uzantajn donacojn.</string>
 </resources>
