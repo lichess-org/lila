@@ -12,6 +12,7 @@ private case class PuzzleSession(
     path: PuzzlePath.Id,
     positionInPath: Int,
     previousPaths: Set[PuzzlePath.Id] = Set.empty
+    recentlyPlayedPuzzles: Set[PuzzleId] = Set.empty
 ):
   def switchTo(pathId: PuzzlePath.Id) = copy(
     path = pathId,
@@ -108,4 +109,4 @@ final class PuzzleSessionApi(pathApi: PuzzlePathApi, cacheApi: CacheApi)(using E
     pathApi
       .nextFor(angle, PuzzleTier.top, settings.difficulty, Set.empty)
       .orFail(s"No puzzle path found for ${me.username}, angle: $angle")
-      .dmap(pathId => PuzzleSession(settings, pathId, 0))
+      .dmap(pathId => PuzzleSession(settings, pathId, 0, recentlyPlayedPuzzles = Set.empty))

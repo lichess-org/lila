@@ -7,7 +7,7 @@ import lila.rating.Perf
 final class PuzzleSelector(
     colls: PuzzleColls,
     pathApi: PuzzlePathApi,
-    sessionApi: PuzzleSessionApi
+    sessionApi: PuzzleSessionApi,
 )(using Executor):
 
   import BsonHandlers.given
@@ -32,6 +32,8 @@ final class PuzzleSelector(
       .mon(_.puzzle.selector.user.time(angle.key))
   
   private val maxUniqueRetries: Int = 10
+  private val recentlyPlayedStackLimit: Int = 10
+
   private def findNextPuzzleFor(angle: PuzzleAngle, retries: Int)(using me: Me, perf: Perf): Fu[Puzzle] =
     sessionApi
       .continueOrCreateSessionFor(angle, canFlush = retries == 0)
@@ -58,20 +60,25 @@ final class PuzzleSelector(
           mon.tier(session.path.tier.key, angle.key, session.settings.difficulty.key).increment()
           puzzle
 
-        def ensureUniquePuzzle(puzzle: Puzzle, retryCount: Int): Fu[Puzzle] =
+        private def ensureUniquePuzzle(
+            session: PuzzleSession,
+            puzzle: Puzzle,
+            retryCount: Int
+        )(using Me, Perf): Fu[Puzzle] =
           if (retryCount >= maxUniqueRetries) {
             fuccess(serveAndMonitor(puzzle))
           } else {
-            def findUniquePuzzle(): Fu[Puzzle] =
-              sessionApi.nextPuzzle(session).flatMap {
-                case Some(nextPuzzle) if nextPuzzle.id == puzzle.id =>
-                  findUniquePuzzle()
-                case _ =>
-                  fuccess(serveAndMonitor(puzzle))
-             }
-            findUniquePuzzle()
+            val updatedRecentlyPlayedPuzzles = session.recentlyPlayedPuzzles + puzzle.id
+            if (updatedRecentlyPlayedPuzzles.size > recentlyPlayedStackLimit) {
+              val newRecentPuzzles = updatedRecentlyPlayedPuzzles.toList.reverse.take(recentlyPlayedStackLimit).toSet
+              val updatedSession = session.copy(recentlyPlayedPuzzles = newRecentPuzzles)
+              sessionApi.set(updatedSession).flatMap(_ => fuccess(puzzle))
+            } else {
+              val updatedSession = session.copy(recentlyPlayedPuzzles = updatedRecentlyPlayedPuzzles)
+              sessionApi.set(updatedSession).flatMap(_ => findNextPuzzleFor(session.path.angle, retryCount + 1))
+            }
           }
- 
+
         nextPuzzleResult(session).flatMap:
           case PathMissing | PathEnded if retries < 10 => switchPath(retries)(session.path.tier)
           case PathMissing => fufail(s"Puzzle path missing for ${me.username} $session")
@@ -90,7 +97,7 @@ final class PuzzleSelector(
             findNextPuzzleFor(angle, retries = retries + 1)
           case WrongColor(puzzle) =>
             session.path.tier.stepDown.fold(fuccess(serveAndMonitor(puzzle)))(switchPath(retries - 5))
-          case PuzzleFound(puzzle) => ensureUniquePuzzle(puzzle, retry)
+          case PuzzleFound(puzzle) => ensureUniquePuzzle(puzzle, retries)
       }
 
   private def nextPuzzleResult(session: PuzzleSession)(using me: Me): Fu[NextPuzzleResult] =
