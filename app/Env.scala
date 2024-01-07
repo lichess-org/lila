@@ -127,11 +127,6 @@ final class Env(
     default = false,
     text = "Use external piece images".some
   )
-  val firefoxOriginTrial = memo.settingStore[String](
-    "firefoxOriginTrial",
-    default = "",
-    text = "Firefox COEP:credentialless origin trial token. Empty to disable.".some
-  )
   import lila.memo.SettingStore.Regex.given
   import scala.util.matching.Regex
   val credentiallessUaRegex = memo.settingStore[Regex](
