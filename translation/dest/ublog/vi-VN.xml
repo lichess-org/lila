@@ -45,7 +45,7 @@
   <string name="safeToUseImages">Sử dụng các hình ảnh an toàn từ các trang web: </string>
   <string name="selectPostTopics">Chọn các chủ đề mà bài đăng của bạn liên quan</string>
   <string name="useImagesYouMadeYourself">Bạn cũng có thể dùng hình ảnh của riêng bạn, những bức ảnh bạn chụp, ảnh chụp màn hình của Lichess... bất kỳ thứ gì miễn là không vi phạm bản quyền của ai.</string>
-  <string name="safeAndRespectfulContent">Vui lòng chỉ đăng những nội dung an toàn và có tính tôn trọng. Không được phép sao chép nội dung của bất kì ai khác.</string>
+  <string name="safeAndRespectfulContent">Vui lòng chỉ đăng những nội dung an toàn và có tính tôn trọng. Không được phép sao chép nội dung của bất kì ai.</string>
   <string name="inappropriateContentAccountClosed">Chỉ một hành động không phù hợp, tài khoản của bạn có thể bị đóng.</string>
   <string name="blogTips">Vài mẹo đơn giản để giúp viết ra một bài blog tuyệt vời</string>
   <string name="discussThisBlogPostInTheForum">Thảo luận về bài blog này trong diễn đàn</string>
