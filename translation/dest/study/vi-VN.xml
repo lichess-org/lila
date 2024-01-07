@@ -44,7 +44,7 @@
   <string name="commentThisMove">Đánh giá về nước cờ này</string>
   <string name="annotateWithGlyphs">Chú thích bằng dấu</string>
   <string name="theChapterIsTooShortToBeAnalysed">Chương này quá ngắn để có thể được phân tích.</string>
-  <string name="onlyContributorsCanRequestAnalysis">Chỉ có những người đóng góp mới có thể yêu cầu máy tính phân tích.</string>
+  <string name="onlyContributorsCanRequestAnalysis">Chỉ những người đóng góp nghiên cứu mới có thể yêu cầu máy tính phân tích.</string>
   <string name="getAFullComputerAnalysis">Nhận phân tích máy tính phía máy chủ đầy đủ về biến chính.</string>
   <string name="makeSureTheChapterIsComplete">Đảm bảo chương đã hoàn thành. Bạn chỉ có thể yêu cầu phân tích 1 lần.</string>
   <string name="allSyncMembersRemainOnTheSamePosition">Đồng bộ hóa tất cả các thành viên trên cùng một thế cờ</string>
@@ -57,7 +57,7 @@
   <string name="shareAndExport">Chia sẻ &amp; xuất</string>
   <string name="cloneStudy">Tạo bản sao</string>
   <string name="studyPgn">PGN nghiên cứu</string>
-  <string name="downloadAllGames">Tải xuống tất cả ván đấu</string>
+  <string name="downloadAllGames">Tải về tất cả ván đấu</string>
   <string name="chapterPgn">PGN chương</string>
   <string name="copyChapterPgn" comment="A button which lets you copy the PGN text to your clipboard (i.e. similar to ⌘+C or Ctrl+C).">Sao chép PGN</string>
   <string name="copyChapterPgnDescription">Sao chép PGN chương vào bảng nhớ tạm.</string>

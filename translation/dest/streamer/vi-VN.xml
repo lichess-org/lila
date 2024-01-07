@@ -12,7 +12,7 @@
   <string name="allStreamers">Tất cả các Streamer</string>
   <string name="editPage">Sửa trang streamer</string>
   <string name="yourPage">Trang Streamer của bạn</string>
-  <string name="downloadKit">Tải bộ công cụ cho Streamer</string>
+  <string name="downloadKit">Tải về bộ công cụ để Streamer</string>
   <string name="xIsStreaming">%s đang phát trực tiếp</string>
   <string name="rules">Luật phát trực tiếp</string>
   <string name="rule1">Dùng từ khóa \"lichess.org\" trong tiêu đề luồng của bạn và dùng mục \"Chess\" khi bạn phát trực tiếp ở Lichess.</string>
