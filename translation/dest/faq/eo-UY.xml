@@ -70,6 +70,7 @@ La komputila analizo ĉe Lichess estas funkciigita de stockfish.</string>
 Kontroli kiel titolita ludanton ĉe Lichess donas atingo por ludi en la Titolataj Arenaj eventoj.
 
 Fine, tiu estas honora %2$s titolo.</string>
+  <string name="asWellAsManyNMtitles">multaj naciaj estraj titoloj</string>
   <string name="verificationForm">kontrola formularo</string>
   <string name="canIbecomeLM">Ĉu mi povas atingi la Lichess Master (LM) titolon?</string>
   <string name="noUpperCaseDot">Ne.</string>
@@ -117,4 +118,6 @@ Ne petu por la LM titolo.</string>
 Alklaku la ŝlosilan ikonon apud la lichess.org retadreso en la URL breto de via retumilo.
 
 Tiam elektu ĉu permesi aŭ bloki sciigoj de Lichess.</string>
+  <string name="enableAutoplayForSoundsQ">Ebligi aŭtomatan ludaton por sonoj?</string>
+  <string name="desktop">labortablo</string>
 </resources>
