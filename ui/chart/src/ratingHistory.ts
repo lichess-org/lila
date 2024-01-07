@@ -42,23 +42,26 @@ Chart.defaults.font = fontFamily();
 dayjs.extend(duration);
 dayjs.extend(dayOfYear);
 
+const shortDash = [3];
+const noDash: number[] = [];
+const longDash = [10, 5];
 // order from RatingChartApi
 const styles: ChartPerf[] = [
-  { color: '#56B4E9', borderDash: [], symbol: 'circle', name: 'Bullet' },
-  { color: '#0072B2', borderDash: [], symbol: 'rectRot', name: 'Blitz' },
-  { color: '#009E73', borderDash: [], symbol: 'rect', name: 'Rapid' },
-  { color: '#459f3b', borderDash: [], symbol: 'triangle', name: 'Classical' },
-  { color: '#F0E442', borderDash: [3], symbol: 'triangle', name: 'Correspondence' },
-  { color: '#E69F00', borderDash: [3], symbol: 'circle', name: 'Chess960' },
-  { color: '#D55E00', borderDash: [3], symbol: 'rectRot', name: 'KingOfTheHill' },
-  { color: '#CC79A7', borderDash: [3], symbol: 'rect', name: 'ThreeCheck' },
-  { color: '#DF5353', borderDash: [3], symbol: 'triangle', name: 'Antichess' },
-  { color: '#66558C', borderDash: [3], symbol: 'triangle', name: 'Atomic' },
-  { color: '#99E699', borderDash: [10], symbol: 'circle', name: 'Horde' },
-  { color: '#FFAEAA', borderDash: [3], symbol: 'rectRot', name: 'RacingKings' },
-  { color: '#56B4E9', borderDash: [10], symbol: 'rectRounded', name: 'Crazyhouse' },
-  { color: '#0072B2', borderDash: [10], symbol: 'triangle', name: 'Puzzle' },
-  { color: '#009E73', borderDash: [10], symbol: 'triangle', name: 'UltraBullet' },
+  { color: '#56B4E9', borderDash: noDash, symbol: 'circle', name: 'Bullet' },
+  { color: '#0072B2', borderDash: noDash, symbol: 'rectRot', name: 'Blitz' },
+  { color: '#009E73', borderDash: noDash, symbol: 'rect', name: 'Rapid' },
+  { color: '#459f3b', borderDash: noDash, symbol: 'triangle', name: 'Classical' },
+  { color: '#F0E442', borderDash: shortDash, symbol: 'triangle', name: 'Correspondence' },
+  { color: '#E69F00', borderDash: shortDash, symbol: 'circle', name: 'Chess960' },
+  { color: '#D55E00', borderDash: shortDash, symbol: 'rectRot', name: 'KingOfTheHill' },
+  { color: '#CC79A7', borderDash: shortDash, symbol: 'rect', name: 'ThreeCheck' },
+  { color: '#DF5353', borderDash: shortDash, symbol: 'triangle', name: 'Antichess' },
+  { color: '#66558C', borderDash: shortDash, symbol: 'triangle', name: 'Atomic' },
+  { color: '#99E699', borderDash: longDash, symbol: 'circle', name: 'Horde' },
+  { color: '#FFAEAA', borderDash: shortDash, symbol: 'rectRot', name: 'RacingKings' },
+  { color: '#56B4E9', borderDash: longDash, symbol: 'rectRounded', name: 'Crazyhouse' },
+  { color: '#0072B2', borderDash: longDash, symbol: 'triangle', name: 'Puzzle' },
+  { color: '#009E73', borderDash: longDash, symbol: 'triangle', name: 'UltraBullet' },
 ];
 
 const oneDay = 24 * 60 * 60 * 1000;
