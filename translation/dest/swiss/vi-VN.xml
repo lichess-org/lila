@@ -105,5 +105,5 @@ Thứ gần nhất bạn có thể có với một giải đấu vòng tròn là
   <string name="unlimitedAndFree">Miễn phí và không giới hạn</string>
   <string name="predefinedUsers">Chỉ cho phép những người dùng được chỉ định trước tham gia</string>
   <string name="forbiddedUsers">Ngoại trừ những người trong danh sách này, những người khác đều bị cấm tham gia. Mỗi dòng một tên người dùng.</string>
-  <string name="playYourGames">Chơi những ván đấu của bạn</string>
+  <string name="playYourGames">Chơi các ván đấu của bạn</string>
 </resources>
