@@ -42,7 +42,7 @@ Bạn cần cả hai!</string>
   <string name="knightsHaveAFancyWay">Quân mã nhảy vòng quanh 
 một cách sành điệu!</string>
   <string name="knightsCanJumpOverObstacles">Quân mã có thể nhảy qua các chướng ngại vật!
-Trốn thoát và lấy những ngôi sao!</string>
+Trốn thoát và lấy các ngôi sao!</string>
   <string name="knightComplete">Chúc mừng! Bạn đã làm chủ được quân mã.</string>
   <string name="thePawn">Quân tốt</string>
   <string name="itMovesForwardOnly">Nó chỉ đi về phía trước</string>
