@@ -5,7 +5,7 @@
   <string name="challengeDeclined">Lời thách đấu bị từ chối.</string>
   <string name="challengeAccepted">Lời thách đấu được chấp nhận!</string>
   <string name="challengeCanceled">Lời thách đấu bị hủy bỏ.</string>
-  <string name="registerToSendChallenges">Xin vui lòng đăng ký để gửi những lời thách đấu.</string>
+  <string name="registerToSendChallenges">Xin hãy đăng ký để gửi lời thách đấu tới người dùng này.</string>
   <string name="youCannotChallengeX">Bạn không thể thách đấu %s.</string>
   <string name="xDoesNotAcceptChallenges">%s không chấp nhận các lời thách đấu.</string>
   <string name="yourXRatingIsTooFarFromY">Hệ số %1$s của bạn quá cách biệt so với %2$s.</string>
