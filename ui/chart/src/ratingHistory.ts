@@ -304,6 +304,7 @@ function smoothDates(data: TsAndRating[], step: number, begin: number) {
   const reversed = data.slice().reverse();
   const allDates: number[] = [];
   for (let i = begin; i <= end; i += oneStep) allDates.push(i);
+  if (!allDates.find(d => d == end)) allDates.push(end);
   const result: Point[] = [];
   for (let j = 1; j < allDates.length; j++) {
     const match = reversed.find(x => x.ts <= allDates[j]);
