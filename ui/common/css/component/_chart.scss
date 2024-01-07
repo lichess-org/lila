@@ -21,6 +21,12 @@
     display: inline-flex;
     text-transform: uppercase;
     border: $border;
+
+    &.active {
+      background-color: if($theme-light, #dbebfc, #262421);
+      color: $c-font;
+      text-shadow: none !important;
+    }
   }
 
   /* Functional styling;
