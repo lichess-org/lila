@@ -488,7 +488,7 @@ trò chuyện trong ván đấu và có một URL có thể chia sẻ công khai
   <string name="clearSavedMoves">Xóa nước cờ</string>
   <string name="previouslyOnLichessTV">Ván trước được lên Lichess TV</string>
   <string name="onlinePlayers">Các kỳ thủ trực tuyến</string>
-  <string name="activePlayers">Những kỳ thủ tích cực</string>
+  <string name="activePlayers">Các kỳ thủ tích cực</string>
   <string name="bewareTheGameIsRatedButHasNoClock">Lưu ý, ván cờ có xếp hạng nhưng không tính thời gian!</string>
   <string name="success">Thành công</string>
   <plurals name="nbGamesInPlay">
@@ -648,7 +648,7 @@ trò chuyện trong ván đấu và có một URL có thể chia sẻ công khai
   <string name="simulAddExtraTimePerPlayer">Thêm thời gian ban đầu vào đồng hồ của bạn cho mỗi người chơi tham gia cờ đồng loạt.</string>
   <string name="simulHostExtraTimePerPlayer">Thêm thời gian cho người chủ trì cho mỗi người tham gia trận cờ đồng loạt</string>
   <string name="lichessTournaments">Các giải đấu của Lichess</string>
-  <string name="tournamentFAQ">Những câu hỏi thường gặp về giải đấu đấu trường</string>
+  <string name="tournamentFAQ">Những câu hỏi thường gặp về giải đấu Đấu trường</string>
   <string name="timeBeforeTournamentStarts">Thời gian trước khi giải đấu bắt đầu</string>
   <string name="averageCentipawnLoss">Phần trăm mất tốt trung bình mỗi nước (ACPL)</string>
   <string name="accuracy">Độ chính xác</string>
@@ -832,7 +832,7 @@ trò chuyện trong ván đấu và có một URL có thể chia sẻ công khai
   <string name="howToAvoidThis">Làm thế nào để tránh điều này?</string>
   <string name="playEveryGame">Chơi tất cả các ván mà bạn đã tham gia.</string>
   <string name="tryToWin">Cố gắng thắng (hoặc ít nhất hòa) mỗi ván mà bạn chơi.</string>
-  <string name="resignLostGames">Đầu hàng những ván chắc chắn thua (đừng để đồng hồ chạy đến hết giờ).</string>
+  <string name="resignLostGames">Chịu thua những ván chắc chắn thua (đừng để đồng hồ chạy đến hết giờ).</string>
   <string name="temporaryInconvenience">Chúng tôi rất tiếc vì những bất tiện tạm thời này,</string>
   <string name="wishYouGreatGames">và chúc bạn có những ván cờ tuyệt vời trên lichess.org.</string>
   <string name="thankYouForReading">Cảm ơn bạn vì đã đọc!</string>
@@ -840,7 +840,7 @@ trò chuyện trong ván đấu và có một URL có thể chia sẻ công khai
   <string name="currentMatchScore">Tỷ số của lần đối đầu hiện tại</string>
   <string name="agreementAssistance">Tôi đồng ý rằng, tôi sẽ không nhận sự trợ giúp trong lúc chơi (từ máy tính, sách, các cơ sở dữ liệu hoặc từ người khác).</string>
   <string name="agreementNice">Tôi đồng ý rằng, tôi sẽ luôn luôn tôn trọng người chơi khác.</string>
-  <string name="agreementMultipleAccounts" comment="%s will be replaced with the translation of 'termsOfService'">Tôi đồng ý rằng, tôi sẽ không tạo nhiều tài khoản (trừ những lý do nêu trong %s).</string>
+  <string name="agreementMultipleAccounts" comment="%s will be replaced with the translation of 'termsOfService'">Tôi đồng ý rằng, tôi sẽ không tạo nhiều tài khoản (trừ các lý do nêu trong %s).</string>
   <string name="agreementPolicy">Tôi đồng ý rằng, tôi sẽ luôn tuân thủ các chính sách của Lichess.</string>
   <string name="searchOrStartNewDiscussion">Tìm hoặc bắt đầu một cuộc trò chuyện</string>
   <string name="edit">Chỉnh sửa</string>
@@ -849,7 +849,7 @@ trò chuyện trong ván đấu và có một URL có thể chia sẻ công khai
   <string name="rapid">Cờ nhanh</string>
   <string name="classical">Cờ chậm</string>
   <string name="ultraBulletDesc">Các ván cờ cực nhanh: ít hơn 30 giây</string>
-  <string name="bulletDesc">Những ván cờ rất nhanh: ít hơn 3 phút</string>
+  <string name="bulletDesc">Các ván cờ rất nhanh: ít hơn 3 phút</string>
   <string name="blitzDesc">Các ván cờ nhanh: 3 đến 8 phút</string>
   <string name="rapidDesc">Cờ nhanh: 8 tới 25 phút</string>
   <string name="classicalDesc">Cờ chậm: Nhiều hơn hoặc bằng 25 phút</string>
