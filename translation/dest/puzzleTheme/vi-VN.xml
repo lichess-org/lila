@@ -121,7 +121,7 @@
   <string name="zugzwangDescription">Đối phương bị giới hạn các nước mà họ có thể đi và tất cả các nước đi ấy đều hại họ.</string>
   <string name="healthyMix">Phối hợp nhịp nhàng</string>
   <string name="healthyMixDescription">Mỗi thứ một chút. Bạn không biết được thứ gì đang chờ mình, vậy nên bạn cần phải sẵn sàng cho mọi thứ! Như một ván cờ thật vậy!</string>
-  <string name="playerGames">Ván đấu của các người chơi</string>
-  <string name="playerGamesDescription">Những câu đố từ các ván cờ của bạn hoặc từ các ván cờ của những người chơi khác.</string>
+  <string name="playerGames">Các ván đấu của người chơi</string>
+  <string name="playerGamesDescription">Những câu đố từ những ván cờ của bạn hoặc từ các ván cờ của những người chơi khác.</string>
   <string name="puzzleDownloadInformation">Những câu đố này nằm ở máy chủ công khai, bạn có thể tải xuống ở %s.</string>
 </resources>
