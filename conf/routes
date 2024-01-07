@@ -805,7 +805,8 @@ GET   /costs                           controllers.Main.costs
 GET   /verify-title                    controllers.Main.verifyTitle
 GET   /InstantChess.com                controllers.Main.instantChess
 GET   /daily-puzzle-slack              controllers.Main.dailyPuzzleSlackApp
-GET   /temporarily-disabled            controllers.Main.temporarilyDisabled
+GET   /temporarily-disabled            controllers.Main.temporarilyDisabled(path = "")
+GET   /temporarily-disabled/*path      controllers.Main.temporarilyDisabled(path)
 POST  /upload/image/user/:rel          controllers.Main.uploadImage(rel)
 
 # Dev
