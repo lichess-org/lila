@@ -183,21 +183,19 @@ final class ForumPostApi(
     val isMod = forUser.fold(false)(MasterGranter.of(_.ModerateForum))
     for
       categs     <- categRepo.visibleWithTeams(teams, isMod)
-      diagnostic <- forUser so diagnosticForUser
-      views <- categs.map { categ =>
-        get(categ lastPostId forUser) map { topicPost =>
-          CategView(
-            categ,
-            topicPost map { case (topic, post) =>
-              (topic, post, topic lastPage config.postMaxPerPage)
-            },
-            forUser
-          )
-        }
-      }.parallel
+      diagnostic <- if isMod then fuccess(none) else forUser so diagnosticForUser
+      views <- categs
+        .map: categ =>
+          get(categ lastPostId forUser) map: topicPost =>
+            CategView(
+              categ,
+              topicPost map { case (topic, post) => (topic, post, topic lastPage config.postMaxPerPage) },
+              forUser
+            )
+        .parallel
     yield views ++ diagnostic.toList
 
-  private def diagnosticForUser(user: User): Fu[Option[CategView]] =
+  private def diagnosticForUser(user: User): Fu[Option[CategView]] = // CategView with user's topic/post
     for
       categOpt <- categRepo.byId(ForumCateg.diagnosticId)
       topicOpt <- topicRepo.byTree(ForumCateg.diagnosticId, user.id.value)

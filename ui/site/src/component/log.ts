@@ -3,9 +3,11 @@ import { objectStorage, ObjectStorage, DbInfo } from 'common/objectStorage';
 const dbInfo: DbInfo = {
   db: 'log--db',
   store: 'log',
-  version: 1,
+  version: 2,
   upgrade: (_: any, store: IDBObjectStore) => store?.clear(), // blow it all away when we rev version
 };
+
+const defaultLogWindow = 100;
 
 export default function makeLog(): LichessLog {
   let store: ObjectStorage<string, number>;
@@ -13,15 +15,16 @@ export default function makeLog(): LichessLog {
   let lastKey = 0;
   let drift = 0.001;
 
-  const keep = 1000; // trimmed on startup
   const ready = new Promise<void>(resolve => (resolveReady = resolve));
 
   objectStorage<string, number>(dbInfo)
     .then(async s => {
       try {
         const keys = await s.list();
-        if (keys.length > keep) {
-          await s.remove(IDBKeyRange.upperBound(keys[keys.length - keep], true));
+        const window = parseInt(localStorage.getItem('log.window') ?? `${defaultLogWindow}`);
+        const constrained = window >= 0 && window <= 10000 ? window : defaultLogWindow;
+        if (keys.length > constrained) {
+          await s.remove(IDBKeyRange.upperBound(keys[keys.length - constrained], true));
         }
         store = s;
       } catch (e) {

@@ -126,7 +126,9 @@ object categ:
           view.lastPost.map: (topic, post, page) =>
             val canBrowse = isGranted(_.ModerateForum) || !view.categ.hidden
             val postLink  = s"${routes.ForumTopic.show(view.slug, topic.slug, page)}#${post.number}"
-            val categLink = if !canBrowse then postLink else s"${routes.ForumCateg.show(view.slug)}"
+            val categLink =
+              if canBrowse then routes.ForumCateg.show(view.slug).url
+              else routes.ForumTopic.show(view.slug, topic.slug, 1).url
             tr(
               td(cls := "subject")(h2(a(href := categLink)(view.name)), p(view.desc)),
               td(cls := "right")((if canBrowse then view.nbTopics else 1).localize),

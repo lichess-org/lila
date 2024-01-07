@@ -94,7 +94,7 @@ object topic:
     ):
       import lila.forum.ForumCateg.diagnosticId
       val isDiagnostic = categ.id == diagnosticId && (canModCateg || ctx.me.exists(topic.isAuthor))
-      val headerText   = if isDiagnostic then s"Troubleshooting" else topic.name
+      val headerText   = if isDiagnostic then s"Diagnostics" else topic.name
       val backLink =
         if isDiagnostic && !canModCateg then routes.ForumCateg.index.url
         else
@@ -212,11 +212,11 @@ object topic:
       )
     ):
       main(cls := "forum forum-topic topic-form page-small box box-pad")(
-        boxTop(h1(dataIcon := licon.BubbleConvo, cls := "text")("Troubleshooting")),
+        boxTop(h1(dataIcon := licon.BubbleConvo, cls := "text")("Diagnostics")),
         st.section(cls := "warning")(
           h2(dataIcon := licon.CautionTriangle, cls := "text")(trans.important()),
-          p("Noone can see this forum except you and the Lichess moderators."),
-          p("Unsolicited diagnostic reports will be ignored.")
+          p("Unsolicited reports will be ignored."),
+          p("Only you and the Lichess moderators can see this forum.")
         ),
         postForm(cls := "form3", action := routes.ForumTopic.create(categ.slug))(
           form3.group(form("post")("text"), trans.message())(
