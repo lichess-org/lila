@@ -15,6 +15,7 @@
   <string name="pgnLetter">Litero (K, Q, R, B, N)</string>
   <string name="zenMode" comment="zenMode&#10;&#10;This is not the religious meaning. Turning this option on takes away make elements of the user interface.&#10;&#10;Can also translate as 'Focus mode' as one example.">Zena modo</string>
   <string name="showPlayerRatings">Montri rangojn de ludanto</string>
+  <string name="showFlairs">Montri ludantajn emoĝiojn</string>
   <string name="explainShowPlayerRatings">Ĉi tio permesas kaŝi ĉiujn rangojn el la retejo, por helpi koncentriĝas pri la ŝako. Ludoj povas daŭre esti range, ĉi tiu temas nur pri tio, kion vi vidas.</string>
   <string name="displayBoardResizeHandle">Montri la grandecregilon de la ŝaktabulo</string>
   <string name="onlyOnInitialPosition">Nur sur komenca pozicio</string>

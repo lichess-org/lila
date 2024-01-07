@@ -425,7 +425,7 @@ final class GameRepo(val coll: Coll)(using Executor):
       Query.created ++ Query.friend ++ Query.user(userId) ++
         Query.createdSince(nowInstant minusHours 1)
 
-  // players who have played against userId recently in games from the Friend source
+  // registered players who have played against userId recently in games from the Friend source
   def recentChallengersOf(userId: UserId, max: Max): Fu[List[UserId]] =
     coll
       .aggregateOne(_.sec): framework =>
@@ -433,7 +433,7 @@ final class GameRepo(val coll: Coll)(using Executor):
         Match(Query user userId) -> List(
           Sort(Descending(F.createdAt)),
           Limit(1000),
-          Match(Query.friend),
+          Match(Query.friend ++ Query.noAnon),
           Project($doc(F.playerUids -> true, F.id -> false)),
           UnwindField(F.playerUids),
           Match($doc(F.playerUids $ne userId)),

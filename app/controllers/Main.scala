@@ -107,7 +107,7 @@ final class Main(
     pageHit
     Ok.page(html.site.faq())
 
-  def temporarilyDisabled = Open:
+  def temporarilyDisabled(path: String) = Open:
     pageHit
     NotImplemented.page(html.site.message.temporarilyDisabled)
 

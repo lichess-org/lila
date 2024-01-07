@@ -82,7 +82,7 @@ object page:
       info.ratingChart.map: rc =>
         jsModuleInit(
           "chart.ratingHistory",
-          s"{data:$rc,perfIndex:${RatingChartApi.bestPerfIndex(info.user)}}"
+          s"{data:$rc}"
         ),
       withSearch option jsModule("gameSearch"),
       isGranted(_.UserModView) option jsModule("mod.user")

@@ -30,7 +30,7 @@
   <string name="puzzleComplete">Hoàn thành câu đố!</string>
   <string name="byOpenings">Theo khai cuộc</string>
   <string name="puzzlesByOpenings">Câu đố theo khai cuộc</string>
-  <string name="openingsYouPlayedTheMost">Những khai cuộc bạn thường chơi trong các ván đấu tính elo</string>
+  <string name="openingsYouPlayedTheMost">Những khai cuộc bạn thường chơi trong các ván đấu có xếp hạng</string>
   <string name="useFindInPage" comment="useFindInPage&#10;&#10;Appears on https://lichess.org/training/openings&#10;Encourages players to use the built-in browser feature (Ctrl+F on most desktop computers) to find the opening they want to practice.">Dùng \"Tìm kiếm trong trang\" trong mục lục trình duyệt để tìm khai cuộc yêu thích của bạn!</string>
   <string name="useCtrlF">Dùng Ctrl+f để tìm khai cuộc yêu thích của bạn!</string>
   <string name="notTheMove">Đó chưa phải là nước đi tối ưu!</string>
