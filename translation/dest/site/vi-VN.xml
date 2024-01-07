@@ -20,7 +20,7 @@
   <string name="black">Quân Đen</string>
   <string name="asWhite">khi chơi quân trắng</string>
   <string name="asBlack">khi chơi quân đen</string>
-  <string name="randomColor">Chọn màu quân ngẫu nhiên</string>
+  <string name="randomColor">Màu quân ngẫu nhiên</string>
   <string name="createAGame">Tạo một ván cờ</string>
   <string name="whiteIsVictorious">Bên Trắng thắng</string>
   <string name="blackIsVictorious">Bên Đen thắng</string>
@@ -420,7 +420,7 @@ trò chuyện trong ván đấu và có một URL có thể chia sẻ công khai
     <item quantity="other">Ít hơn %s phút</item>
   </plurals>
   <string name="required">Bắt buộc.</string>
-  <string name="openTournaments">Những giải đấu mở</string>
+  <string name="openTournaments">Các giải đấu mở</string>
   <string name="duration">Thời lượng</string>
   <string name="winner">Người chiến thắng</string>
   <string name="standing">Thứ hạng</string>
@@ -430,7 +430,7 @@ trò chuyện trong ván đấu và có một URL có thể chia sẻ công khai
   <string name="advancedSettings">Thiết lập nâng cao</string>
   <string name="safeTournamentName">Hãy chọn tên chuẩn mực cho giải đấu.</string>
   <string name="inappropriateNameWarning">Một hành động dù chỉ một chút không thích hợp, tài khoản của bạn có thể bị khoá.</string>
-  <string name="emptyTournamentName">Hãy để trống để lấy tên theo tên một người chơi đáng chú ý.</string>
+  <string name="emptyTournamentName">Hãy để trống để lấy tên theo tên một kỳ thủ cờ vua nổi tiếng.</string>
   <string name="recommendNotTouching">Chúng tôi khuyên bạn không nên thay đổi.</string>
   <string name="fewerPlayers">Nếu bạn thiết lập điều kiện tham gia, giải của bạn sẽ có ít người chơi hơn.</string>
   <string name="showAdvancedSettings">Hiện thiết lập nâng cao</string>
@@ -832,7 +832,7 @@ trò chuyện trong ván đấu và có một URL có thể chia sẻ công khai
   <string name="howToAvoidThis">Làm thế nào để tránh điều này?</string>
   <string name="playEveryGame">Chơi tất cả các ván mà bạn đã tham gia.</string>
   <string name="tryToWin">Cố gắng thắng (hoặc ít nhất hòa) mỗi ván mà bạn chơi.</string>
-  <string name="resignLostGames">Đầu hàng những ván chắc chắn thua (đừng để đồng hồ chạy đến khi hết giờ).</string>
+  <string name="resignLostGames">Đầu hàng những ván chắc chắn thua (đừng để đồng hồ chạy đến hết giờ).</string>
   <string name="temporaryInconvenience">Chúng tôi rất tiếc vì những bất tiện tạm thời này,</string>
   <string name="wishYouGreatGames">và chúc bạn có những ván cờ tuyệt vời trên lichess.org.</string>
   <string name="thankYouForReading">Cảm ơn bạn vì đã đọc!</string>
@@ -848,9 +848,9 @@ trò chuyện trong ván đấu và có một URL có thể chia sẻ công khai
   <string name="blitz" comment="Probably best left untranslated. Leave it as 'Blitz' unless your language has a better word for it.">Cờ chớp</string>
   <string name="rapid">Cờ nhanh</string>
   <string name="classical">Cờ chậm</string>
-  <string name="ultraBulletDesc">Những ván cờ cực nhanh: ít hơn 30 giây</string>
+  <string name="ultraBulletDesc">Các ván cờ cực nhanh: ít hơn 30 giây</string>
   <string name="bulletDesc">Những ván cờ rất nhanh: ít hơn 3 phút</string>
-  <string name="blitzDesc">Những ván cờ nhanh: 3 đến 8 phút</string>
+  <string name="blitzDesc">Các ván cờ nhanh: 3 đến 8 phút</string>
   <string name="rapidDesc">Cờ nhanh: 8 tới 25 phút</string>
   <string name="classicalDesc">Cờ chậm: Nhiều hơn hoặc bằng 25 phút</string>
   <string name="correspondenceDesc">Cờ qua thư: Một hoặc vài ngày cho mỗi nước</string>
