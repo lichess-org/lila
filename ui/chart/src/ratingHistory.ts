@@ -23,7 +23,6 @@ import dayOfYear from 'dayjs/plugin/dayOfYear';
 interface Opts {
   data: PerfRatingHistory[];
   singlePerfName?: string;
-  perfIndex: number;
 }
 
 type TsAndRating = { ts: number; rating: number };
@@ -43,23 +42,26 @@ Chart.defaults.font = fontFamily();
 dayjs.extend(duration);
 dayjs.extend(dayOfYear);
 
+const shortDash = [3];
+const noDash: number[] = [];
+const longDash = [10, 5];
 // order from RatingChartApi
 const styles: ChartPerf[] = [
-  { color: '#56B4E9', borderDash: [], symbol: 'circle', name: 'Bullet' },
-  { color: '#0072B2', borderDash: [], symbol: 'rectRot', name: 'Blitz' },
-  { color: '#009E73', borderDash: [], symbol: 'rect', name: 'Rapid' },
-  { color: '#459f3b', borderDash: [], symbol: 'triangle', name: 'Classical' },
-  { color: '#F0E442', borderDash: [3], symbol: 'triangle', name: 'Correspondence' },
-  { color: '#E69F00', borderDash: [3], symbol: 'circle', name: 'Chess960' },
-  { color: '#D55E00', borderDash: [3], symbol: 'rectRot', name: 'KingOfTheHill' },
-  { color: '#CC79A7', borderDash: [3], symbol: 'rect', name: 'ThreeCheck' },
-  { color: '#DF5353', borderDash: [3], symbol: 'triangle', name: 'Antichess' },
-  { color: '#66558C', borderDash: [3], symbol: 'triangle', name: 'Atomic' },
-  { color: '#99E699', borderDash: [10], symbol: 'circle', name: 'Horde' },
-  { color: '#FFAEAA', borderDash: [3], symbol: 'rectRot', name: 'RacingKings' },
-  { color: '#56B4E9', borderDash: [10], symbol: 'rectRounded', name: 'Crazyhouse' },
-  { color: '#0072B2', borderDash: [10], symbol: 'triangle', name: 'Puzzle' },
-  { color: '#009E73', borderDash: [10], symbol: 'triangle', name: 'Ultrabullet' },
+  { color: '#56B4E9', borderDash: noDash, symbol: 'circle', name: 'Bullet' },
+  { color: '#0072B2', borderDash: noDash, symbol: 'rectRot', name: 'Blitz' },
+  { color: '#009E73', borderDash: noDash, symbol: 'rect', name: 'Rapid' },
+  { color: '#459f3b', borderDash: noDash, symbol: 'triangle', name: 'Classical' },
+  { color: '#F0E442', borderDash: shortDash, symbol: 'triangle', name: 'Correspondence' },
+  { color: '#E69F00', borderDash: shortDash, symbol: 'circle', name: 'Chess960' },
+  { color: '#D55E00', borderDash: shortDash, symbol: 'rectRot', name: 'KingOfTheHill' },
+  { color: '#CC79A7', borderDash: shortDash, symbol: 'rect', name: 'ThreeCheck' },
+  { color: '#DF5353', borderDash: shortDash, symbol: 'triangle', name: 'Antichess' },
+  { color: '#66558C', borderDash: shortDash, symbol: 'triangle', name: 'Atomic' },
+  { color: '#99E699', borderDash: longDash, symbol: 'circle', name: 'Horde' },
+  { color: '#FFAEAA', borderDash: shortDash, symbol: 'rectRot', name: 'RacingKings' },
+  { color: '#56B4E9', borderDash: longDash, symbol: 'rectRounded', name: 'Crazyhouse' },
+  { color: '#0072B2', borderDash: longDash, symbol: 'triangle', name: 'Puzzle' },
+  { color: '#009E73', borderDash: longDash, symbol: 'triangle', name: 'UltraBullet' },
 ];
 
 const oneDay = 24 * 60 * 60 * 1000;
@@ -73,12 +75,12 @@ export function initModule({ data, singlePerfName }: Opts) {
     $el.hide();
     return;
   }
-  const allData = makeDatasets(1, data, singlePerfName);
+  const allData = makeDatasets(1, { data, singlePerfName }, singlePerfIndex);
   let startDate = dayjs(allData.startDate);
   const endDate = dayjs(allData.endDate);
   if (startDate.diff(endDate, 'D') < 1) startDate = startDate.subtract(1, 'day');
-  const weeklyData = makeDatasets(7, data, singlePerfName);
-  const biweeklyData = makeDatasets(14, data, singlePerfName);
+  const weeklyData = makeDatasets(7, { data, singlePerfName }, singlePerfIndex);
+  const biweeklyData = makeDatasets(14, { data, singlePerfName }, singlePerfIndex);
   const threeMonthsAgo = endDate.subtract(3, 'M');
   const initial = startDate < threeMonthsAgo ? threeMonthsAgo : startDate;
   let zoomedOut = initial.isSame(threeMonthsAgo);
@@ -258,34 +260,35 @@ export function initModule({ data, singlePerfName }: Opts) {
   }
 }
 
-function makeDatasets(step: number, data: PerfRatingHistory[], name: string | undefined) {
-  const indexFilter = (p: ChartPerf | PerfRatingHistory) => !name || p.name === name;
+function makeDatasets(step: number, { data, singlePerfName }: Opts, singlePerfIndex: number) {
+  const indexFilter = (_p: ChartPerf | PerfRatingHistory, i: number) =>
+    !singlePerfName || i === singlePerfIndex;
   const minMax = (d: PerfRatingHistory) => [getDate(d.points[0]), getDate(d.points[d.points.length - 1])];
-  const filtered = data.filter(indexFilter);
-  const dates = filtered.filter(p => p.points.length).flatMap(minMax);
+  const filteredData = data.filter(indexFilter);
+  const dates = filteredData.filter(p => p.points.length).flatMap(minMax);
   const startDate = Math.min(...dates);
   const endDate = Math.max(...dates);
-  const ds: ChartDataset<'line'>[] = filtered.map((serie, i) => {
+  const ds: ChartDataset<'line'>[] = filteredData.map((serie, i) => {
     const originalDatesAndRatings = serie.points.map(r => ({
       ts: getDate(r),
       rating: r[3],
     }));
-    const color = styles.filter(indexFilter)[i].color;
+    const perfStyle = styles.filter(indexFilter)[i];
     const data = smoothDates(originalDatesAndRatings, step, startDate);
     return {
       indexAxis: 'x',
       type: 'line',
       label: serie.name,
-      borderColor: color,
+      borderColor: perfStyle.color,
       hoverBorderColor: hoverBorderColor,
-      backgroundColor: color,
+      backgroundColor: perfStyle.color,
       pointRadius: 0,
       pointHoverRadius: 6,
       data: data,
-      pointStyle: styles.filter(indexFilter)[i].symbol,
+      pointStyle: perfStyle.symbol,
       borderWidth: 2,
       tension: 0,
-      borderDash: styles.filter(indexFilter)[i].borderDash,
+      borderDash: perfStyle.borderDash,
       stepped: false,
       animation: false,
     };
@@ -301,6 +304,7 @@ function smoothDates(data: TsAndRating[], step: number, begin: number) {
   const reversed = data.slice().reverse();
   const allDates: number[] = [];
   for (let i = begin; i <= end; i += oneStep) allDates.push(i);
+  if (!allDates.find(d => d == end)) allDates.push(end);
   const result: Point[] = [];
   for (let j = 1; j < allDates.length; j++) {
     const match = reversed.find(x => x.ts <= allDates[j]);
