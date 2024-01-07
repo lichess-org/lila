@@ -2641,3 +2641,15 @@ object I18nKeys:
     val `configureLichess` = I18nKey("onboarding:configureLichess")
     val `exploreTheSiteAndHaveFun` = I18nKey("onboarding:exploreTheSiteAndHaveFun")
 
+  object video:
+    val `watched` = I18nKey("video:watched")
+    val `nbVideosFound` = I18nKey("video:nbVideosFound")
+    val `videoNotFound` = I18nKey("video:videoNotFound")
+    val `allNbVideoTags` = I18nKey("video:allNbVideoTags")
+    val `chessVideos` = I18nKey("video:chessVideos")
+    val `allVideosFreeForEveryone` = I18nKey("video:allVideosFreeForEveryone")
+    val `clearSearch` = I18nKey("video:clearSearch")
+    val `viewMoreTags` = I18nKey("video:viewMoreTags")
+    val `noVideosForThisSearch` = I18nKey("video:noVideosForThisSearch")
+    val `thatIsAllWeGotForThisSearch` = I18nKey("video:thatIsAllWeGotForThisSearch")
+

@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<resources>
+  <string name="watched">watched</string>
+  <plurals name="nbVideosFound">
+    <item quantity="one">%s video found</item>
+    <item quantity="other">%s videos found</item>
+  </plurals>
+  <string name="videoNotFound">Video Not Found!</string>
+  <plurals name="allNbVideoTags">
+    <item quantity="one">All %s video tag</item>
+    <item quantity="other">All %s video tags</item>
+  </string>
+  <string name="chessVideos">Chess videos</string>
+  <string name="allVideosFreeForEveryone">All videos are free for everyone.
+
+Click one or many tags on the left to filter.
+
+We have carefully selected %s videos so far!</string>
+  <string name="clearSearch">Clear search</string>
+  <string name="viewMoreTags">View more tags</string>
+  <string name="noVideosForThisSearch">No videos for this search:</string>
+  <string name="thatIsAllWeGotForThisSearch">That is all we got for this search:</string>
+</resources>

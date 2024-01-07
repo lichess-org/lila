@@ -8,9 +8,11 @@ import controllers.routes
 
 object bits:
 
+  import trans.video.*
+
   private[video] def card(vv: lila.video.VideoView, control: lila.video.UserControl) =
     a(cls := "card paginated", href := s"${routes.Video.show(vv.video.id)}?${control.queryStringUnlessBot}")(
-      vv.view option span(cls := "view")("watched"),
+      vv.view option span(cls := "view")(watched()),
       span(cls := "duration")(vv.video.durationString),
       span(cls := "img", style := s"background-image: url(${vv.video.thumbnail})"),
       span(cls := "info")(
@@ -45,8 +47,7 @@ object bits:
           name
         ),
         span(
-          pluralize("video", videos.nbResults),
-          " found"
+          nbVideosFound(videos.nbResults)
         )
       ),
       div(cls := "list infinite-scroll box__pad")(
@@ -64,7 +65,7 @@ object bits:
             dataIcon := licon.Back,
             href     := s"${routes.Video.index}"
           ),
-          "Video Not Found!"
+          videoNotFound()
         )
       )
     )
@@ -79,9 +80,7 @@ object bits:
       boxTop(
         h1(
           a(cls := "text", dataIcon := licon.Back, href := s"${routes.Video.index}?${control.queryString}")(
-            "All ",
-            ts.size,
-            " video tags"
+            allNbVideoTags(ts.size)
           )
         )
       ),

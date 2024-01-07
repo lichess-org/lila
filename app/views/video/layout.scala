@@ -7,6 +7,8 @@ import controllers.routes
 
 object layout:
 
+  import trans.video.*
+
   def apply(
       title: String,
       control: lila.video.UserControl,
@@ -38,8 +40,8 @@ object layout:
           ),
           div(cls := "under-tags")(
             if control.filter.tags.nonEmpty then
-              a(cls := "button button-empty", href := routes.Video.index)("Clear search")
-            else a(dataIcon := licon.Tag, href := routes.Video.tags)("View more tags")
+              a(cls := "button button-empty", href := routes.Video.index)(clearSearch())
+            else a(dataIcon := licon.Tag, href := routes.Video.tags)(viewMoreTags())
           )
         ),
         div(cls := "page-menu__content box")(body)

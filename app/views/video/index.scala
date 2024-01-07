@@ -8,6 +8,8 @@ import controllers.routes
 
 object index:
 
+  import trans.video.*
+
   def apply(videos: Paginator[lila.video.VideoView], count: Long, control: lila.video.UserControl)(using
       ctx: PageContext
   ) =
@@ -31,19 +33,13 @@ object index:
     )(
       boxTop(
         h1(
-          if control.filter.tags.nonEmpty then frag(pluralize("video", videos.nbResults), " found")
-          else "Chess videos"
+          if control.filter.tags.nonEmpty then frag(nbVideosFound(videos.nbResults))
+          else chessVideos()
         ),
         bits.searchForm(control.query)
       ),
       control.filter.tags.isEmpty option p(cls := "explain box__pad")(
-        "All videos are free for everyone.",
-        br,
-        "Click one or many tags on the left to filter.",
-        br,
-        "We have carefully selected ",
-        strong(count),
-        " videos so far!"
+        allVideosFreeForEveryone(strong(count))
       ),
       div(cls := "list box__pad infinite-scroll")(
         videos.currentPageResults.map { bits.card(_, control) },
@@ -55,7 +51,7 @@ object index:
           },
           br,
           br,
-          a(href := routes.Video.index, cls := "button")("Clear search")
+          a(href := routes.Video.index, cls := "button")(clearSearch())
         ),
         pagerNext(videos, np => s"${routes.Video.index}?${control.queryString}&page=$np")
       )
