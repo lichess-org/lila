@@ -178,7 +178,7 @@ $('#form3-message').val($('#form3-message').val() + e.target.dataset.copyurl + '
               case (remaining, until) =>
                 frag(
                   p(cls := (remaining <= 0).option("error"))(
-                    sevenTeamMessagesPerWeek(lila.app.mashup.TeamInfo.pmAllCredits, momentFromNowOnce(until))
+                    sevenTeamMessagesPerWeek(strong(remaining), momentFromNowOnce(until))
                   ),
                   form3.actions(
                     a(href := teamRoutes.show(t.slug))(trans.cancel()),
