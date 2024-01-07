@@ -5,7 +5,7 @@ import controllers.team.routes.{ Team as teamRoutes }
 import lila.app.templating.Environment.{ given, * }
 import lila.app.ui.ScalatagsTemplate.{ *, given }
 import lila.common.paginator.Paginator
-import lila.forum.{ ForumTopic, ForumCateg, CategView, TopicView }
+import lila.forum.{ CategView, TopicView }
 
 import controllers.routes
 
@@ -37,7 +37,7 @@ object categ:
       )
 
   def show(
-      categ: ForumCateg,
+      categ: lila.forum.ForumCateg,
       topics: Paginator[TopicView],
       canWrite: Boolean,
       stickyPosts: List[TopicView]

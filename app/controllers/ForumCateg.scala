@@ -4,9 +4,7 @@ import lila.app.{ given, * }
 import views.*
 import lila.common.config
 import lila.forum.ForumCateg.{ diagnosticId, ublogId }
-import lila.security.Granter
 import lila.team.Team
-import org.checkerframework.checker.units.qual.s
 
 final class ForumCateg(env: Env) extends LilaController(env) with ForumController:
 
@@ -22,8 +20,8 @@ final class ForumCateg(env: Env) extends LilaController(env) with ForumControlle
       yield Ok(page)
 
   def show(slug: ForumCategId, page: Int) = Open:
-    if slug == ublogId && !Granter.opt(_.ModerateForum) then Redirect(routes.Ublog.communityAll())
-    else if slug == diagnosticId && !Granter.opt(_.ModerateForum) then notFound
+    if slug == ublogId && !isGrantedOpt(_.ModerateForum) then Redirect(routes.Ublog.communityAll())
+    else if slug == diagnosticId && !isGrantedOpt(_.ModerateForum) then notFound
     else
       NotForKids:
         Reasonable(page, config.Max(50), notFound):
