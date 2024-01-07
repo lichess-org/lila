@@ -76,9 +76,8 @@ export function initModule({ data, singlePerfName }: Opts) {
     return;
   }
   const allData = makeDatasets(1, { data, singlePerfName }, singlePerfIndex);
-  let startDate = dayjs(allData.startDate);
-  const endDate = dayjs(allData.endDate);
-  if (startDate.diff(endDate, 'D') < 1) startDate = startDate.subtract(1, 'day');
+  const startDate = allData.startDate;
+  const endDate = allData.endDate;
   const weeklyData = makeDatasets(7, { data, singlePerfName }, singlePerfIndex);
   const biweeklyData = makeDatasets(14, { data, singlePerfName }, singlePerfIndex);
   const threeMonthsAgo = endDate.subtract(3, 'M');
@@ -266,15 +265,15 @@ function makeDatasets(step: number, { data, singlePerfName }: Opts, singlePerfIn
   const minMax = (d: PerfRatingHistory) => [getDate(d.points[0]), getDate(d.points[d.points.length - 1])];
   const filteredData = data.filter(indexFilter);
   const dates = filteredData.filter(p => p.points.length).flatMap(minMax);
-  const startDate = Math.min(...dates);
-  const endDate = Math.max(...dates);
+  let startDate = dayjs(Math.min(...dates));
+  let endDate = dayjs(Math.max(...dates));
   const ds: ChartDataset<'line'>[] = filteredData.map((serie, i) => {
     const originalDatesAndRatings = serie.points.map(r => ({
       ts: getDate(r),
       rating: r[3],
     }));
     const perfStyle = styles.filter(indexFilter)[i];
-    const data = smoothDates(originalDatesAndRatings, step, startDate);
+    const data = smoothDates(originalDatesAndRatings, step, startDate.valueOf());
     return {
       indexAxis: 'x',
       type: 'line',
@@ -282,7 +281,7 @@ function makeDatasets(step: number, { data, singlePerfName }: Opts, singlePerfIn
       borderColor: perfStyle.color,
       hoverBorderColor: hoverBorderColor,
       backgroundColor: perfStyle.color,
-      pointRadius: 0,
+      pointRadius: data.length == 1 ? 3 : 0,
       pointHoverRadius: 6,
       data: data,
       pointStyle: perfStyle.symbol,
@@ -293,12 +292,15 @@ function makeDatasets(step: number, { data, singlePerfName }: Opts, singlePerfIn
       animation: false,
     };
   });
+  if (endDate.diff(startDate, 'day') < 1) {
+    startDate = startDate.subtract(1, 'day');
+    endDate = endDate.add(1, 'day');
+  }
   return { ds: ds.filter(ds => ds.data.length), startDate, endDate };
 }
 function smoothDates(data: TsAndRating[], step: number, begin: number) {
   const oneStep = oneDay * step;
   if (!data.length) return [];
-  if (data.length == 1) return [{ x: begin, y: data[0].rating }];
 
   const end = data[data.length - 1].ts;
   const reversed = data.slice().reverse();
@@ -306,7 +308,7 @@ function smoothDates(data: TsAndRating[], step: number, begin: number) {
   for (let i = begin; i <= end; i += oneStep) allDates.push(i);
   if (!allDates.find(d => d == end)) allDates.push(end);
   const result: Point[] = [];
-  for (let j = 1; j < allDates.length; j++) {
+  for (let j = 0; j < allDates.length; j++) {
     const match = reversed.find(x => x.ts <= allDates[j]);
     if (match) result.push({ x: allDates[j], y: match.rating });
   }
