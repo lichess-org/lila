@@ -161,6 +161,10 @@ Mostramos o ícone vermelho para o alertar quando isto acontece. Muitas vezes, p
 2. Clique no ícone do cadeado na barra de endereços
 3. Clique em Configurações do Site
 4. Permitir Som</string>
+  <string name="enableAutoplayForSoundsSafari">1. Vá para lichess.org
+2. Clique em Safari na barra de menu
+3. Clique em Configurações para lichess.org ...
+4. Permitir All Auto-Play</string>
   <string name="enableAutoplayForSoundsMicrosoftEdge">1. Clique nos três pontos no canto superior direito
 2. Clique em Configurações
 3. Clique em Cookies e Permissões de Site
