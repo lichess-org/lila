@@ -6,10 +6,9 @@ import {
   ChartType,
   DoughnutController,
   Title,
-  Tooltip,
 } from 'chart.js';
 import dataLabels from 'chartjs-plugin-datalabels';
-import { fontColor, fontFamily, tooltipBgColor, resizePolyfill } from './common';
+import { fontColor, fontFamily, resizePolyfill } from './common';
 
 declare module 'chart.js' {
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
@@ -21,7 +20,7 @@ declare module 'chart.js' {
 }
 
 resizePolyfill();
-Chart.register(DoughnutController, ArcElement, Tooltip, dataLabels, Title);
+Chart.register(DoughnutController, ArcElement, dataLabels, Title);
 Chart.defaults.font = fontFamily();
 
 const v = {
@@ -40,7 +39,6 @@ export async function initModule() {
         hoverBackgroundColor: colors,
         borderColor: '#d9d9d9',
         borderWidth: 3,
-        hoverBorderWidth: 4,
         circumference: 180,
         rotation: 270,
       },
@@ -52,30 +50,13 @@ export async function initModule() {
         datasets: dataset,
       },
       options: {
-        interaction: {
-          mode: 'dataset',
-          axis: 'r',
-        },
+        events: [],
         plugins: {
           title: {
             display: true,
             text: '',
             padding: { top: 100 },
-          },
-          tooltip: {
-            backgroundColor: tooltipBgColor,
-            titleColor: fontColor,
-            borderColor: fontColor,
-            borderWidth: 1,
-            callbacks: {
-              title: () => {
-                const lat = index ? v.network : v.server;
-                const text = index ? 'Ping:' : 'Server Latency:';
-                if (lat <= 0) return '';
-                return `${text} ${lat}` + ' milliseconds';
-              },
-              label: () => '',
-            },
+            color: fontColor,
           },
           needle: {
             value: index ? v.network : v.server,
