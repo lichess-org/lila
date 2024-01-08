@@ -66,10 +66,10 @@ final class ForumPostApi(
               timeline ! Propagate(TimelinePost(me, topic.id, topic.name, post.id)).pipe {
                 _ toFollowersOf me toUsers topicUserIds exceptUser me withTeam categ.team
               }
-            else if categ.id == ForumCateg.diagnosticId then
+            else if categ.isDiagnostic then
               timeline ! Propagate(TimelinePost(me, topic.id, topic.name, post.id)).toUsers(topicUserIds)
             lila.mon.forum.post.create.increment()
-            mentionNotifier.notifyMentionedUsers(post, topic)
+            if !categ.isDiagnostic then mentionNotifier.notifyMentionedUsers(post, topic)
             Bus.publish(CreatePost(post), "forumPost")
             post
       }

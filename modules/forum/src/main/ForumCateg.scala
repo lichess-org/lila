@@ -24,7 +24,8 @@ case class ForumCateg(
   def lastPostId(forUser: Option[User]): ForumPostId =
     if forUser.exists(_.marks.troll) then lastPostIdTroll else lastPostId
 
-  def isTeam = team.nonEmpty
+  def isTeam       = team.nonEmpty
+  def isDiagnostic = id == ForumCateg.diagnosticId
 
   def withPost(topic: ForumTopic, post: ForumPost): ForumCateg =
     copy(
