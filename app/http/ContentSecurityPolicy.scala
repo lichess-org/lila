@@ -87,7 +87,7 @@ case class ContentSecurityPolicy(
 
   // for extensions to use their cloud eval API
   // https://www.chessdb.cn/cloudbook_api_en.html
-  def withChessDbCn = copy(connectSrc = "chessdb.cn" :: connectSrc)
+  def withChessDbCn = copy(connectSrc = "www.chessdb.cn" :: connectSrc)
 
   def withExternalAnalysisApis = withWikiBooks.withChessDbCn
 
