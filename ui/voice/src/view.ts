@@ -36,6 +36,12 @@ export function renderVoiceBar(ctrl: VoiceCtrl, redraw: () => void, cls?: string
   ]);
 }
 
+export function flash() {
+  const div = $as<HTMLElement>('#voice-status-row');
+  div.classList.add('flash');
+  div.onanimationend = () => div.classList.remove('flash');
+}
+
 function voiceBarUpdater(ctrl: VoiceCtrl, el: HTMLElement) {
   const voiceBtn = $('button#microphone-button');
 

@@ -47,7 +47,7 @@ export function initModule(opts: { root: MoveRootCtrl; ui: VoiceCtrl; initialFen
   const squares: SparseMap<Uci> = new Map(); // map values to selectable or reachable squares
   const sans: SparseMap<Uci> = new Map(); // map values to ucis of valid sans
   type Confirm = { key: string; action: (_: boolean) => void };
-  type ListenResult = 'ok' | 'preserve'; // ok aborts chain, preserve prevents clearConfirm
+  type ListenResult = 'ok' | 'clear'; // ok aborts chain, clear invokes clearConfirm
   let request: Confirm | undefined; // move confirm & accept/decline opponent requests
   let command: Confirm | undefined; // confirm player commands (before sending request)
   let choices: Map<string, Uci> | undefined; // map choice arrows (yes, blue, red, 1, 2, etc) to moves
@@ -58,24 +58,22 @@ export function initModule(opts: { root: MoveRootCtrl; ui: VoiceCtrl; initialFen
 
   const listenHandlers = [handleConfirm, handleCommand, handleAmbiguity, handleMove];
 
-  const commands: { [_: string]: () => boolean } = {
-    // return true if command was handled (clearing any pending confirmations)
-    // "as" just assigns return values to void functions, hopefully making things easier to read
-    no: as(true, () => (ui.showHelp() ? ui.showHelp(false) : clearMoveProgress())),
-    help: as(false, () => ui.showHelp(true)),
-    vocabulary: as(false, () => ui.showHelp('list')),
-    'mic-off': as(false, () => lichess.mic.stop()),
-    flip: as(false, () => root.flipNow()),
-    draw: as(false, () => confirmCommand('draw', v => v && root.offerDraw?.(true, true))),
-    resign: as(false, () => confirmCommand('resign', v => v && root.resign?.(true, true))),
-    takeback: as(false, () => confirmCommand('takeback', v => v && root.takebackYes?.())),
-    rematch: as(true, () => root.rematch?.(true)),
-    next: as(true, () => root.nextPuzzle?.()),
-    upvote: as(true, () => root.vote?.(true)),
-    downvote: as(true, () => root.vote?.(false)),
-    solve: as(true, () => root.solve?.()),
-    clock: as(false, () => root.speakClock?.()),
-    blindfold: as(false, () => root.blindfold?.(!root.blindfold())),
+  const commands: { [_: string]: () => ListenResult[] } = {
+    no: as(['ok', 'clear'], () => (ui.showHelp() ? ui.showHelp(false) : clearMoveProgress())),
+    help: as(['ok'], () => ui.showHelp(true)),
+    vocabulary: as(['ok'], () => ui.showHelp('list')),
+    'mic-off': as(['ok'], () => lichess.mic.stop()),
+    flip: as(['ok'], () => root.flipNow()),
+    draw: as(['ok'], () => setConfirm('draw', v => v && root.offerDraw?.(true, true))),
+    resign: as(['ok'], () => setConfirm('resign', v => v && root.resign?.(true, true))),
+    takeback: as(['ok'], () => setConfirm('takeback', v => v && root.takebackYes?.())),
+    rematch: as(['ok','clear'], () => root.rematch?.(true)),
+    next: as(['ok','clear'], () => root.nextPuzzle?.()),
+    upvote: as(['ok','clear'], () => root.vote?.(true)),
+    downvote: as(['ok','clear'], () => root.vote?.(false)),
+    solve: as(['ok','clear'], () => root.solve?.()),
+    clock: as(['ok'], () => root.speakClock?.()),
+    blindfold: as(['ok'], () => root.blindfold?.(!root.blindfold())),
   };
 
   update(initialFen, true, root.chessground);
@@ -91,10 +89,6 @@ export function initModule(opts: { root: MoveRootCtrl; ui: VoiceCtrl; initialFen
     listenForResponse,
     question,
   };
-
-  function prefNodes() {
-    return settingNodes(colorsPref, clarityPref, timerPref, root.redraw);
-  }
 
   async function initGrammar(): Promise<void> {
     const g = await xhr.jsonSimple(lichess.asset.url(`compiled/grammar/move-${ui.lang()}.json`));
@@ -127,18 +121,6 @@ export function initModule(opts: { root: MoveRootCtrl; ui: VoiceCtrl; initialFen
     lichess.mic.initRecognizer(words, { recId: 'timer', partial: true, listener: listenTimer });
   }
 
-  function update(fen: string, canMove: boolean, chessground?: CgApi) {
-    if (chessground) {
-      cg = chessground;
-      for (const [color, brush] of brushes) cg.state.drawable.brushes[`v-${color}`] = brush;
-    }
-    board = cs.readFen(fen);
-    cg.setShapes([]);
-    ucis = canMove && cg.state.movable.dests ? cs.destsToUcis(cg.state.movable.dests) : [];
-    buildMoves();
-    buildSquares();
-  }
-
   function listen(heard: string, msgType: Voice.MsgType) {
     if (msgType === 'stop' && !ui.pushTalk()) clearMoveProgress();
     else if (msgType !== 'full') return;
@@ -147,13 +129,18 @@ export function initModule(opts: { root: MoveRootCtrl; ui: VoiceCtrl; initialFen
 
       const results = [];
       for (const handler of listenHandlers) {
+
         results.push(...handler(heard));
-        if (results.includes('ok')) break;
+
+        if (results.includes('ok')) {
+          if (results.includes('clear')) clearConfirm();
+          root.redraw();
+          return;
+        }
       }
-      if (results.includes('ok')) {
-        if (!results.includes('preserve')) clearConfirm();
-        root.redraw();
-      } else if (heard.length > 3 && !lichess.sound.say('try again')) lichess.sound.play('error');
+      if (heard.length <= 3) return; // just ignore
+
+      ui.flash();
     } finally {
       if (DEBUG.collapse) console.groupEnd();
     }
@@ -190,7 +177,7 @@ export function initModule(opts: { root: MoveRootCtrl; ui: VoiceCtrl; initialFen
 
   function handleCommand(heard: string): ListenResult[] {
     const cmd = matchOneTags(heard, ['command', 'choice']);
-    if (cmd && cmd in commands) return commands[cmd]() ? ['ok'] : ['ok', 'preserve'];
+    if (cmd && cmd in commands) return commands[cmd]();
     else return [];
   }
 
@@ -208,12 +195,13 @@ export function initModule(opts: { root: MoveRootCtrl; ui: VoiceCtrl; initialFen
     }
     console.info('handleAmbiguity', `matched '${heard}' to '${chosen}' among`, choices);
     submit(chosen);
-    return ['ok'];
+    return ['ok','clear'];
   }
 
   function handleMove(phrase: string): ListenResult[] {
-    if (selection() && chooseMoves(matchMany(phrase, spreadMap(squares)))) return ['ok'];
-    return chooseMoves(matchMany(phrase, [...spreadMap(moves), ...spreadMap(squares)])) ? ['ok'] : [];
+    if (phrase.trim().length < 3) return [];
+    if (selection() && chooseMoves(matchMany(phrase, spreadMap(squares)))) return ['ok','clear'];
+    return chooseMoves(matchMany(phrase, [...spreadMap(moves), ...spreadMap(squares)])) ? ['ok','clear'] : [];
   }
 
   // see the README.md in ui/voice/.build to decrypt these variable names.
@@ -345,52 +333,26 @@ export function initModule(opts: { root: MoveRootCtrl; ui: VoiceCtrl; initialFen
         arrows = !lichess.sound.say('confirm?');
       }
     }
-    if (arrows) makeArrows();
+    if (arrows) {
+      const arrowTime = choiceTimeout ? timer() : undefined;
+      cg.setShapes(
+        colorsPref() ? coloredArrows([...choices], arrowTime) : numberedArrows([...choices], arrowTime),
+      );        
+    }
     cg.redrawAll();
     return true;
   }
 
-  function maxArrows() {
-    return Math.min(8, colorsPref() ? partials.colors.length : partials.numbers.length);
-  }
-
-  function makeArrows() {
-    if (!choices) return;
-    const arrowTime = choiceTimeout ? timer() : undefined;
-    cg.setShapes(
-      colorsPref() ? coloredArrows([...choices], arrowTime) : numberedArrows([...choices], arrowTime),
-    );
-  }
-
-  function confirmCommand(key: string, action: (v: boolean) => void) {
-    command = {
-      key,
-      action: v => {
-        action(v);
-        command = undefined;
-        root.redraw();
-      },
-    };
-    root.redraw();
-  }
-
-  function listenForResponse(key: string, action: (v: boolean) => void) {
-    request = { key, action };
-  }
-
-  function question(): QuestionOpts | false {
-    const mkOpts = (prompt: string, yesIcon: string) => ({
-      prompt,
-      yes: { action: () => command?.action?.(true), key: 'yes', icon: yesIcon },
-      no: { action: () => command?.action?.(false), key: 'no' },
-    });
-    return command?.key === 'resign'
-      ? mkOpts('Confirm resignation', licon.FlagOutline)
-      : command?.key === 'draw'
-      ? mkOpts('Confirm draw offer', licon.OneHalf)
-      : command?.key === 'takeback'
-      ? mkOpts('Confirm takeback request', licon.Back)
-      : false;
+  function update(fen: string, canMove: boolean, chessground?: CgApi) {
+    if (chessground) {
+      cg = chessground;
+      for (const [color, brush] of brushes) cg.state.drawable.brushes[`v-${color}`] = brush;
+    }
+    board = cs.readFen(fen);
+    cg.setShapes([]);
+    ucis = canMove && cg.state.movable.dests ? cs.destsToUcis(cg.state.movable.dests) : [];
+    buildMoves();
+    buildSquares();
   }
 
   function submit(uci: Uci) {
@@ -553,6 +515,45 @@ export function initModule(opts: { root: MoveRootCtrl; ui: VoiceCtrl; initialFen
       buildSquares();
     }
     return cg.state.selected;
+  }
+
+  function setConfirm(key: string, action: (v: boolean) => void) {
+    command = {
+      key,
+      action: v => {
+        action(v);
+        command = undefined;
+        root.redraw();
+      },
+    };
+    root.redraw();
+  }
+
+  function listenForResponse(key: string, action: (v: boolean) => void) {
+    request = { key, action };
+  }
+
+  function question(): QuestionOpts | false {
+    const mkOpts = (prompt: string, yesIcon: string) => ({
+      prompt,
+      yes: { action: () => command?.action?.(true), key: 'yes', icon: yesIcon },
+      no: { action: () => command?.action?.(false), key: 'no' },
+    });
+    return command?.key === 'resign'
+      ? mkOpts('Confirm resignation', licon.FlagOutline)
+      : command?.key === 'draw'
+      ? mkOpts('Confirm draw offer', licon.OneHalf)
+      : command?.key === 'takeback'
+      ? mkOpts('Confirm takeback request', licon.Back)
+      : false;
+  }
+
+  function prefNodes() {
+    return settingNodes(colorsPref, clarityPref, timerPref, root.redraw);
+  }
+
+  function maxArrows() {
+    return Math.min(8, colorsPref() ? partials.colors.length : partials.numbers.length);
   }
 
   function timer(): number {

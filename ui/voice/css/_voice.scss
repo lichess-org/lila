@@ -36,6 +36,17 @@ $c-mic-bg-hover: if($theme == 'light', $c-font-dimmer, transparent);
       color: $c-font;
     }
   }
+
+  &.flash {
+    animation: flash 0.2s;
+    animation-iteration-count: 1;
+  }
+
+  @keyframes flash {
+    0% { background-color: $c-bg-zebra2; }
+    50% { background-color: #cc333388; }
+    100% { background-color: $c-bg-zebra2; }
+  }
 }
 
 #voice-status {
@@ -74,15 +85,9 @@ button#microphone-button {
   }
 
   @keyframes pulseListening {
-    0% {
-      border-color: transparent;
-    }
-    50% {
-      border-color: $c-primary;
-    }
-    100% {
-      border-color: transparent;
-    }
+    0% { border-color: transparent; }
+    50% { border-color: $c-primary; }
+    100% { border-color: transparent; }
   }
 }
 

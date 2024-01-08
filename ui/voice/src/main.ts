@@ -1,6 +1,7 @@
 import { propWithEffect, toggle as commonToggle } from 'common';
 import * as prop from 'common/storage';
 import { VoiceCtrl, VoiceModule } from './interfaces';
+import { flash } from './view';
 
 export * from './interfaces';
 export * from './move/interfaces';
@@ -71,6 +72,7 @@ export function makeCtrl(opts: {
     toggle,
     showHelp,
     pushTalk,
+    flash,
     showPrefs: commonToggle(false, opts.redraw),
     module: () => opts.module?.(),
     moduleId: opts.tpe,
