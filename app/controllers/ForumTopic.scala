@@ -98,14 +98,17 @@ final class ForumTopic(env: Env) extends LilaController(env) with ForumControlle
   def diagnostic = AuthBody { ctx ?=> me ?=>
     NoBot:
       val slug = me.userId.value
-      env.forum.forms.diagnostic.bindFromRequest().value match
-        case None => BadRequest("Invalid form")
-        case Some(text) =>
-          env.forum.topicRepo.existsByTree(diagnosticId, slug) flatMap:
-            case true => showDiagnostic(slug, text)
-            case false =>
-              FoundPage(env.forum.categRepo byId diagnosticId): categ =>
-                forms.anyCaptcha map { html.forum.topic.makeDiagnostic(categ, forms.topic(false), _, text) }
+      env.forum.forms.diagnostic
+        .bindFromRequest()
+        .fold(
+          err => jsonFormError(err),
+          text =>
+            env.forum.topicRepo.existsByTree(diagnosticId, slug) flatMap:
+              if _ then showDiagnostic(slug, text)
+              else
+                FoundPage(env.forum.categRepo byId diagnosticId): categ =>
+                  forms.anyCaptcha map { html.forum.topic.makeDiagnostic(categ, forms.topic(false), _, text) }
+        )
   }
 
   def clearDiagnostic(slug: String) = Auth { _ ?=> me ?=>
@@ -115,11 +118,7 @@ final class ForumTopic(env: Env) extends LilaController(env) with ForumControlle
 
   private def showDiagnostic(slug: String, formText: String)(using Context, Me) =
     Found(topicApi.showLastPage(diagnosticId, slug)): (categ, topic, posts) =>
-      val lastPage = topicApi.lastPage(topic)
       for
-        form <- forms.postWithCaptcha(false) map some
-        _    <- env.user.lightUserApi preloadMany posts.currentPageResults.flatMap(_.post.userId)
-        res <-
-          Ok.page(html.forum.topic.show(categ, topic, posts, form, None, true, formText.some))
-            .map(_.withCanonical(s"${routes.ForumTopic.show(categ.slug, slug, lastPage)}#reply"))
+        form <- forms.postWithCaptcha(false)
+        res  <- Ok.page(html.forum.topic.show(categ, topic, posts, form.some, None, true, formText.some))
       yield res
