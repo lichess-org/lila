@@ -5,7 +5,7 @@
   <string name="toInviteSomeoneToPlayGiveThisUrl">Per invitare qualcuno a giocare, dagli questo URL</string>
   <string name="gameOver">Partita terminata</string>
   <string name="waitingForOpponent">In attesa dell\'avversario</string>
-  <string name="orLetYourOpponentScanQrCode">O fai scansionare il Codice QR al tuo avversario</string>
+  <string name="orLetYourOpponentScanQrCode">O fai scansionare questo codice QR al tuo avversario</string>
   <string name="waiting">In attesa</string>
   <string name="yourTurn">Tocca a te</string>
   <string name="aiNameLevelAiLevel">%1$s livello %2$s</string>
