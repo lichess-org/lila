@@ -1,11 +1,7 @@
 package controllers
 
-import play.api.data.Form
-import play.api.data.Forms.*
 import play.api.libs.json.*
-
 import views.*
-
 import lila.app.{ given, * }
 import lila.common.IpAddress
 import lila.forum.ForumCateg.diagnosticId
@@ -102,7 +98,7 @@ final class ForumTopic(env: Env) extends LilaController(env) with ForumControlle
   def diagnostic = AuthBody { ctx ?=> me ?=>
     NoBot:
       val slug = me.userId.value
-      Form(single("text" -> nonEmptyText)).bindFromRequest().value match
+      env.forum.forms.diagnostic.bindFromRequest().value match
         case None => BadRequest("Invalid form")
         case Some(text) =>
           env.forum.topicRepo.existsByTree(diagnosticId, slug) flatMap:
