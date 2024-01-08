@@ -116,7 +116,9 @@ final private class PayPalClient(
 
   def getSubscription(id: PayPalSubscriptionId): Fu[Option[PayPalSubscription]] =
     getOne[PayPalSubscription](s"${path.subscriptions}/$id") recover {
-      case CantParseException(json, _) if json.str("status").has("CANCELLED") => none
+      case CantParseException(json, _)
+          if json.str("status").exists(status => status == "CANCELLED" || status == "SUSPENDED") =>
+        none
     }
 
   def getEvent(id: PayPalEventId): Fu[Option[PayPalEvent]] =
