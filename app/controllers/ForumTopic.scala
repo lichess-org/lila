@@ -112,7 +112,7 @@ final class ForumTopic(env: Env) extends LilaController(env) with ForumControlle
   }
 
   def clearDiagnostic(slug: String) = Auth { _ ?=> me ?=>
-    if slug != me.userId.value && !isGranted(_.ModerateForum) then notFound
+    if me.isnt(UserStr(slug)) && !isGranted(_.ModerateForum) then notFound
     else env.forum.topicApi.removeTopic(diagnosticId, slug) inject Redirect(routes.ForumCateg.index)
   }
 

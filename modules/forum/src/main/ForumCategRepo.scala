@@ -9,11 +9,10 @@ final private class ForumCategRepo(val coll: Coll)(using Executor):
   def byId(id: ForumCategId) = coll.byId[ForumCateg](id)
 
   def visibleWithTeams(teams: Iterable[TeamId], isMod: Boolean = false): Fu[List[ForumCateg]] =
-    val notTeam = $doc("team" $exists false)
     coll
       .find(
         $or(
-          if isMod then notTeam else notTeam ++ $doc("hidden" $ne true),
+          $doc("team" $exists false) ++ (!isMod).so($doc("hidden" $ne true)),
           $doc("team" $in teams)
         )
       )
