@@ -19,6 +19,7 @@ import noUiSlider, { Options, PipsMode } from 'nouislider';
 import dayjs from 'dayjs';
 import duration from 'dayjs/plugin/duration';
 import dayOfYear from 'dayjs/plugin/dayOfYear';
+import { memoize } from 'common';
 
 interface Opts {
   data: PerfRatingHistory[];
@@ -66,6 +67,21 @@ const styles: ChartPerf[] = [
 
 const oneDay = 24 * 60 * 60 * 1000;
 
+const dateFormat = memoize(() =>
+  window.Intl && Intl.DateTimeFormat
+    ? new Intl.DateTimeFormat(
+        document.documentElement.lang.startsWith('ar-') ? 'ar-ly' : document.documentElement.lang,
+        {
+          month: 'short',
+          day: '2-digit',
+          year: 'numeric',
+        },
+      ).format
+    : (d: Date) => d.toLocaleDateString(),
+);
+
+const utcOffset = -dayjs().utcOffset() * 60 * 1000;
+
 export function initModule({ data, singlePerfName }: Opts) {
   $('.spinner').remove();
 
@@ -105,10 +121,6 @@ export function initModule({ data, singlePerfName }: Opts) {
           max: endDate.valueOf(),
           type: 'time',
           display: false,
-          time: {
-            tooltipFormat: 'MMM DD, YYYY',
-            minUnit: 'day',
-          },
           clip: false,
           ticks: {
             source: 'data',
@@ -174,6 +186,10 @@ export function initModule({ data, singlePerfName }: Opts) {
           borderWidth: 1,
           yAlign: 'center',
           caretPadding: 10,
+          rtl: document.dir == 'rtl',
+          callbacks: {
+            title: items => dateFormat()(new Date(items[0].parsed.x + utcOffset)),
+          },
         },
       },
     },
