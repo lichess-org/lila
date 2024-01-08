@@ -55,7 +55,7 @@ final class ForumTopic(env: Env) extends LilaController(env) with ForumControlle
   def show(categId: ForumCategId, slug: String, page: Int) = Open:
     NotForKids:
       Found(topicApi.show(categId, slug, page)): (categ, topic, posts) =>
-        if categId == diagnosticId && !ctx.is(UserId(slug)) && !isGrantedOpt(_.ModerateForum)
+        if categId == diagnosticId && !ctx.is(UserStr(slug)) && !isGrantedOpt(_.ModerateForum)
         then notFound
         else
           for
