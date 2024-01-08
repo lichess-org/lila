@@ -121,4 +121,9 @@ Alklaku la ŝlosilan ikonon apud la lichess.org retadreso en la URL breto de via
 Tiam elektu ĉu permesi aŭ bloki sciigoj de Lichess.</string>
   <string name="enableAutoplayForSoundsQ">Ebligi aŭtomatan ludaton por sonoj?</string>
   <string name="desktop">labortablo</string>
+  <string name="enableAutoplayForSoundsMicrosoftEdge">1. Alklaku la tri punktojn en la supra dekstra angulo
+2. Alklaku Agordojn
+3. Alklaku Kuketojn kaj Retejan Permesojn
+4. Rulumu malsupre kaj alklaku aŭdvidaĵan aŭtomatan ludigon
+5. Aldonu lichess.org al Permesata</string>
 </resources>
