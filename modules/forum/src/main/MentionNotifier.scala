@@ -18,7 +18,7 @@ final class MentionNotifier(
     post.userId.ifFalse(post.troll) so { author =>
       filterValidUsers(extractMentionedUsers(post), author) flatMap { mentionedUsers =>
         mentionedUsers
-          .map { user =>
+          .traverse_ { user =>
             notifyApi.notifyOne(
               user,
               lila.notify.MentionedInThread(
@@ -30,8 +30,6 @@ final class MentionNotifier(
               )
             )
           }
-          .parallel
-          .void
       }
     }
 
