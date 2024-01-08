@@ -22,6 +22,7 @@
   <string name="whenAmIEligibleRatinRefund">Kiam mi aŭtomate reakiras la perditajn poentojn pro trompantoj?</string>
   <string name="ratingRefundExplanation">Minuton post la momento kiam la ludanto estas markita kiel trompa, la poentoj de la lasta lastaj 40 rangaj ludoj, dum la lastaj tri tagoj, estos demetintaj. Si iu alia perdis poentojn en tiuj ludoj (pro malvenko aŭ egalvenko), kaj ties rango ne estis provizora, tiu rehavos poentojn. La kvanto da poentoj ricevotaj estas limigita de via plej alta rango kaj de la progreso de via rango post tiu ludo. (Ezkemple, se via rango multe supreniris post tiu ludo, vi povus rehavi neniun poenton aŭ parton de tio, kion vi estus devinta ricevi. Rehavo estos neniam pli ol 150 poentoj).</string>
   <string name="preventLeavingGameWithoutResigning">Kio estas fari pri ludantoj forlasantaj ludojn sen rezigni?</string>
+  <string name="leavingGameWithoutResigningExplanation">Se via kontraŭulo ofte abortas/eliras ludojn, tiam li estos \"luda forigita\" kio signifas, ke li estas portempe forigita de ludo. Tio ne estas publike montrata ĉe ties profilo. Se tia konduto daŭras, la longo de luda forigo pliiĝas - kaj daŭrigita konduto de tia naturo eble alkondukis onin al fermato de ties konto.</string>
   <string name="howCanIBecomeModerator">Kiel mi fariĝis moderatoro?</string>
   <string name="youCannotApply">Ne eblas peti por fariĝi moderatoro. Se ni vidi iun, kiun ni pensi, estus bone kiel moderatoro, ni kontaktos ilin direkte.</string>
   <string name="isCorrespondenceDifferent">Ĉu koresponda ŝako diferencas de normala ŝako?</string>
@@ -70,6 +71,7 @@ La komputila analizo ĉe Lichess estas funkciigita de stockfish.</string>
 Kontroli kiel titolita ludanton ĉe Lichess donas atingo por ludi en la Titolataj Arenaj eventoj.
 
 Fine, tiu estas honora %2$s titolo.</string>
+  <string name="asWellAsManyNMtitles">multaj naciaj estraj titoloj</string>
   <string name="verificationForm">kontrola formularo</string>
   <string name="canIbecomeLM">Ĉu mi povas atingi la Lichess Master (LM) titolon?</string>
   <string name="noUpperCaseDot">Ne.</string>
@@ -117,4 +119,6 @@ Ne petu por la LM titolo.</string>
 Alklaku la ŝlosilan ikonon apud la lichess.org retadreso en la URL breto de via retumilo.
 
 Tiam elektu ĉu permesi aŭ bloki sciigoj de Lichess.</string>
+  <string name="enableAutoplayForSoundsQ">Ebligi aŭtomatan ludaton por sonoj?</string>
+  <string name="desktop">labortablo</string>
 </resources>

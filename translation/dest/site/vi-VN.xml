@@ -644,7 +644,7 @@ trò chuyện trong ván đấu và có một URL có thể chia sẻ công khai
   <string name="simulVariantsHint">Nếu bạn chọn nhiều biến thể, mỗi người chơi sẽ được lựa chọn chơi biến thể nào.</string>
   <string name="simulClockHint">Thiết lập Đồng hồ Fischer. Bạn càng chơi với nhiều người thì càng có thể cần nhiều thời gian.</string>
   <string name="simulAddExtraTime">Bạn có thể thêm thời gian ban đầu cho đồng hồ của mình để đấu cờ đồng loạt dễ hơn.</string>
-  <string name="simulHostExtraTime">Thời gian ban đầu thêm cho người chủ trì</string>
+  <string name="simulHostExtraTime">Thêm thời gian ban đầu cho người chủ trì</string>
   <string name="simulAddExtraTimePerPlayer">Thêm thời gian ban đầu vào đồng hồ của bạn cho mỗi người chơi tham gia cờ đồng loạt.</string>
   <string name="simulHostExtraTimePerPlayer">Thêm thời gian cho người chủ trì cho mỗi người tham gia trận cờ đồng loạt</string>
   <string name="lichessTournaments">Các giải đấu của Lichess</string>
