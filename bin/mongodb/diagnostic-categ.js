@@ -56,12 +56,3 @@ const diagnostic = {
 };
 
 db.f_categ.insertOne(diagnostic);
-
-const id = () => {
-  let id = '';
-  const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
-  while (id.length < 8) {
-    id += chars.charAt(Math.floor(Math.random() * chars.length));
-  }
-  return id;
-};
