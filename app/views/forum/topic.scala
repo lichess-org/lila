@@ -221,9 +221,7 @@ object topic:
           form3.group(form("post")("text"), trans.message())(
             form3.textarea(_, klass = "post-text-area")(rows := 10)(text)
           ),
-          form3.group(form("name"), "")(
-            form3.input(_, typ = "hidden")(value := me.username.value)
-          ),
+          form3.hidden("name", me.username.value),
           views.html.base.captcha(form("post"), captcha),
           form3.actions(form3.submit("submit"))
         )
