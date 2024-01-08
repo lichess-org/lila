@@ -122,19 +122,18 @@ object categ:
         )
       ),
       tbody:
+        val isMod = isGranted(_.ModerateForum)
         categs.map: view =>
           view.lastPost.map: (topic, post, page) =>
-            val canBrowse = isGranted(_.ModerateForum) || !view.categ.hidden
-            val postLink  = s"${routes.ForumTopic.show(view.slug, topic.slug, page)}#${post.number}"
-            val categLink =
+            val canBrowse = isMod || !view.categ.hidden
+            val postUrl   = s"${routes.ForumTopic.show(view.slug, topic.slug, page)}#${post.number}"
+            val categUrl =
               if canBrowse then routes.ForumCateg.show(view.slug).url
               else routes.ForumTopic.show(view.slug, topic.slug, 1).url
             tr(
-              td(cls := "subject")(h2(a(href := categLink)(view.name)), p(view.desc)),
+              td(cls := "subject")(h2(a(href := categUrl)(view.name)), p(view.desc)),
               td(cls := "right")((if canBrowse then view.nbTopics else 1).localize),
               td(cls := "right")((if canBrowse then view.nbPosts else topic.nbPosts).localize),
-              td(
-                frag(a(href := postLink)(momentFromNow(post.createdAt)), br, trans.by(bits.authorLink(post)))
-              )
+              td(a(href := postUrl)(momentFromNow(post.createdAt)), br, trans.by(bits.authorLink(post)))
             )
     )

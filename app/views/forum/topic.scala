@@ -92,10 +92,9 @@ object topic:
         .some,
       csp = defaultCsp.withInlineIconFont.withTwitter.some
     ):
-      import lila.forum.ForumCateg.diagnosticId
-      val isDiagnostic = categ.id == diagnosticId && (canModCateg || ctx.me.exists(topic.isAuthor))
-      val headerText   = if isDiagnostic then s"Diagnostics" else topic.name
-      val backLink =
+      val isDiagnostic = categ.isDiagnostic && (canModCateg || ctx.me.exists(topic.isAuthor))
+      val headerText   = if isDiagnostic then "Diagnostics" else topic.name
+      val backUrl =
         if isDiagnostic && !canModCateg then routes.ForumCateg.index.url
         else
           topic.ublogId.fold(s"${routes.ForumCateg.show(categ.slug)}"): id =>
@@ -106,7 +105,7 @@ object topic:
         .paginationByQuery(routes.ForumTopic.show(categ.slug, topic.slug, 1), posts, showPost = true)
       main(cls := "forum forum-topic page-small box box-pad")(
         boxTop(
-          h1(a(href := backLink, dataIcon := licon.LessThan, cls := "text"), headerText),
+          h1(a(href := backUrl, dataIcon := licon.LessThan, cls := "text"), headerText),
           isDiagnostic option postForm(action := routes.ForumTopic.clearDiagnostic(topic.slug))(
             button(cls := "button button-red")("erase diagnostics")
           )
