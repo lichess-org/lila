@@ -3,12 +3,14 @@ package lila.forum
 import lila.common.Bus
 import lila.common.paginator.*
 import lila.common.String.noShouting
+import lila.common.config.NetDomain
 import lila.db.dsl.{ *, given }
 import lila.hub.actorApi.timeline.{ ForumPost as TimelinePost, Propagate }
 import lila.hub.actorApi.shutup.{ PublicSource, RecordPublicText, RecordTeamForumMessage }
 import lila.memo.CacheApi
 import lila.security.{ Granter as MasterGranter }
 import lila.user.{ Me, User }
+import lila.mon.forum.topic
 
 final private class ForumTopicApi(
     postRepo: ForumPostRepo,
@@ -30,12 +32,19 @@ final private class ForumTopicApi(
 
   import BSONHandlers.given
 
+  def lastPage(topic: ForumTopic)(using NetDomain): Int =
+    topic.nbPosts / config.postMaxPerPage.value + 1
+
+  def showLastPage(categId: ForumCategId, slug: String)(using NetDomain)(using me: Option[Me]) =
+    topicRepo.byTree(categId, slug) flatMapz: topic =>
+      show(categId, slug, topic lastPage config.postMaxPerPage)
+
   def show(
       categId: ForumCategId,
       slug: String,
       page: Int
   )(using
-      lila.common.config.NetDomain
+      NetDomain
   )(using me: Option[Me]): Fu[Option[(ForumCateg, ForumTopic, Paginator[ForumPost.WithFrag])]] =
     for
       data <- categRepo byId categId flatMapz { categ =>
@@ -132,41 +141,34 @@ final private class ForumTopicApi(
         categId = categ.slug,
         slug = slug,
         name = name,
-        troll = false,
         userId = authorId,
         ublogId = ublogId.some
       )
-      val post = ForumPost.make(
-        topicId = topic.id,
-        userId = authorId.some,
-        troll = false,
-        text = s"Comments on $url",
-        lang = none,
-        number = 1,
-        categId = categ.id
+      makeNewTopic(
+        categ,
+        topic,
+        ForumPost.make(
+          topicId = topic.id,
+          userId = authorId.some,
+          text = s"Comments on $url",
+          categId = categ.id
+        )
       )
-      makeNewTopic(categ, topic, post)
     }
 
   def makeBlogDiscuss(categ: ForumCateg, slug: String, name: String, url: String) =
-    val topic = ForumTopic.make(
-      categId = categ.slug,
-      slug = slug,
-      name = name,
-      troll = false,
-      userId = User.lichessId
+    val topic = ForumTopic.make(categId = categ.slug, slug = slug, name = name, userId = User.lichessId)
+    makeNewTopic(
+      categ,
+      topic,
+      ForumPost.make(
+        topicId = topic.id,
+        userId = User.lichessId.some,
+        text = s"Comments on $url",
+        categId = categ.id,
+        modIcon = true.some
+      )
     )
-    val post = ForumPost.make(
-      topicId = topic.id,
-      userId = User.lichessId.some,
-      troll = false,
-      text = s"Comments on $url",
-      lang = none,
-      number = 1,
-      categId = categ.id,
-      modIcon = true.some
-    )
-    makeNewTopic(categ, topic, post)
 
   private def makeNewTopic(categ: ForumCateg, topic: ForumTopic, post: ForumPost) = for
     _ <- postRepo.coll.insert.one(post)
@@ -217,3 +219,19 @@ final private class ForumTopicApi(
         )
         .void
   yield ()
+
+  def removeTopic(categId: ForumCategId, slug: String): Funit =
+    topicRepo byTree (categId, slug) flatMap:
+      case None => funit
+      case Some(topic) =>
+        for
+          _        <- postRepo.removeByTopic(topic.id)
+          _        <- topicRepo.remove(topic)
+          categOpt <- categRepo byId categId
+        yield categOpt foreach: cat =>
+          for
+            topics <- topicRepo.byCateg(cat)
+            lastPostId      = topics.maxBy(_.updatedAt).lastPostId
+            lastPostIdTroll = topics.maxBy(_.updatedAtTroll).lastPostIdTroll
+            _ <- categRepo.coll.update.one($id(cat.id), cat.withoutTopic(topic, lastPostId, lastPostIdTroll))
+          yield ()

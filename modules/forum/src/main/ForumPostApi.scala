@@ -66,8 +66,10 @@ final class ForumPostApi(
               timeline ! Propagate(TimelinePost(me, topic.id, topic.name, post.id)).pipe {
                 _ toFollowersOf me toUsers topicUserIds exceptUser me withTeam categ.team
               }
+            else if categ.isDiagnostic then
+              timeline ! Propagate(TimelinePost(me, topic.id, topic.name, post.id)).toUsers(topicUserIds)
             lila.mon.forum.post.create.increment()
-            mentionNotifier.notifyMentionedUsers(post, topic)
+            if !categ.isDiagnostic then mentionNotifier.notifyMentionedUsers(post, topic)
             Bus.publish(CreatePost(post), "forumPost")
             post
       }
@@ -175,20 +177,31 @@ final class ForumPostApi(
   def nbByUser(userId: UserId) = postRepo.coll.countSel($doc("userId" -> userId))
 
   def categsForUser(teams: Iterable[TeamId], forUser: Option[User]): Fu[List[CategView]] =
+    val isMod = forUser.fold(false)(MasterGranter.of(_.ModerateForum))
     for
-      categs <- categRepo visibleWithTeams teams
-      views <- categs.map { categ =>
-        get(categ lastPostId forUser) map { topicPost =>
-          CategView(
-            categ,
-            topicPost map { case (topic, post) =>
-              (topic, post, topic lastPage config.postMaxPerPage)
-            },
-            forUser
-          )
-        }
-      }.parallel
-    yield views
+      categs     <- categRepo.visibleWithTeams(teams, isMod)
+      diagnostic <- if isMod then fuccess(none) else forUser so diagnosticForUser
+      views <- categs
+        .map: categ =>
+          get(categ lastPostId forUser) map: topicPost =>
+            CategView(
+              categ,
+              topicPost map { case (topic, post) => (topic, post, topic lastPage config.postMaxPerPage) },
+              forUser
+            )
+        .parallel
+    yield views ++ diagnostic.toList
+
+  private def diagnosticForUser(user: User): Fu[Option[CategView]] = // CategView with user's topic/post
+    for
+      categOpt <- categRepo.byId(ForumCateg.diagnosticId)
+      topicOpt <- topicRepo.byTree(ForumCateg.diagnosticId, user.id.value)
+      postOpt  <- topicOpt.so(t => postRepo.coll.byId[ForumPost](t.lastPostId(user.some)))
+    yield for
+      post  <- postOpt
+      topic <- topicOpt
+      categ <- categOpt
+    yield CategView(categ, (topic, post, topic lastPage config.postMaxPerPage).some, user.some)
 
   private def recentUserIds(topic: ForumTopic, newPostNumber: Int) =
     postRepo.coll
