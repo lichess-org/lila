@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="communityBlogs">Blog della community</string>
+  <string name="communityBlogs">Blog della comunità</string>
   <string name="friendBlogs">Blog degli amici</string>
-  <string name="likedBlogs">Post del blog piaciuti</string>
+  <string name="likedBlogs">Post del blog che ti sono piaciuti</string>
   <string name="blogTopics">Argomenti del blog</string>
   <string name="lichessOfficialBlog">Blog ufficiale di Lichess</string>
   <string name="continueReadingPost">Continua a leggere questo post</string>
