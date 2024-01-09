@@ -20,6 +20,9 @@ final class PuzzleSelector(
     case PuzzleAlreadyPlayed(puzzle: Puzzle) extends NextPuzzleResult("puzzlePlayed")
     case PuzzleFound(puzzle: Puzzle)         extends NextPuzzleResult("puzzleFound")
 
+  var playedPuzzleIds: Seq[PuzzleId] = List()
+  val sequentialMaxPuzzleIds: Int = 10
+
   def nextPuzzleFor(angle: PuzzleAngle)(using Me, Perf): Fu[Option[Puzzle]] =
     findNextPuzzleFor(angle, 0)
       .fold(
@@ -56,7 +59,17 @@ final class PuzzleSelector(
           mon.ratingDev(angle.key).record(puzzle.glicko.intDeviation)
           mon.tier(session.path.tier.key, angle.key, session.settings.difficulty.key).increment()
           puzzle
-
+        
+        def handleFoundPuzzle(puzzle: Puzzle, session: PuzzleSession, angle: PuzzleAngle, retries: Int)(using me: Me, perf: Perf): Fu[Puzzle] =
+          if (playedPuzzleIds.contains(puzzle.id)) {
+            sessionApi.set(session.next)
+            findNextPuzzleFor(angle, retries + 1)
+          } else {
+            val updatedPuzzleIds = (puzzle.id +: playedPuzzleIds).take(sequentialMaxPuzzleIds - 1)
+            playedPuzzleIds = updatedPuzzleIds 
+            fuccess(serveAndMonitor(puzzle))
+          }
+  
         nextPuzzleResult(session).flatMap:
           case PathMissing | PathEnded if retries < 10 => switchPath(retries)(session.path.tier)
           case PathMissing => fufail(s"Puzzle path missing for ${me.username} $session")
@@ -65,17 +78,15 @@ final class PuzzleSelector(
             logger.warn(s"Puzzle missing: $id")
             sessionApi.set(session.next)
             findNextPuzzleFor(angle, retries + 1)
-          case PuzzleAlreadyPlayed(_) if retries < 5 =>
-            sessionApi.set(session.next)
-            findNextPuzzleFor(angle, retries = retries + 1)
           case PuzzleAlreadyPlayed(puzzle) =>
-            session.path.tier.stepDown.fold(fuccess(serveAndMonitor(puzzle)))(switchPath(retries))
+            handleFoundPuzzle(puzzle, session, angle, retries)
           case WrongColor(_) if retries < 10 =>
             sessionApi.set(session.next)
             findNextPuzzleFor(angle, retries = retries + 1)
           case WrongColor(puzzle) =>
             session.path.tier.stepDown.fold(fuccess(serveAndMonitor(puzzle)))(switchPath(retries - 5))
-          case PuzzleFound(puzzle) => fuccess(serveAndMonitor(puzzle))
+          case PuzzleFound(puzzle) => 
+            handleFoundPuzzle(puzzle, session, angle, retries)
       }
 
   private def nextPuzzleResult(session: PuzzleSession)(using me: Me): Fu[NextPuzzleResult] =
