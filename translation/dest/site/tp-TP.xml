@@ -222,6 +222,7 @@
   <string name="emailSent">mi mute li pini pana e lipu toki tawa %s.</string>
   <string name="emailCanTakeSomeTime">lipu toki li kepeken tenpo tawa kama la sina o awen.</string>
   <string name="refreshInboxAfterFiveMinutes">o awen lon tenpo Minuta kama 5. pini la o open sin e poki sina pi lipu toki.</string>
+  <string name="emailForSignupHelp">ale ante li pakala, la pana tawa mi e lipu toki ni:</string>
   <string name="copyTextToEmail">jasima en pana e sitelen sewi, en pana tawa %s</string>
   <string name="accountClosed">lipu jan %s lon ala.</string>
   <string name="rank">nanpa</string>
