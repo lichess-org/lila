@@ -67,11 +67,11 @@ export function initModule(opts: { root: MoveRootCtrl; ui: VoiceCtrl; initialFen
     draw: as(['ok'], () => setConfirm('draw', v => v && root.offerDraw?.(true, true))),
     resign: as(['ok'], () => setConfirm('resign', v => v && root.resign?.(true, true))),
     takeback: as(['ok'], () => setConfirm('takeback', v => v && root.takebackYes?.())),
-    rematch: as(['ok','clear'], () => root.rematch?.(true)),
-    next: as(['ok','clear'], () => root.nextPuzzle?.()),
-    upvote: as(['ok','clear'], () => root.vote?.(true)),
-    downvote: as(['ok','clear'], () => root.vote?.(false)),
-    solve: as(['ok','clear'], () => root.solve?.()),
+    rematch: as(['ok', 'clear'], () => root.rematch?.(true)),
+    next: as(['ok', 'clear'], () => root.nextPuzzle?.()),
+    upvote: as(['ok', 'clear'], () => root.vote?.(true)),
+    downvote: as(['ok', 'clear'], () => root.vote?.(false)),
+    solve: as(['ok', 'clear'], () => root.solve?.()),
     clock: as(['ok'], () => root.speakClock?.()),
     blindfold: as(['ok'], () => root.blindfold?.(!root.blindfold())),
   };
@@ -129,7 +129,6 @@ export function initModule(opts: { root: MoveRootCtrl; ui: VoiceCtrl; initialFen
 
       const results = [];
       for (const handler of listenHandlers) {
-
         results.push(...handler(heard));
 
         if (results.includes('ok')) {
@@ -195,13 +194,15 @@ export function initModule(opts: { root: MoveRootCtrl; ui: VoiceCtrl; initialFen
     }
     console.info('handleAmbiguity', `matched '${heard}' to '${chosen}' among`, choices);
     submit(chosen);
-    return ['ok','clear'];
+    return ['ok', 'clear'];
   }
 
   function handleMove(phrase: string): ListenResult[] {
     if (phrase.trim().length < 3) return [];
-    if (selection() && chooseMoves(matchMany(phrase, spreadMap(squares)))) return ['ok','clear'];
-    return chooseMoves(matchMany(phrase, [...spreadMap(moves), ...spreadMap(squares)])) ? ['ok','clear'] : [];
+    if (selection() && chooseMoves(matchMany(phrase, spreadMap(squares)))) return ['ok', 'clear'];
+    return chooseMoves(matchMany(phrase, [...spreadMap(moves), ...spreadMap(squares)]))
+      ? ['ok', 'clear']
+      : [];
   }
 
   // see the README.md in ui/voice/.build to decrypt these variable names.
@@ -337,7 +338,7 @@ export function initModule(opts: { root: MoveRootCtrl; ui: VoiceCtrl; initialFen
       const arrowTime = choiceTimeout ? timer() : undefined;
       cg.setShapes(
         colorsPref() ? coloredArrows([...choices], arrowTime) : numberedArrows([...choices], arrowTime),
-      );        
+      );
     }
     cg.redrawAll();
     return true;
@@ -495,8 +496,8 @@ export function initModule(opts: { root: MoveRootCtrl; ui: VoiceCtrl; initialFen
     return p === '' || p === undefined
       ? undefined
       : cg.state.turnColor === 'white'
-      ? p.toUpperCase() === p
-      : p.toLowerCase() === p;
+        ? p.toUpperCase() === p
+        : p.toLowerCase() === p;
   }
 
   function clearMoveProgress() {
@@ -542,10 +543,10 @@ export function initModule(opts: { root: MoveRootCtrl; ui: VoiceCtrl; initialFen
     return command?.key === 'resign'
       ? mkOpts('Confirm resignation', licon.FlagOutline)
       : command?.key === 'draw'
-      ? mkOpts('Confirm draw offer', licon.OneHalf)
-      : command?.key === 'takeback'
-      ? mkOpts('Confirm takeback request', licon.Back)
-      : false;
+        ? mkOpts('Confirm draw offer', licon.OneHalf)
+        : command?.key === 'takeback'
+          ? mkOpts('Confirm takeback request', licon.Back)
+          : false;
   }
 
   function prefNodes() {
@@ -580,8 +581,8 @@ export function initModule(opts: { root: MoveRootCtrl; ui: VoiceCtrl; initialFen
     return tags === undefined
       ? entries
       : intersect
-      ? entries.filter(e => e.tags.every(tag => tags.includes(tag)))
-      : entries.filter(e => e.tags.some(tag => tags.includes(tag)));
+        ? entries.filter(e => e.tags.every(tag => tags.includes(tag)))
+        : entries.filter(e => e.tags.some(tag => tags.includes(tag)));
   }
 
   function wordTok(word: string) {
