@@ -1789,7 +1789,7 @@ object I18nKeys:
     val `messageAllMembers` = I18nKey("team:messageAllMembers")
     val `messageAllMembersOverview` = I18nKey("team:messageAllMembersOverview")
     val `messageAllMembersLongDescription` = I18nKey("team:messageAllMembersLongDescription")
-    val `sevenTeamMessagesPerWeek` = I18nKey("team:sevenTeamMessagesPerWeek")
+    val `teamMessagesPerWeekLimit` = I18nKey("team:teamMessagesPerWeekLimit")
     val `teamsIlead` = I18nKey("team:teamsIlead")
     val `youWayWantToLinkOneOfTheseTournaments` = I18nKey("team:youWayWantToLinkOneOfTheseTournaments")
     val `leadersChat` = I18nKey("team:leadersChat")
