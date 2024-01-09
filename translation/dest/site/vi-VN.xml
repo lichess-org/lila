@@ -467,7 +467,7 @@ trò chuyện trong ván đấu và có một URL có thể chia sẻ công khai
   <string name="clearBoard">Xóa bàn cờ</string>
   <string name="loadPosition">Tải thế cờ</string>
   <string name="isPrivate">Riêng tư</string>
-  <string name="reportXToModerators">Báo cáo %s cho quản trị viên</string>
+  <string name="reportXToModerators">Báo cáo %s tới các điều hành viên</string>
   <string name="profileCompletion">Hoàn thành hồ sơ: %s</string>
   <string name="xRating">Elo %s</string>
   <string name="ifNoneLeaveEmpty">Nếu không có, hãy để trống</string>
