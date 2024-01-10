@@ -43,9 +43,15 @@ $c-mic-bg-hover: if($theme == 'light', $c-font-dimmer, transparent);
   }
 
   @keyframes flash {
-    0% { background-color: $c-bg-zebra2; }
-    50% { background-color: #cc333388; }
-    100% { background-color: $c-bg-zebra2; }
+    0% {
+      background-color: $c-bg-zebra2;
+    }
+    50% {
+      background-color: #cc333388;
+    }
+    100% {
+      background-color: $c-bg-zebra2;
+    }
   }
 }
 
@@ -85,9 +91,15 @@ button#microphone-button {
   }
 
   @keyframes pulseListening {
-    0% { border-color: transparent; }
-    50% { border-color: $c-primary; }
-    100% { border-color: transparent; }
+    0% {
+      border-color: transparent;
+    }
+    50% {
+      border-color: $c-primary;
+    }
+    100% {
+      border-color: transparent;
+    }
   }
 }
 
