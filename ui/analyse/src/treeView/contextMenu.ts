@@ -90,6 +90,9 @@ function view(opts: Opts, coords: Coords): VNode {
       action(licon.Clipboard, trans('copyVariationPgn'), () =>
         navigator.clipboard.writeText(renderVariationPgn(opts.root.tree.getNodeList(opts.path))),
       ),
+      //* Create a button labelled 'study from here' that creates a study from the current node
+      //How do I make a new post request to /study/as with the current node as the pgn?
+      action(licon.StudyBoard, trans('studyFromHere'), () => ctrl.studyFromHere(opts.path)),
     ],
   );
 }

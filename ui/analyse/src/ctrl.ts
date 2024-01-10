@@ -582,6 +582,15 @@ export default class AnalyseCtrl {
     if (this.study) this.study.deleteNode(path);
   }
 
+  studyFromHere(path: Tree.Path): void {
+    const node = this.tree.nodeAtPath(path);
+    if (!node) return;
+    // How do I delete from current node backwards to root vs deleteNode which deletes from current node forwards to end?
+    console.log('tree root is=', (this.tree.root = node));
+    //print the fen
+    console.log('fen is=', node.fen);
+  }
+
   promote(path: Tree.Path, toMainline: boolean): void {
     this.tree.promoteAt(path, toMainline);
     this.jump(path);
