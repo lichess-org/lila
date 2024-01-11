@@ -43,70 +43,46 @@ object tournaments {
     }
   }
 
-  def renderList(tours: List[TeamInfo.AnyTour])(implicit ctx: Context) =
+  def renderList(tours: List[lila.tournament.Tournament])(implicit ctx: Context) =
     tbody(
-      tours map { any =>
+      tours map { tour =>
         tr(
           cls := List(
-            "enterable" -> any.isEnterable,
-            "soon"      -> any.isNowOrSoon
+            "enterable" -> tour.isEnterable,
+            "soon"      -> tour.isNowOrSoon
           )
         )(
-          td(cls := "icon")(iconTag(any.any.fold(tournamentIconChar, views.html.swiss.bits.iconChar))),
+          td(cls := "icon")(iconTag(tournamentIconChar(tour))),
           td(cls := "header")(
-            any.any.fold(
-              t =>
-                a(href := routes.Tournament.show(t.id))(
-                  span(cls := "name")(t.name()),
-                  span(cls := "setup")(
-                    t.clock.show,
-                    " - ",
-                    if (!t.variant.standard) variantName(t.variant) else t.perfType.map(_.trans),
-                    t.position.isDefined option frag(" - ", trans.thematic()),
-                    " - ",
-                    t.mode.fold(trans.casualTournament, trans.ratedTournament)(),
-                    " - ",
-                    t.durationString
-                  )
-                ),
-              s =>
-                a(href := routes.Page.notSupported)(
-                  span(cls := "name")(s.name),
-                  span(cls := "setup")(
-                    s.clock.show,
-                    " - ",
-                    if (!s.variant.standard) variantName(s.variant) else s.perfType.map(_.trans),
-                    " - ",
-                    (if (s.settings.rated) trans.ratedTournament else trans.casualTournament) ()
-                  )
-                )
+            a(href := routes.Tournament.show(tour.id))(
+              span(cls := "name")(tour.name()),
+              span(cls := "setup")(
+                tour.clock.show,
+                " - ",
+                if (!tour.variant.standard) variantName(tour.variant) else tour.perfType.map(_.trans),
+                tour.position.isDefined option frag(" - ", trans.thematic()),
+                " - ",
+                tour.mode.fold(trans.casualTournament, trans.ratedTournament)(),
+                " - ",
+                tour.durationString
+              )
             )
           ),
           td(cls := "infos")(
-            any.any.fold(
-              t =>
-                frag(
-                  t.teamBattle map { battle =>
-                    frag(battle.teams.size, " teams battle")
-                  } getOrElse "Inner team",
-                  br,
-                  renderStartsAt(any)
-                ),
-              s =>
-                frag(
-                  s.settings.nbRounds,
-                  " rounds swiss",
-                  br,
-                  renderStartsAt(any)
-                )
+            frag(
+              tour.teamBattle map { battle =>
+                frag(battle.teams.size, " teams battle")
+              } getOrElse "Inner team",
+              br,
+              renderStartsAt(tour)
             )
           ),
-          td(cls := "text", dataIcon := "r")(any.nbPlayers.localize)
+          td(cls := "text", dataIcon := "r")(tour.nbPlayers.localize)
         )
       }
     )
 
-  private def renderStartsAt(any: TeamInfo.AnyTour)(implicit lang: Lang): Frag =
-    if (any.isEnterable && any.startsAt.isBeforeNow) trans.playingRightNow()
-    else momentFromNowOnce(any.startsAt)
+  private def renderStartsAt(tour: lila.tournament.Tournament)(implicit lang: Lang): Frag =
+    if (tour.isEnterable && tour.startsAt.isBeforeNow) trans.playingRightNow()
+    else momentFromNowOnce(tour.startsAt)
 }

@@ -24,7 +24,6 @@ final class GameApiV2(
     tournamentRepo: lila.tournament.TournamentRepo,
     pairingRepo: lila.tournament.PairingRepo,
     playerRepo: lila.tournament.PlayerRepo,
-    swissApi: lila.swiss.SwissApi,
     analysisRepo: lila.analyse.AnalysisRepo,
     getLightUser: LightUser.Getter,
     realPlayerApi: RealPlayerApi
@@ -94,19 +93,6 @@ final class GameApiV2(
           Tag.UTCDate.format.print(tour.startsAt),
           tour.id,
           lila.common.String.slugify(tour.name),
-          fileType(configInput)
-        ),
-        "_"
-      ),
-      "UTF-8"
-    )
-  def filename(swiss: lila.swiss.Swiss, configInput: Config): String =
-    java.net.URLEncoder.encode(
-      fileR.replaceAllIn(
-        "lishogi_swiss_%s_%s_%s.%s".format(
-          Tag.UTCDate.format.print(swiss.startsAt),
-          swiss.id,
-          lila.common.String.slugify(swiss.name),
           fileType(configInput)
         ),
         "_"
@@ -205,27 +191,6 @@ final class GameApiV2(
           }
       }
     }
-
-  def exportBySwiss(config: BySwissConfig): Source[String, _] =
-    swissApi
-      .gameIdSource(
-        swissId = config.swissId,
-        batchSize = config.perSecond.value
-      )
-      .grouped(config.perSecond.value)
-      .throttle(1, 1 second)
-      .mapAsync(1)(gameRepo.gamesFromSecondary)
-      .mapConcat(identity)
-      .mapAsync(4)(enrich(config.flags))
-      .mapAsync(4) { case (game, analysis) =>
-        config.format match {
-          case Format.NOTATION => notationDump.formatter(config.flags)(game, analysis, none, none)
-          case Format.JSON =>
-            toJson(game, analysis, config.flags, None) dmap { json =>
-              s"${Json.stringify(json)}\n"
-            }
-        }
-      }
 
   private def preparationFlow(config: Config, realPlayers: Option[RealPlayers]) =
     Flow[Game]
@@ -383,10 +348,4 @@ object GameApiV2 {
       perSecond: MaxPerSecond
   ) extends Config
 
-  case class BySwissConfig(
-      swissId: lila.swiss.Swiss.Id,
-      format: Format,
-      flags: WithFlags,
-      perSecond: MaxPerSecond
-  ) extends Config
 }

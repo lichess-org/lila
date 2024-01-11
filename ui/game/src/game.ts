@@ -24,7 +24,7 @@ export function isClassical(data: GameData): boolean {
 }
 
 export function mandatory(data: GameData): boolean {
-  return !!data.tournament || !!data.simul || !!data.swiss;
+  return !!data.tournament || !!data.simul;
 }
 
 export function playedPlies(data: GameData): number {

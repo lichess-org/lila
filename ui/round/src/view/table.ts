@@ -43,9 +43,7 @@ function renderTableWith(ctrl: RoundController, buttons: MaybeVNodes) {
 }
 
 export const renderTableEnd = (ctrl: RoundController) => {
-  return renderTableWith(ctrl, [
-    isLoading(ctrl) ? loader() : button.backToTournament(ctrl) || button.backToSwiss(ctrl) || button.followUp(ctrl),
-  ]);
+  return renderTableWith(ctrl, [isLoading(ctrl) ? loader() : button.backToTournament(ctrl) || button.followUp(ctrl)]);
 };
 
 export const renderTableWatch = (ctrl: RoundController) => {

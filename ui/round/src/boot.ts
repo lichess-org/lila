@@ -62,7 +62,7 @@ export default function (opts: RoundOpts): void {
   }
   opts.element = element;
   opts.socketSend = li.socket.send;
-  if (!data.tournament && !data.simul && !data.swiss)
+  if (!data.tournament && !data.simul)
     opts.onChange = (d: RoundData) => {
       if (chat) chat.preset.setGroup(getPresetGroup(d));
     };
@@ -73,7 +73,7 @@ export default function (opts: RoundOpts): void {
     if (data.tournament?.top) {
       chatOpts.plugin = tourStandingCtrl(data.tournament.top, data.tournament.team, opts.i18n.standing);
       chatOpts.alwaysEnabled = true;
-    } else if (!data.simul && !data.swiss) {
+    } else if (!data.simul) {
       chatOpts.preset = getPresetGroup(data);
       chatOpts.parseMoves = true;
     }

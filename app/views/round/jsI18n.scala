@@ -16,8 +16,6 @@ object jsI18n {
         !g.variant.standard ?? variantTranslations
       } ++ {
         g.isTournament ?? tournamentTranslations
-      } ++ {
-        g.isSwiss ?? swissTranslations
       }
     }
 
@@ -37,11 +35,6 @@ object jsI18n {
     trans.backToTournament,
     trans.viewTournament,
     trans.standing
-  ).map(_.key)
-
-  private val swissTranslations = Vector(
-    trans.backToTournament,
-    trans.viewTournament
   ).map(_.key)
 
   private val baseTranslations = Vector(

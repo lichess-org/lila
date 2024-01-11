@@ -5,7 +5,6 @@ import lila.forum.MiniForumPost
 import lila.team.{ RequestRepo, RequestWithUser, Team, TeamApi }
 import lila.tournament.{ Tournament, TournamentApi }
 import lila.user.User
-import lila.swiss.{ Swiss, SwissApi }
 
 case class TeamInfo(
     mine: Boolean,
@@ -23,16 +22,7 @@ case class TeamInfo(
 }
 
 object TeamInfo {
-  case class AnyTour(any: Either[Tournament, Swiss]) extends AnyVal {
-    def isEnterable = any.fold(_.isEnterable, _.isEnterable)
-    def startsAt    = any.fold(_.startsAt, _.startsAt)
-    def isNowOrSoon = any.fold(_.isNowOrSoon, _.isNowOrSoon)
-    def nbPlayers   = any.fold(_.nbPlayers, _.nbPlayers)
-  }
-  def anyTour(tour: Tournament) = AnyTour(Left(tour))
-  def anyTour(swiss: Swiss)     = AnyTour(Right(swiss))
-
-  case class PastAndNext(past: List[AnyTour], next: List[AnyTour]) {
+  case class PastAndNext(past: List[Tournament], next: List[Tournament]) {
     def nonEmpty = past.nonEmpty || next.nonEmpty
   }
 }
@@ -41,7 +31,6 @@ final class TeamInfoApi(
     api: TeamApi,
     forumRecent: lila.forum.Recent,
     tourApi: TournamentApi,
-    swissApi: SwissApi,
     requestRepo: RequestRepo
 )(implicit ec: scala.concurrent.ExecutionContext) {
 
@@ -66,15 +55,14 @@ final class TeamInfoApi(
     )
 
   def tournaments(team: Team, nbPast: Int, nbSoon: Int): Fu[PastAndNext] =
-    tourApi.visibleByTeam(team.id, nbPast, nbSoon) zip swissApi.visibleByTeam(team.id, nbPast, nbSoon) map {
-      case (tours, swisses) =>
-        PastAndNext(
-          past = {
-            tours.past.map(anyTour) ::: swisses.past.map(anyTour)
-          }.sortBy(-_.startsAt.getSeconds),
-          next = {
-            tours.next.map(anyTour) ::: swisses.next.map(anyTour)
-          }.sortBy(_.startsAt.getSeconds)
-        )
+    tourApi.visibleByTeam(team.id, nbPast, nbSoon) map { case tours =>
+      PastAndNext(
+        past = {
+          tours.past
+        }.sortBy(-_.startsAt.getSeconds),
+        next = {
+          tours.next
+        }.sortBy(_.startsAt.getSeconds)
+      )
     }
 }

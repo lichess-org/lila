@@ -85,13 +85,11 @@ case class Game(
 
   def tournamentId  = metadata.tournamentId
   def simulId       = metadata.simulId
-  def swissId       = metadata.swissId
   def postGameStudy = metadata.postGameStudy
 
   def isTournament = tournamentId.isDefined
   def isSimul      = simulId.isDefined
-  def isSwiss      = swissId.isDefined
-  def isMandatory  = isTournament || isSimul || isSwiss
+  def isMandatory  = isTournament || isSimul
   def isClassical  = perfType contains Classical
   def nonMandatory = !isMandatory
 
@@ -572,7 +570,6 @@ case class Game(
     }
 
   def withTournamentId(id: String) = copy(metadata = metadata.copy(tournamentId = id.some))
-  def withSwissId(id: String)      = copy(metadata = metadata.copy(swissId = id.some))
 
   def withSimulId(id: String) = copy(metadata = metadata.copy(simulId = id.some))
 
@@ -713,7 +710,6 @@ object Game {
           source = source.some,
           notationImport = notationImport,
           tournamentId = none,
-          swissId = none,
           simulId = none,
           postGameStudy = none,
           analysed = false
@@ -729,7 +725,6 @@ object Game {
       source = source.some,
       notationImport = none,
       tournamentId = none,
-      swissId = none,
       simulId = none,
       postGameStudy = none,
       analysed = false
@@ -767,7 +762,6 @@ object Game {
     val source             = "so"
     val notationImport     = "pgni" // todo - rename
     val tournamentId       = "tid"
-    val swissId            = "iid"
     val simulId            = "sid"
     val tvAt               = "tv"
     val winnerColor        = "w"

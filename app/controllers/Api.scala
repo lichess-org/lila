@@ -282,31 +282,6 @@ final class Api(
       }
     }
 
-  def swissGames(id: String) =
-    Action.async { req =>
-      env.swiss.api byId lila.swiss.Swiss.Id(id) flatMap {
-        _ ?? { swiss =>
-          val config = GameApiV2.BySwissConfig(
-            swissId = swiss.id,
-            format = GameApiV2.Format byRequest req,
-            flags = gameC.requestNotationFlags(req, extended = false),
-            perSecond = MaxPerSecond(20)
-          )
-          GlobalConcurrencyLimitPerIP(HTTPRequest lastRemoteAddress req)(
-            env.api.gameApiV2.exportBySwiss(config)
-          ) { source =>
-            val filename = env.api.gameApiV2.filename(swiss, config)
-            Ok.chunked(source)
-              .withHeaders(
-                noProxyBufferHeader,
-                CONTENT_DISPOSITION -> s"attachment; filename=$filename"
-              )
-              .as(gameC gameContentType config)
-          }.fuccess
-        }
-      }
-    }
-
   def gamesByUsersStream =
     AnonOrScopedBody(parse.tolerantText)()(
       anon = gamesByUsers(300),

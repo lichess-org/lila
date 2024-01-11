@@ -627,26 +627,6 @@ export function backToTournament(ctrl: RoundController): VNode | undefined {
     : undefined;
 }
 
-export function backToSwiss(ctrl: RoundController): VNode | undefined {
-  const d = ctrl.data;
-  return d.swiss?.running
-    ? h('div.follow-up', [
-        h(
-          'a.text.fbt.strong.glowing',
-          {
-            attrs: {
-              'data-icon': 'G',
-              href: '/swiss/' + d.swiss.id,
-            },
-            hook: util.bind('click', ctrl.setRedirecting),
-          },
-          ctrl.noarg('backToTournament')
-        ),
-        analysisButton(ctrl),
-      ])
-    : undefined;
-}
-
 export function moretime(ctrl: RoundController) {
   return game.moretimeable(ctrl.data)
     ? h('a.moretime', {
@@ -662,12 +642,7 @@ export function moretime(ctrl: RoundController) {
 export function followUp(ctrl: RoundController): VNode {
   const d = ctrl.data,
     rematchable =
-      !d.game.rematch &&
-      (status.finished(d) || status.aborted(d)) &&
-      !d.tournament &&
-      !d.simul &&
-      !d.swiss &&
-      !d.game.boosted,
+      !d.game.rematch && (status.finished(d) || status.aborted(d)) && !d.tournament && !d.simul && !d.game.boosted,
     newable = (status.finished(d) || status.aborted(d)) && (d.game.source === 'lobby' || d.game.source === 'pool'),
     rematchZone = ctrl.challengeRematched
       ? [
@@ -689,15 +664,6 @@ export function followUp(ctrl: RoundController): VNode {
           'a.fbt',
           {
             attrs: { href: '/tournament/' + d.tournament.id },
-          },
-          ctrl.noarg('viewTournament')
-        )
-      : null,
-    d.swiss
-      ? h(
-          'a.fbt',
-          {
-            attrs: { href: '/swiss/' + d.swiss.id },
           },
           ctrl.noarg('viewTournament')
         )
@@ -739,15 +705,6 @@ export function watcherFollowUp(ctrl: RoundController): VNode | null {
             'a.fbt',
             {
               attrs: { href: '/tournament/' + d.tournament.id },
-            },
-            ctrl.noarg('viewTournament')
-          )
-        : null,
-      d.swiss
-        ? h(
-            'a.fbt',
-            {
-              attrs: { href: '/swiss/' + d.swiss.id },
             },
             ctrl.noarg('viewTournament')
           )

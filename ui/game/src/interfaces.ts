@@ -5,7 +5,6 @@ export interface GameData {
   spectator?: boolean;
   tournament?: Tournament;
   simul?: Simul;
-  swiss?: Swiss;
   takebackable: boolean;
   moretimeable: boolean;
   clock?: Clock;
@@ -114,12 +113,6 @@ export interface Simul {
   name: string;
   hostId: string;
   nbPlaying: number;
-}
-
-export interface Swiss {
-  id: string;
-  running?: boolean;
-  ranks?: TournamentRanks;
 }
 
 export interface Clock {

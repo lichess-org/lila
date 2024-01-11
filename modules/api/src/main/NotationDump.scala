@@ -10,8 +10,7 @@ final class NotationDump(
     val dumper: lila.game.NotationDump,
     annotator: Annotator,
     simulApi: lila.simul.SimulApi,
-    getTournamentName: lila.tournament.GetTourName,
-    getSwissName: lila.swiss.GetSwissName
+    getTournamentName: lila.tournament.GetTourName
 )(implicit ec: scala.concurrent.ExecutionContext) {
 
   implicit private val lang = lila.i18n.defaultLang
@@ -27,7 +26,6 @@ final class NotationDump(
       if (flags.tags) (game.simulId ?? simulApi.idToName) map { simulName =>
         simulName
           .orElse(game.tournamentId flatMap getTournamentName.get)
-          .orElse(game.swissId map lila.swiss.Swiss.Id flatMap getSwissName.apply)
           .fold(notation)(notation.withEvent)
       }
       else fuccess(notation)

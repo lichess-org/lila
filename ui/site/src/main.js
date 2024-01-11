@@ -179,7 +179,6 @@
                     term: query,
                     friend: opts.friend ? 1 : 0,
                     tour: opts.tour,
-                    swiss: opts.swiss,
                     object: 1,
                   },
                   success(res) {
