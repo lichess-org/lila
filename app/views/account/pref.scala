@@ -15,8 +15,8 @@ object pref {
   private def categFieldset(categ: lila.pref.PrefCateg, active: lila.pref.PrefCateg) =
     div(cls := List("none" -> (categ != active)))
 
-  private def setting(name: Frag, body: Frag, display: Boolean = true) =
-    st.section(style := !display option "display: none;")(h2(name), body)
+  private def setting(name: Frag, body: Frag) =
+    st.section(h2(name), body)
 
   private def radios(field: play.api.data.Field, options: Iterable[(Any, String)], prefix: String = "ir") =
     st.group(cls := "radio")(
@@ -177,8 +177,7 @@ object pref {
             ),
             setting(
               trans.shareYourInsightsData(),
-              radios(form("insightShare"), translatedInsightShareChoices),
-              false
+              radios(form("insightsShare"), booleanChoices)
             )
           ),
           p(cls := "saved text none", dataIcon := "E")(yourPreferencesHaveBeenSaved())

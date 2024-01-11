@@ -1,0 +1,31 @@
+{
+  "name": "insights",
+  "version": "3.0.0",
+  "private": true,
+  "description": "lishogi.org insights",
+  "keywords": [
+    "shogi",
+    "lishogi",
+    "insight"
+  ],
+  "author": "WandererXII",
+  "license": "AGPL-3.0-or-later",
+  "devDependencies": {
+    "@build/rollupProject": "2.0.0",
+    "@types/lishogi": "2.0.0",
+    "rollup": "^2",
+    "typescript": "^5"
+  },
+  "dependencies": {
+    "chart.js": "^4.4",
+    "countup.js": "^2.8",
+    "chartjs-plugin-datalabels": "^2.2",
+    "common": "2.0.0",
+    "shogiops": "^0.15.0",
+    "snabbdom": "^3.5.1"
+  },
+  "scripts": {
+    "dev": "rollup --config",
+    "prod": "rollup --config --config-prod"
+  }
+}

@@ -46,11 +46,11 @@ object DataForm {
         "sound"     -> booleanNumber,
         "moretime"  -> checkedNumber(Pref.Moretime.choices)
       )(ClockData.apply)(ClockData.unapply),
-      "follow"       -> booleanNumber,
-      "challenge"    -> checkedNumber(Pref.Challenge.choices),
-      "message"      -> checkedNumber(Pref.Message.choices),
-      "studyInvite"  -> optional(checkedNumber(Pref.StudyInvite.choices)),
-      "insightShare" -> checkedNumber(Pref.InsightShare.choices)
+      "follow"        -> booleanNumber,
+      "challenge"     -> checkedNumber(Pref.Challenge.choices),
+      "message"       -> checkedNumber(Pref.Message.choices),
+      "studyInvite"   -> optional(checkedNumber(Pref.StudyInvite.choices)),
+      "insightsShare" -> booleanNumber
     )(PrefData.apply)(PrefData.unapply)
   )
 
@@ -96,7 +96,7 @@ object DataForm {
       challenge: Int,
       message: Int,
       studyInvite: Option[Int],
-      insightShare: Int
+      insightsShare: Int
   ) {
 
     def apply(pref: Pref) =
@@ -125,7 +125,7 @@ object DataForm {
         clearHands = display.clearHands == 1,
         handsBackground = display.handsBackground == 1,
         submitMove = behavior.submitMove,
-        insightShare = insightShare,
+        insightsShare = insightsShare == 1,
         confirmResign = behavior.confirmResign,
         keyboardMove = behavior.keyboardMove | pref.keyboardMove,
         zen = display.zen | pref.zen,
@@ -172,7 +172,7 @@ object DataForm {
         challenge = pref.challenge,
         message = pref.message,
         studyInvite = pref.studyInvite.some,
-        insightShare = pref.insightShare
+        insightsShare = if (pref.insightsShare) 1 else 0
       )
   }
 

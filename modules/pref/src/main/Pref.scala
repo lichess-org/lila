@@ -37,7 +37,7 @@ case class Pref(
     coordColor: Int,
     submitMove: Int,
     confirmResign: Int,
-    insightShare: Int,
+    insightsShare: Boolean,
     thickGrid: Int,
     keyboardMove: Int,
     zen: Int,
@@ -181,18 +181,6 @@ object Pref {
   }
 
   object ConfirmResign extends BooleanPref
-
-  object InsightShare {
-    val NOBODY    = 0
-    val FRIENDS   = 1
-    val EVERYBODY = 2
-
-    val choices = Seq(
-      NOBODY,
-      FRIENDS,
-      EVERYBODY
-    )
-  }
 
   object ThickGrid extends BooleanPref
 
@@ -434,7 +422,7 @@ object Pref {
     coordColor = Color.RANDOM,
     submitMove = SubmitMove.CORRESPONDENCE_ONLY,
     confirmResign = ConfirmResign.YES,
-    insightShare = InsightShare.FRIENDS,
+    insightsShare = false,
     thickGrid = ThickGrid.NO,
     keyboardMove = KeyboardMove.NO,
     zen = Zen.NO,

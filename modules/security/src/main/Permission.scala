@@ -33,7 +33,7 @@ object Permission {
   case object SeeReport             extends Permission("SEE_REPORT", "See reports")
   case object Appeals               extends Permission("APPEAL", "Handle appeals")
   case object ModLog                extends Permission("MOD_LOG", "See mod log")
-  case object SeeInsight            extends Permission("SEE_INSIGHT", "View player insights")
+  case object SeeInsights           extends Permission("SEE_INSIGHT", "View player insights")
   case object PracticeConfig        extends Permission("PRACTICE_CONFIG", "Configure practice")
   case object Beta                  extends Permission("BETA", "Beta features")
   case object UserSearch            extends Permission("USER_SEARCH", "Mod user search")
@@ -84,7 +84,7 @@ object Permission {
           UserEvaluate,
           SeeReport,
           ModLog,
-          SeeInsight,
+          SeeInsights,
           UserSearch,
           RemoveRanking,
           ModMessage,
@@ -173,7 +173,7 @@ object Permission {
       DisapproveCoachReview
     ),
     "Play mod" -> List(
-      SeeInsight,
+      SeeInsights,
       ViewBlurs,
       MarkEngine,
       UserEvaluate,

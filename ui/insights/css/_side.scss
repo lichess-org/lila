@@ -1,0 +1,66 @@
+aside {
+  .filter {
+    min-width: 200px;
+    padding: 0 1rem;
+
+    .filter-toggle {
+      text-align: right;
+      padding-bottom: 0.4rem;
+      & > div {
+        cursor: pointer;
+        padding: 0.4rem 0.6rem;
+        display: inline;
+        margin-left: auto;
+        i {
+          margin-left: 3px;
+        }
+      }
+      @include breakpoint($mq-small) {
+        display: none;
+      }
+    }
+
+    .filter-wrap {
+      &.hide {
+        display: none;
+        @include breakpoint($mq-small) {
+          display: block;
+        }
+      }
+      h2 {
+        margin-top: 0.7em;
+        padding-bottom: 0.8em; // same as tabs
+        border-bottom: $border;
+        font-size: 1.5rem;
+      }
+      .options {
+        h3 {
+          padding: 1rem 0;
+          font-size: 1.2rem;
+          text-transform: capitalize;
+        }
+        select {
+          width: 100%;
+        }
+      }
+    }
+    .options.key-speeds {
+      padding-bottom: 10rem;
+    }
+    .ms-choice {
+      height: 38px;
+      line-height: 38px;
+      background-color: $c-bg-input;
+      & > div {
+        width: 7px;
+        height: 7px;
+        background: none;
+        border-right: 2.5px solid $c-font;
+        border-bottom: 2.5px solid $c-font;
+        transform: rotate(45deg);
+        right: 5px;
+        top: 13px;
+      }
+    }
+  }
+}

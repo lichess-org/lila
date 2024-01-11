@@ -1,0 +1,63 @@
+.moves {
+  .third-wrap {
+    .big-number-with-desc.total,
+    .big-number-with-desc.total-per-game {
+      width: 50%;
+      @include breakpoint($mq-small) {
+        width: 30%;
+      }
+    }
+    .moves-drops {
+      padding: 0 1rem;
+      align-self: center;
+      width: 85%;
+      @include breakpoint($mq-small) {
+        width: 30%;
+      }
+      &__info {
+        display: flex;
+        justify-content: space-between;
+      }
+      .big-number-with-desc .big-number {
+        font-size: 2.3rem;
+        &.moves {
+          color: $c-primary;
+        }
+        &.drops {
+          color: $c-accent;
+        }
+      }
+      .canvas-wrap.moves-drops-chart {
+        height: 40px;
+      }
+    }
+  }
+  .color-selector {
+    width: 30%;
+    margin: auto;
+    display: flex;
+    justify-content: space-evenly;
+    a {
+      flex: 1;
+      text-align: center;
+      padding: 0.5rem;
+      border-bottom: 2px solid $c-border;
+      color: $c-font-dim;
+      transition:
+        color 0.25s,
+        border-color 0.25s;
+      &.selected {
+        font-weight: bold;
+        color: $c-accent;
+        border-bottom: 2px solid $c-accent;
+      }
+      &.disabled {
+        color: $c-font-dimmer;
+        pointer-events: none;
+      }
+      &:hover {
+        border-bottom: 2px solid $c-accent;
+      }
+    }
+  }
+}

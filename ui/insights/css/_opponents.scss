@@ -1,0 +1,9 @@
+.opponents {
+  .half-wrap {
+    & > div {
+      .big-number.diff {
+        margin-right: 0.8ch; // looks better if the +/- is not considered for the center
+      }
+    }
+  }
+}

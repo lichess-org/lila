@@ -4,7 +4,6 @@ package html.site
 import lila.api.Context
 import lila.app.templating.Environment._
 import lila.app.ui.ScalatagsTemplate._
-import lila.user.User
 
 import controllers.routes
 
@@ -75,18 +74,6 @@ object message {
       title = trans.challengeToPlay.txt(),
       back = routes.Lobby.home.url.some
     )(msg)
-
-  def insightNoGames(u: User)(implicit ctx: Context) =
-    apply(
-      title = s"${u.username} has not played a rated game yet!",
-      back = routes.User.show(u.id).url.some
-    )(
-      frag(
-        "Before using shogi insights,",
-        userLink(u),
-        " has to play at least one rated game."
-      )
-    )
 
   def teamCreateLimit(implicit ctx: Context) =
     apply("Cannot create a team") {

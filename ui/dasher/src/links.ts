@@ -25,6 +25,12 @@ export default function (ctrl: DasherCtrl): VNode {
             noarg('preferences')
           ),
 
+          h(
+            'a.text',
+            linkCfg('/insights/' + d.user.name, '7', ctrl.opts.playing ? { target: '_blank' } : undefined),
+            noarg('insights')
+          ),
+
           !d.coach ? null : h('a.text', linkCfg('/coach/edit', ':'), noarg('coachManager')),
 
           !d.streamer ? null : h('a.text', linkCfg('/streamer/edit', ''), noarg('streamerManager')),

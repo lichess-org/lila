@@ -18,7 +18,7 @@ object freeJs {
     "cli",
     "dasher",
     "editor",
-    "insight",
+    "insights",
     "learn",
     "lobby",
     "notify",

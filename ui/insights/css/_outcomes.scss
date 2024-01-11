@@ -1,0 +1,32 @@
+.outcomes {
+  .winrate-wrap {
+    width: 80%;
+    margin: auto;
+    .winrate-info-wrap {
+      display: flex;
+      width: 70%;
+      margin: auto;
+      .winrate-info {
+        flex: 1 1 auto;
+        margin-bottom: 5px;
+        span {
+          display: block;
+          text-align: center;
+        }
+        .wr_percent {
+          font-weight: bold;
+          font-size: 2.3rem;
+        }
+        &__win .wr_percent {
+          color: $c-good;
+        }
+        &__draw .wr_percent {
+          color: $c-font-dim;
+        }
+        &__loss .wr_percent {
+          color: $c-bad;
+        }
+      }
+    }
+  }
+}

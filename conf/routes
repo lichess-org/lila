@@ -38,13 +38,6 @@ GET   /@/:username/following           controllers.Relation.following(username: 
 GET   /@/:username/followers           controllers.Relation.followers(username: String, page: Int ?= 1)
 GET   /rel/blocks                      controllers.Relation.blocks(page: Int ?= 1)
 
-# Insight
-# POST  /insights/refresh/:username      controllers.Insight.refresh(username: String)
-# POST  /insights/data/:username         controllers.Insight.json(username: String)
-# GET   /insights/:username              controllers.Insight.index(username: String)
-# GET   /insights/:username/:metric/:dimension controllers.Insight.path(username: String, metric: String, dimension: String, filters: String = "")
-# GET   /insights/:username/:metric/:dimension/*filters controllers.Insight.path(username: String, metric: String, dimension: String, filters: String)
-
 # User subpages
 GET   /@/:username/tournaments/:path   controllers.UserTournament.path(username: String, path: String, page: Int ?= 1)
 
@@ -176,6 +169,11 @@ POST  /broadcast/:slug/$id<\w{8}>/push     controllers.Relay.push(slug: String, 
 GET   /learn                           controllers.Learn.index
 POST  /learn/score                     controllers.Learn.score
 POST  /learn/reset                     controllers.Learn.reset
+
+# Insights
+GET   /insights                    controllers.Insights.index
+GET   /insights/:username          controllers.Insights.user(username: String, path: String = "")
+GET   /insights/:username/*path    controllers.Insights.user(username: String, path: String)
 
 # Patron
 GET   /patron                          controllers.Plan.index

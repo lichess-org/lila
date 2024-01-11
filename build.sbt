@@ -43,7 +43,7 @@ lazy val modules = Seq(
   importer, tournament, simul, relation, report, pref,
   evaluation, chat, puzzle, tv, coordinate, blog,
   history, video, shutup, push, appeal,
-  playban, insight, perfStat, slack, quote, challenge,
+  playban, perfStat, slack, quote, challenge,
   study, studySearch, fishnet, explorer, learn, plan,
   event, coach, practice, evalCache, irwin,
   activity, relay, streamer, bot, clas, swiss, storm
@@ -68,7 +68,7 @@ lazy val i18n = module("i18n",
     MessageCompiler(
       sourceDir = new File("translation/source"),
       destDir = new File("translation/dest"),
-      dbs = "site arena emails learn activity coordinates study class contact patron coach broadcast streamer tfa settings preferences team perfStat search tourname faq lag swiss puzzle puzzleTheme storm".split(' ').toList,
+      dbs = "site arena emails learn activity coordinates study class contact patron coach broadcast streamer tfa settings preferences team perfStat search tourname faq lag puzzle puzzleTheme storm insights pieces".split(' ').toList,
       compileTo = (Compile / sourceManaged).value
     )
   }.taskValue
@@ -239,11 +239,6 @@ lazy val setup = module("setup",
 lazy val importer = module("importer",
   Seq(common, game, round),
   reactivemongo.bundle
-)
-
-lazy val insight = module("insight",
-  Seq(common, game, user, analyse, relation, pref, socket, round, security),
-  Seq(scalatags) ++ reactivemongo.bundle
 )
 
 lazy val tournament = module("tournament",

@@ -1,0 +1,41 @@
+.custom {
+  .custom-title-bar {
+    display: flex;
+    align-items: center;
+    padding-bottom: 1rem;
+    h2 {
+      padding-bottom: 0;
+    }
+    .custom-select-type {
+      padding: 0 2.5rem 0 0;
+    }
+  }
+  .custom-select {
+    &-type {
+      select {
+        display: block;
+        // margin-left: auto;
+      }
+    }
+    &-by {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: center;
+      padding-top: 1rem;
+      span {
+        padding: 0.5rem;
+      }
+    }
+  }
+  .no-data {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    aspect-ratio: 1 / 1;
+    @include breakpoint($mq-small) {
+      aspect-ratio: 3 / 1;
+    }
+  }
+}

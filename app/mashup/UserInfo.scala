@@ -27,7 +27,7 @@ case class UserInfo(
     teamIds: List[String],
     isStreamer: Boolean,
     isCoach: Boolean,
-    insightVisible: Boolean,
+    insightsVisible: Boolean,
     completionRate: Option[Double]
 ) {
 
@@ -125,7 +125,7 @@ object UserInfo {
       streamerApi: lila.streamer.StreamerApi,
       teamCached: lila.team.Cached,
       coachApi: lila.coach.CoachApi,
-      insightShare: lila.insight.Share,
+      prefApi: lila.pref.PrefApi,
       playbanApi: lila.playban.PlaybanApi
   )(implicit ec: scala.concurrent.ExecutionContext) {
     def apply(user: User, nbs: NbGames, ctx: Context): Fu[UserInfo] =
@@ -141,12 +141,13 @@ object UserInfo {
         teamCached.teamIdsList(user.id).mon(_.user segment "teamIds") zip
         coachApi.isListedCoach(user).mon(_.user segment "coach") zip
         streamerApi.isActualStreamer(user).mon(_.user segment "streamer") zip
-        (user.count.rated >= 10).??(insightShare.grant(user, ctx.me)) zip
+        (user.count.game >= 10)
+          .??(prefApi.getPref(user.id, pref => (pref.insightsShare || Granter(_.SeeInsights)(user)))) zip
         playbanApi.completionRate(user.id).mon(_.user segment "completion") zip
         (nbs.playing > 0) ?? isHostingSimul(user.id).mon(_.user segment "simul") zip
         userCached.rankingsOf(user.id) map {
           // format: off
-          case ((((((((((((((ratingChart, nbFollowers), nbBlockers), nbPosts), nbStudies), trophies), shields), revols), teamIds), isCoach), isStreamer), insightVisible), completionRate), hasSimul), ranks) =>
+          case ((((((((((((((ratingChart, nbFollowers), nbBlockers), nbPosts), nbStudies), trophies), shields), revols), teamIds), isCoach), isStreamer), insightsVisible), completionRate), hasSimul), ranks) =>
           // format: on
             new UserInfo(
               user = user,
@@ -169,7 +170,7 @@ object UserInfo {
               teamIds = teamIds,
               isStreamer = isStreamer,
               isCoach = isCoach,
-              insightVisible = insightVisible,
+              insightsVisible = insightsVisible,
               completionRate = completionRate
             )
         }

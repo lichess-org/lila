@@ -40,7 +40,8 @@ final class Dasher(env: Env) extends LilaController(env) {
     trans.preferences.westernNotation,
     trans.preferences.japaneseNotation,
     trans.preferences.kitaoKawasakiNotation,
-    trans.preferences.kifNotation
+    trans.preferences.kifNotation,
+    trans.insights.insights
   ).map(_.key)
 
   private val translationsAnon = List(

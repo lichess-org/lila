@@ -190,10 +190,6 @@ object mon {
   object timeline {
     val notification = counter("timeline.notification").withoutTags()
   }
-  object insight {
-    val request = future("insight.request.time")
-    val index   = future("insight.index.time")
-  }
   object search {
     def time(op: String, index: String, success: Boolean) =
       timer("search.client.time").withTags(

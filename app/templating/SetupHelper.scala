@@ -280,13 +280,6 @@ trait SetupHelper { self: I18nHelper =>
       (Pref.StudyInvite.ALWAYS, trans.always.txt())
     )
 
-  def translatedInsightShareChoices(implicit lang: Lang) =
-    List(
-      (Pref.InsightShare.NOBODY, trans.withNobody.txt()),
-      (Pref.InsightShare.FRIENDS, trans.withFriends.txt()),
-      (Pref.InsightShare.EVERYBODY, trans.withEverybody.txt())
-    )
-
   def translatedBoardResizeHandleChoices(implicit lang: Lang) =
     List(
       (Pref.ResizeHandle.NEVER, trans.never.txt()),

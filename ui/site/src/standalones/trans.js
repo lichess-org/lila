@@ -33,6 +33,9 @@ lishogi.trans = function (i18n) {
     // optimisation for translations without arguments
     return i18n[key] || key;
   };
+  trans.noargOrCapitalize = function (key) {
+    return i18n[key] || key[0].toUpperCase() + key.slice(1);
+  };
   trans.vdom = function (key) {
     var str = i18n[key];
     return str ? list(str, Array.prototype.slice.call(arguments, 1)) : [key];

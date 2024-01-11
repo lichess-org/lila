@@ -118,6 +118,7 @@ type TransNoArg = (key: I18nKey) => string;
 interface Trans {
   (key: I18nKey, ...args: Array<string | number>): string;
   noarg: TransNoArg;
+  noargOrCapitalize: (key: I18nKey | string) => string;
   plural(key: I18nKey, count: number, ...args: Array<string | number>): string;
   vdom<T>(key: I18nKey, ...args: T[]): (string | T)[];
   vdomPlural<T>(key: I18nKey, count: number, countArg: T, ...args: T[]): (string | T)[];
@@ -379,6 +380,7 @@ interface JQuery {
   slider(opts: any): any;
   spectrum(opts: any): any;
   flatpickr(opts: any): any;
+  multipleSelect(opts: any): any;
 }
 
 declare namespace PowerTip {

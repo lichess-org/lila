@@ -43,7 +43,7 @@ object JsonView {
       "coordColor"         -> p.coordColor,
       "submitMove"         -> p.submitMove,
       "confirmResign"      -> p.confirmResign,
-      "insightShare"       -> p.insightShare,
+      "insightsShare"      -> p.insightsShare,
       "thickGrid"          -> p.thickGrid,
       "keyboardMove"       -> p.keyboardMove,
       "zen"                -> p.zen,

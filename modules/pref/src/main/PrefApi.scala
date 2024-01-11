@@ -83,7 +83,7 @@ final class PrefApi(
         p.copy(
           takeback = Pref.Takeback.NEVER,
           moretime = Pref.Moretime.NEVER,
-          insightShare = Pref.InsightShare.EVERYBODY
+          insightsShare = true
         )
     )
 

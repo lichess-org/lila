@@ -1,0 +1,244 @@
+@import '../../site/css/user/number-menu';
+@import 'side';
+
+// canvas {
+//   image-rendering: -moz-crisp-edges;
+//   image-rendering: pixelated;
+// }
+
+.angles {
+  @extend %metal;
+  font-size: 1.2em;
+  height: 4rem;
+  border-top: $border;
+  max-width: 100vw;
+  .nm-item {
+    text-align: center;
+    flex: 1 1;
+    font-size: 0.8em;
+    @include breakpoint($mq-small) {
+      font-size: 0.9em;
+    }
+  }
+  .unread {
+    margin-left: 0.5em;
+  }
+}
+
+.angle-content {
+  @import 'outcomes';
+  @import 'opponents';
+  @import 'moves';
+  @import 'times';
+  @import 'analysis';
+  @import 'custom';
+
+  min-height: calc(98vh - 4rem - var(--site-header-height) - var(--site-header-margin));
+  max-width: 100vw;
+  position: relative;
+  &.loading {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  section.with-title {
+    padding: 2rem 0;
+    border-bottom: 1px dashed $c-border;
+    &:last-child {
+      border-bottom: none;
+      padding-bottom: 3rem;
+    }
+    h2 {
+      padding: 0 2.5rem 1rem 2.5rem;
+    }
+  }
+
+  section.padding {
+    padding: 3rem 0;
+    border-bottom: 1px dashed $c-border;
+  }
+
+  .half-wrap {
+    display: flex;
+    justify-content: center;
+    & > * {
+      width: 45%;
+    }
+    &.small > * {
+      width: 35%;
+    }
+  }
+
+  .third-wrap {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    & > * {
+      width: 30%;
+    }
+  }
+
+  .one-third-wrap {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    border-bottom: 1px dashed $c-border;
+    & > * {
+      &:first-child {
+        width: 100%;
+        padding: 3rem 0 1.5rem 0;
+        @include breakpoint($mq-small) {
+          width: 30%;
+          padding: 3rem 0;
+        }
+      }
+      &:last-child {
+        width: 60%;
+        padding: 1.5rem 0 3rem 0;
+        @include breakpoint($mq-small) {
+          padding: 3rem 0;
+        }
+      }
+    }
+  }
+
+  .big-number-with-desc {
+    text-align: center;
+    align-self: center;
+    .big-number {
+      font-size: 3rem;
+      font-weight: bold;
+      span.tiny {
+        font-size: 1.5rem;
+      }
+      @include breakpoint($mq-small) {
+        font-size: 3.5rem;
+        span.tiny {
+          font-size: 1.75rem;
+        }
+      }
+    }
+    .desc {
+      display: block;
+      width: 80%;
+      margin: auto;
+    }
+  }
+
+  .canvas-wrap.full {
+    margin: auto;
+    width: 95%;
+    aspect-ratio: 1 / 1;
+    @include breakpoint($mq-small) {
+      width: 90%;
+      aspect-ratio: 3 / 1;
+    }
+  }
+
+  .small-winrate-wrap {
+    width: 100%;
+    .small-winrate-info-wrap {
+      display: flex;
+      justify-content: space-evenly;
+      padding-bottom: 1px;
+      span {
+        font-weight: bold;
+        &.win {
+          color: $c-good;
+        }
+        &.draw {
+          color: $c-font-dim;
+        }
+        &.loss {
+          color: $c-bad;
+        }
+      }
+    }
+  }
+  .simple-horizontal-bar {
+    display: flex;
+    height: 32px;
+    padding: 1px 0;
+    div {
+      display: inline-block;
+      height: 100%;
+    }
+    .win {
+      background-color: $c-good;
+    }
+    .draw {
+      background-color: $c-font-dim;
+    }
+    .loss {
+      background-color: $c-bad;
+    }
+    .moves {
+      background-color: $c-primary;
+    }
+    .drops {
+      background-color: $c-accent;
+    }
+  }
+
+  .winrate-table {
+    &-header {
+      display: flex;
+      font-weight: bold;
+      min-height: 50px;
+      padding: 0.6rem 0;
+    }
+    &-content {
+      .winrate-table-row {
+        display: flex;
+        height: 50px;
+        &:nth-child(odd) {
+          background-color: $c-bg-zebra;
+        }
+        .table-col2 {
+          border-left: 1px dashed $c-border;
+          border-right: 1px dashed $c-border;
+        }
+        .simple-horizontal-bar {
+          width: 90%;
+          height: 16px;
+          margin-left: 5%;
+        }
+      }
+    }
+    .table-col1 {
+      flex: 1;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-weight: bold;
+      text-align: center;
+    }
+    .table-col2 {
+      flex: 1;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+    }
+    .table-col3 {
+      flex: 3;
+      @include breakpoint($mq-small) {
+        flex: 4;
+      }
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+    }
+  }
+  & > div:first-child {
+    padding-bottom: 3rem;
+  }
+  .footer {
+    color: $c-font-dimmer;
+    padding-bottom: 0.5rem;
+    padding-left: 1rem;
+    position: absolute;
+    bottom: 0;
+  }
+}

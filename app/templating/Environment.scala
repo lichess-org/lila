@@ -47,6 +47,9 @@ object Environment
   lazy val explorerEndpoint  = env.explorerEndpoint
   lazy val tablebaseEndpoint = env.tablebaseEndpoint
 
+  lazy val insightsEndpoint = env.insightsEndpoint
+  lazy val insightsSecret   = env.insightsSecret
+
   def contactEmail = env.net.email.value
 
   def contactEmailLink = a(href := s"mailto:$contactEmail")(contactEmail)

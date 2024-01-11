@@ -54,7 +54,6 @@ final class Env(
     val video: lila.video.Env,
     val playban: lila.playban.Env,
     val shutup: lila.shutup.Env,
-    val insight: lila.insight.Env,
     val push: lila.push.Env,
     val perfStat: lila.perfStat.Env,
     val slack: lila.slack.Env,
@@ -95,6 +94,9 @@ final class Env(
   val isStage           = mode == Mode.Prod && !net.isProd
   val explorerEndpoint  = config.get[String]("explorer.endpoint")
   val tablebaseEndpoint = config.get[String]("explorer.tablebase.endpoint")
+
+  val insightsEndpoint = config.get[String]("insights.endpoint")
+  val insightsSecret   = config.get[String]("insights.secret")
 
   val appVersionDate    = config.getOptional[String]("app.version.date")
   val appVersionCommit  = config.getOptional[String]("app.version.commit")
@@ -233,7 +235,6 @@ final class EnvBoot(
   lazy val video: lila.video.Env             = wire[lila.video.Env]
   lazy val playban: lila.playban.Env         = wire[lila.playban.Env]
   lazy val shutup: lila.shutup.Env           = wire[lila.shutup.Env]
-  lazy val insight: lila.insight.Env         = wire[lila.insight.Env]
   lazy val push: lila.push.Env               = wire[lila.push.Env]
   lazy val perfStat: lila.perfStat.Env       = wire[lila.perfStat.Env]
   lazy val slack: lila.slack.Env             = wire[lila.slack.Env]

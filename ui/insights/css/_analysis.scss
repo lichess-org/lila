@@ -1,0 +1,60 @@
+.analysis {
+  .accuracy-by-result {
+    display: flex;
+    justify-content: space-evenly;
+    .accuracy-by-result__item {
+      display: flex;
+      .big-number {
+        font-size: 2rem;
+        min-width: 6.5rem;
+      }
+      .simple-vertical-bar {
+        position: relative;
+        flex-direction: column;
+        width: 8px;
+        margin-left: 10px;
+        div {
+          position: absolute;
+          width: 100%;
+          border-left: 2px solid $c-brilliant;
+          border-right: 2px solid $c-brilliant;
+          border-radius: 10px;
+          &:first-child {
+            border-top: 2px solid $c-brilliant;
+          }
+          &:last-child {
+            border-bottom: 2px solid $c-brilliant;
+            bottom: 0;
+          }
+          &.accuracy {
+            background-color: $c-brilliant;
+          }
+          &.not-accuracy {
+            background-color: transparent;
+          }
+        }
+        &.win div {
+          border-color: $c-good;
+          &.accuracy {
+            background-color: $c-good;
+          }
+        }
+        &.loss div {
+          border-color: $c-bad;
+          &.accuracy {
+            background-color: $c-bad;
+          }
+        }
+        &.draw div {
+          border-color: $c-font-dim;
+          &.accuracy {
+            background-color: $c-font-dim;
+          }
+        }
+      }
+    }
+  }
+  .canvas-wrap.line-by-move-number-chart {
+    aspect-ratio: 3 / 1;
+  }
+}
