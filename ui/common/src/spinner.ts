@@ -4,7 +4,9 @@ export default function (): VNode {
   return h(
     'div.spinner',
     {
-      'aria-label': 'loading',
+      attrs: {
+        'aria-label': 'loading',
+      },
     },
     [
       h('svg', { attrs: { viewBox: '-2.5 -2.5 45 55' } }, [

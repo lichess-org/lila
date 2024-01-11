@@ -61,11 +61,10 @@ case class ImportData(notation: String, analyse: Option[String]) {
     }
 
   private val isCsa: Boolean = {
-    val noKifComments = augmentString(notationTrunc).linesIterator
-      .to(List)
+    val noKifComments = augmentString(notationTrunc).linesIterator.toList
       .map(_.split("#|\\*").headOption.getOrElse("").trim)
       .mkString("\n")
-    val lines = augmentString(noKifComments.replace(",", "\n")).linesIterator.to(List)
+    val lines = augmentString(noKifComments.replace(",", "\n")).linesIterator.toList
     lines.exists(l => l.startsWith("PI") || l.startsWith("P1") || CsaParser.moveOrDropRegex.matches(l))
   }
 

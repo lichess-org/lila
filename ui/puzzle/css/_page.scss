@@ -107,7 +107,9 @@
 }
 
 .puzzle-of-player {
+  position: relative;
   &__form {
+    display: flex;
     input {
       margin-right: 1em;
       width: 30ch;
@@ -144,6 +146,24 @@
 
     &:hover .puzzle-of-player__puzzle__id {
       opacity: 1;
+    }
+  }
+
+  .form3 .twitter-typeahead {
+    width: unset;
+  }
+
+  .submit-puzzle {
+    position: absolute;
+    top: 0;
+    right: 0;
+    margin: 5vh var(--box-padding) 0 0;
+    height: 3.2rem;
+    padding: 0 1em;
+    display: flex;
+    align-items: center;
+    &::before {
+      font-size: 2em;
     }
   }
 }
