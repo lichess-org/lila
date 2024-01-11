@@ -156,6 +156,29 @@ object JsonApi {
       val npsCeil = 10 * 1000 * 1000
 
     }
+
+    case class PostPuzzle(
+        shoginet: Fishnet,
+        yaneuraou: FullEngine,
+        fairy: FullEngine,
+        result: Boolean
+    ) extends Request
+        with Result {}
+
+    case class PostPuzzleVerified(
+        shoginet: Fishnet,
+        yaneuraou: FullEngine,
+        fairy: FullEngine,
+        result: Option[CompletedPuzzle]
+    ) extends Request
+        with Result {}
+
+    case class CompletedPuzzle(
+        sfen: Sfen,
+        line: List[Usi],
+        ambiguousPromotions: List[Int],
+        themes: List[String]
+    )
   }
 
   case class Game(
@@ -205,12 +228,23 @@ object JsonApi {
       skipPositions: List[Int]
   ) extends Work
 
-  def analysisFromWork(nodes: Int)(m: Work.Analysis) =
+  def analysisFromWork(nodes: Int)(a: Work.Analysis) =
     Analysis(
-      id = m.id.value,
-      game = fromGame(m.game),
+      id = a.id.value,
+      game = fromGame(a.game),
       nodes = nodes,
-      skipPositions = m.skipPositions
+      skipPositions = a.skipPositions
+    )
+
+  case class Puzzle(
+      id: String,
+      game: Game
+  ) extends Work
+
+  def puzzleFromWork(p: Work.Puzzle) =
+    Puzzle(
+      id = p.id.value,
+      game = fromGame(p.game)
     )
 
   object readers {
@@ -245,6 +279,11 @@ object JsonApi {
         else EvaluationReads reads obj map Right.apply map some
     }
     implicit val PostAnalysisReads: Reads[Request.PostAnalysis] = Json.reads[Request.PostAnalysis]
+    implicit val PostPuzzleReads: Reads[Request.PostPuzzle]     = Json.reads[Request.PostPuzzle]
+
+    implicit val CompletedPuzzleReads: Reads[Request.CompletedPuzzle] = Json.reads[Request.CompletedPuzzle]
+    implicit val PostPuzzleVerified: Reads[Request.PostPuzzleVerified] =
+      Json.reads[Request.PostPuzzleVerified]
   }
 
   object writers {
@@ -284,6 +323,13 @@ object JsonApi {
               "level"  -> m.level,
               "clock"  -> m.clock,
               "flavor" -> fairyOrYane(m.game.position, m.game.variant)
+            )
+          )
+        case p: Puzzle =>
+          Json.obj(
+            "work" -> Json.obj(
+              "type" -> "puzzle",
+              "id"   -> p.id
             )
           )
       }) ++ Json.toJson(work.game).as[JsObject]

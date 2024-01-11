@@ -9,6 +9,7 @@ import lila.common.IpAddress
 
 sealed trait Work {
   def _id: Work.Id
+  def name: String
   def game: Work.Game
   def tries: Int
   def lastTryByKey: Option[Client.Key]
@@ -52,6 +53,7 @@ object Work {
       variant: Variant,
       moves: String
   ) {
+    def sfen               = initialSfen.getOrElse(variant.initialSfen)
     def usiList: List[Usi] = ~(Usi readList moves)
     def ply                = if (moves.isEmpty) 0 else moves.count(' '.==) + 1
   }
@@ -82,6 +84,8 @@ object Work {
       createdAt: DateTime
   ) extends Work {
     def skill = Client.Skill.Move
+
+    def name = "move"
 
     def assignTo(client: Client) =
       copy(
@@ -120,6 +124,8 @@ object Work {
 
     def skill = Client.Skill.Analysis
 
+    def name = "analysis"
+
     def assignTo(client: Client) =
       copy(
         acquired = Acquired(
@@ -141,6 +147,57 @@ object Work {
     def nbMoves = game.moves.count(' ' ==) + 1
 
     override def toString = s"id:$id game:${game.id} tries:$tries requestedBy:$sender acquired:$acquired"
+  }
+
+  case class Puzzle(
+      _id: Work.Id, // random
+      game: Work.Game,
+      source: Puzzle.Source,
+      tries: Int,
+      lastTryByKey: Option[Client.Key],
+      acquired: Option[Acquired],
+      createdAt: DateTime,
+      verifiable: Boolean
+  ) extends Work {
+
+    def skill = Client.Skill.Puzzle
+
+    def name = "puzzle"
+
+    def assignTo(client: Client) =
+      copy(
+        acquired = Acquired(
+          clientKey = client.key,
+          userId = client.userId,
+          date = DateTime.now
+        ).some,
+        lastTryByKey = client.key.some,
+        tries = tries + 1
+      )
+
+    def prepareToVerify = copy(verifiable = true)
+
+    def timeout = copy(acquired = none)
+    def invalid = copy(acquired = none)
+
+    def isOutOfTries = tries >= maxTries
+
+  }
+
+  object Puzzle {
+    case class Source(
+        game: Option[Source.FromGame],
+        user: Option[Source.FromUser]
+    )
+    object Source {
+      case class FromGame(
+          id: String
+      )
+      case class FromUser(
+          submittedBy: String,
+          author: Option[String]
+      )
+    }
   }
 
   def makeId = Id(lila.common.ThreadLocalRandom nextString 8)

@@ -91,6 +91,9 @@ GET   /training/history                controllers.Puzzle.history(page: Int ?= 1
 # GET   /training/batch                  controllers.Puzzle.mobileBcBatchSelect
 # POST  /training/batch                  controllers.Puzzle.mobileBcBatchSolve
 GET   /training/new                    controllers.Puzzle.mobileBcNew
+GET   /training/upload                 controllers.Puzzle.newPuzzlesForm
+POST  /training/upload                 controllers.Puzzle.addPuzzles
+GET   /training/submitted              controllers.Puzzle.submitted(name: Option[String] ?= None, page: Int ?= 1)
 GET   /training/$numericalId<\d{6,}>/load      controllers.Puzzle.mobileBcLoad(numericalId: Long)
 POST  /training/$numericalId<\d{6,}>/vote      controllers.Puzzle.mobileBcVote(numericalId: Long)
 GET   /training/:themeOrId             controllers.Puzzle.show(themeOrId: String)
@@ -340,6 +343,8 @@ POST  /fishnet/acquire                         controllers.Fishnet.notSupported
 POST  /shoginet/acquire                        controllers.Fishnet.acquire(slow: Boolean ?= false)
 POST  /shoginet/move/$workId<\w{8}>            controllers.Fishnet.move(workId: String)
 POST  /shoginet/analysis/$workId<\w{8}>        controllers.Fishnet.analysis(workId: String, slow: Boolean ?= false, stop: Boolean ?= false)
+POST  /shoginet/puzzle/$workId<\w{8}>          controllers.Fishnet.puzzle(workId: String)
+POST  /shoginet/puzzle-verification/$workId<\w{8}> controllers.Fishnet.verifiedPuzzle(workId: String)
 POST  /shoginet/abort/$workId<\w{8}>           controllers.Fishnet.abort(workId: String)
 GET   /shoginet/key/$key<\w{8}>                controllers.Fishnet.keyExists(key: String)
 GET   /shoginet/status                         controllers.Fishnet.status

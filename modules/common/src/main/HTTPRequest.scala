@@ -79,7 +79,7 @@ object HTTPRequest {
     def apply(req: RequestHeader): Boolean = userAgent(req) ?? { regex.find(_) }
   }
 
-  def isFishnet(req: RequestHeader) = req.path startsWith "/fishnet/"
+  def isFishnet(req: RequestHeader) = req.path startsWith "/shoginet/"
 
   def isHuman(req: RequestHeader) = !isCrawler(req) && !isFishnet(req)
 

@@ -66,6 +66,9 @@ object bits {
       ),
       a(cls := active.active("player"), href := routes.Puzzle.ofPlayer())(
         trans.puzzle.fromMyGames()
+      ),
+      a(cls := active.active("submitted"), href := routes.Puzzle.submitted())(
+        trans.puzzle.submissions()
       )
     )
 

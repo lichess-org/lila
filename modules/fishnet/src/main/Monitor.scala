@@ -12,7 +12,7 @@ final private class Monitor(
 ) {
 
   val statusCache = cacheApi.unit[Monitor.Status] {
-    _.refreshAfterWrite(1 minute)
+    _.refreshAfterWrite(2 minute)
       .buildAsyncFuture { _ =>
         repo.status.compute
       }
@@ -96,6 +96,8 @@ final private class Monitor(
       lila.mon.fishnet.work("queued", "user").update(c.user.queued)
       lila.mon.fishnet.work("acquired", "system").update(c.system.acquired)
       lila.mon.fishnet.work("acquired", "user").update(c.user.acquired)
+      lila.mon.fishnet.work("puzzles", "verifiable").update(c.puzzles.verifiable)
+      lila.mon.fishnet.work("puzzles", "candidates").update(c.puzzles.candidates)
       lila.mon.fishnet.oldest("system").update(c.system.oldest)
       lila.mon.fishnet.oldest("user").update(c.user.oldest)
       ()
@@ -110,7 +112,9 @@ final private class Monitor(
 object Monitor {
 
   case class StatusFor(acquired: Int, queued: Int, oldest: Int)
-  case class Status(user: StatusFor, system: StatusFor)
+  case class StatusPuzzle(verifiable: Int, candidates: Int)
+
+  case class Status(user: StatusFor, system: StatusFor, puzzles: StatusPuzzle)
 
   private val monResult = lila.mon.fishnet.client.result
 
@@ -130,7 +134,7 @@ object Monitor {
   }
 
   private[fishnet] def failure(work: Work, client: Client, e: Exception) = {
-    logger.warn(s"Received invalid analysis ${work.id} for ${work.game.id} by ${client.fullId}", e)
+    logger.warn(s"Received invalid ${work.name} ${work.id} for ${work.game.id} by ${client.fullId}", e)
     monResult.failure(client.userId.value).increment()
   }
 
@@ -140,14 +144,14 @@ object Monitor {
   private[fishnet] def abort(client: Client) =
     monResult.abort(client.userId.value).increment()
 
-  private[fishnet] def notFound(id: Work.Id, client: Client) = {
-    logger.info(s"Received unknown analysis $id by ${client.fullId}")
+  private[fishnet] def notFound(id: Work.Id, name: String, client: Client) = {
+    logger.info(s"Received unknown ${name} $id by ${client.fullId}")
     monResult.notFound(client.userId.value).increment()
   }
 
   private[fishnet] def notAcquired(work: Work, client: Client) = {
     logger.info(
-      s"Received unacquired analysis ${work.id} for ${work.game.id} by ${client.fullId}. Work current tries: ${work.tries} acquired: ${work.acquired}"
+      s"Received unacquired ${work.name} ${work.id} for ${work.game.id} by ${client.fullId}. Work current tries: ${work.tries} acquired: ${work.acquired}"
     )
     monResult.notAcquired(client.userId.value).increment()
   }

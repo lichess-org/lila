@@ -9,12 +9,15 @@ import lila.db.dsl._
 import lila.memo.CacheApi._
 
 final private class FishnetRepo(
-    analysisColl: Coll,
-    clientColl: Coll,
+    colls: FishnetColls,
     cacheApi: lila.memo.CacheApi
 )(implicit ec: scala.concurrent.ExecutionContext) {
 
   import BSONHandlers._
+
+  val analysisColl = colls.analysis
+  val puzzleColl   = colls.puzzle
+  val clientColl   = colls.client
 
   private val clientCache = cacheApi[Client.Key, Option[Client]](16, "fishnet.client") {
     _.expireAfterWrite(10 minutes)
@@ -53,12 +56,22 @@ final private class FishnetRepo(
     )
 
   def addAnalysis(ana: Work.Analysis)    = analysisColl.insert.one(ana).void
-  def getAnalysis(id: Work.Id)           = analysisColl.ext.find(selectWork(id)).one[Work.Analysis]
+  def getAnalysis(id: Work.Id)           = analysisColl.find(selectWork(id)).one[Work.Analysis]
   def updateAnalysis(ana: Work.Analysis) = analysisColl.update.one(selectWork(ana.id), ana).void
   def deleteAnalysis(ana: Work.Analysis) = analysisColl.delete.one(selectWork(ana.id)).void
   def giveUpAnalysis(ana: Work.Analysis) = deleteAnalysis(ana) >>- logger.warn(s"Give up on analysis $ana")
   def updateOrGiveUpAnalysis(ana: Work.Analysis) =
     if (ana.isOutOfTries) giveUpAnalysis(ana) else updateAnalysis(ana)
+
+  def addPuzzle(puzzle: Work.Puzzle)         = puzzleColl.insert.one(puzzle).void
+  def addPuzzles(puzzles: List[Work.Puzzle]) = puzzleColl.insert.many(puzzles).void
+  def getPuzzle(id: Work.Id)                 = puzzleColl.find(selectWork(id)).one[Work.Puzzle]
+  def countUserPuzzles(userId: String)       = puzzleColl.countSel($doc("source.user.submittedBy" -> userId))
+  def updatePuzzle(puzzle: Work.Puzzle)      = puzzleColl.update.one(selectWork(puzzle.id), puzzle).void
+  def deletePuzzle(puzzle: Work.Puzzle)      = puzzleColl.delete.one(selectWork(puzzle.id)).void
+  def giveUpPuzzle(puzzle: Work.Puzzle) = deletePuzzle(puzzle) >>- logger.warn(s"Give up on puzzle $puzzle")
+  def updateOrGiveUpPuzzle(puzzle: Work.Puzzle) =
+    if (puzzle.isOutOfTries) giveUpPuzzle(puzzle) else updatePuzzle(puzzle)
 
   object status {
     private def system(v: Boolean)   = $doc("sender.system" -> v)
@@ -81,10 +94,13 @@ final private class FishnetRepo(
         systemAcquired <- analysisColl.countSel(system(true) ++ acquired(true))
         systemQueued =
           all - userAcquired - userQueued - systemAcquired // because counting this is expensive (no useful index)
-        systemOldest <- oldestSeconds(true)
+        systemOldest     <- oldestSeconds(true)
+        puzzleVerifiable <- puzzleColl.countSel($doc("verifiable" -> true))
+        puzzleCandidates <- puzzleColl.countSel($doc("verifiable" -> false))
       } yield Monitor.Status(
         user = Monitor.StatusFor(acquired = userAcquired, queued = userQueued, oldest = userOldest),
-        system = Monitor.StatusFor(acquired = systemAcquired, queued = systemQueued, oldest = systemOldest)
+        system = Monitor.StatusFor(acquired = systemAcquired, queued = systemQueued, oldest = systemOldest),
+        puzzles = Monitor.StatusPuzzle(verifiable = puzzleVerifiable, candidates = puzzleCandidates)
       )
   }
 

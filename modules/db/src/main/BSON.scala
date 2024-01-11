@@ -57,6 +57,7 @@ object BSON extends Handlers {
     def double(k: String)                      = get[Double](k)
     def doubleO(k: String)                     = getO[Double](k)
     def floatO(k: String)                      = getO[Float](k)
+    def floatD(k: String)                      = floatO(k) getOrElse 0f
     def bool(k: String)                        = get[Boolean](k)
     def boolO(k: String)                       = getO[Boolean](k)
     def boolD(k: String)                       = boolO(k) getOrElse false

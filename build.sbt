@@ -257,7 +257,7 @@ lazy val simul = module("simul",
 )
 
 lazy val fishnet = module("fishnet",
-  Seq(common, game, analyse, db, evalCache),
+  Seq(common, game, analyse, db, evalCache, puzzle),
   Seq(lettuce, specs2) ++ reactivemongo.bundle
 )
 

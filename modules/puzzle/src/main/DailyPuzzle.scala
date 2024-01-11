@@ -89,7 +89,7 @@ final private[puzzle] class DailyPuzzle(
         }
       }
       .flatMap { docOpt =>
-        docOpt.flatMap(PuzzleBSONReader.readOpt) ?? { puzzle =>
+        docOpt.flatMap(PuzzleBSONHandler.readOpt) ?? { puzzle =>
           colls.puzzle {
             _.update.one($id(puzzle.id), $set(F.day -> DateTime.now))
           } inject puzzle.some

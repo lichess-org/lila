@@ -4,6 +4,7 @@ import akka.actor._
 import com.softwaremill.macwire._
 import io.methvin.play.autoconfig._
 import play.api.Configuration
+import lila.db.dsl._
 
 import lila.common.Bus
 import lila.common.config._
@@ -12,12 +13,20 @@ import lila.game.Game
 @Module
 private class FishnetConfig(
     @ConfigName("collection.analysis") val analysisColl: CollName,
+    @ConfigName("collection.puzzle") val puzzleColl: CollName,
     @ConfigName("collection.client") val clientColl: CollName,
     @ConfigName("actor.name") val actorName: String,
     @ConfigName("offline_mode") val offlineMode: Boolean,
     @ConfigName("analysis.nodes") val analysisNodes: Int,
     @ConfigName("move.plies") val movePlies: Int,
-    @ConfigName("client_min_version") val clientMinVersion: String
+    @ConfigName("client_min_version") val clientMinVersion: String,
+    @ConfigName("client_min_version_puzzle") val clientMinVersionPuzzle: String
+)
+
+case class FishnetColls(
+    analysis: Coll,
+    puzzle: Coll,
+    client: Coll
 )
 
 @Module
@@ -30,6 +39,7 @@ final class Env(
     db: lila.db.Db,
     cacheApi: lila.memo.CacheApi,
     sink: lila.analyse.Analyser,
+    puzzle: lila.puzzle.PuzzleApi,
     shutdown: akka.actor.CoordinatedShutdown
 )(implicit
     ec: scala.concurrent.ExecutionContext,
@@ -38,13 +48,16 @@ final class Env(
 
   private val config = appConfig.get[FishnetConfig]("fishnet")(AutoConfig.loader)
 
-  private lazy val analysisColl = db(config.analysisColl)
+  private val analysisColl = db(config.analysisColl)
 
-  private lazy val clientVersion = new Client.ClientVersion(config.clientMinVersion)
+  private lazy val colls = FishnetColls(
+    analysis = analysisColl,
+    puzzle = db(config.puzzleColl),
+    client = db(config.clientColl)
+  )
 
   private lazy val repo = new FishnetRepo(
-    analysisColl = analysisColl,
-    clientColl = db(config.clientColl),
+    colls = colls,
     cacheApi = cacheApi
   )
 
@@ -58,7 +71,9 @@ final class Env(
 
   private lazy val apiConfig = FishnetApi.Config(
     offlineMode = config.offlineMode,
-    analysisNodes = config.analysisNodes
+    analysisNodes = config.analysisNodes,
+    clientVersion = new Client.ClientVersion(config.clientMinVersion),
+    clientVersionPuzzle = new Client.ClientVersion(config.clientMinVersionPuzzle)
   )
 
   private lazy val socketExists: Game.ID => Fu[Boolean] = id =>

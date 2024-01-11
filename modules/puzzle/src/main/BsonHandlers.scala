@@ -16,38 +16,47 @@ object BsonHandlers {
 
   import Puzzle.{ BSONFields => F }
 
-  implicit private[puzzle] val PuzzleBSONReader = new BSONDocumentReader[Puzzle] {
-    def readDocument(r: BSONDocument) = for {
-      id      <- r.getAsTry[Puzzle.Id](F.id)
-      sfen    <- r.getAsTry[Sfen](F.sfen)
-      lineStr <- r.getAsTry[String](F.line)
-      line <- lineStr
+  implicit private[puzzle] val PuzzleBSONHandler = new BSON[Puzzle] {
+    def reads(r: BSON.Reader) = {
+      val line = r
+        .get[String](F.line)
         .split(' ')
         .toList
         .flatMap(m => Usi.apply(m).orElse(UciToUsi.apply(m)))
         .toNel
-        .toTry("Empty move list?!")
-      glicko <- r.getAsTry[Glicko](F.glicko)
-      plays  <- r.getAsTry[Int](F.plays)
-      vote   <- r.getAsTry[Float](F.vote)
-      themes <- r.getAsTry[Set[PuzzleTheme.Key]](F.themes)
-      ambiguousPromotions = r.getAsOpt[List[Int]](F.ambiguousPromotions).getOrElse(Nil)
-      gameId              = r.getAsOpt[Game.ID](F.gameId)
-      author              = r.getAsOpt[String](F.author)
-      description         = r.getAsOpt[String](F.description)
-    } yield Puzzle(
-      id = id,
-      sfen = sfen,
-      line = line,
-      ambiguousPromotions = ambiguousPromotions,
-      glicko = glicko,
-      plays = plays,
-      vote = vote,
-      themes = themes,
-      gameId = gameId,
-      author = author,
-      description = description
-    )
+        .get
+      Puzzle(
+        id = r.get[Puzzle.Id](F.id),
+        sfen = r.get[Sfen](F.sfen),
+        line = line,
+        ambiguousPromotions = r.getO[List[Int]](F.ambiguousPromotions).getOrElse(Nil),
+        glicko = r.getD[Glicko](F.glicko, Puzzle.glickoDefault(line.size)),
+        plays = r.intD(F.plays),
+        vote = r.floatD(F.vote),
+        themes = r.get[Set[PuzzleTheme.Key]](F.themes),
+        gameId = r.getO[Game.ID](F.gameId),
+        author = r.strO(F.author),
+        description = r.strO(F.description),
+        submittedBy = r.strO(F.submittedBy)
+      )
+    }
+
+    def writes(w: BSON.Writer, p: Puzzle) =
+      BSONDocument(
+        F.id                  -> p.id,
+        F.sfen                -> p.sfen,
+        F.line                -> p.line.map(_.usi).toList.mkString(" "),
+        F.ambiguousPromotions -> p.ambiguousPromotions,
+        F.glicko              -> p.glicko,
+        F.plays               -> p.plays,
+        F.vote                -> p.vote,
+        F.themes              -> p.themes,
+        F.gameId              -> p.gameId,
+        F.author              -> p.author,
+        F.description         -> p.description,
+        F.submittedBy         -> p.submittedBy
+      )
+
   }
 
   implicit private[puzzle] val RoundIdHandler = tryHandler[PuzzleRound.Id](

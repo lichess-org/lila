@@ -3,6 +3,7 @@ package lila.fishnet
 import lila.db.dsl._
 import reactivemongo.api.bson._
 
+import shogi.format.usi.{ UciToUsi, Usi }
 import shogi.variant.Variant
 
 private object BSONHandlers {
@@ -31,6 +32,11 @@ private object BSONHandlers {
     x => BSONInteger(x.id)
   )
 
+  implicit val UsiHandler = tryHandler[Usi](
+    { case BSONString(v) => Usi(v).orElse(UciToUsi(v)) toTry s"Bad USI: $v" },
+    x => BSONString(x.usi)
+  )
+
   implicit val WorkIdBSONHandler = stringAnyValHandler[Work.Id](_.value, Work.Id.apply)
   import Work.Acquired
   implicit val MoveAcquiredHandler = Macros.handler[Acquired]
@@ -46,4 +52,12 @@ private object BSONHandlers {
   implicit val SenderHandler = Macros.handler[Sender]
   import Work.Analysis
   implicit val AnalysisHandler = Macros.handler[Analysis]
+  import Work.Puzzle.Source.FromGame
+  implicit val SourceGameHandler = Macros.handler[FromGame]
+  import Work.Puzzle.Source.FromUser
+  implicit val SourceUserHandler = Macros.handler[FromUser]
+  import Work.Puzzle.Source
+  implicit val SourceHandler = Macros.handler[Source]
+  import Work.Puzzle
+  implicit val PuzzleHandler = Macros.handler[Puzzle]
 }

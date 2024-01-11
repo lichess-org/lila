@@ -80,11 +80,13 @@ object Client {
     def key = toString.toLowerCase
   }
   object Skill {
-    case object Move     extends Skill
-    case object MoveStd  extends Skill // Most requests, option to have dedicated client
-    case object Analysis extends Skill
-    case object All      extends Skill
-    val all                = List(Move, MoveStd, Analysis, All)
+    case object Move         extends Skill
+    case object MoveStd      extends Skill // Most requests, option to have dedicated client
+    case object Analysis     extends Skill
+    case object Puzzle       extends Skill
+    case object VerifyPuzzle extends Skill // Only dedicated trusted clients
+    case object All          extends Skill
+    val all                = List(Move, MoveStd, Analysis, Puzzle, VerifyPuzzle, All)
     def byKey(key: String) = all.find(_.key == key)
   }
 

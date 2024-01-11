@@ -141,7 +141,7 @@ object PuzzleTheme {
 
   def apply(key: Key): PuzzleTheme = byKey.getOrElse(key, mix)
 
-  def find(key: String) = byLowerKey get key.toLowerCase
+  def find(key: String): Option[PuzzleTheme] = byLowerKey get key.toLowerCase
 
   def findOrAny(key: String) = find(key) | mix
 

@@ -18,7 +18,8 @@ case class Puzzle(
     gameId: Option[lila.game.Game.ID],
     themes: Set[PuzzleTheme.Key],
     author: Option[String] = None,
-    description: Option[String] = None
+    description: Option[String] = None,
+    submittedBy: Option[String] = None
 ) {
   // ply after "initial move" when we start solving
   def initialPly: Int =
@@ -57,6 +58,9 @@ object Puzzle {
   case class Id(value: String) extends AnyVal with StringValue
 
   def toId(id: String) = id.sizeIs == idSize option Id(id)
+
+  // idk - tweak it later
+  def glickoDefault(nbMoves: Int) = Glicko(600d + nbMoves * 150d, 500d, 0.08d)
 
   /* The mobile app requires numerical IDs.
    * We convert string ids from and to Longs using base 62
@@ -119,6 +123,7 @@ object Puzzle {
     val dirty               = "dirty" // themes need to be denormalized
     val author              = "a"
     val description         = "dsc"
+    val submittedBy         = "sb"
   }
 
   implicit val idIso = lila.common.Iso.string[Id](Id.apply, _.value)

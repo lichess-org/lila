@@ -16,7 +16,9 @@ final class Fishnet(env: Env) extends LilaController(env) {
   private val logger = lila.log("fishnet")
 
   def notSupported = Action {
-    Unauthorized("Version 3.0.0 is no longer supported. Please restart fishnet to upgrade. (git pull)")
+    Unauthorized(
+      "Your shoginet version is no longer supported. Please restart shoginet to upgrade. (git pull)"
+    )
   }
 
   def acquire(slow: Boolean = false) =
@@ -48,7 +50,7 @@ final class Fishnet(env: Env) extends LilaController(env) {
             case e            => fuccess(Left(InternalServerError(e.getMessage)))
           },
           {
-            case PostAnalysisResult.Complete(analysis) =>
+            case PostAnalysisResult.Complete(_, analysis) =>
               env.round.proxyRepo.updateIfPresent(analysis.id)(_.setAnalysed)
               onComplete
             case _: PostAnalysisResult.Partial    => fuccess(Left(NoContent))
@@ -60,6 +62,18 @@ final class Fishnet(env: Env) extends LilaController(env) {
   def abort(workId: String) =
     ClientAction[JsonApi.Request.Acquire] { _ => client =>
       api.abort(Work.Id(workId), client) inject Right(none)
+    }
+
+  def puzzle(workId: String) =
+    ClientAction[JsonApi.Request.PostPuzzle] { data => client =>
+      api.postPuzzle(Work.Id(workId), client, data) >>
+        api.acquire(client).map(Right.apply)
+    }
+
+  def verifiedPuzzle(workId: String) =
+    ClientAction[JsonApi.Request.PostPuzzleVerified] { data => client =>
+      api.postVerifiedPuzzle(Work.Id(workId), client, data) >>
+        api.acquire(client).map(Right.apply)
     }
 
   def keyExists(key: String) =

@@ -12,7 +12,7 @@ import lila.db.dsl._
 final private class Cleaner(
     repo: FishnetRepo,
     moveDb: MoveDB,
-    analysisColl: Coll,
+    colls: FishnetColls,
     system: akka.actor.ActorSystem
 )(implicit
     ec: scala.concurrent.ExecutionContext,
@@ -24,10 +24,38 @@ final private class Cleaner(
   private def analysisTimeout(plies: Int) = plies * 10.seconds + 5.seconds
   private def analysisTimeoutBase         = analysisTimeout(25)
 
+  private val puzzleTimeout = 90.seconds
+
   private def durationAgo(d: FiniteDuration) = DateTime.now.minusSeconds(d.toSeconds.toInt)
 
+  private def cleanPuzzle: Funit =
+    colls.puzzle
+      .find(
+        $and(
+          $doc("verifiable" -> false),
+          $or(
+            $doc("acquired.date" $lt durationAgo(puzzleTimeout)),
+            $doc("tries" $gte Work.maxTries)
+          )
+        )
+      )
+      .sort($sort desc "acquired.date")
+      .cursor[Work.Puzzle]()
+      .documentSource()
+      .take(200)
+      .mapAsyncUnordered(4) { p =>
+        repo.updateOrGiveUpPuzzle(p.timeout) >>-
+          logger.info(s"Timeout puzzle $p") >>-
+          p.acquired.foreach { ack =>
+            Monitor.timeout(ack.userId)
+          }
+      }
+      .toMat(Sink.ignore)(Keep.right)
+      .run()
+      .void
+
   private def cleanAnalysis: Funit =
-    analysisColl.ext
+    colls.analysis
       .find(
         $or(
           $doc("acquired.date" $lt durationAgo(analysisTimeoutBase)),
@@ -65,7 +93,10 @@ final private class Cleaner(
   system.scheduler.scheduleWithFixedDelay(10 seconds, 5 seconds) { () =>
     cleanMoves.unit
   }
-  system.scheduler.scheduleWithFixedDelay(15 seconds, 10 seconds) { () =>
+  system.scheduler.scheduleWithFixedDelay(15 seconds, 15 seconds) { () =>
     cleanAnalysis.unit
+  }
+  system.scheduler.scheduleWithFixedDelay(20 seconds, 50 seconds) { () =>
+    cleanPuzzle.unit
   }
 }

@@ -344,6 +344,39 @@ final class Puzzle(
         }
     }
 
+  def newPuzzlesForm =
+    Auth { implicit ctx => _ =>
+      Ok(html.puzzle.form(env.puzzle.forms.newPuzzles)).fuccess
+    }
+
+  def addPuzzles =
+    AuthBody { implicit ctx => me =>
+      implicit val body = ctx.body
+      env.puzzle.forms.newPuzzles
+        .bindFromRequest()
+        .fold(
+          _ => BadRequest.fuccess,
+          { case (sfensStr, source) =>
+            val sfens = augmentString(sfensStr).linesIterator.map(shogi.format.forsyth.Sfen.clean).toList
+            env.fishnet.api.addPuzzles(sfens.take(5), source, me.id) inject Redirect(
+              routes.Puzzle.submitted()
+            )
+          }
+        )
+    }
+
+  def submitted(name: Option[String], page: Int) =
+    Open { implicit ctx =>
+      val fixed = name.map(_.trim).filter(_.nonEmpty)
+      fixed.??(env.user.repo.enabledNamed) orElse fuccess(ctx.me) flatMap { userOpt =>
+        userOpt ?? { u =>
+          (env.puzzle.api.puzzle.submitted(u, page) zip env.fishnet.api.queuedPuzzles(u.id)) dmap some
+        } map { case res =>
+          Ok(views.html.puzzle.submitted(~fixed, userOpt, res.map(_._1), res.map(_._2)))
+        }
+      }
+    }
+
   def mobileBcLoad(nid: Long) =
     Open { implicit ctx =>
       negotiate(

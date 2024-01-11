@@ -5,19 +5,20 @@ import reactivemongo.api.bson._
 import scala.concurrent.duration._
 import scala.util.{ Failure, Success, Try }
 
-import Client.Skill
 import lila.common.IpAddress
 import lila.db.dsl._
+
+import Client.Skill
 
 final class FishnetApi(
     repo: FishnetRepo,
     moveDb: MoveDB,
     analysisBuilder: AnalysisBuilder,
-    analysisColl: Coll,
+    colls: FishnetColls,
     monitor: Monitor,
     sink: lila.analyse.Analyser,
+    puzzles: lila.puzzle.PuzzleApi,
     socketExists: String => Fu[Boolean],
-    clientVersion: Client.ClientVersion,
     config: FishnetApi.Config
 )(implicit
     ec: scala.concurrent.ExecutionContext,
@@ -37,7 +38,7 @@ final class FishnetApi(
     else repo.getEnabledClient(req.shoginet.apikey)
   } map {
     case None         => Failure(new Exception("Can't authenticate: invalid key or disabled client"))
-    case Some(client) => clientVersion accept req.shoginet.version map (_ => client)
+    case Some(client) => config.clientVersion accept req.shoginet.version map (_ => client)
   } flatMap {
     case Success(client) => repo.updateClientInstance(client, req instance ip) map Success.apply
     case failure         => fuccess(failure)
@@ -47,7 +48,13 @@ final class FishnetApi(
     (client.skill match {
       case Skill.Move | Skill.MoveStd => acquireMove(client)
       case Skill.Analysis             => acquireAnalysis(client, slow)
-      case Skill.All                  => acquireMove(client) orElse acquireAnalysis(client, slow)
+      case Skill.Puzzle               => acquirePuzzle(client, verifiable = false)
+      case Skill.VerifyPuzzle         => acquirePuzzle(client, verifiable = true)
+      case Skill.All =>
+        acquireMove(client) orElse acquireAnalysis(client, slow) orElse acquirePuzzle(
+          client,
+          verifiable = false
+        )
     }).monSuccess(_.fishnet.acquire)
       .recover { case e: Exception =>
         logger.error("Fishnet.acquire", e)
@@ -59,7 +66,7 @@ final class FishnetApi(
 
   private def acquireAnalysis(client: Client, slow: Boolean): Fu[Option[JsonApi.Work]] =
     workQueue {
-      analysisColl.ext
+      colls.analysis
         .find(
           $doc("acquired" $exists false) ++ {
             $doc("lastTryByKey" $ne client.key) // client alternation
@@ -81,6 +88,33 @@ final class FishnetApi(
         }
     }.map { _ map JsonApi.analysisFromWork(config.analysisNodes) }
 
+  private def acquirePuzzle(client: Client, verifiable: Boolean): Fu[Option[JsonApi.Work]] =
+    if (
+      client._id.value != "offline" && client.instance
+        .exists(ins => config.clientVersionPuzzle.accept(ins.version).isSuccess)
+    )
+      workQueue {
+        colls.puzzle
+          .find(
+            $doc("acquired" $exists false) ++
+              $doc("verifiable" -> verifiable) ++ {
+                $doc("lastTryByKey" $ne client.key) // client alternation
+              }
+          )
+          .sort(
+            $doc(
+              "createdAt" -> 1 // oldest requests first
+            )
+          )
+          .one[Work.Puzzle]
+          .flatMap {
+            _ ?? { work =>
+              repo.updatePuzzle(work assignTo client) inject work.some
+            }
+          }
+      }.map { _ map JsonApi.puzzleFromWork }
+    else fuccess(None)
+
   def postMove(workId: Work.Id, client: Client, data: JsonApi.Request.PostMove): Funit =
     fuccess {
       moveDb.postResult(workId, client, data)
@@ -95,7 +129,7 @@ final class FishnetApi(
       .getAnalysis(workId)
       .flatMap {
         case None =>
-          Monitor.notFound(workId, client)
+          Monitor.notFound(workId, "analysis", client)
           fufail(WorkNotFound)
         case Some(work) if work isAcquiredBy client =>
           data.completeOrPartial match {
@@ -103,7 +137,7 @@ final class FishnetApi(
               {
                 analysisBuilder(client, work, complete.analysis) flatMap { analysis =>
                   monitor.analysis(work, client, complete)
-                  repo.deleteAnalysis(work) inject PostAnalysisResult.Complete(analysis)
+                  repo.deleteAnalysis(work) inject PostAnalysisResult.Complete(work, analysis)
                 }
               } recoverWith { case e: Exception =>
                 Monitor.failure(work, client, e)
@@ -126,13 +160,16 @@ final class FishnetApi(
       }
       .chronometer
       .logIfSlow(200, logger) {
-        case PostAnalysisResult.Complete(res) => s"post analysis for ${res.id}"
-        case PostAnalysisResult.Partial(res)  => s"partial analysis for ${res.id}"
-        case PostAnalysisResult.UnusedPartial => s"unused partial analysis"
+        case PostAnalysisResult.Complete(_, res) => s"post analysis for ${res.id}"
+        case PostAnalysisResult.Partial(res)     => s"partial analysis for ${res.id}"
+        case PostAnalysisResult.UnusedPartial    => s"unused partial analysis"
       }
       .result
       .flatMap {
-        case r @ PostAnalysisResult.Complete(res) => sink save res inject r
+        case r @ PostAnalysisResult.Complete(work, res) => {
+          val puzs = PuzzleFinder(work, res)
+          repo.addPuzzles(puzs) >> sink.save(res).inject(r)
+        }
         case r @ PostAnalysisResult.Partial(res)  => sink progress res inject r
         case r @ PostAnalysisResult.UnusedPartial => fuccess(r)
       }
@@ -148,12 +185,64 @@ final class FishnetApi(
     }
 
   def userAnalysisExists(gameId: String) =
-    analysisColl.exists(
+    colls.analysis.exists(
       $doc(
         "game.id"       -> gameId,
         "sender.system" -> false
       )
     )
+
+  def postPuzzle(
+      workId: Work.Id,
+      client: Client,
+      data: JsonApi.Request.PostPuzzle
+  ): Funit =
+    repo
+      .getPuzzle(workId)
+      .flatMap {
+        case None =>
+          Monitor.notFound(workId, "puzzle", client)
+          fufail(WorkNotFound)
+        case Some(work) if work isAcquiredBy client =>
+          if (data.result)
+            repo.updatePuzzle(work.prepareToVerify)
+          else repo.deletePuzzle(work)
+        case Some(work) =>
+          Monitor.notAcquired(work, client)
+          fufail(NotAcquired)
+      }
+
+  def postVerifiedPuzzle(
+      workId: Work.Id,
+      client: Client,
+      data: JsonApi.Request.PostPuzzleVerified
+  ): Funit =
+    repo
+      .getPuzzle(workId)
+      .flatMap {
+        case None =>
+          Monitor.notFound(workId, "verified puzzle", client)
+          fufail(WorkNotFound)
+        case Some(work) if work isAcquiredBy client =>
+          data.result.fold {
+            logger.info(
+              s"Couldn't verify ${work._id} with sfen: ${work.game.initialSfen.getOrElse("Initial")}, ${work.game.moves}"
+            )
+            repo.deletePuzzle(work)
+          } { res =>
+            puzzles.candidate.addNew(
+              sfen = res.sfen,
+              line = res.line,
+              ambProms = res.ambiguousPromotions,
+              themes = res.themes,
+              source = work.source.game.map(_.id).toRight(work.source.user.flatMap(_.author)),
+              submittedBy = work.source.user.map(_.submittedBy)
+            )
+          }
+        case Some(work) =>
+          Monitor.notAcquired(work, client)
+          fufail(NotAcquired)
+      }
 
   def status =
     monitor.statusCache.get {} map { c =>
@@ -168,9 +257,50 @@ final class FishnetApi(
         "analysis" -> Json.obj(
           "user"   -> statusFor(c.user),
           "system" -> statusFor(c.system)
+        ),
+        "puzzles" -> Json.obj(
+          "verifiable" -> c.puzzles.verifiable,
+          "candidates" -> c.puzzles.candidates
         )
       )
     }
+
+  def addPuzzles(
+      sfens: List[shogi.format.forsyth.Sfen],
+      source: Option[String],
+      submittedBy: String
+  ): Funit = {
+    val puzs = sfens.map { sfen =>
+      Work.Puzzle(
+        _id = Work.makeId,
+        game = Work.Game(
+          id = "synthetic",
+          initialSfen = sfen.some,
+          studyId = none,
+          variant = shogi.variant.Standard,
+          moves = ""
+        ),
+        source = Work.Puzzle.Source(
+          game = none,
+          user = Work.Puzzle.Source
+            .FromUser(
+              submittedBy = submittedBy,
+              author = source
+            )
+            .some
+        ),
+        tries = 0,
+        lastTryByKey = none,
+        acquired = none,
+        createdAt = DateTime.now,
+        verifiable = false
+      )
+    }
+    repo.addPuzzles(puzs)
+  }
+
+  def queuedPuzzles(userId: String): Fu[Int] =
+    repo.countUserPuzzles(userId)
 
   private[fishnet] def createClient(userId: Client.UserId): Fu[Client] = {
     val client = Client(
@@ -191,7 +321,9 @@ object FishnetApi {
 
   case class Config(
       offlineMode: Boolean,
-      analysisNodes: Int
+      analysisNodes: Int,
+      clientVersion: Client.ClientVersion,
+      clientVersionPuzzle: Client.ClientVersion
   )
 
   case object WorkNotFound extends LilaException {
@@ -208,8 +340,8 @@ object FishnetApi {
 
   sealed trait PostAnalysisResult
   object PostAnalysisResult {
-    case class Complete(analysis: lila.analyse.Analysis) extends PostAnalysisResult
-    case class Partial(analysis: lila.analyse.Analysis)  extends PostAnalysisResult
-    case object UnusedPartial                            extends PostAnalysisResult
+    case class Complete(work: Work, analysis: lila.analyse.Analysis) extends PostAnalysisResult
+    case class Partial(analysis: lila.analyse.Analysis)              extends PostAnalysisResult
+    case object UnusedPartial                                        extends PostAnalysisResult
   }
 }

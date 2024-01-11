@@ -76,7 +76,7 @@ final class PuzzleAnon(
                   )
                 )
               }.map {
-                _.view.flatMap(PuzzleBSONReader.readOpt).toVector
+                _.view.flatMap(PuzzleBSONHandler.readOpt).toVector
               }
             }
           }

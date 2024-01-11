@@ -79,7 +79,7 @@ final class MoveDB(implicit system: ActorSystem) {
       case PostResult(workId, client, data) => {
         coll get workId match {
           case None =>
-            Monitor.notFound(workId, client).unit
+            Monitor.notFound(workId, "move", client).unit
           case Some(move) if move isAcquiredBy client =>
             data.move.usi(move.game.variant) match {
               case Some(usi) =>
