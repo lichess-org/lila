@@ -2,7 +2,7 @@ $mq-col2: $mq-col2-uniboard;
 $mq-col3: $mq-col3-uniboard;
 
 #main-wrap {
-  --main-max-width: calc(100vh - #{$site-header-outer-height} - #{$col1-uniboard-controls});
+  --main-max-width: calc((100vh - #{$site-header-outer-height} - #{$hands-gap}) / 12 * 9);
   @include breakpoint($mq-col2) {
     --main-max-width: auto;
   }
@@ -42,7 +42,7 @@ $mq-col3: $mq-col3-uniboard;
   @include breakpoint($mq-col2) {
     &--run {
       grid-template-rows: fit-content(0);
-      grid-template-columns: $col2-uniboard-main $gauge-gap $col3-uniboard-table;
+      grid-template-columns: var(--col2-uniboard-main-size) $gauge-gap $col2-uniboard-table;
       grid-template-areas:
         'main . table'
         'side . .';
@@ -59,7 +59,7 @@ $mq-col3: $mq-col3-uniboard;
   @include breakpoint($mq-col3) {
     &--run {
       grid-template-rows: fit-content(0);
-      grid-template-columns: $col3-uniboard-side $gauge-gap $col2-uniboard-main $gauge-gap $col3-uniboard-table;
+      grid-template-columns: $col3-uniboard-side $gauge-gap var(--col3-uniboard-main-size) $gauge-gap $col3-uniboard-table;
       grid-template-areas:
         'side . main . table'
         'side . .    . .';

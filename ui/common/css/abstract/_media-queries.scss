@@ -37,8 +37,6 @@ $mq-hover-no: (hover none);
 
 /* Aliases */
 
-$mq-main-margin: $mq-small;
-
 $mq-topnav-visible: $mq-medium;
 $mq-topnav-hidden: $mq-not-medium;
 
@@ -46,5 +44,3 @@ $mq-site-header-tall: $mq-tall;
 
 $mq-subnav-top: $mq-not-small;
 $mq-subnav-side: $mq-small;
-
-$mq-zoom-enabled: $mq-small $mq-short;

@@ -58,9 +58,6 @@ body {
     @include breakpoint($mq-col2-uniboard) {
       content: 'COL 2';
     }
-    @include breakpoint($mq-col2-uniboard-squeeze) {
-      content: 'COL 2 squeezed';
-    }
     @include breakpoint($mq-col3-uniboard) {
       content: 'COL 3';
     }

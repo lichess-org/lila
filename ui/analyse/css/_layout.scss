@@ -1,7 +1,19 @@
 #main-wrap {
-  --main-max-width: calc(100vh - #{$site-header-outer-height} - #{$col1-uniboard-controls});
-  @include breakpoint($mq-col2) {
-    --main-max-width: auto;
+  --main-max-width: auto;
+  @include breakpoint($mq-col1) {
+    --main-max-width: calc(
+      (100vh - #{$site-header-outer-height} - #{$col1-uniboard-controls} - #{$hands-gap}) / 12 * 9
+    );
+    &:has(main.variant-minishogi, main.variant-kyotoshogi) {
+      --main-max-width: calc(
+        (100vh - #{$site-header-outer-height} - #{$col1-uniboard-controls} - #{$hands-gap}) / 7 * 5 / 12 * 11
+      );
+    }
+    &:has(main.variant-chushogi) {
+      --main-max-width: calc(
+        (100vh - #{$site-header-outer-height} - #{$col1-uniboard-controls} - #{$hands-gap}) / 12 * 11
+      );
+    }
   }
 }
 
@@ -26,7 +38,7 @@
   }
   &__underboard {
     grid-area: under;
-    @include breakpoint($mq-col1-uniboard) {
+    @include breakpoint($mq-col1) {
       overflow: hidden; // helps truncating long study names
     }
   }
@@ -55,7 +67,7 @@
     'uchat';
 
   @include breakpoint($mq-col2) {
-    grid-template-columns: $col2-uniboard-main $gauge-gap $col2-uniboard-table;
+    grid-template-columns: var(--col2-uniboard-main-size) $gauge-gap $col2-uniboard-table;
 
     grid-template-rows: fit-content(0);
     grid-template-areas:
@@ -87,13 +99,9 @@
     }
   }
 
-  @include breakpoint($mq-col2-uniboard-squeeze) {
-    grid-template-columns: $board-squeeze $gauge-gap $table-squeeze;
-  }
-
   @include breakpoint($mq-col3) {
     grid-template-columns:
-      $col3-uniboard-side $block-gap $col3-uniboard-main $gauge-gap
+      $col3-uniboard-side $block-gap var(--col3-uniboard-main-size) $gauge-gap
       $col3-uniboard-table;
     grid-template-rows: $meta-height $chat-height 2.5em auto;
     grid-template-areas:

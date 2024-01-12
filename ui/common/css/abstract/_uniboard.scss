@@ -1,30 +1,38 @@
 /* Uniboard: keep the same page layout accross pages */
 
-$mq-board-resizable: $mq-large;
-$mq-col1-uniboard: $mq-not-large $mq-portrait;
-$mq-col2-uniboard: ($mq-large, $mq-landscape);
-$mq-col3-uniboard: $mq-x-large;
+$mq-col1-uniboard: $mq-not-medium $mq-portrait;
+$mq-col2-uniboard: $mq-medium, $mq-landscape;
+$mq-col3-uniboard: $mq-x-large $mq-landscape;
 
-/* when the width is appropriate for col1, but landscape prevents it */
-$mq-col2-uniboard-squeeze: $mq-not-small $mq-landscape;
-$mq-col2-uniboard-squeeze-1: $mq-not-large $mq-landscape;
-
-$col3-uniboard-side: minmax(220px, 320px);
-$col3-uniboard-controls: 3rem;
+$mq-board-resizable: $mq-col2-uniboard;
+$mq-zoom-enabled: $mq-col2-uniboard;
+$mq-main-margin: $mq-col2-uniboard;
 
 $hand-gap: 2vmin;
 $hands-gap: #{2 * $hand-gap};
+$gauge-gap: 2vmin;
+$scrollbar-width: 0.8rem;
 
-$col3-uniboard-main: calc(
+// COL 3
+
+$col3-uniboard-side-min: 200px;
+$col3-uniboard-side: minmax(#{$col3-uniboard-side-min}, 320px);
+
+$col3-uniboard-table-min: $col3-uniboard-side-min;
+$col3-uniboard-table: minmax(#{$col3-uniboard-table-min}, 320px);
+
+$col3-uniboard-controls: 3rem;
+
+$col3-uniboard-main-max-width: calc(
+  (100vw * var(--board-scale)) - #{$col3-uniboard-side-min} - #{$block-gap} - var(--gauge-gap, #{$block-gap}) - #{$col3-uniboard-table-min} -
+    2 * var(--main-margin, 0px) - #{$scrollbar-width}
+);
+$col3-uniboard-main-max-height: calc(
   (100vh * var(--board-scale) - #{$site-header-outer-height} - #{$col3-uniboard-controls}) / 12 * 11 / 9 * 11 + #{$hands-gap}
 );
-$col3-uniboard-main-nohands: calc(
-  (100vh * var(--board-scale) - #{$site-header-outer-height} - #{$col3-uniboard-controls}) / 12 * 11
-);
+$col3-uniboard-main-size: Min(#{$col3-uniboard-main-max-width}, #{$col3-uniboard-main-max-height});
 
-$col3-uniboard-table: $col3-uniboard-side;
-
-$col3-uniboard-default-scale: 0.9; // zoom: 85%
+$col3-uniboard-default-scale: 0.9; // zoom: 0.85*0.6+0.4 ≈ 0.91
 $col3-uniboard-default-min-width: 500px;
 $col3-uniboard-default-max-width: calc(
   100vh * #{$col3-uniboard-default-scale} - #{$site-header-outer-height} - #{$col3-uniboard-controls}
@@ -32,17 +40,28 @@ $col3-uniboard-default-max-width: calc(
 $col3-uniboard-default-width: minmax(#{$col3-uniboard-default-min-width}, #{$col3-uniboard-default-max-width});
 $col3-uniboard-default-table: minmax(240px, 400px);
 
-$col2-uniboard-table: $col3-uniboard-table;
+// COL 2
 
+$col2-uniboard-table: $col3-uniboard-table;
 $col2-uniboard-controls: $col3-uniboard-controls;
-$col2-uniboard-main: $col3-uniboard-main;
+
+$col2-uniboard-main-max-width: calc(
+  (100vw * var(--board-scale)) - var(--gauge-gap, #{$block-gap}) - #{$col3-uniboard-table-min} - 2 * var(
+      --main-margin,
+      0px
+    ) - #{$scrollbar-width}
+);
+$col2-uniboard-main-max-height: $col3-uniboard-main-max-height;
+$col2-uniboard-main-size: Min(#{$col2-uniboard-main-max-width}, #{$col2-uniboard-main-max-height});
 
 $col2-uniboard-default-width: $col3-uniboard-default-width;
 $col2-uniboard-default-table: $col3-uniboard-default-table;
 
+// COL 1
+
 $col1-uniboard-controls: $col2-uniboard-controls;
 
-$board-squeeze: minmax(50vmin, $col3-uniboard-main);
-$table-squeeze: minmax(100px, 320px);
+// Fallbacks - browsers not supporting min/max
 
-$gauge-gap: 2vmin;
+$col3-uniboard-main-size-fallback: $col3-uniboard-main-max-height;
+$col2-uniboard-main-size-fallback: $col2-uniboard-main-max-height;

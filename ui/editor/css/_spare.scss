@@ -19,7 +19,7 @@
     }
   }
 
-  @include breakpoint($mq-col2-uniboard, $mq-col2-uniboard-squeeze) {
+  @include breakpoint($mq-col2-uniboard) {
     $editor-rows: 16;
     position: absolute;
     width: calc((100% - #{$hands-gap}) / 2);

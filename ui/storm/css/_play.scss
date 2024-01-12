@@ -8,7 +8,7 @@
 
     @include breakpoint($mq-col2) {
       grid-template-rows: min-content 1fr min-content;
-      grid-template-columns: $col2-uniboard-main $gauge-gap $col2-uniboard-table;
+      grid-template-columns: var(--col2-uniboard-main-size) $gauge-gap $col2-uniboard-table;
       grid-template-areas: 'board . side';
       grid-column-gap: 0;
     }

@@ -1,9 +1,14 @@
 #main-wrap {
   --main-max-width: auto;
   @include breakpoint($mq-col1) {
-    --main-max-width: calc(
-      100vh - #{$site-header-outer-height} - #{$col1-player-clock-height * 2} - #{$col1-moves-height}
-    );
+    $vertical-total: 100vh - #{$site-header-outer-height} - #{$col1-player-clock-height * 2} - #{$col1-moves-height} - #{$hands-gap};
+    --main-max-width: calc((#{$vertical-total}) / 12 * 9);
+    &:has(.round__app.variant-minishogi, .round__app.variant-kyotoshogi) {
+      --main-max-width: calc((#{$vertical-total}) / 7 * 5 / 12 * 11);
+    }
+    &:has(.round__app.variant-chushogi) {
+      --main-max-width: calc((#{$vertical-total}) / 12 * 11);
+    }
   }
 }
 
@@ -77,7 +82,7 @@
     @include crosstable-large;
   }
 
-  @include breakpoint($mq-col2-uniboard-squeeze) {
+  @include breakpoint($mq-not-small $mq-landscape) {
     .crosstable {
       display: none;
     }

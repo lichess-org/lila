@@ -16,7 +16,7 @@
     'side'
     'copyables';
 
-  @include breakpoint($mq-x-small) {
+  @include breakpoint($mq-col2-uniboard) {
     grid-template-columns: minmax(30vmin, $board-width) 3vmin minmax(220px, $side-width);
     grid-template-areas:
       'editor       . tools'
@@ -66,17 +66,14 @@ $col1-color: 3rem;
       margin-top: 1rem;
     }
   }
-  @include breakpoint($mq-col2-uniboard, $mq-col2-uniboard-squeeze) {
+  @include breakpoint($mq-col2-uniboard) {
     $editor-rows: 16;
     grid-template-rows: fit-content(0) 36px;
-    grid-template-columns: $col2-uniboard-main $gauge-gap $col3-uniboard-table;
+    grid-template-columns: var(--col2-uniboard-main-size) $gauge-gap $col3-uniboard-table;
     grid-template-areas:
       'editor    . tools'
       'copyables . controls'
       'copyables . side';
-    @include breakpoint($mq-col2-uniboard-squeeze-1) {
-      grid-template-columns: $board-squeeze $gauge-gap $table-squeeze;
-    }
     .main-board {
       .sg-wrap {
         width: calc((100% - #{$hands-gap}) / #{$editor-rows} * 11 + #{$hands-gap});
@@ -106,7 +103,7 @@ $col1-color: 3rem;
   @include breakpoint($mq-col3-uniboard) {
     grid-template-rows: fit-content(0);
     grid-template-columns:
-      $col3-uniboard-side $block-gap $col3-uniboard-main $gauge-gap
+      $col3-uniboard-side $block-gap var(--col3-uniboard-main-size) $gauge-gap
       $col3-uniboard-table;
     grid-template-areas:
       'side .  editor    . tools'

@@ -4,6 +4,14 @@ body {
     // --zoom: 80; defined in the HTML, loaded from server
     --board-scale: calc((var(--zoom) / 100) * 0.6 + 0.4);
   }
+  // For browsers that don't support min
+  --col2-uniboard-main-size: #{$col2-uniboard-main-size-fallback};
+  --col3-uniboard-main-size: #{$col3-uniboard-main-size-fallback};
+
+  @supports (width: min(1px, 2px)) {
+    --col2-uniboard-main-size: #{$col2-uniboard-main-size};
+    --col3-uniboard-main-size: #{$col3-uniboard-main-size};
+  }
 }
 
 @include breakpoint($mq-col1-uniboard) {

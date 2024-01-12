@@ -88,7 +88,7 @@
 
   @include breakpoint($mq-col2) {
     grid-template-rows: auto auto auto minmax(0, 1fr);
-    grid-template-columns: $col2-uniboard-main $gauge-gap $col3-uniboard-table;
+    grid-template-columns: var(--col2-uniboard-main-size) $gauge-gap $col2-uniboard-table;
     grid-template-areas:
       'board    . clock-top'
       'board    . expi-top'
@@ -131,13 +131,10 @@
         }
       }
     }
-    @include breakpoint($mq-col2-uniboard-squeeze-1) {
-      grid-template-columns: $board-squeeze $gauge-gap $table-squeeze;
-    }
 
     .compact-layout & {
       grid-template-rows: fit-content(0) fit-content(0) 1fr fit-content(0);
-      grid-template-columns: $col3-uniboard-main $gauge-gap $col3-uniboard-table;
+      grid-template-columns: var(--col3-uniboard-main-size) $gauge-gap $col3-uniboard-table;
       grid-template-areas:
         'user-top . expi-top'
         'board    . moves'
@@ -217,9 +214,6 @@
       }
       .expiration {
         height: 25px;
-      }
-      @include breakpoint($mq-col2-uniboard-squeeze-1) {
-        grid-template-columns: $board-squeeze $gauge-gap $table-squeeze;
       }
     }
 
