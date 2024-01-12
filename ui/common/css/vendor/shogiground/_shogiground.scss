@@ -280,12 +280,12 @@ sg-hand-wrap {
         @extend %box-radius;
         content: attr(data-nb);
         position: absolute;
-        bottom: 2px;
+        bottom: 0;
         right: 1px;
         line-height: 0.85em;
-        padding: 3px 0.3em;
+        padding: 3px 0.25em;
         font-weight: bold;
-        font-size: 1.3em;
+        font-size: calc(1.4em * var(--board-scale));
         border: 1px solid $c-font;
         background-color: $c-bg-high;
         color: $c-font-clearer;
@@ -320,6 +320,11 @@ sg-hand-wrap {
   }
   &.hand-top sg-hand {
     background-position: top left;
+    sg-hp-wrap::after {
+      bottom: unset;
+      top: 0;
+      right: -3px;
+    }
   }
   &.hand-bottom sg-hand {
     background-position: bottom right;
