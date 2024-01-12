@@ -14,6 +14,9 @@ final class JsonView(baseUrl: BaseUrl, markup: RelayMarkup, leaderboardApi: Rela
   import JsonView.given
   import lila.study.JsonView.given
 
+  given Writes[Option[RelayTour.Tier]] = Writes: t =>
+    JsString(t.flatMap(RelayTour.Tier.keys.get) | "user")
+
   given OWrites[RelayTour] = OWrites: t =>
     Json
       .obj(
@@ -23,7 +26,7 @@ final class JsonView(baseUrl: BaseUrl, markup: RelayMarkup, leaderboardApi: Rela
         "description" -> t.description,
         "createdAt"   -> t.createdAt
       )
-      .add("official" -> t.official)
+      .add("tier" -> t.tier)
 
   given OWrites[RelayRound] = OWrites: r =>
     Json
