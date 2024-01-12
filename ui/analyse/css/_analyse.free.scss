@@ -6,6 +6,17 @@
   .pair {
     @extend %flex-center;
     position: relative;
+    .name {
+      min-width: 4rem;
+      font-weight: bold;
+      text-align: center;
+      color: $c-font-dim;
+      margin-left: $block-gap;
+    }
+    .copyable {
+      flex-grow: 1;
+      margin-right: $block-gap;
+    }
     .action {
       @extend %box-radius-bottom;
       position: absolute;
@@ -18,15 +29,17 @@
     textarea:focus ~ .action {
       opacity: 1;
     }
-  }
-  .name {
-    @include hand-width(width);
-    font-weight: bold;
-    text-align: center;
-    color: $c-font-dim;
-  }
-  .copyable {
-    @include board-width(width);
+    @include breakpoint($mq-col2) {
+      .name {
+        @include hand-width(width);
+        margin-left: 0;
+      }
+      .copyable {
+        @include board-width(width);
+        flex-grow: 0;
+        margin-right: 0;
+      }
+    }
   }
   .kif,
   .csa {
