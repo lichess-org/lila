@@ -133,14 +133,18 @@ object post:
         span(
           input(
             tpe         := "number",
-            name        := "value",
+            name        := "days",
             min         := -180,
             max         := 180,
             placeholder := "Days",
             value       := post.rankAdjustDays.so(_.toString)
-          ),
-          form3.submit("Submit")(cls := "button-empty")
-        )
+          )
+        ),
+        span(
+          input(tpe := "checkbox", name := "pinned", value := "true", if ~post.pinned then checked else none),
+          label(`for` := "pinned")(" Pin to top")
+        ),
+        form3.submit("Submit")(cls := "button-empty")
       )
 
   private def editButton(post: UblogPost)(using PageContext) = a(
