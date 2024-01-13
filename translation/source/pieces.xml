@@ -27,7 +27,7 @@
   <string comment="Chushogi piece, low priority for translation" name="lion">Lion</string>
   <string comment="Chushogi piece, low priority for translation" name="queen">Queen</string>
   <string comment="Chushogi piece, low priority for translation" name="gobetween">Go-between</string>
-  <string comment="Chushogi piece, low priority for translation" name="whitehorse">White Horse</string>
+  <string comment="Chushogi piece, low priority for translation" name="whitehorse">White horse</string>
   <string comment="Chushogi piece, low priority for translation" name="lionpromoted">Promoted lion</string>
   <string comment="Chushogi piece, low priority for translation" name="queenpromoted">Promoted queen</string>
   <string comment="Chushogi piece, low priority for translation" name="bishoppromoted">Promoted bishop</string>
