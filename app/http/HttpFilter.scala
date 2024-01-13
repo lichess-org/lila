@@ -22,7 +22,7 @@ final class HttpFilter(env: Env)(using val mat: Materializer)(using Executor)
           monitoring(req, startTime):
             addApiResponseHeaders(req):
               addCrendentialless(req):
-                result
+                result.withHeaders(permissionsPolicyHeader)
       }
 
   private def monitoring(req: RequestHeader, startTime: Long)(result: Result) =
