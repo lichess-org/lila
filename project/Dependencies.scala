@@ -66,7 +66,7 @@ object Dependencies {
   }
 
   object play {
-    val playVersion = "2.8.18-lila_3.18"
+    val playVersion = "2.9.1"
     val json        = "org.playframework" %% "play-json"         % "3.0.1"
     val api         = "com.typesafe.play" %% "play"              % playVersion
     val server      = "com.typesafe.play" %% "play-server"       % playVersion
