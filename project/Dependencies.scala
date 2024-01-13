@@ -23,12 +23,12 @@ object Dependencies {
   val prismic     = "io.prismic"                   %% "scala-kit"                       % "1.2.19_lila-3.2"
   val caffeine    = "com.github.ben-manes.caffeine" % "caffeine"                        % "3.1.8" % "compile"
   val scaffeine   = "com.github.blemale"           %% "scaffeine"                       % "5.2.1" % "compile"
-  val googleOAuth = "com.google.auth"               % "google-auth-library-oauth2-http" % "1.20.0"
+  val googleOAuth = "com.google.auth"               % "google-auth-library-oauth2-http" % "1.22.0"
   val galimatias  = "io.mola.galimatias"            % "galimatias"                      % "0.2.2-NF"
   val scalatags   = "com.lihaoyi"                  %% "scalatags"                       % "0.12.0"
-  val lettuce     = "io.lettuce"                    % "lettuce-core"                    % "6.3.0.RELEASE"
+  val lettuce     = "io.lettuce"                    % "lettuce-core"                    % "6.3.1.RELEASE"
   val nettyTransport =
-    "io.netty" % s"netty-transport-native-$notifier" % "4.1.101.Final" classifier s"$os-$arch"
+    "io.netty" % s"netty-transport-native-$notifier" % "4.1.104.Final" classifier s"$os-$arch"
   val munit       = "org.scalameta"              %% "munit"         % "1.0.0-M10" % Test
   val uaparser    = "org.uaparser"               %% "uap-scala"     % "0.16.0"
   val apacheText  = "org.apache.commons"          % "commons-text"  % "1.11.0"
@@ -59,7 +59,7 @@ object Dependencies {
 
   object reactivemongo {
     val driver = "org.reactivemongo" %% "reactivemongo"                              % "1.1.0-RC11"
-    val stream = "org.reactivemongo" %% "reactivemongo-akkastream"                   % "1.1.0-RC11"
+    val stream = "org.reactivemongo" %% "reactivemongo-akkastream"                   % "1.1.0-RC12"
     val shaded = "org.reactivemongo"  % s"reactivemongo-shaded-native-$os-$dashArch" % "1.1.0-RC11"
     // val kamon  = "org.reactivemongo" %% "reactivemongo-kamon"         % "1.0.8"
     def bundle = Seq(driver, stream)
