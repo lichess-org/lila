@@ -20,25 +20,30 @@ export function renderRadar(data: any) {
     type: 'radar',
     data: d,
     options: {
-      legend: {
-        display: false,
-      },
-      scale: {
-        ticks: {
+      aspectRatio: 2,
+      scales: {
+        r: {
           beginAtZero: false,
           suggestedMin: Math.min(...d.datasets[0].data) - 100,
-          fontColor,
-          showLabelBackdrop: false, // hide square behind text
-        },
-        pointLabels: {
-          fontSize: 16,
-          fontColor,
-        },
-        gridLines: {
-          color: lineColor,
-        },
-        angleLines: {
-          color: lineColor,
+          ticks: {
+            color: fontColor,
+            showLabelBackdrop: false, // hide square behind text
+            format: {
+              useGrouping: false,
+            },
+          },
+          pointLabels: {
+            color: fontColor,
+            font: {
+              size: window.innerWidth < 500 ? 11 : 16,
+            },
+          },
+          grid: {
+            color: lineColor,
+          },
+          angleLines: {
+            color: lineColor,
+          },
         },
       },
     },

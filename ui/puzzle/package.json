@@ -13,7 +13,7 @@
   "license": "AGPL-3.0-or-later",
   "devDependencies": {
     "@build/rollupProject": "2.0.0",
-    "@types/chart.js": "^2.9.29",
+    "@types/chart.js": "^4.4",
     "@types/lishogi": "2.0.0",
     "rollup": "^2",
     "typescript": "^5"
