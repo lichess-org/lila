@@ -36,6 +36,8 @@
 nimi jan: %2$s
 nimi awen: %3$s</string>
   <string name="inviteALichessAccount">sina wile e kama la o toki e ni tawa lipu jan</string>
+  <string name="lichessUsername">nimi pi ilo Lichess</string>
+  <string name="generateANewUsername">o pali e nimi sin</string>
   <string name="lastActiveDate">tenpo pini la lon</string>
   <string name="managed">jan pi pana sona li pana e pona</string>
   <string name="release">jan pi pana sona o pini e pana e pona</string>

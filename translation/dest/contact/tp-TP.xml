@@ -2,6 +2,8 @@
 <resources>
   <string name="contact">toki</string>
   <string name="contactLichess">o toki tawa jan pi ilo Lichess</string>
+  <string name="forgotPassword">mi sona ala e nimi awen mi</string>
+  <string name="forgotUsername">mi sona ala e nimi mi</string>
   <string name="wantTitle">mi wile e ni: o pana lukin e nimi wawa mi lon lipu \"Lichess\"</string>
   <string name="wantCloseAccount">mi wile pini e lipu mi</string>
   <string name="closeYourAccount">sina ken pini e lipu sina lon lipu ni</string>

@@ -91,8 +91,8 @@ Thứ gần nhất bạn có thể có với một giải đấu vòng tròn là
   <string name="pairingSystemArena">Bất kì đối thủ nào với thứ hạng tương tự</string>
   <string name="pairingSystemSwiss">Xếp cặp dựa trên điểm và hệ số phụ</string>
   <string name="pairingWaitTime">Đợi xếp cặp</string>
-  <string name="pairingWaitTimeArena">Nhanh: không đợi toàn bộ người chơi</string>
-  <string name="pairingWaitTimeSwiss">Chậm: đợi toàn bộ người chơi</string>
+  <string name="pairingWaitTimeArena">Nhanh: không đợi toàn bộ kỳ thủ</string>
+  <string name="pairingWaitTimeSwiss">Chậm: đợi toàn bộ kỳ thủ</string>
   <string name="identicalPairing">Xếp cặp lặp lại</string>
   <string name="possibleButNotConsecutive">Có thể, nhưng không liên tiếp</string>
   <string name="identicalForbidden">Bị cấm</string>

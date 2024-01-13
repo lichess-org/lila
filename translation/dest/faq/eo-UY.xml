@@ -97,6 +97,7 @@ Ne petu por la LM titolo.</string>
   <string name="notPlayedEnoughRatedGamesAgainstX">La ludanto ne finiĝis sufiĉe da rangaj ludoj kontraŭ %1$s en la rangkategorio.</string>
   <string name="similarOpponents">kontraŭuloj kun simila forteco</string>
   <string name="notPlayedRecently">La ludanto ne ludis sufiĉe da lastatempaj ludoj. Depende de la nombro da ludoj, kiujn vi ludis, eble daŭros ĉirkaŭ unu jaro da senaktiveco, por ke via rango reprovizoriĝas.</string>
+  <string name="ratingDeviationMorethanOneHundredTen">Konkrete, tio signifas, ke la Glicko-2 devio estas pli alta ol 110. La devio estas la nivelo de kredo, kiu la sistemo havas en la taksado. Ju pli malalta la devio, des pli stabila estas la taksado.</string>
   <string name="howDoLeaderoardsWork">Kiel rangoj kaj rangtabuloj funkcias?</string>
   <string name="inOrderToAppearsYouMust">Por alveni al %1$s vi devus:</string>
   <string name="ratingLeaderboards">ĉefo tabulo de rango</string>
@@ -121,4 +122,21 @@ Alklaku la ŝlosilan ikonon apud la lichess.org retadreso en la URL breto de via
 Tiam elektu ĉu permesi aŭ bloki sciigoj de Lichess.</string>
   <string name="enableAutoplayForSoundsQ">Ebligi aŭtomatan ludaton por sonoj?</string>
   <string name="desktop">labortablo</string>
+  <string name="enableAutoplayForSoundsFirefox">1. Iru al lichess.org
+2. Premu str-i sur Linukso/Vindozo aŭ kmd-i sur MakOS
+3. Alklaku la langeton de Permesoj
+4. Permesu Aŭdion kaj Video sur lichess.org</string>
+  <string name="enableAutoplayForSoundsChrome">1. Iru al lichess.org
+2. Alklaku la ŝlosilan ikonon en la adresbreto
+3. Alklaku Retejajn Agordojn
+4. Permesu Sonon</string>
+  <string name="enableAutoplayForSoundsSafari">1. Iru al lichess.org
+2. Alklaku Safari-n en la menubreto
+3. Alklaku Agordojn por lichess.org ...
+4. Permesu Ĉion Aŭtomatan Ludigon</string>
+  <string name="enableAutoplayForSoundsMicrosoftEdge">1. Alklaku la tri punktojn en la supra dekstra angulo
+2. Alklaku Agordojn
+3. Alklaku Kuketojn kaj Retejan Permesojn
+4. Rulumu malsupre kaj alklaku aŭdvidaĵan aŭtomatan ludigon
+5. Aldonu lichess.org al Permesata</string>
 </resources>

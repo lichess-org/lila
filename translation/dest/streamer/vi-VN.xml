@@ -26,10 +26,10 @@
   <string name="perk3">Thông báo cho những người theo dõi Lichess của bạn.</string>
   <string name="perk4">Hiển thị luồng trực tiếp trong các ván đấu, giải đấu và nghiên cứu của bạn.</string>
   <string name="approved">Luồng của bạn đã được phê duyệt.</string>
-  <string name="pendingReview">Luồng của bạn đang được quản trị viên đánh giá.</string>
+  <string name="pendingReview">Luồng của bạn đang được các điều hành viên đánh giá.</string>
   <string name="pleaseFillIn">Hãy điền thông tin về luồng của bạn và tải lên một ảnh.</string>
   <string name="whenReady" comment="whenReady&#10;&#10;%s is &quot;request a moderator review&quot;">Khi bạn sẵn sàng trờ thành Streamer của Lichess, %s</string>
-  <string name="requestReview" comment="requestReview&#10;&#10;Used as part of the longer sentence: &quot;When you are ready to be listed as a Lichess streamer, request a moderator review&quot;">yêu cầu các quản trị viên đánh giá</string>
+  <string name="requestReview" comment="requestReview&#10;&#10;Used as part of the longer sentence: &quot;When you are ready to be listed as a Lichess streamer, request a moderator review&quot;">yêu cầu điều hành viên đánh giá</string>
   <string name="streamerLanguageSettings">Trang Streamer Lichess hướng đến người xem là những người dùng ngôn ngữ bằng ngôn ngữ do nền tảng phát trực tuyến của bạn cung cấp. Đặt ngôn ngữ mặc định chính xác cho luồng cờ vua của bạn trong ứng dụng hoặc dịch vụ mà bạn sử dụng để phát sóng.</string>
   <string name="twitchUsername" comment="Appears on the form for setting up your Streamer page: https://lichess.org/streamer/edit&#10;&#10;Twitch is a proper noun and refers to the streaming service https://twitch.tv/. Please do not translate the word 'Twitch'.">Tên người dùng hoặc đường dẫn đến trang Twitch của bạn</string>
   <string name="optionalOrEmpty">Tùy chọn. Bỏ trống nếu không có</string>
@@ -39,7 +39,7 @@
     <item quantity="other">Để tên ngắn gọn: tối đa %s ký tự</item>
   </plurals>
   <string name="visibility">Hiện lên ở trang các Streamer</string>
-  <string name="whenApproved">Khi được quản trị viên chấp thuận</string>
+  <string name="whenApproved">Khi được điều hành viên chấp thuận</string>
   <string name="headline">Tiêu đề</string>
   <string name="tellUsAboutTheStream">Giới thiệu về luồng của bạn trong một câu</string>
   <string name="longDescription">Miêu tả dài</string>

@@ -63,6 +63,7 @@
   <string name="currentChapterUrl">nimi nasin pi wan ni</string>
   <string name="startAtX">open lon %s</string>
   <string name="open">o tawa</string>
+  <string name="newChapter">wan sin</string>
   <string name="orientation">poka pi sinpin ona</string>
   <string name="analysisMode">nasin pilin</string>
   <string name="noPinnedComment">ala</string>
@@ -93,6 +94,13 @@
   <string name="dubiousMove" comment="dubiousMove&#10;A questionable move.">tawa ni li musi, li ken ike</string>
   <string name="onlyMove" comment="onlyMove&#10;The only possible move. This is a label that can be placed in a study of a past game. It may not technically be the only move, but the only feasible one.">tawa ni li tawa wan ken taso</string>
   <string name="zugzwang" comment="zugzwang&#10;What zugzwang is: https://lichess.org/practice/intermediate-tactics/zugzwang/9cKgYrHb/ybYJ9gNa&#10;&#10;This specific string is a label that can be applied to a position in a study, to indicate one side is in zugzwang.">tawa ale kama li ike</string>
+  <string name="equalPosition">poka walo en poki pimeja li sama pona</string>
+  <string name="whiteIsSlightlyBetter">poka pimeja la poka walo li pona lili</string>
+  <string name="blackIsSlightlyBetter">poka walo la poka pimeja li pona lili</string>
+  <string name="whiteIsBetter">poka pimeja la poka walo li pona</string>
+  <string name="blackIsBetter">poka walo la poka pimeja li pona</string>
+  <string name="whiteIsWinning">poka pimeja la poka walo li pona mute</string>
+  <string name="blackIsWinning">poka walo la poka pimeja li pona mute</string>
   <string name="novelty" comment="novelty&#10;&#10;A move in the opening that has not been played before.&#10;https://en.wikipedia.org/wiki/Glossary_of_chess#theoretical_novelty">tawa sin</string>
   <string name="attack" comment="attack&#10;A label that can be applied to a position in a Lichess study. Noun.">tawa ni li utala</string>
   <string name="timeTrouble" comment="timeTrouble&#10;A label that can be applied to a position in a Lichess study. Noun. Indicates that a player had little time to think and make this move (clock was running low).">tawa ni li kama tan tenpo lili</string>
