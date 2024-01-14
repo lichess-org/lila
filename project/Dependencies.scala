@@ -34,7 +34,7 @@ object Dependencies {
   val apacheText  = "org.apache.commons"          % "commons-text"  % "1.11.0"
   val apacheMath  = "org.apache.commons"          % "commons-math3" % "3.6.1"
   val bloomFilter = "com.github.alexandrnikitin" %% "bloom-filter"  % "0.13.1_lila-1"
-  val kittens     = "org.typelevel"              %% "kittens"       % "3.1.0"
+  val kittens     = "org.typelevel"              %% "kittens"       % "3.2.0"
 
   object tests {
     val bundle = Seq(munit)
