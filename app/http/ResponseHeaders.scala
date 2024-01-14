@@ -50,6 +50,7 @@ trait ResponseHeaders extends HeaderNames:
       "microphone=(self)",
       "fullscreen=(self)"
     ).mkString(", ")
+
   val noProxyBufferHeader = "X-Accel-Buffering" -> "no"
 
   def noProxyBuffer(res: Result) = res.withHeaders(noProxyBufferHeader)
