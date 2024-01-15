@@ -45,7 +45,7 @@ final class UserForm:
   def profileOf(user: User) = profile fill user.profileOrDefault
 
   def flair(using Me) = Form[Option[Flair]]:
-    single(FlairApi.formPair)
+    single(FlairApi.formPair())
 
   private def nameField = optional(cleanText(minLength = 1, maxLength = 20))
 
