@@ -8,7 +8,6 @@ export default function (ctrl: DasherCtrl): VNode {
   const d = ctrl.data,
     trans = ctrl.trans,
     noarg = trans.noarg;
-
   function userLinks(): VNode | null {
     return d.user
       ? h('div.links', [
@@ -19,7 +18,7 @@ export default function (ctrl: DasherCtrl): VNode {
           ),
 
           h('a.text', linkCfg('/inbox', licon.Envelope), noarg('inbox')),
-
+          h('a.text', linkCfg(`/@/${d.user.name}/following`, licon.User), noarg('friends')),
           h(
             'a.text',
             linkCfg(

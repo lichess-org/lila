@@ -16,6 +16,7 @@ export function getMaterialDiff(fenLike: string): MaterialDiff {
     white: { king: 0, queen: 0, rook: 0, bishop: 0, knight: 0, pawn: 0 },
     black: { king: 0, queen: 0, rook: 0, bishop: 0, knight: 0, pawn: 0 },
   };
+  href = '/account/profile';
   for (let i = 0, part = 0; i < fenLike.length && part < 8; i++) {
     const ch = fenLike[i];
     const lower = ch.toLowerCase();

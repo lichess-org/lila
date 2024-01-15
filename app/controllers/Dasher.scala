@@ -25,6 +25,7 @@ final class Dasher(env: Env)(using ws: StandaloneWSClient) extends LilaControlle
     trans.boardSize,
     trans.pieceSet,
     trans.preferences.zenMode
+    
   )
 
   private val translationsAnon = List(
@@ -38,7 +39,9 @@ final class Dasher(env: Env)(using ws: StandaloneWSClient) extends LilaControlle
     trans.preferences.preferences,
     trans.coachManager,
     trans.streamerManager,
-    trans.logOut
+    trans.logOut,
+    trans.friends
+
   ) ::: translationsBase
 
   private def translations(using Context) =
