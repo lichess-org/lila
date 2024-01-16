@@ -19,7 +19,7 @@
   <string name="findTheBestMoveForWhite">Znajdź najlepszy ruch dla białych.</string>
   <string name="findTheBestMoveForBlack">Znajdź najlepszy ruch dla czarnych.</string>
   <string name="toGetPersonalizedPuzzles">Aby uzyskać spersonalizowane zadania:</string>
-  <string name="puzzleId" comment="%s is the ID of the puzzle, something like #a1b2c3.">Zadanie %s</string>
+  <string name="puzzleId">Zadanie %s</string>
   <string name="puzzleOfTheDay">Zadanie dnia</string>
   <string name="dailyPuzzle">Zadanie dnia</string>
   <string name="clickToSolve">Kliknij, aby zobaczyć rozwiązanie</string>
@@ -31,13 +31,13 @@
   <string name="byOpenings">Według otwarć</string>
   <string name="puzzlesByOpenings">Zadania według otwarć</string>
   <string name="openingsYouPlayedTheMost">Najczęściej grane otwarcia w partiach rankingowych</string>
-  <string name="useFindInPage" comment="useFindInPage&#10;&#10;Appears on https://lichess.org/training/openings&#10;Encourages players to use the built-in browser feature (Ctrl+F on most desktop computers) to find the opening they want to practice.">Użyj \"Znajdź na stronie\" w menu przeglądarki, aby znaleźć swoje ulubione otwarcie!</string>
+  <string name="useFindInPage">Użyj \"Znajdź na stronie\" w menu przeglądarki, aby znaleźć swoje ulubione otwarcie!</string>
   <string name="useCtrlF">Użyj Ctrl+f, aby znaleźć swoje ulubione otwarcie!</string>
   <string name="notTheMove">To nie jest właściwy ruch!</string>
   <string name="trySomethingElse">Spróbuj czegoś innego.</string>
-  <string name="ratingX" comment="Appears on pages of individual puzzles.&#10;&#10;%s is either:&#10;1. The word 'hidden', if you have not completed the puzzle yet.&#10;2. The rating of the puzzle, if you have completed it or seen the solution.">Ranking: %s</string>
-  <string name="hidden" comment="Puzzle rating: hidden&#10;&#10;Appears while solving puzzles. Lichess only displays the rating of the puzzle after you have solved it or asked to see the solution.">ukryty</string>
-  <plurals name="playedXTimes" comment="Appears on pages of individual puzzles.&#10;%s is the number of times the puzzle has been played.">
+  <string name="ratingX">Ranking: %s</string>
+  <string name="hidden">ukryty</string>
+  <plurals name="playedXTimes">
     <item quantity="one">Rozwiązywane %s raz</item>
     <item quantity="few">Rozwiązywane %s razy</item>
     <item quantity="many">Rozwiązywane %s razy</item>
