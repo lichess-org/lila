@@ -4,9 +4,9 @@
   <string name="friendBlogs">Các Blog của bạn bè</string>
   <string name="likedBlogs">Các Blog đã thích</string>
   <string name="blogTopics">Các chủ đề Blog</string>
-  <string name="lichessOfficialBlog">Blog chính thức của Lichess</string>
+  <string name="lichessOfficialBlog">Blog Chính thức của Lichess</string>
   <string name="continueReadingPost">Tiếp tục đọc bài đăng này</string>
-  <string name="lichessBlogPostsFromXYear">Bài đăng blog của Lichess trong năm %s</string>
+  <string name="lichessBlogPostsFromXYear">Bài blog của Lichess đăng trong năm %s</string>
   <string name="previousBlogPosts">Bài blog trước</string>
   <string name="xBlog">Bài viết của %s</string>
   <string name="newPost">Bài đăng mới</string>
@@ -22,12 +22,12 @@
   <string name="publishOnYourBlog">Công bố trên blog của bạn</string>
   <string name="publishHelp">Nếu chọn, bài đăng sẽ được đưa vào blog của bạn. Nếu không, nó sẽ ở chế độ riêng tư trong các bài đăng nháp của bạn</string>
   <plurals name="publishedNbBlogPosts">
-    <item quantity="other">Đã đăng %s bài Blog</item>
+    <item quantity="other">Đã xuất bản %s Blog</item>
   </plurals>
   <plurals name="nbViews">
     <item quantity="other">%s lượt xem</item>
   </plurals>
-  <string name="xPublishedY">%1$s đã đăng bài %2$s</string>
+  <string name="xPublishedY">%1$s đã xuất bản %2$s</string>
   <string name="thisPostIsPublished">Bài viết này đã được xuất bản</string>
   <string name="thisIsADraft">Nó là một bản nháp</string>
   <string name="moreBlogPostsBy">Bài blog khác bởi %s</string>
