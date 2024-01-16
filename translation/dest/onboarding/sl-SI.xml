@@ -3,7 +3,7 @@
   <string name="welcome">Dobrodošli!</string>
   <string name="welcomeToLichess">Dobrodošli na lichess.org!</string>
   <string name="thisIsYourProfilePage">To je stran vašega profila.</string>
-  <string name="enabledKidModeSuggestion">Ali bo otrok uporabljal ta račun? Morda boste želeli omogočiti %s.</string>
+  <string name="enabledKidModeSuggestion" comment="%s is 'Kid mode'.">Ali bo otrok uporabljal ta račun? Morda boste želeli omogočiti %s.</string>
   <string name="whatNowSuggestions">Kaj zdaj? Tukaj je nekaj predlogov:</string>
   <string name="learnChessRules">Naučite se šahovskih pravil</string>
   <string name="improveWithChessTacticsPuzzles">Izboljšajte se z ugankami šahovske taktike.</string>
