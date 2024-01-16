@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="playAgain">Нахих</string>
-  <string name="score" comment="Your score in Puzzle Storm (https://lichess.org/storm) is a count the puzzles you completed in a single run.&#10;&#10;We simply title this 'score' as it is the most important metric of all.">Оноо</string>
-  <string name="moves" comment="Moves in this context means your 'total moves' you made in your previous Puzzle Storm attempt. This is relevant because each puzzle may contain several moves.&#10;&#10;Your total moves are displayed after completing a run of Puzzle Storm, alongside your other results.">Нүүдэл</string>
-  <string name="combo" comment="_Please make your translation as short and snappy as possible._&#10;In Puzzle Storm and Puzzle Racer, a 'Combo' is a consecutive sequence of correct moves. Each correct move fills the combo bar. When the bar is full, you get a time bonus, and you increase the value of the next bonus. If you make the wrong move, you lose your combo.&#10;&#10;This string is the title for your best combo, shown in the stats page after completing a run of puzzle storm or a puzzle race. It is also shown while you play.&#10;&#10;Used in the same way in both Puzzle Storm (https://lichess.org/storm) and Puzzle Racer (https://lichess.org/racer).">Угсраа</string>
-  <string name="time" comment="Time in this context means the total time that has passed in your previous run. The string is displayed after completing a run of Puzzle Storm (https://lichess.org/storm).&#10;&#10;Total time can vary depending on how well you do in puzzle storm. Winning puzzles builds up your combo and adds more time each time you complete a puzzle, while failing puzzles will reset your combo and also remove seconds from the clock.">Хугацаа</string>
-  <string name="skip" comment="A button which lets you skip a move in a puzzle without penalty.&#10;&#10;Players of Puzzle Racer (https://lichess.org/racer) are allowed to skip a single move across all the puzzles they are presented during a puzzle race.&#10;&#10;Please keep this as short as possible, since it is on a narrow button.">алгасах</string>
+  <string name="score">Оноо</string>
+  <string name="moves">Нүүдэл</string>
+  <string name="combo">Угсраа</string>
+  <string name="time">Хугацаа</string>
+  <string name="skip">алгасах</string>
 </resources>
