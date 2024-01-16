@@ -19,7 +19,7 @@
   <string name="findTheBestMoveForWhite">Ақтың жағында ең табысты жолды табыңыз.</string>
   <string name="findTheBestMoveForBlack">Қараның жағында ең табысты жолды табыңыз.</string>
   <string name="toGetPersonalizedPuzzles">Жекелендірген жұмбақ алу үшін:</string>
-  <string name="puzzleId" comment="%s is the ID of the puzzle, something like #a1b2c3.">Жұмбақ %s</string>
+  <string name="puzzleId">Жұмбақ %s</string>
   <string name="puzzleOfTheDay">Бүгінгі жұмбақ</string>
   <string name="dailyPuzzle">күнделікті жұмбақтар</string>
   <string name="clickToSolve">Шешу үшін басыңыз</string>
@@ -31,13 +31,13 @@
   <string name="byOpenings">Бастамасына қарай</string>
   <string name="puzzlesByOpenings">Жұмбақтың бастамасы</string>
   <string name="openingsYouPlayedTheMost">Сіздің бағалы ойындарыңызда ең жиі келетін бастама</string>
-  <string name="useFindInPage" comment="useFindInPage&#10;&#10;Appears on https://lichess.org/training/openings&#10;Encourages players to use the built-in browser feature (Ctrl+F on most desktop computers) to find the opening they want to practice.">Браузер мәзірінде \"Осы бетте іздеуді\" қолдана қалаулы бастаманы тауып алыңыз!</string>
+  <string name="useFindInPage">Браузер мәзірінде \"Осы бетте іздеуді\" қолдана қалаулы бастаманы тауып алыңыз!</string>
   <string name="useCtrlF">Қалаулы бастаманы табу үшін Ctrl+f басыңыз</string>
   <string name="notTheMove">Ол жүріс емес!</string>
   <string name="trySomethingElse">Басқаша жүріп көріңіз.</string>
-  <string name="ratingX" comment="Appears on pages of individual puzzles.&#10;&#10;%s is either:&#10;1. The word 'hidden', if you have not completed the puzzle yet.&#10;2. The rating of the puzzle, if you have completed it or seen the solution.">Рейтинг: %s</string>
-  <string name="hidden" comment="Puzzle rating: hidden&#10;&#10;Appears while solving puzzles. Lichess only displays the rating of the puzzle after you have solved it or asked to see the solution.">жасырын</string>
-  <plurals name="playedXTimes" comment="Appears on pages of individual puzzles.&#10;%s is the number of times the puzzle has been played.">
+  <string name="ratingX">Рейтинг: %s</string>
+  <string name="hidden">жасырын</string>
+  <plurals name="playedXTimes">
     <item quantity="one">%s рет ойналды</item>
     <item quantity="other">%s рет ойналды</item>
   </plurals>
