@@ -23,7 +23,7 @@ case class UblogPost(
     likes: UblogPost.Likes,
     views: UblogPost.Views,
     rankAdjustDays: Option[Int],
-    pinned: Option[Boolean],
+    pinned: Option[Boolean]
 ) extends UblogPost.BasePost:
 
   def isBy[U: UserIdOf](u: U) = created.by is u
