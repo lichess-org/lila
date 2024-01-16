@@ -48,9 +48,21 @@ Tiu valoro povas esti uzata kiel indikilo de la kvalito de ludo. Ju malpli cento
 
 La komputila analizo ĉe Lichess estas funkciigita de stockfish.</string>
   <string name="insufficientMaterial">Perdi pro tempo, egaleco kaj nesufiĉa materialo</string>
+  <string name="lichessFollowFIDErules">Se okazas, ke timo de ludanto finiĝas, tiu ludanto ĝenerale malvenkos la ludon. Tamen, la ludo egalvenkiĝas se la pozicio estas do, ke la kontraŭulo ne povas ŝakmati la reĝon de la ludanto per ĉiu ebla serio de leĝaj movoj (%1$s).
+
+En maloftaj kazoj tiu aŭtomata decido estas malfacila (devigitaj vicoj, fortresoj). Defaŭlte ni ĉiam subteni la ludanto, kiu ne elĉerpas sian tempon.
+
+Notu, ke eblas ŝakmati kun unu ĉevalo aŭ kuriero se la kontraŭulo havas ŝakpeco, kiu povus bloki la regon.</string>
   <string name="fideHandbook">FIDE manlibro</string>
   <string name="fideHandbookX">FIDE-a manlibro %s</string>
   <string name="discoveringEnPassant">Kial povas peonon kaptiĝi alian peonon kiam ĝi estas pasita? (pasante)</string>
+  <string name="explainingEnPassant">Tio estas laŭleĝa movo konata kiel \"preterpasa preno.\" La vikipedia artikolo donas %1$s.
+
+Ĝi estas priskribas en sekcioj 3.7.3.1 kaj 3.7.3.2 el la %2$s:
+
+\"Peono, kiu okupas kvadraton sur la sama vico kiel kontraŭa peono, kiu ĵus progresis du ĉeloj en unu movo for sia origina pozicio povas esti kaptita kvazaŭ si progesis unu ĉelo per via peono. Ĉi tiu kapto estas nur laŭleĝa sekvanta tiu progreso kaj nomiĝas \"preterpasa (en passant)\" preno.
+
+Vidu la %3$s pri ĉi tiu movo por kelka provo kun ĝin.</string>
   <string name="goodIntroduction">bona enkonduko</string>
   <string name="lichessTraining">trejniĝo en Lichess</string>
   <string name="watchIMRosenCheckmate">Spektu International Master Eric Rosen ŝakmati %s.</string>
@@ -92,6 +104,13 @@ Ne petu por la LM titolo.</string>
   <string name="goldenZeeExplanation">ZugAddict elsendis kaj por la antaŭa du horojn li provis venki kontraŭ la A.I. nivelo 8 en 1+0 ludo, sensukcese. Thibault al li diras, ke se li sukcese faras ĝin sur la elsendo, tiam li ricevos unikan trofeon. Unu horon post, li disbatis Stockfish, kaj la promeso estis honorita.</string>
   <string name="lichessRatings">Lichess rangoj</string>
   <string name="whichRatingSystemUsedByLichess">Kiun rangan sistemon Lichess uzas?</string>
+  <string name="ratingSystemUsedByLichess">Atingoj estas kalkulita per la Glicko-2 atinga metodo ellaborita de Mark Glickman. Tiu estas tre populara atinga metodo, kaj estas uzata de signifa nombro de ŝakorganazaĵoj. (FIDE estas notinda kontraŭekzamplo, ĉar ili uzas la neĝisdatan Elo atingan sistemon).
+
+Fundamente, Glicko atingoj uzi \"kredajn intervalojn\" kiam kalkulas kaj montras vian atingon. Kiam vi unue komencas uzi la retejon, via atingo komencas ĉe 1500 ± 1000. La 1500 reprezentas vian atingon kaj la 1000 reprezentas la kredan intervalon.
+
+Baze, la sistemo estas 95% certa, ke vian atingo estas ie inter 500 kaj 2500. Ĝi estas malcertega. Ĉar tio, kiam ludanto komencas, ties atingo ŝanĝas tre rapide, eble kelkcent poentoj samtempe. Tamen, post kelkaj gamoj kontraŭ establitaj ludantoj la kreda intervalo maldikiĝas, kaj la nombro de poentoj gajnas/perdas post ĉiu gamo malpliiĝas.
+
+Alia afero notinda estas ke kiam tempo pasas, la kreda intervalo pliiĝas. Tiu permesis vin gajni/perdi poentoj pli rapide por kongrui ĉio ŝanĝoj en vian lertnivelo dum tiam.</string>
   <string name="whatIsProvisionalRating">Kial demandsigno (?) staras apud rango?</string>
   <string name="provisionalRatingExplanation">La demandosigno signifis, ke la rango estas provizora. Kialoj ampleksas:</string>
   <string name="notPlayedEnoughRatedGamesAgainstX">La ludanto ne finiĝis sufiĉe da rangaj ludoj kontraŭ %1$s en la rangkategorio.</string>
@@ -107,6 +126,9 @@ Ne petu por la LM titolo.</string>
   <string name="beInTopTen">esti en la supraj 10 en ĉi tiu rango.</string>
   <string name="secondRequirementToStopOldPlayersTrustingLeaderboards">La dua postulo estas tiel, ke ludantoj kiuj ne plu uzas iliajn kontojn ĉesi plenigi rangtabulojn.</string>
   <string name="whyAreRatingHigher">Kial estas rangoj pli alta ol aliaj retejoj kaj organizaĵoj kiel FIDE, USCF, kaj la ICC?</string>
+  <string name="whyAreRatingHigherExplanation">Estas plej bona se oni ne pensas pri atingoj kiel absolutaj nombroj, aŭ kompari ilin kontraŭ aliaj organizaĵoj. Malsamaj organizaĵoj havas malsimilajn nivelojn de ludantoj, malsamaj atingaj sistemoj (Elo, Glicko, Glicko-2, aŭ modifita versio de la antaŭskribita). Tiuj faktoroj povas severe efiki la absolutajn nobrojn (atingoj).
+
+Estas plej bona se oni pensas pri atingoj kiel relativaj nombroj (anstataŭ absolutaj nombroj): En ludantaro, ties relativaj difrencoj en atingoj helpos vin estimi kiu estos venki/egalvenki/malvenki, kaj kiom ofte. Dirante \"mi havas X atingon\" signifas neniom, krom se estas aliaj ludantoj por kontraŭkompari tiun atingon.</string>
   <string name="howToHideRatingWhilePlaying">Kiel kaŝi mian rangon dum la ludoj?</string>
   <string name="enableZenMode">Ŝaltu amikan reĝimon en %1$s, aŭ per premo de %2$s dum ludo.</string>
   <string name="displayPreferences">aperigi preferojn</string>
@@ -121,6 +143,11 @@ Alklaku la ŝlosilan ikonon apud la lichess.org retadreso en la URL breto de via
 
 Tiam elektu ĉu permesi aŭ bloki sciigoj de Lichess.</string>
   <string name="enableAutoplayForSoundsQ">Ebligi aŭtomatan ludaton por sonoj?</string>
+  <string name="enableAutoplayForSoundsA">Plej multaj retumiloj povas malhelpi sonon ludi sur ĵus ŝargita paĝo por protekti uzantojn. Imagu se ĉiu retejo povas subite bombardi vin kun aŭdiaj varbiloj.
+
+La ruĝa silentiga ikono aperas kiam via retumilo malhelpis lichess.org ludi sonon. Ĝenerale tiu limigo foriĝas kiam vi alklaki ion. Sur kelkaj poŝtelefonaj retumiloj, tuŝŝovoj ne estas tipo de alklako. En tiu okazo vi devas tuŝeti la tabulon por permesi sonon ĉe la komenco de la ludo.
+
+Ni montras la ruĝan ikonon por averti vin kiam tio okazas. Ofte vi povas eksplice permesi lichess.org ludi sonojn. Ĉi tie estas instrukcio por fari tio sur lastaj versioj de kelkaj popularaj retumiloj.</string>
   <string name="desktop">labortablo</string>
   <string name="enableAutoplayForSoundsFirefox">1. Iru al lichess.org
 2. Premu str-i sur Linukso/Vindozo aŭ kmd-i sur MakOS
