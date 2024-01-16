@@ -62,7 +62,7 @@
   <string name="studyPgn">PGN de la studo</string>
   <string name="downloadAllGames">Elŝuti ĉiujn ludojn</string>
   <string name="chapterPgn">PGN de la ĉapitro</string>
-  <string name="copyChapterPgn">Kopii PGN</string>
+  <string name="copyChapterPgn" comment="A button which lets you copy the PGN text to your clipboard (i.e. similar to ⌘+C or Ctrl+C).">Kopii PGN</string>
   <string name="copyChapterPgnDescription">Kopii ĉapitran PGN al tondujo.</string>
   <string name="downloadGame">Elŝuti ludon</string>
   <string name="studyUrl">URL de la studo</string>
