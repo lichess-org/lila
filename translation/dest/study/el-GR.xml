@@ -62,7 +62,7 @@
   <string name="studyPgn">PGN της μελέτης</string>
   <string name="downloadAllGames">Λήψη όλων των παιχνιδιών</string>
   <string name="chapterPgn">PGN του κεφαλαίου</string>
-  <string name="copyChapterPgn">Αντιγραφή PGN</string>
+  <string name="copyChapterPgn" comment="A button which lets you copy the PGN text to your clipboard (i.e. similar to ⌘+C or Ctrl+C).">Αντιγραφή PGN</string>
   <string name="copyChapterPgnDescription">Αντιγραφή κεφαλαίου PGN στο πρόχειρο.</string>
   <string name="downloadGame">Λήψη παιχνιδιού</string>
   <string name="studyUrl">URL μελέτης</string>
