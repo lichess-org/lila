@@ -39,8 +39,8 @@
   <string name="editRoundStudy">ラウンドの研究を編集</string>
   <string name="deleteTournament">このトーナメントを削除</string>
   <string name="definitivelyDeleteTournament">トーナメント全体（全ラウンド、全ゲーム）を削除する。</string>
-  <string name="automaticLeaderboard">自動ランキング</string>
-  <string name="automaticLeaderboardHelp">ゲーム結果から簡単なランキングを計算して表示する</string>
+  <string name="automaticLeaderboard" comment="An option when creating a broadcast to calculate a leaderboard automatically from the players involved. Example: https://lichess.org/broadcast/2023-london-chess-classic/round-9/5icayRCY">自動ランキング</string>
+  <string name="automaticLeaderboardHelp" comment="An option when creating a broadcast to calculate a leaderboard automatically from the players involved. Example: https://lichess.org/broadcast/2023-london-chess-classic/round-9/5icayRCY">ゲーム結果から簡単なランキングを計算して表示する</string>
   <string name="replace">オプション：プレイヤーの名前、レーティング、タイトルの変更</string>
   <string name="replaceHelp">1 人 1 行、次の形式で：
 元の名前;変更後の名前;変更後のレーティング（オプション）;変更後のタイトル（オプション）
