@@ -169,5 +169,5 @@ object dailyFeed:
           href := s"$netBaseUrl${routes.DailyFeed.index}#${up.id}"
         ),
         tag("title")(up.title),
-        tag("content")(tpe := "html")(up.rendered)
+        tag("content")(tpe := "html")(env.blog.dailyFeed.renderAtom(up))
       )

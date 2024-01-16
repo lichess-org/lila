@@ -5,7 +5,7 @@ import reactivemongo.api.bson.Macros.Annotations.Key
 import java.time.format.{ DateTimeFormatter, FormatStyle }
 import lila.db.dsl.{ *, given }
 import lila.memo.CacheApi
-import lila.common.config.Max
+import lila.common.config.{ Max, BaseUrl }
 import play.api.data.Form
 import lila.user.Me
 
@@ -34,13 +34,16 @@ object DailyFeed:
   import ornicar.scalalib.ThreadLocalRandom
   def makeId = ThreadLocalRandom nextString 6
 
-final class DailyFeed(coll: Coll, cacheApi: CacheApi)(using Executor):
+final class DailyFeed(coll: Coll, cacheApi: CacheApi, baseUrl: BaseUrl)(using Executor):
 
   import DailyFeed.*
 
   private val max = Max(50)
 
   private given BSONDocumentHandler[Update] = Macros.handler
+
+  private val atomRenderer =
+    lila.common.MarkdownRender(autoLink = false, strikeThrough = true, baseUrl = baseUrl.some)
 
   private object cache:
     private var mutableLastUpdates: List[Update] = Nil
@@ -88,3 +91,5 @@ final class DailyFeed(coll: Coll, cacheApi: CacheApi)(using Executor):
         lila.user.FlairApi.formPair(anyFlair = true)
       )(UpdateData.apply)(unapply)
     from.fold(form)(u => form.fill(UpdateData(u.content, u.public, u.at, u.flair)))
+
+  def renderAtom(up: Update): Html = atomRenderer(s"dailyFeed:atom:${up.id}")(up.content)
