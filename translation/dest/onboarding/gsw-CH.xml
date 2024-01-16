@@ -3,7 +3,7 @@
   <string name="welcome">Willkomme!</string>
   <string name="welcomeToLichess">Wilkomme bi Lichess.org!</string>
   <string name="thisIsYourProfilePage">Das isch dini Profil Site.</string>
-  <string name="enabledKidModeSuggestion">Wird es Chind de Account benutze? Möchtsch villicht de %s aktiviere?</string>
+  <string name="enabledKidModeSuggestion" comment="%s is 'Kid mode'.">Wird es Chind de Account benutze? Möchtsch villicht de %s aktiviere?</string>
   <string name="whatNowSuggestions">Was sofort? Da sind es paar Vorschläg:</string>
   <string name="learnChessRules">Lern Schachregle</string>
   <string name="improveWithChessTacticsPuzzles">Verbesser dich, mit taktische Ufgabe.</string>
