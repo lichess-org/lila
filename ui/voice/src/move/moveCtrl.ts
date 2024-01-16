@@ -4,24 +4,22 @@ import * as licon from 'common/licon';
 import * as cs from 'chess';
 import { from as src, to as dest } from 'chess';
 import { PromotionCtrl, promote } from 'chess/promotion';
-import { MoveRootCtrl } from 'chess/moveRootCtrl';
+import { MoveRootCtrl, MoveUpdate } from 'chess/moveRootCtrl';
 import { VoiceMove, VoiceCtrl, Entry, Match, makeCtrl } from '../main';
 import { coloredArrows, numberedArrows, brushes } from './arrows';
 import { settingNodes } from './view';
 import { spread, type SparseMap, spreadMap, getSpread, remove, pushMap, as } from 'common';
 import { type Transform, movesTo, findTransforms } from '../util';
 
-// shimmed to prevent pop-in while not overly complicating root controller's view construction
-export function load(ctrl: MoveRootCtrl, initialFen: string): VoiceMove {
+// shimmed to prevent pop-in while not overly complicating root controller's view construction <- wtf?
+export function makeVoiceMove(ctrl: MoveRootCtrl, initial: MoveUpdate): VoiceMove {
   let move: VoiceMove;
   const ui = makeCtrl({ redraw: ctrl.redraw, module: () => move, tpe: 'move' });
-  lichess.asset
-    .loadEsm<VoiceMove>('voice.move', { init: { root: ctrl, ui, initialFen } })
-    .then(x => (move = x));
+  lichess.asset.loadEsm<VoiceMove>('voice.move', { init: { root: ctrl, ui, initial } }).then(x => (move = x));
   return {
     ui,
     initGrammar: () => move?.initGrammar(),
-    update: (fen, canMove, cg) => move?.update(fen, canMove, cg),
+    update: (up: MoveUpdate) => move?.update(up),
     listenForResponse: (key, action) => move?.listenForResponse(key, action),
     question: () => move?.question(),
     promotionHook: () => move?.promotionHook(),
@@ -30,10 +28,9 @@ export function load(ctrl: MoveRootCtrl, initialFen: string): VoiceMove {
   };
 }
 
-export function initModule(opts: { root: MoveRootCtrl; ui: VoiceCtrl; initialFen: string }): VoiceMove {
+export function initModule(opts: { root: MoveRootCtrl; ui: VoiceCtrl; initial: MoveUpdate }): VoiceMove {
   const root = opts.root;
   const ui = opts.ui;
-  const initialFen = opts.initialFen;
   const DEBUG = { emptyMatches: false, buildMoves: false, buildSquares: false, collapse: true };
   let cg: CgApi;
   let entries: Entry[] = [];
@@ -76,7 +73,7 @@ export function initModule(opts: { root: MoveRootCtrl; ui: VoiceCtrl; initialFen
     blindfold: as(['ok'], () => root.blindfold?.(!root.blindfold())),
   };
 
-  update(initialFen, true, root.chessground);
+  update(opts.initial);
   initGrammar();
 
   return {
@@ -344,14 +341,14 @@ export function initModule(opts: { root: MoveRootCtrl; ui: VoiceCtrl; initialFen
     return true;
   }
 
-  function update(fen: string, canMove: boolean, chessground?: CgApi) {
-    if (chessground) {
-      cg = chessground;
+  function update(up: MoveUpdate) {
+    if (up.cg) {
+      cg = up.cg;
       for (const [color, brush] of brushes) cg.state.drawable.brushes[`v-${color}`] = brush;
     }
-    board = cs.readFen(fen);
+    board = cs.readFen(up.fen);
     cg.setShapes([]);
-    ucis = canMove && cg.state.movable.dests ? cs.destsToUcis(cg.state.movable.dests) : [];
+    ucis = up.canMove && cg.state.movable.dests ? cs.destsToUcis(cg.state.movable.dests) : [];
     buildMoves();
     buildSquares();
   }

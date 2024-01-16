@@ -5,7 +5,7 @@ import { flash } from './view';
 
 export * from './interfaces';
 export * from './move/interfaces';
-export { load as makeVoiceMove } from './move/moveCtrl';
+export { makeVoiceMove } from './move/moveCtrl';
 export { renderVoiceBar } from './view';
 
 export const VOSK_TS_VERSION = '_____1'; // this versions the wasm asset (see vosk.ts)
