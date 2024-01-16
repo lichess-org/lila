@@ -18,20 +18,25 @@
   <string name="findTheBestMoveForWhite">o pali e tawa pona #1 pi jan musi walo.</string>
   <string name="findTheBestMoveForBlack">o pali e tawa pona #1 pi jan musi pimeja.</string>
   <string name="toGetPersonalizedPuzzles">sina wile e ni: ilo Lichess li lukin e musi lili tawa sina la:</string>
-  <string name="puzzleId" comment="%s is the ID of the puzzle, something like #a1b2c3.">musi lili # %s</string>
+  <string name="puzzleId">musi lili # %s</string>
   <string name="puzzleOfTheDay">musi lili pi tenpo suno ni</string>
   <string name="dailyPuzzle">tenpo suno musi lili</string>
   <string name="clickToSolve">o pini e musi lili</string>
   <string name="goodMove">tawa pona</string>
-  <string name="bestMove">tawa pi pona #1!</string>
-  <string name="keepGoing">o pali e tawa sin…</string>
+  <string name="bestMove">tawa pi pona nanpa wan!</string>
+  <string name="keepGoing">o awen pali…</string>
   <string name="puzzleSuccess">pona a!</string>
   <string name="puzzleComplete">musi lili li pini pona!</string>
+  <string name="byOpenings">wan open</string>
+  <string name="puzzlesByOpenings">musi lili pi wan open</string>
+  <string name="openingsYouPlayedTheMost">sina pali mute e open ni lon musi utala</string>
+  <string name="useFindInPage">o alasa e open pona kepeken ilo \"Find in page\" lon ilo nanpa!</string>
+  <string name="useCtrlF">o alasa e open pona kepeken ilo Ctrl-f!</string>
   <string name="notTheMove">ni li tawa pona ala!</string>
   <string name="trySomethingElse">o pali e tawa ante.</string>
-  <string name="ratingX" comment="Appears on pages of individual puzzles.&#10;&#10;%s is either:&#10;1. The word 'hidden', if you have not completed the puzzle yet.&#10;2. The rating of the puzzle, if you have completed it or seen the solution.">nanpa wawa: %s</string>
-  <string name="hidden" comment="Puzzle rating: hidden&#10;&#10;Appears while solving puzzles. Lichess only displays the rating of the puzzle after you have solved it or asked to see the solution.">sona len</string>
-  <plurals name="playedXTimes" comment="Appears on pages of individual puzzles.&#10;%s is the number of times the puzzle has been played.">
+  <string name="ratingX">nanpa wawa: %s</string>
+  <string name="hidden">sona len</string>
+  <plurals name="playedXTimes">
     <item quantity="one">jan li musi e ona lon tenpo %s</item>
     <item quantity="other">jan li musi e ona lon tenpo %s</item>
   </plurals>
@@ -41,8 +46,16 @@
   <string name="normal">insa suli</string>
   <string name="easier">lili</string>
   <string name="easiest">lili mute</string>
+  <plurals name="nbPointsBelowYourPuzzleRating">
+    <item quantity="one">wawa pi lili wan</item>
+    <item quantity="other">wawa pi lili %s</item>
+  </plurals>
   <string name="harder">suli</string>
   <string name="hardest">suli mute</string>
+  <plurals name="nbPointsAboveYourPuzzleRating">
+    <item quantity="one">wawa pi suli wan</item>
+    <item quantity="other">wawa pi suli %s</item>
+  </plurals>
   <string name="example">ona li sama ni:</string>
   <string name="addAnotherTheme">o sin e kulupu ante</string>
   <string name="nextPuzzle">musi lili kama</string>
@@ -56,6 +69,7 @@
   <string name="continueTheStreak">o awen e nanpa</string>
   <string name="newStreak">nanpa sin</string>
   <string name="fromMyGames">tawa mi musi</string>
+  <string name="lookupOfPlayer">alasa e musi lili pi musi jan</string>
   <string name="fromXGames">musi lili tan musi pi jan %s</string>
   <string name="searchPuzzles">alasa e musi lili</string>
   <string name="fromXGamesFound">musi lili %1$s tan musi %2$s</string>
@@ -69,4 +83,6 @@
   </plurals>
   <string name="percentSolved">%s li pini pona</string>
   <string name="noPuzzlesToShow">mi ken ala toki e ijo. o musi e musi lili!</string>
+  <string name="improvementAreasDescription">sina o kama sona pona tan musi ni!</string>
+  <string name="strengthDescription">sina pali wawa e nasin ni</string>
 </resources>
