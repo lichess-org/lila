@@ -4,8 +4,8 @@
   <string name="lichessStreamer">Transmetues Lichess</string>
   <string name="live">Drejtpërsëdrejti!</string>
   <string name="offline">Jashtë Linje</string>
-  <string name="currentlyStreaming">Tani po transmetohet: %s</string>
-  <string name="lastStream">Transmetimi i fundit %s</string>
+  <string name="currentlyStreaming" comment="%s is the title of the stream, chosen by the streamer.">Tani po transmetohet: %s</string>
+  <string name="lastStream" comment="%s is how long ago the stream was in relative time (e.g. 50 minutes ago). It is displayed in smaller type than the rest of the string.">Transmetimi i fundit %s</string>
   <string name="becomeStreamer">Bëhuni një transmetues në Lichess</string>
   <string name="doYouHaveStream">Keni një kanal Twitch ose YouTube?</string>
   <string name="hereWeGo">Ja ku jemi!</string>
@@ -29,11 +29,11 @@
   <string name="pendingReview">Transmetimi juaj po shqyrtohet nga moderatorët.</string>
   <string name="pleaseFillIn">Ju lutemi, plotësoni hollësitë tuaja si transmetuesit dhe ngarkoni një fotografi.</string>
   <string name="whenReady" comment="whenReady&#10;&#10;%s is &quot;request a moderator review&quot;">Kur të jeni gati të renditeni si një transmetues Lichess, %s</string>
-  <string name="requestReview" comment="requestReview&#10;&#10;Used in the sense of: &quot;When you are ready to be listed as a Lichess streamer, request a moderator review&quot;">kërkoni një shqyrtim nga moderator</string>
+  <string name="requestReview" comment="requestReview&#10;&#10;Used as part of the longer sentence: &quot;When you are ready to be listed as a Lichess streamer, request a moderator review&quot;">kërkoni një shqyrtim nga moderator</string>
   <string name="streamerLanguageSettings">Faqja e transmetuesit Lichess aplikon për publikun tuaj gjuhën e dhënë nga platforma juaj e transmetimit. Caktoni gjuhën e saktë parazgjedhje për transmetime shahu nga ju, te aplikacioni apo shërbimi që përdorni për të transmetuar.</string>
-  <string name="twitchUsername">Emër përdoruesi ose URL-ja juaj Twitch</string>
+  <string name="twitchUsername" comment="Appears on the form for setting up your Streamer page: https://lichess.org/streamer/edit&#10;&#10;Twitch is a proper noun and refers to the streaming service https://twitch.tv/. Please do not translate the word 'Twitch'.">Emër përdoruesi ose URL-ja juaj Twitch</string>
   <string name="optionalOrEmpty">Opsionale. Lëreni të zbrazët, në mos pastë</string>
-  <string name="youTubeChannelId">ID-ja e kanalit tuaj YouTube</string>
+  <string name="youTubeChannelId" comment="Appears on the form for setting up your Streamer page: https://lichess.org/streamer/edit&#10;&#10;The Channel ID is a special alphanumeric string. See Google's guide here for how to retrieve it: https://support.google.com/youtube/answer/3250431&#10;&#10;We encourage translators to match what the Channel ID is called in your language's version of YouTube: https://www.youtube.com/account_advanced">ID-ja e kanalit tuaj YouTube</string>
   <string name="streamerName">Emri i transmetuesit tuaj në Lichess</string>
   <plurals name="keepItShort">
     <item quantity="one">Bjerini shkurt: %s shenjë e shumta</item>
