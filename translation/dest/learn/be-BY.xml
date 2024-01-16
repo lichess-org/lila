@@ -6,7 +6,7 @@
   <string name="progressX">Прагрэс: %s</string>
   <string name="resetMyProgress">Скінуць прагрэс</string>
   <string name="youWillLoseAllYourProgress">Увесь ваш прагрэс будзе скінуты!</string>
-  <string name="play">гуляць!</string>
+  <string name="play" comment="play&#10;&#10;A small ribbon that appears on your current chapter in the Chess Basics course. Please keep this string short.">гуляць!</string>
   <string name="chessPieces">Шахматныя фігуры</string>
   <string name="theRook">Ладдзя</string>
   <string name="itMovesInStraightLines">Рухаецца па простых лініях</string>
