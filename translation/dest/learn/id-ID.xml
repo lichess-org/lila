@@ -6,7 +6,7 @@
   <string name="progressX">Kemajuan: %s</string>
   <string name="resetMyProgress">Setel ulang kemajuan saya</string>
   <string name="youWillLoseAllYourProgress">Anda akan kehilangan semua kemajuan Anda!</string>
-  <string name="play">main!</string>
+  <string name="play" comment="play&#10;&#10;A small ribbon that appears on your current chapter in the Chess Basics course. Please keep this string short.">main!</string>
   <string name="chessPieces">Buah catur</string>
   <string name="theRook">Benteng</string>
   <string name="itMovesInStraightLines">Bergerak secara garis lurus</string>
