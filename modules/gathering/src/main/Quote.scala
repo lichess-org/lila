@@ -740,6 +740,14 @@ object Quote:
       "Magnus Carlsen"
     ),
     Quote(
+      "I am not some sort of freak. I might be very good at chess but I’m just a normal person.”",
+      "Magnus Carlsen"
+    ),
+   
+    Quote(
+      ""
+    )
+    Quote(
       "It's one of those types of positions where he has pieces on squares.",
       "John ~ZugAddict~ Chernoff"
     ),
@@ -1490,6 +1498,10 @@ object Quote:
       "I claim that nothing else is so effective in encouraging the growth of chess strength as such independent analysis, both of the games of the great players and your own.",
       "Mikhail Botvinnik"
     ),
+    Quote("I have the crown, so there will be more cameras on me, which brings extra pressure.", "Ding Liren"),
+    Quote("I think it's quite normal to play classical to decide the classical world champion; I think it's a very classical way to do it.", "Ding Liren"),
+    Quote("I will defend my world title; the fans don't need to be worried.", "Ding Liren"),
+    Quote("Chess speaks for itself", "Hans Niemann"),
     Quote("Watch out for the tricky knights.", "ChessNetwork"),
     Quote("I think crazyhouse improves your standard chess.", "ChessNetwork"),
     Quote(
@@ -1597,6 +1609,7 @@ object Quote:
       "When you finish a game, you are very happy and you feel like a king, but afterwards you see so many mistakes.",
       "Pia Cramling"
     ),
+    Quote("I literally play chess everyday, I'm addicted.", "Mohamed Salah"),
     Quote(
       "When I started chess, it was like reading a book, a new world opens up for you, and I quickly realized that I loved this world. I loved to compete, to play, to win.",
       "Pia Cramling"
@@ -1625,7 +1638,7 @@ object Quote:
       "The good thing about chess is that everyone can learn how to play at any age.",
       "Mariya Muzychuk"
     ),
-    // lichess facts
+    // Lichess facts
     Quote("All features for free; for everyone; forever.", "lichess.org"),
     Quote("We will never display ads.", "lichess.org"),
     Quote("We do not track you. It's a rare feature, nowadays.", "lichess.org"),
@@ -1639,3 +1652,5 @@ object Quote:
       "author" -> q.author
     )
   }
+
+
