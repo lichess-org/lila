@@ -41,7 +41,7 @@ object dailyFeed:
 
   def updates(ups: Paginator[Update], editor: Boolean)(using Context) =
     div(cls := "daily-feed__updates infinite-scroll")(
-      ups.currentPageResults.view
+      ups.currentPageResults
         .filter(_.published || editor)
         .map: update =>
           div(cls := "daily-feed__update paginated", id := update.id)(
@@ -61,8 +61,7 @@ object dailyFeed:
               ),
               div(cls := "daily-feed__update__markup")(rawHtml(update.rendered))
             )
-          )
-        .toList,
+          ),
       pagerNext(ups, np => routes.DailyFeed.index(np).url)
     )
 
