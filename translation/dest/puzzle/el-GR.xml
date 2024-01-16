@@ -17,7 +17,7 @@
   <string name="findTheBestMoveForWhite">Βρείτε την καλύτερη κίνηση για τα λευκά.</string>
   <string name="findTheBestMoveForBlack">Βρείτε την καλύτερη κίνηση για τα μαύρα.</string>
   <string name="toGetPersonalizedPuzzles">Για να λύνετε εξατομικευμένους γρίφους:</string>
-  <string name="puzzleId" comment="%s is the ID of the puzzle, something like #a1b2c3.">Γρίφος %s</string>
+  <string name="puzzleId">Γρίφος %s</string>
   <string name="puzzleOfTheDay">Γρίφος της ημέρας</string>
   <string name="dailyPuzzle">Ημερήσιος Γρίφος</string>
   <string name="clickToSolve">Κάντε κλικ για να τον λύσετε</string>
@@ -28,9 +28,9 @@
   <string name="puzzleComplete">Ο γρίφος ολοκληρώθηκε!</string>
   <string name="notTheMove">Δεν είναι αυτή η κίνηση!</string>
   <string name="trySomethingElse">Δοκιμάστε κάτι άλλο.</string>
-  <string name="ratingX" comment="Appears on pages of individual puzzles.&#10;&#10;%s is either:&#10;1. The word 'hidden', if you have not completed the puzzle yet.&#10;2. The rating of the puzzle, if you have completed it or seen the solution.">Βαθμολογία: %s</string>
-  <string name="hidden" comment="Puzzle rating: hidden&#10;&#10;Appears while solving puzzles. Lichess only displays the rating of the puzzle after you have solved it or asked to see the solution.">κρυφό</string>
-  <plurals name="playedXTimes" comment="Appears on pages of individual puzzles.&#10;%s is the number of times the puzzle has been played.">
+  <string name="ratingX">Βαθμολογία: %s</string>
+  <string name="hidden">κρυφό</string>
+  <plurals name="playedXTimes">
     <item quantity="one">Λύθηκε %s φορά</item>
     <item quantity="other">Λύθηκε %s φορές</item>
   </plurals>
