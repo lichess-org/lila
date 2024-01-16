@@ -38,7 +38,7 @@
   <string name="pointsCalculationQ">Điểm được tính như thế nào?</string>
   <string name="pointsCalculationA">Một trận thắng là 1 điểm, một trận hòa là 0.5 điểm và một trận thua không tính điểm.
 Khi có người không được ghép đôi trong một vòng đấu, họ nhận được 1 điểm \"bye\".</string>
-  <string name="tiebreaksCalculationQ">Tie break được tính như thế nào?</string>
+  <string name="tiebreaksCalculationQ">Điểm số phụ được tính như thế nào?</string>
   <string name="sonnebornBergerScore">Điểm Sonneborn-Berger</string>
   <string name="tiebreaksCalculationA">Với %s.
 Cộng điểm số của tất cả người chơi mà người này thắng và nửa số điểm của mỗi người chơi mà người này hòa.</string>
@@ -89,7 +89,7 @@ Thứ gần nhất bạn có thể có với một giải đấu vòng tròn là
   <string name="numberOfGamesPreDefined">Giới hạn số ván, đồng đều cho tất cả người chơi</string>
   <string name="pairingSystem">Hệ thống bắt cặp</string>
   <string name="pairingSystemArena">Bất kì đối thủ nào với thứ hạng tương tự</string>
-  <string name="pairingSystemSwiss">Xếp cặp dựa trên điểm và hệ số phụ</string>
+  <string name="pairingSystemSwiss">Xếp cặp dựa trên điểm và điểm số phụ</string>
   <string name="pairingWaitTime">Đợi xếp cặp</string>
   <string name="pairingWaitTimeArena">Nhanh: không đợi toàn bộ kỳ thủ</string>
   <string name="pairingWaitTimeSwiss">Chậm: đợi toàn bộ kỳ thủ</string>
@@ -102,7 +102,7 @@ Thứ gần nhất bạn có thể có với một giải đấu vòng tròn là
   <string name="pauseSwiss">Cho phép nhưng phải giảm số vòng đấu</string>
   <string name="streaksAndBerserk">Streaks và Berserk</string>
   <string name="similarToOTB">Tương tự các giải đấu OTB</string>
-  <string name="unlimitedAndFree">Miễn phí và không giới hạn</string>
+  <string name="unlimitedAndFree">Không giới hạn và miễn phí</string>
   <string name="predefinedUsers">Chỉ cho phép những người dùng được chỉ định trước tham gia</string>
   <string name="forbiddedUsers">Ngoại trừ những người trong danh sách này, những người khác đều bị cấm tham gia. Mỗi dòng một tên người dùng.</string>
   <string name="playYourGames">Chơi các ván đấu của bạn</string>
