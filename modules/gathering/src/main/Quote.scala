@@ -740,13 +740,9 @@ object Quote:
       "Magnus Carlsen"
     ),
     Quote(
-      "I am not some sort of freak. I might be very good at chess but I’m just a normal person.”",
+      "I am not some sort of freak. I might be very good at chess but I’m just a normal person.",
       "Magnus Carlsen"
     ),
-   
-    Quote(
-      ""
-    )
     Quote(
       "It's one of those types of positions where he has pieces on squares.",
       "John ~ZugAddict~ Chernoff"
