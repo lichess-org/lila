@@ -104,7 +104,7 @@ Mật khẩu: %3$s</string>
   <string name="multipleAccsFormDescription" comment="%s is a link and will be replaced with the translation of useThisForm. Make sure both strings fit together.">Bạn cũng có thể %s để tạo nhiều tài khoản Lichess từ một danh sách chứa tên các học viên.</string>
   <string name="useThisForm" comment="Link text in multipleAccsFromDescription">dùng biểu mẫu này</string>
   <string name="maxStudentsNote" comment="%1$s will be replaced with a large number (currently 100).\n%2$s is a link and will be replaced with the translation of createMoreClasses. Make sure both strings fit together.">Chú ý rằng một lớp học chỉ có thể có tối đa %1$s học viên. Để quản lý nhiều học viên hơn, %2$s.</string>
-  <string name="createMoreClasses" comment="Link text in maxStudentsNote">hãy tạo nhiều lớp học</string>
+  <string name="createMoreClasses" comment="Link text in maxStudentsNote">tạo thêm nhiều lớp học</string>
   <string name="studentsRealNamesOnePerLine">Tên thật của các học viên, mỗi tên một dòng</string>
   <string name="xisNowAStudentOfTheClass">%s bây giờ là một học viên của lớp</string>
   <string name="anInvitationHasBeenSentToX">Một lời mời đã được gửi tới %s</string>
