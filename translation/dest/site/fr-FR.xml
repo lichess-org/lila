@@ -71,7 +71,7 @@
   <string name="makeMainLine">En faire la variante principale</string>
   <string name="deleteFromHere">Supprimer à partir d\'ici</string>
   <string name="forceVariation">Forcer la variante</string>
-  <string name="copyVariationPgn">Copier la variante PGN</string>
+  <string name="copyVariationPgn">Copier le PGN de la variante</string>
   <string name="move">Coup</string>
   <string name="variantLoss">Perte (variante)</string>
   <string name="variantWin">Gain (variante)</string>
@@ -95,7 +95,7 @@
   </plurals>
   <string name="dtzWithRounding">DTZ50\'\' arrondi, basé sur le nombre de demi-coups jusqu\'à la prochaine capture ou le prochain coup de pion</string>
   <string name="noGameFound">Aucune partie trouvée</string>
-  <string name="maxDepthReached">Profondeur maximale atteinte!</string>
+  <string name="maxDepthReached">Profondeur maximale atteinte !</string>
   <string name="maybeIncludeMoreGamesFromThePreferencesMenu">Peut-être inclure plus de parties depuis le menu préférences ?</string>
   <string name="openings">Ouvertures</string>
   <string name="openingExplorer">Explorateur d\'ouvertures</string>
@@ -217,7 +217,7 @@
   <string name="email">Courriel</string>
   <string name="passwordReset">Réinitialisation du mot de passe</string>
   <string name="forgotPassword">Mot de passe oublié ?</string>
-  <string name="error.weakPassword">Ce mot de passe très courant est trop facile à deviner.</string>
+  <string name="error.weakPassword">Ce mot de passe est très courant et trop facile à deviner.</string>
   <string name="error.namePassword">N\'employez pas votre nom d\'utilisateur comme mot de passe.</string>
   <string name="blankedPassword">Vous avez utilisé le même mot de passe sur un autre site, et ce site a été compromis. Pour assurer la sécurité de votre compte Lichess, vous devez établir un nouveau mot de passe. Merci de votre compréhension.</string>
   <string name="youAreLeavingLichess">Vous quittez Lichess</string>
@@ -509,7 +509,7 @@
   <string name="lastName">Nom</string>
   <string name="setFlair">Choisir votre émoji</string>
   <string name="flair">Émoji</string>
-  <string name="youCanHideFlair">Un paramètre permet de cacher les émojis d\'un utilisateur sur tout le site.</string>
+  <string name="youCanHideFlair">Un paramètre permet de cacher les émojis des utilisateurs sur tout le site.</string>
   <string name="biography">Biographie</string>
   <string name="countryRegion" comment="flag&#10;Appears when you edit your profile. Lets a player add a country/flag (not all flags are for countries) to their profile">Pays ou région</string>
   <string name="thankYou">Merci !</string>
@@ -629,8 +629,8 @@
   <string name="error.email_acceptable">Cette adresse courriel est refusée. Double-cliquez dessus et réessayez.</string>
   <string name="error.email_unique">Adresse courriel invalide ou déjà utilisée</string>
   <string name="error.email_different">Vous utilisez déjà cette adresse courriel</string>
-  <string name="error.minLength">La longueur minimale est %s</string>
-  <string name="error.maxLength">La longueur maximale est %s</string>
+  <string name="error.minLength">Doit comporter au moins %s caractères</string>
+  <string name="error.maxLength">Doit comporter au plus %s caractères</string>
   <string name="error.min">Doit être supérieur(e) ou égal(e) à %s</string>
   <string name="error.max">Doit être inférieur(e) ou égal(e) à %s</string>
   <string name="ifRatingIsPlusMinusX">Si son niveau est ± %s</string>
