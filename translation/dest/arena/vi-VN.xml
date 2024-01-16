@@ -24,7 +24,7 @@ Berserk chỉ thêm điểm nếu bạn chơi ít nhất 7 nước trong một v
   <string name="howIsTheWinnerDecided">Cách xác định người chiến thắng?</string>
   <string name="howIsTheWinnerDecidedAnswer">(Những) kỳ thủ có điểm cao nhất sau khi giải đấu kết thúc sẽ là (những) người thắng cuộc.
 
-Nếu hai kỳ thủ bằng điểm nhau, kết quả sẽ quyết định qua tie break.</string>
+Nếu hai kỳ thủ bằng điểm nhau, kết quả sẽ quyết định qua điểm số phụ.</string>
   <string name="howDoesPairingWork">Cặp đấu được chọn ra sao?</string>
   <string name="howDoesPairingWorkAnswer">Lúc bắt đầu giải đấu, các kỳ thủ sẽ được xếp cặp dựa theo Elo của họ. Ngay khi bạn kết thúc một ván và trở lại phòng chờ: bạn sẽ được xếp cặp với kỳ thủ có thứ hạng gần bạn. Điều này giúp giảm thiểu thời gian chờ, tuy nhiên bạn có thể không được đấu với mọi kỳ thủ khác trong giải đấu.
 Chơi nhanh và trở lại phòng chờ để chơi được nhiều ván và giành nhiều điểm hơn.</string>
@@ -54,7 +54,7 @@ Chơi nhanh và trở lại phòng chờ để chơi được nhiều ván và g
   <string name="arenaStreaks">Đấu trường chuỗi</string>
   <string name="arenaStreaksHelp">Sau 2 ván thắng, mỗi ván thắng liên tiếp sẽ được 4 điểm thay vì 2 điểm.</string>
   <string name="noBerserkAllowed">Không cho phép Berserk</string>
-  <string name="noArenaStreaks">Không có Đấu trường chuỗi</string>
+  <string name="noArenaStreaks">Không có chuỗi Đấu trường</string>
   <string name="averagePerformance">Hiệu suất trung bình</string>
   <string name="averageScore">Điểm trung bình</string>
   <string name="myTournaments">Giải đấu của tôi</string>
