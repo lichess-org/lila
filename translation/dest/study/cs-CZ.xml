@@ -68,7 +68,7 @@
   <string name="studyPgn">PGN studie</string>
   <string name="downloadAllGames">Stáhnout všechny hry</string>
   <string name="chapterPgn">PGN kapitoly</string>
-  <string name="copyChapterPgn">Kopírovat PGN</string>
+  <string name="copyChapterPgn" comment="A button which lets you copy the PGN text to your clipboard (i.e. similar to ⌘+C or Ctrl+C).">Kopírovat PGN</string>
   <string name="copyChapterPgnDescription">Zkopírovat PGN do schránky.</string>
   <string name="downloadGame">Stáhnout hru</string>
   <string name="studyUrl">URL studie</string>
