@@ -626,10 +626,10 @@
   <string name="simultaneousExhibitions">车轮战</string>
   <string name="host">主持者</string>
   <string name="hostColorX">主持颜色：%s</string>
-  <string name="yourPendingSimuls">您待办的同步展览</string>
+  <string name="yourPendingSimuls">您待办的车轮战</string>
   <string name="createdSimuls">最近创建的车轮战</string>
   <string name="hostANewSimul">主持新车轮战</string>
-  <string name="signUpToHostOrJoinASimul">报名主办或参加同期展览</string>
+  <string name="signUpToHostOrJoinASimul">报名主持或参加车轮战</string>
   <string name="noSimulFound">找不到车轮战</string>
   <string name="noSimulExplanation">该车轮战不存在。</string>
   <string name="returnToSimulHomepage">返回车轮战主页</string>
@@ -665,6 +665,8 @@
   <string name="keyPreviousBranch">上一个分支</string>
   <string name="keyNextBranch">下一个分行</string>
   <string name="toggleVariationArrows">切换变化箭头</string>
+  <string name="cyclePreviousOrNextVariation">循环切换上一个/下一个变化</string>
+  <string name="toggleGlyphAnnotations">切换符号标注</string>
   <string name="playSelectedMove">走已选的棋步</string>
   <string name="newTournament">新锦标赛</string>
   <string name="tournamentHomeTitle">国际象棋锦标赛均设有不同的时间限制和变体</string>
@@ -840,8 +842,8 @@
   <string name="agreementPolicy">本人将遵守所有 Lichess 规范。</string>
   <string name="searchOrStartNewDiscussion">搜索或开始新对话</string>
   <string name="edit">编辑</string>
-  <string name="bullet" comment="Probably best left untranslated. Leave it as 'Bullet' unless your language has a better word for it.">闪击战</string>
-  <string name="blitz" comment="Probably best left untranslated. Leave it as 'Blitz' unless your language has a better word for it.">快棋</string>
+  <string name="bullet" comment="Probably best left untranslated. Leave it as 'Bullet' unless your language has a better word for it.">超超快棋</string>
+  <string name="blitz" comment="Probably best left untranslated. Leave it as 'Blitz' unless your language has a better word for it.">超快棋</string>
   <string name="rapid">快棋</string>
   <string name="classical">慢棋</string>
   <string name="ultraBulletDesc">急速对战：少于 30 秒</string>
