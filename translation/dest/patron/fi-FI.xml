@@ -79,4 +79,7 @@ Tai voit %s.</string>
   <string name="nowOneMonth">Olet nyt Lichessin tukija kuukauden ajan!</string>
   <string name="downgradeNextMonth">Kuukauden päästä sinua EI veloiteta uudelleen, ja Lichess-tunnuksesi palautuu ilmaistunnukseksi.</string>
   <string name="changeCurrency">Vaihda valuutta</string>
+  <string name="paymentDetails">Maksun tiedot</string>
+  <string name="updatePaymentMethod">Päivitä maksutapa</string>
+  <string name="stripeManageSub">Hallitse tilaustasi ja lataa laskuja ja kuitteja</string>
 </resources>
