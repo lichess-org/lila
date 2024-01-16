@@ -699,9 +699,13 @@
   <string name="keyNextBlunder">Próximo erro grave</string>
   <string name="keyNextMistake">Próximo erro</string>
   <string name="keyNextInaccuracy">Próxima imprecisão</string>
+  <string name="keyPreviousBranch">Branch anterior</string>
+  <string name="keyNextBranch">Próximo branch</string>
   <string name="toggleVariationArrows">Ativar/desativar setas</string>
   <string name="cyclePreviousOrNextVariation">Variante seguinte/anterior</string>
   <string name="toggleGlyphAnnotations">Ativar/desativar anotações</string>
+  <string name="variationArrowsInfo">Setas de variação permitem navegar sem usar a lista de movimentos.</string>
+  <string name="playSelectedMove">jogar movimento selecionado</string>
   <string name="newTournament">Novo torneio</string>
   <string name="tournamentHomeTitle">Torneios de xadrez com diversos controles de tempo e variantes</string>
   <string name="tournamentHomeDescription">Jogue xadrez em ritmo acelerado! Entre em um torneio oficial agendado ou crie seu próprio. Bullet, Blitz, Clássico, Chess960, King of the Hill, Três Xeques e outras modalidades disponíveis para uma ilimitada diversão enxadrística.</string>
