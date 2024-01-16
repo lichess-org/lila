@@ -17,7 +17,7 @@
   <string name="findTheBestMoveForWhite">पांढर्‍यासाठी सर्वोत्कृष्ट चाल शोधा.</string>
   <string name="findTheBestMoveForBlack">काळ्यासाठी सर्वोत्कृष्ट चाल शोधा.</string>
   <string name="toGetPersonalizedPuzzles">आपल्यासाठी वैयक्तिक कोडे येण्यासाठी:</string>
-  <string name="puzzleId" comment="%s is the ID of the puzzle, something like #a1b2c3.">कोडे %s</string>
+  <string name="puzzleId">कोडे %s</string>
   <string name="puzzleOfTheDay">आजचे कोडे</string>
   <string name="clickToSolve">सोडवण्यासाठी क्लिक करा</string>
   <string name="goodMove">चांगली चाल</string>
@@ -27,9 +27,9 @@
   <string name="puzzleComplete">कोडे सोडवले आहे!</string>
   <string name="notTheMove">ही ती चाल नव्हे!</string>
   <string name="trySomethingElse">काही वेगळा प्रयत्न करा.</string>
-  <string name="ratingX" comment="Appears on pages of individual puzzles.&#10;&#10;%s is either:&#10;1. The word 'hidden', if you have not completed the puzzle yet.&#10;2. The rating of the puzzle, if you have completed it or seen the solution.">मूल्यांकन: %s</string>
-  <string name="hidden" comment="Puzzle rating: hidden&#10;&#10;Appears while solving puzzles. Lichess only displays the rating of the puzzle after you have solved it or asked to see the solution.">लपवले आहे</string>
-  <plurals name="playedXTimes" comment="Appears on pages of individual puzzles.&#10;%s is the number of times the puzzle has been played.">
+  <string name="ratingX">मूल्यांकन: %s</string>
+  <string name="hidden">लपवले आहे</string>
+  <plurals name="playedXTimes">
     <item quantity="one">%s वेळा खेळले</item>
     <item quantity="other">%s वेळा खेळले</item>
   </plurals>
