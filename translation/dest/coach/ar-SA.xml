@@ -5,7 +5,7 @@
   <string name="areYouCoach">هل أنت مدرب شطرنج رائع و %s؟</string>
   <string name="nmOrFideTitle" comment="nmOrFideTitle&#10;&#10;Part of sentence &quot;Are you a great chess coach with a NM or FIDE title?&quot;&#10;&#10;The text links to our title verification page: https://lichess.org/help/master">لقب بطل وطني أو لقب من الاتحاد الدولي للشطرنج</string>
   <string name="confirmTitle">قم بتأكيد لقبك هنا وسنراجع طلبك.</string>
-  <string name="sendApplication" comment="sendApplication&#10;&#10;%s is the lichess email adress">أرسل لنا بريدًا إلكترونيًا إلى %s وسنراجع طلبك.</string>
+  <string name="sendApplication" comment="sendApplication&#10;&#10;%s is the lichess email address">أرسل لنا بريدًا إلكترونيًا إلى %s وسنراجع طلبك.</string>
   <string name="location">الموقع</string>
   <string name="languages">اللغات</string>
   <string name="rating">التقييم (التصنيف)</string>
