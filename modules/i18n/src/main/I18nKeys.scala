@@ -4,7 +4,7 @@ package lila.i18n
 // format: OFF
 object I18nKeys:
   val `playWithAFriend` = I18nKey("playWithAFriend")
-  val `studyFromHere` = I18nKey("studyFromHere")
+  val `deleteEarlierMoves` = I18nKey("deleteEarlierMoves")
   val `playWithTheMachine` = I18nKey("playWithTheMachine")
   val `toInviteSomeoneToPlayGiveThisUrl` = I18nKey("toInviteSomeoneToPlayGiveThisUrl")
   val `gameOver` = I18nKey("gameOver")

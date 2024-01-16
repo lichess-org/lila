@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="playWithAFriend">Play with a friend</string>
-  <string name="studyFromHere">Study from here</string>
+  <string name="deleteEarlierMoves">Delete earlier moves</string>
   <string name="playWithTheMachine">Play with the computer</string>
   <string name="toInviteSomeoneToPlayGiveThisUrl">To invite someone to play, give this URL</string>
   <string name="gameOver">Game Over</string>

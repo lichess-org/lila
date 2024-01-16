@@ -37,6 +37,7 @@ interface GameUpdate {
 export type StudySocketSendParams =
   | [t: 'setPath', d: ReqPosition]
   | [t: 'deleteNode', d: ReqPosition & { jumpTo: string }]
+  | [t: 'deleteEarlierMoves', d: ReqPosition & { jumpTo: string }]
   | [t: 'promote', d: ReqPosition & { toMainline: boolean }]
   | [t: 'forceVariation', d: ReqPosition & { force: boolean }]
   | [t: 'shapes', d: ReqPosition & { shapes: Tree.Shape[] }]

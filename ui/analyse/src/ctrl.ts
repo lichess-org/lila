@@ -582,16 +582,17 @@ export default class AnalyseCtrl {
     if (this.study) this.study.deleteNode(path);
   }
 
-  studyFromHere(path: Tree.Path): void {
-    // * Invert the path
+  //? Does this work with synthetic = false(real games?)
+  deleteEarlierMoves(path: Tree.Path): void {
     const node = this.tree.nodeAtPath(path);
     if (!node) return;
-
     this.tree = makeTree(node);
-
-    this.path = treePath.root;
-
+    if (!this.synthetic) {
+      console.log('game is not synthetic, its a real game');
+      //Why does it not work for a real game
+    }
     this.redraw();
+    this.study?.xhrReload();
   }
 
   promote(path: Tree.Path, toMainline: boolean): void {

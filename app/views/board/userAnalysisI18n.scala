@@ -84,6 +84,7 @@ object userAnalysisI18n:
     trans.deleteFromHere,
     trans.forceVariation,
     trans.copyVariationPgn,
+    trans.deleteEarlierMoves,
     // practice (also uses checkmate, draw)
     trans.practiceWithComputer,
     trans.puzzle.goodMove,

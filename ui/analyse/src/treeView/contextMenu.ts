@@ -92,7 +92,7 @@ function view(opts: Opts, coords: Coords): VNode {
       ),
       //* Create a button labelled 'study from here' that creates a study from the current node
       // strange issue whereby the moves cannot be played after the studyFromHere button is clicked
-      action(licon.StudyBoard, trans('studyFromHere'), () => ctrl.studyFromHere(opts.path)),
+      action(licon.StudyBoard, trans('deleteEarlierMoves'), () => ctrl.deleteEarlierMoves(opts.path)),
     ],
   );
 }

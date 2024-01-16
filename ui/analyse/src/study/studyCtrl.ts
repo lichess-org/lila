@@ -52,6 +52,7 @@ interface Handlers {
   addNode(
     d: WithWhoAndPos & { d: string; n: Tree.Node; o: Opening; s: boolean; relay?: StudyChapterRelay },
   ): void;
+  deleteEarlierMoves(d: WithWhoAndPos): void;
   deleteNode(d: WithWhoAndPos): void;
   promote(d: WithWhoAndPos & { toMainline: boolean }): void;
   liking(d: WithWho & { l: { likes: number; me: boolean } }): void;
@@ -486,6 +487,14 @@ export default class StudyCtrl {
         jumpTo: this.ctrl.path,
       }),
     );
+  deleteEarlierMoves = (path: Tree.Path) =>
+    this.makeChange(
+      'deleteEarlierMoves',
+      this.addChapterId({
+        path,
+        jumpTo: this.ctrl.path,
+      }),
+    );
   promote = (path: Tree.Path, toMainline: boolean) =>
     this.makeChange(
       'promote',
@@ -599,6 +608,16 @@ export default class StudyCtrl {
       if (!this.ctrl.tree.pathExists(d.p.path)) return this.xhrReload();
       this.ctrl.tree.deleteNodeAt(position.path);
       if (this.vm.mode.sticky) this.ctrl.jump(this.ctrl.path);
+      this.redraw();
+    },
+    deleteEarlierMoves: d => {
+      const position = d.p,
+        who = d.w;
+      this.setMemberActive(who);
+      if (this.wrongChapter(d)) return;
+      if (who && who.s === lichess.sri) return;
+      if (!this.ctrl.tree.pathExists(d.p.path)) return this.xhrReload();
+      if (this.vm.mode.sticky) this.ctrl.jump(position.path);
       this.redraw();
     },
     promote: d => {
