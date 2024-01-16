@@ -19,7 +19,7 @@
   <string name="findTheBestMoveForWhite">Truvate u colpu u più forte pè i bianchi.</string>
   <string name="findTheBestMoveForBlack">Truvate u colpu u più forte pè i neri.</string>
   <string name="toGetPersonalizedPuzzles">Per uttene prubemi persunalizati:</string>
-  <string name="puzzleId" comment="%s is the ID of the puzzle, something like #a1b2c3.">Prublemu%s</string>
+  <string name="puzzleId">Prublemu%s</string>
   <string name="puzzleOfTheDay">Prubemu di u ghjornu</string>
   <string name="clickToSolve">Clicheghja per risolve</string>
   <string name="goodMove">Bellu colpu</string>
@@ -29,9 +29,9 @@
   <string name="puzzleComplete">Prublemu finitu!</string>
   <string name="notTheMove">Ùn hè u colpu bonu!</string>
   <string name="trySomethingElse">Prova un altru colpu.</string>
-  <string name="ratingX" comment="Appears on pages of individual puzzles.&#10;&#10;%s is either:&#10;1. The word 'hidden', if you have not completed the puzzle yet.&#10;2. The rating of the puzzle, if you have completed it or seen the solution.">Classifica: %s</string>
-  <string name="hidden" comment="Puzzle rating: hidden&#10;&#10;Appears while solving puzzles. Lichess only displays the rating of the puzzle after you have solved it or asked to see the solution.">piattu</string>
-  <plurals name="playedXTimes" comment="Appears on pages of individual puzzles.&#10;%s is the number of times the puzzle has been played.">
+  <string name="ratingX">Classifica: %s</string>
+  <string name="hidden">piattu</string>
+  <plurals name="playedXTimes">
     <item quantity="one">Ghjucatu %s volta</item>
     <item quantity="other">Ghjucatu %s volte</item>
   </plurals>
