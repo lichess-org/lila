@@ -1,4 +1,4 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="youTubeChannelId">ଆପଣଙ୍କ YouTube ଚ୍ୟାନେଲ୍ ID</string>
+  <string name="youTubeChannelId" comment="Appears on the form for setting up your Streamer page: https://lichess.org/streamer/edit&#10;&#10;The Channel ID is a special alphanumeric string. See Google's guide here for how to retrieve it: https://support.google.com/youtube/answer/3250431&#10;&#10;We encourage translators to match what the Channel ID is called in your language's version of YouTube: https://www.youtube.com/account_advanced">ଆପଣଙ୍କ YouTube ଚ୍ୟାନେଲ୍ ID</string>
 </resources>
