@@ -15,6 +15,7 @@
   <string name="pgnLetter">字母 （K,Q,R,B,N）</string>
   <string name="zenMode" comment="zenMode&#10;&#10;This is not the religious meaning. Turning this option on takes away make elements of the user interface.&#10;&#10;Can also translate as 'Focus mode' as one example.">禅意模式</string>
   <string name="showPlayerRatings">显示等级分</string>
+  <string name="showFlairs">显示玩家图标</string>
   <string name="explainShowPlayerRatings">该选项可在网站内隐藏等级分，使你可以专注于下棋本身。对局依旧会影响等级分，但不会向你显示。</string>
   <string name="displayBoardResizeHandle">调整棋盘大小</string>
   <string name="onlyOnInitialPosition">仅初始局面</string>
