@@ -3,9 +3,9 @@
   <string name="voiceCommands">Sprachbefehl</string>
   <string name="watchTheVideoTutorial">Lueg s\'Video-Tutorial</string>
   <string name="instructions1">Benutz d\'Schaltflächi %1$s, zum d\'Spracherkännig aktivieren, d\'Schaltflächi %2$s, zum de Hilfedialog ufmache, und s\'Menü %3$s, zum d\'Sprachinschtellige ändere.</string>
-  <string name="instructions2">Mir zeiged Pfil für mehreri Züg a, wänn mir nöd sicher sind. Sprich eifach d\'Farb oder d\'Nummere vu dem Zugpfil, wo du wotsch wähle.</string>
-  <string name="instructions4">Aktiviert %s in luter Umgebig. Bim Spräche vu Befehl d\'Umschalttaschte truckt halte, wänn die Funktion aktiviert isch.</string>
-  <string name="instructions5">Benutz s\'Ponetischi-Alphabet, zum d\'Verständlichkeit verbessere. </string>
+  <string name="instructions2" comment="Voice commands can be misheard and Lichess will not always be fully certain what you said. Several arrows will be shown to identify e.g. if the move was 'b4' or 'd4', which often sound similar.&#10;&#10;These arrows will be in different colours (green, blue, etc) or labelled 1, 2, 3....&#10;You can then say the colour of the arrow (e.g. 'green') - or its number (e.g. '1'), to select that move.&#10;Users can configure if they choose from multiple moves based on colours or numbers.">Mir zeiged Pfil für mehreri Züg a, wänn mir nöd sicher sind. Sprich eifach d\'Farb oder d\'Nummere vu dem Zugpfil, wo du wotsch wähle.</string>
+  <string name="instructions4" comment="%s is Push to Talk.">Aktiviert %s in luter Umgebig. Bim Spräche vu Befehl d\'Umschalttaschte truckt halte, wänn die Funktion aktiviert isch.</string>
+  <string name="instructions5" comment="The phonetic alphabet is also known as the NATO alphabet (where A = Alpha, B = Bravo, etc. This makes the sounds easier to differentiate through a microphone). It is for English specifically, which as of the time of writing, is the only language supported by the Voice Commands feature.">Benutz s\'Ponetischi-Alphabet, zum d\'Verständlichkeit verbessere. </string>
   <string name="instructions6">%s erchlärt d\'Ischtellige vu de Sprachschtürig im Detail.</string>
   <string name="thisBlogPost">De Blog Bitrag</string>
   <string name="moveToE4OrSelectE4Piece">Zug uf e4 oder Uswahl vu de Figur uf e4</string>
@@ -14,8 +14,8 @@
   <string name="castle">Rochade (beidi Site)</string>
   <string name="phoneticAlphabetIsBest">Phonetischs Alphabet isch s\'Bescht</string>
   <string name="cancelTimerOrDenyARequest">Timer abbräche oder e Afrag ablehne</string>
-  <string name="playPreferredMoveOrConfirmSomething">Bevorzugte Zug spiele oder öppis bestätige</string>
-  <string name="sleep">Ruhezueschtand (wänn es Weckwort aktiviert isch)</string>
+  <string name="playPreferredMoveOrConfirmSomething" comment="Used in voice commands. When it is unclear what the player said (e.g. 'b4' and 'd4' sound similar), both moves will be shown, with the more likely one highlighted in a certain colour. By default, a countdown begins, and if no action is taken, the likely move (e.g. b4) will be played. Players can end the countdown early/confirm their move by saying 'yes'.&#10;&#10;For more details see https://lichess.org/@/schlawg/blog/how-to-lichess-voice/nWrypoWI">Bevorzugte Zug spiele oder öppis bestätige</string>
+  <string name="sleep" comment="Used for voice commands.&#10;&#10;By default, voice commands are always-on after the feature is enabled. Users can optionally set a word for listening to start, or say 'sleep' to disable listening.&#10;&#10;(Please note - this is not the same as recording, since the recording is never sent to Lichess; the speech technology is entirely offline)">Ruhezueschtand (wänn es Weckwort aktiviert isch)</string>
   <string name="turnOffVoiceRecognition">Spracherkännig usschalte</string>
   <string name="showPuzzleSolution">Zeig d\'Lösung vu de Ufgab</string>
 </resources>
