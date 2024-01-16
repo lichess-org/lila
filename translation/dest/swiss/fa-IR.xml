@@ -2,8 +2,8 @@
 <resources>
   <string name="swissTournaments">مسابقات فرمت سوئیسی</string>
   <plurals name="viewAllXRounds" comment="viewAllXRounds [one] [other]&#10;&#10;%s is the number of rounds in the Swiss tournament.">
-    <item quantity="one">دور بازی را تماشا نمایید</item>
-    <item quantity="other">تمام %s دور بازی را تماشا نمایید</item>
+    <item quantity="one">این دور را ببینید</item>
+    <item quantity="other">همه %s دور را ببینید</item>
   </plurals>
   <plurals name="nbRounds" comment="%s is currentRound/maxRounds e.g. 5/9&#10;maxRounds is always at least 3">
     <item quantity="one">%s دور</item>
@@ -17,7 +17,7 @@
     <item quantity="one">یک دور در هر روز</item>
     <item quantity="other">یک دور در هر %s روز</item>
   </plurals>
-  <string name="roundsAreStartedManually">دورها به صورت دستی شروع می شوند</string>
+  <string name="roundsAreStartedManually">دورها به صورت دستی مشخص می‌شوند</string>
   <plurals name="xSecondsBetweenRounds">
     <item quantity="one">%s ثانیه بین دورها</item>
     <item quantity="other">%s ثانیه بین دورها</item>
@@ -32,14 +32,14 @@
     <item quantity="one">بازی در جریان</item>
     <item quantity="other">بازی های در جریان</item>
   </plurals>
-  <string name="tournStartDate">زمان آغاز مسابقه</string>
+  <string name="tournStartDate">تاریخ آغاز مسابقات</string>
   <string name="numberOfRounds">تعداد دورها</string>
-  <string name="numberOfRoundsHelp">تعداد فرد دورها باعث تعادل رنگ بهینه می شود.</string>
+  <string name="numberOfRoundsHelp">تعداد دورهای فرد، باعث ترازمندی رنگ (بازی با سفید و سیاه) بهینه می‌شود.</string>
   <string name="roundInterval">فاصله بین دورها</string>
-  <string name="forbiddenPairings">انتخاب حریفِ ممنون</string>
-  <string name="forbiddenPairingsHelp">نام کاربری بازیکنانی که نباید با هم بازی کنند (مثلا خواهر و برادر). دو نام کاربری در هر خط، با فاصله از هم جدا شده اند.</string>
-  <string name="newSwiss">مسابقه سوئیسی جدید</string>
-  <string name="swissVsArenaQ">چه زمانی از مسابقه با فرمت سوئیسی به جای فرمت آرنا استفاده کنیم?</string>
+  <string name="forbiddenPairings">رویارویی‌های ممنوع</string>
+  <string name="forbiddenPairingsHelp">نام کاربری بازیکنانی که نباید با هم بازی کنند (مثلا خواهر و برادرها). دو نام کاربری در هر خط، با فاصله از هم جدا شوند.</string>
+  <string name="newSwiss">مسابقات سوئیسی جدید</string>
+  <string name="swissVsArenaQ">چه زمانی از مسابقات با ساختار سوئیسی به جای آرنا استفاده کنیم؟</string>
   <string name="swissVsArenaA">در مسابقه با فرم سوئیسی، تمام شرکت کننده ها به تعداد برابر بازی انجام می دهند و هر دو بازیکن فقط یک بار با یکدیگر بازی می کنند.
 این شکل از مسابقه می تواند گزینه مناسبی برای باشگاه ها و مسابقات رسمی باشد.</string>
   <string name="pointsCalculationQ">چگونه امتیازات محاسبه میشوند؟</string>
