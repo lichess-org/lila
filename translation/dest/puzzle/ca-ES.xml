@@ -19,7 +19,7 @@
   <string name="findTheBestMoveForWhite">Troba la millor jugada de les blanques.</string>
   <string name="findTheBestMoveForBlack">Troba la millor jugada de les negres.</string>
   <string name="toGetPersonalizedPuzzles">Per obtenir problemes personalitzats:</string>
-  <string name="puzzleId" comment="%s is the ID of the puzzle, something like #a1b2c3.">Problema %s</string>
+  <string name="puzzleId">Problema %s</string>
   <string name="puzzleOfTheDay">Problema del dia</string>
   <string name="dailyPuzzle">Problema del dia</string>
   <string name="clickToSolve">Clica per resoldre</string>
@@ -31,13 +31,13 @@
   <string name="byOpenings">Per obertura</string>
   <string name="puzzlesByOpenings">Problemes per obertura</string>
   <string name="openingsYouPlayedTheMost">Obertures que heu jugat més en partides puntuades</string>
-  <string name="useFindInPage" comment="useFindInPage&#10;&#10;Appears on https://lichess.org/training/openings&#10;Encourages players to use the built-in browser feature (Ctrl+F on most desktop computers) to find the opening they want to practice.">Utilitzeu la \"Cerca en la pàgina\" del menú del vostre navegador per trobar la vostra obertura preferida!</string>
+  <string name="useFindInPage">Utilitzeu la \"Cerca en la pàgina\" del menú del vostre navegador per trobar la vostra obertura preferida!</string>
   <string name="useCtrlF">Utilitzeu Ctrl+f per trobar la vostra obertura preferida!</string>
   <string name="notTheMove">Aquesta no és la jugada!</string>
   <string name="trySomethingElse">Prova d\'una altra manera.</string>
-  <string name="ratingX" comment="Appears on pages of individual puzzles.&#10;&#10;%s is either:&#10;1. The word 'hidden', if you have not completed the puzzle yet.&#10;2. The rating of the puzzle, if you have completed it or seen the solution.">Puntuació: %s</string>
-  <string name="hidden" comment="Puzzle rating: hidden&#10;&#10;Appears while solving puzzles. Lichess only displays the rating of the puzzle after you have solved it or asked to see the solution.">ocult</string>
-  <plurals name="playedXTimes" comment="Appears on pages of individual puzzles.&#10;%s is the number of times the puzzle has been played.">
+  <string name="ratingX">Puntuació: %s</string>
+  <string name="hidden">ocult</string>
+  <plurals name="playedXTimes">
     <item quantity="one">Jugat %s vegades</item>
     <item quantity="other">Intentat %s vegades</item>
   </plurals>
