@@ -5,7 +5,7 @@
   <plurals name="nbBroadcasts">
     <item quantity="other">%s phát sóng</item>
   </plurals>
-  <string name="liveBroadcasts">Giải đấu phát sóng trực tuyến</string>
+  <string name="liveBroadcasts">Các giải đấu phát sóng trực tiếp</string>
   <string name="newBroadcast">Phát sóng trực tiếp mới</string>
   <string name="aboutBroadcasts">Giới thiệu về phát sóng</string>
   <string name="noRoundsYet">Chưa có vòng nào.</string>
