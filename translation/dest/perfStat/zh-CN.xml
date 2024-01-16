@@ -22,7 +22,7 @@
   <string name="fromXToY">自 %1$s 至 %2$s</string>
   <string name="winningStreak">连胜</string>
   <string name="losingStreak">连败</string>
-  <string name="longestStreak">最长纪录: %s</string>
+  <string name="longestStreak" comment="%s is the string (number of games OR time spent playing, e.g. 4 hours non-stop play)&#10;String used to describe the longest consecutive winning &amp; losing streak of games. It is also used for a  streak of time spent playing.">最长纪录: %s</string>
   <string name="currentStreak">当前纪录: %s</string>
   <string name="bestRated">最佳胜利</string>
   <string name="worstRated">最差负败</string>
