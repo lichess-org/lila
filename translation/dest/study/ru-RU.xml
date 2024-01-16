@@ -68,7 +68,7 @@
   <string name="studyPgn">PGN студии</string>
   <string name="downloadAllGames">Скачать все партии</string>
   <string name="chapterPgn">PGN главы</string>
-  <string name="copyChapterPgn">Копировать PGN</string>
+  <string name="copyChapterPgn" comment="A button which lets you copy the PGN text to your clipboard (i.e. similar to ⌘+C or Ctrl+C).">Копировать PGN</string>
   <string name="copyChapterPgnDescription">Скопировать PGN главы в буфер обмена.</string>
   <string name="downloadGame">Скачать партию</string>
   <string name="studyUrl">Ссылка на студию</string>
