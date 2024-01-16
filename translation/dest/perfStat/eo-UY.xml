@@ -22,7 +22,7 @@
   <string name="fromXToY">de %1$s al %2$s</string>
   <string name="winningStreak">Sinsekva gajnado</string>
   <string name="losingStreak">Sinsekva perdado</string>
-  <string name="longestStreak">Plej longa sinsekva rezulto: %s</string>
+  <string name="longestStreak" comment="%s is the string (number of games OR time spent playing, e.g. 4 hours non-stop play)&#10;String used to describe the longest consecutive winning &amp; losing streak of games. It is also used for a  streak of time spent playing.">Plej longa sinsekva rezulto: %s</string>
   <string name="currentStreak">Nuntempa sinsekva rezulto: %s</string>
   <string name="bestRated">Plej bonaj venkoj laŭ kontraŭula rango</string>
   <string name="worstRated">Plej malbonaj malvenkoj laŭ kontraŭula rango</string>
