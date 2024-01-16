@@ -64,7 +64,7 @@
   <string name="cloudAnalysis">Phân tích đám mây</string>
   <string name="goDeeper">Phân tích sâu hơn</string>
   <string name="showThreat">Hiển thị các mối đe dọa</string>
-  <string name="inLocalBrowser">ở trình duyệt địa phương</string>
+  <string name="inLocalBrowser">trong trình duyệt cục bộ</string>
   <string name="toggleLocalEvaluation">Kích hoạt đánh giá địa phương</string>
   <string name="promoteVariation">Thay đổi biến</string>
   <string name="makeMainLine">Biến chính</string>
@@ -121,7 +121,7 @@
   <string name="cpus">CPU</string>
   <string name="memory">Bộ nhớ</string>
   <string name="infiniteAnalysis">Phân tích vô hạn</string>
-  <string name="removesTheDepthLimit">Bỏ giới hạn độ sâu, và làm máy tính của bạn mượt hơn</string>
+  <string name="removesTheDepthLimit">Bỏ giới hạn độ sâu và làm máy tính của bạn mượt hơn</string>
   <string name="engineManager">Quản lý động cơ</string>
   <string name="blunder">Sai lầm nghiêm trọng</string>
   <string name="mistake">Sai lầm</string>
@@ -196,7 +196,7 @@
   <string name="usernameOrEmail">Tên đăng nhập hoặc email</string>
   <string name="changeUsername">Thay đổi tên đăng nhập</string>
   <string name="changeUsernameNotSame">Bạn chỉ có thể thay đổi cách viết hoa/thường. Ví dụ \"johndoe\" thành \"JohnDoe\".</string>
-  <string name="changeUsernameDescription">Thay đổi tên người dùng của bạn. Điều này chỉ có thể thực hiện một lần và bạn chỉ được thay đổi cách viết hoa/viết thường các chữ trong tên người dùng của bạn. Ví dụ: \"m_dinhhoangviet\" có thể đổi thành \"M_DinhHoangViet\".</string>
+  <string name="changeUsernameDescription">Thay đổi tên người dùng của bạn. Điều này chỉ có thể thực hiện một lần và bạn chỉ được thay đổi cách viết hoa/viết thường các chữ trong tên người dùng của bạn. Ví dụ: \"m_dInhHoaNGvIet\" có thể đổi thành \"M_DinhHoangViet\".</string>
   <string name="signupUsernameHint">Hãy đảm bảo chọn tên người dùng thân thiện với mọi người. Bạn sẽ không thể thay đổi nó và bất kỳ tài khoản nào có tên người dùng không phù hợp sẽ bị đóng!</string>
   <string name="signupEmailHint">Chúng tôi chỉ sử dụng nó cho việc khôi phục mật khẩu.</string>
   <string name="password">Mật khẩu</string>
@@ -261,8 +261,8 @@
   <string name="abortGame">Hủy ván cờ</string>
   <string name="gameAborted">Ván cờ đã bị hủy bỏ</string>
   <string name="standard">Tiêu chuẩn</string>
-  <string name="unlimited">Không giới hạn</string>
-  <string name="mode">Thể loại</string>
+  <string name="unlimited">Vô hạn</string>
+  <string name="mode">Chế độ</string>
   <string name="casual">Không xếp hạng</string>
   <string name="rated">Có xếp hạng</string>
   <string name="casualTournament">Không xếp hạng</string>
@@ -389,7 +389,7 @@ trò chuyện trong ván đấu và có một URL có thể chia sẻ công khai
   <string name="whiteCheckmatesInOneMove">Trắng chiếu hết trong một nước đi</string>
   <string name="blackCheckmatesInOneMove">Đen chiếu hết trong một nước đi</string>
   <string name="retry">Thử lại</string>
-  <string name="reconnecting">Kết nối lại</string>
+  <string name="reconnecting">Đang kết nối lại</string>
   <plurals name="nbFriendsOnline">
     <item quantity="other">%s bạn trực tuyến</item>
   </plurals>
@@ -410,7 +410,7 @@ trò chuyện trong ván đấu và có một URL có thể chia sẻ công khai
   <plurals name="nbFollowing">
     <item quantity="other">Đang theo dõi %s người</item>
   </plurals>
-  <string name="more">Thêm</string>
+  <string name="more">Xem thêm</string>
   <string name="memberSince">Thành viên từ</string>
   <string name="lastSeenActive">Lần đăng nhập cuối %s</string>
   <string name="player">Người chơi</string>
@@ -427,13 +427,13 @@ trò chuyện trong ván đấu và có một URL có thể chia sẻ công khai
   <string name="createANewTournament">Tạo giải đấu mới</string>
   <string name="tournamentCalendar">Lịch giải đấu</string>
   <string name="conditionOfEntry">Điều kiện tham gia:</string>
-  <string name="advancedSettings">Thiết lập nâng cao</string>
+  <string name="advancedSettings">Cài đặt nâng cao</string>
   <string name="safeTournamentName">Hãy chọn tên chuẩn mực cho giải đấu.</string>
   <string name="inappropriateNameWarning">Một hành động dù chỉ một chút không thích hợp, tài khoản của bạn có thể bị khoá.</string>
   <string name="emptyTournamentName">Hãy để trống để lấy tên theo tên một kỳ thủ cờ vua nổi tiếng.</string>
   <string name="recommendNotTouching">Chúng tôi khuyên bạn không nên thay đổi.</string>
   <string name="fewerPlayers">Nếu bạn thiết lập điều kiện tham gia, giải của bạn sẽ có ít người chơi hơn.</string>
-  <string name="showAdvancedSettings">Hiện thiết lập nâng cao</string>
+  <string name="showAdvancedSettings">Hiện các thiết lập nâng cao</string>
   <string name="makePrivateTournament">Đặt giải đấu ở chế độ riêng tư và giới hạn tham gia bởi mật khẩu</string>
   <string name="join">Tham gia</string>
   <string name="withdraw">Tạm rút</string>
@@ -481,7 +481,7 @@ trò chuyện trong ván đấu và có một URL có thể chia sẻ công khai
   <string name="biography">Tiểu sử</string>
   <string name="countryRegion" comment="flag&#10;Appears when you edit your profile. Lets a player add a country/flag (not all flags are for countries) to their profile">Quốc gia hoặc khu vực</string>
   <string name="thankYou">Lời cảm ơn!</string>
-  <string name="socialMediaLinks">Liên kết mạng xã hội</string>
+  <string name="socialMediaLinks">Các liên kết mạng xã hội</string>
   <string name="oneUrlPerLine">Một URL/Link mỗi dòng.</string>
   <string name="inlineNotation">Ký hiệu bên trong bàn cờ</string>
   <string name="makeAStudy">Để bảo vệ và chia sẻ an toàn, hãy xem xét thực hiện một nghiên cứu.</string>
@@ -532,8 +532,8 @@ trò chuyện trong ván đấu và có một URL có thể chia sẻ công khai
   <string name="blog">Blog</string>
   <string name="notes">Ghi chú</string>
   <string name="typePrivateNotesHere">Nhập ghi chú cá nhân ở đây</string>
-  <string name="writeAPrivateNoteAboutThisUser">Tạo một ghi chú riêng dành cho người dùng này</string>
-  <string name="noNoteYet">Chưa có ghi chú</string>
+  <string name="writeAPrivateNoteAboutThisUser">Viết một ghi chú riêng về người dùng này</string>
+  <string name="noNoteYet">Chưa có ghi chú nào</string>
   <string name="invalidUsernameOrPassword">Tên tài khoản hoặc mật khẩu đăng nhập không đúng</string>
   <string name="incorrectPassword">Mật khẩu sai</string>
   <string name="invalidAuthenticationCode">Mã xác thực sai</string>
@@ -644,9 +644,9 @@ trò chuyện trong ván đấu và có một URL có thể chia sẻ công khai
   <string name="simulVariantsHint">Nếu bạn chọn nhiều biến thể, mỗi người chơi sẽ được lựa chọn chơi biến thể nào.</string>
   <string name="simulClockHint">Thiết lập Đồng hồ Fischer. Bạn càng chơi với nhiều người thì càng có thể cần nhiều thời gian.</string>
   <string name="simulAddExtraTime">Bạn có thể thêm thời gian ban đầu cho đồng hồ của mình để đấu cờ đồng loạt dễ hơn.</string>
-  <string name="simulHostExtraTime">Thêm thời gian ban đầu cho người chủ trì</string>
+  <string name="simulHostExtraTime">Thời gian thêm ban đầu cho người chủ trì</string>
   <string name="simulAddExtraTimePerPlayer">Thêm thời gian ban đầu vào đồng hồ của bạn cho mỗi người chơi tham gia cờ đồng loạt.</string>
-  <string name="simulHostExtraTimePerPlayer">Thêm thời gian cho người chủ trì cho mỗi người tham gia trận cờ đồng loạt</string>
+  <string name="simulHostExtraTimePerPlayer">Thời gian thêm cho mỗi người tham gia</string>
   <string name="lichessTournaments">Các giải đấu của Lichess</string>
   <string name="tournamentFAQ">Các câu hỏi hay gặp về giải đấu Đấu trường</string>
   <string name="timeBeforeTournamentStarts">Thời gian trước khi giải đấu bắt đầu</string>
@@ -658,9 +658,9 @@ trò chuyện trong ván đấu và có một URL có thể chia sẻ công khai
   <string name="keyCycleSelectedVariation">Biến được chọn theo chu kỳ</string>
   <string name="keyShowOrHideComments">hiện/ẩn bình luận</string>
   <string name="keyEnterOrExitVariation">vào/thoát thế cờ</string>
-  <string name="keyRequestComputerAnalysis">Yêu cầu máy tính phân tích, Học từ lỗi sai của bạn</string>
-  <string name="keyNextLearnFromYourMistakes">Tiếp theo (Học từ lỗi sai của bạn)</string>
-  <string name="keyNextBlunder">Nước sai lầm nghiêm trọng tiếp theo</string>
+  <string name="keyRequestComputerAnalysis">Yêu cầu máy tính phân tích, Học từ sai lầm của bạn</string>
+  <string name="keyNextLearnFromYourMistakes">Tiếp theo (Học từ sai lầm của bạn)</string>
+  <string name="keyNextBlunder">Nước đi sai nghiêm trọng tiếp theo</string>
   <string name="keyNextMistake">Nước đi sai lầm tiếp theo</string>
   <string name="keyNextInaccuracy">Nước đi không chính xác tiếp theo</string>
   <string name="keyPreviousBranch">Nhánh trước</string>
@@ -727,7 +727,7 @@ trò chuyện trong ván đấu và có một URL có thể chia sẻ công khai
   <string name="zeroAdvertisement">Không có quảng cáo</string>
   <string name="fullFeatured">Toàn bộ chức năng hiện có</string>
   <string name="phoneAndTablet">Điện thoại và máy tính bảng</string>
-  <string name="bulletBlitzClassical">Cờ siêu chớp, cờ chớp, cờ nhanh, cờ chậm</string>
+  <string name="bulletBlitzClassical">Cờ đạn, cờ chớp, cờ nhanh, cờ chậm</string>
   <string name="correspondenceChess">Cờ qua thư</string>
   <string name="onlineAndOfflinePlay">Chơi trực tuyến và ngoại tuyến</string>
   <string name="viewTheSolution">Xem lời giải</string>
@@ -767,7 +767,7 @@ trò chuyện trong ván đấu và có một URL có thể chia sẻ công khai
   <string name="invalidFen">FEN không hợp lệ</string>
   <string name="custom">Tuỳ chỉnh</string>
   <string name="notifications">Thông báo</string>
-  <string name="notificationsX">Thông báo: %1$s</string>
+  <string name="notificationsX">Số thông báo: %1$s</string>
   <string name="perfRatingX">Hệ số: %s</string>
   <plurals name="nbSecondsToPlayTheFirstMove">
     <item quantity="other">%s giây còn lại để đi nước đầu tiên</item>
