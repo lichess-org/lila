@@ -1,6 +1,7 @@
 import { Dests, files } from 'chessground/types';
 import { sanWriter, SanToUci, destsToUcis } from 'chess';
 import { KeyboardMoveHandler, KeyboardMove } from '../main';
+// import * as game from 'game';
 
 const keyRegex = /^[a-h][1-8]$/;
 const fileRegex = /^[a-h]$/;
@@ -89,6 +90,11 @@ export function initModule(opts: Opts) {
     } else if (v.length > 0 && 'clock'.startsWith(v.toLowerCase())) {
       if ('clock' === v.toLowerCase()) {
         opts.ctrl?.speakClock();
+        clear();
+      }
+    } else if (v.length > 0 && 'zerk'.startsWith(v.toLowerCase())) {
+      if ('zerk' === v.toLowerCase()) {
+        opts.ctrl?.goBerserk();
         clear();
       }
     } else if (v.length > 0 && 'who'.startsWith(v.toLowerCase())) {

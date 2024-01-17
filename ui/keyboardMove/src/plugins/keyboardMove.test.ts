@@ -18,6 +18,7 @@ const unexpectedErrorThrower = (name: string) => () => {
 };
 const defaultCtrl = {
   speakClock: unexpectedErrorThrower('clock'),
+  goBerserk: unexpectedErrorThrower('berserk'),
   confirmMove: () => null,
   draw: unexpectedErrorThrower('draw'),
   next: unexpectedErrorThrower('next'),

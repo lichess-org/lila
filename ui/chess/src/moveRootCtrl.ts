@@ -15,4 +15,5 @@ export interface MoveRootCtrl {
   solve?: () => void;
   blindfold?: (v?: boolean) => boolean;
   speakClock?: () => void;
+  goBerserk?: () => void;
 }
