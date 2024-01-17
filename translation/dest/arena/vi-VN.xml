@@ -46,7 +46,7 @@ Chơi nhanh và trở lại phòng chờ để chơi được nhiều ván và g
     <item quantity="other">Xem tất cả %s đội</item>
   </plurals>
   <string name="newTeamBattle">Giải đấu đa Đội mới</string>
-  <string name="customStartDate">Chọn thời gian bắt đầu</string>
+  <string name="customStartDate">Thời gian bắt đầu tùy chỉnh</string>
   <string name="customStartDateHelp">Tại múi giờ ở địa phương bạn. Điều này thay đổi lại cài đặt \"Thời gian trước khi giải đấu bắt đầu\"</string>
   <string name="allowBerserk">Cho phép Berserk</string>
   <string name="allowBerserkHelp">Cho phép các kỳ thủ giảm một nửa thời gian để lấy thêm một điểm</string>
