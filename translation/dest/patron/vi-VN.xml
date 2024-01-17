@@ -80,4 +80,5 @@ Tuy nhiên, Patron được quyền khoe khoang với những đôi cánh Ngư�
   <string name="changeCurrency">Thay đổi đơn vị tiền tệ</string>
   <string name="paymentDetails">Chi tiết thanh toán</string>
   <string name="updatePaymentMethod">Cập nhật phương thức thanh toán</string>
+  <string name="stripeManageSub">Quản lý đăng ký của bạn và tải về hóa đơn và giấy biên nhận của bạn</string>
 </resources>
