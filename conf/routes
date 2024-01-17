@@ -577,6 +577,18 @@ GET   /api/stream/irwin                controllers.Irwin.eventStream
 # Kaladin
 GET   /kaladin                         controllers.Irwin.kaladin
 
+# Ask
+GET   /ask/:id                         controllers.Ask.view(id: String, view: Option[String], tally: Boolean ?= false)
+POST  /ask/picks/:id                   controllers.Ask.picks(id: String, picks: Option[String], view: Option[String], anon: Boolean ?= false)
+POST  /ask/form/:id                controllers.Ask.form(id: String, view: Option[String], anon: Boolean ?= false)
+POST  /ask/conclude/:id                controllers.Ask.conclude(id: String)
+POST  /ask/unset/:id                   controllers.Ask.unset(id: String, view: Option[String], anon: Boolean ?= false)
+POST  /ask/reset/:id                   controllers.Ask.reset(id: String)
+POST  /ask/delete/:id                  controllers.Ask.delete(id: String)
+GET   /ask/admin/:id                   controllers.Ask.admin(id: String)
+GET   /ask/byUser/:username            controllers.Ask.byUser(username)
+GET   /ask/json/:id                    controllers.Ask.json(id: String)
+
 # Forum
 GET   /forum                           controllers.ForumCateg.index
 GET   /forum/search                    controllers.ForumPost.search(text ?= "", page: Int ?= 1)

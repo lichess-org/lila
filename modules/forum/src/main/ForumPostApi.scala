@@ -2,6 +2,7 @@ package lila.forum
 
 import scala.util.chaining.*
 
+import lila.ask.AskEmbed
 import lila.common.Bus
 import lila.db.dsl.{ *, given }
 import lila.hub.actorApi.timeline.{ ForumPost as TimelinePost, Propagate }
@@ -21,7 +22,8 @@ final class ForumPostApi(
     promotion: lila.security.PromotionApi,
     timeline: lila.hub.actors.Timeline,
     shutup: lila.hub.actors.Shutup,
-    detectLanguage: DetectLanguage
+    detectLanguage: DetectLanguage,
+    askEmbed: AskEmbed
 )(using Executor)(using scheduler: Scheduler):
 
   import BSONHandlers.given
@@ -35,10 +37,11 @@ final class ForumPostApi(
       val publicMod = MasterGranter(_.PublicMod)
       val modIcon   = ~data.modIcon && (publicMod || MasterGranter(_.SeeReport))
       val anonMod   = modIcon && !publicMod
+      val frozen    = askEmbed.freeze(spam.replace(data.text), me)
       val post = ForumPost.make(
         topicId = topic.id,
         userId = !anonMod option me,
-        text = spam.replace(data.text),
+        text = frozen.text,
         number = topic.nbPosts + 1,
         lang = lang.map(_.language),
         troll = me.marks.troll,
@@ -52,6 +55,7 @@ final class ForumPostApi(
             _ <- postRepo.coll.insert.one(post)
             _ <- topicRepo.coll.update.one($id(topic.id), topic withPost post)
             _ <- categRepo.coll.update.one($id(categ.id), categ.withPost(topic, post))
+            _ <- askEmbed.commit(frozen, s"/forum/redirect/post/${post._id}".some)
           yield
             !categ.quiet so (indexer ! InsertPost(post))
             promotion.save(post.text)
@@ -83,12 +87,14 @@ final class ForumPostApi(
         case (_, post) if !post.canStillBeEdited =>
           fufail("Post can no longer be edited")
         case (_, post) =>
-          val newPost = post.editPost(nowInstant, spam replace newText)
-          (newPost.text != post.text).so {
-            postRepo.coll.update.one($id(post.id), newPost) >> newPost.isAnonModPost.so {
-              logAnonPost(newPost, edit = true)
-            } andDo promotion.save(newPost.text)
-          } inject newPost
+          askEmbed.freezeAndCommit(spam replace newText, me, s"/forum/redirect/post/${postId}".some) flatMap:
+            frozen =>
+              val newPost = post.editPost(nowInstant, frozen)
+              (newPost.text != post.text).so {
+                postRepo.coll.update.one($id(post.id), newPost) >> newPost.isAnonModPost.so {
+                  logAnonPost(newPost, edit = true)
+                } andDo promotion.save(newPost.text)
+              } inject newPost
       }
 
   def urlData(postId: ForumPostId, forUser: Option[User]): Fu[Option[PostUrlData]] =
@@ -166,7 +172,7 @@ final class ForumPostApi(
             postId = post.id,
             topicName = topic.name,
             userId = post.userId,
-            text = post.text take 200,
+            text = post.cleanTake(200),
             createdAt = post.createdAt
           )
         }

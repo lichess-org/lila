@@ -2,6 +2,7 @@ package views.html
 
 import controllers.routes
 
+import java.time.Instant
 import lila.app.templating.Environment.{ given, * }
 import lila.app.ui.ScalatagsTemplate.{ *, given }
 import lila.blog.DailyFeed.Update
@@ -12,16 +13,17 @@ import scalatags.generic.Frag
 
 object dailyFeed:
 
-  private def layout(title: String, edit: Boolean = false)(using PageContext) =
+  private def layout(title: String, hasAsks: Boolean, edit: Boolean = false)(using PageContext) =
     views.html.site.page.layout(
       title = title,
       active = "news",
-      moreCss = cssTag("dailyFeed"),
-      moreJs = edit option frag(jsModule("flatpickr"), jsModule("dailyFeed"))
+      moreCss = frag(cssTag("dailyFeed"), hasAsks option cssTag("ask")),
+      moreJs =
+        frag(hasAsks option jsModuleInit("ask"), edit option jsModule("flatpickr"), jsModule("dailyFeed"))
     )
 
-  def index(updates: List[Update])(using PageContext) =
-    layout("Updates"):
+  def index(updates: List[Update], hasAsks: Boolean)(using PageContext) =
+    layout("Updates", hasAsks):
       div(cls := "daily-feed box box-pad")(
         boxTop(
           h1("Lichess updates"),
@@ -38,7 +40,7 @@ object dailyFeed:
         updateList(updates, editor = isGranted(_.DailyFeed))
       )
 
-  def updateList(ups: List[Update], editor: Boolean)(using Context) =
+  def updateList(ups: List[Update], editor: Boolean)(using PageContext) =
     div(cls := "daily-feed__updates"):
       ups.view
         .filter(_.published || editor)
@@ -58,12 +60,14 @@ object dailyFeed:
                   update.future option goodTag(nbsp, "[Future]")
                 )
               ),
-              div(cls := "daily-feed__update__markup")(rawHtml(update.rendered))
+              div(cls := "daily-feed__update__markup")(
+                views.html.ask.render(rawHtml(update.rendered))
+              )
             )
           )
         .toList
 
-  val lobbyUpdates = renderCache[List[Update]](1 minute): ups =>
+  def lobbyUpdates(ups: List[Update])(using PageContext) =
     div(cls := "daily-feed__updates")(
       ups.map: update =>
         div(cls := "daily-feed__update")(
@@ -72,7 +76,7 @@ object dailyFeed:
             a(cls := "daily-feed__update__day", href := s"/feed#${update.id}"):
               momentFromNow(update.at)
             ,
-            rawHtml(update.rendered)
+            views.html.ask.render(rawHtml(update.rendered))
           )
         ),
       div(cls := "daily-feed__update")(
@@ -84,7 +88,7 @@ object dailyFeed:
     )
 
   def create(form: Form[?])(using PageContext) =
-    layout("Lichess updates: New", true):
+    layout("Lichess updates: New", hasAsks = true, edit = true):
       main(cls := "daily-feed page-small box box-pad")(
         boxTop(
           h1(
@@ -97,25 +101,25 @@ object dailyFeed:
           inForm(form)
       )
 
-  def edit(form: Form[?], update: Update)(using PageContext) =
-    layout(s"Lichess update ${update.id}", true):
+  def edit(form: Form[?], up: Update)(using PageContext) =
+    layout(s"Lichess update ${up.id}", hasAsks = true, edit = true):
       main(cls := "daily-feed page-small")(
         div(cls := "box box-pad")(
           boxTop(
             h1(
               a(href := routes.DailyFeed.index)("Lichess update"),
               " • ",
-              semanticDate(update.at)
+              semanticDate(up.at)
             )
           ),
           standardFlash,
-          postForm(cls := "content_box_content form3", action := routes.DailyFeed.update(update.id)):
+          postForm(cls := "content_box_content form3", action := routes.DailyFeed.update(up.id)):
             inForm(form)
         ),
         br,
         div(cls := "box box-pad")(
-          updateList(List(update), editor = true),
-          postForm(action := routes.DailyFeed.delete(update.id))(cls := "daily-feed__delete"):
+          updateList(List(up), editor = true),
+          postForm(action := routes.DailyFeed.delete(up.id))(cls := "daily-feed__delete"):
             submitButton(cls := "button button-red button-empty confirm")("Delete")
         )
       )
@@ -169,5 +173,5 @@ object dailyFeed:
           href := s"$netBaseUrl${routes.DailyFeed.index}#${up.id}"
         ),
         tag("title")(up.title),
-        tag("content")(tpe := "html")(up.rendered)
+        tag("content")(tpe := "html")(env.blog.dailyFeed.renderAtom(up))
       )

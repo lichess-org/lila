@@ -73,6 +73,7 @@ object topic:
       formWithCaptcha: Option[FormWithCaptcha],
       unsub: Option[Boolean],
       canModCateg: Boolean,
+      hasAsks: Boolean = false,
       formText: Option[String] = None
   )(using ctx: PageContext) =
     views.html.base.layout(
@@ -80,9 +81,13 @@ object topic:
       moreJs = frag(
         jsModule("forum"),
         formWithCaptcha.isDefined option captchaTag,
-        jsModule("expandText")
+        jsModule("expandText"),
+        hasAsks option jsModuleInit("ask")
       ),
-      moreCss = cssTag("forum"),
+      moreCss = frag(
+        cssTag("forum"),
+        hasAsks option cssTag("ask")
+      ),
       openGraph = lila.app.ui
         .OpenGraph(
           title = topic.name,

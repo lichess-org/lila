@@ -9,7 +9,7 @@ import lila.app.{ given, * }
 import lila.common.config
 import lila.i18n.{ I18nLangPicker, LangList, Language }
 import lila.report.Suspect
-import lila.ublog.{ UblogBlog, UblogPost }
+import lila.ublog.{ UblogBlog, UblogPost, Markdown }
 import lila.user.{ User as UserModel }
 
 final class Ublog(env: Env) extends LilaController(env):
@@ -56,10 +56,21 @@ final class Ublog(env: Env) extends LilaController(env):
                     prefFollowable <- ctx.isAuth.so(env.pref.api.followable(user.id))
                     blocked        <- ctx.userId.so(env.relation.api.fetchBlocks(user.id, _))
                     followable = prefFollowable && !blocked
-                    markup <- env.ublog.markup(post)
+                    (markup, hasAsks) <- env.ublog
+                      .markup(post) zip env.ask.repo.preload(post.markdown.value)
                     viewedPost = env.ublog.viewCounter(post, ctx.ip)
                     page <- renderPage:
-                      html.ublog.post(user, blog, viewedPost, markup, others, liked, followable, followed)
+                      html.ublog.post(
+                        user,
+                        blog,
+                        viewedPost,
+                        markup,
+                        others,
+                        liked,
+                        followable,
+                        followed,
+                        hasAsks
+                      )
                   yield Ok(page)
             }
 
@@ -126,8 +137,12 @@ final class Ublog(env: Env) extends LilaController(env):
 
   def edit(id: UblogPostId) = AuthBody { ctx ?=> me ?=>
     NotForKids:
-      FoundPage(env.ublog.api.findByUserBlogOrAdmin(id)): post =>
-        html.ublog.form.edit(post, env.ublog.form.edit(post))
+      Found(env.ublog.api.findByUserBlogOrAdmin(id)): post =>
+        env.ask.embed
+          .unfreezeAndLoad(post.markdown.value)
+          .flatMap: editText =>
+            val editPost = post.copy(markdown = Markdown(editText))
+            Ok.page(html.ublog.form.edit(editPost, env.ublog.form.edit(editPost)))
   }
 
   def update(id: UblogPostId) = AuthBody { ctx ?=> me ?=>

@@ -64,10 +64,12 @@ final class ForumTopic(env: Env) extends LilaController(env) with ForumControlle
               .filter(_ => canWrite && topic.open && !topic.isOld)
               .soUse: _ ?=>
                 forms.postWithCaptcha(inOwnTeam) map some
-            _ <- env.user.lightUserApi preloadMany posts.currentPageResults.flatMap(_.post.userId)
+            (_, hasAsks) <- env.user.lightUserApi
+              .preloadMany(posts.currentPageResults.flatMap(_.post.userId))
+              .zip(env.ask.repo.preload(posts.currentPageResults.map(_.post.text)*))
             res <-
               if canRead then
-                Ok.page(html.forum.topic.show(categ, topic, posts, form, unsub, canModCateg))
+                Ok.page(html.forum.topic.show(categ, topic, posts, form, unsub, canModCateg, hasAsks))
                   .map(_.withCanonical(routes.ForumTopic.show(categ.slug, topic.slug, page)))
               else notFound
           yield res
@@ -120,5 +122,16 @@ final class ForumTopic(env: Env) extends LilaController(env) with ForumControlle
     Found(topicApi.showLastPage(diagnosticId, slug)): (categ, topic, posts) =>
       for
         form <- forms.postWithCaptcha(false)
-        res  <- Ok.page(html.forum.topic.show(categ, topic, posts, form.some, None, true, formText.some))
+        res <- Ok.page(
+          html.forum.topic.show(
+            categ,
+            topic,
+            posts,
+            form.some,
+            unsub = None,
+            canModCateg = true,
+            hasAsks = false,
+            formText.some
+          )
+        )
       yield res

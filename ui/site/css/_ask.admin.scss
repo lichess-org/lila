@@ -1,0 +1,56 @@
+$c-contrast-font: $c-font-clear; //if($theme-light, #444, #ddd);
+$c-box-border: if($theme-light, #ddd, #484848);
+
+// someone, please delete all of this
+div.ask-admin {
+  width: 100%;
+  font-size: 1rem;
+  div.header {
+    font-size: 1.3em;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  div.url-actions {
+    display: flex;
+    flex-flow: row-reverse nowrap;
+    a,
+    button {
+      @extend %button-none;
+      font-size: 1em;
+      color: $c-primary;
+      padding: 0.6em 0.8em;
+      margin: 0;
+      &:hover {
+        color: mix($c-primary, $c-contrast-font, 50%);
+        background: mix($c-primary, $c-bg-box, if($theme-light, 10%, 20%));
+      }
+    }
+  }
+  .prop {
+    font-size: 1em;
+    font-weight: bold;
+    display: flex;
+    flex-flow: row nowrap;
+    .name {
+      width: 140px;
+    }
+    .value {
+      font-style: bold;
+      flex: auto;
+    }
+  }
+  .inset {
+    margin: 1em;
+  }
+  .inset-box {
+    padding: 1em;
+    border: solid 1px $c-box-border;
+    background: $c-bg-box;
+    > p {
+      margin-#{$start-direction}: 2em;
+      font-size: 0.8em;
+      text-indent: -2em;
+    }
+  }
+}

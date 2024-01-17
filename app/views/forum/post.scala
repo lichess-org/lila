@@ -106,7 +106,7 @@ object post:
         frag:
           val postFrag = div(cls := s"forum-post__message expand-text")(
             if post.erased then "<Comment deleted by user>"
-            else body
+            else views.html.ask.render(body)
           )
           if hide then
             div(cls := "forum-post__blocked")(
@@ -126,7 +126,7 @@ object post:
               cls            := "post-text-area edit-post-box",
               minlength      := 3,
               required
-            )(post.text),
+            )(env.ask.embed.unfreeze(post.text)),
             div(cls := "edit-buttons")(
               a(
                 cls   := "edit-post-cancel",

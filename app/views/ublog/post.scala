@@ -19,12 +19,14 @@ object post:
       others: List[UblogPost.PreviewPost],
       liked: Boolean,
       followable: Boolean,
-      followed: Boolean
+      followed: Boolean,
+      hasAsks: Boolean
   )(using ctx: PageContext) =
     views.html.base.layout(
-      moreCss = cssTag("ublog"),
+      moreCss = frag(cssTag("ublog"), hasAsks option cssTag("ask")),
       moreJs = frag(
         jsModule("expandText"),
+        hasAsks option jsModuleInit("ask"),
         ctx.isAuth option jsModule("ublog")
       ),
       title = s"${trans.ublog.xBlog.txt(user.username)} • ${post.title}",
@@ -106,7 +108,7 @@ object post:
               a(href := routes.Ublog.topic(topic.url, 1))(topic.value)
           ),
           strong(cls := "ublog-post__intro")(post.intro),
-          div(cls := "ublog-post__markup expand-text")(markup),
+          div(cls := "ublog-post__markup expand-text")(views.html.ask.render(markup)),
           div(cls := "ublog-post__footer")(
             post.live && ~post.discuss option a(
               href     := routes.Ublog.discuss(post.id),

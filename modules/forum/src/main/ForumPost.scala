@@ -4,6 +4,7 @@ import ornicar.scalalib.ThreadLocalRandom
 
 import lila.user.{ Me, User }
 import lila.security.Granter
+import lila.ask.AskEmbed
 
 case class OldVersion(text: String, createdAt: Instant)
 
@@ -76,6 +77,8 @@ case class ForumPost(
   def erased = erasedAt.isDefined
 
   def isBy(u: User) = userId.exists(_ == u.id)
+
+  def cleanTake(n: Int): String = AskEmbed.stripAsks(text, n)
 
   override def toString = s"Post($categId/$topicId/$id)"
 

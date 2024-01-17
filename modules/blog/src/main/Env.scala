@@ -16,6 +16,7 @@ final class Env(
     appConfig: Configuration,
     timelineApi: lila.timeline.EntryApi,
     cacheApi: lila.memo.CacheApi,
+    askEmbed: lila.ask.AskEmbed,
     baseUrl: lila.common.config.BaseUrl,
     db: lila.db.Db
 )(using Executor, Scheduler, play.api.libs.ws.StandaloneWSClient):

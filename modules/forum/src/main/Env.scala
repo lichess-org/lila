@@ -12,6 +12,7 @@ import lila.notify.NotifyApi
 import lila.pref.PrefApi
 import lila.relation.RelationApi
 import lila.user.User
+import lila.ask.AskEmbed
 
 @Module
 final private class ForumConfig(
@@ -37,7 +38,8 @@ final class Env(
     userRepo: lila.user.UserRepo,
     gameRepo: lila.game.GameRepo,
     cacheApi: lila.memo.CacheApi,
-    ws: StandaloneWSClient
+    ws: StandaloneWSClient,
+    askEmbed: AskEmbed
 )(using Executor, Scheduler, akka.stream.Materializer):
 
   private val config = appConfig.get[ForumConfig]("forum")(AutoConfig.loader)

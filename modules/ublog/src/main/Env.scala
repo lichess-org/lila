@@ -18,7 +18,8 @@ final class Env(
     shutup: lila.hub.actors.Shutup,
     captcher: lila.hub.actors.Captcher,
     cacheApi: lila.memo.CacheApi,
-    net: NetConfig
+    net: NetConfig,
+    askEmbed: lila.ask.AskEmbed
 )(using Executor, Scheduler, akka.stream.Materializer, play.api.Mode):
 
   export net.{ assetBaseUrl, baseUrl, domain, assetDomain }

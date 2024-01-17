@@ -1,6 +1,7 @@
 .sbtopts
 .jvmopts
 .bsp
+.pnpm-store
 .bloop/
 .metals/
 .pnpm-store/

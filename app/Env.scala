@@ -26,6 +26,7 @@ final class Env(
     val search: lila.search.Env,
     val gameSearch: lila.gameSearch.Env,
     val timeline: lila.timeline.Env,
+    val ask: lila.ask.Env,
     val forum: lila.forum.Env,
     val forumSearch: lila.forumSearch.Env,
     val team: lila.team.Env,
@@ -189,6 +190,7 @@ final class EnvBoot(
   lazy val search: lila.search.Env           = wire[lila.search.Env]
   lazy val gameSearch: lila.gameSearch.Env   = wire[lila.gameSearch.Env]
   lazy val timeline: lila.timeline.Env       = wire[lila.timeline.Env]
+  lazy val ask: lila.ask.Env                 = wire[lila.ask.Env]
   lazy val forum: lila.forum.Env             = wire[lila.forum.Env]
   lazy val forumSearch: lila.forumSearch.Env = wire[lila.forumSearch.Env]
   lazy val team: lila.team.Env               = wire[lila.team.Env]

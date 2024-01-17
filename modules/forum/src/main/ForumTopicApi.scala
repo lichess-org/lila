@@ -27,7 +27,8 @@ final private class ForumTopicApi(
     shutup: lila.hub.actors.Shutup,
     detectLanguage: DetectLanguage,
     cacheApi: CacheApi,
-    relationApi: lila.relation.RelationApi
+    relationApi: lila.relation.RelationApi,
+    askEmbed: lila.ask.AskEmbed
 )(using Executor):
 
   import BSONHandlers.given
@@ -85,7 +86,8 @@ final private class ForumTopicApi(
       categ: ForumCateg,
       data: ForumForm.TopicData
   )(using me: Me): Fu[ForumTopic] =
-    topicRepo.nextSlug(categ, data.name) zip detectLanguage(data.post.text) flatMap { (slug, lang) =>
+    topicRepo.nextSlug(categ, data.name) zip detectLanguage(data.post.text) flatMap { case (slug, lang) =>
+      val frozen = askEmbed.freeze(spam.replace(data.post.text), me)
       val topic = ForumTopic.make(
         categId = categ.slug,
         slug = slug,
@@ -97,7 +99,7 @@ final private class ForumTopicApi(
         topicId = topic.id,
         userId = me.some,
         troll = me.marks.troll,
-        text = spam.replace(data.post.text),
+        text = frozen.text,
         lang = lang map (_.language),
         number = 1,
         categId = categ.id,
@@ -110,6 +112,7 @@ final private class ForumTopicApi(
             _ <- postRepo.coll.insert.one(post)
             _ <- topicRepo.coll.insert.one(topic withPost post)
             _ <- categRepo.coll.update.one($id(categ.id), categ.withPost(topic, post))
+            _ <- askEmbed.commit(frozen, s"/forum/redirect/post/${post._id}".some)
           yield
             !categ.quiet so (indexer ! InsertPost(post))
             promotion.save(post.text)

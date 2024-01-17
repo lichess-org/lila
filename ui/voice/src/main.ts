@@ -5,11 +5,20 @@ import { flash } from './view';
 
 export * from './interfaces';
 export * from './move/interfaces';
-export { load as makeVoiceMove } from './move/moveCtrl';
+export { makeVoiceMove } from './move/moveCtrl';
 export { renderVoiceBar } from './view';
 
 export const VOSK_TS_VERSION = '_____1'; // this versions the wasm asset (see vosk.ts)
-export const supportedLangs = [['en', 'English']];
+export const supportedLangs = [
+  ['en', 'English'],
+  /*['fr', 'Français'],
+  ['de', 'Deutsch'],
+  ['tr', 'Türkçe'],
+  ['vi', 'Tiếng Việt'],
+  ['ru', 'Русский'],
+  ['it', 'Italiano'],
+  ['sv', 'Svenska'],*/
+];
 
 export function makeCtrl(opts: {
   redraw: () => void;

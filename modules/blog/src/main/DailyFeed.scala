@@ -3,9 +3,10 @@ package lila.blog
 import reactivemongo.api.bson.*
 import reactivemongo.api.bson.Macros.Annotations.Key
 import java.time.format.{ DateTimeFormatter, FormatStyle }
+import lila.ask.{ Ask, AskEmbed }
 import lila.db.dsl.{ *, given }
 import lila.memo.CacheApi
-import lila.common.config.Max
+import lila.common.config.{ Max, BaseUrl }
 import play.api.data.Form
 import lila.user.Me
 
@@ -34,13 +35,18 @@ object DailyFeed:
   import ornicar.scalalib.ThreadLocalRandom
   def makeId = ThreadLocalRandom nextString 6
 
-final class DailyFeed(coll: Coll, cacheApi: CacheApi)(using Executor):
+final class DailyFeed(coll: Coll, cacheApi: CacheApi, askEmbed: AskEmbed, baseUrl: BaseUrl)(using
+    Executor
+):
 
   import DailyFeed.*
 
   private val max = Max(50)
 
   private given BSONDocumentHandler[Update] = Macros.handler
+
+  private val atomRenderer =
+    lila.common.MarkdownRender(autoLink = false, strikeThrough = true, baseUrl = baseUrl.some)
 
   private object cache:
     private var mutableLastUpdates: List[Update] = Nil
@@ -65,10 +71,24 @@ final class DailyFeed(coll: Coll, cacheApi: CacheApi)(using Executor):
 
   def recentPublished = recent.map(_.filter(_.published))
 
-  def get(id: ID): Fu[Option[Update]] = coll.byId[Update](id)
+  def get(id: ID): Fu[Option[Update]] = coll.byId[Update](id) flatMap:
+    case Some(up) => askEmbed.repo.preload(up.content.value) inject up.some
+    case _        => fuccess(none[Update])
 
-  def set(update: Update): Funit =
-    coll.update.one($id(update.id), update, upsert = true).void andDo cache.clear()
+  def edit(id: ID): Fu[Option[Update]] = get(id) flatMap:
+    case Some(up) =>
+      askEmbed.unfreezeAndLoad(up.content.value) map: text =>
+        up.copy(content = Markdown(text)).some
+    case _ => fuccess(none[Update])
+
+  def set(update: Update)(using me: Me): Funit =
+    askEmbed
+      .freezeAndCommit(update.content.value, me, s"/feed#${update.id}".some)
+      .flatMap: text =>
+        coll.update
+          .one($id(update.id), update.copy(content = Markdown(text)), upsert = true)
+          .void
+          .andDo(cache.clear())
 
   def delete(id: ID): Funit =
     coll.delete.one($id(id)).void andDo cache.clear()
@@ -88,3 +108,5 @@ final class DailyFeed(coll: Coll, cacheApi: CacheApi)(using Executor):
         lila.user.FlairApi.formPair(anyFlair = true)
       )(UpdateData.apply)(unapply)
     from.fold(form)(u => form.fill(UpdateData(u.content, u.public, u.at, u.flair)))
+
+  def renderAtom(up: Update): Html = atomRenderer(s"dailyFeed:atom:${up.id}")(up.content)

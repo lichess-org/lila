@@ -15,7 +15,8 @@ final class DailyFeed(env: Env) extends LilaController(env):
   def index = Open:
     for
       updates <- api.recent
-      page    <- renderPage(html.dailyFeed.index(updates))
+      hasAsks <- env.ask.repo.preload(updates.map(_.content.value)*)
+      page    <- renderPage(html.dailyFeed.index(updates, hasAsks))
     yield Ok(page)
 
   def createForm = Secure(_.DailyFeed) { _ ?=> _ ?=>
@@ -36,7 +37,10 @@ final class DailyFeed(env: Env) extends LilaController(env):
 
   def edit(id: String) = Secure(_.DailyFeed) { _ ?=> _ ?=>
     Found(api.get(id)): up =>
-      Ok.pageAsync(html.dailyFeed.edit(api.form(up.some), up))
+      Ok.pageAsync(
+        html.dailyFeed
+          .edit(api.form(up.copy(content = Markdown(env.ask.embed.unfreeze(up.content.value))).some), up)
+      )
   }
 
   def update(id: String) = SecureBody(_.DailyFeed) { _ ?=> _ ?=>

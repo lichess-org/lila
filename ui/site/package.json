@@ -69,7 +69,8 @@
         "src/soundMove.ts": "soundMove",
         "src/diagnostic.ts": "diagnostic",
         "src/flairPicker.ts": "flairPicker",
-        "src/dailyFeed.ts": "dailyFeed"
+        "src/dailyFeed.ts": "dailyFeed",
+        "src/ask.ts": "ask"
       }
     },
     "copy": [
