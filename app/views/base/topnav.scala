@@ -15,7 +15,7 @@ object topnav:
   private def canSeeClasMenu(using ctx: PageContext) =
     ctx.hasClas || ctx.me.exists(u => u.hasTitle || u.roles.contains("ROLE_COACH"))
 
-  def apply()(using ctx: PageContext) =
+  def apply(me: lila.user.Me)(using ctx: PageContext) =
     st.nav(id := "topnav", cls := "hover")(
       st.section(
         linkTitle(
@@ -79,7 +79,12 @@ object topnav:
         linkTitle(routes.User.list.url, trans.community()),
         div(role := "group")(
           a(href := routes.User.list)(trans.players()),
+
+         
+         a(href := routes.Relation.following(me.username))(trans.friends()),
+                 
           a(href := teamRoutes.home())(trans.team.teams()),
+          
           ctx.kid.no option a(href := routes.ForumCateg.index)(trans.forum()),
           ctx.kid.no option a(href := langHref(routes.Ublog.communityAll()))(trans.blog()),
           ctx.kid.no && ctx.me.exists(_.isPatron) option
