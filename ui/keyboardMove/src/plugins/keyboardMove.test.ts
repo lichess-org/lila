@@ -151,7 +151,7 @@ describe('keyboardMove', () => {
   });
 
   test('berserks a game', () => {
-    input.value = 'clock';
+    input.value = 'zerk';
     const goBerserk = jest.fn();
     const keyboardMovePlugin = keyboardMove({
       input,
