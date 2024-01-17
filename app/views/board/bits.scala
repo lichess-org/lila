@@ -14,9 +14,11 @@ object bits:
   private def miniOrientation(pov: Pov): chess.Color =
     if pov.game.variant == chess.variant.RacingKings then chess.White else pov.player.color
 
-  def mini(pov: Pov): Tag => Tag =
+  def mini(pov: Pov)(using ctx: Context): Tag => Tag =
     mini(
-      if pov.player.blindfold then BoardFen("8/8/8/8/8/8/8/8") else Fen.writeBoard(pov.game.board),
+      if ctx.me.exists(_.is(pov.player.userId)) && pov.game.status < chess.Status.Mate && pov.player.blindfold
+      then BoardFen("8/8/8/8/8/8/8/8")
+      else Fen.writeBoard(pov.game.board),
       miniOrientation(pov),
       pov.game.history.lastMove
     )
