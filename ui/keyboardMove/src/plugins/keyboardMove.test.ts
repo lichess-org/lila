@@ -150,6 +150,22 @@ describe('keyboardMove', () => {
     expect(input.value).toBe('');
   });
 
+  test('berserks a game', () => {
+    input.value = 'clock';
+    const goBerserk = jest.fn();
+    const keyboardMovePlugin = keyboardMove({
+      input,
+      ctrl: {
+        ...defaultCtrl,
+        goBerserk,
+      },
+    }) as any;
+
+    keyboardMovePlugin(startingFen, toMap({}), true);
+    expect(goBerserk.mock.calls.length).toBe(1);
+    expect(input.value).toBe('');
+  });
+
   test('opens help modal with ?', () => {
     input.value = '?';
     const mockSetHelpModalOpen = jest.fn();
