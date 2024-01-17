@@ -23,12 +23,12 @@ export function main(ctrl: RoundController): VNode {
       ctrl.data.steps,
       ctrl.ply,
     );
-
+  const hideBoard = ctrl.data.player.blindfold && ctrl.data.game.status.id < 30;
   return ctrl.nvui
     ? ctrl.nvui.render(ctrl)
     : h('div.round__app.variant-' + d.game.variant.key, [
         h(
-          'div.round__app__board.main-board' + (ctrl.data.player.blindfold ? '.blindfold' : ''),
+          'div.round__app__board.main-board' + (hideBoard ? '.blindfold' : ''),
           {
             hook:
               'ontouchstart' in window || !lichess.storage.boolean('scrollMoves').getOrDefault(true)
@@ -56,4 +56,12 @@ export function main(ctrl: RoundController): VNode {
         crazyView(ctrl, bottomColor, 'bottom') || materialDiffs[1],
         ctrl.keyboardMove && renderKeyboardMove(ctrl.keyboardMove),
       ]);
+}
+
+export function endGameView() {
+  $('div.round__app__board.main-board.blindfold').removeClass('blindfold');
+  if ($('body').hasClass('zen-auto') && $('body').hasClass('zen')) {
+    $('body').toggleClass('zen');
+    window.dispatchEvent(new Event('resize'));
+  }
 }
