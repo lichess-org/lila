@@ -13,10 +13,10 @@ final class DailyFeed(env: Env) extends LilaController(env):
   def api       = env.blog.dailyFeed
   def paginator = env.blog.dailyFeedPaginator
 
-  def index(page: Int) = Open:
+  def index(page: Int) = Open: ctx ?=>
     Reasonable(page):
       for
-        updates      <- paginator.recent(page)
+        updates      <- paginator.recent(isGrantedOpt(_.DailyFeed), page)
         renderedPage <- renderPage(html.dailyFeed.index(updates))
       yield Ok(renderedPage)
 

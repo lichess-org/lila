@@ -93,11 +93,13 @@ final class DailyFeedPaginatorBuilder(
 )(using Executor):
   import DailyFeed.*
 
-  def recent(page: Int): Fu[Paginator[Update]] =
+  def recent(includeAll: Boolean, page: Int): Fu[Paginator[Update]] =
     Paginator(
       adapter = Adapter[Update](
         collection = coll,
-        selector = $empty,
+        selector =
+          if includeAll then $empty
+          else $doc("public" -> true, "at" $lt nowInstant),
         projection = none,
         sort = $sort.desc("at")
       ),
