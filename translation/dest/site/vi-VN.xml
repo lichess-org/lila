@@ -436,7 +436,7 @@ trò chuyện trong ván đấu và có một URL có thể chia sẻ công khai
   <string name="showAdvancedSettings">Hiện các thiết lập nâng cao</string>
   <string name="makePrivateTournament">Đặt giải đấu ở chế độ riêng tư và giới hạn tham gia bởi mật khẩu</string>
   <string name="join">Tham gia</string>
-  <string name="withdraw">Tạm rút</string>
+  <string name="withdraw">Rút lui</string>
   <string name="points">Điểm</string>
   <string name="wins">Thắng</string>
   <string name="losses">Thua</string>
