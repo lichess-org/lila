@@ -1545,6 +1545,9 @@ object I18nKeys:
     val `nowOneMonth` = I18nKey("patron:nowOneMonth")
     val `downgradeNextMonth` = I18nKey("patron:downgradeNextMonth")
     val `changeCurrency` = I18nKey("patron:changeCurrency")
+    val `paymentDetails` = I18nKey("patron:paymentDetails")
+    val `updatePaymentMethod` = I18nKey("patron:updatePaymentMethod")
+    val `stripeManageSub` = I18nKey("patron:stripeManageSub")
     val `xIsPatronForNbMonths` = I18nKey("patron:xIsPatronForNbMonths")
     val `patronForMonths` = I18nKey("patron:patronForMonths")
 

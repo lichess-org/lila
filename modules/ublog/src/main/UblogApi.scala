@@ -102,7 +102,7 @@ final class UblogApi(
   def latestPosts(nb: Int): Fu[List[UblogPost.PreviewPost]] =
     colls.post
       .find(
-        $doc("live" -> true, "pinned" -> false, "topics" $ne UblogTopic.offTopic),
+        $doc("live" -> true, "pinned" $ne true, "topics" $ne UblogTopic.offTopic),
         previewPostProjection.some
       )
       .sort($doc("rank" -> -1))

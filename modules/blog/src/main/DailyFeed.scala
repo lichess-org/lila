@@ -85,6 +85,6 @@ final class DailyFeed(coll: Coll, cacheApi: CacheApi)(using Executor):
         "content" -> nonEmptyText(maxLength = 20_000).into[Markdown],
         "public"  -> boolean,
         "at"      -> ISOInstantOrTimestamp.mapping,
-        lila.user.FlairApi.formPair
+        lila.user.FlairApi.formPair(anyFlair = true)
       )(UpdateData.apply)(unapply)
     from.fold(form)(u => form.fill(UpdateData(u.content, u.public, u.at, u.flair)))

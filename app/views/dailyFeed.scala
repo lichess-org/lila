@@ -137,9 +137,10 @@ object dailyFeed:
         help = markdownAvailable.some
       )(form3.textarea(_)(rows := 10)),
       form3.group(form("flair"), "Icon", half = false): field =>
-        form3.flairPicker(field, Flair from form("flair").value, label = frag("Update icon")):
-          span(cls := "flair-container"):
-            Flair.from(form("flair").value).map(f => marker(f.some, "uflair".some))
+        form3
+          .flairPicker(field, Flair from form("flair").value, label = frag("Update icon"), anyFlair = true):
+            span(cls := "flair-container"):
+              Flair.from(form("flair").value).map(f => marker(f.some, "uflair".some))
       ,
       form3.action(form3.submit("Save"))
     )

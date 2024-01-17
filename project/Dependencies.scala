@@ -28,13 +28,13 @@ object Dependencies {
   val scalatags   = "com.lihaoyi"                  %% "scalatags"                       % "0.12.0"
   val lettuce     = "io.lettuce"                    % "lettuce-core"                    % "6.3.1.RELEASE"
   val nettyTransport =
-    "io.netty" % s"netty-transport-native-$notifier" % "4.1.104.Final" classifier s"$os-$arch"
+    "io.netty" % s"netty-transport-native-$notifier" % "4.1.105.Final" classifier s"$os-$arch"
   val munit       = "org.scalameta"              %% "munit"         % "1.0.0-M10" % Test
   val uaparser    = "org.uaparser"               %% "uap-scala"     % "0.16.0"
   val apacheText  = "org.apache.commons"          % "commons-text"  % "1.11.0"
   val apacheMath  = "org.apache.commons"          % "commons-math3" % "3.6.1"
   val bloomFilter = "com.github.alexandrnikitin" %% "bloom-filter"  % "0.13.1_lila-1"
-  val kittens     = "org.typelevel"              %% "kittens"       % "3.1.0"
+  val kittens     = "org.typelevel"              %% "kittens"       % "3.2.0"
 
   object tests {
     val bundle = Seq(munit)
@@ -60,7 +60,7 @@ object Dependencies {
   object reactivemongo {
     val driver = "org.reactivemongo" %% "reactivemongo"                              % "1.1.0-RC11"
     val stream = "org.reactivemongo" %% "reactivemongo-akkastream"                   % "1.1.0-RC12"
-    val shaded = "org.reactivemongo"  % s"reactivemongo-shaded-native-$os-$dashArch" % "1.1.0-RC11"
+    val shaded = "org.reactivemongo"  % s"reactivemongo-shaded-native-$os-$dashArch" % "1.1.0-RC12"
     // val kamon  = "org.reactivemongo" %% "reactivemongo-kamon"         % "1.0.8"
     def bundle = Seq(driver, stream)
   }

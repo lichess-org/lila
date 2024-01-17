@@ -62,7 +62,7 @@ export default (ctrl: PuzCtrl): VNode => {
             h('span.puz-history__round__meta', [
               h('span.puz-history__round__result', [
                 h(round.win ? 'good' : 'bad', Math.round(round.millis / 1000) + 's'),
-                h('rating', round.puzzle.rating),
+                ctrl.pref.ratings ? h('rating', round.puzzle.rating) : '',
               ]),
               h('span.puz-history__round__id', '#' + round.puzzle.id),
             ]),
