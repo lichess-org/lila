@@ -38,6 +38,7 @@
   <string name="announceMoveFormat">Alparoli Movan Aranĝon</string>
   <string name="moveFormatDescription">SAN estas la normo sur Lichess kiel \"Nf6\". UCI estas kutima sur motoroj kiel \"g8f6\".</string>
   <string name="keywords">Ŝlosilvorto</string>
+  <string name="keywordFormatDescription">Ŝlosilvortoj estas aranĝata JSON-e. Ilin uzas por traduki movojn kaj rezultojn al via lingvo. Defaŭlto estas la angla, sed bonvolu ŝanĝi ĝin, se tio plaĉas al vi.</string>
   <string name="debug">Sencimigi</string>
   <string name="verboseLogging">Malkonciza protokolado</string>
   <string name="toSeeConsoleMessage">Por vidi konzola mesaĝo premi Komandon + Opcion + C (Mac) aŭ Stiron + Majuskligon + C (Vindozo, Linukso, Krom OS)</string>
