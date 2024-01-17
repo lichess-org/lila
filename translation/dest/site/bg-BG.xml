@@ -507,6 +507,7 @@
   <string name="setFlair">Изберете вашето емоджи</string>
   <string name="flair">Емоджи</string>
   <string name="biography">Животопис</string>
+  <string name="countryRegion" comment="flag&#10;Appears when you edit your profile. Lets a player add a country/flag (not all flags are for countries) to their profile">Държава или регион</string>
   <string name="thankYou">Благодаря!</string>
   <string name="socialMediaLinks">Връзки към социални медии</string>
   <string name="oneUrlPerLine">Един URL на ред.</string>
@@ -691,6 +692,9 @@
   <string name="keyNextBlunder">Следваща груба грешка</string>
   <string name="keyNextMistake">Следваща грешка</string>
   <string name="keyNextInaccuracy">Следваща неточност</string>
+  <string name="keyPreviousBranch">Предходен клон</string>
+  <string name="keyNextBranch">Следващ клон</string>
+  <string name="cyclePreviousOrNextVariation">Превключи между предходна/следваща вариация</string>
   <string name="newTournament">Нов турнир</string>
   <string name="tournamentHomeTitle">Шахматният турнир включва различни времеви контроли и варианти</string>
   <string name="tournamentHomeDescription">Играй в състезания по бърз шахмат! Участвай в разписаните състезания или създай свое собствено. Bullet, Blitz, Classical, Chess960, King of the Hill, Threecheck и още възможности предоставящи безкрайна шахматна забава.</string>
