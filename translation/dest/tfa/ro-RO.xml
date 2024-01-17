@@ -7,7 +7,7 @@
   <string name="enterPassword">Introdu parola și codul de autentificare generat de aplicație pentru a completa configurarea. Vei avea nevoie de un cod de autentificare de fiecare dată când te conectezi.</string>
   <string name="ifYouCannotScanEnterX">Dacă nu puteți scana codul, introduceți codul secret %s în aplicația dvs.</string>
   <string name="authenticationCode">Cod de autentificare</string>
-  <string name="ifYouLoseAccessTwoFactor">Notă: Dacă pierzi accesul la codurile autentificare în două etape, poți reseta parola prin email.</string>
+  <string name="ifYouLoseAccessTwoFactor">Notă: Dacă pierzi accesul la codurile autentificare în două etape, puteți face o %s prin e-mail.</string>
   <string name="enableTwoFactor">Activează autentificarea în doi pași</string>
   <string name="disableTwoFactor">Dezactivează autentificarea în doi pași</string>
   <string name="twoFactorEnabled">Autentificare în doi pași activată</string>
