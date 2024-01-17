@@ -504,6 +504,8 @@
   <string name="editProfile">Редактирай профила</string>
   <string name="firstName">Име</string>
   <string name="lastName">Презиме</string>
+  <string name="setFlair">Изберете вашето емоджи</string>
+  <string name="flair">Емоджи</string>
   <string name="biography">Животопис</string>
   <string name="thankYou">Благодаря!</string>
   <string name="socialMediaLinks">Връзки към социални медии</string>
@@ -844,6 +846,7 @@
     <item quantity="one">и запиши %s като предварителен ход</item>
     <item quantity="other">и запиши %s като предварителен ход</item>
   </plurals>
+  <string name="clickHereToReadIt">Щракнете тук, за да го прочетете</string>
   <string name="sorry">Съжалявам :(</string>
   <string name="weHadToTimeYouOutForAWhile">Наложи се да Ви сложим в принудителна почивка за известно време.</string>
   <string name="why">Защо?</string>
@@ -865,6 +868,7 @@
   <string name="agreementPolicy">Съгласявам се, че ше спазвам всички правила на Lichess.</string>
   <string name="searchOrStartNewDiscussion">Търси или започни нов разговор</string>
   <string name="edit">Редактиране</string>
+  <string name="bullet" comment="Probably best left untranslated. Leave it as 'Bullet' unless your language has a better word for it.">Bullet</string>
   <string name="blitz" comment="Probably best left untranslated. Leave it as 'Blitz' unless your language has a better word for it.">Blitz</string>
   <string name="rapid">Ускорен</string>
   <string name="classical">Класически</string>
@@ -961,5 +965,7 @@
   <string name="switchSides">Смени страната</string>
   <string name="closingAccountWithdrawAppeal">Закриването на регистрацията Ви ще оттегли Вашето обжалване</string>
   <string name="ourEventTips">Нашите съвети за организиране на събития</string>
+  <string name="instructions">Инструкции</string>
+  <string name="showMeEverything">Покажи ми всичко</string>
   <string name="lichessPatronInfo">Lichess е благотворителна организация и работи с напълно безплатен софтуер и отворен код. Всички разходи за опериране, разработка и съдържание са финансирани единствено от дарения от потребителите ни.</string>
 </resources>
