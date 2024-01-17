@@ -56,6 +56,7 @@
   <string name="interference">Interfero</string>
   <string name="interferenceDescription">Movo de peco inter du kontraŭaj pecoj por lasi unu aŭ ambaŭ kontraŭaj pecoj sendefenda, kiel ĉevalo sur defendita ĉelo inter du turoj.</string>
   <string name="intermezzo">Intermeza movo</string>
+  <string name="intermezzoDescription">Anstataŭ ludo de la atendita movo, unue intermetu alian movon, kiu faras tujan minacon, al kiu via kontraŭulo devas respondi.</string>
   <string name="knightEndgame">Ĉevala finaĵo</string>
   <string name="knightEndgameDescription">Finaĵo nur kun ĉevaloj kaj peonoj.</string>
   <string name="long">Longa puzlo</string>
@@ -99,9 +100,11 @@
   <string name="rookEndgame">Tura finaĵo</string>
   <string name="rookEndgameDescription">Finaĵo nur kun turoj kaj peonoj.</string>
   <string name="sacrifice">Ofero</string>
+  <string name="sacrificeDescription">Taktiko temas pri cedo de materialo dum la mallongtempo, por regajni avantaĝon dum devigita vico de movoj.</string>
   <string name="short">Mallonga puzlo</string>
   <string name="shortDescription">Du movoj por venki.</string>
   <string name="skewer">Trapiko</string>
+  <string name="skewerDescription">Motivo temas pri altvalora peco, kiu estas atakita, tiam moviĝas for de vojo permesante kapton de plimalaltvalora peco malantaŭ si. La inverso de alpinglo.</string>
   <string name="smotheredMate">Sufokita mato</string>
   <string name="smotheredMateDescription">Ŝakmato liverita per ĉevalo, kiam la matita rego ne povas moviĝi, ĉar ĝi estas ĉirkaŭbarita (aŭ sufokita) per siaj propraj ŝakpecoj.</string>
   <string name="superGM">Super GM ludoj</string>
