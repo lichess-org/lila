@@ -80,4 +80,7 @@
   <string name="nowOneMonth">شما هم‌اکنون برای یک ماه یک پشتیبانِ Lichess هستید!</string>
   <string name="downgradeNextMonth">طی یک ماه، دوباره برای شما بدهکاری ثبت نخواهد شد، و حساب کاربری Lichess شما به یک حساب کاربری معمولی برگردانده خواهد شد.</string>
   <string name="changeCurrency">تغییر واحد پول</string>
+  <string name="paymentDetails">جزئیات پرداخت</string>
+  <string name="updatePaymentMethod">به‌روزرسانی روش پرداخت</string>
+  <string name="stripeManageSub">اشتراک خود را مدیریت کنید و صورت‌حساب‌ها و رسیدهای خود را بارگیری کنید</string>
 </resources>
