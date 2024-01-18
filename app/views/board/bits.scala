@@ -16,7 +16,7 @@ object bits:
 
   def mini(pov: Pov)(using ctx: Context): Tag => Tag =
     mini(
-      if ctx.me.exists(_.is(pov.player.userId)) && pov.game.status < chess.Status.Mate && pov.player.blindfold
+      if ctx.me.flatMap(pov.game.player).exists(_.blindfold) && pov.game.playable
       then BoardFen("8/8/8/8/8/8/8/8")
       else Fen.writeBoard(pov.game.board),
       miniOrientation(pov),

@@ -55,7 +55,7 @@ object mini:
 
   def renderState(pov: Pov)(using me: Option[Me]) =
     val fen =
-      if me.flatMap(pov.game.player).exists(_.blindfold) && pov.game.status < chess.Status.Mate
+      if me.flatMap(pov.game.player).exists(_.blindfold) && pov.game.playable
       then chess.format.BoardAndColorFen("8/8/8/8/8/8/8/8 w")
       else Fen.writeBoardAndColor(pov.game.situation)
 
