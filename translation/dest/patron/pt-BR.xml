@@ -80,4 +80,7 @@ No entanto, Patronos têm direito de se gabar com um novo ícone legal de perfil
   <string name="nowOneMonth">Você agora é Patrono do Lichess por um mês!</string>
   <string name="downgradeNextMonth">Em um mês, você NÃO será cobrado novamente, e sua conta Lichess será convertida para a versão gratuita.</string>
   <string name="changeCurrency">Trocar de moeda</string>
+  <string name="paymentDetails">Detalhes de pagamento</string>
+  <string name="updatePaymentMethod">Atualizar forma de pagamento</string>
+  <string name="stripeManageSub">Gerencie sua assinatura e baixe suas faturas e recibos</string>
 </resources>
