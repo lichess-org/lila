@@ -137,7 +137,6 @@ export default class PuzzleCtrl implements ParentCtrl {
         game: { variant: { key: 'standard' } },
         player: { color: this.pov },
       },
-      chessground: cg,
       sendMove: this.playUserMove,
       auxMove: this.auxMove,
       redraw: this.redraw,
@@ -148,11 +147,15 @@ export default class PuzzleCtrl implements ParentCtrl {
       solve: this.viewSolution,
       blindfold: this.blindfold,
     });
+    const up = { fen: this.node.fen, canMove: true, cg };
     if (this.opts.pref.voiceMove) {
-      this.voiceMove?.update(this.node.fen, true, cg);
-      this.voiceMove ??= makeVoiceMove(makeRoot(), this.node.fen);
+      if (this.voiceMove) this.voiceMove.update(up);
+      else this.voiceMove = makeVoiceMove(makeRoot(), up);
     }
-    if (this.opts.pref.keyboardMove) this.keyboardMove = makeKeyboardMove(makeRoot(), { fen: this.node.fen });
+    if (this.opts.pref.keyboardMove) {
+      this.keyboardMove ??= makeKeyboardMove(makeRoot());
+      this.keyboardMove.update(up);
+    }
     requestAnimationFrame(() => this.redraw());
   };
 
@@ -259,14 +262,18 @@ export default class PuzzleCtrl implements ParentCtrl {
       });
   };
 
+  auxUpdate = (fen: string): void => {
+    this.voiceMove?.update({ fen, canMove: true });
+    this.keyboardMove?.update({ fen, canMove: true });
+  };
+
   userMove = (orig: Key, dest: Key): void => {
     this.justPlayed = orig;
     if (
       !this.promotion.start(orig, dest, { submit: this.playUserMove, show: this.voiceMove?.promotionHook() })
     )
       this.playUserMove(orig, dest);
-    this.voiceMove?.update(this.node.fen, true);
-    this.keyboardMove?.update({ fen: this.node.fen });
+    this.auxUpdate(this.node.fen);
   };
 
   playUci = (uci: Uci): void => this.sendMove(parseUci(uci)!);
@@ -529,8 +536,7 @@ export default class PuzzleCtrl implements ParentCtrl {
     this.promotion.cancel();
     this.justPlayed = undefined;
     this.autoScrollRequested = true;
-    this.keyboardMove?.update({ fen: this.node.fen });
-    this.voiceMove?.update(this.node.fen, true);
+    this.auxUpdate(this.node.fen);
     lichess.pubsub.emit('ply', this.node.ply);
   };
 

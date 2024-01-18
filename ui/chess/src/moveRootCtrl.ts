@@ -1,8 +1,6 @@
-import { Api as CgApi } from 'chessground/api';
 import * as cg from 'chessground/types';
 
 export interface MoveRootCtrl {
-  chessground: CgApi;
   auxMove: (orig: cg.Key, dest: cg.Key, prom: cg.Role | undefined) => void;
   redraw: () => void;
   flipNow: () => void;
@@ -16,4 +14,10 @@ export interface MoveRootCtrl {
   blindfold?: (v?: boolean) => boolean;
   speakClock?: () => void;
   goBerserk?: () => void;
+}
+
+export interface MoveUpdate {
+  fen: string;
+  canMove: boolean;
+  cg?: CgApi;
 }
