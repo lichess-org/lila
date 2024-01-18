@@ -1,7 +1,6 @@
 package lila.ask
 
 import lila.common.IpAddress
-import alleycats.Zero
 
 case class Ask(
     _id: Ask.ID,
@@ -67,10 +66,10 @@ case class Ask(
   def firstPickFor(o: Option[String]): Option[Int] =
     picksFor(o) flatMap (_ headOption)
 
-  def hasFeedbackFor(o: Option[String]): Boolean =
+  def hasFormFor(o: Option[String]): Boolean =
     o so (eid => form.exists(_ contains eid))
 
-  def feedbackFor(o: Option[String]): Option[String] =
+  def formFor(o: Option[String]): Option[String] =
     o so (eid => form flatMap (_ get eid))
 
   def count(choice: Int): Int    = picks.fold(0)(_.values.count(_ contains choice))
@@ -162,16 +161,6 @@ object Ask:
     form = None,
     url = None
   )
-
-  /*given zeroAsk: Zero[Ask] with
-    def zero = make(
-      _id = "notfound".some,
-      question = "",
-      choices = Vector.empty,
-      tags = Set.empty,
-      creator = UserId(""),
-      footer = None
-    )*/
 
   def anonHash(text: String, aid: Ask.ID): String =
     "anon-" + new String(base64.encode(com.roundeights.hasher.Algo.sha1(s"$text-$aid").bytes))

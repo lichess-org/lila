@@ -9,7 +9,7 @@ class Ask {
   el: Element;
   anon: boolean;
   submitEl?: Element;
-  feedbackEl?: HTMLInputElement;
+  formEl?: HTMLInputElement;
   view: string; // the initial order of picks when 'random' tag is used
   db: 'clean' | 'hasPicks'; // clean means no picks for this (ask, user) in the db
   constructor(askEl: Element) {
@@ -21,13 +21,13 @@ class Ask {
     wireMultipleChoices(this);
     wireRankedChoices(this);
     wireActions(this);
-    wireFeedback(this);
+    wireForm(this);
     wireSubmit(this);
   }
   ranking(): string {
     return Array.from($('.choice.rank', this.el), e => e?.getAttribute('value')).join('-');
   }
-  feedbackState(state: 'clean' | 'dirty' | 'success') {
+  formState(state: 'clean' | 'dirty' | 'success') {
     this.submitEl?.classList.remove('dirty', 'success');
     if (state != 'clean') this.submitEl?.classList.add(state);
   }
@@ -54,7 +54,6 @@ function askXhr(req: { ask: Ask; url: string; method?: string; body?: FormData; 
         window.location.href = rsp.url;
         return;
       }
-      console.log(req.url);
       const newAsk = rewire(req.ask.el, await xhr.ensureOk(rsp).text());
       if (req.after) req.after(newAsk!);
     },
@@ -87,9 +86,9 @@ function wireMultipleChoices(ask: Ask) {
   });
 }
 
-function wireFeedback(ask: Ask) {
-  ask.feedbackEl = $('.form-text', ask.el)
-    .on('input', () => ask.feedbackState(ask.feedbackEl?.value == initialFeedback ? 'clean' : 'dirty'))
+function wireForm(ask: Ask) {
+  ask.formEl = $('.form-text', ask.el)
+    .on('input', () => ask.formState(ask.formEl?.value == initialForm ? 'clean' : 'dirty'))
     .on('keypress', (e: KeyboardEvent) => {
       if (
         e.key != 'Enter' ||
@@ -104,7 +103,7 @@ function wireFeedback(ask: Ask) {
       e.preventDefault();
     })
     .get(0) as HTMLInputElement;
-  const initialFeedback = ask.feedbackEl?.value;
+  const initialForm = ask.formEl?.value;
 }
 
 function wireSubmit(ask: Ask) {
@@ -112,12 +111,12 @@ function wireSubmit(ask: Ask) {
   if (!ask.submitEl) return;
   $('input', ask.submitEl).on('click', () => {
     const path = `/ask/form/${ask.el.id}?view=${ask.view}&anon=${ask.el.classList.contains('anon')}`;
-    const body = ask.feedbackEl?.value ? xhr.form({ text: ask.feedbackEl.value }) : undefined;
+    const body = ask.formEl?.value ? xhr.form({ text: ask.formEl.value }) : undefined;
     askXhr({
       ask: ask,
       url: path,
       body: body,
-      after: ask => ask.feedbackState(ask.feedbackEl?.value ? 'success' : 'clean'),
+      after: ask => ask.formState(ask.formEl?.value ? 'success' : 'clean'),
     });
   });
 }
@@ -129,7 +128,7 @@ function wireActions(ask: Ask) {
   });
 }
 
-function wireRankedChoices(ask: Ask): void {
+function wireRankedChoices(ask: Ask) {
   let initialOrder = ask.ranking();
   let d: DragContext;
 
@@ -208,12 +207,12 @@ function createCursor(vertical: boolean) {
   return [cursorEl, breakEl];
 }
 
-function clearCursor(d: DragContext): void {
+function clearCursor(d: DragContext) {
   if (d.cursorEl.parentNode) d.parentEl.removeChild(d.cursorEl);
   if (d.breakEl?.parentNode) d.parentEl.removeChild(d.breakEl);
 }
 
-function updateHCursor(d: DragContext, e: MouseEvent): void {
+function updateHCursor(d: DragContext, e: MouseEvent) {
   if (e.x <= d.box.left || e.x >= d.box.right || e.y <= d.box.top || e.y >= d.box.bottom) {
     clearCursor(d);
     d.data = null;
@@ -247,7 +246,7 @@ function updateHCursor(d: DragContext, e: MouseEvent): void {
   } else if (d.breakEl!.parentNode) d.parentEl.removeChild(d.breakEl!);
 }
 
-function updateVCursor(d: DragContext, e: DragEvent): void {
+function updateVCursor(d: DragContext, e: DragEvent) {
   if (e.x <= d.box.left || e.x >= d.box.right || e.y <= d.box.top || e.y >= d.box.bottom) {
     clearCursor(d);
     return;

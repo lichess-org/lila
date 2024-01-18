@@ -3,13 +3,12 @@ package views.html
 import scala.collection.mutable
 import scala.util.Random.shuffle
 
-import controllers.routes
 import scalatags.Text.TypedTag
+import controllers.routes
 import lila.app.templating.Environment.{ given, * }
 import lila.app.ui.ScalatagsTemplate.{ *, given }
 import lila.ask.Ask
 import lila.ask.AskEmbed
-import lila.security.{ Granter, Permission }
 
 object ask:
 
@@ -24,7 +23,7 @@ object ask:
             env.ask.repo.get(id) match
               case Some(ask) =>
                 div(cls := s"ask-container${ask.isStretch so " stretch"}", renderOne(ask)).render
-              case None =>
+              case _ =>
                 p("<not found>").render
         )
 
@@ -92,17 +91,16 @@ private case class RenderAsk(
             formmethod := "GET",
             formaction := routes.Ask.view(ask._id, viewParam.some, !tallyView)
           ),
-          ctx.myId
-            .contains(ask.creator) || ctx.me.so(Granter(Permission.Shusher)(using _)) option button(
+          ctx.myId.contains(ask.creator) || isGranted(_.ModerateForum) option button(
             cls        := "admin",
             formmethod := "GET",
             formaction := routes.Ask.admin(ask._id),
-            title      := trans.edit.txt()(using ctx.lang)
+            title      := trans.edit.txt()
           ),
-          (ask.hasPickFor(voterId) || ask.hasFeedbackFor(voterId)) && !ask.isConcluded option button(
+          (ask.hasPickFor(voterId) || ask.hasFormFor(voterId)) && !ask.isConcluded option button(
             cls        := "unset",
             formaction := routes.Ask.unset(ask._id, viewParam.some, ask.isAnon),
-            title      := trans.delete.txt()(using ctx.lang)
+            title      := trans.delete.txt()
           )
         ),
         maybeDiv(
@@ -123,13 +121,13 @@ private case class RenderAsk(
   def footer =
     div(cls := "ask__footer")(
       ask.footer map (label(_)),
-      ask.isForm && !ask.isConcluded && voterId.nonEmpty option Seq(
+      ask.isForm && !ask.isConcluded && voterId.nonEmpty option frag(
         input(
           cls         := "form-text",
           tpe         := "text",
           maxlength   := 80,
           placeholder := "80 characters max",
-          value       := ~ask.feedbackFor(voterId)
+          value       := ~ask.formFor(voterId)
         ),
         div(cls := "form-submit")(input(cls := "button", tpe := "button", value := "Submit"))
       ),
@@ -144,7 +142,7 @@ private case class RenderAsk(
 
   def pollBody = choiceContainer:
     val picks = ask.picksFor(voterId)
-    val sb    = new mutable.StringBuilder("choice ")
+    val sb    = mutable.StringBuilder("choice ")
     if ask.isCheckbox then sb ++= "cbx " else sb ++= "btn "
     if ask.isMulti then sb ++= "multiple " else sb ++= "exclusive "
     if ask.isStretch then sb ++= "stretch "
@@ -167,7 +165,7 @@ private case class RenderAsk(
   def rankBody = choiceContainer:
     validRanking.zipWithIndex map:
       case (choice, index) =>
-        val sb = new mutable.StringBuilder("choice btn rank")
+        val sb = mutable.StringBuilder("choice btn rank")
         if ask.isStretch then sb ++= " stretch"
         if ask.hasPickFor(voterId) then sb ++= " submitted"
         div(cls := sb.toString, value := choice, draggable := true)(
@@ -221,17 +219,17 @@ private case class RenderAsk(
     val choiceText = ask.choices(choice)
     val hasPick    = ask.hasPickFor(voterId)
 
-    val count     = ask.count(choiceText)
-    val isAuthor  = ctx.myId.contains(ask.creator)
-    val isShusher = ctx.me.so(Granter(Permission.Shusher)(using _))
+    val count    = ask.count(choiceText)
+    val isAuthor = ctx.myId.contains(ask.creator)
+    val isMod    = isGranted(_.ModerateForum)
 
     if !ask.isRanked then
       if ask.isConcluded || tallyView then
         sb ++= pluralize("vote", count)
-        if ask.isTraceable || isShusher then sb ++= s"\n\n${whoPicked(choice)}"
+        if ask.isTraceable || isMod then sb ++= s"\n\n${whoPicked(choice)}"
       else
         if isAuthor || ask.isTally then sb ++= pluralize("vote", count)
-        if ask.isTraceable && ask.isTally || isShusher then sb ++= s"\n\n${whoPicked(choice)}"
+        if ask.isTraceable && ask.isTally || isMod then sb ++= s"\n\n${whoPicked(choice)}"
 
     if sb.isEmpty then choiceText else sb.toString
 
@@ -245,12 +243,13 @@ private case class RenderAsk(
       3 -> "chose this in their top four",
       4 -> "chose this in their top five"
     )
-    ask.choices.zipWithIndex map { case (choiceText, choice) =>
-      val sb = new mutable.StringBuilder(s"$choiceText:\n\n")
-      notables filter (_._1 < rankM.length - 1) map:
-        case (i, text) => sb ++= s"  ${rankM(choice)(i)} $text\n"
-      sb.toString
-    }
+    ask.choices.zipWithIndex map:
+      case (choiceText, choice) =>
+        val sb = new mutable.StringBuilder(s"$choiceText:\n\n")
+        notables filter (_._1 < rankM.length - 1) map:
+          case (i, text) =>
+            sb ++= s"  ${rankM(choice)(i)} $text\n"
+        sb.toString
 
   def pluralize(item: String, n: Int) =
     s"${if n == 0 then "No" else n} ${item}${if n != 1 then "s" else ""}"
@@ -264,9 +263,10 @@ private case class RenderAsk(
     val initialOrder =
       if ask.isRandom then shuffle((0 until ask.choices.size).toVector)
       else (0 until ask.choices.size).toVector
-    ask.picksFor(voterId).fold(initialOrder) { r =>
-      if r == Vector.empty || r.distinct.sorted != initialOrder.sorted then
-        voterId so (id => env.ask.repo.setPicks(ask._id, id, Vector.empty[Int].some))
-        initialOrder
-      else r
-    }
+    ask
+      .picksFor(voterId)
+      .fold(initialOrder): r =>
+        if r == Vector.empty || r.distinct.sorted != initialOrder.sorted then
+          voterId so (id => env.ask.repo.setPicks(ask._id, id, Vector.empty[Int].some))
+          initialOrder
+        else r
