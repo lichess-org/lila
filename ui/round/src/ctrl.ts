@@ -543,6 +543,7 @@ export default class RoundController implements MoveRootCtrl {
     d.game.winner = o.winner;
     d.game.status = o.status;
     d.game.boosted = o.boosted;
+    d.player.blindfold = false;
     this.userJump(this.lastPly());
     d.game.fen = d.steps[d.steps.length - 1].fen;
     // If losing/drawing on time but locally it is the opponent's turn, move did not reach server before the end
