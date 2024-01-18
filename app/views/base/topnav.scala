@@ -79,6 +79,7 @@ object topnav:
         linkTitle(routes.User.list.url, trans.community()),
         div(role := "group")(
           a(href := routes.User.list)(trans.players()),
+          ctx.me.map(me => a(href := routes.Relation.following(me.username))(trans.friends())),
           a(href := teamRoutes.home())(trans.team.teams()),
           ctx.kid.no option a(href := routes.ForumCateg.index)(trans.forum()),
           ctx.kid.no option a(href := langHref(routes.Ublog.communityAll()))(trans.blog()),
