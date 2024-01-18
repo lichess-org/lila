@@ -60,7 +60,6 @@ export function main(ctrl: RoundController): VNode {
 }
 
 export function endGameView() {
-  $('div.round__app__board.main-board.blindfold').removeClass('blindfold');
   if ($('body').hasClass('zen-auto') && $('body').hasClass('zen')) {
     $('body').toggleClass('zen');
     window.dispatchEvent(new Event('resize'));
