@@ -30,6 +30,8 @@ export interface KeyboardMove {
   helpModalOpen: Prop<boolean>;
   checker?: KeyboardChecker;
   opponent?: string;
+  speakClock?: () => void;
+  goBerserk?: () => void;
 }
 
 const sanToRole: { [key: string]: cg.Role } = {
@@ -134,6 +136,8 @@ export function ctrl(root: KeyboardMoveRootCtrl): KeyboardMove {
     isFocused,
     checker: root.speakClock ? new KeyboardChecker() : undefined,
     opponent: root.data.opponent?.user?.username,
+    speakClock: root.speakClock,
+    goBerserk: root.goBerserk,
   };
 }
 
