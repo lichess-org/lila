@@ -10,13 +10,15 @@ import lila.blog.DailyFeed.Update
 
 final class DailyFeed(env: Env) extends LilaController(env):
 
-  def api = env.blog.dailyFeed
+  def api       = env.blog.dailyFeed
+  def paginator = env.blog.dailyFeedPaginator
 
-  def index = Open:
-    for
-      updates <- api.recent
-      page    <- renderPage(html.dailyFeed.index(updates))
-    yield Ok(page)
+  def index(page: Int) = Open: ctx ?=>
+    Reasonable(page):
+      for
+        updates      <- paginator.recent(isGrantedOpt(_.DailyFeed), page)
+        renderedPage <- renderPage(html.dailyFeed.index(updates))
+      yield Ok(renderedPage)
 
   def createForm = Secure(_.DailyFeed) { _ ?=> _ ?=>
     Ok.pageAsync(html.dailyFeed.create(api.form(none)))
@@ -53,7 +55,7 @@ final class DailyFeed(env: Env) extends LilaController(env):
 
   def delete(id: String) = Secure(_.DailyFeed) { _ ?=> _ ?=>
     Found(api.get(id)): up =>
-      api.delete(up.id) inject Redirect(routes.DailyFeed.index).flashSuccess
+      api.delete(up.id) inject Redirect(routes.DailyFeed.index(1)).flashSuccess
   }
 
   def atom = Anon:

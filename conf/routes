@@ -124,7 +124,7 @@ GET   /blog/community/$lang<[\w-]{2,6}>.atom controllers.Ublog.communityAtom(lan
 GET   /blog/:id/:slug                  controllers.Blog.show(id, slug, ref: Option[String] ?= None)
 GET   /blog/prismic-preview            controllers.Blog.preview(token)
 
-GET   /feed                            controllers.DailyFeed.index
+GET   /feed                            controllers.DailyFeed.index(page: Int ?= 1)
 GET   /feed/new                        controllers.DailyFeed.createForm
 POST  /feed/new                        controllers.DailyFeed.create
 GET   /feed/:id/edit                  controllers.DailyFeed.edit(id)

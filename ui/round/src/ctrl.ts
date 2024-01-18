@@ -276,8 +276,7 @@ export default class RoundController implements MoveRootCtrl {
     this.chessground.set(config);
     if (s.san && isForwardStep) lichess.sound.move(s);
     this.autoScroll();
-    this.voiceMove?.update(s.fen, this.canMove());
-    this.keyboardMove?.update(s, this.canMove());
+    this.auxUpdate(s.fen);
     lichess.pubsub.emit('ply', ply);
     return true;
   };
@@ -344,6 +343,11 @@ export default class RoundController implements MoveRootCtrl {
       if (this.startPromotion(orig, dest, { premove: false })) return;
     }
     this.sendMove(orig, dest, role, { premove: false });
+  };
+
+  auxUpdate = (fen: string) => {
+    this.voiceMove?.update({ fen, canMove: this.canMove() });
+    this.keyboardMove?.update({ fen, canMove: this.canMove() });
   };
 
   sendMove = (orig: cg.Key, dest: cg.Key, prom: cg.Role | undefined, meta: cg.MoveMetadata) => {
@@ -495,8 +499,7 @@ export default class RoundController implements MoveRootCtrl {
     }
     this.autoScroll();
     this.onChange();
-    this.keyboardMove?.update(step, playedColor != d.player.color);
-    this.voiceMove?.update(step.fen, playedColor != d.player.color);
+    this.auxUpdate(step.fen);
     lichess.sound.move({ ...o, filter: 'music' });
     lichess.sound.saySan(step.san);
     return true; // prevents default socket pubsub
@@ -532,8 +535,7 @@ export default class RoundController implements MoveRootCtrl {
     this.autoScroll();
     this.onChange();
     this.setLoading(false);
-    this.keyboardMove?.update(d.steps[d.steps.length - 1]);
-    this.voiceMove?.update(d.steps[d.steps.length - 1].fen, true);
+    this.auxUpdate(d.steps[d.steps.length - 1].fen);
   };
 
   endWithData = (o: ApiEnd): void => {
@@ -831,11 +833,15 @@ export default class RoundController implements MoveRootCtrl {
 
   setChessground = (cg: CgApi) => {
     this.chessground = cg;
+    const up = { fen: this.stepAt(this.ply).fen, canMove: this.canMove(), cg };
     if (!this.isPlaying()) return;
-    if (this.data.pref.keyboardMove) this.keyboardMove = makeKeyboardMove(this, this.stepAt(this.ply));
+    if (this.data.pref.keyboardMove) {
+      this.keyboardMove ??= makeKeyboardMove(this);
+      this.keyboardMove.update(up);
+    }
     if (this.data.pref.voiceMove) {
-      this.voiceMove?.update(this.stepAt(this.ply).fen, this.canMove(), cg);
-      this.voiceMove ??= makeVoiceMove(this, this.stepAt(this.ply).fen);
+      if (this.voiceMove) this.voiceMove.update(up);
+      else this.voiceMove = makeVoiceMove(this, up);
     }
     if (this.keyboardMove || this.voiceMove) requestAnimationFrame(() => this.redraw());
   };

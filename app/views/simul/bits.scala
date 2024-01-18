@@ -38,9 +38,13 @@ object bits:
   def allCreated(simuls: Seq[lila.simul.Simul], withName: Boolean = true)(using Lang) =
     table(cls := "slist"):
       simuls.map: simul =>
+        val url = routes.Simul.show(simul.id)
         tr(
-          withName option td(cls := "name")(a(href := routes.Simul.show(simul.id))(simul.fullName)),
-          td(userIdLink(simul.hostId.some)),
+          withName option td(cls := "name")(a(href := url)(simul.fullName)),
+          td:
+            if withName then userIdLink(simul.hostId.some)
+            else a(href := url)(userIdSpanMini(simul.hostId, true))
+          ,
           td(cls := "text", dataIcon := licon.Clock)(simul.clock.config.show),
           td(cls := "text", dataIcon := licon.User)(simul.applicants.size)
         )
