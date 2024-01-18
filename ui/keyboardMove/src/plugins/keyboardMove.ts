@@ -93,7 +93,8 @@ export function initModule(opts: Opts) {
       }
     } else if (v.length > 0 && 'zerk'.startsWith(v.toLowerCase())) {
       if ('zerk' === v.toLowerCase()) {
-        opts.ctrl?.goBerserk();
+        opts.ctrl.goBerserk();
+        console.log('go berserk');
         clear();
       }
     } else if (v.length > 0 && 'who'.startsWith(v.toLowerCase())) {
