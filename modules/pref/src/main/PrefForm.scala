@@ -50,6 +50,7 @@ object PrefForm:
     val moretime      = "moretime"      -> checkedNumber(Pref.Moretime.choices)
     val ratings       = "ratings"       -> booleanNumber
     val flairs        = "flairs"        -> boolean
+    val follow        = "follow"        -> booleanNumber
 
   def pref(lichobile: Boolean) = Form(
     mapping(
@@ -87,7 +88,7 @@ object PrefForm:
         "sound"  -> booleanNumber,
         fields.moretime
       )(ClockData.apply)(unapply),
-      "follow"       -> booleanNumber,
+      fields.follow,
       "challenge"    -> checkedNumber(Pref.Challenge.choices),
       "message"      -> checkedNumber(Pref.Message.choices),
       "studyInvite"  -> optional(checkedNumber(Pref.StudyInvite.choices)),
