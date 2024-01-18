@@ -10,6 +10,7 @@ import { render as renderGround } from '../ground';
 import { renderTable } from './table';
 import { renderMaterialDiffs } from 'game/view/material';
 import { renderVoiceBar } from 'voice';
+import { playable } from 'game';
 
 export function main(ctrl: RoundController): VNode {
   const d = ctrl.data,
@@ -23,7 +24,7 @@ export function main(ctrl: RoundController): VNode {
       ctrl.data.steps,
       ctrl.ply,
     );
-  const hideBoard = ctrl.data.player.blindfold && ctrl.data.game.status.id < 30;
+  const hideBoard = ctrl.data.player.blindfold && playable(ctrl.data);
   return ctrl.nvui
     ? ctrl.nvui.render(ctrl)
     : h('div.round__app.variant-' + d.game.variant.key, [
