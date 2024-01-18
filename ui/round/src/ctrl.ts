@@ -703,7 +703,7 @@ export default class RoundController implements MoveRootCtrl {
   };
 
   goBerserk = () => {
-    if(!game.berserkableBy(this.data)) return;
+    if (!game.berserkableBy(this.data)) return;
     if (this.goneBerserk[this.data.player.color]) return;
     this.socket.berserk();
     lichess.sound.play('berserk');
