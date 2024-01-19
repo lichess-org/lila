@@ -86,7 +86,7 @@ export default function boot(cfg, element) {
       $(this).addClass('active').siblings().removeClass('active');
       window.lishogi.loadCssPath('lobby.setup');
       lobby.leavePool();
-      let url = this.href;
+      let url = (this as HTMLAnchorElement).href;
       if (this.dataset.hrefAddon) {
         url += this.dataset.hrefAddon;
         delete this.dataset.hrefAddon;
