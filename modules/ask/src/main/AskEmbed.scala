@@ -1,9 +1,9 @@
 package lila.ask
 
 /* the freeze process transforms form text prior to database storage and creates/updates collection
- * objects with ask markup. freeze methods return replacement text with magic{id} tags in place
+ * objects with data from ask markup. freeze methods return replacement text with magic id tags in place
  * of any Ask markup found. unfreeze methods allow editing by doing the inverse, replacing magic
- * tags in a previously frozen text with their markup.
+ * tags in a previously frozen text with their markup. ids in magic tags correspond to db.ask._id
  */
 
 final class AskEmbed(val repo: lila.ask.AskRepo)(using scala.concurrent.ExecutionContext):
@@ -72,10 +72,10 @@ object AskEmbed:
   def stripAsks(text: String, n: Int = -1): String =
     frozenIdRe.replaceAllIn(text, "").take(if n == -1 then text.length else n)
 
-  // the bake method interleaves rendered ask fragments within the html fragment, which is assumed to be
-  // a pre-rendered p, div, span, or similar with no attributes. if the html has attributes, they will
-  // only appear in the first segment. this doesn't happen anywhere this method is currently used in lila
-  // but it's worth noting if that ever changes.
+  // the bake method interleaves rendered ask fragments within the html fragment, which is usually an
+  // inner html or <p>. any embedded asks should be directly in that root element. we make a best effort
+  // to close and reopen tags around asks, but attributes cannot be safely repeated so stick to plain
+  // <p>, <span>, <div>, etc if it's not a text node
   def bake(html: String, askFrags: Iterable[String]): String =
     val tag = if html.slice(0, 1) == "<" then html.slice(1, html.indexWhere(Set(' ', '>').contains)) else ""
     val sb  = java.lang.StringBuilder(html.length + askFrags.foldLeft(0)((x, y) => x + y.length))
@@ -100,8 +100,7 @@ object AskEmbed:
   private def askToText(ask: Ask): String =
     val sb = scala.collection.mutable.StringBuilder(1024)
     sb ++= s"/poll ${ask.question}\n"
-    // i could shorten this function with tags.mkString(" ") but there's a bit of mutual exclusion
-    // enforced here to illustrate tag conflict results on re-edits
+    // tags.mkString(" ") not used, make explicit tag conflict results for traceable/tally/anon on re-edits
     sb ++= s"/id{${ask._id}}"
     if ask.isForm then sb ++= " form"
     if ask.isOpen then sb ++= " open"
@@ -137,7 +136,7 @@ object AskEmbed:
 
   // return list of (start, end) indices of any ask markups in text.
   private def getMarkupIntervals(t: String): Intervals =
-    if !t.contains("/poll") then Nil
+    if !t.contains("/poll") then List.empty[Interval]
     else askRe findAllMatchIn t map (m => (m.start, m.end)) toList
 
   // return intervals and their complement in [0, upper)

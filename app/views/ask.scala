@@ -1,6 +1,6 @@
 package views.html
 
-import scala.collection.mutable
+import scala.collection.mutable.StringBuilder
 import scala.util.Random.shuffle
 
 import scalatags.Text.TypedTag
@@ -12,13 +12,13 @@ import lila.ask.AskEmbed
 
 object ask:
 
-  def render(frag: Frag)(using PageContext): Frag =
-    val ids = extractIds(frag, Nil)
-    if ids.isEmpty then frag
+  def render(fragment: Frag)(using PageContext): Frag =
+    val ids = extractIds(fragment, Nil)
+    if ids.isEmpty then fragment
     else
       RawFrag:
         AskEmbed.bake(
-          frag.render,
+          fragment.render,
           ids.map: id =>
             env.ask.repo.get(id) match
               case Some(ask) =>
@@ -36,7 +36,9 @@ object ask:
     if ask.isRanked then RenderAsk(ask, None, true).rankGraphBody
     else RenderAsk(ask, None, true).pollGraphBody
 
-  private def extractIds(frag: Modifier, ids: List[Ask.ID]): List[Ask.ID] = frag match
+  // AskEmbed.bake only has to support embedding in single fragments for all use cases
+  // but this recursion (probably) doesn't hurt us so keep it around for later
+  private def extractIds(fragment: Modifier, ids: List[Ask.ID]): List[Ask.ID] = fragment match
     case StringFrag(s)  => ids ++ AskEmbed.extractIds(s)
     case RawFrag(f)     => ids ++ AskEmbed.extractIds(f)
     case t: TypedTag[?] => t.modifiers.flatten.foldLeft(ids)((acc, mod) => extractIds(mod, acc))
@@ -142,7 +144,7 @@ private case class RenderAsk(
 
   def pollBody = choiceContainer:
     val picks = ask.picksFor(voterId)
-    val sb    = mutable.StringBuilder("choice ")
+    val sb    = StringBuilder("choice ")
     if ask.isCheckbox then sb ++= "cbx " else sb ++= "btn "
     if ask.isMulti then sb ++= "multiple " else sb ++= "exclusive "
     if ask.isStretch then sb ++= "stretch "
@@ -165,7 +167,7 @@ private case class RenderAsk(
   def rankBody = choiceContainer:
     validRanking.zipWithIndex map:
       case (choice, index) =>
-        val sb = mutable.StringBuilder("choice btn rank")
+        val sb = StringBuilder("choice btn rank")
         if ask.isStretch then sb ++= " stretch"
         if ask.hasPickFor(voterId) then sb ++= " submitted"
         div(cls := sb.toString, value := choice, draggable := true)(
@@ -209,13 +211,13 @@ private case class RenderAsk(
     if tags.toList.flatten.nonEmpty then div(cls := clz, tags) else emptyFrag
 
   def choiceContainer =
-    val sb = new mutable.StringBuilder("ask__choices")
+    val sb = StringBuilder("ask__choices")
     if ask.isVertical then sb ++= " vertical"
     if ask.isStretch then sb ++= " stretch"
     div(cls := sb.toString)
 
   def tooltip(choice: Int) =
-    val sb         = new mutable.StringBuilder(256)
+    val sb         = StringBuilder(256)
     val choiceText = ask.choices(choice)
     val hasPick    = ask.hasPickFor(voterId)
 
@@ -245,7 +247,7 @@ private case class RenderAsk(
     )
     ask.choices.zipWithIndex map:
       case (choiceText, choice) =>
-        val sb = new mutable.StringBuilder(s"$choiceText:\n\n")
+        val sb = StringBuilder(s"$choiceText:\n\n")
         notables filter (_._1 < rankM.length - 1) map:
           case (i, text) =>
             sb ++= s"  ${rankM(choice)(i)} $text\n"
