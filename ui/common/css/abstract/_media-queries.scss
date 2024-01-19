@@ -1,29 +1,36 @@
 /* Widths */
+$mq-width-xx-small: 500px;
+$mq-width-x-small: 650px;
+$mq-width-small: 800px;
+$mq-width-medium: 980px;
+$mq-width-large: 1120px;
+$mq-width-x-large: 1260px;
+$mq-width-xx-large: 2500px;
 
-$mq-xx-small: (min-width 500px);
-$mq-x-small: (min-width 650px);
-$mq-small: (min-width 800px);
-$mq-medium: (min-width 980px);
-$mq-large: (min-width 1120px);
-$mq-x-large: (min-width 1260px);
-$mq-xx-large: (min-width 2501px);
+$mq-xx-small: min-width ($mq-width-xx-small - 0.7px);
+$mq-x-small: min-width ($mq-width-x-small - 0.7px);
+$mq-small: min-width ($mq-width-small - 0.7px);
+$mq-medium: min-width ($mq-width-medium - 0.7px);
+$mq-large: min-width ($mq-width-large - 0.7px);
+$mq-x-large: min-width ($mq-width-x-large - 0.7px);
+$mq-xx-large: min-width ($mq-width-xx-large - 0.7px);
 
-$mq-not-xx-small: (max-width 499px);
-$mq-not-x-small: (max-width 649px);
-$mq-not-small: (max-width 799px);
-$mq-not-medium: (max-width 979px);
-$mq-not-large: (max-width 1119px);
-$mq-not-x-large: (max-width 1259px);
-$mq-not-xx-large: (max-width 2501px);
+$mq-not-xx-small: max-width ($mq-width-xx-small - 0.71px);
+$mq-not-x-small: max-width ($mq-width-x-small - 0.71px);
+$mq-not-small: max-width ($mq-width-small - 0.71px);
+$mq-not-medium: max-width ($mq-width-medium - 0.71px);
+$mq-not-large: max-width ($mq-width-large - 0.71px);
+$mq-not-x-large: max-width ($mq-width-x-large - 0.71px);
+$mq-not-xx-large: max-width ($mq-width-xx-large - 0.71px);
 
 /* Heights */
 
-$mq-x-short: (min-height 400px);
+$mq-x-short: (min-height 399.3px);
 $mq-short: (min-height 500px);
 $mq-tall: (min-height 600px);
 $mq-x-tall: (min-height 700px);
 
-$mq-not-x-short: (max-height 399px);
+$mq-not-x-short: (max-height 399.29px);
 
 /* Orientations */
 
