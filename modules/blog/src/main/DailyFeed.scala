@@ -4,10 +4,8 @@ import reactivemongo.api.bson.*
 import reactivemongo.api.bson.Macros.Annotations.Key
 import java.time.format.{ DateTimeFormatter, FormatStyle }
 import lila.db.dsl.{ *, given }
-import lila.common.paginator.Paginator
-import lila.db.paginator.Adapter
 import lila.memo.CacheApi
-import lila.common.config.{ Max, MaxPerPage }
+import lila.common.config.{ Max, BaseUrl }
 import play.api.data.Form
 import lila.user.Me
 
@@ -28,20 +26,24 @@ object DailyFeed:
     def published           = public && at.isBeforeNow
     def future              = at.isAfterNow
 
-  private val renderer              = lila.common.MarkdownRender(autoLink = false, strikeThrough = true)
-  private val dateFormatter         = DateTimeFormatter.ofLocalizedDate(FormatStyle.MEDIUM)
-  given BSONDocumentHandler[Update] = Macros.handler
+  private val renderer      = lila.common.MarkdownRender(autoLink = false, strikeThrough = true)
+  private val dateFormatter = DateTimeFormatter.ofLocalizedDate(FormatStyle.MEDIUM)
 
   type GetLastUpdates = () => List[Update]
 
   import ornicar.scalalib.ThreadLocalRandom
   def makeId = ThreadLocalRandom nextString 6
 
-final class DailyFeed(coll: Coll, cacheApi: CacheApi)(using Executor):
+final class DailyFeed(coll: Coll, cacheApi: CacheApi, baseUrl: BaseUrl)(using Executor):
 
   import DailyFeed.*
 
   private val max = Max(50)
+
+  private given BSONDocumentHandler[Update] = Macros.handler
+
+  private val atomRenderer =
+    lila.common.MarkdownRender(autoLink = false, strikeThrough = true, baseUrl = baseUrl.some)
 
   private object cache:
     private var mutableLastUpdates: List[Update] = Nil
@@ -62,7 +64,9 @@ final class DailyFeed(coll: Coll, cacheApi: CacheApi)(using Executor):
 
   export cache.lastUpdate
 
-  def recentPublished = cache.store.get({}).map(_.filter(_.published))
+  def recent: Fu[List[Update]] = cache.store.get({})
+
+  def recentPublished = recent.map(_.filter(_.published))
 
   def get(id: ID): Fu[Option[Update]] = coll.byId[Update](id)
 
@@ -106,3 +110,4 @@ final class DailyFeedPaginatorBuilder(
       page,
       MaxPerPage(25)
     )
+  def renderAtom(up: Update): Html = atomRenderer(s"dailyFeed:atom:${up.id}")(up.content)

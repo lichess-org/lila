@@ -33,7 +33,7 @@ import com.vladsch.flexmark.util.misc.Extension
 import lila.base.RawHtml
 import com.vladsch.flexmark.html.renderer.ResolvedLink
 import chess.format.pgn.PgnStr
-import lila.common.config.AssetDomain
+import lila.common.config.{ AssetDomain, BaseUrl }
 import scala.util.matching.Regex
 
 final class MarkdownRender(
@@ -45,7 +45,8 @@ final class MarkdownRender(
     list: Boolean = false,
     code: Boolean = false,
     pgnExpand: Option[MarkdownRender.PgnSourceExpand] = None,
-    assetDomain: Option[AssetDomain] = None
+    assetDomain: Option[AssetDomain] = None,
+    baseUrl: Option[BaseUrl] = None
 ):
 
   private val extensions = java.util.ArrayList[Extension]()
@@ -83,7 +84,8 @@ final class MarkdownRender(
   private val logger = lila.log("markdown")
 
   private def mentionsToLinks(markdown: Markdown): Markdown =
-    Markdown(RawHtml.atUsernameRegex.replaceAllIn(markdown.value, "[@$1](/@/$1)"))
+    val replaceWith = baseUrl.fold("[@$1](/@/$1)")(base => s"[@$$1](${base.value}/@/$$1)")
+    Markdown(RawHtml.atUsernameRegex.replaceAllIn(markdown.value, replaceWith))
 
   // https://github.com/vsch/flexmark-java/issues/496
   private val tooManyUnderscoreRegex = """(_{4,})""".r
