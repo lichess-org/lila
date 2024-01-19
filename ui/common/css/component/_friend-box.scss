@@ -12,8 +12,8 @@
   border-right: 0;
   border-bottom: 0;
   border-top-left-radius: $box-radius-size;
-  font-size: 0.9rem;
-  min-width: 150px;
+  border-top-right-radius: $box-radius-size;
+  font-size: 0.85rem;
   max-height: 95%;
   /* improve scroll perfs */
   backface-visibility: hidden;
@@ -21,7 +21,7 @@
   .friend_box_title {
     @extend %metal;
     cursor: pointer;
-    padding: 3px 5px;
+    padding: 3px 12px 3px 5px;
     border-bottom: $border;
     &:hover {
       @extend %metal-hover;
