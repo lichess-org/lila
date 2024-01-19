@@ -168,5 +168,8 @@ object dailyFeed:
           href := s"$netBaseUrl${routes.DailyFeed.index(1)}#${up.id}"
         ),
         tag("title")(up.title),
-        tag("content")(tpe := "html")(up.rendered)
+        tag("content")(tpe := "html")(convertToAbsoluteHrefs(up.rendered))
       )
+
+  private def convertToAbsoluteHrefs(html: Html): Html =
+    html.map(_.replaceAll(""" href="/""", s""" href="$netBaseUrl/"""))
