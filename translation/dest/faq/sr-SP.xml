@@ -71,6 +71,7 @@
   <string name="canIChangeMyUsername">Могу ли променити своје корисничко име?</string>
   <string name="uniqueTrophies">Уникатни трофеји</string>
   <string name="ownerUniqueTrophies">Овај трофеј је уникатан у историји Личеса, нико осим %1$s га неће имати.</string>
+  <string name="aHourlyBulletTournament">сатни метак турнир</string>
   <string name="lichessRatings">Личес рејтинзи</string>
   <string name="whichRatingSystemUsedByLichess">Који рејтинг систем користи Личес?</string>
   <string name="ratingSystemUsedByLichess">Рејтинзи се рачунају помоћо Глико-2 рејтинг методе коју је осмислио Марк Гликман. Ово је врло популарна метода и користи се у значајном броју шаховских организација (ФИДЕ је знаменит супротан пример јер и даље користе застарели Ело рејтинг систем).
