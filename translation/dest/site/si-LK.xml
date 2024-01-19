@@ -5,7 +5,7 @@
   <string name="toInviteSomeoneToPlayGiveThisUrl">ක්‍රීඩා කිරීමට යමෙකුට ආරාධනා කිරීමට, මෙම URL එක දෙන්න</string>
   <string name="gameOver">තරගය අවසන්</string>
   <string name="waitingForOpponent">ප්‍රතිවාදියා වෙනුවෙන් බලාසිටිමින්</string>
-  <string name="orLetYourOpponentScanQrCode"></string>
+  <string name="orLetYourOpponentScanQrCode">නැතහොත් ඔබේ ප්‍රතිවාදියාට මෙම QR කේතය පරිලෝකනය කිරීමට ඉඩ දෙන්න</string>
   <string name="waiting">බලාසිටිමින්</string>
   <string name="yourTurn">ඔබේ වාරය</string>
   <string name="aiNameLevelAiLevel">%1$s %2$sවන මට්ටම</string>
