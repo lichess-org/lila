@@ -2,10 +2,11 @@ import { Notation as sgNotation } from 'shogiground/types';
 import { makeJapaneseMove } from 'shogiops/notation/japanese';
 import { makeKifMove } from 'shogiops/notation/kif/kif';
 import { makeKitaoKawasakiMove } from 'shogiops/notation/kitaoKawasaki';
+import { roleToFullKanji, roleToKanji, roleToWestern } from 'shogiops/notation/util';
 import { makeWesternMove } from 'shogiops/notation/western';
 import { makeWesternEngineMove } from 'shogiops/notation/westernEngine';
-import { parseSfen } from 'shogiops/sfen';
-import { Move, Square } from 'shogiops/types';
+import { parseSfen, roleToForsyth } from 'shogiops/sfen';
+import { Move, Role, Rules, Square } from 'shogiops/types';
 import { makeUsi, parseUsi } from 'shogiops/util';
 import { Position } from 'shogiops/variant/position';
 
@@ -25,12 +26,12 @@ export function notationsWithColor() {
   return [Notation.Kawasaki, Notation.Japanese, Notation.Kif].includes(notationPref);
 }
 
-export function notationFiles() {
+export function notationFiles(): sgNotation {
   if (notationPref === Notation.Western) return sgNotation.HEX;
   else return sgNotation.NUMERIC;
 }
 
-export function notationRanks() {
+export function notationRanks(): sgNotation {
   switch (notationPref) {
     case Notation.Japanese:
     case Notation.Kif:
@@ -40,6 +41,21 @@ export function notationRanks() {
       return sgNotation.ENGINE;
     default:
       return sgNotation.HEX;
+  }
+}
+
+export function roleName(rules: Rules, role: Role): string {
+  switch (notationPref) {
+    case Notation.Kawasaki:
+      return roleToKanji(role).replace('成', '+');
+    case Notation.Japanese:
+      return roleToKanji(role);
+    case Notation.Kif:
+      return roleToFullKanji(role);
+    case Notation.Usi:
+      return roleToForsyth(rules)(role)!;
+    default:
+      return roleToWestern(rules)(role);
   }
 }
 
