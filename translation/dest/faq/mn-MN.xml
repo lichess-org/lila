@@ -1,5 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+  <string name="faqAbbreviation">Олон асуугддаг асуултууд</string>
+  <string name="frequentlyAskedQuestions">Олон асуугддаг асуултууд</string>
+  <string name="whyIsLichessCalledLichess">Lichess-ийн нэр нь яагаад Lichess юм бэ?</string>
+  <string name="lichessCombinationLiveLightLibrePronounced">Lichess гэдэг нь шууд(live)/хөнгөн(light)/эрх чөлөө(libre) болон шатар(chess) гэх үгсийн нийлбэр юм. Ингэж дуудна %1$s.</string>
   <string name="fairPlay">Төгс тоглох</string>
   <string name="gameplay">Тоглолт</string>
   <string name="threefoldRepetition">Давтсан гурван нүүдэл</string>
