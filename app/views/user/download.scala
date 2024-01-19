@@ -7,7 +7,7 @@ import controllers.routes
 import lila.user.User
 
 object download:
-  def apply(user: lila.user.User)(using PageContext): Frag =
+  def apply(user: lila.user.User)(using ctx: PageContext): Frag =
     views.html.base.layout(
       title = s"${user.username} • ${trans.exportGames.txt()}",
       moreCss = cssTag("search"),
@@ -54,8 +54,8 @@ object download:
           ),
           br,
           br,
-          p(style := "text-align: right")(
-            a(href := routes.Game.apiExportByUserImportedGames(user.username))(
+          ctx is user option p(style := "text-align: right")(
+            a(href := routes.Game.apiExportByUserImportedGames())(
               "Or download imported games as PGN"
             )
           )

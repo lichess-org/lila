@@ -706,7 +706,7 @@ DELETE /api/bulk-pairing/:id           controllers.BulkPairing.delete(id)
 POST  /api/bulk-pairing/:id/start-clocks  controllers.BulkPairing.startClocks(id)
 
 GET   /api/games/user/:username        controllers.Game.apiExportByUser(username)
-GET   /api/games/user/:username/imports controllers.Game.apiExportByUserImportedGames(username)
+GET   /api/games/export/imports        controllers.Game.apiExportByUserImportedGames()
 
 # Lichess Mobile
 GET   /api/mobile/my-games             controllers.Api.mobileGames
