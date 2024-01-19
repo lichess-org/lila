@@ -10,22 +10,26 @@ $mq-main-margin: $mq-col2-uniboard;
 
 $hand-gap: 2vmin;
 $hands-gap: #{2 * $hand-gap};
-$gauge-gap: 2vmin;
+$big-block-gap: 3vmin;
 $scrollbar-width: 0.8rem;
 
 // COL 3
 
 $col3-uniboard-side-min: 200px;
-$col3-uniboard-side: minmax(#{$col3-uniboard-side-min}, 320px);
+$col3-uniboard-side-max: 320px;
+$col3-uniboard-side: minmax(#{$col3-uniboard-side-min}, #{$col3-uniboard-side-max});
 
 $col3-uniboard-table-min: $col3-uniboard-side-min;
-$col3-uniboard-table: minmax(#{$col3-uniboard-table-min}, 320px);
+$col3-uniboard-table-max: $col3-uniboard-side-max;
+$col3-uniboard-table: minmax(#{$col3-uniboard-table-min}, #{$col3-uniboard-table-max});
 
 $col3-uniboard-controls: 3rem;
 
 $col3-uniboard-main-max-width: calc(
-  (100vw * var(--board-scale)) - #{$col3-uniboard-side-min} - #{$block-gap} - var(--gauge-gap, #{$block-gap}) - #{$col3-uniboard-table-min} -
-    2 * var(--main-margin, 0px) - #{$scrollbar-width}
+  (100vw * var(--board-scale)) - #{$col3-uniboard-side-min} - #{$block-gap * 2} - #{$col3-uniboard-table-min} - 2 * var(
+      --main-margin,
+      0px
+    ) - #{$scrollbar-width}
 );
 $col3-uniboard-main-max-height: calc(
   (100vh * var(--board-scale) - #{$site-header-outer-height} - #{$col3-uniboard-controls}) / 12 * 11 / 9 * 11 + #{$hands-gap}
@@ -42,14 +46,14 @@ $col3-uniboard-default-table: minmax(240px, 400px);
 
 // COL 2
 
+$col2-uniboard-table-min: $col3-uniboard-table-min;
+$col2-uniboard-table-max: $col3-uniboard-table-max;
 $col2-uniboard-table: $col3-uniboard-table;
+
 $col2-uniboard-controls: $col3-uniboard-controls;
 
 $col2-uniboard-main-max-width: calc(
-  (100vw * var(--board-scale)) - var(--gauge-gap, #{$block-gap}) - #{$col3-uniboard-table-min} - 2 * var(
-      --main-margin,
-      0px
-    ) - #{$scrollbar-width}
+  (100vw * var(--board-scale)) - #{$block-gap * 2} - #{$col2-uniboard-table-min} - 2 * var(--main-margin, 0px) - #{$scrollbar-width}
 );
 $col2-uniboard-main-max-height: $col3-uniboard-main-max-height;
 $col2-uniboard-main-size: Min(#{$col2-uniboard-main-max-width}, #{$col2-uniboard-main-max-height});
@@ -61,7 +65,37 @@ $col2-uniboard-default-table: $col3-uniboard-default-table;
 
 $col1-uniboard-controls: $col2-uniboard-controls;
 
+// COL 3 - no hands
+
+$col3-uniboard-main-max-width-no-hands: calc(
+  (100vw * var(--board-scale)) - #{$col3-uniboard-side-min} - #{$big-block-gap * 2} - #{$col3-uniboard-table-min} - 2 * var(
+      --main-margin,
+      0px
+    ) - #{$scrollbar-width}
+);
+$col3-uniboard-main-max-height-no-hands: calc(
+  (100vh * var(--board-scale) - #{$site-header-outer-height} - #{$col3-uniboard-controls}) / 12 * 11
+);
+$col3-uniboard-main-size-no-hands: Min(
+  #{$col3-uniboard-main-max-width-no-hands},
+  #{$col3-uniboard-main-max-height-no-hands}
+);
+
+// COL 2 - no hands
+
+$col2-uniboard-main-max-width-no-hands: calc(
+  (100vw * var(--board-scale)) - #{$big-block-gap * 2} - #{$col2-uniboard-table-min} - 2 * var(--main-margin, 0px) - #{$scrollbar-width}
+);
+$col2-uniboard-main-max-height-no-hands: $col3-uniboard-main-max-height-no-hands;
+$col2-uniboard-main-size-no-hands: Min(
+  #{$col2-uniboard-main-max-width-no-hands},
+  #{$col2-uniboard-main-max-height-no-hands}
+);
+
 // Fallbacks - browsers not supporting min/max
 
 $col3-uniboard-main-size-fallback: $col3-uniboard-main-max-height;
 $col2-uniboard-main-size-fallback: $col2-uniboard-main-max-height;
+
+$col3-uniboard-main-size-fallback-no-hands: $col3-uniboard-main-max-height-no-hands;
+$col2-uniboard-main-size-fallback-no-hands: $col2-uniboard-main-max-height-no-hands;

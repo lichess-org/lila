@@ -59,10 +59,9 @@
     }
     .variant-chushogi & {
       justify-self: center;
-      padding-bottom: calc((100% - #{$hands-gap}) / 11 * 9 / 11 * 12); // standard padding
+      padding-bottom: calc(100% / 11 * 12);
       .sg-wrap {
-        width: calc((100% - #{$hands-gap}) / 11 * 9);
-        left: calc((100% - #{$hands-gap}) / 11 + #{$hand-gap});
+        width: 100%;
         grid-template-areas: 'sg-board';
         grid-template-columns: 1fr;
         grid-template-rows: auto;

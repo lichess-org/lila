@@ -7,10 +7,14 @@ body {
   // For browsers that don't support min
   --col2-uniboard-main-size: #{$col2-uniboard-main-size-fallback};
   --col3-uniboard-main-size: #{$col3-uniboard-main-size-fallback};
+  --col2-uniboard-main-size-no-hands: #{$col2-uniboard-main-size-fallback-no-hands};
+  --col3-uniboard-main-size-no-hands: #{$col3-uniboard-main-size-fallback-no-hands};
 
   @supports (width: min(1px, 2px)) {
     --col2-uniboard-main-size: #{$col2-uniboard-main-size};
     --col3-uniboard-main-size: #{$col3-uniboard-main-size};
+    --col2-uniboard-main-size-no-hands: #{$col2-uniboard-main-size-no-hands};
+    --col3-uniboard-main-size-no-hands: #{$col3-uniboard-main-size-no-hands};
   }
 }
 

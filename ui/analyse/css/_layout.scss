@@ -67,7 +67,7 @@
     'uchat';
 
   @include breakpoint($mq-col2) {
-    grid-template-columns: var(--col2-uniboard-main-size) $gauge-gap $col2-uniboard-table;
+    grid-template-columns: var(--col2-uniboard-main-size) $block-gap $col2-uniboard-table;
 
     grid-template-rows: fit-content(0);
     grid-template-areas:
@@ -101,7 +101,7 @@
 
   @include breakpoint($mq-col3) {
     grid-template-columns:
-      $col3-uniboard-side $block-gap var(--col3-uniboard-main-size) $gauge-gap
+      $col3-uniboard-side $block-gap var(--col3-uniboard-main-size) $block-gap
       $col3-uniboard-table;
     grid-template-rows: $meta-height $chat-height 2.5em auto;
     grid-template-areas:
@@ -118,5 +118,16 @@
     }
 
     @include crosstable-large;
+  }
+
+  &.variant-chushogi {
+    @include breakpoint($mq-col2) {
+      grid-template-columns: var(--col2-uniboard-main-size-no-hands) $big-block-gap $col2-uniboard-table;
+    }
+    @include breakpoint($mq-col3) {
+      grid-template-columns:
+        $col3-uniboard-side $big-block-gap var(--col3-uniboard-main-size-no-hands) $big-block-gap
+        $col3-uniboard-table;
+    }
   }
 }

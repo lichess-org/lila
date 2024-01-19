@@ -285,7 +285,7 @@ sg-hand-wrap {
         line-height: 0.85em;
         padding: 3px 0.25em;
         font-weight: bold;
-        font-size: calc(1.4em * var(--board-scale));
+        font-size: calc(1.3em * var(--board-scale));
         border: 1px solid $c-font;
         background-color: $c-bg-high;
         color: $c-font-clearer;
@@ -323,7 +323,6 @@ sg-hand-wrap {
     sg-hp-wrap::after {
       bottom: unset;
       top: 0;
-      right: -3px;
     }
   }
   &.hand-bottom sg-hand {

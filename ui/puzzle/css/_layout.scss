@@ -58,7 +58,7 @@
 
   @include breakpoint($mq-col2) {
     grid-template-rows: fit-content(0);
-    grid-template-columns: var(--col2-uniboard-main-size) $gauge-gap $col2-uniboard-table;
+    grid-template-columns: var(--col2-uniboard-main-size) $block-gap $col2-uniboard-table;
     grid-template-areas:
       'board   gauge tools'
       'session .     controls'
@@ -72,7 +72,7 @@
 
   @include breakpoint($mq-col3) {
     grid-template-rows: fit-content(0);
-    grid-template-columns: $col3-uniboard-side $gauge-gap var(--col3-uniboard-main-size) $gauge-gap $col3-uniboard-table;
+    grid-template-columns: $col3-uniboard-side $block-gap var(--col3-uniboard-main-size) $block-gap $col3-uniboard-table;
     grid-template-areas:
       'side . board   gauge tools'
       'side . session .     controls'

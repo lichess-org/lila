@@ -1,5 +1,5 @@
 .eval-gauge {
-  width: $gauge-gap;
+  width: $block-gap;
   position: relative;
   background: if($theme-light, #888, #666);
   overflow: hidden;

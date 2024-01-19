@@ -88,7 +88,7 @@
 
   @include breakpoint($mq-col2) {
     grid-template-rows: auto auto auto minmax(0, 1fr);
-    grid-template-columns: var(--col2-uniboard-main-size) $gauge-gap $col2-uniboard-table;
+    grid-template-columns: var(--col2-uniboard-main-size) $block-gap $col2-uniboard-table;
     grid-template-areas:
       'board    . clock-top'
       'board    . expi-top'
@@ -134,7 +134,7 @@
 
     .compact-layout & {
       grid-template-rows: fit-content(0) fit-content(0) 1fr fit-content(0);
-      grid-template-columns: var(--col3-uniboard-main-size) $gauge-gap $col3-uniboard-table;
+      grid-template-columns: var(--col3-uniboard-main-size) $block-gap $col3-uniboard-table;
       grid-template-areas:
         'user-top . expi-top'
         'board    . moves'
@@ -226,5 +226,14 @@
 
   &__board {
     grid-area: board;
+  }
+
+  &.variant-chushogi {
+    @include breakpoint($mq-col2) {
+      grid-template-columns: var(--col2-uniboard-main-size-no-hands) $big-block-gap $col2-uniboard-table;
+    }
+  }
+  .compact-layout &.variant-chushogi {
+    grid-template-columns: var(--col3-uniboard-main-size-no-hands) $big-block-gap $col3-uniboard-table;
   }
 }
