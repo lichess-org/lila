@@ -165,7 +165,7 @@
   <string name="computersAreNotAllowedToPlay">Máy tính và người chơi có máy tính hỗ trợ không được phép chơi. Vui lòng không nhận hỗ trợ từ các công cụ cờ vua, cơ sở dữ liệu, hoặc từ những người chơi khác khi chơi. Cũng lưu ý rằng việc lập nhiều tài khoản không được khuyến khích và bạn có thể bị cấm vĩnh viễn nếu tạo quá nhiều tài khoản.</string>
   <string name="games">Các ván cờ</string>
   <string name="forum">Diễn đàn</string>
-  <string name="xPostedInForumY">%1$s có viết trong diễn đàn %2$s</string>
+  <string name="xPostedInForumY">%1$s đã viết trong diễn đàn %2$s</string>
   <string name="latestForumPosts">Bài đăng mới nhất</string>
   <string name="players">Kỳ thủ</string>
   <string name="friends">Bạn bè</string>
@@ -524,7 +524,7 @@ trò chuyện trong ván đấu và có một URL có thể chia sẻ công khai
   <string name="troll">Chọc tức, chơi khăm</string>
   <string name="ratingManipulation">Thao túng xếp hạng</string>
   <string name="other">Khác</string>
-  <string name="reportDescriptionHelp">Dán đường dẫn (các) ván cờ và giải thích về vấn đề của kỳ thủ này. Đừng chỉ nói \"họ gian lận\" mà hãy miêu tả chi tiết nhất có thể. Vấn đề sẽ được giải quyết nhanh hơn nếu bạn viết bằng tiếng Anh.</string>
+  <string name="reportDescriptionHelp">Dán đường dẫn đến (các) ván cờ và giải thích về vấn đề của kỳ thủ này. Đừng chỉ nói \"họ gian lận\" mà hãy miêu tả chi tiết nhất có thể. Vấn đề sẽ được giải quyết nhanh hơn nếu bạn viết bằng tiếng Anh.</string>
   <string name="error.provideOneCheatedGameLink">Hãy cung cấp ít nhất một đường dẫn đến ván cờ bị gian lận.</string>
   <string name="by">bởi %s</string>
   <string name="importedByX">Được nhập bởi %s</string>
