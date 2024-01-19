@@ -20,10 +20,10 @@
   },
   "dependencies": {
     "ceval": "2.0.0",
-    "chart.js": "^2.9",
+    "chart.js": "^4.4",
     "common": "2.0.0",
     "keyboardMove": "1.0.0",
-    "shogiground": "^0.8.3",
+    "shogiground": "^0.8.4",
     "shogiops": "^0.15.0",
     "snabbdom": "^3.5.1",
     "tree": "2.0.0"

@@ -18,7 +18,7 @@
   },
   "dependencies": {
     "common": "2.0.0",
-    "shogiground": "^0.8.3",
+    "shogiground": "^0.8.4",
     "shogiops": "^0.15.0",
     "snabbdom": "^3.5.1"
   },
