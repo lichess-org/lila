@@ -49,7 +49,7 @@ class ReportContext:
         self.path = path
         self.el = el
         self.name = name
-        self.text = text
+        self.text = text if text else ""
 
     def lang(self):
         return self.path.stem
@@ -80,6 +80,9 @@ def lint(report, path):
     for el in root:
         name = el.attrib["name"]
         ctx = ReportContext(report, path, el, name, el.text)
+        if not el.text:
+            ctx.error("missing text")
+            continue
         if "'" in name or " " in name:
             ctx.error(f"bad {el.tag} name")
             continue
