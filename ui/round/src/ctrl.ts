@@ -33,6 +33,7 @@ import { PromotionCtrl, promote } from 'chess/promotion';
 import * as wakeLock from 'common/wakeLock';
 import { opposite, uciToMove } from 'chessground/util';
 import * as Prefs from 'common/prefs';
+import { endGameView } from './view/main';
 
 import {
   RoundOpts,
@@ -542,6 +543,7 @@ export default class RoundController implements MoveRootCtrl {
     d.game.winner = o.winner;
     d.game.status = o.status;
     d.game.boosted = o.boosted;
+    d.player.blindfold = false;
     this.userJump(this.lastPly());
     d.game.fen = d.steps[d.steps.length - 1].fen;
     // If losing/drawing on time but locally it is the opponent's turn, move did not reach server before the end
@@ -570,12 +572,7 @@ export default class RoundController implements MoveRootCtrl {
       )
         this.opts.chat?.instance?.then(c => c.post('Good game, well played'));
     }
-
-    if ($('body').hasClass('zen-auto') && $('body').hasClass('zen')) {
-      $('body').toggleClass('zen');
-      window.dispatchEvent(new Event('resize'));
-    }
-
+    endGameView();
     if (d.crazyhouse) crazyEndHook();
     this.clearJust();
     this.setTitle();
