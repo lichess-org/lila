@@ -21,7 +21,7 @@
   <string name="howCanIBecomeModerator">Како могу постати модератор?</string>
   <string name="youCannotApply">Није могуће пријавити се за посао модератора. Ако уочимо некога за кога мислимо да би ту улогу добро извршио, ми га директно контактирамо.</string>
   <string name="gameplay">Ток игре</string>
-  <string name="howBulletBlitzEtcDecided">Како су Булит, Блиц и остала времена одређена?</string>
+  <string name="howBulletBlitzEtcDecided">Како су муњевити, блиц и остала времена одређена?</string>
   <string name="basedOnGameDuration">Личес контроле времена су засноване на процењеном трајању партије = %1$s
 На пример, процењено трајање 5+3 партије је 5 × 60 + 40 × 3 = 420 секунди.</string>
   <string name="durationFormula">(почетно време) + 40 × (инкремент сата)</string>
@@ -71,7 +71,7 @@
   <string name="canIChangeMyUsername">Могу ли променити своје корисничко име?</string>
   <string name="uniqueTrophies">Уникатни трофеји</string>
   <string name="ownerUniqueTrophies">Овај трофеј је уникатан у историји Личеса, нико осим %1$s га неће имати.</string>
-  <string name="aHourlyBulletTournament">сатни метак турнир</string>
+  <string name="aHourlyBulletTournament">сатни муњевити турнир</string>
   <string name="lichessRatings">Личес рејтинзи</string>
   <string name="whichRatingSystemUsedByLichess">Који рејтинг систем користи Личес?</string>
   <string name="ratingSystemUsedByLichess">Рејтинзи се рачунају помоћо Глико-2 рејтинг методе коју је осмислио Марк Гликман. Ово је врло популарна метода и користи се у значајном броју шаховских организација (ФИДЕ је знаменит супротан пример јер и даље користе застарели Ело рејтинг систем).
