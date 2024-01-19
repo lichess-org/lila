@@ -1,146 +1,130 @@
 .board-editor .spare {
-  @extend %box-neat;
-  display: grid;
-  grid-template-columns: repeat(8, 1fr);
-  flex-wrap: wrap;
-  box-sizing: content-box;
-  background: $c-bg-input;
-  border: $border;
-  padding: 1% 0;
-  &-bottom {
-    flex-direction: row-reverse;
-  }
   @include breakpoint($mq-col1-uniboard) {
-    position: absolute;
-    width: calc(100% / 9 * 8);
+    position: relative;
+    width: 100%;
+    height: 0;
+    padding-bottom: calc(100% / 9 / 11 * 12 * 2);
+    .outer {
+      position: absolute;
+      width: 100%;
+      height: 50%;
+      &:last-child {
+        top: 50%;
+      }
+      .inner {
+        display: flex;
+        flex-direction: row-reverse;
+        height: 100%;
+        .selectable-wrap {
+          position: relative;
+          height: 100%;
+          width: calc(100% / 9);
+        }
+      }
+    }
     &-bottom {
-      bottom: 3.1rem !important;
-      right: 0;
+      .outer .inner .selectable-wrap {
+        &:first-child {
+          order: 1;
+        }
+      }
+    }
+    &-top {
+      .outer .inner {
+        justify-content: flex-end;
+      }
     }
   }
 
   @include breakpoint($mq-col2-uniboard) {
-    $editor-rows: 16;
-    position: absolute;
-    width: calc((100% - #{$hands-gap}) / 2);
-    height: calc(100% / 16 * 11 / 9 * 2);
-    bottom: 0;
-    &-top {
+    position: relative;
+    display: flex;
+    flex-wrap: wrap;
+    padding: 0 0.5rem;
+    &::after {
+      content: '';
+      position: absolute;
+      top: 0;
       left: 0;
-      padding-left: $hand-gap;
-      border-right: none;
+      width: 2px;
+      height: 100%;
+      @include transition();
+      background-color: $c-border;
+    }
+    &:not(.inactive):hover,
+    &.active {
+      &::after {
+        background-color: $c-accent;
+      }
+    }
+    .outer {
+      width: 50%;
+      height: 0;
+      padding-bottom: calc(100% / 2 * 9 / 11 * 12);
+      position: relative;
+      .inner {
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-end;
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        .selectable-wrap {
+          height: calc(100% / 9);
+          position: relative;
+        }
+      }
+    }
+    &-top {
+      grid-area: spare-top;
+      flex-direction: row-reverse;
+      .outer .inner {
+        flex-direction: column-reverse;
+      }
+      &::after {
+        left: unset;
+        right: 0;
+      }
     }
     &-bottom {
-      right: 0;
-      padding-right: $hand-gap;
-      border-left: none;
+      grid-area: spare-bottom;
+      .outer {
+        align-self: flex-end;
+      }
     }
   }
-
-  .no-square {
-    @include transition();
-    &.selected-square piece {
-      outline: 7px solid $c-accent;
-      outline-offset: -6px;
+  .outer .inner .selectable-wrap {
+    &.selected-square {
+      background-color: $c-accent;
       border-radius: 3px;
+      &:has(div) {
+        background-color: unset;
+        div {
+          filter: grayscale(0);
+        }
+      }
+    }
+    piece {
+      cursor: pointer;
+      width: 200%;
+      height: 200%;
+      margin: calc(-50% / 11 * 12) -50%;
     }
     div {
-      position: relative;
-      padding-bottom: calc(100% / 11 * 12);
-      z-index: 2;
-      cursor: pointer;
-    }
-    $sel-fill-pointer: #{str-slice('' + ie-hex-str($c-good), 4, 9)};
-    $sel-fill-trash: #{str-slice('' + ie-hex-str($c-bad), 4, 9)};
-    &.pointer {
-      &.selected-square piece {
-        outline-color: $c-good;
+      width: 100%;
+      height: 100%;
+      background-position: center;
+      background-repeat: no-repeat;
+      background-size: 90%;
+      filter: grayscale(1);
+      &.pointer {
+        $sel-fill-pointer: #{str-slice('' + ie-hex-str($c-good), 4, 9)};
+        background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 512 512' style='height: 512px; width: 512px;'%3E%3Cg class='' transform='translate(0,0)' style=''%3E%3Cpath d='M459.15 269.75a133.197 133.197 0 0 1-55.862 179.975l-42.782 22.541-10.52 5.533a71.277 71.277 0 0 1-62.966 1.685l-167.077-71.38 15.733-46.676 99.363 19.194-51.458-97.78-82.843-157.411 40.357-21.232 82.844 157.457 19.934-10.485-36.521-69.445 40.335-21.22 36.52 69.445 19.935-10.485-28.2-53.598 40.358-21.232 28.2 53.598 19.945-10.576-19.354-36.886 40.346-21.174 19.354 36.885 54.348 103.301zM73.268 146.674a60.03 60.03 0 0 1 42.361-102.459 60.098 60.098 0 0 1 56.58 80.169l10.588 20.013A78.29 78.29 0 0 0 115.708 26a78.233 78.233 0 0 0-5.635 156.262L99.428 162.02a59.688 59.688 0 0 1-26.16-15.346z' fill='%23#{$sel-fill-pointer}' fill-opacity='1'%3E%3C/path%3E%3C/g%3E%3C/svg%3E");
       }
-      piece {
-        background-size: 90%;
-        background-repeat: no-repeat;
-        background-position: center;
-        background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 512 512' style='height: 512px; width: 512px;'%3E%3Cg class='' transform='translate(0,0)' style=''%3E%3Cpath d='M459.15 269.75a133.197 133.197 0 0 1-55.862 179.975l-42.782 22.541-10.52 5.533a71.277 71.277 0 0 1-62.966 1.685l-167.077-71.38 15.733-46.676 99.363 19.194-51.458-97.78-82.843-157.411 40.357-21.232 82.844 157.457 19.934-10.485-36.521-69.445 40.335-21.22 36.52 69.445 19.935-10.485-28.2-53.598 40.358-21.232 28.2 53.598 19.945-10.576-19.354-36.886 40.346-21.174 19.354 36.885 54.348 103.301zM73.268 146.674a60.03 60.03 0 0 1 42.361-102.459 60.098 60.098 0 0 1 56.58 80.169l10.588 20.013A78.29 78.29 0 0 0 115.708 26a78.233 78.233 0 0 0-5.635 156.262L99.428 162.02a59.688 59.688 0 0 1-26.16-15.346z' fill='%23#{$sel-fill-pointer}' fill-opacity='1'%3E%3C/path%3E%3C/g%3E%3C/svg%3E") !important;
+      &.trash {
+        $sel-fill-trash: #{str-slice('' + ie-hex-str($c-bad), 4, 9)};
+        background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' style='height:512px;width:512px' viewBox='0 0 512 512'%3E%3Cpath fill-opacity='.01' d='M0 0h512v512H0z'/%3E%3Cpath d='M199 103v50h-78v30h270v-30h-78v-50H199zm18 18h78v32h-78v-32zm-79.002 80 30.106 286h175.794l30.104-286H137.998zm62.338 13.38.64 8.98 16 224 .643 8.976-17.956 1.283-.64-8.98-16-224-.643-8.976 17.956-1.283zm111.328 0 17.955 1.284-.643 8.977-16 224-.64 8.98-17.956-1.284.643-8.977 16-224 .64-8.98zM247 215h18v242h-18V215z' fill='%23#{$sel-fill-trash}'/%3E%3C/svg%3E");
       }
-    }
-    &.trash {
-      &.selected-square piece {
-        outline-color: $c-bad;
-      }
-      piece {
-        background-size: 90%;
-        background-repeat: no-repeat;
-        background-position: center;
-        background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 512 512' style='height: 512px; width: 512px;'%3E%3Cg class='' transform='translate(0,0)' style=''%3E%3Cpath d='M199 103v50h-78v30h270v-30h-78v-50H199zm18 18h78v32h-78v-32zm-79.002 80l30.106 286h175.794l30.104-286H137.998zm62.338 13.38l.64 8.98 16 224 .643 8.976-17.956 1.283-.64-8.98-16-224-.643-8.976 17.956-1.283zm111.328 0l17.955 1.284-.643 8.977-16 224-.64 8.98-17.956-1.284.643-8.977 16-224 .64-8.98zM247 215h18v242h-18V215z' fill='%23#{$sel-fill-trash}' fill-opacity='1'%3E%3C/path%3E%3C/g%3E%3C/svg%3E") !important;
-      }
-    }
-  }
-
-  piece {
-    cursor: pointer;
-    width: 200%;
-    height: 200%;
-    margin: -50%;
-  }
-}
-
-.board-editor.variant-minishogi .spare {
-  grid-template-columns: repeat(6, 1fr);
-  height: calc(100% / 9 * 2 / 7 * 11 / 16 * 11);
-  width: 50%;
-  padding-right: 0;
-  padding-left: 0;
-  @include breakpoint($mq-col1-uniboard) {
-    height: unset;
-    width: 100%;
-  }
-}
-
-.board-editor.variant-kyotoshogi .spare {
-  width: calc((100% - #{$hands-gap} - 2%) / 2);
-  height: calc(100% / 9 * 2 / 7 * 11 / 16 * 11);
-  grid-template-columns: repeat(5, 1fr);
-  &-top {
-    padding-left: calc(#{$hand-gap} + 1%);
-  }
-  &-bottom {
-    padding-right: calc(#{$hand-gap} + 1%);
-  }
-  @include breakpoint($mq-col1-uniboard) {
-    height: unset;
-    width: 95%;
-    margin-left: 2.5%;
-    padding: 0 !important;
-  }
-}
-
-.board-editor.variant-chushogi .spare {
-  width: calc(100% - #{$hands-gap});
-  grid-template-columns: repeat(21, 1fr);
-  padding: 0 $hand-gap;
-  height: calc((100% - #{$hands-gap}) / 16 * 2);
-  border: $border;
-  &-top {
-    .no-square:nth-child(-n + 21) {
-      grid-row-start: 2;
-    }
-  }
-  &-bottom {
-    bottom: 0;
-    flex-direction: row;
-  }
-  &-top {
-    top: 0;
-  }
-  .no-square {
-    flex: 0 0 calc(100% / 21);
-  }
-}
-
-.spare {
-  @include breakpoint($mq-col1-uniboard) {
-    &-bottom {
-      bottom: 3rem !important;
     }
   }
 }

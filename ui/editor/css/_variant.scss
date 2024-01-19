@@ -1,0 +1,95 @@
+.board-editor {
+  &.variant-chushogi .actions .action {
+    width: calc(100% / 4);
+  }
+  @include breakpoint($mq-col1-uniboard) {
+    &.variant-chushogi {
+      .spare {
+        padding-bottom: calc(100% / 12 * 4 / 11 * 12);
+        .outer {
+          height: 25%;
+          &:nth-child(2) {
+            top: 25%;
+          }
+          &:nth-child(3) {
+            top: 50%;
+          }
+          &:nth-child(4) {
+            top: 75%;
+          }
+          .inner .selectable-wrap {
+            width: calc(100% / 12);
+          }
+        }
+      }
+      .actions .action {
+        flex: 1;
+      }
+    }
+    &.variant-minishogi {
+      .spare {
+        padding-bottom: calc(100% / 6 * 2 / 11 * 12);
+        .outer .inner .selectable-wrap {
+          width: calc(100% / 6);
+        }
+      }
+    }
+    &.variant-kyotoshogi {
+      .spare {
+        padding-bottom: calc(100% / 5 * 2 / 11 * 12);
+        .outer .inner .selectable-wrap {
+          width: calc(100% / 5);
+        }
+      }
+    }
+  }
+  @include breakpoint($mq-col2-uniboard) {
+    &.variant-minishogi .spare {
+      .outer {
+        padding-bottom: calc(100% / 2 * 5 / 11 * 12);
+        .inner {
+          width: calc(100% / 6 * 5);
+          .selectable-wrap {
+            height: calc(100% / 6);
+          }
+        }
+      }
+    }
+    &.variant-kyotoshogi .spare {
+      .outer {
+        padding-bottom: calc(100% / 2 * 5 / 11 * 12);
+        .inner .selectable-wrap {
+          height: calc(100% / 5);
+        }
+      }
+    }
+    &.variant-chushogi .spare {
+      .outer {
+        width: 25%;
+        padding-bottom: calc(100% / 4 * 12 / 11 * 12);
+        .inner .selectable-wrap {
+          height: calc(100% / 12);
+        }
+      }
+    }
+    &.variant-chushogi .underboard .tools .piece-counter > div {
+      height: 10rem;
+    }
+  }
+  @include breakpoint($mq-col3-uniboard) {
+    &.variant-standard .spare,
+    &.variant-annanshogi .spare,
+    &.variant-checkshogi .spare {
+      &::after {
+        height: calc(100% / 9 * 8);
+        top: calc((100% - 100% / 9 * 8));
+      }
+      &-top::after {
+        top: 0;
+      }
+    }
+    &.variant-chushogi .spare::after {
+      content: unset;
+    }
+  }
+}

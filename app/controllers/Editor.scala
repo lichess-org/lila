@@ -28,11 +28,13 @@ final class Editor(env: Env) extends LilaController(env) {
         .decodeUriPath(urlSfen)
         .filter(_.trim.nonEmpty)
         .orElse(get("sfen")) map Sfen.clean
+      val color = ctx.req.getQueryString("orientation").flatMap(shogi.Color.fromName).getOrElse(shogi.Sente)
       fuccess {
         val situation = readSfen(decodedSfen, variant.some)
         Ok(
           html.board.editor(
-            situation
+            situation,
+            color
           )
         )
       }
@@ -41,11 +43,12 @@ final class Editor(env: Env) extends LilaController(env) {
   def data =
     Open { implicit ctx =>
       fuccess {
-        val sfen    = get("sfen") map Sfen.clean
-        val variant = get("variant").flatMap(Variant.byKey get _)
-        val sit     = readSfen(sfen, variant)
+        val sfen        = get("sfen") map Sfen.clean
+        val variant     = get("variant").flatMap(Variant.byKey get _)
+        val sit         = readSfen(sfen, variant)
+        val orientation = get("orientation").flatMap(shogi.Color.fromName).getOrElse(shogi.Sente)
         Ok(
-          html.board.editor.jsData(sit)
+          html.board.editor.jsData(sit, orientation)
         ) as JSON
       }
     }

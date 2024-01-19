@@ -1,36 +1,14 @@
 @import 'layout';
 @import 'spare';
-@import 'tools';
-@import 'hands';
-@import 'color';
+@import 'actions';
+@import 'links';
+@import 'underboard';
+@import 'variant';
 
 .board-editor {
   user-select: none;
 
   .main-board {
     grid-area: editor;
-  }
-
-  .copyables {
-    grid-area: copyables;
-    margin-top: $block-gap;
-    p {
-      display: flex;
-      align-items: center;
-      strong {
-        width: 4rem;
-      }
-      input,
-      textarea {
-        margin-left: 1rem;
-        flex: 1 1 100%;
-      }
-      textarea.kif {
-        height: 10rem;
-      }
-      textarea.csa {
-        height: 10rem;
-      }
-    }
   }
 }

@@ -1,112 +1,97 @@
 #main-wrap {
   --main-max-width: auto;
+  @include breakpoint($mq-col1-uniboard) {
+    justify-items: center;
+    --main-max-width: calc(
+      (100vh - #{$site-header-outer-height} - #{$col1-uniboard-controls} - #{$hands-gap}) / 15 * 9 / 12 * 11
+    );
+    &:has(.board-editor.variant-minishogi, .board-editor.variant-kyotoshogi) {
+      --main-max-width: calc(
+        (100vh - #{$site-header-outer-height} - #{$col1-uniboard-controls} - #{$hands-gap}) / 11 * 5 / 12 * 11
+      );
+    }
+    &:has(.board-editor.variant-chushogi) {
+      --main-max-width: calc((100vh - #{$site-header-outer-height} - #{$col1-uniboard-controls}) / 20 * 12 / 12 * 11);
+    }
+  }
 }
 
 .board-editor {
-  $board-width: calc((100vh - 10vmin) * var(--board-scale) * 0.8 - #{$site-header-outer-height});
-  $side-width: calc(#{$board-width} / 9 * 7);
-
   display: grid;
 
-  grid-template-columns: minmax(0, $board-width);
   grid-template-areas:
+    'spare-top'
     'editor'
-    'tools'
-    'controls'
-    'side'
-    'copyables';
+    'spare-bottom'
+    'actions'
+    'links'
+    'underboard';
 
   @include breakpoint($mq-col2-uniboard) {
-    grid-template-columns: minmax(30vmin, $board-width) 3vmin minmax(220px, $side-width);
+    $files2: calc((var(--col2-uniboard-main-size) - #{$hands-gap}) / 11 * 2 + 1rem);
+    $files4: calc((var(--col2-uniboard-main-size) - #{$hands-gap}) / 11 * 4 + 2rem);
+    grid-template-rows: fit-content(0);
+    grid-template-columns:
+      var(--col2-uniboard-main-size) $block-gap minmax(#{$col2-uniboard-table-min / 2}, $files2) minmax(
+        #{$col2-uniboard-table-min / 2},
+        $files2
+      )
+      minmax(0, calc(#{$col2-uniboard-table-max} - #{$files4}));
     grid-template-areas:
-      'editor       . tools'
-      'copyables    . controls'
-      'copyables    . side'
-      'copyables    . .';
-  }
-}
+      'editor    . spare-top spare-bottom .'
+      'actions actions actions actions .'
+      'links   links   links   links .'
+      'underboard underboard underboard underboard .';
 
-$small-hand-spare: 6rem;
-$small-spare-padding: 3rem;
-$col1-color: 3rem;
-
-.board-editor {
-  @include breakpoint($mq-col1-uniboard) {
-    .main-board {
-      padding-bottom: calc(
-        100% / 11 * 12 / 9 * 15 + #{$hands-gap} + #{$small-hand-spare} + #{$small-spare-padding} + #{$col1-color}
-      );
-      margin-bottom: 1rem;
-      .sg-wrap {
-        height: calc(
-          calc(100% - #{$small-hand-spare} - #{$small-spare-padding} - #{$hands-gap} - #{$col1-color}) / 15 * 11 + #{$hands-gap}
-        );
-        margin-top: calc(100% / 9 * 2.2 + #{$small-hand-spare / 2} + #{$small-spare-padding / 2});
-      }
+    &.variant-kyotoshogi,
+    &.variant-minishogi {
+      $files2K: calc((var(--col2-uniboard-main-size) - #{$hands-gap}) / 7 * 2 + 1rem);
+      $files4K: calc((var(--col2-uniboard-main-size) - #{$hands-gap}) / 7 * 4 + 2rem);
+      grid-template-columns:
+        var(--col2-uniboard-main-size) $block-gap minmax(#{$col2-uniboard-table-min / 2}, $files2K) minmax(
+          #{$col2-uniboard-table-min / 2},
+          $files2K
+        )
+        minmax(0, calc(#{$col2-uniboard-table-max} - #{$files4K}));
     }
-    &.variant-minishogi .main-board,
-    &.variant-kyotoshogi .main-board {
-      padding-bottom: calc(100% / 11 * 12 / 5 * 11 + #{$hands-gap} + #{$small-hand-spare} + #{$col1-color});
-      margin-bottom: 1rem;
-      .sg-wrap {
-        height: calc(calc(100% - #{$small-hand-spare} - #{$hands-gap} - #{$col1-color}) / 11 * 7 + #{$hands-gap});
-        margin-top: calc(100% / 5 * 2.2 + #{$small-hand-spare / 2});
-      }
-    }
-    &.variant-chushogi .main-board {
-      padding-bottom: calc(100% / 11 * 12 / 15 * 20 + #{$small-spare-padding} + #{$col1-color});
-      margin-bottom: 1rem;
-      .sg-wrap {
-        height: calc(calc(100% - #{$small-spare-padding} - #{$col1-color}) / 16 * 12);
-        margin-top: calc(100% / 15 * 2.7 + #{$small-spare-padding / 2});
-      }
-    }
-    .mselect,
-    .copyables {
-      margin-top: 1rem;
-    }
-  }
-  @include breakpoint($mq-col2-uniboard) {
-    $editor-rows: 16;
-    grid-template-rows: fit-content(0) 36px;
-    grid-template-columns: var(--col2-uniboard-main-size) $gauge-gap $col3-uniboard-table;
-    grid-template-areas:
-      'editor    . tools'
-      'copyables . controls'
-      'copyables . side';
-    .main-board {
-      .sg-wrap {
-        width: calc((100% - #{$hands-gap}) / #{$editor-rows} * 11 + #{$hands-gap});
-        height: calc(100% / #{$editor-rows} * 11);
-        left: calc((100% - #{$hands-gap}) / #{$editor-rows} * #{($editor-rows - 11) / 2});
-      }
-    }
-
-    &.variant-minishogi .main-board,
-    &.variant-kyotoshogi .main-board {
-      padding-bottom: calc((100% - #{$hands-gap}) / 11 * 9 / 11 * 12);
-      .sg-wrap {
-        height: calc(100% / 9 * 5 / 7 * 11 / 16 * 11);
-      }
-      .colors {
-        top: calc(100% / 9 * 5 / 7 * 11 / 16 * 11);
-        width: calc((100% - 4vmin) / 16 * 11 / 7 * 5);
-      }
-    }
-    &.variant-chushogi .main-board .sg-wrap {
-      width: calc((100% - #{$hands-gap}) / 16 * 9);
-      top: calc((100% - #{$hands-gap}) / 16 * 2.75);
-      left: calc((100% - #{$hands-gap}) / 21 * 5);
+    &.variant-chushogi {
+      $files2K-nh: calc((var(--col2-uniboard-main-size-no-hands)) / 12 * 4 + 1rem);
+      $files4K-nh: calc((var(--col2-uniboard-main-size-no-hands)) / 12 * 8 + 2rem);
+      grid-template-columns:
+        var(--col2-uniboard-main-size-no-hands) $big-block-gap minmax(#{$col2-uniboard-table-min / 2}, $files2K-nh) minmax(
+          #{$col2-uniboard-table-min / 2},
+          $files2K-nh
+        )
+        minmax(0, calc(#{$col2-uniboard-table-max} - #{$files4K-nh}));
     }
   }
 
   @include breakpoint($mq-col3-uniboard) {
+    $files2: calc((var(--col3-uniboard-main-size) - #{$hands-gap}) / 11 * 2 + 1rem);
     grid-template-rows: fit-content(0);
     grid-template-columns:
-      $col3-uniboard-side $block-gap var(--col3-uniboard-main-size) $gauge-gap
-      $col3-uniboard-table;
+      minmax(0, $files2) $block-gap var(--col3-uniboard-main-size)
+      $block-gap minmax(0, $files2);
     grid-template-areas:
-      'side .  editor    . tools'
-      '.    .  copyables . controls';
+      'spare-top .       editor    .       spare-bottom'
+      'actions   actions actions   actions actions'
+      'links     links   links     links   links'
+      'underboard underboard underboard underboard underboard';
+
+    &.variant-kyotoshogi,
+    &.variant-minishogi {
+      $files2K: calc((var(--col2-uniboard-main-size) - #{$hands-gap}) / 7 * 2 + 1rem);
+      $files4K: calc((var(--col2-uniboard-main-size) - #{$hands-gap}) / 7 * 4 + 2rem);
+      grid-template-columns:
+        minmax(0, $files2K) $block-gap var(--col3-uniboard-main-size)
+        $block-gap minmax(0, $files2K);
+    }
+    &.variant-chushogi {
+      $files2K-nh: calc((var(--col2-uniboard-main-size-no-hands)) / 12 * 4 + 1rem);
+      $files4K-nh: calc((var(--col2-uniboard-main-size-no-hands)) / 12 * 8 + 2rem);
+      grid-template-columns:
+        minmax(0, $files2K-nh) $big-block-gap var(--col3-uniboard-main-size-no-hands)
+        $big-block-gap minmax(0, $files2K-nh);
+    }
   }
 }

@@ -1,0 +1,29 @@
+.board-editor .actions {
+  grid-area: actions;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  width: 100%;
+  .action {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: calc(100% / 5);
+    max-width: 32rem;
+    height: $col3-uniboard-controls;
+    padding: 0 0.75em;
+    text-align: center;
+    cursor: pointer;
+    @include transition();
+    &:hover {
+      color: $c-accent;
+    }
+    @include breakpoint($mq-col1-uniboard) {
+      width: calc(100% / 3);
+      font-size: 0.85rem;
+      &:nth-last-child(-n + 2) {
+        flex: 1;
+      }
+    }
+  }
+}

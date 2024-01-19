@@ -53,14 +53,7 @@ export default class EditorCtrl {
 
     this.selected = prop('pointer');
 
-    window.Mousetrap.bind('f', (e: Event) => {
-      e.preventDefault();
-      if (this.shogiground) this.setOrientation(opposite(this.shogiground.state.orientation));
-    });
-    document.addEventListener('touchmove', e => {
-      this.lastTouchMovePos = eventPosition(e as any);
-      if (!this.initTouchMovePos) this.initTouchMovePos = this.lastTouchMovePos;
-    });
+    this.bind();
 
     this.redraw = () => {};
     if (!this.setSfen(data.sfen)) {
@@ -70,7 +63,56 @@ export default class EditorCtrl {
     this.redraw = redraw;
   }
 
-  onChange(history = false): void {
+  bind(): void {
+    if (!window.Mousetrap) return;
+    const preventing = (f: () => void) => (e: MouseEvent) => {
+      e.preventDefault();
+      f();
+    };
+
+    const kbd = window.Mousetrap;
+    kbd.bind(
+      ['f'],
+      preventing(() => {
+        if (this.shogiground) this.setOrientation(opposite(this.shogiground.state.orientation));
+      })
+    );
+    kbd.bind(
+      ['left', 'k'],
+      preventing(() => {
+        this.backward();
+        this.redraw();
+      })
+    );
+    kbd.bind(
+      ['right', 'j'],
+      preventing(() => {
+        this.forward();
+        this.redraw();
+      })
+    );
+    kbd.bind(
+      ['up', '0'],
+      preventing(() => {
+        this.first();
+        this.redraw();
+      })
+    );
+    kbd.bind(
+      ['down', '$'],
+      preventing(() => {
+        this.last();
+        this.redraw();
+      })
+    );
+
+    document.addEventListener('touchmove', e => {
+      this.lastTouchMovePos = eventPosition(e as any);
+      if (!this.initTouchMovePos) this.initTouchMovePos = this.lastTouchMovePos;
+    });
+  }
+
+  onChange(history = false, pushState = false): void {
     const sfen = this.getSfen();
     this.data.sfen = sfen;
 
@@ -82,11 +124,14 @@ export default class EditorCtrl {
       this.currentBeforeStack = sfen;
     }
 
-    if (!this.data.embed) window.history.replaceState('', '', this.makeEditorUrl(sfen));
+    if (!this.data.embed) {
+      if (pushState) window.history.pushState('', '', this.makeEditorUrl(sfen));
+      else window.history.replaceState('', '', this.makeEditorUrl(sfen));
+    }
     const cur = this.selected();
     if (typeof cur !== 'string' && this.shogiground)
       this.shogiground.selectPiece({ color: cur[0], role: cur[1] }, true, true);
-    this.options.onChange?.(sfen, this.rules);
+    this.options.onChange?.(sfen, this.rules, this.bottomColor());
     this.redraw();
   }
 
@@ -191,9 +236,10 @@ export default class EditorCtrl {
   }
 
   makeEditorUrl(sfen: string): string {
-    const variant = this.rules === 'standard' ? '' : `/${this.rules}`;
-    if (sfen === initialSfen(this.rules)) return `${this.data.baseUrl}${variant}`;
-    else return `${this.data.baseUrl}${variant}/${this.encodeSfen(sfen)}`;
+    const variant = this.rules === 'standard' ? '' : `/${this.rules}`,
+      orientation = this.bottomColor() === 'sente' ? '' : `?orientation=${this.bottomColor()}`;
+    if (sfen === initialSfen(this.rules)) return `${this.data.baseUrl}${variant}${orientation}`;
+    else return `${this.data.baseUrl}${variant}/${this.encodeSfen(sfen)}${orientation}`;
   }
 
   encodeVariant(variant: VariantKey): number {
@@ -362,13 +408,13 @@ export default class EditorCtrl {
     );
     if (rules === 'chushogi') window.lishogi.loadChushogiPieceSprite();
     else if (rules === 'kyotoshogi') window.lishogi.loadKyotoshogiPieceSprite();
-    this.onChange();
+    this.onChange(false, true);
   }
 
   setOrientation(o: Color): void {
     this.options.orientation = o;
     if (this.shogiground.state.orientation !== o) this.shogiground.toggleOrientation();
-    this.redraw();
+    this.onChange();
   }
 
   addToHand(c: Color, r: Role, reload: boolean = false): void {

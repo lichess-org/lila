@@ -1,0 +1,26 @@
+.board-editor .links {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 1rem;
+  grid-area: links;
+  margin-top: 2em;
+  & > * {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    // flex: 1 1;
+    height: 3rem;
+    padding: 0;
+    button {
+      width: 100%;
+    }
+  }
+  @include breakpoint($mq-col2-uniboard) {
+    flex-direction: row;
+    margin-top: 0;
+    & > * {
+      flex: 1 1;
+    }
+  }
+}

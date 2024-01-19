@@ -12,14 +12,15 @@ import controllers.routes
 object editor {
 
   def apply(
-      sit: shogi.Situation
+      sit: shogi.Situation,
+      orientation: shogi.Color
   )(implicit ctx: Context) =
     views.html.base.layout(
       title = trans.boardEditor.txt(),
       moreJs = frag(
         jsModule("editor"),
         embedJsUnsafe(
-          s"""var data=${safeJsonValue(jsData(sit))};
+          s"""var data=${safeJsonValue(jsData(sit, orientation))};
 LishogiEditor(document.getElementById('board-editor'), data);"""
         )
       ),
@@ -42,20 +43,27 @@ LishogiEditor(document.getElementById('board-editor'), data);"""
     )(
       main(id := "board-editor")(
         div(cls   := s"board-editor variant-${sit.variant.key}")(
-          div(cls := "board-editor__tools"),
+          div(cls := "spare spare-top"),
           div(cls := "main-board")(shogigroundEmpty(sit.variant, shogi.Sente)),
-          div(cls := "board-editor__side")
+          div(cls := "spare spare-bottom"),
+          div(cls := "actions"),
+          div(cls := "links"),
+          div(cls := "underboard")
         )
       )
     )
 
   def jsData(
-      sit: shogi.Situation
+      sit: shogi.Situation,
+      orientation: shogi.Color
   )(implicit ctx: Context) =
     Json.obj(
       "sfen"    -> sit.toSfen.truncate.value,
       "variant" -> sit.variant.key,
       "baseUrl" -> s"$netBaseUrl${routes.Editor.index}",
+      "options" -> Json.obj(
+        "orientation" -> orientation.name
+      ),
       "pref" -> Json
         .obj(
           "animation"          -> ctx.pref.animationMillis,

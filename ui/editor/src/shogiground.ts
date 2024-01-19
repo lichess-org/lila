@@ -2,7 +2,7 @@ import resizeHandle from 'common/resize';
 import { notationFiles, notationRanks } from 'common/notation';
 import { Config as SgConfig } from 'shogiground/config';
 import { forsythToRole, initialSfen, roleToForsyth } from 'shogiops/sfen';
-import { handRoles } from 'shogiops/variant/util';
+import { handRoles, promote, unpromote } from 'shogiops/variant/util';
 import { VNode, h } from 'snabbdom';
 import EditorCtrl from './ctrl';
 import { BoardElements, HandElements } from 'shogiground/types';
@@ -50,6 +50,10 @@ export function makeConfig(ctrl: EditorCtrl): SgConfig {
     drawable: {
       enabled: true,
     },
+    promotion: {
+      promotesTo: promote(ctrl.rules),
+      unpromotesTo: unpromote(ctrl.rules),
+    },
     draggable: {
       enabled: ctrl.data.pref.moveEvent > 0,
       showGhost: ctrl.data.pref.highlightLastDests,
@@ -59,6 +63,7 @@ export function makeConfig(ctrl: EditorCtrl): SgConfig {
     },
     selectable: {
       enabled: ctrl.data.pref.moveEvent !== 1,
+      addSparesToHand: true,
     },
     forsyth: {
       fromForsyth: forsythToRole(ctrl.rules),

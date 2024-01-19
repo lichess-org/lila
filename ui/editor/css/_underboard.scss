@@ -1,0 +1,97 @@
+.board-editor .underboard {
+  grid-area: underboard;
+  display: flex;
+  flex-direction: column-reverse;
+  .copyables {
+    & > div {
+      display: flex;
+      align-items: center;
+      position: relative;
+      margin-bottom: 2em;
+      strong {
+        width: 4rem;
+      }
+      input,
+      textarea {
+        margin-left: 1rem;
+        flex: 1 1 100%;
+        &::-webkit-resizer {
+          background: $c-bg-box;
+        }
+      }
+      &.sfen input,
+      &.url input {
+        height: 40px;
+      }
+      &.kif,
+      &.csa {
+        margin-bottom: 2em;
+        textarea {
+          min-height: 10em;
+          white-space: pre-wrap;
+          word-break: break-all;
+          overflow-x: hidden;
+        }
+      }
+      .action {
+        @extend %box-radius-bottom;
+        position: absolute;
+        top: 100%;
+        right: 0;
+        text-align: right;
+        opacity: 0;
+        @include transition();
+      }
+      textarea:focus ~ .action {
+        opacity: 1;
+      }
+    }
+  }
+  .tools {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 2em;
+    .piece-counter {
+      display: none;
+    }
+    .variants,
+    .positions {
+      width: 100%;
+      height: 40px;
+      margin-bottom: 2em;
+      select {
+        width: 100%;
+        option:checked {
+          font-style: italic;
+        }
+      }
+    }
+  }
+  @include breakpoint($mq-col2-uniboard) {
+    flex-direction: row;
+    gap: 1rem;
+    .copyables {
+      width: calc(100% / 3 * 2 + 1rem);
+      margin-top: $block-gap;
+    }
+    .tools {
+      width: calc(100% / 3);
+      margin-top: $block-gap;
+      .variants,
+      .positions {
+        margin-bottom: 2em;
+      }
+      .piece-counter {
+        display: block;
+        width: 100%;
+        & > div {
+          display: flex;
+          flex-direction: column;
+          flex-wrap: wrap;
+          height: 5rem;
+        }
+      }
+    }
+  }
+}

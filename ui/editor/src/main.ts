@@ -3,7 +3,7 @@ import { Shogiground } from 'shogiground';
 import { VNode, attributesModule, classModule, eventListenersModule, init, propsModule } from 'snabbdom';
 import EditorCtrl from './ctrl';
 import { EditorData } from './interfaces';
-import view from './view';
+import view from './view/view';
 
 const patch = init([classModule, attributesModule, propsModule, eventListenersModule]);
 
