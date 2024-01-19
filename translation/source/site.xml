@@ -941,4 +941,5 @@
 	<string name="analyse" comment="Verb; After clicking on button saying this, we expect to analyse the position">Analyse</string>
 	<string name="back" comment="As in: go back">Back</string>
 	<string name="preview">Preview</string>
+	<string name="variantNotSupported">Variant not supported</string>
 </resources>

@@ -793,6 +793,7 @@ export type I18nKey =
 'analyse'|
 'back'|
 'preview'|
+'variantNotSupported'|
 'opponentLeftCounter'|
 'nbMoves'|
 'nbPlayers'|
@@ -2122,4 +2123,17 @@ export type I18nKey =
 'ox'|
 'falcon'|
 'eagle'|
-'dragonpromoted';
+'dragonpromoted'|
+'textualRepresentation'|
+'gameInfo'|
+'pieces'|
+'board'|
+'hands'|
+'none'|
+'moves'|
+'currentPosition'|
+'moveForm'|
+'moveForm'|
+'commandInput'|
+'commands'|
+'useArrowKeys';

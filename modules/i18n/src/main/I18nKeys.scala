@@ -795,6 +795,7 @@ val `clickGame` = new I18nKey("clickGame")
 val `analyse` = new I18nKey("analyse")
 val `back` = new I18nKey("back")
 val `preview` = new I18nKey("preview")
+val `variantNotSupported` = new I18nKey("variantNotSupported")
 val `opponentLeftCounter` = new I18nKey("opponentLeftCounter")
 val `nbMoves` = new I18nKey("nbMoves")
 val `nbPlayers` = new I18nKey("nbPlayers")
@@ -2202,6 +2203,22 @@ val `ox` = new I18nKey("pieces:ox")
 val `falcon` = new I18nKey("pieces:falcon")
 val `eagle` = new I18nKey("pieces:eagle")
 val `dragonpromoted` = new I18nKey("pieces:dragonpromoted")
+}
+
+object nvui {
+val `textualRepresentation` = new I18nKey("nvui:textualRepresentation")
+val `gameInfo` = new I18nKey("nvui:gameInfo")
+val `pieces` = new I18nKey("nvui:pieces")
+val `board` = new I18nKey("nvui:board")
+val `hands` = new I18nKey("nvui:hands")
+val `none` = new I18nKey("nvui:none")
+val `moves` = new I18nKey("nvui:moves")
+val `currentPosition` = new I18nKey("nvui:currentPosition")
+val `moveForm` = new I18nKey("nvui:moveForm")
+val `moveForm` = new I18nKey("nvui:moveForm")
+val `commandInput` = new I18nKey("nvui:commandInput")
+val `commands` = new I18nKey("nvui:commands")
+val `useArrowKeys` = new I18nKey("nvui:useArrowKeys")
 }
 
 }

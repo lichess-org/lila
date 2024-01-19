@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <resources>
   <string name="settings">Settings</string>
-
   <string name="closeAccount">Close account</string>
   <string name="closingIsDefinitive">Closing is definitive. There is no going back. Are you sure?</string>
   <string name="cantOpenSimilarAccount">You will not be allowed to open a new account with the same name, even if the case is different.</string>
