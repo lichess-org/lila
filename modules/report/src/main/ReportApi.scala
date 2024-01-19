@@ -381,16 +381,21 @@ final class ReportApi(
       .cursor[Report]()
       .list(nb)
 
-  def byAndAbout(user: User, nb: Int)(using Me): Fu[Report.ByAndAbout] =
-    for
-      by <-
-        coll
-          .find($doc("atoms.by" -> user.id))
-          .sort(sortLastAtomAt)
-          .cursor[Report](ReadPref.priTemp)
-          .list(nb)
-      about <- recent(Suspect(user), nb, _.priTemp)
-    yield Report.ByAndAbout(by, Room.filterGranted(about))
+  def byAndAbout(user: User, nb: Int)(using Me): Fu[Report.ByAndAbout] = for
+    by <-
+      coll
+        .find($doc("atoms.by" -> user.id))
+        .sort(sortLastAtomAt)
+        .cursor[Report](ReadPref.priTemp)
+        .list(nb)
+    about <- recent(Suspect(user), nb, _.priTemp)
+  yield Report.ByAndAbout(by, Room.filterGranted(about))
+
+  def personalExport(user: User): Fu[List[Report.Atom]] = for
+    by    <- coll.list[Report]($doc("atoms.by" -> user.id))
+    about <- recent(Suspect(user), 99, _.priTemp)
+  yield by.flatMap(_ atomBy user.id.into(ReporterId)) :::
+    about.filter(_.isComm).flatMap(_.atoms.filter(_.isFlag))
 
   def currentCheatScore(suspect: Suspect): Fu[Option[Report.Score]] =
     coll.primitiveOne[Report.Score](

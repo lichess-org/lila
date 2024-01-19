@@ -137,6 +137,7 @@ object help:
           row(kbd("who"), readOutOpponentName()),
           row(kbd("draw"), offerOrAcceptDraw()),
           row(kbd("resign"), trans.resignTheGame()),
+          row(kbd("zerk"), trans.arena.berserk()),
           row(kbd("next"), trans.puzzle.nextPuzzle()),
           row(kbd("upv"), trans.puzzle.upVote()),
           row(kbd("downv"), trans.puzzle.downVote()),

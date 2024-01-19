@@ -54,7 +54,7 @@ Chơi nhanh và trở lại phòng chờ để chơi được nhiều ván và g
   <string name="arenaStreaks">Đấu trường chuỗi</string>
   <string name="arenaStreaksHelp">Sau 2 ván thắng, mỗi ván thắng liên tiếp sẽ được 4 điểm thay vì 2 điểm.</string>
   <string name="noBerserkAllowed">Không cho phép Berserk</string>
-  <string name="noArenaStreaks">Không có chuỗi Đấu trường</string>
+  <string name="noArenaStreaks">Không có Đấu trường chuỗi</string>
   <string name="averagePerformance">Hiệu suất trung bình</string>
   <string name="averageScore">Điểm trung bình</string>
   <string name="myTournaments">Giải đấu của tôi</string>

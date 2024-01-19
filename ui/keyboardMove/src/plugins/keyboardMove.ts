@@ -86,9 +86,14 @@ export function initModule(opts: Opts) {
         opts.ctrl.drop(v.slice(2) as Key, v[0].toUpperCase());
         clear();
       }
-    } else if (v.length > 0 && 'clock'.startsWith(v.toLowerCase())) {
+    } else if (v.length > 0 && 'clock'.startsWith(v.toLowerCase()) && opts.ctrl.speakClock) {
       if ('clock' === v.toLowerCase()) {
-        opts.ctrl?.speakClock();
+        opts.ctrl.speakClock();
+        clear();
+      }
+    } else if (v.length > 0 && 'zerk'.startsWith(v.toLowerCase()) && opts.ctrl.goBerserk) {
+      if ('zerk' === v.toLowerCase()) {
+        opts.ctrl.goBerserk();
         clear();
       }
     } else if (v.length > 0 && 'who'.startsWith(v.toLowerCase())) {

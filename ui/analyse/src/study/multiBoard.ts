@@ -111,6 +111,12 @@ export class MultiBoardCtrl {
   };
 
   getCloudEval = (preview: ChapterPreview): CloudEval | undefined => this.cloudEvals.get(preview.fen);
+
+  onLocalCeval = (node: Tree.Node, ev: Tree.ClientEval) => {
+    const cur = this.cloudEvals.get(node.fen);
+    if (!cur || cur.depth < ev.depth)
+      this.cloudEvals.set(node.fen, { ...ev, chances: povChances('white', ev) });
+  };
 }
 
 export function view(ctrl: MultiBoardCtrl, study: StudyCtrl): VNode | undefined {

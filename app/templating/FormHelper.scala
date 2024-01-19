@@ -270,7 +270,9 @@ trait FormHelper:
       form3.group(field, trans.flair(), half = true): f =>
         flairPicker(f, current, label)(view)
 
-    def flairPicker(field: Field, current: Option[Flair], label: Frag)(view: Frag)(using ctx: Context): Frag =
+    def flairPicker(field: Field, current: Option[Flair], label: Frag, anyFlair: Boolean = false)(view: Frag)(
+        using ctx: Context
+    ): Frag =
       frag(
         details(cls := "form-control emoji-details")(
           summary(cls := "button button-metal button-no-upper")(
@@ -282,7 +284,7 @@ trait FormHelper:
           hidden(field, current.map(_.value)),
           div(
             cls := "flair-picker",
-            (!ctx.me.exists(_.isAdmin)).option(exceptEmojis)
+            (!ctx.me.exists(_.isAdmin) && !anyFlair).option(exceptEmojis)
           )
         ),
         current.isDefined option p:

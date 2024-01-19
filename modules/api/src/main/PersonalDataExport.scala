@@ -23,6 +23,7 @@ final class PersonalDataExport(
     streamerApi: lila.streamer.StreamerApi,
     coachApi: lila.coach.CoachApi,
     appealApi: lila.appeal.AppealApi,
+    reportEnv: lila.report.Env,
     picfitUrl: lila.memo.PicfitUrl
 )(using Executor, Materializer):
 
@@ -174,7 +175,7 @@ final class PersonalDataExport(
             .mkString("\n") + bigSep
           .throttle(heavyPerSecond, 1 second)
 
-    val appeal = Source.futureSource:
+    val appeals = Source.futureSource:
       appealApi
         .byId(user)
         .map: opt =>
@@ -183,6 +184,18 @@ final class PersonalDataExport(
               List(textTitle("Appeal")) ++ appeal.msgs.map: msg =>
                 val author = if appeal.isAbout(msg.by) then "you" else "Lichess"
                 s"${textDate(msg.at)} by $author\n${msg.text}$bigSep"
+
+    val reports = Source.futureSource:
+      reportEnv.api
+        .personalExport(user)
+        .map: atoms =>
+          val (by, to) = atoms
+            .map: a =>
+              a -> s"${textDate(a.at)}\n${a.text}$bigSep"
+            .partition(_._1.by is user)
+          Source:
+            List(textTitle("Reports you created")) ::: by.map(_._2) :::
+              List(textTitle("Reports about you")) ::: to.map(_._2)
 
     val outro = Source(List(textTitle("End of data export.")))
 
@@ -197,7 +210,8 @@ final class PersonalDataExport(
       privateMessages,
       spectatorGameChats,
       gameNotes,
-      appeal,
+      reports,
+      appeals,
       outro
     ).foldLeft(Source.empty[String])(_ concat _)
       .keepAlive(15 seconds, () => " ")

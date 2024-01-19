@@ -102,7 +102,7 @@ object indexStripe:
               }
             ),
             tr(
-              th("Payment details"),
+              th(paymentDetails()),
               td(
                 info.paymentMethod.flatMap(_.card) map { m =>
                   frag(
@@ -117,7 +117,7 @@ object indexStripe:
                     br
                   )
                 },
-                a(cls := "update-payment-method")("Update payment method")
+                a(cls := "update-payment-method")(updatePaymentMethod())
               )
             ),
             tr(
@@ -141,7 +141,7 @@ object indexStripe:
               th("Stripe"),
               td:
                 a(href := "https://billing.stripe.com/p/login/fZefZ2dCK9zq7Ty6oo"):
-                  "Manage your subscription and download your invoices and receipts"
+                  stripeManageSub()
             ),
             tr(
               th,

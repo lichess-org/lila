@@ -103,9 +103,11 @@ object Report:
   ):
     def simplifiedText = text.linesIterator.filterNot(_ startsWith "[AUTOREPORT]") mkString "\n"
 
-    def byHuman = !byLichess && by != ReporterId.irwin
+    def byHuman = !byLichess && by.isnt(ReporterId.irwin)
 
-    def byLichess = by == ReporterId.lichess
+    def byLichess = by is ReporterId.lichess
+
+    def isFlag = text startsWith Reason.Comm.flagText
 
   case class Done(by: ModId, at: Instant)
 

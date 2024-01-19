@@ -142,19 +142,17 @@ final class UblogRank(
       days: Int
   ) = UblogPost.RankDate {
     import UblogBlog.Tier.*
-    if tier < LOW || !hasImage then liveAt minusMonths 3
-    else
-      liveAt plusHours:
-        val tierBase = 24 * tier.match
-          case LOW    => -30
-          case NORMAL => 0
-          case HIGH   => 10
-          case BEST   => 15
-          case _      => 0
+    liveAt minusMonths (if tier < LOW || !hasImage then 3 else 0) plusHours:
+      val tierBase = 24 * tier.match
+        case LOW    => -30
+        case NORMAL => 0
+        case HIGH   => 10
+        case BEST   => 15
+        case _      => 0
 
-        val adjustBonus = 24 * days
-        val likesBonus  = math.sqrt(likes.value * 25) + likes.value / 100
-        val langBonus   = if language == lila.i18n.defaultLanguage then 0 else -24 * 10
+      val adjustBonus = 24 * days
+      val likesBonus  = math.sqrt(likes.value * 25) + likes.value / 100
+      val langBonus   = if language == lila.i18n.defaultLanguage then 0 else -24 * 10
 
-        (tierBase + likesBonus + langBonus + adjustBonus).toInt
+      (tierBase + likesBonus + langBonus + adjustBonus).toInt
   }

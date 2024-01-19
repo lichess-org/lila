@@ -7,6 +7,7 @@ import lila.app.ui.ScalatagsTemplate.{ *, given }
 import lila.blog.DailyFeed.Update
 import play.api.data.Form
 import play.api.i18n.Lang
+import lila.common.paginator.Paginator
 import scalatags.text.Builder
 import scalatags.generic.Frag
 
@@ -17,10 +18,10 @@ object dailyFeed:
       title = title,
       active = "news",
       moreCss = cssTag("dailyFeed"),
-      moreJs = edit option frag(jsModule("flatpickr"), jsModule("dailyFeed"))
+      moreJs = frag(infiniteScrollTag, edit option jsModule("flatpickr"), edit option jsModule("dailyFeed"))
     )
 
-  def index(updates: List[Update])(using PageContext) =
+  def index(ups: Paginator[Update])(using PageContext) =
     layout("Updates"):
       div(cls := "daily-feed box box-pad")(
         boxTop(
@@ -35,15 +36,15 @@ object dailyFeed:
           )
         ),
         standardFlash,
-        updateList(updates, editor = isGranted(_.DailyFeed))
+        updates(ups, editor = isGranted(_.DailyFeed))
       )
 
-  def updateList(ups: List[Update], editor: Boolean)(using Context) =
-    div(cls := "daily-feed__updates"):
-      ups.view
+  def updates(ups: Paginator[Update], editor: Boolean)(using Context) =
+    div(cls := "daily-feed__updates infinite-scroll")(
+      ups.currentPageResults
         .filter(_.published || editor)
         .map: update =>
-          div(cls := "daily-feed__update", id := update.id)(
+          div(cls := "daily-feed__update paginated", id := update.id)(
             marker(update.flair),
             div(cls := "daily-feed__update__content")(
               st.section(cls := "daily-feed__update__day")(
@@ -60,8 +61,9 @@ object dailyFeed:
               ),
               div(cls := "daily-feed__update__markup")(rawHtml(update.rendered))
             )
-          )
-        .toList
+          ),
+      pagerNext(ups, np => routes.DailyFeed.index(np).url)
+    )
 
   val lobbyUpdates = renderCache[List[Update]](1 minute): ups =>
     div(cls := "daily-feed__updates")(
@@ -88,7 +90,7 @@ object dailyFeed:
       main(cls := "daily-feed page-small box box-pad")(
         boxTop(
           h1(
-            a(href := routes.DailyFeed.index)("Daily Feed"),
+            a(href := routes.DailyFeed.index(1))("Daily Feed"),
             " • ",
             "New update!"
           )
@@ -103,7 +105,7 @@ object dailyFeed:
         div(cls := "box box-pad")(
           boxTop(
             h1(
-              a(href := routes.DailyFeed.index)("Lichess update"),
+              a(href := routes.DailyFeed.index(1))("Lichess update"),
               " • ",
               semanticDate(update.at)
             )
@@ -111,10 +113,7 @@ object dailyFeed:
           standardFlash,
           postForm(cls := "content_box_content form3", action := routes.DailyFeed.update(update.id)):
             inForm(form)
-        ),
-        br,
-        div(cls := "box box-pad")(
-          updateList(List(update), editor = true),
+          ,
           postForm(action := routes.DailyFeed.delete(update.id))(cls := "daily-feed__delete"):
             submitButton(cls := "button button-red button-empty confirm")("Delete")
         )
@@ -137,9 +136,10 @@ object dailyFeed:
         help = markdownAvailable.some
       )(form3.textarea(_)(rows := 10)),
       form3.group(form("flair"), "Icon", half = false): field =>
-        form3.flairPicker(field, Flair from form("flair").value, label = frag("Update icon")):
-          span(cls := "flair-container"):
-            Flair.from(form("flair").value).map(f => marker(f.some, "uflair".some))
+        form3
+          .flairPicker(field, Flair from form("flair").value, label = frag("Update icon"), anyFlair = true):
+            span(cls := "flair-container"):
+              Flair.from(form("flair").value).map(f => marker(f.some, "uflair".some))
       ,
       form3.action(form3.submit("Save"))
     )
@@ -154,7 +154,7 @@ object dailyFeed:
     import views.html.base.atom.{ atomDate, category }
     views.html.base.atom(
       elems = ups,
-      htmlCall = routes.DailyFeed.index,
+      htmlCall = routes.DailyFeed.index(1),
       atomCall = routes.DailyFeed.atom,
       title = "Lichess updates feed",
       updated = ups.headOption.map(_.at)
@@ -165,7 +165,7 @@ object dailyFeed:
         link(
           rel  := "alternate",
           tpe  := "text/html",
-          href := s"$netBaseUrl${routes.DailyFeed.index}#${up.id}"
+          href := s"$netBaseUrl${routes.DailyFeed.index(1)}#${up.id}"
         ),
         tag("title")(up.title),
         tag("content")(tpe := "html")(up.rendered)

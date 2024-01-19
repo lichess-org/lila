@@ -53,7 +53,7 @@ final private[team] class TeamForm(
       Fields.description,
       Fields.descPrivate,
       Fields.request,
-      lila.user.FlairApi.formPair,
+      lila.user.FlairApi.formPair(),
       Fields.gameId,
       Fields.move
     )(TeamSetup.apply)(unapply)
@@ -70,7 +70,7 @@ final private[team] class TeamForm(
       Fields.chat,
       Fields.forum,
       Fields.hideMembers,
-      lila.user.FlairApi.formPair
+      lila.user.FlairApi.formPair()
     )(TeamEdit.apply)(unapply)
   ) fill TeamEdit(
     password = team.password,

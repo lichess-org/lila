@@ -634,9 +634,10 @@ export default class AnalyseCtrl {
       if (path === this.path) {
         this.setAutoShapes();
         if (!isThreat) {
-          if (this.retro) this.retro.onCeval();
-          if (this.practice) this.practice.onCeval();
-          if (this.studyPractice) this.studyPractice.onCeval();
+          this.retro?.onCeval();
+          this.practice?.onCeval();
+          this.studyPractice?.onCeval();
+          this.study?.multiBoard.onLocalCeval(node, ev);
           this.evalCache.onLocalCeval();
         }
         this.redraw();

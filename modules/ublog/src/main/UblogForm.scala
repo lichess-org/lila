@@ -83,7 +83,8 @@ object UblogForm:
         lived = none,
         likes = UblogPost.Likes(1),
         views = UblogPost.Views(0),
-        rankAdjustDays = none
+        rankAdjustDays = none,
+        pinned = none
       )
 
     def update(user: User, prev: UblogPost) =
@@ -105,3 +106,9 @@ object UblogForm:
     single:
       "tier" -> number(min = UblogBlog.Tier.HIDDEN.value, max = UblogBlog.Tier.BEST.value)
         .into[UblogBlog.Tier]
+
+  val adjust = Form:
+    tuple(
+      "days"   -> optional(number(min = -180, max = 180)),
+      "pinned" -> boolean
+    )

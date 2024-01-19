@@ -92,9 +92,19 @@ final class UblogApi(
       latestPosts(blogId, nb) map
       (UblogPost.BlogPreview.apply).tupled
 
+  def pinnedPosts(nb: Int): Fu[List[UblogPost.PreviewPost]] =
+    colls.post
+      .find($doc("live" -> true, "pinned" -> true), previewPostProjection.some)
+      .sort($doc("rank" -> -1))
+      .cursor[UblogPost.PreviewPost](ReadPref.sec)
+      .list(nb)
+
   def latestPosts(nb: Int): Fu[List[UblogPost.PreviewPost]] =
     colls.post
-      .find($doc("live" -> true, "topics" $ne UblogTopic.offTopic), previewPostProjection.some)
+      .find(
+        $doc("live" -> true, "pinned" $ne true, "topics" $ne UblogTopic.offTopic),
+        previewPostProjection.some
+      )
       .sort($doc("rank" -> -1))
       .cursor[UblogPost.PreviewPost](ReadPref.sec)
       .list(nb)
@@ -147,10 +157,8 @@ final class UblogApi(
       .one($id(blog), $set("modTier" -> tier, "tier" -> tier), upsert = true)
       .void
 
-  def setRankAdjust(id: UblogPostId, adjust: Int): Funit =
-    colls.post.update
-      .one($id(id), if adjust == 0 then $unset("rankAdjustDays") else $set("rankAdjustDays" -> adjust))
-      .void
+  def setRankAdjust(id: UblogPostId, adjust: Int, pinned: Boolean): Funit =
+    colls.post.update.one($id(id), $set("rankAdjustDays" -> adjust, "pinned" -> pinned)).void
 
   def postCursor(user: User): AkkaStreamCursor[UblogPost] =
     colls.post.find($doc("blog" -> s"user:${user.id}")).cursor[UblogPost](ReadPref.priTemp)

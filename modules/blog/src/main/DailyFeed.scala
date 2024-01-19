@@ -4,8 +4,10 @@ import reactivemongo.api.bson.*
 import reactivemongo.api.bson.Macros.Annotations.Key
 import java.time.format.{ DateTimeFormatter, FormatStyle }
 import lila.db.dsl.{ *, given }
+import lila.common.paginator.Paginator
+import lila.db.paginator.Adapter
 import lila.memo.CacheApi
-import lila.common.config.Max
+import lila.common.config.{ Max, MaxPerPage }
 import play.api.data.Form
 import lila.user.Me
 
@@ -26,8 +28,9 @@ object DailyFeed:
     def published           = public && at.isBeforeNow
     def future              = at.isAfterNow
 
-  private val renderer      = lila.common.MarkdownRender(autoLink = false, strikeThrough = true)
-  private val dateFormatter = DateTimeFormatter.ofLocalizedDate(FormatStyle.MEDIUM)
+  private val renderer              = lila.common.MarkdownRender(autoLink = false, strikeThrough = true)
+  private val dateFormatter         = DateTimeFormatter.ofLocalizedDate(FormatStyle.MEDIUM)
+  given BSONDocumentHandler[Update] = Macros.handler
 
   type GetLastUpdates = () => List[Update]
 
@@ -39,8 +42,6 @@ final class DailyFeed(coll: Coll, cacheApi: CacheApi)(using Executor):
   import DailyFeed.*
 
   private val max = Max(50)
-
-  private given BSONDocumentHandler[Update] = Macros.handler
 
   private object cache:
     private var mutableLastUpdates: List[Update] = Nil
@@ -61,9 +62,7 @@ final class DailyFeed(coll: Coll, cacheApi: CacheApi)(using Executor):
 
   export cache.lastUpdate
 
-  def recent: Fu[List[Update]] = cache.store.get({})
-
-  def recentPublished = recent.map(_.filter(_.published))
+  def recentPublished = cache.store.get({}).map(_.filter(_.published))
 
   def get(id: ID): Fu[Option[Update]] = coll.byId[Update](id)
 
@@ -85,6 +84,25 @@ final class DailyFeed(coll: Coll, cacheApi: CacheApi)(using Executor):
         "content" -> nonEmptyText(maxLength = 20_000).into[Markdown],
         "public"  -> boolean,
         "at"      -> ISOInstantOrTimestamp.mapping,
-        lila.user.FlairApi.formPair
+        lila.user.FlairApi.formPair(anyFlair = true)
       )(UpdateData.apply)(unapply)
     from.fold(form)(u => form.fill(UpdateData(u.content, u.public, u.at, u.flair)))
+
+final class DailyFeedPaginatorBuilder(
+    coll: Coll
+)(using Executor):
+  import DailyFeed.*
+
+  def recent(includeAll: Boolean, page: Int): Fu[Paginator[Update]] =
+    Paginator(
+      adapter = Adapter[Update](
+        collection = coll,
+        selector =
+          if includeAll then $empty
+          else $doc("public" -> true, "at" $lt nowInstant),
+        projection = none,
+        sort = $sort.desc("at")
+      ),
+      page,
+      MaxPerPage(25)
+    )

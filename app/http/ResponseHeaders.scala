@@ -28,7 +28,6 @@ trait ResponseHeaders extends HeaderNames:
         "Access-Control-Allow-Credentials" -> "true"
       )
     )
-
   val allowMethods = List("OPTIONS", "GET", "POST", "PUT", "DELETE") mkString ", "
   val optionsHeaders = List(
     "Allow"                  -> allowMethods,
@@ -44,6 +43,13 @@ trait ResponseHeaders extends HeaderNames:
     "Cross-Origin-Opener-Policy"   -> "same-origin",
     "Cross-Origin-Embedder-Policy" -> "credentialless"
   )
+
+  val permissionsPolicyHeader =
+    "Permissions-Policy" -> List(
+      "screen-wake-lock=(self \"https://lichess1.org\")",
+      "microphone=(self)",
+      "fullscreen=(self)"
+    ).mkString(", ")
 
   val noProxyBufferHeader = "X-Accel-Buffering" -> "no"
 

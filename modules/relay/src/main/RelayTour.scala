@@ -55,6 +55,7 @@ object RelayTour:
     def name(tier: Tier) = options.collectFirst {
       case (t, n) if t == tier.toString => n
     } | "???"
+    val keys: Map[Tier, String] = Map(NORMAL -> "normal", HIGH -> "high", BEST -> "best")
 
   case class Spotlight(enabled: Boolean, language: Language, title: Option[String]):
     def isEmpty                           = !enabled && specialLanguage.isEmpty && title.isEmpty
