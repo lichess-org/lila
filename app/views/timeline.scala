@@ -111,6 +111,8 @@ object timeline {
         case StreamStart(id, name) =>
           views.html.streamer.bits
             .redirectLink(id)(cls := "text", dataIcon := "")(trans.xStartedStreaming(name))
+        case SystemNotification(text) =>
+          div(cls := "text system-notification", dataIcon := "n")(text)
       },
       " ",
       momentFromNow(e.date)

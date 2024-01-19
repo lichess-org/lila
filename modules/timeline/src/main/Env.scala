@@ -55,4 +55,13 @@ final class Env(
   lila.common.Bus.subscribeFun("shadowban") { case lila.hub.actorApi.mod.Shadowban(userId, true) =>
     entryApi.removeRecentFollowsBy(userId).unit
   }
+
+  def cli =
+    new lila.common.Cli {
+      def process = { case "broadcast" :: msgWords =>
+        entryApi.broadcast.insert(
+          lila.hub.actorApi.timeline.SystemNotification(msgWords mkString " ")
+        ) inject "done!"
+      }
+    }
 }

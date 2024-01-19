@@ -172,6 +172,9 @@ package timeline {
   case class StreamStart(id: String, name: String) extends Atom("streamStart", true) {
     def userIds = List(id)
   }
+  case class SystemNotification(msg: String) extends Atom("systemNotification", true) {
+    def userIds = Nil
+  }
 
   object propagation {
     sealed trait Propagation
