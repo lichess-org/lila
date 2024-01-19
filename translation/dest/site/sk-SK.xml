@@ -740,6 +740,7 @@
   <string name="yourPendingSimuls">Vaše čakajúce simultánky</string>
   <string name="createdSimuls">Novovytvorené simultánky</string>
   <string name="hostANewSimul">Vytvoriť novú simultánku</string>
+  <string name="signUpToHostOrJoinASimul">Prihláste sa k zorganizovaniu alebo zapojeniu sa do simultánky</string>
   <string name="noSimulFound">Simultánka nenájdená</string>
   <string name="noSimulExplanation">Táto simultánna exhibícia neexistuje.</string>
   <string name="returnToSimulHomepage">Späť na Simultánku</string>

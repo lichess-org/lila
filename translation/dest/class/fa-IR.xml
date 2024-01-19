@@ -32,7 +32,7 @@
   <string name="realName">نام واقعی</string>
   <string name="privateWillNeverBeShown">خصوصی. هرگز در خارج از کلاس نمایش داده نخواهد شد. به یاد آوری دانش آموز کمک می کند.</string>
   <string name="addStudent">دانش‌آموز اضافه کنید</string>
-  <string name="lichessProfileXCreatedForY">حساب کاربری %1$s برای %2$s ساخته شد.</string>
+  <string name="lichessProfileXCreatedForY">نمایه %1$s برای %2$s ساخته شد.</string>
   <string name="studentCredentials">دانش‌جو: %1$s
 نامِ کاربری: %2$s
 گذرواژه: %3$s</string>

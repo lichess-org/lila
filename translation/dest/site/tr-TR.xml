@@ -5,6 +5,7 @@
   <string name="toInviteSomeoneToPlayGiveThisUrl">Oyuna davet etmek için, bu linki gönderin</string>
   <string name="gameOver">Oyun bitti</string>
   <string name="waitingForOpponent">Rakip bekleniyor</string>
+  <string name="orLetYourOpponentScanQrCode">Veya rakibinize bu QR kodunu taratın</string>
   <string name="waiting">Bekleniyor</string>
   <string name="yourTurn">Sıra sizde</string>
   <string name="aiNameLevelAiLevel">%1$s seviye %2$s</string>
@@ -506,6 +507,9 @@
   <string name="editProfile">Profili düzenle</string>
   <string name="firstName">Ad</string>
   <string name="lastName">Soyad</string>
+  <string name="setFlair">Rozetinizi seçin</string>
+  <string name="flair">Rozet</string>
+  <string name="youCanHideFlair">Ayarlardan oyuncu rozetlerini gizleyebilirsiniz.</string>
   <string name="biography">Biyografi</string>
   <string name="countryRegion" comment="flag&#10;Appears when you edit your profile. Lets a player add a country/flag (not all flags are for countries) to their profile">Ülke veya bölge</string>
   <string name="thankYou">Teşekkürler!</string>
@@ -699,6 +703,7 @@
   <string name="keyNextBranch">Sıradaki dal</string>
   <string name="toggleVariationArrows">Varyasyon oklarını aç/kapat</string>
   <string name="cyclePreviousOrNextVariation">Önceki/sonraki varyasyona geç</string>
+  <string name="toggleGlyphAnnotations">Glif dipnotlarını aç/kapat</string>
   <string name="variationArrowsInfo">Varyasyon okları, hamle listesini kullanmadan gezinmenizi sağlar.</string>
   <string name="playSelectedMove">seçili hamleyi oyna</string>
   <string name="newTournament">Yeni turnuva</string>

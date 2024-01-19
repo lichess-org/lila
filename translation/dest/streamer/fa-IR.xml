@@ -4,16 +4,16 @@
   <string name="lichessStreamer">بَرخَط-محتواساز Lichess</string>
   <string name="live">زنده!</string>
   <string name="offline">بُرون‌خط</string>
-  <string name="currentlyStreaming" comment="%s is the title of the stream, chosen by the streamer.">در حال پخش: %s</string>
-  <string name="lastStream" comment="%s is how long ago the stream was in relative time (e.g. 50 minutes ago). It is displayed in smaller type than the rest of the string.">آخرین پخش %s</string>
+  <string name="currentlyStreaming" comment="%s is the title of the stream, chosen by the streamer.">در حال پخش جریانی: %s</string>
+  <string name="lastStream" comment="%s is how long ago the stream was in relative time (e.g. 50 minutes ago). It is displayed in smaller type than the rest of the string.">آخرین پخش جریانی %s</string>
   <string name="becomeStreamer">بَرخَط-محتواساز شوید</string>
   <string name="doYouHaveStream">صفحه Twitch یا YouTube دارید؟</string>
   <string name="hereWeGo">شروع کنیم!</string>
   <string name="allStreamers">همه بَرخَط-محتواسازان</string>
   <string name="editPage">ویرایش صفحه بَرخَط-محتواساز</string>
-  <string name="yourPage">صفحه بَرخَط-محتواسازی شما</string>
+  <string name="yourPage">صفحه پخش جریانی شما</string>
   <string name="downloadKit">بارگیری بسته بَرخَط-محتواساز</string>
-  <string name="xIsStreaming">%s در حال برخَط-محتواسازی است</string>
+  <string name="xIsStreaming">%s در حال پخش جریانی است</string>
   <string name="rules">قونین استریم</string>
   <string name="rule1">Twitch این گروه را \"شطرنج\" در همه زبانها می نامد: https://www.twitch.tv/directory/game/Chess - بنابراین توصیه می کنیم متن انگلیسی را در اینجا نگه دارید.</string>
   <string name="rule2">هنگام پخش چیزهای غیر مجوز ، کلمه کلیدی را حذف کنید.</string>
@@ -21,7 +21,7 @@
   <string name="rule4" comment="the resulting message is: Read our streaming Fairplay FAQ to ensure a fair play for everyone in your stream">%s ما را بخوانید تا در مدت استریم شما از بازی جوانمردانه برای همه اطمینان حاصل شود.</string>
   <string name="streamingFairplayFAQ">پرسشها و پاسخهای متداول درباره استریم نمودن به صورت منصفانه</string>
   <string name="perks">مزایای جریان با کلمه کلیدی</string>
-  <string name="perk1">یک نماد جریان مستقیم شعله ور در نمایه لیچس خود دریافت کنید.</string>
+  <string name="perk1">یک نقشک بَرخَط-محتواساز شعله‌ور در نمایه Lichessتان دریافت کنید.</string>
   <string name="perk2">در بالای لیست پخش کننده ها پرش کنید.</string>
   <string name="perk3">به فالوور های خود در لیچس اطلاع دهید</string>
   <string name="perk4">جریان خود را در بازی ها مسابقات و مطالعات خود نشان دهید</string>

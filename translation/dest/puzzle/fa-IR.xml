@@ -19,7 +19,7 @@
   <string name="findTheBestMoveForWhite">بهترین حرکت برای سفید را پیدا کنید.</string>
   <string name="findTheBestMoveForBlack">بهترین حرکت برای سیاه را پیدا کنید.</string>
   <string name="toGetPersonalizedPuzzles">دریافت معماهای شخصی‌سازی‌شده:</string>
-  <string name="puzzleId" comment="%s is the ID of the puzzle, something like #a1b2c3.">معمای %s</string>
+  <string name="puzzleId">معمای %s</string>
   <string name="puzzleOfTheDay">معمای روز</string>
   <string name="dailyPuzzle">معمای روزانه</string>
   <string name="clickToSolve">برای حل کلیک کنید</string>
@@ -31,13 +31,13 @@
   <string name="byOpenings">بر اساس گشایش‌ها</string>
   <string name="puzzlesByOpenings">معماها بر اساس گشایش‌ها</string>
   <string name="openingsYouPlayedTheMost">گشایش‌هایی که بیش از همه در بازی‌های امتیازی کرده‌اید</string>
-  <string name="useFindInPage" comment="useFindInPage&#10;&#10;Appears on https://lichess.org/training/openings&#10;Encourages players to use the built-in browser feature (Ctrl+F on most desktop computers) to find the opening they want to practice.">با استفاده از قابلیت \"جستجو در صفحه\" مرورگر خود گشایش محبوب خود را پیدا کنید!</string>
+  <string name="useFindInPage">با استفاده از قابلیت \"جستجو در صفحه\" مرورگر خود گشایش محبوب خود را پیدا کنید!</string>
   <string name="useCtrlF">از Ctrl+f برای پیدا کردن گشایش مورد علاقه خود استفاده کنید!</string>
-  <string name="notTheMove">ابن حرکت نیست!</string>
+  <string name="notTheMove">این حرکت نیست!</string>
   <string name="trySomethingElse">چیز دیگری پیدا کنید</string>
-  <string name="ratingX" comment="Appears on pages of individual puzzles.&#10;&#10;%s is either:&#10;1. The word 'hidden', if you have not completed the puzzle yet.&#10;2. The rating of the puzzle, if you have completed it or seen the solution.">امتیاز: %s</string>
-  <string name="hidden" comment="Puzzle rating: hidden&#10;&#10;Appears while solving puzzles. Lichess only displays the rating of the puzzle after you have solved it or asked to see the solution.">پنهان</string>
-  <plurals name="playedXTimes" comment="Appears on pages of individual puzzles.&#10;%s is the number of times the puzzle has been played.">
+  <string name="ratingX">امتیاز: %s</string>
+  <string name="hidden">پنهان</string>
+  <plurals name="playedXTimes">
     <item quantity="one">%s بار بازی شده است</item>
     <item quantity="other">%s بار بازی شده</item>
   </plurals>
@@ -68,7 +68,7 @@
   <string name="solved">حل شده</string>
   <string name="failed">شکست!</string>
   <string name="streakDescription">به تدریج معماهای سخت‌تری را حل کنید و یک دنباله بُرد بسازید. محدویت زمانی وجود ندارد، پس عجله نکنید. با یک حرکت اشتباه، بازی تمام می‌شود! در هر دور، می‌توانید یک حرکت را رَد کنید.</string>
-  <string name="yourStreakX" comment="%s is the number of puzzles you fully solved in a run of Puzzle Streak (https://lichess.org/streak).&#10;&#10;Appears once you make a wrong move or skip a puzzle, ending your streak. There is a counter always running on the left-hand side of the page without words.">دنباله بُردهایتان: %s</string>
+  <string name="yourStreakX">دنباله بُردهایتان: %s</string>
   <string name="streakSkipExplanation">از این حرکت چشم‌پوشی کنید تا توالی خود را حفظ نمایید! فقط یک بار در هر اجرا کار می‌کند.</string>
   <string name="continueTheStreak">توالی را ادامه دهید</string>
   <string name="newStreak">برد متوالی جدید</string>

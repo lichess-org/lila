@@ -6,13 +6,13 @@
   <string name="mates">Матал</string>
   <string name="goals">Мурадал</string>
   <string name="specialMoves">БатӀиял хъурщиял</string>
-  <string name="puzzleId" comment="%s is the ID of the puzzle, something like #a1b2c3.">%s масъала</string>
+  <string name="puzzleId">%s масъала</string>
   <string name="goodMove">ЛъикӀаб хъурщи</string>
   <string name="bestMove">Бищун лъикӀаб хъурщи!</string>
   <string name="puzzleSuccess">Бергьенлъи!</string>
-  <string name="ratingX" comment="Appears on pages of individual puzzles.&#10;&#10;%s is either:&#10;1. The word 'hidden', if you have not completed the puzzle yet.&#10;2. The rating of the puzzle, if you have completed it or seen the solution.">Рейтинг: %s</string>
-  <string name="hidden" comment="Puzzle rating: hidden&#10;&#10;Appears while solving puzzles. Lichess only displays the rating of the puzzle after you have solved it or asked to see the solution.">бахчун буго</string>
-  <plurals name="playedXTimes" comment="Appears on pages of individual puzzles.&#10;%s is the number of times the puzzle has been played.">
+  <string name="ratingX">Рейтинг: %s</string>
+  <string name="hidden">бахчун буго</string>
+  <plurals name="playedXTimes">
     <item quantity="one">%s нухалъ хӀана</item>
     <item quantity="other">%s нухалъ хӀана</item>
   </plurals>

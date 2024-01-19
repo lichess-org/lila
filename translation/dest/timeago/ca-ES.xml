@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="justNow">just ara</string>
+  <string name="justNow">ara mateix</string>
   <plurals name="inNbSeconds">
     <item quantity="one">en %s segon</item>
     <item quantity="other">en %s segons</item>
@@ -54,4 +54,13 @@
     <item quantity="one">fa %s any</item>
     <item quantity="other">fa %s anys</item>
   </plurals>
+  <plurals name="nbMinutesRemaining">
+    <item quantity="one">Queda %s minut</item>
+    <item quantity="other">Queden %s minuts</item>
+  </plurals>
+  <plurals name="nbHoursRemaining">
+    <item quantity="one">Queda %s hora</item>
+    <item quantity="other">Queden %s hores</item>
+  </plurals>
+  <string name="completed">completat</string>
 </resources>

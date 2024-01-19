@@ -80,4 +80,7 @@ Men protektorer kan bryste sig af et sejt, nyt profil-ikon.</string>
   <string name="nowOneMonth">Du er nu Lichess Protektor i en måned!</string>
   <string name="downgradeNextMonth">Om en måned bliver du IKKE debiteret igen, og din konto bliver nedgraderet til gratis.</string>
   <string name="changeCurrency">Skift valuta</string>
+  <string name="paymentDetails">Betalingsoplysninger</string>
+  <string name="updatePaymentMethod">Opdatér betalingsmetode</string>
+  <string name="stripeManageSub">Administrer dit abonnement og download dine fakturaer og kvitteringer</string>
 </resources>

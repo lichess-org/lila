@@ -22,7 +22,7 @@
   <string name="fromXToY">des de %1$s fins a %2$s</string>
   <string name="winningStreak">Ratxa de victòries</string>
   <string name="losingStreak">Ratxa de derrotes</string>
-  <string name="longestStreak">Ratxa més llarga: %s</string>
+  <string name="longestStreak" comment="%s is the string (number of games OR time spent playing, e.g. 4 hours non-stop play)&#10;String used to describe the longest consecutive winning &amp; losing streak of games. It is also used for a  streak of time spent playing.">Ratxa més llarga: %s</string>
   <string name="currentStreak">Ratxa actual: %s</string>
   <string name="bestRated">Millors victòries puntuables</string>
   <string name="worstRated">Pitjors derrotes puntuables</string>

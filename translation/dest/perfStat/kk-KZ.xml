@@ -22,7 +22,7 @@
   <string name="fromXToY">%1$s - %2$s аралығында</string>
   <string name="winningStreak">Жеңістер тізбегі</string>
   <string name="losingStreak">Жеңілістер тізбегі</string>
-  <string name="longestStreak">Ең ұзақ тізбек: %s</string>
+  <string name="longestStreak" comment="%s is the string (number of games OR time spent playing, e.g. 4 hours non-stop play)&#10;String used to describe the longest consecutive winning &amp; losing streak of games. It is also used for a  streak of time spent playing.">Ең ұзақ тізбек: %s</string>
   <string name="currentStreak">Қазіргі тізбек: %s</string>
   <string name="bestRated">Ең бағалы жеңістер</string>
   <string name="worstRated">Ең ауыр жеңілістер</string>

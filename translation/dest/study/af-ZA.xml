@@ -62,7 +62,7 @@
   <string name="studyPgn">Studie PGN</string>
   <string name="downloadAllGames">Laai alle speletjies af</string>
   <string name="chapterPgn">Hoofstuk PGN</string>
-  <string name="copyChapterPgn">Kopieer PGN</string>
+  <string name="copyChapterPgn" comment="A button which lets you copy the PGN text to your clipboard (i.e. similar to ⌘+C or Ctrl+C).">Kopieer PGN</string>
   <string name="copyChapterPgnDescription">Kopieer hoofstuk PGN na die knipbord.</string>
   <string name="downloadGame">Aflaai spel</string>
   <string name="studyUrl">Bestudeer URL</string>

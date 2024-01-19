@@ -4,8 +4,8 @@
   <string name="lichessStreamer">Lichess aanbieder</string>
   <string name="live">Regstreeks!</string>
   <string name="offline">AFLYN</string>
-  <string name="currentlyStreaming">Saai tans uit: %s</string>
-  <string name="lastStream">Laaste uitsending %s</string>
+  <string name="currentlyStreaming" comment="%s is the title of the stream, chosen by the streamer.">Saai tans uit: %s</string>
+  <string name="lastStream" comment="%s is how long ago the stream was in relative time (e.g. 50 minutes ago). It is displayed in smaller type than the rest of the string.">Laaste uitsending %s</string>
   <string name="becomeStreamer">Word \'n Lichess aanbieder</string>
   <string name="doYouHaveStream">Het jy \'n Twitch of YouTube kanaal?</string>
   <string name="hereWeGo">Hier gaan ons!</string>
@@ -29,11 +29,11 @@
   <string name="pendingReview">Jou uitsending word deur moderators hersien.</string>
   <string name="pleaseFillIn">Vul asseblief jou uitsending inligting in en laai \'n prent op.</string>
   <string name="whenReady" comment="whenReady&#10;&#10;%s is &quot;request a moderator review&quot;">Sodra jy gereed is om as \'n Lichess aanbieder te verskyn, %s</string>
-  <string name="requestReview" comment="requestReview&#10;&#10;Used in the sense of: &quot;When you are ready to be listed as a Lichess streamer, request a moderator review&quot;">versoek hersiening deur \'n moderator</string>
+  <string name="requestReview" comment="requestReview&#10;&#10;Used as part of the longer sentence: &quot;When you are ready to be listed as a Lichess streamer, request a moderator review&quot;">versoek hersiening deur \'n moderator</string>
   <string name="streamerLanguageSettings">Die Lichess uitsaaiingsblaai teiken jou gehoor met die voorsiende taal van jou uitsaaiings platform. Stel die versterkte taal vir jou skaak strome, in die uitsaaiings toepassing of diens wat jy gebruik.</string>
-  <string name="twitchUsername">Jou Twitch gebruikersnaam of URL</string>
+  <string name="twitchUsername" comment="Appears on the form for setting up your Streamer page: https://lichess.org/streamer/edit&#10;&#10;Twitch is a proper noun and refers to the streaming service https://twitch.tv/. Please do not translate the word 'Twitch'.">Jou Twitch gebruikersnaam of URL</string>
   <string name="optionalOrEmpty">Optioneel. Los leeg indien jy nie een het nie</string>
-  <string name="youTubeChannelId">Jou YouTube-kanaal-ID</string>
+  <string name="youTubeChannelId" comment="Appears on the form for setting up your Streamer page: https://lichess.org/streamer/edit&#10;&#10;The Channel ID is a special alphanumeric string. See Google's guide here for how to retrieve it: https://support.google.com/youtube/answer/3250431&#10;&#10;We encourage translators to match what the Channel ID is called in your language's version of YouTube: https://www.youtube.com/account_advanced">Jou YouTube-kanaal-ID</string>
   <string name="streamerName">Jou uitsendingsnaam op Lichess</string>
   <plurals name="keepItShort">
     <item quantity="one">Hou dit kort: %s karakter maks</item>

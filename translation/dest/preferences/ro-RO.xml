@@ -15,6 +15,7 @@
   <string name="pgnLetter">Literă (K, Q, R, B, N)</string>
   <string name="zenMode" comment="zenMode&#10;&#10;This is not the religious meaning. Turning this option on takes away make elements of the user interface.&#10;&#10;Can also translate as 'Focus mode' as one example.">Modul Zen</string>
   <string name="showPlayerRatings">Arată evaluările jucătorului</string>
+  <string name="showFlairs">Arată pictograma personalizată a jucătorului</string>
   <string name="explainShowPlayerRatings">Acest lucru permite ascunderea tuturor ratingurilor de pe site, pentru a ajuta la concentrarea pe jocul de șah. Jocurile pot fi evaluate, această setare este doar despre ce se poate vedea.</string>
   <string name="displayBoardResizeHandle">Arată indicatorul de redimensionare a tablei</string>
   <string name="onlyOnInitialPosition">Doar inainte de prima mutare</string>

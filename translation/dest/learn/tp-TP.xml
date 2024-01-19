@@ -6,7 +6,7 @@
   <string name="progressX">pali: %s</string>
   <string name="resetMyProgress">o ala e pali mi</string>
   <string name="youWillLoseAllYourProgress">tenpo kama poka la pali sina li kama ala!</string>
-  <string name="play">o musi!</string>
+  <string name="play" comment="play&#10;&#10;A small ribbon that appears on your current chapter in the Chess Basics course. Please keep this string short.">o musi!</string>
   <string name="chessPieces">ijo musi</string>
   <string name="theRook">tomo utala</string>
   <string name="itMovesInStraightLines">ona li tawa kepeken nasin weka linja</string>

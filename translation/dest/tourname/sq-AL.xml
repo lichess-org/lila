@@ -3,15 +3,15 @@
   <string name="hourlyRapidArena">Arenë e Shpejtë e Përorëshme</string>
   <string name="hourlyRapid">I shpejtë i Përorëshëm</string>
   <string name="hourlyXArena">Arenë %s e Përorëshme</string>
-  <string name="hourlyX">%s i Përorëshëm</string>
+  <string name="hourlyX" comment="%s is a time control (like &quot;Blitz&quot;) or a variant (like &quot;Chess960&quot;)&#10;&#10;Used for tournaments. Please keep this string short and consistent with 'Hourly Rapid' and 'Hourly %s Arena'.">%s i Përorëshëm</string>
   <string name="dailyRapidArena">Arenë e Shpejtë Ditore</string>
   <string name="dailyRapid">I shpejtë Ditor</string>
-  <string name="dailyClassicalArena">Arenë Klasike Ditore</string>
-  <string name="dailyClassical">Klasikja Ditore</string>
-  <string name="dailyXArena">Arenë %s Ditore</string>
+  <string name="dailyClassicalArena" comment="dailyClassicalArena&#10;&#10;Used for tournaments. Please keep this string short and consistent with 'Daily Rapid' and 'Daily %s Arena'.">Arenë Klasike Ditore</string>
+  <string name="dailyClassical" comment="dailyClassical&#10;&#10;Used for tournaments. Please keep this string short and consistent with 'Daily Rapid' and 'Daily %s Arena'.">Klasikja Ditore</string>
+  <string name="dailyXArena" comment="dailyXArena %s is a time control (like &quot;Blitz&quot;) or a variant (like &quot;Chess960&quot;)&#10;&#10;Used for tournaments. Please keep this string short and consistent with 'Daily %s'.">Arenë %s Ditore</string>
   <string name="dailyX">%s Ditor</string>
-  <string name="easternRapidArena">Arenë e Shpejtë Lindore</string>
-  <string name="easternRapid">I shpejtë Lindor</string>
+  <string name="easternRapidArena" comment="easternRapidArena&#10;&#10;Eastern refers to the time zone these tournaments are scheduled in for, accommodating East Asia, Oceania and the Pacific.">Arenë e Shpejtë Lindore</string>
+  <string name="easternRapid" comment="easternRapid&#10;Eastern refers to the time zone these tournaments are scheduled in for, accommodating East Asia, Oceania and the Pacific.&#10;&#10;Please keep this string short and consistent with 'Eastern Rapid Arena' and 'Eastern %s Arena'.">I shpejtë Lindor</string>
   <string name="easternClassicalArena">Arenë Klasike Lindore</string>
   <string name="easternClassical">Klasik Lindor</string>
   <string name="easternXArena">Arenë Lindore %s</string>

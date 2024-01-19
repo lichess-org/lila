@@ -4,8 +4,8 @@
   <string name="lichessStreamer">Lichess stroymari</string>
   <string name="live">LIVE!</string>
   <string name="offline">OFFLINE</string>
-  <string name="currentlyStreaming">Stroymarar í løtuni: %s</string>
-  <string name="lastStream">Seinasta stroyming %s</string>
+  <string name="currentlyStreaming" comment="%s is the title of the stream, chosen by the streamer.">Stroymarar í løtuni: %s</string>
+  <string name="lastStream" comment="%s is how long ago the stream was in relative time (e.g. 50 minutes ago). It is displayed in smaller type than the rest of the string.">Seinasta stroyming %s</string>
   <string name="becomeStreamer">Verð ein Lichess-stroymari</string>
   <string name="doYouHaveStream">Hevur tú eina Twitch- ella YouTube-rás?</string>
   <string name="hereWeGo">Nú byrja vit!</string>
@@ -27,8 +27,8 @@
   <string name="pendingReview">Fyriskiparar viðgera nú stroymingina hjá tær.</string>
   <string name="pleaseFillIn">Fyll vinaliga tínar stroymaraupplýsingar inn, og legg eina mynd inn.</string>
   <string name="whenReady" comment="whenReady&#10;&#10;%s is &quot;request a moderator review&quot;">Tá ið tú ert til reiðar at verða settur á listan sum Lichess-stroymari, %s</string>
-  <string name="requestReview" comment="requestReview&#10;&#10;Used in the sense of: &quot;When you are ready to be listed as a Lichess streamer, request a moderator review&quot;">bið um fyriskiparameting</string>
-  <string name="twitchUsername">Twitch-brúkaranavn títt ella URL</string>
+  <string name="requestReview" comment="requestReview&#10;&#10;Used as part of the longer sentence: &quot;When you are ready to be listed as a Lichess streamer, request a moderator review&quot;">bið um fyriskiparameting</string>
+  <string name="twitchUsername" comment="Appears on the form for setting up your Streamer page: https://lichess.org/streamer/edit&#10;&#10;Twitch is a proper noun and refers to the streaming service https://twitch.tv/. Please do not translate the word 'Twitch'.">Twitch-brúkaranavn títt ella URL</string>
   <string name="optionalOrEmpty">Valfrítt. Lat vera tómt, um einki</string>
   <string name="streamerName">Stroymaranavn títt á Lichess</string>
   <plurals name="keepItShort">

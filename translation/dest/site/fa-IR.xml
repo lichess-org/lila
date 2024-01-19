@@ -22,8 +22,8 @@
   <string name="asBlack">به عنوان سیاه</string>
   <string name="randomColor">رنگ تصادفی</string>
   <string name="createAGame">ایجاد بازی</string>
-  <string name="whiteIsVictorious">بازیکن سفید برنده است</string>
-  <string name="blackIsVictorious">بازیکن سیاه برنده است</string>
+  <string name="whiteIsVictorious">سفید برنده است</string>
+  <string name="blackIsVictorious">سیاه برنده است</string>
   <string name="youPlayTheWhitePieces">شما با مهره سفید بازی میکنید</string>
   <string name="youPlayTheBlackPieces">شما با مهره سیاه بازی میکنید</string>
   <string name="itsYourTurn">نوبت شماست!</string>
@@ -46,9 +46,9 @@
   <string name="forceDraw">اعلام تساوی</string>
   <string name="talkInChat">لطفا در گپ زدن مودب باشید!</string>
   <string name="theFirstPersonToComeOnThisUrlWillPlayWithYou">نخستین کسی که به این لینک بیاید با شما بازی می کند.</string>
-  <string name="whiteResigned">بازیکن سفید تسلیم شد</string>
-  <string name="blackResigned">بازیکن سیاه تسلیم شد</string>
-  <string name="whiteLeftTheGame">بازیکن سفید بازی را ترک کرد</string>
+  <string name="whiteResigned">سفید تسلیم شد</string>
+  <string name="blackResigned">سیاه تسلیم شد</string>
+  <string name="whiteLeftTheGame">سفید بازی را ترک کرد</string>
   <string name="blackLeftTheGame">سیاه بازی را ترک کرد</string>
   <string name="whiteDidntMove">سفید تکان نخورد</string>
   <string name="blackDidntMove">مشکی تکان نخورد</string>
@@ -100,7 +100,7 @@
   <string name="openings">گشایش</string>
   <string name="openingExplorer">جویشگر حرکت گشاینده بازی</string>
   <string name="openingEndgameExplorer">جویشگر حرکت گشاینده/پایان‌دهنده بازی</string>
-  <string name="xOpeningExplorer">حرکت گشاینده %s برای تنوع مورد بررسی</string>
+  <string name="xOpeningExplorer">جستجوگر گشایش %s</string>
   <string name="playFirstOpeningEndgameExplorerMove">اولین حرکت اکسپلورر شروع/آخر بازی را بازی کن</string>
   <string name="winPreventedBy50MoveRule">قانون پنجاه حرکت از پیروزی جلوگیری کرد</string>
   <string name="lossSavedBy50MoveRule">قانون ۵۰ حرکت از شکست جلوگیری کرد</string>
@@ -245,8 +245,8 @@
   <string name="rank">رتبه</string>
   <string name="rankX">رتبه:%s</string>
   <plurals name="rankIsUpdatedEveryNbMinutes">
-    <item quantity="one">رتبه در هر دقیقه بروز می‌شود</item>
-    <item quantity="other">رتبه در هر %s دقیقه به روز می‌شود</item>
+    <item quantity="one">رتبه در هر دقیقه به‌روز می‌شود</item>
+    <item quantity="other">رتبه در هر %s دقیقه به‌روز می‌شود</item>
   </plurals>
   <plurals name="nbPuzzles">
     <item quantity="one">%s معما</item>
@@ -346,8 +346,8 @@
     <item quantity="other">مجموع امتیازات مسابقات:%s</item>
   </plurals>
   <plurals name="nbStudies">
-    <item quantity="one">%s درس</item>
-    <item quantity="other">%s درس ها</item>
+    <item quantity="one">%s مطالعه</item>
+    <item quantity="other">%s مطالعه</item>
   </plurals>
   <plurals name="nbSimuls">
     <item quantity="one">%s سیمولتانه</item>
@@ -393,7 +393,7 @@
   <string name="reset">تنظیم مجدد</string>
   <string name="apply">تایید</string>
   <string name="save">ذخیره</string>
-  <string name="leaderboard">بهترین بازیکنان</string>
+  <string name="leaderboard">جدول رده‌بندی</string>
   <string name="screenshotCurrentPosition">عکس گرفتن از تخته‌</string>
   <string name="gameAsGIF">دانلود گیف بازی</string>
   <string name="pasteTheFenStringHere">پوزیشن دلخواه(FEN) را در این قسمت وارد کنید</string>
@@ -419,8 +419,8 @@
   <string name="retry">تلاش دوباره</string>
   <string name="reconnecting">در حال اتصال دوباره</string>
   <plurals name="nbFriendsOnline">
-    <item quantity="one">%s دوست آنلاین</item>
-    <item quantity="other">%s دوست آنلاین</item>
+    <item quantity="one">%s دوست بَرخط</item>
+    <item quantity="other">%s دوست بَرخط</item>
   </plurals>
   <string name="favoriteOpponents">رقبای مورد علاقه</string>
   <string name="follow">دنبال کردن</string>
@@ -500,11 +500,11 @@
   <string name="loadPosition">بارگذاری موقعیت</string>
   <string name="isPrivate">خصوصی</string>
   <string name="reportXToModerators">گزارش %s به مدیران سایت</string>
-  <string name="profileCompletion">میزان تکمیل حساب کاربری:%s</string>
-  <string name="xRating">ریتینگ %s</string>
+  <string name="profileCompletion">میزان تکمیل نمایه: %s</string>
+  <string name="xRating">درجه‌‏بندی %s</string>
   <string name="ifNoneLeaveEmpty">اگر ندارید،خالی بگذارید</string>
-  <string name="profile">پروفایل</string>
-  <string name="editProfile">ویرایش پروفایل</string>
+  <string name="profile">نمایه</string>
+  <string name="editProfile">ویرایش نمایه</string>
   <string name="firstName">نام</string>
   <string name="lastName">نام خانوادگی</string>
   <string name="setFlair">تعیین کردن شکلک</string>
@@ -514,7 +514,7 @@
   <string name="countryRegion" comment="flag&#10;Appears when you edit your profile. Lets a player add a country/flag (not all flags are for countries) to their profile">کشور یا منطقه</string>
   <string name="thankYou">ممنون!</string>
   <string name="socialMediaLinks">لینک های رسانه های اجتماعی</string>
-  <string name="oneUrlPerLine">یک ادرس اینترنتی در هر خط.</string>
+  <string name="oneUrlPerLine">یک نشانی در هر خط.</string>
   <string name="inlineNotation">نمایش اطلاعات درون خطها</string>
   <string name="makeAStudy">برای نگهداری مطمئن و اشتراک‌گذاری، ایجاد یک مطالعه را در نظر بگیرید.</string>
   <string name="clearSavedMoves">حرکت های واضح</string>
@@ -522,7 +522,7 @@
   <string name="onlinePlayers">بازکنان آنلاین</string>
   <string name="activePlayers">بازیکنان فعال</string>
   <string name="bewareTheGameIsRatedButHasNoClock">مراقب باشید،این بازی رتبه بندی میشود اما بدون ساعت!</string>
-  <string name="success">پیروزی</string>
+  <string name="success">موفق شدید</string>
   <plurals name="nbGamesInPlay">
     <item quantity="one">%s بازی در حال انجام است</item>
     <item quantity="other">%s بازی در حال انجام است</item>
@@ -560,13 +560,13 @@
   <string name="reportDescriptionHelp">لینک بازی های این کاربر را قرار دهید و توضیع دهید خطای رفتار این بازیکن چه بوده است</string>
   <string name="error.provideOneCheatedGameLink">لطفآ حداقل یک نمونه تقلب در بازی را مطرح کنید.</string>
   <string name="by">توسط %s</string>
-  <string name="importedByX">توسط %s وارد شد</string>
+  <string name="importedByX">%s آن را وارد کرده</string>
   <string name="thisTopicIsNowClosed">این موضوع بسته شده است</string>
   <string name="blog">بلاگ</string>
   <string name="notes">یادداشت ها</string>
   <string name="typePrivateNotesHere">یادداشت خصوصی را اینجا وارد کنید</string>
-  <string name="writeAPrivateNoteAboutThisUser">یک یادداشت خصوصی در مورد این کاربر بنویسید</string>
-  <string name="noNoteYet">هنوز یادداشتی وجود ندارد</string>
+  <string name="writeAPrivateNoteAboutThisUser">یک یادداشت خصوصی درباره این کاربر بنویسید</string>
+  <string name="noNoteYet">تا الان، بدون یادداشت</string>
   <string name="invalidUsernameOrPassword">نام کاربری یا رمز عبور نادرست است</string>
   <string name="incorrectPassword">رمزعبور اشتباه</string>
   <string name="invalidAuthenticationCode">کد اصالت سنجی نامعتبر</string>
@@ -596,7 +596,7 @@
   <string name="xCompetesInY">%1$s در تورنمت %2$s رقابت می کند</string>
   <string name="victory">پیروزی!</string>
   <string name="defeat">شکست!</string>
-  <string name="victoryVsYInZ">%1$s vs %2$s in %3$s</string>
+  <string name="victoryVsYInZ">%1$s مقابل %2$s در %3$s</string>
   <string name="defeatVsYInZ">%1$s vs %2$s in %3$s</string>
   <string name="drawVsYInZ">%1$s vs %2$s in %3$s</string>
   <string name="timeline">جدول زمانی</string>
@@ -642,8 +642,8 @@
   <string name="whiteCastlingKingside">سفید O-O</string>
   <string name="blackCastlingKingside">سیاه O-O</string>
   <plurals name="nbForumPosts">
-    <item quantity="one">%s پست ها در انجمن</item>
-    <item quantity="other">%s پست ها در انجمن</item>
+    <item quantity="one">%s وبنوشته در انجمن</item>
+    <item quantity="other">%s وبنوشته در انجمن</item>
   </plurals>
   <string name="tpTimeSpentPlaying">زمان بازی کردن: %s</string>
   <string name="watchGames">تماشای بازی ها</string>
@@ -728,9 +728,9 @@
   <string name="glicko2Rating">کلیکو(سیستم امتیاز شطرنج)</string>
   <string name="checkYourEmail">ایمیل خود را چک کنید</string>
   <string name="weHaveSentYouAnEmailClickTheLink">ما به شما ایمیل فرستادیم. روی لینکی که در ایمیل است کلیک کنید</string>
-  <string name="ifYouDoNotSeeTheEmailCheckOtherPlaces">اگر ایمیل را مشاهده نمی کنید پوشه ی اسپم را بررسی کنید</string>
+  <string name="ifYouDoNotSeeTheEmailCheckOtherPlaces">اگر رایانامه را نمی‌بینید، مکان‌های دیگری مانند پوشه‌های ناخواسته، هرزنامه، اجتماعی یا سایر موارد را بررسی کنید.</string>
   <string name="weHaveSentYouAnEmailTo">ایمیل ارسال شد.بر روی لینک داخل ایمیل کلیک کنید تا پسورد شما ریست شود %s  به آدرس</string>
-  <string name="byRegisteringYouAgreeToBeBoundByOur">ما پایبند خواهید بود %s با کلیک بر روی نام نویسی شما به</string>
+  <string name="byRegisteringYouAgreeToBeBoundByOur">با ثبت‌نام، با %s موافقت می‌کنید.</string>
   <string name="readAboutOur">درباره %s ما بخوانید.</string>
   <string name="networkLagBetweenYouAndLichess">تاخیر شبکه بین شما و Lichess</string>
   <string name="timeToProcessAMoveOnLichessServer">زمان سپری شده برای پردازش یک حرکت</string>

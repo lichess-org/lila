@@ -42,7 +42,7 @@
   <string name="moveConfirmation">Xác nhận nước đi</string>
   <string name="explainCanThenBeTemporarilyDisabled">Có thể bị vô hiệu hóa trong ván cờ với mục lục bàn cờ</string>
   <string name="inCorrespondenceGames">Cờ qua thư</string>
-  <string name="correspondenceAndUnlimited">Cờ qua thư và không giới hạn</string>
+  <string name="correspondenceAndUnlimited">Cờ qua thư và cờ vô hạn</string>
   <string name="confirmResignationAndDrawOffers">Xác nhận chịu thua và đề nghị hòa</string>
   <string name="castleByMovingTheKingTwoSquaresOrOntoTheRook">Cách nhập thành</string>
   <string name="castleByMovingTwoSquares">Di chuyển vua 2 nước</string>
@@ -66,5 +66,5 @@
   <string name="notifyPush">Thông báo tới thiết bị của bạn khi bạn không truy cập Lichess</string>
   <string name="notifyWeb">Trình duyệt</string>
   <string name="notifyDevice">Thiết bị</string>
-  <string name="bellNotificationSound">Chuông báo</string>
+  <string name="bellNotificationSound">Âm thanh chuông báo</string>
 </resources>

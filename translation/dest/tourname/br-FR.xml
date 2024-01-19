@@ -3,15 +3,15 @@
   <string name="hourlyRapidArena">Aren Prim un Eur</string>
   <string name="hourlyRapid">Prim un Eur</string>
   <string name="hourlyXArena">Aren %s un Eur</string>
-  <string name="hourlyX">%s un Eur</string>
+  <string name="hourlyX" comment="%s is a time control (like &quot;Blitz&quot;) or a variant (like &quot;Chess960&quot;)&#10;&#10;Used for tournaments. Please keep this string short and consistent with 'Hourly Rapid' and 'Hourly %s Arena'.">%s un Eur</string>
   <string name="dailyRapidArena">Aren Prim Pemdeziek</string>
   <string name="dailyRapid">Prim Pemdeziek</string>
-  <string name="dailyClassicalArena">Aren Klasel Pemdeziek</string>
-  <string name="dailyClassical">Klasel Pemdeziek</string>
-  <string name="dailyXArena">Aren %s Pemdeziek</string>
+  <string name="dailyClassicalArena" comment="dailyClassicalArena&#10;&#10;Used for tournaments. Please keep this string short and consistent with 'Daily Rapid' and 'Daily %s Arena'.">Aren Klasel Pemdeziek</string>
+  <string name="dailyClassical" comment="dailyClassical&#10;&#10;Used for tournaments. Please keep this string short and consistent with 'Daily Rapid' and 'Daily %s Arena'.">Klasel Pemdeziek</string>
+  <string name="dailyXArena" comment="dailyXArena %s is a time control (like &quot;Blitz&quot;) or a variant (like &quot;Chess960&quot;)&#10;&#10;Used for tournaments. Please keep this string short and consistent with 'Daily %s'.">Aren %s Pemdeziek</string>
   <string name="dailyX">%s Pemdeziek</string>
-  <string name="easternRapidArena">Aren Prim ar Reter</string>
-  <string name="easternRapid">Prim ar Reter</string>
+  <string name="easternRapidArena" comment="easternRapidArena&#10;&#10;Eastern refers to the time zone these tournaments are scheduled in for, accommodating East Asia, Oceania and the Pacific.">Aren Prim ar Reter</string>
+  <string name="easternRapid" comment="easternRapid&#10;Eastern refers to the time zone these tournaments are scheduled in for, accommodating East Asia, Oceania and the Pacific.&#10;&#10;Please keep this string short and consistent with 'Eastern Rapid Arena' and 'Eastern %s Arena'.">Prim ar Reter</string>
   <string name="easternClassicalArena">Aren Klasel ar Reter</string>
   <string name="easternClassical">Klasel ar Reter</string>
   <string name="easternXArena">Aren %s ar Reter</string>

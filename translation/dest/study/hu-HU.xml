@@ -62,7 +62,7 @@
   <string name="studyPgn">PGN a tanulmányról</string>
   <string name="downloadAllGames">Az összes játszma letöltése</string>
   <string name="chapterPgn">PGN a fejezetről</string>
-  <string name="copyChapterPgn">PGN másolása</string>
+  <string name="copyChapterPgn" comment="A button which lets you copy the PGN text to your clipboard (i.e. similar to ⌘+C or Ctrl+C).">PGN másolása</string>
   <string name="copyChapterPgnDescription">Fejezet másolása a vágólapra PGN formátumban.</string>
   <string name="downloadGame">Játszma letöltése</string>
   <string name="studyUrl">Tanulmány URL</string>

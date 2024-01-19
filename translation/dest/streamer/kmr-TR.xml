@@ -4,8 +4,8 @@
   <string name="lichessStreamer">Weşangerê Lichessê</string>
   <string name="live">ZINDÎ!</string>
   <string name="offline">DERHÊL</string>
-  <string name="currentlyStreaming">Weşanên niha: %s</string>
-  <string name="lastStream">Weşana çûyî %s</string>
+  <string name="currentlyStreaming" comment="%s is the title of the stream, chosen by the streamer.">Weşanên niha: %s</string>
+  <string name="lastStream" comment="%s is how long ago the stream was in relative time (e.g. 50 minutes ago). It is displayed in smaller type than the rest of the string.">Weşana çûyî %s</string>
   <string name="becomeStreamer">Bibe weşangerke Lichessê</string>
   <string name="doYouHaveStream">Hesabê te yê Twitch an jî Youtube heye?</string>
   <string name="hereWeGo">Destpêk!</string>

@@ -62,7 +62,7 @@
   <string name="depthX">Глубина %s</string>
   <string name="usingServerAnalysis">Используется серверный анализ</string>
   <string name="loadingEngine">Загрузка движка...</string>
-  <string name="calculatingMoves">Вычисление...</string>
+  <string name="calculatingMoves">Идёт расчёт ходов...</string>
   <string name="engineFailed">Ошибка загрузки движка</string>
   <string name="cloudAnalysis">Облачный анализ</string>
   <string name="goDeeper">Анализировать глубже</string>
@@ -186,7 +186,7 @@
   <string name="viewInFullSize">Посмотреть в полном размере</string>
   <string name="logOut">Выйти</string>
   <string name="signIn">Войти</string>
-  <string name="rememberMe">Запомнить меня</string>
+  <string name="rememberMe">Не выходить из аккаунта</string>
   <string name="youNeedAnAccountToDoThat">Вам нужно зарегистрироваться, чтобы сделать это</string>
   <string name="signUp">Регистрация</string>
   <string name="computersAreNotAllowedToPlay">Создание учётных записей для ботов запрещено. Пожалуйста, во время игры не используйте шахматные движки, базы данных или подсказки других игроков. Также учтите, что создание нескольких аккаунтов не приветствуется и чрезмерное их количество приведёт к блокировке.</string>
@@ -451,7 +451,7 @@
   <string name="save">Сохранить</string>
   <string name="leaderboard">Лучшие игроки</string>
   <string name="screenshotCurrentPosition">Сделать снимок этой позиции</string>
-  <string name="gameAsGIF">Сохранить как GIF</string>
+  <string name="gameAsGIF">Партия в формате GIF</string>
   <string name="pasteTheFenStringHere">Вставьте строку в формате FEN</string>
   <string name="pasteThePgnStringHere">Вставьте текст в формате PGN</string>
   <string name="orUploadPgnFile">Или загрузите PGN-файл</string>

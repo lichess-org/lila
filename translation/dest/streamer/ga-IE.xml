@@ -4,8 +4,8 @@
   <string name="lichessStreamer">Sruthú Lichess</string>
   <string name="live">BEO!</string>
   <string name="offline">AS LÍNE</string>
-  <string name="currentlyStreaming">Ag sruthú faoi láthair: %s</string>
-  <string name="lastStream">Sruth deireanach %s</string>
+  <string name="currentlyStreaming" comment="%s is the title of the stream, chosen by the streamer.">Ag sruthú faoi láthair: %s</string>
+  <string name="lastStream" comment="%s is how long ago the stream was in relative time (e.g. 50 minutes ago). It is displayed in smaller type than the rest of the string.">Sruth deireanach %s</string>
   <string name="becomeStreamer">Bí i do shruthú Lichess</string>
   <string name="doYouHaveStream">An bhfuil cuntas Twitch nó YouTube agat?</string>
   <string name="hereWeGo">Réidh téigh!</string>
@@ -29,9 +29,9 @@
   <string name="pendingReview">Tá modhnóirí ag athbhreithniú ar do shruth.</string>
   <string name="pleaseFillIn">Líon isteach d’eolais sruthaithe le do thoil, agus uaslódáil pictiúr.</string>
   <string name="whenReady" comment="whenReady&#10;&#10;%s is &quot;request a moderator review&quot;">Nuair atá tú réidh le liostáil mar sruthú Lichess, %s</string>
-  <string name="requestReview" comment="requestReview&#10;&#10;Used in the sense of: &quot;When you are ready to be listed as a Lichess streamer, request a moderator review&quot;">iarr ar athbhreithniú modhnóra</string>
+  <string name="requestReview" comment="requestReview&#10;&#10;Used as part of the longer sentence: &quot;When you are ready to be listed as a Lichess streamer, request a moderator review&quot;">iarr ar athbhreithniú modhnóra</string>
   <string name="streamerLanguageSettings">Díríonn leathanach sruthlóra Lichess ar do lucht féachana leis an teanga a sholáthraíonn d’ardán sruthú. Socraigh an teanga réamhshocraithe cheart do do shruthanna fichille san aip nó seirbhís a úsáideann tú chun craoladh.</string>
-  <string name="twitchUsername">D\'ainm úsáideora nó URL Twitch</string>
+  <string name="twitchUsername" comment="Appears on the form for setting up your Streamer page: https://lichess.org/streamer/edit&#10;&#10;Twitch is a proper noun and refers to the streaming service https://twitch.tv/. Please do not translate the word 'Twitch'.">D\'ainm úsáideora nó URL Twitch</string>
   <string name="optionalOrEmpty">Roghnach. Fág folamh mura bhfuil ceann ann</string>
   <string name="streamerName">D\'ainm sruthú ar Lichess</string>
   <plurals name="keepItShort">

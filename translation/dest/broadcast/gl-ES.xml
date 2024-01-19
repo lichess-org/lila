@@ -40,8 +40,8 @@
   <string name="editRoundStudy">Editar o estudo da rolda</string>
   <string name="deleteTournament">Eliminar este torneo</string>
   <string name="definitivelyDeleteTournament">Eliminar o torneo de forma definitiva, con todas as súas roldas e partidas.</string>
-  <string name="automaticLeaderboard">Listaxe de líderes automática</string>
-  <string name="automaticLeaderboardHelp">Calcula e amosa unha listaxe de líderes simple baseada nos resultados das partidas</string>
+  <string name="automaticLeaderboard" comment="An option when creating a broadcast to calculate a leaderboard automatically from the players involved. Example: https://lichess.org/broadcast/2023-london-chess-classic/round-9/5icayRCY">Listaxe de líderes automática</string>
+  <string name="automaticLeaderboardHelp" comment="An option when creating a broadcast to calculate a leaderboard automatically from the players involved. Example: https://lichess.org/broadcast/2023-london-chess-classic/round-9/5icayRCY">Calcula e amosa unha listaxe de líderes simple baseada nos resultados das partidas</string>
   <string name="replace">Opcional: substitúe os nomes dos xogadores, as puntuacións e os títulos</string>
   <string name="replaceHelp">Unha liña por xogador, con este formato:
 Nome orixinal; Nome alternativo; Puntuación alternativa (opcional); Título alternativo (opcional)

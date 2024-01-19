@@ -79,4 +79,7 @@ Maar Beskermhere kan spog met \'n oulike nuwe profiel ikoon.</string>
   <string name="nowOneMonth">Jy is nou \'n Lichess Beskermheer vir een maand!</string>
   <string name="downgradeNextMonth">In een maand sal jy nie weer moet betaal nie, en jou Lichess rekening sal na gratis afgegradeer word.</string>
   <string name="changeCurrency">Verander geld eenheid</string>
+  <string name="paymentDetails">Betalingsbesonderhede</string>
+  <string name="updatePaymentMethod">Wysig betalingsmetode</string>
+  <string name="stripeManageSub">Bestuur jou subskripsie en laai jou fakture en kwitansies af</string>
 </resources>

@@ -83,4 +83,7 @@ Ali pa %s.</string>
   <string name="nowOneMonth">Zdaj ste Lichess pokrovitelj za en mesec!</string>
   <string name="downgradeNextMonth">V enem mesecu vam NE bomo spet zaračunali in vaš Lichess račun se bo vrnil na običajni račun.</string>
   <string name="changeCurrency">Spremenite valuto</string>
+  <string name="paymentDetails">Podrobnosti o plačilu</string>
+  <string name="updatePaymentMethod">Način plačila posodobljen</string>
+  <string name="stripeManageSub">Upravljajte svojo naročnino in prenesite svoje račune in potrdila</string>
 </resources>

@@ -80,4 +80,5 @@
     <item quantity="many">%s гадоў таму</item>
     <item quantity="other">%s гадоў таму</item>
   </plurals>
+  <string name="completed">завершана</string>
 </resources>

@@ -59,7 +59,7 @@
   <string name="studyPgn">PGN กรณีศึกษา</string>
   <string name="downloadAllGames">ดาวน์โหลดเกมทั้งหมด</string>
   <string name="chapterPgn">PGN บท</string>
-  <string name="copyChapterPgn">คัดลอก PGN</string>
+  <string name="copyChapterPgn" comment="A button which lets you copy the PGN text to your clipboard (i.e. similar to ⌘+C or Ctrl+C).">คัดลอก PGN</string>
   <string name="copyChapterPgnDescription">คัดลอกPGN ไปยังแป้นพิมพ์</string>
   <string name="downloadGame">ดาวน์โหลดเกม</string>
   <string name="studyUrl">URL กรณีศึกษา</string>

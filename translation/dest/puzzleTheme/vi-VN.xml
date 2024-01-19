@@ -75,7 +75,7 @@
   <string name="mateIn3Description">Chiếu hết trong ba nước cờ.</string>
   <string name="mateIn4">Chiếu hết trong 4 nước</string>
   <string name="mateIn4Description">Chiếu hết trong bốn nước cờ.</string>
-  <string name="mateIn5">Chiếu hết trong 5 nước cờ hoặc hơn</string>
+  <string name="mateIn5">Chiếu hết trong 5 nước hoặc hơn</string>
   <string name="mateIn5Description">Tìm ra một chuỗi dài các nước cờ dẫn đến chiếu hết.</string>
   <string name="middlegame">Trung cuộc</string>
   <string name="middlegameDescription">Chiến thuật trong giai đoạn thứ hai của ván cờ.</string>

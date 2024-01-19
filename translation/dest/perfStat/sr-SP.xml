@@ -6,6 +6,7 @@
   <string name="notEnoughRatedGames">Није одиграно довољно рангираних игара како би се оствари поуздан рејтинг.</string>
   <string name="progressOverLastXGames">Напредак кроз задњих %s партија:</string>
   <string name="ratingDeviation">Девијација рејтинга: %s.</string>
+  <string name="ratingDeviationTooltip" comment="ratingDeviationTooltip&#10;&#10;This is a tooltip (appears on mouseover) for the rating deviation. Appears on performance statistics pages such as https://lichess.org/@/thibault/perf/ultraBullet&#10;&#10;As of 2021-05-19, $1%s is set to 110.">Мања вредност значи да је рејтинг стабилнији. Преко %1$s, рејтинг се рачуна као привремени. Да би се урачунала у рејтингу, ова вредност би требала бити испод %2$s (стандардни шах) или %3$s (варијанте).</string>
   <string name="totalGames">Укупно партија</string>
   <string name="ratedGames">Рангиране партије</string>
   <string name="tournamentGames">Турнирске партије</string>
@@ -20,7 +21,7 @@
   <string name="fromXToY">од %1$s до %2$s</string>
   <string name="winningStreak">Низ победа</string>
   <string name="losingStreak">Низ пораза</string>
-  <string name="longestStreak">Најдужи низ: %s</string>
+  <string name="longestStreak" comment="%s is the string (number of games OR time spent playing, e.g. 4 hours non-stop play)&#10;String used to describe the longest consecutive winning &amp; losing streak of games. It is also used for a  streak of time spent playing.">Најдужи низ: %s</string>
   <string name="currentStreak">Тренутни низ: %s</string>
   <string name="bestRated">Најбоље рангиране победе</string>
   <string name="worstRated">Најлошије рангирани порази</string>

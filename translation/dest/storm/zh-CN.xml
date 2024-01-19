@@ -1,36 +1,36 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="moveToStart">走一步棋以开始</string>
-  <string name="youPlayTheWhitePiecesInAllPuzzles" comment="Appears in Puzzle Storm (https://lichess.org/storm) and Puzzle Racer (https://lichess.org/racer), before you start, letting you know which side you will be playing in all the puzzles that will be presented to you over the next few minutes.">你将在所有的谜题中执白</string>
-  <string name="youPlayTheBlackPiecesInAllPuzzles" comment="Appears in Puzzle Storm (https://lichess.org/storm) and Puzzle Racer (https://lichess.org/racer), before you start, letting you know which side you will be playing in all the puzzles that will be presented to you over the next few minutes.">你将在所有的谜题中执黑</string>
+  <string name="youPlayTheWhitePiecesInAllPuzzles">你将在所有的谜题中执白</string>
+  <string name="youPlayTheBlackPiecesInAllPuzzles">你将在所有的谜题中执黑</string>
   <string name="puzzlesSolved">谜题已解决 ！</string>
-  <string name="newDailyHighscore" comment="Appears when you achieve a new high score after a run of Puzzle Storm (https://lichess.org/storm).&#10;If you achieve a new best score for that week, month or all-time, strings for those will appear instead.&#10;&#10;'Daily' here refers to today's date.">新的每日高分！</string>
-  <string name="newWeeklyHighscore" comment="Appears when you achieve a new high score after a run of Puzzle Storm (https://lichess.org/storm).&#10;If you achieve a new best score for that month or all the time you have played Puzzle Storm, strings for those will appear instead.&#10;&#10;'Weekly' here refers to the current week.">新的每周高分！</string>
-  <string name="newMonthlyHighscore" comment="Appears when you achieve a new high score after a run of Puzzle Storm (https://lichess.org/storm). &#10;If you achieve a new best score for all the time you have played Puzzle Storm, a striung saying 'New all-time highscore!' will appear instead.&#10;&#10;'Monthly' here refers to the current month.">新月度高分！</string>
-  <string name="newAllTimeHighscore" comment="Appears when you achieve a new high score after a run of Puzzle Storm (https://lichess.org/storm) which surpasses your previous record.">新的历史最高分！</string>
-  <string name="previousHighscoreWasX" comment="%s is the number of puzzles solved as part of a run of Puzzle Storm.">上一次最高得分是 %s</string>
+  <string name="newDailyHighscore">新的每日高分！</string>
+  <string name="newWeeklyHighscore">新的每周高分！</string>
+  <string name="newMonthlyHighscore">新月度高分！</string>
+  <string name="newAllTimeHighscore">新的历史最高分！</string>
+  <string name="previousHighscoreWasX">上一次最高得分是 %s</string>
   <string name="playAgain">再玩一次</string>
   <plurals name="xRuns">
     <item quantity="other">%s组</item>
   </plurals>
-  <plurals name="playedNbRunsOfPuzzleStorm" comment="playedNbRunsOfPuzzleStorm [one] [other]&#10;&#10;%2$s can be either 'Puzzle Storm' or 'Puzzle Racer'.&#10;&#10;A run is an attempt/playthrough/session of Puzzle Storm or Puzzle Racer.&#10;&#10;Appears in the player's activity feed after they played some runs of these minigames.">
+  <plurals name="playedNbRunsOfPuzzleStorm">
     <item quantity="other">玩了%1$s组的%2$s</item>
   </plurals>
-  <string name="highscoreX" comment="Appears in a player's activity feed and shows the high score in Puzzle Storm or Puzzle Racer.">最高分： %s</string>
-  <string name="score" comment="Your score in Puzzle Storm (https://lichess.org/storm) is a count the puzzles you completed in a single run.&#10;&#10;We simply title this 'score' as it is the most important metric of all.">得分</string>
-  <string name="moves" comment="Moves in this context means your 'total moves' you made in your previous Puzzle Storm attempt. This is relevant because each puzzle may contain several moves.&#10;&#10;Your total moves are displayed after completing a run of Puzzle Storm, alongside your other results.">着法</string>
-  <string name="accuracy" comment="Your accuracy in solving puzzles is displayed after completing a run of Puzzle Storm (https://lichess.org/storm), alongside your other results.">准确度</string>
-  <string name="combo" comment="_Please make your translation as short and snappy as possible._&#10;In Puzzle Storm and Puzzle Racer, a 'Combo' is a consecutive sequence of correct moves. Each correct move fills the combo bar. When the bar is full, you get a time bonus, and you increase the value of the next bonus. If you make the wrong move, you lose your combo.&#10;&#10;This string is the title for your best combo, shown in the stats page after completing a run of puzzle storm or a puzzle race. It is also shown while you play.&#10;&#10;Used in the same way in both Puzzle Storm (https://lichess.org/storm) and Puzzle Racer (https://lichess.org/racer).">连击</string>
-  <string name="time" comment="Time in this context means the total time that has passed in your previous run. The string is displayed after completing a run of Puzzle Storm (https://lichess.org/storm).&#10;&#10;Total time can vary depending on how well you do in puzzle storm. Winning puzzles builds up your combo and adds more time each time you complete a puzzle, while failing puzzles will reset your combo and also remove seconds from the clock.">时间</string>
+  <string name="highscoreX">最高分： %s</string>
+  <string name="score">得分</string>
+  <string name="moves">着法</string>
+  <string name="accuracy">准确度</string>
+  <string name="combo">连击</string>
+  <string name="time">时间</string>
   <string name="timePerMove">平均着法时间</string>
   <string name="highestSolved">解决的最难谜题</string>
   <string name="puzzlesPlayed">玩过的谜题</string>
   <string name="newRun">开始新的一组(快捷键：空格)</string>
   <string name="endRun">结束本组(快捷键：回车)</string>
-  <string name="highscores" comment="A heading showing your high scores in Puzzle Storm.">高分榜</string>
-  <string name="viewBestRuns" comment="Lets you view your best results in Puzzle Storm. Links to https://lichess.org/storm/dashboard">查看最佳战绩</string>
+  <string name="highscores">高分榜</string>
+  <string name="viewBestRuns">查看最佳战绩</string>
   <string name="bestRunOfDay">每日最佳战绩</string>
-  <string name="runs" comment="A run is a complete session of Puzzle Storm as an activity.&#10;&#10;Appears in your Puzzle Storm dashboard: https://lichess.org/storm/dashboard">组数</string>
+  <string name="runs">组数</string>
   <string name="getReady">做好准备！</string>
   <string name="waitingForMorePlayers">等待更多玩家加入...</string>
   <string name="raceComplete">竞速结束！</string>
@@ -45,12 +45,12 @@
   <string name="createNewGame">创建新比赛</string>
   <string name="joinPublicRace">加入公开比赛</string>
   <string name="raceYourFriends">和好友比赛</string>
-  <string name="skip" comment="A button which lets you skip a move in a puzzle without penalty.&#10;&#10;Players of Puzzle Racer (https://lichess.org/racer) are allowed to skip a single move across all the puzzles they are presented during a puzzle race.&#10;&#10;Please keep this as short as possible, since it is on a narrow button.">跳过</string>
+  <string name="skip">跳过</string>
   <string name="skipHelp">每场比赛仅能跳过一次</string>
   <string name="skipExplanation">跳过这一步来保留你的连击！每场比赛只能用一次</string>
-  <string name="failedPuzzles" comment="A filter button after a run of Puzzle Storm (https://lichess.org/storm) or a race in Puzzle Racer (https://lichess.org/racer). Lets you view only the puzzles you failed during the session.">失败的谜题</string>
-  <string name="slowPuzzles" comment="The string appears as a filter to view puzzles with many moves in a run of Puzzle Storm (https://lichess.org/storm) or a Puzzle Race (https://lichess.org/racer).&#10;&#10;A slow puzzle takes longer because it has more moves to complete.">慢 谜题</string>
-  <string name="skippedPuzzle" comment="Players are allowed to skip a single move of a puzzle during a game of Puzzle Racer.">跳过</string>
+  <string name="failedPuzzles">失败的谜题</string>
+  <string name="slowPuzzles">慢 谜题</string>
+  <string name="skippedPuzzle">跳过</string>
   <string name="thisWeek">本周</string>
   <string name="thisMonth">本月</string>
   <string name="allTime">全部时间</string>

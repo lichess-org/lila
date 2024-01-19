@@ -3,7 +3,7 @@
   <string name="welcome">Bienvenue!</string>
   <string name="welcomeToLichess">Bienvenue sur lichess.org!</string>
   <string name="thisIsYourProfilePage">Voici votre profil.</string>
-  <string name="enabledKidModeSuggestion">Un enfant utilisera-t-il ce compte? Songez à activer le %s.</string>
+  <string name="enabledKidModeSuggestion" comment="%s is 'Kid mode'.">Un enfant utilisera-t-il ce compte? Songez à activer le %s.</string>
   <string name="whatNowSuggestions">Et maintenant? Quelques suggestions :</string>
   <string name="learnChessRules">Apprendre les règles des échecs</string>
   <string name="improveWithChessTacticsPuzzles">Améliorez-vous en résolvant des problèmes de tactique.</string>

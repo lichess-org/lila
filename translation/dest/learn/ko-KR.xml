@@ -6,7 +6,7 @@
   <string name="progressX">진행도: %s</string>
   <string name="resetMyProgress">초기화</string>
   <string name="youWillLoseAllYourProgress">수정사항은 저장되지 않습니다. 괜찮으시겠어요?</string>
-  <string name="play">시작하기!</string>
+  <string name="play" comment="play&#10;&#10;A small ribbon that appears on your current chapter in the Chess Basics course. Please keep this string short.">시작하기!</string>
   <string name="chessPieces">체스 기물</string>
   <string name="theRook">룩</string>
   <string name="itMovesInStraightLines">직선으로 움직입니다</string>

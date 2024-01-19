@@ -22,7 +22,7 @@
   <string name="fromXToY">%1$s에서 %2$s</string>
   <string name="winningStreak">연승</string>
   <string name="losingStreak">연패</string>
-  <string name="longestStreak">최고 기록: %s</string>
+  <string name="longestStreak" comment="%s is the string (number of games OR time spent playing, e.g. 4 hours non-stop play)&#10;String used to describe the longest consecutive winning &amp; losing streak of games. It is also used for a  streak of time spent playing.">최고 기록: %s</string>
   <string name="currentStreak">현재 기록: %s</string>
   <string name="bestRated">승리한 최고 레이팅</string>
   <string name="worstRated">패배한 최저 레이팅</string>

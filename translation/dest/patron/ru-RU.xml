@@ -84,4 +84,7 @@
   <string name="nowOneMonth">Теперь вы покровитель Lichess на один месяц!</string>
   <string name="downgradeNextMonth">В следующем месяце сумма НЕ будет списана с вашего счёта и ваш аккаунт Lichess будет изменён на бесплатный.</string>
   <string name="changeCurrency">Изменить валюту</string>
+  <string name="paymentDetails">Детали платежа</string>
+  <string name="updatePaymentMethod">Обновить способ оплаты</string>
+  <string name="stripeManageSub">Управление подпиской и загрузка счетов и чеков</string>
 </resources>

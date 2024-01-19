@@ -6,7 +6,7 @@
   <string name="progressX">Жетістік: %s</string>
   <string name="resetMyProgress">Өшіріп қайта санау</string>
   <string name="youWillLoseAllYourProgress">Бүкіл жетістігіңізден айырыласыз!</string>
-  <string name="play">ойнаңыз!</string>
+  <string name="play" comment="play&#10;&#10;A small ribbon that appears on your current chapter in the Chess Basics course. Please keep this string short.">ойнаңыз!</string>
   <string name="chessPieces">Шахмат тастары</string>
   <string name="theRook">Тура</string>
   <string name="itMovesInStraightLines">Ол түзу жолмен жүреді</string>

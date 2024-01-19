@@ -3,7 +3,7 @@
   <string name="welcome">Welkom!</string>
   <string name="welcomeToLichess">Welkom by lichess.org!</string>
   <string name="thisIsYourProfilePage">Hierdie is jou profielblad.</string>
-  <string name="enabledKidModeSuggestion">Indien \'n kind hierdie rekening gaan gebruik mag jy %s wil kies.</string>
+  <string name="enabledKidModeSuggestion" comment="%s is 'Kid mode'.">Indien \'n kind hierdie rekening gaan gebruik mag jy %s wil kies.</string>
   <string name="whatNowSuggestions">Wat is volgende? Enkele voorstelle:</string>
   <string name="learnChessRules">Leer die reëls van skaak</string>
   <string name="improveWithChessTacticsPuzzles">Verbeter m.b.v. taktiese skaakraaisels.</string>

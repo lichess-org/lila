@@ -4,8 +4,8 @@
   <string name="lichessStreamer">Стример Lichess</string>
   <string name="live">НАЖИВО!</string>
   <string name="offline">ОФЛАЙН</string>
-  <string name="currentlyStreaming">Зараз транслює: %s</string>
-  <string name="lastStream">Остання трансляція %s</string>
+  <string name="currentlyStreaming" comment="%s is the title of the stream, chosen by the streamer.">Зараз транслює: %s</string>
+  <string name="lastStream" comment="%s is how long ago the stream was in relative time (e.g. 50 minutes ago). It is displayed in smaller type than the rest of the string.">Остання трансляція %s</string>
   <string name="becomeStreamer">Стати стримером Lichess</string>
   <string name="doYouHaveStream">У вас є канал на Twitch чи YouTube?</string>
   <string name="hereWeGo">Приступаємо!</string>
@@ -29,11 +29,11 @@
   <string name="pendingReview">Вашу трансляцію перевіряють модератори.</string>
   <string name="pleaseFillIn">Будь ласка, заповніть інформацію про трансляцію та завантажте фотографію.</string>
   <string name="whenReady" comment="whenReady&#10;&#10;%s is &quot;request a moderator review&quot;">Коли ви будете готові числитися як стример Lichess, %s</string>
-  <string name="requestReview" comment="requestReview&#10;&#10;Used in the sense of: &quot;When you are ready to be listed as a Lichess streamer, request a moderator review&quot;">запитати огляд модератора</string>
+  <string name="requestReview" comment="requestReview&#10;&#10;Used as part of the longer sentence: &quot;When you are ready to be listed as a Lichess streamer, request a moderator review&quot;">запитати огляд модератора</string>
   <string name="streamerLanguageSettings">Сторінка стримера Lichess націлена на глядачів за мовою, наданою вашою стримінговою платформою. Встановіть правильну мову за замовчуванням для ваших шахових трансляцій в додатку чи сервісі, який ви використовуєте для трансляцій.</string>
-  <string name="twitchUsername">Ваше ім\'я користувача Twitch або посилання</string>
+  <string name="twitchUsername" comment="Appears on the form for setting up your Streamer page: https://lichess.org/streamer/edit&#10;&#10;Twitch is a proper noun and refers to the streaming service https://twitch.tv/. Please do not translate the word 'Twitch'.">Ваше ім\'я користувача Twitch або посилання</string>
   <string name="optionalOrEmpty">За бажанням. Залиште порожнім, якщо немає</string>
-  <string name="youTubeChannelId">ID вашого YouTube каналу</string>
+  <string name="youTubeChannelId" comment="Appears on the form for setting up your Streamer page: https://lichess.org/streamer/edit&#10;&#10;The Channel ID is a special alphanumeric string. See Google's guide here for how to retrieve it: https://support.google.com/youtube/answer/3250431&#10;&#10;We encourage translators to match what the Channel ID is called in your language's version of YouTube: https://www.youtube.com/account_advanced">ID вашого YouTube каналу</string>
   <string name="streamerName">Ваше ім\'я для трансляцій на Lichess</string>
   <plurals name="keepItShort">
     <item quantity="one">Скоротіть: максимум %s символ</item>

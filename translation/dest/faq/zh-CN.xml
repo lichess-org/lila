@@ -143,6 +143,13 @@ Lichess 上的电脑分析是基于 Stockfish 的。</string>
  点击你的浏览器网址栏中 lichess.org 地址旁的锁形图标。
 
  然后选择是否允许或拦截来自 Lichess 的提醒。</string>
+  <string name="enableAutoplayForSoundsQ">启用自动播放音频？</string>
+  <string name="enableAutoplayForSoundsA">大多数浏览器会在打开新加载的页面时通过阻止播放音频来保护用户。想象一下如果每个网站都使用带声音的广告来轰炸您的场景吧。
+
+当浏览器阻止 lichess.org 播放音频时，红色的静音标志会出现。通常来说这个限制会在您点击某些内容之后取消。在一些移动浏览器上，触摸拖动棋子不被视为点击。在这种情况下您必须在每盘对局开始前点击棋盘来允许声音播放。
+
+当这种情况发生时我们会通过红色的标志来提醒您。通常您可以直接设置允许 lichess.org 播放音频。以下是一些流行的浏览器的最新版本的设置方法。</string>
+  <string name="desktop">桌面端</string>
   <string name="enableAutoplayForSoundsFirefox">1.前往lichess.org
 2.Linux与Windows系统请点击Ctrl键加i键，MacOS系统请点击cmd键加i键
 3.点击权限选项卡
@@ -151,4 +158,9 @@ Lichess 上的电脑分析是基于 Stockfish 的。</string>
 2.点击网址栏上的锁图标
 3.点击网站设置
 4.允许声音播放</string>
+  <string name="enableAutoplayForSoundsMicrosoftEdge">1. 点击右上角的三个小点
+2. 点击“设置”
+3. 点击“Cookie 和网站权限”
+4. 向下滑动页面，点击“媒体自动播放”
+5. 添加 lichess.org 至允许列表</string>
 </resources>

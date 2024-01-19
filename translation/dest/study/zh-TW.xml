@@ -59,7 +59,7 @@
   <string name="studyPgn">研究 PGN</string>
   <string name="downloadAllGames">下載所有棋局</string>
   <string name="chapterPgn">章節PGN</string>
-  <string name="copyChapterPgn">複製PGN</string>
+  <string name="copyChapterPgn" comment="A button which lets you copy the PGN text to your clipboard (i.e. similar to ⌘+C or Ctrl+C).">複製PGN</string>
   <string name="copyChapterPgnDescription">複製章節PGN到剪貼板。</string>
   <string name="downloadGame">下載棋局</string>
   <string name="studyUrl">研究連結</string>

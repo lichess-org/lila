@@ -540,6 +540,7 @@
   <string name="editProfile">Editează profilul</string>
   <string name="firstName">Prenume</string>
   <string name="lastName">Nume</string>
+  <string name="flair">Pictograma personalizată</string>
   <string name="biography">Biografie</string>
   <string name="countryRegion" comment="flag&#10;Appears when you edit your profile. Lets a player add a country/flag (not all flags are for countries) to their profile">Țara sau regiunea</string>
   <string name="thankYou">Mulţumesc!</string>
@@ -923,6 +924,7 @@
   <string name="agreementPolicy">Sunt de acord cu respectarea tuturor politicilor Lichess.</string>
   <string name="searchOrStartNewDiscussion">Caută sau începe o nouă conversație</string>
   <string name="edit">Modifică</string>
+  <string name="bullet" comment="Probably best left untranslated. Leave it as 'Bullet' unless your language has a better word for it.">Bullet</string>
   <string name="blitz" comment="Probably best left untranslated. Leave it as 'Blitz' unless your language has a better word for it.">Blitz</string>
   <string name="rapid">Rapid</string>
   <string name="classical">Clasic</string>

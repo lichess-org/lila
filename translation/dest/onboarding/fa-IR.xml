@@ -2,7 +2,7 @@
 <resources>
   <string name="welcome">خوش آمدید!</string>
   <string name="welcomeToLichess">به لیچس خوش آمدید!</string>
-  <string name="thisIsYourProfilePage">این صفحه پروفایل شماست.</string>
+  <string name="thisIsYourProfilePage">این صفحه نمایه‌تان است.</string>
   <string name="enabledKidModeSuggestion" comment="%s is 'Kid mode'.">آیا یک کودک قرار است از این حساب استفاده کند؟ شاید بخواهید %s را فعال کنید.</string>
   <string name="whatNowSuggestions">حالا چی؟ این‌ها پیشنهاد ماست:</string>
   <string name="learnChessRules">قوانین شطرنج را یاد بگیرید</string>

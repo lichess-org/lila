@@ -6,7 +6,7 @@
   <string name="progressX">Edistyminen: %s</string>
   <string name="resetMyProgress">Nollaa edistymiseni</string>
   <string name="youWillLoseAllYourProgress">Menetät kaiken edistymisesi!</string>
-  <string name="play">pelaa!</string>
+  <string name="play" comment="play&#10;&#10;A small ribbon that appears on your current chapter in the Chess Basics course. Please keep this string short.">pelaa!</string>
   <string name="chessPieces">Shakkinappulat</string>
   <string name="theRook">Torni</string>
   <string name="itMovesInStraightLines">Liikkuu suoria linjoja pitkin</string>

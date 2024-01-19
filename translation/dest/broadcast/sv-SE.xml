@@ -40,8 +40,8 @@
   <string name="editRoundStudy">Redigera studie för ronden</string>
   <string name="deleteTournament">Radera turnering</string>
   <string name="definitivelyDeleteTournament">Definitivt radera turnering.</string>
-  <string name="automaticLeaderboard">Automatisk topplista</string>
-  <string name="automaticLeaderboardHelp">Beräkna och visa en enkel topplista baserat på spelresultat</string>
+  <string name="automaticLeaderboard" comment="An option when creating a broadcast to calculate a leaderboard automatically from the players involved. Example: https://lichess.org/broadcast/2023-london-chess-classic/round-9/5icayRCY">Automatisk topplista</string>
+  <string name="automaticLeaderboardHelp" comment="An option when creating a broadcast to calculate a leaderboard automatically from the players involved. Example: https://lichess.org/broadcast/2023-london-chess-classic/round-9/5icayRCY">Beräkna och visa en enkel topplista baserat på spelresultat</string>
   <string name="replace">Valfritt: byt ut spelarnamn, ranking och titlar</string>
   <string name="replaceHelp">En rad per spelare, formaterad som sådan:
 Originalnamn; Ersättningsnamn; Valfritt ersättningsranking; Valfri ersättningstitel

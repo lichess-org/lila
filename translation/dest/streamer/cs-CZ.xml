@@ -4,8 +4,8 @@
   <string name="lichessStreamer">Lichess streamer</string>
   <string name="live">ŽIVĚ!</string>
   <string name="offline">OFFLINE</string>
-  <string name="currentlyStreaming">Nyní streamuje: %s</string>
-  <string name="lastStream">Poslední stream %s</string>
+  <string name="currentlyStreaming" comment="%s is the title of the stream, chosen by the streamer.">Nyní streamuje: %s</string>
+  <string name="lastStream" comment="%s is how long ago the stream was in relative time (e.g. 50 minutes ago). It is displayed in smaller type than the rest of the string.">Poslední stream %s</string>
   <string name="becomeStreamer">Staňte se Lichess streamerem</string>
   <string name="doYouHaveStream">Máte Twitch nebo YouTube kanál?</string>
   <string name="hereWeGo">Jdeme na to!</string>
@@ -29,11 +29,11 @@
   <string name="pendingReview">Váš stream je přezkoumáván moderátory.</string>
   <string name="pleaseFillIn">Vyplňte prosím informace o vysílání a nahrajte obrázek.</string>
   <string name="whenReady" comment="whenReady&#10;&#10;%s is &quot;request a moderator review&quot;">Když jste připraveni být uvedeni jako Lichess streamer, %s</string>
-  <string name="requestReview" comment="requestReview&#10;&#10;Used in the sense of: &quot;When you are ready to be listed as a Lichess streamer, request a moderator review&quot;">požádal moderátora o schválení</string>
+  <string name="requestReview" comment="requestReview&#10;&#10;Used as part of the longer sentence: &quot;When you are ready to be listed as a Lichess streamer, request a moderator review&quot;">požádal moderátora o schválení</string>
   <string name="streamerLanguageSettings">Stránka lichess pro streamery zaměřuje vaše publikum dle jazyka vybraného na vaši streamovací platformě. Nastavte si proto správný jazyk pro vaše vysílání v aplikaci nebo službě kterou používáte pro vysílání.</string>
-  <string name="twitchUsername">Vaše uživatelské jméno na Twitch nebo URL</string>
+  <string name="twitchUsername" comment="Appears on the form for setting up your Streamer page: https://lichess.org/streamer/edit&#10;&#10;Twitch is a proper noun and refers to the streaming service https://twitch.tv/. Please do not translate the word 'Twitch'.">Vaše uživatelské jméno na Twitch nebo URL</string>
   <string name="optionalOrEmpty">Nepovinné. Ponechte prázdné, pokud nemáte</string>
-  <string name="youTubeChannelId">ID nebo URL adresa vašeho YouTube kanálu</string>
+  <string name="youTubeChannelId" comment="Appears on the form for setting up your Streamer page: https://lichess.org/streamer/edit&#10;&#10;The Channel ID is a special alphanumeric string. See Google's guide here for how to retrieve it: https://support.google.com/youtube/answer/3250431&#10;&#10;We encourage translators to match what the Channel ID is called in your language's version of YouTube: https://www.youtube.com/account_advanced">ID nebo URL adresa vašeho YouTube kanálu</string>
   <string name="streamerName">Vaše jméno streamera na Lichess</string>
   <plurals name="keepItShort">
     <item quantity="one">Krátce: nejvýše %s znak</item>
