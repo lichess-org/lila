@@ -56,7 +56,6 @@ object categ {
         td(cls := "subject")(
           a(href := routes.ForumTopic.show(categ.slug, topic.slug))(topic.name)
         ),
-        td(cls := "right")(topic.views.localize),
         td(cls := "right")(topic.nbReplies.localize),
         td(
           topic.lastPost.map { post =>
@@ -100,7 +99,6 @@ object categ {
           thead(
             tr(
               th,
-              th(cls := "right")(trans.views()),
               th(cls := "right")(trans.replies()),
               th(trans.lastPost())
             )

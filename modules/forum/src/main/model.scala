@@ -37,7 +37,6 @@ case class TopicView(
   def id        = topic.id
   def slug      = topic.slug
   def name      = topic.name
-  def views     = topic.views
   def createdAt = topic.createdAt
 }
 
