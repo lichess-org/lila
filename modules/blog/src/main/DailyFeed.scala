@@ -92,4 +92,22 @@ final class DailyFeed(coll: Coll, cacheApi: CacheApi, baseUrl: BaseUrl)(using Ex
       )(UpdateData.apply)(unapply)
     from.fold(form)(u => form.fill(UpdateData(u.content, u.public, u.at, u.flair)))
 
+final class DailyFeedPaginatorBuilder(
+    coll: Coll
+)(using Executor):
+  import DailyFeed.*
+
+  def recent(includeAll: Boolean, page: Int): Fu[Paginator[Update]] =
+    Paginator(
+      adapter = Adapter[Update](
+        collection = coll,
+        selector =
+          if includeAll then $empty
+          else $doc("public" -> true, "at" $lt nowInstant),
+        projection = none,
+        sort = $sort.desc("at")
+      ),
+      page,
+      MaxPerPage(25)
+    )
   def renderAtom(up: Update): Html = atomRenderer(s"dailyFeed:atom:${up.id}")(up.content)

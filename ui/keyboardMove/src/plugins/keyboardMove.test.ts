@@ -18,6 +18,7 @@ const unexpectedErrorThrower = (name: string) => () => {
 };
 const defaultCtrl = {
   speakClock: unexpectedErrorThrower('clock'),
+  goBerserk: unexpectedErrorThrower('berserk'),
   confirmMove: () => null,
   draw: unexpectedErrorThrower('draw'),
   next: unexpectedErrorThrower('next'),
@@ -146,6 +147,22 @@ describe('keyboardMove', () => {
 
     keyboardMovePlugin(startingFen, toMap({}), true);
     expect(speakClock.mock.calls.length).toBe(1);
+    expect(input.value).toBe('');
+  });
+
+  test('berserks a game', () => {
+    input.value = 'zerk';
+    const goBerserk = jest.fn();
+    const keyboardMovePlugin = keyboardMove({
+      input,
+      ctrl: {
+        ...defaultCtrl,
+        goBerserk,
+      },
+    }) as any;
+
+    keyboardMovePlugin(startingFen, toMap({}), true);
+    expect(goBerserk.mock.calls.length).toBe(1);
     expect(input.value).toBe('');
   });
 
