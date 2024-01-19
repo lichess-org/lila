@@ -32,6 +32,10 @@ $c-challenge: $c-secondary;
   }
   .details {
     @extend %flex-between;
+    @include breakpoint($mq-col1-uniboard) {
+      flex-direction: column;
+      gap: 1rem;
+    }
     border-radius: 99px;
     background: mix($c-challenge, $c-bg-box, 10%);
     border: 1px solid $c-challenge;
@@ -40,7 +44,6 @@ $c-challenge: $c-secondary;
     font-size: 2em;
     > div {
       @extend %flex-center, %roboto;
-      flex: 1;
       &::before {
         color: $c-challenge;
         font-size: 6rem;
