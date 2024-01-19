@@ -107,16 +107,13 @@ final class Game(env: Env, apiC: => Api) extends LilaController(env):
 
   private def fileDate = DateTimeFormatter ofPattern "yyyy-MM-dd" print nowInstant
 
-  def apiExportByUserImportedGames(username: UserStr) = AuthOrScoped() { ctx ?=> me ?=>
-    if !me.is(username)
-    then Forbidden("Imported games of other players cannot be downloaded")
-    else
-      apiC.GlobalConcurrencyLimitPerIpAndUserOption(me.some)(
-        env.api.gameApiV2.exportUserImportedGames(me)
-      ): source =>
-        Ok.chunked(source)
-          .pipe(asAttachmentStream(s"lichess_${me.username}_$fileDate.imported.pgn"))
-          .as(pgnContentType)
+  def apiExportByUserImportedGames() = AuthOrScoped() { ctx ?=> me ?=>
+    apiC.GlobalConcurrencyLimitPerIpAndUserOption(me.some)(
+      env.api.gameApiV2.exportUserImportedGames(me)
+    ): source =>
+      Ok.chunked(source)
+        .pipe(asAttachmentStream(s"lichess_${me.username}_$fileDate.imported.pgn"))
+        .as(pgnContentType)
   }
 
   def exportByIds = AnonBodyOf(parse.tolerantText): body =>
