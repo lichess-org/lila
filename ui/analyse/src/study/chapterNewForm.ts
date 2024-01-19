@@ -33,6 +33,7 @@ export interface StudyChapterNewFormCtrl {
     editor: any;
     editorSfen: Prop<Sfen | null>;
     editorVariant: Prop<VariantKey | null>;
+    editorOrientation: Prop<Color | null>;
   };
   open(): void;
   openInitial(): void;
@@ -58,6 +59,7 @@ export function ctrl(
     editor: null,
     editorSfen: prop(null),
     editorVariant: prop(null),
+    editorOrientation: prop(null),
   };
 
   function loadVariants() {
@@ -125,6 +127,7 @@ export function view(ctrl: StudyChapterNewFormCtrl): VNode {
   };
   const currentChapter = ctrl.root.study!.data.chapter;
   const notVariantTab = activeTab === 'game' || activeTab === 'notation' || activeTab === 'edit';
+  const notOrientationTab = activeTab === 'edit';
   const mode = currentChapter.practice
     ? 'practice'
     : defined(currentChapter.conceal)
@@ -158,9 +161,10 @@ export function view(ctrl: StudyChapterNewFormCtrl): VNode {
             const o: any = {
               sfen: fieldValue(e, 'sfen') || (ctrl.vm.tab() === 'edit' ? ctrl.vm.editorSfen() : null),
               variant: (ctrl.vm.tab() === 'edit' && ctrl.vm.editorVariant()) || fieldValue(e, 'variant'),
+              orientation: (ctrl.vm.tab() === 'edit' && ctrl.vm.editorOrientation()) || fieldValue(e, 'orientation'),
               isDefaultName: isDefaultName,
             };
-            'name game notation orientation mode'.split(' ').forEach(field => {
+            'name game notation mode'.split(' ').forEach(field => {
               o[field] = fieldValue(e, field);
             });
             ctrl.submit(o);
@@ -218,9 +222,10 @@ export function view(ctrl: StudyChapterNewFormCtrl): VNode {
                         data.embed = true;
                         data.options = {
                           orientation: currentChapter.setup.orientation,
-                          onChange: (sfen, variant) => {
+                          onChange: (sfen, variant, orientation) => {
                             ctrl.vm.editorSfen(sfen);
                             ctrl.vm.editorVariant(variant);
+                            ctrl.vm.editorOrientation(orientation);
                           },
                         };
                         ctrl.vm.editor = window['LishogiEditor'](vnode.elm as HTMLElement, data);
@@ -328,13 +333,13 @@ export function view(ctrl: StudyChapterNewFormCtrl): VNode {
               h(
                 'select#chapter-orientation.form-control',
                 {
-                  hook: bind('change', e => {
-                    ctrl.vm.editor && ctrl.vm.editor.setOrientation((e.target as HTMLInputElement).value);
-                  }),
+                  attrs: { disabled: notVariantTab },
                 },
-                ['sente', 'gote'].map(function (color: Color) {
-                  return option(color, currentChapter.setup.orientation, standardColorName(noarg, color));
-                })
+                notOrientationTab
+                  ? [h('option', noarg('automatic'))]
+                  : ['sente', 'gote'].map(function (color: Color) {
+                      return option(color, currentChapter.setup.orientation, standardColorName(noarg, color));
+                    })
               ),
             ]),
           ]),

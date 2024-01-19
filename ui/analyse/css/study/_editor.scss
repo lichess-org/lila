@@ -1,10 +1,14 @@
+@import '../../../editor/css/actions';
+@import '../../../editor/css/links';
 @import '../../../editor/css/spare';
-@import '../../../editor/css/tools';
-@import '../../../editor/css/hands';
+@import '../../../editor/css/underboard';
+@import '../../../editor/css/variant';
 
 .board-editor-wrap {
   min-height: 280px;
-  margin-bottom: 2em;
+  margin-bottom: 1em;
+  padding-bottom: 1em;
+  border-bottom: $border;
   .spinner {
     padding-top: 90px;
   }
@@ -14,60 +18,73 @@ $board-width: calc((100vh - 4vmin) * var(--board-scale) * 0.8 - #{$site-header-o
   display: grid;
   grid-template-columns: minmax(0, $board-width);
   grid-template-areas:
-    'spare-top'
-    'e-hand-top'
+    'e-spare-top'
     'e-board'
-    'e-hand-bot'
-    'spare-bottom'
+    'e-spare-bottom'
+    'e-actions'
     'e-tools';
   user-select: none;
-  .main-board {
-    grid-area: e-board;
+  width: 75%;
+  margin: auto;
+  .actions {
+    grid-area: e-actions;
+    font-size: 0.8em;
   }
-  .editor-hand {
-    align-self: center;
-    &.pos-top {
-      grid-area: e-hand-top;
-    }
-    &.pos-bottom {
-      grid-area: e-hand-bot;
-    }
-    sg-hand-wrap {
-      sg-hp-wrap {
-        &::after {
-          font-size: 0.8em;
-        }
+  .tools {
+    grid-area: e-tools;
+    display: flex;
+    gap: 4%;
+    & > div {
+      flex: 1;
+      select {
+        width: 100%;
       }
     }
   }
-  sg-board {
-    cursor: inherit;
-  }
-  &__tools {
-    grid-area: e-tools;
+  .main-board {
+    grid-area: e-board;
+    sg-board {
+      cursor: inherit;
+    }
   }
   .spare {
     &-top {
-      margin-bottom: 1vh;
+      grid-area: e-spare-top;
     }
     &-bottom {
-      grid-area: spare-bottom;
-      margin-top: 1vh;
+      grid-area: e-spare-bottom;
     }
-  }
-  .metadata {
-    background: $c-bg-zebra;
-    font-size: 0.9em;
+    &::after {
+      content: unset;
+    }
   }
 }
 
 @include breakpoint($mq-x-small) {
   .board-editor {
-    grid-template-columns: 320px 2vmin 240px;
-    grid-template-rows: min-content auto min-content;
+    width: 100%;
+    column-gap: 0.8em;
+    grid-template-columns: 2fr 11fr 2fr;
     grid-template-areas:
-      'spare-top    . e-hand-top'
-      'e-board      . e-tools'
-      'spare-bottom . e-hand-bot';
+      'e-spare-top e-board e-spare-bottom'
+      'e-actions e-actions e-actions'
+      'e-tools e-tools e-tools';
+
+    .spare {
+      padding: 0 calc(#{$hands-gap} / 11); // hands padding per square
+    }
+    &.variant-chushogi {
+      grid-template-columns: 4fr 12fr 4fr;
+      .spare {
+        padding: 0;
+      }
+    }
+    &.variant-minishogi,
+    &.variant-kyotoshogi {
+      grid-template-columns: 2fr 7fr 2fr;
+      .spare {
+        padding: 0 calc(#{$hands-gap} / 7);
+      }
+    }
   }
 }
