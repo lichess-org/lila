@@ -4,4 +4,6 @@
   <string name="removeStudent">Fjarlæga nemanda</string>
   <string name="removedStudents">Fjarlægðir</string>
   <string name="sendAMessage">Senda skilaboð til allra nemanda.</string>
+  <string name="addStudent">Bæta nemanda</string>
+  <string name="lichessUsername">Lichess notendanafn</string>
 </resources>
