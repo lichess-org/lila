@@ -809,6 +809,7 @@
   <string name="agreementPolicy">Слажем се да ћу поштовати све Личес полисе.</string>
   <string name="searchOrStartNewDiscussion">Претражи или започни нови разговор</string>
   <string name="edit">Промени</string>
+  <string name="bullet" comment="Probably best left untranslated. Leave it as 'Bullet' unless your language has a better word for it.">Метак</string>
   <string name="rapid">Брзопотез</string>
   <string name="classical">Класична</string>
   <string name="ultraBulletDesc">Лудо брзе партије: испод 30 секунди</string>
