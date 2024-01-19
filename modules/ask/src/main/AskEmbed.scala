@@ -1,7 +1,5 @@
 package lila.ask
 
-import scala.collection.mutable
-
 /* the freeze process transforms form text prior to database storage and creates/updates collection
  * objects with ask markup. freeze methods return replacement text with magic{id} tags in place
  * of any Ask markup found. unfreeze methods allow editing by doing the inverse, replacing magic
@@ -74,10 +72,13 @@ object AskEmbed:
   def stripAsks(text: String, n: Int = -1): String =
     frozenIdRe.replaceAllIn(text, "").take(if n == -1 then text.length else n)
 
-  // combine text fragments with frozen text in proper order
+  // the bake method interleaves rendered ask fragments within the html fragment, which is assumed to be
+  // a pre-rendered p, div, span, or similar with no attributes. if the html has attributes, they will
+  // only appear in the first segment. this doesn't happen anywhere this method is currently used in lila
+  // but it's worth noting if that ever changes.
   def bake(html: String, askFrags: Iterable[String]): String =
-    val tag = if html.slice(0, 1) == "<" then html.slice(1, html.indexOf(">")) else ""
-    val sb  = new java.lang.StringBuilder(html.length + askFrags.foldLeft(0)((x, y) => x + y.length))
+    val tag = if html.slice(0, 1) == "<" then html.slice(1, html.indexWhere(Set(' ', '>').contains)) else ""
+    val sb  = java.lang.StringBuilder(html.length + askFrags.foldLeft(0)((x, y) => x + y.length))
     val magicIntervals = frozenIdRe.findAllMatchIn(html).map(m => (m.start, m.end)).toList
     val it             = askFrags.iterator
 
@@ -97,8 +98,10 @@ object AskEmbed:
 
   // render ask as markup text
   private def askToText(ask: Ask): String =
-    val sb = new mutable.StringBuilder(1024)
+    val sb = scala.collection.mutable.StringBuilder(1024)
     sb ++= s"/poll ${ask.question}\n"
+    // i could shorten this function with tags.mkString(" ") but there's a bit of mutual exclusion
+    // enforced here to illustrate tag conflict results on re-edits
     sb ++= s"/id{${ask._id}}"
     if ask.isForm then sb ++= " form"
     if ask.isOpen then sb ++= " open"
@@ -132,7 +135,7 @@ object AskEmbed:
   type Interval  = (Int, Int) // [start, end) cleaner than regex match objects for our purpose
   type Intervals = List[Interval]
 
-  // return list of (start, end) indices of ask markups in text.
+  // return list of (start, end) indices of any ask markups in text.
   private def getMarkupIntervals(t: String): Intervals =
     if !t.contains("/poll") then Nil
     else askRe findAllMatchIn t map (m => (m.start, m.end)) toList
@@ -146,12 +149,13 @@ object AskEmbed:
   private val frozenIdMagic = "\ufdd6\ufdd4\ufdd2\ufdd0"
   private val frozenIdRe    = s"$frozenIdMagic\\{(\\S{8})}".r
 
-  // magic/id in a frozen text looks like:  ﷖﷔﷒﷐{8 char id}
-  private def frozenOffsets(t: String): List[Interval] =
+  // assemble a list of magic ids within a frozen text that look like: ﷖﷔﷒﷐{8 char id}
+  // this is called quite often so it's optimized and ugly
+  private def frozenOffsets(t: String): Intervals =
     var i = t indexOf frozenIdMagic
-    if i == -1 then Nil
+    if i == -1 then List.empty
     else
-      val ids = mutable.ListBuffer[Interval]()
+      val ids = scala.collection.mutable.ListBuffer[Interval]()
       while i != -1 && i <= t.length - 14 do // 14 is total magic length
         ids addOne (i, i + 14)               // (5, 13) delimit id within magic
         i = t.indexOf(frozenIdMagic, i + 14)
