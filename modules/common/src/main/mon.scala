@@ -256,16 +256,6 @@ object mon {
     }
     def zoneSegment(name: String) = future("mod.zone.segment", name)
   }
-  object relay {
-    private def by(official: Boolean) = if (official) "official" else "user"
-    private def relay(official: Boolean, slug: String) =
-      tags("by" -> by(official), "slug" -> slug)
-    def ongoing(official: Boolean)                 = gauge("relay.ongoing").withTag("by", by(official))
-    def games(official: Boolean, slug: String)     = gauge("relay.games").withTags(relay(official, slug))
-    def moves(official: Boolean, slug: String)     = counter("relay.moves").withTags(relay(official, slug))
-    def fetchTime(official: Boolean, slug: String) = timer("relay.fetch.time").withTags(relay(official, slug))
-    def syncTime(official: Boolean, slug: String)  = timer("relay.sync.time").withTags(relay(official, slug))
-  }
   object bot {
     def moves(username: String)   = counter("bot.moves").withTag("name", username)
     def chats(username: String)   = counter("bot.chats").withTag("name", username)

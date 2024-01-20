@@ -407,7 +407,6 @@
     else if (lishogi.user_analysis) startUserAnalysis(lishogi.user_analysis);
     else if (lishogi.study) startStudy(lishogi.study);
     else if (lishogi.practice) startPractice(lishogi.practice);
-    else if (lishogi.relay) startRelay(lishogi.relay);
     else if (lishogi.puzzle) startPuzzle(lishogi.puzzle);
     else if (lishogi.tournament) startTournament(lishogi.tournament);
     else if (lishogi.simul) startSimul(lishogi.simul);
@@ -1182,23 +1181,6 @@
       },
     });
     cfg.socketSend = lishogi.socket.send;
-    analyse = LishogiAnalyse.start(cfg);
-  }
-
-  ////////////////
-  // relay.js //
-  ////////////////
-
-  function startRelay(cfg) {
-    var analyse;
-    cfg.initialPly = 'url';
-    lishogi.socket = lishogi.StrongSocket(cfg.socketUrl, cfg.socketVersion, {
-      receive: function (t, d) {
-        analyse.socketReceive(t, d);
-      },
-    });
-    cfg.socketSend = lishogi.socket.send;
-    cfg.trans = lishogi.trans(cfg.i18n);
     analyse = LishogiAnalyse.start(cfg);
   }
 

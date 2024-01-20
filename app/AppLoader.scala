@@ -126,7 +126,6 @@ final class LilaComponents(ctx: ApplicationLoader.Context)
   lazy val push: Push                     = wire[Push]
   lazy val puzzle: Puzzle                 = wire[Puzzle]
   lazy val relation: Relation             = wire[Relation]
-  lazy val relay: Relay                   = wire[Relay]
   lazy val report: Report                 = wire[Report]
   lazy val round: Round                   = wire[Round]
   lazy val search: Search                 = wire[Search]

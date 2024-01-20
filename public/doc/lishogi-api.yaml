@@ -5412,7 +5412,6 @@ components:
             - import
             - importlive
             - simul
-            - relay
             - pool
         compat:
           type: object

@@ -2,7 +2,6 @@ import * as game from 'game';
 import { VNode, h } from 'snabbdom';
 import { defined } from 'common/common';
 import AnalyseCtrl from './ctrl';
-import { isFinished } from './study/studyChapters';
 
 export default function renderClocks(ctrl: AnalyseCtrl, withNames: boolean): [VNode, VNode] | undefined {
   if (ctrl.embed || (ctrl.data.game.status.name === 'started' && !ctrl.imported)) return;
@@ -29,15 +28,7 @@ export default function renderClocks(ctrl: AnalyseCtrl, withNames: boolean): [VN
 
   if (!isSenteTurn) centis.reverse();
 
-  const study = ctrl.study,
-    relay = study && study.data.chapter.relay;
-  if (relay && relay.lastMoveAt && relay.path === ctrl.path && ctrl.path !== '' && !isFinished(study!.data.chapter)) {
-    const spent = (Date.now() - relay.lastMoveAt) / 10;
-    const i = isSenteTurn ? 0 : 1;
-    if (centis[i]) centis[i] = Math.max(0, centis[i]! - spent);
-  }
-
-  const showTenths = !ctrl.study || !ctrl.study.relay;
+  const showTenths = !ctrl.study;
 
   return [
     renderClock(centis[0], sentePlayer, isSenteTurn, sentePov ? 'bottom' : 'top', showTenths),

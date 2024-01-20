@@ -316,7 +316,6 @@ object BSONHandlers {
   )
   implicit private val ChapterEndStatusBSONHandler = Macros.handler[Chapter.EndStatus]
   implicit private val ChapterSetupBSONHandler     = Macros.handler[Chapter.Setup]
-  implicit val ChapterRelayBSONHandler             = Macros.handler[Chapter.Relay]
   implicit val ChapterServerEvalBSONHandler        = Macros.handler[Chapter.ServerEval]
   import Chapter.Ply
   implicit val PlyBSONHandler             = intAnyValHandler[Ply](_.value, Ply.apply)
@@ -358,15 +357,13 @@ object BSONHandlers {
   implicit private val PostGameStudyBSONHandler = Macros.handler[PostGameStudy]
 
   import Study.From
-  implicit private[study] val FromHandler = tryHandler[From](
+  implicit private[study] val FromHandler = quickHandler[From](
     { case BSONString(v) =>
       v.split(' ') match {
-        case Array("scratch")   => Success(From.Scratch)
-        case Array("game", id)  => Success(From.Game(id))
-        case Array("study", id) => Success(From.Study(Study.Id(id)))
-        case Array("relay")     => Success(From.Relay(none))
-        case Array("relay", id) => Success(From.Relay(Study.Id(id).some))
-        case _                  => handlerBadValue(s"Invalid from $v")
+        case Array("scratch")   => From.Scratch
+        case Array("game", id)  => From.Game(id)
+        case Array("study", id) => From.Study(Study.Id(id))
+        case _                  => From.Unknown
       }
     },
     x =>
@@ -374,7 +371,7 @@ object BSONHandlers {
         case From.Scratch   => "scratch"
         case From.Game(id)  => s"game $id"
         case From.Study(id) => s"study $id"
-        case From.Relay(id) => s"relay${id.fold("")(" " + _)}"
+        case From.Unknown   => "unknown"
       })
   )
   import Settings.UserSelection

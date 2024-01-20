@@ -3,7 +3,6 @@ import { VNode } from 'snabbdom';
 import AnalyseController from './ctrl';
 import { ForecastData } from './forecast/interfaces';
 import { Goal as PracticeGoal, StudyPracticeData } from './study/practice/interfaces';
-import { RelayData } from './study/relay/interfaces';
 
 export type Seconds = number;
 
@@ -108,7 +107,6 @@ export interface AnalyseOpts {
   study?: any;
   tagTypes?: string;
   practice?: StudyPracticeData;
-  relay?: RelayData;
   $side?: JQuery;
   $underboard?: JQuery;
   i18n: any;

@@ -153,9 +153,7 @@ export function renderInlineCommentsOf(ctx: Ctx, node: Tree.Node, parentPath: Tr
 
 export function findCurrentPath(c: AnalyseCtrl): Tree.Path | undefined {
   return (
-    (!c.synthetic && playable(c.data) && c.initialPath) ||
-    (c.retro && c.retro.current() && c.retro.current().prev.path) ||
-    (c.study && c.study.data.chapter.relay && c.study.data.chapter.relay.path)
+    (!c.synthetic && playable(c.data) && c.initialPath) || (c.retro && c.retro.current() && c.retro.current().prev.path)
   );
 }
 

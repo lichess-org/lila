@@ -175,20 +175,6 @@ final class Study(
     ).fuccess
   }
 
-  private def orRelay(id: String, chapterId: Option[String] = None)(
-      f: => Fu[Result]
-  )(implicit ctx: Context): Fu[Result] =
-    if (HTTPRequest isRedirectable ctx.req) env.relay.api.getOngoing(lila.relay.Relay.Id(id)) flatMap {
-      _.fold(f) { relay =>
-        fuccess(Redirect {
-          chapterId.fold(routes.Relay.show(relay.slug, relay.id.value)) { c =>
-            routes.Relay.chapter(relay.slug, relay.id.value, c)
-          }
-        })
-      }
-    }
-    else f
-
   private def showQuery(query: Fu[Option[WithChapter]])(implicit ctx: Context): Fu[Result] =
     OptionFuResult(query) { oldSc =>
       CanViewResult(oldSc.study) {
@@ -263,21 +249,17 @@ final class Study(
 
   def show(id: String) =
     Open { implicit ctx =>
-      orRelay(id) {
-        showQuery {
-          if (HTTPRequest isCrawler ctx.req)
-            env.study.api byIdWithFirstChapter id
-          else
-            env.study.api byIdWithChapter id
-        }
+      showQuery {
+        if (HTTPRequest isCrawler ctx.req)
+          env.study.api byIdWithFirstChapter id
+        else
+          env.study.api byIdWithChapter id
       }
     }
 
   def chapter(id: String, chapterId: String) =
     Open { implicit ctx =>
-      orRelay(id, chapterId.some) {
-        showQuery(env.study.api.byIdWithChapter(id, chapterId))
-      }
+      showQuery(env.study.api.byIdWithChapter(id, chapterId))
     }
 
   def chapterMeta(id: String, chapterId: String) =

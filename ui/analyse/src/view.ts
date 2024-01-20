@@ -33,8 +33,6 @@ import * as gbPlay from './study/gamebook/gamebookPlayView';
 import { StudyCtrl } from './study/interfaces';
 import renderPlayerBars from './study/playerBars';
 import * as studyPracticeView from './study/practice/studyPracticeView';
-import relayIntro from './study/relay/relayIntroView';
-import relayManager from './study/relay/relayManagerView';
 import * as studyView from './study/studyView';
 import { render as renderTreeView } from './treeView/treeView';
 import { studyAdvancedButton, studyModal } from './studyModal';
@@ -338,8 +336,7 @@ export default function (ctrl: AnalyseCtrl): VNode {
     playerBars = renderPlayerBars(ctrl),
     clocks = !playerBars && renderClocks(ctrl, true),
     gaugeOn = ctrl.showEvalGauge(),
-    needsInnerCoords = !!playerBars,
-    intro = relayIntro(ctrl);
+    needsInnerCoords = !!playerBars;
   return h(
     'main.sb-insert.analyse.variant-' + ctrl.data.game.variant.key, // sb-insert - to force snabbdom to call insert
     {
@@ -368,57 +365,54 @@ export default function (ctrl: AnalyseCtrl): VNode {
         'has-players': !!playerBars,
         'post-game': !!ctrl.study?.data.postGameStudy,
         'has-clocks': !!clocks,
-        'has-intro': !!intro,
       },
     },
     [
       ctrl.keyboardHelp ? keyboardView(ctrl) : null,
       ctrl.studyModal() ? studyModal(ctrl) : null,
       study ? studyView.overboard(study) : null,
-      intro ||
-        h(
-          addChapterId(study, 'div.analyse__board.main-board'),
-          {
-            hook:
-              window.lishogi.hasTouchEvents || ctrl.gamebookPlay() || window.lishogi.storage.get('scrollMoves') == '0'
-                ? undefined
-                : bindNonPassive(
-                    'wheel',
-                    stepwiseScroll((e: WheelEvent, scroll: boolean) => {
-                      if (ctrl.gamebookPlay()) return;
-                      const target = e.target as HTMLElement;
-                      if (target.tagName !== 'SG-PIECES') return;
-                      e.preventDefault();
-                      if (e.deltaY > 0 && scroll) control.next(ctrl);
-                      else if (e.deltaY < 0 && scroll) control.prev(ctrl);
-                      ctrl.redraw();
-                    })
-                  ),
-          },
-          [
-            ...(clocks || []),
-            playerBars ? playerBars[ctrl.bottomIsSente() ? 1 : 0] : null,
-            shogiground.renderBoard(ctrl),
-            playerBars ? playerBars[ctrl.bottomIsSente() ? 0 : 1] : null,
-          ]
-        ),
-      gaugeOn && !intro ? cevalView.renderGauge(ctrl) : null,
+
+      h(
+        addChapterId(study, 'div.analyse__board.main-board'),
+        {
+          hook:
+            window.lishogi.hasTouchEvents || ctrl.gamebookPlay() || window.lishogi.storage.get('scrollMoves') == '0'
+              ? undefined
+              : bindNonPassive(
+                  'wheel',
+                  stepwiseScroll((e: WheelEvent, scroll: boolean) => {
+                    if (ctrl.gamebookPlay()) return;
+                    const target = e.target as HTMLElement;
+                    if (target.tagName !== 'SG-PIECES') return;
+                    e.preventDefault();
+                    if (e.deltaY > 0 && scroll) control.next(ctrl);
+                    else if (e.deltaY < 0 && scroll) control.prev(ctrl);
+                    ctrl.redraw();
+                  })
+                ),
+        },
+        [
+          ...(clocks || []),
+          playerBars ? playerBars[ctrl.bottomIsSente() ? 1 : 0] : null,
+          shogiground.renderBoard(ctrl),
+          playerBars ? playerBars[ctrl.bottomIsSente() ? 0 : 1] : null,
+        ]
+      ),
+      gaugeOn ? cevalView.renderGauge(ctrl) : null,
       gamebookPlayView ||
-        (intro
-          ? null
-          : h(addChapterId(study, 'div.analyse__tools'), [
-              ...(menuIsOpen
-                ? [actionMenu(ctrl)]
-                : [
-                    cevalView.renderCeval(ctrl),
-                    showCevalPvs ? cevalView.renderPvs(ctrl) : null,
-                    renderAnalyse(ctrl, concealOf),
-                    gamebookEditView || forkView(ctrl, concealOf),
-                    retroView(ctrl) || practiceView(ctrl) || explorerView(ctrl),
-                  ]),
-            ])),
-      gamebookPlayView || intro ? null : controls(ctrl),
-      ctrl.embed || intro
+        h(addChapterId(study, 'div.analyse__tools'), [
+          ...(menuIsOpen
+            ? [actionMenu(ctrl)]
+            : [
+                cevalView.renderCeval(ctrl),
+                showCevalPvs ? cevalView.renderPvs(ctrl) : null,
+                renderAnalyse(ctrl, concealOf),
+                gamebookEditView || forkView(ctrl, concealOf),
+                retroView(ctrl) || practiceView(ctrl) || explorerView(ctrl),
+              ]),
+        ]),
+      gamebookPlayView ? null : controls(ctrl),
+      ctrl.embed
         ? null
         : h(
             'div.analyse__underboard',
@@ -428,7 +422,7 @@ export default function (ctrl: AnalyseCtrl): VNode {
             },
             study ? studyView.underboard(ctrl) : [inputs(ctrl)]
           ),
-      intro ? null : acplView(ctrl),
+      acplView(ctrl),
       ctrl.embed
         ? null
         : ctrl.studyPractice
@@ -464,7 +458,6 @@ export default function (ctrl: AnalyseCtrl): VNode {
                         : null,
                     ]
             ),
-      study && study.relay && relayManager(study.relay),
       ctrl.opts.chat &&
         h('section.mchat', {
           hook: onInsert(_ => {

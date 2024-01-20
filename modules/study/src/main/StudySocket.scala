@@ -8,7 +8,6 @@ import shogi.format.{ Glyph, Glyphs }
 import play.api.libs.json._
 import scala.concurrent.duration._
 
-import lila.common.Bus
 import lila.room.RoomSocket.{ Protocol => RP, _ }
 import lila.socket.RemoteSocket.{ Protocol => P, _ }
 import lila.socket.Socket.{ makeMessage, Sri }
@@ -211,10 +210,6 @@ final private class StudySocket(
               onError = err => send(P.Out.tellSri(w.sri, makeMessage("error", err)))
             )
           }(funit)
-        case "relaySync" =>
-          who foreach { w =>
-            Bus.publish(actorApi.RelayToggle(studyId, ~(o \ "d").asOpt[Boolean], w), "relayToggle")
-          }
         case "rematch" =>
           who foreach { w =>
             val yes = o.obj("d").flatMap(_.boolean("yes")) | true
@@ -276,7 +271,6 @@ final private class StudySocket(
       node: Node,
       variant: shogi.variant.Variant,
       sticky: Boolean,
-      relay: Option[Chapter.Relay],
       who: Who
   ) =
     version(
@@ -288,7 +282,6 @@ final private class StudySocket(
           "w" -> who,
           "s" -> sticky
         )
-        .add("relay", relay)
     )
 
   def roundRematchOffer(by: Option[shogi.Color]) =

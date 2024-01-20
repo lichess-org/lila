@@ -25,7 +25,7 @@ final class Analyse(
             userId = me.id.some,
             postGameStudy = none,
             ip = HTTPRequest.lastRemoteAddress(ctx.req).some,
-            mod = isGranted(_.Hunter) || isGranted(_.Relay),
+            mod = isGranted(_.Hunter),
             system = false
           )
         ) map {

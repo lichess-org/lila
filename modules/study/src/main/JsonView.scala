@@ -56,7 +56,6 @@ final class JsonView(
             )
             .add("description", currentChapter.description)
             .add("serverEval", currentChapter.serverEval)
-            .add("relay", currentChapter.relay)(relayWrites)
             .add("gameLength", currentChapter.gameMainlineLength)
             .pipe(addChapterMode(currentChapter))
         )
@@ -193,7 +192,7 @@ object JsonView {
     case Study.From.Scratch   => JsString("scratch")
     case Study.From.Game(id)  => Json.obj("game" -> id)
     case Study.From.Study(id) => Json.obj("study" -> id)
-    case Study.From.Relay(id) => Json.obj("relay" -> id)
+    case Study.From.Unknown   => JsString("unknown")
   }
   implicit private[study] val userSelectionWriter = Writes[Settings.UserSelection] { v =>
     JsString(v.key)
@@ -254,13 +253,6 @@ object JsonView {
     JsNumber(p.value)
   }
   implicit private[study] val likingRefWrites: Writes[Study.Liking] = Json.writes[Study.Liking]
-
-  implicit val relayWrites = OWrites[Chapter.Relay] { r =>
-    Json.obj(
-      "path"                 -> r.path,
-      "secondsSinceLastMove" -> r.secondsSinceLastMove
-    )
-  }
 
   implicit private[study] val serverEvalWrites: Writes[Chapter.ServerEval] = Json.writes[Chapter.ServerEval]
 

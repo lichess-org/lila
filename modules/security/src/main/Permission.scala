@@ -54,7 +54,6 @@ object Permission {
   case object Impersonate           extends Permission("IMPERSONATE", "Impersonate")
   case object DisapproveCoachReview extends Permission("DISAPPROVE_COACH_REVIEW", "Disapprove coach review")
   case object PayPal                extends Permission("PAYPAL", "PayPal")
-  case object Relay                 extends Permission("RELAY", "Manage broadcasts")
   case object Cli                   extends Permission("ClI", "Command line")
   case object Settings              extends Permission("SETTINGS", "Lila settings")
   case object Streamers             extends Permission("STREAMERS", "Manage streamers")
@@ -139,7 +138,6 @@ object Permission {
           PracticeConfig,
           RemoveRanking,
           DisapproveCoachReview,
-          Relay,
           Streamers,
           DisableTwoFactor,
           ChangePermission,
@@ -201,7 +199,6 @@ object Permission {
       Streamers
     ),
     "Content" -> List(
-      Relay,
       ManageEvent,
       ManageTournament,
       ManageSimul,

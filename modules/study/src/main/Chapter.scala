@@ -21,7 +21,6 @@ case class Chapter(
     practice: Option[Boolean] = None,
     gamebook: Option[Boolean] = None,
     description: Option[String] = None,
-    relay: Option[Chapter.Relay] = None,
     serverEval: Option[Chapter.ServerEval] = None,
     createdAt: DateTime
 ) extends Chapter.Like {
@@ -31,11 +30,9 @@ case class Chapter(
       copy(root = newRoot)
     }
 
-  def addNode(node: Node, path: Path, newRelay: Option[Chapter.Relay] = None): Option[Chapter] =
+  def addNode(node: Node, path: Path): Option[Chapter] =
     updateRoot {
       _.withChildren(_.addNodeAt(node, path))
-    } map {
-      _.copy(relay = newRelay orElse relay)
     }
 
   def setShapes(shapes: Shapes, path: Path): Option[Chapter] =
@@ -83,8 +80,6 @@ case class Chapter(
 
   def withoutChildrenIfPractice = if (isPractice) copy(root = root.withoutChildren) else this
 
-  def relayAndTags = relay map { Chapter.RelayAndTags(id, _, tags) }
-
   def isOverweight = root.children.countRecursive >= Chapter.maxNodes
 }
 
@@ -121,28 +116,7 @@ object Chapter {
       fromNotation: Boolean = false
   ) {}
 
-  case class Relay(
-      index: Int, // game index in the source URL
-      path: Path,
-      lastMoveAt: DateTime
-  ) {
-    def secondsSinceLastMove: Int = (nowSeconds - lastMoveAt.getSeconds).toInt
-  }
-
   case class ServerEval(done: Boolean)
-
-  case class RelayAndTags(id: Id, relay: Relay, tags: Tags) {
-
-    def looksAlive =
-      tags.resultColor.isEmpty &&
-        relay.lastMoveAt.isAfter {
-          DateTime.now.minusMinutes {
-            tags.clockConfig.fold(40)(_.limitInMinutes.toInt / 2 atLeast 15 atMost 60)
-          }
-        }
-
-    def looksOver = !looksAlive
-  }
 
   case class Metadata(
       _id: Id,
@@ -177,8 +151,7 @@ object Chapter {
       ownerId: User.ID,
       practice: Boolean,
       gamebook: Boolean,
-      conceal: Option[Ply],
-      relay: Option[Relay] = None
+      conceal: Option[Ply]
   ) =
     Chapter(
       _id = makeId,
@@ -192,7 +165,6 @@ object Chapter {
       practice = practice option true,
       gamebook = gamebook option true,
       conceal = conceal,
-      relay = relay,
       createdAt = DateTime.now
     )
 }

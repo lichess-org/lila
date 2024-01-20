@@ -74,16 +74,6 @@
       </rollingPolicy>
     </appender>
   </logger>
-  <logger name="relay" level="INFO">
-    <appender name="FILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
-      <file>/var/log/lishogi/relay.log</file>
-      <encoder><pattern>%date %-5level %logger{30} %message%n%xException</pattern></encoder>
-      <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
-        <fileNamePattern>/var/log/lishogi/relay-log-%d{yyyy-MM-dd}.gz</fileNamePattern>
-        <maxHistory>7</maxHistory>
-      </rollingPolicy>
-    </appender>
-  </logger>
   <logger name="lobby" level="INFO">
     <appender name="FILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
       <file>/var/log/lishogi/lobby.log</file>

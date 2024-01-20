@@ -99,8 +99,6 @@ export function view(ctrl: StudyCtrl): VNode {
     }
   }
 
-  const introActive = ctrl.relay && ctrl.relay.intro.active;
-
   return h(
     'div.study__chapters',
     {
@@ -132,7 +130,7 @@ export function view(ctrl: StudyCtrl): VNode {
       .map((chapter, i) => {
         const editing = ctrl.chapters.editForm.isEditing(chapter.id),
           loading = ctrl.vm.loading && chapter.id === ctrl.vm.nextChapterId,
-          active = !ctrl.vm.loading && current && !introActive && current.id === chapter.id;
+          active = !ctrl.vm.loading && current && current.id === chapter.id;
         return h(
           'div',
           {

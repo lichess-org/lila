@@ -5,7 +5,6 @@ import { VNode, h } from 'snabbdom';
 import { Redraw } from '../interfaces';
 import { emptyRedButton } from '../util';
 import { StudyData } from './interfaces';
-import RelayCtrl from './relay/relayCtrl';
 
 export interface StudyFormCtrl {
   open: Prop<boolean>;
@@ -15,7 +14,6 @@ export interface StudyFormCtrl {
   isNew(): boolean;
   trans: Trans;
   redraw: Redraw;
-  relay?: RelayCtrl;
 }
 
 interface FormData {
@@ -61,8 +59,7 @@ export function ctrl(
   save: (data: FormData, isNew: boolean) => void,
   getData: () => StudyData,
   trans: Trans,
-  redraw: Redraw,
-  relay?: RelayCtrl
+  redraw: Redraw
 ): StudyFormCtrl {
   const initAt = Date.now();
 
@@ -86,7 +83,6 @@ export function ctrl(
     isNew,
     trans,
     redraw,
-    relay,
   };
 }
 
@@ -115,7 +111,7 @@ export function view(ctrl: StudyFormCtrl): VNode {
       ctrl.redraw();
     },
     content: [
-      h('h2', ctrl.trans.noarg(ctrl.relay ? 'configureLiveBroadcast' : isNew ? 'createStudy' : 'editStudy')),
+      h('h2', ctrl.trans.noarg(isNew ? 'createStudy' : 'editStudy')),
       h(
         'form.form3',
         {
@@ -129,7 +125,7 @@ export function view(ctrl: StudyFormCtrl): VNode {
           }, ctrl.redraw),
         },
         [
-          h('div.form-group' + (ctrl.relay ? '.none' : ''), [
+          h('div.form-group', [
             h('label.form-label', { attrs: { for: 'study-name' } }, ctrl.trans.noarg('name')),
             h('input#study-name.form-control', {
               attrs: {
@@ -221,16 +217,7 @@ export function view(ctrl: StudyFormCtrl): VNode {
               selected: '' + data.settings.description,
             })
           ),
-          h(`div.form-actions${ctrl.relay ? '' : '.single'}`, [
-            ctrl.relay
-              ? h(
-                  'a',
-                  {
-                    attrs: { href: `/broadcast/-/${data.id}/edit` },
-                  },
-                  'Broadcast settings'
-                )
-              : null,
+          h('div.form-actions', [
             h(
               'button.button',
               {

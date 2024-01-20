@@ -2,7 +2,7 @@ import { MaybeVNodes, bind, dataIcon, MaybeVNode } from 'common/snabbdom';
 import { opposite } from 'shogiground/util';
 import { VNode, h } from 'snabbdom';
 import AnalyseCtrl from '../ctrl';
-import { iconTag, richHTML } from '../util';
+import { iconTag } from '../util';
 import { view as chapterEditFormView } from './chapterEditForm';
 import { view as chapterNewFormView } from './chapterNewForm';
 import * as commentForm from './commentForm';
@@ -124,12 +124,10 @@ function buttons(root: AnalyseCtrl): VNode {
         hint: noarg('shareAndExport'),
         icon: iconTag('$'),
       }),
-      !ctrl.relay
-        ? h('span.help', {
-            attrs: { title: 'Need help? Get the tour!', 'data-icon': '' },
-            hook: bind('click', ctrl.startTour),
-          })
-        : null,
+      h('span.help', {
+        attrs: { title: 'Need help? Get the tour!', 'data-icon': '' },
+        hook: bind('click', ctrl.startTour),
+      }),
     ]),
     h('div.right', [gbOverrideButton(ctrl)]),
   ]);
@@ -197,14 +195,10 @@ function postGameButtons(ctrl: StudyCtrl): MaybeVNode {
 
 function metadata(ctrl: StudyCtrl): VNode {
   const d = ctrl.data,
-    credit = ctrl.relay && ctrl.relay.data.credit,
     title = `${d.name}: ${ctrl.currentChapter().name}`;
   return h('div.study__metadata', [
     h('h2', [
-      h('span.name', { attrs: { title } }, [
-        title,
-        credit ? h('span.credit', { hook: richHTML(credit, false) }) : undefined,
-      ]),
+      h('span.name', { attrs: { title } }, title),
       h(
         'span.liking.text',
         {
@@ -224,18 +218,16 @@ function metadata(ctrl: StudyCtrl): VNode {
 }
 
 export function side(ctrl: StudyCtrl): VNode {
-  const activeTab = ctrl.vm.tab(),
-    intro = ctrl.relay && ctrl.relay.intro;
+  const activeTab = ctrl.vm.tab();
 
   const makeTab = function (key: Tab, name: string) {
     return h(
       'span.' + key,
       {
-        class: { active: (!intro || !intro.active) && activeTab === key },
+        class: { active: activeTab === key },
         hook: bind(
           'mousedown',
           () => {
-            if (intro) intro.disable();
             ctrl.vm.tab(key);
           },
           ctrl.redraw
@@ -245,27 +237,8 @@ export function side(ctrl: StudyCtrl): VNode {
     );
   };
 
-  const introTab =
-    intro && intro.exists
-      ? h(
-          'span.intro',
-          {
-            class: { active: intro.active },
-            hook: bind(
-              'mousedown',
-              () => {
-                intro.active = true;
-              },
-              ctrl.redraw
-            ),
-          },
-          [iconTag('')]
-        )
-      : null;
-
   const tabs = h('div.tabs-horiz', [
-    introTab,
-    makeTab('chapters', ctrl.trans.plural(ctrl.relay ? 'nbGames' : 'nbChapters', ctrl.chapters.size())),
+    makeTab('chapters', ctrl.trans.plural('nbChapters', ctrl.chapters.size())),
     makeTab('members', ctrl.trans.plural('nbMembers', ctrl.members.size())),
     ctrl.members.isOwner()
       ? h(

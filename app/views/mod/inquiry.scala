@@ -11,7 +11,7 @@ import controllers.routes
 
 object inquiry {
 
-  // simul game study relay tournament
+  // simul game study tournament
   private val commFlagRegex = """\[FLAG\] (\w+)/(\w{8})(?:/w)? (.+)(?:\n|$)""".r
 
   def renderAtomText(atom: lila.report.Report.Atom) =
@@ -22,7 +22,6 @@ object inquiry {
           val id = m.group(2)
           val path = m.group(1) match {
             case "game"       => routes.Round.watcher(id, "sente")
-            case "relay"      => routes.Relay.show("-", id)
             case "tournament" => routes.Tournament.show(id)
             case _            => s"/${m.group(1)}/$id"
           }

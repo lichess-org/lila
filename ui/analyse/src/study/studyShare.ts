@@ -12,7 +12,6 @@ interface StudyShareCtrl {
   currentNode: () => Tree.Node;
   onMainline: () => boolean;
   withPly: Prop<boolean>;
-  relay: boolean;
   cloneable: boolean;
   offset: number;
   gameId?: string;
@@ -57,7 +56,6 @@ export function ctrl(
   currentChapter: () => StudyChapterMeta,
   currentNode: () => Tree.Node,
   onMainline: () => boolean,
-  relay: boolean,
   redraw: () => void,
   offset: number,
   trans: Trans
@@ -72,7 +70,6 @@ export function ctrl(
     currentNode,
     onMainline,
     withPly,
-    relay,
     cloneable: data.features.cloneable,
     redraw,
     trans,
@@ -95,7 +92,7 @@ export function view(ctrl: StudyShareCtrl): VNode {
   return h('div.study__share', [
     h('form.form3', [
       h('div.form-group', [
-        h('label.form-label', ctrl.trans.noarg(ctrl.relay ? 'broadcastUrl' : 'studyUrl')),
+        h('label.form-label', ctrl.trans.noarg('studyUrl')),
         h('input.form-control.autoselect', {
           attrs: {
             readonly: true,
@@ -104,7 +101,7 @@ export function view(ctrl: StudyShareCtrl): VNode {
         }),
       ]),
       h('div.form-group', [
-        h('label.form-label', ctrl.trans.noarg(ctrl.relay ? 'currentGameUrl' : 'currentChapterUrl')),
+        h('label.form-label', ctrl.trans.noarg('currentChapterUrl')),
         h('input.form-control.autoselect', {
           attrs: {
             readonly: true,
@@ -185,7 +182,7 @@ export function view(ctrl: StudyShareCtrl): VNode {
             download: true,
           },
         },
-        ctrl.trans.noarg(ctrl.relay ? 'downloadGame' : 'chapterKif')
+        ctrl.trans.noarg('chapterKif')
       ),
       'standard' === chapter.variant
         ? h(
@@ -197,7 +194,7 @@ export function view(ctrl: StudyShareCtrl): VNode {
                 download: true,
               },
             },
-            ctrl.trans.noarg(ctrl.relay ? 'downloadGame' : 'chapterCsa')
+            ctrl.trans.noarg('chapterCsa')
           )
         : null,
       ctrl.cloneable

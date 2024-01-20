@@ -1,7 +1,6 @@
 package lila.study
 
 import akka.stream.scaladsl._
-import shogi.format.Tags
 import reactivemongo.akkastream.cursorProducer
 import reactivemongo.api.bson._
 
@@ -65,23 +64,6 @@ final class ChapterRepo(
         .list()
     }
 
-  def relaysAndTagsByStudyId(studyId: Study.Id): Fu[List[Chapter.RelayAndTags]] =
-    coll {
-      _.find(
-        $studyId(studyId),
-        $doc("relay" -> true, "tags" -> true).some
-      )
-        .cursor[Bdoc]()
-        .list() map { docs =>
-        for {
-          doc   <- docs
-          id    <- doc.getAsOpt[Chapter.Id]("_id")
-          relay <- doc.getAsOpt[Chapter.Relay]("relay")
-          tags  <- doc.getAsOpt[Tags]("tags")
-        } yield Chapter.RelayAndTags(id, relay, tags)
-      }
-    }
-
   def sort(study: Study, ids: List[Chapter.Id]): Funit =
     coll { c =>
       ids.zipWithIndex
@@ -108,12 +90,6 @@ final class ChapterRepo(
 
   def removeConceal(chapterId: Chapter.Id) =
     coll(_.unsetField($id(chapterId), "conceal")).void
-
-  def setRelay(chapterId: Chapter.Id, relay: Chapter.Relay) =
-    coll(_.updateField($id(chapterId), "relay", relay)).void
-
-  def setRelayPath(chapterId: Chapter.Id, path: Path) =
-    coll(_.updateField($id(chapterId), "relay.path", path)).void
 
   def setTagsFor(chapter: Chapter) =
     coll(_.updateField($id(chapter.id), "tags", chapter.tags)).void

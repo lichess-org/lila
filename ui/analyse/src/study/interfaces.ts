@@ -8,7 +8,6 @@ import { GamebookOverride } from './gamebook/interfaces';
 import { MultiBoardCtrl } from './multiBoard';
 import { NotifCtrl } from './notif';
 import { StudyPracticeCtrl } from './practice/interfaces';
-import RelayCtrl from './relay/relayCtrl';
 import { ServerEvalCtrl } from './serverEval';
 import { StudyChaptersCtrl } from './studyChapters';
 import { GlyphCtrl } from './studyGlyph';
@@ -19,7 +18,6 @@ export interface StudyCtrl {
   currentChapter(): StudyChapterMeta;
   socketHandler(t: string, d: any): boolean;
   vm: StudyVm;
-  relay?: RelayCtrl;
   multiBoard: MultiBoardCtrl;
   form: any;
   members: any;
@@ -172,14 +170,7 @@ export interface StudyChapter {
   gamebook: boolean;
   features: StudyChapterFeatures;
   description?: string;
-  relay?: StudyChapterRelay;
   gameLength?: number;
-}
-
-export interface StudyChapterRelay {
-  path: Tree.Path;
-  secondsSinceLastMove?: number;
-  lastMoveAt?: number;
 }
 
 interface StudyChapterSetup {

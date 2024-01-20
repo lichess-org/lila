@@ -211,12 +211,11 @@ final class StudyApi(
       studyId: Study.Id,
       position: Position.Ref,
       node: Node,
-      opts: MoveOpts,
-      relay: Option[Chapter.Relay] = None
+      opts: MoveOpts
   )(who: Who) =
     sequenceStudyWithChapter(studyId, position.chapterId) { case Study.WithChapter(study, chapter) =>
       Contribute(who.u, study) {
-        doAddNode(study, Position(chapter, position.path), node, opts, relay)(who).void
+        doAddNode(study, Position(chapter, position.path), node, opts)(who).void
       }
     }
 
@@ -224,8 +223,7 @@ final class StudyApi(
       study: Study,
       position: Position,
       rawNode: Node,
-      opts: MoveOpts,
-      relay: Option[Chapter.Relay]
+      opts: MoveOpts
   )(who: Who): Funit = {
     val node         = rawNode.withoutChildren
     def failReload() = reloadSriBecauseOf(study, who.sri, position.chapter.id)
@@ -233,7 +231,7 @@ final class StudyApi(
       logger.info(s"Overweight chapter ${study.id}/${position.chapter.id}")
       fuccess(failReload())
     } else
-      position.chapter.addNode(node, position.path, relay) match {
+      position.chapter.addNode(node, position.path) match {
         case None =>
           failReload()
           fufail(s"Invalid addNode ${study.id} ${position.ref} $node")
@@ -241,7 +239,6 @@ final class StudyApi(
           chapter.root.nodeAt(position.path) ?? { parent =>
             val newPosition = position.ref + node
             chapterRepo.addSubTree(node, parent addChild node, position.path)(chapter) >>
-              (relay ?? { chapterRepo.setRelay(chapter.id, _) }) >>
               (opts.sticky ?? studyRepo.setPosition(study.id, newPosition)) >>
               updateConceal(study, chapter, newPosition) >> {
                 sendTo(study.id)(
@@ -250,7 +247,6 @@ final class StudyApi(
                     node,
                     chapter.setup.variant,
                     sticky = opts.sticky,
-                    relay = relay,
                     who
                   )
                 )

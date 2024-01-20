@@ -37,7 +37,7 @@ final class Importer(env: Env) extends LilaController(env) {
                       userId = ctx.userId,
                       postGameStudy = none,
                       ip = HTTPRequest.lastRemoteAddress(ctx.req).some,
-                      mod = isGranted(_.Hunter) || isGranted(_.Relay),
+                      mod = isGranted(_.Hunter),
                       system = false
                     )
                   )

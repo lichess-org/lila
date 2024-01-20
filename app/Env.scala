@@ -71,7 +71,6 @@ final class Env(
     val practice: lila.practice.Env,
     val irwin: lila.irwin.Env,
     val activity: lila.activity.Env,
-    val relay: lila.relay.Env,
     val streamer: lila.streamer.Env,
     val oAuth: lila.oauth.Env,
     val bot: lila.bot.Env,
@@ -142,7 +141,7 @@ final class Env(
       u <- user.repo byId userId orFail s"No such user $userId"
       badApple = u.lameOrTrollOrAlt
       playbanned <- playban.api.hasCurrentBan(u.id)
-      _          <- user.repo.disable(u, keepEmail = badApple || playbanned)
+      _          <- user.repo.disable(u.id, keepEmail = badApple || playbanned)
       _          <- relation.api.unfollowAll(u.id)
       _          <- user.rankingApi.remove(u.id)
       _          <- team.api.quitAll(u.id)
@@ -251,7 +250,6 @@ final class EnvBoot(
   lazy val practice: lila.practice.Env       = wire[lila.practice.Env]
   lazy val irwin: lila.irwin.Env             = wire[lila.irwin.Env]
   lazy val activity: lila.activity.Env       = wire[lila.activity.Env]
-  lazy val relay: lila.relay.Env             = wire[lila.relay.Env]
   lazy val streamer: lila.streamer.Env       = wire[lila.streamer.Env]
   lazy val oAuth: lila.oauth.Env             = wire[lila.oauth.Env]
   lazy val bot: lila.bot.Env                 = wire[lila.bot.Env]
