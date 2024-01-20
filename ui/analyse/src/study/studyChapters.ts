@@ -65,7 +65,10 @@ export function resultOf(tags: TagArray[], isWhite: boolean): string | undefined
 export function view(ctrl: StudyCtrl): VNode {
   const canContribute = ctrl.members.canContribute(),
     current = ctrl.currentChapter();
-
+  const currentLocation = location.href;
+  const studyOrBroadcastUrl = currentLocation.includes(current.id)
+    ? `${currentLocation.replace(`/${current.id}`, '')}`
+    : currentLocation;
   function update(vnode: VNode) {
     const newCount = ctrl.chapters.list().length,
       vData = vnode.data!.li!,
@@ -104,6 +107,7 @@ export function view(ctrl: StudyCtrl): VNode {
             const id =
               (target.parentNode as HTMLElement).getAttribute('data-id') || target.getAttribute('data-id');
             if (!id) return;
+            history.replaceState({}, '', studyOrBroadcastUrl + '/' + id);
             if (target.className === 'act') {
               const chapter = ctrl.chapters.get(id);
               if (chapter) ctrl.chapters.editForm.toggle(chapter);
@@ -120,6 +124,7 @@ export function view(ctrl: StudyCtrl): VNode {
         destroy: vnode => {
           const sortable = vnode.data!.li!.sortable;
           if (sortable) sortable.destroy();
+          history.replaceState({}, '', studyOrBroadcastUrl);
         },
       },
     },
