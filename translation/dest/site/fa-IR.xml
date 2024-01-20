@@ -31,7 +31,7 @@
   <string name="kingInTheCenter">شاه در مرکز</string>
   <string name="threeChecks">سه کیش</string>
   <string name="raceFinished">مسابقه تمام شد</string>
-  <string name="variantEnding">اتمام بازی</string>
+  <string name="variantEnding">پایان شطرنج‌گونه</string>
   <string name="newOpponent">حریف جدید</string>
   <string name="yourOpponentWantsToPlayANewGameWithYou">حریف شما می خواهد که دوباره با شما بازی کند</string>
   <string name="joinTheGame">به بازی بپیوندید</string>
@@ -75,7 +75,7 @@
   <string name="move">انتقال بدهید</string>
   <string name="variantLoss">تنوع بازی منجر به باخت اجباری یا از دست دادن حرکتها را نمایش بدهید</string>
   <string name="variantWin">تنوع بازی منجر به پیروزی یا به دست آوردن حرکتها را نمایش بدهید</string>
-  <string name="insufficientMaterial">مهره کافی برای ادامه یا اتمام بازی موجود نیست</string>
+  <string name="insufficientMaterial">مُهره کافی برای مات کردن وجود ندارد</string>
   <string name="pawnMove">حرکت پیاده</string>
   <string name="capture">گرفتن مهره</string>
   <string name="close">بستن</string>
@@ -258,8 +258,8 @@
     <item quantity="other">%s بازی با شما</item>
   </plurals>
   <string name="cancel">انصراف</string>
-  <string name="whiteTimeOut">زمان سفید به اتمام رسید</string>
-  <string name="blackTimeOut">زمان سیاه به اتمام رسید</string>
+  <string name="whiteTimeOut">زمان سفید تمام شد</string>
+  <string name="blackTimeOut">زمان سیاه تمام شد</string>
   <string name="drawOfferSent">پیشنهاد تساوی ارسال شد</string>
   <string name="drawOfferAccepted">پیشنهاد تساوی پذیرفته شد</string>
   <string name="drawOfferCanceled">پیشنهاد تساوی لغو شد</string>
@@ -482,7 +482,7 @@
   <string name="winRate">درصد برد</string>
   <string name="berserkRate">درصد برزرک</string>
   <string name="performance">عملکرد</string>
-  <string name="tournamentComplete">مسابقه به اتمام رسید</string>
+  <string name="tournamentComplete">مسابقات به پایان رسید</string>
   <string name="movesPlayed">حرکات انجام شده</string>
   <string name="whiteWins">پیروزی با مهره سفید</string>
   <string name="blackWins">سیاه برنده شد</string>
