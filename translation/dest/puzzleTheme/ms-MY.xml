@@ -1,2 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+  <string name="advancedPawn">Bidak maju</string>
+  <string name="advancedPawnDescription">Salah satu bidak anda berada jauh ke dalam kedudukan lawan, mungkin mengancam untuk menaikkan pangkat.</string>
+  <string name="advantage">Kelebihan</string>
+</resources>
