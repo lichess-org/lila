@@ -11,4 +11,6 @@
   <string name="offerOrAcceptDraw">ஒரு டிராவை வழங்கவும் அல்லது ஏற்றுக்கொள்ளவும்</string>
   <string name="readOutClocks">கடிகாரங்களைப் படிக்கவும்</string>
   <string name="readOutOpponentName">எதிராளியின் பெயரைப் படிக்கவும்</string>
+  <string name="otherCommands">மற்ற கட்டளைகள்</string>
+  <string name="tips">குறிப்புகள்</string>
 </resources>
