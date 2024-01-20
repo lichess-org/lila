@@ -63,3 +63,19 @@
     }
   }
 }
+
+.variant-chushogi {
+  @include breakpoint($mq-col2) {
+    .copyables {
+      .pair {
+        .name {
+          min-width: 4rem;
+        }
+        .copyable {
+          width: unset;
+          flex: 1;
+        }
+      }
+    }
+  }
+}
