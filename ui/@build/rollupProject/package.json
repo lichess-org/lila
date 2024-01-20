@@ -8,8 +8,8 @@
   "dependencies": {
     "@rollup/plugin-commonjs": "^25",
     "@rollup/plugin-node-resolve": "^15",
-    "@rollup/plugin-typescript": "^11",
     "@rollup/plugin-terser": "^0.4",
+    "@rollup/plugin-typescript": "^11",
     "rollup": "^2",
     "tslib": "^2.6",
     "typescript": "^5"
