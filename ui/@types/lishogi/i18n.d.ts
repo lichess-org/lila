@@ -2133,7 +2133,6 @@ export type I18nKey =
 'moves'|
 'currentPosition'|
 'moveForm'|
-'moveForm'|
 'commandInput'|
 'commands'|
 'useArrowKeys';

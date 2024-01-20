@@ -9,7 +9,6 @@
   <string name="moves" comment="Followed by list of moves">Moves</string>
   <string name="currentPosition">Current position</string>
   <string name="moveForm">Move form</string>
-  <string name="moveForm">Move form</string>
   <string name="commandInput">Command input</string>
   <string name="commands">Commands</string>
   <string name="useArrowKeys">Use arrow keys to navigate in the game</string>
