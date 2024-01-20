@@ -1,12 +1,18 @@
 package lila.relay
 
+import scala.concurrent.duration.*
 import akka.actor.*
-import chess.format.pgn.PgnStr
+import chess.format.pgn.{ ParsedPgn, PgnStr, Parser, Reader }
+import akka.pattern.after
 
 import lila.study.MultiPgn
 import lila.base.LilaInvalid
 
-final class RelayPush(sync: RelaySync, api: RelayApi, irc: lila.irc.IrcApi)(using ActorSystem, Executor):
+final class RelayPush(sync: RelaySync, api: RelayApi, irc: lila.irc.IrcApi)(using
+    ActorSystem,
+    Executor,
+    ClassicActorSystemProvider
+):
 
   private val throttler = lila.hub.EarlyMultiThrottler[RelayRoundId](logger)
 
@@ -17,9 +23,29 @@ final class RelayPush(sync: RelaySync, api: RelayApi, irc: lila.irc.IrcApi)(usin
     then fuccess(Left(LilaInvalid("The relay has an upstream URL, and cannot be pushed to.")))
     else
       throttler.ask[Result](rt.round.id, 1.seconds):
-        pushNow(rt, pgn)
+        errors(rt, pgn) match
+          case Some(err) => fuccess(Left(err))
+          case None =>
+            rt.round.sync.delay match
+              case Some(seconds) =>
+                after(seconds.value.seconds)(push(rt, pgn))
+                fuccess(Right(0))
+              case none => push(rt, pgn)
 
-  private def pushNow(rt: RelayRound.WithTour, pgn: PgnStr): Fu[Result] =
+  private def errors(rt: RelayRound.WithTour, pgn: PgnStr): Option[LilaInvalid] =
+    Reader.full(pgn) match
+      case Left(error) => LilaInvalid(error.toString).some
+      case Right(parsed) =>
+        parsed match
+          case Reader.Result.Incomplete(_, errorStr) =>
+            LilaInvalid(errorStr.toString).some
+          case Reader.Result.Complete(_) =>
+            RelayFetch
+              .multiPgnToGames(MultiPgn.split(pgn, RelayFetch.maxChapters(rt.tour))) match
+              case Left(error) => LilaInvalid(error.toString).some
+              case _           => none
+
+  private def push(rt: RelayRound.WithTour, pgn: PgnStr): Fu[Result] =
     RelayFetch
       .multiPgnToGames(MultiPgn.split(pgn, RelayFetch.maxChapters(rt.tour)))
       .fold(
