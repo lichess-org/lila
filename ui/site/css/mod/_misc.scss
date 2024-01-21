@@ -54,3 +54,14 @@
 .slist thead {
   white-space: nowrap;
 }
+
+#modlog_table {
+  tr {
+    &.alert {
+      background: mix($c-bg-zebra, $c-red, 80%);
+    }
+    &:nth-child(odd).alert {
+      background: mix($c-bg-zebra2, $c-red, 80%);
+    }
+  }
+}

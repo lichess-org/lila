@@ -11,7 +11,6 @@ import lila.user.User
 final class GarbageCollector(
     userSpy: UserSpyApi,
     ipTrust: IpTrust,
-    slack: lila.slack.SlackApi,
     noteApi: lila.user.NoteApi,
     isArmed: () => Boolean
 )(implicit
@@ -106,7 +105,7 @@ final class GarbageCollector(
         s"Will dispose of @${user.username} in $wait. Email: ${email.value}. $msg${!armed ?? " [SIMULATION]"}"
       logger.info(message)
       noteApi.lishogiWrite(user, s"Garbage collected because of $msg")
-      slack.garbageCollector(message) >>- {
+      fuccess(
         if (armed) {
           doInitialSb(user)
           system.scheduler
@@ -115,7 +114,7 @@ final class GarbageCollector(
             }
             .unit
         }
-      }
+      )
     }
 
   private def doInitialSb(user: User): Unit =

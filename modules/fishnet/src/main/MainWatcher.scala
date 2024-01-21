@@ -3,10 +3,8 @@ package lila.fishnet
 import scala.concurrent.duration._
 
 import lila.common.Bus
-import lila.hub.actorApi.slack.{ Victory, Warning }
 import lila.memo.ExpireSetMemo
 
-// slack alerts for lishogi analysis nodes
 final private class MainWatcher(
     repo: FishnetRepo
 )(implicit ec: scala.concurrent.ExecutionContext, system: akka.actor.ActorSystem) {
@@ -18,13 +16,13 @@ final private class MainWatcher(
   private def alert(client: Client) =
     if (!isAlerted(client)) {
       alerted put client.key.value
-      Bus.publish(Warning(s"Fishnet server ${client.userId} might be down!"), "slack")
+      Bus.publish(lila.hub.actorApi.mod.Alert(s"Shoginet server ${client.userId} might be down!"), "alert")
     }
 
   private def unalert(client: Client) =
     if (isAlerted(client)) {
       alerted remove client.key.value
-      Bus.publish(Victory(s"Fishnet server ${client.userId} is back!"), "slack")
+      Bus.publish(lila.hub.actorApi.mod.Alert(s"Shoginet server ${client.userId} is back!"), "alert")
     }
 
   private def watch: Funit =
@@ -37,5 +35,5 @@ final private class MainWatcher(
       }
     }
 
-  system.scheduler.scheduleWithFixedDelay(1 minute, 1 minute)(() => watch.unit)
+  system.scheduler.scheduleWithFixedDelay(1 minute, 2 minute)(() => watch.unit)
 }

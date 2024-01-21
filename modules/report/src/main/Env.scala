@@ -15,7 +15,7 @@ private class ReportConfig(
     @ConfigName("actor.name") val actorName: String
 )
 
-private case class Thresholds(score: () => Int, slack: () => Int)
+private case class Thresholds(score: () => Int)
 
 @Module
 final class Env(
@@ -29,7 +29,6 @@ final class Env(
     securityApi: lila.security.SecurityApi,
     userSpyApi: lila.security.UserSpyApi,
     playbanApi: lila.playban.PlaybanApi,
-    slackApi: lila.slack.SlackApi,
     captcher: lila.hub.actors.Captcher,
     fishnet: lila.hub.actors.Fishnet,
     settingStore: lila.memo.SettingStore.Builder,
@@ -49,15 +48,8 @@ final class Env(
     text = "Report score threshold. Reports with lower scores are concealed to moderators".some
   )
 
-  lazy val slackScoreThresholdSetting = settingStore[Int](
-    "slackScoreThreshold",
-    default = 80,
-    text = "Slack score threshold. Comm reports with higher scores are notified in slack".some
-  )
-
   private val thresholds = Thresholds(
-    score = scoreThresholdSetting.get _,
-    slack = slackScoreThresholdSetting.get _
+    score = scoreThresholdSetting.get _
   )
 
   lazy val forms = wire[DataForm]

@@ -17,7 +17,6 @@ final class ReportApi(
     securityApi: lila.security.SecurityApi,
     userSpyApi: lila.security.UserSpyApi,
     playbanApi: lila.playban.PlaybanApi,
-    slackApi: lila.slack.SlackApi,
     isOnline: lila.socket.IsOnline,
     cacheApi: lila.memo.CacheApi,
     thresholds: Thresholds
@@ -63,11 +62,6 @@ final class ReportApi(
           .flatMap { prev =>
             val report = Report.make(scored, prev)
             lila.mon.mod.report.create(report.reason.key).increment()
-            if (
-              report.isRecentComm &&
-              report.score.value >= thresholds.slack() &&
-              prev.exists(_.score.value < thresholds.slack())
-            ) slackApi.commReportBurst(c.suspect.user)
             coll.update.one($id(report.id), report, upsert = true).void >>
               autoAnalysis(candidate) >>- {
                 if (report.isCheat)

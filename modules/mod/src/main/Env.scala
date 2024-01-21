@@ -39,8 +39,7 @@ final class Env(
     historyApi: lila.history.HistoryApi,
     rankingApi: lila.user.RankingApi,
     noteApi: lila.user.NoteApi,
-    cacheApi: lila.memo.CacheApi,
-    slackApi: lila.slack.SlackApi
+    cacheApi: lila.memo.CacheApi
 )(implicit
     ec: scala.concurrent.ExecutionContext,
     system: ActorSystem
@@ -112,6 +111,8 @@ final class Env(
             }
           case lila.hub.actorApi.mod.AutoWarning(userId, subject) =>
             logApi.modMessage(User.lishogiId, userId, subject).unit
+          case lila.hub.actorApi.mod.Alert(msg) =>
+            logApi.alert(msg).unit
         }
       }),
       name = config.actorName
@@ -120,6 +121,7 @@ final class Env(
     "analysisReady",
     "garbageCollect",
     "playban",
-    "autoWarning"
+    "autoWarning",
+    "alert"
   )
 }

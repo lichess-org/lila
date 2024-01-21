@@ -5,7 +5,7 @@ import lila.report.{ Mod, ModId, Report, Suspect }
 import lila.security.Permission
 import lila.user.{ User, UserRepo }
 
-final class ModlogApi(repo: ModlogRepo, userRepo: UserRepo, slackApi: lila.slack.SlackApi)(implicit
+final class ModlogApi(repo: ModlogRepo, userRepo: UserRepo)(implicit
     ec: scala.concurrent.ExecutionContext
 ) {
 
@@ -223,6 +223,11 @@ final class ModlogApi(repo: ModlogRepo, userRepo: UserRepo, slackApi: lila.slack
       Modlog(mod, teamOwner.some, Modlog.teamEdit, details = Some(teamName take 140))
     }
 
+  def alert(msg: String) =
+    add {
+      Modlog("lishogi", none, Modlog.alert, details = Some(msg take 140))
+    }
+
   def recent =
     coll.ext
       .find(
@@ -257,25 +262,7 @@ final class ModlogApi(repo: ModlogRepo, userRepo: UserRepo, slackApi: lila.slack
   private def add(m: Modlog): Funit = {
     lila.mon.mod.log.create.increment()
     lila.log("mod").info(m.toString)
-    coll.insert.one(m) >> slackMonitor(m)
+    coll.insert.one(m).void
   }
 
-  private def slackMonitor(m: Modlog): Funit = {
-    import lila.mod.{ Modlog => M }
-    val icon = m.action match {
-      case M.alt | M.engine | M.booster | M.troll | M.closeAccount          => "thorhammer"
-      case M.unalt | M.unengine | M.unbooster | M.untroll | M.reopenAccount => "large_blue_circle"
-      case M.deletePost | M.deleteTeam | M.terminateTournament              => "x"
-      case M.chatTimeout                                                    => "hourglass_flowing_sand"
-      case M.closeTopic | M.disableTeam                                     => "lock"
-      case M.openTopic | M.enableTeam                                       => "unlock"
-      case M.modMessage                                                     => "left_speech_bubble"
-      case _                                                                => "gear"
-    }
-    val text = s"""${m.showAction.capitalize} ${m.user.??(u => s"@$u ")}${~m.details}"""
-    userRepo.isMonitoredMod(m.mod) flatMap {
-      _ ?? slackApi.monitorMod(m.mod, icon = icon, text = text)
-    }
-    slackApi.logMod(m.mod, icon = icon, text = text)
-  }
 }

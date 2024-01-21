@@ -12,7 +12,6 @@ final class Dev(env: Env) extends LilaController(env) {
     env.security.spamKeywordsSetting,
     env.explorer.indexFlowSetting,
     env.report.scoreThresholdSetting,
-    env.report.slackScoreThresholdSetting,
     env.streamer.homepageMaxSetting,
     env.streamer.alwaysFeaturedSetting,
     env.rating.ratingFactorsSetting,

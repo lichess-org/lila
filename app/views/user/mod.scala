@@ -41,10 +41,7 @@ object mod {
             href  := routes.Mod.communicationPublic(u.id),
             title := "View communications"
           )("Comms")
-        },
-        postForm(action := routes.Mod.notifySlack(u.id), title := "Notify #tavern", cls := "xhr")(
-          submitButton(cls := "btn-rack__btn")("Slack")
-        )
+        }
       ),
       div(cls := "btn-rack")(
         isGranted(_.CloseAccount) option {

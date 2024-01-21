@@ -197,9 +197,6 @@ object inquiry {
         div(cls := "dropper more buttons")(
           iconTag("u"),
           div(
-            postForm(action := routes.Mod.notifySlack(in.user.id))(
-              submitButton(cls := "fbt")("Notify Slack")
-            ),
             postForm(action := routes.Report.xfiles(in.report.id))(
               submitButton(cls := List("fbt" -> true, "active" -> (in.report.room.key == "xfiles")))(
                 "Move to X-Files"

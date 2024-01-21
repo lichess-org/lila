@@ -93,6 +93,7 @@ package mod {
   case class AutoWarning(userId: String, subject: String)
   case class Impersonate(userId: String, by: Option[String])
   case class DisableUser(userId: String)
+  case class Alert(msg: String)
 }
 
 package playban {
@@ -113,15 +114,6 @@ package lobby {
 package simul {
   case class GetHostIds(promise: Promise[Set[String]])
   case class PlayerMove(gameId: String)
-}
-
-package slack {
-  sealed trait Event
-  case class Error(msg: String)                                                 extends Event
-  case class Warning(msg: String)                                               extends Event
-  case class Info(msg: String)                                                  extends Event
-  case class Victory(msg: String)                                               extends Event
-  case class TournamentName(userName: String, tourId: String, tourName: String) extends Event
 }
 
 package timeline {

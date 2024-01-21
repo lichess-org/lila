@@ -128,4 +128,5 @@ object Modlog {
   val teamKick            = "teamKick"
   val teamEdit            = "teamEdit"
   val setKidMode          = "setKidMode"
+  val alert               = "alert"
 }

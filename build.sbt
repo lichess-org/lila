@@ -43,7 +43,7 @@ lazy val modules = Seq(
   importer, tournament, simul, relation, report, pref,
   evaluation, chat, puzzle, tv, coordinate, blog,
   history, video, shutup, push, appeal,
-  playban, perfStat, slack, quote, challenge,
+  playban, perfStat, quote, challenge,
   study, studySearch, fishnet, explorer, learn, plan,
   event, coach, practice, evalCache,
   activity, streamer, bot, clas, storm
@@ -177,7 +177,7 @@ lazy val event = module("event",
 )
 
 lazy val mod = module("mod",
-  Seq(common, db, user, hub, security, tournament, simul, game, analyse, evaluation, report, notifyModule, history, perfStat, slack),
+  Seq(common, db, user, hub, security, tournament, simul, game, analyse, evaluation, report, notifyModule, history, perfStat),
   reactivemongo.bundle
 )
 
@@ -262,7 +262,7 @@ lazy val oauth = module("oauth",
 )
 
 lazy val security = module("security",
-  Seq(common, hub, db, user, i18n, slack, oauth),
+  Seq(common, hub, db, user, i18n, oauth),
   Seq(scalatags, maxmind, hasher, uaparser, specs2) ++ reactivemongo.bundle
 )
 
@@ -309,11 +309,6 @@ lazy val playban = module("playban",
 lazy val push = module("push",
   Seq(common, db, user, game, challenge, msg),
   Seq(googleOAuth) ++ reactivemongo.bundle
-)
-
-lazy val slack = module("slack",
-  Seq(common, hub, user),
-  reactivemongo.bundle
 )
 
 lazy val plan = module("plan",

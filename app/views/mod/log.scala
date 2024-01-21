@@ -28,7 +28,7 @@ object log {
             ),
             tbody(
               logs.map { log =>
-                tr(
+                tr(cls := log.action)(
                   td(userIdLink(log.mod.some), br, momentFromNow(log.date)),
                   td(
                     log.showAction.capitalize,
