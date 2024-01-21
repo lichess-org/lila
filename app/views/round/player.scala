@@ -76,7 +76,7 @@ object player:
         div(cls := "round__underboard")(
           bits.crosstable(cross, pov.game),
           (playing.nonEmpty || simul.exists(_ isHost ctx.me)) option
-            div(cls := List("round__now-playing" -> true))(
+            div(cls := "round__now-playing")(
               bits.others(playing, simul.filter(_ isHost ctx.me))
             )
         ),
