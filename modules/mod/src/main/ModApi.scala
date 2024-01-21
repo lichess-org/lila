@@ -49,7 +49,7 @@ final class ModApi(
         reportApi.getMod(modId.value) flatMap {
           _ ?? { mod =>
             lila.mon.cheat.autoMark.increment()
-            setEngine(mod, sus, true)
+            logApi.alert("Auto-mark suggestion (good player or engine)")
           }
         }
       }
