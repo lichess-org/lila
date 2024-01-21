@@ -43,6 +43,7 @@ object PieceSet extends PieceSetBase {
     "Valdivia",
     "Vald_opt",
     "shogi_BnW",
+    "pixel",
     "Intl_Colored_2D",
     "Intl_Colored_3D",
     "Intl_Shadowed",

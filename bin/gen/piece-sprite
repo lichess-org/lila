@@ -40,6 +40,7 @@ themes = [
   ['Portella_2Kanji', 'png'],
   ['western', 'svg'],
   ['Engraved_cz', 'svg'],
+  ['pixel', 'png'],
 ]
 types = {
   'svg' => 'svg+xml;base64,',
@@ -141,7 +142,9 @@ themes.map { |theme|
       end
     }
   }.flatten
-  if ext == 'png'
+  if name == 'pixel'
+    classes.append("piece{ image-rendering: pixelated; }")
+  elsif ext == 'png'
     classes.append("piece{ will-change: transform; background-repeat: unset; }")
   end
   classes.append(".d-12x12 piece { background-image: none !important; } ")
@@ -166,7 +169,9 @@ bidirectional.map { |theme|
       }
     }
   }.flatten
-  if ext == 'png'
+  if name == 'pixel'
+    classes.append("piece{ image-rendering: pixelated; }")
+  elsif ext == 'png'
     classes.append("piece{ will-change: transform; background-repeat: unset; }")
   end
   classes.append(".d-12x12 piece { background-image: none !important; } ")
@@ -186,7 +191,9 @@ themes.map { |theme|
         "background-image:url('/assets/piece/" + name + "/" + piece + "." + ext + "')}"
     }
   }.flatten
-  if ext == 'png'
+  if name == 'pixel'
+    classes.append("piece{ image-rendering: pixelated; }")
+  elsif ext == 'png'
     classes.append("piece{ will-change: transform; background-repeat: unset; }")
   end
   classes.append(".d-12x12 piece { background-image: none !important; } ")
@@ -206,7 +213,9 @@ bidirectional.map { |theme|
       }
     }
   }.flatten
-  if ext == 'png'
+  if name == 'pixel'
+    classes.append("piece{ image-rendering: pixelated; }")
+  elsif ext == 'png'
     classes.append("piece{ will-change: transform; background-repeat: unset; }")
   end
   classes.append(".d-12x12 piece { background-image: none !important; } ")
