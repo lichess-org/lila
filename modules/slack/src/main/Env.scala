@@ -32,8 +32,8 @@ final class Env(
   }
 
   lila.common.Bus.subscribeFun("slack", "plan", "userNote") {
-    case d: ChargeEvent                                => api.charge(d).unit
-    case Note(from, to, text, true) if from != "Irwin" => api.userModNote(from, to, text).unit
-    case e: Event                                      => api.publishEvent(e).unit
+    case d: ChargeEvent             => api.charge(d).unit
+    case Note(from, to, text, true) => api.userModNote(from, to, text).unit
+    case e: Event                   => api.publishEvent(e).unit
   }
 }

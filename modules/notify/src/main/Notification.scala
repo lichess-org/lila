@@ -119,10 +119,6 @@ case class CorresAlarm(
     opponent: String
 ) extends NotificationContent("corresAlarm")
 
-case class IrwinDone(
-    userId: lila.user.User.ID
-) extends NotificationContent("irwinDone")
-
 case class GenericLink(
     url: String,
     title: Option[String],

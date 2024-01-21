@@ -28,8 +28,6 @@ object menu {
         a(cls := active.active("event"), href := routes.Event.manager)("Events"),
       isGranted(_.SeeReport) option
         a(cls := active.active("log"), href := routes.Mod.log)("Mod log"),
-      isGranted(_.SeeReport) option
-        a(cls := active.active("irwin"), href := routes.Irwin.dashboard)("Irwin dashboard"),
       isGranted(_.Shadowban) option
         a(cls := active.active("panic"), href := routes.Mod.chatPanic)(
           "Chat Panic: ",

@@ -46,7 +46,6 @@ private object BSONHandlers {
 
   implicit val RatingRefundHandler = Macros.handler[RatingRefund]
   implicit val CorresAlarmHandler  = Macros.handler[CorresAlarm]
-  implicit val IrwinDoneHandler    = Macros.handler[IrwinDone]
   implicit val GenericLinkHandler  = Macros.handler[GenericLink]
 
   implicit val ColorBSONHandler = BSONBooleanHandler.as[Color](Color.fromSente, _.sente)
@@ -75,7 +74,6 @@ private object BSONHandlers {
         case ReportedBanned                => $empty
         case CoachReview                   => $empty
         case x: CorresAlarm                => CorresAlarmHandler.writeTry(x).get
-        case x: IrwinDone                  => IrwinDoneHandler.writeTry(x).get
         case x: GenericLink                => GenericLinkHandler.writeTry(x).get
       }
     } ++ $doc("type" -> notificationContent.key)
@@ -112,7 +110,6 @@ private object BSONHandlers {
         case "reportedBanned" => ReportedBanned
         case "coachReview"    => CoachReview
         case "corresAlarm"    => CorresAlarmHandler.readTry(reader.doc).get
-        case "irwinDone"      => IrwinDoneHandler.readTry(reader.doc).get
         case "genericLink"    => GenericLinkHandler.readTry(reader.doc).get
       }
 

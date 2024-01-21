@@ -92,6 +92,7 @@ package mod {
   case class SetPermissions(userId: String, permissions: List[String])
   case class AutoWarning(userId: String, subject: String)
   case class Impersonate(userId: String, by: Option[String])
+  case class DisableUser(userId: String)
 }
 
 package playban {

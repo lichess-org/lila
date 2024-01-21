@@ -28,23 +28,20 @@
   order: 5;
   flex: 1 1 auto;
 }
-#mz_irwin {
+#mz_assessments {
   order: 6;
 }
-#mz_assessments {
+#mz_mod_log {
   order: 7;
 }
-#mz_mod_log {
+#mz_reports {
   order: 8;
 }
-#mz_reports {
+#mz_identification {
   order: 9;
 }
-#mz_identification {
-  order: 10;
-}
 #mz_others {
-  order: 11;
+  order: 10;
 }
 
 #mz_menu {
@@ -331,104 +328,6 @@
   .match {
     font-weight: bold;
     color: $c-good;
-  }
-}
-
-#mz_irwin {
-  max-height: 60vh;
-  overflow-y: auto;
-  header {
-    margin-top: 10px;
-    display: flex;
-    border: $border;
-    > * {
-      flex: 1 1 100%;
-      display: flex;
-      flex-flow: column;
-      align-items: center;
-      justify-content: center;
-      white-space: nowrap;
-      border-left: $border;
-      padding: 5px 10px;
-    }
-    > *:first-child {
-      border-left: none;
-    }
-    .title {
-      flex-flow: row;
-      color: $c-link;
-      font-size: 1.4em;
-      text-transform: uppercase;
-      letter-spacing: 3px;
-    }
-    .title img {
-      height: 50px;
-      width: 50px;
-      opacity: 0.7;
-      margin-right: 8px;
-    }
-    .infos {
-      font-size: 0.9em;
-    }
-    strong {
-      display: block;
-      font-size: 1.1em;
-      margin-top: 0;
-    }
-    .assess strong {
-      font-size: 2em;
-    }
-  }
-
-  table strong {
-    margin-top: 0;
-    font-size: 1.6em;
-  }
-  table em {
-    font-size: 0.8em;
-    line-height: 1em;
-    margin-top: -0.1em;
-    display: block;
-  }
-  .moves {
-    padding: 0;
-  }
-  .moves a {
-    display: block;
-    width: 400px;
-    height: 48px;
-    display: flex;
-    align-items: flex-end;
-  }
-  .moves span {
-    flex: 0 1 10px;
-    margin-left: 3px;
-  }
-  .text .green {
-    /* actually blue */
-    color: #2077c0;
-  }
-  .text .yellow {
-    color: #ddcf3f;
-  }
-  .text .orange {
-    color: #e79b64;
-  }
-  .text .red {
-    color: $c-bad;
-  }
-  .moves .green {
-    /* actually blue */
-    background-color: #2077c0;
-  }
-  .moves .yellow {
-    background-color: #ddcf3f;
-  }
-  .moves .orange {
-    background-color: #e79b64;
-  }
-  .moves .red {
-    background-color: $c-bad;
   }
 }
 

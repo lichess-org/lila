@@ -370,11 +370,6 @@ final class User(
           (isGranted(_.Doxing) || (user.lameOrAlt && !user.hasTitle)) ??
             html.user.mod.identification(spy)
         }
-        val irwin = env.irwin.api.reports.withPovs(user) map {
-          _ ?? { reps =>
-            html.irwin.report(reps)
-          }
-        }
         val assess = env.mod.assessApi.getPlayerAggregateAssessmentWithGames(user.id) flatMap {
           _ ?? { as =>
             env.user.lightUserApi
@@ -392,7 +387,6 @@ final class User(
             modZoneSegment(rageSit, "rageSit", user) merge
             modZoneSegment(others, "others", user) merge
             modZoneSegment(identification, "identification", user) merge
-            modZoneSegment(irwin, "irwin", user) merge
             modZoneSegment(assess, "assess", user) via
             EventSource.flow
         }.as(ContentTypes.EVENT_STREAM) pipe noProxyBuffer

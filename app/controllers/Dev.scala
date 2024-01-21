@@ -10,7 +10,6 @@ final class Dev(env: Env) extends LilaController(env) {
   private lazy val settingsList = List[lila.memo.SettingStore[_]](
     env.security.ugcArmedSetting,
     env.security.spamKeywordsSetting,
-    env.irwin.irwinThresholdsSetting,
     env.explorer.indexFlowSetting,
     env.report.scoreThresholdSetting,
     env.report.slackScoreThresholdSetting,
@@ -83,5 +82,5 @@ final class Dev(env: Env) extends LilaController(env) {
 
   private def runAs(user: lila.user.User.ID, command: String): Fu[String] =
     env.mod.logApi.cli(user, command) >>
-      env.api.cli(command.split(" ").toList)
+      env.api.cli(command.split(" ").toList, user)
 }

@@ -24,12 +24,16 @@ final private[api] class Cli(
 
   private val logger = lila.log("cli")
 
-  def apply(args: List[String]): Fu[String] =
-    run(args).dmap(_ + "\n") ~ {
-      _.logFailure(logger, _ => args mkString " ") foreach { output =>
-        logger.info("%s\n%s".format(args mkString " ", output))
+  def apply(args: List[String], userId: String): Fu[String] =
+    if (args.headOption.exists(_ == "delete")) {
+      Bus.publish(lila.hub.actorApi.mod.DisableUser(userId), "disableUser")
+      fuccess("Done!")
+    } else
+      run(args).dmap(_ + "\n") ~ {
+        _.logFailure(logger, _ => args mkString " ") foreach { output =>
+          logger.info("%s\n%s".format(args mkString " ", output))
+        }
       }
-    }
 
   def process = {
     case "uptime" :: Nil => fuccess(s"${lila.common.Uptime.seconds} seconds")

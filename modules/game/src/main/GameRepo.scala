@@ -114,20 +114,6 @@ final class GameRepo(val coll: Coll)(implicit ec: scala.concurrent.ExecutionCont
       .cursor[Game](ReadPreference.secondaryPreferred)
       .list(nb)
 
-  def extraGamesForIrwin(userId: String, nb: Int): Fu[List[Game]] =
-    coll.ext
-      .find(
-        Query.finished
-          ++ Query.rated
-          ++ Query.user(userId)
-          ++ Query.pliesGt(22)
-          ++ Query.variantStandard
-          ++ Query.clock(true)
-      )
-      .sort($sort asc F.createdAt)
-      .cursor[Game](ReadPreference.secondaryPreferred)
-      .list(nb)
-
   def cursor(
       selector: Bdoc,
       readPreference: ReadPreference = ReadPreference.secondaryPreferred

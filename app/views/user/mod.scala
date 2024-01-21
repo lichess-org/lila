@@ -16,7 +16,6 @@ object mod {
   def menu =
     mzSection("menu")(
       a(href := "#mz_actions")("Overview"),
-      a(href := "#mz_irwin")("Irwin"),
       a(href := "#mz_assessments")("Evaluation"),
       a(href := "#mz_mod_log")("Mod log"),
       a(href := "#mz_reports")("Reports"),
@@ -31,7 +30,7 @@ object mod {
         ),
         postForm(
           action := routes.Mod.refreshUserAssess(u.username),
-          title  := "Collect data and ask irwin",
+          title  := "Collect data",
           cls    := "xhr"
         )(
           submitButton(cls := "btn-rack__btn")("Evaluate")

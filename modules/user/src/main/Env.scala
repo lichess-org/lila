@@ -72,6 +72,9 @@ final class Env(
   lazy val forms = wire[DataForm]
 
   lila.common.Bus.subscribeFuns(
+    "disableUser" -> { case lila.hub.actorApi.mod.DisableUser(userId) =>
+      repo.disable(userId, true).unit
+    },
     "adjustCheater" -> { case lila.hub.actorApi.mod.MarkCheater(userId, true) =>
       rankingApi remove userId
       repo.setRoles(userId, Nil).unit

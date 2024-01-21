@@ -267,7 +267,7 @@ final class Mod(
                     } take 15,
                     convos,
                     publicLines,
-                    notes.filter(_.from != "irwin"),
+                    notes,
                     history,
                     priv
                   )
@@ -289,7 +289,6 @@ final class Mod(
     Secure(_.MarkEngine) { implicit ctx => me =>
       OptionFuResult(env.user.repo named username) { user =>
         assessApi.refreshAssessByUsername(username) >>
-          env.irwin.api.requests.fromMod(Suspect(user), AsMod(me)) >>
           userC.renderModZoneActions(username)
       }
     }

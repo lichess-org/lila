@@ -245,12 +245,6 @@ object mon {
     object log {
       val create = counter("mod.log.create").withoutTags()
     }
-    object irwin {
-      val report                        = counter("mod.report.irwin.report").withoutTags()
-      val mark                          = counter("mod.report.irwin.mark").withoutTags()
-      def ownerReport(name: String)     = counter("mod.irwin.ownerReport").withTag("name", name)
-      def streamEventType(name: String) = counter("mod.irwin.stream.eventType").withTag("name", name)
-    }
     object comm {
       def segment(seg: String) = timer("mod.comm.segmentLat").withTag("segment", seg)
     }

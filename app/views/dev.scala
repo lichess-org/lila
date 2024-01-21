@@ -70,6 +70,7 @@ object dev {
           pre("""uptime
 announce 10 minutes Lishogi will restart!
 announce cancel
+delete lishogi database
 change asset version
 team disable foobar
 team enable foobar

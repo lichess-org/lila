@@ -109,7 +109,6 @@ final class LilaComponents(ctx: ApplicationLoader.Context)
   lazy val i18n: I18n                     = wire[I18n]
   lazy val importer: Importer             = wire[Importer]
   lazy val insights: Insights             = wire[Insights]
-  lazy val irwin: Irwin                   = wire[Irwin]
   lazy val learn: Learn                   = wire[Learn]
   lazy val lobby: Lobby                   = wire[Lobby]
   lazy val main: Main                     = wire[Main]

@@ -164,9 +164,6 @@ final class UserRepo(val coll: Coll)(implicit ec: scala.concurrent.ExecutionCont
 
   def lishogi = byId(User.lishogiId)
 
-  val irwinId = "irwin"
-  def irwin   = byId(irwinId)
-
   def setPerfs(user: User, perfs: Perfs, prev: Perfs) = {
     val diff = PerfType.all flatMap { pt =>
       perfs(pt).nb != prev(pt).nb option {
@@ -385,10 +382,10 @@ final class UserRepo(val coll: Coll)(implicit ec: scala.concurrent.ExecutionCont
         .void
         .recover(lila.db.recoverDuplicateKey(_ => ()))
 
-  def disable(user: User, keepEmail: Boolean): Funit =
+  def disable(userId: User.ID, keepEmail: Boolean): Funit =
     coll.update
       .one(
-        $id(user.id),
+        $id(userId),
         $set(F.enabled -> false) ++ $unset(F.roles) ++ {
           if (keepEmail) $unset(F.mustConfirmEmail)
           else $doc("$rename" -> $doc(F.email -> F.prevEmail))

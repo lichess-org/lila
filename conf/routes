@@ -438,11 +438,6 @@ GET   /mod/ip/:ip                      controllers.Mod.singleIp(ip: String)
 POST  /mod/ip/ban/:v/:ip               controllers.Mod.singleIpBan(v: Boolean, ip: String)
 GET   /api/stream/mod                  controllers.Mod.eventStream
 
-# Irwin
-GET   /irwin                           controllers.Irwin.dashboard
-POST  /irwin/report                    controllers.Irwin.saveReport
-GET   /api/stream/irwin                controllers.Irwin.eventStream
-
 # Bookmark
 POST  /bookmark/$gameId<\w{8}>     controllers.Bookmark.toggle(gameId: String)
 

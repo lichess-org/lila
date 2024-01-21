@@ -108,7 +108,7 @@ object Report {
   ) {
     def simplifiedText = text.linesIterator.filterNot(_ startsWith "[AUTOREPORT]") mkString "\n"
 
-    def byHuman = !byLishogi && by != ReporterId.irwin
+    def byHuman = !byLishogi
 
     def byLishogi = by == ReporterId.lishogi
   }
