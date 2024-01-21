@@ -684,8 +684,6 @@ GET   /faq                             controllers.Main.faq
 GET   /source                          controllers.Page.source
 GET   /contribute                      controllers.Page.help
 GET   /help                            controllers.Main.movedPermanently(to: String = "/contact")
-GET   /qa/:id/:slug                    controllers.Main.legacyQaQuestion(id: Int, slug: String)
-GET   /how-to-cheat                    controllers.Page.howToCheat
 GET   /ads                             controllers.Page.ads
 GET   /donations                       controllers.Page.donations
 GET   /resources                       controllers.Page.resources
@@ -701,8 +699,6 @@ GET   /variant                         controllers.Page.variantHome
 GET   /variant/:key                    controllers.Page.variant(key)
 
 # Help
-GET   /help/master                     controllers.Page.notSupported
-
 GET   /prismic-preview                 controllers.Blog.preview(token: String)
 POST  /jslog/$id<\w{12}>               controllers.Main.jslog(id: String)
 POST  /jsmon/:event                    controllers.Main.jsmon(event: String)

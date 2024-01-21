@@ -8,16 +8,14 @@ final class Page(
     prismicC: Prismic
 ) extends LilaController(env) {
 
-  val thanks       = helpDocument("thanks")
-  val resources    = helpDocument("resources")
-  val help         = helpDocument("help")
-  val about        = helpDocument("about")
-  val tos          = helpDocument("tos")
-  val privacy      = helpDocument("privacy")
-  val master       = helpDocument("master")
-  val ads          = helpDocument("ads")
-  val donations    = helpDocument("donations")
-  val notSupported = singleDocument("404")
+  val thanks    = helpDocument("thanks")
+  val resources = helpDocument("resources")
+  val help      = helpDocument("help")
+  val about     = helpDocument("about")
+  val tos       = helpDocument("tos")
+  val privacy   = helpDocument("privacy")
+  val ads       = helpDocument("ads")
+  val donations = helpDocument("donations")
 
   // Explanations use lang
   val storm   = explanation("storm")
@@ -54,8 +52,6 @@ final class Page(
         }
       }
     }
-
-  val howToCheat = bookmark("how-to-cheat")
 
   private def bookmark(name: String) =
     Open { implicit ctx =>
