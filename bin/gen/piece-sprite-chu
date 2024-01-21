@@ -16,6 +16,7 @@ bidirectional = [
 themes = [
   ['Chu_Ryoko_1Kanji', 'svg'],
   ['Chu_Intl', 'svg'],
+  ['Chu_Eigetsu_Gyoryu', 'png'],
 ]
 types = {
   'svg' => 'svg+xml;base64,',

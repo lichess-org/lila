@@ -1,0 +1,238 @@
+.sg-wrap.orientation-sente.d-12x12 piece.lance.sente,
+      .sg-wrap.orientation-gote.d-12x12 piece.lance.gote,
+      .variant-chushogi .spare-bottom piece.lance {background-image:url('/assets/piece/Chu_Eigetsu_Gyoryu/0_LANCE.png') !important;}
+.sg-wrap.orientation-sente.d-12x12 piece.leopard.sente,
+      .sg-wrap.orientation-gote.d-12x12 piece.leopard.gote,
+      .variant-chushogi .spare-bottom piece.leopard {background-image:url('/assets/piece/Chu_Eigetsu_Gyoryu/0_LEOPARD.png') !important;}
+.sg-wrap.orientation-sente.d-12x12 piece.copper.sente,
+      .sg-wrap.orientation-gote.d-12x12 piece.copper.gote,
+      .variant-chushogi .spare-bottom piece.copper {background-image:url('/assets/piece/Chu_Eigetsu_Gyoryu/0_COPPER.png') !important;}
+.sg-wrap.orientation-sente.d-12x12 piece.silver.sente,
+      .sg-wrap.orientation-gote.d-12x12 piece.silver.gote,
+      .variant-chushogi .spare-bottom piece.silver {background-image:url('/assets/piece/Chu_Eigetsu_Gyoryu/0_SILVER.png') !important;}
+.sg-wrap.orientation-sente.d-12x12 piece.gold.sente,
+      .sg-wrap.orientation-gote.d-12x12 piece.gold.gote,
+      .variant-chushogi .spare-bottom piece.gold {background-image:url('/assets/piece/Chu_Eigetsu_Gyoryu/0_GOLD.png') !important;}
+.sg-wrap.orientation-sente.d-12x12 piece.elephant.sente,
+      .sg-wrap.orientation-gote.d-12x12 piece.elephant.gote,
+      .variant-chushogi .spare-bottom piece.elephant {background-image:url('/assets/piece/Chu_Eigetsu_Gyoryu/0_ELEPHANT.png') !important;}
+.sg-wrap.orientation-sente.d-12x12 piece.chariot.sente,
+      .sg-wrap.orientation-gote.d-12x12 piece.chariot.gote,
+      .variant-chushogi .spare-bottom piece.chariot {background-image:url('/assets/piece/Chu_Eigetsu_Gyoryu/0_CHARIOT.png') !important;}
+.sg-wrap.orientation-sente.d-12x12 piece.bishop.sente,
+      .sg-wrap.orientation-gote.d-12x12 piece.bishop.gote,
+      .variant-chushogi .spare-bottom piece.bishop {background-image:url('/assets/piece/Chu_Eigetsu_Gyoryu/0_BISHOP.png') !important;}
+.sg-wrap.orientation-sente.d-12x12 piece.tiger.sente,
+      .sg-wrap.orientation-gote.d-12x12 piece.tiger.gote,
+      .variant-chushogi .spare-bottom piece.tiger {background-image:url('/assets/piece/Chu_Eigetsu_Gyoryu/0_TIGER.png') !important;}
+.sg-wrap.orientation-sente.d-12x12 piece.phoenix.sente,
+      .sg-wrap.orientation-gote.d-12x12 piece.phoenix.gote,
+      .variant-chushogi .spare-bottom piece.phoenix {background-image:url('/assets/piece/Chu_Eigetsu_Gyoryu/0_PHOENIX.png') !important;}
+.sg-wrap.orientation-sente.d-12x12 piece.kirin.sente,
+      .sg-wrap.orientation-gote.d-12x12 piece.kirin.gote,
+      .variant-chushogi .spare-bottom piece.kirin {background-image:url('/assets/piece/Chu_Eigetsu_Gyoryu/0_KIRIN.png') !important;}
+.sg-wrap.orientation-sente.d-12x12 piece.sidemover.sente,
+      .sg-wrap.orientation-gote.d-12x12 piece.sidemover.gote,
+      .variant-chushogi .spare-bottom piece.sidemover {background-image:url('/assets/piece/Chu_Eigetsu_Gyoryu/0_SIDEMOVER.png') !important;}
+.sg-wrap.orientation-sente.d-12x12 piece.verticalmover.sente,
+      .sg-wrap.orientation-gote.d-12x12 piece.verticalmover.gote,
+      .variant-chushogi .spare-bottom piece.verticalmover {background-image:url('/assets/piece/Chu_Eigetsu_Gyoryu/0_VERTICALMOVER.png') !important;}
+.sg-wrap.orientation-sente.d-12x12 piece.rook.sente,
+      .sg-wrap.orientation-gote.d-12x12 piece.rook.gote,
+      .variant-chushogi .spare-bottom piece.rook {background-image:url('/assets/piece/Chu_Eigetsu_Gyoryu/0_ROOK.png') !important;}
+.sg-wrap.orientation-sente.d-12x12 piece.horse.sente,
+      .sg-wrap.orientation-gote.d-12x12 piece.horse.gote,
+      .variant-chushogi .spare-bottom piece.horse {background-image:url('/assets/piece/Chu_Eigetsu_Gyoryu/0_HORSE.png') !important;}
+.sg-wrap.orientation-sente.d-12x12 piece.dragon.sente,
+      .sg-wrap.orientation-gote.d-12x12 piece.dragon.gote,
+      .variant-chushogi .spare-bottom piece.dragon {background-image:url('/assets/piece/Chu_Eigetsu_Gyoryu/0_DRAGON.png') !important;}
+.sg-wrap.orientation-sente.d-12x12 piece.queen.sente,
+      .sg-wrap.orientation-gote.d-12x12 piece.queen.gote,
+      .variant-chushogi .spare-bottom piece.queen {background-image:url('/assets/piece/Chu_Eigetsu_Gyoryu/0_QUEEN.png') !important;}
+.sg-wrap.orientation-sente.d-12x12 piece.lion.sente,
+      .sg-wrap.orientation-gote.d-12x12 piece.lion.gote,
+      .variant-chushogi .spare-bottom piece.lion {background-image:url('/assets/piece/Chu_Eigetsu_Gyoryu/0_LION.png') !important;}
+.sg-wrap.orientation-sente.d-12x12 piece.pawn.sente,
+      .sg-wrap.orientation-gote.d-12x12 piece.pawn.gote,
+      .variant-chushogi .spare-bottom piece.pawn {background-image:url('/assets/piece/Chu_Eigetsu_Gyoryu/0_PAWN.png') !important;}
+.sg-wrap.orientation-sente.d-12x12 piece.gobetween.sente,
+      .sg-wrap.orientation-gote.d-12x12 piece.gobetween.gote,
+      .variant-chushogi .spare-bottom piece.gobetween {background-image:url('/assets/piece/Chu_Eigetsu_Gyoryu/0_GOBETWEEN.png') !important;}
+.sg-wrap.orientation-gote.d-12x12 piece.king.gote,
+      .variant-chushogi .spare-bottom piece.king {background-image:url('/assets/piece/Chu_Eigetsu_Gyoryu/0_KING.png') !important;}
+.d-12x12 piece.king.sente,
+      .sg-wrap.orientation-sente.d-12x12 piece.king.sente,
+      .variant-chushogi .spare-bottom piece.king.sente {background-image:url('/assets/piece/Chu_Eigetsu_Gyoryu/0_TAMA.png') !important;}
+.sg-wrap.orientation-sente.d-12x12 piece.promotedpawn.sente,
+      .sg-wrap.orientation-gote.d-12x12 piece.promotedpawn.gote,
+      .variant-chushogi .spare-bottom piece.promotedpawn {background-image:url('/assets/piece/Chu_Eigetsu_Gyoryu/0_PROMOTEDPAWN.png') !important;}
+.sg-wrap.orientation-sente.d-12x12 piece.ox.sente,
+      .sg-wrap.orientation-gote.d-12x12 piece.ox.gote,
+      .variant-chushogi .spare-bottom piece.ox {background-image:url('/assets/piece/Chu_Eigetsu_Gyoryu/0_OX.png') !important;}
+.sg-wrap.orientation-sente.d-12x12 piece.stag.sente,
+      .sg-wrap.orientation-gote.d-12x12 piece.stag.gote,
+      .variant-chushogi .spare-bottom piece.stag {background-image:url('/assets/piece/Chu_Eigetsu_Gyoryu/0_STAG.png') !important;}
+.sg-wrap.orientation-sente.d-12x12 piece.boar.sente,
+      .sg-wrap.orientation-gote.d-12x12 piece.boar.gote,
+      .variant-chushogi .spare-bottom piece.boar {background-image:url('/assets/piece/Chu_Eigetsu_Gyoryu/0_BOAR.png') !important;}
+.sg-wrap.orientation-sente.d-12x12 piece.falcon.sente,
+      .sg-wrap.orientation-gote.d-12x12 piece.falcon.gote,
+      .variant-chushogi .spare-bottom piece.falcon {background-image:url('/assets/piece/Chu_Eigetsu_Gyoryu/0_FALCON.png') !important;}
+.sg-wrap.orientation-sente.d-12x12 piece.prince.sente,
+      .sg-wrap.orientation-gote.d-12x12 piece.prince.gote,
+      .variant-chushogi .spare-bottom piece.prince {background-image:url('/assets/piece/Chu_Eigetsu_Gyoryu/0_PRINCE.png') !important;}
+.sg-wrap.orientation-sente.d-12x12 piece.eagle.sente,
+      .sg-wrap.orientation-gote.d-12x12 piece.eagle.gote,
+      .variant-chushogi .spare-bottom piece.eagle {background-image:url('/assets/piece/Chu_Eigetsu_Gyoryu/0_EAGLE.png') !important;}
+.sg-wrap.orientation-sente.d-12x12 piece.whale.sente,
+      .sg-wrap.orientation-gote.d-12x12 piece.whale.gote,
+      .variant-chushogi .spare-bottom piece.whale {background-image:url('/assets/piece/Chu_Eigetsu_Gyoryu/0_WHALE.png') !important;}
+.sg-wrap.orientation-sente.d-12x12 piece.whitehorse.sente,
+      .sg-wrap.orientation-gote.d-12x12 piece.whitehorse.gote,
+      .variant-chushogi .spare-bottom piece.whitehorse {background-image:url('/assets/piece/Chu_Eigetsu_Gyoryu/0_WHITEHORSE.png') !important;}
+.sg-wrap.orientation-sente.d-12x12 piece.dragonpromoted.sente,
+      .sg-wrap.orientation-gote.d-12x12 piece.dragonpromoted.gote,
+      .variant-chushogi .spare-bottom piece.dragonpromoted {background-image:url('/assets/piece/Chu_Eigetsu_Gyoryu/0_DRAGONPROMOTED.png') !important;}
+.sg-wrap.orientation-sente.d-12x12 piece.horsepromoted.sente,
+      .sg-wrap.orientation-gote.d-12x12 piece.horsepromoted.gote,
+      .variant-chushogi .spare-bottom piece.horsepromoted {background-image:url('/assets/piece/Chu_Eigetsu_Gyoryu/0_HORSEPROMOTED.png') !important;}
+.sg-wrap.orientation-sente.d-12x12 piece.lionpromoted.sente,
+      .sg-wrap.orientation-gote.d-12x12 piece.lionpromoted.gote,
+      .variant-chushogi .spare-bottom piece.lionpromoted {background-image:url('/assets/piece/Chu_Eigetsu_Gyoryu/0_LIONPROMOTED.png') !important;}
+.sg-wrap.orientation-sente.d-12x12 piece.queenpromoted.sente,
+      .sg-wrap.orientation-gote.d-12x12 piece.queenpromoted.gote,
+      .variant-chushogi .spare-bottom piece.queenpromoted {background-image:url('/assets/piece/Chu_Eigetsu_Gyoryu/0_QUEENPROMOTED.png') !important;}
+.sg-wrap.orientation-sente.d-12x12 piece.bishoppromoted.sente,
+      .sg-wrap.orientation-gote.d-12x12 piece.bishoppromoted.gote,
+      .variant-chushogi .spare-bottom piece.bishoppromoted {background-image:url('/assets/piece/Chu_Eigetsu_Gyoryu/0_BISHOPPROMOTED.png') !important;}
+.sg-wrap.orientation-sente.d-12x12 piece.elephantpromoted.sente,
+      .sg-wrap.orientation-gote.d-12x12 piece.elephantpromoted.gote,
+      .variant-chushogi .spare-bottom piece.elephantpromoted {background-image:url('/assets/piece/Chu_Eigetsu_Gyoryu/0_ELEPHANTPROMOTED.png') !important;}
+.sg-wrap.orientation-sente.d-12x12 piece.sidemoverpromoted.sente,
+      .sg-wrap.orientation-gote.d-12x12 piece.sidemoverpromoted.gote,
+      .variant-chushogi .spare-bottom piece.sidemoverpromoted {background-image:url('/assets/piece/Chu_Eigetsu_Gyoryu/0_SIDEMOVERPROMOTED.png') !important;}
+.sg-wrap.orientation-sente.d-12x12 piece.verticalmoverpromoted.sente,
+      .sg-wrap.orientation-gote.d-12x12 piece.verticalmoverpromoted.gote,
+      .variant-chushogi .spare-bottom piece.verticalmoverpromoted {background-image:url('/assets/piece/Chu_Eigetsu_Gyoryu/0_VERTICALMOVERPROMOTED.png') !important;}
+.sg-wrap.orientation-sente.d-12x12 piece.rookpromoted.sente,
+      .sg-wrap.orientation-gote.d-12x12 piece.rookpromoted.gote,
+      .variant-chushogi .spare-bottom piece.rookpromoted {background-image:url('/assets/piece/Chu_Eigetsu_Gyoryu/0_ROOKPROMOTED.png') !important;}
+.sg-wrap.orientation-sente.d-12x12 piece.lance.gote,
+      .sg-wrap.orientation-gote.d-12x12 piece.lance.sente,
+      .variant-chushogi .spare-top piece.lance {background-image:url('/assets/piece/Chu_Eigetsu_Gyoryu/1_LANCE.png') !important;}
+.sg-wrap.orientation-sente.d-12x12 piece.leopard.gote,
+      .sg-wrap.orientation-gote.d-12x12 piece.leopard.sente,
+      .variant-chushogi .spare-top piece.leopard {background-image:url('/assets/piece/Chu_Eigetsu_Gyoryu/1_LEOPARD.png') !important;}
+.sg-wrap.orientation-sente.d-12x12 piece.copper.gote,
+      .sg-wrap.orientation-gote.d-12x12 piece.copper.sente,
+      .variant-chushogi .spare-top piece.copper {background-image:url('/assets/piece/Chu_Eigetsu_Gyoryu/1_COPPER.png') !important;}
+.sg-wrap.orientation-sente.d-12x12 piece.silver.gote,
+      .sg-wrap.orientation-gote.d-12x12 piece.silver.sente,
+      .variant-chushogi .spare-top piece.silver {background-image:url('/assets/piece/Chu_Eigetsu_Gyoryu/1_SILVER.png') !important;}
+.sg-wrap.orientation-sente.d-12x12 piece.gold.gote,
+      .sg-wrap.orientation-gote.d-12x12 piece.gold.sente,
+      .variant-chushogi .spare-top piece.gold {background-image:url('/assets/piece/Chu_Eigetsu_Gyoryu/1_GOLD.png') !important;}
+.sg-wrap.orientation-sente.d-12x12 piece.elephant.gote,
+      .sg-wrap.orientation-gote.d-12x12 piece.elephant.sente,
+      .variant-chushogi .spare-top piece.elephant {background-image:url('/assets/piece/Chu_Eigetsu_Gyoryu/1_ELEPHANT.png') !important;}
+.sg-wrap.orientation-sente.d-12x12 piece.chariot.gote,
+      .sg-wrap.orientation-gote.d-12x12 piece.chariot.sente,
+      .variant-chushogi .spare-top piece.chariot {background-image:url('/assets/piece/Chu_Eigetsu_Gyoryu/1_CHARIOT.png') !important;}
+.sg-wrap.orientation-sente.d-12x12 piece.bishop.gote,
+      .sg-wrap.orientation-gote.d-12x12 piece.bishop.sente,
+      .variant-chushogi .spare-top piece.bishop {background-image:url('/assets/piece/Chu_Eigetsu_Gyoryu/1_BISHOP.png') !important;}
+.sg-wrap.orientation-sente.d-12x12 piece.tiger.gote,
+      .sg-wrap.orientation-gote.d-12x12 piece.tiger.sente,
+      .variant-chushogi .spare-top piece.tiger {background-image:url('/assets/piece/Chu_Eigetsu_Gyoryu/1_TIGER.png') !important;}
+.sg-wrap.orientation-sente.d-12x12 piece.phoenix.gote,
+      .sg-wrap.orientation-gote.d-12x12 piece.phoenix.sente,
+      .variant-chushogi .spare-top piece.phoenix {background-image:url('/assets/piece/Chu_Eigetsu_Gyoryu/1_PHOENIX.png') !important;}
+.sg-wrap.orientation-sente.d-12x12 piece.kirin.gote,
+      .sg-wrap.orientation-gote.d-12x12 piece.kirin.sente,
+      .variant-chushogi .spare-top piece.kirin {background-image:url('/assets/piece/Chu_Eigetsu_Gyoryu/1_KIRIN.png') !important;}
+.sg-wrap.orientation-sente.d-12x12 piece.sidemover.gote,
+      .sg-wrap.orientation-gote.d-12x12 piece.sidemover.sente,
+      .variant-chushogi .spare-top piece.sidemover {background-image:url('/assets/piece/Chu_Eigetsu_Gyoryu/1_SIDEMOVER.png') !important;}
+.sg-wrap.orientation-sente.d-12x12 piece.verticalmover.gote,
+      .sg-wrap.orientation-gote.d-12x12 piece.verticalmover.sente,
+      .variant-chushogi .spare-top piece.verticalmover {background-image:url('/assets/piece/Chu_Eigetsu_Gyoryu/1_VERTICALMOVER.png') !important;}
+.sg-wrap.orientation-sente.d-12x12 piece.rook.gote,
+      .sg-wrap.orientation-gote.d-12x12 piece.rook.sente,
+      .variant-chushogi .spare-top piece.rook {background-image:url('/assets/piece/Chu_Eigetsu_Gyoryu/1_ROOK.png') !important;}
+.sg-wrap.orientation-sente.d-12x12 piece.horse.gote,
+      .sg-wrap.orientation-gote.d-12x12 piece.horse.sente,
+      .variant-chushogi .spare-top piece.horse {background-image:url('/assets/piece/Chu_Eigetsu_Gyoryu/1_HORSE.png') !important;}
+.sg-wrap.orientation-sente.d-12x12 piece.dragon.gote,
+      .sg-wrap.orientation-gote.d-12x12 piece.dragon.sente,
+      .variant-chushogi .spare-top piece.dragon {background-image:url('/assets/piece/Chu_Eigetsu_Gyoryu/1_DRAGON.png') !important;}
+.sg-wrap.orientation-sente.d-12x12 piece.queen.gote,
+      .sg-wrap.orientation-gote.d-12x12 piece.queen.sente,
+      .variant-chushogi .spare-top piece.queen {background-image:url('/assets/piece/Chu_Eigetsu_Gyoryu/1_QUEEN.png') !important;}
+.sg-wrap.orientation-sente.d-12x12 piece.lion.gote,
+      .sg-wrap.orientation-gote.d-12x12 piece.lion.sente,
+      .variant-chushogi .spare-top piece.lion {background-image:url('/assets/piece/Chu_Eigetsu_Gyoryu/1_LION.png') !important;}
+.sg-wrap.orientation-sente.d-12x12 piece.pawn.gote,
+      .sg-wrap.orientation-gote.d-12x12 piece.pawn.sente,
+      .variant-chushogi .spare-top piece.pawn {background-image:url('/assets/piece/Chu_Eigetsu_Gyoryu/1_PAWN.png') !important;}
+.sg-wrap.orientation-sente.d-12x12 piece.gobetween.gote,
+      .sg-wrap.orientation-gote.d-12x12 piece.gobetween.sente,
+      .variant-chushogi .spare-top piece.gobetween {background-image:url('/assets/piece/Chu_Eigetsu_Gyoryu/1_GOBETWEEN.png') !important;}
+.sg-wrap.orientation-sente.d-12x12 piece.king.gote,
+      .variant-chushogi .spare-top piece.king {background-image:url('/assets/piece/Chu_Eigetsu_Gyoryu/1_KING.png') !important;}
+.sg-wrap.orientation-gote.d-12x12 piece.king.sente,
+      .variant-chushogi .spare-top piece.king.sente {background-image:url('/assets/piece/Chu_Eigetsu_Gyoryu/1_TAMA.png') !important;}
+.sg-wrap.orientation-sente.d-12x12 piece.promotedpawn.gote,
+      .sg-wrap.orientation-gote.d-12x12 piece.promotedpawn.sente,
+      .variant-chushogi .spare-top piece.promotedpawn {background-image:url('/assets/piece/Chu_Eigetsu_Gyoryu/1_PROMOTEDPAWN.png') !important;}
+.sg-wrap.orientation-sente.d-12x12 piece.ox.gote,
+      .sg-wrap.orientation-gote.d-12x12 piece.ox.sente,
+      .variant-chushogi .spare-top piece.ox {background-image:url('/assets/piece/Chu_Eigetsu_Gyoryu/1_OX.png') !important;}
+.sg-wrap.orientation-sente.d-12x12 piece.stag.gote,
+      .sg-wrap.orientation-gote.d-12x12 piece.stag.sente,
+      .variant-chushogi .spare-top piece.stag {background-image:url('/assets/piece/Chu_Eigetsu_Gyoryu/1_STAG.png') !important;}
+.sg-wrap.orientation-sente.d-12x12 piece.boar.gote,
+      .sg-wrap.orientation-gote.d-12x12 piece.boar.sente,
+      .variant-chushogi .spare-top piece.boar {background-image:url('/assets/piece/Chu_Eigetsu_Gyoryu/1_BOAR.png') !important;}
+.sg-wrap.orientation-sente.d-12x12 piece.falcon.gote,
+      .sg-wrap.orientation-gote.d-12x12 piece.falcon.sente,
+      .variant-chushogi .spare-top piece.falcon {background-image:url('/assets/piece/Chu_Eigetsu_Gyoryu/1_FALCON.png') !important;}
+.sg-wrap.orientation-sente.d-12x12 piece.prince.gote,
+      .sg-wrap.orientation-gote.d-12x12 piece.prince.sente,
+      .variant-chushogi .spare-top piece.prince {background-image:url('/assets/piece/Chu_Eigetsu_Gyoryu/1_PRINCE.png') !important;}
+.sg-wrap.orientation-sente.d-12x12 piece.eagle.gote,
+      .sg-wrap.orientation-gote.d-12x12 piece.eagle.sente,
+      .variant-chushogi .spare-top piece.eagle {background-image:url('/assets/piece/Chu_Eigetsu_Gyoryu/1_EAGLE.png') !important;}
+.sg-wrap.orientation-sente.d-12x12 piece.whale.gote,
+      .sg-wrap.orientation-gote.d-12x12 piece.whale.sente,
+      .variant-chushogi .spare-top piece.whale {background-image:url('/assets/piece/Chu_Eigetsu_Gyoryu/1_WHALE.png') !important;}
+.sg-wrap.orientation-sente.d-12x12 piece.whitehorse.gote,
+      .sg-wrap.orientation-gote.d-12x12 piece.whitehorse.sente,
+      .variant-chushogi .spare-top piece.whitehorse {background-image:url('/assets/piece/Chu_Eigetsu_Gyoryu/1_WHITEHORSE.png') !important;}
+.sg-wrap.orientation-sente.d-12x12 piece.dragonpromoted.gote,
+      .sg-wrap.orientation-gote.d-12x12 piece.dragonpromoted.sente,
+      .variant-chushogi .spare-top piece.dragonpromoted {background-image:url('/assets/piece/Chu_Eigetsu_Gyoryu/1_DRAGONPROMOTED.png') !important;}
+.sg-wrap.orientation-sente.d-12x12 piece.horsepromoted.gote,
+      .sg-wrap.orientation-gote.d-12x12 piece.horsepromoted.sente,
+      .variant-chushogi .spare-top piece.horsepromoted {background-image:url('/assets/piece/Chu_Eigetsu_Gyoryu/1_HORSEPROMOTED.png') !important;}
+.sg-wrap.orientation-sente.d-12x12 piece.lionpromoted.gote,
+      .sg-wrap.orientation-gote.d-12x12 piece.lionpromoted.sente,
+      .variant-chushogi .spare-top piece.lionpromoted {background-image:url('/assets/piece/Chu_Eigetsu_Gyoryu/1_LIONPROMOTED.png') !important;}
+.sg-wrap.orientation-sente.d-12x12 piece.queenpromoted.gote,
+      .sg-wrap.orientation-gote.d-12x12 piece.queenpromoted.sente,
+      .variant-chushogi .spare-top piece.queenpromoted {background-image:url('/assets/piece/Chu_Eigetsu_Gyoryu/1_QUEENPROMOTED.png') !important;}
+.sg-wrap.orientation-sente.d-12x12 piece.bishoppromoted.gote,
+      .sg-wrap.orientation-gote.d-12x12 piece.bishoppromoted.sente,
+      .variant-chushogi .spare-top piece.bishoppromoted {background-image:url('/assets/piece/Chu_Eigetsu_Gyoryu/1_BISHOPPROMOTED.png') !important;}
+.sg-wrap.orientation-sente.d-12x12 piece.elephantpromoted.gote,
+      .sg-wrap.orientation-gote.d-12x12 piece.elephantpromoted.sente,
+      .variant-chushogi .spare-top piece.elephantpromoted {background-image:url('/assets/piece/Chu_Eigetsu_Gyoryu/1_ELEPHANTPROMOTED.png') !important;}
+.sg-wrap.orientation-sente.d-12x12 piece.sidemoverpromoted.gote,
+      .sg-wrap.orientation-gote.d-12x12 piece.sidemoverpromoted.sente,
+      .variant-chushogi .spare-top piece.sidemoverpromoted {background-image:url('/assets/piece/Chu_Eigetsu_Gyoryu/1_SIDEMOVERPROMOTED.png') !important;}
+.sg-wrap.orientation-sente.d-12x12 piece.verticalmoverpromoted.gote,
+      .sg-wrap.orientation-gote.d-12x12 piece.verticalmoverpromoted.sente,
+      .variant-chushogi .spare-top piece.verticalmoverpromoted {background-image:url('/assets/piece/Chu_Eigetsu_Gyoryu/1_VERTICALMOVERPROMOTED.png') !important;}
+.sg-wrap.orientation-sente.d-12x12 piece.rookpromoted.gote,
+      .sg-wrap.orientation-gote.d-12x12 piece.rookpromoted.sente,
+      .variant-chushogi .spare-top piece.rookpromoted {background-image:url('/assets/piece/Chu_Eigetsu_Gyoryu/1_ROOKPROMOTED.png') !important;}
+piece{ will-change: transform; background-repeat: unset; }

@@ -70,7 +70,8 @@ object ChuPieceSet extends PieceSetBase {
     default.name,
     "Chu_Intl",
     "Chu_Intl_BnW",
-    "Chu_Mnemonic"
+    "Chu_Mnemonic",
+    "Chu_Eigetsu_Gyoryu"
   ) map { name =>
     new PieceSet(name)
   }
