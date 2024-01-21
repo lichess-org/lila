@@ -14,6 +14,7 @@ import lila.setup.SetupBulk.{ ScheduledBulk, ScheduledGame, maxBulks }
 import lila.user.User
 import chess.{ Clock, ByColor, Speed }
 import lila.common.config.Max
+import lila.round.actorApi.round.StartClock
 
 final class ChallengeBulkApi(
     colls: ChallengeColls,
@@ -46,7 +47,7 @@ final class ChallengeBulkApi(
   def deleteBy(id: String, me: User): Fu[Boolean] =
     coll.delete.one($doc("_id" -> id, "by" -> me.id)).map(_.n == 1)
 
-  def startClocks(id: String, me: User): Fu[Boolean] =
+  def startClocksAsap(id: String, me: User): Fu[Boolean] =
     coll
       .updateField($doc("_id" -> id, "by" -> me.id, "pairedAt" $exists true), "startClocksAt", nowInstant)
       .map(_.n == 1)
@@ -71,14 +72,10 @@ final class ChallengeBulkApi(
           makePairings(bulk).void
 
   private def checkForClocks: Funit =
-    coll.one[ScheduledBulk]($doc("startClocksAt" $lte nowInstant, "pairedAt" $exists true)) flatMapz { bulk =>
+    coll.one[ScheduledBulk]($doc("startClocksAt" $lte nowInstant, "pairedAt" $exists true)) flatMapz: bulk =>
       workQueue(bulk.by):
-        startClocksNow(bulk)
-    }
-
-  private def startClocksNow(bulk: ScheduledBulk): Funit =
-    Bus.publish(TellMany(bulk.games.map(_.id.value), lila.round.actorApi.round.StartClock), "roundSocket")
-    coll.delete.one($id(bulk.id)).void
+        fuccess:
+          Bus.publish(TellMany(bulk.games.map(_.id.value), StartClock), "roundSocket")
 
   private def makePairings(bulk: ScheduledBulk): Funit =
     def timeControl =
@@ -119,7 +116,5 @@ final class ChallengeBulkApi(
       .run()
       .addEffect(lila.mon.api.challenge.bulk.createNb(bulk.by.value).increment(_))
       .logFailure(logger, e => s"Bulk.makePairings ${bulk.id} ${e.getMessage}") >> {
-      if bulk.startClocksAt.isDefined
-      then coll.updateField($id(bulk.id), "pairedAt", nowInstant)
-      else coll.delete.one($id(bulk.id))
+      coll.updateField($id(bulk.id), "pairedAt", nowInstant)
     }.void

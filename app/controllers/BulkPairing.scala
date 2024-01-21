@@ -18,7 +18,7 @@ final class BulkPairing(env: Env) extends LilaController(env):
   }
 
   def startClocks(id: String) = ScopedBody(_.Challenge.Bulk) { _ ?=> me ?=>
-    env.challenge.bulk.startClocks(id, me) flatMap:
+    env.challenge.bulk.startClocksAsap(id, me) flatMap:
       if _ then jsonOkResult else notFoundJson()
   }
 
