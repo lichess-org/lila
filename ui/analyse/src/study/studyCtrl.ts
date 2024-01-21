@@ -487,14 +487,18 @@ export default class StudyCtrl {
         jumpTo: this.ctrl.path,
       }),
     );
-  deleteEarlierMoves = (path: Tree.Path) =>
+
+  deleteEarlierMoves = (path: Tree.Path) => {
+    console.log('In ui/analyse/studyCtrl.deleteEarlierMoves');
+    console.log('value of path: Tree.Path is:', path);
     this.makeChange(
       'deleteEarlierMoves',
       this.addChapterId({
-        path,
+        path: path.toLocaleUpperCase(),
         jumpTo: this.ctrl.path,
       }),
     );
+  };
   promote = (path: Tree.Path, toMainline: boolean) =>
     this.makeChange(
       'promote',
@@ -613,10 +617,12 @@ export default class StudyCtrl {
     deleteEarlierMoves: d => {
       const position = d.p,
         who = d.w;
+      console.log('in studyCtrl.deleteEarlierMoves');
       this.setMemberActive(who);
       if (this.wrongChapter(d)) return;
       if (who && who.s === lichess.sri) return;
       if (!this.ctrl.tree.pathExists(d.p.path)) return this.xhrReload();
+      this.ctrl.tree.deleteNodeAt(position.path);
       if (this.vm.mode.sticky) this.ctrl.jump(position.path);
       this.redraw();
     },

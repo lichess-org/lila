@@ -92,6 +92,14 @@ final private class StudySocket(
                 applyWho(api.setPath(studyId, position.ref.withPath(jumpTo)))
                 applyWho(api.deleteNodeAt(studyId, position.ref))
 
+        case "deleteEarlierMoves" =>
+          "here".pp
+          reading[AtPosition](o): position =>
+            (o \ "d" \ "jumpTo")
+              .asOpt[UciPath]
+              .foreach: jumpTo =>
+                applyWho(api.deleteEarlierMoves(studyId, position.ref.withPath(jumpTo)))
+
         case "promote" =>
           reading[AtPosition](o): position =>
             (o \ "d" \ "toMainline")
@@ -310,6 +318,11 @@ final private class StudySocket(
         .add("relay", relay)
     )
   def deleteNode(pos: Position.Ref, who: Who) = version("deleteNode", Json.obj("p" -> pos, "w" -> who))
+
+  def deleteEarlierMoves(pos: Position.Ref, who: Who) =
+    pp("deleteEarlierMoves", pos, who)
+    version("deleteEarlierMoves", Json.obj("p" -> pos, "w" -> who))
+
   def promote(pos: Position.Ref, toMainline: Boolean, who: Who) =
     version(
       "promote",

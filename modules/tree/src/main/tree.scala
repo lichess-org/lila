@@ -70,6 +70,14 @@ case class Branches(nodes: List[Branch]) extends AnyVal:
       case (head, tail)                            => updateChildren(head, _.deleteNodeAt(tail))
     }
 
+  // TODO: ? Refactor to be like AnalyseCtrl.deleteEarlierMovesAt
+  def deleteEarlierMoves(path: UciPath): Option[Branches] =
+    path.split flatMap {
+      case (head, p) if p.isEmpty && hasNode(head) => Branches(nodes.filterNot(_.id == head)).some
+      case (_, p) if p.isEmpty                     => none
+      case (head, tail)                            => updateChildren(head, _.deleteEarlierMoves(tail))
+    }
+
   def promoteToMainlineAt(path: UciPath): Option[Branches] =
     path.split match
       case None => this.some

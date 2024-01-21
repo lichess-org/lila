@@ -273,6 +273,7 @@ final class StudyApi(
   def deleteNodeAt(studyId: StudyId, position: Position.Ref)(who: Who) =
     sequenceStudyWithChapter(studyId, position.chapterId):
       case Study.WithChapter(study, chapter) =>
+        "in deleteNodeAt".pp;
         Contribute(who.u, study):
           chapter.updateRoot { root =>
             root.withChildren(_.deleteNodeAt(position.path))
@@ -282,6 +283,21 @@ final class StudyApi(
                 sendTo(study.id)(_.deleteNode(position, who))
             case None =>
               fufail(s"Invalid delNode $studyId $position") andDo
+                reloadSriBecauseOf(study, who.sri, chapter.id)
+
+  def deleteEarlierMoves(studyId: StudyId, position: Position.Ref)(who: Who) =
+    sequenceStudyWithChapter(studyId, position.chapterId):
+      case Study.WithChapter(study, chapter) =>
+        "in deleteEarlierMoves".pp;
+        Contribute(who.u, study):
+          chapter.updateRoot { root =>
+            root.withChildren(_.deleteEarlierMoves(position.path))
+          } match
+            case Some(newChapter) =>
+              chapterRepo.update(newChapter) andDo
+                sendTo(study.id)(_.deleteEarlierMoves(position, who))
+            case None =>
+              fufail(s"Invalid delEarlierMoves $studyId $position") andDo
                 reloadSriBecauseOf(study, who.sri, chapter.id)
 
   def clearAnnotations(studyId: StudyId, chapterId: StudyChapterId)(who: Who) =

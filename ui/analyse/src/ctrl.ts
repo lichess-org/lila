@@ -582,17 +582,13 @@ export default class AnalyseCtrl {
     if (this.study) this.study.deleteNode(path);
   }
 
-  //? Does this work with synthetic = false(real games?)
   deleteEarlierMoves(path: Tree.Path): void {
     const node = this.tree.nodeAtPath(path);
     if (!node) return;
     this.tree = makeTree(node);
-    if (!this.synthetic) {
-      console.log('game is not synthetic, its a real game');
-      //Why does it not work for a real game
-    }
+    console.log('in ui/analyse/analyseCtrl.deleteEarlierMoves');
+    console.log('this.tree', this.tree);
     this.redraw();
-    this.study?.xhrReload();
   }
 
   promote(path: Tree.Path, toMainline: boolean): void {
