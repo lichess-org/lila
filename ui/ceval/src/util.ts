@@ -40,16 +40,18 @@ export const sharedWasmMemory = (lo: number, hi = 32767): WebAssembly.Memory => 
 };
 
 export function showEngineError(engine: string, error: string) {
+  console.log(error);
   domDialog({
     class: 'engine-error',
     htmlText:
-      `<h2>${lichess.escapeHtml(engine)} <bad>error</bad></h2>` + error.includes('Status 503')
+      `<h2>${lichess.escapeHtml(engine)} <bad>error</bad></h2>` +
+      (error.includes('Status 503')
         ? `<p>Your external engine does not appear to be connected.</p>
           <p>Please check the network and restart your provider if possible.</p>`
         : `${lichess.escapeHtml(error)}</pre><h2>Things to try</h2><ul>
           <li>Decrease memory slider in engine settings</li>
           <li>Clear site settings for lichess.org</li>
-          <li>Select another engine</li><li>Update your browser</li></ul>`,
+          <li>Select another engine</li><li>Update your browser</li></ul>`),
   }).then((dlg: Dialog) => {
     const select = () =>
       setTimeout(() => {
