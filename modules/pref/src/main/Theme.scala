@@ -15,6 +15,7 @@ object Theme {
     new Theme("orange", None),
     new Theme("natural", None),
     default,
+    new Theme("wood1", "wood1.jpg".some),
     new Theme("kaya1", "kaya1.jpg".some),
     new Theme("kaya2", "kaya2.jpg".some),
     new Theme("oak", "oak.png".some),
