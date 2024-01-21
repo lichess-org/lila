@@ -21,6 +21,10 @@
     @include breakpoint($mq-not-small) {
       display: none;
     }
+    &:has(span[data-variant='chushogi']) {
+      display: flex;
+      align-items: center;
+    }
   }
   &__infos {
     flex: 1 1 100%;

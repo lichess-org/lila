@@ -94,6 +94,11 @@
       }
     }
   }
+  &[data-variant='chushogi'] {
+    .sg-wrap {
+      padding: unset;
+    }
+  }
 }
 
 .compact-layout {
