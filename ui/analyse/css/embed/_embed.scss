@@ -15,6 +15,8 @@ $mq-col1: 9999px;
 
 body {
   overflow-y: auto;
+  background: $c-bg-box;
+  border: $border;
 }
 
 .chapter-name {
@@ -23,6 +25,14 @@ body {
   border-bottom: $border;
   background: $c-bg-zebra;
   text-align: center;
+}
+
+.analyse__moves {
+  border-top: unset;
+}
+.analyse__moves,
+.analyse__controls {
+  border-left: $border;
 }
 
 sg-board {
