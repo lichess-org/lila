@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="voiceCommands">Äänikommennot</string>
+  <string name="voiceCommands">Äänikomennot</string>
   <string name="watchTheVideoTutorial">Katso opastusvideo</string>
   <string name="instructions1">Kytke äänentunnistus päälle ja pois %1$s-napista, avaa tämä apuikkunna %2$s-napista ja muokkaa puheasetuksia %3$s-valikosta.</string>
   <string name="instructions2" comment="Voice commands can be misheard and Lichess will not always be fully certain what you said. Several arrows will be shown to identify e.g. if the move was 'b4' or 'd4', which often sound similar.&#10;&#10;These arrows will be in different colours (green, blue, etc) or labelled 1, 2, 3....&#10;You can then say the colour of the arrow (e.g. 'green') - or its number (e.g. '1'), to select that move.&#10;Users can configure if they choose from multiple moves based on colours or numbers.">Jos komento jää epäselväksi, laudalla näytetään usean siirron nuolet. Valitse haluamasi siirtonuoli lausumalla sen väri tai numero.</string>
