@@ -52,14 +52,13 @@ final class ChallengeBulkApi(
       .map(_.n == 1)
 
   def schedule(bulk: ScheduledBulk): Fu[Either[String, ScheduledBulk]] = workQueue(bulk.by):
-    coll.list[ScheduledBulk]($doc("by" -> bulk.by, "pairedAt" $exists false)) flatMap { bulks =>
+    coll.list[ScheduledBulk]($doc("by" -> bulk.by, "pairedAt" $exists false)) flatMap: bulks =>
       if bulks.sizeIs >= maxBulks then fuccess(Left("Already too many bulks queued"))
       else if bulks.map(_.games.size).sum >= 1000
       then fuccess(Left("Already too many games queued"))
       else if bulks.exists(_ collidesWith bulk)
       then fuccess(Left("A bulk containing the same players is scheduled at the same time"))
       else coll.insert.one(bulk) inject Right(bulk)
-    }
 
   private[challenge] def tick: Funit =
     checkForPairing >> checkForClocks
@@ -79,7 +78,7 @@ final class ChallengeBulkApi(
 
   private def startClocksNow(bulk: ScheduledBulk): Funit =
     Bus.publish(TellMany(bulk.games.map(_.id.value), lila.round.actorApi.round.StartClock), "roundSocket")
-    coll.delete.one($id(bulk._id)).void
+    coll.delete.one($id(bulk.id)).void
 
   private def makePairings(bulk: ScheduledBulk): Funit =
     def timeControl =
@@ -88,9 +87,8 @@ final class ChallengeBulkApi(
     val perfType           = PerfType(bulk.variant, Speed(bulk.clock.left.toOption))
     Source(bulk.games)
       .mapAsyncUnordered(8): game =>
-        userApi.gamePlayers.loggedIn(game.userIds, bulk.perfType, useCache = false) map2 { users =>
+        userApi.gamePlayers.loggedIn(game.userIds, bulk.perfType, useCache = false) map2: users =>
           (game.id, users)
-        }
       .mapConcat(_.toList)
       .map: (id, users) =>
         val game = Game
@@ -120,8 +118,8 @@ final class ChallengeBulkApi(
       .toMat(LilaStream.sinkCount)(Keep.right)
       .run()
       .addEffect(lila.mon.api.challenge.bulk.createNb(bulk.by.value).increment(_))
-      .logFailure(logger, e => s"Bulk.makePairings ${bulk._id} ${e.getMessage}") >> {
+      .logFailure(logger, e => s"Bulk.makePairings ${bulk.id} ${e.getMessage}") >> {
       if bulk.startClocksAt.isDefined
-      then coll.updateField($id(bulk._id), "pairedAt", nowInstant)
-      else coll.delete.one($id(bulk._id))
+      then coll.updateField($id(bulk.id), "pairedAt", nowInstant)
+      else coll.delete.one($id(bulk.id))
     }.void
