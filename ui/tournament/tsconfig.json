@@ -2,6 +2,6 @@
   "extends": "../tsconfig.base.json",
   "compilerOptions": {
     "noImplicitAny": false,
-    "noImplicitReturns": false,
-  },
+    "noImplicitReturns": false
+  }
 }
