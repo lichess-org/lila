@@ -67,20 +67,20 @@ case class Pref(
         else copy(dark = value == "dark", transp = false).some
       case "bgImg" => copy(bgImg = value.some).some
       case "theme" =>
-        Theme.allByName get value map { t =>
-          copy(theme = t.name)
+        Theme.allByKey get value map { t =>
+          copy(theme = t.key)
         }
       case "pieceSet" =>
-        PieceSet.allByName get value map { p =>
-          copy(pieceSet = p.name)
+        PieceSet.allByKey get value map { p =>
+          copy(pieceSet = p.key)
         }
       case "chuPieceSet" =>
-        ChuPieceSet.allByName get value map { p =>
-          copy(chuPieceSet = p.name)
+        ChuPieceSet.allByKey get value map { p =>
+          copy(chuPieceSet = p.key)
         }
       case "kyoPieceSet" =>
-        KyoPieceSet.allByName get value map { p =>
-          copy(kyoPieceSet = p.name)
+        KyoPieceSet.allByKey get value map { p =>
+          copy(kyoPieceSet = p.key)
         }
       case "soundSet" =>
         SoundSet.allByKey get value map { s =>
@@ -390,12 +390,12 @@ object Pref {
     dark = true,
     transp = false,
     bgImg = none,
-    theme = Theme.default.name,
+    theme = Theme.default.key,
     customTheme = none,
-    pieceSet = PieceSet.default.name,
-    chuPieceSet = ChuPieceSet.default.name,
-    kyoPieceSet = KyoPieceSet.default.name,
-    soundSet = SoundSet.default.name,
+    pieceSet = PieceSet.default.key,
+    chuPieceSet = ChuPieceSet.default.key,
+    kyoPieceSet = KyoPieceSet.default.key,
+    soundSet = SoundSet.default.key,
     blindfold = Blindfold.NO,
     takeback = Takeback.ALWAYS,
     moretime = Moretime.ALWAYS,

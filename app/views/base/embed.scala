@@ -26,9 +26,9 @@ object embed {
           layout.dataAssetUrl     := env.net.assetBaseUrl,
           layout.dataAssetVersion := assetVersion.value,
           layout.dataTheme        := config.bg,
-          layout.dataPieceSet     := config.pieceSet.name,
-          layout.dataChuPieceSet  := config.chuPieceSet.name,
-          layout.dataKyoPieceSet  := config.kyoPieceSet.name,
+          layout.dataPieceSet     := config.pieceSet.key,
+          layout.dataChuPieceSet  := config.chuPieceSet.key,
+          layout.dataKyoPieceSet  := config.kyoPieceSet.key,
           body
         )
       )

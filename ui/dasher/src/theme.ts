@@ -1,18 +1,22 @@
 import { VNode, h } from 'snabbdom';
 import { Open, Redraw, bind, header } from './util';
 
-type Theme = string;
+type ThemeKey = string;
+type Theme = {
+  key: ThemeKey;
+  name: string;
+};
 
 export interface ThemeData {
-  thickGrid: boolean;
-  current: Theme;
+  current: ThemeKey;
   list: Theme[];
+  thickGrid: boolean;
 }
 
 export interface ThemeCtrl {
   data: ThemeData;
   trans: Trans;
-  set(t: Theme): void;
+  set(t: ThemeKey): void;
   setThickGrid(isThick: boolean): void;
   open: Open;
 }
@@ -21,11 +25,11 @@ export function ctrl(data: ThemeData, trans: Trans, redraw: Redraw, open: Open):
   return {
     trans,
     data,
-    set(t: Theme) {
-      data.current = t;
-      applyTheme(t, data.list);
+    set(key: ThemeKey) {
+      data.current = key;
+      applyTheme(key, data.list);
       $.post('/pref/theme', {
-        theme: t,
+        theme: key,
       }).fail(() => window.lishogi.announce({ msg: 'Failed to save theme preference' }));
       redraw();
     },
@@ -43,28 +47,28 @@ export function ctrl(data: ThemeData, trans: Trans, redraw: Redraw, open: Open):
 
 export function view(ctrl: ThemeCtrl): VNode {
   const lastIndex = ctrl.data.list.length - 1,
-    list = [...ctrl.data.list.slice(0, lastIndex), 'thickGrid', ctrl.data.list[lastIndex]];
+    list: (Theme | 'thickGrid')[] = [...ctrl.data.list.slice(0, lastIndex), 'thickGrid', ctrl.data.list[lastIndex]];
   return h('div.sub.theme', [
     header(ctrl.trans.noarg('boardTheme'), () => ctrl.open('links')),
     h(
       'div.list',
-      list.map(t => themeView(ctrl, t))
+      list.map(i => themeView(ctrl, i))
     ),
   ]);
 }
 
-function themeView(ctrl: ThemeCtrl, t: Theme) {
-  if (t === 'custom') return customThemeView(ctrl);
-  else if (t === 'thickGrid') return thickGrid(ctrl);
+function themeView(ctrl: ThemeCtrl, t: Theme | 'thickGrid') {
+  if (t === 'thickGrid') return thickGrid(ctrl);
+  else if (t.key === 'custom') return customThemeView(ctrl);
   else
     return h(
       'a',
       {
-        hook: bind('click', () => ctrl.set(t)),
-        attrs: { title: t },
-        class: { active: ctrl.data.current === t },
+        hook: bind('click', () => ctrl.set(t.key)),
+        attrs: { title: t.name },
+        class: { active: ctrl.data.current === t.key },
       },
-      h('span.' + t)
+      h('span.' + t.key)
     );
 }
 
@@ -94,7 +98,7 @@ function customThemeView(ctrl: ThemeCtrl): VNode {
         ctrl.set('custom');
         ctrl.open('customTheme');
       }),
-      attrs: { title: 'custom', 'data-icon': 'H' },
+      attrs: { 'data-icon': 'H' },
       class: { active: ctrl.data.current === 'custom' },
     },
     ctrl.trans('customTheme')
@@ -105,6 +109,8 @@ function applyThickGrid(isThick: boolean) {
   $('body').toggleClass('thick-grid', isThick);
 }
 
-function applyTheme(t: Theme, list: Theme[]) {
-  $('body').removeClass(list.join(' ')).addClass(t);
+function applyTheme(key: ThemeKey, list: Theme[]) {
+  $('body')
+    .removeClass(list.map(t => t.key).join(' '))
+    .addClass(key);
 }

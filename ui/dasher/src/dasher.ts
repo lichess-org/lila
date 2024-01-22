@@ -3,9 +3,9 @@ import { BackgroundCtrl, BackgroundData, ctrl as backgroundCtrl } from './backgr
 import { CustomThemeCtrl, CustomThemeData, ctrl as customThemeCtrl } from './customTheme';
 import { LangsCtrl, LangsData, ctrl as langsCtrl } from './langs';
 import { NotationCtrl, NotationData, ctrl as notationCtrl } from './notation';
-import { PieceCtrl, PieceData, ctrl as pieceCtrl } from './piece';
+import { PieceCtrl, PieceSetData, ctrl as pieceCtrl } from './piece';
 import { PingCtrl, ctrl as pingCtrl } from './ping';
-import { SoundCtrl, ctrl as soundCtrl } from './sound';
+import { SoundCtrl, SoundData, ctrl as soundCtrl } from './sound';
 import { ThemeCtrl, ThemeData, ctrl as themeCtrl } from './theme';
 import { Redraw } from './util';
 
@@ -13,15 +13,13 @@ export interface DasherData {
   user?: LightUser;
   lang: LangsData;
   notation: NotationData;
-  sound: {
-    list: string[];
-  };
+  sound: SoundData;
   background: BackgroundData;
   theme: ThemeData;
   customTheme: CustomThemeData;
-  piece: PieceData;
-  chuPiece: PieceData;
-  kyoPiece: PieceData;
+  piece: PieceSetData;
+  chuPiece: PieceSetData;
+  kyoPiece: PieceSetData;
   inbox: boolean;
   coach: boolean;
   streamer: boolean;
@@ -80,7 +78,7 @@ export function makeCtrl(opts: DasherOpts, data: DasherData, redraw: Redraw): Da
 
   const subs = {
     langs: langsCtrl(data.lang, trans, close),
-    sound: soundCtrl(data.sound.list, trans, redraw, close),
+    sound: soundCtrl(data.sound, trans, redraw, close),
     background: backgroundCtrl(data.background, trans, redraw, close),
     theme: themeCtrl(data.theme, trans, redraw, setMode),
     customTheme: customThemeCtrl(data.customTheme, trans, redraw, setMode),

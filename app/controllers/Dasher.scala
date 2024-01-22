@@ -6,7 +6,7 @@ import lila.api.Context
 import lila.app._
 import lila.common.LightUser.lightUserWrites
 import lila.i18n.{ enLang, I18nKeys => trans, I18nLangPicker, LangList }
-import lila.pref.JsonView.CustomThemeWriter
+import lila.pref.JsonView.customThemeWriter
 
 final class Dasher(env: Env) extends LilaController(env) {
 
@@ -32,7 +32,7 @@ final class Dasher(env: Env) extends LilaController(env) {
     trans.board,
     trans.boardTheme,
     trans.pieceSet,
-    trans.default,
+    trans.standard,
     trans.chushogi,
     trans.kyotoshogi,
     trans.preferences.zenMode,
@@ -69,6 +69,15 @@ final class Dasher(env: Env) extends LilaController(env) {
       else I18nLangPicker.bestFromRequestHeaders(ctx.req) | enLang
     )
 
+  implicit private val pieceSetsJsonWriter = Writes[List[lila.pref.PieceSet]] { sets =>
+    JsArray(sets.map { set =>
+      Json.obj(
+        "key"  -> set.key,
+        "name" -> set.name
+      )
+    })
+  }
+
   def get =
     Open { implicit ctx =>
       negotiate(
@@ -84,9 +93,12 @@ final class Dasher(env: Env) extends LilaController(env) {
                   "list"     -> LangList.choices
                 ),
                 "sound" -> Json.obj(
-                  "list" -> lila.pref.SoundSet.list.map { set =>
-                    s"${set.key}|${set.name}"
-                  }
+                  "list" -> JsArray(lila.pref.SoundSet.list.map { sound =>
+                    Json.obj(
+                      "key"  -> sound.key,
+                      "name" -> sound.name
+                    )
+                  })
                 ),
                 "background" -> Json.obj(
                   "current" -> ctx.currentBg,
@@ -94,21 +106,26 @@ final class Dasher(env: Env) extends LilaController(env) {
                 ),
                 "theme" -> Json.obj(
                   "thickGrid" -> ctx.pref.isUsingThickGrid,
-                  "current"   -> ctx.currentTheme.name,
-                  "list"      -> lila.pref.Theme.all.map(_.name)
+                  "current"   -> ctx.currentTheme.key,
+                  "list" -> JsArray(lila.pref.Theme.all.map { theme =>
+                    Json.obj(
+                      "key"  -> theme.key,
+                      "name" -> theme.name
+                    )
+                  })
                 ),
                 "customTheme" -> ctx.pref.customThemeOrDefault,
                 "piece" -> Json.obj(
-                  "current" -> ctx.currentPieceSet.name,
-                  "list"    -> lila.pref.PieceSet.all.map(_.name)
+                  "current" -> ctx.currentPieceSet.key,
+                  "list"    -> lila.pref.PieceSet.all
                 ),
                 "chuPiece" -> Json.obj(
-                  "current" -> ctx.currentChuPieceSet.name,
-                  "list"    -> lila.pref.ChuPieceSet.all.map(_.name)
+                  "current" -> ctx.currentChuPieceSet.key,
+                  "list"    -> lila.pref.ChuPieceSet.all
                 ),
                 "kyoPiece" -> Json.obj(
-                  "current" -> ctx.currentKyoPieceSet.name,
-                  "list"    -> lila.pref.KyoPieceSet.all.map(_.name)
+                  "current" -> ctx.currentKyoPieceSet.key,
+                  "list"    -> lila.pref.KyoPieceSet.all
                 ),
                 "inbox"    -> ctx.hasInbox,
                 "coach"    -> isGranted(_.Coach),
@@ -123,4 +140,5 @@ final class Dasher(env: Env) extends LilaController(env) {
           }
       )
     }
+
 }

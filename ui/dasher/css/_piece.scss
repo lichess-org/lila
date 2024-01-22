@@ -1,35 +1,28 @@
 #dasher_app {
   .piece {
-    piece {
-      position: absolute;
-      width: calc(100% / 9);
-      height: calc(100% / 9);
-      top: 0;
-      left: 0;
-      background-size: cover !important;
-      z-index: 2; /* no less than 2 */
-      pointer-events: none;
-    }
     .list {
       @extend %flex-wrap;
       background-size: cover;
       background-position: center;
-    }
-    .no-square {
-      width: 75px;
-      height: calc(75px / 11 * 12);
-      position: relative;
-    }
-    .no-square:hover {
-      background: rgba(20, 85, 30, 0.3);
-    }
-    .no-square.active {
-      background: rgba(20, 85, 30, 0.5);
-    }
-    piece {
-      width: 200%;
-      height: 200%;
-      margin: calc(-50% / 11 * 12) -50%;
+      .no-square {
+        width: 75px;
+        height: calc(75px / 11 * 12);
+        position: relative;
+        &:hover {
+          background: rgba(20, 85, 30, 0.3);
+        }
+        &.active {
+          background: rgba(20, 85, 30, 0.5);
+        }
+        &[data-value='pixel'] piece {
+          image-rendering: pixelated;
+        }
+        piece {
+          width: 200%;
+          height: 200%;
+          margin: calc(-50% / 11 * 12) -50%;
+        }
+      }
     }
     .piece-tabs {
       display: flex;

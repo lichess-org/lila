@@ -78,12 +78,12 @@ $('#asset-version-message').text(lishogi.info.message);"""
     val parameters = frag(
       p("Parameters:"),
       ul(
-        li(strong("theme"), ": ", lila.pref.Theme.all.map(_.name).mkString(", ")),
+        li(strong("theme"), ": ", lila.pref.Theme.all.map(_.key).mkString(", ")),
         li(
           strong("pieceSet"),
           ": ",
           (lila.pref.PieceSet.all ::: lila.pref.ChuPieceSet.all ::: lila.pref.KyoPieceSet.all)
-            .map(_.name)
+            .map(_.key)
             .mkString(", ")
         ),
         li(strong("bg"), ": light, dark")

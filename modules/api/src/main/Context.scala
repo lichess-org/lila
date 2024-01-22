@@ -70,7 +70,7 @@ sealed trait Context extends lila.user.UserContextWrapper {
 
   def transpBgImg = currentBg == "transp" option pref.bgImgOrDefault
 
-  def activeCustomTheme = (currentTheme.name == "custom") ?? pref.customTheme
+  def activeCustomTheme = (currentTheme.key == "custom") ?? pref.customTheme
 
   lazy val mobileApiVersion = Mobile.Api requestVersion req
 

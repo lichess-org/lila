@@ -1,10 +1,12 @@
 package lila.pref
 
-sealed class PieceSet private[pref] (val name: String) {
+// key is tied to file names and in db, title can be easily changed
+sealed class PieceSet private[pref] (val key: String, val name: String) {
 
-  override def toString = name
+  override def toString = key
 
-  def cssClass = name
+  def cssClass = key
+
 }
 
 sealed trait PieceSetBase {
@@ -13,86 +15,80 @@ sealed trait PieceSetBase {
 
   val all: List[PieceSet]
 
-  lazy val allByName = all map { c =>
-    c.name -> c
+  lazy val allByKey = all map { p =>
+    p.key -> p
   } toMap
 
-  def apply(name: String) = allByName.getOrElse(name, default)
+  def apply(key: String) = allByKey.getOrElse(key, default)
 
-  def contains(name: String) = allByName contains name
+  def contains(key: String) = allByKey contains key
 
 }
 
 object PieceSet extends PieceSetBase {
 
-  val default = new PieceSet("Ryoko_1Kanji")
+  val default = new PieceSet("Ryoko_1Kanji", "Ryoko 1-Kanji")
 
-  val all = List[String](
-    "kanji_light",
-    "kanji_brown",
-    default.name,
-    "orangain",
-    "kanji_red_wood",
-    "Portella",
-    "Portella_2Kanji",
-    "1Kanji_3D",
-    "2Kanji_3D",
-    "Shogi_cz",
-    "Engraved_cz",
-    "Kanji_Guide_Shadowed",
-    "Valdivia",
-    "Vald_opt",
-    "shogi_BnW",
-    "pixel",
-    "Intl_Colored_2D",
-    "Intl_Colored_3D",
-    "Intl_Shadowed",
-    "Intl_Monochrome_2D",
-    "Intl_Wooden_3D",
-    "Intl_Portella",
-    "international",
-    "joyful",
-    "simple_kanji",
-    "doubutsu",
-    "Logy_Games",
-    "western"
-  ) map { name =>
-    new PieceSet(name)
-  }
+  val all = List(
+    new PieceSet("kanji_light", "Kanji Light"),
+    new PieceSet("kanji_brown", "Kanji Brown"),
+    default,
+    new PieceSet("orangain", "orangain"),
+    new PieceSet("kanji_red_wood", "Kanji Red Wood"),
+    new PieceSet("Portella", "Portella"),
+    new PieceSet("Portella_2Kanji", "Portella 2-Kanji"),
+    new PieceSet("1Kanji_3D", "Kanji 3D"),
+    new PieceSet("2Kanji_3D", "2-Kanji 3D"),
+    new PieceSet("Shogi_cz", "Shogi.cz"),
+    new PieceSet("Engraved_cz", "Engraved Shogi.cz"),
+    new PieceSet("Kanji_Guide_Shadowed", "Kanji Guide Shadowed"),
+    new PieceSet("Valdivia", "Valdivia"),
+    new PieceSet("Vald_opt", "Valdivia 2"),
+    new PieceSet("shogi_BnW", "Shogi - black and white"),
+    new PieceSet("pixel", "Pixel 8bit"),
+    new PieceSet("Intl_Colored_2D", "International Colored 2D"),
+    new PieceSet("Intl_Colored_3D", "International Colored 3D"),
+    new PieceSet("Intl_Shadowed", "International Shadowed"),
+    new PieceSet("Intl_Monochrome_2D", "International Monochrome 2D"),
+    new PieceSet("Intl_Wooden_3D", "International Wooden 3D"),
+    new PieceSet("Intl_Portella", "International Portella"),
+    new PieceSet("international", "International"),
+    new PieceSet("joyful", "Joyful"),
+    new PieceSet("simple_kanji", "Simple Kanji"),
+    new PieceSet("doubutsu", "Doubutsu"),
+    new PieceSet("Logy_Games", "Logy Games"),
+    new PieceSet("western", "Western")
+  )
 
 }
 
 object ChuPieceSet extends PieceSetBase {
 
-  val default = new PieceSet("Chu_Ryoko_1Kanji")
+  val default = new PieceSet("Chu_Ryoko_1Kanji", "Ryoko 1-Kanji")
 
-  val all = List[String](
-    default.name,
-    "Chu_Intl",
-    "Chu_Intl_BnW",
-    "Chu_Mnemonic",
-    "Chu_Eigetsu_Gyoryu"
-  ) map { name =>
-    new PieceSet(name)
-  }
+  val all = List(
+    default,
+    new PieceSet("Chu_Eigetsu_Gyoryu", "Eigetsu Gyoryu"),
+    new PieceSet("Chu_Intl", "International"),
+    new PieceSet("Chu_Intl_BnW", "International - black and white"),
+    new PieceSet("Chu_Mnemonic", "Mnemonic")
+  )
 
 }
 
 object KyoPieceSet extends PieceSetBase {
 
-  val default = new PieceSet("Kyo_Ryoko_1Kanji")
+  val default = new PieceSet("Kyo_Ryoko_1Kanji", "Ryoko 1-Kanji")
 
-  val all = List[String](
-    default.name,
-    "Kyo_orangain",
-    "Kyo_Kanji",
-    "Kyo_Intl",
-    "Kyo_international",
-    "Kyo_simple_kanji",
-    "Kyo_doubutsu",
-    "Kyo_Logy_Games"
-  ) map { name =>
-    new PieceSet(name)
-  }
+  val all = List(
+    default,
+    new PieceSet("Kyo_orangain", "orangain"),
+    new PieceSet("Kyo_Kanji", "Kanji with promotions"),
+    new PieceSet("Kyo_Intl", "International with promotions"),
+    new PieceSet("Kyo_international", "International"),
+    new PieceSet("Kyo_simple_kanji", "Simple Kanji"),
+    new PieceSet("Kyo_doubutsu", "Doubutsu"),
+    new PieceSet("Kyo_Logy_Games", "Logy Games")
+  )
 
 }
