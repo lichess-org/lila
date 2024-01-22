@@ -2,7 +2,7 @@ package lila.relay
 
 import scala.concurrent.duration.*
 import akka.actor.*
-import chess.format.pgn.{ ParsedPgn, PgnStr, Parser, Reader }
+import chess.format.pgn.{ PgnStr, Reader }
 import akka.pattern.after
 
 import lila.study.MultiPgn
@@ -22,15 +22,15 @@ final class RelayPush(sync: RelaySync, api: RelayApi, irc: lila.irc.IrcApi)(usin
     if rt.round.sync.hasUpstream
     then fuccess(Left(LilaInvalid("The relay has an upstream URL, and cannot be pushed to.")))
     else
-      throttler.ask[Result](rt.round.id, 1.seconds):
-        errors(rt, pgn) match
-          case Some(err) => fuccess(Left(err))
-          case None =>
-            rt.round.sync.delay match
-              case Some(seconds) =>
-                after(seconds.value.seconds)(push(rt, pgn))
-                fuccess(Right(0))
-              case none => push(rt, pgn)
+      errors(rt, pgn) match
+        case Some(err) => fuccess(Left(err))
+        case None =>
+          throttler.ask[Result](rt.round.id, 1.seconds):
+            val delaySecs = rt.round.sync.delay.fold(0)(_.value)
+            if delaySecs > 0 then
+              after(delaySecs.seconds)(push(rt, pgn))
+              fuccess(Right(0))
+            else push(rt, pgn)
 
   private def errors(rt: RelayRound.WithTour, pgn: PgnStr): Option[LilaInvalid] =
     Reader.full(pgn) match
