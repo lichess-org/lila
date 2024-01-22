@@ -20,7 +20,6 @@
     "chart.js": "^4.4",
     "chartjs-plugin-datalabels": "^2.2",
     "common": "2.0.0",
-    "countup.js": "^2.8",
     "shogiops": "^0.15.0",
     "snabbdom": "^3.5.1"
   },
