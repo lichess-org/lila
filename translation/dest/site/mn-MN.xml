@@ -214,6 +214,14 @@
   <string name="emailSent">Бид %s-луу email явууллаа.</string>
   <string name="emailCanTakeSomeTime">Очиход удаж магадгүй.</string>
   <string name="refreshInboxAfterFiveMinutes">5 минут хүлээгээд email-ийнхээ хуудсыг дахин ачааллуулж үзнэ үү.</string>
+  <string name="checkSpamFolder">Баталгаажуулах email тань мөн spam хэсэг дээр байж магадгүй тул бас шалгаад үзээрэй.</string>
+  <string name="emailForSignupHelp">Урд дурдсан алхмууд бүтэлгүйтвэл, бидэнд ийм email бичээрэй:</string>
+  <string name="copyTextToEmail">Дээр гарсан текстыг хуулаад %s-луу илгээгээрэй</string>
+  <string name="accountConfirmed">Ашиглагч %s бүртгэлийг амжилттай баталгаажууллаа.</string>
+  <string name="accountCanLogin">Та одооноос %s нэрээр нэвтрэх боломжтой боллоо.</string>
+  <string name="accountConfirmationEmailNotNeeded">Танд баталгаажуулах email хэрэггүй.</string>
+  <string name="accountClosed">%s нэртэй бүртгэлийг хаалаа.</string>
+  <string name="accountRegisteredWithoutEmail">%s нэртэй бүртгэл email хаяггүй бүртгэгдсан байна.</string>
   <string name="rank">Зэрэг</string>
   <string name="rankX">Үнэлгээ: %s</string>
   <plurals name="nbPuzzles">
@@ -258,6 +266,7 @@
   <string name="rematchOfferDeclined">Дахин тоглох хүсэлтээс татгалзлаа</string>
   <string name="cancelRematchOffer">Дахин тоглох хүсэлтийг цуцлах</string>
   <string name="viewRematch">Дахин тоглолтыг үзэх</string>
+  <string name="confirmMove">Нүүдлийг баталгаажуулах</string>
   <string name="play">Тоглох</string>
   <string name="inbox">Шуудангийн хайрцаг</string>
   <string name="chatRoom">Чат өрөө</string>
@@ -291,6 +300,7 @@
     <item quantity="one">%s секунд нэмж өгөх</item>
     <item quantity="other">%s секунд нэмж өгөх</item>
   </plurals>
+  <string name="thisAccountViolatedTos">Энэхүү бүртгэлийн эзэмшигч нь Lichess-ийн Үйлчилгээний Нөхцлийг зөрчсөн байна</string>
   <string name="openingExplorerAndTablebase">Шатрын гараа болон төгсгөлүүдийг судлах</string>
   <string name="takeback">Нүүдэл буцаалт</string>
   <string name="proposeATakeback">Нүүдэл буцаах хүсэлт илгээх</string>
@@ -307,8 +317,13 @@
     <item quantity="one">%s судалгаа</item>
     <item quantity="other">%s судалгаа</item>
   </plurals>
+  <plurals name="nbSimuls">
+    <item quantity="one">%s зэрэг тоглолт хийсэн</item>
+    <item quantity="other">%s зэрэг тоглолт хийсэн</item>
+  </plurals>
   <string name="viewTournament">Тэмцээн үзэх</string>
   <string name="backToTournament">Тэмцээний үндсэн хуудас руу эргэж орох</string>
+  <string name="noDrawBeforeSwissLimit">Швейцар төрлийн тэмцээн дээр 30 нүүдэл хийгдэхээс өмнө тэнцэж болохгүй.</string>
   <string name="thematic">Хэлбэржүүлсэн</string>
   <plurals name="moreThanNbRatedGames">
     <item quantity="one">%s-с дээш үнэлгээтэй тоглолт</item>
@@ -334,6 +349,7 @@
   <string name="siteDescription">Үнэ төлбөргүй шатар тоглох цахим хуудас. Цэвэрхэн интерфэйстэй, элдэв зар сурталчилгаагүй, бүртгэл шаардлагагүй. Та найзууд, дурын хүн, хиймэл оюун ухаантай шатар тоглож болно.</string>
   <string name="xJoinedTeamY">%1$s багт %2$s нэгдлээ</string>
   <string name="xCreatedTeamY">%1$s багийг %2$s үүсгэлээ</string>
+  <string name="startedStreaming">шууд дамжуулалтыг эхлүүллээ</string>
   <string name="xStartedStreaming">%s стриминг эхлүүлсэн</string>
   <string name="averageElo">Дундаж чансаа</string>
   <string name="location">Таны хаяг</string>
@@ -342,13 +358,18 @@
   <string name="apply">Тоглолтыг шүү</string>
   <string name="save">Хадгалах</string>
   <string name="leaderboard">Тэргүүлэгчид</string>
+  <string name="screenshotCurrentPosition">Одоогийн байрлалын зургийг дарах</string>
+  <string name="gameAsGIF">Тоглолтыг GIF-ээр татаж авах</string>
   <string name="pasteTheFenStringHere">Өргийн байрлалын тэмдэглэлээ (FEN) энд хуулж оруулна уу</string>
   <string name="pasteThePgnStringHere">Өргийн тоглолтын тэмдэглэлээ (PGN) энд хуулж оруулна уу</string>
+  <string name="orUploadPgnFile">Эсвэл PGN файл байршуулах</string>
   <string name="fromPosition">Энэ байрлалаас үргэлжлүүлэн тоглох</string>
   <string name="continueFromHere">Энэ байрлалаас үргэлжлүүлэх</string>
   <string name="toStudy">Дугуйлан</string>
   <string name="importGame">Өрөг импортлох</string>
   <string name="importGameExplanation">Өрөгийн PGN-г оруулсанаар та өргийг дахин тоглуулах, компьютер шинжилгээ хийх, чат бичих болон бусдад түгээх холбоос авах боломжтой.</string>
+  <string name="importGameCaveat">Салаалсан хувилбарууд арилгагдах болно. Тэднийг арилгахыг хүсэхгүй бол, \"Судлах\" горимоор тоглолтыг PGN болгож хадгалаарай.</string>
+  <string name="importGameDataPrivacyWarning">Энэ PGN нь олон нийтэд нээлттэй байна. Хэрэв та тоглолтыг олон нийтэд харуулахыг хүсэхгүй байвал, \"Судлах\" горимыг ашиглаарай.</string>
   <plurals name="nbImportedGames">
     <item quantity="one">Импортлогдсон өргийн тоо: %s</item>
     <item quantity="other">Импортлогдсон өргийн тоо: %s</item>
@@ -365,6 +386,8 @@
   <string name="follow">Дагах</string>
   <string name="following">Дагаж байгаа</string>
   <string name="unfollow">Дагахаа болих</string>
+  <string name="followX">%s-г дагах</string>
+  <string name="unfollowX">%s-г дагахаа болих</string>
   <string name="block">Энэ гишүүнд хориг тавих</string>
   <string name="blocked">Энэ гишүүнд хориг тавилаа</string>
   <string name="unblock">Энэ гишүүнд тавьсан хоригийг цуцлах</string>
@@ -413,6 +436,8 @@
   <string name="tournamentIsStarting">Тэмцээний удахгүй эхэллээ</string>
   <string name="tournamentPairingsAreNowClosed">Тэмцээний оноолт хаагдсан байна.</string>
   <string name="standByX">%s бэлтэнэ үү, тоглолтын оноолт явагдаж байна!</string>
+  <string name="pause">Паузлах</string>
+  <string name="resume">Үргэлжлүүлэх</string>
   <string name="youArePlaying">Та тоглож байна!</string>
   <string name="winRate">Ялалтын хувь</string>
   <string name="berserkRate">Берсеркийн хувь</string>
@@ -421,12 +446,15 @@
   <string name="movesPlayed">Нийт нүүдлийн тоо</string>
   <string name="whiteWins">Цагаанаар авсан ялалт</string>
   <string name="blackWins">Хараар авсан ялалт</string>
+  <string name="drawRate">Тэнцсэн үзүүлэлт</string>
   <string name="draws">Тэнцээ</string>
   <string name="nextXTournament">Дараагийн %s тэмцээн:</string>
   <string name="averageOpponent">Өрсөлдөгчдийн дундаж чансаа</string>
   <string name="boardEditor">Өргийн байрлал өөрчлөгч</string>
   <string name="setTheBoard">Өргийн байрлалыг тохируулах</string>
   <string name="popularOpenings">Түгээмэл тоглогддог нээлтүүд</string>
+  <string name="endgamePositions">Тоглолтын сүүл үеийн байрлалууд</string>
+  <string name="chess960StartPosition">Chess960-ийн эхэлж буй байрлал: %s</string>
   <string name="startPosition">Үндсэн байрлал</string>
   <string name="clearBoard">Өргийг хоослох</string>
   <string name="loadPosition">Өрөг ачааллах</string>
@@ -439,10 +467,16 @@
   <string name="editProfile">Танилцуулга хуудсаа засварлах</string>
   <string name="firstName">Өөрийн нэр</string>
   <string name="lastName">Эцгийн нэр</string>
+  <string name="setFlair">Нэрнийхээ хажууг чимэглэх</string>
+  <string name="flair">Эможи</string>
+  <string name="youCanHideFlair">Сайтанд байгаа бүх нэрний хажуу зүйлсийг нуух тохиргоо байдгийг санаарай.</string>
   <string name="biography">Намтар</string>
+  <string name="countryRegion" comment="flag&#10;Appears when you edit your profile. Lets a player add a country/flag (not all flags are for countries) to their profile">Улс эсвэл бүс нутаг</string>
   <string name="thankYou">Баярлалаа!</string>
   <string name="socialMediaLinks">Сошиал холбоосууд</string>
+  <string name="oneUrlPerLine">Нэг эгнээнд нэг л линк.</string>
   <string name="inlineNotation">Мөрийн тэмдэглэгээ</string>
+  <string name="makeAStudy">Тоглолтоо аюулгүй архивлах болон хуваалцахыг хүсвэл, \"Судлах\" горимыг ашиглаад үзээрэй.</string>
   <string name="previouslyOnLichessTV">Өмнөхөн цацагдсан өргийн бичлэгүүд</string>
   <string name="onlinePlayers">Сүлжээнд байгаа гишүүд</string>
   <string name="activePlayers">Идэвхтэй гишүүд</string>
@@ -458,6 +492,8 @@
   <string name="tournamentWinners">Ялагчид</string>
   <string name="name">Нэр</string>
   <string name="description">Багийн танилцуулга</string>
+  <string name="descPrivate">Хувийн тодорхойлолт</string>
+  <string name="descPrivateHelp">Зөвхөн багийн гишүүдэд харагдах текст. Идэвхжсэн тохиолдолд, багийн гишүүдэд таны нийтийн тодорхойлолтыг орлож харагдана.</string>
   <string name="no">Үгүй</string>
   <string name="yes">Тийм</string>
   <string name="help">Тусламж:</string>
@@ -478,6 +514,7 @@
   <string name="cheat">Булхайцсан</string>
   <string name="insult">Доромжилсон</string>
   <string name="troll">Тохуурхсан</string>
+  <string name="ratingManipulation">Үнэлгээгээ гуйвуулах</string>
   <string name="other">Өөр шалтаан</string>
   <string name="reportDescriptionHelp">Та энэ гишүүнтэй тоглосон өргийнхөө холбоос хаягыг энд хуулж тавиад зүй бус үйлдлийнх нь талаар тайлбар бичнэ үү. Та хэрхэн энэ гишүүнийг булхайцсан үйлдэл хийсэн гэсэн дүгнэлтэд хүрсэн бэ? Хэрэв та гомдлоо англи хэлээр мэдүүлвэл бид илүү түргэн шуурхай арга хэмжээ авах болно.</string>
   <string name="error.provideOneCheatedGameLink">Тоглоомын дор хаяж нэг холбоосыг оруулна уу.</string>
@@ -690,6 +727,7 @@
   <string name="bestWasX">Хамгийн сайн нүүдэл нь %s байсан</string>
   <string name="youBrowsedAway">Та гарсан байна</string>
   <string name="resumePractice">Дасгалыг үргэлжлүүлэх</string>
+  <string name="drawByFiftyMoves">Тоглолт тавин нүүдлийн дүрмээр тэнцлээ.</string>
   <string name="theGameIsADraw">Өрөг тэнцсэн байна.</string>
   <string name="computerThinking">Компьютер бодож байна ...</string>
   <string name="seeBestMove">Хамгийн сайн нүүдлийг харах</string>
@@ -726,14 +764,31 @@
   <string name="opening">Гараа</string>
   <string name="middlegame">Тоглолтын дунд үе</string>
   <string name="endgame">Төгсгөл үе</string>
+  <string name="conditionalPremoves">Нөхцөлт түрүүлж нүүлтүүд</string>
   <string name="sorry">Уучлаарай</string>
   <string name="why">Яагаад</string>
+  <string name="playEveryGame">Эхлүүлсэн тоглолт бүрээ дуусгаж байгаарай.</string>
+  <string name="tryToWin">Тоглолт бүрээ ялахын төлөө (ядаж тэнцэхийн төлөө) тоглоорой.</string>
+  <string name="resignLostGames">Ялагдсан нь тодорхой тоглолтууд дээр бууж өгж байгаарай (цагыг дуустал хүлээж өрсөлдөгчийнхөө цагийг бас үрэхээ больё).</string>
+  <string name="temporaryInconvenience">Түр зуурын асуудалд уучлал хүсье,</string>
+  <string name="wishYouGreatGames">та lichess.org дээр олон сайхан тоглолтуудыг тоглоно гэж найдъя.</string>
   <string name="thankYouForReading">Уншсанд баярлалаа</string>
   <string name="lifetimeScore">Амьдралын оноо</string>
   <string name="agreementPolicy">Личесс-н дүрмээ баримталж байхаа зөвшөөр ч байна уу?</string>
   <string name="edit">Засаж янзлах</string>
+  <string name="bullet" comment="Probably best left untranslated. Leave it as 'Bullet' unless your language has a better word for it.">Сум</string>
+  <string name="blitz" comment="Probably best left untranslated. Leave it as 'Blitz' unless your language has a better word for it.">Блитц</string>
   <string name="rapid">Түргэн</string>
   <string name="classical">Удаан</string>
+  <string name="ultraBulletDesc">Асар хурдан тоглолт: 30-аас доош секундэд дуусна</string>
+  <string name="bulletDesc">Маш хурдан тоглолт: 3-аас доош минутанд дуусна</string>
+  <string name="blitzDesc">Хурдан тоглолтууд: 3-аас 8 минутын хооронд дуусна</string>
+  <string name="rapidDesc">Энгийн тоглолтууд: 8-аас 25 минутанд дуусна</string>
+  <string name="classicalDesc">Сонгодог тоглолтууд: 25 минутаас илүү хугацаанд дуусна</string>
+  <string name="correspondenceDesc">Урт хугацааны тоглолт: нэг нүүдлийг нэг эсвэл түүнээс илүү өдрүүдэд ээлжлэн хийдэг</string>
+  <string name="puzzleDesc">Шатрын тактикаар бэлдэгч</string>
+  <string name="important">Анхааруулга</string>
+  <string name="yourQuestionMayHaveBeenAnswered">Таны асуух гэж буй асуулт %1$s-д аль хэдийн хариулагдсан байж магадгүй</string>
   <string name="subscribe">Дэмжих</string>
   <string name="unsubscribe">Дэмжихээ болих</string>
   <string name="congratsYouWon">Баяр хүргье мундаг аа, чи ялчихлаа!</string>
