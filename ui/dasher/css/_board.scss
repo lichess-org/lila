@@ -60,6 +60,9 @@
       .wood {
         background-image: url(../images/boards/thumbnails/wood.png);
       }
+      .wood1 {
+        background-image: url(../images/boards/thumbnails/wood1.png);
+      }
       .doubutsu {
         background-image: url(../images/boards/thumbnails/doubutsu.png);
       }
@@ -83,7 +86,8 @@
       }
     }
     .thick-switch {
-      margin: auto;
+      margin-left: auto;
+      margin-right: calc(225px / 6);
       & > label {
         width: 100%;
         display: block;

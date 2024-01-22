@@ -4893,6 +4893,7 @@ components:
             - orange
             - natural
             - wood
+            - wood1
             - kaya1
             - kaya2
             - oak
@@ -4921,6 +4922,7 @@ components:
             - Kanji_Guide_Shadowed
             - Valdivia
             - Vald_opt
+            - pixel
             - shogi_BnW
             - Intl_Colored_2D
             - Intl_Colored_3D

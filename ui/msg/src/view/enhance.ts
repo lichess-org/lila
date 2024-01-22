@@ -115,6 +115,7 @@ const themes = [
   'orange',
   'natural',
   'wood',
+  'wood1',
   'kaya1',
   'kaya2',
   'oak',
