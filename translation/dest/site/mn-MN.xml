@@ -5,6 +5,7 @@
   <string name="toInviteSomeoneToPlayGiveThisUrl">Тоглох хүндээ энэ холбоос хаягыг илгээж өрөгт урина уу</string>
   <string name="gameOver">Өрөг өндөрлөлөө</string>
   <string name="waitingForOpponent">Өрсөлдөгчийг хүлээж байна</string>
+  <string name="orLetYourOpponentScanQrCode">Эсвэл та өрсөлдөгчөөрөө энэ QR кодыг уншуулуулж болно</string>
   <string name="waiting">Хүлээж байна</string>
   <string name="yourTurn">Таны ээлж</string>
   <string name="aiNameLevelAiLevel">%1$s түвшин %2$s</string>
@@ -120,6 +121,10 @@
   <string name="blunder">Ноцтой алдаа</string>
   <string name="mistake">Алдаа</string>
   <string name="inaccuracy">Оновчгүй нүүдэл</string>
+  <plurals name="nbInaccuracies">
+    <item quantity="one">%s-ийн оновчгүй нүүдэл</item>
+    <item quantity="other">%s-ийн оновчгүй нүүдэл</item>
+  </plurals>
   <string name="moveTimes">Нүүдлийн хугацаа</string>
   <string name="flipBoard">Талуудын байрлалыг солих</string>
   <string name="threefoldRepetition">Давтсан гурван нүүдэл</string>
@@ -131,6 +136,7 @@
     <item quantity="other">%s тоглогчид байна</item>
   </plurals>
   <string name="drawByMutualAgreement">Харилцан тохиролцож тэнцэх</string>
+  <string name="fiftyMovesWithoutProgress">Ахиц гараагүй тавин нүүдэл</string>
   <string name="currentGames">Яг одоо тоглогдож буй өргүүд</string>
   <plurals name="nbGames">
     <item quantity="one">Бүх %s өргүүд</item>
@@ -172,6 +178,10 @@
     <item quantity="one">%s цаг</item>
     <item quantity="other">%s цаг</item>
   </plurals>
+  <plurals name="nbMinutes">
+    <item quantity="one">%s минут</item>
+    <item quantity="other">%s минут</item>
+  </plurals>
   <string name="time">Хугацаа</string>
   <string name="rating">Чансаа</string>
   <string name="ratingStats">Чансааны жагсаалт</string>
@@ -180,6 +190,7 @@
   <string name="changeUsername">Хэрэглэгчийн нэрийг өөрчлөх</string>
   <string name="changeUsernameNotSame">Зөвхөн үсэг нь зөвхөн өөрчлөгдөж болно. Жишээ нь \"johndoe\" нь \"JohnDoe\".</string>
   <string name="changeUsernameDescription">Хэрэглэгчийн нэрээ өөрчил. Энэ нь зөвхөн нэг удаа хийгдэж болох ба зөвхөн хэрэглэгчийн нэр дээр үсгээ засах боломжтой.</string>
+  <string name="signupUsernameHint">Та өөрийнхөө нэрийг зохистой зохиогоорой. Та дараа нь нэрээ сольж болохгүй бөгөөд, зүй бус, зохисгүй нэрстэй хэрэглэгчдийн бүртгэлийг хаах болно!</string>
   <string name="signupEmailHint">Би зөвхөн нууц үг сэргээхэд ашиглана.</string>
   <string name="password">Нууц үг</string>
   <string name="changePassword">Нэвтрэх үгээ өөрчлөх</string>
@@ -189,8 +200,10 @@
   <string name="forgotPassword">Нэвтрэх үгээ мартсан уу?</string>
   <string name="error.weakPassword">Энэ нууц үг аймшигтай амархан байна хха, бас таахад ч амархан.</string>
   <string name="error.namePassword">Нууц үгэндээ нэвтрэх нэрээ оруулахгүй.</string>
+  <string name="blankedPassword">Та өөр сайтан дээр ижил нууц үг ашигласан байна. Тэрхүү сайтын мэдээллийн хадгалалт сайн биш бөгөөд, та Lichess бүртгэлийнхээ хамгаалалтыг сайжруулахын тулд шинэ нууц үг оруулна уу. </string>
   <string name="youAreLeavingLichess">Чи lichessыг орхиж байна гомдлоо шүү</string>
   <string name="neverTypeYourPassword">Lichess нууц үгээ өөр сайтанд хэзээ ч бүр хэзээ ч битгий хий!</string>
+  <string name="proceedToX">%s ийшээ дарна уу</string>
   <string name="passwordSuggestion">Нууц үгээ бусдын санал болгосноор хийж тэнэгтэв. Тэд хаягыг чинь хулгайлах гэж байгаа юм.</string>
   <string name="emailSuggestion">Битгий цахим шуудангийн хаягаа бусдын санал болгосноор хий хийх юм бол. Тэд чиний хаягыг хулгайлна.</string>
   <string name="emailConfirmHelp">Цахим шуудангийн хаягаа баталгаажуулахад туслаарай</string>
@@ -198,6 +211,9 @@
   <string name="whatSignupUsername">Чи ямар нэр бүртгүүлэхдээ ашигласан бэ?</string>
   <string name="usernameNotFound">Бид ийм нэртэй хүн битгий хэл нохой ч олохгүй буруу юм биш үү %s.</string>
   <string name="usernameCanBeUsedForNewAccount">Чи энэ нэрээ шинэ хаяг нээхэд ашиглаж болно шүү</string>
+  <string name="emailSent">Бид %s-луу email явууллаа.</string>
+  <string name="emailCanTakeSomeTime">Очиход удаж магадгүй.</string>
+  <string name="refreshInboxAfterFiveMinutes">5 минут хүлээгээд email-ийнхээ хуудсыг дахин ачааллуулж үзнэ үү.</string>
   <string name="rank">Зэрэг</string>
   <string name="rankX">Үнэлгээ: %s</string>
   <plurals name="nbPuzzles">
