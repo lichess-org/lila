@@ -4,6 +4,6 @@
   "compilerOptions": {
     "outDir": "./tmp",
     "allowJs": true,
-    "noImplicitAny": false
-  }
+    "noImplicitAny": false,
+  },
 }

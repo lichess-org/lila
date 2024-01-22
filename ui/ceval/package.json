@@ -26,8 +26,8 @@
   "dependencies": {
     "@badrap/result": "^0.2",
     "common": "2.0.0",
+    "idb-keyval": "^6.2",
     "shogiops": "^0.15.0",
-    "snabbdom": "^3.5.1",
-    "idb-keyval": "^6.2"
+    "snabbdom": "^3.5.1"
   }
 }

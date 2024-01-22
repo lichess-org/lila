@@ -22,8 +22,8 @@
   },
   "dependencies": {
     "common": "2.0.0",
-    "game": "2.0.0",
     "debounce-promise": "^3.1.2",
+    "game": "2.0.0",
     "shogiground": "^0.8.3",
     "shogiops": "^0.15.0",
     "snabbdom": "^3.5.1"
