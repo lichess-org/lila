@@ -112,9 +112,9 @@ export default function (ctrl: Controller): VNode {
         h(
           'div.ceval-wrap',
           {
-            class: { none: !showCeval },
+            class: { active: showCeval },
           },
-          showCeval ? [cevalView.renderCeval(ctrl), cevalView.renderPvs(ctrl)] : []
+          showCeval ? [cevalView.renderCeval(ctrl), cevalView.renderPvs(ctrl)] : h('div.ceval')
         ),
         renderAnalyse(ctrl),
         feedbackView(ctrl),
