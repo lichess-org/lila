@@ -69,6 +69,7 @@
 
     @include breakpoint($mq-not-x-small) {
       margin-top: 1em;
+      margin-left: 0;
     }
 
     &:first-child {
