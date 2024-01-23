@@ -175,7 +175,7 @@ function renderEvalToggle(ctrl: MultiBoardCtrl): VNode {
       attrs: { type: 'checkbox', checked: ctrl.showEval },
       hook: bind('change', e => ctrl.setShowEval((e.target as HTMLInputElement).checked)),
     }),
-    'Show Eval'
+    'Show Eval',
   ]);
 }
 
