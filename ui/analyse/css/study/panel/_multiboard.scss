@@ -31,11 +31,11 @@
     padding: 0.6em 1em;
   }
 
-  .playing {
+  .playing, .eval {
     cursor: pointer;
   }
 
-  .playing input {
+  .playing input,.eval input {
     vertical-align: middle;
     margin-#{$end-direction}: 3px;
   }

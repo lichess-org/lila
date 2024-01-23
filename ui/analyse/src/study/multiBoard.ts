@@ -22,6 +22,7 @@ export class MultiBoardCtrl {
   page = 1;
   pager?: Paginator<ChapterPreview>;
   playing = false;
+  showEval = false;
 
   private cloudEvals: Map<Fen, CloudEval> = new Map();
 
@@ -105,6 +106,11 @@ export class MultiBoardCtrl {
     this.reload();
   };
 
+  setShowEval = (v: boolean) => {
+    this.showEval = v;
+    this.reload();
+  };
+
   onCloudEval = (d: EvalHitMulti) => {
     this.cloudEvals.set(d.fen, { ...d, chances: povChances('white', d) });
     this.redraw();
@@ -145,9 +151,10 @@ export function view(ctrl: MultiBoardCtrl, study: StudyCtrl): VNode | undefined 
 
 function renderPager(pager: Paginator<ChapterPreview>, study: StudyCtrl): MaybeVNodes {
   const ctrl = study.multiBoard;
-  const cloudEval = study.ctrl.ceval?.enabled() ? ctrl.getCloudEval : undefined;
+  const cloudEval = ctrl.showEval && study.ctrl.ceval?.enabled() ? ctrl.getCloudEval : undefined;
+  console.log('renderPager', pager, study, cloudEval);
   return [
-    h('div.top', [renderPagerNav(pager, ctrl), renderPlayingToggle(ctrl)]),
+    h('div.top', [renderPagerNav(pager, ctrl), renderEvalToggle(ctrl), renderPlayingToggle(ctrl)]),
     h('div.now-playing', pager.currentPageResults.map(makePreview(study, cloudEval))),
   ];
 }
@@ -159,6 +166,16 @@ function renderPlayingToggle(ctrl: MultiBoardCtrl): VNode {
       hook: bind('change', e => ctrl.setPlaying((e.target as HTMLInputElement).checked)),
     }),
     ctrl.trans.noarg('playing'),
+  ]);
+}
+
+function renderEvalToggle(ctrl: MultiBoardCtrl): VNode {
+  return h('label.eval', [
+    h('input', {
+      attrs: { type: 'checkbox', checked: ctrl.showEval },
+      hook: bind('change', e => ctrl.setShowEval((e.target as HTMLInputElement).checked)),
+    }),
+    'Show Eval'
   ]);
 }
 
