@@ -117,7 +117,7 @@ final class Game(env: Env, apiC: => Api) extends LilaController(env):
   }
 
   def exportByIds = AnonOrScopedBody(parse.tolerantText)(): ctx ?=>
-    val (limit, perSec) = if ctx.me.exists(_.isVerifiedOrAdmin) then (600, 100) else (300, 30)
+    val (limit, perSec) = if ctx.me.exists(_.isVerifiedOrChallengeAdmin) then (600, 100) else (300, 30)
     val config = GameApiV2.ByIdsConfig(
       ids = GameId from ctx.body.body.split(',').view.take(limit).toSeq,
       format = GameApiV2.Format byRequest req,

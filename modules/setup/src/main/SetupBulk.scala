@@ -225,7 +225,7 @@ final class SetupBulkApi(oauthServer: OAuthServer, idGenerator: IdGenerator)(usi
               .collect { case List(w, b) => (w, b) }
               .toList
             val nbGames = pairs.size
-            val cost    = nbGames * (if me.isVerified || me.isApiHog then 1 else 3)
+            val cost    = nbGames * (if me.isVerifiedOrChallengeAdmin || me.isApiHog then 1 else 3)
             rateLimit(me.id, fuccess(Left(ScheduleError.RateLimited)), cost = cost):
               lila.mon.api.challenge.bulk.scheduleNb(me.id.value).increment(nbGames)
               idGenerator
