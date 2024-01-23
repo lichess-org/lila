@@ -8,10 +8,7 @@ import lila.common.Bus
 import lila.common.Json.given
 import lila.db.dsl.given
 
-final class GamesByUsersStream(gameRepo: lila.game.GameRepo)(using
-    mat: akka.stream.Materializer,
-    ec: Executor
-):
+final class GamesByUsersStream(gameRepo: lila.game.GameRepo)(using akka.stream.Materializer, Executor):
 
   private val chans = List("startGame", "finishGame")
 

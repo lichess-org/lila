@@ -51,7 +51,7 @@ object SetupBulk:
     mapping(
       "players" -> nonEmptyText
         .verifying("Not enough tokens", t => extractTokenPairs(t).nonEmpty)
-        .verifying(s"Too many tokens (max: ${maxGames * 2})", t => extractTokenPairs(t).sizeIs < maxGames),
+        .verifying(s"Too many tokens (max: ${maxGames * 2})", t => extractTokenPairs(t).sizeIs <= maxGames),
       SetupForm.api.variant,
       SetupForm.api.clock,
       SetupForm.api.optionalDays,
