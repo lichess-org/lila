@@ -6,7 +6,7 @@
   <string name="progressX">İlerleme: %s</string>
   <string name="resetMyProgress">İlerlememi sıfırla</string>
   <string name="youWillLoseAllYourProgress">Tüm ilerlemen silinecek!</string>
-  <string name="play">oyna!</string>
+  <string name="play" comment="play&#10;&#10;A small ribbon that appears on your current chapter in the Chess Basics course. Please keep this string short.">oyna!</string>
   <string name="chessPieces">Satranç taşları</string>
   <string name="theRook">Kale</string>
   <string name="itMovesInStraightLines">Düz gider</string>

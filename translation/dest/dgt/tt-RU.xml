@@ -4,9 +4,9 @@
   <string name="lichessAndDgt">Lichess &amp; DGT</string>
   <string name="dgtBoardLimitations">DGT тактасының чикләүләре</string>
   <string name="dgtConfigure">DGT - Көйләү</string>
-  <string name="webSocketUrl" comment="%s is 'LiveChess &lt;version number&gt;'&#10;&#10;For example, the full text could be something like 'LiveChess 1.2 Websocket URL'.&#10;&#10;&#10;LiveChess is broadcasting technology by the DGT Company, used by many third parties.&#10;&#10;LiveChess and WebSockets should both be treated as proper nouns in your translation.">%s WebSocket URL</string>
+  <string name="webSocketUrl">%s WebSocket URL</string>
   <string name="textToSpeech">Текстны тавышлау</string>
-  <string name="debug" comment="This is a heading for tools to help with resolving issues in how the DGT e-board integration is working (debugging).">Хата табу</string>
+  <string name="debug">Хата табу</string>
   <string name="playWithDgtBoard">DGT тактасында уйнау</string>
-  <string name="configure" comment="Heading for configuring a DGT board: https://lichess.org/dgt/config">Көйләү</string>
+  <string name="configure">Көйләү</string>
 </resources>

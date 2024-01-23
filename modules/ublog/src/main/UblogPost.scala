@@ -4,6 +4,7 @@ import lila.memo.{ PicfitImage, PicfitUrl }
 import lila.user.User
 import play.api.i18n.Lang
 import reactivemongo.api.bson.Macros.Annotations.Key
+import lila.i18n.Language
 
 case class UblogPost(
     @Key("_id") id: UblogPostId,
@@ -11,7 +12,7 @@ case class UblogPost(
     title: String,
     intro: String,
     markdown: Markdown,
-    language: Lang,
+    language: Language,
     image: Option[UblogImage],
     topics: List[UblogTopic],
     live: Boolean,
@@ -20,7 +21,9 @@ case class UblogPost(
     updated: Option[UblogPost.Recorded],
     lived: Option[UblogPost.Recorded],
     likes: UblogPost.Likes,
-    views: UblogPost.Views
+    views: UblogPost.Views,
+    rankAdjustDays: Option[Int],
+    pinned: Option[Boolean]
 ) extends UblogPost.BasePost:
 
   def isBy[U: UserIdOf](u: U) = created.by is u

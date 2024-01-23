@@ -1,13 +1,21 @@
 #!/usr/bin/env bash
 
+set -e
+
 cd "$(dirname "${BASH_SOURCE:-$0}")/.build"
 
 update=$(echo "$*" | grep -q -- '--update' && echo true || echo false)
 
 if $update || [ ! -d "node_modules" ]; then
+  if ! command -v pnpm &> /dev/null; then
+    echo "The 'pnpm' tool is required. See https://pnpm.io/installation."
+    exit 1
+  fi
   pnpm install --silent --ignore-workspace --no-lockfile
 fi
+
 if $update || [ ! -d "dist" ]; then
   ./node_modules/.bin/tsc
 fi
+
 node --input-type=module dist/main.js "$@"

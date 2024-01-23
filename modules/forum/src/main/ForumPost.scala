@@ -116,10 +116,10 @@ object ForumPost:
       categId: ForumCategId,
       userId: Option[UserId], // anon mod posts
       text: String,
-      number: Int,
-      lang: Option[String],
-      troll: Boolean,
-      modIcon: Option[Boolean] = None
+      number: Int = 1,
+      lang: Option[String] = none,
+      troll: Boolean = false,
+      modIcon: Option[Boolean] = none
   ): ForumPost =
     ForumPost(
       _id = ForumPostId(ThreadLocalRandom nextString idSize),

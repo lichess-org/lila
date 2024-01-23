@@ -5,6 +5,7 @@
   <string name="toInviteSomeoneToPlayGiveThisUrl">Undang yang lain dengan memberikan URL berikut</string>
   <string name="gameOver">Permainan Berakhir</string>
   <string name="waitingForOpponent">Menunggu lawan</string>
+  <string name="orLetYourOpponentScanQrCode">Atau silakan lawan anda untuk melakukan scan pada kode QR ini</string>
   <string name="waiting">Menunggu</string>
   <string name="yourTurn">Giliran Anda</string>
   <string name="aiNameLevelAiLevel">%1$s level %2$s</string>
@@ -145,6 +146,9 @@
   <plurals name="nbGames">
     <item quantity="other">Lihat semua %s Permainan</item>
   </plurals>
+  <plurals name="ratingXOverYGames">
+    <item quantity="other">%1$s rating dengan %2$s pertandingan</item>
+  </plurals>
   <plurals name="nbBookmarks">
     <item quantity="other">%s Permainan ditandai</item>
   </plurals>
@@ -250,7 +254,6 @@
   <string name="playingRightNow">Bermain saat ini</string>
   <string name="eventInProgress">Mainkan sekarang</string>
   <string name="finished">Selesai</string>
-  <string name="finishesX">berakhir dalam %s</string>
   <string name="abortGame">Batalkan permainan</string>
   <string name="gameAborted">Permainan dibatalkan</string>
   <string name="standard">Standar</string>
@@ -319,8 +322,12 @@
   <plurals name="nbStudies">
     <item quantity="other">%s studi</item>
   </plurals>
+  <plurals name="nbSimuls">
+    <item quantity="other">%s eksibisi simultan</item>
+  </plurals>
   <string name="viewTournament">Lihat turnamen</string>
   <string name="backToTournament">Kembali ke turnamen</string>
+  <string name="noDrawBeforeSwissLimit">Anda tidak dapat menawarkan remis sebelum 30 langkah dimainkan di pertandingan Swiss.</string>
   <string name="thematic">Bertema</string>
   <plurals name="moreThanNbRatedGames">
     <item quantity="other">Hanya boleh ≥ %s permainan yang di-rating</item>
@@ -365,6 +372,8 @@
   <string name="toStudy">Studi</string>
   <string name="importGame">Masukkan permainan</string>
   <string name="importGameExplanation">Ketika menyalin PGN permainan Anda dapat putar-ulang di browser analisis komputer, obrolan permainan dan URL yand dapat di bagi.</string>
+  <string name="importGameCaveat">Variasi akan dihapus. Untuk menyimpan, Import berkas PGN melalui Study.</string>
+  <string name="importGameDataPrivacyWarning">Berkas PGN ini bisa diakses oleh publik. Untuk mengimpor pertandingan dengan privasi, gunakan study.</string>
   <plurals name="nbImportedGames">
     <item quantity="other">%s permainan telah dimasukkan</item>
   </plurals>
@@ -460,12 +469,16 @@
   <string name="editProfile">Ubah profil</string>
   <string name="firstName">Nama depan</string>
   <string name="lastName">Nama Belakang</string>
+  <string name="setFlair">Sunting flair anda</string>
+  <string name="flair">Flair</string>
+  <string name="youCanHideFlair">Terdapat setting untuk menyembunyikan semua flair pengguna pada seluruh situs.</string>
   <string name="biography">Biografi</string>
   <string name="countryRegion" comment="flag&#10;Appears when you edit your profile. Lets a player add a country/flag (not all flags are for countries) to their profile">Negara atau wilayah</string>
   <string name="thankYou">Terima Kasih!</string>
   <string name="socialMediaLinks">Tautan sosial media</string>
   <string name="oneUrlPerLine">Satu tautan per baris.</string>
   <string name="inlineNotation">Notasi inline</string>
+  <string name="makeAStudy">Untuk keperluan menyimpan dan membagi file, pertimbangkan untuk membuat sebuah study.</string>
   <string name="clearSavedMoves">Bersihkan gerakan</string>
   <string name="previouslyOnLichessTV">Sebelumnya di Lichess TV</string>
   <string name="onlinePlayers">Pemain online</string>
@@ -608,8 +621,10 @@
   <string name="simultaneousExhibitions">Eksibisi Simultan</string>
   <string name="host">Penyedia</string>
   <string name="hostColorX">Warna host: %s</string>
+  <string name="yourPendingSimuls">Simul anda yang tertunda</string>
   <string name="createdSimuls">Membuat Simultan baru</string>
   <string name="hostANewSimul">Penyedia Simultan baru</string>
+  <string name="signUpToHostOrJoinASimul">Daftar untuk membuat atau bergabung pada simul</string>
   <string name="noSimulFound">Simultan tidak ada</string>
   <string name="noSimulExplanation">Eksibisi simultan ini tidak ada</string>
   <string name="returnToSimulHomepage">Kembali ke halaman Simultan</string>
@@ -624,6 +639,8 @@
   <string name="simulClockHint">Aturan Jam Fischer: Semakin banyak peserta yang ikut, semakin banyak waktu diperlukan.</string>
   <string name="simulAddExtraTime">Anda bisa menambah waktu pada jam anda untuk membantu simultan anda</string>
   <string name="simulHostExtraTime">Penyedia waktu tambahan</string>
+  <string name="simulAddExtraTimePerPlayer">Tambahkan waktu awal kepada jam anda untuk setiap pemain yang bergabung ke simul.</string>
+  <string name="simulHostExtraTimePerPlayer">Waktu tambahan tuan rumah setiap pemain baru simul</string>
   <string name="lichessTournaments">Turnamen Lichess</string>
   <string name="tournamentFAQ">Arena Turnamen FAQ</string>
   <string name="timeBeforeTournamentStarts">Waktu sebelum turnamen dimulai</string>
@@ -791,7 +808,6 @@
   </plurals>
   <string name="sorry">Maaf :(</string>
   <string name="weHadToTimeYouOutForAWhile">Kami harus mengatur waktu Anda untuk sementara waktu.</string>
-  <string name="timeoutExpires">Batas waktu berakhir %s lagi.</string>
   <string name="why">Mengapa?</string>
   <string name="pleasantChessExperience">Kami bertujuan dan menjaga untuk memberikan pengalaman catur yang menyenangkan bagi semua orang.</string>
   <string name="goodPractice">Untuk itu, kami harus memastikan bahwa semua pemain harus mengikuti perlakuan yang baik.</string>

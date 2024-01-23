@@ -199,5 +199,5 @@ final class Env(
     if pov.game.abortableByUser then tellRound(pov.gameId, Abort(pov.playerId))
     else if pov.game.resignable then tellRound(pov.gameId, Resign(pov.playerId))
 
-trait SelfReportEndGame
-trait SelfReportMarkUser
+private trait SelfReportEndGame
+private trait SelfReportMarkUser

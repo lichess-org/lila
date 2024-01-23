@@ -5,11 +5,11 @@
     margin: 3rem 0 3rem;
   }
   &__meta {
-    text-align: center;
+    display: flex;
+    justify-content: center;
+    column-gap: 1.5em;
+    align-items: center;
     margin-bottom: 2rem;
-    > * {
-      margin: 0 1em;
-    }
     &__report {
       color: $c-font-dim !important;
       &:hover {
@@ -31,6 +31,10 @@
     }
     &__date {
       unicode-bidi: embed;
+    }
+    input[type='number'] {
+      width: 6em;
+      margin-right: 1em;
     }
   }
   &__topics {

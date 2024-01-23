@@ -41,7 +41,10 @@
   <string name="doubleCheck">ดับเบิ้ลรุก</string>
   <string name="doubleCheckDescription">รุกด้วยหมากสองตัวในคราเดียวกันทำให้เป็นการเปิดโจมตี โดยหมากตัวที่ถูกเดินในตานี้และหมากที่อยู่ข้างหลังหมากตัวที่เดินทำการรุกคิงพร้อมกัน</string>
   <string name="endgame">ท้ายเกม</string>
+  <string name="endgameDescription">กลยุทธ์ในช่วงท้ายของเกม</string>
+  <string name="enPassantDescription">กลยุทธ์ที่มีความเกี่ยวข้องกับการกินผ่าน โดยที่เบี้ยสามารถกินของฝ่ายตรงข้ามที่ผ่านไปได้โดยใช้การเดินสองช่องเริ่มต้น</string>
   <string name="exposedKing">คิงที่เปิดเผย</string>
+  <string name="exposedKingDescription">เป็นกลยุทธ์ที่เกี่ยวกับการรุกจนคิงที่มีหมากป้องกันตัวป้องกันน้อย</string>
   <string name="fork">การโจมตีสองทาง</string>
   <string name="hangingPiece">หมากลอย</string>
   <string name="hookMate">การรุกจนแบบ Hook</string>

@@ -37,12 +37,13 @@ object HTTPRequest:
   def userAgent(req: RequestHeader): Option[UserAgent] = UserAgent.from:
     req.headers get HeaderNames.USER_AGENT
 
-  val isChrome96Plus                      = UaMatcher("""Chrome/(?:\d{3,}|9[6-9])""")
-  val isChrome113Plus                     = UaMatcher("""Chrome/(?:11[3-9]|1[2-9]\d)""")
-  val isFirefox114Plus                    = UaMatcher("""Firefox/(?:11[4-9]|1[2-9]\d)""")
-  val isMobileBrowser                     = UaMatcher("""(?i)iphone|ipad|ipod|android.+mobile""")
-  def isLichessMobile(req: RequestHeader) = userAgent(req).exists(_.value startsWith "Lichess Mobile/")
-  def isLichobile(req: RequestHeader)     = userAgent(req).exists(_.value contains "Lichobile/")
+  val isChrome96Plus                               = UaMatcher("""Chrome/(?:\d{3,}|9[6-9])""")
+  val isChrome113Plus                              = UaMatcher("""Chrome/(?:11[3-9]|1[2-9]\d)""")
+  val isFirefox119Plus                             = UaMatcher("""Firefox/(?:119|1[2-9]\d)""")
+  val isMobileBrowser                              = UaMatcher("""(?i)iphone|ipad|ipod|android.+mobile""")
+  def isLichessMobile(ua: UserAgent): Boolean      = ua.value startsWith "Lichess Mobile/"
+  def isLichessMobile(req: RequestHeader): Boolean = userAgent(req).exists(isLichessMobile)
+  def isLichobile(req: RequestHeader)              = userAgent(req).exists(_.value contains "Lichobile/")
   def isLichobileDev(req: RequestHeader) = // lichobile in a browser can't set its user-agent
     isLichobile(req) || (appOrigin(req).isDefined && !isLichessMobile(req))
   def isAndroid                     = UaMatcher("Android")
@@ -102,7 +103,7 @@ object HTTPRequest:
   def accepts(req: RequestHeader): Option[String] = req.headers.get(HeaderNames.ACCEPT)
   def acceptsNdJson(req: RequestHeader)           = accepts(req) contains "application/x-ndjson"
   def acceptsJson(req: RequestHeader) = accepts(req).exists: a =>
-    a == "application/json" || startsWithLichobileAccepts(a)
+    a.startsWith("application/json") || startsWithLichobileAccepts(a)
   def acceptsCsv(req: RequestHeader)             = accepts(req) contains "text/csv"
   def isEventSource(req: RequestHeader): Boolean = accepts(req) contains "text/event-stream"
   def isProgrammatic(req: RequestHeader) =
@@ -116,7 +117,7 @@ object HTTPRequest:
 
   def apiVersion(req: RequestHeader): Option[ApiVersion] =
     accepts(req).flatMap:
-      case LichobileVersionHeaderPattern(v) => v.toIntOption map { ApiVersion(_) }
+      case LichobileVersionHeaderPattern(v) => ApiVersion from v.toIntOption
       case _                                => none
 
   private def isDataDump(req: RequestHeader) = req.path == "/account/personal-data"

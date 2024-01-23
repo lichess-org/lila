@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+  <string name="faqAbbreviation">அடிக்கடிகேட்கக்கூடிய கேள்விகள்</string>
   <string name="frequentlyAskedQuestions">அடிக்கடி கேட்கப்படும் கேள்விகள்</string>
   <string name="whyIsLichessCalledLichess">ஏன் லீசெஸ் லீசெஸ் என்று அழைக்கப்படுகிறது?</string>
   <string name="leechess">லீ- ச்செஸ்</string>
@@ -12,4 +13,11 @@
   <string name="goodIntroduction">நல்ல அறிமுகம்</string>
   <string name="lichessTraining">லீசெஸ் பயிற்சி</string>
   <string name="positions">நிலைகள்</string>
+  <string name="verificationForm">சரிபார்ப்பு படிவம்</string>
+  <string name="noUpperCaseDot">இல்லை.</string>
+  <string name="uniqueTrophies">தனித்துவமான கோப்பைகள்</string>
+  <string name="aHourlyBulletTournament">ஒரு மணி நேரத்திற்கு ஒரு முறை புல்லட் போட்டி</string>
+  <string name="lichessRatings">லீசெஸ் மதிப்பீடுகள்</string>
+  <string name="similarOpponents">ஒத்த வலிமையை எதிர்ப்பாளர்கள்</string>
+  <string name="desktop">மேசை கணினி</string>
 </resources>

@@ -6,7 +6,7 @@
   <string name="progressX">Framsteg: %s</string>
   <string name="resetMyProgress">Återställ framsteg</string>
   <string name="youWillLoseAllYourProgress">Du kommer att förlora alla dina framsteg!</string>
-  <string name="play">spela!</string>
+  <string name="play" comment="play&#10;&#10;A small ribbon that appears on your current chapter in the Chess Basics course. Please keep this string short.">spela!</string>
   <string name="chessPieces">Schackpjäser</string>
   <string name="theRook">Tornet</string>
   <string name="itMovesInStraightLines">Det rör sig i raka linjer</string>

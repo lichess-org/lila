@@ -47,7 +47,7 @@ private object DisposableEmailDomain:
   def whitelisted(domain: Domain) = whitelist.contains(domain.withoutSubdomain.|(domain).lower)
 
   private val mxRecordPasslist =
-    Set(Domain("simplelogin.co"), Domain("simplelogin.com"), Domain("anonaddy.me"))
+    Set(Domain("simplelogin.co"), Domain("simplelogin.com"), Domain("anonaddy.me"), Domain("iljmail.com"))
 
   private val staticBlacklist = Set(
     "lichess.org",

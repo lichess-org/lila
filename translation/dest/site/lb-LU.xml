@@ -5,6 +5,7 @@
   <string name="toInviteSomeoneToPlayGiveThisUrl">Fir een an dës Partie z\'invitéieren, gëff ëm dëse Link</string>
   <string name="gameOver">Game Over</string>
   <string name="waitingForOpponent">Op de Géigner waarden</string>
+  <string name="orLetYourOpponentScanQrCode">Oder looss däi Géigner dëse QR-Code scannen</string>
   <string name="waiting">Waarden</string>
   <string name="yourTurn">Du bass drun</string>
   <string name="aiNameLevelAiLevel">%1$s Level %2$s</string>
@@ -272,7 +273,6 @@
   <string name="playingRightNow">Partie leeft</string>
   <string name="eventInProgress">Partien lafen</string>
   <string name="finished">Fäerdeg</string>
-  <string name="finishesX">ass fäerdeg %s</string>
   <string name="abortGame">Partie ofbriechen</string>
   <string name="gameAborted">Partie ofgebrach</string>
   <string name="standard">Standard</string>
@@ -425,8 +425,8 @@
   <string name="follow">Followen</string>
   <string name="following">Folgend</string>
   <string name="unfollow">Unfollowen</string>
-  <string name="followX">%s followen</string>
-  <string name="unfollowX">%s unfollowen</string>
+  <string name="followX">Dem %s followen</string>
+  <string name="unfollowX">Dem %s net méi followen</string>
   <string name="block">Blockéieren</string>
   <string name="blocked">Geblockt</string>
   <string name="unblock">Spär ophiewen</string>
@@ -485,6 +485,7 @@
   <string name="movesPlayed">Zich gespillt</string>
   <string name="whiteWins">Wäiss Victoiren</string>
   <string name="blackWins">Schwaarz Victoiren</string>
+  <string name="drawRate">Remisquot</string>
   <string name="draws">Remis</string>
   <string name="nextXTournament">Nächsten %s Turnéier:</string>
   <string name="averageOpponent">Duerschnëttlechen Géigner</string>
@@ -506,6 +507,7 @@
   <string name="firstName">Virnumm</string>
   <string name="lastName">Numm</string>
   <string name="biography">Biographie</string>
+  <string name="countryRegion" comment="flag&#10;Appears when you edit your profile. Lets a player add a country/flag (not all flags are for countries) to their profile">Land oder Regioun</string>
   <string name="thankYou">Merci!</string>
   <string name="socialMediaLinks">Sozial Medien Links</string>
   <string name="oneUrlPerLine">Eng URL pro Zeil.</string>
@@ -760,7 +762,7 @@
   <string name="gameAnalysis">Analys vun der Partie</string>
   <string name="xHostsY">%1$s huet %2$s kreéiert</string>
   <string name="xJoinsY">%1$s mëscht mat bäi %2$s</string>
-  <string name="xLikesY">%1$s gefällt %2$s</string>
+  <string name="xLikesY">Dem %1$s gefält %2$s</string>
   <string name="quickPairing">Schnell Paarung</string>
   <string name="lobby">Lobby</string>
   <string name="anonymous">Anonym</string>
@@ -846,9 +848,10 @@
     <item quantity="one">an späicher %s bedingten Virauszuch</item>
     <item quantity="other">an späicher %s bedingt Virauszich</item>
   </plurals>
+  <string name="showUnreadLichessMessage">Du krus eng privat Noriicht vu Lichess.</string>
+  <string name="clickHereToReadIt">Klick hei fir se ze liesen</string>
   <string name="sorry">Sorry :(</string>
   <string name="weHadToTimeYouOutForAWhile">Mir missten dir eng Auszeit ginn.</string>
-  <string name="timeoutExpires">D\'Auszeit ass riwwer %s.</string>
   <string name="why">Firwat?</string>
   <string name="pleasantChessExperience">Mir wëllen jidderengem eng méiglechst gudd Schacherfahrung offréieren.</string>
   <string name="goodPractice">Fir dat ze erreechen mussen mer sécherstellen dass all Spiller sech korrekt verhalen.</string>
@@ -868,6 +871,7 @@
   <string name="agreementPolicy">Ech stëmmen zou dass ech den Lichess-Richtlinnen folgen wäert.</string>
   <string name="searchOrStartNewDiscussion">Sichen oder nei Konversatioun starten</string>
   <string name="edit">Änneren</string>
+  <string name="bullet" comment="Probably best left untranslated. Leave it as 'Bullet' unless your language has a better word for it.">Bullet</string>
   <string name="blitz" comment="Probably best left untranslated. Leave it as 'Blitz' unless your language has a better word for it.">Blitz</string>
   <string name="rapid">Rapid</string>
   <string name="classical">Klassesch</string>
@@ -966,6 +970,8 @@ Looss et eidel, fir Partie aus der normaler Ausgangspositioun ze starten.</strin
   <string name="switchSides">Faarf wiesselen</string>
   <string name="closingAccountWithdrawAppeal">Däin Benotzerkonto zou ze maachen wäert och däin Asproch zeréckzéihen</string>
   <string name="ourEventTips">Eis Tipps fir d\'Organiséieren vun Turnéier</string>
+  <string name="instructions">Instruktiounen</string>
+  <string name="showMeEverything">Alles weisen</string>
   <string name="lichessPatronInfo">Lichess ass eng Wohltätegkeetsorganisatioun an eng komplett kostenfrei/open source Software.
 All Betriebskäschten, Entwécklung an Inhalter ginn ausschließlech vun Benotzerspenden finanzéiert.</string>
 </resources>

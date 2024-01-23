@@ -30,7 +30,7 @@
   <string name="numberOfRoundsHelp">Số vòng đấu lẻ cho phép cân bằng màu quân trắng-đen tốt nhất.</string>
   <string name="roundInterval">Khoảng thời gian giữa các vòng đấu</string>
   <string name="forbiddenPairings">Ghép cặp bị cấm</string>
-  <string name="forbiddenPairingsHelp">Tên người dùng của những người chơi không được với nhau (Ví dụ: Anh chị em ruột). Hai tên người dùng trên mỗi dòng, được phân tách bằng dấu cách.</string>
+  <string name="forbiddenPairingsHelp">Tên người dùng của những kỳ thủ không được đấu với nhau (Ví dụ: Anh chị em ruột). Hai tên người dùng trên mỗi dòng, được phân tách bằng dấu cách.</string>
   <string name="newSwiss">Giải đấu hệ Thụy Sĩ mới</string>
   <string name="swissVsArenaQ">Khi nào nên chơi giải hệ Thụy Sĩ thay vì giải Đấu trường?</string>
   <string name="swissVsArenaA">Trong một giải đấu hệ Thụy Sĩ, tất cả người chơi chơi cùng số lượng ván đấu, và chỉ chơi mỗi người một lần.
@@ -38,7 +38,7 @@
   <string name="pointsCalculationQ">Điểm được tính như thế nào?</string>
   <string name="pointsCalculationA">Một trận thắng là 1 điểm, một trận hòa là 0.5 điểm và một trận thua không tính điểm.
 Khi có người không được ghép đôi trong một vòng đấu, họ nhận được 1 điểm \"bye\".</string>
-  <string name="tiebreaksCalculationQ">Tie break được tính như thế nào?</string>
+  <string name="tiebreaksCalculationQ">Điểm số phụ được tính như thế nào?</string>
   <string name="sonnebornBergerScore">Điểm Sonneborn-Berger</string>
   <string name="tiebreaksCalculationA">Với %s.
 Cộng điểm số của tất cả người chơi mà người này thắng và nửa số điểm của mỗi người chơi mà người này hòa.</string>
@@ -75,7 +75,7 @@ Lý do là chúng không có một cách công bằng nào có thể giải quy�
 Thứ gần nhất bạn có thể có với một giải đấu vòng tròn là một giải đấu hệ Thụy Sĩ có số ván đấu rất cao. Như vậy, tất cả các cặp đấu có thể xảy ra sẽ được chơi trước khi giải đấu kết thúc.</string>
   <string name="otherSystemsQ">Vậy còn những hệ thống giải đấu khác?</string>
   <string name="otherSystemsA">Hiện tại chúng tôi chưa có ý định thêm các hệ thống giải đấu khác vào Lichess.</string>
-  <string name="swissDescription">Trong một giải đấu hệ Thụy Sĩ %1$s, mỗi kì thủ không nhất thiết phải đấu với tất cả những người tham gia khác. Các kì thủ một đối một trong mỗi vòng và được ghép cặp với nhau bằng cách sử dụng một bộ quy tắc được thiết kế để đảm bảo rằng mỗi đấu thủ sẽ đấu với các đối thủ có điểm số tương tự nhưng không gặp lại cùng một đối thủ ở các vòng trước. Người chiến thắng là người có tổng điểm cao nhất sau tất cả các vòng. Mỗi vòng đấu tất cả các đấu thủ sẽ đều được chơi trừ khi số người chơi là số lẻ.</string>
+  <string name="swissDescription">Trong một giải đấu hệ Thụy Sĩ %1$s, mỗi kỳ thủ không nhất thiết phải đấu với tất cả những người tham gia khác. Các kỳ thủ một đối một trong mỗi vòng và được ghép cặp với nhau bằng cách sử dụng một bộ quy tắc được thiết kế để đảm bảo rằng mỗi đấu thủ sẽ đấu với các đối thủ có điểm số tương tự nhưng không gặp lại cùng một đối thủ ở các vòng trước. Người chiến thắng là người có tổng điểm cao nhất sau tất cả các vòng. Mỗi vòng đấu tất cả các đấu thủ sẽ đều được chơi trừ khi số người chơi là số lẻ.</string>
   <string name="teamOnly">Giải đấu hệ Thụy Sĩ chỉ có thể được tạo bởi đội trưởng và chỉ có thể được tham gia bởi các thành viên trong đội. %1$s để bắt đầu chơi trong các giải đấu hệ Thụy Sĩ.</string>
   <string name="joinOrCreateTeam">Tham gia hoặc tạo một đội</string>
   <string name="nowPlaying">Đang chơi</string>
@@ -89,10 +89,10 @@ Thứ gần nhất bạn có thể có với một giải đấu vòng tròn là
   <string name="numberOfGamesPreDefined">Giới hạn số ván, đồng đều cho tất cả người chơi</string>
   <string name="pairingSystem">Hệ thống bắt cặp</string>
   <string name="pairingSystemArena">Bất kì đối thủ nào với thứ hạng tương tự</string>
-  <string name="pairingSystemSwiss">Xếp cặp dựa trên điểm và hệ số phụ</string>
+  <string name="pairingSystemSwiss">Xếp cặp dựa trên điểm và điểm số phụ</string>
   <string name="pairingWaitTime">Đợi xếp cặp</string>
-  <string name="pairingWaitTimeArena">Nhanh: không đợi toàn bộ người chơi</string>
-  <string name="pairingWaitTimeSwiss">Chậm: đợi toàn bộ người chơi</string>
+  <string name="pairingWaitTimeArena">Nhanh: không đợi toàn bộ kỳ thủ</string>
+  <string name="pairingWaitTimeSwiss">Chậm: đợi toàn bộ kỳ thủ</string>
   <string name="identicalPairing">Xếp cặp lặp lại</string>
   <string name="possibleButNotConsecutive">Có thể, nhưng không liên tiếp</string>
   <string name="identicalForbidden">Bị cấm</string>
@@ -102,8 +102,8 @@ Thứ gần nhất bạn có thể có với một giải đấu vòng tròn là
   <string name="pauseSwiss">Cho phép nhưng phải giảm số vòng đấu</string>
   <string name="streaksAndBerserk">Streaks và Berserk</string>
   <string name="similarToOTB">Tương tự các giải đấu OTB</string>
-  <string name="unlimitedAndFree">Miễn phí và không giới hạn</string>
+  <string name="unlimitedAndFree">Không giới hạn và miễn phí</string>
   <string name="predefinedUsers">Chỉ cho phép những người dùng được chỉ định trước tham gia</string>
   <string name="forbiddedUsers">Ngoại trừ những người trong danh sách này, những người khác đều bị cấm tham gia. Mỗi dòng một tên người dùng.</string>
-  <string name="playYourGames">Chơi những ván đấu của bạn</string>
+  <string name="playYourGames">Chơi các ván đấu của bạn</string>
 </resources>

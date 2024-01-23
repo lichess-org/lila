@@ -5,6 +5,7 @@
   <string name="toInviteSomeoneToPlayGiveThisUrl">ක්‍රීඩා කිරීමට යමෙකුට ආරාධනා කිරීමට, මෙම URL එක දෙන්න</string>
   <string name="gameOver">තරගය අවසන්</string>
   <string name="waitingForOpponent">ප්‍රතිවාදියා වෙනුවෙන් බලාසිටිමින්</string>
+  <string name="orLetYourOpponentScanQrCode">නැතහොත් ඔබේ ප්‍රතිවාදියාට මෙම QR කේතය පරිලෝකනය කිරීමට ඉඩ දෙන්න</string>
   <string name="waiting">බලාසිටිමින්</string>
   <string name="yourTurn">ඔබේ වාරය</string>
   <string name="aiNameLevelAiLevel">%1$s %2$sවන මට්ටම</string>
@@ -70,6 +71,7 @@
   <string name="makeMainLine">ප්‍රමුඛ රේඛාව කරන්න</string>
   <string name="deleteFromHere">මෙතැන සිට මකන්න</string>
   <string name="forceVariation">බලෙන්ම ලබාගත් විචලනය</string>
+  <string name="copyVariationPgn">The variaty</string>
   <string name="move">ඇදීම</string>
   <string name="variantLoss">පරාදවෙන ඇදීමක්</string>
   <string name="variantWin">දිනන ඇදීමක්</string>
@@ -251,7 +253,6 @@ PlayFirstOpeningEndgameExplorerMove
   <string name="playingRightNow">දැන් තරඟ කරයි</string>
   <string name="eventInProgress">දැන් තරඟ කරයි</string>
   <string name="finished">අවසානයි</string>
-  <string name="finishesX">%sකින් ඉවරවේ</string>
   <string name="abortGame">තරඟය නවත්වන්න</string>
   <string name="gameAborted">තරගය අත්හැර දැමුනි</string>
   <string name="standard">සම්මත</string>

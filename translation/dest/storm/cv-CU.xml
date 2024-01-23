@@ -2,15 +2,15 @@
 <resources>
   <string name="moveToStart">Пуҫлас тесен ҫӳре</string>
   <string name="playAgain">Тепре выльа</string>
-  <string name="combo" comment="_Please make your translation as short and snappy as possible._&#10;In Puzzle Storm and Puzzle Racer, a 'Combo' is a consecutive sequence of correct moves. Each correct move fills the combo bar. When the bar is full, you get a time bonus, and you increase the value of the next bonus. If you make the wrong move, you lose your combo.&#10;&#10;This string is the title for your best combo, shown in the stats page after completing a run of puzzle storm or a puzzle race. It is also shown while you play.&#10;&#10;Used in the same way in both Puzzle Storm (https://lichess.org/storm) and Puzzle Racer (https://lichess.org/racer).">Комбо</string>
-  <string name="time" comment="Time in this context means the total time that has passed in your previous run. The string is displayed after completing a run of Puzzle Storm (https://lichess.org/storm).&#10;&#10;Total time can vary depending on how well you do in puzzle storm. Winning puzzles builds up your combo and adds more time each time you complete a puzzle, while failing puzzles will reset your combo and also remove seconds from the clock.">Вӑхӑт</string>
+  <string name="combo">Комбо</string>
+  <string name="time">Вӑхӑт</string>
   <string name="newRun">Ҫӗнӗ чупни (hotkey: пушӑ палӑ)</string>
   <string name="yourRankX">Вырӑну: %s</string>
   <string name="nextRace">Тепӗр чупни</string>
   <string name="joinPublicRace">Уҫӑ чупнине хутшӑн</string>
-  <string name="skip" comment="A button which lets you skip a move in a puzzle without penalty.&#10;&#10;Players of Puzzle Racer (https://lichess.org/racer) are allowed to skip a single move across all the puzzles they are presented during a puzzle race.&#10;&#10;Please keep this as short as possible, since it is on a narrow button.">сиктер</string>
-  <string name="failedPuzzles" comment="A filter button after a run of Puzzle Storm (https://lichess.org/storm) or a race in Puzzle Racer (https://lichess.org/racer). Lets you view only the puzzles you failed during the session.">Ӑнӑҫман лартӑм</string>
-  <string name="slowPuzzles" comment="The string appears as a filter to view puzzles with many moves in a run of Puzzle Storm (https://lichess.org/storm) or a Puzzle Race (https://lichess.org/racer).&#10;&#10;A slow puzzle takes longer because it has more moves to complete.">Вӑрах лартӑм</string>
-  <string name="skippedPuzzle" comment="Players are allowed to skip a single move of a puzzle during a game of Puzzle Racer.">Сиктернӗ лартӑм</string>
+  <string name="skip">сиктер</string>
+  <string name="failedPuzzles">Ӑнӑҫман лартӑм</string>
+  <string name="slowPuzzles">Вӑрах лартӑм</string>
+  <string name="skippedPuzzle">Сиктернӗ лартӑм</string>
   <string name="thisRunHasExpired">Ку чупнин вӑхӑчӗ тухнӑ!</string>
 </resources>

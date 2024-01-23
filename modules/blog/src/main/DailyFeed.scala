@@ -1,92 +1,108 @@
 package lila.blog
 
-import java.time.LocalDate
 import reactivemongo.api.bson.*
 import reactivemongo.api.bson.Macros.Annotations.Key
+import java.time.format.{ DateTimeFormatter, FormatStyle }
 import lila.db.dsl.{ *, given }
+import lila.common.paginator.Paginator
+import lila.db.paginator.Adapter
 import lila.memo.CacheApi
-import lila.common.config.Max
+import lila.common.config.{ Max, MaxPerPage }
+import play.api.data.Form
+import lila.user.Me
 
 object DailyFeed:
 
-  case class Update(@Key("_id") day: LocalDate, content: Markdown, public: Boolean):
+  type ID = String
 
-    lazy val rendered: Html = renderer(s"dailyFeed:${day}")(content)
+  case class Update(
+      @Key("_id") id: ID,
+      content: Markdown,
+      public: Boolean,
+      at: Instant,
+      flair: Option[Flair]
+  ):
+    lazy val rendered: Html = renderer(s"dailyFeed:${id}")(content)
+    lazy val dateStr        = dateFormatter print at
+    lazy val title          = "Daily update - " + dateStr
+    def published           = public && at.isBeforeNow
+    def future              = at.isAfterNow
 
-    lazy val instant: Instant = day.atStartOfDay.instant
-
-    lazy val dayString: String = day.toString
-
-    lazy val title = "Daily update - " + dayString
-
-    lazy val isFresh = instant isAfter nowInstant.minusDays(1)
-
-  private val renderer = lila.common.MarkdownRender(
-    autoLink = false,
-    list = true,
-    table = true,
-    strikeThrough = true,
-    header = true
-  )
+  private val renderer              = lila.common.MarkdownRender(autoLink = false, strikeThrough = true)
+  private val dateFormatter         = DateTimeFormatter.ofLocalizedDate(FormatStyle.MEDIUM)
+  given BSONDocumentHandler[Update] = Macros.handler
 
   type GetLastUpdates = () => List[Update]
 
+  import ornicar.scalalib.ThreadLocalRandom
+  def makeId = ThreadLocalRandom nextString 6
+
 final class DailyFeed(coll: Coll, cacheApi: CacheApi)(using Executor):
 
-  import DailyFeed.Update
+  import DailyFeed.*
 
   private val max = Max(50)
-
-  private given BSONHandler[LocalDate] = quickHandler[LocalDate](
-    { case BSONString(s) => LocalDate.parse(s) },
-    d => BSONString(d.toString)
-  )
-  private given BSONDocumentHandler[Update] = Macros.handler
 
   private object cache:
     private var mutableLastUpdates: List[Update] = Nil
     val store = cacheApi.unit[List[Update]]:
-      _.expireAfterWrite(1 minute).buildAsyncFuture: _ =>
+      _.refreshAfterWrite(1 minute).buildAsyncFuture: _ =>
         coll
           .find($empty)
-          .sort($sort.desc("_id"))
+          .sort($sort.desc("at"))
           .cursor[Update]()
           .list(max.value)
           .addEffect: ups =>
-            mutableLastUpdates = ups.take(3)
-    def clear()                              = store.underlying.synchronous.invalidateAll()
+            mutableLastUpdates = ups.filter(_.published).take(7)
+    def clear() =
+      store.underlying.synchronous.invalidateAll()
+      store.get({}) // populate lastUpdate
     def lastUpdate: DailyFeed.GetLastUpdates = () => mutableLastUpdates
     store.get({}) // populate lastUpdate
 
   export cache.lastUpdate
 
-  def recent: Fu[List[Update]] = cache.store.get({})
+  def recentPublished = cache.store.get({}).map(_.filter(_.published))
 
-  def get(day: LocalDate): Fu[Option[Update]] = coll.one[Update]($id(day))
+  def get(id: ID): Fu[Option[Update]] = coll.byId[Update](id)
 
-  def set(update: Update, from: Option[Update]): Funit = for
-    _ <- from.filter(_.day != update.day).so(up => coll.delete.one($id(up.day)).void)
-    _ <- coll.update.one($id(update.day), update, upsert = true).void
-  yield cache.clear()
+  def set(update: Update): Funit =
+    coll.update.one($id(update.id), update, upsert = true).void andDo cache.clear()
 
-  def delete(id: LocalDate): Funit =
+  def delete(id: ID): Funit =
     coll.delete.one($id(id)).void andDo cache.clear()
 
-  def form(from: Option[Update]) =
+  case class UpdateData(content: Markdown, public: Boolean, at: Instant, flair: Option[Flair]):
+    def toUpdate(id: Option[ID]) = Update(id | makeId, content, public, at, flair)
+
+  def form(from: Option[Update])(using Me): Form[UpdateData] =
     import play.api.data.*
     import play.api.data.Forms.*
     import lila.common.Form.*
     val form = Form:
       mapping(
-        "day" -> ISODate.mapping
-          .verifying(
-            "There is already an update for this day",
-            day => from.exists(_.day == day) || !existsBlocking(day)
-          ),
         "content" -> nonEmptyText(maxLength = 20_000).into[Markdown],
-        "public"  -> boolean
-      )(Update.apply)(unapply)
-    from.fold(form)(form.fill)
+        "public"  -> boolean,
+        "at"      -> ISOInstantOrTimestamp.mapping,
+        lila.user.FlairApi.formPair(anyFlair = true)
+      )(UpdateData.apply)(unapply)
+    from.fold(form)(u => form.fill(UpdateData(u.content, u.public, u.at, u.flair)))
 
-  private def existsBlocking(day: LocalDate): Boolean =
-    coll.exists($id(day)).await(1.second, "dailyFeed.existsBlocking")
+final class DailyFeedPaginatorBuilder(
+    coll: Coll
+)(using Executor):
+  import DailyFeed.*
+
+  def recent(includeAll: Boolean, page: Int): Fu[Paginator[Update]] =
+    Paginator(
+      adapter = Adapter[Update](
+        collection = coll,
+        selector =
+          if includeAll then $empty
+          else $doc("public" -> true, "at" $lt nowInstant),
+        projection = none,
+        sort = $sort.desc("at")
+      ),
+      page,
+      MaxPerPage(25)
+    )

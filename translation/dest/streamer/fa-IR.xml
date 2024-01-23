@@ -1,19 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="lichessStreamers">استریمر لیچس</string>
-  <string name="lichessStreamer">استریمر لیچس</string>
-  <string name="live">زنده</string>
-  <string name="offline">آقلاین</string>
-  <string name="currentlyStreaming">در حال استریم: %s</string>
-  <string name="lastStream">آخرین استریم %s</string>
-  <string name="becomeStreamer">تبدیل شدن به استریمر</string>
-  <string name="doYouHaveStream">ایا شما استریم دارید؟</string>
-  <string name="hereWeGo">اینجا برویم</string>
-  <string name="allStreamers">همه ی استریمر ها</string>
-  <string name="editPage">ویرایش صفحه استریم</string>
-  <string name="yourPage">ویرایش صفحه استریم</string>
-  <string name="downloadKit">دانلود کیت استریمر</string>
-  <string name="xIsStreaming">%s در حال استریم کردن است</string>
+  <string name="lichessStreamers">بَرخَط-محتواسازان Lichess</string>
+  <string name="lichessStreamer">بَرخَط-محتواساز Lichess</string>
+  <string name="live">زنده!</string>
+  <string name="offline">بُرون‌خط</string>
+  <string name="currentlyStreaming" comment="%s is the title of the stream, chosen by the streamer.">در حال پخش جریانی: %s</string>
+  <string name="lastStream" comment="%s is how long ago the stream was in relative time (e.g. 50 minutes ago). It is displayed in smaller type than the rest of the string.">آخرین پخش جریانی %s</string>
+  <string name="becomeStreamer">بَرخَط-محتواساز شوید</string>
+  <string name="doYouHaveStream">صفحه Twitch یا YouTube دارید؟</string>
+  <string name="hereWeGo">شروع کنیم!</string>
+  <string name="allStreamers">همه بَرخَط-محتواسازان</string>
+  <string name="editPage">ویرایش صفحه بَرخَط-محتواساز</string>
+  <string name="yourPage">صفحه پخش جریانی شما</string>
+  <string name="downloadKit">بارگیری بسته بَرخَط-محتواساز</string>
+  <string name="xIsStreaming">%s در حال پخش جریانی است</string>
   <string name="rules">قونین استریم</string>
   <string name="rule1">Twitch این گروه را \"شطرنج\" در همه زبانها می نامد: https://www.twitch.tv/directory/game/Chess - بنابراین توصیه می کنیم متن انگلیسی را در اینجا نگه دارید.</string>
   <string name="rule2">هنگام پخش چیزهای غیر مجوز ، کلمه کلیدی را حذف کنید.</string>
@@ -21,7 +21,7 @@
   <string name="rule4" comment="the resulting message is: Read our streaming Fairplay FAQ to ensure a fair play for everyone in your stream">%s ما را بخوانید تا در مدت استریم شما از بازی جوانمردانه برای همه اطمینان حاصل شود.</string>
   <string name="streamingFairplayFAQ">پرسشها و پاسخهای متداول درباره استریم نمودن به صورت منصفانه</string>
   <string name="perks">مزایای جریان با کلمه کلیدی</string>
-  <string name="perk1">یک نماد جریان مستقیم شعله ور در نمایه لیچس خود دریافت کنید.</string>
+  <string name="perk1">یک نقشک بَرخَط-محتواساز شعله‌ور در نمایه Lichessتان دریافت کنید.</string>
   <string name="perk2">در بالای لیست پخش کننده ها پرش کنید.</string>
   <string name="perk3">به فالوور های خود در لیچس اطلاع دهید</string>
   <string name="perk4">جریان خود را در بازی ها مسابقات و مطالعات خود نشان دهید</string>
@@ -29,11 +29,11 @@
   <string name="pendingReview">استریم شما توسط مدیران سایت درحال بررسی است</string>
   <string name="pleaseFillIn">لطفاً اطلاعات جابجایی خود را پر کنید و تصویری بارگذاری کنید.</string>
   <string name="whenReady" comment="whenReady&#10;&#10;%s is &quot;request a moderator review&quot;">زمانی که شما آماده‌اید تا در لیست استریم کننده‌های Lichess قرار گیرید، %s</string>
-  <string name="requestReview" comment="requestReview&#10;&#10;Used in the sense of: &quot;When you are ready to be listed as a Lichess streamer, request a moderator review&quot;">درخواست بررسی مدیر کنید</string>
+  <string name="requestReview" comment="requestReview&#10;&#10;Used as part of the longer sentence: &quot;When you are ready to be listed as a Lichess streamer, request a moderator review&quot;">درخواست بررسی مدیر کنید</string>
   <string name="streamerLanguageSettings">صفحه استریمر لیچس مخاطبان شما را با زبان ارائه شده توسط پلتفرم استریم شما هدف قرار می دهد. زبان پیش‌فرض صحیح را برای استریم های شطرنج خود در برنامه یا سرویسی که برای پخش استفاده می‌کنید، تنظیم کنید.</string>
-  <string name="twitchUsername">نام کاربری شما در توییچ</string>
+  <string name="twitchUsername" comment="Appears on the form for setting up your Streamer page: https://lichess.org/streamer/edit&#10;&#10;Twitch is a proper noun and refers to the streaming service https://twitch.tv/. Please do not translate the word 'Twitch'.">نام کاربری شما در توییچ</string>
   <string name="optionalOrEmpty">اختیاری. اگر هیچ کدام خالی نیست</string>
-  <string name="youTubeChannelId">شناسه کانال یوتیوب شما</string>
+  <string name="youTubeChannelId" comment="Appears on the form for setting up your Streamer page: https://lichess.org/streamer/edit&#10;&#10;The Channel ID is a special alphanumeric string. See Google's guide here for how to retrieve it: https://support.google.com/youtube/answer/3250431&#10;&#10;We encourage translators to match what the Channel ID is called in your language's version of YouTube: https://www.youtube.com/account_advanced">شناسه کانال یوتیوب شما</string>
   <string name="streamerName">نام استریم شما رد لیچس</string>
   <plurals name="keepItShort">
     <item quantity="one">کوتاه بنویسید: کمتر از %s حرف</item>

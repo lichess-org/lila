@@ -1,7 +1,7 @@
 package lila.study
 
 import monocle.syntax.all.*
-import chess.{ Centis, ErrorStr, Node as PgnNode }
+import chess.{ Centis, ErrorStr, Node as PgnNode, Outcome }
 import chess.format.pgn.{
   Glyphs,
   ParsedPgn,
@@ -56,7 +56,7 @@ object NewPgnImport:
             val end: Option[PgnImport.End] = (game.finished option game.status).map { status =>
               PgnImport.End(
                 status = status,
-                winner = game.winnerColor,
+                outcome = Outcome(game.winnerColor),
                 resultText = chess.Outcome.showResult(chess.Outcome(game.winnerColor).some),
                 statusText = lila.game.StatusText(status, game.winnerColor, game.variant)
               )

@@ -4,7 +4,7 @@
   <string name="teachClassesOfChessStudents">با استفاده از مجموعه ابزار های کلاس های lichess به دانش آموزان، شطرنج آموزش دهید.</string>
   <string name="features">امکانات</string>
   <string name="quicklyGenerateSafeUsernames">برای دانش آموزان خود سریعا نام کاربری و رمز عبور امن بسازید</string>
-  <string name="trackStudentProgress">پیشرفت دانش آموزان را در پازل ها و بازی ها مشاهده کنید</string>
+  <string name="trackStudentProgress">روند پیشرفت شطرنج‌آموزان را در بازی‌ها و معماها دنبال کنید</string>
   <string name="messageAllStudents">به تمام دانش آموزان درباره شرایط جدید کلاس پیام دهید</string>
   <string name="freeForAllForever">صد درصد رایگان برای همه و بدون تبلیغات</string>
   <string name="applyToBeLichessTeacher">برای آنکه معلمِ Lichess باشید درخواست بدهید</string>
@@ -32,7 +32,7 @@
   <string name="realName">نام واقعی</string>
   <string name="privateWillNeverBeShown">خصوصی. هرگز در خارج از کلاس نمایش داده نخواهد شد. به یاد آوری دانش آموز کمک می کند.</string>
   <string name="addStudent">دانش‌آموز اضافه کنید</string>
-  <string name="lichessProfileXCreatedForY">حساب کاربری %1$s برای %2$s ساخته شد.</string>
+  <string name="lichessProfileXCreatedForY">نمایه %1$s برای %2$s ساخته شد.</string>
   <string name="studentCredentials">دانش‌جو: %1$s
 نامِ کاربری: %2$s
 گذرواژه: %3$s</string>

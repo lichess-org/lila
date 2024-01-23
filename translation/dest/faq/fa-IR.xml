@@ -17,7 +17,7 @@
   <string name="areThereWebsitesBasedOnLichess">آیا وب‌سایتهایی که بر اساس Lichess ساخته شده باشند، وجود دارد؟</string>
   <string name="yesLichessInspiredOtherOpenSourceWebsites">بله. در واقع سایت های متن باز از %1$s و %2$s و %3$s لیچس استفاده میکنند.</string>
   <string name="keyboardShortcuts">چه میانبرهای صفحه کلیدی وجود دارند؟</string>
-  <string name="keyboardShortcutsExplanation">برخی از صفحات لیچس دارای میانبرهای صفحه کلید هستند که می توانید از آنها استفاده کنید. کلید \"؟\" بر روی کیبورد را در صفحه مطالعه، تجزیه و تحلیل، پازل یا بازی بزنید تا میانبرهای صفحه کلید موجود فهرست شوند.</string>
+  <string name="keyboardShortcutsExplanation">برخی از صفحات Lichess دارای میانبرهای صفحه‌کلید هستند که می‌توانید از آنها استفاده کنید. برای دیدن فهرست میانبرهای صفحه‌کلید، درون صفحات مطالعه، تجزیه و تحلیل، معما یا بازی، کلید «؟» را بزنید.</string>
   <string name="fairPlay">بازی منصفانه</string>
   <string name="whenAmIEligibleRatinRefund">چه زمانی من برای دریافت ریتینگ از دست داده ام توسط متقلبین واجد شرایط هستم?</string>
   <string name="ratingRefundExplanation">یک دقیقه پس از اینکه یک بازیکن نشان‌گذاری میشود، چهل بازی ریتد انجام شده توسط او در سه روز گذشته گرفته میشوند. اگر شما در آن بازی ها حریف او بوده باشید، ریتینگ از دست رفته شما (به علت باخت یا مساوی) در صورتی که ریتینگ شما موقت نبوده باشد، را به صورت یک بازپرداخت ریتینگ دریافت میکنید. مقدار ریتینگ بر اساس ریتینگ اوج شما و تغییرات ریتینگتان پس از بازی محاسبه میشود. (برای مثال، اگر ریتینگ شما پس از آن بازی ها به مقدار زیادی افزایش داشته باشد، ممکن است مقدار جزئی دریافت یا هیچ ریتینگی دریافت نکنید) مقدار بازپرداخت هیچوقت از ١۵٠ امتیاز تجاوز نمی‌کند.</string>
@@ -28,19 +28,22 @@
   <string name="isCorrespondenceDifferent">شطرنج مکاتبه ای با شطرنج معمولی تفاوت دارد؟</string>
   <string name="pleaseReadFairPlayPage">برای اطلاعات بیشتر، لطفا %s را بخوانید</string>
   <string name="fairPlayPage">صفحه بازی عادلانه</string>
-  <string name="gameplay">گیم پلی</string>
-  <string name="howBulletBlitzEtcDecided">مقدار زمان برای بازی های برق‌آسا، سریع و کنترل های زمانی دیگر چگونه تصمیم گیری می‌شود?</string>
+  <string name="gameplay">روند بازی</string>
+  <string name="howBulletBlitzEtcDecided">محاسبات زمانی شطرنج گلوله‌ای، برق‌آسا و سایر موارد، چگونه تصمیم‌گیری می‌شود؟</string>
   <string name="durationFormula">(زمان اولیه به ثانیه) + (40 × پاداش زمانی به ازای هر حرکت)</string>
+  <string name="inferiorThanXsEqualYtimeControl">≤ %1$s = %2$s</string>
+  <string name="superiorThanXsEqualYtimeControl">≤ %1$s = %2$s</string>
   <string name="whatVariantsCanIplay">چه شاخه هایی را میتوانم در لیچس بازی کنم?</string>
+  <string name="lichessSupportChessAnd">لیچس از شطرنج استاندارد و %1$s پشتیبانی می کند.</string>
   <string name="eightVariants">8 نوع شطرنج</string>
-  <string name="whatIsACPL">میانگین باخت صدم ‌پیاده چیست?</string>
-  <string name="acplExplanation">صدم پیاده شاخص اندازه گیری برتری است که در شطرنج اندازه گیری میشود. هر صدم پیاده معادل یک صدم ارزش یک پیاده است. بنابراین هر 100 صدم پیاده = یک پیاده. این ارزش ها نقش خاصی در بازی ایفا نمی‌کنند اما برای بازیکنان مفید هستند و برای محاسبه پوزیسیون توسط کامپیوتر ضروری. بهترین حرکت کامپیوتری هیچ صدم پیاده ای از دست نمی‌دهد، ولی حرکت های پایینتر موجب افت پوزیسیونی میشوند که توسط صدم‌پیاده اندازه گیری میشود. این مقدار می‌تواند به عنوان ابزار اندازه‌گیری کیفیت بازی استفاده شود. هرچه صدم‌پیاده ای که یک بازیکن با هر حرکت از دست میدهد کمتر باشد، بازی او بهتر است. آنالیز های کامپیوتری لیچس از استاکفیش قدرت گرفته تند.</string>
+  <string name="whatIsACPL">میانگین باخت صدم ‌پیاده چیست؟</string>
+  <string name="acplExplanation">صدم پیاده شاخص اندازه گیری برتری است که در شطرنج اندازه گیری می شود. هر صدم پیاده معادل یک صدم ارزش یک پیاده است. بنابراین هر 100 صدم پیاده = یک پیاده. این ارزشها نقش خاصی در بازی ایفا نمی‌کنند اما برای بازیکنان مفید هستند و برای محاسبه پوزیسیون توسط کامپیوتر ضروری. بهترین حرکت کامپیوتری هیچ صدم پیاده ای از دست نمی‌دهد، ولی حرکت های پایینتر موجب افت پوزیسیونی می شوند که توسط صدم‌پیاده اندازه گیری می شود. این مقدار می‌تواند به عنوان ابزار اندازه‌گیری کیفیت بازی استفاده شود. هرچه صدم‌پیاده ای که یک بازیکن با هر حرکت از دست می دهد کمتر باشد، بازی او بهتر است. آنالیز های کامپیوتری لی چس از استاک فیش قدرت گرفته تند.</string>
   <string name="insufficientMaterial">افتادن زمان، مساوی و مهره های ناکافی برای برد</string>
-  <string name="fideHandbook">کتابچه فدراسیون جهانی شطرنج</string>
-  <string name="fideHandbookX">بخش %s هندبوک فیده</string>
+  <string name="fideHandbook">دستینه فیده</string>
+  <string name="fideHandbookX">بخش %s از دستینه فیده</string>
   <string name="discoveringEnPassant">آیا یک پیاده میتواند یک پیاده دیگر را در حالی که از کنارش رد شده است بگیرد؟ (آن پاسان)</string>
   <string name="goodIntroduction">معرفی و مقدمه خوب</string>
-  <string name="lichessTraining">آموزش لایچس</string>
+  <string name="lichessTraining">آموزش Lichess</string>
   <string name="watchIMRosenCheckmate">کیش و مات شدن %s در مقابل استاد بین‌المللی اریک روزن را تماشا کنید.</string>
   <string name="threefoldRepetition">تکرار سه گانه</string>
   <string name="threefoldRepetitionExplanation">اگر پوزیشنی سه بار اتفاق افتاد، بازیکنان میتوانن با استفاده از %1$s ادعای مساوی کنند. لیچس قوانین رسمی FIDE را که در مقاله %2$s توضیح داده شده اجرا میکند.</string>
@@ -62,7 +65,7 @@
   <string name="canIChangeMyUsername">آیا می‌توانم نام کاربری خود را تغییر دهم؟</string>
   <string name="usernamesCannotBeChanged">خیر، نام کاربری به دلایل فنی و عملی قابل تغییر نیست. نام‌های کاربری در جاهای مختلف ثبت شده اند: پایگاه‌های داده، گزارش‌ها و در نظر مردم. می توانید یک بار حروف بزرگ را تنظیم کنید.</string>
   <string name="uniqueTrophies">غنائم منحصر به فرد</string>
-  <string name="aHourlyBulletTournament">تورنمنت یک ساعت bullet</string>
+  <string name="aHourlyBulletTournament">یک مسابقه چندجانبه گلوله‌ای یک‌ساعته</string>
   <string name="lichessRatings">rating های lichess</string>
   <string name="whichRatingSystemUsedByLichess">lichess از چه سیستم امتیاز دهی ای استفاده می کند؟</string>
   <string name="ratingSystemUsedByLichess">رتبه‌بندی‌ها با استفاده از روش رتبه‌بندی Glicko-2 که توسط مارک گلیکمن ایجاد شده است، محاسبه می‌شوند. این یک روش رتبه‌بندی بسیار محبوب است و توسط تعداد قابل توجهی از سازمان‌های شطرنج استفاده می‌شود (FIDE یک مثال متقابل قابل‌توجه است، زیرا هنوز از سیستم رتبه‌بندی Elo استفاده می‌کنند).

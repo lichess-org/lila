@@ -9,11 +9,7 @@ export const maxPerPage = 10;
 
 function button(text: string, icon: string, click: () => void, enable: boolean, ctrl: SwissCtrl): VNode {
   return h('button.fbt.is', {
-    attrs: {
-      'data-icon': icon,
-      disabled: !enable,
-      title: text,
-    },
+    attrs: { 'data-icon': icon, disabled: !enable, title: text },
     hook: bind('mousedown', click, ctrl.redraw),
   });
 }
@@ -21,10 +17,7 @@ function button(text: string, icon: string, click: () => void, enable: boolean, 
 function scrollToMeButton(ctrl: SwissCtrl): VNode | undefined {
   return ctrl.data.me
     ? h('button.fbt' + (ctrl.focusOnMe ? '.active' : ''), {
-        attrs: {
-          'data-icon': licon.Target,
-          title: 'Scroll to your player',
-        },
+        attrs: { 'data-icon': licon.Target, title: 'Scroll to your player' },
         hook: bind('mousedown', ctrl.toggleFocusOnMe, ctrl.redraw),
       })
     : undefined;

@@ -7,10 +7,10 @@
   <string name="thisPageAllowsConnectingDgtBoard">Tato stránka umožňuje připojení DGT desky k Lichess a její použití pro hraní her.</string>
   <string name="toConnectTheDgtBoard">Pro připojení k DGT elektronické šachovnice si musíte nainstalovat %s.</string>
   <string name="downloadHere">Software si můžete stáhnout zde: %s.</string>
-  <string name="ifLiveChessRunningOnThisComputer" comment="%1$s = LiveChess&#10;%2$s = opening this link&#10;&#10;LiveChess is a proper noun and not translatable.&#10;Please remember to put punctuation after %2$s.">Pokud %1$s běží na tomto počítači, můžete zkontrolovat připojení %2$s.</string>
+  <string name="ifLiveChessRunningOnThisComputer">Pokud %1$s běží na tomto počítači, můžete zkontrolovat připojení %2$s.</string>
   <string name="openingThisLink">otevírám tento odkaz</string>
-  <string name="ifLiveChessRunningElsewhere" comment="%1$s = LiveChess&#10;%2$s = Configuration Section&#10;&#10;Please remember to put punctuation after %2$s.">Pokud %1$s běží na jiném stroji nebo jiném portu, musíte nastavit IP adresu a port zde v %2$s.</string>
-  <string name="configurationSection" comment="Please note this is part of a longer sentence:&#10;If LiveChess is running on a different machine or different port, you will need to set the IP address and port here in the Configuration Section.&#10;&#10;Links to DGT board configuration section.">sekci konfigurace</string>
+  <string name="ifLiveChessRunningElsewhere">Pokud %1$s běží na jiném stroji nebo jiném portu, musíte nastavit IP adresu a port zde v %2$s.</string>
+  <string name="configurationSection">sekci konfigurace</string>
   <string name="keepPlayPageOpen">Stránka přehrávání musí zůstat otevřená ve vašem prohlížeči. Nemusí být viditelná (můžete jej minimalizovat nebo posunout vedle stránky se samotnou hrou), ale stránku nezavírejte nebo deska přestane fungovat.</string>
   <string name="boardWillAutoConnect">Šachovnice se automaticky připojí k jakékoli hře, která již probíhá, nebo k jakékoli nové hře, která začne. Možnost vybrat si, kterou hru chcete hrát, bude brzy k dispozici.</string>
   <string name="ifMoveNotDetected">Pokud není tah rozpoznán</string>
@@ -22,10 +22,10 @@
   <string name="validDgtOauthToken">Máte vhodný OAuth token pro hraní na DGT šachovnici.</string>
   <string name="noSuitableOauthToken">Nebyl vytvořen žádný vhodný OAuth token.</string>
   <string name="dgtBoardConnectivity">Připojení DGT šachovnice</string>
-  <string name="clickToGenerateOne" comment="clickToGenerateOne&#10;'One' here referring to a token for authorisation.">Kliknutím vygenerujete</string>
+  <string name="clickToGenerateOne">Kliknutím vygenerujete</string>
   <string name="textToSpeech">Převod textu na řeč</string>
   <string name="enableSpeechSynthesis">Povolit syntézu řeči</string>
   <string name="speechSynthesisVoice">Hlas pro syntézu řeči</string>
   <string name="announceAllMoves">Oznámit všechny tahy</string>
-  <string name="configure" comment="Heading for configuring a DGT board: https://lichess.org/dgt/config">Konfigurace</string>
+  <string name="configure">Konfigurace</string>
 </resources>

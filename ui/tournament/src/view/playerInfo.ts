@@ -1,7 +1,7 @@
-import { h, VNode } from 'snabbdom';
+import { VNode } from 'snabbdom';
 import * as licon from 'common/licon';
 import { spinnerVdom as spinner } from 'common/spinner';
-import { bind, dataIcon } from 'common/snabbdom';
+import { bind, dataIcon, looseH as h } from 'common/snabbdom';
 import { numberRow, player as renderPlayer } from './util';
 import { fullName } from 'common/userLink';
 import { teamName } from './battle';
@@ -41,81 +41,63 @@ export default function (ctrl: TournamentController): VNode {
     avgOp = pairingsLen
       ? Math.round(data.pairings.reduce((a, b) => a + b.op.rating, 0) / pairingsLen)
       : undefined;
-  return h(
-    tag,
-    {
-      hook: {
-        insert: setup,
-        postpatch(_, vnode) {
-          setup(vnode);
-        },
-      },
-    },
-    [
-      h('a.close', {
-        attrs: dataIcon(licon.X),
-        hook: bind('click', () => ctrl.showPlayerInfo(data.player), ctrl.redraw),
-      }),
-      h('div.stats', [
-        playerTitle(data.player),
-        data.player.team
-          ? h(
-              'team',
-              {
-                hook: bind('click', () => ctrl.showTeamInfo(data.player.team!), ctrl.redraw),
-              },
-              [teamName(ctrl.data.teamBattle!, data.player.team)],
-            )
-          : null,
-        h('table', [
-          ctrl.opts.showRatings && data.player.performance
-            ? numberRow(noarg('performance'), data.player.performance + (nb.game < 3 ? '?' : ''), 'raw')
-            : null,
-          numberRow(noarg('gamesPlayed'), nb.game),
-          ...(nb.game
-            ? [
-                numberRow(noarg('winRate'), [nb.win, nb.game], 'percent'),
-                numberRow(noarg('berserkRate'), [nb.berserk, nb.game], 'percent'),
-                ctrl.opts.showRatings ? numberRow(noarg('averageOpponent'), avgOp, 'raw') : null,
-              ]
-            : []),
+  return h(tag, { hook: { insert: setup, postpatch: (_, vnode) => setup(vnode) } }, [
+    h('a.close', {
+      attrs: dataIcon(licon.X),
+      hook: bind('click', () => ctrl.showPlayerInfo(data.player), ctrl.redraw),
+    }),
+    h('div.stats', [
+      playerTitle(data.player),
+      data.player.team &&
+        h('team', { hook: bind('click', () => ctrl.showTeamInfo(data.player.team!), ctrl.redraw) }, [
+          teamName(ctrl.data.teamBattle!, data.player.team),
         ]),
+      h('table', [
+        ctrl.opts.showRatings &&
+          data.player.performance &&
+          numberRow(noarg('performance'), data.player.performance + (nb.game < 3 ? '?' : ''), 'raw'),
+        numberRow(noarg('gamesPlayed'), nb.game),
+        ...(nb.game
+          ? [
+              numberRow(noarg('winRate'), [nb.win, nb.game], 'percent'),
+              numberRow(noarg('berserkRate'), [nb.berserk, nb.game], 'percent'),
+              ctrl.opts.showRatings && numberRow(noarg('averageOpponent'), avgOp, 'raw'),
+            ]
+          : []),
       ]),
-      h('div', [
-        h(
-          'table.pairings.sublist',
-          {
-            hook: bind('click', e => {
-              const href = ((e.target as HTMLElement).parentNode as HTMLElement).getAttribute('data-href');
-              if (href) window.open(href, '_blank', 'noopener');
-            }),
-          },
-          data.pairings.map(function (p, i) {
-            const res = result(p.win, p.status);
-            return h(
-              'tr.glpt.' + (res === '1' ? ' win' : res === '0' ? ' loss' : ''),
-              {
-                key: p.id,
-                attrs: { 'data-href': '/' + p.id + '/' + p.color },
-                hook: {
-                  destroy: vnode => $.powerTip.destroy(vnode.elm as HTMLElement),
-                },
-              },
-              [
-                h('th', '' + (Math.max(nb.game, pairingsLen) - i)),
-                h('td', fullName(p.op)),
-                ctrl.opts.showRatings ? h('td', p.op.rating) : null,
-                berserkTd(!!p.op.berserk),
-                h('td.is.color-icon.' + p.color),
-                h('td.result', res),
-                berserkTd(p.berserk),
-              ],
-            );
+    ]),
+    h('div', [
+      h(
+        'table.pairings.sublist',
+        {
+          hook: bind('click', e => {
+            const href = ((e.target as HTMLElement).parentNode as HTMLElement).getAttribute('data-href');
+            if (href) window.open(href, '_blank', 'noopener');
           }),
-        ),
-      ]),
-    ],
-  );
+        },
+        data.pairings.map(function (p, i) {
+          const res = result(p.win, p.status);
+          return h(
+            'tr.glpt.' + (res === '1' ? ' win' : res === '0' ? ' loss' : ''),
+            {
+              key: p.id,
+              attrs: { 'data-href': '/' + p.id + '/' + p.color },
+              hook: { destroy: vnode => $.powerTip.destroy(vnode.elm as HTMLElement) },
+            },
+            [
+              h('th', '' + (Math.max(nb.game, pairingsLen) - i)),
+              h('td', fullName(p.op)),
+              ctrl.opts.showRatings ? h('td', `${p.op.rating}`) : null,
+              berserkTd(!!p.op.berserk),
+              h('td.is.color-icon.' + p.color),
+              h('td.result', res),
+              berserkTd(p.berserk),
+            ],
+          );
+        }),
+      ),
+    ]),
+  ]);
 }
 
 const berserkTd = (b: boolean) =>

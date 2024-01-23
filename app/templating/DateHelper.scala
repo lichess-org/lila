@@ -63,7 +63,8 @@ trait DateHelper:
   private val oneDayMillis = 1000 * 60 * 60 * 24
 
   def momentFromNow(instant: Instant, alwaysRelative: Boolean = false, once: Boolean = false): Tag =
-    if !alwaysRelative && (instant.toMillis - nowMillis) > oneDayMillis then absClientInstant(instant)
+    if !alwaysRelative && (instant.toMillis - nowMillis) > oneDayMillis then
+      absClientInstantEmpty(instant)(nbsp)
     else timeTag(cls := s"timeago${once so " once"}", datetimeAttr := isoDateTime(instant))(nbsp)
 
   def momentFromNowWithPreload(
@@ -73,8 +74,11 @@ trait DateHelper:
   ): Frag =
     momentFromNow(instant, alwaysRelative, once)(momentFromNowServerText(instant))
 
-  def absClientInstant(instant: Instant): Tag =
-    timeTag(cls := "timeago abs", datetimeAttr := isoDateTime(instant))("-")
+  def absClientInstant(instant: Instant)(using Lang): Tag =
+    absClientInstantEmpty(instant)(showInstant(instant))
+
+  private def absClientInstantEmpty(instant: Instant): Tag =
+    timeTag(cls := "timeago abs", datetimeAttr := isoDateTime(instant))
 
   def momentFromNowOnce(instant: Instant): Tag = momentFromNow(instant, once = true)
 

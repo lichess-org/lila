@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="moveToStart">حَرِك لتبدأ</string>
-  <string name="youPlayTheWhitePiecesInAllPuzzles" comment="Appears in Puzzle Storm (https://lichess.org/storm) and Puzzle Racer (https://lichess.org/racer), before you start, letting you know which side you will be playing in all the puzzles that will be presented to you over the next few minutes.">أنت تلعب القطع البيضاء في جميع الألغاز</string>
-  <string name="youPlayTheBlackPiecesInAllPuzzles" comment="Appears in Puzzle Storm (https://lichess.org/storm) and Puzzle Racer (https://lichess.org/racer), before you start, letting you know which side you will be playing in all the puzzles that will be presented to you over the next few minutes.">أنت تلعب القطع السوداء في جميع الألغاز</string>
-  <string name="puzzlesSolved">الألغاز المحلولة</string>
-  <string name="newDailyHighscore" comment="Appears when you achieve a new high score after a run of Puzzle Storm (https://lichess.org/storm).&#10;If you achieve a new best score for that week, month or all-time, strings for those will appear instead.&#10;&#10;'Daily' here refers to today's date.">أعلى نتيجة يومية جديدة!</string>
-  <string name="newWeeklyHighscore" comment="Appears when you achieve a new high score after a run of Puzzle Storm (https://lichess.org/storm).&#10;If you achieve a new best score for that month or all the time you have played Puzzle Storm, strings for those will appear instead.&#10;&#10;'Weekly' here refers to the current week.">أعلى نتيجة أسبوعية جديدة!</string>
-  <string name="newMonthlyHighscore" comment="Appears when you achieve a new high score after a run of Puzzle Storm (https://lichess.org/storm). &#10;If you achieve a new best score for all the time you have played Puzzle Storm, a striung saying 'New all-time highscore!' will appear instead.&#10;&#10;'Monthly' here refers to the current month.">أعلى نتيجة شهرية جديدة!</string>
-  <string name="newAllTimeHighscore" comment="Appears when you achieve a new high score after a run of Puzzle Storm (https://lichess.org/storm) which surpasses your previous record.">أعلى مستوى جديد على الإطلاق!</string>
-  <string name="previousHighscoreWasX" comment="%s is the number of puzzles solved as part of a run of Puzzle Storm.">النتيجة العالية السابقة كانت %s</string>
+  <string name="youPlayTheWhitePiecesInAllPuzzles">أنت تلعب بالقطع البيضاء في جميع الألغاز</string>
+  <string name="youPlayTheBlackPiecesInAllPuzzles">أنت تلعب بالقطع السوداء في جميع الألغاز</string>
+  <string name="puzzlesSolved">الألغاز التي حللتها سابقا</string>
+  <string name="newDailyHighscore">حققت نتيجة يومية جديدة!</string>
+  <string name="newWeeklyHighscore">حققت نتيجة أسبوعية جديدة!</string>
+  <string name="newMonthlyHighscore">حققت نتيجة شهرية جديدة!</string>
+  <string name="newAllTimeHighscore">أعلى مستوى جديد على الإطلاق!</string>
+  <string name="previousHighscoreWasX">النتيجة العالية السابقة كانت %s</string>
   <string name="playAgain">إلعب مرة أخرى</string>
   <plurals name="xRuns">
     <item quantity="zero">لا جولات</item>
@@ -18,7 +18,7 @@
     <item quantity="many">%s جولة</item>
     <item quantity="other">%s جولة</item>
   </plurals>
-  <plurals name="playedNbRunsOfPuzzleStorm" comment="playedNbRunsOfPuzzleStorm [one] [other]&#10;&#10;%2$s can be either 'Puzzle Storm' or 'Puzzle Racer'.&#10;&#10;A run is an attempt/playthrough/session of Puzzle Storm or Puzzle Racer.&#10;&#10;Appears in the player's activity feed after they played some runs of these minigames.">
+  <plurals name="playedNbRunsOfPuzzleStorm">
     <item quantity="zero">لم تلعب أي جولة %2$s</item>
     <item quantity="one">لعبت جولة واحدة من %2$s</item>
     <item quantity="two">لعبت جولتين من %2$s</item>
@@ -26,21 +26,21 @@
     <item quantity="many">لعبت %1$s جولة من %2$s</item>
     <item quantity="other">لعبت %1$s جولة من %2$s</item>
   </plurals>
-  <string name="highscoreX" comment="Appears in a player's activity feed and shows the high score in Puzzle Storm or Puzzle Racer.">أعلى نتيجة: %s</string>
-  <string name="score" comment="Your score in Puzzle Storm (https://lichess.org/storm) is a count the puzzles you completed in a single run.&#10;&#10;We simply title this 'score' as it is the most important metric of all.">النتيجة</string>
-  <string name="moves" comment="Moves in this context means your 'total moves' you made in your previous Puzzle Storm attempt. This is relevant because each puzzle may contain several moves.&#10;&#10;Your total moves are displayed after completing a run of Puzzle Storm, alongside your other results.">نقلة</string>
-  <string name="accuracy" comment="Your accuracy in solving puzzles is displayed after completing a run of Puzzle Storm (https://lichess.org/storm), alongside your other results.">الدقة</string>
-  <string name="combo" comment="_Please make your translation as short and snappy as possible._&#10;In Puzzle Storm and Puzzle Racer, a 'Combo' is a consecutive sequence of correct moves. Each correct move fills the combo bar. When the bar is full, you get a time bonus, and you increase the value of the next bonus. If you make the wrong move, you lose your combo.&#10;&#10;This string is the title for your best combo, shown in the stats page after completing a run of puzzle storm or a puzzle race. It is also shown while you play.&#10;&#10;Used in the same way in both Puzzle Storm (https://lichess.org/storm) and Puzzle Racer (https://lichess.org/racer).">مجموعة</string>
-  <string name="time" comment="Time in this context means the total time that has passed in your previous run. The string is displayed after completing a run of Puzzle Storm (https://lichess.org/storm).&#10;&#10;Total time can vary depending on how well you do in puzzle storm. Winning puzzles builds up your combo and adds more time each time you complete a puzzle, while failing puzzles will reset your combo and also remove seconds from the clock.">الوقت</string>
+  <string name="highscoreX">أعلى نتيجة: %s</string>
+  <string name="score">النتيجة</string>
+  <string name="moves">نقلة</string>
+  <string name="accuracy">الدقة</string>
+  <string name="combo">مجموعة</string>
+  <string name="time">الوقت</string>
   <string name="timePerMove">الوقت لكل نقلة</string>
   <string name="highestSolved">تقييم أصعب لغز تم حله</string>
-  <string name="puzzlesPlayed">الألغاز الملعوبة</string>
+  <string name="puzzlesPlayed">الألغاز التي لعبتها سابقا</string>
   <string name="newRun">سباق جديد</string>
   <string name="endRun">انهاء السباق</string>
-  <string name="highscores" comment="A heading showing your high scores in Puzzle Storm.">أعلى النتائج</string>
-  <string name="viewBestRuns" comment="Lets you view your best results in Puzzle Storm. Links to https://lichess.org/storm/dashboard">اعرض أفضل الجولات</string>
-  <string name="bestRunOfDay">أفضل جولة في اليوم</string>
-  <string name="runs" comment="A run is a complete session of Puzzle Storm as an activity.&#10;&#10;Appears in your Puzzle Storm dashboard: https://lichess.org/storm/dashboard">جولات</string>
+  <string name="highscores">أعلى النتائج</string>
+  <string name="viewBestRuns">اعرض أفضل الجولات</string>
+  <string name="bestRunOfDay">أفضل جولة لك اليوم</string>
+  <string name="runs">جولات</string>
   <string name="getReady">استعد!</string>
   <string name="waitingForMorePlayers">ينتظر انضمام مزيد من الاعبين...</string>
   <string name="raceComplete">انتهى السباق!</string>
@@ -55,12 +55,12 @@
   <string name="createNewGame">أنشئ لعبة جديدة</string>
   <string name="joinPublicRace">انضم للسباقٍ علني</string>
   <string name="raceYourFriends">واجه أصدقائك</string>
-  <string name="skip" comment="A button which lets you skip a move in a puzzle without penalty.&#10;&#10;Players of Puzzle Racer (https://lichess.org/racer) are allowed to skip a single move across all the puzzles they are presented during a puzzle race.&#10;&#10;Please keep this as short as possible, since it is on a narrow button.">تخطى</string>
+  <string name="skip">تخطى</string>
   <string name="skipHelp">يمكنك تخطي حركة واحدة في كل سباق:</string>
   <string name="skipExplanation">تخطى هذه الحركة للحفاظ على سلسلة الانتصارات.</string>
-  <string name="failedPuzzles" comment="A filter button after a run of Puzzle Storm (https://lichess.org/storm) or a race in Puzzle Racer (https://lichess.org/racer). Lets you view only the puzzles you failed during the session.">الألغاز التي فشلت في حلها</string>
-  <string name="slowPuzzles" comment="The string appears as a filter to view puzzles with many moves in a run of Puzzle Storm (https://lichess.org/storm) or a Puzzle Race (https://lichess.org/racer).&#10;&#10;A slow puzzle takes longer because it has more moves to complete.">ألغاز بطيئة</string>
-  <string name="skippedPuzzle" comment="Players are allowed to skip a single move of a puzzle during a game of Puzzle Racer.">الالغاز التي تم تخطيها</string>
+  <string name="failedPuzzles">الألغاز التي فشلت في حلها</string>
+  <string name="slowPuzzles">ألغاز بطيئة</string>
+  <string name="skippedPuzzle">الألغاز التي تخطيتها</string>
   <string name="thisWeek">هذا الأسبوع</string>
   <string name="thisMonth">هذا الشهر</string>
   <string name="allTime">كل الأوقات</string>

@@ -4,5 +4,5 @@
   <string name="hourlyRapid">Atskákmót á klukkutímafresti</string>
   <string name="dailyRapidArena">Daglegt atskákmót</string>
   <string name="dailyRapid">Daglegt atskák</string>
-  <string name="dailyClassicalArena">Daglegt mót í hefðbundinni skák</string>
+  <string name="dailyClassicalArena" comment="dailyClassicalArena&#10;&#10;Used for tournaments. Please keep this string short and consistent with 'Daily Rapid' and 'Daily %s Arena'.">Daglegt mót í hefðbundinni skák</string>
 </resources>

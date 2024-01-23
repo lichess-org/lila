@@ -5,6 +5,7 @@
   <string name="toInviteSomeoneToPlayGiveThisUrl">To invite someone to play, give this URL</string>
   <string name="gameOver">Game Over</string>
   <string name="waitingForOpponent">Waiting for opponent</string>
+  <string name="orLetYourOpponentScanQrCode">Or let your opponent scan this QR code</string>
   <string name="waiting">Waiting</string>
   <string name="yourTurn">Your turn</string>
   <string name="aiNameLevelAiLevel">%1$s level %2$s</string>
@@ -506,7 +507,7 @@
   <string name="editProfile">Edit profile</string>
   <string name="firstName">First name</string>
   <string name="lastName">Surname</string>
-  <string name="setFlair">Set your flair:</string>
+  <string name="setFlair">Set your flair</string>
   <string name="flair">Flair</string>
   <string name="youCanHideFlair">There is a setting to hide all user flairs across the entire site.</string>
   <string name="biography">Biography</string>

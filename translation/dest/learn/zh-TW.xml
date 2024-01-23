@@ -6,7 +6,7 @@
   <string name="progressX">進度：%s</string>
   <string name="resetMyProgress">重設我的進度</string>
   <string name="youWillLoseAllYourProgress">您的進度將會被清空！</string>
-  <string name="play">玩！</string>
+  <string name="play" comment="play&#10;&#10;A small ribbon that appears on your current chapter in the Chess Basics course. Please keep this string short.">玩！</string>
   <string name="chessPieces">棋子</string>
   <string name="theRook">城堡</string>
   <string name="itMovesInStraightLines">它以直線移動</string>

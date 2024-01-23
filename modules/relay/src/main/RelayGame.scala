@@ -9,7 +9,7 @@ case class RelayGame(
     tags: Tags,
     variant: chess.variant.Variant,
     root: Root,
-    end: Option[PgnImport.End]
+    ending: Option[PgnImport.End]
 ):
 
   def staticTagsMatch(chapterTags: Tags): Boolean =
@@ -27,7 +27,7 @@ case class RelayGame(
 
   def resetToSetup = copy(
     root = root.withoutChildren,
-    end = None,
+    ending = None,
     tags = tags.copy(value = tags.value.filter(_.name != Tag.Result))
   )
 

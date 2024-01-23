@@ -210,7 +210,6 @@
   <string name="playingRightNow">Ar ei hanner</string>
   <string name="eventInProgress">Chwarae ar hyn o bryd</string>
   <string name="finished">Wedi dod i ben.</string>
-  <string name="finishesX">yn gorffen mewn %s</string>
   <string name="abortGame">Erthylu gêm</string>
   <string name="gameAborted">Gêm wedi\'i herthylu</string>
   <string name="standard">Normal</string>

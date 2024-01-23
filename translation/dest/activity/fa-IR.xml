@@ -11,7 +11,7 @@
     <item quantity="other">%1$s پوزیسیون را در %2$s تمرین کرد</item>
   </plurals>
   <plurals name="solvedNbPuzzles">
-    <item quantity="one">%s مساله تاکتیکی را حل کرد</item>
+    <item quantity="one">%s معمای آموزشی را حل کرد</item>
     <item quantity="other">%s مساله تاکتیکی را حل کرد</item>
   </plurals>
   <plurals name="playedNbGames">

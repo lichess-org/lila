@@ -5,6 +5,7 @@
   <string name="toInviteSomeoneToPlayGiveThisUrl">Por inviti iun al ludo, donu ĉi tiun ligilon</string>
   <string name="gameOver">Ludo finiĝis</string>
   <string name="waitingForOpponent">Atendante kontraŭulon</string>
+  <string name="orLetYourOpponentScanQrCode">Aŭ lasi vian kontraŭulon skani ĉi tiun QR-kodon per la app</string>
   <string name="waiting">Atendante</string>
   <string name="yourTurn">Via vico</string>
   <string name="aiNameLevelAiLevel">%1$s nivelo %2$s</string>
@@ -70,6 +71,7 @@
   <string name="makeMainLine">Ĉefigi linion</string>
   <string name="deleteFromHere">Forigi ekde tie ĉi</string>
   <string name="forceVariation">Devigi variaĵon</string>
+  <string name="copyVariationPgn">Kopi varianto PGN</string>
   <string name="move">Movo</string>
   <string name="variantLoss">Malvenka variaĵo</string>
   <string name="variantWin">Venka variaĵo</string>
@@ -271,7 +273,6 @@
   <string name="playingRightNow">Ludate nun</string>
   <string name="eventInProgress">Ludanta</string>
   <string name="finished">Finite</string>
-  <string name="finishesX">finiĝos %s</string>
   <string name="abortGame">Ĉesigi ludon</string>
   <string name="gameAborted">Ludo estis ĉesigita</string>
   <string name="standard">Normale</string>
@@ -404,6 +405,7 @@
   <string name="importGame">Importi ludon</string>
   <string name="importGameExplanation">Kiam vi enmetas PGN-on de ludo, vi povas reludi ĝin, vidi komputilan analizon, babili kun la kontraŭulon, kaj dissemi la ligilon URL.</string>
   <string name="importGameCaveat">Variaĵoj estos forigitaj. Por havi ilin enportu la PGN tra studoj.</string>
+  <string name="importGameDataPrivacyWarning">Ĉi tiun PGN estas atingebla de la publiko. Por importi ludon private, uzu studon.</string>
   <plurals name="nbImportedGames">
     <item quantity="one">%s Importitaj ludoj</item>
     <item quantity="other">%s Importitaj ludoj</item>
@@ -505,7 +507,11 @@
   <string name="editProfile">Redakti profilon</string>
   <string name="firstName">Persona nomo</string>
   <string name="lastName">Familia nomo</string>
+  <string name="setFlair">Agordi viaj emoĝio</string>
+  <string name="flair">Emoĝio</string>
+  <string name="youCanHideFlair">Estas agordo por kaŝi ĉiujn uzantajn emoĝiojn tra la tuta retejo.</string>
   <string name="biography">Biografio</string>
+  <string name="countryRegion" comment="flag&#10;Appears when you edit your profile. Lets a player add a country/flag (not all flags are for countries) to their profile">Lando aŭ regiono</string>
   <string name="thankYou">Dankon!</string>
   <string name="socialMediaLinks">Ligiloj al sociaj retejoj</string>
   <string name="oneUrlPerLine">Po unu URL en linio.</string>
@@ -657,8 +663,10 @@
   <string name="simultaneousExhibitions">Samtempludaj ekspozicioj</string>
   <string name="host">Gastiganto</string>
   <string name="hostColorX">Koloro de gastiganto: %s</string>
+  <string name="yourPendingSimuls">Viaj okazontaj samtempludoj</string>
   <string name="createdSimuls">Antaŭ nelonge kreitaj samtempludoj</string>
   <string name="hostANewSimul">Gastigi novan samtempludon</string>
+  <string name="signUpToHostOrJoinASimul">Subscribi por gastigi aŭ aliĝi samtempludon</string>
   <string name="noSimulFound">Ne trovis samtempludon</string>
   <string name="noSimulExplanation">Ĉi tiu samtempluda ekspocizio ne ekzistas.</string>
   <string name="returnToSimulHomepage">Reveni al la ĉefpaĝo de samtempludoj</string>
@@ -683,6 +691,7 @@
   <string name="keyboardShortcuts">Fulmoklavoj</string>
   <string name="keyMoveBackwardOrForward">movi (mal)antaŭen</string>
   <string name="keyGoToStartOrEnd">iri al komenco/fino</string>
+  <string name="keyCycleSelectedVariation">Cikligi elektan variaĵon</string>
   <string name="keyShowOrHideComments">(mal)montri komentojn</string>
   <string name="keyEnterOrExitVariation">eniru/forlasu variaĵon</string>
   <string name="keyRequestComputerAnalysis">Peti komputilan analizon, Lerni de viaj eraroj</string>
@@ -690,6 +699,13 @@
   <string name="keyNextBlunder">Sekva erarego</string>
   <string name="keyNextMistake">Sekva eraro</string>
   <string name="keyNextInaccuracy">Sekva erareto</string>
+  <string name="keyPreviousBranch">Antaŭa branĉo</string>
+  <string name="keyNextBranch">Sekva branĉo</string>
+  <string name="toggleVariationArrows">Baskuligi variaĵojn sagojn</string>
+  <string name="cyclePreviousOrNextVariation">Cickligi antaŭan/sekvan variaĵon</string>
+  <string name="toggleGlyphAnnotations">Baskuligi signobildan prinotadon</string>
+  <string name="variationArrowsInfo">Variaĵaj sagoj lasi vin navigi neutile la movlisto.</string>
+  <string name="playSelectedMove">ludi elektan movon</string>
   <string name="newTournament">Nova konkurso</string>
   <string name="tournamentHomeTitle">Ŝaka konkurso kun diversaj tempokontroloj kaj variaĵoj</string>
   <string name="tournamentHomeDescription">Ludu en rapidaj konkursoj! Aliĝu al oficialaj konkursoj aŭ kreu vian propran. Unminuta ŝako, Kvinminuta ŝako, Klasika ŝako, Ŝak960, Triŝako kaj aliaj variaĵoj haveblas por senfina ĝuo.</string>
@@ -850,7 +866,6 @@
   <string name="clickHereToReadIt">Alklaku ĉi tie por legi ĝin</string>
   <string name="sorry">Bedaŭrinde :(</string>
   <string name="weHadToTimeYouOutForAWhile">Ni devis provizore suspendi vin.</string>
-  <string name="timeoutExpires">La suspendo finiĝos %s.</string>
   <string name="why">Kial?</string>
   <string name="pleasantChessExperience">Nia celo estas provizi plaĉan ŝakan sperton al ĉiuj.</string>
   <string name="goodPractice">Pro tio, ni devas certigi ke ĉiuj ludantoj sekvas bonna etiketon.</string>
@@ -969,6 +984,8 @@ Lasi ĝin malplena por komenci ludojn de la norma komenca pozicio.</string>
   <string name="switchSides">Ŝanĝi flankojn</string>
   <string name="closingAccountWithdrawAppeal">Fermata de via konto estos eltiri vian apelacion</string>
   <string name="ourEventTips">Niaj konsiletoj por organizi eventojn</string>
+  <string name="instructions">Instrukcio</string>
+  <string name="showMeEverything">Ĉion montru al mi</string>
   <string name="lichessPatronInfo">Lichess estas almoza kaj tute libera malfermitkoda programaro.
 Ĉiu funkciada elspezo, ellaborado, kaj enhavo estas financita sole de uzantajn donacojn.</string>
 </resources>

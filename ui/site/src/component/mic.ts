@@ -171,7 +171,7 @@ export const mic = new (class implements Voice.Microphone {
   }
 
   get isListening(): boolean {
-    return !!this.recs.selected && !!this.micTrack?.enabled && !this.isBusy;
+    return !!this.recs.selected && !!(this.micTrack?.enabled || this.paused) && !this.isBusy;
   }
 
   get isBusy(): boolean {

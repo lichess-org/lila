@@ -1,31 +1,10 @@
 import * as licon from 'common/licon';
 import * as xhr from 'common/xhr';
+import flairPicker from './component/flairPicker';
 
 lichess.load.then(() => {
   $('.emoji-details').each(function (this: HTMLElement) {
-    const details = this;
-    const parent = $(details).parent();
-    const close = () => details.removeAttribute('open');
-    const onEmojiSelect = (i?: { id: string; src: string }) => {
-      parent.find('input[name="flair"]').val(i?.id ?? '');
-      parent.find('.user-link .uflair').remove();
-      if (i) parent.find('.user-link').append('<img class="uflair" src="' + i.src + '" />');
-      close();
-    };
-    parent.find('.emoji-remove').on('click', e => {
-      e.preventDefault();
-      onEmojiSelect();
-      $(e.target).remove();
-    });
-    $(details).on('toggle', () =>
-      lichess.asset.loadEsm('flairPicker', {
-        init: {
-          element: details.querySelector('.flair-picker')!,
-          close,
-          onEmojiSelect,
-        },
-      }),
-    );
+    flairPicker(this);
   });
 
   const localPrefs: [string, string, string, boolean][] = [

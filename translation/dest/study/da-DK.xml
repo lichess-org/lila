@@ -22,8 +22,8 @@
     <item quantity="other">%s kapitler</item>
   </plurals>
   <plurals name="nbGames">
-    <item quantity="one">%s Parti</item>
-    <item quantity="other">%s Partier</item>
+    <item quantity="one">%s parti</item>
+    <item quantity="other">%s partier</item>
   </plurals>
   <string name="addMembers">Tilføj medlemmer</string>
   <plurals name="nbMembers">

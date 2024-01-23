@@ -51,7 +51,7 @@
   <string name="fideMate">Segundo as Leis do Xadrez da FIDE (§6.9), se un xaque mate é posible con calquera secuencia legal de movementos, entón o a partida non son táboas</string>
   <string name="knightMate">É posible dar xaque mate con só un cabalo ou un alfil se o opoñente posúe algunha peza máis no taboleiro.</string>
   <string name="noRatingPoints">Non se concederon puntos</string>
-  <string name="ratedGame">Asegúrate que xogaches unha partida puntuada. Partidas amistosas non afectan á puntuación dos xogadores/as.</string>
+  <string name="ratedGame">Asegúrate de que xogaches unha partida puntuada. As partidas amistosas non afectan á puntuación dos xogadores.</string>
   <string name="botRatingAbuse">Ó xogar contra unha conta de bot, pode que unha partida puntuada non se contabilice se se determina que o xogador abusa do bot para conseguir puntos.</string>
   <string name="errorPage">Páxina de erro</string>
   <string name="reportErrorPage">Se unha páxina dá erro, podes reportala:</string>

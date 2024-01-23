@@ -19,7 +19,7 @@
   <string name="findTheBestMoveForWhite">Leia parim käik valgele.</string>
   <string name="findTheBestMoveForBlack">Leia parim käik mustale.</string>
   <string name="toGetPersonalizedPuzzles">Saa personaalseid puslesid:</string>
-  <string name="puzzleId" comment="%s is the ID of the puzzle, something like #a1b2c3.">%s ülesanne</string>
+  <string name="puzzleId">%s ülesanne</string>
   <string name="puzzleOfTheDay">Päevaülesanne</string>
   <string name="dailyPuzzle">Päeva pusle</string>
   <string name="clickToSolve">Lahendamiseks vajuta</string>
@@ -30,9 +30,9 @@
   <string name="puzzleComplete">Pusle lahendatud!</string>
   <string name="notTheMove">See ei ole õige käik!</string>
   <string name="trySomethingElse">Proovi midagi muud.</string>
-  <string name="ratingX" comment="Appears on pages of individual puzzles.&#10;&#10;%s is either:&#10;1. The word 'hidden', if you have not completed the puzzle yet.&#10;2. The rating of the puzzle, if you have completed it or seen the solution.">Reiting: %s</string>
-  <string name="hidden" comment="Puzzle rating: hidden&#10;&#10;Appears while solving puzzles. Lichess only displays the rating of the puzzle after you have solved it or asked to see the solution.">peidetud</string>
-  <plurals name="playedXTimes" comment="Appears on pages of individual puzzles.&#10;%s is the number of times the puzzle has been played.">
+  <string name="ratingX">Reiting: %s</string>
+  <string name="hidden">peidetud</string>
+  <plurals name="playedXTimes">
     <item quantity="one">Mängitud %s kord</item>
     <item quantity="other">Mängitud %s korda</item>
   </plurals>

@@ -6,6 +6,13 @@ import java.time.Instant
 
 trait LilaModel:
 
+  type Update[A] = A => A
+  def UpdateOf[A](f: A => A): Update[A] = f
+  // apply updates to a value, and keep track of the updates
+  // so they can all be replayed on another value
+  case class Updating[A](current: A, reRun: Update[A] = (a: A) => a):
+    def apply(up: Update[A]) = Updating(up(current), up compose reRun)
+
   trait OpaqueInstant[A](using A =:= Instant) extends TotalWrapper[A, Instant]
 
   trait Percent[A]:

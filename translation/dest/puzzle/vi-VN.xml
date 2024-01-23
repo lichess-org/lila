@@ -2,7 +2,7 @@
 <resources>
   <string name="puzzles">Câu đố</string>
   <string name="puzzleThemes">Chủ đề câu đố</string>
-  <string name="recommended">Đề xuất</string>
+  <string name="recommended">Được đề xuất</string>
   <string name="phases">Giai đoạn</string>
   <string name="motifs">Các mô-típ</string>
   <string name="advanced">Nâng cao</string>
@@ -19,7 +19,7 @@
   <string name="findTheBestMoveForWhite">Tìm nước tối ưu cho Trắng.</string>
   <string name="findTheBestMoveForBlack">Tìm nước tối ưu cho Đen.</string>
   <string name="toGetPersonalizedPuzzles">Để có được các thế cờ dành riêng cho bạn:</string>
-  <string name="puzzleId" comment="%s is the ID of the puzzle, something like #a1b2c3.">Câu đố %s</string>
+  <string name="puzzleId">Câu đố %s</string>
   <string name="puzzleOfTheDay">Câu đố của ngày</string>
   <string name="dailyPuzzle">Câu đố Hàng ngày</string>
   <string name="clickToSolve">Nhấn để giải</string>
@@ -30,14 +30,14 @@
   <string name="puzzleComplete">Hoàn thành câu đố!</string>
   <string name="byOpenings">Theo khai cuộc</string>
   <string name="puzzlesByOpenings">Câu đố theo khai cuộc</string>
-  <string name="openingsYouPlayedTheMost">Những khai cuộc bạn thường chơi trong các ván đấu tính elo</string>
-  <string name="useFindInPage" comment="useFindInPage&#10;&#10;Appears on https://lichess.org/training/openings&#10;Encourages players to use the built-in browser feature (Ctrl+F on most desktop computers) to find the opening they want to practice.">Dùng \"Tìm kiếm trong trang\" trong mục lục trình duyệt để tìm khai cuộc yêu thích của bạn!</string>
+  <string name="openingsYouPlayedTheMost">Những khai cuộc bạn thường chơi trong các ván đấu có xếp hạng</string>
+  <string name="useFindInPage">Dùng \"Tìm kiếm trong trang\" trong mục lục trình duyệt để tìm khai cuộc yêu thích của bạn!</string>
   <string name="useCtrlF">Dùng Ctrl+f để tìm khai cuộc yêu thích của bạn!</string>
   <string name="notTheMove">Đó chưa phải là nước đi tối ưu!</string>
   <string name="trySomethingElse">Hãy thử nước đi khác.</string>
-  <string name="ratingX" comment="Appears on pages of individual puzzles.&#10;&#10;%s is either:&#10;1. The word 'hidden', if you have not completed the puzzle yet.&#10;2. The rating of the puzzle, if you have completed it or seen the solution.">Hệ số: %s</string>
-  <string name="hidden" comment="Puzzle rating: hidden&#10;&#10;Appears while solving puzzles. Lichess only displays the rating of the puzzle after you have solved it or asked to see the solution.">ẩn</string>
-  <plurals name="playedXTimes" comment="Appears on pages of individual puzzles.&#10;%s is the number of times the puzzle has been played.">
+  <string name="ratingX">Hệ số: %s</string>
+  <string name="hidden">ẩn</string>
+  <plurals name="playedXTimes">
     <item quantity="other">Đã được giải %s lần</item>
   </plurals>
   <string name="fromGameLink">Từ ván cờ %s</string>
@@ -65,7 +65,7 @@
   <string name="solved">giải đúng</string>
   <string name="failed">giải sai</string>
   <string name="streakDescription">Giải những câu đố có độ khó tăng dần và tích lũy chuỗi thắng. Sẽ không có đồng hồ, nên hãy giải chúng một cách bình tĩnh. Một nước đi sai, và trò chơi sẽ kết thúc! Tuy nhiên, bạn được quyền bỏ qua một nước đi trong mỗi lần chơi.</string>
-  <string name="yourStreakX" comment="%s is the number of puzzles you fully solved in a run of Puzzle Streak (https://lichess.org/streak).&#10;&#10;Appears once you make a wrong move or skip a puzzle, ending your streak. There is a counter always running on the left-hand side of the page without words.">Chuỗi của bạn: %s</string>
+  <string name="yourStreakX">Chuỗi của bạn: %s</string>
   <string name="streakSkipExplanation">Bỏ qua nước đi này để bảo toàn chuỗi của bạn! Chỉ dùng được một lần cho mỗi lần chơi.</string>
   <string name="continueTheStreak">Tiếp tục chuỗi</string>
   <string name="newStreak">Chuỗi mới</string>

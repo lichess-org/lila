@@ -6,6 +6,7 @@ import chess.format.pgn.SanStr
 import chess.opening.{ Opening, OpeningDb }
 import chess.variant.{ FromPosition, Standard, Variant }
 import chess.{
+  Outcome,
   ByColor,
   Ply,
   Castles,
@@ -358,6 +359,9 @@ case class Game(
             Event.Berserk(color)
           )
 
+  def setBlindfold(color: Color, blindfold: Boolean): Progress =
+    Progress(this, updatePlayer(color, _.copy(blindfold = blindfold)), Nil)
+
   def resignable      = playable && !abortable
   def forceResignable = resignable && nonAi && !fromFriend && hasClock && !isSwiss && !hasRule(_.NoClaimWin)
   def forceResignableNow = forceResignable && bothPlayersHaveMoved
@@ -409,6 +413,8 @@ case class Game(
   def loser = winner map opponent
 
   def winnerColor: Option[Color] = winner.map(_.color)
+
+  def outcome: Option[Outcome] = finished option Outcome(winnerColor)
 
   def winnerUserId: Option[UserId] = winner.flatMap(_.userId)
 
@@ -565,6 +571,7 @@ case class Game(
   def blackPov                                         = pov(Black)
   def playerPov(p: Player)                             = pov(p.color)
   def loserPov                                         = loser map playerPov
+  def povs: ByColor[Pov]                               = ByColor(pov)
 
   def setAnalysed = copy(metadata = metadata.copy(analysed = true))
 

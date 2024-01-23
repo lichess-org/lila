@@ -54,4 +54,13 @@
     <item quantity="one">%s aasta tagasi</item>
     <item quantity="other">%s aastat tagasi</item>
   </plurals>
+  <plurals name="nbMinutesRemaining">
+    <item quantity="one">%s minut jäänud</item>
+    <item quantity="other">%s minutit jäänud</item>
+  </plurals>
+  <plurals name="nbHoursRemaining">
+    <item quantity="one">%s tund jäänud</item>
+    <item quantity="other">%s tundi jäänud</item>
+  </plurals>
+  <string name="completed">lõppenud</string>
 </resources>

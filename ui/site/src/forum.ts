@@ -72,15 +72,18 @@ lichess.load.then(() => {
       authorUsername = $post.find('.author').attr('href')?.substring(3),
       author = authorUsername ? '@' + authorUsername : $post.find('.author').text(),
       anchor = $post.find('.anchor').text(),
-      message = $post.find('.forum-post__message')[0] as HTMLElement,
+      message = $post.find('.forum-post__message'),
       response = $('.reply .post-text-area')[0] as HTMLTextAreaElement;
 
-    let messageText = message.innerText;
+    let messageText = message[0]?.innerText;
     const selection = window.getSelection();
-    if (selection && selection.anchorNode?.parentElement === message) messageText = selection.toString();
+    if (selection && selection.anchorNode?.parentElement === message[0]) messageText = selection.toString();
 
+    message.children('.lpv').each((_, c) => {
+      messageText = messageText?.replace(c.innerText ?? '', '');
+    });
     let quote = messageText
-      .replace(/^(?:>.*)\n?|(?:@.+ said in #\d+:\n?)/gm, '')
+      ?.replace(/^(?:>.*)\n?|(?:@.+ said in #\d+:\n?)/gm, '')
       .trim()
       .split('\n')
       .map(line => '> ' + line)
@@ -189,4 +192,5 @@ lichess.load.then(() => {
     replyStorage.remove();
     submittingReply = true;
   });
+  if (replyEl?.value) replyEl.scrollIntoView(); // scrollto if pre-populated
 });

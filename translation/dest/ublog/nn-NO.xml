@@ -1,5 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+  <string name="communityBlogs">Bloggar frå sjakkmiljøet</string>
+  <string name="friendBlogs">Bloggane til vener</string>
+  <string name="likedBlogs">Likte blogginnlegg</string>
+  <string name="blogTopics">Bloggemner</string>
+  <string name="lichessOfficialBlog">Lichess sin offisielle blogg</string>
+  <string name="continueReadingPost">Hald fram med å lesa dette innlegget</string>
+  <string name="lichessBlogPostsFromXYear">Lichess-blogginlegg i %s</string>
+  <string name="previousBlogPosts">Tidlegare blogginnlegg</string>
   <string name="xBlog">Bloggen til %s</string>
   <string name="newPost">Nytt innlegg</string>
   <string name="editYourBlogPost">Rediger innlegget ditt</string>

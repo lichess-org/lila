@@ -1,10 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+  <string name="communityBlogs">وبنوشت‌های اجتماع شطرنج‌بازان</string>
+  <string name="friendBlogs">وبنوشت‌های دوستان</string>
+  <string name="likedBlogs">وبنوشته‌های پسندشده</string>
+  <string name="blogTopics">موضوعات وبنوشت</string>
+  <string name="lichessOfficialBlog">وبنوشت رسمی Lichess</string>
+  <string name="continueReadingPost">ادامه مطلب</string>
+  <string name="lichessBlogPostsFromXYear">بلاگ های لیچس در %s</string>
+  <string name="previousBlogPosts">وبنوشته‌های قبلی</string>
   <string name="xBlog">وبلاگ %s</string>
   <string name="newPost">نوشتهٔ جدید</string>
   <string name="editYourBlogPost">نوشتهٔ تارنگارِ خود را ویرایش نمایید</string>
   <string name="saveDraft">پیش‌نویس را ذخیره نمایید</string>
-  <string name="postTitle">عنوانِ نوشته</string>
+  <string name="postTitle">عنوان مطلب</string>
   <string name="postIntro">مقدمهٔ نوشته</string>
   <string name="postBody">متنِ نوشته</string>
   <string name="drafts">پیش‌نویس‌ها</string>
@@ -43,5 +51,5 @@
   <string name="safeAndRespectfulContent">لطفا فقط مطالب ایمن و محترمانه منتشر کنید. مطالب دیگران را کپی نکنید.</string>
   <string name="inappropriateContentAccountClosed">هر چیز نامناسبی می تواند حساب شما را ببندد.</string>
   <string name="blogTips">نکات پیشنهادی ما برای نوشتن پست های خوب وبلاگ</string>
-  <string name="discussThisBlogPostInTheForum" comment="A button at the bottom of blog posts which will take you to the forum discussion for that post.">راجع‌به این نوشته در انجمن بحث کنید</string>
+  <string name="discussThisBlogPostInTheForum">راجع‌به این نوشته در انجمن بحث کنید</string>
 </resources>

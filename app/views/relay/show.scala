@@ -53,7 +53,7 @@ object show:
         )
       ),
       zoomable = true,
-      csp = analysisCsp.withWikiBooks.some,
+      csp = analysisCsp.withExternalAnalysisApis.some,
       openGraph = lila.app.ui
         .OpenGraph(
           title = rt.fullName,

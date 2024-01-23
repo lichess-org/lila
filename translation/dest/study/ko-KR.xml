@@ -59,7 +59,7 @@
   <string name="studyPgn">연구 PGN</string>
   <string name="downloadAllGames">모든 게임 다운로드</string>
   <string name="chapterPgn">챕터 PGN</string>
-  <string name="copyChapterPgn">PGN 복사</string>
+  <string name="copyChapterPgn" comment="A button which lets you copy the PGN text to your clipboard (i.e. similar to ⌘+C or Ctrl+C).">PGN 복사</string>
   <string name="copyChapterPgnDescription">클립보드에 챕터 PGN 복사</string>
   <string name="downloadGame">게임 다운로드</string>
   <string name="studyUrl">연구 URL</string>

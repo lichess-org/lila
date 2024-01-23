@@ -37,7 +37,7 @@ final class Video(env: Env) extends LilaController(env):
 
   def show(id: String) = Open:
     WithUserControl: control =>
-      api.video.find(id) flatMap {
+      api.video.find(id) flatMap:
         case None => NotFound.page(html.video.bits.notFound(control))
         case Some(video) =>
           api.video.similar(ctx.me, video, 9) zip
@@ -46,7 +46,6 @@ final class Video(env: Env) extends LilaController(env):
             } flatMap { (similar, _) =>
               Ok.page(html.video.show(video, similar, control))
             }
-      }
 
   def author(author: String) = Open:
     WithUserControl: control =>

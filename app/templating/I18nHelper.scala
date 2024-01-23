@@ -33,6 +33,6 @@ trait I18nHelper:
     if ctx.isAuth || ctx.lang.language == "en"
     then path
     else
-      val code = lila.i18n.fixJavaLanguageCode(ctx.lang)
+      val code = lila.i18n.fixJavaLanguage(ctx.lang)
       if path == "/" then s"/$code"
       else s"/$code$path"

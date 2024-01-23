@@ -28,13 +28,13 @@
   <string name="byOpenings">အဖွင့်များဖြင့်</string>
   <string name="puzzlesByOpenings">အဖွင့်ကွက်များနှင့် ရှာကွက်ပုစ္ဆာများ</string>
   <string name="openingsYouPlayedTheMost">အမှတ်ပွဲများတွင် အများဆုံး သင်ဆော့ခဲ့သော အဖွင့်ကွက်များ</string>
-  <string name="useFindInPage" comment="useFindInPage&#10;&#10;Appears on https://lichess.org/training/openings&#10;Encourages players to use the built-in browser feature (Ctrl+F on most desktop computers) to find the opening they want to practice.">\"စာမျက်နှာအတွင်း ရှာဖွေခြင်း\" ကိုအသုံးပြု၍ သင်နှင့် အလိုက်ဖက်ဆုံးသော အဖွင့်ကွက်များကိုရှာပါ!</string>
+  <string name="useFindInPage">\"စာမျက်နှာအတွင်း ရှာဖွေခြင်း\" ကိုအသုံးပြု၍ သင်နှင့် အလိုက်ဖက်ဆုံးသော အဖွင့်ကွက်များကိုရှာပါ!</string>
   <string name="useCtrlF">Ctrl+F ကိုအသုံးပြုပြီး သင်အနှစ်သက်ဆုံးသော ဖွင့်ကွက်များကို ရှာပါ!</string>
   <string name="notTheMove">၎င်း ရွှေ့ကွက် မဟုတ်ပါ</string>
   <string name="trySomethingElse">တခြားနည်း စမ်းကြည့်ပါ</string>
-  <string name="ratingX" comment="Appears on pages of individual puzzles.&#10;&#10;%s is either:&#10;1. The word 'hidden', if you have not completed the puzzle yet.&#10;2. The rating of the puzzle, if you have completed it or seen the solution.">လက်ရည်- %s</string>
-  <string name="hidden" comment="Puzzle rating: hidden&#10;&#10;Appears while solving puzzles. Lichess only displays the rating of the puzzle after you have solved it or asked to see the solution.">ဖွက်ထားသည်။</string>
-  <plurals name="playedXTimes" comment="Appears on pages of individual puzzles.&#10;%s is the number of times the puzzle has been played.">
+  <string name="ratingX">လက်ရည်- %s</string>
+  <string name="hidden">ဖွက်ထားသည်။</string>
+  <plurals name="playedXTimes">
     <item quantity="other">%s ကြိမ်း ကစားခဲ့သည်</item>
   </plurals>
   <string name="continueTraining">ဆက်လက် လေ့ကျင့်ရန်</string>

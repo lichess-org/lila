@@ -1,6 +1,6 @@
 /// <reference types="../types/tablesort" />
 import tablesort from 'tablesort';
-import extendTablesortNumber from 'common/tablesort-number';
+import extendTablesortNumber from 'common/tablesortNumber';
 import * as xhr from 'common/xhr';
 
 import type { Result as UserCompleteResult } from './userComplete';

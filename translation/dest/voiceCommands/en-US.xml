@@ -3,10 +3,10 @@
   <string name="voiceCommands">Voice commands</string>
   <string name="watchTheVideoTutorial">Watch the video tutorial</string>
   <string name="instructions1">Use the %1$s button to toggle voice recognition, the %2$s button to open this help dialog, and the %3$s menu to change speech settings.</string>
-  <string name="instructions2">We show arrows for multiple moves when we are not sure. Speak the color or number of a move arrow to select it.</string>
-  <string name="instructions3">If an arrow shows a sweeping radar, that move will be played when the circle is complete. During this time, you may only say %1$s to play the move immediately, %2$s to cancel, or speak the color/number of a different arrow. This timer can be adjusted or turned off in settings.</string>
-  <string name="instructions4">Enable %s in noisy surroundings. Hold shift while speaking commands when this is on.</string>
-  <string name="instructions5">Use the phonetic alphabet to improve recognition of chessboard files. </string>
+  <string name="instructions2" comment="Voice commands can be misheard and Lichess will not always be fully certain what you said. Several arrows will be shown to identify e.g. if the move was 'b4' or 'd4', which often sound similar.&#10;&#10;These arrows will be in different colours (green, blue, etc) or labelled 1, 2, 3....&#10;You can then say the colour of the arrow (e.g. 'green') - or its number (e.g. '1'), to select that move.&#10;Users can configure if they choose from multiple moves based on colours or numbers.">We show arrows for multiple moves when we are not sure. Speak the color or number of a move arrow to select it.</string>
+  <string name="instructions3" comment="This is a complicated concept more easy to understand in practice. Voice commands can be misheard and Lichess will not always be fully certain what you said. Several arrows will be shown to identify e.g. if the move was 'b4' or 'd4', which often sound similar.&#10;The most likely move the player wants will have a circle showing around it, but it will be possible to cancel before it is played (for example, by shouting 'no!').&#10;&#10;You can see a visual example here: https://lichess.org/@/schlawg/blog/how-to-lichess-voice/nWrypoWI">If an arrow shows a sweeping radar, that move will be played when the circle is complete. During this time, you may only say %1$s to play the move immediately, %2$s to cancel, or speak the color/number of a different arrow. This timer can be adjusted or turned off in settings.</string>
+  <string name="instructions4" comment="%s is Push to Talk.">Enable %s in noisy surroundings. Hold shift when speaking commands while this option is active.</string>
+  <string name="instructions5" comment="The phonetic alphabet is also known as the NATO alphabet (where A = Alpha, B = Bravo, etc. This makes the sounds easier to differentiate through a microphone). It is for English specifically, which as of the time of writing, is the only language supported by the Voice Commands feature.">Use the phonetic alphabet to improve recognition of chessboard files. </string>
   <string name="instructions6">%s explains the voice move settings in detail.</string>
   <string name="thisBlogPost">This blog post</string>
   <string name="moveToE4OrSelectE4Piece">Move to e4 or select e4 piece</string>
@@ -15,8 +15,8 @@
   <string name="castle">Castle (either side)</string>
   <string name="phoneticAlphabetIsBest">Phonetic alphabet is best</string>
   <string name="cancelTimerOrDenyARequest">Cancel timer or deny a request</string>
-  <string name="playPreferredMoveOrConfirmSomething">Play preferred move or confirm something</string>
-  <string name="sleep">Sleep (if wake word enabled)</string>
+  <string name="playPreferredMoveOrConfirmSomething" comment="Used in voice commands. When it is unclear what the player said (e.g. 'b4' and 'd4' sound similar), both moves will be shown, with the more likely one highlighted in a certain colour. By default, a countdown begins, and if no action is taken, the likely move (e.g. b4) will be played. Players can end the countdown early/confirm their move by saying 'yes'.&#10;&#10;For more details see https://lichess.org/@/schlawg/blog/how-to-lichess-voice/nWrypoWI">Play preferred move or confirm something</string>
+  <string name="sleep" comment="Used for voice commands.&#10;&#10;By default, voice commands are always-on after the feature is enabled. Users can optionally set a word for listening to start, or say 'sleep' to disable listening.&#10;&#10;(Please note - this is not the same as recording, since the recording is never sent to Lichess; the speech technology is entirely offline)">Sleep (if wake word enabled)</string>
   <string name="turnOffVoiceRecognition">Turn off voice recognition</string>
   <string name="showPuzzleSolution">Show puzzle solution</string>
 </resources>

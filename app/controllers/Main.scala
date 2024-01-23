@@ -107,21 +107,17 @@ final class Main(
     pageHit
     Ok.page(html.site.faq())
 
-  def temporarilyDisabled = Open:
+  def temporarilyDisabled(path: String) = Open:
     pageHit
     NotImplemented.page(html.site.message.temporarilyDisabled)
-
-  def analyseVariationArrowHelp = Open:
-    Ok.page(html.site.help.analyseVariationArrow)
 
   def keyboardMoveHelp = Open:
     Ok.page(html.site.help.keyboardMove)
 
   def voiceHelp(module: String) = Open:
     module match
-      case "move"   => Ok.page(html.site.help.voiceMove)
-      case "coords" => Ok.page(html.site.help.voiceCoords)
-      case _        => NotFound(s"Unknown voice help module: $module")
+      case "move" => Ok.page(html.site.help.voiceMove)
+      case _      => NotFound(s"Unknown voice module: $module")
 
   def movedPermanently(to: String) = Anon:
     MovedPermanently(to)

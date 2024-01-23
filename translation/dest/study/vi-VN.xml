@@ -1,18 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="private">Riêng tư</string>
-  <string name="myStudies">Nghiên cứu của tôi</string>
+  <string name="myStudies">Các nghiên cứu của tôi</string>
   <string name="studiesIContributeTo">Các nghiên cứu tôi đóng góp</string>
   <string name="myPublicStudies">Nghiên cứu công khai của tôi</string>
   <string name="myPrivateStudies">Nghiên cứu riêng tư của tôi</string>
-  <string name="myFavoriteStudies">Nghiên cứu yêu thích của tôi</string>
+  <string name="myFavoriteStudies">Các nghiên cứu yêu thích của tôi</string>
   <string name="whatAreStudies">Nghiên cứu là gì?</string>
   <string name="allStudies">Tất cả các nghiên cứu</string>
   <string name="studiesCreatedByX">Các nghiên cứu được tạo bởi %s</string>
   <string name="noneYet">Chưa có gì cả.</string>
   <string name="hot">Thịnh hành</string>
-  <string name="dateAddedNewest">Ngày thêm (mới nhất)</string>
-  <string name="dateAddedOldest">Ngày thêm (cũ nhất)</string>
+  <string name="dateAddedNewest">Ngày được thêm (mới nhất)</string>
+  <string name="dateAddedOldest">Ngày được thêm (cũ nhất)</string>
   <string name="recentlyUpdated">Được cập nhật gần đây</string>
   <string name="mostPopular">Phổ biến nhất</string>
   <string name="alphabetical">Theo thứ tự chữ cái</string>
@@ -28,25 +28,25 @@
     <item quantity="other">%s Thành viên</item>
   </plurals>
   <string name="inviteToTheStudy">Mời vào nghiên cứu</string>
-  <string name="pleaseOnlyInvitePeopleYouKnow">Vui lòng chỉ mời những người bạn biết và muốn tham gia.</string>
+  <string name="pleaseOnlyInvitePeopleYouKnow">Vui lòng chỉ mời những người bạn biết và những người tích cực muốn tham gia nghiên cứu này.</string>
   <string name="searchByUsername">Tìm kiếm theo tên người dùng</string>
   <string name="spectator">Khán giả</string>
   <string name="contributor">Người đóng góp</string>
   <string name="kick">Đuổi</string>
   <string name="leaveTheStudy">Rời khỏi nghiên cứu</string>
   <string name="youAreNowAContributor">Bây giờ bạn là một người đóng góp</string>
-  <string name="youAreNowASpectator">Bây giờ bạn là khán giả</string>
+  <string name="youAreNowASpectator">Bây giờ bạn là một khán giả</string>
   <string name="pgnTags">Nhãn PGN</string>
   <string name="like">Thích</string>
   <string name="unlike">Bỏ thích</string>
   <string name="newTag">Nhãn mới</string>
-  <string name="commentThisPosition">Đánh giá về thế cờ này</string>
-  <string name="commentThisMove">Đánh giá về nước cờ này</string>
+  <string name="commentThisPosition">Bình luận về thế cờ này</string>
+  <string name="commentThisMove">Bình luận về nước cờ này</string>
   <string name="annotateWithGlyphs">Chú thích bằng dấu</string>
   <string name="theChapterIsTooShortToBeAnalysed">Chương này quá ngắn để có thể được phân tích.</string>
-  <string name="onlyContributorsCanRequestAnalysis">Chỉ có những người đóng góp mới có thể yêu cầu máy tính phân tích.</string>
+  <string name="onlyContributorsCanRequestAnalysis">Chỉ những người đóng góp nghiên cứu mới có thể yêu cầu máy tính phân tích.</string>
   <string name="getAFullComputerAnalysis">Nhận phân tích máy tính phía máy chủ đầy đủ về biến chính.</string>
-  <string name="makeSureTheChapterIsComplete">Đảm bảo chương đã hoàn thành. Bạn chỉ có thể yêu cầu phân tích 1 lần.</string>
+  <string name="makeSureTheChapterIsComplete">Hãy chắc chắn chương đã hoàn thành. Bạn chỉ có thể yêu cầu phân tích 1 lần.</string>
   <string name="allSyncMembersRemainOnTheSamePosition">Đồng bộ hóa tất cả các thành viên trên cùng một thế cờ</string>
   <string name="shareChanges">Chia sẻ các thay đổi với khán giả và lưu chúng trên máy chủ</string>
   <string name="playing">Đang chơi</string>
@@ -55,21 +55,21 @@
   <string name="next">Trang tiếp theo</string>
   <string name="last">Trang cuối</string>
   <string name="shareAndExport">Chia sẻ &amp; xuất</string>
-  <string name="cloneStudy">Tạo bản sao</string>
+  <string name="cloneStudy">Nhân bản</string>
   <string name="studyPgn">PGN nghiên cứu</string>
-  <string name="downloadAllGames">Tải xuống tất cả ván đấu</string>
+  <string name="downloadAllGames">Tải về tất cả ván đấu</string>
   <string name="chapterPgn">PGN chương</string>
   <string name="copyChapterPgn" comment="A button which lets you copy the PGN text to your clipboard (i.e. similar to ⌘+C or Ctrl+C).">Sao chép PGN</string>
   <string name="copyChapterPgnDescription">Sao chép PGN chương vào bảng nhớ tạm.</string>
-  <string name="downloadGame">Tải xuống ván cờ</string>
+  <string name="downloadGame">Tải về ván cờ</string>
   <string name="studyUrl">URL nghiên cứu</string>
   <string name="currentChapterUrl">URL chương hiện tại</string>
   <string name="youCanPasteThisInTheForumToEmbed">Bạn có thể dán cái này để nhúng vào diễn đàn hoặc blog Lichess cá nhân của bạn</string>
-  <string name="startAtInitialPosition">Bắt đầu từ thế trận ban đầu</string>
+  <string name="startAtInitialPosition">Bắt đầu từ thế cờ ban đầu</string>
   <string name="startAtX">Bắt đầu tại nước %s</string>
   <string name="embedInYourWebsite">Nhúng vào trang web của bạn</string>
   <string name="readMoreAboutEmbedding">Đọc thêm về việc nhúng</string>
-  <string name="onlyPublicStudiesCanBeEmbedded">Chỉ có nghiên cứu công khai mới được nhúng!</string>
+  <string name="onlyPublicStudiesCanBeEmbedded">Chỉ các nghiên cứu công khai mới được nhúng!</string>
   <string name="open">Mở</string>
   <string name="xBroughtToYouByY">%1$s được lấy từ %2$s</string>
   <string name="studyNotFound">Không tìm thấy nghiên cứu nào</string>
@@ -78,12 +78,12 @@
   <string name="importFromChapterX">Nhập từ chương %s</string>
   <string name="orientation">Nghiên cứu cho bên</string>
   <string name="analysisMode">Chế độ phân tích</string>
-  <string name="pinnedChapterComment">Ghim bình luận chương</string>
+  <string name="pinnedChapterComment">Đã ghim bình luận chương</string>
   <string name="saveChapter">Lưu chương</string>
   <string name="clearAnnotations">Xóa chú thích</string>
   <string name="clearVariations">Xóa các biến</string>
   <string name="deleteChapter">Xóa chương</string>
-  <string name="deleteThisChapter">Nếu xóa chương này. Sẽ không có cách nào để có thể khôi phục lại!</string>
+  <string name="deleteThisChapter">Xóa chương này. Sẽ không có cách nào để có thể khôi phục lại!</string>
   <string name="clearAllCommentsInThisChapter">Xóa tất cả bình luận, dấu chú thích và hình vẽ trong chương này</string>
   <string name="rightUnderTheBoard">Ngay dưới bàn cờ</string>
   <string name="noPinnedComment">Không có</string>
@@ -117,10 +117,10 @@
   <string name="contributors">Những người đóng góp</string>
   <string name="members">Thành viên</string>
   <string name="everyone">Mọi người</string>
-  <string name="enableSync">Kích hoạt đồng bộ hóa</string>
+  <string name="enableSync">Kích hoạt tính năng đồng bộ hóa</string>
   <string name="yesKeepEveryoneOnTheSamePosition">Có: giữ tất cả mọi người trên 1 thế cờ</string>
   <string name="noLetPeopleBrowseFreely">Không: để mọi người tự do xem xét</string>
-  <string name="pinnedStudyComment">Bình luận được ghim</string>
+  <string name="pinnedStudyComment">Đã ghim bình luận nghiên cứu</string>
   <string name="start">Bắt đầu</string>
   <string name="save">Lưu</string>
   <string name="clearChat">Xóa trò chuyện</string>
@@ -140,11 +140,11 @@
   <string name="unclearPosition" comment="unclearPosition&#10;It is unclear who is winning or losing.">Thế cờ không rõ ràng</string>
   <string name="whiteIsSlightlyBetter">Bên trắng có một chút lợi thế</string>
   <string name="blackIsSlightlyBetter">Bên đen có một chút lợi thế</string>
-  <string name="whiteIsBetter">Lợi thế bên trắng</string>
-  <string name="blackIsBetter">Lợi thế bên đen</string>
+  <string name="whiteIsBetter">Bên trắng lợi thế hơn</string>
+  <string name="blackIsBetter">Bên đen lợi thế hơn</string>
   <string name="whiteIsWinning">Bên trắng đang thắng dần</string>
   <string name="blackIsWinning">Bên đen đang thắng dần</string>
-  <string name="novelty" comment="novelty&#10;&#10;A move in the opening that has not been played before.&#10;https://en.wikipedia.org/wiki/Glossary_of_chess#theoretical_novelty">Nước cờ mới</string>
+  <string name="novelty" comment="novelty&#10;&#10;A move in the opening that has not been played before.&#10;https://en.wikipedia.org/wiki/Glossary_of_chess#theoretical_novelty">Mới lạ</string>
   <string name="development" comment="development&#10;Used in studies - shows that the player made a developing move (e.g. pushing pawns to open their bishops in the opening).">Phát triển</string>
   <string name="initiative">Chủ động</string>
   <string name="attack" comment="attack&#10;A label that can be applied to a position in a Lichess study. Noun.">Tấn công</string>
@@ -159,7 +159,7 @@
   <string name="myTopics">Chủ đề của tôi</string>
   <string name="popularTopics">Chủ đề phổ biến</string>
   <string name="manageTopics">Quản lý chủ đề</string>
-  <string name="back">Trở lại</string>
+  <string name="back">Quay Lại</string>
   <string name="playAgain">Chơi lại</string>
   <string name="whatWouldYouPlay">Bạn sẽ làm gì ở thế cờ này?</string>
   <string name="youCompletedThisLesson">Chúc mừng! Bạn đã hoàn thành bài học này.</string>

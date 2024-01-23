@@ -3,15 +3,15 @@
   <string name="hourlyRapidArena">Saatlıq Rapid Arena</string>
   <string name="hourlyRapid">Saatlıq Rapid</string>
   <string name="hourlyXArena">Saatlıq %s Arena</string>
-  <string name="hourlyX">Saatlıq %s</string>
+  <string name="hourlyX" comment="%s is a time control (like &quot;Blitz&quot;) or a variant (like &quot;Chess960&quot;)&#10;&#10;Used for tournaments. Please keep this string short and consistent with 'Hourly Rapid' and 'Hourly %s Arena'.">Saatlıq %s</string>
   <string name="dailyRapidArena">Günlük Rapid Arena</string>
   <string name="dailyRapid">Günlük Rapid</string>
-  <string name="dailyClassicalArena">Günlük Klassik Arenası</string>
-  <string name="dailyClassical">Günlük Klasik</string>
-  <string name="dailyXArena">Günlük %s Arena</string>
+  <string name="dailyClassicalArena" comment="dailyClassicalArena&#10;&#10;Used for tournaments. Please keep this string short and consistent with 'Daily Rapid' and 'Daily %s Arena'.">Günlük Klassik Arenası</string>
+  <string name="dailyClassical" comment="dailyClassical&#10;&#10;Used for tournaments. Please keep this string short and consistent with 'Daily Rapid' and 'Daily %s Arena'.">Günlük Klasik</string>
+  <string name="dailyXArena" comment="dailyXArena %s is a time control (like &quot;Blitz&quot;) or a variant (like &quot;Chess960&quot;)&#10;&#10;Used for tournaments. Please keep this string short and consistent with 'Daily %s'.">Günlük %s Arena</string>
   <string name="dailyX">Günlük %s</string>
-  <string name="easternRapidArena">Şərq Rapid Arena</string>
-  <string name="easternRapid">Şərq Rapid</string>
+  <string name="easternRapidArena" comment="easternRapidArena&#10;&#10;Eastern refers to the time zone these tournaments are scheduled in for, accommodating East Asia, Oceania and the Pacific.">Şərq Rapid Arena</string>
+  <string name="easternRapid" comment="easternRapid&#10;Eastern refers to the time zone these tournaments are scheduled in for, accommodating East Asia, Oceania and the Pacific.&#10;&#10;Please keep this string short and consistent with 'Eastern Rapid Arena' and 'Eastern %s Arena'.">Şərq Rapid</string>
   <string name="easternClassicalArena">Şərq Klasik Arena</string>
   <string name="easternClassical">Şərq Klasik</string>
   <string name="easternXArena">Şərq %s Arena</string>

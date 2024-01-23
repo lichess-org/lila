@@ -7,9 +7,6 @@ export type Close = () => void;
 export const header = (name: string, close: Close) =>
   h(
     'button.head.text',
-    {
-      attrs: { 'data-icon': licon.LessThan, type: 'button' },
-      hook: bind('click', close),
-    },
+    { attrs: { 'data-icon': licon.LessThan, type: 'button' }, hook: bind('click', close) },
     name,
   );

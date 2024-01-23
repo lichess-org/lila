@@ -7,8 +7,8 @@
   <string name="castle">Rokiruotė (į bet kurią pusę)</string>
   <string name="phoneticAlphabetIsBest">Geriausia veikia fonetinė abėcėlė</string>
   <string name="cancelTimerOrDenyARequest">Atšaukti laikmatį arba atmesti prašymą</string>
-  <string name="playPreferredMoveOrConfirmSomething">Žaisti norimą ėjimą arba ką nors patvirtinti</string>
-  <string name="sleep">Užmigdyti (jei nurodytas pažadinimo žodis)</string>
+  <string name="playPreferredMoveOrConfirmSomething" comment="Used in voice commands. When it is unclear what the player said (e.g. 'b4' and 'd4' sound similar), both moves will be shown, with the more likely one highlighted in a certain colour. By default, a countdown begins, and if no action is taken, the likely move (e.g. b4) will be played. Players can end the countdown early/confirm their move by saying 'yes'.&#10;&#10;For more details see https://lichess.org/@/schlawg/blog/how-to-lichess-voice/nWrypoWI">Žaisti norimą ėjimą arba ką nors patvirtinti</string>
+  <string name="sleep" comment="Used for voice commands.&#10;&#10;By default, voice commands are always-on after the feature is enabled. Users can optionally set a word for listening to start, or say 'sleep' to disable listening.&#10;&#10;(Please note - this is not the same as recording, since the recording is never sent to Lichess; the speech technology is entirely offline)">Užmigdyti (jei nurodytas pažadinimo žodis)</string>
   <string name="turnOffVoiceRecognition">Išjungti balso atpažinimą</string>
   <string name="showPuzzleSolution">Rodyti galvosūkio sprendimą</string>
 </resources>

@@ -272,7 +272,6 @@
   <string name="playingRightNow">இப்பொழுது ஆடுகின்றது</string>
   <string name="eventInProgress">இப்பொழுது ஓடிக்கொண்டிருக்கின்றன</string>
   <string name="finished">முடிந்தது</string>
-  <string name="finishesX">%s வினாடிகளில் முடியும்</string>
   <string name="abortGame">ஆட்டத்தைக் கலை</string>
   <string name="gameAborted">ஆட்டம் கலைந்தது</string>
   <string name="standard">மரபு</string>
@@ -494,7 +493,7 @@
   <string name="editProfile">தகவல்களை  மாற்று</string>
   <string name="firstName">முதல் பெயர்</string>
   <string name="lastName">கடைசி பெயர்</string>
-  <string name="setFlair">உங்கள் திறமையை அமைக்கவும்:</string>
+  <string name="setFlair">உங்கள் திறமையை அமைக்கவும்</string>
   <string name="youCanHideFlair">தளம் முழுவதும் அனைத்து பயனர் திறமைகளையும் மறைக்க ஒரு அமைப்பு உள்ளது.</string>
   <string name="biography">வாழ்க்கை சரித்திரம்</string>
   <string name="countryRegion" comment="flag&#10;Appears when you edit your profile. Lets a player add a country/flag (not all flags are for countries) to their profile">நாடு அல்லது வட்டாரம்</string>
@@ -797,7 +796,6 @@
   </plurals>
   <string name="sorry">மன்னிக்கவும் :(</string>
   <string name="weHadToTimeYouOutForAWhile">நாங்கள் உங்களை சிறிது நேரம் வெளியேற்ற வேண்டியிருந்தது.</string>
-  <string name="timeoutExpires">நேரம் முடிந்தது %s.</string>
   <string name="why">ஏன்?</string>
   <string name="pleasantChessExperience">அனைவருக்கும் இனிமையான சதுரங்க அனுபவத்தை வழங்குவதை நோக்கமாகக் கொண்டுள்ளோம்.</string>
   <string name="goodPractice">அந்த வகையில், அனைத்து வீரர்களும் நல்ல பயிற்சியைப் பின்பற்றுவதை உறுதி செய்ய வேண்டும்.</string>

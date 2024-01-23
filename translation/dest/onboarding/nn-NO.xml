@@ -3,7 +3,7 @@
   <string name="welcome">Velkomen!</string>
   <string name="welcomeToLichess">Velkomen til lichess.org!</string>
   <string name="thisIsYourProfilePage">Dette er profilsida di.</string>
-  <string name="enabledKidModeSuggestion">Skal eit barn bruka denne kontoen? Det kan være ein god idé å aktivera %s.</string>
+  <string name="enabledKidModeSuggestion" comment="%s is 'Kid mode'.">Skal eit barn bruka denne kontoen? Det kan være ein god idé å aktivera %s.</string>
   <string name="whatNowSuggestions">Kva no? Her er nokre forslag:</string>
   <string name="learnChessRules">Lær deg sjakkreglane</string>
   <string name="improveWithChessTacticsPuzzles">Bli betre ved å løysa sjakkoppgåver.</string>

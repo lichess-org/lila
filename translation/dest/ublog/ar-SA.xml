@@ -1,16 +1,24 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+  <string name="communityBlogs">مدونات المجتمع</string>
+  <string name="friendBlogs">مدونات الأصدقاء</string>
+  <string name="likedBlogs">المنشورات التي أحببتها</string>
+  <string name="blogTopics">مواضيع المدونة</string>
+  <string name="lichessOfficialBlog">مدونة Lichess الرسمية</string>
+  <string name="continueReadingPost">تابع قراءة هذا المنشور</string>
+  <string name="lichessBlogPostsFromXYear">تجد منشورات مدونة ليتشيس %s</string>
+  <string name="previousBlogPosts">مشاركات المدونة السابقة</string>
   <string name="xBlog">مدونة %s</string>
   <string name="newPost">منشور جديد</string>
-  <string name="editYourBlogPost">تعديل منشور مدونتك</string>
-  <string name="saveDraft">حفظ المسودة</string>
+  <string name="editYourBlogPost">عدل منشور مدونتك</string>
+  <string name="saveDraft">حفظ المُسَوَّدَة</string>
   <string name="postTitle">عنوان المنشور</string>
   <string name="postIntro">مقدمة المنشور</string>
   <string name="postBody">نص المنشور</string>
   <string name="drafts">المسودات</string>
   <string name="published">المنشورة</string>
   <string name="createBlogDiscussion">تمكين التعليقات</string>
-  <string name="createBlogDiscussionHelp">سيتم إنشاء موضوع المنتدى للأشخاص للتعليق على مشاركتك</string>
+  <string name="createBlogDiscussionHelp">سيوضع منتدى للأشخاص الذين يريدون التعليق على مشاركتك</string>
   <string name="publishOnYourBlog">المنشور على مدونتك</string>
   <string name="publishHelp">إذا تم تحديد الخيار سيتم نشر المقال على مدونتك، اذا لم يتم تحديد الخيار سيتم حفظها بشكل خاص في مسوداتك</string>
   <plurals name="publishedNbBlogPosts">
@@ -37,7 +45,7 @@
   <string name="noDrafts">لا يوجد مسودات لعرضها.</string>
   <string name="latestBlogPosts">أخر منشورات المدونة</string>
   <plurals name="viewAllNbPosts">
-    <item quantity="zero">عرض مقالة</item>
+    <item quantity="zero">عرض كل %s المنشورات</item>
     <item quantity="one">عرض مقالة</item>
     <item quantity="two">عرض مقالتين</item>
     <item quantity="few">عرض %s مقالات</item>
@@ -55,4 +63,5 @@
   <string name="safeAndRespectfulContent">يرجى نشر المحتوى الحصري و المفيد فقط. لا تنسخ محتوى احد اخر.</string>
   <string name="inappropriateContentAccountClosed">اي شيء غير لائق من الممكن أن يتسبب باغلاق حسابك.</string>
   <string name="blogTips">نصائحنا البسيطة لكتابة مقالة رائعة</string>
+  <string name="discussThisBlogPostInTheForum">ناقش منشور المدونة هذا في المنتدى</string>
 </resources>

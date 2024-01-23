@@ -19,7 +19,7 @@
   <string name="findTheBestMoveForWhite">找出白方的最佳着法</string>
   <string name="findTheBestMoveForBlack">找出黑方的最佳着法</string>
   <string name="toGetPersonalizedPuzzles">获取个性化谜题</string>
-  <string name="puzzleId" comment="%s is the ID of the puzzle, something like #a1b2c3.">谜题编号：%s</string>
+  <string name="puzzleId">谜题编号：%s</string>
   <string name="puzzleOfTheDay">每日棋谜</string>
   <string name="dailyPuzzle">每日棋谜</string>
   <string name="clickToSolve">点击解题</string>
@@ -31,13 +31,13 @@
   <string name="byOpenings">按开局分类</string>
   <string name="puzzlesByOpenings">按开局分类的谜题</string>
   <string name="openingsYouPlayedTheMost">你在排位赛中使用最多的开局</string>
-  <string name="useFindInPage" comment="useFindInPage&#10;&#10;Appears on https://lichess.org/training/openings&#10;Encourages players to use the built-in browser feature (Ctrl+F on most desktop computers) to find the opening they want to practice.">在浏览器菜单中使用 “在页面中查找” 来找到你最爱的开局！</string>
+  <string name="useFindInPage">在浏览器菜单中使用 “在页面中查找” 来找到你最爱的开局！</string>
   <string name="useCtrlF">使用 Ctrl + F 查找你最爱的开局！</string>
   <string name="notTheMove">不是最佳着法</string>
   <string name="trySomethingElse">试试别的</string>
-  <string name="ratingX" comment="Appears on pages of individual puzzles.&#10;&#10;%s is either:&#10;1. The word 'hidden', if you have not completed the puzzle yet.&#10;2. The rating of the puzzle, if you have completed it or seen the solution.">等级分：%s</string>
-  <string name="hidden" comment="Puzzle rating: hidden&#10;&#10;Appears while solving puzzles. Lichess only displays the rating of the puzzle after you have solved it or asked to see the solution.">已隐藏</string>
-  <plurals name="playedXTimes" comment="Appears on pages of individual puzzles.&#10;%s is the number of times the puzzle has been played.">
+  <string name="ratingX">等级分：%s</string>
+  <string name="hidden">已隐藏</string>
+  <plurals name="playedXTimes">
     <item quantity="other">共 %s 次尝试</item>
   </plurals>
   <string name="fromGameLink">来自对局：%s</string>
@@ -65,7 +65,7 @@
   <string name="solved">已解答</string>
   <string name="failed">失败</string>
   <string name="streakDescription">解破日益困难的谜题，从而建造一个胜利纪录。没有计时。一步错解，游戏就会结束！不过，每场游戏都可跳过一步棋。</string>
-  <string name="yourStreakX" comment="%s is the number of puzzles you fully solved in a run of Puzzle Streak (https://lichess.org/streak).&#10;&#10;Appears once you make a wrong move or skip a puzzle, ending your streak. There is a counter always running on the left-hand side of the page without words.">你的连胜纪录: %s</string>
+  <string name="yourStreakX">你的连胜纪录: %s</string>
   <string name="streakSkipExplanation">跳过这一步来保持你的连胜纪录！每场游戏只能使用一次。</string>
   <string name="continueTheStreak">继续连胜纪录</string>
   <string name="newStreak">新连胜纪录</string>

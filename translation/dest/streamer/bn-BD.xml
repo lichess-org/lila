@@ -4,8 +4,8 @@
   <string name="lichessStreamer">লিছেসস স্ত্রেয়ামের</string>
   <string name="live">লাইভ!</string>
   <string name="offline">আই সময় উপস্তি নেই</string>
-  <string name="currentlyStreaming">আখন দেখুন: %s</string>
-  <string name="lastStream">সর্বশেষ স্ট্রিমিং: %s</string>
+  <string name="currentlyStreaming" comment="%s is the title of the stream, chosen by the streamer.">আখন দেখুন: %s</string>
+  <string name="lastStream" comment="%s is how long ago the stream was in relative time (e.g. 50 minutes ago). It is displayed in smaller type than the rest of the string.">সর্বশেষ স্ট্রিমিং: %s</string>
   <string name="becomeStreamer">লিচেসে স্ট্রিমার হন</string>
   <string name="doYouHaveStream">আপনার কি Twitch বা YouTube চ্যানেল আছে?</string>
   <string name="hereWeGo">তবে শুরু করা যাক!</string>
@@ -29,11 +29,11 @@
   <string name="pendingReview">আপনার stream মডারেটরদের দ্বারা পর্যালোচনা করা হচ্ছে.</string>
   <string name="pleaseFillIn">Streamer হতে অনুগ্রহপূর্বক নিজের ছবি ও তথ্যের ঘর পুরন করুন.</string>
   <string name="whenReady" comment="whenReady&#10;&#10;%s is &quot;request a moderator review&quot;">লিচেস যখন আপনি স্ট্রিমার হিসেবে লিচেসে তালিকাভুক্ত হবেন, %s</string>
-  <string name="requestReview" comment="requestReview&#10;&#10;Used in the sense of: &quot;When you are ready to be listed as a Lichess streamer, request a moderator review&quot;">মোডারেটরদের কাছে পর্যালোচনার জন্য আবেদন করুন</string>
+  <string name="requestReview" comment="requestReview&#10;&#10;Used as part of the longer sentence: &quot;When you are ready to be listed as a Lichess streamer, request a moderator review&quot;">মোডারেটরদের কাছে পর্যালোচনার জন্য আবেদন করুন</string>
   <string name="streamerLanguageSettings">যে ভাষা নির্বাচন করবেন, লিচেস সেই ভাষার সদস্যদের কাছে আপনার স্ট্রিমিং পৌছে দেবে । তাই ব্রডকাষ্ট করার সময় অবশ্যই নিজের মাতৃভাষা ব্যাবহার করুন।.</string>
-  <string name="twitchUsername">আপনার Twitch ইউজারনেম অথবা URL</string>
+  <string name="twitchUsername" comment="Appears on the form for setting up your Streamer page: https://lichess.org/streamer/edit&#10;&#10;Twitch is a proper noun and refers to the streaming service https://twitch.tv/. Please do not translate the word 'Twitch'.">আপনার Twitch ইউজারনেম অথবা URL</string>
   <string name="optionalOrEmpty">না থাকলে খালি রাখুন (ঐচ্ছিক)</string>
-  <string name="youTubeChannelId">আপনার ইউটিউব চ্যানেল আইডি</string>
+  <string name="youTubeChannelId" comment="Appears on the form for setting up your Streamer page: https://lichess.org/streamer/edit&#10;&#10;The Channel ID is a special alphanumeric string. See Google's guide here for how to retrieve it: https://support.google.com/youtube/answer/3250431&#10;&#10;We encourage translators to match what the Channel ID is called in your language's version of YouTube: https://www.youtube.com/account_advanced">আপনার ইউটিউব চ্যানেল আইডি</string>
   <string name="streamerName">লিচেসে আপনার স্ট্রিমার নাম</string>
   <plurals name="keepItShort">
     <item quantity="one">এটি সংক্ষিপ্ত রাখুন: %s অক্ষর সর্বাধিক</item>

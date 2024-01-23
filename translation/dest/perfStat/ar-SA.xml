@@ -22,7 +22,7 @@
   <string name="fromXToY">من %1$s الى %2$s</string>
   <string name="winningStreak">سلسلة الانتصارات</string>
   <string name="losingStreak">سلسلة الهزائم</string>
-  <string name="longestStreak">اطول سلسلة: %s</string>
+  <string name="longestStreak" comment="%s is the string (number of games OR time spent playing, e.g. 4 hours non-stop play)&#10;String used to describe the longest consecutive winning &amp; losing streak of games. It is also used for a  streak of time spent playing.">اطول سلسلة: %s</string>
   <string name="currentStreak">السلسلة الحالية: %s</string>
   <string name="bestRated">افضل الانتصارات المقيّمة</string>
   <string name="worstRated">اسوء الهزائم المقيّمة</string>

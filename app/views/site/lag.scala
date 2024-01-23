@@ -12,11 +12,7 @@ object lag:
       title = "Is Lichess lagging?",
       active = "lag",
       moreCss = cssTag("lag"),
-      moreJs = frag(
-        highchartsLatestTag,
-        highchartsMoreTag,
-        iifeModule("javascripts/lag.js")
-      )
+      moreJs = jsModuleInit("chart.lag")
     ):
       div(cls := "box box-pad lag")(
         h1(cls := "box__top")(
@@ -34,14 +30,14 @@ object lag:
         div(cls := "sections")(
           st.section(cls := "server")(
             h2(lichessServerLatency()),
-            div(cls := "meter"),
+            div(cls := "meter")(canvas(cls := "server-chart")),
             p(
               lichessServerLatencyExplanation()
             )
           ),
           st.section(cls := "network")(
             h2(networkBetweenLichessAndYou()),
-            div(cls := "meter"),
+            div(cls := "meter")(canvas(cls := "network-chart")),
             p(
               networkBetweenLichessAndYouExplanation()
             )

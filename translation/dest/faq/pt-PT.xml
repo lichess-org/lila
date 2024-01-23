@@ -153,15 +153,19 @@ O ícone vermelho de silenciamento aparece quando o teu navegador impede que o l
 
 Mostramos o ícone vermelho para o alertar quando isto acontece. Muitas vezes, podes autorizar explicitamente o lichess.org a reproduzir sons. Aqui estão as instruções para o fazer em versões recentes de alguns navegadores populares.</string>
   <string name="desktop">computador</string>
-  <string name="enableAutoplayForSoundsFirefox" comment="Guidance for Mozilla Firefox users on how to enable audio auto-play if they have sound issues.&#10;&#10;Please keep 'i' lowercase, for two reasons:&#10;1. Capital L and capital I are hard to differentiate for users.&#10;2. So users don't press Ctrl+Shift+I to get a capital I. This is a different shortcut in the browser.">1. Vai no lichess.org
+  <string name="enableAutoplayForSoundsFirefox">1. Vai no lichess.org
 2. Pressiona Ctrl-i no Linux/Windows ou cmd-i no MacOS
 3. Clica na aba Permissões
 4. Permitir Áudio e Vídeo no lichess.org</string>
-  <string name="enableAutoplayForSoundsChrome" comment="Guidance for Google Chrome users on how to enable audio auto-play if they have sound issues.">1. Vá para lichess.org
+  <string name="enableAutoplayForSoundsChrome">1. Vá para lichess.org
 2. Clique no ícone do cadeado na barra de endereços
 3. Clique em Configurações do Site
 4. Permitir Som</string>
-  <string name="enableAutoplayForSoundsMicrosoftEdge" comment="Guidance for Microsoft Edge users on desktop, for how to enable audio auto-play if they have sound issues.">1. Clique nos três pontos no canto superior direito
+  <string name="enableAutoplayForSoundsSafari">1. Vá para lichess.org
+2. Clique em Safari na barra de menu
+3. Clique em Configurações para lichess.org ...
+4. Permitir All Auto-Play</string>
+  <string name="enableAutoplayForSoundsMicrosoftEdge">1. Clique nos três pontos no canto superior direito
 2. Clique em Configurações
 3. Clique em Cookies e Permissões de Site
 4. Vá para baixo e clique Reprodução automática de mídia

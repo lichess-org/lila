@@ -5,6 +5,7 @@
   <string name="toInviteSomeoneToPlayGiveThisUrl">To invite someone to play, give this URL</string>
   <string name="gameOver">Game Over</string>
   <string name="waitingForOpponent">Waiting for opponent</string>
+  <string name="orLetYourOpponentScanQrCode">Or let your opponent scan this QR code</string>
   <string name="waiting">Waiting</string>
   <string name="yourTurn">Your turn</string>
   <string name="aiNameLevelAiLevel">%1$s level %2$s</string>
@@ -272,7 +273,6 @@
   <string name="playingRightNow">Playing right now</string>
   <string name="eventInProgress">Playing right now</string>
   <string name="finished">Finished</string>
-  <string name="finishesX">finishes %s</string>
   <string name="abortGame">Abort game</string>
   <string name="gameAborted">Game aborted</string>
   <string name="standard">Standard</string>
@@ -406,7 +406,7 @@
   <string name="importGameExplanation">Paste a game PGN to get a browsable replay,
 computer analysis, game chat and shareable URL.</string>
   <string name="importGameCaveat">Variations will be erased. To keep them, import the PGN via a study.</string>
-  <string name="importGameCaveat2">This PGN can be accessed by the public. To import a game privately, use a study.</string>
+  <string name="importGameDataPrivacyWarning">This PGN can be accessed by the public. To import a game privately, use a study.</string>
   <plurals name="nbImportedGames">
     <item quantity="one">%s imported game</item>
     <item quantity="other">%s imported games</item>
@@ -508,7 +508,7 @@ computer analysis, game chat and shareable URL.</string>
   <string name="editProfile">Edit profile</string>
   <string name="firstName">First name</string>
   <string name="lastName">Last name</string>
-  <string name="setFlair">Set your flair:</string>
+  <string name="setFlair">Set your flair</string>
   <string name="flair">Flair</string>
   <string name="youCanHideFlair">There is a setting to hide all user flairs across the entire site.</string>
   <string name="biography">Biography</string>
@@ -867,7 +867,6 @@ computer analysis, game chat and shareable URL.</string>
   <string name="clickHereToReadIt">Click here to read it</string>
   <string name="sorry">Sorry :(</string>
   <string name="weHadToTimeYouOutForAWhile">We had to time you out for a while.</string>
-  <string name="timeoutExpires">The timeout expires %s.</string>
   <string name="why">Why?</string>
   <string name="pleasantChessExperience">We aim to provide a pleasant chess experience for everyone.</string>
   <string name="goodPractice">To that effect, we must ensure that all players follow good practice.</string>

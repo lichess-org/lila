@@ -9,10 +9,7 @@ import * as controls from 'common/controls';
 export const toggleButton = (toggle: Toggle, title: string) =>
   h('button.fbt.board-menu-toggle', {
     class: { active: toggle() },
-    attrs: {
-      title,
-      'data-icon': licon.Hamburger,
-    },
+    attrs: { title, 'data-icon': licon.Hamburger },
     hook: onInsert(bindMobileMousedown(toggle.toggle)),
   });
 
@@ -25,9 +22,7 @@ export const menu = (
   toggle()
     ? h(
         'div.board-menu',
-        {
-          hook: onInsert(onClickAway(() => toggle(false))),
-        },
+        { hook: onInsert(onClickAway(() => toggle(false))) },
         content(new BoardMenu(trans, redraw)),
       )
     : undefined;
@@ -45,10 +40,7 @@ export class BoardMenu {
       'button.button.text',
       {
         class: { active },
-        attrs: {
-          title: 'Hotkey: f',
-          ...dataIcon(licon.ChasingArrows),
-        },
+        attrs: { title: 'Hotkey: f', ...dataIcon(licon.ChasingArrows) },
         hook: onInsert(bindMobileMousedown(onChange)),
       },
       name,
@@ -83,6 +75,14 @@ export class BoardMenu {
       disabled: this.anonymous || !enabled,
     });
 
+  blindfold = (toggle: Toggle, enabled = true) =>
+    this.cmnToggle({
+      name: 'Blindfold',
+      id: 'blindfold',
+      checked: toggle(),
+      change: toggle,
+      disabled: !enabled,
+    });
   confirmMove = (toggle: Toggle, enabled = true) =>
     this.cmnToggle({
       name: 'Confirm move',

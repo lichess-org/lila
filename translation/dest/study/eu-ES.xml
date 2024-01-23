@@ -62,7 +62,7 @@
   <string name="studyPgn">Azterlanaren PGNa</string>
   <string name="downloadAllGames">Partida guztiak deskargatu</string>
   <string name="chapterPgn">Kapituluaren PGNa</string>
-  <string name="copyChapterPgn">Kopiatu PGNa</string>
+  <string name="copyChapterPgn" comment="A button which lets you copy the PGN text to your clipboard (i.e. similar to ⌘+C or Ctrl+C).">Kopiatu PGNa</string>
   <string name="copyChapterPgnDescription">Kopiatu kapituluaren PGNa arbelera.</string>
   <string name="downloadGame">Partida deskargatu</string>
   <string name="studyUrl">Azterlanaren helbidea</string>

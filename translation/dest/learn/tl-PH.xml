@@ -6,7 +6,7 @@
   <string name="progressX">Pag-unlad: %s</string>
   <string name="resetMyProgress">Ibalik ang aking pag-unlad</string>
   <string name="youWillLoseAllYourProgress">Mawawala ang lahat ng iyong pag-unlad!</string>
-  <string name="play">maglaro!</string>
+  <string name="play" comment="play&#10;&#10;A small ribbon that appears on your current chapter in the Chess Basics course. Please keep this string short.">maglaro!</string>
   <string name="chessPieces">Mga piraso ng chess</string>
   <string name="theRook">Ang rook</string>
   <string name="itMovesInStraightLines">Ito ay gumagalaw sa tuwid na mga linya</string>

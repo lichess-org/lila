@@ -1,8 +1,8 @@
 import * as control from './control';
-import { Controller, KeyboardController } from './interfaces';
+import PuzzleCtrl from './ctrl';
 import { snabDialog } from 'common/dialog';
 
-export default (ctrl: KeyboardController) =>
+export default (ctrl: PuzzleCtrl) =>
   lichess.mousetrap
     .bind(['left', 'k'], () => {
       control.prev(ctrl);
@@ -23,17 +23,18 @@ export default (ctrl: KeyboardController) =>
     .bind('l', ctrl.toggleCeval)
     .bind('x', ctrl.toggleThreatMode)
     .bind('space', () => {
-      if (ctrl.vm.mode === 'view') {
-        if (ctrl.getCeval().enabled()) ctrl.playBestMove();
+      if (ctrl.mode === 'view') {
+        if (ctrl.ceval.enabled()) ctrl.playBestMove();
         else ctrl.toggleCeval();
       }
     })
     .bind('z', () => lichess.pubsub.emit('zen'))
     .bind('?', () => ctrl.keyboardHelp(!ctrl.keyboardHelp()))
     .bind('f', ctrl.flip)
-    .bind('n', ctrl.nextPuzzle);
+    .bind('n', ctrl.nextPuzzle)
+    .bind('B', () => ctrl.blindfold(!ctrl.blindfold()));
 
-export const view = (ctrl: Controller) =>
+export const view = (ctrl: PuzzleCtrl) =>
   snabDialog({
     class: 'help',
     htmlUrl: '/training/help',

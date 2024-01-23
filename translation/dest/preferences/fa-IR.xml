@@ -19,11 +19,11 @@
 این یک تنظیمات بله/خیر است
 
 این تنظیمات به شما این اجازه را می دهد که انتخاب کنید که ریتینگ بازیکنان دیگر نشان داده شود یا نه. این تنظیمات برای این است که بعضی از بازیکنان، بازی خود را تحت تاثیر ریتینگ بقیه بازیکنان قرار می دهند</string>
+  <string name="showFlairs">نمایش نشان بازیکنان</string>
   <string name="explainShowPlayerRatings">این کار اجازه می دهد تمام امتیازها را از سایت پاک کنید، تا بتوانید روی شطرنج تمرکز کامل داشته باشید. بازی ها هنوز هم می توانند امتیازی باشند، فقط شما دیگر نمی توانید آن را ببینید.</string>
   <string name="displayBoardResizeHandle">نمایش دستگیره برای تغییر اندازه صفحه</string>
   <string name="onlyOnInitialPosition">فقط در آغاز بازی</string>
   <string name="inGameOnly">تنها در بازی</string>
-  <string name="blindfoldChess">شطرنج با چشمان بسته / مهره های نامرئی</string>
   <string name="chessClock">ساعت شطرنج</string>
   <string name="tenthsOfSeconds">دهم ثانیه</string>
   <string name="whenTimeRemainingLessThanTenSeconds" comment="whenTimeRemainingLessThanTenSeconds&#10;&#10;The &amp;lt; symbol is not required (you can write it as a word), just do NOT use &lt; in its place.&#10;&#10;Technical information: &lt; is a reserved character in HTML, which is why it cannot be used.">وقتی زمان باقی مانده کمتر از ده ثانیه می باشد</string>

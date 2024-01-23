@@ -17,7 +17,8 @@ const unexpectedErrorThrower = (name: string) => () => {
   throw new Error(`unexpected call to ${name}()`);
 };
 const defaultCtrl = {
-  clock: unexpectedErrorThrower('clock'),
+  speakClock: unexpectedErrorThrower('clock'),
+  goBerserk: unexpectedErrorThrower('berserk'),
   confirmMove: () => null,
   draw: unexpectedErrorThrower('draw'),
   next: unexpectedErrorThrower('next'),
@@ -135,18 +136,33 @@ describe('keyboardMove', () => {
 
   test('reads out clock', () => {
     input.value = 'clock';
-    const mockMillisOf = jest.fn(_ => 1000);
+    const speakClock = jest.fn();
     const keyboardMovePlugin = keyboardMove({
       input,
       ctrl: {
         ...defaultCtrl,
-        clock: () => ({ millisOf: mockMillisOf }) as any,
+        speakClock,
       },
     }) as any;
 
     keyboardMovePlugin(startingFen, toMap({}), true);
+    expect(speakClock.mock.calls.length).toBe(1);
+    expect(input.value).toBe('');
+  });
 
-    expect(mockMillisOf.mock.calls.length).toBe(2);
+  test('berserks a game', () => {
+    input.value = 'zerk';
+    const goBerserk = jest.fn();
+    const keyboardMovePlugin = keyboardMove({
+      input,
+      ctrl: {
+        ...defaultCtrl,
+        goBerserk,
+      },
+    }) as any;
+
+    keyboardMovePlugin(startingFen, toMap({}), true);
+    expect(goBerserk.mock.calls.length).toBe(1);
     expect(input.value).toBe('');
   });
 

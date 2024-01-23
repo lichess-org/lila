@@ -85,6 +85,12 @@ case class ContentSecurityPolicy(
 
   def withWikiBooks = copy(connectSrc = "en.wikibooks.org" :: connectSrc)
 
+  // for extensions to use their cloud eval API
+  // https://www.chessdb.cn/cloudbook_api_en.html
+  def withChessDbCn = copy(connectSrc = "www.chessdb.cn" :: connectSrc)
+
+  def withExternalAnalysisApis = withWikiBooks.withChessDbCn
+
   def withLilaHttp = copy(connectSrc = "http.lichess.org" :: connectSrc)
 
   def withInlineIconFont = copy(fontSrc = "data:" :: fontSrc)

@@ -209,12 +209,10 @@ function christmasTree(chart: AcplChart, mainline: Tree.Node[], hoverColors: str
       acplDataset.pointHoverBackgroundColor = hoverColors;
       acplDataset.pointBorderColor = hoverColors;
       const points = mainline
-        .map((node, i) =>
-          node.glyphs?.some(glyph => glyph.symbol == symbol) && (node.ply & 1) == playerColorBit
-            ? { datasetIndex: 0, index: i - 1 }
-            : { datasetIndex: 0, index: -1 },
+        .filter(
+          node => node.glyphs?.some(glyph => glyph.symbol == symbol) && (node.ply & 1) == playerColorBit,
         )
-        .filter(i => i.index >= 0);
+        .map(node => ({ datasetIndex: 0, index: node.ply - mainline[0].ply - 1 }));
       chart.setActiveElements(points);
       chart.update('none');
     }

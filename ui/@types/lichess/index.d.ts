@@ -199,7 +199,7 @@ interface Pubsub {
 }
 
 interface LichessStorageHelper {
-  make(k: string): LichessStorage;
+  make(k: string, ttl?: number): LichessStorage;
   boolean(k: string): LichessBooleanStorage;
   get(k: string): string | null;
   set(k: string, v: string): void;
@@ -338,7 +338,6 @@ interface Window {
   readonly UserComplete: any;
   readonly Sortable: any;
   readonly Peer: any;
-  readonly Highcharts: any;
   readonly Tagify: unknown;
   readonly paypalOrder: unknown;
   readonly paypalSubscription: unknown;
@@ -430,16 +429,19 @@ interface Paginator<A> {
   nbPages: number;
 }
 
+interface EvalScore {
+  cp?: number;
+  mate?: number;
+}
+
 declare namespace Tree {
   export type Path = string;
 
-  interface ClientEvalBase {
+  interface ClientEvalBase extends EvalScore {
     fen: Fen;
     depth: number;
     nodes: number;
     pvs: PvData[];
-    cp?: number;
-    mate?: number;
   }
   export interface CloudEval extends ClientEvalBase {
     cloud: true;
@@ -451,9 +453,7 @@ declare namespace Tree {
   }
   export type ClientEval = CloudEval | LocalEval;
 
-  export interface ServerEval {
-    cp?: number;
-    mate?: number;
+  export interface ServerEval extends EvalScore {
     best?: Uci;
     fen: Fen;
     knodes: number;
@@ -461,16 +461,12 @@ declare namespace Tree {
     pvs: PvDataServer[];
   }
 
-  export interface PvDataServer {
+  export interface PvDataServer extends EvalScore {
     moves: string;
-    mate?: number;
-    cp?: number;
   }
 
-  export interface PvData {
+  export interface PvData extends EvalScore {
     moves: string[];
-    mate?: number;
-    cp?: number;
   }
 
   export interface TablebaseHit {

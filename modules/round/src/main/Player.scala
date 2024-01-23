@@ -1,6 +1,6 @@
 package lila.round
 
-import actorApi.round.{ DrawNo, ForecastPlay, HumanPlay, TakebackNo, TooManyPlies }
+import actorApi.round.{ Draw, ForecastPlay, HumanPlay, Takeback, TooManyPlies }
 import chess.format.{ Fen, Uci }
 import chess.{ Centis, Clock, MoveMetrics, MoveOrDrop, Status, ErrorStr }
 import chess.MoveOrDrop.*
@@ -78,8 +78,8 @@ final private class Player(
     if progress.game.finished then moveFinish(progress.game) dmap { progress.events ::: _ }
     else
       if progress.game.playableByAi then requestFishnet(progress.game, round)
-      if pov.opponent.isOfferingDraw then round ! DrawNo(pov.player.id)
-      if pov.player.isProposingTakeback then round ! TakebackNo(pov.player.id)
+      if pov.opponent.isOfferingDraw then round ! Draw(pov.player.id, false)
+      if pov.player.isProposingTakeback then round ! Takeback(pov.player.id, false)
       if progress.game.forecastable then
         moveOrDrop.move.foreach { move =>
           round ! ForecastPlay(move)

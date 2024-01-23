@@ -26,11 +26,7 @@ export const renderRace = (ctrl: RacerCtrl) => {
   });
   return h(
     'div.racer__race',
-    {
-      attrs: {
-        style: `height:${players.length * trackHeight + 14}px`,
-      },
-    },
+    { attrs: { style: `height:${players.length * trackHeight + 14}px` } },
     h('div.racer__race__tracks', tracks),
   );
 };
@@ -75,12 +71,4 @@ const renderTrack = (
 export const playerLink = (player: PlayerWithScore, isMe: boolean) =>
   player.id
     ? userLink({ ...player, line: false })
-    : h(
-        'anonymous',
-        {
-          attrs: {
-            title: 'Anonymous player',
-          },
-        },
-        [player.name, isMe ? ' (you)' : undefined],
-      );
+    : h('anonymous', { attrs: { title: 'Anonymous player' } }, [player.name, isMe ? ' (you)' : undefined]);

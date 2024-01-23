@@ -41,12 +41,7 @@ const filesAndRanksSelection = (ctrl: CoordinateTrainerCtrl): VNodes =>
                 }),
                 h(
                   `label.file_${fileLetter}`,
-                  {
-                    attrs: {
-                      for: `coord_file_${fileLetter}`,
-                      title: fileLetter,
-                    },
-                  },
+                  { attrs: { for: `coord_file_${fileLetter}`, title: fileLetter } },
                   fileLetter,
                 ),
               ]),
@@ -74,16 +69,7 @@ const filesAndRanksSelection = (ctrl: CoordinateTrainerCtrl): VNodes =>
                     keyup: ctrl.onRadioInputKeyUp,
                   },
                 }),
-                h(
-                  `label.rank_${rank}`,
-                  {
-                    attrs: {
-                      for: `coord_rank_${rank}`,
-                      title: rank,
-                    },
-                  },
-                  rank,
-                ),
+                h(`label.rank_${rank}`, { attrs: { for: `coord_rank_${rank}`, title: rank } }, rank),
               ]),
             ),
           ),
@@ -194,12 +180,7 @@ const configurationButtons = (ctrl: CoordinateTrainerCtrl): VNodes => [
           }),
           h(
             `label.color_${key}`,
-            {
-              attrs: {
-                for: `coord_color_${key}`,
-                title: ctrl.trans.noarg(i18n),
-              },
-            },
+            { attrs: { for: `coord_color_${key}`, title: ctrl.trans.noarg(i18n) } },
             h('i'),
           ),
         ]),
@@ -222,14 +203,8 @@ const scoreCharts = (ctrl: CoordinateTrainerCtrl): VNode =>
           ? h('div.color-chart', [
               h('p', ctrl.trans.vdom(transKey, h('strong', `${average(scoreList).toFixed(2)}`))),
               h('svg.sparkline', {
-                attrs: {
-                  height: '80px',
-                  'stroke-width': '3',
-                  id: `${color}-sparkline`,
-                },
-                hook: {
-                  insert: vnode => ctrl.updateChart(vnode.elm as SVGSVGElement, color),
-                },
+                attrs: { height: '80px', 'stroke-width': '3', id: `${color}-sparkline` },
+                hook: { insert: vnode => ctrl.updateChart(vnode.elm as SVGSVGElement, color) },
               }),
             ])
           : null,
@@ -247,16 +222,7 @@ const timeBox = (ctrl: CoordinateTrainerCtrl): VNode =>
   ]);
 
 const backButton = (ctrl: CoordinateTrainerCtrl): VNode =>
-  h(
-    'div.back',
-    h(
-      'a.back-button',
-      {
-        hook: bind('click', ctrl.stop),
-      },
-      `« ${ctrl.trans('back')}`,
-    ),
-  );
+  h('div.back', h('a.back-button', { hook: bind('click', ctrl.stop) }, `« ${ctrl.trans('back')}`));
 
 const settings = (ctrl: CoordinateTrainerCtrl): VNode => {
   const { trans, redraw, showCoordinates, showPieces } = ctrl;

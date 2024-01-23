@@ -9,9 +9,7 @@ export function player(p: Player, ctrl: SimulCtrl) {
     'a.ulpt.user-link.' + (p.online || ctrl.data.host.id != p.id ? 'online' : 'offline'),
     {
       attrs: { href: '/@/' + p.name },
-      hook: {
-        destroy: vnode => $.powerTip.destroy(vnode.elm as HTMLElement),
-      },
+      hook: { destroy: vnode => $.powerTip.destroy(vnode.elm as HTMLElement) },
     },
     [
       userLine({ line: true, ...p }),

@@ -42,10 +42,7 @@ const doRender = (root: StudyCtrl): VNode =>
 const editable = (value: string, submit: (v: string, el: HTMLInputElement) => void): VNode =>
   h('input', {
     key: value, // force to redraw on change, to visibly update the input value
-    attrs: {
-      spellcheck: 'false',
-      value,
-    },
+    attrs: { spellcheck: 'false', value },
     hook: onInsert<HTMLInputElement>(el => {
       el.onblur = () => submit(el.value, el);
       el.onkeydown = e => {
@@ -90,17 +87,12 @@ function renderPgnTags(tags: TagsForm, trans: Trans, hideRatings?: boolean): VNo
                   });
               });
             },
-            postpatch: (_, vnode) => {
-              tags.selectedType((vnode.elm as HTMLInputElement).value);
-            },
+            postpatch: (_, vnode) => tags.selectedType((vnode.elm as HTMLInputElement).value),
           },
         },
         [
           h('option', trans.noarg('newTag')),
-          ...tags.types.map(t => {
-            if (!existingTypes.includes(t)) return option(t, '', t);
-            return undefined;
-          }),
+          ...tags.types.map(t => (!existingTypes.includes(t) ? option(t, '', t) : undefined)),
         ],
       ),
       editable('', (value, el) => {

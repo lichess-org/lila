@@ -9,4 +9,8 @@
   <string name="takeRookWithQueen">Capturar a torre com a rainha</string>
   <string name="castle">Roque (qualquer lado)</string>
   <string name="phoneticAlphabetIsBest">O alfabeto fonético é melhor</string>
+  <string name="cancelTimerOrDenyARequest">Cancelar relógio ou negar um pedido</string>
+  <string name="playPreferredMoveOrConfirmSomething" comment="Used in voice commands. When it is unclear what the player said (e.g. 'b4' and 'd4' sound similar), both moves will be shown, with the more likely one highlighted in a certain colour. By default, a countdown begins, and if no action is taken, the likely move (e.g. b4) will be played. Players can end the countdown early/confirm their move by saying 'yes'.&#10;&#10;For more details see https://lichess.org/@/schlawg/blog/how-to-lichess-voice/nWrypoWI">Fazer lance preferido ou confirmar algo</string>
+  <string name="turnOffVoiceRecognition">Desligar o reconhecimento de voz</string>
+  <string name="showPuzzleSolution">Mostrar solução do quebra-cabeça</string>
 </resources>

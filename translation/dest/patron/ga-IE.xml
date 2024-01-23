@@ -85,4 +85,7 @@ Mar sin féin, faigheann Pátrúin cearta bragála le deilbhín próifíl nua fi
   <string name="nowOneMonth">Is Pátrún Lichess ar feadh mí anois thú!</string>
   <string name="downgradeNextMonth">I gceann míosa, nÍ bheadh aon táille ort arís, agus fillfidh do chuntas Lichess ar gnáth chuntas.</string>
   <string name="changeCurrency">Athraigh airgeadra</string>
+  <string name="paymentDetails">Eochair: Sonraí íocaíochta
+Sonraí íocaíochta
+Comhad: Donation page/Patron on lichess. org/patron</string>
 </resources>

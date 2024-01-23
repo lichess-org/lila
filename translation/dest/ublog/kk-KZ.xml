@@ -43,5 +43,5 @@
   <string name="safeAndRespectfulContent">Мазмұны қауіпсіз әрі басқаларға сыйласты жазбаны салыңыз. Біреудің жазбасын көшірмеңіз.</string>
   <string name="inappropriateContentAccountClosed">Әдепсіз, орынсыз нәрселер болса, тіркелгіңіз жабылады.</string>
   <string name="blogTips">Керемет блог-жазбаны қалай жазу туралы кеңестер</string>
-  <string name="discussThisBlogPostInTheForum" comment="A button at the bottom of blog posts which will take you to the forum discussion for that post.">Бұл жазбаны форумда талқыға салыңыз</string>
+  <string name="discussThisBlogPostInTheForum">Бұл жазбаны форумда талқыға салыңыз</string>
 </resources>

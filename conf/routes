@@ -13,6 +13,7 @@ GET   /account/info                    controllers.Account.info
 
 # Timeline
 GET   /timeline                        controllers.Timeline.home
+GET   /api/timeline                    controllers.Timeline.api
 POST  /timeline/unsub/:channel         controllers.Timeline.unsub(channel)
 
 # Search
@@ -79,6 +80,7 @@ POST  /ublog/$id<\w{8}>/edit           controllers.Ublog.update(id)
 POST  /ublog/$id<\w{8}>/del            controllers.Ublog.delete(id)
 POST  /ublog/$id<\w{8}>/like           controllers.Ublog.like(id, v: Boolean)
 POST  /ublog/:blogId/tier              controllers.Ublog.setTier(blogId)
+POST  /ublog/$id<\w{8}>/adjust         controllers.Ublog.rankAdjust(id)
 POST  /upload/image/ublog/$id<\w{8}>   controllers.Ublog.image(id)
 
 # User
@@ -119,17 +121,16 @@ GET   /blog/community                  controllers.Ublog.communityAll(page: Int 
 GET   /$lang<\w\w\w?>/blog/community   controllers.Ublog.communityLang(lang, page: Int ?= 1)
 GET   /blog/community.atom             controllers.Ublog.communityAtom(lang = "all")
 GET   /blog/community/$lang<[\w-]{2,6}>.atom controllers.Ublog.communityAtom(lang)
-GET   /blog/community/$lang<[\w-]{2,6}> controllers.Ublog.communityLangBC(lang)
 GET   /blog/:id/:slug                  controllers.Blog.show(id, slug, ref: Option[String] ?= None)
 GET   /blog/prismic-preview            controllers.Blog.preview(token)
 
-GET   /feed                            controllers.DailyFeed.index
+GET   /feed                            controllers.DailyFeed.index(page: Int ?= 1)
 GET   /feed/new                        controllers.DailyFeed.createForm
 POST  /feed/new                        controllers.DailyFeed.create
-GET   /feed/:day/edit                  controllers.DailyFeed.edit(day)
-GET   /feed/:day/edit                  controllers.DailyFeed.edit(day)
-POST  /feed/:day/edit                  controllers.DailyFeed.update(day)
-POST  /feed/:day/delete                controllers.DailyFeed.delete(day)
+GET   /feed/:id/edit                  controllers.DailyFeed.edit(id)
+GET   /feed/:id/edit                  controllers.DailyFeed.edit(id)
+POST  /feed/:id/edit                  controllers.DailyFeed.update(id)
+POST  /feed/:id/delete                controllers.DailyFeed.delete(id)
 GET   /feed.atom                       controllers.DailyFeed.atom
 
 GET   /opening                         controllers.Opening.index(q: Option[String] ?= None)
@@ -260,11 +261,13 @@ POST  /broadcast/$tourId<\w{8}>/clone         controllers.RelayTour.cloneTour(to
 GET   /broadcast/$tourId<\w{8}>/new           controllers.RelayRound.form(tourId)
 POST  /broadcast/$tourId<\w{8}>/new           controllers.RelayRound.create(tourId)
 GET   /broadcast/:ts/:rs/$roundId<\w{8}>      controllers.RelayRound.show(ts, rs, roundId)
+GET   /api/broadcast/:ts/:rs/$roundId<\w{8}>  controllers.RelayRound.apiShow(ts, rs, roundId)
 GET   /broadcast/:ts/:rs/$roundId<\w{8}>/$chapterId<\w{8}> controllers.RelayRound.chapter(ts, rs, roundId, chapterId)
 GET   /broadcast/round/$roundId<\w{8}>/edit   controllers.RelayRound.edit(roundId)
 POST  /broadcast/round/$roundId<\w{8}>/edit   controllers.RelayRound.update(roundId)
 POST  /broadcast/round/$roundId<\w{8}>/reset  controllers.RelayRound.reset(roundId)
 POST  /broadcast/round/$roundId<\w{8}>/push   controllers.RelayRound.push(roundId)
+POST  /api/broadcast/round/$roundId<\w{8}>/push controllers.RelayRound.push(roundId)
 GET   /broadcast/:ts/:rs/$roundId<\w{8}>.pgn  controllers.RelayRound.pgn(ts, rs, roundId)
 GET   /api/broadcast/round/$roundId<\w{8}>.pgn controllers.RelayRound.apiPgn(roundId)
 GET   /api/stream/broadcast/round/$roundId<\w{8}>.pgn controllers.RelayRound.stream(roundId)
@@ -585,10 +588,12 @@ GET   /forum/:categSlug/:slug          controllers.ForumTopic.show(categSlug, sl
 POST  /forum/:categSlug/:slug/close    controllers.ForumTopic.close(categSlug, slug)
 POST  /forum/:categSlug/:slug/sticky   controllers.ForumTopic.sticky(categSlug, slug)
 POST  /forum/:categSlug/:slug/new      controllers.ForumPost.create(categSlug, slug, page: Int ?= 1)
-POST  /forum/delete/:id     controllers.ForumPost.delete(id)
+POST  /forum/delete/:id                controllers.ForumPost.delete(id)
 POST  /forum/:categSlug/react/:id/:reaction/:v controllers.ForumPost.react(categSlug, id, reaction, v: Boolean)
 POST  /forum/post/:id                  controllers.ForumPost.edit(id)
 GET   /forum/redirect/post/:id         controllers.ForumPost.redirect(id)
+POST  /diagnostic                      controllers.ForumTopic.diagnostic
+POST  /diagnostic/clear/:slug          controllers.ForumTopic.clearDiagnostic(slug)
 
 # Msg compat
 POST  /inbox/new                       controllers.Msg.compatCreate
@@ -701,7 +706,7 @@ DELETE /api/bulk-pairing/:id           controllers.BulkPairing.delete(id)
 POST  /api/bulk-pairing/:id/start-clocks  controllers.BulkPairing.startClocks(id)
 
 GET   /api/games/user/:username        controllers.Game.apiExportByUser(username)
-GET   /api/games/user/:username/imports controllers.Game.apiExportByUserImportedGames(username)
+GET   /api/games/export/imports        controllers.Game.apiExportByUserImportedGames()
 
 # Lichess Mobile
 GET   /api/mobile/my-games             controllers.Api.mobileGames
@@ -802,7 +807,8 @@ GET   /costs                           controllers.Main.costs
 GET   /verify-title                    controllers.Main.verifyTitle
 GET   /InstantChess.com                controllers.Main.instantChess
 GET   /daily-puzzle-slack              controllers.Main.dailyPuzzleSlackApp
-GET   /temporarily-disabled            controllers.Main.temporarilyDisabled
+GET   /temporarily-disabled            controllers.Main.temporarilyDisabled(path = "")
+GET   /temporarily-disabled/*path      controllers.Main.temporarilyDisabled(path)
 POST  /upload/image/user/:rel          controllers.Main.uploadImage(rel)
 
 # Dev
@@ -834,7 +840,6 @@ GET   /variant/:key                    controllers.ContentPage.variant(key)
 # Help
 GET   /help/contribute                 controllers.ContentPage.help
 GET   /help/master                     controllers.ContentPage.master
-GET   /help/analyse/variation-arrow    controllers.Main.analyseVariationArrowHelp
 GET   /help/keyboard-move              controllers.Main.keyboardMoveHelp
 GET   /help/voice/:module              controllers.Main.voiceHelp(module)
 # DGT

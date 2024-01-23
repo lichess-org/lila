@@ -19,7 +19,7 @@
   <string name="findTheBestMoveForWhite">Fann de beschten Zuch fir Wäiss.</string>
   <string name="findTheBestMoveForBlack">Fann de beschten Zuch fir Schwaarz.</string>
   <string name="toGetPersonalizedPuzzles">Fir personaliséiert Aufgaben ze kréien:</string>
-  <string name="puzzleId" comment="%s is the ID of the puzzle, something like #a1b2c3.">Aufgab %s</string>
+  <string name="puzzleId">Aufgab %s</string>
   <string name="puzzleOfTheDay">Aufgab vum Dag</string>
   <string name="dailyPuzzle">Aufgab vum Dag</string>
   <string name="clickToSolve">Klick fir ze léisen</string>
@@ -31,13 +31,13 @@
   <string name="byOpenings">No Erëffnungen</string>
   <string name="puzzlesByOpenings">Aufgaben no Erëffnungen</string>
   <string name="openingsYouPlayedTheMost">Erëffnungen, déi s du am meeschten an gewäertene Partie gespillt hues</string>
-  <string name="useFindInPage" comment="useFindInPage&#10;&#10;Appears on https://lichess.org/training/openings&#10;Encourages players to use the built-in browser feature (Ctrl+F on most desktop computers) to find the opening they want to practice.">Benotz \"Suche in Seite\" an dengem Browser fir deng Lieblingseröffnung ze fannen!</string>
+  <string name="useFindInPage">Benotz \"Suche in Seite\" an dengem Browser fir deng Lieblingseröffnung ze fannen!</string>
   <string name="useCtrlF">Benotz Strg+F fir deng Lieblingserëffnung ze fannen!</string>
   <string name="notTheMove">Dat ass net den Zuch!</string>
   <string name="trySomethingElse">Probéier eppes aneres.</string>
-  <string name="ratingX" comment="Appears on pages of individual puzzles.&#10;&#10;%s is either:&#10;1. The word 'hidden', if you have not completed the puzzle yet.&#10;2. The rating of the puzzle, if you have completed it or seen the solution.">Wäertung: %s</string>
-  <string name="hidden" comment="Puzzle rating: hidden&#10;&#10;Appears while solving puzzles. Lichess only displays the rating of the puzzle after you have solved it or asked to see the solution.">verstoppt</string>
-  <plurals name="playedXTimes" comment="Appears on pages of individual puzzles.&#10;%s is the number of times the puzzle has been played.">
+  <string name="ratingX">Wäertung: %s</string>
+  <string name="hidden">verstoppt</string>
+  <plurals name="playedXTimes">
     <item quantity="one">%s mol gespillt</item>
     <item quantity="other">%s mol gespillt</item>
   </plurals>

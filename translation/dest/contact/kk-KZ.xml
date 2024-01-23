@@ -9,7 +9,7 @@
   <string name="forgotPassword">Мен құпиясөзімді ұмыттым</string>
   <string name="forgotUsername">Мен тіркеулі атымды ұмыттым</string>
   <string name="youCanLoginWithEmail">Сіз поштаңыздың мекенжайын жазып, тіркелгіге кіре аласыз</string>
-  <string name="lost2FA">Мен екі-сатылы сәйкестік-растау құлыпсөздерін жоғалттым</string>
+  <string name="lost2FA">Мен екі-сатылы өкіл-растама құлыпсөздерін жоғалттым</string>
   <string name="doPasswordReset">Екінші сатыны өшіру үшін құпиясөздің қайта орнатуын аяқтаңыз</string>
   <string name="accountSupport">Маған тіркелгі жөнінде көмек керек</string>
   <string name="wantTitle">Личесте менің атауым көрсетілгенін қалаймын</string>

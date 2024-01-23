@@ -5,6 +5,7 @@
   <string name="toInviteSomeoneToPlayGiveThisUrl">För att bjuda in någon att spela, ge dem den här länken</string>
   <string name="gameOver">Partiet är slut</string>
   <string name="waitingForOpponent">Väntar på motståndare</string>
+  <string name="orLetYourOpponentScanQrCode">Eller låt din motståndare skanna denna QR-kod</string>
   <string name="waiting">Väntar</string>
   <string name="yourTurn">Din tur</string>
   <string name="aiNameLevelAiLevel">%1$s nivå %2$s</string>
@@ -272,7 +273,6 @@
   <string name="playingRightNow">Spelas just nu</string>
   <string name="eventInProgress">Spelas just nu</string>
   <string name="finished">Slut</string>
-  <string name="finishesX">slutar %s</string>
   <string name="abortGame">Avbryt partiet</string>
   <string name="gameAborted">Partiet avbröts</string>
   <string name="standard">Standard</string>
@@ -405,7 +405,7 @@
   <string name="importGame">Importera parti</string>
   <string name="importGameExplanation">Klistra in ett partis PGN-kod så får du en bläddringsbar uppspelning, en datoranalys, en spel-chatt och en delbar URL.</string>
   <string name="importGameCaveat">Variationer kommer att raderas. För att behålla dem, importera PGN:en via en studie.</string>
-  <string name="importGameCaveat2">Denna PGN kan nås av allmänheten. För att importera ett parti privat, använd en studie.</string>
+  <string name="importGameDataPrivacyWarning">Denna PGN kan nås av allmänheten. För att importera ett parti privat, använd en studie.</string>
   <plurals name="nbImportedGames">
     <item quantity="one">%s Importerat parti</item>
     <item quantity="other">%s Importerade partier</item>
@@ -507,7 +507,7 @@
   <string name="editProfile">Ändra profil</string>
   <string name="firstName">Förnamn</string>
   <string name="lastName">Efternamn</string>
-  <string name="setFlair">Ställ in din flair:</string>
+  <string name="setFlair">Ställ in din flair</string>
   <string name="flair">Flair</string>
   <string name="youCanHideFlair">Det finns en inställning för att dölja alla användarflairs över hela webbplatsen.</string>
   <string name="biography">Biografi</string>
@@ -866,7 +866,6 @@
   <string name="clickHereToReadIt">Klicka här för att läsa den</string>
   <string name="sorry">Beklagar :(</string>
   <string name="weHadToTimeYouOutForAWhile">Vi är tvugna att stänga av dig en stund.</string>
-  <string name="timeoutExpires">Avstängningen upphör om %s.</string>
   <string name="why">Varför?</string>
   <string name="pleasantChessExperience">Vårt mål är att tillhandahålla alla en behaglig schackupplevelse till alla.</string>
   <string name="goodPractice">Därför måste vi försäkra oss om att alla spelare följer god sed.</string>

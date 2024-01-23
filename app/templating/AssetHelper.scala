@@ -32,6 +32,8 @@ trait AssetHelper extends HasEnv:
 
   def cdnUrl(path: String) = s"$assetBaseUrl$path"
 
+  def flairSrc(flair: Flair) = staticAssetUrl(s"$flairVersion/flair/img/$flair.webp")
+
   def cssTag(name: String)(using ctx: Context): Frag =
     cssTagWithDirAndTheme(name, isRTL, ctx.pref.currentBg)
 
@@ -86,8 +88,6 @@ if (window.matchMedia('(prefers-color-scheme: dark)').media === 'not all')
   def captchaTag                             = jsModule("captcha")
   def cashTag                                = iifeModule("javascripts/vendor/cash.min.js")
   def fingerprintTag                         = iifeModule("javascripts/fipr.js")
-  def highchartsLatestTag                    = iifeModule("npm/highcharts-4.2.5/highcharts.js")
-  def highchartsMoreTag                      = iifeModule("npm/highcharts-4.2.5/highcharts-more.js")
   def chessgroundTag = script(tpe := "module", src := assetUrl("npm/chessground.min.js"))
 
   def prismicJs(using PageContext): Frag =
@@ -103,7 +103,7 @@ if (window.matchMedia('(prefers-color-scheme: dark)').media === 'not all')
     ContentSecurityPolicy(
       defaultSrc = List("'self'", assetDomain.value),
       connectSrc =
-        "'self'" :: "data:" :: assetDomain.value :: sockets ::: env.explorerEndpoint :: env.tablebaseEndpoint :: localDev,
+        "'self'" :: "data:" :: assetDomain.value :: sockets ::: "wss://cf-socket.lichess.org" :: env.explorerEndpoint :: env.tablebaseEndpoint :: localDev,
       styleSrc = List("'self'", "'unsafe-inline'", assetDomain.value),
       frameSrc = List("'self'", assetDomain.value, "www.youtube.com", "player.twitch.tv"),
       workerSrc = List("'self'", assetDomain.value, "blob:"),

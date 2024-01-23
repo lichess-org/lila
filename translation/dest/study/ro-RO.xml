@@ -65,7 +65,7 @@
   <string name="studyPgn">PGN-ul studiului</string>
   <string name="downloadAllGames">Descarcă toate partidele</string>
   <string name="chapterPgn">PGN-ul capitolului</string>
-  <string name="copyChapterPgn">Copiază PGN</string>
+  <string name="copyChapterPgn" comment="A button which lets you copy the PGN text to your clipboard (i.e. similar to ⌘+C or Ctrl+C).">Copiază PGN</string>
   <string name="copyChapterPgnDescription">Copiază în clipboard PGN pentru capitol.</string>
   <string name="downloadGame">Descarcă partida</string>
   <string name="studyUrl">URL-ul studiului</string>

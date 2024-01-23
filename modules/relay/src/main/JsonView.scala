@@ -14,22 +14,27 @@ final class JsonView(baseUrl: BaseUrl, markup: RelayMarkup, leaderboardApi: Rela
   import JsonView.given
   import lila.study.JsonView.given
 
+  given Writes[Option[RelayTour.Tier]] = Writes: t =>
+    JsString(t.flatMap(RelayTour.Tier.keys.get) | "user")
+
   given OWrites[RelayTour] = OWrites: t =>
     Json
       .obj(
         "id"          -> t.id,
         "name"        -> t.name,
         "slug"        -> t.slug,
-        "description" -> t.description
+        "description" -> t.description,
+        "createdAt"   -> t.createdAt
       )
-      .add("official" -> t.official)
+      .add("tier" -> t.tier)
 
   given OWrites[RelayRound] = OWrites: r =>
     Json
       .obj(
-        "id"   -> r.id,
-        "name" -> r.name,
-        "slug" -> r.slug
+        "id"        -> r.id,
+        "name"      -> r.name,
+        "slug"      -> r.slug,
+        "createdAt" -> r.createdAt
       )
       .add("finished" -> r.finished)
       .add("ongoing" -> (r.hasStarted && !r.finished))
@@ -41,7 +46,7 @@ final class JsonView(baseUrl: BaseUrl, markup: RelayMarkup, leaderboardApi: Rela
         "tour" -> Json
           .toJsObject(trs.tour)
           .add("markup" -> trs.tour.markup.map(markup(trs.tour)))
-          .add("url" -> withUrls.option(s"$baseUrl/${trs.tour.path}")),
+          .add("url" -> withUrls.option(s"$baseUrl${trs.tour.path}")),
         "rounds" -> trs.rounds.map: round =>
           if withUrls then withUrl(round withTour trs.tour) else apply(round)
       )
@@ -49,23 +54,28 @@ final class JsonView(baseUrl: BaseUrl, markup: RelayMarkup, leaderboardApi: Rela
   def apply(round: RelayRound): JsObject = Json.toJsObject(round)
 
   def withUrl(rt: RelayRound.WithTour): JsObject =
-    apply(rt.round).add("url" -> s"$baseUrl${rt.path}".some)
+    apply(rt.round) ++ Json.obj(
+      "tour" -> rt.tour,
+      "url"  -> s"$baseUrl${rt.path}"
+    )
 
-  def withUrlAndGames(rt: RelayRound.WithTour, games: List[Chapter.Metadata]): JsObject =
-    withUrl(rt) ++ Json.obj("games" -> games.map { g =>
-      Json.toJsObject(g) + ("url" -> JsString(s"$baseUrl${rt.path}/${g._id}"))
-    })
+  def withUrlAndGames(rt: RelayRound.WithTourAndStudy, games: List[Chapter.Metadata])(using
+      Option[Me]
+  ): JsObject =
+    myRound(rt) ++
+      Json.obj("games" -> games.map { g =>
+        Json.toJsObject(g) + ("url" -> JsString(s"$baseUrl${rt.path}/${g._id}"))
+      })
 
   def sync(round: RelayRound) = Json toJsObject round.sync
 
-  def myRound(r: RelayRound.WithTourAndStudy)(using me: Me) = Json
+  def myRound(r: RelayRound.WithTourAndStudy)(using me: Option[Me]) = Json
     .obj(
-      "round" -> Json
-        .toJsObject(r.relay)
+      "round" -> apply(r.relay)
         .add("url" -> s"$baseUrl${r.path}".some)
         .add("delay" -> r.relay.sync.delay),
       "tour"  -> r.tour,
-      "study" -> Json.obj("writeable" -> r.study.canContribute(me))
+      "study" -> Json.obj("writeable" -> me.exists(r.study.canContribute))
     )
 
   def makeData(

@@ -1,56 +1,56 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="activity">Hoạt động</string>
-  <string name="hostedALiveStream">Chủ trì một luồng trực tuyến</string>
+  <string name="hostedALiveStream">Đã chủ trì một luồng trực tiếp</string>
   <plurals name="supportedNbMonths">
-    <item quantity="other">Đã hỗ trợ lichess.org %1$s tháng với tư cách là một %2$s</item>
+    <item quantity="other">Đã ủng hộ lichess.org %1$s tháng với tư cách là một %2$s</item>
   </plurals>
   <plurals name="practicedNbPositions">
-    <item quantity="other">Đã luyện tập %1$s thế cờ ở %2$s</item>
+    <item quantity="other">Đã luyện tập %1$s thế cờ trên %2$s</item>
   </plurals>
   <plurals name="solvedNbPuzzles">
-    <item quantity="other">Đã giải %s câu đố</item>
+    <item quantity="other">Đã giải %s câu đố chiến thuật</item>
   </plurals>
   <plurals name="playedNbGames">
     <item quantity="other">Đã chơi %1$s ván %2$s</item>
   </plurals>
   <plurals name="postedNbMessages">
-    <item quantity="other">Đã viết %1$s bình luận trong chủ đề %2$s</item>
+    <item quantity="other">Đã đăng %1$s bình luận trong diễn đàn %2$s</item>
   </plurals>
   <plurals name="playedNbMoves">
-    <item quantity="other">Đã chơi %1$s nước</item>
+    <item quantity="other">Đã đi %1$s nước</item>
   </plurals>
   <plurals name="inNbCorrespondenceGames">
     <item quantity="other">trong %1$s ván cờ qua thư</item>
   </plurals>
   <plurals name="completedNbGames">
-    <item quantity="other">Hoàn thành %s ván cờ qua thư</item>
+    <item quantity="other">Đã hoàn thành %s ván cờ qua thư</item>
   </plurals>
   <plurals name="followedNbPlayers">
-    <item quantity="other">Đã theo dõi %s người chơi</item>
+    <item quantity="other">Đã bắt đầu theo dõi %s kỳ thủ</item>
   </plurals>
   <plurals name="gainedNbFollowers">
-    <item quantity="other">Có %s người theo dõi mới</item>
+    <item quantity="other">Đạt được %s người theo dõi mới</item>
   </plurals>
   <plurals name="hostedNbSimuls">
-    <item quantity="other">Chủ trì %s sự kiện cờ đồng loạt</item>
+    <item quantity="other">Đã chủ trì %s sự kiện cờ đồng loạt</item>
   </plurals>
   <plurals name="joinedNbSimuls">
-    <item quantity="other">Tham gia %s sự kiện cờ đồng loạt</item>
+    <item quantity="other">Đã tham gia %s sự kiện cờ đồng loạt</item>
   </plurals>
   <plurals name="createdNbStudies">
     <item quantity="other">Đã tạo %s nghiên cứu mới</item>
   </plurals>
   <plurals name="competedInNbTournaments">
-    <item quantity="other">Hoàn thành %s giải đấu</item>
+    <item quantity="other">Đã hoàn thành %s giải đấu Đấu trường</item>
   </plurals>
   <plurals name="rankedInTournament">
-    <item quantity="other">Hạng #%1$s (top %2$s%%) với %3$s ván trong giải %4$s</item>
+    <item quantity="other">Được hạng #%1$s (lọt top %2$s%%) với %3$s ván trong giải %4$s</item>
   </plurals>
   <plurals name="competedInNbSwissTournaments">
-    <item quantity="other">Hoàn thành %s giải đấu hệ Thụy Sỹ</item>
+    <item quantity="other">Đã hoàn thành %s giải đấu hệ Thụy Sĩ</item>
   </plurals>
-  <string name="rankedInSwissTournament">Hạng %1$s trong giải %2$s</string>
+  <string name="rankedInSwissTournament">Được hạng %1$s trong giải %2$s</string>
   <string name="signedUp">Đã ghi danh ở lichess.org</string>
   <plurals name="joinedNbTeams">
     <item quantity="other">Đã gia nhập %s đội</item>

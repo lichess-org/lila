@@ -1,4 +1,13 @@
-import { objectStorage, ObjectStorage } from 'common/objectStorage';
+import { objectStorage, ObjectStorage, DbInfo } from 'common/objectStorage';
+
+const dbInfo: DbInfo = {
+  db: 'log--db',
+  store: 'log',
+  version: 2,
+  upgrade: (_: any, store: IDBObjectStore) => store?.clear(), // blow it all away when we rev version
+};
+
+const defaultLogWindow = 100;
 
 export default function makeLog(): LichessLog {
   let store: ObjectStorage<string, number>;
@@ -6,31 +15,36 @@ export default function makeLog(): LichessLog {
   let lastKey = 0;
   let drift = 0.001;
 
-  const keep = 1000; // trimmed on startup
   const ready = new Promise<void>(resolve => (resolveReady = resolve));
 
-  objectStorage<string, number>({ store: 'log' })
+  objectStorage<string, number>(dbInfo)
     .then(async s => {
-      const keys = await s.list();
-      if (keys.length > keep) {
-        await s.remove(IDBKeyRange.upperBound(keys[keys.length - keep], true));
+      try {
+        const keys = await s.list();
+        const window = parseInt(localStorage.getItem('log.window') ?? `${defaultLogWindow}`);
+        const constrained = window >= 0 && window <= 10000 ? window : defaultLogWindow;
+        if (keys.length > constrained) {
+          await s.remove(IDBKeyRange.upperBound(keys[keys.length - constrained], true));
+        }
+        store = s;
+      } catch (e) {
+        console.error(e);
+        s.clear();
       }
-      store = s;
       resolveReady();
     })
-    .catch(() => {
+    .catch(e => {
+      console.error(e);
+      window.indexedDB.deleteDatabase(dbInfo.db!);
       resolveReady();
-      objectStorage<string, number>({ store: 'log' })
-        .then(s => s.clear())
-        .catch(() => {});
     });
 
   function stringify(val: any): string {
     return !val || typeof val === 'string' ? String(val) : JSON.stringify(val);
   }
 
-  const log: any = async (...args: any[]) => {
-    const msg = args.map(stringify).join(' ');
+  const log: LichessLog = async (...args: any[]) => {
+    const msg = `#${lichess.info.commit.substr(0, 7)} - ${args.map(stringify).join(' ')}`;
     let nextKey = Date.now();
     console.log(...args);
     if (nextKey === lastKey) {
@@ -52,19 +66,21 @@ export default function makeLog(): LichessLog {
 
   log.get = async (): Promise<string> => {
     await ready;
+    if (!store) return '';
     const [keys, vals] = await Promise.all([store.list(), store.getMany()]);
-    return keys.map((k, i) => `${new Date(k).toISOString()} - ${vals[i]}`).join('\n');
+    return keys.map((k, i) => `${new Date(k).toISOString().replace(/[TZ]/g, ' ')}${vals[i]}`).join('\n');
   };
 
+  function terseHref(): string {
+    return window.location.href.replace(/^(https:\/\/)?lichess\.org\//, '/');
+  }
+
   window.addEventListener('error', async e => {
-    log(
-      `${window.location.href} - ${e.message} (${e.filename}:${e.lineno}:${e.colno})\n${
-        e.error?.stack ?? ''
-      }`.trim(),
-    );
+    const loc = e.filename ? ` - (${e.filename}:${e.lineno}:${e.colno})` : '';
+    log(`${terseHref()} - ${e.message}${loc}\n${e.error?.stack ?? ''}`.trim());
   });
   window.addEventListener('unhandledrejection', async e => {
-    log(`${window.location.href} - ${e.reason}\n${e.reason.stack ?? ''}`.trim());
+    log(`${terseHref()} - ${e.reason}`);
   });
 
   return log;

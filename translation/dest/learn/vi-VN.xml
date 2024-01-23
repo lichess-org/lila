@@ -42,7 +42,7 @@ Bạn cần cả hai!</string>
   <string name="knightsHaveAFancyWay">Quân mã nhảy vòng quanh 
 một cách sành điệu!</string>
   <string name="knightsCanJumpOverObstacles">Quân mã có thể nhảy qua các chướng ngại vật!
-Trốn thoát và lấy những ngôi sao!</string>
+Trốn thoát và lấy các ngôi sao!</string>
   <string name="knightComplete">Chúc mừng! Bạn đã làm chủ được quân mã.</string>
   <string name="thePawn">Quân tốt</string>
   <string name="itMovesForwardOnly">Nó chỉ đi về phía trước</string>
@@ -71,7 +71,7 @@ Nhưng không cần phải phong cấp đâu.</string>
   <string name="takeTheBlackPieces">Hãy ăn lấy quân đen!</string>
   <string name="takeTheBlackPiecesAndDontLoseYours">Ăn lấy quân đen!
 Nhưng đừng để mất quân của bạn.</string>
-  <string name="captureComplete">Xin chúc mừng! Bạn đã nắm được cách đánh với các quân cờ!</string>
+  <string name="captureComplete">Chúc mừng! Bạn đã nắm được cách đánh với các quân cờ!</string>
   <string name="protection">Phòng thủ</string>
   <string name="keepYourPiecesSafe">Giữ an toàn cho quân của bạn</string>
   <string name="protectionIntro">Xác định các quân đang bị đối thủ tấn công và phòng thủ cho chúng!</string>
@@ -117,9 +117,9 @@ bằng một cách mà đối phương không thể phòng thủ!</string>
   <string name="thisIsTheInitialPosition">Đây là thế trận ban đầu 
 của mọi ván cờ!
 Hãy đi nước bất kỳ để tiếp tục.</string>
-  <string name="firstPlaceTheRooks">Đầu tiên hãy đặt những quân xe!
+  <string name="firstPlaceTheRooks">Đầu tiên hãy đặt các quân xe!
 Chúng nằm ở các góc bàn cờ.</string>
-  <string name="thenPlaceTheKnights">Rồi đặt những quân Mã! 
+  <string name="thenPlaceTheKnights">Rồi đặt các quân Mã! 
 Ngay cạnh quân Xe.</string>
   <string name="placeTheBishops">Đặt quân Tượng!
 Ngay cạnh quân Mã.</string>
@@ -212,13 +212,13 @@ trong 2 nước!</string>
   <string name="practice">Tập luyện</string>
   <string name="learnCommonChessPositions">Học về các thế cờ cơ bản</string>
   <string name="puzzles">Câu đố</string>
-  <string name="exerciseYourTacticalSkills">Luyện tập các kĩ năng chiến thuật của bạn</string>
+  <string name="exerciseYourTacticalSkills">Luyện tập các kỹ năng chiến thuật của bạn</string>
   <string name="videos">Các video</string>
-  <string name="watchInstructiveChessVideos">Xem những video hướng dẫn chơi cờ</string>
+  <string name="watchInstructiveChessVideos">Xem các video hướng dẫn chơi cờ</string>
   <string name="playPeople">Đấu với người</string>
   <string name="opponentsFromAroundTheWorld">Các đối thủ từ khắp nơi trên thế giới</string>
   <string name="playMachine">Đấu với máy</string>
-  <string name="testYourSkillsWithTheComputer">Kiểm tra các kĩ năng của bạn với máy</string>
+  <string name="testYourSkillsWithTheComputer">Kiểm tra các kỹ năng của bạn với máy</string>
   <string name="letsGo">Bắt đầu nào!</string>
   <string name="stageX">Chặng %s</string>
   <string name="awesome">Tuyệt vời!</string>

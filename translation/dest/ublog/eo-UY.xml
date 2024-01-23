@@ -1,5 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+  <string name="communityBlogs">Komunumaj blogoj</string>
+  <string name="friendBlogs">Blogoj de amikoj</string>
+  <string name="likedBlogs">Ŝatitaj blogafiŝoj</string>
+  <string name="blogTopics">Blogaj temoj</string>
+  <string name="lichessOfficialBlog">Lichess Oficiala Blogo</string>
+  <string name="continueReadingPost">Daŭri legi ĉi tiun afiŝon</string>
+  <string name="lichessBlogPostsFromXYear">Lichess blogafiŝojn en %s</string>
+  <string name="previousBlogPosts">Antaŭaj blogafiŝoj</string>
   <string name="xBlog">Blogo de %s</string>
   <string name="newPost">Nova afiŝo</string>
   <string name="editYourBlogPost">Redakti vian blogafiŝon</string>
@@ -43,4 +51,5 @@
   <string name="safeAndRespectfulContent">Bonvolu nur afiŝi sekuran kaj respektan enhavon. Ne kopiu enhavon de iu alia.</string>
   <string name="inappropriateContentAccountClosed">Io malkonvena povus fermigi vian konton.</string>
   <string name="blogTips">Niaj facilaj konsiloj por verki bonegajn blogafiŝojn</string>
+  <string name="discussThisBlogPostInTheForum">Diskuti ĉi tiun blogafiŝojn en la forumo</string>
 </resources>

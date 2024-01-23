@@ -54,4 +54,13 @@
     <item quantity="one">%s ano atrás</item>
     <item quantity="other">%s anos atrás</item>
   </plurals>
+  <plurals name="nbMinutesRemaining">
+    <item quantity="one">%s minuto restante</item>
+    <item quantity="other">%s minutos restantes</item>
+  </plurals>
+  <plurals name="nbHoursRemaining">
+    <item quantity="one">%s hora restante</item>
+    <item quantity="other">%s horas restantes</item>
+  </plurals>
+  <string name="completed">concluído</string>
 </resources>

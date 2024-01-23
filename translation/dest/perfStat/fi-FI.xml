@@ -22,7 +22,7 @@
   <string name="fromXToY">aikavälillä %1$s–%2$s</string>
   <string name="winningStreak">Voittoputki</string>
   <string name="losingStreak">Tappioputki</string>
-  <string name="longestStreak">Pisin putki: %s</string>
+  <string name="longestStreak" comment="%s is the string (number of games OR time spent playing, e.g. 4 hours non-stop play)&#10;String used to describe the longest consecutive winning &amp; losing streak of games. It is also used for a  streak of time spent playing.">Pisin putki: %s</string>
   <string name="currentStreak">Nykyinen putki: %s</string>
   <string name="bestRated">Korkeimman vahvuusluvun voitot</string>
   <string name="worstRated">Alimman vahvuusluvun tappiot</string>

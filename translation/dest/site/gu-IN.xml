@@ -225,7 +225,6 @@
   <string name="playingRightNow">અત્યારે રમાય છે</string>
   <string name="eventInProgress">અત્યારે રમાય છે</string>
   <string name="finished">સમાપ્ત થઈ</string>
-  <string name="finishesX">%s માં પૂરી થાય છે</string>
   <string name="abortGame">રમતનો ત્યાગ કરો</string>
   <string name="gameAborted">રમતનો ત્યાગ કર્યો</string>
   <string name="standard">સામાન્ય</string>

@@ -17,7 +17,7 @@
   <string name="findTheBestMoveForWhite">為白方找出最佳移動</string>
   <string name="findTheBestMoveForBlack">為黑方找出最佳移動</string>
   <string name="toGetPersonalizedPuzzles">得到個人推薦題目:</string>
-  <string name="puzzleId" comment="%s is the ID of the puzzle, something like #a1b2c3.">謎題 %s</string>
+  <string name="puzzleId">謎題 %s</string>
   <string name="puzzleOfTheDay">每日一題</string>
   <string name="clickToSolve">點擊解題</string>
   <string name="goodMove">好棋</string>
@@ -27,9 +27,9 @@
   <string name="puzzleComplete">解題完成!</string>
   <string name="notTheMove">不是這步!</string>
   <string name="trySomethingElse">試試其他的移動</string>
-  <string name="ratingX" comment="Appears on pages of individual puzzles.&#10;&#10;%s is either:&#10;1. The word 'hidden', if you have not completed the puzzle yet.&#10;2. The rating of the puzzle, if you have completed it or seen the solution.">評級：%s</string>
-  <string name="hidden" comment="Puzzle rating: hidden&#10;&#10;Appears while solving puzzles. Lichess only displays the rating of the puzzle after you have solved it or asked to see the solution.">隱藏</string>
-  <plurals name="playedXTimes" comment="Appears on pages of individual puzzles.&#10;%s is the number of times the puzzle has been played.">
+  <string name="ratingX">評級：%s</string>
+  <string name="hidden">隱藏</string>
+  <plurals name="playedXTimes">
     <item quantity="other">已被嘗試%s次</item>
   </plurals>
   <string name="fromGameLink">來自對局 %s</string>

@@ -5,6 +5,7 @@
   <string name="toInviteSomeoneToPlayGiveThisUrl">ให้ URL นี้เพื่อเชิญคนมาเล่น</string>
   <string name="gameOver">จบเกม</string>
   <string name="waitingForOpponent">กำลังรอคู่แข่ง</string>
+  <string name="orLetYourOpponentScanQrCode">หรือให้คู่แข่งคุณสแกน QR code นี้</string>
   <string name="waiting">กำลังรอ</string>
   <string name="yourTurn">ตาคุณ</string>
   <string name="aiNameLevelAiLevel">%1$s ระดับ %2$s</string>
@@ -101,6 +102,8 @@
   <string name="playFirstOpeningEndgameExplorerMove">เล่นการเปิดเกม/จบเกม-ค้นหาตาเดิน</string>
   <string name="winPreventedBy50MoveRule">พลาดชัยชนะเนื่องจากกฎการเดิน 50 รอบ</string>
   <string name="lossSavedBy50MoveRule">รอดจากการแพ้ด้วยกฎการเดิน 50 รอบ</string>
+  <string name="winOr50MovesByPriorMistake">ชนะหรือเดิน 50 ตาโดยไม่ได้ตั้งใจ</string>
+  <string name="lossOr50MovesByPriorMistake">แพ้หรือเดิน 50 ตาโดยไม่ได้ตั้งใจ</string>
   <string name="allSet">พร้อมลุย!</string>
   <string name="importPgn">ป้อน PGN</string>
   <string name="delete">ลบ</string>
@@ -253,7 +256,6 @@
   <string name="playingRightNow">กำลังเล่น</string>
   <string name="eventInProgress">กำลังแข่ง</string>
   <string name="finished">จบแล้ว</string>
-  <string name="finishesX">เสร็จสิ้น%s</string>
   <string name="abortGame">ยกเลิกเกม</string>
   <string name="gameAborted">เกมถูกยกเลิก</string>
   <string name="standard">มาตรฐาน</string>
@@ -373,7 +375,7 @@
   <string name="importGame">นำเข้าเกม</string>
   <string name="importGameExplanation">เมื่อวาง PGN ของเกมแล้ว คุณจะได้รับความสามารถเรียกดูการเล่นซ้ำ, การวิเคราะห์ด้วยคอมพิวเตอร์, แชทของเกม และ URL ที่สามารถแชร์ได้</string>
   <string name="importGameCaveat">การเดินรูปแบบต่างๆ จะถูกลบทิ้ง หากต้องการเก็บไว้ ให้นำเข้า PGN ผ่านการศึกษา</string>
-  <string name="importGameCaveat2">PGN นี้เป็นสาธารณะ หากอยากจะนำเข้าเกม โปรดใช้หน้ากรณีศึกษา</string>
+  <string name="importGameDataPrivacyWarning">PGN นี้เป็นสาธารณะ หากอยากจะนำเข้าเกมแบบส่วนตัว โปรดใช้หน้ากรณีศึกษา</string>
   <plurals name="nbImportedGames">
     <item quantity="other">%s เกมที่ถูกนำเข้า</item>
   </plurals>
@@ -471,6 +473,7 @@
   <string name="firstName">ชื่อจริง</string>
   <string name="lastName">นามสกุล</string>
   <string name="setFlair">ตั้งค่ารูปตกแต่ง</string>
+  <string name="flair">รูปตกแต่ง</string>
   <string name="youCanHideFlair">มันมีการตั้งค่าที่ทำให้ไม่สามารถเห็นรูปตกแต่งของผู้ใช้ได้ทั้งเวบไซต์</string>
   <string name="biography">ชีวประวัติ</string>
   <string name="countryRegion" comment="flag&#10;Appears when you edit your profile. Lets a player add a country/flag (not all flags are for countries) to their profile">ประเทศหรือภูมิภาค</string>
@@ -705,6 +708,7 @@
   <string name="withFriends">กับเพื่อนๆ</string>
   <string name="withEverybody">กับทุกคน</string>
   <string name="kidMode">โหมดเด็ก</string>
+  <string name="kidModeIsEnabled">โหมดเด็กถูกเปิดใช้งาน</string>
   <string name="kidModeExplanation">สิ่งนี้เป็นเรื่องเกี่ยวกับความปลอดภัย ในโหมดสำหรับเด็ก การสื่อสารของไซต์ทั้งหมดจะถูกปิด จงใช้งานสิ่งนี้สำหรับเด็กและนักเรียนของคุณ เพื่อปกป้องพวกเขาจากผู้ใช้อินเทอร์เน็ตอื่นๆ</string>
   <string name="inKidModeTheLichessLogoGetsIconX">ในโหมดสำหรับเด็ก โลโก้ lichess จะมีไอคอน %s เพื่อให้คุณรู้ว่าเด็กๆของคุณปลอดภัย</string>
   <string name="askYourChessTeacherAboutLiftingKidMode">บัญชีของคุณได้รับการจัดการ ถามครูหมากรุกของคุณเกี่ยวกับการยกระดับโหมดเด็ก</string>
@@ -814,9 +818,10 @@
   <plurals name="andSaveNbPremoveLines">
     <item quantity="other">และบันทึก %s เส้นทางเดินล่วงหน้า</item>
   </plurals>
+  <string name="showUnreadLichessMessage">คุณได้รับข้อความส่วนตัวจาก Lichess</string>
+  <string name="clickHereToReadIt">คลิกที่นี้เพื่ออ่าน</string>
   <string name="sorry">ขออภัย :(</string>
   <string name="weHadToTimeYouOutForAWhile">เราจำเป็นต้องให้คุณรอคอยสักช่วงหนึ่ง</string>
-  <string name="timeoutExpires">เวลารอคอย สิ้นสุดใน %s</string>
   <string name="why">ทำไม?</string>
   <string name="pleasantChessExperience">เรามุ่งหวังจะมอบประสบการณ์เกมหมากรุกที่น่าพอใจให้กับทุกคน</string>
   <string name="goodPractice">เพื่อให้ได้ผล เราต้องแน่ใจว่าผู้เล่นทุกคนได้ปฏิบัติตามเป็นอย่างดี</string>
@@ -836,6 +841,7 @@
   <string name="agreementPolicy">ฉันยอมรับว่า ฉันจะปฏิบัติตามทุกนโยบายของ Lichess</string>
   <string name="searchOrStartNewDiscussion">ค้นหา หรือเริ่มการสนทนาใหม่</string>
   <string name="edit">แก้ไข</string>
+  <string name="bullet" comment="Probably best left untranslated. Leave it as 'Bullet' unless your language has a better word for it.">บูลเล็ต</string>
   <string name="blitz" comment="Probably best left untranslated. Leave it as 'Blitz' unless your language has a better word for it.">บลิตซ์</string>
   <string name="rapid">แรปพิด</string>
   <string name="classical">คลาสสิก</string>

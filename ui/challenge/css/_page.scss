@@ -8,21 +8,43 @@
   }
 
   .invite {
-    display: flex;
-    flex-flow: row wrap;
+    display: grid;
+    gap: $block-gap;
+    grid-template-columns: repeat(auto-fill, minmax(25em, 1fr));
 
     > div {
-      @extend %box-radius;
-      @include padding-direction(2em, 2em, 1em, 2em);
-
+      @extend %box-neat;
+      padding: $block-gap;
       background: $c-bg-zebra;
-      margin: 1em;
-      flex: 1 1 auto;
     }
 
-    p.error {
-      color: $c-bad;
-      margin-top: 1em;
+    &__qrcode {
+      @extend %flex-between-nowrap;
+      gap: $block-gap;
+    }
+
+    &__user {
+      @include breakpoint($mq-x-small) {
+        grid-area: 1 / 2 / 3 / 2;
+      }
+
+      &__recent {
+        @extend %flex-center;
+        margin-top: 1em;
+        gap: 0.5em;
+
+        .button {
+          background: none;
+          border: $border;
+          text-align: $start-direction;
+          text-transform: none;
+        }
+      }
+
+      .error {
+        color: $c-bad;
+        margin-top: 1em;
+      }
     }
   }
 
@@ -38,6 +60,14 @@
       height: 13em;
       margin: 2em auto;
     }
+
+    .correspondence-waiting {
+      font-size: 1.5em;
+      margin: 2em auto;
+      &::before {
+        color: $c-good;
+      }
+    }
   }
 
   .cancel {
@@ -46,30 +76,35 @@
   }
 
   .details {
-    @extend %flex-between;
+    @extend %flex-between, %box-neat;
 
     $c-bg: mix($c-good, $c-bg-box, 10%);
     --c-font: #{$c-good};
     --c-bg: #{$c-bg};
 
-    border-radius: 99px;
-    padding: 0.7em 1.7em;
-    margin-bottom: 3rem;
-    font-size: 2em;
+    padding: $block-gap 4vw;
+    margin-bottom: 4rem;
+    font-size: 1.5em;
+
+    @include breakpoint($mq-xx-small) {
+      font-size: 2em;
+    }
+
     background: var(--c-bg);
     border: 1px solid var(--c-font);
-    gap: 0.3em 1em;
 
     > div {
+      flex: 0 1 auto;
       @extend %flex-center, %roboto;
-
-      justify-content: center;
-      flex-grow: 1;
 
       &::before {
         color: var(--c-font);
         font-size: 6rem;
         margin-#{$end-direction}: 0.2em;
+
+        @include breakpoint($mq-not-xx-small) {
+          display: none;
+        }
       }
 
       div {
@@ -82,10 +117,10 @@
     }
 
     .mode {
+      text-align: $end-direction;
       font-weight: bold;
+      font-size: 0.8em;
       color: var(--c-font);
-      text-transform: uppercase;
-      text-align: center;
     }
   }
 

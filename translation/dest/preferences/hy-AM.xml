@@ -19,7 +19,6 @@
   <string name="displayBoardResizeHandle">Ցույց տալ խաղատախտակի չափսի փոփոխության պատկերագիրը</string>
   <string name="onlyOnInitialPosition">Միայն սկզբնական դիրքում</string>
   <string name="inGameOnly">Միայն խաղի մեջ</string>
-  <string name="blindfoldChess">Կույր շախմատ (խաղաքարերը չեն երևում)</string>
   <string name="chessClock">շախմատի ժամացույց</string>
   <string name="tenthsOfSeconds">ցուցադրել վայրկյանները</string>
   <string name="whenTimeRemainingLessThanTenSeconds" comment="whenTimeRemainingLessThanTenSeconds&#10;&#10;The &amp;lt; symbol is not required (you can write it as a word), just do NOT use &lt; in its place.&#10;&#10;Technical information: &lt; is a reserved character in HTML, which is why it cannot be used.">Երբ ժամանակը մնացել է &lt;10 վայրկյան</string>

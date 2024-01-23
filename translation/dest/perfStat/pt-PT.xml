@@ -22,7 +22,7 @@
   <string name="fromXToY">de %1$s a %2$s</string>
   <string name="winningStreak">Vitórias consecutivas</string>
   <string name="losingStreak">Derrotas consecutivas</string>
-  <string name="longestStreak">Sequência mais longa: %s</string>
+  <string name="longestStreak" comment="%s is the string (number of games OR time spent playing, e.g. 4 hours non-stop play)&#10;String used to describe the longest consecutive winning &amp; losing streak of games. It is also used for a  streak of time spent playing.">Sequência mais longa: %s</string>
   <string name="currentStreak">Sequência atual: %s</string>
   <string name="bestRated">Melhores vitórias a pontuar</string>
   <string name="worstRated">Piores derrotas a pontuar</string>

@@ -4,6 +4,7 @@ import scala.util.chaining.*
 import ornicar.scalalib.ThreadLocalRandom
 
 import lila.common.{ Bus, LilaScheduler }
+import play.api.i18n.Lang
 
 final private class Streaming(
     api: StreamerApi,
@@ -29,13 +30,13 @@ final private class Streaming(
       streamers <- api byIds activeIds
       (twitchStreams, youTubeStreams) <-
         twitchApi.fetchStreams(streamers, 0, None) map {
-          _.collect { case Twitch.TwitchStream(name, title, _, language) =>
+          _.collect { case Twitch.TwitchStream(name, title, _, langStr) =>
             streamers.find { s =>
               s.twitch.exists(_.userId.toLowerCase == name.toLowerCase) && {
                 title.value.toLowerCase.contains(keyword.toLowerCase) ||
                 alwaysFeatured().value.contains(s.userId)
               }
-            } map { Twitch.Stream(name, title, _, language) }
+            } map { Twitch.Stream(name, title, _, Lang.get(langStr) | lila.i18n.defaultLang) }
           }.flatten
         } zip ytApi.fetchStreams(streamers)
       streams = LiveStreams {

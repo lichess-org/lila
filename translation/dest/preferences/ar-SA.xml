@@ -7,25 +7,25 @@
   <string name="pieceAnimation">المؤثرات الحركية للقطعة</string>
   <string name="materialDifference">الفرق المادي</string>
   <string name="boardHighlights">تميز معالم الرقعة (آخر نقلة والكش)</string>
-  <string name="pieceDestinations">نقلات القطعة ( النقلات المتاحة والنقلات الاستباقية)</string>
+  <string name="pieceDestinations">إظهار النقلات القانونية (النقلات المتاحة والنقلات الاستباقية)</string>
   <string name="boardCoordinates">إحداثيات الرقعة (A-H, 1-8)</string>
   <string name="moveListWhilePlaying">قائمة النقلات خلال المباراة</string>
   <string name="pgnPieceNotation">تدوين النقلة</string>
   <string name="chessPieceSymbol">رمز قطعة الشطرنج</string>
   <string name="pgnLetter">حروف (K, Q, R, B, N)</string>
   <string name="zenMode" comment="zenMode&#10;&#10;This is not the religious meaning. Turning this option on takes away make elements of the user interface.&#10;&#10;Can also translate as 'Focus mode' as one example.">وضع التأمل</string>
-  <string name="showPlayerRatings">إظهار مستويات اللاعب</string>
-  <string name="explainShowPlayerRatings">هذا يسمح بإخفاء جميع التقييمات من الموقع، للمساعدة في التركيز على الشطرنج. لا يزال من الممكن تقييم المباريات ، هذا فقط حول ما يمكنك رؤيته.</string>
+  <string name="showPlayerRatings">إظهار تقييمات اللاعب</string>
+  <string name="showFlairs">إظهار ميول اللاعب</string>
+  <string name="explainShowPlayerRatings">هذا يخفي جميع التقييمات من الموقع، للمساعدة في التركيز على مباراة الشطرنج. لا يزال من الممكن لعب مباريات مقيمة، هذا فقط يحدد ما تراه.</string>
   <string name="displayBoardResizeHandle">أظهر زر تعديل حجم الرقعة</string>
   <string name="onlyOnInitialPosition">خلال الوضع المبدئي فقط</string>
   <string name="inGameOnly">في اللعبة فقط</string>
-  <string name="blindfoldChess">الشطرنج الأعمى (القطع غير مرئية)</string>
   <string name="chessClock">مؤقت الشطرنج</string>
   <string name="tenthsOfSeconds">أجزاء الثانية</string>
   <string name="whenTimeRemainingLessThanTenSeconds" comment="whenTimeRemainingLessThanTenSeconds&#10;&#10;The &amp;lt; symbol is not required (you can write it as a word), just do NOT use &lt; in its place.&#10;&#10;Technical information: &lt; is a reserved character in HTML, which is why it cannot be used.">عندما يقل الوقت عن 10 ثوانٍ</string>
   <string name="horizontalGreenProgressBars">الشريط الأخضر للساعة</string>
-  <string name="soundWhenTimeGetsCritical">الصوت عندما يقارب الوقت على الإنتهاء</string>
-  <string name="giveMoreTime">إعطاء مزيد من الوقت</string>
+  <string name="soundWhenTimeGetsCritical">إصدار صوت عندما يقارب الوقت الانتهاء</string>
+  <string name="giveMoreTime">منح الوقت</string>
   <string name="gameBehavior" comment="gameBehavior&#10;&#10;In the user settings page, &quot;Game behavior&quot; is the title of the tab for configuring how the player can interact with the game.">إعدادات اللعبة</string>
   <string name="howDoYouMovePieces">كيف يمكنك تحريك القطع؟</string>
   <string name="clickTwoSquares">النقر فوق مربعين</string>
@@ -35,7 +35,7 @@
   <string name="takebacksWithOpponentApproval">التراجع عن النقلات (بموافقة الخصم)</string>
   <string name="inCasualGamesOnly">في المباريات غير المقيمة فقط</string>
   <string name="promoteToQueenAutomatically">الترقية إلى وزير آلياً</string>
-  <string name="explainPromoteToQueenAutomatically">اضغط مفتاح&lt;ctrl&gt; اثناء الترقية لتعطيل الترقية التلقائية مؤقتاً</string>
+  <string name="explainPromoteToQueenAutomatically">اضغط مفتاح&lt;ctrl&gt; عند الترقية لتعطيل الترقية التلقائية مؤقتاً</string>
   <string name="whenPremoving">عند النقلة الاستباقية</string>
   <string name="claimDrawOnThreefoldRepetitionAutomatically">مطالبة بالتعادل لتكرار نفس النقلات ثلاث مرات بشكل تلقائي</string>
   <string name="whenTimeRemainingLessThanThirtySeconds">عندما يقل الوقت عن 30 ثانية</string>

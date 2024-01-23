@@ -10,7 +10,7 @@
   <string name="pieceDestinations">Các điểm đến của quân cờ (các nước đi hợp lý và nước đi dự đoán)</string>
   <string name="boardCoordinates">Tọa độ bàn cờ (A-H, 1-8)</string>
   <string name="moveListWhilePlaying">Biên bản ván đấu</string>
-  <string name="pgnPieceNotation">Kí hiệu nước cờ</string>
+  <string name="pgnPieceNotation">Ký hiệu nước cờ</string>
   <string name="chessPieceSymbol">Biểu tượng quân cờ</string>
   <string name="pgnLetter">Ký tự (K, Q, R, B, N)</string>
   <string name="zenMode" comment="zenMode&#10;&#10;This is not the religious meaning. Turning this option on takes away make elements of the user interface.&#10;&#10;Can also translate as 'Focus mode' as one example.">Chế độ tập trung</string>
@@ -20,7 +20,6 @@
   <string name="displayBoardResizeHandle">Hiện nút thay đổi kích cỡ bàn cờ</string>
   <string name="onlyOnInitialPosition">Chỉ ở thế cờ ban đầu</string>
   <string name="inGameOnly">Chỉ trong ván cờ</string>
-  <string name="blindfoldChess">Cờ tưởng (quân cờ vô hình)</string>
   <string name="chessClock">Đồng hồ cờ vua</string>
   <string name="tenthsOfSeconds">Một phần mười giây</string>
   <string name="whenTimeRemainingLessThanTenSeconds" comment="whenTimeRemainingLessThanTenSeconds&#10;&#10;The &amp;lt; symbol is not required (you can write it as a word), just do NOT use &lt; in its place.&#10;&#10;Technical information: &lt; is a reserved character in HTML, which is why it cannot be used.">Khi thời gian còn lại &lt; 10 giây</string>
@@ -43,7 +42,7 @@
   <string name="moveConfirmation">Xác nhận nước đi</string>
   <string name="explainCanThenBeTemporarilyDisabled">Có thể bị vô hiệu hóa trong ván cờ với mục lục bàn cờ</string>
   <string name="inCorrespondenceGames">Cờ qua thư</string>
-  <string name="correspondenceAndUnlimited">Cờ qua thư và không giới hạn</string>
+  <string name="correspondenceAndUnlimited">Cờ qua thư và cờ vô hạn</string>
   <string name="confirmResignationAndDrawOffers">Xác nhận chịu thua và đề nghị hòa</string>
   <string name="castleByMovingTheKingTwoSquaresOrOntoTheRook">Cách nhập thành</string>
   <string name="castleByMovingTwoSquares">Di chuyển vua 2 nước</string>
@@ -54,12 +53,12 @@
   <string name="sayGgWpAfterLosingOrDrawing" comment="sayGgWpAfterLosingOrDrawing&#10;&#10;When enabled, this setting will automatically send 'Good game, well played' to your opponent if you are lose or draw the game. It's meant as a courtesy message.&#10;&#10;The message will be sent in ENGLISH.&#10;&#10;It is up to you how to deal with this. For example, you may want to put '(message will be sent in English)' in your translated text as one example. Or you can leave the actual English text and put a brief translation in your own language.">Tự động nhắn \"Good game, well played\" (Ván cờ hay, chơi hay lắm) sau khi hòa hoặc thua</string>
   <string name="yourPreferencesHaveBeenSaved">Tùy chọn của bạn đã được lưu</string>
   <string name="scrollOnTheBoardToReplayMoves">Cuộn con chuột trên bàn cờ để xem lại nước đi</string>
-  <string name="correspondenceEmailNotification">Email thông báo hàng ngày sẽ bao gồm cả những ván cờ qua thư</string>
+  <string name="correspondenceEmailNotification">Email thông báo hàng ngày sẽ bao gồm cả các ván cờ qua thư</string>
   <string name="notifyStreamStart">Streamer đang phát trực tiếp</string>
   <string name="notifyInboxMsg">Tin nhắn mới</string>
-  <string name="notifyForumMention">Bạn được nhắc đến trong một bình luận trên diễn đàn</string>
+  <string name="notifyForumMention">Có bình luận diễn đàn đề cập đến bạn</string>
   <string name="notifyInvitedStudy">Lời mời nghiên cứu</string>
-  <string name="notifyGameEvent">Cập nhật đánh cờ qua thư</string>
+  <string name="notifyGameEvent">Những cập nhật liên quan đến ván cờ qua thư</string>
   <string name="notifyChallenge">Các lời thách đấu</string>
   <string name="notifyTournamentSoon">Giải đấu sắp bắt đầu</string>
   <string name="notifyTimeAlarm">Thời gian đánh cờ qua thư sắp hết</string>
@@ -67,5 +66,5 @@
   <string name="notifyPush">Thông báo tới thiết bị của bạn khi bạn không truy cập Lichess</string>
   <string name="notifyWeb">Trình duyệt</string>
   <string name="notifyDevice">Thiết bị</string>
-  <string name="bellNotificationSound">Chuông báo</string>
+  <string name="bellNotificationSound">Âm thanh chuông báo</string>
 </resources>

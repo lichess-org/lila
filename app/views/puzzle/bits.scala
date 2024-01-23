@@ -61,6 +61,9 @@ object bits:
       )
     )
 
+  private val themeI18nKeys =
+    PuzzleTheme.visible.map(_.name) ::: PuzzleTheme.visible.map(_.description)
+
   private val baseI18nKeys = List(
     trans.puzzle.bestMove,
     trans.puzzle.keepGoing,
@@ -102,8 +105,7 @@ object bits:
     trans.puzzle.nbPointsBelowYourPuzzleRating,
     trans.puzzle.nbPointsAboveYourPuzzleRating
   ) :::
-    PuzzleTheme.visible.map(_.name) :::
-    PuzzleTheme.visible.map(_.description) :::
+    themeI18nKeys :::
     PuzzleDifficulty.all.map(_.name)
 
   private val streakI18nKeys = baseI18nKeys ::: List(
@@ -113,4 +115,4 @@ object bits:
     trans.puzzle.streakSkipExplanation,
     trans.puzzle.continueTheStreak,
     trans.puzzle.newStreak
-  )
+  ) ::: themeI18nKeys

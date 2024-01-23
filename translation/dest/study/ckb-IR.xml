@@ -62,7 +62,7 @@
   <string name="studyPgn">خوێندنی PGN</string>
   <string name="downloadAllGames">دابەزاندنی ھەموو یاریەکان</string>
   <string name="chapterPgn">بەشی PGN</string>
-  <string name="copyChapterPgn">PNG کۆپی بکە</string>
+  <string name="copyChapterPgn" comment="A button which lets you copy the PGN text to your clipboard (i.e. similar to ⌘+C or Ctrl+C).">PNG کۆپی بکە</string>
   <string name="copyChapterPgnDescription">بەشی PNG کۆپی بکە بۆ کلیپبۆرد.</string>
   <string name="downloadGame">دابەزاندی یاری</string>
   <string name="studyUrl">خوێندنی URL</string>

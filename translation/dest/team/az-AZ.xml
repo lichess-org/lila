@@ -11,6 +11,7 @@
   <string name="myTeams">Komandalarım</string>
   <string name="noTeamFound">Komanda tapılmadı</string>
   <string name="joinTeam">Komandaya qoşul</string>
+  <string name="onlyLeaderLeavesTeam">Xahiş edirik, tərk etməzdən əvvəl yeni komanda lideri əlavə edin və ya komandanı silin.</string>
   <string name="quitTeam">Komandanı tərk et</string>
   <string name="manuallyReviewAdmissionRequests">Qəbul tələblərini əllə nəzərdən keçirin</string>
   <string name="manuallyReviewAdmissionRequestsHelp">İşarələnibsə, oyunçuların komandaya qoşulmaq üçün qəbul və ya rədd edə biləcəyiniz bir tələb yazmalı olacaqlar.</string>

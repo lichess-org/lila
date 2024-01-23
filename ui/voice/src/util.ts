@@ -1,6 +1,6 @@
 import * as cs from 'chess';
 
-// findTransforms & validOps also found in @build/src/makeGrammar.ts
+// findTransforms & validOps also found in .build/src/makeGrammar.ts
 
 const mode = { del: true, sub: 2 };
 

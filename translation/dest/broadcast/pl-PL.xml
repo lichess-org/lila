@@ -42,8 +42,8 @@
   <string name="editRoundStudy">Edytuj opracowanie rundy</string>
   <string name="deleteTournament">Usuń ten turniej</string>
   <string name="definitivelyDeleteTournament">Ostatecznie usuń cały turniej, jego wszystkie rundy i partie.</string>
-  <string name="automaticLeaderboard">Automatyczna tablica wyników</string>
-  <string name="automaticLeaderboardHelp">Oblicz i wyświetl prostą tablicę wyników w oparciu o wyniki partii</string>
+  <string name="automaticLeaderboard" comment="An option when creating a broadcast to calculate a leaderboard automatically from the players involved. Example: https://lichess.org/broadcast/2023-london-chess-classic/round-9/5icayRCY">Automatyczna tablica wyników</string>
+  <string name="automaticLeaderboardHelp" comment="An option when creating a broadcast to calculate a leaderboard automatically from the players involved. Example: https://lichess.org/broadcast/2023-london-chess-classic/round-9/5icayRCY">Oblicz i wyświetl prostą tablicę wyników w oparciu o wyniki partii</string>
   <string name="replace">Opcjonalnie: zastąp nazwy, rankingi i tytuły graczy</string>
   <string name="replaceHelp">Jeden wiersz na gracza, w następującym formacie:
 oryginalna nazwa; nowa nazwa; nowy ranking (opcjonalnie); nowy tytuł (opcjonalnie)

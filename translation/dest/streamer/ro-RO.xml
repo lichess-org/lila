@@ -4,8 +4,8 @@
   <string name="lichessStreamer">Lichess streamer</string>
   <string name="live">ÎN DIRECT!</string>
   <string name="offline">DECONECTAT</string>
-  <string name="currentlyStreaming">Făcând stream în prezent: %s</string>
-  <string name="lastStream">Ultimul stream %s</string>
+  <string name="currentlyStreaming" comment="%s is the title of the stream, chosen by the streamer.">Făcând stream în prezent: %s</string>
+  <string name="lastStream" comment="%s is how long ago the stream was in relative time (e.g. 50 minutes ago). It is displayed in smaller type than the rest of the string.">Ultimul stream %s</string>
   <string name="becomeStreamer">Devino un Lichess streamer</string>
   <string name="doYouHaveStream">Ai un stream pe Twitch sau pe Youtube?</string>
   <string name="hereWeGo">Să-i dăm drumul!</string>
@@ -29,11 +29,11 @@
   <string name="pendingReview">Streamul tău este revizuit de moderatori.</string>
   <string name="pleaseFillIn">Vă rugăm să introduceți informațiile de streamer și să încărcați o imagine.</string>
   <string name="whenReady" comment="whenReady&#10;&#10;%s is &quot;request a moderator review&quot;">Când ești gata să fii listat ca și Lichess streamer, %s</string>
-  <string name="requestReview" comment="requestReview&#10;&#10;Used in the sense of: &quot;When you are ready to be listed as a Lichess streamer, request a moderator review&quot;">solicită revizuirea unui moderator</string>
+  <string name="requestReview" comment="requestReview&#10;&#10;Used as part of the longer sentence: &quot;When you are ready to be listed as a Lichess streamer, request a moderator review&quot;">solicită revizuirea unui moderator</string>
   <string name="streamerLanguageSettings">Pagina de streamer Lichess țintește publicul tău cu limba furnizată de platforma ta de streaming. Setați limba implicită corectă pentru fluxurile de șah din aplicația sau serviciul pe care îl utilizați pentru difuzare.</string>
-  <string name="twitchUsername">Numele tău de utilizator Twitch sau URL-ul</string>
+  <string name="twitchUsername" comment="Appears on the form for setting up your Streamer page: https://lichess.org/streamer/edit&#10;&#10;Twitch is a proper noun and refers to the streaming service https://twitch.tv/. Please do not translate the word 'Twitch'.">Numele tău de utilizator Twitch sau URL-ul</string>
   <string name="optionalOrEmpty">Opțional. Lasă liber dacă niciunul</string>
-  <string name="youTubeChannelId">ID-ul canalului dvs YouTube</string>
+  <string name="youTubeChannelId" comment="Appears on the form for setting up your Streamer page: https://lichess.org/streamer/edit&#10;&#10;The Channel ID is a special alphanumeric string. See Google's guide here for how to retrieve it: https://support.google.com/youtube/answer/3250431&#10;&#10;We encourage translators to match what the Channel ID is called in your language's version of YouTube: https://www.youtube.com/account_advanced">ID-ul canalului dvs YouTube</string>
   <string name="streamerName">Numele tău de streamer pe Lichess</string>
   <plurals name="keepItShort">
     <item quantity="one">Ține-o scurt: maxim %s caracter</item>

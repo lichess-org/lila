@@ -3,11 +3,18 @@ import { Prop } from 'common';
 import { AnalyseData } from '../interfaces';
 import { GamebookOverride } from './gamebook/interfaces';
 import { Opening } from '../explorer/interfaces';
+import AnalyseCtrl from '../ctrl';
 
 export type Tab = 'intro' | 'members' | 'chapters';
+export type ChapterTab = 'init' | 'edit' | 'game' | 'fen' | 'pgn';
 export type ToolTab = 'tags' | 'comments' | 'glyphs' | 'serverEval' | 'share' | 'multiBoard';
 export type RelayTab = 'overview' | 'schedule' | 'leaderboard';
 export type Visibility = 'public' | 'unlisted' | 'private';
+
+export interface StudyTour {
+  study(ctrl: AnalyseCtrl): void;
+  chapter(cb: (tab: ChapterTab) => void): void;
+}
 
 export interface StudyVm {
   loading: boolean;
@@ -106,6 +113,11 @@ export interface StudyChapter {
   features: StudyChapterFeatures;
   description?: string;
   relay?: StudyChapterRelay;
+  serverEval?: StudyChapterServerEval;
+}
+
+export interface StudyChapterServerEval {
+  path: string;
 }
 
 export interface StudyChapterRelay {
@@ -117,7 +129,7 @@ export interface StudyChapterRelay {
 interface StudyChapterSetup {
   gameId?: string;
   variant: {
-    key: string;
+    key: VariantKey;
     name: string;
   };
   orientation: Color;

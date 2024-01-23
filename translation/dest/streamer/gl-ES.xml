@@ -4,8 +4,8 @@
   <string name="lichessStreamer">Presentador de Lichess</string>
   <string name="live">EN DIRECTO!</string>
   <string name="offline">DESCONECTADO</string>
-  <string name="currentlyStreaming">Transmitindo agora mesmo: %s</string>
-  <string name="lastStream">Última transmisión %s</string>
+  <string name="currentlyStreaming" comment="%s is the title of the stream, chosen by the streamer.">Transmitindo agora mesmo: %s</string>
+  <string name="lastStream" comment="%s is how long ago the stream was in relative time (e.g. 50 minutes ago). It is displayed in smaller type than the rest of the string.">Última transmisión %s</string>
   <string name="becomeStreamer">Convértete nun presentador de Lichess</string>
   <string name="doYouHaveStream">Tes unha canle de Twitch ou de YouTube?</string>
   <string name="hereWeGo">Imos!</string>
@@ -29,11 +29,11 @@
   <string name="pendingReview">A túa transmisión está sendo revisada polos moderadores.</string>
   <string name="pleaseFillIn">Por favor, cubre a túa información de presentador e sube unha foto.</string>
   <string name="whenReady" comment="whenReady&#10;&#10;%s is &quot;request a moderator review&quot;">Cando esteas preparado para seres un presentador de Lichess, %s</string>
-  <string name="requestReview" comment="requestReview&#10;&#10;Used in the sense of: &quot;When you are ready to be listed as a Lichess streamer, request a moderator review&quot;">solicita a revisión dun moderador</string>
+  <string name="requestReview" comment="requestReview&#10;&#10;Used as part of the longer sentence: &quot;When you are ready to be listed as a Lichess streamer, request a moderator review&quot;">solicita a revisión dun moderador</string>
   <string name="streamerLanguageSettings">A páxina de presentador de Lichess diríxese á túa audiencia co idioma proporcionado pola túa plataforma de transmisións. Establece o idioma predeterminado axeitado para as túas transmisións de xadrez na aplicación ou no servizo que uses para retransmitir.</string>
-  <string name="twitchUsername">O teu usuario de Twitch ou URL</string>
+  <string name="twitchUsername" comment="Appears on the form for setting up your Streamer page: https://lichess.org/streamer/edit&#10;&#10;Twitch is a proper noun and refers to the streaming service https://twitch.tv/. Please do not translate the word 'Twitch'.">O teu usuario de Twitch ou URL</string>
   <string name="optionalOrEmpty">Opcional. Déixao baleiro se non tes</string>
-  <string name="youTubeChannelId">O ID da túa canle de YouTube ou URL</string>
+  <string name="youTubeChannelId" comment="Appears on the form for setting up your Streamer page: https://lichess.org/streamer/edit&#10;&#10;The Channel ID is a special alphanumeric string. See Google's guide here for how to retrieve it: https://support.google.com/youtube/answer/3250431&#10;&#10;We encourage translators to match what the Channel ID is called in your language's version of YouTube: https://www.youtube.com/account_advanced">O ID da túa canle de YouTube ou URL</string>
   <string name="streamerName">O teu nome de presentador en Lichess</string>
   <plurals name="keepItShort">
     <item quantity="one">Sé breve: máximo %s carácter</item>

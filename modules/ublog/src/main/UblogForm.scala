@@ -5,7 +5,7 @@ import play.api.data.Forms.*
 import ornicar.scalalib.ThreadLocalRandom
 
 import lila.common.Form.{ cleanNonEmptyText, stringIn, into, given }
-import lila.i18n.{ defaultLang, LangList }
+import lila.i18n.{ defaultLanguage, LangList, Language, LangForm }
 import lila.user.User
 import play.api.i18n.Lang
 
@@ -20,7 +20,7 @@ final class UblogForm(val captcher: lila.hub.actors.Captcher) extends lila.hub.C
       "markdown"    -> cleanNonEmptyText(minLength = 0, maxLength = 100_000).into[Markdown],
       "imageAlt"    -> optional(cleanNonEmptyText(minLength = 3, maxLength = 200)),
       "imageCredit" -> optional(cleanNonEmptyText(minLength = 3, maxLength = 200)),
-      "language"    -> optional(stringIn(LangList.popularNoRegion.map(_.code).toSet)),
+      "language"    -> optional(LangForm.popularLanguages.mapping),
       "topics"      -> optional(text),
       "live"        -> boolean,
       "discuss"     -> boolean,
@@ -38,7 +38,7 @@ final class UblogForm(val captcher: lila.hub.actors.Captcher) extends lila.hub.C
       markdown = removeLatex(post.markdown),
       imageAlt = post.image.flatMap(_.alt),
       imageCredit = post.image.flatMap(_.credit),
-      language = post.language.code.some,
+      language = post.language.some,
       topics = post.topics.mkString(", ").some,
       live = post.live,
       discuss = ~post.discuss,
@@ -58,15 +58,13 @@ object UblogForm:
       markdown: Markdown,
       imageAlt: Option[String],
       imageCredit: Option[String],
-      language: Option[String],
+      language: Option[Language],
       topics: Option[String],
       live: Boolean,
       discuss: Boolean,
       gameId: GameId,
       move: String
   ):
-
-    def realLanguage = language flatMap Lang.get
 
     def create(user: User) =
       UblogPost(
@@ -75,7 +73,7 @@ object UblogForm:
         title = title,
         intro = intro,
         markdown = markdown,
-        language = LangList.removeRegion(realLanguage.orElse(user.realLang) | defaultLang),
+        language = language.orElse(user.language) | defaultLanguage,
         topics = topics so UblogTopic.fromStrList,
         image = none,
         live = false,
@@ -84,7 +82,9 @@ object UblogForm:
         updated = none,
         lived = none,
         likes = UblogPost.Likes(1),
-        views = UblogPost.Views(0)
+        views = UblogPost.Views(0),
+        rankAdjustDays = none,
+        pinned = none
       )
 
     def update(user: User, prev: UblogPost) =
@@ -94,7 +94,7 @@ object UblogForm:
         markdown = markdown,
         image = prev.image.map: i =>
           i.copy(alt = imageAlt, credit = imageCredit),
-        language = LangList.removeRegion(realLanguage | prev.language),
+        language = language | prev.language,
         topics = topics so UblogTopic.fromStrList,
         live = live,
         discuss = Option(discuss),
@@ -106,3 +106,9 @@ object UblogForm:
     single:
       "tier" -> number(min = UblogBlog.Tier.HIDDEN.value, max = UblogBlog.Tier.BEST.value)
         .into[UblogBlog.Tier]
+
+  val adjust = Form:
+    tuple(
+      "days"   -> optional(number(min = -180, max = 180)),
+      "pinned" -> boolean
+    )

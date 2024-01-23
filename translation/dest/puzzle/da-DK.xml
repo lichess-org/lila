@@ -18,26 +18,26 @@
   <string name="yourPuzzleRatingWillNotChange">Din opgave-rating vil ikke ændre sig. Bemærk at opgaver ikke er en konkurrence. Rating hjælper med at vælge de bedste opgaver i forhold til dine nuværende færdigheder.</string>
   <string name="findTheBestMoveForWhite">Find det bedste træk for hvid.</string>
   <string name="findTheBestMoveForBlack">Find det bedste træk for sort.</string>
-  <string name="toGetPersonalizedPuzzles">For at få personlige opgaver:</string>
-  <string name="puzzleId" comment="%s is the ID of the puzzle, something like #a1b2c3.">Opgave %s</string>
+  <string name="toGetPersonalizedPuzzles">For at få personlige taktikopgaver:</string>
+  <string name="puzzleId">Taktikopgave %s</string>
   <string name="puzzleOfTheDay">Dagens opgave</string>
-  <string name="dailyPuzzle">Daglig opgave</string>
+  <string name="dailyPuzzle">Daglig taktikopgave</string>
   <string name="clickToSolve">Klik for at løse</string>
   <string name="goodMove">Godt træk</string>
   <string name="bestMove">Bedste træk!</string>
   <string name="keepGoing">Bliv ved…</string>
   <string name="puzzleSuccess">Korrekt!</string>
-  <string name="puzzleComplete">Opgave løst!</string>
+  <string name="puzzleComplete">Taktikpgave løst!</string>
   <string name="byOpenings">Efter åbninger</string>
-  <string name="puzzlesByOpenings">Opgaver efter åbninger</string>
+  <string name="puzzlesByOpenings">Taktikopgaver efter åbninger</string>
   <string name="openingsYouPlayedTheMost">Åbninger du har spillet mest i ratede partier</string>
-  <string name="useFindInPage" comment="useFindInPage&#10;&#10;Appears on https://lichess.org/training/openings&#10;Encourages players to use the built-in browser feature (Ctrl+F on most desktop computers) to find the opening they want to practice.">Brug \"Find på side\" i browsermenuen til at finde din foretrukne åbning!</string>
+  <string name="useFindInPage">Brug \"Find på side\" i browsermenuen til at finde din foretrukne åbning!</string>
   <string name="useCtrlF">Brug Ctrl+f til at finde din foretrukne åbning!</string>
   <string name="notTheMove">Ikke det rigtige træk!</string>
   <string name="trySomethingElse">Prøv noget andet.</string>
-  <string name="ratingX" comment="Appears on pages of individual puzzles.&#10;&#10;%s is either:&#10;1. The word 'hidden', if you have not completed the puzzle yet.&#10;2. The rating of the puzzle, if you have completed it or seen the solution.">Rating: %s</string>
-  <string name="hidden" comment="Puzzle rating: hidden&#10;&#10;Appears while solving puzzles. Lichess only displays the rating of the puzzle after you have solved it or asked to see the solution.">skjult</string>
-  <plurals name="playedXTimes" comment="Appears on pages of individual puzzles.&#10;%s is the number of times the puzzle has been played.">
+  <string name="ratingX">Rating: %s</string>
+  <string name="hidden">skjult</string>
+  <plurals name="playedXTimes">
     <item quantity="one">Spillet %s gang</item>
     <item quantity="other">Spillet %s gange</item>
   </plurals>
@@ -59,26 +59,26 @@
   </plurals>
   <string name="example">Eksempel</string>
   <string name="addAnotherTheme">Tilføj et andet tema</string>
-  <string name="nextPuzzle">Næste opgave</string>
-  <string name="jumpToNextPuzzleImmediately">Spring straks videre til næste opgave</string>
+  <string name="nextPuzzle">Næste taktikopgave</string>
+  <string name="jumpToNextPuzzleImmediately">Spring straks videre til næste taktikopgave</string>
   <string name="puzzleDashboard">Opgave-kontrolpanel</string>
   <string name="improvementAreas">Forbedringsområder</string>
   <string name="strengths">Styrke</string>
   <string name="history">Opgavehistorik</string>
   <string name="solved">løst</string>
   <string name="failed">mislykket</string>
-  <string name="streakDescription">Løs opgaver af stigende sværhedsgrad og opbyg en sejrsstime. Der er intet ur, så tag dig god tid. Ét forkert træk og spillet er ovre! Men du kan springe ét træk over per session.</string>
+  <string name="streakDescription">Løs taktikopgaver af stigende sværhedsgrad og opbyg en sejrsstime. Der er intet ur, så tag dig god tid. Ét forkert træk og spillet er ovre! Men du kan springe ét træk over per session.</string>
   <string name="yourStreakX">Din stime: %s</string>
   <string name="streakSkipExplanation">Spring dette træk over for at bevare din stime! Virker kun én gang per gennemløb.</string>
   <string name="continueTheStreak">Fortsæt stimen</string>
   <string name="newStreak">Ny stime</string>
   <string name="fromMyGames">Fra mine partier</string>
-  <string name="lookupOfPlayer">Søg opgaver fra en spillers partier</string>
-  <string name="fromXGames">Opgaver fra %s\' partier</string>
-  <string name="searchPuzzles">Søg opgaver</string>
-  <string name="fromMyGamesNone">Du har ingen opgaver i databasen, men Lichess elsker dig alligevel.
-Spil hurtige (rapid) og klassiske (classical) partier for at forøge chancerne for at en af dine opgave tilføjes!</string>
-  <string name="fromXGamesFound">%1$s opgaver fundet i %2$s partier</string>
+  <string name="lookupOfPlayer">Søg taktikopgaver fra en spillers partier</string>
+  <string name="fromXGames">Taktikopgaver fra %s\' partier</string>
+  <string name="searchPuzzles">Søg taktikopgaver</string>
+  <string name="fromMyGamesNone">Du har ingen taktikopgaver i databasen, men Lichess elsker dig alligevel.
+Spil hurtige (rapid) og klassiske (classical) partier for at forøge chancerne for at en af dine taktikopgave tilføjes!</string>
+  <string name="fromXGamesFound">%1$s taktikopgaver fundet i %2$s partier</string>
   <string name="puzzleDashboardDescription">Træn, analysér, forbedr</string>
   <plurals name="nbPlayed">
     <item quantity="one">%s spillet</item>

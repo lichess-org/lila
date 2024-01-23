@@ -18,11 +18,11 @@ final private class ChallengeJoiner(
     gameRepo exists c.id.into(GameId) flatMap {
       if _ then fuccess(Left("The challenge has already been accepted"))
       else
-        c.challengerUserId.so(userApi.withPerf(_, c.perfType)) flatMap { origUser =>
+        c.challengerUserId.so(userApi.withPerf(_, c.perfType)) flatMap: origUser =>
           val game = ChallengeJoiner.createGame(c, origUser, destUser)
-          (gameRepo insertDenormalized game) andDo onStart(game.id) inject
+          gameRepo.insertDenormalized(game) inject:
+            onStart(game.id)
             Right(Pov(game, !c.finalColor))
-        }
     }
 
 private object ChallengeJoiner:

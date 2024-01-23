@@ -266,7 +266,6 @@
   <string name="playingRightNow">Моментално игра</string>
   <string name="eventInProgress">Моментално игра</string>
   <string name="finished">Завршено</string>
-  <string name="finishesX">Завршува за %s</string>
   <string name="abortGame">Откажи ја играта</string>
   <string name="gameAborted">Играта е откажана</string>
   <string name="standard">Стандарден</string>
@@ -841,7 +840,6 @@
   </plurals>
   <string name="sorry">Извини :(</string>
   <string name="weHadToTimeYouOutForAWhile">Моравме да те исклучиме на кратко.</string>
-  <string name="timeoutExpires">Исклучувањето престанува %s.</string>
   <string name="why">Зошто?</string>
   <string name="pleasantChessExperience">Се стремиме да пружиме пријатно искуство за сите.</string>
   <string name="goodPractice">Поради тоа, мораме да се осигуриме дека сите играчи се чесни.</string>

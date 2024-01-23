@@ -5,7 +5,7 @@
   <string name="areYouCoach">%s이 있는 훌륭한 체스 코치인가요?</string>
   <string name="nmOrFideTitle" comment="nmOrFideTitle&#10;&#10;Part of sentence &quot;Are you a great chess coach with a NM or FIDE title?&quot;&#10;&#10;The text links to our title verification page: https://lichess.org/help/master">NM 또는 FIDE 타이틀</string>
   <string name="confirmTitle">여기에서 타이틀을 인증하세요. 우리가 당신의 요청을 검토하겠습니다.</string>
-  <string name="sendApplication" comment="sendApplication&#10;&#10;%s is the lichess email adress">%s로 이메일을 보내주시면 당신의 요청을 검토하겠습니다.</string>
+  <string name="sendApplication" comment="sendApplication&#10;&#10;%s is the lichess email address">%s로 이메일을 보내주시면 당신의 요청을 검토하겠습니다.</string>
   <string name="location">지역</string>
   <string name="languages">언어</string>
   <string name="rating">레이팅</string>

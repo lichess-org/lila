@@ -43,5 +43,5 @@
   <string name="safeAndRespectfulContent">பாதுகாப்பான மற்றும் மரியாதைக்குரிய உள்ளடக்கத்தை மட்டும் இடுகையிடவும். வேறொருவரின் உள்ளடக்கத்தை நகலெடுக்க வேண்டாம்.</string>
   <string name="inappropriateContentAccountClosed">முறையற்ற எதுவும் உங்கள் கணக்கை மூடக்கூடும்.</string>
   <string name="blogTips">சிறந்த வலைப்பதிவு இடுகைகளை எழுத எங்கள் எளிய குறிப்புகள்</string>
-  <string name="discussThisBlogPostInTheForum" comment="A button at the bottom of blog posts which will take you to the forum discussion for that post.">இந்த வலைப்பதிவு இடுகையை மன்றத்தில் விவாதிக்கவும்</string>
+  <string name="discussThisBlogPostInTheForum">இந்த வலைப்பதிவு இடுகையை மன்றத்தில் விவாதிக்கவும்</string>
 </resources>

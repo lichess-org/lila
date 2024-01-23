@@ -7,21 +7,12 @@ import play.api.libs.json.*
 import scala.util.chaining.*
 
 import lila.game.{ Event, Game, GameRepo, Player as GamePlayer, Pov, Progress }
-import lila.hub.actorApi.round.{
-  Abort,
-  BotPlay,
-  FishnetPlay,
-  FishnetStart,
-  IsOnGame,
-  RematchNo,
-  RematchYes,
-  Resign
-}
+import lila.hub.actorApi.round.{ Abort, BotPlay, FishnetPlay, FishnetStart, IsOnGame, Rematch, Resign }
 import lila.hub.AsyncActor
 import lila.room.RoomSocket.{ Protocol as RP, * }
 import lila.socket.{ Socket, SocketVersion, SocketSend, GetVersion, UserLagCache }
 
-final private[round] class RoundAsyncActor(
+final private class RoundAsyncActor(
     dependencies: RoundAsyncActor.Dependencies,
     gameId: GameId,
     socketSend: SocketSend,
@@ -236,6 +227,11 @@ final private[round] class RoundAsyncActor(
           proxy.save(progress) >> gameRepo.goBerserk(pov) inject progress.events
         } andDo promise.success(berserked.isDefined)
 
+    case Blindfold(playerId, value) =>
+      handle(playerId): pov =>
+        val progress = pov.game.setBlindfold(pov.color, value)
+        proxy.save(progress) >> gameRepo.setBlindfold(pov, value) inject Nil
+
     case ResignForce(playerId) =>
       handle(playerId): pov =>
         pov.mightClaimWin.so:
@@ -280,9 +276,8 @@ final private[round] class RoundAsyncActor(
           if game.abortable then finisher.other(game, _.Aborted, None)
           else finisher.other(game, _.Resign, Some(!game.player.color))
 
-    case DrawYes(playerId)   => handle(playerId)(drawer.yes)
-    case DrawNo(playerId)    => handle(playerId)(drawer.no)
-    case DrawClaim(playerId) => handle(playerId)(drawer.claim)
+    case Draw(playerId, draw) => handle(playerId)(drawer(_, draw))
+    case DrawClaim(playerId)  => handle(playerId)(drawer.claim)
     case Cheat(color) =>
       handle: game =>
         (game.playable && !game.imported).so:
@@ -296,35 +291,30 @@ final private[round] class RoundAsyncActor(
             this ! DrawClaim(pov.player.id)
         }
 
-    case RematchYes(playerId) => handle(playerId)(rematcher.yes)
-    case RematchNo(playerId)  => handle(playerId)(rematcher.no)
+    case Rematch(playerId, rematch) => handle(playerId)(rematcher(_, rematch))
 
-    case TakebackYes(playerId) =>
+    case Takeback(playerId, takeback) =>
       handle(playerId): pov =>
-        takebacker.yes(~takebackSituation)(pov) map { (events, situation) =>
+        takebacker(~takebackSituation)(pov, takeback) map: (events, situation) =>
           takebackSituation = situation.some
           events
-        }
-    case TakebackNo(playerId) =>
-      handle(playerId): pov =>
-        takebacker.no(~takebackSituation)(pov) map { (events, situation) =>
-          takebackSituation = situation.some
-          events
-        }
+
+    case lila.game.actorApi.NotifyRematch(newGame) =>
+      fuccess:
+        publish:
+          rematcher.redirectEvents(newGame)
 
     case Moretime(playerId, duration) =>
       handle(playerId): pov =>
-        moretimer(pov, duration) flatMapz { progress =>
+        moretimer(pov, duration) flatMapz: progress =>
           proxy save progress inject progress.events
-        }
 
     case ForecastPlay(lastMove) =>
       handle: game =>
-        forecastApi.nextMove(game, lastMove) map { mOpt =>
+        forecastApi.nextMove(game, lastMove) map: mOpt =>
           mOpt.foreach: move =>
             this ! HumanPlay(game.player.id, move, blur = false)
           Nil
-        }
 
     case LilaStop(promise) =>
       proxy
@@ -416,7 +406,7 @@ final private[round] class RoundAsyncActor(
         publishBoardBotGone(pov, millis.some)
 
   private def publishBoardBotGone(pov: Pov, millis: Option[Long]) =
-    if lila.game.Game.isBoardOrBotCompatible(pov.game) then
+    if Game.isBoardOrBotCompatible(pov.game) then
       lila.common.Bus.publish(
         lila.game.actorApi.BoardGone(pov, millis.map(m => (m.atLeast(0) / 1000).toInt)),
         lila.game.actorApi.BoardGone makeChan gameId
@@ -470,7 +460,7 @@ final private[round] class RoundAsyncActor(
 object RoundAsyncActor:
 
   case class HasUserId(userId: UserId, promise: Promise[Boolean])
-  case class SetGameInfo(game: lila.game.Game, goneWeights: (Float, Float))
+  case class SetGameInfo(game: Game, goneWeights: (Float, Float))
   case object Tick
   case object Stop
   case object WsBoot

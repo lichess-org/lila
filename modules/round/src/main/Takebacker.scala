@@ -16,6 +16,11 @@ final private class Takebacker(
 
   private given play.api.i18n.Lang = defaultLang
 
+  def apply(
+      situation: TakebackSituation
+  )(pov: Pov, confirm: Boolean)(using proxy: GameProxy): Fu[(Events, TakebackSituation)] =
+    if confirm then yes(situation)(pov) else no(situation)(pov)
+
   def yes(
       situation: TakebackSituation
   )(pov: Pov)(using proxy: GameProxy): Fu[(Events, TakebackSituation)] =

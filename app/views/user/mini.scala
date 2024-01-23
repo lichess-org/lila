@@ -22,7 +22,8 @@ object mini:
         div(cls := "upt__info__top")(
           userLink(u, withPowerTip = false),
           u.profileOrDefault.flagInfo map: c =>
-            val hasRoomForNameText = u.username.length + c.shortName.length < 21
+            val titleNameSize      = u.title.fold(0)(_.value.length + 1) + u.username.length
+            val hasRoomForNameText = titleNameSize + c.shortName.length < 21
             span(
               cls   := "upt__info__top__flag",
               title := (!hasRoomForNameText).option(c.name)
@@ -83,5 +84,5 @@ object mini:
         ),
         (u.lameOrTroll || u.enabled.no) option span(cls := "upt__mod__marks")(mod.userMarks(u.user, None))
       ),
-      playing.ifFalse(ctx.pref.isBlindfold).map(views.html.game.mini(_))
+      playing.map(views.html.game.mini(_))
     )

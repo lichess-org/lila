@@ -3,7 +3,7 @@
   <string name="welcome">Фу!</string>
   <string name="welcomeToLichess">Ласкаво просимо на lichess.org!</string>
   <string name="thisIsYourProfilePage">Перевірте свою сторінку профілю.</string>
-  <string name="enabledKidModeSuggestion">Буде використовувати дочірній обліковий запис? Ви можете увімкнути %s.</string>
+  <string name="enabledKidModeSuggestion" comment="%s is 'Kid mode'.">Буде використовувати дочірній обліковий запис? Ви можете увімкнути %s.</string>
   <string name="whatNowSuggestions">Що зараз? Ось кілька пропозицій:</string>
   <string name="learnChessRules">Вивчайте шахові правила</string>
   <string name="improveWithChessTacticsPuzzles">Покращуйтесь із шаховою тактичною головоломкою.</string>

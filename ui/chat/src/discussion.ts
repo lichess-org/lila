@@ -27,11 +27,7 @@ export default function (ctrl: ChatCtrl): Array<VNode | undefined> {
     h(
       `ol.mchat__messages.chat-v-${ctrl.vm.domVersion}${hasMod ? '.as-mod' : ''}`,
       {
-        attrs: {
-          role: 'log',
-          'aria-live': 'polite',
-          'aria-atomic': 'false',
-        },
+        attrs: { role: 'log', 'aria-live': 'polite', 'aria-atomic': 'false' },
         hook: {
           insert(vnode) {
             const $el = $(vnode.elm as HTMLElement).on('click', 'a.jump', (e: Event) => {
@@ -65,10 +61,7 @@ function renderInput(ctrl: ChatCtrl): VNode | undefined {
   if (!ctrl.vm.writeable) return;
   if ((ctrl.data.loginRequired && !ctrl.data.userId) || ctrl.data.restricted)
     return h('input.mchat__say', {
-      attrs: {
-        placeholder: ctrl.trans('loginToChat'),
-        disabled: true,
-      },
+      attrs: { placeholder: ctrl.trans('loginToChat'), disabled: true },
     });
   let placeholder: string;
   if (ctrl.vm.timeout) placeholder = ctrl.trans('youHaveBeenTimedOut');
@@ -191,13 +184,7 @@ function updateText(parseMoves: boolean) {
 function renderText(t: string, parseMoves: boolean) {
   if (enhance.isMoreThanText(t)) {
     const hook = updateText(parseMoves);
-    return h('t', {
-      lichessChat: t,
-      hook: {
-        create: hook,
-        update: hook,
-      },
-    });
+    return h('t', { lichessChat: t, hook: { create: hook, update: hook } });
   }
   return h('t', t);
 }
@@ -222,8 +209,6 @@ function renderLine(ctrl: ChatCtrl, line: Line): VNode {
       .match(enhance.userPattern)
       ?.find(mention => mention.trim().toLowerCase() == `@${ctrl.data.userId}`);
 
-  console.log(ctrl.data.hostIds);
-
   return h(
     'li',
     {
@@ -238,10 +223,7 @@ function renderLine(ctrl: ChatCtrl, line: Line): VNode {
       : [
           myUserId && line.u && myUserId != line.u
             ? h('action.flag', {
-                attrs: {
-                  'data-icon': licon.CautionTriangle,
-                  title: 'Report',
-                },
+                attrs: { 'data-icon': licon.CautionTriangle, title: 'Report' },
               })
             : null,
           userNode,

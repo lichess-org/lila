@@ -9,6 +9,7 @@
   <string name="enableTwoFactor">2단계 인증 활성화</string>
   <string name="disableTwoFactor">2 단계 인증 비활성화</string>
   <string name="twoFactorEnabled">2단계 인증 필요</string>
+  <string name="twoFactorToDisable">2단계 인증을 비활성화 하려면 비밀번호와 인증 앱의 인증 코드가 필요합니다.</string>
   <string name="openTwoFactorApp">장치에서 2단계 인증 앱을 열어 인증을 해주세요.</string>
   <string name="setupReminder">Https://lichess.org/account/twofactor 에서 2단계 인증을 활성화하여 계정을 보호하세요.
 당신의 계정은 팀의 리더, 코치, 교사 또는 스트리머와 같은 특별한 책임이 있기 때문에 이 메시지를 받은 것입니다.</string>

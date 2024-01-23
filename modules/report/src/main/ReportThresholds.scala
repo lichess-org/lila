@@ -39,6 +39,6 @@ private object ReportThresholds:
   def makeDiscordSetting(store: lila.memo.SettingStore.Builder) =
     store[Int](
       "discordScoreThreshold",
-      default = 80,
+      default = 100,
       text = "Discord score threshold. Comm reports with higher scores are notified in Discord".some
     )

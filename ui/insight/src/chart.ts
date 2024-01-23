@@ -57,6 +57,10 @@ function insightChart(el: HTMLCanvasElement, data: InsightData) {
       responsive: true,
       maintainAspectRatio: false,
       animation: false,
+      interaction: {
+        mode: 'index',
+        intersect: false,
+      },
       plugins: {
         legend: {
           labels: { color: tooltipFontColor },
@@ -64,7 +68,6 @@ function insightChart(el: HTMLCanvasElement, data: InsightData) {
           position: 'bottom',
         },
         tooltip: {
-          mode: 'index',
           filter: tooltipItem => (tooltipItem.raw as number) != 0,
           itemSort: (a, b) => b.datasetIndex - a.datasetIndex,
           backgroundColor: tooltipBgColor,
@@ -149,13 +152,13 @@ function scaleBuilder(d: InsightData): ChartOptions<'bar'>['scales'] {
       type: 'category',
       ticks: { color: tooltipFontColor },
       grid: {
-        color: light ? '#cccccc' : gridColor,
+        color: gridColor,
       },
     },
     y1: {
       max: percent ? 1 : undefined,
       grid: {
-        color: light ? '#cccccc' : gridColor,
+        color: gridColor,
       },
       ticks: {
         color: tooltipFontColor,

@@ -82,7 +82,7 @@ object ForumTopic:
       slug: String,
       name: String,
       userId: UserId,
-      troll: Boolean,
+      troll: Boolean = false,
       ublogId: Option[String] = None
   ): ForumTopic = ForumTopic(
     _id = ForumTopicId(ThreadLocalRandom nextString idSize),

@@ -5,6 +5,7 @@
   <string name="toInviteSomeoneToPlayGiveThisUrl">Zdieľaním tejto adresy môžete niekoho pozvať k partii</string>
   <string name="gameOver">Koniec partie</string>
   <string name="waitingForOpponent">Čaká sa na súpera</string>
+  <string name="orLetYourOpponentScanQrCode">Alebo nech Váš súper naskenuje tento QR kód</string>
   <string name="waiting">Čaká sa</string>
   <string name="yourTurn">Ste na ťahu</string>
   <string name="aiNameLevelAiLevel">%1$s úrovne %2$s</string>
@@ -302,7 +303,6 @@
   <string name="playingRightNow">Práve hrajú</string>
   <string name="eventInProgress">Práve sa hrá</string>
   <string name="finished">Ukončené</string>
-  <string name="finishesX">končí %s</string>
   <string name="abortGame">Zrušiť hru</string>
   <string name="gameAborted">Hra bola zrušená</string>
   <string name="standard">Štandard</string>
@@ -461,7 +461,7 @@
   <string name="importGame">Importovať partiu</string>
   <string name="importGameExplanation">Vložením partie vo formáte PGN získate možnosť jej prehrania, počítačovú analýzu, chat k partii ako aj URL pre jej zdieľanie.</string>
   <string name="importGameCaveat">Variácie sa vymažú. Ak ich chcete zachovať, importujte PGN prostredníctvom štúdie.</string>
-  <string name="importGameCaveat2">Toto PGN je verejne dostupné. Ak chcete partiu importovať súkromne, použite štúdiu!</string>
+  <string name="importGameDataPrivacyWarning">Toto PGN je verejne dostupné. Ak chcete partiu importovať súkromne, použite štúdiu!</string>
   <plurals name="nbImportedGames">
     <item quantity="one">%s importovaná partia</item>
     <item quantity="few">%s importované partie</item>
@@ -573,7 +573,7 @@
   <string name="editProfile">Upraviť profil</string>
   <string name="firstName">Meno</string>
   <string name="lastName">Priezvisko</string>
-  <string name="setFlair">Nastavte si svoju ikonku štýlu:</string>
+  <string name="setFlair">Nastavte si svoju ikonku štýlu</string>
   <string name="flair">Ikonka štýlu</string>
   <string name="youCanHideFlair">V nastaveniach je možné skryť všetky ikonky štýlu používateľov na celej stránke.</string>
   <string name="biography">Životopis</string>
@@ -740,6 +740,7 @@
   <string name="yourPendingSimuls">Vaše čakajúce simultánky</string>
   <string name="createdSimuls">Novovytvorené simultánky</string>
   <string name="hostANewSimul">Vytvoriť novú simultánku</string>
+  <string name="signUpToHostOrJoinASimul">Prihláste sa k zorganizovaniu alebo zapojeniu sa do simultánky</string>
   <string name="noSimulFound">Simultánka nenájdená</string>
   <string name="noSimulExplanation">Táto simultánna exhibícia neexistuje.</string>
   <string name="returnToSimulHomepage">Späť na Simultánku</string>
@@ -938,7 +939,6 @@
   </plurals>
   <string name="sorry">Prepáčte :(</string>
   <string name="weHadToTimeYouOutForAWhile">Na chvíľu sme Vás museli odstaviť.</string>
-  <string name="timeoutExpires">Vaša odstávka skončí o %s.</string>
   <string name="why">Prečo?</string>
   <string name="pleasantChessExperience">Naším cieľom je poskytovať všetkým príjemný šachový zážitok.</string>
   <string name="goodPractice">Aby sme to docielili, musíme sa uistiť že sa všetci hráči správajú športovo.</string>

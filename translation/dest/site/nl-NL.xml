@@ -5,6 +5,7 @@
   <string name="toInviteSomeoneToPlayGiveThisUrl">Deel deze link als u iemand wil uitnodigen om met u te spelen</string>
   <string name="gameOver">Partij afgelopen</string>
   <string name="waitingForOpponent">Wachten op een tegenstander</string>
+  <string name="orLetYourOpponentScanQrCode">Of laat je tegenstander deze QR-code scannen</string>
   <string name="waiting">Even geduld a.u.b.</string>
   <string name="yourTurn">U bent aan zet</string>
   <string name="aiNameLevelAiLevel">%1$s niveau %2$s</string>
@@ -272,7 +273,6 @@
   <string name="playingRightNow">Nu aan het spelen</string>
   <string name="eventInProgress">Nu aan het spelen</string>
   <string name="finished">Afgelopen</string>
-  <string name="finishesX">klaar in %s</string>
   <string name="abortGame">Partij afbreken</string>
   <string name="gameAborted">Partij afgebroken</string>
   <string name="standard">Standaard</string>
@@ -405,7 +405,7 @@
   <string name="importGame">Importeer partij</string>
   <string name="importGameExplanation">Als je een PGN in het venster plakt, krijg je een doorzoekbare replay, een computeranalyse, een chatbox bij de partij en een deelbare URL.</string>
   <string name="importGameCaveat">Variaties worden gewist. Om ze te behouden, importeer de PGN via een studie.</string>
-  <string name="importGameCaveat2">Deze PGN kan toegankelijk zijn voor het publiek. Gebruik een studie om een partij privé te importeren.</string>
+  <string name="importGameDataPrivacyWarning">Deze PGN kan toegankelijk zijn voor iedereen. Gebruik een studie om een partij privé te importeren.</string>
   <plurals name="nbImportedGames">
     <item quantity="one">%s Geïmporteerde partij</item>
     <item quantity="other">%s Geïmporteerde partijen</item>
@@ -507,7 +507,7 @@
   <string name="editProfile">Pas profiel aan</string>
   <string name="firstName">Voornaam</string>
   <string name="lastName">Achternaam</string>
-  <string name="setFlair">Stel je flair in:</string>
+  <string name="setFlair">Stel je flair in</string>
   <string name="flair">Symbool</string>
   <string name="youCanHideFlair">Er bestaat een instelling om alle gebruikersflairs over de hele site te verbergen.</string>
   <string name="biography">Biografie</string>
@@ -866,7 +866,6 @@
   <string name="clickHereToReadIt">Klik hier om het te bekijken</string>
   <string name="sorry">Sorry :(</string>
   <string name="weHadToTimeYouOutForAWhile">We moesten je voor een korte tijd een time-out geven.</string>
-  <string name="timeoutExpires">The time-out verloopt %s.</string>
   <string name="why">Waarom?</string>
   <string name="pleasantChessExperience">Wij streven ernaar om iedereen een prettige schaakervaring te bieden.</string>
   <string name="goodPractice">Daarom moeten we ervoor zorgen dat alle spelers goede praktijken volgen.</string>

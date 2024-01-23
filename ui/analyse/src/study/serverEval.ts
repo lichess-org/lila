@@ -34,10 +34,12 @@ export function view(ctrl: ServerEval): VNode {
     {
       hook: onInsert(el => {
         lichess.requestIdleCallback(async () => {
+          const serverEvalPath = ctrl.root.study?.data.chapter?.serverEval?.path;
+          const analysedMainline = ctrl.root.mainline.slice(0, (serverEvalPath?.length || 999) / 2 + 1);
           (await lichess.asset.loadEsm<ChartGame>('chart.game')).acpl(
             el as HTMLCanvasElement,
             ctrl.root.data,
-            ctrl.root.mainline,
+            analysedMainline,
             ctrl.root.trans,
           );
         }, 800);
@@ -67,10 +69,7 @@ function requestButton(ctrl: ServerEval) {
           h(
             'a.button.text',
             {
-              attrs: {
-                'data-icon': licon.BarChart,
-                disabled: root.mainline.length < 5,
-              },
+              attrs: { 'data-icon': licon.BarChart, disabled: root.mainline.length < 5 },
               hook: bind('click', ctrl.request, root.redraw),
             },
             noarg('requestAComputerAnalysis'),

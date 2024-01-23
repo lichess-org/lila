@@ -22,7 +22,7 @@
   <string name="fromXToY">от %1$s до %2$s</string>
   <string name="winningStreak">Побед подряд</string>
   <string name="losingStreak">Поражений подряд</string>
-  <string name="longestStreak">Рекордная серия: %s</string>
+  <string name="longestStreak" comment="%s is the string (number of games OR time spent playing, e.g. 4 hours non-stop play)&#10;String used to describe the longest consecutive winning &amp; losing streak of games. It is also used for a  streak of time spent playing.">Рекордная серия: %s</string>
   <string name="currentStreak">Текущая серия: %s</string>
   <string name="bestRated">Победы против лучших по рейтингу</string>
   <string name="worstRated">Поражения худшим по рейтингу</string>

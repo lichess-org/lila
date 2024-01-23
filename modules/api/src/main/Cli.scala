@@ -46,9 +46,6 @@ final private[api] class Cli(
         case None =>
           fuccess:
             "Invalid announce. Format: `announce <length> <unit> <words...>` or just `announce cancel` to cancel it"
-    case "puzzle" :: "opening" :: "recompute" :: "all" :: Nil =>
-      puzzle.opening.recomputeAll
-      fuccess("started in background")
     case "threads" :: Nil =>
       fuccess:
         val threads = ornicar.scalalib.Jvm.threadGroups()
@@ -70,6 +67,7 @@ final private[api] class Cli(
       studySearch.cli.process orElse
       evalCache.cli.process orElse
       plan.cli.process orElse
+      puzzle.cli.process orElse
       msg.cli.process orElse
       video.cli.process orElse
       team.cli.process orElse

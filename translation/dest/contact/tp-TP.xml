@@ -2,7 +2,18 @@
 <resources>
   <string name="contact">toki</string>
   <string name="contactLichess">o toki tawa jan pi ilo Lichess</string>
+  <string name="forgotPassword">mi sona ala e nimi awen mi</string>
+  <string name="forgotUsername">mi sona ala e nimi mi</string>
   <string name="wantTitle">mi wile e ni: o pana lukin e nimi wawa mi lon lipu \"Lichess\"</string>
+  <string name="wantCloseAccount">mi wile pini e lipu mi</string>
+  <string name="closeYourAccount">sina ken pini e lipu sina lon lipu ni</string>
+  <string name="wantReport">mi wile toki e jan ike tawa sina</string>
+  <string name="wantReportBug">mi wile toki e pakala tawa sina</string>
+  <string name="reportBugInDiscord">lon ma Siko pi lipu Lichess</string>
+  <string name="howToReportBug">o toki lon ni tu wan:
+pakala ni li seme?
+pakala ni li weka la ilo li pali ante seme?
+nasin seme la mi ken kama sin e pakala ni?</string>
   <string name="illegalPawnCapture">ijo musi li ken anpa ike e ijo \"jan utala\"</string>
   <string name="calledEnPassant">anpa ni li \"anpa tawa\" (\"en passant\"). ona li pona tawa nasin musi.</string>
   <string name="tryEnPassant">sina wile kama sona e \"anpa tawa\", o lukin e musi lili ni.</string>

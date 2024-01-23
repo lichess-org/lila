@@ -225,6 +225,14 @@ final class ModlogApi(repo: ModlogRepo, userRepo: UserRepo, ircApi: IrcApi, pres
   def appealPost(user: UserId)(using me: Me) = add:
     Modlog(me, user.some, Modlog.appealPost, details = none)
 
+  def ublogRankAdjust(user: UserId, postId: UblogPostId, adjust: Int, pinned: Boolean)(using me: Me) = add:
+    Modlog(
+      me.some,
+      Modlog.ublogRankAdjust,
+      details = s"""
+  $postId by $user adjusted by $adjust days${pinned so " and pinned to top"} by ${me.username}""".some
+    )
+
   def wasUnengined(sus: Suspect) = coll.exists:
     $doc(
       "user"   -> sus.user.id,

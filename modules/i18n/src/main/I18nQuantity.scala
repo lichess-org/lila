@@ -14,11 +14,10 @@ private enum I18nQuantity:
  */
 private object I18nQuantity:
 
-  type Language = String
   type Selector = Count => I18nQuantity
 
   def apply(lang: Lang, c: Count): I18nQuantity =
-    langMap.getOrElse(lang.language, selectors.default)(c)
+    langMap.getOrElse(Language(lang), selectors.default)(c)
 
   private object selectors:
 
@@ -111,8 +110,8 @@ private object I18nQuantity:
 
   import selectors.*
 
-  private val langMap: Map[Language, Selector] = LangList.all.map { (lang, _) =>
-    lang.language -> lang.language.match
+  private val langMap: Map[Language, Selector] = LangList.all.map: (lang, _) =>
+    Language(lang) -> lang.language.match
 
       case "fr" | "ff" | "kab" | "co" | "ak" | "am" | "bh" | "fil" | "tl" | "guw" | "hi" | "ln" | "mg" |
           "nso" | "ti" | "wa" =>
@@ -148,4 +147,3 @@ private object I18nQuantity:
         selectors.none
 
       case _ => default
-  }

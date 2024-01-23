@@ -34,7 +34,7 @@ trait RequestGetter:
   protected def getLong(name: String)(using RequestHeader) =
     get(name).flatMap(_.toLongOption)
 
-  protected def getTimestamp(name: String)(using RequestHeader) =
+  protected def getTimestamp(name: String)(using RequestHeader): Option[Instant] =
     getLong(name) map millisToInstant
 
   protected def getBool(name: String)(using RequestHeader): Boolean =

@@ -230,7 +230,6 @@
   <string name="playingRightNow">Управо игра</string>
   <string name="eventInProgress">Управо игра</string>
   <string name="finished">Завршен</string>
-  <string name="finishesX">завршава се %s</string>
   <string name="abortGame">Прекините партију</string>
   <string name="gameAborted">Партија прекинута</string>
   <string name="standard">Стандардно</string>
@@ -792,7 +791,6 @@
   </plurals>
   <string name="sorry">Извините :(</string>
   <string name="weHadToTimeYouOutForAWhile">Морали смо Вас привремено избацити.</string>
-  <string name="timeoutExpires">Тајм аут истиче %s.</string>
   <string name="why">Зашто?</string>
   <string name="pleasantChessExperience">Желимо да свима обезбедимо пријатно искуство у шаху.</string>
   <string name="goodPractice">Баш због тога, ми се морамо потрудити да се сви играчи држе добре праксе.</string>
@@ -811,6 +809,7 @@
   <string name="agreementPolicy">Слажем се да ћу поштовати све Личес полисе.</string>
   <string name="searchOrStartNewDiscussion">Претражи или започни нови разговор</string>
   <string name="edit">Промени</string>
+  <string name="bullet" comment="Probably best left untranslated. Leave it as 'Bullet' unless your language has a better word for it.">Муњевити</string>
   <string name="rapid">Брзопотез</string>
   <string name="classical">Класична</string>
   <string name="ultraBulletDesc">Лудо брзе партије: испод 30 секунди</string>
@@ -837,6 +836,7 @@
   <string name="congratsYouWon">Честитамо на победи!</string>
   <string name="gameVsX">Партија против %1$s</string>
   <string name="resVsX">%1$s против %2$s</string>
+  <string name="refundXpointsTimeControlY">Враћено: %1$s %2$s рејтингових поена.</string>
   <string name="timeAlmostUp">Време ускоро изтиче!</string>
   <string name="download">Преузми</string>
 </resources>
