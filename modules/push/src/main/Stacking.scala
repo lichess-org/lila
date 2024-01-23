@@ -13,3 +13,4 @@ private enum Stacking(val key: String, val message: String):
   case ForumMention    extends Stacking("forumMention", "You have been mentioned $[notif_count] times")
   case StreamStart     extends Stacking("streamStart", "$[notif_count] streamers streaming")
   case InvitedStudy    extends Stacking("invitedStudy", "You have $[notif_count] study invites")
+  case Generic         extends Stacking("generic", "$[notif_count] notifications")

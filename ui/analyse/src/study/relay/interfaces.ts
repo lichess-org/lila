@@ -3,6 +3,7 @@ export interface RelayData {
   rounds: RelayRound[];
   sync?: RelaySync;
   leaderboard?: LeadPlayer[];
+  isSubscribed?: boolean; // undefined if anon
 }
 
 export interface RelayRound {

@@ -76,6 +76,12 @@ case class GenericLink(
     icon: licon.Icon
 ) extends NotificationContent("genericLink")
 
+case class BroadcastRound(
+    url: String,
+    title: String,
+    text: Option[String]
+) extends NotificationContent("broadcastRound")
+
 case class PushNotification(
     to: Iterable[NotifyAllows],
     content: NotificationContent,

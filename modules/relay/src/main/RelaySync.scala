@@ -11,7 +11,8 @@ final private class RelaySync(
     multiboard: StudyMultiBoard,
     chapterRepo: ChapterRepo,
     tourRepo: RelayTourRepo,
-    leaderboard: RelayLeaderboardApi
+    leaderboard: RelayLeaderboardApi,
+    notifier: RelayNotifier
 )(using Executor):
 
   def updateStudyChapters(rt: RelayRound.WithTour, games: RelayGames): Fu[SyncResult.Ok] = for
@@ -44,7 +45,7 @@ final private class RelaySync(
                 chapters.find(_.isEmptyInitial).ifTrue(chapter.order == 2).so { initial =>
                   studyApi.deleteChapter(study.id, initial.id):
                     actorApi.Who(study.ownerId, sri)
-                } inject SyncResult
+                } andDo notifier.roundBegin(rt) inject SyncResult
                   .ChapterResult(chapter.id, true, chapter.root.mainline.size)
                   .some
 

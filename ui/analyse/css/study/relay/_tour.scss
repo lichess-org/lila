@@ -97,13 +97,32 @@ main.has-relay-tour {
       }
     }
 
+    .overview-header {
+      display: flex;
+      align-items: start;
+
+      > i:hover {
+        color: $c-font-clearer;
+        cursor: pointer;
+      }
+    }
+
+    .setting {
+      @extend %flex-center-nowrap;
+      flex: 0 0 auto;
+      label {
+        padding: 0 0.5em;
+        flex: 4 1 auto;
+        cursor: pointer;
+        white-space: nowrap;
+      }
+    }
     h1 {
       @include fluid-size('font-size', 15px, 27px);
-
+      flex: auto;
       color: $c-brag;
       margin-bottom: 3vh;
     }
-
     h2,
     h3,
     h4 {
