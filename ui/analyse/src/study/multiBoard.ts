@@ -152,7 +152,6 @@ export function view(ctrl: MultiBoardCtrl, study: StudyCtrl): VNode | undefined 
 function renderPager(pager: Paginator<ChapterPreview>, study: StudyCtrl): MaybeVNodes {
   const ctrl = study.multiBoard;
   const cloudEval = ctrl.showEval && study.ctrl.ceval?.enabled() ? ctrl.getCloudEval : undefined;
-  console.log('renderPager', pager, study, cloudEval);
   return [
     h('div.top', [renderPagerNav(pager, ctrl), renderEvalToggle(ctrl), renderPlayingToggle(ctrl)]),
     h('div.now-playing', pager.currentPageResults.map(makePreview(study, cloudEval))),
