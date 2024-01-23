@@ -91,7 +91,7 @@ milf
 molest(er|ed|)
 mong
 monkey
-moron
+morr?on
 mother(fuc?k(er|)|)
 mthrfckr
 nazi
@@ -263,6 +263,7 @@ mierda
 moduler[ao]
 payas[ao]
 pendejo
+po(ll|y)a
 put[ao]
 trampa
 trampos[ao]
@@ -320,7 +321,7 @@ schwanzlutscher
 schwuchtel
 trottel
 untermensch
-wichser
+wi(chs|x++)er
 """)
 
   def tr = dict("""
@@ -360,7 +361,7 @@ get bombed
 k y s
 ky5
 (l|1|ı|\|)<ys
-nigg?er
+n[1i]gg?er
 rap(ed?|e?ing)
 subhuman
 """)
