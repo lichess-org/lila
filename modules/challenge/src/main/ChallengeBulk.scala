@@ -75,10 +75,12 @@ final class ChallengeBulkApi(
           makePairings(bulk).void
 
   private def checkForClocks: Funit =
-    coll.one[ScheduledBulk]($doc("startClocksAt" $lte nowInstant, "pairedAt" $exists true)) flatMapz: bulk =>
+    coll.one[ScheduledBulk](
+      $doc("startClocksAt" $lte nowInstant, "startedClocksAt" $exists false, "pairedAt" $exists true)
+    ) flatMapz: bulk =>
       workQueue(bulk.by):
-        fuccess:
-          Bus.publish(TellMany(bulk.games.map(_.id.value), StartClock), "roundSocket")
+        Bus.publish(TellMany(bulk.games.map(_.id.value), StartClock), "roundSocket")
+        coll.updateField($id(bulk.id), "startedClocksAt", nowInstant).void
 
   private def makePairings(bulk: ScheduledBulk): Funit =
     def timeControl =
