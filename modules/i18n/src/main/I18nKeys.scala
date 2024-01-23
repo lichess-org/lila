@@ -1179,6 +1179,7 @@ object I18nKeys:
     val `allSyncMembersRemainOnTheSamePosition` = I18nKey("study:allSyncMembersRemainOnTheSamePosition")
     val `shareChanges` = I18nKey("study:shareChanges")
     val `playing` = I18nKey("study:playing")
+    val `showEval` = I18nKey("study:showEval")
     val `first` = I18nKey("study:first")
     val `previous` = I18nKey("study:previous")
     val `next` = I18nKey("study:next")
