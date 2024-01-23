@@ -91,11 +91,12 @@ case class User(
 
   def addRole(role: String) = copy(roles = role :: roles)
 
-  def isVerified        = roles.exists(_ contains "ROLE_VERIFIED")
-  def isSuperAdmin      = roles.exists(_ contains "ROLE_SUPER_ADMIN")
-  def isAdmin           = roles.exists(_ contains "ROLE_ADMIN") || isSuperAdmin
-  def isApiHog          = roles.exists(_ contains "ROLE_API_HOG")
-  def isVerifiedOrAdmin = isVerified || isAdmin
+  def isVerified                 = roles.exists(_ contains "ROLE_VERIFIED")
+  def isSuperAdmin               = roles.exists(_ contains "ROLE_SUPER_ADMIN")
+  def isAdmin                    = roles.exists(_ contains "ROLE_ADMIN") || isSuperAdmin
+  def isApiHog                   = roles.exists(_ contains "ROLE_API_HOG")
+  def isVerifiedOrAdmin          = isVerified || isAdmin
+  def isVerifiedOrChallengeAdmin = isVerifiedOrAdmin || roles.exists(_ contains "ROLE_CHALLENGE_ADMIN")
 
   def has2fa = totpSecret.isDefined
 
