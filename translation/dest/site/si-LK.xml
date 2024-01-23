@@ -365,7 +365,10 @@ You are playing chess.</string>
   <string name="importGameExplanation">බ්‍රවුස් කළ හැකි නැවත ධාවනයක් ලබා ගැනීමට PGN ක්‍රීඩාවක් අලවන්න,
 පරිගණක විශ්ලේෂණය, ක්‍රීඩා කතාබස් සහ බෙදාගත හැකි URL.</string>
   <string name="importGameCaveat">වේරියේශන් මැකෙනු ලැබේ. ඒවා තබා ගැනීමට අධ්‍යයනයක් හරහා pgn ආනයනය කරන්න.</string>
+  <string name="importGameDataPrivacyWarning">මෙම pgn එක වෙත​ මහජනතාවට ප්‍රවේශ විය හැක. ක්‍රීඩාවක් පුද්ගලිකව ආනයනය කිරීමට, අධ්‍යයනයක් භාවිතා කරන්න.</string>
   <string name="thisIsAChessCaptcha">මෙය චෙස් CAPTCHA එකකි.</string>
+  <string name="clickOnTheBoardToMakeYourMove">ඔබගේ ඇදීම​ කිරීමට පුවරුව මත ක්ලික් කරන්න, සහ ඔබ මිනිසෙකු බව ඔප්පු කරන්න.</string>
+  <string name="captcha.fail">කරුණාකර චෙස් captchaව​ විසඳන්න.</string>
   <string name="notACheckmate">චෙක්මේට් එකක් නොවේ</string>
   <string name="whiteCheckmatesInOneMove">සුදුට එක ඇදීමකින් චෙක්මේට් කිරීමට</string>
   <string name="blackCheckmatesInOneMove">කළුට එක ඇදීමකින් චෙක්මේට් කිරීමට</string>
@@ -382,6 +385,15 @@ You are playing chess.</string>
   <string name="unblock">අවහිර නොකරන්න</string>
   <string name="followsYou">ඔබව අනුගමනය කරයි</string>
   <string name="xStartedFollowingY">%1$s අනුගමනය ආරම්භ කළය​%2$s</string>
+  <plurals name="nbFollowers">
+    <item quantity="one">%sඅනුගාමිකයා</item>
+    <item quantity="other">%sඅනුගාමිකයින්</item>
+  </plurals>
+  <plurals name="nbFollowing">
+    <item quantity="one">%sඅනුගමනය කරයි</item>
+    <item quantity="other">%sඅනුගමනය කරයි</item>
+  </plurals>
+  <string name="more">තව</string>
   <string name="memberSince">සිට සාමාජිකයෙක්</string>
   <string name="lastSeenActive">ක්‍රියාකාරී%s</string>
   <string name="player">ක්‍රීඩකයා</string>
@@ -442,6 +454,22 @@ You are playing chess.</string>
   <string name="editProfile">පැතිකඩ සංස්කරණය කරන්න</string>
   <string name="firstName">මුල් නම</string>
   <string name="lastName">වාසගම</string>
+  <string name="biography">චරිතාපදානය</string>
+  <string name="countryRegion" comment="flag&#10;Appears when you edit your profile. Lets a player add a country/flag (not all flags are for countries) to their profile">රට හෝ ප්‍රදේශය​</string>
+  <string name="thankYou">ඔබට ස්තුතියි!</string>
+  <string name="socialMediaLinks">සමාජ මාධ්‍ය සබැඳි</string>
+  <string name="oneUrlPerLine">පේළියකට එක් url එකක් බැගින්.</string>
+  <string name="inlineNotation">පේළිගත අංකනය</string>
+  <string name="makeAStudy">සුරක්ෂිතව තබාගැනීමට සහ බෙදාගැනීම සඳහා, අධ්‍යයනයක් කිරීමට සලකා බලන්න.</string>
+  <string name="previouslyOnLichessTV">කලින් Lichess TV එකේ</string>
+  <string name="onlinePlayers">ඔන්ලයින් ක්‍රීඩකයන්</string>
+  <string name="activePlayers">ක්‍රියාකාරි ක්‍රීඩකයන්</string>
+  <string name="bewareTheGameIsRatedButHasNoClock">පරිස්සම් වන්න, ක්‍රීඩාව ශ්‍රේණිගත කර ඇති නමුත් ඔරලෝසුවක් නොමැත!</string>
+  <string name="success">සාර්ථකය​</string>
+  <plurals name="nbGamesInPlay">
+    <item quantity="one">%sක්‍රිඩාව කරමින් පවති</item>
+    <item quantity="other">%sක්‍රිඩා කරමින් පවති</item>
+  </plurals>
   <string name="victoryVsYInZ">%3$s හි %1$s එදිරිව %2$s</string>
   <string name="defeatVsYInZ">%3$s හි %1$s එදිරිව %2$s</string>
   <string name="drawVsYInZ">%3$s හි %1$s එදිරිව %2$s</string>
