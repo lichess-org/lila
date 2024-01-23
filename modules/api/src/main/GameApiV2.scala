@@ -133,6 +133,7 @@ final class GameApiV2(
           .sortedCursor(
             $inIds(config.ids),
             Query.sortCreated,
+            hint = $id(1).some,
             batchSize = config.perSecond.value
           )
           .documentSource()

@@ -159,9 +159,11 @@ final class GameRepo(val coll: Coll)(using Executor):
       selector: Bdoc,
       sort: Bdoc,
       batchSize: Int = 0,
+      hint: Option[Bdoc] = none,
       readPref: ReadPref = _.priTemp
   ): AkkaStreamCursor[Game] =
-    coll.find(selector).sort(sort).batchSize(batchSize).cursor[Game](readPref)
+    val query = coll.find(selector).sort(sort).batchSize(batchSize)
+    hint.map(coll.hint).foldLeft(query)(_ hint _).cursor[Game](readPref)
 
   def byIdsCursor(ids: Iterable[GameId]): Cursor[Game] = coll.find($inIds(ids)).cursor[Game]()
 
