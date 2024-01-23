@@ -316,6 +316,7 @@ You are playing chess.</string>
   </plurals>
   <string name="viewTournament">තරඟාවලිය බලන්න</string>
   <string name="backToTournament">තරඟාවලිය වෙත ආපසු</string>
+  <string name="noDrawBeforeSwissLimit">ඇදීම් 30ක් සම්පූර්ණ වන තුරු ඔබට Draw කර නොහැක.</string>
   <string name="thematic">තේමාත්මක</string>
   <plurals name="moreThanNbRatedGames">
     <item quantity="one">≥ %s rated game</item>
@@ -360,6 +361,14 @@ You are playing chess.</string>
   <string name="importGame">ක්‍රීඩාව ආනයනය කරන්න</string>
   <string name="importGameExplanation">බ්‍රවුස් කළ හැකි නැවත ධාවනයක් ලබා ගැනීමට PGN ක්‍රීඩාවක් අලවන්න,
 පරිගණක විශ්ලේෂණය, ක්‍රීඩා කතාබස් සහ බෙදාගත හැකි URL.</string>
+  <string name="thisIsAChessCaptcha">මෙය චෙස් CAPTCHA එකකි.</string>
+  <string name="notACheckmate">චෙක්මේට් එකක් නොවේ</string>
+  <string name="whiteCheckmatesInOneMove">සුදුට එක ඇදීමකින් චෙක්මේට් කිරීමට</string>
+  <string name="blackCheckmatesInOneMove">කළුට එක ඇදීමකින් චෙක්මේට් කිරීමට</string>
+  <string name="retry">නැවත උත්සාහ කරන්න</string>
+  <string name="reconnecting">නැවත සම්බන්ධ වෙමින්</string>
+  <string name="favoriteOpponents">කැමති ප්රතිවාදීන්</string>
+  <string name="follow">අනුගමනය</string>
   <string name="wins">ජය ලබයි</string>
   <string name="losses">Losses</string>
   <string name="createdBy">නිර්මාණය කළේ</string>
