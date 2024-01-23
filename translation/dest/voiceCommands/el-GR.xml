@@ -2,4 +2,13 @@
 <resources>
   <string name="voiceCommands">Φωνητικές εντολές</string>
   <string name="watchTheVideoTutorial">Παρακολουθήστε το σχετικό βίντεο</string>
+  <string name="instructions1">Χρησιμοποιήστε το κουμπί %1$s για εναλλαγή αναγνώρισης φωνής, το κουμπί %2$s για να ανοίξετε αυτό το διάλογο βοήθειας και το μενού %3$s για να αλλάξετε τις ρυθμίσεις ομιλίας.</string>
+  <string name="thisBlogPost">Αυτή η δημοσίευση ιστολογίου</string>
+  <string name="moveToE4OrSelectE4Piece">Μετακινήσε στο e4 ή επέλεξε το e4 πιόνι</string>
+  <string name="selectOrCaptureABishop">Διαλέξτε ή αιχμαλωτήστε έναν αξιωματικό</string>
+  <string name="takeRookWithQueen">Πάρτε τον πύργο με βασίλισσα</string>
+  <string name="phoneticAlphabetIsBest">Το φωνητικό αλφάβητο είναι καλύτερο</string>
+  <string name="cancelTimerOrDenyARequest">Ακύρωση χρονομέτρου ή άρνηση αιτήματος</string>
+  <string name="turnOffVoiceRecognition">Απενεργοποίηση αναγνώρισης φωνής</string>
+  <string name="showPuzzleSolution">Εμφάνιση λύσης γρίφου</string>
 </resources>
