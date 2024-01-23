@@ -149,7 +149,7 @@ Block the check then castle!</string>
   <string name="findAWayToCastleQueenSide">پیدا کردن راهی برای قلعه سمت وزیر!</string>
   <string name="castlingComplete">تبریک میگم! شما تقریبا همیشه باید در بازی قلعه بروید.</string>
   <string name="enPassant">گرفتن در حین عبور</string>
-  <string name="theSpecialPawnMove">The special pawn move</string>
+  <string name="theSpecialPawnMove">حرکتِ خاصِ پیاده</string>
   <string name="enPassantIntro">When the opponent pawn moved by two squares, you can take it like if it moved by one square.</string>
   <string name="blackJustMovedThePawnByTwoSquares">Black just moved the pawn
 by two squares!
