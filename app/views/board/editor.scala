@@ -29,7 +29,7 @@ object editor:
         .OpenGraph(
           title = "Chess board editor",
           url = s"$netBaseUrl${routes.Editor.index.url}",
-          description = "Load opening positions or create your own chess.Position on a chess board editor"
+          description = "Load opening positions or create your own chess position on a chess board editor"
         )
         .some
     )(
