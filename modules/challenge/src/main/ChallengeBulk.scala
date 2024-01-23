@@ -42,7 +42,10 @@ final class ChallengeBulkApi(
   )
 
   def scheduledBy(me: User): Fu[List[ScheduledBulk]] =
-    coll.list[ScheduledBulk]($doc("by" -> me.id))
+    coll.find($doc("by" -> me.id)).sort($sort desc "pairAt").cursor[ScheduledBulk]().list(100)
+
+  def findBy(id: String, me: User): Fu[Option[ScheduledBulk]] =
+    coll.one[ScheduledBulk]($doc("_id" -> id, "by" -> me.id))
 
   def deleteBy(id: String, me: User): Fu[Boolean] =
     coll.delete.one($doc("_id" -> id, "by" -> me.id)).map(_.n == 1)
