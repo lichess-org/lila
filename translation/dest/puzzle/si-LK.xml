@@ -18,4 +18,20 @@
   <string name="yourPuzzleRatingWillNotChange">ඔබේ ප්‍රහේලිකා ශ්‍රේණිගත කිරීම වෙනස් නොවනු ඇත. ප්‍රහේලිකා තරඟයක් නොවන බව සලකන්න. ඔබගේ ශ්‍රේණිගත කිරීම ඔබගේ වර්තමාන කුසලතාව සඳහා හොඳම ප්‍රහේලිකා තෝරාගැනීමට උපකාරී වේ.</string>
   <string name="findTheBestMoveForWhite">සුදුට ඇති හොඳම ඇදීම සොයන්න.</string>
   <string name="findTheBestMoveForBlack">කළුට ඇති හොඳම ඇදීම සොයන්න.</string>
+  <string name="toGetPersonalizedPuzzles">පෞද්ගලීකරණය කළ ප්‍රහේලිකා ලබා ගැනීමට:</string>
+  <string name="puzzleId">ප්‍රහේලිකාව​%s</string>
+  <string name="puzzleOfTheDay">දවසේ ප්‍රහේලිකාව</string>
+  <string name="dailyPuzzle">දෛනික ප්‍රහේලිකාව</string>
+  <string name="clickToSolve">විසඳීමට ක්ලික් කරන්න</string>
+  <string name="goodMove">හොඳ ඇදීමක්</string>
+  <string name="bestMove">හොඳම ඇදීම​!</string>
+  <string name="keepGoing">දිගටම යන්න…</string>
+  <string name="puzzleSuccess">සාර්ථකයි!</string>
+  <string name="puzzleComplete">ප්‍රහේලිකාව සම්පූර්ණයි!</string>
+  <string name="byOpenings">Opening මගින්</string>
+  <string name="puzzlesByOpenings">Openings මගින් ප්‍රහේලිකා</string>
+  <string name="openingsYouPlayedTheMost">ඔබ ශ්‍රේණිගත කළ ක්‍රීඩා වල වැඩිපුරම ක්‍රීඩා කළ Opening එක</string>
+  <string name="useFindInPage">ඔබගේ ප්‍රියතම Opening එක සොයා ගැනීමට බ්‍රවුසර මෙනුවේ \"පිටුව තුළ සොයන්න\" භාවිතා කරන්න!</string>
+  <string name="useCtrlF">ඔබේ ප්‍රියතම Opening එක සොයා ගැනීමට Ctrl+f භාවිතා කරන්න!</string>
+  <string name="notTheMove">එය හරි ඇදීම නොවේ!</string>
 </resources>
