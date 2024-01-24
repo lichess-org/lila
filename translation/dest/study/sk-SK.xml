@@ -59,6 +59,7 @@
   <string name="allSyncMembersRemainOnTheSamePosition">Všetci zosynchronizovaní členovia uvidia rovnakú pozíciu</string>
   <string name="shareChanges">Zdieľajte zmeny s divákmi a uložte ich na server</string>
   <string name="playing">Práve sa hrá</string>
+  <string name="showEvalBar">Ukazovatele hodnotenia</string>
   <string name="first">Prvá</string>
   <string name="previous">Späť</string>
   <string name="next">Ďalej</string>
