@@ -51,6 +51,7 @@
   <string name="allSyncMembersRemainOnTheSamePosition">සියලුම SYNC සාමාජිකයින් එකම ස්ථානයක රැඳී සිටිති</string>
   <string name="shareChanges">වෙනස්කම් ප්‍රේක්ෂකයන් සමඟ බෙදාගෙන ඒවා සේවාදායකයේ සුරකින්න</string>
   <string name="playing">සෙල්ලම් කරමින්</string>
+  <string name="showEvalBar">Thanh lợi thế</string>
   <string name="first">පළමුවන</string>
   <string name="previous">කලින්</string>
   <string name="next">ඊළඟ</string>
