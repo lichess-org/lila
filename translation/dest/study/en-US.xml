@@ -62,7 +62,7 @@
   <string name="studyPgn">Study PGN</string>
   <string name="downloadAllGames">Download all games</string>
   <string name="chapterPgn">Chapter PGN</string>
-  <string name="copyChapterPgn" comment="A button which lets you copy the PGN text to your clipboard (i.e. similar to ⌘+C or Ctrl+C).">Copy PGN</string>
+  <string name="copyChapterPgn">Copy PGN</string>
   <string name="copyChapterPgnDescription">Copy chapter PGN to clipboard.</string>
   <string name="downloadGame">Download game</string>
   <string name="studyUrl">Study URL</string>
