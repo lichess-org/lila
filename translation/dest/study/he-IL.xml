@@ -68,7 +68,7 @@
   <string name="studyPgn">הPGN של לוח הלמידה</string>
   <string name="downloadAllGames">הורדת כל המשחקים</string>
   <string name="chapterPgn">הPGN של הפרק</string>
-  <string name="copyChapterPgn" comment="A button which lets you copy the PGN text to your clipboard (i.e. similar to ⌘+C or Ctrl+C).">העתקת ה-PGN</string>
+  <string name="copyChapterPgn">העתקת ה-PGN</string>
   <string name="copyChapterPgnDescription">העתקת ה-PGN של הפרק ללוח.</string>
   <string name="downloadGame">הורדת המשחק</string>
   <string name="studyUrl">כתובת לוח הלמידה</string>
