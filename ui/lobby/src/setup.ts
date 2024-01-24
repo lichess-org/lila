@@ -440,10 +440,14 @@ export default class Setup {
     const updateEngineName = () => {
       const sfen = $sfenInput.val(),
         variant = $variantSelect.val(),
-        $infos = $('div.level').find('.ai_info > div'),
+        $level = $('div.level'),
+        $info = $level.find('.ai_info'),
         rules = this.idToRules(variant),
+        level = parseInt($level.find('input:checked').val()),
         useYane =
-          variant == 1 && (!sfen || isHandicap({ sfen: sfen, rules: 'standard' }) || initialSfen('standard') === sfen);
+          variant == 1 &&
+          level > 1 &&
+          (!sfen || isHandicap({ sfen: sfen, rules: 'standard' }) || initialSfen('standard') === sfen);
 
       $form
         .find('.color-submits button[value="sente"]')
@@ -452,11 +456,7 @@ export default class Setup {
         .find('.color-submits button[value="gote"]')
         .attr('title', colorName(this.root.trans.noarg, 'gote', isHandicap({ sfen, rules })));
 
-      $infos.text((_, text) => {
-        const from = useYane ? 'Fairy Stockfish' : 'YaneuraOu V7.00',
-          to = useYane ? 'YaneuraOu V7.00' : 'Fairy Stockfish';
-        return text.replace(from, to);
-      });
+      $info.text(useYane ? 'YaneuraOu' : 'Fairy Stockfish');
     };
 
     const setHandicapvalue = () => {
@@ -548,26 +548,12 @@ export default class Setup {
     });
 
     $form.find('div.level').each(function (this: HTMLElement) {
-      const $infos = $(this).find('.ai_info > div');
       $(this)
-        .find('label')
-        .on('mouseenter', function (this: HTMLElement) {
-          $infos
-            .hide()
-            .filter('.' + $(this).attr('for'))
-            .show();
+        .find('input')
+        .on('change', () => {
+          updateEngineName();
+          save();
         });
-      $(this)
-        .find('#config_level')
-        .on('mouseleave', function (this: HTMLElement) {
-          const level = $(this).find('input:checked').val();
-          $infos
-            .hide()
-            .filter('.sf_level_' + level)
-            .show();
-        })
-        .trigger('mouseout');
-      $(this).find('input').on('change', save);
     });
 
     const initForm = (): void => {

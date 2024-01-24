@@ -46,6 +46,9 @@ $c-slider: $c-setup;
   .sfen_position {
     border-bottom: none;
   }
+  .ai_info {
+    padding-top: 3px;
+  }
   .advanced_toggle {
     display: none;
     &.show-inline-block {
