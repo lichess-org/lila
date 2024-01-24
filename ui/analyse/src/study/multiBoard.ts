@@ -11,7 +11,7 @@ import { ChapterPreview, ChapterPreviewPlayer, Position, StudyChapterMeta } from
 import StudyCtrl from './studyCtrl';
 import { EvalHitMulti } from '../interfaces';
 import { povChances } from 'ceval/src/winningChances';
-import { defined } from 'common';
+import { Toggle, defined, toggle } from 'common';
 
 interface CloudEval extends EvalHitMulti {
   chances: number;
@@ -22,7 +22,7 @@ export class MultiBoardCtrl {
   page = 1;
   pager?: Paginator<ChapterPreview>;
   playing = false;
-  showEval = false;
+  showEval: Toggle;
 
   private cloudEvals: Map<Fen, CloudEval> = new Map();
 
@@ -32,7 +32,9 @@ export class MultiBoardCtrl {
     readonly trans: Trans,
     private readonly send: SocketSend,
     private readonly variant: () => VariantKey,
-  ) {}
+  ) {
+    this.showEval = toggle(false, redraw);
+  }
 
   addNode = (pos: Position, node: Tree.Node) => {
     const cp = this.pager?.currentPageResults.find(cp => cp.id == pos.chapterId);
@@ -106,11 +108,6 @@ export class MultiBoardCtrl {
     this.reload();
   };
 
-  setShowEval = (v: boolean) => {
-    this.showEval = v;
-    this.redraw();
-  };
-
   onCloudEval = (d: EvalHitMulti) => {
     this.cloudEvals.set(d.fen, { ...d, chances: povChances('white', d) });
     this.redraw();
@@ -151,7 +148,7 @@ export function view(ctrl: MultiBoardCtrl, study: StudyCtrl): VNode | undefined 
 
 function renderPager(pager: Paginator<ChapterPreview>, study: StudyCtrl): MaybeVNodes {
   const ctrl = study.multiBoard;
-  const cloudEval = ctrl.showEval && study.ctrl.ceval?.enabled() ? ctrl.getCloudEval : undefined;
+  const cloudEval = ctrl.showEval() && study.ctrl.ceval?.enabled() ? ctrl.getCloudEval : undefined;
   return [
     h('div.top', [renderPagerNav(pager, ctrl), renderEvalToggle(ctrl), renderPlayingToggle(ctrl)]),
     h('div.now-playing', pager.currentPageResults.map(makePreview(study, cloudEval))),
@@ -171,8 +168,8 @@ function renderPlayingToggle(ctrl: MultiBoardCtrl): VNode {
 function renderEvalToggle(ctrl: MultiBoardCtrl): VNode {
   return h('label.eval', [
     h('input', {
-      attrs: { type: 'checkbox', checked: ctrl.showEval },
-      hook: bind('change', e => ctrl.setShowEval((e.target as HTMLInputElement).checked)),
+      attrs: { type: 'checkbox', checked: ctrl.showEval() },
+      hook: bind('change', e => ctrl.showEval((e.target as HTMLInputElement).checked)),
     }),
     ctrl.trans.noarg('showEval'),
   ]);
