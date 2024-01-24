@@ -37,14 +37,60 @@
   <string name="trySomethingElse">වෙනත් දෙයක් උත්සාහ කරන්න.</string>
   <string name="ratingX">Rating: %s</string>
   <string name="hidden">සැඟවී ඇත</string>
+  <plurals name="playedXTimes">
+    <item quantity="one">%s වතාවක් ක්‍රීඩා කර ඇත​</item>
+    <item quantity="other">%s වතාවක් ක්‍රීඩා කර ඇත​</item>
+  </plurals>
   <string name="fromGameLink">%s ක්‍රීඩාවෙන්</string>
   <string name="continueTraining">පුහුණුව දිගටම කරගෙන යන්න</string>
   <string name="difficultyLevel">දුෂ්කරතා මට්ටම</string>
   <string name="normal">සාමාන්‍ය</string>
   <string name="easier">පහසුයි</string>
   <string name="easiest">පහසුම</string>
+  <plurals name="nbPointsBelowYourPuzzleRating">
+    <item quantity="one">ඔබේ ප්‍රහේලිකා ශ්‍රේණිගත කිරීමට වඩා එක් ලකුණක් පහළින්</item>
+    <item quantity="other">ඔබේ ප්‍රහේලිකා ශ්‍රේණිගත කිරීමට වඩා %s ක් පහළින්</item>
+  </plurals>
   <string name="harder">අමාරුයි</string>
   <string name="hardest">අමාරුම</string>
+  <plurals name="nbPointsAboveYourPuzzleRating">
+    <item quantity="one">ඔබේ ප්‍රහේලිකා ශ්‍රේණිගත කිරීමට වඩා එක් ලකුණක් ඉහළින්</item>
+    <item quantity="other">ඔබේ ප්‍රහේලිකා ශ්‍රේණිගත කිරීමට වඩා %s ක් ඉහළින්</item>
+  </plurals>
   <string name="example">උදාහරණයක්</string>
   <string name="addAnotherTheme">තවත් තේමාවක් එක් කරන්න</string>
+  <string name="nextPuzzle">ඊළඟ ප්‍රහේලිකාව​</string>
+  <string name="jumpToNextPuzzleImmediately">වහාම ඊළඟ ප්‍රහේලිකාව වෙත පනින්න</string>
+  <string name="puzzleDashboard">ප්‍රහේලිකා උපකරණ පුවරුව</string>
+  <string name="improvementAreas">වැඩිදියුණු කිරීමේ ප්‍රදේශ​</string>
+  <string name="strengths">ශක්තීන්</string>
+  <string name="history">ප්‍රහේලිකා ඉතිහාසය</string>
+  <string name="solved">විසඳා ඇත</string>
+  <string name="failed">වැරදියි</string>
+  <string name="streakDescription">ක්‍රමානුකූලව දුෂ්කර ප්‍රහේලිකා විසඳා ජයග්‍රහණ මාලාවක් ගොඩනඟන්න. ඔරලෝසුවක් නැත, එබැවින් ඔබේ කාලය ගන්න. එක් වැරදි පියවරක්, එය ක්‍රීඩාව අවසන්! නමුත් ඔබට සැසියකට එක් පියවරක් මඟ හැරිය හැක.</string>
+  <string name="yourStreakX">ඔබේ ස්ත්‍රීකය​:%s</string>
+  <string name="streakSkipExplanation">ඔබේ ස්ත්‍රීකය​ ආරක්ෂා කර ගැනීමට මෙම පියවර මඟ හරින්න! ධාවනයකට එක් වරක් පමණක් ක්‍රියා කරයි.</string>
+  <string name="continueTheStreak">ස්ත්‍රීකය​ එක දිගටම කරගෙන යන්න</string>
+  <string name="newStreak">නව ස්ත්‍රීකය​</string>
+  <string name="fromMyGames">මගේ ක්‍රීඩා වලින්</string>
+  <string name="lookupOfPlayer">ක්‍රීඩකයෙකුගේ ක්‍රීඩා වලින් ප්‍රහේලිකා සොයන්න</string>
+  <string name="fromXGames">%s ගේ ක්‍රීඩා වලින් ප්‍රහේලිකා</string>
+  <string name="searchPuzzles">ප්‍රහේලිකා සොයන්න​</string>
+  <string name="fromMyGamesNone">ඔබට දත්ත ගබඩාවේ ප්‍රහේලිකා නොමැත, නමුත් Lichess තවමත් ඔබට බෙහෙවින් ආදරය කරයි.
+
+ඔබේ ප්‍රහේලිකාව එකතු කර ගැනීමේ අවස්ථාව වැඩි කිරීමට Rapid සහ Classical ක්‍රීඩා කරන්න!</string>
+  <string name="fromXGamesFound">ප්‍රහේලිකා %1$sක් ක්‍රීඩා %2$sකින් සොයාගනු ලැබේ</string>
+  <string name="puzzleDashboardDescription">පුහුණුවෙන්න, විශ්ලේෂණය කරන්න, වැඩි දියුණු වෙන්න</string>
+  <plurals name="nbPlayed">
+    <item quantity="one">%sක් ක්‍රීඩා කර ඇත​</item>
+    <item quantity="other">%sක් ක්‍රීඩා කර ඇත​</item>
+  </plurals>
+  <plurals name="nbToReplay">
+    <item quantity="one">%sක් නැවත බැලීම සඳහා</item>
+    <item quantity="other">%sක් නැවත බැලීම සඳහා</item>
+  </plurals>
+  <string name="percentSolved">%s ක් සාදා ඇත​</string>
+  <string name="noPuzzlesToShow">පෙන්වීමට කිසිවක් නැත, පළමුව ප්‍රහේලිකා කිහිපයක් සෙල්ලම් කරන්න!</string>
+  <string name="improvementAreasDescription">ඔබේ ප්‍රගතිය ප්‍රශස්ත කිරීමට මේවා පුහුණු කරන්න!</string>
+  <string name="strengthDescription">ඔබ මෙම තේමාවන්හි හොඳටම ක්‍රීඩා කරයි</string>
 </resources>
