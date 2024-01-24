@@ -34,7 +34,7 @@ export class MultiBoardCtrl {
     private readonly send: SocketSend,
     private readonly variant: () => VariantKey,
   ) {
-    this.showEval = storedBooleanPropWithEffect('analyse.multiboard.showEval', false, redraw);
+    this.showEval = storedBooleanPropWithEffect('analyse.multiboard.showEval', true, redraw);
   }
 
   addNode = (pos: Position, node: Tree.Node) => {
