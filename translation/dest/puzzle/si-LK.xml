@@ -34,4 +34,17 @@
   <string name="useFindInPage">ඔබගේ ප්‍රියතම Opening එක සොයා ගැනීමට බ්‍රවුසර මෙනුවේ \"පිටුව තුළ සොයන්න\" භාවිතා කරන්න!</string>
   <string name="useCtrlF">ඔබේ ප්‍රියතම Opening එක සොයා ගැනීමට Ctrl+f භාවිතා කරන්න!</string>
   <string name="notTheMove">එය හරි ඇදීම නොවේ!</string>
+  <string name="trySomethingElse">වෙනත් දෙයක් උත්සාහ කරන්න.</string>
+  <string name="ratingX">Rating: %s</string>
+  <string name="hidden">සැඟවී ඇත</string>
+  <string name="fromGameLink">%s ක්‍රීඩාවෙන්</string>
+  <string name="continueTraining">පුහුණුව දිගටම කරගෙන යන්න</string>
+  <string name="difficultyLevel">දුෂ්කරතා මට්ටම</string>
+  <string name="normal">සාමාන්‍ය</string>
+  <string name="easier">පහසුයි</string>
+  <string name="easiest">පහසුම</string>
+  <string name="harder">අමාරුයි</string>
+  <string name="hardest">අමාරුම</string>
+  <string name="example">උදාහරණයක්</string>
+  <string name="addAnotherTheme">තවත් තේමාවක් එක් කරන්න</string>
 </resources>
