@@ -38,7 +38,7 @@
   <string name="shareUrl">این لینک را برای پیوستن دیگران به اشتراک بگذارید.%s</string>
   <string name="drawStreakStandard">سلسله تساوی: وقتی یک بازیکن در Arena چند تساوی پشت سر هم بدست بیاورد، تنها اولین تساوی یا تساوی‌هایی با حداقل %s حرکت، دارای امتیاز خواهند بود. سلسله تساوی تنها با برد شکسته خواهد شد، نه با باخت یا تساوی.</string>
   <string name="drawStreakVariants">حداقل طول بازی برای بازی های قرعه کشی شده برای کسب امتیاز بر اساس نوع بازی متفاوت است. جدول زیر آستانه انواع مختلف را فهرست می کند.</string>
-  <string name="variant">نوع</string>
+  <string name="variant">گونه</string>
   <string name="minimumGameLength">حداقل طول بازی</string>
   <string name="history">تاریخچه مسابقات</string>
   <plurals name="viewAllXTeams" comment="viewAllXTeams [one] [other]&#10;&#10;%s is the number of teams that can be viewed">

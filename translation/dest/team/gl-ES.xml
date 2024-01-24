@@ -27,7 +27,7 @@
     <item quantity="one">%s petición de ingreso</item>
     <item quantity="other">%s peticións de ingreso</item>
   </plurals>
-  <string name="willBeReviewed">Un líder do equipo revisará a túa solicitude de ingreso.</string>
+  <string name="willBeReviewed">Os líderes do equipo revisarán a túa solicitude de ingreso.</string>
   <string name="beingReviewed">O líder do equipo está a revisar a túa solicitude de ingreso.</string>
   <string name="requestDeclined">O líder do equipo rexeitou a túa solicitude de ingreso.</string>
   <string name="subToTeamMessages">Subscríbete ás mensaxes de equipo</string>
