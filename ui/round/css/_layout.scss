@@ -1,13 +1,16 @@
 #main-wrap {
   --main-max-width: auto;
   @include breakpoint($mq-col1) {
-    $vertical-total: 100vh - #{$site-header-outer-height} - #{$col1-player-clock-height * 2} - #{$col1-moves-height} - #{$hands-gap};
+    $vertical-total: 100vh - #{$site-header-outer-height} - #{$col1-player-clock-height * 2} - #{$col1-moves-height} - #{$hands-gap} -
+      3vmin;
+    $vertical-total-no-hands: 100vh - #{$site-header-outer-height} - #{$col1-player-clock-height * 2} - #{$col1-moves-height} -
+      1vmin;
     --main-max-width: calc((#{$vertical-total}) / 12 * 9);
     &:has(.round__app.variant-minishogi, .round__app.variant-kyotoshogi) {
       --main-max-width: calc((#{$vertical-total}) / 7 * 5 / 12 * 11);
     }
     &:has(.round__app.variant-chushogi) {
-      --main-max-width: calc((#{$vertical-total}) / 12 * 11);
+      --main-max-width: calc((#{$vertical-total-no-hands}) / 12 * 11);
     }
   }
 }

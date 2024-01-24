@@ -1,12 +1,13 @@
 /* context: .rmoves */
 @include breakpoint($mq-col1) {
   overflow: hidden;
+  margin-bottom: 1vmin;
   .col1-moves {
     flex: 0 0 $col1-moves-height;
     display: flex;
     .fbt {
       flex: 0 0 auto;
-      padding: 0 1.3em;
+      padding: 0 1.1em;
       opacity: 0.7;
       &[disabled] {
         opacity: 0.3;
@@ -46,6 +47,7 @@
   }
   index {
     padding-right: 0.15em;
+    color: $c-font-dimmer;
   }
   #{$move-tag} {
     font-size: 1.1em;

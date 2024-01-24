@@ -19,7 +19,7 @@
   &-turn {
     align-self: center;
     line-height: $col1-player-clock-height;
-    @include breakpoint($mq-col1-uniboard) {
+    @include breakpoint($mq-col1) {
       &__text {
         background: $c-bg-box;
         padding: 0 $block-gap;
@@ -37,7 +37,7 @@
     flex-direction: row-reverse;
     min-width: 3em;
     z-index: -1;
-    @include breakpoint($mq-xx-small) {
+    @include breakpoint($mq-col2) {
       flex-direction: row;
     }
   }
@@ -46,12 +46,12 @@
     flex-direction: row-reverse;
     align-items: center;
     font-size: 1.2rem;
-    @include breakpoint($mq-xx-small) {
+    padding: 0 0.35rem;
+    opacity: 0.8;
+    @include breakpoint($mq-col2) {
       font-size: 1.5rem;
       flex-direction: row;
     }
-    padding: 0 0.35rem;
-    opacity: 0.8;
   }
   .time {
     @extend %roboto, %box-shadow;
@@ -69,11 +69,13 @@
     @include breakpoint($mq-col1) {
       border-radius: 0;
       box-shadow: none;
+      background: none;
+      padding-top: 0;
     }
     @include breakpoint($mq-col2) {
       align-items: flex-end;
     }
-    @include breakpoint($mq-xx-small $mq-tall) {
+    @include breakpoint($mq-col2) {
       font-size: 2.8em;
       letter-spacing: 0.1em;
       &.hour {
@@ -147,7 +149,7 @@
   .berserked {
     @extend %flex-center, %zen;
     display: none;
-    @include breakpoint($mq-xx-small) {
+    @include breakpoint($mq-col2) {
       order: -1;
       display: flex;
       flex: 0 1 auto;

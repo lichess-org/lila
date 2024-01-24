@@ -226,6 +226,12 @@
 
   &__board {
     grid-area: board;
+    @include breakpoint($mq-col1) {
+      margin: 1vmin 0;
+      .variant-chushogi & {
+        margin: 0;
+      }
+    }
   }
 
   &.variant-chushogi {
