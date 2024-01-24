@@ -34,7 +34,10 @@ export class MultiBoardCtrl {
     private readonly send: SocketSend,
     private readonly variant: () => VariantKey,
   ) {
-    this.showEval = storedBooleanPropWithEffect('analyse.multiboard.showEval', true, redraw);
+    this.showEval = storedBooleanPropWithEffect('analyse.multiboard.showEval', true, () => {
+      redraw();
+      this.requestCloudEvals();
+    });
   }
 
   addNode = (pos: Position, node: Tree.Node) => {
@@ -82,12 +85,11 @@ export class MultiBoardCtrl {
   };
 
   private requestCloudEvals = () => {
-    if (this.pager?.currentPageResults.length) {
+    if (this.pager?.currentPageResults.length && this.showEval())
       this.send('evalGetMulti', {
         fens: this.pager?.currentPageResults.map(c => c.fen),
         ...(this.variant() != 'standard' ? { variant: this.variant() } : {}),
       });
-    }
   };
 
   reloadEventually = debounce(this.reload, 1000);
