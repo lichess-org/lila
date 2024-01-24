@@ -53,6 +53,7 @@
   <string name="allSyncMembersRemainOnTheSamePosition">Alle SYNC medlemmer forbliver på samme stilling</string>
   <string name="shareChanges">Del ændringer med tilskuere og gem dem på serveren</string>
   <string name="playing">Spiller</string>
+  <string name="showEvalBar">Evalueringssøjler</string>
   <string name="first">Første</string>
   <string name="previous">Forrige</string>
   <string name="next">Næste</string>
