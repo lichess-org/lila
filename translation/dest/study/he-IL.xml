@@ -59,6 +59,7 @@
   <string name="allSyncMembersRemainOnTheSamePosition">כולם צופים באותה העמדה</string>
   <string name="shareChanges">שתפו שינויים עם הצופים ושמרו אותם על השרת</string>
   <string name="playing">מתקיים כעת</string>
+  <string name="showEvalBar">מדי הערכה</string>
   <string name="first">ראשון</string>
   <string name="previous">הקודם</string>
   <string name="next">הבא</string>
