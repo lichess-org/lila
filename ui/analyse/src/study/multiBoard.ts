@@ -11,7 +11,8 @@ import { ChapterPreview, ChapterPreviewPlayer, Position, StudyChapterMeta } from
 import StudyCtrl from './studyCtrl';
 import { EvalHitMulti } from '../interfaces';
 import { povChances } from 'ceval/src/winningChances';
-import { Toggle, defined, toggle } from 'common';
+import { Prop, defined } from 'common';
+import { storedBooleanPropWithEffect } from 'common/storage';
 
 interface CloudEval extends EvalHitMulti {
   chances: number;
@@ -22,7 +23,7 @@ export class MultiBoardCtrl {
   page = 1;
   pager?: Paginator<ChapterPreview>;
   playing = false;
-  showEval: Toggle;
+  showEval: Prop<boolean>;
 
   private cloudEvals: Map<Fen, CloudEval> = new Map();
 
@@ -33,7 +34,7 @@ export class MultiBoardCtrl {
     private readonly send: SocketSend,
     private readonly variant: () => VariantKey,
   ) {
-    this.showEval = toggle(false, redraw);
+    this.showEval = storedBooleanPropWithEffect('analyse.multiboard.showEval', false, redraw);
   }
 
   addNode = (pos: Position, node: Tree.Node) => {
