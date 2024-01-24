@@ -190,6 +190,11 @@ export default class EditorCtrl {
     return `${this.cfg.baseUrl}/${urlFen(fen)}${variant}${orientationParam}`;
   }
 
+  makeImageUrl(fen: string, orientation: Color = 'white'): string {
+    const url = `https://lichess1.org/export/fen.gif?fen=${fen}&color=${orientation}`;
+    return url;
+  }
+
   bottomColor(): Color {
     return this.chessground ? this.chessground.state.orientation : this.options.orientation || 'white';
   }

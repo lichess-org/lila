@@ -317,6 +317,14 @@ function inputs(ctrl: EditorCtrl, fen: string): VNode | undefined {
         attrs: { readonly: true, spellcheck: 'false', value: ctrl.makeEditorUrl(fen, ctrl.bottomColor()) },
       }),
     ]),
+    h('p', [
+      h('strong.name', 'IMAGE'),
+      //add an image from the following url <meta property="og:image"
+      //"https://lichess1.org/export/fen.gif?fen=8%2F8%2F8%2F3k4%2F8%2F8%2F8%2F5RQK%20w%20-%20-%200%201&color=white" />
+      h('input.copyable.autoselect', {
+        attrs: { readonly: true, spellcheck: 'false', value: ctrl.makeImageUrl(fen, ctrl.bottomColor()) },
+      }),
+    ]),
   ]);
 }
 
