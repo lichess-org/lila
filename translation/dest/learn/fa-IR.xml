@@ -1,23 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="learnChess">شطرنج را یاد بگیرید</string>
+  <string name="learnChess">یادگیری شطرنج</string>
   <string name="byPlaying">با بازی کردن!</string>
   <string name="menu">منو</string>
   <string name="progressX">پیشرفت: %s</string>
-  <string name="resetMyProgress">تنظیم مجدد پیشرفت من</string>
+  <string name="resetMyProgress">پیشروی را از نو شروع می‌کنم</string>
   <string name="youWillLoseAllYourProgress">شما همه پیشرفت خود را از دست خواهید داد!</string>
   <string name="play" comment="play&#10;&#10;A small ribbon that appears on your current chapter in the Chess Basics course. Please keep this string short.">بازی کن!</string>
-  <string name="chessPieces">مهره های شطرنج</string>
-  <string name="theRook">رخ</string>
-  <string name="itMovesInStraightLines">در خط های مستقیم حرکت میکند</string>
-  <string name="rookIntro">رخ مهره قوییه. آماده ای که بهش دستور بدی؟</string>
+  <string name="chessPieces">مُهره‌های شطرنج</string>
+  <string name="theRook">رُخ</string>
+  <string name="itMovesInStraightLines">در خطوط صاف حرکت می‌کند</string>
+  <string name="rookIntro">رُخ مهره نیرومندیست. آماده‌ای که به آن دستور بدی؟</string>
   <string name="rookGoal">روی رخ کلیک کن
 تا روی ستاره ببریش!</string>
-  <string name="grabAllTheStars">همه ستاره ها رو بگیر!</string>
-  <string name="theFewerMoves">هرچی تعداد حرکت کمتری بری،
-ستاره بیشتری میگیری!</string>
-  <string name="useTwoRooks">از دو تا رخ استفاده کن
-که سرعتو بالا ببری!</string>
+  <string name="grabAllTheStars">همه ستاره‌ها را بگیر!</string>
+  <string name="theFewerMoves">هر چه تعداد حرکت‌ها کمتر،
+امتیاز بیشتر!</string>
+  <string name="useTwoRooks">از دو تا رُخ استفاده کن
+تا به همه چیز سرعت ببخشی!</string>
   <string name="rookComplete">تبریک! شما با موفقیت در بازی با رخ استاد شدید.</string>
   <string name="theBishop">فیل</string>
   <string name="itMovesDiagonally">مورب حرکت میکنه</string>
