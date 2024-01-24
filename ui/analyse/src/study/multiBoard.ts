@@ -151,7 +151,10 @@ function renderPager(pager: Paginator<ChapterPreview>, study: StudyCtrl): MaybeV
   const ctrl = study.multiBoard;
   const cloudEval = ctrl.showEval() && study.ctrl.ceval?.enabled() ? ctrl.getCloudEval : undefined;
   return [
-    h('div.top', [renderPagerNav(pager, ctrl), renderEvalToggle(ctrl), renderPlayingToggle(ctrl)]),
+    h('div.study__multiboard__top', [
+      renderPagerNav(pager, ctrl),
+      h('div.study__multiboard__options', [renderEvalToggle(ctrl), renderPlayingToggle(ctrl)]),
+    ]),
     h('div.now-playing', pager.currentPageResults.map(makePreview(study, cloudEval))),
   ];
 }
@@ -180,7 +183,7 @@ function renderPagerNav(pager: Paginator<ChapterPreview>, ctrl: MultiBoardCtrl):
   const page = ctrl.page,
     from = Math.min(pager.nbResults, (page - 1) * pager.maxPerPage + 1),
     to = Math.min(pager.nbResults, page * pager.maxPerPage);
-  return h('div.pager', [
+  return h('div.study__multiboard__pager', [
     pagerButton(ctrl.trans.noarg('first'), licon.JumpFirst, () => ctrl.setPage(1), page > 1, ctrl),
     pagerButton(ctrl.trans.noarg('previous'), licon.JumpPrev, ctrl.prevPage, page > 1, ctrl),
     h('span.page', `${from}-${to} / ${pager.nbResults}`),

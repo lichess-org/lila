@@ -11,13 +11,17 @@
     padding: 2em;
   }
 
-  .top {
+  &__top {
     @extend %flex-between;
 
-    padding: 0.4em 1.5em;
+    padding: 0.4em 1em 0.4em 0.4em;
+  }
+  &__options {
+    @extend %flex-center;
+    gap: 1em;
   }
 
-  .pager {
+  &__pager {
     @extend %flex-center;
 
     .page {
