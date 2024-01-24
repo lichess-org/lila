@@ -151,7 +151,7 @@ export function view(ctrl: MultiBoardCtrl, study: StudyCtrl): VNode | undefined 
 
 function renderPager(pager: Paginator<ChapterPreview>, study: StudyCtrl): MaybeVNodes {
   const ctrl = study.multiBoard;
-  const cloudEval = ctrl.showEval() && study.ctrl.ceval?.enabled() ? ctrl.getCloudEval : undefined;
+  const cloudEval = ctrl.showEval() ? ctrl.getCloudEval : undefined;
   return [
     h('div.study__multiboard__top', [
       renderPagerNav(pager, ctrl),
