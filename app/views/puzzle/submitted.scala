@@ -48,7 +48,7 @@ object submitted {
             (user, puzzles) match {
               case (Some(u), Some(pager)) =>
                 if (pager.nbResults == 0 && ctx.is(u))
-                  div(
+                  p(
                     if (~count > 0)
                       s"Puzzles you have submitted are being verified (${~count} puzzles in queue). Thank you!"
                     else "You have not submitted any puzzles, but you can awlays change that."
