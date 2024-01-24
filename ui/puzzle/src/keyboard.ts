@@ -32,7 +32,7 @@ export default (ctrl: PuzzleCtrl) =>
     .bind('?', () => ctrl.keyboardHelp(!ctrl.keyboardHelp()))
     .bind('f', ctrl.flip)
     .bind('n', ctrl.nextPuzzle)
-    .bind('b', () => ctrl.blindfold(!ctrl.blindfold()));
+    .bind('B', () => ctrl.blindfold(!ctrl.blindfold()));
 
 export const view = (ctrl: PuzzleCtrl) =>
   snabDialog({

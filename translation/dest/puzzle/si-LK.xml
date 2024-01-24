@@ -3,4 +3,19 @@
   <string name="puzzles">ප්‍රහේලිකා</string>
   <string name="puzzleThemes">ප්‍රහෙලිකා තේමාවන්</string>
   <string name="recommended">නිර්දේශිත</string>
+  <string name="phases">අදියර</string>
+  <string name="motifs">මෝස්තර</string>
+  <string name="advanced">උසස්</string>
+  <string name="lengths">දිග</string>
+  <string name="mates">Mates</string>
+  <string name="goals">ඉලක්ක</string>
+  <string name="origin">සම්භවය</string>
+  <string name="specialMoves">විශේෂ ඇදීම්</string>
+  <string name="didYouLikeThisPuzzle">ඔබ මෙම ප්‍රහේලිකාවට කැමතිද?</string>
+  <string name="voteToLoadNextOne">ඊළඟ එක පූරණය කිරීමට ඡන්දය දෙන්න!</string>
+  <string name="upVote">ප්‍රහේලිකාව​ උසස් කරන්න</string>
+  <string name="downVote">ප්‍රහේලිකාව පහත් කරන්න</string>
+  <string name="yourPuzzleRatingWillNotChange">ඔබේ ප්‍රහේලිකා ශ්‍රේණිගත කිරීම වෙනස් නොවනු ඇත. ප්‍රහේලිකා තරඟයක් නොවන බව සලකන්න. ඔබගේ ශ්‍රේණිගත කිරීම ඔබගේ වර්තමාන කුසලතාව සඳහා හොඳම ප්‍රහේලිකා තෝරාගැනීමට උපකාරී වේ.</string>
+  <string name="findTheBestMoveForWhite">සුදුට ඇති හොඳම ඇදීම සොයන්න.</string>
+  <string name="findTheBestMoveForBlack">කළුට ඇති හොඳම ඇදීම සොයන්න.</string>
 </resources>

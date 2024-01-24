@@ -28,10 +28,10 @@
   <string name="youPlayTheBlackPieces">شما با مهره سیاه بازی میکنید</string>
   <string name="itsYourTurn">نوبت شماست!</string>
   <string name="cheatDetected">تقلب تشخیص داده شد</string>
-  <string name="kingInTheCenter">شاه در مرکز</string>
+  <string name="kingInTheCenter">شاه روی تپه</string>
   <string name="threeChecks">سه کیش</string>
   <string name="raceFinished">مسابقه تمام شد</string>
-  <string name="variantEnding">اتمام بازی</string>
+  <string name="variantEnding">پایان شطرنج‌گونه</string>
   <string name="newOpponent">حریف جدید</string>
   <string name="yourOpponentWantsToPlayANewGameWithYou">حریف شما می خواهد که دوباره با شما بازی کند</string>
   <string name="joinTheGame">به بازی بپیوندید</string>
@@ -73,9 +73,9 @@
   <string name="forceVariation">نتیجه تحلیل را به عنوان یکی از تنوعهای بازی انتخاب نمایید</string>
   <string name="copyVariationPgn">کپی PGN این شاخه</string>
   <string name="move">انتقال بدهید</string>
-  <string name="variantLoss">تنوع بازی منجر به باخت اجباری یا از دست دادن حرکتها را نمایش بدهید</string>
-  <string name="variantWin">تنوع بازی منجر به پیروزی یا به دست آوردن حرکتها را نمایش بدهید</string>
-  <string name="insufficientMaterial">مهره کافی برای ادامه یا اتمام بازی موجود نیست</string>
+  <string name="variantLoss">حرکت بازنده</string>
+  <string name="variantWin">حرکت برنده</string>
+  <string name="insufficientMaterial">مُهره کافی برای مات کردن وجود ندارد</string>
   <string name="pawnMove">حرکت پیاده</string>
   <string name="capture">گرفتن مهره</string>
   <string name="close">بستن</string>
@@ -182,8 +182,8 @@
   <string name="today">امروز</string>
   <string name="yesterday">دیروز</string>
   <string name="minutesPerSide">زمان برای هر بازیکن(به دقیقه)</string>
-  <string name="variant">واریانت</string>
-  <string name="variants">واریانت ها</string>
+  <string name="variant">گونه</string>
+  <string name="variants">گونه‌ها</string>
   <string name="timeControl">زمان</string>
   <string name="realTime">زمان محدود</string>
   <string name="correspondence">مکاتبه ای</string>
@@ -258,8 +258,8 @@
     <item quantity="other">%s بازی با شما</item>
   </plurals>
   <string name="cancel">انصراف</string>
-  <string name="whiteTimeOut">زمان سفید به اتمام رسید</string>
-  <string name="blackTimeOut">زمان سیاه به اتمام رسید</string>
+  <string name="whiteTimeOut">زمان سفید تمام شد</string>
+  <string name="blackTimeOut">زمان سیاه تمام شد</string>
   <string name="drawOfferSent">پیشنهاد تساوی ارسال شد</string>
   <string name="drawOfferAccepted">پیشنهاد تساوی پذیرفته شد</string>
   <string name="drawOfferCanceled">پیشنهاد تساوی لغو شد</string>
@@ -482,7 +482,7 @@
   <string name="winRate">درصد برد</string>
   <string name="berserkRate">درصد برزرک</string>
   <string name="performance">عملکرد</string>
-  <string name="tournamentComplete">مسابقه به اتمام رسید</string>
+  <string name="tournamentComplete">مسابقات به پایان رسید</string>
   <string name="movesPlayed">حرکات انجام شده</string>
   <string name="whiteWins">پیروزی با مهره سفید</string>
   <string name="blackWins">سیاه برنده شد</string>
@@ -677,7 +677,7 @@
   <string name="aboutSimulSettings">نمایش های همزمان همیشه غیر رسمی هستند. بازی دوباره، پس گرفتن حرکت و اضافه کردن زمان غیرفعال شده اند.</string>
   <string name="create">ساختن</string>
   <string name="whenCreateSimul">وقتی یک نمایش همزمان ایجاد میکنید باید با چند نفر همزمان بازی کنید.</string>
-  <string name="simulVariantsHint">اگر چند گونه مختلف را انتخاب کنید هر بازیکن گونه موردعلاقه خود را انتخاب می کند</string>
+  <string name="simulVariantsHint">اگر چندین گونه را انتخاب کنید، هر بازیکن می‌تواند انتخاب کند که کدام یک را بازی کند.</string>
   <string name="simulClockHint">تنظیم ساعت فیشر. هرچه از بازیکنان بیشتری برنده شوید، زمان بیشتری نیاز دارید</string>
   <string name="simulAddExtraTime">برای کمک به شما میتوانید برای خود زمان اضافی در نظر بگیرید.</string>
   <string name="simulHostExtraTime">زمان اضافی میزبان</string>
@@ -707,7 +707,7 @@
   <string name="variationArrowsInfo">پیکان های شاخه اصلی به شما امکان می‌دهد بدون استفاده از فهرست حرکت، پیمایش کنید.</string>
   <string name="playSelectedMove">حرکت انتخاب شده را بازی کن</string>
   <string name="newTournament">مسابقه جدید</string>
-  <string name="tournamentHomeTitle">مسابقات شطرنج با ویژگی های مختلف مثل کنترل زمان و غیره</string>
+  <string name="tournamentHomeTitle">مسابقات شطرنج با گونه‌ها و زمان‌بندی‌های مختلف</string>
   <string name="tournamentHomeDescription">هرچه سریع‌تر شطرنج بازی کنید! به یک مسابقه رسمی برنامه‌ریزی‌شده بپیوندید یا مسابقات خودتان را ایجاد کنید. شطرنج گلوله‌ای، برق‌آسا، مرسوم، ۹۶۰، پادشاه تپه‌ها، سه‌کیش و دیگر گزینه‌ها، برای لذت بی‌پایان از شطرنج در دسترس هستند.</string>
   <string name="tournamentNotFound">مسابقات یافت نشد</string>
   <string name="tournamentDoesNotExist">این مسابقات وجود ندارد</string>

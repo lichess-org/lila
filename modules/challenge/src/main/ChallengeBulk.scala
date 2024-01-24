@@ -42,7 +42,10 @@ final class ChallengeBulkApi(
   )
 
   def scheduledBy(me: User): Fu[List[ScheduledBulk]] =
-    coll.list[ScheduledBulk]($doc("by" -> me.id))
+    coll.find($doc("by" -> me.id)).sort($sort desc "pairAt").cursor[ScheduledBulk]().list(100)
+
+  def findBy(id: String, me: User): Fu[Option[ScheduledBulk]] =
+    coll.one[ScheduledBulk]($doc("_id" -> id, "by" -> me.id))
 
   def deleteBy(id: String, me: User): Fu[Boolean] =
     coll.delete.one($doc("_id" -> id, "by" -> me.id)).map(_.n == 1)
@@ -72,10 +75,12 @@ final class ChallengeBulkApi(
           makePairings(bulk).void
 
   private def checkForClocks: Funit =
-    coll.one[ScheduledBulk]($doc("startClocksAt" $lte nowInstant, "pairedAt" $exists true)) flatMapz: bulk =>
+    coll.one[ScheduledBulk](
+      $doc("startClocksAt" $lte nowInstant, "startedClocksAt" $exists false, "pairedAt" $exists true)
+    ) flatMapz: bulk =>
       workQueue(bulk.by):
-        fuccess:
-          Bus.publish(TellMany(bulk.games.map(_.id.value), StartClock), "roundSocket")
+        Bus.publish(TellMany(bulk.games.map(_.id.value), StartClock), "roundSocket")
+        coll.updateField($id(bulk.id), "startedClocksAt", nowInstant).void
 
   private def makePairings(bulk: ScheduledBulk): Funit =
     def timeControl =

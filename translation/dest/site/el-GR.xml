@@ -5,6 +5,7 @@
   <string name="toInviteSomeoneToPlayGiveThisUrl">Για να προσκαλέσετε κάποιον σε ένα παιχνίδι, στείλτε του αυτήν τη διεύθυνση</string>
   <string name="gameOver">Τέλος παιχνιδιού</string>
   <string name="waitingForOpponent">Αναμονή για αντίπαλο</string>
+  <string name="orLetYourOpponentScanQrCode">Ή ζητήστε από τον αντίπαλό σας να σαρώσει αυτόν τον κωδικό QR</string>
   <string name="waiting">Αναμονή</string>
   <string name="yourTurn">Η σειρά σας</string>
   <string name="aiNameLevelAiLevel">%1$s επιπέδου %2$s</string>
@@ -70,6 +71,7 @@
   <string name="makeMainLine">Δημιουργία κύριας γραμμής</string>
   <string name="deleteFromHere">Διαγραφή από εδώ</string>
   <string name="forceVariation">Θέσε σε βαριάντα</string>
+  <string name="copyVariationPgn">Αντιγραφή PGN αρχείου κινήσεων</string>
   <string name="move">Κίνηση</string>
   <string name="variantLoss">Ήττα εκδοχής</string>
   <string name="variantWin">Νίκη εκδοχής</string>
@@ -483,6 +485,7 @@
   <string name="movesPlayed">Παιγμένες κινήσεις</string>
   <string name="whiteWins">Τα άσπρα νικούν</string>
   <string name="blackWins">Τα μαύρα νικούν</string>
+  <string name="drawRate">Ποσοστά ισοπαλίας</string>
   <string name="draws">Ισοπαλίες</string>
   <string name="nextXTournament">Επόμενο τουρνουά %s:</string>
   <string name="averageOpponent">Μέση βαθμολογία αντιπάλων</string>
@@ -689,6 +692,7 @@
   <string name="keyNextBlunder">Επόμενο σοβαρό σφάλμα</string>
   <string name="keyNextMistake">Επόμενο λάθος</string>
   <string name="keyNextInaccuracy">Επόμενη ανακρίβεια</string>
+  <string name="playSelectedMove">παίξε την επιλεγμένη κίνηση</string>
   <string name="newTournament">Νέο τουρνουά</string>
   <string name="tournamentHomeTitle">Σκακιστικά τουρνουά διαφόρων χρόνων και εκδοχών</string>
   <string name="tournamentHomeDescription">Παίξτε στιγμιαία τορνουά. Συμμετάσχετε σε επίσημο διαγωνισμό ή δημιουργήστε δικό σας. Υπερταχέα, Ταχέα, Κλασσικά, 960, Βασιλιάς στο κέντρο, Τρία σαχ και πολλές άλλες επιλογές για ατελείωτη διασκέδαση.</string>
@@ -731,6 +735,7 @@
   <string name="withFriends">Με φίλους</string>
   <string name="withEverybody">Με όλους</string>
   <string name="kidMode">Λειτουργία παιδιού</string>
+  <string name="kidModeIsEnabled">Η λειτουργία για παιδιά είναι ενεργοποιημένη.</string>
   <string name="kidModeExplanation">Αυτό έχει σχέση με την ασφάλεια. Στην λειτουργία για παιδιά, απενεργοποιούνται όλες οι επικοινωνίες της ιστοσελίδας. Ενεργοποιήστε το για τα παιδιά σας και τους μαθητές, για την προστασία τους από άλλους διαδικτυακούς χρήστες.</string>
   <string name="inKidModeTheLichessLogoGetsIconX">Στην λειτουργία για παιδιά, το λογότυπο του lichess παίρνει ένα εικονίδιο %s, έτσι ώστε να γνωρίζετε ότι τα παιδιά σας είναι ασφαλή.</string>
   <string name="askYourChessTeacherAboutLiftingKidMode">Ο λογαριασμός σας διαχειρίζεται. Ρωτήστε τον δασκαλό σας στο σκάκι για να αφαιρέσει τη λειτουργία παιδιού.</string>
@@ -844,6 +849,7 @@
     <item quantity="one">και αποθηκεύστε %s γραμμή προκίνησης</item>
     <item quantity="other">και αποθηκεύστε %s γραμμές προκίνησης</item>
   </plurals>
+  <string name="clickHereToReadIt">Κάντε κλικ εδώ για να το δείτε</string>
   <string name="sorry">Λυπούμαστε :(</string>
   <string name="weHadToTimeYouOutForAWhile">Πρέπει να σας αποκλείσουμε για λίγο.</string>
   <string name="why">Γιατί;</string>
@@ -964,6 +970,7 @@
   <string name="switchSides">Εναλλαγή πλευρών</string>
   <string name="closingAccountWithdrawAppeal">Αν απενεργοποιήσετε τον λογαριασμό σας θα χάσετε το δικαίωμα έφεσης</string>
   <string name="ourEventTips">Οι συμβουλές μας για τη διοργάνωση εκδηλώσεων</string>
+  <string name="instructions">Οδηγίες</string>
   <string name="lichessPatronInfo">Το Lichess είναι ένα φιλανθρωπικό και εντελώς ελεύθερο λογισμικό ανοιχτού κώδικα.
 Όλα τα εξοδα λειτουργίας, ανάπτυξης και περιεχομένου καλύπτοναι αποκλειστικά από δωρεές χρηστών.</string>
 </resources>
