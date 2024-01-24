@@ -62,7 +62,7 @@
   <string name="studyPgn">PGN درس</string>
   <string name="downloadAllGames">بارگیری تمام بازی ها</string>
   <string name="chapterPgn">PGN فصل</string>
-  <string name="copyChapterPgn" comment="A button which lets you copy the PGN text to your clipboard (i.e. similar to ⌘+C or Ctrl+C).">کپی کردن PGN</string>
+  <string name="copyChapterPgn">کپی کردن PGN</string>
   <string name="copyChapterPgnDescription">کپی کردن فصل PGN.</string>
   <string name="downloadGame">بارگیری بازی</string>
   <string name="studyUrl">URL درس</string>
