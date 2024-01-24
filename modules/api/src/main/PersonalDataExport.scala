@@ -195,7 +195,7 @@ final class PersonalDataExport(
             .partition(_._1.by is user)
           Source:
             List(textTitle("Reports you created")) ::: by.map(_._2) :::
-              List(textTitle("Reports about you")) ::: to.map(_._2)
+              List(textTitle("Public messages you sent that were reported")) ::: to.map(_._2)
 
     val outro = Source(List(textTitle("End of data export.")))
 
