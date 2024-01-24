@@ -43,6 +43,11 @@
   <string name="automaticLeaderboard" comment="An option when creating a broadcast to calculate a leaderboard automatically from the players involved. Example: https://lichess.org/broadcast/2023-london-chess-classic/round-9/5icayRCY">Automatisch scorebord</string>
   <string name="automaticLeaderboardHelp" comment="An option when creating a broadcast to calculate a leaderboard automatically from the players involved. Example: https://lichess.org/broadcast/2023-london-chess-classic/round-9/5icayRCY">Bereken en toon een eenvoudig scorebord gebaseerd op de uitslagen</string>
   <string name="replace">Optioneel: vervang spelersnamen, ratings en titels</string>
+  <string name="replaceHelp">Eén regel per speler, geformatteerd zoals hieronder:
+Oorspronkelijke naam; Nieuwe naam; Nieuwe rating (optioneel); Nieuwe titel (optioneel)
+Voorbeeld:
+DrNykterstein;Magnus Carlsen;2863
+AnishGiri;Anish Giri;2764;GM</string>
   <string name="periodInSeconds">Periode in seconden</string>
   <string name="periodInSecondsHelp">Optioneel, hoe lang te wachten tussen aanvragen. Minimaal 2 seconden, maximaal 60 seconden. Standaard automatisch gebaseerd op het aantal kijkers.</string>
 </resources>

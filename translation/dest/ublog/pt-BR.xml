@@ -2,12 +2,12 @@
 <resources>
   <string name="communityBlogs">Blogs da comunidade</string>
   <string name="friendBlogs">Blogs de amigos</string>
-  <string name="likedBlogs">Postagens curtidas</string>
+  <string name="likedBlogs">Curtidas em postagens de blogs</string>
   <string name="blogTopics">Tópicos de blog</string>
   <string name="lichessOfficialBlog">Blog oficial do Lichess</string>
   <string name="continueReadingPost">Continuar lendo a postagem</string>
   <string name="lichessBlogPostsFromXYear">Posts do lichess blog em %s</string>
-  <string name="previousBlogPosts">Postagens anteriores</string>
+  <string name="previousBlogPosts">Postagens anteriores de blogs</string>
   <string name="xBlog">Blog do(a) %s</string>
   <string name="newPost">Nova postagem</string>
   <string name="editYourBlogPost">Editar sua postagem no blog</string>

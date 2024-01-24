@@ -3,9 +3,9 @@
   <string name="faqAbbreviation">پرسش‌های متداول</string>
   <string name="frequentlyAskedQuestions">پرسش‌های متداول</string>
   <string name="whyIsLichessCalledLichess">وجه تسمیه Lichess چیست؟</string>
-  <string name="lichessCombinationLiveLightLibrePronounced">Lichess ترکیب کلمات live (زنده)، light (سریع) و libre (آزاد) و chess (شطرنج) است. تلفظ Lichess به شکل %1$s است.</string>
+  <string name="lichessCombinationLiveLightLibrePronounced">واژه Lichess ترکیبی از واژه‌های live (زنده)، light (سَبُک)، libre (آزاد و متن‌باز) و chess (شطرنج) است. تلفظ Lichess به صورت %1$s است.</string>
   <string name="leechess">lee-chess</string>
-  <string name="hearItPronouncedBySpecialist">می‌توانید تلفظ اسم سایت توسط فردی متخصص را بشنوید.</string>
+  <string name="hearItPronouncedBySpecialist">تلفظ آن را از یک متخصص بشنوید.</string>
   <string name="whyLiveLightLibre">Live (زنده) چون به صورت بی‌درنگ در 24 ساعت روز و 7 روز هفته بازیکنان با یکدیگر بازی می‌کنند و بازی‌ها قابل تماشا است. Libre (آزاد) چون که این سایت منبع باز است بر خلاف سایر وب‌سایت‌ها، هیچ کسی مالک سایت نیست.</string>
   <string name="whyIsLilaCalledLila">به طور مشابه، کد مرجع برای لیچس، %1$s، که مخفف li[chess in sca]la هست، قابل رویت است به صورت فشرده لیچس که نوشته در %2$s، که یک زبان شهودی برنامه نویسی است.</string>
   <string name="howCanIContributeToLichess">چگونه می‌توانم به Lichess کمک کنم؟</string>
@@ -33,9 +33,9 @@
   <string name="durationFormula">(زمان اولیه به ثانیه) + (40 × پاداش زمانی به ازای هر حرکت)</string>
   <string name="inferiorThanXsEqualYtimeControl">≤ %1$s = %2$s</string>
   <string name="superiorThanXsEqualYtimeControl">≤ %1$s = %2$s</string>
-  <string name="whatVariantsCanIplay">چه شاخه هایی را میتوانم در لیچس بازی کنم?</string>
-  <string name="lichessSupportChessAnd">لیچس از شطرنج استاندارد و %1$s پشتیبانی می کند.</string>
-  <string name="eightVariants">8 نوع شطرنج</string>
+  <string name="whatVariantsCanIplay">چه شطرنج‌گونه‌هایی را می‌توانم در Lichess بازی کنم؟</string>
+  <string name="lichessSupportChessAnd">وبگاه Lichess از شطرنج استاندارد و %1$s پشتیبانی می‌کند.</string>
+  <string name="eightVariants">هشت شطرنج‌گونه</string>
   <string name="whatIsACPL">میانگین باخت صدم ‌پیاده چیست؟</string>
   <string name="acplExplanation">صدم پیاده شاخص اندازه گیری برتری است که در شطرنج اندازه گیری می شود. هر صدم پیاده معادل یک صدم ارزش یک پیاده است. بنابراین هر 100 صدم پیاده = یک پیاده. این ارزشها نقش خاصی در بازی ایفا نمی‌کنند اما برای بازیکنان مفید هستند و برای محاسبه پوزیسیون توسط کامپیوتر ضروری. بهترین حرکت کامپیوتری هیچ صدم پیاده ای از دست نمی‌دهد، ولی حرکت های پایینتر موجب افت پوزیسیونی می شوند که توسط صدم‌پیاده اندازه گیری می شود. این مقدار می‌تواند به عنوان ابزار اندازه‌گیری کیفیت بازی استفاده شود. هرچه صدم‌پیاده ای که یک بازیکن با هر حرکت از دست می دهد کمتر باشد، بازی او بهتر است. آنالیز های کامپیوتری لی چس از استاک فیش قدرت گرفته تند.</string>
   <string name="insufficientMaterial">افتادن زمان، مساوی و مهره های ناکافی برای برد</string>

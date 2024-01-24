@@ -15,6 +15,7 @@
   <string name="castle">キャスリング（どちら側でも）</string>
   <string name="phoneticAlphabetIsBest">フォネティック・アルファベット推奨</string>
   <string name="cancelTimerOrDenyARequest">タイマーのキャンセルかリクエストの拒否</string>
+  <string name="playPreferredMoveOrConfirmSomething" comment="Used in voice commands. When it is unclear what the player said (e.g. 'b4' and 'd4' sound similar), both moves will be shown, with the more likely one highlighted in a certain colour. By default, a countdown begins, and if no action is taken, the likely move (e.g. b4) will be played. Players can end the countdown early/confirm their move by saying 'yes'.&#10;&#10;For more details see https://lichess.org/@/schlawg/blog/how-to-lichess-voice/nWrypoWI">選んだ手を指すか yes と答えてください。</string>
   <string name="sleep" comment="Used for voice commands.&#10;&#10;By default, voice commands are always-on after the feature is enabled. Users can optionally set a word for listening to start, or say 'sleep' to disable listening.&#10;&#10;(Please note - this is not the same as recording, since the recording is never sent to Lichess; the speech technology is entirely offline)">スリープ（ウェイクワードが有効な時）</string>
   <string name="turnOffVoiceRecognition">音声認識をオフにする</string>
   <string name="showPuzzleSolution">問題の解答を表示</string>
