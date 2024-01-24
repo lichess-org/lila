@@ -112,7 +112,7 @@ trait GameHelper {
     }
 
   def playerUsername(player: Player, withRating: Boolean = true, withTitle: Boolean = true): Frag =
-    player.aiLevel.fold[Frag](
+    player.engineConfig.fold[Frag](
       player.userId.flatMap(lightUser).fold[Frag](lila.user.User.anonymous) { user =>
         val title = user.title ifTrue withTitle map { t =>
           frag(
@@ -127,8 +127,8 @@ trait GameHelper {
         if (withRating) frag(title, user.name, " ", "(", lila.game.Namer ratingString player, ")")
         else frag(title, user.name)
       }
-    ) { level =>
-      raw(s"A.I. level $level")
+    ) { ec =>
+      raw(aiNameNoLang(ec))
     }
 
   def playerText(player: Player, withRating: Boolean = false) =
@@ -155,10 +155,10 @@ trait GameHelper {
       case None =>
         val klass = cssClass.??(" " + _)
         span(cls := s"user-link$klass")(
-          (player.aiLevel, player.name) match {
-            case (Some(level), _) => aiNameFrag(level, withRating)
-            case (_, Some(name))  => name
-            case _                => User.anonymous
+          (player.engineConfig, player.name) match {
+            case (Some(ec), _)   => aiNameFrag(ec)
+            case (_, Some(name)) => name
+            case _               => User.anonymous
           },
           statusIcon
         )

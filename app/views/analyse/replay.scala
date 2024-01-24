@@ -18,8 +18,8 @@ object replay {
     s"${playerText(pov.game.sentePlayer)} vs ${playerText(pov.game.gotePlayer)}: ${trans.analysis.txt()}"
 
   private def playerName(p: Player): String =
-    (p.aiLevel
-      .fold(p.userId | (p.name | lila.user.User.anonymous))("lishogi AI level " + _))
+    (p.engineConfig
+      .fold(p.userId | (p.name | lila.user.User.anonymous))(ec => aiNameNoLang(ec)))
       .replaceAll("""\s""", "_")
 
   def apply(

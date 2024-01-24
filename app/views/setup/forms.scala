@@ -45,7 +45,7 @@ object forms {
       )
     }
 
-  def ai(form: Form[_], ratings: Map[Int, Int], validSfen: Option[lila.setup.ValidSfen])(implicit
+  def ai(form: Form[_], validSfen: Option[lila.setup.ValidSfen])(implicit
       ctx: Context
   ) =
     layout("ai", trans.playWithTheMachine(), routes.Setup.ai) {
@@ -67,11 +67,7 @@ object forms {
               div(id := "config_level")(
                 renderRadios(form("level"), lila.setup.AiConfig.levelChoices)
               ),
-              div(cls := "ai_info")(
-                ratings.toList.map { case (level, _) =>
-                  div(cls := s"${prefix}level_$level")(trans.aiNameLevelAiLevel("YaneuraOu V7.00", level))
-                }
-              )
+              div(cls := "ai_info")
             )
           )
       )

@@ -19,9 +19,9 @@ final class Player(
 ) {
 
   def apply(game: Game): Funit =
-    game.aiLevel ?? { level =>
+    game.aiEngine ?? { engine =>
       Future.delay(delayFor(game) | 0.millis) {
-        makeWork(game, level) addEffect moveDb.add void
+        makeWork(game, engine) addEffect moveDb.add void
       }
     } recover { case e: Exception =>
       logger.info(e.getMessage)
@@ -47,7 +47,7 @@ final class Player(
         divided    = randomized / (if (g.plies > 9) 1 else 2)
       } yield divided.millis
 
-  private def makeWork(game: Game, level: Int): Fu[Work.Move] =
+  private def makeWork(game: Game, ec: lila.game.EngineConfig): Fu[Work.Move] =
     if (game.situation.playable(true, true))
       if (game.plies <= maxPlies)
         fuccess(
@@ -60,7 +60,8 @@ final class Player(
               variant = game.variant,
               moves = game.usiMoves.map(_.usi) mkString " "
             ),
-            level = level,
+            level = ec.level,
+            engine = ec.engine.name,
             clock = game.clock.map { clk =>
               Work.Clock(
                 btime = clk.currentClockFor(Sente).time.centis,

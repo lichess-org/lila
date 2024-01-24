@@ -3,7 +3,7 @@ package lila.setup
 import shogi.Clock
 import shogi.format.forsyth.Sfen
 import shogi.variant.Variant
-import lila.game.{ Game, Player, Pov, Source }
+import lila.game.{ EngineConfig, Game, Player, Pov, Source }
 import lila.lobby.Color
 import lila.user.User
 
@@ -46,10 +46,10 @@ final case class ApiAiConfig(
           initialSfen = sfen,
           sentePlayer = creatorColor.fold(
             Player.make(shogi.Sente, user, perfPicker),
-            Player.make(shogi.Sente, level.some)
+            Player.make(shogi.Sente, EngineConfig(sfen, shogiGame.variant, level).some)
           ),
           gotePlayer = creatorColor.fold(
-            Player.make(shogi.Gote, level.some),
+            Player.make(shogi.Gote, EngineConfig(sfen, shogiGame.variant, level).some),
             Player.make(shogi.Gote, user, perfPicker)
           ),
           mode = shogi.Mode.Casual,

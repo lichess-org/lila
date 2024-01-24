@@ -46,7 +46,6 @@ final class Setup(
           val variant = form("variant").value.flatMap(shogi.variant.Variant.apply) | shogi.variant.Standard
           html.setup.forms.ai(
             form,
-            env.fishnet.aiPerfApi.intRatings,
             form("sfen").value map Sfen.clean flatMap ValidSfen(getBool("strict"), variant)
           )
         }

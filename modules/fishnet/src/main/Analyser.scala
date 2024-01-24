@@ -148,6 +148,7 @@ final class Analyser(
       _id = Work.makeId,
       sender = sender,
       game = game,
+      engine = lila.game.EngineConfig.Engine(game.initialSfen, game.variant, none).name,
       startPly = startPly,
       tries = 0,
       lastTryByKey = none,

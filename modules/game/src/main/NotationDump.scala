@@ -92,7 +92,9 @@ final class NotationDump(
     (game.sentePlayer.userId ?? lightUserApi.async) zip (game.gotePlayer.userId ?? lightUserApi.async)
 
   def player(p: Player, u: Option[LightUser]) =
-    p.aiLevel.fold(u.fold(p.name | lila.user.User.anonymous)(_.name))("lishogi AI level " + _)
+    p.engineConfig.fold(u.fold(p.name | lila.user.User.anonymous)(_.name))(ec =>
+      s"${ec.engine.fullName} level ${ec.level}"
+    )
 
   private def eventOf(game: Game) = {
     val perf = game.perfType.fold("Standard")(_.trans(lila.i18n.defaultLang))

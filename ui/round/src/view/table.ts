@@ -29,7 +29,7 @@ function renderPlayer(ctrl: RoundController, position: Position) {
             },
           }),
           h('i.line'),
-          h('name', renderUser.aiName(ctrl, player.ai)),
+          h('name', renderUser.aiName(ctrl, player.aiName, player.ai)),
         ])
       : renderUser.userHtml(ctrl, player, position);
 }

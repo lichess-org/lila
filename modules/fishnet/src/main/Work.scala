@@ -77,6 +77,7 @@ object Work {
       _id: Work.Id, // random
       game: Game,
       level: Int,
+      engine: String,
       clock: Option[Work.Clock],
       tries: Int,
       lastTryByKey: Option[Client.Key],
@@ -113,6 +114,7 @@ object Work {
       _id: Work.Id, // random
       sender: Sender,
       game: Game,
+      engine: String,
       startPly: Int,
       tries: Int,
       lastTryByKey: Option[Client.Key],

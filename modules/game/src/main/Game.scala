@@ -303,12 +303,14 @@ case class Game(
 
   def alarmable = hasCorrespondenceClock && playable && nonAi
 
-  def aiLevel: Option[Int] = players find (_.isAi) flatMap (_.aiLevel)
+  def aiPlayer: Option[Player]       = players find (_.isAi)
+  def aiEngine: Option[EngineConfig] = aiPlayer flatMap (_.engineConfig)
+  def aiLevel: Option[Int]           = aiEngine map (_.level)
 
   def hasAi: Boolean = players.exists(_.isAi)
   def nonAi          = !hasAi
 
-  def aiPov: Option[Pov] = players.find(_.isAi).map(_.color) map pov
+  def aiPov: Option[Pov] = aiPlayer.map(_.color) map pov
 
   def mapPlayers(f: Player => Player) =
     copy(

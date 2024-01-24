@@ -57,18 +57,10 @@ final class MoveDB(implicit system: ActorSystem) {
 
       case Acquire(client) => {
         sender() ! coll.values
-          .foldLeft[Option[Move]](None) {
-            case (found, m) if (m.nonAcquired && (client.skill != Client.Skill.MoveStd || m.isStandard)) => {
-              Some {
-                found.fold(m) { a =>
-                  if (m.canAcquire(client) && m.createdAt.isBefore(a.createdAt)) m else a
-                }
-              }
-            }
-            case (found, _) => {
-              found
-            }
-          }
+          .filter(m =>
+            m.nonAcquired && m.canAcquire(client) && (client.skill != Client.Skill.MoveStd || m.isStandard)
+          )
+          .minByOption(_.createdAt)
           .map { m =>
             val move = m assignTo client
             coll += (move.id -> move)
@@ -102,7 +94,7 @@ final class MoveDB(implicit system: ActorSystem) {
         val timedOut = coll.values.filter(_ acquiredBefore since)
         if (timedOut.nonEmpty) logger.debug(s"cleaning ${timedOut.size} of ${coll.size} moves")
         timedOut.foreach { m =>
-          logger.info(s"Timeout move $m")
+          logger.warn(s"Timeout move $m")
           updateOrGiveUp(m.timeout)
         }
     }

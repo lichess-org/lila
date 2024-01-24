@@ -70,8 +70,9 @@ final class JsonView(
             }.add("onGame" -> (player.isAi || socket.onGame(player.color))),
             "opponent" -> {
               commonPlayerJson(game, opponent, opponentUser, withFlags) ++ Json.obj(
-                "color" -> opponent.color.name,
-                "ai"    -> opponent.aiLevel
+                "color"  -> opponent.color.name,
+                "ai"     -> opponent.aiLevel,
+                "aiName" -> opponent.aiEngine.map(_.fullName)
               )
             }.add("isGone" -> (!opponent.isAi && socket.isGone(opponent.color)))
               .add("onGame" -> (opponent.isAi || socket.onGame(opponent.color))),

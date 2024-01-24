@@ -17,14 +17,14 @@ object Namer {
     }
 
   private def playerTextUser(player: Player, user: Option[LightUser], withRating: Boolean): String =
-    player.aiLevel.fold(
+    player.engineConfig.fold(
       user.fold(player.name | "Anon.") { u =>
         player.rating.ifTrue(withRating).fold(u.titleName) { r =>
           s"${u.titleName} ($r)"
         }
       }
-    ) { level =>
-      s"A.I. level $level" // todo - give proper engine name
+    ) { ec =>
+      s"${ec.engine.fullName} level ${ec.level}}"
     }
 
   def gameVsTextBlocking(game: Game, withRatings: Boolean = false)(implicit

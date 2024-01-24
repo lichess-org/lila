@@ -69,6 +69,7 @@ export interface Player {
   offeringRematch?: boolean;
   offeringDraw?: boolean;
   ai: number | null;
+  aiName: string | null;
   onGame: boolean;
   gone: number | boolean;
   blurs?: Blurs;

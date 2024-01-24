@@ -5,8 +5,8 @@ import { h } from 'snabbdom';
 import RoundController from '../ctrl';
 import { Position } from '../interfaces';
 
-export function aiName(ctrl: RoundController, level: number) {
-  return ctrl.trans('aiNameLevelAiLevel', 'Engine', level);
+export function aiName(ctrl: RoundController, name: string | null, level: number) {
+  return ctrl.trans('aiNameLevelAiLevel', name || 'Engine', level);
 }
 
 export function userHtml(ctrl: RoundController, player: Player, position: Position) {
@@ -109,6 +109,6 @@ export function userHtml(ctrl: RoundController, player: Player, position: Positi
 export function userTxt(ctrl: RoundController, player: Player) {
   if (player.user) {
     return (player.user.title ? player.user.title + ' ' : '') + player.user.username;
-  } else if (player.ai) return aiName(ctrl, player.ai);
+  } else if (player.ai) return aiName(ctrl, player.aiName, player.ai);
   else return 'Anonymous';
 }

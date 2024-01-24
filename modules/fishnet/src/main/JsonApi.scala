@@ -6,7 +6,6 @@ import play.api.libs.json._
 import shogi.format.forsyth.Sfen
 import shogi.format.usi.{ UciToUsi, Usi }
 import shogi.variant.Variant
-import shogi.Handicap
 
 import lila.common.{ IpAddress, Maths }
 import lila.common.Json._
@@ -214,16 +213,24 @@ object JsonApi {
   case class Move(
       id: String,
       level: Int,
+      engine: String,
       game: Game,
       clock: Option[Work.Clock]
   ) extends Work
 
   def moveFromWork(m: Work.Move) =
-    Move(m.id.value, m.level, fromGame(m.game), m.clock)
+    Move(
+      id = m.id.value,
+      level = m.level,
+      engine = m.engine,
+      game = fromGame(m.game),
+      clock = m.clock
+    )
 
   case class Analysis(
       id: String,
       game: Game,
+      engine: String,
       nodes: Int,
       skipPositions: List[Int]
   ) extends Work
@@ -232,6 +239,7 @@ object JsonApi {
     Analysis(
       id = a.id.value,
       game = fromGame(a.game),
+      engine = a.engine,
       nodes = nodes,
       skipPositions = a.skipPositions
     )
@@ -295,13 +303,6 @@ object JsonApi {
     implicit val WorkIdWrites = Writes[Work.Id] { id =>
       JsString(id.value)
     }
-    private def fairyOrYane(sfen: Sfen, variant: Variant) =
-      if (
-        variant.standard && Some(sfen)
-          .filterNot(_.initialOf(variant))
-          .fold(true)(sfen => Handicap.isHandicap(sfen, variant))
-      ) None
-      else Some("fairy")
 
     implicit val WorkWrites = OWrites[Work] { work =>
       (work match {
@@ -310,7 +311,7 @@ object JsonApi {
             "work" -> Json.obj(
               "type"   -> "analysis",
               "id"     -> a.id,
-              "flavor" -> fairyOrYane(a.game.position, a.game.variant)
+              "flavor" -> a.engine
             ),
             "nodes"         -> a.nodes,
             "skipPositions" -> a.skipPositions
@@ -322,7 +323,7 @@ object JsonApi {
               "id"     -> m.id,
               "level"  -> m.level,
               "clock"  -> m.clock,
-              "flavor" -> fairyOrYane(m.game.position, m.game.variant)
+              "flavor" -> m.engine
             )
           )
         case p: Puzzle =>

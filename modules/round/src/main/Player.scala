@@ -100,7 +100,7 @@ final private class Player(
     } else
       fufail(
         FishnetError(
-          s"Not AI turn move: ${usi} id: ${game.id} playable: ${game.playable} player: ${game.player}"
+          s"Not AI turn move: ${usi} id: ${game.id} playable: ${game.playable} player: ${game.player} plies: ${game.playedPlies}, $ply"
         )
       )
   }

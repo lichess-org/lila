@@ -12,7 +12,7 @@ case class PlayerUser(id: String, rating: Int, ratingDiff: Option[Int])
 case class Player(
     id: Player.ID,
     color: Color,
-    aiLevel: Option[Int],
+    engineConfig: Option[EngineConfig],
     isWinner: Option[Boolean] = None,
     isOfferingDraw: Boolean = false,
     lastDrawOffer: Option[Int] = None,
@@ -31,7 +31,9 @@ case class Player(
       rating map { PlayerUser(uid, _, ratingDiff) }
     }
 
-  def isAi = aiLevel.isDefined
+  def isAi     = engineConfig.isDefined
+  def aiLevel  = engineConfig.map(_.level)
+  def aiEngine = engineConfig.map(_.engine)
 
   def isHuman = !isAi
 
@@ -95,12 +97,12 @@ object Player {
 
   def make(
       color: Color,
-      aiLevel: Option[Int] = None
+      engineConfig: Option[EngineConfig] = none
   ): Player =
     Player(
       id = IdGenerator.player(color),
       color = color,
-      aiLevel = aiLevel
+      engineConfig = engineConfig
     )
 
   def make(
@@ -123,7 +125,7 @@ object Player {
     Player(
       id = IdGenerator.player(color),
       color = color,
-      aiLevel = none,
+      engineConfig = none,
       userId = userId.some,
       rating = rating.some,
       provisional = provisional
@@ -156,6 +158,7 @@ object Player {
   object BSONFields {
 
     val aiLevel           = "ai"
+    val aiEngine          = "et"
     val isOfferingDraw    = "od"
     val lastDrawOffer     = "ld"
     val proposeTakebackAt = "ta"
@@ -199,7 +202,16 @@ object Player {
               Player(
                 id = id,
                 color = color,
-                aiLevel = r intO aiLevel,
+                engineConfig = r
+                  .intO(aiLevel)
+                  .map(
+                    EngineConfig(
+                      _,
+                      r.strO(aiEngine)
+                        .flatMap(EngineConfig.Engine.getByCode)
+                        .getOrElse(EngineConfig.Engine.default)
+                    )
+                  ),
                 isWinner = win,
                 isOfferingDraw = r boolD isOfferingDraw,
                 lastDrawOffer = r intO lastDrawOffer,
@@ -217,6 +229,7 @@ object Player {
       o(shogi.Sente)("0000")(none)(none) pipe { p =>
         BSONDocument(
           aiLevel           -> p.aiLevel,
+          aiEngine          -> p.aiEngine.map(_.code),
           isOfferingDraw    -> w.boolO(p.isOfferingDraw),
           lastDrawOffer     -> p.lastDrawOffer,
           proposeTakebackAt -> w.intO(p.proposeTakebackAt),

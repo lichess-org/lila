@@ -124,12 +124,8 @@ object widgets {
           }
         )
       } getOrElse {
-        player.aiLevel map { level =>
-          frag(
-            span(aiName(level, false)),
-            br,
-            aiRating(level)
-          )
+        player.engineConfig map { ec =>
+          span(aiName(ec))
         } getOrElse {
           (player.nameSplit.fold[Frag](anonSpan) { case (name, rating) =>
             frag(

@@ -90,8 +90,6 @@ final class Env(
 
   lazy val analyser = wire[Analyser]
 
-  lazy val aiPerfApi = wire[AiPerfApi]
-
   wire[Cleaner]
 
   wire[MainWatcher]
