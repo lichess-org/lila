@@ -108,7 +108,7 @@ export class MultiBoardCtrl {
 
   setShowEval = (v: boolean) => {
     this.showEval = v;
-    this.reload();
+    this.redraw();
   };
 
   onCloudEval = (d: EvalHitMulti) => {
