@@ -30,6 +30,7 @@
   },
   "scripts": {
     "noDash": "rollup --config",
+    "dash": "rollup --config --config-plugin dashboard",
     "dev": "rollup --config && rollup --config --config-plugin dashboard",
     "prod": "rollup --config --config-prod && rollup --config --config-prod --config-plugin dashboard"
   }

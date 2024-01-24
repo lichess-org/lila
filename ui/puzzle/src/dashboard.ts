@@ -1,4 +1,4 @@
-import { Chart } from 'chart.js';
+import { Chart } from 'chart.js/auto';
 
 export function renderRadar(data: any) {
   const canvas = document.querySelector('.puzzle-dashboard__radar') as HTMLCanvasElement;
