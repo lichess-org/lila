@@ -53,6 +53,7 @@
   <string name="allSyncMembersRemainOnTheSamePosition">هەموو ئەندامەکانی SYNC لەسەر هەمان پێگە بمێننەوە</string>
   <string name="shareChanges">گۆڕانکاریەکان لەگەڵ بینەرەکان بەشداری پێبکە و لەسەر سێرڤەرەکە دایانبکه</string>
   <string name="playing">یاریکردن</string>
+  <string name="showEvalBar">هێڵەکانی هەڵسەنگاندن</string>
   <string name="first">یەکەم</string>
   <string name="previous">پێشوو</string>
   <string name="next">دواتر</string>
