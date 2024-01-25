@@ -191,7 +191,7 @@ export default class EditorCtrl {
   }
 
   makeImageUrl(fen: string, orientation: Color = 'white'): string {
-    const url = `https://lichess1.org/export/fen.gif?fen=${fen}&color=${orientation}`;
+    const url = `${lichess.asset.baseUrl()}/export/fen.gif?fen=${urlFen(fen)}&color=${orientation}`;
     return url;
   }
 
