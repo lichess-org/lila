@@ -49,7 +49,7 @@ private object RelayInputSanity:
 
   // DGT puts the kings in the center on game end
   // and sends it as actual moves if the kings were close to the center
-  // so we need to remove the boggus king moves
+  // so we need to remove the bogus king moves
   private def fixDgtKingsInTheCenter(games: RelayGames): RelayGames = games map { game =>
     game.copy(
       root = game.root.takeMainlineWhile: node =>

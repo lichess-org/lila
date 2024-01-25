@@ -236,7 +236,7 @@ final class ReportApi(
           .void
     yield ()
 
-  // `seriousness` depends on the number of previous warnings, and number of games throwed away
+  // `seriousness` depends on the number of previous warnings, and number of games thrown away
   def autoBoostReport(winnerId: UserId, loserId: UserId, seriousness: Int): Funit =
     securityApi.shareAnIpOrFp(winnerId, loserId) zip
       userRepo.pair(winnerId, loserId) zip getLichessReporter flatMap {
