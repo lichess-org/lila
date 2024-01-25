@@ -49,7 +49,11 @@ object HTTPRequest {
   def isChrome(req: RequestHeader)                        = uaContains(req, "Chrome/")
 
   // chrome 96+, firefox 119+
-  val supportsCredentialless = UaMatcher("""Chrome/(?:\d{3,}|9[6-9])|Firefox/(?:119|1[2-9]\d|[2-9]\d\d)""")
+  val isChrome96Plus   = UaMatcher("""Chrome/(?:\d{3,}|9[6-9])""")
+  val isFirefox119Plus = UaMatcher("""Firefox/(?:119|1[2-9]\d|[2-9]\d\d)""")
+  val isMobielBrowser  = UaMatcher("""(?i)iphone|ipad|ipod|android.+mobile""")
+  def supportsCredentialless(req: RequestHeader) =
+    isChrome96Plus(req) || (!isMobielBrowser(req) && isFirefox119Plus(req))
 
   def origin(req: RequestHeader): Option[String] = req.headers get HeaderNames.ORIGIN
 
