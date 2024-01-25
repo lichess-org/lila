@@ -321,9 +321,8 @@ function inputs(ctrl: EditorCtrl, fen: string): VNode | undefined {
       'a',
       {
         attrs: {
-          href: ctrl.makeImageUrl(fen, ctrl.bottomColor()), // Replace 'yourImageUrl' with the actual URL you want to link to
-          target: '_blank', // Optional: Opens the link in a new tab
-          rel: 'noopener noreferrer', // Optional: Security measure for opening new tabs
+          href: ctrl.makeImageUrl(fen, ctrl.bottomColor()),
+          rel: 'noopener noreferrer',
         },
       },
       'SCREENSHOT',
