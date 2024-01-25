@@ -278,7 +278,7 @@ const evalGauge = (chap: ChapterPreview, cloudEval: GetCloudEval): VNode =>
         },
       },
     }),
-    h('tick.zero', { attrs: { style: `height: ${50}%` } }),
+    h('tick.zero'),
   ]);
 
 const renderScore = (s: EvalScore) =>
