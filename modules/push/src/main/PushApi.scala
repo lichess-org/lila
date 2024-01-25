@@ -340,7 +340,7 @@ final private class PushApi(
   // ignores notification preferences
   private def alwaysPushFirebaseData(userId: UserId, monitor: MonitorType, data: LazyFu[Data]): Funit =
     firebasePush(userId, data.dmap(_.copy(firebaseMod = Data.FirebaseMod.DataOnly.some))).addEffects: res =>
-      monitor(lila.mon.push.send)("firebase", res.isSuccess, 1)
+      monitor(lila.mon.push.send)("firebaseData", res.isSuccess, 1)
 
   private def describeChallenge(c: Challenge) =
     import lila.challenge.Challenge.TimeControl.*
