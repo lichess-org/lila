@@ -50,6 +50,7 @@
   <string name="allSyncMembersRemainOnTheSamePosition">Đồng bộ hóa tất cả các thành viên trên cùng một thế cờ</string>
   <string name="shareChanges">Chia sẻ các thay đổi với khán giả và lưu chúng trên máy chủ</string>
   <string name="playing">Đang chơi</string>
+  <string name="showEvalBar">Thanh lợi thế</string>
   <string name="first">Trang đầu</string>
   <string name="previous">Trang trước</string>
   <string name="next">Trang tiếp theo</string>
