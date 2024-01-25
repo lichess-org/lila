@@ -45,7 +45,7 @@ final class NotifyApi(
       unreadCountCache.put(_, fuccess(0))
     }
 
-  private val unreadCountCache = cacheApi[Notification.Notifies, Int](32768, "notify.unreadCountCache") {
+  private val unreadCountCache = cacheApi[Notification.Notifies, Int](8192, "notify.unreadCountCache") {
     _.expireAfterAccess(20 minutes)
       .buildAsyncFuture(repo.unreadNotificationsCount)
   }

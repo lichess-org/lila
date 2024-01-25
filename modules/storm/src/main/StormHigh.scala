@@ -52,7 +52,7 @@ final class StormHighApi(coll: Coll, cacheApi: CacheApi)(implicit ctx: Execution
     }
   }
 
-  private val cache = cacheApi[User.ID, StormHigh](1024, "storm.high") {
+  private val cache = cacheApi[User.ID, StormHigh](512, "storm.high") {
     _.expireAfterAccess(1 hour).buildAsyncFuture(compute)
   }
 

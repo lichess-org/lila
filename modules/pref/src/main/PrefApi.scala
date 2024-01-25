@@ -17,7 +17,7 @@ final class PrefApi(
 
   private def fetchPref(id: User.ID): Fu[Option[Pref]] = coll.ext.find($id(id)).one[Pref]
 
-  private val cache = cacheApi[User.ID, Option[Pref]](4096, "pref.fetchPref") {
+  private val cache = cacheApi[User.ID, Option[Pref]](2048, "pref.fetchPref") {
     _.expireAfterAccess(10 minutes)
       .buildAsyncFuture(fetchPref)
   }
