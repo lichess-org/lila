@@ -80,7 +80,7 @@ final private class PushApi(
         _.filter(_.playable) so: game =>
           game.sans.lastOption.so: sanMove =>
             game.povs.traverse_ { pov =>
-              game.player.userId so: userId =>
+              pov.player.userId so: userId =>
                 val data = LazyFu: () =>
                   for
                     nbMyTurn <- gameRepo.countWhereUserTurn(userId)
