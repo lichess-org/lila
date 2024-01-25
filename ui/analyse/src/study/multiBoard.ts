@@ -259,8 +259,7 @@ const makePreview = (study: StudyCtrl, cloudEval?: GetCloudEval) => (preview: Ch
   );
 
 const evalGauge = (chap: ChapterPreview, cloudEval: GetCloudEval): VNode =>
-  h(
-    'span.mini-game__gauge',
+  h('span.mini-game__gauge', [
     h('span.mini-game__gauge__black', {
       hook: {
         postpatch(old, vnode) {
@@ -279,7 +278,8 @@ const evalGauge = (chap: ChapterPreview, cloudEval: GetCloudEval): VNode =>
         },
       },
     }),
-  );
+    h('tick.zero', { attrs: { style: `height: ${50}%` } }),
+  ]);
 
 const renderScore = (s: EvalScore) =>
   s.mate ? '#' + s.mate : defined(s.cp) ? `${s.cp >= 0 ? '+' : ''}${s.cp / 100}` : '?';
