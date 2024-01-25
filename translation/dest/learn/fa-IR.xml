@@ -10,15 +10,15 @@
   <string name="chessPieces">مُهره‌های شطرنج</string>
   <string name="theRook">رُخ</string>
   <string name="itMovesInStraightLines">در خطوط صاف حرکت می‌کند</string>
-  <string name="rookIntro">رُخ مهره نیرومندیست. آماده‌ای که به آن دستور بدی؟</string>
+  <string name="rookIntro">رُخ مهره نیرومندیست. آماده‌اید که به آن دستور دهید؟</string>
   <string name="rookGoal">روی رخ کلیک کن
 تا روی ستاره ببریش!</string>
-  <string name="grabAllTheStars">همه ستاره‌ها را بگیر!</string>
+  <string name="grabAllTheStars">همه ستاره‌ها را بگیرید!</string>
   <string name="theFewerMoves">هر چه تعداد حرکت‌ها کمتر،
 امتیاز بیشتر!</string>
   <string name="useTwoRooks">از دو تا رُخ استفاده کن
-تا به همه چیز سرعت ببخشی!</string>
-  <string name="rookComplete">تبریک! موفق شدید، بر مُهره رُخ مسلط شدید.</string>
+تا به همه چیز سرعت ببخشید!</string>
+  <string name="rookComplete">تبریک! موفق شدید بر مُهره رُخ مسلط شوید.</string>
   <string name="theBishop">فیل</string>
   <string name="itMovesDiagonally">مورب حرکت میکنه</string>
   <string name="bishopIntro">در مرحله بعدی یاد می‌گیریم چگونه با فیل جولان دهیم!</string>
