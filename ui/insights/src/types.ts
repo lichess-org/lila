@@ -5,6 +5,7 @@ export type Tab = (typeof tabs)[number];
 
 export interface InsightOpts {
   username: string;
+  usernameHash: string;
   endpoint: string;
   isBot: boolean;
   i18n: any;

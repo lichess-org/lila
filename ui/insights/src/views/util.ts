@@ -27,6 +27,8 @@ export function smallWinrateChart(winrate: WinRate): VNode {
 }
 
 export function horizontalBar(numbers: number[], cls: string[] = []): VNode {
+  const noFirst = numbers[0] === 0,
+    noLast = numbers[numbers.length - 1] === 0;
   return h(
     'div.simple-horizontal-bar',
     numbers.map((n, i) =>
@@ -34,7 +36,13 @@ export function horizontalBar(numbers: number[], cls: string[] = []): VNode {
         style: {
           width: n + '%',
           borderRadius:
-            n === 100 ? '10px' : i === 0 ? '10px 0 0 10px' : i === numbers.length - 1 ? '0 10px 10px 0' : '0',
+            n === 100
+              ? '10px'
+              : i === 0 || (noFirst && i === 1)
+                ? '10px 0 0 10px'
+                : i === numbers.length - 1 || (noLast && i === numbers.length - 2)
+                  ? '0 10px 10px 0'
+                  : '0',
         },
       })
     )

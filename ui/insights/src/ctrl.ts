@@ -6,6 +6,7 @@ const li = window.lishogi;
 
 export default class InsightCtrl {
   username: string;
+  usernameHash: string;
   endpoint: string;
   isBot: boolean;
 
@@ -27,6 +28,7 @@ export default class InsightCtrl {
     readonly redraw: Redraw
   ) {
     this.username = opts.username;
+    this.usernameHash = opts.usernameHash;
     this.endpoint = opts.endpoint;
     this.isBot = opts.isBot;
     this.trans = li.trans(this.opts.i18n);
@@ -101,10 +103,10 @@ export default class InsightCtrl {
     this.isError = false;
     const queryString = this.queryString(tab, true);
     const path = this.endpoint + '/' + tab + (queryString ? '?' + queryString : '');
-    console.log(path);
     fetch(path, {
       headers: {
         'Content-Type': 'application/json',
+        Authorization: this.usernameHash,
       },
     })
       .then(response => {

@@ -49,7 +49,10 @@ function content(ctrl: InsightCtrl, tab: Tab): VNode {
     return h(
       'div.angle-content.loading',
       ctrl.isError
-        ? 'Insights are not currently available. Sorry about that! If this keeps happening please report this on GitHub.'
+        ? h(
+            'p',
+            'Insights are not currently available. Sorry about that! If this keeps happening please report this on GitHub.'
+          )
         : spinner()
     );
 
