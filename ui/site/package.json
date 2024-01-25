@@ -25,7 +25,7 @@
   },
   "dependencies": {
     "balloon-css": "^1.2.0",
-    "fairy-stockfish-nnue.wasm": "^1.1",
+    "fairy-stockfish-nnue.wasm": "=1.1.5",
     "highcharts": "=4.2.5",
     "hopscotch": "^0.3.1",
     "jquery-bar-rating": "^1.2.2",
