@@ -317,12 +317,17 @@ function inputs(ctrl: EditorCtrl, fen: string): VNode | undefined {
         attrs: { readonly: true, spellcheck: 'false', value: ctrl.makeEditorUrl(fen, ctrl.bottomColor()) },
       }),
     ]),
-    h('p', [
-      h('strong.name', 'IMAGE'),
-      h('input.copyable.autoselect', {
-        attrs: { readonly: true, spellcheck: 'false', value: ctrl.makeImageUrl(fen, ctrl.bottomColor()) },
-      }),
-    ]),
+    h(
+      'a',
+      {
+        attrs: {
+          href: ctrl.makeImageUrl(fen, ctrl.bottomColor()), // Replace 'yourImageUrl' with the actual URL you want to link to
+          target: '_blank', // Optional: Opens the link in a new tab
+          rel: 'noopener noreferrer', // Optional: Security measure for opening new tabs
+        },
+      },
+      'SCREENSHOT',
+    ),
   ]);
 }
 
