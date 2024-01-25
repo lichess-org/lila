@@ -268,7 +268,7 @@ export default function (opts: CevalOpts): CevalCtrl {
             downloadProgress(mb);
             opts.redraw();
           }),
-          version: 'bfb658a',
+          version: 'e01aa3c',
           wasmMemory: sharedWasmMemory(2048, maxWasmPages(2048)),
           cache: window.indexedDB && new Cache('ceval-wasm-cache'),
         });
@@ -277,7 +277,7 @@ export default function (opts: CevalOpts): CevalCtrl {
           baseName: 'stockfish',
           baseUrl: 'vendor/fairy/',
           module: 'Stockfish',
-          version: '014622b',
+          version: 'b02c911',
           wasmMemory: sharedWasmMemory(2048, maxWasmPages(2048)),
         });
     }
