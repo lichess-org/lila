@@ -1,20 +1,18 @@
-package lila.app
-package mashup
+package lila.app.mashup
 
 import com.github.blemale.scaffeine.AsyncLoadingCache
-import play.api.libs.json.*
+import play.api.libs.json._
 
 import lila.event.Event
-import lila.game.{ Game, Pov }
+import lila.game.{Game, Pov}
 import lila.playban.TempBan
-import lila.simul.{ Simul, SimulIsFeaturable }
+import lila.simul.{Simul, SimulIsFeaturable}
 import lila.streamer.LiveStreams
 import lila.swiss.Swiss
 import lila.timeline.Entry
-import lila.tournament.{ Tournament, Winner }
+import lila.tournament.{Tournament, Winner}
 import lila.ublog.UblogPost
-import lila.user.LightUserApi
-import lila.user.{ User, Me }
+import lila.user.{LightUserApi, Me, User}
 
 final class Preload(
     tv: lila.tv.Tv,
@@ -48,7 +46,7 @@ final class Preload(
       streamerSpots: Int
   )(using ctx: Context): Fu[Homepage] = for
     nbNotifications <- ctx.me.so(notifyApi.unreadCount(_))
-    withPerfs       <- ctx.user.soFu(perfsRepo.withPerfs)
+    withPerfs <- ctx.user.soFu(perfsRepo.withPerfs)
     given Option[User.WithPerfs] = withPerfs
     (
       (
