@@ -190,14 +190,11 @@ export default class EditorCtrl {
     return `${this.cfg.baseUrl}/${urlFen(fen)}${variant}${orientationParam}`;
   }
 
-  makeImageUrl(fen: string, orientation: Color = 'white'): string {
-    const url = `${lichess.asset.baseUrl()}/export/fen.gif?fen=${urlFen(fen)}&color=${orientation}`;
-    return url;
-  }
+  makeImageUrl = (fen: string, orientation: Color = 'white'): string =>
+    `${lichess.asset.baseUrl()}/export/fen.gif?fen=${urlFen(fen)}&color=${orientation}`;
 
-  bottomColor(): Color {
-    return this.chessground ? this.chessground.state.orientation : this.options.orientation || 'white';
-  }
+  bottomColor = (): Color =>
+    this.chessground ? this.chessground.state.orientation : this.options.orientation || 'white';
 
   setCastlingToggle(id: CastlingToggle, value: boolean): void {
     if (this.castlingToggles[id] != value) this.castlingRights = undefined;
