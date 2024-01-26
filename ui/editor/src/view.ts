@@ -321,8 +321,7 @@ function inputs(ctrl: EditorCtrl, fen: string): VNode | undefined {
       'a',
       {
         attrs: {
-          href: ctrl.makeImageUrl(fen, ctrl.bottomColor()),
-          rel: 'noopener noreferrer',
+          href: ctrl.makeImageUrl(fen),
         },
       },
       'SCREENSHOT',
