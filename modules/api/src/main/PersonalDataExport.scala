@@ -23,6 +23,8 @@ final class PersonalDataExport(
     streamerApi: lila.streamer.StreamerApi,
     coachApi: lila.coach.CoachApi,
     appealApi: lila.appeal.AppealApi,
+    shutupEnv: lila.shutup.Env,
+    modLogApi: lila.mod.ModlogApi,
     reportEnv: lila.report.Env,
     picfitUrl: lila.memo.PicfitUrl
 )(using Executor, Materializer):
@@ -192,6 +194,22 @@ final class PersonalDataExport(
             atoms.map: a =>
               s"${textDate(a.at)}\n${a.text}$bigSep"
 
+    val dubiousChats = Source.futureSource:
+      shutupEnv.api.getPublicLines(user.id) map: lines =>
+        Source:
+          List(textTitle("Dubious public chats")) :::
+            lines.map: l =>
+              s"${l.date.so(textDate)}\n${l.text}$bigSep"
+
+    val timeouts = Source.futureSource:
+      modLogApi.timeoutPersonalExport(user.id) map: modlogs =>
+        Source:
+          List(textTitle("Messages you were timeouted for")) :::
+            modlogs.map: m =>
+              // do not export the reason of the timeout as not personal data
+              val timeoutMsg = m.details.so(_.split(":").drop(1).mkString(":").trim())
+              s"${textDate(m.date)}\n${timeoutMsg}$bigSep"
+
     val outro = Source(List(textTitle("End of data export.")))
 
     List[Source[String, ?]](
@@ -206,6 +224,8 @@ final class PersonalDataExport(
       spectatorGameChats,
       gameNotes,
       reports,
+      dubiousChats,
+      timeouts,
       appeals,
       outro
     ).foldLeft(Source.empty[String])(_ concat _)

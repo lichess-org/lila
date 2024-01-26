@@ -245,6 +245,18 @@ final class ModlogApi(repo: ModlogRepo, userRepo: UserRepo, ircApi: IrcApi, pres
       "action" -> Modlog.unbooster
     )
 
+  def timeoutPersonalExport(userId: UserId): Fu[List[Modlog]] =
+    coll.tempPrimary
+      .find(
+        $doc(
+          "user"   -> userId,
+          "action" -> Modlog.chatTimeout
+        )
+      )
+      .sort($sort desc "date")
+      .cursor[Modlog]()
+      .list(100)
+
   def userHistory(userId: UserId): Fu[List[Modlog]] =
     coll.find($doc("user" -> userId)).sort($sort desc "date").cursor[Modlog]().list(60)
 
