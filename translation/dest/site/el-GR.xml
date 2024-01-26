@@ -659,8 +659,10 @@
   <string name="simultaneousExhibitions">Σιμουλτανέ</string>
   <string name="host">Διοργανωτής</string>
   <string name="hostColorX">Χρώμα διοργανωτή: %s</string>
+  <string name="yourPendingSimuls">Τα εκκρεμείς σας σιμουλτανέ</string>
   <string name="createdSimuls">Πρόσφατα σιμουλτανέ</string>
   <string name="hostANewSimul">Διοργάνωση νέου σιμουλτανέ</string>
+  <string name="signUpToHostOrJoinASimul">Εγγραφείτε για να φιλοξενήσετε ή να συμμετάσχετε σε ένα σιμουλτανέ</string>
   <string name="noSimulFound">Το σιμουλτανέ δε βρέθηκε</string>
   <string name="noSimulExplanation">Αυτό το σιμουλτανέ δεν υπάρχει.</string>
   <string name="returnToSimulHomepage">Επιστροφή στην αρχική σελίδα σιμουλτανέ</string>
@@ -692,6 +694,8 @@
   <string name="keyNextBlunder">Επόμενο σοβαρό σφάλμα</string>
   <string name="keyNextMistake">Επόμενο λάθος</string>
   <string name="keyNextInaccuracy">Επόμενη ανακρίβεια</string>
+  <string name="keyPreviousBranch">Προηγούμενος κλάδος</string>
+  <string name="keyNextBranch">Επόμενος κλάδως</string>
   <string name="playSelectedMove">παίξε την επιλεγμένη κίνηση</string>
   <string name="newTournament">Νέο τουρνουά</string>
   <string name="tournamentHomeTitle">Σκακιστικά τουρνουά διαφόρων χρόνων και εκδοχών</string>
@@ -849,6 +853,7 @@
     <item quantity="one">και αποθηκεύστε %s γραμμή προκίνησης</item>
     <item quantity="other">και αποθηκεύστε %s γραμμές προκίνησης</item>
   </plurals>
+  <string name="showUnreadLichessMessage">Έχετε λάβει ένα προσωπικό μήνυμα από το Lichess.</string>
   <string name="clickHereToReadIt">Κάντε κλικ εδώ για να το δείτε</string>
   <string name="sorry">Λυπούμαστε :(</string>
   <string name="weHadToTimeYouOutForAWhile">Πρέπει να σας αποκλείσουμε για λίγο.</string>
