@@ -399,6 +399,10 @@ You are playing chess.</string>
   <string name="player">ක්‍රීඩකයා</string>
   <string name="list">ලැයිස්තුව</string>
   <string name="graph">ප්‍රස්ථාරය​</string>
+  <plurals name="lessThanNbMinutes">
+    <item quantity="one">%s මිනිත්තුවකට අඩුයි</item>
+    <item quantity="other">මිනිත්තු %sකට අඩුයි</item>
+  </plurals>
   <string name="required">අවශ්‍යයි.</string>
   <string name="openTournaments">විවෘත තරඟාවලි</string>
   <string name="duration">කාල සීමාව</string>
@@ -461,6 +465,7 @@ You are playing chess.</string>
   <string name="oneUrlPerLine">පේළියකට එක් url එකක් බැගින්.</string>
   <string name="inlineNotation">පේළිගත අංකනය</string>
   <string name="makeAStudy">සුරක්ෂිතව තබාගැනීමට සහ බෙදාගැනීම සඳහා, අධ්‍යයනයක් කිරීමට සලකා බලන්න.</string>
+  <string name="clearSavedMoves">ඇදීම් මකන්න</string>
   <string name="previouslyOnLichessTV">කලින් Lichess TV එකේ</string>
   <string name="onlinePlayers">ඔන්ලයින් ක්‍රීඩකයන්</string>
   <string name="activePlayers">ක්‍රියාකාරි ක්‍රීඩකයන්</string>
@@ -494,6 +499,15 @@ You are playing chess.</string>
   <string name="reportAUser">පරිශීලකයෙකු වාර්තා කරන්න</string>
   <string name="user">පරිශීලකයෙක්</string>
   <string name="reason">හේතුව</string>
+  <string name="whatIsIheMatter">කාරණය කුමක් ද?</string>
+  <string name="cheat">වංචාකරණ​ය​</string>
+  <string name="insult">අපහාස කිරීම​</string>
+  <string name="troll">ට්‍රෝල් කිරීම​</string>
+  <string name="ratingManipulation">ශ්‍රේණිගත කිරීම් වංචාව​</string>
+  <string name="other">වෙනත්</string>
+  <string name="reportDescriptionHelp">ක්‍රීඩා(ව​) වෙත සබැඳිය අලවා මෙම පරිශීලකයාගේ හැසිරීමේ ඇති වරද කුමක්දැයි පැහැදිලි කරන්න. \"ඔවුන් වංචා කරනවා\" පමණක් නොකියන්න, නමුත් ඔබ මෙම නිගමනයට පැමිණියේ කෙසේදැයි අපට කියන්න. ඔබේ වාර්තාව ඉංග්‍රීසියෙන් ලියා ඇත්නම් වේගයෙන් සකසනු ලැබේ.</string>
+  <string name="error.provideOneCheatedGameLink">වංචා කළ ක්‍රීඩාව සඳහා එක් සබැඳියක්වත් දීමට කාරුණික වන්න​.</string>
+  <string name="blog">බ්ලොග්</string>
   <string name="sound">ශබ්දය</string>
   <string name="none">කිසිවක් නැත</string>
   <string name="fast">ඉක්මනින්</string>

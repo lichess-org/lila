@@ -62,7 +62,7 @@
   <string name="studyPgn">PGN на казуса</string>
   <string name="downloadAllGames">Изтегли всички партии</string>
   <string name="chapterPgn">PGN на главата</string>
-  <string name="copyChapterPgn" comment="A button which lets you copy the PGN text to your clipboard (i.e. similar to ⌘+C or Ctrl+C).">Копирай PGN</string>
+  <string name="copyChapterPgn">Копирай PGN</string>
   <string name="copyChapterPgnDescription">Копирай PGN на главата.</string>
   <string name="downloadGame">Изтегли партия</string>
   <string name="studyUrl">URL на казуса</string>

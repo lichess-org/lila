@@ -16,7 +16,7 @@
   <string name="previous">Умӗнхи</string>
   <string name="next">Тепри</string>
   <string name="last">Йулашки</string>
-  <string name="copyChapterPgn" comment="A button which lets you copy the PGN text to your clipboard (i.e. similar to ⌘+C or Ctrl+C).">PGN копиле</string>
+  <string name="copyChapterPgn">PGN копиле</string>
   <string name="startAtX">%s-ран пуҫла</string>
   <string name="empty">Пушӑ</string>
   <string name="public">Уҫӑ</string>

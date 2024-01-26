@@ -62,7 +62,7 @@
   <string name="studyPgn">Etüden PGN</string>
   <string name="downloadAllGames">All Partien eroflueden</string>
   <string name="chapterPgn">Kapitel PGN</string>
-  <string name="copyChapterPgn" comment="A button which lets you copy the PGN text to your clipboard (i.e. similar to ⌘+C or Ctrl+C).">PGN kopéieren</string>
+  <string name="copyChapterPgn">PGN kopéieren</string>
   <string name="copyChapterPgnDescription">Kapitel-PGN an d\'Zwëschenoflag kopéieren.</string>
   <string name="downloadGame">Partie eroflueden</string>
   <string name="studyUrl">Etüden URL</string>

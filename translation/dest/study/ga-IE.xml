@@ -71,7 +71,7 @@
   <string name="studyPgn">Déan staidéar ar PGN</string>
   <string name="downloadAllGames">Íoslódáil gach cluiche</string>
   <string name="chapterPgn">PGN caibidle</string>
-  <string name="copyChapterPgn" comment="A button which lets you copy the PGN text to your clipboard (i.e. similar to ⌘+C or Ctrl+C).">Cóipeáil PGN</string>
+  <string name="copyChapterPgn">Cóipeáil PGN</string>
   <string name="copyChapterPgnDescription">Cóipeáil an chaibidil PGN chuig an ngearrthaisce.</string>
   <string name="downloadGame">Íoslódáil cluiche</string>
   <string name="studyUrl">URL an staidéir</string>

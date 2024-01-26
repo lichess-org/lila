@@ -50,6 +50,7 @@
   <string name="allSyncMembersRemainOnTheSamePosition">同期したメンバーは同じ局面に留まります</string>
   <string name="shareChanges">変更を観戦者と共有し、サーバに保存する</string>
   <string name="playing">プレイ中</string>
+  <string name="showEvalBar">評価値バー</string>
   <string name="first">最初</string>
   <string name="previous">前</string>
   <string name="next">次</string>
@@ -59,7 +60,7 @@
   <string name="studyPgn">研究の PGN</string>
   <string name="downloadAllGames">全局をダウンロード</string>
   <string name="chapterPgn">章の PGN</string>
-  <string name="copyChapterPgn" comment="A button which lets you copy the PGN text to your clipboard (i.e. similar to ⌘+C or Ctrl+C).">PGN をコピー</string>
+  <string name="copyChapterPgn">PGN をコピー</string>
   <string name="copyChapterPgnDescription">章の PGN をクリップボードにコピーする。</string>
   <string name="downloadGame">1 局をダウンロード</string>
   <string name="studyUrl">研究の URL</string>
