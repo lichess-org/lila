@@ -5,10 +5,17 @@ import chess.format.pgn.PgnStr
 
 import lila.study.MultiPgn
 import lila.base.LilaInvalid
+import lila.hub.AsyncActorSequencers
+import lila.common.config.Max
 
-final class RelayPush(sync: RelaySync, api: RelayApi, irc: lila.irc.IrcApi)(using ActorSystem, Executor):
+final class RelayPush(sync: RelaySync, api: RelayApi, irc: lila.irc.IrcApi)(using Executor, Scheduler):
 
-  private val throttler = lila.hub.EarlyMultiThrottler[RelayRoundId](logger)
+  private val workQueue = AsyncActorSequencers[RelayRoundId](
+    maxSize = Max(8),
+    expiration = 1 minute,
+    timeout = 10 seconds,
+    name = "relay.push"
+  )
 
   type Result = Either[LilaInvalid, Int]
 
@@ -16,7 +23,7 @@ final class RelayPush(sync: RelaySync, api: RelayApi, irc: lila.irc.IrcApi)(usin
     if rt.round.sync.hasUpstream
     then fuccess(Left(LilaInvalid("The relay has an upstream URL, and cannot be pushed to.")))
     else
-      throttler.ask[Result](rt.round.id, 1.seconds):
+      workQueue(rt.round.id):
         pushNow(rt, pgn)
 
   private def pushNow(rt: RelayRound.WithTour, pgn: PgnStr): Fu[Result] =
