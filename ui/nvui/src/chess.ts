@@ -466,7 +466,7 @@ export function pieceJumpingHandler(wrapSound: () => void, errorSound: () => voi
     const $piece = $next ? $prevNextPieces.get(0) : $prevNextPieces.get($prevNextPieces.length - 1);
     if ($piece) {
       $piece.focus();
-      // if detected any matching piece; one is the pice being clicked on,
+      // if detected any matching piece; one is the piece being clicked on,
     } else if ($allPieces.length >= 2) {
       const $wrapPiece = $next ? $allPieces.get(0) : $allPieces.get($allPieces.length - 1);
       $wrapPiece?.focus();

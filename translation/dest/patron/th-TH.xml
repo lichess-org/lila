@@ -28,4 +28,6 @@
   <string name="giftPatronWingsShort">ให้ปีกอุปถัมภ์</string>
   <string name="giftPatronWings">ให้ปีกอุปถัมภ์แก่ผู้เล่น</string>
   <string name="cancelSupport">ยกเลิกการสนับสนุน</string>
+  <string name="paymentDetails">รายละเอียดการชำระเงิน</string>
+  <string name="updatePaymentMethod">อัปเดตวิธีการชำระเงิน</string>
 </resources>

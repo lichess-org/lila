@@ -51,7 +51,7 @@ object SetupBulk:
     mapping(
       "players" -> nonEmptyText
         .verifying("Not enough tokens", t => extractTokenPairs(t).nonEmpty)
-        .verifying(s"Too many tokens (max: ${maxGames * 2})", t => extractTokenPairs(t).sizeIs < maxGames),
+        .verifying(s"Too many tokens (max: ${maxGames * 2})", t => extractTokenPairs(t).sizeIs <= maxGames),
       SetupForm.api.variant,
       SetupForm.api.clock,
       SetupForm.api.optionalDays,
@@ -225,7 +225,7 @@ final class SetupBulkApi(oauthServer: OAuthServer, idGenerator: IdGenerator)(usi
               .collect { case List(w, b) => (w, b) }
               .toList
             val nbGames = pairs.size
-            val cost    = nbGames * (if me.isVerified || me.isApiHog then 1 else 3)
+            val cost    = nbGames * (if me.isVerifiedOrChallengeAdmin || me.isApiHog then 1 else 3)
             rateLimit(me.id, fuccess(Left(ScheduleError.RateLimited)), cost = cost):
               lila.mon.api.challenge.bulk.scheduleNb(me.id.value).increment(nbGames)
               idGenerator

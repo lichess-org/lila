@@ -134,6 +134,7 @@ final class GameApiV2(
           .sortedCursor(
             $inIds(config.ids),
             Query.sortCreated,
+            hint = $id(1).some,
             batchSize = config.perSecond.value
           )
           .documentSource()
@@ -273,6 +274,7 @@ final class GameApiV2(
       "createdAt"  -> g.createdAt,
       "lastMoveAt" -> g.movedAt,
       "status"     -> g.status.name,
+      "source"     -> g.source,
       "players" -> JsObject(lightUsers.mapList: (p, user) =>
         p.color.name -> gameJsonView
           .player(p, user)

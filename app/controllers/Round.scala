@@ -107,7 +107,7 @@ final class Round(
   }
 
   def watcher(gameId: GameId, color: String) = Open:
-    proxyPov(gameId, color) flatMap {
+    proxyPov(gameId, color) flatMap:
       case Some(pov) =>
         getUserStr("pov")
           .map(_.id)
@@ -121,7 +121,6 @@ final class Round(
       case None =>
         userC.tryRedirect(gameId into UserStr) getOrElse
           challengeC.showId(gameId into lila.challenge.Challenge.Id)
-    }
 
   private def proxyPov(gameId: GameId, color: String): Fu[Option[Pov]] =
     chess.Color.fromName(color) so:
