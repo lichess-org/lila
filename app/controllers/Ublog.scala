@@ -155,9 +155,12 @@ final class Ublog(env: Env) extends LilaController(env):
 
   }
 
-  private def logModAction(post: UblogPost, action: String)(using ctx: Context, me: Me): Funit =
+  private def logModAction(post: UblogPost, action: String, logInludingMe: Boolean = false)(using
+      ctx: Context,
+      me: Me
+  ): Funit =
     isGrantedOpt(_.ModerateBlog).so:
-      !me.is(post.created.by) so {
+      (logInludingMe || !me.is(post.created.by)) so {
         env.user.repo.byId(post.created.by) flatMapz { user =>
           env.mod.logApi.blogPostEdit(Suspect(user), post.id, post.title, action)
         }
@@ -199,7 +202,11 @@ final class Ublog(env: Env) extends LilaController(env):
           (rankAdjustDays, pinned) =>
             for
               _ <- env.ublog.api.setRankAdjust(post.id, ~rankAdjustDays, pinned)
-              _ <- env.mod.logApi.ublogRankAdjust(post.created.by, post.id, ~rankAdjustDays, pinned)
+              _ <- logModAction(
+                post,
+                s"${~rankAdjustDays} days${pinned so " and pinned to top"} rank adjustement",
+                logInludingMe = true
+              )
               _ <- env.ublog.rank.recomputePostRank(post)
             yield Redirect(urlOfPost(post)).flashSuccess
         )
