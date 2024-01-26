@@ -53,6 +53,7 @@
   <string name="allSyncMembersRemainOnTheSamePosition">Krejt anëtarët SYNC mbesin në të njëjtin pozicion</string>
   <string name="shareChanges">Ndani ndryshimet me shikuesit dhe ruajini ato në shërbyes</string>
   <string name="playing">Po luhet</string>
+  <string name="showEvalBar">Shtylla vlerësimi</string>
   <string name="first">E para</string>
   <string name="previous">E mëparshmja</string>
   <string name="next">Pasuesja</string>
@@ -62,7 +63,7 @@
   <string name="studyPgn">Studioni PGN</string>
   <string name="downloadAllGames">Shkarkoji krejt lojërat</string>
   <string name="chapterPgn">PGN e kapitullit</string>
-  <string name="copyChapterPgn" comment="A button which lets you copy the PGN text to your clipboard (i.e. similar to ⌘+C or Ctrl+C).">Kopjo PGN</string>
+  <string name="copyChapterPgn">Kopjo PGN</string>
   <string name="copyChapterPgnDescription">Kopjo në të papastër PGN kapitulli.</string>
   <string name="downloadGame">Shkarko lojën</string>
   <string name="studyUrl">URL Mësimi</string>

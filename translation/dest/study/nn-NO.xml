@@ -62,7 +62,7 @@
   <string name="studyPgn">Studie-PGN</string>
   <string name="downloadAllGames">Last ned alle spel</string>
   <string name="chapterPgn">Kapittel-PGN</string>
-  <string name="copyChapterPgn" comment="A button which lets you copy the PGN text to your clipboard (i.e. similar to ⌘+C or Ctrl+C).">Kopier PGN</string>
+  <string name="copyChapterPgn">Kopier PGN</string>
   <string name="copyChapterPgnDescription">Kopier kapittel-PGN til utklippstavla.</string>
   <string name="downloadGame">Last ned spel</string>
   <string name="studyUrl">Studie-URL</string>

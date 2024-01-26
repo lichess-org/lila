@@ -62,7 +62,7 @@
   <string name="studyPgn">Ստուդիայի PGN-ն</string>
   <string name="downloadAllGames">Ներբեռնել բոլոր պարտիաները</string>
   <string name="chapterPgn">Գլխի PGN-ը</string>
-  <string name="copyChapterPgn" comment="A button which lets you copy the PGN text to your clipboard (i.e. similar to ⌘+C or Ctrl+C).">Պատճենել PGN-ը</string>
+  <string name="copyChapterPgn">Պատճենել PGN-ը</string>
   <string name="copyChapterPgnDescription">Պատճենել գլխի PGN-ը փոխանակման բուֆերիմ:</string>
   <string name="downloadGame">Ներբեռնել պարտիան</string>
   <string name="studyUrl">Ստուդիայի հղումը</string>

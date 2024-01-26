@@ -59,6 +59,7 @@
   <string name="allSyncMembersRemainOnTheSamePosition">Všetci zosynchronizovaní členovia uvidia rovnakú pozíciu</string>
   <string name="shareChanges">Zdieľajte zmeny s divákmi a uložte ich na server</string>
   <string name="playing">Práve sa hrá</string>
+  <string name="showEvalBar">Ukazovatele hodnotenia</string>
   <string name="first">Prvá</string>
   <string name="previous">Späť</string>
   <string name="next">Ďalej</string>
@@ -68,7 +69,7 @@
   <string name="studyPgn">PGN štúdie</string>
   <string name="downloadAllGames">Stiahnuť všetky partie</string>
   <string name="chapterPgn">PGN kapitoly</string>
-  <string name="copyChapterPgn" comment="A button which lets you copy the PGN text to your clipboard (i.e. similar to ⌘+C or Ctrl+C).">Kopírovať PGN</string>
+  <string name="copyChapterPgn">Kopírovať PGN</string>
   <string name="copyChapterPgnDescription">Kopírovať kapitolu PGN do schránky.</string>
   <string name="downloadGame">Stiahnúť hru</string>
   <string name="studyUrl">URL štúdie</string>
