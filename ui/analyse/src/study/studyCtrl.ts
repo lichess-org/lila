@@ -541,6 +541,13 @@ export default class StudyCtrl {
     const cs = this.chapters.list();
     return cs.length == 1 && cs[0].name == 'Chapter 1' && !this.currentChapter().ongoing;
   };
+  updateUrl = (loc = window.location.href) => {
+    const studyIdOffset = loc.indexOf(`/${this.data.id}`);
+    if (studyIdOffset === -1) return false;
+    const chapterId = this.relay?.tourShow() ? '' : `/${this.vm.chapterId}`;
+    const newUrl = `${loc.slice(0, studyIdOffset + 9)}${chapterId}`;
+    return newUrl !== loc ? newUrl : false;
+  };
   trans = this.ctrl.trans;
   socketHandler = (t: string, d: any) => {
     const handler = (this.socketHandlers as any as SocketHandlers)[t];

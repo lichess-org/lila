@@ -305,8 +305,10 @@ export default function (deps?: typeof studyDeps) {
       playerStrips = !playerBars && renderPlayerStrips(ctrl),
       gaugeOn = ctrl.showEvalGauge(),
       needsInnerCoords = ctrl.data.pref.showCaptured || !!gaugeOn || !!playerBars,
-      tour = deps?.relayTour(ctrl);
+      tour = deps?.relayTour(ctrl),
+      updateAddressBarUrl = study?.updateUrl();
 
+    if (updateAddressBarUrl) history.replaceState({}, '', updateAddressBarUrl);
     return h(
       'main.analyse.variant-' + ctrl.data.game.variant.key,
       {
