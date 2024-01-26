@@ -166,10 +166,12 @@ object JsonView:
     )
 
   given OWrites[chess.Division] = OWrites: o =>
-    Json.obj(
-      "middle" -> o.middle,
-      "end"    -> o.end
-    )
+    Json
+      .obj(
+        "middle" -> o.middle,
+        "end"    -> o.end
+      )
+      .noNull
 
   given Writes[Source]   = writeAs(_.name)
   given Writes[GameRule] = writeAs(_.key)
