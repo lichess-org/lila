@@ -788,8 +788,8 @@
   <string name="transparent">شفاف</string>
   <string name="deviceTheme">طرح زمینه دستگاه</string>
   <string name="backgroundImageUrl">لینک تصویر پس زمینه:</string>
-  <string name="boardGeometry">بعد صفحه</string>
-  <string name="boardTheme">تم صفحه</string>
+  <string name="boardGeometry">نَمای صفحه بازی</string>
+  <string name="boardTheme">طرح‌بندی صفحه بازی</string>
   <string name="boardSize">اندازه صفحه بازی</string>
   <string name="pieceSet">نوع مهره</string>
   <string name="embedInYourWebsite">قرار دادن در سایت خود</string>
