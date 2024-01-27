@@ -29,28 +29,23 @@ final class RelayPush(sync: RelaySync, api: RelayApi, irc: lila.irc.IrcApi)(usin
     if rt.round.sync.hasUpstream
     then fuccess(Left(LilaInvalid("The relay has an upstream URL, and cannot be pushed to.")))
     else
-      validateForDelay(rt, pgn).fold(
-        err => fuccess(Left(err)),
-        delay =>
-          if delay > 0 then
-            after(delay.seconds)(push(rt, pgn))
-            fuccess(Right(0))
-          else push(rt, pgn)
-      )
+      rt.round.sync.nonEmptyDelay.fold(push(rt, pgn)): delay =>
+        validateForDelay(rt, pgn) match
+          case Some(err) => fuccess(Left(err))
+          case None      => after(delay.value.seconds)(push(rt, pgn))
 
-  private def validateForDelay(rt: RelayRound.WithTour, pgn: PgnStr): Result =
+  private def validateForDelay(rt: RelayRound.WithTour, pgn: PgnStr): Option[LilaInvalid] =
     Reader
       .full(pgn)
       .fold(
-        err => Left(LilaInvalid(err.value)),
+        err => LilaInvalid(err.value).some,
         _ match
-          case Reader.Result.Incomplete(_, errorStr) =>
-            Left(LilaInvalid(errorStr.value))
+          case Reader.Result.Incomplete(_, errorStr) => LilaInvalid(errorStr.value).some
           case Reader.Result.Complete(_) =>
             RelayFetch
               .multiPgnToGames(MultiPgn.split(pgn, RelayFetch.maxChapters(rt.tour)))
-              .map: _ =>
-                rt.round.sync.delay.fold(0)(_.value)
+              .left
+              .toOption
       )
 
   private def push(rt: RelayRound.WithTour, pgn: PgnStr): Fu[Result] =
