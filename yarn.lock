@@ -3192,7 +3192,7 @@ extsprintf@^1.2.0:
   resolved "https://registry.yarnpkg.com/extsprintf/-/extsprintf-1.4.1.tgz#8d172c064867f235c0c84a596806d279bf4bcc07"
   integrity sha512-Wrk35e8ydCKDj/ArClo1VrPVmN8zph5V4AtHwIuHhvMXsKf73UT3BOD+azBIW+3wOJ4FhEH7zyaJCFvChjYvMA==
 
-fairy-stockfish-nnue.wasm@^1.1:
+fairy-stockfish-nnue.wasm@=1.1.5:
   version "1.1.5"
   resolved "https://registry.yarnpkg.com/fairy-stockfish-nnue.wasm/-/fairy-stockfish-nnue.wasm-1.1.5.tgz#08d09c12e9f59382a3240018d781c79e357b6594"
   integrity sha512-RpojJUvbOQV7JgLMLZj2443HiowQDH2MtBL7bncgOjjRaPQEk+eh4ZotJGr6ogqkyID2IkZHSwHc3Of4CwIZaw==
