@@ -33,8 +33,6 @@ export default class StudyPractice {
     this.goal(this.root.data.practiceGoal!);
     this.nbMoves(0);
     this.success(null);
-    const chapter = this.studyData.chapter;
-    history.replaceState(null, chapter.name, this.data.url + '/' + chapter.id);
   };
 
   computeNbMoves = (): number => {
