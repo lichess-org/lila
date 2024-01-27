@@ -20,11 +20,13 @@ object UserLagCache:
             _ avg lag
       )
 
-  def get(userId: UserId): Option[Centis] = cache.getIfPresent(userId)
+  export cache.{ getIfPresent as get }
 
   def getLagRating(userId: UserId): Option[Int] =
-    get(userId).map:
-      case i if i <= Centis(15) => 4
-      case i if i <= Centis(30) => 3
-      case i if i <= Centis(50) => 2
-      case _                    => 1
+    Centis
+      .raw(get(userId))
+      .map: c =>
+        if c <= 15 then 4
+        else if c <= 30 then 3
+        else if c <= (50) then 2
+        else 1
