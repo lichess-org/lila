@@ -541,12 +541,14 @@ export default class StudyCtrl {
     const cs = this.chapters.list();
     return cs.length == 1 && cs[0].name == 'Chapter 1' && !this.currentChapter().ongoing;
   };
-  updateUrl = (loc = window.location.href) => {
+  updateAddressBar = () => {
+    const loc = window.location.href;
     const studyIdOffset = loc.indexOf(`/${this.data.id}`);
-    if (studyIdOffset === -1) return false;
-    const chapterId = this.relay?.tourShow() ? '' : `/${this.vm.chapterId}`;
-    const newUrl = `${loc.slice(0, studyIdOffset + 9)}${chapterId}`;
-    return newUrl !== loc ? newUrl : false;
+    if (studyIdOffset === -1) return;
+    const url = `${loc.slice(0, studyIdOffset + 9)}${this.relay?.tourShow() ? '' : `/${this.vm.chapterId}`}`;
+    if (url === loc) return;
+    if (url.includes('/broadcast/') && url.length !== loc.length) history.pushState({}, '', url);
+    else history.replaceState({}, '', url);
   };
   trans = this.ctrl.trans;
   socketHandler = (t: string, d: any) => {
