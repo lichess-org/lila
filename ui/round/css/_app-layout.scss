@@ -228,18 +228,18 @@
     grid-area: board;
     @include breakpoint($mq-col1) {
       margin: 1vmin 0;
-      .variant-chushogi & {
+      .main-v-chushogi & {
         margin: 0;
       }
     }
   }
 
-  &.variant-chushogi {
+  .main-v-chushogi & {
     @include breakpoint($mq-col2) {
       grid-template-columns: var(--col2-uniboard-main-size-no-hands) $big-block-gap $col2-uniboard-table;
     }
   }
-  .compact-layout &.variant-chushogi {
+  .compact-layout .main-v-chushogi & {
     grid-template-columns: var(--col3-uniboard-main-size-no-hands) $big-block-gap $col3-uniboard-table;
   }
 }

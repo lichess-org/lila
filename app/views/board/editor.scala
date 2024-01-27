@@ -21,7 +21,7 @@ object editor {
         jsModule("editor"),
         embedJsUnsafe(
           s"""var data=${safeJsonValue(jsData(sit, orientation))};
-LishogiEditor(document.getElementById('board-editor'), data);"""
+LishogiEditor(document.getElementById('editor-app'), data);"""
         )
       ),
       moreCss = frag(
@@ -41,10 +41,10 @@ LishogiEditor(document.getElementById('board-editor'), data);"""
       canonicalPath = lila.common.CanonicalPath(routes.Editor.index).some,
       withHrefLangs = lila.i18n.LangList.All.some
     )(
-      main(id := "board-editor")(
-        div(cls   := s"board-editor variant-${sit.variant.key}")(
+      main(id := "editor-app")(
+        div(cls   := s"board-editor main-v-${sit.variant.key}")(
           div(cls := "spare spare-top"),
-          div(cls := "main-board")(shogigroundEmpty(sit.variant, shogi.Sente)),
+          div(cls := s"main-board v-${sit.variant.key}")(shogigroundEmpty(sit.variant, shogi.Sente)),
           div(cls := "spare spare-bottom"),
           div(cls := "actions"),
           div(cls := "links"),

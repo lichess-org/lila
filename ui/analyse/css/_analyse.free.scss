@@ -39,6 +39,15 @@
         flex-grow: 0;
         margin-right: 0;
       }
+      .main-v-chushogi & {
+        .name {
+          min-width: 4rem;
+        }
+        .copyable {
+          width: unset;
+          flex: 1;
+        }
+      }
     }
   }
   .kif,
@@ -60,22 +69,6 @@
     @extend %flex-center-nowrap;
     &::before {
       line-height: 0;
-    }
-  }
-}
-
-.variant-chushogi {
-  @include breakpoint($mq-col2) {
-    .copyables {
-      .pair {
-        .name {
-          min-width: 4rem;
-        }
-        .copyable {
-          width: unset;
-          flex: 1;
-        }
-      }
     }
   }
 }

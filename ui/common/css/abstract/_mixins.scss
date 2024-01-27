@@ -61,22 +61,22 @@
 
 @mixin board-width($prop: width) {
   #{$prop}: calc((100% - #{$hands-gap}) / 11 * 9);
-  .variant-minishogi &,
-  .variant-kyotoshogi & {
+  .main-v-minishogi &,
+  .main-v-kyotoshogi & {
     #{$prop}: calc((100% - #{$hands-gap}) / 7 * 5);
   }
-  .variant-chushogi & {
-    #{$prop}: calc((100% - #{$hands-gap}) / 11 * 9);
+  .main-v-chushogi & {
+    #{$prop}: 100%;
   }
 }
 
 @mixin hand-width($prop: width) {
   #{$prop}: calc((100% - #{$hands-gap}) / 11 + #{$hand-gap});
-  .variant-minishogi &,
-  .variant-kyotoshogi & {
+  .main-v-minishogi &,
+  .main-v-kyotoshogi & {
     #{$prop}: calc((100% - #{$hands-gap}) / 7 + #{$hand-gap});
   }
-  .variant-chushogi & {
-    #{$prop}: calc((100% - #{$hands-gap}) / 11 + #{$hand-gap});
+  .main-v-chushogi & {
+    #{$prop}: 0;
   }
 }

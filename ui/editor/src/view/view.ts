@@ -11,9 +11,9 @@ import { tools } from './tools';
 export default function (ctrl: EditorCtrl): VNode {
   const state = ctrl.getState(),
     color = ctrl.bottomColor();
-  return h(`div.board-editor.variant-${ctrl.rules}`, [
+  return h(`div.board-editor.main-v-${ctrl.rules}`, [
     sparePieces(ctrl, opposite(color), 'top'),
-    h('div.main-board', [ground.renderBoard(ctrl)]),
+    h(`div.main-board.v-${ctrl.rules}`, [ground.renderBoard(ctrl)]),
     sparePieces(ctrl, color, 'bottom'),
     actions(ctrl, state),
     !ctrl.data.embed ? links(ctrl, state) : null,

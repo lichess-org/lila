@@ -24,7 +24,7 @@ function miniPairing(ctrl) {
         m(
           'span',
           {
-            class: 'mini-board mini-board-' + game.id + ' parse-sfen',
+            class: 'mini-board mini-board-' + game.id + ' parse-sfen' + ' v-' + game.variant,
             'data-color': game.orient,
             'data-sfen': game.sfen,
             'data-lastmove': game.lastMove,
@@ -33,7 +33,7 @@ function miniPairing(ctrl) {
               if (!isUpdate) lishogi.parseSfen($(el));
             },
           },
-          m('div.sg-wrap' + ' variant-' + game.variant)
+          m('div.sg-wrap')
         ),
         m('span.vstext', [
           m('span.vstext__pl', [util.playerVariant(ctrl, player).name, m('br'), result]),

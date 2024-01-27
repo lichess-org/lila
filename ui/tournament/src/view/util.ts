@@ -3,7 +3,7 @@ import { h } from 'snabbdom';
 
 export function miniBoard(game) {
   return h(
-    'a.mini-board.parse-sfen.mini-board-' + game.id,
+    'a.mini-board' + '.v-' + game.variant + '.parse-sfen.mini-board-' + game.id,
     {
       key: game.id,
       attrs: {
@@ -18,7 +18,7 @@ export function miniBoard(game) {
         },
       },
     },
-    [h('div.sg-wrap' + '.variant-' + game.variant)]
+    [h('div.sg-wrap')]
   );
 }
 

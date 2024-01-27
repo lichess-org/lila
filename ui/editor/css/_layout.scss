@@ -5,12 +5,12 @@
     --main-max-width: calc(
       (100vh - #{$site-header-outer-height} - #{$col1-uniboard-controls} - #{$hands-gap}) / 15 * 9 / 12 * 11
     );
-    &:has(.board-editor.variant-minishogi, .board-editor.variant-kyotoshogi) {
+    &:has(.main-v-minishogi, .main-v-kyotoshogi) {
       --main-max-width: calc(
         (100vh - #{$site-header-outer-height} - #{$col1-uniboard-controls} - #{$hands-gap}) / 11 * 5 / 12 * 11
       );
     }
-    &:has(.board-editor.variant-chushogi) {
+    &:has(.main-v-chushogi) {
       --main-max-width: calc((100vh - #{$site-header-outer-height} - #{$col1-uniboard-controls}) / 20 * 12 / 12 * 11);
     }
   }
@@ -43,8 +43,8 @@
       'links   links   links   links .'
       'underboard underboard underboard underboard .';
 
-    &.variant-kyotoshogi,
-    &.variant-minishogi {
+    &.main-v-kyotoshogi,
+    &.main-v-minishogi {
       $files2K: calc((var(--col2-uniboard-main-size) - #{$hands-gap}) / 7 * 2 + 1rem);
       $files4K: calc((var(--col2-uniboard-main-size) - #{$hands-gap}) / 7 * 4 + 2rem);
       grid-template-columns:
@@ -54,7 +54,7 @@
         )
         minmax(0, calc(#{$col2-uniboard-table-max} - #{$files4K}));
     }
-    &.variant-chushogi {
+    &.main-v-chushogi {
       $files2K-nh: calc((var(--col2-uniboard-main-size-no-hands)) / 12 * 4 + 1rem);
       $files4K-nh: calc((var(--col2-uniboard-main-size-no-hands)) / 12 * 8 + 2rem);
       grid-template-columns:
@@ -78,15 +78,15 @@
       'links     links   links     links   links'
       'underboard underboard underboard underboard underboard';
 
-    &.variant-kyotoshogi,
-    &.variant-minishogi {
+    &.main-v-kyotoshogi,
+    &.main-v-minishogi {
       $files2K: calc((var(--col2-uniboard-main-size) - #{$hands-gap}) / 7 * 2 + 1rem);
       $files4K: calc((var(--col2-uniboard-main-size) - #{$hands-gap}) / 7 * 4 + 2rem);
       grid-template-columns:
         minmax(0, $files2K) $block-gap var(--col3-uniboard-main-size)
         $block-gap minmax(0, $files2K);
     }
-    &.variant-chushogi {
+    &.main-v-chushogi {
       $files2K-nh: calc((var(--col2-uniboard-main-size-no-hands)) / 12 * 4 + 1rem);
       $files4K-nh: calc((var(--col2-uniboard-main-size-no-hands)) / 12 * 8 + 2rem);
       grid-template-columns:

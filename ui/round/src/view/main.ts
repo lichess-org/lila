@@ -13,13 +13,15 @@ export function main(ctrl: RoundController): VNode {
   return ctrl.nvui
     ? ctrl.nvui.render(ctrl)
     : h(
-        'div.round__app.variant-' + d.game.variant.key,
+        'div.round__app',
         {
           class: { 'move-confirm': !!ctrl.usiToSubmit },
         },
         [
           h(
-            'div.round__app__board.main-board' + (ctrl.data.pref.blindfold ? '.blindfold' : ''),
+            'div.round__app__board.main-board' +
+              `.v-${d.game.variant.key}` +
+              (ctrl.data.pref.blindfold ? '.blindfold' : ''),
             {
               hook:
                 window.lishogi.hasTouchEvents || window.lishogi.storage.get('scrollMoves') == '0'

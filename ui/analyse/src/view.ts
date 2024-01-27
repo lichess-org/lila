@@ -338,7 +338,7 @@ export default function (ctrl: AnalyseCtrl): VNode {
     gaugeOn = ctrl.showEvalGauge(),
     needsInnerCoords = !!playerBars;
   return h(
-    'main.sb-insert.analyse.variant-' + ctrl.data.game.variant.key, // sb-insert - to force snabbdom to call insert
+    'main.sb-insert.analyse.main-v-' + ctrl.data.game.variant.key, // sb-insert - to force snabbdom to call insert
     {
       hook: {
         insert: vn => {
@@ -373,7 +373,7 @@ export default function (ctrl: AnalyseCtrl): VNode {
       study ? studyView.overboard(study) : null,
 
       h(
-        addChapterId(study, 'div.analyse__board.main-board'),
+        addChapterId(study, 'div.analyse__board.main-board.v-' + ctrl.data.game.variant.key),
         {
           hook:
             window.lishogi.hasTouchEvents || ctrl.gamebookPlay() || window.lishogi.storage.get('scrollMoves') == '0'

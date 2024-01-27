@@ -4,12 +4,12 @@
     --main-max-width: calc(
       (100vh - #{$site-header-outer-height} - #{$col1-uniboard-controls} - #{$hands-gap}) / 12 * 9
     );
-    &:has(main.variant-minishogi, main.variant-kyotoshogi) {
+    &:has(.main-v-minishogi, .main-v-kyotoshogi) {
       --main-max-width: calc(
         (100vh - #{$site-header-outer-height} - #{$col1-uniboard-controls} - #{$hands-gap}) / 7 * 5 / 12 * 11
       );
     }
-    &:has(main.variant-chushogi) {
+    &:has(.main-v-chushogi) {
       --main-max-width: calc(
         (100vh - #{$site-header-outer-height} - #{$col1-uniboard-controls} - #{$hands-gap}) / 12 * 11
       );
@@ -120,7 +120,7 @@
     @include crosstable-large;
   }
 
-  &.variant-chushogi {
+  &.main-v-chushogi {
     @include breakpoint($mq-col2) {
       grid-template-columns: var(--col2-uniboard-main-size-no-hands) $big-block-gap $col2-uniboard-table;
     }

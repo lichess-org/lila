@@ -162,8 +162,8 @@ function usiToLastMove(lm?: string): Key[] | undefined {
 function makeSg(preview: ChapterPreview): VNode {
   const variant = preview.variant.key;
   return h(
-    'div.mini-board',
-    h(`div.sg-wrap.variant-${variant}`, {
+    `div.mini-board.v-${variant}`,
+    h('div.sg-wrap', {
       hook: {
         insert(vnode) {
           const sg = Shogiground(

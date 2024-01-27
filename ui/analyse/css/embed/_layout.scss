@@ -19,11 +19,11 @@
     'controls';
   grid-template-columns: auto;
   grid-template-rows: auto calc(100vh - 5rem - (100vw / 9 * 12 + #{$hands-gap})) 2.5rem;
-  &.variant-minishogi,
-  &.variant-kyotoshogi {
+  &.main-v-minishogi,
+  &.main-v-kyotoshogi {
     grid-template-rows: auto calc(100vh - 5rem - (100vw / 5 * 7 / 11 * 12 + #{$hands-gap})) 2.5rem;
   }
-  &.variant-chushogi {
+  &.main-v-chushogi {
     grid-template-rows: auto calc(100vh - 5rem - (100vw / 11 * 12)) 2.5rem;
   }
 
@@ -32,12 +32,12 @@
     grid-template-rows: auto 3rem;
     column-gap: $hand-gap;
     padding-left: $hand-gap;
-    &.variant-minishogi,
-    &.variant-kyotoshogi {
+    &.main-v-minishogi,
+    &.main-v-kyotoshogi {
       grid-template-columns: calc(100% / 16 * 9 / 5 * 7 / 12 * 11 + #{$hands-gap} - 2.5rem / 12 * 11) 1fr;
       grid-template-rows: auto 3rem;
     }
-    &.variant-chushogi {
+    &.main-v-chushogi {
       grid-template-columns: calc(100% / 16 * 9 / 12 * 11 - 2.5rem / 12 * 11) 1fr;
       grid-template-rows: auto 3rem;
       column-gap: 0;

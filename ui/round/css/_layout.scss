@@ -6,10 +6,10 @@
     $vertical-total-no-hands: 100vh - #{$site-header-outer-height} - #{$col1-player-clock-height * 2} - #{$col1-moves-height} -
       1vmin;
     --main-max-width: calc((#{$vertical-total}) / 12 * 9);
-    &:has(.round__app.variant-minishogi, .round__app.variant-kyotoshogi) {
+    &:has(.main-v-minishogi, .main-v-kyotoshogi) {
       --main-max-width: calc((#{$vertical-total}) / 7 * 5 / 12 * 11);
     }
-    &:has(.round__app.variant-chushogi) {
+    &:has(.main-v-chushogi) {
       --main-max-width: calc((#{$vertical-total-no-hands}) / 12 * 11);
     }
   }
@@ -31,7 +31,11 @@
     grid-area: under;
     @include breakpoint($mq-col3) {
       @include hand-width(margin-left);
-      width: calc((100% - 4vmin) / 11 * 9 - 2vmin);
+      width: calc((100% - 4vmin) / 11 * 9 - #{$block-gap});
+      .main-v-chushogi & {
+        margin-left: 0;
+        width: calc(100% - #{$big-block-gap});
+      }
     }
   }
   &__underchat {
@@ -61,7 +65,7 @@
   }
 
   @include breakpoint($mq-col3) {
-    grid-template-columns: $col3-uniboard-side $block-gap 1fr $col3-uniboard-table;
+    grid-template-columns: $col3-uniboard-side $block-gap 1fr;
     grid-template-rows: fit-content(0);
     grid-template-areas:
       'side  . app   app'
@@ -83,7 +87,7 @@
       }
     }
     @include crosstable-large;
-    &:has(.round__app.variant-chushogi) {
+    &.main-v-chushogi {
       grid-template-columns: $col3-uniboard-side $big-block-gap 1fr $col3-uniboard-table;
     }
   }

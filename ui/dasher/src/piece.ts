@@ -32,14 +32,8 @@ export function ctrl(
   redraw: Redraw,
   close: Close
 ): PieceCtrl {
-  const isChushogi = !!document.body.querySelector(
-      'main.variant-chushogi, div.round__app.variant-chushogi, div.board-editor.variant-chushogi'
-    ),
-    isKyotoshogi =
-      !isChushogi &&
-      !!document.body.querySelector(
-        'main.variant-kyotoshogi, div.round__app.variant-kyotoshogi, div.board-editor.variant-kyotoshogi'
-      );
+  const isChushogi = !!document.body.querySelector('.main-v-chushogi'),
+    isKyotoshogi = !isChushogi && !!document.body.querySelector('.main-v-kyotoshogi');
   return {
     trans,
     std: std,

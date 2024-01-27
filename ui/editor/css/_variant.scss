@@ -1,9 +1,9 @@
 .board-editor {
-  &.variant-chushogi .actions .action {
+  &.main-v-chushogi .actions .action {
     width: calc(100% / 4);
   }
   @include breakpoint($mq-col1-uniboard) {
-    &.variant-chushogi {
+    &.main-v-chushogi {
       .spare {
         padding-bottom: calc(100% / 12 * 4 / 11 * 12);
         .outer {
@@ -26,7 +26,7 @@
         flex: 1;
       }
     }
-    &.variant-minishogi {
+    &.main-v-minishogi {
       .spare {
         padding-bottom: calc(100% / 6 * 2 / 11 * 12);
         .outer .inner .selectable-wrap {
@@ -34,7 +34,7 @@
         }
       }
     }
-    &.variant-kyotoshogi {
+    &.main-v-kyotoshogi {
       .spare {
         padding-bottom: calc(100% / 5 * 2 / 11 * 12);
         .outer .inner .selectable-wrap {
@@ -44,7 +44,7 @@
     }
   }
   @include breakpoint($mq-col2-uniboard) {
-    &.variant-minishogi .spare {
+    &.main-v-minishogi .spare {
       .outer {
         padding-bottom: calc(100% / 2 * 5 / 11 * 12);
         .inner {
@@ -55,7 +55,7 @@
         }
       }
     }
-    &.variant-kyotoshogi .spare {
+    &.main-v-kyotoshogi .spare {
       .outer {
         padding-bottom: calc(100% / 2 * 5 / 11 * 12);
         .inner .selectable-wrap {
@@ -63,7 +63,7 @@
         }
       }
     }
-    &.variant-chushogi .spare {
+    &.main-v-chushogi .spare {
       .outer {
         width: 25%;
         padding-bottom: calc(100% / 4 * 12 / 11 * 12);
@@ -72,14 +72,14 @@
         }
       }
     }
-    &.variant-chushogi .underboard .tools .piece-counter > div {
+    &.main-v-chushogi .underboard .tools .piece-counter > div {
       height: 10rem;
     }
   }
   @include breakpoint($mq-col3-uniboard) {
-    &.variant-standard .spare,
-    &.variant-annanshogi .spare,
-    &.variant-checkshogi .spare {
+    &.main-v-standard .spare,
+    &.main-v-annanshogi .spare,
+    &.main-v-checkshogi .spare {
       &::after {
         height: calc(100% / 9 * 8);
         top: calc((100% - 100% / 9 * 8));
@@ -88,7 +88,7 @@
         top: 0;
       }
     }
-    &.variant-chushogi .spare::after {
+    &.main-v-chushogi .spare::after {
       content: unset;
     }
   }

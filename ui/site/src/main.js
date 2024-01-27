@@ -350,10 +350,7 @@
     // sometimes $elem is not a jQuery, can happen when content_loaded is triggered with random args
     if (!$elem || !$elem.each) $elem = $('.parse-sfen');
     if (document.body.querySelector('.d-12x12')) lishogi.loadChushogiPieceSprite();
-    if (
-      document.body.querySelector('[data-variant="kyotoshogi"]') ||
-      document.body.querySelector('.variant-kyotoshogi')
-    )
+    if (document.body.querySelector('[data-variant="kyotoshogi"]') || document.body.querySelector('.v-kyotoshogi'))
       lishogi.loadKyotoshogiPieceSprite();
     $elem.each(function () {
       var $this = $(this).removeClass('parse-sfen');

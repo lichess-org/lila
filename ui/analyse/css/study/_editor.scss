@@ -73,14 +73,14 @@ $board-width: calc((100vh - 4vmin) * var(--board-scale) * 0.8 - #{$site-header-o
     .spare {
       padding: 0 calc(#{$hands-gap} / 11); // hands padding per square
     }
-    &.variant-chushogi {
+    &.main-v-chushogi {
       grid-template-columns: 4fr 12fr 4fr;
       .spare {
         padding: 0;
       }
     }
-    &.variant-minishogi,
-    &.variant-kyotoshogi {
+    &.main-v-minishogi,
+    &.main-v-kyotoshogi {
       grid-template-columns: 2fr 7fr 2fr;
       .spare {
         padding: 0 calc(#{$hands-gap} / 7);

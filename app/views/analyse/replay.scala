@@ -8,7 +8,7 @@ import lila.api.Context
 import lila.app.templating.Environment._
 import lila.app.ui.ScalatagsTemplate._
 import lila.common.String.html.safeJsonValue
-import lila.game.{ Player, Pov }
+import lila.game.Pov
 
 import controllers.routes
 
@@ -16,11 +16,6 @@ object replay {
 
   private[analyse] def titleOf(pov: Pov)(implicit lang: Lang) =
     s"${playerText(pov.game.sentePlayer)} vs ${playerText(pov.game.gotePlayer)}: ${trans.analysis.txt()}"
-
-  private def playerName(p: Player): String =
-    (p.engineConfig
-      .fold(p.userId | (p.name | lila.user.User.anonymous))(ec => aiNameNoLang(ec)))
-      .replaceAll("""\s""", "_")
 
   def apply(
       pov: Pov,
@@ -36,6 +31,8 @@ object replay {
   )(implicit ctx: Context) = {
 
     import pov._
+
+    val variantKlass = s"v-${pov.game.variant.key}"
 
     val chatJson = chatOption map { c =>
       views.html.chat.json(
@@ -135,7 +132,7 @@ object replay {
       openGraph = povOpenGraph(pov).some
     )(
       frag(
-        main(cls := s"analyse variant-${pov.game.variant.key}")(
+        main(cls := s"analyse main-$variantKlass")(
           st.aside(cls := "analyse__side")(
             views.html.game
               .side(
@@ -147,7 +144,7 @@ object replay {
               )
           ),
           chatOption.map(_ => views.html.chat.frag),
-          div(cls := "analyse__board main-board")(
+          div(cls := s"analyse__board main-board $variantKlass")(
             shogigroundEmpty(pov.game.variant, pov.color)
           ),
           div(cls := "analyse__tools")(div(cls := "ceval")),

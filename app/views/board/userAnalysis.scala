@@ -49,7 +49,7 @@ object userAnalysis {
       canonicalPath = lila.common.CanonicalPath(routes.UserAnalysis.index).some,
       withHrefLangs = lila.i18n.LangList.All.some
     ) {
-      main(cls := s"analyse variant-${pov.game.variant.key}")(
+      main(cls := s"analyse main-v-${pov.game.variant.key}")(
         pov.game.synthetic option st.aside(cls := "analyse__side")(
           views.html.base.bits.mselect(
             "analyse-variant",
@@ -63,7 +63,7 @@ object userAnalysis {
             }
           )
         ),
-        div(cls := "analyse__board main-board")(
+        div(cls := s"analyse__board main-board v-${pov.game.variant.key}")(
           shogigroundEmpty(pov.game.variant, pov.color)
         ),
         div(cls := "analyse__tools"),

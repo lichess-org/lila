@@ -19,8 +19,8 @@
       grid-area: sg-board;
     }
   }
-  .variant-minishogi &,
-  .variant-kyotoshogi &,
+  &.v-minishogi,
+  &.v-kyotoshogi,
   &[data-variant='minishogi'],
   &[data-variant='kyotoshogi'] {
     padding-bottom: calc(100% / 11 * 12 / 5 * 7 + #{$hands-gap});
@@ -28,7 +28,7 @@
       grid-template-rows: 1fr 5fr 1fr;
     }
   }
-  .variant-chushogi &,
+  &.v-chushogi,
   &[data-variant='chushogi'] {
     padding-bottom: calc(100% / 11 * 12);
     .sg-wrap {
@@ -49,15 +49,15 @@
       grid-template-areas: 'sg-hand-top sg-board sg-hand-bottom';
       gap: 2vmin;
     }
-    .variant-minishogi &,
-    .variant-kyotoshogi & {
+    &.v-minishogi,
+    &.v-kyotoshogi {
       padding-bottom: calc((100% - #{$hands-gap}) / 7 * 5 / 11 * 12);
       .sg-wrap {
         grid-template-columns: 1fr 5fr 1fr;
         grid-template-rows: auto;
       }
     }
-    .variant-chushogi & {
+    &.v-chushogi {
       justify-self: center;
       padding-bottom: calc(100% / 11 * 12);
       .sg-wrap {
@@ -103,8 +103,8 @@
 
 .compact-layout {
   @include breakpoint($mq-col2-uniboard) {
-    .variant-minishogi .main-board,
-    .variant-kyotoshogi .main-board {
+    .main-board.v-minishogi,
+    .main-board.v-kyotoshogi {
       padding-bottom: calc((100% - #{$hands-gap}) / 11 * 9 / 11 * 12);
       .sg-wrap {
         height: calc(100% / 9 * 5 / 7 * 11);
