@@ -99,27 +99,27 @@ def sameUpDownM(role)
 end
 
 def classesMnemonic(color, role)
-  ".d-12x12 piece.#{role}.#{color}, .variant-chushogi piece.#{role}.#{color}"
+  ".d-12x12 piece.#{role}.#{color}, .v-chushogi piece.#{role}.#{color}"
 end
 
 def classesWithOrientation(color, role, flipped)
   if flipped
     if color == 'sente'
       ".sg-wrap.orientation-gote.d-12x12 piece.#{role}.gote,
-      .variant-chushogi .spare-bottom piece.#{role}.gote"
+      .main-v-chushogi .spare-bottom piece.#{role}.gote"
     else
       ".sg-wrap.orientation-gote.d-12x12 piece.#{role}.sente,
-      .variant-chushogi .spare-top piece.#{role}.sente"
+      .main-v-chushogi .spare-top piece.#{role}.sente"
     end
   else
     if color == 'sente'
-      ".d-12x12 piece.#{role}.sente, .variant-chushogi piece.#{role}.sente,
+      ".d-12x12 piece.#{role}.sente, .v-chushogi piece.#{role}.sente,
       .sg-wrap.orientation-sente.d-12x12 piece.#{role}.sente,
-      .variant-chushogi .spare-bottom piece.#{role}.sente"
+      .main-v-chushogi .spare-bottom piece.#{role}.sente"
     else
-      ".d-12x12 piece.#{role}.gote, .variant-chushogi piece.#{role}.gote,
+      ".d-12x12 piece.#{role}.gote, .v-chushogi piece.#{role}.gote,
       .sg-wrap.orientation-sente.d-12x12 piece.#{role}.gote,
-      .variant-chushogi .spare-top piece.#{role}.gote"
+      .main-v-chushogi .spare-top piece.#{role}.gote"
     end
   end
 end
@@ -128,27 +128,27 @@ def classes(color, role)
   if color == 'sente' # facing up
     if role == 'king'
       ".sg-wrap.orientation-gote.d-12x12 piece.king.gote,
-      .variant-chushogi .spare-bottom piece.king"
+      .main-v-chushogi .spare-bottom piece.king"
     elsif role == 'tama'
       ".d-12x12 piece.king.sente,
       .sg-wrap.orientation-sente.d-12x12 piece.king.sente,
-      .variant-chushogi .spare-bottom piece.king.sente"
+      .main-v-chushogi .spare-bottom piece.king.sente"
     else
       ".sg-wrap.orientation-sente.d-12x12 piece.#{role}.sente,
       .sg-wrap.orientation-gote.d-12x12 piece.#{role}.gote,
-      .variant-chushogi .spare-bottom piece.#{role}"
+      .main-v-chushogi .spare-bottom piece.#{role}"
     end
   else # facing down
     if role == 'king'
       ".sg-wrap.orientation-sente.d-12x12 piece.king.gote,
-      .variant-chushogi .spare-top piece.king"
+      .main-v-chushogi .spare-top piece.king"
     elsif role == 'tama'
       ".sg-wrap.orientation-gote.d-12x12 piece.king.sente,
-      .variant-chushogi .spare-top piece.king.sente"
+      .main-v-chushogi .spare-top piece.king.sente"
     else
       ".sg-wrap.orientation-sente.d-12x12 piece.#{role}.gote,
       .sg-wrap.orientation-gote.d-12x12 piece.#{role}.sente,
-      .variant-chushogi .spare-top piece.#{role}"
+      .main-v-chushogi .spare-top piece.#{role}"
     end
   end
 end

@@ -137,4 +137,4 @@ piece.horse.gote,
       .hand-top piece.horse,
       .spare-top piece.horse.sente {background-image:url('/assets/piece/2Kanji_3D/1UM.svg')}
 .d-12x12 piece { background-image: none !important; } 
-.sg-wrap[data-variant='kyotoshogi'] piece, .variant-kyotoshogi piece { background-image: none !important; } 
+.sg-wrap[data-variant='kyotoshogi'] piece, .v-kyotoshogi piece { background-image: none !important; } 

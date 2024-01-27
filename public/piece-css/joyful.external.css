@@ -210,4 +210,4 @@ piece.horse.gote,
       .spare-top piece.horse.gote {background-image:url('/assets/piece/joyful/1UM.png')}
 piece{ will-change: transform; background-repeat: unset; }
 .d-12x12 piece { background-image: none !important; } 
-.sg-wrap[data-variant='kyotoshogi'] piece, .variant-kyotoshogi piece { background-image: none !important; } 
+.sg-wrap[data-variant='kyotoshogi'] piece, .v-kyotoshogi piece { background-image: none !important; } 

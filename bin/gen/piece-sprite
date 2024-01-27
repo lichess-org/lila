@@ -9,7 +9,7 @@ source_dir = lila_dir + '/public/piece/'
 dest_dir = lila_dir + '/public/piece-css/'
 
 def add_variant_prefix(classes, variant)
-  classes.split(',').map { |s| '.variant-' + variant + ' ' + s.strip }.join(', ')
+  classes.split(',').map { |s| '.v-' + variant + ' ' + s.strip }.join(', ')
 end
 
 bidirectional = [['shogi_BnW', 'svg'], ['joyful', 'png']]
@@ -147,8 +147,8 @@ themes.map { |theme|
   elsif ext == 'png'
     classes.append("piece{ will-change: transform; background-repeat: unset; }")
   end
-  classes.append(".d-12x12 piece { background-image: none !important; } ")
-  classes.append(".sg-wrap[data-variant='kyotoshogi'] piece, .variant-kyotoshogi piece { background-image: none !important; } ")
+  classes.append(".d-12x12 piece, .main-v-chushogi .spare piece { background-image: none !important; } ")
+  classes.append(".sg-wrap[data-variant='kyotoshogi'] piece, .v-kyotoshogi piece { background-image: none !important; } ")
   File.open(dest_dir + name + '.css', 'w') { |f| f.puts classes.join("\n") }
 }
 bidirectional.map { |theme|
@@ -175,7 +175,7 @@ bidirectional.map { |theme|
     classes.append("piece{ will-change: transform; background-repeat: unset; }")
   end
   classes.append(".d-12x12 piece { background-image: none !important; } ")
-  classes.append(".sg-wrap[data-variant='kyotoshogi'] piece, .variant-kyotoshogi piece { background-image: none !important; } ")
+  classes.append(".sg-wrap[data-variant='kyotoshogi'] piece, .v-kyotoshogi piece { background-image: none !important; } ")
   File.open(dest_dir + name + '.css', 'w') { |f| f.puts classes.join("\n") }
 }
 
@@ -197,7 +197,7 @@ themes.map { |theme|
     classes.append("piece{ will-change: transform; background-repeat: unset; }")
   end
   classes.append(".d-12x12 piece { background-image: none !important; } ")
-  classes.append(".sg-wrap[data-variant='kyotoshogi'] piece, .variant-kyotoshogi piece { background-image: none !important; } ")
+  classes.append(".sg-wrap[data-variant='kyotoshogi'] piece, .v-kyotoshogi piece { background-image: none !important; } ")
   File.open(dest_dir + name + '.external.css', 'w') { |f| f.puts classes.join("\n") }
 }
 bidirectional.map { |theme|
@@ -219,6 +219,6 @@ bidirectional.map { |theme|
     classes.append("piece{ will-change: transform; background-repeat: unset; }")
   end
   classes.append(".d-12x12 piece { background-image: none !important; } ")
-  classes.append(".sg-wrap[data-variant='kyotoshogi'] piece, .variant-kyotoshogi piece { background-image: none !important; } ")
+  classes.append(".sg-wrap[data-variant='kyotoshogi'] piece, .v-kyotoshogi piece { background-image: none !important; } ")
   File.open(dest_dir + name + '.external.css', 'w') { |f| f.puts classes.join("\n") }
 }
