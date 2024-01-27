@@ -333,7 +333,7 @@ export function view(ctrl: StudyChapterNewFormCtrl): VNode {
               h(
                 'select#chapter-orientation.form-control',
                 {
-                  attrs: { disabled: notVariantTab },
+                  attrs: { disabled: notOrientationTab },
                 },
                 notOrientationTab
                   ? [h('option', noarg('automatic'))]
