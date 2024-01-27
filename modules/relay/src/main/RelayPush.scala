@@ -13,8 +13,7 @@ import lila.common.config.Max
 final class RelayPush(sync: RelaySync, api: RelayApi, irc: lila.irc.IrcApi)(using
     ActorSystem,
     Executor,
-    Scheduler,
-    ClassicActorSystemProvider
+    Scheduler
 ):
 
   private val workQueue = AsyncActorSequencers[RelayRoundId](
