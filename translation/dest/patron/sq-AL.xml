@@ -80,4 +80,7 @@ Sidoqoftë, Bamirësit mund të mburren me një ikonë të re të lezetshme prof
   <string name="nowOneMonth">Tani jeni Bamirës i Lichess-it për një muaj!</string>
   <string name="downgradeNextMonth">Pas një muaij, NUK do t’ju faturohet gjë sërish dhe llogaria juaj në Lichess do të rikthehet në një llogari të zakonshme.</string>
   <string name="changeCurrency">Ndryshoni monedhë</string>
+  <string name="paymentDetails">Hollësi pagese</string>
+  <string name="updatePaymentMethod">Përditësoni metodë pagesash</string>
+  <string name="stripeManageSub">Administroni pajtimin tuaj dhe shkarkoni faturat dhe dëftesat tuaja</string>
 </resources>

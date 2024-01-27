@@ -11,7 +11,8 @@ import { ChapterPreview, ChapterPreviewPlayer, Position, StudyChapterMeta } from
 import StudyCtrl from './studyCtrl';
 import { EvalHitMulti } from '../interfaces';
 import { povChances } from 'ceval/src/winningChances';
-import { defined } from 'common';
+import { Prop, defined } from 'common';
+import { storedBooleanPropWithEffect } from 'common/storage';
 
 interface CloudEval extends EvalHitMulti {
   chances: number;
@@ -22,6 +23,7 @@ export class MultiBoardCtrl {
   page = 1;
   pager?: Paginator<ChapterPreview>;
   playing = false;
+  showEval: Prop<boolean>;
 
   private cloudEvals: Map<Fen, CloudEval> = new Map();
 
@@ -31,7 +33,12 @@ export class MultiBoardCtrl {
     readonly trans: Trans,
     private readonly send: SocketSend,
     private readonly variant: () => VariantKey,
-  ) {}
+  ) {
+    this.showEval = storedBooleanPropWithEffect('analyse.multiboard.showEval', true, () => {
+      redraw();
+      this.requestCloudEvals();
+    });
+  }
 
   addNode = (pos: Position, node: Tree.Node) => {
     const cp = this.pager?.currentPageResults.find(cp => cp.id == pos.chapterId);
@@ -78,12 +85,11 @@ export class MultiBoardCtrl {
   };
 
   private requestCloudEvals = () => {
-    if (this.pager?.currentPageResults.length) {
+    if (this.pager?.currentPageResults.length && this.showEval())
       this.send('evalGetMulti', {
         fens: this.pager?.currentPageResults.map(c => c.fen),
         ...(this.variant() != 'standard' ? { variant: this.variant() } : {}),
       });
-    }
   };
 
   reloadEventually = debounce(this.reload, 1000);
@@ -145,9 +151,12 @@ export function view(ctrl: MultiBoardCtrl, study: StudyCtrl): VNode | undefined 
 
 function renderPager(pager: Paginator<ChapterPreview>, study: StudyCtrl): MaybeVNodes {
   const ctrl = study.multiBoard;
-  const cloudEval = study.ctrl.ceval?.enabled() ? ctrl.getCloudEval : undefined;
+  const cloudEval = ctrl.showEval() ? ctrl.getCloudEval : undefined;
   return [
-    h('div.top', [renderPagerNav(pager, ctrl), renderPlayingToggle(ctrl)]),
+    h('div.study__multiboard__top', [
+      renderPagerNav(pager, ctrl),
+      h('div.study__multiboard__options', [renderEvalToggle(ctrl), renderPlayingToggle(ctrl)]),
+    ]),
     h('div.now-playing', pager.currentPageResults.map(makePreview(study, cloudEval))),
   ];
 }
@@ -162,11 +171,21 @@ function renderPlayingToggle(ctrl: MultiBoardCtrl): VNode {
   ]);
 }
 
+function renderEvalToggle(ctrl: MultiBoardCtrl): VNode {
+  return h('label.eval', [
+    h('input', {
+      attrs: { type: 'checkbox', checked: ctrl.showEval() },
+      hook: bind('change', e => ctrl.showEval((e.target as HTMLInputElement).checked)),
+    }),
+    ctrl.trans.noarg('showEvalBar'),
+  ]);
+}
+
 function renderPagerNav(pager: Paginator<ChapterPreview>, ctrl: MultiBoardCtrl): VNode {
   const page = ctrl.page,
     from = Math.min(pager.nbResults, (page - 1) * pager.maxPerPage + 1),
     to = Math.min(pager.nbResults, page * pager.maxPerPage);
-  return h('div.pager', [
+  return h('div.study__multiboard__pager', [
     pagerButton(ctrl.trans.noarg('first'), licon.JumpFirst, () => ctrl.setPage(1), page > 1, ctrl),
     pagerButton(ctrl.trans.noarg('previous'), licon.JumpPrev, ctrl.prevPage, page > 1, ctrl),
     h('span.page', `${from}-${to} / ${pager.nbResults}`),
@@ -240,8 +259,7 @@ const makePreview = (study: StudyCtrl, cloudEval?: GetCloudEval) => (preview: Ch
   );
 
 const evalGauge = (chap: ChapterPreview, cloudEval: GetCloudEval): VNode =>
-  h(
-    'span.mini-game__gauge',
+  h('span.mini-game__gauge', [
     h('span.mini-game__gauge__black', {
       hook: {
         postpatch(old, vnode) {
@@ -260,7 +278,8 @@ const evalGauge = (chap: ChapterPreview, cloudEval: GetCloudEval): VNode =>
         },
       },
     }),
-  );
+    h('tick.zero'),
+  ]);
 
 const renderScore = (s: EvalScore) =>
   s.mate ? '#' + s.mate : defined(s.cp) ? `${s.cp >= 0 ? '+' : ''}${s.cp / 100}` : '?';

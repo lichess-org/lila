@@ -51,7 +51,7 @@ object SetupBulk:
     mapping(
       "players" -> nonEmptyText
         .verifying("Not enough tokens", t => extractTokenPairs(t).nonEmpty)
-        .verifying(s"Too many tokens (max: ${maxGames * 2})", t => extractTokenPairs(t).sizeIs < maxGames),
+        .verifying(s"Too many tokens (max: ${maxGames * 2})", t => extractTokenPairs(t).sizeIs <= maxGames),
       SetupForm.api.variant,
       SetupForm.api.clock,
       SetupForm.api.optionalDays,
@@ -119,8 +119,10 @@ object SetupBulk:
   case class ScheduledGame(id: GameId, white: UserId, black: UserId):
     def userIds = ByColor(white, black)
 
+  type ID = String
+  import reactivemongo.api.bson.Macros.Annotations.Key
   case class ScheduledBulk(
-      _id: String,
+      @Key("_id") id: ID,
       by: UserId,
       games: List[ScheduledGame],
       variant: Variant,
@@ -152,7 +154,7 @@ object SetupBulk:
     import lila.game.JsonView.given
     Json
       .obj(
-        "id" -> _id,
+        "id" -> id,
         "games" -> games.map: g =>
           Json.obj(
             "id"    -> g.id,
@@ -223,7 +225,7 @@ final class SetupBulkApi(oauthServer: OAuthServer, idGenerator: IdGenerator)(usi
               .collect { case List(w, b) => (w, b) }
               .toList
             val nbGames = pairs.size
-            val cost    = nbGames * (if me.isVerified || me.isApiHog then 1 else 3)
+            val cost    = nbGames * (if me.isVerifiedOrChallengeAdmin || me.isApiHog then 1 else 3)
             rateLimit(me.id, fuccess(Left(ScheduleError.RateLimited)), cost = cost):
               lila.mon.api.challenge.bulk.scheduleNb(me.id.value).increment(nbGames)
               idGenerator
@@ -235,7 +237,7 @@ final class SetupBulkApi(oauthServer: OAuthServer, idGenerator: IdGenerator)(usi
                     case (id, (w, b)) => ScheduledGame(id, w, b)
                 .dmap:
                   ScheduledBulk(
-                    _id = ThreadLocalRandom nextString 8,
+                    id = ThreadLocalRandom nextString 8,
                     by = me.id,
                     _,
                     data.variant,

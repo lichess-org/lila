@@ -74,9 +74,8 @@ final private class Finisher(
     stats = lt.lagStats
     moves = lt.moves if moves > 4
     sd <- stats.stdDev
-    mean        = stats.mean if mean > 0
-    uncompStats = lt.uncompStats
-    uncompAvg   = Math.round(10 * uncompStats.mean)
+    mean      = stats.mean if mean > 0
+    uncompAvg = Math.round(10 * lt.uncompStats.mean)
     compEstStdErr <- lt.compEstStdErr
     quotaStr     = f"${lt.quotaGain.centis / 10}%02d"
     compEstOvers = lt.compEstOvers.centis
@@ -87,7 +86,7 @@ final private class Finisher(
     // wikipedia.org/wiki/Coefficient_of_variation#Estimation
     lRec.coefVar.record(Math.round((1000f + 250f / moves) * sd / mean))
     lRec.uncomped(quotaStr).record(uncompAvg)
-    uncompStats.stdDev foreach { v =>
+    lt.uncompStats.stdDev foreach { v =>
       lRec.uncompStdDev(quotaStr).record(Math.round(10 * v))
     }
     lt.lagEstimator match

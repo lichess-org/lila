@@ -44,6 +44,7 @@ object help:
           header(trans.other()),
           flip,
           zen,
+          row(frag(kbd("shift"), kbd("B")), "Toggle blindfold mode"),
           helpDialog
         )
       )
@@ -60,6 +61,7 @@ object help:
           header(trans.other()),
           flip,
           zen,
+          row(frag(kbd("shift"), kbd("B")), "Toggle blindfold mode"),
           helpDialog
         )
       )

@@ -59,7 +59,7 @@
   <string name="studyPgn">Uuringu PGN</string>
   <string name="downloadAllGames">Lae alla kõik mängud</string>
   <string name="chapterPgn">Peatüki PGN</string>
-  <string name="copyChapterPgn" comment="A button which lets you copy the PGN text to your clipboard (i.e. similar to ⌘+C or Ctrl+C).">Kopeeri PGN</string>
+  <string name="copyChapterPgn">Kopeeri PGN</string>
   <string name="copyChapterPgnDescription">Kopeeri peatüki PGN lõikelauale.</string>
   <string name="downloadGame">Lae alla mäng</string>
   <string name="studyUrl">Uuringu URL</string>

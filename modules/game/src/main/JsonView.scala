@@ -84,7 +84,7 @@ final class JsonView(rematches: Rematches):
       .add("ratingDiff" -> pov.player.ratingDiff)
 
   def maybeFen(pov: Pov): Fen.Epd =
-    Fen.write(pov.game.chess)
+    if pov.player.blindfold then Fen.Epd("8/8/8/8/8/8/8/8") else Fen.write(pov.game.chess)
 
   def player(p: Player, user: Option[LightUser]) =
     Json
@@ -166,10 +166,10 @@ object JsonView:
     )
 
   given OWrites[chess.Division] = OWrites: o =>
-    Json.obj(
-      "middle" -> o.middle,
-      "end"    -> o.end
-    )
+    Json
+      .obj()
+      .add("middle" -> o.middle)
+      .add("end" -> o.end)
 
   given Writes[Source]   = writeAs(_.name)
   given Writes[GameRule] = writeAs(_.key)

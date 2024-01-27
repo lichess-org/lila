@@ -7,7 +7,7 @@
     <item quantity="other">%s satranç maçı içinde ara</item>
   </plurals>
   <plurals name="xGamesFound">
-    <item quantity="one">Bir maç bulundu</item>
+    <item quantity="one">Bir oyun bulundu</item>
     <item quantity="other">%s maç bulundu</item>
   </plurals>
   <string name="opponentName">Rakibin ismi</string>
@@ -32,8 +32,8 @@
   <string name="descending">Azalan</string>
   <string name="ascending">Artan</string>
   <plurals name="gamesFound">
-    <item quantity="one">%s maç bulundu</item>
-    <item quantity="other">%s maç bulundu</item>
+    <item quantity="one">%s oyun bulundu</item>
+    <item quantity="other">%s oyun bulundu</item>
   </plurals>
   <string name="ratingExplanation">Her iki oyuncunun ortalama puanı</string>
 </resources>

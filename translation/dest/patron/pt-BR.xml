@@ -82,5 +82,5 @@ No entanto, Patronos têm direito de se gabar com um novo ícone legal de perfil
   <string name="changeCurrency">Trocar de moeda</string>
   <string name="paymentDetails">Detalhes de pagamento</string>
   <string name="updatePaymentMethod">Atualizar forma de pagamento</string>
-  <string name="stripeManageSub">Gerencie sua assinatura e baixe suas faturas e recibos</string>
+  <string name="stripeManageSub">Gerencie sua assinatura e faça o download de suas faturas e recibos</string>
 </resources>

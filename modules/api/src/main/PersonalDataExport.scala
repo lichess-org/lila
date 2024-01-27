@@ -186,16 +186,11 @@ final class PersonalDataExport(
                 s"${textDate(msg.at)} by $author\n${msg.text}$bigSep"
 
     val reports = Source.futureSource:
-      reportEnv.api
-        .personalExport(user)
-        .map: atoms =>
-          val (by, to) = atoms
-            .map: a =>
-              a -> s"${textDate(a.at)}\n${a.text}$bigSep"
-            .partition(_._1.by is user)
-          Source:
-            List(textTitle("Reports you created")) ::: by.map(_._2) :::
-              List(textTitle("Reports about you")) ::: to.map(_._2)
+      reportEnv.api.personalExport(user) map: atoms =>
+        Source:
+          List(textTitle("Reports you created")) :::
+            atoms.map: a =>
+              s"${textDate(a.at)}\n${a.text}$bigSep"
 
     val outro = Source(List(textTitle("End of data export.")))
 

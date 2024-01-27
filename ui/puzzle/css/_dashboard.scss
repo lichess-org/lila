@@ -46,6 +46,7 @@
 
   &__metrics {
     display: flex;
+    gap: 1em;
 
     @include breakpoint($mq-not-x-small) {
       flex-direction: column;
@@ -64,17 +65,7 @@
     padding: 0.4em 0.7em 0.6em 0.7em;
     text-transform: uppercase;
     flex: 0 0 23.5%;
-    margin-#{$start-direction}: 2%;
     cursor: default;
-
-    @include breakpoint($mq-not-x-small) {
-      margin-top: 1em;
-    }
-
-    &:first-child {
-      margin-#{$start-direction}: 0;
-      margin-top: 0;
-    }
 
     strong {
       @extend %roboto;

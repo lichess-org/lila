@@ -90,8 +90,8 @@
   <string name="topGames">Mellores partidas</string>
   <string name="masterDbExplanation">Partidas cara a cara de xogadores con Elo FIDE de %1$s+, dende %2$s a %3$s</string>
   <plurals name="mateInXHalfMoves">
-    <item quantity="one">Mate en %s medias xogadas</item>
-    <item quantity="other">Mate en %s xogadas</item>
+    <item quantity="one">Mate en %s media xogada</item>
+    <item quantity="other">Mate en %s medias xogadas</item>
   </plurals>
   <string name="dtzWithRounding">DTZ50\'\' con redondeo, baseado no número de medias xogadas ata a próxima captura ou movemento de peón</string>
   <string name="noGameFound">Non se atoparon partidas</string>
@@ -290,7 +290,7 @@
   <string name="rematchOfferDeclined">Oferta de desquite rexeitada</string>
   <string name="cancelRematchOffer">Cancelar a oferta de desquite</string>
   <string name="viewRematch">Ver desquite</string>
-  <string name="confirmMove">Confirma o movemento</string>
+  <string name="confirmMove">Confirmar a xogada</string>
   <string name="play">Xogar</string>
   <string name="inbox">Bandexa de entrada</string>
   <string name="chatRoom">Sala de conversa</string>

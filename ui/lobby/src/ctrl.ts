@@ -74,9 +74,9 @@ export default class LobbyController {
 
     const locationHash = location.hash.replace('#', '');
     if (['ai', 'friend', 'hook'].includes(locationHash)) {
-      let friendUser: string;
       const forceOptions: ForceSetupOptions = {};
       const urlParams = new URLSearchParams(location.search);
+      const friendUser = urlParams.get('user') ?? undefined;
       if (locationHash === 'hook') {
         if (urlParams.get('time') === 'realTime') {
           this.tab = 'real_time';
@@ -88,8 +88,6 @@ export default class LobbyController {
       } else if (urlParams.get('fen')) {
         forceOptions.fen = urlParams.get('fen')!;
         forceOptions.variant = 'fromPosition';
-      } else {
-        friendUser = urlParams.get('user')!;
       }
 
       loadDialogPolyfill.then(() => {

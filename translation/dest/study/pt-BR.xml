@@ -62,7 +62,7 @@
   <string name="studyPgn">PGN de estudo</string>
   <string name="downloadAllGames">Baixar todas as partidas</string>
   <string name="chapterPgn">PGN do capítulo</string>
-  <string name="copyChapterPgn" comment="A button which lets you copy the PGN text to your clipboard (i.e. similar to ⌘+C or Ctrl+C).">Copiar PGN</string>
+  <string name="copyChapterPgn">Copiar PGN</string>
   <string name="copyChapterPgnDescription">Copiar o PGN do capítulo para a área de transferência.</string>
   <string name="downloadGame">Baixar partida</string>
   <string name="studyUrl">URL de estudo</string>
