@@ -28,7 +28,7 @@ export default function renderClocks(ctrl: AnalyseCtrl, withNames: boolean): [VN
 
   if (!isSenteTurn) centis.reverse();
 
-  const showTenths = !ctrl.study;
+  const showTenths = true; // let's see
 
   return [
     renderClock(centis[0], sentePlayer, isSenteTurn, sentePov ? 'bottom' : 'top', showTenths),
