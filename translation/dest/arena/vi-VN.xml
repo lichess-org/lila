@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="arenaTournaments">Các giải đấu đấu trường</string>
-  <string name="isItRated">Có tính xếp hạng không?</string>
+  <string name="isItRated">Có xếp hạng?</string>
   <string name="willBeNotified">Bạn sẽ được thông báo khi giải đấu bắt đầu, vì vậy hãy yên tâm mở tab khác trong lúc chờ.</string>
   <string name="isRated">Giải đấu này có tính xếp hạng và sẽ ảnh hưởng Elo của bạn.</string>
   <string name="isNotRated">Giải đấu này *không* tính xếp hạng và sẽ *không* ảnh hưởng Elo của bạn.</string>
-  <string name="someRated">Một số giải đấu có tính Elo và sẽ ảnh hưởng Elo của bạn.</string>
+  <string name="someRated">Một số giải đấu có xếp hạng và sẽ ảnh hưởng tới Elo của bạn.</string>
   <string name="howAreScoresCalculated">Điểm được tính như thế nào?</string>
   <string name="howAreScoresCalculatedAnswer">Điểm cơ sở cho một ván thắng là 2 điểm, hòa: 1 điểm, thua: 0 điểm.
 Nếu bạn thắng hai ván liên tiếp bạn bắt đầu có chuỗi gấp đôi điểm, thể hiện bằng hình ngọn lửa.

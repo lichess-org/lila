@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="insights" comment="Feel free to translate to something more natural (like statistics) in your language if insights seems awkward">洞察</string>
+  <string name="moves">步</string>
+  <string name="drops">落子</string>
+  <string name="movesAndDrops">步数与打出</string>
+  <string name="total" comment="Usually in chart legend or tooltip summing other bars">总计</string>
+  <string name="count" comment="Example: Count: 11 moves">计数</string>
+  <string name="average">平均</string>
+  <string name="percentage">百分比</string>
+  <string name="outcomes" comment="win/draw/loss">输出</string>
+  <string name="color" comment="Meaning sente or gote">颜色</string>
+  <string name="termination" comment="Checkmate, repetition, timeout, etc">终止</string>
+  <string name="speed" comment="Bulltet, blitz, rapid, etc.">速度</string>
+  <string name="game">棋局</string>
+  <string name="opponents">对手</string>
+  <string name="averageOpponentRating">对手平均等级分</string>
+  <string name="averageOpponentRatingDiff">对手平均等级分差异</string>
+  <string name="mostPlayedOpponents">最常对弈的对手</string>
+  <string name="averageAccuracy">平均精度</string>
+  <string name="wins">胜</string>
+  <string name="draws">平</string>
+  <string name="losses">负</string>
+  <string name="accuracyByMoveNumber">每局精度</string>
+  <string name="accuracyByPiece">每驹精度</string>
+  <string name="times" comment="Move and drop times">时间</string>
+  <string name="totalTimeSpentThinking">总思考时间</string>
+  <string name="averageTimePerGame">每局平均时间</string>
+  <string name="averageTimePerMoveOrDrop">每次打出或走子的平均时间</string>
+  <string name="timeSpentThinkingByPiece">每驹思考时间</string>
+  <string name="movesAndDropsByPiece">每驹的打出或走子数</string>
+  <string name="capturesByPiece">已捕获的棋驹</string>
+  <string name="promotionsByPiece">已升变的棋驹</string>
+  <string name="mostPlayedOpenings">最常使用的开局</string>
+  <string name="openingMoves">开局走法</string>
+  <string name="insightsUpdate">洞察每隔几小时就会刷新</string>
+  <string name="accuracy">精度</string>
+  <string name="nbOfMovesAndDrops">打出数或走子数</string>
+  <string name="nbOfMovesAndDropsPerGame">每局的打出数或走子数</string>
+  <string name="nbOfCaptures">捕获的棋驹数</string>
+  <string name="nbOfPromotions">已升变的棋驹数</string>
+  <string name="opponentRating">对手等级</string>
+  <string name="opponentRatingDiff">对手等级分差异</string>
+  <string name="totalTimeOfMovesAndDrops">走子或打出的总用时</string>
+  <string name="nbOfGames">对局场数</string>
+  <string name="weekday">平日</string>
+  <string name="timeOfDay" comment="Morning,afternoon, evening, night">当前时间</string>
+  <string name="earlyBishopExchange" comment="Were bishops exchanged by the players early in the game">前期角行交换</string>
+</resources>

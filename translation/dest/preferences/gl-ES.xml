@@ -9,7 +9,7 @@
 	<string name="materialDifference">Diferenza de material</string>
 	<string name="boardHighlightsLastDests">Resaltar no taboleiro - última xogada e pezas guindadas</string>
 	<string name="boardHighlightsCheck">Resaltar no taboleiro - xaque</string>
-	<string name="pieceDestinations">Destino das pezas (xogadas válidas e anticipadas)</string>
+	<string name="pieceDestinations">Destino das pezas (xogadas válidas e premovementos)</string>
 	<string name="dropDestinations">Destino das guindadas (xogadas válidas e anticipadas)</string>
 	<string name="boardCoordinates">Coordenadas do taboleiro</string>
 	<string name="moveListWhilePlaying">Listaxe de xogadas durante o xogo</string>

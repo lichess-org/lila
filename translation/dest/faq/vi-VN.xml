@@ -9,8 +9,8 @@
 	<string name="whyLiveLightLibre">Luôn trực tiếp vì bạn có thể chơi và xem mọi lúc trong thời gian thực 24/7; light và libre (nhẹ nhàng và miễn phí) vì Lishogi có mã nguồn mở và không có các vấn đề độc quyền làm ảnh hướng đến các trang web khác.</string>
 	<string name="whyIsLilaCalledLila">Tương tự vậy, mã nguồn của Lishogi,%1$s, li là viết tắt của cờ vua trong sca, la vì phần lớn Lishogi được viết bằng %2$s, một ngôn ngữ lập trình trực quan.</string>
 	<string name="howCanIContributeToLishogi">Làm thế nào để tôi có thể đóng góp cho Lishogi?</string>
-	<string name="lishogiPoweredByDonationsAndVolunteers">Lishogi được hỗ trợ bởi sự đóng góp từ những người bảo trợ và nỗ lực của một nhóm tình nguyện viên.</string>
-	<string name="beingAPatron">Trở thành một Patron.</string>
+	<string name="lishogiPoweredByDonationsAndVolunteers">Lishogi được hỗ trợ bởi những sự đóng góp từ những người bảo trợ và nỗ lực của một nhóm tình nguyện viên.</string>
+	<string name="beingAPatron">Trở thành một Người bảo trợ Lishogi.</string>
 	<string name="otherWaysToContribute">Có rất nhiều cách để bạn đóng góp cho Lishogi.</string>
 	<string name="breakdownOfOurCosts">xem phân tích chi phí của chúng tôi</string>
 	<string name="otherWaysToHelp">những cách khác để giúp đỡ</string>
@@ -24,7 +24,7 @@
 	<string name="leavingGameWithoutResigningExplanation">Nếu đối thủ của bạn thường xuyên hủy/rời trò chơi, họ sẽ bị \"cấm chơi\", có nghĩa là họ tạm thời bị cấm chơi. Điều này không được công khai trên hồ sơ của họ. Nếu hành vi vẫn tiếp tục, thời lượng cấm sẽ tăng lên - và hành vi này kéo dài có thể dẫn đến việc đóng tài khoản.</string>
 	<string name="howCanIBecomeModerator">Làm sao để tôi có thể trở thành một quản trị viên?</string>
 	<string name="youCannotApply">Rất tiếc là bạn không thể đăng ký để trở thành một quản trị viên. Nếu chúng tôi thấy ai đó mà chúng tôi nghĩ rằng sẽ là quản trị viên tốt, chúng tôi sẽ liên hệ trực tiếp với họ.</string>
-	<string name="isCorrespondenceDifferent">Đánh cờ qua thư có khác với Shogi bình thường?</string>
+	<string name="isCorrespondenceDifferent">Đánh cờ qua thư có khác với cờ Shogi bình thường?</string>
 	<string name="youCanUseOpeningBookNoEngine">Trên Lishogi, sự khác biệt chính trong các quy tắc cho shogi qua thư là một cuốn sách khai cuộc được cho phép. Việc sử dụng máy tính phân tích vẫn bị cấm và sẽ bị gắn cờ vì sử dụng máy tính phân tích hỗ trợ. Mặc dù ICCF cho phép sử dụng máy tính phân tích trong đánh cờ qua thư, nhưng Lishogi thì không.</string>
 	<string name="gameplay">Lối chơi</string>
 	<string name="howBulletBlitzEtcDecided">Cờ Siêu Chớp, Cờ Chớp và các loại cờ khác được quyết định như thế nào?</string>
@@ -36,13 +36,13 @@ Ví dụ: thời lượng ước tính của trò chơi 5+3|4 là 60 × 5 + 60 �
 	<string name="whatVariantsCanIplay">Tôi có thể chơi các loại biến thể nào trên Lishogi?</string>
 	<string name="lishogiSupportShogiAnd">Lishogi hỗ trợ shogi tiêu chuẩn và %1$s.</string>
 	<string name="whatIsACPL">Phần trăm tốt mất trung bình (ACPL) là gì?</string>
-	<string name="acplExplanation">Phần trăm tốt là đơn vị đo lường được sử dụng trong cờ vua để đại diện cho lợi thế. Một phần trăm tốt bằng 1/100 tốt. Do đó 100 phần trăm tốt = 1 tốt. Những giá trị này không đóng vai trò chính thức trong ván đấu nhưng hữu ích cho người chơi, và rất cần thiết trong cờ vua trên máy tính, để đánh giá các vị trí.
+	<string name="acplExplanation">Phần trăm tốt là đơn vị đo lường được sử dụng trong cờ vua (hoặc shogi) để đại diện cho lợi thế. Một phần trăm tốt bằng 1/100 tốt. Do đó 100 phần trăm tốt = 1 tốt. Những giá trị này không đóng vai trò chính thức trong ván đấu nhưng hữu ích cho người chơi và rất cần thiết trong cờ vua (shogi) trên máy tính để đánh giá các thế trận/thế cờ.
 
-Đẩy tốt lên cao sẽ có thể không làm mất phần trăm tốt, nhưng để tốt thấp sẽ làm giảm vị trí, được đo bằng phần trăm tốt.
+Đẩy tốt lên cao sẽ có thể không làm mất phần trăm tốt, nhưng để phần trăm tốt thấp sẽ làm giảm , được đo bằng phần trăm tốt.
 
-Giá trị này có thể được sử dụng như một chỉ báo về chất lượng chơi. Càng ít phần trăm tốt mất mỗi nước đi, càng có ưu thế.
+Giá trị này có thể được sử dụng như một chỉ báo về chất lượng chơi. Càng ít phần trăm mất tốt mỗi nước đi, càng có lợi thế.
 
-Phân tích máy tính trên Lishogi do Stockfish cung cấp.</string>
+Phân tích máy tính trên Lishogi do Fairy-Stockfish và YaneuraOu cung cấp.</string>
 	<string name="insufficientMaterial">Thua do hết giờ, hòa và không đủ quân chiếu hết</string>
 	<string name="goodIntroduction">lời mở đầu tốt</string>
 	<string name="officialRulesPDF">luật chính thức (PDF)</string>
@@ -76,11 +76,11 @@ Chúng tôi hiếm khi trao giải cho những người chơi nổi bật là c�
 	<string name="aHourlyBulletTournament">một giải đấu cờ siêu chớp hàng giờ</string>
 	<string name="lishogiRatings">Xếp hạng Lishogi</string>
 	<string name="whichRatingSystemUsedByLishogi">Lishogi sử dụng hệ thống xếp hạng nào?</string>
-	<string name="ratingSystemUsedByLishogi">Xếp hạng được tính toán dựa trên phương pháp Glicko-2 được phát triển bởi Mark Glickman. Đây là một phương pháp tính toán xếp hạng rất nổi tiếng, và cũng được sử dụng bởi đa số các tổ chức cờ vua (FIDE là ngoại lệ, họ vẫn sử dụng hệ thống xếp hạng Elo) 
+	<string name="ratingSystemUsedByLishogi">Xếp hạng được tính bằng phương pháp xếp hạng Glicko-2 do Mark Glickman phát triển. Đây là một phương pháp đánh giá rất phổ biến và được sử dụng bởi một số lượng lớn các tổ chức cờ vua (FIDE là một ví dụ ngược lại đáng chú ý, vì họ vẫn sử dụng hệ thống đánh giá Elo lỗi thời).
 
-Về cơ bản, hệ thống xếp hạng Glicko sử dụng \" khoảng tin cậy \" để tính toán và biểu diễn xếp hạng của bạn. Khi bạn lần đầu tiên bắt đầu sử dụng trang web, xếp hạng của bạn bắt đầu ở 1500 ± 700. 1500 thể hiện xếp hạng của bạn và 700 thể hiện khoảng tin cậy.
+Về cơ bản, xếp hạng Glicko sử dụng \"khoảng tin cậy\" để tính toán và cho ra xếp hạng của bạn. Khi bạn lần đầu tiên bắt đầu sử dụng trang web, hệ số Elo của bạn bắt đầu ở 1500 ± 700. 1500 thể hiện xếp hạng của bạn và 700 thể hiện khoảng tin cậy.
 
-Về cơ bản, hệ thống chắc chắn 90% rằng xếp hạng của bạn nằm trong khoảng 800 đến 2200. Điều này cực kỳ không chắc chắn. Do đó, khi một người chơi mới bắt đầu, xếp hạng của họ sẽ thay đổi rất đáng kể, có thể vài trăm điểm một lúc. Nhưng sau một số trận đấu với những người chơi có kĩ năng, khoảng tin cậy sẽ thu hẹp và số điểm đạt được/mất đi sau mỗi trận đấu sẽ giảm xuống.
+Về cơ bản, hệ thống chắc chắn 90% rằng xếp hạng của bạn nằm trong khoảng 800 đến 2200. Điều này cực kỳ không chắc chắn. Do đó, khi một người chơi mới bắt đầu, xếp hạng của họ sẽ thay đổi rất đáng kể, có thể vài trăm điểm một lúc. Nhưng sau một số trận đấu với những người chơi đã thành danh, khoảng tin cậy sẽ thu hẹp và số điểm đạt được/mất đi sau mỗi trận đấu sẽ giảm xuống.
 
 Một điểm cần lưu ý nữa là, khi thời gian trôi qua, khoảng tin cậy sẽ tăng lên. Điều này cho phép bạn tăng/giảm điểm nhanh hơn để phù hợp với bất kỳ thay đổi nào trong cấp độ kỹ năng của bạn trong thời gian đó.</string>
 	<string name="whatIsProvisionalRating">Tại sao lại có dấu chấm hỏi (?) bên cạnh hệ số Elo?</string>
@@ -92,12 +92,12 @@ Một điểm cần lưu ý nữa là, khi thời gian trôi qua, khoảng tin c
 	<string name="howDoLeaderoardsWork">Thứ hạng và bảng thành tích hoạt động như thế nào?</string>
 	<string name="inOrderToAppearsYouMust">Để nhận được %1$s, bạn phải:</string>
 	<string name="ratingLeaderboards">thứ hạng trên bảng xếp hạng</string>
-	<string name="havePlayedMoreThanThirtyGamesInThatRating">đã chơi ít nhất 30 ván xếp hạng trong một xếp hạng nhất định,</string>
-	<string name="havePlayedARatedGameAtLeastOneWeekAgo">đã chơi một ván xếp hạng trong tuần trước cho xếp hạng này,</string>
-	<string name="ratingDeviationLowerThanXinShogiYinVariants">có độ lệch xếp hạng thấp hơn %1$s, trong Shogi tiêu chuẩn, và thấp hơn %2$s trong các biến thể,</string>
-	<string name="beInTopTen">nằm trong top 10 trong bảng xếp hạng này.</string>
+	<string name="havePlayedMoreThanThirtyGamesInThatRating">Đã chơi ít nhất 30 ván xếp hạng trong một xếp hạng nhất định,</string>
+	<string name="havePlayedARatedGameAtLeastOneWeekAgo">Đã chơi một ván xếp hạng trong tuần trước cho xếp hạng này,</string>
+	<string name="ratingDeviationLowerThanXinShogiYinVariants">Có độ lệch xếp hạng thấp hơn %1$s, trong Shogi tiêu chuẩn và thấp hơn %2$s trong các biến thể,</string>
+	<string name="beInTopTen">Nằm trong top 10 trong bảng xếp hạng này.</string>
 	<string name="secondRequirementToStopOldPlayersTrustingLeaderboards">Yêu cầu thứ hai là những người chơi không còn sử dụng tài khoản sẽ không được đưa vào bảng xếp hạng.</string>
-	<string name="whyAreRatingHigher">Tại sao xếp hạng lại khác khi so sánh với các ví dụ khác, như 81Dojo và Shogi Club 24?</string>
+	<string name="whyAreRatingHigher">Tại sao xếp hạng lại khác khi so sánh với các ví dụ khác như 81Dojo và Shogi Club 24?</string>
 	<string name="whyAreRatingHigherExplanation">Tốt nhất là không nên coi xếp hạng là con số tuyệt đối hoặc so sánh chúng với các tổ chức khác. Các tổ chức khác nhau có các cấp độ người chơi khác nhau, các hệ thống xếp hạng khác nhau (Elo, Glicko, Glicko-2 hoặc một phiên bản sửa đổi đã nói ở trên). Những yếu tố này có thể ảnh hưởng mạnh đến con số tuyệt đối (xếp hạng).
 
 Tốt nhất bạn nên coi xếp hạng là số liệu \"tương đối\" (trái ngược với số liệu \"tuyệt đối\"): Trong một nhóm người chơi, sự khác biệt tương đối về xếp hạng của họ sẽ giúp bạn ước tính ai sẽ thắng / hòa / thua và tần suất ra sao. Nói \"Tôi có xếp hạng X\" chẳng có nghĩa gì trừ khi có người chơi khác so sánh xếp hạng đó với bạn.</string>

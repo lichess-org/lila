@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="advantage">Lợi thế</string>
-  <string name="advantageDescription">Tận dụng cơ hội của bạn để chiếm lấy lợi thế.</string>
+  <string name="advantageDescription">Tận dụng cơ hội của bạn để chiếm lấy lợi thế áp đảo.</string>
   <string name="castling">Nhập thành</string>
   <string name="castlingDescription">Đưa Vua tới vị trí an toàn</string>
   <string name="crushing">Áp đảo</string>
-  <string name="crushingDescription">Phát hiện sai lầm của đối phương để chiếm lợi thế.</string>
+  <string name="crushingDescription">Phát hiện sai lầm của đối phương để chiếm lợi thế áp đảo.</string>
   <string name="equality">Cân bằng</string>
   <string name="equalityDescription">Lật kèo từ một thế cờ thua, đảm bảo một thế hòa hoặc cân bằng.</string>
   <string name="defensiveMove">Nước đi phòng thủ</string>
@@ -13,12 +13,12 @@
   <string name="deflection">Đánh lạc hướng</string>
   <string name="deflectionDescription">Một nước đi đánh lạc hướng một quân đối phương khỏi một nhiệm vụ nó đang làm, chẳng hạn như bảo vệ một ô trọng điểm. Còn được gọi là \"quá tải\".</string>
   <string name="discoveredAttack">Tấn công mở</string>
-  <string name="discoveredAttackDescription">Di chuyển một quân (ví dụ như quân Quế Mã) vốn đang chặn một đòn tấn công từ xa (như quân Xe) ra khỏi vị trí ban đầu.</string>
+  <string name="discoveredAttackDescription">Di chuyển một quân (ví dụ như quân Mã) vốn đang chặn một đòn tấn công từ xa (như quân Xe) ra khỏi vị trí ban đầu.</string>
   <string name="doubleCheck">Chiếu đôi</string>
   <string name="doubleCheckDescription">Chiếu tướng bằng hai quân một lúc, như là một kết quả của một đòn tấn công mở khi mà cả quân đứng sau và quân chặn đường đều tấn công vua đối phương.</string>
   <string name="endgame">Tàn cuộc</string>
   <string name="endgameDescription">Chiến thuật trong phần kết thúc của ván cờ.</string>
-  <string name="fork">Bắt đôi</string>
+  <string name="fork">Tấn công đôi</string>
   <string name="forkDescription">Một nước đi mà quân được di chuyển tấn công hai hoặc nhiều quân cùng một lúc.</string>
   <string name="hangingPiece">Quân cờ không được bảo vệ</string>
   <string name="hangingPieceDescription">Một chiến thuật liên quan đến quân cờ của đối phương không được phòng thủ hoặc phòng thủ không đủ dẫn tới việc có thể ăn quân cờ đấy.</string>
@@ -56,14 +56,14 @@
   <string name="sacrificeDescription">Một chiến thuật sử dụng việc thí quân, để giành lại lợi thế sau một chuỗi di chuyển bắt buộc.</string>
   <string name="short">Câu đố ngắn</string>
   <string name="shortDescription">Thắng trong 3 nước cờ.</string>
-  <string name="healthyMix">Một sự kết hợp nhẹ nhàng</string>
-  <string name="healthyMixDescription">Mỗi thứ một chút. Bạn không biết phải chờ đợi gì cả, vậy nên bạn sẽ sẵn sàng cho mọi thứ! Như một ván cờ thật vậy.</string>
+  <string name="healthyMix">Phối hợp nhịp nhàng</string>
+  <string name="healthyMixDescription">Mỗi thứ một chút. Bạn không biết được thứ gì đang chờ mình, vậy nên bạn cần phải sẵn sàng cho mọi thứ! Như một ván cờ thật vậy!</string>
   <string name="tsume">Cờ thế chiếu hết</string>
   <string name="tsumeDescription">Mục tiêu là chiếu hết quân Vua của đối phương, mọi nước đi đều phải chiếu.</string>
   <string name="strikingPawn">Tốt tấn công</string>
   <string name="strikingPawnDescription">Một kĩ thuật sử dụng việc thả tốt ngay trên đầu quân đối phương và tấn công nó.</string>
-  <string name="joiningPawn">Joining Pawn</string>
-  <string name="joiningPawnDescription">Một kĩ thuật sử dụng việc thí quân bằng cách thả ngay trên đầu quân đối phương.</string>
+  <string name="joiningPawn">Tốt tham gia</string>
+  <string name="joiningPawnDescription">Một kĩ thuật sử dụng việc thả quân tốt ngay trên đầu quân đối phương.</string>
   <string name="dancingPawns">Tốt nhảy múa</string>
   <string name="dancingPawnsDescription">Một chiến thuật dùng để ăn quân đối phương bằng việc thí tốt.</string>
   <string name="edgeAttack">Tấn công biên</string>

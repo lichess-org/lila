@@ -34,7 +34,7 @@ Para facelo, preme na engrenaxe ou no teu nome de usuario (recanto superior dere
 	<string name="itMovesDiagonally">Move en diagonal</string>
 	<string name="bishopIntro">Deseguido imos aprender como manexar o bispo!</string>
 	<string name="ehThereIsNoPiece">Eh? Non hai pezas en xogo... pero mira fóra do taboleiro, un bispo! Este é o lugar onde van as pezas que capturaches. Agora podes guindar a peza no taboleiro. Coma sempre, recolle todas as estrelas.</string>
-	<string name="bishopPromotion">Coroares o teu alfil fará que sexa máis forte, converterase nunha peza chamada \"o cabalo\".</string>
+	<string name="bishopPromotion">Un bispo que coroa será máis forte, converterase nunha peza chamada \"o cabalo\".</string>
 	<string name="bishopSummary">O bispo móvese en calquera dirección diagonal.</string>
 	<string name="horseSummary">O bispo coroado tamén move en diagonal, pero ademais pode ir un cadro arriba, abaixo, á dereita ou á esquerda.</string>
 	<string name="bishopComplete">Parabéns! Podes comandar un bispo.</string>
@@ -46,7 +46,7 @@ Para facelo, preme na engrenaxe ou no teu nome de usuario (recanto superior dere
 	<string name="kingComplete">Agora podes comandar o comandante!</string>
 	<string name="theKnight">O cabaleiro</string>
 	<string name="itMovesInAnLShape">Move en forma de L, pero só CARA DIANTE!</string>
-	<string name="knightIntro">Aquí hai outro reto para ti. O cabaleiro é... unha peza complicada.</string>
+	<string name="knightIntro">Velaquí outro reto para ti. O cabaleiro é... unha peza complicada.</string>
 	<string name="knightsHaveAFancyWay">Os cabaleiros teñen unha forma extravagante
 de ir dando chimpos!</string>
 	<string name="knightsCanJumpOverObstacles">Os cabaleiros poden saltar por riba dos obstáculos!</string>
@@ -66,7 +66,7 @@ de ir dando chimpos!</string>
 	<string name="itMovesStraightForward">Só move cara diante.</string>
 	<string name="lanceIntro">Úsao con sabedoría.</string>
 	<string name="lancesAreStraighforward">Só tes que movelo cara diante tanto como queiras. Isto ten que ser fácil para ti.</string>
-	<string name="lancePromotion">Unha vez que coroa, cambian os seus movementos; claro que xa oíches falar disto — move igual ca un xeneral de ouro.</string>
+	<string name="lancePromotion">Unha vez que a lanza coroa, cambian os seus movementos; claro que xa oíches falar disto — move igual ca un xeneral de ouro.</string>
 	<string name="lanceSummary">Move cara diante. Isto é moi fácil.</string>
 	<string name="planceSummary">É o mesmo có xeneral de ouro.</string>
 	<string name="planceSummaryTwo">A lanza coroada move igual có xeneral de ouro.</string>
@@ -86,7 +86,7 @@ de ir dando chimpos!</string>
 	<string name="silverComplete">Parabéns! Tes a sorte de cara.</string>
 	<string name="promotion">Esta peza pode coroar.</string>
 	<string name="yourPieceReachedThePromotionZone">A túa peza entrou na zona de promoción!</string>
-	<string name="itNowPromotesToAStrongerPiece">Agora pode ser promovida a unha peza máis forte.</string>
+	<string name="itNowPromotesToAStrongerPiece">Agora pode coroar e converterse nunha peza máis forte.</string>
 	<string name="selectThePieceYouWant">Selecciona a peza que queiras!</string>
 	<string name="fundamentals">Fundamentos</string>
 	<string name="capture">Captura</string>

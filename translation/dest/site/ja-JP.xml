@@ -18,6 +18,7 @@
 	<string name="resign">投了</string>
 	<string name="checkmate">詰み</string>
 	<string name="stalemate">ステイルメイト</string>
+	<string name="check">Check</string>
 	<string name="impasse">持将棋</string>
 	<string name="repetition" comment="Status of a game ending due to repeated positions">千日手</string>
 	<string name="perpetualCheck">連続王手の千日手</string>
@@ -218,11 +219,13 @@
 	<string name="chushogi">中将棋</string>
 	<string name="annanshogi">安南将棋</string>
 	<string name="kyotoshogi">京都将棋</string>
+	<string name="checkshogi">Checkshogi</string>
 	<string name="standardDescription" comment="No need to translate it literally, serves as short description of the variant">Standard rules of shogi</string>
 	<string name="minishogiDescription" comment="No need to translate it literally, serves as short description of the variant">Same rules as standard shogi, but played on a smaller 5x5 board</string>
 	<string name="chushogiDescription" comment="No need to translate it literally, serves as short description of the variant">The most popular historical variant of shogi played on a 12x12 board</string>
 	<string name="kyotoshogiDescription" comment="No need to translate it literally, serves as short description of the variant">Modern variant of shogi with alternating unique promotions on a 5x5 board</string>
 	<string name="annanshogiDescription" comment="No need to translate it literally, serves as short description of the variant">Variant similar to standard shogi, where pieces move like friendly pieces behind them</string>
+	<string name="checkshogiDescription" comment="No need to translate it literally, serves as short description of the variant">Just like standard shogi, but first to check opponent\'s king wins</string>
 	<string name="unlimited">無制限</string>
 	<string name="mode">モード</string>
 	<string name="casual">非レート戦</string>
@@ -902,4 +905,5 @@
 	<string name="analyse" comment="Verb; After clicking on button saying this, we expect to analyse the position">Analyse</string>
 	<string name="back" comment="As in: go back">Back</string>
 	<string name="preview">Preview</string>
+	<string name="variantNotSupported">Variant not supported</string>
 </resources>

@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="pawn">Tốt</string>
+  <string name="lance">Hương xa</string>
+  <string name="knight">Quế mã</string>
+  <string name="silver">Ngân tướng</string>
+  <string name="gold">Kim tướng</string>
+  <string name="bishop">Giác hành</string>
+  <string name="rook">Phi xa</string>
+  <string name="king">Vua</string>
+  <string name="tokin">Tokin</string>
+  <string name="promotedlance">Phong hương xa</string>
+  <string name="promotedknight">Phong mã</string>
+  <string name="promotedsilver">Phong ngân tướng</string>
+  <string name="horse">Long mã</string>
+  <string name="dragon">Long vương</string>
+  <string comment="Chushogi piece - not tokin" name="promotedpawn">Phong tốt</string>
+  <string comment="Chushogi piece, low priority for translation" name="leopard">Mãnh báo</string>
+  <string comment="Chushogi piece, low priority for translation" name="copper">Tướng đồng</string>
+  <string comment="Chushogi piece, low priority for translation" name="elephant">Túy tượng</string>
+  <string comment="Chushogi piece, low priority for translation" name="chariot">Phản xa</string>
+  <string comment="Chushogi piece, low priority for translation" name="tiger">Manh hổ</string>
+  <string comment="Chushogi piece, low priority for translation" name="kirin">Kỳ lân</string>
+  <string comment="Chushogi piece, low priority for translation" name="phoenix">Phượng hoàng</string>
+  <string comment="Chushogi piece, low priority for translation" name="sidemover">Hoành hành</string>
+  <string comment="Chushogi piece, low priority for translation" name="verticalmover">Thụ hành</string>
+  <string comment="Chushogi piece, low priority for translation" name="lion">Sư tử</string>
+  <string comment="Chushogi piece, low priority for translation" name="queen">Hậu vương</string>
+  <string comment="Chushogi piece, low priority for translation" name="gobetween">Trọng nhân</string>
+  <string comment="Chushogi piece, low priority for translation" name="whitehorse">Bạch câu</string>
+  <string comment="Chushogi piece, low priority for translation" name="lionpromoted">Phong sư tử</string>
+  <string comment="Chushogi piece, low priority for translation" name="queenpromoted">Phong hậu vương</string>
+  <string comment="Chushogi piece, low priority for translation" name="bishoppromoted">Phong giác hành</string>
+  <string comment="Chushogi piece, low priority for translation" name="sidemoverpromoted">Phong hoành hành</string>
+  <string comment="Chushogi piece, low priority for translation" name="verticalmoverpromoted">Phong thụ hành</string>
+  <string comment="Chushogi piece, low priority for translation" name="rookpromoted">Phong phi xa</string>
+  <string comment="Chushogi piece, low priority for translation" name="prince">Thái tử</string>
+  <string comment="Chushogi piece, low priority for translation" name="whale">Cá voi</string>
+  <string comment="Chushogi piece, low priority for translation" name="horsepromoted">Phong long mã</string>
+  <string comment="Chushogi piece, low priority for translation" name="elephantpromoted">Phong túy tượng</string>
+  <string comment="Chushogi piece, low priority for translation" name="stag">Phi lộc</string>
+  <string comment="Chushogi piece, low priority for translation" name="boar">Bôn trư</string>
+  <string comment="Chushogi piece, low priority for translation" name="ox">Phi ngưu</string>
+  <string comment="Chushogi piece, low priority for translation" name="falcon">Giác ưng</string>
+  <string comment="Chushogi piece, low priority for translation" name="eagle">Đại bàng</string>
+  <string comment="Chushogi piece, low priority for translation" name="dragonpromoted">Phong rồng</string>
+</resources>

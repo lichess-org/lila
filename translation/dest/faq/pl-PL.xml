@@ -30,7 +30,7 @@
 	<string name="howBulletBlitzEtcDecided">W jaki sposób system decyduje czy partia jest typu Bullet, Blitz itd.?</string>
 	<string name="basedOnGameDuration">Kontrole czasu na Lishogi oparte są na szacowanym czasie trwania gry = %1$s
 Na przykład, szacowany czas trwania gry 5+3 wynosi 5 * 60 + 40 * 3 = 420 sekund.</string>
-	<string name="formulaOfDuration">60 × (clock initial time in minutes) + 60 × (clock increment) + 25 × (clock byoyomi) × (clock periods)</string>
+	<string name="formulaOfDuration">60 × (czas początkowy w minutach) + 60 × (przyrost zegara) + 25 × (byoyomi zegara) × (okresy zegara)</string>
 	<string name="inferiorThanXsEqualYtimeControl">≤ %1$ss = %2$s</string>
 	<string name="superiorThanXsEqualYtimeControl">≥ %1$ss = %2$s</string>
 	<string name="whatVariantsCanIplay">W jakie warianty shogi mogę zagrać na Lishogi?</string>

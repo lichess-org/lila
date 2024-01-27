@@ -64,6 +64,8 @@
   <string name="fromMyGames">Z mých partií</string>
   <string name="lookupOfPlayer">Vyhledat puzzle z her hráče</string>
   <string name="fromXGames">Puzzle z her hráče %s</string>
+  <string name="submissions">Puzzle návrhy</string>
+  <string name="submittedByX">Puzzle od %s</string>
   <string name="searchPuzzles">Hledat puzzle</string>
   <string name="fromXGamesFound">%1$s puzzle v %2$s partiích</string>
 </resources>

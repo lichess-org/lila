@@ -18,6 +18,7 @@
 	<string name="resign">Abandonar</string>
 	<string name="checkmate">Jaque mate</string>
 	<string name="stalemate">Ahogado</string>
+	<string name="check">Jaque</string>
 	<string name="impasse">Punto muerto</string>
 	<string name="repetition" comment="Status of a game ending due to repeated positions">Tablas por repetición de jugadas</string>
 	<string name="perpetualCheck">Jaque perpetuo</string>
@@ -228,11 +229,13 @@
 	<string name="chushogi">Chushogi</string>
 	<string name="annanshogi">Shogi Annan (coreano)</string>
 	<string name="kyotoshogi">Shogi Kyoto</string>
+	<string name="checkshogi">Jaqueshogi</string>
 	<string name="standardDescription" comment="No need to translate it literally, serves as short description of the variant">Reglas estándar de shogi</string>
 	<string name="minishogiDescription" comment="No need to translate it literally, serves as short description of the variant">Con las mismas reglas que el shogi estándar, pero jugado en un tablero más pequeño de 5x5</string>
 	<string name="chushogiDescription" comment="No need to translate it literally, serves as short description of the variant">La variante histórica más popular de shogi jugada en un tablero de 12 x 12</string>
 	<string name="kyotoshogiDescription" comment="No need to translate it literally, serves as short description of the variant">Variante moderna de shogi con promociones alternas únicas en un tablero de 5x5</string>
 	<string name="annanshogiDescription" comment="No need to translate it literally, serves as short description of the variant">Variante similar al shogi estándar, donde las piezas se mueven igual que las piezas del mismo bando situadas detrás de ellas</string>
+	<string name="checkshogiDescription" comment="No need to translate it literally, serves as short description of the variant">Igual que el shogi estándar, sólo que gana el primero que da jaque al rey rival</string>
 	<string name="unlimited">Ilimitado</string>
 	<string name="mode">Modo</string>
 	<string name="casual">Amistosa</string>
@@ -340,7 +343,7 @@
 	<string name="yourTopWeeklyPerfRatingIsTooHigh">Tu máxima puntación semanal de %1$s (%2$s) es demasiado alta</string>
 	<string name="yourPerfRatingIsTooLow">Tu puntuación de %1$s (%2$s) es demasiado baja</string>
 	<string name="ratedMoreThanInPerf">Puntuación ≥ %1$s en %2$s</string>
-	<string name="ratedLessThanInPerf">Puntuación ≤ %1$s en %2$s</string>
+	<string name="ratedLessThanInPerf">Puntuación ≤ %1$s en %2$s en la última semana</string>
 	<string name="mustBeInTeam">Debes ser del equipo %s</string>
 	<string name="youAreNotInTeam">No estás en el equipo %s</string>
 	<string name="backToGame">Volver a la partida</string>
@@ -357,7 +360,7 @@
 	<string name="apply">Aplicar cambios</string>
 	<string name="save">Guardar</string>
 	<string name="leaderboard">Clasificación</string>
-	<string name="leaderboards">Clasificación</string>
+	<string name="leaderboards">Lista de líderes</string>
 	<string name="bestPlayersInVariousCategories">Los mejores jugadores en varias categorías</string>
 	<string name="topXPlayersInY" comment="Example: Top 200 best players in chushogi, sorted by rating">Los mejores %1$s jugadores en %2$s, ordenados por puntuación</string>
 	<string name="selectHandicap">Seleccionar ventaja</string>
@@ -426,7 +429,7 @@
 	<string name="advancedSettings">Configuración avanzada</string>
 	<string name="safeTournamentName">Escoge un nombre muy seguro para el torneo.</string>
 	<string name="inappropriateNameWarning">Cualquier comportamiento mínimamente inapropiado podría conllevar al cierre de tu cuenta.</string>
-	<string name="emptyTournamentName">Déjalo en blanco para poner al torneo el nombre honor de un profesional jugador.</string>
+	<string name="emptyTournamentName">Déjalo en blanco para ponerle al torneo el nombre de un jugador destacado.</string>
 	<string name="recommendNotTouching">Se recomienda dejar como está.</string>
 	<string name="fewerPlayers">Si impones condiciones de entrada, el torneo tendrá menos jugadores.</string>
 	<string name="showAdvancedSettings">Mostrar configuración avanzada</string>
@@ -448,7 +451,7 @@
 	<string name="performance">Actuación</string>
 	<string name="tournamentComplete">Torneo terminado</string>
 	<string name="movesPlayed">Movimientos</string>
-	<string name="xWins" comment="Stats in tournament (ex. Sente wins: 51%)">%s victorias</string>
+	<string name="xWins" comment="Stats in tournament (ex. Sente wins: 51%)">%s gana</string>
 	<string name="draws">Tablas</string>
 	<string name="nextXTournament">Siguiente torneo %s:</string>
 	<string name="averageOpponent">Oponente promedio</string>
@@ -624,7 +627,7 @@
 	<string name="error.email">Este correo no es válido</string>
 	<string name="error.email_acceptable">Este correo no es aceptable</string>
 	<string name="error.email_unique">Este correo ya está en uso</string>
-	<string name="error.email_different">Esta es el mismo correo que tiene actualmente</string>
+	<string name="error.email_different">Este es el mismo correo que tienes actualmente</string>
 	<string name="ifRatingIsPlusMinusX">Si la puntuación es ± %s</string>
 	<string name="onlyFriends">Sólo amigos</string>
 	<string name="menu">Menú</string>
@@ -659,7 +662,7 @@
 	<string name="aboutSimul">En las simultáneas, un jugador se enfrenta a varios oponentes al mismo tiempo.</string>
 	<string name="aboutSimulImage">De 50 oponentes, Fischer ganó 47 partidas, empató dos y perdió una.</string>
 	<string name="aboutSimulRealLife">El concepto de simultáneas en Lishogi se toma de la vida real, donde el anfitrión va de mesa en mesa haciendo sus jugadas.</string>
-	<string name="aboutSimulRules">Cuando la simultánea empieza, cada jugador comienza una partida con el anfitrión, que juega con blancas. La simultánea termina cuando se acaban todas las partidas.</string>
+	<string name="aboutSimulRules">Cuando la simultánea empieza, cada jugador comienza una partida con el anfitrión, que juega con sente. La simultánea termina cuando se acaban todas las partidas.</string>
 	<string name="aboutSimulSettings">Las simultáneas son siempre partidas amistosas. Las opciones de petición de revancha, deshacer jugada y agregar tiempo están deshabilitadas.</string>
 	<string name="create">Crear</string>
 	<string name="whenCreateSimul">Cuando creas una simultánea, juegas contra varios jugadores a la vez.</string>
@@ -668,11 +671,11 @@
 	<string name="simulAddExtraTime">Puedes añadir tiempo adicional a tu reloj para ayudarte en la simultánea.</string>
 	<string name="simulHostExtraTime">Tiempo extra del anfitrión</string>
 	<string name="numberOfByoyomiPeriods">Número de periodos de Byoyomi</string>
-	<string name="hostColorForEachGame">Colores propios para cada partida</string>
+	<string name="hostColorForEachGame">Color del anfitrión para cada partida</string>
 	<string name="onlyMembersOfTeam">Solamente miembros de equipo</string>
 	<string name="noRestriction">Sin restricciones</string>
 	<string name="estimatedStart">Hora de inicio aproximada</string>
-	<string name="simulDescription">Descripción del simultaneo</string>
+	<string name="simulDescription">Descripción de la simultánea</string>
 	<string name="anythingTellParticipants">¿Algo que quiera decirle a los participantes?</string>
 	<string name="lishogiTournaments">Torneos de Lishogi</string>
 	<string name="tournamentShields">Escudos de torneo</string>
@@ -736,7 +739,7 @@
 	<string name="revokeAllSessions">cerrar todas las sesiones</string>
 	<string name="playShogiEverywhere">Juega shogi donde sea</string>
 	<string name="features">Funciones</string>
-	<string name="asFreeAsLishogi">Tan gratis como Lishogi</string>
+	<string name="asFreeAsLishogi">Tan libre como Lishogi</string>
 	<string name="builtForTheLoveOfShogiNotMoney">Construido por amor al shogi, no al dinero</string>
 	<string name="everybodyGetsAllFeaturesForFree">Todos tienen acceso gratuito a todas las funciones</string>
 	<string name="zeroAdvertisement">Sin anuncios</string>
@@ -772,9 +775,9 @@
 	<string name="gridWidth">Ancho de cuadrícula:</string>
 	<string name="board">Tablero</string>
 	<string name="grid">Cuadrícula</string>
-	<string name="gridSlim">Fino</string>
-	<string name="gridThick">Grueso</string>
-	<string name="gridVeryThick">Muy grueso</string>
+	<string name="gridSlim">Fina</string>
+	<string name="gridThick">Gruesa</string>
+	<string name="gridVeryThick">Muy gruesa</string>
 	<string name="hands" comment="Title in custom board theme editor">Manos</string>
 	<string name="boardTheme">Tema del tablero</string>
 	<string name="boardSize">Tamaño del tablero</string>
@@ -840,7 +843,7 @@
 	<string name="opening">Apertura</string>
 	<string name="middlegame">Medio juego</string>
 	<string name="endgame">Final</string>
-	<string name="registerToSendChallenges">Regístrate para desafiar a otros.</string>
+	<string name="registerToSendChallenges">Regístrate para enviar desafíos.</string>
 	<string name="youCannotChallengeX">No puedes desafiar a %s.</string>
 	<string name="xDoesNotAcceptChallenges">%s no acepta desafíos.</string>
 	<string name="yourXRatingIsTooFarFromY">Tu puntuación de %1$s está demasiado lejos de la de %2$s.</string>
@@ -872,7 +875,7 @@
 	<string name="lifetimeScore">Puntuación histórica</string>
 	<string name="currentMatchScore">Puntuación actual</string>
 	<string name="agreementAssistance">Me comprometo a no recibir ayuda externa durante mis partidas (de un ordenador, un libro, una base de datos u otra persona).</string>
-	<string name="agreementNice">Me comprometo a respetar siempre a otros jugadores.</string>
+	<string name="agreementNice">Me comprometo a respetar siempre a los otros jugadores.</string>
 	<string name="agreementAccount">Me comprometo a no crear múltiples cuentas.</string>
 	<string name="agreementPolicy">Me comprometo a seguir las normas de Lishogi.</string>
 	<string name="agreeWithX">Estoy de acuerdo con %s</string>
@@ -907,7 +910,7 @@
 	<string name="continueReadingThis"> Continuar leyendo esta publicación</string>
 	<string name="discussBlogForum">Discutir esta publicación en el foro</string>
 	<string name="invadingPieces" comment="Related to impasse (https://lishogi.org/explanation/impasse)">Piezas invasoras</string>
-	<string name="enteringKing" comment="Related to impasse (https://lishogi.org/explanation/impasse)">Entrando al rey</string>
+	<string name="enteringKing" comment="Related to impasse (https://lishogi.org/explanation/impasse)">Rey entrante</string>
 	<string name="totalImpasseValue" comment="Related to impasse (https://lishogi.org/explanation/impasse)">Valor total</string>
 	<string name="postGameStudy">Estudio post mortem</string>
 	<string name="postGameStudies">Estudios post mortem</string>
@@ -924,11 +927,11 @@
 	<string name="hangOn" comment="Meaning: wait!">¡Espera!</string>
 	<string name="gameInProgressWithX">Tienes una partida en curso con %s.</string>
 	<string name="or" comment="links alternatives: Do X or do Y">o</string>
-	<string name="gameInProgressDescription">No puedes comenzar una nueva partida hasta que esta haya terminado.</string>
+	<string name="gameInProgressDescription">No puedes comenzar una nueva partida hasta que ésta haya terminado.</string>
 	<string name="challengeDeclined">Desafío rechazado</string>
 	<string name="challengeAccepted">Desafío aceptado</string>
 	<string name="challengeCanceled">Desafío cancelado</string>
-	<string name="openChallenge" comment="A challenge that any 2 players can join">Abre el desafío</string>
+	<string name="openChallenge" comment="A challenge that any 2 players can join">Abrir el desafío</string>
 	<string name="challengeDescription">Únete al desafío o ve la partida</string>
 	<string name="challengeFromX" comment="From username">%s te desafía</string>
 	<string name="xChallengesY" comment="PlayerA challenges PlayerB">%1$s desafía a %2$s</string>
@@ -938,4 +941,5 @@
 	<string name="analyse" comment="Verb; After clicking on button saying this, we expect to analyse the position">Analizar</string>
 	<string name="back" comment="As in: go back">Volver</string>
 	<string name="preview">Vista previa</string>
+	<string name="variantNotSupported">Variant not supported</string>
 </resources>

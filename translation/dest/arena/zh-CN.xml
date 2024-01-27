@@ -2,12 +2,12 @@
 <resources>
   <string name="arenaTournaments">竞技场比赛</string>
   <string name="isItRated">锦标赛有积分吗？</string>
-  <string name="willBeNotified">当锦标赛开始时，您将收到通知，所以在其他标签页中下棋是无碍的。</string>
-  <string name="isRated">本锦标赛计分并会影响您的排名。</string>
+  <string name="willBeNotified">当锦标赛开始时，您将收到通知，所以在其他标签页中下棋没有问题。</string>
+  <string name="isRated">本锦标赛将会计分并影响您的排名。</string>
   <string name="isNotRated">本锦标赛*不*计分，所以它*不*会影响您的排名。</string>
   <string name="someRated">有些锦标赛是计分的并会影响您的排名。</string>
   <string name="howAreScoresCalculated">分数是如何计算的？</string>
-  <string name="howAreScoresCalculatedAnswer">赢局的基础分数是2 分，平局的基础分数是1分，输局不得分。如果您连续赢了两局将开始双倍计分，此时您会发现火焰图标。接下来的对局将继续双倍积分，直到你输为止。也就是说，在双倍计分的情况下一场赢局值 4 分，而一场平局值2分。输局仍然不得分。 
+  <string name="howAreScoresCalculatedAnswer">赢局的基础分数是2 分，平局的基础分数是1分，输局不得分。连续胜利两局将开始双倍计分，并以火焰图标作为提示。接下来的对局将继续双倍积分，直至出现负局。也就是说，在双倍计分的情况下一场赢局值 4 分，而一场平局值2分。输局仍然不得分。 
 
 例如两场胜利紧接着一场平局得 6 分： 2 + 2 + (2 x 1)。</string>
   <string name="berserk">神速锦标赛</string>
@@ -19,9 +19,9 @@
 
 只有在棋局中起码走过7步棋的情况下启动神速才有加分。</string>
   <string name="howIsTheWinnerDecided">赢家是如何决定的？</string>
-  <string name="howIsTheWinnerDecidedAnswer">在锦标赛设定时间限制结束时积分最多的玩家将被宣布为获胜者。
+  <string name="howIsTheWinnerDecidedAnswer">在锦标赛时限结束时积分最多的玩家将成为获胜者。
 
-当两个或两个以上的玩家拥有相同分数时，锦标赛的表现是決勝。</string>
+当两个或以上的玩家积分相同时，锦标赛将采取突破僵局制。</string>
   <string name="howDoesPairingWork">棋手是怎么配对的？</string>
   <string name="howDoesPairingWorkAnswer">在锦标赛开始时系统会根据棋手积分进行配对。当一局结束时请回到锦标赛主页。您会被与您锦标赛名次接近的棋手配对。这尽可降低棋手在主页的等待时间。然而您不一定会和锦标赛所有其他棋手下棋。
 

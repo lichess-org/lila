@@ -18,11 +18,11 @@
   <string name="rules">Normas das transmisións</string>
   <string name="rule1">Inclúe a palabra chave \"lishogi.org\" no título da túa transmisión e usa a categoría \"Shogi\" cando retransmitas en Lishogi.</string>
   <string name="rule2">Elimina a palabra chave cando transmitas contido que non estea relacionado con Lishogi.</string>
-  <string name="rule3">Lishogi detectará a túa transmisión automaticamente e habilitará os seguintes beneficios:</string>
+  <string name="rule3">Lishogi detectará a túa transmisión automaticamente e activará os seguintes beneficios:</string>
   <string name="perks">Beneficios de transmitir coa palabra chave</string>
   <string name="perk1">Obtén unha flamexante icona de presentador no teu perfil de Lishogi.</string>
   <string name="perk2">Sube ao curuto da lista de presentadores.</string>
-  <string name="perk3">Notifica aos teus seguidos de Lishogi.</string>
+  <string name="perk3">Notifica aos teus seguidores de Lishogi.</string>
   <string name="perk4">Amosa a túa transmisión nas túas partidas, torneos e estudos.</string>
   <string name="youHaveBeenSelectedFrontpage">Fuches seleccionado para aparecer na páxina de inicio!</string>
   <string name="noteThatOnlyLimited">Ten en conta que só podemos amosar un número limitado de retransmisións na páxina de inicio, </string>

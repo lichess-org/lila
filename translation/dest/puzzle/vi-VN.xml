@@ -58,6 +58,8 @@
   <string name="fromMyGames">Từ ván đấu của tôi</string>
   <string name="lookupOfPlayer">Tìm câu đố từ ván đấu của người khác</string>
   <string name="fromXGames">Thế cờ từ ván cờ %s</string>
+  <string name="submissions">Gửi câu đố</string>
+  <string name="submittedByX">Câu đố được gửi bởi %s</string>
   <string name="searchPuzzles">Tìm câu đố</string>
   <string name="fromXGamesFound">%1$s tìm được trong %2$s ván đấu</string>
 </resources>

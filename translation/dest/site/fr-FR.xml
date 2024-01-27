@@ -18,6 +18,7 @@
 	<string name="resign">Abandonner</string>
 	<string name="checkmate">Échec et mat</string>
 	<string name="stalemate">Pat</string>
+	<string name="check">Check</string>
 	<string name="impasse">Impasse</string>
 	<string name="repetition" comment="Status of a game ending due to repeated positions">Répétition</string>
 	<string name="perpetualCheck">Échec perpétuel</string>
@@ -228,11 +229,13 @@
 	<string name="chushogi">Chu-shogi</string>
 	<string name="annanshogi">Annan-Shogi</string>
 	<string name="kyotoshogi">Kyoto-Shogi</string>
+	<string name="checkshogi">Checkshogi</string>
 	<string name="standardDescription" comment="No need to translate it literally, serves as short description of the variant">Les règles standards du shogi</string>
 	<string name="minishogiDescription" comment="No need to translate it literally, serves as short description of the variant">Les mêmes règles que le shogi, mais jouées sur un plateau plus petit de 5x5</string>
 	<string name="chushogiDescription" comment="No need to translate it literally, serves as short description of the variant">La variante historique de shogi la plus populaire jouée sur un plateau de 12x12</string>
 	<string name="kyotoshogiDescription" comment="No need to translate it literally, serves as short description of the variant">Une variante moderne du shogi avec des promotions uniques alternatives sur un plateau de 5x5</string>
 	<string name="annanshogiDescription" comment="No need to translate it literally, serves as short description of the variant">Une variante similaire au shogi, où les pièces se déplacent comme les pièces amies derrière elles.</string>
+	<string name="checkshogiDescription" comment="No need to translate it literally, serves as short description of the variant">Just like standard shogi, but first to check opponent\'s king wins</string>
 	<string name="unlimited">Illimité</string>
 	<string name="mode">Mode</string>
 	<string name="casual">Amical</string>
@@ -938,4 +941,5 @@
 	<string name="analyse" comment="Verb; After clicking on button saying this, we expect to analyse the position">Analyse</string>
 	<string name="back" comment="As in: go back">Retour</string>
 	<string name="preview">Aperçu</string>
+	<string name="variantNotSupported">Variant not supported</string>
 </resources>

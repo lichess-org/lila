@@ -67,7 +67,7 @@
   <string name="broadcastUrl">Ligazón da transmisión</string>
   <string name="currentChapterUrl">Ligazón do capítulo actual</string>
   <string name="currentGameUrl">Ligazón da partida actual</string>
-  <string name="youCanPasteThisInTheForumToEmbed">Podes pegar isto no foro incrustalo</string>
+  <string name="youCanPasteThisInTheForumToEmbed">Podes pegar isto no foro para incrustalo</string>
   <string name="startAtInitialPosition">Comezar desde a posición inicial do estudo</string>
   <string name="startAtX">Comezar en %s</string>
   <string name="embedInYourWebsite">Incrustar na túa páxina web ou blog</string>
@@ -85,7 +85,7 @@
   <string name="clearAnnotations">Borrar as anotacións</string>
   <string name="deleteChapter">Borrar o capítulo</string>
   <string name="deleteThisChapter">Borrar o capítulo? Isto non se pode desfacer!</string>
-  <string name="clearAllCommentsInThisChapter">Borrar todos os comentarios, símbolos e marcas do capítulo</string>
+  <string name="clearAllCommentsInThisChapter">Borrar todos os comentarios, símbolos e marcas do capítulo?</string>
   <string name="rightUnderTheBoard">Xusto debaixo do taboleiro</string>
   <string name="noPinnedComment">Ningún</string>
   <string name="normalAnalysis">Análise normal</string>

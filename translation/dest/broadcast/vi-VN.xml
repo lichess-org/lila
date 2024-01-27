@@ -2,10 +2,10 @@
 <resources>
   <string name="broadcasts">Phát sóng</string>
   <string name="liveBroadcasts">Phát trực tiếp giải đấu</string>
-  <string name="newBroadcast">Luồng trực tiếp mới</string>
+  <string name="newBroadcast">Phát sóng trực tiếp mới</string>
   <string name="ongoing">Đang diễn ra</string>
   <string name="upcoming">Sắp diễn ra</string>
-  <string name="completed">Đã diễn ra</string>
+  <string name="completed">Hoàn thành</string>
   <string name="eventName">Tên sự kiện</string>
   <string name="eventDescription">Miêu tả ngắn sự kiện</string>
   <string name="fullDescription">Mô tả đầy đủ sự kiện</string>

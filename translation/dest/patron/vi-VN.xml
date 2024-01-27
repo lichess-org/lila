@@ -1,33 +1,33 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 	<string name="donate">Ủng hộ</string>
-	<string name="lishogiPatron">Lishogi Patron</string>
+	<string name="lishogiPatron">Bảo trợ Lishogi</string>
 	<string name="freeAccount">Tài khoản miễn phí</string>
-	<string name="becomePatron">Trở thành Lishogi Patron</string>
-	<string name="xBecamePatron">%s đã trở thành Lishogi Patron</string>
-	<string name="newPatrons">Những người ủng hộ mới</string>
+	<string name="becomePatron">Trở thành Người bảo trợ Lishogi</string>
+	<string name="xBecamePatron">%s đã trở thành Người bảo trợ Lishogi</string>
+	<string name="newPatrons">Những Người bảo trợ mới</string>
 	<string name="freeShogi">Cờ Shogi miễn phí cho mọi người, mãi mãi!</string>
 	<string name="noAdsNoSubs">Không quảng cáo, không đóng tiền; nhưng có mã nguồn mở và sự đam mê.</string>
 	<string name="thankYou">Cảm ơn sự ủng hộ của bạn!</string>
-	<string name="youHaveLifetime">Bạn có một tài khoản Patron trọn đời. Khá là tuyệt vời đấy!</string>
-	<string name="patronUntil">Bạn có tài khoản Patron cho đến %s.</string>
+	<string name="youHaveLifetime">Bạn có một tài khoản Người bảo trợ trọn đời. Khá là tuyệt vời đấy!</string>
+	<string name="patronUntil">Bạn có tài khoản Người bảo trợ cho đến %s.</string>
 	<string name="ifNotRenewed">Nếu không được gia hạn, bạn sẽ bị hạ cấp xuống miễn phí.</string>
-	<string name="weRelyOnSupport">Chúng tôi dựa vào sự đóng góp từ những người như bạn. Nếu bạn thích sử dụng Lishogi, hãy cân nhắc giúp đỡ chúng tôi thông qua việc quyên góp và trờ thành một Patron!</string>
+	<string name="weRelyOnSupport">Chúng tôi dựa vào sự đóng góp từ những người như bạn. Nếu bạn thích sử dụng Lishogi, hãy cân nhắc giúp đỡ chúng tôi thông qua việc quyên góp và trở thành một Người bảo trợ!</string>
 	<string name="donationSupport">Nếu bạn muốn ủng hộ Lishogi và phát triển mã nguồn mở, hãy quyên góp! Bạn sẽ không nhận được gì, vì Lishogi đối xử với mọi người dùng như nhau, nhưng sự đóng góp của bạn sẽ rất được tôn trọng!</string>
 	<string name="lifetime">Vĩnh viễn</string>
-	<string name="payLifetimeOnce">Đóng góp %s một lần. Trở thành Lishogi Patron vĩnh viễn!</string>
-	<string name="lifetimePatron">Lishogi Patron trọn đời</string>
+	<string name="payLifetimeOnce">Đóng góp %s một lần. Trở thành Người bảo trợ Lishogi trọn đời!</string>
+	<string name="lifetimePatron">Người bảo trợ Lishogi trọn đời</string>
 	<string name="makeExtraDonation">Ủng hộ thêm nữa?</string>
 	<string name="monthly">Hàng tháng</string>
-	<string name="recurringBilling">Trả tiền định kỳ, gia hạn cánh Patron của bạn mỗi tháng.</string>
+	<string name="recurringBilling">Trả tiền định kỳ, gia hạn cánh Người bảo trợ của bạn mỗi tháng.</string>
 	<string name="onetime">Một lần</string>
-	<string name="singleDonation">Đóng góp một lần cho bạn đôi cánh Patron trong vòng một tháng.</string>
+	<string name="singleDonation">Đóng góp một lần cho bạn đôi cánh Người bảo trợ trong một tháng.</string>
 	<string name="otherAmount">Khác</string>
 	<string name="pleaseEnterAmount">Xin hãy nhập một số tiền bằng USD</string>
 	<string name="withCreditCard">Thẻ Tín Dụng</string>
 	<string name="withPaypal">PayPal</string>
 	<string name="weAreSmallTeam">Chúng tôi là một đội nhỏ, vì vậy sự giúp đỡ của bạn tạo nên khác biệt rất lớn!</string>
-	<string name="celebratedPatrons">Những Patron nổi tiếng biến Lishogi thành hiện thực</string>
+	<string name="celebratedPatrons">Những Người bảo trợ nổi tiếng biến Lishogi thành hiện thực</string>
 	<string name="whereMoneyGoes">Tiền được dùng để làm gi?</string>
 	<string name="costBreakdown">Xem phân tích chi phí chi tiết</string>
 	<string name="changeMonthlySupport">Tôi có thể thay đổi/hủy việc đóng góp hàng tháng được không?</string>
@@ -37,12 +37,12 @@ Hoặc bạn có thể %s.</string>
 	<string name="otherMethods">Phương thức quyên góp khác?</string>
 	<string name="bankTransfers">Chúng tôi cũng chấp nhận chuyển khoản ngân hàng</string>
 	<string name="bitcoin">Và đây là địa chỉ Bitcoin của chúng tôi: %s</string>
-	<string name="patronFeatures">Có tính năng nào được dành riêng cho Patron không?</string>
+	<string name="patronFeatures">Có tính năng nào được dành riêng cho Người bảo trợ không?</string>
 	<string name="noPatronFeatures">Không, Lishogi hoàn toàn miễn phí, mãi mãi và cho tất cả mọi người. Đó là lời hứa của chúng tôi.
 Tuy nhiên, Patron được quyền khoe khoang với một huy hiệu mới.</string>
 	<string name="featuresComparison">Xem so sánh các tính năng chi tiết</string>
 	<plurals name="patronForMonths">
-		<item quantity="other">Lishogi Patron trong %s tháng</item>
+		<item quantity="other">Người bảo trợ Lishogi trong %s tháng</item>
 	</plurals>
 	<string name="youSupportWith">Bạn hỗ trợ lishogi.org với %s mỗi tháng.</string>
 	<string name="tyvm">Cảm ơn sự giúp đỡ của bạn rất nhiều. Bạn thật tuyệt vời!</string>
@@ -59,14 +59,14 @@ Tuy nhiên, Patron được quyền khoe khoang với một huy hiệu mới.</s
 	<string name="noLongerSupport">Không ủng hộ Lishogi nữa</string>
 	<string name="paymentHistory">Lịch sử thanh toán</string>
 	<string name="paid">Đã thanh toán</string>
-	<string name="viewOthers">Xem các Lishogi Patron khác</string>
+	<string name="viewOthers">Xem những Người bảo trợ Lishogi khác</string>
 	<string name="date">Ngày</string>
 	<string name="amount">Số tiền</string>
 	<string name="transactionCompleted">Giao dịch của bạn đã hoàn thành và một hóa đơn cho quyên góp của bạn đã được gửi qua email tới bạn.</string>
-	<string name="permanentPatron">Giờ bạn đã có một tài khoản Patron trọn đời.</string>
+	<string name="permanentPatron">Giờ bạn đã có một tài khoản Người bảo trợ trọn đời.</string>
 	<string name="checkOutProfile">Hãy xem trang cá nhân của bạn!</string>
-	<string name="nowLifetime">Giờ bạn đã trở thành Lishogi Patron trọn đời!</string>
-	<string name="nowOneMonth">Giờ bạn đã trở thành Lishogi Patron trong một tháng!</string>
+	<string name="nowLifetime">Giờ bạn đã trở thành Người bảo trợ Lishogi trọn đời!</string>
+	<string name="nowOneMonth">Giờ bạn đã trở thành Người bảo trợ Lishogi trong một tháng!</string>
 	<string name="downgradeNextMonth">Sau một tháng, bạn sẽ KHÔNG phải trả tiền lại nữa và tài khoản Lishogi của bạn sẽ quay trở lại tài khoản thường.</string>
 	<string name="donationPolicy">Chính sách quyên góp</string>
 </resources>

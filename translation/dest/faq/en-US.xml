@@ -92,7 +92,7 @@ Another point to note is that, as time passes, the confidence interval will incr
 	<string name="ratingLeaderboards">rating leaderboard</string>
 	<string name="havePlayedMoreThanThirtyGamesInThatRating">have played at least 30 rated games in a given rating,</string>
 	<string name="havePlayedARatedGameAtLeastOneWeekAgo">have played a rated game within the last week for this rating,</string>
-	<string name="ratingDeviationLowerThanXinShogiYinVariants">have a rating deviation lower than %1$s, in standard shogi, and lower than %2$s in variants,</string>
+	<string name="ratingDeviationLowerThanXinShogiYinVariants">have a rating deviation lower than %1$s, in standard shogi and lower than %2$s in variants,</string>
 	<string name="beInTopTen">be in the top 10 in this rating.</string>
 	<string name="secondRequirementToStopOldPlayersTrustingLeaderboards">The 2nd requirement is so that players who no longer use their accounts stop populating leaderboards.</string>
 	<string name="whyAreRatingHigher">Why are ratings different compared to other sites and organizations such as 81Dojo and Shogi Club 24?</string>

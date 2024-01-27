@@ -58,6 +58,8 @@
   <string name="fromMyGames">来自于我的对局</string>
   <string name="lookupOfPlayer">从其他玩家的对局中发掘题目</string>
   <string name="fromXGames">来自 %s 对局的题目</string>
+  <string name="submissions">谜题提交</string>
+  <string name="submittedByX">由 %s 提交的谜题</string>
   <string name="searchPuzzles">搜索题目</string>
   <string name="fromXGamesFound">从 %2$s 找到了 %1$s 个题目</string>
 </resources>

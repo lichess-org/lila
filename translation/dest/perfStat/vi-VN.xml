@@ -3,12 +3,12 @@
   <string name="perfStats">Thống kê %s</string>
   <string name="viewTheGames">Xem các ván cờ</string>
   <string name="provisional">tạm thời</string>
-  <string name="notEnoughRatedGames">Không có đủ số ván cờ tính Elo đã được chơi để thiết lập một Elo đáng tin cậy.</string>
+  <string name="notEnoughRatedGames">Không có đủ số ván cờ xếp hạng đã được chơi để thiết lập một Elo đáng tin cậy.</string>
   <string name="progressOverLastXGames">Sự tiến bộ qua %s ván cờ gần đây:</string>
   <string name="ratingDeviation">Độ lệch xếp hạng:%s.</string>
   <string name="ratingDeviationHelp">Giá trị thấp hơn có nghĩa là xếp hạng ổn định hơn. Trên %s, xếp hạng được coi là tạm thời.</string>
   <string name="totalGames">Tổng số các ván cờ</string>
-  <string name="ratedGames">Các ván có tính Elo</string>
+  <string name="ratedGames">Các ván có xếp hạng</string>
   <string name="tournamentGames">Ván đấu trong giải đấu</string>
   <string name="berserkedGames">Số ván cờ chơi Berserk</string>
   <string name="timeSpentPlaying">Thời gian đã chơi</string>
@@ -24,8 +24,8 @@
   <string name="losingStreak">Chuỗi thua</string>
   <string name="longestStreak">Chuỗi dài nhất: %s</string>
   <string name="currentStreak">Chuỗi hiện tại: %s</string>
-  <string name="bestRated">Chiến thắng tính elo tốt nhất</string>
-  <string name="worstRated">Trận thua tính elo tệ nhất</string>
+  <string name="bestRated">Ván thắng được cộng Elo nhiều nhất</string>
+  <string name="worstRated">Ván thua mất Elo tệ nhất</string>
   <string name="gamesInARow">Chuỗi ván cờ liên tục</string>
   <string name="lessThanOneHour">Ít hơn một giờ giữa các ván cờ</string>
   <string name="maxTimePlaying">Thời gian dài nhất đã chơi</string>

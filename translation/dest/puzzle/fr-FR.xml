@@ -60,6 +60,8 @@
   <string name="fromMyGames">De vos parties</string>
   <string name="lookupOfPlayer">Regarder des puzzles à partir d\'un joueur</string>
   <string name="fromXGames">Puzzles from %s\' games</string>
+  <string name="submissions">Puzzle submissions</string>
+  <string name="submittedByX">Puzzles submitted by %s</string>
   <string name="searchPuzzles">Rechercher des problèmes</string>
   <string name="fromXGamesFound">%1$s Problèmes trouvés dans %2$s parties</string>
 </resources>

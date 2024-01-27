@@ -18,6 +18,7 @@
 	<string name="resign">Chịu thua</string>
 	<string name="checkmate">Chiếu hết</string>
 	<string name="stalemate">Hòa pat</string>
+	<string name="check">Chiếu</string>
 	<string name="impasse">Bế tắc</string>
 	<string name="repetition" comment="Status of a game ending due to repeated positions">Lặp cờ</string>
 	<string name="perpetualCheck">Chiếu liên tục</string>
@@ -218,17 +219,19 @@
 	<string name="chushogi">Chushogi</string>
 	<string name="annanshogi">Annan shogi</string>
 	<string name="kyotoshogi">Kyoto shogi</string>
+	<string name="checkshogi">Checkshogi</string>
 	<string name="standardDescription" comment="No need to translate it literally, serves as short description of the variant">Quy tắc tiêu chuẩn của cờ Shogi</string>
 	<string name="minishogiDescription" comment="No need to translate it literally, serves as short description of the variant">Các quy tắc tương tự như cờ Shogi tiêu chuẩn, nhưng được chơi trên bàn cờ nhỏ hơn kích thước 5x5</string>
 	<string name="chushogiDescription" comment="No need to translate it literally, serves as short description of the variant">Biến thể Shogi cổ đại nổi tiếng nhất trên bàn cờ 12x12</string>
 	<string name="kyotoshogiDescription" comment="No need to translate it literally, serves as short description of the variant">Biến thể Shogi hiện đại với các nước phong cấp đặc biệt xen kẽ trên bàn cờ 5x5</string>
 	<string name="annanshogiDescription" comment="No need to translate it literally, serves as short description of the variant">Biến thể tương tự cờ Shogi tiêu chuẩn, các quân đi như quân cùng bên đứng sau nó</string>
+	<string name="checkshogiDescription" comment="No need to translate it literally, serves as short description of the variant">Luật chơi ương tự như cờ Shogi tiêu chuẩn, nhưng bên chiếu được vua đối phương trước sẽ thắng</string>
 	<string name="unlimited">Không giới hạn</string>
 	<string name="mode">Chế độ</string>
-	<string name="casual">Không tính Elo</string>
-	<string name="rated">Tính Elo</string>
-	<string name="casualTournament">Không tính Elo</string>
-	<string name="ratedTournament">Có tính Elo</string>
+	<string name="casual">Không xếp hạng</string>
+	<string name="rated">Có xếp hạng</string>
+	<string name="casualTournament">Không xếp hạng</string>
+	<string name="ratedTournament">Có xếp hạng</string>
 	<string name="thisGameIsRated">Ván cờ đã được đánh giá</string>
 	<string name="rematch">Đấu lại</string>
 	<string name="rematchOfferSent">Yêu cầu đấu lại đã được gửi</string>
@@ -258,7 +261,7 @@
 	<string name="freeOnlineShogi">Chơi Cờ Shogi Trực Tuyến Miễn Phí</string>
 	<string name="spectators">Khán giả:</string>
 	<plurals name="nbRated">
-		<item quantity="other">%s tính elo</item>
+		<item quantity="other">%s có xếp hạng</item>
 	</plurals>
 	<plurals name="nbWins">
 		<item quantity="other">%s thắng</item>
@@ -273,7 +276,7 @@
 		<item quantity="other">%s đang chơi</item>
 	</plurals>
 	<string name="exportGames">Xuất biên bản</string>
-	<string name="export">Xuất ra</string>
+	<string name="export">Xuất</string>
 	<string name="ratingRange">Phạm vi Elo</string>
 	<plurals name="giveNbSeconds">
 		<item quantity="other">Cho thêm %s giây</item>
@@ -302,13 +305,13 @@
 	<string name="backToTournament">Quay lại giải</string>
 	<string name="thematic">Theo chủ đề</string>
 	<plurals name="moreThanNbRatedGames">
-		<item quantity="other">≥ %s ván có tính Elo</item>
+		<item quantity="other">≥ %s ván có xếp hạng</item>
 	</plurals>
 	<plurals name="moreThanNbPerfRatedGames">
-		<item quantity="other">≥ %1$s ván %2$s tính Elo</item>
+		<item quantity="other">≥ %1$s ván %2$s xếp hạng</item>
 	</plurals>
 	<plurals name="needNbMorePerfGames">
-		<item quantity="other">Bạn cần chơi %1$s ván %2$s tính Elo</item>
+		<item quantity="other">Bạn cần chơi %1$s ván %2$s có xếp hạng</item>
 	</plurals>
 	<plurals name="needNbMoreGames">
 		<item quantity="other">Bạn cần chơi %s ván xếp hạng nữa</item>
@@ -347,7 +350,8 @@
 	<string name="toStudy">Nghiên cứu</string>
 	<string name="importGame">Nhập ván cờ</string>
 	<string name="importedGame">Ván cờ đã được nhập</string>
-	<string name="importGameKifCsaExplanation">Dán ván cờ KIF hoặc CSA để phát lại có thể duyệt được, phân tích máy tính, trò chuyện trò chơi và URL có thể chia sẻ.</string>
+	<string name="importGameKifCsaExplanation">Dán CSA hoặc KIF của ván đấu để xem lại trên trình duyệt,
+phân tích bằng máy tính, trò chuyện trong ván đấu và có một URL có thể chia sẻ được.</string>
 	<plurals name="nbImportedGames">
 		<item quantity="other">%s các ván cờ đã nhập</item>
 	</plurals>
@@ -459,7 +463,7 @@
 	<string name="onlineBots">Các Bot đang trực tuyến</string>
 	<string name="activeToday">Hoạt động trong ngày</string>
 	<string name="activePlayers">Các kỳ thủ tích cực</string>
-	<string name="bewareTheGameIsRatedButHasNoClock">Lưu ý, ván cờ tính Elo nhưng không tính thời gian!</string>
+	<string name="bewareTheGameIsRatedButHasNoClock">Lưu ý, ván cờ có xếp hạng nhưng không tính thời gian!</string>
 	<string name="toTrackYourProgress">Theo dõi tiến trình của bạn:</string>
 	<string name="goodMove">Nước tốt</string>
 	<string name="bestMove">Nước tối ưu</string>
@@ -628,10 +632,10 @@
 	<string name="aboutSimulImage">Trong số 50 đối thủ, Fischer thắng 47 ván, hoà 2 và thua 1.</string>
 	<string name="aboutSimulRealLife">Ý tưởng lấy từ các sự kiện có thực. Trong đời thực, thể loại này gồm một người chủ trì cờ đồng loạt di chuyển từ bàn này qua bàn khác để đánh một nước.</string>
 	<string name="aboutSimulRules">Khi cờ đồng loạt bắt đầu, mỗi người chơi bắt đầu một ván cờ với người chủ trì, người sẽ chơi quân trắng. Cờ đồng loạt kết thúc khi tất cả các ván cờ hoàn tất.</string>
-	<string name="aboutSimulSettings">Cờ đồng loạt luôn không tính Elo. Việc tái đấu, đi lại hay cho thêm thời gian đều bị vô hiệu.</string>
+	<string name="aboutSimulSettings">Cờ đồng loạt luôn không xếp hạng. Việc tái đấu, đi lại hay cho thêm thời gian đều bị vô hiệu.</string>
 	<string name="create">Tạo</string>
 	<string name="whenCreateSimul">Khi bạn tạo một sự kiện đồng loạt, bạn sẽ chơi với nhiều người cùng một lúc.</string>
-	<string name="simulVariantsHint">Nếu bạn chọn nhiều biến thể, mỗi người chơi khác sẽ được lựa chọn chơi biến thể nào.</string>
+	<string name="simulVariantsHint">Nếu bạn chọn nhiều biến thể, mỗi người chơi sẽ được lựa chọn chơi biến thể nào.</string>
 	<string name="simulClockHint">Thiết lập Đồng hồ Fischer. Bạn càng chơi với nhiều người thì càng có thể cần nhiều thời gian.</string>
 	<string name="simulAddExtraTime">Bạn có thể thêm thời gian cho đồng hồ của bạn để đấu cờ đồng loạt dễ hơn.</string>
 	<string name="simulHostExtraTime">Thời gian thêm cho người chủ trì</string>
@@ -647,12 +651,12 @@
 	<string name="tournamentFAQ">Các câu hỏi thường gặp về giải đấu đấu trường</string>
 	<string name="tournamentOfficial">Chính thức</string>
 	<string name="timeBeforeTournamentStarts">Thời gian trước khi giải đấu bắt đầu</string>
-	<string name="averageCentipawnLoss">Phần trăm chốt mất trung bình mỗi nước (ACPL)</string>
+	<string name="averageCentipawnLoss">Phần trăm mất tốt trung bình mỗi nước (ACPL)</string>
 	<string name="keyboardShortcuts">Phím tắt bàn phím</string>
 	<string name="keyMoveBackwardOrForward">tiến tiếp/lùi lại</string>
 	<string name="keyGoToStartOrEnd">chuyển đến nước đi đầu/cuối</string>
 	<string name="keyShowOrHideComments">hiện/ẩn bình luận</string>
-	<string name="keyEnterOrExitVariation">vào/thoát biến cờ</string>
+	<string name="keyEnterOrExitVariation">vào/thoát thế cờ</string>
 	<string name="newTournament">Giải đấu mới</string>
 	<string name="tournamentHomeTitle">Giải đấu Shogi với nhiều thiết lập thời gian và biến thể phong phú</string>
 	<string name="tournamentHomeDescription">Chơi các giải đấu shogi tốc độ! Tham gia một giải đấu chính thức, hoặc tự tạo giải đấu của bạn. Cờ Chớp, cờ Nhanh, cờ Chậm, và nhiều lựa chọn khác cho niềm vui đánh cờ vô tận.</string>
@@ -670,7 +674,7 @@
 	<string name="youDoNotHaveAnEstablishedPerfTypeRating">Bạn chưa có xếp hạng %s.</string>
 	<string name="yourRating">Chỉ số của bạn</string>
 	<string name="cumulative">Tích luỹ</string>
-	<string name="glicko2Rating">Chỉ số Glicko-2</string>
+	<string name="glicko2Rating">Xếp hạng Glicko-2</string>
 	<string name="checkYourEmail">Kiểm tra Email của bạn</string>
 	<string name="weHaveSentYouAnEmailClickTheLink">Chúng tôi gửi cho bạn một Email. Nhấn vào link trong Email để kích hoạt tài khoản của bạn</string>
 	<string name="ifYouDoNotSeeTheEmailCheckOtherPlaces">Nếu bạn không thấy ở trong Email, kiểm tra lại ở các nơi khác có thể có, như rác, thư rác, xã hội hay các thư mục khác</string>
@@ -682,7 +686,7 @@
 	<string name="downloadRaw">Tải bản thô</string>
 	<string name="downloadImported">Tải tệp đã được nhập</string>
 	<string name="printFriendlyPDF">Bản PDF có thể in</string>
-	<string name="crosstable">Bảng tổng điểm</string>
+	<string name="crosstable">Bảng tổng điểm đối đầu</string>
 	<string name="youCanAlsoScrollOverTheBoardToMoveInTheGame">Bạn cũng có thể cuộn chuột trên bàn cờ để xem các nước đi của ván.</string>
 	<string name="analysisShapesHowTo">Nhấn shift + click hoặc nhấp chuột phải để vẽ vòng tròn, mũi tên trên bàn cờ.</string>
 	<string name="letOtherPlayersMessageYou">Để những người chơi khác gửi tin nhắn cho bạn</string>
@@ -901,4 +905,5 @@
 	<string name="analyse" comment="Verb; After clicking on button saying this, we expect to analyse the position">Phân tích</string>
 	<string name="back" comment="As in: go back">Quay Lại</string>
 	<string name="preview">Xem chi tiết</string>
+	<string name="variantNotSupported">Variant not supported</string>
 </resources>

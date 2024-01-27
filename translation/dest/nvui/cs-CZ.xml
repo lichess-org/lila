@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="textualRepresentation">Textová reprezentace</string>
+  <string name="gameInfo">Informace o hře</string>
+  <string name="pieces">Kameny</string>
+  <string name="board">Herní deska</string>
+  <string name="hands">Ruce</string>
+  <string name="none" comment="No hands in hand">Žádné</string>
+  <string name="moves" comment="Followed by list of moves">Tahy</string>
+  <string name="currentPosition">Aktuální pozice</string>
+  <string name="moveForm">Formulář tahu</string>
+  <string name="commandInput">Zadání příkazu</string>
+  <string name="commands">Příkazy</string>
+  <string name="useArrowKeys">Pro navigaci ve hře použijte šipky</string>
+</resources>

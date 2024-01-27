@@ -4,7 +4,7 @@
 	<string name="gameDisplay">Zobrazení hry</string>
 	<string name="boardLayout">Rozložení desky</string>
 	<string name="clearHands">Skrýt průhledné kameny v rukou</string>
-	<string name="handsBackground">Show background behind pieces in hand</string>
+	<string name="handsBackground">Zobrazit pozadí za kameny v rukou</string>
 	<string name="pieceAnimation">Animace figur</string>
 	<string name="materialDifference">Materiální rozdíl</string>
 	<string name="boardHighlightsLastDests">Zvýraznění na desce - poslední tah</string>

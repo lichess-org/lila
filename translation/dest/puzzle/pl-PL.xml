@@ -64,6 +64,8 @@
   <string name="fromMyGames">Z moich gier</string>
   <string name="lookupOfPlayer">Wyszukaj zadań z gier gracza</string>
   <string name="fromXGames">Zadania z partii gracza %s</string>
+  <string name="submissions">Nadesłane zadania</string>
+  <string name="submittedByX">Zadania nadesłane przez %s</string>
   <string name="searchPuzzles">Szukaj zadań</string>
   <string name="fromXGamesFound">%1$s zadań znalezionych w %2$s grach</string>
 </resources>

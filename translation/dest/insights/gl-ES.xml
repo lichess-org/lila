@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="insights" comment="Feel free to translate to something more natural (like statistics) in your language if insights seems awkward">Estatísticas</string>
+  <string name="moves">Movementos</string>
+  <string name="drops">Guindadas</string>
+  <string name="movesAndDrops">Movementos e guindadas</string>
+  <string name="total" comment="Usually in chart legend or tooltip summing other bars">Total</string>
+  <string name="count" comment="Example: Count: 11 moves">Reconto</string>
+  <string name="average">Media</string>
+  <string name="percentage">Porcentaxe</string>
+  <string name="outcomes" comment="win/draw/loss">Resultados</string>
+  <string name="color" comment="Meaning sente or gote">Cor</string>
+  <string name="termination" comment="Checkmate, repetition, timeout, etc">Terminación</string>
+  <string name="speed" comment="Bulltet, blitz, rapid, etc.">Control de tempo</string>
+  <string name="game">Partida</string>
+  <string name="opponents">Adversarios</string>
+  <string name="averageOpponentRating">Puntuación media dos adversarios</string>
+  <string name="averageOpponentRatingDiff">Diferencia de puntuación media dos adversarios</string>
+  <string name="mostPlayedOpponents">Adversarios cos que máis xogas</string>
+  <string name="averageAccuracy">Precisión media</string>
+  <string name="wins">Vitorias</string>
+  <string name="draws">Táboas</string>
+  <string name="losses">Derrotas</string>
+  <string name="accuracyByMoveNumber">Precisión por quenda de xogo</string>
+  <string name="accuracyByPiece">Precisión por peza</string>
+  <string name="times" comment="Move and drop times">Tempos</string>
+  <string name="totalTimeSpentThinking">Tempo total pensando</string>
+  <string name="averageTimePerGame">Tempo medio por partida</string>
+  <string name="averageTimePerMoveOrDrop">Tempo medio por movemento ou guindada</string>
+  <string name="timeSpentThinkingByPiece">Tempo pensando por peza</string>
+  <string name="movesAndDropsByPiece">Movementos e guindadas por peza</string>
+  <string name="capturesByPiece">Pezas capturadas</string>
+  <string name="promotionsByPiece">Pezas coroadas</string>
+  <string name="mostPlayedOpenings">Aperturas máis xogadas</string>
+  <string name="openingMoves">Movementos na apertura</string>
+  <string name="insightsUpdate">As estatísticas actualízanse cada poucas horas.</string>
+  <string name="accuracy">Precisión</string>
+  <string name="nbOfMovesAndDrops">Número de movementos e guindadas</string>
+  <string name="nbOfMovesAndDropsPerGame">Número de movementos e guindadas por partida</string>
+  <string name="nbOfCaptures">Número de pezas capturadas</string>
+  <string name="nbOfPromotions">Número de pezas coroadas</string>
+  <string name="opponentRating">Puntuación do adversario</string>
+  <string name="opponentRatingDiff">Diferencia de puntuación do adversario</string>
+  <string name="totalTimeOfMovesAndDrops">Tempo total de movementos e guindadas</string>
+  <string name="nbOfGames">Número de partidas</string>
+  <string name="weekday">Día da semana</string>
+  <string name="timeOfDay" comment="Morning,afternoon, evening, night">Hora do día</string>
+  <string name="earlyBishopExchange" comment="Were bishops exchanged by the players early in the game">Intercambio de bispos temperán</string>
+</resources>

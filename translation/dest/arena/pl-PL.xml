@@ -40,7 +40,7 @@ Graj szybko i wracaj do poczekalni, by rozegrać więcej partii i zdobyć więce
   <string name="thisIsPrivate">Ten turniej jest prywatny</string>
   <string name="shareUrl">Udostępnij ten URL innym aby dołączyli do: %s</string>
   <string name="drawStreak">Seria remisów: gdy gracz ciągle remisuje na arenie, tylko pierwszy remis da punkt lub remisy trwające więcej niż %s ruchów. Seria remisów może zostać przerwana tylko przez zwycięstwo, a nie przez przegraną czy remis.</string>
-  <string name="noBerserkAllowed">No Berserk allowed</string>
+  <string name="noBerserkAllowed">Berserk niedozwolony</string>
   <string name="noArenaStreaks">No Arena streaks</string>
   <string name="averagePerformance">Average performance</string>
   <string name="averageScore">Średni wynik</string>

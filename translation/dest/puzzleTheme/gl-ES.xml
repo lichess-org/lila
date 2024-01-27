@@ -2,7 +2,7 @@
 <resources>
   <string name="advantage">Vantaxe</string>
   <string name="advantageDescription">Aproveita a oportunidade de obter unha vantaxe decisiva.</string>
-  <string name="castling">Enroque</string>
+  <string name="castling">Castelo</string>
   <string name="castlingDescription">Pon o rei a salvo.</string>
   <string name="crushing">Vantaxe decisiva</string>
   <string name="crushingDescription">Detecta a metida de zoca do rival para obter unha vantaxe decisiva.</string>
@@ -18,7 +18,7 @@
   <string name="doubleCheckDescription">Xaque con dúas pezas á vez, como resultado dun ataque descuberto onde tanto a peza en movemento como a desvelada atacan ao rei do opoñente.</string>
   <string name="endgame">Final</string>
   <string name="endgameDescription">Unha táctica durante a derradeira fase do xogo.</string>
-  <string name="fork">Pinza</string>
+  <string name="fork">Garfo</string>
   <string name="forkDescription">Unha xogada na que a peza movida ataca a dúas pezas rivais á vez.</string>
   <string name="hangingPiece">Peza colgada</string>
   <string name="hangingPieceDescription">Unha táctica que involucra unha peza do opoñente que non está suficientemente defendida e que por tanto se pode capturar.</string>

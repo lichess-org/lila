@@ -18,6 +18,7 @@
 	<string name="resign">Abandonar</string>
 	<string name="checkmate">Xaque mate</string>
 	<string name="stalemate">Rei afogado</string>
+	<string name="check">Xaque</string>
 	<string name="impasse">Impasse</string>
 	<string name="repetition" comment="Status of a game ending due to repeated positions">Repetición</string>
 	<string name="perpetualCheck">Xaque perpetuo</string>
@@ -228,11 +229,13 @@
 	<string name="chushogi">Chushogi</string>
 	<string name="annanshogi">Annan shogi</string>
 	<string name="kyotoshogi">Kyoto shogi</string>
+	<string name="checkshogi">Xaqueshogi</string>
 	<string name="standardDescription" comment="No need to translate it literally, serves as short description of the variant">Regras estándar do shogi</string>
 	<string name="minishogiDescription" comment="No need to translate it literally, serves as short description of the variant">As mesmas regras do shogi estándar, pero xogado nun taboleiro máis pequeno de 5x5</string>
 	<string name="chushogiDescription" comment="No need to translate it literally, serves as short description of the variant">A variante histórica do shogi máis popular, xogada nun taboleiro de 12x12</string>
 	<string name="kyotoshogiDescription" comment="No need to translate it literally, serves as short description of the variant">Variante moderna do shogi con promocións alternas únicas, xogada nun taboleiro de 5x5</string>
 	<string name="annanshogiDescription" comment="No need to translate it literally, serves as short description of the variant">Variante similar ó shogi estándar, onde as pezas se moven igual cás pezas do mesmo bando situadas detrás delas</string>
+	<string name="checkshogiDescription" comment="No need to translate it literally, serves as short description of the variant">O mesmo có shogi estándar, só que gaña o primeiro que dá xaque ó rei do adversario</string>
 	<string name="unlimited">Ilimitado</string>
 	<string name="mode">Modo</string>
 	<string name="casual">Amigable</string>
@@ -448,7 +451,7 @@
 	<string name="performance">Rendemento</string>
 	<string name="tournamentComplete">Torneo rematado</string>
 	<string name="movesPlayed">Movementos xogados</string>
-	<string name="xWins" comment="Stats in tournament (ex. Sente wins: 51%)">%s vitorias</string>
+	<string name="xWins" comment="Stats in tournament (ex. Sente wins: 51%)">%s gaña</string>
 	<string name="draws">Táboas</string>
 	<string name="nextXTournament">Seguinte torneo %s:</string>
 	<string name="averageOpponent">Opoñente medio</string>
@@ -938,4 +941,5 @@
 	<string name="analyse" comment="Verb; After clicking on button saying this, we expect to analyse the position">Analizar</string>
 	<string name="back" comment="As in: go back">Volver</string>
 	<string name="preview">Vista previa</string>
+	<string name="variantNotSupported">Variante non admitida</string>
 </resources>

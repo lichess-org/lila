@@ -18,6 +18,7 @@
 	<string name="resign">Vzdát se</string>
 	<string name="checkmate">Šach mat</string>
 	<string name="stalemate">Pat</string>
+	<string name="check">Šach</string>
 	<string name="impasse">Slepá cesta</string>
 	<string name="repetition" comment="Status of a game ending due to repeated positions">Repetice</string>
 	<string name="perpetualCheck">Věčný šach</string>
@@ -248,11 +249,13 @@
 	<string name="chushogi">Čú šógi</string>
 	<string name="annanshogi">Annan šógi</string>
 	<string name="kyotoshogi">Kjóto šógi</string>
+	<string name="checkshogi">Šach-šógi</string>
 	<string name="standardDescription" comment="No need to translate it literally, serves as short description of the variant">Standardní pravidla šógi</string>
 	<string name="minishogiDescription" comment="No need to translate it literally, serves as short description of the variant">Stejná pravidla jako standardní šógi, ale hrané na menší 5x5 desce</string>
 	<string name="chushogiDescription" comment="No need to translate it literally, serves as short description of the variant">Nejpopulárnější historická varianta šógi hraná na 12x12 desce</string>
 	<string name="kyotoshogiDescription" comment="No need to translate it literally, serves as short description of the variant">Moderní varianta šógi s jedinečnými střídavými povýšeními na 5x5 desce</string>
 	<string name="annanshogiDescription" comment="No need to translate it literally, serves as short description of the variant">Varianta podobná standardnímu šógi, kde kameny získavají pohyby jako přátelské kameny za nimi</string>
+	<string name="checkshogiDescription" comment="No need to translate it literally, serves as short description of the variant">Stejné jako standardní šogi, ale první kdo dá šach vyhrává</string>
 	<string name="unlimited">Bez hodin</string>
 	<string name="mode">Režim hry</string>
 	<string name="casual">Jen tak</string>
@@ -1012,4 +1015,5 @@
 	<string name="analyse" comment="Verb; After clicking on button saying this, we expect to analyse the position">Analyzujte</string>
 	<string name="back" comment="As in: go back">Zpět</string>
 	<string name="preview">Náhled</string>
+	<string name="variantNotSupported">Varianta není podporována</string>
 </resources>

@@ -12,7 +12,7 @@
 	<string name="youHaveLifetime">Tes unha conta de Patrón Vitalicia. Impresionante!</string>
 	<string name="patronUntil">Tes unha conta de Patrón ata o %s.</string>
 	<string name="ifNotRenewed">Se non se renova, a túa conta reverterase a unha conta normal.</string>
-	<string name="weRelyOnSupport">Contamos co apoio de persoas coma ti para facelo posible. Se desfrutas usando Lishogi, por favor considera apoiarnos doando e facéndote Patrón!</string>
+	<string name="weRelyOnSupport">Contamos co apoio de persoas coma ti para facelo posible. Se gozas usando Lishogi, por favor considera apoiarnos doando e facéndote Patrón!</string>
 	<string name="donationSupport">Se queres apoiar Lishogi e o desenvolvemento de código aberto, considera doar! Non obterás nada a cambio, pois Lishogi trata a todos os usuarios por igual. Claro que a túa doazón agradécese moito!</string>
 	<string name="lifetime">De por vida</string>
 	<string name="payLifetimeOnce">Paga %s unha vez. Sé un Patrón de Lishogi para sempre!</string>
@@ -56,7 +56,7 @@ Porén, os Patróns poden gabarse da súa nova icona de perfil.</string>
 	<string name="cancelSupport">cancelar o teu apoio</string>
 	<string name="xOrY">%1$s ou %2$s</string>
 	<string name="decideHowMuch">Decide canto vale Lishogi para ti:</string>
-	<string name="stopPayments">Retirar a túa tarxeta de crédito e deter os pagos:</string>
+	<string name="stopPayments">Retirar a túa tarxeta de crédito e deter os pagamentos:</string>
 	<string name="noLongerSupport">Deixar de apoiar a Lishogi</string>
 	<string name="paymentHistory">Historial de pagamentos</string>
 	<string name="paid">Pagado</string>

@@ -52,7 +52,7 @@
   <string name="castlingImported">Nếu bạn nhập ván đấu, hoặc bắt đầu từ một vị trí ván đấu, đảm bảo rằng bạn đặt đúng quyền được nhập thành.</string>
   <string name="insufficientMaterial">Không đủ quân để chiếu hết</string>
   <string name="noRatingPoints">Hệ số Elo không được tăng</string>
-  <string name="ratedGame">Xin hãy chắc việc bạn chơi ván cờ có tính Elo. Các ván đấu không tính Elo sẽ không ảnh hưởng đến elo của người chơi.</string>
+  <string name="ratedGame">Xin hãy chắc việc bạn chơi ván cờ có xếp hạng. Các ván đấu không xếp hạng sẽ không ảnh hưởng đến hệ số Elo của người chơi.</string>
   <string name="errorPage">Trang lỗi</string>
   <string name="reportErrorPage">Nếu bạn gặp một trang lỗi, bạn có thể báo cáo nó:</string>
   <string name="banAppeal">Kháng cáo cho việc cấm và chặn IP</string>

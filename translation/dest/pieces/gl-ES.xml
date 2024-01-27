@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="pawn">Peón</string>
+  <string name="lance">Lanza</string>
+  <string name="knight">Cabaleiro</string>
+  <string name="silver">Prata</string>
+  <string name="gold">Ouro</string>
+  <string name="bishop">Bispo</string>
+  <string name="rook">Torre</string>
+  <string name="king">Rei</string>
+  <string name="tokin">Tokin</string>
+  <string name="promotedlance">Lanza coroada</string>
+  <string name="promotedknight">Cabaleiro coroado</string>
+  <string name="promotedsilver">Prata coroada</string>
+  <string name="horse">Cabalo</string>
+  <string name="dragon">Dragón</string>
+  <string comment="Chushogi piece - not tokin" name="promotedpawn">Peón coroado</string>
+  <string comment="Chushogi piece, low priority for translation" name="leopard">Leopardo</string>
+  <string comment="Chushogi piece, low priority for translation" name="copper">Cobre</string>
+  <string comment="Chushogi piece, low priority for translation" name="elephant">Elefante</string>
+  <string comment="Chushogi piece, low priority for translation" name="chariot">Carro</string>
+  <string comment="Chushogi piece, low priority for translation" name="tiger">Tigre</string>
+  <string comment="Chushogi piece, low priority for translation" name="kirin">Kirin</string>
+  <string comment="Chushogi piece, low priority for translation" name="phoenix">Fénix</string>
+  <string comment="Chushogi piece, low priority for translation" name="sidemover">Andador lateral</string>
+  <string comment="Chushogi piece, low priority for translation" name="verticalmover">Andador vertical</string>
+  <string comment="Chushogi piece, low priority for translation" name="lion">León</string>
+  <string comment="Chushogi piece, low priority for translation" name="queen">Raíña</string>
+  <string comment="Chushogi piece, low priority for translation" name="gobetween">Medianeiro</string>
+  <string comment="Chushogi piece, low priority for translation" name="whitehorse">Cabalo branco</string>
+  <string comment="Chushogi piece, low priority for translation" name="lionpromoted">León coroado</string>
+  <string comment="Chushogi piece, low priority for translation" name="queenpromoted">Raíña coroada</string>
+  <string comment="Chushogi piece, low priority for translation" name="bishoppromoted">Bispo coroado</string>
+  <string comment="Chushogi piece, low priority for translation" name="sidemoverpromoted">Andador lateral coroado</string>
+  <string comment="Chushogi piece, low priority for translation" name="verticalmoverpromoted">Andador vertical coroado</string>
+  <string comment="Chushogi piece, low priority for translation" name="rookpromoted">Torre coroada</string>
+  <string comment="Chushogi piece, low priority for translation" name="prince">Príncipe</string>
+  <string comment="Chushogi piece, low priority for translation" name="whale">Balea</string>
+  <string comment="Chushogi piece, low priority for translation" name="horsepromoted">Cabalo coroado</string>
+  <string comment="Chushogi piece, low priority for translation" name="elephantpromoted">Elefante coroado</string>
+  <string comment="Chushogi piece, low priority for translation" name="stag">Cervo</string>
+  <string comment="Chushogi piece, low priority for translation" name="boar">Porco bravo</string>
+  <string comment="Chushogi piece, low priority for translation" name="ox">Boi</string>
+  <string comment="Chushogi piece, low priority for translation" name="falcon">Falcón</string>
+  <string comment="Chushogi piece, low priority for translation" name="eagle">Aguia</string>
+  <string comment="Chushogi piece, low priority for translation" name="dragonpromoted">Dragón coroado</string>
+</resources>

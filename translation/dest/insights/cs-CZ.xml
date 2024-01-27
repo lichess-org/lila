@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="insights" comment="Feel free to translate to something more natural (like statistics) in your language if insights seems awkward">Statistiky</string>
+  <string name="moves">Tahy</string>
+  <string name="drops">Položení</string>
+  <string name="movesAndDrops">Tahy a položení</string>
+  <string name="total" comment="Usually in chart legend or tooltip summing other bars">Celkem</string>
+  <string name="count" comment="Example: Count: 11 moves">Počet</string>
+  <string name="average">Průměr</string>
+  <string name="percentage">Procenta</string>
+  <string name="outcomes" comment="win/draw/loss">Výsledky</string>
+  <string name="color" comment="Meaning sente or gote">Strana</string>
+  <string name="termination" comment="Checkmate, repetition, timeout, etc">Ukončení</string>
+  <string name="speed" comment="Bulltet, blitz, rapid, etc.">Rychlost</string>
+  <string name="game">Hra</string>
+  <string name="opponents">Protihráči</string>
+  <string name="averageOpponentRating">Průměrné hodnocení protihráče</string>
+  <string name="averageOpponentRatingDiff">Průměrný rozdíl hodnocení protihráče</string>
+  <string name="mostPlayedOpponents">Nejvíce hraní protihráči</string>
+  <string name="averageAccuracy">Průměrná přesnost</string>
+  <string name="wins">Výhry</string>
+  <string name="draws">Remízy</string>
+  <string name="losses">Prohry</string>
+  <string name="accuracyByMoveNumber">Přesnost podle herního tahu</string>
+  <string name="accuracyByPiece">Přesnost po kamenech</string>
+  <string name="times" comment="Move and drop times">Časy</string>
+  <string name="totalTimeSpentThinking">Celkový čas strávený přemýšlením</string>
+  <string name="averageTimePerGame">Průměrný čas na hru</string>
+  <string name="averageTimePerMoveOrDrop">Průměrný čas na tah nebo položení</string>
+  <string name="timeSpentThinkingByPiece">Čas strávený přemýšlením - kameny</string>
+  <string name="movesAndDropsByPiece">Pohyby a položení - kameny</string>
+  <string name="capturesByPiece">Zajaté kameny</string>
+  <string name="promotionsByPiece">Povýšené kameny</string>
+  <string name="mostPlayedOpenings">Nejhranější zahájení</string>
+  <string name="openingMoves">Zahajovací tahy</string>
+  <string name="insightsUpdate">Statistiky se aktualizují každých několik hodin.</string>
+  <string name="accuracy">Přesnost</string>
+  <string name="nbOfMovesAndDrops">Počet tahů a položení</string>
+  <string name="nbOfMovesAndDropsPerGame">Počet tahů a položení na hru</string>
+  <string name="nbOfCaptures">Počet zajatých kamenů</string>
+  <string name="nbOfPromotions">Počet povýšení kamenů</string>
+  <string name="opponentRating">Hodnocení protihráče</string>
+  <string name="opponentRatingDiff">Rozdíl hodnocení protihráče</string>
+  <string name="totalTimeOfMovesAndDrops">Celkový čas tahů a položení</string>
+  <string name="nbOfGames">Počet her</string>
+  <string name="weekday">Den v týdnu</string>
+  <string name="timeOfDay" comment="Morning,afternoon, evening, night">Denní doba</string>
+  <string name="earlyBishopExchange" comment="Were bishops exchanged by the players early in the game">Ranná výměna střelců</string>
+</resources>

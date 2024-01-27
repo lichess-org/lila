@@ -18,6 +18,7 @@
 	<string name="resign">Сдаться</string>
 	<string name="checkmate">Мат</string>
 	<string name="stalemate">Пат</string>
+	<string name="check">Check</string>
 	<string name="impasse">Тупик</string>
 	<string name="repetition" comment="Status of a game ending due to repeated positions">4-й повтор позиции</string>
 	<string name="perpetualCheck">Вечный шах</string>
@@ -248,11 +249,13 @@
 	<string name="chushogi">Чу Сёги</string>
 	<string name="annanshogi">Аннан Сёги</string>
 	<string name="kyotoshogi">Киото Сёги</string>
+	<string name="checkshogi">Checkshogi</string>
 	<string name="standardDescription" comment="No need to translate it literally, serves as short description of the variant">Стандартные правила сёги</string>
 	<string name="minishogiDescription" comment="No need to translate it literally, serves as short description of the variant">Правила, как в обычных сёги, но в миниатюре, на доске 5x5</string>
 	<string name="chushogiDescription" comment="No need to translate it literally, serves as short description of the variant">Наиболее известный исторический вариант сёги на доске 12x12</string>
 	<string name="kyotoshogiDescription" comment="No need to translate it literally, serves as short description of the variant">Современный вариант сёги на доске 5х5; сделав ход, фигура мутирует</string>
 	<string name="annanshogiDescription" comment="No need to translate it literally, serves as short description of the variant">Близкий к обычным сёги вариант, где фигуры ходят, как свои сзади их</string>
+	<string name="checkshogiDescription" comment="No need to translate it literally, serves as short description of the variant">Just like standard shogi, but first to check opponent\'s king wins</string>
 	<string name="unlimited">Отсутствует</string>
 	<string name="mode">Режим</string>
 	<string name="casual">Товарищеская</string>
@@ -1012,4 +1015,5 @@
 	<string name="analyse" comment="Verb; After clicking on button saying this, we expect to analyse the position">Изучить</string>
 	<string name="back" comment="As in: go back">Назад</string>
 	<string name="preview">Предпросмотр</string>
+	<string name="variantNotSupported">Variant not supported</string>
 </resources>

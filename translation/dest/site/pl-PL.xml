@@ -18,13 +18,14 @@
 	<string name="resign">Poddaj się</string>
 	<string name="checkmate">Mat</string>
 	<string name="stalemate">Pat</string>
+	<string name="check">Szach</string>
 	<string name="impasse">Impas</string>
 	<string name="repetition" comment="Status of a game ending due to repeated positions">Powtórzenie</string>
 	<string name="perpetualCheck">Wieczny szach</string>
 	<string name="royalsLost" comment="Used in chushogi">Wszystkie królewskie bierki stracone</string>
 	<string name="bareKing" comment="Used in chushogi">Ogołocony król</string>
-	<string name="xPlayedY" comment="Played in the past, game is now over">%1$s played %2$s</string>
-	<string name="xIsPlayingY" comment="Playing right now, game is still being played">%1$s is playing %2$s</string>
+	<string name="xPlayedY" comment="Played in the past, game is now over">%1$s grał przeciwko %2$s</string>
+	<string name="xIsPlayingY" comment="Playing right now, game is still being played">%1$s gra przeciwko %2$s</string>
 	<string name="xWon" comment="Example: Player won!">%s wygrywa!</string>
 	<string name="xLost" comment="Example: Player lost!">%s przegrywa!</string>
 	<string name="gameWasDraw">Partia zakończona remisem!</string>
@@ -248,11 +249,13 @@
 	<string name="chushogi">Chushogi</string>
 	<string name="annanshogi">Annan shogi</string>
 	<string name="kyotoshogi">Kyoto shogi</string>
+	<string name="checkshogi">Checkshogi</string>
 	<string name="standardDescription" comment="No need to translate it literally, serves as short description of the variant">Standardowe zasady shogi</string>
 	<string name="minishogiDescription" comment="No need to translate it literally, serves as short description of the variant">Takie same zasady, jak standardowe shogi, tylko grane na mniejszej szachownicy 5×5.</string>
 	<string name="chushogiDescription" comment="No need to translate it literally, serves as short description of the variant">Najpopularniejszy historyczny wariant shogi, grany na szachownicy 12×12.</string>
 	<string name="kyotoshogiDescription" comment="No need to translate it literally, serves as short description of the variant">Współczesny wariant shogi z naprzemiennymi unikalnymi promocjami na szachownicy 5×5.</string>
 	<string name="annanshogiDescription" comment="No need to translate it literally, serves as short description of the variant">Wariant podobny do standardowego shogi, gdzie bierki poruszają się jak sojusznicze bierki za nimi.</string>
+	<string name="checkshogiDescription" comment="No need to translate it literally, serves as short description of the variant">Tak jak standardowe shogi, ale wygrywa ten, kto pierwszy da szacha królowi przeciwnika</string>
 	<string name="unlimited">Bez limitu</string>
 	<string name="mode">Rodzaj</string>
 	<string name="casual">Towarzyska</string>
@@ -412,7 +415,7 @@
 	<string name="continueFromHere">Kontynuuj z tej pozycji</string>
 	<string name="toStudy">Opracowanie</string>
 	<string name="importGame">Importuj partię</string>
-	<string name="importedGame">Game was imported.</string>
+	<string name="importedGame">Gra została zaimportowana.</string>
 	<string name="importGameKifCsaExplanation">Wklejenie zapisu partii w formacie KIF lub CSA daje możliwość jej odtworzenia, analizy komputerowej, rozmowy i udostępniania.</string>
 	<plurals name="nbImportedGames">
 		<item quantity="one">%s zaimportowana partia</item>
@@ -521,7 +524,7 @@
 	<string name="isPrivate">Prywatny</string>
 	<string name="reportXToModerators">Zgłoś %s do moderatora</string>
 	<string name="profileCompletion">Kompletność profilu: %s</string>
-	<string name="thisIsProfilePage">This is your profile page.</string>
+	<string name="thisIsProfilePage">To jest strona Twojego profilu.</string>
 	<string name="xRating">ranking %s</string>
 	<string name="ifNoneLeaveEmpty">Jeśli nie masz, zostaw puste</string>
 	<string name="gameCompletionRate">Ukończonych partii: %s</string>
@@ -949,7 +952,7 @@
 	<string name="agreementNice">Zgadzam się odnosić zawsze z szacunkiem do innych graczy.</string>
 	<string name="agreementAccount">Zgadzam się nie tworzyć wielu kont.</string>
 	<string name="agreementPolicy">Zgadzam się przestrzegać wszystkich zasad Lishogi.</string>
-	<string name="agreeWithX">I agree with: %s</string>
+	<string name="agreeWithX">Akceptuję: %s</string>
 	<string name="searchOrStartNewDiscussion">Szukaj lub rozpocznij nową dyskusję</string>
 	<string name="edit">Edytuj</string>
 	<string name="rapid">Rapid</string>
@@ -992,13 +995,13 @@
 	<string name="studyWith">Analizuj z:</string>
 	<string name="optional" comment="Used in forms to indicate the field is optional">Opcjonalne</string>
 	<string name="standardStudy">Zwykłe opracowanie</string>
-	<string name="welcomeToX">Welcome to %s!</string>
-	<string name="whatNow">What now?</string>
-	<string name="hereAreSuggestions">Here are a few suggestions:</string>
+	<string name="welcomeToX">Witamy w %s!</string>
+	<string name="whatNow">Co teraz?</string>
+	<string name="hereAreSuggestions">Oto kilka propozycji:</string>
 	<string name="hangOn" comment="Meaning: wait!">Zaczekaj!</string>
-	<string name="gameInProgressWithX">You have a game in progress with %s.</string>
-	<string name="or" comment="links alternatives: Do X or do Y">or</string>
-	<string name="gameInProgressDescription">You can\'t start a new game until this one is finished.</string>
+	<string name="gameInProgressWithX">Jesteś w trakcie partii z %s.</string>
+	<string name="or" comment="links alternatives: Do X or do Y">lub</string>
+	<string name="gameInProgressDescription">Nie możesz rozpocząć nowej partii, dopóki ta nie zostanie zakończona.</string>
 	<string name="challengeDeclined">Wyzwanie odrzucone</string>
 	<string name="challengeAccepted">Wyzwanie zaakceptowane</string>
 	<string name="challengeCanceled">Wyzwanie anulowane</string>
@@ -1006,10 +1009,11 @@
 	<string name="challengeDescription">Dołącz do wyzwania lub obserwuj grę</string>
 	<string name="challengeFromX" comment="From username">Wyzwanie od %s</string>
 	<string name="xChallengesY" comment="PlayerA challenges PlayerB">%1$s rzuca wyzwanie %2$s</string>
-	<string name="pressXtoFocus" comment="Focus meaning to have a text box with blinking cursor. Example: Press Enter to focus">Press %s to focus</string>
-	<string name="pressXtoSubmit" comment="Example: Press Enter to submit">Press %s to submit</string>
+	<string name="pressXtoFocus" comment="Focus meaning to have a text box with blinking cursor. Example: Press Enter to focus">Naciśnij %s, aby aktywować</string>
+	<string name="pressXtoSubmit" comment="Example: Press Enter to submit">Naciśnij %s, aby wysłać</string>
 	<string name="clickGame">Kliknij, aby odtworzyć, analizować i omówić partię!</string>
 	<string name="analyse" comment="Verb; After clicking on button saying this, we expect to analyse the position">Analizuj</string>
 	<string name="back" comment="As in: go back">Wstecz</string>
 	<string name="preview">Podgląd</string>
+	<string name="variantNotSupported">Variant not supported</string>
 </resources>

@@ -38,7 +38,7 @@
   </plurals>
   <string name="fromGameLink">Da partida %s</string>
   <string name="puzzleSource">Fonte: %s</string>
-  <string name="continueTraining">Continuar o adestramento</string>
+  <string name="continueTraining">Continúa o adestramento</string>
   <string name="difficultyLevel">Nivel de dificultade</string>
   <string name="normal">Normal</string>
   <string name="easier">Máis fácil</string>
@@ -60,6 +60,8 @@
   <string name="fromMyGames">Das miñas partidas</string>
   <string name="lookupOfPlayer">Busca crebacabezas nas partidas dun xogador</string>
   <string name="fromXGames">Crebacabezas das partidas de %s</string>
+  <string name="submissions">Envíos de crebacabezas</string>
+  <string name="submittedByX">Crebacabezas enviados por %s</string>
   <string name="searchPuzzles">Buscar crebacabezas</string>
   <string name="fromXGamesFound">%1$s crebacabezas atopados nas partidas de %2$s</string>
 </resources>

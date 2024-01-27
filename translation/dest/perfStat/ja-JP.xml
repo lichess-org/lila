@@ -22,8 +22,8 @@
   <string name="fromXToY">%1$s から %2$s まで</string>
   <string name="winningStreak">連勝</string>
   <string name="losingStreak">連敗</string>
-  <string name="longestStreak">最長連勝：%s</string>
-  <string name="currentStreak">現在の連勝：%s</string>
+  <string name="longestStreak">最長：%s</string>
+  <string name="currentStreak">現在：%s</string>
   <string name="bestRated">勝った相手の最高レート</string>
   <string name="worstRated">負けた相手の最低レート</string>
   <string name="gamesInARow">連続対局数</string>

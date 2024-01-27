@@ -18,6 +18,7 @@
 	<string name="resign">认输</string>
 	<string name="checkmate">将死</string>
 	<string name="stalemate">逼和</string>
+	<string name="check">将军</string>
 	<string name="impasse">死局</string>
 	<string name="repetition" comment="Status of a game ending due to repeated positions">重复</string>
 	<string name="perpetualCheck">千日手</string>
@@ -218,11 +219,13 @@
 	<string name="chushogi">中将棋</string>
 	<string name="annanshogi">安南将棋</string>
 	<string name="kyotoshogi">京都将棋</string>
+	<string name="checkshogi">诘将棋</string>
 	<string name="standardDescription" comment="No need to translate it literally, serves as short description of the variant">将棋的标准规则</string>
 	<string name="minishogiDescription" comment="No need to translate it literally, serves as short description of the variant">规则与本将棋相同，但是使用了较小的5*5棋盘</string>
 	<string name="chushogiDescription" comment="No need to translate it literally, serves as short description of the variant">历史上最受欢迎的将棋变种，使用12*12的棋盘</string>
 	<string name="kyotoshogiDescription" comment="No need to translate it literally, serves as short description of the variant">将棋的现代变种，使用5*5的棋盘，有多种独特的棋子变换。</string>
 	<string name="annanshogiDescription" comment="No need to translate it literally, serves as short description of the variant">本将棋的相似变体，其中的棋子走法与正后邻格的己方棋子相同（如有）。</string>
+	<string name="checkshogiDescription" comment="No need to translate it literally, serves as short description of the variant">先将死对方即可取胜，与标准将棋无异。</string>
 	<string name="unlimited">无限时间</string>
 	<string name="mode">模式</string>
 	<string name="casual">休闲</string>
@@ -901,4 +904,5 @@
 	<string name="analyse" comment="Verb; After clicking on button saying this, we expect to analyse the position">分析</string>
 	<string name="back" comment="As in: go back">返回</string>
 	<string name="preview">预览</string>
+	<string name="variantNotSupported">Variant not supported</string>
 </resources>

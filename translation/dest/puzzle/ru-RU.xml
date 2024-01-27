@@ -64,6 +64,8 @@
   <string name="fromMyGames">Из моих партий</string>
   <string name="lookupOfPlayer">Искать задачи из партий игрока</string>
   <string name="fromXGames">Задачи из партий %s</string>
+  <string name="submissions">Puzzle submissions</string>
+  <string name="submittedByX">Puzzles submitted by %s</string>
   <string name="searchPuzzles">Искать задачи</string>
   <string name="fromXGamesFound">%1$s задач найдено в %2$s партиях</string>
 </resources>

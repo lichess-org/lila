@@ -2,7 +2,7 @@
 <resources>
 	<string name="preferences">偏好設置</string>
 	<string name="gameDisplay">棋局顯示</string>
-	<string name="boardLayout">Board layout</string>
+	<string name="boardLayout">棋盤佈局</string>
 	<string name="clearHands">Hide ghosts of pieces in hand</string>
 	<string name="handsBackground">Show background behind pieces in hand</string>
 	<string name="pieceAnimation">棋子動畫</string>

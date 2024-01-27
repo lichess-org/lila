@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="insights" comment="Feel free to translate to something more natural (like statistics) in your language if insights seems awkward">Insights</string>
+  <string name="moves">Moves</string>
+  <string name="drops">Wstawienia</string>
+  <string name="movesAndDrops">Ruchy i wstawienia</string>
+  <string name="total" comment="Usually in chart legend or tooltip summing other bars">Total</string>
+  <string name="count" comment="Example: Count: 11 moves">Count</string>
+  <string name="average">Average</string>
+  <string name="percentage">Percentage</string>
+  <string name="outcomes" comment="win/draw/loss">Outcomes</string>
+  <string name="color" comment="Meaning sente or gote">Kolor</string>
+  <string name="termination" comment="Checkmate, repetition, timeout, etc">Zakończenie</string>
+  <string name="speed" comment="Bulltet, blitz, rapid, etc.">Szybkość</string>
+  <string name="game">Partia</string>
+  <string name="opponents">Przeciwnicy</string>
+  <string name="averageOpponentRating">Średni ranking przeciwnika</string>
+  <string name="averageOpponentRatingDiff">Średnia różnica rankingu przeciwnika</string>
+  <string name="mostPlayedOpponents">Najczęściej grani przeciwnicy</string>
+  <string name="averageAccuracy">Średnia dokładność</string>
+  <string name="wins">Wygrane</string>
+  <string name="draws">Remisy</string>
+  <string name="losses">Przegrane</string>
+  <string name="accuracyByMoveNumber">Dokładność wg ruchu</string>
+  <string name="accuracyByPiece">Dokładność wg bierek</string>
+  <string name="times" comment="Move and drop times">Times</string>
+  <string name="totalTimeSpentThinking">Całkowity czas namysłu</string>
+  <string name="averageTimePerGame">Średni czas na partię</string>
+  <string name="averageTimePerMoveOrDrop">Średni czas na ruch lub wstawienie</string>
+  <string name="timeSpentThinkingByPiece">Czas namysłu wg bierek</string>
+  <string name="movesAndDropsByPiece">Ruchy i wstawienia wg bierek</string>
+  <string name="capturesByPiece">Zbite bierki</string>
+  <string name="promotionsByPiece">Promowane bierki</string>
+  <string name="mostPlayedOpenings">Najczęściej grane otwarcia</string>
+  <string name="openingMoves">Opening moves</string>
+  <string name="insightsUpdate">Insights are refreshed every few hours.</string>
+  <string name="accuracy">Dokładność</string>
+  <string name="nbOfMovesAndDrops">Liczba ruchów i wstawień</string>
+  <string name="nbOfMovesAndDropsPerGame">Liczba ruchów i wstawień na partię</string>
+  <string name="nbOfCaptures">Liczba zdobytych bierek</string>
+  <string name="nbOfPromotions">Liczba promowanych bierek</string>
+  <string name="opponentRating">Ranking przeciwnika</string>
+  <string name="opponentRatingDiff">Różnica rankingu przeciwnika</string>
+  <string name="totalTimeOfMovesAndDrops">Całkowity czas ruchów i wstawień</string>
+  <string name="nbOfGames">Liczba partii</string>
+  <string name="weekday">Weekday</string>
+  <string name="timeOfDay" comment="Morning,afternoon, evening, night">Pora dnia</string>
+  <string name="earlyBishopExchange" comment="Were bishops exchanged by the players early in the game">Wczesna wymiana gońców</string>
+</resources>
