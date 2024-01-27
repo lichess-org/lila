@@ -120,27 +120,25 @@ object bits {
       variantName(variant)
     )
 
-  def lastPosts(posts: List[lila.blog.MiniPost])(implicit ctx: Context): Option[Frag] = {
-    posts.nonEmpty option
-      div(cls := "lobby__blog lobby__box")(
-        a(cls := "lobby__box__top", href := langHrefJP(routes.Blog.index()))(
-          h2(cls := "title text", dataIcon := "6")(trans.latestUpdates()),
-          span(cls := "more")(trans.more(), " »")
-        ),
-        div(cls := "lobby__box__content")(
-          posts map { post =>
-            a(cls     := "post", href := routes.Blog.show(post.id))(
-              img(src := post.image),
-              span(cls := "text")(
-                strong(post.title),
-                span(post.shortlede)
-              ),
-              semanticDate(post.date)
-            )
-          }
-        )
+  def lastPosts(posts: List[lila.blog.MiniPost])(implicit ctx: Context): Frag =
+    div(cls := "lobby__blog lobby__box")(
+      a(cls := "lobby__box__top", href := langHrefJP(routes.Blog.index()))(
+        h2(cls := "title text", dataIcon := "6")(trans.latestUpdates()),
+        span(cls := "more")(trans.more(), " »")
+      ),
+      div(cls := "lobby__box__content")(
+        posts map { post =>
+          a(cls     := "post", href := routes.Blog.show(post.id))(
+            img(src := post.image),
+            span(cls := "text")(
+              strong(post.title),
+              span(post.shortlede)
+            ),
+            semanticDate(post.date)
+          )
+        }
       )
-  }
+    )
 
   def playbanInfo(ban: lila.playban.TempBan)(implicit ctx: Context) =
     nopeInfo(
