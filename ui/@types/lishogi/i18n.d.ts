@@ -2045,6 +2045,8 @@ export type I18nKey =
 'outcomes'|
 'color'|
 'termination'|
+'resign'|
+'noStart'|
 'speed'|
 'game'|
 'opponents'|
