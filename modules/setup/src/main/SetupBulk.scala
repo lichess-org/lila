@@ -248,6 +248,6 @@ final class SetupBulkApi(oauthServer: OAuthServer, idGenerator: IdGenerator)(usi
                     message = data.message,
                     rules = data.rules,
                     scheduledAt = nowInstant,
-                    fen = data.fen
+                    fen = data.fen.filterNot(_.isInitial)
                   )
                 .dmap(Right.apply)
