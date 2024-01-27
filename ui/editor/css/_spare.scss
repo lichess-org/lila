@@ -128,3 +128,43 @@
     }
   }
 }
+
+// .board-editor .hand-spare {
+//   display: none;
+//   @include breakpoint($mq-col3-uniboard) {
+//     display: flex;
+//     flex-direction: column;
+//     height: calc(100% / 9 * 7);
+//     justify-content: space-around;
+//     &-bottom {
+//       grid-area: hs-bottom;
+//       align-self: end;
+//     }
+//     &-top {
+//       grid-area: hs-top;
+//     }
+//     & > div {
+//       height: calc(100% / 7 / 12 * 10);
+//       display: flex;
+//       flex-direction: column;
+//       .plus,
+//       .minus {
+//         flex: 1;
+//         position: relative;
+//         display: flex;
+//         justify-content: center;
+//         align-items: center;
+//         opacity: 0.3;
+//         &:hover {
+//           opacity: 1;
+//         }
+//       }
+//       .plus:hover {
+//         background: $c-good;
+//       }
+//       .minus:hover {
+//         background: $c-bad;
+//       }
+//     }
+//   }
+// }

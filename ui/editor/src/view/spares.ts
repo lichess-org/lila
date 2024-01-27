@@ -1,10 +1,10 @@
-import { Role } from 'shogiops';
+import { Piece, Role } from 'shogiops';
 import { VNode, h } from 'snabbdom';
 import { Selected, SpecialSelected, isSpecialSelected } from '../interfaces';
 import { allRoles, promote } from 'shogiops/variant/util';
 import EditorCtrl from '../ctrl';
 import { MouchEvent } from 'shogiground/types';
-import { eventPosition, samePiece } from 'shogiground/util';
+import { eventPosition } from 'shogiground/util';
 import { dragNewPiece } from 'shogiground/drag';
 
 export function sparePieces(ctrl: EditorCtrl, color: Color, position: 'top' | 'bottom'): VNode {
@@ -14,9 +14,6 @@ export function sparePieces(ctrl: EditorCtrl, color: Color, position: 'top' | 'b
   // initial pieces first
   const roles: Role[] =
     ctrl.rules === 'kyotoshogi' ? ['pawn', 'gold', 'king', 'silver', 'tokin'] : allRoles(ctrl.rules);
-
-  // baseRoles.push(position === 'bottom' ? 'pointer' : 'trash');
-  // promotedRoles.push('skip');
 
   baseRoles.push('king');
   promotedRoles.push(position === 'bottom' ? 'pointer' : 'trash');
@@ -112,7 +109,6 @@ function selectSPStart(ctrl: EditorCtrl, s: Selected): (e: MouchEvent) => void {
         color: s[0],
         role: s[1],
       };
-      ctrl.selected('pointer');
       dragNewPiece(ctrl.shogiground.state, piece, e, true);
     }
     ctrl.redraw();
@@ -125,20 +121,17 @@ function selectSPEnd(ctrl: EditorCtrl, s: Selected): (e: MouchEvent) => void {
 
     e.preventDefault();
     const cur = ctrl.selected(),
-      pos = eventPosition(e) || ctrl.lastTouchMovePos;
+      pos = eventPosition(e) || ctrl.lastTouchMovePos,
+      dragged = ctrl.shogiground.state.draggable.current?.piece as Piece | undefined;
     ctrl.shogiground.selectPiece(null);
     // default to pointer if we click on selected
-    if (
-      cur === s ||
-      (typeof cur !== 'string' &&
-        typeof s !== 'string' &&
-        samePiece({ color: cur[0], role: cur[1] }, { color: s[0], role: s[1] }))
-    ) {
+    if (compareSelected(cur, s)) {
       ctrl.selected('pointer');
     } else if (
-      !pos ||
-      !ctrl.initTouchMovePos ||
-      (Math.abs(pos[0] - ctrl.initTouchMovePos[0]) < 20 && Math.abs(pos[1] - ctrl.initTouchMovePos[1]) < 20)
+      (!dragged || compareSelected([dragged.color, dragged.role], s)) &&
+      (!pos ||
+        !ctrl.initTouchMovePos ||
+        (Math.abs(pos[0] - ctrl.initTouchMovePos[0]) < 20 && Math.abs(pos[1] - ctrl.initTouchMovePos[1]) < 20))
     ) {
       ctrl.selected(s);
       ctrl.shogiground.state.selectable.deleteOnTouch = s === 'trash' ? true : false;
@@ -149,42 +142,44 @@ function selectSPEnd(ctrl: EditorCtrl, s: Selected): (e: MouchEvent) => void {
   };
 }
 
-// maybe later, but it looks too cluttered
-// // +/-
-// export function handSpares(ctrl: EditorCtrl, position: 'top' | 'bottom'): VNode {
-//   function getPiece(e: Event): Piece | undefined {
-//     const role: Role | undefined = ((e.target as HTMLElement).dataset.role as Role) || undefined;
-//     if (role) {
-//       const color: Color =
-//         (e.target as HTMLElement).dataset.pos === 'bottom'
-//           ? ctrl.shogiground.state.orientation
-//           : opposite(ctrl.shogiground.state.orientation);
-//       return { role, color };
-//     }
-//     return;
-//   }
+function compareSelected(a: Selected, b: Selected): boolean {
+  if (typeof a === 'string') return a === b;
+  else return a[0] === b[0] && a[1] === b[1];
+}
 
+// maybe later, but it looks too cluttered
+// +/-
+// export function handSpares(ctrl: EditorCtrl, position: 'top' | 'bottom'): VNode {
 //   const processPiece = (e: Event) => {
-//     const piece = getPiece(e),
+//     const piece = getPiece(e, ctrl.shogiground.state.orientation),
 //       action = (e.target as HTMLElement).dataset.action;
+//     console.log(e, piece, action);
 //     if (piece) {
 //       if (action === 'add') ctrl.addToHand(piece.color, piece.role, true);
 //       else ctrl.removeFromHand(piece.color, piece.role, true);
 //     }
 //   };
 
-//   const roleDiv: VNode[] = [];
-
 //   const hRoles = handRoles(ctrl.rules);
 //   if (position === 'bottom') hRoles.reverse();
 
-//   for (const r of hRoles) {
-//     roleDiv.push(
+//   return h(
+//     'div.hand-spare.hand-spare-' + position,
+//     { on: { click: () => processPiece } },
+//     hRoles.map(r =>
 //       h('div', [
-//         h('div.plus', { attrs: { 'data-role': r, 'data-pos': position, 'data-action': 'add' } }),
-//         h('div.minus', { attrs: { 'data-role': r, 'data-pos': position } }),
+//         h('div.plus', { attrs: { 'data-role': r, 'data-pos': position, 'data-action': 'add' } }, '+'),
+//         h('div.minus', { attrs: { 'data-role': r, 'data-pos': position } }, '-'),
 //       ])
-//     );
+//     )
+//   );
+// }
+
+// function getPiece(e: Event, orientation: Color): Piece | undefined {
+//   const role: Role | undefined = ((e.target as HTMLElement).dataset.role as Role) || undefined;
+//   if (role) {
+//     const color: Color = (e.target as HTMLElement).dataset.pos === 'bottom' ? orientation : opposite(orientation);
+//     return { role, color };
 //   }
-//   return h('div.hand-spare.hand-spare-' + position, { on: { click: () => processPiece } }, roleDiv);
+//   return;
 // }

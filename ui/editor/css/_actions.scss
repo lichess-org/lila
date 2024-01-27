@@ -15,6 +15,10 @@
     text-align: center;
     cursor: pointer;
     @include transition();
+    &.disabled {
+      pointer-events: none;
+      opacity: 0.5;
+    }
     &:hover {
       color: $c-accent;
     }
