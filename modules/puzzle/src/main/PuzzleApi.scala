@@ -198,7 +198,7 @@ final class PuzzleApi(
     def apply(user: User, id: Puzzle.Id) = store.get(key(user, id))
   }
 
-  object candidate {
+  object submissions {
 
     def addNew(
         sfen: Sfen,

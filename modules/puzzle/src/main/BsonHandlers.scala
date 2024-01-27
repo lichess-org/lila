@@ -33,7 +33,7 @@ object BsonHandlers {
         glicko = r.getD[Glicko](F.glicko, Puzzle.glickoDefault(line.size)),
         plays = r.intD(F.plays),
         vote = r.floatD(F.vote),
-        themes = r.get[Set[PuzzleTheme.Key]](F.themes),
+        themes = r.getD[Set[PuzzleTheme.Key]](F.themes),
         gameId = r.getO[Game.ID](F.gameId),
         author = r.strO(F.author),
         description = r.strO(F.description),

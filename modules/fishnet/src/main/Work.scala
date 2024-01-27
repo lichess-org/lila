@@ -11,6 +11,7 @@ sealed trait Work {
   def _id: Work.Id
   def name: String
   def game: Work.Game
+  def engine: String
   def tries: Int
   def lastTryByKey: Option[Client.Key]
   def acquired: Option[Work.Acquired]
@@ -154,6 +155,7 @@ object Work {
   case class Puzzle(
       _id: Work.Id, // random
       game: Work.Game,
+      engine: String,
       source: Puzzle.Source,
       tries: Int,
       lastTryByKey: Option[Client.Key],
@@ -177,7 +179,7 @@ object Work {
         tries = tries + 1
       )
 
-    def prepareToVerify = copy(verifiable = true)
+    def prepareToVerify = copy(verifiable = true, tries = 0)
 
     def timeout = copy(acquired = none)
     def invalid = copy(acquired = none)

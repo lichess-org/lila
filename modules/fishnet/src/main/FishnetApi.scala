@@ -230,7 +230,7 @@ final class FishnetApi(
             )
             repo.deletePuzzle(work)
           } { res =>
-            puzzles.candidate.addNew(
+            puzzles.submissions.addNew(
               sfen = res.sfen,
               line = res.line,
               ambProms = res.ambiguousPromotions,
@@ -270,34 +270,52 @@ final class FishnetApi(
       source: Option[String],
       submittedBy: String
   ): Funit = {
-    val puzs = sfens.map { sfen =>
-      Work.Puzzle(
-        _id = Work.makeId,
-        game = Work.Game(
-          id = "synthetic",
-          initialSfen = sfen.some,
-          studyId = none,
-          variant = shogi.variant.Standard,
-          moves = ""
-        ),
-        source = Work.Puzzle.Source(
-          game = none,
-          user = Work.Puzzle.Source
-            .FromUser(
-              submittedBy = submittedBy,
-              author = source
-            )
-            .some
-        ),
-        tries = 0,
-        lastTryByKey = none,
-        acquired = none,
-        createdAt = DateTime.now,
-        verifiable = false
+    val puzs = sfens
+      .flatMap(sfen => sfen.toSituation(shogi.variant.Standard))
+      .withFilter(
+        _.playable(true, true)
       )
-    }
+      .map { sit =>
+        Work.Puzzle(
+          _id = Work.makeId,
+          game = Work.Game(
+            id = "synthetic",
+            initialSfen = sit.toSfen.some,
+            studyId = none,
+            variant = sit.variant,
+            moves = ""
+          ),
+          engine =
+            if (forYaneuraOu(sit)) lila.game.EngineConfig.Engine.YaneuraOu.name
+            else lila.game.EngineConfig.Engine.Fairy.name,
+          source = Work.Puzzle.Source(
+            game = none,
+            user = Work.Puzzle.Source
+              .FromUser(
+                submittedBy = submittedBy,
+                author = source
+              )
+              .some
+          ),
+          tries = 0,
+          lastTryByKey = none,
+          acquired = none,
+          createdAt = DateTime.now,
+          verifiable = false
+        )
+      }
     repo.addPuzzles(puzs)
   }
+
+  private val initialSit = shogi.Situation(shogi.variant.Standard)
+  private def forYaneuraOu(sit: shogi.Situation): Boolean =
+    sit.variant.handRoles.forall { r =>
+      sit.board.count(r) + sit.hands.sente(r) + sit.hands.gote(r) <= initialSit.board.count(
+        r
+      ) + initialSit.hands.sente(r) + initialSit.hands.gote(r)
+    } && sit.variant.allRoles.diff(sit.variant.handRoles).forall { r =>
+      sit.board.count(r) <= initialSit.board.count(r)
+    }
 
   def queuedPuzzles(userId: String): Fu[Int] =
     repo.countUserPuzzles(userId)

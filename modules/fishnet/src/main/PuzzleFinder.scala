@@ -43,6 +43,7 @@ private object PuzzleFinder {
               variant = game.variant,
               moves = ~work.game.usiList.lift(index).pp.map(_.usi)
             ),
+            engine = lila.game.EngineConfig.Engine.YaneuraOu.name,
             source = Work.Puzzle.Source(
               game = Work.Puzzle.Source
                 .FromGame(

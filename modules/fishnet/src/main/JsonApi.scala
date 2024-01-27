@@ -208,13 +208,14 @@ object JsonApi {
   sealed trait Work {
     val id: String
     val game: Game
+    val engine: String
   }
 
   case class Move(
       id: String,
       level: Int,
-      engine: String,
       game: Game,
+      engine: String,
       clock: Option[Work.Clock]
   ) extends Work
 
@@ -222,8 +223,8 @@ object JsonApi {
     Move(
       id = m.id.value,
       level = m.level,
-      engine = m.engine,
       game = fromGame(m.game),
+      engine = m.engine,
       clock = m.clock
     )
 
@@ -246,13 +247,15 @@ object JsonApi {
 
   case class Puzzle(
       id: String,
-      game: Game
+      game: Game,
+      engine: String
   ) extends Work
 
   def puzzleFromWork(p: Work.Puzzle) =
     Puzzle(
       id = p.id.value,
-      game = fromGame(p.game)
+      game = fromGame(p.game),
+      engine = p.engine
     )
 
   object readers {
@@ -329,8 +332,9 @@ object JsonApi {
         case p: Puzzle =>
           Json.obj(
             "work" -> Json.obj(
-              "type" -> "puzzle",
-              "id"   -> p.id
+              "type"   -> "puzzle",
+              "id"     -> p.id,
+              "flavor" -> p.engine
             )
           )
       }) ++ Json.toJson(work.game).as[JsObject]

@@ -12,9 +12,9 @@ case class EngineConfig(
 object EngineConfig {
 
   sealed trait Engine {
-    val code: String
-    val fullName: String
     val name: String
+    val fullName: String
+    val code: String
   }
   object Engine {
 
@@ -35,11 +35,11 @@ object EngineConfig {
 
     def getByCode(code: String): Option[Engine] = allByCode.get(code)
 
-    def apply(sfen: Option[Sfen], variant: Variant, level: Option[Int]): Engine =
+    def apply(initialSfen: Option[Sfen], variant: Variant, level: Option[Int]): Engine =
       if (
-        variant.standard && level.fold(true)(_ > 1) && sfen
+        variant.standard && level.fold(true)(_ > 1) && initialSfen
           .filterNot(_.initialOf(variant))
-          .fold(true)(sfen => Handicap.isHandicap(sfen, variant))
+          .fold(true)(sf => Handicap.isHandicap(sf, variant))
       ) YaneuraOu
       else Fairy
   }
