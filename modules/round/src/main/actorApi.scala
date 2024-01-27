@@ -20,6 +20,8 @@ case class SocketStatus(
   def onGame(color: Color)     = color.fold(whiteOnGame, blackOnGame)
   def isGone(color: Color)     = color.fold(whiteIsGone, blackIsGone)
   def colorsOnGame: Set[Color] = Color.all.filter(onGame).toSet
+object SocketStatus:
+  val default = SocketStatus(SocketVersion(0), false, false, false, false)
 case class GameAndSocketStatus(game: lila.game.Game, socket: SocketStatus)
 case class RoomCrowd(white: Boolean, black: Boolean)
 case class BotConnected(color: Color, v: Boolean)
@@ -42,10 +44,9 @@ package round:
   case class ResignForce(playerId: GamePlayerId)
   case class DrawForce(playerId: GamePlayerId)
   case class DrawClaim(playerId: GamePlayerId)
-  case class DrawYes(playerId: GamePlayerId)
-  case class DrawNo(playerId: GamePlayerId)
-  case class TakebackYes(playerId: GamePlayerId)
-  case class TakebackNo(playerId: GamePlayerId)
+  case class Blindfold(playerId: GamePlayerId, blindfold: Boolean)
+  case class Draw(playerId: GamePlayerId, draw: Boolean)
+  case class Takeback(playerId: GamePlayerId, takeback: Boolean)
   object Moretime:
     val defaultDuration = 15.seconds
   case class Moretime(playerId: GamePlayerId, seconds: FiniteDuration = Moretime.defaultDuration)

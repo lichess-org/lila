@@ -111,11 +111,6 @@ final class Env(
     text =
       "Secret tokens that allows fetching ongoing games without the 3-moves delay. Separated by commas.".some
   )
-  val featuredTeamsSetting = memo.settingStore[Strings](
-    "featuredTeams",
-    default = Strings(Nil),
-    text = "Team IDs that always get their tournaments visible on /tournament. Separated by commas.".some
-  )
   val prizeTournamentMakers = memo.settingStore[UserIds](
     "prizeTournamentMakers",
     default = UserIds(Nil),
@@ -131,11 +126,6 @@ final class Env(
     "pieceImageExternal",
     default = false,
     text = "Use external piece images".some
-  )
-  val firefoxOriginTrial = memo.settingStore[String](
-    "firefoxOriginTrial",
-    default = "",
-    text = "Firefox COEP:credentialless origin trial token. Empty to disable.".some
   )
   import lila.memo.SettingStore.Regex.given
   import scala.util.matching.Regex
@@ -181,7 +171,7 @@ final class EnvBoot(
   given Scheduler = system.scheduler
   given Mode      = environment.mode
   val netConfig   = config.get[NetConfig]("net")
-  export netConfig.{ domain, baseUrl }
+  export netConfig.{ domain, baseUrl, assetBaseUrlInternal }
 
   // eagerly load the Uptime object to fix a precise date
 

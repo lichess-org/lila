@@ -52,8 +52,8 @@ final class JsonView(rematches: Rematches):
       .obj(
         "fullId"   -> pov.fullId,
         "gameId"   -> pov.gameId,
-        "fen"      -> (Fen write pov.game.chess),
-        "color"    -> pov.color.name,
+        "fen"      -> maybeFen(pov),
+        "color"    -> pov.color,
         "lastMove" -> (pov.game.lastMoveKeys | ""),
         "source"   -> pov.game.source,
         "status"   -> pov.game.status,
@@ -79,9 +79,12 @@ final class JsonView(rematches: Rematches):
       .add("secondsLeft" -> pov.remainingSeconds)
       .add("tournamentId" -> pov.game.tournamentId)
       .add("swissId" -> pov.game.swissId)
-      .add("orientation" -> pov.game.variant.racingKings.option(chess.White))
+      // .add("orientation" -> pov.game.variant.racingKings.option(chess.White))
       .add("winner" -> pov.game.winnerColor)
       .add("ratingDiff" -> pov.player.ratingDiff)
+
+  def maybeFen(pov: Pov): Fen.Epd =
+    if pov.player.blindfold then Fen.Epd("8/8/8/8/8/8/8/8") else Fen.write(pov.game.chess)
 
   def player(p: Player, user: Option[LightUser]) =
     Json
@@ -92,15 +95,15 @@ final class JsonView(rematches: Rematches):
       .add("name", p.name)
       .add("provisional" -> p.provisional)
       .add("aiLevel" -> p.aiLevel)
+      .add("blindfold" -> p.blindfold)
 
 object JsonView:
 
-  given OWrites[chess.Status] = OWrites { s =>
+  given OWrites[chess.Status] = OWrites: s =>
     Json.obj(
       "id"   -> s.id,
       "name" -> s.name
     )
-  }
 
   given OWrites[Crosstable.Result] = Json.writes
 
@@ -163,10 +166,10 @@ object JsonView:
     )
 
   given OWrites[chess.Division] = OWrites: o =>
-    Json.obj(
-      "middle" -> o.middle,
-      "end"    -> o.end
-    )
+    Json
+      .obj()
+      .add("middle" -> o.middle)
+      .add("end" -> o.end)
 
   given Writes[Source]   = writeAs(_.name)
   given Writes[GameRule] = writeAs(_.key)

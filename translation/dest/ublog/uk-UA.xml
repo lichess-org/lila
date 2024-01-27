@@ -1,5 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+  <string name="communityBlogs">Дописи спільноти</string>
+  <string name="friendBlogs">Дописи друзів</string>
+  <string name="likedBlogs">Вподобані публікації дописів</string>
+  <string name="blogTopics">Теми дописів</string>
+  <string name="lichessOfficialBlog">Офіційний блог Lichess</string>
+  <string name="continueReadingPost">Продовжити читання цієї історії</string>
+  <string name="lichessBlogPostsFromXYear">Публікації блогу Lichess за %s</string>
+  <string name="previousBlogPosts">Попередні публікації блогу</string>
   <string name="xBlog">Блог %s</string>
   <string name="newPost">Новий допис</string>
   <string name="editYourBlogPost">Редагувати ваш запис</string>
@@ -43,10 +51,11 @@
   <string name="imageCredit">Права на зображення</string>
   <string name="deleteBlog">Остаточно видалити цей допис</string>
   <string name="deleteImage">Видалити зображення</string>
-  <string name="safeToUseImages" comment="safeToUseImages&#10;&#10;This is mentioned because the images there are royalty-free, so there is no risk of copyright infringement.">Можна безпечно використовувати зображення з наступних сайтів: </string>
+  <string name="safeToUseImages">Можна безпечно використовувати зображення з наступних сайтів: </string>
   <string name="selectPostTopics">Виберіть тему вашого допису</string>
   <string name="useImagesYouMadeYourself">Також, ви можете використовувати зображення, які ви зробили власноруч, знімок з екрана Lichess. Все що немає авторських прав.</string>
   <string name="safeAndRespectfulContent">Будь ласка, публікуйте тільки безпечний і шанобливий контент. Не копіюйте чужий контент.</string>
   <string name="inappropriateContentAccountClosed">Невідповідності в дописі можуть спричинити блокування профілю.</string>
-  <string name="blogTips" comment="blogTips&#10;&#10;This is a link to https://lichess.org/page/blog-tips. Appears when creating a new post.">Наші прості поради для написання хороших дописів</string>
+  <string name="blogTips">Наші прості поради для написання хороших дописів</string>
+  <string name="discussThisBlogPostInTheForum">Обговорити цей допис блогу на форумі</string>
 </resources>

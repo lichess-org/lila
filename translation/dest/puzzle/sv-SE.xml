@@ -21,6 +21,7 @@
   <string name="toGetPersonalizedPuzzles">För att få personanpassade problem:</string>
   <string name="puzzleId">Problem %s</string>
   <string name="puzzleOfTheDay">Dagens problem</string>
+  <string name="dailyPuzzle">Dagens problem</string>
   <string name="clickToSolve">Klicka för att lösa</string>
   <string name="goodMove">Bra drag</string>
   <string name="bestMove">Bästa draget!</string>
@@ -30,6 +31,7 @@
   <string name="byOpenings">Efter öppningar</string>
   <string name="puzzlesByOpenings">Schackproblem efter öppningar</string>
   <string name="openingsYouPlayedTheMost">Öppningar som du spelade mest i rankade partier</string>
+  <string name="useFindInPage">Använd \"Hitta på sida\" i webbläsarmenyn för att hitta din favoritöppning!</string>
   <string name="useCtrlF">Använd Ctrl+f för att hitta din favoritöppning!</string>
   <string name="notTheMove">Det är inte rätt drag!</string>
   <string name="trySomethingElse">Prova något annat.</string>

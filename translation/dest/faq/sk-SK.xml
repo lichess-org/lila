@@ -54,6 +54,7 @@ Počítačovú analýzu na serveri Lichess poskytuje server Stockfish.</string>
 V zriedkavých prípadoch môže byť ťažké automaticky rozhodnúť (vynútené čiary, pevnosti). Štandardne vždy stojíme na strane hráča, ktorému nevypršal čas.
 
 Upozorňujeme, že je možné matovať s jedným jazdcom alebo strelcom, ak má protivník figúrku, ktorá by mohla kráľa zablokovať.</string>
+  <string name="fideHandbook">Príručka FIDE</string>
   <string name="fideHandbookX">Príručka FIDE %s</string>
   <string name="discoveringEnPassant">Prečo môže pešiak vziať iného pešiaka, keď sa pohol? (en passant)</string>
   <string name="explainingEnPassant">Toto je legálny ťah známy ako „en passant“. Článok na Wikipédii poskytuje %1$s
@@ -67,7 +68,7 @@ Pozrite sa na %3$s na tomto ťahu, aby ste si s ním trochu zacvičili.</string>
   <string name="lichessTraining">Lichess tréning</string>
   <string name="watchIMRosenCheckmate">Sledujte ako medzinárocný majster Eric Rosen matuje ťahom %s!</string>
   <string name="threefoldRepetition">Trojnásobné opakovanie</string>
-  <string name="threefoldRepetitionExplanation">Ak sa pozícia objaví trikrát, hráči môžu reklamovať remízu %1$s. Lichess uplatňuje oficiálne pravidlá FIDE, ako je opísané v článku 9.2 (d) %2$s.</string>
+  <string name="threefoldRepetitionExplanation">Ak sa pozícia objaví trikrát, hráči môžu reklamovať remízu %1$s. Lichess uplatňuje oficiálne pravidlá FIDE, ako je opísané v článku 9.2 %2$s.</string>
   <string name="threefoldRepetitionLowerCase">trojnásobným opakovaním pozície</string>
   <string name="notRepeatedMoves">Neopakovali sme ťahy. Prečo bola partia napriek tomu ukončená remízou opakovaním ťahov?</string>
   <string name="repeatedPositionsThatMatters">Trojnásobné opakovanie ťahov sa týka opakovania %1$s, nie ťahov. Opakovanie sa nemusí vyskytnúť hneď po sebe.</string>

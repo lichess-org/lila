@@ -12,12 +12,9 @@ let watchersData: Data | undefined;
 const name = (u: string) => (u.includes(' ') ? u.split(' ')[1] : u);
 
 export default function watchers(element: HTMLElement) {
-  const $element = $(element);
-
-  if ($element.data('watched')) return;
-
-  $element.data('watched', 1);
-  const $innerElement = $('<div class="chat__members__inner">').appendTo($element);
+  if (element.dataset.watched) return;
+  element.dataset.watched = '1';
+  const $innerElement = $('<div class="chat__members__inner">').appendTo(element);
   const $numberEl = $(
     `<div class="chat__members__number" data-icon="${licon.User}" title="Spectators"></div>`,
   ).appendTo($innerElement);
@@ -29,7 +26,7 @@ export default function watchers(element: HTMLElement) {
     watchersData = data;
 
     if (!data || !data.nb) {
-      $element.addClass('none');
+      element.classList.add('none');
       return;
     }
 
@@ -48,7 +45,7 @@ export default function watchers(element: HTMLElement) {
       }
     } else $listEl.html('');
 
-    $element.removeClass('none');
+    element.classList.remove('none');
   };
 
   if (watchersData) set(watchersData);

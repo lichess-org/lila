@@ -46,10 +46,10 @@
   <string name="imageCredit">Íomhá creidiúna</string>
   <string name="deleteBlog">Scrios an blagphost seo go cinntitheach</string>
   <string name="deleteImage">Scrios an íomhá</string>
-  <string name="safeToUseImages" comment="safeToUseImages&#10;&#10;This is mentioned because the images there are royalty-free, so there is no risk of copyright infringement.">Tá sé sábháilte íomhánna a úsáid ó na suíomhanna gréasáin seo a leanas: </string>
+  <string name="safeToUseImages">Tá sé sábháilte íomhánna a úsáid ó na suíomhanna gréasáin seo a leanas: </string>
   <string name="selectPostTopics">Roghnaigh na hábhair a bhaineann le do phostáil</string>
   <string name="useImagesYouMadeYourself">Is féidir leat freisin úsáid a bhaint as íomhánna a rinne tú féin, pictiúir a ghlac tú, scáilghraif de Lichess... rud ar bith nach bhfuil cóipcheart ag duine éigin eile.</string>
   <string name="safeAndRespectfulContent">Ná postáil ach ábhar atá sábháilte agus measúil. Ná cóipeáil ábhar duine eile.</string>
   <string name="inappropriateContentAccountClosed">D\'fhéadfadh aon rud míchuí do chuntas a dhúnadh.</string>
-  <string name="blogTips" comment="blogTips&#10;&#10;This is a link to https://lichess.org/page/blog-tips. Appears when creating a new post.">Ár leideanna simplí chun postálacha blag iontacha a scríobh</string>
+  <string name="blogTips">Ár leideanna simplí chun postálacha blag iontacha a scríobh</string>
 </resources>

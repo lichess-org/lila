@@ -222,16 +222,13 @@ object Event:
         "pieceClass" -> role.toString.toLowerCase
       )
 
-  case class PlayerMessage(line: PlayerLine) extends Event:
+  case class PlayerMessage(data: JsObject) extends Event:
     def typ            = "message"
-    def data           = lila.chat.JsonView(line)
     override def owner = true
     override def troll = false
 
-  case class UserMessage(line: UserLine, w: Boolean) extends Event:
+  case class UserMessage(data: JsObject, override val troll: Boolean, w: Boolean) extends Event:
     def typ              = "message"
-    def data             = lila.chat.JsonView(line)
-    override def troll   = line.troll
     override def watcher = w
     override def owner   = !w
 
@@ -243,18 +240,16 @@ object Event:
           "winner" -> game.winnerColor,
           "status" -> game.status
         )
-        .add("clock" -> game.clock.map { c =>
+        .add("clock" -> game.clock.map: c =>
           Json.obj(
             "wc" -> c.remainingTime(Color.White).centis,
             "bc" -> c.remainingTime(Color.Black).centis
-          )
-        })
-        .add("ratingDiff" -> ratingDiff.map { rds =>
+          ))
+        .add("ratingDiff" -> ratingDiff.map: rds =>
           Json.obj(
             Color.White.name -> rds.white,
             Color.Black.name -> rds.black
-          )
-        })
+          ))
         .add("boosted" -> game.boosted)
 
   case object Reload extends Empty:

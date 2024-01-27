@@ -173,7 +173,7 @@ object Challenge:
   case class Open(userIds: Option[(UserId, UserId)]):
     def userIdList = userIds.map { (u1, u2) => List(u1, u2) }
     def canJoin(using me: Option[Me]) =
-      userIdList.fold(true)(ids => me.exists(me => ids.exists(me is _)))
+      userIdList.forall(ids => me.exists(me => ids.exists(me is _)))
     def colorFor(requestedColor: Option[Color])(using me: Option[Me]): Option[ColorChoice] =
       userIds.fold(requestedColor.fold(ColorChoice.Random)(ColorChoice.apply).some): (u1, u2) =>
         me.flatMap: m =>

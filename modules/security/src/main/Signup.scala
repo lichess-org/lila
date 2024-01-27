@@ -42,14 +42,14 @@ final class Signup(
         if ipExists then fuccess(YesBecauseIpExists)
         else if HTTPRequest weirdUA req then fuccess(YesBecauseUA)
         else
-          print.fold[Fu[MustConfirmEmail]](fuccess(YesBecausePrintMissing)) { fp =>
-            store.recentByPrintExists(fp) map { printFound =>
-              if printFound then YesBecausePrintExists
-              else if suspIp then YesBecauseIpSusp
-              else if email.domain.exists(DisposableEmailDomain.whitelisted) then Nope
-              else YesBecauseEmailDomain
-            }
-          }
+          print.fold[Fu[MustConfirmEmail]](fuccess(YesBecausePrintMissing)): fp =>
+            store
+              .recentByPrintExists(fp)
+              .map: printFound =>
+                if printFound then YesBecausePrintExists
+                else if suspIp then YesBecauseIpSusp
+                else if email.domain.exists(DisposableEmailDomain.whitelisted) then Nope
+                else YesBecauseEmailDomain
       }
 
   def website(
@@ -61,10 +61,10 @@ final class Signup(
         .bindFromRequest()
         .fold[Fu[Signup.Result]](
           err =>
-            fuccess {
+            fuccess:
               disposableEmailAttempt.onFail(err, HTTPRequest ipAddress req)
               Signup.Result.Bad(err tap signupErrLog)
-            },
+          ,
           data =>
             for
               suspIp <- ipTrust.isSuspicious(ip)
@@ -76,7 +76,7 @@ final class Signup(
                     data.username.id,
                     suspIp = suspIp,
                     captched = hcaptchaResult == Hcaptcha.Result.Valid
-                  ) {
+                  ):
                     MustConfirmEmail(data.fingerPrint, data.email, suspIp = suspIp) flatMap { mustConfirm =>
                       lila.mon.user.register.count(none)
                       lila.mon.user.register.mustConfirmEmail(mustConfirm.toString).increment()
@@ -91,12 +91,11 @@ final class Signup(
                           mustConfirmEmail = mustConfirm.value
                         )
                         .orFail(s"No user could be created for ${data.username}")
-                        .addEffect { logSignup(req, _, data.email, data.fingerPrint, none, mustConfirm) }
-                        .flatMap {
+                        .addEffect:
+                          logSignup(req, _, data.email, data.fingerPrint, none, mustConfirm)
+                        .flatMap:
                           confirmOrAllSet(data.email, mustConfirm, data.fingerPrint, none)
-                        }
                     }
-                  }
               }
             yield result
         )
@@ -127,14 +126,14 @@ final class Signup(
       .bindFromRequest()
       .fold[Fu[Signup.Result]](
         err =>
-          fuccess {
+          fuccess:
             disposableEmailAttempt.onFail(err, HTTPRequest ipAddress req)
             Signup.Result.Bad(err tap signupErrLog)
-          },
+        ,
         data =>
           for
             suspIp <- ipTrust.isSuspicious(ip)
-            result <- signupRateLimit(data.username.id, suspIp = suspIp, captched = false) {
+            result <- signupRateLimit(data.username.id, suspIp = suspIp, captched = false):
               val mustConfirm = MustConfirmEmail.YesBecauseMobile
               lila.mon.user.register.count(apiVersion.some).increment()
               lila.mon.user.register.mustConfirmEmail(mustConfirm.toString).increment()
@@ -149,11 +148,10 @@ final class Signup(
                   mustConfirmEmail = mustConfirm.value
                 )
                 .orFail(s"No user could be created for ${data.username}")
-                .addEffect { logSignup(req, _, data.email, none, apiVersion.some, mustConfirm) }
-                .flatMap {
+                .addEffect:
+                  logSignup(req, _, data.email, none, apiVersion.some, mustConfirm)
+                .flatMap:
                   confirmOrAllSet(data.email, mustConfirm, none, apiVersion.some)
-                }
-            }
           yield result
       )
 
@@ -196,14 +194,13 @@ final class Signup(
           .so(_.value)} ip: ${HTTPRequest ipAddress req} api: $apiVersion"
     )
 
-  private def signupErrLog(err: Form[?]) =
-    for
-      username <- err("username").value
-      email    <- err("email").value
-    yield
-      if err.errors.exists(_.messages.contains("error.email_acceptable")) &&
-        err("email").value.exists(EmailAddress.isValid)
-      then authLog(UserStr(username), email, "Signup with unacceptable email")
+  private def signupErrLog(err: Form[?]) = for
+    username <- err("username").value
+    email    <- err("email").value
+  yield
+    if err.errors.exists(_.messages.contains("error.email_acceptable")) &&
+      err("email").value.exists(EmailAddress.isValid)
+    then authLog(UserStr(username), email, "Signup with unacceptable email")
 
   private def authLog(user: UserStr, email: String, msg: String) =
     lila.log("auth").info(s"$user $email $msg")

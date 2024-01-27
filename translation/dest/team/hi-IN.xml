@@ -43,7 +43,6 @@
 जो खिलाड़ी आपके संदेश प्राप्त करना पसंद नहीं करते वे टीम छोड़ सकते हैं।</string>
   <string name="teamsIlead">मैं टीम का नेतृत्व करता हूं</string>
   <string name="youWayWantToLinkOneOfTheseTournaments">मैं टीम का नेतृत्व करता हूं</string>
-  <string name="usersWhoCanManageThisTeam">जो उपयोगकर्ता इस टीम का प्रबंधन कर सकते हैं</string>
   <string name="leadersChat">नेताओं के चैट</string>
   <string name="closeTeam">टीम को बंद करें</string>
   <string name="closeTeamDescription">टीम को हमेशा के लिए बंद कर देता है।</string>
@@ -54,4 +53,6 @@
   <string name="upcomingTourns">आगामी प्रतियोगिता</string>
   <string name="completedTourns">पूर्ण किए गए प्रतियोगिता</string>
   <string name="declinedRequests">अस्वीकृत अनुरोध</string>
+  <string name="joinLichessVariantTeam">समाचार और घटनाओं के लिए आधिकारिक %s टीम में शामिल हों</string>
+  <string name="teamPage">टीम पेज</string>
 </resources>

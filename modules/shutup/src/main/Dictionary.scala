@@ -30,10 +30,11 @@ b(iy?t?|t)ch
 blow(job|)
 blumpkin
 bollock
+bomb (yo)?ur?(self)?
 boner
 boob
 bozo
-braindea?d
+brain(dea?d|less?)
 bugger
 buk?kake
 bull?shit
@@ -63,6 +64,7 @@ fck(er|r|u|k|t|ing?|ign|tard?|face|off?|e?d)
 foreskin
 gangbang(e?d|)
 gay
+go (and )?bomb
 gobshite?
 gook
 gypo
@@ -81,18 +83,20 @@ kill (you|u)
 labia
 lamer?
 lesbo
-lo++ser
+lo++ser++
+maggot
 masturbat(ed?|ion|ing)
+mf\b
 milf
 molest(er|ed|)
 mong
 monkey
-moron
+morr?on
 mother(fuc?k(er|)|)
 mthrfckr
 nazi
 nigg?
-nigg?ah?
+nigg?a[hr]?
 nonce
 noo++b
 nutsac?k
@@ -243,12 +247,13 @@ uebok
 cabr[oó]na?
 cag[oó]n
 ching(ue|a)
+chupa ?pija
 chupame
 cobarde
 est[úu]pid[ao]
 gilipollas
 hdp
-hijo de put\w*
+hijo de (put\w*|per+a)
 idiota
 imbecil
 madre
@@ -258,6 +263,7 @@ mierda
 moduler[ao]
 payas[ao]
 pendejo
+po(ll|y)a
 put[ao]
 trampa
 trampos[ao]
@@ -270,6 +276,7 @@ baldracca
 bastardo
 cazzo
 coglione
+cornutt?o
 cretino
 di merda
 figa
@@ -314,14 +321,15 @@ schwanzlutscher
 schwuchtel
 trottel
 untermensch
-wichser
+wi(chs|x++)er
 """)
 
   def tr = dict("""
-am[iı]na ((koyay[iı]m|koy?dum)|(sokay[iı]m)|([cç]akay[iı]m))
+am[iı]na ((koy?dum)|(koya(y[iı]m|m))|(soka(y[iı]m|m))|([cç]aka(y[iı]m|m)))  
 amc[iı]k
 anan[iı]n am[iı]
 ((ann?an[iı](z[iı])?)|(kar[iı]n[iı](z[iı])?)|(avrad[iı]n[iı](z[iı])?)|(bac[ıi]n[iı](z[iı])?)) (s[ii̇]k[ei](yim|cem|rim|m))
+((ann?an(a|[iı]za))|(kar[iı]n(a|[iı]za))|(avrad[iı]n(a|[iı]za))|(bac[ıi]n(a|[iı]za))) ((koya(y[iı]m|m))|(soka(y[iı]m|m))|([cç]aka(y[iı]m|m)))
 aptal
 beyinsiz
 bok yedin
@@ -336,9 +344,9 @@ piç(lik)?
 pu[sş]t
 salak
 s[ii̇]k[ei](yim|cem|rim|m|k)
-sikiyonuz
 s[ii̇]kt[ii̇]r
-yarra[gğ][iı] yediniz
+yar+a[gğ][iı] yediniz
+yar+ak kafa(l[iı]|s[iı])
 """)
 
   def critical = dict("""
@@ -347,11 +355,13 @@ cancer
 (ho?pe|wish) ((yo?)?[uy](r (famil[yi]|m[ou]m|mother))?( and )?)++ (die|burn)s?
 (die|burn)s? irl
 (kill|hang|neck) ?(yo?)?[uyi]r? ?(self|famil[yi]|m[ou]m|mother)
+gas the
 g?kys
+get bombed
 k y s
 ky5
 (l|1|ı|\|)<ys
-nigg?[ae]r
+n[1i]gg?er
 rap(ed?|e?ing)
 subhuman
 """)

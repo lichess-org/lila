@@ -34,6 +34,9 @@ final private class Rematcher(
 
   def isOffering(pov: Pov): Boolean = rematches isOffering pov.ref
 
+  def apply(pov: Pov, confirm: Boolean): Fu[Events] =
+    if confirm then yes(pov) else no(pov)
+
   def yes(pov: Pov): Fu[Events] =
     pov match
       case Pov(game, color) if game.playerCouldRematch =>
@@ -56,9 +59,8 @@ final private class Rematcher(
     fuccess(List(Event.RematchOffer(by = none)))
 
   private def rematchExists(pov: Pov)(nextId: GameId): Fu[Events] =
-    gameRepo game nextId flatMap {
+    gameRepo game nextId flatMap:
       _.fold(rematchJoin(pov))(g => fuccess(redirectEvents(g)))
-    }
 
   private def rematchCreate(pov: Pov): Fu[Events] =
     rematches.offer(pov.ref) map { _ =>
@@ -88,32 +90,15 @@ final private class Rematcher(
   private def returnGame(pov: Pov, withId: Option[GameId]): Fu[Game] =
     for
       initialFen <- gameRepo initialFen pov.game
-      situation = initialFen.flatMap(Fen.readWithMoveNumber(pov.game.variant, _))
-      pieces = pov.game.variant match
-        case Chess960 =>
-          if chess960 get pov.gameId then Chess960.pieces
-          else situation.fold(Chess960.pieces)(_.situation.board.pieces)
-        case FromPosition => situation.fold(Standard.pieces)(_.situation.board.pieces)
-        case variant      => variant.pieces
-      users <- userApi.gamePlayers(pov.game.userIdPair, pov.game.perfType)
-      board = Board(pieces, variant = pov.game.variant).updateHistory(
-        _.copy(
-          lastMove = situation.flatMap(_.situation.board.history.lastMove),
-          castles = situation.fold(Castles.init)(_.situation.board.history.castles)
-        )
+      newGame = Rematcher.returnChessGame(
+        pov.game.variant,
+        pov.game.clock,
+        initialFen,
+        !chess960.get(pov.gameId)
       )
-      ply = situation.fold(Ply.initial)(_.ply)
+      users <- userApi.gamePlayers(pov.game.userIdPair, pov.game.perfType)
       sloppy = Game.make(
-        chess = ChessGame(
-          situation = Situation(
-            board = board,
-            color = situation.fold[chess.Color](White)(_.situation.color)
-          ),
-          clock = pov.game.clock.map: c =>
-            Clock(c.config),
-          ply = ply,
-          startedAtPly = ply
-        ),
+        chess = newGame,
         players = ByColor(returnPlayer(pov.game, _, users)),
         mode = if users.exists(_.exists(_.user.lame)) then chess.Mode.Casual else pov.game.mode,
         source = pov.game.source | Source.Lobby,
@@ -126,15 +111,34 @@ final private class Rematcher(
   private def returnPlayer(game: Game, color: ChessColor, users: GameUsers): lila.game.Player =
     game.opponent(color).aiLevel match
       case Some(ai) => lila.game.Player.makeAnon(color, ai.some)
-      case None =>
-        lila.game.Player.make(color, users(!color))
+      case None     => lila.game.Player.make(color, users(!color))
 
-  private def redirectEvents(game: Game): Events =
-    val whiteId = game fullIdOf White
-    val blackId = game fullIdOf Black
-    List(
-      Event.RedirectOwner(White, blackId, AnonCookie.json(game pov Black)),
-      Event.RedirectOwner(Black, whiteId, AnonCookie.json(game pov White)),
-      // tell spectators about the rematch
-      Event.RematchTaken(game.id)
+  def redirectEvents(game: Game): Events =
+    val ownerRedirects = ByColor: color =>
+      Event.RedirectOwner(!color, game fullIdOf color, AnonCookie.json(game pov color))
+    val spectatorRedirect = Event.RematchTaken(game.id)
+    spectatorRedirect :: ownerRedirects.toList
+
+object Rematcher:
+  // returns a new chess game with the same Situation as the previous game
+  // except for Chess960, where if shouldRepeatChess960Position is true,
+  // the same position is returned otherwise a new random position is returned
+  def returnChessGame(
+      variant: Variant,
+      clock: Option[Clock],
+      initialFen: Option[Fen.Epd],
+      shouldRepeatChess960Position: Boolean
+  ): ChessGame =
+    val prevSituation = initialFen.flatMap(Fen.readWithMoveNumber(variant, _))
+    val newSituation = variant match
+      case Chess960 if shouldRepeatChess960Position => prevSituation.fold(Situation(Chess960))(_.situation)
+      case Chess960                                 => Situation(Chess960)
+      case variant                                  => prevSituation.fold(Situation(variant))(_.situation)
+    val ply   = prevSituation.fold(Ply.initial)(_.ply)
+    val color = prevSituation.fold[chess.Color](White)(_.situation.color)
+    ChessGame(
+      situation = newSituation.copy(color = color),
+      clock = clock.map(c => Clock(c.config)),
+      ply = ply,
+      startedAtPly = ply
     )

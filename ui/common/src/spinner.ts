@@ -19,23 +19,18 @@ const pathAttrs = [
 ];
 
 export const spinnerVdom = (box = '-2 -2 54 54'): VNode =>
-  h(
-    'div.spinner',
-    {
-      'aria-label': 'loading',
-    },
-    [
-      h('svg', { attrs: { viewBox: box } }, [
-        h(
-          'g',
-          {
-            attrs: {
-              mask: 'url(#mask)',
-              fill: 'none',
-            },
-          },
-          pathAttrs.map(attrs => h('path', { attrs })),
-        ),
-      ]),
-    ],
-  );
+  h('div.spinner', { 'aria-label': 'loading' }, [
+    h('svg', { attrs: { viewBox: box } }, [
+      h(
+        'g',
+        { attrs: { mask: 'url(#mask)', fill: 'none' } },
+        pathAttrs.map(attrs => h('path', { attrs })),
+      ),
+    ]),
+  ]);
+
+export const chartSpinner = () =>
+  h('div#acpl-chart-container-loader', [
+    h('span', ['Stockfish 16', h('br'), 'Server analysis']),
+    spinnerVdom(),
+  ]);

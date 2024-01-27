@@ -67,7 +67,9 @@ export const mic = new (class implements Voice.Microphone {
   }
 
   async getMics() {
-    return navigator.mediaDevices.enumerateDevices().then(d => d.filter(d => d.kind == 'audioinput'));
+    return navigator.mediaDevices
+      .enumerateDevices()
+      .then(d => d.filter(d => d.kind == 'audioinput' && d.label));
   }
 
   get micId() {
@@ -139,7 +141,8 @@ export const mic = new (class implements Voice.Microphone {
       this.busy = false;
       this.broadcast(listen ? 'Listening...' : '', 'start');
     } catch (e: any) {
-      this.stop([e.toString(), 'error']);
+      if (e instanceof DOMException && e.name === 'NotAllowedError') this.stop(['No permission', 'error']);
+      else this.stop([e.toString(), 'error']);
       if (e !== '') throw e;
     }
   }
@@ -168,7 +171,7 @@ export const mic = new (class implements Voice.Microphone {
   }
 
   get isListening(): boolean {
-    return !!this.recs.selected && !!this.micTrack?.enabled && !this.isBusy;
+    return !!this.recs.selected && !!(this.micTrack?.enabled || this.paused) && !this.isBusy;
   }
 
   get isBusy(): boolean {
@@ -205,11 +208,13 @@ export const mic = new (class implements Voice.Microphone {
     }
     this.broadcast('Loading...');
 
-    const modelUrl = lichess.assetUrl(models.get(this.lang)!, { noVersion: true });
+    const modelUrl = lichess.asset.url(models.get(this.lang)!, { noVersion: true });
     const downloadAsync = this.downloadModel(`/vosk/${modelUrl.replace(/[\W]/g, '_')}`);
     const audioAsync = this.initAudio();
 
-    this.vosk ??= await lichess.loadEsm<VoskModule>('voice.vosk', { url: { version: VOSK_TS_VERSION } });
+    this.vosk ??= await lichess.asset.loadEsm<VoskModule>('voice.vosk', {
+      url: { version: VOSK_TS_VERSION },
+    });
 
     await downloadAsync;
     await this.vosk.initModel(modelUrl, this.lang);
@@ -260,7 +265,7 @@ export const mic = new (class implements Voice.Microphone {
     if ((await voskStore.count(`${emscriptenPath}/extracted.ok`)) > 0) return;
     const modelBlob: ArrayBuffer | undefined = await new Promise((resolve, reject) => {
       this.download = new XMLHttpRequest();
-      this.download.open('GET', lichess.assetUrl(models.get(this.lang)!, { noVersion: true }), true);
+      this.download.open('GET', lichess.asset.url(models.get(this.lang)!, { noVersion: true }), true);
       this.download.responseType = 'arraybuffer';
       this.download.onerror = _ => reject('Failed. See console');
       this.download.onabort = _ => reject('Aborted');

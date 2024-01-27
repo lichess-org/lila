@@ -5,6 +5,7 @@
   <string name="toInviteSomeoneToPlayGiveThisUrl">Deel deze link als u iemand wil uitnodigen om met u te spelen</string>
   <string name="gameOver">Partij afgelopen</string>
   <string name="waitingForOpponent">Wachten op een tegenstander</string>
+  <string name="orLetYourOpponentScanQrCode">Of laat je tegenstander deze QR-code scannen</string>
   <string name="waiting">Even geduld a.u.b.</string>
   <string name="yourTurn">U bent aan zet</string>
   <string name="aiNameLevelAiLevel">%1$s niveau %2$s</string>
@@ -70,6 +71,7 @@
   <string name="makeMainLine">Maak hoofdvariant</string>
   <string name="deleteFromHere">Verwijder vanaf hier</string>
   <string name="forceVariation">Forceer variatie</string>
+  <string name="copyVariationPgn">Kopieer variatie PGN</string>
   <string name="move">Zet</string>
   <string name="variantLoss">Variantverlies</string>
   <string name="variantWin">Variantoverwinning</string>
@@ -99,6 +101,7 @@
   <string name="openingExplorer">Openingverkenner</string>
   <string name="openingEndgameExplorer">Opening-/eindspelverkenner</string>
   <string name="xOpeningExplorer">%s openingsverkenner</string>
+  <string name="playFirstOpeningEndgameExplorerMove">Speel de eerste zet/eindverkenner</string>
   <string name="winPreventedBy50MoveRule">Winst voorkomen door vijftig-zetten regel</string>
   <string name="lossSavedBy50MoveRule">Verlies gered door vijftig-zetten regel</string>
   <string name="winOr50MovesByPriorMistake">Winst of 50 zetten door een voorafgaande fout</string>
@@ -114,6 +117,7 @@
   <string name="openStudy">Open Study</string>
   <string name="enable">Aanzetten</string>
   <string name="bestMoveArrow">Beste zet-pijl</string>
+  <string name="showVariationArrows">Toon variantpijlen</string>
   <string name="evaluationGauge">Evaluatiemeter</string>
   <string name="multipleLines">Meerdere varianten</string>
   <string name="cpus">CPUs</string>
@@ -269,7 +273,6 @@
   <string name="playingRightNow">Nu aan het spelen</string>
   <string name="eventInProgress">Nu aan het spelen</string>
   <string name="finished">Afgelopen</string>
-  <string name="finishesX">klaar in %s</string>
   <string name="abortGame">Partij afbreken</string>
   <string name="gameAborted">Partij afgebroken</string>
   <string name="standard">Standaard</string>
@@ -402,6 +405,7 @@
   <string name="importGame">Importeer partij</string>
   <string name="importGameExplanation">Als je een PGN in het venster plakt, krijg je een doorzoekbare replay, een computeranalyse, een chatbox bij de partij en een deelbare URL.</string>
   <string name="importGameCaveat">Variaties worden gewist. Om ze te behouden, importeer de PGN via een studie.</string>
+  <string name="importGameDataPrivacyWarning">Deze PGN kan toegankelijk zijn voor iedereen. Gebruik een studie om een partij privé te importeren.</string>
   <plurals name="nbImportedGames">
     <item quantity="one">%s Geïmporteerde partij</item>
     <item quantity="other">%s Geïmporteerde partijen</item>
@@ -482,6 +486,7 @@
   <string name="movesPlayed">Gespeelde zetten</string>
   <string name="whiteWins">Overwinningen met wit</string>
   <string name="blackWins">Overwinningen met zwart</string>
+  <string name="drawRate">Remisepercentage</string>
   <string name="draws">Remises</string>
   <string name="nextXTournament">Volgend %s-toernooi:</string>
   <string name="averageOpponent">Gemiddelde tegenstander</string>
@@ -502,14 +507,15 @@
   <string name="editProfile">Pas profiel aan</string>
   <string name="firstName">Voornaam</string>
   <string name="lastName">Achternaam</string>
+  <string name="setFlair">Stel je flair in</string>
+  <string name="flair">Symbool</string>
+  <string name="youCanHideFlair">Er bestaat een instelling om alle gebruikersflairs over de hele site te verbergen.</string>
   <string name="biography">Biografie</string>
-  <string name="flag" comment="flag&#10;Appears when you edit your profile. Lets a player add a country/flag (not all flags are for countries) to their profile">Vlag</string>
+  <string name="countryRegion" comment="flag&#10;Appears when you edit your profile. Lets a player add a country/flag (not all flags are for countries) to their profile">Land of regio</string>
   <string name="thankYou">Bedankt!</string>
   <string name="socialMediaLinks">Links naar sociale media</string>
   <string name="oneUrlPerLine">Eén URL per regel.</string>
   <string name="inlineNotation">Geïntegreerde notatie</string>
-  <string name="savingMoves">Tijdelijke zettenopslag</string>
-  <string name="savingMovesHelp">We slaan je varianten op in de browser-cache.</string>
   <string name="makeAStudy">Maak een studie aan om ze te bewaren en/of te delen.</string>
   <string name="clearSavedMoves">Zetten wissen</string>
   <string name="previouslyOnLichessTV">Voorheen op Lichess TV</string>
@@ -657,8 +663,10 @@
   <string name="simultaneousExhibitions">Simultaans</string>
   <string name="host">Simultaangever</string>
   <string name="hostColorX">Kleur simultaangever: %s</string>
+  <string name="yourPendingSimuls">Jouw wachtende simultaans</string>
   <string name="createdSimuls">Nieuwe simultaans</string>
   <string name="hostANewSimul">Geef een nieuwe simultaan</string>
+  <string name="signUpToHostOrJoinASimul">Meld je aan om een simul te geven of eraan deel te nemen</string>
   <string name="noSimulFound">Simultaan niet gevonden</string>
   <string name="noSimulExplanation">Deze simultaan bestaat niet.</string>
   <string name="returnToSimulHomepage">Ga terug naar de Simultaan hoofdpagina</string>
@@ -683,6 +691,7 @@
   <string name="keyboardShortcuts">Toetsenbordsnelkoppelingen</string>
   <string name="keyMoveBackwardOrForward">zet achteruit/vooruit</string>
   <string name="keyGoToStartOrEnd">ga naar het begin/eind</string>
+  <string name="keyCycleSelectedVariation">Bekijk geselecteerde variant</string>
   <string name="keyShowOrHideComments">toon/verberg opmerkingen</string>
   <string name="keyEnterOrExitVariation">vermeld/stop variant</string>
   <string name="keyRequestComputerAnalysis">Verzoek om computeranalyse, Leer van je fouten</string>
@@ -690,6 +699,13 @@
   <string name="keyNextBlunder">Volgende blunder</string>
   <string name="keyNextMistake">Volgende fout</string>
   <string name="keyNextInaccuracy">Volgende onnauwkeurigheid</string>
+  <string name="keyPreviousBranch">Vorige vertakking</string>
+  <string name="keyNextBranch">Volgende vertakking</string>
+  <string name="toggleVariationArrows">Schakel variatiepijlen in/uit</string>
+  <string name="cyclePreviousOrNextVariation">Bekijk vorige/volgende variant</string>
+  <string name="toggleGlyphAnnotations">Zet glyph-aantekeningen aan of uit</string>
+  <string name="variationArrowsInfo">Met de variantpijlen kunt u navigeren zonder de zettenlijst te gebruiken.</string>
+  <string name="playSelectedMove">speel geselecteerde zet</string>
   <string name="newTournament">Nieuw toernooi</string>
   <string name="tournamentHomeTitle">Schaaktoernooi met verschillende speelduur en varianten</string>
   <string name="tournamentHomeDescription">Speel snelle schaaktoernooien! Neem deel aan een officieel gepland toernooi, of maak er zelf een. Bullet, Blitz, Classical, Chess960, King of the Hill, Threecheck, en meer opties verkrijgbaar voor eindeloos schaakplezier.</string>
@@ -732,6 +748,7 @@
   <string name="withFriends">Met vrienden</string>
   <string name="withEverybody">Met iedereen</string>
   <string name="kidMode">Kindvriendelijke modus</string>
+  <string name="kidModeIsEnabled">Kindvriendelijke modus is ingeschakeld.</string>
   <string name="kidModeExplanation">Dit gaat over veiligheid. In kindvriendelijke modus, worden alle communicatiemogelijkheden op de website uitgeschakeld. Activeer dit voor kinderen en scholieren, om hen te beschermen tegen andere internetgebruikers.</string>
   <string name="inKidModeTheLichessLogoGetsIconX">In kindvriendelijke modus, krijgt het Lichess-logo een %s-icoontje, zodat je weet dat je kinderen veilig zijn.</string>
   <string name="askYourChessTeacherAboutLiftingKidMode">Je account wordt beheerd. Vraag je schaakdocent om de kindermodus uit te zetten.</string>
@@ -845,9 +862,10 @@
     <item quantity="one">en bewaar %s premove-variant</item>
     <item quantity="other">en bewaar %s premove-varianten</item>
   </plurals>
+  <string name="showUnreadLichessMessage">Je hebt een privébericht van Lichess ontvangen.</string>
+  <string name="clickHereToReadIt">Klik hier om het te bekijken</string>
   <string name="sorry">Sorry :(</string>
   <string name="weHadToTimeYouOutForAWhile">We moesten je voor een korte tijd een time-out geven.</string>
-  <string name="timeoutExpires">The time-out verloopt %s.</string>
   <string name="why">Waarom?</string>
   <string name="pleasantChessExperience">Wij streven ernaar om iedereen een prettige schaakervaring te bieden.</string>
   <string name="goodPractice">Daarom moeten we ervoor zorgen dat alle spelers goede praktijken volgen.</string>
@@ -867,6 +885,8 @@
   <string name="agreementPolicy">Ik ga ermee akkoord dat ik de Lichess-regels zal volgen.</string>
   <string name="searchOrStartNewDiscussion">Zoek of start een nieuwe discussie</string>
   <string name="edit">Wijzigen</string>
+  <string name="bullet" comment="Probably best left untranslated. Leave it as 'Bullet' unless your language has a better word for it.">Bullet</string>
+  <string name="blitz" comment="Probably best left untranslated. Leave it as 'Blitz' unless your language has a better word for it.">Blitz</string>
   <string name="rapid">Rapid</string>
   <string name="classical">Klassiek</string>
   <string name="ultraBulletDesc">Extreem snelle partijen: minder dan 30 seconden</string>
@@ -906,9 +926,6 @@
   <string name="timeAlmostUp">De tijd is bijna om!</string>
   <string name="clickToRevealEmailAddress">[Klik om het e-mailadres te tonen]</string>
   <string name="download">Downloaden</string>
-  <string name="welcome">Welkom!</string>
-  <string name="lichessPatronInfo">Lichess is een organisatie zonder winstoogmerk en is volledig open en gratis (libre).
-Alle exploitatiekosten, ontwikkeling en inhoud worden enkel gefinancierd door donaties van gebruikers.</string>
   <string name="coachManager">Coach manager</string>
   <string name="streamerManager">Streamer manager</string>
   <string name="cancelTournament">Toernooi annuleren</string>
@@ -967,4 +984,8 @@ Laat leeg om partijen te starten vanaf de normale beginstelling.</string>
   <string name="switchSides">Van kleur wisselen</string>
   <string name="closingAccountWithdrawAppeal">Met het sluiten van je account wordt je beroep ingetrokken</string>
   <string name="ourEventTips">Onze tips voor het organiseren van evenementen</string>
+  <string name="instructions">Instructies</string>
+  <string name="showMeEverything">Alles tonen</string>
+  <string name="lichessPatronInfo">Lichess is een organisatie zonder winstoogmerk en is volledig open en gratis (libre).
+Alle exploitatiekosten, ontwikkeling en inhoud worden enkel gefinancierd door donaties van gebruikers.</string>
 </resources>

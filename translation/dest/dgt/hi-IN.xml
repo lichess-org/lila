@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="dgtBoard">डीजीटी बोर्ड</string>
+  <string name="lichessAndDgt">लाइकेस&amp; डीजीटी</string>
+  <string name="dgtBoardRequirements">डीजीटी बोर्ड आवश्यकताएँ</string>
+  <string name="dgtBoardLimitations">डीजीटी बोर्ड की सीमाएँ</string>
+</resources>

@@ -7,8 +7,8 @@
   <string name="becomePatron">Lichess संरक्षक बनें</string>
   <string name="xBecamePatron">%s Lichess Patron बन गया</string>
   <plurals name="xIsPatronForNbMonths">
-    <item quantity="one">लिचेस संरक्षक %1$s महीनों के लिए%2$s</item>
-    <item quantity="other">लिचेस संरक्षक %1$s महीनों के लिए%2$s</item>
+    <item quantity="one">%1$s %2$s महीने के लिए Lichess संरक्षक है</item>
+    <item quantity="other">%1$s %2$s महीनों के लिए Lichess संरक्षक हैं</item>
   </plurals>
   <string name="newPatrons">नए संरक्षक</string>
   <string name="freeChess">मुफ्त शतरंज सभी के लिए, हमेशा के लिए!</string>
@@ -60,6 +60,7 @@
   <string name="nextPayment">अगला भुगतान</string>
   <string name="youWillBeChargedXOnY">आपसे %2$s पर %1$s लिया जाएगा।</string>
   <string name="makeAdditionalDonation">अब एक अतिरिक्त दान करें</string>
+  <string name="giftPatronWingsShort">उपहार संरक्षक पंख</string>
   <string name="giftPatronWings">एक खिलाड़ी को संरक्षक पंख उपहार कीजिये</string>
   <string name="update">अपडेट करें</string>
   <string name="changeMonthlyAmount">मासिक राशि बदलें (%s)</string>

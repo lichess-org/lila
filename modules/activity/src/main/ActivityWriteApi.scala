@@ -26,7 +26,7 @@ final class ActivityWriteApi(
         ActivityFields.games -> a.games.orZero
           .add(game.perfType, Score.make(game wonBy player.color, RatingProg make player.light))
       )
-      val setCorres = game.hasCorrespondenceClock so $doc(
+      val setCorres = game.isCorrespondence so $doc(
         ActivityFields.corres -> a.corres.orZero.add(game.id, moved = false, ended = true)
       )
       setGames ++ setCorres

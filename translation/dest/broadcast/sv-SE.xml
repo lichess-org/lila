@@ -1,12 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="broadcasts">Sändningar</string>
+  <string name="myBroadcasts">Mina sändningar</string>
+  <plurals name="nbBroadcasts">
+    <item quantity="one">%s sändning</item>
+    <item quantity="other">%s sändningar</item>
+  </plurals>
   <string name="liveBroadcasts">Direktsända turneringar</string>
   <string name="newBroadcast">Ny direktsändning</string>
+  <string name="aboutBroadcasts">Om sändningar</string>
+  <string name="noRoundsYet">Inga rundor än.</string>
+  <string name="howToUseLichessBroadcasts">Hur man använder Lichess-Sändningar.</string>
+  <string name="theNewRoundHelp">Den nya rundan kommer att ha samma medlemmar och bidragsgivare som den föregående.</string>
   <string name="addRound">Lägg till en omgång</string>
   <string name="ongoing">Pågående</string>
   <string name="upcoming">Kommande</string>
   <string name="completed">Slutförda</string>
+  <string name="completedHelp">Lichess upptäcker slutförandet av rundor baserat på källspelen. Använd detta alternativ om det inte finns någon källa.</string>
   <string name="roundName">Omgångens namn</string>
   <string name="roundNumber">Omgångens nummer</string>
   <string name="tournamentName">Turneringens namn</string>
@@ -29,5 +39,15 @@
   <string name="deleteAllGamesOfThisRound">Radera alla partier i denna runda. Källan kommer behöva vara aktiv för att återskapa dem.</string>
   <string name="editRoundStudy">Redigera studie för ronden</string>
   <string name="deleteTournament">Radera turnering</string>
-  <string name="definitivelyDeleteTournament" comment="definitivelyDeleteTournament&#10;&#10;Confirmation prompt, when attempting to delete a broadcast on https://lichess.org/broadcast">Definitivt radera turnering.</string>
+  <string name="definitivelyDeleteTournament">Definitivt radera turnering.</string>
+  <string name="automaticLeaderboard" comment="An option when creating a broadcast to calculate a leaderboard automatically from the players involved. Example: https://lichess.org/broadcast/2023-london-chess-classic/round-9/5icayRCY">Automatisk topplista</string>
+  <string name="automaticLeaderboardHelp" comment="An option when creating a broadcast to calculate a leaderboard automatically from the players involved. Example: https://lichess.org/broadcast/2023-london-chess-classic/round-9/5icayRCY">Beräkna och visa en enkel topplista baserat på spelresultat</string>
+  <string name="replace">Valfritt: byt ut spelarnamn, ranking och titlar</string>
+  <string name="replaceHelp">En rad per spelare, formaterad som sådan:
+Originalnamn; Ersättningsnamn; Valfritt ersättningsranking; Valfri ersättningstitel
+Exempel:
+DrNykterstein;Magnus Carlsen;2863
+AnishGiri;Anish Giri;2764;GM</string>
+  <string name="periodInSeconds">Period i sekunder</string>
+  <string name="periodInSecondsHelp">Valfritt, hur länge man väntar mellan förfrågningar. Min 2s, max 60s. Standardvärdet är automatiskt baserat på antalet tittare.</string>
 </resources>

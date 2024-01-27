@@ -7,7 +7,7 @@ import controllers.routes
 import lila.user.User
 
 object download:
-  def apply(user: lila.user.User)(using PageContext): Frag =
+  def apply(user: lila.user.User)(using ctx: PageContext): Frag =
     views.html.base.layout(
       title = s"${user.username} • ${trans.exportGames.txt()}",
       moreCss = cssTag("search"),
@@ -54,8 +54,8 @@ object download:
           ),
           br,
           br,
-          p(style := "text-align: right")(
-            a(href := routes.Game.apiExportByUserImportedGames(user.username))(
+          ctx is user option p(style := "text-align: right")(
+            a(href := routes.Game.apiExportByUserImportedGames())(
               "Or download imported games as PGN"
             )
           )
@@ -63,18 +63,17 @@ object download:
       )
     }
 
-  private def color(using PageContext): Frag = tr(
+  private def color(using Context): Frag = tr(
     th(label(`for` := "dl-color")(trans.search.color())),
-    td(cls := "single")(
+    td(cls := "single"):
       select(id := "dl-color", name := "color")(
         option(value := ""),
         option(value := "white")(trans.white()),
         option(value := "black")(trans.black())
       )
-    )
   )
 
-  private def date(using PageContext): Frag = tr(
+  private def date(using Context): Frag = tr(
     th(label(trans.search.date())),
     td(cls := "two-columns")(
       div(
@@ -92,12 +91,12 @@ object download:
     )
   )
 
-  private def opponent(using PageContext): Frag = tr(
+  private def opponent(using Context): Frag = tr(
     th(label(`for` := "dl-opponent")(trans.search.opponentName())),
     td(input(tpe := "text", id := "dl-opponent", name := "vs"))
   )
 
-  private def mode(using PageContext): Frag = tr(
+  private def mode(using Context): Frag = tr(
     th(label(`for` := "dl-rated")(trans.mode())),
     td(cls := "single")(
       select(id := "dl-rated", name := "rated")(
@@ -108,7 +107,7 @@ object download:
     )
   )
 
-  private def analysis(using PageContext): Frag = tr(
+  private def analysis(using Context): Frag = tr(
     th(
       label(`for` := "dl-analysis")(
         trans.search.analysis(),
@@ -125,7 +124,7 @@ object download:
     )
   )
 
-  private def perfToggles(using PageContext): Frag =
+  private def perfToggles(using Context): Frag =
     val perfTypes = lila.rating.PerfType.nonPuzzle
     tr(
       th(cls := "top")(label(`for` := "dl-perfs")(trans.variants())),
@@ -136,7 +135,7 @@ object download:
       )
     )
 
-  private def perfToggle(perfType: lila.rating.PerfType)(using PageContext): Frag = div(
+  private def perfToggle(perfType: lila.rating.PerfType)(using Context): Frag = div(
     form3.cmnToggle(
       s"dl-perf-${perfType.key}",
       "",
@@ -146,7 +145,7 @@ object download:
     label(`for` := s"dl-perf-${perfType.key}")(perfType.trans)
   )
 
-  private def includeToggles(using PageContext): Frag = tr(
+  private def includeToggles(using Context): Frag = tr(
     th(cls := "top")(
       label(`for` := "dl-includes")(trans.search.include())
     ),
@@ -163,7 +162,7 @@ object download:
     )
   )
 
-  private def amount(using PageContext): Frag = tr(
+  private def amount(using Context): Frag = tr(
     th(
       label(`for` := "dl-amount")(
         trans.search.maxNumber(),

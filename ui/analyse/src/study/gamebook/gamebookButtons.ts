@@ -1,43 +1,35 @@
-import { h, VNode } from 'snabbdom';
+import { VNode } from 'snabbdom';
 import * as licon from 'common/licon';
-import { bind, dataIcon } from 'common/snabbdom';
+import { bind, dataIcon, looseH as h } from 'common/snabbdom';
 import AnalyseCtrl from '../../ctrl';
-import { StudyCtrl } from '../interfaces';
+import StudyCtrl from '../studyCtrl';
 
 export function playButtons(root: AnalyseCtrl): VNode | undefined {
   const study = root.study!,
-    ctrl = study.gamebookPlay();
+    ctrl = study.gamebookPlay;
   if (!ctrl) return;
   const state = ctrl.state,
     fb = state.feedback,
     myTurn = fb === 'play';
   return h('div.gamebook-buttons', [
-    root.path
-      ? h(
-          'button.fbt.text.back',
-          {
-            attrs: {
-              'data-icon': licon.LessThan,
-              type: 'button',
-            },
-            hook: bind('click', () => root.userJump(''), ctrl.redraw),
-          },
-          root.trans.noarg('back'),
-        )
-      : null,
-    myTurn
-      ? h(
-          'button.fbt.text.solution',
-          {
-            attrs: {
-              'data-icon': licon.PlayTriangle,
-              type: 'button',
-            },
-            hook: bind('click', ctrl.solution, ctrl.redraw),
-          },
-          root.trans.noarg('viewTheSolution'),
-        )
-      : undefined,
+    root.path &&
+      h(
+        'button.fbt.text.back',
+        {
+          attrs: { 'data-icon': licon.LessThan, type: 'button' },
+          hook: bind('click', () => root.userJump(''), ctrl.redraw),
+        },
+        root.trans.noarg('back'),
+      ),
+    myTurn &&
+      h(
+        'button.fbt.text.solution',
+        {
+          attrs: { 'data-icon': licon.PlayTriangle, type: 'button' },
+          hook: bind('click', ctrl.solution, ctrl.redraw),
+        },
+        root.trans.noarg('viewTheSolution'),
+      ),
     overrideButton(study),
   ]);
 }
@@ -50,15 +42,10 @@ export function overrideButton(study: StudyCtrl): VNode | undefined {
         'button.fbt.text.preview',
         {
           class: { active: o === 'play' },
-          attrs: {
-            'data-icon': licon.Eye,
-            type: 'button',
-          },
+          attrs: { 'data-icon': licon.Eye, type: 'button' },
           hook: bind(
             'click',
-            () => {
-              study.setGamebookOverride(o === 'play' ? undefined : 'play');
-            },
+            () => study.setGamebookOverride(o === 'play' ? undefined : 'play'),
             study.redraw,
           ),
         },
@@ -66,7 +53,7 @@ export function overrideButton(study: StudyCtrl): VNode | undefined {
       );
     else {
       const isAnalyse = o === 'analyse',
-        ctrl = study.gamebookPlay();
+        ctrl = study.gamebookPlay;
       if (isAnalyse || (ctrl && ctrl.state.feedback === 'end'))
         return h(
           'a.fbt.text.preview',
@@ -75,9 +62,7 @@ export function overrideButton(study: StudyCtrl): VNode | undefined {
             attrs: dataIcon(licon.Microscope),
             hook: bind(
               'click',
-              () => {
-                study.setGamebookOverride(isAnalyse ? undefined : 'analyse');
-              },
+              () => study.setGamebookOverride(isAnalyse ? undefined : 'analyse'),
               study.redraw,
             ),
           },

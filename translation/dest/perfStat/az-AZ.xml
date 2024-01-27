@@ -6,6 +6,7 @@
   <string name="notEnoughRatedGames">Etibarlı reytinq yaratmaq üçün kifayət qədər reytinqli oyun oynanılmayıb.</string>
   <string name="progressOverLastXGames">Son %s oyundakı irəliləyiş:</string>
   <string name="ratingDeviation">Xal yayınma dəyəri: %s.</string>
+  <string name="ratingDeviationTooltip" comment="ratingDeviationTooltip&#10;&#10;This is a tooltip (appears on mouseover) for the rating deviation. Appears on performance statistics pages such as https://lichess.org/@/thibault/perf/ultraBullet&#10;&#10;As of 2021-05-19, $1%s is set to 110.">Aşağı dəyər reytinqin daha sabit olduğunu bildirir. %1$s-dan yuxarı olan reytinq müvəqqəti hesab olunur. Reytinqlərə daxil olmaq üçün bu dəyər %2$s-dan (standart şahmat) və ya %3$s-dan (variantlardan) aşağı olmalıdır.</string>
   <string name="totalGames">Cəmi oyunlar</string>
   <string name="ratedGames">Reytinqli oyunlar</string>
   <string name="tournamentGames">Turnir oyunları</string>
@@ -21,7 +22,7 @@
   <string name="fromXToY">%1$s tarixindən %2$s tarixinə qədər</string>
   <string name="winningStreak">Qalibiyyət seriyası</string>
   <string name="losingStreak">Məğlubiyyət seriyası</string>
-  <string name="longestStreak">Ən uzun seriya: %s</string>
+  <string name="longestStreak" comment="%s is the string (number of games OR time spent playing, e.g. 4 hours non-stop play)&#10;String used to describe the longest consecutive winning &amp; losing streak of games. It is also used for a  streak of time spent playing.">Ən uzun seriya: %s</string>
   <string name="currentStreak">Hazırkı seriya: %s</string>
   <string name="bestRated">Ən yüksək reytinqli qələbələr</string>
   <string name="worstRated">Ən pis xallı məğlubiyyətlər</string>

@@ -1,10 +1,11 @@
 import { h, VNode } from 'snabbdom';
 import * as licon from 'common/licon';
 import { bind } from 'common/snabbdom';
-import userLink from 'common/userLink';
-import { ModerationCtrl, ModerationOpts, ModerationData, ModerationReason, Ctrl } from './interfaces';
+import { userLink } from 'common/userLink';
+import { ModerationCtrl, ModerationOpts, ModerationData, ModerationReason } from './interfaces';
 import { numberFormat } from 'common/number';
 import { userModInfo, flag, timeout } from './xhr';
+import ChatCtrl from './ctrl';
 
 export function moderationCtrl(opts: ModerationOpts): ModerationCtrl {
   let data: ModerationData | undefined;
@@ -22,11 +23,7 @@ export function moderationCtrl(opts: ModerationOpts): ModerationCtrl {
         opts.redraw();
       });
     } else {
-      data = {
-        id: username.toLowerCase(),
-        username,
-        text,
-      };
+      data = { id: username.toLowerCase(), name: username, text };
     }
     opts.redraw();
   };
@@ -45,11 +42,7 @@ export function moderationCtrl(opts: ModerationOpts): ModerationCtrl {
     close,
     async timeout(reason: ModerationReason, text: string) {
       if (data) {
-        const body = {
-          userId: data.id,
-          reason: reason.key,
-          text,
-        };
+        const body = { userId: data.id, reason: reason.key, text };
         if (new URLSearchParams(window.location.search).get('mod') === 'true') {
           await timeout(opts.resourceId, body);
           window.location.reload(); // to load new state since it won't be sent over the socket
@@ -61,7 +54,7 @@ export function moderationCtrl(opts: ModerationOpts): ModerationCtrl {
   };
 }
 
-export function report(ctrl: Ctrl, line: HTMLElement) {
+export function report(ctrl: ChatCtrl, line: HTMLElement) {
   const userA = line.querySelector('a.user-link') as HTMLLinkElement;
   const text = (line.querySelector('t') as HTMLElement).innerText;
   if (userA) reportUserText(ctrl.data.resourceId, userA.href.split('/')[4], text);
@@ -70,7 +63,7 @@ function reportUserText(resourceId: string, username: string, text: string) {
   if (confirm(`Report "${text}" to moderators?`)) flag(resourceId, username, text);
 }
 
-export const lineAction = () => h('i.mod', { attrs: { 'data-icon': licon.Agent } });
+export const lineAction = () => h('action.mod', { attrs: { 'data-icon': licon.Agent } });
 
 export function moderationView(ctrl?: ModerationCtrl): VNode[] | undefined {
   if (!ctrl) return;
@@ -89,7 +82,7 @@ export function moderationView(ctrl?: ModerationCtrl): VNode[] | undefined {
               'a',
               {
                 attrs: {
-                  href: '/@/' + data.username + '?mod',
+                  href: '/@/' + data.name + '?mod',
                 },
               },
               'profile',
@@ -102,7 +95,7 @@ export function moderationView(ctrl?: ModerationCtrl): VNode[] | undefined {
                     'a',
                     {
                       attrs: {
-                        href: '/mod/' + data.username + '/communication',
+                        href: '/mod/' + data.name + '/communication',
                       },
                     },
                     'coms',
@@ -144,7 +137,7 @@ export function moderationView(ctrl?: ModerationCtrl): VNode[] | undefined {
               {
                 attrs: { 'data-icon': licon.Clock },
                 hook: bind('click', () => {
-                  reportUserText(ctrl.opts.resourceId, data.username, data.text);
+                  reportUserText(ctrl.opts.resourceId, data.name, data.text);
                   ctrl.timeout(ctrl.opts.reasons[0], data.text);
                 }),
               },
@@ -171,12 +164,7 @@ export function moderationView(ctrl?: ModerationCtrl): VNode[] | undefined {
               return h('tr', [
                 h('td.reason', e.reason),
                 h('td.mod', e.mod),
-                h(
-                  'td',
-                  h('time.timeago', {
-                    attrs: { datetime: e.date },
-                  }),
-                ),
+                h('td', h('time.timeago', { attrs: { datetime: e.date } })),
               ]);
             }),
           ),
@@ -186,17 +174,8 @@ export function moderationView(ctrl?: ModerationCtrl): VNode[] | undefined {
 
   return [
     h('div.top', { key: 'mod-' + data.id }, [
-      h(
-        'span.text',
-        {
-          attrs: { 'data-icon': licon.Agent },
-        },
-        [userLink(data.username)],
-      ),
-      h('a', {
-        attrs: { 'data-icon': licon.X },
-        hook: bind('click', ctrl.close),
-      }),
+      h('span.text', { attrs: { 'data-icon': licon.Agent } }, [userLink(data)]),
+      h('a', { attrs: { 'data-icon': licon.X }, hook: bind('click', ctrl.close) }),
     ]),
     h('div.mchat__content.moderation', [
       h('i.line-text.block', ['"', data.text, '"']),

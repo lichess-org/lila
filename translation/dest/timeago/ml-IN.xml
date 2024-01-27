@@ -5,4 +5,5 @@
     <item quantity="one">%s സെക്കൻഡ്</item>
     <item quantity="other">%s നിമിഷങ്ങൾ</item>
   </plurals>
+  <string name="rightNow">ഇപ്പോൾ തന്നെ</string>
 </resources>

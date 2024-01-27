@@ -62,6 +62,7 @@ Međutim, pokrovitelji imaju pravo da se hvale sa novom super ikonom na svom pro
   <string name="nextPayment">Naredna uplata</string>
   <string name="youWillBeChargedXOnY">Dana %2$s naplatit će Vam se %1$s.</string>
   <string name="makeAdditionalDonation">Dajte sada dodatnu donaciju</string>
+  <string name="giftPatronWingsShort">Poklonite patronska krila</string>
   <string name="giftPatronWings">Dajte igraču krila patrona</string>
   <string name="update">Ažurirajte</string>
   <string name="changeMonthlyAmount">Promjenite mjesečni iznos (%s)</string>

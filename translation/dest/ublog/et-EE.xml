@@ -35,10 +35,10 @@
   <string name="imageCredit">Pildi viide</string>
   <string name="deleteBlog">Kustuta see blogipostitus lõplikult</string>
   <string name="deleteImage">Kustuta pilt</string>
-  <string name="safeToUseImages" comment="safeToUseImages&#10;&#10;This is mentioned because the images there are royalty-free, so there is no risk of copyright infringement.">Turvaline on kasutada pilte järgmistelt aadressitelt: </string>
+  <string name="safeToUseImages">Turvaline on kasutada pilte järgmistelt aadressitelt: </string>
   <string name="selectPostTopics">Vali teemad, mis on seotud su postitusega</string>
   <string name="useImagesYouMadeYourself">Võid kasutada enda tehtud pilte, Lichessi ekraanitõmmiseid.. kõike, mis ei ole kellegi teise autoriõiguse all.</string>
   <string name="safeAndRespectfulContent">Palun postita ainult turvalist ja teisi austavat sisu. Ära kopeeri kellegi teise postitusi.</string>
   <string name="inappropriateContentAccountClosed">Kohatu postituse tegemine võib tähendada sinu konto sulgemist.</string>
-  <string name="blogTips" comment="blogTips&#10;&#10;This is a link to https://lichess.org/page/blog-tips. Appears when creating a new post.">Meie lihtsad nõuanded kirjutamaks häid blogipostitusi</string>
+  <string name="blogTips">Meie lihtsad nõuanded kirjutamaks häid blogipostitusi</string>
 </resources>

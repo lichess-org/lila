@@ -15,7 +15,6 @@ import lila.round.actorApi.round.{ Abandon, QuietFlag }
 final private[round] class Titivate(
     tellRound: TellRound,
     gameRepo: GameRepo,
-    bookmark: lila.hub.actors.Bookmark,
     chatApi: lila.chat.ChatApi
 )(using akka.stream.Materializer)
     extends Actor:
@@ -39,7 +38,7 @@ final private[round] class Titivate(
       throw new RuntimeException(msg)
 
     case Run =>
-      gameRepo.countSec(_.checkable) foreach { total =>
+      gameRepo.countSec(_.checkable) foreach: total =>
         lila.mon.round.titivate.total.record(total)
         gameRepo
           .docCursor(Query.checkable)
@@ -57,20 +56,18 @@ final private[round] class Titivate(
           .monSuccess(_.round.titivate.time)
           .logFailure(logBranch)
           .addEffectAnyway(scheduleNext())
-      }
 
   private val logBranch = logger branch "titivate"
 
-  private val gameRead = Flow[Bdoc].map { doc =>
+  private val gameRead = Flow[Bdoc].map: doc =>
     lila.game.BSONHandlers.gameBSONHandler
       .readDocument(doc)
       .fold[GameOrFail](
         err => Left(GameId(~doc.string("_id")) -> err),
         Right.apply
       )
-  }
 
-  private val gameFlow: Flow[GameOrFail, Unit, ?] = Flow[GameOrFail].mapAsyncUnordered(8) {
+  private val gameFlow: Flow[GameOrFail, Unit, ?] = Flow[GameOrFail].mapAsyncUnordered(8):
 
     case Left((id, err)) =>
       lila.mon.round.titivate.broken(err.getClass.getSimpleName).increment()
@@ -84,17 +81,15 @@ final private[round] class Titivate(
           gameRepo unsetCheckAt game.id
 
         case game if game.outoftime(withGrace = true) =>
-          fuccess {
+          fuccess:
             tellRound(game.id, QuietFlag)
-          }
 
         case game if game.abandoned =>
-          fuccess {
+          fuccess:
             tellRound(game.id, Abandon)
-          }
 
         case game if game.unplayed =>
-          bookmark ! lila.hub.actorApi.bookmark.Remove(game.id)
+          lila.common.Bus.publish(lila.hub.actorApi.round.DeleteUnplayed(game.id), "roundUnplayed")
           chatApi.remove(game.id into ChatId)
           gameRepo remove game.id
 
@@ -112,4 +107,3 @@ final private[round] class Titivate(
             case None =>
               val days = game.daysPerTurn | Game.abandonedDays
               gameRepo.setCheckAt(game, nowInstant plusDays days.value).void
-  }

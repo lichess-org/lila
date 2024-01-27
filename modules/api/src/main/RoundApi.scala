@@ -32,8 +32,9 @@ final private[api] class RoundApi(
     simulApi: lila.simul.SimulApi,
     puzzleOpeningApi: lila.puzzle.PuzzleOpeningApi,
     externalEngineApi: lila.analyse.ExternalEngineApi,
-    getTeamName: lila.team.GetTeamNameSync,
+    getLightTeam: lila.hub.LightTeam.GetterSync,
     userApi: lila.user.UserApi,
+    prefApi: lila.pref.PrefApi,
     getLightUser: lila.common.LightUser.GetterSync
 )(using Executor):
 
@@ -45,9 +46,10 @@ final private[api] class RoundApi(
     for
       initialFen <- gameRepo.initialFen(pov.game)
       users      <- users.orLoad(userApi.gamePlayers(pov.game.userIdPair, pov.game.perfType))
+      prefs      <- prefApi.get(users.map(_.map(_.user)))
       given Lang = ctx.lang
       (((((json, simul), swiss), note), forecast), bookmarked) <-
-        jsonView.playerJson(pov, ctx.pref.some, users, initialFen, ctxFlags) zip
+        jsonView.playerJson(pov, prefs, users, initialFen, ctxFlags) zip
           (pov.game.simulId so simulApi.find) zip
           swissApi.gameView(pov) zip
           (ctx.myId.ifTrue(ctx.isMobileApi).so(noteApi.get(pov.gameId, _))) zip
@@ -60,7 +62,8 @@ final private[api] class RoundApi(
         withSteps(pov, initialFen) compose
         withNote(note) compose
         withBookmark(bookmarked) compose
-        withForecastCount(forecast.map(_.steps.size))
+        withForecastCount(forecast.map(_.steps.size)) compose
+        withOpponentSignal(pov)
     )(json)
   }.mon(_.round.api.player)
 
@@ -197,6 +200,11 @@ final private[api] class RoundApi(
       json + ("forecastCount" -> JsNumber(c))
     }
 
+  private def withOpponentSignal(pov: Pov)(json: JsObject) =
+    if pov.game.speed <= chess.Speed.Bullet then
+      json.add("opponentSignal", pov.opponent.userId flatMap lila.socket.UserLagCache.getLagRating)
+    else json
+
   private def withPuzzleOpening(
       opening: Option[Either[PuzzleOpening.FamilyWithCount, PuzzleOpening.WithCount]]
   )(json: JsObject) =
@@ -266,9 +274,12 @@ final private[api] class RoundApi(
         )
         .add(
           "team",
-          v.teamVs.map(_.teams(pov.color)) map { id =>
-            Json.obj("name" -> getTeamName(id))
-          }
+          v.teamVs.map(_.teams(pov.color)) map: id =>
+            getLightTeam(id).fold(Json.obj("name" -> id)): team =>
+              Json.obj(
+                "name"  -> team.name,
+                "flair" -> team.flair
+              )
         )
     })
 

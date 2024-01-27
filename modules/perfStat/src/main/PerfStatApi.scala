@@ -32,7 +32,6 @@ final class PerfStatApi(
           !u.isBot || (perfType =!= PerfType.UltraBullet)
         .soFu: u =>
           for
-
             oldPerfStat <- get(u.user, perfType)
             perfStat = oldPerfStat.copy(playStreak = oldPerfStat.playStreak.checkCurrent)
 

@@ -666,8 +666,8 @@ export default function (token: string) {
         const lastMove = getLastUCIMove(keys[i]);
         const versus =
           gameInfo.black.id == me.id
-            ? (gameInfo.white.title !== null ? gameInfo.white.title : '@') + ' ' + gameInfo.white.name
-            : (gameInfo.black.title !== null ? gameInfo.black.title : '@') + ' ' + gameInfo.black.name;
+            ? (gameInfo.white.title ? gameInfo.white.title : '@') + ' ' + gameInfo.white.name
+            : (gameInfo.black.title ? gameInfo.black.title : '@') + ' ' + gameInfo.black.name;
         playableGames.push({
           gameId: gameInfo.id,
           versus: versus,
@@ -676,7 +676,7 @@ export default function (token: string) {
           Timer:
             gameInfo.speed +
             ' ' +
-            (gameInfo.clock !== null
+            (gameInfo.clock
               ? String(gameInfo.clock.initial / 60000) + "'+" + String(gameInfo.clock.increment / 1000) + "''"
               : '∞'),
           'Last Move': lastMove.player + ' ' + lastMove.move + ' by ' + lastMove.by,
@@ -699,27 +699,27 @@ export default function (token: string) {
       console.log(''); //process.stdout.write("\n"); Changed to support browser
       /* Log before migrating to browser
       if (verbose) console.table({
-        'Title': { white: ((gameInfo.white.title !== null) ? gameInfo.white.title : '@'), black: ((gameInfo.black.title !== null) ? gameInfo.black.title : '@'), game: 'Id: ' + gameInfo.id },
+        'Title': { white: ((gameInfo.white.title) ? gameInfo.white.title : '@'), black: ((gameInfo.black.title) ? gameInfo.black.title : '@'), game: 'Id: ' + gameInfo.id },
         'Username': { white: gameInfo.white.name, black: gameInfo.black.name, game: 'Status: ' + gameState.status },
         'Rating': { white: gameInfo.white.rating, black: gameInfo.black.rating, game: gameInfo.variant.short + ' ' + (gameInfo.rated ? 'rated' : 'unrated') },
-        'Timer': { white: formattedTimer(gameState.wtime), black: formattedTimer(gameState.btime), game: gameInfo.speed + ' ' + ((gameInfo.clock !== null) ? (String(gameInfo.clock.initial / 60000) + "'+" + String(gameInfo.clock.increment / 1000) + "''") : '∞') },
+        'Timer': { white: formattedTimer(gameState.wtime), black: formattedTimer(gameState.btime), game: gameInfo.speed + ' ' + ((gameInfo.clock) ? (String(gameInfo.clock.initial / 60000) + "'+" + String(gameInfo.clock.increment / 1000) + "''") : '∞') },
         'Last Move': { white: (lastMove.player == 'white' ? lastMove.move : '?'), black: (lastMove.player == 'black' ? lastMove.move : '?'), game: lastMove.player },
       });
       */
       const innerTable =
         `<table class="dgt-table"><tr><th> - </th><th>Title</th><th>Username</th><th>Rating</th><th>Timer</th><th>Last Move</th><th>gameId: ${gameInfo.id}</th></tr>` +
-        `<tr><td>White</td><td>${gameInfo.white.title !== null ? gameInfo.white.title : '@'}</td><td>${
+        `<tr><td>White</td><td>${gameInfo.white.title ? gameInfo.white.title : '@'}</td><td>${
           gameInfo.white.name
         }</td><td>${gameInfo.white.rating}</td><td>${formattedTimer(gameState.wtime)}</td><td>${
           lastMove.player == 'white' ? lastMove.move : '?'
         }</td><td>${
           gameInfo.speed +
           ' ' +
-          (gameInfo.clock !== null
+          (gameInfo.clock
             ? String(gameInfo.clock.initial / 60000) + "'+" + String(gameInfo.clock.increment / 1000) + "''"
             : '∞')
         }</td></tr>` +
-        `<tr><td>Black</td><td>${gameInfo.black.title !== null ? gameInfo.black.title : '@'}</td><td>${
+        `<tr><td>Black</td><td>${gameInfo.black.title ? gameInfo.black.title : '@'}</td><td>${
           gameInfo.black.name
         }</td><td>${gameInfo.black.rating}</td><td>${formattedTimer(gameState.btime)}</td><td>${
           lastMove.player == 'black' ? lastMove.move : '?'
@@ -931,7 +931,7 @@ export default function (token: string) {
                 'onmessage - Multiple moves received on single message - movesToProcess: ' + movesToProcess,
               );
             if (localBoard.turn == currentGameColor) {
-              //If more than one move is received when it's the DGT board player's turn this may be a invalid move
+              //If more than one move is received when it's the DGT board player's turn this may be an invalid move
               //Move will be quarantined by 2.5 seconds
               const quarantinedlastLegalParam = lastLegalParam;
               await sleep(2500);
@@ -957,7 +957,7 @@ export default function (token: string) {
               }
             }
           }
-          //Update the lastLegalParam object to to help prevent duplicates and detect when more than one move is received
+          //Update the lastLegalParam object to help prevent duplicates and detect when more than one move is received
           lastLegalParam = message.param;
           for (let i = movesToProcess; i > 0; i--) {
             //Get first move to process, usually the last since movesToProcess is usually 1

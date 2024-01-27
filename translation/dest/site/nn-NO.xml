@@ -5,6 +5,7 @@
   <string name="toInviteSomeoneToPlayGiveThisUrl">Send denne lekkja til den du utfordrar</string>
   <string name="gameOver">Partiet er avslutta</string>
   <string name="waitingForOpponent">Ventar på motspelar</string>
+  <string name="orLetYourOpponentScanQrCode">Eller la motspelaren din skanna denne QR-koden</string>
   <string name="waiting">Ventar</string>
   <string name="yourTurn">Ditt trekk</string>
   <string name="aiNameLevelAiLevel">%1$s på nivå %2$s</string>
@@ -70,6 +71,7 @@
   <string name="makeMainLine">Gjer til hovudline</string>
   <string name="deleteFromHere">Slett herifrå</string>
   <string name="forceVariation">Tving fram varianten</string>
+  <string name="copyVariationPgn">Kopier variant-PGN</string>
   <string name="move">Trekk</string>
   <string name="variantLoss">Variant tap</string>
   <string name="variantWin">Variant vinn</string>
@@ -83,7 +85,7 @@
   <string name="unknown">Ukjend</string>
   <string name="database">Database</string>
   <string name="whiteDrawBlack">Kvit / Remis / Svart</string>
-  <string name="averageRatingX">Gjennomsnittleg rating: %s</string>
+  <string name="averageRatingX">Snittrating: %s</string>
   <string name="recentGames">Nylege parti</string>
   <string name="topGames">Topp-parti</string>
   <string name="masterDbExplanation">Brettsjakkparti med spelarar som har FIDE-rating %1$s+ frå %2$s til %3$s</string>
@@ -115,6 +117,7 @@
   <string name="openStudy">Opne studie</string>
   <string name="enable">Aktiver</string>
   <string name="bestMoveArrow">Pil for beste trekk</string>
+  <string name="showVariationArrows">Vis variantpiler</string>
   <string name="evaluationGauge">Syn evaluering</string>
   <string name="multipleLines">Fleire variantar</string>
   <string name="cpus">Prosessorar</string>
@@ -242,7 +245,7 @@
   <string name="rank">Rangering</string>
   <string name="rankX">Plassering: %s</string>
   <plurals name="rankIsUpdatedEveryNbMinutes">
-    <item quantity="one">Rating blir oppdatert kvart minutt</item>
+    <item quantity="one">Rangeringa blir oppdatert kvart minutt</item>
     <item quantity="other">Rating blir oppdatert kvart %s. minutt</item>
   </plurals>
   <plurals name="nbPuzzles">
@@ -270,7 +273,6 @@
   <string name="playingRightNow">Pågår</string>
   <string name="eventInProgress">Pågår</string>
   <string name="finished">Slutt</string>
-  <string name="finishesX">endar %s</string>
   <string name="abortGame">Avbryt partiet</string>
   <string name="gameAborted">Partiet blei avbrote</string>
   <string name="standard">Standard</string>
@@ -372,7 +374,7 @@
     <item quantity="other">Du må spela endå %s rangerte parti</item>
   </plurals>
   <string name="yourPerfRatingIsProvisional">Ratinga di på %s er mellombels</string>
-  <string name="yourPerfRatingIsTooHigh">Ratinga di %1$s (%2$s) er for høg</string>
+  <string name="yourPerfRatingIsTooHigh">Ratinga di i %1$s (%2$s) er for høg</string>
   <string name="yourTopWeeklyPerfRatingIsTooHigh">Den beste vekesratinga di i %1$s (%2$s) er for høg</string>
   <string name="yourPerfRatingIsTooLow">Ratinga di i %1$s (%2$s) er for låg</string>
   <string name="ratedMoreThanInPerf">Rangert ≥ %1$s i %2$s</string>
@@ -385,7 +387,7 @@
   <string name="xCreatedTeamY">%1$s oppretta lag %2$s</string>
   <string name="startedStreaming">starta å strøyma</string>
   <string name="xStartedStreaming">%s starta å strøyme</string>
-  <string name="averageElo">Gjennomsnittleg rating</string>
+  <string name="averageElo">Snittrating</string>
   <string name="location">Stad</string>
   <string name="filterGames">Filtrer parti</string>
   <string name="reset">Attendestill</string>
@@ -404,6 +406,7 @@
   <string name="importGameExplanation">Når du limer inn eit PGN-parti kan du bla gjennom partiet,
 få en computeranalyse, chatte eller dele ein URL.</string>
   <string name="importGameCaveat">Variantar vert sletta. Vil du behalde dei kan du importere PGN\'en via ein studie.</string>
+  <string name="importGameDataPrivacyWarning">Denne PGN-fila er offentleg tilgjengeleg. Bruk ein studie for å importere eit parti berre for deg.</string>
   <plurals name="nbImportedGames">
     <item quantity="one">%s importert parti</item>
     <item quantity="other">%s importerte parti</item>
@@ -484,6 +487,7 @@ få en computeranalyse, chatte eller dele ein URL.</string>
   <string name="movesPlayed">Trekk spela</string>
   <string name="whiteWins">Kvit vinn</string>
   <string name="blackWins">Svart vinn</string>
+  <string name="drawRate">Remis-rate</string>
   <string name="draws">Remis</string>
   <string name="nextXTournament">Neste %s turnering:</string>
   <string name="averageOpponent">Gjennomsnittleg motstand</string>
@@ -504,14 +508,15 @@ få en computeranalyse, chatte eller dele ein URL.</string>
   <string name="editProfile">Rediger profilen</string>
   <string name="firstName">Førenamn</string>
   <string name="lastName">Etternamn</string>
+  <string name="setFlair">Vel eit ikon som best representerer talentet ditt</string>
+  <string name="flair">Talent</string>
+  <string name="youCanHideFlair">Det finst ei innstilling for å skjule symbolet for spelarane sine talent på heile nettstaden.</string>
   <string name="biography">Biografi</string>
-  <string name="flag" comment="flag&#10;Appears when you edit your profile. Lets a player add a country/flag (not all flags are for countries) to their profile">Flagg</string>
+  <string name="countryRegion" comment="flag&#10;Appears when you edit your profile. Lets a player add a country/flag (not all flags are for countries) to their profile">Land eller region</string>
   <string name="thankYou">Takk!</string>
   <string name="socialMediaLinks">Lenker til sosiale media</string>
   <string name="oneUrlPerLine">Ein URL per line.</string>
   <string name="inlineNotation">Innbygd notasjon</string>
-  <string name="savingMoves">Mellombels lagring av trekk</string>
-  <string name="savingMovesHelp">Vi lagrar variantane dine i mellomlageret til nettlesaren.</string>
   <string name="makeAStudy">Om du vil ta vare på trekka til seinare er det betre å laga ein studie.</string>
   <string name="clearSavedMoves">Fjern trekk</string>
   <string name="previouslyOnLichessTV">Tidlegare på Lichess TV</string>
@@ -659,14 +664,16 @@ få en computeranalyse, chatte eller dele ein URL.</string>
   <string name="simultaneousExhibitions">Simultanframsyningar</string>
   <string name="host">Vert</string>
   <string name="hostColorX">Vertsfarge: %s</string>
+  <string name="yourPendingSimuls">Dine ventande simultanar</string>
   <string name="createdSimuls">Nyleg laga simultanarrangement</string>
   <string name="hostANewSimul">Lag ei ny simultanframsyning</string>
+  <string name="signUpToHostOrJoinASimul">Registrer deg for å bli vert eller deltakar i ein simultan</string>
   <string name="noSimulFound">Finn ikkje simultanframsyning</string>
   <string name="noSimulExplanation">Denne simultanframsyninga finst ikkje.</string>
   <string name="returnToSimulHomepage">Returner til simultanheimesida</string>
   <string name="aboutSimul">Simultanframsyning inneber at ein spelar møter fleire motspelarar samstundes.</string>
   <string name="aboutSimulImage">Mot 50 motspelarar, fekk Fischer 47 sigrar, to remisar og eit tap.</string>
-  <string name="aboutSimulRealLife">Konseptet liknar på verkelege simultansjakkframsyningar, der verten for arrangementet går frå bord til bord og spelar mot fleire motstandarar samstundes.</string>
+  <string name="aboutSimulRealLife">Konseptet er henta frå verkelege framsyningar der verten for arrangementet går frå bord til bord og spelar mot fleire motstandarar samstundes.</string>
   <string name="aboutSimulRules">Når simultanframsyninga byrjar, startar alle deltakarane eit parti mot den som er vert. Verten får spela med dei kvite brikkene. Simultanoppvisinga endar når alle partia er ferdigspelte.</string>
   <string name="aboutSimulSettings">Simultanframsyningar er alltid urangerte. Omstart, attendetrekk og \"meirtid\" er slått av.</string>
   <string name="create">Opprett</string>
@@ -685,6 +692,7 @@ få en computeranalyse, chatte eller dele ein URL.</string>
   <string name="keyboardShortcuts">Snarvegar på tastaturet</string>
   <string name="keyMoveBackwardOrForward">flytt att og fram</string>
   <string name="keyGoToStartOrEnd">gå til byrjinga/slutten</string>
+  <string name="keyCycleSelectedVariation">Gå gjennom den valde varianten</string>
   <string name="keyShowOrHideComments">syn/gøym kommentarar</string>
   <string name="keyEnterOrExitVariation">gå inn i/gå ut av varianten</string>
   <string name="keyRequestComputerAnalysis">Be om maskinanalyse. Lær av feila dine</string>
@@ -692,9 +700,16 @@ få en computeranalyse, chatte eller dele ein URL.</string>
   <string name="keyNextBlunder">Neste store mistak (\"bukk\")</string>
   <string name="keyNextMistake">Neste mistak</string>
   <string name="keyNextInaccuracy">Neste upresise trekk</string>
+  <string name="keyPreviousBranch">Førre grein</string>
+  <string name="keyNextBranch">Neste grein</string>
+  <string name="toggleVariationArrows">Slå variantpilar på/av</string>
+  <string name="cyclePreviousOrNextVariation">Gå gjennom førre/neste variant</string>
+  <string name="toggleGlyphAnnotations">Slå symbol-merknadar på/av</string>
+  <string name="variationArrowsInfo">Med hjelp av variantpiler kan du navigere utan å bruka trekklista.</string>
+  <string name="playSelectedMove">spel valde trekk</string>
   <string name="newTournament">Ny turnering</string>
   <string name="tournamentHomeTitle">Sjakkturnering med varierande tid og sjakkvariantar</string>
-  <string name="tournamentHomeDescription">Spel fartsfylte sjakkturneringar! Delta i offisielle, planlagde turneringar eller lag dine eigne. Lyn-, snøgg-, fishersjakk og andre variantar er tilgjengeleg for endelaus sjakkmoro.</string>
+  <string name="tournamentHomeDescription">Spel fartsfylte sjakkturneringar! Delta i offisielle, faste turneringar eller lag dine eigne. Lynsjakk, snøggsjakk, fishersjakk og andre variantar er tilgjengeleg for endelaus sjakkmoro.</string>
   <string name="tournamentNotFound">Kan ikke finne turneringa</string>
   <string name="tournamentDoesNotExist">Denna turneringa finst ikkje.</string>
   <string name="tournamentMayHaveBeenCanceled">Den kan ha blitt avbroten om alle spelarane trakk seg før turneringa starta.</string>
@@ -708,7 +723,7 @@ få en computeranalyse, chatte eller dele ein URL.</string>
   <string name="youAreBetterThanPercentOfPerfTypePlayers">Du er betre enn %1$s av %2$s-spelarane.</string>
   <string name="userIsBetterThanPercentOfPerfTypePlayers">%1$s er betre enn %2$s av %3$s-spelarane.</string>
   <string name="betterThanPercentPlayers">Betre enn %1$s av %2$s spelarar</string>
-  <string name="youDoNotHaveAnEstablishedPerfTypeRating">Du har ikkje etablert ein %s rating.</string>
+  <string name="youDoNotHaveAnEstablishedPerfTypeRating">Du har ikkje etablert ein %s-rating.</string>
   <string name="yourRating">Ratinga di i er</string>
   <string name="cumulative">Akkumulert</string>
   <string name="glicko2Rating">Glicko-2 rating</string>
@@ -734,6 +749,7 @@ få en computeranalyse, chatte eller dele ein URL.</string>
   <string name="withFriends">Med vener</string>
   <string name="withEverybody">Med alle</string>
   <string name="kidMode">Barnemodus</string>
+  <string name="kidModeIsEnabled">Barnemodus er aktivert.</string>
   <string name="kidModeExplanation">Dette handlar om tryggleik. I barnemodus er all kommunikasjon avskrudd. Bruk dette for å verne barn og skoleelevar mot andre Internett-brukarar.</string>
   <string name="inKidModeTheLichessLogoGetsIconX">I barnemodus får lichess-logoen eit %s symbol, så du kan sjå at barna dine er trygge.</string>
   <string name="askYourChessTeacherAboutLiftingKidMode">Kontoen din er under administrasjon. Spør sjakklæraren din om det er mogleg å få oppheva barnemodusen.</string>
@@ -749,7 +765,7 @@ få en computeranalyse, chatte eller dele ein URL.</string>
   <string name="zeroAdvertisement">Annonsefri</string>
   <string name="fullFeatured">Alle funksjonar</string>
   <string name="phoneAndTablet">Mobiltelefon og nettbrett</string>
-  <string name="bulletBlitzClassical">kvikksjakk, lynsjakk, saktesjakk</string>
+  <string name="bulletBlitzClassical">Bullet, lynsjakk, saktesjakk</string>
   <string name="correspondenceChess">Fjernsjakk</string>
   <string name="onlineAndOfflinePlay">Spel online og offline</string>
   <string name="viewTheSolution">Vis løysinga</string>
@@ -847,9 +863,10 @@ få en computeranalyse, chatte eller dele ein URL.</string>
     <item quantity="one">og lagra %s line med førehandstrekk</item>
     <item quantity="other">og lagra %s liner med førehandstrekk</item>
   </plurals>
+  <string name="showUnreadLichessMessage">Du har fått ei privat melding frå Lichess.</string>
+  <string name="clickHereToReadIt">Klikk her for å lesa den</string>
   <string name="sorry">Beklagar :(</string>
   <string name="weHadToTimeYouOutForAWhile">Vi måtte gje deg ein timeout.</string>
-  <string name="timeoutExpires">Timeouten tek slutt %s.</string>
   <string name="why">Kvifor?</string>
   <string name="pleasantChessExperience">Vi freistar å gje alle ei god sjakk-oppleving.</string>
   <string name="goodPractice">For å oppnå det må vi sikre at alle spelarane respekterar god praksis.</string>
@@ -869,6 +886,8 @@ få en computeranalyse, chatte eller dele ein URL.</string>
   <string name="agreementPolicy">Eg lovar at eg vil følge alle reglane til Lichess.</string>
   <string name="searchOrStartNewDiscussion">Søk eller start ein ny diskusjon</string>
   <string name="edit">Rediger</string>
+  <string name="bullet" comment="Probably best left untranslated. Leave it as 'Bullet' unless your language has a better word for it.">Bullet</string>
+  <string name="blitz" comment="Probably best left untranslated. Leave it as 'Blitz' unless your language has a better word for it.">Lyn</string>
   <string name="rapid">Snøggsjakk</string>
   <string name="classical">Langsjakk</string>
   <string name="ultraBulletDesc">Ekstremt snøgge parti: under 30 sekund</string>
@@ -876,7 +895,7 @@ få en computeranalyse, chatte eller dele ein URL.</string>
   <string name="blitzDesc">Snøgge parti: 3 til 8 minutt</string>
   <string name="rapidDesc">Snøggsjakk: 8 til 25 minutt</string>
   <string name="classicalDesc">Langsjakk: 25 minutt eller meir</string>
-  <string name="correspondenceDesc">Korespondansesjakk: ein til fleire dagar per trekk</string>
+  <string name="correspondenceDesc">Fjernsjakkparti: eit til fleire døger per trekk</string>
   <string name="puzzleDesc">Sjakktaktikk-trenar</string>
   <string name="important">Viktig</string>
   <string name="yourQuestionMayHaveBeenAnswered">Spørsmålet ditt kan allereie ha fått eit svar %1$s</string>
@@ -903,14 +922,11 @@ få en computeranalyse, chatte eller dele ein URL.</string>
   <string name="congratsYouWon">Gratulerer, du vann!</string>
   <string name="gameVsX">Spel mot %1$s</string>
   <string name="resVsX">%1$s mot %2$s</string>
-  <string name="lostAgainstTOSViolator">Du tapte mot nokon som braut med Lichess TOS</string>
+  <string name="lostAgainstTOSViolator">Du tapte mot nokon som braut med Lichess\' sine vilkår</string>
   <string name="refundXpointsTimeControlY">Refundering: %1$s %2$s ratingpoeng.</string>
   <string name="timeAlmostUp">Tida er nesten ute!</string>
   <string name="clickToRevealEmailAddress">[Klikk for å visa epost-adresse]</string>
   <string name="download">Last ned</string>
-  <string name="welcome">Velkomen!</string>
-  <string name="lichessPatronInfo">Lichess er ein velgjerdsorganisasjon basert på fritt tilgjengeleg open-kjeldekode-programvare.
-Alle kostnader for drift, utvikling og innhald vert finansiert eine og åleine av brukardonasjonar.</string>
   <string name="coachManager">Trenarleiar</string>
   <string name="streamerManager">Strøymingsleiar</string>
   <string name="cancelTournament">Avlys turneringa</string>
@@ -969,4 +985,8 @@ La feltet stå tomt for å starte partia frå den normale utgangsstillinga.</str
   <string name="switchSides">Byt side</string>
   <string name="closingAccountWithdrawAppeal">Dersom du stenger kontoen din vil protesten din bli trekt attende</string>
   <string name="ourEventTips">Tips for å organisere arrangement</string>
+  <string name="instructions">Instruksjonar</string>
+  <string name="showMeEverything">Vis alt</string>
+  <string name="lichessPatronInfo">Lichess er ein velgjerdsorganisasjon basert på fritt tilgjengeleg open-kjeldekode-programvare.
+Alle kostnader for drift, utvikling og innhald vert finansiert eine og åleine av brukardonasjonar.</string>
 </resources>

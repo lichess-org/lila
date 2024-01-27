@@ -8,7 +8,7 @@ import lila.db.dsl.{ *, given }
 import lila.user.{ User, UserApi }
 
 final class TeamMemberStream(
-    memberRepo: MemberRepo,
+    memberRepo: TeamMemberRepo,
     userApi: UserApi
 )(using Executor, akka.stream.Materializer):
 

@@ -18,7 +18,6 @@
   <string name="explainShowPlayerRatings">Ligeann sé seo gach rátáil a cheilt ón suíomh Gréasáin, chun cabhrú le díriú ar an bhficheall. Is féidir cluichí a rátáil fós, níl sé seo ach faoi na rudaí a fheiceann tú.</string>
   <string name="displayBoardResizeHandle">Taispeáin láimhseáil athrú méide an bhoird</string>
   <string name="onlyOnInitialPosition">Suíomh tosaigh amháin</string>
-  <string name="blindfoldChess">Ficheall dall (píosaí dofheicthe)</string>
   <string name="chessClock">Clog fichille</string>
   <string name="tenthsOfSeconds">Deichiú soicind</string>
   <string name="whenTimeRemainingLessThanTenSeconds" comment="whenTimeRemainingLessThanTenSeconds&#10;&#10;The &amp;lt; symbol is not required (you can write it as a word), just do NOT use &lt; in its place.&#10;&#10;Technical information: &lt; is a reserved character in HTML, which is why it cannot be used.">Nuair atá am fágtha &lt; 10 soicind</string>

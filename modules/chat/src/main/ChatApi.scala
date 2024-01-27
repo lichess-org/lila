@@ -7,9 +7,9 @@ import lila.common.config.NetDomain
 import lila.common.String.{ fullCleanUp, noShouting }
 import lila.security.{ Flood, Granter }
 import lila.db.dsl.{ *, given }
-import lila.hub.actorApi.shutup.{ PublicSource, RecordPrivateChat, RecordPublicChat }
+import lila.hub.actorApi.shutup.{ PublicSource, RecordPrivateChat, RecordPublicText }
 import lila.memo.CacheApi.*
-import lila.user.{ Me, User, UserRepo }
+import lila.user.{ Me, User, UserRepo, FlairApi }
 
 final class ChatApi(
     coll: Coll,
@@ -20,7 +20,7 @@ final class ChatApi(
     shutup: lila.hub.actors.Shutup,
     cacheApi: lila.memo.CacheApi,
     netDomain: NetDomain
-)(using Executor, Scheduler):
+)(using Executor, Scheduler, FlairApi):
 
   import Chat.given
 
@@ -36,17 +36,8 @@ final class ChatApi(
 
       def invalidate = cache.invalidate
 
-      def findMine(chatId: ChatId)(using me: Option[Me]): Fu[UserChat.Mine] =
-        me match
-          case Some(me) => findMine(chatId)(using me)
-          case None     => cache.get(chatId) dmap { UserChat.Mine(_, timeout = false) }
-
-      private def findMine(chatId: ChatId)(using me: Me): Fu[UserChat.Mine] =
-        cache get chatId flatMap { chat =>
-          (!chat.isEmpty so chatTimeout.isActive(chatId, me)) dmap {
-            UserChat.Mine(chat forUser me.some, _)
-          }
-        }
+      def findMine(chatId: ChatId)(using Option[Me], AllMessages): Fu[UserChat.Mine] =
+        cache.get(chatId) flatMap makeMine
 
     def findOption(chatId: ChatId): Fu[Option[UserChat]] =
       coll.byId[UserChat](chatId.value)
@@ -57,21 +48,17 @@ final class ChatApi(
     def findAll(chatIds: List[ChatId]): Fu[List[UserChat]] =
       coll.byStringIds[UserChat](ChatId raw chatIds, _.sec)
 
-    def findMine(chatId: ChatId)(using Option[Me]): Fu[UserChat.Mine] = findMineIf(chatId, cond = true)
+    def findMine(chatId: ChatId, cond: Boolean = true)(using Option[Me], AllMessages): Fu[UserChat.Mine] =
+      if cond then find(chatId) flatMap makeMine
+      else fuccess(UserChat.Mine(Chat.makeUser(chatId), JsonChatLines.empty, timeout = false))
 
-    def findMineIf(chatId: ChatId, cond: Boolean)(using me: Option[Me]): Fu[UserChat.Mine] =
-      me match
-        case Some(me) if cond => findMine(chatId)(using me)
-        case Some(me)     => fuccess(UserChat.Mine(Chat.makeUser(chatId) forUser me.some, timeout = false))
-        case None if cond => find(chatId) dmap { UserChat.Mine(_, timeout = false) }
-        case None         => fuccess(UserChat.Mine(Chat.makeUser(chatId), timeout = false))
-
-    private def findMine(chatId: ChatId)(using me: Me): Fu[UserChat.Mine] =
-      find(chatId) flatMap { chat =>
-        (!chat.isEmpty so chatTimeout.isActive(chatId, me)) dmap {
-          UserChat.Mine(chat forUser me.some, _)
-        }
-      }
+    private def makeMine(chat: UserChat)(using me: Option[Me], all: AllMessages): Fu[UserChat.Mine] =
+      val mine = chat.forMe
+      for
+        lines <- JsonView.asyncLines(mine)
+        timeout <- me.ifFalse(mine.isEmpty) so:
+          chatTimeout.isActive(chat.id, _)
+      yield UserChat.Mine(mine, lines, timeout)
 
     def write(
         chatId: ChatId,
@@ -81,31 +68,27 @@ final class ChatApi(
         busChan: BusChan.Select,
         persist: Boolean = true
     ): Funit =
-      makeLine(chatId, userId, text) flatMapz { line =>
-        isChatFresh(publicSource) flatMap {
+      makeLine(chatId, userId, text) flatMapz: line =>
+        isChatFresh(publicSource) flatMap:
           if _ then
-            linkCheck(line, publicSource) flatMap {
+            linkCheck(line, publicSource) flatMap:
               if _ then
                 (persist so persistLine(chatId, line)).andDo:
                   if persist then
                     if publicSource.isDefined then cached invalidate chatId
                     shutup ! publicSource.match
-                      case Some(source) => RecordPublicChat(userId, text, source)
+                      case Some(source) => RecordPublicText(userId, text, source)
                       case _            => RecordPrivateChat(chatId.value, userId, text)
                     lila.mon.chat
                       .message(publicSource.fold("player")(_.parentName), line.troll)
                       .increment()
-
                   publish(chatId, ChatLine(chatId, line), busChan)
               else
                 logger.info(s"Link check rejected $line in $publicSource")
                 funit
-            }
           else
             logger.info(s"Can't post $line in $publicSource: chat is closed")
             funit
-        }
-      }
 
     private def linkCheck(line: UserLine, source: Option[PublicSource]) =
       source.fold(fuccess(true)): s =>
@@ -121,14 +104,14 @@ final class ChatApi(
     def clear(chatId: ChatId) = coll.delete.one($id(chatId)).void
 
     def system(chatId: ChatId, text: String, busChan: BusChan.Select): Funit =
-      val line = UserLine(User.lichessName, None, false, text, troll = false, deleted = false)
+      val line = UserLine(User.lichessName, None, false, flair = true, text, troll = false, deleted = false)
       persistLine(chatId, line).andDo:
         cached.invalidate(chatId)
         publish(chatId, ChatLine(chatId, line), busChan)
 
     // like system, but not persisted.
     def volatile(chatId: ChatId, text: String, busChan: BusChan.Select): Unit =
-      val line = UserLine(User.lichessName, None, false, text, troll = false, deleted = false)
+      val line = UserLine(User.lichessName, None, false, flair = true, text, troll = false, deleted = false)
       publish(chatId, ChatLine(chatId, line), busChan)
 
     def service(chatId: ChatId, text: String, busChan: BusChan.Select, isVolatile: Boolean): Unit =
@@ -151,7 +134,7 @@ final class ChatApi(
       }
 
     def publicTimeout(data: ChatTimeout.TimeoutFormData)(using Me): Funit =
-      ChatTimeout.Reason(data.reason) so { reason =>
+      ChatTimeout.Reason(data.reason) so: reason =>
         timeout(
           chatId = data.roomId into ChatId,
           userId = data.userId.id,
@@ -164,12 +147,10 @@ final class ChatApi(
             case "team"       => _.Team
             case _            => _.Study
         )
-      }
 
     def userModInfo(username: UserStr): Fu[Option[UserModInfo]] =
-      userRepo byId username flatMapz { user =>
+      userRepo byId username flatMapz: user =>
         chatTimeout.history(user, 20) dmap { UserModInfo(user, _).some }
-      }
 
     private def doTimeout(
         c: UserChat,
@@ -180,14 +161,15 @@ final class ChatApi(
         text: String,
         busChan: BusChan.Select
     ): Funit =
-      chatTimeout.add(c, mod, user, reason, scope) flatMap { isNew =>
+      chatTimeout.add(c, mod, user, reason, scope) flatMap: isNew =>
         val lineText = scope match
           case ChatTimeout.Scope.Global => s"${user.username} was timed out 15 minutes for ${reason.name}."
           case _ => s"${user.username} was timed out 15 minutes by a page mod (not a Lichess mod)"
         val line = (isNew && c.hasRecentLine(user)) option UserLine(
           username = User.lichessName,
           title = None,
-          patron = user.isPatron,
+          patron = false,
+          flair = true,
           text = lineText,
           troll = false,
           deleted = false
@@ -214,7 +196,6 @@ final class ChatApi(
                 .publish(lila.hub.actorApi.security.DeletePublicChats(user.id), "deletePublicChats")
           else logger.info(s"${mod.username} times out ${user.username} in #${c.id} for ${reason.key}")
         }
-      }
 
     def delete(c: UserChat, user: User, busChan: BusChan.Select): Fu[Boolean] =
       val chat   = c.markDeleted(user)
@@ -243,7 +224,8 @@ final class ChatApi(
             allow option UserLine(
               user.username,
               user.title,
-              user.isPatron,
+              patron = user.isPatron,
+              flair = user.flair.isDefined,
               t2,
               troll = user.isTroll,
               deleted = false
@@ -277,10 +259,8 @@ final class ChatApi(
           lila.mon.chat.message("anonPlayer", troll = false).increment()
 
     private def makeLine(chatId: ChatId, color: Color, t1: String): Option[Line] =
-      Writer.preprocessUserInput(t1, none) flatMap { t2 =>
-        flood.allowMessage(Flood Source s"$chatId/${color.letter}", t2) option
-          PlayerLine(color, t2)
-      }
+      Writer.preprocessUserInput(t1, none) flatMap: t2 =>
+        flood.allowMessage(Flood Source s"$chatId/${color.letter}", t2) option PlayerLine(color, t2)
 
   private def publish(chatId: ChatId, msg: Any, busChan: BusChan.Select): Unit =
     Bus.publish(msg, busChan(BusChan).chan)

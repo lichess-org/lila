@@ -12,7 +12,7 @@ import lila.common.{ Bus, IpAddress, Lilakka }
 import lila.common.Json.given
 import lila.game.{ Event, Game, Pov }
 import lila.hub.actorApi.map.{ Exists, Tell, TellAll, TellIfExists, TellMany }
-import lila.hub.actorApi.round.{ Abort, Berserk, RematchNo, RematchYes, Resign, TourStanding }
+import lila.hub.actorApi.round.{ Abort, Berserk, Rematch, Resign, TourStanding }
 import lila.hub.actorApi.socket.remote.{ TellSriIn, TellSriOut }
 import lila.hub.actorApi.tv.TvSelect
 import lila.hub.AsyncActorConcMap
@@ -28,9 +28,9 @@ final class RoundSocket(
     scheduleExpiration: ScheduleExpiration,
     messenger: Messenger,
     goneWeightsFor: Game => Fu[(Float, Float)],
-    mobileSocket: RoundMobileSocket,
+    mobileSocket: RoundMobile,
     shutdown: CoordinatedShutdown
-)(using ec: Executor, scheduler: Scheduler):
+)(using Executor, lila.user.FlairApi.Getter)(using scheduler: Scheduler):
 
   import RoundSocket.*
 
@@ -38,19 +38,24 @@ final class RoundSocket(
 
   Lilakka.shutdown(shutdown, _.PhaseServiceUnbind, "Stop round socket"): () =>
     stopping = true
-    rounds.tellAllWithAck(RoundAsyncActor.LilaStop.apply) map { nb =>
+    rounds.tellAllWithAck(RoundAsyncActor.LilaStop.apply) map: nb =>
       Lilakka.shutdownLogger.info(s"$nb round asyncActors have stopped")
-    }
 
   def getGame(gameId: GameId): Fu[Option[Game]] =
-    rounds.getOrMake(gameId).getGame addEffect { g =>
+    rounds.getOrMake(gameId).getGame addEffect: g =>
       if g.isEmpty then finishRound(gameId)
-    }
+
   def getGames(gameIds: List[GameId]): Fu[List[(GameId, Option[Game])]] =
+    gameIds.traverse: id =>
+      rounds.getOrMake(id).getGame dmap { id -> _ }
+
+  def getMany(gameIds: List[GameId]): Fu[List[GameAndSocketStatus]] =
     gameIds
-      .map: id =>
-        rounds.getOrMake(id).getGame dmap { id -> _ }
-      .parallel
+      .traverse: id =>
+        gameAndStatusIfPresent(id).orElse:
+          roundDependencies.gameRepo game id map2: g =>
+            GameAndSocketStatus(g, SocketStatus.default)
+      .map(_.flatten)
 
   def gameIfPresent(gameId: GameId): Fu[Option[Game]] = rounds.getIfPresent(gameId).so(_.getGame)
 
@@ -62,6 +67,9 @@ final class RoundSocket(
   def updateIfPresent(gameId: GameId)(f: Game => Game): Funit =
     rounds.getIfPresent(gameId).so(_ updateGame f)
 
+  def gameAndStatusIfPresent(gameId: GameId): Fu[Option[GameAndSocketStatus]] =
+    rounds.askIfPresent[GameAndSocketStatus](gameId)(GetGameAndSocketStatus.apply)
+
   val rounds = AsyncActorConcMap[GameId, RoundAsyncActor](
     mkAsyncActor =
       id => makeRoundActor(id, SocketVersion(0), roundDependencies.gameRepo game id recoverDefault none),
@@ -69,13 +77,13 @@ final class RoundSocket(
   )
 
   private def makeRoundActor(id: GameId, version: SocketVersion, gameFu: Fu[Option[Game]]) =
-    val proxy = GameProxy(id, proxyDependencies, gameFu)
+    given proxy: GameProxy = GameProxy(id, proxyDependencies, gameFu)
     val roundActor = RoundAsyncActor(
       dependencies = roundDependencies,
       gameId = id,
       socketSend = sendForGameId(id),
       version = version
-    )(using ec, proxy)
+    )
     terminationDelay schedule id
     gameFu.dforeach:
       _.foreach: game =>
@@ -90,20 +98,22 @@ final class RoundSocket(
     case Protocol.In.PlayerDo(fullId, tpe) if !stopping =>
       def forward(f: GamePlayerId => Any) = rounds.tell(fullId.gameId, f(fullId.playerId))
       tpe match
-        case "moretime"     => forward(Moretime(_))
-        case "rematch-yes"  => forward(RematchYes(_))
-        case "rematch-no"   => forward(RematchNo(_))
-        case "takeback-yes" => forward(TakebackYes(_))
-        case "takeback-no"  => forward(TakebackNo(_))
-        case "draw-yes"     => forward(DrawYes(_))
-        case "draw-no"      => forward(DrawNo(_))
-        case "draw-claim"   => forward(DrawClaim(_))
-        case "resign"       => forward(Resign(_))
-        case "resign-force" => forward(ResignForce(_))
-        case "draw-force"   => forward(DrawForce(_))
-        case "abort"        => forward(Abort(_))
-        case "outoftime"    => forward(_ => QuietFlag) // mobile app BC
-        case t              => logger.warn(s"Unhandled round socket message: $t")
+        case "moretime"      => forward(Moretime(_))
+        case "rematch-yes"   => forward(Rematch(_, true))
+        case "rematch-no"    => forward(Rematch(_, false))
+        case "takeback-yes"  => forward(Takeback(_, true))
+        case "takeback-no"   => forward(Takeback(_, false))
+        case "draw-yes"      => forward(Draw(_, true))
+        case "draw-no"       => forward(Draw(_, false))
+        case "draw-claim"    => forward(DrawClaim(_))
+        case "resign"        => forward(Resign(_))
+        case "resign-force"  => forward(ResignForce(_))
+        case "blindfold-yes" => forward(Blindfold(_, true))
+        case "blindfold-no"  => forward(Blindfold(_, false))
+        case "draw-force"    => forward(DrawForce(_))
+        case "abort"         => forward(Abort(_))
+        case "outoftime"     => forward(_ => QuietFlag) // mobile app BC
+        case t               => logger.warn(s"Unhandled round socket message: $t")
     case Protocol.In.Flag(gameId, color, fromPlayerId) => rounds.tell(gameId, ClientFlag(color, fromPlayerId))
     case Protocol.In.PlayerChatSay(id, Right(color), msg) =>
       gameIfPresent(id).foreach:
@@ -137,7 +147,7 @@ final class RoundSocket(
     case Protocol.In.GetGame(reqId, anyId) =>
       for
         game <- rounds.ask[GameAndSocketStatus](anyId.gameId)(GetGameAndSocketStatus.apply)
-        data <- mobileSocket.json(game.game, game.socket, anyId)
+        data <- mobileSocket.online(game.game, anyId, game.socket)
       yield sendForGameId(anyId.gameId)(Protocol.Out.respond(reqId, data))
 
     case Protocol.In.WsLatency(millis) => MoveLatMonitor.wsLatency.set(millis)
@@ -160,7 +170,14 @@ final class RoundSocket(
     roundHandler orElse remoteSocketApi.baseHandler
   ) andDo send(P.Out.boot)
 
-  Bus.subscribeFun("tvSelect", "roundSocket", "tourStanding", "startGame", "finishGame"):
+  Bus.subscribeFun(
+    "tvSelect",
+    "roundSocket",
+    "tourStanding",
+    "startGame",
+    "finishGame",
+    "roundUnplayed"
+  ):
     case TvSelect(gameId, speed, json) =>
       sendForGameId(gameId)(Protocol.Out.tvSelect(gameId, speed, json))
     case Tell(id, e @ BotConnected(color, v)) =>
@@ -174,13 +191,12 @@ final class RoundSocket(
     case Exists(gameId, promise)    => promise success rounds.exists(GameId(gameId))
     case TourStanding(tourId, json) => send(Protocol.Out.tourStanding(tourId, json))
     case lila.game.actorApi.StartGame(game) if game.hasClock =>
-      game.userIds.some.filter(_.nonEmpty) foreach { usersPlaying =>
+      game.userIds.some.filter(_.nonEmpty) foreach: usersPlaying =>
         sendForGameId(game.id)(Protocol.Out.startGame(usersPlaying))
-      }
     case lila.game.actorApi.FinishGame(game, _) if game.hasClock =>
-      game.userIds.some.filter(_.nonEmpty) foreach { usersPlaying =>
+      game.userIds.some.filter(_.nonEmpty) foreach: usersPlaying =>
         sendForGameId(game.id)(Protocol.Out.finishGame(game.id, game.winnerColor, usersPlaying))
-      }
+    case lila.hub.actorApi.round.DeleteUnplayed(gameId) => finishRound(gameId)
 
   Bus.subscribeFun(BusChan.Round.chan, BusChan.Global.chan):
     case lila.chat.ChatLine(id, l) =>

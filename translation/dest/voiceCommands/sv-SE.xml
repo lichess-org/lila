@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="voiceCommands">Röstkommandon</string>
+  <string name="watchTheVideoTutorial">Titta på videoinstruktionen</string>
+  <string name="instructions1">Använd %1$s -knappen för att växla röstigenkänning, %2$s -knappen för att öppna den här hjälpdialogrutan och %3$s -menyn för att ändra talinställningar.</string>
+  <string name="instructions2" comment="Voice commands can be misheard and Lichess will not always be fully certain what you said. Several arrows will be shown to identify e.g. if the move was 'b4' or 'd4', which often sound similar.&#10;&#10;These arrows will be in different colours (green, blue, etc) or labelled 1, 2, 3....&#10;You can then say the colour of the arrow (e.g. 'green') - or its number (e.g. '1'), to select that move.&#10;Users can configure if they choose from multiple moves based on colours or numbers.">Vi visar pilarna för flera drag när vi inte är säkra. Tala färg eller antal på en dragpil för att välja den.</string>
+  <string name="instructions3" comment="This is a complicated concept more easy to understand in practice. Voice commands can be misheard and Lichess will not always be fully certain what you said. Several arrows will be shown to identify e.g. if the move was 'b4' or 'd4', which often sound similar.&#10;The most likely move the player wants will have a circle showing around it, but it will be possible to cancel before it is played (for example, by shouting 'no!').&#10;&#10;You can see a visual example here: https://lichess.org/@/schlawg/blog/how-to-lichess-voice/nWrypoWI">Om en pil visar en svepande radar, så kommer draget att spelas när cirkeln är klar. Under denna tid kan du bara säga %1$s att spela draget omedelbart, %2$s för att avbryta, eller tala färg/antal av en annan pil. Denna timer kan justeras eller stängas av i inställningarna.</string>
+  <string name="instructions4" comment="%s is Push to Talk.">Aktivera %s i bullriga omgivningar. Håll shift medan du talar kommandon när detta är på.</string>
+  <string name="instructions5" comment="The phonetic alphabet is also known as the NATO alphabet (where A = Alpha, B = Bravo, etc. This makes the sounds easier to differentiate through a microphone). It is for English specifically, which as of the time of writing, is the only language supported by the Voice Commands feature.">Använd det fonetiska alfabetet för att förbättra igenkänningen av schackfiler. </string>
+  <string name="instructions6">%s förklarar inställningarna för röstflyttning i detalj.</string>
+  <string name="thisBlogPost">Det här blogginlägget</string>
+  <string name="moveToE4OrSelectE4Piece">Flytta till e4 eller välj e4 bit</string>
+  <string name="selectOrCaptureABishop">Välj eller fånga en löpare</string>
+  <string name="takeRookWithQueen">Ta torn med drottning</string>
+  <string name="castle">Rockad (oavsett sida)</string>
+  <string name="phoneticAlphabetIsBest">Fonetiskt alfabet är bäst</string>
+  <string name="cancelTimerOrDenyARequest">Avbryt timer eller neka en begäran</string>
+  <string name="playPreferredMoveOrConfirmSomething" comment="Used in voice commands. When it is unclear what the player said (e.g. 'b4' and 'd4' sound similar), both moves will be shown, with the more likely one highlighted in a certain colour. By default, a countdown begins, and if no action is taken, the likely move (e.g. b4) will be played. Players can end the countdown early/confirm their move by saying 'yes'.&#10;&#10;For more details see https://lichess.org/@/schlawg/blog/how-to-lichess-voice/nWrypoWI">Spela föredraget drag eller bekräfta något</string>
+  <string name="sleep" comment="Used for voice commands.&#10;&#10;By default, voice commands are always-on after the feature is enabled. Users can optionally set a word for listening to start, or say 'sleep' to disable listening.&#10;&#10;(Please note - this is not the same as recording, since the recording is never sent to Lichess; the speech technology is entirely offline)">Viloläge (om uppvakna-ordet aktiverat)</string>
+  <string name="turnOffVoiceRecognition">Stäng av röstigenkänning</string>
+  <string name="showPuzzleSolution">Visa pussellösning</string>
+</resources>

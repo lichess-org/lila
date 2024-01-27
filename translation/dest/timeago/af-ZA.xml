@@ -30,10 +30,6 @@
     <item quantity="other">in %s jare</item>
   </plurals>
   <string name="rightNow">nou</string>
-  <plurals name="nbSecondsAgo">
-    <item quantity="one">%s sekonde gelede</item>
-    <item quantity="other">%s sekondes gelede</item>
-  </plurals>
   <plurals name="nbMinutesAgo">
     <item quantity="one">%s minuut gelede</item>
     <item quantity="other">%s minute gelede</item>
@@ -58,4 +54,13 @@
     <item quantity="one">%s jaar gelede</item>
     <item quantity="other">%s jare gelede</item>
   </plurals>
+  <plurals name="nbMinutesRemaining">
+    <item quantity="one">nog %s minuut oor</item>
+    <item quantity="other">nog %s minute oor</item>
+  </plurals>
+  <plurals name="nbHoursRemaining">
+    <item quantity="one">nog %s uur oor</item>
+    <item quantity="other">nog %s ure oor</item>
+  </plurals>
+  <string name="completed">voltooi</string>
 </resources>

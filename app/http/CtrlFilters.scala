@@ -107,7 +107,7 @@ trait CtrlFilters extends ControllerHelpers with ResponseBuilder with CtrlConver
     if page < max.value && page > 0 then result else errorPage
 
   def NotForKids(f: => Fu[Result])(using ctx: Context): Fu[Result] =
-    if ctx.kid then notFound else f
+    if ctx.kid.no then f else notFound
 
   def NoCrawlers(result: => Fu[Result])(using ctx: Context): Fu[Result] =
     if HTTPRequest.isCrawler(ctx.req).yes then notFound else result

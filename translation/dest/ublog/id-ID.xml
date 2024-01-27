@@ -33,8 +33,8 @@
   <string name="imageCredit">Kredit gambar</string>
   <string name="deleteBlog">Hapus blog post ini</string>
   <string name="deleteImage">Hapus gambar</string>
-  <string name="safeToUseImages" comment="safeToUseImages&#10;&#10;This is mentioned because the images there are royalty-free, so there is no risk of copyright infringement.">Aman untuk menggunakan gambar dari website ini: </string>
+  <string name="safeToUseImages">Aman untuk menggunakan gambar dari website ini: </string>
   <string name="selectPostTopics">Pilih topik yang sesuai untuk post Anda</string>
   <string name="inappropriateContentAccountClosed">Apapun yang tidak senonoh dapat membuat akun Anda ditutup.</string>
-  <string name="blogTips" comment="blogTips&#10;&#10;This is a link to https://lichess.org/page/blog-tips. Appears when creating a new post.">Tips untuk menulis blog post yang bagus</string>
+  <string name="blogTips">Tips untuk menulis blog post yang bagus</string>
 </resources>

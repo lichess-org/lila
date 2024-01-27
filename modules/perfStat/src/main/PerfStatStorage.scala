@@ -27,7 +27,7 @@ final class PerfStatStorage(coll: AsyncCollFailingSilently)(using Executor):
   def insert(perfStat: PerfStat): Funit =
     coll(_.insert.one(perfStat).void)
 
-  def update(a: PerfStat, b: PerfStat): Funit = coll { c =>
+  def update(a: PerfStat, b: PerfStat): Funit = coll: c =>
     val sets = $doc(
       docDiff(a.count, b.count).mapKeys(k => s"count.$k").toList :::
         List(
@@ -75,11 +75,10 @@ final class PerfStatStorage(coll: AsyncCollFailingSilently)(using Executor):
           }
         ).flatten
     )
-
     c.update
       .one($id(a.id), $doc("$set" -> sets))
       .void
-  }
+  end update
 
   private def resultsDiff(a: PerfStat, b: PerfStat)(getter: PerfStat => Results): Option[Bdoc] =
     (getter(a) != getter(b)) so resultsHandler.writeOpt(getter(b))
@@ -88,14 +87,13 @@ final class PerfStatStorage(coll: AsyncCollFailingSilently)(using Executor):
     (getter(a) != getter(b)) so streakHandler.writeOpt(getter(b))
 
   private def ratingAtDiff(a: PerfStat, b: PerfStat)(getter: PerfStat => Option[RatingAt]): Option[Bdoc] =
-    getter(b) so { r =>
-      getter(a).fold(true)(_ != r) so ratingAtHandler.writeOpt(r)
-    }
+    getter(b).so: r =>
+      getter(a).forall(_ != r) so ratingAtHandler.writeOpt(r)
 
   private def docDiff[T: BSONDocumentWriter](a: T, b: T): Map[String, BSONValue] =
     val (am, bm) = (docMap(a), docMap(b))
     bm collect {
-      case (field, v) if am.get(field).fold(true)(_ != v) => field -> v
+      case (field, v) if am.get(field).forall(_ != v) => field -> v
     }
 
   private def docMap[T](a: T)(using writer: BSONDocumentWriter[T]) =

@@ -27,16 +27,16 @@ object gathering:
               "accepted"  -> (relevant && ctx.isAuth && v.verdict.accepted),
               "refused"   -> (relevant && ctx.isAuth && !v.verdict.accepted)
             ),
-            title := relevant option v.verdict.reason.map(_(ctx.lang))
+            title := v.verdict.reason.map(_(ctx.lang))
           ):
             v.condition match
               case Condition.TeamMember(teamId, teamName) =>
-                trans.mustBeInTeam(teamLink(teamId, teamName, withIcon = false))
+                trans.mustBeInTeam(teamLink(teamId, withIcon = false))
               case condition =>
                 v.verdict match
                   case Condition.RefusedUntil(until) =>
                     frag(
-                      "Because you missed your last swiss game, you cannot enter a new swiss tournament until ",
+                      "Because you missed your last Swiss game, you cannot enter a new Swiss tournament until ",
                       absClientInstant(until),
                       "."
                     )

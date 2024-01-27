@@ -44,12 +44,6 @@
     <item quantity="other">čez %s let</item>
   </plurals>
   <string name="rightNow">ta trenutek</string>
-  <plurals name="nbSecondsAgo">
-    <item quantity="one">%s sekundo nazaj</item>
-    <item quantity="two">pred %s sekundama</item>
-    <item quantity="few">pred %s sekundami</item>
-    <item quantity="other">pred %s sekundami</item>
-  </plurals>
   <plurals name="nbMinutesAgo">
     <item quantity="one">Pred %s minuto</item>
     <item quantity="two">Pred %s minutama</item>
@@ -86,4 +80,17 @@
     <item quantity="few">Pred %s leti</item>
     <item quantity="other">Pred %s leti</item>
   </plurals>
+  <plurals name="nbMinutesRemaining">
+    <item quantity="one">še %s minuta</item>
+    <item quantity="two">še %s minuti</item>
+    <item quantity="few">še %s minute</item>
+    <item quantity="other">še %s minut</item>
+  </plurals>
+  <plurals name="nbHoursRemaining">
+    <item quantity="one">še %s ura</item>
+    <item quantity="two">še %s uri</item>
+    <item quantity="few">še %s ure</item>
+    <item quantity="other">še %s ur</item>
+  </plurals>
+  <string name="completed">končano</string>
 </resources>

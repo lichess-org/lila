@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="welcome">Добро пожаловать!</string>
+  <string name="welcomeToLichess">Добро пожаловать на lichess.org!</string>
+  <string name="thisIsYourProfilePage">Это ваша страница профиля.</string>
+  <string name="enabledKidModeSuggestion" comment="%s is 'Kid mode'.">Будет ли эту учётную запись использовать ребёнок? Возможно, вы захотите включить %s.</string>
+  <string name="whatNowSuggestions">Что теперь? Вот несколько предложений:</string>
+  <string name="learnChessRules">Изучите шахматные правила</string>
+  <string name="improveWithChessTacticsPuzzles">Улучшайте свой уровень решая шахматные задачи.</string>
+  <string name="playTheArtificialIntelligence">Играйте против искусственного интеллекта.</string>
+  <string name="playOpponentsFromAroundTheWorld">Играйте с соперниками со всего мира.</string>
+  <string name="followYourFriendsOnLichess">Следите за друзьями на Lichess.</string>
+  <string name="playInTournaments">Играйте в турнирах.</string>
+  <string name="learnFromXAndY">Изучайте %1$s и %2$s.</string>
+  <string name="configureLichess">Настройте Lichess в соответствии с вашими предпочтениями.</string>
+  <string name="exploreTheSiteAndHaveFun">Исследуйте сайт и получайте удовольствие :)</string>
+</resources>

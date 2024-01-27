@@ -6,7 +6,7 @@
   <string name="notifications">सूचनाएं</string>
   <string name="pieceAnimation">मोहरों का एनीमेशन</string>
   <string name="materialDifference">सामग्री का अंतर</string>
-  <string name="boardHighlights">बोर्ड का हाइलाइट (आख़िरी चाल और सह)</string>
+  <string name="boardHighlights">बोर्ड का हाइलाइट (आख़िरी चाल और शह)</string>
   <string name="pieceDestinations">मोहरों का गंतव्य (मान्य चालें और पहले से चुनी आई चालें)</string>
   <string name="boardCoordinates">बोर्ड का निर्देशांक (A-H, 1-8)</string>
   <string name="moveListWhilePlaying">खेलते समय चालों की सूची</string>
@@ -18,8 +18,7 @@
   <string name="explainShowPlayerRatings">यह शतरंज पर ध्यान केंद्रित करने में मदद करने के लिए वेबसाइट से सभी रेटिंग छिपाने की अनुमति देता है। खेलों को अभी भी रेट किया जा सकता है, यह केवल इस बारे में है कि आपको क्या देखने को मिलता है।</string>
   <string name="displayBoardResizeHandle">बोर्ड आकार परिवर्तन करने वाली मूठ दिखाएं</string>
   <string name="onlyOnInitialPosition">केवल प्रारंभिक स्थिति पर</string>
-  <string name="inGameOnly" comment="This is a possible setting for Zen mode (https://lichess.org/page/zen) i.e. &quot;Zen mode: In-game only&quot; which means zen mode will only be active during games.">केवल खेल में</string>
-  <string name="blindfoldChess">अदृश्य शतरंज (अदृश्य मोहरे )</string>
+  <string name="inGameOnly">केवल खेल में</string>
   <string name="chessClock">शतरंज की घड़ी</string>
   <string name="tenthsOfSeconds">सेकेंड का दसवाँ हिस्सा</string>
   <string name="whenTimeRemainingLessThanTenSeconds" comment="whenTimeRemainingLessThanTenSeconds&#10;&#10;The &amp;lt; symbol is not required (you can write it as a word), just do NOT use &lt; in its place.&#10;&#10;Technical information: &lt; is a reserved character in HTML, which is why it cannot be used.">जब बचा हुआ समय &lt; 10 सेकेंड</string>

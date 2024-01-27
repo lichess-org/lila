@@ -120,6 +120,7 @@
   <string name="cpus">CPUs</string>
   <string name="memory">Memor</string>
   <string name="infiniteAnalysis">Dielfennañ didermen</string>
+  <string name="engineManager">Merañ an urzhiataer</string>
   <string name="blunder">Bourd</string>
   <string name="mistake">Fazi</string>
   <string name="inaccuracy">Diresisted</string>
@@ -167,6 +168,13 @@
     <item quantity="many">%s krogad</item>
     <item quantity="other">%s krogad</item>
   </plurals>
+  <plurals name="ratingXOverYGames">
+    <item quantity="one">Renkadur %1$s diwar %2$s c\'hrogad</item>
+    <item quantity="two">Renkadur %1$s diwar %2$s grogad</item>
+    <item quantity="few">Renkadur %1$s diwar %2$s c\'h/krogad</item>
+    <item quantity="many">Renkadur %1$s diwar %2$s c\'hrogad</item>
+    <item quantity="other">Renkadur %1$s diwar %2$s c\'hrogad</item>
+  </plurals>
   <plurals name="nbBookmarks">
     <item quantity="one">%s er roll-istor</item>
     <item quantity="two">%s er roll-istor</item>
@@ -210,7 +218,7 @@
     <item quantity="two">%s eur</item>
     <item quantity="few">%s eur</item>
     <item quantity="many">%s eur</item>
-    <item quantity="other">%s eurvezhioù</item>
+    <item quantity="other">%s eur</item>
   </plurals>
   <plurals name="nbMinutes">
     <item quantity="one">%s vunutenn</item>
@@ -256,6 +264,7 @@
   <string name="accountCanLogin">Gallout a rit kevreañ dindan an anv %s.</string>
   <string name="accountConfirmationEmailNotNeeded">N\'ho peus ket ezhomm deus ur postel-kadarnaat.</string>
   <string name="accountClosed">Serr eo ar gont %s.</string>
+  <string name="accountRegisteredWithoutEmail">Ar gont %s zo bet krouet hep chomlec\'h postel.</string>
   <string name="rank">Renk</string>
   <string name="rankX">Renk: %s</string>
   <plurals name="rankIsUpdatedEveryNbMinutes">
@@ -296,7 +305,6 @@
   <string name="playingRightNow">O c\'hoari bremañ</string>
   <string name="eventInProgress">O c\'hoari bremañ</string>
   <string name="finished">Echu</string>
-  <string name="finishesX">a vo echu e %s</string>
   <string name="abortGame">Nullañ ar c\'hrogad</string>
   <string name="gameAborted">Krogad nullet</string>
   <string name="standard">Normal</string>
@@ -761,6 +769,10 @@
   <string name="keyGoToStartOrEnd">mont d\'an deroù/d\'ar fin</string>
   <string name="keyShowOrHideComments">diskouez/skoachañ an evezhiadennoù</string>
   <string name="keyEnterOrExitVariation">mont ebarzh/kuitaat an eilstumm</string>
+  <string name="keyNextLearnFromYourMistakes">Da heul (deskit diouzh ho fazioù)</string>
+  <string name="keyNextBlunder">Blunder nesañ</string>
+  <string name="keyNextMistake">Fazi nesañ</string>
+  <string name="keyNextInaccuracy">Diresisted nesañ</string>
   <string name="newTournament">Tournamant nevez</string>
   <string name="tournamentHomeTitle">Tournamantoù echedoù o zizh hag o variantoù liesseurt</string>
   <string name="tournamentHomeDescription">C\'hoariit tournamantoù echedoù fonnus! Kemerit perzh en un tournamant ofisiel raktreset, pe krouit hoc\'h hini. Bullet, Blitz, Klasel, Echedoù960, Roue d\'ar c\'hreiz, Tribec\'h, ha dibaboù all evit ur blijadur beurbadus gant an echedoù.</string>
@@ -779,6 +791,7 @@
   <string name="yourPerfTypeRatingIsRating">%2$s eo ho renkadur e %1$s.</string>
   <string name="youAreBetterThanPercentOfPerfTypePlayers">Barrekoc\'h oc\'h evit %1$s eus ar c\'hoarierien %2$s.</string>
   <string name="userIsBetterThanPercentOfPerfTypePlayers">Barrekoc\'h eo %1$s evit %2$s eus ar c\'hoarierien %3$s.</string>
+  <string name="betterThanPercentPlayers">Gwelloc\'h evit %1$s eus ar c\'hoarierien %2$s</string>
   <string name="youDoNotHaveAnEstablishedPerfTypeRating">N\'ho peus ket ur renkadur e %s c\'hoazh.</string>
   <string name="yourRating">Ho renkadur</string>
   <string name="cumulative">Berniet</string>
@@ -859,6 +872,7 @@
   <string name="invalidFen">Ur gudenn zo gant ar FEN</string>
   <string name="custom">Personelaet</string>
   <string name="notifications">Kemennoù</string>
+  <string name="notificationsX">Rebuzadurioù: %1$s</string>
   <string name="perfRatingX">Renk: %s</string>
   <plurals name="nbSecondsToPlayTheFirstMove">
     <item quantity="one">%s eilenn evit fiñval ho pezh kentañ c\'hoazh</item>
@@ -924,9 +938,10 @@
     <item quantity="many">hag enrollit %s linennoù raktaolioù</item>
     <item quantity="other">hag enrollit %s linennoù raktaolioù</item>
   </plurals>
+  <string name="showUnreadLichessMessage">Resevet ho peus ur gemennadenn brevez eus perzh Lichess.</string>
+  <string name="clickHereToReadIt">Klikit amañ evit lenn anezhi</string>
   <string name="sorry">Hon digarezit :(</string>
   <string name="weHadToTimeYouOutForAWhile">Ret e oa deomp ho skarzhañ e-pad ur prantad.</string>
-  <string name="timeoutExpires">Ne veoc\'h ket mui forbannet a-benn %s.</string>
   <string name="why">Perak?</string>
   <string name="pleasantChessExperience">Plijout a rafe deomp e vourrfe pep hini c\'hoari echedoù war Lichess.</string>
   <string name="goodPractice">Evit hen ober e dav deomp bezañ sur e vez graet gant doareoù dereat gant an holl.</string>
@@ -980,10 +995,12 @@
   <string name="congratsYouWon">Gourc’hemennoù, aet eo ar maout ganeoc’h!</string>
   <string name="gameVsX">Krogad a-enep %1$s</string>
   <string name="resVsX">%1$s a-enep %2$s</string>
+  <string name="lostAgainstTOSViolator">Kollet ho peus poentoù a-enep unan ha n\'en deus ket doujet d\'ar reolennoù</string>
+  <string name="refundXpointsTimeControlY">Bet daskoret: %1$s poent e %2$s.</string>
   <string name="timeAlmostUp">Ne chom ket kalz amzer!</string>
   <string name="clickToRevealEmailAddress">[Klikit da ziskouez ar chomlec’h postel]</string>
   <string name="download">Pellgargañ</string>
-  <string name="welcome">Degemer mat!</string>
+  <string name="coachManager">Korn ar gourdoner</string>
   <string name="streamerManager">Merañ ar stream</string>
   <string name="cancelTournament">Nullañ an tournamant</string>
   <string name="tournDescription">Ur gerig diwar-benn an tournamant</string>
@@ -991,6 +1008,7 @@
   <string name="ratedFormHelp">Renket eo ar c\'hrogadoù ha cheñch a reont renkadur ar c\'hoarierien</string>
   <string name="onlyMembersOfTeam">Izili ar skipailh hepken</string>
   <string name="noRestriction">Harz ebet</string>
+  <string name="minimumRatedGames">Niver a grogadoù renket rekis</string>
   <string name="minimumRating">Renkadur bihanañ</string>
   <string name="onlyTitled">C\'hoarierien titlet hepken</string>
   <string name="simulHostcolor">Liv an ostiz evit pep krogad</string>

@@ -13,8 +13,8 @@ object create:
 
     val title = ot.newAccessToken
 
-    views.html.account.layout(title = title.txt(), active = "oauth.token")(
-      div(cls := "account oauth box box-pad")(
+    views.html.account.layout(title = title.txt(), active = "oauth.token"):
+      div(cls := "oauth box box-pad")(
         h1(cls := "box__top")(title()),
         postForm(cls := "form3", action := routes.OAuthToken.create)(
           div(cls := "form-group")(
@@ -54,7 +54,7 @@ object create:
                         disabled = disabled
                       )
                     ),
-                    label(`for` := id, st.title := disabled.option("You already have played games!"))(
+                    label(`for` := id, st.title := disabled.option(ot.alreadyHavePlayedGames.txt()))(
                       scope.name(),
                       em(scope.key)
                     )
@@ -62,7 +62,7 @@ object create:
               )
           ),
           form3.actions(
-            a(href := routes.OAuthToken.index)("Cancel"),
+            a(href := routes.OAuthToken.index)(trans.cancel()),
             form3.submit(trans.create())(data("danger-title") := ot.doNotShareIt.txt())
           ),
           br,
@@ -72,21 +72,22 @@ object create:
             val url =
               s"${netBaseUrl}${routes.OAuthToken.create}?scopes[]=challenge:write&scopes[]=puzzle:read&description=Prefilled+token+example"
             frag(
-              h2("Note for the attention of developers only:"),
+              h2(ot.attentionOfDevelopers()),
               p(
-                "It is possible to pre-fill this form by tweaking the query parameters of the URL.",
+                ot.possibleToPrefill(),
                 br,
-                "For example: ",
-                a(href := url)(url),
+                ot.forExample(a(href := url)(url)),
                 br,
-                "ticks the challenge:create and puzzle:read scopes, and sets the token description.",
+                ot.ticksTheScopes(
+                  "challenge:create",
+                  "puzzle:read"
+                ),
                 br,
-                "The scope codes can be found in the HTML code of the form.",
+                ot.scopesCanBeFound(),
                 br,
-                "Giving these pre-filled URLs to your users will help them get the right token scopes."
+                ot.givingPrefilledUrls()
               )
             )
           }
         )
       )
-    )

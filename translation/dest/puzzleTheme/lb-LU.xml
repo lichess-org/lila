@@ -3,7 +3,7 @@
   <string name="advancedPawn">Virgeréckelte Bauer</string>
   <string name="advancedPawnDescription">Ee vu denge Baueren ass déif an der géignerescher Stellung virgeréckelt an dreet méiglecherweis ëmzewandelen.</string>
   <string name="advantage">Virdeel</string>
-  <string name="advantageDescription">Nëtz deng Geleeënheet fir en decisive Virdeel ze kréien. (200cp ≤ eval ≤ 600cp)</string>
+  <string name="advantageDescription" comment="advantageDescription&#10;&#10;'cp' stands for centipawn (1/100th of a pawn). It is used in computer analysis to assess a position.&#10;'eval' is short for evaluation.">Nëtz deng Geleeënheet fir en decisive Virdeel ze kréien. (200cp ≤ eval ≤ 600cp)</string>
   <string name="anastasiaMate">Anastasia-Matt</string>
   <string name="anastasiaMateDescription">E Sprénger an en Tuerm oder eng Damm schaffen zesummen fir de géigneresche Kinnek tëschent dem Rand vum Briet an enger vu senge Figuren matt ze setzen.</string>
   <string name="arabianMate">Arabesche Matt</string>
@@ -23,13 +23,13 @@
   <string name="capturingDefender">Schlo de Verteideger</string>
   <string name="capturingDefenderDescription">D\'Schloen vun enger Figur, déi fir d\'Deckung vun enger anerer Figur zoustänneg war, soudass déi elo ongedeckten Figur mam nächsten Zuch kann geschloen ginn.</string>
   <string name="crushing">Vernichtend</string>
-  <string name="crushingDescription">Fann d\'Gaffe vum Géigner, fir e vernichtenden Virdeel ze erhalen. (eval ≥ 600cp)</string>
+  <string name="crushingDescription" comment="crushingDescription&#10;&#10;'cp' stands for centipawn (1/100th of a pawn). It is used in computer analysis to assess a position.&#10;'eval' is short for evaluation.">Fann d\'Gaffe vum Géigner, fir e vernichtenden Virdeel ze erhalen. (eval ≥ 600cp)</string>
   <string name="doubleBishopMate">Leeferpuermatt</string>
   <string name="doubleBishopMateDescription">Zwee ugräifend Leefer op niewenteneen leienden Diagonalen setzen den Kinnek matt, deen duerch seng eege Figuren behënnert ass.</string>
   <string name="dovetailMate">Cozio-Matt</string>
   <string name="dovetailMateDescription">Eng Damm setzt e niewestohende Kinnek matt, deem seng eenzeg zwee Fluchtfelder duerch seng eegen Figuren behënnert sinn.</string>
   <string name="equality">Egalitéit</string>
-  <string name="equalityDescription">Komm aus enger verluerener Positioun zeréck a sécher dir e Remis oder ausgeglache Positioun. (eval ≤ 200cp)</string>
+  <string name="equalityDescription" comment="equalityDescription&#10;&#10;'cp' stands for centipawn (1/100th of a pawn). It is used in computer analysis to assess a position.&#10;'eval' is short for evaluation.">Komm aus enger verluerener Positioun zeréck a sécher dir e Remis oder ausgeglache Positioun. (eval ≤ 200cp)</string>
   <string name="kingsideAttack">Ugrëff op der Kinnekssäit</string>
   <string name="kingsideAttackDescription">En Ugrëff op den géigneresche Kinnek, nodeem en op der Kinnekssäit rochéiert huet.</string>
   <string name="clearance">Räumung</string>
@@ -61,9 +61,9 @@
   <string name="knightEndgameDescription">En Endspill nëmmen mat Sprénger a Baueren.</string>
   <string name="long">Laang Aufgab</string>
   <string name="longDescription">Dräi Zich fir ze gewannen.</string>
-  <string name="master">Meeschter Partien</string>
+  <string name="master">Meeschter-Partien</string>
   <string name="masterDescription">Aufgabe aus Partie vu Spiller mat engem Titel.</string>
-  <string name="masterVsMaster">Partie vun Meeschter géint Meeschter</string>
+  <string name="masterVsMaster">Partië vu Meeschter géint Meeschter</string>
   <string name="masterVsMasterDescription">Aufgabe aus Partie tëschent zwee Spiller mat engem Titel.</string>
   <string name="mate">Schachmatt</string>
   <string name="mateDescription">Gewann d\'Partie mat Stil.</string>

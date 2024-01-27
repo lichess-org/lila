@@ -62,8 +62,7 @@ We think these conditions are more likely to be met within a team than in global
   <string name="numberOfByesA">A player gets a bye of one point every time the pairing system can\'t find a pairing for them.
 Additionally, a single bye of half a point is attributed when a player late-joins a tournament.</string>
   <string name="earlyDrawsQ">What happens with early draws?</string>
-  <string name="earlyDrawsA">A player gets a bye of one point every time the pairing system can\'t find a pairing for them.
-Additionally, a single bye of half a point is attributed when a player late-joins a tournament.</string>
+  <string name="earlyDrawsAnswer">In Swiss games, players cannot draw before 30 moves are played. While this measure cannot prevent pre-arranged draws, it does make it harder to agree to a draw on the fly.</string>
   <string name="whatIfOneDoesntPlayQ">What happens if a player doesn\'t play a game?</string>
   <string name="whatIfOneDoesntPlayA">Their clock will tick, they will flag, and lose the game.
 Then the system will withdraw the player from the tournament, so they don\'t lose more games.

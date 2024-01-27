@@ -42,7 +42,7 @@ object show:
               .map(env.blog.api.expand)
               .map(rawHtml)
           ),
-          ctx.noKid option
+          ctx.kid.no option
             div(cls := "footer")(
               if prismic.maybeRef.isEmpty then
                 post.date
@@ -54,7 +54,7 @@ object show:
                       cls      := "button text discuss",
                       dataIcon := licon.BubbleConvo
                     ):
-                      "Discuss this blog post in the forum"
+                      trans.ublog.discussThisBlogPostInTheForum()
               else p("This is a preview."),
               views.html.base.bits.connectLinks,
               p(cls := "patron-info")(a(href := routes.Plan.index)(trans.lichessPatronInfo()))

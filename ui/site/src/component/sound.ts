@@ -1,7 +1,7 @@
 import pubsub from './pubsub';
-import { assetUrl } from './assets';
+import { url as assetUrl } from './assets';
 import { storage } from './storage';
-import { isIOS } from 'common/mobile';
+import { isIOS } from 'common/device';
 import throttle from 'common/throttle';
 import { charRole } from 'chess';
 
@@ -12,14 +12,20 @@ export default new (class implements SoundI {
   ctx = makeAudioContext();
   sounds = new Map<Path, Sound>(); // All loaded sounds and their instances
   paths = new Map<Name, Path>(); // sound names to paths
-  theme = $('body').data('sound-set');
+  theme = document.body.dataset.soundSet!;
   speechStorage = storage.boolean('speech.enabled');
   volumeStorage = storage.make('sound-volume');
   baseUrl = assetUrl('sound', { version: '_____1' });
   music?: SoundMove;
+  primerEvents = ['touchend', 'pointerup', 'pointerdown', 'mousedown', 'keydown'];
+  primer = () =>
+    this.ctx?.resume().then(() => {
+      setTimeout(() => $('#warn-no-autoplay').removeClass('shown'), 500);
+      for (const e of this.primerEvents) window.removeEventListener(e, this.primer, { capture: true });
+    });
 
   constructor() {
-    $('body').on('mouseup touchend keydown', this.primer);
+    this.primerEvents.forEach(e => window.addEventListener(e, this.primer, { capture: true }));
   }
 
   async load(name: Name, path?: Path): Promise<Sound | undefined> {
@@ -56,22 +62,23 @@ export default new (class implements SoundI {
   async play(name: Name, volume = 1): Promise<void> {
     if (!this.enabled()) return;
     const sound = await this.load(name);
-    if (sound && (await this.resumeContext())) await sound.play(this.getVolume() * volume);
+    if (sound && (await this.resumeWithTest())) await sound.play(this.getVolume() * volume);
   }
 
-  throttled = throttle(100, (node?: { uci?: Uci; san?: string }) => {
-    if (node?.san?.includes('x')) this.play('capture');
-    else this.play('move');
-    if (node?.san?.endsWith('#') || node?.san?.endsWith('+')) this.play('check');
-  });
+  throttled = throttle(100, (name: Name) => this.play(name));
 
-  async move(node?: { uci?: Uci; san?: string }, music?: boolean) {
-    if (music !== false && this.theme === 'music') {
-      this.music ??= await lichess.loadEsm<SoundMove>('soundMove');
-      this.music(node, music);
-      return;
+  async move(o?: { uci?: Uci; san?: string; name?: Name; filter?: 'music' | 'game' }) {
+    if (o?.filter !== 'music' && this.theme !== 'music') {
+      if (o?.name) this.throttled(o.name);
+      else {
+        if (o?.san?.includes('x')) this.throttled('capture');
+        else this.throttled('move');
+        if (o?.san?.includes('#') || o?.san?.includes('+')) this.throttled('check');
+      }
     }
-    if (music !== true) this.throttled(node);
+    if (o?.filter === 'game' || this.theme !== 'music') return;
+    this.music ??= await lichess.asset.loadEsm<SoundMove>('soundMove');
+    this.music(o);
   }
 
   async countdown(count: number, interval = 500): Promise<void> {
@@ -189,10 +196,11 @@ export default new (class implements SoundI {
     for (const name of ['move', 'capture', 'check', 'genericNotify']) this.load(name);
   }
 
-  async resumeContext(): Promise<boolean> {
+  async resumeWithTest(): Promise<boolean> {
     if (!this.ctx) return false;
     if (this.ctx.state !== 'running' && this.ctx.state !== 'suspended') {
       // in addition to 'closed', iOS has 'interrupted'. who knows what else is out there
+      if (this.ctx.state !== 'closed') this.ctx.close();
       this.ctx = makeAudioContext();
       if (this.ctx) {
         for (const s of this.sounds.values()) s.rewire(this.ctx);
@@ -213,20 +221,10 @@ export default new (class implements SoundI {
           })
           .catch(resolve);
       });
-    return this.ctx?.state === 'running';
+    if (this.ctx?.state !== 'running') return false;
+    $('#warn-no-autoplay').removeClass('shown');
+    return true;
   }
-
-  primer = () => {
-    // some browsers fail audioContext.resume() on contexts created prior to user interaction
-    if (this.ctx?.state !== 'running') {
-      const ctx = makeAudioContext()!;
-      for (const s of this.sounds.values()) s.rewire(ctx);
-      this.ctx?.close();
-      this.ctx = ctx;
-    }
-    $('body').off('mouseup touchend keydown', this.primer);
-    setTimeout(() => $('#warn-no-autoplay').removeClass('shown'), 500);
-  };
 })();
 
 class Sound {

@@ -1,81 +1,53 @@
-import { prop, Prop } from 'common';
+import { prop } from 'common';
 import * as licon from 'common/licon';
-import { bind } from 'common/snabbdom';
+import { bind, dataIcon, looseH as h } from 'common/snabbdom';
 import { text as xhrText, url as xhrUrl } from 'common/xhr';
-import { h, VNode } from 'snabbdom';
+import { VNode } from 'snabbdom';
 import { renderIndexAndMove } from '../view/moveView';
 import { baseUrl } from '../view/util';
 import { StudyChapterMeta, StudyData } from './interfaces';
 import RelayCtrl from './relay/relayCtrl';
 
-export interface StudyShareCtrl {
-  studyId: string;
-  variantKey: VariantKey;
-  chapter: () => StudyChapterMeta;
-  bottomColor: () => Color;
-  isPrivate(): boolean;
-  currentNode: () => Tree.Node;
-  onMainline: () => boolean;
-  withPly: Prop<boolean>;
-  relay: RelayCtrl | undefined;
-  cloneable(): boolean;
-  shareable(): boolean;
-  redraw: () => void;
-  trans: Trans;
-}
-
-function fromPly(ctrl: StudyShareCtrl): VNode {
-  const renderedMove = renderIndexAndMove(
-    {
-      withDots: true,
-      showEval: false,
-    },
-    ctrl.currentNode(),
-  );
+function fromPly(ctrl: StudyShare): VNode {
+  const renderedMove = renderIndexAndMove({ withDots: true, showEval: false }, ctrl.currentNode());
   return h(
     'div.ply-wrap',
-    ctrl.onMainline()
-      ? h('label.ply', [
-          h('input', {
-            attrs: { type: 'checkbox', checked: ctrl.withPly() },
-            hook: bind('change', e => ctrl.withPly((e.target as HTMLInputElement).checked), ctrl.redraw),
-          }),
-          ...(renderedMove
-            ? ctrl.trans.vdom('startAtX', h('strong', renderedMove))
-            : [ctrl.trans.noarg('startAtInitialPosition')]),
-        ])
-      : null,
+    ctrl.onMainline() &&
+      h('label.ply', [
+        h('input', {
+          attrs: { type: 'checkbox', checked: ctrl.withPly() },
+          hook: bind('change', e => ctrl.withPly((e.target as HTMLInputElement).checked), ctrl.redraw),
+        }),
+        ...(renderedMove
+          ? ctrl.trans.vdom('startAtX', h('strong', renderedMove))
+          : [ctrl.trans.noarg('startAtInitialPosition')]),
+      ]),
   );
 }
 
-export function ctrl(
-  data: StudyData,
-  currentChapter: () => StudyChapterMeta,
-  currentNode: () => Tree.Node,
-  onMainline: () => boolean,
-  bottomColor: () => Color,
-  relay: RelayCtrl | undefined,
-  redraw: () => void,
-  trans: Trans,
-): StudyShareCtrl {
-  const withPly = prop(false);
-  return {
-    studyId: data.id,
-    variantKey: data.chapter.setup.variant.key as VariantKey,
-    chapter: currentChapter,
-    bottomColor,
-    isPrivate() {
-      return data.visibility === 'private';
-    },
-    currentNode,
-    onMainline,
-    withPly,
-    relay,
-    cloneable: () => data.features.cloneable,
-    shareable: () => data.features.shareable,
-    redraw,
-    trans,
-  };
+export class StudyShare {
+  withPly = prop(false);
+
+  constructor(
+    readonly data: StudyData,
+    readonly currentChapter: () => StudyChapterMeta,
+    readonly currentNode: () => Tree.Node,
+    readonly onMainline: () => boolean,
+    readonly bottomColor: () => Color,
+    readonly relay: RelayCtrl | undefined,
+    readonly redraw: () => void,
+    readonly trans: Trans,
+  ) {}
+
+  studyId = this.data.id;
+
+  variantKey = this.data.chapter.setup.variant.key as VariantKey;
+
+  chapter = this.currentChapter;
+  isPrivate = () => this.data.visibility === 'private';
+  cloneable = () => this.data.features.cloneable;
+  shareable = () => this.data.features.shareable;
+  gamebook = this.data.chapter.gamebook;
 }
 
 async function writePgnClipboard(url: string): Promise<void> {
@@ -91,7 +63,10 @@ async function writePgnClipboard(url: string): Promise<void> {
   }
 }
 
-export function view(ctrl: StudyShareCtrl): VNode {
+const copyButton = (rel: string) =>
+  h('button.button.copy', { attrs: { 'data-rel': rel, ...dataIcon(licon.Clipboard) } });
+
+export function view(ctrl: StudyShare): VNode {
   const studyId = ctrl.studyId,
     chapter = ctrl.chapter();
   const isPrivate = ctrl.isPrivate();
@@ -100,7 +75,7 @@ export function view(ctrl: StudyShareCtrl): VNode {
   const youCanPasteThis = () =>
     h(
       'p.form-help.text',
-      { attrs: { 'data-icon': licon.InfoCircle } },
+      { attrs: dataIcon(licon.InfoCircle) },
       ctrl.trans.noarg('youCanPasteThisInTheForumToEmbed'),
     );
   return h(
@@ -108,24 +83,18 @@ export function view(ctrl: StudyShareCtrl): VNode {
     ctrl.shareable()
       ? [
           h('div.downloads', [
-            ctrl.cloneable()
-              ? h(
-                  'a.button.text',
-                  {
-                    attrs: {
-                      'data-icon': licon.StudyBoard,
-                      href: `/study/${studyId}/clone`,
-                    },
-                  },
-                  ctrl.trans.noarg('cloneStudy'),
-                )
-              : null,
+            ctrl.cloneable() &&
+              h(
+                'a.button.text',
+                { attrs: { ...dataIcon(licon.StudyBoard), href: `/study/${studyId}/clone` } },
+                ctrl.trans.noarg('cloneStudy'),
+              ),
             ctrl.relay &&
               h(
                 'a.button.text',
                 {
                   attrs: {
-                    'data-icon': licon.Download,
+                    ...dataIcon(licon.Download),
                     href: `/api/broadcast/${ctrl.relay.data.tour.id}.pgn`,
                     download: true,
                   },
@@ -136,7 +105,7 @@ export function view(ctrl: StudyShareCtrl): VNode {
               'a.button.text',
               {
                 attrs: {
-                  'data-icon': licon.Download,
+                  ...dataIcon(licon.Download),
                   href: ctrl.relay ? `${ctrl.relay.roundPath()}.pgn` : `/study/${studyId}.pgn`,
                   download: true,
                 },
@@ -147,7 +116,7 @@ export function view(ctrl: StudyShareCtrl): VNode {
               'a.button.text',
               {
                 attrs: {
-                  'data-icon': licon.Download,
+                  ...dataIcon(licon.Download),
                   href: `/study/${studyId}/${chapter.id}.pgn`,
                   download: true,
                 },
@@ -158,7 +127,7 @@ export function view(ctrl: StudyShareCtrl): VNode {
               'a.button.text',
               {
                 attrs: {
-                  'data-icon': licon.Clipboard,
+                  ...dataIcon(licon.Clipboard),
                   title: ctrl.trans.noarg('copyChapterPgnDescription'),
                   tabindex: '0',
                 },
@@ -188,8 +157,8 @@ export function view(ctrl: StudyShareCtrl): VNode {
               'a.button.text',
               {
                 attrs: {
-                  'data-icon': licon.Download,
-                  href: xhrUrl(document.body.getAttribute('data-asset-url') + '/export/fen.gif', {
+                  ...dataIcon(licon.Download),
+                  href: xhrUrl(lichess.asset.baseUrl() + '/export/fen.gif', {
                     fen: ctrl.currentNode().fen,
                     color: ctrl.bottomColor(),
                     lastMove: ctrl.currentNode().uci,
@@ -206,7 +175,7 @@ export function view(ctrl: StudyShareCtrl): VNode {
               'a.button.text',
               {
                 attrs: {
-                  'data-icon': licon.Download,
+                  ...dataIcon(licon.Download),
                   href: xhrUrl(`/study/${studyId}/${chapter.id}.gif`, {
                     theme: document.body.dataset.boardTheme,
                     piece: document.body.dataset.pieceSet,
@@ -232,37 +201,35 @@ export function view(ctrl: StudyShareCtrl): VNode {
               h('div.form-group', [
                 h('label.form-label', ctrl.trans.noarg(i18n)),
                 h('div.form-control-with-clipboard', [
-                  h(`input#study-share-${i18n}.form-control.copyable`, {
-                    attrs: {
-                      readonly: true,
-                      value: `${baseUrl()}${path}`,
-                    },
+                  h(`input#study-share-${i18n}.form-control.copyable.autoselect`, {
+                    attrs: { readonly: true, value: `${baseUrl()}${path}` },
                   }),
-                  h('button.button.copy', {
-                    attrs: {
-                      'data-rel': `study-share-${i18n}`,
-                      'data-icon': licon.Clipboard,
-                    },
-                  }),
+                  copyButton(`study-share-${i18n}`),
                 ]),
-                ...(pastable ? [fromPly(ctrl), !isPrivate ? youCanPasteThis() : null] : []),
+                pastable && fromPly(ctrl),
+                pastable && isPrivate && youCanPasteThis(),
               ]),
             ),
             h(
               'div.form-group',
               [
                 h('label.form-label', ctrl.trans.noarg('embedInYourWebsite')),
-                h('input.form-control.autoselect', {
-                  attrs: {
-                    readonly: true,
-                    disabled: isPrivate,
-                    value: !isPrivate
-                      ? `<iframe width=600 height=371 src="${baseUrl()}${addPly(
-                          `/study/embed/${studyId}/${chapter.id}`,
-                        )}" frameborder=0></iframe>`
-                      : ctrl.trans.noarg('onlyPublicStudiesCanBeEmbedded'),
-                  },
-                }),
+                h('div.form-control-with-clipboard', [
+                  h('input#study-share-embed.form-control.copyable.autoselect', {
+                    attrs: {
+                      readonly: true,
+                      disabled: isPrivate,
+                      value: !isPrivate
+                        ? `<iframe ${
+                            ctrl.gamebook ? 'width="320" height="320"' : 'width="600" height="371"'
+                          } src="${baseUrl()}${addPly(
+                            `/study/embed/${studyId}/${chapter.id}`,
+                          )}" frameborder=0></iframe>`
+                        : ctrl.trans.noarg('onlyPublicStudiesCanBeEmbedded'),
+                    },
+                  }),
+                  copyButton(`study-share-embed`),
+                ]),
               ].concat(
                 !isPrivate
                   ? [
@@ -274,7 +241,7 @@ export function view(ctrl: StudyShareCtrl): VNode {
                             href: '/developers#embed-study',
                             target: '_blank',
                             rel: 'noopener',
-                            'data-icon': licon.InfoCircle,
+                            ...dataIcon(licon.InfoCircle),
                           },
                         },
                         ctrl.trans.noarg('readMoreAboutEmbedding'),
@@ -285,12 +252,12 @@ export function view(ctrl: StudyShareCtrl): VNode {
             ),
             h('div.form-group', [
               h('label.form-label', 'FEN'),
-              h('input.form-control.autoselect', {
-                attrs: {
-                  readonly: true,
-                  value: ctrl.currentNode().fen,
-                },
-              }),
+              h('div.form-control-with-clipboard', [
+                h('input#study-share-fen.form-control.copyable.autoselect', {
+                  attrs: { readonly: true, value: ctrl.currentNode().fen },
+                }),
+                copyButton(`study-share-fen`),
+              ]),
             ]),
           ]),
         ]

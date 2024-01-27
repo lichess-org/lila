@@ -64,6 +64,7 @@
   <string name="nextPayment">התשלום הבא</string>
   <string name="youWillBeChargedXOnY">את/ה תחויב/י ב%1$s ב%2$s.</string>
   <string name="makeAdditionalDonation">תרמו תרומה נוספת עכשיו</string>
+  <string name="giftPatronWingsShort">מתן כנפי תורם/ת</string>
   <string name="giftPatronWings">מתן כנפי תורם/ת לשחקן/ית</string>
   <string name="update">עדכן</string>
   <string name="changeMonthlyAmount">שנה את הסכום החודשי (%s)</string>
@@ -83,4 +84,7 @@
   <string name="nowOneMonth">את/ה עכשיו תומך/ת לחודש אחד!</string>
   <string name="downgradeNextMonth">בעוד חודש לא תחויב/י שוב, וחשבון Lichess שלך יחזור להיות חשבון רגיל.</string>
   <string name="changeCurrency">שינוי מטבע</string>
+  <string name="paymentDetails">פרטי התשלום</string>
+  <string name="updatePaymentMethod">עדכון אופן התשלום</string>
+  <string name="stripeManageSub">ניהול המנוי והורדת קבלות וחשבוניות</string>
 </resources>

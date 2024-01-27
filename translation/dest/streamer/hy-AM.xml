@@ -4,8 +4,8 @@
   <string name="lichessStreamer">Lichess-ի հեռարձակող</string>
   <string name="live">ԵԹԵՐՈՒՄ Է</string>
   <string name="offline">ԵԹԵՐՈՒՄ ՉԷ</string>
-  <string name="currentlyStreaming">Այժմ հեռարձակում են` %s</string>
-  <string name="lastStream">Վերջին հեռարձակումը %s</string>
+  <string name="currentlyStreaming" comment="%s is the title of the stream, chosen by the streamer.">Այժմ հեռարձակում են` %s</string>
+  <string name="lastStream" comment="%s is how long ago the stream was in relative time (e.g. 50 minutes ago). It is displayed in smaller type than the rest of the string.">Վերջին հեռարձակումը %s</string>
   <string name="becomeStreamer">Դառնալ Lichess-ի հեռարձակող</string>
   <string name="doYouHaveStream">Դուք ունե՞ք Twitch կամ YouTube ալիքներ։</string>
   <string name="hereWeGo">Գնացի՜նք</string>
@@ -17,8 +17,10 @@
   <string name="rules">Հեռարձակումների կանոնները</string>
   <string name="rule4" comment="the resulting message is: Read our streaming Fairplay FAQ to ensure a fair play for everyone in your stream">Կարդացեք մեր %sները` ձեր հեռարձակումներում ազնիվ խաղի կանոններին հետևելու համար։</string>
   <string name="streamingFairplayFAQ">ՀՏՀ (հաճախ տրվող հարցեր) հեռարձակողների համար` ազնիվ խաղի վերաբերյալ</string>
+  <string name="youTubeChannelId" comment="Appears on the form for setting up your Streamer page: https://lichess.org/streamer/edit&#10;&#10;The Channel ID is a special alphanumeric string. See Google's guide here for how to retrieve it: https://support.google.com/youtube/answer/3250431&#10;&#10;We encourage translators to match what the Channel ID is called in your language's version of YouTube: https://www.youtube.com/account_advanced">Ձեր յութուբյան ալիքի ID-ն</string>
   <string name="headline">Վերնագիր</string>
   <string name="longDescription">Մանրամասն նկարագրություն</string>
+  <string name="changePicture">Փոխել կամ հեռացնել Ձեր պատկերը</string>
   <string name="uploadPicture">Բեռնել պատկեր</string>
   <string name="maxSize">Առավելագույն չափսը` %s</string>
 </resources>

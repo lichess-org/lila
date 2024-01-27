@@ -1,15 +1,15 @@
-import modal from 'common/modal';
+import { domDialog } from 'common/dialog';
 import { load as loadDasher } from 'dasher';
 
 export function initModule({ input }: { input: HTMLInputElement }) {
-  lichess.userComplete({
+  lichess.asset.userComplete({
     input,
     friend: true,
     focus: true,
     onSelect: r => execute(r.name),
   });
   $(input).on('keydown', (e: KeyboardEvent) => {
-    if (e.code == 'Enter') {
+    if (e.key == 'Enter') {
       execute(input.value);
       input.blur();
     }
@@ -36,7 +36,7 @@ function command(q: string) {
   if (is('tv follow') && parts[1]) location.href = '/@/' + parts[1] + '/tv';
   else if (is('tv')) location.href = '/tv';
   else if (is('play challenge match') && parts[1]) location.href = '/?user=' + parts[1] + '#friend';
-  else if (is('light dark transp system')) loadDasher().then(m => m.subs.background.set(exec));
+  else if (is('light dark transp system')) loadDasher().then(m => m.background.set(exec));
   else if (is('stream') && parts[1]) location.href = '/streamer/' + parts[1];
   else if (is('help')) help();
   else alert(`Unknown command: "${q}". Type /help for the list of commands`);
@@ -54,21 +54,21 @@ function commandHelp(aliases: string, args: string, desc: string) {
 }
 
 function help() {
-  lichess.loadCssPath('clinput.help');
-  modal({
-    content: $(
-      '<div><h3>Commands</h3>' +
-        commandHelp('/tv /follow', ' <user>', 'Watch someone play') +
-        commandHelp('/play /challenge /match', ' <user>', 'Challenge someone to play') +
-        commandHelp('/light /dark /transp /system', '', 'Change the background theme') +
-        commandHelp('/stream', '<user>', 'Watch someone stream') +
-        '<h3>Global hotkeys</h3>' +
-        commandHelp('s', '', 'Search for a user') +
-        commandHelp('/', '', 'Type a command') +
-        commandHelp('c', '', 'Focus the chat input') +
-        commandHelp('esc', '', 'Close modals like this one') +
-        '</div>',
-    ),
+  domDialog({
+    cssPath: 'clinput.help',
     class: 'clinput-help',
+    show: 'modal',
+    htmlText:
+      '<div><h3>Commands</h3>' +
+      commandHelp('/tv /follow', ' <user>', 'Watch someone play') +
+      commandHelp('/play /challenge /match', ' <user>', 'Challenge someone to play') +
+      commandHelp('/light /dark /transp /system', '', 'Change the background theme') +
+      commandHelp('/stream', '<user>', 'Watch someone stream') +
+      '<h3>Global hotkeys</h3>' +
+      commandHelp('s', '', 'Search for a user') +
+      commandHelp('/', '', 'Type a command') +
+      commandHelp('c', '', 'Focus the chat input') +
+      commandHelp('esc', '', 'Close modals like this one') +
+      '</div>',
   });
 }

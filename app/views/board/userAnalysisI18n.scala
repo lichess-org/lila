@@ -71,8 +71,6 @@ object userAnalysisI18n:
     trans.openStudy,
     trans.preferences.preferences,
     trans.inlineNotation,
-    trans.savingMoves,
-    trans.savingMovesHelp,
     trans.makeAStudy,
     trans.clearSavedMoves,
     trans.replayMode,
@@ -85,6 +83,7 @@ object userAnalysisI18n:
     trans.makeMainLine,
     trans.deleteFromHere,
     trans.forceVariation,
+    trans.copyVariationPgn,
     // practice (also uses checkmate, draw)
     trans.practiceWithComputer,
     trans.puzzle.goodMove,
@@ -125,11 +124,12 @@ object userAnalysisI18n:
     trans.computerAnalysisDisabled
   )
 
-  private val cevalTranslations = cevalWidget ++ Vector(
+  val cevalTranslations = cevalWidget ++ Vector(
     // ceval menu
     trans.computerAnalysis,
     trans.enable,
     trans.bestMoveArrow,
+    trans.showVariationArrows,
     trans.evaluationGauge,
     trans.infiniteAnalysis,
     trans.removesTheDepthLimit,

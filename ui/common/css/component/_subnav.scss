@@ -1,33 +1,51 @@
 .subnav {
   a {
-    @extend %nowrap-hidden, %page-text;
+    @extend %page-text;
+    white-space: nowrap;
   }
 
   @include breakpoint($mq-subnav-top) {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(17ch, 1fr));
-    grid-gap: 3px;
-    margin-bottom: 3px;
-    background: $c-bg-page;
+    display: flex;
+    flex-direction: row;
+    overflow: hidden;
+    width: 100%;
+    &__inner {
+      display: flex;
+      flex-flow: row nowrap;
+      align-items: center;
+      gap: 3px;
+      overflow-y: scroll;
+      &::-webkit-scrollbar {
+        display: none;
+        width: 0 !important;
+      }
+    }
 
     a {
-      @include box-neat;
-
       font-family: roboto;
       display: flex;
       align-items: center;
       color: $c-font;
-      padding: 0.6rem 0 0.6rem 0.5rem;
-      letter-spacing: -0.06em;
-      background: $c-bg-high;
+      padding: 0.6rem;
 
       &:hover {
         color: $c-link;
       }
 
       &.active {
-        background: $c-primary;
-        color: $c-primary-over;
+        color: $c-font-clear;
+        position: relative;
+        &::after {
+          content: '';
+          position: absolute;
+          bottom: -4px;
+          height: 4px;
+          right: 50%;
+          transform: translate(50%, -50%);
+          width: 100%;
+          background: $c-accent;
+          border-radius: 1em;
+        }
       }
     }
 
@@ -43,6 +61,7 @@
     /* active border must go over the page content */
     a {
       display: block;
+      overflow: hidden;
       color: $c-font-page;
       padding: 0.7rem 2vw 0.7rem 0.8rem;
       position: relative;

@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="preferences">পছন্দসমূহ</string>
+  <string name="display">ডিসপ্লে</string>
+  <string name="privacy">গোপনীয়তা</string>
   <string name="pieceAnimation">গুটির অ্যানিমেশন</string>
   <string name="materialDifference">গুটির মধ্যে ব্যবধান</string>
   <string name="boardHighlights">বোর্ডের বৈশিষ্ট সমূহ (শেষ চাল এবং পরীক্ষা)</string>
@@ -11,7 +13,6 @@
   <string name="chessPieceSymbol">দাবার টুকরোর ধরন</string>
   <string name="pgnLetter">বর্ণ (কে, কিউ, আর, বি, এন)</string>
   <string name="zenMode" comment="zenMode&#10;&#10;This is not the religious meaning. Turning this option on takes away make elements of the user interface.&#10;&#10;Can also translate as 'Focus mode' as one example.">জেন মোড</string>
-  <string name="blindfoldChess">বেপরোয়াভাবে দাবা (অদৃশ্য টুকরা)</string>
   <string name="chessClock">দাবার ঘড়ি</string>
   <string name="tenthsOfSeconds">সেকেন্ডের কাটা</string>
   <string name="whenTimeRemainingLessThanTenSeconds" comment="whenTimeRemainingLessThanTenSeconds&#10;&#10;The &amp;lt; symbol is not required (you can write it as a word), just do NOT use &lt; in its place.&#10;&#10;Technical information: &lt; is a reserved character in HTML, which is why it cannot be used.">যখন সময় বাকি &lt; 10 সেকেন্ড</string>

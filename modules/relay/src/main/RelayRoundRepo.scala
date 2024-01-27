@@ -1,7 +1,7 @@
 package lila.relay
 
 import reactivemongo.api.bson.*
-import reactivemongo.akkastream.cursorProducer
+import reactivemongo.akkastream.{ cursorProducer, AkkaStreamCursor }
 
 import lila.db.dsl.{ *, given }
 
@@ -9,20 +9,32 @@ final private class RelayRoundRepo(val coll: Coll)(using Executor):
 
   import BSONHandlers.given
 
-  def byTourOrdered(tour: RelayTour): Fu[List[RelayRound]] =
+  def byTourOrderedCursor(tour: RelayTour) =
     coll
       .find(selectors.tour(tour.id))
       .sort(sort.chrono)
       .cursor[RelayRound]()
-      .list(RelayTour.maxRelays)
+
+  def byTourOrdered(tour: RelayTour): Fu[List[RelayRound]] =
+    byTourOrderedCursor(tour).list(RelayTour.maxRelays)
 
   def idsByTourOrdered(tour: RelayTour): Fu[List[RelayRoundId]] =
+    coll.primitive[RelayRoundId](
+      selector = selectors.tour(tour.id),
+      sort = sort.chrono,
+      nb = RelayTour.maxRelays,
+      field = "_id"
+    )
+
+  def tourIdByStudyId(studyId: StudyId): Fu[Option[RelayTour.Id]] =
+    coll.primitiveOne[RelayTour.Id]($id(studyId), "tourId")
+
+  def idsByTourId(tourId: RelayTour.Id): Fu[List[StudyId]] =
     coll
-      .find(selectors.tour(tour.id), $id(true).some)
-      .sort(sort.chrono)
+      .find(selectors.tour(tourId))
       .cursor[Bdoc]()
       .list(RelayTour.maxRelays)
-      .map(_.flatMap(_.getAsOpt[RelayRoundId]("_id")))
+      .map(_.flatMap(_.getAsOpt[StudyId]("_id")))
 
   def lastByTour(tour: RelayTour): Fu[Option[RelayRound]] =
     coll

@@ -52,6 +52,7 @@
   <string name="skipExplanation">Παραλείψτε αυτή την κίνηση για να διατηρήσετε το combo σας! Αυτό μπορείτε να το κάνετε μόνο μία φορά σε κάθε αγώνα.</string>
   <string name="failedPuzzles">Γρίφοι που δε λύθηκαν σωστά</string>
   <string name="slowPuzzles">Γρίφοι που λύθηκαν αργά</string>
+  <string name="skippedPuzzle">Γρίφος με κίνηση που παραλείφθηκε</string>
   <string name="thisWeek">Αυτήν την εβδομάδα</string>
   <string name="thisMonth">Aυτόν τον μήνα</string>
   <string name="allTime">Από την αρχή</string>

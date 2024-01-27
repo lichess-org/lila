@@ -23,7 +23,9 @@ final class RelayRoundForm:
       "name"    -> cleanText(minLength = 3, maxLength = 80).into[RelayRoundName],
       "caption" -> optional(cleanText(minLength = 3, maxLength = 80).into[RelayRound.Caption]),
       "syncUrl" -> optional {
-        cleanText(minLength = 8, maxLength = 600).verifying("Invalid source", validSource)
+        cleanText(minLength = 8, maxLength = 600)
+          .verifying("Invalid source", validSource)
+          .verifying("The source URL cannot specify a port", validSourcePort)
       },
       "syncUrlRound" -> optional(number(min = 1, max = 999)),
       "startsAt"     -> optional(ISOInstantOrTimestamp.mapping),
@@ -71,6 +73,11 @@ object RelayRoundForm:
       if !blocklist.exists(subdomain(host, _))
       if !subdomain(host, "chess.com") || url.toString.startsWith("https://api.chess.com/pub")
     yield url.toString.stripSuffix("/")
+
+  private val validPorts = Set(-1, 80, 443, 8080, 8491)
+  private def validSourcePort(source: String): Boolean =
+    Try(URL.parse(source)).toOption.forall: url =>
+      validPorts(url.port)
 
   private def subdomain(host: String, domain: String) = s".$host".endsWith(s".$domain")
 

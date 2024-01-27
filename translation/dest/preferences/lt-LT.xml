@@ -18,7 +18,7 @@
   <string name="explainShowPlayerRatings">Tai leidžia iš svetainės paslėpti visus reitingus ir padeda susifokusuoti ties šachmatais. Partijos vis dar gali būti reitinguojamos. Šis pasirinkimas skirtas tik nustatyti, ką galite matyti.</string>
   <string name="displayBoardResizeHandle">Rodyti lentos dydžio keitimo simbolį</string>
   <string name="onlyOnInitialPosition">Tik pradinėje padėtyje</string>
-  <string name="blindfoldChess">Aklieji šachmatai (nematomos figūros)</string>
+  <string name="inGameOnly">Tik žaidimo metu</string>
   <string name="chessClock">Žaidimo laikrodis</string>
   <string name="tenthsOfSeconds">Dešimtosios sekundės dalys</string>
   <string name="whenTimeRemainingLessThanTenSeconds" comment="whenTimeRemainingLessThanTenSeconds&#10;&#10;The &amp;lt; symbol is not required (you can write it as a word), just do NOT use &lt; in its place.&#10;&#10;Technical information: &lt; is a reserved character in HTML, which is why it cannot be used.">Kai lieka mažiau nei 10 sekundžių</string>

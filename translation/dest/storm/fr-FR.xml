@@ -7,7 +7,7 @@
   <string name="newDailyHighscore">Nouveau record du jour !</string>
   <string name="newWeeklyHighscore">Nouveau record de la semaine !</string>
   <string name="newMonthlyHighscore">Nouveau record du mois !</string>
-  <string name="newAllTimeHighscore">Nouveau record absolu!</string>
+  <string name="newAllTimeHighscore">Nouveau record absolu !</string>
   <string name="previousHighscoreWasX">Le record précédent était %s</string>
   <string name="playAgain">Rejouer</string>
   <plurals name="xRuns">
@@ -33,11 +33,11 @@
   <string name="viewBestRuns">Voir les meilleurs essais</string>
   <string name="bestRunOfDay">Meilleur essai du jour</string>
   <string name="runs">Essais</string>
-  <string name="getReady">Soyez prêts!</string>
+  <string name="getReady">Soyez prêts !</string>
   <string name="waitingForMorePlayers">En attente d\'autres joueurs...</string>
-  <string name="raceComplete">Course terminée!</string>
+  <string name="raceComplete">Course terminée !</string>
   <string name="spectating">Observer</string>
-  <string name="joinTheRace">Participez!</string>
+  <string name="joinTheRace">Participez !</string>
   <string name="startTheRace">Débuter la course</string>
   <string name="yourRankX">Votre classement : %s</string>
   <string name="waitForRematch">Attendre une offre de revanche</string>
@@ -57,6 +57,6 @@
   <string name="thisMonth">Ce mois-ci</string>
   <string name="allTime">Depuis le début</string>
   <string name="clickToReload">Cliquez pour recharger</string>
-  <string name="thisRunHasExpired">Cette série d\'essais a expirée!</string>
-  <string name="thisRunWasOpenedInAnotherTab">Cette série a été ouverte dans un autre onglet!</string>
+  <string name="thisRunHasExpired">Cette série d\'essais a expirée !</string>
+  <string name="thisRunWasOpenedInAnotherTab">Cette série a été ouverte dans un autre onglet !</string>
 </resources>

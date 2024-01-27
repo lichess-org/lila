@@ -6,6 +6,7 @@ import lila.analyse.{ Analysis, AnalysisRepo }
 import lila.game.GameRepo
 import lila.memo.CacheApi
 import chess.format.pgn.{ Pgn, PgnStr }
+import lila.common.LpvEmbed
 import lila.common.config.NetDomain
 
 final class TextLpvExpand(
@@ -35,7 +36,7 @@ final class TextLpvExpand(
         case link                        => fuccess(link -> link)
       .parallel
       .map:
-        _.collect { case (url, Some(pgn)) => url -> pgn }.toMap
+        _.collect { case (url, Some(LpvEmbed.PublicPgn(pgn))) => url -> pgn }.toMap
       .map: pgns =>
         (url, _) =>
           pgns
@@ -50,7 +51,7 @@ final class TextLpvExpand(
 
   // used by blogs & ublogs to build game|chapter id -> pgn maps
   // the substitution happens later in blog/BlogApi or common/MarkdownRender
-  def allPgnsFromText(text: String): Fu[Map[String, PgnStr]] =
+  def allPgnsFromText(text: String): Fu[Map[String, LpvEmbed]] =
     regex.blogPgnCandidatesRe
       .findAllMatchIn(text)
       .map(_.group(1))
@@ -62,7 +63,7 @@ final class TextLpvExpand(
       .parallel
       .map:
         _.collect:
-          case (id, Some(pgn)) => id -> pgn
+          case (id, Some(embed)) => id -> embed
         .toMap
 
   private val regex = LpvGameRegex(net.domain)
@@ -74,33 +75,32 @@ final class TextLpvExpand(
   private val pgnFlags =
     lila.game.PgnDump.WithFlags(clocks = true, evals = true, opening = false, literate = true)
 
-  private val gamePgnCache = cacheApi[GameId, Option[PgnStr]](512, "textLpvExpand.pgn.game"):
-    _.expireAfterWrite(10 minutes).buildAsyncFuture(id => gameIdToPgn(id).map2(_.render))
+  private val gamePgnCache = cacheApi[GameId, Option[LpvEmbed]](512, "textLpvExpand.pgn.game"):
+    _.expireAfterWrite(10 minutes).buildAsyncFuture(gameIdToPgn)
 
-  private val chapterPgnCache = cacheApi[StudyChapterId, Option[PgnStr]](512, "textLpvExpand.pgn.chapter"):
+  private val chapterPgnCache = cacheApi[StudyChapterId, Option[LpvEmbed]](512, "textLpvExpand.pgn.chapter"):
     _.expireAfterWrite(10 minutes).buildAsyncFuture(studyChapterIdToPgn)
 
-  private val studyPgnCache = cacheApi[StudyId, Option[PgnStr]](512, "textLpvExpand.pgn.firstChapter"):
+  private val studyPgnCache = cacheApi[StudyId, Option[LpvEmbed]](512, "textLpvExpand.pgn.firstChapter"):
     _.expireAfterWrite(10 minutes).buildAsyncFuture(studyIdToPgn)
 
-  private def gameIdToPgn(id: GameId): Fu[Option[Pgn]] =
-    gameRepo gameWithInitialFen id flatMapz { g =>
-      analysisRepo.byId(id into Analysis.Id) flatMap { analysis =>
-        pgnDump(g.game, g.fen, analysis, pgnFlags) dmap some
-      }
-    }
+  private def gameIdToPgn(id: GameId): Fu[Option[LpvEmbed]] =
+    gameRepo gameWithInitialFen id flatMapz: g =>
+      analysisRepo.byId(Analysis.Id(id)) flatMap: analysis =>
+        pgnDump(g.game, g.fen, analysis, pgnFlags) map: pgn =>
+          LpvEmbed.PublicPgn(pgn.render).some
 
-  private def studyChapterIdToPgn(id: StudyChapterId): Fu[Option[PgnStr]] =
+  private def studyChapterIdToPgn(id: StudyChapterId): Fu[Option[LpvEmbed]] =
     val flags = lila.study.PgnDump.fullFlags
-    studyApi.byChapterId(id) flatMapz { sc =>
-      studyPgnDump.ofChapter(sc.study, flags)(sc.chapter) dmap some
-    }
+    studyApi.byChapterId(id) flatMapz: sc =>
+      if sc.study.isPrivate then fuccess(LpvEmbed.PrivateStudy.some)
+      else studyPgnDump.ofChapter(sc.study, flags)(sc.chapter) map LpvEmbed.PublicPgn.apply map some
 
-  private def studyIdToPgn(id: StudyId): Fu[Option[PgnStr]] =
+  private def studyIdToPgn(id: StudyId): Fu[Option[LpvEmbed]] =
     val flags = lila.study.PgnDump.fullFlags
-    studyApi.byId(id) flatMapz { s =>
-      studyPgnDump.ofFirstChapter(s, flags)
-    }
+    studyApi.byId(id) flatMapz: s =>
+      if s.isPrivate then fuccess(LpvEmbed.PrivateStudy.some)
+      else studyPgnDump.ofFirstChapter(s, flags) map2 LpvEmbed.PublicPgn.apply
 
 final class LpvGameRegex(domain: NetDomain):
 

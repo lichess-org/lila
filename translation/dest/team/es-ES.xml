@@ -43,7 +43,6 @@ Puedes usar esto para convocar a jugadores a un torneo o a una batalla de equipo
 Los jugadores a los que no les guste recibir tus mensajes pueden abandonar el equipo.</string>
   <string name="teamsIlead">Equipos que lidero</string>
   <string name="youWayWantToLinkOneOfTheseTournaments">¿Quieres incluir un enlace a alguno de estos próximos torneos?</string>
-  <string name="usersWhoCanManageThisTeam">Usuarios que pueden administrar este equipo</string>
   <string name="leadersChat">Chat de líderes</string>
   <string name="closeTeam">Dar de baja el equipo</string>
   <string name="closeTeamDescription">Da de baja el equipo definitivamente.</string>

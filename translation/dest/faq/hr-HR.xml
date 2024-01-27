@@ -67,7 +67,7 @@ Da bi te prakticirali ovaj potez, pogledajte ovaj %3$s.</string>
   <string name="lichessTraining">Lichess trening</string>
   <string name="watchIMRosenCheckmate">Gledajte kako međunarodni majstor Eric Rosen matira %s.</string>
   <string name="threefoldRepetition">Trostruko ponavljanje pozicije</string>
-  <string name="threefoldRepetitionExplanation">Ako se pozicija uzastopno ponovi tri puta, igrači mogu proglasiti remi %1$s. Lichess koristi službena FIDE pravila, opisana u Članku 9.2 (d) %2$s.</string>
+  <string name="threefoldRepetitionExplanation">Ako se pozicija uzastopno ponovi tri puta, igrači mogu proglasiti remi %1$s. Lichess koristi službena FIDE pravila, opisana u Članku 9.2 %2$s.</string>
   <string name="threefoldRepetitionLowerCase">trostruko ponavljanje pozicije</string>
   <string name="notRepeatedMoves">Mi nismo ponavljani poteze. Zašto je igra bila proglašena remijem ponavljanja?</string>
   <string name="repeatedPositionsThatMatters">Trostruko ponavljanje se odnosi na ponavljanje %1$s, a ne poteza. Ponavljanje ne treba biti uzastopno.</string>

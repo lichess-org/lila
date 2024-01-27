@@ -23,7 +23,7 @@
   <string name="ratingRefundExplanation">在棋手被标记1分钟后，他们在过去3天的40个最新评分对局被标记。 如果你下了这些对局并丢分 (因为输棋或者平局) ，而且你的等级分不是暂时的，那么你所丢分数会返还。返还分数限制在不超过你的最高分和该对局应得分数。
   (例如，如果你的评分在这些游戏后大幅增加，你可能得不到所有或部分返还分数) 。返回分数不会超过150分。</string>
   <string name="preventLeavingGameWithoutResigning">对没有认输就离开的玩家怎么处理？</string>
-  <string name="leavingGameWithoutResigningExplanation">如果你的对手经常中止/离开游戏，他们会得到“游戏禁令”，这意味着他们被暂时禁止玩游戏。 这一点在他们的简介中没有公开说明。 如果这种行为继续下去，游戏禁令的期限就会延长――长期这种行为可能会导致帐户的关闭。</string>
+  <string name="leavingGameWithoutResigningExplanation">如果你的对手频繁中止或离开游戏，他们会被 “禁止游戏”，这意味着他们被暂时禁止参加对局。 这在他们的个人资料中不会说明。 如果这种行为继续下去，禁止游戏的期限就会延长――长期被禁止可能会导致账户的关闭。</string>
   <string name="howCanIBecomeModerator">如何成为仲裁人？</string>
   <string name="youCannotApply">无法申请成为仲裁人。 如果我们看到我们认为会成为很好的仲裁人的人，我们将直接与他们联系。</string>
   <string name="isCorrespondenceDifferent">通讯棋是否不同于常规棋？</string>
@@ -54,6 +54,7 @@ Lichess 上的电脑分析是基于 Stockfish 的。</string>
 在极少数情况下，这可能很难自动决定（强制线路、堡垒）。 默认情况下，我们总是与没有耗时的玩家站在一起。
 
 注意，如果对方一只棋子阻挡自己的王，那么单马或者单象也有可能实现将杀。</string>
+  <string name="fideHandbook">国际棋联手册</string>
   <string name="fideHandbookX">国际棋联手册 %s</string>
   <string name="discoveringEnPassant">为什么兵能够吃掉另外一只已经经过了它控制格子的兵？(吃过路兵)</string>
   <string name="explainingEnPassant">这是一个叫做“吃过路兵”的合法着法。维基百科文章给出了一个%1$s。
@@ -67,7 +68,7 @@ Lichess 上的电脑分析是基于 Stockfish 的。</string>
   <string name="lichessTraining">Lichess 训练</string>
   <string name="watchIMRosenCheckmate">观看国际大师Eric Rosen将死%s。</string>
   <string name="threefoldRepetition">三次重复局面</string>
-  <string name="threefoldRepetitionExplanation">如果一个局面出现了三次，玩家可以根据%1$s提和。Lichess 执行 FIDE 官方规则，这些规则在 %2$s第9.2(d)条中已有规定。</string>
+  <string name="threefoldRepetitionExplanation">如果一个局面出现了三次，玩家可以根据%1$s提和。Lichess 执行 FIDE 官方规则，这些规则在 %2$s第9.2条中已有规定。</string>
   <string name="threefoldRepetitionLowerCase">三次重复局面</string>
   <string name="notRepeatedMoves">我们没有重复着法。为什么对局仍然被判和？</string>
   <string name="repeatedPositionsThatMatters">三次重复局面是关于局面的%1$s重复，而不是着法。重复局面不一定会连续发生。</string>
@@ -78,7 +79,7 @@ Lichess 上的电脑分析是基于 Stockfish 的。</string>
   <string name="accounts">账户</string>
   <string name="titlesAvailableOnLichess">Lichess 上有什么头衔？</string>
   <string name="lichessRecognizeAllOTBtitles">Lichess 承认所有OTB (在棋盘上) 对局得到的国际棋联称号，以及%1$s。以下列出这些国际棋联称号：</string>
-  <string name="showYourTitle">如果你有国际象棋称号，可以填写%1$s来申请将其显示在你的帐户上，需要一张你手持清晰身份证件/卡片的自拍照。
+  <string name="showYourTitle">如果你有国际象棋称号，可以填写%1$s来申请将其显示在你的账户上，需要一张你手持清晰身份证件/卡片的自拍照。
 
 在 Lichess 上验证国际象棋称号的用户可以在国际象棋称号专用竞技场中下棋。
 
@@ -124,7 +125,7 @@ Lichess 上的电脑分析是基于 Stockfish 的。</string>
   <string name="havePlayedARatedGameAtLeastOneWeekAgo">过去一周内，在此变体中进行过至少一场排位赛</string>
   <string name="ratingDeviationLowerThanXinChessYinVariants">标准国际象棋的等级分偏差小于 %1$s，变体则小于 %2$s</string>
   <string name="beInTopTen">在此变体中获得前十</string>
-  <string name="secondRequirementToStopOldPlayersTrustingLeaderboards">第二项要求是为了防止不再使用的账号占用排行榜。</string>
+  <string name="secondRequirementToStopOldPlayersTrustingLeaderboards">第二项要求是为了防止不再使用的账户占用排行榜。</string>
   <string name="whyAreRatingHigher">为什么等级分相比其他网站和组织要更高，比如国际棋联、美国棋联和国际象棋俱乐部？</string>
   <string name="whyAreRatingHigherExplanation">你不应将等级分视为一个绝对数值，也不应将其与其它组织的等级分进行比较。不同的组织拥有不同级别的玩家和评分系统（Elo、Clicko、Clicko-2, 或其中一个的变种）。这些因素都会极大地影响等级分的绝对数值。
 
@@ -133,7 +134,7 @@ Lichess 上的电脑分析是基于 Stockfish 的。</string>
   <string name="enableZenMode">在 %1$s 中开启禅意模式或在游戏中按 %2$s。</string>
   <string name="displayPreferences">显示偏好</string>
   <string name="connexionLostCanIGetMyRatingBack">由于延迟/断线，我输了游戏。我可以要回我的等级分吗？</string>
-  <string name="weCannotDoThatEvenIfItIsServerSideButThatsRare">不幸的是，我们不能归还由于延迟或断线而输了游戏的等级分，不管是你的问题或是我们的。尽管后者非常少见。也请注意，当 Lichess 重启且你因为此原因而错过了时间的时候，我们会终止游戏以避免不公平的失败。</string>
+  <string name="weCannotDoThatEvenIfItIsServerSideButThatsRare">不幸的是，我们不能归还由于延迟或断线而输了对局的等级分，不管是你的问题还是我们的。尽管后者非常少见。也请注意，当 Lichess 正在重启，且你因此超时输掉了对局，我们会终止游戏以避免不公平的判决。</string>
   <string name="howToThreeDots">说明</string>
   <string name="enableDisableNotificationPopUps">启用或禁用通知弹窗？</string>
   <string name="viewSiteInformationPopUp">查看网站信息弹窗</string>
@@ -142,4 +143,24 @@ Lichess 上的电脑分析是基于 Stockfish 的。</string>
  点击你的浏览器网址栏中 lichess.org 地址旁的锁形图标。
 
  然后选择是否允许或拦截来自 Lichess 的提醒。</string>
+  <string name="enableAutoplayForSoundsQ">启用自动播放音频？</string>
+  <string name="enableAutoplayForSoundsA">大多数浏览器会在打开新加载的页面时通过阻止播放音频来保护用户。想象一下如果每个网站都使用带声音的广告来轰炸您的场景吧。
+
+当浏览器阻止 lichess.org 播放音频时，红色的静音标志会出现。通常来说这个限制会在您点击某些内容之后取消。在一些移动浏览器上，触摸拖动棋子不被视为点击。在这种情况下您必须在每盘对局开始前点击棋盘来允许声音播放。
+
+当这种情况发生时我们会通过红色的标志来提醒您。通常您可以直接设置允许 lichess.org 播放音频。以下是一些流行的浏览器的最新版本的设置方法。</string>
+  <string name="desktop">桌面端</string>
+  <string name="enableAutoplayForSoundsFirefox">1.前往lichess.org
+2.Linux与Windows系统请点击Ctrl键加i键，MacOS系统请点击cmd键加i键
+3.点击权限选项卡
+4.允许lichess.org的音频与视频权限</string>
+  <string name="enableAutoplayForSoundsChrome">1.前往lichess.org
+2.点击网址栏上的锁图标
+3.点击网站设置
+4.允许声音播放</string>
+  <string name="enableAutoplayForSoundsMicrosoftEdge">1. 点击右上角的三个小点
+2. 点击“设置”
+3. 点击“Cookie 和网站权限”
+4. 向下滑动页面，点击“媒体自动播放”
+5. 添加 lichess.org 至允许列表</string>
 </resources>

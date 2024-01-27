@@ -9,7 +9,7 @@ import lila.app.ui.ScalatagsTemplate.{ *, given }
 object menu:
 
   def apply(active: String)(using PageContext) =
-    st.nav(cls := "page-menu__menu subnav")(
+    views.html.site.bits.pageMenuSubnav(
       isGranted(_.SeeReport) option
         a(cls := active.active("report"), href := reportRoutes.list)("Reports"),
       isGranted(_.PublicChatView) option

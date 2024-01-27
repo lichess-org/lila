@@ -34,9 +34,8 @@ object Json:
 
   def writeAs[O, A: Writes](f: O => A) = Writes[O](o => PlayJson toJson f(o))
 
-  def writeWrap[A, B](fieldName: String)(get: A => B)(using writes: Writes[B]): OWrites[A] = OWrites { a =>
+  def writeWrap[A, B](fieldName: String)(get: A => B)(using writes: Writes[B]): OWrites[A] = OWrites: a =>
     PlayJson.obj(fieldName -> writes.writes(get(a)))
-  }
 
   def stringIsoWriter[O](using iso: Iso[String, O]): Writes[O] = writeAs[O, String](iso.to)
   def intIsoWriter[O](using iso: Iso[Int, O]): Writes[O]       = writeAs[O, Int](iso.to)
@@ -59,33 +58,33 @@ object Json:
 
   def stringRead[O](from: String => O): Reads[O] = Reads.of[String] map from
 
-  def optRead[O](from: String => Option[O]): Reads[O] = Reads.of[String].flatMapResult { str =>
-    from(str).fold[JsResult[O]](JsError(s"Invalid value: $str"))(JsSuccess(_))
-  }
+  def optRead[O](from: String => Option[O]): Reads[O] = Reads
+    .of[String]
+    .flatMapResult: str =>
+      from(str).fold[JsResult[O]](JsError(s"Invalid value: $str"))(JsSuccess(_))
   def optFormat[O](from: String => Option[O], to: O => String): Format[O] = Format[O](
     optRead(from),
     Writes(o => JsString(to(o)))
   )
 
-  def tryRead[O](from: String => scala.util.Try[O]): Reads[O] = Reads.of[String].flatMapResult { code =>
-    from(code).fold(err => JsError(err.getMessage), JsSuccess(_))
-  }
+  def tryRead[O](from: String => scala.util.Try[O]): Reads[O] = Reads
+    .of[String]
+    .flatMapResult: code =>
+      from(code).fold(err => JsError(err.getMessage), JsSuccess(_))
   def tryFormat[O](from: String => scala.util.Try[O], to: O => String): Format[O] = Format[O](
     tryRead(from),
     Writes[O](o => JsString(to(o)))
   )
 
-  given userStrReads: Reads[UserStr] = Reads.of[String] flatMapResult { str =>
+  given userStrReads: Reads[UserStr] = Reads.of[String] flatMapResult: str =>
     JsResult.fromTry(UserStr.read(str) toTry s"Invalid username: $str")
-  }
 
   given Writes[Instant] = writeAs(_.toMillis)
 
   given Writes[chess.Color] = writeAs(_.name)
 
-  given Reads[Uci] = Reads.of[String] flatMapResult { str =>
+  given Reads[Uci] = Reads.of[String] flatMapResult: str =>
     JsResult.fromTry(Uci(str) toTry s"Invalid UCI: $str")
-  }
   given Writes[Uci] = writeAs(_.uci)
 
   given Reads[LilaOpeningFamily] = Reads[LilaOpeningFamily]: f =>

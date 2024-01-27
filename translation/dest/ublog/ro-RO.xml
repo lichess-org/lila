@@ -1,5 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+  <string name="communityBlogs">Bloguri comunitare</string>
+  <string name="friendBlogs">Bloguri pentru prieteni</string>
+  <string name="likedBlogs">Postari placute pe blog</string>
+  <string name="blogTopics">Topicuri de blog</string>
+  <string name="lichessOfficialBlog">Blog Oficial Lichess</string>
+  <string name="continueReadingPost">Continuă să citești această postare</string>
+  <string name="lichessBlogPostsFromXYear">Postări pe blog Lichess în %s</string>
+  <string name="previousBlogPosts">Postări anterioare pe blog</string>
   <string name="xBlog">Blog-ul lui %s</string>
   <string name="newPost">Postare nouă</string>
   <string name="editYourBlogPost">Editează-ți postarea</string>
@@ -40,10 +48,11 @@
   <string name="imageCredit">Sursa imagine</string>
   <string name="deleteBlog">Șterge definitiv această postare pe blog</string>
   <string name="deleteImage">Șterge imaginea</string>
-  <string name="safeToUseImages" comment="safeToUseImages&#10;&#10;This is mentioned because the images there are royalty-free, so there is no risk of copyright infringement.">Este sigur să folosiți imagini de pe următoarele site-uri: </string>
+  <string name="safeToUseImages">Este sigur să folosiți imagini de pe următoarele site-uri: </string>
   <string name="selectPostTopics">Selectează subiectele de discuție despre care este vorba</string>
   <string name="useImagesYouMadeYourself">Poți folosi, de asemenea, imagini pe care le-ai făcut singur, fotografii pe care le-ai făcut, capturi de ecran din Lichess... orice nu este protejat de drepturi de autor ale altcuiva.</string>
   <string name="safeAndRespectfulContent">Vă rugăm să postați numai conținut sigur și respectuos. Nu copiați conținutul altcuiva.</string>
   <string name="inappropriateContentAccountClosed">Orice lucru nepotrivit ar putea duce la închiderea contului tău.</string>
-  <string name="blogTips" comment="blogTips&#10;&#10;This is a link to https://lichess.org/page/blog-tips. Appears when creating a new post.">Sfaturile noastre simple pentru a scrie cele mai bune postări pe blog</string>
+  <string name="blogTips">Sfaturile noastre simple pentru a scrie cele mai bune postări pe blog</string>
+  <string name="discussThisBlogPostInTheForum">Discută această postare pe forum</string>
 </resources>

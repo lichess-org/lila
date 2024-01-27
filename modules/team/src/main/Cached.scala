@@ -4,29 +4,37 @@ import reactivemongo.api.bson.BSONNull
 
 import lila.db.dsl.{ *, given }
 import lila.memo.Syncache
-import lila.hub.LightTeam.TeamName
+import lila.hub.LightTeam
 
 final class Cached(
     teamRepo: TeamRepo,
-    memberRepo: MemberRepo,
-    requestRepo: RequestRepo,
+    memberRepo: TeamMemberRepo,
+    requestRepo: TeamRequestRepo,
     cacheApi: lila.memo.CacheApi
 )(using Executor):
 
-  val nameCache = cacheApi.sync[TeamId, Option[TeamName]](
-    name = "team.name",
-    initialCapacity = 32768,
-    compute = teamRepo.name,
+  val lightCache = cacheApi.sync[TeamId, Option[LightTeam]](
+    name = "team.light",
+    initialCapacity = 32_768,
+    compute = teamRepo.light,
     default = _ => none,
     strategy = Syncache.Strategy.WaitAfterUptime(20 millis),
-    expireAfter = Syncache.ExpireAfter.Access(10 minutes)
+    expireAfter = Syncache.ExpireAfter.Write(10 minutes)
   )
 
-  export nameCache.{ preloadSet, sync as blockingTeamName }
+  val async = LightTeam.Getter(lightCache.async)
+  val sync  = LightTeam.GetterSync(lightCache.sync)
+
+  export lightCache.{ preloadSet, preloadMany }
+
+  val lightApi = new LightTeam.Api:
+    def async = Cached.this.async
+    def sync  = Cached.this.sync
+    export lightCache.{ preloadSet as preload }
 
   private val teamIdsCache = cacheApi.sync[UserId, Team.IdsStr](
     name = "team.ids",
-    initialCapacity = 131072,
+    initialCapacity = 131_072,
     compute = u =>
       memberRepo.coll
         .aggregateOne(_.sec): framework =>
@@ -57,24 +65,21 @@ final class Cached(
   )
 
   export teamIdsCache.{ async as teamIds, invalidate as invalidateTeamIds, sync as syncTeamIds }
-  def teamIdsList(userId: UserId): Fu[List[TeamId]] = teamIds(userId).dmap(_.toList)
-  def teamIdsSet(userId: UserId): Fu[Set[TeamId]]   = teamIds(userId).dmap(_.toSet)
+  def teamIdsList[U: UserIdOf](user: U): Fu[List[TeamId]]    = teamIds(user.id).dmap(_.toList)
+  def teamIdsSet[U: UserIdOf](user: UserId): Fu[Set[TeamId]] = teamIds(user.id).dmap(_.toSet)
 
-  val nbRequests = cacheApi[UserId, Int](32768, "team.nbRequests"):
+  val nbRequests = cacheApi[UserId, Int](32_768, "team.nbRequests"):
     _.expireAfterAccess(40 minutes)
-      .maximumSize(131072)
+      .maximumSize(131_072)
       .buildAsyncFuture[UserId, Int]: userId =>
-        teamIds(userId).flatMap:
-          _.value.nonEmpty so teamRepo.countRequestsOfLeader(userId, requestRepo.coll)
+        for
+          myTeams     <- teamIds(userId)
+          leaderTeams <- myTeams.nonEmpty so memberRepo.teamsWhereIsGrantedRequest(userId)
+          nbReqs      <- requestRepo.countPendingForTeams(leaderTeams)
+        yield nbReqs
 
-  val leaders = cacheApi[TeamId, Set[UserId]](128, "team.leaders"):
-    _.expireAfterWrite(1 minute).buildAsyncFuture(teamRepo.leadersOf)
-
-  def isLeader(teamId: TeamId, userId: UserId): Fu[Boolean] =
-    leaders.get(teamId).dmap(_ contains userId)
-
-  val forumAccess = cacheApi[TeamId, Team.Access](1024, "team.forum.access"):
+  val forumAccess = cacheApi[TeamId, Team.Access](1_024, "team.forum.access"):
     _.expireAfterWrite(5 minutes).buildAsyncFuture(id => teamRepo.forumAccess(id).dmap(_ | Team.Access.NONE))
 
   val unsubs = cacheApi[TeamId, Int](512, "team.unsubs"):
-    _.expireAfterWrite(1 hour).buildAsyncFuture(id => memberRepo.countUnsub(id))
+    _.expireAfterWrite(1 hour).buildAsyncFuture(memberRepo.countUnsub)

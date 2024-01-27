@@ -13,18 +13,26 @@
   <string name="specialMoves">ವಿಶೇಷ ನಡೆಗಳು</string>
   <string name="didYouLikeThisPuzzle">ನಿಮಗೆ ಈ ಒಗಟು ಇಷ್ಟವಾಯಿತೇ?</string>
   <string name="voteToLoadNextOne">ಮುಂದಿನದ್ದಕ್ಕೆ ಆಯ್ಕೆ ಮಾಡಿ!</string>
+  <string name="upVote">ಒಗಟು ಅಪ್ ವೋಟ್ ಮಾಡಿ</string>
+  <string name="downVote">ಒಗಟು ಡೌನ್ ವೋಟ್ ಮಾಡಿ</string>
   <string name="yourPuzzleRatingWillNotChange">ನಿಮ್ಮ ಒಗಟು ವಿಭಾಗದ ಧಾರಣೆ ಬದಲಾಗುವುದಿಲ್ಲ. ಒಗಟು ಅಂದರೆ ಸ್ಪರ್ಧೆ ಅಲ್ಲ ಅನ್ನುವುದನ್ನು ಗಮನಿಸಿ. ಒಗಟು ವಿಭಾಗದ ಧಾರಣೆಯು ನಿಮ್ಮ ನೈಪುಣ್ಯತೆಗೆ ಅನುಗುಣವಾಗಿರುವ ಅತ್ಯುತ್ತಮ ಒಗಟನ್ನು ಆಯ್ಕೆ ಮಾಡಲಷ್ಟೇ ಸಹಾಯಿಸುತ್ತದೆ.</string>
   <string name="findTheBestMoveForWhite">ಬಿಳಿಗೆ ಉತ್ತಮ ನಡೆ ಹುಡುಕಿ.</string>
   <string name="findTheBestMoveForBlack">ಕಪ್ಪಿಗೆ ಉತ್ತಮ ನಡೆ ಹುಡುಕಿ.</string>
   <string name="toGetPersonalizedPuzzles">ನಿಮಗೆ ಅನುಗುಣವಾದ ಒಗಟುಗಳಿಗೆ:</string>
   <string name="puzzleId">ಒಗಟು %s</string>
   <string name="puzzleOfTheDay">ಈ ದಿನದ ಒಗಟು</string>
+  <string name="dailyPuzzle">ದೈನಂದಿನ ಒಗಟು</string>
   <string name="clickToSolve">ಬಿಡಿಸುವುದಕ್ಕೆ ಕ್ಲಿಕ್ಕಿಸಿ</string>
   <string name="goodMove">ಒಳ್ಳೆಯ ನಡೆ</string>
   <string name="bestMove">ಅತ್ಯುತ್ತಮ ನಡೆ!</string>
   <string name="keepGoing">ಮುಂದುವರೆಸಿ…</string>
   <string name="puzzleSuccess">ಸರಿಯಾದ ನಡೆ!</string>
   <string name="puzzleComplete">ಒಗಟು ಪರಿಹಾರವಾಗಿದೆ!</string>
+  <string name="byOpenings">ತೆರೆಯುವಿಕೆಯಿಂದ</string>
+  <string name="puzzlesByOpenings">ತೆರೆಯುವಿಕೆಯಿಂದ ಒಗಟುಗಳು</string>
+  <string name="openingsYouPlayedTheMost">ರೇಟ್ ಮಾಡಲಾದ ಆಟಗಳಲ್ಲಿ ನೀವು ಹೆಚ್ಚು ಆಡಿದ ಓಪನಿಂಗ್‌ಗಳು</string>
+  <string name="useFindInPage">ನಿಮ್ಮ ಮೆಚ್ಚಿನ ತೆರೆಯುವಿಕೆಯನ್ನು ಹುಡುಕಲು ಬ್ರೌಸರ್ ಮೆನುವಿನಲ್ಲಿ \"ಪುಟದಲ್ಲಿ ಹುಡುಕಿ\" ಬಳಸಿ!</string>
+  <string name="useCtrlF">ನಿಮ್ಮ ಮೆಚ್ಚಿನ ತೆರೆಯುವಿಕೆಯನ್ನು ಹುಡುಕಲು Ctrl+f ಬಳಸಿ!</string>
   <string name="notTheMove">ಆ ನಡೆ ಸರಿಯಿಲ್ಲ!</string>
   <string name="trySomethingElse">ಬೇರೆ ಏನಾದರೂ ಪ್ರಯತ್ನಿಸಿ.</string>
   <string name="ratingX">ಧಾರಣೆ: %s</string>
@@ -51,6 +59,7 @@
   </plurals>
   <string name="example">ಉದಾಹರಣೆ</string>
   <string name="addAnotherTheme">ಮತ್ತೊಂದು ವರ್ಗ ಸೇರಿಸಿ</string>
+  <string name="nextPuzzle">ಮುಂದಿನ ಒಗಟು</string>
   <string name="jumpToNextPuzzleImmediately">ಮುಂದಿನ ಸಮಸ್ಯೆಗೆ ತಕ್ಷಣ ಹೋಗಲು</string>
   <string name="puzzleDashboard">ಒಗಟುಗಳ ಫಲಕ</string>
   <string name="improvementAreas">ಸುಧಾರಿಸಬಹುದಾದ ಜಾಗಗಳು</string>

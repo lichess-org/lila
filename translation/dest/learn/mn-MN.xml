@@ -7,7 +7,7 @@
   <string name="progressX">Ахиц: %s</string>
   <string name="resetMyProgress">Шинээр эхлэх</string>
   <string name="youWillLoseAllYourProgress">Таны бүх ахиц арилах болно!</string>
-  <string name="play">Тоглоё!</string>
+  <string name="play" comment="play&#10;&#10;A small ribbon that appears on your current chapter in the Chess Basics course. Please keep this string short.">Тоглоё!</string>
   <string name="chessPieces">Шатрын дүрсүүд</string>
   <string name="theRook">Тэрэг</string>
   <string name="itMovesInStraightLines">Тэрэг шулуун шугамаар нүүдэг</string>

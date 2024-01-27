@@ -23,9 +23,6 @@
     <item quantity="other">%s년 후</item>
   </plurals>
   <string name="rightNow">지금</string>
-  <plurals name="nbSecondsAgo">
-    <item quantity="other">%s초 전</item>
-  </plurals>
   <plurals name="nbMinutesAgo">
     <item quantity="other">%s분 전</item>
   </plurals>
@@ -44,4 +41,11 @@
   <plurals name="nbYearsAgo">
     <item quantity="other">%s년 전</item>
   </plurals>
+  <plurals name="nbMinutesRemaining">
+    <item quantity="other">%s분 남았습니다.</item>
+  </plurals>
+  <plurals name="nbHoursRemaining">
+    <item quantity="other">%s시간 남았습니다.</item>
+  </plurals>
+  <string name="completed">종료됨</string>
 </resources>

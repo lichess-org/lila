@@ -20,7 +20,7 @@
     <item quantity="one">Líder de l\'equip</item>
     <item quantity="other">Líders de l\'equip</item>
   </plurals>
-  <string name="teamRecentMembers">Membres recents de l\'equip</string>
+  <string name="teamRecentMembers">Nous membres de l\'equip</string>
   <string name="kickSomeone">Expulsar algú de l\'equip</string>
   <string name="whoToKick">Qui voleu expulsar de l\'equip?</string>
   <plurals name="xJoinRequests">
@@ -43,7 +43,6 @@ Pots fer-ho servir per avisar als jugadors per entrar a un torneig o batalla d\'
 Els jugadors que no els agrada rebre missatges podrien abandonar l\'equip.</string>
   <string name="teamsIlead">Equips que lidero</string>
   <string name="youWayWantToLinkOneOfTheseTournaments">Potser vols enllaçar un d\'aquests propers torneigs?</string>
-  <string name="usersWhoCanManageThisTeam">Usuaris que poden administrar aquest equip</string>
   <string name="leadersChat">Xat de capitans</string>
   <string name="closeTeam">Eliminar equip</string>
   <string name="closeTeamDescription">Elimina l\'equip definitivament.</string>

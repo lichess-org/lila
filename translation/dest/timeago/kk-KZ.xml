@@ -6,12 +6,12 @@
     <item quantity="other">%s секундта</item>
   </plurals>
   <plurals name="inNbMinutes">
-    <item quantity="one">%s минут қалды</item>
-    <item quantity="other">%s минут қалды</item>
+    <item quantity="one">%s минутта</item>
+    <item quantity="other">%s минутта</item>
   </plurals>
   <plurals name="inNbHours">
-    <item quantity="one">%s сағат қалды</item>
-    <item quantity="other">%s сағат қалды</item>
+    <item quantity="one">%s сағатта</item>
+    <item quantity="other">%s сағатта</item>
   </plurals>
   <plurals name="inNbDays">
     <item quantity="one">%s күннен кейін</item>
@@ -30,10 +30,6 @@
     <item quantity="other">%s жылдан кейін</item>
   </plurals>
   <string name="rightNow">дәл қазір</string>
-  <plurals name="nbSecondsAgo">
-    <item quantity="one">%s секунд бұрын</item>
-    <item quantity="other">%s секунд бұрын</item>
-  </plurals>
   <plurals name="nbMinutesAgo">
     <item quantity="one">%s минут бұрын</item>
     <item quantity="other">%s минут бұрын</item>

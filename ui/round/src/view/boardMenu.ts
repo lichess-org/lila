@@ -1,7 +1,7 @@
 import { h } from 'snabbdom';
 import RoundController from '../ctrl';
-import { game as gameRoute } from 'game/router';
 import { menu as menuDropdown } from 'board/menu';
+import { toggle } from 'common';
 import { boolPrefXhrToggle } from 'common/controls';
 
 export default function (ctrl: RoundController) {
@@ -9,15 +9,13 @@ export default function (ctrl: RoundController) {
     const d = ctrl.data,
       spectator = d.player.spectator;
     return [
+      h('section', [menu.flip(ctrl.noarg('flipBoard'), ctrl.flip, ctrl.flipNow)]),
       h('section', [
-        menu.flip(ctrl.noarg('flipBoard'), ctrl.flip, () => {
-          if (d.tv) location.href = '/tv/' + d.tv.channel + (d.tv.flip ? '' : '?flip=1');
-          else if (spectator) location.href = gameRoute(d, d.opponent.color);
-          else ctrl.flipNow();
-        }),
-      ]),
-      h('section', [
-        menu.zenMode(ctrl.zenable),
+        menu.zenMode(true),
+        menu.blindfold(
+          toggle(ctrl.blindfold(), v => ctrl.blindfold(v)),
+          !spectator,
+        ),
         menu.voiceInput(boolPrefXhrToggle('voice', !!ctrl.voiceMove), !spectator),
         menu.keyboardInput(boolPrefXhrToggle('keyboardMove', !!ctrl.keyboardMove), !spectator),
         !spectator && d.pref.submitMove ? menu.confirmMove(ctrl.confirmMoveEnabled) : undefined,

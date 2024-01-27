@@ -10,23 +10,24 @@ import controllers.routes
 object bits:
 
   def menu(year: Option[Int], active: Option[String])(using ctx: Context) =
-    st.nav(cls := "page-menu__menu subnav force-ltr")(
-      ctx.noKid option a(
+    views.html.site.bits.pageMenuSubnav(
+      cls := "force-ltr",
+      ctx.kid.no option a(
         cls  := active.has("community").option("active"),
         href := langHref(routes.Ublog.communityAll())
-      )("Community blogs"),
-      ctx.noKid option a(cls := active.has("topics").option("active"), href := routes.Ublog.topics)(
-        "Blog topics"
+      )(trans.ublog.communityBlogs()),
+      ctx.kid.no option a(cls := active.has("topics").option("active"), href := routes.Ublog.topics)(
+        trans.ublog.blogTopics()
       ),
-      (ctx.isAuth && ctx.noKid) option a(
+      (ctx.isAuth && ctx.kid.no) option a(
         cls  := active.has("friends").option("active"),
         href := routes.Ublog.friends()
-      )("Friends blogs"),
-      ctx.noKid option a(cls := active.has("liked").option("active"), href := routes.Ublog.liked())(
-        "Liked blog posts"
+      )(trans.ublog.friendBlogs()),
+      ctx.kid.no option a(cls := active.has("liked").option("active"), href := routes.Ublog.liked())(
+        trans.ublog.likedBlogs()
       ),
       ctx.me
-        .ifTrue(ctx.noKid)
+        .ifTrue(ctx.kid.no)
         .map: me =>
           a(cls := active.has("mine").option("active"), href := routes.Ublog.index(me.username))("My blog"),
       a(cls := active.has("lichess").option("active"), href := routes.Blog.index())("Lichess blog"),

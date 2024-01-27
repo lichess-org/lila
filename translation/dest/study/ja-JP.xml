@@ -50,6 +50,7 @@
   <string name="allSyncMembersRemainOnTheSamePosition">同期したメンバーは同じ局面に留まります</string>
   <string name="shareChanges">変更を観戦者と共有し、サーバに保存する</string>
   <string name="playing">プレイ中</string>
+  <string name="showEvalBar">評価値バー</string>
   <string name="first">最初</string>
   <string name="previous">前</string>
   <string name="next">次</string>

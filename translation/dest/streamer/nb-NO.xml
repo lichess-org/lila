@@ -4,8 +4,8 @@
   <string name="lichessStreamer">Lichess-strømmer</string>
   <string name="live">DIREKTE!</string>
   <string name="offline">AVKOBLET</string>
-  <string name="currentlyStreaming">Strømmer nå: %s</string>
-  <string name="lastStream">Strømmet sist %s</string>
+  <string name="currentlyStreaming" comment="%s is the title of the stream, chosen by the streamer.">Strømmer nå: %s</string>
+  <string name="lastStream" comment="%s is how long ago the stream was in relative time (e.g. 50 minutes ago). It is displayed in smaller type than the rest of the string.">Strømmet sist %s</string>
   <string name="becomeStreamer">Bli en Lichess-strømmer</string>
   <string name="doYouHaveStream">Har du en Twitch- eller YouTube-kanal?</string>
   <string name="hereWeGo">Nå kjører vi!</string>
@@ -29,11 +29,11 @@
   <string name="pendingReview">Strømmen din blir nå vurdert av moderatorne.</string>
   <string name="pleaseFillIn">Vennligst fyll inn informasjon om strømmen din og last opp et bilde.</string>
   <string name="whenReady" comment="whenReady&#10;&#10;%s is &quot;request a moderator review&quot;">Når du er klar til å bli listet som en Lichess-strømmer, %s</string>
-  <string name="requestReview" comment="requestReview&#10;&#10;Used in the sense of: &quot;When you are ready to be listed as a Lichess streamer, request a moderator review&quot;">be om en vurdering fra en moderator</string>
+  <string name="requestReview" comment="requestReview&#10;&#10;Used as part of the longer sentence: &quot;When you are ready to be listed as a Lichess streamer, request a moderator review&quot;">be om en vurdering fra en moderator</string>
   <string name="streamerLanguageSettings">Strømmesiden til Lichess retter seg mot publikummet ditt med språket strømmeplattformen din leverer. Angi riktig språk for sjakkstrømmene dine i appen eller tjenesten du bruker for overføringer.</string>
-  <string name="twitchUsername">Ditt Twitch-brukernavn eller URL</string>
+  <string name="twitchUsername" comment="Appears on the form for setting up your Streamer page: https://lichess.org/streamer/edit&#10;&#10;Twitch is a proper noun and refers to the streaming service https://twitch.tv/. Please do not translate the word 'Twitch'.">Ditt Twitch-brukernavn eller URL</string>
   <string name="optionalOrEmpty">Valgfritt. Kan være tom</string>
-  <string name="youTubeChannelId">ID til YouTube-kanalen din</string>
+  <string name="youTubeChannelId" comment="Appears on the form for setting up your Streamer page: https://lichess.org/streamer/edit&#10;&#10;The Channel ID is a special alphanumeric string. See Google's guide here for how to retrieve it: https://support.google.com/youtube/answer/3250431&#10;&#10;We encourage translators to match what the Channel ID is called in your language's version of YouTube: https://www.youtube.com/account_advanced">ID til YouTube-kanalen din</string>
   <string name="streamerName">Ditt strømmernavn på Lichess</string>
   <plurals name="keepItShort">
     <item quantity="one">Hold deg kort; maks %s tegn</item>

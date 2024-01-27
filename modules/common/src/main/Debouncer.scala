@@ -1,8 +1,6 @@
 package lila.common
 
-import akka.actor.*
 import java.util.concurrent.ConcurrentHashMap
-import scala.jdk.CollectionConverters.*
 
 final class Debouncer[Id](duration: FiniteDuration, initialCapacity: Int = 64)(
     f: Id => Unit

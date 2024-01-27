@@ -14,13 +14,14 @@ import lila.socket.Socket.{ makeMessage, Sri }
 import lila.socket.{ AnaAny, AnaDests, AnaDrop, AnaMove }
 import lila.tree.Node.{ defaultNodeJsonWriter, Comment, Gamebook, Shape, Shapes }
 import lila.tree.Branch
+import lila.user.MyId
 
 final private class StudySocket(
     api: StudyApi,
     jsonView: JsonView,
     remoteSocketApi: lila.socket.RemoteSocket,
     chatApi: lila.chat.ChatApi
-)(using Executor, Scheduler):
+)(using Executor, Scheduler, lila.user.FlairApi.Getter):
 
   import StudySocket.{ *, given }
 
@@ -35,23 +36,22 @@ final private class StudySocket(
     )
 
   def onServerEval(studyId: StudyId, eval: ServerEval.Progress): Unit =
-    eval match
-      case ServerEval.Progress(chapterId, tree, analysis, division) =>
-        import lila.game.JsonView.given
-        send(
-          RP.Out.tellRoom(
-            studyId,
-            makeMessage(
-              "analysisProgress",
-              Json.obj(
-                "analysis" -> analysis,
-                "ch"       -> chapterId,
-                "tree"     -> defaultNodeJsonWriter.writes(tree),
-                "division" -> division
-              )
-            )
+    import eval.*
+    import lila.game.JsonView.given
+    send(
+      RP.Out.tellRoom(
+        studyId,
+        makeMessage(
+          "analysisProgress",
+          Json.obj(
+            "analysis" -> analysis,
+            "ch"       -> chapterId,
+            "tree"     -> defaultNodeJsonWriter.writes(tree),
+            "division" -> division
           )
         )
+      )
+    )
 
   private lazy val studyHandler: Handler =
     case RP.In.ChatSay(roomId, userId, msg) => api.talk(userId, roomId, msg)
@@ -113,11 +113,13 @@ final private class StudySocket(
         case "kick" =>
           o.get[UserStr]("d")
             .foreach: username =>
-              applyWho(api.kick(studyId, username.id))
+              applyWho: w =>
+                api.kick(studyId, username.id, w.myId)
+                Bus.publish(actorApi.Kick(studyId, username.id, w.myId), "kickStudy")
 
         case "leave" =>
           who.foreach: w =>
-            api.kick(studyId, w.u)(w)
+            api.kick(studyId, w.u, w.myId)
 
         case "shapes" =>
           reading[AtPosition](o): position =>
@@ -237,9 +239,8 @@ final private class StudySocket(
             )
 
         case "relaySync" =>
-          who.foreach(w =>
+          applyWho: w =>
             Bus.publish(actorApi.RelayToggle(studyId, ~(o \ "d").asOpt[Boolean], w), "relayToggle")
-          )
 
         case t => logger.warn(s"Unhandled study socket message: $t")
 

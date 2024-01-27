@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="private">خصوصی</string>
-  <string name="myStudies">درس های من</string>
-  <string name="studiesIContributeTo">مطالعاتی که من مشارکت میکنم</string>
-  <string name="myPublicStudies">درس های عمومی من</string>
-  <string name="myPrivateStudies">درس های خصوصی من</string>
-  <string name="myFavoriteStudies">درس های مورد علاقه من</string>
-  <string name="whatAreStudies">درس ها چه هستند?</string>
-  <string name="allStudies">همه درس های من</string>
+  <string name="myStudies">مطالعات من</string>
+  <string name="studiesIContributeTo">مطالعاتی که من در آن مشارکت میکنم</string>
+  <string name="myPublicStudies">مطالعات عمومی من</string>
+  <string name="myPrivateStudies">مطالعات خصوصی من</string>
+  <string name="myFavoriteStudies">مطالعات مورد علاقه من</string>
+  <string name="whatAreStudies">مطالعه‌ها چه هستند؟</string>
+  <string name="allStudies">همه مطالعات من</string>
   <string name="studiesCreatedByX">مطالعاتِ ایجاد شده توسط %s</string>
   <string name="noneYet">هنوز چیزی نیست.</string>
   <string name="hot">داغ</string>
@@ -53,6 +53,7 @@
   <string name="allSyncMembersRemainOnTheSamePosition">تمام اعضای همگام شده در پوزیسیون یکسان باقی می‌مانند</string>
   <string name="shareChanges">تغییرات را با تماشاگران به اشتراک بگذارید و آنها را در سرور ذخیره کنید</string>
   <string name="playing">در حال انجام</string>
+  <string name="showEvalBar">میله اَرزیابی</string>
   <string name="first">اولین</string>
   <string name="previous">پیشین</string>
   <string name="next">بعدی</string>

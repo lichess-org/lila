@@ -1,12 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="broadcasts">Emanaldiak</string>
+  <string name="myBroadcasts">Nire zuzenekoak</string>
+  <plurals name="nbBroadcasts">
+    <item quantity="one">Zuzeneko %s</item>
+    <item quantity="other">%s zuzeneko</item>
+  </plurals>
   <string name="liveBroadcasts">Txapelketen zuzeneko emanaldiak</string>
   <string name="newBroadcast">Zuzeneko emanaldi berria</string>
+  <string name="aboutBroadcasts">Zuzeneko emanaldiei buruz</string>
+  <string name="noRoundsYet">Ez dago txandarik.</string>
+  <string name="howToUseLichessBroadcasts">Nola erabili Lichessen Zuzenekoak.</string>
+  <string name="theNewRoundHelp">Txanda berriak aurrekoak beste kide eta laguntzaile izango ditu.</string>
   <string name="addRound">Gehitu txanda bat</string>
   <string name="ongoing">Orain martxan</string>
   <string name="upcoming">Hurrengo emanaldiak</string>
   <string name="completed">Amaitutako emanaldiak</string>
+  <string name="completedHelp">Txanda amaitu dela jatorrizko partidekin detektatzen du Lichessek. Erabili aukera hau jatorririk ez badago.</string>
   <string name="roundName">Txandaren izena</string>
   <string name="roundNumber">Txanda zenbaki</string>
   <string name="tournamentName">Txapelketaren izena</string>
@@ -27,4 +37,17 @@
   <string name="deleteRound">Ezabatu txanda hau</string>
   <string name="definitivelyDeleteRound">Betiko ezabatu txanda eta bere partida guztiak.</string>
   <string name="deleteAllGamesOfThisRound">Ezabatu txanda honetako partida guztiak. Jatorria aktibo egon behar da berriz sortzeko.</string>
+  <string name="editRoundStudy">Editatu txandako azterlana</string>
+  <string name="deleteTournament">Ezabatu txapelketa hau</string>
+  <string name="definitivelyDeleteTournament">Txapelketa behin betiko ezabatu, bere txanda eta partida guztiak barne.</string>
+  <string name="automaticLeaderboard" comment="An option when creating a broadcast to calculate a leaderboard automatically from the players involved. Example: https://lichess.org/broadcast/2023-london-chess-classic/round-9/5icayRCY">Sailkapen automatikoa</string>
+  <string name="automaticLeaderboardHelp" comment="An option when creating a broadcast to calculate a leaderboard automatically from the players involved. Example: https://lichess.org/broadcast/2023-london-chess-classic/round-9/5icayRCY">Partiden emaitzetan oinarritutako sailkapen sinplea kalkulatu eta erakutsi</string>
+  <string name="replace">Hautazkoa: aldatu jokalarien izen, puntuazio eta tituluak</string>
+  <string name="replaceHelp">Lerro bat jokalari bakotizeko, horrela formateatuta:
+Jatorrizko izena; Ordezko izena; Ordezko puntuazioa (hautazkoa); Ordezko titulua (hautazkoa)
+Adibidea:
+DrNykterstein;Magnus Carlsen;2863
+AnishGiri;Anish Giri;2764;GM</string>
+  <string name="periodInSeconds">Aldia segundotan</string>
+  <string name="periodInSecondsHelp">Hautazkoa, zenbat itxaron eskaeren artean. Gutxienez 2 segundo, gehienez 60 segundo. Automatikora itzuliko da ikusle kopuruaren arabera.</string>
 </resources>

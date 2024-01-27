@@ -9,7 +9,7 @@
   <string name="forgotPassword">Мен құпиясөзімді ұмыттым</string>
   <string name="forgotUsername">Мен тіркеулі атымды ұмыттым</string>
   <string name="youCanLoginWithEmail">Сіз поштаңыздың мекенжайын жазып, тіркелгіге кіре аласыз</string>
-  <string name="lost2FA">Мен екі-сатылы сәйкестік-растау құлыпсөздерін жоғалттым</string>
+  <string name="lost2FA">Мен екі-сатылы өкіл-растама құлыпсөздерін жоғалттым</string>
   <string name="doPasswordReset">Екінші сатыны өшіру үшін құпиясөздің қайта орнатуын аяқтаңыз</string>
   <string name="accountSupport">Маған тіркелгі жөнінде көмек керек</string>
   <string name="wantTitle">Личесте менің атауым көрсетілгенін қалаймын</string>
@@ -69,7 +69,7 @@
   <string name="collaboration">Ынтымақтастық, заңдылық, сауда-саттық</string>
   <string name="monetizing">Личес-тен табыс табу</string>
   <string name="buyingLichess">Личес-ті сатып алу</string>
-  <string name="authorizationToUse">Личес-ті пайдалануға рұқсаттама</string>
+  <string name="authorizationToUse">Личес-ті пайдалану үшін рұқсат-растама</string>
   <string name="welcomeToUse">Сіз Личес-ті өз қажетіңізге пайдалануға еріктісіз, тіпті ақша табу мақсатында да.</string>
   <string name="videosAndBooks">Оны өз видеоларыңызда көрсетсеңіз де болады, Личес-тің кескінін өз кітабыңызға бастыртып шығарсаңыз да болады.</string>
   <string name="creditAppreciated">Біз туралы мәліметті көрсетсеңіз – жақсы, бірақ міндетті емес.</string>

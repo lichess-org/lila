@@ -35,7 +35,7 @@
   <string name="teamBattleOverview">Битка между няколко отбора, всеки играч печели точки за своя отбор</string>
   <string name="teamTournament">Отборен турнир</string>
   <string name="teamTournamentOverview">Арена турнир, към който могат да се присъединят само членове на Вашия отбор</string>
-  <string name="swissTournamentOverview">Швейцарски турнир в който могат да участват само членове на клуба</string>
+  <string name="swissTournamentOverview">Турнир по щвейцарската система в който могат да участват само членове на клуба</string>
   <string name="messageAllMembers">Съобщете на всички членове</string>
   <string name="messageAllMembersOverview">Изпрати лично съобщение до всеки от отбора</string>
   <string name="messageAllMembersLongDescription">Изпратете лично съобщение до ВСИЧКИ от отбора.
@@ -43,7 +43,6 @@
 Играчите, които не обичат да получават вашите съобщения, могат да напуснат отбора.</string>
   <string name="teamsIlead">Отбори, които аз ръководя</string>
   <string name="youWayWantToLinkOneOfTheseTournaments">Може да искате да дадете линк към един от тези предстоящи турнири?</string>
-  <string name="usersWhoCanManageThisTeam">Потребители, които управляват този отбор</string>
   <string name="leadersChat">Чат на лидерите</string>
   <string name="closeTeam">Затвори отбора</string>
   <string name="closeTeamDescription">Затваря отбора завинаги.</string>

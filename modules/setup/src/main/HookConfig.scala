@@ -77,8 +77,6 @@ case class HookConfig(
               ratingRange = ratingRange
             )
 
-  def noRatedUnlimited = mode.casual || hasClock || makeDaysPerTurn.isDefined
-
   def updateFrom(game: lila.game.Game) =
     copy(
       variant = game.variant,

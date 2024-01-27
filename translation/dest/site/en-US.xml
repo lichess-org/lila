@@ -5,6 +5,7 @@
   <string name="toInviteSomeoneToPlayGiveThisUrl">To invite someone to play, give this URL</string>
   <string name="gameOver">Game Over</string>
   <string name="waitingForOpponent">Waiting for opponent</string>
+  <string name="orLetYourOpponentScanQrCode">Or let your opponent scan this QR code</string>
   <string name="waiting">Waiting</string>
   <string name="yourTurn">Your turn</string>
   <string name="aiNameLevelAiLevel">%1$s level %2$s</string>
@@ -70,6 +71,7 @@
   <string name="makeMainLine">Make main line</string>
   <string name="deleteFromHere">Delete from here</string>
   <string name="forceVariation">Force variation</string>
+  <string name="copyVariationPgn">Copy variation PGN</string>
   <string name="move">Move</string>
   <string name="variantLoss">Variant loss</string>
   <string name="variantWin">Variant win</string>
@@ -104,7 +106,7 @@
   <string name="lossSavedBy50MoveRule">Loss prevented by 50-move rule</string>
   <string name="winOr50MovesByPriorMistake">Win or 50 moves by prior mistake</string>
   <string name="lossOr50MovesByPriorMistake">Loss or 50 moves by prior mistake</string>
-  <string name="unknownDueToRounding">Win/loss only guaranteed if recommended tablebase line has been followed since the last capture or pawn move, due to possible rounding of DTZ values in Syzygy tablebases.</string>
+  <string name="unknownDueToRounding">Due to possible rounding of DTZ values in Syzygy tablebases, a win/loss is only guaranteed if the recommended tablebase line has been followed since the last capture or pawn move.</string>
   <string name="allSet">All set!</string>
   <string name="importPgn">Import PGN</string>
   <string name="delete">Delete</string>
@@ -115,6 +117,7 @@
   <string name="openStudy">Open study</string>
   <string name="enable">Enable</string>
   <string name="bestMoveArrow">Best move arrow</string>
+  <string name="showVariationArrows">Show variation arrows</string>
   <string name="evaluationGauge">Evaluation gauge</string>
   <string name="multipleLines">Multiple lines</string>
   <string name="cpus">CPUs</string>
@@ -230,10 +233,10 @@
   <string name="emailSent">We have sent an email to %s.</string>
   <string name="emailCanTakeSomeTime">It can take some time to arrive.</string>
   <string name="refreshInboxAfterFiveMinutes">Wait 5 minutes and refresh your email inbox.</string>
-  <string name="checkSpamFolder">Also check your spam folder, it might end up there. If so, mark it as not spam.</string>
-  <string name="emailForSignupHelp">If everything else fails, then send us this email:</string>
+  <string name="checkSpamFolder">If you do not receive a confirmation email, check your spam folder. Be sure to indicate messages from Xxxxx as \'safe\' so you can stay informed of important communication.</string>
+  <string name="emailForSignupHelp">If you still have questions, please send us an email:</string>
   <string name="copyTextToEmail">Copy and paste the above text and send it to %s</string>
-  <string name="waitForSignupHelp">We will come back to you shortly to help you complete your signup.</string>
+  <string name="waitForSignupHelp">We will be back with you shortly to help complete your signup process.</string>
   <string name="accountConfirmed">The user %s is successfully confirmed.</string>
   <string name="accountCanLogin">You can login right now as %s.</string>
   <string name="accountConfirmationEmailNotNeeded">You do not need a confirmation email.</string>
@@ -270,7 +273,6 @@
   <string name="playingRightNow">Playing right now</string>
   <string name="eventInProgress">Playing right now</string>
   <string name="finished">Finished</string>
-  <string name="finishesX">finishes %s</string>
   <string name="abortGame">Abort game</string>
   <string name="gameAborted">Game aborted</string>
   <string name="standard">Standard</string>
@@ -349,7 +351,7 @@
   </plurals>
   <plurals name="nbSimuls">
     <item quantity="one">%s simul</item>
-    <item quantity="other">%s simul</item>
+    <item quantity="other">%s simuls</item>
   </plurals>
   <string name="viewTournament">View tournament</string>
   <string name="backToTournament">Back to tournament</string>
@@ -404,6 +406,7 @@
   <string name="importGameExplanation">Paste a game PGN to get a browsable replay,
 computer analysis, game chat and shareable URL.</string>
   <string name="importGameCaveat">Variations will be erased. To keep them, import the PGN via a study.</string>
+  <string name="importGameDataPrivacyWarning">This PGN can be accessed by the public. To import a game privately, use a study.</string>
   <plurals name="nbImportedGames">
     <item quantity="one">%s imported game</item>
     <item quantity="other">%s imported games</item>
@@ -484,6 +487,7 @@ computer analysis, game chat and shareable URL.</string>
   <string name="movesPlayed">Moves played</string>
   <string name="whiteWins">White wins</string>
   <string name="blackWins">Black wins</string>
+  <string name="drawRate">Draw rate</string>
   <string name="draws">Draws</string>
   <string name="nextXTournament">Next %s tournament:</string>
   <string name="averageOpponent">Average opponent</string>
@@ -504,14 +508,15 @@ computer analysis, game chat and shareable URL.</string>
   <string name="editProfile">Edit profile</string>
   <string name="firstName">First name</string>
   <string name="lastName">Last name</string>
+  <string name="setFlair">Set your flair</string>
+  <string name="flair">Flair</string>
+  <string name="youCanHideFlair">There is a setting to hide all user flairs across the entire site.</string>
   <string name="biography">Biography</string>
-  <string name="flag" comment="flag&#10;Appears when you edit your profile. Lets a player add a country/flag (not all flags are for countries) to their profile">Flag</string>
+  <string name="countryRegion" comment="flag&#10;Appears when you edit your profile. Lets a player add a country/flag (not all flags are for countries) to their profile">Region or country</string>
   <string name="thankYou">Thank you!</string>
   <string name="socialMediaLinks">Social media links</string>
   <string name="oneUrlPerLine">One URL per line.</string>
   <string name="inlineNotation">Inline notation</string>
-  <string name="savingMoves">Temporary move storage</string>
-  <string name="savingMovesHelp">We\'re always storing your variations in your browser cache.</string>
   <string name="makeAStudy">For safekeeping and sharing, consider making a study.</string>
   <string name="clearSavedMoves">Clear moves</string>
   <string name="previouslyOnLichessTV">Previously on Lichess TV</string>
@@ -626,8 +631,8 @@ computer analysis, game chat and shareable URL.</string>
   <string name="error.email_unique">Email address invalid or already taken</string>
   <string name="error.email_different">This is already your email address</string>
   <string name="error.minLength">Must be at least %s characters long</string>
-  <string name="error.maxLength">Must be at most %s characters long</string>
-  <string name="error.min">Must be greater or equal to %s</string>
+  <string name="error.maxLength">Maximum length is %s</string>
+  <string name="error.min">Must be at least %s</string>
   <string name="error.max">Must be at most %s</string>
   <string name="ifRatingIsPlusMinusX">If rating is ± %s</string>
   <string name="ifRegistered">If registered</string>
@@ -659,8 +664,10 @@ computer analysis, game chat and shareable URL.</string>
   <string name="simultaneousExhibitions">Simultaneous exhibitions</string>
   <string name="host">Host</string>
   <string name="hostColorX">Host color: %s</string>
+  <string name="yourPendingSimuls">Your pending simuls</string>
   <string name="createdSimuls">Newly created simuls</string>
   <string name="hostANewSimul">Host a new simul</string>
+  <string name="signUpToHostOrJoinASimul">Sign up to join or host a simul</string>
   <string name="noSimulFound">Simul not found</string>
   <string name="noSimulExplanation">This simultaneous exhibition does not exist.</string>
   <string name="returnToSimulHomepage">Return to simul homepage</string>
@@ -685,6 +692,7 @@ computer analysis, game chat and shareable URL.</string>
   <string name="keyboardShortcuts">Keyboard shortcuts</string>
   <string name="keyMoveBackwardOrForward">move backward/forward</string>
   <string name="keyGoToStartOrEnd">go to start/end</string>
+  <string name="keyCycleSelectedVariation">Cycle selected variation</string>
   <string name="keyShowOrHideComments">show/hide comments</string>
   <string name="keyEnterOrExitVariation">enter/exit variation</string>
   <string name="keyRequestComputerAnalysis">Request computer analysis, learn from your mistakes</string>
@@ -692,6 +700,13 @@ computer analysis, game chat and shareable URL.</string>
   <string name="keyNextBlunder">Next blunder</string>
   <string name="keyNextMistake">Next mistake</string>
   <string name="keyNextInaccuracy">Next inaccuracy</string>
+  <string name="keyPreviousBranch">Previous branch</string>
+  <string name="keyNextBranch">Next branch</string>
+  <string name="toggleVariationArrows">Toggle variation arrows</string>
+  <string name="cyclePreviousOrNextVariation">Cycle previous/next variation</string>
+  <string name="toggleGlyphAnnotations">Toggle glyph annotations</string>
+  <string name="variationArrowsInfo">Variation arrows let you navigate without using the move list.</string>
+  <string name="playSelectedMove">play selected move</string>
   <string name="newTournament">New tournament</string>
   <string name="tournamentHomeTitle">Chess tournaments featuring various time controls and variants</string>
   <string name="tournamentHomeDescription">Play fast-paced chess tournaments! Join an official scheduled tournament, or create your own. Bullet, Blitz, Classical, Chess960, King of the Hill, Threecheck, and more options available for endless chess fun.</string>
@@ -734,6 +749,7 @@ computer analysis, game chat and shareable URL.</string>
   <string name="withFriends">With friends</string>
   <string name="withEverybody">With everybody</string>
   <string name="kidMode">Kid mode</string>
+  <string name="kidModeIsEnabled">Child-mode is enabled.</string>
   <string name="kidModeExplanation">This is about safety. In kid mode, all site communications are disabled. Enable this for your children and school students, to protect them from other internet users.</string>
   <string name="inKidModeTheLichessLogoGetsIconX">In kid mode, the lichess logo gets a %s icon, so you know your kids are safe.</string>
   <string name="askYourChessTeacherAboutLiftingKidMode">Your account is managed. Ask your chess teacher about lifting kid mode.</string>
@@ -847,9 +863,10 @@ computer analysis, game chat and shareable URL.</string>
     <item quantity="one">and save %s premove line</item>
     <item quantity="other">and save %s premove lines</item>
   </plurals>
+  <string name="showUnreadLichessMessage">You have received a private message from Lichess.</string>
+  <string name="clickHereToReadIt">Click here to read it</string>
   <string name="sorry">Sorry :(</string>
   <string name="weHadToTimeYouOutForAWhile">We had to time you out for a while.</string>
-  <string name="timeoutExpires">The timeout expires %s.</string>
   <string name="why">Why?</string>
   <string name="pleasantChessExperience">We aim to provide a pleasant chess experience for everyone.</string>
   <string name="goodPractice">To that effect, we must ensure that all players follow good practice.</string>
@@ -869,6 +886,8 @@ computer analysis, game chat and shareable URL.</string>
   <string name="agreementPolicy">I agree that I will follow all Lichess policies.</string>
   <string name="searchOrStartNewDiscussion">Search or start new discussion</string>
   <string name="edit">Edit</string>
+  <string name="bullet" comment="Probably best left untranslated. Leave it as 'Bullet' unless your language has a better word for it.">Bullet</string>
+  <string name="blitz" comment="Probably best left untranslated. Leave it as 'Blitz' unless your language has a better word for it.">Blitz</string>
   <string name="rapid">Rapid</string>
   <string name="classical">Classical</string>
   <string name="ultraBulletDesc">Insanely fast games: less than 30 seconds</string>
@@ -908,9 +927,6 @@ computer analysis, game chat and shareable URL.</string>
   <string name="timeAlmostUp">Time is almost up!</string>
   <string name="clickToRevealEmailAddress">[Click to reveal email address.]</string>
   <string name="download">Download</string>
-  <string name="welcome">Welcome!</string>
-  <string name="lichessPatronInfo">Lichess is a charity and entirely free/libre open source software.
-All operating costs, development, and content are funded solely by user donations.</string>
   <string name="coachManager">Coach manager</string>
   <string name="streamerManager">Streamer manager</string>
   <string name="cancelTournament">Cancel the tournament</string>
@@ -969,4 +985,8 @@ Leave empty to start games from the normal initial position.</string>
   <string name="switchSides">Switch sides</string>
   <string name="closingAccountWithdrawAppeal">Closing your account will withdraw your appeal</string>
   <string name="ourEventTips">Our tips for organizing events</string>
+  <string name="instructions">Instructions</string>
+  <string name="showMeEverything">Show me everything</string>
+  <string name="lichessPatronInfo">Lichess is a charity and entirely free/libre open source software.
+All operating costs, development, and content are funded solely by user donations.</string>
 </resources>

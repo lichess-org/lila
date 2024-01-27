@@ -38,4 +38,12 @@
   <string name="castlingRules">Համոզվեք, որ Դուք հասկանում եք փոխատեղման կանոնները</string>
   <string name="tryCastling">Փորձեք այս փոքրիկ ինտերակտիվ խաղը՝ շախմատի փոխատեղման կանոնները մարզելու համար</string>
   <string name="knightMate">Օրինակ, կարելի է մատ անել միայն ձիով կամ փղով, եթե մրցակիցն ունի ավելին, քան արքան։</string>
+  <string name="errorPage">Հաղորդագրություն սխալի մասին</string>
+  <string name="otherRestriction">Այլ սահմանափակումներ</string>
+  <string name="collaboration">Համագործակցություն, իրավաբանական, առևտրային</string>
+  <string name="monetizing">Lichess-ի դրամայնացում</string>
+  <string name="buyingLichess">Lichess-ի գնում</string>
+  <string name="noneOfTheAbove">Թվարկվածից ոչ մեկը</string>
+  <string name="sendEmailAt">Ուղարկեք մեզ էլեկտրոնային նամակ %s-ին։</string>
+  <string name="explainYourRequest">Խնդրում ենք մանրամասն նկարագրել Ձեր հարցումը։ Գրեք Ձեր մասնակցային անունը և ցանկացած այլ տեղեկություն, որը կօգնի մեզ օգնել Ձեզ։</string>
 </resources>

@@ -320,18 +320,16 @@ final class PlayerRepo(coll: Coll)(using Executor):
       }
       .result
 
-  def searchPlayers(tourId: TourId, term: UserStr, nb: Int): Fu[List[UserId]] =
-    User.validateId(term) so { valid =>
-      coll.primitive[UserId](
-        selector = $doc(
-          "tid" -> tourId,
-          "uid" $startsWith valid.value
-        ),
-        sort = $sort desc "m",
-        nb = nb,
-        field = "uid"
-      )
-    }
+  def searchPlayers(tourId: TourId, term: UserSearch, nb: Int): Fu[List[UserId]] =
+    coll.primitive[UserId](
+      selector = $doc(
+        "tid" -> tourId,
+        "uid" $startsWith term.value
+      ),
+      sort = $sort desc "m",
+      nb = nb,
+      field = "uid"
+    )
 
   def teamsWithPlayers(tourId: TourId): Fu[Set[TeamId]] =
     coll.distinctEasy[TeamId, Set]("t", selectTour(tourId))

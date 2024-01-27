@@ -1,3 +1,5 @@
+@import 'chart-loader';
+
 $col1-panel-height: 30vh;
 $col2-panel-height: 240px;
 
@@ -117,8 +119,8 @@ $col2-panel-height: 240px;
   }
 }
 
-#acpl-chart,
-#movetimes-chart {
+#acpl-chart-container,
+#movetimes-chart-container {
   width: 100%;
   height: var(--panel-height);
   background: linear-gradient(
@@ -131,46 +133,4 @@ $col2-panel-height: 240px;
   );
   overflow: hidden;
   cursor: pointer;
-}
-
-#acpl-chart {
-  cursor: pointer;
-}
-
-#acpl-chart-loader {
-  font-size: 0.9em;
-  position: absolute;
-  top: 91px;
-  #{$start-direction}: -1px;
-  background: $c-bg-box;
-  @include padding-direction(7px, 10px, 7px, 0);
-
-  line-height: 20px;
-  box-shadow: 2px 3px 5px rgba(0, 0, 0, 0.3);
-  display: flex;
-  border: $border;
-  border-radius: 0 99px 99px 0;
-
-  span {
-    @extend %nowrap-hidden;
-
-    margin-#{$start-direction}: 7px;
-    opacity: 1;
-    transition: 0.5s;
-    width: 100px;
-    display: block;
-
-    .analyse__underboard:hover & {
-      margin-#{$start-direction}: 0;
-      width: 0;
-      opacity: 0;
-    }
-  }
-
-  .spinner {
-    width: 32px;
-    height: 32px;
-    display: inline-block;
-    margin-#{$start-direction}: 10px;
-  }
 }

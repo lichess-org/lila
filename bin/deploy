@@ -230,8 +230,13 @@ def artifact_url(session, run, name):
     for artifact in session.get(run["artifacts_url"]).json()["artifacts"]:
         if artifact["name"] == name:
             if artifact["expired"]:
-                print("Artifact expired.")
-            return artifact["archive_download_url"]
+                raise DeployError("Artifact expired.")
+
+            # Will redirect to URL containing a short-lived authorization
+            # token.
+            resolved = session.head(artifact["archive_download_url"], allow_redirects=False)
+            resolved.raise_for_status()
+            return resolved.headers["Location"]
 
     raise DeployError(f"Did not find artifact {name}.")
 
@@ -248,7 +253,6 @@ def tmux(ssh, script, *, dry_run=False):
 
 
 def deploy_script(profile, session, run, url):
-    auth_header = f"Authorization: {session.headers['Authorization']}"
     ua_header = f"User-Agent: {session.headers['User-Agent']}"
     deploy_dir = profile["deploy_dir"]
     artifact_unzipped = f"{ARTIFACT_DIR}/{profile['artifact_name']}-{run['id']:d}"
@@ -259,16 +263,16 @@ def deploy_script(profile, session, run, url):
         "echo \\# Downloading ...",
         f"mkdir -p {ARTIFACT_DIR}",
         f"mkdir -p {deploy_dir}/logs",
-        f"[ -f {artifact_zip} ] || wget --header={shlex.quote(auth_header)} --header={shlex.quote(ua_header)} --no-clobber -O {artifact_zip} {shlex.quote(url)}",
+        f"[ -f {artifact_zip} ] || wget --header={shlex.quote(ua_header)} --no-clobber -O {artifact_zip} {shlex.quote(url)}",
         "echo",
         "echo \\# Unpacking ...",
         f"unzip -q -o {artifact_zip} -d {artifact_unzipped}",
         f"mkdir -p {artifact_unzipped}/d",
-        f"tar -xf {artifact_unzipped}/*.tar.xz -C {artifact_unzipped}/d",
+        f"tar -xf {artifact_unzipped}/*.tar.zst -C {artifact_unzipped}/d",
         f"cat {artifact_unzipped}/d/commit.txt",
         "echo",
         "echo \\# Preparing lifat ...",
-        f"(cd {artifact_unzipped} && if [ -x .bin/download-lifat ]; then LIFAT_DIR={LIFAT_DIR} ./bin/download-lifat; chown -R lichess:lichess {LIFAT_DIR}; fi)",
+        f"(cd {artifact_unzipped}/d && if [ -x ./download-lifat ]; then LIFAT_DIR={LIFAT_DIR} ./download-lifat; chown -R lichess:lichess {LIFAT_DIR}; fi)",
         f"chown -R lichess:lichess {ARTIFACT_DIR}",
         "echo",
         "echo \\# Installing ...",

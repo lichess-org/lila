@@ -5,14 +5,15 @@ import play.api.mvc.Result
 import views.*
 
 import lila.app.{ given, * }
+import lila.appeal.{ Appeal as AppealModel }
 import lila.report.{ Suspect, Mod }
 import play.api.data.Form
 
 final class Appeal(env: Env, reportC: => report.Report, prismicC: => Prismic, userC: => User)
     extends LilaController(env):
 
-  private def modForm(using Context)  = lila.appeal.Appeal.modForm
-  private def userForm(using Context) = lila.appeal.Appeal.form
+  private def modForm(using Context)  = AppealModel.modForm
+  private def userForm(using Context) = AppealModel.form
 
   def home = Auth { _ ?=> me ?=>
     Ok async renderAppealOrTree()
@@ -20,7 +21,6 @@ final class Appeal(env: Env, reportC: => report.Report, prismicC: => Prismic, us
 
   def landing = Auth { ctx ?=> _ ?=>
     if ctx.isAppealUser || isGranted(_.Appeals) then
-      pageHit
       FoundPage(prismicC getBookmark "appeal-landing"): (doc, resolver) =>
         views.html.site.page.lone(doc, resolver)
     else notFound
@@ -31,7 +31,12 @@ final class Appeal(env: Env, reportC: => report.Report, prismicC: => Prismic, us
   )(using Context)(using me: Me): Fu[Frag] = env.appeal.api.byId(me) flatMap {
     case None =>
       renderAsync:
-        env.playban.api.currentBan(me).dmap(_.isDefined) map { html.appeal.tree(me, _) }
+        for
+          playban <- env.playban.api.currentBan(me).dmap(_.isDefined)
+          // if no blog, consider it's visible because even if it is not, for now the user
+          // has not been negatively impacted
+          ublogIsVisible <- env.ublog.api.isBlogVisible(me.userId).dmap(_.getOrElse(true))
+        yield html.appeal.tree(me, playban, ublogIsVisible)
     case Some(a) => renderPage(html.appeal.discussion(a, me, err | userForm))
   }
 
@@ -44,14 +49,17 @@ final class Appeal(env: Env, reportC: => report.Report, prismicC: => Prismic, us
       )
   }
 
-  def queue = Secure(_.Appeals) { ctx ?=> me ?=>
+  def queue(filterStr: Option[String] = None) = Secure(_.Appeals) { ctx ?=> me ?=>
+    val filter = env.appeal.api.modFilter.fromQuery(filterStr)
     for
-      appeals                          <- env.appeal.api.myQueue
+      appeals                          <- env.appeal.api.myQueue(filter)
       inquiries                        <- env.report.api.inquiries.allBySuspect
       ((scores, streamers), nbAppeals) <- reportC.getScores
       _ = env.user.lightUserApi preloadUsers appeals.map(_.user)
       markedByMap <- env.mod.logApi.wereMarkedBy(appeals.map(_.user.id))
-      page <- renderPage(html.appeal.queue(appeals, inquiries, markedByMap, scores, streamers, nbAppeals))
+      page <- renderPage(
+        html.appeal.queue(appeals, inquiries, filter, markedByMap, scores, streamers, nbAppeals)
+      )
     yield Ok(page)
   }
 
@@ -78,7 +86,7 @@ final class Appeal(env: Env, reportC: => report.Report, prismicC: => Prismic, us
               result <-
                 if process then
                   env.report.api.inquiries.toggle(Right(appeal.userId)) inject
-                    Redirect(routes.Appeal.queue)
+                    Redirect(routes.Appeal.queue())
                 else Redirect(s"${routes.Appeal.show(username.value)}#appeal-actions").toFuccess
             yield result
         )
@@ -106,7 +114,7 @@ final class Appeal(env: Env, reportC: => report.Report, prismicC: => Prismic, us
     asMod(username): (appeal, _) =>
       env.appeal.api.toggleMute(appeal) >>
         env.report.api.inquiries.toggle(Right(appeal.userId)) inject
-        Redirect(routes.Appeal.queue)
+        Redirect(routes.Appeal.queue())
   }
 
   def sendToZulip(username: UserStr) = Secure(_.SendToZulip) { _ ?=> _ ?=>
@@ -118,14 +126,14 @@ final class Appeal(env: Env, reportC: => report.Report, prismicC: => Prismic, us
     asMod(username): (appeal, _) =>
       env.appeal.api.snooze(appeal.id, dur)
       env.report.api.inquiries.toggle(Right(appeal.userId)) inject
-        Redirect(routes.Appeal.queue)
+        Redirect(routes.Appeal.queue())
   }
 
   private def getPresets = env.mod.presets.appealPresets.get()
 
   private def asMod(
       username: UserStr
-  )(f: (lila.appeal.Appeal, Suspect) => Fu[Result])(using Context): Fu[Result] =
+  )(f: (AppealModel, Suspect) => Fu[Result])(using Context): Fu[Result] =
     env.user.repo byId username flatMapz { user =>
       env.appeal.api byId user flatMapz { appeal =>
         f(appeal, Suspect(user)) dmap some

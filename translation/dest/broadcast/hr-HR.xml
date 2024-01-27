@@ -1,6 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="broadcasts">Prijenosi</string>
+  <plurals name="nbBroadcasts">
+    <item quantity="one">%s prijenos</item>
+    <item quantity="few">%s prijenosa</item>
+    <item quantity="other">%s prijenosa</item>
+  </plurals>
   <string name="liveBroadcasts">Prijenosi turnira uživo</string>
   <string name="newBroadcast">Novi prijenos uživo</string>
   <string name="addRound">Dodajte rundu</string>
@@ -27,4 +32,5 @@
   <string name="deleteRound">Izbriši ovu rundu</string>
   <string name="definitivelyDeleteRound">Definitivno izbrišite rundu i njezine igre.</string>
   <string name="deleteAllGamesOfThisRound">Izbriši sve igre ovog kola. Izvor mora biti aktivan kako bi ih se ponovno stvorilo.</string>
+  <string name="deleteTournament">Izbriši ovaj turnir</string>
 </resources>

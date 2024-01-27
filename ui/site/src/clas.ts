@@ -1,6 +1,6 @@
 /// <reference types="../types/tablesort" />
 import tablesort from 'tablesort';
-import extendTablesortNumber from 'common/tablesort-number';
+import extendTablesortNumber from 'common/tablesortNumber';
 import * as xhr from 'common/xhr';
 
 import type { Result as UserCompleteResult } from './userComplete';
@@ -23,7 +23,7 @@ lichess.load.then(() => {
       return textarea.value.split('\n').slice(0, -1);
     }
 
-    lichess.loadIife('vendor/textcomplete.min.js').then(() => {
+    lichess.asset.loadIife('vendor/textcomplete.min.js').then(() => {
       const textcomplete = new window.Textcomplete(new window.Textcomplete.editors.Textarea(textarea), {
         dropdown: {
           maxCount: 10,

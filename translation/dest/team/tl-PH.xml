@@ -9,7 +9,7 @@
   <string name="allTeams">Lahat ng mga koponan</string>
   <string name="newTeam">Bagong Team</string>
   <string name="myTeams">Ang mga Teams mo</string>
-  <string name="noTeamFound">Walang koponan na nakita</string>
+  <string name="noTeamFound">Walang natagpuang koponan</string>
   <string name="joinTeam">Sumali sa koponan</string>
   <string name="quitTeam">Umalis sa koponan</string>
   <plurals name="teamLeaders">
@@ -36,6 +36,5 @@ Maaari mong gamitin ito para tawagin ang lahat ng mga manlalaro na sumali sa isa
 Ang mga manlalaro na ayaw tumanggap ng mga mensahe mo ay maaaring lumisan sa iyong koponan.</string>
   <string name="teamsIlead">Mga koponan na pinamumunuan ko</string>
   <string name="youWayWantToLinkOneOfTheseTournaments">Baka ibig mong i-link ang isa mga darating na mga paligsahan?</string>
-  <string name="usersWhoCanManageThisTeam">Ang mga gumagamit na maaaring mamahala sa koponang ito</string>
   <string name="leadersChat">Chat ng mga pinuno</string>
 </resources>

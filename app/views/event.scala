@@ -14,15 +14,14 @@ object event:
   private val dataSeconds = attr("data-seconds")
 
   def create(form: Form[?])(using PageContext) =
-    layout(title = "New event", css = "mod.form") {
+    layout(title = "New event", css = "mod.form"):
       div(cls := "crud page-menu__content box box-pad")(
         h1(cls := "box__top")("New event"),
         postForm(cls := "content_box_content form3", action := routes.Event.create)(inForm(form))
       )
-    }
 
   def edit(event: Event, form: Form[?])(using PageContext) =
-    layout(title = event.title, css = "mod.form") {
+    layout(title = event.title, css = "mod.form"):
       div(cls := "crud edit page-menu__content box box-pad")(
         boxTop(
           h1(
@@ -39,7 +38,6 @@ object event:
         standardFlash,
         postForm(cls := "content_box_content form3", action := routes.Event.update(event.id))(inForm(form))
       )
-    }
 
   def iconOf(e: Event) =
     e.icon match
@@ -52,7 +50,7 @@ object event:
       title = e.title,
       moreCss = cssTag("event"),
       moreJs = iifeModule("javascripts/event-countdown.js")
-    ) {
+    ):
       main(cls := "page-small event box box-pad")(
         boxTop(
           iconOf(e),
@@ -61,19 +59,15 @@ object event:
             strong(cls := "headline")(e.headline)
           )
         ),
-        e.description.map { d =>
-          div(cls := "desc")(markdown(e, d))
-        },
+        e.description.map: d =>
+          div(cls := "desc")(markdown(e, d)),
         if e.isFinished then p(cls := "desc")("The event is finished.")
         else if e.isNow then a(href := e.url, cls := "button button-fat")(trans.eventInProgress())
         else
-          ul(cls := "countdown", dataSeconds := (~e.secondsToStart + 1))(
-            List("Days", "Hours", "Minutes", "Seconds") map { t =>
+          ul(cls := "countdown", dataSeconds := (~e.secondsToStart + 1)):
+            List("Days", "Hours", "Minutes", "Seconds") map: t =>
               li(span(cls := t.toLowerCase), t)
-            }
-          )
       )
-    }
 
   private object markdown:
     private val renderer = new MarkdownRender(table = true, list = true)
@@ -87,7 +81,7 @@ object event:
 
   def manager(events: List[Event])(using PageContext) =
     val title = "Event manager"
-    layout(title = title) {
+    layout(title = title):
       div(cls := "crud page-menu__content box")(
         boxTop(
           h1(title),
@@ -104,8 +98,8 @@ object event:
               th
             )
           ),
-          tbody(
-            events.map { e =>
+          tbody:
+            events.map: e =>
               tr(
                 td(
                   a(href := routes.Event.edit(e.id))(
@@ -114,22 +108,19 @@ object event:
                   )
                 ),
                 td(
-                  showInstantUTC(e.startsAt),
+                  showInstant(e.startsAt),
                   momentFromNow(e.startsAt)
                 ),
                 td(
-                  showInstantUTC(e.finishesAt),
+                  showInstant(e.finishesAt),
                   momentFromNow(e.finishesAt)
                 ),
                 td(a(cls := "text", href := routes.Event.show(e.id), dataIcon := licon.Eye))
               )
-            }
-          )
         )
       )
-    }
 
-  private def inForm(form: Form[?])(using PageContext) =
+  private def inForm(form: Form[?])(using Context) =
     frag(
       form3.split(
         form3.group(form("startsAt"), frag("Start date ", strong(utcLink)), half = true)(
@@ -179,20 +170,15 @@ object event:
         )
       ),
       form3.split(
-        form3.group(form("lang"), raw("Language"), half = true)(
-          form3.select(
-            _,
-            lila.i18n.LangList.popularNoRegion.map { l =>
-              l.code -> s"${l.language.toUpperCase} ${LangList name l}"
-            }
-          )
-        ),
+        form3.group(form("lang"), raw("Language"), half = true):
+          form3.select(_, lila.i18n.LangForm.popularLanguages.choices)
+        ,
         form3.group(
           form("hostedBy"),
           raw("Hosted by Lichess user"),
           help = raw("Username that must not be featured while the event is ongoing").some,
           half = true
-        ) { f =>
+        ): f =>
           div(cls := "complete-parent")(
             input(
               cls     := "form-control user-autocomplete",
@@ -202,7 +188,6 @@ object event:
               dataTag := "span"
             )
           )
-        }
       ),
       form3.split(
         form3.checkbox(form("enabled"), raw("Enabled"), help = raw("Display the event").some, half = true),
@@ -221,9 +206,8 @@ object event:
       title = title,
       moreCss = cssTag(css),
       moreJs = jsModule("flatpickr")
-    ) {
+    ):
       main(cls := "page-menu")(
         mod.menu("event"),
         body
       )
-    }

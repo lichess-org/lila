@@ -30,6 +30,10 @@ trait Handlers:
     { case v: BSONDateTime => millisToInstant(v.value) },
     v => BSONDateTime(v.toMillis)
   )
+  given BSONHandler[TimeInterval] = summon[BSONHandler[List[Instant]]].as[TimeInterval](
+    list => TimeInterval(list.lift(0).get, list.lift(1).get),
+    interval => List(interval.start, interval.end)
+  )
 
   def isoHandler[A, B](using iso: Iso[B, A])(using handler: BSONHandler[B]): BSONHandler[A] = new:
     def readTry(x: BSONValue) = handler.readTry(x) map iso.from
@@ -132,12 +136,6 @@ trait Handlers:
     def readTry(bson: BSONValue): Try[Vector[T]] = reader.readTry(bson)
     def writeTry(t: Vector[T]): Try[BSONValue]   = writer.writeTry(t)
 
-  // given arrayHandler[T: BSONHandler]: BSONHandler[Array[T]] with
-  //   val reader                                  = collectionReader[Array, T]
-  //   val writer                                  = BSONWriter.collectionWriter[T, Array[T]]
-  //   def readTry(bson: BSONValue): Try[Array[T]] = reader.readTry(bson)
-  //   def writeTry(t: Array[T]): Try[BSONValue]   = writer.writeTry(t)
-
   given BSONWriter[BSONNull.type] with
     def writeTry(n: BSONNull.type) = Success(BSONNull)
 
@@ -201,6 +199,9 @@ trait Handlers:
         "increment" -> c.incrementSeconds
       )
   )
+
+  val langByCodeHandler: BSONHandler[play.api.i18n.Lang] =
+    stringAnyValHandler(_.code, play.api.i18n.Lang.apply)
 
   def valueMapHandler[K, V](mapping: Map[K, V])(toKey: V => K)(using
       keyHandler: BSONHandler[K]

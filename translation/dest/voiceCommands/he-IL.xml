@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="voiceCommands">פקודות קוליות</string>
+  <string name="watchTheVideoTutorial">צפו בסרטון ההסבר</string>
+  <string name="instructions1">השתמשו בכפתור ״%1$s״ כדי להפעיל את הזיהוי הקולי של המהלכים, בכפתור ״%2$s״ כדי לגשת למסך העזרה הזה ובכפתור ״%3$s כדי לשנות את הגדרות הזיהוי הקולי.</string>
+  <string name="instructions2" comment="Voice commands can be misheard and Lichess will not always be fully certain what you said. Several arrows will be shown to identify e.g. if the move was 'b4' or 'd4', which often sound similar.&#10;&#10;These arrows will be in different colours (green, blue, etc) or labelled 1, 2, 3....&#10;You can then say the colour of the arrow (e.g. 'green') - or its number (e.g. '1'), to select that move.&#10;Users can configure if they choose from multiple moves based on colours or numbers.">אנו מציגים מספר חצים כשאנו לא בטוחים. אמרו את הצבע או המספר של החץ כדי לבחור אותו.</string>
+  <string name="instructions3" comment="This is a complicated concept more easy to understand in practice. Voice commands can be misheard and Lichess will not always be fully certain what you said. Several arrows will be shown to identify e.g. if the move was 'b4' or 'd4', which often sound similar.&#10;The most likely move the player wants will have a circle showing around it, but it will be possible to cancel before it is played (for example, by shouting 'no!').&#10;&#10;You can see a visual example here: https://lichess.org/@/schlawg/blog/how-to-lichess-voice/nWrypoWI">אם מופיע סימן מסתובב של מכ״ם ליד החץ, המהלך יבוצע כשהעיגול יושלם. במשך הזמן הזה, תוכלו לומר ״%1$s״ כדי לשחק את המהלך באופן מיידי או ״%2$s״ כדי לבטל. תוכלו גם לומר מספר או סימן של חץ אחר. ניתן לבטל את הטיימר או להתאים אותו לצרכיכם בהגדרות.</string>
+  <string name="instructions4" comment="%s is Push to Talk.">הפעילו %s בסביבה רועשת. לחצו באופן מתמשך על כפתור ה-Shift כשאתם משתמשים בזיהוי הקולי במצב זה.</string>
+  <string name="instructions5" comment="The phonetic alphabet is also known as the NATO alphabet (where A = Alpha, B = Bravo, etc. This makes the sounds easier to differentiate through a microphone). It is for English specifically, which as of the time of writing, is the only language supported by the Voice Commands feature.">השתמשו באלפבית הפונטי כדי לשפר את הזיהוי של טורים בלוח. </string>
+  <string name="instructions6">ה%s מסבירות את הגדרות הזיהוי הקולי באופן מפורט.</string>
+  <string name="thisBlogPost">הפוסט הזה בבלוג</string>
+  <string name="moveToE4OrSelectE4Piece">זוזו ל-e4 או בחרו כלי שנמצא ב-e4</string>
+  <string name="selectOrCaptureABishop">בחרו רץ או הכו אותו</string>
+  <string name="takeRookWithQueen">הכו את הצריח עם המלכה</string>
+  <string name="castle">בצעו הצרחה (לאחד הצדדים)</string>
+  <string name="phoneticAlphabetIsBest">האלפבית הפונטי עדיף</string>
+  <string name="cancelTimerOrDenyARequest">בטלו את הטיימר או דחו את הבקשה</string>
+  <string name="playPreferredMoveOrConfirmSomething" comment="Used in voice commands. When it is unclear what the player said (e.g. 'b4' and 'd4' sound similar), both moves will be shown, with the more likely one highlighted in a certain colour. By default, a countdown begins, and if no action is taken, the likely move (e.g. b4) will be played. Players can end the countdown early/confirm their move by saying 'yes'.&#10;&#10;For more details see https://lichess.org/@/schlawg/blog/how-to-lichess-voice/nWrypoWI">בצעו את המהלך שנבחר או אשרו משהו</string>
+  <string name="sleep" comment="Used for voice commands.&#10;&#10;By default, voice commands are always-on after the feature is enabled. Users can optionally set a word for listening to start, or say 'sleep' to disable listening.&#10;&#10;(Please note - this is not the same as recording, since the recording is never sent to Lichess; the speech technology is entirely offline)">כיבוי (אם נבחרה מילת הדלקה)</string>
+  <string name="turnOffVoiceRecognition">כיבוי הזיהוי הקולי</string>
+  <string name="showPuzzleSolution">הצגת הפתרון לחידה</string>
+</resources>

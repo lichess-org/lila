@@ -31,7 +31,7 @@ final class PgnDump(
         ofChapter(study, flags)(chapter).map(some)
 
   def ofChapter(study: Study, flags: WithFlags)(chapter: Chapter): Fu[PgnStr] =
-    chapter.serverEval.exists(_.done) so analyser.byId(chapter.id into Analysis.Id) map { analysis =>
+    chapter.serverEval.exists(_.done) so analyser.byId(Analysis.Id(study.id, chapter.id)) map { analysis =>
       ofChapter(study, flags)(chapter, analysis)
     }
 
@@ -58,7 +58,7 @@ final class PgnDump(
     s"${net.baseUrl}/study/$studyId/$chapterId"
 
   private def annotatorTag(study: Study) =
-    Tag(_.Annotator, s"https://lichess.org/@/${ownerName(study)}")
+    Tag(_.Annotator, s"${net.baseUrl}/@/${ownerName(study)}")
 
   private def makeTags(study: Study, chapter: Chapter)(using flags: WithFlags): Tags =
     Tags:
@@ -66,8 +66,6 @@ final class PgnDump(
       val genTags = List(
         Tag(_.Event, s"${study.name}: ${chapter.name}"),
         Tag(_.Site, chapterUrl(study.id, chapter.id)),
-        Tag(_.UTCDate, Tag.UTCDate.format.print(chapter.createdAt)),
-        Tag(_.UTCTime, Tag.UTCTime.format.print(chapter.createdAt)),
         Tag(_.Variant, chapter.setup.variant.name.capitalize),
         Tag(_.ECO, opening.fold("?")(_.eco)),
         Tag(_.Opening, opening.fold("?")(_.name)),
@@ -77,6 +75,11 @@ final class PgnDump(
         List(
           Tag(_.FEN, chapter.root.fen.value),
           Tag("SetUp", "1")
+        )
+      ) ::: (!chapter.tags.exists(_.Date)).so(
+        List(
+          Tag(_.UTCDate, Tag.UTCDate.format.print(chapter.createdAt)),
+          Tag(_.UTCTime, Tag.UTCTime.format.print(chapter.createdAt))
         )
       ) :::
         flags.source.so(List(Tag("Source", chapterUrl(study.id, chapter.id)))) :::

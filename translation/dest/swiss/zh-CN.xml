@@ -54,8 +54,7 @@
   <string name="numberOfByesA">每当系统无法为某选手配对，他将轮空一轮并获得一分。
 此外，一个晚加入比赛的选手将轮空一轮并获得半分。</string>
   <string name="earlyDrawsQ">过早平局会发生什么？</string>
-  <string name="earlyDrawsA">当系统无法为某位选手配对，他将轮空一轮并获得一分。
-此外，若选手是晚加入比赛的，他将轮空一轮并获得半分。</string>
+  <string name="earlyDrawsAnswer">在瑞士锦标赛中，当棋局长度不足 30 回合时，玩家将不能提和。尽管这不能防止提前约定好的和棋，但至少使商定和棋更加困难。</string>
   <string name="whatIfOneDoesntPlayQ">如果玩家不进行棋局会怎样？</string>
   <string name="whatIfOneDoesntPlayA">当时间耗尽，他们会被标记，并输掉比赛。
 然后系统会将该玩家从比赛中踢出，使他不至于输掉更多比赛。

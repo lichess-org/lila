@@ -172,4 +172,23 @@ export class ClockController {
     this.times.activeColor === color ? Math.max(0, this.times[color] - this.elapsed()) : this.times[color];
 
   isRunning = () => this.times.activeColor !== undefined;
+
+  speak = () => {
+    const msgs = ['white', 'black'].map(color => {
+      const time = this.millisOf(color as Color);
+      const date = new Date(time);
+      const msg =
+        (time >= 3600000 ? simplePlural(Math.floor(time / 3600000), 'hour') : '') +
+        ' ' +
+        simplePlural(date.getUTCMinutes(), 'minute') +
+        ' ' +
+        simplePlural(date.getUTCSeconds(), 'second');
+      return `${color} ${msg}`;
+    });
+    lichess.sound.say(msgs.join('. '));
+  };
+}
+
+function simplePlural(nb: number, word: string) {
+  return `${nb} ${word}${nb != 1 ? 's' : ''}`;
 }

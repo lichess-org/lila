@@ -3,7 +3,7 @@
   <string name="team">Equipe</string>
   <string name="teams">Equipes</string>
   <plurals name="nbMembers">
-    <item quantity="one">%s membros</item>
+    <item quantity="one">%s membro</item>
     <item quantity="other">%s membros</item>
   </plurals>
   <string name="allTeams">Todas as equipes</string>
@@ -13,7 +13,7 @@
   <string name="noTeamFound">Nenhuma equipe encontrada</string>
   <string name="joinTeam">Juntar-se à equipe</string>
   <string name="onlyLeaderLeavesTeam">Escolha um novo líder antes de sair da equipe, ou encerre a equipe.</string>
-  <string name="quitTeam">Abandonar equipa</string>
+  <string name="quitTeam">Abandonar equipe</string>
   <string name="manuallyReviewAdmissionRequests">Rever pedidos de adesão manualmente</string>
   <string name="manuallyReviewAdmissionRequestsHelp">Se marcado, os jogadores precisarão escrever um pedido para participar da equipe, que você pode recusar ou aceitar.</string>
   <plurals name="teamLeaders">
@@ -43,7 +43,6 @@ Você pode usar isso para chamar jogadores para participar de um torneio ou de u
 Jogadores que não gostem de receber suas mensagens podem deixar a equipe.</string>
   <string name="teamsIlead">Equipes que eu lidero</string>
   <string name="youWayWantToLinkOneOfTheseTournaments">Talvez você queira enviar o link de algum destes torneios futuros?</string>
-  <string name="usersWhoCanManageThisTeam">Usuários que podem gerenciar esta equipe</string>
   <string name="leadersChat">Chat dos líderes</string>
   <string name="closeTeam">Encerrar equipe</string>
   <string name="closeTeamDescription">Desfazer a equipe permanentemente.</string>

@@ -4,6 +4,7 @@ import chess.Ply
 import lila.analyse.AnalysisRepo
 import lila.game.{ Game, UciMemo }
 import lila.common.config.Max
+import lila.analyse.Analysis
 
 final class Analyser(
     repo: FishnetRepo,

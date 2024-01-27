@@ -30,10 +30,6 @@
     <item quantity="other">pas %s viteve</item>
   </plurals>
   <string name="rightNow">pikërisht tani</string>
-  <plurals name="nbSecondsAgo">
-    <item quantity="one">%s sekondë më parë</item>
-    <item quantity="other">para %s sekondave</item>
-  </plurals>
   <plurals name="nbMinutesAgo">
     <item quantity="one">%s minutë më parë</item>
     <item quantity="other">para %s minutave</item>
@@ -58,4 +54,13 @@
     <item quantity="one">%s vit më parë</item>
     <item quantity="other">para %s viteve</item>
   </plurals>
+  <plurals name="nbMinutesRemaining">
+    <item quantity="one">Edhe %s minutë</item>
+    <item quantity="other">Edhe %s minuta</item>
+  </plurals>
+  <plurals name="nbHoursRemaining">
+    <item quantity="one">Edhe %s orë</item>
+    <item quantity="other">Edhe %s orë</item>
+  </plurals>
+  <string name="completed">mbaroi</string>
 </resources>

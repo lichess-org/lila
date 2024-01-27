@@ -46,21 +46,24 @@ object MessageCompiler {
             val xml = XML.loadFile(file)
             xml.child.collect {
               case e if e.label == "string" =>
-                val safe = escape(e.text)
+                val safe             = escape(e.text)
+                val safeWithNewLines = escapeNewLines(safe)
                 val translation = escapeHtmlOption(safe) match {
-                  case None          => s"""new Simple(\"$safe\")"""
-                  case Some(escaped) => s"""new Escaped(\"$safe\",\"$escaped\")"""
+                  case None          => s"""new Simple(\"$safeWithNewLines\")"""
+                  case Some(escaped) => s"""new Escaped(\"$safeWithNewLines\",\"$escaped\")"""
                 }
                 s"""m.put(${toKey(e, db)},$translation);"""
               case e if e.label == "plurals" =>
                 val allItems: Map[String, String] = e.child
                   .filter(_.label == "item")
                   .map { i =>
-                    ucfirst(i.\("@quantity").toString) -> s"""\"${escape(i.text)}\""""
+                    ucfirst(i.\("@quantity").toString) -> s"""\"${escapeNewLines(i.text)}\""""
                   }
                   .toMap
                 val otherValue = allItems.get("Other")
                 val default    = allItems.head
+                // The following optimisation aims to drop duplicated translations
+                // to reduce the size of the generated Java code.
                 val items = allItems.filter {
                   case pair if pair == default          => true
                   case ("Other", v)                     => v != default._2
@@ -153,8 +156,8 @@ private object Registry {
         .replace("\\\"", "\"") // remove \" escaping, which is not always present
         .replace("\\'", "'")
         .replace("\"", "\\\"") // escape " for sure
-        .replace("\n", "\\n")
     )
+  private def escapeNewLines(str: String) = str.replace("\n", "\\n")
 
   private def pluralMap(items: Map[String, String]): String =
     if (items.size > 4) {
@@ -180,7 +183,7 @@ private object Registry {
           case '"'  => sb append "&quot;"
           case '\'' => sb append "&#39;"
           case '\r' => ()
-          case '\n' => sb append "<br />"
+          case '\n' => sb append "<br>"
           case c    => sb append c
         }
         i += 1

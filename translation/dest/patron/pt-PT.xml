@@ -60,6 +60,7 @@ No entanto, os patronos têm direito a um novo ícone de perfil fixe.</string>
   <string name="nextPayment">Próximo pagamento</string>
   <string name="youWillBeChargedXOnY">Cobrar-te-emos %1$s em %2$s.</string>
   <string name="makeAdditionalDonation">Fazer uma doação adicional agora</string>
+  <string name="giftPatronWingsShort">Oferecer Asas de Patrono</string>
   <string name="giftPatronWings">Doa asas de Patrono a um jogador</string>
   <string name="update">Atualizar</string>
   <string name="changeMonthlyAmount">Alterar o valor mensal (%s)</string>
@@ -79,4 +80,7 @@ No entanto, os patronos têm direito a um novo ícone de perfil fixe.</string>
   <string name="nowOneMonth">Agora és um patrono do Lichess por um mês!</string>
   <string name="downgradeNextMonth">Em um mês, tu NÃO serás cobrado novamente, e a tua conta Lichess voltará para uma conta regular.</string>
   <string name="changeCurrency">Alterar moeda</string>
+  <string name="paymentDetails">Detalhes de pagamento</string>
+  <string name="updatePaymentMethod">Atualizar forma de pagamento</string>
+  <string name="stripeManageSub">Gerência a tua assinatura e descarrega faturas e recibos</string>
 </resources>

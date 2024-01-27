@@ -1,7 +1,6 @@
 package views.html.ublog
 
 import controllers.routes
-import play.api.i18n.Lang
 import play.api.mvc.Call
 
 import lila.app.templating.Environment.{ given, * }
@@ -10,6 +9,7 @@ import lila.common.paginator.Paginator
 import lila.i18n.LangList
 import lila.ublog.{ UblogPost, UblogTopic }
 import lila.user.User
+import lila.i18n.Language
 
 object index:
 
@@ -48,7 +48,7 @@ object index:
     title = "Friends blogs",
     posts = posts,
     menuItem = "friends",
-    route = routes.Ublog.friends,
+    route = (p, _) => routes.Ublog.friends(p),
     onEmpty = "Nothing to show. Follow some authors!"
   )
 
@@ -56,70 +56,67 @@ object index:
     title = "Liked blog posts",
     posts = posts,
     menuItem = "liked",
-    route = routes.Ublog.liked,
+    route = (p, _) => routes.Ublog.liked(p),
     onEmpty = "Nothing to show. Like some posts!"
   )
 
-  def topic(top: UblogTopic, posts: Paginator[UblogPost.PreviewPost])(using PageContext) = list(
-    title = s"Blog posts about $top",
-    posts = posts,
-    menuItem = "topics",
-    route = p => routes.Ublog.topic(top.value, p),
-    onEmpty = "Nothing to show."
-  )
+  def topic(top: UblogTopic, posts: Paginator[UblogPost.PreviewPost], byDate: Boolean)(using PageContext) =
+    list(
+      title = s"Blog posts about $top",
+      posts = posts,
+      menuItem = "topics",
+      route = (p, bd) => routes.Ublog.topic(top.value, p, ~bd),
+      onEmpty = "Nothing to show.",
+      byDate.some
+    )
 
-  def community(lang: Option[Lang], posts: Paginator[UblogPost.PreviewPost])(using ctx: PageContext) =
+  import views.html.ublog.post.ShowAt
+  def community(language: Option[Language], posts: Paginator[UblogPost.PreviewPost])(using ctx: PageContext) =
     views.html.base.layout(
       moreCss = cssTag("ublog"),
       moreJs = posts.hasNextPage option infiniteScrollTag,
       title = "Community blogs",
       atomLinkTag = link(
-        href     := routes.Ublog.communityAtom(lang.fold("all")(_.language)),
+        href     := routes.Ublog.communityAtom(language.fold("all")(_.value)),
         st.title := "Lichess community blogs"
       ).some,
       withHrefLangs = lila.common.LangPath(langHref(routes.Ublog.communityAll())).some
     ) {
-      val langSelections = ("all", "All languages") :: lila.i18n.I18nLangPicker
-        .sortFor(LangList.popularNoRegion, ctx.req)
-        .map { l =>
-          l.language -> LangList.name(l)
-        }
+      val langSelections: List[(String, String)] = ("all", "All languages") ::
+        lila.i18n.I18nLangPicker
+          .sortFor(LangList.popularNoRegion, ctx.req)
+          .map: l =>
+            l.language -> LangList.name(l)
       main(cls := "page-menu")(
         views.html.blog.bits.menu(none, "community".some),
         div(cls := "page-menu__content box box-pad ublog-index")(
           boxTop(
-            h1("Community blogs"),
+            h1(trans.ublog.communityBlogs()),
             div(cls := "box__top__actions")(
               views.html.base.bits.mselect(
                 "ublog-lang",
-                lang.fold("All languages")(LangList.name),
+                language.fold("All languages")(LangList.nameByLanguage),
                 langSelections
-                  .map { case (language, name) =>
+                  .map: (languageSel, name) =>
                     a(
                       href := {
-                        if language == "all" then routes.Ublog.communityAll()
-                        else routes.Ublog.communityLang(language)
+                        if languageSel == "all" then routes.Ublog.communityAll()
+                        else routes.Ublog.communityLang(languageSel)
                       },
-                      cls := (language == lang.fold("all")(_.language)).option("current")
+                      cls := (languageSel == language.fold("all")(_.value)).option("current")
                     )(name)
-                  }
               ),
-              a(
-                cls      := "atom",
-                st.title := "Atom RSS feed",
-                href     := routes.Ublog.communityAtom(lang.fold("all")(_.language)),
-                dataIcon := licon.RssFeed
-              )
+              views.html.site.bits.atomLink(routes.Ublog.communityAtom(language.fold("all")(_.value)))
             )
           ),
           if posts.nbResults > 0 then
             div(cls := "ublog-index__posts ublog-post-cards infinite-scroll")(
-              posts.currentPageResults map { postView.card(_, showAuthor = true) },
+              posts.currentPageResults map { postView.card(_, showAuthor = ShowAt.top) },
               pagerNext(
                 posts,
                 p =>
-                  lang
-                    .fold(routes.Ublog.communityAll(p))(l => routes.Ublog.communityLang(l.language, p))
+                  language
+                    .fold(routes.Ublog.communityAll(p))(l => routes.Ublog.communityLang(l, p))
                     .url
               )
             )
@@ -136,7 +133,7 @@ object index:
       main(cls := "page-menu")(
         views.html.blog.bits.menu(none, "topics".some),
         div(cls := "page-menu__content box")(
-          boxTop(h1("All blog topics")),
+          boxTop(h1(trans.ublog.blogTopics())),
           div(cls := "ublog-topics")(
             tops.map { case UblogTopic.WithPosts(topic, posts, nb) =>
               a(cls := "ublog-topics__topic", href := routes.Ublog.topic(topic.url))(
@@ -158,8 +155,9 @@ object index:
       title: String,
       posts: Paginator[UblogPost.PreviewPost],
       menuItem: String,
-      route: Int => Call,
-      onEmpty: => Frag
+      route: (Int, Option[Boolean]) => Call,
+      onEmpty: => Frag,
+      byDate: Option[Boolean] = None
   )(using PageContext) =
     views.html.base.layout(
       moreCss = cssTag("ublog"),
@@ -169,11 +167,21 @@ object index:
       main(cls := "page-menu")(
         views.html.blog.bits.menu(none, menuItem.some),
         div(cls := "page-menu__content box box-pad ublog-index")(
-          boxTop(h1(title)),
+          boxTop(
+            h1(title),
+            byDate.map: v =>
+              span(
+                "Sort by ",
+                span(cls := "btn-rack")(
+                  a(cls := s"btn-rack__btn${!v so " active"}", href := route(1, false.some))("rank"),
+                  a(cls := s"btn-rack__btn${v so " active"}", href := route(1, true.some))("date")
+                )
+              )
+          ),
           if posts.nbResults > 0 then
             div(cls := "ublog-index__posts ublog-post-cards infinite-scroll")(
-              posts.currentPageResults map { postView.card(_, showAuthor = true) },
-              pagerNext(posts, np => route(np).url)
+              posts.currentPageResults map { postView.card(_, showAuthor = ShowAt.top) },
+              pagerNext(posts, np => route(np, byDate).url)
             )
           else div(cls := "ublog-index__posts--empty")(onEmpty)
         )

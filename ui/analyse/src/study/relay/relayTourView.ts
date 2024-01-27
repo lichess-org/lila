@@ -1,18 +1,19 @@
 import AnalyseCtrl from '../../ctrl';
 import RelayCtrl from './relayCtrl';
 import * as licon from 'common/licon';
-import { bind, dataIcon, onInsert } from 'common/snabbdom';
-import { h, VNode } from 'snabbdom';
+import { bind, dataIcon, onInsert, looseH as h } from 'common/snabbdom';
+import { VNode } from 'snabbdom';
 import { innerHTML } from 'common/richText';
 import { RelayRound } from './interfaces';
-import { RelayTab, StudyCtrl } from '../interfaces';
+import { RelayTab } from '../interfaces';
 import { view as multiBoardView } from '../multiBoard';
 import { scrollToInnerSelector } from 'common';
+import StudyCtrl from '../studyCtrl';
 
 export default function (ctrl: AnalyseCtrl): VNode | undefined {
   const study = ctrl.study;
   const relay = study?.relay;
-  if (!study || !relay?.tourShow.active) return undefined;
+  if (!study || !relay?.tourShow()) return undefined;
 
   const makeTab = (key: RelayTab, name: string) =>
     h(
@@ -62,9 +63,9 @@ const leaderboard = (relay: RelayCtrl): VNode[] => {
             players.map(player =>
               h('tr', [
                 h('th', player.name),
-                withRating ? h('td', player.rating) : undefined,
-                h('td', player.score),
-                h('td', player.played),
+                withRating ? h('td', `${player.rating}`) : undefined,
+                h('td', `${player.score}`),
+                h('td', `${player.played}`),
               ]),
             ),
           ),
@@ -91,24 +92,19 @@ const overview = (relay: RelayCtrl, study: StudyCtrl) => {
           ' ',
           round.ongoing
             ? study.trans.noarg('playingRightNow')
-            : round.startsAt
-            ? h(
+            : !!round.startsAt &&
+              h(
                 'time.timeago',
-                {
-                  hook: onInsert(el => el.setAttribute('datetime', '' + round.startsAt)),
-                },
+                { hook: onInsert(el => el.setAttribute('datetime', '' + round.startsAt)) },
                 lichess.timeago(round.startsAt),
-              )
-            : null,
+              ),
         ],
       ),
       relay.data.tour.markup
-        ? h('div', {
-            hook: innerHTML(relay.data.tour.markup, () => relay.data.tour.markup!),
-          })
+        ? h('div', { hook: innerHTML(relay.data.tour.markup, () => relay.data.tour.markup!) })
         : h('div', relay.data.tour.description),
     ]),
-    study.looksNew() ? null : multiBoardView(study.multiBoard, study),
+    !study.looksNew() && multiBoardView(study.multiBoard, study),
   ];
 };
 
@@ -123,16 +119,7 @@ const schedule = (relay: RelayCtrl): VNode[] => [
           'tbody',
           relay.data.rounds.map(round =>
             h('tr', [
-              h(
-                'th',
-                h(
-                  'a.link',
-                  {
-                    attrs: { href: relay.roundPath(round) },
-                  },
-                  round.name,
-                ),
-              ),
+              h('th', h('a.link', { attrs: { href: relay.roundPath(round) } }, round.name)),
               h('td', round.startsAt ? lichess.dateFormat()(new Date(round.startsAt)) : undefined),
               h(
                 'td',
@@ -149,45 +136,22 @@ const schedule = (relay: RelayCtrl): VNode[] => [
 const roundStateIcon = (round: RelayRound) =>
   round.ongoing
     ? h('ongoing', { attrs: { ...dataIcon(licon.DiscBig), title: 'Ongoing' } })
-    : round.finished
-    ? h('finished', { attrs: { ...dataIcon(licon.Checkmark), title: 'Finished' } })
-    : null;
+    : round.finished && h('finished', { attrs: { ...dataIcon(licon.Checkmark), title: 'Finished' } });
 
 export function rounds(ctrl: StudyCtrl): VNode {
   const canContribute = ctrl.members.canContribute();
   const relay = ctrl.relay!;
   return h(
     'div.study__relay__rounds',
-    {
-      hook: onInsert(el => scrollToInnerSelector(el, '.active')),
-    },
+    { hook: onInsert(el => scrollToInnerSelector(el, '.active')) },
     relay.data.rounds
       .map(round =>
-        h(
-          'div',
-          {
-            key: round.id,
-            class: { active: ctrl.data.id == round.id },
-          },
-          [
-            h(
-              'a.link',
-              {
-                attrs: { href: relay.roundPath(round) },
-              },
-              round.name,
-            ),
-            roundStateIcon(round),
-            canContribute
-              ? h('a.act', {
-                  attrs: {
-                    ...dataIcon(licon.Gear),
-                    href: `/broadcast/round/${round.id}/edit`,
-                  },
-                })
-              : null,
-          ],
-        ),
+        h('div', { key: round.id, class: { active: ctrl.data.id == round.id } }, [
+          h('a.link', { attrs: { href: relay.roundPath(round) } }, round.name),
+          roundStateIcon(round),
+          canContribute &&
+            h('a.act', { attrs: { ...dataIcon(licon.Gear), href: `/broadcast/round/${round.id}/edit` } }),
+        ]),
       )
       .concat(
         canContribute
@@ -197,10 +161,7 @@ export function rounds(ctrl: StudyCtrl): VNode {
                 h(
                   'a.text',
                   {
-                    attrs: {
-                      href: `/broadcast/${relay.data.tour.id}/new`,
-                      'data-icon': licon.PlusButton,
-                    },
+                    attrs: { href: `/broadcast/${relay.data.tour.id}/new`, 'data-icon': licon.PlusButton },
                   },
                   ctrl.trans.noarg('addRound'),
                 ),

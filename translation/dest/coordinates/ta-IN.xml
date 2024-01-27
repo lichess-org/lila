@@ -1,11 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="coordinates">ஆள்கூறுகள்</string>
-  <string name="coordinateTraining">ஒருங்கிணைப்பு தொடர்</string>
+  <string name="coordinates">ஒருங்கிணைப்புகள்</string>
+  <string name="coordinateTraining">ஒருங்கிணைப்பு பயிற்சி</string>
   <string name="averageScoreAsWhiteX">சராசரி மதிப்பெண் வெள்ளை: %s</string>
   <string name="averageScoreAsBlackX">சராசரி மதிப்பெண் கருப்பு: %s</string>
   <string name="knowingTheChessBoard">சதுரங்க பலகையை அறிவது மிக முக்கியமான திறமை:</string>
   <string name="mostChessCourses">பெரும்பாலான செஸ் படிப்புகள், பயிற்சிகள் இயற்கணித நொட்டேஷன் பெற்றவர்களைத்தான்.</string>
-  <string name="talkToYourChessFriends">உங்கள் சதுரங்க நண்பர்களுடன் பேசுவதை இது எளிதாக்குகிறது, ஏனெனில் நீங்கள் இருவரும் \"செக்ஸை மொழியை\" புரிந்துகொள்கிறீர்கள்.</string>
+  <string name="talkToYourChessFriends">உங்கள் சதுரங்க நண்பர்களுடன் பேசுவதை இது எளிதாக்குகிறது, ஏனெனில் நீங்கள் இருவரும் \'சதுரங்கத்தின் மொழியை\' புரிந்துகொள்கிறீர்கள்.</string>
+  <string name="youCanAnalyseAGameMoreEffectively">ஒருங்கிணைப்புகளை விரைவாக அடையாளம் காண முடிந்தால், நீங்கள் ஒரு விளையாட்டை மிகவும் திறம்பட பகுப்பாய்வு செய்யலாம்.</string>
+  <string name="aCoordinateAppears">பலகையில் ஒரு ஒருங்கிணைப்பு தோன்றும் மற்றும் நீங்கள் தொடர்புடைய சதுரத்தில் சொடுக்க வேண்டும்.</string>
+  <string name="aSquareIsHighlightedExplanation">பலகையில் ஒரு சதுரம் தனிப்படுத்தப்பட்டு அதன் ஒருங்கிணைப்பை உள்ளிட வேண்டும் (எ.கா. \"e4\").</string>
+  <string name="youHaveThirtySeconds">முடிந்தவரை பல சதுரங்களை சரியாக வரைபடமாக்க உங்களுக்கு 30 வினாடிகள் உள்ளன!</string>
+  <string name="goAsLongAsYouWant">நீங்கள் விரும்பும் வரை செல்லுங்கள், நேர வரம்பு இல்லை!</string>
+  <string name="showCoordinates">ஒருங்கிணைப்புகளைக் காட்டு</string>
+  <string name="showPieces">காய்களைக் காட்டு</string>
   <string name="startTraining">பயிற்சியை துவங்கு</string>
+  <string name="findSquare">சதுரத்தைக் கண்டுபிடி</string>
+  <string name="nameSquare">சதுரத்தின் பெயர்</string>
 </resources>

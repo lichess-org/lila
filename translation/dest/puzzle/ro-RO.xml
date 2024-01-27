@@ -28,6 +28,11 @@
   <string name="keepGoing">Continuați cu următoarea mutare…</string>
   <string name="puzzleSuccess">Succes!</string>
   <string name="puzzleComplete">Puzzle complet!</string>
+  <string name="byOpenings">După deschideri</string>
+  <string name="puzzlesByOpenings">Puzzle-uri după deschidere</string>
+  <string name="openingsYouPlayedTheMost">Deschideri pe care le-ai jucat cel mai mult în meciurile evaluate</string>
+  <string name="useFindInPage">Folosește \"Găsește în pagină\" în meniul browser-ului pentru a găsi deschiderea ta preferată!</string>
+  <string name="useCtrlF">Folosește Ctrl+f pentru a găsi deschiderea favorită!</string>
   <string name="notTheMove">Nu este asta mișcarea!</string>
   <string name="trySomethingElse">Încercă altceva.</string>
   <string name="ratingX">Scor: %s</string>

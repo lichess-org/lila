@@ -3,14 +3,14 @@
   <string name="team">Teamo</string>
   <string name="teams">Teamoj</string>
   <plurals name="nbMembers">
-    <item quantity="one">%s teamanoj</item>
+    <item quantity="one">%s teamano</item>
     <item quantity="other">%s teamanoj</item>
   </plurals>
   <string name="allTeams">Ĉiuj teamoj</string>
   <string name="leaderTeams" comment="This is the button for 'teams lead by you' in the teams navigation sidebar">Teamoj kiujn mi gvidas</string>
   <string name="newTeam">Nova teamo</string>
   <string name="myTeams">Miaj teamoj</string>
-  <string name="noTeamFound">Ne trovis teamon</string>
+  <string name="noTeamFound">Neniu trovita teamo</string>
   <string name="joinTeam">Aliĝi al teamo</string>
   <string name="onlyLeaderLeavesTeam">Bonvolu aldoni novan teamestron antaŭ ol forlasi aŭ fermu la teamo.</string>
   <string name="quitTeam">Eksiĝi de teamo</string>
@@ -43,7 +43,6 @@ Vi povas uzi ĉi tion por alvoki ludantojn por aliĝo al turniro aŭ teama batal
 Ludantoj, kiuj ne ŝatas ricevi viajn mesaĝojn povus forlasi la teamon.</string>
   <string name="teamsIlead">Teamoj, kiujn mi gvidas</string>
   <string name="youWayWantToLinkOneOfTheseTournaments">Vi eble volas ligi unu el ĉi tiuj venontaj turniroj?</string>
-  <string name="usersWhoCanManageThisTeam">Uzantoj, kiuj povas administri ĉi tiun teamon</string>
   <string name="leadersChat">Tujmesaĝiloj de teametroj</string>
   <string name="closeTeam">Fermu teamon</string>
   <string name="closeTeamDescription">Fermas la teamo konstante.</string>

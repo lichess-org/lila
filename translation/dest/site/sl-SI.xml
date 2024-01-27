@@ -5,6 +5,7 @@
   <string name="toInviteSomeoneToPlayGiveThisUrl">Kopiraj URL in povabi prijatelja k igri</string>
   <string name="gameOver">Konec igre</string>
   <string name="waitingForOpponent">Čakam nasprotnika</string>
+  <string name="orLetYourOpponentScanQrCode">Ali pa naj vaš nasprotnik skenira to QR kodo</string>
   <string name="waiting">Čakam</string>
   <string name="yourTurn">Ti si na potezi</string>
   <string name="aiNameLevelAiLevel">%1$s, stopnja: %2$s</string>
@@ -72,6 +73,7 @@
   <string name="makeMainLine">Nastavite kot glavno varianto</string>
   <string name="deleteFromHere">Izbriši od tukaj</string>
   <string name="forceVariation">Vsili varianto</string>
+  <string name="copyVariationPgn">Kopiraj različico PGN</string>
   <string name="move">Poteza</string>
   <string name="variantLoss">Izgubljena varianta</string>
   <string name="variantWin">Dobljena varianta</string>
@@ -300,7 +302,6 @@
   <string name="playingRightNow">Trenutno se igra</string>
   <string name="eventInProgress">Pravkar poteka</string>
   <string name="finished">Končano</string>
-  <string name="finishesX">končal %s</string>
   <string name="abortGame">Opusti igro</string>
   <string name="gameAborted">Igra je opuščena</string>
   <string name="standard">Običajno</string>
@@ -459,6 +460,7 @@
   <string name="importGame">Uvozi igro</string>
   <string name="importGameExplanation">Ko prilepite PGN partijo imate na voljo brskanje partije, računalniško analizo, klepet o igri in povezavo, ki jo lahko delite.</string>
   <string name="importGameCaveat">Variante bodo izbrisane. Če jih želite obdržat, uvozite PGN kot študijo.</string>
+  <string name="importGameDataPrivacyWarning">Ta PGN je javno dostopen. Za zasebni uvoz igre uporabite študijo.</string>
   <plurals name="nbImportedGames">
     <item quantity="one">%s uvožena igra</item>
     <item quantity="two">%s uvoženi igri</item>
@@ -549,6 +551,7 @@
   <string name="movesPlayed">Odigranih potez</string>
   <string name="whiteWins">Belih zmag</string>
   <string name="blackWins">Črnih zmag</string>
+  <string name="drawRate">Stopnja remija</string>
   <string name="draws">Odstotek remijev</string>
   <string name="nextXTournament">Naslednji %s turnir:</string>
   <string name="averageOpponent">Povprečen nasprotnik</string>
@@ -569,13 +572,15 @@
   <string name="editProfile">Uredi profil</string>
   <string name="firstName">Ime</string>
   <string name="lastName">Priimek</string>
+  <string name="setFlair">Določite svoj okus</string>
+  <string name="flair">Simbol</string>
+  <string name="youCanHideFlair">Obstaja nastavitev za skrivanje vseh uporabniških čustev na celotnem spletnem mestu.</string>
   <string name="biography">Biografija</string>
+  <string name="countryRegion" comment="flag&#10;Appears when you edit your profile. Lets a player add a country/flag (not all flags are for countries) to their profile">Država ali regija</string>
   <string name="thankYou">Hvala!</string>
   <string name="socialMediaLinks">Povezava za sledenje na družabnih omrežjih</string>
   <string name="oneUrlPerLine">En URL na vrstico.</string>
   <string name="inlineNotation">Dodatna notacija</string>
-  <string name="savingMoves">Začasno shranjevanje potez</string>
-  <string name="savingMovesHelp">Vaše poteze vedno shranjujemo v predpomnilnik vašega brskalnika.</string>
   <string name="makeAStudy">Za varno shranjevanje in deljenje razmislite o tem, da bi naredili študijo.</string>
   <string name="clearSavedMoves">Počisti poteze</string>
   <string name="previouslyOnLichessTV">Nazadnje na Lichess TV</string>
@@ -731,8 +736,10 @@
   <string name="simultaneousExhibitions">Simultanke</string>
   <string name="host">Gostitelj</string>
   <string name="hostColorX">Gostiteljeva barva:%s</string>
+  <string name="yourPendingSimuls">Vaše čakajoče simultanke</string>
   <string name="createdSimuls">Novo ustvarjene simultanke</string>
   <string name="hostANewSimul">Gostuj novo simultanko</string>
+  <string name="signUpToHostOrJoinASimul">Prijavite se za gostovanje ali se pridružite simultanki</string>
   <string name="noSimulFound">Simultanka ni najdena</string>
   <string name="noSimulExplanation">Ta simultanka ne obstaja.</string>
   <string name="returnToSimulHomepage">Vrni se na domačo stran simultanke</string>
@@ -808,6 +815,7 @@
   <string name="withFriends">S prijatelji</string>
   <string name="withEverybody">Z vsemi</string>
   <string name="kidMode">Način za otroke</string>
+  <string name="kidModeIsEnabled">Otroški način je omogočen.</string>
   <string name="kidModeExplanation">To je o varnosti. V načinu za otroke so vsi pogovori onemogočeni. Omogočite ta način, da otroke in šolarje zaščitite pred drugimi uporabniki na internetu.</string>
   <string name="inKidModeTheLichessLogoGetsIconX">V načinu za otroke ima lichess ikono %s in označuje da so otroci varni.</string>
   <string name="askYourChessTeacherAboutLiftingKidMode">Vaš račun je upravljan. Vprašajte svojega učitelja šaha o dvigovalnem otroškem načinu.</string>
@@ -929,9 +937,10 @@
     <item quantity="few">in shranite %s predpotezne variante</item>
     <item quantity="other">in shranite %s predpoteznih variant</item>
   </plurals>
+  <string name="showUnreadLichessMessage">Prejeli ste zasebno sporočilo od Lichess.</string>
+  <string name="clickHereToReadIt">Kliknite tukaj, če ga želite prebrati</string>
   <string name="sorry">Oprostite :(</string>
   <string name="weHadToTimeYouOutForAWhile">Morali smo vas za nekaj časa onemogočiti.</string>
-  <string name="timeoutExpires">Omejitev poteče čez %s.</string>
   <string name="why">Zakaj?</string>
   <string name="pleasantChessExperience">Želimo, da imajo z igranjem vsi prijetno izkušnjo.</string>
   <string name="goodPractice">Da bi to dosegli, moramo zagotoviti, da se vsi igralci držijo dobre prakse.</string>
@@ -951,6 +960,8 @@
   <string name="agreementPolicy">Strinjam se, da bom spoštoval vsa pravila Lichess strani.</string>
   <string name="searchOrStartNewDiscussion">Poišči ali prični nov pogovor</string>
   <string name="edit">Uredi</string>
+  <string name="bullet" comment="Probably best left untranslated. Leave it as 'Bullet' unless your language has a better word for it.">Hitri šah</string>
+  <string name="blitz" comment="Probably best left untranslated. Leave it as 'Blitz' unless your language has a better word for it.">Hitropotezni šah</string>
   <string name="rapid">Pospešeni</string>
   <string name="classical">Klasični šah</string>
   <string name="ultraBulletDesc">Noro hitre igre: manj kot 30 sekund</string>
@@ -990,9 +1001,6 @@
   <string name="timeAlmostUp">Čas je skoraj pošel!</string>
   <string name="clickToRevealEmailAddress">[Kliknite, da razkrijete elektronski naslov]</string>
   <string name="download">Prenos</string>
-  <string name="welcome">Dobrodošli!</string>
-  <string name="lichessPatronInfo">Lichess je dobrodelna in popolnoma brezplačna odprtokodna programska oprema.
-Vsi operativni stroški, razvoj in vsebina se financirajo izključno iz donacij uporabnikov.</string>
   <string name="coachManager">Nastavitve za trenerja</string>
   <string name="streamerManager">Nastavitve upravitelja pretočnega predvajanja</string>
   <string name="cancelTournament">Prekini turnir</string>
@@ -1051,4 +1059,6 @@ Pustite prazno, da začnete igre iz običajnega začetnega položaja.</string>
   <string name="switchSides">Zamenjaj strani</string>
   <string name="closingAccountWithdrawAppeal">Z zaprtjem računa bo vaša pritožba umaknjena</string>
   <string name="ourEventTips">Naši nasveti za organizacijo dogodkov</string>
+  <string name="lichessPatronInfo">Lichess je dobrodelna in popolnoma brezplačna odprtokodna programska oprema.
+Vsi operativni stroški, razvoj in vsebina se financirajo izključno iz donacij uporabnikov.</string>
 </resources>

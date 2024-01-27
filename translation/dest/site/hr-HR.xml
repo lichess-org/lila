@@ -95,6 +95,7 @@
   </plurals>
   <string name="dtzWithRounding">DTZ50\'\' sa zaokruživanjem, na temelju broja polupoteza do sljedećeg hvatanja ili poteza pješaka</string>
   <string name="noGameFound">Nije pronađena nijedna partija</string>
+  <string name="maxDepthReached">Maksimalna dubina postignuta!</string>
   <string name="maybeIncludeMoreGamesFromThePreferencesMenu">Probaj uključiti više partija u postavkama pretraživača pozicija</string>
   <string name="openings">Otvaranja</string>
   <string name="openingExplorer">Pretraživač otvaranja</string>
@@ -277,7 +278,6 @@
   <string name="playingRightNow">Upravo igraju</string>
   <string name="eventInProgress">Upravo igraju</string>
   <string name="finished">Završeno</string>
-  <string name="finishesX">završava %s</string>
   <string name="abortGame">Prekini igru</string>
   <string name="gameAborted">Igra prekinuta</string>
   <string name="standard">Standardno</string>
@@ -528,8 +528,6 @@ računalnu analizu, chat partije i URL za dijeljenje.</string>
   <string name="socialMediaLinks">Linkovi društvenih mreža</string>
   <string name="oneUrlPerLine">Jedan URL po liniji.</string>
   <string name="inlineNotation">Kompaktnija notacija</string>
-  <string name="savingMoves">Privremena pohrana poteza</string>
-  <string name="savingMovesHelp">Vaše varijacije uvijek spremamo u predmemoriju preglednika.</string>
   <string name="makeAStudy">Za čuvanje i dijeljenje razmislite o izradi studije.</string>
   <string name="clearSavedMoves">Očisti poteze</string>
   <string name="previouslyOnLichessTV">Prethodno na Lichess TV-u</string>
@@ -869,7 +867,6 @@ računalnu analizu, chat partije i URL za dijeljenje.</string>
   </plurals>
   <string name="sorry">Oprosti :(</string>
   <string name="weHadToTimeYouOutForAWhile">Trebali smo te na neko vrijeme izbaciti.</string>
-  <string name="timeoutExpires">Vrijeme izbačaja ističe za %s.</string>
   <string name="why">Zašto?</string>
   <string name="pleasantChessExperience">Nama je u cilju da pružimo ugodno šahovsko iskustvo.</string>
   <string name="goodPractice">Stoga moramo osigurati da svi igrači dobro postupaju.</string>
@@ -889,6 +886,7 @@ računalnu analizu, chat partije i URL za dijeljenje.</string>
   <string name="agreementPolicy">Slažem se da ću slijediti sve politike Lichessa.</string>
   <string name="searchOrStartNewDiscussion">Traži ili započni novi razgovor</string>
   <string name="edit">Uredi</string>
+  <string name="blitz" comment="Probably best left untranslated. Leave it as 'Blitz' unless your language has a better word for it.">Blitz</string>
   <string name="rapid">Rapid</string>
   <string name="classical">Klasični šah</string>
   <string name="ultraBulletDesc">Ludo brze partije: vrijeme manje od 30 sekundi</string>
@@ -928,9 +926,6 @@ računalnu analizu, chat partije i URL za dijeljenje.</string>
   <string name="timeAlmostUp">Vrijeme uskoro ističe!</string>
   <string name="clickToRevealEmailAddress">[Klikni za prikaz e-mail adrese]</string>
   <string name="download">Preuzmi</string>
-  <string name="welcome">Dobrodošli!</string>
-  <string name="lichessPatronInfo">Lichess je dobrotvorni i potpuno besplatan softver otvorenog koda.
-Svi operativni troškovi, razvoj i sadržaj financiraju se isključivo donacijama korisnika.</string>
   <string name="coachManager">Postavke za trenera</string>
   <string name="streamerManager">Postavke za strimera</string>
   <string name="cancelTournament">Otkaži turnir</string>
@@ -989,4 +984,6 @@ Ostavite prazno za početak igre s normalne početne pozicije.</string>
   <string name="switchSides">Promijeni strane</string>
   <string name="closingAccountWithdrawAppeal">Zatvaranje računa će povući vašu žalbu</string>
   <string name="ourEventTips">Naši savjeti za organizaciju događaja</string>
+  <string name="lichessPatronInfo">Lichess je dobrotvorni i potpuno besplatan softver otvorenog koda.
+Svi operativni troškovi, razvoj i sadržaj financiraju se isključivo donacijama korisnika.</string>
 </resources>

@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="dgtBoard">DGT tahtası</string>
+  <string name="lichessAndDgt">Lichess ve DGT</string>
+  <string name="downloadHere">Programı indirmek için tıklayın: %s.</string>
+  <string name="ifLiveChessRunningOnThisComputer">Eğer %1$s bilgisayarınızda çalışıyorsa, kontrol etmek için %2$s.</string>
+  <string name="openingThisLink">bu bağlantıyı açın</string>
+  <string name="ifLiveChessRunningElsewhere">Eğer %1$s farklı bir bilgisayarda veya portta çalışıyorsa, IP adresini ve portu %2$s ayarlamanız gerekiyor.</string>
+  <string name="configurationSection">Yapılandırma Sekmesinde</string>
+  <string name="keepPlayPageOpen">\"Oyna\" sayfası tarayıcınızda açık olmak zorunda. Görünür olmak zorunda değil, küçültebilir veya Lichess oyun sayfasıyla yanyana koyabilirsiniz, ancak kapatırsanız tahta çalışmayı durduracaktır.</string>
+  <string name="whenReadySetupBoard">Hazır olduğunuzda tahtanızı kurun ve %s butonuna tıklayın.</string>
+  <string name="ifMoveNotDetected">Eğer bir hamle algılanmadıysa</string>
+  <string name="reloadThisPage">Sayfayı yeniden yükle</string>
+  <string name="dgtConfigure">DGT - Yapılandır</string>
+  <string name="lichessConnectivity">Lichess bağlantısı</string>
+  <string name="useWebSocketUrl">%2$s farklı bir bilgisayarda veya portta çalışmıyorsa \"%1$s\" sayfasını kullanın.</string>
+  <string name="configureVoiceNarration">Hamlelerin seslendirilişini yapılandırın, böylece tahtaya odaklanmaya devam edebilirsiniz.</string>
+  <string name="announceAllMoves">Bütün Hamleleri Seslendir</string>
+  <string name="selectAnnouncePreference">Hem sizin hem de rakibinizin hamlelerini seslendirmek için EVET\'i, yalnızca rakibinizin hamlelerini seslendirmek için HAYIR\'ı seçin.</string>
+  <string name="announceMoveFormat">Hamle Seslendirme Biçimi</string>
+  <string name="keywords">Anahtar sözcükler</string>
+  <string name="keywordFormatDescription">Anahtar kelimeler JSON formatındadır. Hamlelerinizi ve maçların sonucunu dilinize çevirmek için kullanılırlar. Varsayılan İngilizce\'dir ancak isteğinize göre değiştirebilirsiniz.</string>
+  <string name="debug">Hata ayıklama</string>
+  <string name="verboseLogging">Ayrıntılı hata kaydı</string>
+  <string name="toSeeConsoleMessage">Konsol mesajını görmek için Control+ Shift + C (Windows, Linux, Chrome OS) veya Command + Option + C (Mac) kısayolunu kullanın</string>
+  <string name="playWithDgtBoard">Bir DGT tahtasıyla oynayın</string>
+  <string name="configure">Yapılandır</string>
+</resources>

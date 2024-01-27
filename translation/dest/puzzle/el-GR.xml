@@ -19,6 +19,7 @@
   <string name="toGetPersonalizedPuzzles">Για να λύνετε εξατομικευμένους γρίφους:</string>
   <string name="puzzleId">Γρίφος %s</string>
   <string name="puzzleOfTheDay">Γρίφος της ημέρας</string>
+  <string name="dailyPuzzle">Ημερήσιος Γρίφος</string>
   <string name="clickToSolve">Κάντε κλικ για να τον λύσετε</string>
   <string name="goodMove">Καλή κίνηση</string>
   <string name="bestMove">Παίξατε την καλύτερη κίνηση!</string>
@@ -51,7 +52,7 @@
   </plurals>
   <string name="example">Παράδειγμα</string>
   <string name="addAnotherTheme">Προσθήκη νέου θέματος</string>
-  <string name="nextPuzzle">Επόμενο παζλ</string>
+  <string name="nextPuzzle">Επόμενος γρίφος</string>
   <string name="jumpToNextPuzzleImmediately">Μετάβαση στον επόμενο γρίφο αμέσως</string>
   <string name="puzzleDashboard">Ταμπλό γρίφων</string>
   <string name="improvementAreas">Τομείς βελτίωσης</string>
@@ -70,7 +71,7 @@
   <string name="searchPuzzles">Αναζήτηση γρίφων</string>
   <string name="fromMyGamesNone">Δεν υπάρχουν γρίφοι από τα παιχνίδια σας στη βάση δεδομένων.
 Παίξτε κλασικά ή rapid παιχνίδια για να αυξηθούν οι πιθανότητες προσθήκης γρίφων από τα παιχνίδια σας στη βάση δεδομένων!</string>
-  <string name="fromXGamesFound">%1$s γρίφοι βρέθηκαν σε %2$s παιχνίδια</string>
+  <string name="fromXGamesFound">Βρέθηκαν %1$s γρίφοι στα παιχνίδια του χρήστη %2$s</string>
   <string name="puzzleDashboardDescription">Προπονηθείτε, αναλύστε, βελτιωθείτε</string>
   <plurals name="nbPlayed">
     <item quantity="one">%s παίχτηκε</item>

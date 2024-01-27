@@ -5,6 +5,7 @@
   <string name="toInviteSomeoneToPlayGiveThisUrl">För att bjuda in någon att spela, ge dem den här länken</string>
   <string name="gameOver">Partiet är slut</string>
   <string name="waitingForOpponent">Väntar på motståndare</string>
+  <string name="orLetYourOpponentScanQrCode">Eller låt din motståndare skanna denna QR-kod</string>
   <string name="waiting">Väntar</string>
   <string name="yourTurn">Din tur</string>
   <string name="aiNameLevelAiLevel">%1$s nivå %2$s</string>
@@ -70,6 +71,7 @@
   <string name="makeMainLine">Gör till huvudvariant</string>
   <string name="deleteFromHere">Radera härifrån</string>
   <string name="forceVariation">Visa som variant</string>
+  <string name="copyVariationPgn">Kopiera variations-PGN</string>
   <string name="move">Drag</string>
   <string name="variantLoss">Variantförlust</string>
   <string name="variantWin">Variantvinst</string>
@@ -115,6 +117,7 @@
   <string name="openStudy">Öppna studie</string>
   <string name="enable">Aktivera</string>
   <string name="bestMoveArrow">Pil som anger bästa drag</string>
+  <string name="showVariationArrows">Visa variationspilar</string>
   <string name="evaluationGauge">Utvärderingsmätare</string>
   <string name="multipleLines">Flera linjer</string>
   <string name="cpus">Processorer</string>
@@ -153,6 +156,10 @@
   <plurals name="nbGames">
     <item quantity="one">%s parti</item>
     <item quantity="other">%s partier</item>
+  </plurals>
+  <plurals name="ratingXOverYGames">
+    <item quantity="one">%1$sranking över %2$s parti</item>
+    <item quantity="other">%1$sranking över %2$s partier</item>
   </plurals>
   <plurals name="nbBookmarks">
     <item quantity="one">%s bokmärke</item>
@@ -266,7 +273,6 @@
   <string name="playingRightNow">Spelas just nu</string>
   <string name="eventInProgress">Spelas just nu</string>
   <string name="finished">Slut</string>
-  <string name="finishesX">slutar %s</string>
   <string name="abortGame">Avbryt partiet</string>
   <string name="gameAborted">Partiet avbröts</string>
   <string name="standard">Standard</string>
@@ -343,8 +349,13 @@
     <item quantity="one">%s studie</item>
     <item quantity="other">%s studier</item>
   </plurals>
+  <plurals name="nbSimuls">
+    <item quantity="one">%s simultanparti</item>
+    <item quantity="other">%s simultanpartier</item>
+  </plurals>
   <string name="viewTournament">Visa turnering</string>
   <string name="backToTournament">Tillbaka till turnering</string>
+  <string name="noDrawBeforeSwissLimit">Ni kan inte ta remi innan drag 30 i en schweizer-turnering.</string>
   <string name="thematic">Tema</string>
   <plurals name="moreThanNbRatedGames">
     <item quantity="one">≥ %s rankat parti</item>
@@ -393,6 +404,8 @@
   <string name="toStudy">Studera</string>
   <string name="importGame">Importera parti</string>
   <string name="importGameExplanation">Klistra in ett partis PGN-kod så får du en bläddringsbar uppspelning, en datoranalys, en spel-chatt och en delbar URL.</string>
+  <string name="importGameCaveat">Variationer kommer att raderas. För att behålla dem, importera PGN:en via en studie.</string>
+  <string name="importGameDataPrivacyWarning">Denna PGN kan nås av allmänheten. För att importera ett parti privat, använd en studie.</string>
   <plurals name="nbImportedGames">
     <item quantity="one">%s Importerat parti</item>
     <item quantity="other">%s Importerade partier</item>
@@ -473,6 +486,7 @@
   <string name="movesPlayed">Drag spelade</string>
   <string name="whiteWins">Vinster Vit</string>
   <string name="blackWins">Vinster Svart</string>
+  <string name="drawRate">Gräns för remi</string>
   <string name="draws">Remier</string>
   <string name="nextXTournament">Nästa %s turnering:</string>
   <string name="averageOpponent">Genomsnittlig motståndare</string>
@@ -493,17 +507,15 @@
   <string name="editProfile">Ändra profil</string>
   <string name="firstName">Förnamn</string>
   <string name="lastName">Efternamn</string>
+  <string name="setFlair">Ställ in din flair</string>
+  <string name="flair">Flair</string>
+  <string name="youCanHideFlair">Det finns en inställning för att dölja alla användarflairs över hela webbplatsen.</string>
   <string name="biography">Biografi</string>
+  <string name="countryRegion" comment="flag&#10;Appears when you edit your profile. Lets a player add a country/flag (not all flags are for countries) to their profile">Land eller region</string>
   <string name="thankYou">Tack!</string>
   <string name="socialMediaLinks">Länkar till sociala medier</string>
   <string name="oneUrlPerLine">En URL per rad.</string>
   <string name="inlineNotation">Visa notation</string>
-  <string name="savingMoves">Temporär lagring av drag. 
-Vi lagrar alltid dina drag i webbläsarens cache. Överväg att skapa en studie, för trygg förvaring och möjlighet att dela.
-
-För information, Lichess studier är en funktion som gör det möjligt för spelare att enkelt spara och spela igenom partier:
-https://lichess. org/study</string>
-  <string name="savingMovesHelp">Vi lagrar alltid dina variationer i din webbläsares cache.</string>
   <string name="makeAStudy">För förvaring och delning, överväg att göra en studie.</string>
   <string name="clearSavedMoves">Rensa schack drag</string>
   <string name="previouslyOnLichessTV">Föregående Lichess-TV</string>
@@ -651,8 +663,10 @@ https://lichess. org/study</string>
   <string name="simultaneousExhibitions">Simultanschack</string>
   <string name="host">Värd</string>
   <string name="hostColorX">Värdens färg: %s</string>
+  <string name="yourPendingSimuls">Dina väntande simuleringar</string>
   <string name="createdSimuls">Nyligen skapade simultanmatcher</string>
   <string name="hostANewSimul">Skapa ny simultanmatch</string>
+  <string name="signUpToHostOrJoinASimul">Registrera dig för att vara värd eller gå med i en simulation</string>
   <string name="noSimulFound">Denna simultanmatch hittades ej</string>
   <string name="noSimulExplanation">Denna simultanmatch existerar inte.</string>
   <string name="returnToSimulHomepage">Återvänd till hemsidan för simultan</string>
@@ -667,6 +681,8 @@ https://lichess. org/study</string>
   <string name="simulClockHint">Inställningar för fischerklocka. Ju fler spelare du tar dig an, desto mer tid kan du behöva.</string>
   <string name="simulAddExtraTime">Du kan lägga till extra tid till dig för att klara av simultanspelet.</string>
   <string name="simulHostExtraTime">Värdens extratid</string>
+  <string name="simulAddExtraTimePerPlayer">Lägg till en starttid på klockan för varje spelare som går med i simultanmatchen.</string>
+  <string name="simulHostExtraTimePerPlayer">Extratid för värden för varje spelare som deltar</string>
   <string name="lichessTournaments">Lichess-turneringar</string>
   <string name="tournamentFAQ">Turnering: Vanliga frågor</string>
   <string name="timeBeforeTournamentStarts">Tid tills turneringen börjar</string>
@@ -675,8 +691,21 @@ https://lichess. org/study</string>
   <string name="keyboardShortcuts">Snabbkommandon</string>
   <string name="keyMoveBackwardOrForward">bakåtdrag/framåtdrag</string>
   <string name="keyGoToStartOrEnd">gå till början/slut</string>
+  <string name="keyCycleSelectedVariation">Cykla vald variant</string>
   <string name="keyShowOrHideComments">visa/göm kommentarer</string>
   <string name="keyEnterOrExitVariation">påbörja/avsluta variant</string>
+  <string name="keyRequestComputerAnalysis">Begär datoranalys, lär av dina misstag</string>
+  <string name="keyNextLearnFromYourMistakes">Nästa (Lär av dina misstag)</string>
+  <string name="keyNextBlunder">Nästa blunder</string>
+  <string name="keyNextMistake">Nästa misstag</string>
+  <string name="keyNextInaccuracy">Nästa felaktighet</string>
+  <string name="keyPreviousBranch">Föregående gren</string>
+  <string name="keyNextBranch">Nästa gren</string>
+  <string name="toggleVariationArrows">Växla variationspilar</string>
+  <string name="cyclePreviousOrNextVariation">Cykla föregående/nästa variant</string>
+  <string name="toggleGlyphAnnotations">Växla glyph-anteckningar</string>
+  <string name="variationArrowsInfo">Variationspilar låter dig navigera utan att använda draglistan.</string>
+  <string name="playSelectedMove">spela markerat drag</string>
   <string name="newTournament">Ny turnering</string>
   <string name="tournamentHomeTitle">Schackturnering med olika betänketider och schackvarianter</string>
   <string name="tournamentHomeDescription">Spela snabba schackturneringar! Delta i en officiell schemalagd turnering, eller skapa din egen. Bullet, Blitz, Classical, Chess960, King of the Hill, Threecheck och fler alternativ erbjuds för ändlösa schacknöjen.</string>
@@ -692,6 +721,7 @@ https://lichess. org/study</string>
   <string name="yourPerfTypeRatingIsRating">Din %1$srating är %2$s.</string>
   <string name="youAreBetterThanPercentOfPerfTypePlayers">Du är bättre än %1$s av alla som spelar %2$s.</string>
   <string name="userIsBetterThanPercentOfPerfTypePlayers">%1$s är bättre än %2$s av alla %3$sspelare.</string>
+  <string name="betterThanPercentPlayers">Bättre än %1$s av %2$sspelare</string>
   <string name="youDoNotHaveAnEstablishedPerfTypeRating">Du har inte en etablerad %srating.</string>
   <string name="yourRating">Din rating</string>
   <string name="cumulative">Kumulativ</string>
@@ -718,6 +748,7 @@ https://lichess. org/study</string>
   <string name="withFriends">Med vänner</string>
   <string name="withEverybody">Med alla</string>
   <string name="kidMode">Barnsäkert läge</string>
+  <string name="kidModeIsEnabled">Barnsäkert läge är aktiverat.</string>
   <string name="kidModeExplanation">Detta är en säkerhetsinställning. I barnsäkert läge är all kommunikation inaktiverad. Använd detta för dina barn och skolelever för att skydda dem från andra internetanvändare.</string>
   <string name="inKidModeTheLichessLogoGetsIconX">I barnsäkert läge får lichess-logotypen en %s ikon, så att du vet att dina barn är säkra.</string>
   <string name="askYourChessTeacherAboutLiftingKidMode">Ditt konto hanteras. Fråga din schacklärare om att ta bort barnläget.</string>
@@ -746,7 +777,7 @@ https://lichess. org/study</string>
   <string name="xHostsY">%1$s är värd för %2$s</string>
   <string name="xJoinsY">%1$s deltar i %2$s</string>
   <string name="xLikesY">%1$s gillar %2$s</string>
-  <string name="quickPairing">Snabb parning</string>
+  <string name="quickPairing">Snabbparning</string>
   <string name="lobby">Lobby</string>
   <string name="anonymous">Anonym</string>
   <string name="yourScore">Dina poäng: %s</string>
@@ -774,6 +805,7 @@ https://lichess. org/study</string>
   <string name="invalidFen">Ogiltig FEN</string>
   <string name="custom">Anpassad</string>
   <string name="notifications">Aviseringar</string>
+  <string name="notificationsX">Notiser: %1$s</string>
   <string name="perfRatingX">Rating: %s</string>
   <plurals name="nbSecondsToPlayTheFirstMove">
     <item quantity="one">%s sekund kvar för att spela första draget</item>
@@ -830,9 +862,10 @@ https://lichess. org/study</string>
     <item quantity="one">och spara %s linje av förhandsdrag</item>
     <item quantity="other">och spara %s linje av förhandsdrag</item>
   </plurals>
+  <string name="showUnreadLichessMessage">Du har fått ett privat meddelande från Lichess.</string>
+  <string name="clickHereToReadIt">Klicka här för att läsa den</string>
   <string name="sorry">Beklagar :(</string>
   <string name="weHadToTimeYouOutForAWhile">Vi är tvugna att stänga av dig en stund.</string>
-  <string name="timeoutExpires">Avstängningen upphör om %s.</string>
   <string name="why">Varför?</string>
   <string name="pleasantChessExperience">Vårt mål är att tillhandahålla alla en behaglig schackupplevelse till alla.</string>
   <string name="goodPractice">Därför måste vi försäkra oss om att alla spelare följer god sed.</string>
@@ -852,6 +885,8 @@ https://lichess. org/study</string>
   <string name="agreementPolicy">Jag instämmer med att jag kommer att följa alla Lichess-regler.</string>
   <string name="searchOrStartNewDiscussion">Sök eller starta ny konversation</string>
   <string name="edit">Redigera</string>
+  <string name="bullet" comment="Probably best left untranslated. Leave it as 'Bullet' unless your language has a better word for it.">Bullet</string>
+  <string name="blitz" comment="Probably best left untranslated. Leave it as 'Blitz' unless your language has a better word for it.">Blitz</string>
   <string name="rapid">Snabbschack</string>
   <string name="classical">Classical</string>
   <string name="ultraBulletDesc">Vansinnigt snabba partier: mindre än 30 sekunder</string>
@@ -868,6 +903,8 @@ https://lichess. org/study</string>
   <string name="useTheReportForm">använd rapportformuläret</string>
   <string name="toRequestSupport">För att begära support, %1$s</string>
   <string name="tryTheContactPage">prova kontaktsidan</string>
+  <string name="makeSureToRead">Se till att läsa %1$s</string>
+  <string name="theForumEtiquette">forumets etikett</string>
   <string name="thisTopicIsArchived">Detta ämne har arkiverats och kan inte längre besvaras.</string>
   <string name="joinTheTeamXToPost">Gå med i %1$s, för att posta i detta forum</string>
   <string name="teamNamedX">%1$s-teamet</string>
@@ -889,9 +926,6 @@ https://lichess. org/study</string>
   <string name="timeAlmostUp">Tiden är nästan slut!</string>
   <string name="clickToRevealEmailAddress">[Klicka för att visa mailadress]</string>
   <string name="download">Ladda ner</string>
-  <string name="welcome">Välkommen!</string>
-  <string name="lichessPatronInfo">Lichess är en välgörenhet och helt gratis/fri programvara med öppen källkod.
-Alla driftskostnader, utveckling och innehåll finansieras enbart av användardonationer.</string>
   <string name="coachManager">Coach-hanterare</string>
   <string name="streamerManager">Stream-hanterare</string>
   <string name="cancelTournament">Avbryt turneringen</string>
@@ -950,4 +984,8 @@ Lämna tomt för att starta spel från den normala startpositionen.</string>
   <string name="switchSides">Växla sida</string>
   <string name="closingAccountWithdrawAppeal">Att avsluta ditt konto kommer att dra tillbaka ditt överklagande</string>
   <string name="ourEventTips">Våra tips för anordnande av evenemang</string>
+  <string name="instructions">Instruktioner</string>
+  <string name="showMeEverything">Visa mig allt</string>
+  <string name="lichessPatronInfo">Lichess är en välgörenhet och helt gratis/fri programvara med öppen källkod.
+Alla driftskostnader, utveckling och innehåll finansieras enbart av användardonationer.</string>
 </resources>

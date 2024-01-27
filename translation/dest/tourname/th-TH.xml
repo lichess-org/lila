@@ -3,15 +3,15 @@
   <string name="hourlyRapidArena">สังเวียนแรปพิดรายชั่วโมง</string>
   <string name="hourlyRapid">แรปพิดรายชั่วโมง</string>
   <string name="hourlyXArena">สังเวียน %s รายชั่วโมง</string>
-  <string name="hourlyX">%s รายชั่วโมง</string>
+  <string name="hourlyX" comment="%s is a time control (like &quot;Blitz&quot;) or a variant (like &quot;Chess960&quot;)&#10;&#10;Used for tournaments. Please keep this string short and consistent with 'Hourly Rapid' and 'Hourly %s Arena'.">%s รายชั่วโมง</string>
   <string name="dailyRapidArena">สังเวียนแรปพิดรายวัน</string>
   <string name="dailyRapid">แรปพิดรายวัน</string>
-  <string name="dailyClassicalArena">สังเวียนคลาสสิกรายวัน</string>
-  <string name="dailyClassical">คลาสสิกรายวัน</string>
-  <string name="dailyXArena">สังเวียน %s รายวัน</string>
+  <string name="dailyClassicalArena" comment="dailyClassicalArena&#10;&#10;Used for tournaments. Please keep this string short and consistent with 'Daily Rapid' and 'Daily %s Arena'.">สังเวียนคลาสสิกรายวัน</string>
+  <string name="dailyClassical" comment="dailyClassical&#10;&#10;Used for tournaments. Please keep this string short and consistent with 'Daily Rapid' and 'Daily %s Arena'.">คลาสสิกรายวัน</string>
+  <string name="dailyXArena" comment="dailyXArena %s is a time control (like &quot;Blitz&quot;) or a variant (like &quot;Chess960&quot;)&#10;&#10;Used for tournaments. Please keep this string short and consistent with 'Daily %s'.">สังเวียน %s รายวัน</string>
   <string name="dailyX">%s รายวัน</string>
-  <string name="easternRapidArena">สังเวียนแรปพิดตะวันออก</string>
-  <string name="easternRapid">แรปพิดตะวันออก</string>
+  <string name="easternRapidArena" comment="easternRapidArena&#10;&#10;Eastern refers to the time zone these tournaments are scheduled in for, accommodating East Asia, Oceania and the Pacific.">สังเวียนแรปพิดตะวันออก</string>
+  <string name="easternRapid" comment="easternRapid&#10;Eastern refers to the time zone these tournaments are scheduled in for, accommodating East Asia, Oceania and the Pacific.&#10;&#10;Please keep this string short and consistent with 'Eastern Rapid Arena' and 'Eastern %s Arena'.">แรปพิดตะวันออก</string>
   <string name="easternClassicalArena">สังเวียนคลาสสิกตะวันออก</string>
   <string name="easternClassical">คลาสสิกตะวันออก</string>
   <string name="easternXArena">สังเวียน %s ตะวันออก</string>

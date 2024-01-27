@@ -3,25 +3,25 @@
   <string name="justNow">الان</string>
   <plurals name="inNbSeconds">
     <item quantity="zero">خلال %s ثانية</item>
-    <item quantity="one">خلال %s ثانية</item>
-    <item quantity="two">خلال %s ثانية</item>
-    <item quantity="few">خلال %s ثانية</item>
+    <item quantity="one">خلال ثانية</item>
+    <item quantity="two">خلال ثانيتين</item>
+    <item quantity="few">خلال %s ثوانٍ</item>
     <item quantity="many">خلال %s ثانية</item>
     <item quantity="other">خلال %s ثانية</item>
   </plurals>
   <plurals name="inNbMinutes">
-    <item quantity="zero">خلال %s دقائق</item>
-    <item quantity="one">خلال %s دقائق</item>
-    <item quantity="two">خلال %s دقائق</item>
+    <item quantity="zero">خلال %s دقيقة</item>
+    <item quantity="one">خلال دقيقة</item>
+    <item quantity="two">خلال %s دقيقتين</item>
     <item quantity="few">خلال %s دقائق</item>
     <item quantity="many">خلال %s دقائق</item>
     <item quantity="other">خلال %s دقائق</item>
   </plurals>
   <plurals name="inNbHours">
     <item quantity="zero">خلال %s ساعة</item>
-    <item quantity="one">خلال %s ساعة</item>
-    <item quantity="two">خلال %s ساعة</item>
-    <item quantity="few">خلال %s ساعة</item>
+    <item quantity="one">خلال ساعة</item>
+    <item quantity="two">خلال ساعتين</item>
+    <item quantity="few">خلال %s ساعات</item>
     <item quantity="many">خلال %s ساعة</item>
     <item quantity="other">خلال %s ساعة</item>
   </plurals>
@@ -29,12 +29,12 @@
     <item quantity="zero">خلال %s يوم</item>
     <item quantity="one">خلال %s يوم</item>
     <item quantity="two">خلال %s يوم</item>
-    <item quantity="few">خلال %s يوم</item>
+    <item quantity="few">خلال %s أيام</item>
     <item quantity="many">خلال %s يوم</item>
     <item quantity="other">خلال %s يوم</item>
   </plurals>
   <plurals name="inNbWeeks">
-    <item quantity="zero">خلال %s اسبوع</item>
+    <item quantity="zero">خلال %s أسبوع</item>
     <item quantity="one">خلال %s اسبوع</item>
     <item quantity="two">خلال %s اسبوع</item>
     <item quantity="few">خلال %s اسبوع</item>
@@ -58,25 +58,17 @@
     <item quantity="other">خلال %s سنة</item>
   </plurals>
   <string name="rightNow">حاليا</string>
-  <plurals name="nbSecondsAgo">
-    <item quantity="zero">منذ %s ثوان مضت</item>
-    <item quantity="one">منذ %s ثوان مضت</item>
-    <item quantity="two">منذ %s ثوان مضت</item>
-    <item quantity="few">منذ %s ثوان مضت</item>
-    <item quantity="many">منذ %s ثوان مضت</item>
-    <item quantity="other">منذ %s ثوان مضت</item>
-  </plurals>
   <plurals name="nbMinutesAgo">
     <item quantity="zero">منذ %s دقيقة/دقائق مضت</item>
-    <item quantity="one">منذ %s دقيقة/دقائق مضت</item>
-    <item quantity="two">منذ %s دقيقة/دقائق مضت</item>
+    <item quantity="one">منذ %s دقيقة</item>
+    <item quantity="two">منذ %s دقيقتين</item>
     <item quantity="few">منذ %s دقيقة/دقائق مضت</item>
     <item quantity="many">منذ %s دقيقة/دقائق مضت</item>
     <item quantity="other">منذ %s دقيقة/دقائق مضت</item>
   </plurals>
   <plurals name="nbHoursAgo">
     <item quantity="zero">منذ %s ساعة/ساعات مضت</item>
-    <item quantity="one">منذ %s ساعة/ساعات مضت</item>
+    <item quantity="one">منذ %s ساعة</item>
     <item quantity="two">منذ %s ساعة/ساعات مضت</item>
     <item quantity="few">منذ %s ساعة/ساعات مضت</item>
     <item quantity="many">منذ %s ساعة/ساعات مضت</item>
@@ -114,4 +106,21 @@
     <item quantity="many">منذ %s سنة</item>
     <item quantity="other">منذ %s سنة</item>
   </plurals>
+  <plurals name="nbMinutesRemaining">
+    <item quantity="zero">%sدقيقة متبقية</item>
+    <item quantity="one">%sدقيقة متبقية</item>
+    <item quantity="two">%sدقيقتان متبقيتان</item>
+    <item quantity="few">%sدقائق متبقية</item>
+    <item quantity="many">%sدقيقة متبقية</item>
+    <item quantity="other">%sدقائق متبقية</item>
+  </plurals>
+  <plurals name="nbHoursRemaining">
+    <item quantity="zero">%sساعة متبقية</item>
+    <item quantity="one">%sساعة واحدة متبقية</item>
+    <item quantity="two">%sساعتان متبقيتان</item>
+    <item quantity="few">%s ساعات متبقية</item>
+    <item quantity="many">%sساعة متبقية</item>
+    <item quantity="other">%sساعة متبقية</item>
+  </plurals>
+  <string name="completed">مكتمل</string>
 </resources>

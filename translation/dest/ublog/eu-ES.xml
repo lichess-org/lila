@@ -37,10 +37,11 @@
   <string name="imageCredit">Irudiaren oina</string>
   <string name="deleteBlog">Sarrera hau betiko ezabatu</string>
   <string name="deleteImage">Ezabatu irudia</string>
-  <string name="safeToUseImages" comment="safeToUseImages&#10;&#10;This is mentioned because the images there are royalty-free, so there is no risk of copyright infringement.">Webgune hauetako irudiak erabili ditzakezu: </string>
+  <string name="safeToUseImages">Webgune hauetako irudiak erabili ditzakezu: </string>
   <string name="selectPostTopics">Aukeratu zure sarreraren gaiak</string>
   <string name="useImagesYouMadeYourself">Zuk egindako irudiak, egindako argazkiak, Lichessen pantaila-irudiak eta beste norbaiten copyrightik ez duen edozer erabili dezakeu.</string>
   <string name="safeAndRespectfulContent">Eduki seguru eta errespetuzkoa bakarrik argitaratu. Ez kopiatu beste norbaiten edukirik.</string>
   <string name="inappropriateContentAccountClosed">Errespetua galduz gero, zure kontua itxiko dugu.</string>
-  <string name="blogTips" comment="blogTips&#10;&#10;This is a link to https://lichess.org/page/blog-tips. Appears when creating a new post.">Blogeko sarrerak idazteko gure aholkuak</string>
+  <string name="blogTips">Blogeko sarrerak idazteko gure aholkuak</string>
+  <string name="discussThisBlogPostInTheForum">Eztabaidatu artikulu honi buruz foroan</string>
 </resources>

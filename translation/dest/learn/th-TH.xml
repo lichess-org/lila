@@ -6,7 +6,7 @@
   <string name="progressX">คืบหน้า: %s</string>
   <string name="resetMyProgress">คืนค่าความคืบหน้าของฉัน</string>
   <string name="youWillLoseAllYourProgress">คุณจะสูญเสียความคืบหน้าของคุณทั้งหมด!</string>
-  <string name="play">เล่น!</string>
+  <string name="play" comment="play&#10;&#10;A small ribbon that appears on your current chapter in the Chess Basics course. Please keep this string short.">เล่น!</string>
   <string name="chessPieces">ตัวหมากรุก</string>
   <string name="theRook">เรือ</string>
   <string name="itMovesInStraightLines">มันเดินตามแนวตรง</string>
@@ -185,6 +185,12 @@
   <string name="queenOverBishop">จงกินหมาก
 ที่มีค่าสูงสุด!
 ควีน &gt; บิชอป</string>
+  <string name="pieceValueExchange">กินหมากที่มีค่ามากที่สุด
+ ห้ามแลกหมาก
+ หมากที่มีค่ามากกว่าสำหรับตัวที่ค่าน้อยกว่า</string>
+  <string name="pieceValueLegal">กินหมาก
+ที่มีค่าสูงสุด
+ดูให้แน่ใจว่าตาเดินคุฌถูกกฎ</string>
   <string name="takeThePieceWithTheHighestValue">จงกินหมาก
 ที่มีค่าสูงสุด!</string>
   <string name="pieceValueComplete">ยินดีด้วย! คุณรู้ค่าของวัสดุแล้ว!
@@ -227,6 +233,7 @@
   <string name="rightOn">ถูกต้องเลย!</string>
   <string name="stageXComplete">ขั้นที่ %s สมบูรณ์</string>
   <string name="next">ถัดไป</string>
+  <string name="nextX">ต่อไป: %s</string>
   <string name="backToMenu">กลับสู่เมนู</string>
   <string name="puzzleFailed">แก้ปริศนาล้มเหลว!</string>
   <string name="retry">ลองใหม่</string>

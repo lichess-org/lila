@@ -16,14 +16,27 @@
   "license": "AGPL-3.0-or-later",
   "dependencies": {
     "@badrap/result": "^0.2.13",
-    "chessops": "^0.12.7",
-    "idb-keyval": "^6.2.0",
+    "chessops": "^0.13.0",
+    "common": "workspace:*",
+    "idb-keyval": "^6.2.1",
     "snabbdom": "^3.5.1",
-    "common": "workspace:*"
+    "stockfish.js": "^10.0.2",
+    "stockfish.wasm": "^0.10.0",
+    "stockfish-mv.wasm": "^0.6.1",
+    "stockfish-nnue.wasm": "1.0.0-1946a675.smolnet",
+    "lila-stockfish-web": "0.0.3"
   },
   "scripts": {
     "compile": "tsc",
     "dev": "tsc",
     "prod": "tsc"
+  },
+  "lichess": {
+    "copy": [
+      {
+        "src": "node_modules/*stockfish*/*.{js,wasm}",
+        "dest": "../../public/npm"
+      }
+    ]
   }
 }

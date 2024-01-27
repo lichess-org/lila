@@ -21,26 +21,29 @@ object player:
       bookmarked: Boolean
   )(using ctx: PageContext) =
 
-    val chatJson = chatOption.map(_.either).map {
-      case Left(c) =>
-        chat.restrictedJson(
-          c,
-          name = trans.chatRoom.txt(),
-          timeout = false,
-          withNoteAge = ctx.isAuth option pov.game.secondsSinceCreation,
-          public = false,
-          resourceId = lila.chat.Chat.ResourceId(s"game/${c.chat.id}"),
-          palantir = ctx.me.exists(_.canPalantir)
-        )
-      case Right((c, res)) =>
-        chat.json(
-          c.chat,
-          name = trans.chatRoom.txt(),
-          timeout = c.timeout,
-          public = true,
-          resourceId = res
-        )
-    }
+    val chatJson = chatOption
+      .map(_.either)
+      .map:
+        case Left(c) =>
+          chat.restrictedJson(
+            c,
+            c.lines,
+            name = trans.chatRoom.txt(),
+            timeout = false,
+            withNoteAge = ctx.isAuth option pov.game.secondsSinceCreation,
+            public = false,
+            resourceId = lila.chat.Chat.ResourceId(s"game/${c.chat.id}"),
+            palantir = ctx.canPalantir
+          )
+        case Right((c, res)) =>
+          chat.json(
+            c.chat,
+            c.lines,
+            name = trans.chatRoom.txt(),
+            timeout = c.timeout,
+            public = true,
+            resourceId = res
+          )
 
     bits.layout(
       variant = pov.game.variant,
@@ -61,7 +64,7 @@ object player:
         )
       ),
       openGraph = povOpenGraph(pov).some,
-      playing = true,
+      playing = pov.game.playable,
       zenable = true
     ):
       main(cls := "round")(
@@ -73,12 +76,9 @@ object player:
         div(cls := "round__underboard")(
           bits.crosstable(cross, pov.game),
           (playing.nonEmpty || simul.exists(_ isHost ctx.me)) option
-            div(
-              cls := List(
-                "round__now-playing" -> true,
-                "blindfold"          -> ctx.pref.isBlindfold
-              )
-            )(bits.others(playing, simul.filter(_ isHost ctx.me)))
+            div(cls := "round__now-playing")(
+              bits.others(playing, simul.filter(_ isHost ctx.me))
+            )
         ),
         div(cls := "round__underchat")(bits underchat pov.game)
       )

@@ -44,12 +44,6 @@
     <item quantity="other">po %s metų</item>
   </plurals>
   <string name="rightNow">dabar</string>
-  <plurals name="nbSecondsAgo">
-    <item quantity="one">Prieš %s sekundę</item>
-    <item quantity="few">Prieš %s sekundes</item>
-    <item quantity="many">Prieš %s sekundės</item>
-    <item quantity="other">Prieš %s sekundžių</item>
-  </plurals>
   <plurals name="nbMinutesAgo">
     <item quantity="one">Prieš %s minutę</item>
     <item quantity="few">Prieš %s minutes</item>

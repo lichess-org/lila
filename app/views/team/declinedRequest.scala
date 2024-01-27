@@ -1,6 +1,7 @@
 package views.html.team
 
 import controllers.routes
+import controllers.team.routes.{ Team as teamRoutes }
 
 import lila.app.templating.Environment.{ given, * }
 import lila.app.ui.ScalatagsTemplate.{ *, given }
@@ -16,13 +17,13 @@ object declinedRequest:
       moreCss = frag(cssTag("team"))
     ) {
       val pager = views.html.base.bits
-        .paginationByQuery(routes.Team.declinedRequests(team.id, 1), requests, showPost = true)
+        .paginationByQuery(teamRoutes.declinedRequests(team.id, 1), requests, showPost = true)
       main(cls := "page-menu page-small")(
         bits.menu(none),
         div(cls := "page-menu__content box box-pad")(
           boxTop(
             h1(
-              a(href := routes.Team.show(team.id))(
+              a(href := teamRoutes.show(team.id))(
                 team.name
               ),
               " • ",
@@ -40,12 +41,12 @@ object declinedRequest:
                   td(cls := "process")(
                     postForm(
                       cls    := "process-request",
-                      action := routes.Team.requestProcess(request.id)
+                      action := teamRoutes.requestProcess(request.id)
                     )(
                       input(
                         tpe   := "hidden",
                         name  := "url",
-                        value := routes.Team.declinedRequests(team.id, requests.currentPage)
+                        value := teamRoutes.declinedRequests(team.id, requests.currentPage)
                       ),
                       button(name := "process", cls := "button button-green", value := "accept")(
                         trans.accept()

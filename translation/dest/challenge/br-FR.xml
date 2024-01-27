@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+  <string name="challengesX">Daeoù: %1$s</string>
   <string name="challengeToPlay">Daeañ ar c\'hoarier-mañ</string>
   <string name="challengeDeclined">Dae nac’het</string>
   <string name="challengeAccepted">Dae asantet!</string>

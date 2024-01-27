@@ -14,9 +14,9 @@
   <string name="beingAPatron">être mécène</string>
   <string name="breakdownOfOurCosts">répartition de nos coûts</string>
   <string name="otherWaysToHelp">autres façons d\'aider</string>
-  <string name="areThereWebsitesBasedOnLichess">Y a-t-il d\'autres sites web basés sur Lichess?</string>
+  <string name="areThereWebsitesBasedOnLichess">Y a-t-il d\'autres sites web basés sur Lichess ?</string>
   <string name="yesLichessInspiredOtherOpenSourceWebsites">Oui. Lichess a en effet inspiré d\'autres sites open-source qui utilisent notre %1$s, %2$s, ou %3$s.</string>
-  <string name="keyboardShortcuts">Quels raccourcis clavier y a-t-il?</string>
+  <string name="keyboardShortcuts">Quels raccourcis clavier y a-t-il ?</string>
   <string name="keyboardShortcutsExplanation">Certaines pages de Lichess ont des raccourcis clavier. Appuyez sur la touche « ? » dans une étude, une analyse, un problème ou une partie pour voir la liste des raccourcis.</string>
   <string name="fairPlay">Le fair-play</string>
   <string name="whenAmIEligibleRatinRefund">Quand puis-je bénéficier du remboursement automatique de points de classement perdus contre des tricheurs ?</string>
@@ -54,6 +54,7 @@ L\'analyse informatique sur Lichess est réalisée par Stockfish.</string>
 Dans de rares cas, il peut être difficile de prendre une décision automatique (lignes forcées, forteresses). Par défaut, nous nous rangeons toujours du côté du joueur qui n\'a pas manqué de temps.
 
 Notez qu\'il peut être possible de mettre échec et mat avec un seul chevalier ou fou si l\'adversaire a une pièce qui pourrait bloquer le roi.</string>
+  <string name="fideHandbook">Manuel de la FIDE</string>
   <string name="fideHandbookX">manuel de la FIDE %s</string>
   <string name="discoveringEnPassant">Pourquoi un pion peut-il capturer un autre pion alors qu\'il est déjà passé ? (prise en passant)</string>
   <string name="explainingEnPassant">Il s\'agit d\'un mouvement légal appelé \"capture en passant\" ou \"prise en passant\". L\'article de Wikipedia donne un %1$s.
@@ -67,7 +68,7 @@ Voir les %3$s sur ce coup pour vous entraîner.</string>
   <string name="lichessTraining">Entraînement Lichess</string>
   <string name="watchIMRosenCheckmate">Regardez le maître international Eric Rosen mater %s.</string>
   <string name="threefoldRepetition">Triple répétition</string>
-  <string name="threefoldRepetitionExplanation">Si une position se produit trois fois, les joueurs peuvent prétendre à un pat par %1$s. Lichess applique les règles officielles de la FIDE, telles que décrites dans l\'article 9.2 (d) des %2$s.</string>
+  <string name="threefoldRepetitionExplanation">Si une position se produit trois fois, les joueurs peuvent prétendre à un pat par %1$s. Lichess applique les règles officielles de la FIDE, telles que décrites dans l\'article 9.2 des %2$s.</string>
   <string name="threefoldRepetitionLowerCase">triple répétition</string>
   <string name="notRepeatedMoves">Nous n\'avons pas répété les coups. Pourquoi la partie a-t-elle quand même été déclarée nulle par répétition ?</string>
   <string name="repeatedPositionsThatMatters">La triple répétition concerne les %1$s et non les coups. La répétition ne doit donc pas nécessairement se faire de manière consécutive.</string>
@@ -95,7 +96,7 @@ Ne demandez pas le titre de LM.</string>
   <string name="whatUsernameCanIchoose">Que peut être mon nom d\'utilisateur ?</string>
   <string name="usernamesNotOffensive">En général, les noms d\'utilisateur ne doivent pas être : offensants, usurpant l\'identité de quelqu\'un d\'autre, ou publicitaires. Vous pouvez en savoir plus sur les %1$s.</string>
   <string name="guidelines">lignes directrices</string>
-  <string name="canIChangeMyUsername">Puis-je changer de nom d\'utilisateur?</string>
+  <string name="canIChangeMyUsername">Puis-je changer de nom d\'utilisateur ?</string>
   <string name="usernamesCannotBeChanged">Non, les noms d\'utilisateur ne peuvent pas être modifiés pour des raisons techniques et pratiques, entre autres parce qu\'ils sont à beaucoup d\'endroits : bases de données, exportations, logs et esprit des gens. Vous pouvez modifier les majuscules une fois.</string>
   <string name="uniqueTrophies">Trophées uniques</string>
   <string name="ownerUniqueTrophies">Ce trophée est unique dans l\'histoire de Lichess, personne d\'autre que %1$s ne l\'aura jamais.</string>
@@ -142,4 +143,28 @@ Il faut considérer la cote comme un nombre relatif (plutôt qu\'un nombre absol
 Cliquez sur l\'icône du cadenas à côté de l\'adresse lichess.org dans la barre URL de votre navigateur.
 
 Choisissez ensuite si vous souhaitez autoriser ou bloquer les notifications de Lichess.</string>
+  <string name="enableAutoplayForSoundsQ">Activer la lecture automatique des sons?</string>
+  <string name="enableAutoplayForSoundsA">La plupart des navigateurs peuvent empêcher la lecture de sons sur une page fraîchement chargée pour protéger les utilisateurs. Imaginez si chaque site Web pouvait vous bombarder immédiatement de publicités audio...
+
+L\'icône rouge de sourdine apparaît lorsque votre navigateur empêche lichess.org de jouer un son. En général, cette restriction est levée lorsque vous cliquez sur quelque chose. Sur certains navigateurs mobiles, faire glisser une pièce n\'est pas considéré comme un clic. Vous devez alors toucher l\'échiquier pour autoriser le son au début de chaque partie.
+
+Nous affichons l\'icône rouge pour vous avertir lorsque cela se produit. Souvent, vous pouvez autoriser lichess.org à jouer des sons. Voici des instructions pour le faire sur les versions récentes de certains navigateurs populaires.</string>
+  <string name="desktop">bureau</string>
+  <string name="enableAutoplayForSoundsFirefox">1. Allez sur lichess.org
+2. Appuyez sur Ctrl-i sur Linux/Windows ou cmd-i sur MacOS
+3. Cliquez sur l\'onglet Autorisations
+4. Autorisez l\'audio et la vidéo sur lichess.org</string>
+  <string name="enableAutoplayForSoundsChrome">1. Allez sur lichess.org
+2. Cliquez sur l\'icône de verrouillage dans la barre d\'adresse
+3. Cliquez sur Paramètres du site
+4. Autorisez le son</string>
+  <string name="enableAutoplayForSoundsSafari">1. Allez sur lichess.org
+2. Cliquez sur Safari dans la barre de menu
+3. Cliquez sur Paramètres pour lichess.org ...
+4. Autorisez la lecture automatique</string>
+  <string name="enableAutoplayForSoundsMicrosoftEdge">1. Cliquez sur les trois points dans le coin supérieur droit
+2. Cliquez sur Paramètres
+3. Cliquez sur Cookies et Autorisations du site
+4. Faites défiler la page vers le bas et cliquez sur Lecture automatique du support
+5. Ajoutez lichess.org pour autoriser</string>
 </resources>

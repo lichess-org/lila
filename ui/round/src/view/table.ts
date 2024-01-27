@@ -1,6 +1,6 @@
 import * as licon from 'common/licon';
-import { h } from 'snabbdom';
 import { Position } from '../interfaces';
+import { bind } from '../util';
 import * as game from 'game';
 import * as status from 'game/status';
 import { renderClock } from '../clock/clockView';
@@ -10,7 +10,7 @@ import renderExpiration from './expiration';
 import * as renderUser from './user';
 import * as button from './button';
 import RoundController from '../ctrl';
-import { MaybeVNodes } from 'common/snabbdom';
+import { LooseVNodes, looseH as h } from 'common/snabbdom';
 import { toggleButton as boardMenuToggleButton } from 'board/menu';
 
 function renderPlayer(ctrl: RoundController, position: Position) {
@@ -29,9 +29,9 @@ const isLoading = (ctrl: RoundController): boolean => ctrl.loading || ctrl.redir
 
 const loader = () => h('i.ddloader');
 
-const renderTableWith = (ctrl: RoundController, buttons: MaybeVNodes) => [
+const renderTableWith = (ctrl: RoundController, buttons: LooseVNodes) => [
   replay.render(ctrl),
-  buttons.find(x => !!x) ? h('div.rcontrols', buttons) : null,
+  buttons.find(x => !!x) && h('div.rcontrols', buttons),
 ];
 
 export const renderTableEnd = (ctrl: RoundController) =>
@@ -46,12 +46,30 @@ export const renderTableWatch = (ctrl: RoundController) =>
     isLoading(ctrl) ? loader() : game.playable(ctrl.data) ? undefined : button.watcherFollowUp(ctrl),
   ]);
 
+const prompt = (ctrl: RoundController) => {
+  const o = ctrl.question();
+  if (!o) return {};
+
+  const btn = (tpe: 'yes' | 'no', icon: string, i18nKey: I18nKey, action: () => void) =>
+    ctrl.nvui
+      ? h('button', { hook: bind('click', action) }, ctrl.noarg(i18nKey))
+      : h(`a.${tpe}`, { attrs: { 'data-icon': icon }, hook: bind('click', action) });
+
+  const noBtn = o.no && btn('no', o.no.icon || licon.X, o.no.key || 'decline', o.no.action);
+  const yesBtn = o.yes && btn('yes', o.yes.icon || licon.Checkmark, o.yes.key || 'accept', o.yes.action);
+
+  return {
+    promptVNode: h('div.question', { key: o.prompt }, [noBtn, h('p', o.prompt), yesBtn]),
+    isQuestion: o.no !== undefined || o.yes !== undefined,
+  };
+};
+
 export const renderTablePlay = (ctrl: RoundController) => {
   const d = ctrl.data,
     loading = isLoading(ctrl),
-    question = button.askQuestion(ctrl),
+    { promptVNode, isQuestion } = prompt(ctrl),
     icons =
-      loading || question
+      loading || isQuestion
         ? []
         : [
             game.abortable(d)
@@ -98,19 +116,13 @@ export const renderTablePlay = (ctrl: RoundController) => {
             replay.analysisButton(ctrl),
             boardMenuToggleButton(ctrl.menu, ctrl.noarg('menu')),
           ],
-    buttons: MaybeVNodes = loading
+    buttons = loading
       ? [loader()]
-      : [question, button.opponentGone(ctrl), button.threefoldSuggestion(ctrl)];
+      : [promptVNode, button.opponentGone(ctrl), button.threefoldSuggestion(ctrl)];
   return [
     replay.render(ctrl),
     h('div.rcontrols', [
-      h(
-        'div.ricons',
-        {
-          class: { confirm: !!(ctrl.drawConfirm || ctrl.resignConfirm) },
-        },
-        icons,
-      ),
+      h('div.ricons', { class: { confirm: !!(ctrl.drawConfirm || ctrl.resignConfirm) } }, icons),
       ...buttons,
     ]),
   ];
@@ -119,16 +131,16 @@ export const renderTablePlay = (ctrl: RoundController) => {
 function whosTurn(ctrl: RoundController, color: Color, position: Position) {
   const d = ctrl.data;
   if (status.finished(d) || status.aborted(d)) return;
-  return h('div.rclock.rclock-turn.rclock-' + position, [
-    d.game.player === color
-      ? h(
-          'div.rclock-turn__text',
-          d.player.spectator
-            ? ctrl.trans(d.game.player + 'Plays')
-            : ctrl.trans(d.game.player === d.player.color ? 'yourTurn' : 'waitingForOpponent'),
-        )
-      : null,
-  ]);
+  return h(
+    'div.rclock.rclock-turn.rclock-' + position,
+    d.game.player === color &&
+      h(
+        'div.rclock-turn__text',
+        d.player.spectator
+          ? ctrl.trans(d.game.player + 'Plays')
+          : ctrl.trans(d.game.player === d.player.color ? 'yourTurn' : 'waitingForOpponent'),
+      ),
+  );
 }
 
 function anyClock(ctrl: RoundController, position: Position) {
@@ -139,7 +151,7 @@ function anyClock(ctrl: RoundController, position: Position) {
   else return whosTurn(ctrl, player.color, position);
 }
 
-export const renderTable = (ctrl: RoundController): MaybeVNodes => [
+export const renderTable = (ctrl: RoundController): LooseVNodes => [
   h('div.round__app__table'),
   renderExpiration(ctrl),
   renderPlayer(ctrl, 'top'),

@@ -6,6 +6,7 @@ import chess.format.pgn.SanStr
 import chess.opening.{ Opening, OpeningDb }
 import chess.variant.{ FromPosition, Standard, Variant }
 import chess.{
+  Outcome,
   ByColor,
   Ply,
   Castles,
@@ -81,22 +82,22 @@ case class Game(
 
   def fullIdOf(color: Color) = GameFullId(s"$id${player(color).id}")
 
-  def isTournament         = tournamentId.isDefined
-  def isSimul              = simulId.isDefined
-  def isSwiss              = swissId.isDefined
+  export tournamentId.{ isDefined as isTournament }
+  export simulId.{ isDefined as isSimul }
+  export swissId.{ isDefined as isSwiss }
   def isMandatory          = isTournament || isSimul || isSwiss
   def nonMandatory         = !isMandatory
   def canTakebackOrAddTime = !isMandatory
 
-  def hasChat = !isTournament && !isSimul && nonAi
+  def hasChat = !isTournament && !isSimul && !isSwiss && nonAi
 
   // we can't rely on the clock,
   // because if moretime was given,
   // elapsed time is no longer representing the game duration
   def durationSeconds: Option[Int] =
-    movedAt.toSeconds - createdAt.toSeconds match
-      case seconds if seconds > 60 * 60 * 12 => none // no way it lasted more than 12 hours, come on.
-      case seconds                           => seconds.toInt.some
+    val seconds = movedAt.toSeconds - createdAt.toSeconds
+    seconds < 60 * 60 * 12 option // no way it lasted more than 12 hours, come on.
+      seconds.toInt
 
   private def everyOther[A](l: List[A]): List[A] =
     l match
@@ -250,11 +251,11 @@ case class Game(
   lazy val perfType: PerfType = PerfType(variant, speed)
   def perfKey: Perf.Key       = perfType.key
 
-  def ratingVariant =
+  def ratingVariant: Variant =
     if isTournament && variant.fromPosition then Standard else variant
 
   def ratingPerfType: Option[PerfType] =
-    if variant.fromPosition then isTournament option PerfType.Standard
+    if variant.fromPosition then isTournament option PerfType(ratingVariant, speed)
     else perfType.some
 
   def started = status >= Status.Started
@@ -358,6 +359,9 @@ case class Game(
             Event.Berserk(color)
           )
 
+  def setBlindfold(color: Color, blindfold: Boolean): Progress =
+    Progress(this, updatePlayer(color, _.copy(blindfold = blindfold)), Nil)
+
   def resignable      = playable && !abortable
   def forceResignable = resignable && nonAi && !fromFriend && hasClock && !isSwiss && !hasRule(_.NoClaimWin)
   def forceResignableNow = forceResignable && bothPlayersHaveMoved
@@ -409,6 +413,8 @@ case class Game(
   def loser = winner map opponent
 
   def winnerColor: Option[Color] = winner.map(_.color)
+
+  def outcome: Option[Outcome] = finished option Outcome(winnerColor)
 
   def winnerUserId: Option[UserId] = winner.flatMap(_.userId)
 
@@ -565,6 +571,7 @@ case class Game(
   def blackPov                                         = pov(Black)
   def playerPov(p: Player)                             = pov(p.color)
   def loserPov                                         = loser map playerPov
+  def povs: ByColor[Pov]                               = ByColor(pov)
 
   def setAnalysed = copy(metadata = metadata.copy(analysed = true))
 
@@ -647,7 +654,7 @@ object Game:
   def abandonedDate = nowInstant minusDays abandonedDays.value
 
   def isBoardCompatible(game: Game): Boolean =
-    game.clock.fold(true): c =>
+    game.clock.forall: c =>
       isBoardCompatible(c.config) || {
         (game.hasAi || game.fromFriend) && chess.Speed(c.config) >= Speed.Blitz
       }

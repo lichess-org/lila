@@ -15,17 +15,14 @@ object bits:
   def jsI18n()(using Lang) = i18nJsObject(baseTranslations)
 
   def notFound()(using PageContext) =
-    views.html.base.layout(
-      title = trans.noSimulFound.txt()
-    ) {
+    views.html.base.layout(title = trans.noSimulFound.txt()):
       main(cls := "page-small box box-pad")(
         h1(cls := "box__top")(trans.noSimulFound()),
         p(trans.noSimulExplanation()),
         p(a(href := routes.Simul.home)(trans.returnToSimulHomepage()))
       )
-    }
 
-  def homepageSpotlight(s: lila.simul.Simul)(using PageContext) =
+  def homepageSpotlight(s: lila.simul.Simul)(using Context) =
     a(href := routes.Simul.show(s.id), cls := "tour-spotlight little")(
       img(cls := "img icon", src := assetUrl("images/fire-silhouette.svg")),
       span(cls := "content")(
@@ -38,17 +35,19 @@ object bits:
       )
     )
 
-  def allCreated(simuls: Seq[lila.simul.Simul])(using Lang) =
-    table(cls := "slist")(
-      simuls map { simul =>
+  def allCreated(simuls: Seq[lila.simul.Simul], withName: Boolean = true)(using Lang) =
+    table(cls := "slist"):
+      simuls.map: simul =>
+        val url = routes.Simul.show(simul.id)
         tr(
-          td(cls := "name")(a(href := routes.Simul.show(simul.id))(simul.fullName)),
-          td(userIdLink(simul.hostId.some)),
+          withName option td(cls := "name")(a(href := url)(simul.fullName)),
+          td:
+            if withName then userIdLink(simul.hostId.some)
+            else a(href := url)(userIdSpanMini(simul.hostId, true))
+          ,
           td(cls := "text", dataIcon := licon.Clock)(simul.clock.config.show),
           td(cls := "text", dataIcon := licon.User)(simul.applicants.size)
         )
-      }
-    )
 
   private[simul] def setup(sim: lila.simul.Simul) =
     span(cls := List("setup" -> true, "rich" -> sim.variantRich))(

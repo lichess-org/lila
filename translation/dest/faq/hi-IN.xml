@@ -63,7 +63,7 @@
   <string name="goodIntroduction">अच्छा परिचय</string>
   <string name="lichessTraining">लिच्छवि प्रशिक्षण</string>
   <string name="threefoldRepetition">तिगुना दोहराव</string>
-  <string name="threefoldRepetitionExplanation">यदि कोई स्थिति तीन बार होती है, तो खिलाड़ी%1$s द्वारा ड्रा का दावा कर सकते हैं। Lichess आधिकारिक FIDE नियमों को लागू करता है, जैसा कि%2$s के अनुच्छेद 9.2 (d) में वर्णित है।</string>
+  <string name="threefoldRepetitionExplanation">यदि कोई स्थिति तीन बार होती है, तो खिलाड़ी%1$s द्वारा ड्रा का दावा कर सकते हैं। Lichess आधिकारिक FIDE नियमों को लागू करता है, जैसा कि%2$s के अनुच्छेद 9.2 में वर्णित है।</string>
   <string name="threefoldRepetitionLowerCase">तीन गुना दोहराव</string>
   <string name="notRepeatedMoves">हमने चालें नहीं दोहराईं। क्यों खेल अभी भी पुनरावृत्ति द्वारा तैयार किया गया था?</string>
   <string name="repeatedPositionsThatMatters">तीन गुना दोहराव लगभग%1$s है, चाल नहीं। पुनरावृत्ति लगातार नहीं होती है।</string>
@@ -138,4 +138,9 @@
 अपने ब्राउज़र के URL बार में lichess.org पते के आगे लॉक आइकन पर क्लिक करें।
 
 फिर चयन करें कि क्या Lichess से नोटिफिकेशन या ब्लॉक करना है।</string>
+  <string name="enableAutoplayForSoundsMicrosoftEdge">1. ऊपरी दाहिने कोने में तीन बिंदुओं पर क्लिक करें
+2. सेटिंग्स पर क्लिक करें
+3. कुकीज और साइट अनुमतियों पर क्लिक करें
+4. नीचे स्क्रॉल करें और मीडिया ऑटोप्ले पर क्लिक करें
+5. अनुमति में lichess.org जोड़ें</string>
 </resources>

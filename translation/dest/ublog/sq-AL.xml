@@ -1,5 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+  <string name="communityBlogs">Blogje bashkësie</string>
+  <string name="friendBlogs">Blogje shokësh</string>
+  <string name="likedBlogs">Postime të pëlqyer në blogje</string>
+  <string name="blogTopics">Tema blogjesh</string>
+  <string name="lichessOfficialBlog">Blogu Zyrtar i Lichess-it</string>
+  <string name="continueReadingPost">Vazhdoni me leximin e këtij postimi</string>
+  <string name="lichessBlogPostsFromXYear">Postime blogu Lichess në %s</string>
+  <string name="previousBlogPosts">Postime të mëparshëm blogu</string>
   <string name="xBlog">Blogu i %s</string>
   <string name="newPost">Postim i ri</string>
   <string name="editYourBlogPost">Përpunoni postimin tuaj në blog</string>
@@ -37,10 +45,11 @@
   <string name="imageCredit">Kreditet e imazhit</string>
   <string name="deleteBlog">Fshije këtë blog përgjithmonë</string>
   <string name="deleteImage">Fshije figurën</string>
-  <string name="safeToUseImages" comment="safeToUseImages&#10;&#10;This is mentioned because the images there are royalty-free, so there is no risk of copyright infringement.">Është pa rrezik të përdoren figura nga sajtet vijues: </string>
+  <string name="safeToUseImages">Është pa rrezik të përdoren figura nga sajtet vijues: </string>
   <string name="selectPostTopics">Përzgjidhni subjektet që lidhen me postimin tuaj</string>
   <string name="useImagesYouMadeYourself">Mund të përdorni edhe figura që i keni krijuar vetë, foto që keni bërë, foto ekrani nga Lichess-i… çfarëdo që s’është në të drejta kopjimi të dikujt tjetër.</string>
   <string name="safeAndRespectfulContent">Ju lutemi, postoni vetëm lëndë të parrezik dhe të respektuar. Mos kopjoni lëndën e dikujt tjetër.</string>
   <string name="inappropriateContentAccountClosed">Çfarëdo gjëje e papërshtatshme mund të sjellë mbylljen e llogarisë tuaj.</string>
-  <string name="blogTips" comment="blogTips&#10;&#10;This is a link to https://lichess.org/page/blog-tips. Appears when creating a new post.">Ndihmëzat tona të thjeshta për shkrim postimesh të goditura blogu</string>
+  <string name="blogTips">Ndihmëzat tona të thjeshta për shkrim postimesh të goditura blogu</string>
+  <string name="discussThisBlogPostInTheForum">Diskutojeni në forum këtë postim blogu</string>
 </resources>

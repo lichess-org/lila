@@ -20,7 +20,7 @@ final class HttpFilter(env: Env)(using val mat: Materializer)(using Executor)
       redirectWrongDomain(req) map fuccess getOrElse {
         handle(req).map: result =>
           monitoring(req, startTime):
-            addApiResponseHeaders(req):
+            addContextualResponseHeaders(req):
               addCrendentialless(req):
                 result
       }
@@ -49,13 +49,14 @@ final class HttpFilter(env: Env)(using val mat: Materializer)(using Executor)
     !(req.host == env.net.assetDomain.value && HTTPRequest.hasFileExtension(req))
   } option Results.MovedPermanently(s"http${if req.secure then "s" else ""}://${env.net.domain}${req.uri}")
 
-  private def addApiResponseHeaders(req: RequestHeader)(result: Result) =
+  private def addContextualResponseHeaders(req: RequestHeader)(result: Result) =
     if HTTPRequest.isApiOrApp(req)
     then result.withHeaders(headersForApiOrApp(using req)*)
-    else result
+    else result.withHeaders(permissionsPolicyHeader)
 
   private def addCrendentialless(req: RequestHeader)(result: Result): Result =
-    if HTTPRequest.actionName(req) != "Plan.index" &&
+    val actionName = HTTPRequest actionName req
+    if actionName != "Plan.index" && actionName != "Plan.list" &&
       HTTPRequest.uaMatches(req, env.credentiallessUaRegex.get())
     then result.withHeaders(credentiallessHeaders*)
     else result

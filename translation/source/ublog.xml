@@ -1,5 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <resources>
+  <string name="communityBlogs">Community blogs</string>
+  <string name="friendBlogs">Friends blogs</string>
+  <string name="likedBlogs">Liked blog posts</string>
+  <string name="blogTopics">Blog topics</string>
+  <string name="lichessOfficialBlog">Lichess Official Blog</string>
+  <string name="continueReadingPost">Continue reading this post</string>
+  <string name="lichessBlogPostsFromXYear">Lichess blog posts in %s</string>
+  <string name="previousBlogPosts">Previous blog posts</string>
   <string name="xBlog">%s's Blog</string>
   <string name="newPost">New post</string>
   <string name="editYourBlogPost">Edit your blog post</string>
@@ -43,4 +51,5 @@
   <string name="safeAndRespectfulContent">Please only post safe and respectful content. Do not copy someone else's content.</string>
   <string name="inappropriateContentAccountClosed">Anything inappropriate could get your account closed.</string>
   <string name="blogTips">Our simple tips to write great blog posts</string>
+  <string name="discussThisBlogPostInTheForum">Discuss this blog post in the forum</string>
 </resources>

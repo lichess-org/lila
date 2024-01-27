@@ -32,7 +32,7 @@
   <string name="kickSomeone">طرد أحداً ما من الفريق</string>
   <string name="whoToKick">من تريد طرده من الفريق؟</string>
   <plurals name="xJoinRequests">
-    <item quantity="zero">طلب انضمام٪ s</item>
+    <item quantity="zero">%s طلب انضمام</item>
     <item quantity="one">%s طلب انضمام</item>
     <item quantity="two">%s طلب انضمام</item>
     <item quantity="few">%s طلب انضمام</item>
@@ -55,7 +55,6 @@
 اللاعبين الذين لا يحبون تلقي رسائلك قد يغادرون الفريق.</string>
   <string name="teamsIlead">الفرق التي أقودها</string>
   <string name="youWayWantToLinkOneOfTheseTournaments">قد ترغب في ربط إحدى هذه البطولات القادمة؟</string>
-  <string name="usersWhoCanManageThisTeam">المستخدمين الذين يمكنهم إدارة هذا الفريق</string>
   <string name="leadersChat">محادثة القادة</string>
   <string name="closeTeam">إغلاق الفريق</string>
   <string name="closeTeamDescription">يغلق الفريق إلى الأبد.</string>

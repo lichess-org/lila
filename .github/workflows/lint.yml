@@ -16,18 +16,18 @@ jobs:
       contents: read
       security-events: write
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
       - uses: pnpm/action-setup@v2
         with:
-          version: '8.6'
-      - uses: actions/setup-node@v3
+          version: '8.11'
+      - uses: actions/setup-node@v4
         with:
-          node-version: '17'
+          node-version: '19'
           cache: pnpm
-      - uses: github/codeql-action/init@v2
+      - uses: github/codeql-action/init@v3
         with:
           languages: javascript
-      - uses: github/codeql-action/analyze@v2
+      - uses: github/codeql-action/analyze@v3
       - run: pnpm install
       - run: pnpm run lint
       - run: pnpm run check-format

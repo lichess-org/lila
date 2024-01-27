@@ -5,13 +5,13 @@ import lila.user.User
 
 case class Pov(game: Game, color: Color):
 
+  export game.{ id as gameId }
+
   def player = game player color
 
   def playerId = player.id
 
   def fullId = game fullIdOf color
-
-  def gameId = game.id
 
   def opponent = game player !color
 
@@ -27,9 +27,10 @@ case class Pov(game: Game, color: Color):
   lazy val isMyTurn = game.started && game.playable && game.turnColor == color
 
   lazy val remainingSeconds: Option[Int] =
-    game.clock.map(c => c.remainingTime(color).roundSeconds).orElse {
-      game.playableCorrespondenceClock.map(_.remainingTime(color).toInt)
-    }
+    game.clock
+      .map(c => c.remainingTime(color).roundSeconds)
+      .orElse:
+        game.playableCorrespondenceClock.map(_.remainingTime(color).toInt)
 
   def millisRemaining: Int =
     game.clock
@@ -71,8 +72,8 @@ object Pov:
 
   def ofCurrentTurn(game: Game) = Pov(game, game.turnColor)
 
-  private def orInf(i: Option[Int])     = i getOrElse Int.MaxValue
-  private def isFresher(a: Pov, b: Pov) = a.game.movedAt isAfter b.game.movedAt
+  private inline def orInf(inline i: Option[Int]) = i getOrElse Int.MaxValue
+  private def isFresher(a: Pov, b: Pov)           = a.game.movedAt isAfter b.game.movedAt
 
   def priority(a: Pov, b: Pov) =
     if !a.isMyTurn && !b.isMyTurn then isFresher(a, b)
@@ -99,10 +100,9 @@ object PlayerRef:
     PlayerRef(fullId.gameId, fullId.playerId)
 
 case class LightPov(game: LightGame, color: Color):
-  def gameId   = game.id
+  export game.{ id as gameId }
   def player   = game player color
   def opponent = game player !color
-  // def win      = game wonBy color
 
 object LightPov:
 

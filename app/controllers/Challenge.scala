@@ -8,6 +8,7 @@ import lila.app.{ given, * }
 import lila.challenge.{ Challenge as ChallengeModel }
 import lila.challenge.Challenge.{ Id as ChallengeId }
 import lila.common.{ Bearer, IpAddress, Template, Preload }
+import lila.common.config.Max
 import lila.game.{ AnonCookie, Pov }
 import lila.oauth.{ OAuthScope, EndpointScopes }
 import lila.setup.ApiConfig
@@ -59,14 +60,17 @@ final class Challenge(
         html =
           val color = get("color") flatMap chess.Color.fromName
           if mine then
-            error match
-              case Some(e) => BadRequest.page(html.challenge.mine(c, json, e.some, color))
-              case None    => Ok.page(html.challenge.mine(c, json, none, color))
+            ctx.userId
+              .so(env.game.gameRepo.recentChallengersOf(_, Max(10)))
+              .flatMap(env.user.lightUserApi.asyncManyFallback)
+              .flatMap: friends =>
+                error match
+                  case Some(e) => BadRequest.page(html.challenge.mine(c, json, friends, e.some, color))
+                  case None    => Ok.page(html.challenge.mine(c, json, friends, none, color))
           else
             Ok.pageAsync:
-              c.challengerUserId.so(env.user.api.withPerf(_, c.perfType)).map {
+              c.challengerUserId.so(env.user.api.withPerf(_, c.perfType)) map:
                 html.challenge.theirs(c, json, _, color)
-              }
         ,
         json = Ok(json)
       ) flatMap withChallengeAnonCookie(mine && c.challengerIsAnon, c, owner = true)
@@ -79,7 +83,7 @@ final class Challenge(
       case lila.challenge.Challenge.Challenger.Open                  => false
 
   private def isForMe(challenge: ChallengeModel)(using me: Option[Me]) =
-    challenge.destUserId.fold(true)(dest => me.exists(_ is dest)) &&
+    challenge.destUserId.forall(dest => me.exists(_ is dest)) &&
       !challenge.challengerUserId.so(orig => me.exists(_ is orig))
 
   def accept(id: ChallengeId, color: Option[String]) = Open:
@@ -114,9 +118,8 @@ final class Challenge(
           case None                  => tryRematch
           case Some(c) if c.accepted => tryRematch
           case Some(c) =>
-            api.accept(c, none) map {
+            api.accept(c, none) map:
               _.fold(err => BadRequest(jsonError(err)), _ => jsonOkResult)
-            }
       }
     }
 
@@ -331,7 +334,8 @@ final class Challenge(
         )
 
   def openCreate = AnonOrScopedBody(parse.anyContent)(_.Challenge.Write): ctx ?=>
-    env.setup.forms.api.open
+    env.setup.forms.api
+      .open(isAdmin = isGrantedOpt(_.ApiChallengeAdmin) || ctx.me.exists(_.isVerified))
       .bindFromRequest()
       .fold(
         jsonFormError,
@@ -342,9 +346,10 @@ final class Challenge(
               .createOpen(config)
               .map: challenge =>
                 JsonOk:
+                  val url = s"${env.net.baseUrl}/${challenge.id}"
                   env.challenge.jsonView.show(challenge, SocketVersion(0), none) ++ Json.obj(
-                    "urlWhite" -> s"${env.net.baseUrl}/${challenge.id}?color=white",
-                    "urlBlack" -> s"${env.net.baseUrl}/${challenge.id}?color=black"
+                    "urlWhite" -> s"$url?color=white",
+                    "urlBlack" -> s"$url?color=black"
                   )
           .dmap(_ as JSON)
       )

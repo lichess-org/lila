@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="voiceCommands">Comandos de voz</string>
+  <string name="watchTheVideoTutorial">Ver o vídeo titorial</string>
+  <string name="instructions1">Usa o botón %1$s para activar/desactivar o recoñecemento da fala, o botón %2$s para abrir este diálogo de axuda e o menú %3$s para cambiar os axustes da fala.</string>
+  <string name="instructions2" comment="Voice commands can be misheard and Lichess will not always be fully certain what you said. Several arrows will be shown to identify e.g. if the move was 'b4' or 'd4', which often sound similar.&#10;&#10;These arrows will be in different colours (green, blue, etc) or labelled 1, 2, 3....&#10;You can then say the colour of the arrow (e.g. 'green') - or its number (e.g. '1'), to select that move.&#10;Users can configure if they choose from multiple moves based on colours or numbers.">Amosamos frechas para varios movementos cando non estamos seguros. Di a cor ou o número da frecha do movemento para seleccionalo.</string>
+  <string name="instructions3" comment="This is a complicated concept more easy to understand in practice. Voice commands can be misheard and Lichess will not always be fully certain what you said. Several arrows will be shown to identify e.g. if the move was 'b4' or 'd4', which often sound similar.&#10;The most likely move the player wants will have a circle showing around it, but it will be possible to cancel before it is played (for example, by shouting 'no!').&#10;&#10;You can see a visual example here: https://lichess.org/@/schlawg/blog/how-to-lichess-voice/nWrypoWI">Se unha frecha amosa un radar de varrido, xogarase ese movemento cando se complete o círculo. Durante este tempo, só podes dicir %1$s para realizar a xogada inmediatamente, %2$s para cancelar, ou podes dicir a cor/número doutra frecha. Este temporizador pode modificarse ou apagarse nos axustes.</string>
+  <string name="instructions4" comment="%s is Push to Talk.">Activar %s en ambientes ruidosos. Cando estea en funcionamento, mantén pulsada a tecla Maiúsculas mentres dis os comandos.</string>
+  <string name="instructions5" comment="The phonetic alphabet is also known as the NATO alphabet (where A = Alpha, B = Bravo, etc. This makes the sounds easier to differentiate through a microphone). It is for English specifically, which as of the time of writing, is the only language supported by the Voice Commands feature.">Emprega o alfabeto fonético para mellorar o recoñecemento das columnas do taboleiro. </string>
+  <string name="instructions6">%s explica detalladamente os axustes para mover coa voz.</string>
+  <string name="thisBlogPost">Este artigo do blog</string>
+  <string name="moveToE4OrSelectE4Piece">Mover a e4 ou seleccionar a peza de e4</string>
+  <string name="selectOrCaptureABishop">Seleccionar ou capturar un alfil</string>
+  <string name="takeRookWithQueen">Capturar a torre coa dama</string>
+  <string name="castle">Enrocar (en curto ou en longo)</string>
+  <string name="phoneticAlphabetIsBest">O alfabeto fonético é mellor</string>
+  <string name="cancelTimerOrDenyARequest">Cancelar o temporizador ou denegar unha solicitude</string>
+  <string name="playPreferredMoveOrConfirmSomething" comment="Used in voice commands. When it is unclear what the player said (e.g. 'b4' and 'd4' sound similar), both moves will be shown, with the more likely one highlighted in a certain colour. By default, a countdown begins, and if no action is taken, the likely move (e.g. b4) will be played. Players can end the countdown early/confirm their move by saying 'yes'.&#10;&#10;For more details see https://lichess.org/@/schlawg/blog/how-to-lichess-voice/nWrypoWI">Realizar a xogada preferida ou confirmar unha acción</string>
+  <string name="sleep" comment="Used for voice commands.&#10;&#10;By default, voice commands are always-on after the feature is enabled. Users can optionally set a word for listening to start, or say 'sleep' to disable listening.&#10;&#10;(Please note - this is not the same as recording, since the recording is never sent to Lichess; the speech technology is entirely offline)">Suspender (se se activou unha palabra de activación)</string>
+  <string name="turnOffVoiceRecognition">Apagar o recoñecemento da fala</string>
+  <string name="showPuzzleSolution">Amosar a solución do crebacabezas</string>
+</resources>

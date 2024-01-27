@@ -16,8 +16,8 @@
   <string name="upVote">Дәрежесін көтеру</string>
   <string name="downVote">Дәрежесін түсіру</string>
   <string name="yourPuzzleRatingWillNotChange">Сіздің жұмбақ шешу рейтингіңіз өзгермейді. Жұмбақтар жарыс емес екенін ескеріңіз. Мұндағы рейтингтің қызметі – сіздің деңгейіңізге сәйкес жұмбақты табуға көмекші болу.</string>
-  <string name="findTheBestMoveForWhite">Ақтың пайдасына ең тиімді жүрісті табыңыз.</string>
-  <string name="findTheBestMoveForBlack">Қараның пайдасына ең тиімді жүрісті табыңыз.</string>
+  <string name="findTheBestMoveForWhite">Ақтың жағында ең табысты жолды табыңыз.</string>
+  <string name="findTheBestMoveForBlack">Қараның жағында ең табысты жолды табыңыз.</string>
   <string name="toGetPersonalizedPuzzles">Жекелендірген жұмбақ алу үшін:</string>
   <string name="puzzleId">Жұмбақ %s</string>
   <string name="puzzleOfTheDay">Бүгінгі жұмбақ</string>

@@ -2,6 +2,7 @@ import { Ctrl, Challenge, ChallengeData, ChallengeDirection, ChallengeUser, Time
 import { h, VNode } from 'snabbdom';
 import * as licon from 'common/licon';
 import { spinnerVdom as spinner } from 'common/spinner';
+import { userLink } from 'common/userLink';
 import { opposite } from 'chessground/util';
 
 export const loaded = (ctrl: Ctrl): VNode =>
@@ -25,10 +26,7 @@ function allChallenges(ctrl: Ctrl, d: ChallengeData, nb: number): VNode {
     'div.challenges',
     {
       class: { many: nb > 3 },
-      hook: {
-        insert: userPowertips,
-        postpatch: userPowertips,
-      },
+      hook: { insert: userPowertips, postpatch: userPowertips },
     },
     d.in.map(challenge(ctrl, 'in')).concat(d.out.map(challenge(ctrl, 'out'))),
   );
@@ -39,17 +37,16 @@ function challenge(ctrl: Ctrl, dir: ChallengeDirection) {
     const fromPosition = c.variant.key == 'fromPosition';
     const origColor = c.color == 'random' ? (fromPosition ? c.finalColor : 'random') : c.finalColor;
     const myColor = dir == 'out' ? origColor : origColor == 'random' ? 'random' : opposite(origColor);
+    const opponent = dir === 'in' ? c.challenger : c.destUser;
     return h(
       `div.challenge.${dir}.c-${c.id}`,
       {
-        class: {
-          declined: !!c.declined,
-        },
+        class: { declined: !!c.declined },
       },
       [
         h('div.content', [
-          h(`div.content__text#challenge-text-${c.id}`, [
-            h('span.head', renderUser(dir === 'in' ? c.challenger : c.destUser, ctrl.showRatings)),
+          h('div.content__text', { attrs: { id: `challenge-text-${c.id}` } }, [
+            h('span.head', [renderUser(opponent, ctrl.showRatings), renderLag(opponent)]),
             h('span.desc', [
               h('span.is.color-icon.' + myColor),
               ' • ',
@@ -58,9 +55,7 @@ function challenge(ctrl: Ctrl, dir: ChallengeDirection) {
               ),
             ]),
           ]),
-          h('i.perf', {
-            attrs: { 'data-icon': c.perf.icon },
-          }),
+          h('i.perf', { attrs: { 'data-icon': c.perf.icon } }),
         ]),
         fromPosition
           ? h('div.position.mini-board.cg-wrap.is2d', {
@@ -81,32 +76,19 @@ function challenge(ctrl: Ctrl, dir: ChallengeDirection) {
 function inButtons(ctrl: Ctrl, c: Challenge): VNode[] {
   const trans = ctrl.trans();
   return [
-    h(
-      'form',
-      {
+    h('form', { attrs: { method: 'post', action: `/challenge/${c.id}/accept` } }, [
+      h('button.button.accept', {
         attrs: {
-          method: 'post',
-          action: `/challenge/${c.id}/accept`,
+          type: 'submit',
+          'aria-describedby': `challenge-text-${c.id}`,
+          'data-icon': licon.Checkmark,
+          title: trans('accept'),
         },
-      },
-      [
-        h('button.button.accept', {
-          attrs: {
-            type: 'submit',
-            'aria-describedby': `challenge-text-${c.id}`,
-            'data-icon': licon.Checkmark,
-            title: trans('accept'),
-          },
-          hook: onClick(ctrl.onRedirect),
-        }),
-      ],
-    ),
+        hook: onClick(ctrl.onRedirect),
+      }),
+    ]),
     h('button.button.decline', {
-      attrs: {
-        type: 'submit',
-        'data-icon': licon.X,
-        title: trans('decline'),
-      },
+      attrs: { type: 'submit', 'data-icon': licon.X, title: trans('decline') },
       hook: onClick(() => ctrl.decline(c.id, 'generic')),
     }),
     h(
@@ -132,18 +114,11 @@ function outButtons(ctrl: Ctrl, c: Challenge) {
     h('div.owner', [
       h('span.waiting', ctrl.trans()('waiting')),
       h('a.view', {
-        attrs: {
-          'data-icon': licon.Eye,
-          href: '/' + c.id,
-          title: trans('viewInFullSize'),
-        },
+        attrs: { 'data-icon': licon.Eye, href: '/' + c.id, title: trans('viewInFullSize') },
       }),
     ]),
     h('button.button.decline', {
-      attrs: {
-        'data-icon': licon.X,
-        title: trans('cancel'),
-      },
+      attrs: { 'data-icon': licon.X, title: trans('cancel') },
       hook: onClick(() => ctrl.cancel(c.id)),
     }),
   ];
@@ -160,45 +135,16 @@ function timeControl(c: TimeControl): string {
   }
 }
 
-function renderUser(u: ChallengeUser | undefined, showRatings: boolean): VNode {
-  if (!u) return h('span', 'Open challenge');
-  const rating = u.rating + (u.provisional ? '?' : '');
-  return h(
-    'a.ulpt.user-link',
-    {
-      attrs: { href: `/@/${u.name}`, 'data-pt-pos': 'w' },
-      class: { online: !!u.online },
-    },
-    [
-      h('i.line' + (u.patron ? '.patron' : '')),
-      h('name', [
-        u.title && h('span.utitle', u.title == 'BOT' ? { attrs: { 'data-bot': true } } : {}, u.title + ' '),
-        u.name + (showRatings ? ' (' + rating + ') ' : ''),
-      ]),
-      h(
-        'signal',
-        u.lag === undefined
-          ? []
-          : [1, 2, 3, 4].map(i =>
-              h('i', {
-                class: { off: u.lag! < i },
-              }),
-            ),
-      ),
-    ],
-  );
-}
+const renderUser = (u: ChallengeUser | undefined, showRating: boolean): VNode =>
+  u
+    ? userLink({ ...u, line: true, rating: showRating ? u.rating : undefined, attrs: { 'data-pt-pos': 'w' } })
+    : h('span', 'Open challenge');
+
+const renderLag = (u?: ChallengeUser) =>
+  u && h('signal', u.lag === undefined ? [] : [1, 2, 3, 4].map(i => h('i', { class: { off: u.lag! < i } })));
 
 const empty = (): VNode =>
-  h(
-    'div.empty.text',
-    {
-      attrs: {
-        'data-icon': licon.InfoCircle,
-      },
-    },
-    'No challenges.',
-  );
+  h('div.empty.text', { attrs: { 'data-icon': licon.InfoCircle } }, 'No challenges.');
 
 const onClick = (f: (e: Event) => void) => ({
   insert: (vnode: VNode) => {

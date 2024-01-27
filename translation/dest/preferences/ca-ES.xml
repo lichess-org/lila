@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="preferences">Preferències</string>
+  <string name="preferences">Configuracions</string>
   <string name="display">Visualització</string>
   <string name="privacy">Privacitat</string>
   <string name="notifications">Notificacions</string>
@@ -12,19 +12,19 @@
   <string name="moveListWhilePlaying">Llista de moviments durant la partida</string>
   <string name="pgnPieceNotation">Notació de les jugades</string>
   <string name="chessPieceSymbol">Símbol de la peça</string>
-  <string name="pgnLetter">Lletres (K, Q, R, B, N)</string>
+  <string name="pgnLetter">Lletra (R, D, T, A, C)</string>
   <string name="zenMode" comment="zenMode&#10;&#10;This is not the religious meaning. Turning this option on takes away make elements of the user interface.&#10;&#10;Can also translate as 'Focus mode' as one example.">Mode Zen</string>
   <string name="showPlayerRatings">Mostra les puntuacions del jugador</string>
+  <string name="showFlairs">Mostra l\'estil dels jugadors</string>
   <string name="explainShowPlayerRatings">Això permet amagar totes les puntuacions de la pàgina web per a centrar-se en els escacs. Les partides poden ser puntuades, això només canvia el que es veu.</string>
-  <string name="displayBoardResizeHandle">Mostrar canvi de tamany</string>
+  <string name="displayBoardResizeHandle">Mostrar icona canvi de mida</string>
   <string name="onlyOnInitialPosition">Només en posició inicial</string>
   <string name="inGameOnly">Només durant la partida</string>
-  <string name="blindfoldChess">Escacs a cegues (peces invisibles)</string>
   <string name="chessClock">Rellotge d\'escacs</string>
   <string name="tenthsOfSeconds">Dècimes de segon</string>
   <string name="whenTimeRemainingLessThanTenSeconds" comment="whenTimeRemainingLessThanTenSeconds&#10;&#10;The &amp;lt; symbol is not required (you can write it as a word), just do NOT use &lt; in its place.&#10;&#10;Technical information: &lt; is a reserved character in HTML, which is why it cannot be used.">Quan restin menys de 10 segons</string>
-  <string name="horizontalGreenProgressBars">Barres horitzontals verdes de temps</string>
-  <string name="soundWhenTimeGetsCritical">So quan quedi poc temps</string>
+  <string name="horizontalGreenProgressBars">Barres de progrés verdes horitzontals</string>
+  <string name="soundWhenTimeGetsCritical">Emetre so quan quedi poc temps</string>
   <string name="giveMoreTime">Donar més temps</string>
   <string name="gameBehavior" comment="gameBehavior&#10;&#10;In the user settings page, &quot;Game behavior&quot; is the title of the tab for configuring how the player can interact with the game.">Comportament durant la partida</string>
   <string name="howDoYouMovePieces">Com mous les peces?</string>
@@ -32,17 +32,17 @@
   <string name="dragPiece">Mou una peça</string>
   <string name="bothClicksAndDrag">Qualsevol</string>
   <string name="premovesPlayingDuringOpponentTurn">Moviments anticipats (moure durant el torn de l\'oponent)</string>
-  <string name="takebacksWithOpponentApproval">Torna enrere (amb l\'aprovació de l\'oponent)</string>
-  <string name="inCasualGamesOnly">Només en els jocs amistosos</string>
-  <string name="promoteToQueenAutomatically">Corona la Dama automàticament</string>
+  <string name="takebacksWithOpponentApproval">Tornar enrere (amb l\'aprovació del rival)</string>
+  <string name="inCasualGamesOnly">Només en partides amistoses</string>
+  <string name="promoteToQueenAutomatically">Promocionar a Dama automàticament</string>
   <string name="explainPromoteToQueenAutomatically">Mantingui premuda la tecla &lt;ctrl&gt; durant la promoció per deshabilitar la promoció automàtica temporalment</string>
   <string name="whenPremoving">En moviments anticipats</string>
   <string name="claimDrawOnThreefoldRepetitionAutomatically">Reclamar taules per repetició automàticament</string>
   <string name="whenTimeRemainingLessThanThirtySeconds">Quan restin &lt; 30 segons</string>
-  <string name="moveConfirmation">Confirmació de moviment</string>
+  <string name="moveConfirmation">Confirmació del moviment</string>
   <string name="explainCanThenBeTemporarilyDisabled">Es pot desactivar durant la partida al menú del taulell</string>
-  <string name="inCorrespondenceGames">Només en partides per correspondència</string>
-  <string name="correspondenceAndUnlimited">Per correspondència i sense límit de temps</string>
+  <string name="inCorrespondenceGames">Partides per correspondència</string>
+  <string name="correspondenceAndUnlimited">Correspondència i sense límit de temps</string>
   <string name="confirmResignationAndDrawOffers">Confirmar resignació i oferiment de taules</string>
   <string name="castleByMovingTheKingTwoSquaresOrOntoTheRook">Mètode d\'Enroc</string>
   <string name="castleByMovingTwoSquares">Moure el rei dues caselles</string>

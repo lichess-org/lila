@@ -16,13 +16,7 @@ export const gameModeButtons = (ctrl: LobbyController): MaybeVNode => {
         const disabled = key === 'rated' && setupCtrl.ratedModeDisabled();
         return h('div', [
           h(`input#sf_mode_${key}.checked_${key === setupCtrl.gameMode()}`, {
-            attrs: {
-              name,
-              type: 'radio',
-              value: key,
-              checked: key === setupCtrl.gameMode(),
-              disabled,
-            },
+            attrs: { name, type: 'radio', value: key, checked: key === setupCtrl.gameMode(), disabled },
             on: {
               change: (e: Event) => setupCtrl.gameMode((e.target as HTMLInputElement).value as GameMode),
             },

@@ -210,7 +210,6 @@
   <string name="playingRightNow">Ar ei hanner</string>
   <string name="eventInProgress">Chwarae ar hyn o bryd</string>
   <string name="finished">Wedi dod i ben.</string>
-  <string name="finishesX">yn gorffen mewn %s</string>
   <string name="abortGame">Erthylu gêm</string>
   <string name="gameAborted">Gêm wedi\'i herthylu</string>
   <string name="standard">Normal</string>
@@ -688,7 +687,6 @@
   <string name="congratsYouWon">Llongyfarchiadau, gwnaethoch chi ennill!</string>
   <string name="clickToRevealEmailAddress">[Cliciwch i ddangos cyfeiriad ebost]</string>
   <string name="download">Lawrlwytho</string>
-  <string name="welcome">Croeso!</string>
   <string name="cancelTournament">Gohirio\'r gystadleuaeth</string>
   <string name="tournDescription">Disgrifiad cystadleuaeth</string>
 </resources>

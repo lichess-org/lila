@@ -64,6 +64,7 @@ Patroni zyskują jedynie unikalną ikonę profilu (skrzydełka).</string>
   <string name="nextPayment">Następna płatność</string>
   <string name="youWillBeChargedXOnY">Zostaniesz obciążony %1$s %2$s.</string>
   <string name="makeAdditionalDonation">Dokonaj dodatkowej darowizny teraz</string>
+  <string name="giftPatronWingsShort">Podaruj skrzydła patrona</string>
   <string name="giftPatronWings">Podaruj skrzydła patrona innemu graczowi</string>
   <string name="update">Aktualizuj</string>
   <string name="changeMonthlyAmount">Zmień miesięczną kwotę (%s)</string>
@@ -83,4 +84,7 @@ Patroni zyskują jedynie unikalną ikonę profilu (skrzydełka).</string>
   <string name="nowOneMonth">Jesteś teraz patronem Lichess na jeden miesiąc!</string>
   <string name="downgradeNextMonth">W tym miesiącu NIE zostaniesz ponownie obciążony, a Twoje konto Lichess pozostanie darmowe.</string>
   <string name="changeCurrency">Zmień walutę</string>
+  <string name="paymentDetails">Szczegóły płatności</string>
+  <string name="updatePaymentMethod">Aktualizuj metodę płatności</string>
+  <string name="stripeManageSub">Zarządzaj swoją subskrypcją i pobierz faktury i paragony</string>
 </resources>

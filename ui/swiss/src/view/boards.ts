@@ -1,5 +1,5 @@
 import { Board, SwissOpts } from '../interfaces';
-import { renderClock } from 'common/mini-board';
+import { renderClock } from 'common/miniBoard';
 import { h, VNode } from 'snabbdom';
 import { opposite } from 'chessground/util';
 import { player as renderPlayer } from './util';
@@ -19,10 +19,7 @@ const renderBoard =
       `div.swiss__board.mini-game.mini-game-${board.id}.mini-game--init.is2d`,
       {
         key: board.id,
-        attrs: {
-          'data-state': `${board.fen},${board.orientation},${board.lastMove}`,
-          'data-live': board.id,
-        },
+        attrs: { 'data-state': `${board.fen},${board.orientation},${board.lastMove}`, 'data-live': board.id },
         hook: {
           insert(vnode) {
             lichess.powertip.manualUserIn(vnode.elm as HTMLElement);
@@ -31,11 +28,7 @@ const renderBoard =
       },
       [
         boardPlayer(board, opposite(board.orientation), opts),
-        h('a.cg-wrap', {
-          attrs: {
-            href: `/${board.id}/${board.orientation}`,
-          },
-        }),
+        h('a.cg-wrap', { attrs: { href: `/${board.id}/${board.orientation}` } }),
         boardPlayer(board, board.orientation, opts),
       ],
     );

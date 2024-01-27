@@ -3,7 +3,7 @@
   <string name="advancedPawn">Fremskudt bonde</string>
   <string name="advancedPawnDescription">En bonde, der forvandles eller truer med at forvandle, er nøglen til taktikken.</string>
   <string name="advantage">Fordel</string>
-  <string name="advantageDescription">Grib chancen for at få en afgørende fordel. (200cb ≤ eval ≤ 600cb)</string>
+  <string name="advantageDescription" comment="advantageDescription&#10;&#10;'cp' stands for centipawn (1/100th of a pawn). It is used in computer analysis to assess a position.&#10;'eval' is short for evaluation.">Grib chancen for at få en afgørende fordel. (200cb ≤ eval ≤ 600cb)</string>
   <string name="anastasiaMate">Anastasias mat</string>
   <string name="anastasiaMateDescription">En springer og et tårn eller en dronning går sammen om at fange modstanderens konge mellem side af brættet og en venligsindet brik.</string>
   <string name="arabianMate">Arabisk mat</string>
@@ -23,13 +23,13 @@
   <string name="capturingDefender">Tag forsvareren</string>
   <string name="capturingDefenderDescription">Tag en brik som er kritisk i forsvaret af en anden brik, så det er muligt at tage den uforsvarede brik på et efterfølgende træk.</string>
   <string name="crushing">Knusende</string>
-  <string name="crushingDescription">Spot modstanderens brøler for at opnå en knusende fordel. (eval ≥ 600cb)</string>
+  <string name="crushingDescription" comment="crushingDescription&#10;&#10;'cp' stands for centipawn (1/100th of a pawn). It is used in computer analysis to assess a position.&#10;'eval' is short for evaluation.">Spot modstanderens brøler for at opnå en knusende fordel. (eval ≥ 600cb)</string>
   <string name="doubleBishopMate">Dobbelt løbermat</string>
   <string name="doubleBishopMateDescription">To angribende løbere på tilstødende diagonaler giver mat til en konge, som er blokeret af egne brikker.</string>
   <string name="dovetailMate">Duehale-mat</string>
   <string name="dovetailMateDescription">En dronning sætter en tilstødende konge mat, da dennes eneste to felter til flugt er blokeret af egne brikker.</string>
   <string name="equality">Udligning</string>
-  <string name="equalityDescription">Vend en tabende stilling til en remis eller en lige stilling. (eval ≤ 200cb)</string>
+  <string name="equalityDescription" comment="equalityDescription&#10;&#10;'cp' stands for centipawn (1/100th of a pawn). It is used in computer analysis to assess a position.&#10;'eval' is short for evaluation.">Vend en tabende stilling til en remis eller en lige stilling. (eval ≤ 200cb)</string>
   <string name="kingsideAttack">Angreb på kongesiden</string>
   <string name="kingsideAttackDescription">Et angreb på modstanderens konge efter der er rokeret kort.</string>
   <string name="clearance">Rydning</string>
@@ -62,9 +62,9 @@
   <string name="long">Lang opgave</string>
   <string name="longDescription">Tre træk for at vinde.</string>
   <string name="master">Mesterpartier</string>
-  <string name="masterDescription">Opgaver fra partier af spillere med titel.</string>
+  <string name="masterDescription">Taktikopgaver fra partier af spillere med titel.</string>
   <string name="masterVsMaster">Mester mod mester partier</string>
-  <string name="masterVsMasterDescription">Opgaver fra partier mellem to spillere med titel.</string>
+  <string name="masterVsMasterDescription">Taktikopgaver fra partier mellem to spillere med titel.</string>
   <string name="mate">Mat</string>
   <string name="mateDescription">Vind spillet med stil.</string>
   <string name="mateIn1">Mat i 1</string>
@@ -80,7 +80,7 @@
   <string name="middlegame">Midtspil</string>
   <string name="middlegameDescription">En taktik i den anden fase af spillet.</string>
   <string name="oneMove">Et-træks opgave</string>
-  <string name="oneMoveDescription">En opgave der kun er ét træk lang.</string>
+  <string name="oneMoveDescription">En taktikopgave der kun er ét træk lang.</string>
   <string name="opening">Åbning</string>
   <string name="openingDescription">En taktik i den første fase af spillet.</string>
   <string name="pawnEndgame">Bondeslutspil</string>
@@ -101,19 +101,19 @@
   <string name="rookEndgameDescription">Et slutspil med kun tårne og bønder.</string>
   <string name="sacrifice">Offer</string>
   <string name="sacrificeDescription">En taktik der består i at opgive materiale på kort sigt for igen at få en fordel efter en tvungen træksekvens.</string>
-  <string name="short">Kort opgave</string>
+  <string name="short">Kort taktikopgave</string>
   <string name="shortDescription">To træk for at vinde.</string>
   <string name="skewer">Spid</string>
   <string name="skewerDescription">En manøvre hvor en brik af høj værdi angribes og må flyttes, hvorved en brik af lavere værdi bagved kan tages eller trues. Det omvendte af en binding.</string>
   <string name="smotheredMate">Kvalt mat</string>
   <string name="smotheredMateDescription">En skakmat leveret af en springer, hvor den matte konge er ude af stand til at bevæge sig, fordi den er omgivet (eller kvalt) af sine egne brikker.</string>
   <string name="superGM">Superstormester-partier</string>
-  <string name="superGMDescription">Opgaver fra partier spillet af verdens bedste spillere.</string>
+  <string name="superGMDescription">Taktikopgaver fra partier spillet af verdens bedste spillere.</string>
   <string name="trappedPiece">Fastlåste brikker</string>
   <string name="trappedPieceDescription">En brik er ude af stand til at undslippe fangst, da den har begrænsede trækmuligheder.</string>
   <string name="underPromotion">Underforvandling</string>
   <string name="underPromotionDescription">Forvandling til en springer, løber eller tårn.</string>
-  <string name="veryLong">Meget lang opgave</string>
+  <string name="veryLong">Meget lang taktikopgave</string>
   <string name="veryLongDescription">Fire træk eller mere for at vinde.</string>
   <string name="xRayAttack">Røngtenangreb</string>
   <string name="xRayAttackDescription">En brik angriber eller forsvarer et felt gennem en af modstanderens brikker.</string>
@@ -122,6 +122,6 @@
   <string name="healthyMix">Sund blanding</string>
   <string name="healthyMixDescription">Lidt af hvert. Du kan ikke vide, hvad du skal forvente, så du skal være klar til alt! Præcis som i rigtige spil.</string>
   <string name="playerGames">Spiller-partier</string>
-  <string name="playerGamesDescription">Find opgaver lavet ud fra dine egne partier eller fra en anden spillers partier.</string>
+  <string name="playerGamesDescription">Find taktikopgaver lavet ud fra dine egne partier eller fra en anden spillers partier.</string>
   <string name="puzzleDownloadInformation">Disse opgaver er i offentligt domæne og kan downloades fra %s.</string>
 </resources>

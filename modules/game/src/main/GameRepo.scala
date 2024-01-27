@@ -6,12 +6,14 @@ import chess.format.pgn.{ PgnStr, SanStr }
 import reactivemongo.akkastream.{ cursorProducer, AkkaStreamCursor }
 import reactivemongo.api.commands.WriteResult
 import reactivemongo.api.{ Cursor, WriteConcern }
+import reactivemongo.api.bson.BSONNull
 import ornicar.scalalib.ThreadLocalRandom
 
 import lila.db.dsl.{ *, given }
 import lila.db.isDuplicateKey
 import lila.user.User
 import lila.common.config
+import lila.common.config.Max
 
 final class GameRepo(val coll: Coll)(using Executor):
 
@@ -157,9 +159,11 @@ final class GameRepo(val coll: Coll)(using Executor):
       selector: Bdoc,
       sort: Bdoc,
       batchSize: Int = 0,
+      hint: Option[Bdoc] = none,
       readPref: ReadPref = _.priTemp
   ): AkkaStreamCursor[Game] =
-    coll.find(selector).sort(sort).batchSize(batchSize).cursor[Game](readPref)
+    val query = coll.find(selector).sort(sort).batchSize(batchSize)
+    hint.map(coll.hint).foldLeft(query)(_ hint _).cursor[Game](readPref)
 
   def byIdsCursor(ids: Iterable[GameId]): Cursor[Game] = coll.find($inIds(ids)).cursor[Game]()
 
@@ -172,6 +176,10 @@ final class GameRepo(val coll: Coll)(using Executor):
         )
       )
       .void
+
+  def setBlindfold(pov: Pov, blindfold: Boolean): Funit =
+    val field = s"${pov.color.fold(F.whitePlayer, F.blackPlayer)}.${Player.BSONFields.blindfold}"
+    coll.update.one($id(pov.gameId), $setBoolOrUnset(field, blindfold)).void
 
   def update(progress: Progress): Funit =
     saveDiff(progress.origin, GameDiff(progress.origin, progress.game))
@@ -211,12 +219,11 @@ final class GameRepo(val coll: Coll)(using Executor):
         // important, hits the index!
         Query.nowPlaying(userId) ++ $doc(
           "$or" ->
-            List(0, 1).map { rem =>
+            List(0, 1).map: rem =>
               $doc(
                 s"${Game.BSONFields.playingUids}.$rem" -> userId,
                 Game.BSONFields.turns                  -> $doc("$mod" -> $arr(2, rem))
               )
-            }
         )
       )
       .dmap(_.toInt)
@@ -416,10 +423,29 @@ final class GameRepo(val coll: Coll)(using Executor):
     } void
 
   def removeRecentChallengesOf(userId: UserId) =
-    coll.delete.one(
+    coll.delete.one:
       Query.created ++ Query.friend ++ Query.user(userId) ++
         Query.createdSince(nowInstant minusHours 1)
-    )
+
+  // registered players who have played against userId recently in games from the Friend source
+  def recentChallengersOf(userId: UserId, max: Max): Fu[List[UserId]] =
+    coll
+      .aggregateOne(_.sec): framework =>
+        import framework.*
+        Match(Query user userId) -> List(
+          Sort(Descending(F.createdAt)),
+          Limit(1000),
+          Match(Query.friend ++ Query.noAnon),
+          Project($doc(F.playerUids -> true, F.id -> false)),
+          UnwindField(F.playerUids),
+          Match($doc(F.playerUids $ne userId)),
+          PipelineOperator($doc("$sortByCount" -> s"$$${F.playerUids}")),
+          Limit(max.value),
+          Group(BSONNull)("users" -> PushField("_id"))
+        )
+      .map:
+        _.so: obj =>
+          ~obj.getAsOpt[List[UserId]]("users")
 
   def setCheckAt(g: Game, at: Instant) =
     coll.updateField($id(g.id), F.checkAt, at).void
@@ -439,18 +465,15 @@ final class GameRepo(val coll: Coll)(using Executor):
 
   def initialFen(game: Game): Fu[Option[Fen.Epd]] =
     if game.imported || !game.variant.standardInitialPosition then
-      initialFen(game.id) dmap {
+      initialFen(game.id) dmap:
         case None if game.variant == chess.variant.Chess960 => Fen.initial.some
         case fen                                            => fen
-      }
     else fuccess(none)
 
   def gameWithInitialFen(gameId: GameId): Fu[Option[Game.WithInitialFen]] =
-    game(gameId) flatMapz { game =>
-      initialFen(game) dmap { fen =>
+    game(gameId) flatMapz: game =>
+      initialFen(game) dmap: fen =>
         Game.WithInitialFen(game, fen).some
-      }
-    }
 
   def withInitialFen(game: Game): Fu[Game.WithInitialFen] =
     initialFen(game) dmap { Game.WithInitialFen(game, _) }

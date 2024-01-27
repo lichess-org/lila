@@ -2,11 +2,13 @@ package lila.security
 
 import akka.actor.*
 import com.softwaremill.macwire.*
+import com.softwaremill.tagging.*
 import play.api.Configuration
 import play.api.libs.ws.StandaloneWSClient
 
 import lila.common.config.*
 import lila.common.Strings
+import lila.memo.SettingStore
 import lila.memo.SettingStore.Strings.given
 import lila.oauth.OAuthServer
 import lila.user.{ Authenticator, UserRepo }
@@ -42,7 +44,7 @@ final class Env(
     scheduler = scheduler
   )
 
-  lazy val flood = wire[Flood]
+  lazy val flood = new Flood
 
   lazy val hcaptcha: Hcaptcha =
     if config.hcaptcha.enabled then wire[HcaptchaReal]
@@ -142,8 +144,16 @@ final class Env(
 
   lazy val pwned: Pwned = Pwned(ws, config.pwnedUrl)
 
+  lazy val proxy2faSetting: SettingStore[Strings] @@ Proxy2faSetting = settingStore[Strings](
+    "proxy2fa",
+    default = Strings(List("PUB", "TOR")),
+    text = "Types of proxy that require 2FA to login".some
+  ).taggedWith[Proxy2faSetting]
+
   lazy val api = wire[SecurityApi]
 
   lazy val csrfRequestHandler = wire[CSRFRequestHandler]
 
   lazy val cli = wire[Cli]
+
+private trait Proxy2faSetting

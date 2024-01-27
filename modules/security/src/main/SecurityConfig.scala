@@ -11,7 +11,6 @@ import play.api.ConfigLoader
 @Module
 final private class SecurityConfig(
     val collection: Collection,
-    @ConfigName("flood.duration") val floodDuration: FiniteDuration,
     @ConfigName("geoip") val geoIP: GeoIP.Config,
     @ConfigName("password_reset.secret") val passwordResetSecret: Secret,
     @ConfigName("email_confirm") val emailConfirm: EmailConfirm,

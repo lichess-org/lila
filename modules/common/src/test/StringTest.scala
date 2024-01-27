@@ -28,9 +28,8 @@ class StringTest extends munit.FunSuite:
     assertEquals(rms("🥹🥹🥹 xxx 🥹"), " xxx ")
   }
   test("preserve languages") {
-    i18nValidStrings.foreach { txt =>
+    i18nValidStrings.foreach: txt =>
       assertEquals(rms(txt), txt)
-    }
   }
   test("preserve half point") {
     assertEquals(rms("½"), "½")
@@ -40,9 +39,8 @@ class StringTest extends munit.FunSuite:
     assertEquals(String.removeGarbageChars("""ℱ۩۞۩꧁꧂"""), "")
     assertEquals(String.removeGarbageChars("""ᴀᴛᴏᴍɪᴄ"""), "")
     assertEquals(String.removeGarbageChars("""af éâòöÌÒÒçÇℱ۩۞۩꧁꧂"  صار"""), """af éâòöÌÒÒçÇ"  صار""")
-    i18nValidStrings.foreach { txt =>
+    i18nValidStrings.foreach: txt =>
       assertEquals(String.removeGarbageChars(txt), txt)
-    }
   }
 
   test("normalize keep º and ª") {
@@ -62,9 +60,8 @@ class StringTest extends munit.FunSuite:
     val url = "http://imgur.com/gallery/pMtTE"
     assertEquals(
       String.html.richText(s"link to $url here\n"),
-      raw {
+      raw:
         s"""link to <a rel="nofollow noopener noreferrer" href="$url" target="_blank">$url</a> here<br>"""
-      }
     )
 
     assertEquals(String.html.richText(s"link\n", false), raw("link\n"))
@@ -79,16 +76,9 @@ class StringTest extends munit.FunSuite:
     // to be part of the URL.
     assertEquals(
       String.html.richText("a https://example.com/foo--. b"),
-      raw {
+      raw:
         """a <a rel="nofollow noopener noreferrer" href="https://example.com/foo--" target="_blank">example.com/foo--</a>. b"""
-      }
     )
-  }
-
-  test("richText prize regex not find btc >> url") {
-    assertEquals(String.looksLikePrize(s"HqVrbTcy"), false)
-    assertEquals(String.looksLikePrize(s"10btc"), true)
-    assertEquals(String.looksLikePrize(s"ten btc"), true)
   }
 
   def extractPosts(s: String) = String.forumPostPathRegex.findAllMatchIn(s).toList.map(_.group(1))

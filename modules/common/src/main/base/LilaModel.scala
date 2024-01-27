@@ -6,6 +6,13 @@ import java.time.Instant
 
 trait LilaModel:
 
+  type Update[A] = A => A
+  def UpdateOf[A](f: A => A): Update[A] = f
+  // apply updates to a value, and keep track of the updates
+  // so they can all be replayed on another value
+  case class Updating[A](current: A, reRun: Update[A] = (a: A) => a):
+    def apply(up: Update[A]) = Updating(up(current), up compose reRun)
+
   trait OpaqueInstant[A](using A =:= Instant) extends TotalWrapper[A, Instant]
 
   trait Percent[A]:
@@ -32,6 +39,7 @@ trait LilaModel:
     extension (e: GameFullId)
       def gameId: GameId         = GameId.take(e)
       def playerId: GamePlayerId = GamePlayerId(e drop GameId.size)
+      def anyId: GameAnyId       = e into GameAnyId
 
   // Either a GameId or a GameFullId
   opaque type GameAnyId = String
@@ -89,6 +97,9 @@ trait LilaModel:
 
   opaque type UserTitle = String
   object UserTitle extends OpaqueString[UserTitle]
+
+  opaque type Flair = String
+  object Flair extends OpaqueString[Flair]
 
   opaque type TourId = String
   object TourId extends OpaqueString[TourId]

@@ -109,17 +109,17 @@ object ForumPost:
           case (reaction, users) if users(me.id) => reaction
         .toSet
 
-  case class WithFrag(post: ForumPost, body: scalatags.Text.all.Frag)
+  case class WithFrag(post: ForumPost, body: scalatags.Text.all.Frag, hide: Boolean = false)
 
   def make(
       topicId: ForumTopicId,
       categId: ForumCategId,
       userId: Option[UserId], // anon mod posts
       text: String,
-      number: Int,
-      lang: Option[String],
-      troll: Boolean,
-      modIcon: Option[Boolean] = None
+      number: Int = 1,
+      lang: Option[String] = none,
+      troll: Boolean = false,
+      modIcon: Option[Boolean] = none
   ): ForumPost =
     ForumPost(
       _id = ForumPostId(ThreadLocalRandom nextString idSize),

@@ -20,7 +20,7 @@
     <item quantity="one">Թիմի ղեկավար</item>
     <item quantity="other">Թիմի ղեկավարներ</item>
   </plurals>
-  <string name="teamRecentMembers">Թիմի անդամները</string>
+  <string name="teamRecentMembers">Թիմի նոր անդամները</string>
   <string name="kickSomeone">Ինչ-որ մեկին հեռացնել թիմից</string>
   <string name="whoToKick">Ո՞ւմ եք ցանկանում հեռացնել թիմից։</string>
   <plurals name="xJoinRequests">
@@ -43,7 +43,6 @@
 Այն խաղացողները, որոնք չեն ցանկանում ստանալ Ձեր հաղորդագրությունները, կարող են լքել թիմը։</string>
   <string name="teamsIlead">Իմ ղեկավարած թիմերը</string>
   <string name="youWayWantToLinkOneOfTheseTournaments">Չե՞ք ցանկանում կցել առաջիկա մրցաշարերից մեկը</string>
-  <string name="usersWhoCanManageThisTeam">Օգտատերեր, որոնք կարող են կառավարել այս թիմը</string>
   <string name="leadersChat">Ղեկավարների զրուցարան</string>
   <string name="closeTeam">Լուծարել թիմը</string>
   <string name="closeTeamDescription">Թիմն ընդմիշտ փակում է։</string>

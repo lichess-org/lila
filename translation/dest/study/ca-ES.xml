@@ -53,6 +53,7 @@
   <string name="allSyncMembersRemainOnTheSamePosition">Tots els membres sincronitzats es mantenen a la mateixa posició</string>
   <string name="shareChanges">Comparteix els canvis amb els espectadors i guarda’ls al servidor</string>
   <string name="playing">Jugant</string>
+  <string name="showEvalBar">Barres d\'avaluació</string>
   <string name="first">Primer</string>
   <string name="previous">Anterior</string>
   <string name="next">Següent</string>

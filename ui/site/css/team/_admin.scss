@@ -1,0 +1,74 @@
+.team-edit {
+  .inline {
+    display: inline;
+  }
+  .accent {
+    textarea {
+      border-color: $c-brag;
+    }
+    label {
+      color: $c-brag;
+    }
+  }
+}
+.team-permissions {
+  p.error {
+    font-size: 1.3em;
+  }
+
+  .form-help {
+    margin: 2em 0 0 0;
+  }
+  .form-actions {
+    border: none;
+    padding-bottom: $box-padding-vert;
+  }
+  table {
+    @include breakpoint($mq-x-small) {
+      .highlight,
+      tbody tr:hover td,
+      tbody tr:hover th {
+        background: mix($c-primary, $c-bg-page, 15%) !important;
+        a {
+          color: $c-font-clearer;
+        }
+      }
+    }
+    @include breakpoint($mq-not-x-small) {
+      .highlight {
+        background: mix($c-primary, $c-bg-page, 15%) !important;
+      }
+      .cmn-toggle + label {
+        display: inline-block;
+      }
+    }
+    .cmn-toggle:not(:checked) + label {
+      background-color: $c-bg-low;
+    }
+    th {
+      padding-top: 1em;
+      padding-bottom: 1em;
+      strong {
+        @extend %break-nope;
+        font-size: 1.3em;
+        color: $c-brag;
+      }
+      p {
+        margin: 0;
+      }
+    }
+    td,
+    th {
+      border-left: $border;
+    }
+  }
+}
+.team-add-leader {
+  &__input {
+    display: flex;
+  }
+  margin-bottom: $box-padding-vert;
+  .error {
+    color: $c-bad;
+  }
+}

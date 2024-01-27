@@ -1,15 +1,24 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+  <string name="communityBlogs">Blogge vun der Communautéit</string>
+  <string name="friendBlogs">Blogge vun de Kolleegen</string>
+  <string name="likedBlogs">Geliket Blog-Bäiträg</string>
+  <string name="blogTopics">Blog-Theemen</string>
+  <string name="lichessOfficialBlog">Offizielle Lichess-Blog</string>
+  <string name="continueReadingPost">Virufuere mam Liese vun dësem Bäitrag</string>
+  <string name="lichessBlogPostsFromXYear">Lichess-Blog-Bäiträg vun %s</string>
+  <string name="previousBlogPosts">Virege Blog-Bäitrag</string>
   <string name="xBlog">%s säi Blog</string>
-  <string name="newPost">Neien Bäitrag</string>
-  <string name="editYourBlogPost">Beaarbecht däin Blog-Bäitrag</string>
+  <string name="newPost">Neie Bäitrag</string>
+  <string name="editYourBlogPost">Beaarbecht däi Blog-Bäitrag</string>
   <string name="saveDraft">Entworf späicheren</string>
   <string name="postTitle">Bäitragstitel</string>
   <string name="postIntro">Bäitragsaleedung</string>
   <string name="postBody">Bäitragsinhalt</string>
-  <string name="drafts">Entworf</string>
+  <string name="drafts">Entwërf</string>
   <string name="published">Verëffentlecht</string>
   <string name="createBlogDiscussion">Kommentaren erlaben</string>
+  <string name="createBlogDiscussionHelp">Et gëtt ee Forentheema ugeluecht, fir datt d\'Leit däi Bäitrag kommentéiere kënnen</string>
   <string name="publishOnYourBlog">Verëffentlechen an dengem Blog</string>
   <string name="publishHelp">Wann aktivéiert, wäert de Bäitrag an engem Blog opgelëscht ginn. Wann net, wäert e privat sinn, an dengen Entwërf</string>
   <plurals name="publishedNbBlogPosts">
@@ -36,4 +45,11 @@
   <string name="imageCredit">Bildquell</string>
   <string name="deleteBlog">Dëse Blog-Bäitrag endgülteg läschen</string>
   <string name="deleteImage">D\'Bild läschen</string>
+  <string name="safeToUseImages">Et kann een ouni Problemer Biller vun de follgende Websäiten ze benotzen: </string>
+  <string name="selectPostTopics">Wiel d\'Theeme vun dengem Bäitrag</string>
+  <string name="useImagesYouMadeYourself">Du kanns och Biller benotzen, déi s du selwer gemaach hues, Fotoen, déi s du gemaach hues, Screenshotte vu Liches... Alles, wourop keen aneren Urheberrechter huet.</string>
+  <string name="safeAndRespectfulContent">Wgl. post just sécher a respektvoll Inhalter. Kopéier net d\'Inhalter vun enger anerer Persoun.</string>
+  <string name="inappropriateContentAccountClosed">Alles, wat net ubruecht ass, kann dozou féieren, datt däi Kont zougemaach gëtt.</string>
+  <string name="blogTips">Eis einfach Tuyaue fir flott Blog-Bäiträg ze schreiwen</string>
+  <string name="discussThisBlogPostInTheForum">Iwwert dëse Blog-Bäitrag am Forum diskutéieren</string>
 </resources>

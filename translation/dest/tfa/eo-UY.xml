@@ -2,17 +2,16 @@
 <resources>
   <string name="twoFactorAuth">Dufaza aŭtentigo</string>
   <string name="twoFactorHelp">Dufaza aŭtentigo aldonas alian tavolon de sekura al via konto.</string>
-  <string name="twoFactorApp">Akiru apon por dufaza aŭtentigo, ekzample andOTP por %1$s aŭ Google Authenticator por %2$s.</string>
+  <string name="twoFactorAppRecommend">Akiru apon por dupaŝa aŭtentigo. Ni rekomendas la malsuprajn apojn:</string>
   <string name="scanTheCode">Skanu la QR-kodo per la app.</string>
   <string name="enterPassword">Entajpu vian pasvorton kaj la aŭtentigan kodon generis de la apo por fini la agordo. Vi bezonos aŭtentigan kodon ĉiam vi ensalutas.</string>
   <string name="ifYouCannotScanEnterX">Se vi ne povas skani la kodon, entajpu la sekretan ŝlosilon %s en vian apon.</string>
   <string name="authenticationCode">Aŭtentiga kodo</string>
-  <string name="ifYouLoseAccess">Noto: Se vi perdos aliron al via dufazajn aŭtentigajn kodojn, vi povas restarigi per retpoŝto.</string>
+  <string name="ifYouLoseAccessTwoFactor">Noto: Se vi perdos alireblon al via dupaŝaj aŭtentigaj kodoj, vi povas fari %s per retpoŝto.</string>
   <string name="enableTwoFactor">Ebligi dufazan aŭtentigon</string>
   <string name="disableTwoFactor">Malebligi dufazan aŭtentigon</string>
   <string name="twoFactorEnabled">Dufaza aŭtentigo ebligita</string>
-  <string name="twoFactorDisable">Vi bezonas vian pasvorton kaj aŭtentigan kodon el via aŭtentiga apo por malŝalti dufazan aŭtentigon.
-Se vi perdis aliron al vi aŭtentigaj kodoj, vi povas ankaŭ faros pasvortan restarigon per retpoŝto.</string>
+  <string name="twoFactorToDisable">Vi bezonas vian pasvorton kaj aŭtentiga kodo de via aŭtentiga apo por malebligi dupaŝan aŭtentigon.</string>
   <string name="openTwoFactorApp">Malfermu la dufazan aŭtentigan apon en via aparato por vidi vian aŭtentigan kodon kaj kontrolu vian identecon.</string>
   <string name="setupReminder">Bonvolu ŝalti duafazan aŭtentigon por sekuri vian konton ĉe https://lichess.org/account/twofactor.
 Vi ricevis ĉi tiun mesaĝon, ĉar via konto havas specialajn responsojn, kiel teamestro, trejnisto, instruisto, aŭ filmprezentisto</string>

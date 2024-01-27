@@ -225,7 +225,6 @@
   <string name="playingRightNow">Nunc ludendus</string>
   <string name="eventInProgress">Nunc ludendus</string>
   <string name="finished">Perfectus</string>
-  <string name="finishesX">%s ceteri</string>
   <string name="abortGame">Lusionem tollere</string>
   <string name="gameAborted">Sublata lusio</string>
   <string name="standard">Communis</string>

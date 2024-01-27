@@ -4,8 +4,8 @@
   <string name="teams">Ekipe</string>
   <plurals name="nbMembers">
     <item quantity="one">%s član</item>
-    <item quantity="two">%s članov</item>
-    <item quantity="few">%s članov</item>
+    <item quantity="two">%s člana</item>
+    <item quantity="few">%s člani</item>
     <item quantity="other">%s članov</item>
   </plurals>
   <string name="allTeams">Vse ekipe</string>
@@ -47,7 +47,6 @@
   <string name="messageAllMembersLongDescription">Pošlji zasebno sporočilo vsem članom ekipe. Lahko uporabiš to, da pokličeš igralce, da se udeležijo turnirja ali ekipnega boja. Igralci, ki ne marajo prejemanja vaših sporočil lahko zapustijo ekipo.</string>
   <string name="teamsIlead">Ekipe, ki jih vodim</string>
   <string name="youWayWantToLinkOneOfTheseTournaments">Želiš morda povezavo do katerega od teh prihajajočih turnirjev?</string>
-  <string name="usersWhoCanManageThisTeam">Uporabniki, ki lahko upravljajo s to ekipo</string>
   <string name="leadersChat">Klepet voditeljev</string>
   <string name="closeTeam">Zapri ekipo</string>
   <string name="closeTeamDescription">Trajno zapre vse ekipe.</string>

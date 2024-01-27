@@ -41,25 +41,18 @@ export function render(ctrl: AnalyseCtrl): VNode {
   if (!ctrl.path) {
     if (isMyMove)
       content = [
-        h(
-          'div.legend.todo.clickable',
-          {
-            hook: commentHook,
-            class: { done: isCommented },
-          },
-          [iconTag(licon.BubbleSpeech), h('p', 'Help the player find the initial move, with a comment.')],
-        ),
+        h('div.legend.todo.clickable', { hook: commentHook, class: { done: isCommented } }, [
+          iconTag(licon.BubbleSpeech),
+          h('p', 'Help the player find the initial move, with a comment.'),
+        ]),
         renderHint(ctrl),
       ];
     else
       content = [
-        h(
-          'div.legend.clickable',
-          {
-            hook: commentHook,
-          },
-          [iconTag(licon.BubbleSpeech), h('p', 'Introduce the gamebook with a comment')],
-        ),
+        h('div.legend.clickable', { hook: commentHook }, [
+          iconTag(licon.BubbleSpeech),
+          h('p', 'Introduce the gamebook with a comment'),
+        ]),
         h('div.legend.todo', { class: { done: !!ctrl.node.children[0] } }, [
           iconTag(licon.PlayTriangle),
           h('p', "Put the opponent's first move on the board."),
@@ -68,66 +61,41 @@ export function render(ctrl: AnalyseCtrl): VNode {
   } else if (ctrl.onMainline) {
     if (isMyMove)
       content = [
-        h(
-          'div.legend.todo.clickable',
-          {
-            hook: commentHook,
-            class: { done: isCommented },
-          },
-          [
-            iconTag(licon.BubbleSpeech),
-            h('p', 'Explain the opponent move, and help the player find the next move, with a comment.'),
-          ],
-        ),
+        h('div.legend.todo.clickable', { hook: commentHook, class: { done: isCommented } }, [
+          iconTag(licon.BubbleSpeech),
+          h('p', 'Explain the opponent move, and help the player find the next move, with a comment.'),
+        ]),
         renderHint(ctrl),
       ];
     else
       content = [
-        h(
-          'div.legend.clickable',
-          {
-            hook: commentHook,
-          },
-          [
-            iconTag(licon.BubbleSpeech),
-            h(
-              'p',
-              "You may reflect on the player's correct move, with a comment; or leave empty to jump immediately to the next move.",
-            ),
-          ],
-        ),
+        h('div.legend.clickable', { hook: commentHook }, [
+          iconTag(licon.BubbleSpeech),
+          h(
+            'p',
+            "You may reflect on the player's correct move, with a comment; or leave empty to jump immediately to the next move.",
+          ),
+        ]),
         hasVariation
           ? null
-          : h(
-              'div.legend.clickable',
-              {
-                hook: bind('click', () => control.prev(ctrl), ctrl.redraw),
-              },
-              [
-                iconTag(licon.PlayTriangle),
-                h('p', 'Add variation moves to explain why specific other moves are wrong.'),
-              ],
-            ),
+          : h('div.legend.clickable', { hook: bind('click', () => control.prev(ctrl), ctrl.redraw) }, [
+              iconTag(licon.PlayTriangle),
+              h('p', 'Add variation moves to explain why specific other moves are wrong.'),
+            ]),
         renderDeviation(ctrl),
       ];
   } else
     content = [
-      h(
-        'div.legend.todo.clickable',
-        {
-          hook: commentHook,
-          class: { done: isCommented },
-        },
-        [iconTag(licon.BubbleSpeech), h('p', 'Explain why this move is wrong in a comment')],
-      ),
+      h('div.legend.todo.clickable', { hook: commentHook, class: { done: isCommented } }, [
+        iconTag(licon.BubbleSpeech),
+        h('p', 'Explain why this move is wrong in a comment'),
+      ]),
       h('div.legend', [h('p', 'Or promote it as the mainline if it is the right move.')]),
     ];
 
   return h(
     'div.gamebook-edit',
-    {
-      hook: { insert: _ => lichess.loadCssPath('analyse.gamebook.edit') },
-    },
+    { hook: { insert: () => lichess.asset.loadCssPath('analyse.gamebook.edit') } },
     content,
   );
 }

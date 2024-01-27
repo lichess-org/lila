@@ -15,13 +15,13 @@
   <string name="voteToLoadNextOne">Vota para carregares o próximo!</string>
   <string name="upVote">Aprove o puzzle</string>
   <string name="downVote">Desaprove o puzzle</string>
-  <string name="yourPuzzleRatingWillNotChange">A sua classificação de quebra-cabeças não será alterada. Note que os quebra-cabeças não são uma competição. A classificação ajuda a selecionar os melhores quebra-cabeças para o seu nível atual.</string>
+  <string name="yourPuzzleRatingWillNotChange">A tua classificação de problemas não será alterada. Nota que os problemas não são uma competição. A classificação ajuda a selecionar os melhores problemas para o teu nível atual.</string>
   <string name="findTheBestMoveForWhite">Encontra a melhor jogada para as brancas.</string>
   <string name="findTheBestMoveForBlack">Encontra a melhor jogada para as pretas.</string>
   <string name="toGetPersonalizedPuzzles">Para obter desafios personalizados:</string>
   <string name="puzzleId">Problema %s</string>
   <string name="puzzleOfTheDay">Problema do dia</string>
-  <string name="dailyPuzzle">Puzzle do Dia</string>
+  <string name="dailyPuzzle">Problema diário</string>
   <string name="clickToSolve">Clica para resolveres</string>
   <string name="goodMove">Boa jogada</string>
   <string name="bestMove">Melhor jogada!</string>
@@ -29,7 +29,7 @@
   <string name="puzzleSuccess">Sucesso!</string>
   <string name="puzzleComplete">Problema resolvido!</string>
   <string name="byOpenings">Por abertura</string>
-  <string name="puzzlesByOpenings">Quebra-cabeças por abertura</string>
+  <string name="puzzlesByOpenings">Problemas por abertura</string>
   <string name="openingsYouPlayedTheMost">Aberturas que jogou mais vezes em partidas com rating</string>
   <string name="useFindInPage">Usar \"Localizar na página\" no menu do navegador para encontrar a sua abertura favorita!</string>
   <string name="useCtrlF">Usar Ctrl+f para encontrar a sua abertura favorita!</string>
@@ -90,7 +90,7 @@ Joga partidas semi-rápidas e clássicas para aumentares a probabilidade de tere
     <item quantity="other">%s para repetir</item>
   </plurals>
   <string name="percentSolved">%s resolvido</string>
-  <string name="noPuzzlesToShow">Nada para mostrar, jogue alguns quebra-cabeças primeiro!</string>
-  <string name="improvementAreasDescription">Treine estes para optimizar o seu progresso!</string>
-  <string name="strengthDescription">Você tem melhor performance nestes temas</string>
+  <string name="noPuzzlesToShow">Nada para mostrar, joga alguns problemas primeiro!</string>
+  <string name="improvementAreasDescription">Treine estes para otimizar o seu progresso!</string>
+  <string name="strengthDescription">Você tem melhor desempenho nestes temas</string>
 </resources>

@@ -1,11 +1,21 @@
 import * as control from './control';
-import * as xhr from 'common/xhr';
 import AnalyseCtrl from './ctrl';
-import { h, VNode } from 'snabbdom';
-import { snabModal } from 'common/modal';
-import { spinnerVdom as spinner } from 'common/spinner';
+import * as xhr from 'common/xhr';
+import { VNode } from 'snabbdom';
+import { snabDialog } from 'common/dialog';
 
 export const bind = (ctrl: AnalyseCtrl) => {
+  let shiftAlone = 0;
+  document.addEventListener('keydown', e => e.key === 'Shift' && (shiftAlone = e.location));
+  document.addEventListener('keyup', e => {
+    if (e.key === 'Shift' && e.location === shiftAlone) {
+      if (shiftAlone === 1 && ctrl.fork.prev()) ctrl.setAutoShapes();
+      else if (shiftAlone === 2 && ctrl.fork.next()) ctrl.setAutoShapes();
+      else if (shiftAlone === 0) return;
+      ctrl.redraw();
+    }
+    shiftAlone = 0;
+  });
   const kbd = window.lichess.mousetrap;
   kbd
     .bind(['left', 'k'], () => {
@@ -13,23 +23,25 @@ export const bind = (ctrl: AnalyseCtrl) => {
       ctrl.redraw();
     })
     .bind(['shift+left', 'shift+k'], () => {
-      control.exitVariation(ctrl);
-      ctrl.redraw();
-    })
-    .bind(['right', 'j'], () => {
-      if (!ctrl.fork.proceed()) control.next(ctrl);
+      control.previousBranch(ctrl);
       ctrl.redraw();
     })
     .bind(['shift+right', 'shift+j'], () => {
-      control.enterVariation(ctrl);
+      control.nextBranch(ctrl);
       ctrl.redraw();
     })
-    .bind(['up', '0', 'home'], () => {
-      if (!ctrl.fork.prev()) control.first(ctrl);
+    .bind(['right', 'j'], () => {
+      control.next(ctrl);
       ctrl.redraw();
     })
-    .bind(['down', '$', 'end'], () => {
-      if (!ctrl.fork.next()) control.last(ctrl);
+    .bind(['up', '0', 'home'], e => {
+      if (e.key === 'ArrowUp' && ctrl.fork.prev()) ctrl.setAutoShapes();
+      else control.first(ctrl);
+      ctrl.redraw();
+    })
+    .bind(['down', '$', 'end'], e => {
+      if (e.key === 'ArrowDown' && ctrl.fork.next()) ctrl.setAutoShapes();
+      else control.last(ctrl);
       ctrl.redraw();
     })
     .bind('shift+c', () => {
@@ -66,6 +78,10 @@ export const bind = (ctrl: AnalyseCtrl) => {
     })
     .bind('a', () => {
       ctrl.toggleAutoShapes(!ctrl.showAutoShapes());
+      ctrl.redraw();
+    })
+    .bind('v', () => {
+      ctrl.toggleVariationArrows();
       ctrl.redraw();
     })
     .bind('x', ctrl.toggleThreatMode)
@@ -116,19 +132,12 @@ export const bind = (ctrl: AnalyseCtrl) => {
 };
 
 export function view(ctrl: AnalyseCtrl): VNode {
-  return snabModal({
-    class: 'keyboard-help',
-    onInsert: async ($wrap: Cash) => {
-      const [, html] = await Promise.all([
-        lichess.loadCssPath('analyse.keyboard'),
-        xhr.text(xhr.url('/analysis/help', { study: !!ctrl.study })),
-      ]);
-      $wrap.find('.scrollable').html(html);
-    },
+  return snabDialog({
+    class: 'help.keyboard-help',
+    htmlUrl: xhr.url('/analysis/help', { study: !!ctrl.study }),
     onClose() {
       ctrl.keyboardHelp = false;
       ctrl.redraw();
     },
-    content: [h('div.scrollable', spinner())],
   });
 }

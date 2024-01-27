@@ -43,12 +43,12 @@
     <item quantity="other">Жаңа %s серік тапты</item>
   </plurals>
   <plurals name="hostedNbSimuls">
-    <item quantity="one">%s көпшілікке қарсы ойын бастады</item>
-    <item quantity="other">%s көпшілікке қарсы ойын бастады</item>
+    <item quantity="one">%s қалың ойын бастады</item>
+    <item quantity="other">%s қалың ойын бастады</item>
   </plurals>
   <plurals name="joinedNbSimuls">
-    <item quantity="one">%s көпшілікке қарсы ойынға қатысты</item>
-    <item quantity="other">%s көпшілікке қарсы ойынға қатысты</item>
+    <item quantity="one">%s қалың ойынға қатысты</item>
+    <item quantity="other">%s қалың ойынға қатысты</item>
   </plurals>
   <plurals name="createdNbStudies">
     <item quantity="one">%s жаңа зерттеу құрды</item>

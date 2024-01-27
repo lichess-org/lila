@@ -1,8 +1,27 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+  <string name="communityBlogs">บล็อกของชุมชน</string>
+  <string name="friendBlogs">บล็อกของเพื่อน</string>
+  <string name="likedBlogs">ชอบบล็อกโพสต์</string>
+  <string name="blogTopics">หัวข้อบล็อก</string>
+  <string name="lichessOfficialBlog">บล็อกทางการของ Lichess</string>
+  <string name="continueReadingPost">อ่านโพสต์นี้ต่อ</string>
+  <string name="lichessBlogPostsFromXYear">บล็อกโพสต์ของ Lichessใน %s</string>
+  <string name="previousBlogPosts">บล็อกโพสต์ที่แล้ว</string>
+  <string name="xBlog">บล็อกของ %s</string>
   <string name="newPost">โพสต์ใหม่</string>
   <string name="editYourBlogPost">แก้ไขโพสต์ของคุณ</string>
   <string name="saveDraft">บันทึกฉบับร่าง</string>
+  <string name="postTitle">หัวข้อโพสต์</string>
+  <string name="postIntro">บทนำโพสต์</string>
+  <string name="postBody">เนื้อหาโพสต์</string>
   <string name="drafts">แบบร่าง</string>
   <string name="published">เผยแพร่ไปแล้ว</string>
+  <string name="createBlogDiscussion">เปิดใช้งานคอมเมนต์</string>
+  <plurals name="nbViews">
+    <item quantity="other">คนดู %s</item>
+  </plurals>
+  <string name="imageCredit">เครดิตภาพ</string>
+  <string name="deleteImage">ลบรูปภาพ</string>
+  <string name="discussThisBlogPostInTheForum">หารือเรื่องบล็อกโพสต์ในฟอรั่ม</string>
 </resources>

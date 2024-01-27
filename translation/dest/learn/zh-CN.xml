@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="learnChess">学棋</string>
-  <string name="byPlaying">用玩的方式！</string>
+  <string name="learnChess">学习象棋</string>
+  <string name="byPlaying">边学边玩！</string>
   <string name="menu">菜单</string>
   <string name="progressX">进度：%s</string>
   <string name="resetMyProgress">重置我的进度</string>
   <string name="youWillLoseAllYourProgress">你的进度将被清空！</string>
-  <string name="play">开始玩！</string>
+  <string name="play" comment="play&#10;&#10;A small ribbon that appears on your current chapter in the Chess Basics course. Please keep this string short.">开始玩！</string>
   <string name="chessPieces">棋子</string>
   <string name="theRook">车</string>
   <string name="itMovesInStraightLines">它以直线移动</string>
@@ -26,7 +26,7 @@
 一个黑格象，
 两个你都需要！</string>
   <string name="bishopComplete">恭喜！你会控制象了</string>
-  <string name="theQueen">后</string>
+  <string name="theQueen">王后</string>
   <string name="queenCombinesRookAndBishop">后＝车＋象</string>
   <string name="queenIntro">最强大的棋子现已入场——王后陛下！</string>
   <string name="queenComplete">恭喜！王后已向你倾吐一切秘密</string>

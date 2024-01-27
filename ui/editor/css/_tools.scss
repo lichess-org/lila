@@ -42,6 +42,17 @@
           vertical-align: middle;
         }
       }
+
+      .enpassant {
+        @extend %flex-between;
+        margin-top: 1em;
+        label {
+          font-weight: bold;
+        }
+        select {
+          width: 9ch;
+        }
+      }
     }
 
     .actions {

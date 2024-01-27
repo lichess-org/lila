@@ -2,6 +2,7 @@
 <resources>
   <string name="settings">Επιλογές</string>
   <string name="closeAccount">Κλείσιμο λογαριασμού</string>
+  <string name="managedAccountCannotBeClosed" comment="managedAccountCannotBeClosed&#10;&#10;A managed account is typically one that has been registered by a chess teacher. The teacher retains control over the account, but they can release this control.">Ο λογαριασμός σας βρίσκεται υπό διαχείριση και δεν μπορεί να κλείσει.</string>
   <string name="closingIsDefinitive">Η απενεργοποίηση είναι οριστική. Δεν υπάρχει τρόπος ανάκλησης. Είστε σίγουρος;</string>
   <string name="cantOpenSimilarAccount">Δεν θα σας επιτραπεί η δημιουργία νέου λογαριασμού με το ίδιο όνομα, ακόμα κι αν μετατρέψετε έναν μικρό σε έναν κεφαλαίο ή το αντίστροφο.</string>
   <string name="changedMindDoNotCloseAccount">Άλλαξα γνώμη, μην κλείσετε τον λογαριασμό μου</string>

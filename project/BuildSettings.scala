@@ -6,17 +6,14 @@ object BuildSettings {
   import Dependencies._
 
   val lilaVersion        = "4.0"
-  val globalScalaVersion = "3.3.0"
-
-  val shadedMongo = !System.getProperty("os.arch").toLowerCase.startsWith("aarch")
-  if (shadedMongo) println("--- shaded native reactivemongo ---")
+  val globalScalaVersion = "3.3.1"
 
   def buildSettings =
     Defaults.coreDefaultSettings ++ Seq(
       resolvers ++= Seq(lilaMaven, sonashots),
       scalaVersion := globalScalaVersion,
       scalacOptions ++= compilerOptions,
-      javacOptions ++= Seq("--release", "17"),
+      javacOptions ++= Seq("--release", "21"),
       organization                           := "org.lichess",
       version                                := lilaVersion,
       Compile / doc / sources                := Seq.empty,
@@ -57,7 +54,7 @@ object BuildSettings {
     "-feature",
     "-language:postfixOps",
     "-language:implicitConversions",
-    "-release:17"
+    "-release:21"
     // "-Wunused:all"
   )
 

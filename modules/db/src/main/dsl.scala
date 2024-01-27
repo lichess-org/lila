@@ -31,8 +31,10 @@ trait dsl:
     // #TODO FIXME
     // should be sec
     // https://github.com/ReactiveMongo/ReactiveMongo/issues/1185
-    val priTemp: ReadPreference                = ReadPreference.primary
-    given Conversion[ReadPref, ReadPreference] = _(ReadPref)
+    val priTemp: ReadPreference                    = ReadPreference.primary
+    def autoTemp(nb: Int): ReadPreference          = if nb > 100 then priTemp else sec
+    def autoTemp(ids: Iterable[?]): ReadPreference = if ids.sizeIs > 100 then priTemp else sec
+    given Conversion[ReadPref, ReadPreference]     = _(ReadPref)
 
   type Coll = reactivemongo.api.bson.collection.BSONCollection
   type Bdoc = BSONDocument
@@ -41,6 +43,7 @@ trait dsl:
   def bsonWriteObjTry[A](a: A)(using writer: BSONDocumentWriter[A]) = writer writeTry a
   def bsonWriteTry[A](a: A)(using writer: BSONWriter[A])            = writer writeTry a
   def bsonWriteOpt[A](a: A)(using writer: BSONWriter[A])            = writer writeOpt a
+  def bsonWriteDoc[A](a: A)(using writer: BSONDocumentWriter[A])    = writer.writeOpt(a) | $empty
 
   // **********************************************************************************************//
   // Helpers
@@ -148,6 +151,9 @@ trait dsl:
 
   def $addOrPull[T: BSONWriter](key: String, value: T, add: Boolean): Bdoc =
     $doc((if add then "$addToSet" else "$pull") -> $doc(key -> value))
+
+  def $ifNull(expr: Bdoc, replacement: Bdoc): Bdoc =
+    $doc("$ifNull" -> $arr(expr, replacement))
 
   // End ofTop Level Array Update Operators
   // **********************************************************************************************//

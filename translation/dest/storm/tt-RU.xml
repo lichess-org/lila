@@ -47,4 +47,5 @@
   <string name="skip">отыш</string>
   <string name="skipHelp">Сез бер ярышка бер хәрәкәтне калдыра аласыз:</string>
   <string name="skipExplanation">Комбаны саклап калу өчен бу хәрәкәтне ташлагыз! Ярышка бер тапкыр гына эшли.</string>
+  <string name="thisWeek">Бу атна</string>
 </resources>

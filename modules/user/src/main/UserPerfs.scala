@@ -61,7 +61,7 @@ case class UserPerfs(
   def hasEstablishedRating(pt: PerfType) = apply(pt).established
 
   def bestRatedPerf: Option[Perf.Typed] =
-    val ps    = perfs.filter(_._1 != PerfType.Puzzle)
+    val ps    = perfs.filter(p => p._1 != PerfType.Puzzle && p._1 != PerfType.Standard)
     val minNb = math.max(1, ps.foldLeft(0)(_ + _._2.nb) / 10)
     ps
       .foldLeft(none[(PerfType, Perf)]):
@@ -96,12 +96,20 @@ case class UserPerfs(
       case (ro, _) => ro
     .getOrElse(Perf.default.intRating)
 
+  def bestPerf(types: List[PerfType]): Perf =
+    types
+      .map(apply)
+      .foldLeft(none[Perf]):
+        case (ro, p) if ro.forall(_.intRating < p.intRating) => p.some
+        case (ro, _)                                         => ro
+      .getOrElse(Perf.default)
+
   def bestRatingInWithMinGames(types: List[PerfType], nbGames: Int): Option[IntRating] =
     types
       .map(apply)
       .foldLeft(none[IntRating]):
-        case (ro, p) if p.nb >= nbGames && ro.fold(true)(_ < p.intRating) => p.intRating.some
-        case (ro, _)                                                      => ro
+        case (ro, p) if p.nb >= nbGames && ro.forall(_ < p.intRating) => p.intRating.some
+        case (ro, _)                                                  => ro
 
   def bestProgress: IntRatingDiff = bestProgressIn(PerfType.leaderboardable)
 
@@ -241,7 +249,8 @@ object UserPerfs:
       blitz = bot,
       rapid = bot,
       classical = bot,
-      correspondence = bot
+      correspondence = bot,
+      chess960 = bot
     )
 
   def variantLens(variant: chess.variant.Variant): Option[UserPerfs => Perf] =

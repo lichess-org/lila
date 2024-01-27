@@ -5,6 +5,7 @@
   <string name="toInviteSomeoneToPlayGiveThisUrl">Para convidares alguém para jogar, envia este URL</string>
   <string name="gameOver">Fim da partida</string>
   <string name="waitingForOpponent">Aguardando oponente</string>
+  <string name="orLetYourOpponentScanQrCode">Ou deixa o teu oponente ler este código QR</string>
   <string name="waiting">A aguardar</string>
   <string name="yourTurn">É a tua vez</string>
   <string name="aiNameLevelAiLevel">%1$s nível %2$s</string>
@@ -70,6 +71,7 @@
   <string name="makeMainLine">Tornar variante principal</string>
   <string name="deleteFromHere">Eliminar a partir de aqui</string>
   <string name="forceVariation">Forçar variante</string>
+  <string name="copyVariationPgn">Copiar variação PGN</string>
   <string name="move">Jogada</string>
   <string name="variantLoss">Variante perdida</string>
   <string name="variantWin">Variante ganha</string>
@@ -115,6 +117,7 @@
   <string name="openStudy">Abrir estudo</string>
   <string name="enable">Ativar</string>
   <string name="bestMoveArrow">Seta de melhor movimento</string>
+  <string name="showVariationArrows">Ver setas de variação</string>
   <string name="evaluationGauge">Medidor da avaliação</string>
   <string name="multipleLines">Múltiplas continuações</string>
   <string name="cpus">CPUs</string>
@@ -144,8 +147,8 @@
   <string name="offerDraw">Propor empate</string>
   <string name="draw">Empate</string>
   <plurals name="nbPlayers">
-    <item quantity="one">%s jogador conectado</item>
-    <item quantity="other">%s jogadores conectados</item>
+    <item quantity="one">%s jogador</item>
+    <item quantity="other">%s jogadores</item>
   </plurals>
   <string name="drawByMutualAgreement">Empate por acordo mútuo</string>
   <string name="fiftyMovesWithoutProgress">Cinquenta jogadas sem progresso</string>
@@ -270,7 +273,6 @@
   <string name="playingRightNow">A jogar agora</string>
   <string name="eventInProgress">A decorrer agora</string>
   <string name="finished">Terminado</string>
-  <string name="finishesX">termina %s</string>
   <string name="abortGame">Cancelar a partida</string>
   <string name="gameAborted">Partida cancelada</string>
   <string name="standard">Padrão</string>
@@ -404,6 +406,7 @@
   <string name="importGameExplanation">Coloca aqui o PGN de um jogo, para teres acesso a navegar pela repetição,
 análise de computador, sala de chat do jogo e link de partilha.</string>
   <string name="importGameCaveat">As variações serão apagadas. Para mantê-las, importe o PGN através de um estudo.</string>
+  <string name="importGameDataPrivacyWarning">Este PGN pode ser acessada pelo público. Para importar um jogo de forma privada, use um estudo.</string>
   <plurals name="nbImportedGames">
     <item quantity="one">%s partida importada</item>
     <item quantity="other">%s partidas importadas</item>
@@ -482,8 +485,9 @@ análise de computador, sala de chat do jogo e link de partilha.</string>
   <string name="performance">Desempenho</string>
   <string name="tournamentComplete">Torneio terminado</string>
   <string name="movesPlayed">Movimentos feitos</string>
-  <string name="whiteWins">Vitórias com brancas</string>
+  <string name="whiteWins">Vitórias com as brancas</string>
   <string name="blackWins">Vitórias com as pretas</string>
+  <string name="drawRate">Taxa de empate</string>
   <string name="draws">Empates</string>
   <string name="nextXTournament">Próximo torneio de %s:</string>
   <string name="averageOpponent">Pontuação média dos adversários</string>
@@ -504,14 +508,15 @@ análise de computador, sala de chat do jogo e link de partilha.</string>
   <string name="editProfile">Editar o perfil</string>
   <string name="firstName">Nome próprio</string>
   <string name="lastName">Apelido</string>
+  <string name="setFlair">Defina o teu estilo</string>
+  <string name="flair">Estilo</string>
+  <string name="youCanHideFlair">Há uma opção para ocultar todos os estilos dos utilizadores em todo o site.</string>
   <string name="biography">Biografia</string>
-  <string name="flag" comment="flag&#10;Appears when you edit your profile. Lets a player add a country/flag (not all flags are for countries) to their profile">Bandeira</string>
+  <string name="countryRegion" comment="flag&#10;Appears when you edit your profile. Lets a player add a country/flag (not all flags are for countries) to their profile">País ou região</string>
   <string name="thankYou">Obrigado!</string>
   <string name="socialMediaLinks">Links das redes sociais</string>
   <string name="oneUrlPerLine">Um URL por linha.</string>
   <string name="inlineNotation">Anotações em linha</string>
-  <string name="savingMoves">Armazenamento temporário da jogada</string>
-  <string name="savingMovesHelp">Guardamos as suas variações na cache do navegador.</string>
   <string name="makeAStudy">Para guardar e partilhar, considere fazer um estudo.</string>
   <string name="clearSavedMoves">Limpar jogadas</string>
   <string name="previouslyOnLichessTV">Anteriormente na TV Lichess</string>
@@ -601,7 +606,7 @@ análise de computador, sala de chat do jogo e link de partilha.</string>
   <string name="biographyDescription">Fala de ti, do que gostas no xadrez, das tuas aberturas favoritas, jogos, jogadores...</string>
   <plurals name="maximumNbCharacters">
     <item quantity="one">Máximo: %s carácter.</item>
-    <item quantity="other">Máximo: %s carácteres.</item>
+    <item quantity="other">Máximo: %s caracteres.</item>
   </plurals>
   <plurals name="blocks">
     <item quantity="one">%s bloqueado</item>
@@ -659,8 +664,10 @@ análise de computador, sala de chat do jogo e link de partilha.</string>
   <string name="simultaneousExhibitions">Exibições simultâneas</string>
   <string name="host">Anfitrião</string>
   <string name="hostColorX">Cor do anfitrião: %s</string>
+  <string name="yourPendingSimuls">Suas simultâneas pendentes</string>
   <string name="createdSimuls">Simultâneas criadas recentemente</string>
   <string name="hostANewSimul">Iniciar uma simultânea</string>
+  <string name="signUpToHostOrJoinASimul">Registra-te para hospedar ou juntar a uma simultânea</string>
   <string name="noSimulFound">Simultânea não encontrada</string>
   <string name="noSimulExplanation">Esta exibição simultânea não existe.</string>
   <string name="returnToSimulHomepage">Voltar à página inicial da simultânea</string>
@@ -685,6 +692,7 @@ análise de computador, sala de chat do jogo e link de partilha.</string>
   <string name="keyboardShortcuts">Atalhos do teclado</string>
   <string name="keyMoveBackwardOrForward">retroceder/avançar jogada</string>
   <string name="keyGoToStartOrEnd">ir para início/fim</string>
+  <string name="keyCycleSelectedVariation">Ciclo da variante selecionada</string>
   <string name="keyShowOrHideComments">mostrar/ocultar os comentários</string>
   <string name="keyEnterOrExitVariation">entrar/sair da variante</string>
   <string name="keyRequestComputerAnalysis">Solicite análise do computador, Aprenda com seus erros</string>
@@ -692,9 +700,16 @@ análise de computador, sala de chat do jogo e link de partilha.</string>
   <string name="keyNextBlunder">Próxima gafe</string>
   <string name="keyNextMistake">Próximo erro</string>
   <string name="keyNextInaccuracy">Próxima imprecisão</string>
+  <string name="keyPreviousBranch">Ramo anterior</string>
+  <string name="keyNextBranch">Próximo ramo</string>
+  <string name="toggleVariationArrows">Ativar/desactivar seta da variante</string>
+  <string name="cyclePreviousOrNextVariation">Ciclo anterior/próxima variante</string>
+  <string name="toggleGlyphAnnotations">Ativar/desativar anotações com símbolos</string>
+  <string name="variationArrowsInfo">Setas de variação permitem navegar sem usar a lista de movimentos.</string>
+  <string name="playSelectedMove">jogar o movimento selecionado</string>
   <string name="newTournament">Novo torneio</string>
   <string name="tournamentHomeTitle">Torneios de xadrez com diversos ritmos de jogo e variantes</string>
-  <string name="tournamentHomeDescription">Joga xadrez em ritmo acelerado! Entra num torneio oficial agendado ou cria o teu próprio. Bullet, blitz, clássico, chess960, rei da colina, três xeques e mais opções disponíveis para uma diversão ilimitada.</string>
+  <string name="tournamentHomeDescription">Joga xadrez em ritmo acelerado! Entra num torneio oficial agendado ou cria o teu próprio. Bullet, Rápida, Clássica, Chess960, Rei da Colina, Três Xeques e mais opções disponíveis para uma diversão ilimitada.</string>
   <string name="tournamentNotFound">Torneio não encontrado</string>
   <string name="tournamentDoesNotExist">Este torneio não existe.</string>
   <string name="tournamentMayHaveBeenCanceled">O torneio pode ter sido cancelado, se todos os jogadores tiverem saíram antes do seu começo.</string>
@@ -720,9 +735,9 @@ análise de computador, sala de chat do jogo e link de partilha.</string>
   <string name="readAboutOur">Lê sobre a nossa %s.</string>
   <string name="networkLagBetweenYouAndLichess">Atraso na rede entre ti e o Lichess</string>
   <string name="timeToProcessAMoveOnLichessServer">Tempo para processar um movimento no servidor do Lichess</string>
-  <string name="downloadAnnotated">Descarregar a anotação</string>
-  <string name="downloadRaw">Descarregar o texto</string>
-  <string name="downloadImported">Descarregar a partida importada</string>
+  <string name="downloadAnnotated">Transferir anotação</string>
+  <string name="downloadRaw">Transferir texto</string>
+  <string name="downloadImported">Transferir a partida importada</string>
   <string name="crosstable">Tabela</string>
   <string name="youCanAlsoScrollOverTheBoardToMoveInTheGame">Também podes rodar a rodinha do rato sobre o tabuleiro para percorreres as jogadas na partida.</string>
   <string name="scrollOverComputerVariationsToPreviewThem">Passe o rato sobre as variantes do computador para visualizá-las.</string>
@@ -734,6 +749,7 @@ análise de computador, sala de chat do jogo e link de partilha.</string>
   <string name="withFriends">Com amigos</string>
   <string name="withEverybody">Com todos</string>
   <string name="kidMode">Modo infantil</string>
+  <string name="kidModeIsEnabled">Modo infantil está ativado.</string>
   <string name="kidModeExplanation">Iso é sobre segurança. No modo infantil, todas as comunicações do site ficam desactivadas. Activa esta opção para os teus filhos ou alunos, para protegê-los de outros utilizadores da internet.</string>
   <string name="inKidModeTheLichessLogoGetsIconX">No modo criança, o logótipo do Lichess fica com um ícone %s para que saibas que as tuas crianças estão seguras.</string>
   <string name="askYourChessTeacherAboutLiftingKidMode">A sua conta é gerida. Peça ao seu professor de xadrez para retirar o modo infantil.</string>
@@ -847,9 +863,10 @@ análise de computador, sala de chat do jogo e link de partilha.</string>
     <item quantity="one">e guarda %s variante de movimentos antecipados</item>
     <item quantity="other">e guarda %s variantes de movimentos antecipados</item>
   </plurals>
+  <string name="showUnreadLichessMessage">Recebestes uma mensagem privada do Lichess.</string>
+  <string name="clickHereToReadIt">Clica aqui para ler</string>
   <string name="sorry">Desculpa :(</string>
   <string name="weHadToTimeYouOutForAWhile">Tivemos de te banir por algum tempo.</string>
-  <string name="timeoutExpires">O banimento expira %s.</string>
   <string name="why">Porquê?</string>
   <string name="pleasantChessExperience">Tencionamos proporcionar uma experiência de xadrez agradável a todos.</string>
   <string name="goodPractice">Para isso, temos de nos assegurar que todos os jogadores seguem boas práticas.</string>
@@ -869,6 +886,8 @@ análise de computador, sala de chat do jogo e link de partilha.</string>
   <string name="agreementPolicy">Concordo que seguirei todas as políticas do Lichess.</string>
   <string name="searchOrStartNewDiscussion">Pesquisa ou começa uma nova conversa</string>
   <string name="edit">Editar</string>
+  <string name="bullet" comment="Probably best left untranslated. Leave it as 'Bullet' unless your language has a better word for it.">Bullet</string>
+  <string name="blitz" comment="Probably best left untranslated. Leave it as 'Blitz' unless your language has a better word for it.">Rápidas</string>
   <string name="rapid">Semi-rápidas</string>
   <string name="classical">Clássicas</string>
   <string name="ultraBulletDesc">Partidas incrivelmente rápidas: menos de 30 segundos</string>
@@ -908,11 +927,8 @@ análise de computador, sala de chat do jogo e link de partilha.</string>
   <string name="timeAlmostUp">O tempo está quase a terminar!</string>
   <string name="clickToRevealEmailAddress">[Clique para revelar o endereço de e-mail]</string>
   <string name="download">Transferir</string>
-  <string name="welcome">Bem-vindo(a)!</string>
-  <string name="lichessPatronInfo">Lichess é uma instituição de caridade e software de código aberto totalmente livre.
-Todos os custos operacionais, de desenvolvimento e conteúdo são financiados exclusivamente por doações de usuários.</string>
   <string name="coachManager">Gestor de treinadores</string>
-  <string name="streamerManager">Gestor de streamers</string>
+  <string name="streamerManager">Gestor do streamer</string>
   <string name="cancelTournament">Cancelar o torneio</string>
   <string name="tournDescription">Descrição do torneio</string>
   <string name="tournDescriptionHelp">Quer dizer alguma coisa em especial aos participantes? Seja breve. Estão disponíveis ligações de Markdown: [name](https://url)</string>
@@ -969,4 +985,8 @@ Deixe em branco para iniciar jogos da posição inicial normal.</string>
   <string name="switchSides">Trocar de lado</string>
   <string name="closingAccountWithdrawAppeal">Encerrar a tua conta anula o teu apelo</string>
   <string name="ourEventTips">Os nossos conselhos para organizar eventos</string>
+  <string name="instructions">Instruções</string>
+  <string name="showMeEverything">Mostra-me tudo</string>
+  <string name="lichessPatronInfo">Lichess é uma instituição de caridade e software de código aberto totalmente livre.
+Todos os custos operacionais, de desenvolvimento e conteúdo são financiados exclusivamente por doações de usuários.</string>
 </resources>

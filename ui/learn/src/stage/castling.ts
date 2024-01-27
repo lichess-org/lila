@@ -1,4 +1,4 @@
-import { and, lastMoveSan, not, or, pieceNotOn } from '../assert';
+import { and, lastMoveSan, not, or, pieceNotOn, mate } from '../assert';
 import { arrow, assetUrl, circle, roundSvg, toLevel } from '../util';
 import { LevelPartial } from './list';
 
@@ -6,8 +6,22 @@ const imgUrl = assetUrl + 'images/learn/castle.svg';
 
 const castledKingSide = lastMoveSan('O-O');
 const castledQueenSide = lastMoveSan('O-O-O');
-const cantCastleKingSide = and(not(castledKingSide), or(pieceNotOn('K', 'e1'), pieceNotOn('R', 'h1')));
-const cantCastleQueenSide = and(not(castledQueenSide), or(pieceNotOn('K', 'e1'), pieceNotOn('R', 'a1')));
+const cantCastleKingSide = and(
+  not(castledKingSide),
+  or(pieceNotOn('K', 'e1'), pieceNotOn('R', 'h1'), mate, pieceNotOn('k', 'e8')),
+);
+const cantCastleQueenSide = and(
+  not(castledQueenSide),
+  or(pieceNotOn('K', 'e1'), pieceNotOn('R', 'a1'), mate, pieceNotOn('k', 'e8')),
+);
+const cantCastleKingSide8 = and(
+  not(castledKingSide),
+  or(pieceNotOn('K', 'e1'), pieceNotOn('R', 'h1'), mate, pieceNotOn('k', 'g8')),
+);
+const cantCastleQueenSide9 = and(
+  not(castledQueenSide),
+  or(pieceNotOn('K', 'e1'), pieceNotOn('R', 'a1'), mate, pieceNotOn('k', 'd8')),
+);
 
 export default {
   key: 'castling',
@@ -80,7 +94,7 @@ export default {
       nbMoves: 2,
       shapes: [arrow('e1g1')],
       success: castledKingSide,
-      failure: cantCastleKingSide,
+      failure: cantCastleKingSide8,
       detectCapture: false,
     },
     {
@@ -89,7 +103,7 @@ export default {
       nbMoves: 4,
       shapes: [arrow('e1c1')],
       success: castledQueenSide,
-      failure: cantCastleQueenSide,
+      failure: cantCastleQueenSide9,
       detectCapture: false,
     },
   ].map((l: LevelPartial, i) => {

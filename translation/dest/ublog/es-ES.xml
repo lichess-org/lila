@@ -1,5 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+  <string name="communityBlogs">Blogs de la comunidad</string>
+  <string name="friendBlogs">Blogs de amigos</string>
+  <string name="likedBlogs">Entradas de blog preferidas</string>
+  <string name="blogTopics">Temas del blog</string>
+  <string name="lichessOfficialBlog">Blog oficial de Lichess</string>
+  <string name="continueReadingPost">Continuar la lectura de esta entrada</string>
+  <string name="lichessBlogPostsFromXYear">Entradas de blog en %s</string>
+  <string name="previousBlogPosts">Entradas de blog anteriores</string>
   <string name="xBlog">Blog de %s</string>
   <string name="newPost">Nueva entrada</string>
   <string name="editYourBlogPost">Edita tu entrada</string>
@@ -37,10 +45,11 @@
   <string name="imageCredit">Créditos de la imagen</string>
   <string name="deleteBlog">Eliminar esta entrada del blog definitivamente</string>
   <string name="deleteImage">Eliminar la imagen</string>
-  <string name="safeToUseImages" comment="safeToUseImages&#10;&#10;This is mentioned because the images there are royalty-free, so there is no risk of copyright infringement.">Es seguro usar imágenes de los siguientes sitios web: </string>
+  <string name="safeToUseImages">Es seguro usar imágenes de los siguientes sitios web: </string>
   <string name="selectPostTopics">Selecciona los temas sobre los que trata tu publicación</string>
   <string name="useImagesYouMadeYourself">También puedes usar imágenes que has hecho tú mismo, imágenes que has tomado, capturas de pantalla de Lichess... cualquier cosa que no tenga derechos de autor de otra persona.</string>
   <string name="safeAndRespectfulContent">Por favor, publica solo contenido seguro y respetuoso. No copies el contenido de otra persona.</string>
   <string name="inappropriateContentAccountClosed">Cualquier cosa inapropiada puede causar el cierre de tu cuenta.</string>
-  <string name="blogTips" comment="blogTips&#10;&#10;This is a link to https://lichess.org/page/blog-tips. Appears when creating a new post.">Nuestros sencillos consejos para escribir buenas entradas en el blog</string>
+  <string name="blogTips">Nuestros sencillos consejos para escribir buenas entradas en el blog</string>
+  <string name="discussThisBlogPostInTheForum">Discutir esta publicación en el foro</string>
 </resources>

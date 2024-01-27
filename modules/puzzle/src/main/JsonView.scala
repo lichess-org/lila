@@ -77,7 +77,6 @@ final class JsonView(
 
   def pref(p: lila.pref.Pref) =
     Json.obj(
-      "blindfold"    -> p.blindfold,
       "coords"       -> p.coords,
       "keyboardMove" -> p.keyboardMove,
       "voiceMove"    -> p.voice,
@@ -122,18 +121,13 @@ final class JsonView(
   object bc:
 
     def apply(puzzle: Puzzle)(using me: Option[Me], perf: Perf): Fu[JsObject] =
-      gameJson(
-        gameId = puzzle.gameId,
-        plies = puzzle.initialPly,
-        bc = true
-      ) map { gameJson =>
+      gameJson(gameId = puzzle.gameId, plies = puzzle.initialPly, bc = true) map: gameJson =>
         Json
           .obj(
             "game"   -> gameJson,
             "puzzle" -> puzzleJson(puzzle)
           )
           .add("user" -> me.map(_ => perf.intRating).map(userJson))
-      }
 
     def batch(puzzles: Seq[Puzzle])(using me: Option[Me], perf: Perf): Fu[JsObject] = for
       games <- gameRepo.gameOptionsFromSecondary(puzzles.map(_.gameId))
@@ -163,9 +157,8 @@ final class JsonView(
       "color"      -> puzzle.color.name,
       "initialPly" -> (puzzle.initialPly + 1),
       "gameId"     -> puzzle.gameId,
-      "lines" -> puzzle.line.tail.reverse.foldLeft[JsValue](JsString("win")) { case (acc, move) =>
-        Json.obj(move.uci -> acc)
-      },
+      "lines" -> puzzle.line.tail.reverse.foldLeft[JsValue](JsString("win")): (acc, move) =>
+        Json.obj(move.uci -> acc),
       "vote"   -> 0,
       "branch" -> makeBranch(puzzle).map(tree.Node.defaultNodeJsonWriter.writes)
     )

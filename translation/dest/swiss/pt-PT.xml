@@ -62,8 +62,7 @@ Julgamos que essas condições são mais suscetíveis de serem cumpridas numa eq
   <string name="numberOfByesA">Um jogador recebe um bye de um ponto toda vez que o sistema não conseguir emparelhá-lo.
 Além disso, é atribuído um único bye de meio ponto quando um jogador entra atrasado num torneio.</string>
   <string name="earlyDrawsQ">O que acontece com os empates iniciais?</string>
-  <string name="earlyDrawsA">Um jogador recebe um bye de um ponto toda vez que o sistema não conseguir emparelhá-lo.
-Além disso, é atribuído um único bye de meio ponto quando um jogador entra atrasado num torneio.</string>
+  <string name="earlyDrawsAnswer">Nos jogos suíços, os jogadores não podem empatar antes de jogar 30 movimentos. Apesar de não poder evitar empates pré-arranjados, pelo menos dificulta concordar com um empate na hora.</string>
   <string name="whatIfOneDoesntPlayQ">O que sucede se um jogador não jogar um jogo?</string>
   <string name="whatIfOneDoesntPlayA">O seu relógio vai contar, serão sinalizados e perderão o jogo.
 Então o sistema irá retirar o jogador do torneio, para não perder mais jogos. Podem entrar novamente no torneio a qualquer momento.</string>

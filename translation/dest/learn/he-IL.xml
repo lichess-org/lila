@@ -6,7 +6,7 @@
   <string name="progressX">התקדמות: %s</string>
   <string name="resetMyProgress">אפס את מד ההתקדמות שלי</string>
   <string name="youWillLoseAllYourProgress">תאבד/י את כל ההתקדמות שצברת!</string>
-  <string name="play">שחק/י!</string>
+  <string name="play" comment="play&#10;&#10;A small ribbon that appears on your current chapter in the Chess Basics course. Please keep this string short.">שחק/י!</string>
   <string name="chessPieces">כלי השחמט</string>
   <string name="theRook">הצריח</string>
   <string name="itMovesInStraightLines">הוא זז בקווים ישרים</string>

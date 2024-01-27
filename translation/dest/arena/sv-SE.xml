@@ -10,7 +10,7 @@
   <string name="howAreScoresCalculatedAnswer">En vinst har baspoäng 2, remi 1 och förlust 0 poäng. Om du vinner två partier i rad så startar en dubbelpoängserie representerad av en flamma som ikon. Efterföljande partier är då värda dubbla poäng tills du misslyckas med att vinna ett parti. En vinst är då värd 4 poäng, remi 2 och förlust 0 poäng.
 
 Ett exempel, två vinster följt av en remi är värt 6 poäng: 2 + 2 + (2 x 1)</string>
-  <string name="berserk">Arena Berserk</string>
+  <string name="berserk">Arena-Bärsärk</string>
   <string name="berserkAnswer">När en spelare klickar på Berserk-knappen i början av partiet, halveras dennes betänketid, men en vinst blir värd en extra turneringspoäng. Att gå Berserk vid tidskontroller med tidstillägg medför också att tidstillägget förloras. 
 (1+2 är ett undantag, vilket blir 1+0)
 
@@ -49,6 +49,8 @@ Berserk ger en extrapoäng endast om du spelar minst 7 drag i partiet.</string>
   <string name="arenaStreaks">Arenavinster i rad</string>
   <string name="arenaStreaksHelp">Efter 2 vinster, ger efterföljande vinster 4 poäng i stället för 2.</string>
   <string name="noBerserkAllowed">Bärsärk tillåts ej</string>
+  <string name="noArenaStreaks">Inga arena streaks</string>
+  <string name="averagePerformance">Genomsnittlig prestanda</string>
   <string name="averageScore">Medelpoäng</string>
   <string name="myTournaments">Mina turneringar</string>
 </resources>

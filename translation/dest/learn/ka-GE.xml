@@ -6,7 +6,7 @@
   <string name="progressX">პროგრესი %s</string>
   <string name="resetMyProgress">განაახლე ჩემი პროგრესი</string>
   <string name="youWillLoseAllYourProgress">დაკარგავთ თქვენს პროგრესს!</string>
-  <string name="play">ითამაშე!</string>
+  <string name="play" comment="play&#10;&#10;A small ribbon that appears on your current chapter in the Chess Basics course. Please keep this string short.">ითამაშე!</string>
   <string name="chessPieces">ჭადრაკის ფიგურები</string>
   <string name="theRook">ეტლი</string>
   <string name="itMovesInStraightLines">ის მოძრაობს სწორ ხაზებზე</string>
@@ -15,7 +15,7 @@
   <string name="grabAllTheStars">აიყვანე ყველა ვარსკვლავი!</string>
   <string name="theFewerMoves">რაც ნაკლებ სვლას გააკეთებ, მეტ ქულას აიღებ!</string>
   <string name="useTwoRooks">გამოიყენე ორი ეტლი რათა მალე მოიგო!</string>
-  <string name="rookComplete">გილოცავ! შენ წარმატებით დაეუფლე ეტლს.</string>
+  <string name="rookComplete">გილოცავ! შენ წარმატებით დაეუფლე ეტლის სვლებს.</string>
   <string name="theBishop">კუ</string>
   <string name="itMovesDiagonally">მოძრაობს დიაგონალურად</string>
   <string name="bishopIntro">ახლა ვისწავლით კუს მანევრირებას!</string>
@@ -23,10 +23,10 @@
 ერთი მუქი-უჯრის კუ.
 ორივე გჭირდება!</string>
   <string name="bishopComplete">გილოცავ! შენ იცი კუთი თამაში.</string>
-  <string name="theQueen">დედოფალი</string>
-  <string name="queenCombinesRookAndBishop">დედოფალი = ეტლს + კუ</string>
-  <string name="queenIntro">ყველაზე ძლიერი ფიგურის ჯერია, მისი აღმატებულება დედოფალი!</string>
-  <string name="queenComplete">გილოცავ! ყველაფერი იცი დედოფალზე.</string>
+  <string name="theQueen">ლაზიერი</string>
+  <string name="queenCombinesRookAndBishop">ლაზიერი = ეტლს + კუ</string>
+  <string name="queenIntro">ყველაზე ძლიერი ფიგურის ჯერია, მისი აღმატებულება ლაზიერი!</string>
+  <string name="queenComplete">გილოცავ! ყველაფერი იცი ლაზიერის შესახებ.</string>
   <string name="theKing">მეფე</string>
   <string name="theMostImportantPiece">ყველაზე მნიშვნელოვანი ფიგურა</string>
   <string name="kingIntro">შენ მეფე ხარ. თუ დამარცხდები, თამაშს წააგებ.</string>
@@ -34,29 +34,29 @@
   <string name="lastOne">საბოლოო!</string>
   <string name="kingComplete">შენ იცი მეფით თამაში!</string>
   <string name="theKnight">მხედარი</string>
-  <string name="itMovesInAnLShape">გადაადგილდება L ფორმით</string>
-  <string name="knightIntro">პატარა გამოცდა. მხედარი... ეშმაკი ფიგურაა.</string>
+  <string name="itMovesInAnLShape">გადაადგილდება ლათინური ასო L - ს ფორმით</string>
+  <string name="knightIntro">ახლა კი პატარა გამოწვევა შენთვის. მხედარი... კვიმატი ფიგურაა.</string>
   <string name="knightsHaveAFancyWay">მხედარი მაგრად დახტის აქეთ-იქით!</string>
   <string name="knightsCanJumpOverObstacles">მხედარს შეუძლია ფიგურებს გადაახტეს!
 აიღე ყველა ვარსკვლავი!</string>
   <string name="knightComplete">გილოცავ! შენ მხედარსაც დაეუფლე.</string>
   <string name="thePawn">პაიკი</string>
   <string name="itMovesForwardOnly">მხოლოდ წინ მიდის</string>
-  <string name="pawnIntro">პაიკი სუსტია მაგრამ დიდი პოტენციალით.</string>
-  <string name="pawnsMoveOneSquareOnly">პაიკი გადადის ერთ უჯრაზე.
+  <string name="pawnIntro">პაიკი სუსტია მაგრამ დიდი შესაძლებლობები აქვს.</string>
+  <string name="pawnsMoveOneSquareOnly">პაიკი გადადის ერთ უჯრით.
 მაგრამ როცა დაფის ბოლოში გადის, ძლიერი ფიგურა ხდება!</string>
-  <string name="mostOfTheTimePromotingToAQueenIsBest">უმეტესად დედოფლად გაყვანა საუკეთესოა.
-თუმცა ხან მხედარი უკეთესია!</string>
+  <string name="mostOfTheTimePromotingToAQueenIsBest">ხშირ შემთხვევებში ლაზიერის გაცოცხლება საუკეთესოა.
+თუმცა ხან მხედარად გადაქცევა სჯობს!</string>
   <string name="pawnsMoveForward">პაიკები წინ გადაადგილდებიან,
 მაგრამ იყვანენ დიაგონალურად!</string>
-  <string name="captureThenPromote">აიყვანე, შემდეგ გაიყვანე!</string>
+  <string name="captureThenPromote">აიყვანე, შემდეგ გააცოცხლე!</string>
   <string name="useAllThePawns">გამოიყენე ყველა პაიკი!
-გაყვანა საჭირო არაა.</string>
+გაცოცხლება საჭირო არაა.</string>
   <string name="aPawnOnTheSecondRank">პაიკს მეორე ჰორიზონტალზე შეუძლია 2 უჯრით გადაადგილება მხოლოდ ერთხელ!</string>
   <string name="grabAllTheStarsNoNeedToPromote">აიღე ყველა ვარსკლავი!
 გაყვანა საჭირო არაა.</string>
   <string name="pawnComplete">გილოცავ! პაიკებზე ყველაფერი იცი.</string>
-  <string name="pawnPromotion">პაიკის გაყვანა</string>
+  <string name="pawnPromotion">პაიკის გაცოცხლება,, გაყვანა, გარდასახვა</string>
   <string name="yourPawnReachedTheEndOfTheBoard">შენი პაიკი დაფის ბოლოში გავიდა!</string>
   <string name="itNowPromotesToAStrongerPiece">ახლა უფრო ძლიერ ფიგურად გადაიქცევა.</string>
   <string name="selectThePieceYouWant">აირჩიე სასურველი ფიგურა!</string>
@@ -173,6 +173,10 @@
   <string name="queenOverBishop">აიყვანე ყველაზე
 ძლიერი ფიგურა
 დედოფალი &gt; კუ</string>
+  <string name="pieceValueExchange">აიყვანე ყველაზე ძლიერი ფიგურა!
+არ გაცვალო უფრო ძლიერი ფიგურა უფრო სუსტ ფიგურაში.</string>
+  <string name="pieceValueLegal">აიყვანე ყველაზე ძლიერი ფიგურა!
+დარწმუნდი რომ აკეთებ შესაძლებელ სვლას!</string>
   <string name="takeThePieceWithTheHighestValue">აიყვანე ყველაზე ძლიერი ფიგურა!</string>
   <string name="pieceValueComplete">გილოცავ! უკვე იცი რომ
 დედოფალი = 9
@@ -214,6 +218,7 @@
   <string name="rightOn">ზუსტადაც!</string>
   <string name="stageXComplete">ეტაპი %s დასრულდა</string>
   <string name="next">შემდეგი</string>
+  <string name="nextX">შემდეგი %s</string>
   <string name="backToMenu">მენიუში დაბრუნება</string>
   <string name="puzzleFailed">თავსატეხში ჩაიჭერი!</string>
   <string name="retry">ხელახლა</string>

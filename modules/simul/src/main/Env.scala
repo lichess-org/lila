@@ -26,14 +26,14 @@ final class Env(
     renderer: lila.hub.actors.Renderer,
     timeline: lila.hub.actors.Timeline,
     chatApi: lila.chat.ChatApi,
-    lightUser: lila.common.LightUser.Getter,
+    lightUser: lila.common.LightUser.GetterFallback,
     onGameStart: lila.round.OnStart,
     cacheApi: lila.memo.CacheApi,
     historyApi: lila.history.HistoryApi,
     remoteSocketApi: lila.socket.RemoteSocket,
     proxyRepo: lila.round.GameProxyRepo,
     isOnline: lila.socket.IsOnline
-)(using Executor, Scheduler, play.api.Mode):
+)(using Executor, Scheduler, play.api.Mode, lila.user.FlairApi.Getter):
 
   private val config = appConfig.get[SimulConfig]("simul")(AutoConfig.loader)
 

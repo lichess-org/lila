@@ -1,6 +1,7 @@
 package views.html.base
 
 import controllers.report.routes.{ Report as reportRoutes }
+import controllers.team.routes.{ Team as teamRoutes }
 import controllers.routes
 import play.api.i18n.Lang
 
@@ -105,7 +106,7 @@ object layout:
     s"""
 <div id="zenzone">
   <a href="/" class="zen-home"></a>
-  <a data-icon="${licon.Checkmark}"" id="zentog" class="text fbt active">${trans.preferences.zenMode
+  <a data-icon="${licon.Checkmark}" id="zentog" class="text fbt active">${trans.preferences.zenMode
         .txt()}</a>
 </div>"""
 
@@ -121,13 +122,13 @@ object layout:
     spaceless:
       s"""<div>
   <button id="challenge-toggle" class="toggle link">
-    <span title="$challengeTitle" aria-label="$challengeTitle" class="data-count" data-count="${ctx.nbChallenges}" data-icon="${licon.Swords}""></span>
+    <span title="$challengeTitle" role="status" aria-label="$challengeTitle" class="data-count" data-count="${ctx.nbChallenges}" data-icon="${licon.Swords}"></span>
   </button>
   <div id="challenge-app" class="dropdown"></div>
 </div>
 <div>
   <button id="notify-toggle" class="toggle link">
-    <span title="$notifTitle" aria-label="$notifTitle" class="data-count" data-count="${ctx.nbNotifications}" data-icon="${licon.BellOutline}""></span>
+    <span title="$notifTitle" role="status" aria-label="$notifTitle" class="data-count" data-count="${ctx.nbNotifications}" data-icon="${licon.BellOutline}"></span>
   </button>
   <div id="notify-app" class="dropdown"></div>
 </div>"""
@@ -137,7 +138,7 @@ object layout:
     spaceless:
       s"""<div class="dasher">
   <button class="toggle link anon">
-    <span title="$preferences" aria-label="$preferences" data-icon="${licon.Gear}""></span>
+    <span title="$preferences" aria-label="$preferences" data-icon="${licon.Gear}"></span>
   </button>
   <div id="dasher_app" class="dropdown"></div>
 </div>
@@ -183,14 +184,14 @@ object layout:
       ctx.pref.bg == lila.pref.Pref.Bg.SYSTEM option embedJsUnsafe(systemThemePolyfillJs)
     )
 
-  private def hrefLang(lang: String, path: String) =
-    s"""<link rel="alternate" hreflang="$lang" href="$netBaseUrl$path"/>"""
+  private def hrefLang(langStr: String, path: String) =
+    s"""<link rel="alternate" hreflang="$langStr" href="$netBaseUrl$path"/>"""
 
   private def hrefLangs(path: LangPath) = raw {
     val pathEnd = if path.value == "/" then "" else path.value
     hrefLang("x-default", path.value) + hrefLang("en", path.value) +
-      lila.i18n.LangList.popularAlternateLanguageCodes.map { lang =>
-        hrefLang(lang, s"/$lang$pathEnd")
+      lila.i18n.LangList.popularAlternateLanguages.map { l =>
+        hrefLang(l.value, s"/$l$pathEnd")
       }.mkString
   }
 
@@ -205,8 +206,14 @@ object layout:
   private val spaceRegex              = """\s{2,}+""".r
   private def spaceless(html: String) = raw(spaceRegex.replaceAllIn(html.replace("\\n", ""), ""))
 
+  private val dailyNewsAtom = link(
+    href     := routes.DailyFeed.atom,
+    st.title := "Lichess Updates Feed",
+    tpe      := "application/atom+xml",
+    rel      := "alternate"
+  )
+
   private val dataVapid         = attr("data-vapid")
-  private val dataUser          = attr("data-user")
   private val dataSocketDomains = attr("data-socket-domains") := netConfig.socketDomains.mkString(",")
   private val dataNonce         = attr("data-nonce")
   private val dataAnnounce      = attr("data-announce")
@@ -265,13 +272,7 @@ object layout:
           !robots option raw("""<meta content="noindex, nofollow" name="robots">"""),
           noTranslate,
           openGraph.map(_.frags),
-          (atomLinkTag | link(
-            href     := routes.Blog.atom,
-            st.title := trans.blog.txt()
-          ))(
-            tpe := "application/atom+xml",
-            rel := "alternate"
-          ),
+          atomLinkTag | dailyNewsAtom,
           pref.bg == lila.pref.Pref.Bg.TRANSPARENT option pref.bgImgOrDefault map { img =>
             raw:
               s"""<style id="bg-data">body.transp::before{background-image:url("${escapeHtmlRaw(img)
@@ -293,10 +294,11 @@ object layout:
               "dark-board"           -> (pref.bg == lila.pref.Pref.Bg.DARKBOARD),
               "piece-letter"         -> pref.pieceNotationIsLetter,
               "blind-mode"           -> ctx.blind,
-              "kid"                  -> ctx.kid,
+              "kid"                  -> ctx.kid.yes,
               "mobile"               -> lila.common.HTTPRequest.isMobileBrowser(ctx.req),
               "playing fixed-scroll" -> playing,
               "no-rating"            -> !pref.showRatings,
+              "no-flair"             -> !pref.flairs,
               "zen"                  -> (pref.isZen || (playing && pref.isZenAuto)),
               "zenable"              -> zenable,
               "zen-auto"             -> (zenable && pref.isZenAuto)
@@ -397,7 +399,7 @@ object layout:
       ctx.teamNbRequests > 0 option
         a(
           cls       := "link data-count link-center",
-          href      := routes.Team.requests,
+          href      := teamRoutes.requests,
           dataCount := ctx.teamNbRequests,
           dataIcon  := licon.Group,
           title     := trans.team.teams.txt()
@@ -408,14 +410,14 @@ object layout:
         div(cls := "site-title-nav")(
           !ctx.isAppealUser option topnavToggle,
           h1(cls := "site-title")(
-            if ctx.kid then span(title := trans.kidMode.txt(), cls := "kiddo")(":)")
+            if ctx.kid.yes then span(title := trans.kidMode.txt(), cls := "kiddo")(":)")
             else ctx.isBot option botImage,
             a(href := langHref("/"))(siteNameFrag)
           ),
           ctx.blind option h2("Navigation"),
           !ctx.isAppealUser option frag(
             topnav(),
-            ctx.noKid && ctx.me.exists(!_.isPatron) && !zenable option a(cls := "site-title-nav__donate")(
+            ctx.kid.no && ctx.me.exists(!_.isPatron) && !zenable option a(cls := "site-title-nav__donate")(
               href := routes.Plan.index
             )(trans.patron.donate())
           )
@@ -450,24 +452,26 @@ object layout:
       trans.timeago.inNbMonths,
       trans.timeago.inNbYears,
       trans.timeago.rightNow,
-      trans.timeago.nbSecondsAgo,
       trans.timeago.nbMinutesAgo,
       trans.timeago.nbHoursAgo,
       trans.timeago.nbDaysAgo,
       trans.timeago.nbWeeksAgo,
       trans.timeago.nbMonthsAgo,
-      trans.timeago.nbYearsAgo
+      trans.timeago.nbYearsAgo,
+      trans.timeago.nbMinutesRemaining,
+      trans.timeago.nbHoursRemaining,
+      trans.timeago.completed
     )
 
-    private val cache = scala.collection.mutable.AnyRefMap.empty[Lang, String]
-
+    private val cache = new java.util.concurrent.ConcurrentHashMap[Lang, String]
     private def jsCode(using lang: Lang) =
-      cache.getOrElseUpdate(
+      cache.computeIfAbsent(
         lang,
-        s"""lichess={load:new Promise(r=>document.addEventListener("DOMContentLoaded",r)),quantity:${lila.i18n
-            .JsQuantity(lang)},siteI18n:${safeJsonValue(i18nJsObject(i18nKeys))}}"""
+        _ =>
+          val qty  = lila.i18n.JsQuantity(lang)
+          val i18n = safeJsonValue(i18nJsObject(i18nKeys))
+          s"""lichess={load:new Promise(r=>document.addEventListener("DOMContentLoaded",r)),quantity:$qty,siteI18n:$i18n}"""
       )
-
     def apply(nonce: Nonce)(using Lang) =
       embedJsUnsafe(jsCode, nonce)
   end inlineJs

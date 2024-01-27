@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="search">alasa</string>
+  <string name="search">o alasa</string>
   <string name="advancedSearch">alasa pi sona mute</string>
   <plurals name="searchInXGames">
     <item quantity="one">lukin e ijo lon musi wan</item>
@@ -24,4 +24,5 @@
   <string name="sortBy">kama ijo</string>
   <string name="analysis">sona nasin</string>
   <string name="onlyAnalysed">sona nasin pi ilo sona la musi li lon kin</string>
+  <string name="color">kule</string>
 </resources>

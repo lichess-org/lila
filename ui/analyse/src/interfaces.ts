@@ -8,7 +8,7 @@ import { ChatCtrl } from 'chat';
 import { ExplorerOpts } from './explorer/interfaces';
 import { StudyData } from './study/interfaces';
 import { AnalyseSocketSend } from './socket';
-import { ExternalEngine } from 'ceval';
+import { ExternalEngineInfo } from 'ceval';
 import * as Prefs from 'common/prefs';
 
 export type Seconds = number;
@@ -52,7 +52,7 @@ export interface AnalyseData {
     id: string;
   };
   puzzle?: OpeningPuzzle;
-  externalEngines?: ExternalEngine[];
+  externalEngines?: ExternalEngineInfo[];
 }
 
 export interface AnalysePref {
@@ -74,12 +74,21 @@ export interface ServerEvalData {
   division?: Division;
 }
 
-export interface CachedEval {
+export interface EvalHit {
   fen: Fen;
   knodes: number;
   depth: number;
   pvs: Tree.PvDataServer[];
   path: string;
+}
+
+export interface EvalHitMulti extends EvalScore {
+  fen: Fen;
+  depth: number;
+}
+
+export interface EvalHitMultiArray {
+  multi: EvalHitMulti[];
 }
 
 // similar, but not identical, to game/Game

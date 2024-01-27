@@ -6,6 +6,7 @@ import lila.common.Seconds
 import lila.db.dsl.{ *, given }
 import lila.study.MultiPgn
 import chess.format.pgn.PgnStr
+import lila.common.config.Max
 
 final private class RelayDelay(colls: RelayColls)(using Executor):
 
@@ -14,7 +15,7 @@ final private class RelayDelay(colls: RelayColls)(using Executor):
   def apply(
       url: UpstreamUrl,
       rt: RelayRound.WithTour,
-      doFetchUrl: (UpstreamUrl, Int) => Fu[RelayGames]
+      doFetchUrl: (UpstreamUrl, Max) => Fu[RelayGames]
   ): Fu[RelayGames] =
     dedupCache(url, rt.round, () => doFetchUrl(url, RelayFetch.maxChapters(rt.tour)))
       .flatMap: latest =>
@@ -28,7 +29,7 @@ final private class RelayDelay(colls: RelayColls)(using Executor):
 
     private val cache = CacheApi.scaffeineNoScheduler
       .initialCapacity(8)
-      .maximumSize(32)
+      .maximumSize(128)
       .build[UpstreamUrl, GamesSeenBy]()
       .underlying
 
@@ -54,16 +55,20 @@ final private class RelayDelay(colls: RelayColls)(using Executor):
 
     def putIfNew(upstream: UpstreamUrl, games: RelayGames): Funit =
       val newPgn = RelayGame.iso.from(games).toPgnStr
-      getPgn(upstream, Seconds(0)).flatMap:
+      getLatestPgn(upstream).flatMap:
         case Some(latestPgn) if latestPgn == newPgn => funit
         case _ =>
-          val doc = $doc("_id" -> idOf(upstream, nowInstant), "at" -> nowInstant, "pgn" -> newPgn)
+          val now = nowInstant
+          val doc = $doc("_id" -> idOf(upstream, now), "at" -> now, "pgn" -> newPgn)
           colls.delay:
             _.insert.one(doc).void
 
     def get(upstream: UpstreamUrl, delay: Seconds): Fu[Option[RelayGames]] =
       getPgn(upstream, delay).map2: pgn =>
-        RelayGame.iso.to(MultiPgn.split(pgn, 999))
+        RelayGame.iso.to(MultiPgn.split(pgn, Max(999)))
+
+    private def getLatestPgn(upstream: UpstreamUrl): Fu[Option[PgnStr]] =
+      getPgn(upstream, Seconds(0))
 
     private def getPgn(upstream: UpstreamUrl, delay: Seconds): Fu[Option[PgnStr]] =
       colls.delay:

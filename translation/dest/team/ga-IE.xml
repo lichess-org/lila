@@ -9,10 +9,10 @@
     <item quantity="many">%s ball</item>
     <item quantity="other">%s ball</item>
   </plurals>
-  <string name="allTeams">Na foirne go léir</string>
+  <string name="allTeams">Na foirne uile</string>
   <string name="leaderTeams" comment="This is the button for 'teams lead by you' in the teams navigation sidebar">Foirne ceannaire</string>
   <string name="newTeam">Foireann nua</string>
-  <string name="myTeams">M\'fhoirne</string>
+  <string name="myTeams">Mo fhoirne</string>
   <string name="noTeamFound">Níor aimsíodh aon fhoireann</string>
   <string name="joinTeam">Bí ar foireann</string>
   <string name="onlyLeaderLeavesTeam">Cuir ceannaire foirne nua leis sula bhfágann tú, nó dún an fhoireann.</string>
@@ -52,7 +52,6 @@ Is féidir leat é seo a úsáid chun glaoch a chuir ar imreoirí chun páirt a 
 D’fhéadfadh imreoirí nach maith leo do theachtaireachtaí a fháil an fhoireann a fhágáil.</string>
   <string name="teamsIlead">Foirne ina bhfuil mé i gceannas</string>
   <string name="youWayWantToLinkOneOfTheseTournaments">Seans gur mhaith leat ceann de na comórtais seo atá le teacht suas a nascadh?</string>
-  <string name="usersWhoCanManageThisTeam">Úsáideoirí atá in ann an fhoireann seo a bhainistiú</string>
   <string name="leadersChat">Comhrá ceannairí</string>
   <string name="closeTeam">Dún foireann</string>
   <string name="closeTeamDescription">Má chliceálann tú ar seo, dúnfar d’fhoireann go deo.</string>

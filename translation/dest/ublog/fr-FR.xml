@@ -1,5 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+  <string name="communityBlogs">Blogues de la communauté</string>
+  <string name="friendBlogs">Blogues des amis</string>
+  <string name="likedBlogs">Articles de blogues aimés</string>
+  <string name="blogTopics">Sujets des blogues</string>
+  <string name="lichessOfficialBlog">Blogue officiel de Lichess</string>
+  <string name="continueReadingPost">Continuer à lire cet article</string>
+  <string name="lichessBlogPostsFromXYear">Articles de blogue de Lichess publiés dans %s</string>
+  <string name="previousBlogPosts">Articles de blogue précédents</string>
   <string name="xBlog">Blogue de %s</string>
   <string name="newPost">Nouvel article</string>
   <string name="editYourBlogPost">Modifier votre article de blogue</string>
@@ -37,10 +45,11 @@
   <string name="imageCredit">Source de l\'image</string>
   <string name="deleteBlog">Supprimer définitivement ce message</string>
   <string name="deleteImage">Supprimer l\'image</string>
-  <string name="safeToUseImages" comment="safeToUseImages&#10;&#10;This is mentioned because the images there are royalty-free, so there is no risk of copyright infringement.">Il est sécuritaire d\'utiliser des images des sites Web suivants : </string>
+  <string name="safeToUseImages">Il est sécuritaire d\'utiliser des images des sites Web suivants : </string>
   <string name="selectPostTopics">Choisir les sujets de votre message</string>
   <string name="useImagesYouMadeYourself">Vous pouvez également utiliser des images que vous avez faites vous-même, des photos que vous avez prises, des captures d\'écran de Lichess... tout ce qui n\'est pas protégé par des droits d\'auteur.</string>
   <string name="safeAndRespectfulContent">Veuillez ne publier que du contenu sûr et respectueux. Ne copiez pas le contenu de quelqu\'un d\'autre.</string>
   <string name="inappropriateContentAccountClosed">Toute conduite inappropriée peut aboutir à la fermeture de votre compte.</string>
-  <string name="blogTips" comment="blogTips&#10;&#10;This is a link to https://lichess.org/page/blog-tips. Appears when creating a new post.">Conseils pratiques pour rédiger de bons messages</string>
+  <string name="blogTips">Conseils pratiques pour rédiger de bons messages</string>
+  <string name="discussThisBlogPostInTheForum">Discuter de cet article de blogue dans le forum</string>
 </resources>

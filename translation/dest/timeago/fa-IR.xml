@@ -2,38 +2,34 @@
 <resources>
   <string name="justNow">چند لحظه پیش</string>
   <plurals name="inNbSeconds">
-    <item quantity="one">در %s ثانیه</item>
-    <item quantity="other">در %s ثانیه</item>
+    <item quantity="one">تا %s ثانیه دیگر</item>
+    <item quantity="other">تا %s ثانیه دیگر</item>
   </plurals>
   <plurals name="inNbMinutes">
-    <item quantity="one">در %s دقیقه</item>
-    <item quantity="other">در %s دقیقه</item>
+    <item quantity="one">تا %s دقیقه دیگر</item>
+    <item quantity="other">تا %s دقیقه دیگر</item>
   </plurals>
   <plurals name="inNbHours">
-    <item quantity="one">در %s ساعت</item>
-    <item quantity="other">در %s ساعت</item>
+    <item quantity="one">تا %s ساعت دیگر</item>
+    <item quantity="other">تا %s ساعت دیگر</item>
   </plurals>
   <plurals name="inNbDays">
-    <item quantity="one">در %s روز</item>
-    <item quantity="other">در %s روز</item>
+    <item quantity="one">تا %s روز دیگر</item>
+    <item quantity="other">تا %s روز دیگر</item>
   </plurals>
   <plurals name="inNbWeeks">
-    <item quantity="one">در %s هفته</item>
-    <item quantity="other">در %s هفته</item>
+    <item quantity="one">تا %s هفته دیگر</item>
+    <item quantity="other">تا %s هفته دیگر</item>
   </plurals>
   <plurals name="inNbMonths">
-    <item quantity="one">در %s ماه</item>
-    <item quantity="other">در %s ماه</item>
+    <item quantity="one">تا %s ماه دیگر</item>
+    <item quantity="other">تا %s ماه دیگر</item>
   </plurals>
   <plurals name="inNbYears">
-    <item quantity="one">در %s سال</item>
-    <item quantity="other">در %s سال</item>
+    <item quantity="one">تا %s سال دیگر</item>
+    <item quantity="other">تا %s سال دیگر</item>
   </plurals>
   <string name="rightNow">هم‌اکنون</string>
-  <plurals name="nbSecondsAgo">
-    <item quantity="one">%s ثانیه پیش</item>
-    <item quantity="other">%s ثانیه پیش</item>
-  </plurals>
   <plurals name="nbMinutesAgo">
     <item quantity="one">%s دقیقه پیش</item>
     <item quantity="other">%s دقیقه پیش</item>
@@ -58,4 +54,13 @@
     <item quantity="one">%s سال پیش</item>
     <item quantity="other">%s سال پیش</item>
   </plurals>
+  <plurals name="nbMinutesRemaining">
+    <item quantity="one">%s دقیقه باقی مانده</item>
+    <item quantity="other">%s دقیقه باقی مانده</item>
+  </plurals>
+  <plurals name="nbHoursRemaining">
+    <item quantity="one">%s ساعت باقی مانده</item>
+    <item quantity="other">%s ساعت باقی مانده</item>
+  </plurals>
+  <string name="completed">کامل شده</string>
 </resources>

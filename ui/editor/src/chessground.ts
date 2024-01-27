@@ -12,7 +12,7 @@ export default function (ctrl: EditorCtrl): VNode {
         ctrl.chessground = lichess.makeChessground(el, makeConfig(ctrl));
         bindEvents(el, ctrl);
       },
-      destroy: _ => ctrl.chessground!.destroy(),
+      destroy: () => ctrl.chessground!.destroy(),
     },
   });
 }
@@ -33,7 +33,7 @@ function isLeftClick(e: MouchEvent): boolean {
 }
 
 function isRightClick(e: MouchEvent): boolean {
-  return util.isRightButton(e) || (!!e.ctrlKey && isLeftButton(e));
+  return e.button === 2 || (!!e.ctrlKey && isLeftButton(e));
 }
 
 let downKey: Key | undefined;
@@ -120,7 +120,7 @@ function makeConfig(ctrl: EditorCtrl): CgConfig {
   return {
     fen: ctrl.initialFen,
     orientation: ctrl.options.orientation || 'white',
-    coordinates: !ctrl.cfg.embed,
+    coordinates: ctrl.options.coordinates !== false,
     autoCastle: false,
     addPieceZIndex: ctrl.cfg.is3d,
     movable: {

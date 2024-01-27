@@ -115,6 +115,7 @@
   <string name="openStudy">Tanulmány megnyitása</string>
   <string name="enable">Engedélyezve</string>
   <string name="bestMoveArrow">Legjobb lépés mutatása</string>
+  <string name="showVariationArrows">Változatok nyilainak megjelenítése</string>
   <string name="evaluationGauge">Állásértékelő oldaljelzés</string>
   <string name="multipleLines">Több változat</string>
   <string name="cpus">Processzorok</string>
@@ -270,7 +271,6 @@
   <string name="playingRightNow">Játszma folyamatban</string>
   <string name="eventInProgress">Éppen zajlik</string>
   <string name="finished">Befejezett</string>
-  <string name="finishesX">véget ér: %s</string>
   <string name="abortGame">Játszma elvetése</string>
   <string name="gameAborted">Játszma elvetve</string>
   <string name="standard">Hagyományos</string>
@@ -504,13 +504,10 @@
   <string name="firstName">Keresztnév</string>
   <string name="lastName">Vezetéknév</string>
   <string name="biography">Bemutatkozás</string>
-  <string name="flag" comment="flag&#10;Appears when you edit your profile. Lets a player add a country/flag (not all flags are for countries) to their profile">Ország</string>
   <string name="thankYou">Köszönjük!</string>
   <string name="socialMediaLinks">Közösségi média</string>
   <string name="oneUrlPerLine">Egy URL soronként.</string>
   <string name="inlineNotation">Megjegyzések beszúrása</string>
-  <string name="savingMoves">Átmeneti lépéstároló</string>
-  <string name="savingMovesHelp">A változatokat mindig a böngésződ gyorsítótárában tároljuk.</string>
   <string name="makeAStudy">A biztonság kedvéért és a későbbi megosztás lehetőségéért fontold meg egy tanulmány létrehozását.</string>
   <string name="clearSavedMoves">Lépések törlése</string>
   <string name="previouslyOnLichessTV">A Lichess TV korábbi műsorai</string>
@@ -718,7 +715,7 @@
   <string name="byRegisteringYouAgreeToBeBoundByOur">A regisztrációval elfogadod a %s-t</string>
   <string name="readAboutOur">Itt olvashatók az %s.</string>
   <string name="networkLagBetweenYouAndLichess">Hálózati késleltetés a számítógéped és a Lichess szervere között</string>
-  <string name="timeToProcessAMoveOnLichessServer">Az az idő, amíg a lichess szerver egy lépést feldolgoz</string>
+  <string name="timeToProcessAMoveOnLichessServer">Az az idő, amíg a Lichess szerver egy lépést feldolgoz</string>
   <string name="downloadAnnotated">Letöltés elemzéssel</string>
   <string name="downloadRaw">Letöltés elemzés nélkül</string>
   <string name="downloadImported">Importált PGN letöltése</string>
@@ -848,7 +845,6 @@
   </plurals>
   <string name="sorry">Sajnáljuk</string>
   <string name="weHadToTimeYouOutForAWhile">Kénytelenek vagyunk egy kis időre visszatartani.</string>
-  <string name="timeoutExpires">Feloldás %s múlva.</string>
   <string name="why">Miért?</string>
   <string name="pleasantChessExperience">Célunk mindenki számára jó felhasználói élményt biztosítani.</string>
   <string name="goodPractice">Ennek érdekében minden játékosnak követnie kell megfelelő magatartást.</string>
@@ -868,6 +864,7 @@
   <string name="agreementPolicy">Elfogadom, hogy követni fogom a Lichess szabályait.</string>
   <string name="searchOrStartNewDiscussion">Keresés, vagy új beszélgetés indítása</string>
   <string name="edit">Szerkeszt</string>
+  <string name="blitz" comment="Probably best left untranslated. Leave it as 'Blitz' unless your language has a better word for it.">Blitz</string>
   <string name="rapid">Rapid</string>
   <string name="classical">Klasszikus</string>
   <string name="ultraBulletDesc">Rendkívül gyors játszmák: kevesebb, mint 30 másodperc</string>
@@ -907,9 +904,6 @@
   <string name="timeAlmostUp">Hamarosan lejár az idő!</string>
   <string name="clickToRevealEmailAddress">[Kattints az email cím megtekintéséhez]</string>
   <string name="download">Letöltés</string>
-  <string name="welcome">Üdvözlünk!</string>
-  <string name="lichessPatronInfo">A Lichess egy jótékonysági szervezet és teljesen ingyenes/szabad nyílt forrású szoftver.
-Minden működési költséget, fejlesztést és tartalmat felhasználói adományokból fedezünk.</string>
   <string name="coachManager">Edzői vezérlőpult</string>
   <string name="streamerManager">Közvetítői vezérlőpult</string>
   <string name="cancelTournament">Versenykiírás törlése</string>
@@ -968,4 +962,6 @@ Hagyd üresen és a játszmák a kezdőállásból indulnak.</string>
   <string name="switchSides">Oldal megfordítása</string>
   <string name="closingAccountWithdrawAppeal">A fiókod lezárása visszavonja a fellebbezésed</string>
   <string name="ourEventTips">Tippjeink események szervezéséhez</string>
+  <string name="lichessPatronInfo">A Lichess egy jótékonysági szervezet és teljesen ingyenes/szabad nyílt forrású szoftver.
+Minden működési költséget, fejlesztést és tartalmat felhasználói adományokból fedezünk.</string>
 </resources>

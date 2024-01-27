@@ -34,14 +34,19 @@ export function makeConfig(ctrl: RoundController): Config {
         const firstPly = round.firstPly(ctrl.data);
         const isSecond = (firstPly % 2 === 0 ? 'white' : 'black') !== data.player.color;
         const showUntil = firstPly + 2 + +isSecond;
-        resizeHandle(elements, ctrl.data.pref.resizeHandle, ctrl.ply, p => p <= showUntil);
+        resizeHandle(
+          elements,
+          playing ? ctrl.data.pref.resizeHandle : Prefs.ShowResizeHandle.Always,
+          ctrl.ply,
+          p => p <= showUntil,
+        );
       },
     },
     movable: {
       free: false,
       color: playing ? data.player.color : undefined,
       dests: playing ? util.parsePossibleMoves(data.possibleMoves) : new Map(),
-      showDests: data.pref.destination,
+      showDests: data.pref.destination && !ctrl.blindfold(),
       rookCastle: data.pref.rookCastle,
       events: {
         after: hooks.onUserMove,
@@ -54,7 +59,7 @@ export function makeConfig(ctrl: RoundController): Config {
     },
     premovable: {
       enabled: data.pref.enablePremove,
-      showDests: data.pref.destination,
+      showDests: data.pref.destination && !ctrl.blindfold(),
       castle: data.game.variant.key !== 'antichess',
       events: {
         set: hooks.onPremove,

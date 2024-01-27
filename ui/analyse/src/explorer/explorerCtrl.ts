@@ -1,9 +1,9 @@
 import { Prop, prop, defined } from 'common';
 import { storedBooleanProp } from 'common/storage';
 import { defer } from 'common/defer';
-import { fenColor } from 'common/mini-board';
+import { fenColor } from 'common/miniBoard';
 import debounce from 'common/debounce';
-import { sync, Sync } from 'common/sync';
+import { sync, Sync } from 'common/promise';
 import { opposite } from 'chessground/util';
 import * as xhr from './explorerXhr';
 import { winnerOf } from './explorerUtil';
@@ -197,6 +197,7 @@ export default class ExplorerCtrl {
     }
   };
   setHovering = (fen: Fen, uci: Uci | null) => {
+    this.root.fork.hover(uci);
     this.hovering(uci ? { fen, uci } : null);
     this.root.setAutoShapes();
   };

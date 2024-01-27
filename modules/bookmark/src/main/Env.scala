@@ -35,7 +35,9 @@ final class Env(
       new Actor:
         def receive =
           case Toggle(gameId, userId) => api.toggle(gameId, userId)
-          case Remove(gameId)         => api.removeByGameId(gameId)
     ),
     name = config.actorName
   )
+
+  lila.common.Bus.subscribeFun("roundUnplayed"):
+    case lila.hub.actorApi.round.DeleteUnplayed(gameId) => api.removeByGameId(gameId)

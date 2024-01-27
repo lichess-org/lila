@@ -22,10 +22,12 @@ private object TutorPhases:
     for
       accuracy  <- answerBoth(accuracyQuestion, user)
       awareness <- answerBoth(awarenessQuestion, user)
-    yield InsightDimension.valuesOf(InsightDimension.Phase).toList.map { phase =>
-      TutorPhase(
-        phase,
-        accuracy = AccuracyPercent.from(accuracy valueMetric phase),
-        awareness = GoodPercent.from(awareness valueMetric phase)
-      )
-    }
+    yield InsightDimension
+      .valuesOf(InsightDimension.Phase)
+      .toList
+      .map: phase =>
+        TutorPhase(
+          phase,
+          accuracy = AccuracyPercent.from(accuracy valueMetric phase),
+          awareness = GoodPercent.from(awareness valueMetric phase)
+        )

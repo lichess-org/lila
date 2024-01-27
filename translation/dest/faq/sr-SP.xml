@@ -21,7 +21,7 @@
   <string name="howCanIBecomeModerator">Како могу постати модератор?</string>
   <string name="youCannotApply">Није могуће пријавити се за посао модератора. Ако уочимо некога за кога мислимо да би ту улогу добро извршио, ми га директно контактирамо.</string>
   <string name="gameplay">Ток игре</string>
-  <string name="howBulletBlitzEtcDecided">Како су Булит, Блиц и остала времена одређена?</string>
+  <string name="howBulletBlitzEtcDecided">Како су муњевити, блиц и остала времена одређена?</string>
   <string name="basedOnGameDuration">Личес контроле времена су засноване на процењеном трајању партије = %1$s
 На пример, процењено трајање 5+3 партије је 5 × 60 + 40 × 3 = 420 секунди.</string>
   <string name="durationFormula">(почетно време) + 40 × (инкремент сата)</string>
@@ -48,7 +48,7 @@
   <string name="goodIntroduction">добар увод</string>
   <string name="lichessTraining">Личес тренинг</string>
   <string name="threefoldRepetition">Троструко понављање</string>
-  <string name="threefoldRepetitionExplanation">Ако се иста позиција појави три пута, играчи могу прогласити реми %1$s. Личес прихвата званична FIDE правилам као што је опсано у Article 9.2 (d) %2$s.</string>
+  <string name="threefoldRepetitionExplanation">Ако се иста позиција појави три пута, играчи могу прогласити реми %1$s. Личес прихвата званична FIDE правилам као што је опсано у Article 9.2 %2$s.</string>
   <string name="threefoldRepetitionLowerCase">троструким понављањем</string>
   <string name="notRepeatedMoves">Ми нисмо поновили потезе. Како је игра завршена ремијем понављањем?</string>
   <string name="repeatedPositionsThatMatters">Троструко понављање је засновано на поновљеним %1$s, не потезима. Понављања не морају да се догоде узастопно.</string>
@@ -71,6 +71,7 @@
   <string name="canIChangeMyUsername">Могу ли променити своје корисничко име?</string>
   <string name="uniqueTrophies">Уникатни трофеји</string>
   <string name="ownerUniqueTrophies">Овај трофеј је уникатан у историји Личеса, нико осим %1$s га неће имати.</string>
+  <string name="aHourlyBulletTournament">сатни муњевити турнир</string>
   <string name="lichessRatings">Личес рејтинзи</string>
   <string name="whichRatingSystemUsedByLichess">Који рејтинг систем користи Личес?</string>
   <string name="ratingSystemUsedByLichess">Рејтинзи се рачунају помоћо Глико-2 рејтинг методе коју је осмислио Марк Гликман. Ово је врло популарна метода и користи се у значајном броју шаховских организација (ФИДЕ је знаменит супротан пример јер и даље користе застарели Ело рејтинг систем).

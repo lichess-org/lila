@@ -8,7 +8,7 @@ case class BlogPost(doc: io.prismic.Document, coll: String = "blog", imgSize: St
   def shortlede: String        = ~getText(s"$coll.shortlede")
   def date: Option[LocalDate]  = getDate(s"$coll.date").map(_.value)
   def image: Option[String]    = getImage(s"$coll.image", imgSize).map(_.url)
-  def forKids: Boolean         = getText(s"$coll.kidsafe").fold(true)(_ == "true")
+  def forKids: Boolean         = getText(s"$coll.kidsafe").forall(_ == "true")
   def author: Option[String]   = getText(s"$coll.author")
   def category: Option[String] = getText(s"$coll.category")
 
@@ -20,7 +20,8 @@ case class MiniPost(
     date: LocalDate,
     image: String,
     forKids: Boolean
-)
+):
+  def isOld = date.isBefore(LocalDate.now.minusDays(7))
 
 object MiniPost:
 

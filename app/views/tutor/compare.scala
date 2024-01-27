@@ -42,11 +42,12 @@ private object compare:
     (if quality.better then goodTag else if quality.worse then badTag else span) (quality.wording.value)
 
   private[tutor] def showMetric(comp: TutorCompare.AnyComparison): String =
-    (comp.metric match
-      case TutorMetric.GlobalClock => "global speed"
-      case TutorMetric.ClockUsage  => "clock usage"
-      case metric                  => metric.metric.name.toLowerCase
-    )
+    comp.metric match
+      case TutorMetric.GlobalClock     => "global speed"
+      case TutorMetric.ClockUsage      => "clock usage"
+      case TutorMetric.Resourcefulness => "resourcefulness"
+      case TutorMetric.Conversion      => "ability to convert won games"
+      case metric                      => metric.metric.name.toLowerCase
 
   private[tutor] def showDimension[D](dimension: D): String = dimension match
     case d: LilaOpeningFamily => s"the ${d.name.value}"

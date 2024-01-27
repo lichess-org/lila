@@ -35,10 +35,10 @@ trait DateHelper:
       _ => DateTimeFormatter.ofLocalizedDate(FormatStyle.MEDIUM).withLocale(lang.toLocale)
     )
 
-  def showInstantUTC(instant: Instant)(using Lang): String =
+  def showInstant(instant: Instant)(using Lang): String =
     dateTimeFormatter print instant
 
-  def showDate(instant: Instant)(using lang: Lang): String =
+  def showDate(instant: Instant)(using Lang): String =
     showDate(instant.date)
 
   def showDate(date: LocalDate)(using lang: Lang): String =
@@ -63,7 +63,8 @@ trait DateHelper:
   private val oneDayMillis = 1000 * 60 * 60 * 24
 
   def momentFromNow(instant: Instant, alwaysRelative: Boolean = false, once: Boolean = false): Tag =
-    if !alwaysRelative && (instant.toMillis - nowMillis) > oneDayMillis then absClientInstant(instant)
+    if !alwaysRelative && (instant.toMillis - nowMillis) > oneDayMillis then
+      absClientInstantEmpty(instant)(nbsp)
     else timeTag(cls := s"timeago${once so " once"}", datetimeAttr := isoDateTime(instant))(nbsp)
 
   def momentFromNowWithPreload(
@@ -73,16 +74,19 @@ trait DateHelper:
   ): Frag =
     momentFromNow(instant, alwaysRelative, once)(momentFromNowServerText(instant))
 
-  def absClientInstant(instant: Instant): Tag =
-    timeTag(cls := "timeago abs", datetimeAttr := isoDateTime(instant))("-")
+  def absClientInstant(instant: Instant)(using Lang): Tag =
+    absClientInstantEmpty(instant)(showInstant(instant))
+
+  private def absClientInstantEmpty(instant: Instant): Tag =
+    timeTag(cls := "timeago abs", datetimeAttr := isoDateTime(instant))
 
   def momentFromNowOnce(instant: Instant): Tag = momentFromNow(instant, once = true)
 
   def secondsFromNow(seconds: Int, alwaysRelative: Boolean = false): Tag =
     momentFromNow(nowInstant plusSeconds seconds, alwaysRelative)
 
-  def momentFromNowServer(instant: Instant): Frag =
-    timeTag(title := f"${showEnglishInstant(instant)} UTC")(momentFromNowServerText(instant))
+  def momentFromNowServer(instant: Instant)(using Lang): Frag =
+    timeTag(title := f"${showInstant(instant)} UTC")(momentFromNowServerText(instant))
 
   def momentFromNowServerText(instant: Instant, inFuture: Boolean = false): String =
     val (dateSec, nowSec) = (instant.toMillis / 1000, nowSeconds)
@@ -101,3 +105,6 @@ trait DateHelper:
     else if months == 0 then s"${pluralize("week", weeks)}$preposition"
     else if years == 0 then s"${pluralize("month", months)}$preposition"
     else s"${pluralize("year", years)}$preposition"
+
+  def timeRemaining(instant: Instant, once: Boolean = false): Tag =
+    timeTag(cls := s"timeago remaining${once so " once"}", datetimeAttr := isoDateTime(instant))(nbsp)

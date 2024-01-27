@@ -36,6 +36,23 @@ $c-mic-bg-hover: if($theme == 'light', $c-font-dimmer, transparent);
       color: $c-font;
     }
   }
+
+  &.flash {
+    animation: flash 0.2s;
+    animation-iteration-count: 1;
+  }
+
+  @keyframes flash {
+    0% {
+      background-color: $c-bg-zebra2;
+    }
+    50% {
+      background-color: #cc333388;
+    }
+    100% {
+      background-color: $c-bg-zebra2;
+    }
+  }
 }
 
 #voice-status {
@@ -99,7 +116,7 @@ button#microphone-button {
   border-top: 2px solid $c-primary;
   z-index: z(mz-menu);
   width: 100%;
-  background: $c-bg-popup;
+  background: $c-bg-high;
   gap: 1.5em;
   padding: 1.5em;
   > hr {
@@ -154,12 +171,13 @@ button#microphone-button {
   .active {
     @extend %active-primary;
   }
+}
 
-  &__device {
-    flex-flow: row nowrap;
-    select {
-      width: 0;
-      flex: 1;
-    }
+.voice-choices__device {
+  flex-flow: row nowrap;
+
+  select {
+    width: 0;
+    flex: 1;
   }
 }

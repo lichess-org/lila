@@ -123,6 +123,7 @@
   <string name="memory">મેમરી</string>
   <string name="infiniteAnalysis">અનંત વિશ્લેષણ</string>
   <string name="removesTheDepthLimit">ગહનતાનિ મર્યાદા હટાવે, અને તમારા કમ્પ્યુટરને ગરમ રાખે છે</string>
+  <string name="engineManager">એન્જિન મેનેજર</string>
   <string name="blunder">મોટી ભૂલ</string>
   <string name="mistake">ભૂલ</string>
   <string name="inaccuracy">ચૂક</string>
@@ -150,6 +151,7 @@
   <string name="viewInFullSize">પૂર્ણ કદ જુઓ</string>
   <string name="logOut">સાઇન આઉટ કરો</string>
   <string name="signIn">સાઇન ઇન કરો</string>
+  <string name="rememberMe">મને લોગીન કરેલો રાખો</string>
   <string name="youNeedAnAccountToDoThat">તમારે તે કરવા માટે એક ખાતાનિ જરૂર છે</string>
   <string name="signUp">નોંધણી</string>
   <string name="computersAreNotAllowedToPlay">કોમ્પ્યૂટરો અને કોમ્પ્યુટર ની મદદ લેનારા ખેલાડીઓને રમવા માટે મંજૂરી નથી. રમતી વખતે મહેરબાની કરીને શતરંજના મશીનો, ડેટાબેઝો, અથવા બીજા ખેલાડીઓ દ્વારા મદદ ના લેવી. એ પણ નોંધ લેશો કે બહુવિધ ખાતા બનાવવાનું સખત નિરુત્સાહ છે અને અતિશય બહુવિધ ખાતા બનાવવા પર પ્રતિબંધ મૂકવામાં આવશે.</string>
@@ -178,6 +180,10 @@
     <item quantity="one">%s કલાક</item>
     <item quantity="other">%s કલાક</item>
   </plurals>
+  <plurals name="nbMinutes">
+    <item quantity="one">%s મિનિટ</item>
+    <item quantity="other">%s મિનિટ</item>
+  </plurals>
   <string name="time">સમય</string>
   <string name="rating">રેટિંગ</string>
   <string name="ratingStats">રેટિંગ નો આલેખ</string>
@@ -194,6 +200,15 @@
   <string name="email">ઇમેઇલ</string>
   <string name="passwordReset">પાસવર્ડ રીસેટ</string>
   <string name="forgotPassword">પાસવર્ડ ભૂલી ગયાં?</string>
+  <string name="error.weakPassword">આ પાસવર્ડ અત્યંત સામાન્ય છે અને અનુમાન લગાવવા માટે ખૂબ જ સરળ છે.</string>
+  <string name="error.namePassword">કૃપા કરીને તમારા વપરાશકર્તા નામનો ઉપયોગ તમારા પાસવર્ડ તરીકે કરશો નહીં.</string>
+  <string name="blankedPassword">તમે બીજી સાઇટ પર સમાન પાસવર્ડનો ઉપયોગ કર્યો છે અને તે સાઇટ સાથે ચેડા કરવામાં આવ્યા છે. તમારા લિચેસ એકાઉન્ટની સલામતી સુનિશ્ચિત કરવા માટે, અમારે તમારે નવો પાસવર્ડ સેટ કરવાની જરૂર છે. તમારી સમજ બદલ આભાર.</string>
+  <string name="youAreLeavingLichess">તમે લિચેસ છોડી રહ્યા છો</string>
+  <string name="neverTypeYourPassword">અન્ય સાઇટ પર તમારો લિચેસ પાસવર્ડ ક્યારેય ટાઇપ કરશો નહીં!</string>
+  <string name="proceedToX">%s પર આગળ વધો</string>
+  <string name="passwordSuggestion">કોઈ બીજા દ્વારા સૂચવવામાં આવેલ પાસવર્ડ સેટ કરશો નહીં. તેઓ તેનો ઉપયોગ તમારું એકાઉન્ટ ચોરી કરવા માટે કરશે.</string>
+  <string name="emailSuggestion">કોઈ બીજા દ્વારા સૂચવવામાં આવેલ ઈમેલ સરનામું સેટ કરશો નહીં. તેઓ તેનો ઉપયોગ તમારું એકાઉન્ટ ચોરી કરવા માટે કરશે.</string>
+  <string name="emailConfirmHelp">ઈમેલની ખાતરીમાં મદદ કરશો</string>
   <string name="rank">શ્રેણી</string>
   <string name="rankX">શ્રેણી %s</string>
   <string name="gamesPlayed">રમતો રમ્યા</string>
@@ -210,7 +225,6 @@
   <string name="playingRightNow">અત્યારે રમાય છે</string>
   <string name="eventInProgress">અત્યારે રમાય છે</string>
   <string name="finished">સમાપ્ત થઈ</string>
-  <string name="finishesX">%s માં પૂરી થાય છે</string>
   <string name="abortGame">રમતનો ત્યાગ કરો</string>
   <string name="gameAborted">રમતનો ત્યાગ કર્યો</string>
   <string name="standard">સામાન્ય</string>

@@ -5,7 +5,8 @@
   <string name="toInviteSomeoneToPlayGiveThisUrl">بۆ بانگهێشت کردنی کەسێک بۆ یاریکردن, ئەم بەستەرەیان پێ بدە</string>
   <string name="gameOver">یاریەکە کۆتایی هات</string>
   <string name="waitingForOpponent">چاوەڕوانی لایەینی بەرامبەر</string>
-  <string name="waiting">چاوەڕوانی ڕازیبوونی لایەنی بەرامبەر</string>
+  <string name="orLetYourOpponentScanQrCode">یان با بەرامبەرەکەت ئەم QR کۆدە سکان بکات</string>
+  <string name="waiting">چاوەڕوانی</string>
   <string name="yourTurn">سەرەی تۆیە</string>
   <string name="aiNameLevelAiLevel">%1$s ئاست %2$s</string>
   <string name="level">پلە</string>
@@ -45,8 +46,8 @@
   <string name="forceDraw">یەکسانبوون هەڵبژێرە</string>
   <string name="talkInChat">تکایە بەرێزەوە گفتوگۆ بکە!</string>
   <string name="theFirstPersonToComeOnThisUrlWillPlayWithYou">یەکەم کەس ئەم لینکە بەکاربهێنێت یاریت لەگەڵ دەکات.</string>
-  <string name="whiteResigned">سپی خۆی بەدەستەوەدا</string>
-  <string name="blackResigned">رەش خۆی بەدەستەوەدا</string>
+  <string name="whiteResigned">سپی کشایەوە</string>
+  <string name="blackResigned">رەش کشایەوە</string>
   <string name="whiteLeftTheGame">سپی یاری بەجێهێشت</string>
   <string name="blackLeftTheGame">ڕەش یاری بەجێهێشت</string>
   <string name="whiteDidntMove">سپی جووڵەی نەکرد</string>
@@ -70,6 +71,7 @@
   <string name="makeMainLine">کردن بە رستەی سەرەکی</string>
   <string name="deleteFromHere">لێرە بیسڕەوە</string>
   <string name="forceVariation">هێزی جۆراوجۆر</string>
+  <string name="copyVariationPgn">کۆپی گۆڕانکاری PGN</string>
   <string name="move">جوڵە</string>
   <string name="variantLoss">دۆران بەشێوەیەکی تایبەت</string>
   <string name="variantWin">براوەی هەمەجۆر</string>
@@ -115,6 +117,7 @@
   <string name="openStudy">خوێندنی کراوە</string>
   <string name="enable">چالاککراوە</string>
   <string name="bestMoveArrow">باشترین جووڵە بە شێووی تیر دیاری بکە</string>
+  <string name="showVariationArrows">تیرەکانی جۆرەکان پیشان بدە</string>
   <string name="evaluationGauge">پێوانەی هەڵسەنگاندن</string>
   <string name="multipleLines">زیادکردنی هێڵەکان</string>
   <string name="cpus">CPUs</string>
@@ -145,7 +148,7 @@
   <string name="draw">یەکسان</string>
   <plurals name="nbPlayers">
     <item quantity="one">%s یاریزان</item>
-    <item quantity="other">%s یاریزانان</item>
+    <item quantity="other">%s یاریزان</item>
   </plurals>
   <string name="drawByMutualAgreement">بە رەزاماندی هەردولا یەکسان بوون</string>
   <string name="fiftyMovesWithoutProgress">پەنجا جوڵە بەبێ هیچ پێشکەوتنێک</string>
@@ -173,7 +176,7 @@
   <string name="forum">مەکۆ</string>
   <string name="xPostedInForumY">%1$s لەسەر بابەت پۆستێکی کرد %2$s</string>
   <string name="latestForumPosts">دواین پۆستەکانی مەکۆ</string>
-  <string name="players">یاریزانان</string>
+  <string name="players">یاریزانەکان</string>
   <string name="friends">هاوڕێکان</string>
   <string name="discussions">گفتوگۆکان</string>
   <string name="today">ئەمڕۆ</string>
@@ -270,7 +273,6 @@
   <string name="playingRightNow">یارییەکانی ئێستا</string>
   <string name="eventInProgress">ئێستا یاری دەکەن</string>
   <string name="finished">تەواوبوو</string>
-  <string name="finishesX">تەواوبوو %s</string>
   <string name="abortGame">هەڵوەشاندنەوەی یاری</string>
   <string name="gameAborted">یارییەکە هەڵوەشایەوە</string>
   <string name="standard">ئاسایی</string>
@@ -483,6 +485,7 @@
   <string name="movesPlayed">جوڵەکانی یاری</string>
   <string name="whiteWins">بردنەوەکانی سپی</string>
   <string name="blackWins">بردنەوەکانی ڕەش</string>
+  <string name="drawRate">رێژەی یەکسانبوون</string>
   <string name="draws">یەکسانبووەکان</string>
   <string name="nextXTournament">داهاتوو %s پاڵەوانیەتی:</string>
   <string name="averageOpponent">تێکڕای ڕکابەر</string>
@@ -503,17 +506,19 @@
   <string name="editProfile">دەستکاریکردنی پڕۆفایل</string>
   <string name="firstName">ناو</string>
   <string name="lastName">ناوی باپیرت</string>
+  <string name="setFlair">توانای خۆت دابنێ</string>
+  <string name="flair">بەهرە</string>
+  <string name="youCanHideFlair">ڕێکخستنێک هەیە بۆ شاردنەوەی هەموو تواناکانی بەکارهێنەر لە سەرانسەری ماڵپەڕەکەدا.</string>
   <string name="biography">ژیاننامە</string>
+  <string name="countryRegion" comment="flag&#10;Appears when you edit your profile. Lets a player add a country/flag (not all flags are for countries) to their profile">وڵات یان هەرێم</string>
   <string name="thankYou">سوپاس!</string>
   <string name="socialMediaLinks">لینکی سۆشیاڵ میدیا</string>
   <string name="oneUrlPerLine">یەک URL بۆ هەر خانەیەک.</string>
   <string name="inlineNotation">نووسینی ناو هێڵ</string>
-  <string name="savingMoves">هەڵگرتنی جوڵەکان بەشێوەیەکی کاتی</string>
-  <string name="savingMovesHelp">ئێمە هەمیشە گۆڕانکارییەکانتان لە کونجێکی وێبگەڕەکەتدا هەڵدەگرین.</string>
   <string name="makeAStudy">بۆ پاراستن و هاوبەشکردن، خوێندن لەبەرچاوبگرە.</string>
   <string name="clearSavedMoves">سڕینەوەی جوڵەکان</string>
   <string name="previouslyOnLichessTV">پێشتر لە کەناڵی لیی چێس</string>
-  <string name="onlinePlayers">یاریزانەکانی سەرهێڵ</string>
+  <string name="onlinePlayers">یاریزانانی سەرهێڵ</string>
   <string name="activePlayers">یاریزانە چالاکەکان</string>
   <string name="bewareTheGameIsRatedButHasNoClock">ئاگاداربن، یارییەکە هەڵسەنگاندنی بۆ کراوە بەڵام کاتێکی دیاریکراوی نییە!</string>
   <string name="success">سەرکەوتن</string>
@@ -659,6 +664,7 @@
   <string name="hostColorX">رەنگی مێواندارەکە: %s</string>
   <string name="createdSimuls">نوێترینەکان</string>
   <string name="hostANewSimul">هاوکاتێکی نوێ دروستبکە</string>
+  <string name="signUpToHostOrJoinASimul">ناوت تۆمار بکە بۆ میوانداریکردن \"هۆست\" یان بەشداریکردن لە سیموڵ simuls</string>
   <string name="noSimulFound">لێکۆڵینەوەکە نەدۆزرایەوە</string>
   <string name="noSimulExplanation">پێشاندانی ئەو هاوتایانە ئامادەنین.</string>
   <string name="returnToSimulHomepage">گەڕانەوە بۆ لاپەڕەی سەرەکی هاوتاکان</string>
@@ -747,7 +753,7 @@
   <string name="zeroAdvertisement">بەبێ بوونی رێکلام</string>
   <string name="fullFeatured">بە تەواوی تایبەتمەندی</string>
   <string name="phoneAndTablet">مۆبایل و تابلێت</string>
-  <string name="bulletBlitzClassical">بووڵێت، بلێتز، کلاسیک</string>
+  <string name="bulletBlitzClassical">بووڵێت، ئاگرین، کلاسیک</string>
   <string name="correspondenceChess">نامەناردن بە شەترەنج</string>
   <string name="onlineAndOfflinePlay">یاری ئۆنلاین و بێ ئینتەرنێت</string>
   <string name="viewTheSolution">سەیری شیکردنەوەکە بکە</string>
@@ -845,9 +851,10 @@
     <item quantity="one">بەم جۆرە %s ـی پێش جوڵە پاشەکەوتبکە</item>
     <item quantity="other">بەم جۆرە %s ـی پێش جوڵە پاشەکەوتبکە</item>
   </plurals>
+  <string name="showUnreadLichessMessage">پەیامێکی تایبەتت لە لایەن لیچێسەوە پێگەیشتووە.</string>
+  <string name="clickHereToReadIt">بۆ خوێندنەوەی کلیک لێرە بکە</string>
   <string name="sorry">ببوورە :(</string>
   <string name="weHadToTimeYouOutForAWhile">ناچاربووین بۆ ماوەیەک دوورت بخەینەوە.</string>
-  <string name="timeoutExpires">کاتە دیاریکراوەکەت %s ـیتربەسەر دەچێت.</string>
   <string name="why">بۆ?</string>
   <string name="pleasantChessExperience">ئامانجمان دابینکردنی ئەزموونێکی خۆشی شەترەنجە بۆ هەمووان.</string>
   <string name="goodPractice">بۆ ئەو مەبەستەش دەبێت دڵنیابین لەوەی کە هەموو یاریزانەکان مەشقی باش پەیڕەو دەکەن.</string>
@@ -867,6 +874,8 @@
   <string name="agreementPolicy">منیش لەگەڵ ئەوەدام کە هەموو سیاسەتەکانی لیچێس پەیڕەو دەکەم.</string>
   <string name="searchOrStartNewDiscussion">گەڕان یان دەستپێکردنی گفتوگۆی نوێ</string>
   <string name="edit">دەستکاریکردن</string>
+  <string name="bullet" comment="Probably best left untranslated. Leave it as 'Bullet' unless your language has a better word for it.">بوڵێت \"Bullet\"</string>
+  <string name="blitz" comment="Probably best left untranslated. Leave it as 'Blitz' unless your language has a better word for it.">ئاگرین\"بڵیتز\"</string>
   <string name="rapid">خێرا</string>
   <string name="classical">کلاسیک</string>
   <string name="ultraBulletDesc">یارییە شێتانە خێراکان: کەمتر لە ٣٠ چرکە</string>
@@ -906,9 +915,6 @@
   <string name="timeAlmostUp">خەریکە کاتت تەواودەبێت!</string>
   <string name="clickToRevealEmailAddress">[بۆ بینینی ناونیشانی ئیمەیڵ کلیک بکە]</string>
   <string name="download">داگرتن</string>
-  <string name="welcome">بەخێربێیت!</string>
-  <string name="lichessPatronInfo">لیچێس وێبسایتێکی خێرخوازی و بەخۆڕایە، بە بێ هیچ رێکلامێک و بە تەواوەتی سەرچاوەی سیستەمی کراوەیە.
-هەموو سەرچاوە داراییەکانی ئیشپێکردن و گەشەپێدان و بەڕێوەبردنی لەلایەن بەکارهێنەرانی خۆبەخش دابین دەکرێت.</string>
   <string name="coachManager">بەڕێوەبەری ڕاهێنەر</string>
   <string name="streamerManager">بەڕێوەبەری ستریمەر</string>
   <string name="cancelTournament">هەڵوەشاندنەوەی پاڵەوانییەتی</string>
@@ -967,4 +973,6 @@
   <string name="switchSides">لای یاریکردن بگۆڕە</string>
   <string name="closingAccountWithdrawAppeal">داخستنی ئەکاونتەکەت تانەکەت دەکێشێتەوە</string>
   <string name="ourEventTips">پێشنیارەکانمان بۆ ڕێکخستنی ئیڤێنت</string>
+  <string name="lichessPatronInfo">لیچێس وێبسایتێکی خێرخوازی و بەخۆڕایە، بە بێ هیچ رێکلامێک و بە تەواوەتی سەرچاوەی سیستەمی کراوەیە.
+هەموو سەرچاوە داراییەکانی ئیشپێکردن و گەشەپێدان و بەڕێوەبردنی لەلایەن بەکارهێنەرانی خۆبەخش دابین دەکرێت.</string>
 </resources>

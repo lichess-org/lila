@@ -249,23 +249,20 @@ final class UserRepo(val coll: Coll)(using Executor):
   def filterExists(ids: Set[UserId]): Fu[List[UserId]] =
     coll.primitive[UserId]($inIds(ids), F.id)
 
-  def userIdsLikeWithRole(text: UserStr, role: String, max: Int = 10): Fu[List[UserId]] =
+  def userIdsLikeWithRole(text: UserSearch, role: String, max: Int = 10): Fu[List[UserId]] =
     userIdsLikeFilter(text, $doc(F.roles -> role), max)
 
-  private[user] def userIdsLikeFilter(text: UserStr, filter: Bdoc, max: Int): Fu[List[UserId]] =
-    User.validateId(text) so { id =>
-      coll
-        .find(
-          $doc(F.id $startsWith id.value) ++ enabledSelect ++ filter,
-          $doc(F.id -> true).some
-        )
-        .sort($doc("len" -> 1))
-        .cursor[Bdoc](ReadPref.sec)
-        .list(max)
-        .map {
-          _ flatMap { _.getAsOpt[UserId](F.id) }
-        }
-    }
+  private[user] def userIdsLikeFilter(text: UserSearch, filter: Bdoc, max: Int): Fu[List[UserId]] =
+    coll
+      .find(
+        $doc(F.id $startsWith text.value) ++ enabledSelect ++ filter,
+        $doc(F.id -> true).some
+      )
+      .sort($doc("len" -> 1))
+      .cursor[Bdoc](ReadPref.sec)
+      .list(max)
+      .map:
+        _.flatMap { _.getAsOpt[UserId](F.id) }
 
   private def setMark(mark: UserMark)(id: UserId, v: Boolean): Funit =
     coll.update.one($id(id), $addOrPull(F.marks, mark, v)).void
@@ -275,6 +272,7 @@ final class UserRepo(val coll: Coll)(using Executor):
   def setTroll     = setMark(UserMark.Troll)
   def setReportban = setMark(UserMark.Reportban)
   def setRankban   = setMark(UserMark.Rankban)
+  def setArenaBan  = setMark(UserMark.ArenaBan)
   def setPrizeban  = setMark(UserMark.PrizeBan)
   def setAlt       = setMark(UserMark.Alt)
 
@@ -290,6 +288,9 @@ final class UserRepo(val coll: Coll)(using Executor):
   def filterNotKid(ids: Seq[UserId]): Fu[Set[UserId]] =
     coll.distinct[UserId, Set]("_id", Some($inIds(ids) ++ $doc(F.kid $ne true)))
 
+  def filterKid[U: UserIdOf](ids: Seq[U]): Fu[Set[UserId]] =
+    coll.distinct[UserId, Set]("_id", Some($inIds(ids.map(_.id)) ++ $doc(F.kid $eq true)))
+
   def isTroll(id: UserId): Fu[Boolean] = coll.exists($id(id) ++ trollSelect(true))
 
   def isBot(id: UserId): Fu[Boolean] = coll.exists($id(id) ++ botSelect(true))
@@ -304,6 +305,8 @@ final class UserRepo(val coll: Coll)(using Executor):
     coll.primitiveOne[List[String]]($id(u), User.BSONFields.roles).dmap(_.orZero)
 
   def withoutTwoFactor(id: UserId) = coll.one[User]($id(id) ++ $doc(F.totpSecret $exists false))
+
+  def withoutEmail(id: UserId) = coll.one[User]($id(id) ++ $doc(F.email $exists false))
 
   def disableTwoFactor(id: UserId) = coll.update.one($id(id), $unset(F.totpSecret))
 
@@ -410,8 +413,6 @@ final class UserRepo(val coll: Coll)(using Executor):
         yield id -> email
       .dmap(_.toMap)
 
-  def hasEmail(id: UserId): Fu[Boolean] = email(id).dmap(_.isDefined)
-
   def isManaged(id: UserId): Fu[Boolean] = email(id).dmap(_.exists(_.isNoReply))
 
   def botSelect(v: Boolean) =
@@ -450,8 +451,13 @@ final class UserRepo(val coll: Coll)(using Executor):
   def filterEnabled(userIds: Seq[UserId]): Fu[Set[UserId]] =
     coll.distinctEasy[UserId, Set](F.id, $inIds(userIds) ++ enabledSelect, _.sec)
 
-  def filterDisabled(userIds: Seq[UserId]): Fu[Set[UserId]] =
-    coll.distinctEasy[UserId, Set](F.id, $inIds(userIds) ++ disabledSelect, _.sec)
+  def filterDisabled(userIds: Iterable[UserId]): Fu[Set[UserId]] =
+    userIds.nonEmpty.so:
+      coll.distinctEasy[UserId, Set](F.id, $inIds(userIds) ++ disabledSelect, _.sec)
+
+  def containsDisabled(userIds: Iterable[UserId]): Fu[Boolean] =
+    userIds.nonEmpty.so:
+      coll.secondaryPreferred.exists($inIds(userIds) ++ disabledSelect)
 
   def userIdsWithRoles(roles: List[String]): Fu[Set[UserId]] =
     coll.distinctEasy[UserId, Set]("_id", $doc("roles" $in roles))
@@ -474,10 +480,14 @@ final class UserRepo(val coll: Coll)(using Executor):
         (res.nModified == 1) so email(id)
     }
 
+  def setFlair(user: User, flair: Option[Flair]): Funit =
+    coll.updateOrUnsetField($id(user.id), F.flair, flair).void
+
   private val speakerProjection = $doc(
     F.username -> true,
     F.title    -> true,
     F.plan     -> true,
+    F.flair    -> true,
     F.enabled  -> true,
     F.marks    -> true
   )

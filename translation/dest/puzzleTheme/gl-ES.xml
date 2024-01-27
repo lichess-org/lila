@@ -3,7 +3,7 @@
   <string name="advancedPawn">Peón avanzado</string>
   <string name="advancedPawnDescription">Un dos teus peóns infíltrase no campo inimigo, ameazando con coroar.</string>
   <string name="advantage">Vantaxe</string>
-  <string name="advantageDescription">Aproveita a oportunidade de obter unha vantaxe decisiva. (200cp ≤ eval ≤ 600cp)</string>
+  <string name="advantageDescription" comment="advantageDescription&#10;&#10;'cp' stands for centipawn (1/100th of a pawn). It is used in computer analysis to assess a position.&#10;'eval' is short for evaluation.">Aproveita a oportunidade de obter unha vantaxe decisiva. (200cp ≤ eval ≤ 600cp)</string>
   <string name="anastasiaMate">Mate de Anastasia</string>
   <string name="anastasiaMateDescription">Un cabalo e unha torre ou dama únense para atrapar ao rei contrario entre un extremo do taboleiro e unha peza do seu bando.</string>
   <string name="arabianMate">Mate árabe</string>
@@ -23,13 +23,13 @@
   <string name="capturingDefender">Captura ao defensor</string>
   <string name="capturingDefenderDescription">Eliminar unha peza fundamental para a defensa doutra, permitindo capturar a peza, agora indefensa, no seguinte movemento.</string>
   <string name="crushing">Vantaxe decisiva</string>
-  <string name="crushingDescription">Detecta a metida de zoca do opoñente para obter unha vantaxe decisiva. (eval ≥ 600cp)</string>
+  <string name="crushingDescription" comment="crushingDescription&#10;&#10;'cp' stands for centipawn (1/100th of a pawn). It is used in computer analysis to assess a position.&#10;'eval' is short for evaluation.">Detecta a metida de zoca do opoñente para obter unha vantaxe decisiva. (eval ≥ 600cp)</string>
   <string name="doubleBishopMate">Mate de dous alfís</string>
   <string name="doubleBishopMateDescription">Dous alfís atacando en diagonais cruzadas dan mate ao rei obstaculizado polas súas propias pezas.</string>
   <string name="dovetailMate">Mate de Cozio</string>
   <string name="dovetailMateDescription">Unha dama dá mate ao rei adxacente, cuxas únicas dúas casas de escape están obstruídas por pezas do seu bando.</string>
   <string name="equality">Igualdade</string>
-  <string name="equalityDescription">Volve dunha posición perdedora e asegura un empate ou unha posición equilibrada. (eval ≤ 200cp)</string>
+  <string name="equalityDescription" comment="equalityDescription&#10;&#10;'cp' stands for centipawn (1/100th of a pawn). It is used in computer analysis to assess a position.&#10;'eval' is short for evaluation.">Recupérate dunha posición perdedora e asegura un empate ou unha posición equilibrada. (eval ≤ 200cp)</string>
   <string name="kingsideAttack">Ataque no flanco de rei</string>
   <string name="kingsideAttackDescription">Ataque ao rei do opoñente, despois que este enrocase en curto.</string>
   <string name="clearance">Despexe</string>
@@ -47,7 +47,7 @@
   <string name="enPassantDescription">Táctica que involucra a captura ao paso, onde un peón pode capturar a un peón opoñente que o deixou atrás usando o seu movemento inicial de dúas casas.</string>
   <string name="exposedKing">Rei exposto</string>
   <string name="exposedKingDescription">Táctica que involucra a un rei con pouca defensa ó seu redor, a miúdo conducindo a xaque mate.</string>
-  <string name="fork">Pinza</string>
+  <string name="fork">Garfo</string>
   <string name="forkDescription">Movemento no que a peza movida ataca a dúas pezas opoñentes á vez.</string>
   <string name="hangingPiece">Peza colgada</string>
   <string name="hangingPieceDescription">Unha táctica que involucra unha peza do opoñente que non está suficientemente defendida e que por tanto se pode capturar.</string>

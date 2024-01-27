@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="broadcasts">Излъчване</string>
+  <string name="myBroadcasts">Моите излъчвания</string>
   <plurals name="nbBroadcasts">
     <item quantity="one">%s излъчване</item>
     <item quantity="other">%s излъчвания</item>
@@ -32,5 +33,5 @@
   <string name="definitivelyDeleteRound">Окончателно изтрийте този рунд и всичките му игри.</string>
   <string name="deleteAllGamesOfThisRound">Изтрийте този рунд и всичките му игри. Източникът трябва да е активен за да можете да ги възстановите.</string>
   <string name="deleteTournament">Изтрий този турнир</string>
-  <string name="definitivelyDeleteTournament" comment="definitivelyDeleteTournament&#10;&#10;Confirmation prompt, when attempting to delete a broadcast on https://lichess.org/broadcast">Окончателно изтрий целия турнир, всичките му рундове и игри.</string>
+  <string name="definitivelyDeleteTournament">Окончателно изтрий целия турнир, всичките му рундове и игри.</string>
 </resources>

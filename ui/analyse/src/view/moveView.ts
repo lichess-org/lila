@@ -11,13 +11,7 @@ export interface Ctx {
 }
 
 export const renderGlyph = (glyph: Tree.Glyph): VNode =>
-  h(
-    'glyph',
-    {
-      attrs: { title: glyph.name },
-    },
-    glyph.symbol,
-  );
+  h('glyph', { attrs: { title: glyph.name } }, glyph.symbol);
 
 const renderEval = (e: string): VNode => h('eval', e.replace('-', '−'));
 

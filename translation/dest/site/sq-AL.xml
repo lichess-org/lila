@@ -5,6 +5,7 @@
   <string name="toInviteSomeoneToPlayGiveThisUrl">Për të ftuar dikë të luajë, jepni këtë URL</string>
   <string name="gameOver">Loja mbaroi</string>
   <string name="waitingForOpponent">Në pritje të kundërshtarit</string>
+  <string name="orLetYourOpponentScanQrCode">Ose lëreni kundërshtarin tuaj të skanojë këtë kod QR</string>
   <string name="waiting">Në pritje</string>
   <string name="yourTurn">Radha juaj</string>
   <string name="aiNameLevelAiLevel">%1$s niveli %2$s</string>
@@ -70,6 +71,7 @@
   <string name="makeMainLine">Bëje variantin kryesor</string>
   <string name="deleteFromHere">Fshije nga këtu</string>
   <string name="forceVariation">Detyro variant</string>
+  <string name="copyVariationPgn">Kopjo PGN varianti</string>
   <string name="move">Lëvizje</string>
   <string name="variantLoss">Varianti humb</string>
   <string name="variantWin">Varianti fiton</string>
@@ -115,6 +117,7 @@
   <string name="openStudy">Studim i hapur</string>
   <string name="enable">Aktivizoje</string>
   <string name="bestMoveArrow">Shigjetë e lëvizjes më të mirë</string>
+  <string name="showVariationArrows">Shfaq shigjeta variacionesh</string>
   <string name="evaluationGauge">Matësi i vlerësimit</string>
   <string name="multipleLines">Linja të shumta</string>
   <string name="cpus">Procesorë</string>
@@ -269,7 +272,6 @@
   <string name="playingRightNow">Po luhet tani</string>
   <string name="eventInProgress">Po luhet tani</string>
   <string name="finished">Përfundoi</string>
-  <string name="finishesX">përfundon %s</string>
   <string name="abortGame">Ndërprite lojën</string>
   <string name="gameAborted">Loja u ndërpre</string>
   <string name="standard">Standard</string>
@@ -404,6 +406,7 @@
 të lojës në shfletues, analizë kompjuterike, bisedë
 loje dhe URL për ta ndarë me të tjerë.</string>
   <string name="importGameCaveat">Variacionet do të fshihen. Për t\'i mbajtur ato, importoni PGN përmes një studimi.</string>
+  <string name="importGameDataPrivacyWarning">Kjo PGN mund të shihet nga publiku. Që të importoni privatisht një lojë, përdorni një ushtrim.</string>
   <plurals name="nbImportedGames">
     <item quantity="one">%s lojë e importuar</item>
     <item quantity="other">%s lojëra të importuara</item>
@@ -505,12 +508,11 @@ loje dhe URL për ta ndarë me të tjerë.</string>
   <string name="firstName">Emër</string>
   <string name="lastName">Mbiemër</string>
   <string name="biography">Jetëshkrim</string>
+  <string name="countryRegion" comment="flag&#10;Appears when you edit your profile. Lets a player add a country/flag (not all flags are for countries) to their profile">Vend ose rajon</string>
   <string name="thankYou">Faleminderit!</string>
   <string name="socialMediaLinks">Lidhje mediash shoqërore</string>
   <string name="oneUrlPerLine">Një URL për rresht.</string>
   <string name="inlineNotation">Shënim brendazi</string>
-  <string name="savingMoves">Depozitim i përkohshëm i lëvizjeve</string>
-  <string name="savingMovesHelp">Po i depozitojmë variacionet tuaja në fshehtinën e shfletuesit.</string>
   <string name="makeAStudy">Për ruajtje të sigurt dhe për ndarje me të tjerët, shihni mundësinë e krijimit të një studimi.</string>
   <string name="clearSavedMoves">Spastroji lëvizjet</string>
   <string name="previouslyOnLichessTV">Herën e fundit në Lichess TV</string>
@@ -691,6 +693,10 @@ loje dhe URL për ta ndarë me të tjerë.</string>
   <string name="keyNextBlunder">Gafa pasuese</string>
   <string name="keyNextMistake">Gabimi pasues</string>
   <string name="keyNextInaccuracy">Pasaktësia pasuese</string>
+  <string name="keyPreviousBranch">Dega e mëparshme</string>
+  <string name="keyNextBranch">Dega pasuese</string>
+  <string name="toggleVariationArrows">Shfaq/fshih shigjeta variantesh</string>
+  <string name="playSelectedMove">luaj lëvizjen e përzgjedhur</string>
   <string name="newTournament">Turne i ri</string>
   <string name="tournamentHomeTitle">Turne shahu me kontrolle kohore dhe variante të ndryshme</string>
   <string name="tournamentHomeDescription">Luani turne shahu me ritëm të shpejtë! Merrni pjesë në një turne zyrtar të planifikuar, ose krijoni tuajin. Plumb, Blic, Klasik, Shah960, Mbreti i Kodrës, Treshah dhe më tepër mundësi të gatshme, për argëtim të pafund në shah.</string>
@@ -733,6 +739,7 @@ loje dhe URL për ta ndarë me të tjerë.</string>
   <string name="withFriends">Me shokët</string>
   <string name="withEverybody">Me gjithkënd</string>
   <string name="kidMode">Mënyra për fëmijë</string>
+  <string name="kidModeIsEnabled">Mënyra për fëmijë është e aktivizuar.</string>
   <string name="kidModeExplanation">Kjo është për sigurinë. Nën mënyrën për fëmijë, krejt komunikimet në sajt janë të çaktivizuara. Aktivizojeni këtë për fëmijët dhe nxënësit tuaj të shkollave, për t’i mbrojtur ata nga të tjerë përdorues të internetit.</string>
   <string name="inKidModeTheLichessLogoGetsIconX">Nën mënyrën për fëmijë, stemës së Lichess-it i vihet një ikonë %s, që ta dini se fëmijët tuaj janë të parrezik.</string>
   <string name="askYourChessTeacherAboutLiftingKidMode">Llogaria juaj administrohet. Rreth heqjes së mënyrës “fëmijë” pyetni mëuesin tuaj të shahut.</string>
@@ -846,9 +853,10 @@ loje dhe URL për ta ndarë me të tjerë.</string>
     <item quantity="one">edhe ruaj %s linja premove</item>
     <item quantity="other">edhe ruaj %s linja premove</item>
   </plurals>
+  <string name="showUnreadLichessMessage">Morët një mesazh privat nga Lichess.</string>
+  <string name="clickHereToReadIt">Klikoni këtu që ta lexoni</string>
   <string name="sorry">Na ndjeni :(</string>
   <string name="weHadToTimeYouOutForAWhile">Na u desh t’ju ndalnim për ca kohë.</string>
-  <string name="timeoutExpires">Ndalesa skadon më %s.</string>
   <string name="why">Pse?</string>
   <string name="pleasantChessExperience">Synojmë të ofrojmë përvojë të këndshme me shahun për këdo.</string>
   <string name="goodPractice">Për këtë qëllim, duhet të garantojmë që krejt tarët të ndjekin praktikat e mira.</string>
@@ -907,9 +915,6 @@ loje dhe URL për ta ndarë me të tjerë.</string>
   <string name="timeAlmostUp">Koha gati mbaroi!</string>
   <string name="clickToRevealEmailAddress">[Klikoni që të zbulohet adresa email]</string>
   <string name="download">Shkarkoje</string>
-  <string name="welcome">Mirë se vini!</string>
-  <string name="lichessPatronInfo">Lichess është një program bamirësie dhe krejtësisht falas/libre, me burim të hapët.
-Krejt kostot operative, zhvillimi dhe lënda financohen vetëm me dhurime nga përdoruesit.</string>
   <string name="coachManager">Trajner</string>
   <string name="streamerManager">Përgjegjës transmetimesh</string>
   <string name="cancelTournament">Anulojeni turneun</string>
@@ -968,4 +973,8 @@ Që lojërat të fillojnë nga pozicioni fillestar normal, lëreni të zbrazët.
   <string name="switchSides">Ndërroni palët</string>
   <string name="closingAccountWithdrawAppeal">Mbyllja e llogarisë tuaj do të sjellë tërheqjen e apelimit tuaj</string>
   <string name="ourEventTips">Këshillat tona për organizim veprimtarish</string>
+  <string name="instructions">Udhëzime</string>
+  <string name="showMeEverything">Shfaqmë gjithçka</string>
+  <string name="lichessPatronInfo">Lichess është një program bamirësie dhe krejtësisht falas/libre, me burim të hapët.
+Krejt kostot operative, zhvillimi dhe lënda financohen vetëm me dhurime nga përdoruesit.</string>
 </resources>

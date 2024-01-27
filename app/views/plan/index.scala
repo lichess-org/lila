@@ -29,25 +29,26 @@ object index:
     views.html.base.layout(
       title = becomePatron.txt(),
       moreCss = cssTag("plan"),
-      moreJs = frag(
-        stripeScript,
+      moreJs = ctx.isAuth option
         frag(
-          // gotta load the paypal SDK twice, for onetime and subscription :facepalm:
-          // https://stackoverflow.com/questions/69024268/how-can-i-show-a-paypal-smart-subscription-button-and-a-paypal-smart-capture-but/69024269
-          script(
-            src := s"https://www.paypal.com/sdk/js?client-id=${payPalPublicKey}&currency=${pricing.currency}$localeParam",
-            namespaceAttr := "paypalOrder"
+          stripeScript,
+          frag(
+            // gotta load the paypal SDK twice, for onetime and subscription :facepalm:
+            // https://stackoverflow.com/questions/69024268/how-can-i-show-a-paypal-smart-subscription-button-and-a-paypal-smart-capture-but/69024269
+            script(
+              src := s"https://www.paypal.com/sdk/js?client-id=${payPalPublicKey}&currency=${pricing.currency}$localeParam",
+              namespaceAttr := "paypalOrder"
+            ),
+            script(
+              src := s"https://www.paypal.com/sdk/js?client-id=${payPalPublicKey}&vault=true&intent=subscription&currency=${pricing.currency}$localeParam",
+              namespaceAttr := "paypalSubscription"
+            )
           ),
-          script(
-            src := s"https://www.paypal.com/sdk/js?client-id=${payPalPublicKey}&vault=true&intent=subscription&currency=${pricing.currency}$localeParam",
-            namespaceAttr := "paypalSubscription"
-          )
+          jsModule("checkout"),
+          embedJsUnsafeLoadThen(s"""checkoutStart("$stripePublicKey", ${safeJsonValue(
+              lila.plan.PlanPricingApi.pricingWrites.writes(pricing)
+            )})""")
         ),
-        jsModule("checkout"),
-        embedJsUnsafeLoadThen(s"""checkoutStart("$stripePublicKey", ${safeJsonValue(
-            lila.plan.PlanPricingApi.pricingWrites.writes(pricing)
-          )})""")
-      ),
       openGraph = lila.app.ui
         .OpenGraph(
           title = becomePatron.txt(),
@@ -210,10 +211,10 @@ object index:
                     div(cls := "buttons")(
                       if ctx.isAuth then
                         frag(
-                          button(cls := "stripe button")(withCreditCard()),
+                          button(cls := "stripe button")(donate()),
                           div(cls := "paypal paypal--order"),
                           div(cls := "paypal paypal--subscription"),
-                          button(cls := "paypal button disabled paypal--disabled")("PAYPAL")
+                          button(cls := "button disabled paypal--disabled")("PAYPAL")
                         )
                       else
                         a(
@@ -258,7 +259,7 @@ object index:
       )
     }
 
-  private def showCurrency(cur: Currency)(using ctx: PageContext) =
+  private def showCurrency(cur: Currency)(using ctx: Context) =
     s"${cur.getSymbol(ctx.lang.locale)} ${cur.getDisplayName(ctx.lang.locale)}"
 
   private def faq(using Lang) =

@@ -12,6 +12,7 @@ import lila.tournament.Tournament
 import lila.gathering.GatheringClock
 
 object crud:
+  given prefix: tournament.FormPrefix = tournament.FormPrefix.make("setup")
 
   private def layout(title: String, evenMoreJs: Frag = emptyFrag, css: String = "mod.misc")(
       body: Frag
@@ -37,7 +38,12 @@ object crud:
     ) {
       div(cls := "crud page-menu__content box box-pad")(
         h1(cls := "box__top")("New tournament"),
-        postForm(cls := "form3", action := routes.TournamentCrud.create)(inForm(form, none))
+        postForm(cls := "form3", action := routes.TournamentCrud.create)(
+          spotlightAndTeamBattle(form, none),
+          errMsg(form("setup")),
+          tournament.form.setupCreate(form, Nil),
+          form3.action(form3.submit(trans.apply()))
+        )
       )
     }
 
@@ -60,29 +66,23 @@ object crud:
           )(form3.submit("Clone", licon.Trophy.some)(cls := "button-green button-empty"))
         ),
         standardFlash,
-        postForm(cls := "form3", action := routes.TournamentCrud.update(tour.id))(inForm(form, tour.some))
+        postForm(cls := "form3", action := routes.TournamentCrud.update(tour.id))(
+          spotlightAndTeamBattle(form, tour.some),
+          errMsg(form("setup")),
+          tournament.form.setupEdit(tour, form, Nil),
+          form3.action(form3.submit(trans.apply()))
+        )
       )
     }
 
-  private def inForm(form: Form[?], tour: Option[Tournament])(using PageContext) =
+  private def spotlightAndTeamBattle(form: Form[?], tour: Option[Tournament])(using PageContext) =
     frag(
-      form3.split(
-        form3.group(form("date"), frag("Start date ", strong(utcLink)), half = true)(
-          form3.flatpickr(_, utc = true)
-        ),
-        form3.group(
-          form("name"),
-          raw("Name"),
-          help = raw("Keep it VERY short, so it fits on homepage").some,
-          half = true
-        )(form3.input(_))
-      ),
       form3.split(
         form3.group(
           form("homepageHours"),
           raw(s"Hours on homepage (0 to ${CrudForm.maxHomepageHours})"),
           half = true,
-          help = raw("Ask on slack first").some
+          help = raw("Ask on zulip first").some
         )(form3.input(_, typ = "number")),
         form3.group(form("image"), raw("Custom icon"), half = true)(form3.select(_, CrudForm.imageChoices))
       ),
@@ -101,41 +101,11 @@ object crud:
           half = true
         )(f => form3.input(f)(tour.isDefined.option(readonly := true)))
       ),
-      form3.group(form("description"), raw("Full description"), help = raw("Link: [text](url)").some)(
-        form3.textarea(_)(rows := 6)
-      ),
       form3.checkbox(
-        form("rated"),
-        trans.rated(),
-        help = trans.ratedFormHelp().some
-      ),
-      form3.split(
-        form3.group(form("variant"), raw("Variant"), half = true) { f =>
-          form3.select(f, translatedVariantChoicesWithVariants.map(x => x._1 -> x._2))
-        },
-        form3.group(form("minutes"), raw("Duration in minutes"), half = true)(form3.input(_, typ = "number"))
-      ),
-      form3.split(
-        form3.group(form("clockTime"), raw("Clock time"), half = true)(
-          form3.select(_, GatheringClock.timeChoices)
-        ),
-        form3.group(form("clockIncrement"), raw("Clock increment"), half = true)(
-          form3.select(_, GatheringClock.incrementChoices)
-        )
-      ),
-      form3.split(
-        form3.group(form("position"), trans.startPosition(), half = true)(
-          tournament.form.startingPosition(_, tour)
-        ),
-        form3.checkbox(
-          form("teamBattle"),
-          raw("Team battle"),
-          half = true
-        )
-      ),
-      h2("Entry requirements"),
-      tournament.form.conditionFields(form, TourFields(form, tour), Nil, tour),
-      form3.action(form3.submit(trans.apply()))
+        form("teamBattle"),
+        raw("Team battle"),
+        half = true
+      )
     )
 
   def index(tours: Paginator[Tournament])(using PageContext) =
@@ -174,11 +144,11 @@ object crud:
                 td(tour.variant.name),
                 td(tour.clock.toString),
                 td(tour.minutes, "m"),
-                td(showInstantUTC(tour.startsAt), " ", momentFromNow(tour.startsAt, alwaysRelative = true)),
+                td(showInstant(tour.startsAt), " ", momentFromNow(tour.startsAt, alwaysRelative = true)),
                 td(a(href := routes.Tournament.show(tour.id), dataIcon := licon.Eye, title := "View on site"))
               )
             },
-            pagerNextTable(tours, np => routes.TournamentCrud.index(np).url)
+            pagerNextTable(tours, routes.TournamentCrud.index(_).url)
           )
         )
       )

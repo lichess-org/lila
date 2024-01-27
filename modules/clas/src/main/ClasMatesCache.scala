@@ -13,10 +13,9 @@ final class ClasMatesCache(colls: ClasColls, cacheApi: CacheApi, studentCache: C
   def get(studentId: UserId): Fu[Set[UserId]] =
     studentCache.isStudent(studentId) so cache.get(studentId)
 
-  private val cache = cacheApi[UserId, Set[UserId]](256, "clas.mates") {
+  private val cache = cacheApi[UserId, Set[UserId]](256, "clas.mates"):
     _.expireAfterWrite(5 minutes)
       .buildAsyncFuture(fetchMatesAndTeachers)
-  }
 
   private def fetchMatesAndTeachers(studentId: UserId): Fu[Set[UserId]] =
     colls.student
@@ -50,7 +49,11 @@ final class ClasMatesCache(colls: ClasColls, cacheApi: CacheApi, studentCache: C
                     )
                   )
                 ),
-                ReplaceRoot($doc("$arrayElemAt" -> $arr("$mates", 0)))
+                ReplaceRoot:
+                  $ifNull(
+                    $doc("$arrayElemAt" -> $arr("$mates", 0)),
+                    $doc("mates"        -> $arr())
+                  )
               ),
               "teachers" -> List(
                 PipelineOperator(
@@ -70,18 +73,21 @@ final class ClasMatesCache(colls: ClasColls, cacheApi: CacheApi, studentCache: C
                     )
                   )
                 ),
-                ReplaceRoot($doc("$arrayElemAt" -> $arr("$teachers", 0)))
+                ReplaceRoot:
+                  $ifNull(
+                    $doc("$arrayElemAt" -> $arr("$teachers", 0)),
+                    $doc("teachers"     -> $arr())
+                  )
               )
             )
           ),
-          ReplaceRoot(
+          ReplaceRoot:
             $doc(
               "$mergeObjects" -> $arr(
                 $doc("$arrayElemAt" -> $arr("$mates", 0)),
                 $doc("$arrayElemAt" -> $arr("$teachers", 0))
               )
             )
-          )
         )
       .map: docO =>
         for
@@ -90,6 +96,3 @@ final class ClasMatesCache(colls: ClasColls, cacheApi: CacheApi, studentCache: C
           teachers <- doc.getAsOpt[Set[UserId]]("teachers")
         yield mates ++ teachers
       .dmap(~_)
-      .recover:
-        // can happen, probably in case of student cache bloom filter false positive
-        case e: DatabaseException if e.getMessage.contains("resulting value was: MISSING") => Set.empty

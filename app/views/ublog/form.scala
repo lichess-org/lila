@@ -6,7 +6,6 @@ import play.api.data.Form
 import lila.app.templating.Environment.{ given, * }
 import lila.app.ui.ScalatagsTemplate.{ *, given }
 import lila.common.Captcha
-import lila.i18n.LangList
 import lila.ublog.UblogForm.UblogPostData
 import lila.ublog.{ UblogPost, UblogTopic }
 import lila.user.User
@@ -154,14 +153,8 @@ object form:
               form3.group(form("topics"), frag(trans.ublog.selectPostTopics()), half = true)(
                 form3.textarea(_)(dataRel := UblogTopic.all.mkString(","))
               ),
-              form3.group(form("language"), trans.language(), half = true) { field =>
-                form3.select(
-                  field,
-                  LangList.popularNoRegion.map { l =>
-                    l.code -> l.toLocale.getDisplayLanguage
-                  }
-                )
-              }
+              form3.group(form("language"), trans.language(), half = true):
+                form3.select(_, lila.i18n.LangForm.popularLanguages.choices)
             ),
             form3.split(
               form3.checkbox(
@@ -202,7 +195,7 @@ object form:
         href     := routes.ContentPage.loneBookmark("blog-etiquette"),
         cls      := "text",
         targetBlank
-      )("Blog Etiquette")
+      )("Ranking your blog")
     ),
     p(tips)
   )

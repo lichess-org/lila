@@ -60,6 +60,7 @@ Sin embargo, los patrones obtienen derecho a presumir de su nuevo icono de perfi
   <string name="nextPayment">Próximo pago</string>
   <string name="youWillBeChargedXOnY">Se te cobrará %1$s el %2$s.</string>
   <string name="makeAdditionalDonation">Haz una donación adicional</string>
+  <string name="giftPatronWingsShort">Regalar alas de patrón</string>
   <string name="giftPatronWings">Regalar alas de patrón a otro jugador</string>
   <string name="update">Actualizar</string>
   <string name="changeMonthlyAmount">Cambiar la cantidad mensual (%s)</string>
@@ -79,4 +80,7 @@ Sin embargo, los patrones obtienen derecho a presumir de su nuevo icono de perfi
   <string name="nowOneMonth">¡Ahora eres un Patrón de Lichess por un mes!</string>
   <string name="downgradeNextMonth">En un mes, NO se te cobrará de nuevo, y tu cuenta de Lichess volverá a la versión normal.</string>
   <string name="changeCurrency">Cambiar moneda</string>
+  <string name="paymentDetails">Detalles del pago</string>
+  <string name="updatePaymentMethod">Actualizar método de pago</string>
+  <string name="stripeManageSub">Administra tu suscripción y descarga tus facturas y recibos</string>
 </resources>

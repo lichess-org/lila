@@ -82,7 +82,7 @@ lichess.load.then(() => {
     $editor.find('.tabs > div').removeClass('active');
     $(this).addClass('active');
     $editor.find('.panel').removeClass('active');
-    $editor.find('.panel.' + $(this).data('tab')).addClass('active');
+    $editor.find('.panel.' + this.dataset.tab).addClass('active');
     $editor.find('div.status').removeClass('saved');
   });
   const submit = debounce(() => {

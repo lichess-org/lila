@@ -6,7 +6,7 @@
   <string name="progressX">Priebeh: %s</string>
   <string name="resetMyProgress">Vynulovať môj progres</string>
   <string name="youWillLoseAllYourProgress">Stratíte celý váš progres!</string>
-  <string name="play">hrať!</string>
+  <string name="play" comment="play&#10;&#10;A small ribbon that appears on your current chapter in the Chess Basics course. Please keep this string short.">hrať!</string>
   <string name="chessPieces">Šachové figúrky</string>
   <string name="theRook">Veža</string>
   <string name="itMovesInStraightLines">Pohybuje sa vodorovne a zvislo</string>

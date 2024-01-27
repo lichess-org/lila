@@ -15,8 +15,7 @@ final class Streamer(env: Env, apiC: => Api) extends LilaController(env):
 
   def index(page: Int) = Open: ctx ?=>
     NoBot:
-      ctx.noKid.so:
-        pageHit
+      ctx.kid.no.so:
         val requests = getBool("requests") && isGrantedOpt(_.Streamers)
         for
           liveStreams <- env.streamer.liveStreamApi.all
@@ -25,10 +24,10 @@ final class Streamer(env: Env, apiC: => Api) extends LilaController(env):
           page        <- renderPage(html.streamer.index(live, pager, requests))
         yield Ok(page)
 
-  def featured = Anon:
+  def featured = Anon: ctx ?=>
     env.streamer.liveStreamApi.all.map: streams =>
       val max      = env.streamer.homepageMaxSetting.get()
-      val featured = streams.homepage(max, req, none) withTitles env.user.lightUserApi
+      val featured = streams.homepage(max, ctx.acceptLanguages) withTitles env.user.lightUserApi
       JsonOk:
         featured.live.streams.map: s =>
           Json.obj(
@@ -48,7 +47,7 @@ final class Streamer(env: Env, apiC: => Api) extends LilaController(env):
       users <- env.user.lightUserApi asyncManyFallback s.streams.map(_.streamer.userId)
     yield apiC.toApiResult:
       (s.streams zip users).map: (stream, user) =>
-        lila.common.LightUser.lightUserWrites.writes(user) ++
+        lila.common.LightUser.write(user) ++
           lila.streamer.Stream.toJson(env.memo.picfitUrl, stream)
 
   def show(username: UserStr) = Open:
@@ -69,7 +68,7 @@ final class Streamer(env: Env, apiC: => Api) extends LilaController(env):
         }
 
   def create = AuthBody { _ ?=> me ?=>
-    ctx.noKid.so:
+    ctx.kid.no.so:
       NoLameOrBot:
         api find me flatMap {
           case None => api.create(me) inject Redirect(routes.Streamer.edit)
@@ -182,7 +181,7 @@ final class Streamer(env: Env, apiC: => Api) extends LilaController(env):
             scalatags.Text.all.raw("You are not yet allowed to create a streamer profile.")
 
   private def WithVisibleStreamer(s: StreamerModel.WithContext)(f: Fu[Result])(using ctx: Context) =
-    ctx.noKid.so:
+    ctx.kid.no.so:
       if s.streamer.isListed || ctx.me.exists(_ is s.streamer) || isGrantedOpt(_.Admin)
       then f
       else notFound

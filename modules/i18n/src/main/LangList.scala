@@ -4,7 +4,7 @@ import play.api.i18n.Lang
 
 object LangList:
 
-  val all = Map(
+  val all: Map[Lang, String] = Map(
     Lang("en", "GB")  -> "English",
     Lang("af", "ZA")  -> "Afrikaans",
     Lang("an", "ES")  -> "Aragonés",
@@ -18,6 +18,7 @@ object LangList:
     Lang("br", "FR")  -> "Brezhoneg",
     Lang("bs", "BA")  -> "Bosanski",
     Lang("ca", "ES")  -> "Català, valencià",
+    Lang("ckb", "IR") -> "کوردی سۆرانی",
     Lang("co", "FR")  -> "Corsu",
     Lang("cs", "CZ")  -> "Čeština",
     Lang("cv", "CU")  -> "чӑваш чӗлхи",
@@ -85,6 +86,7 @@ object LangList:
     Lang("sa", "IN")  -> "संस्कृत",
     Lang("sk", "SK")  -> "Slovenčina",
     Lang("sl", "SI")  -> "Slovenščina",
+    Lang("so", "SO")  -> "Af Soomaali",
     Lang("sq", "AL")  -> "Shqip",
     Lang("sr", "SP")  -> "Српски језик",
     Lang("sv", "SE")  -> "Svenska",
@@ -118,7 +120,7 @@ object LangList:
 
   private lazy val popular: List[Lang] =
     // 26/04/2020 based on db.user4.aggregate({$sortByCount:'$lang'}).toArray()
-    val langs =
+    val langs: Map[Lang, Int] =
       "en-US en-GB ru-RU es-ES tr-TR fr-FR de-DE pt-BR it-IT pl-PL ar-SA fa-IR nl-NL id-ID nb-NO el-GR sv-SE uk-UA cs-CZ vi-VN sr-SP hr-HR hu-HU pt-PT he-IL fi-FI ca-ES da-DK ro-RO zh-CN bg-BG sk-SK ko-KR az-AZ ja-JP sl-SI lt-LT ka-GE mn-MN bs-BA hy-AM zh-TW lv-LV et-EE th-TH gl-ES sq-AL eu-ES hi-IN mk-MK uz-UZ be-BY ms-MY bn-BD is-IS af-ZA nn-NO ta-IN as-IN la-LA kk-KZ tl-PH mr-IN eo-UY gu-IN ky-KG kn-IN ml-IN cy-GB no-NO fo-FO zu-ZA jv-ID ga-IE ur-PK ur-IN te-IN sw-KE am-ET ia-IA sa-IN si-LK ps-AF mg-MG kmr-TR ne-NP tk-TM fy-NL pa-PK br-FR tt-RU cv-CU tg-TJ tp-TP yo-NG frp-IT pi-IN my-MM pa-IN kab-DZ io-EN gd-GB jbo-EN io-IO ckb-IR ceb-PH an-ES"
         .split(' ')
         .flatMap(Lang.get)
@@ -126,22 +128,33 @@ object LangList:
         .toMap
     all.keys.toList.sortBy(l => langs.getOrElse(l, Int.MaxValue))
 
-  lazy val popularNoRegion: List[Lang] = popular.collect {
-    case l if defaultRegions.get(l.language).fold(true)(_ == l) => l
-  }
+  lazy val popularNoRegion: List[Lang] = popular.collect:
+    case l if defaultRegions.get(l.language).forall(_ == l) => l
 
-  lazy val popularAlternateLanguageCodes: List[String] =
-    popularNoRegion.drop(1).take(20).map(fixJavaLanguageCode)
+  lazy val allLanguages: List[Language]              = popularNoRegion.map(fixJavaLanguage)
+  lazy val popularLanguages: List[Language]          = allLanguages.take(20)
+  lazy val popularAlternateLanguages: List[Language] = allLanguages.drop(1).take(20)
 
   def name(lang: Lang): String   = all.getOrElse(lang, lang.code)
   def name(code: String): String = Lang.get(code).fold(code)(name)
 
-  def nameByStr(str: String): String = I18nLangPicker.byStr(str).fold(str)(name)
+  def nameByStr(str: String): String      = I18nLangPicker.byStr(str).fold(str)(name)
+  def nameByLanguage(l: Language): String = nameByStr(l.value)
+
+  lazy val languageChoices: List[(Language, String)] = all.view
+    .map: (l, name) =>
+      Language(l) -> name
+    .toList
+    .distinctBy(_._1)
+    .sortBy(_._1.value)
+
+  lazy val popularLanguageChoices: List[(Language, String)] =
+    popularNoRegion.flatMap: lang =>
+      all.get(lang).map(Language(lang) -> _)
 
   lazy val allChoices: List[(String, String)] = all.view
-    .map { case (l, name) =>
+    .map: (l, name) =>
       l.code -> name
-    }
     .toList
     .sortBy(_._1)
 

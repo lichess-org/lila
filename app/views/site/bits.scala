@@ -1,7 +1,7 @@
 package views.html.site
 
 import lila.app.templating.Environment.{ given, * }
-import lila.app.ui.ScalatagsTemplate.*
+import lila.app.ui.ScalatagsTemplate.{ *, given }
 import controllers.routes
 
 object bits:
@@ -10,16 +10,14 @@ object bits:
     views.html.base.layout(
       title = "fishnet API key request",
       csp = defaultCsp.withGoogleForm.some
-    ) {
-      main(
+    ):
+      main:
         iframe(
           src := "https://docs.google.com/forms/d/e/1FAIpQLSeGgDHgWGP0uobQknF92eCMXqebyNBTyzJoJqbeGjRezlbWOw/viewform?embedded=true",
           style          := "width:100%;height:1400px",
           st.frameborder := 0,
           frame.credentialless
         )(spinner)
-      )
-    }
 
   def api = raw:
     """<!DOCTYPE html>
@@ -60,3 +58,15 @@ object bits:
           p("Nothing to see here, move along.")
         )
       )
+
+  def subnav(mods: Modifier*) = st.aside(cls := "subnav"):
+    st.nav(cls := "subnav__inner")(mods)
+
+  def pageMenuSubnav(mods: Modifier*) = subnav(cls := "page-menu__menu", mods)
+
+  def atomLink(url: play.api.mvc.Call) = a(
+    cls      := "atom",
+    st.title := "Atom RSS feed",
+    href     := url,
+    dataIcon := licon.RssFeed
+  )

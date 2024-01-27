@@ -26,8 +26,8 @@ export interface RelayTour {
   name: string;
   slug: string;
   description: string;
+  official?: boolean;
   markup?: string;
-  credit?: string;
 }
 
 export interface RelaySync {
@@ -36,11 +36,6 @@ export interface RelaySync {
   ids?: string;
   log: LogEvent[];
   delay?: number;
-}
-
-export interface RelayTourShow {
-  active: boolean;
-  disable(): void;
 }
 
 export interface LogEvent {

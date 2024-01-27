@@ -60,6 +60,7 @@
   <string name="nextPayment">Келесі төлем</string>
   <string name="youWillBeChargedXOnY">Сіз %2$s %1$s төлейтін боласыз.</string>
   <string name="makeAdditionalDonation">Қосымша демеу беру</string>
+  <string name="giftPatronWingsShort">Қамқоршы қанатын сыйға тарту</string>
   <string name="giftPatronWings">Қамқоршы қанатын сыйға тарту</string>
   <string name="update">Жаңарту</string>
   <string name="changeMonthlyAmount">Айлық мөлшерін өзгерту (%s)</string>

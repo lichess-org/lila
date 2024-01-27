@@ -11,10 +11,11 @@ import lila.i18n.defaultLang
 
 object mini:
 
-  private val dataLive  = attr("data-live")
-  private val dataState = attr("data-state")
-  private val dataTime  = attr("data-time")
-  val cgWrap            = span(cls := "cg-wrap")(cgWrapContent)
+  private val dataLive        = attr("data-live")
+  private val dataState       = attr("data-state")
+  private val dataTime        = attr("data-time")
+  private val dataTimeControl = attr("data-tc")
+  val cgWrap                  = span(cls := "cg-wrap")(cgWrapContent)
 
   def apply(
       pov: Pov,
@@ -30,20 +31,21 @@ object mini:
 
   def noCtx(pov: Pov, tv: Boolean = false): Tag =
     val link = if tv then routes.Tv.index else routes.Round.watcher(pov.gameId, pov.color.name)
-    renderMini(pov, link.url.some)(using defaultLang)
+    renderMini(pov, link.url.some)(using defaultLang, None)
 
   private def renderMini(
       pov: Pov,
       link: Option[String] = None,
       showRatings: Boolean = true
-  )(using Lang): Tag =
-    val game   = pov.game
-    val isLive = game.isBeingPlayed
-    val tag    = if link.isDefined then a else span
+  )(using Lang, Option[Me]): Tag =
+    import pov.game
+    val tag                                    = if link.isDefined then a else span
+    def showTimeControl(c: chess.Clock.Config) = s"${c.limitSeconds}+${c.increment}"
     tag(
-      href     := link,
-      cls      := s"mini-game mini-game-${game.id} mini-game--init ${game.variant.key} is2d",
-      dataLive := isLive.option(game.id),
+      href            := link,
+      cls             := s"mini-game mini-game-${game.id} mini-game--init ${game.variant.key} is2d",
+      dataLive        := game.isBeingPlayed.option(game.id),
+      dataTimeControl := game.clock.map(_.config).fold("correspondence")(showTimeControl(_)),
       renderState(pov)
     )(
       renderPlayer(!pov, withRating = showRatings),
@@ -51,13 +53,18 @@ object mini:
       renderPlayer(pov, withRating = showRatings)
     )
 
-  def renderState(pov: Pov) =
-    dataState := s"${Fen writeBoardAndColor pov.game.situation},${pov.color.name},${~pov.game.lastMoveKeys}"
+  def renderState(pov: Pov)(using me: Option[Me]) =
+    val fen =
+      if me.flatMap(pov.game.player).exists(_.blindfold) && pov.game.playable
+      then chess.format.BoardAndColorFen("8/8/8/8/8/8/8/8 w")
+      else Fen.writeBoardAndColor(pov.game.situation)
+
+    dataState := s"${fen},${pov.color.name},${~pov.game.lastMoveKeys}"
 
   private def renderPlayer(pov: Pov, withRating: Boolean)(using Lang) =
     span(cls := "mini-game__player")(
       span(cls := "mini-game__user")(
-        playerUsername(pov.player.light, withRating = false),
+        playerUsername(pov.player.light, pov.player.userId.flatMap(lightUser), withRating = false),
         withRating option span(cls := "rating")(lila.game.Namer ratingString pov.player)
       ),
       if pov.game.finished then renderResult(pov)
@@ -65,17 +72,14 @@ object mini:
     )
 
   private def renderResult(pov: Pov) =
-    span(cls := "mini-game__result")(
-      pov.game.winnerColor.fold("½") { c =>
+    span(cls := "mini-game__result"):
+      pov.game.winnerColor.fold("½"): c =>
         if c == pov.color then "1" else "0"
-      }
-    )
 
   private def renderClock(clock: chess.Clock, color: chess.Color) =
     val s = clock.remainingTime(color).roundSeconds
     span(
       cls      := s"mini-game__clock mini-game__clock--${color.name}",
       dataTime := s
-    )(
+    ):
       f"${s / 60}:${s % 60}%02d"
-    )

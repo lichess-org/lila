@@ -3,7 +3,7 @@
   <string name="advancedPawn">Vorgruckte Puur</string>
   <string name="advancedPawnDescription">En Pur isch tüf i di gägnerisch Schtellig vorgruckt und droht sich umzuwandle.</string>
   <string name="advantage">Vorteil</string>
-  <string name="advantageDescription">Nutz dini Chance, en entscheidende Vorteil z\'erlange. (200 Hundertstelpure ≤ Bewertung ≤ 600 Hundertstelpure)</string>
+  <string name="advantageDescription" comment="advantageDescription&#10;&#10;'cp' stands for centipawn (1/100th of a pawn). It is used in computer analysis to assess a position.&#10;'eval' is short for evaluation.">Nutz dini Chance, en entscheidende Vorteil z\'erlange. (200 Hundertstelpure ≤ Bewertung ≤ 600 Hundertstelpure)</string>
   <string name="anastasiaMate">Anastasia\'s Matt</string>
   <string name="anastasiaMateDescription">En Schpringer und en Turm oder e Dame schaffed zäme, um de König, zwüschet em Brättrand und sine eigene Figure, z\'verwütsche.</string>
   <string name="arabianMate">Arabischs Matt</string>
@@ -23,13 +23,13 @@
   <string name="capturingDefender">Schlag de Verteidiger</string>
   <string name="capturingDefenderDescription">Schlag e Figur, wo e Anderi entscheidend deckt, dass die Ungschützti im nächschte Zug gschlage werde chann.</string>
   <string name="crushing">Vernichtend</string>
-  <string name="crushingDescription">Find de gägnerisch Patzer und chumm zume vernichtende Vorteil. (Bewertig ≥ 600 Hundertschtel-Pure)</string>
+  <string name="crushingDescription" comment="crushingDescription&#10;&#10;'cp' stands for centipawn (1/100th of a pawn). It is used in computer analysis to assess a position.&#10;'eval' is short for evaluation.">Find de gägnerisch Patzer und chumm zume vernichtende Vorteil. (Bewertig ≥ 600 Hundertschtel-Pure)</string>
   <string name="doubleBishopMate">Läuferpaar Matt</string>
   <string name="doubleBishopMateDescription">Zwei Läufer, uf näbenand ligende Diagonale, setzed en König matt, wo dur eigeni Figure behinderet wird.</string>
   <string name="dovetailMate">Schwalbeschwanz Matt</string>
   <string name="dovetailMateDescription">Mit de Dame - diräkt bim König - matt setze, wobi sini Fluchtfälder dur eigeni Figure verschtellt sind.</string>
   <string name="equality">Usglich</string>
-  <string name="equalityDescription">Befrei dich us verlorener Schtellig und sicher dir es Remis oder en usglicheni Schtellig. (Bewertig ≤ 200 Hundertstelpure)</string>
+  <string name="equalityDescription" comment="equalityDescription&#10;&#10;'cp' stands for centipawn (1/100th of a pawn). It is used in computer analysis to assess a position.&#10;'eval' is short for evaluation.">Befrei dich us verlorener Schtellig und sicher dir es Remis oder en usglicheni Schtellig. (Bewertig ≤ 200 Hundertstelpure)</string>
   <string name="kingsideAttack">Agriff am Königsflügel</string>
   <string name="kingsideAttackDescription">En Agriff uf de gägnerisch König, nachdem er am Königsflügel d\'Rochade gmacht hät.</string>
   <string name="clearance">Öffnig</string>

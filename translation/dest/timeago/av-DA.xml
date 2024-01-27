@@ -30,10 +30,6 @@
     <item quantity="other">%s соналдаса</item>
   </plurals>
   <string name="rightNow">гьабсагӀат</string>
-  <plurals name="nbSecondsAgo">
-    <item quantity="one">%s секундалъ цебе</item>
-    <item quantity="other">%s секундалъ цебе</item>
-  </plurals>
   <plurals name="nbMinutesAgo">
     <item quantity="one">%s минуталъ цебе</item>
     <item quantity="other">%s минуталъ цебе</item>
@@ -58,4 +54,13 @@
     <item quantity="one">%s соналда цебе</item>
     <item quantity="other">%s соналъ цебе</item>
   </plurals>
+  <plurals name="nbMinutesRemaining">
+    <item quantity="one">%s минут хутӀана</item>
+    <item quantity="other">%s минут хутӀана</item>
+  </plurals>
+  <plurals name="nbHoursRemaining">
+    <item quantity="one">%s сагӀат хутӀана</item>
+    <item quantity="other">%s сагӀат хутӀана</item>
+  </plurals>
+  <string name="completed">тӀубана</string>
 </resources>

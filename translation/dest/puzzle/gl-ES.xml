@@ -66,7 +66,7 @@
   <string name="strengths">Puntos fortes</string>
   <string name="history">Historial de crebacabezas</string>
   <string name="solved">resoltos</string>
-  <string name="failed">fallados</string>
+  <string name="failed">fallado</string>
   <string name="streakDescription">Soluciona exercicios cada vez máis difíciles e consigue unha secuencia de vitorias. Non hai conta atrás, así que podes ir amodo. Se te equivocas nun só movemento, acabouse! Pero lembra que podes omitir unha xogada por sesión.</string>
   <string name="yourStreakX">A túa secuencia de vitorias: %s</string>
   <string name="streakSkipExplanation">Omite este movemento para conservar a túa secuencia. Só se pode facer unha vez por sesión.</string>

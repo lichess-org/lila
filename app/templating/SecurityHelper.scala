@@ -8,10 +8,7 @@ import lila.user.{ User, Me }
 
 trait SecurityHelper:
 
-  export Granter.canGrant
-
-  def isGranted(permission: Permission.Selector)(using ctx: Context): Boolean =
-    ctx.me soUse Granter.opt(permission)
+  export Granter.{ canGrant, opt as isGranted }
 
   def isGranted(permission: Permission.Selector, user: User): Boolean =
     isGranted(permission(Permission), user)

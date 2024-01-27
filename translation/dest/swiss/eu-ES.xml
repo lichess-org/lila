@@ -59,10 +59,16 @@ Batu jokalariak garaitu dituen jokalarien puntuak, eta berdindu duen jokalarien 
   <string name="numberOfByesQ">Jokalari baten zenbat bye edo atseden izan ditzake?</string>
   <string name="numberOfByesA">Jokalari batek bye edo atseden bat parekatze sistemak aurkari bat aurkitzen ez dion bakoitzean izango du.
 Gainera jokalari batek puntu-erdiko bye edo atseden bat jaso dezake txapelketara berandu sartzen bada.</string>
+  <string name="earlyDrawsQ">Zer gertatzen da berdinketa azkarrekin?</string>
+  <string name="earlyDrawsAnswer">Txapelketa suitzarreko partidetan, jokalariek ezin dute 30 jokaldi aurretik berdinketarik egin. Neurri honek aurrez adostutako berdinketak ekiditen ez dituen arren, berdinketa horiek egitea zailtzen du.</string>
   <string name="whatIfOneDoesntPlayQ">Zer gertatzen da jokalari batek ez badu partida bat jokatzen?</string>
   <string name="whatIfOneDoesntPlayA">Bere erlojua martxan hasiko da eta denbora agortzean partida galduko du.
 Orduan sistemak jokalaria txapelketatik kanpoko utziko du partida gehiago gal ez dezan.
  Edozein momentutan partidara berriz sartu daiteke jokalaria.</string>
+  <string name="protectionAgainstNoShowQ">Zer egiten da jokalariak partidara agertzen ez badira?</string>
+  <string name="protectionAgainstNoShowA">Txapelketa suitzarretan izena eman eta beren partidak jokatzen ez dituzten jokalariek arazoak sortzen dituzte.
+Hori leuntzeko, Lichessek partidaren bat jokatu3gabe utzi duten jokalariei ez die utziko beste txapelketa suitzar baten parte hartzen denbora batean.
+Hala ere Txapelketaren sortzaileak sartzen utz diezaieke.</string>
   <string name="lateJoinQ">Sartu daitezke jokalariak berandu?</string>
   <string name="lateJoinA">Bai, aurreikusitako txanden erdia baino gehiago hasten diren arte; adibidez 11 txandako txapelketa baten, 6. txanda hasi aurretik eta 12 txandako baten 7. a hasi aurretik.
 Berandu sartzen diren jokalariek, puntu erdiko bye edo atseden bakarra jasoko dute, berdin delarik huts egin duten txanda kopurua.</string>

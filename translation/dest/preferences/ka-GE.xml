@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="preferences">პრეფერენსები</string>
+  <string name="privacy">პრივატულობა</string>
+  <string name="notifications">შეტყობინება</string>
   <string name="pieceAnimation">ფიგურის ანიმაცია</string>
   <string name="materialDifference">ფიგურათა სხვაობა</string>
   <string name="boardHighlights">აღმნიშვნელები დაფაზე (უკანასკნელი სვლა და ქიში)</string>
@@ -9,7 +11,6 @@
   <string name="moveListWhilePlaying">სვლათა სია</string>
   <string name="chessPieceSymbol">ფიგურის სიმბოლო</string>
   <string name="pgnLetter">ასო-ბგერა (K, Q, R, B, N)</string>
-  <string name="blindfoldChess">ბრმად თამაში (უხილავი ფიგურები)</string>
   <string name="chessClock">საათი</string>
   <string name="tenthsOfSeconds">წამის მეათედები</string>
   <string name="whenTimeRemainingLessThanTenSeconds" comment="whenTimeRemainingLessThanTenSeconds&#10;&#10;The &amp;lt; symbol is not required (you can write it as a word), just do NOT use &lt; in its place.&#10;&#10;Technical information: &lt; is a reserved character in HTML, which is why it cannot be used.">როდესაც დარჩენილი დრო ნაკლებია 10 წამზე</string>

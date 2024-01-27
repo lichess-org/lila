@@ -3,12 +3,12 @@
   <string name="puzzles">谜题</string>
   <string name="puzzleThemes">训练主题</string>
   <string name="recommended">我们推荐：</string>
-  <string name="phases">阶段</string>
-  <string name="motifs">主题</string>
+  <string name="phases">分阶段</string>
+  <string name="motifs">分主题</string>
   <string name="advanced">进阶</string>
-  <string name="lengths">长度</string>
-  <string name="mates">杀王</string>
-  <string name="goals">目标</string>
+  <string name="lengths">分长度</string>
+  <string name="mates">将死</string>
+  <string name="goals">分目标</string>
   <string name="origin">来源</string>
   <string name="specialMoves">特殊着法</string>
   <string name="didYouLikeThisPuzzle">你喜欢这道训练题吗？</string>
@@ -20,32 +20,32 @@
   <string name="findTheBestMoveForBlack">找出黑方的最佳着法</string>
   <string name="toGetPersonalizedPuzzles">获取个性化谜题</string>
   <string name="puzzleId">谜题编号：%s</string>
-  <string name="puzzleOfTheDay">每日一题</string>
+  <string name="puzzleOfTheDay">每日棋谜</string>
   <string name="dailyPuzzle">每日棋谜</string>
   <string name="clickToSolve">点击解题</string>
   <string name="goodMove">好棋</string>
   <string name="bestMove">最佳走法！</string>
   <string name="keepGoing">请继续…</string>
   <string name="puzzleSuccess">解题成功!</string>
-  <string name="puzzleComplete">解题完成</string>
+  <string name="puzzleComplete">解题完成!</string>
   <string name="byOpenings">按开局分类</string>
   <string name="puzzlesByOpenings">按开局分类的谜题</string>
   <string name="openingsYouPlayedTheMost">你在排位赛中使用最多的开局</string>
-  <string name="useFindInPage" comment="useFindInPage&#10;&#10;Appears on https://lichess.org/training/openings&#10;Encourages players to use the built-in browser feature (Ctrl+F on most desktop computers) to find the opening they want to practice.">在浏览器菜单中使用 “在页面中查找” 来找到您最爱的开局！</string>
+  <string name="useFindInPage">在浏览器菜单中使用 “在页面中查找” 来找到你最爱的开局！</string>
   <string name="useCtrlF">使用 Ctrl + F 查找你最爱的开局！</string>
   <string name="notTheMove">不是最佳着法</string>
-  <string name="trySomethingElse">尝试其他着法</string>
-  <string name="ratingX">积分：%s</string>
+  <string name="trySomethingElse">试试别的</string>
+  <string name="ratingX">等级分：%s</string>
   <string name="hidden">已隐藏</string>
   <plurals name="playedXTimes">
-    <item quantity="other">已被尝试 %s 次</item>
+    <item quantity="other">共 %s 次尝试</item>
   </plurals>
-  <string name="fromGameLink">来自对局： %s</string>
+  <string name="fromGameLink">来自对局：%s</string>
   <string name="continueTraining">继续训练</string>
   <string name="difficultyLevel">难易级别</string>
   <string name="normal">正常</string>
-  <string name="easier">容易</string>
-  <string name="easiest">最容易</string>
+  <string name="easier">更简单</string>
+  <string name="easiest">最简单</string>
   <plurals name="nbPointsBelowYourPuzzleRating">
     <item quantity="other">比你的谜题等级分低%s</item>
   </plurals>
@@ -54,12 +54,12 @@
   <plurals name="nbPointsAboveYourPuzzleRating">
     <item quantity="other">比你的谜题等级分高%s</item>
   </plurals>
-  <string name="example">例子</string>
+  <string name="example">示例</string>
   <string name="addAnotherTheme">添加新的主题</string>
   <string name="nextPuzzle">下一个谜题</string>
   <string name="jumpToNextPuzzleImmediately">解题后立即跳至下一个</string>
   <string name="puzzleDashboard">数据统计</string>
-  <string name="improvementAreas">待提升</string>
+  <string name="improvementAreas">有待提升</string>
   <string name="strengths">强项</string>
   <string name="history">解题历史</string>
   <string name="solved">已解答</string>

@@ -3,11 +3,12 @@ package lila.api
 import play.api.i18n.Lang
 import play.api.mvc.{ Request, RequestHeader }
 
-import lila.common.HTTPRequest
+import lila.common.{ HTTPRequest, KidMode }
 import lila.pref.Pref
 import lila.user.{ Me, MyId, User }
 import lila.notify.Notification.UnreadCount
 import lila.oauth.{ OAuthScope, TokenScopes }
+import lila.i18n.{ Language, defaultLanguage }
 
 /* Who is logged in, and how */
 final class LoginContext(
@@ -25,8 +26,7 @@ final class LoginContext(
   def isBot                          = me.exists(_.isBot)
   def noBot                          = !isBot
   def troll                          = user.exists(_.marks.troll)
-  def kid                            = user.exists(_.kid)
-  def noKid                          = !kid
+  def isKidUser                      = user.exists(_.kid)
   def isAppealUser                   = me.exists(_.enabled.no)
   def isWebAuth                      = isAuth && oauth.isEmpty
   def isOAuth                        = isAuth && oauth.isDefined
@@ -40,22 +40,28 @@ object LoginContext:
 class Context(
     val req: RequestHeader,
     val lang: Lang,
-    val userContext: LoginContext,
+    val loginContext: LoginContext,
     val pref: Pref
 ):
-  export userContext.*
+  export loginContext.*
   def ip                    = HTTPRequest ipAddress req
   lazy val blind            = req.cookies.get(ApiConfig.blindCookie.name).exists(_.value.nonEmpty)
   def noBlind               = !blind
   lazy val mobileApiVersion = lila.security.Mobile.Api requestVersion req
   def isMobileApi           = mobileApiVersion.isDefined
+  def kid                   = KidMode(HTTPRequest.isKid(req) || loginContext.isKidUser)
   def flash(name: String): Option[String] = req.flash get name
-  def withLang(l: Lang)                   = new Context(req, l, userContext, pref)
+  def withLang(l: Lang)                   = new Context(req, l, loginContext, pref)
+  def canPalantir                         = kid.no && me.exists(!_.marks.troll)
+  lazy val acceptLanguages: Set[Language] =
+    req.acceptLanguages.view.map(Language.apply).toSet + defaultLanguage ++
+      user.flatMap(_.language).toSet
 
 object Context:
   export lila.api.{ Context, BodyContext, LoginContext, PageContext, EmbedContext }
   given (using ctx: Context): Option[Me]     = ctx.me
   given (using ctx: Context): Option[MyId]   = ctx.myId
+  given (using ctx: Context): KidMode        = ctx.kid
   given (using page: PageContext): Context   = page.ctx
   given (using embed: EmbedContext): Context = embed.ctx
 

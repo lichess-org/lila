@@ -79,7 +79,7 @@ export default (window as any).checkoutStart = function (stripePublicKey: string
 
   const getGiftDest = () => {
     const raw = ($userInput.val() as string).trim().toLowerCase();
-    return raw != $('body').data('user') && raw.match(/^[a-z0-9][\w-]{2,29}$/) ? raw : null;
+    return raw != document.body.dataset.user && raw.match(/^[a-z0-9][\w-]{2,29}$/) ? raw : null;
   };
 
   const toggleCheckout = () => {

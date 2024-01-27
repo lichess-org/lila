@@ -1,15 +1,13 @@
 import { h } from 'snabbdom';
-import numeral from 'numeral';
 import Ctrl from './ctrl';
 
-function formatNumber(dt: string, n: number) {
-  if (dt === 'percent') n = n / 100;
-  let f;
-  if (dt === 'seconds') f = '0.00';
-  else if (dt === 'average') f = '0.00';
-  else if (dt === 'percent') f = '0.0%';
-  else f = '0,0';
-  return numeral(n).format(f);
+export function formatNumber(dt: string, n: number) {
+  const percent = dt == 'percent';
+  const opts: Intl.NumberFormatOptions = {
+    style: percent ? 'percent' : 'decimal',
+    maximumFractionDigits: percent ? 1 : 2,
+  };
+  return new Intl.NumberFormat('en-US', opts).format(n / (percent ? 100 : 1));
 }
 
 const formatSerieName = (dt: string, n: number) =>

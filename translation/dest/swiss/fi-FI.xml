@@ -61,8 +61,7 @@ Niissä on laskettu yhteen pelaajan voittamien vastustajien kaikki pisteet sekä
   <string name="numberOfByesA">Pelaaja saa yhden pisteen arvoisen huilauksen aina kun parinluontijärjestelmä ei löydä tälle paria.
 Lisäksi pelaja saa puolen pisteen arvoisen huilauksen, jos hän liittyy turnaukseen myöhässä.</string>
   <string name="earlyDrawsQ">Mitä tehdään nopeille tasapeleille?</string>
-  <string name="earlyDrawsA">Pelaaja saa yhden pisteen arvoisen huilauksen aina kun parinluontijärjestelmä ei löydä tälle paria.
-Lisäksi pelaja saa puolen pisteen arvoisen huilauksen, jos hän liittyy turnaukseen myöhässä.</string>
+  <string name="earlyDrawsAnswer">Sveitsiläisen turnauksen peleissä pelaajat eivät voi sopia tasapeliä, ennen kuin 30 siirtoa on pelattu. Vaikka tällä tavoin ei voida estää ennalta järjestettyjä tasapelejä, ainakin spontaani tasapelin sopiminen on hankalampaa.</string>
   <string name="whatIfOneDoesntPlayQ">Mitä tapahtuu, jos pelaaja jättää pelin pelaamatta?</string>
   <string name="whatIfOneDoesntPlayA">Aika kuluu pelaajan kellossa, lippu putoaa ja hän häviää pelin.
 Sitten järjestelmä poistaa pelaajan turnauksesta, jotta tämä ei häviäisi lisää pelejä.
@@ -113,4 +112,5 @@ Lähimmäksi täyskierrosturnausta pääsee pelaamalla sveitsiläisessä turnauk
   <string name="unlimitedAndFree">Rajoittamaton ja ilmainen</string>
   <string name="predefinedUsers">Vain ennalta valitut pelaajat saavat osallistua</string>
   <string name="forbiddedUsers">Jos lista ei ole tyhjä, turnaukseen ei voi osallistua kukaan muu kuin listalla luetellut pelaajat. Yksi käyttäjätunnus riviä kohden.</string>
+  <string name="playYourGames">Pelaa enemmän pelejä</string>
 </resources>

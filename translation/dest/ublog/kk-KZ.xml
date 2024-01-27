@@ -37,10 +37,11 @@
   <string name="imageCredit">Суреттің иесі</string>
   <string name="deleteBlog">Бұл блог-жазбаны толығымен жою</string>
   <string name="deleteImage">Суретті жою</string>
-  <string name="safeToUseImages" comment="safeToUseImages&#10;&#10;This is mentioned because the images there are royalty-free, so there is no risk of copyright infringement.">Суреттерді келесі қауіпсіз сайттардан алуыңызға болады: </string>
+  <string name="safeToUseImages">Суреттерді келесі қауіпсіз сайттардан алуыңызға болады: </string>
   <string name="selectPostTopics">Жазбаңыздың тақырыбын таңдаңыз</string>
   <string name="useImagesYouMadeYourself">Сонымен қатар, ешбіреудің ауторлық құқығымен қорғалмаған суретті қолдануға еркінсіз. Мысалы, өзіңіз салған, түсірген суретіңіз не Личестің экран суреті.</string>
   <string name="safeAndRespectfulContent">Мазмұны қауіпсіз әрі басқаларға сыйласты жазбаны салыңыз. Біреудің жазбасын көшірмеңіз.</string>
   <string name="inappropriateContentAccountClosed">Әдепсіз, орынсыз нәрселер болса, тіркелгіңіз жабылады.</string>
-  <string name="blogTips" comment="blogTips&#10;&#10;This is a link to https://lichess.org/page/blog-tips. Appears when creating a new post.">Керемет блог-жазбаны қалай жазу туралы кеңестер</string>
+  <string name="blogTips">Керемет блог-жазбаны қалай жазу туралы кеңестер</string>
+  <string name="discussThisBlogPostInTheForum">Бұл жазбаны форумда талқыға салыңыз</string>
 </resources>

@@ -15,12 +15,12 @@ object picture:
       evenMoreJs = iifeModule("javascripts/coach.form.js"),
       evenMoreCss = cssTag("coach.editor"),
       active = "coach"
-    ) {
-      div(cls := "account coach-edit coach-picture box")(
+    ):
+      div(cls := "coach-edit coach-picture box")(
         div(cls := "top")(
-          div(cls := "picture_wrap")(
+          div(cls := "picture_wrap"):
             picture.thumbnail(c, 250)
-          ),
+          ,
           h1(widget.titleName(c))
         ),
         div(cls := "forms")(
@@ -37,7 +37,6 @@ object picture:
           )
         )
       )
-    }
 
   object thumbnail:
     def apply(c: Coach.WithUser, cssSize: Int = Coach.imageSize) =

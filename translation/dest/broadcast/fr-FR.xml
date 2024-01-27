@@ -1,16 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="broadcasts">Diffusions</string>
+  <string name="myBroadcasts">Ma diffusion</string>
   <plurals name="nbBroadcasts">
     <item quantity="one">%s diffusion</item>
     <item quantity="other">%s diffusions</item>
   </plurals>
   <string name="liveBroadcasts">Diffusions de tournois en direct</string>
   <string name="newBroadcast">Nouvelle diffusion en direct</string>
+  <string name="aboutBroadcasts">À propos des diffusions</string>
+  <string name="noRoundsYet">Aucune ronde pour le moment</string>
+  <string name="howToUseLichessBroadcasts">Comment utiliser les diffusions dans Lichess</string>
+  <string name="theNewRoundHelp">La nouvelle ronde aura les mêmes participants et contributeurs que la précédente.</string>
   <string name="addRound">Ajouter une ronde</string>
   <string name="ongoing">En cours</string>
   <string name="upcoming">À venir</string>
   <string name="completed">Terminé</string>
+  <string name="completedHelp">Lichess détecte la fin des rondes en fonction des parties sources. Utilisez cette option s\'il n\'y a pas de source.</string>
   <string name="roundName">Nom de la ronde</string>
   <string name="roundNumber">Numéro de la ronde</string>
   <string name="tournamentName">Nom du tournoi</string>
@@ -33,5 +39,15 @@
   <string name="deleteAllGamesOfThisRound">Supprimer toutes les parties de la ronde. La source doit être active pour recréer les parties.</string>
   <string name="editRoundStudy">Modifier l\'étude de la ronde</string>
   <string name="deleteTournament">Supprimer ce tournoi</string>
-  <string name="definitivelyDeleteTournament" comment="definitivelyDeleteTournament&#10;&#10;Confirmation prompt, when attempting to delete a broadcast on https://lichess.org/broadcast">Supprimer définitivement le tournoi, toutes ses rondes et toutes ses parties.</string>
+  <string name="definitivelyDeleteTournament">Supprimer définitivement le tournoi, toutes ses rondes et toutes ses parties.</string>
+  <string name="automaticLeaderboard" comment="An option when creating a broadcast to calculate a leaderboard automatically from the players involved. Example: https://lichess.org/broadcast/2023-london-chess-classic/round-9/5icayRCY">Classement automatique</string>
+  <string name="automaticLeaderboardHelp" comment="An option when creating a broadcast to calculate a leaderboard automatically from the players involved. Example: https://lichess.org/broadcast/2023-london-chess-classic/round-9/5icayRCY">Calculer et afficher un échiquier principal simplifié basé sur les résultats de parties</string>
+  <string name="replace">Facultatif : remplacer les noms des joueurs, les cotes et les titres</string>
+  <string name="replaceHelp">Une ligne par joueur, formatée comme suit :
+Nom d\'origine; Nom de remplacement; Cote de remplacement facultative; Titre de remplacement facultatif
+Exemple :
+DrNykterstein;Magnus Carlsen;2863
+AnishGiri;Anish Giri;2764;GM</string>
+  <string name="periodInSeconds">Période en secondes</string>
+  <string name="periodInSecondsHelp">Facultatif : temps d\'attente entre les requêtes. Min. 2 sec, max. 60 sec. Par défaut automatique selon le nombre de spectateurs.</string>
 </resources>

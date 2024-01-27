@@ -43,10 +43,10 @@
   <string name="imageCredit">Paveikslėlio autorius</string>
   <string name="deleteBlog">Visiškai ištrinti šį tinklaraščio įrašą</string>
   <string name="deleteImage">Išrinti šį paveikslėlį</string>
-  <string name="safeToUseImages" comment="safeToUseImages&#10;&#10;This is mentioned because the images there are royalty-free, so there is no risk of copyright infringement.">Yra saugu naudoti paveikslėlius iš šių svetainių: </string>
+  <string name="safeToUseImages">Yra saugu naudoti paveikslėlius iš šių svetainių: </string>
   <string name="selectPostTopics">Pasirinkite temas, kurios labiausia atitinka jūsų įrašą</string>
   <string name="useImagesYouMadeYourself">Taip pat galite naudoti paveikslėlius kuriuos padarėte patys, savo padarytas nuotraukas, Lichess ekranvaizdžius... bet ką, ko autorinių teisių neturi kiti žmonės.</string>
   <string name="safeAndRespectfulContent">Talpinkite tik saugų ir pagarbų turinį. Nekopijuokite kieno nors kito turinio.</string>
   <string name="inappropriateContentAccountClosed">Bet koks nepriimtinas turinys privers mus uždaryti jūsų paskyrą.</string>
-  <string name="blogTips" comment="blogTips&#10;&#10;This is a link to https://lichess.org/page/blog-tips. Appears when creating a new post.">Keli patarimai kaip rašyti puikius tinklaraščio įrašus</string>
+  <string name="blogTips">Keli patarimai kaip rašyti puikius tinklaraščio įrašus</string>
 </resources>

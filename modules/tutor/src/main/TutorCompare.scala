@@ -2,6 +2,7 @@ package lila.tutor
 
 import lila.common.Heapsort.topN
 import lila.insight.InsightDimension
+import lila.insight.InsightPosition
 
 case class TutorCompare[D, V](
     dimensionType: InsightDimension[D],
@@ -45,13 +46,16 @@ object TutorCompare:
 
     val grade = number.grade(value.value, reference.value.value)
 
-    val importance = grade.value * math.sqrt(value.count)
+    val importance = grade.value * math.sqrt:
+      value.count * metric.metric.position.match
+        case InsightPosition.Game => 35
+        case InsightPosition.Move => 1
 
-    def better                          = grade.better
-    def worse                           = grade.worse
+    export grade.{ better, worse }
     def similarTo(other: AnyComparison) = other.dimensionType == dimensionType && other.metric == metric
 
-    override def toString = s"(${grade.value}) $dimensionType $metric ${value.value} vs $reference"
+    override def toString =
+      s"(${grade.value}) $dimensionType $metric ${value.value} vs $reference (importance: $importance)"
 
   given compOrder: Ordering[AnyComparison] = Ordering.by(_.importance.abs)
 

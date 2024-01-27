@@ -40,11 +40,11 @@
   <string name="imageCredit">Права на образчик</string>
   <string name="deleteBlog">Докус стерти сю публікацію</string>
   <string name="deleteImage">Стерти образчик</string>
-  <string name="safeToUseImages" comment="safeToUseImages&#10;&#10;This is mentioned because the images there are royalty-free, so there is no risk of copyright infringement.">Мож безопасно хосновати образчикы 
+  <string name="safeToUseImages">Мож безопасно хосновати образчикы 
 из такых сайтув: </string>
   <string name="selectPostTopics">Уберіт тему свої публікації</string>
   <string name="useImagesYouMadeYourself">Вы можете хосновати свої образчикы, фоткы, скріншоты Lichess... Вшытко, што не пудлїгат авторському правови.</string>
   <string name="safeAndRespectfulContent">Указуйте лем безопасный контент и контент, што честує вшыткых. Не копіруйте чужоє.</string>
   <string name="inappropriateContentAccountClosed">Через нелагодный контент можут закрыти вам акаунт.</string>
-  <string name="blogTips" comment="blogTips&#10;&#10;This is a link to https://lichess.org/page/blog-tips. Appears when creating a new post.">Наші прості тіпы, як писати добрі публікації</string>
+  <string name="blogTips">Наші прості тіпы, як писати добрі публікації</string>
 </resources>

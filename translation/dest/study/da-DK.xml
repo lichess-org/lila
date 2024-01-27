@@ -22,8 +22,8 @@
     <item quantity="other">%s kapitler</item>
   </plurals>
   <plurals name="nbGames">
-    <item quantity="one">%s Parti</item>
-    <item quantity="other">%s Partier</item>
+    <item quantity="one">%s parti</item>
+    <item quantity="other">%s partier</item>
   </plurals>
   <string name="addMembers">Tilføj medlemmer</string>
   <plurals name="nbMembers">
@@ -53,6 +53,7 @@
   <string name="allSyncMembersRemainOnTheSamePosition">Alle SYNC medlemmer forbliver på samme stilling</string>
   <string name="shareChanges">Del ændringer med tilskuere og gem dem på serveren</string>
   <string name="playing">Spiller</string>
+  <string name="showEvalBar">Evalueringssøjler</string>
   <string name="first">Første</string>
   <string name="previous">Forrige</string>
   <string name="next">Næste</string>
@@ -84,7 +85,7 @@
   <string name="pinnedChapterComment">Fastgjort kapitelkommentar</string>
   <string name="saveChapter">Gem kapitel</string>
   <string name="clearAnnotations">Ryd annoteringer</string>
-  <string name="clearVariations">Ryd variationer</string>
+  <string name="clearVariations">Ryd varianter</string>
   <string name="deleteChapter">Slet kapitel</string>
   <string name="deleteThisChapter">Slet dette kapitel? Du kan ikke fortryde!</string>
   <string name="clearAllCommentsInThisChapter">Ryd alle kommentarer og figurer i dette kapitel?</string>

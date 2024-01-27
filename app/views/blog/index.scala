@@ -25,18 +25,18 @@ object index:
         bits.menu(none, "lichess".some),
         div(cls := "blog index page-menu__content page-small box force-ltr")(
           boxTop(
-            h1("Lichess Official Blog"),
-            a(cls := "atom", st.title := "Atom RSS feed", href := routes.Blog.atom, dataIcon := licon.RssFeed)
+            h1(trans.ublog.lichessOfficialBlog()),
+            views.html.site.bits.atomLink(routes.Blog.atom)
           ),
           primaryPost map { post =>
             frag(
               latestPost(post),
-              h2("Previous blog posts")
+              h2(trans.ublog.previousBlogPosts())
             )
           },
           div(cls := "blog-cards box__pad list infinite-scroll")(
             pager.currentPageResults flatMap MiniPost.apply map { post =>
-              primaryPost.fold(true)(_.id != post.id) option bits.postCard(post, "paginated".some, h3)
+              primaryPost.forall(_.id != post.id) option bits.postCard(post, "paginated".some, h3)
             },
             pagerNext(pager, np => routes.Blog.index(np).url)
           )
@@ -53,7 +53,7 @@ object index:
       main(cls := "page-menu")(
         bits.menu(year.some, none),
         div(cls := "page-menu__content box box-pad force-ltr")(
-          boxTop(h1(s"Lichess blog posts from $year")),
+          boxTop(h1(trans.ublog.lichessBlogPostsFromXYear(year))),
           st.section(
             div(cls := "blog-cards")(posts map { bits.postCard(_) })
           )
@@ -76,16 +76,17 @@ object index:
         div(cls := "body")(
           doc.getStructuredText("blog.body").map { body =>
             raw(lila.blog.BlogApi.extract(body))
-          },
-          p(cls := "more")(
-            a(
-              cls      := "button",
-              href     := routes.Blog.show(doc.id, doc.slug, ref = prismic.maybeRef),
-              dataIcon := licon.PlayTriangle
-            )(
-              " Continue reading this post"
-            )
-          )
+          }
+        )
+      ),
+      p(cls := "more")(
+        a(
+          cls      := "button",
+          href     := routes.Blog.show(doc.id, doc.slug, ref = prismic.maybeRef),
+          dataIcon := licon.PlayTriangle
+        )(
+          " ",
+          trans.ublog.continueReadingPost()
         )
       )
     )

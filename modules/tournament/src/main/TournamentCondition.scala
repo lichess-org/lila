@@ -3,7 +3,7 @@ package lila.tournament
 import lila.gathering.{ Condition, ConditionList }
 import lila.gathering.Condition.*
 import lila.history.HistoryApi
-import lila.hub.LeaderTeam
+import lila.hub.LightTeam
 import lila.rating.{ Perf, PerfType }
 import alleycats.Zero
 import lila.user.{ User, Me }
@@ -44,6 +44,11 @@ object TournamentCondition:
 
     def similar(other: All) = sameRatings(other) && titled == other.titled && teamMember == other.teamMember
 
+    // if the new allowList is empty, assume the tournament is open to all, kick nobody
+    def removedFromAllowList(prev: All): Set[UserId] =
+      allowList.so(_.userIds).some.filter(_.nonEmpty) so: current =>
+        prev.allowList.so(_.userIds diff current)
+
   object All:
     val empty             = All(none, none, none, none, none, none)
     given zero: Zero[All] = Zero(empty)
@@ -51,7 +56,7 @@ object TournamentCondition:
   object form:
     import play.api.data.Forms.*
     import lila.gathering.ConditionForm.*
-    def all(leaderTeams: List[LeaderTeam]) =
+    def all(leaderTeams: List[LightTeam]) =
       mapping(
         "nbRatedGame" -> nbRatedGame,
         "maxRating"   -> maxRating,

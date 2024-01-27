@@ -154,6 +154,10 @@
     <item quantity="one">%s ಆಟ</item>
     <item quantity="other">%s ಆಟಗಳು</item>
   </plurals>
+  <plurals name="ratingXOverYGames">
+    <item quantity="one">%2$s ಆಟಗಳಿಗಿಂತ %1$s ರೇಟಿಂಗ್</item>
+    <item quantity="other">%1$s ರೇಟಿಂಗ್ ಮೇಲ್ಮೆ %2$s ಆಟಗಳು</item>
+  </plurals>
   <plurals name="nbBookmarks">
     <item quantity="one">%s ಗುರುತುಸಂಗ್ರಹ</item>
     <item quantity="other">%s ಗುರುತುಸಂಗ್ರಹಗಳು</item>
@@ -266,7 +270,6 @@
   <string name="playingRightNow">ಆಟ ಪ್ರಗತಿಯಲ್ಲಿದೆ</string>
   <string name="eventInProgress">ಆಟಗಳು ಪ್ರಗತಿಯಲ್ಲಿವೆ</string>
   <string name="finished">ಮುಕ್ತಾಯಗೊಂಡಿದೆ</string>
-  <string name="finishesX">%s ಗಳಲ್ಲಿ ಮುಕ್ತಾಯಗೊಳ್ಳಲಿದೆ</string>
   <string name="abortGame">ಆಟವನ್ನು ತ್ಯಜಿಸು</string>
   <string name="gameAborted">ಆಟವನ್ನು ತ್ಯಜಿಸಲಾಗಿದೆ</string>
   <string name="standard">ಸಾಮಾನ್ಯ</string>
@@ -342,6 +345,10 @@
   <plurals name="nbStudies">
     <item quantity="one">%s ಅಧ್ಯಯನ</item>
     <item quantity="other">%s ಅಧ್ಯಯನಗಳು</item>
+  </plurals>
+  <plurals name="nbSimuls">
+    <item quantity="one">%s ಸಿಮ್ಯುಲ್</item>
+    <item quantity="other">%s ಸಿಮ್ಯುಲ್‌ಗಳು</item>
   </plurals>
   <string name="viewTournament">ಪಂದ್ಯಾವಳಿ ನೋಡು</string>
   <string name="backToTournament">ಪಂದ್ಯಾವಳಿಗೆ ಹಿಂದಿರುಗು</string>
@@ -496,13 +503,10 @@
   <string name="firstName">ಹೆಸರು</string>
   <string name="lastName">ಕುಟುಂಬನಾಮ (surname)</string>
   <string name="biography">ನಿಮ್ಮ ಬಗ್ಗೆ</string>
-  <string name="flag" comment="flag&#10;Appears when you edit your profile. Lets a player add a country/flag (not all flags are for countries) to their profile">ಧ್ವಜ</string>
   <string name="thankYou">ಧನ್ಯವಾದಗಳು!</string>
   <string name="socialMediaLinks">ಸಾಮಾಜಿಕ ಮಾಧ್ಯಮಗಳ ಕೊಂಡಿ</string>
   <string name="oneUrlPerLine">ಪ್ರತಿ ಸಾಲಿಗೆ ಒಂದು URL.</string>
   <string name="inlineNotation">ನಡೆಯ ಮಧ್ಯದ ಟಿಪ್ಪಣಿಗಳು</string>
-  <string name="savingMoves">ತಾತ್ಕಾಲಿಕ ಚಲನೆಯ ಸಂಗ್ರಹಣೆ</string>
-  <string name="savingMovesHelp">ನಿಮ್ಮ ಬ್ರೌಸರ್ ಸಂಗ್ರಹದಲ್ಲಿ ನಾವು ಯಾವಾಗಲೂ ನಿಮ್ಮ ಆಟದ ಬದಲಾವಣೆಗಳನ್ನು ಸಂಗ್ರಹಿಸುತ್ತೇವೆ.</string>
   <string name="makeAStudy">ಸುರಕ್ಷಿತವಾಗಿರಿಸಲು ಮತ್ತು ಹಂಚಿಕೊಳ್ಳಲು, ಅಧ್ಯಯನವನ್ನು ಮಾಡಲು ಪರಿಗಣಿಸಿ.</string>
   <string name="clearSavedMoves">ಎಲ್ಲಾ ಚಲನೆಗಳನ್ನು ತೆರವುಗೊಳಿಸಿ</string>
   <string name="previouslyOnLichessTV">ಹಿಂದೊಮ್ಮೆ ಲೀಚೆಸ್ ಟಿವಿಯಲ್ಲಿ</string>
@@ -840,7 +844,6 @@
   </plurals>
   <string name="sorry">ಕ್ಷಮಿಸಿ :(</string>
   <string name="weHadToTimeYouOutForAWhile">ನಿಮ್ಮ ಪ್ರವೇಶವನ್ನು ಸ್ವಲ್ಪ ಹೊತ್ತು ತಡೆಹಿಡಿಯಬೇಕಾಗಿ ಬಂದಿದೆ.</string>
-  <string name="timeoutExpires">ನಿಮ್ಮ ನಿಷೇಧ ಕೊನೆಗೊಳ್ಳಲು ಇರುವ ಬಾಕಿ ಸಮಯ %s.</string>
   <string name="why">ಯಾಕೆ?</string>
   <string name="pleasantChessExperience">ಎಲ್ಲರಿಗೂ ಆನಂದದಾಯಕವಾದ ಚೆಸ್ ಅನುಭವವನ್ನು ಕೊಡಬೇಕು ಎಂಬುದು ನಮ್ಮ ಆಶಯವಾಗಿದೆ.</string>
   <string name="goodPractice">ಅದರ ಸಲುವಾಗಿ, ಎಲ್ಲಾ ಆಟಗಾರರೂ ಒಳ್ಳೆಯ ಅಭ್ಯಾಸಗಳನ್ನು ಅನುಸರಿಸುತ್ತಿದ್ದಾರೆ ಎಂಬುದನ್ನು ನಾವು ಖಚಿತಪಡಿಸಬೇಕಾಗಿದೆ.</string>
@@ -899,9 +902,6 @@
   <string name="timeAlmostUp">ಸಮಯ ಮುಗಿಯುತ್ತಾ ಬರುತ್ತಿದೆ!</string>
   <string name="clickToRevealEmailAddress">[ಇಮೇಲ್ ವಿಳಾಸ ತೋರಿಸಲು ಇಲ್ಲಿ ಒತ್ತಿ]</string>
   <string name="download">ಡೌನ್ಲೋಡ್</string>
-  <string name="welcome">ಸುಸ್ವಾಗತ!</string>
-  <string name="lichessPatronInfo">ಲೀಚೆಸ್ ಒಂದು ದಾನ-ಆಧಾರಿತ ಹಾಗೂ ಸಂಪೂರ್ಣ ಉಚಿತ/ ಸ್ವತಂತ್ರ, ಮುಕ್ತ ಸಾಫ್ಟ್ವೇರ್ ತಂತ್ರಜ್ಞಾನ. 
-ಎಲ್ಲಾ ನಿರ್ವಹಣಾ ವೆಚ್ಚಗಳು, ಸಾಫ್ಟ್ವೇರ್ ಬೆಳವಣಿಗೆ, ಹಾಗೂ ವಸ್ತು/ವಿಷಯಗಳು ಕೇವಲ ದೇಣಿಗೆಯಿಂದ ಮಾತ್ರ ನಡೆಸಲಾಗುತ್ತಿದೆ.</string>
   <string name="coachManager">ಕೋಚ್ ಪ್ರೊಫೈಲ್ ಸಲಕರಣೆಗಳು</string>
   <string name="streamerManager">ನೇರಪ್ರಸಾರ ವ್ಯವಸ್ಥಾಪಕ</string>
   <string name="cancelTournament">ಪಂದ್ಯಾವಳಿಯನ್ನು ರದ್ದುಪಡಿಸಿ</string>
@@ -959,4 +959,6 @@
   <string name="switchSides">ತಂಡ ಬದಲಾಯಿಸಿ</string>
   <string name="closingAccountWithdrawAppeal">ಖಾತೆ ಮುಚ್ಚಿದರೆ ನಿಮ್ಮ ಮನವಿಯನ್ನು ಹಿಂಪಡೆಯಲಾಗುವುದು</string>
   <string name="ourEventTips">ಈವೆಂಟ್‌ಗಳನ್ನು ಆಯೋಜಿಸಲು ನಮ್ಮ ಸಲಹೆಗಳು</string>
+  <string name="lichessPatronInfo">ಲೀಚೆಸ್ ಒಂದು ದಾನ-ಆಧಾರಿತ ಹಾಗೂ ಸಂಪೂರ್ಣ ಉಚಿತ/ ಸ್ವತಂತ್ರ, ಮುಕ್ತ ಸಾಫ್ಟ್ವೇರ್ ತಂತ್ರಜ್ಞಾನ. 
+ಎಲ್ಲಾ ನಿರ್ವಹಣಾ ವೆಚ್ಚಗಳು, ಸಾಫ್ಟ್ವೇರ್ ಬೆಳವಣಿಗೆ, ಹಾಗೂ ವಸ್ತು/ವಿಷಯಗಳು ಕೇವಲ ದೇಣಿಗೆಯಿಂದ ಮಾತ್ರ ನಡೆಸಲಾಗುತ್ತಿದೆ.</string>
 </resources>

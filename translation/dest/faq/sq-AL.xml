@@ -54,6 +54,7 @@ Analiza kompjuterike në Lichess bazohet në Stockfish.</string>
 Në rastet e rralla kjo mund të jetë e vështirë të vendoset automatikisht (forced lines, fortresses). Si parazgjedhje, ne mbajmë anën e lojtarit të cilit nuk i mbaroi koha.
 
 Kini parasysh se është e mundur të jepet mat me një kalë ose oficer të vetëm, nëse kundërshtari ka një gur që mund të bllokonte mbretin.</string>
+  <string name="fideHandbook">Doracaku FIDE</string>
   <string name="fideHandbookX">Doracaku FIDE %s</string>
   <string name="discoveringEnPassant">Pse mundet një ushtar të hajë një ushtar tjetër, kur është bërë tashmë prerja? (me prerje)</string>
   <string name="explainingEnPassant">Kjo është një lëvizje e ligjshme, e njohur si “me prerje”. Artikulli i Wikipedia-s jep një %1$s.
@@ -67,7 +68,7 @@ See the %3$s on this move for some practice with it.</string>
   <string name="lichessTraining">Trajnim Lichess</string>
   <string name="watchIMRosenCheckmate">Shihni shah-matin %s e Mjeshtrit Ndërkombëtar Eric Rosen.</string>
   <string name="threefoldRepetition">Përsëritje e trefishtë</string>
-  <string name="threefoldRepetitionExplanation">Nëse një pozicion ndodh tre herë, lojtarët mund të kërkojnë barazim përmes %1$s. Lichess-i aplikon rregullat zyrtare të FIDE-s, siç përshkruhen në nenin 9.2 (d) të %2$s.</string>
+  <string name="threefoldRepetitionExplanation">Nëse një pozicion ndodh tre herë, lojtarët mund të kërkojnë barazim përmes %1$s. Lichess-i aplikon rregullat zyrtare të FIDE-s, siç përshkruhen në nenin 9.2 të %2$s.</string>
   <string name="threefoldRepetitionLowerCase">përsëritje e trefishtë</string>
   <string name="notRepeatedMoves">S’përsëritëm lëvizje. Pse prapë doli loja barazim për shkak përsëritjeje?</string>
   <string name="repeatedPositionsThatMatters">Përsëritja e trefishtë ka të bëjë me përsëritje të %1$s, jo përsëritje lëvizjesh. Përsëritja mund edhe të mos ndodhë radhazi.</string>
@@ -142,4 +143,28 @@ Më e mira është që vlerësimet të mendohen si shifra “relative” (e kund
 Klikoni ikonën kyç në krah të adresës lichess.org, te shtylla e URL-ve në shfletuesin tuaj.
 
 Mandej përzgjidhni nëse doni të lejohen apo të bllokohen njoftimet nga Lichess-i.</string>
+  <string name="enableAutoplayForSoundsQ">Të aktivizohet vetëluajtje për tingujt?</string>
+  <string name="enableAutoplayForSoundsA">Shumica e shfletuesve mund të pengojnë luajtjen e tingujve në një faqe të sapongarkuar, për të mbrojtur përdoruesit. Merrni me mend sikur çdo sajt të mundej t’ju bombardonte me reklama zanore.
+
+Ikona e kuqe e heshtimit duket kur shfletuesi juaj i pengon lichess.org të luajë një tingull. Zakonisht ky kufizim hiqet kur klikoni mbi diçka.Në disa shfletues për celularë, tërheqja e nëj guri nuk llogaritet si klikim. Në atë rast duhet të prekni fushën, që të lejoni tingull në fillim të çdo loje.
+
+Ikonën e kuqe jua shfaqim për t’ju sinjalizuar, kur ndodh kjo. Shpesh, mund ta lejoni shprehimisht lichess.org të luajë tinguj. Ja udhëzimet për ta bërë këtë në versione të afërt të disa shfletuesve të njohur.</string>
+  <string name="desktop">desktop</string>
+  <string name="enableAutoplayForSoundsFirefox">1. Kaloni te lichess.org
+2. Shtypni Ctrl-i në Linux/Windows, ose cmd-i në MacOS
+3. Klikoni skedën Leje
+4. Lejoni Audio dhe Video në lichess.org</string>
+  <string name="enableAutoplayForSoundsChrome">1. Kaloni në lichess.org
+2. Klikoni ikonën dry te shtylla e adresave
+3. Klikoni “Rregullime Sajti”
+4. Lejoni Zërin</string>
+  <string name="enableAutoplayForSoundsSafari">1. Kaloni në lichess.org
+2. Klikoni Safari te shtylla e menuve
+3. Klikoni Rregullime për lichess.org …
+4. Lejoni Vetëluajtje për gjithçka</string>
+  <string name="enableAutoplayForSoundsMicrosoftEdge">1. Klikoni mbi tre pikat në cepin e sipërm djathtas
+2. Klikoni Rregullime
+3. Klikoni Leje Cookie-sh dhe Sajti
+4. Shkoni më poshtë dhe klikoni “Vetëluajtje mediash”
+5. Shtoni lichess.org te Lejoje</string>
 </resources>

@@ -249,7 +249,6 @@
   <string name="playingRightNow">Sedang bermain sekarang</string>
   <string name="eventInProgress">Sedang bermain sekarang</string>
   <string name="finished">Tamat</string>
-  <string name="finishesX">tamat dalam %s</string>
   <string name="abortGame">Batalkan permainan</string>
   <string name="gameAborted">Permainan dibatalkan</string>
   <string name="standard">Standard</string>
@@ -325,20 +324,20 @@
     <item quantity="other">≥ %s rated games</item>
   </plurals>
   <plurals name="moreThanNbPerfRatedGames">
-    <item quantity="other">≥ %1$s %2$s rated games</item>
+    <item quantity="other">≥ %1$s %2$s permainan dinilai</item>
   </plurals>
   <plurals name="needNbMorePerfGames">
-    <item quantity="other">You need to play %1$s more %2$s rated games</item>
+    <item quantity="other">Anda perlu bermain %1$s lagi %2$s permainan dinilai</item>
   </plurals>
   <plurals name="needNbMoreGames">
     <item quantity="other">You need to play %s more rated games</item>
   </plurals>
-  <string name="yourPerfRatingIsProvisional">Your %s rating is provisional</string>
-  <string name="yourPerfRatingIsTooHigh">Your %1$s rating (%2$s) is too high</string>
-  <string name="yourTopWeeklyPerfRatingIsTooHigh">Your top weekly %1$s rating (%2$s) is too high</string>
-  <string name="yourPerfRatingIsTooLow">Your %1$s rating (%2$s) is too low</string>
-  <string name="ratedMoreThanInPerf">Rated ≥ %1$s in %2$s</string>
-  <string name="ratedLessThanInPerf">Rated ≤ %1$s in %2$s</string>
+  <string name="yourPerfRatingIsProvisional">Penilaian %s anda adalah sementara</string>
+  <string name="yourPerfRatingIsTooHigh">Penilaian %1$s anda (%2$s) terlalu tinggi</string>
+  <string name="yourTopWeeklyPerfRatingIsTooHigh">Penilaian %1$s teratas mingguan anda (%2$s) terlalu tinggi</string>
+  <string name="yourPerfRatingIsTooLow">Penilaian %1$s anda (%2$s) terlalu rendah</string>
+  <string name="ratedMoreThanInPerf">Dinilai ≥ %1$s dalam %2$s</string>
+  <string name="ratedLessThanInPerf">Dinilai ≤ %1$s dalam %2$s untuk minggu lepas</string>
   <string name="mustBeInTeam">Must be in team %s</string>
   <string name="youAreNotInTeam">You are not in the team %s</string>
   <string name="backToGame">Back to game</string>
@@ -466,8 +465,6 @@ analisis komputer, perbualan dalam permainan dan URL kongsi bersama.</string>
   <string name="socialMediaLinks">Pautan media sosial</string>
   <string name="oneUrlPerLine">Satu URL setiap baris.</string>
   <string name="inlineNotation">Notasi dalaman</string>
-  <string name="savingMoves">Penyimpanan sementara</string>
-  <string name="savingMovesHelp">Kami sentiasa menyimpan variasi anda dalam cache pelayaran internet anda.</string>
   <string name="makeAStudy">Untuk penyimpanan dan perkongsian, pertimbangkan untuk membuat kajian pembelajaran.</string>
   <string name="activePlayers">Pemain aktif</string>
   <string name="success">Berjaya</string>
@@ -497,9 +494,10 @@ analisis komputer, perbualan dalam permainan dan URL kongsi bersama.</string>
   <string name="user">Pengguna</string>
   <string name="reason">Sebab</string>
   <string name="whatIsIheMatter">Apa masalahnya?</string>
-  <string name="cheat">Unsur menipu</string>
+  <string name="cheat">Penipuan</string>
   <string name="insult">Unsur ejekan</string>
   <string name="troll">Unsur jenaka</string>
+  <string name="ratingManipulation">Manipulasi Taraf</string>
   <string name="other">Lain-lain</string>
   <string name="reportDescriptionHelp">Laporkan link kepada permainan dan terangkan apa yang dilakukan oleh pengguna yang tidak betul. Jangan hanya beritahu \"mereka menipu\" tapi terangkan juga bagaimana anda dapatkan konklusi ini. Laporan anda akan diproses lebih cepat jika ditulis dalam English.</string>
   <string name="error.provideOneCheatedGameLink">Tolong berikan sekurangnya satu link kepada game yang dicurigai ditipu.</string>
@@ -509,6 +507,7 @@ analisis komputer, perbualan dalam permainan dan URL kongsi bersama.</string>
   <string name="blog">Blog</string>
   <string name="notes">Nota</string>
   <string name="typePrivateNotesHere">Tulis nota peribadi di sini</string>
+  <string name="noNoteYet">Belum ada catatan</string>
   <string name="invalidUsernameOrPassword">Nama pengguna atau kata kunci tidak sah</string>
   <string name="incorrectPassword">Kata kunci tidak tepat</string>
   <string name="invalidAuthenticationCode">Kod authentikasi tidak sah</string>
@@ -528,8 +527,10 @@ analisis komputer, perbualan dalam permainan dan URL kongsi bersama.</string>
   <string name="insideTheBoard">Dalam papan</string>
   <string name="outsideTheBoard">Luar papan</string>
   <string name="always">Selalu</string>
+  <string name="never">Tidak pernah</string>
   <string name="victory">Menang</string>
   <string name="defeat">Kalah</string>
+  <string name="timeline">Linimasa</string>
   <string name="starting">Mula:</string>
   <string name="allInformationIsPublicAndOptional">Setiap maklumat dapat dilihat umum dan tidak wajib.</string>
   <string name="biographyDescription">Ceritakan diri anda, minat anda, mengapa anda suka catur, bukaan kegemaran, pemain, ...</string>
@@ -608,6 +609,7 @@ analisis komputer, perbualan dalam permainan dan URL kongsi bersama.</string>
     <item quantity="other">%1$s pemain %2$s minggu ini.</item>
   </plurals>
   <string name="userIsBetterThanPercentOfPerfTypePlayers">%1$s lebih bagus daripada %2$s pemain %3$s.</string>
+  <string name="cumulative">Kumulatif</string>
   <string name="withNobody">Dengan tiada siapa-siapa</string>
   <string name="withFriends">Dengan rakan-rakan</string>
   <string name="withEverybody">Dengan semua</string>
@@ -625,7 +627,7 @@ analisis komputer, perbualan dalam permainan dan URL kongsi bersama.</string>
   <string name="zeroAdvertisement">Sifar iklan</string>
   <string name="fullFeatured">Ciri-ciri premium</string>
   <string name="phoneAndTablet">Telefon bimbit dan tablet</string>
-  <string name="bulletBlitzClassical">Bullet, blitz, klasik</string>
+  <string name="bulletBlitzClassical">Peluru, blitz, klasik</string>
   <string name="correspondenceChess">Catur jangka panjang</string>
   <string name="onlineAndOfflinePlay">Dalam talian dan luar talian permainan</string>
   <string name="viewTheSolution">Papar jawapan</string>
@@ -716,7 +718,6 @@ analisis komputer, perbualan dalam permainan dan URL kongsi bersama.</string>
   </plurals>
   <string name="sorry">Maaf :(</string>
   <string name="weHadToTimeYouOutForAWhile">Kami terpaksa memberikan time out buat sementara.</string>
-  <string name="timeoutExpires">Timeout berakhir %s.</string>
   <string name="why">Kenapa?</string>
   <string name="pleasantChessExperience">Matlamat kami adalah untuk memberikan pengalaman catur yang baik untuk semua.</string>
   <string name="goodPractice">Dengan itu, kami perlu memastikan semua pemain mengikuti amalan yang baik.</string>
@@ -729,7 +730,8 @@ analisis komputer, perbualan dalam permainan dan URL kongsi bersama.</string>
   <string name="wishYouGreatGames">kami berharap anda mempunyai permainan yang baik di lichess.org.</string>
   <string name="thankYouForReading">Terima kasih kerana membaca!</string>
   <string name="edit">Sunting</string>
-  <string name="rapid">Rapid</string>
+  <string name="blitz" comment="Probably best left untranslated. Leave it as 'Blitz' unless your language has a better word for it.">Blitz</string>
+  <string name="rapid">Pantas</string>
   <string name="classical">Classical</string>
   <string name="important">Penting</string>
   <string name="yourQuestionMayHaveBeenAnswered">Soalan anda mungkin telah dijawab %1$s</string>
@@ -737,7 +739,6 @@ analisis komputer, perbualan dalam permainan dan URL kongsi bersama.</string>
   <string name="congratsYouWon">Tahniah, anda menang!</string>
   <string name="timeAlmostUp">Masa hampir habis!</string>
   <string name="download">Muat turun</string>
-  <string name="welcome">Selamat Datang!</string>
   <string name="estimatedStart">Anggaran masa bermula</string>
   <string name="inYourLocalTimezone">Dalam zon waktu anda</string>
   <string name="tournChat">Ruangan sembang pertandingan</string>

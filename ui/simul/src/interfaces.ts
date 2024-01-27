@@ -42,6 +42,7 @@ export interface Player extends LightUserOnline {
 
 export interface Host extends LightUserOnline {
   rating: number;
+  provisional?: boolean;
   gameId?: string;
 }
 

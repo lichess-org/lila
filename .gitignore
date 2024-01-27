@@ -7,20 +7,13 @@
 project/.bloop/
 conf/application.conf
 conf/version.conf
-ui/@build/build-config.json
 
 logs
 project/metals.sbt
 project/project
 project/target
 public/compiled
-public/vendor/highcharts-4.2.5
-public/vendor/hopscotch
-public/vendor/tagify
-public/vendor/stockfish.wasm
-public/vendor/stockfish-nnue.wasm
-public/vendor/stockfish-mv.wasm
-public/vendor/stockfish.js
+public/npm
 public/lifat
 public/css/
 target
@@ -38,13 +31,14 @@ ui/nvui/**/*.js
 ui/nvui/**/*.d.ts
 ui/puz/**/*.js
 ui/puz/**/*.d.ts
-ui/voice/@build/crowdv
+ui/voice/.build/crowdv
 ui/*/npm-debug.log
 ui/*/tsconfig.tsbuildinfo
 hs_*.log
 dependency-graph.png
 
 RUNNING_PID
+.DS_Store
 
 # Eclipse auto-generated files
 /modules/*/.classpath

@@ -3,7 +3,7 @@
   <string name="moveToStart">Ryk for at starte</string>
   <string name="youPlayTheWhitePiecesInAllPuzzles">Du har de hvide brikker i alle opgaver</string>
   <string name="youPlayTheBlackPiecesInAllPuzzles">Du har de sorte brikker i alle opgaver</string>
-  <string name="puzzlesSolved">opgaver løst</string>
+  <string name="puzzlesSolved">taktikopgaver løst</string>
   <string name="newDailyHighscore">Ny dagsrekord!</string>
   <string name="newWeeklyHighscore">Ny ugerekord!</string>
   <string name="newMonthlyHighscore">Ny månedsrekord!</string>
@@ -26,7 +26,7 @@
   <string name="time">Tid</string>
   <string name="timePerMove">Tid per træk</string>
   <string name="highestSolved">Sværeste løst</string>
-  <string name="puzzlesPlayed">Spillede opgaver</string>
+  <string name="puzzlesPlayed">Spillede taktikopgaver</string>
   <string name="newRun">Ny runde (genvejstast: Mellemrum)</string>
   <string name="endRun">Afslut runde (genvejstast: Enter)</string>
   <string name="highscores">Rekorder</string>
@@ -50,9 +50,9 @@
   <string name="skip">spring over</string>
   <string name="skipHelp">NYT! Du kan springe ét træk over pr. race:</string>
   <string name="skipExplanation">Spring dette træk over for at bevare din kombo! Virker kun én gang pr. race.</string>
-  <string name="failedPuzzles">Mislykkede opgaver</string>
-  <string name="slowPuzzles">Langsomme opgaver</string>
-  <string name="skippedPuzzle">Oversprunget opgave</string>
+  <string name="failedPuzzles">Mislykkede taktikopgaver</string>
+  <string name="slowPuzzles">Langsomme taktikopgaver</string>
+  <string name="skippedPuzzle">Oversprunget taktikopgave</string>
   <string name="thisWeek">Denne uge</string>
   <string name="thisMonth">Denne måned</string>
   <string name="allTime">Alle tiders</string>

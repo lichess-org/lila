@@ -1,8 +1,8 @@
-import { h, VNode } from 'snabbdom';
+import { VNode } from 'snabbdom';
 import * as licon from 'common/licon';
-import { bind, onInsert } from 'common/snabbdom';
+import { bind, onInsert, looseH as h } from 'common/snabbdom';
 import { richHTML } from 'common/richText';
-import { StudyCtrl } from './interfaces';
+import StudyCtrl from './studyCtrl';
 
 export type Save = (t: string) => void;
 
@@ -26,58 +26,33 @@ export class DescriptionCtrl {
   }
 }
 
-export const descTitle = (chapter: boolean) => `${chapter ? 'Chapter' : 'Study'} pinned comment`;
+export const descTitle = (chapter: boolean) => `Pinned ${chapter ? 'chapter' : 'study'} comment`;
 
 export function view(study: StudyCtrl, chapter: boolean): VNode | undefined {
   const desc = chapter ? study.chapterDesc : study.studyDesc,
-    contrib = study.members.canContribute() && !study.gamebookPlay();
+    contrib = study.members.canContribute() && !study.gamebookPlay;
   if (desc.edit) return edit(desc, chapter ? study.data.chapter.id : study.data.id, chapter);
   const isEmpty = desc.text === '-';
   if (!desc.text || (isEmpty && !contrib)) return;
   return h(`div.study-desc${chapter ? '.chapter-desc' : ''}${isEmpty ? '.empty' : ''}`, [
-    contrib && !isEmpty
-      ? h('div.contrib', [
-          h('span', descTitle(chapter)),
-          isEmpty
-            ? null
-            : h('a', {
-                attrs: {
-                  'data-icon': licon.Pencil,
-                  title: 'Edit',
-                },
-                hook: bind(
-                  'click',
-                  _ => {
-                    desc.edit = true;
-                  },
-                  desc.redraw,
-                ),
-              }),
+    contrib &&
+      !isEmpty &&
+      h('div.contrib', [
+        h('span', descTitle(chapter)),
+        !isEmpty &&
           h('a', {
-            attrs: {
-              'data-icon': licon.Trash,
-              title: 'Delete',
-            },
-            hook: bind('click', () => {
-              if (confirm('Delete permanent description?')) desc.save('');
-            }),
+            attrs: { 'data-icon': licon.Pencil, title: 'Edit' },
+            hook: bind('click', () => (desc.edit = true), desc.redraw),
           }),
-        ])
-      : null,
+        h('a', {
+          attrs: { 'data-icon': licon.Trash, title: 'Delete' },
+          hook: bind('click', () => {
+            if (confirm('Delete permanent description?')) desc.save('');
+          }),
+        }),
+      ]),
     isEmpty
-      ? h(
-          'a.text.button',
-          {
-            hook: bind(
-              'click',
-              _ => {
-                desc.edit = true;
-              },
-              desc.redraw,
-            ),
-          },
-          descTitle(chapter),
-        )
+      ? h('a.text.button', { hook: bind('click', () => (desc.edit = true), desc.redraw) }, descTitle(chapter))
       : h('div.text', { hook: richHTML(desc.text) }),
   ]);
 }
@@ -86,18 +61,9 @@ const edit = (ctrl: DescriptionCtrl, id: string, chapter: boolean): VNode =>
   h('div.study-desc-form', [
     h('div.title', [
       descTitle(chapter),
-      h('button.button.button-empty.button-red', {
-        attrs: {
-          'data-icon': licon.X,
-          title: 'Close',
-        },
-        hook: bind(
-          'click',
-          () => {
-            ctrl.edit = false;
-          },
-          ctrl.redraw,
-        ),
+      h('button.button.button-empty.button-green', {
+        attrs: { 'data-icon': licon.Checkmark, title: 'Save and close' },
+        hook: bind('click', () => (ctrl.edit = false), ctrl.redraw),
       }),
     ]),
     h('form.form3', [
@@ -105,9 +71,7 @@ const edit = (ctrl: DescriptionCtrl, id: string, chapter: boolean): VNode =>
         h('textarea#form-control.desc-text.' + id, {
           hook: onInsert<HTMLInputElement>(el => {
             el.value = ctrl.text === '-' ? '' : ctrl.text || '';
-            el.oninput = () => {
-              ctrl.save(el.value.trim());
-            };
+            el.oninput = () => ctrl.save(el.value.trim());
             el.focus();
           }),
         }),

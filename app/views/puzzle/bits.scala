@@ -18,10 +18,7 @@ object bits:
 
   def jsI18n(streak: Boolean)(using Lang) =
     if streak then i18nJsObject(streakI18nKeys)
-    else
-      i18nJsObject(trainingI18nKeys) + {
-        PuzzleTheme.enPassant.key.value -> JsString(PuzzleTheme.enPassant.name.txt())
-      }
+    else i18nJsObject(trainingI18nKeys)
 
   lazy val jsonThemes = PuzzleTheme.visible
     .collect { case t if t != PuzzleTheme.mix => t.key }
@@ -34,7 +31,7 @@ object bits:
 
   def pageMenu(active: String, user: Option[User], days: Int = 30)(using ctx: PageContext) =
     val u = user.filterNot(ctx.is).map(_.username)
-    st.nav(cls := "page-menu__menu subnav")(
+    views.html.site.bits.pageMenuSubnav(
       a(href := routes.Puzzle.home)(
         trans.puzzles()
       ),
@@ -64,6 +61,9 @@ object bits:
       )
     )
 
+  private val themeI18nKeys =
+    PuzzleTheme.visible.map(_.name) ::: PuzzleTheme.visible.map(_.description)
+
   private val baseI18nKeys = List(
     trans.puzzle.bestMove,
     trans.puzzle.keepGoing,
@@ -90,20 +90,8 @@ object bits:
     trans.asWhite,
     trans.asBlack,
     trans.randomColor,
-    // ceval
-    trans.depthX,
-    trans.usingServerAnalysis,
-    trans.loadingEngine,
-    trans.calculatingMoves,
-    trans.engineFailed,
-    trans.cloudAnalysis,
-    trans.goDeeper,
-    trans.showThreat,
-    trans.gameOver,
-    trans.inLocalBrowser,
-    trans.toggleLocalEvaluation,
     trans.flipBoard
-  )
+  ) ::: views.html.board.userAnalysisI18n.cevalTranslations.toList
 
   private val trainingI18nKeys = baseI18nKeys ::: List(
     trans.puzzle.example,
@@ -117,8 +105,7 @@ object bits:
     trans.puzzle.nbPointsBelowYourPuzzleRating,
     trans.puzzle.nbPointsAboveYourPuzzleRating
   ) :::
-    PuzzleTheme.visible.map(_.name) :::
-    PuzzleTheme.visible.map(_.description) :::
+    themeI18nKeys :::
     PuzzleDifficulty.all.map(_.name)
 
   private val streakI18nKeys = baseI18nKeys ::: List(
@@ -128,4 +115,4 @@ object bits:
     trans.puzzle.streakSkipExplanation,
     trans.puzzle.continueTheStreak,
     trans.puzzle.newStreak
-  )
+  ) ::: themeI18nKeys

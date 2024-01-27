@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="learnChess">சதுரங்கம் கற்றுக்கொள்ளுங்கள்</string>
+  <string name="learnChess">சதுரங்கம் கற்றுக்கொள்</string>
   <string name="byPlaying">விளையாடுவதன் மூலம்!</string>
   <string name="menu">பட்டியல்</string>
-  <string name="progressX">%s முன்னேறியுள்ளீர்கள்</string>
-  <string name="resetMyProgress">என் முன்னேற்றம் மீட்டமைக்க</string>
-  <string name="youWillLoseAllYourProgress">உங்களின் முன்னேற்றத்தை இழந்துவிடுவீர்கள்!</string>
-  <string name="play">ஆடு!</string>
+  <string name="progressX">முன்னேற்றம்: %s</string>
+  <string name="resetMyProgress">எனது முன்னேற்றத்தை மீட்டமை</string>
+  <string name="youWillLoseAllYourProgress">உங்கள் முன்னேற்றம் அனைத்தையும் இழப்பீர்கள்!</string>
+  <string name="play" comment="play&#10;&#10;A small ribbon that appears on your current chapter in the Chess Basics course. Please keep this string short.">விளையாடு!</string>
   <string name="chessPieces">சதுரங்க காய்கள்</string>
   <string name="theRook">தி ரூக்</string>
   <string name="itMovesInStraightLines">இது நேர்கோட்டில் நகரும்</string>
@@ -25,8 +25,16 @@
   <string name="bishopComplete">வாழ்த்துகள்! நீங்கள் மந்திரிக்குக் கட்டளையிடலாம்.</string>
   <string name="theQueen">அரசி</string>
   <string name="queenCombinesRookAndBishop">அரசி=யானை+அமைச்சர்</string>
+  <string name="queenIntro">மிகவும் சக்தி வாய்ந்த சதுரங்கக் காய் உள்ளே நுழைகிறது. அவள்மாட்சிமையான அரசி!</string>
+  <string name="queenComplete">வாழ்த்துகள்! அரசிக்கு உங்களிடம் எந்த இரகசிமும் இல்லை.</string>
   <string name="theKing">அரசன்</string>
+  <string name="theMostImportantPiece">மிகவும் முக்கியமான காய்</string>
+  <string name="kingIntro">நீங்கள்தான் அரசன். நீங்கள் போரில் விழுந்தால், விளையாட்டில் தோற்று விடுவீர்கள்.</string>
+  <string name="theKingIsSlow">அரசர் மெதுவாக நகர்வார்.</string>
   <string name="lastOne">கடைசியாக ஒன்று!</string>
+  <string name="kingComplete">நீங்கள் இப்போது கட்டளையிடுபவரிற்குக் கட்டளையிடலாம்!</string>
+  <string name="theKnight">குதிரை</string>
+  <string name="itMovesInAnLShape">இது ட வடிவில் நகரும்</string>
   <string name="captureIntro">Identify the opponent\'s undefended pieces, and capture them!</string>
   <string name="protection">பாதுகாப்பு</string>
   <string name="keepYourPiecesSafe">பாதுகாப்பு</string>

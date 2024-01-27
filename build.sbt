@@ -41,17 +41,19 @@ Compile / scalaSource       := baseDirectory.value / "app"
 Test / scalaSource          := baseDirectory.value / "test"
 Universal / sourceDirectory := baseDirectory.value / "dist"
 
+// cats-parse v1.0.0 is the same as v0.3.1, so this is safe
+ThisBuild / libraryDependencySchemes ++= Seq(
+  "org.typelevel" %% "cats-parse" % VersionScheme.Always
+)
+
 // format: off
 libraryDependencies ++= akka.bundle ++ playWs.bundle ++ macwire.bundle ++ Seq(
   play.json, play.server, play.netty, play.logback,
   chess, compression, scalalib, hasher,
   reactivemongo.driver, /* reactivemongo.kamon, */ maxmind, prismic, scalatags,
   kamon.core, kamon.influxdb, kamon.metrics, kamon.prometheus,
-  scaffeine, caffeine, lettuce, uaparser, nettyTransport
-) ++ {
-  if (shadedMongo) Seq(reactivemongo.shaded)
-  else Seq.empty // until reactivemongo includes aarch_64 kqueue versions
-} ++ tests.bundle
+  scaffeine, caffeine, lettuce, uaparser, nettyTransport, reactivemongo.shaded
+) ++ tests.bundle
 
 lazy val modules = Seq(
   common, db, rating, user, security, hub, socket,
@@ -87,7 +89,7 @@ lazy val i18n = module("i18n",
     MessageCompiler(
       sourceDir = new File("translation/source"),
       destDir = new File("translation/dest"),
-      dbs = "site arena emails learn activity coordinates study class contact patron coach broadcast streamer tfa settings preferences team perfStat search tourname faq lag swiss puzzle puzzleTheme challenge storm ublog insight keyboardMove timeago oauthScope".split(' ').toList,
+      dbs = "site arena emails learn activity coordinates study class contact patron coach broadcast streamer tfa settings preferences team perfStat search tourname faq lag swiss puzzle puzzleTheme challenge storm ublog insight keyboardMove timeago oauthScope dgt voiceCommands onboarding".split(' ').toList,
       compileTo = (Compile / sourceManaged).value
     )
   }.taskValue
@@ -238,7 +240,7 @@ lazy val analyse = module("analyse",
 
 lazy val round = module("round",
   Seq(history, room, fishnet, playban),
-  Seq(scalatags, hasher, kamon.core, lettuce) ++ reactivemongo.bundle
+  Seq(scalatags, hasher, kamon.core, lettuce) ++ reactivemongo.bundle ++ tests.bundle
 )
 
 lazy val pool = module("pool",
@@ -283,7 +285,7 @@ lazy val opening = module("opening",
 
 lazy val gathering = module("gathering",
   Seq(history),
-  Seq.empty
+  tests.bundle
 )
 
 lazy val tournament = module("tournament",

@@ -20,19 +20,18 @@ object mini:
     frag(
       div(cls := "upt__info")(
         div(cls := "upt__info__top")(
-          div(cls := "left")(
-            userLink(u, withPowerTip = false),
-            u.profileOrDefault.countryInfo map { c =>
-              val hasRoomForNameText = u.username.length + c.shortName.length < 20
-              span(
-                cls   := "upt__info__top__country",
-                title := (!hasRoomForNameText).option(c.name)
-              )(
-                img(cls := "flag", src := assetUrl(s"images/flags/${c.code}.png")),
-                hasRoomForNameText option c.shortName
-              )
-            }
-          ),
+          userLink(u, withPowerTip = false),
+          u.profileOrDefault.flagInfo map: c =>
+            val titleNameSize      = u.title.fold(0)(_.value.length + 1) + u.username.length
+            val hasRoomForNameText = titleNameSize + c.shortName.length < 21
+            span(
+              cls   := "upt__info__top__flag",
+              title := (!hasRoomForNameText).option(c.name)
+            )(
+              img(cls := "flag", src := assetUrl(s"images/flags/${c.code}.png")),
+              hasRoomForNameText option c.shortName
+            )
+          ,
           ping map bits.signalBars
         ),
         if u.lame && !ctx.is(u) && !isGranted(_.UserModView)
@@ -43,7 +42,7 @@ object mini:
       ),
       ctx.userId.map: myId =>
         frag(
-          (myId != u.id && u.enabled.yes) option div(cls := "upt__actions btn-rack")(
+          (myId.isnt(u.id) && u.enabled.yes) option div(cls := "upt__actions btn-rack")(
             a(
               dataIcon := licon.AnalogTv,
               cls      := "btn-rack__btn",
@@ -66,7 +65,7 @@ object mini:
             ),
             views.html.relation.mini(u.id, blocked, followable, rel)
           ),
-          crosstable.flatMap(_.nonEmpty) map { cross =>
+          crosstable.flatMap(_.nonEmpty) map: cross =>
             a(
               cls   := "upt__score",
               href  := s"${routes.User.games(u.username, "me")}#games",
@@ -76,7 +75,6 @@ object mini:
                 val opponent = ~cross.showOpponentScore(myId)
                 s"""<strong>${cross.showScore(myId)}</strong> - <strong>$opponent</strong>"""
               )
-          }
         ),
       isGranted(_.UserModView) option div(cls := "upt__mod")(
         span(
@@ -86,5 +84,5 @@ object mini:
         ),
         (u.lameOrTroll || u.enabled.no) option span(cls := "upt__mod__marks")(mod.userMarks(u.user, None))
       ),
-      playing.ifFalse(ctx.pref.isBlindfold).map(views.html.game.mini(_))
+      playing.map(views.html.game.mini(_))
     )

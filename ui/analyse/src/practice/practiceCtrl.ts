@@ -1,4 +1,4 @@
-import { winningChances, Eval } from 'ceval';
+import { winningChances, CevalCtrl } from 'ceval';
 import { path as treePath } from 'tree';
 import { detectThreefold } from '../nodeFinder';
 import { tablebaseGuaranteed } from '../explorer/explorerCtrl';
@@ -29,6 +29,7 @@ interface Hinting {
 
 export interface PracticeCtrl {
   onCeval(): void;
+  configureCeval(ceval: CevalCtrl): void;
   onJump(): void;
   isMyTurn(): boolean;
   comment: Prop<Comment | null>;
@@ -46,11 +47,13 @@ export interface PracticeCtrl {
   hint(): void;
   currentNode(): Tree.Node;
   bottomColor(): Color;
+  getSearch(): { searchMs?: number; multiPv?: number };
   redraw: Redraw;
 }
 
 export function make(root: AnalyseCtrl, playableDepth: () => number): PracticeCtrl {
-  const variant = root.data.game.variant.key,
+  const search = { searchMs: 4000, multiPv: 1 },
+    variant = root.data.game.variant.key,
     running = prop(true),
     comment = prop<Comment | null>(null),
     hovering = prop<{ uci: string } | null>(null),
@@ -68,8 +71,7 @@ export function make(root: AnalyseCtrl, playableDepth: () => number): PracticeCt
   function playable(node: Tree.Node): boolean {
     const ceval = node.ceval;
     return ceval
-      ? ceval.depth >= Math.min(ceval.maxDepth || 99, playableDepth()) ||
-          (ceval.depth >= 15 && (ceval.cloud || ceval.millis > 5000))
+      ? ceval.depth >= playableDepth() || (ceval.depth >= 15 && (ceval.cloud || ceval.millis > 5000))
       : false;
   }
 
@@ -94,10 +96,12 @@ export function make(root: AnalyseCtrl, playableDepth: () => number): PracticeCt
     if (outcome && outcome.winner) verdict = 'goodMove';
     else {
       const isFiftyMoves = node.fen.split(' ')[4] === '100';
-      const nodeEval: Eval =
+      const nodeEval: EvalScore =
         tbhitToEval(node.tbhit) ||
-        (node.threefold || (outcome && !outcome.winner) || isFiftyMoves ? { cp: 0 } : (node.ceval as Eval));
-      const prevEval: Eval = tbhitToEval(prev.tbhit) || prev.ceval!;
+        (node.threefold || (outcome && !outcome.winner) || isFiftyMoves
+          ? { cp: 0 }
+          : (node.ceval as EvalScore));
+      const prevEval: EvalScore = tbhitToEval(prev.tbhit) || prev.ceval!;
       const shift = -winningChances.povDiff(root.bottomColor(), nodeEval, prevEval);
 
       best = nodeBestUci(prev);
@@ -197,6 +201,9 @@ export function make(root: AnalyseCtrl, playableDepth: () => number): PracticeCt
 
   return {
     onCeval: checkCeval,
+    configureCeval(ceval: CevalCtrl) {
+      ceval.setSearch({ searchMs: 2000, multiPv: 1 });
+    },
     onJump() {
       played(false);
       hinting(null);
@@ -254,6 +261,7 @@ export function make(root: AnalyseCtrl, playableDepth: () => number): PracticeCt
     },
     currentNode: () => root.node,
     bottomColor: root.bottomColor,
+    getSearch: () => search,
     redraw: root.redraw,
   };
 }

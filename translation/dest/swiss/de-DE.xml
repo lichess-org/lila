@@ -61,7 +61,7 @@ Wir glauben, dass diese Bedingungen eher innerhalb eines Teams als in öffentlic
   <string name="numberOfByesA">Ein Spieler bekommt jedes Mal, wenn das Paarungssystem keine Paarung für ihn findet, einen Punkt.
 Zusätzlich wird ein halber Punkt vergeben, wenn ein Spieler einem Turnier zu spät beitritt.</string>
   <string name="earlyDrawsQ">Was passiert bei frühzeitigen Remis?</string>
-  <string name="earlyDrawsA">Ein Spieler erhält jedes Mal ein Freilos von einem Punkt, wenn das Paarungssystem keine Paarung für ihn finden kann. Darüber hinaus wird ein einziges Freilos von einem halben Punkt gutgeschrieben, wenn ein Spieler zu spät in ein Turnier einsteigt.</string>
+  <string name="earlyDrawsAnswer">In Partien von Turnieren nach Schweizer System können Spieler nicht remisieren, bevor 30 Züge gespielt wurden. Obwohl diese Maßnahme vorab vereinbarte Remis nicht verhindern kann, macht sie es trotzdem schwieriger, in der laufenden Partie zu einer Übereinkunft zu gelangen.</string>
   <string name="whatIfOneDoesntPlayQ">Was passiert, wenn ein Spieler nicht zur Partie antritt?</string>
   <string name="whatIfOneDoesntPlayA">Die Zeit wird ablaufen und er wird die Partie verlieren. Anschließend entfernt das System den Spieler vom Turnier, so dass dieser nicht noch mehr Partien verliert.
  Er kann jederzeit wieder am Turnier teilnehmen.</string>

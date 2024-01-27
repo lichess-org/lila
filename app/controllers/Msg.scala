@@ -3,7 +3,6 @@ package controllers
 import play.api.libs.json.*
 
 import lila.app.{ given, * }
-import lila.common.LightUser.lightUserWrites
 
 final class Msg(env: Env) extends LilaController(env):
 
@@ -53,7 +52,7 @@ final class Msg(env: Env) extends LilaController(env):
   }
 
   def compatCreate = AuthBody { ctx ?=> me ?=>
-    ctx.noKid so ctx.noBot so env.msg.compat.create
+    ctx.kid.no so ctx.noBot so env.msg.compat.create
       .fold(
         doubleJsonFormError,
         _.map: id =>
@@ -68,24 +67,23 @@ final class Msg(env: Env) extends LilaController(env):
         .reply(userId)
         .fold(doubleJsonFormError, _ inject Ok(Json.obj("ok" -> true, "id" -> userId)))
     else // new API: create/reply
-      (!me.kid && !me.is(userId)).so:
+      (ctx.kid.no && me.isnt(userId)).so:
         env.msg.textForm
           .bindFromRequest()
           .fold(
             doubleJsonFormError,
             text =>
-              env.msg.api.post(me, userId, text) flatMap {
+              env.msg.api.post(me, userId, text) flatMap:
                 case lila.msg.MsgApi.PostResult.Success => jsonOkResult
                 case lila.msg.MsgApi.PostResult.Limited => rateLimited
                 case _                                  => BadRequest(jsonError("The message was rejected"))
-              }
           )
   }
 
   private def inboxJson(using me: Me) =
     env.msg.api.myThreads flatMap env.msg.json.threads map { threads =>
       Json.obj(
-        "me"       -> lightUserWrites.writes(me.light).add("bot" -> me.isBot),
+        "me"       -> lila.common.LightUser.write(me.light).add("bot" -> me.isBot),
         "contacts" -> threads
       )
     }

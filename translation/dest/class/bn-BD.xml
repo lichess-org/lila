@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="lichessClasses">শ্রেণি</string>
+  <string name="reopen">পুনরায় খোলা</string>
   <string name="createDesc3">গুরুত্বপূর্ণ: একজন ছাত্রের একাধিক অ্যাকাউন্ট থাকা যাবে না।</string>
   <string name="createDesc4">যদি তাদের ইতিমধ্যেই একটি থেকে থাকে, তাহলে বরং আমন্ত্রণ ফর্ম ব্যবহার করুন।</string>
   <string name="lichessUsername">Lichess ইউজারনেম</string>

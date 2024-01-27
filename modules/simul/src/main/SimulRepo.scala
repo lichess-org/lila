@@ -64,7 +64,7 @@ final private[simul] class SimulRepo(val coll: Coll)(using Executor):
   def findPending(hostId: UserId): Fu[List[Simul]] =
     coll.list[Simul](createdSelect ++ $doc("hostId" -> hostId))
 
-  def byTeamLeaders(teamId: TeamId, hostIds: Seq[UserId]): Fu[List[Simul]] =
+  def byTeamLeaders[U: UserIdOf](teamId: TeamId, hostIds: Seq[U]): Fu[List[Simul]] =
     coll
       .find(createdSelect ++ $doc("hostId" $in hostIds, "team" -> teamId))
       .hint(coll hint $doc("hostId" -> 1))
@@ -99,7 +99,7 @@ final private[simul] class SimulRepo(val coll: Coll)(using Executor):
       .sort(createdSort)
       .hint(coll hint $doc("hostSeenAt" -> -1))
       .cursor[Simul]()
-      .list(100) map {
+      .list(50) map {
       _.foldLeft(List.empty[Simul]) {
         case (acc, sim) if acc.exists(_.hostId == sim.hostId) => acc
         case (acc, sim)                                       => sim :: acc

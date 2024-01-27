@@ -196,7 +196,7 @@ object PerfType:
     Horde,
     RacingKings
   )
-  val isLeaderboardable = leaderboardable.toSet
+  val isLeaderboardable: Set[PerfType] = leaderboardable.toSet
   val variants: List[PerfType] =
     List(Crazyhouse, Chess960, KingOfTheHill, ThreeCheck, Antichess, Atomic, Horde, RacingKings)
   val standard: List[PerfType]          = List(Bullet, Blitz, Rapid, Classical, Correspondence)
@@ -254,6 +254,8 @@ object PerfType:
     byVariant(variant).fold(licon.CrownElite)(_.icon)
 
   def trans(pt: PerfType)(using Lang): String = pt match
+    case Bullet         => I18nKeys.bullet.txt()
+    case Blitz          => I18nKeys.blitz.txt()
     case Rapid          => I18nKeys.rapid.txt()
     case Classical      => I18nKeys.classical.txt()
     case Correspondence => I18nKeys.correspondence.txt()

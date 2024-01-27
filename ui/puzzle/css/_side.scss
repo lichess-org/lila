@@ -20,9 +20,15 @@
       overflow: hidden;
       white-space: nowrap;
 
-      &::before {
-        font-size: 3rem;
+      &__angle-img {
+        height: 3.5rem;
         margin-#{$end-direction}: 1vw;
+      }
+
+      &::before {
+        font-size: 3.5rem;
+        margin-#{$end-direction}: 1vw;
+        color: $c-font-dim;
       }
 
       &.puzzle {
@@ -284,7 +290,7 @@
     &::before {
       @extend %data-icon;
 
-      content: '';
+      content: $licon-ThumbsUp;
       font-size: 1.3em;
     }
 

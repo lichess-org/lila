@@ -59,8 +59,8 @@
     <item quantity="other">%s आखाड्यांमध्ये भाग घेतला</item>
   </plurals>
   <plurals name="rankedInTournament">
-    <item quantity="one">%4$s या प्रकारात %1$s क्रमांक (पहिल्या %2$s%% मध्ये) %3$s खेळ खेळून आला</item>
-    <item quantity="other">%4$s या प्रकारात %1$s क्रमांक (पहिल्या %2$s%% मध्ये) %3$s खेळ खेळून आला</item>
+    <item quantity="one">%4$s स्पर्धेत %3$s खेळ खेळून %1$s क्रमांक (पहिल्या %2$s%% मध्ये) मिळवला</item>
+    <item quantity="other">%4$s स्पर्धेत %3$s खेळ खेळून %1$s क्रमांक (पहिल्या %2$s%% मध्ये) मिळवला</item>
   </plurals>
   <plurals name="competedInNbSwissTournaments">
     <item quantity="one">%s स्विस प्रतिस्पर्धेत सहभाग घेतला</item>

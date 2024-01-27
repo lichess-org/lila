@@ -15,9 +15,13 @@
     }
   }
 
-  #rating_distribution_chart {
+  #rating_distribution {
     height: 500px;
     margin-top: 2rem;
+
+    #rating_distribution_chart {
+      max-width: 100%;
+    }
   }
 
   .mselect {

@@ -37,11 +37,6 @@
     <item quantity="other">în %s de ani</item>
   </plurals>
   <string name="rightNow">chiar acum</string>
-  <plurals name="nbSecondsAgo">
-    <item quantity="one">cu %s secundă în urmă</item>
-    <item quantity="few">cu %s secunde în urmă</item>
-    <item quantity="other">cu %s de secunde în urmă</item>
-  </plurals>
   <plurals name="nbMinutesAgo">
     <item quantity="one">cu %s minut în urmă</item>
     <item quantity="few">cu %s minute în urmă</item>
@@ -72,4 +67,15 @@
     <item quantity="few">cu %s ani în urmă</item>
     <item quantity="other">cu %s de ani în urmă</item>
   </plurals>
+  <plurals name="nbMinutesRemaining">
+    <item quantity="one">%s minut rămas</item>
+    <item quantity="few">%s minute rămase</item>
+    <item quantity="other">%s minute rămase</item>
+  </plurals>
+  <plurals name="nbHoursRemaining">
+    <item quantity="one">%s oră rămasă</item>
+    <item quantity="few">%s ore rămase</item>
+    <item quantity="other">%s ore rămase</item>
+  </plurals>
+  <string name="completed">completat</string>
 </resources>

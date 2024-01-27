@@ -1,9 +1,10 @@
 import * as licon from 'common/licon';
-import { bind, onInsert } from 'common/snabbdom';
-import { h, VNode } from 'snabbdom';
+import { bind, onInsert, looseH as h } from 'common/snabbdom';
+import { VNode } from 'snabbdom';
 import AnalyseCtrl from '../ctrl';
 import * as studyView from '../study/studyView';
 import { patch, nodeFullName } from '../view/util';
+import { renderVariationPgn } from '../pgnExport';
 
 export interface Opts {
   path: Tree.Path;
@@ -27,11 +28,7 @@ const elementId = 'analyse-cm';
 function getPosition(e: MouseEvent | TouchEvent): Coords | null {
   let pos = e as PageOrClientPos;
   if ('touches' in e && e.touches.length > 0) pos = e.touches[0];
-  if (pos.pageX || pos.pageY)
-    return {
-      x: pos.pageX!,
-      y: pos.pageY!,
-    };
+  if (pos.pageX || pos.pageY) return { x: pos.pageX!, y: pos.pageY! };
   else if (pos.clientX || pos.clientY)
     return {
       x: pos.clientX! + document.body.scrollLeft + document.documentElement!.scrollLeft,
@@ -56,14 +53,7 @@ function positionMenu(menu: HTMLElement, coords: Coords): void {
 }
 
 function action(icon: string, text: string, handler: () => void): VNode {
-  return h(
-    'a',
-    {
-      attrs: { 'data-icon': icon },
-      hook: bind('click', handler),
-    },
-    text,
-  );
+  return h('a', { attrs: { 'data-icon': icon }, hook: bind('click', handler) }, text);
 }
 
 function view(opts: Opts, coords: Coords): VNode {
@@ -84,18 +74,23 @@ function view(opts: Opts, coords: Coords): VNode {
     },
     [
       h('p.title', nodeFullName(node)),
-      onMainline
-        ? null
-        : action(licon.UpTriangle, trans('promoteVariation'), () => ctrl.promote(opts.path, false)),
-      onMainline ? null : action(licon.Checkmark, trans('makeMainLine'), () => ctrl.promote(opts.path, true)),
+
+      !onMainline &&
+        action(licon.UpTriangle, trans('promoteVariation'), () => ctrl.promote(opts.path, false)),
+
+      !onMainline && action(licon.Checkmark, trans('makeMainLine'), () => ctrl.promote(opts.path, true)),
+
       action(licon.Trash, trans('deleteFromHere'), () => ctrl.deleteNode(opts.path)),
-    ]
-      .concat(ctrl.study ? studyView.contextMenu(ctrl.study, opts.path, node) : [])
-      .concat([
-        onMainline
-          ? action(licon.InternalArrow, trans('forceVariation'), () => ctrl.forceVariation(opts.path, true))
-          : null,
-      ]),
+
+      ...(ctrl.study ? studyView.contextMenu(ctrl.study, opts.path, node) : []),
+
+      onMainline &&
+        action(licon.InternalArrow, trans('forceVariation'), () => ctrl.forceVariation(opts.path, true)),
+
+      action(licon.Clipboard, trans('copyVariationPgn'), () =>
+        navigator.clipboard.writeText(renderVariationPgn(opts.root.tree.getNodeList(opts.path))),
+      ),
+    ],
   );
 }
 

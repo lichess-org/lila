@@ -6,7 +6,7 @@
   <string name="notifications">Bildirishnomalar</string>
   <string name="pieceAnimation">Qism animatsiyalar</string>
   <string name="materialDifference">Materiallar farqi</string>
-  <string name="boardHighlights">Doskadagi rang bilan ajratsih (oxirgi yurish va shoh)</string>
+  <string name="boardHighlights">Doskadagi rang bila ajratsih (oxirgi yurish va shoh)</string>
   <string name="pieceDestinations">Mumkin bo\'lgan yurishlani ko\'rsatish</string>
   <string name="boardCoordinates">Doska koordinatalari (A-H, 1-8)</string>
   <string name="moveListWhilePlaying">O\'yin davomida yurishlar ro\'yhatini ko\'rsatish</string>
@@ -18,8 +18,7 @@
   <string name="explainShowPlayerRatings">Bu barcha reytinglarni websiteda yashirib fokusni faqat shaxmatga qaratish imkonini beradi. O‘yinlar reytingli bo‘lishi saqlanib qoladi. Bu faqat siz nimani ko‘rishingiz mumkinligi haqida.</string>
   <string name="displayBoardResizeHandle">Doskani o\'lchamini o\'gartiruvchi uskunani namoyishi</string>
   <string name="onlyOnInitialPosition">Faqat boshlang\'ich holatda</string>
-  <string name="inGameOnly" comment="This is a possible setting for Zen mode (https://lichess.org/page/zen) i.e. &quot;Zen mode: In-game only&quot; which means zen mode will only be active during games.">Faqat o‘yin ichida</string>
-  <string name="blindfoldChess">Ko\'zlar berklitilgan shahmat (sipohlar ko\'rinmas holda)</string>
+  <string name="inGameOnly">Faqat o‘yin ichida</string>
   <string name="chessClock">Shaxmat Soati</string>
   <string name="tenthsOfSeconds">10 lab sekundlar</string>
   <string name="whenTimeRemainingLessThanTenSeconds" comment="whenTimeRemainingLessThanTenSeconds&#10;&#10;The &amp;lt; symbol is not required (you can write it as a word), just do NOT use &lt; in its place.&#10;&#10;Technical information: &lt; is a reserved character in HTML, which is why it cannot be used.">Qachonki vaqt tugashiga &lt; 10 sekundlar bo\'lsa</string>

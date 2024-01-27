@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="voiceCommands">Φωνητικές εντολές</string>
+  <string name="watchTheVideoTutorial">Παρακολουθήστε το σχετικό βίντεο</string>
+  <string name="instructions1">Χρησιμοποιήστε το κουμπί %1$s για εναλλαγή αναγνώρισης φωνής, το κουμπί %2$s για να ανοίξετε αυτό το διάλογο βοήθειας και το μενού %3$s για να αλλάξετε τις ρυθμίσεις ομιλίας.</string>
+  <string name="instructions2" comment="Voice commands can be misheard and Lichess will not always be fully certain what you said. Several arrows will be shown to identify e.g. if the move was 'b4' or 'd4', which often sound similar.&#10;&#10;These arrows will be in different colours (green, blue, etc) or labelled 1, 2, 3....&#10;You can then say the colour of the arrow (e.g. 'green') - or its number (e.g. '1'), to select that move.&#10;Users can configure if they choose from multiple moves based on colours or numbers.">Εμφανίζουμε βέλη για πολλαπλές κινήσεις όταν δεν είμαστε σίγουροι. Πείτε το χρώμα ή τον αριθμό ενός βέλους κίνησης για να το επιλέξετε.</string>
+  <string name="instructions4" comment="%s is Push to Talk.">Ενεργοποιήστε %s σε θορυβώδη περιβάλλοντα. Κρατήστε πατημένο το shift ενώ δίνετε φωνητικές εντολές όταν αυτό είναι ενεργοποιημένο.</string>
+  <string name="instructions5" comment="The phonetic alphabet is also known as the NATO alphabet (where A = Alpha, B = Bravo, etc. This makes the sounds easier to differentiate through a microphone). It is for English specifically, which as of the time of writing, is the only language supported by the Voice Commands feature.">Χρησιμοποιήστε το φωνητικό αλφάβητο για τη βελτίωση της αναγνώρισης των αρχείων σκακιέρας. </string>
+  <string name="instructions6">Το %s εξηγεί λεπτομερώς τις ρυθμίσεις φωνητικής κίνησης.</string>
+  <string name="thisBlogPost">Αυτή η δημοσίευση ιστολογίου</string>
+  <string name="moveToE4OrSelectE4Piece">Μετακινήσε στο e4 ή επέλεξε το e4 πιόνι</string>
+  <string name="selectOrCaptureABishop">Διαλέξτε ή αιχμαλωτήστε έναν αξιωματικό</string>
+  <string name="takeRookWithQueen">Πάρτε τον πύργο με βασίλισσα</string>
+  <string name="phoneticAlphabetIsBest">Το φωνητικό αλφάβητο είναι καλύτερο</string>
+  <string name="cancelTimerOrDenyARequest">Ακύρωση χρονομέτρου ή άρνηση αιτήματος</string>
+  <string name="playPreferredMoveOrConfirmSomething" comment="Used in voice commands. When it is unclear what the player said (e.g. 'b4' and 'd4' sound similar), both moves will be shown, with the more likely one highlighted in a certain colour. By default, a countdown begins, and if no action is taken, the likely move (e.g. b4) will be played. Players can end the countdown early/confirm their move by saying 'yes'.&#10;&#10;For more details see https://lichess.org/@/schlawg/blog/how-to-lichess-voice/nWrypoWI">Παίξτε την προτιμώμενη κίνηση ή επιβεβαιώστε κάτι</string>
+  <string name="turnOffVoiceRecognition">Απενεργοποίηση αναγνώρισης φωνής</string>
+  <string name="showPuzzleSolution">Εμφάνιση λύσης γρίφου</string>
+</resources>

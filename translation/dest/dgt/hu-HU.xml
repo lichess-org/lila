@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="dgtBoard">DGT tábla</string>
+  <string name="lichessAndDgt">Lichess és DGT</string>
+  <string name="dgtBoardRequirements">DGT tábla követelmények</string>
+  <string name="dgtBoardLimitations">DGT tábla limitációk</string>
+  <string name="thisPageAllowsConnectingDgtBoard">Az alábbi oldal segítséget nyújt a DGT táblád csatlakoztatásához, hogy azt használhasd a játszmákban.</string>
+  <string name="toConnectTheDgtBoard">A DGT táblád csatlakoztatásához telepítened kell: %s.</string>
+  <string name="downloadHere">A szoftver innen letölthető: %s.</string>
+  <string name="openingThisLink">az alábbi link megnyitásával</string>
+  <string name="reloadThisPage">Oldal frissítése</string>
+  <string name="dgtConfigure">DGT - Beállítások</string>
+  <string name="lichessConnectivity">Lichess csatlakoztatás</string>
+  <string name="validDgtOauthToken">DGT játékhoz megfelelő OAuth token rendelkezésre áll.</string>
+  <string name="noSuitableOauthToken">Nem található OAuth token.</string>
+  <string name="dgtBoardConnectivity">DGT tábla csatlakoztatás</string>
+  <string name="clickToGenerateOne">Token létrehozása</string>
+  <string name="webSocketUrl">%s WebSocket URL</string>
+  <string name="textToSpeech">Szövegfelolvasás</string>
+  <string name="configureVoiceNarration">A lépések narrációjának beállításával a tektintetedet a táblán tarthatod.</string>
+  <string name="speechSynthesisVoice">Beszédszintetizátor</string>
+  <string name="announceAllMoves">Összes lépés bejelentése</string>
+  <string name="selectAnnouncePreference">Az IGEN opció bejelenti mindkét fél lépését, a NEM csak az ellenfeled lépését jelenti be.</string>
+  <string name="announceMoveFormat">Lépésformátum</string>
+  <string name="moveFormatDescription">A Lichess a SAN jelölést használja, például \"Nf6\". Az UCI jelölést általában sakkmotorok használják, például \"g8f6\".</string>
+  <string name="keywords">Kulcsszavak</string>
+  <string name="keywordFormatDescription">A kulcsszavak JSON formátumban, melyekkel az általad használt nyelvre fordítjuk a lépéseket és eredményeket. Alapértelmezetten Angol, de ezt bármikor megváltoztathatod.</string>
+  <string name="debug">Hibakeresés</string>
+  <string name="verboseLogging">Részletes naplózás</string>
+  <string name="playWithDgtBoard">Játék DGT táblával</string>
+  <string name="configure">Beállítás</string>
+</resources>

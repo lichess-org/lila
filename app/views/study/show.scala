@@ -35,9 +35,10 @@ object show:
             "i18n"     -> jsI18n(),
             "tagTypes" -> lila.study.PgnTags.typesToString,
             "userId"   -> ctx.userId,
-            "chat" -> chatOption.map { c =>
+            "chat" -> chatOption.map: c =>
               views.html.chat.json(
                 c.chat,
+                c.lines,
                 name = trans.chatRoom.txt(),
                 timeout = c.timeout,
                 writeable = ctx.userId exists s.canChat,
@@ -45,8 +46,7 @@ object show:
                 resourceId = lila.chat.Chat.ResourceId(s"study/${c.chat.id}"),
                 palantir = ctx.userId exists s.isMember,
                 localMod = ctx.userId exists s.canContribute
-              )
-            },
+              ),
             "socketUrl"     -> socketUrl(s.id),
             "socketVersion" -> socketVersion
           ) ++ views.html.board.bits.explorerAndCevalConfig
@@ -54,7 +54,7 @@ object show:
       ),
       robots = s.isPublic,
       zoomable = true,
-      csp = analysisCsp.withPeer.withWikiBooks.some,
+      csp = analysisCsp.withPeer.withExternalAnalysisApis.some,
       openGraph = lila.app.ui
         .OpenGraph(
           title = s.name.value,
@@ -62,11 +62,10 @@ object show:
           description = s"A chess study by ${titleNameOrId(s.ownerId)}"
         )
         .some
-    )(
+    ):
       frag(
         main(cls := "analyse"),
         bits.streamers(streamers)
       )
-    )
 
   def socketUrl(id: lila.study.StudyId) = s"/study/$id/socket/v$apiVersion"

@@ -15,11 +15,11 @@
   <string name="pgnLetter">PGN-letter (K, D, T, L, P)</string>
   <string name="zenMode" comment="zenMode&#10;&#10;This is not the religious meaning. Turning this option on takes away make elements of the user interface.&#10;&#10;Can also translate as 'Focus mode' as one example.">Zenmodus</string>
   <string name="showPlayerRatings">Toon de rating van de spelers</string>
+  <string name="showFlairs">Geef de flairs van de spelers weer</string>
   <string name="explainShowPlayerRatings">Deze instelling zorgt ervoor dat alle ratings op de website verborgen blijven zodat je je kunt concentreren op het schaken. Partijen kunnen nog steeds met rating zijn; dit gaat alleen om wat je te zien krijgt.</string>
   <string name="displayBoardResizeHandle">Toon de knop om het bordformaat te wijzigen</string>
   <string name="onlyOnInitialPosition">Enkel tijdens de beginstelling</string>
   <string name="inGameOnly">Alleen tijdens partij</string>
-  <string name="blindfoldChess">Blindschaak (onzichtbare stukken)</string>
   <string name="chessClock">Schaakklok</string>
   <string name="tenthsOfSeconds">Tienden van seconden</string>
   <string name="whenTimeRemainingLessThanTenSeconds" comment="whenTimeRemainingLessThanTenSeconds&#10;&#10;The &amp;lt; symbol is not required (you can write it as a word), just do NOT use &lt; in its place.&#10;&#10;Technical information: &lt; is a reserved character in HTML, which is why it cannot be used.">Wanneer resterende tijd &lt; 10 seconden</string>

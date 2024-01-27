@@ -1,26 +1,26 @@
 import { path as treePath } from 'tree';
-import { KeyboardController } from './interfaces';
+import PuzzleCtrl from './ctrl';
 
-export function canGoForward(ctrl: KeyboardController): boolean {
-  return ctrl.vm.node.children.length > 0;
+export function canGoForward(ctrl: PuzzleCtrl): boolean {
+  return ctrl.node.children.length > 0;
 }
 
-export function next(ctrl: KeyboardController): void {
-  const child = ctrl.vm.node.children[0];
+export function next(ctrl: PuzzleCtrl): void {
+  const child = ctrl.node.children[0];
   if (!child) return;
-  ctrl.userJump(ctrl.vm.path + child.id);
+  ctrl.userJump(ctrl.path + child.id);
 }
 
-export function prev(ctrl: KeyboardController): void {
-  ctrl.userJump(treePath.init(ctrl.vm.path));
+export function prev(ctrl: PuzzleCtrl): void {
+  ctrl.userJump(treePath.init(ctrl.path));
 }
 
-export function last(ctrl: KeyboardController): void {
-  const toInit = !treePath.contains(ctrl.vm.path, ctrl.vm.initialPath);
-  ctrl.userJump(toInit ? ctrl.vm.initialPath : treePath.fromNodeList(ctrl.vm.mainline));
+export function last(ctrl: PuzzleCtrl): void {
+  const toInit = !treePath.contains(ctrl.path, ctrl.initialPath);
+  ctrl.userJump(toInit ? ctrl.initialPath : treePath.fromNodeList(ctrl.mainline));
 }
 
-export function first(ctrl: KeyboardController): void {
-  const toInit = ctrl.vm.path !== ctrl.vm.initialPath && treePath.contains(ctrl.vm.path, ctrl.vm.initialPath);
-  ctrl.userJump(toInit ? ctrl.vm.initialPath : treePath.root);
+export function first(ctrl: PuzzleCtrl): void {
+  const toInit = ctrl.path !== ctrl.initialPath && treePath.contains(ctrl.path, ctrl.initialPath);
+  ctrl.userJump(toInit ? ctrl.initialPath : treePath.root);
 }

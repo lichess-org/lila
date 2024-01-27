@@ -10,7 +10,7 @@
     <item quantity="other">em %s minutos</item>
   </plurals>
   <plurals name="inNbHours">
-    <item quantity="one">em %s horas</item>
+    <item quantity="one">em %s hora</item>
     <item quantity="other">em %s horas</item>
   </plurals>
   <plurals name="inNbDays">
@@ -18,25 +18,21 @@
     <item quantity="other">em %s dias</item>
   </plurals>
   <plurals name="inNbWeeks">
-    <item quantity="one">há %s semana</item>
+    <item quantity="one">em %s semana</item>
     <item quantity="other">em %s semanas</item>
   </plurals>
   <plurals name="inNbMonths">
-    <item quantity="one">há %s mês</item>
+    <item quantity="one">em %s mês</item>
     <item quantity="other">em %s meses</item>
   </plurals>
   <plurals name="inNbYears">
-    <item quantity="one">há %s ano</item>
+    <item quantity="one">em %s ano</item>
     <item quantity="other">em %s anos</item>
   </plurals>
   <string name="rightNow">agora mesmo</string>
-  <plurals name="nbSecondsAgo">
-    <item quantity="one">%s segundos atrás</item>
-    <item quantity="other">%s segundos atrás</item>
-  </plurals>
   <plurals name="nbMinutesAgo">
-    <item quantity="one">Há %s minutos atrás</item>
-    <item quantity="other">há %s minutos atrás</item>
+    <item quantity="one">há %s minuto</item>
+    <item quantity="other">há %s minutos</item>
   </plurals>
   <plurals name="nbHoursAgo">
     <item quantity="one">há %s hora</item>
@@ -44,18 +40,27 @@
   </plurals>
   <plurals name="nbDaysAgo">
     <item quantity="one">há %s dia</item>
-    <item quantity="other">%s dias atrás</item>
+    <item quantity="other">há %s dias</item>
   </plurals>
   <plurals name="nbWeeksAgo">
     <item quantity="one">há %s semana</item>
-    <item quantity="other">há %s semanas atrás</item>
+    <item quantity="other">há %s semanas</item>
   </plurals>
   <plurals name="nbMonthsAgo">
-    <item quantity="one">há %s mês atrás</item>
-    <item quantity="other">há %s meses atrás</item>
+    <item quantity="one">há %s mês</item>
+    <item quantity="other">há %s meses</item>
   </plurals>
   <plurals name="nbYearsAgo">
-    <item quantity="one">há %s anos atrás</item>
-    <item quantity="other">há %s anos atrás</item>
+    <item quantity="one">há %s ano</item>
+    <item quantity="other">há %s anos</item>
   </plurals>
+  <plurals name="nbMinutesRemaining">
+    <item quantity="one">%s minuto restante</item>
+    <item quantity="other">%s minutos restantes</item>
+  </plurals>
+  <plurals name="nbHoursRemaining">
+    <item quantity="one">%s hora restante</item>
+    <item quantity="other">%s horas restantes</item>
+  </plurals>
+  <string name="completed">concluído</string>
 </resources>

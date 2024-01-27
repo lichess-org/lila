@@ -2,6 +2,7 @@ import AnalyseCtrl from './ctrl';
 import { h } from 'snabbdom';
 import { initialFen, fixCrazySan } from 'chess';
 import { MaybeVNodes } from 'common/snabbdom';
+import { plyToTurn } from './util';
 
 interface PgnNode {
   ply: Ply;
@@ -39,15 +40,7 @@ export function renderFullTxt(ctrl: AnalyseCtrl): string {
   const tags: Array<[string, string]> = [];
   if (g.variant.key !== 'standard') tags.push(['Variant', g.variant.name]);
   if (g.initialFen && g.initialFen !== initialFen) tags.push(['FEN', g.initialFen]);
-  if (tags.length)
-    txt =
-      tags
-        .map(function (t) {
-          return '[' + t[0] + ' "' + t[1] + '"]';
-        })
-        .join('\n') +
-      '\n\n' +
-      txt;
+  if (tags.length) txt = tags.map(t => '[' + t[0] + ' "' + t[1] + '"]').join('\n') + '\n\n' + txt;
   return txt;
 }
 
@@ -63,4 +56,27 @@ export function renderNodesHtml(nodes: PgnNode[]): MaybeVNodes {
     tags.push(h('san', fixCrazySan(node.san!)));
   });
   return tags;
+}
+
+export function renderVariationPgn(nodeList: Tree.Node[]): string {
+  const filteredNodeList = nodeList.filter(node => node.san);
+  if (filteredNodeList.length === 0) {
+    return '';
+  }
+
+  let variationPgn = '';
+
+  const first = filteredNodeList[0];
+  variationPgn += `${plyPrefix(first)}${first.san} `;
+
+  for (let i = 1; i < filteredNodeList.length; i++) {
+    const node = filteredNodeList[i];
+    if (node.ply % 2 === 1) {
+      variationPgn += plyToTurn(node.ply) + '. ';
+    }
+
+    variationPgn += fixCrazySan(node.san!) + ' ';
+  }
+
+  return variationPgn;
 }

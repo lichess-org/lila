@@ -1,48 +1,103 @@
-import { Ctrl, ChatOpts, Line, Tab, ViewModel, Redraw, Permissions, ModerationCtrl } from './interfaces';
-import { presetCtrl } from './preset';
+import {
+  ChatOpts,
+  Line,
+  Tab,
+  ViewModel,
+  Redraw,
+  Permissions,
+  ModerationCtrl,
+  ChatData,
+  NoteCtrl,
+  ChatPalantir,
+} from './interfaces';
+import { PresetCtrl, presetCtrl } from './preset';
 import { noteCtrl } from './note';
 import { moderationCtrl } from './moderation';
 import { prop } from 'common';
 
-export default function (opts: ChatOpts, redraw: Redraw): Ctrl {
-  const data = opts.data;
-  data.domVersion = 1; // increment to force redraw
-  const maxLines = 200;
-  const maxLinesDrop = 50; // how many lines to drop at once
+export default class ChatCtrl {
+  data: ChatData;
+  private maxLines = 200;
+  private maxLinesDrop = 50; // how many lines to drop at once
+  private subs: [string, PubsubCallback][];
 
-  const palantir = {
-    instance: undefined,
-    loaded: false,
-    enabled: prop(!!data.palantir),
-  };
+  allTabs: Tab[] = ['discussion'];
+  palantir: ChatPalantir;
+  tabStorage = lichess.storage.make('chat.tab');
+  storedTab = this.tabStorage.get();
+  moderation: ModerationCtrl | undefined;
+  note: NoteCtrl | undefined;
+  preset: PresetCtrl;
+  trans: Trans;
+  vm: ViewModel;
 
-  const allTabs: Tab[] = ['discussion'];
-  if (opts.noteId) allTabs.push('note');
-  if (opts.plugin) allTabs.push(opts.plugin.tab.key);
+  constructor(
+    readonly opts: ChatOpts,
+    readonly redraw: Redraw,
+  ) {
+    this.data = opts.data;
+    if (opts.noteId) this.allTabs.push('note');
+    if (opts.plugin) this.allTabs.push(opts.plugin.tab.key);
+    this.palantir = {
+      instance: undefined,
+      loaded: false,
+      enabled: prop(!!this.data.palantir),
+    };
+    this.trans = lichess.trans(this.opts.i18n);
+    const noChat = lichess.storage.get('nochat');
+    this.vm = {
+      tab: this.allTabs.find(tab => tab === this.storedTab) || this.allTabs[0],
+      enabled: opts.alwaysEnabled || !noChat,
+      placeholderKey: 'talkInChat',
+      loading: false,
+      autofocus: false,
+      timeout: opts.timeout,
+      writeable: opts.writeable,
+      domVersion: 1, // increment to force redraw
+    };
 
-  const tabStorage = lichess.storage.make('chat.tab'),
-    storedTab = tabStorage.get();
+    this.note = opts.noteId
+      ? noteCtrl({
+          id: opts.noteId,
+          text: opts.noteText,
+          trans: this.trans,
+          redraw: this.redraw,
+        })
+      : undefined;
 
-  let moderation: ModerationCtrl | undefined;
+    this.preset = presetCtrl({
+      initialGroup: opts.preset,
+      post: this.post,
+      redraw: this.redraw,
+    });
 
-  const vm: ViewModel = {
-    tab: allTabs.find(tab => tab === storedTab) || allTabs[0],
-    enabled: opts.alwaysEnabled || !lichess.storage.get('nochat'),
-    placeholderKey: 'talkInChat',
-    loading: false,
-    autofocus: false,
-    timeout: opts.timeout,
-    writeable: opts.writeable,
-  };
+    /* If discussion is disabled, and we have another chat tab,
+     * then select that tab over discussion */
+    if (this.allTabs.length > 1 && this.vm.tab === 'discussion' && noChat) this.vm.tab = this.allTabs[1];
+    this.instanciateModeration();
 
-  /* If discussion is disabled, and we have another chat tab,
-   * then select that tab over discussion */
-  if (allTabs.length > 1 && vm.tab === 'discussion' && lichess.storage.get('nochat')) vm.tab = allTabs[1];
+    this.subs = [
+      ['socket.in.message', this.onMessage],
+      ['socket.in.chat_timeout', this.onTimeout],
+      ['socket.in.chat_reinstate', this.onReinstate],
+      ['chat.writeable', this.onWriteable],
+      ['chat.permissions', this.onPermissions],
+      ['palantir.toggle', this.palantir.enabled],
+    ];
 
-  const post = (text: string): boolean => {
+    this.subs.forEach(([eventName, callback]) => lichess.pubsub.on(eventName, callback));
+
+    this.emitEnabled();
+  }
+
+  get plugin() {
+    return this.opts.plugin;
+  }
+
+  post = (text: string): boolean => {
     text = text.trim();
     if (!text) return false;
-    if (text == 'You too!' && !data.lines.some(l => l.u != data.userId)) return false;
+    if (text == 'You too!' && !this.data.lines.some(l => l.u != this.data.userId)) return false;
     if (text.length > 140) {
       alert('Max length: 140 chars. ' + text.length + ' chars used.');
       return false;
@@ -51,123 +106,80 @@ export default function (opts: ChatOpts, redraw: Redraw): Ctrl {
     return true;
   };
 
-  const onTimeout = (userId: string) => {
+  onTimeout = (userId: string) => {
     let change = false;
-    data.lines.forEach(l => {
+    this.data.lines.forEach(l => {
       if (l.u && l.u.toLowerCase() == userId) {
         l.d = true;
         change = true;
       }
     });
-    if (userId == data.userId) vm.timeout = change = true;
+    if (userId == this.data.userId) this.vm.timeout = change = true;
     if (change) {
-      data.domVersion++;
-      redraw();
+      this.vm.domVersion++;
+      this.redraw();
     }
   };
 
-  const onReinstate = (userId: string) => {
-    if (userId == data.userId) {
-      vm.timeout = false;
-      redraw();
+  onReinstate = (userId: string) => {
+    if (userId == this.data.userId) {
+      this.vm.timeout = false;
+      this.redraw();
     }
   };
 
-  const onMessage = (line: Line) => {
-    data.lines.push(line);
-    const nb = data.lines.length;
-    if (nb > maxLines) {
-      data.lines.splice(0, nb - maxLines + maxLinesDrop);
-      data.domVersion++;
+  onMessage = (line: Line) => {
+    this.data.lines.push(line);
+    const nb = this.data.lines.length;
+    if (nb > this.maxLines) {
+      this.data.lines.splice(0, nb - this.maxLines + this.maxLinesDrop);
+      this.vm.domVersion++;
     }
-    redraw();
+    this.redraw();
   };
 
-  const onWriteable = (v: boolean) => {
-    vm.writeable = v;
-    redraw();
+  onWriteable = (v: boolean) => {
+    this.vm.writeable = v;
+    this.redraw();
   };
 
-  const onPermissions = (obj: Permissions) => {
+  onPermissions = (obj: Permissions) => {
     let p: keyof Permissions;
-    for (p in obj) opts.permissions[p] = obj[p];
-    instanciateModeration();
-    redraw();
+    for (p in obj) this.opts.permissions[p] = obj[p];
+    this.instanciateModeration();
+    this.redraw();
   };
 
-  const trans = lichess.trans(opts.i18n);
-
-  function instanciateModeration() {
-    if (opts.permissions.timeout || opts.permissions.broadcast || opts.permissions.local) {
-      moderation = moderationCtrl({
-        reasons: opts.timeoutReasons || [{ key: 'other', name: 'Inappropriate behavior' }],
-        permissions: opts.permissions,
-        resourceId: data.resourceId,
-        redraw,
+  private instanciateModeration = () => {
+    if (this.opts.permissions.timeout || this.opts.permissions.broadcast || this.opts.permissions.local) {
+      this.moderation = moderationCtrl({
+        reasons: this.opts.timeoutReasons || [{ key: 'other', name: 'Inappropriate behavior' }],
+        permissions: this.opts.permissions,
+        resourceId: this.data.resourceId,
+        redraw: this.redraw,
       });
-      lichess.loadCssPath('chat.mod');
+      lichess.asset.loadCssPath('chat.mod');
     }
-  }
-  instanciateModeration();
-
-  const note = opts.noteId
-    ? noteCtrl({
-        id: opts.noteId,
-        text: opts.noteText,
-        trans,
-        redraw,
-      })
-    : undefined;
-
-  const preset = presetCtrl({
-    initialGroup: opts.preset,
-    post,
-    redraw,
-  });
-
-  const subs: [string, PubsubCallback][] = [
-    ['socket.in.message', onMessage],
-    ['socket.in.chat_timeout', onTimeout],
-    ['socket.in.chat_reinstate', onReinstate],
-    ['chat.writeable', onWriteable],
-    ['chat.permissions', onPermissions],
-    ['palantir.toggle', palantir.enabled],
-  ];
-  subs.forEach(([eventName, callback]) => lichess.pubsub.on(eventName, callback));
-
-  const destroy = () => {
-    subs.forEach(([eventName, callback]) => lichess.pubsub.off(eventName, callback));
   };
 
-  const emitEnabled = () => lichess.pubsub.emit('chat.enabled', vm.enabled);
-  emitEnabled();
+  destroy = () => {
+    this.subs.forEach(([eventName, callback]) => lichess.pubsub.off(eventName, callback));
+  };
 
-  return {
-    data,
-    opts,
-    vm,
-    allTabs,
-    setTab(t: Tab) {
-      vm.tab = t;
-      vm.autofocus = true;
-      tabStorage.set(t);
-      redraw();
-    },
-    moderation: () => moderation,
-    note,
-    preset,
-    post,
-    trans,
-    plugin: opts.plugin,
-    setEnabled(v: boolean) {
-      vm.enabled = v;
-      emitEnabled();
-      if (!v) lichess.storage.set('nochat', '1');
-      else lichess.storage.remove('nochat');
-      redraw();
-    },
-    redraw,
-    palantir,
-    destroy,
+  emitEnabled = () => lichess.pubsub.emit('chat.enabled', this.vm.enabled);
+
+  setTab = (t: Tab) => {
+    this.vm.tab = t;
+    this.vm.autofocus = true;
+    this.tabStorage.set(t);
+    this.redraw();
+  };
+
+  setEnabled = (v: boolean) => {
+    this.vm.enabled = v;
+    this.emitEnabled();
+    if (!v) lichess.storage.set('nochat', '1');
+    else lichess.storage.remove('nochat');
+    this.redraw();
   };
 }

@@ -6,6 +6,8 @@ import play.api.libs.ws.JsonBodyWritables.*
 import play.api.libs.ws.StandaloneWSClient
 
 import play.api.ConfigLoader
+import lila.common.LazyFu
+import lila.common.Json.given
 
 final private class WebPush(
     webSubscriptionApi: WebSubscriptionApi,
@@ -13,17 +15,17 @@ final private class WebPush(
     ws: StandaloneWSClient
 )(using Executor):
 
-  def apply(userId: UserId, data: => PushApi.Data): Funit =
-    webSubscriptionApi.getSubscriptions(5)(userId) flatMap { subscriptions =>
-      subscriptions.toNel so send(data)
-    }
+  def apply(userId: UserId, data: LazyFu[PushApi.Data]): Funit =
+    webSubscriptionApi.getSubscriptions(5)(userId) flatMap sendTo(data)
 
-  def apply(userIds: Iterable[UserId], data: => PushApi.Data): Funit =
-    webSubscriptionApi.getSubscriptions(userIds, 5) flatMap { subs =>
-      subs.toNel so send(data)
-    }
+  def apply(userIds: Iterable[UserId], data: LazyFu[PushApi.Data]): Funit =
+    webSubscriptionApi.getSubscriptions(userIds, 5) flatMap sendTo(data)
 
-  private def send(data: => PushApi.Data)(subscriptions: NonEmptyList[WebSubscription]): Funit =
+  private def sendTo(data: LazyFu[PushApi.Data])(subs: List[WebSubscription]): Funit =
+    subs.toNel.so: subs =>
+      data.value flatMap send(subs)
+
+  private def send(subscriptions: NonEmptyList[WebSubscription])(data: PushApi.Data): Funit =
     ws.url(config.url)
       .withHttpHeaders("ContentType" -> "application/json")
       .post(
@@ -39,10 +41,12 @@ final private class WebPush(
           }.toList),
           "payload" -> Json
             .obj(
-              "title"   -> data.title,
-              "body"    -> data.body,
-              "tag"     -> data.stacking.key,
-              "payload" -> data.payload
+              "title" -> data.title,
+              "body"  -> data.body,
+              "tag"   -> data.stacking.key,
+              "payload" -> Json
+                .obj("userData" -> data.payload.userData.toMap)
+                .add("userId" -> data.payload.userId)
             )
             .toString,
           "topic"   -> data.stacking.key,

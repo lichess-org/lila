@@ -1,5 +1,4 @@
 import * as xhr from 'common/xhr';
-import { load as loadDasher } from 'dasher';
 import main from './main';
 import { LobbyOpts } from './interfaces';
 
@@ -70,21 +69,4 @@ export function initModule(opts: LobbyOpts) {
 
   opts.socketSend = lichess.socket.send;
   const lobbyCtrl = main(opts);
-
-  if (!opts.data.me) suggestBgSwitch();
-}
-
-// if anon with system theme and system prefers light, offer switch to get the dark theme back
-function suggestBgSwitch() {
-  const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
-  const current = document.body.getAttribute('data-theme');
-  if (current !== 'system' || prefersDark) return;
-
-  $('.bg-switch')
-    .addClass('active')
-    .on('click', () =>
-      loadDasher().then(m =>
-        m.subs.background.set(document.body.dataset.theme === 'dark' ? 'light' : 'dark'),
-      ),
-    );
 }

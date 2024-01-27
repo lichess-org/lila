@@ -51,7 +51,7 @@ final class Relation(env: Env, apiC: => Api) extends LilaController(env):
       FollowLimitPerUser(me, rateLimited):
         f(user)
 
-  def follow(username: UserStr) = AuthOrScoped(_.Follow.Write) { ctx ?=> me ?=>
+  def follow(username: UserStr) = AuthOrScoped(_.Follow.Write, _.Web.Mobile) { ctx ?=> me ?=>
     RatelimitWith(username): user =>
       api.reachedMaxFollowing(me) flatMap {
         if _ then
@@ -66,7 +66,7 @@ final class Relation(env: Env, apiC: => Api) extends LilaController(env):
   }
   def followBc = follow _
 
-  def unfollow(username: UserStr) = AuthOrScoped(_.Follow.Write) { ctx ?=> me ?=>
+  def unfollow(username: UserStr) = AuthOrScoped(_.Follow.Write, _.Web.Mobile) { ctx ?=> me ?=>
     RatelimitWith(username): user =>
       api.unfollow(me, user.id).recoverDefault >> negotiate(
         renderActions(user.name, getBool("mini")),
@@ -104,7 +104,7 @@ final class Relation(env: Env, apiC: => Api) extends LilaController(env):
           Ok(jsonRelatedPaginator(pag))
         }
 
-  def apiFollowing = Scoped(_.Follow.Read) { ctx ?=> me ?=>
+  def apiFollowing = Scoped(_.Follow.Read, _.Web.Mobile) { ctx ?=> me ?=>
     apiC.jsonDownload:
       env.relation.stream
         .follow(me, Direction.Following, MaxPerSecond(30))

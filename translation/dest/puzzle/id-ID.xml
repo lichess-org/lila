@@ -18,6 +18,7 @@
   <string name="toGetPersonalizedPuzzles">Untuk mendapatkan teka-teki yang diatur:</string>
   <string name="puzzleId">Teka-teki %s</string>
   <string name="puzzleOfTheDay">Teka-teki hari ini</string>
+  <string name="dailyPuzzle">Teka-teki harian</string>
   <string name="clickToSolve">Klik untuk jawabannya</string>
   <string name="goodMove">Langkah bagus</string>
   <string name="bestMove">Langkah Baik!</string>
@@ -47,6 +48,7 @@
   </plurals>
   <string name="example">Contoh</string>
   <string name="addAnotherTheme">Tambah tema lainnya</string>
+  <string name="nextPuzzle">Teka-teki selanjutnya</string>
   <string name="jumpToNextPuzzleImmediately">Lompat ke teka-teki berikutnya segera</string>
   <string name="puzzleDashboard">Beranda Teka-teki</string>
   <string name="improvementAreas">Area Penyempurnaan</string>

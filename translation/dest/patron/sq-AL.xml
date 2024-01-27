@@ -60,6 +60,7 @@ Sidoqoftë, Bamirësit mund të mburren me një ikonë të re të lezetshme prof
   <string name="nextPayment">Pagesa pasuese</string>
   <string name="youWillBeChargedXOnY">Do t’ju faturohen %1$s më datë %2$s.</string>
   <string name="makeAdditionalDonation">Bëni një dhurim shtesë</string>
+  <string name="giftPatronWingsShort">Dhuroni krahë Patron</string>
   <string name="giftPatronWings">Dhurojini një lojtari krahë Patron-i</string>
   <string name="update">Përditësoje</string>
   <string name="changeMonthlyAmount">Ndryshoni shumën mujore (%s)</string>
@@ -79,4 +80,7 @@ Sidoqoftë, Bamirësit mund të mburren me një ikonë të re të lezetshme prof
   <string name="nowOneMonth">Tani jeni Bamirës i Lichess-it për një muaj!</string>
   <string name="downgradeNextMonth">Pas një muaij, NUK do t’ju faturohet gjë sërish dhe llogaria juaj në Lichess do të rikthehet në një llogari të zakonshme.</string>
   <string name="changeCurrency">Ndryshoni monedhë</string>
+  <string name="paymentDetails">Hollësi pagese</string>
+  <string name="updatePaymentMethod">Përditësoni metodë pagesash</string>
+  <string name="stripeManageSub">Administroni pajtimin tuaj dhe shkarkoni faturat dhe dëftesat tuaja</string>
 </resources>

@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="preferences">تنظیمات عملکرد</string>
+  <string name="preferences">تنظیمات</string>
   <string name="display">صفحه نمایش</string>
   <string name="privacy">امنیت و حریم شخصی</string>
   <string name="notifications">اعلانات</string>
   <string name="pieceAnimation">حرکت مهره ها</string>
-  <string name="materialDifference">تفاوت مهره ها</string>
+  <string name="materialDifference">تفاوت مُهره‌ها</string>
   <string name="boardHighlights">نشان دادن اتفاقات صفحه(حرکت قبلی و کیش)</string>
   <string name="pieceDestinations">مقصد مهره(حرکت معتبر و پیش حرکت )</string>
   <string name="boardCoordinates">مختصات صفحه(A-H، 1-8)</string>
@@ -19,11 +19,11 @@
 این یک تنظیمات بله/خیر است
 
 این تنظیمات به شما این اجازه را می دهد که انتخاب کنید که ریتینگ بازیکنان دیگر نشان داده شود یا نه. این تنظیمات برای این است که بعضی از بازیکنان، بازی خود را تحت تاثیر ریتینگ بقیه بازیکنان قرار می دهند</string>
+  <string name="showFlairs">نمایش نشان بازیکنان</string>
   <string name="explainShowPlayerRatings">این کار اجازه می دهد تمام امتیازها را از سایت پاک کنید، تا بتوانید روی شطرنج تمرکز کامل داشته باشید. بازی ها هنوز هم می توانند امتیازی باشند، فقط شما دیگر نمی توانید آن را ببینید.</string>
   <string name="displayBoardResizeHandle">نمایش دستگیره برای تغییر اندازه صفحه</string>
   <string name="onlyOnInitialPosition">فقط در آغاز بازی</string>
   <string name="inGameOnly">تنها در بازی</string>
-  <string name="blindfoldChess">شطرنج با چشمان بسته / مهره های نامرئی</string>
   <string name="chessClock">ساعت شطرنج</string>
   <string name="tenthsOfSeconds">دهم ثانیه</string>
   <string name="whenTimeRemainingLessThanTenSeconds" comment="whenTimeRemainingLessThanTenSeconds&#10;&#10;The &amp;lt; symbol is not required (you can write it as a word), just do NOT use &lt; in its place.&#10;&#10;Technical information: &lt; is a reserved character in HTML, which is why it cannot be used.">وقتی زمان باقی مانده کمتر از ده ثانیه می باشد</string>
@@ -44,6 +44,7 @@
   <string name="claimDrawOnThreefoldRepetitionAutomatically">ادعای تساوی در تکرار سه گانه به طور خودکار</string>
   <string name="whenTimeRemainingLessThanThirtySeconds">وقتی زمان باقی مانده کمتر از سی ثانیه است</string>
   <string name="moveConfirmation">تایید حرکت</string>
+  <string name="explainCanThenBeTemporarilyDisabled">می‌توانید در طول بازی منوی تخته را غیرفعال کنید</string>
   <string name="inCorrespondenceGames">در حال بازی مکاتبه ای</string>
   <string name="correspondenceAndUnlimited">مکاتبه ای و نامحدود</string>
   <string name="confirmResignationAndDrawOffers">نیاز به تایید دوباره؛ زمانی که تسلیم می شوید یا پیشنهاد تساوی می دهید</string>

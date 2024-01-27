@@ -30,10 +30,6 @@
     <item quantity="other">%s yılda</item>
   </plurals>
   <string name="rightNow">hemen şimdi</string>
-  <plurals name="nbSecondsAgo">
-    <item quantity="one">%s saniye önce</item>
-    <item quantity="other">%s saniye önce</item>
-  </plurals>
   <plurals name="nbMinutesAgo">
     <item quantity="one">%s dakika önce</item>
     <item quantity="other">%s dakika önce</item>
@@ -58,4 +54,5 @@
     <item quantity="one">%s yıl önce</item>
     <item quantity="other">%s yıl önce</item>
   </plurals>
+  <string name="completed">tamamlanmış</string>
 </resources>

@@ -29,7 +29,6 @@ export interface TreeWrapper {
   getCurrentNodesAfterPly(nodeList: Tree.Node[], mainline: Tree.Node[], ply: number): Tree.Node[];
   merge(tree: Tree.Node): void;
   removeCeval(): void;
-  removeComputerVariations(): void;
   parentNode(path: Tree.Path): Tree.Node;
   getParentClock(node: Tree.Node, path: Tree.Path): Tree.Clock | undefined;
 }
@@ -239,13 +238,6 @@ export function build(root: Tree.Node): TreeWrapper {
       ops.updateAll(root, function (n) {
         delete n.ceval;
         delete n.threat;
-      });
-    },
-    removeComputerVariations() {
-      ops.mainlineNodeList(root).forEach(function (n) {
-        n.children = n.children.filter(function (c) {
-          return !c.comp;
-        });
       });
     },
     parentNode,

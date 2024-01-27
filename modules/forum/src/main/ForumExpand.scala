@@ -16,11 +16,11 @@ final class ForumTextExpand(using Executor, Scheduler):
             RawHtml.addLinks(text, expandImg = true, linkRender = linkRender.some).value
           }.value
 
-  private def many(texts: Seq[String])(using config.NetDomain): Fu[Seq[Frag]] =
-    texts.map(one).parallel
-
   def manyPosts(posts: Seq[ForumPost])(using config.NetDomain): Fu[Seq[ForumPost.WithFrag]] =
-    many(posts.map(_.text)).map:
-      _ zip posts map { (body, post) =>
-        ForumPost.WithFrag(post, body)
-      }
+    posts
+      .map(_.text)
+      .traverse(one)
+      .map:
+        _ zip posts map { (body, post) =>
+          ForumPost.WithFrag(post, body)
+        }

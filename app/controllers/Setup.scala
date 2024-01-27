@@ -13,6 +13,7 @@ import lila.rating.Perf
 import lila.setup.Processor.HookResult
 import lila.setup.ValidFen
 import lila.socket.Socket.Sri
+import lila.memo.RateLimit
 import views.*
 import play.api.mvc.Result
 
@@ -26,7 +27,7 @@ final class Setup(
   private def forms     = env.setup.forms
   private def processor = env.setup.processor
 
-  private[controllers] val PostRateLimit = lila.memo.RateLimit[IpAddress](
+  private[controllers] val PostRateLimit = RateLimit[IpAddress](
     5,
     1.minute,
     key = "setup.post",
@@ -34,7 +35,7 @@ final class Setup(
     log = false
   )
 
-  private[controllers] val AnonHookRateLimit = lila.memo.RateLimit.composite[IpAddress](
+  private[controllers] val AnonHookRateLimit = RateLimit.composite[IpAddress](
     key = "setup.hook.anon",
     enforce = env.net.rateLimit.value
   )(
@@ -42,11 +43,7 @@ final class Setup(
     ("slow", 300, 1.day)
   )
 
-  private[controllers] val BotAiRateLimit = lila.memo.RateLimit[UserId](
-    50,
-    1.day,
-    key = "setup.post.bot.ai"
-  )
+  private[controllers] val BotAiRateLimit = RateLimit[UserId](50, 1.day, key = "setup.post.bot.ai")
 
   def ai = OpenBody:
     BotAiRateLimit(ctx.userId | UserId(""), rateLimited, cost = ctx.me.exists(_.isBot) so 1):
@@ -65,7 +62,7 @@ final class Setup(
           )
 
   def friend(userId: Option[UserStr]) =
-    OpenBody:
+    OpenBody: ctx ?=>
       PostRateLimit(ctx.ip, rateLimited):
         forms.friend
           .bindFromRequest()
@@ -81,38 +78,40 @@ final class Setup(
                     val message = lila.challenge.ChallengeDenied.translated(denied)
                     negotiate(
                       // 403 tells setupCtrl.ts to close the setup modal
-                      Forbidden(jsonError(message)), // TODO test
+                      forbiddenJson(message), // TODO test
                       BadRequest(jsonError(message))
                     )
                   case None =>
                     import lila.challenge.Challenge.*
-                    val timeControl = TimeControl.make(config.makeClock, config.makeDaysPerTurn)
-                    val challenge = lila.challenge.Challenge.make(
-                      variant = config.variant,
-                      initialFen = config.fen,
-                      timeControl = timeControl,
-                      mode = config.mode,
-                      color = config.color.name,
-                      challenger = (origUser, ctx.req.sid) match
-                        case (Some(orig), _) => toRegistered(orig)
-                        case (_, Some(sid))  => Challenger.Anonymous(sid)
-                        case _               => Challenger.Open
-                      ,
-                      destUser = destUser,
-                      rematchOf = none
-                    )
-                    env.challenge.api create challenge flatMap {
-                      if _ then
-                        negotiate(
-                          Redirect(routes.Round.watcher(challenge.id, "white")),
-                          challengeC.showChallenge(challenge, justCreated = true)
+                    (origUser, ctx.req.sid)
+                      .match
+                        case (Some(orig), _)                       => toRegistered(orig).some
+                        case (_, Some(sid))                        => Challenger.Anonymous(sid).some
+                        case _ if HTTPRequest.isLichobile(ctx.req) => Challenger.Open.some
+                        case _                                     => none
+                      .so: challenger =>
+                        val timeControl = TimeControl.make(config.makeClock, config.makeDaysPerTurn)
+                        val challenge = lila.challenge.Challenge.make(
+                          variant = config.variant,
+                          initialFen = config.fen,
+                          timeControl = timeControl,
+                          mode = config.mode,
+                          color = config.color.name,
+                          challenger = challenger,
+                          destUser = destUser,
+                          rematchOf = none
                         )
-                      else
-                        negotiate(
-                          Redirect(routes.Lobby.home),
-                          BadRequest(jsonError("Challenge not created"))
-                        )
-                    }
+                        env.challenge.api create challenge flatMap:
+                          if _ then
+                            negotiate(
+                              Redirect(routes.Round.watcher(challenge.id, "white")),
+                              challengeC.showChallenge(challenge, justCreated = true)
+                            )
+                          else
+                            negotiate(
+                              Redirect(routes.Lobby.home),
+                              BadRequest(jsonError("Challenge not created"))
+                            )
               yield result
           )
 

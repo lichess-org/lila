@@ -47,11 +47,11 @@
   <string name="castlingRules">请确认你了解王车易位的规则</string>
   <string name="tryCastling">玩这个迷你游戏来了解王车易位</string>
   <string name="castlingImported">如果你导入了棋局或从特定局面开始棋局，请确保你正确地设置了王车易位的权利。</string>
-  <string name="insufficientMaterial">战力不足</string>
+  <string name="insufficientMaterial">子力不足</string>
   <string name="fideMate">根据 FIDE 国际象棋规则 6.9 项，如果存在着终止于将死的合规着法顺序，棋局不能被判和。</string>
   <string name="knightMate">如果单方不只剩单王，对方就可能以单马或单象将死。</string>
   <string name="noRatingPoints">未获得等级分</string>
-  <string name="ratedGame">请确保你玩过排位赛。非排位对局不会影响玩家的等级分。</string>
+  <string name="ratedGame">请确保你玩过排位赛。休闲对局不会影响玩家的等级分。</string>
   <string name="botRatingAbuse">在与机器人账号的对局中，若发现玩家滥用其以获取积分，那么这场对局将不会授予积分。</string>
   <string name="errorPage">错误页面</string>
   <string name="reportErrorPage">如果你遇到错误页面，您可以举报：</string>
@@ -64,7 +64,7 @@
   <string name="falsePositives">误报有时会发生，我们对此表示歉意。</string>
   <string name="ifLegit">如果你的申诉是合理的，我们将及时取消封禁。</string>
   <string name="accountLost">如果你确实使用了引擎帮助，哪怕只是一次，你的账户也会被永久禁用。</string>
-  <string name="doNotDeny">不要否认作弊。 如果你想要被允许创建一个新账户，承认你所做的事情， 并表明你理解这是一个错误。</string>
+  <string name="doNotDeny">不要否认作弊。 如果你还想被允许创建一个新账户，承认你所做的事情， 并表明你理解这是错误的行为。</string>
   <string name="otherRestriction">其他限制</string>
   <string name="collaboration">协作、法律、贸易等</string>
   <string name="monetizing">在 Lichess 获利</string>

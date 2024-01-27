@@ -22,7 +22,7 @@ final class SecurityForm(
   import SecurityForm.*
 
   private val newPasswordField =
-    text(minLength = 4, maxLength = 999).verifying(PasswordCheck.newConstraint)
+    nonEmptyText(minLength = 4, maxLength = 999).verifying(PasswordCheck.newConstraint)
   private def newPasswordFieldForMe(using me: Me) =
     newPasswordField.verifying(PasswordCheck.sameConstraint(me.username into UserStr))
 

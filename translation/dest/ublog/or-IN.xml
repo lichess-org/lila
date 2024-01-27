@@ -14,5 +14,5 @@
   <string name="imageAlt">ପ୍ରତିଛବି ବିକଳ୍ପ ପାଠ୍ୟ</string>
   <string name="imageCredit">ପ୍ରତିଛବି କ୍ରେଡିଟ୍</string>
   <string name="deleteImage">ପ୍ରତିଛବି ବିଲୋପ କରିବା</string>
-  <string name="safeToUseImages" comment="safeToUseImages&#10;&#10;This is mentioned because the images there are royalty-free, so there is no risk of copyright infringement.">ନିମ୍ନଲିଖିତ ୱେବସାଇଟଗୁଡ଼ିକରୁ ପ୍ରତିଛବି ବ୍ୟବହାର କରିବା ନିରାପଦ ଅଟେ: </string>
+  <string name="safeToUseImages">ନିମ୍ନଲିଖିତ ୱେବସାଇଟଗୁଡ଼ିକରୁ ପ୍ରତିଛବି ବ୍ୟବହାର କରିବା ନିରାପଦ ଅଟେ: </string>
 </resources>

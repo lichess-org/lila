@@ -3,7 +3,7 @@
   <string name="advancedPawn">Pedinu avanzatu</string>
   <string name="advancedPawnDescription">Unu di i vostri pedini hè avanzatu in a pusizione di l\' aversariu, podassi chì a so promuzoin hè una minaccia.</string>
   <string name="advantage">Vantaghju</string>
-  <string name="advantageDescription">Ùn perdite l\' uccasione di piglià un vantaghju decisivu. (200cp ≤ eval ≤ 600cp)</string>
+  <string name="advantageDescription" comment="advantageDescription&#10;&#10;'cp' stands for centipawn (1/100th of a pawn). It is used in computer analysis to assess a position.&#10;'eval' is short for evaluation.">Ùn perdite l\' uccasione di piglià un vantaghju decisivu. (200cp ≤ eval ≤ 600cp)</string>
   <string name="anastasiaMate">U mattu d\' Anastasia</string>
   <string name="anastasiaMateDescription">Un cavallu è una torra o una dama travaglianu inseme pè catturà u rè uppostu trà u bordu di a scacchera è una pezza di u so campu.</string>
   <string name="arabianMate">Scaccumattu arabu</string>
@@ -22,13 +22,13 @@
   <string name="castlingDescription">Mette u rè à l\' aggrottu, è sviluppa a torra pè l\' attaccu.</string>
   <string name="capturingDefender">Catturà u difendidore</string>
   <string name="crushing">Sfracellu</string>
-  <string name="crushingDescription">Sfuttà u sbagliu di l\' aversariu per uttene un vantaghju decisivu. (eval ≥ 600cp)</string>
+  <string name="crushingDescription" comment="crushingDescription&#10;&#10;'cp' stands for centipawn (1/100th of a pawn). It is used in computer analysis to assess a position.&#10;'eval' is short for evaluation.">Sfuttà u sbagliu di l\' aversariu per uttene un vantaghju decisivu. (eval ≥ 600cp)</string>
   <string name="doubleBishopMate">Scaccu mattu cù dui alfieri</string>
   <string name="doubleBishopMateDescription">2 alfieri chì cuntrollanu 2 i diagunali vicine danu un scaccumattu à un rè bluccatu da e so pezze.</string>
   <string name="dovetailMate">Mattu di Cozio</string>
   <string name="dovetailMateDescription">Una dama dà un scaccumattu à un rè accantu à ella ch\' ùn pò scappà postu ch\'ellu hè bluccatu da e so pezze.</string>
   <string name="equality">Ugualità</string>
-  <string name="equalityDescription">Rivene da una pusizione perdente, è assicurà si a patta o una pusizione uguale. (val ≤ 200cp)</string>
+  <string name="equalityDescription" comment="equalityDescription&#10;&#10;'cp' stands for centipawn (1/100th of a pawn). It is used in computer analysis to assess a position.&#10;'eval' is short for evaluation.">Rivene da una pusizione perdente, è assicurà si a patta o una pusizione uguale. (val ≤ 200cp)</string>
   <string name="kingsideAttack">Attaccà l\' arruccamentu uppostu</string>
   <string name="kingsideAttackDescription">Attaccà u rè uppostu quand\' ellu s\' hè messu à l\' agrottu per via di l\' arruccamentu minò.</string>
   <string name="clearance">Liquidazione</string>

@@ -1,8 +1,9 @@
 import * as xhr from 'common/xhr';
-import idleTimer from './idle-timer';
+import idleTimer from './idleTimer';
 import sri from './sri';
 import { reload } from './reload';
 import { storage as makeStorage } from './storage';
+import { storedIntProp } from 'common/storage';
 import once from './once';
 
 type Sri = string;
@@ -62,10 +63,10 @@ export default class StrongSocket {
   tryOtherUrl = false;
   autoReconnect = true;
   nbConnects = 0;
-  storage: LichessStorage = makeStorage.make('surl17');
+  storage: LichessStorage = makeStorage.make('surl17', 30 * 60 * 1000);
   private _sign?: string;
   private resendWhenOpen: [string, any, any][] = [];
-
+  private baseUrls = document.body.dataset.socketDomains!.split(',');
   static defaultOptions: Options = {
     idle: false,
     pingMaxLag: 9000, // time to wait for pong before resetting the connection
@@ -96,9 +97,12 @@ export default class StrongSocket {
         ...(settings.params || {}),
       },
     };
+    const customPingDelay = storedIntProp('socket.ping.interval', 2500)();
+
     this.options = {
       ...StrongSocket.defaultOptions,
       ...(settings.options || {}),
+      pingDelay: customPingDelay > 400 ? customPingDelay : 2500,
     };
     this.version = version;
     this.pubsub.on('socket.send', this.send);
@@ -121,13 +125,7 @@ export default class StrongSocket {
     try {
       const ws = (this.ws = new WebSocket(fullUrl));
       ws.onerror = e => this.onError(e);
-      ws.onclose = () => {
-        this.pubsub.emit('socket.close');
-        if (this.autoReconnect) {
-          this.debug('Will autoreconnect in ' + this.options.autoReconnectDelay);
-          this.scheduleConnect(this.options.autoReconnectDelay);
-        }
-      };
+      ws.onclose = e => this.onClose(e, fullUrl);
       ws.onopen = () => {
         this.debug('connected to ' + fullUrl);
         this.onSuccess();
@@ -148,7 +146,7 @@ export default class StrongSocket {
         this.handle(m);
       };
     } catch (e) {
-      this.onError(e);
+      this.onClose({ code: 4000, reason: String(e) } as CloseEvent, fullUrl);
     }
     this.scheduleConnect(this.options.pingMaxLag);
   };
@@ -197,7 +195,13 @@ export default class StrongSocket {
     this.connectSchedule = setTimeout(() => {
       document.body.classList.add('offline');
       document.body.classList.remove('online');
-      this.tryOtherUrl = true;
+      if (!this.tryOtherUrl) {
+        // if this was set earlier, we've already logged the error
+        this.tryOtherUrl = true;
+        lichess.log(
+          `sri ${this.settings.params!.sri} timeout ${delay}ms, trying ${this.baseUrl()}${this.url}`,
+        );
+      }
       this.connect();
     }, delay);
   };
@@ -294,6 +298,17 @@ export default class StrongSocket {
   onError = (e: unknown) => {
     this.options.debug = true;
     this.debug(`error: ${e} ${JSON.stringify(e)}`); // e not always from lila
+  };
+
+  onClose = (e: CloseEvent, url: string) => {
+    this.pubsub.emit('socket.close');
+    if (this.autoReconnect) {
+      this.debug('Will autoreconnect in ' + this.options.autoReconnectDelay);
+      this.scheduleConnect(this.options.autoReconnectDelay);
+    }
+    if (e.wasClean && e.code < 1002) return;
+
+    lichess.log(`${sri ? 'sri ' + sri : ''} unclean close ${e.code} ${url} ${e.reason}`);
     this.tryOtherUrl = true;
     clearTimeout(this.pingSchedule);
   };
@@ -319,12 +334,17 @@ export default class StrongSocket {
   };
 
   baseUrl = () => {
-    const baseUrls = document.body.dataset.socketDomains!.split(',');
+    if (lichess.storage.get('socket.host')) return lichess.storage.get('socket.host'); // TODO - remove
     let url = this.storage.get();
-    if (!url || this.tryOtherUrl) {
-      url = baseUrls[Math.floor(Math.random() * baseUrls.length)];
+    if (!url) {
+      url = this.baseUrls[Math.floor(Math.random() * this.baseUrls.length)];
+      this.storage.set(url);
+    } else if (this.tryOtherUrl) {
+      const i = this.baseUrls.findIndex(u => u === url);
+      url = this.baseUrls[(i + 1) % this.baseUrls.length];
       this.storage.set(url);
     }
+    this.tryOtherUrl = false;
     return url;
   };
 

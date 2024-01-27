@@ -6,38 +6,38 @@
   <string name="notifications">공지 사항</string>
   <string name="pieceAnimation">기물 움직임 애니메이션</string>
   <string name="materialDifference">기물 차이</string>
-  <string name="boardHighlights">보드 하이라이트 (마지막 움직임 및 체크)</string>
+  <string name="boardHighlights">보드 하이라이트 (마지막 수 및 체크)</string>
   <string name="pieceDestinations">기물 착지점 (유효한 움직임 및 미리두기)</string>
   <string name="boardCoordinates">보드 좌표 (A-H, 1-8)</string>
   <string name="moveListWhilePlaying">피스 움직임 기록</string>
   <string name="pgnPieceNotation">PGN 기물표기방식</string>
   <string name="chessPieceSymbol">체스 말 기호</string>
-  <string name="pgnLetter">글자 (K, Q, R, B, N)</string>
+  <string name="pgnLetter">알파벳 (K, Q, R, B, N)</string>
   <string name="zenMode" comment="zenMode&#10;&#10;This is not the religious meaning. Turning this option on takes away make elements of the user interface.&#10;&#10;Can also translate as 'Focus mode' as one example.">젠 모드</string>
   <string name="showPlayerRatings">플레이어 레이팅 보기</string>
+  <string name="showFlairs">플레이어 레이팅 보기</string>
   <string name="explainShowPlayerRatings">체스에 집중할 수 있도록 웹사이트에서 레이팅을 모두 숨깁니다. 경기는 여전히 레이팅에 반영될 것이며, 눈으로 보이는 정보에만 영향을 줍니다.</string>
   <string name="displayBoardResizeHandle">보드 크기 재조정 핸들 보이기</string>
   <string name="onlyOnInitialPosition">초기 상태에서만</string>
-  <string name="inGameOnly" comment="This is a possible setting for Zen mode (https://lichess.org/page/zen) i.e. &quot;Zen mode: In-game only&quot; which means zen mode will only be active during games.">게임 도중에만 적용</string>
-  <string name="blindfoldChess">눈을 가리고 체스 (기물이 보이지 않음)</string>
+  <string name="inGameOnly">게임 도중에만 적용</string>
   <string name="chessClock">체스 시계</string>
   <string name="tenthsOfSeconds">1/10초 단위</string>
   <string name="whenTimeRemainingLessThanTenSeconds" comment="whenTimeRemainingLessThanTenSeconds&#10;&#10;The &amp;lt; symbol is not required (you can write it as a word), just do NOT use &lt; in its place.&#10;&#10;Technical information: &lt; is a reserved character in HTML, which is why it cannot be used.">남은 시간이 10초 미만일 때</string>
   <string name="horizontalGreenProgressBars">녹색 수평 진행 바</string>
-  <string name="soundWhenTimeGetsCritical">시간이 위태로울 때 소리 재생</string>
+  <string name="soundWhenTimeGetsCritical">시간이 얼마 안 남았을 때 소리 재생</string>
   <string name="giveMoreTime">시간 더 주기</string>
   <string name="gameBehavior" comment="gameBehavior&#10;&#10;In the user settings page, &quot;Game behavior&quot; is the title of the tab for configuring how the player can interact with the game.">게임 동작</string>
   <string name="howDoYouMovePieces">기물을 어떻게 움직이나요?</string>
   <string name="clickTwoSquares">현재 위치와 원하는 위치에 클릭하기</string>
   <string name="dragPiece">드래그</string>
   <string name="bothClicksAndDrag">아무 방법으로</string>
-  <string name="premovesPlayingDuringOpponentTurn">미리두기 (상대 턴일 때)</string>
+  <string name="premovesPlayingDuringOpponentTurn">미리두기 (상대 턴일 때 수를 두기)</string>
   <string name="takebacksWithOpponentApproval">무르기 (상대 승인과 함께)</string>
   <string name="inCasualGamesOnly">캐주얼 모드에서만</string>
-  <string name="promoteToQueenAutomatically">퀸으로 자동 승급</string>
+  <string name="promoteToQueenAutomatically">퀸으로 자동 승진</string>
   <string name="explainPromoteToQueenAutomatically">일시적으로 자동 승진을 끄기 위해 승진하는 동안 &lt;ctrl&gt;를 누르세요</string>
-  <string name="whenPremoving">미리 뒀을 때만</string>
-  <string name="claimDrawOnThreefoldRepetitionAutomatically">세 번 반복하면 자동으로 무승부 요청</string>
+  <string name="whenPremoving">미리둘 때만</string>
+  <string name="claimDrawOnThreefoldRepetitionAutomatically">3회 동형반복시 자동으로 무승부 요청</string>
   <string name="whenTimeRemainingLessThanThirtySeconds">남은 시간이 30초 미만일 때만</string>
   <string name="moveConfirmation">피스를 움직이기 전에 물음</string>
   <string name="inCorrespondenceGames">긴 대국에서만</string>

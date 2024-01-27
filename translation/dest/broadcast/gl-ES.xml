@@ -1,18 +1,24 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="broadcasts">Emisións en directo</string>
+  <string name="myBroadcasts">As miñas emisións</string>
   <plurals name="nbBroadcasts">
     <item quantity="one">%s emisión</item>
     <item quantity="other">%s emisións</item>
   </plurals>
   <string name="liveBroadcasts">Emisións de torneos en directo</string>
   <string name="newBroadcast">Nova emisión en directo</string>
-  <string name="addRound">Engadir unha ronda</string>
+  <string name="aboutBroadcasts">Sobre as retransmisións</string>
+  <string name="noRoundsYet">Aínda non hai roldas.</string>
+  <string name="howToUseLichessBroadcasts">Como usar as Retransmisións de Lichess.</string>
+  <string name="theNewRoundHelp">A nova rolda terá os mesmos membros e colaboradores cá rolda anterior.</string>
+  <string name="addRound">Engadir unha rolda</string>
   <string name="ongoing">En curso</string>
   <string name="upcoming">Proximamente</string>
   <string name="completed">Completadas</string>
-  <string name="roundName">Nome de ronda</string>
-  <string name="roundNumber">Número de ronda</string>
+  <string name="completedHelp">Lichess detecta o final das roldas en función das partidas de orixe. Usa esta opción se non hai orixe.</string>
+  <string name="roundName">Nome da rolda</string>
+  <string name="roundNumber">Número de rolda</string>
   <string name="tournamentName">Nome do torneo</string>
   <string name="tournamentDescription">Breve descrición do torneo</string>
   <string name="fullDescription">Descrición completa do evento</string>
@@ -24,14 +30,25 @@
   <string name="startDateHelp">Opcional, se sabes cando comeza o evento</string>
   <string name="credits">Cita a fonte</string>
   <string name="broadcastUrl">Ligazón da transmisión</string>
-  <string name="currentRoundUrl">Ligazón da ronda actual</string>
+  <string name="currentRoundUrl">Ligazón da rolda actual</string>
   <string name="currentGameUrl">Ligazón da partida actual</string>
-  <string name="downloadAllRounds">Descargar todas as rondas</string>
-  <string name="resetRound">Restablecer esta ronda</string>
-  <string name="deleteRound">Borrar esta ronda</string>
-  <string name="definitivelyDeleteRound">Eliminar definitivamente a ronda e as súas partidas.</string>
-  <string name="deleteAllGamesOfThisRound">Eliminar todas as partidas desta ronda. A transmisión en orixe terá que estar activa para volver crealas.</string>
-  <string name="editRoundStudy">Editar o estudo da ronda</string>
+  <string name="downloadAllRounds">Descargar todas as roldas</string>
+  <string name="resetRound">Restablecer esta rolda</string>
+  <string name="deleteRound">Borrar esta rolda</string>
+  <string name="definitivelyDeleteRound">Eliminar definitivamente a rolda e as súas partidas.</string>
+  <string name="deleteAllGamesOfThisRound">Eliminar todas as partidas desta rolda. A transmisión en orixe terá que estar activa para volver crealas.</string>
+  <string name="editRoundStudy">Editar o estudo da rolda</string>
   <string name="deleteTournament">Eliminar este torneo</string>
-  <string name="definitivelyDeleteTournament" comment="definitivelyDeleteTournament&#10;&#10;Confirmation prompt, when attempting to delete a broadcast on https://lichess.org/broadcast">Eliminar o torneo de forma definitiva, con todas as súas rondas e partidas.</string>
+  <string name="definitivelyDeleteTournament">Eliminar o torneo de forma definitiva, con todas as súas roldas e partidas.</string>
+  <string name="automaticLeaderboard" comment="An option when creating a broadcast to calculate a leaderboard automatically from the players involved. Example: https://lichess.org/broadcast/2023-london-chess-classic/round-9/5icayRCY">Listaxe de líderes automática</string>
+  <string name="automaticLeaderboardHelp" comment="An option when creating a broadcast to calculate a leaderboard automatically from the players involved. Example: https://lichess.org/broadcast/2023-london-chess-classic/round-9/5icayRCY">Calcula e amosa unha listaxe de líderes simple baseada nos resultados das partidas</string>
+  <string name="replace">Opcional: substitúe os nomes dos xogadores, as puntuacións e os títulos</string>
+  <string name="replaceHelp">Unha liña por xogador, con este formato:
+Nome orixinal; Nome alternativo; Puntuación alternativa (opcional); Título alternativo (opcional)
+
+Exemplo:
+DrNykterstein;Magnus Carlsen;2863
+AnishGiri;Anish Giri;2764;GM</string>
+  <string name="periodInSeconds">Período en segundos</string>
+  <string name="periodInSecondsHelp">Opcional: canto tempo se agarda entre peticións. Min 2s, max 60s. Por defecto é automático baseado no número de espectadores.</string>
 </resources>

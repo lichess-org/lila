@@ -1,15 +1,16 @@
 import * as licon from 'common/licon';
 import * as enhance from 'common/richText';
-import userLink from 'common/userLink';
+import { userLink } from 'common/userLink';
 import * as spam from './spam';
-import { Ctrl, Line } from './interfaces';
+import { Line } from './interfaces';
 import { h, thunk, VNode, VNodeData } from 'snabbdom';
 import { lineAction as modLineAction, report } from './moderation';
 import { presetView } from './preset';
+import ChatCtrl from './ctrl';
 
 const whisperRegex = /^\/[wW](?:hisper)?\s/;
 
-export default function (ctrl: Ctrl): Array<VNode | undefined> {
+export default function (ctrl: ChatCtrl): Array<VNode | undefined> {
   if (!ctrl.vm.enabled) return [];
   const scrollCb = (vnode: VNode) => {
       const el = vnode.elm as HTMLElement;
@@ -21,16 +22,12 @@ export default function (ctrl: Ctrl): Array<VNode | undefined> {
         }
       }
     },
-    hasMod = !!ctrl.moderation();
+    hasMod = !!ctrl.moderation;
   const vnodes = [
     h(
-      `ol.mchat__messages.chat-v-${ctrl.data.domVersion}${hasMod ? '.as-mod' : ''}`,
+      `ol.mchat__messages.chat-v-${ctrl.vm.domVersion}${hasMod ? '.as-mod' : ''}`,
       {
-        attrs: {
-          role: 'log',
-          'aria-live': 'polite',
-          'aria-atomic': 'false',
-        },
+        attrs: { role: 'log', 'aria-live': 'polite', 'aria-atomic': 'false' },
         hook: {
           insert(vnode) {
             const $el = $(vnode.elm as HTMLElement).on('click', 'a.jump', (e: Event) => {
@@ -40,7 +37,7 @@ export default function (ctrl: Ctrl): Array<VNode | undefined> {
               $el.on(
                 'click',
                 '.mod',
-                (e: Event) => ctrl.moderation()?.open((e.target as HTMLElement).parentNode as HTMLElement),
+                (e: Event) => ctrl.moderation?.open((e.target as HTMLElement).parentNode as HTMLElement),
               );
             else
               $el.on('click', '.flag', (e: Event) =>
@@ -60,14 +57,11 @@ export default function (ctrl: Ctrl): Array<VNode | undefined> {
   return vnodes;
 }
 
-function renderInput(ctrl: Ctrl): VNode | undefined {
+function renderInput(ctrl: ChatCtrl): VNode | undefined {
   if (!ctrl.vm.writeable) return;
   if ((ctrl.data.loginRequired && !ctrl.data.userId) || ctrl.data.restricted)
     return h('input.mchat__say', {
-      attrs: {
-        placeholder: ctrl.trans('loginToChat'),
-        disabled: true,
-      },
+      attrs: { placeholder: ctrl.trans('loginToChat'), disabled: true },
     });
   let placeholder: string;
   if (ctrl.vm.timeout) placeholder = ctrl.trans('youHaveBeenTimedOut');
@@ -92,7 +86,7 @@ function renderInput(ctrl: Ctrl): VNode | undefined {
 
 let mouchListener: EventListener;
 
-const setupHooks = (ctrl: Ctrl, chatEl: HTMLInputElement) => {
+const setupHooks = (ctrl: ChatCtrl, chatEl: HTMLInputElement) => {
   const storage = lichess.tempStorage.make('chat.input');
   const previousText = storage.get();
   if (previousText) {
@@ -160,7 +154,7 @@ const setupHooks = (ctrl: Ctrl, chatEl: HTMLInputElement) => {
 
 const sameLines = (l1: Line, l2: Line) => l1.d && l2.d && l1.u === l2.u;
 
-function selectLines(ctrl: Ctrl): Array<Line> {
+function selectLines(ctrl: ChatCtrl): Array<Line> {
   const ls: Array<Line> = [];
   let prev: Line | undefined;
   ctrl.data.lines.forEach(line => {
@@ -190,25 +184,22 @@ function updateText(parseMoves: boolean) {
 function renderText(t: string, parseMoves: boolean) {
   if (enhance.isMoreThanText(t)) {
     const hook = updateText(parseMoves);
-    return h('t', {
-      lichessChat: t,
-      hook: {
-        create: hook,
-        update: hook,
-      },
-    });
+    return h('t', { lichessChat: t, hook: { create: hook, update: hook } });
   }
   return h('t', t);
 }
 
-function renderLine(ctrl: Ctrl, line: Line): VNode {
+const userThunk = (name: string, title?: string, patron?: boolean, flair?: Flair) =>
+  userLink({ name, title, patron, line: !!patron, flair });
+
+function renderLine(ctrl: ChatCtrl, line: Line): VNode {
   const textNode = renderText(line.t, ctrl.opts.parseMoves);
 
   if (line.u === 'lichess') return h('li.system', textNode);
 
   if (line.c) return h('li', [h('span.color', '[' + line.c + ']'), textNode]);
 
-  const userNode = thunk('a', line.u, userLink, [line.u, line.title, line.p]);
+  const userNode = thunk('a', line.u, userThunk, [line.u, line.title, line.p, line.f]);
   const userId = line.u?.toLowerCase();
 
   const myUserId = ctrl.data.userId;
@@ -223,19 +214,16 @@ function renderLine(ctrl: Ctrl, line: Line): VNode {
     {
       class: {
         me: userId === myUserId,
-        host: userId === ctrl.data.hostId,
+        host: !!(userId && ctrl.data.hostIds?.includes(userId)),
         mentioned,
       },
     },
-    ctrl.moderation()
+    ctrl.moderation
       ? [line.u ? modLineAction() : null, userNode, ' ', textNode]
       : [
           myUserId && line.u && myUserId != line.u
-            ? h('i.flag', {
-                attrs: {
-                  'data-icon': licon.CautionTriangle,
-                  title: 'Report',
-                },
+            ? h('action.flag', {
+                attrs: { 'data-icon': licon.CautionTriangle, title: 'Report' },
               })
             : null,
           userNode,

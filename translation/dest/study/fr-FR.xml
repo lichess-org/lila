@@ -6,7 +6,7 @@
   <string name="myPublicStudies">Mes études publiques</string>
   <string name="myPrivateStudies">Mes études privées</string>
   <string name="myFavoriteStudies">Mes études favorites</string>
-  <string name="whatAreStudies">Qu\'est-ce qu\'une étude?</string>
+  <string name="whatAreStudies">Qu\'est-ce qu\'une étude ?</string>
   <string name="allStudies">Toutes les études</string>
   <string name="studiesCreatedByX">Études créées par %s</string>
   <string name="noneYet">Aucune étude.</string>
@@ -53,6 +53,7 @@
   <string name="allSyncMembersRemainOnTheSamePosition">Tous les membres SYNC demeurent sur la même position</string>
   <string name="shareChanges">Partager les changements avec les spectateurs et les enregistrer sur le serveur</string>
   <string name="playing">En cours</string>
+  <string name="showEvalBar">Barres d’évaluation</string>
   <string name="first">Premier</string>
   <string name="previous">Précédent</string>
   <string name="next">Suivant</string>

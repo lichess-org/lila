@@ -6,12 +6,12 @@
   <string name="isRated">این تورنومنت رسمی است و بر روی ریتینگ شما تاثیر میگذارد.</string>
   <string name="isNotRated">این تورنومنت رسمی نیست و بر روی امتیاز شما تاثیر نمیگذارد.</string>
   <string name="someRated">بعضی تورنومنت ها رسمی هستند و بر روی امتیاز شما تاثیر میگذارند.</string>
-  <string name="howAreScoresCalculated">چگونه امتیازات محسابه میشوند؟</string>
-  <string name="howAreScoresCalculatedAnswer">هر برد 2 امتیاز پایه دارد، هر مساوی: 1 امتیاز، و هر باخت هیچ امیتازی ندارد.
-اگر شما دو بازی را پشت سر هم ببرید شما جریان امتیاز دوبل را اغاز خواهید کرد. که توسط یک تصویر شعله نشان داده میشود.
-بازی های بعدی هم همان ارزش امتیاز دوبل را حفظ خواهند کرد تا اینکه موفق نشوید یک بازی را ببرید.
-در آن حالت، هر برد ارزش 4 امتیاز، هر مساوی: 2امتیاز، و هر باخت باز هم هیچ امتیازی ندارد.
-برای مثال، دو برد با یک مساوی 6 امتیاز محسابه میشود: (1×2)+2+2</string>
+  <string name="howAreScoresCalculated">امتیازات چگونه محاسبه می‌شود؟</string>
+  <string name="howAreScoresCalculatedAnswer">هر برد 2 امتیاز پایه دارد، هر مساوی 1 امتیاز، و هر باخت هیچ امتیازی ندارد.
+اگر شما دو بازی پیاپی را ببرید، شما دنباله امتیازی دو برابر را شروع می‌کنید که با نقشک شعله نشان داده می‌شود.
+بازی های بعدی هم ارزش امتیازی دو برابر را حفظ خواهند کرد تا زمانی که نتوانید در یک بازی پیروز شوید.
+یعنی در حالت شعله، ارزش هر برد 4 امتیاز، هر مساوی 2 امتیاز، و هر باخت باز هم هیچ امتیازی ندارد.
+برای مثال، دو برد و سپس یک مساوی ارزشش 6 امتیاز می‌شود: (1×2)+2+2</string>
   <string name="berserk">حالت برزرک</string>
   <string name="berserkAnswer">وقتی یک بازیکن در اول بازی بر روی دکمه berserk کلیک میکند، نصف زمانش را از دست میدهد، اما بردش یک امیتاز دیگر را هم به همراه دارد.
 
@@ -38,7 +38,7 @@
   <string name="shareUrl">این لینک را برای پیوستن دیگران به اشتراک بگذارید.%s</string>
   <string name="drawStreakStandard">سلسله تساوی: وقتی یک بازیکن در Arena چند تساوی پشت سر هم بدست بیاورد، تنها اولین تساوی یا تساوی‌هایی با حداقل %s حرکت، دارای امتیاز خواهند بود. سلسله تساوی تنها با برد شکسته خواهد شد، نه با باخت یا تساوی.</string>
   <string name="drawStreakVariants">حداقل طول بازی برای بازی های قرعه کشی شده برای کسب امتیاز بر اساس نوع بازی متفاوت است. جدول زیر آستانه انواع مختلف را فهرست می کند.</string>
-  <string name="variant">نوع</string>
+  <string name="variant">گونه</string>
   <string name="minimumGameLength">حداقل طول بازی</string>
   <string name="history">تاریخچه مسابقات</string>
   <plurals name="viewAllXTeams" comment="viewAllXTeams [one] [other]&#10;&#10;%s is the number of teams that can be viewed">
@@ -51,9 +51,10 @@
   <string name="allowBerserk">مجاز کردن برسرک</string>
   <string name="allowBerserkHelp">به بازیکنان اجازه دهید تا زمان خود را نصف کنند تا یک امتیاز اضافی بگیرند</string>
   <string name="allowChatHelp">اجازه دادن بحث به بازیکنان در چت روم</string>
-  <string name="arenaStreaks">حرکات عالی در تالار</string>
-  <string name="arenaStreaksHelp">بعد از دو برد، بردهای پی در پی بجای 2 امتیاز 4 امتیاز می دهند.</string>
+  <string name="arenaStreaks">آرنا استریکز</string>
+  <string name="arenaStreaksHelp">بعد از دو برد، بردهای پی در پی به‌جای 2 امتیاز 4 امتیاز می دهند.</string>
   <string name="noBerserkAllowed">برزرک مجاز نیست</string>
+  <string name="noArenaStreaks">سلسله برد ناموجود</string>
   <string name="averagePerformance">میانگین عملکرد</string>
   <string name="averageScore">میانگین امتیاز</string>
   <string name="myTournaments">مسابقات من</string>

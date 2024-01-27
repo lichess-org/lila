@@ -1,16 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="broadcasts">Überträgige</string>
+  <string name="myBroadcasts">Eigeni Überträgige</string>
   <plurals name="nbBroadcasts">
     <item quantity="one">%s Überträgige</item>
     <item quantity="other">%s Überträgige</item>
   </plurals>
-  <string name="liveBroadcasts">Live Turnier Überträgige</string>
-  <string name="newBroadcast">Neui Live Überträgige</string>
+  <string name="liveBroadcasts">Live Turnier-Überträgige</string>
+  <string name="newBroadcast">Neui Live-Überträgige</string>
+  <string name="aboutBroadcasts">Über Überträgige</string>
+  <string name="noRoundsYet">No kei Rundene.</string>
+  <string name="howToUseLichessBroadcasts">Wie mer Lichess-Überträgige benutzt.</string>
+  <string name="theNewRoundHelp">Die neu Runde wird us de gliche Mitglieder und Mitwürkende beschtah, wie die Vorherig.</string>
   <string name="addRound">E Rundi zuefüege</string>
   <string name="ongoing">Laufend</string>
   <string name="upcoming">Demnächscht</string>
   <string name="completed">Beändet</string>
+  <string name="completedHelp">Lichess erchännt de Rundeabschluss ahand vu de Quällpartie. Verwänd de Schalter, wänns kei Quälle git.</string>
   <string name="roundName">Runde Name</string>
   <string name="roundNumber">Runde Nummere</string>
   <string name="tournamentName">Turnier Name</string>
@@ -23,15 +29,25 @@
   <string name="startDate">Startdatum in dinere eigene Zitzone</string>
   <string name="startDateHelp">Optional, falls du weisch, wänn das Ereignis afangt</string>
   <string name="credits">Erwähn die Quälle</string>
-  <string name="broadcastUrl">Veröffentlichungs-URL</string>
+  <string name="broadcastUrl">Überträgigs-URL</string>
   <string name="currentRoundUrl">URL vode laufende Rundi</string>
   <string name="currentGameUrl">URL vode laufende Partie</string>
   <string name="downloadAllRounds">Alli Runde abelade</string>
   <string name="resetRound">Die Rundi zruggsetze</string>
   <string name="deleteRound">Die Rundi lösche</string>
-  <string name="definitivelyDeleteRound">Die Rundi und ihri Spiel definitiv lösche.</string>
-  <string name="deleteAllGamesOfThisRound">Lösch alli Spiel vu dere Rundi. D\'Quälle muess aktiv si, dass sie neu erschtellt werde chönd.</string>
-  <string name="editRoundStudy">Studie Rundi bearbeite</string>
+  <string name="definitivelyDeleteRound">Die Rundi und ihri Schpiel definitiv lösche.</string>
+  <string name="deleteAllGamesOfThisRound">Lösch alli Schpiel vu dere Rundi. D\'Quälle muess aktiv si, dass sie neu erschtellt werde chönd.</string>
+  <string name="editRoundStudy">Schtudie Rundi bearbeite</string>
   <string name="deleteTournament">Lösch das Turnier</string>
-  <string name="definitivelyDeleteTournament" comment="definitivelyDeleteTournament&#10;&#10;Confirmation prompt, when attempting to delete a broadcast on https://lichess.org/broadcast">Lösch das ganze Turnier, alli Runde und alli Partie.</string>
+  <string name="definitivelyDeleteTournament">Das ganze Turnier, alli Runde und alli Partie definitiv lösche.</string>
+  <string name="automaticLeaderboard" comment="An option when creating a broadcast to calculate a leaderboard automatically from the players involved. Example: https://lichess.org/broadcast/2023-london-chess-classic/round-9/5icayRCY">Automatischi Ranglischte</string>
+  <string name="automaticLeaderboardHelp" comment="An option when creating a broadcast to calculate a leaderboard automatically from the players involved. Example: https://lichess.org/broadcast/2023-london-chess-classic/round-9/5icayRCY">Eifachi Ranglischte, uf Grund vu Schpielergäbnis berächnet, azeige</string>
+  <string name="replace">Optional: Spielernäme, Bewertinge und Titel usblände</string>
+  <string name="replaceHelp">1 Zile pro Schpiller, formatiert wie folgt:
+Ursprüngliche Name; Ersatzname; Optionali Ersatzbewertig; Optionale Ersatzbezeichnig
+zum Bischpiel so:
+Grobian;Jan Grob;2134
+Musterpierre;Peter Muster;2345;FM</string>
+  <string name="periodInSeconds">Periode i Sekunde</string>
+  <string name="periodInSecondsHelp">Optional, wie lang zwüsche Afrage gwartet werden söll. Minimal 2, maximal 60 Sekunde. Die Standardischtellig isch automatisch, basierend uf der Azahl vu de Zueschauer.</string>
 </resources>

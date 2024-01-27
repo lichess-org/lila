@@ -15,10 +15,11 @@
   <string name="pgnLetter">Inicial (en anglés) d\'a pieza (K, Q, R, B, N)</string>
   <string name="zenMode" comment="zenMode&#10;&#10;This is not the religious meaning. Turning this option on takes away make elements of the user interface.&#10;&#10;Can also translate as 'Focus mode' as one example.">Modo Zen</string>
   <string name="showPlayerRatings">Amostrar las puntuacions d\'o chugador</string>
+  <string name="showFlairs">Amostrar los estilos d\'o chugador</string>
   <string name="explainShowPlayerRatings">Esto permite d\'amagar totas las puntuaciosn d\'a pachina web pa centrar-se en os escaques. las partidas pueden estar puntuadas, nomás se cambia lo que se veye.</string>
   <string name="displayBoardResizeHandle">Amostrar lo control de grandaria d\'o escaquero</string>
   <string name="onlyOnInitialPosition">Nomás en posición inicial</string>
-  <string name="blindfoldChess">Escaques a ciegas (piezas invisibles)</string>
+  <string name="inGameOnly">Nomás en a partida</string>
   <string name="chessClock">Reloch d\'escaques</string>
   <string name="tenthsOfSeconds">Decenas de segundo</string>
   <string name="whenTimeRemainingLessThanTenSeconds" comment="whenTimeRemainingLessThanTenSeconds&#10;&#10;The &amp;lt; symbol is not required (you can write it as a word), just do NOT use &lt; in its place.&#10;&#10;Technical information: &lt; is a reserved character in HTML, which is why it cannot be used.">Cuan queden menos de 10 segundos</string>
@@ -39,6 +40,7 @@
   <string name="claimDrawOnThreefoldRepetitionAutomatically">Reclamar taulas per triple repetición</string>
   <string name="whenTimeRemainingLessThanThirtySeconds">Cuan lo tiempo restante sía de &lt; 30 segundos</string>
   <string name="moveConfirmation">Confirmación de movimiento</string>
+  <string name="explainCanThenBeTemporarilyDisabled">Se puet desactivar durant la partida en o menú d\'o taulero</string>
   <string name="inCorrespondenceGames">Partidas per correspondencia</string>
   <string name="correspondenceAndUnlimited">Correspondencia y sin limite de tiempo</string>
   <string name="confirmResignationAndDrawOffers">Confirmar abandono y ofiertas de taulas</string>
@@ -46,6 +48,7 @@
   <string name="castleByMovingTwoSquares">Movendo lo rei dos cuadros</string>
   <string name="castleByMovingOntoTheRook">Movendo lo rei dica la torre</string>
   <string name="inputMovesWithTheKeyboard">Dentrada de movimientos con o teclau</string>
+  <string name="inputMovesWithVoice">Indica los movimientos con a tuya voz</string>
   <string name="snapArrowsToValidMoves" comment="snapArrowsToValidMoves&#10;&#10;The 'arrows' are for quick annotations you can do on the board, by holding right mouse button. With this setting enabled, it means the arrows will align themselves to places were pieces can move.">Flechas enta los movimientos validos</string>
   <string name="sayGgWpAfterLosingOrDrawing" comment="sayGgWpAfterLosingOrDrawing&#10;&#10;When enabled, this setting will automatically send 'Good game, well played' to your opponent if you are lose or draw the game. It's meant as a courtesy message.&#10;&#10;The message will be sent in ENGLISH.&#10;&#10;It is up to you how to deal with this. For example, you may want to put '(message will be sent in English)' in your translated text as one example. Or you can leave the actual English text and put a brief translation in your own language.">Decir \"Buena partida, bien chugada\" en caso de redota u empaz</string>
   <string name="yourPreferencesHaveBeenSaved">Las tuyas preferencias s\'han alzau.</string>

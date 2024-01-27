@@ -18,7 +18,7 @@
   <string name="explainShowPlayerRatings">ئەمەش ڕێگە بە شاردنەوەی هەموو ئیلۆکان دەدات لە ماڵپەڕەکە، بۆ ئەوەی یارمەتیت بدات لە سەرنجدان لەسەر شەترەنج، یارییەکان هێشتا دەتوانرێت هەڵسەنگاندنیان بۆ بکرێت، ئەمە تەنها پەیوەندی بەوە ھەیە کە چی دەبینی.</string>
   <string name="displayBoardResizeHandle">گۆڕینی قەبارەی بۆرد پیشان بدە</string>
   <string name="onlyOnInitialPosition">تەنها لەسەر شوێنی سەرەتایی</string>
-  <string name="blindfoldChess">شەترەنجی چاوبەستن (نەبینینی پارچەکان)</string>
+  <string name="inGameOnly">تەنیا لەناو یاری</string>
   <string name="chessClock">کاتژمێری شەترەنج</string>
   <string name="tenthsOfSeconds">بەشی دووەم</string>
   <string name="whenTimeRemainingLessThanTenSeconds" comment="whenTimeRemainingLessThanTenSeconds&#10;&#10;The &amp;lt; symbol is not required (you can write it as a word), just do NOT use &lt; in its place.&#10;&#10;Technical information: &lt; is a reserved character in HTML, which is why it cannot be used.">کاتێک کات دەمێنێتەوە &lt; ١٠ چرکە</string>

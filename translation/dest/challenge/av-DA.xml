@@ -9,5 +9,17 @@
   <string name="youCannotChallengeX">Дуда %s къецалде ахӀизе кӀоларо.</string>
   <string name="xDoesNotAcceptChallenges">%s-(и)ца къецалде ахӀи къабул гьабуларо.</string>
   <string name="yourXRatingIsTooFarFromY">Дур %1$s рейтинг %2$s-(и)лалдаса кутакалда гьитӀинаб буго.</string>
+  <string name="xOnlyAcceptsChallengesFromFriends">%s-(и)ца цохӀо гьудулзабазул къецалде ахӀи къабул гьабула.</string>
+  <string name="declineGeneric">Дица гьабсагӀат къецалде ахӀиял къабул гьаруларо.</string>
+  <string name="declineLater">Дун гьанже регӀун гьечӀо, цодагьаб хадуб ахӀизе хӀалбихье.</string>
+  <string name="declineTooFast">Гьеб заман дие цӀакъ хехаб буго, цӀидасан ахӀе гьелдаса гӀодобе биччараб хӀаялде.</string>
+  <string name="declineTooSlow">Гьеб заман дие цӀакъ гӀодобе биччараб буго, цӀидасан ахӀе гьелдаса хехаб хӀаялде.</string>
+  <string name="declineTimeControl">Дица гьединаб заман бугеб къецалде ахӀи къабул гьабуларо.</string>
+  <string name="declineRated">Дихъе рейтингияб хӀаялде ахӀи битӀе.</string>
+  <string name="declineCasual">Дихъе рейтингияб гуреб хӀаялде ахӀи битӀе.</string>
+  <string name="declineStandard">Дица киласикияб гуреб шахматазул къецалде ахӀи къабул гьабуларо.</string>
+  <string name="declineVariant">Дие гьаб вариант гьабсагӀат хӀазе бокьун гьечӀо.</string>
+  <string name="declineNoBot">Дица ботазул къецалде ахӀи къабул гьабуларо.</string>
+  <string name="declineOnlyBot">Дица цохӀо ботазул къецалде ахӀи къабул гьабула.</string>
   <string name="inviteLichessUser">Яги Lichess хӀалтӀизабулев ахӀе:</string>
 </resources>

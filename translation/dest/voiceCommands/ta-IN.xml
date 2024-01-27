@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="voiceCommands">குரல் கட்டளைகள்</string>
+  <string name="watchTheVideoTutorial">பயிற்சி காணொளியைப் பாருங்கள்</string>
+  <string name="instructions1">குரல் அங்கீகாரத்தை நிலைமாற்ற %1$s பொத்தானையும், இந்த உதவி உரையாடலைத் திறக்க %2$s பொத்தானையும், பேச்சு அமைப்புகளை மாற்ற %3$s பட்டியலையும் பயன்படுத்தவும்.</string>
+  <string name="instructions2" comment="Voice commands can be misheard and Lichess will not always be fully certain what you said. Several arrows will be shown to identify e.g. if the move was 'b4' or 'd4', which often sound similar.&#10;&#10;These arrows will be in different colours (green, blue, etc) or labelled 1, 2, 3....&#10;You can then say the colour of the arrow (e.g. 'green') - or its number (e.g. '1'), to select that move.&#10;Users can configure if they choose from multiple moves based on colours or numbers.">உறுதியாகத் தெரியாதபோது பல நகர்வுகளுக்கான அம்புகளைக் காட்டுகிறோம். நகர்த்தும் அம்புக்குறியைத் தேர்ந்தெடுக்க அதன் நிறம் அல்லது எண்ணைப் பேசவும்.</string>
+  <string name="instructions3" comment="This is a complicated concept more easy to understand in practice. Voice commands can be misheard and Lichess will not always be fully certain what you said. Several arrows will be shown to identify e.g. if the move was 'b4' or 'd4', which often sound similar.&#10;The most likely move the player wants will have a circle showing around it, but it will be possible to cancel before it is played (for example, by shouting 'no!').&#10;&#10;You can see a visual example here: https://lichess.org/@/schlawg/blog/how-to-lichess-voice/nWrypoWI">ஒரு அம்பு ஒரு விரவு வானலையுணரியைக் காட்டினால், வட்டம் முடிந்ததும் அந்த நகர்வு இயக்கப்படும். இந்த நேரத்தில், நகர்வை உடனடியாக இயக்க %1$s, ரத்துசெய்ய %2$s அல்லது வேறு அம்புக்குறியின் நிறம்/எண்ணைப் பேசலாம். இந்தக் காலக்கணிப்பி அமைப்புகளில் சரிசெய்யலாம் அல்லது முடக்கலாம்.</string>
+  <string name="instructions4" comment="%s is Push to Talk.">இரைச்சல் நிறைந்த சூழலில் %sஐ இயக்கவும். இது இயக்கத்தில் இருக்கும் போது கட்டளைகளைப் பேசும் போது Shift ஐ அழுத்திப் பிடிக்கவும்.</string>
+  <string name="instructions5" comment="The phonetic alphabet is also known as the NATO alphabet (where A = Alpha, B = Bravo, etc. This makes the sounds easier to differentiate through a microphone). It is for English specifically, which as of the time of writing, is the only language supported by the Voice Commands feature.">சதுரங்க பலகை கோப்புகளின் அங்கீகாரத்தை மேம்படுத்த ஒலிப்பு எழுத்துக்களைப் பயன்படுத்தவும். </string>
+  <string name="instructions6">%s குரல் நகர்வு அமைப்புகளை விரிவாக விளக்குகிறது.</string>
+  <string name="thisBlogPost">இந்த வலைப்பதிவு இடுகை</string>
+  <string name="moveToE4OrSelectE4Piece">E4 க்கு நகர்த்தவும் அல்லது e4 பகுதியைத் தேர்ந்தெடுக்கவும்</string>
+  <string name="selectOrCaptureABishop">மந்திரியைத் தேர்ந்தெடுக்கவும் அல்லது கைப்பற்றவும்</string>
+  <string name="takeRookWithQueen">ராணியை கொண்டு யானையை வெளியேற்றுங்கள்</string>
+  <string name="castle">கோட்டை கட்டு (இருபுறமும்)</string>
+  <string name="phoneticAlphabetIsBest">ஒலிப்பு எழுத்துக்கள் சிறந்தது</string>
+  <string name="cancelTimerOrDenyARequest">காலக்கணிப்பியை ரத்துசெய்யவும் அல்லது கோரிக்கையை நிராகரிக்கவும்</string>
+  <string name="playPreferredMoveOrConfirmSomething" comment="Used in voice commands. When it is unclear what the player said (e.g. 'b4' and 'd4' sound similar), both moves will be shown, with the more likely one highlighted in a certain colour. By default, a countdown begins, and if no action is taken, the likely move (e.g. b4) will be played. Players can end the countdown early/confirm their move by saying 'yes'.&#10;&#10;For more details see https://lichess.org/@/schlawg/blog/how-to-lichess-voice/nWrypoWI">விருப்பமான நகர்வை விளையாடவும் அல்லது எதையாவது உறுதிப்படுத்தவும்</string>
+  <string name="sleep" comment="Used for voice commands.&#10;&#10;By default, voice commands are always-on after the feature is enabled. Users can optionally set a word for listening to start, or say 'sleep' to disable listening.&#10;&#10;(Please note - this is not the same as recording, since the recording is never sent to Lichess; the speech technology is entirely offline)">உறக்கம் (விழிப்பு வார்த்தை இயக்கப்பட்டிருந்தால்)</string>
+  <string name="turnOffVoiceRecognition">குரல் அங்கீகாரத்தை முடக்கு</string>
+  <string name="showPuzzleSolution">புதிர் தீர்வைக் காட்டு</string>
+</resources>

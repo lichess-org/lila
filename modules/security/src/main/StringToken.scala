@@ -51,9 +51,8 @@ final class StringToken[A](
   private def makeHash(msg: String) = Algo.hmac(secret.value).sha256(msg).hex take fullHashSize
 
   private def hashCurrentValue(payload: A) =
-    getCurrentValue(payload) map { v =>
+    getCurrentValue(payload).map: v =>
       currentValueHashSize.fold(v)(makeHash(v) take _)
-    }
 
   private def signPayload(payloadStr: String, hashedValue: String) = s"$payloadStr$separator$hashedValue"
 

@@ -11,8 +11,8 @@
     <item quantity="other">Practised %1$s positions on %2$s</item>
   </plurals>
   <plurals name="solvedNbPuzzles">
-    <item quantity="one">Solved %s tactical puzzle</item>
-    <item quantity="other">Solved %s tactical puzzles</item>
+    <item quantity="one">Solved %s training puzzle</item>
+    <item quantity="other">Solved %s training puzzles</item>
   </plurals>
   <plurals name="playedNbGames">
     <item quantity="one">Played %1$s %2$s game</item>
@@ -63,8 +63,8 @@
     <item quantity="other">Ranked #%1$s (top %2$s%%) with %3$s games in %4$s</item>
   </plurals>
   <plurals name="competedInNbSwissTournaments">
-    <item quantity="one">Competed in %s swiss tournament</item>
-    <item quantity="other">Competed in %s swiss tournaments</item>
+    <item quantity="one">Competed in %s Swiss tournament</item>
+    <item quantity="other">Competed in %s Swiss tournaments</item>
   </plurals>
   <string name="rankedInSwissTournament">Ranked #%1$s in %2$s</string>
   <string name="signedUp">Signed up to lichess.org</string>

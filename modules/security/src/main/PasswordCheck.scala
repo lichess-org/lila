@@ -17,10 +17,9 @@ object PasswordCheck:
     else Valid
   }
 
-  def sameConstraint(user: UserStr)(using mode: Mode) = Constraint[String] { (pass: String) =>
+  def sameConstraint(user: UserStr)(using mode: Mode) = Constraint[String]: pass =>
     if mode == Mode.Prod && pass == user.value then Invalid(ValidationError(errorSame))
     else Valid
-  }
 
   // https://github.com/danielmiessler/SecLists/blob/master/Passwords/Common-Credentials/10-million-password-list-top-1000.txt
   val commonPasswords = Set("chess", "lichess", "lichess.org") ++ Set(

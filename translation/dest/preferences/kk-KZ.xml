@@ -18,7 +18,7 @@
   <string name="explainShowPlayerRatings">Шахматқа назарды күшейту үшін бұл бүкіл сайттағы рейтингтерді жасырады. Бағалау тәртібіне еш әсері жоқ, жай сыртқы көрінісі басқаша болады.</string>
   <string name="displayBoardResizeHandle">Тақтаны үлкейту тұтқасын көрсету</string>
   <string name="onlyOnInitialPosition">Тек бастапқы күйде ғана</string>
-  <string name="blindfoldChess">Бүркемелі шахмат (көрінбейтін тастар)</string>
+  <string name="inGameOnly">Ойында ғана</string>
   <string name="chessClock">Шахмат сағаты</string>
   <string name="tenthsOfSeconds">Секундтың ондық бөлігін көрсету</string>
   <string name="whenTimeRemainingLessThanTenSeconds" comment="whenTimeRemainingLessThanTenSeconds&#10;&#10;The &amp;lt; symbol is not required (you can write it as a word), just do NOT use &lt; in its place.&#10;&#10;Technical information: &lt; is a reserved character in HTML, which is why it cannot be used.">10 секунд қалғанда</string>

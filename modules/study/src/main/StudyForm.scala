@@ -5,9 +5,10 @@ import chess.format.pgn.PgnStr
 import chess.variant.Variant
 import play.api.data.*
 import play.api.data.Forms.*
-
-import lila.common.Form.{ cleanNonEmptyText, formatter, into, given }
 import play.api.data.format.Formatter
+
+import lila.common.Form.{ cleanNonEmptyText, formatter, into, defaulting, given }
+import lila.common.config.Max
 
 object StudyForm:
 
@@ -38,22 +39,20 @@ object StudyForm:
         variant: Option[Variant] = None,
         asStr: Option[String] = None
     ):
-      def as: As =
-        asStr match
-          case None | Some("study") => As.NewStudy
-          case Some(studyId)        => As.ChapterOf(StudyId(studyId))
+      def as: As = asStr match
+        case None | Some("study") => As.NewStudy
+        case Some(studyId)        => As.ChapterOf(StudyId(studyId))
 
-      def toChapterData =
-        ChapterMaker.Data(
-          name = StudyChapterName(""),
-          game = gameId.map(_.value),
-          variant = variant,
-          fen = fen,
-          pgn = pgnStr,
-          orientation = orientation | ChapterMaker.Orientation.Auto,
-          mode = ChapterMaker.Mode.Normal,
-          initial = false
-        )
+      def toChapterData = ChapterMaker.Data(
+        name = StudyChapterName(""),
+        game = gameId.map(_.value),
+        variant = variant,
+        fen = fen,
+        pgn = pgnStr,
+        orientation = orientation | ChapterMaker.Orientation.Auto,
+        mode = ChapterMaker.Mode.Normal,
+        initial = false
+      )
 
     enum As:
       case NewStudy
@@ -63,10 +62,10 @@ object StudyForm:
 
     lazy val form = Form(
       mapping(
-        "name"          -> cleanNonEmptyText,
+        "name"          -> cleanNonEmptyText(minLength = 1, maxLength = 100),
         "orientation"   -> optional(of[ChapterMaker.Orientation]),
         "variant"       -> optional(of[Variant]),
-        "mode"          -> of[ChapterMaker.Mode],
+        "mode"          -> defaulting(of[ChapterMaker.Mode], ChapterMaker.Mode.Normal),
         "initial"       -> boolean,
         "sticky"        -> boolean,
         "pgn"           -> nonEmptyText.into[PgnStr],
@@ -85,8 +84,8 @@ object StudyForm:
         isDefaultName: Boolean
     ):
 
-      def toChapterDatas =
-        val pgns = MultiPgn.split(pgn, max = 32).value
+      def toChapterDatas: List[ChapterMaker.Data] =
+        val pgns = MultiPgn.split(pgn, max = Max(32)).value
         pgns.mapWithIndex: (onePgn, index) =>
           ChapterMaker.Data(
             // only the first chapter can be named

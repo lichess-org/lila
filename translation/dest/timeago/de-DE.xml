@@ -30,10 +30,6 @@
     <item quantity="other">in %s Jahren</item>
   </plurals>
   <string name="rightNow">gerade jetzt</string>
-  <plurals name="nbSecondsAgo">
-    <item quantity="one">vor %s Sekunde</item>
-    <item quantity="other">vor %s Sekunden</item>
-  </plurals>
   <plurals name="nbMinutesAgo">
     <item quantity="one">vor %s Minute</item>
     <item quantity="other">vor %s Minuten</item>
@@ -58,4 +54,13 @@
     <item quantity="one">vor %s Jahr</item>
     <item quantity="other">vor %s Jahren</item>
   </plurals>
+  <plurals name="nbMinutesRemaining">
+    <item quantity="one">%s Minute verbleibend</item>
+    <item quantity="other">%s Minuten verbleibend</item>
+  </plurals>
+  <plurals name="nbHoursRemaining">
+    <item quantity="one">%s Stunden verbleiben</item>
+    <item quantity="other">%s Stunden übrig</item>
+  </plurals>
+  <string name="completed">abgeschlossen</string>
 </resources>

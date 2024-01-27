@@ -1,3 +1,4 @@
+import { memoize } from 'common';
 import { siteTrans } from './trans';
 
 type DateLike = Date | number | string;
@@ -7,14 +8,14 @@ interface ElementWithDate extends Element {
 }
 
 // past, future, divisor, at least
-const units: [string, string, number, number][] = [
+const agoUnits: [string | undefined, string, number, number][] = [
   ['nbYearsAgo', 'inNbYears', 60 * 60 * 24 * 365, 1],
   ['nbMonthsAgo', 'inNbMonths', (60 * 60 * 24 * 365) / 12, 1],
   ['nbWeeksAgo', 'inNbWeeks', 60 * 60 * 24 * 7, 1],
   ['nbDaysAgo', 'inNbDays', 60 * 60 * 24, 2],
   ['nbHoursAgo', 'inNbHours', 60 * 60, 1],
   ['nbMinutesAgo', 'inNbMinutes', 60, 1],
-  ['nbSecondsAgo', 'inNbSeconds', 1, 9],
+  [undefined, 'inNbSeconds', 1, 9],
   ['rightNow', 'justNow', 1, 0],
 ];
 
@@ -23,28 +24,39 @@ const toDate = (input: DateLike): Date =>
   input instanceof Date ? input : new Date(isNaN(input as any) ? input : parseInt(input as any));
 
 // format the diff second to *** time ago
-const formatDiff = (seconds: number): string => {
+const formatAgo = (seconds: number): string => {
   const absSeconds = Math.abs(seconds);
-  const unit = units.find(unit => absSeconds >= unit[2] * unit[3])!;
-  return siteTrans.pluralSame(unit[seconds < 0 ? 1 : 0], Math.floor(absSeconds / unit[2]));
+  const strIndex = seconds < 0 ? 1 : 0;
+  const unit = agoUnits.find(unit => absSeconds >= unit[2] * unit[3] && unit[strIndex])!;
+  return siteTrans.pluralSame(unit[strIndex]!, Math.floor(absSeconds / unit[2]));
 };
 
-let formatterInst: (date: Date) => string;
+// format the diff second to *** time remaining
+const formatRemaining = (seconds: number): string =>
+  seconds < 1
+    ? siteTrans.noarg('completed')
+    : seconds < 3600
+    ? siteTrans.pluralSame('nbMinutesRemaining', Math.floor(seconds / 60))
+    : siteTrans.pluralSame('nbHoursRemaining', Math.floor(seconds / 3600));
 
-export const formatter = () =>
-  (formatterInst =
-    formatterInst ||
-    (window.Intl && Intl.DateTimeFormat
-      ? new Intl.DateTimeFormat(document.documentElement.lang, {
+export const formatter = memoize(() =>
+  window.Intl
+    ? // for many users, using the islamic calendar is not practical on the internet
+      // due to international context, so we make sure it's displayed using the gregorian calendar
+      new Intl.DateTimeFormat(
+        document.documentElement.lang.startsWith('ar-') ? 'ar-ly' : document.documentElement.lang,
+        {
           year: 'numeric',
           month: 'short',
           day: 'numeric',
           hour: 'numeric',
           minute: 'numeric',
-        }).format
-      : d => d.toLocaleString()));
+        },
+      ).format
+    : (d: Date) => d.toLocaleString(),
+);
 
-export const format = (date: DateLike) => formatDiff((Date.now() - toDate(date).getTime()) / 1000);
+export const format = (date: DateLike) => formatAgo((Date.now() - toDate(date).getTime()) / 1000);
 
 export const findAndRender = (parent?: HTMLElement) =>
   requestAnimationFrame(() => {
@@ -63,9 +75,12 @@ export const findAndRender = (parent?: HTMLElement) =>
           cl.add('set');
           if (abs || cl.contains('once')) cl.remove('timeago');
         }
-        if (!abs) {
+        if (cl.contains('remaining')) {
+          const diff = (node.lichessDate.getTime() - now) / 1000;
+          node.textContent = formatRemaining(diff);
+        } else if (!abs) {
           const diff = (now - node.lichessDate.getTime()) / 1000;
-          node.textContent = formatDiff(diff);
+          node.textContent = formatAgo(diff);
           if (Math.abs(diff) > 9999) cl.remove('timeago'); // ~3h
         }
       });

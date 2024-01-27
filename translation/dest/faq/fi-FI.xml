@@ -15,7 +15,7 @@
   <string name="breakdownOfOurCosts">juoksevista kuluistamme</string>
   <string name="otherWaysToHelp">muitakin tapoja auttaa</string>
   <string name="areThereWebsitesBasedOnLichess">Onko olemassa Lichessiin perustuvia nettisivuja?</string>
-  <string name="yesLichessInspiredOtherOpenSourceWebsites">On. Lichess on tosiaankin inspiroinut muita avoimen lähdekoodin sivustoja, jotka käyttävät meidän %1$samme, %2$s:amme, tai %3$samme.</string>
+  <string name="yesLichessInspiredOtherOpenSourceWebsites">On. Lichess on tosiaankin inspiroinut muita avoimen lähdekoodin sivustoja, jotka käyttävät meidän %1$samme, %2$samme, tai %3$samme.</string>
   <string name="keyboardShortcuts">Mitä pikanäppäimiä voi käyttää?</string>
   <string name="keyboardShortcutsExplanation">Joillakin Lichess-sivuilla voit käyttää pikanäppäimiä. Painamalla \"?\"-näppäintä tutkielma-, analyysi-, tehtävä- tai pelisivulla saat näkyviin käytettävissä olevien pikanäppäinten listan.</string>
   <string name="fairPlay">Reilu peli</string>
@@ -31,7 +31,7 @@
   <string name="fairPlayPage">reilun pelin sivumme</string>
   <string name="youCanUseOpeningBookNoEngine">Lichessissä kirjeshakin sääntöjen suurin ero on se, että avauskirjojen käyttö on sallittu. Tietokoneanalyysi on kuitenkin kielletty, ja sen käyttö johtaa merkintään tietokoneavusta. Vaikka ICCF hyväksyy tietokoneanalyysin kirjeshakissa, Lichess ei hyväksy sitä.</string>
   <string name="gameplay">Pelaaminen</string>
-  <string name="howBulletBlitzEtcDecided">Kuinka Bullet, Blitz ja muut aikakontrollit on määritelty?</string>
+  <string name="howBulletBlitzEtcDecided">Kuinka Bullet, Pikapeli ja muut aikakontrollit on määritelty?</string>
   <string name="basedOnGameDuration">Lichessin aikakontrollit perustuvat pelin arvioituun kestoon = %1$s
 Esimerkiksi 5+3 pelin arvioitu kesto on 5 × 60 + 40 × 3 = 420 sekuntia.</string>
   <string name="durationFormula">(aloitusaika minuutteina) + 40 × (lisäaika sekunteina)</string>
@@ -54,6 +54,7 @@ Esimerkiksi 5+3 pelin arvioitu kesto on 5 × 60 + 40 × 3 = 420 sekuntia.</strin
  Harvoissa tapauksissa (pakotetut siirtosarjat, puolustuslinnakkeet) tämän määrittäminen automaattisesti voi olla vaikeaa. Oletusarvoisesti pidämme sen pelaajan puolta, jolta ei loppunut aika.
 
  Huomaa, että matinteko yhdellä ratsulla tai lähetillä voi olla mahdollista, jos vastapelaajalla on nappula, joka voisi viedä hänen kuninkaaltaan pakoruudun.</string>
+  <string name="fideHandbook">FIDEn käsikirja</string>
   <string name="fideHandbookX">FIDEn käsikirja %s</string>
   <string name="discoveringEnPassant">Miksi sotilas voi lyödä toisen sotilaan, kun se on jo kulkenut ohitse? (ohestalyönti)</string>
   <string name="explainingEnPassant">Tämä sallittu siirto tunnetaan ohestalyöntinä (\"en passant\"). Wikipediassa on %1$s ohestalyöntiin.
@@ -67,7 +68,7 @@ Katso %3$ssta tämä siirto ja harjoittele sen käyttöä.</string>
   <string name="lichessTraining">Lichess-harjoittelu</string>
   <string name="watchIMRosenCheckmate">Katso, kuinka kansainvälinen mestari Eric Rosen tekee matin %s.</string>
   <string name="threefoldRepetition">Aseman toisto kolmesti</string>
-  <string name="threefoldRepetitionExplanation">Jos asema toistuu kolmesti, pelaaja voi vaatia tasapelin %1$s perusteella. Lichess noudattaa FIDE:n virallisia sääntöjä, jotka on kuvattu %2$s kohdassa 9.2 (d).</string>
+  <string name="threefoldRepetitionExplanation">Jos asema toistuu kolmesti, pelaaja voi vaatia tasapelin %1$s perusteella. Lichess noudattaa FIDE:n virallisia sääntöjä, jotka on kuvattu %2$s kohdassa 9.2.</string>
   <string name="threefoldRepetitionLowerCase">kolminkertaisen toiston</string>
   <string name="notRepeatedMoves">Me emme toistaneet siirtoja. Miksi peli silti päättyi tasapeliin toiston perusteella?</string>
   <string name="repeatedPositionsThatMatters">Kolminkertaisessa toistossa on kysymys %1$s toistumisesta, ei siirtojen. Toistumisen ei tarvitse tapahtua peräkkäin.</string>
@@ -99,7 +100,7 @@ Katso %3$ssta tämä siirto ja harjoittele sen käyttöä.</string>
   <string name="usernamesCannotBeChanged">Et voi. Teknisistä ja käytännön syistä käyttäjänimiä ei voi muuttaa. Käyttäjänimet ovat liian monessa paikassa: tietokannoissa, vienti- ja lokitiedostoissa sekä ihmisten mielissä. Isojen ja pienten kirjainten käyttöä käyttäjänimessäsi voit muuttaa kerran.</string>
   <string name="uniqueTrophies">Ainutlaatuiset palkinnot</string>
   <string name="ownerUniqueTrophies">Tämä palkinto on Lichessin historiassa ainutlaatuinen, eikä sitä voi koskaan saada kukaan muu kuin %1$s.</string>
-  <string name="wayOfBerserkExplanation">hiimgosu sai sen haastettuaan itsensä voittamaan berserkkitilassa 100%% %s peleistä.</string>
+  <string name="wayOfBerserkExplanation">hiimgosu sai sen haastettuaan itsensä voittamaan berserkkitilassa %s kaikki pelit.</string>
   <string name="aHourlyBulletTournament">tunnittaisen Bullet-turnauksen</string>
   <string name="goldenZeeExplanation">ZugAddict striimasi ja oli viimeiset 2 tuntia yrittänyt voittaa tason 8 tekoälyn 1+0-pelissä onnistumatta siinä. Thibault sanoi hänelle, että jos hän striimatessaan onnistuisi siinä, hän saisi ainutlaatuisen palkinnon. Tuntia myöhemmin ZugAddict löi Stockfishin, ja lupaus pidettiin.</string>
   <string name="lichessRatings">Lichess-vahvuusluvut</string>
@@ -142,4 +143,19 @@ Katso %3$ssta tämä siirto ja harjoittele sen käyttöä.</string>
  Napsauta selaimesi osoitepalkissa lichess.org-osoitteen vieressä olevaa lukkokuvaketta.
 
  Valitse sitten, haluatko ottaa käyttöön vai poistaa käytöstä Lichessin ilmoitukset.</string>
+  <string name="enableAutoplayForSoundsQ">Ottaa käyttöön äänten automaattisen toiston?</string>
+  <string name="enableAutoplayForSoundsA">Useimmissa selaimissa on mahdollista estää äänten toisto juuri ladatulla sivulla, jotta käyttäjä ei häiriinny. Kuvittele, miltä tuntuu, jos jokainen nettisivu alkaa välittömästi pommittaa mainosten äänillä.
+
+Kun selaimesi estää lichess.org-sivun äänten toiston, näytetään punainen mykistyskuvake. Tavallisesti rajoitus poistuu, kun klikkaat jotain. Joissakin mobiiliselaimissa nappulan siirtoa vetämällä ei lasketa klikkaukseksi. Tässä tapauksessa voit pelin alkaessa napauttaa lautaa salliaksesi äänet.
+
+Tällöin sinulle ilmoitetaan asiasta näyttämällä punainen kuvake. Usein voit nimenomaisesti sallia sen, että lichess.org toistaa äänet. Ohessa ovat ohjeet äänten sallimiseksi joidenkin suosituimpien selainten viimeaikaisia versioita varten.</string>
+  <string name="desktop">työpöytä</string>
+  <string name="enableAutoplayForSoundsFirefox">1. Mene osoitteeseen lichess.org
+2. Paina Ctrl-i Linuxissa/Windowsissa tai cmd-i MacOS:ssa
+3. Klikkaa käyttöoikeusvälilehteä
+4. Salli ääni ja video lichess.org:issa</string>
+  <string name="enableAutoplayForSoundsChrome">1. Mene osoitteeseen lichess.org
+2. Klikkaa lukituskuvaketta osoitepalkissa
+3. Valitse Sivuston asetukset
+4. Salli ääni</string>
 </resources>

@@ -5,26 +5,28 @@ import play.api.libs.json.*
 import lila.game.{ Game, GameRepo }
 import lila.common.Json.given
 import lila.search.*
+import alleycats.Zero
 
 final class GameSearchApi(
     client: ESClient,
-    gameRepo: GameRepo
+    gameRepo: GameRepo,
+    userRepo: lila.user.UserRepo
 )(using Executor, Scheduler)
     extends SearchReadApi[Game, Query]:
 
-  def search(query: Query, from: From, size: Size) =
+  def search(query: Query, from: From, size: Size): Fu[List[Game]] =
     client.search(query, from, size) flatMap { res =>
-      gameRepo gamesFromSecondary res.ids.map(GameId(_))
+      gameRepo gamesFromSecondary GameId.from(res.ids)
     }
 
   def count(query: Query) =
     client.count(query).dmap(_.value)
 
-  def ids(query: Query, max: Int): Fu[List[String]] =
-    client.search(query, From(0), Size(max)).map(_.ids)
+  def validateAccounts(query: Query, forMod: Boolean): Fu[Boolean] =
+    fuccess(forMod) >>| !userRepo.containsDisabled(query.userIds)
 
   def store(game: Game) =
-    storable(game) so {
+    storable(game).so:
       gameRepo isAnalysed game.id flatMap { analysed =>
         lila.common.LilaFuture
           .retry(
@@ -34,18 +36,18 @@ final class GameSearchApi(
             logger.some
           )
       }
-    }
 
   private def storable(game: Game) = game.finished || game.imported
 
   private def toDoc(game: Game, analysed: Boolean) =
     Json
       .obj(
-        Fields.status -> (game.status match
-          case s if s.is(_.Timeout) => chess.Status.Resign
-          case s if s.is(_.NoStart) => chess.Status.Resign
-          case _                    => game.status
-        ).id,
+        Fields.status -> game.status
+          .match
+            case s if s.is(_.Timeout) => chess.Status.Resign
+            case s if s.is(_.NoStart) => chess.Status.Resign
+            case _                    => game.status
+          .id,
         Fields.turns         -> (game.ply.value + 1) / 2,
         Fields.rated         -> game.rated,
         Fields.perf          -> game.perfType.id,

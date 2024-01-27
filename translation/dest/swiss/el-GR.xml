@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="swissTournaments">Ελβετικά πρωταθλήματα</string>
+  <string name="swissTournaments">Τουρνουά ελβενικού συστήματως</string>
   <plurals name="viewAllXRounds" comment="viewAllXRounds [one] [other]&#10;&#10;%s is the number of rounds in the Swiss tournament.">
     <item quantity="one">Δείτε τον γύρο</item>
     <item quantity="other">Δείτε όλους τους %s γύρους</item>
@@ -34,7 +34,7 @@
   <string name="roundInterval">Διάστημα μεταξύ γύρων</string>
   <string name="forbiddenPairings">Απαγορευμένες κληρώσεις</string>
   <string name="forbiddenPairingsHelp">Ονόματα χρηστών των παικτών που δεν πρέπει να παίξουν μαζί (για παράδειγμα δύο αδέρφια). Εισάγετε δύο ονόματα χρήστη σε κάθε γραμμή, με ένα κενό ανάμεσα.</string>
-  <string name="newSwiss">Νέο Ελβετικό πρωτάθλημα</string>
+  <string name="newSwiss">Νέο ελβετικό τουρνουά</string>
   <string name="swissVsArenaQ">Ποια η διαφορά μεταξύ ελβετικών τουρνουά και αρένων;</string>
   <string name="swissVsArenaA">Στα ελβετικά τουρνουά, όλοι οι παίκτες παίζουν τον ίδιο αριθμό παιχνιδιών και μόνο μία φορά με κάθε παίκτη.
 Είναι μία καλή επιλογή για συλλόγους ή επίσημα τουρνουά.</string>
@@ -73,7 +73,7 @@
   <string name="otherSystemsQ">Και σχετικά με τους άλλους τύπους τουρνουά;</string>
   <string name="otherSystemsA">Δεν σκοπεύουμε να προσθέσουμε περισσότερους τύπους τουρνουά στο Lichess προς το παρόν.</string>
   <string name="swissDescription">Στα ελβετικά τουρνουά %1$s, δεν είναι απαραίτητο κάθε παίκτης να παίζει με όλους τους υπόλοιπους. Οι παίκτες παίζουν μεταξύ τους σε κάθε γύρο σύμφωνα με ορισμένους κανόνες, έτσι ώστε να κληρώνονται με παίκτες με ίσους ή σχεδόν σχεδόν ίσους πόντους το πολύ μία φορά. Νικητής είναι εκείνος που θα συγκεντρώσει τους περισσότερους πόντους μόλις τελειώσει και ο τελευταίος γύρος. Κάθε παίκτης παίζει με έναν άλλο σε κάθε γύρο, εκτός και αν υπάρχει μονός αριθμός παικτών.</string>
-  <string name="teamOnly">Ελβετικά τουρνουά μπορούν να δημιουργηθούν μόνο από αρχηγούς ομάδων και μόνο για τα μέλη αυτής της ομάδας.
+  <string name="teamOnly">Τα τουρνουά ελβετικού συστήματως μπορούν να δημιουργηθούν μόνο από αρχηγούς ομάδων. Συμμετάσχουν μόνο τα μέλη της ομάδας τους.
 %1$s για να ξεκινήσετε να παίζετε ελβετικά πρωταθλήματα.</string>
   <string name="joinOrCreateTeam">Εγγραφείτε ή δημιουργήστε μια ομάδα</string>
   <string name="nowPlaying">Παίζονται τώρα</string>
@@ -101,4 +101,5 @@
   <string name="streaksAndBerserk">Streaks και Berserk</string>
   <string name="similarToOTB">Όμοιο με τα διά ζώσης τουρνουά</string>
   <string name="unlimitedAndFree">Απεριόριστο και δωρεάν</string>
+  <string name="forbiddedUsers">Αν αυτή η λίστα δεν είναι κενή, τότε οι χρήστες που απουσιάζουν από αυτή τη λίστα θα απαγορεύεται να συμμετέχουν. Ένα όνομα χρήστη ανά γραμμή.</string>
 </resources>

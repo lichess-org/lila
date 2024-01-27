@@ -1,6 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="lichessClasses">Coursen</string>
+  <string name="features">Funktiounen</string>
+  <string name="freeForAllForever">100 % gratis fir jiddereen, fir ëmmer, ouni Reklammen oder Trackeren</string>
+  <string name="applyToBeLichessTeacher">Bewerb dech als Lichess-Enseignant</string>
   <string name="noClassesYet">Nach keng Coursen.</string>
   <string name="teachersX">Enseignanten: %s</string>
   <string name="newClass">Neie Cours</string>
@@ -57,4 +60,49 @@ Hei ass de Link fir op de Cours zouzegräifen.</string>
   <string name="upgradeFromManaged">Vu verwalt op selbststänneg upgraden</string>
   <string name="release">Fräiginn</string>
   <string name="releaseTheAccount">Gëff de Kont fräi, fir datt de Schüler e selbstänneg verwalte kann.</string>
+  <string name="closeStudent">Kont zoumaachen</string>
+  <string name="closeTheAccount">De Schülerkont dauerhaft zoumaachen.</string>
+  <string name="closeDesc1">De Schüler wäert dëse Kont ni méi bentoze kënnen. D\'Zoumaachen ass endgülteg. Vergewësser dech, datt de Schüler dat versteet an domat averstanen ass.</string>
+  <string name="closeDesc2">Du kanns dem Schüler awer och d\'Kontroll iwwert de Kont ginn, sou datt en en nach weider benotze kann.</string>
+  <string name="teachers">Enseignanten</string>
+  <plurals name="nbTeachers">
+    <item quantity="one">Enseignant</item>
+    <item quantity="other">%s Enseignanten</item>
+  </plurals>
+  <plurals name="nbStudents">
+    <item quantity="one">Schüler</item>
+    <item quantity="other">%s Schüleren</item>
+  </plurals>
+  <string name="students">Schüleren</string>
+  <string name="progress">Progrès</string>
+  <string name="noStudents">Nach kee Schüler am Cours.</string>
+  <string name="noRemovedStudents">Keen entfernte Schüler.</string>
+  <string name="overDays">Iwwer Deeg</string>
+  <string name="timePlaying">Spillzäit</string>
+  <string name="variantXOverLastY">%1$s iwwer déi lescht %2$s</string>
+  <string name="winrate">Gewënnrate</string>
+  <string name="overview">Iwwersiicht</string>
+  <string name="news">Nouvellen</string>
+  <string name="classNews">Nouvellë vum Cours</string>
+  <string name="editNews">Nouvellen änneren</string>
+  <string name="notifyAllStudents">All d\'Schüler avertéieren</string>
+  <string name="nothingHere">Nach näischt hei.</string>
+  <string name="newsEdit1">All d\'Nouvellë vum Cours an engem eenzege Feld.</string>
+  <string name="newsEdit2">Setz déi rezentsten Nouvellen uewe bäi. Läsch keng vireg Nouvellen.</string>
+  <string name="newsEdit3">Trenn déi verschidden Nouvellë mat ---
+Doduerch gëtt eng hotizontal Linn ugewisen.</string>
+  <string name="invite">Invitéieren</string>
+  <string name="youHaveBeenInvitedByX">Du goufs vum %s invitéiert.</string>
+  <string name="youAcceptedThisInvitation">Du hues dës Invitatioun ugeholl.</string>
+  <string name="youDeclinedThisInvitation">Du hues dës Invitatioun ofgeleent.</string>
+  <string name="orSeparator" comment="Used as separator between invite sections. Shown as large '~ or ~'.">oder</string>
+  <string name="createMultipleAccounts">E puer Liches-Konten op eng Kéier uleeën</string>
+  <string name="multipleAccsFormDescription" comment="%s is a link and will be replaced with the translation of useThisForm. Make sure both strings fit together.">Du kanns och %s, fir eng ganz Rei vu Lichess-Konte aus enger Lëscht vu Schülernimm ze erstellen.</string>
+  <string name="useThisForm" comment="Link text in multipleAccsFromDescription">dëse Formulaire benotzen</string>
+  <string name="maxStudentsNote" comment="%1$s will be replaced with a large number (currently 100).\n%2$s is a link and will be replaced with the translation of createMoreClasses. Make sure both strings fit together.">E Cours ka just bis zu %1$s Schüler hunn. Fir méi Schüler ze verwalten, %2$s.</string>
+  <string name="createMoreClasses" comment="Link text in maxStudentsNote">lee weider Coursen un</string>
+  <string name="studentsRealNamesOnePerLine">Richtegen Numm vun de Schüler, ee pro Zeil</string>
+  <string name="xisNowAStudentOfTheClass">De Benotzer %s ass lo ee Schüler vum Cours</string>
+  <string name="anInvitationHasBeenSentToX">Et gouf eng Invitatioun geschéckt un de Benotzer %s</string>
+  <string name="xIsAKidAccountWarning">%1$s ass ee Kannerkont a kann däi Message net empfänken. Du muss him d\'Invitatiouns-URL manuell ginn: %2$s</string>
 </resources>

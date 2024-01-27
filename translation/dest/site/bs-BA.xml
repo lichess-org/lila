@@ -117,6 +117,7 @@
   <string name="openStudy">Otvori studiju</string>
   <string name="enable">Omogući</string>
   <string name="bestMoveArrow">Strelica za najbolji potez</string>
+  <string name="showVariationArrows">Prikaži strelice za varijante</string>
   <string name="evaluationGauge">Mjerilo evaluacije</string>
   <string name="multipleLines">Više varijacija</string>
   <string name="cpus">Procesora</string>
@@ -160,6 +161,11 @@
     <item quantity="one">%s partija</item>
     <item quantity="few">%s partija</item>
     <item quantity="other">%s partija</item>
+  </plurals>
+  <plurals name="ratingXOverYGames">
+    <item quantity="one">%1$s rejting na osnovu %2$s partije</item>
+    <item quantity="few">%1$s rejting na osnovu %2$s partija</item>
+    <item quantity="other">%1$s rejting na osnovu %2$s partija</item>
   </plurals>
   <plurals name="nbBookmarks">
     <item quantity="one">%s zabilježena partija</item>
@@ -280,7 +286,6 @@
   <string name="playingRightNow">Upravo igraju</string>
   <string name="eventInProgress">Upravo igraju</string>
   <string name="finished">Završeno</string>
-  <string name="finishesX">završava %s</string>
   <string name="abortGame">Otkažite partiju</string>
   <string name="gameAborted">Partija otkazana</string>
   <string name="standard">Standardna</string>
@@ -364,6 +369,11 @@
     <item quantity="one">%s studija</item>
     <item quantity="few">%s studije</item>
     <item quantity="other">%s studija</item>
+  </plurals>
+  <plurals name="nbSimuls">
+    <item quantity="one">%s simul</item>
+    <item quantity="few">%s simula</item>
+    <item quantity="other">%s simula</item>
   </plurals>
   <string name="viewTournament">Pogledajte turnir</string>
   <string name="backToTournament">Povratak na turnir</string>
@@ -528,13 +538,10 @@ računarsku analizu, mogućnost dopisivanja i link za slanje drugima.</string>
   <string name="firstName">Ime</string>
   <string name="lastName">Prezime</string>
   <string name="biography">Biografija</string>
-  <string name="flag" comment="flag&#10;Appears when you edit your profile. Lets a player add a country/flag (not all flags are for countries) to their profile">Zastava</string>
   <string name="thankYou">Hvala!</string>
   <string name="socialMediaLinks">Linkovi na društvene mreže</string>
   <string name="oneUrlPerLine">Jedan link po redu.</string>
   <string name="inlineNotation">Kompaktnija notacija</string>
-  <string name="savingMoves">Privremeno skladište poteza</string>
-  <string name="savingMovesHelp">Uvijek spremamo Vaše varijacije u privremenu memoriju preglednika.</string>
   <string name="makeAStudy">Radi čuvanja i dijeljenja razmislite o izradi studije.</string>
   <string name="clearSavedMoves">Očistite poteze</string>
   <string name="previouslyOnLichessTV">Prethodno na Lichess TV-u</string>
@@ -881,7 +888,6 @@ računarsku analizu, mogućnost dopisivanja i link za slanje drugima.</string>
   </plurals>
   <string name="sorry">Izvinjavamo se :(</string>
   <string name="weHadToTimeYouOutForAWhile">Morali smo Vam staviti privremenu zabranu na igranje.</string>
-  <string name="timeoutExpires">Privremena zabrana ističe %s.</string>
   <string name="why">Zašto?</string>
   <string name="pleasantChessExperience">Naš cilj je da svima pružimo ugodno šahovsko iskustvo.</string>
   <string name="goodPractice">Zbog toga, moramo osigurati da svi igrači ispravno postupaju.</string>
@@ -901,6 +907,7 @@ računarsku analizu, mogućnost dopisivanja i link za slanje drugima.</string>
   <string name="agreementPolicy">Slažem se da ću se pridržavati svih Lichess pravila.</string>
   <string name="searchOrStartNewDiscussion">Traži ili pokrenite novu diskusiju</string>
   <string name="edit">Uredite</string>
+  <string name="blitz" comment="Probably best left untranslated. Leave it as 'Blitz' unless your language has a better word for it.">Blic</string>
   <string name="rapid">Ubrzani šah</string>
   <string name="classical">Klasični šah</string>
   <string name="ultraBulletDesc">Ludo brze partije: manje od 30 sekundi</string>
@@ -912,7 +919,7 @@ računarsku analizu, mogućnost dopisivanja i link za slanje drugima.</string>
   <string name="puzzleDesc">Vježbanje šahovske taktike</string>
   <string name="important">Važno</string>
   <string name="yourQuestionMayHaveBeenAnswered">Na Vaše pitanje možda već postoji odgovor %1$s</string>
-  <string name="inTheFAQ">u sekciji F.A.Q.</string>
+  <string name="inTheFAQ">u FAQ-u</string>
   <string name="toReportSomeoneForCheatingOrBadBehavior">Da prijavite korisnika zbog varanja ili lošeg ponašanja, %1$s</string>
   <string name="useTheReportForm">koristite formular za prijavu</string>
   <string name="toRequestSupport">Da zatražite podršku, %1$s</string>
@@ -926,9 +933,9 @@ računarsku analizu, mogućnost dopisivanja i link za slanje drugima.</string>
   <string name="subscribe">Pretplatite se</string>
   <string name="unsubscribe">Odjavite pretplatu</string>
   <string name="mentionedYouInX">spomenuo Vas je u \"%1$s\".</string>
-  <string name="xMentionedYouInY">%1$s Vas je spomenuo u \"%2$s\".</string>
-  <string name="invitedYouToX">Vas je pozvao u \"%1$s\".</string>
-  <string name="xInvitedYouToY">%1$s Vas je pozvao u \"%2$s\".</string>
+  <string name="xMentionedYouInY">%1$s vas je spomenuo u \"%2$s\".</string>
+  <string name="invitedYouToX">vas je pozvao u \"%1$s\".</string>
+  <string name="xInvitedYouToY">%1$s vas je pozvao u \"%2$s\".</string>
   <string name="youAreNowPartOfTeam">Sada ste dio tima.</string>
   <string name="youHaveJoinedTeamX">Pridružili ste se \"%1$s\".</string>
   <string name="someoneYouReportedWasBanned">Neko koga ste prijavili dobio je zabranu</string>
@@ -940,9 +947,6 @@ računarsku analizu, mogućnost dopisivanja i link za slanje drugima.</string>
   <string name="timeAlmostUp">Vrijeme je pri kraju!</string>
   <string name="clickToRevealEmailAddress">[Kliknite da otkrijete adresu e-pošte]</string>
   <string name="download">Preuzmite</string>
-  <string name="welcome">Dobro došli!</string>
-  <string name="lichessPatronInfo">Lichess je dobrotvorni i potpuno besplatan softver otvorenog koda.
-Svi operativni troškovi, razvoj i sadržaj finansiraju se isključivo od donacija korisnikâ.</string>
   <string name="coachManager">Postavke za trenera</string>
   <string name="streamerManager">Postavke za strimera</string>
   <string name="cancelTournament">Otkaži turnir</string>
@@ -1002,4 +1006,6 @@ Ostavite prazno za početak igre sa normalne početne pozicije.</string>
   <string name="switchSides">Zamijenite strane</string>
   <string name="closingAccountWithdrawAppeal">Zatvaranje Vašeg računa povući će Vašu žalbu</string>
   <string name="ourEventTips">Naši savjeti za organiziranje događajâ</string>
+  <string name="lichessPatronInfo">Lichess je dobrotvorni i potpuno besplatan softver otvorenog koda.
+Svi operativni troškovi, razvoj i sadržaj finansiraju se isključivo od donacija korisnikâ.</string>
 </resources>

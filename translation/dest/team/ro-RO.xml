@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="team">Echipă</string>
+  <string name="team">Echipe</string>
   <string name="teams">Echipe</string>
   <plurals name="nbMembers">
     <item quantity="one">%s membru</item>
@@ -46,7 +46,6 @@ Poți folosi asta pentru a suna jucătorii să intre într-un turneu sau o băt�
 Jucatorii carora nu le place să primească mesaje de la tine pot ieși din echipă.</string>
   <string name="teamsIlead">Echipe pe care le-am condus</string>
   <string name="youWayWantToLinkOneOfTheseTournaments">Ai vrea să legi unul dintre aceste turnee viitoare?</string>
-  <string name="usersWhoCanManageThisTeam">Utilizatori ce pot administra această echipă</string>
   <string name="leadersChat">Chat-ul liderilor</string>
   <string name="closeTeam">Închide echipa</string>
   <string name="closeTeamDescription">Închide echipa pentru totdeauna.</string>
@@ -58,4 +57,5 @@ Jucatorii carora nu le place să primească mesaje de la tine pot ieși din echi
   <string name="completedTourns">Turnee finalizate</string>
   <string name="declinedRequests">Cereri refuzate</string>
   <string name="joinLichessVariantTeam">Alătură-te echipei oficiale %s pentru știri și evenimente</string>
+  <string name="teamPage">Pagina Echipei</string>
 </resources>

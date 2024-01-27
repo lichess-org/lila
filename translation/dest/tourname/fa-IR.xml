@@ -3,15 +3,15 @@
   <string name="hourlyRapidArena">میدان مسابقه سریع ساعتی</string>
   <string name="hourlyRapid">سریع ساعتی</string>
   <string name="hourlyXArena">میدان مسابقه ساعتی با محدودیت زمانی یا نوع بازی %s</string>
-  <string name="hourlyX">محدودیت زمانی ساعتی یا نوع بازی %s</string>
+  <string name="hourlyX" comment="%s is a time control (like &quot;Blitz&quot;) or a variant (like &quot;Chess960&quot;)&#10;&#10;Used for tournaments. Please keep this string short and consistent with 'Hourly Rapid' and 'Hourly %s Arena'.">محدودیت زمانی ساعتی یا نوع بازی %s</string>
   <string name="dailyRapidArena">میدان مسابقه سریع روزانه</string>
   <string name="dailyRapid">سریع روزانه</string>
-  <string name="dailyClassicalArena">میدان مسابقه سنتی روزانه</string>
-  <string name="dailyClassical">سنتی روزانه</string>
-  <string name="dailyXArena">میدان مسابقه روزانه با محدودیت زمانی یا نوع بازی %s</string>
+  <string name="dailyClassicalArena" comment="dailyClassicalArena&#10;&#10;Used for tournaments. Please keep this string short and consistent with 'Daily Rapid' and 'Daily %s Arena'.">میدان مسابقه سنتی روزانه</string>
+  <string name="dailyClassical" comment="dailyClassical&#10;&#10;Used for tournaments. Please keep this string short and consistent with 'Daily Rapid' and 'Daily %s Arena'.">سنتی روزانه</string>
+  <string name="dailyXArena" comment="dailyXArena %s is a time control (like &quot;Blitz&quot;) or a variant (like &quot;Chess960&quot;)&#10;&#10;Used for tournaments. Please keep this string short and consistent with 'Daily %s'.">میدان مسابقه روزانه با محدودیت زمانی یا نوع بازی %s</string>
   <string name="dailyX">محدودیت زمانی روزانه یا نوع بازی %s</string>
-  <string name="easternRapidArena">میدان مسابقه سریع شرقی</string>
-  <string name="easternRapid">سریع شرقی</string>
+  <string name="easternRapidArena" comment="easternRapidArena&#10;&#10;Eastern refers to the time zone these tournaments are scheduled in for, accommodating East Asia, Oceania and the Pacific.">میدان مسابقه سریع شرقی</string>
+  <string name="easternRapid" comment="easternRapid&#10;Eastern refers to the time zone these tournaments are scheduled in for, accommodating East Asia, Oceania and the Pacific.&#10;&#10;Please keep this string short and consistent with 'Eastern Rapid Arena' and 'Eastern %s Arena'.">سریع شرقی</string>
   <string name="easternClassicalArena">میدان مسابقه سنتی شرقی</string>
   <string name="easternClassical">سنتی شرقی</string>
   <string name="easternXArena">میدان مسابقه شرقی با محدودیت زمانی یا نوع بازی %s</string>

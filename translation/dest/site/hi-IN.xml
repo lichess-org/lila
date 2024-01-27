@@ -5,6 +5,7 @@
   <string name="toInviteSomeoneToPlayGiveThisUrl">इस खेल में किसी को आमंत्रित करने के लिए उन्हें ये पता दें</string>
   <string name="gameOver">खेल समाप्त</string>
   <string name="waitingForOpponent">आप प्रतिद्वंदी की प्रतीक्षा कर रहे हैं</string>
+  <string name="orLetYourOpponentScanQrCode">या अपने प्रतिद्वंद्वी को इस क्यूआर कोड को स्कैन करने दें</string>
   <string name="waiting">प्रतिद्वंदी के चुनौती स्वीकार करने की प्रतीक्षा कर रहे हैं</string>
   <string name="yourTurn">आपकी चाल</string>
   <string name="aiNameLevelAiLevel">%1$s स्तर %2$s वाला</string>
@@ -43,26 +44,26 @@
   <string name="opponentLeftChoices">आपके प्रतिद्वंद्वी ने खेल छोड़ दिया। आप जीत का दावा कर सकते हैं, खेल को ड्रा कह सकते हैं, या प्रतीक्षा कर सकते हैं।</string>
   <string name="forceResignation">जीत का दवा करें</string>
   <string name="forceDraw">बराबरी पर खेल समाप्त करें</string>
-  <string name="talkInChat">कृपया चैट में अच्छे बनें!</string>
+  <string name="talkInChat">कृपया सज्जनतापूर्ण बातचीत करें!</string>
   <string name="theFirstPersonToComeOnThisUrlWillPlayWithYou">इस URL पर आने वाला पहला व्यक्ति आपके साथ खेलेगा।</string>
   <string name="whiteResigned">सफेद ने हार मान ली</string>
   <string name="blackResigned">काले ने हार मान ली</string>
   <string name="whiteLeftTheGame">सफेद खेल छोड़ कर चला गया</string>
   <string name="blackLeftTheGame">काला खेल छोड़ कर चला गया</string>
-  <string name="whiteDidntMove">सफेद ने चाल नही चली</string>
-  <string name="blackDidntMove">काले ने चाल नही चली</string>
+  <string name="whiteDidntMove">सफेद ने चाल नहीं चली</string>
+  <string name="blackDidntMove">काले ने चाल नहीं चली</string>
   <string name="requestAComputerAnalysis">कंप्यूटर विश्लेषण का अनुरोध करें</string>
   <string name="computerAnalysis">कंप्यूटर विश्लेषण</string>
   <string name="computerAnalysisAvailable">कंप्यूटर विश्लेषण उपलब्ध है</string>
-  <string name="computerAnalysisDisabled">कंप्युटर विश्लेषण निष्क्रिय है</string>
-  <string name="analysis">विश्लेषण मंडल</string>
+  <string name="computerAnalysisDisabled">कंप्यूटर विश्लेषण निष्क्रिय है</string>
+  <string name="analysis">विश्लेषण पट</string>
   <string name="depthX">मध्यमार्ग %s</string>
   <string name="usingServerAnalysis">सर्वर विश्लेषण का उपयोग किया जा रहा है</string>
   <string name="loadingEngine">इंजन लोड हो रहा है ...</string>
   <string name="calculatingMoves">चालों की गणना की जा रही है...</string>
   <string name="engineFailed">इंजन लोड करने में समस्या</string>
   <string name="cloudAnalysis">क्लाउड विश्लेषण</string>
-  <string name="goDeeper">भीतर जाओ</string>
+  <string name="goDeeper">गहराई में जाओ</string>
   <string name="showThreat">खतरे को दिखाएं</string>
   <string name="inLocalBrowser">स्थानीय ब्राउज़र में</string>
   <string name="toggleLocalEvaluation">स्थानीय मूल्यांकन को टॉगल करें</string>
@@ -70,6 +71,7 @@
   <string name="makeMainLine">मुख्य लाइन बनाएं</string>
   <string name="deleteFromHere">यहां से हटाओ</string>
   <string name="forceVariation">बल भिन्नता</string>
+  <string name="copyVariationPgn">प्रतिलिपि भिन्नता पीजीएन</string>
   <string name="move">चाल</string>
   <string name="variantLoss">प्रकार में हानि</string>
   <string name="variantWin">जीत का प्रकार</string>
@@ -88,16 +90,18 @@
   <string name="topGames">शीर्ष खेल</string>
   <string name="masterDbExplanation">%2$s से %3$s के दशक के %1$s+ FIDE- रेटेड खिलाड़ियों के दो मिलियन ओटीबी खेल</string>
   <plurals name="mateInXHalfMoves">
-    <item quantity="one">%s हाफ मूव में मैच</item>
+    <item quantity="one">%s हाफ मूव में मेट</item>
     <item quantity="other">%s आधे-कदम में चेकमैट</item>
   </plurals>
   <string name="dtzWithRounding">DTZ50\'\' गोलाई के साथ, अगले कब्ज़ा या प्यादा की चाल तक आधे-चालों की संख्या के आधार पर</string>
   <string name="noGameFound">कोई गेम नहीं मिला</string>
+  <string name="maxDepthReached">अधिकतम गहराई तक पहुँच गया!</string>
   <string name="maybeIncludeMoreGamesFromThePreferencesMenu">शायद प्राथमिकताएं मेनू से अधिक गेम शामिल हैं?</string>
   <string name="openings">शुरूआत</string>
   <string name="openingExplorer">उद्घाटन खोज</string>
   <string name="openingEndgameExplorer">प्रारम्भिक खेल/समाप्ति खेल अन्वेषक</string>
   <string name="xOpeningExplorer">%s ओपनिंग एक्सप्लोरर</string>
+  <string name="playFirstOpeningEndgameExplorerMove">पहली ओपनिंग/एंडगेम-एक्सप्लोरर चाल खेलें</string>
   <string name="winPreventedBy50MoveRule">जीत 50-चालन नियम से रोका गया</string>
   <string name="lossSavedBy50MoveRule">हार 50-चाल नियम द्वारा बचाया</string>
   <string name="winOr50MovesByPriorMistake">जीत अथ्वा 50 चाल नियम पुरानी ग़लती के कारण​।</string>
@@ -113,6 +117,7 @@
   <string name="openStudy">अध्ययन खोलो</string>
   <string name="enable">सक्षम करें</string>
   <string name="bestMoveArrow">सर्वश्रेष्ठ चाल तीर</string>
+  <string name="showVariationArrows">विविधता वाले तीर दिखाएँ</string>
   <string name="evaluationGauge">मूल्यांकन गेज</string>
   <string name="multipleLines">एकाधिक पंक्तियाँ</string>
   <string name="cpus">केंद्रीय संसाधन एकक (CPUs)</string>
@@ -223,9 +228,13 @@
   <string name="emailSent">हम ने %s को ईमेल भेजा है|</string>
   <string name="emailCanTakeSomeTime">इसे आने में कुछ समय लग सकता है।</string>
   <string name="refreshInboxAfterFiveMinutes">5 मिनट प्रतीक्षा करें और अपना ईमेल इनबॉक्स रिफ्रेश करें।</string>
+  <string name="emailForSignupHelp">यदि बाकी सब विफल हो जाए तो हमें यह ईमेल भेजें</string>
+  <string name="copyTextToEmail">उपरोक्त टेक्स्ट को कॉपी और पेस्ट करें और %s पर भेजें</string>
+  <string name="waitForSignupHelp">आपका साइनअप पूरा करने में मदद करने के लिए हम जल्द ही आपके पास वापस आएंगे।</string>
   <string name="accountCanLogin">आप अब %s से लॉग इन कर सकते हैं|</string>
   <string name="accountConfirmationEmailNotNeeded">आप को कन्फ़र्मेशन ईमेल की ज़रुरत नहीं है|</string>
   <string name="accountClosed">%s खाता बंद है.</string>
+  <string name="accountRegisteredWithoutEmail">खाता %s बिना किसी ईमेल के पंजीकृत किया गया था.</string>
   <string name="rank">श्रेणी (रैंक)</string>
   <string name="rankX">रैंक: %s</string>
   <plurals name="rankIsUpdatedEveryNbMinutes">
@@ -257,7 +266,6 @@
   <string name="playingRightNow">अभी खेला जा रहा</string>
   <string name="eventInProgress">अभी खेला जा रहा</string>
   <string name="finished">समाप्त</string>
-  <string name="finishesX">%s में खत्म</string>
   <string name="abortGame">खेल रद्द करें</string>
   <string name="gameAborted">खेल रद्द किया गया</string>
   <string name="standard">साधारण</string>
@@ -334,8 +342,13 @@
     <item quantity="one">%s अध्ययन</item>
     <item quantity="other">%s अध्ययन</item>
   </plurals>
+  <plurals name="nbSimuls">
+    <item quantity="one">%s सिमुल</item>
+    <item quantity="other">%s सिमुल्स</item>
+  </plurals>
   <string name="viewTournament">प्रतियोगिता देखें</string>
   <string name="backToTournament">प्रतियोगिता पर वापिस जाएँ</string>
+  <string name="noDrawBeforeSwissLimit">स्विस टूर्नामेंट में 30 चालें खेले जाने से पहले आप ड्रॉ नहीं कर सकते।</string>
   <string name="thematic">कथ्यपरक</string>
   <plurals name="moreThanNbRatedGames">
     <item quantity="one">≥ %s रेटेड खेल</item>
@@ -365,7 +378,8 @@
   <string name="siteDescription">खेलें शतरंज मुफ्त और ऑनलाइन साफ़ सुथरे अंदाज में| न कोई पंजीकरण, न कोई प्रचार और न ही किसी अन्य बहरी चीज की आव्यशकता| शतरंज कम्प्युटर, दोस्तों या किसी भी प्रतिद्वंदी के साथ खेलें|</string>
   <string name="xJoinedTeamY">%1$s %2$s समूह से जुड़ा</string>
   <string name="xCreatedTeamY">%1$s ने  %2$s समूह बनाया</string>
-  <string name="xStartedStreaming">%s ने चलचित्र का संचार शुरू किया</string>
+  <string name="startedStreaming">ने स्ट्रीमिंग शुरू किया</string>
+  <string name="xStartedStreaming">%s ने स्ट्रीमिंग शुरू किया</string>
   <string name="averageElo">औसत अंक</string>
   <string name="location">स्थान</string>
   <string name="filterGames">खेलों को छानें (फ़िल्टर करें)</string>
@@ -488,8 +502,6 @@
   <string name="socialMediaLinks">सामाजिक माध्यम</string>
   <string name="oneUrlPerLine">प्रति पंक्ति एक कड़ी</string>
   <string name="inlineNotation">इनलाइन नोटेशन</string>
-  <string name="savingMoves">अस्थायी चाल भंडारण</string>
-  <string name="savingMovesHelp">हम आपकी विविधताओं को हमेशा आपके ब्राउज़र कैश में संग्रहीत कर रहे हैं।</string>
   <string name="makeAStudy">सुरक्षित रखने और साझा करने के लिए, एक अध्ययन करने पर विचार करें।</string>
   <string name="clearSavedMoves">चाल हटाओ</string>
   <string name="previouslyOnLichessTV">इससे पहले Lichess TV पर</string>
@@ -804,7 +816,7 @@
   <string name="advantage">लाभ</string>
   <plurals name="nbSeconds">
     <item quantity="one">%s सेकंड</item>
-    <item quantity="other">%s सेकंड समय बचे है ।</item>
+    <item quantity="other">%s सेकंड</item>
   </plurals>
   <string name="opening">ओपनिंग</string>
   <string name="middlegame">मिडलगेम</string>
@@ -820,7 +832,6 @@
   </plurals>
   <string name="sorry">खेद :(</string>
   <string name="weHadToTimeYouOutForAWhile">हमें आपको कुछ समय के लिए प्रतिबंधित करना पड़ा।</string>
-  <string name="timeoutExpires">आपका प्रतिबंध %s समाप्त हो जाएगा।</string>
   <string name="why">क्यों?</string>
   <string name="pleasantChessExperience">हम सभी के लिए एक सुखद शतरंज अनुभव प्रदान करना चाहते हैं।</string>
   <string name="goodPractice">इसलिए, हमें यह सुनिश्चित करना होगा कि सभी खिलाड़ी अच्छे अभ्यास का पालन करें।</string>
@@ -856,6 +867,7 @@
   <string name="useTheReportForm">रिपोर्ट फॉर्म का उपयोग करें</string>
   <string name="toRequestSupport">समर्थन का अनुरोध करने के लिए,%1$s</string>
   <string name="tryTheContactPage">संपर्क पृष्ठ का प्रयास करें</string>
+  <string name="makeSureToRead">पढ़ना ना भुलें %1$s</string>
   <string name="thisTopicIsArchived">इस विषय को संग्रहीत किया गया है और अब इसका उत्तर नहीं दिया जा सकता है।</string>
   <string name="joinTheTeamXToPost">इस फ़ोरम में पोस्ट करने के लिए%1$s से जुड़ें</string>
   <string name="teamNamedX">%1$s टीम</string>
@@ -877,9 +889,6 @@
   <string name="timeAlmostUp">समय लगभग समाप्त है!</string>
   <string name="clickToRevealEmailAddress">[ईमेल देखने के लिए क्लिक करें]</string>
   <string name="download">डाउनलोड करें</string>
-  <string name="welcome">आपका स्वागत है!</string>
-  <string name="lichessPatronInfo">Lichess एक चैरिटी और पूरी तरह से फ्री/लिबर ओपन सोर्स सॉफ्टवेयर है।
-सभी परिचालन लागत, विकास और सामग्री पूरी तरह से उपयोगकर्ता दान द्वारा वित्त पोषित हैं।</string>
   <string name="coachManager">कोच मनेजर</string>
   <string name="streamerManager">स्ट्रीमर मैनेजर</string>
   <string name="cancelTournament">टूर्नामेंट रद्द करें</string>
@@ -936,4 +945,7 @@
   <string name="lichessDbExplanation">मुल्यांकित खेल Lichess के सभी खिलाड़ियो से</string>
   <string name="switchSides">पार्श्व बदलना</string>
   <string name="closingAccountWithdrawAppeal">आपका खाता बंद करने से आपकी अपील वापस ले ली जाएगी</string>
+  <string name="ourEventTips">कार्यक्रम आयोजित करने कि सलाह</string>
+  <string name="lichessPatronInfo">Lichess एक चैरिटी और पूरी तरह से फ्री/लिबर ओपन सोर्स सॉफ्टवेयर है।
+सभी परिचालन लागत, विकास और सामग्री पूरी तरह से उपयोगकर्ता दान द्वारा वित्त पोषित हैं।</string>
 </resources>

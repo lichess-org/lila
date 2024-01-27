@@ -6,7 +6,7 @@
   <string name="progressX">پێشکەوتن: %s</string>
   <string name="resetMyProgress">پێشکەوتنەکانم رێکبخەوە</string>
   <string name="youWillLoseAllYourProgress">هەموو پێشکەوتنەکانت لەدەست دەدەیت!</string>
-  <string name="play">یاری بکە!</string>
+  <string name="play" comment="play&#10;&#10;A small ribbon that appears on your current chapter in the Chess Basics course. Please keep this string short.">یاری بکە!</string>
   <string name="chessPieces">داشەکانی شەترەنج</string>
   <string name="theRook">قەڵا</string>
   <string name="itMovesInStraightLines">بەسەر هێڵە راستەکاندا دەجوڵێت</string>

@@ -3,13 +3,13 @@ package controllers
 import lila.app.{ given, * }
 import views.*
 import lila.common.config
+import lila.forum.ForumCateg.{ diagnosticId, ublogId }
 import lila.team.Team
 
 final class ForumCateg(env: Env) extends LilaController(env) with ForumController:
 
   def index = Open:
     NotForKids:
-      pageHit
       for
         allTeamIds <- ctx.userId so teamCache.teamIdsList
         teamIds <- allTeamIds.filterA:
@@ -20,8 +20,8 @@ final class ForumCateg(env: Env) extends LilaController(env) with ForumControlle
       yield Ok(page)
 
   def show(slug: ForumCategId, page: Int) = Open:
-    if slug == lila.forum.ForumCateg.ublogId
-    then Redirect(routes.Ublog.communityAll())
+    if slug == ublogId && !isGrantedOpt(_.ModerateForum) then Redirect(routes.Ublog.communityAll())
+    else if slug == diagnosticId && !isGrantedOpt(_.ModerateForum) then notFound
     else
       NotForKids:
         Reasonable(page, config.Max(50), notFound):

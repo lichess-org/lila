@@ -57,7 +57,7 @@ final class PuzzleSessionApi(pathApi: PuzzlePathApi, cacheApi: CacheApi)(using E
 
   def setDifficulty(difficulty: PuzzleDifficulty)(using Me, Perf): Funit =
     updateSession: prev =>
-      (prev.fold(true)(_.settings.difficulty != difficulty)) option
+      prev.forall(_.settings.difficulty != difficulty) option
         createSessionFor(
           prev.map(_.path.angle) | PuzzleAngle.mix,
           PuzzleSettings(difficulty, prev.flatMap(_.settings.color))
@@ -65,7 +65,7 @@ final class PuzzleSessionApi(pathApi: PuzzlePathApi, cacheApi: CacheApi)(using E
 
   def setAngleAndColor(angle: PuzzleAngle, color: Option[Color])(using Me, Perf): Funit =
     updateSession: prev =>
-      (prev.fold(true)(p => p.settings.color != color || p.path.angle != angle)) option
+      prev.forall(p => p.settings.color != color || p.path.angle != angle) option
         createSessionFor(
           angle,
           PuzzleSettings(prev.fold(PuzzleDifficulty.default)(_.settings.difficulty), color)

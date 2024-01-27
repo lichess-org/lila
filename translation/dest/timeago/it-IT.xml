@@ -30,10 +30,6 @@
     <item quantity="other">tra %s anni</item>
   </plurals>
   <string name="rightNow">adesso</string>
-  <plurals name="nbSecondsAgo">
-    <item quantity="one">%s secondo fa</item>
-    <item quantity="other">%s secondi fa</item>
-  </plurals>
   <plurals name="nbMinutesAgo">
     <item quantity="one">%s minuto fa</item>
     <item quantity="other">%s minuti fa</item>
@@ -58,4 +54,13 @@
     <item quantity="one">%s anno fa</item>
     <item quantity="other">%s anni fa</item>
   </plurals>
+  <plurals name="nbMinutesRemaining">
+    <item quantity="one">%s minuto rimanente</item>
+    <item quantity="other">%s minuti rimanenti</item>
+  </plurals>
+  <plurals name="nbHoursRemaining">
+    <item quantity="one">%s ora rimanente</item>
+    <item quantity="other">%s ore rimanenti</item>
+  </plurals>
+  <string name="completed">completato</string>
 </resources>

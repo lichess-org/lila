@@ -1,5 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+  <string name="communityBlogs">Gemeenskapsblogs</string>
+  <string name="friendBlogs">Vriendblogs</string>
+  <string name="blogTopics">Blog-onderwerpe</string>
+  <string name="lichessOfficialBlog">Amptelike Lichess-Blog</string>
+  <string name="previousBlogPosts">Vorige blog-plasings</string>
   <string name="xBlog">%s se webjoernaal</string>
   <string name="newPost">Nuwe inskrywing</string>
   <string name="editYourBlogPost">Bewerk jou webjoernaal se inskrywing</string>
@@ -37,10 +42,10 @@
   <string name="imageCredit">Beeld akkreditasie</string>
   <string name="deleteBlog">Vee hierdie plasing volledig uit</string>
   <string name="deleteImage">Vee die prent uit</string>
-  <string name="safeToUseImages" comment="safeToUseImages&#10;&#10;This is mentioned because the images there are royalty-free, so there is no risk of copyright infringement.">Dit is veilig om prente van die volgende webtuistes te gebruik: </string>
+  <string name="safeToUseImages">Dit is veilig om prente van die volgende webtuistes te gebruik: </string>
   <string name="selectPostTopics">Kies die onderwerpe van jou plasing</string>
   <string name="useImagesYouMadeYourself">Jy kan ook prente gebruik wat jy self geskep het, foto\'s wat jy geneem het, skermskote van Lichess; enigiets waarop niemand anders kopiereg het nie.</string>
   <string name="safeAndRespectfulContent">Plaas slegs veilige en bedagsame inhoud. Moenie iemand anders se inhoud kopieer nie.</string>
   <string name="inappropriateContentAccountClosed">Enigiets onvanpas kan lei tot die sluiting van jou rekening.</string>
-  <string name="blogTips" comment="blogTips&#10;&#10;This is a link to https://lichess.org/page/blog-tips. Appears when creating a new post.">Ons eenvoudige wenke vir goeie plasings</string>
+  <string name="blogTips">Ons eenvoudige wenke vir goeie plasings</string>
 </resources>

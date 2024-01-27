@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="welcome">Tervetuloa!</string>
+  <string name="welcomeToLichess">Tervetuloa lichess.orgiin!</string>
+  <string name="thisIsYourProfilePage">Tämä on profiilisivusi.</string>
+  <string name="enabledKidModeSuggestion" comment="%s is 'Kid mode'.">Käyttääkö lapsi tätä tunnusta? Harkitse siinä tapauksessa %sn päälle laittamista.</string>
+  <string name="whatNowSuggestions">Mitä seuraavaksi? Tässä pari ehdotusta:</string>
+  <string name="learnChessRules">Opi shakin säännöt</string>
+  <string name="improveWithChessTacticsPuzzles">Kehity ratkomalla taktiikkatehtäviä.</string>
+  <string name="playTheArtificialIntelligence">Pelaa tekoälyä vastaan.</string>
+  <string name="playOpponentsFromAroundTheWorld">Kohtaa pelaajia kaikkialta maailmasta.</string>
+  <string name="followYourFriendsOnLichess">Seuraa ystäviäsi Lichessissä.</string>
+  <string name="playInTournaments">Pelaa turnauksissa.</string>
+  <string name="configureLichess">Mukauta Lichess mieleiseksesi.</string>
+  <string name="exploreTheSiteAndHaveFun">Tutustu sivustoon ja pidä hauskaa :)</string>
+</resources>

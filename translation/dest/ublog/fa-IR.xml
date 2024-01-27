@@ -1,10 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+  <string name="communityBlogs">وبنوشت‌های اجتماع شطرنج‌بازان</string>
+  <string name="friendBlogs">وبنوشت‌های دوستان</string>
+  <string name="likedBlogs">وبنوشته‌های پسندشده</string>
+  <string name="blogTopics">موضوعات وبنوشت</string>
+  <string name="lichessOfficialBlog">وبنوشت رسمی Lichess</string>
+  <string name="continueReadingPost">ادامه مطلب</string>
+  <string name="lichessBlogPostsFromXYear">بلاگ های لیچس در %s</string>
+  <string name="previousBlogPosts">وبنوشته‌های قبلی</string>
   <string name="xBlog">وبلاگ %s</string>
   <string name="newPost">نوشتهٔ جدید</string>
   <string name="editYourBlogPost">نوشتهٔ تارنگارِ خود را ویرایش نمایید</string>
   <string name="saveDraft">پیش‌نویس را ذخیره نمایید</string>
-  <string name="postTitle">عنوانِ نوشته</string>
+  <string name="postTitle">عنوان مطلب</string>
   <string name="postIntro">مقدمهٔ نوشته</string>
   <string name="postBody">متنِ نوشته</string>
   <string name="drafts">پیش‌نویس‌ها</string>
@@ -37,10 +45,11 @@
   <string name="imageCredit">منبع عکس</string>
   <string name="deleteBlog">این پست وبلاگ را قطعا حذف کنید</string>
   <string name="deleteImage">حذف تصویر</string>
-  <string name="safeToUseImages" comment="safeToUseImages&#10;&#10;This is mentioned because the images there are royalty-free, so there is no risk of copyright infringement.">استفاده از تصاویر از وب سایت های زیر بی خطر است:</string>
+  <string name="safeToUseImages">استفاده از تصاویر از وب سایت های زیر بی خطر است:</string>
   <string name="selectPostTopics">موضوعی که پست شما درباره آن است انتخاب کنید</string>
   <string name="useImagesYouMadeYourself">همچنین میتوانید از تصاویری که خودتان درست کردید، عکس هایی که گرفتید، اسکرین شات هایی از لیچس و ... که جزو قوانین کپی رایت حساب نمیشوند استفاده کنید.</string>
   <string name="safeAndRespectfulContent">لطفا فقط مطالب ایمن و محترمانه منتشر کنید. مطالب دیگران را کپی نکنید.</string>
   <string name="inappropriateContentAccountClosed">هر چیز نامناسبی می تواند حساب شما را ببندد.</string>
-  <string name="blogTips" comment="blogTips&#10;&#10;This is a link to https://lichess.org/page/blog-tips. Appears when creating a new post.">نکات پیشنهادی ما برای نوشتن پست های خوب وبلاگ</string>
+  <string name="blogTips">نکات پیشنهادی ما برای نوشتن پست های خوب وبلاگ</string>
+  <string name="discussThisBlogPostInTheForum">راجع‌به این نوشته در انجمن بحث کنید</string>
 </resources>

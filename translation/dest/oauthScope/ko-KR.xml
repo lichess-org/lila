@@ -8,27 +8,28 @@
   <string name="whatTheTokenCanDo">토큰이 사용자를 대신해 수행할 수 있는 작업:</string>
   <string name="doNotShareIt">토큰은 계정에 대한 액세스 권한을 부여합니다. 누구와도 공유하지 마세요!</string>
   <string name="copyTokenNow">지금 새 개인 액세스 토큰을 복사했는지 확인하십시오. 다시 볼 수 없게 됩니다.</string>
-  <string name="preferenceRead">읽기 환경 설정</string>
-  <string name="preferenceWrite">쓰기 설정</string>
-  <string name="emailRead">이메일 주소 확인</string>
-  <string name="challengeRead">새로운 도전 과제 읽기</string>
-  <string name="challengeWrite">도전 과제 보내기, 수락 및 거부</string>
+  <string name="preferenceRead" comment="In the context of an authentication token, this is a setting that gives a third-party app permission to view the user's preferences.&#10;&#10;There is a separate setting to let applications write (edit) preferences.">읽기 환경 설정</string>
+  <string name="preferenceWrite" comment="In the context of an authentication token, this is a setting that gives a third-party app permission to edit/change the user's preferences.&#10;&#10;There is a separate setting to let applications only read preferences, but not to write (edit) them.">쓰기 설정</string>
+  <string name="emailRead" comment="In the context of an authentication token, this is a setting that gives a third-party app permission to view the user's registered email address.">이메일 주소 확인</string>
+  <string name="challengeRead" comment="In the context of an authentication token, this is a setting that gives a third-party app permission to view game challenges from other players.&#10;&#10;There is a separate setting to let applications send, accept or reject challenges.">새로운 도전 과제 읽기</string>
+  <string name="challengeWrite" comment="challengeWrite&#10;&#10;In the context of an authentication token, a setting that permits third party software to send, accept and reject challenges on behalf of the player.">도전 과제 보내기, 수락 및 거부</string>
   <string name="challengeBulk">다른 플레이어를 위해 한 번에 여러 게임을 생성하세요</string>
-  <string name="studyRead">개인 학습 및 방송 보기</string>
-  <string name="studyWrite">스터디 및 방송 생성, 업데이트, 삭제하기</string>
-  <string name="tournamentWrite">토너먼트 생성, 업데이트 및 참여하기</string>
-  <string name="racerWrite">퍼즐 레이스 생성 및 참여</string>
-  <string name="puzzleRead">퍼즐 액티비티 읽기</string>
-  <string name="teamRead">비공개 팀 정보 확인하기</string>
-  <string name="teamWrite">팀 가입 및 탈퇴하기</string>
+  <string name="studyRead" comment="Gives permission to third-party software to *read* information that already exists. However it won't be able to write (create) private studies or broadcasts.">개인 학습 및 방송 보기</string>
+  <string name="studyWrite" comment="In the context of an access token, a setting that enables third party software to create, update or delete studies and broadcasts.">스터디 및 방송 생성, 업데이트, 삭제하기</string>
+  <string name="tournamentWrite" comment="In the context of an access token, a setting that permits third party software to create, update or delete studies and join tournaments.">토너먼트 생성, 업데이트 및 참여하기</string>
+  <string name="racerWrite" comment="In the context of an access token, a setting which permits third party software to create, and join puzzle races (this is for the activity/minigame Puzzle Racer: https://lichess.org/racer)">퍼즐 레이스 생성 및 참여</string>
+  <string name="puzzleRead" comment="In the context of an access token, a setting which permits third-party software to view the user's puzzle solving history.">퍼즐 액티비티 읽기</string>
+  <string name="teamRead" comment="Gives permission to third-party software to *read* information that already exists. However it won't be able to write (create) private studies or broadcasts.">비공개 팀 정보 확인하기</string>
+  <string name="teamWrite" comment="In the context of an access token, a setting that permits the third party software to join or leave teams on your behalf.">팀 가입 및 탈퇴하기</string>
   <string name="teamLead">이끄는 팀 관리: PM 보내기, 멤버 내보내기</string>
-  <string name="followRead">팔로우한 플레이어 보기</string>
-  <string name="followWrite">다른 플레이어 팔로우 및 언팔로우하기</string>
-  <string name="msgWrite">다른 플레이어에게 비공개 메시지 보내기</string>
-  <string name="boardPlay">보드 api로 게임하기</string>
-  <string name="botPlay">봇 api로 게임하기</string>
+  <string name="followRead" comment="In the context of an access token, a setting which permits third-party software to view (read) which players you are following.">팔로우한 플레이어 보기</string>
+  <string name="followWrite" comment="In the context of an access token, a setting which permits third-party software to follow and unfollow other players on your behalf.">다른 플레이어 팔로우 및 언팔로우하기</string>
+  <string name="msgWrite" comment="In the context of an access token, a setting which permits third-party software to send messages on your behalf.">다른 플레이어에게 비공개 메시지 보내기</string>
+  <string name="boardPlay" comment="In the context of an access token, a setting which permits third-party software to play games using e-boards like DGT, through Lichess's board API.">보드 api로 게임하기</string>
+  <string name="botPlay" comment="In the context of an access token, a setting which permits third-party software to play games over the bot API. This is intended mainly for having an engine account e.g. the accounts featured on https://lichess.org/player/bots">봇 api로 게임하기</string>
   <string name="engineRead">외부 엔진 보기 및 사용하기</string>
   <string name="engineWrite">외부 엔진 제작 및 업데이트</string>
-  <string name="webLogin">인증된 웹사이트 세션 만들기(전체 액세스 권한 부여!)</string>
-  <string name="webMod">운영자 도구 사용(허용 범위 내에서)</string>
+  <string name="webLogin" comment="In the context of an access token, a setting which permits third-party software to create authenticated sessions - meaning effectively unlimited access to your account, using it as if it is you, instead of a third party program. It will be unable to view your password but it will be able to do almost everything else.">인증된 웹사이트 세션 만들기(전체 액세스 권한 부여!)</string>
+  <string name="webMod" comment="In the context of an access token, this is a setting which permits third-party software to use moderator tools on your behalf. Most players will not be able to see this option.">운영자 도구 사용(허용 범위 내에서)</string>
+  <string name="generatePersonalToken" comment="Part of longer string insteadGenerateToken:&#10;'Instead, generate a personal access token you can directly use in API requests.'&#10;&#10;It is a link, which links to https://lichess.org/account/oauth/token/create and appears after you have created at least one token.">개인 접속 토큰을 생성합니다.</string>
 </resources>

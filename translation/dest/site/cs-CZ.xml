@@ -119,6 +119,7 @@
   <string name="openStudy">Otevřít studii</string>
   <string name="enable">Povolit analýzu</string>
   <string name="bestMoveArrow">Šipka pro nejlepší tah</string>
+  <string name="showVariationArrows">Zobrazit šipky variant</string>
   <string name="evaluationGauge">Měřítko hodnocení</string>
   <string name="multipleLines">Počet variant</string>
   <string name="cpus">Procesor(y)</string>
@@ -167,6 +168,12 @@
     <item quantity="few">%s partie</item>
     <item quantity="many">%s partií</item>
     <item quantity="other">%s partií</item>
+  </plurals>
+  <plurals name="ratingXOverYGames">
+    <item quantity="one">%1$s hodnocení po %2$s partii</item>
+    <item quantity="few">%1$s hodnocení po %2$s partiích</item>
+    <item quantity="many">%1$s hodnocení po %2$s partiích</item>
+    <item quantity="other">%1$s hodnocení po %2$s partiích</item>
   </plurals>
   <plurals name="nbBookmarks">
     <item quantity="one">%s záložka</item>
@@ -294,7 +301,6 @@
   <string name="playingRightNow">Právě se hraje</string>
   <string name="eventInProgress">Právě se hraje</string>
   <string name="finished">Dokončeno</string>
-  <string name="finishesX">končí za %s</string>
   <string name="abortGame">Zrušit hru</string>
   <string name="gameAborted">Hra byla zrušena</string>
   <string name="standard">Standard</string>
@@ -386,6 +392,12 @@
     <item quantity="few">%s studie</item>
     <item quantity="many">%s studií</item>
     <item quantity="other">%s studií</item>
+  </plurals>
+  <plurals name="nbSimuls">
+    <item quantity="one">%s simultánka</item>
+    <item quantity="few">%s simultánky</item>
+    <item quantity="many">%s simultánek</item>
+    <item quantity="other">%s simultánek</item>
   </plurals>
   <string name="viewTournament">Zobrazit turnaj</string>
   <string name="backToTournament">Zpět k turnaji</string>
@@ -558,13 +570,10 @@
   <string name="firstName">Jméno</string>
   <string name="lastName">Příjmení</string>
   <string name="biography">O mně</string>
-  <string name="flag" comment="flag&#10;Appears when you edit your profile. Lets a player add a country/flag (not all flags are for countries) to their profile">Vlajka</string>
   <string name="thankYou">Děkujeme!</string>
   <string name="socialMediaLinks">Odkazy na sociální sítě</string>
   <string name="oneUrlPerLine">Jedna URL na řádek.</string>
   <string name="inlineNotation">Notace v řádcích</string>
-  <string name="savingMoves">Dočasné uložení tahů</string>
-  <string name="savingMovesHelp">Vždy ukládáme vaše varianty do mezipaměti prohlížeče.</string>
   <string name="makeAStudy">Pro bezpečné uložení a sdílení zvažte vytvoření studie.</string>
   <string name="clearSavedMoves">Vymazat tahy</string>
   <string name="previouslyOnLichessTV">Dříve na Lichess TV</string>
@@ -920,7 +929,6 @@
   </plurals>
   <string name="sorry">Omlouváme se :(</string>
   <string name="weHadToTimeYouOutForAWhile">Museli jsme tě odpojit na chvíli.</string>
-  <string name="timeoutExpires">Odpojení skončí za %s.</string>
   <string name="why">Proč?</string>
   <string name="pleasantChessExperience">Snažíme se všem poskytnout příjemnou hru.</string>
   <string name="goodPractice">Proto se musíme ujistit, že se všichni chovají správně.</string>
@@ -940,6 +948,7 @@
   <string name="agreementPolicy">Souhlasím, že se budu řídit všemi pravidly Lichessu.</string>
   <string name="searchOrStartNewDiscussion">Začněte nebo vyhledejte konverzaci</string>
   <string name="edit">Upravit</string>
+  <string name="blitz" comment="Probably best left untranslated. Leave it as 'Blitz' unless your language has a better word for it.">Bleskové šachy</string>
   <string name="rapid">Rapid</string>
   <string name="classical">Klasické</string>
   <string name="ultraBulletDesc">Šíleně rychlé hry: méně než 30 sekund</string>
@@ -979,9 +988,6 @@
   <string name="timeAlmostUp">Čas vám běží!</string>
   <string name="clickToRevealEmailAddress">[Klikněte pro zobrazení e-mailové adresy]</string>
   <string name="download">Stáhnout</string>
-  <string name="welcome">Vítej!</string>
-  <string name="lichessPatronInfo">Lichess je bezplatný a zcela svobodný/nezávislý softvér s otevřeným zdrojovým kódem.
-Veškeré provozní náklady, vývoj a obsah jsou financovány výhradně z příspěvků uživatelů.</string>
   <string name="coachManager">Nastavení trenéra</string>
   <string name="streamerManager">Nastavení streamera</string>
   <string name="cancelTournament">Zrušit turnaj</string>
@@ -1039,4 +1045,6 @@ Nechte toto pole prázdné, pokud chcete začínat z běžného základního pos
   <string name="switchSides">Prohodit strany</string>
   <string name="closingAccountWithdrawAppeal">Uzavřením vašeho účtu stáhnete vaše odvolání</string>
   <string name="ourEventTips">Naše tipy pro organizování akcí</string>
+  <string name="lichessPatronInfo">Lichess je bezplatný a zcela svobodný/nezávislý softvér s otevřeným zdrojovým kódem.
+Veškeré provozní náklady, vývoj a obsah jsou financovány výhradně z příspěvků uživatelů.</string>
 </resources>

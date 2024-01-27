@@ -3,29 +3,29 @@
   <string name="perfStats">Thống kê %s</string>
   <string name="viewTheGames">Xem các ván cờ</string>
   <string name="provisional">tạm thời</string>
-  <string name="notEnoughRatedGames">Không có đủ trò chơi được xếp hạng đã được chơi để thiết lập một xếp hạng đáng tin cậy.</string>
+  <string name="notEnoughRatedGames">Không có đủ ván có xếp hạng đã được chơi để thiết lập một hệ số đáng tin cậy.</string>
   <string name="progressOverLastXGames">Sự tiến bộ qua %s ván cờ gần đây:</string>
   <string name="ratingDeviation">Độ lệch xếp hạng:%s.</string>
-  <string name="ratingDeviationTooltip" comment="ratingDeviationTooltip&#10;&#10;This is a tooltip (appears on mouseover) for the rating deviation. Appears on performance statistics pages such as https://lichess.org/@/thibault/perf/ultraBullet&#10;&#10;As of 2021-05-19, $1%s is set to 110.">Giá trị thấp hơn nghĩa là elo ổn định hơn. Ở ngưỡng trên %1$s, elo được coi là tạm thời. Để được xếp trong bảng xếp hạng, giá trị này phải ở dưới ngưỡng %2$s (cờ tiêu chuẩn) hoặc %3$s (các biến thể).</string>
+  <string name="ratingDeviationTooltip" comment="ratingDeviationTooltip&#10;&#10;This is a tooltip (appears on mouseover) for the rating deviation. Appears on performance statistics pages such as https://lichess.org/@/thibault/perf/ultraBullet&#10;&#10;As of 2021-05-19, $1%s is set to 110.">Giá trị thấp hơn nghĩa là Elo ổn định hơn. Ở ngưỡng trên %1$s, Elo được coi là tạm thời. Để được xếp trong bảng xếp hạng, giá trị này phải ở dưới ngưỡng %2$s (cờ tiêu chuẩn) hoặc %3$s (các biến thể).</string>
   <string name="totalGames">Tổng số ván cờ</string>
-  <string name="ratedGames">Các ván cờ xếp hạng</string>
-  <string name="tournamentGames">Trò chơi trong giải đấu</string>
-  <string name="berserkedGames">Trò chơi đã được berserk</string>
+  <string name="ratedGames">Các ván cờ có xếp hạng</string>
+  <string name="tournamentGames">Số ván chơi trong giải đấu</string>
+  <string name="berserkedGames">Số ván chơi Berserk</string>
   <string name="timeSpentPlaying">Thời gian đã chơi</string>
   <string name="averageOpponent">Đối thủ trung bình</string>
   <string name="victories">Thắng</string>
   <string name="defeats">Thua</string>
   <string name="disconnections">Ngắt kết nối</string>
   <string name="notEnoughGames">Chơi chưa đủ ván</string>
-  <string name="highestRating">Xếp hạng cao nhất: %s</string>
-  <string name="lowestRating">Xếp hạng thấp nhất: %s</string>
+  <string name="highestRating">Hệ số cao nhất: %s</string>
+  <string name="lowestRating">Hệ số thấp nhất: %s</string>
   <string name="fromXToY">từ %1$s đến %2$s</string>
   <string name="winningStreak">Chuỗi thắng</string>
   <string name="losingStreak">Chuỗi thua</string>
-  <string name="longestStreak">Chuỗi dài nhất: %s</string>
+  <string name="longestStreak" comment="%s is the string (number of games OR time spent playing, e.g. 4 hours non-stop play)&#10;String used to describe the longest consecutive winning &amp; losing streak of games. It is also used for a  streak of time spent playing.">Chuỗi dài nhất: %s</string>
   <string name="currentStreak">Chuỗi hiện tại: %s</string>
-  <string name="bestRated">Chiến thắng tính elo tốt nhất</string>
-  <string name="worstRated">Trận thua tính elo tệ nhất</string>
+  <string name="bestRated">Ván thắng được cộng Elo nhiều nhất</string>
+  <string name="worstRated">Ván thua mất Elo tệ nhất</string>
   <string name="gamesInARow">Số ván cờ được chơi liên tục</string>
   <string name="lessThanOneHour">Ít hơn một giờ giữa các ván cờ</string>
   <string name="maxTimePlaying">Thời gian dài nhất đã chơi</string>

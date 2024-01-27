@@ -113,12 +113,12 @@ final class PgnDump(
             withRating option Tag(_.BlackElo, rating(game.blackPlayer)),
             withRating so ratingDiffTag(game.whitePlayer, _.WhiteRatingDiff),
             withRating so ratingDiffTag(game.blackPlayer, _.BlackRatingDiff),
-            wu.flatMap(_.title).map { t =>
-              Tag(_.WhiteTitle, t)
-            },
-            bu.flatMap(_.title).map { t =>
-              Tag(_.BlackTitle, t)
-            },
+            wu.flatMap(_.title) map:
+              Tag(_.WhiteTitle, _)
+            ,
+            bu.flatMap(_.title) map:
+              Tag(_.BlackTitle, _)
+            ,
             teams.map { t => Tag("WhiteTeam", t.white) },
             teams.map { t => Tag("BlackTeam", t.black) },
             Tag(_.Variant, game.variant.name.capitalize).some,
@@ -137,14 +137,13 @@ final class PgnDump(
                   case UnknownFinish                                 => "Unknown"
               }
             ).some
-          ).flatten ::: customStartPosition(game.variant).so(
-            initialFen.so(fen =>
+          ).flatten ::: customStartPosition(game.variant)
+            .so(initialFen)
+            .so: fen =>
               List(
                 Tag(_.FEN, fen.value),
                 Tag("SetUp", "1")
               )
-            )
-          )
 
 object PgnDump:
 
@@ -176,7 +175,8 @@ object PgnDump:
       pgnInJson: Boolean = false,
       delayMoves: Boolean = false,
       lastFen: Boolean = false,
-      accuracy: Boolean = false
+      accuracy: Boolean = false,
+      division: Boolean = false
   ):
     def applyDelay[M](moves: Seq[M]): Seq[M] =
       if !delayMoves then moves

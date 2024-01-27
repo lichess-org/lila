@@ -49,13 +49,6 @@ object home:
         )
       )(
         div(cls := "lobby__table")(
-          (ctx.isAnon && ctx.pref.bg == lila.pref.Pref.Bg.SYSTEM) option div(
-            cls   := "bg-switch",
-            title := "Dark mode"
-          )(
-            div(cls := "bg-switch__track"),
-            div(cls := "bg-switch__thumb")
-          ),
           div(cls := "lobby__start")(
             button(cls := "button button-metal", tpe := "button", trans.createAGame()),
             button(cls := "button button-metal", tpe := "button", trans.playWithAFriend()),
@@ -73,7 +66,7 @@ object home:
         ,
         div(cls := "lobby__side")(
           ctx.blind option h2("Highlights"),
-          ctx.noKid option st.section(cls := "lobby__streams")(
+          ctx.kid.no option st.section(cls := "lobby__streams")(
             views.html.streamer.bits liveStreams streams,
             streams.live.streams.nonEmpty option a(href := routes.Streamer.index(), cls := "more")(
               trans.streamersMenu(),
@@ -82,7 +75,7 @@ object home:
           ),
           div(cls := "lobby__spotlights")(
             events.map(bits.spotlight),
-            relays.map(views.html.relay.bits.spotlight),
+            views.html.relay.bits.spotlight(relays),
             !ctx.isBot option {
               val nbManual = events.size + relays.size
               val simulBBB = simuls.find(isFeaturable(_) && nbManual < 4)
@@ -98,7 +91,7 @@ object home:
             }
           ),
           if ctx.isAuth then
-            div(cls := "timeline")(
+            div(cls := "lobby__timeline")(
               ctx.blind option h2("Timeline"),
               views.html.timeline entries userTimeline,
               userTimeline.nonEmpty option a(cls := "more", href := routes.Timeline.home)(
@@ -125,6 +118,9 @@ object home:
           views.html.puzzle.embed.dailyLink(p)(cls := "lobby__puzzle"),
         bits.lastPosts(lastPost, ublogPosts),
         ctx.noBot option bits.underboards(tours, simuls, leaderboard, tournamentWinners),
+        div(cls := "lobby__feed"):
+          views.html.dailyFeed.lobbyUpdates(lastUpdates)
+        ,
         div(cls := "lobby__support")(
           a(href := routes.Plan.index)(
             iconTag(patronIconChar),
@@ -197,5 +193,6 @@ object home:
     trans.side,
     trans.white,
     trans.randomColor,
-    trans.black
+    trans.black,
+    trans.boardEditor
   )

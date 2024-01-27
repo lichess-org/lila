@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="voiceCommands">دستورهای صوتی</string>
+  <string name="watchTheVideoTutorial">فیلم آموزشی را تماشا کنید</string>
+  <string name="instructions1">از دکمه %1$s برای تغییر وضعیت تشخیص صدا، از دکمه %2$s برای باز کردن گفتگوی راهنما و از %3$s گزینگان برای تغییر تنظیمات گفتار استفاده کنید.</string>
+  <string name="instructions2" comment="Voice commands can be misheard and Lichess will not always be fully certain what you said. Several arrows will be shown to identify e.g. if the move was 'b4' or 'd4', which often sound similar.&#10;&#10;These arrows will be in different colours (green, blue, etc) or labelled 1, 2, 3....&#10;You can then say the colour of the arrow (e.g. 'green') - or its number (e.g. '1'), to select that move.&#10;Users can configure if they choose from multiple moves based on colours or numbers.">وقتی از تشخیص دستورها مطمئن نیستیم، پیکان‌هایی را برای چندین حرکت نشان می‌دهیم. برای انتخاب یک پیکان، رنگ یا شماره آن را بگویید.</string>
+  <string name="instructions4" comment="%s is Push to Talk.">%s را در محیط پر سر و صدا فعال کنید. وقتی آن روشن است، هنگام دستورهای گفتاری، Shift را نگه دارید.</string>
+  <string name="instructions5" comment="The phonetic alphabet is also known as the NATO alphabet (where A = Alpha, B = Bravo, etc. This makes the sounds easier to differentiate through a microphone). It is for English specifically, which as of the time of writing, is the only language supported by the Voice Commands feature.">از الفبای آوایی NATO برای بهبود تشخیص پرونده‌های صفحه شطرنج استفاده کنید.</string>
+  <string name="instructions6">%s تنظیمات حرکت صوتی را با جزئیات توضیح می‌دهد.</string>
+  <string name="thisBlogPost">این وبنوشته</string>
+  <string name="moveToE4OrSelectE4Piece">حرکت به e4 یا انتخاب خانه e4</string>
+  <string name="selectOrCaptureABishop">انتخاب کردن یا زدن یک فیل</string>
+  <string name="takeRookWithQueen">گرفتن رخ با وزیر</string>
+  <string name="castle">قلعه (از هر طرف)</string>
+  <string name="phoneticAlphabetIsBest">الفبای آوایی بهترین است</string>
+  <string name="cancelTimerOrDenyARequest">لغو کردن زمانسنج یا رد یک درخواست</string>
+  <string name="playPreferredMoveOrConfirmSomething" comment="Used in voice commands. When it is unclear what the player said (e.g. 'b4' and 'd4' sound similar), both moves will be shown, with the more likely one highlighted in a certain colour. By default, a countdown begins, and if no action is taken, the likely move (e.g. b4) will be played. Players can end the countdown early/confirm their move by saying 'yes'.&#10;&#10;For more details see https://lichess.org/@/schlawg/blog/how-to-lichess-voice/nWrypoWI">حرکت ترجیحی را بازی کنید یا چیزی را تایید کنید</string>
+  <string name="sleep" comment="Used for voice commands.&#10;&#10;By default, voice commands are always-on after the feature is enabled. Users can optionally set a word for listening to start, or say 'sleep' to disable listening.&#10;&#10;(Please note - this is not the same as recording, since the recording is never sent to Lichess; the speech technology is entirely offline)">خواب (اگر کلمه بیدار باش فعال باشد)</string>
+  <string name="turnOffVoiceRecognition">تشخیص صدا را خاموش کنید</string>
+  <string name="showPuzzleSolution">نشان دادن راه‌حل معما</string>
+</resources>

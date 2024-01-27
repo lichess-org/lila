@@ -4,6 +4,7 @@ import lila.db.dsl.{ *, given }
 import reactivemongo.api.bson.*
 
 import chess.variant.Variant
+import lila.analyse.Analysis
 
 private object BSONHandlers:
 

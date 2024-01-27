@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="voiceCommands">Voĉaj komandoj</string>
+  <string name="watchTheVideoTutorial">Spektu la videan lernilon</string>
+  <string name="instructions1">Uzu la %1$s butonon por baskuligi voĉan rekonon, la %2$s butonon por malfermi ĉi tiun dialogon, kaj la %3$s menuon por ŝanĝi parolagordoj.</string>
+  <string name="instructions2" comment="Voice commands can be misheard and Lichess will not always be fully certain what you said. Several arrows will be shown to identify e.g. if the move was 'b4' or 'd4', which often sound similar.&#10;&#10;These arrows will be in different colours (green, blue, etc) or labelled 1, 2, 3....&#10;You can then say the colour of the arrow (e.g. 'green') - or its number (e.g. '1'), to select that move.&#10;Users can configure if they choose from multiple moves based on colours or numbers.">Ni montras sagojn por oblaj movoj, kiam ni ne estas certa. Parolu la koloron aŭ nombron de movsago por elkti ĝin.</string>
+  <string name="instructions3" comment="This is a complicated concept more easy to understand in practice. Voice commands can be misheard and Lichess will not always be fully certain what you said. Several arrows will be shown to identify e.g. if the move was 'b4' or 'd4', which often sound similar.&#10;The most likely move the player wants will have a circle showing around it, but it will be possible to cancel before it is played (for example, by shouting 'no!').&#10;&#10;You can see a visual example here: https://lichess.org/@/schlawg/blog/how-to-lichess-voice/nWrypoWI">Se sago montras svingantan radaron, tiu movo ludos, kiam la cirklon estas finiĝa. Dum tiam, vi povas nur %1$s por tuj ludi tiun movon, %2$s por nuligi, aŭ paroli la koloron/numbron de malsama sago. Tiu tempumilo povas esti ĝustigita aŭ malŝaltita en la agordoj.</string>
+  <string name="instructions4" comment="%s is Push to Talk.">Ebligu %s en brua ĉirkaŭaĵo. Premi majuskligon dum parolado de komandoj kiam tiu ĉi estas ebligita.</string>
+  <string name="instructions5" comment="The phonetic alphabet is also known as the NATO alphabet (where A = Alpha, B = Bravo, etc. This makes the sounds easier to differentiate through a microphone). It is for English specifically, which as of the time of writing, is the only language supported by the Voice Commands feature.">Uzu la fonetikan abocon por plibonigi rekonon de ŝaktabulaj dosieroj. </string>
+  <string name="instructions6">%s klarigas la voĉmovajn agordojn detale.</string>
+  <string name="thisBlogPost">Ĉi tiun blogan afiŝon</string>
+  <string name="moveToE4OrSelectE4Piece">Movu al e4 aŭ elektu la e4 pecon</string>
+  <string name="selectOrCaptureABishop">Elektu au kapu kurieron</string>
+  <string name="takeRookWithQueen">Kaptu la turon per damo</string>
+  <string name="castle">Aroku (ajnflanke)</string>
+  <string name="phoneticAlphabetIsBest">Fonetika aboco estas plejbona</string>
+  <string name="cancelTimerOrDenyARequest">Nuligi tempumilon aŭ rifuzi peton</string>
+  <string name="playPreferredMoveOrConfirmSomething" comment="Used in voice commands. When it is unclear what the player said (e.g. 'b4' and 'd4' sound similar), both moves will be shown, with the more likely one highlighted in a certain colour. By default, a countdown begins, and if no action is taken, the likely move (e.g. b4) will be played. Players can end the countdown early/confirm their move by saying 'yes'.&#10;&#10;For more details see https://lichess.org/@/schlawg/blog/how-to-lichess-voice/nWrypoWI">Ludi preferan movon aŭ konfirmi ion</string>
+  <string name="sleep" comment="Used for voice commands.&#10;&#10;By default, voice commands are always-on after the feature is enabled. Users can optionally set a word for listening to start, or say 'sleep' to disable listening.&#10;&#10;(Please note - this is not the same as recording, since the recording is never sent to Lichess; the speech technology is entirely offline)">Dormi (se vekigan vorton ebligas)</string>
+  <string name="turnOffVoiceRecognition">Malŝalti voĉrekonon</string>
+  <string name="showPuzzleSolution">Montri puzlan solvon</string>
+</resources>

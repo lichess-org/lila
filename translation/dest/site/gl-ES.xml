@@ -1,10 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="playWithAFriend">Xogar cun amigo</string>
-  <string name="playWithTheMachine">Xogar contra a máquina</string>
+  <string name="playWithTheMachine">Xogar coa a máquina</string>
   <string name="toInviteSomeoneToPlayGiveThisUrl">Para invitar a alguén a xogar, dálle este URL</string>
   <string name="gameOver">Partida rematada</string>
   <string name="waitingForOpponent">Agardando un rival</string>
+  <string name="orLetYourOpponentScanQrCode">Ou deixa que o teu rival escanee este código QR</string>
   <string name="waiting">Agardando</string>
   <string name="yourTurn">A túa quenda</string>
   <string name="aiNameLevelAiLevel">%1$s nivel %2$s</string>
@@ -70,6 +71,7 @@
   <string name="makeMainLine">Converter en liña principal</string>
   <string name="deleteFromHere">Borrar desde aquí</string>
   <string name="forceVariation">Forzar variante</string>
+  <string name="copyVariationPgn">Copiar o PGN da variante</string>
   <string name="move">Movemento</string>
   <string name="variantLoss">Variante perdedora</string>
   <string name="variantWin">Variante gañadora</string>
@@ -88,8 +90,8 @@
   <string name="topGames">Mellores partidas</string>
   <string name="masterDbExplanation">Partidas cara a cara de xogadores con Elo FIDE de %1$s+, dende %2$s a %3$s</string>
   <plurals name="mateInXHalfMoves">
-    <item quantity="one">Mate en %s medias xogadas</item>
-    <item quantity="other">Mate en %s xogadas</item>
+    <item quantity="one">Mate en %s media xogada</item>
+    <item quantity="other">Mate en %s medias xogadas</item>
   </plurals>
   <string name="dtzWithRounding">DTZ50\'\' con redondeo, baseado no número de medias xogadas ata a próxima captura ou movemento de peón</string>
   <string name="noGameFound">Non se atoparon partidas</string>
@@ -115,6 +117,7 @@
   <string name="openStudy">Abrir estudo</string>
   <string name="enable">Activar</string>
   <string name="bestMoveArrow">Frecha coa mellor xogada</string>
+  <string name="showVariationArrows">Amosar as frechas das variantes</string>
   <string name="evaluationGauge">Indicador de avaliación</string>
   <string name="multipleLines">Liñas múltiples</string>
   <string name="cpus">Procesadores</string>
@@ -206,7 +209,7 @@
   <string name="changeUsername">Cambiar nome de usuario</string>
   <string name="changeUsernameNotSame">Só poden cambiar as letras entre minúsculas e maiúsculas. Por exemplo de \"xoanninguen\" a \"XoanNinguen\".</string>
   <string name="changeUsernameDescription">Cambia o teu nome de usuario. Só o poderás facer unha vez e só está permitido cambiar de entre minúsculas e maiúsculas as letras do teu nome de usuario.</string>
-  <string name="signupUsernameHint">Asegúrate de escoller un nome de usuario axeitado pra todas as idades. Non poderás cambialo despois, e calquera conta con nome de usuario inadecuado será cancelada!</string>
+  <string name="signupUsernameHint">Asegúrate de escoller un nome de usuario axeitado pra todas as idades. Non poderás cambialo máis tarde e calquera conta con nome de usuario inadecuado será pechada!</string>
   <string name="signupEmailHint">Só se usará para restablecer o contrasinal.</string>
   <string name="password">Contrasinal</string>
   <string name="changePassword">Cambiar contrasinal</string>
@@ -270,7 +273,6 @@
   <string name="playingRightNow">Xogando agora mesmo</string>
   <string name="eventInProgress">Xogando agora mesmo</string>
   <string name="finished">Finalizado</string>
-  <string name="finishesX">remata %s</string>
   <string name="abortGame">Abortar partida</string>
   <string name="gameAborted">Partida abortada</string>
   <string name="standard">Estándar</string>
@@ -288,7 +290,7 @@
   <string name="rematchOfferDeclined">Oferta de desquite rexeitada</string>
   <string name="cancelRematchOffer">Cancelar a oferta de desquite</string>
   <string name="viewRematch">Ver desquite</string>
-  <string name="confirmMove">Confirma o movemento</string>
+  <string name="confirmMove">Confirmar a xogada</string>
   <string name="play">Xogar</string>
   <string name="inbox">Bandexa de entrada</string>
   <string name="chatRoom">Sala de conversa</string>
@@ -391,7 +393,7 @@
   <string name="reset">Restablecer</string>
   <string name="apply">Aplicar</string>
   <string name="save">Gardar</string>
-  <string name="leaderboard">Lista de líderes</string>
+  <string name="leaderboard">Listaxe de líderes</string>
   <string name="screenshotCurrentPosition">Fai unha captura de pantalla da posición actual</string>
   <string name="gameAsGIF">Gardar a partida en formato GIF</string>
   <string name="pasteTheFenStringHere">Pega o texto FEN aquí</string>
@@ -401,8 +403,9 @@
   <string name="continueFromHere">Continuar dende aquí</string>
   <string name="toStudy">Estudar</string>
   <string name="importGame">Importar partida</string>
-  <string name="importGameExplanation">Pega o PGN dunha partida para obter unha versión navegable, análise por ordenador, sala de conversa do xogo e unha ligazón para compartila.</string>
+  <string name="importGameExplanation">Pega o PGN dunha partida para obter unha versión navegable, análise por ordenador, sala de conversa e unha ligazón pública para compartila.</string>
   <string name="importGameCaveat">As variantes borraranse. Pra conservalas, importa o PGN mediante un estudo.</string>
+  <string name="importGameDataPrivacyWarning">Este PGN é de acceso público. Para importar unha partida de xeito privado, emprega un estudo.</string>
   <plurals name="nbImportedGames">
     <item quantity="one">%s partida importada</item>
     <item quantity="other">%s partidas importadas</item>
@@ -481,8 +484,9 @@
   <string name="performance">Rendemento</string>
   <string name="tournamentComplete">Torneo rematado</string>
   <string name="movesPlayed">Movementos xogados</string>
-  <string name="whiteWins">Brancas gañan</string>
+  <string name="whiteWins">Vitorias das brancas</string>
   <string name="blackWins">Vitorias das negras</string>
+  <string name="drawRate">Taxa de táboas</string>
   <string name="draws">Táboas</string>
   <string name="nextXTournament">Seguinte torneo %s:</string>
   <string name="averageOpponent">Opoñente medio</string>
@@ -503,14 +507,15 @@
   <string name="editProfile">Editar perfil</string>
   <string name="firstName">Nome</string>
   <string name="lastName">Apelido(s)</string>
+  <string name="setFlair">Escolle a túa habelencia</string>
+  <string name="flair">Habelencia</string>
+  <string name="youCanHideFlair">Nas preferencias podes agochar por completo as habelencias dos xogadores en todo o sitio.</string>
   <string name="biography">Biografía</string>
-  <string name="flag" comment="flag&#10;Appears when you edit your profile. Lets a player add a country/flag (not all flags are for countries) to their profile">Bandeira</string>
+  <string name="countryRegion" comment="flag&#10;Appears when you edit your profile. Lets a player add a country/flag (not all flags are for countries) to their profile">País ou rexión</string>
   <string name="thankYou">Grazas!</string>
   <string name="socialMediaLinks">Ligazóns ás redes sociais</string>
   <string name="oneUrlPerLine">Unha URL por liña.</string>
   <string name="inlineNotation">Notación compacta</string>
-  <string name="savingMoves">Almacenamento temporal das xogadas</string>
-  <string name="savingMovesHelp">Sempre gardamos as túas variantes na caché do teu navegador.</string>
   <string name="makeAStudy">Para gardar e partillar, conviña crear un estudo.</string>
   <string name="clearSavedMoves">Eliminar movementos</string>
   <string name="previouslyOnLichessTV">Previamente en Lichess TV</string>
@@ -529,7 +534,7 @@
   <string name="name">Nome</string>
   <string name="description">Descrición</string>
   <string name="descPrivate">Descrición privada</string>
-  <string name="descPrivateHelp">Texto que só verán os membros do equipo. Se se emprega, substitúe a túa descrición pública cando sexa visto polos membros do equipo.</string>
+  <string name="descPrivateHelp">Texto que só verán os membros do equipo. Se se emprega, substitúe á descrición pública cando sexa visto polos membros do equipo.</string>
   <string name="no">Non</string>
   <string name="yes">Si</string>
   <string name="help">Axuda:</string>
@@ -560,7 +565,7 @@
   <string name="blog">Blog</string>
   <string name="notes">Notas</string>
   <string name="typePrivateNotesHere">Escribe notas privadas aquí</string>
-  <string name="writeAPrivateNoteAboutThisUser">Escribe unha nota privada acerca deste usuario/a</string>
+  <string name="writeAPrivateNoteAboutThisUser">Escribe unha nota privada sobre este usuario</string>
   <string name="noNoteYet">Aínda non hai notas</string>
   <string name="invalidUsernameOrPassword">Nome de usuario ou contrasinal non válidos</string>
   <string name="incorrectPassword">Contrasinal incorrecto</string>
@@ -604,7 +609,7 @@
   </plurals>
   <plurals name="blocks">
     <item quantity="one">%s xogador bloqueado</item>
-    <item quantity="other">%s bloqueos</item>
+    <item quantity="other">%s xogadores bloqueados</item>
   </plurals>
   <string name="listBlockedPlayers">Listar os xogadores que bloqueaches</string>
   <string name="human">Humano</string>
@@ -637,8 +642,8 @@
   <string name="whiteCastlingKingside">Brancas O-O</string>
   <string name="blackCastlingKingside">Negras O-O</string>
   <plurals name="nbForumPosts">
-    <item quantity="one">%s mensaxe no foro</item>
-    <item quantity="other">%s mensaxes no foro</item>
+    <item quantity="one">%s Mensaxe no Foro</item>
+    <item quantity="other">%s Mensaxes no Foro</item>
   </plurals>
   <string name="tpTimeSpentPlaying">Tempo xogando: %s</string>
   <string name="watchGames">Ver partidas</string>
@@ -658,8 +663,10 @@
   <string name="simultaneousExhibitions">Exhibicións simultáneas</string>
   <string name="host">Anfitrión</string>
   <string name="hostColorX">Cor do anfitrión: %s</string>
+  <string name="yourPendingSimuls">As túas simultáneas pendentes</string>
   <string name="createdSimuls">Simultáneas creadas recentemente</string>
   <string name="hostANewSimul">Crear unha nova simultánea</string>
+  <string name="signUpToHostOrJoinASimul">Rexístrate para crear ou unirte a unhas simultáneas</string>
   <string name="noSimulFound">Simultánea non atopada</string>
   <string name="noSimulExplanation">Esta exhibición simultánea non existe.</string>
   <string name="returnToSimulHomepage">Volver á paxina principal das simultáneas</string>
@@ -684,13 +691,21 @@
   <string name="keyboardShortcuts">Atallos do teclado</string>
   <string name="keyMoveBackwardOrForward">mover atrás/adiante</string>
   <string name="keyGoToStartOrEnd">Ir ó comezo/remate</string>
+  <string name="keyCycleSelectedVariation">Cambia a variante seleccionada</string>
   <string name="keyShowOrHideComments">mostrar/ocultar comentarios</string>
-  <string name="keyEnterOrExitVariation">entrar/saír da variante</string>
+  <string name="keyEnterOrExitVariation">Entrar/saír da variante</string>
   <string name="keyRequestComputerAnalysis">Solicita unha análise por computador, Aprende dos teus erros</string>
   <string name="keyNextLearnFromYourMistakes">Seguinte (Aprende dos teus erros)</string>
   <string name="keyNextBlunder">Seguinte metida de zoca</string>
   <string name="keyNextMistake">Seguinte erro</string>
   <string name="keyNextInaccuracy">Seguinte imprecisión</string>
+  <string name="keyPreviousBranch">Rama anterior</string>
+  <string name="keyNextBranch">Rama seguinte</string>
+  <string name="toggleVariationArrows">Activar/desactivar as frechas das variantes</string>
+  <string name="cyclePreviousOrNextVariation">Variante anterior/seguinte</string>
+  <string name="toggleGlyphAnnotations">Activar/desactivar as anotacións con símbolos</string>
+  <string name="variationArrowsInfo">As frechas das variantes permítenche navegar sen usar a lista de movementos.</string>
+  <string name="playSelectedMove">facer a xogada seleccionada</string>
   <string name="newTournament">Novo torneo</string>
   <string name="tournamentHomeTitle">Torneos de xadrez con varios controis de tempo e variantes</string>
   <string name="tournamentHomeDescription">Xoga torneos de xadrez rápidos! Únete a un torneo oficial programado, ou crea un de teu. Bala, Lóstrego, Clásico, Xadrez960, Rei da Cuíña, Tres Xaques, e máis opcións dispoñibles para que non remate a diversión do xadrez.</string>
@@ -733,6 +748,7 @@
   <string name="withFriends">Cos teus amigos</string>
   <string name="withEverybody">Con todo o mundo</string>
   <string name="kidMode">Modo infantil</string>
+  <string name="kidModeIsEnabled">O modo infantil está activado.</string>
   <string name="kidModeExplanation">Por seguridade, no modo infantil desactívanse tódalas comunicacións. Activa isto para protexer aos teus nenos ou alumnos de outros usuarios de Internet.</string>
   <string name="inKidModeTheLichessLogoGetsIconX">En modo infantil, o logo de Lichess ten unha icona de %s, indicando que os nenos están seguros.</string>
   <string name="askYourChessTeacherAboutLiftingKidMode">A túa conta é xestionada. Pídelle ó teu mestre que desactive o modo infantil.</string>
@@ -760,11 +776,11 @@
   <string name="gameAnalysis">Análise da partida</string>
   <string name="xHostsY">%1$s crea %2$s</string>
   <string name="xJoinsY">%1$s únese a %2$s</string>
-  <string name="xLikesY">a %1$s gústalle %2$s</string>
+  <string name="xLikesY">A %1$s gústalle %2$s</string>
   <string name="quickPairing">Emparellamento rápido</string>
   <string name="lobby">Retos</string>
   <string name="anonymous">Anónimo</string>
-  <string name="yourScore">A túa puntuación: %s</string>
+  <string name="yourScore">Os teus resultados: %s</string>
   <string name="language">Idioma</string>
   <string name="background">Fondo</string>
   <string name="light">Claro</string>
@@ -837,18 +853,19 @@
   <string name="opening">Apertura</string>
   <string name="middlegame">Medio xogo</string>
   <string name="endgame">Final</string>
-  <string name="conditionalPremoves">Movementos anticipados condicionais</string>
+  <string name="conditionalPremoves">Premovementos condicionais</string>
   <string name="addCurrentVariation">Engadir a variante actual</string>
-  <string name="playVariationToCreateConditionalPremoves">Xogar unha variante para crear movementos anticipados condicionais</string>
-  <string name="noConditionalPremoves">Sen movementos anticipados condicionais</string>
+  <string name="playVariationToCreateConditionalPremoves">Xogar unha variante para crear premovementos condicionais</string>
+  <string name="noConditionalPremoves">Sen premovementos condicionais</string>
   <string name="playX">Xogar %s</string>
   <plurals name="andSaveNbPremoveLines">
-    <item quantity="one">e garda %s variante de movementos anticipados</item>
-    <item quantity="other">e garda %s variantes de movementos anticipados</item>
+    <item quantity="one">e garda %s variante de premovementos</item>
+    <item quantity="other">e garda %s variantes de premovementos</item>
   </plurals>
+  <string name="showUnreadLichessMessage">Recibiches unha mensaxe privada de Lichess.</string>
+  <string name="clickHereToReadIt">Fai clic aquí para lela</string>
   <string name="sorry">Sentímolo :(</string>
   <string name="weHadToTimeYouOutForAWhile">Tivemos que suspenderte temporalmente.</string>
-  <string name="timeoutExpires">A suspensión expira %s.</string>
   <string name="why">Por que?</string>
   <string name="pleasantChessExperience">O noso obxectivo é proporcionar unha experiencia amena no xadrez pra todo o mundo.</string>
   <string name="goodPractice">Para iso, debemos asegurarnos de que todos os xogadores se comportan como é debido.</string>
@@ -868,8 +885,10 @@
   <string name="agreementPolicy">Comprométome a seguir as normas de Lichess.</string>
   <string name="searchOrStartNewDiscussion">Busca ou comeza unha nova conversa</string>
   <string name="edit">Editar</string>
-  <string name="rapid">Rápida</string>
-  <string name="classical">Clásica</string>
+  <string name="bullet" comment="Probably best left untranslated. Leave it as 'Bullet' unless your language has a better word for it.">Bala</string>
+  <string name="blitz" comment="Probably best left untranslated. Leave it as 'Blitz' unless your language has a better word for it.">Lóstrego</string>
+  <string name="rapid">Rápidas</string>
+  <string name="classical">Clásicas</string>
   <string name="ultraBulletDesc">Partidas incriblemente rápidas: menos de 30 segundos</string>
   <string name="bulletDesc">Partidas moi rápidas: menos de 3 minutos</string>
   <string name="blitzDesc">Partidas rápidas: de 3 a 8 minutos</string>
@@ -907,9 +926,6 @@
   <string name="timeAlmostUp">Quédache pouco tempo!</string>
   <string name="clickToRevealEmailAddress">[Pincha para ver o correo electrónico]</string>
   <string name="download">Descarga</string>
-  <string name="welcome">Benvid@!</string>
-  <string name="lichessPatronInfo">Lichess é unha organización benéfica e un software totalmente libre e de código aberto.
-Todos os custos de funcionamento, desenvolvemento e contidos fináncianse unicamente mediante as doazóns dos usuarios.</string>
   <string name="coachManager">Administrador de adestradores</string>
   <string name="streamerManager">Administrador de presentadores</string>
   <string name="cancelTournament">Cancelar o torneo</string>
@@ -968,4 +984,8 @@ Deixa en branco para comezar as partidas dende a posición inicial normal.</stri
   <string name="switchSides">Cambiar de cor</string>
   <string name="closingAccountWithdrawAppeal">Se pechas a túa conta, retirarás a túa apelación</string>
   <string name="ourEventTips">Os nosos consellos para organizar eventos</string>
+  <string name="instructions">Instrucións</string>
+  <string name="showMeEverything">Amósamo todo</string>
+  <string name="lichessPatronInfo">Lichess é unha organización benéfica e un programa totalmente libre e de código aberto.
+Todos os custos de funcionamento, desenvolvemento e contidos fináncianse unicamente mediante as doazóns dos usuarios.</string>
 </resources>

@@ -8,27 +8,28 @@
   <string name="whatTheTokenCanDo">Čo token môže urobiť v tvojom mene:</string>
   <string name="doNotShareIt">Token umožňuje prístup k Vášmu účtu. NEZDIEĽAJTE ho s nikým!</string>
   <string name="copyTokenNow">Nezabudnite si teraz skopírovať svoj nový osobný prístupový token! Už ho znova neuvidíte!</string>
-  <string name="preferenceRead">Čítať preferencie</string>
-  <string name="preferenceWrite">Prepísať preferencie</string>
-  <string name="emailRead">Čítať emailovú adresu</string>
-  <string name="challengeRead">Čítať prichádzajúce výzvy</string>
-  <string name="challengeWrite">Poslať, prijať alebo odmietnuť výzvy</string>
+  <string name="preferenceRead" comment="In the context of an authentication token, this is a setting that gives a third-party app permission to view the user's preferences.&#10;&#10;There is a separate setting to let applications write (edit) preferences.">Čítať preferencie</string>
+  <string name="preferenceWrite" comment="In the context of an authentication token, this is a setting that gives a third-party app permission to edit/change the user's preferences.&#10;&#10;There is a separate setting to let applications only read preferences, but not to write (edit) them.">Prepísať preferencie</string>
+  <string name="emailRead" comment="In the context of an authentication token, this is a setting that gives a third-party app permission to view the user's registered email address.">Čítať emailovú adresu</string>
+  <string name="challengeRead" comment="In the context of an authentication token, this is a setting that gives a third-party app permission to view game challenges from other players.&#10;&#10;There is a separate setting to let applications send, accept or reject challenges.">Čítať prichádzajúce výzvy</string>
+  <string name="challengeWrite" comment="challengeWrite&#10;&#10;In the context of an authentication token, a setting that permits third party software to send, accept and reject challenges on behalf of the player.">Poslať, prijať alebo odmietnuť výzvy</string>
   <string name="challengeBulk">Vytvárať viacero partií naraz pre iných hráčov</string>
-  <string name="studyRead">Čítať súkromné štúdie a vysielania</string>
-  <string name="studyWrite">Vytvárať, aktualizovať, odstraňovať štúdie a vysielania</string>
-  <string name="tournamentWrite">Vytvárať, upravovať a pripájať sa do turnajov</string>
-  <string name="racerWrite">Vytvárať preteky v šachových úlohách a pripájať sa do nich</string>
-  <string name="puzzleRead">Čítať aktivitu v šachových úlohách</string>
-  <string name="teamRead">Čítať súkromné informácie o tímoch</string>
-  <string name="teamWrite">Pripojiť sa k tímom alebo sa odpojiť</string>
+  <string name="studyRead" comment="Gives permission to third-party software to *read* information that already exists. However it won't be able to write (create) private studies or broadcasts.">Čítať súkromné štúdie a vysielania</string>
+  <string name="studyWrite" comment="In the context of an access token, a setting that enables third party software to create, update or delete studies and broadcasts.">Vytvárať, aktualizovať, odstraňovať štúdie a vysielania</string>
+  <string name="tournamentWrite" comment="In the context of an access token, a setting that permits third party software to create, update or delete studies and join tournaments.">Vytvárať, upravovať a pripájať sa do turnajov</string>
+  <string name="racerWrite" comment="In the context of an access token, a setting which permits third party software to create, and join puzzle races (this is for the activity/minigame Puzzle Racer: https://lichess.org/racer)">Vytvárať preteky v šachových úlohách a pripájať sa do nich</string>
+  <string name="puzzleRead" comment="In the context of an access token, a setting which permits third-party software to view the user's puzzle solving history.">Čítať aktivitu v šachových úlohách</string>
+  <string name="teamRead" comment="Gives permission to third-party software to *read* information that already exists. However it won't be able to write (create) private studies or broadcasts.">Čítať súkromné informácie o tímoch</string>
+  <string name="teamWrite" comment="In the context of an access token, a setting that permits the third party software to join or leave teams on your behalf.">Pripojiť sa k tímom alebo sa odpojiť</string>
   <string name="teamLead">Spravujte tímy, ktoré vediete: posielajte súkromné správy, vyhadzujte členov</string>
-  <string name="followRead">Čítať sledovaných hráčov</string>
-  <string name="followWrite">Sledovať a zrušiť sledovanie iných hráčov</string>
-  <string name="msgWrite">Posielať súkromné správy iným hráčom</string>
-  <string name="boardPlay">Hrať partie s API šachovnicou</string>
-  <string name="botPlay">Hrať partie s API botom</string>
+  <string name="followRead" comment="In the context of an access token, a setting which permits third-party software to view (read) which players you are following.">Čítať sledovaných hráčov</string>
+  <string name="followWrite" comment="In the context of an access token, a setting which permits third-party software to follow and unfollow other players on your behalf.">Sledovať a zrušiť sledovanie iných hráčov</string>
+  <string name="msgWrite" comment="In the context of an access token, a setting which permits third-party software to send messages on your behalf.">Posielať súkromné správy iným hráčom</string>
+  <string name="boardPlay" comment="In the context of an access token, a setting which permits third-party software to play games using e-boards like DGT, through Lichess's board API.">Hrať partie s API šachovnicou</string>
+  <string name="botPlay" comment="In the context of an access token, a setting which permits third-party software to play games over the bot API. This is intended mainly for having an engine account e.g. the accounts featured on https://lichess.org/player/bots">Hrať partie s API botom</string>
   <string name="engineRead">Zobrazovať a používať vlastné externé motory</string>
   <string name="engineWrite">Vytvárať a aktualizovať externé motory</string>
-  <string name="webLogin">Vytvoriť overené webové pripojenia (udeľuje úplný prístup!)</string>
-  <string name="webMod">Používať nástroje moderátora (v rámci Vášho povolenia)</string>
+  <string name="webLogin" comment="In the context of an access token, a setting which permits third-party software to create authenticated sessions - meaning effectively unlimited access to your account, using it as if it is you, instead of a third party program. It will be unable to view your password but it will be able to do almost everything else.">Vytvoriť overené webové pripojenia (udeľuje úplný prístup!)</string>
+  <string name="webMod" comment="In the context of an access token, this is a setting which permits third-party software to use moderator tools on your behalf. Most players will not be able to see this option.">Používať nástroje moderátora (v rámci Vášho povolenia)</string>
+  <string name="forExample" comment="%s is an example URL.&#10;&#10;Please note the sentence continues on the next line. The complete sentence is:&#10;'For example: https://lichess.org/account/oauth/token/create?scopes[]=challenge:write&amp;scopes[]=puzzle:read&amp;description=Prefilled+token+example&#10;ticks the challenge:create and puzzle:read scopes, and sets the token description.'">Napríklad: %s</string>
 </resources>

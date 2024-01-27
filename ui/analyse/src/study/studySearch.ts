@@ -1,6 +1,6 @@
 import { Prop, propWithEffect } from 'common';
 import * as licon from 'common/licon';
-import { snabModal } from 'common/modal';
+import { snabDialog } from 'common/dialog';
 import { bind, dataIcon, onInsert } from 'common/snabbdom';
 import { h, VNode } from 'snabbdom';
 import { Redraw } from '../interfaces';
@@ -49,12 +49,12 @@ const escapeRegExp = (s: string) => s.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'); //
 export function view(ctrl: SearchCtrl) {
   const cleanQuery = ctrl.cleanQuery();
   const highlightRegex = cleanQuery && new RegExp(escapeRegExp(cleanQuery), 'gi');
-  return snabModal({
+  return snabDialog({
     class: 'study-search',
     onClose() {
       ctrl.open(false);
     },
-    content: [
+    vnodes: [
       h('input', {
         attrs: { autofocus: 1, placeholder: `Search in ${ctrl.studyName}`, value: ctrl.query() },
         hook: onInsert((el: HTMLInputElement) => {
@@ -68,30 +68,24 @@ export function view(ctrl: SearchCtrl) {
         // dynamic extra class necessary to fully redraw the results and produce innerHTML
         `div.study-search__results.search-query-${cleanQuery}`,
         ctrl.results().map(c =>
-          h(
-            'div',
-            {
-              hook: bind('click', () => ctrl.setChapter(c.id)),
-            },
-            [
-              h(
-                'h3',
-                {
-                  hook: highlightRegex
-                    ? {
-                        insert(vnode: VNode) {
-                          const el = vnode.elm as HTMLElement;
-                          el.innerHTML = c.name.replace(highlightRegex, '<high>$&</high>');
-                        },
-                      }
-                    : {},
-                },
-                c.name,
-              ),
-              c.ongoing ? h('ongoing', { attrs: { ...dataIcon(licon.DiscBig), title: 'Ongoing' } }) : null,
-              !c.ongoing && c.res ? h('res', c.res) : null,
-            ],
-          ),
+          h('div', { hook: bind('click', () => ctrl.setChapter(c.id)) }, [
+            h(
+              'h3',
+              {
+                hook: highlightRegex
+                  ? {
+                      insert(vnode: VNode) {
+                        const el = vnode.elm as HTMLElement;
+                        el.innerHTML = c.name.replace(highlightRegex, '<high>$&</high>');
+                      },
+                    }
+                  : {},
+              },
+              c.name,
+            ),
+            c.ongoing ? h('ongoing', { attrs: { ...dataIcon(licon.DiscBig), title: 'Ongoing' } }) : null,
+            !c.ongoing && c.res ? h('res', c.res) : null,
+          ]),
         ),
       ),
     ],

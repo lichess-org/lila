@@ -16,6 +16,8 @@
   <string name="otherWaysToHelp">andra sätt att hjälpa till</string>
   <string name="areThereWebsitesBasedOnLichess">Finns det webbplatser baserade på Lichess?</string>
   <string name="yesLichessInspiredOtherOpenSourceWebsites">Ja. Lichess har minsann inspirerat andra öppen källkod webbplatser som använder vår %1$s, %2$s, eller %3$s.</string>
+  <string name="keyboardShortcuts">Vilka kortkommandon finns det?</string>
+  <string name="keyboardShortcutsExplanation">Vissa Lichess-sidor har kortkommandon du kan använda. Prova att trycka på \'?\'-tangenten i en studie, en analys, ett pussel eller en spelsida för att få en lista över tillgängliga kortkommandon.</string>
   <string name="fairPlay">Rent spel</string>
   <string name="whenAmIEligibleRatinRefund">När är jag berättigad till automatisk ratingåterbetalning från fuskare?</string>
   <string name="ratingRefundExplanation">En minut efter att en spelare markeras, så plockas deras 40 senaste rankade vinster under de senaste 3 dagarna fram. Om du är deras motståndare i något av dessa partier och din rating inte var provisorisk, så får du en rating-återbetalning. Återbetalningen är maximerad baserat på din topp-rating och dina framgångar efter partiet.
@@ -52,6 +54,7 @@
   I sällsynta fall kan detta vara svårt att avgöra automatiskt (påtvingade linjer, fästningar). Som standard tar vi alltid sida med spelaren som inte fick slut på tid.
 
   Observera att det kan vara möjligt att matta med en enda springare eller löpare om motståndaren har en pjäs som kan blockera kungen.</string>
+  <string name="fideHandbook">FIDE-handbok</string>
   <string name="fideHandbookX">FIDE-handbok %s</string>
   <string name="discoveringEnPassant">Varför kan en bonde slå en annan bonde när den redan har passerat? (en passant)</string>
   <string name="explainingEnPassant">Detta är ett giltigt drag som kallas \"en passant\". Denna Wikipedia-artikel ger en %1$s.
@@ -65,7 +68,7 @@ Se %3$s för detta drag för lite övning med det.</string>
   <string name="lichessTraining">Lichess träning</string>
   <string name="watchIMRosenCheckmate">Se International Master Eric Rosen göra schackmatt %s.</string>
   <string name="threefoldRepetition">Dragupprepning</string>
-  <string name="threefoldRepetitionExplanation">Om en position inträffar tre gånger kan spelare göra anspråk på remi för %1$s. Lichess implementerar de officiella FIDE-reglerna, som beskrivs i artikel 9.2 (d) i %2$s.</string>
+  <string name="threefoldRepetitionExplanation">Om en position inträffar tre gånger kan spelare göra anspråk på remi för %1$s. Lichess implementerar de officiella FIDE-reglerna, som beskrivs i artikel 9.2 i %2$s.</string>
   <string name="threefoldRepetitionLowerCase">dragupprepning</string>
   <string name="notRepeatedMoves">Vi upprepade inte drag. Varför blev partiet ändå remi för dragupprepning?</string>
   <string name="repeatedPositionsThatMatters">Dragupprepning handlar om upprepade %1$s, inte drag. Upprepning behöver inte ske i följd.</string>
@@ -141,4 +144,28 @@ någon annan eller innehålla reklam. Du kan läsa mer i %1$s.</string>
   Klicka på låsikonen bredvid lichess.org-adressen i URL-fältet i din webbläsare.
 
   Välj sedan om du vill tillåta eller blockera aviseringar från Lichess.</string>
+  <string name="enableAutoplayForSoundsQ">Aktivera autouppspelning av ljud?</string>
+  <string name="enableAutoplayForSoundsA">De flesta webbläsare kan förhindra ljud från att spela på en nyladdad sida för att skydda användare. Tänk om varje webbplats omedelbart kunde bombardera dig med ljudannonser.
+
+Den röda tystningsikonen visas när din webbläsare hindrar lichess.org från att spela ett ljud. Vanligtvis lyfts denna begränsning när du klickar på något. På vissa mobila webbläsare, att trycka-och-dra en bit räknas inte som ett klick. I så fall måste du trycka på tavlan för att tillåta ljud i början av varje spel.
+
+Vi visar den röda ikonen för att varna dig när detta händer. Ofta kan du uttryckligen tillåta lichess.org att spela ljud. Här är instruktioner för att göra det på senaste versioner av några populära webbläsare.</string>
+  <string name="desktop">skrivbord</string>
+  <string name="enableAutoplayForSoundsFirefox">1. Gå till lichess.org
+2. Tryck Ctrl-i på Linux/Windows eller cmd-i på MacOS
+3. Klicka på fliken Behörigheter
+4. Tillåt Ljud och video på lichess.org</string>
+  <string name="enableAutoplayForSoundsChrome">1. Gå till lichess.org
+2. Klicka på låsikonen i adressfältet
+3. Klicka på Webbplatsinställningar
+4. Tillåt ljud</string>
+  <string name="enableAutoplayForSoundsSafari">1. Gå till lichess.org
+2. Klicka på Safari i menyraden
+3. Klicka på Inställningar för lichess.org ...
+4. Tillåt all Autouppspelning</string>
+  <string name="enableAutoplayForSoundsMicrosoftEdge">1. Klicka på de tre prickarna i det övre högra hörnet
+2. Klicka på Inställningar
+3. Klicka på Cookies och webbplatsbehörigheter
+4. Bläddra ner och klicka på Media autouppspelning
+5. Lägg till lichess.org på tillåtet</string>
 </resources>

@@ -60,6 +60,7 @@ Cependant, les mécènes sont distingués au moyen d\'une nouvelle icône de pro
   <string name="nextPayment">Prochain paiement</string>
   <string name="youWillBeChargedXOnY">Vous serez facturé %1$s le %2$s.</string>
   <string name="makeAdditionalDonation">Faire un don supplémentaire maintenant</string>
+  <string name="giftPatronWingsShort">Offrir des ailes de mécène</string>
   <string name="giftPatronWings">Offrir des ailes (compte Mécène) à un joueur</string>
   <string name="update">Modifier</string>
   <string name="changeMonthlyAmount">Changer le montant mensuel (%s)</string>
@@ -79,4 +80,7 @@ Cependant, les mécènes sont distingués au moyen d\'une nouvelle icône de pro
   <string name="nowOneMonth">Vous êtes maintenant un mécène de Lichess pour un mois !</string>
   <string name="downgradeNextMonth">Dans un mois, vous NE serez PAS débité à nouveau, et votre compte Lichess redeviendra un compte ordinaire.</string>
   <string name="changeCurrency">Changer de devise</string>
+  <string name="paymentDetails">Information sur le paiement</string>
+  <string name="updatePaymentMethod">Mettre à jour le mode de paiement</string>
+  <string name="stripeManageSub">Gérer votre abonnement et télécharger vos factures et reçus</string>
 </resources>

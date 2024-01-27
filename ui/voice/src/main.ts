@@ -1,10 +1,11 @@
 import { propWithEffect, toggle as commonToggle } from 'common';
 import * as prop from 'common/storage';
 import { VoiceCtrl, VoiceModule } from './interfaces';
+import { flash } from './view';
 
 export * from './interfaces';
 export * from './move/interfaces';
-export { load as makeVoiceMove } from './move/moveCtrl';
+export { makeVoiceMove } from './move/moveCtrl';
 export { renderVoiceBar } from './view';
 
 export const VOSK_TS_VERSION = '_____1'; // this versions the wasm asset (see vosk.ts)
@@ -32,7 +33,7 @@ export function makeCtrl(opts: {
 
   const pushTalk = prop.storedBooleanPropWithEffect('voice.pushTalk', false, val => {
     lichess.mic.stop();
-    if (val) enabled(true);
+    enabled(val);
     if (enabled()) lichess.mic.start(!val);
   });
 
@@ -71,6 +72,7 @@ export function makeCtrl(opts: {
     toggle,
     showHelp,
     pushTalk,
+    flash,
     showPrefs: commonToggle(false, opts.redraw),
     module: () => opts.module?.(),
     moduleId: opts.tpe,

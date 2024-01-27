@@ -11,63 +11,69 @@ export interface ForkCtrl {
     selected: number;
     displayed: boolean;
   };
-  next: () => boolean | undefined;
-  prev: () => boolean | undefined;
+  selected(): number | undefined;
+  next: () => boolean;
+  prev: () => boolean;
+  hover: (uci: Uci | null | undefined) => void;
   highlight: (it?: number) => void;
   proceed: (it?: number) => boolean | undefined;
 }
 
-export function make(root: AnalyseCtrl): ForkCtrl {
+export function make(ctrl: AnalyseCtrl): ForkCtrl {
   let prev: Tree.Node | undefined;
   let selected = 0;
+  let hovering: number | undefined;
+  const selections = new Map<Tree.Path, number>();
+
   function displayed() {
-    return root.node.children.length > 1;
+    return ctrl.node.children.length > 1;
   }
   return {
     state() {
-      const node = root.node;
+      const node = ctrl.node;
       if (!prev || prev!.id !== node.id) {
         prev = node;
         selected = 0;
       }
-      return {
-        node,
-        selected,
-        displayed: displayed(),
-      };
+      return { node, selected, displayed: displayed() };
     },
     next() {
-      if (displayed()) {
-        selected = Math.min(root.node.children.length - 1, selected + 1);
-        return true;
-      }
-      return undefined;
+      if (!displayed()) return false;
+      selected = (selected + 1) % ctrl.node.children.length;
+      selections.set(ctrl.path, selected);
+      return true;
     },
     prev() {
-      if (displayed()) {
-        selected = Math.max(0, selected - 1);
-        return true;
-      }
-      return undefined;
+      if (!displayed()) return false;
+      selected = (selected + ctrl.node.children.length - 1) % ctrl.node.children.length;
+      selections.set(ctrl.path, selected);
+      return true;
+    },
+    hover(uci: Uci | undefined | null) {
+      hovering = ctrl.node.children.findIndex(n => n.uci === uci);
+      if (hovering < 0) hovering = undefined;
+    },
+    selected() {
+      return hovering ?? selected;
     },
     highlight(it) {
       if (!displayed() || !defined(it)) {
-        root.explorer.setHovering(root.node.fen, null);
+        ctrl.explorer.setHovering(ctrl.node.fen, null);
         return;
       }
 
-      const nodeUci = root.node.children[it]?.uci;
+      const nodeUci = ctrl.node.children[it]?.uci;
       const uci = defined(nodeUci) ? nodeUci : null;
 
-      root.explorer.setHovering(root.node.fen, uci);
+      ctrl.explorer.setHovering(ctrl.node.fen, uci);
     },
     proceed(it) {
       if (displayed()) {
-        it = defined(it) ? it : selected;
+        it = defined(it) ? it : hovering ? hovering : selected;
 
-        const childNode = root.node.children[it];
+        const childNode = ctrl.node.children[it];
         if (defined(childNode)) {
-          root.userJumpIfCan(root.path + childNode.id);
+          ctrl.userJumpIfCan(ctrl.path + childNode.id);
           return true;
         }
       }
@@ -83,38 +89,36 @@ const eventToIndex = (e: MouseEvent): number | undefined => {
   );
 };
 
-export function view(root: AnalyseCtrl, concealOf?: ConcealOf) {
-  if (root.retro) return;
-  const state = root.fork.state();
+export function view(ctrl: AnalyseCtrl, concealOf?: ConcealOf) {
+  if (ctrl.retro?.isSolving()) return;
+  const state = ctrl.fork.state();
   if (!state.displayed) return;
-  const isMainline = concealOf && root.onMainline;
+  const isMainline = concealOf && ctrl.onMainline;
   return h(
     'div.analyse__fork',
     {
       hook: onInsert(el => {
         el.addEventListener('click', e => {
-          root.fork.proceed(eventToIndex(e));
-          root.redraw();
+          ctrl.fork.proceed(eventToIndex(e));
+          ctrl.redraw();
         });
-        el.addEventListener('mouseover', e => root.fork.highlight(eventToIndex(e)));
-        el.addEventListener('mouseout', () => root.fork.highlight());
+        el.addEventListener('mouseover', e => ctrl.fork.highlight(eventToIndex(e)));
+        el.addEventListener('mouseout', () => ctrl.fork.highlight());
       }),
     },
     state.node.children.map((node, it) => {
-      const conceal = isMainline && concealOf!(true)(root.path + node.id, node);
+      const classes = {
+        selected: it === state.selected,
+        correct: ctrl.isGamebook() && it === 0,
+        wrong: ctrl.isGamebook() && it > 0,
+      };
+      const conceal = isMainline && concealOf!(true)(ctrl.path + node.id, node);
       if (!conceal)
         return h(
           'move',
-          {
-            class: { selected: it === state.selected },
-            attrs: { 'data-it': it },
-          },
+          { class: classes, attrs: { 'data-it': it } },
           renderIndexAndMove(
-            {
-              withDots: true,
-              showEval: root.showComputer(),
-              showGlyphs: root.showComputer(),
-            },
+            { withDots: true, showEval: ctrl.showComputer(), showGlyphs: ctrl.showComputer() },
             node,
           )!,
         );

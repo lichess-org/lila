@@ -13,19 +13,16 @@ final private class SimulSocket(
     jsonView: JsonView,
     remoteSocketApi: lila.socket.RemoteSocket,
     chat: lila.chat.ChatApi
-)(using Executor):
+)(using Executor, lila.user.FlairApi.Getter):
 
   def hostIsOn(simulId: SimulId, gameId: GameId): Unit =
     rooms.tell(simulId into RoomId, NotifyVersion("hostGame", gameId.value))
 
   def reload(simulId: SimulId): Unit =
-    repo find simulId foreach {
-      _ foreach { simul =>
-        jsonView(simul, simul.conditions.accepted) foreach { obj =>
+    repo find simulId foreach:
+      _ foreach: simul =>
+        jsonView(simul, simul.conditions.accepted) foreach: obj =>
           rooms.tell(simulId into RoomId, NotifyVersion("reload", obj))
-        }
-      }
-    }
 
   def aborted(simulId: SimulId): Unit =
     rooms.tell(simulId into RoomId, NotifyVersion("aborted", Json.obj()))
@@ -36,9 +33,8 @@ final private class SimulSocket(
     }
 
   def startGame(simul: Simul, game: Game): Unit =
-    game.player(simul.hostId) foreach { opponent =>
+    game.player(simul.hostId) foreach: opponent =>
       redirectPlayer(simul, Pov(game, !opponent.color))
-    }
 
   def filterPresent(simul: Simul, userIds: Set[UserId]): Fu[Seq[UserId]] =
     lila.socket.SocketRequest[Seq[UserId]](
@@ -47,9 +43,8 @@ final private class SimulSocket(
     )
 
   private def redirectPlayer(simul: Simul, pov: Pov): Unit =
-    pov.player.userId foreach { userId =>
+    pov.player.userId foreach: userId =>
       send(RP.Out.tellRoomUser(simul.id into RoomId, userId, makeMessage("redirect", pov.fullId)))
-    }
 
   lazy val rooms = makeRoomMap(send)
 
@@ -62,9 +57,8 @@ final private class SimulSocket(
       logger,
       roomId => _.Simul(roomId into SimulId).some,
       chatBusChan = _.Simul,
-      localTimeout = Some { (roomId, modId, _) =>
+      localTimeout = Some: (roomId, modId, _) =>
         repo.hostId(roomId into SimulId).map(_ has modId)
-      }
     )
 
   private lazy val send: String => Unit = remoteSocketApi.makeSender("simul-out").apply

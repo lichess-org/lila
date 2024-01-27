@@ -4,9 +4,9 @@
   <string name="byPlaying">като играете!</string>
   <string name="menu">Меню</string>
   <string name="progressX">Напредък: %s</string>
-  <string name="resetMyProgress">Анулирай напредъка ми</string>
+  <string name="resetMyProgress">Нулиране на напредъка ми</string>
   <string name="youWillLoseAllYourProgress">Ще загубите напредъка си!</string>
-  <string name="play">играй!</string>
+  <string name="play" comment="play&#10;&#10;A small ribbon that appears on your current chapter in the Chess Basics course. Please keep this string short.">играй!</string>
   <string name="chessPieces">Шахматни фигури</string>
   <string name="theRook">Топът</string>
   <string name="itMovesInStraightLines">Движи се в прави линии</string>
@@ -23,7 +23,7 @@
 един чернопол офицер.
 Трябват ви и двата!</string>
   <string name="bishopComplete">Поздравления! Можете да контролирате офицера.</string>
-  <string name="theQueen">Дамата</string>
+  <string name="theQueen">Царицата</string>
   <string name="queenCombinesRookAndBishop">Дама = топ + офицер</string>
   <string name="queenIntro">Това е най-силната фигура. Нейно Величество - Дамата!</string>
   <string name="queenComplete">Поздравления! Дамата няма тайни от вас.</string>
@@ -186,12 +186,12 @@
   <string name="learnCommonChessPositions">Научете основните позиции в шахмата</string>
   <string name="puzzles">Задачи</string>
   <string name="exerciseYourTacticalSkills">Упражнявайте тактическите си умения</string>
-  <string name="videos">Видеа</string>
+  <string name="videos">Видеоклипове</string>
   <string name="watchInstructiveChessVideos">Гледайте поучителни шахматни видеа</string>
-  <string name="playPeople">Играйте срещу хора</string>
+  <string name="playPeople">Игра срещу хора</string>
   <string name="opponentsFromAroundTheWorld">Противници от целия свят</string>
-  <string name="playMachine">Играйте срещу машина</string>
-  <string name="testYourSkillsWithTheComputer">Тествайте уменията си срещу компютър</string>
+  <string name="playMachine">Игра срещу машина</string>
+  <string name="testYourSkillsWithTheComputer">Тествайте уменията си с компютър</string>
   <string name="letsGo">Да започваме!</string>
   <string name="stageX">Етап %s</string>
   <string name="awesome">Жестоко!</string>

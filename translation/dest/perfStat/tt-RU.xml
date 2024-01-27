@@ -21,7 +21,7 @@
   <string name="fromXToY">%1$s дан %2$s га</string>
   <string name="winningStreak">Бер-артлы җиңүләр</string>
   <string name="losingStreak">Бер-артлы җиңүлеләр</string>
-  <string name="longestStreak">Иң озын бер-артлы: %s</string>
+  <string name="longestStreak" comment="%s is the string (number of games OR time spent playing, e.g. 4 hours non-stop play)&#10;String used to describe the longest consecutive winning &amp; losing streak of games. It is also used for a  streak of time spent playing.">Иң озын бер-артлы: %s</string>
   <string name="currentStreak">Хәзерге бер-артлы: %s</string>
   <string name="bestRated">Иң яхшы рейтинглы җиңүләр</string>
   <string name="worstRated">Иң начар рейтинглы җиңелүләр</string>

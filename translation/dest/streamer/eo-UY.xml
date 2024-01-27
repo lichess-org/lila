@@ -4,8 +4,8 @@
   <string name="lichessStreamer">Lichess filmprezentisto</string>
   <string name="live">VIVE!</string>
   <string name="offline">SENRETA</string>
-  <string name="currentlyStreaming">Nun filmelsendas: %s</string>
-  <string name="lastStream">Lasta filmelsendo %s</string>
+  <string name="currentlyStreaming" comment="%s is the title of the stream, chosen by the streamer.">Nun filmelsendas: %s</string>
+  <string name="lastStream" comment="%s is how long ago the stream was in relative time (e.g. 50 minutes ago). It is displayed in smaller type than the rest of the string.">Lasta filmelsendo %s</string>
   <string name="becomeStreamer">Fariĝu Lichess filmprezentisto</string>
   <string name="doYouHaveStream">Ĉu vi havas Twitch aŭ YouTube kanalon?</string>
   <string name="hereWeGo">Jen ni iru!</string>
@@ -29,11 +29,11 @@
   <string name="pendingReview">Vian elsendon revizias administrantoj.</string>
   <string name="pleaseFillIn">Bonvolu plenigi via filmprezentista informo kaj alŝutu bildon.</string>
   <string name="whenReady" comment="whenReady&#10;&#10;%s is &quot;request a moderator review&quot;">Kiam vi pretas por listiĝi kiel Lichess filmprezentisto, %s</string>
-  <string name="requestReview" comment="requestReview&#10;&#10;Used in the sense of: &quot;When you are ready to be listed as a Lichess streamer, request a moderator review&quot;">petu moderatoran revizion</string>
+  <string name="requestReview" comment="requestReview&#10;&#10;Used as part of the longer sentence: &quot;When you are ready to be listed as a Lichess streamer, request a moderator review&quot;">petu moderatoran revizion</string>
   <string name="streamerLanguageSettings">La Lichess filprezentista paĝo celas vian spektantaron kun la lingvo provizita per via elsenda platformo. Agordu la ĝustan defaŭltlingvon por viaj ŝakaj elsendoj en la apo aŭ servo, kiun vi uzi por elsendi.</string>
-  <string name="twitchUsername">Via uzantnomo aŭ URL de Twitch</string>
+  <string name="twitchUsername" comment="Appears on the form for setting up your Streamer page: https://lichess.org/streamer/edit&#10;&#10;Twitch is a proper noun and refers to the streaming service https://twitch.tv/. Please do not translate the word 'Twitch'.">Via uzantnomo aŭ URL de Twitch</string>
   <string name="optionalOrEmpty">Laŭvola. Lasu malplena se neniu</string>
-  <string name="youTubeChannelId">La ID de via YouTube kanalo</string>
+  <string name="youTubeChannelId" comment="Appears on the form for setting up your Streamer page: https://lichess.org/streamer/edit&#10;&#10;The Channel ID is a special alphanumeric string. See Google's guide here for how to retrieve it: https://support.google.com/youtube/answer/3250431&#10;&#10;We encourage translators to match what the Channel ID is called in your language's version of YouTube: https://www.youtube.com/account_advanced">La ID de via YouTube kanalo</string>
   <string name="streamerName">Via filmprezentista nomo ĉe Lichess</string>
   <plurals name="keepItShort">
     <item quantity="one">Estu mallonga: maksimume %s presliteroj</item>

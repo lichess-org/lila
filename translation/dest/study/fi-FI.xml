@@ -131,7 +131,7 @@
   <string name="deleteTheStudyChatHistory">Haluatko poistaa tutkielman keskusteluhistorian? Et voi palauttaa sitä enää!</string>
   <string name="deleteStudy">Poista tutkielma</string>
   <string name="confirmDeleteStudy" comment="%s is replaced with the name of the study">Poistetaanko koko tutkielma? Et voi palauttaa sitä enää. Vahvista poisto kirjoittamalla tutkielman nimen: %s</string>
-  <string name="whereDoYouWantToStudyThat">Missä haluat tutkia?</string>
+  <string name="whereDoYouWantToStudyThat">Missä haluat tutkia tätä?</string>
   <string name="goodMove">Hyvä siirto</string>
   <string name="mistake">Virhe</string>
   <string name="brilliantMove">Loistava siirto</string>

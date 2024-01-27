@@ -1,10 +1,12 @@
+import { Chart } from 'chart.js';
+
 export interface Vm {
   metric: Metric;
   dimension: Dimension;
   filters: Filters;
   loading: boolean;
   broken: boolean;
-  answer: Chart | null;
+  answer: InsightData | null;
   panel: 'filter' | 'preset';
   view: ViewTab;
 }
@@ -73,7 +75,11 @@ export interface Dimension extends Metric {
 
 export type ViewTab = 'combined' | 'presets' | 'filters' | 'insights';
 
-export interface Chart {
+export interface InsightChart extends Chart {
+  updateData(d: InsightData): void;
+}
+
+export interface InsightData {
   question: Question;
   xAxis: Xaxis;
   valueYaxis: Yaxis;

@@ -259,7 +259,7 @@ trait SetupHelper:
       (Pref.SubmitMove.CORRESPONDENCE, trans.correspondence.txt()),
       (Pref.SubmitMove.CLASSICAL, trans.classical.txt()),
       (Pref.SubmitMove.RAPID, trans.rapid.txt()),
-      (Pref.SubmitMove.BLITZ, "Blitz")
+      (Pref.SubmitMove.BLITZ, trans.blitz.txt())
     )
 
   def confirmResignChoices(using Lang) =
@@ -314,12 +314,6 @@ trait SetupHelper:
       (Pref.ResizeHandle.NEVER, trans.never.txt()),
       (Pref.ResizeHandle.INITIAL, trans.preferences.onlyOnInitialPosition.txt()),
       (Pref.ResizeHandle.ALWAYS, trans.always.txt())
-    )
-
-  def translatedBlindfoldChoices(using Lang) =
-    List(
-      Pref.Blindfold.NO  -> trans.no.txt(),
-      Pref.Blindfold.YES -> trans.yes.txt()
     )
 
   def translatedBooleanIntChoices(using Lang) =

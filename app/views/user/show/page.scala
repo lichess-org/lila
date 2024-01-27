@@ -2,18 +2,12 @@ package views.html.user.show
 
 import controllers.routes
 import play.api.data.Form
-import play.api.libs.json.Json
 
 import lila.app.mashup.UserInfo
-import lila.app.mashup.UserInfo.Angle
 import lila.app.templating.Environment.{ given, * }
 import lila.app.ui.ScalatagsTemplate.{ *, given }
-import lila.common.paginator.Paginator
-import lila.common.String.html.safeJsonValue
 import lila.game.Game
 import lila.user.User
-import lila.history.RatingChartApi
-import play.api.libs.json.Json
 
 object page:
 
@@ -44,14 +38,14 @@ object page:
       main(cls := "page-menu", dataUsername := u.username)(
         st.aside(cls := "page-menu__menu")(side(u, info.ranks, none)),
         div(cls := "page-menu__content box user-show")(
-          views.html.user.show.header(u, info, Angle.Activity, social),
+          views.html.user.show.header(u, info, UserInfo.Angle.Activity, social),
           div(cls := "angle-content")(views.html.activity(u, activities))
         )
       )
 
   def games(
       info: UserInfo,
-      games: Paginator[Game],
+      games: lila.common.paginator.Paginator[Game],
       filters: lila.app.mashup.GameFilterMenu,
       searchForm: Option[Form[?]],
       social: UserInfo.Social,
@@ -73,32 +67,33 @@ object page:
       main(cls := "page-menu", dataUsername := u.username)(
         st.aside(cls := "page-menu__menu")(side(u, info.ranks, none)),
         div(cls := "page-menu__content box user-show")(
-          views.html.user.show.header(u, info, Angle.Games(searchForm), social),
+          views.html.user.show.header(u, info, UserInfo.Angle.Games(searchForm), social),
           div(cls := "angle-content")(gamesContent(u, info.nbs, games, filters, filters.current.name, notes))
         )
       )
     }
 
   private def moreJs(info: UserInfo, withSearch: Boolean = false)(using PageContext) =
+    import play.api.libs.json.Json
+    import lila.history.RatingChartApi
     frag(
       infiniteScrollTag,
       jsModuleInit("user", Json.obj("i18n" -> i18nJsObject(i18nKeys))),
       info.ratingChart.map: rc =>
         jsModuleInit(
           "chart.ratingHistory",
-          s"{data:$rc,perfIndex:${RatingChartApi.bestPerfIndex(info.user)}}"
+          s"{data:$rc}"
         ),
       withSearch option jsModule("gameSearch"),
       isGranted(_.UserModView) option jsModule("mod.user")
     )
 
   def disabled(u: User)(using PageContext) =
-    views.html.base.layout(title = u.username, robots = false) {
+    views.html.base.layout(title = u.username, robots = false):
       main(cls := "box box-pad")(
         h1(cls := "box__top")(u.username),
         p(trans.settings.thisAccountIsClosed())
       )
-    }
 
   private val i18nKeys = List(
     trans.youAreLeavingLichess,

@@ -16,8 +16,8 @@ object security:
       clients: List[lila.oauth.AccessTokenApi.Client],
       personalAccessTokens: Int
   )(using PageContext) =
-    account.layout(title = s"${u.username} - ${trans.security.txt()}", active = "security") {
-      div(cls := "account security")(
+    account.layout(title = s"${u.username} - ${trans.security.txt()}", active = "security"):
+      div(cls := "security")(
         div(cls := "box")(
           h1(cls := "box__top")(trans.security()),
           standardFlash.map(div(cls := "box__pad")(_)),
@@ -42,7 +42,6 @@ object security:
           table(sessions, curSessionId.some, clients, personalAccessTokens)
         )
       )
-    }
 
   def table(
       sessions: List[lila.security.LocatedSession],
@@ -119,7 +118,7 @@ object security:
           a(
             href     := routes.OAuthToken.index,
             cls      := "button",
-            title    := "API access tokens",
+            title    := trans.oauthScope.apiAccessTokens.txt(),
             dataIcon := licon.Gear
           )
         )

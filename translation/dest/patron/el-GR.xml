@@ -43,6 +43,7 @@
 Ή μπορείτε %s.</string>
   <string name="contactSupport">να επικοινωνήσετε με την εξυπηρέτηση του Lichess</string>
   <string name="otherMethods">Υπάρχουν άλλοι τρόποι δωρεάς;</string>
+  <string name="lichessIsRegisteredWith">Το Lichess έχει καταχωρηθεί με %s.</string>
   <string name="bankTransfers">Επίσης δεχόμαστε τραπεζικές μεταφορές</string>
   <string name="patronFeatures">Υπάρχουν κάποιες δυνατότητες μόνο για Υποστηρικτές;</string>
   <string name="noPatronFeatures">Όχι, επειδή το Lichess είναι δωρεάν για πάντα και για όλους. Αυτό είναι μία υπόσχεση.
@@ -77,4 +78,7 @@
   <string name="nowOneMonth">Είστε ένας υποστηρικτής του Lichess για αυτόν τον μήνα!</string>
   <string name="downgradeNextMonth">Σε ένα μήνα, ΔΕ θα χρεωθείτε ξανά, και ο λογαριασμός σας θα υποβαθμιστεί σε έναν κοινό λογαριασμό.</string>
   <string name="changeCurrency">Αλλαγή νομίσματος</string>
+  <string name="paymentDetails">Στοιχεία πληρωμής</string>
+  <string name="updatePaymentMethod">Ενημέρωση μεθόδου πληρωμής</string>
+  <string name="stripeManageSub">Διαχειριστείτε τη συνδρομή σας και κατεβάστε τα τιμολόγια και τις αποδείξεις σας</string>
 </resources>

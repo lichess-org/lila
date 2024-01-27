@@ -58,6 +58,7 @@
   <string name="studyPgn">Өйрәнеш PGN</string>
   <string name="downloadAllGames">Йөкләргә барча уеннарны</string>
   <string name="chapterPgn">Баб PGN</string>
+  <string name="copyChapterPgn">PGN-ны күчереп алу</string>
   <string name="downloadGame">Йөкләш уенны</string>
   <string name="studyUrl">Өйрәнеш URL</string>
   <string name="currentChapterUrl">Хәзерге баб URL</string>
@@ -82,4 +83,9 @@
   <string name="contributors">Һиссадәрче</string>
   <string name="start">Башла</string>
   <string name="save">Сакла</string>
+  <string name="mistake">Хата</string>
+  <string name="attack" comment="attack&#10;A label that can be applied to a position in a Lichess study. Noun.">Һөҗүм</string>
+  <string name="topics">Темалар</string>
+  <string name="back">Артка</string>
+  <string name="playAgain">Яңадан уйнау</string>
 </resources>

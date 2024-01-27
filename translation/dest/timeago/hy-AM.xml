@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="justNow">հենց նոր</string>
+  <string name="justNow">հենց հիմա</string>
   <plurals name="inNbSeconds">
     <item quantity="one">%s վայրկյան հետո</item>
-    <item quantity="other">%s վայրկյան հետո</item>
+    <item quantity="other">%s վայրկյաններ հետո</item>
   </plurals>
   <plurals name="inNbMinutes">
     <item quantity="one">%s րոպե հետո</item>
-    <item quantity="other">%s րոպե հետո</item>
+    <item quantity="other">%s րոպեներ հետո</item>
   </plurals>
   <plurals name="inNbHours">
     <item quantity="one">%s ժամ հետո</item>
@@ -30,10 +30,6 @@
     <item quantity="other">%s տարի հետո</item>
   </plurals>
   <string name="rightNow">հենց հիմա</string>
-  <plurals name="nbSecondsAgo">
-    <item quantity="one">%s վայրկյան առաջ</item>
-    <item quantity="other">%s վայրկյան առաջ</item>
-  </plurals>
   <plurals name="nbMinutesAgo">
     <item quantity="one">%s րոպե առաջ</item>
     <item quantity="other">%s րոպե առաջ</item>
@@ -58,4 +54,5 @@
     <item quantity="one">%s տարի առաջ</item>
     <item quantity="other">%s տարի առաջ</item>
   </plurals>
+  <string name="completed">ավարտված</string>
 </resources>

@@ -21,7 +21,7 @@
   <string name="fromXToY">etre %1$s ha %2$s</string>
   <string name="winningStreak">Krogadoù gounezet da-heul</string>
   <string name="losingStreak">Krogadoù kollet da-heul</string>
-  <string name="longestStreak">Brasañ niver da heul: %s</string>
+  <string name="longestStreak" comment="%s is the string (number of games OR time spent playing, e.g. 4 hours non-stop play)&#10;String used to describe the longest consecutive winning &amp; losing streak of games. It is also used for a  streak of time spent playing.">Brasañ niver da heul: %s</string>
   <string name="currentStreak">Niver a grogadoù da heul evit poent: %s</string>
   <string name="bestRated">Gwellañ trec\'hioù renket</string>
   <string name="worstRated">Gwashañ lammoù renket</string>

@@ -4,8 +4,8 @@
   <string name="lichessStreamer">Lichess 主播</string>
   <string name="live">在线</string>
   <string name="offline">离线</string>
-  <string name="currentlyStreaming">正在直播：%s</string>
-  <string name="lastStream">上次直播：%s</string>
+  <string name="currentlyStreaming" comment="%s is the title of the stream, chosen by the streamer.">正在直播：%s</string>
+  <string name="lastStream" comment="%s is how long ago the stream was in relative time (e.g. 50 minutes ago). It is displayed in smaller type than the rest of the string.">上次直播：%s</string>
   <string name="becomeStreamer">成为 Lichess 主播</string>
   <string name="doYouHaveStream">你有 Twitch 或 YouTube 频道吗？</string>
   <string name="hereWeGo">我们开始吧！</string>
@@ -29,11 +29,11 @@
   <string name="pendingReview">你的直播正在审核。</string>
   <string name="pleaseFillIn">请填写你的主播信息并上传一张图片。</string>
   <string name="whenReady" comment="whenReady&#10;&#10;%s is &quot;request a moderator review&quot;">当你准备好成为 Lichess 主播时，%s</string>
-  <string name="requestReview" comment="requestReview&#10;&#10;Used in the sense of: &quot;When you are ready to be listed as a Lichess streamer, request a moderator review&quot;">请求版主复审</string>
+  <string name="requestReview" comment="requestReview&#10;&#10;Used as part of the longer sentence: &quot;When you are ready to be listed as a Lichess streamer, request a moderator review&quot;">请求版主复审</string>
   <string name="streamerLanguageSettings">Lichess 主播页面以你的直播平台使用的语言推送给观众。请在你直播的平台设置正确的默认语言。</string>
-  <string name="twitchUsername">你的 Twitch 用户名或 URL</string>
+  <string name="twitchUsername" comment="Appears on the form for setting up your Streamer page: https://lichess.org/streamer/edit&#10;&#10;Twitch is a proper noun and refers to the streaming service https://twitch.tv/. Please do not translate the word 'Twitch'.">你的 Twitch 用户名或 URL</string>
   <string name="optionalOrEmpty">可选。如果没有则留空</string>
-  <string name="youTubeChannelId">你的 YouTube 频道 ID</string>
+  <string name="youTubeChannelId" comment="Appears on the form for setting up your Streamer page: https://lichess.org/streamer/edit&#10;&#10;The Channel ID is a special alphanumeric string. See Google's guide here for how to retrieve it: https://support.google.com/youtube/answer/3250431&#10;&#10;We encourage translators to match what the Channel ID is called in your language's version of YouTube: https://www.youtube.com/account_advanced">你的 YouTube 频道 ID</string>
   <string name="streamerName">你在 Lichess 的主播名字</string>
   <plurals name="keepItShort">
     <item quantity="other">不超过 %s 个字符</item>

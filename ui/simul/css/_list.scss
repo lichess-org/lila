@@ -60,7 +60,7 @@
     }
 
     .name {
-      white-space: nowrap;
+      @extend %break-word;
       font-size: 1.7em;
       display: block;
     }

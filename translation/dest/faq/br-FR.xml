@@ -26,6 +26,7 @@
   <string name="inferiorThanXsEqualYtimeControl">&lt; %1$ss = %2$s</string>
   <string name="superiorThanXsEqualYtimeControl">≥ %1$ss = %2$s</string>
   <string name="eightVariants">An 8 eilstumm echedoù</string>
+  <string name="fideHandbook">Dornlevr ar FIDE</string>
   <string name="discoveringEnPassant">Perak e c\'hall ur pezh gwerin pakañ unan all daoust ma \'z eo tremenet hebioù dija? (en ur dremen)</string>
   <string name="lichessTraining">Gourdonadur Lichess</string>
   <string name="threefoldRepetition">Teir gwech an hevelep plegenn</string>

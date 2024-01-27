@@ -45,13 +45,24 @@ export function initModule(opts: ChallengeOpts) {
       .find('input.friend-autocomplete')
       .each(function (this: HTMLInputElement) {
         const input = this;
-        lichess.userComplete({
+        lichess.asset.userComplete({
           input: input,
           friend: true,
           tag: 'span',
           focus: true,
           onSelect: () => setTimeout(() => (input.parentNode as HTMLFormElement).submit(), 100),
         });
+      });
+    $(selector)
+      .find('.invite__user__recent button')
+      .on('click', function (this: HTMLButtonElement) {
+        $(selector)
+          .find('input.friend-autocomplete')
+          .val(this.dataset.user!)
+          .parents('form')
+          .each(function (this: HTMLFormElement) {
+            this.submit();
+          });
       });
   }
 

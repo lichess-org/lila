@@ -30,10 +30,6 @@
     <item quantity="other">om %s år</item>
   </plurals>
   <string name="rightNow">just nu</string>
-  <plurals name="nbSecondsAgo">
-    <item quantity="one">%s sekund sedan</item>
-    <item quantity="other">%s sekunder sedan</item>
-  </plurals>
   <plurals name="nbMinutesAgo">
     <item quantity="one">%s minut sedan</item>
     <item quantity="other">%s minuter sedan</item>
@@ -58,4 +54,13 @@
     <item quantity="one">%s år sedan</item>
     <item quantity="other">%s år sedan</item>
   </plurals>
+  <plurals name="nbMinutesRemaining">
+    <item quantity="one">%s minut återstår</item>
+    <item quantity="other">%s minuter återstår</item>
+  </plurals>
+  <plurals name="nbHoursRemaining">
+    <item quantity="one">%s timme återstår</item>
+    <item quantity="other">%s timmar återstår</item>
+  </plurals>
+  <string name="completed">slutfört</string>
 </resources>

@@ -22,7 +22,7 @@
   <string name="fromXToY">%1$s から %2$s まで</string>
   <string name="winningStreak">連勝</string>
   <string name="losingStreak">連敗</string>
-  <string name="longestStreak">最長：%s</string>
+  <string name="longestStreak" comment="%s is the string (number of games OR time spent playing, e.g. 4 hours non-stop play)&#10;String used to describe the longest consecutive winning &amp; losing streak of games. It is also used for a  streak of time spent playing.">最長：%s</string>
   <string name="currentStreak">現在：%s</string>
   <string name="bestRated">勝った相手の最高</string>
   <string name="worstRated">負けた相手の最低</string>

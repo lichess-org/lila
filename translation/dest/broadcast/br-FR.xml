@@ -15,5 +15,5 @@
   <string name="startDateHelp">Diret eo, ma ouzit pegoulz e krogo</string>
   <string name="credits">Orin ar vammenn</string>
   <string name="deleteTournament">Dilemel an tournamant-mañ</string>
-  <string name="definitivelyDeleteTournament" comment="definitivelyDeleteTournament&#10;&#10;Confirmation prompt, when attempting to delete a broadcast on https://lichess.org/broadcast">Dilemel an tournamant da viken, an holl grogadoù ha pep tra penn-da-benn.</string>
+  <string name="definitivelyDeleteTournament">Dilemel an tournamant da viken, an holl grogadoù ha pep tra penn-da-benn.</string>
 </resources>

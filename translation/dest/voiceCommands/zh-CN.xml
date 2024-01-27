@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="voiceCommands">语音指令</string>
+  <string name="watchTheVideoTutorial">观看视频教程</string>
+  <string name="instructions1">使用 %1$s 按钮来启用语音识别， %2$s 按钮来打开此帮助框， %3$s 菜单按钮来更改语音设置。</string>
+  <string name="instructions2" comment="Voice commands can be misheard and Lichess will not always be fully certain what you said. Several arrows will be shown to identify e.g. if the move was 'b4' or 'd4', which often sound similar.&#10;&#10;These arrows will be in different colours (green, blue, etc) or labelled 1, 2, 3....&#10;You can then say the colour of the arrow (e.g. 'green') - or its number (e.g. '1'), to select that move.&#10;Users can configure if they choose from multiple moves based on colours or numbers.">当识别结果不确定时我们会以多个箭头展示可能的着法。请说出箭头的颜色或数字以选中它。</string>
+  <string name="instructions3" comment="This is a complicated concept more easy to understand in practice. Voice commands can be misheard and Lichess will not always be fully certain what you said. Several arrows will be shown to identify e.g. if the move was 'b4' or 'd4', which often sound similar.&#10;The most likely move the player wants will have a circle showing around it, but it will be possible to cancel before it is played (for example, by shouting 'no!').&#10;&#10;You can see a visual example here: https://lichess.org/@/schlawg/blog/how-to-lichess-voice/nWrypoWI">当箭头展示出雷达扫描图案时，着法会在圆圈转完之后被走出。在这段时间内，您可以说 %1$s 来立即走出这一步， %2$s 来取消，或是说出另一个箭头的颜色/数字。此计时器可在设置中被调节或取消。</string>
+  <string name="instructions4" comment="%s is Push to Talk.">在吵闹的环境中请启用 %s 。当此选项启用时，请在按住 shift 键的同时说出指令。</string>
+  <string name="instructions5" comment="The phonetic alphabet is also known as the NATO alphabet (where A = Alpha, B = Bravo, etc. This makes the sounds easier to differentiate through a microphone). It is for English specifically, which as of the time of writing, is the only language supported by the Voice Commands feature.">使用音标字母来提高对棋盘竖线的识别精度。 </string>
+  <string name="instructions6">%s 详细解释了语音走棋的设置。</string>
+  <string name="thisBlogPost">这篇博客文章</string>
+  <string name="moveToE4OrSelectE4Piece">移动到e4格或选中e4格的棋子</string>
+  <string name="selectOrCaptureABishop">选中象或吃象</string>
+  <string name="takeRookWithQueen">用后吃车</string>
+  <string name="castle">王车易位（任一侧）</string>
+  <string name="phoneticAlphabetIsBest">请最好使用语音字母表说这些格子从而使识别更准确</string>
+  <string name="cancelTimerOrDenyARequest">关闭计时器或拒绝请求</string>
+  <string name="playPreferredMoveOrConfirmSomething" comment="Used in voice commands. When it is unclear what the player said (e.g. 'b4' and 'd4' sound similar), both moves will be shown, with the more likely one highlighted in a certain colour. By default, a countdown begins, and if no action is taken, the likely move (e.g. b4) will be played. Players can end the countdown early/confirm their move by saying 'yes'.&#10;&#10;For more details see https://lichess.org/@/schlawg/blog/how-to-lichess-voice/nWrypoWI">走语音识别为更相似的一步或确认某事</string>
+  <string name="sleep" comment="Used for voice commands.&#10;&#10;By default, voice commands are always-on after the feature is enabled. Users can optionally set a word for listening to start, or say 'sleep' to disable listening.&#10;&#10;(Please note - this is not the same as recording, since the recording is never sent to Lichess; the speech technology is entirely offline)">休眠（如果唤醒词被启用）</string>
+  <string name="turnOffVoiceRecognition">关闭语音识别</string>
+  <string name="showPuzzleSolution">显示谜题解答</string>
+</resources>

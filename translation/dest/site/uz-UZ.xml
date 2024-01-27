@@ -270,7 +270,6 @@
   <string name="playingRightNow">Xozirni o\'zidayoq o\'ynash</string>
   <string name="eventInProgress">Xozirni o\'zidayoq o\'ynash</string>
   <string name="finished">Tugadi</string>
-  <string name="finishesX">%s tugaydi</string>
   <string name="abortGame">O\'yinni bekor qilish</string>
   <string name="gameAborted">O\'yin bekor qilindi</string>
   <string name="standard">Standart</string>
@@ -504,13 +503,10 @@
   <string name="firstName">Berilgan nom</string>
   <string name="lastName">Familiya</string>
   <string name="biography">Biografiya</string>
-  <string name="flag" comment="flag&#10;Appears when you edit your profile. Lets a player add a country/flag (not all flags are for countries) to their profile">Bayroq</string>
   <string name="thankYou">Rahmat!</string>
   <string name="socialMediaLinks">Ijtimoiy media linklari</string>
   <string name="oneUrlPerLine">Har qatorda bitta URL.</string>
   <string name="inlineNotation">Ichki yozuv</string>
-  <string name="savingMoves">Vaqtinchalik yurishlar zaxirasi</string>
-  <string name="savingMovesHelp">Biz doim sizning variantlaringizni sizning brovzeringiz keshida saqlaymiz.</string>
   <string name="makeAStudy">Saqlash va ulashish uchun \"ta‘lim\" yaratishni ko‘rib chiqing.</string>
   <string name="clearSavedMoves">Yurishlarni tozalash</string>
   <string name="previouslyOnLichessTV">Lichess TV dagi bundan oldingisi</string>
@@ -848,7 +844,6 @@
   </plurals>
   <string name="sorry">Kechirasiz :(</string>
   <string name="weHadToTimeYouOutForAWhile">Biz sizga bir muncha vaqtga taym aut berishimiz kerak edi.</string>
-  <string name="timeoutExpires">Taym aut %s dan keyin tugaydi.</string>
   <string name="why">Nima uchun?</string>
   <string name="pleasantChessExperience">Biz har bir kishiga shahmat malakasini oshirishni maqsad qilganmiz.</string>
   <string name="goodPractice">Buning uchun biz barcha o\'yinchilar yaxshi amaliyot ortidan ketishi uchun imkoniyat yaratishimiz kerak.</string>
@@ -907,9 +902,6 @@
   <string name="timeAlmostUp">Vaqt deyarli yakunlandi!</string>
   <string name="clickToRevealEmailAddress">[Email manzilni ochiqlash uchun bosing]</string>
   <string name="download">Yuklab oling</string>
-  <string name="welcome">Хуш келибсиз!</string>
-  <string name="lichessPatronInfo">Lichess - bu xayriyali va ochiq kodli bepul dasturiy ta‘minot.
-Ishlab chiqish, saytni ma‘lumotlar bilan to‘ldirish kabi barcha boshqa amallar harajatlari xayriya jamg‘armasi hisobidan bajariladi.</string>
   <string name="coachManager">Murabbiylarga</string>
   <string name="streamerManager">Strimmerlarga</string>
   <string name="cancelTournament">Turnirni yakunlash</string>
@@ -968,4 +960,6 @@ Normal boshlang‘ich holatdan boshlash uchun uni bo‘sh qoldiring.</string>
   <string name="switchSides">Tomonlarni almashtirish</string>
   <string name="closingAccountWithdrawAppeal">Akkountingizni yopishingiz sizni murojaatlaringizni bekor qiladi</string>
   <string name="ourEventTips">Tadbirlar o‘tkazish yuzasidan bizning maslahatlarimiz</string>
+  <string name="lichessPatronInfo">Lichess - bu xayriyali va ochiq kodli bepul dasturiy ta‘minot.
+Ishlab chiqish, saytni ma‘lumotlar bilan to‘ldirish kabi barcha boshqa amallar harajatlari xayriya jamg‘armasi hisobidan bajariladi.</string>
 </resources>

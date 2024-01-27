@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+  <string name="challengesX">Выклікаў: %1$s</string>
   <string name="challengeToPlay">Выклікаць на гульню</string>
   <string name="challengeDeclined">Выклік адхілены</string>
   <string name="challengeAccepted">Выклік прыняты!</string>
@@ -21,4 +22,5 @@
   <string name="declineVariant">Я ня хочу граць гэты варыянт зараз.</string>
   <string name="declineNoBot">Я не прымаю выклікі ад ботаў.</string>
   <string name="declineOnlyBot">Я прымаю выклікі толькі ад ботаў.</string>
+  <string name="inviteLichessUser">Ці запрасіце карыстальніка Lichess:</string>
 </resources>

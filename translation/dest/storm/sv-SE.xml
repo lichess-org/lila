@@ -15,8 +15,8 @@
     <item quantity="other">%s försök</item>
   </plurals>
   <plurals name="playedNbRunsOfPuzzleStorm">
-    <item quantity="one">Spelade en omgång av %2$s</item>
-    <item quantity="other">Spelade %1$s omgångar av %2$s</item>
+    <item quantity="one">Spelade en omgång %2$s</item>
+    <item quantity="other">Spelade %1$s omgångar %2$s</item>
   </plurals>
   <string name="highscoreX">Rekord: %s</string>
   <string name="score">Poäng</string>

@@ -1,11 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+  <string name="team">გუნდი</string>
   <string name="teams">გუნდები</string>
   <plurals name="nbMembers">
     <item quantity="one">%s წევრი</item>
     <item quantity="other">%s წევრი</item>
   </plurals>
   <string name="allTeams">ყველა გუნდი</string>
+  <string name="leaderTeams" comment="This is the button for 'teams lead by you' in the teams navigation sidebar">გუნდების ლიდერები</string>
   <string name="newTeam">ახალი გუნდი</string>
   <string name="myTeams">ჩემი გუნდები</string>
   <string name="noTeamFound">გუნდი არ მოდიძებნა</string>
@@ -31,6 +33,15 @@
 ვისაც არ მოეწონება მესიჯების მიღება შეიძლება დატოვონ გუნდი.</string>
   <string name="teamsIlead">გუნდები რომლის ლიდერიც ვარ</string>
   <string name="youWayWantToLinkOneOfTheseTournaments">ხომ არ გსურს დალინკო ერთერთი ტურნირი?</string>
-  <string name="usersWhoCanManageThisTeam">წევრები რომელთაც მართვა შეუძლიათ</string>
   <string name="leadersChat">ლიდერების ჩატი</string>
+  <string name="closeTeam">დახურე გუნდი</string>
+  <string name="closeTeamDescription">სამუდამოდ დახურე გუნდი.</string>
+  <string name="entryCode">გუნდში შესასვლელი კოდი</string>
+  <string name="incorrectEntryCode">არასწორი შესასვლელი კოდი.</string>
+  <string name="teamAlreadyExists">ეს ფაილი უკვე არსებობს.</string>
+  <string name="upcomingTourns">მოახლოებული ტურნირები</string>
+  <string name="completedTourns">დასრულებული ტურნირები</string>
+  <string name="declinedRequests">უარყოფილი შეთავაზება</string>
+  <string name="joinLichessVariantTeam">შეუერთდი ოფიციალურ %s გუნდს ახალი ამბებისა და ღონისძიებებისთვის</string>
+  <string name="teamPage">გუნდის გვერდი</string>
 </resources>

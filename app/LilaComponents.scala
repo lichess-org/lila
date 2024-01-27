@@ -33,7 +33,7 @@ final class LilaComponents(
     val mem              = Runtime.getRuntime.maxMemory() / 1024 / 1024
     val appVersionCommit = ~configuration.getOptional[String]("app.version.commit")
     val appVersionDate   = ~configuration.getOptional[String]("app.version.date")
-    s"lila ${environment.mode} $appVersionCommit $appVersionDate / scala 3 / java $java, memory: ${mem}MB"
+    s"lila ${environment.mode} $appVersionCommit $appVersionDate / java $java, memory: ${mem}MB"
   }
 
   import _root_.controllers.*
@@ -100,6 +100,7 @@ final class LilaComponents(
   lazy val appealC: appeal.Appeal         = wire[appeal.Appeal]
   lazy val auth: Auth                     = wire[Auth]
   lazy val blog: Blog                     = wire[Blog]
+  lazy val dailyFeed: DailyFeed           = wire[DailyFeed]
   lazy val playApi: PlayApi               = wire[PlayApi]
   lazy val challenge: Challenge           = wire[Challenge]
   lazy val coach: Coach                   = wire[Coach]
@@ -145,7 +146,8 @@ final class LilaComponents(
   lazy val simul: Simul                   = wire[Simul]
   lazy val streamer: Streamer             = wire[Streamer]
   lazy val study: Study                   = wire[Study]
-  lazy val team: Team                     = wire[Team]
+  lazy val teamC: team.Team               = wire[team.Team]
+  lazy val teamApi: TeamApi               = wire[TeamApi]
   lazy val timeline: Timeline             = wire[Timeline]
   lazy val tournament: Tournament         = wire[Tournament]
   lazy val tournamentCrud: TournamentCrud = wire[TournamentCrud]
@@ -167,6 +169,7 @@ final class LilaComponents(
   private val appealRouter: _root_.router.appeal.Routes = wire[_root_.router.appeal.Routes]
   private val reportRouter: _root_.router.report.Routes = wire[_root_.router.report.Routes]
   private val clasRouter: _root_.router.clas.Routes     = wire[_root_.router.clas.Routes]
+  private val teamRouter: _root_.router.team.Routes     = wire[_root_.router.team.Routes]
   val router: Router                                    = wire[_root_.router.router.Routes]
 
   if configuration.get[Boolean]("kamon.enabled") then

@@ -57,6 +57,7 @@ Analiza komputerowa dostępna na Lichess jest zasilana przez Stockfish.</string>
 W rzadkich sytuacjach może to być trudne do automatycznego określenia (ruchy wymuszone, twierdze). Domyślnie zawsze stajemy po stronie gracza, któremu nie skończył się czas.
 
 Zauważ, że możliwe jest zamatowanie pojedynczym skoczkiem lub gońcem, jeżeli przeciwnik posiada bierkę, która może zablokować króla.</string>
+  <string name="fideHandbook">przepisów FIDE</string>
   <string name="fideHandbookX">Przepisy gry w szachy FIDE %s</string>
   <string name="discoveringEnPassant">Dlaczego pion może zbić piona, który ruszył się o dwa pola do przodu i nie jest już pod biciem? (bicie w przelocie)</string>
   <string name="explainingEnPassant">To jest legalny ruch znany jako \"bicie w przelocie\". Wikipedia daje %1$s do zrozumienia tego posunięcia.
@@ -72,7 +73,7 @@ Zobacz nasze %3$s, aby poćwiczyć ten specjalny ruch.</string>
   <string name="lichessTraining">Podstawy gry</string>
   <string name="watchIMRosenCheckmate">Obejrzyj mata w wykonaniu IM Erica Rosena %s.</string>
   <string name="threefoldRepetition">Trzykrotne powtórzenie pozycji</string>
-  <string name="threefoldRepetitionExplanation">Jeśli pozycja występuje trzykrotnie, gracze mogą zgłosić remis poprzez %1$s. Lichess wprowadza oficjalne zasady FIDE, opisane w Artykule 9.2 (d) %2$s.</string>
+  <string name="threefoldRepetitionExplanation">Jeśli pozycja występuje trzykrotnie, gracze mogą zgłosić remis poprzez %1$s. Lichess wprowadza oficjalne zasady FIDE, opisane w Artykule 9.2 %2$s.</string>
   <string name="threefoldRepetitionLowerCase">trzykrotne powtórzenie pozycji</string>
   <string name="notRepeatedMoves">Nie powtórzyliśmy posunięć. Dlaczego gra mimo to została uznana za remisową?</string>
   <string name="repeatedPositionsThatMatters">Trzykrotne powtórzenie dotyczy powtarzania się %1$s, a nie ruchów. Powtórzenia nie muszą wystąpić jedno po drugim.</string>
@@ -148,4 +149,28 @@ Najlepiej myśleć o rankingu jako o „względnej” liczbie: wewnątrz danej p
 Kliknij ikonę blokady obok adresu lichess.org na pasku adresu w przeglądarce.
 
 Następnie wybierz czy chcesz zezwolić czy zablokować powiadomienia z Lichess.</string>
+  <string name="enableAutoplayForSoundsQ">Włączyć automatyczne odtwarzanie dźwięków?</string>
+  <string name="enableAutoplayForSoundsA">Większość przeglądarek może zablokować odtwarzanie dźwięku na świeżo załadowanej stronie. Chroni Cię w ten sposób przed natychmiastowym atakiem reklamami dźwiękowymi.
+
+Ikona czerwonego wyciszenia pojawia się, gdy przeglądarka uniemożliwia lichess.org odtwarzanie dźwięku. Zazwyczaj to ograniczenie zostaje zniesione po kliknięciu czegokolwiek na stronie. W niektórych przeglądarkach mobilnych próba przeciągania elementu nie liczy się jako kliknięcie. W takim przypadku musisz dotknąć ekranu, aby włączyć dźwięk na początku każdej gry.
+
+Pokazujemy czerwoną ikonę, aby Cię ostrzec, kiedy to się wydarzy. W wielu przeglądarkach możesz wprost zezwolić na odtwarzanie dźwięków na lichess.org. Poniżej znajdują się instrukcje jak to zrobić w najnowszych wersjach niektórych popularnych przeglądarek.</string>
+  <string name="desktop">pulpit</string>
+  <string name="enableAutoplayForSoundsFirefox">1. Przejdź do lichess.org
+2. Naciśnij Ctrl-i na Linux/Windows lub cmd-i na MacOS
+3. Kliknij kartę Uprawnienia
+4. Zezwól na audio i wideo na lichess.org</string>
+  <string name="enableAutoplayForSoundsChrome">1. Przejdź do lichess.org
+2. Kliknij ikonę blokady na pasku adresu
+3. Kliknij Ustawienia Strony
+4. Zezwól na dźwięk</string>
+  <string name="enableAutoplayForSoundsSafari">1. Przejdź do lichess.org
+2. Kliknij Safari na pasku menu
+3. Kliknij Ustawienia dla lichess.org ...
+4. Zezwól na automatyczne odtwarzanie</string>
+  <string name="enableAutoplayForSoundsMicrosoftEdge">1. Kliknij trzy kropki w prawym górnym rogu
+2. Kliknij Ustawienia
+3. Kliknij Ciasteczka i uprawnienia witryny
+4. Przewiń w dół i kliknij przycisk Autoplay Media
+5. Dodaj lichess.org do uprawnionych</string>
 </resources>

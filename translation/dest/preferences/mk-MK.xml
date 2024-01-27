@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="preferences">Поставки</string>
-  <string name="pieceAnimation">Движење на фигурите</string>
+  <string name="pieceAnimation">Анимација на фигурите</string>
   <string name="materialDifference">Материјална разлика</string>
   <string name="boardHighlights">Нагласени полиња (последен потег и шах)</string>
   <string name="pieceDestinations">Легални потези (важечки потези и претпотези)</string>
@@ -15,7 +15,6 @@
   <string name="explainShowPlayerRatings">Ова овозможува да ги скриете сите рангови од веб страницата, со цел да се фокусирате на шахот. Игрите и понатаму ќе бидат рангирани, со ова само нема да можете да ги видите.</string>
   <string name="displayBoardResizeHandle">Прикажи ја рачката за промена на големината на таблата</string>
   <string name="onlyOnInitialPosition">Само на почетокот на партијата</string>
-  <string name="blindfoldChess">Слеп шах (невидливи фигури)</string>
   <string name="chessClock">Шаховски часовник</string>
   <string name="tenthsOfSeconds">Стотинки</string>
   <string name="whenTimeRemainingLessThanTenSeconds" comment="whenTimeRemainingLessThanTenSeconds&#10;&#10;The &amp;lt; symbol is not required (you can write it as a word), just do NOT use &lt; in its place.&#10;&#10;Technical information: &lt; is a reserved character in HTML, which is why it cannot be used.">Кога останатото време е &lt; 10 секунди</string>

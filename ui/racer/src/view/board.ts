@@ -23,11 +23,7 @@ const renderGround = (ctrl: RacerCtrl): VNode =>
             makeCgConfig(
               ctrl.isRacing() && ctrl.isPlayer()
                 ? makeCgOpts(ctrl.run, true, ctrl.flipped)
-                : {
-                    fen: INITIAL_BOARD_FEN,
-                    orientation: ctrl.run.pov,
-                    movable: { color: ctrl.run.pov },
-                  },
+                : { fen: INITIAL_BOARD_FEN, orientation: ctrl.run.pov, movable: { color: ctrl.run.pov } },
               ctrl.pref,
               ctrl.userMove,
             ),
@@ -39,15 +35,9 @@ const renderGround = (ctrl: RacerCtrl): VNode =>
 const renderCountdown = (seconds: number) =>
   h('div.racer__countdown', [
     h('div.racer__countdown__lights', [
-      h('light.red', {
-        class: { active: seconds > 4 },
-      }),
-      h('light.orange', {
-        class: { active: seconds == 3 || seconds == 4 },
-      }),
-      h('light.green', {
-        class: { active: seconds <= 2 },
-      }),
+      h('light.red', { class: { active: seconds > 4 } }),
+      h('light.orange', { class: { active: seconds == 3 || seconds == 4 } }),
+      h('light.green', { class: { active: seconds <= 2 } }),
     ]),
     h('div.racer__countdown__seconds', seconds),
   ]);

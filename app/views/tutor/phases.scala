@@ -5,7 +5,7 @@ import controllers.routes
 import lila.app.templating.Environment.{ *, given }
 import lila.app.ui.ScalatagsTemplate.{ *, given }
 import lila.tutor.TutorPerfReport
-import lila.insight.InsightPosition
+import lila.insight.{ Phase, InsightPosition }
 
 object phases:
 
@@ -28,7 +28,7 @@ object phases:
         ul(report phaseHighlights 3 map compare.show)
       ),
       div(cls := "tutor-cards tutor-cards--triple")(
-        report.phases.map { phase =>
+        report.phases.map: phase =>
           st.section(cls := "tutor-card tutor__phases__phase")(
             div(cls := "tutor-card__top")(
               div(cls := "tutor-card__top__title tutor-card__top__title--pad")(
@@ -49,9 +49,14 @@ object phases:
                   dataIcon := licon.AnalogTv,
                   href     := s"${routes.Video.index}?tags=${phase.phase.name}"
                 )("Watch ", phase.phase.name, " videos")
-              )
+              ),
+              phase.phase == Phase.Opening option
+                a(cls := "tutor-card__more", href := routes.Tutor.openings(user.username, report.perf.key))(
+                  "More about your ",
+                  report.perf.trans,
+                  " openings"
+                )
             )
           )
-        }
       )
     )

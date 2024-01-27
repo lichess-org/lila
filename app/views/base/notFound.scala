@@ -14,7 +14,7 @@ object notFound:
       moreJs = prismicJs,
       moreCss = cssTag("not-found"),
       csp = isGranted(_.Prismic) option defaultCsp.withPrismic(true)
-    ) {
+    ):
       main(cls := "not-found page-small box box-pad")(
         header(
           h1("404"),
@@ -42,4 +42,3 @@ object notFound:
           )
         )
       )
-    }

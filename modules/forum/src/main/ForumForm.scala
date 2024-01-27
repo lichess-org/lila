@@ -51,6 +51,8 @@ final private[forum] class ForumForm(
         t => inOwnTeam || promotion.test(t, previousText)
       )
 
+  val diagnostic = Form(single("text" -> nonEmptyText(maxLength = 9000)))
+
 object ForumForm:
 
   case class PostData(

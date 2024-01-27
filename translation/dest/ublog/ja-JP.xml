@@ -1,5 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+  <string name="communityBlogs">コミュニティブログ</string>
+  <string name="friendBlogs">友達のブログ</string>
+  <string name="likedBlogs">いいねを押したブログ投稿</string>
+  <string name="blogTopics">ブログのトピック</string>
+  <string name="lichessOfficialBlog">Lichess 公式ブログ</string>
+  <string name="continueReadingPost">続きを読む</string>
+  <string name="lichessBlogPostsFromXYear">%s 年の Lichess ブログ投稿</string>
+  <string name="previousBlogPosts">前のブログ投稿</string>
   <string name="xBlog">%s のブログ</string>
   <string name="newPost">新しい投稿</string>
   <string name="editYourBlogPost">ブログへの投稿を編集</string>
@@ -34,10 +42,11 @@
   <string name="imageCredit">画像クレジット</string>
   <string name="deleteBlog">このブログ投稿を永久に削除する</string>
   <string name="deleteImage">画像を削除</string>
-  <string name="safeToUseImages" comment="safeToUseImages&#10;&#10;This is mentioned because the images there are royalty-free, so there is no risk of copyright infringement.">以下のウェブサイトの画像を使うのが安全です: </string>
+  <string name="safeToUseImages">以下のウェブサイトの画像を使うのが安全です: </string>
   <string name="selectPostTopics">ブログ投稿に合ったトピックを選ぶ</string>
   <string name="useImagesYouMadeYourself">自分で作成した画像、自分で撮影した写真、Lichess のスクリーンショットなど、他の人の著作権がないものなら何でも使用できます。</string>
   <string name="safeAndRespectfulContent">投稿できるのは安全で他者の権利を尊重したコンテンツだけです。他の人のコンテンツをコピーしてはいけません。</string>
   <string name="inappropriateContentAccountClosed">不適切な内容の場合、あなたのアカウントを停止することがあります。</string>
-  <string name="blogTips" comment="blogTips&#10;&#10;This is a link to https://lichess.org/page/blog-tips. Appears when creating a new post.">すばらしいブログを書くための簡単なヒント</string>
+  <string name="blogTips">すばらしいブログを書くための簡単なヒント</string>
+  <string name="discussThisBlogPostInTheForum">このブログ記事についてフォーラムで話す</string>
 </resources>

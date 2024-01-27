@@ -1,16 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="broadcasts">Retransmissions</string>
+  <string name="myBroadcasts">Les meves retransmissions</string>
   <plurals name="nbBroadcasts">
     <item quantity="one">%s retransmissió</item>
     <item quantity="other">%s retransmissions</item>
   </plurals>
   <string name="liveBroadcasts">Retransmissions de tornejos en directe</string>
   <string name="newBroadcast">Nova retransmissió en directe</string>
+  <string name="aboutBroadcasts">Sobre les retransmissions</string>
+  <string name="noRoundsYet">Cap ronda encara.</string>
+  <string name="howToUseLichessBroadcasts">Com utilitzar les retransmissions de Lichess.</string>
+  <string name="theNewRoundHelp">La nova ronda tindrà els mateixos membres i contribuïdors que l\'anterior.</string>
   <string name="addRound">Afegir una ronda</string>
   <string name="ongoing">En curs</string>
   <string name="upcoming">Properes</string>
   <string name="completed">Acabada</string>
+  <string name="completedHelp">Lichess detecta el final de la ronda en funció de les partides de l\'origen. Utilitzeu aquesta opció si no hi ha origen.</string>
   <string name="roundName">Nom de ronda</string>
   <string name="roundNumber">Ronda número</string>
   <string name="tournamentName">Nom del torneig</string>
@@ -33,5 +39,15 @@
   <string name="deleteAllGamesOfThisRound">Eliminar totes les partides d\'aquesta ronda. L\'origen ha d\'estar actiu per a recrear-les.</string>
   <string name="editRoundStudy">Edita l\'estudi de la ronda</string>
   <string name="deleteTournament">Elimina aquest torneig</string>
-  <string name="definitivelyDeleteTournament" comment="definitivelyDeleteTournament&#10;&#10;Confirmation prompt, when attempting to delete a broadcast on https://lichess.org/broadcast">Elimina el torneig de forma definitiva, amb totes les seves rondes i les seves partides.</string>
+  <string name="definitivelyDeleteTournament">Elimina el torneig de forma definitiva, amb totes les seves rondes i les seves partides.</string>
+  <string name="automaticLeaderboard" comment="An option when creating a broadcast to calculate a leaderboard automatically from the players involved. Example: https://lichess.org/broadcast/2023-london-chess-classic/round-9/5icayRCY">Taula de classificació automàtica</string>
+  <string name="automaticLeaderboardHelp" comment="An option when creating a broadcast to calculate a leaderboard automatically from the players involved. Example: https://lichess.org/broadcast/2023-london-chess-classic/round-9/5icayRCY">Calcula i mostra una taula de classificació simple basada en els resultats de les partides</string>
+  <string name="replace">Opcional: Reemplaça noms dels jugadors, puntuacions i títols</string>
+  <string name="replaceHelp">Una línia per jugador, seguint el següent format:
+Nom Original; Nom a mostrar; (Opcional) Puntuació opcional a mostrar; (Opcional) Títol a mostrar
+Per exemple:
+DrNykterstein;Magnus Carlsen;2863
+AnishGiri;Anish Giri;2764;GM</string>
+  <string name="periodInSeconds">Període en segons</string>
+  <string name="periodInSecondsHelp">Opcional, quant de temps esperar entre sol·licituds. Mínim 2 segons, màxim 60 segons. Per defecte es gestiona automàticament en funció del nombre de visualitzadors.</string>
 </resources>

@@ -1,5 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+  <string name="communityBlogs">Blogs de la comunitat</string>
+  <string name="friendBlogs">Blogs dels amics</string>
+  <string name="likedBlogs">Entrades del blog que t\'han agradat</string>
+  <string name="blogTopics">Temes dels blogs</string>
+  <string name="lichessOfficialBlog">Blog oficial de Lichess</string>
+  <string name="continueReadingPost">Continua llegint aquesta entrada</string>
+  <string name="lichessBlogPostsFromXYear">Entrades del blog de lichess de %s</string>
+  <string name="previousBlogPosts">Entrades del blog anteriors</string>
   <string name="xBlog">Blog de %s</string>
   <string name="newPost">Nova publicació</string>
   <string name="editYourBlogPost">Edita la teva publicació</string>
@@ -37,10 +45,11 @@
   <string name="imageCredit">Crèdits de la imatge</string>
   <string name="deleteBlog">Elimina aquesta entrada del blog definitivament</string>
   <string name="deleteImage">Elimina la imatge</string>
-  <string name="safeToUseImages" comment="safeToUseImages&#10;&#10;This is mentioned because the images there are royalty-free, so there is no risk of copyright infringement.">Es segur utilitzar imatges dels següents llocs web: </string>
+  <string name="safeToUseImages">Es segur utilitzar imatges dels següents llocs web: </string>
   <string name="selectPostTopics">Seleccioneu els temes dels quals tracta la vostra entrada</string>
   <string name="useImagesYouMadeYourself">També podeu utilitzar imatges que heu fet vosaltres mateixos, fotos que heu fet, captures del lichess... Qualsevol cosa que no té drets de còpia d\'algú altre.</string>
   <string name="safeAndRespectfulContent">Si us plau, compartiu només contingut segur i respectuós. No copieu el contingut d\'algú altre.</string>
   <string name="inappropriateContentAccountClosed">Qualsevol contingut inapropiat podria implicar el tancament del teu compte.</string>
-  <string name="blogTips" comment="blogTips&#10;&#10;This is a link to https://lichess.org/page/blog-tips. Appears when creating a new post.">Els nostres senzills consells per escriure bones entrades al blog</string>
+  <string name="blogTips">Els nostres senzills consells per escriure bones entrades al blog</string>
+  <string name="discussThisBlogPostInTheForum">Discuteix aquesta publicació del blog en el fòrum</string>
 </resources>

@@ -60,6 +60,7 @@ Tamen, Patronoj ekhavas rajtojn fiere uzi novan profilan ikonon.</string>
   <string name="nextPayment">Sekva pago</string>
   <string name="youWillBeChargedXOnY">Ni enpezigos el vi %1$s la %2$s.</string>
   <string name="makeAdditionalDonation">Faru kroman donacon nun</string>
+  <string name="giftPatronWingsShort">Doni Patreon flugilojn</string>
   <string name="giftPatronWings">Donaci Patron-flugilojn al ludanto</string>
   <string name="update">Ĝisdatigi</string>
   <string name="changeMonthlyAmount">Ŝanĝu la monatan sumon (%s)</string>
@@ -79,4 +80,7 @@ Tamen, Patronoj ekhavas rajtojn fiere uzi novan profilan ikonon.</string>
   <string name="nowOneMonth">Nun vi estas Lichess Patrono por unu monato!</string>
   <string name="downgradeNextMonth">En unu monato, vi NE estos ŝargita denove, kaj via Lichess konto revenos al regula konto.</string>
   <string name="changeCurrency">Ŝanĝi valuton</string>
+  <string name="paymentDetails">Pagaj detaloj</string>
+  <string name="updatePaymentMethod">Ĝisdatigi pagmanieron</string>
+  <string name="stripeManageSub">Administri vian abonon kaj elŝuti viajn fakturojn kaj kvitancojn</string>
 </resources>

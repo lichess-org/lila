@@ -1,5 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+  <string name="communityBlogs">Yhteisön blogit</string>
+  <string name="friendBlogs">Ystävien blogit</string>
+  <string name="likedBlogs">Tykätyt blogikirjoitukset</string>
+  <string name="blogTopics">Blogin aiheet</string>
+  <string name="lichessOfficialBlog">Lichessin virallinen blogi</string>
+  <string name="continueReadingPost">Jatka tämän kirjoituksen lukemista</string>
+  <string name="lichessBlogPostsFromXYear">Lichess-blogikirjoitukset vuodelta %s</string>
+  <string name="previousBlogPosts">Edelliset blogikirjoitukset</string>
   <string name="xBlog">Käyttäjän %s blogi</string>
   <string name="newPost">Uusi kirjoitus</string>
   <string name="editYourBlogPost">Muokkaa blogikirjoitustasi</string>
@@ -37,10 +45,11 @@
   <string name="imageCredit">Kuvan lähde</string>
   <string name="deleteBlog">Poista blogikirjoitus lopullisesti</string>
   <string name="deleteImage">Poista kuva</string>
-  <string name="safeToUseImages" comment="safeToUseImages&#10;&#10;This is mentioned because the images there are royalty-free, so there is no risk of copyright infringement.">Seuraavilta sivustoilta peräisin olevia kuvia saa käyttää: </string>
+  <string name="safeToUseImages">Seuraavilta sivustoilta peräisin olevia kuvia saa käyttää: </string>
   <string name="selectPostTopics">Valitse kirjoituksesi teemat</string>
   <string name="useImagesYouMadeYourself">Voit myös käyttää itse tekemiäsi tai ottamiasi kuvia, kuvakaappauksia Lichessistä... mitä tahansa sisältöä, jota eivät suojaa jonkun muun tekijänoikeudet.</string>
   <string name="safeAndRespectfulContent">Julkaise vain turvallista ja muita kunnioittavaa sisältöä. Älä kopioi toisten luomaa sisältöä.</string>
   <string name="inappropriateContentAccountClosed">Epäasiallisen sisällön julkaisu voi johtaa käyttäjätunnuksesi sulkemiseen.</string>
-  <string name="blogTips" comment="blogTips&#10;&#10;This is a link to https://lichess.org/page/blog-tips. Appears when creating a new post.">Yksinkertaiset vinkkimme erinomaisten blogikirjoitusten laatimiseen</string>
+  <string name="blogTips">Yksinkertaiset vinkkimme erinomaisten blogikirjoitusten laatimiseen</string>
+  <string name="discussThisBlogPostInTheForum">Keskustele tästä blogikirjoituksesta foorumissa</string>
 </resources>

@@ -53,6 +53,7 @@
   <string name="allSyncMembersRemainOnTheSamePosition">Alle synchronisierten Mitglieder sehen die gleiche Stellung</string>
   <string name="shareChanges">Teile Änderungen mit den Zuschauern und speichere sie auf dem Server</string>
   <string name="playing">Laufende Partien</string>
+  <string name="showEvalBar">Stellungsbewertungs-Balken</string>
   <string name="first">Erste Seite</string>
   <string name="previous">Zurück</string>
   <string name="next">Weiter</string>

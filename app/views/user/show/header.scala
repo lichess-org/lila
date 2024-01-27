@@ -14,15 +14,27 @@ object header:
   private val dataToints = attr("data-toints")
   private val dataTab    = attr("data-tab")
 
-  def apply(u: User, info: UserInfo, angle: UserInfo.Angle, social: UserInfo.Social)(using ctx: PageContext) =
+  def apply(u: User, info: UserInfo, angle: UserInfo.Angle, social: UserInfo.Social)(using ctx: Context) =
+    val userDom =
+      span(
+        cls      := userClass(u.id, none, withOnline = !u.isPatron, withPowerTip = false),
+        dataHref := userUrl(u.username)
+      )(
+        !u.isPatron so lineIcon(u),
+        titleTag(u.title),
+        u.username,
+        userFlair(u).map: flair =>
+          if ctx.isAuth then a(href := routes.Account.profile, title := trans.setFlair.txt())(flair)
+          else flair
+      )
     frag(
       div(cls := "box__top user-show__header")(
         if u.isPatron then
           h1(cls := s"user-link ${if isOnline(u.id) then "online" else "offline"}")(
             a(href := routes.Plan.index)(patronIcon),
-            userSpan(u, withPowerTip = false, withOnline = false)
+            userDom
           )
-        else h1(userSpan(u, withPowerTip = false)),
+        else h1(userDom),
         div(
           cls := List(
             "trophies" -> true,
@@ -64,13 +76,13 @@ object header:
           a(href := routes.Study.byOwnerDefault(u.username), cls := "nm-item")(
             splitNumber(trans.`nbStudies`.pluralSame(info.nbStudies))
           ),
-          ctx.noKid option a(
+          ctx.kid.no option a(
             cls  := "nm-item",
             href := routes.ForumPost.search("user:" + u.username, 1).url
           )(
             splitNumber(trans.nbForumPosts.pluralSame(info.nbForumPosts))
           ),
-          ctx.noKid && (info.ublog.exists(_.nbPosts > 0) || ctx.is(u)) option a(
+          ctx.kid.no && (info.ublog.exists(_.nbPosts > 0) || ctx.is(u)) option a(
             cls  := "nm-item",
             href := routes.Ublog.index(u.username)
           )(
@@ -125,7 +137,7 @@ object header:
             titleOrText(trans.exportGames.txt()),
             dataIcon := licon.Download
           ),
-          (ctx.isAuth && ctx.noKid && !ctx.is(u)) option a(
+          (ctx.isAuth && ctx.kid.no && !ctx.is(u)) option a(
             titleOrText(trans.reportXToModerators.txt(u.username)),
             cls      := "btn-rack__btn",
             href     := s"${reportRoutes.form}?username=${u.username}",
@@ -143,7 +155,7 @@ object header:
           val hideTroll = u.marks.troll && !ctx.is(u)
           div(id := "us_profile")(
             if info.ratingChart.isDefined && (!u.lame || ctx.is(u) || isGranted(_.UserModView)) then
-              div(cls := "rating-history")(spinner)
+              views.html.user.perfStat.ratingHistoryContainer
             else (ctx.is(u) && u.count.game < 10) option newPlayer(u),
             div(cls := "profile-side")(
               div(cls := "user-infos")(
@@ -153,7 +165,7 @@ object header:
                     trans.thisAccountViolatedTos()
                   )
                 ),
-                ctx.noKid && !hideTroll && !u.kid option frag(
+                ctx.kid.no && !hideTroll && ctx.kid.no option frag(
                   profile.nonEmptyRealName map { name =>
                     strong(cls := "name")(name)
                   },
@@ -165,16 +177,15 @@ object header:
                   profile.officialRating.map { r =>
                     div(r.name.toUpperCase, " rating: ", strong(r.rating))
                   },
-                  profile.nonEmptyLocation.ifTrue(ctx.noKid && !hideTroll).map { l =>
+                  profile.nonEmptyLocation.ifTrue(ctx.kid.no && !hideTroll).map { l =>
                     span(cls := "location")(l)
                   },
-                  profile.countryInfo.map { c =>
-                    span(cls := "country")(
-                      img(cls := "flag", src := assetUrl(s"images/flags/${c.code}.png")),
+                  profile.flagInfo.map: c =>
+                    span(cls := "flag")(
+                      img(src := assetUrl(s"images/flags/${c.code}.png")),
                       " ",
                       c.name
-                    )
-                  },
+                    ),
                   p(cls := "thin")(trans.memberSince(), " ", showDate(u.createdAt)),
                   u.seenAt.map { seen =>
                     p(cls := "thin")(trans.lastSeenActive(momentFromNow(seen)))
@@ -191,40 +202,36 @@ object header:
                     br,
                     a(href := s"${routes.User.opponents}?u=${u.username}")(trans.favoriteOpponents())
                   ),
-                  u.playTime.map { playTime =>
+                  u.playTime.map: playTime =>
                     frag(
                       p(trans.tpTimeSpentPlaying(showDuration(playTime.totalDuration))),
                       playTime.nonEmptyTvDuration.map { tvDuration =>
                         p(trans.tpTimeSpentOnTV(showDuration(tvDuration)))
                       }
-                    )
-                  },
+                    ),
                   !hideTroll option div(cls := "social_links col2")(
                     profile.actualLinks.nonEmpty option strong(trans.socialMediaLinks()),
-                    profile.actualLinks.map { link =>
+                    profile.actualLinks.map: link =>
                       a(href := link.url, targetBlank, noFollow)(link.site.name)
-                    }
                   ),
                   div(cls := "teams col2")(
                     info.teamIds.nonEmpty option strong(trans.team.teams()),
-                    info.teamIds.sorted(stringOrdering).map { t =>
+                    info.teamIds.sorted(stringOrdering) map: t =>
                       teamLink(t, withIcon = false)
-                    }
                   )
                 )
               ),
               info.insightVisible option
-                a(cls := "insight", href := routes.Insight.index(u.username), dataIcon := licon.Target)(
+                a(cls := "insight", href := routes.Insight.index(u.username), dataIcon := licon.Target):
                   span(
                     strong("Chess Insights"),
                     em("Analytics from ", if ctx.is(u) then "your" else s"${u.username}'s", " games")
                   )
-                )
             )
           )
       ,
-      (ctx.noKid && info.ublog.so(_.latests).nonEmpty) option div(cls := "user-show__blog ublog-post-cards")(
-        info.ublog.so(_.latests) map { views.html.ublog.post.card(_, showAuthor = false) }
+      (ctx.kid.no && info.ublog.so(_.latests).nonEmpty) option div(cls := "user-show__blog ublog-post-cards")(
+        info.ublog.so(_.latests) map { views.html.ublog.post.card(_) }
       ),
       div(cls := "angles number-menu number-menu--tabs menu-box-pop")(
         a(
@@ -253,7 +260,7 @@ object header:
       )
     )
 
-  def noteZone(u: User, notes: List[lila.user.Note])(using ctx: PageContext) = div(cls := "note-zone")(
+  def noteZone(u: User, notes: List[lila.user.Note])(using ctx: Context) = div(cls := "note-zone")(
     postForm(cls := "note-form", action := routes.User.writeNote(u.username))(
       form3.textarea(lila.user.UserForm.note("text"))(
         placeholder := trans.writeAPrivateNoteAboutThisUser.txt()
@@ -274,11 +281,9 @@ object header:
         p(cls := "note__text")(richText(note.text, expandImg = false)),
         (note.mod && isGranted(_.Admin)) option postForm(
           action := routes.User.setDoxNote(note._id, !note.dox)
-        )(
-          submitButton(
-            cls := "button-empty confirm button text"
-          )("Toggle Dox")
-        ),
+        ):
+          submitButton(cls := "button-empty confirm button text")("Toggle Dox")
+        ,
         p(cls := "note__meta")(
           userIdLink(note.from.some),
           br,

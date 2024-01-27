@@ -7,10 +7,10 @@
   <string name="isNotRated">Este torneo *non* é puntuado e *non* afectará á túa puntuación.</string>
   <string name="someRated">Algúns torneos son puntuados e afectarán á túa puntuación.</string>
   <string name="howAreScoresCalculated">Como se calculan os puntos de torneo?</string>
-  <string name="howAreScoresCalculatedAnswer">Unha vitoria ten unha puntuación por defecto de 2 puntos, unhas táboas suman 1 punto e as derrotas cero.
+  <string name="howAreScoresCalculatedAnswer">Unha vitoria ten unha puntuación por defecto de 2 puntos, unhas táboas suman 1 punto e as derrotas ningún punto.
 Se gañas dúas partidas seguidas, comezarás unha secuencia de puntuación dobre, representada por unha icona de lapa.
 As seguintes partidas continuarán valendo dobre ata que pares de gañar.
-É dicir, unha vitoria valerá 4 puntos, unhas táboas 2 puntos e a derrota segue sendo 0.
+É dicir, unha vitoria valerá 4 puntos, unhas táboas 2 puntos e a derrota segue sen dar puntos.
 
 Por exemplo, dúas vitorias seguidas por unhas táboas valen 6 puntos: 2 + 2 + (2 x 1)</string>
   <string name="berserk">Modo Berserk</string>
@@ -28,7 +28,7 @@ O modo Berserk só garante un punto adicional no caso de que se realicen polo me
 Así que rematas unha partida, voltas á sala de espera: alí serás emparellado cun xogador que estea preto na clasificación. Isto garante un mínimo tempo de espera, aínda que pode que non xogues contra todos os xogadores do torneo.
 Xoga rápido e volta á sala de espera para xogar máis partidas e gañar máis puntos.</string>
   <string name="howDoesItEnd">Como remata?</string>
-  <string name="howDoesItEndAnswer">O torneo ten un reloxo cunha conta atrás. Cando chega a cero, a clasificación do torneo se conxela e se proclama ó gañador. As partidas en curso nese momento deben rematar, pero non contan para a clasificación do torneo.</string>
+  <string name="howDoesItEndAnswer">O torneo ten un reloxo cunha conta atrás. Cando chega a cero, a clasificación do torneo conxélase e proclámase o gañador. Malia que as partidas en curso deben rematar, non contan para a clasificación do torneo.</string>
   <string name="otherRules">Outras regras importantes</string>
   <string name="thereIsACountdown">Hai unha conta atrás para a túa primeira xogada. Non executala neste tempo dará a vitoria ao teu opoñente.</string>
   <plurals name="drawingWithinNbMoves">

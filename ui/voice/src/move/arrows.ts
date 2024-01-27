@@ -27,13 +27,12 @@ export function numberedArrows(choices: [string, Uci][], timer: number | undefin
       label: choices.length > 1 ? { text: `${i + 1}` } : undefined,
     });
   });
-  if (timer) {
+  if (timer)
     shapes[0].customSvg = {
       center: choices.length > 1 ? 'label' : 'orig',
       html: timerShape(timer, choices.length > 1 ? 'grey' : 'white', 0.6),
     };
-  }
-  return shapes;
+  return shapes.reverse();
 }
 
 export function coloredArrows(choices: [string, Uci][], timer: number | undefined): DrawShape[] {
@@ -48,10 +47,12 @@ export function coloredArrows(choices: [string, Uci][], timer: number | undefine
       modifiers: { hilite: uci === preferred },
     });
   });
-  if (timer) {
-    shapes[0].customSvg = { center: 'orig', html: timerShape(timer, brushes.values().next().value.color) };
-  }
-  return shapes;
+  if (timer)
+    shapes[0].customSvg = {
+      center: 'orig',
+      html: timerShape(timer, brushes.values().next().value.color),
+    };
+  return shapes.reverse();
 }
 
 function timerShape(duration: number, color: string, alpha = 0.4) {

@@ -22,7 +22,7 @@
   </plurals>
   <string name="teamRecentMembers">Membres récents de l\'équipe</string>
   <string name="kickSomeone">Expulser quelqu\'un de l\'équipe</string>
-  <string name="whoToKick">Qui voulez-vous expulser de l\'équipe?</string>
+  <string name="whoToKick">Qui voulez-vous expulser de l\'équipe ?</string>
   <plurals name="xJoinRequests">
     <item quantity="one">%s demande d\'adhésion</item>
     <item quantity="other">%s demandes d\'adhésion</item>
@@ -43,7 +43,6 @@ Vous pouvez l\'utiliser pour appeler les joueurs à rejoindre un tournoi ou une 
 Les joueurs qui n\'aiment pas recevoir vos messages risquent de quitter l\'équipe.</string>
   <string name="teamsIlead">Équipe(s) que je gère</string>
   <string name="youWayWantToLinkOneOfTheseTournaments">Souhaitez-vous rejoindre l\'un de ces prochains tournois ?</string>
-  <string name="usersWhoCanManageThisTeam">Utilisateurs qui peuvent administrer cette équipe</string>
   <string name="leadersChat">Chat des chefs de l\'équipe</string>
   <string name="closeTeam">Fermer l\'équipe</string>
   <string name="closeTeamDescription">Ferme l\'équipe définitivement.</string>

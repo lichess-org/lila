@@ -23,9 +23,6 @@
     <item quantity="other">%s年後</item>
   </plurals>
   <string name="rightNow">現在</string>
-  <plurals name="nbSecondsAgo">
-    <item quantity="other">%s秒前</item>
-  </plurals>
   <plurals name="nbMinutesAgo">
     <item quantity="other">%s分前</item>
   </plurals>

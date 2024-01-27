@@ -1,15 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="broadcasts">イベント中継</string>
+  <string name="myBroadcasts">自分の配信</string>
   <plurals name="nbBroadcasts">
     <item quantity="other">%s ブロードキャスト</item>
   </plurals>
   <string name="liveBroadcasts">実戦トーナメントのライブ中継</string>
   <string name="newBroadcast">新しいライブ中継</string>
+  <string name="aboutBroadcasts">中継について</string>
+  <string name="noRoundsYet">まだラウンドはありません。</string>
+  <string name="howToUseLichessBroadcasts">Lichess 中継の使い方。</string>
+  <string name="theNewRoundHelp">新ラウンドには前回と同じメンバーと投稿者が参加します。</string>
   <string name="addRound">ラウンドを追加</string>
   <string name="ongoing">配信中</string>
   <string name="upcoming">予定</string>
   <string name="completed">終了</string>
+  <string name="completedHelp">Lichess は元になる対局に基づいてラウンド終了を検出します。元になる対局がない時はこのトグルを使ってください。</string>
   <string name="roundName">ラウンド名</string>
   <string name="roundNumber">ラウンド</string>
   <string name="tournamentName">大会名</string>
@@ -32,5 +38,15 @@
   <string name="deleteAllGamesOfThisRound">このラウンドのすべてのゲームを削除します。復活させるには情報源がアクティブでなくてはなりません。</string>
   <string name="editRoundStudy">ラウンドの研究を編集</string>
   <string name="deleteTournament">このトーナメントを削除</string>
-  <string name="definitivelyDeleteTournament" comment="definitivelyDeleteTournament&#10;&#10;Confirmation prompt, when attempting to delete a broadcast on https://lichess.org/broadcast">トーナメント全体（全ラウンド、全ゲーム）を削除する。</string>
+  <string name="definitivelyDeleteTournament">トーナメント全体（全ラウンド、全ゲーム）を削除する。</string>
+  <string name="automaticLeaderboard" comment="An option when creating a broadcast to calculate a leaderboard automatically from the players involved. Example: https://lichess.org/broadcast/2023-london-chess-classic/round-9/5icayRCY">自動ランキング</string>
+  <string name="automaticLeaderboardHelp" comment="An option when creating a broadcast to calculate a leaderboard automatically from the players involved. Example: https://lichess.org/broadcast/2023-london-chess-classic/round-9/5icayRCY">ゲーム結果から簡単なランキングを計算して表示する</string>
+  <string name="replace">オプション：プレイヤーの名前、レーティング、タイトルの変更</string>
+  <string name="replaceHelp">1 人 1 行、次の形式で：
+元の名前;変更後の名前;変更後のレーティング（オプション）;変更後のタイトル（オプション）
+例：
+DrNykterstein;Magnus Carlsen;2863
+AnishGiri;Anish Giri;2764;GM</string>
+  <string name="periodInSeconds">待機時間（秒）</string>
+  <string name="periodInSecondsHelp">オプション、次のリクエストまでの待機時間を指定。最小 2 秒、最大 60 秒。デフォルト値は視聴者数から自動的に決まります。</string>
 </resources>

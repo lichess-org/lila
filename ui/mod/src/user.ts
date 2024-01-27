@@ -1,6 +1,6 @@
 import * as xhr from 'common/xhr';
 import debounce from 'common/debounce';
-import extendTablesortNumber from 'common/tablesort-number';
+import extendTablesortNumber from 'common/tablesortNumber';
 import tablesort from 'tablesort';
 import { expandCheckboxZone, shiftClickCheckboxRange, selector } from './checkBoxes';
 
@@ -150,24 +150,23 @@ lichess.load.then(() => {
           return false;
         });
       let selected: string | undefined;
-      const valueOf = (el: HTMLTableRowElement) => $(el).data('value');
       const applyFilter = (v?: string) =>
         v
           ? $inZone.find('.mz-section--others tbody tr').each(function (this: HTMLElement) {
-              $(this).toggleClass('none', !($(this).data('tags') || '').includes(v));
+              $(this).toggleClass('none', !(this.dataset.tags || '').includes(v));
             })
           : $inZone.find('.mz-section--others tbody tr.none').removeClass('none');
       $(el)
         .find('tr')
         .on('click', function (this: HTMLTableRowElement) {
-          const v = valueOf(this);
+          const v = this.dataset.value;
           selected = selected == v ? undefined : v;
           applyFilter(selected);
           $('.spy_filter tr.selected').removeClass('selected');
           $(this).toggleClass('selected', !!selected);
         })
         .on('mouseenter', function (this: HTMLTableRowElement) {
-          !selected && applyFilter(valueOf(this));
+          !selected && applyFilter(this.dataset.value);
         });
       $(el).on('mouseleave', () => !selected && applyFilter());
     });

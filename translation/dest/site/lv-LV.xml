@@ -285,7 +285,6 @@
   <string name="playingRightNow">Šobrīd spēlē</string>
   <string name="eventInProgress">Šobrīd notiek</string>
   <string name="finished">Beidzies</string>
-  <string name="finishesX">beidzas %s</string>
   <string name="abortGame">Atcelt spēli</string>
   <string name="gameAborted">Spēle atcelta</string>
   <string name="standard">Standarta</string>
@@ -541,8 +540,6 @@
   <string name="socialMediaLinks">Sociālo mediju saites</string>
   <string name="oneUrlPerLine">Katrā rindā vienu URL.</string>
   <string name="inlineNotation">Iekļautā notācija</string>
-  <string name="savingMoves">Gājieni saglabāti īslaicīgi</string>
-  <string name="savingMovesHelp">Jūsu gājienu variācijas tiek glabātas pārlūka kešatmiņā.</string>
   <string name="makeAStudy">Lai saglabātu un dalītos, varat izveidot izpēti.</string>
   <string name="clearSavedMoves">Dzēst gājienus</string>
   <string name="previouslyOnLichessTV">Iepriekš pārraidīts Lichess TV</string>
@@ -888,7 +885,6 @@
   </plurals>
   <string name="sorry">Lūdzu piedodiet :(</string>
   <string name="weHadToTimeYouOutForAWhile">Mums nācās jūs apturēt uz laiku.</string>
-  <string name="timeoutExpires">Pārtraukums beigsies %s.</string>
   <string name="why">Kāpēc?</string>
   <string name="pleasantChessExperience">Mēs cenšamies visiem piedāvāt patīkamu šaha pieredzi.</string>
   <string name="goodPractice">Līdz ar to, mums jānodrošina, lai visi spēlētāji pieturas pie labas prakses.</string>
@@ -908,6 +904,7 @@
   <string name="agreementPolicy">Piekrītu ievērot visus Lichess noteikumus.</string>
   <string name="searchOrStartNewDiscussion">Meklēt vai uzsākt sarunu</string>
   <string name="edit">Rediģēt</string>
+  <string name="blitz" comment="Probably best left untranslated. Leave it as 'Blitz' unless your language has a better word for it.">Blitz</string>
   <string name="rapid">Ātrais</string>
   <string name="classical">Klasiskais</string>
   <string name="ultraBulletDesc">Neprātīgi ātras spēles—mazāk kā 30 sekundes</string>
@@ -947,9 +944,6 @@
   <string name="timeAlmostUp">Laiks gandrīz beidzies!</string>
   <string name="clickToRevealEmailAddress">[Noklikšķiniet, lai atklātu e-pasta adresi]</string>
   <string name="download">Lejupielādēt</string>
-  <string name="welcome">Laipni lūdzam!</string>
-  <string name="lichessPatronInfo">Lichess ir labdarības organizācija un pilnībā bezmaksas/brīva atvērtā koda programmatūra.
-Visas izmaksas, izstrādāšanu un saturu finansē vienīgi lietotāju ziedojumi.</string>
   <string name="coachManager">Trenera iestatījumi</string>
   <string name="streamerManager">Straumētāja iestatījumi</string>
   <string name="cancelTournament">Atcelt turnīru</string>
@@ -1007,4 +1001,6 @@ Atstājiet tukšu, lai spēles sāktos no parastās pozīcijas.</string>
   <string name="switchSides">Mainīties ar pusēm</string>
   <string name="closingAccountWithdrawAppeal">Konta slēgšana atsauks jūsu iesniegumu</string>
   <string name="ourEventTips">Pasākumu organizēšanas ieteikumi</string>
+  <string name="lichessPatronInfo">Lichess ir labdarības organizācija un pilnībā bezmaksas/brīva atvērtā koda programmatūra.
+Visas izmaksas, izstrādāšanu un saturu finansē vienīgi lietotāju ziedojumi.</string>
 </resources>

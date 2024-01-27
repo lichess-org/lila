@@ -60,6 +60,7 @@ Men bidragsytarar kan briske seg med et tøft, nytt profil-ikon.</string>
   <string name="nextPayment">Neste betaling</string>
   <string name="youWillBeChargedXOnY">Du vil bli trekt %1$s, %2$s.</string>
   <string name="makeAdditionalDonation">Legg inn ei ekstra pengegåve no</string>
+  <string name="giftPatronWingsShort">Gje mesen-vengjer som gåve</string>
   <string name="giftPatronWings">Gje ein spelar gjevar-venger</string>
   <string name="update">Oppdater</string>
   <string name="changeMonthlyAmount">Endre månadleg beløp (%s)</string>

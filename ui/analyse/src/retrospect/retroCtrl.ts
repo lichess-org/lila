@@ -26,6 +26,7 @@ export interface RetroCtrl {
   completion(): [number, number];
   reset(): void;
   flip(): void;
+  preventGoingToNextMove(): boolean;
   close(): void;
   node(): Tree.Node;
   redraw: Redraw;
@@ -43,7 +44,7 @@ interface Retrospection {
   openingUcis: Uci[];
 }
 
-type Feedback = 'find' | 'eval' | 'win' | 'fail' | 'view';
+type Feedback = 'find' | 'eval' | 'win' | 'fail' | 'view' | 'offTrack';
 
 export function make(root: AnalyseCtrl, color: Color): RetroCtrl {
   const game = root.data.game;
@@ -124,7 +125,10 @@ export function make(root: AnalyseCtrl, color: Color): RetroCtrl {
       fb = feedback(),
       cur = current();
     if (!cur) return;
-    if (fb === 'eval' && cur.fault.node.ply !== node.ply) {
+    if (
+      (fb === 'eval' && cur.fault.node.ply !== node.ply) ||
+      (fb === 'offTrack' && cur.prev.path === root.path)
+    ) {
       feedback('find');
       root.setAutoShapes();
       return;
@@ -139,6 +143,8 @@ export function make(root: AnalyseCtrl, color: Color): RetroCtrl {
         if (!root.ceval.enabled()) root.toggleCeval();
         checkCeval();
       }
+    } else if (isSolving() && cur.prev.path !== root.path) {
+      feedback('offTrack');
     }
     root.setAutoShapes();
   }
@@ -238,6 +244,10 @@ export function make(root: AnalyseCtrl, color: Color): RetroCtrl {
         root.retro = make(root, opposite(color));
         redraw();
       }
+    },
+    preventGoingToNextMove: () => {
+      const cur = current();
+      return isSolving() && !!cur && root.path == cur.prev.path;
     },
     close: root.toggleRetro,
     trans: root.trans,

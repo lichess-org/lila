@@ -12,10 +12,6 @@
     flex: 1 1 auto;
     gap: 0.5em;
 
-    @include breakpoint($mq-col3) {
-      margin: 2em 0 0 0;
-    }
-
     button {
       font-size: 1.1em;
       text-align: center;
@@ -25,32 +21,12 @@
         opacity: 0.2;
       }
     }
-
-    @include breakpoint($mq-col4) {
-      justify-content: center;
-
-      button {
-        margin: 1.2em 0;
-        padding: 1em;
-      }
-    }
   }
 
   &__counters {
     @extend %flex-between, %page-text;
-
+    margin-top: $block-gap / 2;
     display: none;
-
-    @include breakpoint($mq-col3) {
-      display: flex;
-    }
-
-    @include breakpoint($mq-col4) {
-      flex-flow: column;
-      align-items: flex-start;
-      position: absolute;
-      bottom: 0;
-    }
 
     a {
       color: $c-font-page;

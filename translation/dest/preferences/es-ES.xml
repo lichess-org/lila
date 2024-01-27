@@ -15,11 +15,11 @@
   <string name="pgnLetter">Inicial (en inglés) de la pieza (K, Q, R, B, N)</string>
   <string name="zenMode" comment="zenMode&#10;&#10;This is not the religious meaning. Turning this option on takes away make elements of the user interface.&#10;&#10;Can also translate as 'Focus mode' as one example.">Modo Zen</string>
   <string name="showPlayerRatings">Mostrar las puntuaciones de los jugadores</string>
-  <string name="explainShowPlayerRatings">Esto permite ocultar todas las puntuaciones del sitio, para ayudar a centrarse en el ajedrez. Las partidas aún pueden ser por puntos, esto es sólo lo que tú puedes ver.</string>
+  <string name="showFlairs">Mostrar tu figurín</string>
+  <string name="explainShowPlayerRatings">Esto oculta el ELO en Lichess, para ayudar a concentrarte solo en el juego. Los juegos por puntos continuarán afectando tus ELO, esta opción es solo para lo que tú ves en la plataforma.</string>
   <string name="displayBoardResizeHandle">Mostrar el control de tamaño del tablero</string>
   <string name="onlyOnInitialPosition">Sólo en posición inicial</string>
   <string name="inGameOnly">Solo durante la partida</string>
-  <string name="blindfoldChess">Ajedrez a ciegas (piezas invisibles)</string>
   <string name="chessClock">Reloj de ajedrez</string>
   <string name="tenthsOfSeconds">Décimas de segundo</string>
   <string name="whenTimeRemainingLessThanTenSeconds" comment="whenTimeRemainingLessThanTenSeconds&#10;&#10;The &amp;lt; symbol is not required (you can write it as a word), just do NOT use &lt; in its place.&#10;&#10;Technical information: &lt; is a reserved character in HTML, which is why it cannot be used.">Cuando queden menos de 10 segundos</string>
@@ -66,5 +66,5 @@
   <string name="notifyPush">Notificación de dispositivo cuando no estés en Lichess</string>
   <string name="notifyWeb">Navegador</string>
   <string name="notifyDevice">Dispositivo</string>
-  <string name="bellNotificationSound">Sonido de notificación de Bell</string>
+  <string name="bellNotificationSound">Campana de notificación</string>
 </resources>

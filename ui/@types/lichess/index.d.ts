@@ -4,6 +4,7 @@
 interface Lichess {
   load: Promise<void>; // DOMContentLoaded promise
   info: any;
+  debug: boolean;
   requestIdleCallback(f: () => void, timeout?: number): void;
   sri: string;
   storage: LichessStorageHelper;
@@ -12,14 +13,18 @@ interface Lichess {
   powertip: LichessPowertip;
   clockWidget(el: HTMLElement, opts: { time: number; pause?: boolean }): void;
   spinnerHtml: string;
-  assetUrl(url: string, opts?: AssetUrlOpts): string;
-  loadCss(path: string): void;
-  loadCssPath(path: string): Promise<void>;
-  jsModule(name: string): string;
-  loadIife(path: string, opts?: AssetUrlOpts): Promise<void>;
-  loadEsm<T, ModuleOpts = any>(name: string, opts?: { init?: ModuleOpts; url?: AssetUrlOpts }): Promise<T>;
-  hopscotch: any;
-  userComplete: (opts: UserCompleteOpts) => Promise<UserComplete>;
+  asset: {
+    baseUrl(): string;
+    url(url: string, opts?: AssetUrlOpts): string;
+    flairSrc(flair: Flair): string;
+    loadCss(path: string): void;
+    loadCssPath(path: string): Promise<void>;
+    jsModule(name: string): string;
+    loadIife(path: string, opts?: AssetUrlOpts): Promise<void>;
+    loadEsm<T, ModuleOpts = any>(name: string, opts?: { init?: ModuleOpts; url?: AssetUrlOpts }): Promise<T>;
+    hopscotch: any;
+    userComplete(opts: UserCompleteOpts): Promise<UserComplete>;
+  };
   slider(): Promise<void>;
   makeChat(data: any): any;
   makeChessground(el: HTMLElement, config: CgConfig): CgApi;
@@ -69,10 +74,19 @@ interface Lichess {
     update(data: any, mainline: any[]): void;
     (data: any, mainline: any[], trans: Trans, el: HTMLElement): void;
   };
+  log: LichessLog;
+}
+
+interface LichessLog {
+  (...args: any[]): Promise<void>;
+  clear(): Promise<void>;
+  get(): Promise<string>;
 }
 
 type I18nDict = { [key: string]: string };
 type I18nKey = string;
+
+type Flair = string;
 
 type RedirectTo = string | { url: string; cookie: Cookie };
 
@@ -104,6 +118,7 @@ interface UserCompleteOpts {
   friend?: boolean;
   tour?: string;
   swiss?: string;
+  team?: string;
 }
 
 interface QuestionChoice {
@@ -118,7 +133,12 @@ interface QuestionOpts {
   no?: QuestionChoice;
 }
 
-type SoundMove = (node?: { san?: string; uci?: string }, music?: boolean) => void;
+type SoundMove = (opts?: {
+  name?: string; // either provide this or valid san/uci
+  san?: string;
+  uci?: string;
+  filter?: 'music' | 'game'; // undefined allows either
+}) => void;
 
 interface SoundI {
   ctx?: AudioContext;
@@ -179,7 +199,7 @@ interface Pubsub {
 }
 
 interface LichessStorageHelper {
-  make(k: string): LichessStorage;
+  make(k: string, ttl?: number): LichessStorage;
   boolean(k: string): LichessBooleanStorage;
   get(k: string): string | null;
   set(k: string, v: string): void;
@@ -285,6 +305,7 @@ declare namespace Editor {
     orientation?: Color;
     onChange?: (fen: string) => void;
     inlineCastling?: boolean;
+    coordinates?: boolean;
   }
 
   export interface OpeningPosition {
@@ -317,7 +338,6 @@ interface Window {
   readonly UserComplete: any;
   readonly Sortable: any;
   readonly Peer: any;
-  readonly Highcharts: any;
   readonly Tagify: unknown;
   readonly paypalOrder: unknown;
   readonly paypalSubscription: unknown;
@@ -335,6 +355,7 @@ interface Study {
 interface LightUserNoId {
   name: string;
   title?: string;
+  flair?: Flair;
   patron?: boolean;
 }
 
@@ -408,33 +429,31 @@ interface Paginator<A> {
   nbPages: number;
 }
 
+interface EvalScore {
+  cp?: number;
+  mate?: number;
+}
+
 declare namespace Tree {
   export type Path = string;
 
-  interface ClientEvalBase {
+  interface ClientEvalBase extends EvalScore {
     fen: Fen;
     depth: number;
     nodes: number;
     pvs: PvData[];
-    cp?: number;
-    mate?: number;
   }
   export interface CloudEval extends ClientEvalBase {
     cloud: true;
-    maxDepth?: undefined;
     millis?: undefined;
   }
   export interface LocalEval extends ClientEvalBase {
     cloud?: false;
-    maxDepth: number;
-    knps: number;
     millis: number;
   }
   export type ClientEval = CloudEval | LocalEval;
 
-  export interface ServerEval {
-    cp?: number;
-    mate?: number;
+  export interface ServerEval extends EvalScore {
     best?: Uci;
     fen: Fen;
     knodes: number;
@@ -442,16 +461,12 @@ declare namespace Tree {
     pvs: PvDataServer[];
   }
 
-  export interface PvDataServer {
+  export interface PvDataServer extends EvalScore {
     moves: string;
-    mate?: number;
-    cp?: number;
   }
 
-  export interface PvData {
+  export interface PvData extends EvalScore {
     moves: string[];
-    mate?: number;
-    cp?: number;
   }
 
   export interface TablebaseHit {
@@ -580,4 +595,4 @@ interface Dictionary<T> {
 type SocketHandlers = Dictionary<(d: any) => void>;
 
 declare const lichess: Lichess;
-declare const $as: <T>(cash: Cash) => T;
+declare const $as: <T>(cashOrHtml: Cash | string) => T;

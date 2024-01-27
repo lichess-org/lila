@@ -60,6 +60,7 @@ No entanto, Patronos têm direito de se gabar com um novo ícone legal de perfil
   <string name="nextPayment">Próximo pagamento</string>
   <string name="youWillBeChargedXOnY">Você será cobrado em %1$s no dia %2$s.</string>
   <string name="makeAdditionalDonation">Faça uma doação adicional agora</string>
+  <string name="giftPatronWingsShort">Presentear com asas de Patrono</string>
   <string name="giftPatronWings">Presenteie um jogador com asas de Patrono</string>
   <string name="update">Atualização</string>
   <string name="changeMonthlyAmount">Alterar o valor mensal (%s)</string>
@@ -79,4 +80,7 @@ No entanto, Patronos têm direito de se gabar com um novo ícone legal de perfil
   <string name="nowOneMonth">Você agora é Patrono do Lichess por um mês!</string>
   <string name="downgradeNextMonth">Em um mês, você NÃO será cobrado novamente, e sua conta Lichess será convertida para a versão gratuita.</string>
   <string name="changeCurrency">Trocar de moeda</string>
+  <string name="paymentDetails">Detalhes de pagamento</string>
+  <string name="updatePaymentMethod">Atualizar forma de pagamento</string>
+  <string name="stripeManageSub">Gerencie sua assinatura e faça o download de suas faturas e recibos</string>
 </resources>

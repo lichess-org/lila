@@ -36,12 +36,16 @@
   <string name="spectator">দর্শক</string>
   <string name="contributor">অবদানকারী</string>
   <string name="kick">লাথি দিয়ে বের করুন</string>
+  <string name="like">পছন্দ করা</string>
+  <string name="unlike">পছন্দ নয়</string>
+  <string name="playing">খেলছে</string>
   <string name="first">সর্ব প্রথম</string>
   <string name="previous">আগের ধাপ</string>
   <string name="next">পরের ধাপ</string>
   <string name="last">সর্বশেষ</string>
   <string name="studyPgn">অধ্যায়ন PGN আকারে</string>
   <string name="downloadAllGames">ডাউনলোড করুন সকল গেম</string>
+  <string name="open">ওপেন</string>
   <string name="startFromCustomPosition">নির্দিষ্ট অবস্থান থেকে শুরু করুন</string>
   <string name="loadAGameByUrl">URL থেকে খেলা লোড করুন</string>
   <string name="loadAPositionFromFen">FEN থেকে একটি অবস্থান লোড করুন</string>

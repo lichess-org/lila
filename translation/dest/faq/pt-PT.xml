@@ -3,11 +3,11 @@
   <string name="faqAbbreviation">Perguntas frequentes</string>
   <string name="frequentlyAskedQuestions">Perguntas frequentes</string>
   <string name="whyIsLichessCalledLichess">Por que é que o Lichess se chama Lichess?</string>
-  <string name="lichessCombinationLiveLightLibrePronounced">Lichess é uma combinação de \"live/light/libre\" (vida, direto/leve/livre). Pronuncia-se %1$s.</string>
+  <string name="lichessCombinationLiveLightLibrePronounced">Lichess é uma combinação de \"live/light/libre\" (direto/leve/livre). Pronuncia-se %1$s.</string>
   <string name="leechess">li-tchéss</string>
   <string name="hearItPronouncedBySpecialist">Ouve-o pronunciado por um especialista.</string>
-  <string name="whyLiveLightLibre">\"Live\" (vida, direto), porque os jogos são jogados e vistos em tempo real 24/7; \"light\" (leve) e \"libre\" (livre) uma vez que o Lichess é open-source e está livre de lixo proprietário que infesta outros sites.</string>
-  <string name="whyIsLilaCalledLila">Do mesmo modo, o código fonte do Lichess, %1$s, significa li[chess em sca]la, mostrando que o Lichess é fundamentalmente escrito em %2$s, uma linguagem de programação intuitiva.</string>
+  <string name="whyLiveLightLibre">\"Live\" (direto), porque os jogos são jogados e vistos em tempo real 24/7; \"light\" (leve) e \"libre\" (livre) uma vez que o Lichess é open-source e está livre de lixo proprietário que infesta outros sites.</string>
+  <string name="whyIsLilaCalledLila">Do mesmo modo, o código-fonte do Lichess, %1$s, significa li[chess em sca]la, mostrando que o Lichess é essencialmente escrito em %2$s, uma linguagem de programação intuitiva.</string>
   <string name="howCanIContributeToLichess">Como posso contribuir para o Lichess?</string>
   <string name="lichessPoweredByDonationsAndVolunteers">O Lichess depende totalmente de doações de patronos e dos esforços de uma equipa de voluntários.</string>
   <string name="findMoreAndSeeHowHelp">Podes encontrar mais sobre %1$s (incluindo uma %2$s). Se quiseres ajudar o Lichess voluntariando o teu tempo e capacidades, há várias %3$s.</string>
@@ -17,7 +17,7 @@
   <string name="areThereWebsitesBasedOnLichess">Existem sites baseados no Lichess?</string>
   <string name="yesLichessInspiredOtherOpenSourceWebsites">Sim. De facto, o Lichess tem inspirado outros sites open-source que usam o nosso %1$s, %2$s ou %3$s.</string>
   <string name="keyboardShortcuts">Que atalhos de teclado existem?</string>
-  <string name="keyboardShortcutsExplanation">Algumas páginas do Lichess têm atalhos de teclado que pode usar. Tente pressionar a tecla \'?\' num estudo, análise, quebra-cabeças ou página do jogo para listar os atalhos de teclado disponíveis.</string>
+  <string name="keyboardShortcutsExplanation">Algumas páginas do Lichess têm atalhos de teclado que podes usar. Tenta pressionar a tecla \'?\' num estudo, análise, problema ou na página do jogo para listar os atalhos de teclado disponíveis.</string>
   <string name="fairPlay">Jogo justo</string>
   <string name="whenAmIEligibleRatinRefund">Quando é que recebo devoluções automáticas de pontuação por causa de batoteiros?</string>
   <string name="ratingRefundExplanation">Um minuto depois de um jogador ser marcador, os seus últimos 40 jogos a valer pontos nos últimos 3 dias são escolhidos. Se foste um dos seus adversários em algum(ns) destes jogos e perdeste pontuação (por derrota(s) ou empate(s)), e a tua pontuação não era provisória, recebes uma devolução de pontuação. A devolução é limitada com base na tua pontuação e no teu progresso após o(s) jogo(s).
@@ -31,7 +31,7 @@
   <string name="fairPlayPage">página de fair-play</string>
   <string name="youCanUseOpeningBookNoEngine">No Lichess, a principal diferença nas regras para jogos de correspondência é que é permitido utilizar um livro de aberturas. A utilização da ajuda de computadores continua a ser proibida e utilizá-la resultará em ser marcado por utilizar a ajuda de computador. Embora a ICCF permita a utilização de computadores, o Lichess não o permite.</string>
   <string name="gameplay">Jogabilidade</string>
-  <string name="howBulletBlitzEtcDecided">Como é que bullet, blitz e outros ritmos de jogo são decididos?</string>
+  <string name="howBulletBlitzEtcDecided">Como é que bullet, rápidas e outros ritmos de jogo são decididos?</string>
   <string name="basedOnGameDuration">Os ritmos de jogo do Lichess baseiam-se na duração estimada do jogo = %1$s
 Por exemplo, a duração estimada de um jogo 5+3 é 5 × 60 + 40 × 3 = 420 segundos.</string>
   <string name="durationFormula">(tempo inicial no relógio) + 40 × (incremento no relógio)</string>
@@ -54,6 +54,7 @@ A análise de xadrez no Lichess é feita pelo Stockfish.</string>
 Em casos raros, isto pode ser difícil de detetar automaticamente (linhas forçadas, fortalezas). Por norma, ficamos sempre do lado do jogador que não ficou sem tempo.
 
 Nota que pode ser possível fazer xeque-mate somente com um cavalo ou bispo, se o adversário tiver uma peça que possa bloquear o seu rei.</string>
+  <string name="fideHandbook">Manual da FIDE</string>
   <string name="fideHandbookX">manual da FIDE %s</string>
   <string name="discoveringEnPassant">Por que é que um peão captura outro quando ele já passou? (en passant)</string>
   <string name="explainingEnPassant">Esta é uma jogada legal conhecida como \"en passant\". O artigo da Wikipédia dá uma %1$s.
@@ -67,7 +68,7 @@ Vê o %3$s deste lance para o praticares.</string>
   <string name="lichessTraining">treino do Lichess</string>
   <string name="watchIMRosenCheckmate">Assista ao xeque-mate do Mestre Internacional Eric Rosen %s.</string>
   <string name="threefoldRepetition">Repetição tripla</string>
-  <string name="threefoldRepetitionExplanation">Se uma posição ocorrer três vezes, os jogadores podem reivindicar um empate por %1$s. O Lichess implementa as regras oficiais da FIDE, como estão descritas no Artigo 9.2 (d) do %2$s.</string>
+  <string name="threefoldRepetitionExplanation">Se uma posição ocorrer três vezes, os jogadores podem reivindicar um empate por %1$s. O Lichess implementa as regras oficiais da FIDE, como estão descritas no Artigo 9.2 do %2$s.</string>
   <string name="threefoldRepetitionLowerCase">repetição tripla</string>
   <string name="notRepeatedMoves">Nós não repetimos lances. Por que é que o jogo foi empatado por repetição?</string>
   <string name="repeatedPositionsThatMatters">A repetição tripla é sobre %1$s repetidas, não lances. A repetição não de ocorrer consecutivamente.</string>
@@ -90,9 +91,9 @@ Finalmente, há um título honorário %2$s.</string>
   <string name="noUpperCaseDot">Não.</string>
   <string name="lMtitleComesToYouDoNotRequestIt">Este título honorífico não é oficial e só existe no Lichess.
 
-Raramente, premiamo-lo a jogadores altamente notáveis que são bons cidadãos do Lichess, a nosso critério. Tu não obténs o título de LM, o título LM obtém-te a ti. Se te qualificares, receberás uma mensagem nossa a respeito da nossa escolha e poderás aceitar ou recusar.
+Raramente, premiamos jogadores altamente notáveis que são bons cidadãos do Lichess, a nosso critério. Tu não obténs o título LM, o título LM obtém-te a ti. Se te qualificares, receberás uma mensagem nossa a respeito e poderás aceitar ou recusar.
 
-Não perguntes pelo título LM.</string>
+Não peças pelo título LM.</string>
   <string name="whatUsernameCanIchoose">O que é que o meu nome de utilizador pode ser?</string>
   <string name="usernamesNotOffensive">Geralmente, os nomes de utilizador não devem ser: ofensivos, imitações de alguém ou publicitários.
 
@@ -107,13 +108,13 @@ Podes ler mais sobre as %1$s.</string>
   <string name="goldenZeeExplanation">ZugAddict estava fazer uma stream e nas últimas 2 horas tinha estado a tentar derrotar a I.A. nível 8 numa partida de 1+0, sem sucesso. Thibault disse-lhe que se ele o fizesse na stream, ele teria um troféu único. Uma hora depois, ele esmagou o Stockfish e a promessa foi honrada.</string>
   <string name="lichessRatings">Pontuações no Lichess</string>
   <string name="whichRatingSystemUsedByLichess">Qual é o sistema de pontuação que o Lichess utiliza?</string>
-  <string name="ratingSystemUsedByLichess">As pontuações são calculadas utilizando o sistema de pontuaçao Glicko-2 desenvolvido por Mark Glickman. Este é um sistema de pontuação muito popular e é utilizado por um número considerável de organizações de xadrez (a FIDE é um contraexemplo notável, já que eles ainda usam o sistema de pontuação ELO).
+  <string name="ratingSystemUsedByLichess">As avaliações são calculadas utilizando o sistema de pontuação Glicko-2 desenvolvido por Mark Glickman. Este é um sistema muito popular e é utilizado por um número considerável de organizações de xadrez (a FIDE é um contra exemplo notável: já que eles ainda usam o sistema de pontuação Elo).
 
-Fundamentalmente, as pontuações do Glicko usam \"intervalos de confianças\" quando calculam e representam a tua pontuação. Quando começas a usar o site, a tua pontuação começa em 1500 ± 700. O \"1500\" representa a tua pontuação e o \"700\" representa o intervalo de confiança.
+Fundamentalmente, as pontuações do Glicko usam \"intervalos de confiança\" para calcular e representar a tua classificação. Quando começas a usar o site, a tua pontuação começa em 1500 ± 1000. O 1500 representa a tua avaliação e os 1000 representam o intervalo de confiança.
 
-Basicamente, o sistema tem 90% de certeza que a tua pontuação está algures entre 800 e 2200. É incrivelmente incerto. Consequentemente, quando um jogador está a começar, a sua pontuação vai mudar drasticamente, potencialmente várias centenas de pontos de uma vez. Mas depois de algumas partidas contra jogadores estabelecidos, o intervalo de confiança vai diminuir e o número de pontos ganhados/perdidos após cada jogo será menor
+Basicamente, o sistema tem 95% de certeza de que a tua pontuação está algures entre 500 e 2500. É incrivelmente incerto. Consequentemente, quando um jogador está a começar, a sua pontuação vai mudar drasticamente, potencialmente várias centenas de pontos por vez. Mas depois de alguns jogos contra jogadores estabelecidos, o intervalo de confiança será reduzido, e a quantidade de pontos ganhos/perdidos após cada jogo diminuirá.
 
-Outro ponto a notar é que, à medida que o tempo passa, o intervalo de confiança aumenta. Isto permite-te ganhar/perder pontos mais rapidamente para corresponder às mudanças no teu nível ao longo do tempo.</string>
+É importante notar que, à medida que o tempo passa, o intervalo de confiança aumenta. Isto permite-te ganhar/perder pontos mais rapidamente para corresponder às mudanças no teu nível de habilidade ao longo do tempo.</string>
   <string name="whatIsProvisionalRating">Por que é que há um ponto de interrogação (?) depois da minha pontuação?</string>
   <string name="provisionalRatingExplanation">O ponto de interrogação significa que a pontuação é provisória. As razões incluem:</string>
   <string name="notPlayedEnoughRatedGamesAgainstX">O jogador ainda não terminou um número suficiente de jogos a valer pontos contra %1$s na categoria de pontuação em questão.</string>
@@ -145,4 +146,28 @@ Outro ponto a notar é que, à medida que o tempo passa, o intervalo de confian�
 Clica no ícone de cadeado ao lado do endereço lichess.org na barra de URL do teu navegador.
 
 De seguida, seleciona se quereres permitir ou bloquear as notificações do Lichess.</string>
+  <string name="enableAutoplayForSoundsQ">Permitir a reprodução automática de sons?</string>
+  <string name="enableAutoplayForSoundsA">A maioria dos navegadores pode impedir a reprodução de som numa página acabada de carregar para proteger os utilizadores. Imagina se todos os sites pudessem bombardear-te imediatamente com anúncios de áudio.
+
+O ícone vermelho de silenciamento aparece quando o teu navegador impede que o lichess.org reproduza um som. Normalmente, esta restrição é levantada quando se clica em algo. Em alguns navegadores móveis, arrastar uma peça com o toque não conta como um clique. Nesse caso, tens de tocar no tabuleiro para permitir o som no início de cada jogo.
+
+Mostramos o ícone vermelho para o alertar quando isto acontece. Muitas vezes, podes autorizar explicitamente o lichess.org a reproduzir sons. Aqui estão as instruções para o fazer em versões recentes de alguns navegadores populares.</string>
+  <string name="desktop">computador</string>
+  <string name="enableAutoplayForSoundsFirefox">1. Vai no lichess.org
+2. Pressiona Ctrl-i no Linux/Windows ou cmd-i no MacOS
+3. Clica na aba Permissões
+4. Permitir Áudio e Vídeo no lichess.org</string>
+  <string name="enableAutoplayForSoundsChrome">1. Vá para lichess.org
+2. Clique no ícone do cadeado na barra de endereços
+3. Clique em Configurações do Site
+4. Permitir Som</string>
+  <string name="enableAutoplayForSoundsSafari">1. Vá para lichess.org
+2. Clique em Safari na barra de menu
+3. Clique em Configurações para lichess.org ...
+4. Permitir All Auto-Play</string>
+  <string name="enableAutoplayForSoundsMicrosoftEdge">1. Clique nos três pontos no canto superior direito
+2. Clique em Configurações
+3. Clique em Cookies e Permissões de Site
+4. Vá para baixo e clique Reprodução automática de mídia
+5. Adicione lichess.org para permitir</string>
 </resources>

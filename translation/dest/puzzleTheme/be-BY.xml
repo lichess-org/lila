@@ -3,7 +3,7 @@
   <string name="advancedPawn">Далёка прасунутая пешка</string>
   <string name="advancedPawnDescription">Адна з вашых пешак глыбока ў пазіцыі суперніка, магчыма пагражае ператварэннем.</string>
   <string name="advantage">Перавага</string>
-  <string name="advantageDescription">Не ўпусціце шанец, каб атрымаць вырашальную перавагу. (200сп ≤ ацэнка ≤ 600сп)</string>
+  <string name="advantageDescription" comment="advantageDescription&#10;&#10;'cp' stands for centipawn (1/100th of a pawn). It is used in computer analysis to assess a position.&#10;'eval' is short for evaluation.">Не ўпусціце шанец, каб атрымаць вырашальную перавагу. (200сп ≤ ацэнка ≤ 600сп)</string>
   <string name="anastasiaMate">Мат Анастасіі</string>
   <string name="anastasiaMateDescription">Конь і ладдзя (ці ферзь) працуюць разам, каб заматаваць караля суперніка паміж сваёй фігурай і краем дошкі.</string>
   <string name="arabianMate">Арабскі мат</string>
@@ -23,13 +23,13 @@
   <string name="capturingDefender">Узяцце абаронцы</string>
   <string name="capturingDefenderDescription">Адцягненне або ўзяцце фігуры, якая з\'яўляца крытычнай для абароны іншай фігуры, што дазваляе ўзяце неабароненую фігуру наступным ходам.</string>
   <string name="crushing">Зруйнаванне</string>
-  <string name="crushingDescription">Знайдзіце позех суперніка і атрымайце разгромную перавагу. (ацэнка ≥ 600сп)</string>
+  <string name="crushingDescription" comment="crushingDescription&#10;&#10;'cp' stands for centipawn (1/100th of a pawn). It is used in computer analysis to assess a position.&#10;'eval' is short for evaluation.">Знайдзіце позех суперніка і атрымайце разгромную перавагу. (ацэнка ≥ 600сп)</string>
   <string name="doubleBishopMate">Мат двума сланамі</string>
   <string name="doubleBishopMateDescription">Два нападаючых слана на суседніх дыяганалях матуюць караля, які акружаны сваімі фігурамі.</string>
   <string name="dovetailMate">Мат \"галубіны хвост\"</string>
   <string name="dovetailMateDescription">Ферзь ставіць мат сумежнаму каралю, адзіныя два палі адыхода якога заняты яго ж фігурамі.</string>
   <string name="equality">Выраўненне</string>
-  <string name="equalityDescription">Адыграйцеся з прайгранай пазіцыі і забяспечце нічыйную або збалансаваную пазіцыю. (ацэнка пазіціі ≤ 200сп)</string>
+  <string name="equalityDescription" comment="equalityDescription&#10;&#10;'cp' stands for centipawn (1/100th of a pawn). It is used in computer analysis to assess a position.&#10;'eval' is short for evaluation.">Адыграйцеся з прайгранай пазіцыі і забяспечце нічыйную або збалансаваную пазіцыю. (ацэнка пазіціі ≤ 200сп)</string>
   <string name="kingsideAttack">Атака на каралеўскім флангу</string>
   <string name="kingsideAttackDescription">Атака на караля суперніка, пасля ягонай кароткай ракіроўкі.</string>
   <string name="clearance">Расчыстка поля</string>

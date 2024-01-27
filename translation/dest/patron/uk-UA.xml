@@ -53,10 +53,10 @@
 Тим не менш, Покровителі отримують нову класну іконку профілю.</string>
   <string name="featuresComparison">Ознайомитися з докладним порівнянням функцій</string>
   <plurals name="patronForMonths">
-    <item quantity="one">Покровитель Lichess на один місяць</item>
-    <item quantity="few">Покровитель Lichess протягом %s місяців</item>
-    <item quantity="many">Покровитель Lichess протягом %s місяців</item>
-    <item quantity="other">Покровитель Lichess на %s місяців</item>
+    <item quantity="one">Спонсор Lichess на один місяць</item>
+    <item quantity="few">Спонсор Lichess протягом %s місяців</item>
+    <item quantity="many">Спонсор Lichess протягом %s місяців</item>
+    <item quantity="other">Спонсор Lichess на %s місяців</item>
   </plurals>
   <string name="youSupportWith">Ви підтримуєте lichess.org сумою %s на місяць.</string>
   <string name="tyvm">Дуже дякуємо за вашу допомогу. Ви круті!</string>
@@ -64,6 +64,7 @@
   <string name="nextPayment">Наступний платіж</string>
   <string name="youWillBeChargedXOnY">З %2$s буде списано %1$s.</string>
   <string name="makeAdditionalDonation">Зробити додатковий внесок</string>
+  <string name="giftPatronWingsShort">Подарувати крила спонсору</string>
   <string name="giftPatronWings">Подарувати крила Покровителя гравцю</string>
   <string name="update">Оновити</string>
   <string name="changeMonthlyAmount">Змінити місячну суму (%s)</string>

@@ -7,6 +7,7 @@
   </plurals>
   <string name="liveBroadcasts">Live Turnéier Iwwerdroungen</string>
   <string name="newBroadcast">Nei Live Iwwerdroung</string>
+  <string name="noRoundsYet">Nach keng Ronnen.</string>
   <string name="addRound">Ronn hinzufügen</string>
   <string name="ongoing">Am Gaang</string>
   <string name="upcoming">Demnächst</string>
@@ -33,5 +34,6 @@
   <string name="deleteAllGamesOfThisRound">All Partien vun dëser Ronn läschen. D\'Quell muss aktiv sinn fir se ze rekreéieren.</string>
   <string name="editRoundStudy">Ronnen-Etüd modifiéieren</string>
   <string name="deleteTournament">Dësen Turnéier läschen</string>
-  <string name="definitivelyDeleteTournament" comment="definitivelyDeleteTournament&#10;&#10;Confirmation prompt, when attempting to delete a broadcast on https://lichess.org/broadcast">De ganzen Turnéier definitiv läschen, all seng Ronnen an all seng Partien.</string>
+  <string name="definitivelyDeleteTournament">De ganzen Turnéier definitiv läschen, all seng Ronnen an all seng Partien.</string>
+  <string name="periodInSeconds">Period a Sekonnen</string>
 </resources>

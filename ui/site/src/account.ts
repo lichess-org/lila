@@ -1,7 +1,12 @@
 import * as licon from 'common/licon';
 import * as xhr from 'common/xhr';
+import flairPicker from './component/flairPicker';
 
 lichess.load.then(() => {
+  $('.emoji-details').each(function (this: HTMLElement) {
+    flairPicker(this);
+  });
+
   const localPrefs: [string, string, string, boolean][] = [
     ['behavior', 'arrowSnap', 'arrow.snap', true],
     ['behavior', 'courtesy', 'courtesy', false],
@@ -56,6 +61,24 @@ lichess.load.then(() => {
     form.find('input').on('change', checkDanger);
     submit.on('click', function (this: HTMLElement) {
       return !isDanger || confirm(this.title);
+    });
+  });
+
+  $('form.dirty-alert').each(function (this: HTMLFormElement) {
+    const form = this;
+    const serialize = () => {
+      const data = new FormData(form);
+      return Array.from(data.keys())
+        .map(k => `${k}=${data.get(k)}`)
+        .join('&');
+    };
+    let clean = serialize();
+    $(form).on('submit', () => {
+      clean = serialize();
+    });
+    window.addEventListener('beforeunload', e => {
+      if (clean != serialize() && !confirm('You have unsaved changes. Are you sure you want to leave?'))
+        e.preventDefault();
     });
   });
 });

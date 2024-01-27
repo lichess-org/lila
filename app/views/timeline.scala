@@ -9,39 +9,34 @@ import lila.hub.actorApi.timeline.*
 object timeline:
 
   def entries(entries: Vector[lila.timeline.Entry])(using Context) =
-    div(cls := "entries")(
-      filterEntries(entries) map { entry =>
+    div(cls := "entries"):
+      filterEntries(entries) map: entry =>
         div(cls := "entry")(timeline.entry(entry))
-      }
-    )
 
   def more(entries: Vector[lila.timeline.Entry])(using PageContext) =
     views.html.base.layout(
       title = trans.timeline.txt(),
       moreCss = cssTag("slist")
-    )(
+    ):
       main(cls := "timeline page-small box")(
         h1(cls := "box__top")(trans.timeline()),
-        table(cls := "slist slist-pad")(
+        table(cls := "slist slist-pad"):
           tbody:
             filterEntries(entries).map: e =>
               tr(td(entry(e)))
-        )
       )
-    )
 
   private def filterEntries(entries: Vector[lila.timeline.Entry])(using ctx: Context) =
-    if ctx.noKid then entries
+    if ctx.kid.no then entries
     else entries.filter(_.okForKid)
 
-  private def userLink(userId: UserId)(using ctx: Context) =
-    ctx.me match
-      case Some(me) if me.is(userId) => lightUserLink(me.light, withOnline = true)(cls := "online")
-      case _                         => userIdLink(userId.some, withOnline = true)
+  private def userLink(userId: UserId)(using ctx: Context) = ctx.me match
+    case Some(me) if me.is(userId) => lightUserLink(me.light, withOnline = true)(cls := "online")
+    case _                         => userIdLink(userId.some, withOnline = true)
 
   private def entry(e: lila.timeline.Entry)(using ctx: Context) =
     frag(
-      e.decode.map[Frag] {
+      e.decode.map[Frag]:
         case Follow(u1, u2) => trans.xStartedFollowingY(userLink(u1), userLink(u2))
         case TeamJoin(userId, teamId) =>
           trans.xJoinedTeamY(userLink(userId), teamLink(teamId, withIcon = false))
@@ -118,7 +113,7 @@ object timeline:
         case StreamStart(id, name) =>
           views.html.streamer.bits
             .redirectLink(id)(cls := "text", dataIcon := licon.Mic)(trans.xStartedStreaming(name))
-      },
+      ,
       " ",
       momentFromNowWithPreload(e.date)
     )

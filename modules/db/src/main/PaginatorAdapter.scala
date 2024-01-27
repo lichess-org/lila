@@ -34,11 +34,9 @@ final class Adapter[A: BSONDocumentReader](
       .find(selector, projection)
       .sort(sort)
       .skip(offset)
-      .pipe { query =>
-        hint match
-          case None    => query
-          case Some(h) => query.hint(collection hint h)
-      }
+      .pipe: query =>
+        hint.fold(query): h =>
+          query.hint(collection hint h)
       .cursor[A](readPref)
       .list(length)
 

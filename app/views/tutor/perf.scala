@@ -6,14 +6,14 @@ import play.api.mvc.Call
 import lila.app.templating.Environment.{ *, given }
 import lila.app.ui.ScalatagsTemplate.{ *, given }
 import lila.common.Heapsort.topN
+import lila.tutor.{ TutorCompare, TutorPerfReport, TutorFullReport }
 import lila.tutor.TutorCompare.given
-import lila.tutor.TutorPerfReport
 import lila.user.User
 import lila.rating.PerfType
 
 object perf:
 
-  def apply(report: TutorPerfReport, user: User)(using ctx: PageContext) =
+  def apply(full: TutorFullReport, report: TutorPerfReport, user: User)(using PageContext) =
     bits.layout(menu = menu(user, report, "perf"))(
       cls := "tutor__perf box",
       boxTop(
@@ -24,7 +24,16 @@ object perf:
           report.perf.trans
         )
       ),
-      bits.mascotSays(ul(report.relevantComparisons.topN(3) map compare.show)),
+      bits.mascotSays(
+        p(
+          "Looking at ",
+          pluralizeLocalize("game", report.stats.totalNbGames),
+          report.stats.dates.map: dates =>
+            frag(" played between ", showDate(dates.start), " and ", showDate(dates.end))
+        ),
+        timePercentAndRating(full, report),
+        ul(TutorCompare.mixedBag(report.relevantComparisons)(4) map compare.show)
+      ),
       div(cls := "tutor__perf__angles tutor-cards")(
         angleCard(
           frag(report.perf.trans, " skills"),
@@ -39,11 +48,10 @@ object perf:
           frag(report.perf.trans, " openings"),
           routes.Tutor.openings(user.username, report.perf.key).some
         )(
-          chess.Color.all map { color =>
+          chess.Color.all.map: color =>
             report.openings(color).families.headOption map { fam =>
               grade.peerGrade(concept.adhoc(s"${fam.family.name} as $color"), fam.mix, h4)
             }
-          }
         ),
         angleCard(
           frag(report.perf.trans, " time management"),
@@ -60,19 +68,38 @@ object perf:
         angleCard(
           frag(report.perf.trans, " phases"),
           routes.Tutor.phases(user.username, report.perf.key).some
-        )(
-          report.phases.map { phase =>
+        ):
+          report.phases.map: phase =>
             grade.peerGrade(concept.phase(phase.phase), phase.mix)
-          }
-        )
       )
     )
+
+  private[tutor] def timePercentAndRating(
+      report: TutorFullReport,
+      perfReport: TutorPerfReport
+  )(using Context) = p(
+    report percentTimeOf perfReport.perf map { percent =>
+      frag(
+        perfReport.perf.trans,
+        " games represent ",
+        bits.percentFrag(percent),
+        " of your chess playing time.",
+        br
+      )
+    },
+    frag(
+      "Average rating: ",
+      strong(perfReport.stats.rating),
+      ". Peers rating: ",
+      strong(perfReport.stats.peers.showRatingRange)
+    )
+  )
 
   private[tutor] def menu(
       user: User,
       report: TutorPerfReport,
       active: String
-  )(using PageContext) = frag(
+  )(using Context) = frag(
     a(href := routes.Tutor.perf(user.username, report.perf.key), cls := active.active("perf"))(
       report.perf.trans
     ),

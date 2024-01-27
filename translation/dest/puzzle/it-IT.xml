@@ -12,7 +12,7 @@
   <string name="origin">Per fonte</string>
   <string name="specialMoves">Mosse speciali</string>
   <string name="didYouLikeThisPuzzle">Ti è piaciuto questo problema?</string>
-  <string name="voteToLoadNextOne">Vota per caricare la prossima!</string>
+  <string name="voteToLoadNextOne">Vota per passare al prossimo!</string>
   <string name="upVote">Valuta positivamente questo problema</string>
   <string name="downVote">Valuta negativamente questo problema</string>
   <string name="yourPuzzleRatingWillNotChange">Il tuo punteggio per i problemi non cambierà. Nota che i problemi non sono competitivi. Il punteggio ci aiuta a selezionare i problemi migliori per il tuo livello di gioco.</string>
@@ -29,7 +29,7 @@
   <string name="puzzleSuccess">Risolto!</string>
   <string name="puzzleComplete">Problema completato!</string>
   <string name="byOpenings">Per apertura</string>
-  <string name="puzzlesByOpenings">Puzzle ordinati per apertura</string>
+  <string name="puzzlesByOpenings">Problemi ordinati per apertura</string>
   <string name="openingsYouPlayedTheMost">Aperture che hai giocato di più nelle partite classificate</string>
   <string name="useFindInPage">Usa \"Trova nella pagina\" nel menu del browser per trovare la tua apertura preferita!</string>
   <string name="useCtrlF">Usa Ctrl+F per trovare la tua apertura preferita!</string>
@@ -38,7 +38,7 @@
   <string name="ratingX">Punteggio: %s</string>
   <string name="hidden">nascosto</string>
   <plurals name="playedXTimes">
-    <item quantity="one">Giocato %s volta</item>
+    <item quantity="one">Giocato %s volte</item>
     <item quantity="other">Giocato %s volte</item>
   </plurals>
   <string name="fromGameLink">Dalla partita %s</string>

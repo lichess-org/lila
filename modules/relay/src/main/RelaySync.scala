@@ -14,7 +14,7 @@ final private class RelaySync(
     leaderboard: RelayLeaderboardApi
 )(using Executor):
 
-  def apply(rt: RelayRound.WithTour, games: RelayGames): Fu[SyncResult.Ok] = for
+  def updateStudyChapters(rt: RelayRound.WithTour, games: RelayGames): Fu[SyncResult.Ok] = for
     study          <- studyApi.byId(rt.round.studyId).orFail("Missing relay study!")
     chapters       <- chapterRepo.orderedByStudy(study.id)
     sanitizedGames <- RelayInputSanity(chapters, games).fold(x => fufail(x.msg), fuccess)
@@ -38,7 +38,7 @@ final private class RelaySync(
         chapterRepo
           .countByStudyId(study.id)
           .flatMap:
-            case nb if nb >= RelayFetch.maxChapters(rt.tour) => fuccess(none)
+            case nb if RelayFetch.maxChapters(rt.tour) <= nb => fuccess(none)
             case _ =>
               createChapter(study, game).flatMap: chapter =>
                 chapters.find(_.isEmptyInitial).ifTrue(chapter.order == 2).so { initial =>
@@ -49,8 +49,8 @@ final private class RelaySync(
                   .some
 
   /*
-   * If the source contains several games, use their index to match them with the study chapter.
-   * If the source contains only one game, use the player tags (and site) to match with the study chapter.
+   * If the source contains all expected games, use their index to match them with the study chapter.
+   * If the source contains only fewer games, use the player tags (and site) to match with the study chapters.
    * So the TCEC style - one game per file, reusing the file for all games - is supported.
    * lichess will create a new chapter when the game player tags differ.
    */
@@ -59,7 +59,7 @@ final private class RelaySync(
       chapters: List[Chapter],
       nbGames: Int
   ): Option[Chapter] =
-    if nbGames == 1 || game.looksLikeLichess
+    if chapters.sizeIs > nbGames || game.looksLikeLichess
     then chapters.find(c => game.staticTagsMatch(c.tags))
     else chapters.find(_.relay.exists(_.index == game.index))
 
@@ -70,9 +70,8 @@ final private class RelaySync(
       chapter: Chapter
   ): Fu[SyncResult.ChapterResult] =
     updateChapterTags(tour, study, chapter, game) zip
-      updateChapterTree(study, chapter, game) map { (tagUpdate, nbMoves) =>
+      updateChapterTree(study, chapter, game) map: (tagUpdate, nbMoves) =>
         SyncResult.ChapterResult(chapter.id, tagUpdate, nbMoves)
-      }
 
   private type NbMoves = Int
   private def updateChapterTree(study: Study, chapter: Chapter, game: RelayGame): Fu[NbMoves] =
@@ -83,13 +82,12 @@ final private class RelaySync(
         chapter.root.nodeAt(path) match
           case None => parentPath -> gameNode.some
           case Some(existing) =>
-            gameNode.clock.filter(c => !existing.clock.has(c)) so { c =>
+            gameNode.clock.filter(c => !existing.clock.has(c)) so: c =>
               studyApi.setClock(
                 studyId = study.id,
                 position = Position(chapter, path).ref,
                 clock = c.some
               )(who)
-            }
             path -> none
       case (found, _) => found
     } match
@@ -131,7 +129,7 @@ final private class RelaySync(
     val gameTags = game.tags.value.foldLeft(Tags(Nil)): (newTags, tag) =>
       if !chapter.tags.value.has(tag) then newTags + tag
       else newTags
-    val newEndTag = game.end
+    val newEndTag = game.ending
       .ifFalse(gameTags(_.Result).isDefined)
       .filterNot(end => chapter.tags(_.Result).has(end.resultText))
       .map(end => Tag(_.Result, end.resultText))

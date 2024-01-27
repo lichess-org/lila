@@ -1,36 +1,52 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="broadcasts">Phát sóng</string>
+  <string name="broadcasts">Các phát sóng</string>
+  <string name="myBroadcasts">Các buổi phát sóng của tôi</string>
   <plurals name="nbBroadcasts">
     <item quantity="other">%s phát sóng</item>
   </plurals>
-  <string name="liveBroadcasts">Giải đấu phát trực tuyến</string>
+  <string name="liveBroadcasts">Các giải đấu phát sóng trực tiếp</string>
   <string name="newBroadcast">Phát sóng trực tiếp mới</string>
+  <string name="aboutBroadcasts">Giới thiệu về phát sóng</string>
+  <string name="noRoundsYet">Chưa có vòng nào.</string>
+  <string name="howToUseLichessBroadcasts">Cách sử dụng Phát sóng Lichess.</string>
+  <string name="theNewRoundHelp">Vòng mới sẽ có các thành viên và cộng tác viên giống như vòng trước.</string>
   <string name="addRound">Thêm một vòng</string>
   <string name="ongoing">Đang diễn ra</string>
   <string name="upcoming">Sắp diễn ra</string>
-  <string name="completed">Hoàn thành</string>
+  <string name="completed">Đã hoàn thành</string>
+  <string name="completedHelp">Lichess phát hiện việc hoàn thành vòng chơi dựa trên những ván đấu nguồn. Sử dụng nút chuyển đổi này nếu không có nguồn.</string>
   <string name="roundName">Tên vòng</string>
   <string name="roundNumber">Vòng đấu số</string>
   <string name="tournamentName">Tên giải đấu</string>
-  <string name="tournamentDescription">Lời miêu tả giải đấu ngắn</string>
-  <string name="fullDescription">Mô tả đầy đủ sự kiện</string>
-  <string name="fullDescriptionHelp">Mô tả dài tùy chọn của buổi phát sóng. %1$s có thể sử dụng. Chiều dài phải nhỏ hơn %2$s ký tự.</string>
-  <string name="sourceUrlOrGameIds">URL nguồn, hoặc ID game</string>
-  <string name="sourceUrlHelp">URL mà Lichess sẽ khảo sát để nhận cập nhật PGN. Nó phải được truy cập công khai từ mạng Internet.</string>
-  <string name="gameIdsHelp">Ngoài ra, bạn có thể nhập 64 ID ván đấu trên Lichess, cách nhau bởi dấu cách.</string>
-  <string name="startDate">Ngày bắt đầu trong múi giờ của bạn</string>
+  <string name="tournamentDescription">Lời mô tả giải đấu ngắn</string>
+  <string name="fullDescription">Mô tả đầy đủ giải đấu</string>
+  <string name="fullDescriptionHelp">Tùy chọn mô tả dài về giải đấu. %1$s có thể sử dụng. Độ dài phải nhỏ hơn %2$s ký tự.</string>
+  <string name="sourceUrlOrGameIds">URL nguồn hoặc ID ván cờ</string>
+  <string name="sourceUrlHelp">URL mà Lichess sẽ khảo sát để nhận cập nhật PGN. Nó phải được truy cập công khai từ Internet.</string>
+  <string name="gameIdsHelp">Ngoài ra, bạn có thể nhập 64 ID ván đấu trên Lichess, phân tách bởi dấu cách.</string>
+  <string name="startDate">Ngày bắt đầu theo múi giờ của bạn</string>
   <string name="startDateHelp">Tùy chọn, nếu bạn biết khi nào sự kiện bắt đầu</string>
   <string name="credits">Công nhận nguồn</string>
-  <string name="broadcastUrl">Link buổi phát sóng</string>
-  <string name="currentRoundUrl">Link vòng đấu hiện tại</string>
-  <string name="currentGameUrl">Link ván đấu hiện tại</string>
-  <string name="downloadAllRounds">Tải xuống tất cả ván đấu</string>
+  <string name="broadcastUrl">URL phát sóng</string>
+  <string name="currentRoundUrl">URL vòng đấu hiện tại</string>
+  <string name="currentGameUrl">URL ván đấu hiện tại</string>
+  <string name="downloadAllRounds">Tải về tất cả ván đấu</string>
   <string name="resetRound">Đặt lại vòng này</string>
   <string name="deleteRound">Xóa vòng này</string>
-  <string name="definitivelyDeleteRound">Xóa hoàn toàn vòng đấu và các ván đấu trong đó.</string>
+  <string name="definitivelyDeleteRound">Dứt khoát xóa tất cả vòng đấu và các ván đấu trong đó.</string>
   <string name="deleteAllGamesOfThisRound">Xóa toàn bộ ván cờ trong vòng này. Để tạo lại chúng bạn cần thêm lại nguồn.</string>
-  <string name="editRoundStudy">Nghiên cứu chỉnh sửa vòng</string>
+  <string name="editRoundStudy">Chỉnh sửa vòng nghiên cứu</string>
   <string name="deleteTournament">Xóa giải đấu này</string>
-  <string name="definitivelyDeleteTournament" comment="definitivelyDeleteTournament&#10;&#10;Confirmation prompt, when attempting to delete a broadcast on https://lichess.org/broadcast">Xóa dứt khoát toàn bộ giải đấu, tất cả các vòng và tất cả các trò chơi của nó.</string>
+  <string name="definitivelyDeleteTournament">Xóa dứt khoát toàn bộ giải đấu, tất cả các vòng và tất cả ván cờ trong đó.</string>
+  <string name="automaticLeaderboard" comment="An option when creating a broadcast to calculate a leaderboard automatically from the players involved. Example: https://lichess.org/broadcast/2023-london-chess-classic/round-9/5icayRCY">Bảng xếp hạng tự động</string>
+  <string name="automaticLeaderboardHelp" comment="An option when creating a broadcast to calculate a leaderboard automatically from the players involved. Example: https://lichess.org/broadcast/2023-london-chess-classic/round-9/5icayRCY">Tính toán và hiển thị bảng xếp hạng đơn giản dựa trên kết quả ván đấu</string>
+  <string name="replace">Tùy chọn: biệt danh, hệ số Elo và danh hiệu</string>
+  <string name="replaceHelp">Một dòng cho mỗi người chơi, được định dạng như sau:
+Tên khai sinh; Tên thay thế; Hệ số Elo thay thế tùy chọn; Danh hiệu thay thế tùy chọn
+Ví dụ:
+DrNykterstein;Magnus Carlsen;2863
+AnishGiri;Anish Giri;2764;GM</string>
+  <string name="periodInSeconds">Khoảng thời gian tính bằng giây</string>
+  <string name="periodInSecondsHelp">Tùy chọn, thời gian chờ đợi giữa các yêu cầu. Tối thiểu 2 giây, tối đa 60 giây. Mặc định là tự động dựa trên số lượng người xem.</string>
 </resources>

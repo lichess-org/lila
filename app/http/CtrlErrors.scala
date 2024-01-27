@@ -15,6 +15,9 @@ trait CtrlErrors extends ControllerHelpers:
   def notFoundJson(msg: String = "Not found"): Result = NotFound(jsonError(msg)) as JSON
   def notFoundText(msg: String = "Not found"): Result = Results.NotFound(msg)
 
+  def forbiddenJson(msg: String = "You can't do that"): Result = Forbidden(jsonError(msg)) as JSON
+  def forbiddenText(msg: String = "You can't do that"): Result = Results.Forbidden(msg)
+
   private val jsonGlobalErrorRenamer: Reads[JsObject] =
     import play.api.libs.json.*
     __.json update (
@@ -36,7 +39,7 @@ trait CtrlErrors extends ControllerHelpers:
   /* This is what we want
    * { "error" -> { "key" -> "value" } }
    */
-  def jsonFormError(form: Form[?])(using Lang) =
+  def jsonFormError(form: Form[?])(using Lang): Result =
     BadRequest(jsonError(errorsAsJson(form)))
 
   /* For compat with old clients

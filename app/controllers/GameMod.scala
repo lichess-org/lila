@@ -38,7 +38,7 @@ final class GameMod(env: Env)(using akka.stream.Materializer) extends LilaContro
       .recentGamesFromSecondaryCursor(select)
       .documentSource(10_000)
       .filter: game =>
-        filter.perf.fold(true)(game.perfKey ==)
+        filter.perf.forall(game.perfKey ==)
       .take(filter.nbGames)
       .mapConcat { lila.game.Pov(_, user).toList }
       .toMat(Sink.seq)(Keep.right)
@@ -77,7 +77,7 @@ final class GameMod(env: Env)(using akka.stream.Materializer) extends LilaContro
       }.parallel >> env.fishnet.awaiter(games.map(_.id), 2 minutes)
     } inject NoContent
 
-  private def downloadPgn(user: lila.user.User, gameIds: Seq[GameId]) =
+  private def downloadPgn(user: lila.user.User, gameIds: Seq[GameId])(using Option[Me]) =
     Ok.chunked {
       env.api.gameApiV2.exportByIds(
         GameApiV2.ByIdsConfig(
@@ -132,13 +132,20 @@ object GameMod:
           case ids      => Query.users(ids)
       )
 
+  val maxGames = 500
+
   val filterForm = Form:
     mapping(
-      "arena"      -> optional(nonEmptyText),
-      "swiss"      -> optional(nonEmptyText),
-      "perf"       -> optional(of[Perf.Key]),
-      "opponents"  -> optional(nonEmptyText),
-      "nbGamesOpt" -> optional(number(min = 1, max = 500))
+      "arena"     -> optional(nonEmptyText),
+      "swiss"     -> optional(nonEmptyText),
+      "perf"      -> optional(of[Perf.Key]),
+      "opponents" -> optional(nonEmptyText),
+      "nbGamesOpt" -> optional(
+        number(min = 1).transform(
+          _.atMost(maxGames),
+          identity
+        )
+      )
     )(Filter.apply)(unapply)
 
   val actionForm = Form:

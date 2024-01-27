@@ -2,11 +2,12 @@ import { h, VNode } from 'snabbdom';
 import * as licon from 'common/licon';
 import { bind, dataIcon, MaybeVNodes } from 'common/snabbdom';
 import TournamentController from '../ctrl';
-import { player as renderPlayer, ratio2percent, playerName } from './util';
+import { player as renderPlayer, ratio2percent } from './util';
 import { teamName } from './battle';
 import { Pagination, PodiumPlayer, StandingPlayer } from '../interfaces';
 import * as button from './button';
 import * as pagination from '../pagination';
+import { userLink } from 'common/userLink';
 
 const renderScoreString = (scoreString: string, streakable: boolean) => {
   const values = scoreString.split('').map(s => parseInt(s));
@@ -47,12 +48,7 @@ function playerTr(ctrl: TournamentController, player: StandingPlayer) {
       h(
         'td.rank',
         player.withdraw
-          ? h('i', {
-              attrs: {
-                'data-icon': licon.Pause,
-                title: ctrl.trans.noarg('pause'),
-              },
-            })
+          ? h('i', { attrs: { 'data-icon': licon.Pause, title: ctrl.trans.noarg('pause') } })
           : player.rank,
       ),
       h('td.player', [
@@ -66,16 +62,6 @@ function playerTr(ctrl: TournamentController, player: StandingPlayer) {
           : h('strong', player.score),
       ]),
     ],
-  );
-}
-
-function podiumUsername(p: PodiumPlayer) {
-  return h(
-    'a.text.ulpt.user-link',
-    {
-      attrs: { href: '/@/' + p.name },
-    },
-    playerName(p),
   );
 }
 
@@ -98,24 +84,22 @@ function podiumStats(p: PodiumPlayer, berserkable: boolean, ctrl: TournamentCont
   ]);
 }
 
-function podiumPosition(
-  p: PodiumPlayer,
-  pos: string,
-  berserkable: boolean,
-  ctrl: TournamentController,
-): VNode | undefined {
-  if (p) return h('div.' + pos, [h('div.trophy'), podiumUsername(p), podiumStats(p, berserkable, ctrl)]);
-  return undefined;
-}
-
 let lastBody: MaybeVNodes | undefined;
 
 export function podium(ctrl: TournamentController) {
   const p = ctrl.data.podium || [];
+  const podiumPosition = (p: PodiumPlayer, pos: string): VNode | undefined =>
+    p
+      ? h('div.' + pos, [
+          h('div.trophy'),
+          userLink({ ...p, line: false, rating: undefined }),
+          podiumStats(p, ctrl.data.berserkable, ctrl),
+        ])
+      : undefined;
   return h('div.podium', [
-    podiumPosition(p[1], 'second', ctrl.data.berserkable, ctrl),
-    podiumPosition(p[0], 'first', ctrl.data.berserkable, ctrl),
-    podiumPosition(p[2], 'third', ctrl.data.berserkable, ctrl),
+    podiumPosition(p[1], 'second'),
+    podiumPosition(p[0], 'first'),
+    podiumPosition(p[2], 'third'),
   ]);
 }
 
@@ -133,18 +117,14 @@ export function standing(ctrl: TournamentController, pag: Pagination, klass?: st
   if (pag.currentPageResults) lastBody = tableBody;
   return h(
     'table.slist.tour__standing' + (klass ? '.' + klass : ''),
-    {
-      class: { loading: !pag.currentPageResults },
-    },
+    { class: { loading: !pag.currentPageResults } },
     [
       h(
         'tbody',
         {
           hook: {
             insert: vnode => lichess.powertip.manualUserIn(vnode.elm as HTMLElement),
-            update(_, vnode) {
-              lichess.powertip.manualUserIn(vnode.elm as HTMLElement);
-            },
+            update: (_, vnode) => lichess.powertip.manualUserIn(vnode.elm as HTMLElement),
           },
         },
         tableBody,

@@ -238,7 +238,7 @@ abstract private[controllers] class LilaController(val env: Env)
   def handleScopedFail(accepted: EndpointScopes, e: OAuthServer.AuthError)(using RequestHeader) = e match
     case e @ lila.oauth.OAuthServer.MissingScope(available) =>
       OAuthServer.responseHeaders(accepted, available):
-        Forbidden(jsonError(e.message))
+        forbiddenJson(e.message)
     case e =>
       OAuthServer.responseHeaders(accepted, TokenScopes(Nil)):
         Unauthorized(jsonError(e.message))
@@ -296,8 +296,12 @@ abstract private[controllers] class LilaController(val env: Env)
       .bindFromRequest()
       .fold(
         form => err(form) dmap { BadRequest(_) },
-        data => op(data)
+        op
       )
+
+  def HeadLastModifiedAt(updatedAt: Instant)(f: => Fu[Result])(using RequestHeader): Fu[Result] =
+    if req.method == "HEAD" then NoContent.withDateHeaders(lastModified(updatedAt))
+    else f
 
   def pageHit(using req: RequestHeader): Unit =
     if HTTPRequest.isHuman(req) then lila.mon.http.path(req.path).increment()
@@ -315,7 +319,6 @@ abstract private[controllers] class LilaController(val env: Env)
           redirectWithQueryString(s"/$code${~path.some.filter("/" !=)}")
         case ByHref.Refused(_) => redirectWithQueryString(path)
         case ByHref.Found(lang) =>
-          pageHit
           f(using ctx.withLang(lang))
 
   import lila.rating.{ Perf, PerfType }
@@ -327,6 +330,8 @@ abstract private[controllers] class LilaController(val env: Env)
     .soFu(me => env.user.api.withPerfs(me.value))
     .flatMap:
       f(using _)
+
+  given (using req: RequestHeader): lila.chat.AllMessages = lila.chat.AllMessages(HTTPRequest.isLitools(req))
 
   /* We roll our own action, as we don't want to compose play Actions. */
   private def action[A](parser: BodyParser[A])(handler: Request[A] ?=> Fu[Result]): EssentialAction = new:

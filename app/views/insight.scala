@@ -23,7 +23,6 @@ object insight:
     views.html.base.layout(
       title = trans.insight.xChessInsights.txt(u.username),
       moreJs = frag(
-        highchartsLatestTag,
         iifeModule("javascripts/insight-refresh.js"),
         jsModuleInit(
           "insight",
@@ -32,7 +31,7 @@ object insight:
             "initialQuestion" -> question,
             "i18n"            -> Json.obj(),
             "myUserId"        -> ctx.userId,
-            "user" -> (lila.common.LightUser.lightUserWrites.writes(u.light) ++ Json.obj(
+            "user" -> (lila.common.LightUser.write(u.light) ++ Json.obj(
               "nbGames" -> insightUser.count,
               "stale"   -> stale,
               "shareId" -> prefId

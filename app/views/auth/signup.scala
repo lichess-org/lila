@@ -58,18 +58,17 @@ object signup:
       )
     }
 
-  private def agreement(form: play.api.data.Field, error: Boolean)(using PageContext) =
+  private def agreement(form: play.api.data.Field, error: Boolean)(using Context) =
     div(cls := "agreement")(
-      error option p(
-        strong(cls := "error")(
+      error option p:
+        strong(cls := "error"):
           "You must agree to the Lichess policies listed below:"
-        )
-      ),
+      ,
       agreements.map: (field, text) =>
         form3.checkbox(form(field), text)
     )
 
-  private def agreements(using PageContext) = List(
+  private def agreements(using Context) = List(
     "assistance" -> trans.agreementAssistance(),
     "nice"       -> trans.agreementNice(),
     "account" -> trans.agreementMultipleAccounts(a(href := routes.ContentPage.tos)(trans.termsOfService())),

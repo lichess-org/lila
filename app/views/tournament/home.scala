@@ -41,22 +41,20 @@ object home:
             a(href := routes.Tournament.leaderboard)(trans.leaderboard())
           ),
           ul(cls := "leaderboard")(
-            winners.top.map { w =>
+            winners.top.map: w =>
               li(
                 userIdLink(w.userId.some),
                 a(title := w.tourName, href := routes.Tournament.show(w.tourId))(
                   scheduledTournamentNameShortHtml(w.tourName)
                 )
               )
-            }
           ),
           p(cls := "tour__links")(
-            ctx.me map { me =>
+            ctx.me.map: me =>
               frag(
                 a(href := routes.UserTournament.path(me.username, "created"))(trans.arena.myTournaments()),
                 br
-              )
-            },
+              ),
             a(href := routes.Tournament.calendar)(trans.tournamentCalendar()),
             br,
             a(href := routes.Tournament.history(Freq.Unique.name))(trans.arena.history()),
@@ -65,14 +63,13 @@ object home:
           ),
           h2(trans.lichessTournaments()),
           div(cls := "scheduled")(
-            scheduled.map { tour =>
+            scheduled.map: tour =>
               tour.schedule.filter(s => s.freq != lila.tournament.Schedule.Freq.Hourly) map { s =>
                 a(href := routes.Tournament.show(tour.id), dataIcon := tournamentIcon(tour))(
                   strong(tour.name(full = false)),
                   momentFromNow(s.at.instant)
                 )
               }
-            }
           )
         ),
         st.section(cls := "tour-home__schedule box")(

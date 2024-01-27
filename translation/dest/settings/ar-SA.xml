@@ -5,9 +5,9 @@
   <string name="managedAccountCannotBeClosed" comment="managedAccountCannotBeClosed&#10;&#10;A managed account is typically one that has been registered by a chess teacher. The teacher retains control over the account, but they can release this control.">حسابك يتم إدارته، ولا يمكن إغلاقه.</string>
   <string name="closingIsDefinitive">الإغلاق الحساب نهائي، لا يمكنك التراجع عن هذا القرار، أ أنت متحقق؟</string>
   <string name="cantOpenSimilarAccount">لن يسمح لك بفتح حساب جديد بنفس الإسم، حتى لو كان حجم الأحرف مختلف.</string>
-  <string name="changedMindDoNotCloseAccount">غيرت رأيي ، لا تغلق حسابي</string>
+  <string name="changedMindDoNotCloseAccount">غيرت رأيي، لا تغلق حسابي</string>
   <string name="closeAccountExplanation">هل أنت متأكد من أنك تريد اغلاق حسابك؟
 اغلاق حسابك هو قرار دائم ونهائي.
 ولا يمكنك التراجع عن هذا القرار على الإطلاق.</string>
-  <string name="thisAccountIsClosed">تم إغلاق هذا الحساب.</string>
+  <string name="thisAccountIsClosed">هذا الحساب مغلق.</string>
 </resources>

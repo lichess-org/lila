@@ -18,7 +18,7 @@ object clas:
         cssTag("clas")
       ),
       title = trans.clas.lichessClasses.txt()
-    ) {
+    ):
       main(cls := "page-small box box-pad page clas-home")(
         h1(cls := "box__top")(trans.clas.lichessClasses()),
         div(cls := "clas-home__doc body")(
@@ -37,7 +37,6 @@ object clas:
           )
         )
       )
-    }
 
   def teacherIndex(classes: List[Clas], closed: Boolean)(using PageContext) =
     val (active, archived) = classes.partition(_.isActive)
@@ -141,7 +140,7 @@ object clas:
       )
     )
 
-  private def innerForm(form: Form[ClasData], clas: Option[Clas])(using ctx: PageContext) =
+  private def innerForm(form: Form[ClasData], clas: Option[Clas])(using ctx: Context) =
     postForm(cls := "form3", action := clas.fold(clasRoutes.create)(c => clasRoutes.update(c.id.value)))(
       form3.globalError(form),
       form3.group(form("name"), trans.clas.className())(form3.input(_)(autofocus)),

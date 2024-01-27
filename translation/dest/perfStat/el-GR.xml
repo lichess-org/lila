@@ -22,7 +22,7 @@
   <string name="fromXToY">από %1$s έως %2$s</string>
   <string name="winningStreak">Συνεχόμενες νίκες</string>
   <string name="losingStreak">Συνεχόμενες ήττες</string>
-  <string name="longestStreak">Μεγαλύτερο Σερί: %s</string>
+  <string name="longestStreak" comment="%s is the string (number of games OR time spent playing, e.g. 4 hours non-stop play)&#10;String used to describe the longest consecutive winning &amp; losing streak of games. It is also used for a  streak of time spent playing.">Μεγαλύτερο Σερί: %s</string>
   <string name="currentStreak">Τρέχον σερί: %s</string>
   <string name="bestRated">Καλύτερες αξιολογήσιμες νίκες</string>
   <string name="worstRated">Χειρότερες αξιολογήσιμες ήττες</string>

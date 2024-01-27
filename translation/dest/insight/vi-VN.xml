@@ -6,6 +6,6 @@
   <string name="cantSeeInsights">Rất tiếc, bạn không thể xem phân tích chi tiết của %s.</string>
   <string name="generateInsights">Mở phân tích chi tiết của %s.</string>
   <string name="crunchingData">Dữ liệu bạn yêu cầu đang được phân nhỏ ngay bây giờ!</string>
-  <string name="maybeAskThemToChangeTheir" comment="The parameter is the translation for 'insights settings'">Có thể bạn nên bảo họ thay đổi %s của họ?</string>
+  <string name="maybeAskThemToChangeTheir" comment="The parameter is the translation for 'insights settings'">Có thể bảo họ thay đổi %s?</string>
   <string name="insightsSettings" comment="In the context of 'maybe ask them to change their insight settings'">cài đặt phân tích chi tiết</string>
 </resources>

@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="voiceCommands">Sproochbefeeler</string>
+  <string name="watchTheVideoTutorial">Video-Tutorial kucken</string>
+  <string name="thisBlogPost">Dëse Blog-Bäitrag</string>
+  <string name="selectOrCaptureABishop">Wiel oder huel ee Leefer</string>
+  <string name="takeRookWithQueen">Den Tuerm mat der Damm huelen</string>
+  <string name="castle">Rochéieren (egal wat fir eng Säit)</string>
+  <string name="turnOffVoiceRecognition">Sproocherkennung desaktivéieren</string>
+  <string name="showPuzzleSolution">Léisung vun der Aufgab weisen</string>
+</resources>

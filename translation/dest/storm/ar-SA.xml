@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="moveToStart">حَرِك لتبدأ</string>
-  <string name="youPlayTheWhitePiecesInAllPuzzles">أنت تلعب القطع البيضاء في جميع الألغاز</string>
-  <string name="youPlayTheBlackPiecesInAllPuzzles">أنت تلعب القطع السوداء في جميع الألغاز</string>
-  <string name="puzzlesSolved">الألغاز المحلولة</string>
-  <string name="newDailyHighscore">أعلى نتيجة يومية جديدة!</string>
-  <string name="newWeeklyHighscore">أعلى نتيجة أسبوعية جديدة!</string>
-  <string name="newMonthlyHighscore">أعلى نتيجة شهرية جديدة!</string>
+  <string name="youPlayTheWhitePiecesInAllPuzzles">أنت تلعب بالقطع البيضاء في جميع الألغاز</string>
+  <string name="youPlayTheBlackPiecesInAllPuzzles">أنت تلعب بالقطع السوداء في جميع الألغاز</string>
+  <string name="puzzlesSolved">الألغاز التي حللتها سابقا</string>
+  <string name="newDailyHighscore">حققت نتيجة يومية جديدة!</string>
+  <string name="newWeeklyHighscore">حققت نتيجة أسبوعية جديدة!</string>
+  <string name="newMonthlyHighscore">حققت نتيجة شهرية جديدة!</string>
   <string name="newAllTimeHighscore">أعلى مستوى جديد على الإطلاق!</string>
   <string name="previousHighscoreWasX">النتيجة العالية السابقة كانت %s</string>
   <string name="playAgain">إلعب مرة أخرى</string>
@@ -34,12 +34,12 @@
   <string name="time">الوقت</string>
   <string name="timePerMove">الوقت لكل نقلة</string>
   <string name="highestSolved">تقييم أصعب لغز تم حله</string>
-  <string name="puzzlesPlayed">الألغاز الملعوبة</string>
+  <string name="puzzlesPlayed">الألغاز التي لعبتها سابقا</string>
   <string name="newRun">سباق جديد</string>
   <string name="endRun">انهاء السباق</string>
   <string name="highscores">أعلى النتائج</string>
   <string name="viewBestRuns">اعرض أفضل الجولات</string>
-  <string name="bestRunOfDay">أفضل جولة في اليوم</string>
+  <string name="bestRunOfDay">أفضل جولة لك اليوم</string>
   <string name="runs">جولات</string>
   <string name="getReady">استعد!</string>
   <string name="waitingForMorePlayers">ينتظر انضمام مزيد من الاعبين...</string>
@@ -60,7 +60,7 @@
   <string name="skipExplanation">تخطى هذه الحركة للحفاظ على سلسلة الانتصارات.</string>
   <string name="failedPuzzles">الألغاز التي فشلت في حلها</string>
   <string name="slowPuzzles">ألغاز بطيئة</string>
-  <string name="skippedPuzzle">الالغاز التي تم تخطيها</string>
+  <string name="skippedPuzzle">الألغاز التي تخطيتها</string>
   <string name="thisWeek">هذا الأسبوع</string>
   <string name="thisMonth">هذا الشهر</string>
   <string name="allTime">كل الأوقات</string>

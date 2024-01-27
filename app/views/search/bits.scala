@@ -112,9 +112,8 @@ private object bits:
         td(
           form3.select(
             form("perf"),
-            lila.rating.PerfType.nonPuzzle map { v =>
-              v.id -> v.trans
-            },
+            lila.rating.PerfType.nonPuzzle.map: v =>
+              v.id -> v.trans,
             "".some
           )
         )

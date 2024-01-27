@@ -3,6 +3,7 @@ package lila.streamer
 import play.api.mvc.RequestHeader
 
 import lila.memo.CacheApi.*
+import lila.i18n.Language
 
 case class LiveStreams(streams: List[Stream]):
 
@@ -13,47 +14,40 @@ case class LiveStreams(streams: List[Stream]):
 
   def get(streamer: Streamer) = streams.find(_ is streamer)
 
-  def homepage(max: Int, req: RequestHeader, userLang: Option[String]) =
-    LiveStreams {
-      val langs = req.acceptLanguages.view.map(_.language).toSet + "en" ++ userLang.toSet
-      streams
-        .takeWhile(_.streamer.approval.tier > 0)
-        .foldLeft(Vector.empty[Stream]) {
-          case (selected, s) if langs(s.lang) && {
-                selected.sizeIs < max || s.streamer.approval.tier == Streamer.maxTier
-              } && {
-                s.streamer.approval.tier > 1 || selected.sizeIs < 2
-              } =>
-            selected :+ s
-          case (selected, _) => selected
-        }
-        .toList
-    }
+  def homepage(max: Int, accepts: Set[Language]) = LiveStreams:
+    streams
+      .takeWhile(_.streamer.approval.tier > 0)
+      .foldLeft(Vector.empty[Stream]):
+        case (selected, s) if accepts(s.language) && {
+              selected.sizeIs < max || s.streamer.approval.tier == Streamer.maxTier
+            } && {
+              s.streamer.approval.tier > 1 || selected.sizeIs < 2
+            } =>
+          selected :+ s
+        case (selected, _) => selected
+      .toList
 
   def withTitles(lightUser: lila.user.LightUserApi) =
     LiveStreams.WithTitles(
       this,
       streams.view
         .map(_.streamer.userId)
-        .flatMap { userId =>
+        .flatMap: userId =>
           lightUser.sync(userId).flatMap(_.title) map (userId -> _)
-        }
         .toMap
     )
 
-  def excludeUsers(userIds: List[UserId]) =
-    copy(
-      streams = streams.filterNot(s => userIds contains s.streamer.userId)
-    )
+  def excludeUsers(userIds: List[UserId]) = copy(
+    streams = streams.filterNot(s => userIds contains s.streamer.userId)
+  )
 
 object LiveStreams:
 
   case class WithTitles(live: LiveStreams, titles: Map[UserId, UserTitle]):
     def titleName(s: Stream) = s"${titles.get(s.streamer.userId).fold("")(_.value + " ")}${s.streamer.name}"
-    def excludeUsers(userIds: List[UserId]) =
-      copy(
-        live = live excludeUsers userIds
-      )
+    def excludeUsers(userIds: List[UserId]) = copy(
+      live = live excludeUsers userIds
+    )
 
   given alleycats.Zero[WithTitles] = alleycats.Zero(WithTitles(LiveStreams(Nil), Map.empty))
 
@@ -64,13 +58,12 @@ final class LiveStreamApi(
 
   private val cache = cacheApi.unit[LiveStreams] {
     _.refreshAfterWrite(2 seconds)
-      .buildAsyncFuture { _ =>
-        fuccess(streaming.getLiveStreams) dmap { s =>
-          LiveStreams(s.streams.sortBy(-_.streamer.approval.tier))
-        } addEffect { s =>
-          userIdsCache = s.streams.map(_.streamer.userId).toSet
-        }
-      }
+      .buildAsyncFuture: _ =>
+        fuccess(streaming.getLiveStreams)
+          .dmap: s =>
+            LiveStreams(s.streams.sortBy(-_.streamer.approval.tier))
+          .addEffect: s =>
+            userIdsCache = s.streams.map(_.streamer.userId).toSet
   }
   private var userIdsCache = Set.empty[UserId]
 

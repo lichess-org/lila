@@ -1,11 +1,14 @@
 package lila.relay
 
 import akka.actor.*
+import scala.util.matching.Regex
 import com.softwaremill.macwire.*
 import com.softwaremill.tagging.*
 import play.api.libs.ws.StandaloneWSClient
 
 import lila.common.config.*
+import lila.memo.SettingStore
+import lila.memo.SettingStore.Formable.given
 
 @Module
 final class Env(
@@ -21,6 +24,7 @@ final class Env(
     pgnDump: lila.game.PgnDump,
     gameProxy: lila.round.GameProxyRepo,
     cacheApi: lila.memo.CacheApi,
+    settingStore: SettingStore.Builder,
     irc: lila.irc.IrcApi,
     baseUrl: BaseUrl
 )(using
@@ -60,6 +64,29 @@ final class Env(
 
   private lazy val delay = wire[RelayDelay]
 
+  import SettingStore.CredentialsOption.given
+  val proxyCredentials = settingStore[Option[Credentials]](
+    "relayProxyCredentials",
+    default = none,
+    text =
+      "Broadcast: proxy credentials to fetch from external sources. Leave empty to use no auth (?!). Format: username:password".some
+  ).taggedWith[ProxyCredentials]
+
+  import SettingStore.HostPortOption.given
+  val proxyHostPort = settingStore[Option[HostPort]](
+    "relayProxyHostPort",
+    default = none,
+    text =
+      "Broadcast: proxy host and port to fetch from external sources. Leave empty to use no proxy. Format: host:port".some
+  ).taggedWith[ProxyHostPort]
+
+  import SettingStore.Regex.given
+  val proxyDomainRegex = settingStore[Regex](
+    "relayProxyDomainRegex",
+    default = "-".r,
+    text = "Broadcast: source domains that use a proxy, as a regex".some
+  ).taggedWith[ProxyDomainRegex]
+
   // start the sync scheduler
   wire[RelayFetch]
 
@@ -67,13 +94,20 @@ final class Env(
     api.autoStart >> api.autoFinishNotSyncing
 
   lila.common.Bus.subscribeFuns(
-    "study" -> { case lila.hub.actorApi.study.RemoveStudy(studyId, _) =>
+    "study" -> { case lila.hub.actorApi.study.RemoveStudy(studyId) =>
       api.onStudyRemove(studyId)
     },
     "relayToggle" -> { case lila.study.actorApi.RelayToggle(id, v, who) =>
-      studyApi.isContributor(id, who.u) foreach {
-        _ so api.requestPlay(id into RelayRoundId, v)
-      }
+      studyApi
+        .isContributor(id, who.u)
+        .foreach:
+          _ so api.requestPlay(id into RelayRoundId, v)
+    },
+    "kickStudy" -> { case lila.study.actorApi.Kick(studyId, userId, who) =>
+      roundRepo.tourIdByStudyId(studyId).flatMapz(api.kickBroadcast(userId, _, who))
+    },
+    "adminStudy" -> { case lila.study.actorApi.BecomeStudyAdmin(studyId, me) =>
+      api.becomeStudyAdmin(studyId, me)
     },
     "isOfficialRelay" -> { case lila.study.actorApi.IsOfficialRelay(studyId, promise) =>
       promise completeWith api.isOfficial(studyId)
@@ -84,3 +118,7 @@ private class RelayColls(mainDb: lila.db.Db, yoloDb: lila.db.AsyncDb @@ lila.db.
   val round = mainDb(CollName("relay"))
   val tour  = mainDb(CollName("relay_tour"))
   val delay = yoloDb(CollName("relay_delay"))
+
+private trait ProxyCredentials
+private trait ProxyHostPort
+private trait ProxyDomainRegex

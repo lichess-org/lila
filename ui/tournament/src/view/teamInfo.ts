@@ -20,74 +20,44 @@ export default function (ctrl: TournamentController): VNode | undefined {
   const setup = (vnode: VNode) => {
     lichess.powertip.manualUserIn(vnode.elm as HTMLElement);
   };
-  return h(
-    tag,
-    {
-      hook: {
-        insert: setup,
-        postpatch(_, vnode) {
-          setup(vnode);
-        },
-      },
-    },
-    [
-      h('a.close', {
-        attrs: dataIcon(licon.X),
-        hook: bind('click', () => ctrl.showTeamInfo(data.id), ctrl.redraw),
-      }),
-      h('div.stats', [
-        h('h2', [teamTag]),
-        h('table', [
-          numberRow('Players', data.nbPlayers),
-          ...(data.rating
-            ? [
-                ctrl.opts.showRatings ? numberRow(noarg('averageElo'), data.rating, 'raw') : null,
-                ...(data.perf
-                  ? [
-                      ctrl.opts.showRatings ? numberRow(noarg('averagePerformance'), data.perf, 'raw') : null,
-                      numberRow(noarg('averageScore'), data.score, 'raw'),
-                    ]
-                  : []),
-              ]
-            : []),
-          h(
-            'tr',
-            h(
-              'th',
-              h(
-                'a',
-                {
-                  attrs: { href: '/team/' + data.id },
-                },
-                noarg('teamPage'),
-              ),
-            ),
-          ),
-        ]),
+  return h(tag, { hook: { insert: setup, postpatch: (_, vnode) => setup(vnode) } }, [
+    h('a.close', {
+      attrs: dataIcon(licon.X),
+      hook: bind('click', () => ctrl.showTeamInfo(data.id), ctrl.redraw),
+    }),
+    h('div.stats', [
+      h('h2', [teamTag]),
+      h('table', [
+        numberRow('Players', data.nbPlayers),
+        ...(data.rating
+          ? [
+              ctrl.opts.showRatings ? numberRow(noarg('averageElo'), data.rating, 'raw') : null,
+              ...(data.perf
+                ? [
+                    ctrl.opts.showRatings ? numberRow(noarg('averagePerformance'), data.perf, 'raw') : null,
+                    numberRow(noarg('averageScore'), data.score, 'raw'),
+                  ]
+                : []),
+            ]
+          : []),
+        h('tr', h('th', h('a', { attrs: { href: '/team/' + data.id } }, noarg('teamPage')))),
       ]),
-      h('div', [
-        h(
-          'table.players.sublist',
-          data.topPlayers.map((p, i) =>
-            h(
-              'tr',
-              {
-                key: p.name,
-                hook: bind('click', () => ctrl.jumpToPageOf(p.name)),
-              },
-              [
-                h('th', '' + (i + 1)),
-                h('td', renderPlayer(p, false, ctrl.opts.showRatings, false, i < nbLeaders)),
-                h('td.total', [
-                  p.fire && !ctrl.data.isFinished
-                    ? h('strong.is-gold', { attrs: dataIcon(licon.Fire) }, '' + p.score)
-                    : h('strong', '' + p.score),
-                ]),
-              ],
-            ),
-          ),
+    ]),
+    h('div', [
+      h(
+        'table.players.sublist',
+        data.topPlayers.map((p, i) =>
+          h('tr', { key: p.name, hook: bind('click', () => ctrl.jumpToPageOf(p.name)) }, [
+            h('th', '' + (i + 1)),
+            h('td', renderPlayer(p, false, ctrl.opts.showRatings, false, i < nbLeaders)),
+            h('td.total', [
+              p.fire && !ctrl.data.isFinished
+                ? h('strong.is-gold', { attrs: dataIcon(licon.Fire) }, '' + p.score)
+                : h('strong', '' + p.score),
+            ]),
+          ]),
         ),
-      ]),
-    ],
-  );
+      ),
+    ]),
+  ]);
 }

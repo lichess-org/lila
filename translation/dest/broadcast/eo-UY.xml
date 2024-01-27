@@ -1,16 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="broadcasts">Elsendoj</string>
+  <string name="myBroadcasts">Miaj elsendoj</string>
   <plurals name="nbBroadcasts">
     <item quantity="one">%s elsendo</item>
     <item quantity="other">%s elsendoj</item>
   </plurals>
   <string name="liveBroadcasts">Vivaj turniraj elsendoj</string>
   <string name="newBroadcast">Nova viva elsendo</string>
+  <string name="aboutBroadcasts">Pri elsendoj</string>
+  <string name="noRoundsYet">Ankoraŭ neniom raŭndojn.</string>
+  <string name="howToUseLichessBroadcasts">Kiel uzi Lichess Elsendojn.</string>
+  <string name="theNewRoundHelp">La nova raŭndo havos la samajn membrojn kaj kontribuantojn, kiom la antaŭa.</string>
   <string name="addRound">Aldoni raŭndon</string>
   <string name="ongoing">Nun funkcianta</string>
   <string name="upcoming">Baldaŭ</string>
   <string name="completed">Kompletigita</string>
+  <string name="completedHelp">Lichess detektas raŭndan finiĝon baze sur la fontaj ludoj. Uzu ĉi tiun baskuligo, se ne estas fonto.</string>
   <string name="roundName">Raŭndnomo</string>
   <string name="roundNumber">Rondnumero</string>
   <string name="tournamentName">Nomo de la turniro</string>
@@ -33,5 +39,15 @@
   <string name="deleteAllGamesOfThisRound">Forigi ĉiujn ludojn de ĉi tiu raŭndo. La fonto devos esti aktiva por rekrei ilin.</string>
   <string name="editRoundStudy">Redakti raŭndan studon</string>
   <string name="deleteTournament">Forigi ĉi tiun turniron</string>
-  <string name="definitivelyDeleteTournament" comment="definitivelyDeleteTournament&#10;&#10;Confirmation prompt, when attempting to delete a broadcast on https://lichess.org/broadcast">Sendube forigi la tuta turniro, kaj ĝiajn raŭndojn kaj ĉiujn ĝiajn ludojn.</string>
+  <string name="definitivelyDeleteTournament">Sendube forigi la tuta turniro, kaj ĝiajn raŭndojn kaj ĉiujn ĝiajn ludojn.</string>
+  <string name="automaticLeaderboard" comment="An option when creating a broadcast to calculate a leaderboard automatically from the players involved. Example: https://lichess.org/broadcast/2023-london-chess-classic/round-9/5icayRCY">Aŭtomata ĉampionejo</string>
+  <string name="automaticLeaderboardHelp" comment="An option when creating a broadcast to calculate a leaderboard automatically from the players involved. Example: https://lichess.org/broadcast/2023-london-chess-classic/round-9/5icayRCY">Komputi kaj montri simplan ĉampionejon baze sur la ludrezultoj</string>
+  <string name="replace">Laŭvola: anstataŭi ludantaj nomoj, atingoj, kaj titoloj</string>
+  <string name="replaceHelp">Po unu lino por unu ludanto, aranĝita tiel:
+Origna namo; Anstataŭa namo; Laŭvola anstataŭa atingo; Laŭvola anstataŭa titolo
+Ekzamplo:
+DrNykterstein;Magnus Carlsen;2863
+AnishGiri;Anish Giri;2764;GM</string>
+  <string name="periodInSeconds">Periodo kiel sekundoj</string>
+  <string name="periodInSecondsHelp">Laŭvola, kiom tempo por atendi inter aliĝpetoj. Min 2s, Maks 60s. Defaŭlto estas aŭtamata baze sur la nombro de spektantoj.</string>
 </resources>

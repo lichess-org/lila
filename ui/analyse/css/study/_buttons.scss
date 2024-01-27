@@ -35,13 +35,13 @@ $c-study-button: $c-accent;
 
     i::before {
       font-size: 1.4em;
-      content: '';
+      content: $licon-X;
       color: $c-bad;
       margin-#{$end-direction}: 0.2rem;
     }
 
     &.on i::before {
-      content: '';
+      content: $licon-Checkmark;
       color: $c-good;
     }
 

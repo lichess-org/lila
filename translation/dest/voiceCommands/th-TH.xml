@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="voiceCommands">คำสั่งเสียง</string>
+  <string name="watchTheVideoTutorial">ดูวีดิโอที่ให้คำแนะนำ</string>
+  <string name="instructions1">ให้ใช้ปุ่ม %1$s เพื่อควบคุมการแยกแยะเสียง ปุ่ม %2$s เพื่อเปิด\"ไดอาล็อกช่วย\" และ เมนู %3$s เพื่อเปลี่ยนการตั้งค่าคำพูด</string>
+  <string name="instructions2" comment="Voice commands can be misheard and Lichess will not always be fully certain what you said. Several arrows will be shown to identify e.g. if the move was 'b4' or 'd4', which often sound similar.&#10;&#10;These arrows will be in different colours (green, blue, etc) or labelled 1, 2, 3....&#10;You can then say the colour of the arrow (e.g. 'green') - or its number (e.g. '1'), to select that move.&#10;Users can configure if they choose from multiple moves based on colours or numbers.">เราแสดงศรตาเดินหลายๆตา หากเราไม่มั่นใจ ให้พูดสีหรือตัวเลขของศรตาเดินเพื่อเลือกมัน</string>
+  <string name="instructions3" comment="This is a complicated concept more easy to understand in practice. Voice commands can be misheard and Lichess will not always be fully certain what you said. Several arrows will be shown to identify e.g. if the move was 'b4' or 'd4', which often sound similar.&#10;The most likely move the player wants will have a circle showing around it, but it will be possible to cancel before it is played (for example, by shouting 'no!').&#10;&#10;You can see a visual example here: https://lichess.org/@/schlawg/blog/how-to-lichess-voice/nWrypoWI">หากลูกศรแสดงเป็นเรดาร์ ตาเดินนั้นจะเล่นเมื่อเรดาร์หมุนเสร็จสมบูรณ์ ในช่วงเวลานี้ คุณอาจพูดเพียง %1$s เพื่อเล่นตาเดินนั้นทันทีและพูด %2$s เพื่อยกเลิก หรือพูดสี/หมายเลขของลูกศรอื่น ตัวจับเวลานี้สามารถปรับหรือปิดได้ในการตั้งค่า</string>
+  <string name="instructions4" comment="%s is Push to Talk.">เปิดใช้งาน %s ในบริเวณที่มีเสียงดัง กดปุ่ม Shift ค้างไว้ขณะพูดคำสั่งเมื่อเปิดอยู่</string>
+  <string name="instructions5" comment="The phonetic alphabet is also known as the NATO alphabet (where A = Alpha, B = Bravo, etc. This makes the sounds easier to differentiate through a microphone). It is for English specifically, which as of the time of writing, is the only language supported by the Voice Commands feature.">ใช้สัทอักษรเพื่อปรับปรุงการแยกแยะ คอลัมน์บนกระดานหมากรุก </string>
+  <string name="instructions6">%s อธิบายการตั้งค่าตาเดินเสียงแบบละเอียด</string>
+  <string name="thisBlogPost">บล็อกโพสต์อันนี้</string>
+  <string name="moveToE4OrSelectE4Piece">เดินไป e4 หรือ เลือกหมากที่ e4</string>
+  <string name="selectOrCaptureABishop">เลือก หรือกินบิชอป</string>
+  <string name="takeRookWithQueen">กินเรือด้วยควีน</string>
+  <string name="castle">เข้าป้อง (ฝั่งไหนก็ได้)</string>
+  <string name="phoneticAlphabetIsBest">สัทอักษรดีที่สุด</string>
+  <string name="cancelTimerOrDenyARequest">ยกเลิกเวลาหรือปฏิเสธคำขอ</string>
+  <string name="playPreferredMoveOrConfirmSomething" comment="Used in voice commands. When it is unclear what the player said (e.g. 'b4' and 'd4' sound similar), both moves will be shown, with the more likely one highlighted in a certain colour. By default, a countdown begins, and if no action is taken, the likely move (e.g. b4) will be played. Players can end the countdown early/confirm their move by saying 'yes'.&#10;&#10;For more details see https://lichess.org/@/schlawg/blog/how-to-lichess-voice/nWrypoWI">เล่นตาเดินที่เสนอหรือยืนยันบางอย่างก่อน</string>
+  <string name="sleep" comment="Used for voice commands.&#10;&#10;By default, voice commands are always-on after the feature is enabled. Users can optionally set a word for listening to start, or say 'sleep' to disable listening.&#10;&#10;(Please note - this is not the same as recording, since the recording is never sent to Lichess; the speech technology is entirely offline)">นอนหลับ (หากเปิดใช้งานคำปลุก)</string>
+  <string name="turnOffVoiceRecognition">ปิดการแยกแยะเสียง</string>
+  <string name="showPuzzleSolution">แสดงคำตอบของปริศนา</string>
+</resources>

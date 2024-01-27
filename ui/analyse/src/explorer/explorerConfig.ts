@@ -4,7 +4,7 @@ import * as licon from 'common/licon';
 import { bind, dataIcon, iconTag, onInsert } from 'common/snabbdom';
 import { storedProp, storedJsonProp, StoredJsonProp, StoredProp, storedStringProp } from 'common/storage';
 import { ExplorerDb, ExplorerSpeed, ExplorerMode } from './interfaces';
-import { snabModal } from 'common/modal';
+import { snabDialog } from 'common/dialog';
 import AnalyseCtrl from '../ctrl';
 import { perf } from 'game/perf';
 import { ucfirst } from './explorerUtil';
@@ -104,6 +104,16 @@ export class ExplorerConfigCtrl {
     this.data.playerName.open(false);
   };
 
+  removePlayer = (name?: string) => {
+    if (!name) return;
+    const previous = this.data.playerName.previous().filter(n => n !== name);
+    this.data.playerName.previous(previous);
+
+    if (this.data.playerName.value() === name) {
+      this.data.playerName.value('');
+    }
+  };
+
   toggleMany =
     <T>(c: StoredJsonProp<T[]>) =>
     (value: T) => {
@@ -140,10 +150,7 @@ export function view(ctrl: ExplorerConfigCtrl): VNode[] {
       'section.save',
       h(
         'button.button.button-green.text',
-        {
-          attrs: dataIcon(licon.Checkmark),
-          hook: bind('click', ctrl.toggleOpen),
-        },
+        { attrs: dataIcon(licon.Checkmark), hook: bind('click', ctrl.toggleOpen) },
         ctrl.root.trans.noarg('allSet'),
       ),
     ),
@@ -327,13 +334,13 @@ const playerModal = (ctrl: ExplorerConfigCtrl) => {
     }
     return '.button-metal';
   };
-  return snabModal({
+  return snabDialog({
     class: 'explorer__config__player__choice',
     onClose() {
       ctrl.data.playerName.open(false);
       ctrl.root.redraw();
     },
-    content: [
+    vnodes: [
       h('h2', 'Personal opening explorer'),
       h('div.input-wrapper', [
         h('input', {
@@ -342,12 +349,8 @@ const playerModal = (ctrl: ExplorerConfigCtrl) => {
             spellcheck: 'false',
           },
           hook: onInsert<HTMLInputElement>(input =>
-            lichess
-              .userComplete({
-                input,
-                tag: 'span',
-                onSelect: v => onSelect(v.name),
-              })
+            lichess.asset
+              .userComplete({ input, tag: 'span', onSelect: v => onSelect(v.name) })
               .then(() => input.focus()),
           ),
         }),
@@ -361,13 +364,19 @@ const playerModal = (ctrl: ExplorerConfigCtrl) => {
             ...ctrl.data.playerName.previous(),
           ]),
         ].map(name =>
-          h(
-            `button.button${nameToOptionalColor(name)}`,
-            {
-              hook: bind('click', () => onSelect(name)),
-            },
-            name,
-          ),
+          h('div', { key: name }, [
+            h(
+              `button.button${nameToOptionalColor(name)}`,
+              { hook: bind('click', () => onSelect(name)) },
+              name,
+            ),
+            name && ctrl.data.playerName.previous().includes(name)
+              ? h('button.remove', {
+                  attrs: dataIcon(licon.X),
+                  hook: bind('click', () => ctrl.removePlayer(name), ctrl.root.redraw),
+                })
+              : null,
+          ]),
         ),
       ),
     ],

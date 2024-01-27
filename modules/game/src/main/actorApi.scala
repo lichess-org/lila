@@ -46,3 +46,5 @@ object BoardTakebackOffer:
 case class BoardGone(pov: Pov, claimInSeconds: Option[Int])
 object BoardGone:
   def makeChan(gameId: GameId) = s"boardGone:$gameId"
+
+case class NotifyRematch(newGame: Game)

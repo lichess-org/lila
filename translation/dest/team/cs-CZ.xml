@@ -4,14 +4,14 @@
   <string name="teams">Týmy</string>
   <plurals name="nbMembers">
     <item quantity="one">%s člen</item>
-    <item quantity="few">%s členů</item>
+    <item quantity="few">%s členi</item>
     <item quantity="many">%s členů</item>
     <item quantity="other">%s členů</item>
   </plurals>
   <string name="allTeams">Všechny týmy</string>
   <string name="leaderTeams" comment="This is the button for 'teams lead by you' in the teams navigation sidebar">Vedení týmů</string>
   <string name="newTeam">Nový tým</string>
-  <string name="myTeams">Můj tým</string>
+  <string name="myTeams">Moje týmy</string>
   <string name="noTeamFound">Nenalezen žádný tým</string>
   <string name="joinTeam">Připojte se k týmu</string>
   <string name="onlyLeaderLeavesTeam">Prosím přidejte jiného vedoucího týmu před opuštěním, nebo tým smažte.</string>
@@ -49,7 +49,6 @@ Můžete také použít k pozvání všech hráčů do turnaje, nebo týmové bi
 Hráči, kteří si nepřejí dostávat vaše zprávy mohou opustit tým.</string>
   <string name="teamsIlead">Mnou vedené týmy</string>
   <string name="youWayWantToLinkOneOfTheseTournaments">Možná budete chtít připojit jeden z těchto nadcházejících turnajů?</string>
-  <string name="usersWhoCanManageThisTeam">Uživatelé, kteří mohou spravovat tento tým</string>
   <string name="leadersChat">Chat vedoucích</string>
   <string name="closeTeam">Zavřít tým</string>
   <string name="closeTeamDescription">Zavřít tým navždy.</string>

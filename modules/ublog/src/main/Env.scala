@@ -15,6 +15,7 @@ final class Env(
     picfitApi: lila.memo.PicfitApi,
     ircApi: lila.irc.IrcApi,
     relationApi: lila.relation.RelationApi,
+    shutup: lila.hub.actors.Shutup,
     captcher: lila.hub.actors.Captcher,
     cacheApi: lila.memo.CacheApi,
     net: NetConfig
@@ -42,16 +43,16 @@ final class Env(
     cacheApi.unit[List[UblogPost.PreviewPost]]:
       _.refreshAfterWrite(10 seconds).buildAsyncFuture: _ =>
         import ornicar.scalalib.ThreadLocalRandom
-        val lookInto = 5
-        val keep     = 2
-        api
+        val lookInto = 7
+        val keep     = 3
+        api.pinnedPosts(2) zip api
           .latestPosts(lookInto)
           .map:
-            _.mapWithIndex: (post, i) =>
-              (post, ThreadLocalRandom.nextInt(10 * (lookInto - i)))
-            .sortBy(_._2)
-              .take(keep)
-              .map(_._1)
+            _.groupBy(_.blog)
+              .flatMap(_._2.headOption)
+          .map(ThreadLocalRandom.shuffle)
+          .map(_.take(keep).toList) map:
+          case (pinned, shuffled) => pinned ++ shuffled
 
   lila.common.Bus.subscribeFun("shadowban"):
     case lila.hub.actorApi.mod.Shadowban(userId, v) =>

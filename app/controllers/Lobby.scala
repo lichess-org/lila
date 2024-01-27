@@ -21,7 +21,6 @@ final class Lobby(env: Env) extends LilaController(env):
   )
 
   def home = Open:
-    pageHit
     negotiate(
       serveHtmlHome,
       json =
@@ -43,9 +42,9 @@ final class Lobby(env: Env) extends LilaController(env):
     makeContext.flatMap: ctx =>
       keyPages.home(status)(using ctx)
 
-  def seeks = Open:
+  def seeks = OpenOrScoped():
     negotiateJson:
-      ctx.me.foldUse(env.lobby.seekApi.forAnon)(me ?=> env.lobby.seekApi.forMe(using me)) map { seeks =>
+      ctx.me.fold(env.lobby.seekApi.forAnon)(me => env.lobby.seekApi.forMe(using me)) map { seeks =>
         Ok(JsArray(seeks.map(_.render))).withHeaders(CACHE_CONTROL -> s"max-age=10")
       }
 

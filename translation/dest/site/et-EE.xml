@@ -262,7 +262,6 @@
   <string name="playingRightNow">Mängimas praegu</string>
   <string name="eventInProgress">Praegu mängimas</string>
   <string name="finished">Lõpetatud</string>
-  <string name="finishesX">lõppeb %s</string>
   <string name="abortGame">Katkesta mäng</string>
   <string name="gameAborted">Mäng katkestatud</string>
   <string name="standard">Standard</string>
@@ -495,8 +494,6 @@ arvutianalüüsi, mängu jututoa ning jagatava URL-i.</string>
   <string name="socialMediaLinks">Sotsiaalmeedia lingid</string>
   <string name="oneUrlPerLine">Üks URL iga rea kohta.</string>
   <string name="inlineNotation">Tekstisisene notatsioon</string>
-  <string name="savingMoves">Ajutine käikude säilitamine</string>
-  <string name="savingMovesHelp">Me salvestame variatsioonid alati brauseri vahemällu.</string>
   <string name="makeAStudy">Hoiustamiseks ja jagamiseks kaalutle uuringu koostamist.</string>
   <string name="clearSavedMoves">Tühista käigud</string>
   <string name="previouslyOnLichessTV">Eelnevalt Lichess TV-s</string>
@@ -670,6 +667,8 @@ arvutianalüüsi, mängu jututoa ning jagatava URL-i.</string>
   <string name="keyGoToStartOrEnd">mine algusesse/lõppu</string>
   <string name="keyShowOrHideComments">näita/peida kommentaarid</string>
   <string name="keyEnterOrExitVariation">lisa/eemalda variatsioon</string>
+  <string name="keyNextMistake">Järgmine viga</string>
+  <string name="keyNextInaccuracy">Järgmine ebatäpsus</string>
   <string name="newTournament">Uus turniir</string>
   <string name="tournamentHomeTitle">Maleturniirid koos erinevate ajakontrollide ja variantidega</string>
   <string name="tournamentHomeDescription">Mängi kiireid turniire males! Liitu ametliku turniiriga või loo oma turniir. Võimalik on valida supervälkmale, välkmale, kiirmale, klassikalise male, Chess960, King of the Hill, Threecheck ja teiste mängutüüpide vahel, et rõõm malest kunagi ei lõpeks!</string>
@@ -767,6 +766,7 @@ arvutianalüüsi, mängu jututoa ning jagatava URL-i.</string>
   <string name="invalidFen">Väär FEN</string>
   <string name="custom">Kohandatud</string>
   <string name="notifications">Teavitused</string>
+  <string name="notificationsX">Märguanded: %1$s</string>
   <string name="perfRatingX">Reiting: %s</string>
   <plurals name="nbSecondsToPlayTheFirstMove">
     <item quantity="one">%s sekund, et teha esimene käik</item>
@@ -825,7 +825,6 @@ arvutianalüüsi, mängu jututoa ning jagatava URL-i.</string>
   </plurals>
   <string name="sorry">Vabandust :(</string>
   <string name="weHadToTimeYouOutForAWhile">Me pidime su natukeseks ära blokeerima.</string>
-  <string name="timeoutExpires">Blokeering aegub %s.</string>
   <string name="why">Miks?</string>
   <string name="pleasantChessExperience">Me tahame pakkuda häid malekogemusi kõigile.</string>
   <string name="goodPractice">Selleks peame olema kindlad, et kõik meie kasutajad järgivad reegleid.</string>
@@ -845,6 +844,7 @@ arvutianalüüsi, mängu jututoa ning jagatava URL-i.</string>
   <string name="agreementPolicy">Ma nõustun, et järgin kõiki Lichessi eeskirju.</string>
   <string name="searchOrStartNewDiscussion">Otsi või alusta uut vestlust</string>
   <string name="edit">Muuda</string>
+  <string name="blitz" comment="Probably best left untranslated. Leave it as 'Blitz' unless your language has a better word for it.">Välkmale</string>
   <string name="rapid">Kiirmale</string>
   <string name="classical">Klassikaline</string>
   <string name="ultraBulletDesc">Ultrakiired mängud: vähem kui 30 sekundit</string>
@@ -884,9 +884,6 @@ arvutianalüüsi, mängu jututoa ning jagatava URL-i.</string>
   <string name="timeAlmostUp">Aeg on peaaegu otsas!</string>
   <string name="clickToRevealEmailAddress">[Vajuta e-maili aadressi nägemiseks]</string>
   <string name="download">Lae alla</string>
-  <string name="welcome">Tere tulemast!</string>
-  <string name="lichessPatronInfo">Lichess on heategevuslik ja täiesti tasuta avatud lähtekoodiga tarkvara.
-Kõik tegevuskulud, arendus ja sisu rahastatakse ainult kasutajate annetustest.</string>
   <string name="coachManager">Treeneri seaded</string>
   <string name="streamerManager">Striimeri seaded</string>
   <string name="cancelTournament">Tühista turniir</string>
@@ -945,4 +942,6 @@ Jäta tühjaks, et alustada mänge tavalisest algpositsioonist.</string>
   <string name="switchSides">Vaheta pooli</string>
   <string name="closingAccountWithdrawAppeal">Konto sulgemine tühistab teie kaebuse</string>
   <string name="ourEventTips">Meie nõuanded ürituste korraldamiseks</string>
+  <string name="lichessPatronInfo">Lichess on heategevuslik ja täiesti tasuta avatud lähtekoodiga tarkvara.
+Kõik tegevuskulud, arendus ja sisu rahastatakse ainult kasutajate annetustest.</string>
 </resources>

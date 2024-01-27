@@ -4,49 +4,44 @@ import lila.app.templating.Environment.{ given, * }
 import lila.app.ui.ScalatagsTemplate.{ *, given }
 
 import controllers.routes
+import lila.i18n.I18nKeys.{ oauthScope as ot }
 
 object index:
 
   def apply(tokens: List[lila.oauth.AccessToken])(using PageContext) =
-
-    val title = "Personal API access tokens"
-
-    views.html.account.layout(title = title, active = "oauth.token")(
-      div(cls := "account oauth box")(
+    views.html.account.layout(title = ot.personalAccessTokens.txt(), active = "oauth.token"):
+      div(cls := "oauth box")(
         boxTop(
-          h1(title),
+          h1(ot.personalAccessTokens()),
           st.form(cls := "box-top__actions", action := routes.OAuthToken.create)(
             submitButton(
               cls      := "button frameless",
-              st.title := "New access token",
+              st.title := ot.newAccessToken.txt(),
               dataIcon := licon.PlusButton
             )
           )
         ),
         standardFlash.map(div(cls := "box__pad")(_)),
         p(cls := "box__pad force-ltr")(
-          "You can make OAuth requests without going through the ",
-          a(href := s"${routes.Api.index}#section/Introduction/Authentication")("authorization code flow"),
-          ".",
-          br,
-          br,
-          "Instead, ",
-          a(href := routes.OAuthToken.create)("generate a personal access token"),
-          " that you can directly use in API requests.",
-          br,
-          br,
-          "Guard these tokens carefully! They are like passwords. ",
-          "The advantage to using tokens over putting your password into a script is that tokens can be revoked, ",
-          "and you can generate lots of them.",
-          br,
-          br,
-          "Here's a ",
-          a(href := "https://github.com/lichess-org/api/tree/master/example/oauth-personal-token")(
-            "personal token app example"
+          ot.canMakeOauthRequests(
+            a(href := s"${routes.Api.index}#section/Introduction/Authentication")(ot.authorizationCodeFlow())
           ),
-          " and the ",
-          a(href := routes.Api.index)("API documentation"),
-          "."
+          br,
+          br,
+          ot.insteadGenerateToken(
+            a(href := routes.OAuthToken.create)(ot.generatePersonalToken())
+          ),
+          br,
+          br,
+          ot.guardTokensCarefully(),
+          br,
+          br,
+          ot.apiDocumentationLinks(
+            a(href := "https://github.com/lichess-org/api/tree/master/example/oauth-personal-token")(
+              ot.personalTokenAppExample()
+            ),
+            a(href := routes.Api.index)(ot.apiDocumentation())
+          )
         ),
         tokens.headOption.filter(_.isBrandNew).map { token =>
           div(cls := "box__pad brand")(
@@ -54,8 +49,8 @@ object index:
             else iconTag(licon.Checkmark)(cls                            := "is-green"),
             div(
               if token.isDangerous
-              then p(strong(trans.oauthScope.doNotShareIt()))
-              else p(trans.oauthScope.copyTokenNow()),
+              then p(strong(ot.doNotShareIt()))
+              else p(ot.copyTokenNow()),
               code(token.plain.value)
             )
           )
@@ -70,19 +65,17 @@ object index:
               ),
               td(cls := "date")(
                 t.createdAt.map: created =>
-                  frag("Created ", momentFromNow(created), br),
+                  frag(ot.created(momentFromNow(created)), br),
                 t.usedAt.map: used =>
-                  frag("Last used ", momentFromNow(used))
+                  frag(ot.lastUsed(momentFromNow(used)))
               ),
               td(cls := "action")(
                 postForm(action := routes.OAuthToken.delete(t.id.value))(
                   submitButton(
-                    cls      := "button button-red button-empty confirm",
-                    st.title := "Delete this access token"
-                  )("Delete")
+                    cls := "button button-red button-empty confirm"
+                  )(trans.delete())
                 )
               )
             )
         )
       )
-    )

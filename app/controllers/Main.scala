@@ -43,11 +43,9 @@ final class Main(
     }
 
   def webmasters = Open:
-    pageHit
     Ok.page(html.site.page.webmasters)
 
   def lag = Open:
-    pageHit
     Ok.page(html.site.lag())
 
   def mobile     = Open(serveMobile)
@@ -66,7 +64,6 @@ final class Main(
       html.mobile(doc, resolver)
 
   def dailyPuzzleSlackApp = Open:
-    pageHit
     Ok.page(html.site.dailyPuzzleSlackApp())
 
   def jslog(id: GameFullId) = Open:
@@ -110,7 +107,7 @@ final class Main(
     pageHit
     Ok.page(html.site.faq())
 
-  def temporarilyDisabled = Open:
+  def temporarilyDisabled(path: String) = Open:
     pageHit
     NotImplemented.page(html.site.message.temporarilyDisabled)
 
@@ -119,9 +116,8 @@ final class Main(
 
   def voiceHelp(module: String) = Open:
     module match
-      case "move"   => Ok.page(html.site.help.voiceMove)
-      case "coords" => Ok.page(html.site.help.voiceCoords)
-      case _        => NotFound(s"Unknown voice help module: $module")
+      case "move" => Ok.page(html.site.help.voiceMove)
+      case _      => NotFound(s"Unknown voice module: $module")
 
   def movedPermanently(to: String) = Anon:
     MovedPermanently(to)

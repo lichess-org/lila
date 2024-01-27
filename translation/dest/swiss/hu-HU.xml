@@ -61,7 +61,7 @@ Ha egy játékost nem lehet párosítani a fordulóban akkor kap egy pontot ér�
   <string name="numberOfByesA">A játékos kap egy pontot érő szabadkört minden alkalommal amikor a rendszer nem tudja őt összepárosítani valakivel egy fordulóban.
 Továbbá, fél pontot érő egyszeri szabadkört kap minden játékos, aki késve csatlakozik a versenyhez.</string>
   <string name="earlyDrawsQ">Mi van a korai döntetlenekkel?</string>
-  <string name="earlyDrawsA">A játékos kap egy bye pontot minden alkalommal, amikor a párosító program nem tudja párosítani senkivel. Továbbá fél pontot kap, ha későn csatlakozik a versenyhez.</string>
+  <string name="earlyDrawsAnswer">A svájci rendszerű játékok 30 lépés megtétele előtt nem fejeződhetnek be döntetlenként. Ez az intézkedés nem tudja teljesen megakadályozni az előre megszervezett döntetleneket, mindenesetre megnehezíti a menet közbeni döntetlenben való megegyezést.</string>
   <string name="whatIfOneDoesntPlayQ">Mi történik, ha egy játékos nem játssza a partit?</string>
   <string name="whatIfOneDoesntPlayA">Az órájuk ugyanúgy ketyeg, az idejük lejár és elvesztik a játszmát.
 A rendszer visszalépteti ezeket a játékosokat a versenytől, hogy ne veszítsenek el több játszmát.

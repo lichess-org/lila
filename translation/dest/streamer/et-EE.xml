@@ -3,8 +3,8 @@
   <string name="lichessStreamers">Lichessi striimijad</string>
   <string name="lichessStreamer">Lichessi striimer</string>
   <string name="live">OTSE!</string>
-  <string name="currentlyStreaming">Praegu striimivad: %s</string>
-  <string name="lastStream">Viimane striim %s</string>
+  <string name="currentlyStreaming" comment="%s is the title of the stream, chosen by the streamer.">Praegu striimivad: %s</string>
+  <string name="lastStream" comment="%s is how long ago the stream was in relative time (e.g. 50 minutes ago). It is displayed in smaller type than the rest of the string.">Viimane striim %s</string>
   <string name="becomeStreamer">Hakka Lichess-striimijaks</string>
   <string name="doYouHaveStream">Kas sul on Twitch- või Youtube-kanal?</string>
   <string name="hereWeGo">Hakkame pihta!</string>

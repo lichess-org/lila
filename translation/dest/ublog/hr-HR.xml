@@ -40,10 +40,10 @@
   <string name="imageCredit">Autor slike</string>
   <string name="deleteBlog">Definitivno izbriši ovaj blog post</string>
   <string name="deleteImage">Izbriši sliku</string>
-  <string name="safeToUseImages" comment="safeToUseImages&#10;&#10;This is mentioned because the images there are royalty-free, so there is no risk of copyright infringement.">Slike sa sljedećih web stranica su sigurne: </string>
+  <string name="safeToUseImages">Slike sa sljedećih web stranica su sigurne: </string>
   <string name="selectPostTopics">Izaberite teme koje opisuju vaš post</string>
   <string name="useImagesYouMadeYourself">Također možete koristiti slike koje ste sami izradili, slike koje ste snimili, snimke zaslona Lichessa... sve što nije zaštićeno autorskim pravima nekog drugog.</string>
   <string name="safeAndRespectfulContent">Molim vas da objavljujete samo siguran i obziran sadržaj. Nemojte kopirati sadržaj druge osobe.</string>
   <string name="inappropriateContentAccountClosed">Sve imalo neprikladno može trajno zatvoriti tvoj profil.</string>
-  <string name="blogTips" comment="blogTips&#10;&#10;This is a link to https://lichess.org/page/blog-tips. Appears when creating a new post.">Naši mali savijeti za pisanje dobrih postova</string>
+  <string name="blogTips">Naši mali savijeti za pisanje dobrih postova</string>
 </resources>

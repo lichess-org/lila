@@ -8,12 +8,13 @@ import lila.db.dsl.{ *, given }
 import lila.db.paginator.Adapter
 import lila.user.User
 import reactivemongo.api.bson.BSONNull
-import play.api.i18n.Lang
 import lila.user.Me
+import lila.i18n.Language
 
 final class UblogPaginator(
     colls: UblogColls,
     relationApi: lila.relation.RelationApi,
+    userRepo: lila.user.UserRepo,
     cacheApi: lila.memo.CacheApi
 )(using Executor):
 
@@ -38,11 +39,11 @@ final class UblogPaginator(
       maxPerPage = maxPerPage
     )
 
-  def liveByCommunity(lang: Option[Lang], page: Int): Fu[Paginator[PreviewPost]] =
+  def liveByCommunity(language: Option[Language], page: Int): Fu[Paginator[PreviewPost]] =
     Paginator(
       adapter = new AdapterLike[PreviewPost]:
-        val select = $doc("live" -> true, "topics" $ne UblogTopic.offTopic) ++ lang.so: l =>
-          $doc("language" -> l.code)
+        val select = $doc("live" -> true, "topics" $ne UblogTopic.offTopic) ++ language.so: l =>
+          $doc("language" -> l)
         def nbResults: Fu[Int]              = fuccess(10 * maxPerPage.value)
         def slice(offset: Int, length: Int) = aggregateVisiblePosts(select, offset, length)
       ,
@@ -56,51 +57,68 @@ final class UblogPaginator(
         collection = colls.post,
         selector = $doc("live" -> true, "likers" -> me.userId),
         projection = previewPostProjection.some,
-        sort = $sort desc "rank",
+        sort = $sort desc "lived.at",
         _.sec
       ),
       currentPage = page,
       maxPerPage = maxPerPage
     )
 
-  def liveByTopic(topic: UblogTopic, page: Int): Fu[Paginator[PreviewPost]] =
+  def liveByTopic(topic: UblogTopic, page: Int, byDate: Boolean): Fu[Paginator[PreviewPost]] =
     Paginator(
       adapter = new AdapterLike[PreviewPost]:
         def nbResults: Fu[Int] = fuccess(10 * maxPerPage.value)
         def slice(offset: Int, length: Int) =
-          aggregateVisiblePosts($doc("topics" -> topic), offset, length)
+          aggregateVisiblePosts($doc("topics" -> topic), offset, length, byDate)
       ,
       currentPage = page,
       maxPerPage = maxPerPage
     )
 
-  private def aggregateVisiblePosts(select: Bdoc, offset: Int, length: Int) = colls.post
-    .aggregateList(length, _.sec): framework =>
-      import framework.*
-      Match(select ++ $doc("live" -> true)) -> List(
-        Sort(Descending("rank")),
-        PipelineOperator:
-          $lookup.pipeline(
-            from = colls.blog,
-            as = "blog",
-            local = "blog",
-            foreign = "_id",
-            pipe = List(
-              $doc("$match"   -> $expr($doc("$gte" -> $arr("$tier", UblogBlog.Tier.LOW)))),
-              $doc("$project" -> $id(true))
+  // So far this only hits a prod index if $select contains `topics`, or if byDate is false
+  // i.e. byDate can only be true if $select contains `topics`
+  private def aggregateVisiblePosts(select: Bdoc, offset: Int, length: Int, byDate: Boolean = false) =
+    colls.post
+      .aggregateList(length, _.sec): framework =>
+        import framework.*
+        Match(select ++ $doc("live" -> true)) -> List(
+          Sort(Descending(if byDate then "lived.at" else "rank")),
+          Limit(500),
+          PipelineOperator:
+            $lookup.pipeline(
+              from = colls.blog,
+              as = "blog",
+              local = "blog",
+              foreign = "_id",
+              pipe = List(
+                $doc("$match"   -> $expr($doc("$gte" -> $arr("$tier", UblogBlog.Tier.LOW)))),
+                $doc("$project" -> $id(true))
+              )
             )
-          )
-        ,
-        UnwindField("blog"),
-        Project(previewPostProjection ++ $doc("blog" -> "$blog._id")),
-        Skip(offset),
-        Limit(length)
-      )
-    .map: docs =>
-      for
-        doc  <- docs
-        post <- doc.asOpt[PreviewPost]
-      yield post
+          ,
+          UnwindField("blog"),
+          PipelineOperator:
+            $lookup.pipeline(
+              from = userRepo.coll,
+              as = "user",
+              local = "created.by",
+              foreign = "_id",
+              pipe = List(
+                $doc("$match"   -> $doc(User.BSONFields.enabled -> true)),
+                $doc("$project" -> $id(true))
+              )
+            )
+          ,
+          UnwindField("user"),
+          Project(previewPostProjection ++ $doc("blog" -> "$blog._id")),
+          Skip(offset),
+          Limit(length)
+        )
+      .map: docs =>
+        for
+          doc  <- docs
+          post <- doc.asOpt[PreviewPost]
+        yield post
 
   object liveByFollowed:
 

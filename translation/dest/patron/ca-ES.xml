@@ -60,6 +60,7 @@ Tanmateix, els patrons tenen dret a ser identificats amb una icona en el perfil.
   <string name="nextPayment">Proper pagament</string>
   <string name="youWillBeChargedXOnY">Se\'t cobrarà %1$s el %2$s.</string>
   <string name="makeAdditionalDonation">Fes ara una donació addicional</string>
+  <string name="giftPatronWingsShort">Regala ales de patró</string>
   <string name="giftPatronWings">Regalar les ales de Patró a un altre jugador</string>
   <string name="update">Actualitzar</string>
   <string name="changeMonthlyAmount">Canvia la quantitat mensual (%s)</string>
@@ -79,4 +80,7 @@ Tanmateix, els patrons tenen dret a ser identificats amb una icona en el perfil.
   <string name="nowOneMonth">Ara ets Patró de Lichess per un mes!</string>
   <string name="downgradeNextMonth">En un mes, NO es farà cap càrrec més, i el teu compte de Lichess tornarà a la versió normal.</string>
   <string name="changeCurrency">Canvia la moneda</string>
+  <string name="paymentDetails">Detalls del pagament</string>
+  <string name="updatePaymentMethod">Actualitza el mètode de pagament</string>
+  <string name="stripeManageSub">Gestiona la teva subscripció i descarrega les factures i rebuts</string>
 </resources>

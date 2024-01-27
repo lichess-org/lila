@@ -15,7 +15,7 @@ lichess.load.then(() => {
   let clickDebounce: Timeout | undefined; // https://yaireo.github.io/tagify/#section-advance-options
   tagify
     .on('input', e => {
-      const term = e.detail.value.trim();
+      const term = (e.detail as Tagify.BaseTagData).value.trim();
       if (term.length < 2) return;
       tagify.settings.whitelist!.length = 0; // reset the whitelist
       // show loading animation and hide the suggestions dropdown

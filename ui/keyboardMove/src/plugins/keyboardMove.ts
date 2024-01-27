@@ -24,7 +24,7 @@ interface Opts {
 }
 
 export function load(opts: Opts): Promise<KeyboardMoveHandler> {
-  return lichess.loadEsm('keyboardMove', { init: opts });
+  return lichess.asset.loadEsm('keyboardMove', { init: opts });
 }
 
 export function initModule(opts: Opts) {
@@ -86,14 +86,19 @@ export function initModule(opts: Opts) {
         opts.ctrl.drop(v.slice(2) as Key, v[0].toUpperCase());
         clear();
       }
-    } else if (v.length > 0 && 'clock'.startsWith(v.toLowerCase())) {
+    } else if (v.length > 0 && 'clock'.startsWith(v.toLowerCase()) && opts.ctrl.speakClock) {
       if ('clock' === v.toLowerCase()) {
-        readClocks(opts.ctrl.clock());
+        opts.ctrl.speakClock();
+        clear();
+      }
+    } else if (v.length > 0 && 'zerk'.startsWith(v.toLowerCase()) && opts.ctrl.goBerserk) {
+      if ('zerk' === v.toLowerCase()) {
+        opts.ctrl.goBerserk();
         clear();
       }
     } else if (v.length > 0 && 'who'.startsWith(v.toLowerCase())) {
-      if ('who' === v.toLowerCase()) {
-        readOpponentName();
+      if ('who' === v.toLowerCase() && opts.ctrl.opponent) {
+        lichess.sound.say(opts.ctrl.opponent, false, true);
         clear();
       }
     } else if (v.length > 0 && 'draw'.startsWith(v.toLowerCase())) {
@@ -212,29 +217,4 @@ function sanCandidates(san: string, legalSans: SanToUci): San[] {
 function focusChat() {
   const chatInput = document.querySelector('.mchat .mchat__say') as HTMLInputElement;
   if (chatInput) chatInput.focus();
-}
-
-function readClocks(clockCtrl: any | undefined) {
-  if (!clockCtrl) return;
-  const msgs = ['white', 'black'].map(color => {
-    const time = clockCtrl.millisOf(color);
-    const date = new Date(time);
-    const msg =
-      (time >= 3600000 ? simplePlural(Math.floor(time / 3600000), 'hour') : '') +
-      ' ' +
-      simplePlural(date.getUTCMinutes(), 'minute') +
-      ' ' +
-      simplePlural(date.getUTCSeconds(), 'second');
-    return `${color} ${msg}`;
-  });
-  lichess.sound.say(msgs.join('. '));
-}
-
-function readOpponentName(): void {
-  const opponentName = document.querySelector('.ruser-top') as HTMLInputElement;
-  lichess.sound.say(opponentName.innerText.split('\n')[0]);
-}
-
-function simplePlural(nb: number, word: string) {
-  return `${nb} ${word}${nb != 1 ? 's' : ''}`;
 }

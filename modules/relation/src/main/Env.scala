@@ -34,7 +34,7 @@ final class Env(
 
   private val config = appConfig.get[RelationConfig]("relation")(AutoConfig.loader)
 
-  def maxFollow = config.maxFollow
+  export config.maxFollow
 
   private lazy val colls = Colls(db(config.relation), db(config.subscription))
 

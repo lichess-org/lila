@@ -4,6 +4,7 @@ import play.api.http.HeaderNames
 import play.api.mvc.RequestHeader
 import play.api.routing.Router
 import scala.util.matching.Regex
+import lila.common.Form.trueish
 
 object HTTPRequest:
 
@@ -36,15 +37,17 @@ object HTTPRequest:
   def userAgent(req: RequestHeader): Option[UserAgent] = UserAgent.from:
     req.headers get HeaderNames.USER_AGENT
 
-  val isChrome96Plus                      = UaMatcher("""Chrome/(?:\d{3,}|9[6-9])""")
-  val isChrome113Plus                     = UaMatcher("""Chrome/(?:11[3-9]|1[2-9]\d)""")
-  val isFirefox114Plus                    = UaMatcher("""Firefox/(?:11[4-9]|1[2-9]\d)""")
-  val isMobileBrowser                     = UaMatcher("""(?i)iphone|ipad|ipod|android.+mobile""")
-  def isLichessMobile(req: RequestHeader) = userAgent(req).exists(_.value startsWith "Lichess Mobile/")
-  def isLichobile(req: RequestHeader)     = userAgent(req).exists(_.value contains "Lichobile/")
+  val isChrome96Plus                               = UaMatcher("""Chrome/(?:\d{3,}|9[6-9])""")
+  val isChrome113Plus                              = UaMatcher("""Chrome/(?:11[3-9]|1[2-9]\d)""")
+  val isFirefox119Plus                             = UaMatcher("""Firefox/(?:119|1[2-9]\d)""")
+  val isMobileBrowser                              = UaMatcher("""(?i)iphone|ipad|ipod|android.+mobile""")
+  def isLichessMobile(ua: UserAgent): Boolean      = ua.value startsWith "Lichess Mobile/"
+  def isLichessMobile(req: RequestHeader): Boolean = userAgent(req).exists(isLichessMobile)
+  def isLichobile(req: RequestHeader)              = userAgent(req).exists(_.value contains "Lichobile/")
   def isLichobileDev(req: RequestHeader) = // lichobile in a browser can't set its user-agent
     isLichobile(req) || (appOrigin(req).isDefined && !isLichessMobile(req))
-  def isAndroid = UaMatcher("Android")
+  def isAndroid                     = UaMatcher("Android")
+  def isLitools(req: RequestHeader) = userAgent(req).has(UserAgent("litools"))
 
   def origin(req: RequestHeader): Option[String]  = req.headers get HeaderNames.ORIGIN
   def referer(req: RequestHeader): Option[String] = req.headers get HeaderNames.REFERER
@@ -60,7 +63,7 @@ object HTTPRequest:
 
   private val crawlerMatcher = UaMatcher:
     // spiders/crawlers
-    """Googlebot|AdsBot|Google-Read-Aloud|bingbot|BingPreview|facebookexternalhit|SemrushBot|AhrefsBot|PetalBot|Applebot|YandexBot|YandexAdNet|Twitterbot|Baiduspider""" +
+    """Googlebot|AdsBot|Google-Read-Aloud|bingbot|BingPreview|facebookexternalhit|SemrushBot|AhrefsBot|PetalBot|Applebot|YandexBot|YandexAdNet|Twitterbot|Baiduspider|Amazonbot|Bytespider""" +
       // http libs
       """|HeadlessChrome|okhttp|axios|wget|curl|python-requests|aiohttp|commons-httpclient|python-urllib|python-httpx|Nessus"""
 
@@ -79,7 +82,7 @@ object HTTPRequest:
 
   def hasFileExtension(req: RequestHeader) = fileExtensionRegex.find(req.path)
 
-  def weirdUA(req: RequestHeader) = userAgent(req).fold(true)(_.value.lengthIs < 30)
+  def weirdUA(req: RequestHeader) = userAgent(req).forall(_.value.lengthIs < 30)
 
   def print(req: RequestHeader) = s"${printReq(req)} ${printClient(req)}"
 
@@ -100,7 +103,7 @@ object HTTPRequest:
   def accepts(req: RequestHeader): Option[String] = req.headers.get(HeaderNames.ACCEPT)
   def acceptsNdJson(req: RequestHeader)           = accepts(req) contains "application/x-ndjson"
   def acceptsJson(req: RequestHeader) = accepts(req).exists: a =>
-    a == "application/json" || startsWithLichobileAccepts(a)
+    a.startsWith("application/json") || startsWithLichobileAccepts(a)
   def acceptsCsv(req: RequestHeader)             = accepts(req) contains "text/csv"
   def isEventSource(req: RequestHeader): Boolean = accepts(req) contains "text/event-stream"
   def isProgrammatic(req: RequestHeader) =
@@ -114,7 +117,7 @@ object HTTPRequest:
 
   def apiVersion(req: RequestHeader): Option[ApiVersion] =
     accepts(req).flatMap:
-      case LichobileVersionHeaderPattern(v) => v.toIntOption map { ApiVersion(_) }
+      case LichobileVersionHeaderPattern(v) => ApiVersion from v.toIntOption
       case _                                => none
 
   private def isDataDump(req: RequestHeader) = req.path == "/account/personal-data"
@@ -141,3 +144,10 @@ object HTTPRequest:
   def looksLikeLichessBot(req: RequestHeader) =
     userAgent(req).exists: ua =>
       ua.value.startsWith("lichess-bot/") || ua.value.startsWith("maia-bot/")
+
+  // this header is set by our nginx config, based on the nginx whitelist file.
+  def nginxWhitelist(req: RequestHeader) =
+    req.headers.get("X-Ip-Tier").flatMap(_.toIntOption).exists(_ > 1)
+
+  def isKid(req: RequestHeader) =
+    req.headers.get("X-Lichess-KidMode").exists(trueish)

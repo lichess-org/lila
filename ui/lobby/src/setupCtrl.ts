@@ -100,9 +100,9 @@ export default class SetupController {
   private loadPropsFromStore = (forceOptions?: ForceSetupOptions) => {
     const storeProps = this.store[this.gameType!]();
     // Load props from the store, but override any store values with values found in forceOptions
-    this.variant = propWithEffect(forceOptions?.variant || storeProps.variant, this.onVariantChange);
+    this.variant = propWithEffect(forceOptions?.variant || storeProps.variant, this.onDropdownChange);
     this.fen = this.propWithApply(forceOptions?.fen || storeProps.fen);
-    this.timeMode = this.propWithApply(forceOptions?.timeMode || storeProps.timeMode);
+    this.timeMode = propWithEffect(forceOptions?.timeMode || storeProps.timeMode, this.onDropdownChange);
     this.timeV = this.propWithApply(sliderInitVal(storeProps.time, timeVToTime, 100)!);
     this.incrementV = this.propWithApply(sliderInitVal(storeProps.increment, incrementVToIncrement, 100)!);
     this.daysV = this.propWithApply(sliderInitVal(storeProps.days, daysVToDays, 20)!);
@@ -169,7 +169,7 @@ export default class SetupController {
     this.root.redraw();
   };
 
-  private onVariantChange = () => {
+  private onDropdownChange = () => {
     // Handle rating update here
     this.enforcePropRules();
     if (this.isProvisional()) {
@@ -280,7 +280,7 @@ export default class SetupController {
       color,
     });
 
-  validFen = (): boolean => this.variant() !== 'fromPosition' || !this.fenError;
+  validFen = (): boolean => this.variant() !== 'fromPosition' || (!this.fenError && !!this.fen());
   validTime = (): boolean => this.timeMode() !== 'realTime' || this.time() > 0 || this.increment() > 0;
   validAiTime = (): boolean =>
     this.gameType !== 'ai' ||

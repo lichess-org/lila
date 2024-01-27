@@ -1,5 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+  <string name="communityBlogs">Gemeinschaftlichi Tagebüecher</string>
+  <string name="friendBlogs">Tagebüecher vu Fründe</string>
+  <string name="likedBlogs">Bevorzugti Tagebuech Biträg</string>
+  <string name="blogTopics">Tagebuech Theme</string>
+  <string name="lichessOfficialBlog">Offiziells Lichess Tagebuech</string>
+  <string name="continueReadingPost">De Bitrag witer läse</string>
+  <string name="lichessBlogPostsFromXYear">Lichess Tagebuech Biträg in %s</string>
+  <string name="previousBlogPosts">Vorherigi Tagebuech Biträg</string>
   <string name="xBlog">%s\'s Blog</string>
   <string name="newPost">Neue Bitrag</string>
   <string name="editYourBlogPost">Bearbeit din Blog Bitrag</string>
@@ -37,10 +45,11 @@
   <string name="imageCredit">Bild Herkunft</string>
   <string name="deleteBlog">Lösch de Blog-Post definitiv</string>
   <string name="deleteImage">Lösch s\'Bild</string>
-  <string name="safeToUseImages" comment="safeToUseImages&#10;&#10;This is mentioned because the images there are royalty-free, so there is no risk of copyright infringement.">Es isch sicher, Bilder vu folgende Website z\'verwände: </string>
+  <string name="safeToUseImages">Es isch sicher, Bilder vu folgende Website z\'verwände: </string>
   <string name="selectPostTopics">Wähl d\'Theme vu dim Post us</string>
   <string name="useImagesYouMadeYourself">Du chasch auch sälber g\'machti- oder knipsti Bilder verwände oder Screenshots vu Lichess... eifach alles, was nöd vu öpper anderem urheberrächtlich gschützt isch.</string>
   <string name="safeAndRespectfulContent">Bitte nur sicheri und reschpäktvolli Inhält poschte. Kopier nöd Inhält vu öpper anderem.</string>
   <string name="inappropriateContentAccountClosed">Irgendwelchi unagmässeni Inhält, chönd zur Schlüssig vu dim Konto fühere.</string>
-  <string name="blogTips" comment="blogTips&#10;&#10;This is a link to https://lichess.org/page/blog-tips. Appears when creating a new post.">Euseri simple Ratschläg, zum tolli Biträg poschte</string>
+  <string name="blogTips">Euseri simple Ratschläg, zum tolli Biträg poschte</string>
+  <string name="discussThisBlogPostInTheForum">Diskutier de Blogbitrag im Forum</string>
 </resources>

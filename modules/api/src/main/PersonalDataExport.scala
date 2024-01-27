@@ -23,6 +23,9 @@ final class PersonalDataExport(
     streamerApi: lila.streamer.StreamerApi,
     coachApi: lila.coach.CoachApi,
     appealApi: lila.appeal.AppealApi,
+    shutupEnv: lila.shutup.Env,
+    modLogApi: lila.mod.ModlogApi,
+    reportEnv: lila.report.Env,
     picfitUrl: lila.memo.PicfitUrl
 )(using Executor, Materializer):
 
@@ -174,13 +177,38 @@ final class PersonalDataExport(
             .mkString("\n") + bigSep
           .throttle(heavyPerSecond, 1 second)
 
-    val appeal = Source.futureSource:
-      appealApi.byId(user).map { opt =>
+    val appeals = Source.futureSource:
+      appealApi
+        .byId(user)
+        .map: opt =>
+          Source:
+            opt.so: appeal =>
+              List(textTitle("Appeal")) ++ appeal.msgs.map: msg =>
+                val author = if appeal.isAbout(msg.by) then "you" else "Lichess"
+                s"${textDate(msg.at)} by $author\n${msg.text}$bigSep"
+
+    val reports = Source.futureSource:
+      reportEnv.api.personalExport(user) map: atoms =>
         Source:
-          opt.so: appeal =>
-            List(textTitle("Appeal")) ++ appeal.msgs.map: msg =>
-              s"${textDate(msg.at)} by ${msg.by}\n${msg.text}$bigSep"
-      }
+          List(textTitle("Reports you created")) :::
+            atoms.map: a =>
+              s"${textDate(a.at)}\n${a.text}$bigSep"
+
+    val dubiousChats = Source.futureSource:
+      shutupEnv.api.getPublicLines(user.id) map: lines =>
+        Source:
+          List(textTitle("Dubious public chats")) :::
+            lines.map: l =>
+              s"${l.date.so(textDate)}\n${l.text}$bigSep"
+
+    val timeouts = Source.futureSource:
+      modLogApi.timeoutPersonalExport(user.id) map: modlogs =>
+        Source:
+          List(textTitle("Messages you were timeouted for")) :::
+            modlogs.map: m =>
+              // do not export the reason of the timeout as not personal data
+              val timeoutMsg = m.details.so(_.split(":").drop(1).mkString(":").trim())
+              s"${textDate(m.date)}\n${timeoutMsg}$bigSep"
 
     val outro = Source(List(textTitle("End of data export.")))
 
@@ -195,7 +223,10 @@ final class PersonalDataExport(
       privateMessages,
       spectatorGameChats,
       gameNotes,
-      appeal,
+      reports,
+      dubiousChats,
+      timeouts,
+      appeals,
       outro
     ).foldLeft(Source.empty[String])(_ concat _)
       .keepAlive(15 seconds, () => " ")

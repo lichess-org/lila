@@ -44,12 +44,6 @@
     <item quantity="other">עוד %s שנים</item>
   </plurals>
   <string name="rightNow">עכשיו</string>
-  <plurals name="nbSecondsAgo">
-    <item quantity="one">לפני שנייה %s</item>
-    <item quantity="two">לפני %s שניות</item>
-    <item quantity="many">לפני %s שניות</item>
-    <item quantity="other">לפני %s שניות</item>
-  </plurals>
   <plurals name="nbMinutesAgo">
     <item quantity="one">לפני דקה %s</item>
     <item quantity="two">לפני %s דקות</item>
@@ -86,4 +80,17 @@
     <item quantity="many">לפני %s שנים</item>
     <item quantity="other">לפני %s שנים</item>
   </plurals>
+  <plurals name="nbMinutesRemaining">
+    <item quantity="one">דקה %s נותרה</item>
+    <item quantity="two">%s דקות נותרו</item>
+    <item quantity="many">%s דקות נותרו</item>
+    <item quantity="other">%s דקות נותרו</item>
+  </plurals>
+  <plurals name="nbHoursRemaining">
+    <item quantity="one">שעה %s נותרה</item>
+    <item quantity="two">%s שעות נותרו</item>
+    <item quantity="many">%s שעות נותרו</item>
+    <item quantity="other">%s שעות נותרו</item>
+  </plurals>
+  <string name="completed">הושלם</string>
 </resources>

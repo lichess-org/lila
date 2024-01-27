@@ -26,7 +26,7 @@ object show:
           description = page.query.pgnString.value
         )
         .some,
-      csp = defaultCsp.withInlineIconFont.withWikiBooks.some
+      csp = defaultCsp.withInlineIconFont.withExternalAnalysisApis.some
     ) {
       main(cls := "page box box-pad opening")(
         index.searchAndConfig(page.query.config, "", page.query.query.key),

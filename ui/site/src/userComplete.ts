@@ -16,6 +16,7 @@ interface Opts {
   friend?: boolean;
   tour?: string;
   swiss?: string;
+  team?: string;
 }
 
 export function initModule(opts: Opts): void {
@@ -28,6 +29,7 @@ export function initModule(opts: Opts): void {
             friend: opts.friend ? 1 : 0,
             tour: opts.tour,
             swiss: opts.swiss,
+            team: opts.team,
             object: 1,
           }),
         )
@@ -62,6 +64,7 @@ export function initModule(opts: Opts): void {
             '</span>&nbsp;'
           : '') +
         o.name +
+        (o.flair ? '<img class="uflair" src="' + lichess.asset.flairSrc(o.flair) + '"/>' : '') +
         '</' +
         tag +
         '>'

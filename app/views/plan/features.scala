@@ -23,7 +23,7 @@ object features:
           description = "All of Lichess features are free for all and forever. We do it for the chess!"
         )
         .some
-    ) {
+    ):
       main(cls := "box box-pad features")(
         table(
           header(h1(dataIcon := licon.ScreenDesktop)("Website")),
@@ -194,7 +194,6 @@ object features:
           a(cls := "button", href := routes.Plan.index)("Support us with a Patron account!")
         )
       )
-    }
 
   private def header(name: Frag)(using Lang) =
     thead(

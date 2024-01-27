@@ -2,6 +2,7 @@ import RacerCtrl from '../ctrl';
 import { h, VNodes } from 'snabbdom';
 import { PlayerWithScore as PlayerWithScore } from '../interfaces';
 import { Boost } from '../boost';
+import { userLink } from 'common/userLink';
 
 // to [0,1]
 type RelativeScore = (score: number) => number;
@@ -25,11 +26,7 @@ export const renderRace = (ctrl: RacerCtrl) => {
   });
   return h(
     'div.racer__race',
-    {
-      attrs: {
-        style: `height:${players.length * trackHeight + 14}px`,
-      },
-    },
+    { attrs: { style: `height:${players.length * trackHeight + 14}px` } },
     h('div.racer__race__tracks', tracks),
   );
 };
@@ -72,20 +69,6 @@ const renderTrack = (
 };
 
 export const playerLink = (player: PlayerWithScore, isMe: boolean) =>
-  player.userId
-    ? h(
-        'a.user-link.ulpt',
-        {
-          attrs: { href: '/@/' + player.name },
-        },
-        player.title ? [h('span.utitle', player.title), player.name] : [player.name],
-      )
-    : h(
-        'anonymous',
-        {
-          attrs: {
-            title: 'Anonymous player',
-          },
-        },
-        [player.name, isMe ? ' (you)' : undefined],
-      );
+  player.id
+    ? userLink({ ...player, line: false })
+    : h('anonymous', { attrs: { title: 'Anonymous player' } }, [player.name, isMe ? ' (you)' : undefined]);

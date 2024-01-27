@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="dgtBoard">DGT-bord</string>
+  <string name="lichessAndDgt">Lichess &amp; DGT</string>
+  <string name="dgtBoardRequirements">Vereisten voor DGT-bord</string>
+  <string name="dgtBoardLimitations">Beperkingen van DGT-bord</string>
+  <string name="thisPageAllowsConnectingDgtBoard">Op deze pagina kun je je DGT-bord met Lichess verbinden en het gebruiken om partijen te spelen.</string>
+  <string name="toConnectTheDgtBoard">Om verbinding te maken met het elektronische DGT-bord moet je %s installeren.</string>
+  <string name="downloadHere">Je kunt de software hier downloaden: %s.</string>
+  <string name="ifLiveChessRunningOnThisComputer">Als %1$s op deze computer draait, kan je je verbinding controleren door %2$s.</string>
+  <string name="openingThisLink">deze link openen</string>
+  <string name="ifLiveChessRunningElsewhere">Als %1$s op een andere machine of poort draait, dan moet je het IP-adres en de poort hier in de %2$s instellen.</string>
+  <string name="configurationSection">Configuratiesectie</string>
+  <string name="ifMoveNotDetected">Als een zet niet gedetecteerd is</string>
+  <string name="asALastResort">Als laatste redmiddel, stel het bord identiek in zoals op Lichess, en %s</string>
+  <string name="reloadThisPage">Herlaad deze pagina</string>
+  <string name="clickToGenerateOne">Klik om er een te genereren</string>
+  <string name="textToSpeech">Tekst naar spraak</string>
+  <string name="enableSpeechSynthesis">Spraaksynthese inschakelen</string>
+  <string name="speechSynthesisVoice">Spraaksynthese stem</string>
+  <string name="announceAllMoves">Kondig alle zetten aan</string>
+  <string name="moveFormatDescription">SAN is standaard op Lichess, zoals \"Pf6\". UCI is gebruikelijk bij schaakcomputers, zoals \"g8f6\".</string>
+  <string name="keywords">Trefwoorden</string>
+  <string name="configure">Configureren</string>
+</resources>

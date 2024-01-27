@@ -49,7 +49,7 @@ object JsonView:
   def bothPlayers(startedAtPly: Ply, analysis: Analysis, withAccuracy: Boolean = true) =
     val accuracy = withAccuracy so AccuracyPercent.gameAccuracy(startedAtPly.turn, analysis)
     Json.obj(
-      "id"    -> analysis.id,
+      "id"    -> analysis.id.value,
       "white" -> player(Game.SideAndStart(Color.white, startedAtPly))(analysis, accuracy),
       "black" -> player(Game.SideAndStart(Color.black, startedAtPly))(analysis, accuracy)
     )

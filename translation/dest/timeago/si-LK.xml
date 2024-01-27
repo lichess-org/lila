@@ -30,10 +30,6 @@
     <item quantity="other">වසර %s කින්</item>
   </plurals>
   <string name="rightNow">මේ දැන්</string>
-  <plurals name="nbSecondsAgo">
-    <item quantity="one">තත්පර‍යකට පෙර</item>
-    <item quantity="other">තත්පර %s කට පෙර</item>
-  </plurals>
   <plurals name="nbMinutesAgo">
     <item quantity="one">මිනිත්තුවකට පෙර</item>
     <item quantity="other">මිනිත්තු %s කට පෙර</item>
@@ -58,4 +54,13 @@
     <item quantity="one">වසරකට පෙර</item>
     <item quantity="other">වසර %s කට පෙර</item>
   </plurals>
+  <plurals name="nbMinutesRemaining">
+    <item quantity="one">%sමිනිත්තුවක් තිබේ</item>
+    <item quantity="other">%sමිනිත්තු කිහිපයක් තිබේ</item>
+  </plurals>
+  <plurals name="nbHoursRemaining">
+    <item quantity="one">%s පැයක් තිබේ</item>
+    <item quantity="other">%s පැය කිහිපයක් තිබේ</item>
+  </plurals>
+  <string name="completed">සම්පූර්ණයි</string>
 </resources>

@@ -1,2 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+  <plurals name="nbHoursAgo">
+    <item quantity="other">%s сәгатъ элек</item>
+  </plurals>
+  <plurals name="nbWeeksAgo">
+    <item quantity="other">%s атна элек</item>
+  </plurals>
+  <plurals name="nbYearsAgo">
+    <item quantity="other">%s ел элек</item>
+  </plurals>
+</resources>

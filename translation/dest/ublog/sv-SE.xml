@@ -1,5 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+  <string name="communityBlogs">Gemenskapens bloggar</string>
+  <string name="friendBlogs">Vänners bloggar</string>
+  <string name="likedBlogs">Gillade blogginlägg</string>
+  <string name="blogTopics">Bloggämnen</string>
+  <string name="lichessOfficialBlog">Lichess officiella blogg</string>
+  <string name="continueReadingPost">Fortsätt läsa detta inlägg</string>
+  <string name="lichessBlogPostsFromXYear">Lichess blogginlägg i %s</string>
+  <string name="previousBlogPosts">Föregående blogginlägg</string>
   <string name="xBlog">%ss blogg</string>
   <string name="newPost">Nytt inlägg</string>
   <string name="editYourBlogPost">Redigera ditt blogginlägg</string>
@@ -37,10 +45,11 @@
   <string name="imageCredit">Bildens upphovsmakare</string>
   <string name="deleteBlog">Ta bort detta blogginlägg definitivt</string>
   <string name="deleteImage">Radera bild</string>
-  <string name="safeToUseImages" comment="safeToUseImages&#10;&#10;This is mentioned because the images there are royalty-free, so there is no risk of copyright infringement.">Det är säkert att använda bilder från följande webbplatser: </string>
+  <string name="safeToUseImages">Det är säkert att använda bilder från följande webbplatser: </string>
   <string name="selectPostTopics">Välj de ämnen som ditt inlägg handlar om</string>
   <string name="useImagesYouMadeYourself">Du kan också använda bilder som du gjort själv, bilder du tagit, skärmdumpar från Lichess... allt som inte är upphovsrättsskyddat av någon annan.</string>
   <string name="safeAndRespectfulContent">Vänligen lägg bara upp säkert och respektfullt innehåll. Kopiera inte någon annans innehåll.</string>
   <string name="inappropriateContentAccountClosed">Olämpligt innehåll kan göra att ditt konto stängs.</string>
-  <string name="blogTips" comment="blogTips&#10;&#10;This is a link to https://lichess.org/page/blog-tips. Appears when creating a new post.">Våra enkla tips för att skriva bra blogginlägg</string>
+  <string name="blogTips">Våra enkla tips för att skriva bra blogginlägg</string>
+  <string name="discussThisBlogPostInTheForum">Diskutera detta blogginlägg i forumet</string>
 </resources>

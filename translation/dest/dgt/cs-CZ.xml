@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="dgtBoard">DGT šachovnice</string>
+  <string name="lichessAndDgt">Lichess a DGT</string>
+  <string name="dgtBoardRequirements">Požadavky na připojení DGT šachovnice</string>
+  <string name="dgtBoardLimitations">Omezení DGT šachovnice</string>
+  <string name="thisPageAllowsConnectingDgtBoard">Tato stránka umožňuje připojení DGT desky k Lichess a její použití pro hraní her.</string>
+  <string name="toConnectTheDgtBoard">Pro připojení k DGT elektronické šachovnice si musíte nainstalovat %s.</string>
+  <string name="downloadHere">Software si můžete stáhnout zde: %s.</string>
+  <string name="ifLiveChessRunningOnThisComputer">Pokud %1$s běží na tomto počítači, můžete zkontrolovat připojení %2$s.</string>
+  <string name="openingThisLink">otevírám tento odkaz</string>
+  <string name="ifLiveChessRunningElsewhere">Pokud %1$s běží na jiném stroji nebo jiném portu, musíte nastavit IP adresu a port zde v %2$s.</string>
+  <string name="configurationSection">sekci konfigurace</string>
+  <string name="keepPlayPageOpen">Stránka přehrávání musí zůstat otevřená ve vašem prohlížeči. Nemusí být viditelná (můžete jej minimalizovat nebo posunout vedle stránky se samotnou hrou), ale stránku nezavírejte nebo deska přestane fungovat.</string>
+  <string name="boardWillAutoConnect">Šachovnice se automaticky připojí k jakékoli hře, která již probíhá, nebo k jakékoli nové hře, která začne. Možnost vybrat si, kterou hru chcete hrát, bude brzy k dispozici.</string>
+  <string name="ifMoveNotDetected">Pokud není tah rozpoznán</string>
+  <string name="checkYouHaveMadeOpponentsMove">Nejprve zkontrolujte, zda jste na šachovnici DGT provedli tah svého soupeře. Vraťte svůj tah. Hrajte znovu.</string>
+  <string name="asALastResort">Jako poslední možnost, nastavte šachovnici do stejné pozice jako na Lichess, pak %s</string>
+  <string name="reloadThisPage">Obnovit tuto stránku</string>
+  <string name="dgtConfigure">DGT - Konfigurace</string>
+  <string name="lichessConnectivity">Připojení k Lichess</string>
+  <string name="validDgtOauthToken">Máte vhodný OAuth token pro hraní na DGT šachovnici.</string>
+  <string name="noSuitableOauthToken">Nebyl vytvořen žádný vhodný OAuth token.</string>
+  <string name="dgtBoardConnectivity">Připojení DGT šachovnice</string>
+  <string name="clickToGenerateOne">Kliknutím vygenerujete</string>
+  <string name="textToSpeech">Převod textu na řeč</string>
+  <string name="enableSpeechSynthesis">Povolit syntézu řeči</string>
+  <string name="speechSynthesisVoice">Hlas pro syntézu řeči</string>
+  <string name="announceAllMoves">Oznámit všechny tahy</string>
+  <string name="configure">Konfigurace</string>
+</resources>

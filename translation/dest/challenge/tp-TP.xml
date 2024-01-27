@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+  <string name="challengesX">utala: %1$s</string>
   <string name="challengeToPlay">wile musi</string>
   <string name="challengeDeclined">ona li wile ala musi</string>
   <string name="challengeAccepted">ona li wile musi a!</string>

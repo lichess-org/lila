@@ -210,6 +210,9 @@ final class ModlogApi(repo: ModlogRepo, userRepo: UserRepo, ircApi: IrcApi, pres
   def rankban(sus: Suspect, v: Boolean)(using Me.Id) = add:
     Modlog.make(sus, if v then Modlog.rankban else Modlog.unrankban)
 
+  def arenaBan(sus: Suspect, v: Boolean)(using Me.Id) = add:
+    Modlog.make(sus, if v then Modlog.arenaBan else Modlog.unArenaBan)
+
   def prizeban(sus: Suspect, v: Boolean)(using Me.Id) = add:
     Modlog.make(sus, if v then Modlog.prizeban else Modlog.unprizeban)
 
@@ -233,6 +236,18 @@ final class ModlogApi(repo: ModlogRepo, userRepo: UserRepo, ircApi: IrcApi, pres
       "user"   -> userId,
       "action" -> Modlog.unbooster
     )
+
+  def timeoutPersonalExport(userId: UserId): Fu[List[Modlog]] =
+    coll.tempPrimary
+      .find(
+        $doc(
+          "user"   -> userId,
+          "action" -> Modlog.chatTimeout
+        )
+      )
+      .sort($sort desc "date")
+      .cursor[Modlog]()
+      .list(100)
 
   def userHistory(userId: UserId): Fu[List[Modlog]] =
     coll.find($doc("user" -> userId)).sort($sort desc "date").cursor[Modlog]().list(60)
@@ -299,15 +314,15 @@ final class ModlogApi(repo: ModlogRepo, userRepo: UserRepo, ircApi: IrcApi, pres
     import lila.mod.{ Modlog as M }
     given Me.Id = m.mod into Me.Id
     val icon = m.action match
-      case M.alt | M.engine | M.booster | M.troll | M.closeAccount          => "thorhammer"
-      case M.unalt | M.unengine | M.unbooster | M.untroll | M.reopenAccount => "blue_circle"
-      case M.deletePost | M.deleteTeam | M.terminateTournament              => "x"
-      case M.chatTimeout                                                    => "hourglass_flowing_sand"
-      case M.closeTopic | M.disableTeam                                     => "locked"
-      case M.openTopic | M.enableTeam                                       => "unlocked"
-      case M.modMessage | M.postAsAnonMod | M.editAsAnonMod                 => "left_speech_bubble"
-      case M.blogTier | M.blogPostEdit                                      => "note"
-      case _                                                                => "gear"
+      case M.alt | M.arenaBan | M.engine | M.booster | M.troll | M.closeAccount            => "thorhammer"
+      case M.unalt | M.unArenaBan | M.unengine | M.unbooster | M.untroll | M.reopenAccount => "blue_circle"
+      case M.deletePost | M.deleteTeam | M.terminateTournament                             => "x"
+      case M.chatTimeout                                    => "hourglass_flowing_sand"
+      case M.closeTopic | M.disableTeam                     => "locked"
+      case M.openTopic | M.enableTeam                       => "unlocked"
+      case M.modMessage | M.postAsAnonMod | M.editAsAnonMod => "left_speech_bubble"
+      case M.blogTier | M.blogPostEdit                      => "note"
+      case _                                                => "gear"
     val text = s"""${m.showAction.capitalize} ${m.user.so(u => s"@$u")} ${~m.details}"""
     userRepo.getRoles(m.mod).map(Permission(_)) flatMap { permissions =>
       import IrcApi.{ ModDomain as domain }
@@ -315,7 +330,7 @@ final class ModlogApi(repo: ModlogRepo, userRepo: UserRepo, ircApi: IrcApi, pres
         case M.closeAccount | M.alt => None
         case M.engine | M.unengine | M.reopenAccount | M.unalt =>
           Some(domain.Cheat)
-        case M.booster | M.unbooster => Some(domain.Boost)
+        case M.booster | M.unbooster | M.arenaBan | M.unArenaBan => Some(domain.Boost)
         case M.troll | M.untroll | M.chatTimeout | M.closeTopic | M.openTopic | M.disableTeam | M.enableTeam |
             M.setKidMode | M.deletePost | M.postAsAnonMod | M.editAsAnonMod | M.blogTier | M.blogPostEdit =>
           Some(domain.Comm)

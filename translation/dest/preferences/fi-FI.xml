@@ -12,13 +12,14 @@
   <string name="moveListWhilePlaying">Siirtolista pelin aikana</string>
   <string name="pgnPieceNotation">Siirtojen merkintätapa</string>
   <string name="chessPieceSymbol">Shakkinappulasymbolit</string>
-  <string name="pgnLetter">Kirjaimet (K, D, T, L, R)</string>
+  <string name="pgnLetter">Kirjaimet (K, Q, R, B, N)</string>
   <string name="zenMode" comment="zenMode&#10;&#10;This is not the religious meaning. Turning this option on takes away make elements of the user interface.&#10;&#10;Can also translate as 'Focus mode' as one example.">Zen-moodi</string>
   <string name="showPlayerRatings">Näytä pelaajien vahvuusluvut</string>
+  <string name="showFlairs">Näytä pelaajien tyylit</string>
   <string name="explainShowPlayerRatings">Tämän avulla voit piilottaa sivustolta kaikki vahvuusluvut, jotta voit keskittyä paremmin shakinpeluuseen. Pelit kyllä pisteytetään normaalisti, tällä asetuksella on vaikutus vain sinun näkymääsi.</string>
   <string name="displayBoardResizeHandle">Näytä laudan koon muokkauskahva</string>
   <string name="onlyOnInitialPosition">Vain alkuasemassa</string>
-  <string name="blindfoldChess">Sokkoshakki (näkymättömät nappulat)</string>
+  <string name="inGameOnly">Vain pelin aikana</string>
   <string name="chessClock">Shakkikello</string>
   <string name="tenthsOfSeconds">Sekunnin kymmenesosat</string>
   <string name="whenTimeRemainingLessThanTenSeconds" comment="whenTimeRemainingLessThanTenSeconds&#10;&#10;The &amp;lt; symbol is not required (you can write it as a word), just do NOT use &lt; in its place.&#10;&#10;Technical information: &lt; is a reserved character in HTML, which is why it cannot be used.">Kun aikaa jäljellä &lt; 10 sekuntia</string>
@@ -39,6 +40,7 @@
   <string name="claimDrawOnThreefoldRepetitionAutomatically">Vaadi tasapeli automaattisesti kolminkertaisen toiston sattuessa</string>
   <string name="whenTimeRemainingLessThanThirtySeconds">Kun aikaa on jäljellä &lt; 30 sekuntia</string>
   <string name="moveConfirmation">Siirron vahvistus</string>
+  <string name="explainCanThenBeTemporarilyDisabled">Voidaan poistaa käytöstä pelin aikana lautavalikon kautta</string>
   <string name="inCorrespondenceGames">Kirjeshakissa</string>
   <string name="correspondenceAndUnlimited">Kirjeshakki ja aikarajaton</string>
   <string name="confirmResignationAndDrawOffers">Vahvista luovutukset ja tasapelitarjoukset</string>

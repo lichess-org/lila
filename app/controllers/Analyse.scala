@@ -6,7 +6,7 @@ import play.api.mvc.*
 import views.*
 
 import lila.app.{ given, * }
-import lila.common.HTTPRequest
+import lila.common.{ HTTPRequest, LpvEmbed }
 import lila.game.{ PgnDump, Pov }
 import lila.round.JsonView.WithFlags
 import lila.oauth.AccessToken
@@ -17,7 +17,7 @@ final class Analyse(
     roundC: => Round
 ) extends LilaController(env):
 
-  def requestAnalysis(id: GameId) = Auth { ctx ?=> me ?=>
+  def requestAnalysis(id: GameId) = AuthOrScoped(_.Web.Mobile) { ctx ?=> me ?=>
     Found(env.game.gameRepo game id): game =>
       env.fishnet
         .analyser(
@@ -29,10 +29,8 @@ final class Analyse(
             system = false
           )
         )
-        .map: result =>
-          result.error match
-            case None        => NoContent
-            case Some(error) => BadRequest(error)
+        .map:
+          _.error.fold(NoContent)(BadRequest(_))
   }
 
   def replay(pov: Pov, userTv: Option[lila.user.User])(using ctx: Context) =
@@ -100,7 +98,7 @@ final class Analyse(
   def embedReplayGame(gameId: GameId, color: String) = Anon:
     InEmbedContext:
       env.api.textLpvExpand.getPgn(gameId) map {
-        case Some(pgn) =>
+        case Some(LpvEmbed.PublicPgn(pgn)) =>
           render:
             case AcceptsPgn() => Ok(pgn)
             case _            => Ok(html.analyse.embed.lpv(pgn, chess.Color.fromName(color), getPgn = true))
@@ -180,6 +178,6 @@ final class Analyse(
         )
   }
 
-  def externalEngineDelete(id: String) = ScopedBody(_.Engine.Write) { _ ?=> me ?=>
+  def externalEngineDelete(id: String) = AuthOrScoped(_.Engine.Write) { _ ?=> me ?=>
     env.analyse.externalEngine.delete(me, id) elseNotFound jsonOkResult
   }

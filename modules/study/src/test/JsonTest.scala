@@ -18,7 +18,7 @@ import lila.db.dsl.Bdoc
 
 class JsonTest extends munit.FunSuite:
 
-  val user = LightUser(UserId("nt9"), UserName("nt9"), None, false)
+  val user = LightUser(UserId("nt9"), UserName("nt9"), None, None, false)
 
   test("Json writes"):
     PgnFixtures.roundTrip

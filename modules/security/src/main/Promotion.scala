@@ -46,9 +46,8 @@ final class PromotionApi(domain: NetDomain):
     regexes
       .flatMap(_ findAllMatchIn text)
       .view
-      .flatMap { m =>
+      .flatMap: m =>
         Option(m group 1)
-      }
       .toSet
 
   private def identify(text: String): List[String] =

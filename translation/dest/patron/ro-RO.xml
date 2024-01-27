@@ -62,6 +62,7 @@ Totuși, Patronii primesc o nouă pictogramă faină lângă profil.</string>
   <string name="nextPayment">Următoarea plată</string>
   <string name="youWillBeChargedXOnY">Veți plăti %1$s pe %2$s.</string>
   <string name="makeAdditionalDonation">Faceți o donație în plus acum</string>
+  <string name="giftPatronWingsShort">Dăruiește aripi Patron</string>
   <string name="giftPatronWings">Dăruiește aripi de Patron unui jucător</string>
   <string name="update">Actualizare</string>
   <string name="changeMonthlyAmount">Modificați suma lunară (%s)</string>
@@ -81,4 +82,7 @@ Totuși, Patronii primesc o nouă pictogramă faină lângă profil.</string>
   <string name="nowOneMonth">Acum ești Patron Lichess pentru o lună!</string>
   <string name="downgradeNextMonth">Într-o lună, NU vei fi taxat din nou, iar contul tău de Lichess va fi înapoi un cont normal.</string>
   <string name="changeCurrency">Schimbă moneda</string>
+  <string name="paymentDetails">Detalii de plată</string>
+  <string name="updatePaymentMethod">Actualizați metoda de plată</string>
+  <string name="stripeManageSub">Gestionează-ți abonamentul și descarcă facturile și bonurile tale</string>
 </resources>

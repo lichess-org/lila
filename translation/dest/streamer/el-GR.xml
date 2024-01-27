@@ -4,8 +4,8 @@
   <string name="lichessStreamer">Lichess streamer</string>
   <string name="live">ΖΩΝΤΑΝΑ!</string>
   <string name="offline">ΕΚΤΟΣ ΣΥΝΔΕΣΗΣ</string>
-  <string name="currentlyStreaming">Αυτή τη στιγμή μεταδίδουν: %s</string>
-  <string name="lastStream">Τελευταία μετάδοση %s</string>
+  <string name="currentlyStreaming" comment="%s is the title of the stream, chosen by the streamer.">Αυτή τη στιγμή μεταδίδουν: %s</string>
+  <string name="lastStream" comment="%s is how long ago the stream was in relative time (e.g. 50 minutes ago). It is displayed in smaller type than the rest of the string.">Τελευταία μετάδοση %s</string>
   <string name="becomeStreamer">Γίνετε ένας Lichess streamer</string>
   <string name="doYouHaveStream">Έχετε κανάλι στο Twitch ή στο YouTube;</string>
   <string name="hereWeGo">Ξεκινάμε!</string>
@@ -29,9 +29,11 @@
   <string name="pendingReview">Η μετάδοσή σας αξιολογείται από τους διαχειριστές.</string>
   <string name="pleaseFillIn">Παρακαλώ συμπληρώστε τις πληροφορίες σας και μεταφορτώστε μια εικόνα.</string>
   <string name="whenReady" comment="whenReady&#10;&#10;%s is &quot;request a moderator review&quot;">Όταν είσαστε έτοιμος να εμφανιστείτε ως Lichess streamer, %s</string>
-  <string name="requestReview" comment="requestReview&#10;&#10;Used in the sense of: &quot;When you are ready to be listed as a Lichess streamer, request a moderator review&quot;">ζητήστε αξιολόγηση από κάποιον διαχειριστή</string>
-  <string name="twitchUsername">Το όνομα χρήστη σας στο Twitch ή το URL του προφίλ σας</string>
+  <string name="requestReview" comment="requestReview&#10;&#10;Used as part of the longer sentence: &quot;When you are ready to be listed as a Lichess streamer, request a moderator review&quot;">ζητήστε αξιολόγηση από κάποιον διαχειριστή</string>
+  <string name="streamerLanguageSettings">Η σελίδα Lichess streamer στοχεύει το κοινό σας με τη γλώσσα που παρέχεται από την πλατφόρμα ροής σας. Ορίστε τη σωστή προεπιλεγμένη γλώσσα για τις ροές σκακιού στην εφαρμογή ή την υπηρεσία που χρησιμοποιείτε για να μεταδώσετε.</string>
+  <string name="twitchUsername" comment="Appears on the form for setting up your Streamer page: https://lichess.org/streamer/edit&#10;&#10;Twitch is a proper noun and refers to the streaming service https://twitch.tv/. Please do not translate the word 'Twitch'.">Το όνομα χρήστη σας στο Twitch ή το URL του προφίλ σας</string>
   <string name="optionalOrEmpty">Προαιρετικό. Αφήστε το κενό αν δεν υπάρχει</string>
+  <string name="youTubeChannelId" comment="Appears on the form for setting up your Streamer page: https://lichess.org/streamer/edit&#10;&#10;The Channel ID is a special alphanumeric string. See Google's guide here for how to retrieve it: https://support.google.com/youtube/answer/3250431&#10;&#10;We encourage translators to match what the Channel ID is called in your language's version of YouTube: https://www.youtube.com/account_advanced">Το αναγνωριστικό του YouTube καναλιού σας</string>
   <string name="streamerName">Το όνομα σας ως streamer στο Lichess</string>
   <plurals name="keepItShort">
     <item quantity="one">Σύντομη περιγραφή: %s χαρακτήρας το πολύ</item>

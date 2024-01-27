@@ -33,5 +33,5 @@
   <string name="deleteAllGamesOfThisRound">इस दौर के सभी गेम हटाएं. उन्हें पुनः बनाने के लिए स्रोत को सक्रिय होने की आवश्यकता होगी।</string>
   <string name="editRoundStudy">राउंड स्टडी संपादित करें</string>
   <string name="deleteTournament">इस टूर्नामेंट को हटाएं</string>
-  <string name="definitivelyDeleteTournament" comment="definitivelyDeleteTournament&#10;&#10;Confirmation prompt, when attempting to delete a broadcast on https://lichess.org/broadcast">संपूर्ण टूर्नामेंट, उसके सभी राउंड और उसके सभी गेम को निश्चित रूप से हटा दें।</string>
+  <string name="definitivelyDeleteTournament">संपूर्ण टूर्नामेंट, उसके सभी राउंड और उसके सभी गेम को निश्चित रूप से हटा दें।</string>
 </resources>

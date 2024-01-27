@@ -62,10 +62,7 @@ final class RelayTour(env: Env, apiC: => Api, prismicC: => Prismic) extends Lila
               env.relay.api.tourCreate(setup) flatMap { tour =>
                 negotiate(
                   Redirect(routes.RelayRound.form(tour.id)).flashSuccess,
-                  JsonOk:
-                    env.relay.api.tourCreate(setup) map { tour =>
-                      env.relay.jsonView(tour.withRounds(Nil), withUrls = true)
-                    }
+                  JsonOk(env.relay.jsonView(tour.withRounds(Nil), withUrls = true))
                 )
               }
         )
@@ -100,6 +97,14 @@ final class RelayTour(env: Env, apiC: => Api, prismicC: => Prismic) extends Lila
   def delete(id: TourModel.Id) = AuthOrScoped(_.Study.Write) { _ ?=> me ?=>
     WithTour(id): tour =>
       env.relay.api.deleteTourIfOwner(tour) inject Redirect(routes.RelayTour.by(me.username)).flashSuccess
+  }
+
+  def cloneTour(id: TourModel.Id) = Secure(_.Relay) { _ ?=> me ?=>
+    WithTour(id): from =>
+      env.relay.api
+        .cloneTour(from)
+        .map: tour =>
+          Redirect(routes.RelayTour.edit(tour.id)).flashSuccess
   }
 
   def show(slug: String, id: TourModel.Id) = Open:

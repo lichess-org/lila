@@ -4,8 +4,8 @@
   <string name="lichessStreamer">Lichess streamerra</string>
   <string name="live">ZUZENEAN!</string>
   <string name="offline">OFFLINE</string>
-  <string name="currentlyStreaming">Orain zuzenean ematen: %s</string>
-  <string name="lastStream">Azken emanaldia %s</string>
+  <string name="currentlyStreaming" comment="%s is the title of the stream, chosen by the streamer.">Orain zuzenean ematen: %s</string>
+  <string name="lastStream" comment="%s is how long ago the stream was in relative time (e.g. 50 minutes ago). It is displayed in smaller type than the rest of the string.">Azken emanaldia %s</string>
   <string name="becomeStreamer">Lichess streamer bihurtu</string>
   <string name="doYouHaveStream">Twitch edo YouTube kanala duzu?</string>
   <string name="hereWeGo">Aurrera!</string>
@@ -29,11 +29,11 @@
   <string name="pendingReview">Zure emanaldia moderatzaileak ikuskatzeko zain dago.</string>
   <string name="pleaseFillIn">Bete zure informazioa eta kargatu irudia.</string>
   <string name="whenReady" comment="whenReady&#10;&#10;%s is &quot;request a moderator review&quot;">Lichess streamer gisa zerrendatzeko prest zaudenean, %s</string>
-  <string name="requestReview" comment="requestReview&#10;&#10;Used in the sense of: &quot;When you are ready to be listed as a Lichess streamer, request a moderator review&quot;">moderatzaileek ikuskatzea eskatu</string>
+  <string name="requestReview" comment="requestReview&#10;&#10;Used as part of the longer sentence: &quot;When you are ready to be listed as a Lichess streamer, request a moderator review&quot;">moderatzaileek ikuskatzea eskatu</string>
   <string name="streamerLanguageSettings">Lichess streamerraren orriak zure audientzia du helburu zure streaming plataformak ematen duen hizkuntzarekin. Ezarri zure xake emanaldien hizkuntza emanaldiak egiteko erabiltzen duzun app edo zerbitzuan.</string>
-  <string name="twitchUsername">Zure Twitch erabiltzeaile-izena edo URLa</string>
+  <string name="twitchUsername" comment="Appears on the form for setting up your Streamer page: https://lichess.org/streamer/edit&#10;&#10;Twitch is a proper noun and refers to the streaming service https://twitch.tv/. Please do not translate the word 'Twitch'.">Zure Twitch erabiltzeaile-izena edo URLa</string>
   <string name="optionalOrEmpty">Hautazkoa. Utzi hutsik ez baduzu</string>
-  <string name="youTubeChannelId">Zure YouTube kanalaren IDa</string>
+  <string name="youTubeChannelId" comment="Appears on the form for setting up your Streamer page: https://lichess.org/streamer/edit&#10;&#10;The Channel ID is a special alphanumeric string. See Google's guide here for how to retrieve it: https://support.google.com/youtube/answer/3250431&#10;&#10;We encourage translators to match what the Channel ID is called in your language's version of YouTube: https://www.youtube.com/account_advanced">Zure YouTube kanalaren IDa</string>
   <string name="streamerName">Zure streamer izena Lichessen</string>
   <plurals name="keepItShort">
     <item quantity="one">Laburra izan dadila: gehienez karaktere %s</item>

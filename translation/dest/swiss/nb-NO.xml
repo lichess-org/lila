@@ -62,8 +62,7 @@ Vi tror at disse vilkårene lettere blir oppfylt innen et lag enn i åpne turner
   <string name="numberOfByesA">Spillerne får frirunde og ett fripoeng hver gang parsystemet ikke finner par til dem.
 I tillegg får spillere som blir med etter turneringsstart, et halvt fripoeng.</string>
   <string name="earlyDrawsQ">Hva skjer ved tidlig remis?</string>
-  <string name="earlyDrawsA">Spillerne får frirunde og ett fripoeng hver gang parsystemet ikke finner par til dem.
-I tillegg får spillere som blir med etter turneringsstart, et halvt fripoeng.</string>
+  <string name="earlyDrawsAnswer">Spillerne kan ikke avtale remis før de har utført 30 trekk i sveitserpartier. Dette hindrer ikke remiser som er avtalt på forhånd, men det gjør det vanskeligere å avtale remis på sparket.</string>
   <string name="whatIfOneDoesntPlayQ">Hva skjer om en spiller ikke spiller et parti?</string>
   <string name="whatIfOneDoesntPlayA">Klokken begynner å gå og spilleren taper på tid.
 Systemet vil så fjerne spilleren fra turneringen for å unngå flere tap.
