@@ -2,6 +2,7 @@ $c-study-button: $c-accent;
 
 .study__buttons {
   @extend %flex-between;
+  @include hand-width(margin-left);
   span {
     font-size: 1.15em;
     min-width: 0;
