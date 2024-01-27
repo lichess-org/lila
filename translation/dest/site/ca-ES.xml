@@ -325,8 +325,8 @@
   <string name="exportGames">Exporta les partides</string>
   <string name="ratingRange">Rang de puntuació</string>
   <plurals name="giveNbSeconds">
-    <item quantity="one">Dóna %s segons</item>
-    <item quantity="other">Dóna %s segons</item>
+    <item quantity="one">Dona %s segons</item>
+    <item quantity="other">Dona %s segons</item>
   </plurals>
   <string name="thisAccountViolatedTos">Aquest compte ha violat els Termes de Servei de Lichess</string>
   <string name="openingExplorerAndTablebase">Explorador d\'obertures &amp; taula de finals</string>
