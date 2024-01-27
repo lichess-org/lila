@@ -40,7 +40,7 @@ final class EvalCacheApi(
     )
 
   private[evalCache] def drop(variant: Variant, sfen: Sfen): Funit = {
-    val id = Id(shogi.variant.Standard, SmallSfen.make(variant, sfen))
+    val id = Id(variant, SmallSfen.make(variant, sfen))
     coll.delete.one($id(id)).void >>- cache.invalidate(id)
   }
 
@@ -71,7 +71,7 @@ final class EvalCacheApi(
           case None =>
             val entry = EvalCacheEntry(
               _id = input.id,
-              nbMoves = destSize(input.sfen),
+              nbMoves = destSize(input.id.variant, input.sfen),
               evals = List(input.eval),
               usedAt = DateTime.now
             )
@@ -89,8 +89,8 @@ final class EvalCacheApi(
         }
     }
 
-  private def destSize(sfen: Sfen): Int =
-    ~(sfen.toSituation(shogi.variant.Standard) map { sit =>
+  private def destSize(variant: shogi.variant.Variant, sfen: Sfen): Int =
+    ~(sfen.toSituation(variant) map { sit =>
       sit.moveDestinations.view.map(_._2.size).sum +
         sit.dropDestinations.view.map(_._2.size).sum
     })
