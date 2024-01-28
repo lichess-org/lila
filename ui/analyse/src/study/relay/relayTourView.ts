@@ -112,7 +112,7 @@ const overview = (relay: RelayCtrl, study: StudyCtrl, ctrl: AnalyseCtrl) => {
 };
 
 const header = (relay: RelayCtrl, ctrl: AnalyseCtrl) => {
-  return h('span.overview-header', [
+  return h('div.relay-tour__header', [
     h('h1', relay.data.tour.name),
     relay.data.isSubscribed !== undefined &&
       toggle(
