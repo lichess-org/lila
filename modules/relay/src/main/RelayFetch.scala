@@ -291,7 +291,7 @@ private object RelayFetch:
                 Tags(res.tags.value.filter(_ != Tag(_.Result, "*")))
               else res.tags
             RelayGame(
-              index = index,
+              index = index.some,
               tags = fixedTags,
               variant = res.variant,
               root = res.root.copy(
