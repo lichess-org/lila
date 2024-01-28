@@ -50,8 +50,7 @@ final private class RelaySync(
                   .some
       .collect:
         case Some(result) =>
-          if result.newMoves > 0 then notifier.roundBegin(rt)
-          result.some
+          (result.newMoves > 0 so notifier.roundBegin(rt)) inject result.some
 
   /*
    * If the source contains all expected games, use their index to match them with the study chapter.
