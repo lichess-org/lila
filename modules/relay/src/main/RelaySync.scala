@@ -45,9 +45,13 @@ final private class RelaySync(
                 chapters.find(_.isEmptyInitial).ifTrue(chapter.order == 2).so { initial =>
                   studyApi.deleteChapter(study.id, initial.id):
                     actorApi.Who(study.ownerId, sri)
-                } andDo notifier.roundBegin(rt) inject SyncResult
+                } inject SyncResult
                   .ChapterResult(chapter.id, true, chapter.root.mainline.size)
                   .some
+      .collect:
+        case Some(result) =>
+          if result.newMoves > 0 then notifier.roundBegin(rt)
+          result.some
 
   /*
    * If the source contains several games, use their index to match them with the study chapter.
@@ -60,7 +64,7 @@ final private class RelaySync(
       chapters: List[Chapter],
       nbGames: Int
   ): Option[Chapter] =
-    if nbGames == 1 || game.looksLikeLichess
+    if nbGames == 1 || chapters.sizeIs > nbGames || game.looksLikeLichess
     then chapters.find(c => game.staticTagsMatch(c.tags))
     else chapters.find(_.relay.exists(_.index == game.index))
 
