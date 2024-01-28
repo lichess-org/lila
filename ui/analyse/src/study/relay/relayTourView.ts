@@ -38,18 +38,18 @@ export default function (ctrl: AnalyseCtrl): VNode | undefined {
     relay.tab() == 'overview'
       ? overview(relay, study, ctrl)
       : relay.tab() == 'schedule'
-      ? schedule(relay)
-      : leaderboard(relay);
+      ? schedule(relay, ctrl)
+      : leaderboard(relay, ctrl);
 
   return h('div.relay-tour', [tabs, ...content]);
 }
 
-const leaderboard = (relay: RelayCtrl): VNode[] => {
+const leaderboard = (relay: RelayCtrl, ctrl: AnalyseCtrl): VNode[] => {
   const players = relay.data.leaderboard || [];
   const withRating = players.find(p => p.rating);
   return [
     h('div.relay-tour__text', [
-      h('h1', relay.data.tour.name),
+      header(relay, ctrl),
       h('div.relay-tour__text__leaderboard', [
         h('table.slist.slist-invert', [
           h(
@@ -134,12 +134,10 @@ const header = (relay: RelayCtrl, ctrl: AnalyseCtrl) => {
       hook: onInsert(el => {
         el.addEventListener('click', () => {
           domDialog({
-            htmlText: `
-<h2>Broadcast subscription</h2>
-<p>Subscribe to be notified when each round starts.</p>
-<p>Ensure that you have either bell or push notifications enabled for broadcasts in your <a href="/account/preferences/notification">notification settings</a>.</p>
-          `,
-            show: true,
+            htmlText: `<h2>Broadcast notifications</h2>
+<p>Subscribe to be notified when each round starts. Make sure that bell or push notifications are
+enabled for broadcasts in your <a href="/account/preferences/notification">notification settings</a>.</p>`,
+            show: 'modal',
           });
         });
       }),
@@ -147,10 +145,10 @@ const header = (relay: RelayCtrl, ctrl: AnalyseCtrl) => {
   ]);
 };
 
-const schedule = (relay: RelayCtrl): VNode[] => [
+const schedule = (relay: RelayCtrl, ctrl: AnalyseCtrl): VNode[] => [
   h('div.relay-tour__text', [
     h('div.relay-tour__text__schedule', [
-      h('h1', relay.data.tour.name),
+      header(relay, ctrl),
       h('h2', 'Schedule'),
       h(
         'table.slist.slist-invert',
