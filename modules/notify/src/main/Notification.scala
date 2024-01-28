@@ -79,7 +79,7 @@ case class GenericLink(
 case class BroadcastRound(
     url: String,
     title: String,
-    text: Option[String]
+    text: String
 ) extends NotificationContent("broadcastRound")
 
 case class PushNotification(

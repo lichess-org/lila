@@ -327,12 +327,12 @@ final private class PushApi(
       recips: Iterable[NotifyAllows],
       url: String,
       title: String,
-      body: Option[String]
+      body: String
   ): Funit =
     val pushData = LazyFu.sync:
       Data(
         title = title,
-        body = body.getOrElse(title),
+        body = body,
         stacking = Stacking.Generic,
         urgency = Urgency.Normal,
         payload = payload("url" -> url)
