@@ -33,7 +33,7 @@ case class NotificationPref(
     tournamentSoon: Allows,
     gameEvent: Allows,
     invitedStudy: Allows,
-    broadcastRound: Allows,
+    broadcastRound: Allows = NotificationPref.default.broadcastRound,
     correspondenceEmail: Boolean
 ):
   // def allows(key: String): Allows =
