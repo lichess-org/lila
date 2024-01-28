@@ -111,8 +111,8 @@ const overview = (relay: RelayCtrl, study: StudyCtrl, ctrl: AnalyseCtrl) => {
   ];
 };
 
-const header = (relay: RelayCtrl, ctrl: AnalyseCtrl) => {
-  return h('div.relay-tour__header', [
+const header = (relay: RelayCtrl, ctrl: AnalyseCtrl) =>
+  h('div.relay-tour__header', [
     h('h1', relay.data.tour.name),
     ...(defined(relay.data.isSubscribed)
       ? [
@@ -131,7 +131,7 @@ const header = (relay: RelayCtrl, ctrl: AnalyseCtrl) => {
             ctrl.redraw,
           ),
           h('i', {
-            attrs: { 'data-icon': licon.InfoCircle },
+            attrs: dataIcon(licon.InfoCircle),
             hook: onInsert(el => {
               el.addEventListener('click', () => {
                 domDialog({
@@ -146,7 +146,6 @@ enabled for broadcasts in your <a href="/account/preferences/notification">notif
         ]
       : []),
   ]);
-};
 
 const schedule = (relay: RelayCtrl, ctrl: AnalyseCtrl): VNode[] => [
   h('div.relay-tour__text', [
