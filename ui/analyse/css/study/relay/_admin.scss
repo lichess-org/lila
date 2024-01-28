@@ -5,7 +5,7 @@
 .relay-admin {
   grid-area: round-training;
 
-  @extend %box-neat, %flex-column;
+  @extend %box-neat-force, %flex-column;
 
   background: $c-bg-box;
   margin-top: $block-gap;
