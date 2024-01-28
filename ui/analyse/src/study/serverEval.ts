@@ -4,6 +4,7 @@ import { spinnerVdom, chartSpinner } from 'common/spinner';
 import { h, VNode } from 'snabbdom';
 import AnalyseCtrl from '../ctrl';
 import { ChartGame, AcplChart } from 'chart';
+import { AnalyseData } from '../interfaces';
 
 export default class ServerEval {
   requested = false;
@@ -22,6 +23,11 @@ export default class ServerEval {
     this.root.socket.send('requestAnalysis', this.chapterId());
     this.requested = true;
   };
+
+  updateChart = (d: AnalyseData) => this.chart?.updateData(d, this.analysedMainline());
+
+  analysedMainline = () =>
+    this.root.mainline.slice(0, (this.root.study?.data.chapter?.serverEval?.path?.length || 999) / 2 + 1);
 }
 
 export function view(ctrl: ServerEval): VNode {
@@ -29,23 +35,20 @@ export function view(ctrl: ServerEval): VNode {
 
   if (!ctrl.root.showComputer()) return disabled();
   if (!analysis) return ctrl.requested ? requested() : requestButton(ctrl);
-  const serverEvalPath = ctrl.root.study?.data.chapter?.serverEval?.path;
-  const analysedMainline = ctrl.root.mainline.slice(1, (serverEvalPath?.length || 999) / 2 + 1);
+  const mainline = ctrl.requested ? ctrl.root.data.treeParts : ctrl.analysedMainline();
   const chart = h('canvas.study__server-eval.ready.' + analysis.id, {
     hook: onInsert(el => {
       lichess.requestIdleCallback(async () => {
         (await lichess.asset.loadEsm<ChartGame>('chart.game'))
-          .acpl(el as HTMLCanvasElement, ctrl.root.data, analysedMainline, ctrl.root.trans)
+          .acpl(el as HTMLCanvasElement, ctrl.root.data, mainline, ctrl.root.trans)
           .then(chart => (ctrl.chart = chart));
       }, 800);
     }),
   });
 
-  lichess.pubsub.on(
-    'analysis.server.progress',
-    () => ctrl.chart?.updateData(ctrl.root.data, analysedMainline),
-  );
-  const loading = !analysedMainline[1].eval; // Root node is not evaluated
+  lichess.pubsub.on('analysis.server.progress', ctrl.updateChart);
+
+  const loading = mainline.find(ctrl.root.partialAnalysisCallback);
   return h('div.study__server-eval.ready.', loading ? [chart, chartSpinner()] : chart);
 }
 

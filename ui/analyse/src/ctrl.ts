@@ -817,14 +817,15 @@ export default class AnalyseCtrl {
     this.tree.merge(data.tree);
     this.data.analysis = data.analysis;
     if (data.analysis)
-      data.analysis.partial = !!treeOps.findInMainline(
-        data.tree,
-        n => !n.eval && !!n.children.length && n.ply <= 300,
-      );
+      data.analysis.partial = !!treeOps.findInMainline(data.tree, this.partialAnalysisCallback);
     if (data.division) this.data.game.division = data.division;
     if (this.retro) this.retro.onMergeAnalysisData();
     lichess.pubsub.emit('analysis.server.progress', this.data);
     this.redraw();
+  }
+
+  partialAnalysisCallback(n: Tree.Node) {
+    return !n.eval && !!n.children.length && n.ply <= 300 && n.ply > 0;
   }
 
   playUci(uci: Uci, uciQueue?: Uci[]) {
