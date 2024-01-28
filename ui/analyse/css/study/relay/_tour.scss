@@ -109,10 +109,8 @@ main.has-relay-tour {
 
     .setting {
       @extend %flex-center-nowrap;
-      flex: 0 0 auto;
       label {
         padding: 0 0.5em;
-        flex: 4 1 auto;
         cursor: pointer;
         white-space: nowrap;
       }
