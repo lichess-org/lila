@@ -48,9 +48,8 @@ final private class RelaySync(
                 } inject SyncResult
                   .ChapterResult(chapter.id, true, chapter.root.mainline.size)
                   .some
-      .collect:
-        case Some(result) =>
-          (result.newMoves > 0 so notifier.roundBegin(rt)) inject result.some
+      .flatMapz: result =>
+        (result.newMoves > 0 so notifier.roundBegin(rt)) inject result.some
 
   /*
    * If the source contains all expected games, use their index to match them with the study chapter.
