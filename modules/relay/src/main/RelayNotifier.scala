@@ -8,11 +8,12 @@ final private class RelayNotifier(notifyApi: lila.notify.NotifyApi, tourRepo: Re
         tourRepo
           .subscribers(rt.tour.id)
           .flatMap: subscribers =>
-            notifyApi.notifyMany(
-              subscribers,
-              lila.notify.BroadcastRound(
-                rt.path,
-                rt.tour.name,
-                s"${rt.round.name} has begun"
+            subscribers.nonEmpty.so:
+              notifyApi.notifyMany(
+                subscribers,
+                lila.notify.BroadcastRound(
+                  rt.path,
+                  rt.tour.name,
+                  s"${rt.round.name} has begun"
+                )
               )
-            )

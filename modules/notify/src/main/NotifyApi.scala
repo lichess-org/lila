@@ -43,21 +43,22 @@ final class NotifyApi(
         .dmap(_ | default.allows(event))
 
     def getAllows(userIds: Iterable[UserId], event: NotificationPref.Event): Fu[List[NotifyAllows]] =
-      colls.pref.tempPrimary
-        .find($inIds(userIds), $doc(event.key -> true).some)
-        .cursor[Bdoc]()
-        .listAll()
-        .map: docs =>
-          val customAllows = for
-            doc    <- docs
-            userId <- doc.getAsOpt[UserId]("_id")
-            allows <- doc.getAsOpt[Allows](event.key)
-          yield NotifyAllows(userId, allows)
-          val customIds = customAllows.view.map(_.userId).toSet
-          val defaultAllows = userIds.filterNot(customIds.contains).map {
-            NotifyAllows(_, NotificationPref.default.allows(event))
-          }
-          customAllows ::: defaultAllows.toList
+      userIds.nonEmpty.so:
+        colls.pref.tempPrimary
+          .find($inIds(userIds), $doc(event.key -> true).some)
+          .cursor[Bdoc]()
+          .listAll()
+          .map: docs =>
+            val customAllows = for
+              doc    <- docs
+              userId <- doc.getAsOpt[UserId]("_id")
+              allows <- doc.getAsOpt[Allows](event.key)
+            yield NotifyAllows(userId, allows)
+            val customIds = customAllows.view.map(_.userId).toSet
+            val defaultAllows = userIds.filterNot(customIds.contains).map {
+              NotifyAllows(_, NotificationPref.default.allows(event))
+            }
+            customAllows ::: defaultAllows.toList
 
   private val unreadCountCache = cacheApi[UserId, UnreadCount](32768, "notify.unreadCountCache") {
     _.expireAfterAccess(15 minutes)
@@ -116,12 +117,11 @@ final class NotifyApi(
   // notifyMany tells clients that an update is available to bump their bell. there's no need
   // to assemble full notification pages for all clients at once, let them initiate
   def notifyMany(userIds: Iterable[UserId], content: NotificationContent): Funit =
-    NotificationPref.Event.byKey.get(content.key) so { event =>
-      prefs.getAllows(userIds, event) flatMap { recips =>
+    NotificationPref.Event.byKey.get(content.key) so: event =>
+      prefs.getAllows(userIds, event) flatMap: recips =>
         pushMany(recips.filter(_.allows.push), content)
         bellMany(recips, content)
-      }
-    }
+
   private[notify] def notifyManyIgnoringPrefs(userIds: Seq[UserId], content: NotificationContent): Funit =
     val recips = userIds.map(NotifyAllows(_, Allows.all))
     pushMany(recips, content)
