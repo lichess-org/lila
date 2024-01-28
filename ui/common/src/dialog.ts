@@ -33,7 +33,7 @@ interface DialogOpts {
   attrs?: { dialog?: Attrs; view?: Attrs }; // optional attrs for dialog and view div
   action?: Action | Action[]; // if present, add handlers to action buttons
   onClose?: (dialog: Dialog) => void; // called when dialog closes
-  noCloseButton?: boolean; // if true, no upper right corener close button
+  noCloseButton?: boolean; // if true, no upper right corner close button
   noClickAway?: boolean; // if true, no click-away-to-close
 }
 

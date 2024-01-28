@@ -53,6 +53,7 @@
   <string name="allSyncMembersRemainOnTheSamePosition">Tots els membres sincronitzats es mantenen a la mateixa posició</string>
   <string name="shareChanges">Comparteix els canvis amb els espectadors i guarda’ls al servidor</string>
   <string name="playing">Jugant</string>
+  <string name="showEvalBar">Barres d\'avaluació</string>
   <string name="first">Primer</string>
   <string name="previous">Anterior</string>
   <string name="next">Següent</string>
@@ -62,7 +63,7 @@
   <string name="studyPgn">PGN de l’estudi</string>
   <string name="downloadAllGames">Descarrega tots els jocs</string>
   <string name="chapterPgn">PGN del capítol</string>
-  <string name="copyChapterPgn" comment="A button which lets you copy the PGN text to your clipboard (i.e. similar to ⌘+C or Ctrl+C).">Copiar PGN</string>
+  <string name="copyChapterPgn">Copiar PGN</string>
   <string name="copyChapterPgnDescription">Copia el capítol PGN al porta-retalls.</string>
   <string name="downloadGame">Descarrega partida</string>
   <string name="studyUrl">URL de l’estudi</string>

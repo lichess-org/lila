@@ -7,7 +7,7 @@
   <string name="kingsideCastle">قلعه جناح شاه</string>
   <string name="queensideCastle">قلعه جناح وزیر</string>
   <string name="promoteC8ToQueen">ارتقاء c8 به وزیر</string>
-  <string name="dropARookAtB4">قلعه را در b4 رها کنید</string>
+  <string name="dropARookAtB4">رُخ را در b4 رها کنید (فقط در شطرنج‌گونه دیوانه‌خانه)</string>
   <string name="offerOrAcceptDraw">پیشنهاد یا قبول تساوی</string>
   <string name="readOutClocks">اعلام ساعت</string>
   <string name="readOutOpponentName">نام حریف را بخوانید</string>

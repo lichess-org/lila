@@ -65,7 +65,7 @@
   <string name="studyPgn">Izpētes PGN</string>
   <string name="downloadAllGames">Lejupielādēt visas spēles</string>
   <string name="chapterPgn">Nodaļas PGN</string>
-  <string name="copyChapterPgn" comment="A button which lets you copy the PGN text to your clipboard (i.e. similar to ⌘+C or Ctrl+C).">Kopēt PGN</string>
+  <string name="copyChapterPgn">Kopēt PGN</string>
   <string name="copyChapterPgnDescription">Kopēt nodaļas PGN starpliktuvē.</string>
   <string name="downloadGame">Lejupielādēt spēli</string>
   <string name="studyUrl">Izpētes URL</string>

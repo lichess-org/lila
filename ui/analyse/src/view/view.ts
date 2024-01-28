@@ -35,6 +35,8 @@ import { renderNextChapter } from '../study/nextChapter';
 import * as Prefs from 'common/prefs';
 import StudyCtrl from '../study/studyCtrl';
 
+window.addEventListener('popstate', () => window.location.reload());
+
 function makeConcealOf(ctrl: AnalyseCtrl): ConcealOf | undefined {
   const conceal =
     ctrl.study && ctrl.study.data.chapter.conceal !== undefined
@@ -165,8 +167,11 @@ function controls(ctrl: AnalyseCtrl) {
           else if (action === 'explorer') ctrl.toggleExplorer();
           else if (action === 'practice') ctrl.togglePractice();
           else if (action === 'menu') ctrl.actionMenu.toggle();
-          else if (action === 'analysis' && ctrl.studyPractice)
-            window.open(ctrl.studyPractice.analysisUrl(), '_blank', 'noopener');
+          else if (action === 'analysis' && ctrl.studyPractice) {
+            if (!window.open(ctrl.studyPractice.analysisUrl(), '_blank', 'noopener')) {
+              window.location.href = ctrl.studyPractice.analysisUrl(); //safari
+            }
+          }
         }, ctrl.redraw),
       ),
     },
@@ -303,6 +308,8 @@ export default function (deps?: typeof studyDeps) {
       gaugeOn = ctrl.showEvalGauge(),
       needsInnerCoords = ctrl.data.pref.showCaptured || !!gaugeOn || !!playerBars,
       tour = deps?.relayTour(ctrl);
+
+    study?.updateAddressBar();
 
     return h(
       'main.analyse.variant-' + ctrl.data.game.variant.key,

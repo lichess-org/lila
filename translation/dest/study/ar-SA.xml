@@ -74,7 +74,7 @@
   <string name="studyPgn">PGN الدراسة</string>
   <string name="downloadAllGames">حمل جميع الألعاب</string>
   <string name="chapterPgn">PGN الفصل</string>
-  <string name="copyChapterPgn" comment="A button which lets you copy the PGN text to your clipboard (i.e. similar to ⌘+C or Ctrl+C).">نسخ PGN</string>
+  <string name="copyChapterPgn">نسخ PGN</string>
   <string name="copyChapterPgnDescription">نسخ فصل PGN إلى الحافظة.</string>
   <string name="downloadGame">حمل لعبة</string>
   <string name="studyUrl">رابط الدراسة</string>

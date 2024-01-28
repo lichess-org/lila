@@ -20,5 +20,5 @@ object bits:
       openGraph = openGraph,
       robots = false,
       zoomable = true,
-      csp = analysisCsp.withPeer.withInlineIconFont.some
+      csp = analysisCsp.withPeer.withInlineIconFont.withChessDbCn.some
     )(body)

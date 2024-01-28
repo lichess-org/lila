@@ -68,7 +68,7 @@
   <string name="studyPgn">PGN študije</string>
   <string name="downloadAllGames">Prenesi vse igre</string>
   <string name="chapterPgn">PGN poglavja</string>
-  <string name="copyChapterPgn" comment="A button which lets you copy the PGN text to your clipboard (i.e. similar to ⌘+C or Ctrl+C).">Kopiraj PGN</string>
+  <string name="copyChapterPgn">Kopiraj PGN</string>
   <string name="copyChapterPgnDescription">Kopiraj poglavje PGN v odložišče.</string>
   <string name="downloadGame">Prenesi igro</string>
   <string name="studyUrl">URL študije</string>

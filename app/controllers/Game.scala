@@ -116,12 +116,13 @@ final class Game(env: Env, apiC: => Api) extends LilaController(env):
         .as(pgnContentType)
   }
 
-  def exportByIds = AnonBodyOf(parse.tolerantText): body =>
+  def exportByIds = AnonOrScopedBody(parse.tolerantText)(): ctx ?=>
+    val (limit, perSec) = if ctx.me.exists(_.isVerifiedOrChallengeAdmin) then (600, 100) else (300, 30)
     val config = GameApiV2.ByIdsConfig(
-      ids = GameId from body.split(',').view.take(300).toSeq,
+      ids = GameId from ctx.body.body.split(',').view.take(limit).toSeq,
       format = GameApiV2.Format byRequest req,
       flags = requestPgnFlags(extended = false),
-      perSecond = MaxPerSecond(30),
+      perSecond = MaxPerSecond(perSec),
       playerFile = get("players")
     )
     apiC.GlobalConcurrencyLimitPerIP
@@ -148,7 +149,8 @@ final class Game(env: Env, apiC: => Api) extends LilaController(env):
       pgnInJson = getBool("pgnInJson"),
       delayMoves = delayMovesFromReq,
       lastFen = getBool("lastFen"),
-      accuracy = getBool("accuracy")
+      accuracy = getBool("accuracy"),
+      division = getBoolOpt("division") | extended
     )
 
   private[controllers] def delayMovesFromReq(using RequestHeader) =

@@ -55,6 +55,7 @@ object jsI18n:
       allSyncMembersRemainOnTheSamePosition,
       shareChanges,
       playing,
+      showEvalBar,
       first,
       previous,
       next,
