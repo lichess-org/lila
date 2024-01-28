@@ -317,6 +317,7 @@ function inputs(ctrl: EditorCtrl, fen: string): VNode | undefined {
         attrs: { readonly: true, spellcheck: 'false', value: ctrl.makeEditorUrl(fen, ctrl.bottomColor()) },
       }),
     ]),
+    h('a', { attrs: { href: ctrl.makeImageUrl(fen) } }, 'SCREENSHOT'),
   ]);
 }
 

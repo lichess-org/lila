@@ -134,6 +134,14 @@
         #{$end-direction}: 0;
         box-shadow: 0 0 5px rgba(0, 0, 0, 0.7) inset;
       }
+      tick.zero {
+        position: absolute;
+        width: 100%;
+        top: 2.5px;
+        opacity: 1;
+        border-bottom: 5px solid fade-out($c-accent, 0.5);
+        height: 50%;
+      }
     }
   }
 }

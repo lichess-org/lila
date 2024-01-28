@@ -68,7 +68,7 @@
   <string name="studyPgn">PGN дослідження</string>
   <string name="downloadAllGames">Завантажити всі партії</string>
   <string name="chapterPgn">PGN розділу</string>
-  <string name="copyChapterPgn" comment="A button which lets you copy the PGN text to your clipboard (i.e. similar to ⌘+C or Ctrl+C).">Скопіювати PGN</string>
+  <string name="copyChapterPgn">Скопіювати PGN</string>
   <string name="copyChapterPgnDescription">Скопіювати PGN розділу в буфер обміну.</string>
   <string name="downloadGame">Завантажити гру</string>
   <string name="studyUrl">Посилання на дослідження</string>

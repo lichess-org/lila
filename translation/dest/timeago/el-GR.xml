@@ -54,4 +54,5 @@
     <item quantity="one">%s χρόνο πριν</item>
     <item quantity="other">%s χρόνια πριν</item>
   </plurals>
+  <string name="completed">ολοκληρώθηκε</string>
 </resources>

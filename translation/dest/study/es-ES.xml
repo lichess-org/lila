@@ -53,6 +53,7 @@
   <string name="allSyncMembersRemainOnTheSamePosition">Todos los miembros de SYNC permanecen en la misma posición</string>
   <string name="shareChanges">Comparte cambios con los espectadores y guárdalos en el servidor</string>
   <string name="playing">Jugando</string>
+  <string name="showEvalBar">Barras de evaluación</string>
   <string name="first">Primero</string>
   <string name="previous">Anterior</string>
   <string name="next">Siguiente</string>
@@ -62,7 +63,7 @@
   <string name="studyPgn">PGN del estudio</string>
   <string name="downloadAllGames">Descargar todas las partidas</string>
   <string name="chapterPgn">PGN del capítulo</string>
-  <string name="copyChapterPgn" comment="A button which lets you copy the PGN text to your clipboard (i.e. similar to ⌘+C or Ctrl+C).">Copiar PGN</string>
+  <string name="copyChapterPgn">Copiar PGN</string>
   <string name="copyChapterPgnDescription">Copiar PGN del capítulo al portapapeles.</string>
   <string name="downloadGame">Descargar partida</string>
   <string name="studyUrl">URL del estudio</string>

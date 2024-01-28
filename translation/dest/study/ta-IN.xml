@@ -62,7 +62,7 @@
   <string name="studyPgn">PGN கற்கை</string>
   <string name="downloadAllGames">எல்லா விளையாட்டுக்களையும் பதிவிறக்க</string>
   <string name="chapterPgn">அத்தியாயத்திற்குரிய PGN</string>
-  <string name="copyChapterPgn" comment="A button which lets you copy the PGN text to your clipboard (i.e. similar to ⌘+C or Ctrl+C).">PGN நகல்</string>
+  <string name="copyChapterPgn">PGN நகல்</string>
   <string name="copyChapterPgnDescription">அத்தியாயத்திற்குரிய PGN ஐக் கிளிப்போட்டிற்கு பிரதிபண்ண.</string>
   <string name="downloadGame">விளையாட்டைப் பதிவிறக்க</string>
   <string name="studyUrl">கற்கை URL</string>

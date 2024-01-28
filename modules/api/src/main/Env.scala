@@ -53,6 +53,8 @@ final class Env(
     modEnv: lila.mod.Env,
     notifyEnv: lila.notify.Env,
     appealApi: lila.appeal.AppealApi,
+    shutupEnv: lila.shutup.Env,
+    modLogApi: lila.mod.ModlogApi,
     activityWriteApi: lila.activity.ActivityWriteApi,
     ublogApi: lila.ublog.UblogApi,
     picfitUrl: lila.memo.PicfitUrl,

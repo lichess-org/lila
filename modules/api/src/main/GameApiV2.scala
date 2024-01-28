@@ -12,7 +12,7 @@ import lila.common.{ HTTPRequest, LightUser }
 import lila.db.dsl.{ *, given }
 import lila.game.JsonView.given
 import lila.game.PgnDump.WithFlags
-import lila.game.{ Game, Query, Pov }
+import lila.game.{ Game, Query, Pov, Divider }
 import lila.team.GameTeams
 import lila.tournament.Tournament
 import lila.user.{ Me, User }
@@ -30,7 +30,8 @@ final class GameApiV2(
     annotator: lila.analyse.Annotator,
     getLightUser: LightUser.Getter,
     realPlayerApi: RealPlayerApi,
-    gameProxy: GameProxyRepo
+    gameProxy: GameProxyRepo,
+    division: Divider
 )(using Executor, akka.actor.ActorSystem):
 
   import GameApiV2.*
@@ -273,6 +274,7 @@ final class GameApiV2(
       "createdAt"  -> g.createdAt,
       "lastMoveAt" -> g.movedAt,
       "status"     -> g.status.name,
+      "source"     -> g.source,
       "players" -> JsObject(lightUsers.mapList: (p, user) =>
         p.color.name -> gameJsonView
           .player(p, user)
@@ -304,6 +306,7 @@ final class GameApiV2(
       ))
     .add("lastFen" -> flags.lastFen.option(Fen.write(g.chess.situation)))
     .add("lastMove" -> flags.lastFen.option(g.lastMoveKeys))
+    .add("division" -> flags.division.option(division(g, initialFen)))
 
   private def gameLightUsers(game: Game): Future[ByColor[(lila.game.Player, Option[LightUser])]] =
     game.players.traverse(_.userId so getLightUser).dmap(game.players.zip(_))
