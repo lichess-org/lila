@@ -270,7 +270,7 @@ const evalGauge = (chap: ChapterPreview, cloudEval: GetCloudEval): VNode =>
             const gauge = elm.parentNode as HTMLElement;
             elm.style.height = `${((1 - (cev?.chances || 0)) / 2) * 100}%`;
             if (cev) {
-              gauge.title = `Depth ${cev.depth}: ${renderScore(cev)}`;
+              gauge.title = `${renderScore(cev)} at depth ${cev.depth}`;
               gauge.classList.add('mini-game__gauge--set');
             }
           }
