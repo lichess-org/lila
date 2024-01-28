@@ -82,12 +82,14 @@ final class JsonView(baseUrl: BaseUrl, markup: RelayMarkup, leaderboardApi: Rela
       trs: RelayTour.WithRounds,
       currentRoundId: RelayRoundId,
       studyData: lila.study.JsonView.JsData,
-      canContribute: Boolean
+      canContribute: Boolean,
+      isSubscribed: Option[Boolean] = none[Boolean]
   ) = leaderboardApi(trs.tour) map { leaderboard =>
     JsonView.JsData(
       relay = apply(trs)
         .add("sync" -> (canContribute so trs.rounds.find(_.id == currentRoundId).map(_.sync)))
-        .add("leaderboard" -> leaderboard.map(_.players)),
+        .add("leaderboard" -> leaderboard.map(_.players))
+        .add("isSubscribed" -> isSubscribed),
       study = studyData.study,
       analysis = studyData.analysis
     )

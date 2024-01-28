@@ -11,7 +11,8 @@ final private class RelaySync(
     multiboard: StudyMultiBoard,
     chapterRepo: ChapterRepo,
     tourRepo: RelayTourRepo,
-    leaderboard: RelayLeaderboardApi
+    leaderboard: RelayLeaderboardApi,
+    notifier: RelayNotifier
 )(using Executor):
 
   def updateStudyChapters(rt: RelayRound.WithTour, games: RelayGames): Fu[SyncResult.Ok] = for
@@ -47,6 +48,8 @@ final private class RelaySync(
                 } inject SyncResult
                   .ChapterResult(chapter.id, true, chapter.root.mainline.size)
                   .some
+      .flatMapz: result =>
+        (result.newMoves > 0 so notifier.roundBegin(rt)) inject result.some
 
   /*
    * If the source contains all expected games, use their index to match them with the study chapter.
@@ -59,7 +62,7 @@ final private class RelaySync(
       chapters: List[Chapter],
       nbGames: Int
   ): Option[Chapter] =
-    if chapters.sizeIs > nbGames || game.looksLikeLichess
+    if nbGames == 1 || chapters.sizeIs > nbGames || game.looksLikeLichess
     then chapters.find(c => game.staticTagsMatch(c.tags))
     else chapters.find(_.relay.exists(_.index == game.index))
 
