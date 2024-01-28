@@ -100,8 +100,7 @@ final class RelayTour(env: Env, apiC: => Api, prismicC: => Prismic) extends Lila
   }
 
   def subscribe(id: TourModel.Id, isSubscribed: Boolean) = Auth { _ ?=> me ?=>
-    env.relay.api.subscribe(id, me.userId, isSubscribed)
-    jsonOkResult
+    env.relay.api.subscribe(id, me.userId, isSubscribed) inject jsonOkResult
   }
 
   def cloneTour(id: TourModel.Id) = Secure(_.Relay) { _ ?=> me ?=>

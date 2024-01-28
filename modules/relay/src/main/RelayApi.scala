@@ -418,11 +418,7 @@ final class RelayApi(
       .throttle(perSecond.value, 1 second)
       .take(max.fold(9999)(_.value))
 
-  def subscribe(tourId: RelayTour.Id, uid: UserId, isSubscribed: Boolean): Funit =
-    tourRepo.setSubscribed(tourId, uid, isSubscribed)
-
-  def isSubscribed(tourId: RelayTour.Id, uid: UserId): Fu[Boolean] =
-    tourRepo.isSubscribed(tourId, uid)
+  export tourRepo.{ isSubscribed, setSubscribed as subscribe }
 
   private[relay] def autoStart: Funit =
     roundRepo.coll
