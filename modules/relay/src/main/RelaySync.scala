@@ -59,7 +59,7 @@ final private class RelaySync(
       chapters: List[Chapter],
       nbGames: Int
   ): Option[Chapter] =
-    if chapters.sizeIs > nbGames || game.looksLikeLichess
+    if nbGames == 1 || chapters.sizeIs > nbGames || game.looksLikeLichess
     then chapters.find(c => game.staticTagsMatch(c.tags))
     else chapters.find(_.relay.exists(_.index == game.index))
 
