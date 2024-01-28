@@ -48,8 +48,12 @@ main.has-relay-tour {
   }
 
   &__header {
-    display: flex;
-    align-items: start;
+    @extend %flex-center-nowrap;
+    margin-bottom: 3vh;
+
+    h1 {
+      flex: 1 0 auto;
+    }
 
     > i:hover {
       color: $c-font-clearer;
@@ -119,7 +123,6 @@ main.has-relay-tour {
     h1 {
       @include fluid-size('font-size', 15px, 27px);
       color: $c-brag;
-      margin-bottom: 3vh;
     }
     h2,
     h3,
