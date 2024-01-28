@@ -50,7 +50,7 @@ final private class RelaySync(
 
   /*
    * If the source contains all expected games, use their index to match them with the study chapter.
-   * If the source contains only fewer games, use the player tags (and site) to match with the study chapters.
+   * If the source contains fewer games, use the player tags (and site) to match with the study chapters.
    * So the TCEC style - one game per file, reusing the file for all games - is supported.
    * lichess will create a new chapter when the game player tags differ.
    */
@@ -59,7 +59,7 @@ final private class RelaySync(
       chapters: List[Chapter],
       nbGames: Int
   ): Option[Chapter] =
-    if chapters.sizeIs > nbGames || game.looksLikeLichess
+    if nbGames == 1 || chapters.sizeIs > nbGames || game.looksLikeLichess
     then chapters.find(c => game.staticTagsMatch(c.tags))
     else chapters.find(_.relay.exists(_.index == game.index))
 
