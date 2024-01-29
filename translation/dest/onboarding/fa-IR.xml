@@ -10,8 +10,8 @@
   <string name="playTheArtificialIntelligence">با هوش مصنوعی بازی کنید.</string>
   <string name="playOpponentsFromAroundTheWorld">با حریف‌هایی از سراسر دنیا بازی کنید.</string>
   <string name="followYourFriendsOnLichess">دوستان خود را روی لیچس دنبال کنید.</string>
-  <string name="playInTournaments">در تورنمنت‌ها بازی کنید.</string>
-  <string name="learnFromXAndY">از %1$s و %2$s یادبگیرید.</string>
+  <string name="playInTournaments">در مسابقات شرکت کنید.</string>
+  <string name="learnFromXAndY" comment="%1$s is Study&#10;%2$s is Videos&#10;&#10;They are both links to pages titled that way, and the title is used verbatim.">از %1$s و %2$s یادبگیرید.</string>
   <string name="configureLichess">لیچس را طبق سلیقه خود تنظیم کنید.</string>
   <string name="exploreTheSiteAndHaveFun">سایت رو بگردید و لذت ببرید :)</string>
 </resources>
