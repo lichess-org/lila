@@ -2,7 +2,7 @@ package lila.relay
 
 import scala.concurrent.duration.*
 import akka.actor.*
-import chess.format.pgn.{ PgnStr, Parser, Std }
+import chess.format.pgn.{ PgnStr, Parser, Std, San }
 import chess.{ ErrorStr, Game, Replay, Square }
 import akka.pattern.after
 
@@ -81,8 +81,7 @@ final class RelayPush(sync: RelaySync, api: RelayApi, irc: lila.irc.IrcApi)(usin
                   ending = res.end
                 )
 
-  // if the last move fails validation, we assume it is a DGT board king-check move to center at game end
-  // validate silently consumes the error
+  // silently consume DGT board king-check move to center at game end
   private def fatalError(pgnBody: PgnStr): Option[LilaInvalid] =
     Parser
       .full(pgnBody)
@@ -96,8 +95,11 @@ final class RelayPush(sync: RelaySync, api: RelayApi, irc: lila.irc.IrcApi)(usin
               san(r.state.situation).fold(err => (err.some, r), mv => (none, r.addMove(mv)))
           maybeErr.flatMap: err =>
             parsed.mainline.lastOption collect:
-              case mv: Std if mv.role.forsyth != 'k' || notCenter(mv.dest) => LilaInvalid(err.value)
+              case mv: Std if isFatal(mv, replay, parsed.mainline) => LilaInvalid(err.value)
       )
 
-  private def notCenter(sq: Square) =
-    sq != Square.D4 && sq != Square.D5 && sq != Square.E4 && sq != Square.E5
+  private def isFatal(mv: Std, replay: Replay, parsed: List[San]) =
+    import Square.*
+    replay.moves.size < parsed.size - 1
+    || mv.role.forsyth != 'k'
+    || (mv.dest != D4 && mv.dest != D5 && mv.dest != E4 && mv.dest != E5)
