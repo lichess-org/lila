@@ -53,6 +53,7 @@
   <string name="allSyncMembersRemainOnTheSamePosition">Ĉiuj sinkronigitaj membroj restas ĉe la sama pozicio</string>
   <string name="shareChanges">Diskonigi ŝanĝojn al spektantoj kaj konservi tiujn ĉe la servilo</string>
   <string name="playing">Ludanta</string>
+  <string name="showEvalBar">Taksaj stangoj</string>
   <string name="first">Al la unua</string>
   <string name="previous">Antaŭa</string>
   <string name="next">Sekva</string>
