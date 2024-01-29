@@ -52,7 +52,8 @@ main.has-relay-tour {
     margin-bottom: 3vh;
 
     h1 {
-      flex: 1 0 auto;
+      @extend %break-word;
+      flex: 1 1 auto;
     }
 
     > i:hover {
