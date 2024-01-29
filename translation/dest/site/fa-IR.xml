@@ -413,7 +413,7 @@
   <string name="thisIsAChessCaptcha">این یک کپچا [کد امنیتی] شطرنجی است</string>
   <string name="clickOnTheBoardToMakeYourMove">برای اثبات اینکه کامپیوتر نیستید، روی صفحه کلیک کنید تا حرکت خود را انجام دهید</string>
   <string name="captcha.fail">لطفا captcha را حل کنید</string>
-  <string name="notACheckmate">عدم کیش و مات</string>
+  <string name="notACheckmate">این یک کیش و مات نیست</string>
   <string name="whiteCheckmatesInOneMove">سفید در یک حرکت مات می‌کند</string>
   <string name="blackCheckmatesInOneMove">سیاه در یک حرکت مات می‌کند</string>
   <string name="retry">تلاش دوباره</string>
@@ -515,7 +515,7 @@
   <string name="thankYou">ممنون!</string>
   <string name="socialMediaLinks">لینک های رسانه های اجتماعی</string>
   <string name="oneUrlPerLine">یک نشانی در هر خط.</string>
-  <string name="inlineNotation">نشانه‌گذاری خطی</string>
+  <string name="inlineNotation">نمادگذاری خطی</string>
   <string name="makeAStudy">برای نگهداری مطمئن و اشتراک‌گذاری، ایجاد یک مطالعه را در نظر بگیرید.</string>
   <string name="clearSavedMoves">حرکت های واضح</string>
   <string name="previouslyOnLichessTV">بازی قبلی در لیچس</string>
@@ -703,7 +703,7 @@
   <string name="keyNextBranch">شاخه بعدی</string>
   <string name="toggleVariationArrows">کلید پیکان‌های شاخه اصلی</string>
   <string name="cyclePreviousOrNextVariation">چرخه قبلی/بعدی شاخه اصلی</string>
-  <string name="toggleGlyphAnnotations">کلید نماد حاشیه‌نویسی</string>
+  <string name="toggleGlyphAnnotations">کلید نماد ثبت حرکات</string>
   <string name="variationArrowsInfo">پیکان های شاخه اصلی به شما امکان می‌دهد بدون استفاده از فهرست حرکت، پیمایش کنید.</string>
   <string name="playSelectedMove">حرکت انتخاب شده را بازی کن</string>
   <string name="newTournament">مسابقه جدید</string>
