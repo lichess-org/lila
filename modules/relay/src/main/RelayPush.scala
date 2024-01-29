@@ -38,6 +38,7 @@ final class RelayPush(sync: RelaySync, api: RelayApi, irc: lila.irc.IrcApi)(usin
             case Right(games) =>
               rt.round.sync.nonEmptyDelay.fold(push(rt, games)): delay =>
                 after(delay.value.seconds)(push(rt, games))
+                fuccess(Right(0))
 
   private def push(rt: RelayRound.WithTour, games: Vector[RelayGame]): Fu[Result] =
     workQueue(rt.round.id):
