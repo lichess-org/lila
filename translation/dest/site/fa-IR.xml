@@ -515,7 +515,7 @@
   <string name="thankYou">ممنون!</string>
   <string name="socialMediaLinks">لینک های رسانه های اجتماعی</string>
   <string name="oneUrlPerLine">یک نشانی در هر خط.</string>
-  <string name="inlineNotation">نمادگذاری خطی</string>
+  <string name="inlineNotation">نشانه‌گذاری خطی</string>
   <string name="makeAStudy">برای نگهداری مطمئن و اشتراک‌گذاری، ایجاد یک مطالعه را در نظر بگیرید.</string>
   <string name="clearSavedMoves">حرکت های واضح</string>
   <string name="previouslyOnLichessTV">بازی قبلی در لیچس</string>
@@ -703,7 +703,7 @@
   <string name="keyNextBranch">شاخه بعدی</string>
   <string name="toggleVariationArrows">کلید پیکان‌های شاخه اصلی</string>
   <string name="cyclePreviousOrNextVariation">چرخه قبلی/بعدی شاخه اصلی</string>
-  <string name="toggleGlyphAnnotations">کلید نماد ثبت حرکات</string>
+  <string name="toggleGlyphAnnotations">کلید ثبت حرکات نمادی</string>
   <string name="variationArrowsInfo">پیکان های شاخه اصلی به شما امکان می‌دهد بدون استفاده از فهرست حرکت، پیمایش کنید.</string>
   <string name="playSelectedMove">حرکت انتخاب شده را بازی کن</string>
   <string name="newTournament">مسابقه جدید</string>
