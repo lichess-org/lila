@@ -99,6 +99,28 @@ final class RelayTour(env: Env, apiC: => Api, prismicC: => Prismic) extends Lila
       env.relay.api.deleteTourIfOwner(tour) inject Redirect(routes.RelayTour.by(me.username)).flashSuccess
   }
 
+  private val ImageRateLimitPerIp = lila.memo.RateLimit.composite[lila.common.IpAddress](
+    key = "relay.image.ip"
+  )(
+    ("fast", 10, 2.minutes),
+    ("slow", 60, 1.day)
+  )
+
+  def image(id: TourModel.Id) = AuthBody(parse.multipartFormData) { ctx ?=> me ?=>
+    WithTourCanUpdate(id): tour =>
+      ctx.body.body.file("image") match
+        case Some(image) =>
+          ImageRateLimitPerIp(ctx.ip, rateLimited):
+            env.relay.api.image.upload(me, tour, image) map { newTour =>
+              Ok(html.relay.tourForm.formImage(newTour))
+            } recover { case e: Exception =>
+              BadRequest(e.getMessage)
+            }
+        case None =>
+          env.relay.api.image.delete(tour) map: newTour =>
+            Ok(html.relay.tourForm.formImage(newTour))
+  }
+
   def subscribe(id: TourModel.Id, isSubscribed: Boolean) = Auth { _ ?=> me ?=>
     env.relay.api.subscribe(id, me.userId, isSubscribed) inject jsonOkResult
   }

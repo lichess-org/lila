@@ -9,7 +9,7 @@ import scala.util.chaining.*
 
 import lila.common.config.MaxPerSecond
 import lila.db.dsl.{ *, given }
-import lila.memo.CacheApi
+import lila.memo.{ PicfitApi, CacheApi }
 import lila.study.{ Settings, Study, StudyApi, StudyId, StudyMaker, StudyMultiBoard, StudyRepo, StudyTopic }
 import lila.security.Granter
 import lila.user.{ User, Me, MyId }
@@ -27,7 +27,8 @@ final class RelayApi(
     jsonView: JsonView,
     formatApi: RelayFormatApi,
     cacheApi: CacheApi,
-    leaderboard: RelayLeaderboardApi
+    leaderboard: RelayLeaderboardApi,
+    picfitApi: PicfitApi
 )(using Executor, akka.stream.Materializer):
 
   import BSONHandlers.{ readRoundWithTour, given }
@@ -419,6 +420,21 @@ final class RelayApi(
       .take(max.fold(9999)(_.value))
 
   export tourRepo.{ isSubscribed, setSubscribed as subscribe }
+
+  object image:
+    private def rel(t: RelayTour) = s"relay:${t.id}"
+
+    def upload(user: User, t: RelayTour, picture: PicfitApi.FilePart): Fu[RelayTour] = for
+      image <- picfitApi.uploadFile(rel(t), picture, userId = user.id)
+      _     <- tourRepo.coll.updateField($id(t.id), "image", image.id)
+    yield t.copy(image = image.id.some)
+
+    def delete(t: RelayTour): Fu[RelayTour] = for
+      _ <- deleteImage(t)
+      _ <- tourRepo.coll.unsetField($id(t.id), "image")
+    yield t.copy(image = none)
+
+    def deleteImage(post: RelayTour): Funit = picfitApi.deleteByRel(rel(post))
 
   private[relay] def autoStart: Funit =
     roundRepo.coll

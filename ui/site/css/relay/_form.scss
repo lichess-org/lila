@@ -1,23 +1,50 @@
-.relay-form__actions {
-  @extend %flex-between;
-  margin: 2em 0;
-  border-top: $border;
-  padding-top: 3em;
-  form {
-    flex: 0 0 50%;
-    .button {
-      @extend %flex-column;
-      text-align: left;
-      width: 100%;
+.relay-form {
+  &__actions {
+    @extend %flex-between;
+    margin: 2em 0;
+    border-top: $border;
+    padding-top: 3em;
+    form {
+      flex: 0 0 50%;
+      .button {
+        @extend %flex-column;
+        text-align: left;
+        width: 100%;
 
-      strong {
-        display: block;
-      }
-      em {
-        color: $c-font-dim;
-        text-transform: none;
-        white-space: normal;
+        strong {
+          display: block;
+        }
+        em {
+          color: $c-font-dim;
+          text-transform: none;
+          white-space: normal;
+        }
       }
     }
   }
+  &__image {
+    padding-#{$start-direction}: var(--box-padding);
+    padding-#{$end-direction}: var(--box-padding);
+    background: $c-bg-zebra;
+    padding-top: 5vh;
+  }
+  &__image-text {
+    background: $c-bg-zebra;
+    margin-bottom: 5vh;
+    border-bottom: $border;
+    font-size: 0.9em;
+    .form-group {
+      display: none;
+    }
+    &.visible {
+      height: auto;
+      .form-group {
+        display: block;
+      }
+    }
+  }
+}
+.relay-image {
+  max-width: 100%;
+  height: auto;
 }

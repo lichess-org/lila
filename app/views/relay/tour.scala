@@ -114,6 +114,16 @@ object tour:
       a(href := routes.RelayTour.help, cls := menu.activeO("help"))(trans.broadcast.aboutBroadcasts())
     )
 
+  object thumbnail:
+    def apply(t: RelayTour, size: RelayTour.thumbnail.SizeSelector) = img(
+      cls     := "relay-image",
+      widthA  := size(RelayTour.thumbnail).width,
+      heightA := size(RelayTour.thumbnail).height
+    )(src := url(t, size))
+    def url(t: RelayTour, size: RelayTour.thumbnail.SizeSelector) =
+      t.image.fold(assetUrl("images/relay-default.png")):
+        RelayTour.thumbnail(picfitUrl, _, size)
+
   private def renderWidget[A <: RelayRound.AndTour](tr: A, ongoing: A => Boolean)(using Context) =
     tourWidgetDiv(tr.tour)(
       cls := List(

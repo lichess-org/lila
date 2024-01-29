@@ -4,6 +4,7 @@ import play.api.i18n.Lang
 
 import lila.user.User
 import lila.i18n.Language
+import lila.memo.{ PicfitUrl, PicfitImage }
 
 case class RelayTour(
     _id: RelayTour.Id,
@@ -17,7 +18,8 @@ case class RelayTour(
     syncedAt: Option[Instant],    // last time a round was synced
     spotlight: Option[RelayTour.Spotlight] = None,
     autoLeaderboard: Boolean = true,
-    players: Option[RelayPlayers] = None
+    players: Option[RelayPlayers] = None,
+    image: Option[PicfitImage.Id] = None
 ):
   inline def id = _id
 
@@ -70,6 +72,16 @@ object RelayTour:
   case class WithLastRound(tour: RelayTour, round: RelayRound) extends RelayRound.AndTour:
     def link    = round
     def display = round
+
+  object thumbnail:
+    enum Size(val width: Int):
+      def height = width / 2
+      case Large extends Size(800)
+      case Small extends Size(400)
+    type SizeSelector = thumbnail.type => Size
+
+    def apply(picfitUrl: PicfitUrl, image: PicfitImage.Id, size: SizeSelector) =
+      picfitUrl.thumbnail(image, size(thumbnail).width, size(thumbnail).height)
 
   import ornicar.scalalib.ThreadLocalRandom
   def makeId = Id(ThreadLocalRandom nextString 8)

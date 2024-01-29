@@ -30,6 +30,7 @@ object tourForm:
         h1(dataIcon := licon.Pencil, cls := "text"):
           a(href := routes.RelayTour.show(t.slug, t.id))(t.name)
       ,
+      imageForm(t),
       postForm(cls := "form3", action := routes.RelayTour.update(t.id))(
         inner(form),
         form3.actions(
@@ -51,10 +52,29 @@ object tourForm:
       )
     )
 
+  private def imageForm(t: RelayTour)(using ctx: PageContext) =
+    postForm(
+      cls     := "relay-form__image",
+      action  := routes.RelayTour.image(t.id),
+      enctype := "multipart/form-data"
+    )(
+      form3.split(
+        div(cls := "form-group form-half")(formImage(t)),
+        div(cls := "form-group form-half")(
+          p(trans.streamer.maxSize(s"${lila.memo.PicfitApi.uploadMaxMb}MB.")),
+          form3.file.image("image")
+        )
+      )
+    )
+
+  def formImage(t: RelayTour) =
+    views.html.relay.tour.thumbnail(t, _.Size.Small)(cls := t.image.isDefined.option("user-image"))
+
   private def layout(title: String, menu: Option[String])(body: Modifier*)(using PageContext) =
     views.html.base.layout(
       title = title,
-      moreCss = cssTag("relay.form")
+      moreCss = cssTag("relay.form"),
+      moreJs = jsModule("relayForm")
     )(menu match
       case Some(active) =>
         main(cls := "page page-menu")(
