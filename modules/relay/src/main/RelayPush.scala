@@ -2,7 +2,8 @@ package lila.relay
 
 import scala.concurrent.duration.*
 import akka.actor.*
-import chess.format.pgn.{ PgnStr, Reader }
+import chess.format.pgn.*
+import chess.*
 import akka.pattern.after
 
 import lila.study.MultiPgn
@@ -29,11 +30,14 @@ final class RelayPush(sync: RelaySync, api: RelayApi, irc: lila.irc.IrcApi)(usin
     if rt.round.sync.hasUpstream
     then fuccess(Left(LilaInvalid("The relay has an upstream URL, and cannot be pushed to.")))
     else
-      pgnToGames(rt, pgn) match
-        case Left(err) => fuccess(Left(err))
-        case Right(games) =>
-          rt.round.sync.nonEmptyDelay.fold(push(rt, games)): delay =>
-            after(delay.value.seconds)(push(rt, games))
+      fatalError(pgn) match
+        case Some(fatalErr) => fuccess(Left(fatalErr))
+        case _ =>
+          pgnToGames(rt, pgn) match
+            case Left(err) => fuccess(Left(err))
+            case Right(games) =>
+              rt.round.sync.nonEmptyDelay.fold(push(rt, games)): delay =>
+                after(delay.value.seconds)(push(rt, games))
 
   private def push(rt: RelayRound.WithTour, games: Vector[RelayGame]): Fu[Result] =
     workQueue(rt.round.id):
@@ -55,31 +59,44 @@ final class RelayPush(sync: RelaySync, api: RelayApi, irc: lila.irc.IrcApi)(usin
               event.error.fold(Right(event.moves))(err => Left(LilaInvalid(err)))
 
   private def pgnToGames(rt: RelayRound.WithTour, pgnBody: PgnStr): Either[LilaInvalid, Vector[RelayGame]] =
-    Reader
+    MultiPgn
+      .split(pgnBody, Max(128))
+      .value
+      .foldLeft[Either[LilaInvalid, Vector[RelayGame]]](Right(Vector.empty)):
+        case (left @ Left(_), _) => left
+        case (Right(vec), pgn) =>
+          lila.study.PgnImport(pgn, Nil) match
+            case Left(err) => Left(LilaInvalid(err.value))
+            case Right(res) =>
+              Right:
+                vec :+ RelayGame(
+                  tags = res.tags,
+                  variant = res.variant,
+                  root = res.root.copy(
+                    comments = lila.tree.Node.Comments.empty,
+                    children = res.root.children
+                      .updateMainline(_.copy(comments = lila.tree.Node.Comments.empty))
+                  ),
+                  ending = res.end
+                )
+
+  // if the last move fails validation, we assume it is a DGT board king-check move to center at game end
+  // validate silently consumes the error
+  private def fatalError(pgnBody: PgnStr): Option[LilaInvalid] =
+    Parser
       .full(pgnBody)
       .fold(
-        err => Left(LilaInvalid(err.value)),
-        _ match
-          case Reader.Result.Incomplete(_, errorStr) => Left(LilaInvalid(errorStr.value))
-          case Reader.Result.Complete(_) =>
-            MultiPgn
-              .split(pgnBody, Max(128))
-              .value
-              .foldLeft[Either[LilaInvalid, Vector[RelayGame]]](Right(Vector.empty)):
-                case (left @ Left(_), _) => left // short circuit
-                case (Right(vec), pgn) =>
-                  lila.study.PgnImport(pgn, Nil) match
-                    case Left(err) => Left(LilaInvalid(err.value))
-                    case Right(res) =>
-                      Right:
-                        vec :+ RelayGame(
-                          tags = res.tags,
-                          variant = res.variant,
-                          root = res.root.copy(
-                            comments = lila.tree.Node.Comments.empty,
-                            children = res.root.children
-                              .updateMainline(_.copy(comments = lila.tree.Node.Comments.empty))
-                          ),
-                          ending = res.end
-                        )
+        err => LilaInvalid(err.value).some,
+        parsed =>
+          val game = Game(variantOption = parsed.tags.variant, fen = parsed.tags.fen)
+          val (maybeErr, replay) = parsed.mainline.foldLeft((Option.empty[ErrorStr], Replay(game))):
+            case (acc @ (Some(_), _), _) => acc
+            case ((none, r), san) =>
+              san(r.state.situation).fold(err => (err.some, r), mv => (none, r.addMove(mv)))
+          maybeErr.flatMap: err =>
+            parsed.mainline.lastOption collect:
+              case mv: Std if mv.role.forsyth != 'k' || notCenter(mv.dest) => LilaInvalid(err.value)
       )
+
+  private def notCenter(sq: Square) =
+    sq != Square.D4 && sq != Square.D5 && sq != Square.E4 && sq != Square.E5
