@@ -1601,6 +1601,7 @@ object I18nKeys:
     val `sourceUrlOrGameIds` = I18nKey("broadcast:sourceUrlOrGameIds")
     val `sourceUrlHelp` = I18nKey("broadcast:sourceUrlHelp")
     val `gameIdsHelp` = I18nKey("broadcast:gameIdsHelp")
+    val `orPushGames` = I18nKey("broadcast:orPushGames")
     val `startDate` = I18nKey("broadcast:startDate")
     val `startDateHelp` = I18nKey("broadcast:startDateHelp")
     val `credits` = I18nKey("broadcast:credits")
@@ -1621,6 +1622,9 @@ object I18nKeys:
     val `replaceHelp` = I18nKey("broadcast:replaceHelp")
     val `periodInSeconds` = I18nKey("broadcast:periodInSeconds")
     val `periodInSecondsHelp` = I18nKey("broadcast:periodInSecondsHelp")
+    val `delayInSeconds` = I18nKey("broadcast:delayInSeconds")
+    val `delayInSecondsHelp1` = I18nKey("broadcast:delayInSecondsHelp1")
+    val `delayInSecondsHelp2` = I18nKey("broadcast:delayInSecondsHelp2")
     val `nbBroadcasts` = I18nKey("broadcast:nbBroadcasts")
 
   object streamer:

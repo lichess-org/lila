@@ -85,7 +85,7 @@ object roundForm:
           br,
           gameIdsHelp(),
           br,
-          "Or leave empty to push games from another program."
+          orPushGames()
         ).some
       )(form3.input(_)),
       form3
@@ -109,11 +109,11 @@ object roundForm:
       form3.split(
         form3.group(
           form("delay"),
-          raw("Delay in seconds"),
+          delayInSeconds(),
           help = frag(
-            "Optional, how long to delay moves coming from the source.",
+            delayInSecondsHelp1(),
             br,
-            "Add this delay to the start date of the event. E.g. if a tournament starts at 20:00 with a delay of 15 minutes, set the start date to 20:15."
+            delayInSecondsHelp2()
           ).some,
           half = true
         )(form3.input(_, typ = "number")),

@@ -26,6 +26,7 @@
   <string name="sourceUrlOrGameIds">Source URL, or game IDs</string>
   <string name="sourceUrlHelp">URL that Lichess will check to get PGN updates. It must be publicly accessible from the Internet.</string>
   <string name="gameIdsHelp">Alternatively, you can enter up to 64 Lichess game IDs, separated by spaces.</string>
+  <string name="orPushGames">Or leave empty to push games from another program.</string>
   <string name="startDate">Start date in your own timezone</string>
   <string name="startDateHelp">Optional, if you know when the event starts</string>
   <string name="credits">Credit the source</string>
@@ -50,4 +51,7 @@ DrNykterstein;Magnus Carlsen;2863
 AnishGiri;Anish Giri;2764;GM</string>
   <string name="periodInSeconds">Period in seconds</string>
   <string name="periodInSecondsHelp">Optional, how long to wait between requests. Min 2s, max 60s. Defaults to automatic based on the number of viewers.</string>
+  <string name="delayInSeconds">Delay in seconds</string>
+  <string name="delayInSecondsHelp1">Optional, how long to delay moves coming from the source.</string>
+  <string name="delayInSecondsHelp2">Add this delay to the start date of the event. E.g. if a tournament starts at 20:00 with a delay of 15 minutes, set the start date to 20:15.</string>
 </resources>
