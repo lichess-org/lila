@@ -703,7 +703,7 @@
   <string name="keyNextBranch">شاخه بعدی</string>
   <string name="toggleVariationArrows">کلید پیکان‌های شاخه اصلی</string>
   <string name="cyclePreviousOrNextVariation">چرخه قبلی/بعدی شاخه اصلی</string>
-  <string name="toggleGlyphAnnotations">کلید ثبت حرکات نمادی</string>
+  <string name="toggleGlyphAnnotations">کلید علائم حرکت‌نویسی</string>
   <string name="variationArrowsInfo">پیکان های شاخه اصلی به شما امکان می‌دهد بدون استفاده از فهرست حرکت، پیمایش کنید.</string>
   <string name="playSelectedMove">حرکت انتخاب شده را بازی کن</string>
   <string name="newTournament">مسابقه جدید</string>
@@ -734,7 +734,7 @@
   <string name="readAboutOur">درباره %s ما بخوانید.</string>
   <string name="networkLagBetweenYouAndLichess">تاخیر شبکه بین شما و Lichess</string>
   <string name="timeToProcessAMoveOnLichessServer">زمان سپری شده برای پردازش یک حرکت</string>
-  <string name="downloadAnnotated">دانلود محتوا</string>
+  <string name="downloadAnnotated">بارگیری حرکت‌نویسی</string>
   <string name="downloadRaw">دانلود خام</string>
   <string name="downloadImported">دانلود جایگذاری شده</string>
   <string name="crosstable">تابلو امتیازات</string>
