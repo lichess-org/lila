@@ -11,19 +11,21 @@ import lila.relay.{ RelayTour as TourModel }
 final class RelayTour(env: Env, apiC: => Api, prismicC: => Prismic) extends LilaController(env):
 
   def index(page: Int, q: String) = Open:
-    Reasonable(page, config.Max(20)):
-      Ok.pageAsync:
-        q.trim.take(100).some.filter(_.nonEmpty) match
-          case Some(query) =>
-            env.relay.pager
-              .search(query, page)
-              .map: pager =>
-                html.relay.tour.index(Nil, pager, query)
-          case None =>
-            for
-              active <- (page == 1).so(env.relay.api.officialActive.get({}))
-              pager  <- env.relay.pager.inactive(page)
-            yield html.relay.tour.index(active, pager)
+    q.trim.take(100).some.filter(_.nonEmpty) match
+      case Some(query) =>
+        Reasonable(page, config.Max(20)):
+          env.relay.pager
+            .search(query, page)
+            .flatMap: pager =>
+              Ok.pageAsync:
+                html.relay.tour.search(pager, query)
+      case None =>
+        for
+          active <- env.relay.api.officialActive.get({})
+          past   <- env.relay.pager.inactive(1, config.MaxPerPage(8))
+          render <- renderAsync:
+            html.relay.tour.index(active, past.currentPageResults.toList)
+        yield Ok(render)
 
   def calendar = page("broadcast-calendar", "calendar")
   def help     = page("broadcasts", "help")
@@ -35,6 +37,18 @@ final class RelayTour(env: Env, apiC: => Api, prismicC: => Prismic) extends Lila
           .byOwner(owner.id, page)
           .map:
             html.relay.tour.byOwner(_, owner)
+
+  def listOngoing(page: Int) = Open:
+    Reasonable(page, config.Max(20)):
+      ???
+
+  def listUpcoming(page: Int) = Open:
+    Reasonable(page, config.Max(20)):
+      ???
+
+  def listPast(page: Int) = Open:
+    Reasonable(page, config.Max(20)):
+      ???
 
   private def page(bookmark: String, menu: String) = Open:
     pageHit

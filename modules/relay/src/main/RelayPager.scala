@@ -30,7 +30,7 @@ final class RelayPager(tourRepo: RelayTourRepo, roundRepo: RelayRoundRepo)(using
     maxPerPage = maxPerPage
   )
 
-  def inactive(page: Int): Fu[Paginator[WithLastRound]] =
+  def inactive(page: Int, perPage: MaxPerPage = maxPerPage): Fu[Paginator[WithLastRound]] =
     Paginator(
       adapter = new:
         def nbResults: Fu[Int] = fuccess(9999)
@@ -47,7 +47,7 @@ final class RelayPager(tourRepo: RelayTourRepo, roundRepo: RelayRoundRepo)(using
             .map(readToursWithRound)
       ,
       currentPage = page,
-      maxPerPage = maxPerPage
+      maxPerPage = perPage
     )
 
   def search(query: String, page: Int): Fu[Paginator[WithLastRound]] =

@@ -35,6 +35,9 @@ case class RelayTour(
 
   def path: String = s"/broadcast/$slug/$id"
 
+  def tierIs(selector: RelayTour.Tier.type => RelayTour.Tier) =
+    tier.fold(false)(_ == selector(RelayTour.Tier))
+
 object RelayTour:
 
   val maxRelays = 64

@@ -1,0 +1,72 @@
+.relay-cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  grid-gap: 1em;
+  margin-bottom: 1em;
+
+  &--tier-top {
+    grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+  }
+  &--tier-high {
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  }
+}
+
+.relay-card {
+  @extend %box-neat-force;
+
+  @include transition(box-shadow);
+
+  background: $c-bg-zebra;
+  color: $c-font;
+  position: relative;
+  direction: ltr;
+  text-align: left;
+
+  &:hover {
+    box-shadow:
+      0 0 5px $c-link,
+      0 0 20px $c-link;
+  }
+
+  &__image {
+    width: 100%;
+    height: auto;
+    opacity: 0.8;
+    @include transition(opacity);
+    .relay-card:hover & {
+      opacity: 1;
+    }
+    &.ublog-post-image-default {
+      background-image: img-url('placeholder-margin.png');
+      background-size: cover;
+      background-position: center;
+    }
+  }
+
+  &__body {
+    @extend %flex-column;
+    padding: 0.3em 0.5em 1em 1em;
+  }
+
+  &__info {
+    color: $c-font-dim;
+  }
+  &__live {
+    color: $c-bad;
+    font-weight: bold;
+  }
+  &__title {
+    font-weight: bold;
+    color: $c-font-clearer;
+    font-size: 1em;
+    .relay-cards--tier-top & {
+      font-size: 1.1em;
+    }
+  }
+  &__desc {
+    @extend %roboto;
+    color: $c-font-dim;
+    font-size: 0.9em;
+  }
+}

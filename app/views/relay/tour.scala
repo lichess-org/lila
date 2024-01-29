@@ -17,9 +17,45 @@ object tour:
 
   def index(
       active: List[RelayTour.ActiveWithSomeRounds],
-      pager: Paginator[WithLastRound],
-      query: String = ""
+      past: List[RelayTour.WithLastRound]
   )(using PageContext) =
+    views.html.base.layout(
+      title = liveBroadcasts.txt(),
+      moreCss = cssTag("relay.index")
+    ):
+      main(cls := "relay-index page-menu")(
+        pageMenu("index"),
+        div(cls := "page-menu__content box box-pad")(
+          boxTop(
+            h1(liveBroadcasts()),
+            searchForm("")
+          ),
+          st.section(cls := "relay-cards relay-cards--tier-top"):
+            active
+              .filter(_.tour.tierIs(_.BEST))
+              .map:
+                renderCard(_, ongoing = _.ongoing)
+          ,
+          st.section(cls := "relay-cards relay-cards--tier-high"):
+            active
+              .filter(_.tour.tierIs(_.HIGH))
+              .map:
+                renderCard(_, ongoing = _.ongoing)
+          ,
+          st.section(cls := "relay-cards relay-cards--tier-normal"):
+            active
+              .filter(_.tour.tierIs(_.NORMAL))
+              .map:
+                renderCard(_, ongoing = _.ongoing)
+          ,
+          h2("Past broadcasts"),
+          st.section(cls := "relay-cards relay-cards--past"):
+            past.map:
+              renderCard(_, ongoing = _ => false)
+        )
+      )
+
+  def search(pager: Paginator[WithLastRound], query: String)(using PageContext) =
     views.html.base.layout(
       title = liveBroadcasts.txt(),
       moreCss = cssTag("relay.index"),
@@ -32,9 +68,6 @@ object tour:
             h1(liveBroadcasts()),
             searchForm(query)
           ),
-          st.section:
-            active.map { renderWidget(_, ongoing = _.ongoing) }
-          ,
           renderPager(asRelayPager(pager), query)
         )
       )
@@ -123,6 +156,28 @@ object tour:
     def url(t: RelayTour, size: RelayTour.thumbnail.SizeSelector) =
       t.image.fold(assetUrl("images/relay-default.png")):
         RelayTour.thumbnail(picfitUrl, _, size)
+
+  private def renderCard[A <: RelayRound.AndTour](tr: A, ongoing: A => Boolean)(using Context) =
+    a(
+      href := tr.path,
+      cls := List(
+        "relay-card"          -> true,
+        "relay-card--active"  -> tr.tour.active,
+        "relay-card--ongoing" -> ongoing(tr)
+      )
+    )(
+      img(cls := "relay-card__image", src := thumbnail.url(tr.tour, _.Size.Small)),
+      span(cls := "relay-card__body")(
+        span(cls := "relay-card__info")(
+          tr.tour.active option span(cls := "relay-card__round")(tr.display.name, " "),
+          if ongoing(tr)
+          then span(cls := "relay-card__live")("LIVE")
+          else tr.display.startedAt.orElse(tr.display.startsAt).map(momentFromNow(_))
+        ),
+        h2(cls := "relay-card__title")(tr.tour.name),
+        span(cls := "relay-card__desc")(tr.tour.description)
+      )
+    )
 
   private def renderWidget[A <: RelayRound.AndTour](tr: A, ongoing: A => Boolean)(using Context) =
     tourWidgetDiv(tr.tour)(
