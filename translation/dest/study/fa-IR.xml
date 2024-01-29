@@ -45,7 +45,7 @@
   <string name="newTag">برچسب جدید</string>
   <string name="commentThisPosition">نظر دادن به این پوزیسیون</string>
   <string name="commentThisMove">نظر دادن به این حرکت</string>
-  <string name="annotateWithGlyphs">نشان کردن با علامت ها</string>
+  <string name="annotateWithGlyphs">ثبت حرکت کردن با نمادها</string>
   <string name="theChapterIsTooShortToBeAnalysed">این فصل برای تحلیل شدن بسیار کوتاه است.</string>
   <string name="onlyContributorsCanRequestAnalysis">تنها مشارکت کنندگان این درس میتوانند درخواست تحلیل کامپیوتری دهند.</string>
   <string name="getAFullComputerAnalysis">یک تحلیل رایانه‌ای از حرکات اصلی (نه حرکات منشعب و فرعی) با استفاده از منابع سرورها (نه منابع محلی مانند مرورگر، اپلیکیشن و غیره) دریافت نمایید.</string>
@@ -53,7 +53,7 @@
   <string name="allSyncMembersRemainOnTheSamePosition">تمام اعضای همگام شده در پوزیسیون یکسان باقی می‌مانند</string>
   <string name="shareChanges">تغییرات را با تماشاگران به اشتراک بگذارید و آنها را در سرور ذخیره کنید</string>
   <string name="playing">در حال انجام</string>
-  <string name="showEvalBar">میله اَرزیابی</string>
+  <string name="showEvalBar">نوار ارزیابی</string>
   <string name="first">اولین</string>
   <string name="previous">پیشین</string>
   <string name="next">بعدی</string>
@@ -84,7 +84,7 @@
   <string name="analysisMode">حالت تجزیه تحلیل</string>
   <string name="pinnedChapterComment">نظر سنجاق شده درباره فصل</string>
   <string name="saveChapter">ذخیره فصل</string>
-  <string name="clearAnnotations">حاشیه‌نویسی را پاک نمایید</string>
+  <string name="clearAnnotations">پاک کردن ثبت حرکات</string>
   <string name="clearVariations">پاک کردن تغییرات</string>
   <string name="deleteChapter">حذف فصل</string>
   <string name="deleteThisChapter">آیا میخواهید این فصل را پاک کنید؟امکان برگرداندن آن وجود ندارد!</string>
