@@ -1,5 +1,6 @@
 .voice-move-help {
   max-width: 800px;
+
   td.tips li {
     list-style: disc;
     font-size: 1.1em;
@@ -17,15 +18,16 @@
   voice {
     display: block;
     font-weight: bold;
-    color: $c-font;
+    color: $c-font; // Assuming $c-font is defined elsewhere
   }
 
   .commands {
     td:first-child {
-      padding-#{$start-direction}: 2em;
+      padding-inline-start: 2em; // Improved padding property
     }
     display: flex;
     flex-direction: row;
+
     @media (max-width: 600px) {
       flex-direction: column;
     }
@@ -38,14 +40,17 @@
 
   .big-table {
     td {
-      padding: 0 1em;
+      padding: 0.5em 1em;
       white-space: nowrap;
+      overflow: hidden;
       text-overflow: ellipsis;
     }
+
     tr {
       td:nth-child(even) {
         border-right: 1px solid $c-brag;
       }
+
       td:last-child {
         border-right: none;
       }
