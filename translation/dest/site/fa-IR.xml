@@ -112,8 +112,8 @@
   <string name="delete">حذف</string>
   <string name="deleteThisImportedGame">آیا این بازیِ وارد شده حذف گردد؟</string>
   <string name="replayMode">سرعت بازپخش بازی</string>
-  <string name="realtimeReplay">بازپخشِ بلادرنگ</string>
-  <string name="byCPL">حرکات مهم</string>
+  <string name="realtimeReplay">مشابه بازی</string>
+  <string name="byCPL">درنگ حین اشتباهات</string>
   <string name="openStudy">مطالعه را شروع نمایید</string>
   <string name="enable">فعال سازی</string>
   <string name="bestMoveArrow">فلش نشان دهنده بهترین حرکت</string>
