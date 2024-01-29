@@ -2,8 +2,8 @@ package lila.relay
 
 import scala.concurrent.duration.*
 import akka.actor.*
-import chess.format.pgn.*
-import chess.*
+import chess.format.pgn.{ PgnStr, Parser, Std }
+import chess.{ ErrorStr, Game, Replay, Square }
 import akka.pattern.after
 
 import lila.study.MultiPgn
