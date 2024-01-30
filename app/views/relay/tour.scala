@@ -17,6 +17,7 @@ object tour:
 
   def index(
       active: List[RelayTour.ActiveWithSomeRounds],
+      upcoming: List[RelayTour.WithLastRound],
       past: List[RelayTour.WithLastRound]
   )(using PageContext) =
     views.html.base.layout(
@@ -48,7 +49,13 @@ object tour:
               .map:
                 renderCard(_, ongoing = _.ongoing)
           ,
-          h2("Past broadcasts"),
+          upcoming.nonEmpty option frag(
+            h2(cls := "relay-index__section")("Upcoming broadcasts"),
+            st.section(cls := "relay-cards relay-cards--upcoming"):
+              upcoming.map:
+                renderCard(_, ongoing = _ => false)
+          ),
+          h2(cls := "relay-index__section")("Past broadcasts"),
           st.section(cls := "relay-cards relay-cards--past"):
             past.map:
               renderCard(_, ongoing = _ => false)
@@ -174,7 +181,7 @@ object tour:
           then span(cls := "relay-card__live")("LIVE")
           else tr.display.startedAt.orElse(tr.display.startsAt).map(momentFromNow(_))
         ),
-        h2(cls := "relay-card__title")(tr.tour.name),
+        h3(cls := "relay-card__title")(tr.tour.name),
         span(cls := "relay-card__desc")(tr.tour.description)
       )
     )

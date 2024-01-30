@@ -9,6 +9,10 @@
   .new::before {
     font-size: 3em;
   }
+
+  &__section {
+    margin: 2em 0 1em 0;
+  }
 }
 
 .relay-tour {

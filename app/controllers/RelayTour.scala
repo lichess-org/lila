@@ -21,10 +21,11 @@ final class RelayTour(env: Env, apiC: => Api, prismicC: => Prismic) extends Lila
                 html.relay.tour.search(pager, query)
       case None =>
         for
-          active <- env.relay.api.officialActive.get({})
-          past   <- env.relay.pager.inactive(1, config.MaxPerPage(8))
+          active   <- env.relay.api.officialActive.get({})
+          upcoming <- env.relay.api.officialUpcoming.get({})
+          past     <- env.relay.pager.inactive(1, config.MaxPerPage(8))
           render <- renderAsync:
-            html.relay.tour.index(active, past.currentPageResults.toList)
+            html.relay.tour.index(active, upcoming, past.currentPageResults.toList)
         yield Ok(render)
 
   def calendar = page("broadcast-calendar", "calendar")

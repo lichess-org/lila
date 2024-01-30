@@ -165,6 +165,43 @@ final class RelayApi(
               tr.display.hasStarted || tr.display.startsAt.exists(_.isBefore(nowInstant.plusMinutes(30)))
             .take(2)
 
+  val officialUpcoming = cacheApi.unit[List[RelayTour.WithLastRound]]:
+    _.refreshAfterWrite(14 seconds).buildAsyncFuture: _ =>
+      val max = 64
+      tourRepo.coll
+        .aggregateList(max): framework =>
+          import framework.*
+          Match(tourRepo.selectors.officialActive) -> List(
+            Sort(Descending("tier")),
+            PipelineOperator:
+              $lookup.pipeline(
+                from = roundRepo.coll,
+                as = "round",
+                local = "_id",
+                foreign = "tourId",
+                pipe = List(
+                  $doc("$sort"  -> $sort.asc("startsAt")),
+                  $doc("$limit" -> 1),
+                  $doc("$match" -> $doc("finished" -> false, "startsAt" $gte nowInstant))
+                )
+              )
+            ,
+            UnwindField("round"),
+            Limit(max)
+          )
+        .map: docs =>
+          for
+            doc   <- docs
+            tour  <- doc.asOpt[RelayTour]
+            round <- doc.getAsOpt[RelayRound]("round")
+          yield RelayTour.WithLastRound(tour, round)
+        .map:
+          _.sortBy: rt =>
+            (
+              0 - ~rt.tour.tier,                                // tier sort
+              rt.round.startsAt.fold(Long.MaxValue)(_.toMillis) // then by next round date
+            )
+
   def isOfficial(id: StudyId): Fu[Boolean] =
     roundRepo.coll
       .aggregateOne(): framework =>
