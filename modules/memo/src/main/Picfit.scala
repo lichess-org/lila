@@ -111,7 +111,7 @@ final class PicfitApi(coll: Coll, val url: PicfitUrl, ws: StandaloneWSClient, co
 
 object PicfitApi:
 
-  val uploadMaxMb = 4
+  val uploadMaxMb = 6
 
   type FilePart           = MultipartFormData.FilePart[play.api.libs.Files.TemporaryFile]
   private type ByteSource = Source[ByteString, ?]
