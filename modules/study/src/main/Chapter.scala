@@ -116,9 +116,9 @@ object Chapter:
     def isFromFen = ~fromFen
 
   case class Relay(
+      index: Option[Int], // game index in the source URL, none to always match tags
       path: UciPath,
-      lastMoveAt: Instant,
-      index: Option[Int] // game index in the source URL, none to always match tags
+      lastMoveAt: Instant
   ):
     def secondsSinceLastMove: Int = (nowSeconds - lastMoveAt.toSeconds).toInt
     def isPush                    = index.isEmpty
