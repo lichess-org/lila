@@ -23,25 +23,9 @@
     }
   }
   &__image {
-    padding-#{$start-direction}: var(--box-padding);
-    padding-#{$end-direction}: var(--box-padding);
+    padding: 4vh var(--box-padding) 0;
     background: $c-bg-zebra;
-    padding-top: 5vh;
-  }
-  &__image-text {
-    background: $c-bg-zebra;
-    margin-bottom: 5vh;
-    border-bottom: $border;
-    font-size: 0.9em;
-    .form-group {
-      display: none;
-    }
-    &.visible {
-      height: auto;
-      .form-group {
-        display: block;
-      }
-    }
+    margin-bottom: 2em;
   }
 }
 .relay-image {

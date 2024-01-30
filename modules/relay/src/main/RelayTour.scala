@@ -79,7 +79,7 @@ object RelayTour:
   object thumbnail:
     enum Size(val width: Int):
       def height = width / 2
-      case Large extends Size(800)
+      case Large extends Size(900)
       case Small extends Size(400)
     type SizeSelector = thumbnail.type => Size
 

@@ -61,6 +61,11 @@ object tourForm:
       form3.split(
         div(cls := "form-group form-half")(formImage(t)),
         div(cls := "form-group form-half")(
+          p("Upload a beautiful image to represent your tournament."),
+          p("The image must be twice as wide as it is tall. Recommended resolution: 1000x500."),
+          p(
+            "A picture of the city where the tournament takes place is a good idea, but feel free to design something different."
+          ),
           p(trans.streamer.maxSize(s"${lila.memo.PicfitApi.uploadMaxMb}MB.")),
           form3.file.image("image")
         )

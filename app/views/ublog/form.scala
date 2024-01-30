@@ -89,9 +89,8 @@ object form:
                     "pexels.com"          -> "https://pexels.com",
                     "piqsels.com"         -> "https://piqsels.com",
                     "freeimages.com"      -> "https://freeimages.com"
-                  ).map { case (name, url) =>
+                  ).map: (name, url) =>
                     a(href := url, targetBlank)(name)
-                  }
                 )
               ),
               p(
