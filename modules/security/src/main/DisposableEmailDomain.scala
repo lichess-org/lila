@@ -226,6 +226,6 @@ private object DisposableEmailDomain:
     "live.nl",
     "startmail.com",
     "palaciodegranda.com",
-    "laudepalaciogranda.com"
-      "mozmail.com" // Mozilla Firefox Relay Domain
+    "laudepalaciogranda.com",
+    "mozmail.com" // Mozilla Firefox Relay Domain
   )
