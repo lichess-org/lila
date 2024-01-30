@@ -10,7 +10,7 @@ const setupImage = (form: HTMLFormElement) => {
   const showText = () =>
     $('.relay-form__image-text').toggleClass('visible', $('.relay-image').hasClass('user-image'));
   const submit = () => {
-    const replace = (html: string) => $(form).find('.relay-image').replaceWith(html);
+    const replace = (html: string) => $(form).find('.relay-image,.relay-image--fallback').replaceWith(html);
     const wrap = (html: string) => '<div class="relay-image">' + html + '</div>';
     xhr.formToXhr(form).then(
       html => {
