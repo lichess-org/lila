@@ -5,7 +5,7 @@
   <string name="toInviteSomeoneToPlayGiveThisUrl">Per convidar algú a jugar, envia-li aquest enllaç</string>
   <string name="gameOver">Partida finalitzada</string>
   <string name="waitingForOpponent">Esperant un adversari</string>
-  <string name="orLetYourOpponentScanQrCode">O deixeu que el vostre oponent escanegi aquest codi QR</string>
+  <string name="orLetYourOpponentScanQrCode" comment="Appears when you create a private game, using the 'play with a friend' option. Lichess will create a QR code that another person can scan in real life, to play a virtual game over Lichess.">O deixeu que el vostre oponent escanegi aquest codi QR</string>
   <string name="waiting">Esperant</string>
   <string name="yourTurn">El teu torn</string>
   <string name="aiNameLevelAiLevel">%1$s nivell %2$s</string>
@@ -71,7 +71,7 @@
   <string name="makeMainLine">Convertir en línia principal</string>
   <string name="deleteFromHere">Esborrar des d\'aquí</string>
   <string name="forceVariation">Forçar variant</string>
-  <string name="copyVariationPgn">Copia el PGN de la variació</string>
+  <string name="copyVariationPgn" comment="Appears when right-clicking a move in a completed game you are analysing. It will copy the variation so far to your computer's clipboard.&#10;&#10;Strictly speaking, this does not only copy variations, the same action can copy the main line of play.">Copia el PGN de la variació</string>
   <string name="move">Moviment</string>
   <string name="variantLoss">Variant perdedora</string>
   <string name="variantWin">Variant guanyadora</string>
@@ -226,12 +226,12 @@
   <string name="passwordSuggestion">No facis servir una contrasenya suggerida per algú altre. La farà servir per robar el vostre compte.</string>
   <string name="emailSuggestion">No facis server un correu electrònic suggerit per algú altre. La farà servir per robar el vostre compte.</string>
   <string name="emailConfirmHelp">Ajuda amb l\'email de confirmació</string>
-  <string name="emailConfirmNotReceived">No has rebut el teu email de confirmació després de registrar-te?</string>
+  <string name="emailConfirmNotReceived" comment="Part of a help &amp; support flow. What follows is a form that permits users to request a new confirmation email, which they need to finish registering for Lichess.">No has rebut el teu email de confirmació després de registrar-te?</string>
   <string name="whatSignupUsername">Quin nom d\'usuari vas utilitzar per registrar-te?</string>
   <string name="usernameNotFound">No hem pogut trobat cap usuari amb aquest nom: %s.</string>
   <string name="usernameCanBeUsedForNewAccount">Pots fer servir aquest nom d\'usuari per crear un nou compte</string>
-  <string name="emailSent">Hem enviat un correu electrònic a %s.</string>
-  <string name="emailCanTakeSomeTime">Pot trigar una estona a arribar.</string>
+  <string name="emailSent" comment="%s is your email, immediately after you have registered as a new user.">Hem enviat un correu electrònic a %s.</string>
+  <string name="emailCanTakeSomeTime" comment="It = The confirmation email, after registering an account. Players must follow the link in their email to complete their registration">Pot trigar una estona a arribar.</string>
   <string name="refreshInboxAfterFiveMinutes">Espera 5 minuts i refresca la bústia d\'entrada del teu correu.</string>
   <string name="checkSpamFolder">Comprova també la carpeta de correu brossa, pot acabar allà. Si hi és, marca\'l com no brossa.</string>
   <string name="emailForSignupHelp">Si tot això falla, envia\'ns un correu a aquesta adreça:</string>
@@ -240,8 +240,8 @@
   <string name="accountConfirmed">L\'usuari %s està confirmat correctament.</string>
   <string name="accountCanLogin">Pots entrar ara com a %s.</string>
   <string name="accountConfirmationEmailNotNeeded">No necestites un correu de confirmació.</string>
-  <string name="accountClosed">El compte %s està tancat.</string>
-  <string name="accountRegisteredWithoutEmail">El compte %s es va registrar sense correu electrònic.</string>
+  <string name="accountClosed" comment="accountClosed&#10;%s is the name of the user account. This string should be in the passive voice, as it may be the user themselves or Lichess administration closing the account (e.g. in case of excessive multi-accounting).">El compte %s està tancat.</string>
+  <string name="accountRegisteredWithoutEmail" comment="%s is the name of the user account.&#10;&#10;This is support text for old accounts, before Lichess required an email, in case those users try to reset their password. This is unfortunately impossible when the email is not on file.">El compte %s es va registrar sense correu electrònic.</string>
   <string name="rank">Classificació</string>
   <string name="rankX">Posició: %s</string>
   <plurals name="rankIsUpdatedEveryNbMinutes">
@@ -325,7 +325,7 @@
   <string name="exportGames">Exporta les partides</string>
   <string name="ratingRange">Rang de puntuació</string>
   <plurals name="giveNbSeconds">
-    <item quantity="one">Dona %s segons</item>
+    <item quantity="one">Dona %s segon</item>
     <item quantity="other">Dona %s segons</item>
   </plurals>
   <string name="thisAccountViolatedTos">Aquest compte ha violat els Termes de Servei de Lichess</string>
@@ -985,7 +985,7 @@ Deixa-ho en blanc per començar els jocs de la posició inicial.</string>
   <string name="closingAccountWithdrawAppeal">El tancament del vostre compte eliminarà la vostra queixa</string>
   <string name="ourEventTips">Els nostres consells per organitzar esdeveniments</string>
   <string name="instructions">Instruccions</string>
-  <string name="showMeEverything">Mostrar tot</string>
+  <string name="showMeEverything" comment="A button: clicking this displays a complete list of voice commands. By default, a truncated list of only the most useful commands is shown.">Mostrar tot</string>
   <string name="lichessPatronInfo">Lichess és una entitat sense ànim de lucre i un programari totalment lliure i de codi obert.
 Les despeses de funcionament, desenvolupament i continguts es financen exclusivament amb donacions d\'usuaris.</string>
 </resources>
