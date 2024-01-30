@@ -28,6 +28,7 @@ main.has-relay-tour {
 
 .relay-tour {
   grid-area: relay-tour;
+
   &__round {
     @extend %box-radius, %flex-between-nowrap;
     background: mix($c-primary, $c-bg-box, 10%);
@@ -43,8 +44,8 @@ main.has-relay-tour {
     }
   }
 
-  .study__multiboard {
-    margin-top: $block-gap;
+  &__tabs {
+    margin-left: 5px;
   }
 
   &__image {
@@ -76,7 +77,7 @@ main.has-relay-tour {
   }
 
   &__box {
-    @extend %box-neat;
+    @extend %box-neat-force;
     background: $c-bg-box;
   }
 
@@ -129,7 +130,6 @@ main.has-relay-tour {
 
     h1 {
       @include fluid-size('font-size', 15px, 27px);
-      color: $c-brag;
     }
     h2,
     h3,

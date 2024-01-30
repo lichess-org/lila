@@ -29,14 +29,17 @@ export default function (ctrl: AnalyseCtrl): VNode | undefined {
       name,
     );
 
-  const tabs = h('div.tabs-horiz', { attrs: { role: 'tablist' } }, [
+  const tabs = h('div.tabs-horiz.relay-tour__tabs', { attrs: { role: 'tablist' } }, [
     makeTab('overview', 'Overview'),
+    !study.looksNew() && makeTab('games', 'Games'),
     makeTab('schedule', 'Schedule'),
     relay.data.leaderboard ? makeTab('leaderboard', 'Leaderboard') : undefined,
   ]);
   const content =
     relay.tab() == 'overview'
       ? overview(relay, study, ctrl)
+      : relay.tab() == 'games'
+      ? games(relay, study, ctrl)
       : relay.tab() == 'schedule'
       ? schedule(relay, ctrl)
       : leaderboard(relay, ctrl);
@@ -109,10 +112,13 @@ const overview = (relay: RelayCtrl, study: StudyCtrl, ctrl: AnalyseCtrl) => {
           ? h('div', { hook: innerHTML(relay.data.tour.markup, () => relay.data.tour.markup!) })
           : h('div', relay.data.tour.description),
       ]),
-      !study.looksNew() && multiBoardView(study.multiBoard, study),
     ]),
   ];
 };
+
+const games = (relay: RelayCtrl, study: StudyCtrl, ctrl: AnalyseCtrl) => [
+  h('div.relay-tour__text.relay-tour__box', [header(relay, ctrl), multiBoardView(study.multiBoard, study)]),
+];
 
 const header = (relay: RelayCtrl, ctrl: AnalyseCtrl) => {
   const d = relay.data;
