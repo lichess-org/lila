@@ -766,7 +766,7 @@
   <string name="phoneAndTablet">موبایل و تبلت</string>
   <string name="bulletBlitzClassical">گلوله‌ای، برق‌آسا، مرسوم</string>
   <string name="correspondenceChess">شطرنج مکاتبه ای</string>
-  <string name="onlineAndOfflinePlay">بازی کردن آنلاین وآفلاین</string>
+  <string name="onlineAndOfflinePlay">بازی کردن بَرخط و بُرون‌خط</string>
   <string name="viewTheSolution">دیدن راهِ حل</string>
   <string name="followAndChallengeFriends">دنبال کردن و به مبارزه طلبیدنِ دوستان</string>
   <plurals name="availableInNbLanguages">
@@ -778,7 +778,7 @@
   <string name="xJoinsY">%1$s وارد می شود %2$s</string>
   <string name="xLikesY">%1$s می پسندد %2$s</string>
   <string name="quickPairing">رویارویی سریع</string>
-  <string name="lobby">لابی</string>
+  <string name="lobby">سرسرا</string>
   <string name="anonymous">ناشناس</string>
   <string name="yourScore">امتیاز شما:%s</string>
   <string name="language">زبان</string>
@@ -889,10 +889,10 @@
   <string name="blitz" comment="Probably best left untranslated. Leave it as 'Blitz' unless your language has a better word for it.">برق‌آسا</string>
   <string name="rapid">سریع</string>
   <string name="classical">کلاسیک</string>
-  <string name="ultraBulletDesc">بازی‌های سریعِ دیوانه‌وار: کمتر از 30 ثانیه</string>
+  <string name="ultraBulletDesc">بازی‌های سرعتی دیوانه‌وار: کمتر از ۳۰ ثانیه</string>
   <string name="bulletDesc">بازی‌های خیلی سرعتی: کمتر از ۳ دقیقه</string>
   <string name="blitzDesc">بازی های سرعتی: ۳ تا ۸ دقیقه</string>
-  <string name="rapidDesc">بازی های سریع: 8 تا 25 دقیقه</string>
+  <string name="rapidDesc">بازی های سریع: ۸ تا ۲۵ دقیقه</string>
   <string name="classicalDesc">بازی های کلاسیک : 25 دقیقه یا بیشتر</string>
   <string name="correspondenceDesc">بازی های مکاتبه ای : یک  یا چند روز برای هر حرکت</string>
   <string name="puzzleDesc">تمرین تاکتیک های شطرنج</string>
@@ -925,7 +925,7 @@
   <string name="refundXpointsTimeControlY">جبران: %1$s امتیاز از نوع %2$s.</string>
   <string name="timeAlmostUp">زمان تقریباً تمام شده است!</string>
   <string name="clickToRevealEmailAddress">جهت مشاهده ایمیل کلیک کنید</string>
-  <string name="download">دانلود</string>
+  <string name="download">بارگیری</string>
   <string name="coachManager">تنظیمات مربی</string>
   <string name="streamerManager">مدیریت پخش</string>
   <string name="cancelTournament">لغو مسابقه</string>
@@ -979,7 +979,7 @@
   <string name="youCantStartNewGame">شما نمی توانید تا زمانی که این بازی تمام نشده بازی جدیدی آغاز کنید.</string>
   <string name="since">از وقتی که</string>
   <string name="until">تا وقتی که</string>
-  <string name="lichessDbExplanation">تمام بازی های امتیازی بازیکنان لیچس نمونه برداری شده اند</string>
+  <string name="lichessDbExplanation">بازی‌های رسمی برگزار شده در Lichess</string>
   <string name="switchSides">تعویض سمت</string>
   <string name="closingAccountWithdrawAppeal">با بستن حساب خود درخواست تجدید نظر خود را پس خواهید گرفت</string>
   <string name="ourEventTips">پیشنهادهای ما برای برگزاری رویدادها</string>
