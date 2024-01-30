@@ -9,11 +9,11 @@ case class MultiPgn(value: List[PgnStr]) extends AnyVal:
 
 object MultiPgn:
 
-  private[this] val splitPat = """\n\n(?=\[)""".r.pattern
+  private[this] val splitPat = """\R\R(?=\[)""".r.pattern
 
   def split(str: PgnStr, max: Max) = MultiPgn:
     PgnStr from splitPat
-      .split(str.value.replaceIf('\r', ""), max.value + 1)
+      .split(str.value)
       .view
       .filter(_.nonEmpty)
       .take(max.value)
