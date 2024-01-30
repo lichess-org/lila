@@ -227,4 +227,5 @@ private object DisposableEmailDomain:
     "startmail.com",
     "palaciodegranda.com",
     "laudepalaciogranda.com"
+      "mozmail.com" // Mozilla Firefox Relay Domain
   )
