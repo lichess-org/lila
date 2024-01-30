@@ -95,10 +95,7 @@ final class PgnDump(
     val root = chapter.root
     val tags = makeTags(study, chapter)(using flags)
     val pgn  = rootToPgn(root, tags)(using flags)
-    annotator toPgnString (analysis.match
-      case Some(analysis) if flags.comments => annotator.addEvals(pgn, analysis)
-      case _                                => pgn
-    )
+    annotator toPgnString analysis.ifTrue(flags.comments).fold(pgn)(annotator.addEvals(pgn, _))
 
 object PgnDump:
 
