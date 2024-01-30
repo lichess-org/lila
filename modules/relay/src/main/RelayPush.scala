@@ -87,7 +87,7 @@ final class RelayPush(sync: RelaySync, api: RelayApi, irc: lila.irc.IrcApi)(usin
         parsed =>
           val game = Game(variantOption = parsed.tags.variant, fen = parsed.tags.fen)
 
-          val (maybeErr, replay) = parsed.mainline.foldLeft((Option.empty[ErrorStr], Replay(game))):
+          val (maybeErr, replay) = parsed.mainline.foldLeft((none[ErrorStr], Replay(game))):
             case (acc @ (Some(_), _), _) => acc
             case ((none, r), san) =>
               san(r.state.situation).fold(err => (err.some, r), mv => (none, r.addMove(mv)))
@@ -102,7 +102,7 @@ final class RelayPush(sync: RelaySync, api: RelayApi, irc: lila.irc.IrcApi)(usin
   private def isFatal(mv: Std, replay: Replay, parsed: List[San]) =
     import Square.*
     replay.moves.size < parsed.size - 1
-    || mv.role.forsyth != 'k'
+    || mv.role != chess.King
     || (mv.dest != D4 && mv.dest != D5 && mv.dest != E4 && mv.dest != E5)
 
   private def oneline(err: ErrorStr) = err.value.linesIterator.nextOption.getOrElse("error")
