@@ -65,7 +65,7 @@ final class RelayPush(sync: RelaySync, api: RelayApi, irc: lila.irc.IrcApi)(usin
           lila.study.PgnImport(pgn, Nil) match
             case Left(errStr) => Left(Failure(tags, oneline(errStr)))
             case Right(game) =>
-              Right:
+              Right(
                 RelayGame(
                   tags = game.tags,
                   variant = game.variant,
@@ -76,6 +76,7 @@ final class RelayPush(sync: RelaySync, api: RelayApi, irc: lila.irc.IrcApi)(usin
                   ),
                   ending = game.end
                 )
+              )
 
   // silently consume DGT board king-check move to center at game end
   private def validate(pgnBody: PgnStr): Either[Failure, Tags] =
