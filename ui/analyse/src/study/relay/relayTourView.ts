@@ -1,7 +1,7 @@
 import AnalyseCtrl from '../../ctrl';
 import RelayCtrl from './relayCtrl';
 import * as licon from 'common/licon';
-import { bind, dataIcon, onInsert, looseH as h } from 'common/snabbdom';
+import { bind, dataIcon, onInsert, looseH as h, MaybeVNodes } from 'common/snabbdom';
 import { VNode } from 'snabbdom';
 import { innerHTML } from 'common/richText';
 import { RelayRound } from './interfaces';
@@ -48,7 +48,7 @@ const leaderboard = (relay: RelayCtrl, ctrl: AnalyseCtrl): VNode[] => {
   const players = relay.data.leaderboard || [];
   const withRating = players.find(p => p.rating);
   return [
-    h('div.relay-tour__text', [
+    h('div.relay-tour__text.relay-tour__box', [
       header(relay, ctrl),
       h('div.relay-tour__text__leaderboard', [
         h('table.slist.slist-invert', [
@@ -81,49 +81,53 @@ const leaderboard = (relay: RelayCtrl, ctrl: AnalyseCtrl): VNode[] => {
 const overview = (relay: RelayCtrl, study: StudyCtrl, ctrl: AnalyseCtrl) => {
   const round = relay.currentRound();
   return [
-    h('div.relay-tour__text', [
-      header(relay, ctrl),
-      h(
-        'a.relay-tour__round',
-        {
-          class: { ongoing: !!round.ongoing },
-          attrs: { tabindex: 0 },
-          hook: bind('click', () => $('span.chapters[role="tab"]').trigger('mousedown')),
-        },
-        [
-          h('strong', round.name),
-          ' ',
-          round.ongoing
-            ? study.trans.noarg('playingRightNow')
-            : !!round.startsAt &&
-              h(
-                'time.timeago',
-                { hook: onInsert(el => el.setAttribute('datetime', '' + round.startsAt)) },
-                lichess.timeago(round.startsAt),
-              ),
-        ],
-      ),
-      relay.data.tour.markup
-        ? h('div', { hook: innerHTML(relay.data.tour.markup, () => relay.data.tour.markup!) })
-        : h('div', relay.data.tour.description),
+    h('div.relay-tour__box', [
+      relay.data.tour.image && h('img.relay-tour__image', { attrs: { src: relay.data.tour.image } }),
+      h('div.relay-tour__text', [
+        header(relay, ctrl),
+        h(
+          'a.relay-tour__round',
+          {
+            class: { ongoing: !!round.ongoing },
+            attrs: { tabindex: 0 },
+            hook: bind('click', () => $('span.chapters[role="tab"]').trigger('mousedown')),
+          },
+          [
+            h('strong', round.name),
+            ' ',
+            round.ongoing
+              ? study.trans.noarg('playingRightNow')
+              : !!round.startsAt &&
+                h(
+                  'time.timeago',
+                  { hook: onInsert(el => el.setAttribute('datetime', '' + round.startsAt)) },
+                  lichess.timeago(round.startsAt),
+                ),
+          ],
+        ),
+        relay.data.tour.markup
+          ? h('div', { hook: innerHTML(relay.data.tour.markup, () => relay.data.tour.markup!) })
+          : h('div', relay.data.tour.description),
+      ]),
+      !study.looksNew() && multiBoardView(study.multiBoard, study),
     ]),
-    !study.looksNew() && multiBoardView(study.multiBoard, study),
   ];
 };
 
-const header = (relay: RelayCtrl, ctrl: AnalyseCtrl) =>
-  h('div.relay-tour__header', [
-    h('h1', relay.data.tour.name),
-    ...(defined(relay.data.isSubscribed)
+const header = (relay: RelayCtrl, ctrl: AnalyseCtrl) => {
+  const d = relay.data;
+  return h('div.relay-tour__header', [
+    h('h1', d.tour.name),
+    ...(defined(d.isSubscribed)
       ? [
           toggle(
             {
               name: 'Subscribe',
               id: 'tour-subscribe',
-              checked: relay.data.isSubscribed,
+              checked: d.isSubscribed,
               change: (v: boolean) => {
-                xhr.text(`/broadcast/${relay.data.tour.id}/subscribe?set=${v}`, { method: 'post' });
-                relay.data.isSubscribed = v;
+                xhr.text(`/broadcast/${d.tour.id}/subscribe?set=${v}`, { method: 'post' });
+                d.isSubscribed = v;
                 ctrl.redraw();
               },
             },
@@ -146,9 +150,10 @@ enabled for broadcasts in your <a href="/account/preferences/notification">notif
         ]
       : []),
   ]);
+};
 
-const schedule = (relay: RelayCtrl, ctrl: AnalyseCtrl): VNode[] => [
-  h('div.relay-tour__text', [
+const schedule = (relay: RelayCtrl, ctrl: AnalyseCtrl): MaybeVNodes => [
+  h('div.relay-tour__text.relay-tour__box', [
     h('div.relay-tour__text__schedule', [
       header(relay, ctrl),
       h('h2', 'Schedule'),

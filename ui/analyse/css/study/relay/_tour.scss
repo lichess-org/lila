@@ -47,6 +47,10 @@ main.has-relay-tour {
     margin-top: $block-gap;
   }
 
+  &__image {
+    width: 100%;
+  }
+
   &__header {
     @extend %flex-center-nowrap;
     margin-bottom: 3vh;
@@ -70,10 +74,12 @@ main.has-relay-tour {
     }
   }
 
-  &__text {
+  &__box {
     @extend %box-neat;
-
     background: $c-bg-box;
+  }
+
+  &__text {
     padding: 3vmin;
 
     &__schedule {

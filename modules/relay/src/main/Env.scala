@@ -28,7 +28,8 @@ final class Env(
     irc: lila.irc.IrcApi,
     baseUrl: BaseUrl,
     notifyApi: lila.notify.NotifyApi,
-    picfitApi: lila.memo.PicfitApi
+    picfitApi: lila.memo.PicfitApi,
+    picfitUrl: lila.memo.PicfitUrl
 )(using
     ec: Executor,
     system: ActorSystem,
