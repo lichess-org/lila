@@ -32,35 +32,29 @@ final class RelayPush(sync: RelaySync, api: RelayApi, irc: lila.irc.IrcApi)(usin
     then fuccess(List(Left(Failure(Tags.empty, "The relay has an upstream URL, and cannot be pushed to."))))
     else
       val parsed   = pgnToGames(rt, pgn)
+      val games    = parsed.collect { case Right(g) => g }.toVector
       val response = parsed.map(_.map(g => Success(g.tags, g.root.mainline.size)))
-      rt.round.sync.nonEmptyDelay.fold(push(rt, parsed).inject(response)): delay =>
-        after(delay.value.seconds)(push(rt, parsed))
+
+      rt.round.sync.nonEmptyDelay.fold(push(rt, games).inject(response)): delay =>
+        after(delay.value.seconds)(push(rt, games))
         fuccess(response)
 
-  private def push(rt: RelayRound.WithTour, parsed: List[Either[Failure, RelayGame]]) =
+  private def push(rt: RelayRound.WithTour, games: Vector[RelayGame]) =
     workQueue(rt.round.id):
-      parsed
-        .map:
-          case Left(fail) => fuccess(SyncLog.event(0, Exception(fail.error).some))
-          case Right(game) =>
-            sync
-              .updateStudyChapters(rt, Vector(game))
-              .map: result =>
-                if !rt.round.hasStarted && !rt.tour.official && result.nbMoves > 0 then
-                  irc.broadcastStart(rt.round.id, rt.fullName)
-                SyncLog.event(result.nbMoves, none)
-              .recover:
-                case ex: Exception =>
-                  SyncLog.event(0, ex.some)
-        .sequence
-        .flatMap: events =>
+      sync
+        .updateStudyChapters(rt, games)
+        .map: res =>
+          SyncLog.event(res.nbMoves, none)
+        .recover:
+          case e: Exception => SyncLog.event(0, e.some)
+        .flatMap: event =>
+          if !rt.round.hasStarted && !rt.tour.official && event.hasMoves then
+            irc.broadcastStart(rt.round.id, rt.fullName)
           api
             .update(rt.round): r1 =>
-              val r2 = events.foldLeft(r1)((r, e) => r.withSync(_ addLog e))
-              val r3 = if events.exists(_.moves > 0) then r2.ensureStarted.resume else r2
-              val finished =
-                parsed.forall(_.isRight) && parsed.forall(_.right.exists(_.ending.isDefined))
-              r3.copy(finished = finished)
+              val r2 = r1.withSync(_ addLog event)
+              val r3 = if event.hasMoves then r2.ensureStarted.resume else r2
+              r3.copy(finished = games.nonEmpty && games.forall(_.ending.isDefined))
 
   private def pgnToGames(rt: RelayRound.WithTour, pgnBody: PgnStr): List[Either[Failure, RelayGame]] =
     MultiPgn
