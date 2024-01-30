@@ -111,7 +111,7 @@
   <string name="importPgn">PGN را وارد کنید</string>
   <string name="delete">حذف</string>
   <string name="deleteThisImportedGame">آیا این بازیِ وارد شده حذف گردد؟</string>
-  <string name="replayMode">سرعت بازپخش بازی</string>
+  <string name="replayMode">حالت پخش</string>
   <string name="realtimeReplay">مشابه بازی</string>
   <string name="byCPL">درنگ حین اشتباهات</string>
   <string name="openStudy">مطالعه را شروع نمایید</string>
@@ -293,8 +293,8 @@
   <string name="confirmMove">تایید حرکت</string>
   <string name="play">بازی</string>
   <string name="inbox">صندوق پیام</string>
-  <string name="chatRoom">گپ</string>
-  <string name="loginToChat">برای گپ زدن،باید وارد اکانت خود شوید!</string>
+  <string name="chatRoom">گپ‌سرا</string>
+  <string name="loginToChat">برای گپ زدن، وارد حساب‌تان شوید</string>
   <string name="youHaveBeenTimedOut">زمان شما به پایان رسید.</string>
   <string name="spectatorRoom">اتاق تماشاچیان</string>
   <string name="composeMessage">نوشتن پیام</string>
@@ -445,7 +445,7 @@
   <string name="memberSince">عضویت از تاریخ</string>
   <string name="lastSeenActive">آخرین ورود %s</string>
   <string name="player">بازیکن</string>
-  <string name="list">لیست</string>
+  <string name="list">فهرست</string>
   <string name="graph">نمودار</string>
   <plurals name="lessThanNbMinutes">
     <item quantity="one">کمتر از %s دقیقه</item>
@@ -510,7 +510,7 @@
   <string name="setFlair">تعیین کردن شکلک</string>
   <string name="flair">نشان</string>
   <string name="youCanHideFlair">تنظیماتی برای مخفی کردن همه شکلک‌های کاربر در کل ویگاه وجود دارد.</string>
-  <string name="biography">زندگی نامه</string>
+  <string name="biography">شرح‌حال</string>
   <string name="countryRegion" comment="flag&#10;Appears when you edit your profile. Lets a player add a country/flag (not all flags are for countries) to their profile">کشور یا منطقه</string>
   <string name="thankYou">ممنون!</string>
   <string name="socialMediaLinks">لینک های رسانه های اجتماعی</string>
@@ -652,7 +652,7 @@
   <string name="videoLibrary">فیلم ها</string>
   <string name="streamersMenu">بَرخَط-محتواسازها</string>
   <string name="mobileApp">برنامه ی موبایل</string>
-  <string name="webmasters">وب مستر ها</string>
+  <string name="webmasters">وبداران</string>
   <string name="about">درباره ما</string>
   <string name="aboutX">درباره %s</string>
   <string name="xIsAFreeYLibreOpenSourceChessServer">%1$s کاملا رایگان(%2$s)، آزاد، بدون تبلیغات و سرور متن باز است.</string>
@@ -890,9 +890,9 @@
   <string name="rapid">سریع</string>
   <string name="classical">کلاسیک</string>
   <string name="ultraBulletDesc">بازی‌های سریعِ دیوانه‌وار: کمتر از 30 ثانیه</string>
-  <string name="bulletDesc">بازی‌های خیلی سریع: کمتر از 3 دقیقه</string>
-  <string name="blitzDesc">بازی های سریع : 3 تا 8 دقیقه</string>
-  <string name="rapidDesc">بازی های رپید ( سرعتی ) : 8 تا 25 دقیقه</string>
+  <string name="bulletDesc">بازی‌های خیلی سرعتی: کمتر از ۳ دقیقه</string>
+  <string name="blitzDesc">بازی های سرعتی: ۳ تا ۸ دقیقه</string>
+  <string name="rapidDesc">بازی های سریع: 8 تا 25 دقیقه</string>
   <string name="classicalDesc">بازی های کلاسیک : 25 دقیقه یا بیشتر</string>
   <string name="correspondenceDesc">بازی های مکاتبه ای : یک  یا چند روز برای هر حرکت</string>
   <string name="puzzleDesc">تمرین تاکتیک های شطرنج</string>
