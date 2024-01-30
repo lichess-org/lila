@@ -51,6 +51,10 @@ main.has-relay-tour {
   &__image {
     width: 100%;
   }
+  &__image-upload {
+    margin-top: 3em;
+    text-align: center;
+  }
 
   &__header {
     @extend %flex-center-nowrap;

@@ -85,7 +85,18 @@ const overview = (relay: RelayCtrl, study: StudyCtrl, ctrl: AnalyseCtrl) => {
   const round = relay.currentRound();
   return [
     h('div.relay-tour__box', [
-      relay.data.tour.image && h('img.relay-tour__image', { attrs: { src: relay.data.tour.image } }),
+      relay.data.tour.image
+        ? h('img.relay-tour__image', { attrs: { src: relay.data.tour.image } })
+        : study.members.isOwner()
+        ? h(
+            'div.relay-tour__image-upload',
+            h(
+              'a.button',
+              { attrs: { href: `/broadcast/${relay.data.tour.id}/edit` } },
+              'Upload tournament image',
+            ),
+          )
+        : undefined,
       h('div.relay-tour__text', [
         header(relay, ctrl),
         h(
