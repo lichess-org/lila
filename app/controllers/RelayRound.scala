@@ -7,10 +7,10 @@ import play.api.mvc.*
 import lila.app.{ given, * }
 import lila.common.HTTPRequest
 import lila.relay.{ RelayRound as RoundModel, RelayRoundForm, RelayTour as TourModel }
-import chess.format.pgn.{ PgnStr, Tags }
+import chess.format.pgn.{ PgnStr, Tag }
 import views.*
 import lila.common.config.{ Max, MaxPerSecond }
-import play.api.libs.json.Json
+import play.api.libs.json.{ Writes, Json }
 
 final class RelayRound(
     env: Env,
@@ -143,18 +143,18 @@ final class RelayRound(
         case None                                    => notFoundJson()
         case Some(rt) if !rt.study.canContribute(me) => forbiddenJson()
         case Some(rt) =>
+          given Writes[Tag] = Writes(tag => Json.obj(tag.name.name -> tag.value))
           env.relay
             .push(rt.withTour, PgnStr(ctx.body.body))
             .map: results =>
               JsonOk:
-                Json.obj(
+                Json.obj:
                   "games" -> results.map:
-                    case Left(fail)  => Json.obj("tags" -> jsonTags(fail.tags), "error" -> fail.error)
-                    case Right(pass) => Json.obj("tags" -> jsonTags(pass.tags), "moves" -> pass.moves)
-                )
+                    _.fold(
+                      fail => Json.obj("tags" -> fail.tags.value, "error" -> fail.error),
+                      pass => Json.obj("tags" -> pass.tags.value, "moves" -> pass.moves)
+                    )
   }
-
-  private def jsonTags(tags: Tags) = Json.arr(tags.value.map(tag => Json.obj(tag.name.name -> tag.value))*)
 
   private def WithRoundAndTour(@nowarn ts: String, @nowarn rs: String, id: RelayRoundId)(
       f: RoundModel.WithTour => Fu[Result]
