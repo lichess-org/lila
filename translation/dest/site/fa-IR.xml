@@ -66,7 +66,7 @@
   <string name="goDeeper">عمق و تعداد بیشتری از حرکتها را بررسی نمایید</string>
   <string name="showThreat">تهدید را نمایش بدهید</string>
   <string name="inLocalBrowser">در مرورگر محلی</string>
-  <string name="toggleLocalEvaluation">ارزیابی به صورت محلی انتخاب شود</string>
+  <string name="toggleLocalEvaluation">کلید ارزیابی محلی</string>
   <string name="promoteVariation">افزایش عمق شاخه اصلی</string>
   <string name="makeMainLine">خط کنونی را به خط اصلی تبدیل کنید</string>
   <string name="deleteFromHere">از اینجا به بعد را پاک کنید</string>
@@ -118,7 +118,7 @@
   <string name="enable">فعال سازی</string>
   <string name="bestMoveArrow">فلش نشان دهنده بهترین حرکت</string>
   <string name="showVariationArrows">نمایش پیکان‌های شاخه اصلی</string>
-  <string name="evaluationGauge">درجه ی نشان دهنده برتری</string>
+  <string name="evaluationGauge">میله ارزیابی</string>
   <string name="multipleLines">شاخه های متعدد</string>
   <string name="cpus">پردازنده(ها)</string>
   <string name="memory">حافظه</string>
