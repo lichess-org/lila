@@ -8,6 +8,7 @@ import controllers.routes
 import lila.relay.{ RelayRound, RelayTour }
 import lila.relay.RelayTour.WithLastRound
 import lila.common.LightUser
+import lila.memo.PicfitImage
 
 object tour:
 
@@ -154,14 +155,16 @@ object tour:
     )
 
   object thumbnail:
-    def apply(t: RelayTour, size: RelayTour.thumbnail.SizeSelector) = img(
-      cls     := "relay-image",
-      widthA  := size(RelayTour.thumbnail).width,
-      heightA := size(RelayTour.thumbnail).height
-    )(src := url(t, size))
-    def url(t: RelayTour, size: RelayTour.thumbnail.SizeSelector) =
-      t.image.fold(assetUrl("images/relay-default.png")):
-        RelayTour.thumbnail(picfitUrl, _, size)
+    def apply(t: RelayTour, size: RelayTour.thumbnail.SizeSelector) =
+      t.image.fold(fallback): id =>
+        img(
+          cls     := "relay-image",
+          widthA  := size(RelayTour.thumbnail).width,
+          heightA := size(RelayTour.thumbnail).height
+        )(src := url(id, size))
+    def fallback = iconTag(licon.RadioTower)(cls := "relay-image--fallback")
+    def url(id: PicfitImage.Id, size: RelayTour.thumbnail.SizeSelector) =
+      RelayTour.thumbnail(picfitUrl, id, size)
 
   private object card:
     private def link(t: RelayTour, url: String, ongoing: Boolean) = a(
@@ -172,8 +175,8 @@ object tour:
         "relay-card--ongoing" -> ongoing
       )
     )
-    private def image(t: RelayTour) =
-      img(cls := "relay-card__image", src := thumbnail.url(t, _.Size.Small))
+    private def image(t: RelayTour) = t.image.fold(thumbnail.fallback(cls := "relay-card__image")): id =>
+      img(cls := "relay-card__image", src := thumbnail.url(id, _.Size.Small))
 
     def render[A <: RelayRound.AndTour](tr: A, ongoing: A => Boolean)(using Context) =
       link(tr.tour, tr.path, ongoing(tr))(

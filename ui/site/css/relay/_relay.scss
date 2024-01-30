@@ -31,3 +31,18 @@
     text-align: center;
   }
 }
+
+.relay-image {
+  &--fallback {
+    @extend %flex-center;
+    justify-content: center;
+    width: 100%;
+    aspect-ratio: 2 / 1;
+    background: linear-gradient(to bottom, set-alpha($c-brag, 0.7), set-alpha($c-primary, 0.7));
+    background-repeat: no-repeat;
+    box-shadow: 0 0 40px rgba(0, 0, 0, 0.3) inset;
+    color: $c-font;
+    text-shadow: 0 0 40px white;
+    font-size: 3em;
+  }
+}
