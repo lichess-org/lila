@@ -53,6 +53,7 @@ main.has-relay-tour {
 
   &__header {
     @extend %flex-center-nowrap;
+    gap: 1em;
     margin-bottom: 3vh;
 
     h1 {
