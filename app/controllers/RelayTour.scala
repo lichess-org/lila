@@ -11,22 +11,22 @@ import lila.relay.{ RelayTour as TourModel }
 final class RelayTour(env: Env, apiC: => Api, prismicC: => Prismic) extends LilaController(env):
 
   def index(page: Int, q: String) = Open:
-    q.trim.take(100).some.filter(_.nonEmpty) match
-      case Some(query) =>
-        Reasonable(page, config.Max(20)):
+    Reasonable(page, config.Max(20)):
+      q.trim.take(100).some.filter(_.nonEmpty) match
+        case Some(query) =>
           env.relay.pager
             .search(query, page)
             .flatMap: pager =>
               Ok.pageAsync:
                 html.relay.tour.search(pager, query)
-      case None =>
-        for
-          active   <- env.relay.api.officialActive.get({})
-          upcoming <- env.relay.api.officialUpcoming.get({})
-          past     <- env.relay.pager.inactive(1, config.MaxPerPage(8))
-          render <- renderAsync:
-            html.relay.tour.index(active, upcoming, past.currentPageResults.toList)
-        yield Ok(render)
+        case None =>
+          for
+            active   <- (page == 1) so env.relay.api.officialActive.get({})
+            upcoming <- (page == 1) so env.relay.api.officialUpcoming.get({})
+            past     <- env.relay.pager.inactive(page)
+            render <- renderAsync:
+              html.relay.tour.index(active, upcoming, past)
+          yield Ok(render)
 
   def calendar = page("broadcast-calendar", "calendar")
   def help     = page("broadcasts", "help")

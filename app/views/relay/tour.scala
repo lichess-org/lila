@@ -17,12 +17,13 @@ object tour:
 
   def index(
       active: List[RelayTour.ActiveWithSomeRounds],
-      upcoming: List[RelayTour.WithLastRound],
-      past: List[RelayTour.WithLastRound]
+      upcoming: List[WithLastRound],
+      past: Paginator[WithLastRound]
   )(using PageContext) =
     views.html.base.layout(
       title = liveBroadcasts.txt(),
-      moreCss = cssTag("relay.index")
+      moreCss = cssTag("relay.index"),
+      moreJs = infiniteScrollTag
     ):
       main(cls := "relay-index page-menu")(
         pageMenu("index"),
@@ -35,30 +36,28 @@ object tour:
             active
               .filter(_.tour.tierIs(_.BEST))
               .map:
-                renderCard(_, ongoing = _.ongoing)
+                card.render(_, ongoing = _.ongoing)
           ,
           st.section(cls := "relay-cards relay-cards--tier-high"):
             active
               .filter(_.tour.tierIs(_.HIGH))
               .map:
-                renderCard(_, ongoing = _.ongoing)
+                card.render(_, ongoing = _.ongoing)
           ,
           st.section(cls := "relay-cards relay-cards--tier-normal"):
             active
               .filter(_.tour.tierIs(_.NORMAL))
               .map:
-                renderCard(_, ongoing = _.ongoing)
+                card.render(_, ongoing = _.ongoing)
           ,
           upcoming.nonEmpty option frag(
             h2(cls := "relay-index__section")("Upcoming broadcasts"),
             st.section(cls := "relay-cards relay-cards--upcoming"):
               upcoming.map:
-                renderCard(_, ongoing = _ => false)
+                card.render(_, ongoing = _ => false)
           ),
           h2(cls := "relay-index__section")("Past broadcasts"),
-          st.section(cls := "relay-cards relay-cards--past"):
-            past.map:
-              renderCard(_, ongoing = _ => false)
+          renderPager(asRelayPager(past), "")(cls := "relay-cards relay-cards--past")
         )
       )
 
@@ -164,27 +163,41 @@ object tour:
       t.image.fold(assetUrl("images/relay-default.png")):
         RelayTour.thumbnail(picfitUrl, _, size)
 
-  private def renderCard[A <: RelayRound.AndTour](tr: A, ongoing: A => Boolean)(using Context) =
-    a(
-      href := tr.path,
+  private object card:
+    private def link(t: RelayTour, url: String, ongoing: Boolean) = a(
+      href := url,
       cls := List(
         "relay-card"          -> true,
-        "relay-card--active"  -> tr.tour.active,
-        "relay-card--ongoing" -> ongoing(tr)
-      )
-    )(
-      img(cls := "relay-card__image", src := thumbnail.url(tr.tour, _.Size.Small)),
-      span(cls := "relay-card__body")(
-        span(cls := "relay-card__info")(
-          tr.tour.active option span(cls := "relay-card__round")(tr.display.name, " "),
-          if ongoing(tr)
-          then span(cls := "relay-card__live")("LIVE")
-          else tr.display.startedAt.orElse(tr.display.startsAt).map(momentFromNow(_))
-        ),
-        h3(cls := "relay-card__title")(tr.tour.name),
-        span(cls := "relay-card__desc")(tr.tour.description)
+        "relay-card--active"  -> t.active,
+        "relay-card--ongoing" -> ongoing
       )
     )
+    private def image(t: RelayTour) =
+      img(cls := "relay-card__image", src := thumbnail.url(t, _.Size.Small))
+
+    def render[A <: RelayRound.AndTour](tr: A, ongoing: A => Boolean)(using Context) =
+      link(tr.tour, tr.path, ongoing(tr))(
+        image(tr.tour),
+        span(cls := "relay-card__body")(
+          span(cls := "relay-card__info")(
+            tr.tour.active option span(cls := "relay-card__round")(tr.display.name, " "),
+            if ongoing(tr)
+            then span(cls := "relay-card__live")("LIVE")
+            else tr.display.startedAt.orElse(tr.display.startsAt).map(momentFromNow(_))
+          ),
+          h3(cls := "relay-card__title")(tr.tour.name),
+          span(cls := "relay-card__desc")(tr.tour.description)
+        )
+      )
+
+    def empty(t: RelayTour)(using Context) =
+      link(t, routes.RelayTour.show(t.slug, t.id).url, false)(
+        image(t),
+        span(cls := "relay-card__body")(
+          h3(cls := "relay-card__title")(t.name),
+          span(cls := "relay-card__desc")(t.description)
+        )
+      )
 
   private def renderWidget[A <: RelayRound.AndTour](tr: A, ongoing: A => Boolean)(using Context) =
     tourWidgetDiv(tr.tour)(
@@ -208,7 +221,7 @@ object tour:
       )
     )
 
-  private def renderEmptyWidget(t: RelayTour)(using ctx: Context) = tourWidgetDiv(t)(
+  private def renderEmptyWidget(t: RelayTour)(using Context) = tourWidgetDiv(t)(
     a(cls := "overlay", href := routes.RelayTour.show(t.slug, t.id)),
     div(
       h2(t.name),
@@ -241,8 +254,8 @@ object tour:
       case Some(u) => routes.RelayTour.by(u.name, page)
     st.section(cls := "infinite-scroll")(
       pager.currentPageResults.map {
-        case w: WithLastRound => renderWidget(w, ongoing = _ => false)(cls := "paginated")
-        case t: RelayTour     => renderEmptyWidget(t)(cls := "paginated")
+        case w: WithLastRound => card.render(w, ongoing = _ => false)(cls := "paginated")
+        case t: RelayTour     => card.empty(t)(cls := "paginated")
       },
       pagerNext(pager, next(_).url)
     )
