@@ -47,6 +47,29 @@ main.has-relay-tour {
     margin-top: $block-gap;
   }
 
+  &__header {
+    @extend %flex-center-nowrap;
+    margin-bottom: 3vh;
+
+    h1 {
+      flex: auto;
+    }
+
+    > i:hover {
+      color: $c-font-clearer;
+      cursor: pointer;
+    }
+
+    .setting {
+      @extend %flex-center-nowrap;
+      label {
+        padding: 0 0.5em;
+        cursor: pointer;
+        white-space: nowrap;
+      }
+    }
+  }
+
   &__text {
     @extend %box-neat;
 
@@ -99,11 +122,8 @@ main.has-relay-tour {
 
     h1 {
       @include fluid-size('font-size', 15px, 27px);
-
       color: $c-brag;
-      margin-bottom: 3vh;
     }
-
     h2,
     h3,
     h4 {

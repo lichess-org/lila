@@ -36,6 +36,8 @@ final private class PushApi(
         lightUser(mentioner).flatMap(luser => forumMention(to.head, luser.titleName, topic, postId))
       case StreamStart(streamerId, streamerName) =>
         streamStart(to, streamerId, streamerName)
+      case BroadcastRound(url, title, body) =>
+        broadcastRound(to, url, title, body)
       case InvitedToStudy(invitedBy, studyName, studyId) =>
         lightUser(invitedBy).flatMap(luser => invitedToStudy(to.head, luser.titleName, studyName, studyId))
       case _ => funit
@@ -320,6 +322,28 @@ final private class PushApi(
           lila.mon.push.send.streamStart("firebase", res.isSuccess, 1)
 
   private type MonitorType = lila.mon.push.send.type => ((String, Boolean, Int) => Unit)
+
+  private def broadcastRound(
+      recips: Iterable[NotifyAllows],
+      url: String,
+      title: String,
+      body: String
+  ): Funit =
+    val pushData = LazyFu.sync:
+      Data(
+        title = title,
+        body = body,
+        stacking = Stacking.Generic,
+        urgency = Urgency.Normal,
+        payload = payload("url" -> url)
+      )
+    val webRecips = recips.collect { case u if u.allows.web => u.userId }
+    webPush(webRecips, pushData).addEffects { res =>
+      lila.mon.push.send.broadcastRound("web", res.isSuccess, webRecips.size)
+    } andDo:
+      recips collect { case u if u.allows.device => u.userId } foreach:
+        firebasePush(_, pushData).addEffects: res =>
+          lila.mon.push.send.broadcastRound("firebase", res.isSuccess, 1)
 
   private def maybePushNotif(
       userId: UserId,

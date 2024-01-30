@@ -79,7 +79,12 @@ final class JSONHandlers(getLightUser: LightUser.GetterSync):
           "sid"  -> streamerId,
           "name" -> streamerName
         )
-
+      case BroadcastRound(url, title, text) =>
+        Json.obj(
+          "url"   -> url,
+          "title" -> title,
+          "text"  -> text
+        )
     def writes(notification: Notification) =
       Json.obj(
         "content" -> writeBody(notification.content),

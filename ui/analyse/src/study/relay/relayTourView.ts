@@ -7,8 +7,11 @@ import { innerHTML } from 'common/richText';
 import { RelayRound } from './interfaces';
 import { RelayTab } from '../interfaces';
 import { view as multiBoardView } from '../multiBoard';
-import { scrollToInnerSelector } from 'common';
+import { defined, scrollToInnerSelector } from 'common';
 import StudyCtrl from '../studyCtrl';
+import { toggle } from 'common/controls';
+import * as xhr from 'common/xhr';
+import { domDialog } from 'common/dialog';
 
 export default function (ctrl: AnalyseCtrl): VNode | undefined {
   const study = ctrl.study;
@@ -33,20 +36,20 @@ export default function (ctrl: AnalyseCtrl): VNode | undefined {
   ]);
   const content =
     relay.tab() == 'overview'
-      ? overview(relay, study)
+      ? overview(relay, study, ctrl)
       : relay.tab() == 'schedule'
-      ? schedule(relay)
-      : leaderboard(relay);
+      ? schedule(relay, ctrl)
+      : leaderboard(relay, ctrl);
 
   return h('div.relay-tour', [tabs, ...content]);
 }
 
-const leaderboard = (relay: RelayCtrl): VNode[] => {
+const leaderboard = (relay: RelayCtrl, ctrl: AnalyseCtrl): VNode[] => {
   const players = relay.data.leaderboard || [];
   const withRating = players.find(p => p.rating);
   return [
     h('div.relay-tour__text', [
-      h('h1', relay.data.tour.name),
+      header(relay, ctrl),
       h('div.relay-tour__text__leaderboard', [
         h('table.slist.slist-invert', [
           h(
@@ -75,11 +78,11 @@ const leaderboard = (relay: RelayCtrl): VNode[] => {
   ];
 };
 
-const overview = (relay: RelayCtrl, study: StudyCtrl) => {
+const overview = (relay: RelayCtrl, study: StudyCtrl, ctrl: AnalyseCtrl) => {
   const round = relay.currentRound();
   return [
     h('div.relay-tour__text', [
-      h('h1', relay.data.tour.name),
+      header(relay, ctrl),
       h(
         'a.relay-tour__round',
         {
@@ -108,10 +111,46 @@ const overview = (relay: RelayCtrl, study: StudyCtrl) => {
   ];
 };
 
-const schedule = (relay: RelayCtrl): VNode[] => [
+const header = (relay: RelayCtrl, ctrl: AnalyseCtrl) =>
+  h('div.relay-tour__header', [
+    h('h1', relay.data.tour.name),
+    ...(defined(relay.data.isSubscribed)
+      ? [
+          toggle(
+            {
+              name: 'Subscribe',
+              id: 'tour-subscribe',
+              checked: relay.data.isSubscribed,
+              change: (v: boolean) => {
+                xhr.text(`/broadcast/${relay.data.tour.id}/subscribe?set=${v}`, { method: 'post' });
+                relay.data.isSubscribed = v;
+                ctrl.redraw();
+              },
+            },
+            ctrl.trans,
+            ctrl.redraw,
+          ),
+          h('i', {
+            attrs: dataIcon(licon.InfoCircle),
+            hook: onInsert(el => {
+              el.addEventListener('click', () => {
+                domDialog({
+                  htmlText: `<h2>Broadcast notifications</h2>
+<p>Subscribe to be notified when each round starts. Make sure that bell or push notifications are
+enabled for broadcasts in your <a href="/account/preferences/notification">notification settings</a>.</p>`,
+                  show: 'modal',
+                });
+              });
+            }),
+          }),
+        ]
+      : []),
+  ]);
+
+const schedule = (relay: RelayCtrl, ctrl: AnalyseCtrl): VNode[] => [
   h('div.relay-tour__text', [
     h('div.relay-tour__text__schedule', [
-      h('h1', relay.data.tour.name),
+      header(relay, ctrl),
       h('h2', 'Schedule'),
       h(
         'table.slist.slist-invert',

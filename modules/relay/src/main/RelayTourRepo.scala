@@ -15,6 +15,23 @@ final private class RelayTourRepo(val coll: Coll)(using Executor):
   def countByOwner(owner: UserId): Fu[Int] =
     coll.countSel(selectors.ownerId(owner))
 
+  def subscribers(tid: RelayTour.Id): Fu[Set[UserId]] =
+    coll.distinctEasy[UserId, Set]("subscribers", $id(tid))
+
+  def setSubscribed(tid: RelayTour.Id, uid: UserId, isSubscribed: Boolean): Funit =
+    coll.update
+      .one($id(tid), if isSubscribed then $addToSet("subscribers" -> uid) else $pull("subscribers" -> uid))
+      .void
+
+  def isSubscribed(tid: RelayTour.Id, uid: UserId): Fu[Boolean] =
+    coll.exists($doc($id(tid), "subscribers" -> uid))
+
+  def hasNotified(rt: RelayRound.WithTour): Fu[Boolean] =
+    coll.exists($doc($id(rt.tour.id), "notified" -> rt.round.id))
+
+  def setNotified(rt: RelayRound.WithTour): Funit =
+    coll.update.one($id(rt.tour.id), $addToSet("notified" -> rt.round.id)).void
+
   def delete(tour: RelayTour): Funit =
     coll.delete.one($id(tour.id)).void
 

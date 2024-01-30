@@ -26,7 +26,8 @@ final class Env(
     cacheApi: lila.memo.CacheApi,
     settingStore: SettingStore.Builder,
     irc: lila.irc.IrcApi,
-    baseUrl: BaseUrl
+    baseUrl: BaseUrl,
+    notifyApi: lila.notify.NotifyApi
 )(using
     ec: Executor,
     system: ActorSystem,
@@ -45,6 +46,8 @@ final class Env(
   private lazy val tourRepo = RelayTourRepo(colls.tour)
 
   private lazy val leaderboard = wire[RelayLeaderboardApi]
+
+  private lazy val notifier = wire[RelayNotifier]
 
   lazy val jsonView = wire[JsonView]
 

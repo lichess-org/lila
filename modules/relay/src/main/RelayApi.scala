@@ -418,6 +418,8 @@ final class RelayApi(
       .throttle(perSecond.value, 1 second)
       .take(max.fold(9999)(_.value))
 
+  export tourRepo.{ isSubscribed, setSubscribed as subscribe }
+
   private[relay] def autoStart: Funit =
     roundRepo.coll
       .list[RelayRound](

@@ -7,10 +7,10 @@ import play.api.mvc.*
 import lila.app.{ given, * }
 import lila.common.HTTPRequest
 import lila.relay.{ RelayRound as RoundModel, RelayRoundForm, RelayTour as TourModel }
-import chess.format.pgn.PgnStr
+import chess.format.pgn.{ PgnStr, Tag }
 import views.*
 import lila.common.config.{ Max, MaxPerSecond }
-import play.api.libs.json.Json
+import play.api.libs.json.{ Writes, Json }
 
 final class RelayRound(
     env: Env,
@@ -143,11 +143,17 @@ final class RelayRound(
         case None                                    => notFoundJson()
         case Some(rt) if !rt.study.canContribute(me) => forbiddenJson()
         case Some(rt) =>
+          given Writes[Tag] = Writes(tag => Json.obj(tag.name.name -> tag.value))
           env.relay
             .push(rt.withTour, PgnStr(ctx.body.body))
-            .map:
-              case Right(moves) => JsonOk(Json.obj("moves" -> moves))
-              case Left(e)      => JsonBadRequest(e.message)
+            .map: results =>
+              JsonOk:
+                Json.obj:
+                  "games" -> results.map:
+                    _.fold(
+                      fail => Json.obj("tags" -> fail.tags.value, "error" -> fail.error),
+                      pass => Json.obj("tags" -> pass.tags.value, "moves" -> pass.moves)
+                    )
   }
 
   private def WithRoundAndTour(@nowarn ts: String, @nowarn rs: String, id: RelayRoundId)(
@@ -179,11 +185,14 @@ final class RelayRound(
       for
         (sc, studyData) <- studyC.getJsonData(oldSc)
         rounds          <- env.relay.api.byTourOrdered(rt.tour)
+        isSubscribed <- ctx.me.so: me =>
+          env.relay.api.isSubscribed(rt.tour.id, me.userId).map(_.some)
         data <- env.relay.jsonView.makeData(
           rt.tour withRounds rounds.map(_.round),
           rt.round.id,
           studyData,
-          ctx.userId exists sc.study.canContribute
+          ctx.userId exists sc.study.canContribute,
+          isSubscribed
         )
         chat      <- studyC.chatOf(sc.study)
         sVersion  <- env.study.version(sc.study.id)

@@ -99,6 +99,10 @@ final class RelayTour(env: Env, apiC: => Api, prismicC: => Prismic) extends Lila
       env.relay.api.deleteTourIfOwner(tour) inject Redirect(routes.RelayTour.by(me.username)).flashSuccess
   }
 
+  def subscribe(id: TourModel.Id, isSubscribed: Boolean) = Auth { _ ?=> me ?=>
+    env.relay.api.subscribe(id, me.userId, isSubscribed) inject jsonOkResult
+  }
+
   def cloneTour(id: TourModel.Id) = Secure(_.Relay) { _ ?=> me ?=>
     WithTour(id): from =>
       env.relay.api

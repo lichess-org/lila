@@ -34,6 +34,7 @@ object notification:
                   notifyInboxMsg()                                        -> "privateMessage",
                   notifyChallenge()                                       -> "challenge",
                   notifyTournamentSoon()                                  -> "tournamentSoon",
+                  frag("Broadcasts")                                      -> "broadcastRound",
                   notifyGameEvent()                                       -> "gameEvent"
                 ).map(makeRow(form))
               )
