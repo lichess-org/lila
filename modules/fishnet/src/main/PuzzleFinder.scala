@@ -12,7 +12,11 @@ import lila.tree.Eval.{ Cp, Mate }
 private object PuzzleFinder {
 
   def apply(work: Work, analysis: Analysis): List[Work.Puzzle] =
-    if (work.isStandard && work.game.studyId.isEmpty) {
+    if (
+      work.isStandard &&
+      work.game.initialSfen.fold(true)(_.initialOf(work.game.variant)) &&
+      work.game.studyId.isEmpty
+    ) {
       lazy val games = Replay
         .gamesWhileValid(
           work.game.usiList,
@@ -27,7 +31,6 @@ private object PuzzleFinder {
         .drop(5) // no need to look at the first few positions
         .collect {
           case (List(prev, next), index) if (shouldInvestigate(prev.eval, next.eval)) =>
-            // println(s"$index: ${prev.eval}, ${next.eval}")
             index
         }
         .toList
@@ -41,7 +44,7 @@ private object PuzzleFinder {
               initialSfen = game.toSfen.some,
               studyId = none,
               variant = game.variant,
-              moves = ~work.game.usiList.lift(index).pp.map(_.usi)
+              moves = ~game.usiMoves.lift(index).map(_.usi)
             ),
             engine = lila.game.EngineConfig.Engine.YaneuraOu.name,
             source = Work.Puzzle.Source(
