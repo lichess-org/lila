@@ -53,6 +53,7 @@
   <string name="allSyncMembersRemainOnTheSamePosition">Todos os membros em SYNC veem a mesma posição</string>
   <string name="shareChanges">Compartilhar as alterações com os espectadores e salvá-las no servidor</string>
   <string name="playing">Jogando</string>
+  <string name="showEvalBar">Barra de avaliação</string>
   <string name="first">Primeiro</string>
   <string name="previous">Anterior</string>
   <string name="next">Próximo</string>

@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="broadcasts">प्रसारण</string>
+  <string name="myBroadcasts">मेरा प्रसारण</string>
   <plurals name="nbBroadcasts">
     <item quantity="one">%s प्रसारण</item>
     <item quantity="other">%s प्रसारण</item>

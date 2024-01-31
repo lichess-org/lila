@@ -4,7 +4,7 @@
   <string name="display">Hiển thị</string>
   <string name="privacy">Quyền riêng tư</string>
   <string name="notifications">Thông báo</string>
-  <string name="pieceAnimation">Tính linh hoạt của quân cờ</string>
+  <string name="pieceAnimation">Hình ảnh động của quân cờ</string>
   <string name="materialDifference">Chênh lệch giá trị quân cờ</string>
   <string name="boardHighlights">Đánh dấu trên bàn cờ (nước đi mới nhất và nước chiếu)</string>
   <string name="pieceDestinations">Các điểm đến của quân cờ (các nước đi hợp lý và nước đi dự đoán)</string>
