@@ -309,8 +309,6 @@ export default function (deps?: typeof studyDeps) {
       needsInnerCoords = ctrl.data.pref.showCaptured || !!gaugeOn || !!playerBars,
       tour = deps?.relayTour(ctrl);
 
-    study?.updateAddressBar();
-
     return h(
       'main.analyse.variant-' + ctrl.data.game.variant.key,
       {

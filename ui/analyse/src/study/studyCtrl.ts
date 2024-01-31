@@ -357,6 +357,7 @@ export default class StudyCtrl {
     this.commentForm.onSetPath(this.data.chapter.id, this.ctrl.path, this.ctrl.node);
     this.redraw();
     this.ctrl.startCeval();
+    this.updateAddressBar();
   };
 
   xhrReload = throttlePromiseDelay(
@@ -549,8 +550,8 @@ export default class StudyCtrl {
     const chapterSection = this.relay?.tourShow() ? '' : `/${this.vm.chapterId}`;
     const studyAndChapterUrl = `${studyUrl}${chapterSection}`;
     if (studyAndChapterUrl === current) return;
-    if (studyAndChapterUrl.includes('/broadcast/') && studyAndChapterUrl.length !== current.length)
-      history.pushState({}, '', studyAndChapterUrl);
+    // if (studyAndChapterUrl.includes('/broadcast/') && studyAndChapterUrl.length !== current.length)
+    //   history.pushState({}, '', studyAndChapterUrl);
     else history.replaceState({}, '', studyAndChapterUrl);
   };
   trans = this.ctrl.trans;
