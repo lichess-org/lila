@@ -16,7 +16,7 @@ export function bind(eventName: string, f: (e: Event) => any, redraw?: Redraw, p
       eventName,
       e => {
         const res = f(e);
-        if (res === false) e.preventDefault();
+        if (res === false && !passive) e.preventDefault();
         redraw?.();
         return res;
       },

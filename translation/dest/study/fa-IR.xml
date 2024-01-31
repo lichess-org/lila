@@ -23,12 +23,12 @@
   </plurals>
   <plurals name="nbGames">
     <item quantity="one">%s بازی</item>
-    <item quantity="other">%s بازی ها</item>
+    <item quantity="other">%s بازی</item>
   </plurals>
   <string name="addMembers">افزودن اعضا</string>
   <plurals name="nbMembers">
     <item quantity="one">%s عضو</item>
-    <item quantity="other">%s اعضا</item>
+    <item quantity="other">%s عضو</item>
   </plurals>
   <string name="inviteToTheStudy">دعوت به این درس</string>
   <string name="pleaseOnlyInvitePeopleYouKnow">لطفا تنها افرادی که میشناسید, و یا کسانی که میخواهند فعالانه به این درس بپیوندند را اضافه کنید.</string>
@@ -45,7 +45,7 @@
   <string name="newTag">برچسب جدید</string>
   <string name="commentThisPosition">نظر دادن به این پوزیسیون</string>
   <string name="commentThisMove">نظر دادن به این حرکت</string>
-  <string name="annotateWithGlyphs">نشان کردن با علامت ها</string>
+  <string name="annotateWithGlyphs">حرکت‌نویسی به‌همراه علائم</string>
   <string name="theChapterIsTooShortToBeAnalysed">این فصل برای تحلیل شدن بسیار کوتاه است.</string>
   <string name="onlyContributorsCanRequestAnalysis">تنها مشارکت کنندگان این درس میتوانند درخواست تحلیل کامپیوتری دهند.</string>
   <string name="getAFullComputerAnalysis">یک تحلیل رایانه‌ای از حرکات اصلی (نه حرکات منشعب و فرعی) با استفاده از منابع سرورها (نه منابع محلی مانند مرورگر، اپلیکیشن و غیره) دریافت نمایید.</string>
@@ -53,7 +53,7 @@
   <string name="allSyncMembersRemainOnTheSamePosition">تمام اعضای همگام شده در پوزیسیون یکسان باقی می‌مانند</string>
   <string name="shareChanges">تغییرات را با تماشاگران به اشتراک بگذارید و آنها را در سرور ذخیره کنید</string>
   <string name="playing">در حال انجام</string>
-  <string name="showEvalBar">میله اَرزیابی</string>
+  <string name="showEvalBar">نوار ارزیابی</string>
   <string name="first">اولین</string>
   <string name="previous">پیشین</string>
   <string name="next">بعدی</string>
@@ -84,11 +84,11 @@
   <string name="analysisMode">حالت تجزیه تحلیل</string>
   <string name="pinnedChapterComment">نظر سنجاق شده درباره فصل</string>
   <string name="saveChapter">ذخیره فصل</string>
-  <string name="clearAnnotations">حاشیه‌نویسی را پاک نمایید</string>
-  <string name="clearVariations">پاک کردن تغییرات</string>
+  <string name="clearAnnotations">پاک کردن حرکت‌نویسی</string>
+  <string name="clearVariations" comment="Clear is used as a verb here. This erases the variations in the study (https://lichess.org/study) you are preparing.">پاک کردن تغییرات</string>
   <string name="deleteChapter">حذف فصل</string>
   <string name="deleteThisChapter">آیا میخواهید این فصل را پاک کنید؟امکان برگرداندن آن وجود ندارد!</string>
-  <string name="clearAllCommentsInThisChapter">تمام نظرات، شکلها و نمایه‌های ترسیم شده در این فصل پاک شوند؟</string>
+  <string name="clearAllCommentsInThisChapter">همه دیدگاه‌ها، نمادها و شکل‌های ترسیم شده در این بخش، پاک شوند</string>
   <string name="rightUnderTheBoard">درست در زیر تخته بازی</string>
   <string name="noPinnedComment">هیچ</string>
   <string name="normalAnalysis">تحلیل ساده</string>

@@ -2,12 +2,12 @@ package lila.simul
 
 import akka.actor.*
 import chess.variant.Variant
-import chess.ByColor
+import chess.{ ByColor, Status }
 import play.api.libs.json.Json
 
 import lila.common.{ Bus, Debouncer }
 import lila.db.dsl.{ *, given }
-import lila.game.{ Game, GameRepo }
+import lila.game.{ Game, LightGame, GameRepo }
 import lila.hub.actorApi.timeline.{ Propagate, SimulCreate, SimulJoin }
 import lila.memo.CacheApi.*
 import lila.socket.SendToFlag
@@ -156,17 +156,16 @@ final class SimulApi(
         repo.setText(simul, text) andDo socket.reload(simulId)
       }
 
-  def finishGame(game: Game): Funit =
-    game.simulId.so: simulId =>
-      workQueue(simulId):
-        repo.findStarted(simulId) flatMapz { simul =>
-          val simul2 = simul.updatePairing(
-            game.id,
-            _.finish(game.status, game.winnerUserId)
-          )
-          update(simul2).andDo:
-            if simul2.isFinished then onComplete(simul2)
-        }
+  private[simul] def finishGame(game: Game): Funit =
+    game.simulId.so:
+      finishGame(_, game.id, game.status, game.winnerUserId)
+
+  private def finishGame(simulId: SimulId, gameId: GameId, status: Status, winner: Option[UserId]): Funit =
+    workQueue(simulId):
+      repo.findStarted(simulId) flatMapz: simul =>
+        val simul2 = simul.updatePairing(gameId, _.finish(status, winner))
+        update(simul2).andDo:
+          if simul2.isFinished then onComplete(simul2)
 
   private def onComplete(simul: Simul): Unit =
     currentHostIdsCache.invalidateUnit()
@@ -259,6 +258,28 @@ final class SimulApi(
     onGameStart(game2.id)
     socket.startGame(simul, game2)
     game2 -> hostColor
+
+  // clean up unfinished simuls
+  // by making sure ongoing games really are still being played
+  def checkOngoingSimuls(simuls: List[Simul]): Funit =
+    val sampling = 100
+    simuls
+      .filter(_.startedAt.exists(_ isBefore nowInstant.minusHours(1)))
+      // only test some random simuls, no need to test all of them all the time
+      .filter(_.startedAt.exists(_.getEpochSecond % sampling == (nowSeconds % sampling)))
+      .traverse: simul =>
+        gameRepo.light
+          .gamesFromPrimary(simul.ongoingGameIds)
+          .flatMap: games =>
+            val dirty: List[(GameId, Status, Option[UserId])] = simul.ongoingGameIds.flatMap: gameId =>
+              games.find(_.id == gameId) match
+                case None => (gameId, Status.UnknownFinish, none).some // the game is not in DB!!
+                case Some(g) if g.finished => (gameId, g.status, g.winnerUserId).some // DB game is finished
+                case _                     => none
+            dirty.traverse: (id, status, winner) =>
+              logger.info(s"Simul ${simul.id} game $id is dirty, finishing with $status")
+              finishGame(simul.id, id, status, winner)
+      .void
 
   private def update(simul: Simul): Funit =
     repo.update(simul) andDo socket.reload(simul.id) andDo publish()

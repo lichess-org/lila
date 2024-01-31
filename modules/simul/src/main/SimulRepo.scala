@@ -111,7 +111,7 @@ final private[simul] class SimulRepo(val coll: Coll)(using Executor):
       .find(startedSelect)
       .sort(createdSort)
       .cursor[Simul]()
-      .list(100)
+      .list(50)
 
   def allFinishedFeaturable(max: Int): Fu[List[Simul]] =
     coll
