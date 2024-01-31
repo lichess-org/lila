@@ -12,6 +12,6 @@
   <string name="followYourFriendsOnLichess">تابع أصدقائك على Lichess.</string>
   <string name="playInTournaments">شارك في بطولات.</string>
   <string name="learnFromXAndY" comment="%1$s is Study&#10;%2$s is Videos&#10;&#10;They are both links to pages titled that way, and the title is used verbatim.">تعلم من %1$s و%2$s.</string>
-  <string name="configureLichess">خصص ليتشيس حسب رغبتك.</string>
+  <string name="configureLichess">ضبط Lichess حسب تفضيلاتك.</string>
   <string name="exploreTheSiteAndHaveFun">استكشف الموقع و استمتع :)</string>
 </resources>
