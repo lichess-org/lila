@@ -81,6 +81,12 @@ trait GameHelper {
       case Mode.Rated  => trans.rated.txt()
     }
 
+  def variantClass(v: shogi.variant.Variant): String =
+    s"v-${v.key}"
+
+  def mainVariantClass(v: shogi.variant.Variant): String =
+    s"main-v-${v.key}"
+
   def variantName(v: shogi.variant.Variant)(implicit lang: Lang): String =
     v match {
       case shogi.variant.Minishogi  => trans.minishogi.txt()

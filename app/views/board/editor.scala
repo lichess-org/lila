@@ -42,9 +42,9 @@ LishogiEditor(document.getElementById('editor-app'), data);"""
       withHrefLangs = lila.i18n.LangList.All.some
     )(
       main(id := "editor-app")(
-        div(cls   := s"board-editor main-v-${sit.variant.key}")(
+        div(cls   := s"board-editor ${mainVariantClass(sit.variant)}")(
           div(cls := "spare spare-top"),
-          div(cls := s"main-board v-${sit.variant.key}")(shogigroundEmpty(sit.variant, shogi.Sente)),
+          div(cls := s"main-board ${variantClass(sit.variant)}")(shogigroundEmpty(sit.variant, shogi.Sente)),
           div(cls := "spare spare-bottom"),
           div(cls := "actions"),
           div(cls := "links"),

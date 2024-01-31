@@ -32,8 +32,6 @@ object replay {
 
     import pov._
 
-    val variantKlass = s"v-${pov.game.variant.key}"
-
     val chatJson = chatOption map { c =>
       views.html.chat.json(
         c.chat,
@@ -132,7 +130,7 @@ object replay {
       openGraph = povOpenGraph(pov).some
     )(
       frag(
-        main(cls := s"analyse main-$variantKlass")(
+        main(cls := s"analyse ${mainVariantClass(pov.game.variant)}")(
           st.aside(cls := "analyse__side")(
             views.html.game
               .side(
@@ -144,7 +142,7 @@ object replay {
               )
           ),
           chatOption.map(_ => views.html.chat.frag),
-          div(cls := s"analyse__board main-board $variantKlass")(
+          div(cls := s"analyse__board main-board ${variantClass(pov.game.variant)}")(
             shogigroundEmpty(pov.game.variant, pov.color)
           ),
           div(cls := "analyse__tools")(div(cls := "ceval")),

@@ -13,17 +13,16 @@ object replayBot {
       simul: Option[lila.simul.Simul],
       cross: Option[lila.game.Crosstable.WithMatchup]
   )(implicit ctx: Context) = {
-    val variantKlass = s"v-${pov.game.variant.key}"
     views.html.analyse.bits.layout(
       title = replay titleOf pov,
       moreCss = cssTag("analyse.round"),
       openGraph = povOpenGraph(pov).some
     ) {
-      main(cls := s"analyse main-$variantKlass")(
+      main(cls := s"analyse ${mainVariantClass(pov.game.variant)}")(
         st.aside(cls := "analyse__side")(
           views.html.game.side(pov, none, simul = simul, bookmarked = false)
         ),
-        div(cls := s"analyse__board main-board $variantKlass")(
+        div(cls := s"analyse__board main-board ${variantClass(pov.game.variant)}")(
           shogigroundEmpty(pov.game.variant, pov.color)
         ),
         div(cls := "analyse__tools")(div(cls := "ceval")),

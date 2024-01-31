@@ -64,7 +64,7 @@ LishogiRound.boot(${safeJsonValue(
       shogiground = false,
       playing = true
     )(
-      main(cls := s"round main-v-${pov.game.variant.key}")(
+      main(cls := s"round ${mainVariantClass(pov.game.variant)}")(
         st.aside(cls := "round__side")(
           bits.side(pov, data, tour.map(_.tourAndTeamVs), simul, bookmarked = bookmarked),
           chatOption.map(_ => chat.frag)

@@ -46,7 +46,7 @@ object index {
       robots = true,
       withHrefLangs = lila.i18n.LangList.All.some
     )(
-      main(cls := s"round tv-single main-v-${pov.game.variant.key}")(
+      main(cls := s"round tv-single ${mainVariantClass(pov.game.variant)}")(
         st.aside(cls := "round__side")(
           side.meta(pov),
           side.channels(channel, champions, "/tv")

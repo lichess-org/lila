@@ -52,7 +52,7 @@ LishogiRound.boot(${safeJsonValue(
       openGraph = povOpenGraph(pov).some,
       shogiground = false
     )(
-      main(cls := s"round main-v-${pov.game.variant.key}")(
+      main(cls := s"round ${mainVariantClass(pov.game.variant)}")(
         st.aside(cls := "round__side")(
           bits.side(pov, data, tour, simul, userTv, bookmarked),
           chatOption.map(_ => chat.frag)
@@ -74,7 +74,7 @@ LishogiRound.boot(${safeJsonValue(
       shogiground = false
     )(
       frag(
-        main(cls := s"round main-${pov.game.variant.key}")(
+        main(cls := s"round ${mainVariantClass(pov.game.variant)}")(
           st.aside(cls := "round__side")(
             game.side(pov, none, simul = none, userTv = none, bookmarked = false),
             div(cls := "for-crawler")(
@@ -83,7 +83,7 @@ LishogiRound.boot(${safeJsonValue(
               div(cls := "kif")(kif.render)
             )
           ),
-          div(cls := s"round__board main-board v-${pov.game.variant.key}")(shogiground(pov))
+          div(cls := s"round__board main-board ${variantClass(pov.game.variant)}")(shogiground(pov))
         )
       )
     )
