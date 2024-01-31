@@ -93,7 +93,7 @@ tags:
   \ - [Abort](#operation/botGameAbort) and [resign](#operation/botGameResign) games\n\
   \ - Engine assistance is allowed\n\
   \n### Restrictions\n\
-  \ - Bots can only play challenge games:  pools and tournaments are off-limits\n\
+  \ - Bots can only play challenge games: tournaments are off-limits\n\
   \n### Integrations\n\
   \ - [Python3 lishogi-bot](https://github.com/ThrYoBots/Lishogi-Bot) (official)\n\
   \ - Yours? Please make [an issue or pull request](https://github.com/lishogi-org/api).\n\
@@ -5414,7 +5414,6 @@ components:
             - import
             - importlive
             - simul
-            - pool
         compat:
           type: object
           properties:
@@ -5506,7 +5505,7 @@ components:
           "player": "sente",
           "turns": 6,
           "startedAtTurn": 0,
-          "source": "pool",
+          "source": "lobby",
           "status": { "id": 20, "name": "started" },
           "createdAt": 1620029815106,
           "lastMove": "c7c5"

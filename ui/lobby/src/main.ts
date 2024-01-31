@@ -26,8 +26,6 @@ export function start(opts: LobbyOpts) {
     },
     gameActivity: ctrl.gameActivity,
     setRedirecting: ctrl.setRedirecting,
-    enterPool: ctrl.enterPool,
-    leavePool: ctrl.leavePool,
     setup: ctrl.setup,
     redraw: ctrl.redraw,
   };

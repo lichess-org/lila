@@ -1,8 +1,4 @@
 export default function boot(cfg, element) {
-  cfg.pools = [
-    // mirrors modules/pool/src/main/PoolList.scala
-    //{ id: "1+0", lim: 1, inc: 0, perf: "Bullet" }
-  ];
   let lobby;
   const nbRoundSpread = spreadNumber('#nb_games_in_play > strong', 8),
     nbUserSpread = spreadNumber('#nb_connected_players > strong', 10),
@@ -42,7 +38,6 @@ export default function boot(cfg, element) {
         window.lishogi.pubsub.emit('content_loaded');
       },
       redirect: function (e) {
-        lobby.leavePool();
         lobby.setRedirecting();
         window.lishogi.redirect(e);
       },
@@ -85,7 +80,6 @@ export default function boot(cfg, element) {
     .on(clickEvent, function () {
       $(this).addClass('active').siblings().removeClass('active');
       window.lishogi.loadCssPath('lobby.setup');
-      lobby.leavePool();
       let url = (this as HTMLAnchorElement).href;
       if (this.dataset.hrefAddon) {
         url += this.dataset.hrefAddon;

@@ -129,7 +129,7 @@ export interface CorrespondenceClock {
   gote: number;
 }
 
-export type Source = 'import' | 'lobby' | 'pool' | 'friend';
+export type Source = 'import' | 'lobby' | 'friend' | 'ai' | 'tournament' | 'api';
 
 export interface PlayerUser {
   id: string;

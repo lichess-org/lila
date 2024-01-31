@@ -2,23 +2,17 @@ import { modal } from 'common/modal';
 import { MaybeVNode, MaybeVNodes, onInsert } from 'common/snabbdom';
 import spinner from 'common/spinner';
 import * as game from 'game';
-import { PlayerUser } from 'game';
 import { game as gameRoute } from 'game/router';
 import * as status from 'game/status';
 import { parseSfen } from 'shogiops/sfen';
 import { promotionZone } from 'shogiops/variant/util';
 import { Hooks, VNode, h } from 'snabbdom';
-import { ClockData } from '../clock/clockCtrl';
 import RoundController from '../ctrl';
 import { RoundData } from '../interfaces';
 import * as util from '../util';
 
 function analysisBoardOrientation(data: RoundData) {
   return data.player.color;
-}
-
-function poolUrl(clock: ClockData, blocking?: PlayerUser) {
-  return '/#pool/' + clock.initial / 60 + '+' + clock.increment + (blocking ? '/' + blocking.id : '');
 }
 
 function standardStudyForm(ctrl: RoundController): VNode {
@@ -643,7 +637,7 @@ export function followUp(ctrl: RoundController): VNode {
   const d = ctrl.data,
     rematchable =
       !d.game.rematch && (status.finished(d) || status.aborted(d)) && !d.tournament && !d.simul && !d.game.boosted,
-    newable = (status.finished(d) || status.aborted(d)) && (d.game.source === 'lobby' || d.game.source === 'pool'),
+    newable = (status.finished(d) || status.aborted(d)) && d.game.source === 'lobby',
     rematchZone = ctrl.challengeRematched
       ? [
           h(
@@ -673,7 +667,7 @@ export function followUp(ctrl: RoundController): VNode {
           'a.fbt',
           {
             attrs: {
-              href: d.game.source === 'pool' ? poolUrl(d.clock!, d.opponent.user) : '/?hook_like=' + d.game.id,
+              href: '/?hook_like=' + d.game.id,
             },
           },
           ctrl.noarg('newOpponent')

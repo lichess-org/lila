@@ -1,7 +1,6 @@
 import Filter from './filter';
 import * as hookRepo from './hookRepo';
-import { Hook, LobbyData, LobbyOpts, Mode, Pool, PoolMember, Seek, Sort, Tab } from './interfaces';
-import * as poolRangeStorage from './poolRangeStorage';
+import { Hook, LobbyData, LobbyOpts, Mode, Seek, Sort, Tab } from './interfaces';
 import * as seekRepo from './seekRepo';
 import Setup from './setup';
 import LobbySocket from './socket';
@@ -23,13 +22,10 @@ export default class LobbyController {
   stepHooks: Hook[] = [];
   stepping: boolean = false;
   redirecting: boolean = false;
-  poolMember?: PoolMember;
   trans: Trans;
-  pools: Pool[];
   filter: Filter;
   setup: Setup;
 
-  private poolInStorage: LishogiStorage;
   private flushHooksTimeout?: number;
   private alreadyWatching: string[] = [];
 
@@ -39,7 +35,6 @@ export default class LobbyController {
   ) {
     this.data = opts.data;
     this.data.hooks = [];
-    this.pools = opts.pools;
     this.playban = opts.playban;
     this.isBot = opts.data.me && opts.data.me.isBot;
     this.filter = new Filter(li.storage.make('lobby.filter'), this);
@@ -55,12 +50,6 @@ export default class LobbyController {
       (this.sort = this.stores.sort.get()),
       (this.trans = opts.trans);
 
-    this.poolInStorage = li.storage.make('lobby.pool-in');
-    this.poolInStorage.listen(_ => {
-      // when another tab joins a pool
-      this.leavePool();
-      redraw();
-    });
     this.flushHooksSchedule();
 
     this.startWatching();
@@ -69,21 +58,15 @@ export default class LobbyController {
       if (this.playban.remainingSecond < 86400) setTimeout(li.reload, this.playban.remainingSeconds * 1000);
     } else {
       setInterval(() => {
-        if (this.poolMember) this.poolIn();
-        else if (this.tab === 'real_time' && !this.data.hooks.length) this.socket.realTimeIn();
+        if (this.tab === 'real_time' && !this.data.hooks.length) this.socket.realTimeIn();
       }, 10 * 1000);
-      this.joinPoolFromLocationHash();
     }
 
     li.pubsub.on('socket.open', () => {
       if (this.tab === 'real_time') {
         this.data.hooks = [];
         this.socket.realTimeIn();
-      } //else if (this.tab === "pools" && this.poolMember) this.poolIn();
-    });
-
-    window.addEventListener('beforeunload', () => {
-      if (this.poolMember) this.socket.poolOut(this.poolMember);
+      }
     });
   }
 
@@ -155,41 +138,6 @@ export default class LobbyController {
     this.redraw();
   };
 
-  clickPool = (id: string) => {
-    if (!this.data.me) {
-      xhr.anonPoolSeek(
-        this.pools.find(function (p) {
-          return p.id === id;
-        })
-      );
-      this.setTab('real_time');
-    } else if (this.poolMember && this.poolMember.id === id) this.leavePool();
-    else {
-      this.enterPool({ id });
-      this.redraw();
-    }
-  };
-
-  enterPool = (member: PoolMember) => {
-    poolRangeStorage.set(member.id, member.range);
-    this.setTab('pools');
-    this.poolMember = member;
-    this.poolIn();
-  };
-
-  leavePool = () => {
-    if (!this.poolMember) return;
-    this.socket.poolOut(this.poolMember);
-    this.poolMember = undefined;
-    this.redraw();
-  };
-
-  poolIn = () => {
-    if (!this.poolMember) return;
-    this.poolInStorage.fire();
-    this.socket.poolIn(this.poolMember);
-  };
-
   gameActivity = gameId => {
     if (this.data.nowPlaying.find(p => p.gameId === gameId))
       xhr.nowPlaying().then(povs => {
@@ -227,22 +175,4 @@ export default class LobbyController {
         break;
     }
   };
-
-  // after click on round "new opponent" button
-  // also handles onboardink link for anon users
-  private joinPoolFromLocationHash() {
-    if (location.hash.startsWith('#pool/')) {
-      const regex = /^#pool\/(\d+\+\d+)(?:\/(.+))?$/,
-        match = regex.exec(location.hash),
-        member: any = { id: match![1], blocking: match![2] },
-        range = poolRangeStorage.get(member.id);
-      if (range) member.range = range;
-      if (match) {
-        //this.setTab("pools");
-        if (this.data.me) this.enterPool(member);
-        else setTimeout(() => this.clickPool(member.id), 1500);
-        history.replaceState(null, '', '/');
-      }
-    }
-  }
 }

@@ -16,7 +16,6 @@ final class Env(
     gameCache: lila.game.Cached,
     userRepo: lila.user.UserRepo,
     gameRepo: lila.game.GameRepo,
-    poolApi: lila.pool.PoolApi,
     cacheApi: lila.memo.CacheApi,
     remoteSocketApi: lila.socket.RemoteSocket
 )(implicit

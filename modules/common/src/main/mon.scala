@@ -102,21 +102,6 @@ object mon {
       val idle            = gauge("lobby.socket.idle").withoutTags()
       val hookSubscribers = gauge("lobby.socket.hookSubscribers").withoutTags()
     }
-    object pool {
-      object wave {
-        def scheduled(id: String)  = counter("lobby.pool.wave.scheduled").withTag("pool", id)
-        def full(id: String)       = counter("lobby.pool.wave.full").withTag("pool", id)
-        def candidates(id: String) = histogram("lobby.pool.wave.candidates").withTag("pool", id)
-        def paired(id: String)     = histogram("lobby.pool.wave.paired").withTag("pool", id)
-        def missed(id: String)     = histogram("lobby.pool.wave.missed").withTag("pool", id)
-        def wait(id: String)       = histogram("lobby.pool.wave.wait").withTag("pool", id)
-        def ratingDiff(id: String) = histogram("lobby.pool.wave.ratingDiff").withTag("pool", id)
-        def withRange(id: String)  = histogram("lobby.pool.wave.withRange").withTag("pool", id)
-      }
-      object thieve {
-        def stolen(id: String) = histogram("lobby.pool.thieve.stolen").withTag("pool", id)
-      }
-    }
     private val lobbySegment = timer("lobby.segment")
     def segment(seg: String) = lobbySegment.withTag("segment", seg)
   }

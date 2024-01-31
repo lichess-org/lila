@@ -79,30 +79,6 @@ case class Hook(
       .add("c" -> shogi.Color.fromName(color).map(_.name))
       .add("perf" -> perfType.map(_.key))
 
-  def randomColor = color == "random"
-
-  lazy val compatibleWithPools =
-    realMode.rated && realVariant.standard && randomColor &&
-      lila.pool.PoolList.clockStringSet.contains(clock.show)
-
-  def compatibleWithPool(poolClock: shogi.Clock.Config) =
-    compatibleWithPools && clock == poolClock
-
-  def toPool =
-    lila.pool.HookThieve.PoolHook(
-      hookId = id,
-      member = lila.pool.PoolMember(
-        userId = user.??(_.id),
-        sri = sri,
-        rating = rating | lila.rating.Glicko.defaultIntRating,
-        ratingRange = realRatingRange,
-        lame = user.??(_.lame),
-        blocking = lila.pool.PoolMember.BlockedUsers(user.??(_.blocking)),
-        since = createdAt,
-        rageSitCounter = 0
-      )
-    )
-
   private lazy val speed = Speed(clock)
 }
 

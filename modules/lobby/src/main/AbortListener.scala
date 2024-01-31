@@ -14,7 +14,7 @@ final private class AbortListener(
       lobbyTrouper.registerAbortedGame(pov.game)
 
   private def cancelColorIncrement(pov: Pov): Unit =
-    if (pov.game.source.exists(s => s == Source.Lobby || s == Source.Pool)) pov.game.userIds match {
+    if (pov.game.source.exists(_ == Source.Lobby)) pov.game.userIds match {
       case List(u1, u2) =>
         userRepo.incColor(u1, -1)
         userRepo.incColor(u2, 1)

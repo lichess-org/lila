@@ -121,19 +121,6 @@ export default class Setup {
     return undefined;
   };
 
-  private hookToPoolMember = (color, data) => {
-    const hash: any = {};
-    for (const i in data) hash[data[i].name] = data[i].value;
-    const valid = color == 'random' && hash.variant == 1 && hash.mode == 1 && hash.timeMode == 1,
-      id = parseFloat(hash.time) + '+' + parseInt(hash.increment);
-    return valid && this.root.pools.find(p => p.id === id)
-      ? {
-          id: id,
-          range: hash.ratingRange,
-        }
-      : undefined;
-  };
-
   private ratingKey = (variantId: string, realTime: boolean, timeSum: number): string => {
     switch (variantId) {
       case '2':
@@ -270,18 +257,13 @@ export default class Setup {
           .attr('title', this.root.trans('youNeedAnAccountToDoThat'));
       }
       const ajaxSubmit = color => {
-        const poolMember = this.hookToPoolMember(color, $form.serializeArray());
         $.modal.close();
-        if (poolMember) {
-          this.root.enterPool(poolMember);
-        } else {
-          this.root.setTab($timeModeSelect.val() === '1' ? 'real_time' : 'seeks');
-          $.ajax({
-            url: $form.attr('action').replace(/sri-placeholder/, li.sri),
-            data: $form.serialize() + '&color=' + color,
-            type: 'post',
-          });
-        }
+        this.root.setTab($timeModeSelect.val() === '1' ? 'real_time' : 'seeks');
+        $.ajax({
+          url: $form.attr('action').replace(/sri-placeholder/, li.sri),
+          data: $form.serialize() + '&color=' + color,
+          type: 'post',
+        });
         this.root.redraw();
         return false;
       };

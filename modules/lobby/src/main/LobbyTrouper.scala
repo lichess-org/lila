@@ -20,7 +20,6 @@ final private class LobbyTrouper(
     gameCache: lila.game.Cached,
     maxPlaying: Max,
     playbanApi: lila.playban.PlaybanApi,
-    poolApi: lila.pool.PoolApi,
     onStart: lila.round.OnStart
 )(implicit ec: scala.concurrent.ExecutionContext)
     extends Trouper {
@@ -42,7 +41,7 @@ final private class LobbyTrouper(
       hook.sid ?? { sid =>
         HookRepo bySid sid foreach remove
       }
-      !hook.compatibleWithPools ?? findCompatible(hook) match {
+      findCompatible(hook) match {
         case Some(h) => biteHook(h.id, hook.sri, hook.user)
         case None =>
           HookRepo save msg.hook
@@ -113,7 +112,6 @@ final private class LobbyTrouper(
         .foreach { this ! WithPromise(_, promise) }
 
     case WithPromise(Sris(sris), promise) =>
-      poolApi socketIds Sris(sris)
       val fewSecondsAgo = DateTime.now minusSeconds 5
       if (remoteDisconnectAllAt isBefore fewSecondsAgo) this ! RemoveHooks({
         (HookRepo notInSris sris).filter { h =>
@@ -131,12 +129,6 @@ final private class LobbyTrouper(
 
     case HookSub(member, true) =>
       socket ! AllHooksFor(member, HookRepo.vector.filter { biter.showHookTo(_, member) })
-
-    case lila.pool.HookThieve.GetCandidates(clock, promise) =>
-      promise success lila.pool.HookThieve.PoolHooks(HookRepo poolCandidates clock)
-
-    case lila.pool.HookThieve.StolenHookIds(ids) =>
-      HookRepo byIds ids.toSet foreach remove
   }
 
   private def NoPlayban(user: Option[LobbyUser])(f: => Unit): Unit = {

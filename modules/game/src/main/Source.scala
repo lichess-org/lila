@@ -16,15 +16,14 @@ object Source {
   case object Import     extends Source(id = 7)
   case object ImportLive extends Source(id = 9)
   case object Simul      extends Source(id = 10)
-  case object Pool       extends Source(id = 12)
 
-  val all = List(Lobby, Friend, Ai, Api, Tournament, Position, Import, Simul, Pool)
+  val all = List(Lobby, Friend, Ai, Api, Tournament, Position, Import, Simul)
   val byId = all map { v =>
     (v.id, v)
   } toMap
 
   val searchable             = List(Lobby, Friend, Ai, Position, Import, Tournament, Simul)
-  val expirable: Set[Source] = Set(Lobby, Tournament, Pool)
+  val expirable: Set[Source] = Set(Lobby, Tournament)
 
   def apply(id: Int): Option[Source] = byId get id
 }

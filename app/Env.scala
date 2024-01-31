@@ -66,7 +66,6 @@ final class Env(
     val event: lila.event.Env,
     val coach: lila.coach.Env,
     val clas: lila.clas.Env,
-    val pool: lila.pool.Env,
     val practice: lila.practice.Env,
     val activity: lila.activity.Env,
     val streamer: lila.streamer.Env,
@@ -243,7 +242,6 @@ final class EnvBoot(
   lazy val event: lila.event.Env             = wire[lila.event.Env]
   lazy val coach: lila.coach.Env             = wire[lila.coach.Env]
   lazy val clas: lila.clas.Env               = wire[lila.clas.Env]
-  lazy val pool: lila.pool.Env               = wire[lila.pool.Env]
   lazy val practice: lila.practice.Env       = wire[lila.practice.Env]
   lazy val activity: lila.activity.Env       = wire[lila.activity.Env]
   lazy val streamer: lila.streamer.Env       = wire[lila.streamer.Env]

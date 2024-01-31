@@ -33,7 +33,7 @@ final class PlaybanApi(
 
   private case class Blame(player: Player, outcome: Outcome)
 
-  private val blameableSources: Set[Source] = Set(Source.Lobby, Source.Pool, Source.Tournament)
+  private val blameableSources: Set[Source] = Set(Source.Lobby, Source.Tournament)
 
   private def blameable(game: Game): Fu[Boolean] =
     (game.source.exists(blameableSources.contains) && game.hasClock) ?? {

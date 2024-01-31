@@ -1,6 +1,6 @@
 import LobbyController from './ctrl';
 import * as hookRepo from './hookRepo';
-import { Hook, PoolMember } from './interfaces';
+import { Hook } from './interfaces';
 import * as xhr from './xhr';
 
 interface Handlers {
@@ -59,19 +59,6 @@ export default class LobbySocket {
   }
   realTimeOut() {
     this.send('hookOut');
-  }
-
-  poolIn(member: PoolMember) {
-    // last arg=true: must not retry
-    // because if poolIn is sent before socket opens,
-    // then poolOut is sent,
-    // then poolIn shouldn't be sent again after socket opens.
-    // poolIn is sent anyway on socket open event.
-    this.send('poolIn', member, {}, true);
-  }
-
-  poolOut(member: PoolMember) {
-    this.send('poolOut', member.id);
   }
 
   receive = (type: string, data: any): boolean => {

@@ -39,7 +39,7 @@ lazy val modules = Seq(
   common, db, rating, user, security, hub, socket,
   msg, notifyModule, i18n, game, bookmark, search,
   gameSearch, timeline, forum, forumSearch, team, teamSearch,
-  analyse, mod, round, pool, lobby, setup,
+  analyse, mod, round, lobby, setup,
   importer, tournament, simul, relation, report, pref,
   evaluation, chat, puzzle, tv, coordinate, blog,
   history, video, shutup, push, appeal,
@@ -216,18 +216,13 @@ lazy val round = module("round",
   Seq(scalatags, hasher, kamon.core, lettuce) ++ reactivemongo.bundle
 )
 
-lazy val pool = module("pool",
-  Seq(common, game, user, playban),
-  reactivemongo.bundle
-)
-
 lazy val activity = module("activity",
-  Seq(common, game, analyse, user, forum, study, pool, puzzle, tournament, practice, team),
+  Seq(common, game, analyse, user, forum, study, puzzle, tournament, practice, team),
   reactivemongo.bundle
 )
 
 lazy val lobby = module("lobby",
-  Seq(common, db, memo, hub, socket, game, user, round, timeline, relation, playban, security, pool),
+  Seq(common, db, memo, hub, socket, game, user, round, timeline, relation, playban, security),
   Seq(lettuce) ++ reactivemongo.bundle
 )
 

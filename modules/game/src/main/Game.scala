@@ -419,7 +419,6 @@ case class Game(
 
   def imported = source contains Source.Import
 
-  def fromPool   = source contains Source.Pool
   def fromLobby  = source contains Source.Lobby
   def fromFriend = source contains Source.Friend
 

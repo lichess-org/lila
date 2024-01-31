@@ -16,17 +16,3 @@ export function nowPlaying() {
   }).then(o => o.nowPlaying);
 }
 
-export function anonPoolSeek(pool) {
-  return $.ajax({
-    method: 'POST',
-    url: '/setup/hook/' + window.lishogi.sri,
-    data: {
-      variant: 1,
-      timeMode: 1,
-      time: pool.lim,
-      increment: pool.inc,
-      days: 1,
-      color: 'random',
-    },
-  });
-}

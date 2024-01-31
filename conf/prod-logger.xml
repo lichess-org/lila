@@ -84,16 +84,6 @@
       </rollingPolicy>
     </appender>
   </logger>
-  <logger name="pool" level="INFO">
-    <appender name="FILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
-      <file>/var/log/lishogi/pool.log</file>
-      <encoder><pattern>%date %-5level %logger{30} %message%n%xException</pattern></encoder>
-      <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
-        <fileNamePattern>/var/log/lishogi/pool-log-%d{yyyy-MM-dd}.gz</fileNamePattern>
-        <maxHistory>7</maxHistory>
-      </rollingPolicy>
-    </appender>
-  </logger>
   <logger name="tournament" level="INFO">
     <appender name="FILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
       <file>/var/log/lishogi/tournament.log</file>

@@ -12,8 +12,7 @@ final class Lobby(
 
   private lazy val lobbyJson = Json.obj(
     "lobby" -> Json.obj(
-      "version" -> 0,
-      "pools"   -> lila.pool.PoolList.json
+      "version" -> 0
     ),
     "assets" -> Json.obj(
       "domain" -> env.net.assetDomain.value
@@ -29,11 +28,7 @@ final class Lobby(
             Ok(html).noCache
           }
         } dmap env.lilaCookie.ensure(ctx.req),
-        api = _ =>
-          fuccess {
-            val expiration = 60 * 60 * 24 * 7 // set to one hour, one week before changing the pool config
-            Ok(lobbyJson).withHeaders(CACHE_CONTROL -> s"max-age=$expiration")
-          }
+        api = _ => fuccess(Ok(lobbyJson))
       )
     }
 
