@@ -321,7 +321,7 @@ final class RelayApi(
     }
 
   def canUpdate(tour: RelayTour)(using me: Me): Fu[Boolean] =
-    fuccess(Granter(_.Relay) || me.is(tour.ownerId)) >>|
+    fuccess(Granter(_.StudyAdmin) || me.is(tour.ownerId)) >>|
       roundRepo.coll.distinctEasy[StudyId, List]("_id", roundRepo.selectors tour tour.id).flatMap { ids =>
         studyRepo.membersByIds(ids) map {
           _.exists(_ contributorIds me)
