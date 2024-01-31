@@ -50,6 +50,11 @@ export default class RelayCtrl {
     return r && `/broadcast/${this.data.tour.slug}/${r.slug}/${r.id}`;
   };
 
+  updateAddressBar = (tourUrl: string, roundUrl: string) => {
+    const url = this.tourShow() ? `${tourUrl}${this.tab() === 'overview' ? '' : `#${this.tab()}`}` : roundUrl;
+    history.replaceState({}, '', url);
+  };
+
   private convertDate = (r: StudyChapterRelay): StudyChapterRelay => {
     if (typeof r.secondsSinceLastMove !== 'undefined' && !r.lastMoveAt) {
       r.lastMoveAt = Date.now() - r.secondsSinceLastMove * 1000;

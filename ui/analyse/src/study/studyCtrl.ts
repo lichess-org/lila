@@ -547,12 +547,13 @@ export default class StudyCtrl {
     const studyIdOffset = current.indexOf(`/${this.data.id}`);
     if (studyIdOffset === -1) return;
     const studyUrl = current.slice(0, studyIdOffset + 9);
-    const chapterSection = this.relay?.tourShow() ? '' : `/${this.vm.chapterId}`;
-    const studyAndChapterUrl = `${studyUrl}${chapterSection}`;
-    if (studyAndChapterUrl === current) return;
-    // if (studyAndChapterUrl.includes('/broadcast/') && studyAndChapterUrl.length !== current.length)
-    //   history.pushState({}, '', studyAndChapterUrl);
-    else history.replaceState({}, '', studyAndChapterUrl);
+    const chapterUrl = `${studyUrl}/${this.vm.chapterId}`;
+    if (this.relay) this.relay.updateAddressBar(studyUrl, chapterUrl);
+    else if (chapterUrl !== current) history.replaceState({}, '', chapterUrl);
+  };
+  redrawAndUpdateAddressBar = () => {
+    this.redraw();
+    this.updateAddressBar();
   };
   trans = this.ctrl.trans;
   socketHandler = (t: string, d: any) => {
