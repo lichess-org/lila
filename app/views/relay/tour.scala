@@ -34,22 +34,16 @@ object tour:
             searchForm("")
           ),
           st.section(cls := "relay-cards relay-cards--tier-top"):
-            active
-              .filter(_.tour.tierIs(_.BEST))
-              .map:
-                card.render(_, ongoing = _.ongoing)
+            active.filter(_.tour.tierIs(_.BEST)) map:
+              card.render(_, ongoing = _.ongoing)
           ,
           st.section(cls := "relay-cards relay-cards--tier-high"):
-            active
-              .filter(_.tour.tierIs(_.HIGH))
-              .map:
-                card.render(_, ongoing = _.ongoing)
+            active.filter(_.tour.tierIs(_.HIGH)) map:
+              card.render(_, ongoing = _.ongoing)
           ,
           st.section(cls := "relay-cards relay-cards--tier-normal"):
-            active
-              .filter(_.tour.tierIs(_.NORMAL))
-              .map:
-                card.render(_, ongoing = _.ongoing)
+            active.filter(_.tour.tierIs(_.NORMAL)) map:
+              card.render(_, ongoing = _.ongoing)
           ,
           upcoming.nonEmpty option frag(
             h2(cls := "relay-index__section")("Upcoming broadcasts"),
@@ -201,47 +195,6 @@ object tour:
           span(cls := "relay-card__desc")(t.description)
         )
       )
-
-  private def renderWidget[A <: RelayRound.AndTour](tr: A, ongoing: A => Boolean)(using Context) =
-    tourWidgetDiv(tr.tour)(
-      cls := List(
-        "relay-widget--active"  -> tr.tour.active,
-        "relay-widget--ongoing" -> ongoing(tr)
-      )
-    )(
-      a(cls := "overlay", href := tr.path),
-      div(
-        h2(tr.tour.name),
-        div(cls := "relay-widget__info")(
-          p(tr.tour.description),
-          p(cls := "relay-widget__info__meta")(
-            tr.tour.active option frag(strong(tr.display.name), br),
-            if ongoing(tr)
-            then trans.playingRightNow()
-            else tr.display.startedAt.orElse(tr.display.startsAt).map(momentFromNow(_))
-          )
-        )
-      )
-    )
-
-  private def renderEmptyWidget(t: RelayTour)(using Context) = tourWidgetDiv(t)(
-    a(cls := "overlay", href := routes.RelayTour.show(t.slug, t.id)),
-    div(
-      h2(t.name),
-      div(cls := "relay-widget__info")(
-        p(t.description),
-        p(cls := "relay-widget__info__meta")(trans.broadcast.noRoundsYet())
-      )
-    )
-  )
-
-  private def tourWidgetDiv(t: RelayTour) = div(
-    cls := List(
-      "relay-widget"                                  -> true,
-      s"tour-tier--${t.tier | RelayTour.Tier.NORMAL}" -> true
-    ),
-    dataIcon := licon.RadioTower
-  )
 
   private def searchForm(search: String)(using Context) = div(cls := "box__top__actions"):
     st.form(cls := "search", action := routes.RelayTour.index()):

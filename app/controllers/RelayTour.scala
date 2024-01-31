@@ -39,18 +39,6 @@ final class RelayTour(env: Env, apiC: => Api, prismicC: => Prismic) extends Lila
           .map:
             html.relay.tour.byOwner(_, owner)
 
-  def listOngoing(page: Int) = Open:
-    Reasonable(page, config.Max(20)):
-      ???
-
-  def listUpcoming(page: Int) = Open:
-    Reasonable(page, config.Max(20)):
-      ???
-
-  def listPast(page: Int) = Open:
-    Reasonable(page, config.Max(20)):
-      ???
-
   private def page(bookmark: String, menu: String) = Open:
     pageHit
     FoundPage(prismicC getBookmark bookmark): (doc, resolver) =>

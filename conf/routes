@@ -249,9 +249,6 @@ POST  /api/study/$id<\w{8}>/import-pgn controllers.Study.apiImportPgn(id)
 GET   /broadcast                              controllers.RelayTour.index(page: Int ?= 1, q ?= "")
 GET   /broadcast/new                          controllers.RelayTour.form
 POST  /broadcast/new                          controllers.RelayTour.create
-GET   /broadcast/ongoing                      controllers.RelayTour.listOngoing(page: Int ?= 1)
-GET   /broadcast/upcoming                     controllers.RelayTour.listUpcoming(page: Int ?= 1)
-GET   /broadcast/past                         controllers.RelayTour.listPast(page: Int ?= 1)
 GET   /broadcast/calendar                     controllers.RelayTour.calendar
 GET   /broadcast/help                         controllers.RelayTour.help
 GET   /broadcast/by/:user                     controllers.RelayTour.by(user, page: Int ?= 1)
