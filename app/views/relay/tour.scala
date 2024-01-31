@@ -46,7 +46,7 @@ object tour:
                 card.render(_, ongoing = _ => false)
           ),
           h2(cls := "relay-index__section")("Past broadcasts"),
-          renderPager(asRelayPager(past), "")(cls := "relay-cards relay-cards--past")
+          renderPager(asRelayPager(past), "")(cls := "relay-cards--past")
         )
       )
 
@@ -63,7 +63,7 @@ object tour:
             h1(liveBroadcasts()),
             searchForm(query)
           ),
-          renderPager(asRelayPager(pager), query)(cls := "relay-cards relay-cards--search")
+          renderPager(asRelayPager(pager), query)(cls := "relay-cards--search")
         )
       )
 
@@ -75,7 +75,7 @@ object tour:
     ):
       main(cls := "relay-index page-menu")(
         pageMenu("by", owner.some),
-        div(cls := "page-menu__content box")(
+        div(cls := "page-menu__content box box-pad")(
           boxTop:
             h1(lightUserLink(owner), " ", liveBroadcasts())
           ,
@@ -202,7 +202,7 @@ object tour:
     def next(page: Int) = owner match
       case None    => routes.RelayTour.index(page, query)
       case Some(u) => routes.RelayTour.by(u.name, page)
-    st.section(cls := "infinite-scroll")(
+    st.section(cls := "infinite-scroll relay-cards")(
       pager.currentPageResults.map {
         case w: WithLastRound => card.render(w, ongoing = _ => false)(cls := "paginated")
         case t: RelayTour     => card.empty(t)(cls := "paginated")
