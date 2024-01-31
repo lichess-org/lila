@@ -1,5 +1,6 @@
 package lila.notify
 
+import scala.concurrent.duration.Duration
 import reactivemongo.api.bson.Macros.Annotations.Key
 import ornicar.scalalib.ThreadLocalRandom
 import alleycats.Zero
@@ -93,7 +94,8 @@ private[notify] case class Notification(
     notifies: UserId,
     content: NotificationContent,
     read: NotificationRead,
-    createdAt: Instant
+    createdAt: Instant,
+    expiry: Option[Instant] = None
 ):
   def to = notifies
 
@@ -111,7 +113,16 @@ object Notification:
 
   case class AndUnread(pager: Paginator[Notification], unread: UnreadCount)
 
-  def make[U](to: U, content: NotificationContent)(using userIdOf: UserIdOf[U]): Notification =
+  def make[U](to: U, content: NotificationContent, expiresIn: Option[Duration] = none)(using
+      userIdOf: UserIdOf[U]
+  ): Notification =
     val idSize = 8
     val id     = ThreadLocalRandom nextString idSize
-    Notification(id, userIdOf(to), content, NotificationRead(false), nowInstant)
+    Notification(
+      id,
+      userIdOf(to),
+      content,
+      NotificationRead(false),
+      nowInstant,
+      expiry = expiresIn.so(ex => nowInstant.plusMinutes(ex.toMinutes.toInt).some)
+    )

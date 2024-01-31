@@ -29,8 +29,9 @@ final private class NotificationRepo(colls: NotifyColls)(using Executor):
   def markManyRead(doc: Bdoc): Funit =
     coll.update.one(doc, $set("read" -> true), multi = true).void
 
-  def unreadNotificationsCount(userId: UserId): Fu[UnreadCount] =
-    UnreadCount from coll.countSel(unreadOnlyQuery(userId))
+  def expireAndCount(userId: UserId): Fu[UnreadCount] =
+    markManyRead(expiredQuery(userId)) flatMap: _ =>
+      UnreadCount from coll.countSel(unreadOnlyQuery(userId))
 
   def hasRecent(note: Notification, criteria: ElementProducer, unreadSince: Duration): Fu[Boolean] =
     hasFresh(note.notifies, note.content.key, criteria, matchRecentOrUnreadSince(unreadSince))
@@ -66,3 +67,6 @@ final private class NotificationRepo(colls: NotifyColls)(using Executor):
 
   private def unreadOnlyQuery(userIds: Iterable[UserId]) =
     $doc("notifies" $in userIds, "read" -> false)
+
+  private def expiredQuery(userId: UserId) =
+    $doc("notifies" -> userId, "read" -> false, "expiry" -> $lt(nowInstant))
