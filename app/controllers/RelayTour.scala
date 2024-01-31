@@ -12,18 +12,21 @@ final class RelayTour(env: Env, apiC: => Api, prismicC: => Prismic) extends Lila
 
   def index(page: Int, q: String) = Open:
     Reasonable(page, config.Max(20)):
-      Ok.pageAsync:
-        q.trim.take(100).some.filter(_.nonEmpty) match
-          case Some(query) =>
-            env.relay.pager
-              .search(query, page)
-              .map: pager =>
-                html.relay.tour.index(Nil, pager, query)
-          case None =>
-            for
-              active <- (page == 1).so(env.relay.api.officialActive.get({}))
-              pager  <- env.relay.pager.inactive(page)
-            yield html.relay.tour.index(active, pager)
+      q.trim.take(100).some.filter(_.nonEmpty) match
+        case Some(query) =>
+          env.relay.pager
+            .search(query, page)
+            .flatMap: pager =>
+              Ok.pageAsync:
+                html.relay.tour.search(pager, query)
+        case None =>
+          for
+            active   <- (page == 1) so env.relay.api.officialActive.get({})
+            upcoming <- (page == 1) so env.relay.api.officialUpcoming.get({})
+            past     <- env.relay.pager.inactive(page)
+            render <- renderAsync:
+              html.relay.tour.index(active, upcoming, past)
+          yield Ok(render)
 
   def calendar = page("broadcast-calendar", "calendar")
   def help     = page("broadcasts", "help")
@@ -97,6 +100,28 @@ final class RelayTour(env: Env, apiC: => Api, prismicC: => Prismic) extends Lila
   def delete(id: TourModel.Id) = AuthOrScoped(_.Study.Write) { _ ?=> me ?=>
     WithTour(id): tour =>
       env.relay.api.deleteTourIfOwner(tour) inject Redirect(routes.RelayTour.by(me.username)).flashSuccess
+  }
+
+  private val ImageRateLimitPerIp = lila.memo.RateLimit.composite[lila.common.IpAddress](
+    key = "relay.image.ip"
+  )(
+    ("fast", 10, 2.minutes),
+    ("slow", 60, 1.day)
+  )
+
+  def image(id: TourModel.Id) = AuthBody(parse.multipartFormData) { ctx ?=> me ?=>
+    WithTourCanUpdate(id): tour =>
+      ctx.body.body.file("image") match
+        case Some(image) =>
+          ImageRateLimitPerIp(ctx.ip, rateLimited):
+            env.relay.api.image.upload(me, tour, image) map { newTour =>
+              Ok(html.relay.tourForm.formImage(newTour))
+            } recover { case e: Exception =>
+              BadRequest(e.getMessage)
+            }
+        case None =>
+          env.relay.api.image.delete(tour) map: newTour =>
+            Ok(html.relay.tourForm.formImage(newTour))
   }
 
   def subscribe(id: TourModel.Id, isSubscribed: Boolean) = Auth { _ ?=> me ?=>

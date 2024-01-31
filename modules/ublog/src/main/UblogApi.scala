@@ -119,18 +119,21 @@ final class UblogApi(
   def postPreview(id: UblogPostId) =
     colls.post.byId[UblogPost.PreviewPost](id, previewPostProjection)
 
-  private def imageRel(post: UblogPost) = s"ublog:${post.id}"
+  object image:
+    private def rel(post: UblogPost) = s"ublog:${post.id}"
 
-  def uploadImage(user: User, post: UblogPost, picture: PicfitApi.FilePart): Fu[UblogPost] =
-    for
-      pic <- picfitApi.uploadFile(imageRel(post), picture, userId = user.id)
+    def upload(user: User, post: UblogPost, picture: PicfitApi.FilePart): Fu[UblogPost] = for
+      pic <- picfitApi.uploadFile(rel(post), picture, userId = user.id)
       image = post.image.fold(UblogImage(pic.id))(_.copy(id = pic.id))
       _ <- colls.post.updateField($id(post.id), "image", image)
     yield post.copy(image = image.some)
 
-  def deleteImage(post: UblogPost): Fu[UblogPost] =
-    picfitApi.deleteByRel(imageRel(post)) >>
-      colls.post.unsetField($id(post.id), "image") inject post.copy(image = none)
+    def delete(post: UblogPost): Fu[UblogPost] = for
+      _ <- deleteImage(post)
+      _ <- colls.post.unsetField($id(post.id), "image")
+    yield post.copy(image = none)
+
+    def deleteImage(post: UblogPost): Funit = picfitApi.deleteByRel(rel(post))
 
   private def sendPostToZulipMaybe(user: User, post: UblogPost): Funit =
     (post.markdown.value.sizeIs > 1000) so
@@ -149,8 +152,7 @@ final class UblogApi(
       .list(30)
 
   def delete(post: UblogPost): Funit =
-    colls.post.delete.one($id(post.id)) >>
-      picfitApi.deleteByRel(imageRel(post))
+    colls.post.delete.one($id(post.id)) >> image.deleteImage(post)
 
   def setTier(blog: UblogBlog.Id, tier: UblogBlog.Tier): Funit =
     colls.blog.update
