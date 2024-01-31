@@ -35,7 +35,7 @@ case class RelayTour(
 
   def path: String = s"/broadcast/$slug/$id"
 
-  def tierIs(selector: RelayTour.Tier.type => RelayTour.Tier) =
+  def tierIs(selector: RelayTour.Tier.Selector) =
     tier.fold(false)(_ == selector(RelayTour.Tier))
 
 object RelayTour:
@@ -61,6 +61,7 @@ object RelayTour:
       case (t, n) if t == tier.toString => n
     } | "???"
     val keys: Map[Tier, String] = Map(NORMAL -> "normal", HIGH -> "high", BEST -> "best")
+    type Selector = RelayTour.Tier.type => RelayTour.Tier
 
   case class Spotlight(enabled: Boolean, language: Language, title: Option[String]):
     def isEmpty                           = !enabled && specialLanguage.isEmpty && title.isEmpty

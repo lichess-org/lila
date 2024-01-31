@@ -26,25 +26,19 @@ object tour:
       moreCss = cssTag("relay.index"),
       moreJs = infiniteScrollTag
     ):
+      def nonEmptyTier(selector: RelayTour.Tier.Selector, tier: String) =
+        val selected = active.filter(_.tour.tierIs(selector))
+        selected.nonEmpty option st.section(cls := s"relay-cards relay-cards--tier-$tier"):
+          selected.map:
+            card.render(_, ongoing = _.ongoing)
+
       main(cls := "relay-index page-menu")(
         pageMenu("index"),
         div(cls := "page-menu__content box box-pad")(
-          boxTop(
-            h1(liveBroadcasts()),
-            searchForm("")
-          ),
-          st.section(cls := "relay-cards relay-cards--tier-top"):
-            active.filter(_.tour.tierIs(_.BEST)) map:
-              card.render(_, ongoing = _.ongoing)
-          ,
-          st.section(cls := "relay-cards relay-cards--tier-high"):
-            active.filter(_.tour.tierIs(_.HIGH)) map:
-              card.render(_, ongoing = _.ongoing)
-          ,
-          st.section(cls := "relay-cards relay-cards--tier-normal"):
-            active.filter(_.tour.tierIs(_.NORMAL)) map:
-              card.render(_, ongoing = _.ongoing)
-          ,
+          boxTop(h1(liveBroadcasts()), searchForm("")),
+          nonEmptyTier(_.BEST, "best"),
+          nonEmptyTier(_.HIGH, "high"),
+          nonEmptyTier(_.NORMAL, "normal"),
           upcoming.nonEmpty option frag(
             h2(cls := "relay-index__section")("Upcoming broadcasts"),
             st.section(cls := "relay-cards relay-cards--upcoming"):
@@ -64,12 +58,12 @@ object tour:
     ):
       main(cls := "relay-index page-menu")(
         pageMenu("index"),
-        div(cls := "page-menu__content box")(
+        div(cls := "page-menu__content box box-pad")(
           boxTop(
             h1(liveBroadcasts()),
             searchForm(query)
           ),
-          renderPager(asRelayPager(pager), query)
+          renderPager(asRelayPager(pager), query)(cls := "relay-cards relay-cards--search")
         )
       )
 
