@@ -89,10 +89,7 @@ final class FishnetApi(
     }.map { _ map JsonApi.analysisFromWork(config.analysisNodes) }
 
   private def acquirePuzzle(client: Client, verifiable: Boolean): Fu[Option[JsonApi.Work]] =
-    if (
-      client._id.value != "offline" && client.instance
-        .exists(ins => config.clientVersionPuzzle.accept(ins.version).isSuccess)
-    )
+    if (client.instance.exists(ins => config.clientVersionPuzzle.accept(ins.version).isSuccess))
       workQueue {
         colls.puzzle
           .find(
