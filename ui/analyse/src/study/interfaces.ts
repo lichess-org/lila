@@ -8,7 +8,6 @@ import AnalyseCtrl from '../ctrl';
 export type Tab = 'intro' | 'members' | 'chapters';
 export type ChapterTab = 'init' | 'edit' | 'game' | 'fen' | 'pgn';
 export type ToolTab = 'tags' | 'comments' | 'glyphs' | 'serverEval' | 'share' | 'multiBoard';
-export type RelayTab = 'overview' | 'games' | 'schedule' | 'leaderboard';
 export type Visibility = 'public' | 'unlisted' | 'private';
 
 export interface StudyTour {

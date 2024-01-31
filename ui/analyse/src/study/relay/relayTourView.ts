@@ -1,11 +1,10 @@
 import AnalyseCtrl from '../../ctrl';
-import RelayCtrl from './relayCtrl';
+import RelayCtrl, { RelayTab } from './relayCtrl';
 import * as licon from 'common/licon';
 import { bind, dataIcon, onInsert, looseH as h, MaybeVNodes } from 'common/snabbdom';
 import { VNode } from 'snabbdom';
 import { innerHTML } from 'common/richText';
 import { RelayRound } from './interfaces';
-import { RelayTab } from '../interfaces';
 import { view as multiBoardView } from '../multiBoard';
 import { defined, scrollToInnerSelector } from 'common';
 import StudyCtrl from '../studyCtrl';

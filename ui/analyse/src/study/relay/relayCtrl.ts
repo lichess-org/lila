@@ -1,16 +1,19 @@
 import { RelayData, LogEvent, RelaySync, RelayRound } from './interfaces';
-import { RelayTab, StudyChapter, StudyChapterRelay } from '../interfaces';
+import { StudyChapter, StudyChapterRelay } from '../interfaces';
 import { isFinished } from '../studyChapters';
 import { StudyMemberCtrl } from '../studyMembers';
 import { AnalyseSocketSend } from '../../socket';
-import { Toggle, prop, toggle } from 'common';
+import { Prop, Toggle, prop, toggle } from 'common';
+
+export const relayTabs = ['overview', 'games', 'schedule', 'leaderboard'] as const;
+export type RelayTab = (typeof relayTabs)[number];
 
 export default class RelayCtrl {
   log: LogEvent[] = [];
   cooldown = false;
   clockInterval?: number;
   tourShow: Toggle;
-  tab = prop<RelayTab>('overview');
+  tab: Prop<RelayTab>;
 
   constructor(
     public id: string,
@@ -22,6 +25,8 @@ export default class RelayCtrl {
   ) {
     this.applyChapterRelay(chapter, chapter.relay);
     this.tourShow = toggle((location.pathname.match(/\//g) || []).length < 5);
+    const locationTab = location.hash.replace(/^#/, '') as RelayTab;
+    this.tab = prop<RelayTab>(relayTabs.includes(locationTab) ? locationTab : 'overview');
   }
 
   setSync = (v: boolean) => {
@@ -52,7 +57,9 @@ export default class RelayCtrl {
 
   updateAddressBar = (tourUrl: string, roundUrl: string) => {
     const url = this.tourShow() ? `${tourUrl}${this.tab() === 'overview' ? '' : `#${this.tab()}`}` : roundUrl;
-    history.replaceState({}, '', url);
+    // when jumping from a tour tab to another page, remember which tour tab we were on.
+    if (!this.tourShow() && location.href.includes('#')) history.pushState({}, '', url);
+    else history.replaceState({}, '', url);
   };
 
   private convertDate = (r: StudyChapterRelay): StudyChapterRelay => {
