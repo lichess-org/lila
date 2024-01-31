@@ -29,6 +29,9 @@
       font-size: 0.9rem;
       margin-#{$start-direction}: -0.5rem;
       vertical-align: top;
+      @media (hover: none) {
+        display: none;
+      }
     }
     &__date {
       unicode-bidi: embed;
