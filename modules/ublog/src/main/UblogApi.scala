@@ -128,6 +128,11 @@ final class UblogApi(
       _ <- colls.post.updateField($id(post.id), "image", image)
     yield post.copy(image = image.some)
 
+    def deleteAll(post: UblogPost): Funit = for
+      _ <- deleteImage(post)
+      _ <- picfitApi.deleteByIdsAndUser(PicfitApi.findInMarkdown(post.markdown).toSeq, post.created.by)
+    yield ()
+
     def delete(post: UblogPost): Fu[UblogPost] = for
       _ <- deleteImage(post)
       _ <- colls.post.unsetField($id(post.id), "image")
@@ -152,7 +157,7 @@ final class UblogApi(
       .list(30)
 
   def delete(post: UblogPost): Funit =
-    colls.post.delete.one($id(post.id)) >> image.deleteImage(post)
+    colls.post.delete.one($id(post.id)) >> image.deleteAll(post)
 
   def setTier(blog: UblogBlog.Id, tier: UblogBlog.Tier): Funit =
     colls.blog.update
