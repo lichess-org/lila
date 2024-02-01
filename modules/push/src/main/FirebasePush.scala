@@ -33,7 +33,9 @@ final private class FirebasePush(
           for
             data <- data.value
             _ <-
-              if data.firebaseMod.contains(PushApi.Data.FirebaseMod.DataOnly) && !device.isMobile
+              if !data.mobileCompatible && device.isMobile
+              then funit // mobile doesn't yet support all messages
+              else if data.firebaseMod.contains(PushApi.Data.FirebaseMod.DataOnly) && !device.isMobile
               then funit // don't send data messages to lichobile
               else
                 for
@@ -73,9 +75,9 @@ final private class FirebasePush(
               "data" -> toDataKeyValue:
                 data.firebaseMod.match
                   case Some(PushApi.Data.FirebaseMod.NotifOnly(mod)) => mod(data.payload.userData)
-                  case _                                             => data.payload.userData ++ (data.iosBadge.map: number =>
-                    "iosBadge" -> number.toString
-                  ),
+                  case _ =>
+                    data.payload.userData ++ (data.iosBadge.map: number =>
+                      "iosBadge" -> number.toString),
             )
             .add:
               "notification" -> data.firebaseMod.match

@@ -67,6 +67,7 @@ final private class PushApi(
                 "gameId" -> game.id.value,
                 "fullId" -> pov.fullId.value
               ),
+              mobileCompatible = true,
               iosBadge = nbMyTurn.some,
               firebaseMod = offlineRoundNotif
             )
@@ -94,6 +95,7 @@ final private class PushApi(
                     stacking = Stacking.GameMove,
                     urgency = if pov.isMyTurn then Urgency.Normal else Urgency.Low,
                     payload = payload,
+                    mobileCompatible = true,
                     iosBadge = nbMyTurn.some,
                     firebaseMod = offlineRoundNotif
                   )
@@ -122,6 +124,7 @@ final private class PushApi(
                   stacking = Stacking.GameTakebackOffer,
                   urgency = Urgency.Normal,
                   payload = payload,
+                  mobileCompatible = true,
                   firebaseMod = offlineRoundNotif
                 )
               IfAway(pov)(maybePushNotif(userId, _.takeback, NotificationPref.GameEvent, data)) >>
@@ -146,7 +149,8 @@ final private class PushApi(
                   stacking = Stacking.GameDrawOffer,
                   urgency = Urgency.Normal,
                   payload = payload,
-                  firebaseMod = offlineRoundNotif
+                  firebaseMod = offlineRoundNotif,
+                  mobileCompatible = true
                 )
               IfAway(pov)(maybePushNotif(userId, _.draw, NotificationPref.GameEvent, data)) >>
                 alwaysPushFirebaseData(userId, _.draw, data)
@@ -164,6 +168,7 @@ final private class PushApi(
           stacking = Stacking.GameMove,
           urgency = Urgency.High,
           payload = payload,
+          mobileCompatible = true,
           firebaseMod = offlineRoundNotif
         )
       maybePushNotif(userId, _.corresAlarm, NotificationPref.GameEvent, data) >>
@@ -190,6 +195,7 @@ final private class PushApi(
           body = text,
           stacking = Stacking.PrivateMessage,
           urgency = Urgency.Normal,
+          mobileCompatible = false,
           payload = payload(to.userId)(
             "type"     -> "newMessage",
             "threadId" -> senderId.value
@@ -207,6 +213,7 @@ final private class PushApi(
           body = s"$invitedBy invited you to $studyName",
           stacking = Stacking.InvitedStudy,
           urgency = Urgency.Normal,
+          mobileCompatible = false,
           payload = payload(to.userId)(
             "type"      -> "invitedStudy",
             "invitedBy" -> invitedBy,
@@ -234,7 +241,8 @@ final private class PushApi(
                 payload = payload(dest.id)(
                   "type"        -> "challengeCreate",
                   "challengeId" -> c.id.value
-                )
+                ),
+                mobileCompatible = false
               )
           )
 
@@ -251,6 +259,7 @@ final private class PushApi(
               body = describeChallenge(c),
               stacking = Stacking.ChallengeAccept,
               urgency = Urgency.Normal,
+              mobileCompatible = false,
               payload = payload(challenger.id)(
                 "type"        -> "challengeAccept",
                 "challengeId" -> c.id.value
@@ -270,6 +279,7 @@ final private class PushApi(
             body = "The tournament is about to start!",
             stacking = Stacking.ChallengeAccept,
             urgency = Urgency.Normal,
+            mobileCompatible = false,
             payload = payload(userId)(
               "type"     -> "tourSoon",
               "tourId"   -> tour.tourId,
@@ -290,6 +300,7 @@ final private class PushApi(
             body = post.fold(topicName)(p => shorten(p.text, 57 - 3, "...")),
             stacking = Stacking.ForumMention,
             urgency = Urgency.Low,
+            mobileCompatible = false,
             payload = payload(to.userId)(
               "type"        -> "forumMention",
               "mentionedBy" -> mentionedBy,
@@ -311,7 +322,8 @@ final private class PushApi(
           "type"       -> "streamStart",
           "streamerId" -> streamerId.value,
           "url"        -> s"https://lichess.org/streamer/$streamerId/redirect"
-        )
+        ),
+        mobileCompatible = false
       )
     val webRecips = recips.collect { case u if u.allows.web => u.userId }
     webPush(webRecips, pushData).addEffects { res =>
@@ -335,7 +347,8 @@ final private class PushApi(
         body = body,
         stacking = Stacking.Generic,
         urgency = Urgency.Normal,
-        payload = payload("url" -> url)
+        payload = payload("url" -> url),
+        mobileCompatible = false
       )
     val webRecips = recips.collect { case u if u.allows.web => u.userId }
     webPush(webRecips, pushData).addEffects { res =>
@@ -396,6 +409,7 @@ private object PushApi:
       stacking: Stacking,
       urgency: Urgency,
       payload: Data.Payload,
+      mobileCompatible: Boolean,
       iosBadge: Option[Int] = None,
       // https://firebase.google.com/docs/cloud-messaging/concept-options#data_messages
       firebaseMod: Option[Data.FirebaseMod] = None
