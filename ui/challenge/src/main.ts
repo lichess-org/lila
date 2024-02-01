@@ -1,5 +1,5 @@
 import { init, VNode, classModule, attributesModule } from 'snabbdom';
-import Ctrl from './ctrl';
+import ChallengeCtrl from './ctrl';
 import { loaded, loading } from './view';
 import { json } from 'common/xhr';
 import { ChallengeOpts, ChallengeData } from './interfaces';
@@ -7,7 +7,7 @@ import { ChallengeOpts, ChallengeData } from './interfaces';
 const patch = init([classModule, attributesModule]);
 
 export function initModule(opts: ChallengeOpts) {
-  let vnode: VNode, ctrl: Ctrl;
+  let vnode: VNode, ctrl: ChallengeCtrl;
 
   function redraw() {
     vnode = patch(vnode || opts.el, ctrl ? loaded(ctrl) : loading());
@@ -16,7 +16,7 @@ export function initModule(opts: ChallengeOpts) {
   function update(d: ChallengeData) {
     if (ctrl) ctrl.update(d);
     else {
-      ctrl = new Ctrl(opts, d, redraw);
+      ctrl = new ChallengeCtrl(opts, d, redraw);
       opts.el.innerHTML = '';
     }
     redraw();

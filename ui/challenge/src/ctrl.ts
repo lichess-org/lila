@@ -1,7 +1,7 @@
 import * as xhr from 'common/xhr';
 import { ChallengeOpts, ChallengeData, Reasons } from './interfaces';
 
-export default class Ctrl {
+export default class ChallengeCtrl {
   data: ChallengeData;
   trans = (key: string) => key;
   redirecting = false;

@@ -4,9 +4,9 @@ import * as licon from 'common/licon';
 import { spinnerVdom as spinner } from 'common/spinner';
 import { userLink } from 'common/userLink';
 import { opposite } from 'chessground/util';
-import Ctrl from './ctrl';
+import ChallengeCtrl from './ctrl';
 
-export const loaded = (ctrl: Ctrl): VNode =>
+export const loaded = (ctrl: ChallengeCtrl): VNode =>
   ctrl.redirecting
     ? h('div#challenge-app.dropdown', h('div.initiating', spinner()))
     : h('div#challenge-app.links.dropdown.rendered', renderContent(ctrl));
@@ -14,7 +14,7 @@ export const loaded = (ctrl: Ctrl): VNode =>
 export const loading = (): VNode =>
   h('div#challenge-app.links.dropdown.rendered', h('div.empty.loading', '-'));
 
-function renderContent(ctrl: Ctrl): VNode[] {
+function renderContent(ctrl: ChallengeCtrl): VNode[] {
   const d = ctrl.data;
   const nb = d.in.length + d.out.length;
   return nb ? [allChallenges(ctrl, d, nb)] : [empty()];
@@ -22,7 +22,7 @@ function renderContent(ctrl: Ctrl): VNode[] {
 
 const userPowertips = (vnode: VNode) => lichess.powertip.manualUserIn(vnode.elm as HTMLElement);
 
-const allChallenges = (ctrl: Ctrl, d: ChallengeData, nb: number): VNode =>
+const allChallenges = (ctrl: ChallengeCtrl, d: ChallengeData, nb: number): VNode =>
   h(
     'div.challenges',
     {
@@ -32,7 +32,7 @@ const allChallenges = (ctrl: Ctrl, d: ChallengeData, nb: number): VNode =>
     d.in.map(challenge(ctrl, 'in')).concat(d.out.map(challenge(ctrl, 'out'))),
   );
 
-function challenge(ctrl: Ctrl, dir: ChallengeDirection) {
+function challenge(ctrl: ChallengeCtrl, dir: ChallengeDirection) {
   return (c: Challenge) => {
     const fromPosition = c.variant.key == 'fromPosition';
     const origColor = c.color == 'random' ? (fromPosition ? c.finalColor : 'random') : c.finalColor;
@@ -73,7 +73,7 @@ function challenge(ctrl: Ctrl, dir: ChallengeDirection) {
   };
 }
 
-function inButtons(ctrl: Ctrl, c: Challenge): VNode[] {
+function inButtons(ctrl: ChallengeCtrl, c: Challenge): VNode[] {
   return [
     h('form', { attrs: { method: 'post', action: `/challenge/${c.id}/accept` } }, [
       h('button.button.accept', {
@@ -107,7 +107,7 @@ function inButtons(ctrl: Ctrl, c: Challenge): VNode[] {
   ];
 }
 
-const outButtons = (ctrl: Ctrl, c: Challenge) => [
+const outButtons = (ctrl: ChallengeCtrl, c: Challenge) => [
   h('div.owner', [
     h('span.waiting', ctrl.trans('waiting')),
     h('a.view', {
