@@ -550,7 +550,7 @@ export default class StudyCtrl {
     return cs.length == 1 && cs[0].name == 'Chapter 1' && !this.currentChapter().ongoing;
   };
   updateAddressBar = () => {
-    const current = window.location.href;
+    const current = location.href;
     const studyIdOffset = current.indexOf(`/${this.data.id}`);
     if (studyIdOffset === -1) return;
     const studyUrl = current.slice(0, studyIdOffset + 9);

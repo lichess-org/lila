@@ -1,8 +1,8 @@
 import { init, VNode, classModule, attributesModule } from 'snabbdom';
-import makeCtrl from './ctrl';
+import Ctrl from './ctrl';
 import { loaded, loading } from './view';
 import { json } from 'common/xhr';
-import { ChallengeOpts, ChallengeData, Ctrl } from './interfaces';
+import { ChallengeOpts, ChallengeData } from './interfaces';
 
 const patch = init([classModule, attributesModule]);
 
@@ -16,7 +16,7 @@ export function initModule(opts: ChallengeOpts) {
   function update(d: ChallengeData) {
     if (ctrl) ctrl.update(d);
     else {
-      ctrl = makeCtrl(opts, d, redraw);
+      ctrl = new Ctrl(opts, d, redraw);
       opts.el.innerHTML = '';
     }
     redraw();

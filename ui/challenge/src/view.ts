@@ -1,12 +1,13 @@
-import { Ctrl, Challenge, ChallengeData, ChallengeDirection, ChallengeUser, TimeControl } from './interfaces';
+import { Challenge, ChallengeData, ChallengeDirection, ChallengeUser, TimeControl } from './interfaces';
 import { h, VNode } from 'snabbdom';
 import * as licon from 'common/licon';
 import { spinnerVdom as spinner } from 'common/spinner';
 import { userLink } from 'common/userLink';
 import { opposite } from 'chessground/util';
+import Ctrl from './ctrl';
 
 export const loaded = (ctrl: Ctrl): VNode =>
-  ctrl.redirecting()
+  ctrl.redirecting
     ? h('div#challenge-app.dropdown', h('div.initiating', spinner()))
     : h('div#challenge-app.links.dropdown.rendered', renderContent(ctrl));
 
@@ -14,15 +15,15 @@ export const loading = (): VNode =>
   h('div#challenge-app.links.dropdown.rendered', h('div.empty.loading', '-'));
 
 function renderContent(ctrl: Ctrl): VNode[] {
-  const d = ctrl.data();
+  const d = ctrl.data;
   const nb = d.in.length + d.out.length;
   return nb ? [allChallenges(ctrl, d, nb)] : [empty()];
 }
 
 const userPowertips = (vnode: VNode) => lichess.powertip.manualUserIn(vnode.elm as HTMLElement);
 
-function allChallenges(ctrl: Ctrl, d: ChallengeData, nb: number): VNode {
-  return h(
+const allChallenges = (ctrl: Ctrl, d: ChallengeData, nb: number): VNode =>
+  h(
     'div.challenges',
     {
       class: { many: nb > 3 },
@@ -30,7 +31,6 @@ function allChallenges(ctrl: Ctrl, d: ChallengeData, nb: number): VNode {
     },
     d.in.map(challenge(ctrl, 'in')).concat(d.out.map(challenge(ctrl, 'out'))),
   );
-}
 
 function challenge(ctrl: Ctrl, dir: ChallengeDirection) {
   return (c: Challenge) => {
@@ -50,7 +50,7 @@ function challenge(ctrl: Ctrl, dir: ChallengeDirection) {
             h('span.desc', [
               h('span.is.color-icon.' + myColor),
               ' • ',
-              [ctrl.trans()(c.rated ? 'rated' : 'casual'), timeControl(c.timeControl), c.variant.name].join(
+              [ctrl.trans(c.rated ? 'rated' : 'casual'), timeControl(c.timeControl), c.variant.name].join(
                 ' • ',
               ),
             ]),
@@ -74,7 +74,6 @@ function challenge(ctrl: Ctrl, dir: ChallengeDirection) {
 }
 
 function inButtons(ctrl: Ctrl, c: Challenge): VNode[] {
-  const trans = ctrl.trans();
   return [
     h('form', { attrs: { method: 'post', action: `/challenge/${c.id}/accept` } }, [
       h('button.button.accept', {
@@ -82,13 +81,13 @@ function inButtons(ctrl: Ctrl, c: Challenge): VNode[] {
           type: 'submit',
           'aria-describedby': `challenge-text-${c.id}`,
           'data-icon': licon.Checkmark,
-          title: trans('accept'),
+          title: ctrl.trans('accept'),
         },
         hook: onClick(ctrl.onRedirect),
       }),
     ]),
     h('button.button.decline', {
-      attrs: { type: 'submit', 'data-icon': licon.X, title: trans('decline') },
+      attrs: { type: 'submit', 'data-icon': licon.X, title: ctrl.trans('decline') },
       hook: onClick(() => ctrl.decline(c.id, 'generic')),
     }),
     h(
@@ -101,28 +100,25 @@ function inButtons(ctrl: Ctrl, c: Challenge): VNode[] {
           },
         },
       },
-      Object.entries(ctrl.reasons()).map(([key, name]) =>
+      Object.entries(ctrl.reasons).map(([key, name]) =>
         h('option', { attrs: { value: key } }, key == 'generic' ? '' : name),
       ),
     ),
   ];
 }
 
-function outButtons(ctrl: Ctrl, c: Challenge) {
-  const trans = ctrl.trans();
-  return [
-    h('div.owner', [
-      h('span.waiting', ctrl.trans()('waiting')),
-      h('a.view', {
-        attrs: { 'data-icon': licon.Eye, href: '/' + c.id, title: trans('viewInFullSize') },
-      }),
-    ]),
-    h('button.button.decline', {
-      attrs: { 'data-icon': licon.X, title: trans('cancel') },
-      hook: onClick(() => ctrl.cancel(c.id)),
+const outButtons = (ctrl: Ctrl, c: Challenge) => [
+  h('div.owner', [
+    h('span.waiting', ctrl.trans('waiting')),
+    h('a.view', {
+      attrs: { 'data-icon': licon.Eye, href: '/' + c.id, title: ctrl.trans('viewInFullSize') },
     }),
-  ];
-}
+  ]),
+  h('button.button.decline', {
+    attrs: { 'data-icon': licon.X, title: ctrl.trans('cancel') },
+    hook: onClick(() => ctrl.cancel(c.id)),
+  }),
+];
 
 function timeControl(c: TimeControl): string {
   switch (c.type) {
