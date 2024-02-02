@@ -293,5 +293,5 @@ trait FormHelper:
 
     object file:
       def image(name: String): Frag =
-        st.input(tpe := "file", st.name := name, accept := "image/png, image/jpeg, image/webp")
+        st.input(tpe := "file", st.name := name, accept := "image/png, image/jpeg")
       def pgn(name: String): Frag = st.input(tpe := "file", st.name := name, accept := ".pgn")
