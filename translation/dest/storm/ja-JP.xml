@@ -55,6 +55,6 @@
   <string name="thisMonth">今月</string>
   <string name="allTime">全期間</string>
   <string name="clickToReload">クリックで再読み込み</string>
-  <string name="thisRunHasExpired">この試行は期限切れです！</string>
+  <string name="thisRunHasExpired">時間切れです！</string>
   <string name="thisRunWasOpenedInAnotherTab">この試行は別のタブで開かれました！</string>
 </resources>
