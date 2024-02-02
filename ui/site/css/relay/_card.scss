@@ -45,9 +45,13 @@
   }
 
   &__info {
+    @extend %flex-center-nowrap;
     color: $c-font-dim;
+    gap: 1ch;
   }
   &__live {
+    @extend %flex-between;
+    flex: 1;
     color: $c-bad;
     font-weight: bold;
   }
