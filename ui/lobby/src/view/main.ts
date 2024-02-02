@@ -4,6 +4,7 @@ import LobbyController from '../ctrl';
 import renderSeeks from './correspondence';
 import renderPlaying from './playing';
 import renderRealTime from './realTime/main';
+import * as renderPresets from './presets';
 import renderTabs from './tabs';
 
 export default function (ctrl: LobbyController) {
@@ -12,6 +13,10 @@ export default function (ctrl: LobbyController) {
   if (ctrl.redirecting) body = spinner();
   else
     switch (ctrl.tab) {
+      case 'presets':
+        body = renderPresets.render(ctrl);
+        data = { hook: renderPresets.presetHooks(ctrl) };
+        break;
       case 'real_time':
         body = renderRealTime(ctrl);
         break;

@@ -1,6 +1,6 @@
 export type Sort = 'rating' | 'time';
 export type Mode = 'list' | 'chart';
-export type Tab = 'real_time' | 'seeks' | 'now_playing';
+export type Tab = 'presets' | 'real_time' | 'seeks' | 'now_playing';
 
 interface Untyped {
   [key: string]: any;
@@ -50,4 +50,15 @@ export interface LobbyOpts extends Untyped {
 export interface LobbyData extends Untyped {
   hooks: Hook[];
   seeks: Seek[];
+}
+
+export interface Preset {
+  id: string;
+  lim: number;
+  byo: number;
+  inc: number;
+  per: number;
+  days: number;
+  timeMode: number;
+  ai?: number;
 }

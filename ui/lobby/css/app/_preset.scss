@@ -1,11 +1,11 @@
-.lobby__app-pools {
+.lobby__app-presets {
   height: 300px;
   @include breakpoint($mq-col2) {
     height: 400px;
   }
 }
 
-.lpools {
+.lpresets {
   @extend %roboto;
   display: grid;
   grid-template-columns: repeat(3, 1fr);
@@ -50,8 +50,11 @@
   }
   .clock {
     display: block;
-    font-size: 1.5em;
+    font-size: 1.4em;
     line-height: 1.6em;
     letter-spacing: .1em;
+  }
+  .perf {
+    font-size: 0.8em;
   }
 }

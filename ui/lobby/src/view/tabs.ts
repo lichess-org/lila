@@ -9,7 +9,6 @@ function tab(ctrl: LobbyController, key: Tab, active: Tab, content: MaybeVNodes)
     {
       class: {
         active: key === active,
-        'glowing-text': key !== active && key === 'real_time',
       },
       hook: bind('mousedown', _ => ctrl.setTab(key), ctrl.redraw),
     },
@@ -23,6 +22,7 @@ export default function (ctrl: LobbyController) {
   }).length;
   const active = ctrl.tab;
   return [
+    ctrl.isBot ? undefined : tab(ctrl, 'presets', active, [ctrl.trans.noargOrCapitalize('presets')]),
     ctrl.isBot ? undefined : tab(ctrl, 'real_time', active, [ctrl.trans.noarg('lobby')]),
     ctrl.isBot ? undefined : tab(ctrl, 'seeks', active, [ctrl.trans.noarg('correspondence')]),
     active === 'now_playing' || ctrl.data.nbNowPlaying > 0 || ctrl.isBot

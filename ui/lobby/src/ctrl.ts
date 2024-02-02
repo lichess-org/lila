@@ -1,6 +1,6 @@
 import Filter from './filter';
 import * as hookRepo from './hookRepo';
-import { Hook, LobbyData, LobbyOpts, Mode, Seek, Sort, Tab } from './interfaces';
+import { Hook, LobbyData, LobbyOpts, Mode, Preset, Seek, Sort, Tab } from './interfaces';
 import * as seekRepo from './seekRepo';
 import Setup from './setup';
 import LobbySocket from './socket';
@@ -25,6 +25,7 @@ export default class LobbyController {
   trans: Trans;
   filter: Filter;
   setup: Setup;
+  allPresets: Preset[];
 
   private flushHooksTimeout?: number;
   private alreadyWatching: string[] = [];
@@ -39,6 +40,7 @@ export default class LobbyController {
     this.isBot = opts.data.me && opts.data.me.isBot;
     this.filter = new Filter(li.storage.make('lobby.filter'), this);
     this.setup = new Setup(li.storage.make, this);
+    this.initAllPresets();
 
     hookRepo.initAll(this);
     seekRepo.initAll(this);
@@ -91,6 +93,35 @@ export default class LobbyController {
 
   private flushHooksSchedule = (): number => setTimeout(this.flushHooks, 8000);
 
+  initAllPresets = () => {
+    const savedAiLevel = +(this.setup.stores.ai.get()?.level || 2),
+      level = Math.min(Math.max(savedAiLevel, 2), 7); // the middle level
+    this.allPresets = [
+      { lim: 0, byo: 10 },
+      { lim: 3, byo: 0 },
+      { lim: 5, byo: 10 },
+      { lim: 10, byo: 0 },
+      { lim: 10, byo: 30 },
+      { lim: 15, byo: 30 },
+      { lim: 10, ai: level - 1 },
+      { lim: 15, ai: level },
+      { lim: 20, ai: level + 1 },
+      { days: 3 },
+      { days: 5 },
+    ].map((p, i) => {
+      return {
+        id: 'pid-' + i,
+        lim: p.lim || 1,
+        byo: p.byo || 0,
+        inc: 0,
+        per: 1,
+        ai: p.ai,
+        days: p.days || 1,
+        timeMode: p.days ? 2 : 1,
+      };
+    });
+  };
+
   setTab = (tab: Tab) => {
     if (tab !== this.tab) {
       if (tab === 'seeks') xhr.seeks().then(this.setSeeks);
@@ -136,6 +167,13 @@ export default class LobbyController {
     this.data.seeks = seeks;
     seekRepo.initAll(this);
     this.redraw();
+  };
+  clickPreset = preset => {
+    xhr.seekFromPreset(preset, !this.data.me);
+    if (!preset.ai) {
+      if (preset.timeMode === 2) this.setTab('seeks');
+      else this.setTab('real_time');
+    }
   };
 
   gameActivity = gameId => {
