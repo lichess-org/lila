@@ -9,7 +9,7 @@ case class MultiPgn(value: List[PgnStr]) extends AnyVal:
 
 object MultiPgn:
 
-  private[this] val splitPat = """\R\R(?=\[)""".r.pattern
+  private[this] val splitPat = """\n\n(?=\[)""".r.pattern
 
   def split(str: PgnStr, max: Max) = MultiPgn:
     PgnStr from splitPat
