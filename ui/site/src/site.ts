@@ -35,6 +35,7 @@ lichess.load.then(() => {
     pubsub.on('content-loaded', miniGame.initAll);
     timeago.updateRegularly(1000);
     pubsub.on('content-loaded', timeago.findAndRender);
+    $('input[accept="image/png, image/jpeg, image/webp"]').attr('accept', 'image/png, image/jpeg');
   });
   requestIdleCallback(() => {
     const friendsEl = document.getElementById('friend_box');
