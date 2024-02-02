@@ -1,2 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+  <string name="welcome">Selamat Datang!</string>
+  <string name="welcomeToLichess">Selamat Datang ke lichess.org!</string>
+  <string name="thisIsYourProfilePage">Ini adalah halaman profil Anda.</string>
+  <string name="enabledKidModeSuggestion" comment="%s is 'Kid mode'.">Apakah anak dibawah umur akan menggunakan akun ini? Mungkin Anda ingin mengaktifkan %s.</string>
+  <string name="whatNowSuggestions">Apa selanjutnya? Berikut ini ada beberapa saran:</string>
+  <string name="learnChessRules">Pelajari aturan catur</string>
+  <string name="improveWithChessTacticsPuzzles">Tingkatkan kemampuan Anda dengan puzzle taktik catur.</string>
+  <string name="playTheArtificialIntelligence">bermain melawan AI.</string>
+  <string name="playOpponentsFromAroundTheWorld">Bermain dengan lawan dari seluruh dunia.</string>
+  <string name="followYourFriendsOnLichess">Ikuti teman Anda di Lichess.</string>
+  <string name="playInTournaments">Bermain di Turnamen.</string>
+  <string name="learnFromXAndY" comment="%1$s is Study&#10;%2$s is Videos&#10;&#10;They are both links to pages titled that way, and the title is used verbatim.">Belajar dari %1$ dan %2$.</string>
+  <string name="configureLichess">Atur konfigurasi Lichess sesuai keinginan Anda.</string>
+  <string name="exploreTheSiteAndHaveFun">Jelajahi situs ini dan bersenang-senanglah :)</string>
+</resources>
