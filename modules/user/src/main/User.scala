@@ -312,7 +312,7 @@ object User:
         totpSecret = r.getO[TotpSecret](totpSecret),
         flair = r.getO[Flair](flair).filter(FlairApi.exists),
         marks = r.getO[UserMarks](marks) | UserMarks.empty,
-        hasEmail = r.getO[EmailAddress](email).isDefined
+        hasEmail = r.contains(email)
       )
 
     def writes(w: BSON.Writer, o: User) =
