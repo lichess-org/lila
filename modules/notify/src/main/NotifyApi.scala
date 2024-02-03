@@ -97,10 +97,10 @@ final class NotifyApi(
     repo.remove(to, selector) andDo unreadCountCache.invalidate(to)
 
   def markRead(to: UserId, selector: Bdoc): Funit =
-    repo.markManyRead(selector ++ $doc("notifies" -> to, "read" -> false)) andDo
-      unreadCountCache.invalidate(to)
-
-  def exists = repo.exists
+    repo
+      .markManyRead(selector ++ $doc("notifies" -> to, "read" -> false))
+      .map: nb =>
+        if nb > 0 then unreadCountCache.invalidate(to)
 
   def notifyOne[U: UserIdOf](to: U, content: NotificationContent): Funit =
     val note = Notification.make(to, content)

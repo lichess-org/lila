@@ -21,17 +21,18 @@ final private class NotificationRepo(colls: NotifyColls)(using Executor):
     coll.delete.one(userNotificationsQuery(notifies) ++ selector).void
 
   def markAllRead(notifies: UserId): Funit =
-    markManyRead(unreadOnlyQuery(notifies))
+    markManyRead(unreadOnlyQuery(notifies)).void
 
   def markAllRead(notifies: Iterable[UserId]): Funit =
-    markManyRead(unreadOnlyQuery(notifies))
+    markManyRead(unreadOnlyQuery(notifies)).void
 
-  def markManyRead(selector: Bdoc): Funit =
-    coll.update.one(selector, $set("read" -> true), multi = true).void
+  def markManyRead(selector: Bdoc): Fu[Int] =
+    coll.update.one(selector, $set("read" -> true), multi = true).dmap(_.n)
 
-  def expireAndCount(userId: UserId): Fu[UnreadCount] =
-    markManyRead(expiredQuery(userId)) flatMap: _ =>
-      UnreadCount from coll.countSel(unreadOnlyQuery(userId))
+  def expireAndCount(userId: UserId): Fu[UnreadCount] = for
+    count   <- UnreadCount from coll.countSel(unreadOnlyQuery(userId))
+    expired <- count > 0 so markManyRead(expiredQuery(userId))
+  yield count - expired
 
   def hasRecent(note: Notification, criteria: ElementProducer, unreadSince: Duration): Fu[Boolean] =
     hasFresh(note.notifies, note.content.key, criteria, matchRecentOrUnreadSince(unreadSince))
