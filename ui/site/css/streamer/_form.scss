@@ -5,7 +5,8 @@ $mq-picture: $mq-large;
 .streamer-edit {
   .streamer-header {
     flex-direction: column;
-
+    padding: 2em 2em 0;
+    row-gap: 2em;
     @include breakpoint($mq-picture) {
       flex-direction: row;
     }
@@ -13,8 +14,6 @@ $mq-picture: $mq-large;
     .picture-edit {
       @extend %flex-column;
       row-gap: 2em;
-      margin-top: 2em;
-      margin-#{$start-direction}: 2em;
 
       > span {
         @extend %flex-center;
@@ -25,8 +24,8 @@ $mq-picture: $mq-large;
 
     .picture {
       align-self: center;
-      width: min(350px, 86vw);
-      height: min(350px, 86vw);
+      width: min(350px, calc(100vw - 4em));
+      height: min(350px, calc(100vw - 4em));
     }
   }
 

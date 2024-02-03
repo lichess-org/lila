@@ -19,13 +19,14 @@ export interface CropOpts {
  */
 
 export default async function initModule(o: CropOpts) {
+  if (!o) return;
+
   const url =
     o.source instanceof Blob
       ? URL.createObjectURL(o.source)
       : typeof o.source == 'string'
       ? URL.createObjectURL((o.source = await (await fetch('o.url')).blob()))
       : URL.createObjectURL((o.source = await chooseImage()));
-
   if (!url) return;
 
   const image = new Image();
@@ -33,8 +34,9 @@ export default async function initModule(o: CropOpts) {
     image.src = url;
     image.onload = resolve;
     image.onerror = reject;
-  }).catch(() => {
+  }).catch(e => {
     URL.revokeObjectURL(url);
+    console.error(e);
     return;
   });
 
@@ -51,7 +53,14 @@ export default async function initModule(o: CropOpts) {
     aspectRatio: o.aspectRatio,
     viewMode: 1,
     guides: false,
+    responsive: false,
+    restore: false,
+    checkCrossOrigin: false,
+    movable: false,
+    rotatable: false,
+    scalable: false,
     zoomable: false,
+    toggleDragModeOnDblclick: false,
     autoCropArea: 1,
     minContainerWidth: viewWidth,
     minContainerHeight: viewHeight,
@@ -74,7 +83,6 @@ export default async function initModule(o: CropOpts) {
       URL.revokeObjectURL(url);
     },
   });
-
   dlg.showModal();
 
   function crop() {

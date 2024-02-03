@@ -26,7 +26,7 @@ export interface Dialog {
 
 interface DialogOpts {
   class?: string; // zero or more classes for your view div
-  css?: ({ url: string } | { themed: string })[]; // fetches - string for themed css, otherwise full { url }
+  css?: ({ url: string } | { themed: string })[]; // fetches themed or full url css
   htmlText?: string; // content, text will be used as-is
   cash?: Cash; // content, overrides htmlText, will be cloned and any 'none' class removed
   htmlUrl?: string; // content, overrides htmlText and cash, url will be xhr'd
@@ -114,7 +114,8 @@ export function snabDialog(o: SnabDialogOpts): VNode {
         h(
           'div.dialog-content' +
             (o.class
-              ? o.class
+              ? '.' +
+                o.class
                   .split(/[. ]/)
                   .filter(x => x)
                   .join('.')
@@ -137,7 +138,7 @@ export function snabDialog(o: SnabDialogOpts): VNode {
 }
 
 class DialogWrapper implements Dialog {
-  restoreFocus?: HTMLElement;
+  restore?: { focus: HTMLElement; overflow: string };
   resolve?: (dialog: Dialog) => void;
 
   constructor(
@@ -189,10 +190,14 @@ class DialogWrapper implements Dialog {
   };
 
   showModal = (): Promise<Dialog> => {
-    this.restoreFocus = document.activeElement as HTMLElement;
+    this.restore = {
+      focus: document.activeElement as HTMLElement,
+      overflow: document.body.style.overflow,
+    };
     $(focusQuery, this.view)[1]?.focus();
-    this.view.scrollTop = 0;
+    document.body.style.overflow = 'hidden';
 
+    this.view.scrollTop = 0;
     this.dialog.addEventListener('keydown', onModalKeydown);
     this.returnValue = '';
     this.dialog.showModal();
@@ -205,13 +210,12 @@ class DialogWrapper implements Dialog {
 
   onClose = () => {
     if (!this.dialog.returnValue) this.dialog.returnValue = 'cancel';
-    if ('show' in this.o && this.o.show === 'modal') {
-      this.dialog.remove();
-      this.restoreFocus?.focus();
-    }
-    this.restoreFocus = undefined;
+    this.restore?.focus.focus(); // one modal at a time please
+    if (this.restore?.overflow) document.body.style.overflow = this.restore.overflow;
+    this.restore = undefined;
     this.resolve?.(this);
     this.o.onClose?.(this);
+    this.dialog.remove();
   };
 }
 

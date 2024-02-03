@@ -1,8 +1,11 @@
 import * as xhr from 'common/xhr';
+import { isSafari } from 'common/device';
 import throttle from 'common/throttle';
 import Editor from '@toast-ui/editor';
 import Tagify from '@yaireo/tagify';
 import { currentTheme } from 'common/theme';
+
+if (isSafari()) lichess.asset.loadEsm('cropDialog'); // preload
 
 lichess.load.then(() => {
   $('#markdown-editor').each(function (this: HTMLTextAreaElement) {

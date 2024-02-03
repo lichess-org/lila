@@ -1,4 +1,7 @@
 import * as xhr from 'common/xhr';
+import { isSafari } from 'common/device';
+
+if (isSafari()) lichess.asset.loadEsm('cropDialog'); // preload
 
 lichess.load.then(() => {
   $('.streamer-show, .streamer-list').on('change', '.streamer-subscribe input', (e: Event) => {

@@ -1,3 +1,7 @@
+import { isSafari } from 'common/device';
+
+if (isSafari()) lichess.asset.loadEsm('cropDialog'); // preload
+
 lichess.load.then(() => {
   const postUrl = $('.relay-image-edit').attr('data-post-url')!;
   $('.select-image').on('click', () => cropDialog(postUrl));
