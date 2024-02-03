@@ -105,7 +105,6 @@ export default class RoundController implements MoveRootCtrl {
     this.ply = round.lastPly(d);
     this.goneBerserk[d.player.color] = d.player.berserk;
     this.goneBerserk[d.opponent.color] = d.opponent.berserk;
-
     setTimeout(() => {
       this.firstSeconds = false;
       this.redraw();
@@ -857,7 +856,7 @@ export default class RoundController implements MoveRootCtrl {
 
   blindfold = (v?: boolean): boolean => {
     if (v === undefined || v === this.data.player.blindfold) return this.data.player.blindfold ?? false;
-
+    lichess.storage.set('blindfold', v ? 'true' : 'false');
     this.data.player.blindfold = v;
     this.socket.send(`blindfold-${v ? 'yes' : 'no'}`);
     this.redraw();
@@ -896,6 +895,8 @@ export default class RoundController implements MoveRootCtrl {
       }
 
       if (!this.nvui) keyboard.init(this);
+      if (this.isPlaying() && d.steps.length === 1)
+        this.blindfold(lichess.storage.get('blindfold') === 'true');
 
       wakeLock.request();
 

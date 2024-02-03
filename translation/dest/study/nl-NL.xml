@@ -53,6 +53,7 @@
   <string name="allSyncMembersRemainOnTheSamePosition">Alle SYNC leden blijven op dezelfde positie</string>
   <string name="shareChanges">Deel veranderingen met toeschouwers en sla deze op op de server</string>
   <string name="playing">Spelend</string>
+  <string name="showEvalBar">Evaluatiebalk</string>
   <string name="first">Eerste</string>
   <string name="previous">Vorige</string>
   <string name="next">Volgende</string>
@@ -84,7 +85,7 @@
   <string name="pinnedChapterComment">Vastgezet commentaar van het hoofdstuk</string>
   <string name="saveChapter">Hoofdstuk opslaan</string>
   <string name="clearAnnotations">Wis aantekeningen</string>
-  <string name="clearVariations">Verwijder variaties</string>
+  <string name="clearVariations" comment="Clear is used as a verb here. This erases the variations in the study (https://lichess.org/study) you are preparing.">Verwijder variaties</string>
   <string name="deleteChapter">Verwijder hoofdstuk</string>
   <string name="deleteThisChapter">Wil je dit hoofdstuk verwijderen? Je kan dit niet ongedaan maken!</string>
   <string name="clearAllCommentsInThisChapter">Verwijder alle aantekeningen, tekens en getekende figuren in dit hoofdstuk?</string>

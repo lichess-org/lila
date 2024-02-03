@@ -19,7 +19,8 @@ case class RelayRound(
     /* at least it *looks* finished... but maybe it's not
      * sync.nextAt is used for actually synchronising */
     finished: Boolean,
-    createdAt: Instant
+    createdAt: Instant,
+    crowd: Option[Int]
 ):
 
   inline def id = _id
@@ -133,6 +134,7 @@ object RelayRound:
     def path: String =
       s"/broadcast/${tour.slug}/${if link.slug == tour.slug then "-" else link.slug}/${link.id}"
     def path(chapterId: StudyChapterId): String = s"$path/$chapterId"
+    def crowd                                   = display.crowd orElse link.crowd
 
   case class WithTour(round: RelayRound, tour: RelayTour) extends AndTour:
     def display                 = round

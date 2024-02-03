@@ -171,9 +171,14 @@ object tour:
         image(tr.tour),
         span(cls := "relay-card__body")(
           span(cls := "relay-card__info")(
-            tr.tour.active option span(cls := "relay-card__round")(tr.display.name, " "),
+            tr.tour.active option span(cls := "relay-card__round")(tr.display.name),
             if ongoing(tr)
-            then span(cls := "relay-card__live")("LIVE")
+            then
+              span(cls := "relay-card__live")(
+                "LIVE",
+                tr.crowd.map: nb =>
+                  span(cls := "relay-card__crowd text", dataIcon := licon.User)(nb.localize)
+              )
             else tr.display.startedAt.orElse(tr.display.startsAt).map(momentFromNow(_))
           ),
           h3(cls := "relay-card__title")(tr.tour.name),
