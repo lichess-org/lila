@@ -4,8 +4,9 @@ import throttle from 'common/throttle';
 import Editor from '@toast-ui/editor';
 import Tagify from '@yaireo/tagify';
 import { currentTheme } from 'common/theme';
+import { wireCropDialog } from 'common/controls';
 
-if (isSafari()) lichess.asset.loadEsm('cropDialog'); // preload
+if (isSafari()) wireCropDialog(); // preload
 
 lichess.load.then(() => {
   $('#markdown-editor').each(function (this: HTMLTextAreaElement) {
@@ -15,16 +16,13 @@ lichess.load.then(() => {
     setupTopics(this);
   });
   $('.flash').addClass('fade');
-  const postUrl = $('.ublog-image-edit').attr('data-post-url')!;
-  $('.select-image').on('click', () => cropDialog(postUrl));
-  $('.drop-target')
-    .on('click', () => cropDialog(postUrl))
-    .on('dragover', e => e.preventDefault())
-    .on('drop', e => {
-      e.preventDefault();
-      if (e.dataTransfer.files.length !== 1) return;
-      cropDialog(postUrl, e.dataTransfer.files[0]);
-    });
+  wireCropDialog({
+    aspectRatio: 8 / 5,
+    max: { pixels: 800, megabytes: 6 },
+    post: { url: $('.ublog-image-edit').attr('data-post-url')!, field: 'image' },
+    selectClicks: $('.select-image, .drop-target'),
+    selectDrags: $('.drop-target'),
+  });
 });
 
 const setupTopics = (el: HTMLTextAreaElement) =>
@@ -87,17 +85,3 @@ const setupMarkdownEditor = (el: HTMLTextAreaElement) => {
     .find('button.link')
     .on('click', () => $('#toastuiLinkUrlInput')[0]?.focus());
 };
-
-function cropDialog(url: string, blob?: Blob) {
-  lichess.asset.loadEsm('cropDialog', {
-    init: {
-      aspectRatio: 8 / 5,
-      source: blob,
-      max: { pixels: 800, megabytes: 6 },
-      post: { url, field: 'image' },
-      onCropped: (result: Blob | boolean) => {
-        if (result) lichess.reload();
-      },
-    },
-  });
-}

@@ -1,30 +1,14 @@
 import { isSafari } from 'common/device';
+import { wireCropDialog } from 'common/controls';
 
-if (isSafari()) lichess.asset.loadEsm('cropDialog'); // preload
+if (isSafari()) wireCropDialog(); // preload
 
-lichess.load.then(() => {
-  const postUrl = $('.relay-image-edit').attr('data-post-url')!;
-  $('.select-image').on('click', () => cropDialog(postUrl));
-  $('.drop-target')
-    .on('click', () => cropDialog(postUrl))
-    .on('dragover', e => e.preventDefault())
-    .on('drop', e => {
-      e.preventDefault();
-      if (e.dataTransfer.files.length !== 1) return;
-      cropDialog(postUrl, e.dataTransfer.files[0]);
-    });
-});
-
-function cropDialog(url: string, blob?: Blob) {
-  lichess.asset.loadEsm('cropDialog', {
-    init: {
-      aspectRatio: 2,
-      source: blob,
-      max: { megabytes: 6 },
-      post: { url, field: 'image' },
-      onCropped: (result: Blob | boolean) => {
-        if (result) lichess.reload();
-      },
-    },
-  });
-}
+lichess.load.then(() =>
+  wireCropDialog({
+    aspectRatio: 2 / 1,
+    max: { megabytes: 6 },
+    post: { url: $('.relay-image-edit').attr('data-post-url')!, field: 'image' },
+    selectClicks: $('.select-image, .drop-target'),
+    selectDrags: $('.drop-target'),
+  }),
+);

@@ -50,3 +50,34 @@ export const boolPrefXhrToggle = (prefKey: string, val: boolean, effect: () => v
     await xhr.text(`/pref/${prefKey}`, { method: 'post', body: xhr.form({ [prefKey]: v ? '1' : '0' }) });
     effect();
   });
+
+export function wireCropDialog(args?: {
+  selectClicks?: Cash;
+  selectDrags?: Cash;
+  aspectRatio: number;
+  max?: { megabytes?: number; pixels?: number };
+  post?: { url: string; field?: string };
+  onCropped?: (result: Blob | boolean) => void;
+}) {
+  if (!args) {
+    lichess.asset.loadEsm('cropDialog'); // preload
+    return;
+  }
+  const argsCopy = { ...args };
+  if (!argsCopy.onCropped) argsCopy.onCropped = result => result && lichess.reload();
+  argsCopy.selectClicks?.on('click', () => lichess.asset.loadEsm('cropDialog', { init: argsCopy }));
+  argsCopy.selectDrags?.on('dragover', e => e.preventDefault());
+  argsCopy.selectDrags?.on('drop', e => {
+    e.preventDefault();
+    for (const item of e.dataTransfer.items) {
+      if (item.kind === 'file' && item.type.startsWith('image/')) {
+        lichess.asset.loadEsm('cropDialog', { init: { ...argsCopy, source: item.getAsFile() } });
+      } else if (item.kind === 'string' && item.type === 'text/uri-list') {
+        item.getAsString((uri: string) =>
+          lichess.asset.loadEsm('cropDialog', { init: { ...argsCopy, source: uri } }),
+        );
+      } else continue;
+      break;
+    }
+  });
+}
