@@ -53,6 +53,7 @@ final class RelayListing(
           (
             !round.startedAt.isDefined,                    // ongoing tournaments first
             0 - ~tour.tier,                                // then by tier
+            0 - ~round.crowd,                              // then by viewers
             round.startsAt.fold(Long.MaxValue)(_.toMillis) // then by next round date
           )
         active <- sorted.traverse: (tour, round) =>
