@@ -72,8 +72,8 @@ case class Schedule(
             case _                            => s"${freq.toString} ${speed.trans}"
         case (Some(_), _) if full   => eliteXArena.txt(speed.trans)
         case (Some(_), _)           => eliteX.txt(speed.trans)
-        case (_, Some(max)) if full => s"≤${max.rating} ${xArena.txt(speed.trans)}"
-        case (_, Some(max))         => s"≤${max.rating} ${speed.trans}"
+        case (_, Some(max)) if full => maxRatingXArena.txt(max.rating, speed.trans)
+        case (_, Some(max))         => maxRatingX.txt(max.rating, speed.trans)
     else if variant.standard then
       val n = position.flatMap(Thematic.byFen).fold(speed.trans) { pos =>
         s"${pos.family.name} ${speed.trans}"
@@ -182,6 +182,8 @@ object Schedule:
     val name = Speed.this.toString
     val key  = lila.common.String lcfirst name
     def trans(using Lang): String = this match
+      case Speed.Bullet    => I18nKeys.bullet.txt()
+      case Speed.Blitz     => I18nKeys.blitz.txt()
       case Speed.Rapid     => I18nKeys.rapid.txt()
       case Speed.Classical => I18nKeys.classical.txt()
       case _               => name

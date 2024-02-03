@@ -55,4 +55,10 @@ Players who don't like receiving your messages might leave the team.</string>
   <string name="declinedRequests">Declined Requests</string>
   <string name="joinLichessVariantTeam">Join the official %s team for news and events</string>
   <string name="teamPage">Team page</string>
+  <string name="innerTeam">Inner team</string>
+  <string name="battleOfNbTeams">Battle of %s teams</string>
+  <plurals name="andNbLeaders">
+    <item quantity="one">and one leader</item>
+    <item quantity="other">and %s leaders</item>
+  </plurals>
 </resources>

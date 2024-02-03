@@ -90,15 +90,13 @@ object tournaments:
               t =>
                 frag(
                   t.teamBattle map { battle =>
-                    frag(battle.teams.size, " teams battle")
-                  } getOrElse "Inner team",
+                    frag(trans.arena.nbTeamsBatte(battle.teams.size))
+                  } getOrElse trans.team.innerTeam(),
                   br,
                   renderStartsAt(any)
                 ),
               s =>
-                frag(
-                  s.settings.nbRounds,
-                  " rounds swiss",
+                frag(trans.swiss.xRoundsSwiss(s.settings.nbRounds)),
                   br,
                   renderStartsAt(any)
                 )

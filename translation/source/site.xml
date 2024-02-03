@@ -276,6 +276,7 @@
   <string name="abortGame">Abort game</string>
   <string name="gameAborted">Game aborted</string>
   <string name="standard">Standard</string>
+  <string name="customPosition">Custom position</string>
   <string name="unlimited">Unlimited</string>
   <string name="mode">Mode</string>
   <string name="casual">Casual</string>
@@ -531,6 +532,7 @@
   <string name="autoSwitch">Auto switch</string>
   <string name="puzzles">Puzzles</string>
   <string name="tournamentWinners">Tournament winners</string>
+  <string name="tournamentShields">Tournament shields</string>
   <string name="name">Name</string>
   <string name="description">Description</string>
   <string name="descPrivate">Private description</string>

@@ -75,14 +75,14 @@ object leaderboard:
       main(cls := "page-menu")(
         views.html.user.bits.communityMenu("tournament"),
         div(cls := "page-menu__content box box-pad")(
-          h1(cls := "box__top")("Tournament winners"),
+          h1(cls := "box__top")(trans.tournamentWinners()),
           div(cls := "tournament-leaderboards")(
             eliteWinners,
             freqWinners(winners.hyperbullet, PerfType.Bullet, "HyperBullet"),
-            freqWinners(winners.bullet, PerfType.Bullet, "Bullet"),
+            freqWinners(winners.bullet, PerfType.Bullet, trans.bullet()),
             freqWinners(winners.superblitz, PerfType.Blitz, "SuperBlitz"),
-            freqWinners(winners.blitz, PerfType.Blitz, "Blitz"),
-            freqWinners(winners.rapid, PerfType.Rapid, "Rapid"),
+            freqWinners(winners.blitz, PerfType.Blitz, trans.blitz()),
+            freqWinners(winners.rapid, PerfType.Rapid, trans.rapid()),
             marathonWinners,
             lila.tournament.WinnersApi.variants.map { v =>
               PerfType.byVariant(v).map { pt =>
