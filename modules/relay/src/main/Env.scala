@@ -53,6 +53,8 @@ final class Env(
 
   lazy val jsonView = wire[JsonView]
 
+  lazy val listing: RelayListing = wire[RelayListing]
+
   lazy val api: RelayApi = wire[RelayApi]
 
   lazy val pager = wire[RelayPager]

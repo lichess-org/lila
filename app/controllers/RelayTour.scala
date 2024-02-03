@@ -21,8 +21,8 @@ final class RelayTour(env: Env, apiC: => Api, prismicC: => Prismic) extends Lila
                 html.relay.tour.search(pager, query)
         case None =>
           for
-            active   <- (page == 1) so env.relay.api.officialActive.get({})
-            upcoming <- (page == 1) so env.relay.api.officialUpcoming.get({})
+            active   <- (page == 1) so env.relay.listing.active.get({})
+            upcoming <- (page == 1) so env.relay.listing.upcoming.get({})
             past     <- env.relay.pager.inactive(page)
             render <- renderAsync:
               html.relay.tour.index(active, upcoming, past)
@@ -137,7 +137,7 @@ final class RelayTour(env: Env, apiC: => Api, prismicC: => Prismic) extends Lila
   def show(slug: String, id: TourModel.Id) = Open:
     Found(env.relay.api tourById id): tour =>
       negotiate(
-        html = env.relay.api.defaultRoundToShow.get(tour.id) flatMap {
+        html = env.relay.listing.defaultRoundToShow.get(tour.id) flatMap {
           case None =>
             ctx.me
               .soUse { env.relay.api.canUpdate(tour) }

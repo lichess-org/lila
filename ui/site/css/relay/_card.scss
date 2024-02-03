@@ -29,10 +29,22 @@
       0 0 20px $c-link;
   }
 
+  &--ongoing {
+    outline: 3px solid rgba($c-live, 0.5);
+    &:hover {
+      box-shadow:
+        0 0 5px $c-live,
+        0 0 20px $c-live;
+    }
+  }
+
   &__image {
     width: 100%;
     height: auto;
-    opacity: 0.8;
+    opacity: 0.7;
+    .relay-card--ongoing & {
+      opacity: 0.9;
+    }
     @include transition(opacity);
     .relay-card:hover & {
       opacity: 1;
@@ -52,7 +64,7 @@
   &__live {
     @extend %flex-between;
     flex: 1;
-    color: $c-bad;
+    color: $c-live;
     font-weight: bold;
   }
   &__title {
