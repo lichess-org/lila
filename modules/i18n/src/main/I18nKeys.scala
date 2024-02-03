@@ -219,6 +219,7 @@ object I18nKeys:
   val `abortGame` = I18nKey("abortGame")
   val `gameAborted` = I18nKey("gameAborted")
   val `standard` = I18nKey("standard")
+  val `customPosition` = I18nKey("customPosition")
   val `unlimited` = I18nKey("unlimited")
   val `mode` = I18nKey("mode")
   val `casual` = I18nKey("casual")
@@ -398,6 +399,7 @@ object I18nKeys:
   val `autoSwitch` = I18nKey("autoSwitch")
   val `puzzles` = I18nKey("puzzles")
   val `tournamentWinners` = I18nKey("tournamentWinners")
+  val `tournamentShieldsWinners` = I18nKey("tournamentShieldsWinners")
   val `name` = I18nKey("name")
   val `description` = I18nKey("description")
   val `descPrivate` = I18nKey("descPrivate")
@@ -862,6 +864,7 @@ object I18nKeys:
   val `andSaveNbPremoveLines` = I18nKey("andSaveNbPremoveLines")
 
   object arena:
+    val `arena` = I18nKey("arena:arena")
     val `arenaTournaments` = I18nKey("arena:arenaTournaments")
     val `isItRated` = I18nKey("arena:isItRated")
     val `willBeNotified` = I18nKey("arena:willBeNotified")
@@ -888,6 +891,7 @@ object I18nKeys:
     val `minimumGameLength` = I18nKey("arena:minimumGameLength")
     val `history` = I18nKey("arena:history")
     val `newTeamBattle` = I18nKey("arena:newTeamBattle")
+    val `nbTeamsBatte` = I18nKey("arena:nbTeamsBatte")
     val `customStartDate` = I18nKey("arena:customStartDate")
     val `customStartDateHelp` = I18nKey("arena:customStartDateHelp")
     val `allowBerserk` = I18nKey("arena:allowBerserk")
@@ -902,6 +906,9 @@ object I18nKeys:
     val `myTournaments` = I18nKey("arena:myTournaments")
     val `drawingWithinNbMoves` = I18nKey("arena:drawingWithinNbMoves")
     val `viewAllXTeams` = I18nKey("arena:viewAllXTeams")
+    val `editTournament` = I18nKey("arena:editTournament")
+    val `editTeamBattle` = I18nKey("arena:editTeamBattle")
+    val `defender` = I18nKey("arena:defender")
 
   object emails:
     val `emailConfirm_subject` = I18nKey("emails:emailConfirm_subject")
@@ -1810,6 +1817,9 @@ object I18nKeys:
     val `nbMembers` = I18nKey("team:nbMembers")
     val `teamLeaders` = I18nKey("team:teamLeaders")
     val `xJoinRequests` = I18nKey("team:xJoinRequests")
+    val `innerTeam` = I18nKey("team:innerTeam")
+    val `battleOfNbTeams` = I18nKey("team:battleOfNbTeams")
+    val `andNbLeaders` = I18nKey("team:andNbLeaders")
 
   object perfStat:
     val `perfStats` = I18nKey("perfStat:perfStats")
@@ -1916,6 +1926,8 @@ object I18nKeys:
     val `xTeamBattle` = I18nKey("tourname:xTeamBattle")
     val `eliteXArena` = I18nKey("tourname:eliteXArena")
     val `eliteX` = I18nKey("tourname:eliteX")
+    val `maxRatingXArena` = I18nKey("tourname:maxRatingXArena")
+    val `maxRatingX` = I18nKey("tourname:maxRatingX")
     val `xArena` = I18nKey("tourname:xArena")
 
   object faq:
