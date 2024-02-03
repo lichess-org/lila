@@ -406,11 +406,11 @@ object dsl extends dsl with Handlers:
     ): Fu[List[D]] =
       byIds[D, String](ids, readPref)
 
-    def countSel(selector: coll.pack.Document): Fu[Int] =
+    def countSel(selector: coll.pack.Document, limit: Option[Int] = none[Int]): Fu[Int] =
       coll
         .count(
           selector = selector.some,
-          limit = None,
+          limit = limit,
           skip = 0,
           hint = None,
           readConcern = ReadConcern.Local
@@ -427,7 +427,7 @@ object dsl extends dsl with Handlers:
           readConcern = ReadConcern.Local
         )
 
-    def exists(selector: Bdoc): Fu[Boolean] = countSel(selector).dmap(0 !=)
+    def exists(selector: Bdoc): Fu[Boolean] = countSel(selector, 1.some).dmap(0 !=)
 
     def idsMap[D: BSONDocumentReader, I: BSONWriter](
         ids: Iterable[I],
