@@ -124,5 +124,5 @@ object Notification:
       content,
       NotificationRead(false),
       nowInstant,
-      expiry = expiresIn.so(ex => nowInstant.plusMinutes(ex.toMinutes.toInt).some)
+      expiry = expiresIn.map(nowInstant.plus(_))
     )
