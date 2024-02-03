@@ -126,11 +126,6 @@ final class Streamer(env: Env, apiC: => Api) extends LilaController(env):
       api.approval.request(me) inject Redirect(routes.Streamer.edit)
   }
 
-  def picture = Auth { ctx ?=> _ ?=>
-    AsStreamer: s =>
-      Ok.page(html.streamer.picture(s)).map(_.noCache)
-  }
-
   private val ImageRateLimitPerIp = lila.memo.RateLimit.composite[lila.common.IpAddress](
     key = "streamer.image.ip"
   )(
@@ -144,7 +139,7 @@ final class Streamer(env: Env, apiC: => Api) extends LilaController(env):
         case Some(pic) =>
           ImageRateLimitPerIp(ctx.ip, rateLimited):
             api.uploadPicture(s.streamer, pic, me) recoverWith { case e: Exception =>
-              BadRequest.page(html.streamer.picture(s, e.getMessage.some))
+              Redirect(routes.Streamer.edit).flashFailure
             } inject Redirect(routes.Streamer.edit)
         case None => Redirect(routes.Streamer.edit).flashFailure
   }

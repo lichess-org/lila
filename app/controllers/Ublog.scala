@@ -224,15 +224,14 @@ final class Ublog(env: Env) extends LilaController(env):
       ctx.body.body.file("image") match
         case Some(image) =>
           ImageRateLimitPerIp(ctx.ip, rateLimited):
-            env.ublog.api.image.upload(me, post, image) map { newPost =>
-              Ok(html.ublog.form.formImage(newPost))
+            env.ublog.api.image.upload(me, post, image) >> {
+              Ok
             } recover { case e: Exception =>
               BadRequest(e.getMessage)
             }
         case None =>
           env.ublog.api.image.delete(post) flatMap { newPost =>
-            logModAction(newPost, "delete image") inject
-              Ok(html.ublog.form.formImage(newPost))
+            logModAction(newPost, "delete image") inject Ok
           }
   }
 

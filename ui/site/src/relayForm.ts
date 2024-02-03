@@ -1,28 +1,26 @@
-import * as xhr from 'common/xhr';
-
 lichess.load.then(() => {
-  $('.relay-form__image').each(function (this: HTMLFormElement) {
-    setupImage(this);
-  });
+  const postUrl = $('.relay-image-edit').attr('data-post-url')!;
+  $('.select-image').on('click', () => cropDialog(postUrl));
+  $('.drop-target')
+    .on('click', () => cropDialog(postUrl))
+    .on('dragover', e => e.preventDefault())
+    .on('drop', e => {
+      e.preventDefault();
+      if (e.dataTransfer.files.length !== 1) return;
+      cropDialog(postUrl, e.dataTransfer.files[0]);
+    });
 });
 
-const setupImage = (form: HTMLFormElement) => {
-  const showText = () =>
-    $('.relay-form__image-text').toggleClass('visible', $('.relay-image').hasClass('user-image'));
-  const submit = () => {
-    const replace = (html: string) => $(form).find('.relay-image,.relay-image--fallback').replaceWith(html);
-    const wrap = (html: string) => '<div class="relay-image">' + html + '</div>';
-    xhr.formToXhr(form).then(
-      html => {
-        replace(html);
-        showText();
+function cropDialog(url: string, blob?: Blob) {
+  lichess.asset.loadEsm('cropDialog', {
+    init: {
+      aspectRatio: 2,
+      source: blob,
+      max: { megabytes: 6 },
+      post: { url, field: 'image' },
+      onCropped: (result: Blob | boolean) => {
+        if (result) lichess.reload();
       },
-      err => replace(wrap(`<bad>${err}</bad>`)),
-    );
-    replace(wrap(lichess.spinnerHtml));
-    return false;
-  };
-  $(form).on('submit', submit);
-  $(form).find('input[name="image"]').on('change', submit);
-  showText();
-};
+    },
+  });
+}

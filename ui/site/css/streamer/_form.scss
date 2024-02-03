@@ -10,28 +10,23 @@ $mq-picture: $mq-large;
       flex-direction: row;
     }
 
-    .picture-create {
-      @extend %flex-center;
+    .picture-edit {
+      @extend %flex-column;
+      row-gap: 2em;
+      margin-top: 2em;
+      margin-#{$start-direction}: 2em;
 
-      justify-content: center;
-      display: flex;
-      margin-top: 40px;
-      margin-bottom: 10px;
-
-      @include breakpoint($mq-picture) {
-        margin: 0;
-        width: 300px;
-        height: 300px;
+      > span {
+        @extend %flex-center;
+        justify-content: center;
+        column-gap: 1em;
       }
     }
 
-    .upload_picture .button {
-      text-align: center;
-      margin: 100px 30px 0 30px;
-    }
-
-    .picture-edit {
-      text-align: center;
+    .picture {
+      align-self: center;
+      width: min(350px, 86vw);
+      height: min(350px, 86vw);
     }
   }
 

@@ -5,9 +5,6 @@ import Tagify from '@yaireo/tagify';
 import { currentTheme } from 'common/theme';
 
 lichess.load.then(() => {
-  $('.ublog-post-form__image').each(function (this: HTMLFormElement) {
-    setupImage(this);
-  });
   $('#markdown-editor').each(function (this: HTMLTextAreaElement) {
     setupMarkdownEditor(this);
   });
@@ -15,6 +12,16 @@ lichess.load.then(() => {
     setupTopics(this);
   });
   $('.flash').addClass('fade');
+  const postUrl = $('.ublog-image-edit').attr('data-post-url')!;
+  $('.select-image').on('click', () => cropDialog(postUrl));
+  $('.drop-target')
+    .on('click', () => cropDialog(postUrl))
+    .on('dragover', e => e.preventDefault())
+    .on('drop', e => {
+      e.preventDefault();
+      if (e.dataTransfer.files.length !== 1) return;
+      cropDialog(postUrl, e.dataTransfer.files[0]);
+    });
 });
 
 const setupTopics = (el: HTMLTextAreaElement) =>
@@ -26,27 +33,6 @@ const setupTopics = (el: HTMLTextAreaElement) =>
     dropdown: { enabled: 0, maxItems: 20, highlightFirst: true, closeOnSelect: false },
     originalInputValueFormat: tags => tags.map(t => t.value).join(','),
   });
-
-const setupImage = (form: HTMLFormElement) => {
-  const showText = () =>
-    $('.ublog-post-form__image-text').toggleClass('visible', $('.ublog-post-image').hasClass('user-image'));
-  const submit = () => {
-    const replace = (html: string) => $(form).find('.ublog-post-image').replaceWith(html);
-    const wrap = (html: string) => '<div class="ublog-post-image">' + html + '</div>';
-    xhr.formToXhr(form).then(
-      html => {
-        replace(html);
-        showText();
-      },
-      err => replace(wrap(`<bad>${err}</bad>`)),
-    );
-    replace(wrap(lichess.spinnerHtml));
-    return false;
-  };
-  $(form).on('submit', submit);
-  $(form).find('input[name="image"]').on('change', submit);
-  showText();
-};
 
 const setupMarkdownEditor = (el: HTMLTextAreaElement) => {
   const postProcess = (markdown: string) => markdown.replace(/<br>/g, '').replace(/\n\s*#\s/g, '\n## ');
@@ -98,3 +84,17 @@ const setupMarkdownEditor = (el: HTMLTextAreaElement) => {
     .find('button.link')
     .on('click', () => $('#toastuiLinkUrlInput')[0]?.focus());
 };
+
+function cropDialog(url: string, blob?: Blob) {
+  lichess.asset.loadEsm('cropDialog', {
+    init: {
+      aspectRatio: 8 / 5,
+      source: blob,
+      max: { pixels: 800, megabytes: 6 },
+      post: { url, field: 'image' },
+      onCropped: (result: Blob | boolean) => {
+        if (result) lichess.reload();
+      },
+    },
+  });
+}

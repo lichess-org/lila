@@ -25,11 +25,12 @@ export interface Dialog {
 }
 
 interface DialogOpts {
-  class?: string; // zero or more classes (period separated) for your view div
-  cssPath?: string; // for themed css craplets
-  cash?: Cash; // content, will be cloned and any 'none' class removed
-  htmlUrl?: string; // content, url will be xhr'd
+  class?: string; // zero or more classes for your view div
+  css?: ({ url: string } | { themed: string })[]; // fetches - string for themed css, otherwise full { url }
   htmlText?: string; // content, text will be used as-is
+  cash?: Cash; // content, overrides htmlText, will be cloned and any 'none' class removed
+  htmlUrl?: string; // content, overrides htmlText and cash, url will be xhr'd
+  append?: { node: HTMLElement; selector?: string }[]; // appended to view or selected parents
   attrs?: { dialog?: Attrs; view?: Attrs }; // optional attrs for dialog and view div
   action?: Action | Action[]; // if present, add handlers to action buttons
   onClose?: (dialog: Dialog) => void; // called when dialog closes
@@ -42,8 +43,9 @@ export interface DomDialogOpts extends DialogOpts {
   show?: 'modal' | boolean; // if not falsy, auto-show, and if 'modal' remove from dom on close
 }
 
+//snabDialog automatically shows as 'modal' on redraw unless onInsert callback is supplied
 export interface SnabDialogOpts extends DialogOpts {
-  vnodes?: LooseVNodes; // snabDialog automatically shows as 'modal' on redraw unless..
+  vnodes?: LooseVNodes; // content, overrides other content properties
   onInsert?: (dialog: Dialog) => void; // if supplied, call show() or showModal() manually
 }
 
@@ -72,7 +74,7 @@ export async function domDialog(o: DomDialogOpts): Promise<Dialog> {
   }
 
   const view = $as<HTMLElement>('<div class="dialog-content">');
-  if (o.class) view.classList.add(...o.class.split('.'));
+  if (o.class) view.classList.add(...o.class.split('/[. ]/').filter(x => x));
   for (const [k, v] of Object.entries(o.attrs?.view ?? {})) view.setAttribute(k, String(v));
   if (html) view.innerHTML = html;
 
@@ -110,15 +112,19 @@ export function snabDialog(o: SnabDialogOpts): VNode {
       h(
         'div.scrollable',
         h(
-          'div.dialog-content' + (o.class ? `.${o.class}` : ''),
+          'div.dialog-content' +
+            (o.class
+              ? o.class
+                  .split(/[. ]/)
+                  .filter(x => x)
+                  .join('.')
+              : ''),
           {
             attrs: o.attrs?.view,
             hook: onInsert(async view => {
               const [html] = await ass;
-              if (html && !o.vnodes) view.innerHTML = html;
-
+              if (!o.vnodes && html) view.innerHTML = html;
               const wrapper = new DialogWrapper(dialog, view, o);
-
               if (o.onInsert) o.onInsert(wrapper);
               else wrapper.showModal();
             }),
@@ -152,7 +158,9 @@ class DialogWrapper implements Dialog {
     dialog.querySelector('.close-button-anchor > .close-button')?.addEventListener('click', cancelOnInterval);
 
     if (!o.noClickAway) setTimeout(() => dialog.addEventListener('click', cancelOnInterval));
-
+    for (const node of o.append ?? []) {
+      (node.selector ? view.querySelector(node.selector) : view)!.appendChild(node.node);
+    }
     if (o.action)
       for (const a of Array.isArray(o.action) ? o.action : [o.action]) {
         view.querySelector(a.selector)?.addEventListener('click', () => {
@@ -208,13 +216,18 @@ class DialogWrapper implements Dialog {
 }
 
 function assets(o: DialogOpts) {
+  const cssPromises = (o.css ?? []).map(css => {
+    if ('themed' in css) return lichess.asset.loadCssPath(css.themed);
+    else if ('url' in css) return lichess.asset.loadCss(css.url);
+    else return Promise.resolve();
+  });
   return Promise.all([
     o.htmlUrl
       ? xhr.text(o.htmlUrl)
       : Promise.resolve(
           o.cash ? $as<HTMLElement>($(o.cash).clone().removeClass('none')).outerHTML : o.htmlText,
         ),
-    o.cssPath ? lichess.asset.loadCssPath(o.cssPath) : Promise.resolve(),
+    ...cssPromises,
   ]);
 }
 
