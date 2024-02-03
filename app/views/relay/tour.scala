@@ -176,7 +176,7 @@ object tour:
             then
               span(cls := "relay-card__live")(
                 "LIVE",
-                tr.crowd.map: nb =>
+                tr.crowd.filter(_ > 2) map: nb =>
                   span(cls := "relay-card__crowd text", dataIcon := licon.User)(nb.localize)
               )
             else tr.display.startedAt.orElse(tr.display.startsAt).map(momentFromNow(_))
