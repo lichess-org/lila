@@ -45,19 +45,6 @@ object RelayTourForm:
       spotlight: Option[RelayTour.Spotlight]
   ):
 
-    def update(tour: RelayTour)(using Me) =
-      tour
-        .copy(
-          name = name,
-          description = description,
-          markup = markup,
-          tier = tier ifTrue Granter(_.Relay),
-          autoLeaderboard = autoLeaderboard,
-          players = players,
-          spotlight = spotlight.filterNot(_.isEmpty)
-        )
-        .reAssignIfOfficial
-
     def make(using me: Me) =
       RelayTour(
         _id = RelayTour.makeId,

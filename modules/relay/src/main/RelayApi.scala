@@ -138,7 +138,26 @@ final class RelayApi(
     tourRepo.coll.insert.one(tour) inject tour
 
   def tourUpdate(tour: RelayTour, data: RelayTourForm.Data)(using Me): Funit =
-    tourRepo.coll.update.one($id(tour.id), data.update(tour)).void andDo
+    tourRepo.coll.update
+      .one(
+        $id(tour.id),
+        $doc(
+          $set(
+            Seq[Option[ElementProducer]](
+              Some("name"            -> data.name),
+              Some("description"     -> data.description),
+              Some("autoLeaderboard" -> data.autoLeaderboard),
+              data.players.map("players" -> _),
+              data.markup.map("markup" -> _),
+              if Granter(_.Relay) then data.tier.map("tier" -> _) else none,
+              data.spotlight.filterNot(_.isEmpty).map("spotlight" -> _),
+              data.tier.isDefined.option("ownerId" -> User.broadcasterId)
+            ).flatten*
+          ),
+          $unset(Seq(data.players.isEmpty.option("players"), data.markup.isEmpty.option("markup")).flatten)
+        )
+      )
+      .void andDo
       leaderboard.invalidate(tour.id)
 
   def create(data: RelayRoundForm.Data, tour: RelayTour)(using me: Me): Fu[RelayRound.WithTourAndStudy] =
