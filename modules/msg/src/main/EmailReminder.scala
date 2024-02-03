@@ -21,10 +21,12 @@ Please visit $baseUrl/account/email to set your account email address. That way,
 
   private val cache = mongoCache[UserId, Boolean](1024, "security:email:reminder", 10 days, _.value):
     loader =>
-      _.expireAfterWrite(11 days).buildAsyncFuture:
-        loader: userId =>
-          userRepo
-            .withoutEmail(userId)
-            .flatMap:
-              _.fold(fuccess(true)): user =>
-                api.systemPost(userId, emailReminderMsg) inject false
+      _.expireAfterWrite(11 days)
+        .maximumSize(16 * 1024)
+        .buildAsyncFuture:
+          loader: userId =>
+            userRepo
+              .withoutEmail(userId)
+              .flatMap:
+                _.fold(fuccess(true)): user =>
+                  api.systemPost(userId, emailReminderMsg) inject false
