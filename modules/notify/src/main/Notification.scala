@@ -95,7 +95,7 @@ private[notify] case class Notification(
     content: NotificationContent,
     read: NotificationRead,
     createdAt: Instant,
-    expiry: Option[Instant] = None
+    expiresAt: Option[Instant] = None
 ):
   def to = notifies
 
@@ -124,5 +124,5 @@ object Notification:
       content,
       NotificationRead(false),
       nowInstant,
-      expiry = expiresIn.map(nowInstant.plus(_))
+      expiresAt = expiresIn.map(nowInstant.plus(_))
     )

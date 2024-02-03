@@ -68,4 +68,4 @@ final private class NotificationRepo(colls: NotifyColls)(using Executor):
   private def unreadOnlyQuery(userIds: Iterable[UserId]) =
     $doc("notifies" $in userIds, "read" -> false)
 
-  private def expiredQuery(userId: UserId) = unreadOnlyQuery(userId) ++ $doc("expiry" $lt nowInstant)
+  private def expiredQuery(userId: UserId) = unreadOnlyQuery(userId) ++ $doc("expiresAt" $lt nowInstant)
