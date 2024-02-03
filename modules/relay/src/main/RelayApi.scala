@@ -115,55 +115,56 @@ final class RelayApi(
 
   val officialActive = cacheApi.unit[List[RelayTour.ActiveWithSomeRounds]]:
     _.refreshAfterWrite(5 seconds).buildAsyncFuture: _ =>
-      val max = 64
-      tourRepo.coll
-        .aggregateList(max): framework =>
-          import framework.*
-          Match(tourRepo.selectors.officialActive) -> List(
-            Sort(Descending("tier")),
-            PipelineOperator:
-              $lookup.pipeline(
-                from = roundRepo.coll,
-                as = "round",
-                local = "_id",
-                foreign = "tourId",
-                pipe = List(
-                  $doc("$match"     -> $doc("finished" -> false)),
-                  $doc("$addFields" -> $doc("sync.log" -> $arr())),
-                  $doc("$sort"      -> roundRepo.sort.chrono),
-                  $doc("$limit"     -> 1)
+      officialUpcoming.get({}) flatMap: upcoming =>
+        val max = 64
+        tourRepo.coll
+          .aggregateList(max): framework =>
+            import framework.*
+            Match(tourRepo.selectors.officialActive ++ $doc("_id" $nin upcoming.map(_.tour.id))) -> List(
+              Sort(Descending("tier")),
+              PipelineOperator:
+                $lookup.pipeline(
+                  from = roundRepo.coll,
+                  as = "round",
+                  local = "_id",
+                  foreign = "tourId",
+                  pipe = List(
+                    $doc("$match"     -> $doc("finished" -> false)),
+                    $doc("$addFields" -> $doc("sync.log" -> $arr())),
+                    $doc("$sort"      -> roundRepo.sort.chrono),
+                    $doc("$limit"     -> 1)
+                  )
                 )
-              )
-            ,
-            UnwindField("round"),
-            Limit(max)
-          )
-        .map: docs =>
-          for
-            doc   <- docs
-            tour  <- doc.asOpt[RelayTour]
-            round <- doc.getAsOpt[RelayRound]("round")
-          yield (tour, round)
-        .map:
-          _.sortBy: (tour, round) =>
-            (
-              !round.startedAt.isDefined,                    // ongoing tournaments first
-              0 - ~tour.tier,                                // then by tier
-              round.startsAt.fold(Long.MaxValue)(_.toMillis) // then by next round date
+              ,
+              UnwindField("round"),
+              Limit(max)
             )
-        .flatMap:
-          _.traverse: (tour, round) =>
-            defaultRoundToShow
-              .get(tour.id)
-              .map: link =>
-                RelayTour.ActiveWithSomeRounds(tour, display = round, link = link | round)
-        .addEffect: trs =>
-          spotlightCache = trs
-            .filter(_.tour.spotlight.exists(_.enabled))
-            .filterNot(_.display.finished)
-            .filter: tr =>
-              tr.display.hasStarted || tr.display.startsAt.exists(_.isBefore(nowInstant.plusMinutes(30)))
-            .take(2)
+          .map: docs =>
+            for
+              doc   <- docs
+              tour  <- doc.asOpt[RelayTour]
+              round <- doc.getAsOpt[RelayRound]("round")
+            yield (tour, round)
+          .map:
+            _.sortBy: (tour, round) =>
+              (
+                !round.startedAt.isDefined,                    // ongoing tournaments first
+                0 - ~tour.tier,                                // then by tier
+                round.startsAt.fold(Long.MaxValue)(_.toMillis) // then by next round date
+              )
+          .flatMap:
+            _.traverse: (tour, round) =>
+              defaultRoundToShow
+                .get(tour.id)
+                .map: link =>
+                  RelayTour.ActiveWithSomeRounds(tour, display = round, link = link | round)
+          .addEffect: trs =>
+            spotlightCache = trs
+              .filter(_.tour.spotlight.exists(_.enabled))
+              .filterNot(_.display.finished)
+              .filter: tr =>
+                tr.display.hasStarted || tr.display.startsAt.exists(_.isBefore(nowInstant.plusMinutes(30)))
+              .take(2)
 
   val officialUpcoming = cacheApi.unit[List[RelayTour.WithLastRound]]:
     _.refreshAfterWrite(14 seconds).buildAsyncFuture: _ =>
