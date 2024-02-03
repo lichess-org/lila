@@ -23,7 +23,6 @@ import LobbySocket from './socket';
 import Filter from './filter';
 import SetupController from './setupCtrl';
 import disableDarkBoard from './disableDarkBoard';
-import { ready as loadDialogPolyfill } from 'common/dialog';
 
 export default class LobbyController {
   data: LobbyData;
@@ -90,7 +89,7 @@ export default class LobbyController {
         forceOptions.variant = 'fromPosition';
       }
 
-      loadDialogPolyfill.then(() => {
+      lichess.dialog.ready.then(() => {
         this.setupCtrl.openModal(locationHash as GameType, forceOptions, friendUser);
         redraw();
       });

@@ -1,10 +1,11 @@
-import { VNode, Attrs } from 'snabbdom';
-import { onInsert, looseH as h, LooseVNodes } from './snabbdom';
-import { isTouchDevice } from './device';
-import * as xhr from './xhr';
-import * as licon from './licon';
+import { onInsert, looseH as h, VNode } from 'common/snabbdom';
+import { isTouchDevice } from 'common/device';
+import * as xhr from 'common/xhr';
+import * as licon from 'common/licon';
 
 let dialogPolyfill: { registerDialog: (dialog: HTMLDialogElement) => void };
+
+// for usage: file://./../../../@types/lichess/dialog.d.ts
 
 export const ready = lichess.load.then(async () => {
   window.addEventListener('resize', onResize);
@@ -14,49 +15,6 @@ export const ready = lichess.load.then(async () => {
   return dialogPolyfill !== undefined;
 });
 
-export interface Dialog {
-  readonly open: boolean; // is visible?
-  readonly view: HTMLElement; // your content div
-  readonly returnValue?: 'ok' | 'cancel' | string; // how did we close?
-
-  showModal(): Promise<Dialog>; // resolves on close
-  show(): Promise<Dialog>; // resolves on close
-  close(): void;
-}
-
-interface DialogOpts {
-  class?: string; // zero or more classes (period separated) for your view div
-  cssPath?: string; // for themed css craplets
-  cash?: Cash; // content, will be cloned and any 'none' class removed
-  htmlUrl?: string; // content, url will be xhr'd
-  htmlText?: string; // content, text will be used as-is
-  attrs?: { dialog?: Attrs; view?: Attrs }; // optional attrs for dialog and view div
-  action?: Action | Action[]; // if present, add handlers to action buttons
-  onClose?: (dialog: Dialog) => void; // called when dialog closes
-  noCloseButton?: boolean; // if true, no upper right corner close button
-  noClickAway?: boolean; // if true, no click-away-to-close
-}
-
-export interface DomDialogOpts extends DialogOpts {
-  parent?: Element; // for centering and dom placement, otherwise fixed on document.body
-  show?: 'modal' | boolean; // if not falsy, auto-show, and if 'modal' remove from dom on close
-}
-
-export interface SnabDialogOpts extends DialogOpts {
-  vnodes?: LooseVNodes; // snabDialog automatically shows as 'modal' on redraw unless..
-  onInsert?: (dialog: Dialog) => void; // if supplied, call show() or showModal() manually
-}
-
-// Action can be any "clickable" client button, usually to dismiss the dialog
-interface Action {
-  selector: string; // selector, click handler will be installed
-  action?: string | ((dialog: Dialog, action: Action) => void);
-  // if action not provided, just close
-  // if string, given value will set dialog.returnValue and dialog is closed on click
-  // if function, it will be called on click and YOU must close the dialog
-}
-
-// if no 'show' in opts, you must call show or showModal on the resolved promise
 export async function domDialog(o: DomDialogOpts): Promise<Dialog> {
   const [html] = await assets(o);
 

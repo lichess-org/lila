@@ -3,7 +3,6 @@ import { bind, MaybeVNode } from 'common/snabbdom';
 import { fullName, userFlair } from 'common/userLink';
 import { h, VNode } from 'snabbdom';
 import { TeamBattle, RankedTeam, LightTeam } from '../interfaces';
-import { snabDialog } from 'common/dialog';
 
 export function joinWithTeamSelector(ctrl: TournamentController) {
   const tb = ctrl.data.teamBattle!;
@@ -11,7 +10,7 @@ export function joinWithTeamSelector(ctrl: TournamentController) {
     ctrl.joinWithTeamSelector = false;
     ctrl.redraw();
   };
-  return snabDialog({
+  return lichess.dialog.snab({
     class: 'team-battle__choice',
     onInsert(dlg) {
       $('.team-picker__team', dlg.view).on('click', e => {

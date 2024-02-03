@@ -1,6 +1,5 @@
 import * as licon from 'common/licon';
 import { onInsert, bind, looseH as h } from 'common/snabbdom';
-import { snabDialog, type Dialog } from 'common/dialog';
 import * as xhr from 'common/xhr';
 import { onClickAway } from 'common';
 import { Entry, VoiceCtrl } from './interfaces';
@@ -156,7 +155,7 @@ function renderHelpModal(ctrl: VoiceCtrl) {
     if (!dlg.open) dlg.showModal();
   };
 
-  return snabDialog({
+  return lichess.dialog.snab({
     class: 'help.voice-move-help',
     htmlUrl: `/help/voice/${ctrl.moduleId}`,
     cssPath: 'voiceMove.help',

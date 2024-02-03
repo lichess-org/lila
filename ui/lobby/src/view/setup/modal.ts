@@ -1,6 +1,5 @@
 import { h } from 'snabbdom';
 import { MaybeVNode, MaybeVNodes } from 'common/snabbdom';
-import { snabDialog } from 'common/dialog';
 import { userLink } from 'common/userLink';
 import LobbyController from '../../ctrl';
 import { variantPicker } from './components/variantPicker';
@@ -15,7 +14,7 @@ import { levelButtons } from './components/levelButtons';
 export default function setupModal(ctrl: LobbyController): MaybeVNode {
   const { setupCtrl } = ctrl;
   if (!setupCtrl.gameType) return null;
-  return snabDialog({
+  return lichess.dialog.snab({
     class: 'game-setup',
     cssPath: 'lobby.setup',
     onClose: setupCtrl.closeModal,

@@ -1,7 +1,6 @@
 import AnalyseCtrl from './ctrl';
 import { baseUrl } from './view/util';
 import * as licon from 'common/licon';
-import { domDialog } from 'common/dialog';
 import { url as xhrUrl, textRaw as xhrTextRaw } from 'common/xhr';
 import { AnalyseData } from './interfaces';
 import { ChartGame, AcplChart } from 'chart';
@@ -146,7 +145,7 @@ export default function (element: HTMLElement, ctrl: AnalyseCtrl) {
     // uglier in the process.
     const url = `${baseUrl()}/embed/game/${data.game.id}?theme=auto&bg=auto${location.hash}`;
     const iframe = `<iframe src="${url}"\nwidth=600 height=397 frameborder=0></iframe>`;
-    domDialog({
+    lichess.dialog.dom({
       show: 'modal',
       htmlText:
         '<div><strong style="font-size:1.5em">' +

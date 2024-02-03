@@ -1,7 +1,6 @@
 import { parseFen } from 'chessops/fen';
 import { defined, prop, Prop, toggle } from 'common';
 import * as licon from 'common/licon';
-import { snabDialog } from 'common/dialog';
 import { bind, bindSubmit, onInsert, looseH as h } from 'common/snabbdom';
 import { storedProp } from 'common/storage';
 import * as xhr from 'common/xhr';
@@ -125,7 +124,7 @@ export function view(ctrl: StudyChapterNewForm): VNode {
     : 'normal';
   const noarg = trans.noarg;
 
-  return snabDialog({
+  return lichess.dialog.snab({
     class: 'chapter-new',
     onClose() {
       ctrl.isOpen(false);
