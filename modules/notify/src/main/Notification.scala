@@ -113,16 +113,16 @@ object Notification:
 
   case class AndUnread(pager: Paginator[Notification], unread: UnreadCount)
 
-  def make[U](to: U, content: NotificationContent, expiresIn: Option[Duration] = none)(using
-      userIdOf: UserIdOf[U]
+  def make[U: UserIdOf](
+      to: U,
+      content: NotificationContent,
+      expiresIn: Option[FiniteDuration] = none
   ): Notification =
-    val idSize = 8
-    val id     = ThreadLocalRandom nextString idSize
     Notification(
-      id,
-      userIdOf(to),
-      content,
-      NotificationRead(false),
-      nowInstant,
+      id = ThreadLocalRandom nextString 8,
+      notifies = to.id,
+      content = content,
+      read = NotificationRead(false),
+      createdAt = nowInstant,
       expiresAt = expiresIn.map(nowInstant.plus(_))
     )
