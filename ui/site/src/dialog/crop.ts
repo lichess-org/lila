@@ -14,15 +14,16 @@ export interface CropOpts {
 
 export default async function initModule(o?: CropOpts) {
   if (!defined(o)) return;
+  const opts: CropOpts = o;
 
   const url =
-    o.source instanceof Blob
-      ? URL.createObjectURL(o.source)
-      : typeof o.source == 'string'
-      ? URL.createObjectURL((o.source = await (await fetch('o.url')).blob()))
-      : URL.createObjectURL((o.source = await chooseImage()));
+    opts.source instanceof Blob
+      ? URL.createObjectURL(opts.source)
+      : typeof opts.source == 'string'
+      ? URL.createObjectURL((opts.source = await (await fetch('o.url')).blob()))
+      : URL.createObjectURL((opts.source = await chooseImage()));
   if (!url) {
-    o.onCropped?.(false, 'Cancelled');
+    opts.onCropped?.(false, 'Cancelled');
     return;
   }
 
@@ -33,7 +34,7 @@ export default async function initModule(o?: CropOpts) {
     image.onerror = reject;
   }).catch(e => {
     URL.revokeObjectURL(url);
-    o.onCropped?.(false, `Image load failed: ${url} ${e.toString()}`);
+    opts.onCropped?.(false, `Image load failed: ${url} ${e.toString()}`);
     return;
   });
 
@@ -47,7 +48,7 @@ export default async function initModule(o?: CropOpts) {
   const container = document.createElement('div');
   container.appendChild(image);
   const cropper = new Cropper(image, {
-    aspectRatio: o.aspectRatio,
+    aspectRatio: opts.aspectRatio,
     viewMode: 3,
     guides: false,
     responsive: false,
@@ -89,13 +90,13 @@ export default async function initModule(o?: CropOpts) {
     view.innerHTML = lichess.spinnerHtml;
     const canvas = cropper!.getCroppedCanvas({
       imageSmoothingQuality: 'high',
-      maxWidth: o.max?.pixels,
-      maxHeight: o.max?.pixels,
+      maxWidth: opts.max?.pixels,
+      maxHeight: opts.max?.pixels,
     });
     const tryQuality = (quality = 0.8) => {
       canvas.toBlob(
         blob => {
-          if (blob && (!o.max?.megabytes || blob.size < o.max.megabytes * 1024 * 1024)) submit(blob);
+          if (blob && (!opts.max?.megabytes || blob.size < opts.max.megabytes * 1024 * 1024)) submit(blob);
           else if (blob && quality > 0.05) tryQuality(quality * 0.5);
           else submit(false, 'Rendering failed');
         },
@@ -108,15 +109,15 @@ export default async function initModule(o?: CropOpts) {
 
   async function submit(cropped: Blob | false, err?: string) {
     let redirect: string | undefined;
-    if (cropped && o.post) {
+    if (cropped && opts.post) {
       const formData = new FormData();
-      formData.append(o.post.field ?? 'picture', cropped);
-      const rsp = await fetch(o.post.url, { method: 'POST', body: formData });
+      formData.append(opts.post.field ?? 'picture', cropped);
+      const rsp = await fetch(opts.post.url, { method: 'POST', body: formData });
       if (rsp.status / 100 == 3) redirect = rsp.headers.get('Location')!;
       else if (!rsp.ok) cropped = false;
     }
     dlg.close();
-    o.onCropped?.(cropped, err);
+    opts.onCropped?.(cropped, err);
     if (redirect) lichess.redirect(redirect);
   }
 
