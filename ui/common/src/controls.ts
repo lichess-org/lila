@@ -63,19 +63,19 @@ export function wireCropDialog(args?: {
     lichess.asset.loadEsm('cropDialog'); // preload
     return;
   }
-  const argsCopy = { ...args };
-  if (!argsCopy.onCropped) argsCopy.onCropped = result => result && lichess.reload();
-  argsCopy.max = { ...(argsCopy.max || {}), megabytes: 6 }; // mirrors the nginx config `client_max_body_size`
-  argsCopy.selectClicks?.on('click', () => lichess.asset.loadEsm('cropDialog', { init: argsCopy }));
-  argsCopy.selectDrags?.on('dragover', e => e.preventDefault());
-  argsCopy.selectDrags?.on('drop', e => {
+  const cropOpts = { ...args };
+  if (!cropOpts.onCropped) cropOpts.onCropped = result => result && lichess.reload();
+  cropOpts.max = { ...(cropOpts.max || {}), megabytes: 6 }; // mirrors the nginx config `client_max_body_size`
+  cropOpts.selectClicks?.on('click', () => lichess.asset.loadEsm('cropDialog', { init: cropOpts }));
+  cropOpts.selectDrags?.on('dragover', e => e.preventDefault());
+  cropOpts.selectDrags?.on('drop', e => {
     e.preventDefault();
     for (const item of e.dataTransfer.items) {
       if (item.kind === 'file' && item.type.startsWith('image/')) {
-        lichess.asset.loadEsm('cropDialog', { init: { ...argsCopy, source: item.getAsFile() } });
+        lichess.asset.loadEsm('cropDialog', { init: { ...cropOpts, source: item.getAsFile() } });
       } else if (item.kind === 'string' && item.type === 'text/uri-list') {
         item.getAsString((uri: string) =>
-          lichess.asset.loadEsm('cropDialog', { init: { ...argsCopy, source: uri } }),
+          lichess.asset.loadEsm('cropDialog', { init: { ...cropOpts, source: uri } }),
         );
       } else continue;
       break;
