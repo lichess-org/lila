@@ -136,6 +136,7 @@ export class Protocol {
         this.currentEval = {
           sfen: this.work.currentSfen,
           maxDepth: this.work.maxDepth,
+          impasse: this.work.impasse,
           depth,
           knps: nodes / elapsedMs,
           nodes,
@@ -186,22 +187,25 @@ export class Protocol {
 
       if (this.work.variant !== 'standard') this.setOption('USI_Variant', this.work.variant);
 
+      const enteringKingRule =
+        this.engineName?.startsWith('YaneuraOu') && this.work.impasse ? 'NoEnteringKing' : 'CSARule27H';
+
       const threadChange = this.setOption('Threads', this.work.threads || 1),
-        hashChange = this.setOption('USI_Hash', this.work.hashSize || 16);
-      if (threadChange || hashChange) {
+        hashChange = this.setOption('USI_Hash', this.work.hashSize || 16),
+        enteringKingRuleChange = this.setOption('EnteringKingRule', enteringKingRule),
+        multiPvChange = this.setOption('MultiPV', this.work.multiPv);
+
+      if (threadChange || hashChange || enteringKingRuleChange || multiPvChange) {
         this.reloading = true;
         this.isReady();
         return;
       }
-
-      this.setOption('MultiPV', this.work.multiPv);
 
       const command =
         this.work.variant === 'kyotoshogi'
           ? this.toFairyKyotoFormat(this.work.initialSfen, this.work.moves)
           : ['position sfen', this.work.initialSfen, 'moves', ...this.work.moves].join(' ');
       this.send(command);
-      console.debug(command);
 
       this.send(
         this.work.maxDepth >= 99

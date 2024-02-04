@@ -87,11 +87,6 @@
 
     &__underboard {
       margin-top: #{$block-gap + 1};
-      .analyse__underboard__panels,
-      .analyse__underboard__menu {
-        @include board-width(width);
-        margin: auto;
-      }
     }
 
     .eval-gauge {

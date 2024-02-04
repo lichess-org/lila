@@ -18,7 +18,7 @@ const gaugeTicks: VNode[] = [...Array(8).keys()].map(i =>
   h(i === 3 ? 'tick.zero' : 'tick', { attrs: { style: `height: ${(i + 1) * 12.5}%` } })
 );
 
-function localEvalInfo(ctrl: ParentCtrl, evs: NodeEvals): Array<VNode | string> {
+function localEvalInfo(ctrl: ParentCtrl, evs: NodeEvals): Array<VNode | string | null> {
   const ceval = ctrl.getCeval(),
     trans = ctrl.trans;
   if (!evs.client) {
@@ -31,9 +31,9 @@ function localEvalInfo(ctrl: ParentCtrl, evs: NodeEvals): Array<VNode | string> 
         : trans.noarg('loadingEngine') + (mb >= 1 ? ` (${mb.toFixed(1)} MiB)` : ''),
     ];
   }
-
-  const depth = evs.client.depth || 0;
-  const t: Array<VNode | string> = evs.client.cloud
+  const depth = evs.client.depth || 0,
+    impasse = !evs.client?.cloud && !!evs.client?.impasse;
+  const t: Array<VNode | string | null> = evs.client.cloud
     ? [
         trans('depthX', depth),
         h(
@@ -42,7 +42,10 @@ function localEvalInfo(ctrl: ParentCtrl, evs: NodeEvals): Array<VNode | string> 
           `Cloud - ${ceval.shouldUseYaneuraou ? 'NNUE' : 'HCE'}`
         ),
       ]
-    : [trans('depthX', depth + '/' + Math.max(depth, evs.client.maxDepth))];
+    : [
+        impasse ? trans.noarg('impasse') + ', ' : null,
+        trans('depthX', depth + '/' + Math.max(depth, evs.client.maxDepth)),
+      ];
   if (ceval.canGoDeeper())
     t.push(
       h('a.deeper', {
@@ -232,7 +235,9 @@ export function renderCeval(ctrl: ParentCtrl): VNode | undefined {
             h('br'),
             instance.analysable
               ? trans.noarg('inLocalBrowser')
-              : `Engine cannot analyse this ${unsupportedVariants.includes(instance.variant.key) ? 'variant' : 'game'}`,
+              : unsupportedVariants.includes(instance.variant.key)
+                ? trans.noarg('variantNotSupported')
+                : 'Engine cannot analyse this game',
           ]),
         ]),
       ];

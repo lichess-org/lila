@@ -70,6 +70,7 @@ export function make(opts): EvalCache {
       if (
         ev &&
         !ev.cloud &&
+        !ev.impasse &&
         node.sfen in fetchedBySfen &&
         (!fetched || fetched.depth < ev.depth) &&
         qualityCheck(ev) &&

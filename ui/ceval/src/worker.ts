@@ -126,7 +126,7 @@ export class ThreadedWasmWorker extends AbstractWorker<ThreadedWasmWorkerOpts> {
       protocol.config = cfg;
       engine.addMessageListener(protocol.received.bind(protocol));
       protocol.connected(msg => {
-        // console.log(`Engine <- ${msg}`);
+        console.info(`Engine <- ${msg}`);
         engine.postMessage(msg);
       });
       ThreadedWasmWorker.engine[this.opts.module] = engine;

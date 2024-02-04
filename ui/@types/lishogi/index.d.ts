@@ -279,6 +279,7 @@ declare namespace Tree {
   }
   export interface LocalEval extends ClientEvalBase {
     cloud?: false;
+    impasse: boolean;
     maxDepth: number;
     knps: number;
     millis: number;

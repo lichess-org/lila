@@ -28,6 +28,7 @@ export interface Work {
   initialSfen: string;
   currentSfen: string;
   moves: string[];
+  impasse: boolean;
   emit: (ev: Tree.LocalEval) => void;
 }
 

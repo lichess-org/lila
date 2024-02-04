@@ -1,11 +1,10 @@
 import { modal } from 'common/modal';
 import { MaybeVNode, MaybeVNodes, onInsert } from 'common/snabbdom';
 import spinner from 'common/spinner';
+import { impasseInfo } from 'common/impasse';
 import * as game from 'game';
 import { game as gameRoute } from 'game/router';
 import * as status from 'game/status';
-import { parseSfen } from 'shogiops/sfen';
-import { promotionZone } from 'shogiops/variant/util';
 import { Hooks, VNode, h } from 'snabbdom';
 import RoundController from '../ctrl';
 import { RoundData } from '../interfaces';
@@ -413,82 +412,15 @@ export function answerOpponentDrawOffer(ctrl: RoundController) {
     : null;
 }
 
-// https://github.com/WandererXII/scalashogi/blob/main/src/main/scala/StartingPosition.scala
-function pointOffsetFromSfen(sfen: string): number {
-  switch (sfen.split(' ').slice(0, 3).join(' ')) {
-    case 'lnsgkgsn1/1r5b1/ppppppppp/9/9/9/PPPPPPPPP/1B5R1/LNSGKGSNL w -':
-      return 1;
-    case '1nsgkgsnl/1r5b1/ppppppppp/9/9/9/PPPPPPPPP/1B5R1/LNSGKGSNL w -':
-      return 1;
-    case 'lnsgkgsnl/1r7/ppppppppp/9/9/9/PPPPPPPPP/1B5R1/LNSGKGSNL w -':
-      return 5;
-    case 'lnsgkgsnl/7b1/ppppppppp/9/9/9/PPPPPPPPP/1B5R1/LNSGKGSNL w -':
-      return 5;
-    case 'lnsgkgsn1/7b1/ppppppppp/9/9/9/PPPPPPPPP/1B5R1/LNSGKGSNL w -':
-      return 6;
-    case 'lnsgkgsnl/9/ppppppppp/9/9/9/PPPPPPPPP/1B5R1/LNSGKGSNL w -':
-      return 10;
-    case '1nsgkgsn1/9/ppppppppp/9/9/9/PPPPPPPPP/1B5R1/LNSGKGSNL w -':
-      return 12;
-    case '2sgkgs2/9/ppppppppp/9/9/9/PPPPPPPPP/1B5R1/LNSGKGSNL w -':
-      return 14;
-    case '3gkg3/9/ppppppppp/9/9/9/PPPPPPPPP/1B5R1/LNSGKGSNL w -':
-      return 16;
-    case '4k4/9/ppppppppp/9/9/9/PPPPPPPPP/1B5R1/LNSGKGSNL w -':
-      return 18;
-    case '4k4/9/9/9/9/9/PPPPPPPPP/1B5R1/LNSGKGSNL w 3p':
-      return 24;
-    case '4k4/9/9/9/9/9/PPPPPPPPP/1B5R1/LNSGKGSNL w -':
-      return 27;
-    case 'ln2k2nl/1r5b1/ppppppppp/9/9/9/PPPPPPPPP/1B5R1/LNSGKGSNL w -':
-      return 4;
-    case 'l3k3l/1r5b1/ppppppppp/9/9/9/PPPPPPPPP/1B5R1/LNSGKGSNL w -"':
-      return 6;
-    case '4k4/1r5b1/ppppppppp/9/9/9/PPPPPPPPP/1B5R1/LNSGKGSNL w -':
-      return 8;
-    default:
-      return 0;
-  }
-}
-
 export function impasseHelp(ctrl: RoundController) {
   if (!ctrl.impasseHelp) return null;
 
   const lastStep = ctrl.data.steps[ctrl.data.steps.length - 1],
     rules = ctrl.data.game.variant.key,
-    shogi = parseSfen(rules, lastStep.sfen, false),
     initialSfen = ctrl.data.game.initialSfen,
-    pointOffset = initialSfen ? pointOffsetFromSfen(initialSfen) : 0;
+    i = impasseInfo(rules, lastStep.sfen, initialSfen);
 
-  if (shogi.isErr) return null;
-  const board = shogi.value.board;
-
-  const sentePromotion = promotionZone(rules)('sente').intersect(board.color('sente')),
-    gotePromotion = promotionZone(rules)('gote').intersect(board.color('gote')),
-    allMajorPieces = board
-      .role('bishop')
-      .union(board.role('rook'))
-      .union(board.role('horse'))
-      .union(board.role('dragon'));
-
-  const senteKing: boolean = !sentePromotion.intersect(board.role('king')).isEmpty(),
-    goteKing: boolean = !gotePromotion.intersect(board.role('king')).isEmpty();
-
-  const senteNumberOfPieces: number = sentePromotion.diff(board.role('king')).size(),
-    goteNumberOfPieces: number = gotePromotion.diff(board.role('king')).size();
-
-  const senteImpasseValue =
-    senteNumberOfPieces +
-    allMajorPieces.intersect(sentePromotion).size() * 4 +
-    shogi.value.hands.color('sente').count() +
-    (shogi.value.hands.color('sente').get('bishop') + shogi.value.hands.color('sente').get('rook')) * 4;
-
-  const goteImpasseValue =
-    pointOffset +
-    goteNumberOfPieces +
-    allMajorPieces.intersect(gotePromotion).size() * 4 +
-    shogi.value.hands.color('gote').count() +
-    (shogi.value.hands.color('gote').get('bishop') + shogi.value.hands.color('gote').get('rook')) * 4;
+  if (!i) return null;
 
   return h('div.suggestion', [
     h(
@@ -502,17 +434,17 @@ export function impasseHelp(ctrl: RoundController) {
       h(
         'div.color-icon.sente',
         h('ul.impasse-list', [
-          h('li', [ctrl.noarg('enteringKing') + ': ', senteKing ? h('span.good', '✓') : '✗']),
-          h('li', [ctrl.noarg('invadingPieces') + ': ', senteNumberOfPieces + '/10']),
-          h('li', [ctrl.noarg('totalImpasseValue') + ': ', senteImpasseValue + '/28']),
+          h('li', [ctrl.noarg('enteringKing') + ': ', i.sente.king ? h('span.good', '✓') : '✗']),
+          h('li', [ctrl.noarg('invadingPieces') + ': ', i.sente.nbOfPieces + '/10']),
+          h('li', [ctrl.noarg('totalImpasseValue') + ': ', i.sente.pieceValue + '/28']),
         ])
       ),
       h(
         'div.color-icon.gote',
         h('ul.impasse-list', [
-          h('li', [ctrl.noarg('enteringKing') + ': ', goteKing ? h('span.good', '✓') : '✗']),
-          h('li', [ctrl.noarg('invadingPieces') + ': ', goteNumberOfPieces + '/10']),
-          h('li', [ctrl.noarg('totalImpasseValue') + ': ', goteImpasseValue + '/27']),
+          h('li', [ctrl.noarg('enteringKing') + ': ', i.gote.king ? h('span.good', '✓') : '✗']),
+          h('li', [ctrl.noarg('invadingPieces') + ': ', i.gote.nbOfPieces + '/10']),
+          h('li', [ctrl.noarg('totalImpasseValue') + ': ', i.gote.pieceValue + '/27']),
         ])
       ),
     ]),

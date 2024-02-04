@@ -1,5 +1,6 @@
 import { Result } from '@badrap/result';
 import { prop } from 'common/common';
+import { isImpasse } from 'common/impasse';
 import { isAndroid, isIOS, isIPad } from 'common/mobile';
 import { storedProp } from 'common/storage';
 import throttle from 'common/throttle';
@@ -145,10 +146,8 @@ export default function (opts: CevalOpts): CevalCtrl {
   const maxWasmPages = (minPages: number): number => {
     if (!growableSharedMem) return minPages;
     let maxPages = 32768; // hopefully desktop browser, 2 GB max shared
-    if (isAndroid())
-      maxPages = 8192; // 512 MB max shared
-    else if (isIPad())
-      maxPages = 8192; // 512 MB max shared
+    if (isAndroid()) maxPages = 8192; // 512 MB max shared
+    else if (isIPad()) maxPages = 8192; // 512 MB max shared
     else if (isIOS()) maxPages = 4096; // 256 MB max shared
     return Math.max(minPages, maxPages);
   };
@@ -156,10 +155,8 @@ export default function (opts: CevalOpts): CevalCtrl {
     let maxHash = 256; // this is conservative but safe, mostly desktop firefox / mac safari users here
     if (navigator.deviceMemory) maxHash = pow2floor(navigator.deviceMemory * 128); // chrome/edge/opera
 
-    if (isAndroid())
-      maxHash = 64; // budget androids are easy to crash @ 128
-    else if (isIPad())
-      maxHash = 64; // ipados safari pretends to be desktop but acts more like iphone
+    if (isAndroid()) maxHash = 64; // budget androids are easy to crash @ 128
+    else if (isIPad()) maxHash = 64; // ipados safari pretends to be desktop but acts more like iphone
     else if (isIOS()) maxHash = 32;
 
     return maxHash;
@@ -228,7 +225,7 @@ export default function (opts: CevalOpts): CevalCtrl {
       threads: threads(),
       hashSize: hashSize(),
       stopRequested: false,
-
+      impasse: isImpasse(opts.variant.key, step.sfen, steps[0].sfen),
       initialSfen: steps[0].sfen,
       moves: [],
       currentSfen: step.sfen,
