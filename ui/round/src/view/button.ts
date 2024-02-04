@@ -196,7 +196,7 @@ export function backToTournament(ctrl: RoundController) {
         ctrl.noarg('backToTournament'),
       ),
       h('form', { attrs: { method: 'post', action: '/tournament/' + d.tournament.id + '/withdraw' } }, [
-        h('button.text.fbt.weak', util.justIcon(licon.Pause), ctrl.noarg('pause')),
+        h('button.text.fbt.weak', util.justIcon(licon.Pause), ctrl.trans.noarg('pause')),
       ]),
       analysisButton(ctrl),
     ])

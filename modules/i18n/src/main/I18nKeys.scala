@@ -400,6 +400,7 @@ object I18nKeys:
   val `puzzles` = I18nKey("puzzles")
   val `tournamentWinners` = I18nKey("tournamentWinners")
   val `tournamentShieldsWinners` = I18nKey("tournamentShieldsWinners")
+  val `onlineBots` = I18nKey("onlineBots")
   val `name` = I18nKey("name")
   val `description` = I18nKey("description")
   val `descPrivate` = I18nKey("descPrivate")
@@ -908,6 +909,9 @@ object I18nKeys:
     val `viewAllXTeams` = I18nKey("arena:viewAllXTeams")
     val `editTournament` = I18nKey("arena:editTournament")
     val `editTeamBattle` = I18nKey("arena:editTeamBattle")
+    val `pickYourTeam` = I18nKey("arena:pickYourTeam")
+    val `whichTeamWillYouRepresentInThisBattle` = I18nKey("arena:whichTeamWillYouRepresentInThisBattle")
+    val `youMustJoinOneOfTheseTeamsToTarticipate` = I18nKey("arena:youMustJoinOneOfTheseTeamsToTarticipate")
     val `defender` = I18nKey("arena:defender")
 
   object emails:

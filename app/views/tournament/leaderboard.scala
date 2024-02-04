@@ -79,10 +79,10 @@ object leaderboard:
           div(cls := "tournament-leaderboards")(
             eliteWinners,
             freqWinners(winners.hyperbullet, PerfType.Bullet, "HyperBullet"),
-            freqWinners(winners.bullet, PerfType.Bullet, trans.bullet()),
+            freqWinners(winners.bullet, PerfType.Bullet, "Bullet"),
             freqWinners(winners.superblitz, PerfType.Blitz, "SuperBlitz"),
-            freqWinners(winners.blitz, PerfType.Blitz, trans.blitz()),
-            freqWinners(winners.rapid, PerfType.Rapid, trans.rapid()),
+            freqWinners(winners.blitz, PerfType.Blitz, "Blitz"),
+            freqWinners(winners.rapid, PerfType.Rapid, "Rapid"),
             marathonWinners,
             lila.tournament.WinnersApi.variants.map { v =>
               PerfType.byVariant(v).map { pt =>
