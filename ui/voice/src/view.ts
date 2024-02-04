@@ -158,7 +158,7 @@ function renderHelpModal(ctrl: VoiceCtrl) {
   return lichess.dialog.snab({
     class: 'help.voice-move-help',
     htmlUrl: `/help/voice/${ctrl.moduleId}`,
-    cssPath: 'voiceMove.help',
+    css: [{ themed: 'voiceMove.help' }],
     onClose: () => ctrl.showHelp(false),
     onInsert: async dlg => {
       if (ctrl.showHelp() === 'list') {

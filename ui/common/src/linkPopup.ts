@@ -10,7 +10,7 @@ export const onClick = (a: HTMLLinkElement, trans: Trans): boolean => {
   lichess.dialog
     .dom({
       class: 'link-popup',
-      cssPath: 'linkPopup',
+      css: [{ themed: 'linkPopup' }],
       htmlText: `
       <div class="link-popup__content">
         <div class="link-popup__content__title">

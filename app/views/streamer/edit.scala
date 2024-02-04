@@ -18,6 +18,7 @@ object edit:
   )(using ctx: PageContext) =
     views.html.base.layout(
       title = s"${s.user.titleUsername} ${lichessStreamer.txt()}",
+      moreJs = jsModule("streamer"),
       moreCss = cssTag("streamer.form")
     ) {
       main(cls := "page-menu")(
@@ -25,23 +26,13 @@ object edit:
         div(cls := "page-menu__content box streamer-edit")(
           if ctx.is(s.user) then
             div(cls := "streamer-header")(
-              if s.streamer.hasPicture then
-                a(
-                  targetBlank,
-                  cls   := "picture-edit",
-                  href  := routes.Streamer.picture,
-                  title := changePicture.txt()
-                )(
-                  picture.thumbnail(s.streamer, s.user)
+              div(cls := "picture-edit", attr("draggable") := "true")(
+                picture.thumbnail(s.streamer, s.user)(attr("draggable") := "true", cls := "drop-target"),
+                span(
+                  label("Drag image above or"),
+                  button(cls := "button select-image")(s"select image")
                 )
-              else
-                div(cls := "picture-create")(
-                  ctx.is(s.user) option
-                    a(targetBlank, cls := "button", href := routes.Streamer.picture)(
-                      uploadPicture()
-                    )
-                )
-              ,
+              ),
               div(cls := "overview")(
                 h1(s.streamer.name),
                 bits.rules

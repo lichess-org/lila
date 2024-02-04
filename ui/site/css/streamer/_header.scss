@@ -6,12 +6,7 @@
   }
 
   .overview {
-    margin: 20px var(--box-padding) 0 var(--box-padding);
-
-    @include breakpoint($mq-picture) {
-      margin: 20px 10px 0 2em;
-    }
-
+    padding-#{$start-direction}: 2em;
     display: flex;
     flex: auto;
     flex-flow: column;

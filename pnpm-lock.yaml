@@ -622,6 +622,9 @@ importers:
       common:
         specifier: workspace:*
         version: link:../common
+      cropperjs:
+        specifier: ^1.6.1
+        version: 1.6.1
       debounce-promise:
         specifier: ^3.1.2
         version: 3.1.2
@@ -2474,6 +2477,10 @@ packages:
 
   /convert-source-map@2.0.0:
     resolution: {integrity: sha512-Kvp459HrV2FEJ1CAsi1Ku+MY3kasH19TFykTz2xWmMeq6bk2NU3XXvfJ+Q61m0xktWwt+1HSYf3JZsTms3aRJg==}
+    dev: false
+
+  /cropperjs@1.6.1:
+    resolution: {integrity: sha512-F4wsi+XkDHCOMrHMYjrTEE4QBOrsHHN5/2VsVAaRq8P7E5z7xQpT75S+f/9WikmBEailas3+yo+6zPIomW+NOA==}
     dev: false
 
   /cross-spawn@7.0.3:

@@ -24,7 +24,7 @@ export default async function initModule() {
   const copy = `<button class="button copy" data-icon="${licon.Clipboard}"> copy</button>`;
   const dlg = await lichess.dialog.dom({
     class: 'diagnostic',
-    cssPath: 'diagnostic',
+    css: [{ themed: 'diagnosticDialog' }],
     htmlText: `
       <h2>Diagnostics</h2>${flash}
       <pre tabindex="0" class="err">${escaped}</pre>

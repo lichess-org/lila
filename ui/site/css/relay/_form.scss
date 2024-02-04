@@ -32,3 +32,16 @@
   max-width: 100%;
   height: auto;
 }
+
+.relay-image-edit {
+  display: grid;
+  align-items: center;
+  grid-template-columns: 1fr 1fr;
+  column-gap: var(--box-padding);
+  padding: var(--box-padding);
+  background: $c-bg-zebra;
+
+  > div > button {
+    width: 50%;
+  }
+}

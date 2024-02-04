@@ -54,7 +54,7 @@ function commandHelp(aliases: string, args: string, desc: string) {
 
 function help() {
   lichess.dialog.dom({
-    cssPath: 'clinput.help',
+    css: [{ themed: 'clinput.help' }],
     class: 'clinput-help',
     show: 'modal',
     htmlText:

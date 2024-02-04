@@ -5,7 +5,7 @@ import * as licon from 'common/licon';
 
 let dialogPolyfill: { registerDialog: (dialog: HTMLDialogElement) => void };
 
-// for usage: file://./../../../@types/lichess/dialog.d.ts
+// for usage see file://./../../../@types/lichess/dialog.d.ts
 
 export const ready = lichess.load.then(async () => {
   window.addEventListener('resize', onResize);
@@ -30,7 +30,7 @@ export async function domDialog(o: DomDialogOpts): Promise<Dialog> {
   }
 
   const view = $as<HTMLElement>('<div class="dialog-content">');
-  if (o.class) view.classList.add(...o.class.split('.'));
+  if (o.class) view.classList.add(...o.class.split('/[. ]/').filter(x => x));
   for (const [k, v] of Object.entries(o.attrs?.view ?? {})) view.setAttribute(k, String(v));
   if (html) view.innerHTML = html;
 
@@ -68,15 +68,20 @@ export function snabDialog(o: SnabDialogOpts): VNode {
       h(
         'div.scrollable',
         h(
-          'div.dialog-content' + (o.class ? `.${o.class}` : ''),
+          'div.dialog-content' +
+            (o.class
+              ? '.' +
+                o.class
+                  .split(/[. ]/)
+                  .filter(x => x)
+                  .join('.')
+              : ''),
           {
             attrs: o.attrs?.view,
             hook: onInsert(async view => {
               const [html] = await ass;
-              if (html && !o.vnodes) view.innerHTML = html;
-
+              if (!o.vnodes && html) view.innerHTML = html;
               const wrapper = new DialogWrapper(dialog, view, o);
-
               if (o.onInsert) o.onInsert(wrapper);
               else wrapper.showModal();
             }),
@@ -89,7 +94,7 @@ export function snabDialog(o: SnabDialogOpts): VNode {
 }
 
 class DialogWrapper implements Dialog {
-  restoreFocus?: HTMLElement;
+  restore?: { focus: HTMLElement; overflow: string };
   resolve?: (dialog: Dialog) => void;
 
   constructor(
@@ -110,7 +115,9 @@ class DialogWrapper implements Dialog {
     dialog.querySelector('.close-button-anchor > .close-button')?.addEventListener('click', cancelOnInterval);
 
     if (!o.noClickAway) setTimeout(() => dialog.addEventListener('click', cancelOnInterval));
-
+    for (const node of o.append ?? []) {
+      (node.selector ? view.querySelector(node.selector) : view)!.appendChild(node.node);
+    }
     if (o.action)
       for (const a of Array.isArray(o.action) ? o.action : [o.action]) {
         view.querySelector(a.selector)?.addEventListener('click', () => {
@@ -139,10 +146,14 @@ class DialogWrapper implements Dialog {
   };
 
   showModal = (): Promise<Dialog> => {
-    this.restoreFocus = document.activeElement as HTMLElement;
+    this.restore = {
+      focus: document.activeElement as HTMLElement,
+      overflow: document.body.style.overflow,
+    };
     $(focusQuery, this.view)[1]?.focus();
-    this.view.scrollTop = 0;
+    document.body.style.overflow = 'hidden';
 
+    this.view.scrollTop = 0;
     this.dialog.addEventListener('keydown', onModalKeydown);
     this.returnValue = '';
     this.dialog.showModal();
@@ -155,24 +166,28 @@ class DialogWrapper implements Dialog {
 
   onClose = () => {
     if (!this.dialog.returnValue) this.dialog.returnValue = 'cancel';
-    if ('show' in this.o && this.o.show === 'modal') {
-      this.dialog.remove();
-      this.restoreFocus?.focus();
-    }
-    this.restoreFocus = undefined;
+    this.restore?.focus.focus(); // one modal at a time please
+    if (this.restore?.overflow) document.body.style.overflow = this.restore.overflow;
+    this.restore = undefined;
     this.resolve?.(this);
     this.o.onClose?.(this);
+    this.dialog.remove();
   };
 }
 
 function assets(o: DialogOpts) {
+  const cssPromises = (o.css ?? []).map(css => {
+    if ('themed' in css) return lichess.asset.loadCssPath(css.themed);
+    else if ('url' in css) return lichess.asset.loadCss(css.url);
+    else return Promise.resolve();
+  });
   return Promise.all([
     o.htmlUrl
       ? xhr.text(o.htmlUrl)
       : Promise.resolve(
           o.cash ? $as<HTMLElement>($(o.cash).clone().removeClass('none')).outerHTML : o.htmlText,
         ),
-    o.cssPath ? lichess.asset.loadCssPath(o.cssPath) : Promise.resolve(),
+    ...cssPromises,
   ]);
 }
 

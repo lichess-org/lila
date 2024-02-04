@@ -11,11 +11,12 @@ interface Dialog {
 }
 
 interface DialogOpts {
-  class?: string; // zero or more classes (period separated) for your view div
-  cssPath?: string; // for themed css craplets
-  cash?: Cash; // content, will be cloned and any 'none' class removed
-  htmlUrl?: string; // content, url will be xhr'd
+  class?: string; // zero or more classes for your view div
+  css?: ({ url: string } | { themed: string })[]; // fetches themed or full url css
   htmlText?: string; // content, text will be used as-is
+  cash?: Cash; // content, overrides htmlText, will be cloned and any 'none' class removed
+  htmlUrl?: string; // content, overrides htmlText and cash, url will be xhr'd
+  append?: { node: HTMLElement; selector?: string }[]; // appended to view or selected parents
   attrs?: { dialog?: _Snabbdom.Attrs; view?: _Snabbdom.Attrs }; // optional attrs for dialog and view div
   action?: Action | Action[]; // if present, add handlers to action buttons
   onClose?: (dialog: Dialog) => void; // called when dialog closes
@@ -28,8 +29,9 @@ interface DomDialogOpts extends DialogOpts {
   show?: 'modal' | boolean; // if not falsy, auto-show, and if 'modal' remove from dom on close
 }
 
+//snabDialog automatically shows as 'modal' on redraw unless onInsert callback is supplied
 interface SnabDialogOpts extends DialogOpts {
-  vnodes?: _Snabbdom.LooseVNodes; // snabDialog automatically shows as 'modal' on redraw unless..
+  vnodes?: _Snabbdom.LooseVNodes; // content, overrides other content properties
   onInsert?: (dialog: Dialog) => void; // if supplied, call show() or showModal() manually
 }
 
