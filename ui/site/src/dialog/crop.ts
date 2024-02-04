@@ -2,21 +2,14 @@ import { domDialog } from 'common/dialog';
 import Cropper from 'cropperjs';
 
 export interface CropOpts {
-  aspectRatio: number;
-  source?: Blob | string;
-  max?: { megabytes?: number; pixels?: number };
-  post?: { url: string; field?: string };
-  onCropped?: (result: Blob | boolean) => void;
+  aspectRatio: number; // required
+  source?: Blob | string; // image or url
+  max?: { megabytes?: number; pixels?: number }; // constrain size
+  post?: { url: string; field?: string }; // multipart post form url and field name
+  onCropped?: (result: Blob | boolean, error?: string) => void; // result callback
 }
 
-/** myButton.on('click', () => lichess.asset.loadEsm('cropDialog', { init: { aspectRatio: 2 } }))
- *
- * if no source is provided, the user will be prompted to select a file
- * if post is provided, the cropped image will be posted to that url with given field name or 'picture'
- * max constrains the size of the cropped image, either in MB, pixels along the longest extent, or both
- * if onCropped is provided, the cropped image will be passed to that function
- * if something fails, onCropped will be called with false
- */
+// example: .on('click', () => lichess.asset.loadEsm('cropDialog', { init: { aspectRatio: 2 } }))
 
 export default async function initModule(o: CropOpts) {
   if (!o) return;
@@ -27,7 +20,10 @@ export default async function initModule(o: CropOpts) {
       : typeof o.source == 'string'
       ? URL.createObjectURL((o.source = await (await fetch('o.url')).blob()))
       : URL.createObjectURL((o.source = await chooseImage()));
-  if (!url) return;
+  if (!url) {
+    o.onCropped?.(false, 'Cancelled');
+    return;
+  }
 
   const image = new Image();
   await new Promise((resolve, reject) => {
@@ -36,7 +32,7 @@ export default async function initModule(o: CropOpts) {
     image.onerror = reject;
   }).catch(e => {
     URL.revokeObjectURL(url);
-    console.error(e);
+    o.onCropped?.(false, `Image load failed: ${url} ${e.toString()}`);
     return;
   });
 
@@ -51,7 +47,7 @@ export default async function initModule(o: CropOpts) {
   container.appendChild(image);
   const cropper = new Cropper(image, {
     aspectRatio: o.aspectRatio,
-    viewMode: 1,
+    viewMode: 3,
     guides: false,
     responsive: false,
     restore: false,
@@ -100,7 +96,7 @@ export default async function initModule(o: CropOpts) {
         blob => {
           if (blob && (!o.max?.megabytes || blob.size < o.max.megabytes * 1024 * 1024)) submit(blob);
           else if (blob && quality > 0.05) tryQuality(quality * 0.5);
-          else submit(false);
+          else submit(false, 'Rendering failed');
         },
         'image/webp',
         quality,
@@ -109,7 +105,7 @@ export default async function initModule(o: CropOpts) {
     tryQuality();
   }
 
-  async function submit(cropped: Blob | false) {
+  async function submit(cropped: Blob | false, err?: string) {
     let redirect: string | undefined;
     if (cropped && o.post) {
       const formData = new FormData();
@@ -119,7 +115,7 @@ export default async function initModule(o: CropOpts) {
       else if (!rsp.ok) cropped = false;
     }
     dlg.close();
-    o.onCropped?.(cropped);
+    o.onCropped?.(cropped, err);
     if (redirect) lichess.redirect(redirect);
   }
 
