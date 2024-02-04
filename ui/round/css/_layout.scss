@@ -65,15 +65,25 @@
   }
 
   @include breakpoint($mq-col3) {
-    grid-template-columns: $col3-uniboard-side $block-gap 1fr;
+    grid-template-columns: $col3-uniboard-side $block-gap auto;
     grid-template-rows: fit-content(0);
     grid-template-areas:
       'side  . app   app'
-      'uchat . under .';
+      'uchat . under under';
     grid-gap: 0;
     &__underboard,
     &__underchat {
       margin-top: 3vmin;
+    }
+    &__underboard {
+      display: grid;
+      grid-template-columns: var(--col3-uniboard-main-size) $block-gap $col3-uniboard-table;
+      grid-template-areas: 'cs . .';
+      width: 100%;
+      margin-left: 0;
+      .crosstable {
+        grid-area: cs;
+      }
     }
     &__underboard:empty {
       display: none;
