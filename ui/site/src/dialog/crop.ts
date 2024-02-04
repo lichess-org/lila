@@ -1,5 +1,4 @@
-import { defined } from 'common';
-import { domDialog } from 'common/dialog';
+//import { defined } from 'common';
 import Cropper from 'cropperjs';
 
 export interface CropOpts {
@@ -13,14 +12,14 @@ export interface CropOpts {
 // example: .on('click', () => lichess.asset.loadEsm('cropDialog', { init: { aspectRatio: 2 } }))
 
 export default async function initModule(o?: CropOpts) {
-  if (!defined(o)) return;
-  const opts: CropOpts = o;
+  if (!o) return;
+  const opts: CropOpts = { ...o };
 
   const url =
     opts.source instanceof Blob
       ? URL.createObjectURL(opts.source)
       : typeof opts.source == 'string'
-      ? URL.createObjectURL((opts.source = await (await fetch('o.url')).blob()))
+      ? URL.createObjectURL((opts.source = await (await fetch(opts.source)).blob()))
       : URL.createObjectURL((opts.source = await chooseImage()));
   if (!url) {
     opts.onCropped?.(false, 'Cancelled');
@@ -38,15 +37,14 @@ export default async function initModule(o?: CropOpts) {
     return;
   });
 
-  let viewWidth = window.innerWidth * 0.6,
-    viewHeight = window.innerHeight * 0.6;
-
-  const srcRatio = image.naturalWidth / image.naturalHeight;
-  if (srcRatio > viewWidth / viewHeight) viewHeight = viewWidth / srcRatio;
-  else viewWidth = viewHeight * srcRatio;
+  const viewBounds = constrain(image.naturalWidth / image.naturalHeight, {
+    width: window.innerWidth * 0.6,
+    height: window.innerHeight * 0.6,
+  });
 
   const container = document.createElement('div');
   container.appendChild(image);
+
   const cropper = new Cropper(image, {
     aspectRatio: opts.aspectRatio,
     viewMode: 3,
@@ -60,15 +58,15 @@ export default async function initModule(o?: CropOpts) {
     zoomable: false,
     toggleDragModeOnDblclick: false,
     autoCropArea: 1,
-    minContainerWidth: viewWidth,
-    minContainerHeight: viewHeight,
+    minContainerWidth: viewBounds.width,
+    minContainerHeight: viewBounds.height,
   });
 
-  const dlg = await domDialog({
+  const dlg = await lichess.dialog.dom({
     class: 'crop-viewer',
     css: [{ themed: 'cropDialog' }, { url: 'npm/cropper.min.css' }],
     htmlText: `<h2>Crop image to desired shape</h2>
-<div class="crop-view" style="width: ${viewWidth}px; height: ${viewHeight}px;"></div>
+<div class="crop-view"></div>
 <span class="dialog-actions"><button class="button button-empty cancel">cancel</button>
 <button class="button submit">submit</button></span>`,
     append: [{ selector: '.crop-view', node: container }],
@@ -77,18 +75,19 @@ export default async function initModule(o?: CropOpts) {
       { selector: '.dialog-actions > .submit', action: crop },
     ],
     onClose: () => {
-      cropper?.destroy();
       URL.revokeObjectURL(url);
+      opts.onCropped?.(false, 'Cancelled');
     },
   });
+
   dlg.showModal();
 
-  function crop() {
+  async function crop() {
     const view = dlg.view.querySelector('.crop-view') as HTMLElement;
     view.style.display = 'flex';
     view.style.alignItems = 'center';
     view.innerHTML = lichess.spinnerHtml;
-    const canvas = cropper!.getCroppedCanvas({
+    const canvas = cropper.getCroppedCanvas({
       imageSmoothingQuality: 'high',
       maxWidth: opts.max?.pixels,
       maxHeight: opts.max?.pixels,
@@ -116,8 +115,9 @@ export default async function initModule(o?: CropOpts) {
       if (rsp.status / 100 == 3) redirect = rsp.headers.get('Location')!;
       else if (!rsp.ok) cropped = false;
     }
-    dlg.close();
     opts.onCropped?.(cropped, err);
+    opts.onCropped = undefined;
+    dlg.close();
     if (redirect) lichess.redirect(redirect);
   }
 
@@ -133,5 +133,19 @@ export default async function initModule(o?: CropOpts) {
       };
       input.click();
     });
+  }
+
+  function constrain(aspectRatio: number, bounds: { width: number; height: number }, byMax = false) {
+    const constrained = { ...bounds };
+    if (bounds.width / bounds.height > aspectRatio) {
+      constrained.width = bounds.height * aspectRatio;
+    } else {
+      constrained.height = bounds.width / aspectRatio;
+    }
+    if (!byMax) return constrained;
+    const reduce = opts.max?.pixels ? Math.max(constrained.width, constrained.height) / opts.max.pixels : 1;
+    constrained.width /= reduce;
+    constrained.height /= reduce;
+    return constrained;
   }
 }

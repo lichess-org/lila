@@ -1,4 +1,3 @@
-import { domDialog } from 'common/dialog';
 import { load as loadDasher } from 'dasher';
 
 export function initModule({ input }: { input: HTMLInputElement }) {
@@ -54,7 +53,7 @@ function commandHelp(aliases: string, args: string, desc: string) {
 }
 
 function help() {
-  domDialog({
+  lichess.dialog.dom({
     css: [{ themed: 'clinput.help' }],
     class: 'clinput-help',
     show: 'modal',

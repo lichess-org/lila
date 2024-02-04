@@ -1,5 +1,4 @@
 import { isTouchDevice } from 'common/device';
-import { domDialog } from 'common/dialog';
 import * as licon from 'common/licon';
 
 export default async function initModule() {
@@ -23,7 +22,7 @@ export default async function initModule() {
     : '';
   const clear = logs ? `<button class="button button-empty button-red">clear logs</button>` : '';
   const copy = `<button class="button copy" data-icon="${licon.Clipboard}"> copy</button>`;
-  const dlg = await domDialog({
+  const dlg = await lichess.dialog.dom({
     class: 'diagnostic',
     css: [{ themed: 'diagnosticDialog' }],
     htmlText: `

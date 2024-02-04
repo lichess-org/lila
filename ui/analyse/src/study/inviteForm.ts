@@ -2,7 +2,6 @@ import * as licon from 'common/licon';
 import { bind, onInsert } from 'common/snabbdom';
 import { titleNameToId } from '../view/util';
 import { h, VNode } from 'snabbdom';
-import { snabDialog } from 'common/dialog';
 import { prop, Prop } from 'common';
 import { StudyMemberMap } from './interfaces';
 import { AnalyseSocketSend } from '../socket';
@@ -59,7 +58,7 @@ export function view(ctrl: ReturnType<typeof makeCtrl>): VNode {
   const candidates = [...new Set([...ctrl.spectators(), ...ctrl.previouslyInvited()])]
     .filter(s => !ctrl.members()[titleNameToId(s)]) // remove existing members
     .sort();
-  return snabDialog({
+  return lichess.dialog.snab({
     class: 'study__invite',
     onClose() {
       ctrl.open(false);

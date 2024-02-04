@@ -1,6 +1,5 @@
 import { isEmpty } from 'common';
 import * as licon from 'common/licon';
-import { domDialog } from 'common/dialog';
 import { isTouchDevice } from 'common/device';
 import { bind, dataIcon, MaybeVNodes, looseH as h } from 'common/snabbdom';
 import { VNode } from 'snabbdom';
@@ -131,7 +130,9 @@ export function view(ctrl: AnalyseCtrl): VNode {
         h(
           'a',
           {
-            hook: bind('click', () => domDialog({ cash: $('.continue-with.g_' + d.game.id), show: 'modal' })),
+            hook: bind('click', () =>
+              lichess.dialog.dom({ cash: $('.continue-with.g_' + d.game.id), show: 'modal' }),
+            ),
             attrs: dataIcon(licon.Swords),
           },
           noarg('continueFromHere'),
