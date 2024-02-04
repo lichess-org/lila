@@ -1,3 +1,4 @@
+import { defined } from 'common';
 import { domDialog } from 'common/dialog';
 import Cropper from 'cropperjs';
 
@@ -11,8 +12,8 @@ export interface CropOpts {
 
 // example: .on('click', () => lichess.asset.loadEsm('cropDialog', { init: { aspectRatio: 2 } }))
 
-export default async function initModule(o: CropOpts) {
-  if (!o) return;
+export default async function initModule(o?: CropOpts) {
+  if (!defined(o)) return;
 
   const url =
     o.source instanceof Blob
