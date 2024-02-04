@@ -400,6 +400,7 @@ object I18nKeys:
   val `puzzles` = I18nKey("puzzles")
   val `tournamentWinners` = I18nKey("tournamentWinners")
   val `tournamentShieldsWinners` = I18nKey("tournamentShieldsWinners")
+  val `xShields` = I18nKey("xShields")
   val `onlineBots` = I18nKey("onlineBots")
   val `name` = I18nKey("name")
   val `description` = I18nKey("description")
