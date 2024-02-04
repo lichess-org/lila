@@ -93,7 +93,7 @@ object form:
             ),
             p(trans.ublog.useImagesYouMadeYourself()),
             p(strong(trans.streamer.maxSize(s"${lila.memo.PicfitApi.uploadMaxMb}MB."))),
-            button(cls := "button select-image")("select image")
+            form3.file.selectImage
           )
         else
           postForm(

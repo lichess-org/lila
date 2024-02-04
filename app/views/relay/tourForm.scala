@@ -65,7 +65,7 @@ object tourForm:
           "A picture of the city where the tournament takes place is a good idea, but feel free to design something different."
         ),
         p(trans.streamer.maxSize(s"${lila.memo.PicfitApi.uploadMaxMb}MB.")),
-        button(cls := "button select-image")("select image")
+        form3.file.selectImage
       )
     )
 
