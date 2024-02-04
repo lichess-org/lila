@@ -114,14 +114,12 @@ final class RelayTour(env: Env, apiC: => Api, prismicC: => Prismic) extends Lila
       ctx.body.body.file("image") match
         case Some(image) =>
           ImageRateLimitPerIp(ctx.ip, rateLimited):
-            env.relay.api.image.upload(me, tour, image) map { newTour =>
-              Ok(html.relay.tourForm.formImage(newTour))
+            env.relay.api.image.upload(me, tour, image) >> {
+              Ok
             } recover { case e: Exception =>
               BadRequest(e.getMessage)
             }
-        case None =>
-          env.relay.api.image.delete(tour) map: newTour =>
-            Ok(html.relay.tourForm.formImage(newTour))
+        case None => env.relay.api.image.delete(tour) >> Ok
   }
 
   def subscribe(id: TourModel.Id, isSubscribed: Boolean) = Auth { _ ?=> me ?=>

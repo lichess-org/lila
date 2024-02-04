@@ -17,7 +17,7 @@ export default function setupModal(ctrl: LobbyController): MaybeVNode {
   if (!setupCtrl.gameType) return null;
   return snabDialog({
     class: 'game-setup',
-    cssPath: 'lobby.setup',
+    css: [{ themed: 'lobby.setup' }],
     onClose: setupCtrl.closeModal,
     vnodes: [...views[setupCtrl.gameType](ctrl), ratingView(ctrl)],
   });
