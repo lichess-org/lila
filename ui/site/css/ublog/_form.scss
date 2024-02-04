@@ -148,14 +148,5 @@
 }
 
 .ublog-image-edit {
-  display: grid;
-  align-items: center;
-  grid-template-columns: 1fr 1fr;
-  column-gap: 2em;
-  padding: var(--box-padding);
-  background: $c-bg-zebra;
-
-  > div > button {
-    width: 50%;
-  }
+  @extend %image-preview-and-upload;
 }

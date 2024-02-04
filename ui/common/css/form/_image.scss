@@ -1,0 +1,12 @@
+%image-preview-and-upload {
+  @extend %flex-center;
+  padding: var(--box-padding);
+  gap: var(--box-padding);
+  background: $c-bg-zebra;
+  img {
+    flex: 0 2 400px;
+  }
+  > div {
+    flex: 1 1 250px;
+  }
+}
