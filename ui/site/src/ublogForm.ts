@@ -18,7 +18,7 @@ lichess.load.then(() => {
   $('.flash').addClass('fade');
   wireCropDialog({
     aspectRatio: 8 / 5,
-    max: { pixels: 800, megabytes: 6 },
+    max: { pixels: 800 },
     post: { url: $('.ublog-image-edit').attr('data-post-url')!, field: 'image' },
     selectClicks: $('.select-image, .drop-target'),
     selectDrags: $('.drop-target'),

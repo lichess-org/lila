@@ -5,7 +5,7 @@ import Cropper from 'cropperjs';
 export interface CropOpts {
   aspectRatio: number; // required
   source?: Blob | string; // image or url
-  max?: { megabytes?: number; pixels?: number }; // constrain size
+  max: { megabytes: number; pixels?: number }; // constrain size
   post?: { url: string; field?: string }; // multipart post form url and field name
   onCropped?: (result: Blob | boolean, error?: string) => void; // result callback
 }
@@ -96,7 +96,7 @@ export default async function initModule(o?: CropOpts) {
     const tryQuality = (quality = 0.9) => {
       canvas.toBlob(
         blob => {
-          if (blob && (!opts.max?.megabytes || blob.size < opts.max.megabytes * 1024 * 1024)) submit(blob);
+          if (blob && blob.size < opts.max.megabytes * 1024 * 1024) submit(blob);
           else if (blob && quality > 0.05) tryQuality(quality * 0.9);
           else submit(false, 'Rendering failed');
         },

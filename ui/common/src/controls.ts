@@ -65,6 +65,7 @@ export function wireCropDialog(args?: {
   }
   const argsCopy = { ...args };
   if (!argsCopy.onCropped) argsCopy.onCropped = result => result && lichess.reload();
+  argsCopy.max = { ...(argsCopy.max || {}), megabytes: 6 }; // mirrors the nginx config `client_max_body_size`
   argsCopy.selectClicks?.on('click', () => lichess.asset.loadEsm('cropDialog', { init: argsCopy }));
   argsCopy.selectDrags?.on('dragover', e => e.preventDefault());
   argsCopy.selectDrags?.on('drop', e => {
