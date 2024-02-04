@@ -96,7 +96,7 @@ object tournaments:
                   renderStartsAt(any)
                 ),
               s =>
-                frag(trans.swiss.xRoundsSwiss(s.settings.nbRounds)),
+                frag(trans.swiss.xRoundsSwiss(s.settings.nbRounds),
                   br,
                   renderStartsAt(any)
                 )
