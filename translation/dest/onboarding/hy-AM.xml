@@ -1,2 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+  <string name="welcome">Բարի՛ գալուստ!</string>
+  <string name="welcomeToLichess">Բարի՛ գալուստ lichess.org</string>
+  <string name="thisIsYourProfilePage">Սա ձեր պրոֆիլի էջն է</string>
+  <string name="enabledKidModeSuggestion" comment="%s is 'Kid mode'.">Արդյո՞ք երեխա է օգտագործելու այս հաշիվը, դուք կարող եք միացնել %s</string>
+</resources>
