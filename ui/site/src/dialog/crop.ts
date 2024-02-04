@@ -100,7 +100,7 @@ export default async function initModule(o?: CropOpts) {
           else if (blob && quality > 0.05) tryQuality(quality * 0.5);
           else submit(false, 'Rendering failed');
         },
-        'image/webp',
+        'image/jpeg',
         quality,
       );
     };
