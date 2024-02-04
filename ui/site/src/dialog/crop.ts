@@ -1,4 +1,4 @@
-//import { defined } from 'common';
+import { defined } from 'common';
 import Cropper from 'cropperjs';
 
 export interface CropOpts {
@@ -12,7 +12,7 @@ export interface CropOpts {
 // example: .on('click', () => lichess.asset.loadEsm('cropDialog', { init: { aspectRatio: 2 } }))
 
 export default async function initModule(o?: CropOpts) {
-  if (!o) return;
+  if (!defined(o)) return;
   const opts: CropOpts = { ...o };
 
   const url =
