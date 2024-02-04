@@ -42,14 +42,10 @@
     padding: 0.8em;
     overflow: auto;
   }
-  .insight {
+  .insights {
     @extend %flex-center-nowrap;
-    /* no point linking to insights on devices that can't properly display it */
-    @include breakpoint($mq-not-medium) {
-      display: none;
-    }
     flex: 0 0 auto;
-    padding: 0.3em 1em;
+    padding: 0.5em 1em;
     border-top: $border;
     color: $c-link;
     strong {

@@ -255,7 +255,7 @@ object header {
                 )
               ),
               (info.insightsVisible || isGranted(_.SeeInsights)) option
-                a(cls := "insight", href := routes.Insights.user(u.username, ""), dataIcon := "7")(
+                a(cls := "insights", href := routes.Insights.user(u.username, ""), dataIcon := "7")(
                   span(
                     strong(trans.insights.insights())
                   )
