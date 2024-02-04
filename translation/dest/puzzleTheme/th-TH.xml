@@ -48,6 +48,7 @@
   <string name="exposedKing">คิงที่เปิดเผย</string>
   <string name="exposedKingDescription">เป็นกลยุทธ์ที่เกี่ยวกับการรุกจนคิงที่มีหมากป้องกันตัวป้องกันน้อย</string>
   <string name="fork">การโจมตีสองทาง</string>
+  <string name="forkDescription">การเดินหมากที่ทำให้หมากที่ถูกเดินโจมตีหมากของฝ่ายตรงข้ามสองตัวพร้อมกัน</string>
   <string name="hangingPiece">หมากลอย</string>
   <string name="hookMate">การรุกจนแบบ Hook</string>
   <string name="interference">ตาเดินขั้นระหว่าง</string>
