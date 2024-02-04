@@ -19,7 +19,11 @@ final class LobbyApi(
         lightUserApi.preloadMany(displayedPovs.flatMap(_.opponent.userId)) inject {
           Json.obj(
             "me" -> ctx.me.map { u =>
-              Json.obj("username" -> u.username).add("isBot" -> u.isBot)
+              Json
+                .obj("username" -> u.username)
+                .add("isBot" -> u.isBot)
+                .add("rating" -> u.perfs.standard.some.withFilter(r => !r.clueless).map(_.intRating))
+                .add("aiLevel" -> u.perfs.aiLevels.standard)
             },
             "seeks"        -> JsArray(seeks.map(_.render)),
             "nowPlaying"   -> JsArray(displayedPovs map nowPlaying),

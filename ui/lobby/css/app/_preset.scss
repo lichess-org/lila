@@ -24,7 +24,7 @@
     } @else {
       background: fade-out($c-font, .95);
     }
-    color: $c-font;
+    color: $c-font-clear;
     @include transition();
     &:hover {
       background: fade-out($c-accent, .8);

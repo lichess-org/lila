@@ -101,6 +101,21 @@ case object Perf {
 
   val recentMaxSize = 12
 
+  // levels defeated
+  case class AiLevels(standard: Option[Int], minishogi: Option[Int], kyotoshogi: Option[Int]) {
+    def nonEmpty = standard.nonEmpty || minishogi.nonEmpty || kyotoshogi.nonEmpty
+
+    def apply(v: shogi.variant.Variant): Option[Int] = v match {
+      case shogi.variant.Standard   => standard
+      case shogi.variant.Minishogi  => minishogi
+      case shogi.variant.Kyotoshogi => kyotoshogi
+      case _                        => none
+    }
+  }
+  object AiLevels {
+    val default = AiLevels(None, None, None)
+  }
+
   case class Storm(score: Int, runs: Int) {
     def nonEmpty = runs > 0
   }
@@ -132,5 +147,6 @@ case object Perf {
       )
   }
 
-  implicit val stormBSONHandler = Macros.handler[Storm]
+  implicit val stormBSONHandler    = Macros.handler[Storm]
+  implicit val aiLevelsBSONHandler = Macros.handler[AiLevels]
 }

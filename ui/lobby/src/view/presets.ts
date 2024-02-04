@@ -41,7 +41,7 @@ function presetButton(p: Preset, ctrl: LobbyController): VNode {
     ? ctrl.trans('aiNameLevelAiLevel', 'AI', p.ai)
     : p.timeMode == 2
       ? ctrl.trans.noarg('correspondence')
-      : clockToPerf(p.lim * 60, p.byo, p.inc || 0, p.per);
+      : ctrl.trans.noargOrCapitalize(clockToPerf(p.lim * 60, p.byo, p.inc || 0, p.per));
   return h(
     'div',
     {

@@ -20,7 +20,8 @@ case class Perfs(
     classical: Perf,
     correspondence: Perf,
     puzzle: Perf,
-    storm: Perf.Storm
+    storm: Perf.Storm,
+    aiLevels: Perf.AiLevels
 ) {
 
   def perfs =
@@ -173,7 +174,7 @@ case object Perfs {
 
   val default = {
     val p = Perf.default
-    Perfs(p, p, p, p, p, p, p, p, p, p, p, p, p, Perf.Storm.default)
+    Perfs(p, p, p, p, p, p, p, p, p, p, p, p, p, Perf.Storm.default, Perf.AiLevels.default)
   }
 
   val defaultManaged = {
@@ -231,7 +232,8 @@ case object Perfs {
         classical = perf("classical"),
         correspondence = perf("correspondence"),
         puzzle = perf("puzzle"),
-        storm = r.getO[Perf.Storm]("storm") getOrElse Perf.Storm.default
+        storm = r.getO[Perf.Storm]("storm") getOrElse Perf.Storm.default,
+        aiLevels = r.getO[Perf.AiLevels]("ai") getOrElse Perf.AiLevels.default
       )
     }
 
@@ -252,7 +254,8 @@ case object Perfs {
         "classical"      -> notNew(o.classical),
         "correspondence" -> notNew(o.correspondence),
         "puzzle"         -> notNew(o.puzzle),
-        "storm"          -> (o.storm.nonEmpty option o.storm)
+        "storm"          -> (o.storm.nonEmpty option o.storm),
+        "ai"             -> (o.aiLevels.nonEmpty option o.aiLevels)
       )
   }
 

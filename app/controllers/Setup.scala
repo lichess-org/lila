@@ -69,9 +69,12 @@ final class Setup(
                 negotiate(
                   html = fuccess(redirectPov(pov)),
                   api = apiVersion =>
-                    env.api.roundApi.player(pov, none, apiVersion) map { data =>
-                      Created(data) as JSON
-                    }
+                    if (getBool("redirect"))
+                      fuccess(Ok(Json.obj("redirect" -> s"/${pov.fullId}")))
+                    else
+                      env.api.roundApi.player(pov, none, apiVersion) map { data =>
+                        Created(data) as JSON
+                      }
                 )
               }
           )

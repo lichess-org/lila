@@ -206,6 +206,14 @@ final class UserRepo(val coll: Coll)(implicit ec: scala.concurrent.ExecutionCont
       )
       .void
 
+  def setPerfAiLevel(userId: User.ID, variant: shogi.variant.Variant, level: Int): Funit =
+    coll.update
+      .one(
+        $id(userId),
+        $set(s"perfs.ai.${variant.key}" -> level)
+      )
+      .void
+
   def setProfile(id: ID, profile: Profile): Funit =
     coll.update
       .one(

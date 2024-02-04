@@ -20,7 +20,7 @@ const tab: Config<Tab> = {
   key: 'lobby.tab',
   fix(t: string | null): Tab {
     if (<Tab>t) return t as Tab;
-    return 'real_time';
+    return 'presets';
   },
 };
 const mode: Config<Mode> = {

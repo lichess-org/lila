@@ -19,6 +19,7 @@ export interface Hook {
   u?: string; // username
   rating?: number;
   ra?: number; // rated
+  rr?: string; // rating range
   c?: Color;
   perf?: Perf;
   variant: VariantKey;
@@ -61,4 +62,10 @@ export interface Preset {
   days: number;
   timeMode: number;
   ai?: number;
+}
+
+export interface PresetOpts {
+  isAnon: boolean;
+  aiLevel?: number;
+  rating?: number;
 }

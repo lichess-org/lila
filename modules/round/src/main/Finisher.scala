@@ -161,8 +161,14 @@ final private class Finisher(
         if (game.winnerUserId has user.id) 1
         else if (game.loserUserId has user.id) -1
         else 0
+      if (result == 1) updateAiLevels(game, user)
       userRepo
         .incNbGames(user.id, game.rated, game.hasAi, result = result, totalTime = totalTime, tvTime = tvTime)
         .void
+    }
+
+  private def updateAiLevels(game: Game, user: User): Funit =
+    (game.aiLevel.filter(level => user.perfs.aiLevels(game.variant).fold(true)(_ < level))) ?? { level =>
+      userRepo.setPerfAiLevel(user.id, game.variant, level).void
     }
 }

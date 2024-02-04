@@ -76,6 +76,7 @@ case class Hook(
       .add("rating" -> rating)
       .add("variant" -> (!realVariant.standard).option(realVariant.key))
       .add("ra" -> realMode.rated.option(1))
+      .add("rr" -> (ratingRange != RatingRange.default).option(ratingRange))
       .add("c" -> shogi.Color.fromName(color).map(_.name))
       .add("perf" -> perfType.map(_.key))
 

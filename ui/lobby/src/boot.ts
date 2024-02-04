@@ -10,7 +10,7 @@ export default function boot(cfg, element) {
       var gameId = getParameterByName('hook_like');
       if (!gameId) return;
       $.post(`/setup/hook/${window.lishogi.sri}/like/${gameId}?rr=${lobby.setup.ratingRange() || ''}`);
-      lobby.setTab('real_time');
+      lobby.setTab('presets');
       history.replaceState(null, '', '/');
     };
   window.lishogi.socket = window.lishogi.StrongSocket('/lobby/socket/v4', false, {

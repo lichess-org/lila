@@ -1,6 +1,6 @@
 import Filter from './filter';
 import * as hookRepo from './hookRepo';
-import { Hook, LobbyData, LobbyOpts, Mode, Preset, Seek, Sort, Tab } from './interfaces';
+import { Hook, LobbyData, LobbyOpts, Mode, Preset, PresetOpts, Seek, Sort, Tab } from './interfaces';
 import * as seekRepo from './seekRepo';
 import Setup from './setup';
 import LobbySocket from './socket';
@@ -25,6 +25,7 @@ export default class LobbyController {
   trans: Trans;
   filter: Filter;
   setup: Setup;
+  presetOpts: PresetOpts;
   allPresets: Preset[];
 
   private flushHooksTimeout?: number;
@@ -38,6 +39,11 @@ export default class LobbyController {
     this.data.hooks = [];
     this.playban = opts.playban;
     this.isBot = opts.data.me && opts.data.me.isBot;
+    this.presetOpts = {
+      isAnon: !opts.data.me,
+      aiLevel: opts.data.me?.aiLevel && parseInt(opts.data.me.aiLevel),
+      rating: opts.data.me?.rating && parseInt(opts.data.me.rating),
+    };
     this.filter = new Filter(li.storage.make('lobby.filter'), this);
     this.setup = new Setup(li.storage.make, this);
     this.initAllPresets();
@@ -94,11 +100,11 @@ export default class LobbyController {
   private flushHooksSchedule = (): number => setTimeout(this.flushHooks, 8000);
 
   initAllPresets = () => {
-    const savedAiLevel = +(this.setup.stores.ai.get()?.level || 2),
-      level = Math.min(Math.max(savedAiLevel, 2), 7); // the middle level
+    const highestDefeatedAi = this.presetOpts.aiLevel || 1,
+      level = Math.min(Math.max(highestDefeatedAi, 2), 7); // the middle level
     this.allPresets = [
-      { lim: 0, byo: 10 },
       { lim: 3, byo: 0 },
+      { lim: 0, byo: 10 },
       { lim: 5, byo: 10 },
       { lim: 10, byo: 0 },
       { lim: 10, byo: 30 },
@@ -111,7 +117,7 @@ export default class LobbyController {
     ].map((p, i) => {
       return {
         id: 'pid-' + i,
-        lim: p.lim || 1,
+        lim: p.lim || 0,
         byo: p.byo || 0,
         inc: 0,
         per: 1,
@@ -122,7 +128,7 @@ export default class LobbyController {
     });
   };
 
-  setTab = (tab: Tab) => {
+  setTab = (tab: Tab, store = true) => {
     if (tab !== this.tab) {
       if (tab === 'seeks') xhr.seeks().then(this.setSeeks);
       else if (tab === 'real_time') this.socket.realTimeIn();
@@ -130,7 +136,8 @@ export default class LobbyController {
         this.socket.realTimeOut();
         this.data.hooks = [];
       }
-      this.tab = this.stores.tab.set(tab);
+      if (store) this.tab = this.stores.tab.set(tab);
+      else this.tab = tab;
     }
     this.filter.open = false;
   };
@@ -168,11 +175,14 @@ export default class LobbyController {
     seekRepo.initAll(this);
     this.redraw();
   };
+
   clickPreset = preset => {
-    xhr.seekFromPreset(preset, !this.data.me);
-    if (!preset.ai) {
-      if (preset.timeMode === 2) this.setTab('seeks');
-      else this.setTab('real_time');
+    xhr.seekFromPreset(preset, this.presetOpts);
+    if (preset.ai) {
+      this.setRedirecting();
+    } else {
+      if (preset.timeMode === 2) this.setTab('seeks', false);
+      else this.setTab('real_time', false);
     }
   };
 
