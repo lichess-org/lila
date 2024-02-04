@@ -21,6 +21,7 @@ lichess.load.then(() => {
   wireCropDialog({
     aspectRatio: 1,
     post: { url: '/upload/image/streamer', field: 'picture' },
+    max: { pixels: 1000 },
     selectClicks: $('.select-image, .drop-target'),
     selectDrags: $('.drop-target'),
   });

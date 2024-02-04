@@ -19,6 +19,7 @@ lichess.load.then(() => {
   wireCropDialog({
     aspectRatio: 8 / 5,
     post: { url: $('.ublog-image-edit').attr('data-post-url')!, field: 'image' },
+    max: { pixels: 1600 },
     selectClicks: $('.select-image, .drop-target'),
     selectDrags: $('.drop-target'),
   });

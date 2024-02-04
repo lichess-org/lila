@@ -1,4 +1,4 @@
-import { defined } from 'common';
+//import { defined } from 'common';
 import Cropper from 'cropperjs';
 
 export interface CropOpts {
@@ -12,8 +12,8 @@ export interface CropOpts {
 // example: .on('click', () => lichess.asset.loadEsm('cropDialog', { init: { aspectRatio: 2 } }))
 
 export default async function initModule(o?: CropOpts) {
-  if (!defined(o)) return;
-  const opts: CropOpts = o;
+  if (!o) return;
+  const opts: CropOpts = { ...o };
 
   const url =
     opts.source instanceof Blob
@@ -44,6 +44,7 @@ export default async function initModule(o?: CropOpts) {
 
   const container = document.createElement('div');
   container.appendChild(image);
+
   const cropper = new Cropper(image, {
     aspectRatio: opts.aspectRatio,
     viewMode: 3,
@@ -74,8 +75,8 @@ export default async function initModule(o?: CropOpts) {
       { selector: '.dialog-actions > .submit', action: crop },
     ],
     onClose: () => {
-      cropper?.destroy();
       URL.revokeObjectURL(url);
+      opts.onCropped?.(false, 'Cancelled');
     },
   });
 
@@ -114,8 +115,9 @@ export default async function initModule(o?: CropOpts) {
       if (rsp.status / 100 == 3) redirect = rsp.headers.get('Location')!;
       else if (!rsp.ok) cropped = false;
     }
-    dlg.close();
     opts.onCropped?.(cropped, err);
+    opts.onCropped = undefined;
+    dlg.close();
     if (redirect) lichess.redirect(redirect);
   }
 

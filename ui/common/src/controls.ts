@@ -64,7 +64,7 @@ export function wireCropDialog(args?: {
     return;
   }
   const cropOpts = { ...args };
-  if (!cropOpts.onCropped) cropOpts.onCropped = result => result && lichess.reload();
+  if (!cropOpts.onCropped) cropOpts.onCropped = () => lichess.reload();
   cropOpts.max = { ...(cropOpts.max || {}), megabytes: 6 }; // mirrors the nginx config `client_max_body_size`
   cropOpts.selectClicks?.on('click', () => lichess.asset.loadEsm('cropDialog', { init: cropOpts }));
   cropOpts.selectDrags?.on('dragover', e => e.preventDefault());
