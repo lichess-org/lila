@@ -30,7 +30,7 @@ object edit:
                 picture.thumbnail(s.streamer, s.user)(attr("draggable") := "true", cls := "drop-target"),
                 span(
                   label("Drag image above or"),
-                  button(cls := "button select-image")(s"select image")
+                  button(cls := "button select-image")("select image")
                 )
               ),
               div(cls := "overview")(

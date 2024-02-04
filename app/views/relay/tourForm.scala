@@ -55,7 +55,7 @@ object tourForm:
   private def image(t: RelayTour)(using ctx: PageContext) =
     div(cls := "relay-image-edit", data("post-url") := routes.RelayTour.image(t.id))(
       views.html.relay.tour.thumbnail(t, _.Size.Small)(
-        cls               := "drop-target " + t.image.isDefined.so("user-image"),
+        cls               := List("drop-target" -> true, "user-image" -> t.image.isDefined),
         attr("draggable") := "true"
       ),
       div(
@@ -65,7 +65,7 @@ object tourForm:
           "A picture of the city where the tournament takes place is a good idea, but feel free to design something different."
         ),
         p(trans.streamer.maxSize(s"${lila.memo.PicfitApi.uploadMaxMb}MB.")),
-        button(cls := "button select-image")(s"select image")
+        button(cls := "button select-image")("select image")
       )
     )
 
