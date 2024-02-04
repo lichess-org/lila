@@ -67,6 +67,7 @@ private object jsI18n {
     trans.gameOver,
     trans.inLocalBrowser,
     trans.toggleLocalEvaluation,
+    trans.variantNotSupported,
     // action menu
     trans.menu,
     trans.toStudy,

@@ -219,6 +219,9 @@ object home {
     trans.annanshogi,
     trans.kyotoshogi,
     trans.checkshogi,
+    trans.ultrabullet,
+    trans.bullet,
+    trans.blitz,
     trans.rapid,
     trans.classical,
     trans.mode,
@@ -233,7 +236,7 @@ object home {
     trans.rating,
     trans.createAGame,
     trans.startPosition,
-    // trans.quickPairing,
+    trans.presets,
     trans.lobby,
     trans.custom,
     trans.anonymous

@@ -83,9 +83,9 @@ object faq {
             basedOnGameDuration(strong(formulaOfDuration()))
           ),
           ul(
-            li(inferiorThanXsEqualYtimeControl(60, "UltraBullet")),
-            li(inferiorThanXsEqualYtimeControl(300, "Bullet")),
-            li(inferiorThanXsEqualYtimeControl(600, "Blitz")),
+            li(inferiorThanXsEqualYtimeControl(60, trans.ultrabullet())),
+            li(inferiorThanXsEqualYtimeControl(300, trans.bullet())),
+            li(inferiorThanXsEqualYtimeControl(600, trans.blitz())),
             li(inferiorThanXsEqualYtimeControl(1500, trans.rapid())),
             li(superiorThanXsEqualYtimeControl(1500, trans.classical()))
           )

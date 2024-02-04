@@ -9,6 +9,7 @@ export type I18nKey =
 'waiting'|
 'yourTurn'|
 'aiNameLevelAiLevel'|
+'defeatedAiNameAiLevel'|
 'level'|
 'strength'|
 'toggleTheChat'|
@@ -625,6 +626,7 @@ export type I18nKey =
 'xCreatesStudyY'|
 'quickPairing'|
 'lobby'|
+'presets'|
 'anonymous'|
 'yourScore'|
 'language'|
@@ -733,6 +735,9 @@ export type I18nKey =
 'agreeWithX'|
 'searchOrStartNewDiscussion'|
 'edit'|
+'ultrabullet'|
+'bullet'|
+'blitz'|
 'rapid'|
 'classical'|
 'ultraBulletDesc'|

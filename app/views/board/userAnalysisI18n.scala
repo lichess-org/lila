@@ -127,6 +127,7 @@ object userAnalysisI18n {
     trans.showThreat,
     trans.inLocalBrowser,
     trans.toggleLocalEvaluation,
+    trans.variantNotSupported,
     // ceval menu
     trans.computerAnalysis,
     trans.enable,
