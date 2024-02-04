@@ -1,5 +1,5 @@
 .sub-ratings {
-  a {
+  .perf-item {
     @extend %box-radius-left, %flex-center-nowrap, %page-text;
 
     padding: 0.7em $block-gap 0.7em 0.4em;
@@ -75,6 +75,9 @@
       line-height: 1em;
     }
   }
+  .ai-level {
+    pointer-events: none;
+  }
 
   h3 {
     @extend %roboto;
@@ -93,11 +96,11 @@
   }
 
   @include breakpoint($mq-not-medium) {
-    a {
+    .perf-item {
       padding: 0.3em;
     }
 
-    a > i,
+    .perf-item > i,
     h3,
     rating .rp,
     rating span {
@@ -107,14 +110,14 @@
 
   @include breakpoint($mq-subnav-top) {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(9ch, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(15ch, 1fr));
 
     br,
     .rank {
       display: none;
     }
 
-    a {
+    .perf-item {
       display: flex;
       justify-content: center;
 
@@ -131,6 +134,9 @@
       strong {
         font-weight: normal;
       }
+    }
+    .ai-level {
+      display: none;
     }
   }
 }

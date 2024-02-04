@@ -27,8 +27,9 @@ object side {
         dataIcon := perfType.iconChar,
         title    := perfType.desc,
         cls := List(
-          "empty"  -> perf.isEmpty,
-          "active" -> active.has(perfType)
+          "perf-item" -> true,
+          "empty"     -> perf.isEmpty,
+          "active"    -> active.has(perfType)
         ),
         href := {
           if (isPuzzle) ctx.is(u) option routes.Puzzle.dashboard(30, "home").url
@@ -75,7 +76,11 @@ object side {
         showNonEmptyPerf(u.perfs.checkshogi, PerfType.Checkshogi),
         br,
         u.noBot option showPerf(u.perfs.puzzle, PerfType.Puzzle),
-        u.noBot option showStorm(u.perfs.storm, u)
+        u.noBot option showStorm(u.perfs.storm, u),
+        u.noBot option br,
+        u.perfs.aiLevels.standard.ifTrue(u.noBot).map(l => aiLevel(l, shogi.variant.Standard)),
+        u.perfs.aiLevels.minishogi.ifTrue(u.noBot).map(l => aiLevel(l, shogi.variant.Minishogi)),
+        u.perfs.aiLevels.kyotoshogi.ifTrue(u.noBot).map(l => aiLevel(l, shogi.variant.Kyotoshogi))
       )
     )
   }
@@ -84,11 +89,12 @@ object side {
     a(
       dataIcon := '.',
       cls := List(
-        "empty" -> !storm.nonEmpty
+        "perf-item" -> true,
+        "empty"     -> !storm.nonEmpty
       ),
       href := routes.Storm.dashboardOf(user.username),
       span(
-        h3("Tsume Storm"),
+        h3("Storm"),
         st.rating(
           strong(storm.score),
           storm.nonEmpty option frag(
@@ -98,5 +104,17 @@ object side {
         )
       ),
       iconTag("G")
+    )
+
+  private def aiLevel(level: Int, variant: shogi.variant.Variant)(implicit lang: Lang) =
+    div(
+      dataIcon := 'n',
+      cls      := "perf-item ai-level",
+      span(
+        h3(variantName(variant)),
+        st.rating(
+          trans.defeatedAiNameAiLevel.txt("AI", level)
+        )
+      )
     )
 }
