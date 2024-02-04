@@ -71,4 +71,8 @@
       line-height: 0;
     }
   }
+  .inner {
+    padding-left: 0.4em;
+    border-left: $border;
+  }
 }
