@@ -137,29 +137,11 @@ final class RelayApi(
     val tour = data.make
     tourRepo.coll.insert.one(tour) inject tour
 
-  def tourUpdate(prev: RelayTour, data: RelayTourForm.Data)(using Me): Funit =
-    val tour = data.update(prev)
-    tourRepo.coll.update
-      .one(
-        $id(tour.id),
-        $doc(
-          $set(
-            Seq[Option[ElementProducer]](
-              Some("name"            -> tour.name),
-              Some("description"     -> tour.description),
-              Some("autoLeaderboard" -> tour.autoLeaderboard),
-              Some("ownerId"         -> tour.ownerId),
-              tour.players.map("players" -> _),
-              tour.markup.map("markup" -> _),
-              tour.tier.map("tier" -> _),
-              tour.spotlight.filterNot(_.isEmpty).map("spotlight" -> _)
-            ).flatten*
-          ),
-          $unset(Seq(tour.players.isEmpty.option("players"), tour.markup.isEmpty.option("markup")).flatten)
-        )
-      )
-      .void andDo
-      leaderboard.invalidate(tour.id)
+  def tourUpdate(tour: RelayTour, data: RelayTourForm.Data)(using Me): Funit = for
+    subs <- tourRepo.subscribers(tour.id)
+    bson <- Future fromTry tourHandler.writeTry(data.update(tour))
+    _    <- tourRepo.coll.update.one($id(tour.id), bson ++ $doc("subscribers" -> subs))
+  yield leaderboard.invalidate(tour.id)
 
   def create(data: RelayRoundForm.Data, tour: RelayTour)(using me: Me): Fu[RelayRound.WithTourAndStudy] =
     roundRepo.lastByTour(tour) flatMapz { last =>
