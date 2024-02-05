@@ -17,14 +17,7 @@ object NotationImport {
       root: Node.Root,
       variant: shogi.variant.Variant,
       tags: Tags,
-      end: Option[End]
-  )
-
-  case class End(
-      status: shogi.Status,
-      winner: Option[shogi.Color],
-      resultText: String,
-      statusText: String
+      endStatus: Option[Chapter.EndStatus]
   )
 
   def apply(notation: String, contributors: List[LightUser]): Validated[String, Result] =
@@ -51,19 +44,17 @@ object NotationImport {
                 ).fold(variations)(_ :: variations).toVector
               }
             )
-            val end: Option[End] = (game.finished option game.status).map { status =>
-              End(
+            val endStatus: Option[Chapter.EndStatus] = (game.finished option game.status).map { status =>
+              Chapter.EndStatus(
                 status = status,
-                winner = game.winnerColor,
-                resultText = shogi.Color.showResult(game.winnerColor),
-                statusText = lila.game.StatusText(status, game.winnerColor, game.variant)
+                winner = game.winnerColor
               )
             }
             Result(
               root = root,
               variant = game.variant,
               tags = StudyTags(parsedNotation.tags), // tags in studies are kif format even for CSA
-              end = end
+              endStatus = endStatus
             )
         }
     }
@@ -105,13 +96,6 @@ object NotationImport {
         Comment.Author.User(c.id, c.titleName)
       } getOrElse Comment.Author.External(a)
     }
-
-  private def endComment(end: End): Comment = {
-    import lila.tree.Node.Comment
-    import end._
-    val text = s"$statusText"
-    Comment(Comment.Id.make, Comment.Text(text), Comment.Author.Lishogi)
-  }
 
   private def makeVariations(
       parsedMoves: List[ParsedMove],

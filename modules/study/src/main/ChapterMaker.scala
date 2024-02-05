@@ -63,7 +63,7 @@ final private class ChapterMaker(
             ),
             variant = Variant.default,
             tags = Tags.empty,
-            end = None
+            endStatus = None
           )
         }
       )
@@ -83,7 +83,8 @@ final private class ChapterMaker(
         none,
         parsed.variant,
         data.realOrientation,
-        fromNotation = true
+        fromNotation = true,
+        endStatus = parsed.endStatus
       ),
       root = parsed.root,
       tags = parsed.tags,
