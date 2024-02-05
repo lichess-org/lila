@@ -109,6 +109,8 @@ object bits:
     trans.absences,
     trans.study.downloadAllGames,
     trans.winRate,
+    trans.points,
+    trans.tieBreak,
     trans.performance,
     trans.standByX,
     trans.averageOpponent,
