@@ -60,6 +60,7 @@ case class Seek(
         shogi.Color.fromName(color).map(_.name)
       )
       .add("days", daysPerTurn)
+      .add("rr" -> (ratingRange != RatingRange.default).option(ratingRange))
       .add("variant" -> (!realVariant.standard).option(realVariant.key))
       .add("perf", perfType.map(_.key))
       .add("provisional" -> perf.map(_.provisional).filter(identity))
