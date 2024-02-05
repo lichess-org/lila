@@ -53,8 +53,9 @@
     width: auto;
   }
   .new-player {
-    padding: 1.5em;
+    padding: 1.5em 3.5em;
     overflow-y: scroll;
+    border-right: $border;
     h2 {
       font-size: 1.5em;
     }
@@ -64,6 +65,15 @@
     li {
       list-style: disc inside;
       line-height: 1.5em;
+    }
+    + .profile-side {
+      border-left: none !important;
+    }
+    @include breakpoint($mq-col1-uniboard) {
+      width: 100%;
+      padding: 0.8em;
+      border-right: none;
+      border-bottom: $border;
     }
   }
   .number-menu .to-games.active,
