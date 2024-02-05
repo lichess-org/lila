@@ -24,6 +24,7 @@ final class LobbyApi(
                 .add("isBot" -> u.isBot)
                 .add("rating" -> u.perfs.standard.some.withFilter(r => !r.clueless).map(_.intRating))
                 .add("aiLevel" -> u.perfs.aiLevels.standard)
+                .add("isNewPlayer" -> !u.hasGames)
             },
             "seeks"        -> JsArray(seeks.map(_.render)),
             "nowPlaying"   -> JsArray(displayedPovs map nowPlaying),
