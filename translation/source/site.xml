@@ -490,6 +490,8 @@
   <string name="blackWins">Black wins</string>
   <string name="drawRate">Draw rate</string>
   <string name="draws">Draws</string>
+  <string name="byes">Byes</string>
+  <string name="absences">Absences</string>
   <string name="nextXTournament">Next %s tournament:</string>
   <string name="averageOpponent">Average opponent</string>
   <string name="boardEditor">Board editor</string>

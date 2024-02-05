@@ -15,7 +15,7 @@ object chart:
     ) {
       div(cls := "tournament-stats")(
         boxTop(h1(trans.xTournamentStats.txt(userLink(u, withOnline = true)))),
-        p(cls := "box__pad")(trans.rankAvgHelp())),
+        p(cls := "box__pad")(trans.rankAvgHelp()),
         p(cls := "box__pad")(
           trans.allaveragesAreX(
             a(href := "https://www.dictionary.com/e/average-vs-mean-vs-median-vs-mode")(trans.medians())
