@@ -137,24 +137,25 @@ final class RelayApi(
     val tour = data.make
     tourRepo.coll.insert.one(tour) inject tour
 
-  def tourUpdate(tour: RelayTour, data: RelayTourForm.Data)(using Me): Funit =
+  def tourUpdate(prev: RelayTour, data: RelayTourForm.Data)(using Me): Funit =
+    val tour = data.update(prev)
     tourRepo.coll.update
       .one(
         $id(tour.id),
         $doc(
           $set(
             Seq[Option[ElementProducer]](
-              Some("name"            -> data.name),
-              Some("description"     -> data.description),
-              Some("autoLeaderboard" -> data.autoLeaderboard),
-              data.players.map("players" -> _),
-              data.markup.map("markup" -> _),
-              if Granter(_.Relay) then data.tier.map("tier" -> _) else none,
-              data.spotlight.filterNot(_.isEmpty).map("spotlight" -> _),
-              data.tier.isDefined.option("ownerId" -> User.broadcasterId)
+              Some("name"            -> tour.name),
+              Some("description"     -> tour.description),
+              Some("autoLeaderboard" -> tour.autoLeaderboard),
+              Some("ownerId"         -> tour.ownerId),
+              tour.players.map("players" -> _),
+              tour.markup.map("markup" -> _),
+              tour.tier.map("tier" -> _),
+              tour.spotlight.filterNot(_.isEmpty).map("spotlight" -> _)
             ).flatten*
           ),
-          $unset(Seq(data.players.isEmpty.option("players"), data.markup.isEmpty.option("markup")).flatten)
+          $unset(Seq(tour.players.isEmpty.option("players"), tour.markup.isEmpty.option("markup")).flatten)
         )
       )
       .void andDo
