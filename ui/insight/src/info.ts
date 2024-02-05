@@ -18,7 +18,7 @@ export default function (ctrl: Ctrl) {
         ctrl.own
           ? h(
               'a',
-              { attrs: { href: '/account/preferences/site', target: '_blank', rel: 'noopener' } },
+              { attrs: { href: '/account/preferences/privacy#shareYourInsightsData', target: '_blank', rel: 'noopener' } },
               shareText,
             )
           : shareText,
