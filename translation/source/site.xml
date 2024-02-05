@@ -993,4 +993,25 @@ Leave empty to start games from the normal initial position.</string>
   <string name="showMeEverything">Show me everything</string>
   <string name="lichessPatronInfo">Lichess is a charity and entirely free/libre open source software.
 All operating costs, development, and content are funded solely by user donations.</string>
+  <string name="created">Created</string>
+  <string name="recentlyPlayed">Recently played</string>
+  <string name="bestResults">Best results</string>
+  <string name="stats">Stats</string>
+  <string name="xTournamentStats">%s tournament stats</string>
+  <string name="rankAvgHelp">The rank average is a percentage of your ranking. Lower is better.
+
+For instance, being ranked 3 in a tournament of 100 players = %s. Being ranked 10 in a tournament of 1000 players = %s.</string>
+  <string name="allaveragesAreX">All averages on this page are %s.</string>
+  <string name="pointsAvg">Points average</string>
+  <string name="pointsSum">Points sum</string>
+  <string name="rankAvg">Rank average</string>
+  <string name="total">Total</string>
+  <string name="xTournaments">%s tournaments</string>
+  <string name="xHasNotCreatedAnyTourYet">%s has not created any tournament yet!</string>
+  <string name="xHasNotPlayedInAnyTourYet">%s has not played in any tournament yet!</string>
+  <string name="xHasNotJoinedAnyTourYet">%s has not joined any tournament yet</string>
+  <string name="xUpcomingTournaments">%s upcoming tournaments</string>
+  <string name=""></string>
+  <string name=""></string>
+  <string name=""></string>
 </resources>
