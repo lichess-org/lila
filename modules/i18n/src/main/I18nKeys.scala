@@ -360,6 +360,8 @@ object I18nKeys:
   val `blackWins` = I18nKey("blackWins")
   val `drawRate` = I18nKey("drawRate")
   val `draws` = I18nKey("draws")
+  val `byes` = I18nKey("byes")
+  val `absences` = I18nKey("absences")
   val `nextXTournament` = I18nKey("nextXTournament")
   val `averageOpponent` = I18nKey("averageOpponent")
   val `boardEditor` = I18nKey("boardEditor")
