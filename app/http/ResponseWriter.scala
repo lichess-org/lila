@@ -46,12 +46,12 @@ trait ResponseWriter extends ContentTypes:
     import akka.stream.scaladsl.Source
     import play.api.libs.json.{ Json, JsValue }
 
-    enum Style(val keepAlive: String, val contentType: String):
-      case NdJson    extends Style(" ", "application/x-ndjson")
-      case JsonLines extends Style("{}", "application/jsonl")
+    enum Flavour(val keepAlive: String, val contentType: String):
+      case NdJson    extends Flavour(" ", "application/x-ndjson")
+      case JsonLines extends Flavour("{}", "application/jsonl")
 
-    given reqStyle(using req: RequestHeader): Style =
-      if HTTPRequest.acceptsJsonLines(req) then Style.JsonLines else Style.NdJson
+    given reqFlavour(using req: RequestHeader): Flavour =
+      if HTTPRequest.acceptsJsonLines(req) then Flavour.JsonLines else Flavour.NdJson
 
     def addKeepAlive(source: Source[JsValue, ?]): Source[Option[JsValue], ?] =
       source
@@ -62,6 +62,6 @@ trait ResponseWriter extends ContentTypes:
       source.map: o =>
         Json.stringify(o) + "\n"
 
-    def jsOptToString(source: Source[Option[JsValue], ?])(using style: Style) =
+    def jsOptToString(source: Source[Option[JsValue], ?])(using flavour: Flavour) =
       source.map:
-        _.fold(style.keepAlive)(Json.stringify) + "\n"
+        _.fold(flavour.keepAlive)(Json.stringify) + "\n"

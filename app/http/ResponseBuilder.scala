@@ -85,7 +85,7 @@ trait ResponseBuilder(using Executor)
   def negotiateJson(result: => Fu[Result])(using Context) = negotiate(notFound, result)
 
   def strToNdJson(source: Source[String, ?])(using RequestHeader): Result =
-    noProxyBuffer(Ok.chunked(source).as(ndJson.reqStyle.contentType))
+    noProxyBuffer(Ok.chunked(source).as(ndJson.reqFlavour.contentType))
 
   def jsToNdJson(source: Source[JsValue, ?])(using RequestHeader): Result =
     strToNdJson(ndJson.jsToString(source))
