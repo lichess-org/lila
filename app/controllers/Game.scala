@@ -156,13 +156,13 @@ final class Game(env: Env, apiC: => Api) extends LilaController(env):
   private[controllers] def delayMovesFromReq(using RequestHeader) =
     !get("key").exists(env.noDelaySecretSetting.get().value.contains)
 
-  private[controllers] def gameContentType(config: GameApiV2.Config) =
+  private[controllers] def gameContentType(config: GameApiV2.Config)(using RequestHeader) =
     config.format match
       case GameApiV2.Format.PGN => pgnContentType
       case GameApiV2.Format.JSON =>
         config match
           case _: GameApiV2.OneConfig => JSON
-          case _                      => ndJsonContentType
+          case _                      => ndJson.reqStyle.contentType
 
   private[controllers] def preloadUsers(game: lila.game.Game): Funit =
     env.user.lightUserApi preloadMany game.userIds

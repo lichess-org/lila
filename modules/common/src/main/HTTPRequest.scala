@@ -102,6 +102,7 @@ object HTTPRequest:
   def startsWithLichobileAccepts(a: String)       = a.startsWith("application/vnd.lichess.v")
   def accepts(req: RequestHeader): Option[String] = req.headers.get(HeaderNames.ACCEPT)
   def acceptsNdJson(req: RequestHeader)           = accepts(req) contains "application/x-ndjson"
+  def acceptsJsonLines(req: RequestHeader)        = accepts(req) contains "application/jsonl"
   def acceptsJson(req: RequestHeader) = accepts(req).exists: a =>
     a.startsWith("application/json") || startsWithLichobileAccepts(a)
   def acceptsCsv(req: RequestHeader)             = accepts(req) contains "text/csv"
