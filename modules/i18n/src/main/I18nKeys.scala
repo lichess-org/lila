@@ -828,6 +828,7 @@ object I18nKeys:
   val `stats` = I18nKey("stats")
   val `xTournamentStats` = I18nKey("xTournamentStats")
   val `rankAvgHelp` = I18nKey("rankAvgHelp")
+  val `medians` = I18nKey("medians")
   val `allaveragesAreX` = I18nKey("allaveragesAreX")
   val `pointsAvg` = I18nKey("pointsAvg")
   val `pointsSum` = I18nKey("pointsSum")
