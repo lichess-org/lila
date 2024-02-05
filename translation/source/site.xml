@@ -1011,7 +1011,4 @@ For instance, being ranked 3 in a tournament of 100 players = %s. Being ranked 1
   <string name="xHasNotPlayedInAnyTourYet">%s has not played in any tournament yet!</string>
   <string name="xHasNotJoinedAnyTourYet">%s has not joined any tournament yet</string>
   <string name="xUpcomingTournaments">%s upcoming tournaments</string>
-  <string name=""></string>
-  <string name=""></string>
-  <string name=""></string>
 </resources>
