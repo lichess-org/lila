@@ -9,7 +9,7 @@
   <string name="play" comment="play&#10;&#10;A small ribbon that appears on your current chapter in the Chess Basics course. Please keep this string short.">بازی کن!</string>
   <string name="chessPieces">مُهره‌های شطرنج</string>
   <string name="theRook">رُخ</string>
-  <string name="itMovesInStraightLines">در خطوط صاف حرکت می‌کند</string>
+  <string name="itMovesInStraightLines">در عرض و ستون حرکت میکند</string>
   <string name="rookIntro">رُخ مهره نیرومندیست. آماده‌اید که به آن دستور دهید؟</string>
   <string name="rookGoal">روی رخ کلیک کن
 تا روی ستاره ببریش!</string>

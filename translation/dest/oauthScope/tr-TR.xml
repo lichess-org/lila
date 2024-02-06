@@ -32,6 +32,7 @@
   <string name="webLogin" comment="In the context of an access token, a setting which permits third-party software to create authenticated sessions - meaning effectively unlimited access to your account, using it as if it is you, instead of a third party program. It will be unable to view your password but it will be able to do almost everything else.">Kimliği doğrulanmış web sitesi oturumları oluşturun (tam erişim sağlar!)</string>
   <string name="webMod" comment="In the context of an access token, this is a setting which permits third-party software to use moderator tools on your behalf. Most players will not be able to see this option.">Moderatör araçlarını kullanın (izniniz dahilinde)</string>
   <string name="personalAccessTokens">Kişisel API erişim jetonları</string>
+  <string name="canMakeOauthRequests" comment="%s is 'authorisation code flow' (flow, as in a process).">OAuth isteklerini %s üzerinden geçmeden yapabilirsiniz.</string>
   <string name="apiAccessTokens">API erişim jetonları</string>
   <string name="created" comment="%s is relative time, e.g. 2 hours ago.">Oluşturuldu: %s</string>
   <string name="lastUsed" comment="%s is relative time, e.g. 2 hours ago. 'Last used' in this context means 'You used this most recently %s time ago'.">Son kullanım: %s</string>
