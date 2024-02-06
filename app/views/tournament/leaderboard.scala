@@ -75,7 +75,7 @@ object leaderboard:
       main(cls := "page-menu")(
         views.html.user.bits.communityMenu("tournament"),
         div(cls := "page-menu__content box box-pad")(
-          h1(cls := "box__top")("Tournament winners"),
+          h1(cls := "box__top")(trans.tournamentWinners()),
           div(cls := "tournament-leaderboards")(
             eliteWinners,
             freqWinners(winners.hyperbullet, PerfType.Bullet, "HyperBullet"),

@@ -14,26 +14,21 @@ object chart:
       path = "chart"
     ) {
       div(cls := "tournament-stats")(
-        boxTop(h1(userLink(u, withOnline = true), " tournament stats")),
+        boxTop(h1(trans.xTournamentStats.txt(userLink(u, withOnline = true)))),
+        p(cls := "box__pad")(trans.rankAvgHelp()),
         p(cls := "box__pad")(
-          "The rank avg is a percentage of your ranking. Lower is better.",
-          br,
-          "For instance, being ranked 3 in a tournament of 100 players = 3%. ",
-          "Being ranked 10 in a tournament of 1000 players = 1%."
-        ),
-        p(cls := "box__pad")(
-          "All averages on this page are ",
-          a(href := "https://www.dictionary.com/e/average-vs-mean-vs-median-vs-mode/")("medians"),
-          "."
+          trans.allaveragesAreX(
+            a(href := "https://www.dictionary.com/e/average-vs-mean-vs-median-vs-mode")(trans.medians())
+          )
         ),
         table(cls := "slist slist-pad perf-results")(
           thead(
             tr(
               th,
-              th("Tournaments"),
-              th("Points avg"),
-              th("Points sum"),
-              th("Rank avg")
+              th(trans.tournaments()),
+              th(trans.pointsAvg()),
+              th(trans.pointsSum()),
+              th(trans.rankAvg())
             )
           ),
           tbody(
@@ -47,7 +42,7 @@ object chart:
               )
             },
             tr(
-              th("Total"),
+              th(trans.total()),
               td(data.allPerfResults.nb.localize),
               td(data.allPerfResults.points.median.map(_.toInt)),
               td(data.allPerfResults.points.sum.localize),

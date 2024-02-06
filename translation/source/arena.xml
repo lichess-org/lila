@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+  <string name="arena">Arena</string>
   <string name="arenaTournaments">Arena tournaments</string>
   <string name="isItRated">Is it rated?</string>
   <string name="willBeNotified">You will be notified when the tournament starts, so it is safe to play in another tab while waiting.</string>
@@ -49,6 +50,7 @@ Play fast and return to the lobby to play more games and win more points.</strin
     <item quantity="other">View all %s teams</item>
   </plurals>
   <string name="newTeamBattle">New Team Battle</string>
+  <string name="nbTeamsBatte">%s Team Battle</string>
   <string name="customStartDate">Custom start date</string>
   <string name="customStartDateHelp">In your own local timezone. This overrides the "Time before tournament starts" setting</string>
   <string name="allowBerserk">Allow Berserk</string>
@@ -61,4 +63,10 @@ Play fast and return to the lobby to play more games and win more points.</strin
   <string name="averagePerformance">Average performance</string>
   <string name="averageScore">Average score</string>
   <string name="myTournaments">My tournaments</string>
+  <string name="editTournament">Edit tournament</string>
+  <string name="editTeamBattle">Edit team battle</string>
+  <string name="defender">Defender</string>
+  <string name="pickYourTeam">Pick your team</string>
+  <string name="whichTeamWillYouRepresentInThisBattle">Which team will you represent in this battle?</string>
+  <string name="youMustJoinOneOfTheseTeamsToTarticipate">You must join one of these teams to participate!</string>
 </resources>

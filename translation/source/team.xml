@@ -55,4 +55,18 @@ Players who don't like receiving your messages might leave the team.</string>
   <string name="declinedRequests">Declined Requests</string>
   <string name="joinLichessVariantTeam">Join the official %s team for news and events</string>
   <string name="teamPage">Team page</string>
+  <string name="thisTeamBattleIsOver">This tournament is over, and the teams can no longer be updated.</string>
+  <string name="listTheTeamsThatWillCompete">List the teams that will compete in this battle.</string>
+  <string name="oneTeamPerLine">One team per line. Use the auto-completion.</string>
+  <string name="oneTeamPerLineHelp">You can copy-paste this list from a tournament to another!
+
+You can't remove a team if a player has already joined the tournament with it.</string>
+  <string name="numberOfLeadsPerTeam">Number of leaders per team. The sum of their score is the score of the team.</string>
+  <string name="numberOfLeadsPerTeamHelp">You really shouldn't change this value after the tournament has started!</string>
+  <string name="innerTeam">Inner team</string>
+  <string name="battleOfNbTeams">Battle of %s teams</string>
+  <plurals name="andNbLeaders">
+    <item quantity="one">and one leader</item>
+    <item quantity="other">and %s leaders</item>
+  </plurals>
 </resources>

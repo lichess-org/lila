@@ -36,7 +36,7 @@ object side:
                 trans.swiss.nbRounds.plural(s.settings.nbRounds, s"${s.round}/${s.settings.nbRounds}")
               ),
               separator,
-              a(href := routes.Swiss.home)("Swiss"),
+              a(href := routes.Swiss.home)(trans.swiss.swiss()),
               (isGranted(_.ManageTournament) || (ctx.is(s.createdBy) && s.isEnterable)) option frag(
                 " ",
                 a(href := routes.Swiss.edit(s.id), title := "Edit tournament")(iconTag(licon.Gear))
@@ -52,7 +52,7 @@ object side:
           div(a(targetBlank, href := pos.url)(pos.name))
         } orElse s.settings.position.map: fen =>
           div(
-            "Custom position • ",
+            trans.customPosition(), " • ",
             views.html.base.bits.fenAnalysisLink(fen)
           ),
         teamLink(s.teamId),
