@@ -86,6 +86,7 @@ final private class PushApi(
               pov.player.userId so: userId =>
                 val data = LazyFu: () =>
                   for
+                    _ <- proxyRepo flushIfPresent game.id // ensure game is updated before we count user games
                     nbMyTurn <- gameRepo.countWhereUserTurn(userId)
                     opponent <- asyncOpponentName(pov)
                     payload  <- corresGamePayload(pov, "gameMove", userId)
