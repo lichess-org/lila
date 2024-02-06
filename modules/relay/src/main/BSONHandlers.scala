@@ -33,9 +33,9 @@ object BSONHandlers:
 
   given BSONDocumentHandler[RelayRound] = Macros.handler
 
-  private given BSONHandler[play.api.i18n.Lang]  = langByCodeHandler
-  given BSONDocumentHandler[RelayTour.Spotlight] = Macros.handler
-  given BSONDocumentHandler[RelayTour]           = Macros.handler
+  private given BSONHandler[play.api.i18n.Lang]     = langByCodeHandler
+  given BSONDocumentHandler[RelayTour.Spotlight]    = Macros.handler
+  given tourHandler: BSONDocumentHandler[RelayTour] = Macros.handler
 
   def readRoundWithTour(doc: Bdoc): Option[RelayRound.WithTour] = for
     round <- doc.asOpt[RelayRound]
