@@ -67,8 +67,9 @@ final private class GameProxy(
 
   def flushProgress(): Funit =
     scheduledFlush.cancel()
-    dirtyProgress so gameRepo.update addEffect: _ =>
+    dirtyProgress.so: prog =>
       dirtyProgress = none
+      gameRepo.update(prog)
 
   // internals
 
