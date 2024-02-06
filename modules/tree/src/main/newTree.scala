@@ -112,6 +112,11 @@ object NewBranch:
 
 type NewTree = ChessNode[NewBranch]
 
+extension (tree: Tree[NewBranch])
+  def order: Option[List[UciCharPair]] =
+    val ids = tree.childAndVariations.map(_.id)
+    Option.when(ids.sizeIs > 1)(ids)
+
 object NewTree:
   // default case class constructor not working with type alias?
   def apply(value: NewBranch, child: Option[NewTree], variations: List[Variation[NewBranch]]) =

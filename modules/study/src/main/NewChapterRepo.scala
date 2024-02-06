@@ -11,8 +11,7 @@ import lila.db.dsl.{ *, given }
 import lila.tree.{ Branch, Branches }
 
 import Node.{ BsonFields as F }
-import lila.tree.NewBranch
-import lila.tree.NewTree
+import lila.tree.{ NewBranch, NewTree, order }
 
 final class NewChapterRepo(val coll: AsyncColl)(using Executor, akka.stream.Materializer):
 
@@ -139,7 +138,7 @@ final class NewChapterRepo(val coll: AsyncColl)(using Executor, akka.stream.Mate
   private def subTreeToBsonElements(parentPath: UciPath, subTree: NewTree): List[(String, Bdoc)] =
     (parentPath.depth < Node.MAX_PLIES) so {
       val path = parentPath + subTree.id
-      List(path.toDbField -> writeNewBranch(subTree.value, None)) // TODO fix order
+      List(path.toDbField -> writeNewBranch(subTree.value, subTree.order))
     }
 
   private def setNodeValue[A: BSONWriter](

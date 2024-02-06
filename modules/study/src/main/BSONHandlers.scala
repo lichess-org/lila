@@ -178,7 +178,6 @@ object BSONHandlers:
       forceVariation = ~doc.getAsOpt[Boolean](F.forceVariation)
     yield NewBranch(
       id = id,
-      path = path,
       forceVariation = forceVariation,
       move = Uci.WithSan(uci, san),
       metas = Metas(
