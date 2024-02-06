@@ -211,10 +211,7 @@ object BSONHandlers:
       F.score          -> n.eval.flatMap(_.score), // BC stored as score (maybe its better to keep this way?)
       F.clock          -> n.clock,
       F.crazy          -> n.crazyData,
-      F.forceVariation -> w.boolO(n.forceVariation),
-      F.order -> {
-        (n.children.nodes.sizeIs > 1) option n.children.nodes.map(_.id)
-      }
+      F.forceVariation -> w.boolO(n.forceVariation)
     )
 
   private[study] def writeNewBranch(n: NewBranch, order: Option[List[UciCharPair]]) =
@@ -233,8 +230,7 @@ object BSONHandlers:
       F.score    -> n.metas.eval.flatMap(_.score), // BC stored as score (maybe its better to keep this way?)
       F.clock    -> n.metas.clock,
       F.crazy    -> n.metas.crazyData,
-      F.forceVariation -> w.boolO(n.forceVariation),
-      F.order          -> order
+      F.forceVariation -> w.boolO(n.forceVariation)
     )
 
   private[study] given BSON[Root] with

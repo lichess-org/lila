@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="broadcasts">Các phát sóng</string>
-  <string name="myBroadcasts">Các buổi phát sóng của tôi</string>
+  <string name="myBroadcasts">Các phát sóng của tôi</string>
   <plurals name="nbBroadcasts">
     <item quantity="other">%s phát sóng</item>
   </plurals>
@@ -9,19 +9,19 @@
   <string name="newBroadcast">Phát sóng trực tiếp mới</string>
   <string name="aboutBroadcasts">Giới thiệu về phát sóng</string>
   <string name="noRoundsYet">Chưa có vòng nào.</string>
-  <string name="howToUseLichessBroadcasts">Cách sử dụng Phát sóng Lichess.</string>
+  <string name="howToUseLichessBroadcasts">Cách sử dụng Phát sóng của Lichess.</string>
   <string name="theNewRoundHelp">Vòng mới sẽ có các thành viên và cộng tác viên giống như vòng trước.</string>
-  <string name="addRound">Thêm một vòng</string>
+  <string name="addRound">Thêm vòng</string>
   <string name="ongoing">Đang diễn ra</string>
   <string name="upcoming">Sắp diễn ra</string>
   <string name="completed">Đã hoàn thành</string>
-  <string name="completedHelp">Lichess phát hiện việc hoàn thành vòng chơi dựa trên những ván đấu nguồn. Sử dụng nút chuyển đổi này nếu không có nguồn.</string>
+  <string name="completedHelp">Lichess phát hiện việc hoàn thành vòng đấu dựa trên các ván đấu nguồn. Sử dụng nút chuyển đổi này nếu không có nguồn.</string>
   <string name="roundName">Tên vòng</string>
   <string name="roundNumber">Vòng đấu số</string>
   <string name="tournamentName">Tên giải đấu</string>
-  <string name="tournamentDescription">Lời mô tả giải đấu ngắn</string>
+  <string name="tournamentDescription">Mô tả ngắn giải đấu</string>
   <string name="fullDescription">Mô tả đầy đủ giải đấu</string>
-  <string name="fullDescriptionHelp">Tùy chọn mô tả dài về giải đấu. %1$s có thể sử dụng. Độ dài phải nhỏ hơn %2$s ký tự.</string>
+  <string name="fullDescriptionHelp">Tùy chọn mô tả dài về giải đấu. Có thể sử dụng %1$s. Độ dài phải nhỏ hơn %2$s ký tự.</string>
   <string name="sourceUrlOrGameIds">URL nguồn hoặc ID ván cờ</string>
   <string name="sourceUrlHelp">URL mà Lichess sẽ khảo sát để nhận cập nhật PGN. Nó phải được truy cập công khai từ Internet.</string>
   <string name="gameIdsHelp">Ngoài ra, bạn có thể nhập 64 ID ván đấu trên Lichess, phân tách bởi dấu cách.</string>

@@ -50,6 +50,7 @@
   <string name="allSyncMembersRemainOnTheSamePosition">สมาชิก SYNC ทั้งหมดคงอยู่บนตำแหน่งเหมือนเดิม</string>
   <string name="shareChanges">แชร์การเปลี่ยนแปลงกับผู้ชมและบันทึกลงบนเซิร์ฟเวอร์</string>
   <string name="playing">กำลังเล่น</string>
+  <string name="showEvalBar">แถบการประเมินผล</string>
   <string name="first">แรก</string>
   <string name="previous">ก่อนหน้า</string>
   <string name="next">ถัดไป</string>
@@ -81,7 +82,7 @@
   <string name="pinnedChapterComment">ความคิดเห็นที่ถูกปักของบท</string>
   <string name="saveChapter">บันทึกบท</string>
   <string name="clearAnnotations">ล้างหมายเหตุ</string>
-  <string name="clearVariations">ล้างการผันแปร</string>
+  <string name="clearVariations" comment="Clear is used as a verb here. This erases the variations in the study (https://lichess.org/study) you are preparing.">ล้างการผันแปร</string>
   <string name="deleteChapter">ลบบท</string>
   <string name="deleteThisChapter">ลบบทหรือไม่? จะคืนกลับมาไม่ได้!</string>
   <string name="clearAllCommentsInThisChapter">ล้างความคิดเห็น, สัญลักษณ์, และรูปวาดทั้งหมดในบทนี้?</string>

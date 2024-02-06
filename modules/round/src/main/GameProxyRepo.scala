@@ -7,6 +7,8 @@ final class GameProxyRepo(
     roundSocket: RoundSocket
 )(using Executor):
 
+  export roundSocket.{ updateIfPresent, flushIfPresent }
+
   def game(gameId: GameId): Fu[Option[Game]] = GameId.validate(gameId) so roundSocket.getGame(gameId)
 
   def pov[U: UserIdOf](gameId: GameId, user: U): Fu[Option[Pov]] =
@@ -32,9 +34,6 @@ final class GameProxyRepo(
 
   def upgradeIfPresent(games: List[Game]): Fu[List[Game]] =
     games.map(upgradeIfPresent).parallel
-
-  // update the proxied game
-  def updateIfPresent = roundSocket.updateIfPresent
 
   def povIfPresent(gameId: GameId, color: chess.Color): Fu[Option[Pov]] =
     gameIfPresent(gameId) dmap2 { Pov(_, color) }

@@ -84,13 +84,13 @@ trait ResponseBuilder(using Executor)
 
   def negotiateJson(result: => Fu[Result])(using Context) = negotiate(notFound, result)
 
-  def strToNdJson(source: Source[String, ?])(using RequestHeader): Result =
-    noProxyBuffer(Ok.chunked(source).as(ndJson.reqFlavour.contentType))
+  def strToNdJson(source: Source[String, ?]): Result =
+    noProxyBuffer(Ok.chunked(source).as(ndJson.contentType))
 
-  def jsToNdJson(source: Source[JsValue, ?])(using RequestHeader): Result =
+  def jsToNdJson(source: Source[JsValue, ?]): Result =
     strToNdJson(ndJson.jsToString(source))
 
-  def jsOptToNdJson(source: Source[Option[JsValue], ?])(using RequestHeader): Result =
+  def jsOptToNdJson(source: Source[Option[JsValue], ?]): Result =
     strToNdJson(ndJson.jsOptToString(source))
 
   def notFound(using ctx: Context): Fu[Result] =

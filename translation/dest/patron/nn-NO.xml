@@ -80,4 +80,7 @@ Men bidragsytarar kan briske seg med et tøft, nytt profil-ikon.</string>
   <string name="nowOneMonth">Du er no Lichess-mesen for ein månad!</string>
   <string name="downgradeNextMonth">Om ein månad blir du IKKJE belasta på ny, og Lichess-kontoen din blir gradert ned til gratis-nivået.</string>
   <string name="changeCurrency">Endra valuta</string>
+  <string name="paymentDetails">Betalingsdetaljar</string>
+  <string name="updatePaymentMethod">Oppdater betalingsmåte</string>
+  <string name="stripeManageSub">Administrer abonnementet ditt og last ned fakturaer og kvitteringar</string>
 </resources>
