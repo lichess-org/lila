@@ -107,6 +107,8 @@ trait dsl:
     "$unset" -> $doc((Seq(field) ++ fields).map(k => (k, BSONString(""))))
   def $setBoolOrUnset(field: String, value: Boolean): Bdoc =
     if value then $set(field -> true) else $unset(field)
+  def $setsAndUnsets(items: (String, Option[BSONValue])*): Bdoc =
+    $set(items.collect { case (k, Some(v)) => k -> v }*) ++ $unset(items.collect { case (k, None) => k })
   def $min(item: ElementProducer): Bdoc                         = $doc("$min" -> $doc(item))
   def $max(item: ElementProducer): Bdoc                         = $doc("$max" -> $doc(item))
   def $divide[A: BSONWriter, B: BSONWriter](a: A, b: B): Bdoc   = $doc("$divide" -> $arr(a, b))
@@ -318,6 +320,10 @@ trait dsl:
   import scala.language.implicitConversions
   given toBSONDocument[V](using BSONWriter[V]): Conversion[Expression[V], Bdoc] =
     expression => $doc(expression.field -> expression.value)
+
+  object toBSONValueOption:
+    given [V](using w: BSONWriter[V]): Conversion[Option[V], Option[BSONValue]] =
+      _.flatMap(w.writeOpt)
 
 object dsl extends dsl with Handlers:
 
