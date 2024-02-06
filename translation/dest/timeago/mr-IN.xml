@@ -54,4 +54,5 @@
     <item quantity="one">%s वर्षापूर्वी</item>
     <item quantity="other">%s वर्षांपूर्वी</item>
   </plurals>
+  <string name="completed">पूर्ण झाले</string>
 </resources>
