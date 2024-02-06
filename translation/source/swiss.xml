@@ -47,8 +47,8 @@ To give a bye (1 point) to a player instead of a pairing, add a line like so:
 PlayerE 1
 Missing players will be considered absent and get zero points.
 Leave this field empty to let lichess create pairings automatically.</string>
-  <string name="playYourGames">Must have played their last swiss game</string>
-  <string name="playYourGamesHelp">Only let players join if they have played their last swiss game. If they failed to show up in a recent swiss event, they won't be able to enter yours. This results in a better swiss experience for the players who actually show up.</string>
+  <string name="mustHavePlayedTheirLastSwissGame">Must have played their last swiss game</string>
+  <string name="mustHavePlayedTheirLastSwissGameHelp">Only let players join if they have played their last swiss game. If they failed to show up in a recent swiss event, they won't be able to enter yours. This results in a better swiss experience for the players who actually show up.</string>
   <string name="newSwiss">New Swiss tournament</string>
   <string name="swissVsArenaQ">When to use Swiss tournaments instead of arenas?</string>
   <string name="swissVsArenaA">In a Swiss tournament, all participants play the same number of games, and can only play each other once.

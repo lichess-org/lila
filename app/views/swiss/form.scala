@@ -246,8 +246,8 @@ final private class SwissFields(form: Form[SwissForm.SwissData], swiss: Option[S
   def playYourGames = frag(
     form3.checkbox(
       form("conditions.playYourGames"),
-      trans.swiss.playYourGames(),
-      help = trans.swiss.playYourGamesHelp().some,
+      trans.swiss.mustHavePlayedTheirLastSwissGame(),
+      help = trans.swiss.mustHavePlayedTheirLastSwissGameHelp().some,
       half = true
     ),
     form3.hiddenFalse(form("conditions.playYourGames"))
