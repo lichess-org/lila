@@ -83,13 +83,13 @@ object NewPgnImport:
       annotator: Option[Comment.Author]
   ): Option[PgnNode[NewBranch]] =
     node.mapAccumlOption_(setup): (setup, data) =>
-      transform(context, data, annotator)
+      transform(setup, data, annotator)
 
   private def transform(
       context: chess.Game,
       data: PgnNodeData,
       annotator: Option[Comment.Author]
-  ): (Context, Option[NewBranch]) =
+  ): (chess.Game, Option[NewBranch]) =
     data
       .san(context.situation)
       .map(moveOrDrop =>

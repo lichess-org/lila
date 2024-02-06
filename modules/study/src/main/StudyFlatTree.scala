@@ -46,7 +46,6 @@ private object StudyFlatTree:
     private def traverse(children: List[FlatNode]): Branches =
       children
         .foldLeft(Map.empty[UciPath, Branches]) { (roots, flat) =>
-          // assumes that node has a greater depth than roots (sort beforehand)
           flat
             .toNodeWithChildren(roots get flat.path)
             .fold(roots): node =>
@@ -61,6 +60,7 @@ private object StudyFlatTree:
     private def traverseN(xs: List[FlatNode]): Option[NewTree] =
       xs.nonEmpty so
         xs.foldLeft(Map.empty[UciPath, NewTree]) { (roots, flat) =>
+          // assumes that node has a greater depth than roots (sort beforehand)
           flat
             .toNodeWithChild(roots.get(flat.path))
             .fold(roots): node =>
@@ -77,14 +77,13 @@ private object StudyFlatTree:
       Chronometer.syncMon(_.study.tree.write):
         root.children.nodes.flatMap { traverse(_, UciPath.root) }
 
-    def newRootChildren(root: NewRoot): List[(String, Bdoc)] =
+    def newRootChildren(root: NewRoot): List[(String, BSONDocument)] =
       Chronometer.syncMon(_.study.tree.write):
         root.tree.so:
-          _.foldLeft(List.empty)((acc, branch) => acc :+ writeBranch_(branch))
-
-    // TODO: order should be a list of ids of the children & variations
-    private def writeBranch_(path: UciPath, subTree: NewTree): (String, BSONDocument) =
-      UciPathDb.encodeDbKey(path) -> writeNewBranch(subTree.value, subTree.order)
+          _.mapAccuml_(UciPath.root)((acc, branch) =>
+            val path = acc+ branch.id
+            path -> (UciPathDb.encodeDbKey(path) -> writeNewBranch(branch))
+          ).toList
 
     private def traverse(node: Branch, parentPath: UciPath): List[(String, Bdoc)] =
       (parentPath.depth < Node.MAX_PLIES) so:
