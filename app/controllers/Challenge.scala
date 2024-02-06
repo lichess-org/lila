@@ -305,8 +305,8 @@ final class Challenge(
                                 val json = env.challenge.jsonView
                                   .show(challenge, SocketVersion(0), lila.challenge.Direction.Out.some)
                                 if config.keepAliveStream then
-                                  apiC.sourceToNdJsonOption:
-                                    apiC.addKeepAlive(env.challenge.keepAliveStream(challenge, json))
+                                  jsOptToNdJson:
+                                    ndJson.addKeepAlive(env.challenge.keepAliveStream(challenge, json))
                                 else JsonOk(json)
                               else JsonBadRequest(jsonError("Challenge not created"))
                             }

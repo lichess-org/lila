@@ -356,8 +356,7 @@ final class Puzzle(env: Env, apiC: => Api) extends LilaController(env):
       max = getInt("max").map(_ atLeast 1),
       before = getTimestamp("before")
     )
-    apiC.GlobalConcurrencyLimitPerIpAndUserOption(me.some)(env.puzzle.activity.stream(config)): source =>
-      Ok.chunked(source).as(ndJsonContentType) pipe noProxyBuffer
+    apiC.GlobalConcurrencyLimitPerIpAndUserOption(me.some)(env.puzzle.activity.stream(config))(jsToNdJson)
   }
 
   def apiDashboard(days: Int) = AuthOrScoped(_.Puzzle.Read, _.Web.Mobile) { _ ?=> me ?=>

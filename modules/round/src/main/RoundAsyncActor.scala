@@ -86,7 +86,7 @@ final private class RoundAsyncActor(
   private val whitePlayer = Player(White)
   private val blackPlayer = Player(Black)
 
-  export proxy.{ game as getGame, update as updateGame }
+  export proxy.{ game as getGame, update as updateGame, flushProgress as flushGame }
 
   val process: AsyncActor.ReceiveAsync =
 

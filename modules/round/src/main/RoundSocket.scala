@@ -70,6 +70,9 @@ final class RoundSocket(
   def gameAndStatusIfPresent(gameId: GameId): Fu[Option[GameAndSocketStatus]] =
     rounds.askIfPresent[GameAndSocketStatus](gameId)(GetGameAndSocketStatus.apply)
 
+  def flushIfPresent(gameId: GameId): Funit =
+    rounds.getIfPresent(gameId).so(_.flushGame())
+
   val rounds = AsyncActorConcMap[GameId, RoundAsyncActor](
     mkAsyncActor =
       id => makeRoundActor(id, SocketVersion(0), roundDependencies.gameRepo game id recoverDefault none),
