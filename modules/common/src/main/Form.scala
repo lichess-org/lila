@@ -10,6 +10,7 @@ import play.api.data.{ Field, FormError, Mapping, Form as PlayForm }
 import play.api.data.validation as V
 import scala.util.Try
 import java.time.LocalDate
+import java.lang
 
 object Form:
 
@@ -91,6 +92,12 @@ object Form:
   val cleanNonEmptyText: Mapping[String] = cleanText.verifying(Constraints.nonEmpty)
   def cleanNonEmptyText(minLength: Int = 0, maxLength: Int = Int.MaxValue): Mapping[String] =
     cleanText(minLength, maxLength).verifying(Constraints.nonEmpty)
+
+  val slugConstraint: V.Constraint[String] =
+    Constraints.pattern(
+      regex = """[\w-]+""".r,
+      error = "Invalid characters; only letters, numbers, and dashes are accepted."
+    )
 
   object eventName:
 

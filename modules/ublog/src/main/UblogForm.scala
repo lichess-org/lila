@@ -7,7 +7,6 @@ import ornicar.scalalib.ThreadLocalRandom
 import lila.common.Form.{ cleanNonEmptyText, stringIn, into, given }
 import lila.i18n.{ defaultLanguage, LangList, Language, LangForm }
 import lila.user.User
-import play.api.i18n.Lang
 
 final class UblogForm(val captcher: lila.hub.actors.Captcher) extends lila.hub.CaptchedForm:
 
@@ -35,7 +34,7 @@ final class UblogForm(val captcher: lila.hub.actors.Captcher) extends lila.hub.C
     UblogPostData(
       title = post.title,
       intro = post.intro,
-      markdown = removeLatex(post.markdown),
+      markdown = lila.common.MarkdownToastUi.latex.removeFrom(post.markdown),
       imageAlt = post.image.flatMap(_.alt),
       imageCredit = post.image.flatMap(_.credit),
       language = post.language.some,
@@ -45,10 +44,6 @@ final class UblogForm(val captcher: lila.hub.actors.Captcher) extends lila.hub.C
       gameId = GameId(""),
       move = ""
     )
-
-  // $$something$$ breaks the TUI editor WYSIWYG
-  private val latexRegex                      = """\${2,}+([^\$]++)\${2,}+""".r
-  private def removeLatex(markdown: Markdown) = markdown.map(latexRegex.replaceAllIn(_, """\$\$ $1 \$\$"""))
 
 object UblogForm:
 

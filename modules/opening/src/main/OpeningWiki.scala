@@ -27,9 +27,8 @@ final class OpeningWikiApi(coll: Coll, explorer: OpeningExplorer, cacheApi: Cach
 
   def apply(op: Opening, withRevisions: Boolean): Fu[OpeningWiki] = for
     wiki <- cache get op.key
-    revisions <- withRevisions so {
+    revisions <- withRevisions so:
       coll.primitiveOne[List[Revision]]($id(op.key), "revisions")
-    }
   yield wiki.copy(revisions = (~revisions) take 25)
 
   def write(op: Opening, text: String, by: User): Funit =

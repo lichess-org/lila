@@ -8,8 +8,6 @@ import lila.blog.DailyFeed.Update
 import play.api.data.Form
 import play.api.i18n.Lang
 import lila.common.paginator.Paginator
-import scalatags.text.Builder
-import scalatags.generic.Frag
 
 object dailyFeed:
 

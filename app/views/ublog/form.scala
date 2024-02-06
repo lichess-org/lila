@@ -133,12 +133,11 @@ object form:
           br,
           tips
         ).some
-      ) { field =>
+      ): field =>
         frag(
           form3.textarea(field)(),
-          div(id := "markdown-editor", attr("data-image-upload-url") := routes.Main.uploadImage("ublogBody"))
-        )
-      },
+          div(cls := "markdown-editor", attr("data-image-upload-url") := routes.Main.uploadImage("ublogBody"))
+        ),
       post.toOption match
         case None =>
           form3.group(form("topics"), frag(trans.ublog.selectPostTopics()))(

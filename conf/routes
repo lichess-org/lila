@@ -796,6 +796,13 @@ GET   /event/manager/clone/$id<\w{8}>  controllers.Event.cloneE(id)
 GET   /event/manager/new               controllers.Event.form
 POST  /event/manager                   controllers.Event.create
 
+GET   /cms                            controllers.Cms.index
+GET   /cms/new                        controllers.Cms.createForm
+POST  /cms/new                        controllers.Cms.create
+GET   /cms/:id/edit                   controllers.Cms.edit(id)
+POST  /cms/:id/edit                   controllers.Cms.update(id)
+POST  /cms/:id/delete                 controllers.Cms.delete(id)
+
 # Misc
 GET   /captcha/$id<\w{8}>              controllers.Main.captchaCheck(id)
 GET   /developers                      controllers.Main.webmasters

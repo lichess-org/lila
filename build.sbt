@@ -67,7 +67,7 @@ lazy val modules = Seq(
   study, studySearch, fishnet, explorer, learn, plan,
   event, coach, practice, evalCache, irwin,
   activity, relay, streamer, bot, clas, swiss, storm, racer,
-  ublog, tutor, opening
+  ublog, tutor, opening, cms
 )
 
 lazy val moduleRefs = modules map projectToRef
@@ -93,6 +93,11 @@ lazy val i18n = module("i18n",
       compileTo = (Compile / sourceManaged).value
     )
   }.taskValue
+)
+
+lazy val cms = module("cms",
+  Seq(user),
+  reactivemongo.bundle
 )
 
 lazy val puzzle = module("puzzle",
@@ -137,7 +142,7 @@ lazy val blog = module("blog",
 
 lazy val ublog = module("ublog",
   Seq(timeline),
-  Seq(bloomFilter) ++ tests.bundle ++ reactivemongo.bundle
+  Seq(bloomFilter) ++ reactivemongo.bundle
 )
 
 lazy val evaluation = module("evaluation",
