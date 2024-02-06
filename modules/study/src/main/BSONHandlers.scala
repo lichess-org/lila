@@ -214,7 +214,7 @@ object BSONHandlers:
       F.forceVariation -> w.boolO(n.forceVariation)
     )
 
-  private[study] def writeNewBranch(n: NewBranch, order: Option[List[UciCharPair]]) =
+  private[study] def writeNewBranch(n: NewBranch) =
     import Node.{ BsonFields as F }
     val w = new Writer
     $doc(

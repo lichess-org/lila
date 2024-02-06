@@ -51,7 +51,6 @@ object StudyArbitraries:
           move,
           NewBranch(
             id = UciCharPair(move.toUci),
-            path = UciPath.root,
             move = Uci.WithSan(uci, move.san),
             comp = false,
             forceVariation = false,
