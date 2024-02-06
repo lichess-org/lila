@@ -2,7 +2,6 @@ import * as control from './control';
 import AnalyseCtrl from './ctrl';
 import * as xhr from 'common/xhr';
 import { VNode } from 'snabbdom';
-import { snabDialog } from 'common/dialog';
 
 export const bind = (ctrl: AnalyseCtrl) => {
   let shiftAlone = 0;
@@ -132,7 +131,7 @@ export const bind = (ctrl: AnalyseCtrl) => {
 };
 
 export function view(ctrl: AnalyseCtrl): VNode {
-  return snabDialog({
+  return lichess.dialog.snab({
     class: 'help.keyboard-help',
     htmlUrl: xhr.url('/analysis/help', { study: !!ctrl.study }),
     onClose() {

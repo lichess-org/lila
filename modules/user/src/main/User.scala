@@ -23,7 +23,8 @@ case class User(
     plan: Plan,
     flair: Option[Flair] = None,
     totpSecret: Option[TotpSecret] = None,
-    marks: UserMarks = UserMarks.empty
+    marks: UserMarks = UserMarks.empty,
+    hasEmail: Boolean
 ):
 
   override def equals(other: Any) = other match
@@ -91,11 +92,12 @@ case class User(
 
   def addRole(role: String) = copy(roles = role :: roles)
 
-  def isVerified        = roles.exists(_ contains "ROLE_VERIFIED")
-  def isSuperAdmin      = roles.exists(_ contains "ROLE_SUPER_ADMIN")
-  def isAdmin           = roles.exists(_ contains "ROLE_ADMIN") || isSuperAdmin
-  def isApiHog          = roles.exists(_ contains "ROLE_API_HOG")
-  def isVerifiedOrAdmin = isVerified || isAdmin
+  def isVerified                 = roles.exists(_ contains "ROLE_VERIFIED")
+  def isSuperAdmin               = roles.exists(_ contains "ROLE_SUPER_ADMIN")
+  def isAdmin                    = roles.exists(_ contains "ROLE_ADMIN") || isSuperAdmin
+  def isApiHog                   = roles.exists(_ contains "ROLE_API_HOG")
+  def isVerifiedOrAdmin          = isVerified || isAdmin
+  def isVerifiedOrChallengeAdmin = isVerifiedOrAdmin || roles.exists(_ contains "ROLE_CHALLENGE_ADMIN")
 
   def has2fa = totpSecret.isDefined
 
@@ -309,7 +311,8 @@ object User:
         plan = r.getO[Plan](plan) | Plan.empty,
         totpSecret = r.getO[TotpSecret](totpSecret),
         flair = r.getO[Flair](flair).filter(FlairApi.exists),
-        marks = r.getO[UserMarks](marks) | UserMarks.empty
+        marks = r.getO[UserMarks](marks) | UserMarks.empty,
+        hasEmail = r.contains(email)
       )
 
     def writes(w: BSON.Writer, o: User) =

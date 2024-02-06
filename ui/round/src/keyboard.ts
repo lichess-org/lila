@@ -1,6 +1,5 @@
 import RoundController from './ctrl';
 import { VNode } from 'snabbdom';
-import { snabDialog } from 'common/dialog';
 
 export const prev = (ctrl: RoundController) => ctrl.userJump(ctrl.ply - 1);
 
@@ -33,7 +32,7 @@ export const init = (ctrl: RoundController) =>
     });
 
 export const view = (ctrl: RoundController): VNode =>
-  snabDialog({
+  lichess.dialog.snab({
     class: 'help',
     htmlUrl: '/round/help',
     onClose() {

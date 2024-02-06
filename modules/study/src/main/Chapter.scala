@@ -118,11 +118,12 @@ object Chapter:
     def isFromFen = ~fromFen
 
   case class Relay(
-      index: Int, // game index in the source URL
+      index: Option[Int], // game index in the source URL, none to always match tags
       path: UciPath,
       lastMoveAt: Instant
   ):
     def secondsSinceLastMove: Int = (nowSeconds - lastMoveAt.toSeconds).toInt
+    def isPush                    = index.isEmpty
 
   case class ServerEval(path: UciPath, done: Boolean)
 

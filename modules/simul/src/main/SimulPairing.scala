@@ -23,9 +23,8 @@ final case class SimulPairing(
     )
 
   def winnerColor =
-    wins.map { w =>
+    wins.map: w =>
       if w then !hostColor else hostColor
-    }
 
 private[simul] object SimulPairing:
 

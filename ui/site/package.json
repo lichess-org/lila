@@ -16,6 +16,7 @@
     "chat": "workspace:*",
     "chess": "workspace:*",
     "common": "workspace:*",
+    "cropperjs": "^1.6.1",
     "debounce-promise": "^3.1.2",
     "flatpickr": "^4.6.13",
     "hopscotch": "^0.3.1",
@@ -67,9 +68,11 @@
         "src/ublogForm.ts": "ublogForm",
         "src/streamer.ts": "streamer",
         "src/soundMove.ts": "soundMove",
-        "src/diagnostic.ts": "diagnostic",
         "src/flairPicker.ts": "flairPicker",
-        "src/dailyFeed.ts": "dailyFeed"
+        "src/dailyFeed.ts": "dailyFeed",
+        "src/relayForm.ts": "relayForm",
+        "src/dialog/diagnostic.ts": "diagnosticDialog",
+        "src/dialog/crop.ts": "cropDialog"
       }
     },
     "copy": [
@@ -80,6 +83,10 @@
       {
         "src": "node_modules/@yaireo/tagify/dist/tagify.min.js",
         "dest": "../../public/npm/tagify"
+      },
+      {
+        "src": "node_modules/cropperjs/dist/cropper.min.css",
+        "dest": "../../public/npm"
       },
       {
         "src": "../../node_modules/chessground/dist/chessground.min.js",

@@ -203,7 +203,7 @@ object post:
       showIntro: Boolean = true
   )(using Context) =
     a(cls := "ublog-post-card ublog-post-card--link", href := makeUrl(post))(
-      div(style := "position: relative")(
+      span(cls := "ublog-post-card__top")(
         thumbnail(post, _.Size.Small)(cls := "ublog-post-card__image"),
         post.lived map { live => semanticDate(live.at)(cls := "ublog-post-card__over-image") },
         showAuthor match

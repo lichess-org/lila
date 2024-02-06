@@ -4,9 +4,10 @@ package http
 import lila.api.*
 
 import play.api.http.*
-import play.api.mvc.{ Result, Codec }
+import play.api.mvc.{ Result, Codec, RequestHeader }
 import scalatags.Text.Frag
 import chess.format.pgn.PgnStr
+import lila.common.HTTPRequest
 
 trait ResponseWriter extends ContentTypes:
 
@@ -39,5 +40,28 @@ trait ResponseWriter extends ContentTypes:
   given (using codec: Codec): ContentTypeOf[Frag] = ContentTypeOf(Some(ContentTypes.HTML))
   given (using codec: Codec): Writeable[Frag]     = Writeable(frag => codec.encode(frag.render))
 
-  val ndJsonContentType = "application/x-ndjson"
-  val csvContentType    = "text/csv"
+  val csvContentType = "text/csv"
+
+  object ndJson:
+    import akka.stream.scaladsl.Source
+    import play.api.libs.json.{ Json, JsValue }
+
+    enum Flavour(val keepAlive: String, val contentType: String):
+      case NdJson    extends Flavour(" ", "application/x-ndjson")
+      case JsonLines extends Flavour("{}", "application/jsonl")
+
+    given reqFlavour(using req: RequestHeader): Flavour =
+      if HTTPRequest.acceptsJsonLines(req) then Flavour.JsonLines else Flavour.NdJson
+
+    def addKeepAlive(source: Source[JsValue, ?]): Source[Option[JsValue], ?] =
+      source
+        .map(some)
+        .keepAlive(50.seconds, () => none) // play's idleTimeout = 75s
+
+    def jsToString(source: Source[JsValue, ?]) =
+      source.map: o =>
+        Json.stringify(o) + "\n"
+
+    def jsOptToString(source: Source[Option[JsValue], ?])(using flavour: Flavour) =
+      source.map:
+        _.fold(flavour.keepAlive)(Json.stringify) + "\n"

@@ -257,7 +257,9 @@ GET   /api/broadcast/$tourId<\w{8}>.pgn       controllers.RelayTour.pgn(tourId)
 GET   /broadcast/$tourId<\w{8}>/edit          controllers.RelayTour.edit(tourId)
 POST  /broadcast/$tourId<\w{8}>/edit          controllers.RelayTour.update(tourId)
 POST  /broadcast/$tourId<\w{8}>/delete        controllers.RelayTour.delete(tourId)
+POST  /upload/image/broadcast/$id<\w{8}>      controllers.RelayTour.image(id)
 POST  /broadcast/$tourId<\w{8}>/clone         controllers.RelayTour.cloneTour(tourId)
+POST  /broadcast/$tourId<\w{8}>/subscribe     controllers.RelayTour.subscribe(tourId, set: Boolean)
 GET   /broadcast/$tourId<\w{8}>/new           controllers.RelayRound.form(tourId)
 POST  /broadcast/$tourId<\w{8}>/new           controllers.RelayRound.create(tourId)
 GET   /broadcast/:ts/:rs/$roundId<\w{8}>      controllers.RelayRound.show(ts, rs, roundId)
@@ -319,7 +321,6 @@ GET   /streamer/edit                   controllers.Streamer.edit
 POST  /streamer/new                    controllers.Streamer.create
 POST  /streamer/edit                   controllers.Streamer.editApply
 POST  /streamer/approval/request       controllers.Streamer.approvalRequest
-GET   /streamer/picture/edit           controllers.Streamer.picture
 POST  /streamer/subscribe/:streamer    controllers.Streamer.subscribe(streamer, set: Boolean ?= true)
 POST  /upload/image/streamer           controllers.Streamer.pictureApply
 GET   /streamer/:username              controllers.Streamer.show(username)
@@ -702,6 +703,7 @@ GET   /api/cloud-eval                  controllers.Api.cloudEval
 POST  /api/import                      controllers.Importer.apiSendGame
 GET   /api/bulk-pairing                controllers.BulkPairing.list
 POST  /api/bulk-pairing                controllers.BulkPairing.create
+GET   /api/bulk-pairing/:id            controllers.BulkPairing.show(id)
 DELETE /api/bulk-pairing/:id           controllers.BulkPairing.delete(id)
 POST  /api/bulk-pairing/:id/start-clocks  controllers.BulkPairing.startClocks(id)
 

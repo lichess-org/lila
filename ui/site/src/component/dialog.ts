@@ -1,10 +1,11 @@
-import { VNode, Attrs } from 'snabbdom';
-import { onInsert, looseH as h, LooseVNodes } from './snabbdom';
-import { isTouchDevice } from './device';
-import * as xhr from './xhr';
-import * as licon from './licon';
+import { onInsert, looseH as h, VNode } from 'common/snabbdom';
+import { isTouchDevice } from 'common/device';
+import * as xhr from 'common/xhr';
+import * as licon from 'common/licon';
 
 let dialogPolyfill: { registerDialog: (dialog: HTMLDialogElement) => void };
+
+// for usage see file://./../../../@types/lichess/dialog.d.ts
 
 export const ready = lichess.load.then(async () => {
   window.addEventListener('resize', onResize);
@@ -14,49 +15,6 @@ export const ready = lichess.load.then(async () => {
   return dialogPolyfill !== undefined;
 });
 
-export interface Dialog {
-  readonly open: boolean; // is visible?
-  readonly view: HTMLElement; // your content div
-  readonly returnValue?: 'ok' | 'cancel' | string; // how did we close?
-
-  showModal(): Promise<Dialog>; // resolves on close
-  show(): Promise<Dialog>; // resolves on close
-  close(): void;
-}
-
-interface DialogOpts {
-  class?: string; // zero or more classes (period separated) for your view div
-  cssPath?: string; // for themed css craplets
-  cash?: Cash; // content, will be cloned and any 'none' class removed
-  htmlUrl?: string; // content, url will be xhr'd
-  htmlText?: string; // content, text will be used as-is
-  attrs?: { dialog?: Attrs; view?: Attrs }; // optional attrs for dialog and view div
-  action?: Action | Action[]; // if present, add handlers to action buttons
-  onClose?: (dialog: Dialog) => void; // called when dialog closes
-  noCloseButton?: boolean; // if true, no upper right corener close button
-  noClickAway?: boolean; // if true, no click-away-to-close
-}
-
-export interface DomDialogOpts extends DialogOpts {
-  parent?: Element; // for centering and dom placement, otherwise fixed on document.body
-  show?: 'modal' | boolean; // if not falsy, auto-show, and if 'modal' remove from dom on close
-}
-
-export interface SnabDialogOpts extends DialogOpts {
-  vnodes?: LooseVNodes; // snabDialog automatically shows as 'modal' on redraw unless..
-  onInsert?: (dialog: Dialog) => void; // if supplied, call show() or showModal() manually
-}
-
-// Action can be any "clickable" client button, usually to dismiss the dialog
-interface Action {
-  selector: string; // selector, click handler will be installed
-  action?: string | ((dialog: Dialog, action: Action) => void);
-  // if action not provided, just close
-  // if string, given value will set dialog.returnValue and dialog is closed on click
-  // if function, it will be called on click and YOU must close the dialog
-}
-
-// if no 'show' in opts, you must call show or showModal on the resolved promise
 export async function domDialog(o: DomDialogOpts): Promise<Dialog> {
   const [html] = await assets(o);
 
@@ -72,7 +30,7 @@ export async function domDialog(o: DomDialogOpts): Promise<Dialog> {
   }
 
   const view = $as<HTMLElement>('<div class="dialog-content">');
-  if (o.class) view.classList.add(...o.class.split('.'));
+  if (o.class) view.classList.add(...o.class.split('/[. ]/').filter(x => x));
   for (const [k, v] of Object.entries(o.attrs?.view ?? {})) view.setAttribute(k, String(v));
   if (html) view.innerHTML = html;
 
@@ -110,15 +68,20 @@ export function snabDialog(o: SnabDialogOpts): VNode {
       h(
         'div.scrollable',
         h(
-          'div.dialog-content' + (o.class ? `.${o.class}` : ''),
+          'div.dialog-content' +
+            (o.class
+              ? '.' +
+                o.class
+                  .split(/[. ]/)
+                  .filter(x => x)
+                  .join('.')
+              : ''),
           {
             attrs: o.attrs?.view,
             hook: onInsert(async view => {
               const [html] = await ass;
-              if (html && !o.vnodes) view.innerHTML = html;
-
+              if (!o.vnodes && html) view.innerHTML = html;
               const wrapper = new DialogWrapper(dialog, view, o);
-
               if (o.onInsert) o.onInsert(wrapper);
               else wrapper.showModal();
             }),
@@ -131,7 +94,7 @@ export function snabDialog(o: SnabDialogOpts): VNode {
 }
 
 class DialogWrapper implements Dialog {
-  restoreFocus?: HTMLElement;
+  restore?: { focus: HTMLElement; overflow: string };
   resolve?: (dialog: Dialog) => void;
 
   constructor(
@@ -152,7 +115,9 @@ class DialogWrapper implements Dialog {
     dialog.querySelector('.close-button-anchor > .close-button')?.addEventListener('click', cancelOnInterval);
 
     if (!o.noClickAway) setTimeout(() => dialog.addEventListener('click', cancelOnInterval));
-
+    for (const node of o.append ?? []) {
+      (node.selector ? view.querySelector(node.selector) : view)!.appendChild(node.node);
+    }
     if (o.action)
       for (const a of Array.isArray(o.action) ? o.action : [o.action]) {
         view.querySelector(a.selector)?.addEventListener('click', () => {
@@ -181,10 +146,14 @@ class DialogWrapper implements Dialog {
   };
 
   showModal = (): Promise<Dialog> => {
-    this.restoreFocus = document.activeElement as HTMLElement;
+    this.restore = {
+      focus: document.activeElement as HTMLElement,
+      overflow: document.body.style.overflow,
+    };
     $(focusQuery, this.view)[1]?.focus();
-    this.view.scrollTop = 0;
+    document.body.style.overflow = 'hidden';
 
+    this.view.scrollTop = 0;
     this.dialog.addEventListener('keydown', onModalKeydown);
     this.returnValue = '';
     this.dialog.showModal();
@@ -197,24 +166,28 @@ class DialogWrapper implements Dialog {
 
   onClose = () => {
     if (!this.dialog.returnValue) this.dialog.returnValue = 'cancel';
-    if ('show' in this.o && this.o.show === 'modal') {
-      this.dialog.remove();
-      this.restoreFocus?.focus();
-    }
-    this.restoreFocus = undefined;
+    this.restore?.focus.focus(); // one modal at a time please
+    if (this.restore?.overflow) document.body.style.overflow = this.restore.overflow;
+    this.restore = undefined;
     this.resolve?.(this);
     this.o.onClose?.(this);
+    this.dialog.remove();
   };
 }
 
 function assets(o: DialogOpts) {
+  const cssPromises = (o.css ?? []).map(css => {
+    if ('themed' in css) return lichess.asset.loadCssPath(css.themed);
+    else if ('url' in css) return lichess.asset.loadCss(css.url);
+    else return Promise.resolve();
+  });
   return Promise.all([
     o.htmlUrl
       ? xhr.text(o.htmlUrl)
       : Promise.resolve(
           o.cash ? $as<HTMLElement>($(o.cash).clone().removeClass('none')).outerHTML : o.htmlText,
         ),
-    o.cssPath ? lichess.asset.loadCssPath(o.cssPath) : Promise.resolve(),
+    ...cssPromises,
   ]);
 }
 

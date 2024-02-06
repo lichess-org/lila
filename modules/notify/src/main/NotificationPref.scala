@@ -25,8 +25,6 @@ object Allows extends OpaqueInt[Allows]:
 
 case class NotifyAllows(userId: UserId, allows: Allows)
 
-// take care with NotificationPref field names - they map directly to db and ws channels
-
 case class NotificationPref(
     privateMessage: Allows,
     challenge: Allows,
@@ -35,6 +33,7 @@ case class NotificationPref(
     tournamentSoon: Allows,
     gameEvent: Allows,
     invitedStudy: Allows,
+    broadcastRound: Allows = NotificationPref.default.broadcastRound,
     correspondenceEmail: Boolean
 ):
   // def allows(key: String): Allows =
@@ -47,6 +46,7 @@ case class NotificationPref(
     case TournamentSoon => tournamentSoon
     case GameEvent      => gameEvent
     case InvitedStudy   => invitedStudy
+    case BroadcastRound => broadcastRound
 
 object NotificationPref:
   val BELL   = 1
@@ -62,6 +62,7 @@ object NotificationPref:
     case TournamentSoon
     case GameEvent
     case InvitedStudy
+    case BroadcastRound
 
     def key = lila.common.String.lcfirst(this.toString)
 
@@ -78,6 +79,7 @@ object NotificationPref:
     tournamentSoon = Allows(PUSH),
     gameEvent = Allows(PUSH),
     invitedStudy = Allows(BELL | PUSH),
+    broadcastRound = Allows(BELL | PUSH),
     correspondenceEmail = false
   )
 
@@ -97,6 +99,7 @@ object NotificationPref:
         "tournamentSoon"      -> allowsMapping,
         "gameEvent"           -> allowsMapping,
         "invitedStudy"        -> allowsMapping,
+        "broadcastRound"      -> allowsMapping,
         "correspondenceEmail" -> boolean
       )(NotificationPref.apply)(lila.notify.unapply)
     )

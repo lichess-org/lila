@@ -9,7 +9,8 @@ import lila.user.User
 
 final class ActivityWriteApi(
     withColl: AsyncCollFailingSilently,
-    studyApi: lila.study.StudyApi
+    studyApi: lila.study.StudyApi,
+    userRepo: lila.user.UserRepo
 )(using Executor):
 
   import Activity.*
@@ -100,11 +101,11 @@ final class ActivityWriteApi(
       }
 
   def study(id: StudyId) =
-    studyApi byId id flatMap {
+    studyApi byId id flatMap:
       _.filter(_.isPublic).so: s =>
-        update(s.ownerId): a =>
-          $doc(ActivityFields.studies -> { ~a.studies + s.id })
-    }
+        (!userRepo.isTroll(s.ownerId)).flatMapz:
+          update(s.ownerId): a =>
+            $doc(ActivityFields.studies -> { ~a.studies + s.id })
 
   def team(id: TeamId, userId: UserId) =
     update(userId): a =>
@@ -127,13 +128,12 @@ final class ActivityWriteApi(
     withColl: coll =>
       coll.byId[Activity](Id today userId).dmap { _ | Activity.make(userId) } flatMap { activity =>
         val setters = makeSetters(activity)
-        !setters.isEmpty so {
+        !setters.isEmpty so:
           coll.update
             .one($id(activity.id), $set(setters), upsert = true)
             .flatMap:
               _.upserted.nonEmpty so truncateAfterInserting(coll, activity.id)
             .void
-        }
       }
 
   private def truncateAfterInserting(coll: Coll, id: Activity.Id): Funit = {

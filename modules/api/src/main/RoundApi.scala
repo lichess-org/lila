@@ -62,7 +62,8 @@ final private[api] class RoundApi(
         withSteps(pov, initialFen) compose
         withNote(note) compose
         withBookmark(bookmarked) compose
-        withForecastCount(forecast.map(_.steps.size))
+        withForecastCount(forecast.map(_.steps.size)) compose
+        withOpponentSignal(pov)
     )(json)
   }.mon(_.round.api.player)
 
@@ -198,6 +199,11 @@ final private[api] class RoundApi(
     count.filter(0 !=).fold(json) { c =>
       json + ("forecastCount" -> JsNumber(c))
     }
+
+  private def withOpponentSignal(pov: Pov)(json: JsObject) =
+    if pov.game.speed <= chess.Speed.Bullet then
+      json.add("opponentSignal", pov.opponent.userId flatMap lila.socket.UserLagCache.getLagRating)
+    else json
 
   private def withPuzzleOpening(
       opening: Option[Either[PuzzleOpening.FamilyWithCount, PuzzleOpening.WithCount]]

@@ -170,7 +170,7 @@ function session(ctrl: PuzzleCtrl) {
       : lh(
           'a.result-cursor.current',
           { key: current, attrs: ctrl.streak ? {} : { href: `/training/${ctrl.session.theme}/${current}` } },
-          `${ctrl.streak?.data.index ?? 0}`,
+          ctrl.streak && (ctrl.streak.data.index + 1).toString(),
         ),
   ]);
 }

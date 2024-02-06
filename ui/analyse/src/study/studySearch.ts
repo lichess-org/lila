@@ -1,6 +1,5 @@
 import { Prop, propWithEffect } from 'common';
 import * as licon from 'common/licon';
-import { snabDialog } from 'common/dialog';
 import { bind, dataIcon, onInsert } from 'common/snabbdom';
 import { h, VNode } from 'snabbdom';
 import { Redraw } from '../interfaces';
@@ -49,7 +48,7 @@ const escapeRegExp = (s: string) => s.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'); //
 export function view(ctrl: SearchCtrl) {
   const cleanQuery = ctrl.cleanQuery();
   const highlightRegex = cleanQuery && new RegExp(escapeRegExp(cleanQuery), 'gi');
-  return snabDialog({
+  return lichess.dialog.snab({
     class: 'study-search',
     onClose() {
       ctrl.open(false);

@@ -62,7 +62,7 @@
   <string name="studyPgn">Зерттеудің PGN</string>
   <string name="downloadAllGames">Барлық ойындарды жүктеп алу</string>
   <string name="chapterPgn">Бөлімнің PGN</string>
-  <string name="copyChapterPgn" comment="A button which lets you copy the PGN text to your clipboard (i.e. similar to ⌘+C or Ctrl+C).">PGN-ді көшіру</string>
+  <string name="copyChapterPgn">PGN-ді көшіру</string>
   <string name="copyChapterPgnDescription">Тараудың PGN-ын көшіру.</string>
   <string name="downloadGame">Ойынды жүктеп алу</string>
   <string name="studyUrl">Зерттеудің сілтемесі</string>

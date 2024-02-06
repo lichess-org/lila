@@ -101,7 +101,7 @@ final class Tv(env: Env, apiC: => Api, gameC: => Game) extends LilaController(en
       if bc then
         Ok.chunked(source via EventSource.flow log "Tv.feed")
           .as(ContentTypes.EVENT_STREAM) pipe noProxyBuffer
-      else apiC.sourceToNdJson(source)
+      else jsToNdJson(source)
     }
 
   def frame = Anon:

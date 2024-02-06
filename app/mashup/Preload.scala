@@ -34,7 +34,7 @@ final class Preload(
     getLastUpdates: lila.blog.DailyFeed.GetLastUpdates,
     lastPostsCache: AsyncLoadingCache[Unit, List[UblogPost.PreviewPost]],
     msgApi: lila.msg.MsgApi,
-    relayApi: lila.relay.RelayApi,
+    relayListing: lila.relay.RelayListing,
     notifyApi: lila.notify.NotifyApi
 )(using Executor):
 
@@ -95,7 +95,7 @@ final class Preload(
     tours,
     swiss,
     events,
-    relayApi.spotlight,
+    relayListing.spotlight,
     simuls,
     feat,
     lead,

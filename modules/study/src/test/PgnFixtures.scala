@@ -381,7 +381,7 @@ outright to } 29. c4+!) 28... Qg6 29. Qa8! Bd7 30. Qg8+ { and ending with
 Black's king on c1 and White being a piece up 7 moves later, but we have
 already gone way too far from the game. }) (13. c5!? dxc5 14. e5 { was an
 interesting positional sacrifice. A similar one occurred several moves later
-in the game. Here White has not played d4-d5 yet, but the evalutation remains
+in the game. Here White has not played d4-d5 yet, but the evaluation remains
 the same after } 14... Qh6 (14... Qe7) 15. Rad1! Bg4 16. Qb3 { . Originally I
 believed White to be slightly better here, but now I believe that it is sharp
 but equal, with any result possible. } 16... b6 (16... Rab8!?) 17. Qa4!? { is an

@@ -26,7 +26,10 @@ final class Env(
     cacheApi: lila.memo.CacheApi,
     settingStore: SettingStore.Builder,
     irc: lila.irc.IrcApi,
-    baseUrl: BaseUrl
+    baseUrl: BaseUrl,
+    notifyApi: lila.notify.NotifyApi,
+    picfitApi: lila.memo.PicfitApi,
+    picfitUrl: lila.memo.PicfitUrl
 )(using
     ec: Executor,
     system: ActorSystem,
@@ -46,7 +49,11 @@ final class Env(
 
   private lazy val leaderboard = wire[RelayLeaderboardApi]
 
+  private lazy val notifier = wire[RelayNotifier]
+
   lazy val jsonView = wire[JsonView]
+
+  lazy val listing: RelayListing = wire[RelayListing]
 
   lazy val api: RelayApi = wire[RelayApi]
 
@@ -90,7 +97,7 @@ final class Env(
   // start the sync scheduler
   wire[RelayFetch]
 
-  system.scheduler.scheduleWithFixedDelay(1 minute, 1 minute): () =>
+  scheduler.scheduleWithFixedDelay(1 minute, 1 minute): () =>
     api.autoStart >> api.autoFinishNotSyncing
 
   lila.common.Bus.subscribeFuns(

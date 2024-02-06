@@ -127,7 +127,7 @@ export interface Analysis {
   id: string;
   white: AnalysisSide;
   black: AnalysisSide;
-  partial: boolean;
+  partial?: boolean;
 }
 
 export interface AnalysisSide {

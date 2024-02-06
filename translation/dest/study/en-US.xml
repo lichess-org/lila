@@ -53,6 +53,7 @@
   <string name="allSyncMembersRemainOnTheSamePosition">All SYNC members remain on the same position</string>
   <string name="shareChanges">Share changes with spectators and save them on the server</string>
   <string name="playing">Playing</string>
+  <string name="showEvalBar">Evaluation gauge</string>
   <string name="first">First</string>
   <string name="previous">Previous</string>
   <string name="next">Next</string>
@@ -62,7 +63,7 @@
   <string name="studyPgn">Study PGN</string>
   <string name="downloadAllGames">Download all games</string>
   <string name="chapterPgn">Chapter PGN</string>
-  <string name="copyChapterPgn" comment="A button which lets you copy the PGN text to your clipboard (i.e. similar to ⌘+C or Ctrl+C).">Copy PGN</string>
+  <string name="copyChapterPgn">Copy PGN</string>
   <string name="copyChapterPgnDescription">Copy chapter PGN to clipboard.</string>
   <string name="downloadGame">Download game</string>
   <string name="studyUrl">Study URL</string>

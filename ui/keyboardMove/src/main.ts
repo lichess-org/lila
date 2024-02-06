@@ -2,7 +2,6 @@ import * as cg from 'chessground/types';
 import { h } from 'snabbdom';
 import { onInsert } from 'common/snabbdom';
 import { promote } from 'chess/promotion';
-import { snabDialog } from 'common/dialog';
 import { propWithEffect, Prop } from 'common';
 import { MoveRootCtrl, MoveUpdate } from 'chess/moveRootCtrl';
 import { load as loadKeyboardMove } from './plugins/keyboardMove';
@@ -153,7 +152,7 @@ export function render(ctrl: KeyboardMove) {
       ? h('em', 'Enter SAN (Nc3), ICCF (2133) or UCI (b1c3) moves, type ? to learn more')
       : h('strong', 'Press <enter> to focus'),
     ctrl.helpModalOpen()
-      ? snabDialog({
+      ? lichess.dialog.snab({
           class: 'help.keyboard-move-help',
           htmlUrl: '/help/keyboard-move',
           onClose: () => ctrl.helpModalOpen(false),

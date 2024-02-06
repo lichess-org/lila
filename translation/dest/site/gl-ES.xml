@@ -5,7 +5,7 @@
   <string name="toInviteSomeoneToPlayGiveThisUrl">Para invitar a alguén a xogar, dálle este URL</string>
   <string name="gameOver">Partida rematada</string>
   <string name="waitingForOpponent">Agardando un rival</string>
-  <string name="orLetYourOpponentScanQrCode">Ou deixa que o teu rival escanee este código QR</string>
+  <string name="orLetYourOpponentScanQrCode" comment="Appears when you create a private game, using the 'play with a friend' option. Lichess will create a QR code that another person can scan in real life, to play a virtual game over Lichess.">Ou deixa que o teu rival escanee este código QR</string>
   <string name="waiting">Agardando</string>
   <string name="yourTurn">A túa quenda</string>
   <string name="aiNameLevelAiLevel">%1$s nivel %2$s</string>
@@ -71,7 +71,7 @@
   <string name="makeMainLine">Converter en liña principal</string>
   <string name="deleteFromHere">Borrar desde aquí</string>
   <string name="forceVariation">Forzar variante</string>
-  <string name="copyVariationPgn">Copiar o PGN da variante</string>
+  <string name="copyVariationPgn" comment="Appears when right-clicking a move in a completed game you are analysing. It will copy the variation so far to your computer's clipboard.&#10;&#10;Strictly speaking, this does not only copy variations, the same action can copy the main line of play.">Copiar o PGN da variante</string>
   <string name="move">Movemento</string>
   <string name="variantLoss">Variante perdedora</string>
   <string name="variantWin">Variante gañadora</string>
@@ -90,8 +90,8 @@
   <string name="topGames">Mellores partidas</string>
   <string name="masterDbExplanation">Partidas cara a cara de xogadores con Elo FIDE de %1$s+, dende %2$s a %3$s</string>
   <plurals name="mateInXHalfMoves">
-    <item quantity="one">Mate en %s medias xogadas</item>
-    <item quantity="other">Mate en %s xogadas</item>
+    <item quantity="one">Mate en %s media xogada</item>
+    <item quantity="other">Mate en %s medias xogadas</item>
   </plurals>
   <string name="dtzWithRounding">DTZ50\'\' con redondeo, baseado no número de medias xogadas ata a próxima captura ou movemento de peón</string>
   <string name="noGameFound">Non se atoparon partidas</string>
@@ -226,12 +226,12 @@
   <string name="passwordSuggestion">Non empregues un contrasinal suxerido por outra persoa. Poden empregalo para roubar a túa conta.</string>
   <string name="emailSuggestion">Non empregues un enderezo de correo suxerido por outra persoa. Poden empregalo para roubar a túa conta.</string>
   <string name="emailConfirmHelp">Axuda coa confirmación por correo</string>
-  <string name="emailConfirmNotReceived">Non recibiches correo de confirmación despois de rexistrarte?</string>
+  <string name="emailConfirmNotReceived" comment="Part of a help &amp; support flow. What follows is a form that permits users to request a new confirmation email, which they need to finish registering for Lichess.">Non recibiches o teu correo de confirmación despois de rexistrarte?</string>
   <string name="whatSignupUsername">Que nome de usuario empregaches para rexistrarte?</string>
   <string name="usernameNotFound">Non puidemos atopar ningún usuario con este nome: %s.</string>
   <string name="usernameCanBeUsedForNewAccount">Podes empregar este nome de usuario para crear unha nova conta</string>
-  <string name="emailSent">Enviámosche un correo a %s.</string>
-  <string name="emailCanTakeSomeTime">Pode tardar un tempo en chegar.</string>
+  <string name="emailSent" comment="%s is your email, immediately after you have registered as a new user.">Enviámosche un correo a %s.</string>
+  <string name="emailCanTakeSomeTime" comment="It = The confirmation email, after registering an account. Players must follow the link in their email to complete their registration">Pode tardar un tempo en chegar.</string>
   <string name="refreshInboxAfterFiveMinutes">Agarda 5 minutos e refresca a túa caixa de correo.</string>
   <string name="checkSpamFolder">Comproba tamén o teu cartafol de correos non solicitados, puido rematar aí. Se foi así, quítalle a marca de correo non desexado.</string>
   <string name="emailForSignupHelp">Se todo falla, entón envíanos un correo:</string>
@@ -240,8 +240,8 @@
   <string name="accountConfirmed">O usuario %s foi confirmado correctamente.</string>
   <string name="accountCanLogin">Podes iniciar sesión agora mesmo coma %s.</string>
   <string name="accountConfirmationEmailNotNeeded">Non necesitas un correo de confirmación.</string>
-  <string name="accountClosed">A conta %s está pechada.</string>
-  <string name="accountRegisteredWithoutEmail">A conta %s foi rexistrada sen correo electrónico.</string>
+  <string name="accountClosed" comment="accountClosed&#10;%s is the name of the user account. This string should be in the passive voice, as it may be the user themselves or Lichess administration closing the account (e.g. in case of excessive multi-accounting).">A conta %s está pechada.</string>
+  <string name="accountRegisteredWithoutEmail" comment="%s is the name of the user account.&#10;&#10;This is support text for old accounts, before Lichess required an email, in case those users try to reset their password. This is unfortunately impossible when the email is not on file.">A conta %s foi rexistrada sen correo electrónico.</string>
   <string name="rank">Posición</string>
   <string name="rankX">Posición: %s</string>
   <plurals name="rankIsUpdatedEveryNbMinutes">
@@ -290,7 +290,7 @@
   <string name="rematchOfferDeclined">Oferta de desquite rexeitada</string>
   <string name="cancelRematchOffer">Cancelar a oferta de desquite</string>
   <string name="viewRematch">Ver desquite</string>
-  <string name="confirmMove">Confirma o movemento</string>
+  <string name="confirmMove">Confirmar a xogada</string>
   <string name="play">Xogar</string>
   <string name="inbox">Bandexa de entrada</string>
   <string name="chatRoom">Sala de conversa</string>
@@ -985,7 +985,7 @@ Deixa en branco para comezar as partidas dende a posición inicial normal.</stri
   <string name="closingAccountWithdrawAppeal">Se pechas a túa conta, retirarás a túa apelación</string>
   <string name="ourEventTips">Os nosos consellos para organizar eventos</string>
   <string name="instructions">Instrucións</string>
-  <string name="showMeEverything">Amósamo todo</string>
+  <string name="showMeEverything" comment="A button: clicking this displays a complete list of voice commands. By default, a truncated list of only the most useful commands is shown.">Amósamo todo</string>
   <string name="lichessPatronInfo">Lichess é unha organización benéfica e un programa totalmente libre e de código aberto.
 Todos os custos de funcionamento, desenvolvemento e contidos fináncianse unicamente mediante as doazóns dos usuarios.</string>
 </resources>

@@ -50,7 +50,7 @@ object form:
             ),
             a(href := postView.urlOfPost(post), dataIcon := licon.Eye, cls := "text", targetBlank)("Preview")
           ),
-          imageForm(post),
+          image(post),
           inner(f, Right(post), none),
           postForm(
             cls    := "ublog-post-form__delete",
@@ -67,48 +67,45 @@ object form:
       )
     }
 
-  private def imageForm(post: UblogPost)(using ctx: PageContext) =
-    postForm(
-      cls     := "ublog-post-form__image",
-      action  := routes.Ublog.image(post.id),
-      enctype := "multipart/form-data"
-    )(
-      form3.split(
-        div(cls := "form-group form-half")(formImage(post)),
-        div(cls := "form-group form-half")(
-          if ctx is post.created.by then
-            frag(
-              p(trans.ublog.uploadAnImageForYourPost()),
-              p(
-                trans.ublog.safeToUseImages(),
-                fragList(
-                  List(
-                    "unsplash.com"        -> "https://unsplash.com",
-                    "creativecommons.org" -> "https://search.creativecommons.org",
-                    "pixabay.com"         -> "https://pixabay.com",
-                    "pexels.com"          -> "https://pexels.com",
-                    "piqsels.com"         -> "https://piqsels.com",
-                    "freeimages.com"      -> "https://freeimages.com"
-                  ).map { case (name, url) =>
-                    a(href := url, targetBlank)(name)
-                  }
-                )
-              ),
-              p(
-                trans.ublog.useImagesYouMadeYourself()
-              ),
-              p(trans.streamer.maxSize(s"${lila.memo.PicfitApi.uploadMaxMb}MB.")),
-              form3.file.image("image")
-            )
-          else
+  private def image(post: UblogPost)(using ctx: PageContext) =
+    div(cls := "ublog-image-edit", data("post-url") := routes.Ublog.image(post.id))(
+      postView.thumbnail(post, _.Size.Small)(
+        cls               := "drop-target " + post.image.isDefined.so("user-image"),
+        attr("draggable") := "true"
+      ),
+      div(
+        if ctx is post.created.by then
+          frag(
+            p(strong(trans.ublog.uploadAnImageForYourPost())),
+            p(
+              trans.ublog.safeToUseImages(),
+              fragList(
+                List(
+                  "unsplash.com"        -> "https://unsplash.com",
+                  "creativecommons.org" -> "https://search.creativecommons.org",
+                  "pixabay.com"         -> "https://pixabay.com",
+                  "pexels.com"          -> "https://pexels.com",
+                  "piqsels.com"         -> "https://piqsels.com",
+                  "freeimages.com"      -> "https://freeimages.com"
+                ).map: (name, url) =>
+                  a(href := url, targetBlank)(name)
+              )
+            ),
+            p(trans.ublog.useImagesYouMadeYourself()),
+            p(strong(trans.streamer.maxSize(s"${lila.memo.PicfitApi.uploadMaxMb}MB."))),
+            form3.file.selectImage
+          )
+        else
+          postForm(
+            cls     := "ublog-post-form__image",
+            action  := routes.Ublog.image(post.id),
+            enctype := "multipart/form-data"
+          )(
             post.image.isDefined option submitButton(cls := "button button-red confirm"):
               trans.ublog.deleteImage()
-        )
+          )
       )
     )
-
-  def formImage(post: UblogPost) =
-    postView.thumbnail(post, _.Size.Small)(cls := post.image.isDefined.option("user-image"))
 
   private def inner(form: Form[UblogPostData], post: Either[User, UblogPost], captcha: Option[Captcha])(using
       PageContext

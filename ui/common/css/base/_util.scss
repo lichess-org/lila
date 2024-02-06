@@ -37,3 +37,9 @@ bad {
   text-align: center;
   margin: 10px auto;
 }
+
+.drop-target {
+  border: 2px dashed $c-font;
+  width: 100%;
+  height: min-content;
+}

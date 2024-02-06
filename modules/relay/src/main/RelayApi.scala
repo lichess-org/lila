@@ -9,7 +9,7 @@ import scala.util.chaining.*
 
 import lila.common.config.MaxPerSecond
 import lila.db.dsl.{ *, given }
-import lila.memo.CacheApi
+import lila.memo.{ PicfitApi, CacheApi }
 import lila.study.{ Settings, Study, StudyApi, StudyId, StudyMaker, StudyMultiBoard, StudyRepo, StudyTopic }
 import lila.security.Granter
 import lila.user.{ User, Me, MyId }
@@ -27,7 +27,8 @@ final class RelayApi(
     jsonView: JsonView,
     formatApi: RelayFormatApi,
     cacheApi: CacheApi,
-    leaderboard: RelayLeaderboardApi
+    leaderboard: RelayLeaderboardApi,
+    picfitApi: PicfitApi
 )(using Executor, akka.stream.Materializer):
 
   import BSONHandlers.{ readRoundWithTour, given }
@@ -78,91 +79,6 @@ final class RelayApi(
     private val cache = cacheApi[UserId, Int](32_768, "relay.nb.owned"):
       _.expireAfterWrite(5.minutes).buildAsyncFuture(tourRepo.countByOwner)
     export cache.get
-
-  object defaultRoundToShow:
-    export cache.get
-    private val cache =
-      cacheApi[RelayTour.Id, Option[RelayRound]](32, "relay.lastAndNextRounds"):
-        _.expireAfterWrite(5 seconds).buildAsyncFuture: tourId =>
-          val chronoSort = $doc("startsAt" -> 1, "createdAt" -> 1)
-          val lastStarted = roundRepo.coll
-            .find($doc("tourId" -> tourId, "startedAt" $exists true))
-            .sort($doc("startedAt" -> -1))
-            .one[RelayRound]
-          val next = roundRepo.coll
-            .find($doc("tourId" -> tourId, "finished" -> false))
-            .sort(chronoSort)
-            .one[RelayRound]
-          lastStarted zip next flatMap {
-            case (None, _) => // no round started yet, show the first one
-              roundRepo.coll
-                .find($doc("tourId" -> tourId))
-                .sort(chronoSort)
-                .one[RelayRound]
-            case (Some(last), Some(next)) => // show the next one if it's less than an hour away
-              fuccess:
-                if next.startsAt.exists(_ isBefore nowInstant.plusHours(1))
-                then next.some
-                else last.some
-            case (Some(last), None) =>
-              fuccess(last.some)
-          }
-
-  private var spotlightCache: List[RelayTour.ActiveWithSomeRounds] = Nil
-
-  def spotlight: List[ActiveWithSomeRounds] = spotlightCache
-
-  val officialActive = cacheApi.unit[List[RelayTour.ActiveWithSomeRounds]]:
-    _.refreshAfterWrite(5 seconds).buildAsyncFuture: _ =>
-      val max = 64
-      tourRepo.coll
-        .aggregateList(max): framework =>
-          import framework.*
-          Match(tourRepo.selectors.officialActive) -> List(
-            Sort(Descending("tier")),
-            PipelineOperator:
-              $lookup.pipeline(
-                from = roundRepo.coll,
-                as = "round",
-                local = "_id",
-                foreign = "tourId",
-                pipe = List(
-                  $doc("$match"     -> $doc("finished" -> false)),
-                  $doc("$addFields" -> $doc("sync.log" -> $arr())),
-                  $doc("$sort"      -> roundRepo.sort.chrono),
-                  $doc("$limit"     -> 1)
-                )
-              )
-            ,
-            UnwindField("round"),
-            Limit(max)
-          )
-        .map: docs =>
-          for
-            doc   <- docs
-            tour  <- doc.asOpt[RelayTour]
-            round <- doc.getAsOpt[RelayRound]("round")
-          yield (tour, round)
-        .map:
-          _.sortBy: (tour, round) =>
-            (
-              !round.startedAt.isDefined,                    // ongoing tournaments first
-              0 - ~tour.tier,                                // then by tier
-              round.startsAt.fold(Long.MaxValue)(_.toMillis) // then by next round date
-            )
-        .flatMap:
-          _.traverse: (tour, round) =>
-            defaultRoundToShow
-              .get(tour.id)
-              .map: link =>
-                RelayTour.ActiveWithSomeRounds(tour, display = round, link = link | round)
-        .addEffect: trs =>
-          spotlightCache = trs
-            .filter(_.tour.spotlight.exists(_.enabled))
-            .filterNot(_.display.finished)
-            .filter: tr =>
-              tr.display.hasStarted || tr.display.startsAt.exists(_.isBefore(nowInstant.plusMinutes(30)))
-            .take(2)
 
   def isOfficial(id: StudyId): Fu[Boolean] =
     roundRepo.coll
@@ -321,7 +237,7 @@ final class RelayApi(
     }
 
   def canUpdate(tour: RelayTour)(using me: Me): Fu[Boolean] =
-    fuccess(Granter(_.Relay) || me.is(tour.ownerId)) >>|
+    fuccess(Granter(_.StudyAdmin) || me.is(tour.ownerId)) >>|
       roundRepo.coll.distinctEasy[StudyId, List]("_id", roundRepo.selectors tour tour.id).flatMap { ids =>
         studyRepo.membersByIds(ids) map {
           _.exists(_ contributorIds me)
@@ -417,6 +333,23 @@ final class RelayApi(
       .mapConcat(identity)
       .throttle(perSecond.value, 1 second)
       .take(max.fold(9999)(_.value))
+
+  export tourRepo.{ isSubscribed, setSubscribed as subscribe }
+
+  object image:
+    private def rel(t: RelayTour) = s"relay:${t.id}"
+
+    def upload(user: User, t: RelayTour, picture: PicfitApi.FilePart): Fu[RelayTour] = for
+      image <- picfitApi.uploadFile(rel(t), picture, userId = user.id)
+      _     <- tourRepo.coll.updateField($id(t.id), "image", image.id)
+    yield t.copy(image = image.id.some)
+
+    def delete(t: RelayTour): Fu[RelayTour] = for
+      _ <- deleteImage(t)
+      _ <- tourRepo.coll.unsetField($id(t.id), "image")
+    yield t.copy(image = none)
+
+    def deleteImage(post: RelayTour): Funit = picfitApi.deleteByRel(rel(post))
 
   private[relay] def autoStart: Funit =
     roundRepo.coll

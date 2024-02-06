@@ -150,7 +150,14 @@ export default class StudyCtrl {
     );
     this.relay =
       relayData &&
-      new RelayCtrl(this.data.id, relayData, this.send, this.redraw, this.members, this.data.chapter);
+      new RelayCtrl(
+        this.data.id,
+        relayData,
+        this.send,
+        this.redrawAndUpdateAddressBar,
+        this.members,
+        this.data.chapter,
+      );
     this.multiBoard = new MultiBoardCtrl(
       this.data.id,
       this.redraw,
@@ -357,6 +364,7 @@ export default class StudyCtrl {
     this.commentForm.onSetPath(this.data.chapter.id, this.ctrl.path, this.ctrl.node);
     this.redraw();
     this.ctrl.startCeval();
+    this.updateAddressBar();
   };
 
   xhrReload = throttlePromiseDelay(
@@ -540,6 +548,19 @@ export default class StudyCtrl {
   looksNew = () => {
     const cs = this.chapters.list();
     return cs.length == 1 && cs[0].name == 'Chapter 1' && !this.currentChapter().ongoing;
+  };
+  updateAddressBar = () => {
+    const current = location.href;
+    const studyIdOffset = current.indexOf(`/${this.data.id}`);
+    if (studyIdOffset === -1) return;
+    const studyUrl = current.slice(0, studyIdOffset + 9);
+    const chapterUrl = `${studyUrl}/${this.vm.chapterId}`;
+    if (this.relay) this.relay.updateAddressBar(studyUrl, chapterUrl);
+    else if (chapterUrl !== current) history.replaceState({}, '', chapterUrl);
+  };
+  redrawAndUpdateAddressBar = () => {
+    this.redraw();
+    this.updateAddressBar();
   };
   trans = this.ctrl.trans;
   socketHandler = (t: string, d: any) => {

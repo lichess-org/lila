@@ -53,6 +53,7 @@
   <string name="allSyncMembersRemainOnTheSamePosition">Ĉiuj sinkronigitaj membroj restas ĉe la sama pozicio</string>
   <string name="shareChanges">Diskonigi ŝanĝojn al spektantoj kaj konservi tiujn ĉe la servilo</string>
   <string name="playing">Ludanta</string>
+  <string name="showEvalBar">Taksaj stangoj</string>
   <string name="first">Al la unua</string>
   <string name="previous">Antaŭa</string>
   <string name="next">Sekva</string>
@@ -62,7 +63,7 @@
   <string name="studyPgn">PGN de la studo</string>
   <string name="downloadAllGames">Elŝuti ĉiujn ludojn</string>
   <string name="chapterPgn">PGN de la ĉapitro</string>
-  <string name="copyChapterPgn" comment="A button which lets you copy the PGN text to your clipboard (i.e. similar to ⌘+C or Ctrl+C).">Kopii PGN</string>
+  <string name="copyChapterPgn">Kopii PGN</string>
   <string name="copyChapterPgnDescription">Kopii ĉapitran PGN al tondujo.</string>
   <string name="downloadGame">Elŝuti ludon</string>
   <string name="studyUrl">URL de la studo</string>

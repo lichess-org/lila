@@ -6,18 +6,6 @@ export interface ChallengeOpts {
   pulse(): void;
 }
 
-export interface Ctrl {
-  update(data: ChallengeData): void;
-  data(): ChallengeData;
-  trans(): (key: string) => string;
-  showRatings: boolean;
-  reasons(): Reasons;
-  decline(id: string, reason: string): void;
-  cancel(id: string): void;
-  onRedirect(): void;
-  redirecting(): boolean;
-}
-
 type ChallengeStatus = 'created' | 'offline' | 'canceled' | 'declined' | 'accepted';
 export type ChallengeDirection = 'in' | 'out';
 

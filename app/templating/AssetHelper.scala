@@ -103,11 +103,11 @@ if (window.matchMedia('(prefers-color-scheme: dark)').media === 'not all')
     ContentSecurityPolicy(
       defaultSrc = List("'self'", assetDomain.value),
       connectSrc =
-        "'self'" :: "data:" :: assetDomain.value :: sockets ::: "wss://cf-socket.lichess.org" :: env.explorerEndpoint :: env.tablebaseEndpoint :: localDev,
+        "'self'" :: "blob:" :: "data:" :: assetDomain.value :: sockets ::: "wss://cf-socket.lichess.org" :: env.explorerEndpoint :: env.tablebaseEndpoint :: localDev,
       styleSrc = List("'self'", "'unsafe-inline'", assetDomain.value),
       frameSrc = List("'self'", assetDomain.value, "www.youtube.com", "player.twitch.tv"),
       workerSrc = List("'self'", assetDomain.value, "blob:"),
-      imgSrc = List("data:", "*"),
+      imgSrc = List("'self'", "blob:", "data:", "*"),
       scriptSrc = List("'self'", assetDomain.value),
       fontSrc = List("'self'", assetDomain.value),
       baseUri = List("'none'")

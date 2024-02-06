@@ -90,9 +90,6 @@ case class Pref(
 
   def is2d = !is3d
 
-  def agreementNeededSince: Option[Instant] =
-    Agreement.showPrompt && agreement < Agreement.current option Agreement.changedAt
-
   def agree = copy(agreement = Agreement.current)
 
   def hasKeyboardMove = keyboardMove == KeyboardMove.YES

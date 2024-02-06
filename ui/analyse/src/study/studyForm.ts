@@ -1,6 +1,5 @@
 import { VNode } from 'snabbdom';
 import * as licon from 'common/licon';
-import { snabDialog } from 'common/dialog';
 import { prop } from 'common';
 import { bindSubmit, bindNonPassive, looseH as h } from 'common/snabbdom';
 import { emptyRedButton } from '../view/util';
@@ -81,7 +80,7 @@ export function view(ctrl: StudyForm): VNode {
     ['member', ctrl.trans.noarg('members')],
     ['everyone', ctrl.trans.noarg('everyone')],
   ];
-  return snabDialog({
+  return lichess.dialog.snab({
     class: 'study-edit',
     onClose() {
       ctrl.open(false);

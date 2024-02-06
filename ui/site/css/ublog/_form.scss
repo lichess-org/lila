@@ -11,10 +11,6 @@
     padding-#{$start-direction}: var(--box-padding);
     padding-#{$end-direction}: var(--box-padding);
   }
-  &__image {
-    background: $c-bg-zebra;
-    padding-top: 5vh;
-  }
   &__image-text {
     background: $c-bg-zebra;
     margin-bottom: 5vh;
@@ -29,10 +25,6 @@
         display: block;
       }
     }
-  }
-  .ublog-post-image {
-    max-width: 100%;
-    height: auto;
   }
   &__delete {
     padding: 10em 0 5em 0;
@@ -153,4 +145,8 @@
       }
     }
   }
+}
+
+.ublog-image-edit {
+  @extend %image-preview-and-upload;
 }

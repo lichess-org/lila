@@ -295,3 +295,4 @@ trait FormHelper:
       def image(name: String): Frag =
         st.input(tpe := "file", st.name := name, accept := "image/png, image/jpeg")
       def pgn(name: String): Frag = st.input(tpe := "file", st.name := name, accept := ".pgn")
+      def selectImage             = button(cls := "button select-image")("select image")

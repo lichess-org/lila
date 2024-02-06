@@ -50,6 +50,7 @@
   <string name="allSyncMembersRemainOnTheSamePosition">Đồng bộ hóa tất cả các thành viên trên cùng một thế cờ</string>
   <string name="shareChanges">Chia sẻ các thay đổi với khán giả và lưu chúng trên máy chủ</string>
   <string name="playing">Đang chơi</string>
+  <string name="showEvalBar">Thanh lợi thế</string>
   <string name="first">Trang đầu</string>
   <string name="previous">Trang trước</string>
   <string name="next">Trang tiếp theo</string>
@@ -59,7 +60,7 @@
   <string name="studyPgn">PGN nghiên cứu</string>
   <string name="downloadAllGames">Tải về tất cả ván đấu</string>
   <string name="chapterPgn">PGN chương</string>
-  <string name="copyChapterPgn" comment="A button which lets you copy the PGN text to your clipboard (i.e. similar to ⌘+C or Ctrl+C).">Sao chép PGN</string>
+  <string name="copyChapterPgn">Sao chép PGN</string>
   <string name="copyChapterPgnDescription">Sao chép PGN chương vào bảng nhớ tạm.</string>
   <string name="downloadGame">Tải về ván cờ</string>
   <string name="studyUrl">URL nghiên cứu</string>

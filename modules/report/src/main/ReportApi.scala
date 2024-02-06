@@ -236,7 +236,7 @@ final class ReportApi(
           .void
     yield ()
 
-  // `seriousness` depends on the number of previous warnings, and number of games throwed away
+  // `seriousness` depends on the number of previous warnings, and number of games thrown away
   def autoBoostReport(winnerId: UserId, loserId: UserId, seriousness: Int): Funit =
     securityApi.shareAnIpOrFp(winnerId, loserId) zip
       userRepo.pair(winnerId, loserId) zip getLichessReporter flatMap {
@@ -391,11 +391,11 @@ final class ReportApi(
     about <- recent(Suspect(user), nb, _.priTemp)
   yield Report.ByAndAbout(by, Room.filterGranted(about))
 
-  def personalExport(user: User): Fu[List[Report.Atom]] = for
-    by    <- coll.list[Report]($doc("atoms.by" -> user.id))
-    about <- recent(Suspect(user), 99, _.priTemp)
-  yield by.flatMap(_ atomBy user.id.into(ReporterId)) :::
-    about.filter(_.isComm).flatMap(_.atoms.filter(_.isFlag))
+  def personalExport(user: User): Fu[List[Report.Atom]] =
+    coll
+      .list[Report]($doc("atoms.by" -> user.id))
+      .map:
+        _.flatMap(_ atomBy user.id.into(ReporterId))
 
   def currentCheatScore(suspect: Suspect): Fu[Option[Report.Score]] =
     coll.primitiveOne[Report.Score](
