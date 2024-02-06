@@ -135,11 +135,7 @@ final class ChapterRepo(val coll: AsyncColl)(using Executor, akka.stream.Materia
   // insert node and its children
   // and sets the parent order field
   def addSubTree(subTree: Branch, newParent: lila.tree.Node, parentPath: UciPath)(chapter: Chapter): Funit =
-    val set = $doc(subTreeToBsonElements(parentPath, subTree)) ++ {
-      (newParent.children.nodes.sizeIs > 1) so $doc(
-        pathToField(parentPath, F.order) -> newParent.children.nodes.map(_.id)
-      )
-    }
+    val set = $doc(subTreeToBsonElements(parentPath, subTree))
     coll(_.update.one($id(chapter.id), $set(set))).void
 
   private def subTreeToBsonElements(parentPath: UciPath, subTree: Branch): List[(String, Bdoc)] =
@@ -152,12 +148,7 @@ final class ChapterRepo(val coll: AsyncColl)(using Executor, akka.stream.Materia
 
   // overrides all children sub-nodes in DB! Make the tree merge beforehand.
   def setChildren(children: Branches)(chapter: Chapter, path: UciPath): Funit =
-    val set: Bdoc = {
-      (children.nodes.sizeIs > 1) so $doc(
-        pathToField(path, F.order) -> children.nodes.map(_.id)
-      )
-    } ++ $doc(childrenTreeToBsonElements(path, children))
-
+    val set: Bdoc = $doc(childrenTreeToBsonElements(path, children))
     coll(_.update.one($id(chapter.id), $set(set))).void
 
   private def childrenTreeToBsonElements(
