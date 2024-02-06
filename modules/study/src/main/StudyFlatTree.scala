@@ -81,7 +81,7 @@ private object StudyFlatTree:
       Chronometer.syncMon(_.study.tree.write):
         root.tree.so:
           _.mapAccuml_(UciPath.root)((acc, branch) =>
-            val path = acc+ branch.id
+            val path = acc + branch.id
             path -> (UciPathDb.encodeDbKey(path) -> writeNewBranch(branch))
           ).toList
 
