@@ -33,25 +33,25 @@ object cms:
         table(cls := "cms__pages slist")(
           thead(
             tr(
-              th("Title"),
+              th("Page"),
               th("Content"),
               th("Live"),
               th("Errors"),
-              th("Updated")
+              th(dataSortDefault)("Updated")
             )
           ),
           tbody(
             pages
               .map: page =>
                 tr(
-                  td(a(href := routes.Cms.edit(page.id))(page.title), br, code(page.id)),
+                  td(dataSort := page.id)(a(href := routes.Cms.edit(page.id))(page.title), br, code(page.id)),
                   td(page.markdown.value.take(120)),
                   td(
                     if page.live then goodTag(iconTag(licon.Checkmark))
                     else badTag(iconTag(licon.X))
                   ),
-                  td(page.error.fold(goodTag(iconTag(licon.Checkmark)))(badTag(_))),
-                  td(
+                  td(dataSort := ~page.error)(page.error.fold(goodTag(iconTag(licon.Checkmark)))(badTag(_))),
+                  td(dataSort := page.at.toMillis)(
                     userIdLink(page.by.some, withOnline = false, withTitle = false),
                     br,
                     momentFromNow(page.at)

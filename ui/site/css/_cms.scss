@@ -22,4 +22,10 @@
   #form3-markdown {
     display: none;
   }
+  &__pages {
+    th {
+      white-space: nowrap;
+      min-width: 8ch;
+    }
+  }
 }

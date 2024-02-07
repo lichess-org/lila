@@ -2,12 +2,16 @@ import * as xhr from 'common/xhr';
 import throttle from 'common/throttle';
 import Editor from '@toast-ui/editor';
 import { currentTheme } from 'common/theme';
+import tablesort from 'tablesort';
 
 lichess.load.then(() => {
   $('.markdown-editor').each(function (this: HTMLTextAreaElement) {
     setupMarkdownEditor(this);
   });
   $('.flash').addClass('fade');
+  $('table.cms__pages').each(function (this: HTMLTableElement) {
+    tablesort(this, { descending: true });
+  });
 });
 
 const setupMarkdownEditor = (el: HTMLTextAreaElement) => {
