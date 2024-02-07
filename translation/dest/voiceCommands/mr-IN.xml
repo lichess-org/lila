@@ -1,2 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+  <string name="voiceCommands">आवाजांनी आदेश</string>
+  <string name="watchTheVideoTutorial">व्हिडिओ ट्यूटोरियल पहा</string>
+  <string name="instructions1">आवाज ओळख टॉगल करण्यासाठी %1$s बटण, हा मदत संवाद उघडण्यासाठी %2$s बटण आणि उच्चार सेटिंग्ज बदलण्यासाठी %3$s मेनू वापरा.</string>
+  <string name="instructions2" comment="Voice commands can be misheard and Lichess will not always be fully certain what you said. Several arrows will be shown to identify e.g. if the move was 'b4' or 'd4', which often sound similar.&#10;&#10;These arrows will be in different colours (green, blue, etc) or labelled 1, 2, 3....&#10;You can then say the colour of the arrow (e.g. 'green') - or its number (e.g. '1'), to select that move.&#10;Users can configure if they choose from multiple moves based on colours or numbers.">जेव्हा आम्हाला खात्री नसते तेव्हा आम्ही अनेक हालचालींसाठी बाण दाखवतो. ते निवडण्यासाठी हलवा बाणाचा रंग किंवा संख्या बोला.</string>
+  <string name="showPuzzleSolution">कोड्याचं उत्तर दाखवा</string>
+</resources>
