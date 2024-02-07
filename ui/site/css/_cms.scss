@@ -25,12 +25,18 @@
   &__pages {
     th {
       white-space: nowrap;
-      min-width: 8ch;
+      min-width: 9ch;
     }
     td {
       @extend %break-word;
       &:first-child {
         min-width: 30ch;
+      }
+    }
+    &.searching tbody tr {
+      border-bottom: $border;
+      &:nth-child(even) {
+        background: none;
       }
     }
   }

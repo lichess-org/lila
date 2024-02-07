@@ -12,6 +12,15 @@ lichess.load.then(() => {
   $('table.cms__pages').each(function (this: HTMLTableElement) {
     tablesort(this, { descending: true });
   });
+  $('.cms__pages__search').on('input', function (this: HTMLInputElement) {
+    const query = this.value.toLowerCase().trim();
+    $('.cms__pages')
+      .toggleClass('searching', !!query)
+      .find('tbody tr')
+      .each(function (this: HTMLTableRowElement) {
+        this.hidden = !!query && !$(this).find('td:first-child').text().toLowerCase().includes(query);
+      });
+  });
 });
 
 const setupMarkdownEditor = (el: HTMLTextAreaElement) => {

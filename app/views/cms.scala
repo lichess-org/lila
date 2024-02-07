@@ -37,12 +37,14 @@ object cms:
       frag(
         boxTop(
           h1("Lichess pages"),
-          div(cls := "box__top__actions"):
+          div(cls := "box__top__actions")(
+            input(cls := "cms__pages__search", placeholder := trans.search.search.txt(), autofocus),
             a(
               href     := routes.Cms.createForm,
               cls      := "button button-green",
               dataIcon := licon.PlusButton
             )
+          )
         ),
         standardFlash,
         table(cls := "cms__pages slist")(
@@ -51,7 +53,7 @@ object cms:
               th("Page"),
               th("Content"),
               th("Live"),
-              th("Errors"),
+              th("Valid"),
               th(dataSortDefault)("Updated")
             )
           ),
