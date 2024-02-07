@@ -34,12 +34,7 @@ if (this.innerText == 'YES') this.style.color = 'green'; else if (this.innerText
   def pageContent(p: AnyPage)(using Context) = frag(
     h1(cls := "box__top")(p.title),
     div(cls := "body")(
-      isGranted(_.Pages) option a(
-        href     := p.pageId.fold(routes.Cms.create)(routes.Cms.edit(_)),
-        cls      := "button button-empty text",
-        dataIcon := licon.Pencil
-      )("Edit"),
-      rawHtml(p.html)
+      views.html.cms.render(p)
     )
   )
 
@@ -84,7 +79,7 @@ $('#asset-version-message').text(lichess.info.message);"""
             )
           )
         ),
-        st.section(cls := "box box-pad body")(p.html),
+        st.section(cls := "box box-pad body")(views.html.cms.render(p)),
         br,
         st.section(cls := "box")(freeJs())
       )

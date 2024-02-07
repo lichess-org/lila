@@ -22,8 +22,10 @@ object variant:
     )(
       boxTop(h1(cls := "text", dataIcon := perfType.icon)(variant.name)),
       h2(cls := "headline")(variant.title),
-      div(cls := "body expand-text"):
+      div(cls := "body expand-text")(
+        views.html.cms.editButton(p),
         rawHtml(lila.blog.Youtube.augmentEmbeds(p.html))
+      )
     )
 
   def home(using PageContext) =

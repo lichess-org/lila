@@ -117,7 +117,7 @@ object tour:
           boxTop:
             bits.broadcastH1(p.title)
           ,
-          div(cls := "body")(rawHtml(p.html))
+          div(cls := "body")(views.html.cms.render(p))
         )
       )
 

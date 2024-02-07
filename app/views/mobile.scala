@@ -25,7 +25,7 @@ object mobile:
                 googlePlayButton,
                 appleStoreButton
               ),
-              div(cls := "apk")(rawHtml(p.html)),
+              div(cls := "apk")(views.html.cms.render(p)),
               h2(trans.asFreeAsLichess()),
               ul(cls := "block")(
                 li(trans.builtForTheLoveOfChessNotMoney()),
