@@ -112,8 +112,18 @@ object layout:
 
   private def dasher(me: lila.user.User) =
     div(cls := "dasher")(
-      a(id := "user_tag", cls := "toggle link", href := routes.Auth.logoutGet)(me.username),
+      button(id := "user_tag", cls := "toggle link")(me.username),
       div(id := "dasher_app", cls := "dropdown")
+    )
+
+  private def anonDasher(using ctx: PageContext) =
+    val prefs = trans.preferences.preferences.txt()
+    div(cls := "dasher")(
+      a(href := s"${routes.Auth.login.url}?referred=${ctx.req.path}", cls := "signin button button-empty")(
+        trans.signIn.txt()
+      ),
+      button(cls := "toggle anon link", title := prefs, aria.label := prefs, dataIcon := licon.Gear),
+      div(id     := "dasher_app", cls         := "dropdown")
     )
 
   private def allNotifications(using ctx: PageContext) =
@@ -132,17 +142,6 @@ object layout:
   </button>
   <div id="notify-app" class="dropdown"></div>
 </div>"""
-
-  private def anonDasher(using ctx: PageContext) =
-    val preferences = trans.preferences.preferences.txt()
-    spaceless:
-      s"""<div class="dasher">
-  <button class="toggle link anon">
-    <span title="$preferences" aria-label="$preferences" data-icon="${licon.Gear}"></span>
-  </button>
-  <div id="dasher_app" class="dropdown"></div>
-</div>
-<a href="/login?referrer=${ctx.req.path}" class="signin button button-empty">${trans.signIn.txt()}</a>"""
 
   private val clinputLink = a(cls := "link")(span(dataIcon := licon.Search))
 

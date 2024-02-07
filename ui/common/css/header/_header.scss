@@ -41,7 +41,7 @@
     margin-left: 1rem;
     text-transform: uppercase;
     line-height: $site-header-height;
-    @include breakpoint($mq-not-xx-small) {
+    @include breakpoint($mq-not-large) {
       display: none;
     }
   }
