@@ -35,6 +35,8 @@ object cms:
             tr(
               th("Title"),
               th("Content"),
+              th("Live"),
+              th("Errors"),
               th("Updated")
             )
           ),
@@ -43,8 +45,17 @@ object cms:
               .map: page =>
                 tr(
                   td(a(href := routes.Cms.edit(page.id))(page.title), br, code(page.id)),
-                  td(page.markdown.value.take(100)),
-                  td(userIdLink(page.by.some), br, momentFromNow(page.at))
+                  td(page.markdown.value.take(120)),
+                  td(
+                    if page.live then goodTag(iconTag(licon.Checkmark))
+                    else badTag(iconTag(licon.X))
+                  ),
+                  td(page.error.fold(goodTag(iconTag(licon.Checkmark)))(badTag(_))),
+                  td(
+                    userIdLink(page.by.some, withOnline = false, withTitle = false),
+                    br,
+                    momentFromNow(page.at)
+                  )
                 )
           )
         )
@@ -55,7 +66,7 @@ object cms:
       frag(
         boxTop(h1(a(href := routes.Cms.index)("Lichess pages"), " • ", "New page!")),
         postForm(cls := "content_box_content form3", action := routes.Cms.create):
-          inForm(form)
+          inForm(form, none)
       )
 
   def edit(form: Form[?], page: CmsPage)(using PageContext) =
@@ -66,19 +77,23 @@ object cms:
         ),
         standardFlash,
         postForm(cls := "content_box_content form3", action := routes.Cms.update(page.id)):
-          inForm(form)
+          inForm(form, page.some)
         ,
         postForm(action := routes.Cms.delete(page.id))(cls := "cms__delete"):
           submitButton(cls := "button button-red button-empty confirm")("Delete")
       )
 
-  private def inForm(form: Form[?])(using Context) =
+  private def inForm(form: Form[?], page: Option[CmsPage])(using Context) =
     frag(
       form3.split(
         form3.group(form("title"), "Title", half = true)(form3.input(_)(autofocus)),
         form3.group(form("id"), "ID", half = true)(form3.input(_))
       ),
-      form3.group(form("markdown"), "Content", help = trans.embedsAvailable().some): field =>
+      form3.group(
+        form("markdown"),
+        frag("Content", page.flatMap(_.error).map(err => frag(br, badTag(err)))),
+        help = trans.embedsAvailable().some
+      ): field =>
         frag(
           form3.textarea(field)(),
           div(cls := "markdown-editor", attr("data-image-upload-url") := routes.Main.uploadImage("cmsPage"))

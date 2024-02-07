@@ -11,7 +11,10 @@ case class CmsPage(
     live: Boolean,
     by: UserId,
     at: Instant
-)
+):
+  lazy val error: Option[String] =
+    val prismicImages = markdown.value.split("images.prismic.io").size - 1
+    prismicImages > 0 option s"$prismicImages prismic images"
 
 object CmsPage:
 
