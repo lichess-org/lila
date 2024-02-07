@@ -60,12 +60,17 @@ final class Prismic(env: Env)(using Executor, play.api.libs.ws.StandaloneWSClien
             none
           }
 
-  def getVariant(variant: chess.variant.Variant) =
-    prismicApi.flatMap: api =>
-      api
-        .forms("variant")
-        .query(s"""[[:d = at(my.variant.key, "${variant.key}")]]""")
-        .ref(api.master.ref)
-        .submit()
-        .map:
-          _.results.headOption.map(_ -> makeLinkResolver(api, none))
+  def getVariant(variant: chess.variant.Variant): Fu[Option[Prismic.AnyPage]] =
+    env.cms.api
+      .render(lila.cms.CmsPage.Id(s"variant-${variant.key}"))
+      .map2(Left.apply)
+      .orElse:
+        prismicApi.flatMap: api =>
+          api
+            .forms("variant")
+            .query(s"""[[:d = at(my.variant.key, "${variant.key}")]]""")
+            .ref(api.master.ref)
+            .submit()
+            .map:
+              _.results.headOption.map: doc =>
+                Right(doc -> makeLinkResolver(api, none))

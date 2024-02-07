@@ -11,8 +11,7 @@ object variant:
   import controllers.Prismic.*
 
   def show(
-      doc: io.prismic.Document,
-      resolver: io.prismic.DocumentLinkResolver,
+      p: AnyPage,
       variant: chess.variant.Variant,
       perfType: lila.rating.PerfType
   )(using PageContext) =
@@ -23,11 +22,8 @@ object variant:
     )(
       boxTop(h1(cls := "text", dataIcon := perfType.icon)(variant.name)),
       h2(cls := "headline")(variant.title),
-      div(cls := "body"):
-        Html
-          .from(doc.getHtml("variant.content", resolver))
-          .map(lila.blog.Youtube.augmentEmbeds)
-          .map(rawHtml)
+      div(cls := "body expand-text"):
+        rawHtml(lila.blog.Youtube.augmentEmbeds(p.html))
     )
 
   def home(using PageContext) =
@@ -59,6 +55,7 @@ object variant:
     views.html.base.layout(
       title = title,
       moreCss = cssTag("variant"),
+      moreJs = jsModule("expandText"),
       openGraph = openGraph
     ):
       main(cls := "page-menu")(

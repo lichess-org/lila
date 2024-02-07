@@ -38,5 +38,5 @@ final class ContentPage(
     (for
       variant  <- Variant(key)
       perfType <- lila.rating.PerfType byVariant variant
-    yield FoundPage(prismicC getVariant variant): (doc, resolver) =>
-      views.html.site.variant.show(doc, resolver, variant, perfType)) | notFound
+    yield FoundPage(prismicC getVariant variant): p =>
+      views.html.site.variant.show(p, variant, perfType)) | notFound
