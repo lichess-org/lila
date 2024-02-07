@@ -16,6 +16,10 @@
   <string name="quitTeam">संघातून बाहेर पडा</string>
   <string name="manuallyReviewAdmissionRequests">प्रवेश विनंत्यांचे स्वतः पुनरावलोकन करा</string>
   <string name="manuallyReviewAdmissionRequestsHelp">हे निवडल्यास खेळाडूंना संघात सामील होण्यासाठी विनंती लिहावी लागेल, जी तुम्ही नाकारू शकता किंवा स्वीकारू शकता.</string>
+  <plurals name="teamLeaders">
+    <item quantity="one">संघ नेता</item>
+    <item quantity="other">संघ नेते</item>
+  </plurals>
   <string name="teamRecentMembers">अलीकडचे सदस्य</string>
   <string name="kickSomeone">कोणालातरी संघातून हाकला</string>
   <string name="whoToKick">तुम्हाला संघातून कोणाला हाकलायचे आहे?</string>
