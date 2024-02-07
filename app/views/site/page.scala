@@ -31,9 +31,16 @@ if (this.innerText == 'YES') this.style.color = 'green'; else if (this.innerText
     ):
       pageContent(p)
 
-  def pageContent(p: AnyPage) = frag(
+  def pageContent(p: AnyPage)(using Context) = frag(
     h1(cls := "box__top")(p.title),
-    div(cls := "body")(rawHtml(p.html))
+    div(cls := "body")(
+      isGranted(_.Pages) option a(
+        href     := p.pageId.fold(routes.Cms.create)(routes.Cms.edit(_)),
+        cls      := "button button-empty text",
+        dataIcon := licon.Pencil
+      )("Edit"),
+      rawHtml(p.html)
+    )
   )
 
   def source(p: AnyPage)(using PageContext) =

@@ -10,8 +10,9 @@ import lila.security.Granter
 object Prismic:
   type AnyPage = Either[CmsPage.Render, (Document, DocumentLinkResolver)]
   extension (p: AnyPage)
-    def title = p.fold(_.title, ~_._1.getText("doc.title"))
-    def slugs = p.fold(_.id.value :: Nil, _._1.slugs)
+    def pageId = p.fold(_.id.some, _ => none)
+    def title  = p.fold(_.title, ~_._1.getText("doc.title"))
+    def slugs  = p.fold(_.id.value :: Nil, _._1.slugs)
     def html: Html = p.fold(
       _.html,
       (doc, res) =>
