@@ -29,10 +29,10 @@
   <string name="puzzleSuccess">यशस्वी!</string>
   <string name="puzzleComplete">कोडे सोडवले आहे!</string>
   <string name="byOpenings">ओपनिंग द्वारे</string>
-  <string name="puzzlesByOpenings">ओपनिंग द्वारे कोडी</string>
+  <string name="puzzlesByOpenings">ओपनिंग वर आधारित कोडी</string>
   <string name="openingsYouPlayedTheMost">रेट केलेल्या खेळामध्ये तुम्ही सर्वात जास्त खेळलेल्या ओपनिंग</string>
   <string name="useFindInPage">तुमची आवडती ओपनिंग शोधण्यासाठी ब्राउझर मेनूमध्ये \"Find in page\" वापरा!</string>
-  <string name="useCtrlF">तुमची आवडती ओपनिंग Ctrl+f वापरा!</string>
+  <string name="useCtrlF">तुमची आवडती ओपनिंग शोधण्यासाठी Ctrl+f वापरा!</string>
   <string name="notTheMove">ही ती चाल नव्हे!</string>
   <string name="trySomethingElse">काही वेगळा प्रयत्न करा.</string>
   <string name="ratingX">मूल्यांकन: %s</string>
