@@ -30,13 +30,15 @@ object variant:
           .map(rawHtml)
     )
 
-  def home(p: AnyPage)(using PageContext) =
+  def home(using PageContext) =
     layout(
       title = "Lichess variants",
       klass = "variants"
     )(
       h1(cls := "box__top")("Lichess variants"),
-      div(cls := "body box__pad")(p.html),
+      div(cls := "body box__pad")(
+        "Chess variants introduce variations of or new mechanics in regular Chess that gives it a unique, compelling, or sophisticated gameplay. Are you ready to think outside the box?"
+      ),
       div(cls := "variants")(
         lila.rating.PerfType.variants map: pt =>
           val variant = lila.rating.PerfType variantOf pt

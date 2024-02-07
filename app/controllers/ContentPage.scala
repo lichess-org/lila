@@ -30,9 +30,7 @@ final class ContentPage(
 
   def variantHome = Open:
     negotiate(
-      FoundPage(prismicC getBookmark "variant"):
-        views.html.site.variant.home
-      ,
+      Ok.pageAsync(views.html.site.variant.home),
       Ok(lila.api.StaticContent.variantsJson)
     )
 
