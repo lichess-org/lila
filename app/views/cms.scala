@@ -137,5 +137,14 @@ object cms:
         ,
         form3.checkbox(form("live"), raw("Live"), half = true)
       ),
+      form3.split(
+        form3.group(
+          form("canonicalPath"),
+          "Canonical path",
+          half = true,
+          help =
+            frag("The URL of the dedicated page of this content, if any. Example: /variant/crazyhouse").some
+        )(form3.input(_)(autofocus))
+      ),
       form3.action(form3.submit("Save"))
     )

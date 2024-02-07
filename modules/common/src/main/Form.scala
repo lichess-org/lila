@@ -206,7 +206,6 @@ object Form:
         )
       }
       def unbind(key: String, url: URL) = stringFormat.unbind(key, url.toString)
-
     val field = of[URL]
 
   given autoFormat[A, T](using

@@ -9,6 +9,7 @@ case class CmsPage(
     markdown: Markdown,
     language: Language,
     live: Boolean,
+    canonicalPath: Option[String],
     by: UserId,
     at: Instant
 ):
