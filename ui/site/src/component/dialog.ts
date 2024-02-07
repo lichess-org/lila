@@ -107,7 +107,7 @@ class DialogWrapper implements Dialog {
     const justThen = Date.now();
     const cancelOnInterval = () => Date.now() - justThen > 200 && this.close('cancel');
 
-    view.parentElement?.style.setProperty('--vh', `${window.innerHeight}px`); // sigh
+    view.parentElement?.style.setProperty('--vh', `${window.innerHeight}px`);
     view.addEventListener('click', e => e.stopPropagation());
 
     dialog.addEventListener('cancel', () => !this.returnValue && (this.returnValue = 'cancel'));
@@ -167,7 +167,7 @@ class DialogWrapper implements Dialog {
   onClose = () => {
     if (!this.dialog.returnValue) this.dialog.returnValue = 'cancel';
     this.restore?.focus.focus(); // one modal at a time please
-    if (this.restore?.overflow) document.body.style.overflow = this.restore.overflow;
+    if (this.restore?.overflow !== undefined) document.body.style.overflow = this.restore.overflow;
     this.restore = undefined;
     this.resolve?.(this);
     this.o.onClose?.(this);
@@ -206,7 +206,7 @@ function onModalKeydown(e: KeyboardEvent) {
 }
 
 function onResize() {
-  // ios safari vh behavior not helpful to us
+  // ios safari vh behavior workaround
   $('dialog > div.scrollable').css('--vh', `${window.innerHeight}px`);
 }
 
