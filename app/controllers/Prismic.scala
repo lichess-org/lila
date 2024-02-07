@@ -47,7 +47,7 @@ final class Prismic(env: Env)(using Executor, play.api.libs.ws.StandaloneWSClien
         env.cms.api
           .render(lila.cms.CmsPage.Id(name))
           .map:
-            _.filter(_.live || ctx.me.soUse(Granter(_.Prismic))).map(Left.apply)
+            _.filter(_.live || ctx.me.soUse(Granter(_.Pages))).map(Left.apply)
       .orElse:
         prismicApi
           .flatMap: api =>

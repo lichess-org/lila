@@ -9,17 +9,17 @@ final class Cms(env: Env) extends LilaController(env):
 
   def api = env.cms.api
 
-  def index = Secure(_.Prismic): ctx ?=>
+  def index = Secure(_.Pages): ctx ?=>
     for
       pages        <- api.list
       renderedPage <- renderPage(html.cms.index(pages))
     yield Ok(renderedPage)
 
-  def createForm = Secure(_.Prismic) { _ ?=> _ ?=>
+  def createForm = Secure(_.Pages) { _ ?=> _ ?=>
     Ok.pageAsync(html.cms.create(env.cms.form.create))
   }
 
-  def create = SecureBody(_.Prismic) { _ ?=> me ?=>
+  def create = SecureBody(_.Pages) { _ ?=> me ?=>
     env.cms.form.create
       .bindFromRequest()
       .fold(
@@ -30,12 +30,12 @@ final class Cms(env: Env) extends LilaController(env):
       )
   }
 
-  def edit(id: CmsPage.Id) = Secure(_.Prismic) { _ ?=> _ ?=>
+  def edit(id: CmsPage.Id) = Secure(_.Pages) { _ ?=> _ ?=>
     Found(api.get(id)): up =>
       Ok.pageAsync(html.cms.edit(env.cms.form.edit(up), up))
   }
 
-  def update(id: CmsPage.Id) = SecureBody(_.Prismic) { _ ?=> me ?=>
+  def update(id: CmsPage.Id) = SecureBody(_.Pages) { _ ?=> me ?=>
     Found(api.get(id)): from =>
       env.cms.form
         .edit(from)
@@ -48,7 +48,7 @@ final class Cms(env: Env) extends LilaController(env):
         )
   }
 
-  def delete(id: CmsPage.Id) = Secure(_.Prismic) { _ ?=> _ ?=>
+  def delete(id: CmsPage.Id) = Secure(_.Pages) { _ ?=> _ ?=>
     Found(api.get(id)): up =>
       api.delete(up.id) inject Redirect(routes.Cms.index).flashSuccess
   }

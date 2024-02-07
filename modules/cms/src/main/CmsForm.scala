@@ -13,7 +13,7 @@ object CmsForm:
     mapping(
       "id"    -> cleanNonEmptyText(minLength = 3, maxLength = 120).verifying(slugConstraint).into[CmsPage.Id],
       "title" -> cleanNonEmptyText(minLength = 3, maxLength = 150),
-      "markdown" -> cleanNonEmptyText(minLength = 0, maxLength = 100_000).into[Markdown],
+      "markdown" -> cleanNonEmptyText(minLength = 0, maxLength = 1000_000).into[Markdown],
       "language" -> LangForm.popularLanguages.mapping,
       "live"     -> boolean
     )(CmsPageData.apply)(unapply)

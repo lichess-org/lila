@@ -56,18 +56,16 @@
     }
 
     img,
-    .block-img {
+    .img-container {
       max-width: 100%;
     }
-
-    .block-img {
-      margin: 2em auto 1em auto;
+    .img-container {
       text-align: center;
-
+      color: $c-font-dim;
+      line-height: 1.2em;
+      font-size: 0.9em;
       img {
         @extend %box-neat-force;
-        width: auto;
-        height: auto;
       }
     }
 

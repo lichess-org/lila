@@ -25,7 +25,7 @@ final class CmsMarkup(
   private val cache = cacheApi[(CmsPage.Id, Markdown), Html](64, "cms.markup"):
     _.expireAfterWrite(15 minutes)
       .buildAsyncFuture: (id, markdown) =>
-        fuccess(process(id)(markdown).pp(markdown))
+        fuccess(process(id)(markdown))
 
   private def process(id: CmsPage.Id): Markdown => Html =
     MarkdownToastUi.unescapeAtUsername.apply andThen
