@@ -91,7 +91,7 @@ object cms:
           h1(a(href := routes.Cms.index)("Lichess page"), " • ", page.id),
           div(cls := "box__top__actions"):
             a(
-              href     := page.canonicalPath.getOrElse(routes.ContentPage.loneBookmark(page.id)),
+              href     := page.canonicalPath.getOrElse(routes.ContentPage.loneBookmark(page.id).url),
               cls      := "button button-green",
               dataIcon := licon.Eye
             )
