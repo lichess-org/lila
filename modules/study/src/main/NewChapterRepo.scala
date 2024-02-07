@@ -170,4 +170,71 @@ final class NewChapterRepo(val coll: AsyncColl)(using Executor, akka.stream.Mate
   // root.path.subField
   private def pathToField(path: UciPath, subField: String): String = s"${path.toDbField}.$subField"
 
+  private[study] def idNamesByStudyIds(
+      studyIds: Seq[StudyId],
+      nbChaptersPerStudy: Int
+  ): Fu[Map[StudyId, Vector[Chapter.IdName]]] =
+    studyIds.nonEmpty so coll {
+      _.find(
+        $doc("studyId" $in studyIds),
+        $doc("studyId" -> true, "_id" -> true, "name" -> true).some
+      )
+        .sort($sort asc "order")
+        .cursor[Bdoc]()
+        .list(nbChaptersPerStudy * studyIds.size)
+    }
+      .map { docs =>
+        docs.foldLeft(Map.empty[StudyId, Vector[Chapter.IdName]]) { case (hash, doc) =>
+          doc.getAsOpt[StudyId]("studyId").fold(hash) { studyId =>
+            hash get studyId match
+              case Some(chapters) if chapters.sizeIs >= nbChaptersPerStudy => hash
+              case maybe =>
+                val chapters = ~maybe
+                hash + (studyId -> readIdName(doc).fold(chapters)(chapters :+ _))
+          }
+        }
+      }
+
+  def idNames(studyId: StudyId): Fu[List[Chapter.IdName]] =
+    coll:
+      _.find($studyId(studyId), $doc("_id" -> true, "name" -> true).some)
+        .sort($sort asc "order")
+        .cursor[Bdoc]()
+        .list(Study.maxChapters * 2)
+    .dmap(_ flatMap readIdName)
+
+  private def readIdName(doc: Bdoc) =
+    for
+      id   <- doc.getAsOpt[StudyChapterId]("_id")
+      name <- doc.getAsOpt[StudyChapterName]("name")
+    yield Chapter.IdName(id, name)
+
+  def tagsByStudyIds(studyIds: Iterable[StudyId]): Fu[List[Tags]] =
+    studyIds.nonEmpty so coll { _.primitive[Tags]("studyId" $in studyIds, "tags") }
+
+  def startServerEval(chapter: NewChapter) =
+    coll:
+      _.updateField(
+        $id(chapter.id),
+        "serverEval",
+        Chapter.ServerEval(
+          path = chapter.root.mainlinePath,
+          done = false
+        )
+      )
+    .void
+
+  def completeServerEval(chapter: NewChapter) =
+    coll(_.updateField($id(chapter.id), "serverEval.done", true)).void
+
+  def countByStudyId(studyId: StudyId): Fu[Int] =
+    coll(_.countSel($studyId(studyId)))
+
+  def insert(s: NewChapter): Funit = coll(_.insert one s).void
+
+  def update(c: NewChapter): Funit = coll(_.update.one($id(c.id), c)).void
+
+  def delete(id: StudyChapterId): Funit = coll(_.delete.one($id(id))).void
+  def delete(c: NewChapter): Funit         = delete(c.id)
+
   private def $studyId(id: StudyId) = $doc("studyId" -> id)
