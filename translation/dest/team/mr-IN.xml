@@ -42,6 +42,9 @@
   <string name="leadersChat">संघनेत्यांचा गप्पाकक्ष</string>
   <string name="closeTeam">संघ बंद करा</string>
   <string name="closeTeamDescription">संघ कायमचा बंद होईल.</string>
+  <string name="entryCode">संघ प्रवेश कोड</string>
+  <string name="entryCodeDescriptionForLeader">(पर्यायी) एक प्रवेश कोड जो नवीन सदस्यांना या संघात सामील होण्यासाठी माहित असणे आवश्यक आहे.</string>
+  <string name="incorrectEntryCode">चुकीचा प्रवेश कोड.</string>
   <string name="teamAlreadyExists">हा संघ आधीच अस्तित्वात आहे.</string>
   <string name="upcomingTourns">आगामी स्पर्धा</string>
   <string name="completedTourns">पूर्ण स्पर्धा</string>
