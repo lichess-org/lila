@@ -22,19 +22,18 @@ object cms:
       frag(
         boxTop(
           h1("Lichess pages"),
-          div(cls := "box__top__actions")(
+          div(cls := "box__top__actions"):
             a(
               href     := routes.Cms.createForm,
               cls      := "button button-green",
               dataIcon := licon.PlusButton
             )
-          )
         ),
         standardFlash,
         table(cls := "cms__pages slist")(
           thead(
             tr(
-              th("ID"),
+              th("Title"),
               th("Content"),
               th("Updated")
             )
@@ -43,7 +42,7 @@ object cms:
             pages
               .map: page =>
                 tr(
-                  td(a(href := routes.Cms.edit(page.id))(page.id)),
+                  td(a(href := routes.Cms.edit(page.id))(page.title), br, code(page.id)),
                   td(page.markdown.value.take(100)),
                   td(userIdLink(page.by.some), br, momentFromNow(page.at))
                 )
@@ -76,16 +75,19 @@ object cms:
   private def inForm(form: Form[?])(using Context) =
     frag(
       form3.split(
-        form3.group(form("id"), "ID", half = true)(form3.input(_)(autofocus)),
-        form3.checkbox(form("live"), raw("Live"), half = true)
+        form3.group(form("title"), "Title", half = true)(form3.input(_)(autofocus)),
+        form3.group(form("id"), "ID", half = true)(form3.input(_))
       ),
-      form3.group(form("language"), trans.language(), half = true):
-        form3.select(_, lila.i18n.LangForm.popularLanguages.choices)
-      ,
       form3.group(form("markdown"), "Content", help = trans.embedsAvailable().some): field =>
         frag(
           form3.textarea(field)(),
           div(cls := "markdown-editor", attr("data-image-upload-url") := routes.Main.uploadImage("cmsPage"))
         ),
+      form3.split(
+        form3.group(form("language"), trans.language(), half = true):
+          form3.select(_, lila.i18n.LangForm.popularLanguages.choices)
+        ,
+        form3.checkbox(form("live"), raw("Live"), half = true)
+      ),
       form3.action(form3.submit("Save"))
     )

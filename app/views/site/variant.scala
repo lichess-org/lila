@@ -8,6 +8,8 @@ import lila.app.ui.ScalatagsTemplate.{ *, given }
 
 object variant:
 
+  import controllers.Prismic.*
+
   def show(
       doc: io.prismic.Document,
       resolver: io.prismic.DocumentLinkResolver,
@@ -28,26 +30,21 @@ object variant:
           .map(rawHtml)
     )
 
-  def home(
-      doc: io.prismic.Document,
-      resolver: io.prismic.DocumentLinkResolver
-  )(using PageContext) =
+  def home(p: AnyPage)(using PageContext) =
     layout(
       title = "Lichess variants",
       klass = "variants"
     )(
       h1(cls := "box__top")("Lichess variants"),
-      div(cls := "body box__pad")(raw(~doc.getHtml("doc.content", resolver))),
+      div(cls := "body box__pad")(p.html),
       div(cls := "variants")(
-        lila.rating.PerfType.variants map { pt =>
+        lila.rating.PerfType.variants map: pt =>
           val variant = lila.rating.PerfType variantOf pt
-          a(cls := "variant text box__pad", href := routes.ContentPage.variant(pt.key), dataIcon := pt.icon)(
+          a(cls := "variant text box__pad", href := routes.ContentPage.variant(pt.key), dataIcon := pt.icon):
             span(
               h2(variant.name),
               h3(cls := "headline")(variant.title)
             )
-          )
-        }
       )
     )
 

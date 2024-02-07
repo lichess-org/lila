@@ -5,6 +5,7 @@ import lila.i18n.Language
 
 case class CmsPage(
     @Key("_id") id: CmsPage.Id,
+    title: String,
     markdown: Markdown,
     language: Language,
     live: Boolean,
@@ -16,3 +17,6 @@ object CmsPage:
 
   opaque type Id = String
   object Id extends TotalWrapper[Id, String]
+
+  case class Render(page: CmsPage, html: Html):
+    export page.*
