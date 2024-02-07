@@ -9,7 +9,10 @@
       margin: 1.8em 0 0.5em 0;
       border-bottom: 1px solid $c-brag;
       line-height: 1.5em;
-      padding-bottom: 0.5em;
+      padding-bottom: 0.2em;
+      &:first-child {
+        margin-top: 0px;
+      }
     }
 
     p,

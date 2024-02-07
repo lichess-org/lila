@@ -27,5 +27,11 @@
       white-space: nowrap;
       min-width: 8ch;
     }
+    td {
+      @extend %break-word;
+      &:first-child {
+        min-width: 30ch;
+      }
+    }
   }
 }

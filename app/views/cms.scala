@@ -6,6 +6,7 @@ import lila.app.templating.Environment.{ given, * }
 import lila.app.ui.ScalatagsTemplate.{ *, given }
 import lila.cms.CmsPage
 import play.api.data.Form
+import lila.common.String.shorten
 
 object cms:
 
@@ -45,7 +46,7 @@ object cms:
               .map: page =>
                 tr(
                   td(dataSort := page.id)(a(href := routes.Cms.edit(page.id))(page.title), br, code(page.id)),
-                  td(page.markdown.value.take(120)),
+                  td(shorten(page.markdown.value, 140)),
                   td(
                     if page.live then goodTag(iconTag(licon.Checkmark))
                     else badTag(iconTag(licon.X))
