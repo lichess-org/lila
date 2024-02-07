@@ -19,25 +19,22 @@ object StudyArbitraries:
   given Arbitrary[Option[NewTree]] = Arbitrary(genTree(Situation(chess.variant.Standard)))
 
   def genRoot(seed: Situation): Gen[NewRoot] =
-    val ply = Ply.initial
     for
       tree  <- genTree(seed)
-      metas <- genMetas(seed, ply)
+      metas <- genMetas(seed, Ply.initial)
       pgn = NewRoot(metas, tree)
     yield pgn
 
   def genRootWithPath(seed: Situation): Gen[(NewRoot, UciPath)] =
-    val ply = Ply.initial
     for
       tree <- genNodeWithPath(seed)
       pgnTree = tree._1.map(_.map(_.data))
-      metas <- genMetas(seed, ply)
+      metas <- genMetas(seed, Ply.initial)
       pgn  = NewRoot(metas, pgnTree)
       path = tree._2.map(_.id)
     yield (pgn, UciPath.fromIds(path))
 
   def genTree(seed: Situation): Gen[Option[NewTree]] =
-    val ply = Ply.initial
     genNode(seed).map(_.map(_.map(_.data)))
 
   given FromMove[NewBranch] with
@@ -65,8 +62,8 @@ object StudyArbitraries:
       clock    <- Arbitrary.arbitrary[Option[Centis]]
       shapes   <- Arbitrary.arbitrary[Shapes]
     yield Metas(
-      ply.next,
-      Fen.write(ChessGame(situation, ply = ply.next)),
+      ply,
+      Fen.write(ChessGame(situation, ply = ply)),
       situation.check,
       None,
       None,
