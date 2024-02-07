@@ -73,7 +73,13 @@ object cms:
     layout(s"Lichess page ${page.id}", true):
       frag(
         boxTop(
-          h1(a(href := routes.Cms.index)("Lichess page"), " • ", page.id)
+          h1(a(href := routes.Cms.index)("Lichess page"), " • ", page.id),
+          div(cls := "box__top__actions"):
+            a(
+              href     := routes.ContentPage.loneBookmark(page.id),
+              cls      := "button button-green",
+              dataIcon := licon.Eye
+            )
         ),
         standardFlash,
         postForm(cls := "content_box_content form3", action := routes.Cms.update(page.id)):
@@ -86,8 +92,20 @@ object cms:
   private def inForm(form: Form[?], page: Option[CmsPage])(using Context) =
     frag(
       form3.split(
-        form3.group(form("title"), "Title", half = true)(form3.input(_)(autofocus)),
-        form3.group(form("id"), "ID", half = true)(form3.input(_))
+        form3.group(
+          form("title"),
+          "Title",
+          half = true,
+          help = frag("The title is prepended to the page content, so no need to repeat it there.").some
+        )(form3.input(_)(autofocus)),
+        form3.group(
+          form("id"),
+          "ID",
+          half = true,
+          help = frag(
+            "Used as part of the page URL: /page/{ID}. Sometimes also used by lila to display somewhere else. Be very careful when changing it."
+          ).some
+        )(form3.input(_))
       ),
       form3.group(
         form("markdown"),
@@ -99,7 +117,7 @@ object cms:
           div(cls := "markdown-editor", attr("data-image-upload-url") := routes.Main.uploadImage("cmsPage"))
         ),
       form3.split(
-        form3.group(form("language"), trans.language(), half = true):
+        form3.group(form("language"), trans.language(), half = true, help = raw("Not used yet.").some):
           form3.select(_, lila.i18n.LangForm.popularLanguages.choices)
         ,
         form3.checkbox(form("live"), raw("Live"), half = true)
