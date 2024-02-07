@@ -1,11 +1,10 @@
 .mobile {
   .sides {
     @extend %flex-wrap;
+    justify-content: space-around;
   }
 
   .left-side {
-    flex: 1 1 auto;
-
     .stores {
       display: flex;
 
