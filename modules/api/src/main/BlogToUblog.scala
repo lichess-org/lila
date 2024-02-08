@@ -76,10 +76,13 @@ final private class BlogToUblog(
         logger.debug(s"Uploading image $url as $filename for $rel")
         picfitApi.uploadSource(rel, part, lichessId).map(_.some)
 
-  private def transferMainImage(post: BlogPost, upost: UblogPost): Fu[Option[UblogImage]] =
-    post.imageObj.so: img =>
-      uploadImage(img.url, s"ublog:${upost.id}") map2: pfi =>
-        UblogImage(id = pfi.id, alt = img.alt, credit = none)
+  private def transferMainImage(post: BlogPost): Fu[Option[UblogImage]] =
+    post
+      .copy(imgSize = "main")
+      .imageObj
+      .so: img =>
+        uploadImage(img.url, s"ublog:${uPostId(post)}") map2: pfi =>
+          UblogImage(id = pfi.id, alt = img.alt, credit = none)
 
   private def transferMarkdownImages(post: BlogPost): Fu[BlogPost] = post.get("blog.body") match
     case Some(StructuredText(blocks)) =>
@@ -96,7 +99,10 @@ final private class BlogToUblog(
     case _ => fuccess(post)
 
   private def convert(prismic: PrismicApi)(p: BlogPost): Funit = for
-    post <- transferMarkdownImages(p)
+    prev      <- ublogApi.getByPrismicId(p.id)
+    _         <- prev.so(ublogApi.delete)
+    mainImage <- transferMainImage(p)
+    post      <- transferMarkdownImages(p)
     html = Html
       .from(post.getHtml("blog.body", linkResolver(prismic)))
       .map(lila.blog.Youtube.augmentEmbeds)
@@ -116,7 +122,7 @@ final private class BlogToUblog(
       markdown = htmlToMarkdown(html.so(_.value)),
       language = lila.i18n.defaultLanguage,
       topics = Nil,
-      image = none,
+      image = mainImage,
       live = true,
       discuss = Option(false),
       created = UblogPost.Recorded(lichessId, created),
@@ -127,7 +133,5 @@ final private class BlogToUblog(
       rankAdjustDays = none,
       pinned = none
     )
-    mainImage <- transferMainImage(p, upost)
-    newPost = upost.copy(image = mainImage)
-    _ <- ublogApi.migrateFromBlog(newPost, p.id)
+    _ <- ublogApi.migrateFromBlog(upost, p.id)
   yield ()
