@@ -1,2 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+  <string name="welcome">환영합니다!</string>
+  <string name="welcomeToLichess">lichess.org에 오신 것을 환영합니다!</string>
+  <string name="thisIsYourProfilePage">여기는 프로필 페이지 입니다.</string>
+</resources>
