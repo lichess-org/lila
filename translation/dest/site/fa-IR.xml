@@ -289,7 +289,7 @@
   <string name="rematchOfferCanceled">پیشنهاد بازی دوباره لغو شد</string>
   <string name="rematchOfferDeclined">پیشنهاد بازی دوباره رد شد</string>
   <string name="cancelRematchOffer">لغو کردن پیشنهاد بازی دوباره</string>
-  <string name="viewRematch">مشاهده بازی دوباره</string>
+  <string name="viewRematch">تماشای مجدد بازی</string>
   <string name="confirmMove">تایید حرکت</string>
   <string name="play">بازی</string>
   <string name="inbox">صندوق پیام</string>
