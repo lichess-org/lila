@@ -76,16 +76,9 @@ final class BlogApi(
       .submit()
       .fold(_ => Nil, _.results.map(BlogPost(_)).flatMap(MiniPost.apply))
 
-  def context(
-      req: RequestHeader
-  )(using linkResolver: (Api, Option[String]) => DocumentLinkResolver): Fu[BlogApi.Context] =
+  def context(using linkResolver: (Api, Option[String]) => DocumentLinkResolver): Fu[BlogApi.Context] =
     prismicApi map { api =>
-      val ref = resolveRef(api) {
-        req.cookies
-          .get(Prismic.previewCookie)
-          .map(_.value)
-          .orElse(req.queryString get "ref" flatMap (_.headOption) filter (_.nonEmpty))
-      }
+      val ref = resolveRef(api)(none)
       BlogApi.Context(api, ref | api.master.ref, linkResolver(api, ref))
     }
 

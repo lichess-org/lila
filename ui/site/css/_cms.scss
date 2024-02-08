@@ -32,6 +32,9 @@
       &:first-child {
         min-width: 30ch;
       }
+      &:nth-child(2) {
+        font-size: 0.9em;
+      }
     }
     &.searching tbody tr {
       border-bottom: $border;

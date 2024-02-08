@@ -77,6 +77,8 @@ object UblogPost:
     val s = lila.common.String slugify title
     if s.isEmpty then "-" else s
 
+  def randomId = UblogPostId(ornicar.scalalib.ThreadLocalRandom nextString 8)
+
   object thumbnail:
     enum Size(val width: Int):
       def height = width * 10 / 16

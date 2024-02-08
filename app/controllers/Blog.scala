@@ -119,7 +119,7 @@ final class Blog(
     }
 
   private def WithPrismic(f: Context ?=> BlogApi.Context ?=> Fu[Result]) = Open:
-    blogApi context ctx.req flatMap { f(using ctx)(using _) }
+    blogApi.context flatMap { f(using ctx)(using _) }
 
   // -- Helper: Check if the slug is valid and redirect to the most recent version id needed
   private def checkSlug(document: Option[BlogPost], slug: String)(

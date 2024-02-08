@@ -17,7 +17,8 @@ final private[api] class Cli(
     puzzle: lila.puzzle.Env,
     team: lila.team.Env,
     notify: lila.notify.Env,
-    accountClosure: AccountClosure
+    accountClosure: AccountClosure,
+    blogToUblog: BlogToUblog
 )(using Executor)
     extends lila.common.Cli:
 
@@ -50,6 +51,8 @@ final private[api] class Cli(
       fuccess:
         val threads = ornicar.scalalib.Jvm.threadGroups()
         s"${threads.map(_.total).sum} threads\n\n${threads.mkString("\n")}"
+    case "blog" :: "to" :: "ublog" :: Nil =>
+      blogToUblog.all() inject "Done"
 
   private def run(args: List[String]): Fu[String] = {
     (processors lift args) | fufail("Unknown command: " + args.mkString(" "))
