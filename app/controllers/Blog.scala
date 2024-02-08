@@ -33,21 +33,9 @@ final class Blog(
         Ok.page(views.html.blog.index(pagerForMe(response)))
     }
 
-  def show(id: String, slug: String, ref: Option[String]) =
-    WithPrismic { _ ?=> prismic ?=>
-      pageHit
-      blogApi
-        .one(prismic, id)
-        .flatMap: maybeDocument =>
-          checkSlug(maybeDocument, slug):
-            case Left(newSlug) => MovedPermanently(routes.Blog.show(id, newSlug, ref).url)
-            case Right(doc) =>
-              if !doc.forKids && ctx.kid.yes
-              then notFound
-              else Ok.page(views.html.blog.show(doc))
-        .recoverWith:
-          case e: RuntimeException if e.getMessage contains "Not Found" => notFound
-    }
+  def show(id: String, slug: String) = Open:
+    Found(env.ublog.api.getByPrismicId(id)): post =>
+      Redirect(routes.Ublog.post("lichess", post.slug, post.id), MOVED_PERMANENTLY)
 
   def preview(token: String) =
     WithPrismic { _ ?=> prismic ?=>

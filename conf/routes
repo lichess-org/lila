@@ -121,7 +121,7 @@ GET   /blog/community                  controllers.Ublog.communityAll(page: Int 
 GET   /$lang<\w\w\w?>/blog/community   controllers.Ublog.communityLang(lang, page: Int ?= 1)
 GET   /blog/community.atom             controllers.Ublog.communityAtom(lang = "all")
 GET   /blog/community/$lang<[\w-]{2,6}>.atom controllers.Ublog.communityAtom(lang)
-GET   /blog/:id/:slug                  controllers.Blog.show(id, slug, ref: Option[String] ?= None)
+GET   /blog/:id/:slug                  controllers.Blog.show(id, slug)
 GET   /blog/prismic-preview            controllers.Blog.preview(token)
 
 GET   /feed                            controllers.DailyFeed.index(page: Int ?= 1)

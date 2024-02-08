@@ -40,6 +40,8 @@ final class UblogApi(
       )
       .void
 
+  def getByPrismicId(id: String): Fu[Option[UblogPost]] = colls.post.one[UblogPost]($doc("prismicId" -> id))
+
   def update(data: UblogForm.UblogPostData, prev: UblogPost)(using me: Me): Fu[UblogPost] =
     getUserBlog(me.value, insertMissing = true) flatMap { blog =>
       val post = data.update(me.value, prev)
