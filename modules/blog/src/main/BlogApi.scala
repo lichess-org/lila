@@ -11,12 +11,13 @@ import lila.common.config.{ BaseUrl, MaxPerPage }
 import lila.common.paginator.*
 import lila.hub.actorApi.lpv.AllPgnsFromText
 import chess.format.pgn.PgnStr
+import akka.stream.Materializer
 
 final class BlogApi(
     config: BlogConfig,
     baseUrl: BaseUrl,
     cacheApi: lila.memo.CacheApi
-)(using Executor, Scheduler, StandaloneWSClient):
+)(using Executor, Scheduler, StandaloneWSClient, Materializer):
 
   import BlogApi.looksLikePrismicId
   import config.collection
@@ -26,20 +27,22 @@ final class BlogApi(
       page: Int,
       maxPerPage: MaxPerPage,
       ref: Option[String]
-  ): Fu[Option[Paginator[BlogPost]]] = Try {
-    api
-      .forms(collection)
-      .ref(ref | api.master.ref)
-      .orderings(s"[my.$collection.date desc]")
-      .pageSize(maxPerPage.value)
-      .page(page)
-      .submit()
-      .fold(_ => none, some)
-      .map2 { PrismicPaginator(_, page, maxPerPage) }
-      .map2 { _.mapResults(BlogPost(_)) }
-  }.recover { case _: NoSuchElementException =>
-    fuccess(none)
-  }.get
+  ): Fu[Option[Paginator[BlogPost]]] = Future.fromTry {
+    Try {
+      api
+        .forms(collection)
+        .ref(ref | api.master.ref)
+        .orderings(s"[my.$collection.date desc]")
+        .pageSize(maxPerPage.value)
+        .page(page)
+        .submit()
+        .fold(_ => none, some)
+        .map2 { PrismicPaginator(_, page, maxPerPage) }
+        .map2 { _.mapResults(BlogPost(_)) }
+    }.recover { case _: NoSuchElementException =>
+      fuccess(none)
+    }
+  }.flatten
 
   def recent(
       prismic: BlogApi.Context,
@@ -47,6 +50,10 @@ final class BlogApi(
       maxPerPage: MaxPerPage
   ): Fu[Option[Paginator[BlogPost]]] =
     recent(prismic.api, page, maxPerPage, prismic.ref.some)
+
+  def recentStream(prismic: BlogApi.Context): akka.stream.scaladsl.Source[BlogPost, ?] =
+    Paginator.stream: page =>
+      recent(prismic, page, MaxPerPage(20)).map(_ | Paginator.empty)
 
   def one(api: Api, ref: Option[String], id: String): Fu[Option[BlogPost]] =
     looksLikePrismicId(id) so api

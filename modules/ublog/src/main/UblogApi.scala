@@ -28,17 +28,15 @@ final class UblogApi(
       bsonWriteObjTry[UblogPost](post).get ++ $doc("likers" -> List(me.userId))
     ) inject post
 
-  def migrateFromBlog(post: UblogPost, prismicId: String) =
-    colls.post.update
-      .one(
-        $id(post.id),
-        bsonWriteObjTry[UblogPost](post).get ++ $doc(
-          "likers"    -> List(post.created.by),
-          "prismicId" -> prismicId
-        ),
-        upsert = true
+  def migrateFromBlog(post: UblogPost, prismicId: String) = for
+    prev <- getByPrismicId(prismicId)
+    _    <- prev.so(delete)
+    _ <- colls.post.insert.one:
+      bsonWriteObjTry[UblogPost](post).get ++ $doc(
+        "likers"    -> List(post.created.by),
+        "prismicId" -> prismicId
       )
-      .void
+  yield ()
 
   def getByPrismicId(id: String): Fu[Option[UblogPost]] = colls.post.one[UblogPost]($doc("prismicId" -> id))
 

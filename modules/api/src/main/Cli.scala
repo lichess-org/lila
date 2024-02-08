@@ -52,7 +52,8 @@ final private[api] class Cli(
         val threads = ornicar.scalalib.Jvm.threadGroups()
         s"${threads.map(_.total).sum} threads\n\n${threads.mkString("\n")}"
     case "blog" :: "to" :: "ublog" :: Nil =>
-      blogToUblog.all() inject "Done"
+      blogToUblog.all()
+      fuccess("Converting blogs to ublogs in the background, it can take a minute or two. Check the logs.")
 
   private def run(args: List[String]): Fu[String] = {
     (processors lift args) | fufail("Unknown command: " + args.mkString(" "))

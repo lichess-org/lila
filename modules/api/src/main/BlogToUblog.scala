@@ -2,8 +2,12 @@ package lila.api
 
 import io.prismic.{ Api as PrismicApi, * }
 import io.prismic.DocumentLinkResolver
+import io.prismic.Fragment.StructuredText
 import play.api.libs.ws.JsonBodyWritables.*
 import play.api.libs.ws.{ StandaloneWSClient, StandaloneWSResponse }
+import play.api.mvc.MultipartFormData
+import akka.stream.scaladsl.*
+import akka.util.ByteString
 
 import lila.common.config.MaxPerPage
 import lila.blog.BlogPost
@@ -11,14 +15,10 @@ import lila.user.User
 import lila.ublog.UblogPost
 import lila.ublog.UblogBlog
 import lila.ublog.UblogImage
-import akka.stream.scaladsl.Source
-import akka.util.ByteString
-import play.api.mvc.MultipartFormData
 import lila.memo.PicfitApi
 import lila.memo.PicfitImage
 import lila.user.User.lichessId
 import lila.memo.PicfitUrl
-import io.prismic.Fragment.StructuredText
 
 final private class BlogToUblog(
     ublogApi: lila.ublog.UblogApi,
@@ -26,27 +26,33 @@ final private class BlogToUblog(
     picfitApi: PicfitApi,
     picfitUrl: PicfitUrl,
     ws: StandaloneWSClient
-)(using Executor):
+)(using Executor, akka.stream.Materializer):
 
   private type MakeLinkResolver = PrismicApi => DocumentLinkResolver
   private given linkResolver: MakeLinkResolver = prismicApi =>
     DocumentLinkResolver(prismicApi): (link, _) =>
       s"/blog/${link.id}/${link.slug}"
 
-  def all(): Funit = for
-    ctx   <- blogApi.context
-    pager <- blogApi.recent(ctx, 1, MaxPerPage(200))
-    posts = pager.so(_.currentPageResults)
+  def all(): Fu[String] = for
+    ctx     <- blogApi.context
     prismic <- blogApi.prismicApi
-    _       <- posts.traverse(convert(prismic))
-  yield ()
+    nb <-
+      blogApi
+        .recentStream(ctx)
+        .zipWithIndex
+        .map: (p, i) =>
+          logger.info(s"$i ${p.date.so(_.toString)} ${~p.title}")
+          p
+        .mapAsync(1)(convert(ctx.api))
+        .runWith(Sink.ignore)
+  yield s"Done $nb posts"
 
   import com.vladsch.flexmark.html2md.converter.FlexmarkHtmlConverter
   private val htmlConverter: FlexmarkHtmlConverter = FlexmarkHtmlConverter.builder.build
 
   private def htmlToMarkdown(html: String) = Markdown:
-    val raw = htmlConverter.convert(html)
-    raw
+    htmlConverter
+      .convert(html)
       .replace("""<br />""", "")
       .replaceAllIn("""<(https?://[^>]+)>""".r, "$1")
 
@@ -67,7 +73,7 @@ final private class BlogToUblog(
           contentType = Option(if filename.endsWith(".png") then "image/png" else "image/jpeg"),
           ref = source
         )
-        logger.info(s"Uploading image $url as $filename for $rel")
+        logger.debug(s"Uploading image $url as $filename for $rel")
         picfitApi.uploadSource(rel, part, lichessId).map(_.some)
 
   private def transferMainImage(post: BlogPost, upost: UblogPost): Fu[Option[UblogImage]] =
