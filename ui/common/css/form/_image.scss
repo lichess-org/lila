@@ -4,9 +4,9 @@
   gap: var(--box-padding);
   background: $c-bg-zebra;
   img {
-    flex: 0 2 400px;
+    flex: 1 1 50%;
   }
   > div {
-    flex: 1 1 250px;
+    flex: 0 0 230px;
   }
 }
