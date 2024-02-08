@@ -557,6 +557,7 @@ export default class RoundController implements MoveRootCtrl {
     }
     this.promotion.cancel();
     this.chessground.stop();
+    lichess.tempStorage.make('chat.input').remove();
     if (o.ratingDiff) {
       d.player.ratingDiff = o.ratingDiff[d.player.color];
       d.opponent.ratingDiff = o.ratingDiff[d.opponent.color];
