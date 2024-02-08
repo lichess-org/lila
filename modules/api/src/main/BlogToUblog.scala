@@ -23,8 +23,8 @@ final private class BlogToUblog(
     ws: StandaloneWSClient
 )(using Executor):
 
-  private type MakeLinkResolver = (PrismicApi, Option[String]) => DocumentLinkResolver
-  private given linkResolver: MakeLinkResolver = (prismicApi, ref) =>
+  private type MakeLinkResolver = PrismicApi => DocumentLinkResolver
+  private given linkResolver: MakeLinkResolver = prismicApi =>
     DocumentLinkResolver(prismicApi): (link, _) =>
       s"/blog/${link.id}/${link.slug}"
 
@@ -75,7 +75,7 @@ final private class BlogToUblog(
     import p.*
     val userId = User.lichessId
     val html = Html
-      .from(getHtml("blog.body", linkResolver(prismic, none)))
+      .from(getHtml("blog.body", linkResolver(prismic)))
       .map(lila.blog.Youtube.augmentEmbeds)
       .map(lila.blog.BlogTransform.removeProtocol)
       .map(lila.blog.BlogTransform.markdown.apply)

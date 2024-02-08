@@ -113,8 +113,7 @@ GET   /blog/$year<2\d{3}>              controllers.Blog.year(year: Int)
 GET   /blog/discuss/:id                controllers.Blog.discuss(id)
 GET   /blog/topic                      controllers.Ublog.topics
 GET   /blog/topic/:topic               controllers.Ublog.topic(topic, page: Int ?= 1, byDate: Boolean ?= false)
-GET   /blog.atom                       controllers.Blog.atom
-GET   /blog.txt                        controllers.Blog.sitemapTxt
+GET   /blog.atom                       controllers.Main.movedPermanently(to = "/@/Lichess/blog.atom")
 GET   /blog/friends                    controllers.Ublog.friends(page: Int ?= 1)
 GET   /blog/liked                      controllers.Ublog.liked(page: Int ?= 1)
 GET   /blog/community                  controllers.Ublog.communityAll(page: Int ?= 1)
@@ -122,7 +121,6 @@ GET   /$lang<\w\w\w?>/blog/community   controllers.Ublog.communityLang(lang, pag
 GET   /blog/community.atom             controllers.Ublog.communityAtom(lang = "all")
 GET   /blog/community/$lang<[\w-]{2,6}>.atom controllers.Ublog.communityAtom(lang)
 GET   /blog/:id/:slug                  controllers.Blog.show(id, slug)
-GET   /blog/prismic-preview            controllers.Blog.preview(token)
 
 GET   /feed                            controllers.DailyFeed.index(page: Int ?= 1)
 GET   /feed/new                        controllers.DailyFeed.createForm

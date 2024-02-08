@@ -26,10 +26,10 @@ final class Prismic(env: Env)(using Executor, play.api.libs.ws.StandaloneWSClien
 
   import env.blog.api.prismicApi
 
-  type MakeLinkResolver = (PrismicApi, Option[String]) => DocumentLinkResolver
-  given makeLinkResolver: MakeLinkResolver = (prismicApi, ref) =>
+  type MakeLinkResolver = PrismicApi => DocumentLinkResolver
+  given makeLinkResolver: MakeLinkResolver = prismicApi =>
     DocumentLinkResolver(prismicApi): (link, _) =>
-      routes.Blog.show(link.id, link.slug, ref).url
+      routes.Blog.show(link.id, link.slug).url
 
   private def getDocument(id: String): Fu[Option[Document]] =
     lila.blog.BlogApi.looksLikePrismicId(id) so
@@ -53,7 +53,7 @@ final class Prismic(env: Env)(using Executor, play.api.libs.ws.StandaloneWSClien
         prismicApi
           .flatMap: api =>
             api.bookmarks.get(name) so getDocument map2 { doc =>
-              Right(doc -> makeLinkResolver(api, none))
+              Right(doc -> makeLinkResolver(api))
             }
           .recover { case e: Exception =>
             logger.error(s"bookmark:$name", e)
@@ -73,4 +73,4 @@ final class Prismic(env: Env)(using Executor, play.api.libs.ws.StandaloneWSClien
             .submit()
             .map:
               _.results.headOption.map: doc =>
-                Right(doc -> makeLinkResolver(api, none))
+                Right(doc -> makeLinkResolver(api))
