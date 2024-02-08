@@ -33,60 +33,9 @@ final class Blog(
         Ok.page(views.html.blog.index(pagerForMe(response)))
     }
 
-  def show(id: String, slug: String, ref: Option[String]) =
-    WithPrismic { _ ?=> prismic ?=>
-      pageHit
-      blogApi
-        .one(prismic, id)
-        .flatMap: maybeDocument =>
-          checkSlug(maybeDocument, slug):
-            case Left(newSlug) => MovedPermanently(routes.Blog.show(id, newSlug, ref).url)
-            case Right(doc) =>
-              if !doc.forKids && ctx.kid.yes
-              then notFound
-              else Ok.page(views.html.blog.show(doc))
-        .recoverWith:
-          case e: RuntimeException if e.getMessage contains "Not Found" => notFound
-    }
-
-  def preview(token: String) =
-    WithPrismic { _ ?=> prismic ?=>
-      prismic.api.previewSession(token, prismic.linkResolver, routes.Lobby.home.url) map { redirectUrl =>
-        Redirect(redirectUrl).withCookies:
-          Cookie(
-            io.prismic.Prismic.previewCookie,
-            token,
-            path = "/",
-            maxAge = Some(30 * 60 * 1000),
-            httpOnly = false
-          )
-      }
-    }
-
-  import lila.memo.CacheApi.*
-  private val atomCache = env.memo.cacheApi.unit[String]:
-    _.refreshAfterWrite(30.minutes)
-      .buildAsyncFuture: _ =>
-        blogApi.masterContext.flatMap: prismic =>
-          blogApi.recent(prismic.api, 1, MaxPerPage(50), none) mapz: docs =>
-            views.html.blog.atom(docs)(using prismic).render
-
-  def atom = Anon:
-    atomCache.getUnit.map: xml =>
-      Ok(xml) as XML
-
-  private val sitemapCache = env.memo.cacheApi.unit[String]:
-    _.refreshAfterWrite(3.hours).buildAsyncFuture: _ =>
-      blogApi.masterContext.flatMap: prismic =>
-        blogApi.all()(using prismic).map {
-          _.map: doc =>
-            s"${env.net.baseUrl}${routes.Blog.show(doc.id, doc.slug)}"
-          .mkString("\n")
-        }
-
-  def sitemapTxt = Anon:
-    sitemapCache.getUnit.map: txt =>
-      Ok(txt) as TEXT
+  def show(id: String, slug: String) = Open:
+    Found(env.ublog.api.getByPrismicId(id)): post =>
+      Redirect(routes.Ublog.post("lichess", post.slug, post.id), MOVED_PERMANENTLY)
 
   def year(year: Int) =
     WithPrismic { _ ?=> prismic ?=>
@@ -119,17 +68,4 @@ final class Blog(
     }
 
   private def WithPrismic(f: Context ?=> BlogApi.Context ?=> Fu[Result]) = Open:
-    blogApi context ctx.req flatMap { f(using ctx)(using _) }
-
-  // -- Helper: Check if the slug is valid and redirect to the most recent version id needed
-  private def checkSlug(document: Option[BlogPost], slug: String)(
-      callback: Either[String, BlogPost] => Fu[Result]
-  )(using Context): Fu[Result] =
-    document
-      .collect:
-        case document if document.slug == slug => callback(Right(document))
-        case document
-            if document.slugs
-              .exists(s => StringUtils.stripEnd(s, ".") == slug || s == StringUtils.stripEnd(slug, ".")) =>
-          callback(Left(document.slug))
-      .|(notFound)
+    blogApi.context flatMap { f(using ctx)(using _) }

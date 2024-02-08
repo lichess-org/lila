@@ -115,15 +115,16 @@ object list:
       )
     }
 
-  def staffPicks(doc: io.prismic.Document, resolver: io.prismic.DocumentLinkResolver)(using PageContext) =
+  import controllers.Prismic.*
+  def staffPicks(p: AnyPage)(using PageContext) =
     views.html.base.layout(
-      title = ~doc.getText("doc.title"),
+      title = p.title,
       moreCss = frag(cssTag("study.index"), cssTag("page"))
     ):
       main(cls := "page-menu")(
         menu("staffPicks", Order.Mine, Nil),
         main(cls := "page-menu__content box box-pad page"):
-          views.html.site.page.pageContent(doc, resolver)
+          views.html.site.page.pageContent(p)
       )
 
   private[study] def paginate(pager: Paginator[WithChaptersAndLiked], url: Call)(using PageContext) =
@@ -185,7 +186,7 @@ object list:
       wrapClass = "full-screen-force",
       moreJs = infiniteScrollTag,
       withHrefLangs = withHrefLangs
-    ) {
+    ):
       main(cls := "page-menu")(
         menu(active, order, topics.so(_.value)),
         main(cls := "page-menu__content study-index box")(
@@ -194,12 +195,10 @@ object list:
             bits.orderSelect(order, active, url),
             bits.newForm()
           ),
-          topics map { ts =>
-            div(cls := "box__pad")(
+          topics map: ts =>
+            div(cls := "box__pad"):
               views.html.study.topic.topicsList(ts, Order.Mine)
-            )
-          },
+          ,
           paginate(pag, url(order.key))
         )
       )
-    }

@@ -103,7 +103,8 @@ final class PicfitApi(coll: Coll, val url: PicfitUrl, ws: StandaloneWSClient, co
         .flatMap:
           case res if res.status != 200 => fufail(s"${res.statusText} ${res.body[String] take 200}")
           case _ =>
-            lila.mon.picfit.uploadSize(image.user.value).record(image.size)
+            if image.size > 0 then lila.mon.picfit.uploadSize(image.user.value).record(image.size)
+            // else logger.warn(s"Unknown image size: ${image.id} by ${image.user}")
             funit
         .monSuccess(_.picfit.uploadTime(image.user.value))
 

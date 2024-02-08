@@ -26,14 +26,13 @@ object index:
         div(cls := "blog index page-menu__content page-small box force-ltr")(
           boxTop(
             h1(trans.ublog.lichessOfficialBlog()),
-            views.html.site.bits.atomLink(routes.Blog.atom)
+            views.html.site.bits.atomLink(routes.Ublog.userAtom(lila.user.User.lichessName))
           ),
-          primaryPost map { post =>
+          primaryPost map: post =>
             frag(
               latestPost(post),
               h2(trans.ublog.previousBlogPosts())
-            )
-          },
+            ),
           div(cls := "blog-cards box__pad list infinite-scroll")(
             pager.currentPageResults flatMap MiniPost.apply map { post =>
               primaryPost.forall(_.id != post.id) option bits.postCard(post, "paginated".some, h3)
@@ -64,13 +63,13 @@ object index:
   private def latestPost(doc: BlogPost)(using ctx: PageContext, prismic: lila.blog.BlogApi.Context) =
     st.article(
       doc.getText("blog.title").map { title =>
-        h2(a(href := routes.Blog.show(doc.id, doc.slug, prismic.maybeRef))(title))
+        h2(a(href := routes.Blog.show(doc.id, doc.slug))(title))
       },
       bits.metas(doc),
       div(cls := "parts")(
         doc.getImage("blog.image", "main").map { img =>
           div(cls := "illustration")(
-            a(href := routes.Blog.show(doc.id, doc.slug, ref = prismic.maybeRef))(st.img(src := img.url))
+            a(href := routes.Blog.show(doc.id, doc.slug))(st.img(src := img.url))
           )
         },
         div(cls := "body")(
@@ -82,7 +81,7 @@ object index:
       p(cls := "more")(
         a(
           cls      := "button",
-          href     := routes.Blog.show(doc.id, doc.slug, ref = prismic.maybeRef),
+          href     := routes.Blog.show(doc.id, doc.slug),
           dataIcon := licon.PlayTriangle
         )(
           " ",

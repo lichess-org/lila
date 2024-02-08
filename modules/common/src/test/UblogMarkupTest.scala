@@ -1,10 +1,8 @@
-package lila.ublog
+package lila.common
 
-import lila.common.Markdown
+class MarkdownToastUiTest extends munit.FunSuite:
 
-class UblogMarkupTest extends munit.FunSuite:
-
-  val m = UblogMarkup
+  val m = MarkdownToastUi
 
   test("backslashUnderscore fix href") {
     assertEquals(

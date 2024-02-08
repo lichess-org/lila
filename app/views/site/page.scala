@@ -8,43 +8,41 @@ import io.prismic.{ Document, DocumentLinkResolver }
 
 object page:
 
-  def lone(doc: Document, resolver: DocumentLinkResolver)(using PageContext) =
+  import controllers.Prismic.*
+
+  def lone(p: AnyPage)(using PageContext) =
     views.html.base.layout(
       moreCss = cssTag("page"),
-      title = ~doc.getText("doc.title"),
-      moreJs = doc.slugs.has("fair-play") option fairPlayJs
+      title = p.title,
+      moreJs = p.slugs.has("fair-play") option fairPlayJs
     ):
-      main(cls := "page-small box box-pad page force-ltr")(pageContent(doc, resolver))
+      main(cls := "page-small box box-pad page force-ltr")(pageContent(p))
 
   private def fairPlayJs(using PageContext) = embedJsUnsafeLoadThen("""$('.slist td').each(function() {
 if (this.innerText == 'YES') this.style.color = 'green'; else if (this.innerText == 'NO') this.style.color = 'red';
 })""")
 
-  def withMenu(active: String, doc: Document, resolver: DocumentLinkResolver)(using PageContext) =
+  def withMenu(active: String, p: AnyPage)(using PageContext) =
     layout(
-      title = ~doc.getText("doc.title"),
+      title = p.title,
       active = active,
       contentCls = "page box box-pad force-ltr",
       moreCss = cssTag("page")
     ):
-      pageContent(doc, resolver)
+      pageContent(p)
 
-  def pageContent(doc: Document, resolver: DocumentLinkResolver) = frag(
-    h1(cls := "box__top")(doc.getText("doc.title")),
+  def pageContent(p: AnyPage)(using Context) = frag(
+    h1(cls := "box__top")(p.title),
     div(cls := "body")(
-      Html
-        .from(doc.getHtml("doc.content", resolver))
-        .map(lila.blog.BlogTransform.markdown.apply)
-        .map(rawHtml)
+      views.html.cms.render(p)
     )
   )
 
-  def source(doc: Document, resolver: DocumentLinkResolver)(using PageContext) =
-    val title = ~doc.getText("doc.title")
+  def source(p: AnyPage)(using PageContext) =
     layout(
-      title = title,
+      title = p.title,
       active = "source",
-      moreCss = frag(cssTag("source")),
+      moreCss = cssTag("source"),
       contentCls = "page force-ltr",
       moreJs = embedJsUnsafeLoadThen:
         """$('#asset-version-date').text(lichess.info.date);
@@ -55,7 +53,7 @@ $('#asset-version-message').text(lichess.info.message);"""
       val commit = env.appVersionCommit | "???"
       frag(
         st.section(cls := "box")(
-          h1(cls := "box__top")(title),
+          h1(cls := "box__top")(p.title),
           table(cls := "slist slist-pad", id := "version")(
             thead(
               tr(
@@ -81,9 +79,7 @@ $('#asset-version-message').text(lichess.info.message);"""
             )
           )
         ),
-        st.section(cls := "box box-pad body")(
-          raw(~doc.getHtml("doc.content", resolver))
-        ),
+        st.section(cls := "box box-pad body")(views.html.cms.render(p)),
         br,
         st.section(cls := "box")(freeJs())
       )
@@ -126,7 +122,7 @@ $('#asset-version-message').text(lichess.info.message);"""
                 value := s"""<iframe src="$netBaseUrl/tv/frame?theme=brown&bg=dark" $args></iframe>"""
               ),
               button(
-                title    := "Copy code",
+                st.title := "Copy code",
                 cls      := "copy button",
                 dataRel  := "tv-embed-src",
                 dataIcon := licon.Link
@@ -151,7 +147,7 @@ $('#asset-version-message').text(lichess.info.message);"""
                 value := s"""<iframe src="$netBaseUrl/training/frame?theme=brown&bg=dark" $args></iframe>"""
               ),
               button(
-                title    := "Copy code",
+                st.title := "Copy code",
                 cls      := "copy button",
                 dataRel  := "puzzle-embed-src",
                 dataIcon := licon.Link

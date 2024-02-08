@@ -92,7 +92,7 @@ if (window.matchMedia('(prefers-color-scheme: dark)').media === 'not all')
 
   def prismicJs(using PageContext): Frag =
     raw:
-      isGranted(_.Prismic).so:
+      isGranted(_.Pages).so:
         embedJsUnsafe("""window.prismic={endpoint:'https://lichess.prismic.io/api/v2'}""").render ++
           """<script src="//static.cdn.prismic.io/prismic.min.js"></script>"""
 

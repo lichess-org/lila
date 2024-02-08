@@ -41,8 +41,8 @@ final class RelayTour(env: Env, apiC: => Api, prismicC: => Prismic) extends Lila
 
   private def page(bookmark: String, menu: String) = Open:
     pageHit
-    FoundPage(prismicC getBookmark bookmark): (doc, resolver) =>
-      html.relay.tour.page(doc, resolver, menu)
+    FoundPage(prismicC getBookmark bookmark): p =>
+      html.relay.tour.page(p, menu)
 
   def form = Auth { ctx ?=> _ ?=>
     NoLameOrBot:

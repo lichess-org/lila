@@ -105,21 +105,19 @@ object tour:
         )
       )
 
-  def page(doc: io.prismic.Document, resolver: io.prismic.DocumentLinkResolver, active: String)(using
-      PageContext
-  ) =
-    val title = ~doc.getText("doc.title")
+  import controllers.Prismic.*
+  def page(p: AnyPage, active: String)(using PageContext) =
     views.html.base.layout(
-      title = title,
+      title = p.title,
       moreCss = cssTag("page")
     ):
       main(cls := "page-small page-menu")(
         pageMenu(active),
         div(cls := "page-menu__content box box-pad page")(
           boxTop:
-            bits.broadcastH1(title)
+            bits.broadcastH1(p.title)
           ,
-          div(cls := "body")(raw(~doc.getHtml("doc.content", resolver)))
+          div(cls := "body")(views.html.cms.render(p))
         )
       )
 

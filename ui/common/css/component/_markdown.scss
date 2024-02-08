@@ -144,3 +144,35 @@
     padding-#{$start-direction}: 1em;
   }
 }
+
+@mixin rendered-markdown--img {
+  .img-container {
+    text-align: center;
+    color: $c-font-dim;
+    line-height: 1.2em;
+    font-size: 0.9em;
+    max-width: 100%;
+    img {
+      @extend %box-neat;
+      max-width: 100%;
+    }
+  }
+}
+
+@mixin rendered-markdown--embed {
+  .embed {
+    @extend %video;
+
+    margin: $block-gap auto;
+  }
+
+  .twitter-tweet {
+    color-scheme: normal;
+    margin: auto;
+  }
+
+  .private-study {
+    color: $c-brag;
+    font-size: 1.2em;
+  }
+}

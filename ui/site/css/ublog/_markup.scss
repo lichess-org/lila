@@ -2,35 +2,10 @@
   @include rendered-markdown(2em, 450vh);
   @include rendered-markdown--code;
   @include rendered-markdown--quote;
+  @include rendered-markdown--img;
+  @include rendered-markdown--embed;
 
   font-size: 1.2em;
   cursor: initial;
   line-height: 1.8;
-
-  .img-container {
-    text-align: center;
-    color: $c-font-dim;
-    line-height: 1.2em;
-    font-size: 0.9em;
-  }
-
-  img {
-    @extend %box-neat;
-  }
-
-  .embed {
-    @extend %video;
-
-    margin: $block-gap auto;
-  }
-
-  .twitter-tweet {
-    color-scheme: normal;
-    margin: auto;
-  }
-
-  .private-study {
-    color: $c-brag;
-    font-size: 1.2em;
-  }
 }

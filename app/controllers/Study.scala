@@ -527,9 +527,8 @@ final class Study(
 
   def staffPicks = Open:
     pageHit
-    FoundPage(prismicC getBookmark "studies-staff-picks") { (doc, resolver) =>
-      html.study.list.staffPicks(doc, resolver)
-    }
+    FoundPage(prismicC getBookmark "studies-staff-picks"):
+      html.study.list.staffPicks
 
   def privateUnauthorizedText = Unauthorized("This study is now private")
   def privateUnauthorizedJson = Unauthorized(jsonError("This study is now private"))

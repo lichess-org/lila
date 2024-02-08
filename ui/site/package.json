@@ -72,7 +72,8 @@
         "src/dailyFeed.ts": "dailyFeed",
         "src/relayForm.ts": "relayForm",
         "src/dialog/diagnostic.ts": "diagnosticDialog",
-        "src/dialog/crop.ts": "cropDialog"
+        "src/dialog/crop.ts": "cropDialog",
+        "src/cms.ts": "cms"
       }
     },
     "copy": [

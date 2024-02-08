@@ -70,7 +70,7 @@ object Permission:
   case object Settings              extends Permission("SETTINGS", "Lila settings")
   case object Streamers             extends Permission("STREAMERS", "Manage streamers")
   case object Verified              extends Permission("VERIFIED", "Verified badge")
-  case object Prismic               extends Permission("PRISMIC", "Prismic preview")
+  case object Pages                 extends Permission("PAGES", "Lichess pages")
   case object DailyFeed             extends Permission("DAILY_FEED", "Feed updates")
   case object MonitoredCheatMod     extends Permission("MONITORED_MOD_CHEAT", "Monitored mod: cheat")
   case object MonitoredBoostMod     extends Permission("MONITORED_MOD_BOOST", "Monitored mod: boost")
@@ -79,12 +79,7 @@ object Permission:
   case object ApiHog                extends Permission("API_HOG", "API hog")
   case object ApiChallengeAdmin     extends Permission("API_CHALLENGE_ADMIN", "API Challenge admin")
 
-  case object LichessTeam
-      extends Permission(
-        "LICHESS_TEAM",
-        List(Prismic),
-        "Lichess team"
-      )
+  case object LichessTeam extends Permission("LICHESS_TEAM", Nil, "Lichess team")
 
   case object TimeoutMod
       extends Permission(
@@ -200,6 +195,7 @@ object Permission:
           PuzzleCurator,
           OpeningWiki,
           Presets,
+          Pages,
           Relay,
           Streamers,
           DisableTwoFactor,
@@ -272,6 +268,7 @@ object Permission:
       MonitoredCommMod
     ),
     "Content" -> List(
+      Pages,
       Relay,
       BroadcastTimeout,
       ManageEvent,
@@ -293,7 +290,6 @@ object Permission:
     ),
     "Feature" -> List(
       Beta,
-      Prismic,
       Coach,
       Teacher,
       ApiHog,
@@ -320,7 +316,7 @@ object Permission:
   lazy val all: Set[Permission] = categorized.flatMap { (_, perms) => perms }.toSet
 
   lazy val nonModPermissions: Set[Permission] =
-    Set(Beta, Prismic, Coach, Teacher, Developer, Verified, ContentTeam, ApiHog, Relay)
+    Set(Beta, Coach, Teacher, Developer, Verified, ContentTeam, ApiHog, Relay)
 
   lazy val modPermissions: Set[Permission] = all diff nonModPermissions
 
