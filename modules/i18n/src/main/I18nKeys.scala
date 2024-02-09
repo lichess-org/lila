@@ -305,6 +305,7 @@ object I18nKeys:
   val `blackCheckmatesInOneMove` = I18nKey("blackCheckmatesInOneMove")
   val `retry` = I18nKey("retry")
   val `reconnecting` = I18nKey("reconnecting")
+  val `noNetwork` = I18nKey("noNetwork")
   val `favoriteOpponents` = I18nKey("favoriteOpponents")
   val `follow` = I18nKey("follow")
   val `following` = I18nKey("following")
