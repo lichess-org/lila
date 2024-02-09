@@ -15,24 +15,21 @@ import lila.ublog.{ UblogPost, UblogBlog, UblogImage, UblogPostId }
 import lila.memo.{ PicfitApi, PicfitUrl, PicfitImage }
 import lila.user.User.lichessId
 import lila.db.dsl.*
+import lila.cms.CmsPage
 
-final private class BlogToUblog(
+final private class PrismicExport(
     ublogApi: lila.ublog.UblogApi,
     blogApi: lila.blog.BlogApi,
+    cmsApi: lila.cms.CmsApi,
     picfitApi: PicfitApi,
     picfitUrl: PicfitUrl,
     ws: StandaloneWSClient
 )(using Executor, akka.stream.Materializer):
 
-  private type MakeLinkResolver = PrismicApi => DocumentLinkResolver
-  private given linkResolver: MakeLinkResolver = prismicApi =>
-    DocumentLinkResolver(prismicApi): (link, _) =>
-      s"/blog/${link.id}/${link.slug}"
-
-  def all(): Fu[String] = for
+  def blogPosts(): Funit = for
     ctx     <- blogApi.context
     prismic <- blogApi.prismicApi
-    nb <-
+    _ <-
       blogApi
         .recentStream(ctx)
         .zipWithIndex
@@ -41,21 +38,68 @@ final private class BlogToUblog(
           p
         .mapAsync(1)(convert(ctx.api))
         .runWith(Sink.ignore)
-  yield s"Done $nb posts"
+  yield ()
+
+  def pages(): Funit = for
+    prismic <- blogApi.prismicApi
+    bookmarks = prismic.bookmarks.toVector
+    _ <- Source(bookmarks).zipWithIndex
+      .map: (bm, i) =>
+        logger.info(s"${i + 1}/${bookmarks.size} $bm")
+        bm
+      .mapAsync(1)(convertBookmark(prismic))
+      .runWith(Sink.ignore)
+      .void
+  yield ()
+
+  private def convertBookmark(prismic: PrismicApi)(bm: (String, String)): Fu[Boolean] =
+    val pageId = CmsPage.Id(bm._1)
+    cmsApi
+      .get(pageId)
+      .flatMap: page =>
+        given StandaloneWSClient = ws
+        !page.isDefined so prismic
+          .forms("everything")
+          .query(s"""[[:d = at(document.id, "${bm._2}")]]""")
+          .ref(prismic.master.ref)
+          .submit()
+          .dmap(_.results.headOption)
+          .flatMap:
+            case None =>
+              logger.error(s"Can't find prismic document ${bm._2} for bookmark ${bm._1}")
+              fuccess(true)
+            case Some(doc) =>
+              transferMarkdownImages(doc, pageId).flatMap: doc =>
+                cmsApi create CmsPage(
+                  id = pageId,
+                  title = doc.getText("doc.title") | pageId.value,
+                  markdown = htmlToMarkdown:
+                    lila.blog.BlogTransform.markdown:
+                      Html(~doc.getHtml("doc.content", linkResolver(prismic)))
+                  ,
+                  language = lila.i18n.defaultLanguage,
+                  live = true,
+                  canonicalPath = none,
+                  by = lichessId,
+                  at = nowInstant
+                ) inject true
 
   import com.vladsch.flexmark.html2md.converter.FlexmarkHtmlConverter
   private val htmlConverter: FlexmarkHtmlConverter = FlexmarkHtmlConverter.builder.build
 
-  private def htmlToMarkdown(html: String) = Markdown:
+  private def htmlToMarkdown(html: Html) = Markdown:
     htmlConverter
-      .convert(html)
+      .convert(html.value)
       .replace("""<br />""", "")
       .replaceAllIn("""<(https?://[^>]+)>""".r, "$1")
 
   private def uPostId(p: BlogPost) = UblogPostId(p.id take 8)
 
   private def uploadImage(fullUrl: String, rel: String): Fu[Option[PicfitImage]] =
-    val url = fullUrl.replaceAllIn("""^([^\?]+).*$""".r, "$1")
+    val url =
+      if fullUrl.contains("images.prismic.io")
+      then fullUrl.replaceAllIn("""^([^\?]+).*$""".r, "$1")
+      else fullUrl
     ws.url(url).stream() flatMap:
       case res if res.status != 200 =>
         logger.error:
@@ -70,7 +114,7 @@ final private class BlogToUblog(
           contentType = Option(if filename.endsWith(".png") then "image/png" else "image/jpeg"),
           ref = source
         )
-        logger.debug(s"Uploading image $url as $filename for $rel")
+        logger.debug(s"$rel $url > $filename")
         picfitApi.uploadSource(rel, part, lichessId).map(_.some)
 
   private def transferMainImage(post: BlogPost): Fu[Option[UblogImage]] =
@@ -80,6 +124,21 @@ final private class BlogToUblog(
       .so: img =>
         uploadImage(img.url, s"ublog:${uPostId(post)}") map2: pfi =>
           UblogImage(id = pfi.id, alt = img.alt, credit = none)
+
+  private def transferMarkdownImages(doc: Document, pageId: CmsPage.Id): Fu[Document] =
+    doc.get("doc.content") match
+      case Some(StructuredText(blocks)) =>
+        blocks
+          .traverse:
+            case i: StructuredText.Block.Image =>
+              uploadImage(i.url, s"cmsPage:$pageId:${ornicar.scalalib.ThreadLocalRandom.nextString(12)}")
+                .map:
+                  _.fold(i): pfi =>
+                    i.copy(view = i.view.copy(url = picfitUrl.resize(pfi.id, picfitApi.bodyImage.sizePx)))
+            case b => fuccess(b)
+          .map: blocks =>
+            doc.copy(fragments = doc.fragments + ("doc.content" -> StructuredText(blocks)))
+      case _ => fuccess(doc)
 
   private def transferMarkdownImages(post: BlogPost): Fu[BlogPost] = post.get("blog.body") match
     case Some(StructuredText(blocks)) =>
@@ -116,7 +175,7 @@ final private class BlogToUblog(
       blog = UblogBlog.Id.User(lichessId),
       title = ~post.title,
       intro = post.shortlede,
-      markdown = htmlToMarkdown(html.so(_.value)),
+      markdown = html.fold(Markdown(""))(htmlToMarkdown),
       language = lila.i18n.defaultLanguage,
       topics = Nil,
       image = mainImage,
@@ -137,3 +196,8 @@ final private class BlogToUblog(
     )
     _ <- ublogApi.migrateFromBlog(upost, p.id, extra)
   yield ()
+
+  private type MakeLinkResolver = PrismicApi => DocumentLinkResolver
+  private given linkResolver: MakeLinkResolver = prismicApi =>
+    DocumentLinkResolver(prismicApi): (link, _) =>
+      s"/blog/${link.id}/${link.slug}"

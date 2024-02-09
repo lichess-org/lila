@@ -53,7 +53,6 @@ object cms:
               th("Page"),
               th("Content"),
               th("Live"),
-              th("Valid"),
               th(dataSortDefault)("Updated")
             )
           ),
@@ -67,7 +66,6 @@ object cms:
                     if page.live then goodTag(iconTag(licon.Checkmark))
                     else badTag(iconTag(licon.X))
                   ),
-                  td(dataSort := ~page.error)(page.error.fold(goodTag(iconTag(licon.Checkmark)))(badTag(_))),
                   td(dataSort := page.at.toMillis)(
                     userIdLink(page.by.some, withOnline = false, withTitle = false),
                     br,
@@ -126,7 +124,7 @@ object cms:
       ),
       form3.group(
         form("markdown"),
-        frag("Content", page.flatMap(_.error).map(err => frag(br, badTag(err)))),
+        frag("Content"),
         help = trans.embedsAvailable().some
       ): field =>
         frag(
