@@ -11,14 +11,10 @@ import akka.util.ByteString
 
 import lila.common.config.MaxPerPage
 import lila.blog.BlogPost
-import lila.user.User
-import lila.ublog.UblogPost
-import lila.ublog.UblogBlog
-import lila.ublog.UblogImage
-import lila.memo.PicfitApi
-import lila.memo.PicfitImage
+import lila.ublog.{ UblogPost, UblogBlog, UblogImage, UblogPostId }
+import lila.memo.{ PicfitApi, PicfitUrl, PicfitImage }
 import lila.user.User.lichessId
-import lila.memo.PicfitUrl
+import lila.db.dsl.*
 
 final private class BlogToUblog(
     ublogApi: lila.ublog.UblogApi,
@@ -134,5 +130,10 @@ final private class BlogToUblog(
       rankAdjustDays = none,
       pinned = none
     )
-    _ <- ublogApi.migrateFromBlog(upost, p.id)
+    extra = $doc(
+      "author"   -> post.author,
+      "category" -> post.category,
+      "forKids"  -> post.forKids
+    )
+    _ <- ublogApi.migrateFromBlog(upost, p.id, extra)
   yield ()

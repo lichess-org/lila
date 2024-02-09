@@ -28,12 +28,13 @@ final class UblogApi(
       bsonWriteObjTry[UblogPost](post).get ++ $doc("likers" -> List(me.userId))
     ) inject post
 
-  def migrateFromBlog(post: UblogPost, prismicId: String) =
+  def migrateFromBlog(post: UblogPost, prismicId: String, prismicData: Bdoc) =
     colls.post.insert
       .one:
         bsonWriteObjTry[UblogPost](post).get ++ $doc(
-          "likers"    -> List(post.created.by),
-          "prismicId" -> prismicId
+          "likers"      -> List(post.created.by),
+          "prismicId"   -> prismicId,
+          "prismicData" -> prismicData
         )
       .void
 
