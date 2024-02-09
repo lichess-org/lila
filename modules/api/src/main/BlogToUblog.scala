@@ -58,23 +58,23 @@ final private class BlogToUblog(
 
   private def uPostId(p: BlogPost) = UblogPostId(p.id take 8)
 
-  private def uploadImage(url: String, rel: String): Fu[Option[PicfitImage]] =
-    val bareUrl = url.replace("?auto=compress,format", "").pp(url)
-    ws.url(bareUrl).stream() flatMap:
+  private def uploadImage(fullUrl: String, rel: String): Fu[Option[PicfitImage]] =
+    val url = fullUrl.replaceAllIn("""^([^\?]+).*$""".r, "$1")
+    ws.url(url).stream() flatMap:
       case res if res.status != 200 =>
         logger.error:
-          s"Can't download image $bareUrl for $rel: ${res.status} ${res.statusText}"
+          s"Can't download image $url for $rel: ${res.status} ${res.statusText}"
         fuccess(none)
       case res =>
         val source: Source[ByteString, ?] = res.bodyAsSource
-        val filename                      = bareUrl.split('/').last.takeWhile(_ != '?')
+        val filename                      = url.split('/').last.takeWhile(_ != '?')
         val part = MultipartFormData.FilePart(
           key = "image",
           filename = filename,
           contentType = Option(if filename.endsWith(".png") then "image/png" else "image/jpeg"),
           ref = source
         )
-        logger.debug(s"Uploading image $bareUrl as $filename for $rel")
+        logger.debug(s"Uploading image $url as $filename for $rel")
         picfitApi.uploadSource(rel, part, lichessId).map(_.some)
 
   private def transferMainImage(post: BlogPost): Fu[Option[UblogImage]] =
