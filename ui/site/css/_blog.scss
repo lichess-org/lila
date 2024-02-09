@@ -74,17 +74,17 @@
       list-style: disc outside;
     }
     h2 {
+      @include fluid-size('font-size', 20px, 32px);
       border-bottom: 2px solid $c-brag;
-      margin: 1.6em 0 1em 0;
+      margin: 1.5em 0 1em 0;
     }
     h3 {
-      @include fluid-size('font-size', 18px, 30px);
-      font-weight: bold;
-      margin: 1.5em 0 1em 0;
+      @include fluid-size('font-size', 16px, 28px);
+      margin: 1.2em 0 0.6em 0;
       border-bottom: 1px solid $c-border;
     }
     h4 {
-      font-size: 1.4em;
+      @include fluid-size('font-size', 14px, 26px);
     }
     img {
       padding: 5px;
