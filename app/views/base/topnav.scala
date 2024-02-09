@@ -83,6 +83,7 @@ object topnav {
             a(href := routes.PlayApi.botOnline)(trans.bots()),
             a(href := routes.Team.home())(trans.team.teams()),
             ctx.noKid option a(href := routes.ForumCateg.index)(trans.forum()),
+            a(href := routes.Blog.index())(trans.blog()),
             ctx.me.exists(!_.kid) option a(href := langHref(routes.Plan.index))(trans.patron.donate())
           )
         )
