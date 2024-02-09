@@ -32,7 +32,7 @@ final class Ublog(env: Env) extends LilaController(env):
 
   def drafts(username: UserStr, page: Int) = Auth { ctx ?=> me ?=>
     NotForKids:
-      WithBlogOf(username)(_.edit): (user, blog) =>
+      WithBlogOf(username, _.edit): (user, blog) =>
         Ok.pageAsync:
           env.ublog.paginator.byBlog(blog.id, false, page) map:
             html.ublog.index.drafts(user, _)
@@ -40,7 +40,7 @@ final class Ublog(env: Env) extends LilaController(env):
 
   def post(username: UserStr, slug: String, id: UblogPostId) = Open:
     NotForKids:
-      WithBlogOf(username)(_ => true): (user, blog) =>
+      WithBlogOf(username): (user, blog) =>
         env.ublog.api.findByIdAndBlog(id, blog.id) flatMap {
           _.filter(canViewPost(user, blog)).so: post =>
             if slug != post.slug then Redirect(urlOfPost(post))
@@ -77,21 +77,27 @@ final class Ublog(env: Env) extends LilaController(env):
             )
           } inject redirect
       }
-
   private def WithBlogOf[U: UserIdOf](
       u: U
-  )(allows: UblogBlog.Allows => Boolean)(f: (UserModel, UblogBlog) => Fu[Result])(using
+  )(f: (UserModel, UblogBlog) => Fu[Result])(using
       ctx: Context
   ): Fu[Result] =
     Found(env.user.repo.byId(u)): user =>
-      if ctx.me.exists(env.ublog.api.canBlog) then
-        env.ublog.api.getUserBlog(user) flatMap: blog =>
-          if allows(blog.allows) then f(user, blog)
-          else Unauthorized("Not your blog to edit")
-      else
+      env.ublog.api.getUserBlog(user) flatMap: blog =>
+        f(user, blog)
+
+  private def WithBlogOf[U: UserIdOf](u: U, allows: UblogBlog.Allows => Boolean)(
+      f: (UserModel, UblogBlog) => Fu[Result]
+  )(using
+      ctx: Context
+  ): Fu[Result] =
+    WithBlogOf(u): (user, blog) =>
+      if !ctx.me.exists(env.ublog.api.canBlog) then
         Unauthorized.page:
           html.site.message.notYet:
             "Please play a few games and wait 2 days before you can create blog posts."
+      else if allows(blog.allows) then f(user, blog)
+      else Unauthorized("Not your blog to edit")
 
   private val CreateLimitPerUser = lila.memo.RateLimit[UserId](
     credits = 5 * 3,
@@ -101,7 +107,7 @@ final class Ublog(env: Env) extends LilaController(env):
 
   def form(username: UserStr) = Auth { ctx ?=> me ?=>
     NotForKids:
-      WithBlogOf(username)(_.create): (user, blog) =>
+      WithBlogOf(username, _.create): (user, blog) =>
         Ok.pageAsync:
           env.ublog.form.anyCaptcha.map:
             html.ublog.form.create(user, env.ublog.form.create, _)
@@ -109,7 +115,7 @@ final class Ublog(env: Env) extends LilaController(env):
 
   def create(username: UserStr) = AuthBody { ctx ?=> me ?=>
     NotForKids:
-      WithBlogOf(username)(_.create): (user, blog) =>
+      WithBlogOf(username, _.create): (user, blog) =>
         env.ublog.form.create
           .bindFromRequest()
           .fold(
