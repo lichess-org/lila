@@ -289,7 +289,7 @@
   <string name="rematchOfferCanceled">پیشنهاد بازی دوباره لغو شد</string>
   <string name="rematchOfferDeclined">پیشنهاد بازی دوباره رد شد</string>
   <string name="cancelRematchOffer">لغو کردن پیشنهاد بازی دوباره</string>
-  <string name="viewRematch">مشاهده بازی دوباره</string>
+  <string name="viewRematch">تماشای مجدد بازی</string>
   <string name="confirmMove">تایید حرکت</string>
   <string name="play">بازی</string>
   <string name="inbox">صندوق پیام</string>
@@ -490,7 +490,7 @@
   <string name="draws">مساوی</string>
   <string name="nextXTournament">مسابقه ی %s بعدی:</string>
   <string name="averageOpponent">میانگین امتیاز حریف ها</string>
-  <string name="boardEditor">صفحه ویرایشگر</string>
+  <string name="boardEditor">مُهره‌چینی</string>
   <string name="setTheBoard">مهره‌ها را بچینید</string>
   <string name="popularOpenings">گشایش‌های محبوب</string>
   <string name="endgamePositions">موقعیتهای پایان‌بخش بازی</string>
