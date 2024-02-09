@@ -121,33 +121,35 @@
   .dasher {
     @extend %flex-center-nowrap;
 
-    > * {
-      margin: 0;
-    }
-
-    > button {
+    > a {
       @extend %flex-center-nowrap;
-      padding: 0 1rem;
-      gap: 0.5rem;
-      &:not(#user_tag) {
+      margin: 0;
+      padding: 1rem;
+
+      &.anon {
         font-size: 2rem;
       }
-    }
 
-    > a {
-      margin-#{$end-direction}: -0.5rem;
+      &.signin {
+        margin-#{$end-direction}: -0.5rem; // for overlapping backgrounds on mouseover hilite
+
+        &:hover {
+          color: $c-link-hover;
+        }
+      }
     }
   }
 }
 
 #user_tag {
-  padding-#{$end-direction}: 1rem;
+  padding-#{$end-direction}: 0.75rem;
   white-space: nowrap;
+  gap: 0.25rem;
 
   &::after {
     @extend %data-icon;
     content: $licon-AccountCircle;
-    font-size: 2.25rem;
+    font-size: 2.75rem; // for prominence and balance with the top left hamburger on mobile
   }
 }
 

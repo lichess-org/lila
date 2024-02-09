@@ -112,7 +112,7 @@ object layout:
 
   private def dasher(me: lila.user.User) =
     div(cls := "dasher")(
-      button(id := "user_tag", cls := "toggle link")(me.username),
+      a(id := "user_tag", cls := "toggle link", href := routes.Auth.logoutGet)(me.username),
       div(id := "dasher_app", cls := "dropdown")
     )
 
@@ -122,8 +122,8 @@ object layout:
       a(href := s"${routes.Auth.login.url}?referred=${ctx.req.path}", cls := "signin button button-empty")(
         trans.signIn.txt()
       ),
-      button(cls := "toggle anon link", title := prefs, aria.label := prefs, dataIcon := licon.Gear),
-      div(id     := "dasher_app", cls         := "dropdown")
+      a(cls  := "toggle anon link", title := prefs, aria.label := prefs, dataIcon := licon.Gear),
+      div(id := "dasher_app", cls         := "dropdown")
     )
 
   private def allNotifications(using ctx: PageContext) =
