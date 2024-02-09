@@ -82,8 +82,8 @@ final class PicfitApi(coll: Coll, val url: PicfitUrl, ws: StandaloneWSClient, co
       .void
 
   object bodyImage:
-    private val sizePx = Left(720)
-    private val RateLimitPerIp = RateLimit.composite[lila.common.IpAddress](key = "image.body.upload.ip")(
+    val sizePx = Left(800)
+    private val RateLimitPerIp = RateLimit.composite[IpAddress](key = "image.body.upload.ip")(
       ("fast", 10, 2.minutes),
       ("slow", 60, 1.day)
     )

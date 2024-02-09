@@ -89,7 +89,7 @@ final private class BlogToUblog(
             uploadImage(i.url, s"ublog:${uPostId(post)}:${ornicar.scalalib.ThreadLocalRandom.nextString(12)}")
               .map:
                 _.fold(i): pfi =>
-                  i.copy(view = i.view.copy(url = UblogPost.thumbnail(picfitUrl, pfi.id, _.Size.Large)))
+                  i.copy(view = i.view.copy(url = picfitUrl.resize(pfi.id, picfitApi.bodyImage.sizePx)))
           case b => fuccess(b)
         .map: blocks =>
           post.copy(doc = post.doc.copy(fragments = post.fragments + ("blog.body" -> StructuredText(blocks))))
