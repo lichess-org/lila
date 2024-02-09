@@ -84,14 +84,10 @@ trait AssetHelper { self: I18nHelper with SecurityHelper =>
   }
 
   lazy val fingerprintTag = raw {
-    s"""<script async src="${staticUrl("javascripts/fipr.js")}"></script>"""
+    s"""<script defer src="${staticUrl("javascripts/fipr.js")}"></script>"""
   }
 
   lazy val flatpickrTag = raw {
-    s"""<script defer src="${staticUrl("javascripts/vendor/flatpickr.min.js")}"></script>"""
-  }
-
-  lazy val nonAsyncFlatpickrTag = raw {
     s"""<script defer src="${staticUrl("javascripts/vendor/flatpickr.min.js")}"></script>"""
   }
 
