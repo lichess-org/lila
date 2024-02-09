@@ -1,7 +1,7 @@
 package lila.ublog
 
 import lila.memo.{ PicfitImage, PicfitUrl }
-import lila.user.User
+import lila.user.{ Me, User }
 import play.api.i18n.Lang
 import reactivemongo.api.bson.Macros.Annotations.Key
 import lila.i18n.Language
@@ -30,6 +30,9 @@ case class UblogPost(
 
   def indexable = live && topics.exists(UblogTopic.chessExists)
   def allText   = s"$title $intro $markdown"
+
+  def allows                    = UblogBlog.Allows(created.by)
+  def canView(using Option[Me]) = live || allows.edit
 
 case class UblogImage(id: PicfitImage.Id, alt: Option[String] = None, credit: Option[String] = None)
 

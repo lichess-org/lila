@@ -112,7 +112,7 @@ object form:
   ) =
     postForm(
       cls    := "form3 ublog-post-form__main",
-      action := post.fold(_ => routes.Ublog.create, p => routes.Ublog.update(p.id.value))
+      action := post.fold(u => routes.Ublog.create(u.username), p => routes.Ublog.update(p.id.value))
     )(
       form3.globalError(form),
       post.toOption.map { p =>

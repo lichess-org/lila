@@ -34,16 +34,12 @@ object blog:
           boxTop(
             h1(trans.ublog.xBlog(userLink(user))),
             div(cls := "box__top__actions")(
-              if ctx is user then
-                frag(
-                  a(href := routes.Ublog.drafts(user.username))(trans.ublog.drafts()),
-                  postView.newPostLink
-                )
-              else
-                frag(
-                  isGranted(_.ModerateBlog) option tierForm(blog),
-                  views.html.site.bits.atomLink(routes.Ublog.userAtom(user.username))
-                )
+              blog.allows.moderate option tierForm(blog),
+              blog.allows.create option frag(
+                a(href := routes.Ublog.drafts(user.username))(trans.ublog.drafts()),
+                postView.newPostLink(user)
+              ),
+              views.html.site.bits.atomLink(routes.Ublog.userAtom(user.username))
             )
           ),
           standardFlash,

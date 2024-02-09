@@ -71,8 +71,8 @@ GET   /@/:username/blog                controllers.Ublog.index(username, page: I
 GET   /@/:username/blog/:slug/:id      controllers.Ublog.post(username, slug, id)
 GET   /@/:username/blog/drafts         controllers.Ublog.drafts(username, page: Int ?= 1)
 GET   /@/:username/blog/new            controllers.Ublog.form(username)
+POST  /@/:username/blog/new            controllers.Ublog.create(username)
 GET   /@/:username/blog.atom           controllers.Ublog.userAtom(username)
-POST  /ublog/new                       controllers.Ublog.create
 GET   /ublog/$id<\w{8}>/discuss        controllers.Ublog.discuss(id)
 GET   /ublog/$id<\w{8}>/redirect       controllers.Ublog.redirect(id)
 GET   /ublog/$id<\w{8}>/edit           controllers.Ublog.edit(id)

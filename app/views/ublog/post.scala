@@ -229,9 +229,9 @@ object post:
 
   def editUrlOfPost(post: UblogPost.BasePost) = routes.Ublog.edit(post.id)
 
-  private[ublog] def newPostLink(using ctx: Context) = ctx.me.map: u =>
+  private[ublog] def newPostLink(user: User)(using Context) =
     a(
-      href     := routes.Ublog.form(u.username),
+      href     := routes.Ublog.form(user.username),
       cls      := "button button-green",
       dataIcon := licon.PlusButton,
       title    := trans.ublog.newPost.txt()

@@ -28,7 +28,7 @@ object index:
             h1(trans.ublog.drafts()),
             div(cls := "box__top__actions")(
               a(href := routes.Ublog.index(user.username))(trans.ublog.published()),
-              postView.newPostLink
+              postView.newPostLink(user)
             )
           ),
           if posts.nbResults > 0 then
