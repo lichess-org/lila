@@ -8,11 +8,11 @@ sg-resize {
   @include breakpoint($mq-board-resizable) {
     display: block;
     position: absolute;
-    right: #{13px - $resize-width};
-    bottom: #{13px - $resize-width};
+    right: #{12px - $resize-width};
+    bottom: #{12px - $resize-width};
     .coords-edge & {
-      right: -$resize-width;
-      bottom: -$resize-width;
+      right: #{-$resize-width + 1};
+      bottom: #{-$resize-width + 1};
     }
     width: $resize-width;
     height: $resize-width;
