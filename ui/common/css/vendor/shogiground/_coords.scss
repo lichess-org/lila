@@ -82,10 +82,38 @@ coords {
   .coords-edge {
     $edge-size: calc(1.7vh * var(--board-scale, 1));
     $edge-size-s: calc(1.7vh * var(--board-scale, 1) - 1px);
-    .main-board sg-board {
-      border: $edge-size solid transparent;
-      background-origin: border-box;
+    .main-board {
+      sg-board {
+        border: $edge-size solid transparent;
+        background-origin: border-box;
+      }
+      .sg-hand-wrap {
+        height: calc((100% - #{$edge-size}) / 9 * 7);
+        sg-hand {
+          padding-left: calc(#{$edge-size} / 9);
+          padding-right: calc(#{$edge-size} / 9);
+        }
+        &.hand-bottom sg-hand {
+          padding-bottom: $edge-size;
+        }
+        &.hand-top sg-hand {
+          padding-top: $edge-size;
+        }
+      }
+      &.v-minishogi .sg-hand-wrap {
+        sg-hand {
+          padding: $edge-size calc(#{$edge-size} / 5);
+        }
+      }
+      &.v-kyotoshogi .sg-hand-wrap {
+        sg-hand {
+          padding-left: calc(#{$edge-size} / 5);
+          padding-right: calc(#{$edge-size} / 5);
+        }
+        height: calc((100% - #{$edge-size}) / 5 * 4);
+      }
     }
+
     sg-promotion {
       outline: $edge-size solid #0000003f;
     }

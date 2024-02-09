@@ -105,7 +105,14 @@ sg-squares {
     border: 1px solid black;
   }
   .coords-edge .main-board .sg-wrap {
-    border: 1px solid black;
+    border: 1px solid transparent;
+    sg-board,
+    sg-hand {
+      outline: 1px solid black;
+    }
+    sg-hand {
+      border: none;
+    }
   }
 }
 
@@ -290,6 +297,13 @@ sg-squares {
   }
   &.coords-edge .main-board .sg-wrap {
     border: none;
+    sg-board {
+      outline: none;
+      border-color: #22222260;
+    }
+    sg-hand {
+      outline: none;
+    }
   }
 }
 
@@ -320,9 +334,14 @@ sg-squares {
 .space {
   sg-squares,
   sg-squares sq,
-  &.coords-edge .main-board .sg-wrap,
   sg-hand {
     border-color: #eee;
+  }
+  &.coords-edge .main-board {
+    sg-board,
+    sg-hand {
+      outline-color: #eee;
+    }
   }
   sg-squares sq::after {
     background-color: #eee !important;
@@ -330,6 +349,12 @@ sg-squares {
   .sg-wrap.preload sg-squares {
     background-image: linear-gradient(to right, #eee 1px, transparent 1px),
       linear-gradient(to bottom, #eee 1px, transparent 1px);
+  }
+  sg-resize {
+    &::after,
+    &::before {
+      background-color: #eee;
+    }
   }
 }
 
@@ -357,9 +382,22 @@ sg-squares {
     .orientation-gote sg-hand {
       background-image: url(../images/boards/doubutsu_flip.png);
     }
-    sg-hand,
-    &.coords-edge .main-board .sg-wrap {
+    sg-hand {
       border: 2px dashed #bb645c;
+      background-origin: border-box;
+    }
+    &.coords-edge .main-board .sg-wrap {
+      border: 2px solid transparent;
+      sg-board,
+      sg-hand {
+        outline: 2px solid #bb645c;
+      }
+    }
+    sg-resize {
+      &::after,
+      &::before {
+        background-color: #bb645c;
+      }
     }
   }
 }
@@ -383,6 +421,12 @@ sg-squares {
         background-color: var(--c-grid-color, $c-font) !important;
       }
     }
+    sg-resize {
+      &::after,
+      &::before {
+        background-color: var(--c-grid-color, $c-font);
+      }
+    }
   }
   @include breakpoint($mq-col2-uniboard) {
     sg-hand {
@@ -390,8 +434,11 @@ sg-squares {
       background-image: var(--c-hands-url, none);
       border: 1px solid var(--c-grid-color, $c-font);
     }
-    &.coords-edge .main-board .sg-wrap {
-      border: 1px solid var(--c-grid-color, $c-font);
+    &.coords-edge .main-board {
+      sg-board,
+      sg-hand {
+        outline: 1px solid var(--c-grid-color, $c-font);
+      }
     }
   }
   .preload sg-squares {
@@ -421,6 +468,13 @@ sg-squares {
     sg-hand {
       border-width: 0;
     }
+    &.coords-edge .main-board .sg-wrap {
+      border-width: 0;
+      sg-board,
+      sg-hand {
+        outline-width: 0;
+      }
+    }
   }
   &.grid-width-2 {
     .sg-wrap {
@@ -443,6 +497,13 @@ sg-squares {
     }
     sg-hand {
       border-width: 2px;
+    }
+    &.coords-edge .main-board .sg-wrap {
+      border-width: 2px;
+      sg-board,
+      sg-hand {
+        outline-width: 2px;
+      }
     }
   }
   &.grid-width-3 {
@@ -467,6 +528,13 @@ sg-squares {
     sg-hand {
       border-width: 3px;
     }
+    &.coords-edge .main-board .sg-wrap {
+      border-width: 3px;
+      sg-board,
+      sg-hand {
+        outline-width: 3px;
+      }
+    }
   }
 }
 
@@ -488,17 +556,29 @@ sg-squares {
   sg-hand {
     border-width: 2px;
   }
+  &.coords-edge .main-board .sg-wrap {
+    border-width: 2px;
+    sg-board,
+    sg-hand {
+      outline-width: 2px;
+    }
+  }
 }
 
 // Not too sure about this
 // I believe 1px border is going to be too small for bigger (for example 4k) screens
-// Can't test it tho...
+// Can't test it tho..., if you can, please let me know
 @include breakpoint($mq-xx-large) {
   sg-squares,
   sg-squares sq,
-  sg-hand,
+  sg-hand {
+    border-width: 2px;
+  }
   .coords-edge .main-board .sg-wrap {
     border-width: 2px;
+    sg-board {
+      outline-width: 2px;
+    }
   }
   body:not(.custom) sg-squares sq::after {
     margin: -6px !important;
@@ -521,16 +601,21 @@ sg-squares {
         }
       }
     }
-    sg-hand {
+    sg-hand,
+    &.coords-edge .main-board .sg-wrap {
       border-width: 3px;
     }
   }
 }
 
-body:not(.hands-background) {
+body:not(.hands-background),
+.mini-board {
   .sg-wrap sg-hand {
     background-image: none;
     background-color: transparent;
     border: none;
+  }
+  &.coords-edge .main-board .sg-wrap sg-hand {
+    outline: none;
   }
 }
