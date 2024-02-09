@@ -223,6 +223,7 @@ export default class LobbyController {
         this.data.hooks = [];
         this.socket.realTimeIn();
         xhr.seeks().then(this.setSeeks);
+        break;
       case 'real_time':
         this.data.hooks = [];
         this.socket.realTimeIn();

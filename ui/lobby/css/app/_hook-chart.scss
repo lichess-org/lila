@@ -4,7 +4,7 @@
   right: 0;
   .label {
     color: $c-font-dim;
-    font-size: .7em;
+    font-size: 0.7em;
     position: absolute;
     left: 3px;
     bottom: 1px;
@@ -34,7 +34,7 @@
     cursor: pointer;
     z-index: 3;
     font-size: 1.6em;
-    opacity: .7;
+    opacity: 0.7;
     @include transition();
     transform: scale(1);
     &.rated {
@@ -73,6 +73,6 @@
   .opponent {
     @extend %metal;
     min-width: 120px;
-    padding: .5em .7em;
+    padding: 0.5em 0.7em;
   }
 }

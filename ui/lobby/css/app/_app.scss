@@ -1,6 +1,6 @@
-@import "preset";
-@import "hook-chart";
-@import "hook-list";
+@import 'preset';
+@import 'hook-chart';
+@import 'hook-list';
 
 .lobby__app {
   @extend %flex-column;
@@ -19,14 +19,15 @@
     @extend %box-neat;
     flex: 1 1 100%;
     position: relative;
-    @if $theme == "transp" {
+    @if $theme == 'transp' {
       background: $c-bg-box;
     } @else {
-      $logo-color: "dadada";
+      $logo-color: 'dadada';
       @if $theme-dark {
-        $logo-color: "383633";
+        $logo-color: '383633';
       }
-      background: $c-bg-box url("data:image/svg+xml,%3Csvg viewBox='-2.5 -2.5 45 55' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M 20 0 L 33 4 L 40 50 L 0 50 L 7 4 Z' style='fill:none;stroke:%23#{$logo-color};stroke-width:2.5;stroke-opacity:1;' /%3E%3C/svg%3E");
+      background: $c-bg-box
+        url("data:image/svg+xml,%3Csvg viewBox='-2.5 -2.5 45 55' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M 20 0 L 33 4 L 40 50 L 0 50 L 7 4 Z' style='fill:none;stroke:%23#{$logo-color};stroke-width:2.5;stroke-opacity:1;' /%3E%3C/svg%3E");
     }
     background-size: 80% 80%;
     background-repeat: no-repeat;

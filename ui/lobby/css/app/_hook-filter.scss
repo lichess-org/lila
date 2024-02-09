@@ -1,6 +1,6 @@
 .hook__filters {
   padding: $block-gap 1.5em;
-  background: fade-out($c-bg-high, .5);
+  background: fade-out($c-bg-high, 0.5);
   height: 100%;
   white-space: nowrap;
   td {
@@ -17,7 +17,8 @@
   }
   .checkable {
     @extend %nowrap-ellipsis;
-    label, input {
+    label,
+    input {
       vertical-align: middle;
       cursor: pointer;
     }
@@ -37,7 +38,7 @@
     padding: 4.3px 20px 4.3px 0;
   }
   input {
-    margin-right: .3em;
+    margin-right: 0.3em;
   }
   .range {
     display: block;
@@ -48,7 +49,7 @@
     margin-top: 1.5em;
     text-align: right;
     button {
-      margin-left: .3em;
+      margin-left: 0.3em;
     }
   }
 }

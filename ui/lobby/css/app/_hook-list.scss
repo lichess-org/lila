@@ -10,10 +10,10 @@
       }
     }
     &.cancel td {
-      background: fade-out($c-secondary, .6);
+      background: fade-out($c-secondary, 0.6);
     }
     &.join:hover td {
-      background: fade-out($c-accent, .5);
+      background: fade-out($c-accent, 0.5);
       color: #fff;
     }
 
@@ -42,7 +42,7 @@
     &.sort .is:before {
       opacity: 0.7;
       margin-right: 3px;
-      content: "R";
+      content: 'R';
     }
     &.player {
       width: 110px;
@@ -51,10 +51,10 @@
   td {
     word-break: break-all;
     overflow: hidden;
-    padding: .5em .7em;
+    padding: 0.5em 0.7em;
     border-bottom: $border;
     cursor: pointer;
-    background: fade-out($c-bg-box, .5);
+    background: fade-out($c-bg-box, 0.5);
     &:first-child {
       width: 16px;
     }
