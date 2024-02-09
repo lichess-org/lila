@@ -24,13 +24,13 @@ object cms:
       dataIcon := licon.Pencil
     )("Edit")
 
-  private def layout(title: String, edit: Boolean = false)(body: Frag)(using PageContext) =
+  private def layout(title: String, edit: Boolean = false)(body: Modifier*)(using PageContext) =
     views.html.base.layout(
       title = title,
       moreCss = cssTag("cms"),
       moreJs = jsModule("cms")
     ):
-      main(cls := "page-menu")(mod.menu("cms"), div(cls := "page-menu__content cms box box-pad")(body))
+      main(cls := "page-menu")(mod.menu("cms"), div(cls := "page-menu__content cms box")(body))
 
   def index(pages: List[CmsPage])(using PageContext) =
     layout("Lichess pages"):
@@ -47,7 +47,7 @@ object cms:
           )
         ),
         standardFlash,
-        table(cls := "cms__pages slist")(
+        table(cls := "cms__pages slist slist-pad")(
           thead(
             tr(
               th("Page"),
@@ -77,32 +77,32 @@ object cms:
       )
 
   def create(form: Form[?])(using PageContext) =
-    layout("Lichess pages: New", true):
-      frag(
-        boxTop(h1(a(href := routes.Cms.index)("Lichess pages"), " • ", "New page!")),
-        postForm(cls := "content_box_content form3", action := routes.Cms.create):
-          inForm(form, none)
-      )
+    layout("Lichess pages: New", true)(
+      cls := "box-pad",
+      boxTop(h1(a(href := routes.Cms.index)("Lichess pages"), " • ", "New page!")),
+      postForm(cls := "content_box_content form3", action := routes.Cms.create):
+        inForm(form, none)
+    )
 
   def edit(form: Form[?], page: CmsPage)(using PageContext) =
-    layout(s"Lichess page ${page.id}", true):
-      frag(
-        boxTop(
-          h1(a(href := routes.Cms.index)("Lichess page"), " • ", page.id),
-          div(cls := "box__top__actions"):
-            a(
-              href     := page.canonicalPath.getOrElse(routes.ContentPage.loneBookmark(page.id).url),
-              cls      := "button button-green",
-              dataIcon := licon.Eye
-            )
-        ),
-        standardFlash,
-        postForm(cls := "content_box_content form3", action := routes.Cms.update(page.id)):
-          inForm(form, page.some)
-        ,
-        postForm(action := routes.Cms.delete(page.id))(cls := "cms__delete"):
-          submitButton(cls := "button button-red button-empty confirm")("Delete")
-      )
+    layout(s"Lichess page ${page.id}", true)(
+      cls := "box-pad",
+      boxTop(
+        h1(a(href := routes.Cms.index)("Lichess page"), " • ", page.id),
+        div(cls := "box__top__actions"):
+          a(
+            href     := page.canonicalPath.getOrElse(routes.ContentPage.loneBookmark(page.id).url),
+            cls      := "button button-green",
+            dataIcon := licon.Eye
+          )
+      ),
+      standardFlash,
+      postForm(cls := "content_box_content form3", action := routes.Cms.update(page.id)):
+        inForm(form, page.some)
+      ,
+      postForm(action := routes.Cms.delete(page.id))(cls := "cms__delete"):
+        submitButton(cls := "button button-red button-empty confirm")("Delete")
+    )
 
   private def inForm(form: Form[?], page: Option[CmsPage])(using Context) =
     frag(
