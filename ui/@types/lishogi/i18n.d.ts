@@ -799,6 +799,7 @@ export type I18nKey =
 'back'|
 'preview'|
 'variantNotSupported'|
+'readyToPlay'|
 'opponentLeftCounter'|
 'nbMoves'|
 'nbPlayers'|
@@ -1655,6 +1656,7 @@ export type I18nKey =
 'kitaoKawasakiNotation'|
 'kifNotation'|
 'yourPreferencesHaveBeenSaved'|
+'smallMoveList'|
 'team'|
 'teams'|
 'allTeams'|

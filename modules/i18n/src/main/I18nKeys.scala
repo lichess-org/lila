@@ -801,6 +801,7 @@ val `analyse` = new I18nKey("analyse")
 val `back` = new I18nKey("back")
 val `preview` = new I18nKey("preview")
 val `variantNotSupported` = new I18nKey("variantNotSupported")
+val `readyToPlay` = new I18nKey("readyToPlay")
 val `opponentLeftCounter` = new I18nKey("opponentLeftCounter")
 val `nbMoves` = new I18nKey("nbMoves")
 val `nbPlayers` = new I18nKey("nbPlayers")
@@ -1701,6 +1702,7 @@ val `japaneseNotation` = new I18nKey("preferences:japaneseNotation")
 val `kitaoKawasakiNotation` = new I18nKey("preferences:kitaoKawasakiNotation")
 val `kifNotation` = new I18nKey("preferences:kifNotation")
 val `yourPreferencesHaveBeenSaved` = new I18nKey("preferences:yourPreferencesHaveBeenSaved")
+val `smallMoveList` = new I18nKey("preferences:smallMoveList")
 }
 
 object team {
