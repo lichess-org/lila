@@ -156,6 +156,13 @@
       @extend %box-neat;
       max-width: 100%;
     }
+    /* image caption */
+    & + p > em:first-child {
+      margin-top: -20px;
+      display: block;
+      font-size: 0.8em;
+      text-align: center;
+    }
   }
 }
 
