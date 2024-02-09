@@ -217,6 +217,29 @@
       }
     }
 
+    .small-moves & {
+      grid-template-rows: minmax(0, 1fr) auto auto auto auto auto auto auto auto minmax(0, 1fr);
+      grid-template-areas:
+        'board . .'
+        'board    . clock-top'
+        'board    . expi-top'
+        'board    . user-top'
+        'board    . moves'
+        'board    . controls'
+        'board    . user-bot'
+        'board    . expi-bot'
+        'board    . clock-bot'
+        'board . .'
+        'kb-move  . .';
+
+      .round__app__table {
+        grid-area: 3 / 3 / 9 / 4;
+      }
+      .rmoves .areplay {
+        flex: 0 0 8rem;
+      }
+    }
+
     @include breakpoint($mq-short) {
       & .rmoves .moves {
         display: flex;

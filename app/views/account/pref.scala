@@ -50,10 +50,6 @@ object pref {
         postForm(cls := "autosubmit", action := routes.Pref.formApply)(
           categFieldset(PrefCateg.GameDisplay, categ)(
             setting(
-              boardLayout(),
-              radios(form("display.boardLayout"), translatedBoardLayoutChoices)
-            ),
-            setting(
               pieceAnimation(),
               radios(form("display.animation"), translatedAnimationChoices)
             ),
@@ -68,6 +64,10 @@ object pref {
             setting(
               handsBackground(),
               radios(form("display.handsBackground"), booleanChoices)
+            ),
+            setting(
+              boardLayout(),
+              radios(form("display.boardLayout"), translatedBoardLayoutChoices)
             ),
             setting(
               boardHighlightsLastDests(),
@@ -104,6 +104,10 @@ object pref {
             setting(
               displayBoardResizeHandle(),
               radios(form("display.resizeHandle"), translatedBoardResizeHandleChoices)
+            ),
+            setting(
+              smallMoveList(),
+              radios(form("display.smallMoves"), booleanChoices)
             ),
             setting(
               blindfoldShogi(),

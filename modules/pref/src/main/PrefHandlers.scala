@@ -75,6 +75,7 @@ private object PrefHandlers {
         zen = r.getD("zen", Pref.default.zen),
         notation = r.getD("notation", Pref.default.notation),
         resizeHandle = r.getD("resizeHandle", Pref.default.resizeHandle),
+        smallMoves = r.getD("smallMoves", Pref.default.smallMoves),
         squareOverlay = r.getD("squareOverlay", Pref.default.squareOverlay),
         moveEvent = r.getD("moveEvent", Pref.default.moveEvent),
         tags = r.getD("tags", Pref.default.tags)
@@ -125,6 +126,7 @@ private object PrefHandlers {
         "moveEvent"          -> o.moveEvent,
         "notation"           -> o.notation,
         "resizeHandle"       -> o.resizeHandle,
+        "smallMoves"         -> o.smallMoves,
         "tags"               -> o.tags
       )
   }

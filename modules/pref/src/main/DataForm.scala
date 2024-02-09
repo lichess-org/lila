@@ -16,11 +16,11 @@ object DataForm {
   val pref = Form(
     mapping(
       "display" -> mapping(
-        "boardLayout"        -> checkedNumber(Pref.BoardLayout.choices),
         "animation"          -> checkedNumber(Pref.Animation.choices),
         "coords"             -> checkedNumber(Pref.Coords.choices),
         "clearHands"         -> booleanNumber,
         "handsBackground"    -> booleanNumber,
+        "boardLayout"        -> checkedNumber(Pref.BoardLayout.choices),
         "highlightLastDests" -> booleanNumber,
         "highlightCheck"     -> booleanNumber,
         "squareOverlay"      -> booleanNumber,
@@ -30,6 +30,7 @@ object DataForm {
         "colorName"          -> checkedNumber(Pref.ColorName.choices),
         "zen"                -> optional(booleanNumber),
         "resizeHandle"       -> optional(checkedNumber(Pref.ResizeHandle.choices)),
+        "smallMoves"         -> booleanNumber,
         "blindfold"          -> checkedNumber(Pref.Blindfold.choices)
       )(DisplayData.apply)(DisplayData.unapply),
       "behavior" -> mapping(
@@ -55,11 +56,11 @@ object DataForm {
   )
 
   case class DisplayData(
-      boardLayout: Int,
       animation: Int,
       coords: Int,
       clearHands: Int,
       handsBackground: Int,
+      boardLayout: Int,
       highlightLastDests: Int,
       highlightCheck: Int,
       squareOverlay: Int,
@@ -69,6 +70,7 @@ object DataForm {
       colorName: Int,
       zen: Option[Int],
       resizeHandle: Option[Int],
+      smallMoves: Int,
       blindfold: Int
   )
 
@@ -130,6 +132,7 @@ object DataForm {
         keyboardMove = behavior.keyboardMove | pref.keyboardMove,
         zen = display.zen | pref.zen,
         resizeHandle = display.resizeHandle | pref.resizeHandle,
+        smallMoves = display.smallMoves == 1,
         moveEvent = behavior.moveEvent | pref.moveEvent
       )
   }
@@ -152,7 +155,8 @@ object DataForm {
           colorName = pref.colorName,
           blindfold = pref.blindfold,
           zen = pref.zen.some,
-          resizeHandle = pref.resizeHandle.some
+          resizeHandle = pref.resizeHandle.some,
+          smallMoves = if (pref.smallMoves) 1 else 0
         ),
         behavior = BehaviorData(
           moveEvent = pref.moveEvent.some,
