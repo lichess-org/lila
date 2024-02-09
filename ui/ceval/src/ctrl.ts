@@ -172,6 +172,7 @@ export default function (opts: CevalOpts): CevalCtrl {
     return Math.min(maxHashSize, stored ? parseInt(stored, 10) : 16);
   };
   const multiPv = storedProp(storageKey('ceval.multipv'), opts.multiPvDefault || 1);
+  const enteringKingRule = storedProp(storageKey('ceval.enteringKingRule'), true);
   const infinite = storedProp('ceval.infinite', false);
   let curEval: Tree.LocalEval | null = null;
   const allowed = prop(true);
@@ -208,11 +209,15 @@ export default function (opts: CevalOpts): CevalCtrl {
     });
 
   const start = (path: Tree.Path, steps: Step[], threatMode: boolean) => {
-    if (!enabled() || !opts.possible || !enabledAfterDisable()) return;
+    const step = steps[steps.length - 1];
+
+    if (!step) return;
+
+    const impassePosition = isImpasse(opts.variant.key, step.sfen, steps[0].sfen);
+
+    if (!enabled() || !opts.possible || !enabledAfterDisable() || (impassePosition && enteringKingRule())) return;
 
     const maxDepth = effectiveMaxDepth();
-
-    const step = steps[steps.length - 1];
 
     const existing = threatMode ? step.threat : step.ceval;
     if (existing && existing.depth >= maxDepth) {
@@ -228,8 +233,8 @@ export default function (opts: CevalOpts): CevalCtrl {
       variant: opts.variant.key,
       threads: threads(),
       hashSize: hashSize(),
+      enteringKingRule: enteringKingRule(),
       stopRequested: false,
-      impasse: isImpasse(opts.variant.key, step.sfen, steps[0].sfen),
       initialSfen: steps[0].sfen,
       moves: [],
       currentSfen: step.sfen,
@@ -329,6 +334,7 @@ export default function (opts: CevalOpts): CevalCtrl {
     enabled,
     downloadProgress,
     multiPv,
+    enteringKingRule,
     threads,
     setThreads(threads: number) {
       window.lishogi.storage.set(storageKey('ceval.threads'), threads.toString());

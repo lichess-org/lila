@@ -1,6 +1,7 @@
 import { CevalCtrl, ctrl as cevalCtrl } from 'ceval';
 import { prop } from 'common/common';
 import { defer } from 'common/defer';
+import { isImpasse as impasse } from 'common/impasse';
 import { makeNotationWithPosition } from 'common/notation';
 import { storedProp } from 'common/storage';
 import throttle from 'common/throttle';
@@ -399,6 +400,10 @@ export default function (opts: PuzzleOpts, redraw: Redraw): Controller {
     return position().outcome();
   }
 
+  function isImpasse(): boolean {
+    return impasse('standard', vm.node.sfen, data.game.sfen);
+  }
+
   function jump(path: Tree.Path): void {
     const pathChanged = path !== vm.path,
       isForwardStep = pathChanged && path.length === vm.path.length + 2;
@@ -543,6 +548,7 @@ export default function (opts: PuzzleOpts, redraw: Redraw): Controller {
     autoNext,
     autoNexting: () => vm.lastFeedback == 'win' && autoNext(),
     outcome,
+    isImpasse,
     toggleCeval,
     toggleThreatMode,
     threatMode,

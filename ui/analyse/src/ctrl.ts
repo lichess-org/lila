@@ -2,6 +2,7 @@ import { Result } from '@badrap/result';
 import { CevalCtrl, EvalMeta, ctrl as cevalCtrl, isEvalBetter } from 'ceval';
 import { Prop, defined, prop } from 'common/common';
 import { makeNotation } from 'common/notation';
+import { isImpasse as impasse } from 'common/impasse';
 import { getPerfIcon } from 'common/perfIcons';
 import { StoredBooleanProp, storedProp } from 'common/storage';
 import throttle from 'common/throttle';
@@ -728,6 +729,11 @@ export default class AnalyseCtrl {
     );
   }
 
+  isImpasse(node?: Tree.Node): boolean {
+    node = node || this.node;
+    return impasse(this.data.game.variant.key, node.sfen, this.data.game.initialSfen);
+  }
+
   position(node: Tree.Node): Result<Position, PositionError> {
     return parseSfen(this.data.game.variant.key, node.sfen, false);
   }
@@ -808,6 +814,12 @@ export default class AnalyseCtrl {
     this.ceval.enableNnue(v);
     this.ceval.stop();
     alert('Reload the window to see changes.');
+  };
+
+  cevalSetEnteringKingRule = (v: boolean): void => {
+    this.ceval.enteringKingRule(v);
+    this.tree.removeCeval();
+    this.cevalReset();
   };
 
   showEvalGauge(): boolean {

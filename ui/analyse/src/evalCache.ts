@@ -63,14 +63,14 @@ export function make(opts): EvalCache {
   const fetchedBySfen = {};
   const upgradable = prop(false);
   return {
-    onCeval: throttle(500, () => {
+    onCeval: throttle(1000, () => {
       const node = opts.getNode(),
         ev = node.ceval;
       const fetched = fetchedBySfen[node.sfen];
       if (
         ev &&
         !ev.cloud &&
-        !ev.impasse &&
+        ev.enteringKingRule &&
         node.sfen in fetchedBySfen &&
         (!fetched || fetched.depth < ev.depth) &&
         qualityCheck(ev) &&

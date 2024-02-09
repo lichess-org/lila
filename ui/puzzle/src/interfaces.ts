@@ -34,6 +34,7 @@ export interface Controller extends KeyboardController {
   nextNodeBest(): string | undefined;
   disableThreatMode?: Prop<boolean>;
   outcome(): Outcome | undefined;
+  isImpasse(): boolean;
   mandatoryCeval?: Prop<boolean>;
   showEvalGauge: Prop<boolean>;
   currentEvals(): NodeEvals;

@@ -31,8 +31,7 @@ function localEvalInfo(ctrl: ParentCtrl, evs: NodeEvals): Array<VNode | string |
         : trans.noarg('loadingEngine') + (mb >= 1 ? ` (${mb.toFixed(1)} MiB)` : ''),
     ];
   }
-  const depth = evs.client.depth || 0,
-    impasse = !evs.client?.cloud && !!evs.client?.impasse;
+  const depth = evs.client.depth || 0;
   const t: Array<VNode | string | null> = evs.client.cloud
     ? [
         trans('depthX', depth),
@@ -42,10 +41,7 @@ function localEvalInfo(ctrl: ParentCtrl, evs: NodeEvals): Array<VNode | string |
           `Cloud - ${ceval.shouldUseYaneuraou ? 'NNUE' : 'HCE'}`
         ),
       ]
-    : [
-        impasse ? trans.noarg('impasse') + ', ' : null,
-        trans('depthX', depth + '/' + Math.max(depth, evs.client.maxDepth)),
-      ];
+    : trans('depthX', depth + '/' + Math.max(depth, evs.client.maxDepth));
   if (ceval.canGoDeeper())
     t.push(
       h('a.deeper', {
@@ -166,7 +162,8 @@ export function renderCeval(ctrl: ParentCtrl): VNode | undefined {
     evs = ctrl.currentEvals(),
     threatMode = ctrl.threatMode(),
     threat = threatMode && ctrl.getNode().threat,
-    bestEv = threat || getBestEval(evs);
+    bestEv = threat || getBestEval(evs),
+    isImpasseOutcome = instance.enteringKingRule() && ctrl.isImpasse();
   let pearl: VNode | string, percent: number;
   if (bestEv && typeof bestEv.cp !== 'undefined') {
     pearl = renderEval(bestEv.cp);
@@ -178,7 +175,7 @@ export function renderCeval(ctrl: ParentCtrl): VNode | undefined {
   } else if (bestEv && defined(bestEv.mate)) {
     pearl = '#' + bestEv.mate;
     percent = 100;
-  } else if (ctrl.outcome()) {
+  } else if (ctrl.outcome() || isImpasseOutcome) {
     pearl = '-';
     percent = 0;
   } else {
@@ -219,7 +216,7 @@ export function renderCeval(ctrl: ParentCtrl): VNode | undefined {
           ...(threatMode ? [trans.noarg('showThreat')] : engineName(instance)),
           h(
             'span.info',
-            ctrl.outcome()
+            ctrl.outcome() || isImpasseOutcome
               ? [trans.noarg('gameOver')]
               : threatMode
                 ? [threatInfo(ctrl, threat)]

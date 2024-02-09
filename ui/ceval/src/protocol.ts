@@ -53,7 +53,7 @@ export class Protocol {
   received(command: string): void {
     const parts = command.trim().split(/\s+/g);
     if (parts[0] === 'usiok') {
-      if (this.engineName?.startsWith('YaneuraOu')) this.setOption('EnteringKingRule', 'CSARule27H');
+      if (this.isYaneuraOu()) this.setOption('EnteringKingRule', 'CSARule27H');
       else this.setOption('USI_AnalyseMode', 'true');
       this.setOption('USI_Hash', this.config?.hashSize || 16);
       this.setOption('Threads', this.config?.threads || 1);
@@ -98,6 +98,11 @@ export class Protocol {
             break;
           case 'pv':
             moves = this.work.variant === 'kyotoshogi' ? this.fromFairyKyotoFormat(parts.slice(++i)) : parts.slice(++i);
+            // shouldn't happen
+            if (['resign', 'win'].includes(moves[0])) {
+              console.warn('Received', moves[0], 'for', this.work);
+              moves = [];
+            }
             i = parts.length;
             break;
         }
@@ -136,8 +141,8 @@ export class Protocol {
         this.currentEval = {
           sfen: this.work.currentSfen,
           maxDepth: this.work.maxDepth,
-          impasse: this.work.impasse,
           depth,
+          enteringKingRule: this.work.enteringKingRule,
           knps: nodes / elapsedMs,
           nodes,
           cp: isMate ? undefined : ev,
@@ -187,12 +192,15 @@ export class Protocol {
 
       if (this.work.variant !== 'standard') this.setOption('USI_Variant', this.work.variant);
 
-      const enteringKingRule =
-        this.engineName?.startsWith('YaneuraOu') && this.work.impasse ? 'NoEnteringKing' : 'CSARule27H';
+      const enteringKingRule = this.isYaneuraOu()
+        ? this.work.enteringKingRule
+          ? 'CSARule27H'
+          : 'NoEnteringKing'
+        : undefined;
 
       const threadChange = this.setOption('Threads', this.work.threads || 1),
         hashChange = this.setOption('USI_Hash', this.work.hashSize || 16),
-        enteringKingRuleChange = this.setOption('EnteringKingRule', enteringKingRule),
+        enteringKingRuleChange = enteringKingRule ? this.setOption('EnteringKingRule', enteringKingRule) : false,
         multiPvChange = this.setOption('MultiPV', this.work.multiPv);
 
       if (threadChange || hashChange || enteringKingRuleChange || multiPvChange) {
@@ -213,6 +221,10 @@ export class Protocol {
           : 'go movetime 90000'
       );
     }
+  }
+
+  isYaneuraOu(): boolean {
+    return !!this.engineName?.startsWith('YaneuraOu');
   }
 
   toFairyKyotoFormat(sfen: Sfen, moves: string[]): string {

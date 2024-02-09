@@ -18,6 +18,7 @@ export interface Work {
   variant: VariantKey;
   threads: number;
   hashSize: number;
+  enteringKingRule: boolean;
   stopRequested: boolean;
 
   path: string;
@@ -28,7 +29,6 @@ export interface Work {
   initialSfen: string;
   currentSfen: string;
   moves: string[];
-  impasse: boolean;
   emit: (ev: Tree.LocalEval) => void;
 }
 
@@ -82,6 +82,7 @@ export interface CevalCtrl {
   setHovering: (sfen: string, usi?: string) => void;
   setPvBoard: (pvBoard: PvBoard | null) => void;
   multiPv: StoredProp<number>;
+  enteringKingRule: StoredBooleanProp;
   start: (path: string, steps: Step[], threatMode?: boolean) => void;
   stop(): void;
   threads(): number;
@@ -110,6 +111,7 @@ export interface ParentCtrl {
   toggleThreatMode(): void;
   toggleCeval(): void;
   outcome(): Outcome | undefined;
+  isImpasse(): boolean;
   mandatoryCeval?: Prop<boolean>;
   showEvalGauge: Prop<boolean>;
   currentEvals(): NodeEvals;

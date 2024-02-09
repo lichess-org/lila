@@ -209,7 +209,7 @@ export function view(ctrl: AnalyseCtrl): VNode {
           .concat([
             ctrlBoolSetting(
               {
-                name: ctrl.trans('enable'),
+                name: noarg('enable'),
                 title: (mandatoryCeval ? 'Required by practice mode' : 'Engine') + ' (Hotkey: z)',
                 id: 'all',
                 checked: ctrl.showComputer(),
@@ -224,7 +224,7 @@ export function view(ctrl: AnalyseCtrl): VNode {
               ? [
                   ctrlBoolSetting(
                     {
-                      name: ctrl.trans('bestMoveArrow'),
+                      name: noarg('bestMoveArrow'),
                       title: 'Hotkey: a',
                       id: 'shapes',
                       checked: ctrl.showAutoShapes(),
@@ -234,7 +234,7 @@ export function view(ctrl: AnalyseCtrl): VNode {
                   ),
                   ctrlBoolSetting(
                     {
-                      name: ctrl.trans('evaluationGauge'),
+                      name: noarg('evaluationGauge'),
                       id: 'gauge',
                       checked: ctrl.showGauge(),
                       change: ctrl.toggleGauge,
@@ -252,8 +252,8 @@ export function view(ctrl: AnalyseCtrl): VNode {
                   ),
                   ctrlBoolSetting(
                     {
-                      name: ctrl.trans('infiniteAnalysis'),
-                      title: ctrl.trans('removesTheDepthLimit'),
+                      name: noarg('infiniteAnalysis'),
+                      title: noarg('removesTheDepthLimit'),
                       id: 'infinite',
                       checked: ceval.infinite(),
                       change: ctrl.cevalSetInfinite,
@@ -267,6 +267,17 @@ export function view(ctrl: AnalyseCtrl): VNode {
                       id: 'enable-nnue',
                       checked: ceval.supportsNnue && ceval.enableNnue(),
                       change: ctrl.cevalSetEnableNnue,
+                      disabled: !ceval.supportsNnue,
+                    },
+                    ctrl
+                  ),
+                  ctrlBoolSetting(
+                    {
+                      name: noarg('impasse') + ' - ' + noarg('computerAnalysis'),
+                      title: ceval.supportsNnue ? 'YaneuraOu - EnteringKingRule' : notSupported,
+                      id: 'enteringKingRule',
+                      checked: ceval.supportsNnue && ceval.enteringKingRule(),
+                      change: ctrl.cevalSetEnteringKingRule,
                       disabled: !ceval.supportsNnue,
                     },
                     ctrl
