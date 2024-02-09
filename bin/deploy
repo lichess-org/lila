@@ -273,6 +273,7 @@ def deploy_script(profile, session, run, url):
         "echo",
         "echo \\# Preparing lifat ...",
         f"(cd {artifact_unzipped}/d && if [ -x ./download-lifat ]; then LIFAT_DIR={LIFAT_DIR} ./download-lifat; chown -R lichess:lichess {LIFAT_DIR}; fi)",
+        f"echo \\# chown -R lichess:lichess {ARTIFACT_DIR}",
         f"chown -R lichess:lichess {ARTIFACT_DIR}",
         "echo",
         "echo \\# Installing ...",
