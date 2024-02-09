@@ -279,19 +279,18 @@ function controls(ctrl: AnalyseCtrl) {
                   //  },
                   //}),
                   !ctrl.synthetic ? studyAdvancedButton(ctrl, menuIsOpen) : null,
-                  ctrl.ceval.possible && ctrl.ceval.allowed() && !ctrl.isGamebook()
-                    ? h('button.fbt', {
-                        attrs: {
-                          title: noarg('practiceWithComputer'),
-                          'data-act': 'practice',
-                          'data-icon': '',
-                          hidden: menuIsOpen || !!ctrl.retro,
-                        },
-                        class: {
-                          active: !!ctrl.practice,
-                        },
-                      })
-                    : null,
+                  h('button.fbt', {
+                    attrs: {
+                      title: noarg('practiceWithComputer'),
+                      'data-act': 'practice',
+                      'data-icon': '',
+                      hidden: menuIsOpen || !!ctrl.retro,
+                      disabled: !(ctrl.ceval.possible && ctrl.ceval.allowed() && !ctrl.isGamebook()),
+                    },
+                    class: {
+                      active: !!ctrl.practice,
+                    },
+                  }),
                 ]
           ),
       h('div.jumps', [

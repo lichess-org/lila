@@ -191,12 +191,21 @@
     }
   }
 }
-.gamebook-buttons {
-  @extend %flex-center;
-  justify-content: flex-end;
-  .fbt {
-    @extend %box-radius-top;
-    padding: 0.2em 0.5em;
-    margin-left: 0.7em;
+
+.study__buttons.gamebook-buttons .right div {
+  display: flex;
+  align-items: center;
+  // font-weight: bold;
+  margin: 0 1rem;
+  cursor: pointer;
+  &:hover {
+    color: $c-primary;
+  }
+  &[disabled] {
+    pointer-events: none;
+    opacity: 0.5;
+  }
+  &::before {
+    font-size: 1.15em;
   }
 }

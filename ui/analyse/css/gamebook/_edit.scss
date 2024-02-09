@@ -1,16 +1,3 @@
-.study__buttons {
-  align-items: stretch;
-  .right {
-    @extend %flex-center;
-    align-items: stretch;
-    justify-content: flex-end;
-  }
-  .preview {
-    @extend %flex-center-nowrap, %box-radius-top;
-    padding: 0 0.5em;
-  }
-}
-
 .gamebook-edit {
   @extend %flex-column;
   background: $c-bg-low;

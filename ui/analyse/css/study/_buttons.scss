@@ -2,18 +2,29 @@ $c-study-button: $c-accent;
 
 .study__buttons {
   @extend %flex-between;
-  @include hand-width(margin-left);
+  align-items: stretch;
+  height: calc(#{$col2-uniboard-controls} - 2px);
   span {
     font-size: 1.15em;
     min-width: 0;
   }
   .left-buttons {
-    flex: 9 1 auto;
-    justify-content: flex-start;
+    flex: 1 1 auto;
     border-bottom: 0;
   }
   .right {
-    flex: 1 9 10%;
+    @extend %flex-center;
+    align-items: stretch;
+    justify-content: flex-end;
+    margin-left: auto;
+    .preview {
+      @extend %flex-center-nowrap, %box-radius-top;
+      transition: background-color 150ms;
+      padding: 0 0.5em;
+    }
+    &:empty {
+      display: none;
+    }
   }
   .behind {
     background: $c-bad;
@@ -48,4 +59,5 @@ $c-study-button: $c-accent;
 .glyph-icon::before {
   content: '⁉';
   font-size: 1.2em;
+  line-height: 1.15em;
 }

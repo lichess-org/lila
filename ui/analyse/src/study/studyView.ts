@@ -301,7 +301,7 @@ export function underboard(ctrl: AnalyseCtrl): MaybeVNodes {
   const study = ctrl.study!,
     toolTab = study.vm.toolTab();
   if (study.gamebookPlay())
-    return [gbPlayButtons(ctrl), descView(study, true), descView(study, false), metadata(study)];
+    return [descView(study, true), descView(study, false), gbPlayButtons(ctrl), metadata(study)];
   let panel;
   switch (toolTab) {
     case 'tags':
