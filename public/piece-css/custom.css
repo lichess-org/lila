@@ -1,0 +1,9 @@
+.is2d piece {background:var(--piece-set-url) 0 / 600% 200%}
+.is2d .white {background-position-y: 0}
+.is2d .black {background-position-y: 100%}
+.is2d .pawn {background-position-x: 100%}
+.is2d .knight {background-position-x: 60%}
+.is2d .bishop {background-position-x: 40%}
+.is2d .rook {background-position-x: 80%}
+.is2d .queen {background-position-x: 20%}
+.is2d .king {background-position-x: 0}

@@ -101,6 +101,7 @@ final class Dasher(env: Env)(using ws: StandaloneWSClient) extends LilaControlle
                 )
               ),
               "piece" -> Json.obj(
+                "image" -> ctx.pref.pieceSetImgOrDefault,
                 "d2" -> Json.obj(
                   "current" -> ctx.pref.currentPieceSet.name,
                   "list"    -> lila.pref.PieceSet.all.map(_.name)

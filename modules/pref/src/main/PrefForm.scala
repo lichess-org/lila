@@ -37,6 +37,10 @@ object PrefForm:
       "URL must use https",
       url => url.isBlank || url.startsWith("https://") || url.startsWith("//")
     )
+    val pieceSetImg = "pieceSetImg" -> text(maxLength = 400).verifying(
+      "URL must use HTTPS",
+      url => url.isBlank || url.startsWith("https://")
+    )
     val is3d          = "is3d"          -> tolerantBoolean
     val zen           = "zen"           -> checkedNumber(Pref.Zen.choices)
     val voice         = "voice"         -> booleanNumber

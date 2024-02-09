@@ -37,7 +37,7 @@ object layout:
     def pieceSprite(ps: lila.pref.PieceSet): Frag =
       link(
         id   := "piece-sprite",
-        href := assetUrl(s"piece-css/$ps.${env.pieceImageExternal.get() so "external."}css"),
+        href := assetUrl(s"piece-css/$ps${env.pieceImageExternal.get() && ps.name != "custom" so ".external"}.css"),
         rel  := "stylesheet"
       )
   import bits.*
@@ -278,6 +278,8 @@ object layout:
               s"""<style id="bg-data">body.transp::before{background-image:url("${escapeHtmlRaw(img)
                   .replace("&amp;", "&")}");}</style>"""
           },
+          raw(s"""<style id="piece-set-data">body{--piece-set-url:url("${escapeHtmlRaw(pref.pieceSetImgOrDefault)
+                  .replace("&amp;", "&")}");}</style>"""),
           fontPreload,
           boardPreload,
           piecesPreload,

@@ -6,6 +6,7 @@ case class Pref(
     _id: UserId,
     bg: Int,
     bgImg: Option[String],
+    pieceSetImg: Option[String],
     is3d: Boolean,
     theme: String,
     pieceSet: String,
@@ -80,6 +81,7 @@ case class Pref(
       case _              => 70
 
   def bgImgOrDefault = bgImg | Pref.defaultBgImg
+  def pieceSetImgOrDefault = pieceSetImg | Pref.defaultPieceSetImg
 
   def pieceNotationIsLetter = pieceNotation == PieceNotation.LETTER
 
@@ -119,6 +121,7 @@ case class Pref(
 object Pref:
 
   val defaultBgImg = "//lichess1.org/assets/images/background/landscape.jpg"
+  val defaultPieceSetImg = "https://upload.wikimedia.org/wikipedia/commons/b/b2/Chess_Pieces_Sprite.svg"
 
   trait BooleanPref:
     val NO      = 0
@@ -427,6 +430,7 @@ object Pref:
     _id = UserId(""),
     bg = Bg.DARK,
     bgImg = none,
+    pieceSetImg = none,
     is3d = false,
     theme = Theme.default.name,
     pieceSet = PieceSet.default.name,

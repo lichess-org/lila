@@ -192,6 +192,14 @@
     }
   }
 
+  .piece input {
+    padding: 5px;
+    border: 1px solid #8888;
+    width: 100%;
+    background: none;
+    color: currentcolor;
+  }
+
   .board .zoom {
     display: none;
 
