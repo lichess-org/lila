@@ -32,7 +32,7 @@ exports.rollupProject = targets => {
       ],
       plugins: [
         resolve(),
-        ...(target.js ? [] : [typescript()]),
+        ...(target.js ? [] : [typescript(args.watch ? { noEmitOnError: false } : {})]),
         commonjs({
           extensions: ['.js', '.ts'],
         }),
