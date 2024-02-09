@@ -20,15 +20,30 @@
     cursor: pointer;
     border: $border;
     @if $theme-light {
-      background: fade-out($c-bg-box, .5);
+      background: fade-out($c-bg-box, 0.5);
     } @else {
-      background: fade-out($c-font, .95);
+      background: fade-out($c-font, 0.95);
     }
     color: $c-font-clear;
     @include transition();
+    &.highlight {
+      outline: 2px solid transparent;
+      outline-offset: -1px;
+      animation: outline-glow 2s ease-in-out infinite;
+    }
+    &.disabled {
+      pointer-events: none;
+      opacity: 0.5;
+    }
+    &:has(.check-mark) {
+      position: relative;
+    }
     &:hover {
-      background: fade-out($c-accent, .8);
+      background: fade-out($c-accent, 0.8);
       opacity: 1;
+      &.isReady::before {
+        opacity: 0.5;
+      }
     }
   }
   .active {
@@ -43,7 +58,7 @@
   }
   .spinner {
     flex: 0 0 auto;
-    margin: .1em 0 .6em 0;
+    margin: 0.1em 0 0.6em 0;
     width: 2em;
     height: 2em;
     pointer-events: none;
@@ -52,9 +67,29 @@
     display: block;
     font-size: 1.4em;
     line-height: 1.6em;
-    letter-spacing: .1em;
+    letter-spacing: 0.1em;
   }
   .perf {
     font-size: 0.8em;
+  }
+  .ready {
+    font-size: 0.6em;
+    opacity: 0.7;
+    white-space: pre;
+    padding: 2px 0;
+  }
+  .check-mark {
+    font-size: 1rem;
+    position: absolute;
+    top: 3px;
+    right: 3px;
+    opacity: 0.25;
+    @include transition(opacity);
+  }
+}
+
+@keyframes outline-glow {
+  50% {
+    outline-color: $c-accent;
   }
 }

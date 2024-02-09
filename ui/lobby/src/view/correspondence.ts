@@ -5,9 +5,11 @@ import LobbyController from '../ctrl';
 import { Seek } from '../interfaces';
 import { tds } from './util';
 import { getPerfIcon } from 'common/perfIcons';
+import { action } from '../seekRepo';
 
 function renderSeek(ctrl: LobbyController, seek: Seek): VNode {
-  const klass = seek.action === 'joinSeek' ? 'join' : 'cancel',
+  const seekAction = action(seek, ctrl),
+    klass = seekAction === 'joinSeek' ? 'join' : 'cancel',
     noarg = ctrl.trans.noarg;
   return h(
     'tr.seek.' + klass,
@@ -15,8 +17,8 @@ function renderSeek(ctrl: LobbyController, seek: Seek): VNode {
       key: seek.id,
       attrs: {
         title:
-          seek.action === 'joinSeek'
-            ? `${noarg('joinTheGame')} - ${capitalize(noarg(seek.variant))} - ${noarg('correspondence')}`
+          seekAction === 'joinSeek'
+            ? `${noarg('joinTheGame')} - ${capitalize(noarg(seek.variant || 'standard'))} - ${noarg('correspondence')}`
             : noarg('cancel'),
         'data-id': seek.id,
       },
@@ -36,7 +38,7 @@ function renderSeek(ctrl: LobbyController, seek: Seek): VNode {
       seek.days ? ctrl.trans.plural('nbDays', seek.days) : '∞',
       h('span', [
         h('span.varicon', {
-          attrs: { 'data-icon': getPerfIcon(seek.perf || seek.variant) },
+          attrs: { 'data-icon': getPerfIcon(seek.perf || seek.variant || 'standard') },
         }),
         noarg(seek.mode === 1 ? 'rated' : 'casual'),
       ]),

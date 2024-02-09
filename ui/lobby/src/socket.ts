@@ -21,7 +21,7 @@ export default class LobbySocket {
     this.handlers = {
       had(hook: Hook) {
         hookRepo.add(ctrl, hook);
-        if (hook.action === 'cancel') ctrl.flushHooks(true);
+        if (hookRepo.action(hook) === 'cancel') ctrl.flushHooks(true);
         ctrl.redraw();
       },
       hrm(ids: string) {
@@ -41,6 +41,7 @@ export default class LobbySocket {
       },
       reload_seeks() {
         if (ctrl.tab === 'seeks') xhr.seeks().then(ctrl.setSeeks);
+        else if (ctrl.tab === 'presets') window.lishogi.debounce(() => xhr.seeks().then(ctrl.setSeeks), 5000)();
       },
     };
 

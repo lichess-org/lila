@@ -27,6 +27,7 @@ export default class LobbyController {
   setup: Setup;
   presetOpts: PresetOpts;
   allPresets: Preset[];
+  currentPresetId: string;
 
   private flushHooksTimeout?: number;
   private alreadyWatching: string[] = [];
@@ -41,15 +42,16 @@ export default class LobbyController {
     this.isBot = opts.data.me && opts.data.me.isBot;
     this.presetOpts = {
       isAnon: !opts.data.me,
+      isNewPlayer: !!opts.data.me?.isNewPlayer,
       aiLevel: opts.data.me?.aiLevel && parseInt(opts.data.me.aiLevel),
       rating: opts.data.me?.rating && parseInt(opts.data.me.rating),
+      ratingDiff: 300,
     };
     this.filter = new Filter(li.storage.make('lobby.filter'), this);
     this.setup = new Setup(li.storage.make, this);
     this.initAllPresets();
 
-    hookRepo.initAll(this);
-    seekRepo.initAll(this);
+    seekRepo.sort(this);
     this.socket = new LobbySocket(opts.socketSend, this);
 
     this.stores = makeStores(this.data.me ? this.data.me.username.toLowerCase() : null);
@@ -66,12 +68,12 @@ export default class LobbyController {
       if (this.playban.remainingSecond < 86400) setTimeout(li.reload, this.playban.remainingSeconds * 1000);
     } else {
       setInterval(() => {
-        if (this.tab === 'real_time' && !this.data.hooks.length) this.socket.realTimeIn();
+        if (['real_time', 'presets'].includes(this.tab) && !this.data.hooks.length) this.socket.realTimeIn();
       }, 10 * 1000);
     }
 
     li.pubsub.on('socket.open', () => {
-      if (this.tab === 'real_time') {
+      if (['real_time', 'presets'].includes(this.tab)) {
         this.data.hooks = [];
         this.socket.realTimeIn();
       }
@@ -105,10 +107,10 @@ export default class LobbyController {
     this.allPresets = [
       { lim: 3, byo: 0 },
       { lim: 0, byo: 10 },
-      { lim: 5, byo: 10 },
+      { lim: 5, byo: 0 },
       { lim: 10, byo: 0 },
       { lim: 10, byo: 30 },
-      { lim: 15, byo: 30 },
+      { lim: 30, byo: 0 },
       { lim: 10, ai: level - 1 },
       { lim: 15, ai: level },
       { lim: 20, ai: level + 1 },
@@ -131,8 +133,8 @@ export default class LobbyController {
   setTab = (tab: Tab, store = true) => {
     if (tab !== this.tab) {
       if (tab === 'seeks') xhr.seeks().then(this.setSeeks);
-      else if (tab === 'real_time') this.socket.realTimeIn();
-      else if (this.tab === 'real_time') {
+      else if (hookRepo.tabs.includes(tab) && !hookRepo.tabs.includes(this.tab)) this.socket.realTimeIn();
+      else if (hookRepo.tabs.includes(this.tab) && !hookRepo.tabs.includes(tab)) {
         this.socket.realTimeOut();
         this.data.hooks = [];
       }
@@ -159,20 +161,22 @@ export default class LobbyController {
   clickHook = (id: string) => {
     const hook = hookRepo.find(this, id);
     if (!hook || hook.disabled || this.stepping || this.redirecting) return;
-    if (hook.action === 'cancel' || variantConfirm(hook.variant, this.trans.noarg))
-      this.socket.send(hook.action, hook.id);
+    const action = hookRepo.action(hook);
+    if (action === 'cancel' || variantConfirm(hook.variant || 'standard', this.trans.noarg))
+      this.socket.send(action, hook.id);
   };
 
   clickSeek = (id: string) => {
     const seek = seekRepo.find(this, id);
     if (!seek || this.redirecting) return;
-    if (seek.action === 'cancelSeek' || variantConfirm(seek.variant, this.trans.noarg))
-      this.socket.send(seek.action, seek.id);
+    const action = seekRepo.action(seek, this);
+    if (action === 'cancelSeek' || variantConfirm(seek.variant || 'standard', this.trans.noarg))
+      this.socket.send(action, seek.id);
   };
 
   setSeeks = (seeks: Seek[]) => {
     this.data.seeks = seeks;
-    seekRepo.initAll(this);
+    seekRepo.sort(this);
     this.redraw();
   };
 
@@ -181,6 +185,7 @@ export default class LobbyController {
     if (preset.ai) {
       this.setRedirecting();
     } else {
+      this.currentPresetId = preset.id;
       if (preset.timeMode === 2) this.setTab('seeks', false);
       else this.setTab('real_time', false);
     }
@@ -214,6 +219,10 @@ export default class LobbyController {
 
   awake = () => {
     switch (this.tab) {
+      case 'presets':
+        this.data.hooks = [];
+        this.socket.realTimeIn();
+        xhr.seeks().then(this.setSeeks);
       case 'real_time':
         this.data.hooks = [];
         this.socket.realTimeIn();

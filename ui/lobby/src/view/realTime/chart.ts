@@ -3,6 +3,7 @@ import { getPerfIcon } from 'common/perfIcons';
 import { VNode, h } from 'snabbdom';
 import LobbyController from '../../ctrl';
 import { Hook } from '../../interfaces';
+import { action } from '../../hookRepo';
 
 function percents(v) {
   return v + '%';
@@ -38,11 +39,11 @@ function clockX(dur) {
 function renderPlot(ctrl: LobbyController, hook: Hook) {
   const bottom = Math.max(0, ratingY(hook.rating) - 2),
     left = Math.max(0, clockX(hook.t) - 2),
-    klass = ['plot.new', hook.ra ? 'rated' : 'casual', hook.action === 'cancel' ? 'cancel' : ''].join('.');
+    klass = ['plot.new', hook.ra ? 'rated' : 'casual', action(hook) === 'cancel' ? 'cancel' : ''].join('.');
   return h('span#' + hook.id + '.' + klass, {
     key: hook.id,
     attrs: {
-      'data-icon': getPerfIcon(hook.perf || hook.variant),
+      'data-icon': getPerfIcon(hook.perf || hook.variant || 'standard'),
       style: `bottom:${percents(bottom)};left:${percents(left)}`,
     },
     hook: {
@@ -89,7 +90,7 @@ function renderHook(ctrl: LobbyController, hook: Hook): string {
   html += `<div>${hook.clock}</div>`;
   html +=
     '<i data-icon="' +
-    getPerfIcon(hook.perf || hook.variant) +
+    getPerfIcon(hook.perf || hook.variant || 'standard') +
     '"> ' +
     ctrl.trans(hook.ra ? 'rated' : 'casual') +
     '</i>';

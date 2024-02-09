@@ -1,5 +1,7 @@
 import LobbyController from './ctrl';
-import { Hook } from './interfaces';
+import { Hook, Tab } from './interfaces';
+
+export const tabs: Tab[] = ['real_time', 'presets'];
 
 function ratingOrder(a: Hook, b: Hook) {
   return (a.rating || 0) > (b.rating || 0) ? -1 : 1;
@@ -13,22 +15,15 @@ export function sort(ctrl: LobbyController, hooks: Hook[]) {
   hooks.sort(ctrl.sort === 'time' ? timeOrder : ratingOrder);
 }
 
-export function init(hook: Hook) {
-  hook.action = hook.sri === window.lishogi.sri ? 'cancel' : 'join';
-  hook.variant = hook.variant || 'standard';
-}
-
-export function initAll(ctrl: LobbyController) {
-  ctrl.data.hooks.forEach(init);
+export function action(hook: Hook): 'cancel' | 'join' {
+  return hook.sri === window.lishogi.sri ? 'cancel' : 'join';
 }
 
 export function add(ctrl: LobbyController, hook: Hook) {
-  init(hook);
   ctrl.data.hooks.push(hook);
 }
 export function setAll(ctrl: LobbyController, hooks: Hook[]) {
   ctrl.data.hooks = hooks;
-  initAll(ctrl);
 }
 export function remove(ctrl: LobbyController, id: string) {
   ctrl.data.hooks = ctrl.data.hooks.filter(h => h.id !== id);
@@ -38,6 +33,7 @@ export function remove(ctrl: LobbyController, id: string) {
 }
 export function syncIds(ctrl: LobbyController, ids: string[]) {
   ctrl.data.hooks = ctrl.data.hooks.filter(h => ids.includes(h.id));
+  if (ctrl.currentPresetId && !ids.includes(window.lishogi.sri)) ctrl.currentPresetId = '';
 }
 export function find(ctrl: LobbyController, id: string) {
   return ctrl.data.hooks.find(h => h.id === id);

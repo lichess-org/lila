@@ -1,5 +1,6 @@
 import LobbyController from './ctrl';
 import { FormLines, FormObject, FormStore, makeStore, toFormLines, toFormObject } from './form';
+import { action } from './hookRepo';
 import { Hook } from './interfaces';
 
 interface FilterData {
@@ -52,8 +53,8 @@ export default class Filter {
     let variant: string,
       hidden = 0;
     hooks.forEach(hook => {
-      variant = hook.variant;
-      if (hook.action === 'cancel') visible.push(hook);
+      variant = hook.variant || 'standard';
+      if (action(hook) === 'cancel') visible.push(hook);
       else {
         if (
           !f.variant?.includes(variant) ||

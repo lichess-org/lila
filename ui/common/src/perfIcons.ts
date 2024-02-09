@@ -1,7 +1,7 @@
 export function getPerfIcon(key: VariantKey | Perf): string;
 export function getPerfIcon(key: string | undefined): string | undefined;
 export function getPerfIcon(key: string | undefined): string | undefined {
-  return perfIcons[(key || '').toLowerCase()];
+  return perfIcons[(key || 'standard').toLowerCase()];
 }
 
 const perfIcons: Record<string, string> = {

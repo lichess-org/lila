@@ -22,8 +22,7 @@ export interface Hook {
   rr?: string; // rating range
   c?: Color;
   perf?: Perf;
-  variant: VariantKey;
-  action: 'cancel' | 'join';
+  variant?: VariantKey;
   disabled?: boolean;
 }
 
@@ -31,13 +30,13 @@ export interface Seek {
   id: string;
   username: string;
   rating: number;
-  mode: number;
+  mode: number; // rated (1)
+  rr?: string;
   color?: Color;
   days?: number;
   perf?: Perf;
   provisional?: boolean;
-  variant: VariantKey;
-  action: 'joinSeek' | 'cancelSeek';
+  variant?: VariantKey;
 }
 
 export interface LobbyOpts extends Untyped {
@@ -66,6 +65,8 @@ export interface Preset {
 
 export interface PresetOpts {
   isAnon: boolean;
+  isNewPlayer: boolean;
   aiLevel?: number;
   rating?: number;
+  ratingDiff: number;
 }

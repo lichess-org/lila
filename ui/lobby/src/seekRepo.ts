@@ -9,12 +9,8 @@ export function sort(ctrl: LobbyController) {
   ctrl.data.seeks.sort(order);
 }
 
-export function initAll(ctrl: LobbyController) {
-  ctrl.data.seeks.forEach(function (seek) {
-    seek.action = ctrl.data.me && seek.username === ctrl.data.me.username ? 'cancelSeek' : 'joinSeek';
-    seek.variant = seek.variant || 'standard';
-  });
-  sort(ctrl);
+export function action(seek: Seek, ctrl: LobbyController): 'cancelSeek' | 'joinSeek' {
+  return ctrl.data.me && seek.username === ctrl.data.me.username ? 'cancelSeek' : 'joinSeek';
 }
 
 export function find(ctrl: LobbyController, id: string) {

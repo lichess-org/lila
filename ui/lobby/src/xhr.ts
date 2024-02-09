@@ -28,7 +28,7 @@ export function seekFromPreset(preset: Preset, opts: PresetOpts) {
     periods: preset.per.toString(),
     days: preset.days.toString(),
     mode: (opts.isAnon ? 0 : 1).toString(),
-    ratingRange: opts.rating ? [opts.rating - 300, opts.rating + 300].join('-') : '',
+    ratingRange: opts.rating ? [opts.rating - opts.ratingDiff, opts.rating + opts.ratingDiff].join('-') : '',
     color: 'random',
   };
   if (preset.ai) {

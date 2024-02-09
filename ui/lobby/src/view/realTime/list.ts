@@ -8,16 +8,17 @@ import { tds } from '../util';
 import { capitalize } from 'common/string';
 
 function renderHook(ctrl: LobbyController, hook: Hook) {
-  const noarg = ctrl.trans.noarg;
+  const noarg = ctrl.trans.noarg,
+    hookAction = hookRepo.action(hook);
   return h(
-    'tr.hook.' + hook.action,
+    'tr.hook.' + hookAction,
     {
       key: hook.id,
       class: { disabled: !!hook.disabled },
       attrs: {
         title: hook.disabled
           ? ''
-          : hook.action === 'join'
+          : hookAction === 'join'
             ? noarg('joinTheGame') + ' | ' + capitalize(noarg((hook.perf || hook.variant) as I18nKey))
             : noarg('cancel'),
         'data-id': hook.id,
@@ -39,7 +40,7 @@ function renderHook(ctrl: LobbyController, hook: Hook) {
       h(
         'span',
         {
-          attrs: { 'data-icon': getPerfIcon(hook.perf || hook.variant) },
+          attrs: { 'data-icon': getPerfIcon(hook.perf || hook.variant || 'standard') },
         },
         noarg(hook.ra ? 'rated' : 'casual')
       ),
@@ -49,12 +50,12 @@ function renderHook(ctrl: LobbyController, hook: Hook) {
 
 function isStandard(value: boolean) {
   return function (hook: Hook) {
-    return (hook.variant === 'standard') === value;
+    return !hook.variant === value;
   };
 }
 
 function isMine(hook: Hook) {
-  return hook.action === 'cancel';
+  return hookRepo.action(hook) === 'cancel';
 }
 
 function isNotMine(hook: Hook) {

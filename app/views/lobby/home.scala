@@ -239,6 +239,7 @@ object home {
     trans.presets,
     trans.lobby,
     trans.custom,
-    trans.anonymous
+    trans.anonymous,
+    trans.readyToPlay
   ).map(_.key)
 }
