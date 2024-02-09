@@ -27,10 +27,4 @@ $(function () {
     });
   });
   $(`#irbehavior_scrollMoves_${smStorage.get() || 1}`).prop('checked', true);
-
-  $("label[for='irdisplay_boardLayout_2']").click(function () {
-    alert(
-      'Soon to be removed! If you believe this layout should be preserved, please comment you reasoning here: https://github.com/WandererXII/lishogi/issues/682. If enough people prefer this layout I will try my best to keep it around.'
-    );
-  });
 });
