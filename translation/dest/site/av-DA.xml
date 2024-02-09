@@ -223,12 +223,12 @@
   <string name="passwordSuggestion">Цогидаз абураб парол чӀезабуге. Доз дур аккаунт бикъизе гьеб хӀалтӀизабизе буго.</string>
   <string name="emailSuggestion">Цогидаз абураб электронияб поч чӀезабуге. Доз дур аккаунт бикъизе гьеб хӀалтӀизабизе буго.</string>
   <string name="emailConfirmHelp">Электронияб поч тасдикъ гьабизе квербакъи</string>
-  <string name="emailConfirmNotReceived">Дур электронияб поч тасдикъ гьаби хъвай-хъвагӀай гьабуралдаса щвечӀищ?</string>
+  <string name="emailConfirmNotReceived" comment="Part of a help &amp; support flow. What follows is a form that permits users to request a new confirmation email, which they need to finish registering for Lichess.">Дур электронияб поч тасдикъ гьаби хъвай-хъвагӀай гьабуралдаса щвечӀищ?</string>
   <string name="whatSignupUsername">Щиб хӀалтӀизабулесул цӀар жаниве лъугьине дуца хӀалтӀизабураб?</string>
   <string name="usernameNotFound">Нижеда ватизе кӀвечӀо гьаб цӀар бугев хӀалтӀизабулев чи: %s.</string>
   <string name="usernameCanBeUsedForNewAccount">ЦӀияб аккаунт гьабизе, дуда гьеб хӀалтӀизабулесда цӀар хӀалтӀизабизе кӀола</string>
-  <string name="emailSent">%s-алде поч битӀана.</string>
-  <string name="emailCanTakeSomeTime">БачӀине мех базе бегьула.</string>
+  <string name="emailSent" comment="%s is your email, immediately after you have registered as a new user.">%s-алде поч битӀана.</string>
+  <string name="emailCanTakeSomeTime" comment="It = The confirmation email, after registering an account. Players must follow the link in their email to complete their registration">БачӀине мех базе бегьула.</string>
   <string name="refreshInboxAfterFiveMinutes">5 минуталъ чӀа цинги цӀи гьабе дур почалде рачӀарал.</string>
   <string name="checkSpamFolder">Спам лъелалда балагье, гьенибеги щвезе бегьула. Щун батани, гьеб спам гьечӀеблъун гьабе.</string>
   <string name="emailForSignupHelp">Щибниги битӀун кколеб гьечӀони, гьаб кагъат битӀе нижехъе:</string>
@@ -237,8 +237,8 @@
   <string name="accountConfirmed">%s хӀалтӀизабулев чи бергьенлъиялда тасдикъ гьавуна.</string>
   <string name="accountCanLogin">Дуда %s-лъун гьабсагӀат жаниве лъугьине кӀола.</string>
   <string name="accountConfirmationEmailNotNeeded">Дуе электронияб поч тасдикъ гьабизе къваригӀунаро.</string>
-  <string name="accountClosed">%s аккаунт къан буго.</string>
-  <string name="accountRegisteredWithoutEmail">%s аккаунт электронияб поч гьечӀого хӀисабалде босана.</string>
+  <string name="accountClosed" comment="accountClosed&#10;%s is the name of the user account. This string should be in the passive voice, as it may be the user themselves or Lichess administration closing the account (e.g. in case of excessive multi-accounting).">%s аккаунт къан буго.</string>
+  <string name="accountRegisteredWithoutEmail" comment="%s is the name of the user account.&#10;&#10;This is support text for old accounts, before Lichess required an email, in case those users try to reset their password. This is unfortunately impossible when the email is not on file.">%s аккаунт электронияб поч гьечӀого хӀисабалде босана.</string>
   <string name="rank">Ранг</string>
   <string name="rankX">Ранг: %s</string>
   <plurals name="rankIsUpdatedEveryNbMinutes">
@@ -681,6 +681,7 @@
   <string name="keyNextBlunder">Хадусеб кӀудияб гъалатӀ</string>
   <string name="keyNextMistake">Хадусеб гъалатӀ</string>
   <string name="keyNextInaccuracy">Хадусеб гьитӀинаб гъалатӀ</string>
+  <string name="playSelectedMove">бищараб хъурши гьабе</string>
   <string name="newTournament">ЦӀияб турнир</string>
   <string name="tournamentHomeTitle">БатӀи-батӀиял заманалда тӀад хъаравуллъиги варинталги ругел шахматазул турнирал</string>
   <string name="tournamentHomeDescription">Хехал шахматал турниразда хӀай! Расмияб турниралде лъугьа яги дурго гьабе. Гулла, Blitz, Килассик, Chess960, МугӀрул Къирал, Лъабго шах, гьединго цогидал дур кепалъе рагьарал шартӀал.</string>
@@ -723,6 +724,7 @@
   <string name="withFriends">Гьудулзабигун</string>
   <string name="withEverybody">Кинавгогун</string>
   <string name="kidMode">Лъимадул къагӀида</string>
+  <string name="kidModeIsEnabled">Лъимериляб къагIида биччан буго.</string>
   <string name="enableKidMode">Лъимадул къагӀида биччазе</string>
   <string name="disableKidMode">Лъимадул къагӀида свинабизе</string>
   <string name="security">ХӀинкъи гьечӀолъи</string>
@@ -828,6 +830,7 @@
   <string name="playVariationToCreateConditionalPremoves">ШартӀиял цереккунго хъурщиял гьаризе, вариантал гьаре</string>
   <string name="noConditionalPremoves">ШартӀиял гурел цереккунго хъурщиял</string>
   <string name="playX">%s гьабе</string>
+  <string name="clickHereToReadIt">Гьеб цIализе цуй гьаниб</string>
   <string name="sorry">ТӀаса лъугьа :(</string>
   <string name="weHadToTimeYouOutForAWhile">Дур хӀалтӀи заманалде гьоркьоб къотӀизабизе ккана.</string>
   <string name="why">Щай?</string>
@@ -847,6 +850,8 @@
   <string name="agreementMultipleAccounts" comment="%s will be replaced with the translation of 'termsOfService'">Дун рази вуго дица чанги аккаунт гьабичӀого тезе (%s-да рехсарал гӀиллабаз гурони).</string>
   <string name="agreementPolicy">Дун рази вуго Lichess-алъул къагӀидаби цӀунизе.</string>
   <string name="edit">Хисизе</string>
+  <string name="bullet" comment="Probably best left untranslated. Leave it as 'Bullet' unless your language has a better word for it.">Гулла</string>
+  <string name="blitz" comment="Probably best left untranslated. Leave it as 'Blitz' unless your language has a better word for it.">Блиц</string>
   <string name="rapid">Рапид</string>
   <string name="classical">Киласик</string>
   <string name="ultraBulletDesc">ХӀисаб тун хехал хӀаял: 30 секундалдаса дагьаб</string>
@@ -938,6 +943,8 @@
   <string name="switchSides">Рахъ хизисе</string>
   <string name="closingAccountWithdrawAppeal">Дур аккаунт къаялъ дур хитӀаб нахъе ахӀула</string>
   <string name="ourEventTips">Тадбирал гьабизелъун нижер гӀакълаби</string>
+  <string name="instructions">Нухмалъи</string>
+  <string name="showMeEverything" comment="A button: clicking this displays a complete list of voice commands. By default, a truncated list of only the most useful commands is shown.">Кинабго бихьизабизе</string>
   <string name="lichessPatronInfo">Lichess ккола лъикӀаб гьариги ругеб тӀубанго мухьги босулареб рагьараб кьучӀаб код бугеб программаялдалъун хьезари.
 Садакъа кьолел хӀалтӀизабулез киналго харжал, разработка, контент гӀарцудалъун хьезарула.</string>
 </resources>
