@@ -60,9 +60,9 @@ trait ShogigroundHelper {
   def shogigroundEmpty(variant: Variant, orient: Color) =
     sgWrap(variant, orient)(
       frag(
-        variant.supportsDrops option sgHandTop,
+        variant.supportsDrops option sgHandTop(sgHand),
         sgBoard(sgSquares),
-        variant.supportsDrops option sgHandBottom
+        variant.supportsDrops option sgHandBottom(sgHand)
       )
     )
 
