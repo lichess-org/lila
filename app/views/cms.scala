@@ -12,7 +12,7 @@ object cms:
 
   def render(page: CmsPage.Render)(using Context) =
     if !page.live && !isGranted(_.Pages)
-    then p("Oups, looks like there will be something here soon... but not yet!")
+    then p("Oops, looks like there will be something here soon... but not yet!")
     else
       frag(
         editButton(page),
