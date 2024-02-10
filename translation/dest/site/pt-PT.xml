@@ -419,6 +419,7 @@ análise de computador, sala de chat do jogo e link de partilha.</string>
   <string name="blackCheckmatesInOneMove">As pretas dão mate em um movimento</string>
   <string name="retry">Tentar novamente</string>
   <string name="reconnecting">Reconectando</string>
+  <string name="noNetwork">Desconectado</string>
   <plurals name="nbFriendsOnline">
     <item quantity="one">%s amigo online</item>
     <item quantity="other">%s amigos online</item>
