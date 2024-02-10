@@ -59,6 +59,7 @@
   <string name="allSyncMembersRemainOnTheSamePosition">Усі синхронізовані учасники залишаються на тій же позиції</string>
   <string name="shareChanges">Поділитися змінами з глядачами та зберегти їх на сервері</string>
   <string name="playing">Активні</string>
+  <string name="showEvalBar">Шкала оцінки</string>
   <string name="first">Перша</string>
   <string name="previous">Попередня</string>
   <string name="next">Наступна</string>
@@ -90,7 +91,7 @@
   <string name="pinnedChapterComment">Закріплений коментар розділу</string>
   <string name="saveChapter">Зберегти розділ</string>
   <string name="clearAnnotations">Очистити анотацію</string>
-  <string name="clearVariations">Очистити анотацію</string>
+  <string name="clearVariations" comment="Clear is used as a verb here. This erases the variations in the study (https://lichess.org/study) you are preparing.">Очистити анотацію</string>
   <string name="deleteChapter">Видалити розділ</string>
   <string name="deleteThisChapter">Видалити цей розділ? Відновити буде неможливо!</string>
   <string name="clearAllCommentsInThisChapter">Очистити всі коментарі та позначки з цього розділу?</string>

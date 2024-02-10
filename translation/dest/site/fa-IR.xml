@@ -5,7 +5,7 @@
   <string name="toInviteSomeoneToPlayGiveThisUrl">برای دعوت کردن حریف این لینک را برای او بفرستید</string>
   <string name="gameOver">پایان بازی</string>
   <string name="waitingForOpponent">انتطار برای حریف</string>
-  <string name="orLetYourOpponentScanQrCode" comment="Appears when you create a private game, using the 'play with a friend' option. Lichess will create a QR code that another person can scan in real life, to play a virtual game over Lichess.">یا اجازه دهید حریف شما این QR کد را پویش کند</string>
+  <string name="orLetYourOpponentScanQrCode">یا اجازه دهید حریف شما این QR کد را پویش کند</string>
   <string name="waiting">در حال انتظار</string>
   <string name="yourTurn">نوبت شماست</string>
   <string name="aiNameLevelAiLevel">%1$s سطح %2$s</string>
@@ -71,7 +71,7 @@
   <string name="makeMainLine">خط کنونی را به خط اصلی تبدیل کنید</string>
   <string name="deleteFromHere">از اینجا به بعد را پاک کنید</string>
   <string name="forceVariation">نتیجه تحلیل را به عنوان یکی از تنوعهای بازی انتخاب نمایید</string>
-  <string name="copyVariationPgn" comment="Appears when right-clicking a move in a completed game you are analysing. It will copy the variation so far to your computer's clipboard.&#10;&#10;Strictly speaking, this does not only copy variations, the same action can copy the main line of play.">کپی PGN این شاخه</string>
+  <string name="copyVariationPgn">کپی PGN این شاخه</string>
   <string name="move">انتقال بدهید</string>
   <string name="variantLoss">حرکت بازنده</string>
   <string name="variantWin">حرکت برنده</string>
@@ -226,12 +226,12 @@
   <string name="passwordSuggestion">از رمز عبور پیشنهاد شده از شخص دیگر استفاده نکنید. در این صورت احتمال سرقت حساب شما وجود دارد.</string>
   <string name="emailSuggestion">از ایمیلی که از شخص دیگر به شما پیشنهاد داده است استفاده نکنید. در این صورت احتمال سرقت حساب شما وجود دارد.</string>
   <string name="emailConfirmHelp">کمک با تائید ایمیل</string>
-  <string name="emailConfirmNotReceived" comment="Part of a help &amp; support flow. What follows is a form that permits users to request a new confirmation email, which they need to finish registering for Lichess.">آیا ایمیل تائید بعد از ثبت نام را دریافت نکرده اید؟</string>
+  <string name="emailConfirmNotReceived">آیا ایمیل تائید بعد از ثبت نام را دریافت نکرده اید؟</string>
   <string name="whatSignupUsername">از چه نام کاربری برای ثبت نام استفاده کردید؟</string>
   <string name="usernameNotFound">ما هیچ کابری با این نام نیافتیم: %s.</string>
   <string name="usernameCanBeUsedForNewAccount">شما می توانید از این نام کاربری برای ایجاد یک حساب کاربری جدید استفاده کنید</string>
-  <string name="emailSent" comment="%s is your email, immediately after you have registered as a new user.">ما یک ایمیل به آدرس %s ارسال کرده ایم.</string>
-  <string name="emailCanTakeSomeTime" comment="It = The confirmation email, after registering an account. Players must follow the link in their email to complete their registration">ممکن است کمی طول بکشد تا برسد.</string>
+  <string name="emailSent">ما یک ایمیل به آدرس %s ارسال کرده ایم.</string>
+  <string name="emailCanTakeSomeTime">ممکن است کمی طول بکشد تا برسد.</string>
   <string name="refreshInboxAfterFiveMinutes">5 دقیقه صبر کنید و صندوق ورودی ایمیل خود را تازه کنید.</string>
   <string name="checkSpamFolder">پوشه هرزنامه خود را نیز بررسی کنید، ممکن است در آنجا باشد. اگر چنین است، آن را به عنوان غیر هرزنامه علامت‌گذاری کنید.</string>
   <string name="emailForSignupHelp">اگر تمام موارد ناموفق بود، این ایمیل را برای ما ارسال کنید:</string>
@@ -240,8 +240,8 @@
   <string name="accountConfirmed">کاربر با نام %s با موفقیت تایید شده است.</string>
   <string name="accountCanLogin">شما می توانید همین الان با نام %s وارد شوید.</string>
   <string name="accountConfirmationEmailNotNeeded">شما نیازی به ایمیل تایید ندارید.</string>
-  <string name="accountClosed" comment="accountClosed&#10;%s is the name of the user account. This string should be in the passive voice, as it may be the user themselves or Lichess administration closing the account (e.g. in case of excessive multi-accounting).">حساب کاربری %s بسته شده است.</string>
-  <string name="accountRegisteredWithoutEmail" comment="%s is the name of the user account.&#10;&#10;This is support text for old accounts, before Lichess required an email, in case those users try to reset their password. This is unfortunately impossible when the email is not on file.">حساب کاربری %s بدون ایمیل ثبت نام شده بود.</string>
+  <string name="accountClosed">حساب کاربری %s بسته شده است.</string>
+  <string name="accountRegisteredWithoutEmail">حساب کاربری %s بدون ایمیل ثبت نام شده بود.</string>
   <string name="rank">رتبه</string>
   <string name="rankX">رتبه:%s</string>
   <plurals name="rankIsUpdatedEveryNbMinutes">
@@ -418,6 +418,7 @@
   <string name="blackCheckmatesInOneMove">سیاه در یک حرکت مات می‌کند</string>
   <string name="retry">تلاش دوباره</string>
   <string name="reconnecting">در حال اتصال دوباره</string>
+  <string name="noNetwork">بُرون‌خط</string>
   <plurals name="nbFriendsOnline">
     <item quantity="one">%s دوست بَرخط</item>
     <item quantity="other">%s دوست بَرخط</item>
@@ -984,6 +985,6 @@
   <string name="closingAccountWithdrawAppeal">با بستن حساب خود درخواست تجدید نظر خود را پس خواهید گرفت</string>
   <string name="ourEventTips">پیشنهادهای ما برای برگزاری رویدادها</string>
   <string name="instructions">راهنما</string>
-  <string name="showMeEverything" comment="A button: clicking this displays a complete list of voice commands. By default, a truncated list of only the most useful commands is shown.">همه چیز را به من نشان بده</string>
+  <string name="showMeEverything">همه چیز را به من نشان بده</string>
   <string name="lichessPatronInfo">لایچس یک خیریه و کاملا رایگان و نرم افزاری متن باز است. تمام هزینه های اجرا، توسعه و محتوا تنها بر پایه هدایای کاربران بنا شده است.</string>
 </resources>

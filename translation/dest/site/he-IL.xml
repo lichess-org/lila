@@ -476,6 +476,7 @@
   <string name="blackCheckmatesInOneMove">מט ב-1 לשחור</string>
   <string name="retry">נסו שוב</string>
   <string name="reconnecting">מתחבר מחדש</string>
+  <string name="noNetwork">לא מחובר</string>
   <plurals name="nbFriendsOnline">
     <item quantity="one">חבר %s מחובר</item>
     <item quantity="two">%s חברים מחוברים</item>

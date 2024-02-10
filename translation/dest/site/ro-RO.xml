@@ -447,6 +447,7 @@
   <string name="blackCheckmatesInOneMove">Negrele să dea șah mat într-o mutare</string>
   <string name="retry">Mai încercați</string>
   <string name="reconnecting">Se reconectează</string>
+  <string name="noNetwork">Deconectat</string>
   <plurals name="nbFriendsOnline">
     <item quantity="one">%s prieten online</item>
     <item quantity="few">%s prieteni online</item>
