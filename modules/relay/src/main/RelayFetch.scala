@@ -241,11 +241,12 @@ private object RelayFetch:
     given Reads[RoundJsonPairing] = Json.reads
     given Reads[RoundJson]        = Json.reads
 
-    case class GameJson(moves: List[String], result: Option[String]):
+    case class GameJson(moves: List[String], result: Option[String], chess960: Option[Int] = none):
       def outcome = result.flatMap(Outcome.fromResult)
       def toPgn(extraTags: Tags = Tags.empty): PgnStr =
+        val fenTag = chess960.flatMap(chess.variant.Chess960.positionToFen).map(pos => Tag(_.FEN, pos.value))
         val outcomeTag = outcome.map(o => Tag(_.Result, Outcome.showResult(o.some)))
-        val tags       = outcomeTag.foldLeft(extraTags)(_ + _)
+        val tags       = extraTags ++ Tags(List(fenTag, outcomeTag).flatten)
         val strMoves = moves
           .map(_ split ' ')
           .mapWithIndex: (move, index) =>

@@ -71,7 +71,7 @@
   <string name="makeMainLine">मुख्य लाइन बनाएं</string>
   <string name="deleteFromHere">यहां से हटाओ</string>
   <string name="forceVariation">बल भिन्नता</string>
-  <string name="copyVariationPgn" comment="Appears when right-clicking a move in a completed game you are analysing. It will copy the variation so far to your computer's clipboard.&#10;&#10;Strictly speaking, this does not only copy variations, the same action can copy the main line of play.">प्रतिलिपि भिन्नता पीजीएन</string>
+  <string name="copyVariationPgn">प्रतिलिपि भिन्नता पीजीएन</string>
   <string name="move">चाल</string>
   <string name="variantLoss">प्रकार में हानि</string>
   <string name="variantWin">जीत का प्रकार</string>

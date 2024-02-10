@@ -477,6 +477,7 @@
   <string name="blackCheckmatesInOneMove">Чорні ставлять мат в один хід</string>
   <string name="retry">Спробуйте ще</string>
   <string name="reconnecting">Повторне підключення</string>
+  <string name="noNetwork">Не в мережі</string>
   <plurals name="nbFriendsOnline">
     <item quantity="one">%s друг у мережі</item>
     <item quantity="few">%s друга у мережі</item>

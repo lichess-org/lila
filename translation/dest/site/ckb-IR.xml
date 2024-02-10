@@ -417,6 +417,7 @@
   <string name="blackCheckmatesInOneMove">کش و مات بۆ ڕەش بە یەک جووڵە</string>
   <string name="retry">دووبارە هەوڵبدەوە</string>
   <string name="reconnecting">دووبارە پەیوەندی کردنەوە</string>
+  <string name="noNetwork">دەرهێڵ \"ئۆفڵاین\"</string>
   <plurals name="nbFriendsOnline">
     <item quantity="one">%s هاوڕێی سەرهێڵ</item>
     <item quantity="other">%s هاوڕێیانی سەرهێڵ</item>
