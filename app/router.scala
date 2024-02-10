@@ -29,6 +29,7 @@ given Conversion[String, ForumCategId]                                   = Forum
 given Conversion[String, ForumTopicId]                                   = ForumTopicId(_)
 given Conversion[String, ForumPostId]                                    = ForumPostId(_)
 given Conversion[String, lila.cms.CmsPage.Id]                            = lila.cms.CmsPage.Id(_)
+given Conversion[String, lila.cms.CmsPage.Key]                           = lila.cms.CmsPage.Key(_)
 given Conversion[String, Sri]                                            = Sri(_)
 given challengeId: Conversion[String, Challenge.Id]                      = Challenge.Id(_)
 given appealId: Conversion[String, Appeal.Id]                            = Appeal.Id(_)
@@ -72,6 +73,7 @@ object ReverseRouterConversions:
   given Conversion[ForumCategId, String]                             = _.value
   given Conversion[ForumTopicId, String]                             = _.value
   given Conversion[lila.cms.CmsPage.Id, String]                      = _.value
+  given Conversion[lila.cms.CmsPage.Key, String]                     = _.value
   given Conversion[lila.i18n.Language, String]                       = _.value
   given challengeIdConv: Conversion[Challenge.Id, String]            = _.value
   given appealIdConv: Conversion[Appeal.Id, String]                  = _.value

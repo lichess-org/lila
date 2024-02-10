@@ -31,19 +31,19 @@ final class Cms(env: Env) extends LilaController(env):
   }
 
   def edit(id: CmsPage.Id) = Secure(_.Pages) { _ ?=> _ ?=>
-    Found(api.get(id)): up =>
-      Ok.pageAsync(html.cms.edit(env.cms.form.edit(up), up))
+    Found(api.withAlternatives(id)): pages =>
+      Ok.pageAsync(html.cms.edit(env.cms.form.edit(pages.head), pages.head, pages.tail))
   }
 
   def update(id: CmsPage.Id) = SecureBody(_.Pages) { _ ?=> me ?=>
-    Found(api.get(id)): from =>
+    Found(api.withAlternatives(id)): pages =>
       env.cms.form
-        .edit(from)
+        .edit(pages.head)
         .bindFromRequest()
         .fold(
-          err => BadRequest.pageAsync(html.cms.edit(err, from)),
+          err => BadRequest.pageAsync(html.cms.edit(err, pages.head, pages.tail)),
           data =>
-            api.update(from, data) map: page =>
+            api.update(pages.head, data) map: page =>
               Redirect(routes.Cms.edit(page.id)).flashSuccess
         )
   }

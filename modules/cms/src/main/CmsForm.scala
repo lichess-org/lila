@@ -11,17 +11,18 @@ object CmsForm:
 
   val create = Form:
     mapping(
-      "id"    -> cleanNonEmptyText(minLength = 3, maxLength = 120).verifying(slugConstraint).into[CmsPage.Id],
-      "title" -> cleanNonEmptyText(minLength = 3, maxLength = 150),
-      "markdown"      -> cleanNonEmptyText(minLength = 0, maxLength = 1000_000).into[Markdown],
-      "language"      -> LangForm.popularLanguages.mapping,
-      "live"          -> boolean,
-      "canonicalPath" -> optional(nonEmptyText)
+      "key" -> cleanNonEmptyText(minLength = 3, maxLength = 120).verifying(slugConstraint).into[CmsPage.Key],
+      "title"    -> cleanNonEmptyText(minLength = 3, maxLength = 150),
+      "markdown" -> cleanNonEmptyText(minLength = 0, maxLength = 1000_000).into[Markdown],
+      "language" -> LangForm.popularLanguages.mapping,
+      "live"     -> boolean,
+      "canonicalPath" -> optional:
+        nonEmptyText.transform(p => if p.startsWith("/") then p else s"/$p", identity)
     )(CmsPageData.apply)(unapply)
 
   def edit(page: CmsPage) = create.fill:
     CmsPageData(
-      id = page.id,
+      key = page.key,
       title = page.title,
       markdown = lila.common.MarkdownToastUi.latex.removeFrom(page.markdown),
       language = page.language,
@@ -30,7 +31,7 @@ object CmsForm:
     )
 
   case class CmsPageData(
-      id: CmsPage.Id,
+      key: CmsPage.Key,
       title: String,
       markdown: Markdown,
       language: Language,
@@ -39,7 +40,8 @@ object CmsForm:
   ):
     def create(user: User) =
       CmsPage(
-        id = id,
+        id = CmsPage.Id.random,
+        key = key,
         title = title,
         markdown = markdown,
         language = language,

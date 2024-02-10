@@ -33,6 +33,23 @@ object I18nLangPicker:
     val mine = allFromRequestHeaders(req).zipWithIndex.toMap
     langs.sortBy { mine.getOrElse(_, Int.MaxValue) }
 
+  def preferedLanguages(req: RequestHeader, userLang: Option[String] = None): List[Language] = {
+    userLang.flatMap(Lang.get).map(Language(_)).toSeq ++
+      req.acceptLanguages.map(Language(_))
+  }.distinct.view.filter(LangList.popularLanguageChoices.contains).toList
+
+  def pickBestOf(
+      candidates: Set[Language]
+  )(req: RequestHeader, userLang: Option[String] = None): Option[Language] =
+    userLang
+      .flatMap(Lang.get)
+      .map(Language(_))
+      .filter(candidates.contains)
+      .orElse:
+        req.acceptLanguages.map(Language(_)) collectFirst:
+          case l if candidates.contains(l) => l
+      .orElse(candidates.contains(defaultLanguage) option defaultLanguage)
+
   private val defaultByLanguage: Map[String, Lang] =
     LangList.all.keys
       .foldLeft(Map.empty[String, Lang]): (acc, lang) =>

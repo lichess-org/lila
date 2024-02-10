@@ -42,11 +42,13 @@ final class Prismic(env: Env)(using Executor, play.api.libs.ws.StandaloneWSClien
           _.results.headOption
         }
 
+  private def cmsRender(key: CmsPage.Key)(using ctx: Context): Fu[Option[CmsPage.Render]] =
+    env.cms.api.render(key)(ctx.req, ctx.user.flatMap(_.lang))
+
   def getBookmark(name: String)(using ctx: Context): Fu[Option[Prismic.AnyPage]] =
     (!getBool("prismic")(using ctx.req))
       .so:
-        env.cms.api
-          .render(lila.cms.CmsPage.Id(name))
+        cmsRender(CmsPage.Key(name))
           .map:
             _.filter(_.live || ctx.me.soUse(Granter(_.Pages))).map(Left.apply)
       .orElse:
@@ -60,9 +62,8 @@ final class Prismic(env: Env)(using Executor, play.api.libs.ws.StandaloneWSClien
             none
           }
 
-  def getVariant(variant: chess.variant.Variant): Fu[Option[Prismic.AnyPage]] =
-    env.cms.api
-      .render(lila.cms.CmsPage.Id(s"variant-${variant.key}"))
+  def getVariant(variant: chess.variant.Variant)(using Context): Fu[Option[Prismic.AnyPage]] =
+    cmsRender(CmsPage.Key(s"variant-${variant.key}"))
       .map2(Left.apply)
       .orElse:
         prismicApi.flatMap: api =>

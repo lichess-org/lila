@@ -16,6 +16,7 @@ import lila.memo.{ PicfitApi, PicfitUrl, PicfitImage }
 import lila.user.User.lichessId
 import lila.db.dsl.*
 import lila.cms.CmsPage
+import chess.variant.Variant
 
 final private class PrismicExport(
     ublogApi: lila.ublog.UblogApi,
@@ -25,6 +26,8 @@ final private class PrismicExport(
     picfitUrl: PicfitUrl,
     ws: StandaloneWSClient
 )(using Executor, akka.stream.Materializer):
+
+  private given StandaloneWSClient = ws
 
   def blogPosts(): Funit = for
     ctx     <- blogApi.context
@@ -41,6 +44,7 @@ final private class PrismicExport(
   yield ()
 
   def pages(): Funit = for
+    _       <- variants()
     prismic <- blogApi.prismicApi
     bookmarks = prismic.bookmarks.toVector
     _ <- Source(bookmarks).zipWithIndex
@@ -52,12 +56,65 @@ final private class PrismicExport(
       .void
   yield ()
 
-  private def convertBookmark(prismic: PrismicApi)(bm: (String, String)): Fu[Boolean] =
-    val pageId = CmsPage.Id(bm._1)
+  private def variants(): Funit = for
+    prismic <- blogApi.prismicApi
+    _ <- Source(Variant.list.all.filter(_.exotic)).zipWithIndex
+      .map: (v, i) =>
+        logger.info(s"${i + 1} ${v.name}")
+        v
+      .mapAsync(1)(convertVariant(prismic))
+      .runWith(Sink.ignore)
+      .void
+  yield ()
+
+  private def convertVariant(prismic: PrismicApi)(variant: Variant): Fu[Boolean] =
+    val key      = CmsPage.Key(s"variant-${variant.key}")
+    val language = lila.i18n.defaultLanguage
+    val pageId   = CmsPage.Id.random
+    val video = variant.key.value match
+      case "racingKings" => "https://www.youtube.com/watch?v=GBUylnvSRYo\n"
+      case "crazyhouse"  => "https://www.youtube.com/watch?v=VhZEc73HaYw\n"
+      case "chess960"    => "https://www.youtube.com/watch?v=fUypgJQy7O8\n"
+      case _             => ""
     cmsApi
-      .get(pageId)
+      .get(key, language)
       .flatMap: page =>
-        given StandaloneWSClient = ws
+        !page.isDefined so
+          prismic
+            .forms("variant")
+            .query(s"""[[:d = at(my.variant.key, "${variant.key}")]]""")
+            .ref(prismic.master.ref)
+            .submit()
+            .map(_.results.headOption)
+            .flatMap:
+              case None =>
+                logger.error(s"Can't find prismic document for variant ${variant.key}")
+                fuccess(true)
+              case Some(doc) =>
+                transferMarkdownImages(doc, pageId).flatMap: doc =>
+                  cmsApi create CmsPage(
+                    id = pageId,
+                    key = key,
+                    title = doc.getText("variant.title") | pageId.value,
+                    markdown = htmlToMarkdown:
+                      val html = ~doc.getHtml("variant.content", linkResolver(prismic))
+                      lila.blog.BlogTransform.markdown:
+                        Html(video + html)
+                    ,
+                    language = language,
+                    live = true,
+                    canonicalPath = s"/variant/${variant.key}".some,
+                    by = lichessId,
+                    at = nowInstant
+                  ) inject true
+
+  private def convertBookmark(prismic: PrismicApi)(bm: (String, String)): Fu[Boolean] =
+    val key      = CmsPage.Key(bm._1)
+    val language = lila.i18n.defaultLanguage
+    val pageId   = CmsPage.Id.random
+    cmsApi
+      .get(key, language)
+      .flatMap: page =>
         !page.isDefined so prismic
           .forms("everything")
           .query(s"""[[:d = at(document.id, "${bm._2}")]]""")
@@ -72,12 +129,13 @@ final private class PrismicExport(
               transferMarkdownImages(doc, pageId).flatMap: doc =>
                 cmsApi create CmsPage(
                   id = pageId,
+                  key = key,
                   title = doc.getText("doc.title") | pageId.value,
                   markdown = htmlToMarkdown:
                     lila.blog.BlogTransform.markdown:
                       Html(~doc.getHtml("doc.content", linkResolver(prismic)))
                   ,
-                  language = lila.i18n.defaultLanguage,
+                  language = language,
                   live = true,
                   canonicalPath = none,
                   by = lichessId,

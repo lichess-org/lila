@@ -18,7 +18,10 @@ lichess.load.then(() => {
       .toggleClass('searching', !!query)
       .find('tbody tr')
       .each(function (this: HTMLTableRowElement) {
-        this.hidden = !!query && !$(this).find('td:first-child').text().toLowerCase().includes(query);
+        const match =
+          $(this).find('.title').text().toLowerCase().includes(query) ||
+          $(this).find('.lang').text().toLowerCase() == query;
+        this.hidden = !!query && !match;
       });
   });
 });
