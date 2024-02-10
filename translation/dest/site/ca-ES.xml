@@ -418,7 +418,7 @@
   <string name="blackCheckmatesInOneMove">Les negres fan escac i mat en una jugada</string>
   <string name="retry">Reintentar</string>
   <string name="reconnecting">S\'està reconnectant</string>
-  <string name="noNetwork">Desconnectat</string>
+  <string name="noNetwork">Fora de línia</string>
   <plurals name="nbFriendsOnline">
     <item quantity="one">%s amic connectat</item>
     <item quantity="other">%s amics connectats</item>
