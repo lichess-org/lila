@@ -10,11 +10,17 @@ import lila.common.String.shorten
 
 object cms:
 
-  def render(p: CmsPage.Render)(using Context) = frag(
-    editButton(p),
-    !p.live option span(cls := "cms__draft text", dataIcon := licon.Eye)("This draft is not published"),
-    rawHtml(p.html)
-  )
+  def render(page: CmsPage.Render)(using Context) =
+    if !page.live && !isGranted(_.Pages)
+    then p("Oups, looks like there will be something here soon... but not yet!")
+    else
+      frag(
+        editButton(page),
+        !page.live option span(cls := "cms__draft text", dataIcon := licon.Eye)(
+          "This draft is not published"
+        ),
+        rawHtml(page.html)
+      )
 
   def editButton(p: CmsPage.Render)(using Context) =
     isGranted(_.Pages) option a(
