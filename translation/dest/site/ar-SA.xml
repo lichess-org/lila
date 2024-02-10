@@ -5,7 +5,7 @@
   <string name="toInviteSomeoneToPlayGiveThisUrl">لدعوة شخص ما للعب، أرسل له هذا الرابط</string>
   <string name="gameOver">انتهت المباراة</string>
   <string name="waitingForOpponent">في إنتظار المنافس</string>
-  <string name="orLetYourOpponentScanQrCode" comment="Appears when you create a private game, using the 'play with a friend' option. Lichess will create a QR code that another person can scan in real life, to play a virtual game over Lichess.">أو أجعل خصمك يمسح رمز QR هذا</string>
+  <string name="orLetYourOpponentScanQrCode">أو أجعل خصمك يمسح رمز QR هذا</string>
   <string name="waiting">قيد الانتظار</string>
   <string name="yourTurn">دورك</string>
   <string name="aiNameLevelAiLevel">%1$s مستوى %2$s</string>
@@ -75,7 +75,7 @@
   <string name="makeMainLine">رفع الى التسلسل الرئيسي</string>
   <string name="deleteFromHere">احذف من هنا</string>
   <string name="forceVariation">فرض التسلسل</string>
-  <string name="copyVariationPgn" comment="Appears when right-clicking a move in a completed game you are analysing. It will copy the variation so far to your computer's clipboard.&#10;&#10;Strictly speaking, this does not only copy variations, the same action can copy the main line of play.">انسخ التفريع بصيغة PGN</string>
+  <string name="copyVariationPgn">انسخ التفريع بصيغة PGN</string>
   <string name="move">التقلة</string>
   <string name="variantLoss">خسارة بطريقة خاصة</string>
   <string name="variantWin">فوز بطريقة خاصة</string>
@@ -274,12 +274,12 @@
   <string name="passwordSuggestion">لا تقم بتعيين كلمة مرور مقترحة من قبل شخص آخر. سوف يستخدمونها لسرقة حسابك.</string>
   <string name="emailSuggestion">لا تقم بتعيين عنوان بريد إلكتروني اقترحه شخص آخر. سوف يستخدمه لسرقة حسابك.</string>
   <string name="emailConfirmHelp">المساعدة في تأكيد البريد الإلكتروني</string>
-  <string name="emailConfirmNotReceived" comment="Part of a help &amp; support flow. What follows is a form that permits users to request a new confirmation email, which they need to finish registering for Lichess.">لم تستلم بريدك الإلكتروني للتأكيد بعد التسجيل؟</string>
+  <string name="emailConfirmNotReceived">لم تستلم بريدك الإلكتروني للتأكيد بعد التسجيل؟</string>
   <string name="whatSignupUsername">ما هو اسم المستخدم الذي استخدمته للتسجيل؟</string>
   <string name="usernameNotFound">لم نتمكن من العثور على أي مستخدم بهذا الاسم: %s.</string>
   <string name="usernameCanBeUsedForNewAccount">يمكنك استخدام اسم المستخدم هذا لإنشاء حساب جديد</string>
-  <string name="emailSent" comment="%s is your email, immediately after you have registered as a new user.">لقد أرسلنا رسالة بريد إلكتروني إلى %s.</string>
-  <string name="emailCanTakeSomeTime" comment="It = The confirmation email, after registering an account. Players must follow the link in their email to complete their registration">قد تستغرق وقت للوصول.</string>
+  <string name="emailSent">لقد أرسلنا رسالة بريد إلكتروني إلى %s.</string>
+  <string name="emailCanTakeSomeTime">قد تستغرق وقت للوصول.</string>
   <string name="refreshInboxAfterFiveMinutes">انتظر 5 دقائق وحدث بريدك الوارد.</string>
   <string name="checkSpamFolder">تحقق ايضا من بريدك المهمل ربما وصل لهناك، اذا وجدت الرسالة هناك علمها ك\"غير مهمل\".</string>
   <string name="emailForSignupHelp">اذا فشلت كل المحاولات ارسل لنا ايميل:</string>
@@ -288,8 +288,8 @@
   <string name="accountConfirmed">المستخدم %s تم تأكيده بنجاح.</string>
   <string name="accountCanLogin">يمكنك الان الدخول باسم %s.</string>
   <string name="accountConfirmationEmailNotNeeded">لا حاجة لتأكيد ايميلك.</string>
-  <string name="accountClosed" comment="accountClosed&#10;%s is the name of the user account. This string should be in the passive voice, as it may be the user themselves or Lichess administration closing the account (e.g. in case of excessive multi-accounting).">هذا الحساب%s مغلق.</string>
-  <string name="accountRegisteredWithoutEmail" comment="%s is the name of the user account.&#10;&#10;This is support text for old accounts, before Lichess required an email, in case those users try to reset their password. This is unfortunately impossible when the email is not on file.">هذا الحساب%s تم تسجيله بدون ايميل.</string>
+  <string name="accountClosed">هذا الحساب%s مغلق.</string>
+  <string name="accountRegisteredWithoutEmail">هذا الحساب%s تم تسجيله بدون ايميل.</string>
   <string name="rank">المرتبة</string>
   <string name="rankX">الترتيب: %s</string>
   <plurals name="rankIsUpdatedEveryNbMinutes">
@@ -1153,7 +1153,7 @@
   <string name="closingAccountWithdrawAppeal">إغلاق حسابك سوف تخسر تقدمك</string>
   <string name="ourEventTips">نصائحنا لتنظيم الأحداث</string>
   <string name="instructions">التعليمات</string>
-  <string name="showMeEverything" comment="A button: clicking this displays a complete list of voice commands. By default, a truncated list of only the most useful commands is shown.">اظهر لي كل شيء</string>
+  <string name="showMeEverything">اظهر لي كل شيء</string>
   <string name="lichessPatronInfo">Lichess هو موقع خيري و مجاني بشكل كامل ومفتوح المصدر.
 كافة التكاليف التشغيلية و التطويرية و المحتوى يتم الحصول عليه من قبل تبرعات المستخدمين.</string>
 </resources>
