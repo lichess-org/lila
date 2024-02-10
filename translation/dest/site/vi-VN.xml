@@ -63,7 +63,7 @@
   <string name="engineFailed">Lỗi khi đang tải động cơ</string>
   <string name="cloudAnalysis">Phân tích đám mây</string>
   <string name="goDeeper">Phân tích sâu hơn</string>
-  <string name="showThreat">Hiển thị các mối đe dọa</string>
+  <string name="showThreat">Hiện các mối đe dọa</string>
   <string name="inLocalBrowser">trong trình duyệt cục bộ</string>
   <string name="toggleLocalEvaluation">Kích hoạt đánh giá địa phương</string>
   <string name="promoteVariation">Thay đổi biến</string>
@@ -390,6 +390,7 @@ trò chuyện trong ván đấu và có một URL có thể chia sẻ công khai
   <string name="blackCheckmatesInOneMove">Đen chiếu hết trong một nước đi</string>
   <string name="retry">Thử lại</string>
   <string name="reconnecting">Đang kết nối lại</string>
+  <string name="noNetwork">Ngoại tuyến</string>
   <plurals name="nbFriendsOnline">
     <item quantity="other">%s bạn trực tuyến</item>
   </plurals>
