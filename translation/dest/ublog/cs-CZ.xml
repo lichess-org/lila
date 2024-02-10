@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+  <string name="communityBlogs">Komunitní blogy</string>
+  <string name="friendBlogs">Blogy přátel</string>
   <string name="xBlog">Blog hráče %s</string>
   <string name="newPost">Nový příspěvek</string>
   <string name="editYourBlogPost">Upravit svůj příspěvek na blogu</string>
