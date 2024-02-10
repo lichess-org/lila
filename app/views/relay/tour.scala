@@ -86,7 +86,7 @@ object tour:
 
   def subscribed(pager: Paginator[RelayTour | WithLastRound])(using PageContext) =
     views.html.base.layout(
-      title = liveBroadcasts.txt(),
+      title = subscribedBroadcasts.txt(),
       moreCss = cssTag("relay.index"),
       moreJs = infiniteScrollTag
     ):
@@ -94,7 +94,7 @@ object tour:
         pageMenu("subscribed"),
         div(cls := "page-menu__content box box-pad")(
           boxTop:
-            h1(liveBroadcasts())
+            h1(subscribedBroadcasts())
           ,
           standardFlash,
           renderPager(pager)
