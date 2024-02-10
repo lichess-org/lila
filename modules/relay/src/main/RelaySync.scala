@@ -78,7 +78,7 @@ final private class RelaySync(
 
   private type NbMoves = Int
   private def updateChapterTree(study: Study, chapter: Chapter, game: RelayGame): Fu[NbMoves] =
-    val who = actorApi.Who(chapter.ownerId, sri)
+    val by = who(chapter.ownerId)
     game.root.mainline.foldLeft(UciPath.root -> none[Branch]) {
       case ((parentPath, None), gameNode) =>
         val path = parentPath + gameNode.id
@@ -90,7 +90,7 @@ final private class RelaySync(
                 studyId = study.id,
                 position = Position(chapter, path).ref,
                 clock = c.some
-              )(who)
+              )(by)
             path -> none
       case (found, _) => found
     } match
@@ -101,7 +101,7 @@ final private class RelaySync(
             studyId = study.id,
             position = Position(chapter, path).ref,
             toMainline = true
-          )(who) >> chapterRepo.setRelayPath(chapter.id, path)
+          )(by) >> chapterRepo.setRelayPath(chapter.id, path)
         } >> newNode.so: node =>
           node.mainline
             .foldM(Position(chapter, path).ref): (position, n) =>
@@ -117,7 +117,7 @@ final private class RelaySync(
                     lastMoveAt = nowInstant
                   )
                   .some
-              )(who) inject position + n
+              )(by) inject position + n
             .inject:
               if chapter.root.children.nodes.isEmpty && node.mainline.nonEmpty then
                 studyApi.reloadChapters(study)
@@ -146,7 +146,7 @@ final private class RelaySync(
         studyId = study.id,
         chapterId = chapter.id,
         tags = chapterNewTags
-      )(actorApi.Who(chapter.ownerId, sri)) >> {
+      )(who(chapter.ownerId)) >> {
         val newEnd = chapter.tags.outcome.isEmpty && tags.outcome.isDefined
         newEnd so onChapterEnd(tour, study, chapter)
       } inject true
@@ -197,7 +197,7 @@ final private class RelaySync(
           )
           .some
       )
-      studyApi.doAddChapter(study, chapter, sticky = false, actorApi.Who(study.ownerId, sri)) andDo
+      studyApi.doAddChapter(study, chapter, sticky = false, who(study.ownerId)) andDo
         multiboard.invalidate(study.id) inject chapter
     }
 
@@ -208,7 +208,8 @@ final private class RelaySync(
     clock = none
   )
 
-  private val sri = Sri("")
+  private val sri                 = Sri("")
+  private def who(userId: UserId) = actorApi.Who(userId, sri)
 
   private def vs(tags: Tags) = s"${tags(_.White) | "?"} - ${tags(_.Black) | "?"}"
 
