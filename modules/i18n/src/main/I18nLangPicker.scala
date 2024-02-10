@@ -36,7 +36,7 @@ object I18nLangPicker:
   def preferedLanguages(req: RequestHeader, userLang: Option[String] = None): List[Language] = {
     userLang.flatMap(Lang.get).map(Language(_)).toSeq ++
       req.acceptLanguages.map(Language(_))
-  }.distinct.view.filter(LangList.popularLanguageChoices.contains).toList
+  }.distinct.view.filter(LangList.popularLanguages.contains).toList
 
   def pickBestOf(
       candidates: Set[Language]

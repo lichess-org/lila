@@ -13,7 +13,8 @@ case class CmsPage(
     canonicalPath: Option[String],
     by: UserId,
     at: Instant
-)
+):
+  override def toString = s"CmsPage($id, $key, $language, $title)"
 
 object CmsPage:
 
