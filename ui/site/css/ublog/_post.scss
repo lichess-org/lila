@@ -115,7 +115,14 @@
 
   &__patron-info {
     margin: 2em 2em 0;
-    font-size: 0.85em;
+  }
+  &__lichess {
+    text-align: center;
+    margin: 3em 0 3em 0;
+    .connect-links a {
+      display: inline-block;
+      margin: 1em 0.5em;
+    }
   }
   &__footer {
     margin: 5em 0 0 0;
