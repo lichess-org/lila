@@ -13,22 +13,3 @@ case class BlogPost(doc: io.prismic.Document, coll: String = "blog", imgSize: St
   def forKids: Boolean         = getText(s"$coll.kidsafe").forall(_ == "true")
   def author: Option[String]   = getText(s"$coll.author")
   def category: Option[String] = getText(s"$coll.category")
-
-case class MiniPost(
-    id: String,
-    slug: String,
-    title: String,
-    shortlede: String,
-    date: LocalDate,
-    image: String,
-    forKids: Boolean
-):
-  def isOld = date.isBefore(LocalDate.now.minusDays(7))
-
-object MiniPost:
-
-  def apply(post: BlogPost): Option[MiniPost] = for
-    title <- post.title
-    date  <- post.date
-    image <- post.image
-  yield MiniPost(post.id, post.slug, title, post.shortlede, date, image, post.forKids)

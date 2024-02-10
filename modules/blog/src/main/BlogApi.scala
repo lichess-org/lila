@@ -73,16 +73,6 @@ final class BlogApi(
         case _ => fuccess(doc.some)
     }
 
-  def byYear(prismic: BlogApi.Context, year: Int): Fu[List[MiniPost]] =
-    prismic.api
-      .forms(collection)
-      .ref(prismic.ref)
-      .query(s"[[date.year(my.$collection.date, $year)]]")
-      .orderings(s"[my.$collection.date desc]")
-      .pageSize(100) // prismic max
-      .submit()
-      .fold(_ => Nil, _.results.map(BlogPost(_)).flatMap(MiniPost.apply))
-
   def context(using linkResolver: Api => DocumentLinkResolver): Fu[BlogApi.Context] =
     prismicApi map { api =>
       val ref = resolveRef(api)(none)
@@ -94,12 +84,6 @@ final class BlogApi(
   ): Fu[BlogApi.Context] =
     prismicApi.map: api =>
       BlogApi.Context(api, api.master.ref, linkResolver(api))
-
-  def all(page: Int = 1)(using prismic: BlogApi.Context): Fu[List[BlogPost]] =
-    recent(prismic.api, page, MaxPerPage(50), none) flatMap { res =>
-      val docs = res.so(_.currentPageResults).toList
-      (docs.nonEmpty so all(page + 1)).map(docs ::: _)
-    }
 
   def expand(html: Html) = html.map(expandGames).map(expandChapters)
 
