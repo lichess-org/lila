@@ -476,6 +476,7 @@
   <string name="blackCheckmatesInOneMove">Čierny dá mat 1. ťahom</string>
   <string name="retry">Znova</string>
   <string name="reconnecting">Pripájanie</string>
+  <string name="noNetwork">Offline</string>
   <plurals name="nbFriendsOnline">
     <item quantity="one">%s priateľ online</item>
     <item quantity="few">%s priatelia online</item>

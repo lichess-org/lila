@@ -475,6 +475,7 @@
   <string name="blackCheckmatesInOneMove">Črni matira v eni potezi</string>
   <string name="retry">Poskusi ponovno</string>
   <string name="reconnecting">Ponovno vzpostavljanje povezave</string>
+  <string name="noNetwork">Brez povezave</string>
   <plurals name="nbFriendsOnline">
     <item quantity="one">%s prijatelj je prijavljen</item>
     <item quantity="two">Ni prijavljenih prijateljev</item>

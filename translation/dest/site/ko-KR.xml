@@ -5,6 +5,7 @@
   <string name="toInviteSomeoneToPlayGiveThisUrl">이 URL로 친구를 초대하세요</string>
   <string name="gameOver">게임 종료</string>
   <string name="waitingForOpponent">상대를 기다리는 중</string>
+  <string name="orLetYourOpponentScanQrCode">또는 상대방에게 이 QR 코드를 스캔하게 하세요</string>
   <string name="waiting">기다리는 중</string>
   <string name="yourTurn">내 차례</string>
   <string name="aiNameLevelAiLevel">%1$s 레벨 %2$s</string>
@@ -113,6 +114,7 @@
   <string name="openStudy">연구를 시작하기</string>
   <string name="enable">활성화</string>
   <string name="bestMoveArrow">최선의 수 화살표</string>
+  <string name="showVariationArrows">바리에이션 화살표 표시하기</string>
   <string name="evaluationGauge">평가치 게이지</string>
   <string name="multipleLines">다중 분석 수</string>
   <string name="cpus">CPU 수</string>
