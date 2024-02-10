@@ -418,7 +418,7 @@
   <string name="blackCheckmatesInOneMove">سیاه در یک حرکت مات می‌کند</string>
   <string name="retry">تلاش دوباره</string>
   <string name="reconnecting">در حال اتصال دوباره</string>
-  <string name="noNetwork">آفلاین</string>
+  <string name="noNetwork">بُرون‌خط</string>
   <plurals name="nbFriendsOnline">
     <item quantity="one">%s دوست بَرخط</item>
     <item quantity="other">%s دوست بَرخط</item>
