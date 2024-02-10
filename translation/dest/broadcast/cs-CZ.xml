@@ -10,10 +10,15 @@
   </plurals>
   <string name="liveBroadcasts">Živé přenosy turnajů</string>
   <string name="newBroadcast">Nový živý přenos</string>
+  <string name="aboutBroadcasts">O vysílání</string>
+  <string name="noRoundsYet">Zatím žádná kola.</string>
+  <string name="howToUseLichessBroadcasts">Jak používat Lichess vysílání.</string>
+  <string name="theNewRoundHelp">Nové kolo bude mít stejné členy a přispěvatele jako to předchozí.</string>
   <string name="addRound">Přidat kolo</string>
   <string name="ongoing">Probíhající</string>
   <string name="upcoming">Chystané</string>
   <string name="completed">Dokončené</string>
+  <string name="completedHelp">Lichess detekuje dokončení kola na základě zdrojových her. Tento přepínač použijte, pokud není k dispozici žádný zdroj.</string>
   <string name="roundName">Číslo kola</string>
   <string name="roundNumber">Číslo kola</string>
   <string name="tournamentName">Název turnaje</string>
@@ -37,4 +42,14 @@
   <string name="editRoundStudy">Upravit studie kola</string>
   <string name="deleteTournament">Smazat tento turnaj</string>
   <string name="definitivelyDeleteTournament">Opravdu smazat celý turnaj, všechna kola a hry.</string>
+  <string name="automaticLeaderboard" comment="An option when creating a broadcast to calculate a leaderboard automatically from the players involved. Example: https://lichess.org/broadcast/2023-london-chess-classic/round-9/5icayRCY">Automatický žebříček</string>
+  <string name="automaticLeaderboardHelp" comment="An option when creating a broadcast to calculate a leaderboard automatically from the players involved. Example: https://lichess.org/broadcast/2023-london-chess-classic/round-9/5icayRCY">Vypočítejte a zobrazte jednoduchý žebříček na základě výsledků hry</string>
+  <string name="replace">Volitelné: nahraďte jména hráčů, hodnocení a tituly</string>
+  <string name="replaceHelp">Jeden řádek pro každého hráče a takto naformátovaný:
+Původní jméno; Náhradní jméno; Nepovinné náhradní hodnocení; Nepovinný náhradní název
+Příklad:
+DrNykterstein;Magnus Carlsen;2863
+AnishGiri;Anish Giri;2764;GM</string>
+  <string name="periodInSeconds">Doba v sekundách</string>
+  <string name="periodInSecondsHelp">Volitelné, jak dlouho se má čekat mezi jednotlivými požadavky. Min. 2s, max. 60s. Výchozí hodnota je automatická podle počtu diváků.</string>
 </resources>
