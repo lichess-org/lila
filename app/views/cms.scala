@@ -12,6 +12,7 @@ object cms:
 
   def render(p: CmsPage.Render)(using Context) = frag(
     editButton(p),
+    !p.live option span(cls := "cms__draft text", dataIcon := licon.Eye)("This draft is not published"),
     rawHtml(p.html)
   )
 
