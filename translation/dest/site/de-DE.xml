@@ -418,6 +418,7 @@
   <string name="blackCheckmatesInOneMove">Schwarz setzt in einem Zug Matt</string>
   <string name="retry">Erneut versuchen</string>
   <string name="reconnecting">Wiederverbinden</string>
+  <string name="noNetwork">Offline</string>
   <plurals name="nbFriendsOnline">
     <item quantity="one">%s Freund online</item>
     <item quantity="other">%s Freunde online</item>
