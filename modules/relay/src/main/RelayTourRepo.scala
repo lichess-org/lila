@@ -26,6 +26,9 @@ final private class RelayTourRepo(val coll: Coll)(using Executor):
   def isSubscribed(tid: RelayTour.Id, uid: UserId): Fu[Boolean] =
     coll.exists($doc($id(tid), "subscribers" -> uid))
 
+  def countBySubscriberId(uid: UserId): Fu[Int] =
+    coll.countSel(selectors.subscriberId(uid))
+
   def hasNotified(rt: RelayRound.WithTour): Fu[Boolean] =
     coll.exists($doc($id(rt.tour.id), "notified" -> rt.round.id))
 
@@ -36,9 +39,10 @@ final private class RelayTourRepo(val coll: Coll)(using Executor):
     coll.delete.one($id(tour.id)).void
 
   private[relay] object selectors:
-    val official           = $doc("tier" $exists true)
-    val active             = $doc("active" -> true)
-    val inactive           = $doc("active" -> false)
-    def ownerId(u: UserId) = $doc("ownerId" -> u)
-    val officialActive     = official ++ active
-    val officialInactive   = official ++ inactive
+    val official                = $doc("tier" $exists true)
+    val active                  = $doc("active" -> true)
+    val inactive                = $doc("active" -> false)
+    def ownerId(u: UserId)      = $doc("ownerId" -> u)
+    def subscriberId(u: UserId) = $doc("subscribers" -> u)
+    val officialActive          = official ++ active
+    val officialInactive        = official ++ inactive

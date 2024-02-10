@@ -247,6 +247,7 @@ POST  /broadcast/new                          controllers.RelayTour.create
 GET   /broadcast/calendar                     controllers.RelayTour.calendar
 GET   /broadcast/help                         controllers.RelayTour.help
 GET   /broadcast/by/:user                     controllers.RelayTour.by(user, page: Int ?= 1)
+GET   /broadcast/subscribed               controllers.RelayTour.subscribed(page: Int ?= 1)
 GET   /broadcast/:ts/$anyId<\w{8}>            controllers.RelayTour.show(ts, anyId)
 GET   /api/broadcast/$tourId<\w{8}>.pgn       controllers.RelayTour.pgn(tourId)
 GET   /broadcast/$tourId<\w{8}>/edit          controllers.RelayTour.edit(tourId)
