@@ -146,7 +146,7 @@ final class Main(
         case 547  => s"$faq#leaving"
         case 259  => s"$faq#trophies"
         case 342  => s"$faq#provisional"
-        case 50   => routes.ContentPage.help.url
+        case 50   => routes.Cms.help.url
         case 46   => s"$faq#name"
         case 122  => s"$faq#marks"
         case _    => faq

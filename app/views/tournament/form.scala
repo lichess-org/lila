@@ -31,7 +31,7 @@ object form:
               a(
                 dataIcon := licon.InfoCircle,
                 cls      := "text",
-                href     := routes.ContentPage.loneBookmark("event-tips")
+                href     := routes.Cms.lonePage("event-tips")
               )(trans.ourEventTips())
             ),
             setupCreate(form, leaderTeams),

@@ -108,6 +108,14 @@ final private class PrismicExport(
                     at = nowInstant
                   ) inject true
 
+  private val bookmarksPaths = Map(
+    "tos"          -> "/terms-of-service",
+    "how-to-cheat" -> "/how-to-cheat",
+    "help"         -> "/help/contribute",
+    "master"       -> "/help/master",
+    "source"       -> "/source"
+  )
+
   private def convertBookmark(prismic: PrismicApi)(bm: (String, String)): Fu[Boolean] =
     val key      = CmsPage.Key(bm._1)
     val language = lila.i18n.defaultLanguage
@@ -137,7 +145,7 @@ final private class PrismicExport(
                   ,
                   language = language,
                   live = true,
-                  canonicalPath = none,
+                  canonicalPath = bookmarksPaths.get(key.value),
                   by = lichessId,
                   at = nowInstant
                 ) inject true

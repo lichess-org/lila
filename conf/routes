@@ -828,22 +828,22 @@ POST  /mobile/unregister               controllers.Push.mobileUnregister
 POST  /push/subscribe                  controllers.Push.webSubscribe
 
 # Pages
-GET   /terms-of-service                controllers.ContentPage.tos
-GET   /$key<privacy|thanks|about|ads|changelog> controllers.ContentPage.menuBookmark(key)
+GET   /terms-of-service                controllers.Cms.tos
+GET   /$key<privacy|thanks|about|ads|changelog> controllers.Cms.menuPage(key)
 GET   /contact                         controllers.Main.contact
 GET   /faq                             controllers.Main.faq
-GET   /source                          controllers.ContentPage.source
+GET   /source                          controllers.Cms.source
 GET   /qa/:id/:slug                    controllers.Main.legacyQaQuestion(id: Int, slug)
-GET   /how-to-cheat                    controllers.ContentPage.loneBookmark(key = "how-to-cheat")
-GET   /page/:key                       controllers.ContentPage.loneBookmark(key)
+GET   /how-to-cheat                    controllers.Cms.lonePage(key = "how-to-cheat")
+GET   /page/:key                       controllers.Cms.lonePage(key)
 
 # Variants
-GET   /variant                         controllers.ContentPage.variantHome
-GET   /variant/:key                    controllers.ContentPage.variant(key)
+GET   /variant                         controllers.Cms.variantHome
+GET   /variant/:key                    controllers.Cms.variant(key)
 
 # Help
-GET   /help/contribute                 controllers.ContentPage.help
-GET   /help/master                     controllers.ContentPage.master
+GET   /help/contribute                 controllers.Cms.help
+GET   /help/master                     controllers.Cms.master
 GET   /help/keyboard-move              controllers.Main.keyboardMoveHelp
 GET   /help/voice/:module              controllers.Main.voiceHelp(module)
 # DGT

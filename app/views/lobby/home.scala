@@ -146,7 +146,7 @@ object home:
           a(href := "/faq")(trans.faq.faqAbbreviation()),
           a(href := "/contact")(trans.contact.contact()),
           a(href := "/mobile")(trans.mobileApp()),
-          a(href := routes.ContentPage.tos)(trans.termsOfService()),
+          a(href := routes.Cms.tos)(trans.termsOfService()),
           a(href := "/privacy")(trans.privacy()),
           a(href := "/source")(trans.sourceCode()),
           a(href := "/ads")("Ads"),
