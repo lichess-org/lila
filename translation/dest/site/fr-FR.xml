@@ -5,7 +5,7 @@
   <string name="toInviteSomeoneToPlayGiveThisUrl">Pour inviter quelqu\'un à jouer, donnez-lui ce lien</string>
   <string name="gameOver">Partie terminée</string>
   <string name="waitingForOpponent">En attente de votre adversaire</string>
-  <string name="orLetYourOpponentScanQrCode" comment="Appears when you create a private game, using the 'play with a friend' option. Lichess will create a QR code that another person can scan in real life, to play a virtual game over Lichess.">Ou laissez votre adversaire scanner ce code QR</string>
+  <string name="orLetYourOpponentScanQrCode">Ou laissez votre adversaire scanner ce code QR</string>
   <string name="waiting">En attente</string>
   <string name="yourTurn">À votre tour</string>
   <string name="aiNameLevelAiLevel">%1$s niveau %2$s</string>
@@ -71,7 +71,7 @@
   <string name="makeMainLine">En faire la variante principale</string>
   <string name="deleteFromHere">Supprimer à partir d\'ici</string>
   <string name="forceVariation">Forcer la variante</string>
-  <string name="copyVariationPgn" comment="Appears when right-clicking a move in a completed game you are analysing. It will copy the variation so far to your computer's clipboard.&#10;&#10;Strictly speaking, this does not only copy variations, the same action can copy the main line of play.">Copier le PGN de la variante</string>
+  <string name="copyVariationPgn">Copier le PGN de la variante</string>
   <string name="move">Coup</string>
   <string name="variantLoss">Perte (variante)</string>
   <string name="variantWin">Gain (variante)</string>
@@ -226,12 +226,12 @@
   <string name="passwordSuggestion">N\'utilisez pas un mot de passe suggéré par une autre personne. Elle pourrait l\'utiliser pour voler votre compte.</string>
   <string name="emailSuggestion">N\'utilisez pas une adresse de courriel suggérée par une autre personne. Celle-ci pourrait l\'utiliser pour voler votre compte.</string>
   <string name="emailConfirmHelp">Aide sur la confirmation par courriel</string>
-  <string name="emailConfirmNotReceived" comment="Part of a help &amp; support flow. What follows is a form that permits users to request a new confirmation email, which they need to finish registering for Lichess.">Vous n\'avez pas reçu votre courriel de confirmation après votre inscription?</string>
+  <string name="emailConfirmNotReceived">Vous n\'avez pas reçu votre courriel de confirmation après votre inscription?</string>
   <string name="whatSignupUsername">Avec quel nom d\'utilisateur vous êtes-vous inscrit?</string>
   <string name="usernameNotFound">Nous n\'avons trouvé aucun utilisateur de ce nom : %s.</string>
   <string name="usernameCanBeUsedForNewAccount">Vous pouvez utiliser ce nom d\'utilisateur pour créer un nouveau compte.</string>
-  <string name="emailSent" comment="%s is your email, immediately after you have registered as a new user.">Nous avons envoyé un courriel à %s.</string>
-  <string name="emailCanTakeSomeTime" comment="It = The confirmation email, after registering an account. Players must follow the link in their email to complete their registration">L\'arrivée du courriel peut prendre un peu de temps.</string>
+  <string name="emailSent">Nous avons envoyé un courriel à %s.</string>
+  <string name="emailCanTakeSomeTime">L\'arrivée du courriel peut prendre un peu de temps.</string>
   <string name="refreshInboxAfterFiveMinutes">Attendez 5 minutes et rafraîchissez votre boîte de réception.</string>
   <string name="checkSpamFolder">Vérifiez aussi votre dossier de pourriel, il pourrait s\'y trouver. Si c\'est le cas, marquez-le comme non-pourriel.</string>
   <string name="emailForSignupHelp">Si rien ne marche, envoyez-nous ce courriel :</string>
@@ -240,8 +240,8 @@
   <string name="accountConfirmed">L\'inscription de l\'utilisateur %s a été confirmée avec succès.</string>
   <string name="accountCanLogin">Vous pouvez désormais vous connecter en tant que %s.</string>
   <string name="accountConfirmationEmailNotNeeded">Vous n\'avez pas besoin d\'un courriel de confirmation.</string>
-  <string name="accountClosed" comment="accountClosed&#10;%s is the name of the user account. This string should be in the passive voice, as it may be the user themselves or Lichess administration closing the account (e.g. in case of excessive multi-accounting).">Le compte de %s est fermé.</string>
-  <string name="accountRegisteredWithoutEmail" comment="%s is the name of the user account.&#10;&#10;This is support text for old accounts, before Lichess required an email, in case those users try to reset their password. This is unfortunately impossible when the email is not on file.">Le compte %s a été enregistré sans courriel.</string>
+  <string name="accountClosed">Le compte de %s est fermé.</string>
+  <string name="accountRegisteredWithoutEmail">Le compte %s a été enregistré sans courriel.</string>
   <string name="rank">Rang</string>
   <string name="rankX">Classement : %s</string>
   <plurals name="rankIsUpdatedEveryNbMinutes">
@@ -985,7 +985,7 @@ Laissez vide pour commencer les parties à partir de la position initiale normal
   <string name="closingAccountWithdrawAppeal">Fermer votre compte annulera votre appel</string>
   <string name="ourEventTips">Nos conseils pour l\'organisation d\'événements</string>
   <string name="instructions">Instructions</string>
-  <string name="showMeEverything" comment="A button: clicking this displays a complete list of voice commands. By default, a truncated list of only the most useful commands is shown.">Tout afficher</string>
+  <string name="showMeEverything">Tout afficher</string>
   <string name="lichessPatronInfo">Lichess est une association à but non lucratif et un logiciel open source entièrement libre.
 Tous les coûts d\'exploitation, le développement et le contenu sont financés uniquement par les dons des utilisateurs.</string>
 </resources>
