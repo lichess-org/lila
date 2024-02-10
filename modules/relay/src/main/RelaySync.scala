@@ -43,8 +43,7 @@ final private class RelaySync(
             case _ =>
               createChapter(study, game).flatMap: chapter =>
                 chapters.find(_.isEmptyInitial).ifTrue(chapter.order == 2).so { initial =>
-                  studyApi.deleteChapter(study.id, initial.id):
-                    actorApi.Who(study.ownerId, sri)
+                  studyApi.deleteChapter(study.id, initial.id)(who(study.ownerId))
                 } inject SyncResult
                   .ChapterResult(chapter.id, true, chapter.root.mainline.size)
                   .some
@@ -71,10 +70,19 @@ final private class RelaySync(
       study: Study,
       game: RelayGame,
       chapter: Chapter
-  ): Fu[SyncResult.ChapterResult] =
-    updateChapterTags(tour, study, chapter, game) zip
-      updateChapterTree(study, chapter, game) map: (tagUpdate, nbMoves) =>
-        SyncResult.ChapterResult(chapter.id, tagUpdate, nbMoves)
+  ): Fu[SyncResult.ChapterResult] = for
+    chapter   <- updateInitialPosition(study.id, chapter, game)
+    tagUpdate <- updateChapterTags(tour, study, chapter, game)
+    nbMoves   <- updateChapterTree(study, chapter, game)
+  yield SyncResult.ChapterResult(chapter.id, tagUpdate, nbMoves)
+
+  private def updateInitialPosition(studyId: StudyId, chapter: Chapter, game: RelayGame): Fu[Chapter] =
+    if game.root.fen == chapter.root.fen
+    then fuccess(chapter)
+    else
+      studyApi
+        .resetRoot(studyId, chapter.id, game.root.withoutChildren)(who(chapter.ownerId))
+        .dmap(_ | chapter)
 
   private type NbMoves = Int
   private def updateChapterTree(study: Study, chapter: Chapter, game: RelayGame): Fu[NbMoves] =
