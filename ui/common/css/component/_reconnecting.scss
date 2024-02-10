@@ -12,7 +12,7 @@ $recon-height: 2.5rem;
   }
 }
 
-#reconnecting {
+#network-status {
   @extend %flex-center-nowrap, %popup-shadow;
 
   font-size: 1.2em;
@@ -25,7 +25,7 @@ $recon-height: 2.5rem;
   height: $recon-height;
   padding: 0 1rem;
   border-top-right-radius: 3px;
-  z-index: z('reconnecting');
+  z-index: z('network-status');
   opacity: 0;
   transform: translateY($recon-height);
 
