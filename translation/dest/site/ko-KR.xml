@@ -5,7 +5,7 @@
   <string name="toInviteSomeoneToPlayGiveThisUrl">이 URL로 친구를 초대하세요</string>
   <string name="gameOver">게임 종료</string>
   <string name="waitingForOpponent">상대를 기다리는 중</string>
-  <string name="orLetYourOpponentScanQrCode" comment="Appears when you create a private game, using the 'play with a friend' option. Lichess will create a QR code that another person can scan in real life, to play a virtual game over Lichess.">또는 상대방에게 이 QR 코드를 스캔하게 하세요</string>
+  <string name="orLetYourOpponentScanQrCode">또는 상대방에게 이 QR 코드를 스캔하게 하세요</string>
   <string name="waiting">기다리는 중</string>
   <string name="yourTurn">내 차례</string>
   <string name="aiNameLevelAiLevel">%1$s 레벨 %2$s</string>
@@ -70,7 +70,7 @@
   <string name="makeMainLine">주 라인으로 하기</string>
   <string name="deleteFromHere">여기서부터 삭제</string>
   <string name="forceVariation">변화 강제하기</string>
-  <string name="copyVariationPgn" comment="Appears when right-clicking a move in a completed game you are analysing. It will copy the variation so far to your computer's clipboard.&#10;&#10;Strictly speaking, this does not only copy variations, the same action can copy the main line of play.">변동 PGN 복사</string>
+  <string name="copyVariationPgn">변동 PGN 복사</string>
   <string name="move">수</string>
   <string name="variantLoss">변형 체스에서 패배</string>
   <string name="variantWin">변형 체스에서 승리</string>
@@ -213,12 +213,12 @@
   <string name="passwordSuggestion">다른 사람이 제안한 비밀번호를 설정하지 마세요. 타인이 계정을 도용하는 데 사용할 수 있습니다.</string>
   <string name="emailSuggestion">다른 사람이 추천한 이메일 주소를 설정하지 마세요. 타인이 계정을 도용하는 데 사용할 수 있습니다.</string>
   <string name="emailConfirmHelp">이메일 확인 도움말</string>
-  <string name="emailConfirmNotReceived" comment="Part of a help &amp; support flow. What follows is a form that permits users to request a new confirmation email, which they need to finish registering for Lichess.">가입 후 확인 이메일을 받지 못하셨나요?</string>
+  <string name="emailConfirmNotReceived">가입 후 확인 이메일을 받지 못하셨나요?</string>
   <string name="whatSignupUsername">가입할 때 어떤 사용자 이름을 사용하셨나요?</string>
   <string name="usernameNotFound">사용자 이름을 찾을 수 없습니다: %s.</string>
   <string name="usernameCanBeUsedForNewAccount">이 사용자 이름을 사용하여 새 계정을 만들 수 있습니다</string>
-  <string name="emailSent" comment="%s is your email, immediately after you have registered as a new user.">%s로 이메일을 전송했습니다.</string>
-  <string name="emailCanTakeSomeTime" comment="It = The confirmation email, after registering an account. Players must follow the link in their email to complete their registration">도착하는데 시간이 걸릴 수 있습니다.</string>
+  <string name="emailSent">%s로 이메일을 전송했습니다.</string>
+  <string name="emailCanTakeSomeTime">도착하는데 시간이 걸릴 수 있습니다.</string>
   <string name="refreshInboxAfterFiveMinutes">5분 가량 기다린 후 이메일 수신함을 새로고침하세요.</string>
   <string name="checkSpamFolder">또한 스펨메일함을 확인해주시고 스펨을 해제해주세요.</string>
   <string name="emailForSignupHelp">모두 실패했다면 이곳으로 메일을 보내주세요:</string>
@@ -227,8 +227,8 @@
   <string name="accountConfirmed">%s 사용자가 성공적으로 확인되었습니다.</string>
   <string name="accountCanLogin">이제 %s로 로그인할 수 있습니다.</string>
   <string name="accountConfirmationEmailNotNeeded">이메일 확인은 필요하지 않습니다.</string>
-  <string name="accountClosed" comment="accountClosed&#10;%s is the name of the user account. This string should be in the passive voice, as it may be the user themselves or Lichess administration closing the account (e.g. in case of excessive multi-accounting).">%s 계정은 폐쇄되었습니다.</string>
-  <string name="accountRegisteredWithoutEmail" comment="%s is the name of the user account.&#10;&#10;This is support text for old accounts, before Lichess required an email, in case those users try to reset their password. This is unfortunately impossible when the email is not on file.">%s 계정은 이메일 주소가 없이 등록되었습니다.</string>
+  <string name="accountClosed">%s 계정은 폐쇄되었습니다.</string>
+  <string name="accountRegisteredWithoutEmail">%s 계정은 이메일 주소가 없이 등록되었습니다.</string>
   <string name="rank">순위</string>
   <string name="rankX">순위: %s등</string>
   <plurals name="rankIsUpdatedEveryNbMinutes">
