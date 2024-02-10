@@ -200,13 +200,14 @@ const roundStateIcon = (round: RelayRound) =>
 export function rounds(ctrl: StudyCtrl): VNode {
   const canContribute = ctrl.members.canContribute();
   const relay = ctrl.relay!;
+  const fragment = relay.tab() === 'overview' ? '' : `#${relay.tab()}`;
   return h(
     'div.study__relay__rounds',
     { hook: onInsert(el => scrollToInnerSelector(el, '.active')) },
     relay.data.rounds
       .map(round =>
         h('div', { key: round.id, class: { active: ctrl.data.id == round.id } }, [
-          h('a.link', { attrs: { href: relay.roundPath(round) } }, round.name),
+          h('a.link', { attrs: { href: `${relay.roundPath(round)}${fragment}` } }, round.name),
           roundStateIcon(round),
           canContribute &&
             h('a.act', { attrs: { ...dataIcon(licon.Gear), href: `/broadcast/round/${round.id}/edit` } }),
