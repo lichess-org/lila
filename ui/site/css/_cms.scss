@@ -36,6 +36,9 @@
         font-size: 0.9em;
       }
     }
+    time {
+      white-space: nowrap;
+    }
     &.searching tbody tr {
       border-bottom: $border;
       &:nth-child(even) {

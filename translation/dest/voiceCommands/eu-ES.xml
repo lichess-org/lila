@@ -1,2 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+  <string name="voiceCommands">Ahots komandoak</string>
+  <string name="watchTheVideoTutorial">Ikusi bideo-tutoriala</string>
+  <string name="instructions1">Erabili %1$s botoia ahots ezagutza aktibatu/desaktibatzeko, %2$s botoiak laguntza leiho hau irekitzen du eta erabili %3$s menuak ahotsaren ezarpenak aldatzeko.</string>
+  <string name="instructions2" comment="Voice commands can be misheard and Lichess will not always be fully certain what you said. Several arrows will be shown to identify e.g. if the move was 'b4' or 'd4', which often sound similar.&#10;&#10;These arrows will be in different colours (green, blue, etc) or labelled 1, 2, 3....&#10;You can then say the colour of the arrow (e.g. 'green') - or its number (e.g. '1'), to select that move.&#10;Users can configure if they choose from multiple moves based on colours or numbers.">Seguru ez gaudenean hainbat jokaldiren geziak erakutsiko ditugu. Esan geziaren kolorea edo zenbakia berau aukeratzeko.</string>
+  <string name="instructions3" comment="This is a complicated concept more easy to understand in practice. Voice commands can be misheard and Lichess will not always be fully certain what you said. Several arrows will be shown to identify e.g. if the move was 'b4' or 'd4', which often sound similar.&#10;The most likely move the player wants will have a circle showing around it, but it will be possible to cancel before it is played (for example, by shouting 'no!').&#10;&#10;You can see a visual example here: https://lichess.org/@/schlawg/blog/how-to-lichess-voice/nWrypoWI">Gezi batek mugitzen den radar bat erakutsen badu, jokaldia zirkulua osatzean jokatuko da. Hori gertatu arteko %1$s esan dezakezu jokaldia berehala egiteko, %2$s atzera egiteko edo beste gezi baten kolorea/zenbakia esan. Denbora muga hau ezarpenetan aldatu dezakezu.</string>
+  <string name="instructions4" comment="%s is Push to Talk.">Aktibatu %s inguru zaratatsuentzat. Hau aktibatuta badago, mantendu shift sakatuta komandoak esaterakoan.</string>
+  <string name="instructions5" comment="The phonetic alphabet is also known as the NATO alphabet (where A = Alpha, B = Bravo, etc. This makes the sounds easier to differentiate through a microphone). It is for English specifically, which as of the time of writing, is the only language supported by the Voice Commands feature.">Erabili alfabeto fonetikoa taulako laukiak errazago identifikatzeko. </string>
+  <string name="instructions6">%s mugimenduaren ezarpenak xehetasunez azaltzen ditu.</string>
+  <string name="thisBlogPost">Blog sarrera honek</string>
+  <string name="moveToE4OrSelectE4Piece">Mugitu e4ra edo aukeratu e4ko pieza</string>
+  <string name="selectOrCaptureABishop">Alfila aukeratu edo harrapatu</string>
+  <string name="takeRookWithQueen">Harrapatu gaztelua damarekin</string>
+  <string name="castle">Endrokea (edozein aldetan)</string>
+  <string name="phoneticAlphabetIsBest">Onena alfabeto fonetikoa da</string>
+  <string name="cancelTimerOrDenyARequest">Bertan behera utzi denboragailua edo eskaera ukatu</string>
+  <string name="playPreferredMoveOrConfirmSomething" comment="Used in voice commands. When it is unclear what the player said (e.g. 'b4' and 'd4' sound similar), both moves will be shown, with the more likely one highlighted in a certain colour. By default, a countdown begins, and if no action is taken, the likely move (e.g. b4) will be played. Players can end the countdown early/confirm their move by saying 'yes'.&#10;&#10;For more details see https://lichess.org/@/schlawg/blog/how-to-lichess-voice/nWrypoWI">Mugitu hobetsitako jokaldia edo zerbait baieztatu</string>
+  <string name="sleep" comment="Used for voice commands.&#10;&#10;By default, voice commands are always-on after the feature is enabled. Users can optionally set a word for listening to start, or say 'sleep' to disable listening.&#10;&#10;(Please note - this is not the same as recording, since the recording is never sent to Lichess; the speech technology is entirely offline)">Lotara joan (esnatzeko hitza aktibo badago)</string>
+  <string name="turnOffVoiceRecognition">Desaktibatu ahots-ezagutzea</string>
+  <string name="showPuzzleSolution">Erakutsi ariketaren ebazpena</string>
+</resources>

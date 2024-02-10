@@ -476,6 +476,7 @@
   <string name="blackCheckmatesInOneMove">Czarne dają mata w jednym ruchu</string>
   <string name="retry">Spróbuj jeszcze raz</string>
   <string name="reconnecting">Ponowne łączenie</string>
+  <string name="noNetwork">Offline</string>
   <plurals name="nbFriendsOnline">
     <item quantity="one">%s znajomy online</item>
     <item quantity="few">%s znajomych online</item>

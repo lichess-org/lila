@@ -5,7 +5,7 @@
   <string name="toInviteSomeoneToPlayGiveThisUrl">Versende diese URL, um jemanden zum Spiel einzuladen</string>
   <string name="gameOver">Partie beendet</string>
   <string name="waitingForOpponent">Auf den Gegner warten</string>
-  <string name="orLetYourOpponentScanQrCode" comment="Appears when you create a private game, using the 'play with a friend' option. Lichess will create a QR code that another person can scan in real life, to play a virtual game over Lichess.">Oder lass deinen Gegner diesen QR-Code scannen</string>
+  <string name="orLetYourOpponentScanQrCode">Oder lass deinen Gegner diesen QR-Code scannen</string>
   <string name="waiting">Warten</string>
   <string name="yourTurn">Du bist am Zug</string>
   <string name="aiNameLevelAiLevel">%1$s Stufe %2$s</string>
@@ -64,14 +64,14 @@
   <string name="engineFailed">Fehler beim Laden der Engine</string>
   <string name="cloudAnalysis">Cloud-Analyse</string>
   <string name="goDeeper">Tiefe erhöhen</string>
-  <string name="showThreat">Bedrohungen anzeigen</string>
+  <string name="showThreat">Drohungen anzeigen</string>
   <string name="inLocalBrowser">im lokalen Browser</string>
   <string name="toggleLocalEvaluation">Lokale Auswertung an-/ausschalten</string>
   <string name="promoteVariation">Variante aufwerten</string>
   <string name="makeMainLine">Zur Hauptvariante machen</string>
   <string name="deleteFromHere">Ab hier löschen</string>
   <string name="forceVariation">Variante erzwingen</string>
-  <string name="copyVariationPgn" comment="Appears when right-clicking a move in a completed game you are analysing. It will copy the variation so far to your computer's clipboard.&#10;&#10;Strictly speaking, this does not only copy variations, the same action can copy the main line of play.">PGN-Variante kopieren</string>
+  <string name="copyVariationPgn">PGN-Variante kopieren</string>
   <string name="move">Zug</string>
   <string name="variantLoss">Variante verloren</string>
   <string name="variantWin">Variante gewonnen</string>
@@ -226,12 +226,12 @@
   <string name="passwordSuggestion">Benutze kein Passwort, welches jemand anderes vorgeschlagen hat. Man wird versuchen dein Konto zu stehlen.</string>
   <string name="emailSuggestion">Benutze keine E-Mail Adresse, welche jemand anderes vorgeschlagen hat. Man wird versuchen dein Konto zu stehlen.</string>
   <string name="emailConfirmHelp">Hilfe bei der E-Mail-Bestätigung</string>
-  <string name="emailConfirmNotReceived" comment="Part of a help &amp; support flow. What follows is a form that permits users to request a new confirmation email, which they need to finish registering for Lichess.">Hast du die Bestätigungs-E-Mail nach der Anmeldung nicht erhalten?</string>
+  <string name="emailConfirmNotReceived">Hast du die Bestätigungs-E-Mail nach der Anmeldung nicht erhalten?</string>
   <string name="whatSignupUsername">Mit welchem Benutzernamen hast du dich registriert?</string>
   <string name="usernameNotFound">Wir konnten keinen Benutzer mit folgendem Namen finden: %s.</string>
   <string name="usernameCanBeUsedForNewAccount">Du kannst diesen Benutzernamen zur Erstellung eines neuen Kontos benutzen</string>
-  <string name="emailSent" comment="%s is your email, immediately after you have registered as a new user.">Wir haben eine E-Mail an %s gesendet.</string>
-  <string name="emailCanTakeSomeTime" comment="It = The confirmation email, after registering an account. Players must follow the link in their email to complete their registration">Es kann etwas dauern, bis sie ankommt.</string>
+  <string name="emailSent">Wir haben eine E-Mail an %s gesendet.</string>
+  <string name="emailCanTakeSomeTime">Es kann etwas dauern, bis sie ankommt.</string>
   <string name="refreshInboxAfterFiveMinutes">Warte 5 Minuten und aktualisiere dein E-Mail-Postfach.</string>
   <string name="checkSpamFolder">Überprüfe auch dein Spam-Verzeichnis, sie könnte darin gelandet sein. Falls dem so ist, markiere sie als kein Spam.</string>
   <string name="emailForSignupHelp">Falls alles andere fehlschlägt, dann sende uns folgende E-Mail:</string>
@@ -240,8 +240,8 @@
   <string name="accountConfirmed">Der Benutzer %s ist erfolgreich bestätigt.</string>
   <string name="accountCanLogin">Du kannst dich als %s einloggen.</string>
   <string name="accountConfirmationEmailNotNeeded">Du benötigst keine Bestätigungs-E-Mail.</string>
-  <string name="accountClosed" comment="accountClosed&#10;%s is the name of the user account. This string should be in the passive voice, as it may be the user themselves or Lichess administration closing the account (e.g. in case of excessive multi-accounting).">Das Benutzerkonto %s ist geschlossen.</string>
-  <string name="accountRegisteredWithoutEmail" comment="%s is the name of the user account.&#10;&#10;This is support text for old accounts, before Lichess required an email, in case those users try to reset their password. This is unfortunately impossible when the email is not on file.">Das Benutzerkonto %s wurde ohne eine E-Mail-Adresse registriert.</string>
+  <string name="accountClosed">Das Benutzerkonto %s ist geschlossen.</string>
+  <string name="accountRegisteredWithoutEmail">Das Benutzerkonto %s wurde ohne eine E-Mail-Adresse registriert.</string>
   <string name="rank">Rang</string>
   <string name="rankX">Platz: %s</string>
   <plurals name="rankIsUpdatedEveryNbMinutes">
@@ -418,6 +418,7 @@
   <string name="blackCheckmatesInOneMove">Schwarz setzt in einem Zug Matt</string>
   <string name="retry">Erneut versuchen</string>
   <string name="reconnecting">Wiederverbinden</string>
+  <string name="noNetwork">Offline</string>
   <plurals name="nbFriendsOnline">
     <item quantity="one">%s Freund online</item>
     <item quantity="other">%s Freunde online</item>
@@ -985,7 +986,7 @@ Leer lassen, um Partien von der normalen Ausgangsstellung aus zu starten.</strin
   <string name="closingAccountWithdrawAppeal">Dein Benutzerkonto zu schließen wird auch deinen Einspruch zurückziehen</string>
   <string name="ourEventTips">Unsere Tipps für die Organisation von Veranstaltungen</string>
   <string name="instructions">Anleitung</string>
-  <string name="showMeEverything" comment="A button: clicking this displays a complete list of voice commands. By default, a truncated list of only the most useful commands is shown.">Alles zeigen</string>
+  <string name="showMeEverything">Alles zeigen</string>
   <string name="lichessPatronInfo">Lichess ist eine Wohltätigkeitsorganisation und eine völlig kostenlose/freie Open-Source-Software.
 Alle Betriebskosten, Entwicklung und Inhalte werden ausschließlich durch Benutzerspenden finanziert.</string>
 </resources>

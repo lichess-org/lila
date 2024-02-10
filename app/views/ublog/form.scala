@@ -77,12 +77,12 @@ object form:
               trans.ublog.safeToUseImages(),
               fragList(
                 List(
-                  "unsplash.com"        -> "https://unsplash.com",
-                  "creativecommons.org" -> "https://search.creativecommons.org",
-                  "pixabay.com"         -> "https://pixabay.com",
-                  "pexels.com"          -> "https://pexels.com",
-                  "piqsels.com"         -> "https://piqsels.com",
-                  "freeimages.com"      -> "https://freeimages.com"
+                  "unsplash.com"          -> "https://unsplash.com",
+                  "commons.wikimedia.org" -> "https://commons.wikimedia.org",
+                  "pixabay.com"           -> "https://pixabay.com",
+                  "pexels.com"            -> "https://pexels.com",
+                  "piqsels.com"           -> "https://piqsels.com",
+                  "freeimages.com"        -> "https://freeimages.com"
                 ).map: (name, url) =>
                   a(href := url, targetBlank)(name)
               )

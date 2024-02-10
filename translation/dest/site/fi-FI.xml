@@ -418,6 +418,7 @@
   <string name="blackCheckmatesInOneMove">Mustan yhden siirron matti</string>
   <string name="retry">Yritä uudelleen</string>
   <string name="reconnecting">Yhdistetään uudelleen</string>
+  <string name="noNetwork">Ei yhteyttä</string>
   <plurals name="nbFriendsOnline">
     <item quantity="one">%s kaveri paikalla</item>
     <item quantity="other">%s kaveria paikalla</item>

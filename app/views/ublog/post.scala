@@ -109,7 +109,7 @@ object post:
           div(cls := "ublog-post__markup expand-text")(markup),
           post.isLichess option div(cls := "ublog-post__lichess")(
             views.html.base.bits.connectLinks,
-            p(cls := "ublog-post__patron-info")(a(href := routes.Plan.index)(trans.lichessPatronInfo()))
+            p(a(href := routes.Plan.index)(trans.lichessPatronInfo()))
           ),
           div(cls := "ublog-post__footer")(
             post.live && ~post.discuss option a(

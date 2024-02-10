@@ -419,6 +419,7 @@ få en computeranalyse, chatte eller dele ein URL.</string>
   <string name="blackCheckmatesInOneMove">Svart set matt i eitt trekk</string>
   <string name="retry">Prøv om att</string>
   <string name="reconnecting">Koplar til på ny</string>
+  <string name="noNetwork">Fråkopla</string>
   <plurals name="nbFriendsOnline">
     <item quantity="one">%s ven er innlogga</item>
     <item quantity="other">%s vener er innlogga</item>

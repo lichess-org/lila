@@ -284,6 +284,13 @@ final class StudyApi(
               fufail(s"Invalid delNode $studyId $position") andDo
                 reloadSriBecauseOf(study, who.sri, chapter.id)
 
+  def resetRoot(studyId: StudyId, chapterId: StudyChapterId, newRoot: lila.tree.Root)(who: Who) =
+    sequenceStudyWithChapter(studyId, chapterId):
+      case Study.WithChapter(study, prevChapter) =>
+        val chapter = prevChapter.copy(root = newRoot)
+        chapterRepo.update(chapter) andDo
+          sendTo(study.id)(_.updateChapter(chapter.id, who)) inject chapter.some
+
   def clearAnnotations(studyId: StudyId, chapterId: StudyChapterId)(who: Who) =
     sequenceStudyWithChapter(studyId, chapterId):
       case Study.WithChapter(study, chapter) =>

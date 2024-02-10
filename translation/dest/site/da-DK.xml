@@ -418,6 +418,7 @@
   <string name="blackCheckmatesInOneMove">Sort sætter mat i ét træk</string>
   <string name="retry">Prøv igen</string>
   <string name="reconnecting">Genopretter forbindelsen</string>
+  <string name="noNetwork">Offline</string>
   <plurals name="nbFriendsOnline">
     <item quantity="one">%s ven online</item>
     <item quantity="other">%s venner online</item>
