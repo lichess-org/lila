@@ -9,8 +9,8 @@
   <string name="liveBroadcasts">Diffusions de tournois en direct</string>
   <string name="newBroadcast">Nouvelle diffusion en direct</string>
   <string name="aboutBroadcasts">À propos des diffusions</string>
-  <string name="noRoundsYet">Aucune ronde pour le moment</string>
-  <string name="howToUseLichessBroadcasts">Comment utiliser les diffusions dans Lichess</string>
+  <string name="noRoundsYet">Aucune ronde pour le moment.</string>
+  <string name="howToUseLichessBroadcasts">Comment utiliser les diffusions dans Lichess.</string>
   <string name="theNewRoundHelp">La nouvelle ronde aura les mêmes participants et contributeurs que la précédente.</string>
   <string name="addRound">Ajouter une ronde</string>
   <string name="ongoing">En cours</string>
