@@ -7,14 +7,14 @@
   <string name="thisPageAllowsConnectingDgtBoard">Trang này cho phép bạn kết nối bàn cờ DGT của mình với Lichess và sử dụng nó để chơi cờ.</string>
   <string name="toConnectTheDgtBoard">Để kết nối với Bảng điện tử bàn cờ DGT, bạn sẽ cần cài đặt %s.</string>
   <string name="downloadHere">Bạn có thể tải về phần mềm tại đây: %s.</string>
-  <string name="ifLiveChessRunningOnThisComputer">Nếu %1$s đang chạy trên máy tính này, bạn có thể kiểm tra kết nối của mình với nó trước %2$s.</string>
+  <string name="ifLiveChessRunningOnThisComputer">Nếu %1$s đang chạy trên máy tính này, bạn có thể kiểm tra kết nối của mình với nó bằng cách %2$s.</string>
   <string name="openingThisLink">mở liên kết này</string>
   <string name="ifLiveChessRunningElsewhere">Nếu %1$s đang chạy trên một máy khác hoặc cổng khác, bạn sẽ cần đặt địa chỉ IP và cổng tại đây trong %2$s.</string>
-  <string name="configurationSection">Phần cấu hình</string>
+  <string name="configurationSection">Phần Cấu hình</string>
   <string name="keepPlayPageOpen">Trang ván đấu cần được mở trên trình duyệt của bạn. Nó không cần phải hiển thị, bạn có thể thu nhỏ nó hoặc đặt nó cạnh trang ván đấu Lichess, nhưng đừng đóng nó nếu không bàn cờ sẽ ngừng hoạt động.</string>
   <string name="boardWillAutoConnect">Bàn cờ sẽ tự động kết nối với bất kỳ ván đấu nào đang diễn ra hoặc bất kỳ ván cờ mới nào bắt đầu. Khả năng chọn ván đấu để chơi sắp ra mắt.</string>
-  <string name="timeControlsForCasualGames">Kiểm soát thời gian cho các ván cờ không xếp hạng: chỉ Cờ nhanh, Cờ chậm và Cờ qua thư.</string>
-  <string name="timeControlsForRatedGames">Kiểm soát thời gian cho các ván cờ có tính Elo: Cờ Chậm, Cờ qua thư và một số thể loại Cờ Nhanh bao gồm 15+10 và 20+0</string>
+  <string name="timeControlsForCasualGames">Kiểu thời gian cho các ván cờ không xếp hạng: chỉ Cờ nhanh, Cờ chậm và Cờ qua thư.</string>
+  <string name="timeControlsForRatedGames">Kiểu thời gian cho các ván cờ có xếp hạng: Cờ chậm, Cờ qua thư và một số thể loại Cờ nhanh bao gồm 15+10 và 20+0</string>
   <string name="whenReadySetupBoard">Khi đã sẵn sàng, hãy thiết lập bàn cờ của bạn rồi nhấp vào %s.</string>
   <string name="ifMoveNotDetected">Nếu không phát hiện được nước cờ</string>
   <string name="checkYouHaveMadeOpponentsMove">Kiểm tra xem bạn đã thực hiện nước đi của đối thủ trên bàn cờ DGT trước chưa. Hoàn nguyên nước đi của bạn. Chơi lại.</string>
@@ -36,7 +36,7 @@
   <string name="announceAllMoves">Thông báo tất cả các nước đi</string>
   <string name="selectAnnouncePreference">Chọn CÓ để thông báo cả nước đi của bạn và nước đi của đối thủ. Chọn KHÔNG để chỉ thông báo nước đi của đối thủ.</string>
   <string name="announceMoveFormat">Thông báo định dạng nước đi</string>
-  <string name="moveFormatDescription">SAN là tiêu chuẩn của Lichess như \"Nf6\". UCI phổ biến trên các động cơ như \"g8f6\".</string>
+  <string name="moveFormatDescription">SAN là tiêu chuẩn của Lichess như \"Nf6\". UCI phổ biến trên các động cơ cờ vua như \"g8f6\".</string>
   <string name="keywords">Các từ khóa</string>
   <string name="keywordFormatDescription">Từ khóa có định dạng JSON. Chúng được sử dụng để dịch các nước đi và kết quả sang ngôn ngữ của bạn. Mặc định là tiếng Anh nhưng bạn có thể thoải mái thay đổi nó.</string>
   <string name="debug">Bắt lỗi</string>
