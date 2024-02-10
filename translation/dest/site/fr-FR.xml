@@ -418,6 +418,7 @@
   <string name="blackCheckmatesInOneMove">Les Noirs matent en un coup</string>
   <string name="retry">Réessayer</string>
   <string name="reconnecting">Reconnexion en cours</string>
+  <string name="noNetwork">Hors ligne</string>
   <plurals name="nbFriendsOnline">
     <item quantity="one">%s ami en ligne</item>
     <item quantity="other">%s amis en ligne</item>
