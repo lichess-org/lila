@@ -21,9 +21,9 @@ object form:
       moreCss = moreCss,
       moreJs = frag(jsModule("ublogForm"), captchaTag),
       title = s"${trans.ublog.xBlog.txt(user.username)} • ${trans.ublog.newPost.txt()}"
-    ) {
+    ):
       main(cls := "page-menu page-small")(
-        views.html.blog.bits.menu(none, "mine".some),
+        menu(Left(user.id)),
         div(cls := "page-menu__content box ublog-post-form")(
           standardFlash,
           boxTop(h1(trans.ublog.newPost())),
@@ -31,16 +31,15 @@ object form:
           inner(f, Left(user), captcha.some)
         )
       )
-    }
 
   def edit(post: UblogPost, f: Form[UblogPostData])(using ctx: PageContext) =
     views.html.base.layout(
       moreCss = moreCss,
       moreJs = jsModule("ublogForm"),
       title = s"${trans.ublog.xBlog.txt(titleNameOrId(post.created.by))} • ${post.title}"
-    ) {
+    ):
       main(cls := "page-menu page-small")(
-        views.html.blog.bits.menu(none, "mine".some),
+        menu(Left(post.created.by)),
         div(cls := "page-menu__content box ublog-post-form")(
           standardFlash,
           boxTop(
@@ -55,17 +54,14 @@ object form:
           postForm(
             cls    := "ublog-post-form__delete",
             action := routes.Ublog.delete(post.id)
-          )(
-            form3.action(
+          ):
+            form3.action:
               submitButton(
                 cls   := "button button-red button-empty confirm",
                 title := trans.ublog.deleteBlog.txt()
               )(trans.delete())
-            )
-          )
         )
       )
-    }
 
   private def image(post: UblogPost)(using ctx: PageContext) =
     div(cls := "ublog-image-edit", data("post-url") := routes.Ublog.image(post.id))(

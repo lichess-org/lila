@@ -5,24 +5,21 @@ import controllers.routes
 import lila.app.templating.Environment.{ given, * }
 import lila.app.ui.ScalatagsTemplate.{ *, given }
 import io.prismic.{ Document, DocumentLinkResolver }
+import lila.cms.CmsPage
 
 object page:
 
-  import controllers.Prismic.*
-
-  def lone(p: AnyPage)(using PageContext) =
+  def lone(p: CmsPage.Render)(using PageContext) =
     views.html.base.layout(
       moreCss = cssTag("page"),
       title = p.title,
-      moreJs = p.slugs.has("fair-play") option fairPlayJs
+      moreJs = p.key == CmsPage.Key("fair-play") option embedJsUnsafeLoadThen("""$('.slist td').each(function() {
+if (this.innerText == 'YES') this.style.color = 'green'; else if (this.innerText == 'NO') this.style.color = 'red';
+})""")
     ):
       main(cls := "page-small box box-pad page force-ltr")(pageContent(p))
 
-  private def fairPlayJs(using PageContext) = embedJsUnsafeLoadThen("""$('.slist td').each(function() {
-if (this.innerText == 'YES') this.style.color = 'green'; else if (this.innerText == 'NO') this.style.color = 'red';
-})""")
-
-  def withMenu(active: String, p: AnyPage)(using PageContext) =
+  def withMenu(active: String, p: CmsPage.Render)(using PageContext) =
     layout(
       title = p.title,
       active = active,
@@ -31,14 +28,12 @@ if (this.innerText == 'YES') this.style.color = 'green'; else if (this.innerText
     ):
       pageContent(p)
 
-  def pageContent(p: AnyPage)(using Context) = frag(
+  def pageContent(p: CmsPage.Render)(using Context) = frag(
     h1(cls := "box__top")(p.title),
-    div(cls := "body")(
-      views.html.cms.render(p)
-    )
+    div(cls := "body")(views.html.cms.render(p))
   )
 
-  def source(p: AnyPage)(using PageContext) =
+  def source(p: CmsPage.Render)(using PageContext) =
     layout(
       title = p.title,
       active = "source",

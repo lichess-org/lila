@@ -156,20 +156,6 @@ final private class ForumTopicApi(
       )
     }
 
-  def makeBlogDiscuss(categ: ForumCateg, slug: String, name: String, url: String) =
-    val topic = ForumTopic.make(categId = categ.slug, slug = slug, name = name, userId = User.lichessId)
-    makeNewTopic(
-      categ,
-      topic,
-      ForumPost.make(
-        topicId = topic.id,
-        userId = User.lichessId.some,
-        text = s"Comments on $url",
-        categId = categ.id,
-        modIcon = true.some
-      )
-    )
-
   private def makeNewTopic(categ: ForumCateg, topic: ForumTopic, post: ForumPost) = for
     _ <- postRepo.coll.insert.one(post)
     _ <- topicRepo.coll.insert.one(topic withPost post)

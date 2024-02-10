@@ -8,7 +8,7 @@ import lila.common.config.MaxPerSecond
 import lila.common.{ config, IpAddress }
 import lila.relay.{ RelayTour as TourModel }
 
-final class RelayTour(env: Env, apiC: => Api, prismicC: => Prismic) extends LilaController(env):
+final class RelayTour(env: Env, apiC: => Api) extends LilaController(env):
 
   def index(page: Int, q: String) = Open:
     Reasonable(page, config.Max(20)):
@@ -39,9 +39,9 @@ final class RelayTour(env: Env, apiC: => Api, prismicC: => Prismic) extends Lila
           .map:
             html.relay.tour.byOwner(_, owner)
 
-  private def page(bookmark: String, menu: String) = Open:
+  private def page(key: String, menu: String) = Open:
     pageHit
-    FoundPage(prismicC getBookmark bookmark): p =>
+    FoundPage(env.api.cmsRender(lila.cms.CmsPage.Key(key))): p =>
       html.relay.tour.page(p, menu)
 
   def form = Auth { ctx ?=> _ ?=>

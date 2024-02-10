@@ -10,16 +10,14 @@ import lila.common.String.shorten
 
 object cms:
 
-  import controllers.Prismic.*
-
-  def render(p: AnyPage)(using Context) = frag(
+  def render(p: CmsPage.Render)(using Context) = frag(
     editButton(p),
     rawHtml(p.html)
   )
 
-  def editButton(p: AnyPage)(using Context) =
+  def editButton(p: CmsPage.Render)(using Context) =
     isGranted(_.Pages) option a(
-      href     := p.pageId.fold(routes.Cms.create)(routes.Cms.edit(_)),
+      href     := routes.Cms.edit(p.id),
       cls      := "button button-empty text",
       dataIcon := licon.Pencil
     )("Edit")

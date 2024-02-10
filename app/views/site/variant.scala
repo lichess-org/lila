@@ -8,10 +8,8 @@ import lila.app.ui.ScalatagsTemplate.{ *, given }
 
 object variant:
 
-  import controllers.Prismic.*
-
   def show(
-      p: AnyPage,
+      p: lila.cms.CmsPage.Render,
       variant: chess.variant.Variant,
       perfType: lila.rating.PerfType
   )(using PageContext) =

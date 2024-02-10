@@ -9,8 +9,7 @@ import lila.appeal.{ Appeal as AppealModel }
 import lila.report.{ Suspect, Mod }
 import play.api.data.Form
 
-final class Appeal(env: Env, reportC: => report.Report, prismicC: => Prismic, userC: => User)
-    extends LilaController(env):
+final class Appeal(env: Env, reportC: => report.Report, userC: => User) extends LilaController(env):
 
   private def modForm(using Context)  = AppealModel.modForm
   private def userForm(using Context) = AppealModel.form
@@ -21,7 +20,7 @@ final class Appeal(env: Env, reportC: => report.Report, prismicC: => Prismic, us
 
   def landing = Auth { ctx ?=> _ ?=>
     if ctx.isAppealUser || isGranted(_.Appeals) then
-      FoundPage(prismicC getBookmark "appeal-landing"):
+      FoundPage(env.api cmsRender lila.cms.CmsPage.Key("appeal-landing")):
         views.html.site.page.lone
     else notFound
   }

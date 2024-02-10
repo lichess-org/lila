@@ -315,6 +315,10 @@ final class Ublog(env: Env) extends LilaController(env):
               (isBlogVisible(user, blog) so env.ublog.paginator.byUser(user, true, 1)) map: posts =>
                 Ok(html.ublog.atom.user(user, posts.currentPageResults)) as XML
 
+  def historicalBlogPost(id: String, slug: String) = Open:
+    Found(env.ublog.api.getByPrismicId(id)): post =>
+      Redirect(routes.Ublog.post("lichess", post.slug, post.id), MOVED_PERMANENTLY)
+
   private def isBlogVisible(user: UserModel, blog: UblogBlog) = user.enabled.yes && blog.visible
 
   private def canViewBlogOf(user: UserModel, blog: UblogBlog)(using ctx: Context) =

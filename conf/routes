@@ -108,9 +108,7 @@ GET   /api/player                      controllers.User.apiList
 GET   /dasher                          controllers.Dasher.get
 
 # Blog
-GET   /blog                            controllers.Blog.index(page: Int ?= 1)
-GET   /blog/$year<2\d{3}>              controllers.Blog.year(year: Int)
-GET   /blog/discuss/:id                controllers.Blog.discuss(id)
+GET   /blog                            controllers.Main.movedPermanently(to = "/@/Lichess/blog")
 GET   /blog/topic                      controllers.Ublog.topics
 GET   /blog/topic/:topic               controllers.Ublog.topic(topic, page: Int ?= 1, byDate: Boolean ?= false)
 GET   /blog.atom                       controllers.Main.movedPermanently(to = "/@/Lichess/blog.atom")
@@ -120,7 +118,7 @@ GET   /blog/community                  controllers.Ublog.communityAll(page: Int 
 GET   /$lang<\w\w\w?>/blog/community   controllers.Ublog.communityLang(lang, page: Int ?= 1)
 GET   /blog/community.atom             controllers.Ublog.communityAtom(lang = "all")
 GET   /blog/community/$lang<[\w-]{2,6}>.atom controllers.Ublog.communityAtom(lang)
-GET   /blog/:id/:slug                  controllers.Blog.show(id, slug)
+GET   /blog/:id/:slug                  controllers.Ublog.historicalBlogPost(id, slug)
 
 GET   /feed                            controllers.DailyFeed.index(page: Int ?= 1)
 GET   /feed/new                        controllers.DailyFeed.createForm
@@ -831,13 +829,13 @@ POST  /push/subscribe                  controllers.Push.webSubscribe
 
 # Pages
 GET   /terms-of-service                controllers.ContentPage.tos
-GET   /$bookmark<privacy|thanks|about|ads|changelog> controllers.ContentPage.menuBookmark(bookmark)
+GET   /$key<privacy|thanks|about|ads|changelog> controllers.ContentPage.menuBookmark(key)
 GET   /contact                         controllers.Main.contact
 GET   /faq                             controllers.Main.faq
 GET   /source                          controllers.ContentPage.source
 GET   /qa/:id/:slug                    controllers.Main.legacyQaQuestion(id: Int, slug)
-GET   /how-to-cheat                    controllers.ContentPage.loneBookmark(bookmark = "how-to-cheat")
-GET   /page/:bookmark                  controllers.ContentPage.loneBookmark(bookmark)
+GET   /how-to-cheat                    controllers.ContentPage.loneBookmark(key = "how-to-cheat")
+GET   /page/:key                       controllers.ContentPage.loneBookmark(key)
 
 # Variants
 GET   /variant                         controllers.ContentPage.variantHome

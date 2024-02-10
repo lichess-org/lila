@@ -115,8 +115,7 @@ object list:
       )
     }
 
-  import controllers.Prismic.*
-  def staffPicks(p: AnyPage)(using PageContext) =
+  def staffPicks(p: lila.cms.CmsPage.Render)(using PageContext) =
     views.html.base.layout(
       title = p.title,
       moreCss = frag(cssTag("study.index"), cssTag("page"))

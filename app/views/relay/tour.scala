@@ -105,8 +105,7 @@ object tour:
         )
       )
 
-  import controllers.Prismic.*
-  def page(p: AnyPage, active: String)(using PageContext) =
+  def page(p: lila.cms.CmsPage.Render, active: String)(using PageContext) =
     views.html.base.layout(
       title = p.title,
       moreCss = cssTag("page")

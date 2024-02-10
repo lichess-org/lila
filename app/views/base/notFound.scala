@@ -11,9 +11,7 @@ object notFound:
   def apply()(using PageContext) =
     layout(
       title = "Page not found",
-      moreJs = prismicJs,
-      moreCss = cssTag("not-found"),
-      csp = isGranted(_.Pages) option defaultCsp.withPrismic(true)
+      moreCss = cssTag("not-found")
     ):
       main(cls := "not-found page-small box box-pad")(
         header(

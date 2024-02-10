@@ -61,7 +61,8 @@ object UblogPost:
     val image: Option[UblogImage]
     val created: Recorded
     val lived: Option[Recorded]
-    def slug = UblogPost slug title
+    def slug      = UblogPost slug title
+    def isLichess = created.by is User.lichessId
 
   case class PreviewPost(
       @Key("_id") id: UblogPostId,

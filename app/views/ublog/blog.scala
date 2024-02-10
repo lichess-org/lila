@@ -27,9 +27,9 @@ object blog:
         st.title := title
       ).some,
       robots = netConfig.crawlable && blog.listed
-    ) {
+    ):
       main(cls := "page-menu")(
-        views.html.blog.bits.menu(none, (if ctx is user then "mine" else "community").some),
+        menu(Left(user.id)),
         div(cls := "page-menu__content box box-pad ublog-index")(
           boxTop(
             h1(trans.ublog.xBlog(userLink(user))),
@@ -54,7 +54,6 @@ object blog:
             )
         )
       )
-    }
 
   def urlOfBlog(blog: UblogBlog): Call = urlOfBlog(blog.id)
   def urlOfBlog(blogId: UblogBlog.Id): Call = blogId match

@@ -8,9 +8,7 @@ import lila.common.LangPath
 
 object mobile:
 
-  import controllers.Prismic.*
-
-  def apply(p: AnyPage)(using PageContext) =
+  def apply(p: lila.cms.CmsPage.Render)(using PageContext) =
     views.html.base.layout(
       title = "Mobile",
       moreCss = cssTag("mobile"),

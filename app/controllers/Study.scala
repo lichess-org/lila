@@ -20,8 +20,7 @@ final class Study(
     env: Env,
     editorC: => Editor,
     userAnalysisC: => UserAnalysis,
-    apiC: => Api,
-    prismicC: Prismic
+    apiC: => Api
 ) extends LilaController(env):
 
   private given lila.user.FlairApi = env.user.flairApi
@@ -527,7 +526,7 @@ final class Study(
 
   def staffPicks = Open:
     pageHit
-    FoundPage(prismicC getBookmark "studies-staff-picks"):
+    FoundPage(env.api cmsRenderKey "studies-staff-picks"):
       html.study.list.staffPicks
 
   def privateUnauthorizedText = Unauthorized("This study is now private")

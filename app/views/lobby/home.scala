@@ -116,7 +116,10 @@ object home:
         ,
         puzzle.map: p =>
           views.html.puzzle.embed.dailyLink(p)(cls := "lobby__puzzle"),
-        bits.lastPosts(lastPost, ublogPosts),
+        div(cls := "lobby__blog ublog-post-cards"):
+          ublogPosts.filter(_.isLichess || ctx.kid.no).take(3) map:
+            views.html.ublog.post.card(_, showAuthor = views.html.ublog.post.ShowAt.bottom, showIntro = false)
+        ,
         ctx.noBot option bits.underboards(tours, simuls, leaderboard, tournamentWinners),
         div(cls := "lobby__feed"):
           views.html.dailyFeed.lobbyUpdates(lastUpdates)

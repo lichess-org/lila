@@ -3,43 +3,36 @@ package controllers
 import play.api.libs.json.*
 import chess.variant.Variant
 import lila.app.{ given, * }
+import lila.cms.CmsPage
 
-final class ContentPage(
-    env: Env,
-    prismicC: Prismic
-) extends LilaController(env):
+final class ContentPage(env: Env) extends LilaController(env):
 
-  val help   = menuBookmark("help")
-  val tos    = menuBookmark("tos")
-  val master = menuBookmark("master")
+  val help   = menuBookmark(CmsPage.Key("help"))
+  val tos    = menuBookmark(CmsPage.Key("tos"))
+  val master = menuBookmark(CmsPage.Key("master"))
 
-  def bookmark(name: String, active: Option[String])(using Context) =
-    FoundPage(prismicC getBookmark name): p =>
+  def bookmark(key: CmsPage.Key, active: Option[String])(using Context) =
+    FoundPage(env.api.cmsRender(key)): p =>
       active match
         case None       => views.html.site.page.lone(p)
         case Some(name) => views.html.site.page.withMenu(name, p)
 
-  def loneBookmark(name: String) = Open:
-    Found(prismicC getBookmark name): p =>
-      (for
-        page <- p.left.toOption
-        path <- page.canonicalPath
-        if req.path == s"/page/$name"
-        if req.path != path
-      yield path) match
+  def loneBookmark(key: CmsPage.Key) = Open:
+    Found(env.api.cmsRender(key)): p =>
+      p.canonicalPath.filter(_ != req.path && req.path == s"/page/$key") match
         case Some(path) => Redirect(path)
         case None =>
           pageHit
           Ok.pageAsync(views.html.site.page.lone(p))
 
-  def menuBookmark(name: String) = Open:
+  def menuBookmark(key: CmsPage.Key) = Open:
     pageHit
-    FoundPage(prismicC getBookmark name):
-      views.html.site.page.withMenu(name, _)
+    FoundPage(env.api cmsRender key):
+      views.html.site.page.withMenu(key.value, _)
 
   def source = Open:
     pageHit
-    FoundPage(prismicC getBookmark "source"):
+    FoundPage(env.api cmsRenderKey "source"):
       views.html.site.page.source
 
   def variantHome = Open:
@@ -52,5 +45,5 @@ final class ContentPage(
     (for
       variant  <- Variant(key)
       perfType <- lila.rating.PerfType byVariant variant
-    yield FoundPage(prismicC getVariant variant): p =>
+    yield FoundPage(env.api.cmsRenderKey(s"variant-${variant.key}")): p =>
       views.html.site.variant.show(p, variant, perfType)) | notFound

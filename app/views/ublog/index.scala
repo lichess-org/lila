@@ -22,7 +22,7 @@ object index:
       title = trans.ublog.drafts.txt()
     ) {
       main(cls := "page-menu")(
-        views.html.blog.bits.menu(none, "mine".some),
+        menu(Left(user.id)),
         div(cls := "page-menu__content box box-pad ublog-index")(
           boxTop(
             h1(trans.ublog.drafts()),
@@ -37,9 +37,8 @@ object index:
               pagerNext(posts, np => routes.Ublog.drafts(user.username, np).url)
             )
           else
-            div(cls := "ublog-index__posts--empty")(
+            div(cls := "ublog-index__posts--empty"):
               trans.ublog.noDrafts()
-            )
         )
       )
     }
@@ -88,7 +87,7 @@ object index:
           .map: l =>
             l.language -> LangList.name(l)
       main(cls := "page-menu")(
-        views.html.blog.bits.menu(none, "community".some),
+        menu(Right("community")),
         div(cls := "page-menu__content box box-pad ublog-index")(
           boxTop(
             h1(trans.ublog.communityBlogs()),
@@ -129,9 +128,9 @@ object index:
     views.html.base.layout(
       moreCss = cssTag("ublog"),
       title = "All blog topics"
-    ) {
+    ):
       main(cls := "page-menu")(
-        views.html.blog.bits.menu(none, "topics".some),
+        menu(Right("topics")),
         div(cls := "page-menu__content box")(
           boxTop(h1(trans.ublog.blogTopics())),
           div(cls := "ublog-topics")(
@@ -149,7 +148,6 @@ object index:
           )
         )
       )
-    }
 
   private def list(
       title: String,
@@ -165,7 +163,7 @@ object index:
       title = title
     ) {
       main(cls := "page-menu")(
-        views.html.blog.bits.menu(none, menuItem.some),
+        menu(Right(menuItem)),
         div(cls := "page-menu__content box box-pad ublog-index")(
           boxTop(
             h1(title),

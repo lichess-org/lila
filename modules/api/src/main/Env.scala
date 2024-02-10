@@ -119,6 +119,11 @@ final class Env(
 
   private lazy val prismicExport = wire[PrismicExport]
 
+  import lila.cms.CmsPage
+  def cmsRender(key: CmsPage.Key)(using ctx: Context): Fu[Option[CmsPage.Render]] =
+    cmsApi.render(key)(ctx.req, ctx.user.flatMap(_.lang))
+  def cmsRenderKey(key: String)(using Context) = cmsRender(CmsPage.Key(key))
+
   Bus.subscribeFuns(
     "chatLinkCheck" -> { case GetLinkCheck(line, source, promise) =>
       promise completeWith linkCheck(line, source)
