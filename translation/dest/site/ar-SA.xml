@@ -534,6 +534,7 @@
   <string name="blackCheckmatesInOneMove">كش مات للأسود في نقلة واحدة</string>
   <string name="retry">أعد المحاولة</string>
   <string name="reconnecting">إعادة الإتصال</string>
+  <string name="noNetwork">غير متصل</string>
   <plurals name="nbFriendsOnline">
     <item quantity="zero">%s أصدقاء متصلون</item>
     <item quantity="one">%s صديق متصل</item>
