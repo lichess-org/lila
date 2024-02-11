@@ -40,8 +40,8 @@
   <string name="editRoundStudy">Kierrostutkielman muokkaus</string>
   <string name="deleteTournament">Poista tämä turnaus</string>
   <string name="definitivelyDeleteTournament">Poista lopullisesti koko turnaus, sen kaikki kierrokset ja kaikki pelit.</string>
-  <string name="automaticLeaderboard" comment="An option when creating a broadcast to calculate a leaderboard automatically from the players involved. Example: https://lichess.org/broadcast/2023-london-chess-classic/round-9/5icayRCY">Automaattinen tulostaulukko</string>
-  <string name="automaticLeaderboardHelp" comment="An option when creating a broadcast to calculate a leaderboard automatically from the players involved. Example: https://lichess.org/broadcast/2023-london-chess-classic/round-9/5icayRCY">Laske ja näytä yksinkertainen tulostaulukko pelien tulosten pohjalta</string>
+  <string name="automaticLeaderboard">Automaattinen tulostaulukko</string>
+  <string name="automaticLeaderboardHelp">Laske ja näytä yksinkertainen tulostaulukko pelien tulosten pohjalta</string>
   <string name="replace">Valinnainen: korvaa pelaajien nimet, vahvuusluvut ja arvonimet</string>
   <string name="replaceHelp">Yksi rivi pelaajaa kohden tässä muodossa:
 Alkuperäinen nimi; Korvaava nimi; Haluttaessa korvaava vahvuusluku; Haluttaessa korvaava arvonimi
