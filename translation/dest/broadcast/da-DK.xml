@@ -8,6 +8,7 @@
   </plurals>
   <string name="liveBroadcasts">Live turnerings-udsendelser</string>
   <string name="newBroadcast">Ny live-udsendelse</string>
+  <string name="subscribedBroadcasts">Udsendelser, du abonnerer på</string>
   <string name="aboutBroadcasts">Om udsendelse</string>
   <string name="noRoundsYet">Ingen runder endnu.</string>
   <string name="howToUseLichessBroadcasts">Sådan bruges Lichess-udsendelser.</string>
