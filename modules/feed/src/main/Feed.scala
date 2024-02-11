@@ -1,4 +1,4 @@
-package lila.blog
+package lila.feed
 
 import reactivemongo.api.bson.*
 import reactivemongo.api.bson.Macros.Annotations.Key
@@ -11,7 +11,7 @@ import lila.common.config.{ Max, MaxPerPage }
 import play.api.data.Form
 import lila.user.Me
 
-object DailyFeed:
+object Feed:
 
   type ID = String
 
@@ -37,9 +37,9 @@ object DailyFeed:
   import ornicar.scalalib.ThreadLocalRandom
   def makeId = ThreadLocalRandom nextString 6
 
-final class DailyFeed(coll: Coll, cacheApi: CacheApi)(using Executor):
+final class FeedApi(coll: Coll, cacheApi: CacheApi)(using Executor):
 
-  import DailyFeed.*
+  import Feed.*
 
   private val max = Max(50)
 
@@ -57,7 +57,7 @@ final class DailyFeed(coll: Coll, cacheApi: CacheApi)(using Executor):
     def clear() =
       store.underlying.synchronous.invalidateAll()
       store.get({}) // populate lastUpdate
-    def lastUpdate: DailyFeed.GetLastUpdates = () => mutableLastUpdates
+    def lastUpdate: Feed.GetLastUpdates = () => mutableLastUpdates
     store.get({}) // populate lastUpdate
 
   export cache.lastUpdate
@@ -88,10 +88,8 @@ final class DailyFeed(coll: Coll, cacheApi: CacheApi)(using Executor):
       )(UpdateData.apply)(unapply)
     from.fold(form)(u => form.fill(UpdateData(u.content, u.public, u.at, u.flair)))
 
-final class DailyFeedPaginatorBuilder(
-    coll: Coll
-)(using Executor):
-  import DailyFeed.*
+final class FeedPaginatorBuilder(coll: Coll)(using Executor):
+  import Feed.*
 
   def recent(includeAll: Boolean, page: Int): Fu[Paginator[Update]] =
     Paginator(

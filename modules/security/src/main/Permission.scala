@@ -71,7 +71,7 @@ object Permission:
   case object Streamers             extends Permission("STREAMERS", "Manage streamers")
   case object Verified              extends Permission("VERIFIED", "Verified badge")
   case object Pages                 extends Permission("PAGES", "Lichess pages")
-  case object DailyFeed             extends Permission("DAILY_FEED", "Feed updates")
+  case object Feed                  extends Permission("DAILY_FEED", "Feed updates")
   case object MonitoredCheatMod     extends Permission("MONITORED_MOD_CHEAT", "Monitored mod: cheat")
   case object MonitoredBoostMod     extends Permission("MONITORED_MOD_BOOST", "Monitored mod: boost")
   case object MonitoredCommMod      extends Permission("MONITORED_MOD_COMM", "Monitored mod: comms")
@@ -203,7 +203,7 @@ object Permission:
           StudyAdmin,
           BroadcastTimeout,
           ApiChallengeAdmin,
-          DailyFeed
+          Feed
         ),
         "Admin"
       )
@@ -279,7 +279,7 @@ object Permission:
       PuzzleCurator,
       OpeningWiki,
       Presets,
-      DailyFeed
+      Feed
     ),
     "Dev" -> List(
       Cli,

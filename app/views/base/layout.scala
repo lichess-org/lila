@@ -207,7 +207,7 @@ object layout:
   private def spaceless(html: String) = raw(spaceRegex.replaceAllIn(html.replace("\\n", ""), ""))
 
   private val dailyNewsAtom = link(
-    href     := routes.DailyFeed.atom,
+    href     := routes.Feed.atom,
     st.title := "Lichess Updates Feed",
     tpe      := "application/atom+xml",
     rel      := "alternate"

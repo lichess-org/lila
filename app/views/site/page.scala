@@ -206,7 +206,7 @@ $('#asset-version-message').text(lichess.info.message);"""
       main(cls := "page-menu")(
         views.html.site.bits.pageMenuSubnav(
           a(activeCls("about"), href := "/about")(trans.aboutX("lichess.org")),
-          a(activeCls("news"), href := routes.DailyFeed.index(1))("Lichess updates"),
+          a(activeCls("news"), href := routes.Feed.index(1))("Lichess updates"),
           a(activeCls("faq"), href := routes.Main.faq)(trans.faq.faqAbbreviation()),
           a(activeCls("contact"), href := routes.Main.contact)(trans.contact.contact()),
           a(activeCls("tos"), href := routes.Cms.tos)(trans.termsOfService()),

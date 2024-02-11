@@ -120,13 +120,13 @@ GET   /blog/community.atom             controllers.Ublog.communityAtom(lang = "a
 GET   /blog/community/$lang<[\w-]{2,6}>.atom controllers.Ublog.communityAtom(lang)
 GET   /blog/:id/:slug                  controllers.Ublog.historicalBlogPost(id, slug)
 
-GET   /feed                            controllers.DailyFeed.index(page: Int ?= 1)
-GET   /feed/new                        controllers.DailyFeed.createForm
-POST  /feed/new                        controllers.DailyFeed.create
-GET   /feed/:id/edit                   controllers.DailyFeed.edit(id)
-POST  /feed/:id/edit                   controllers.DailyFeed.update(id)
-POST  /feed/:id/delete                 controllers.DailyFeed.delete(id)
-GET   /feed.atom                       controllers.DailyFeed.atom
+GET   /feed                            controllers.Feed.index(page: Int ?= 1)
+GET   /feed/new                        controllers.Feed.createForm
+POST  /feed/new                        controllers.Feed.create
+GET   /feed/:id/edit                   controllers.Feed.edit(id)
+POST  /feed/:id/edit                   controllers.Feed.update(id)
+POST  /feed/:id/delete                 controllers.Feed.delete(id)
+GET   /feed.atom                       controllers.Feed.atom
 
 GET   /opening                         controllers.Opening.index(q: Option[String] ?= None)
 POST  /opening/config/:key             controllers.Opening.config(key)
