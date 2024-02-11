@@ -130,7 +130,7 @@
     <item quantity="other">%s sai lầm nghiêm trọng</item>
   </plurals>
   <plurals name="nbMistakes">
-    <item quantity="other">%s nước đi sai</item>
+    <item quantity="other">%s sai lầm</item>
   </plurals>
   <plurals name="nbInaccuracies">
     <item quantity="other">%s nước đi không chính xác</item>
