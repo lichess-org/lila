@@ -39,6 +39,15 @@ final class RelayTour(env: Env, apiC: => Api) extends LilaController(env):
           .map:
             html.relay.tour.byOwner(_, owner)
 
+  def subscribed(page: Int) = Auth { ctx ?=> me ?=>
+    Reasonable(page, config.Max(20)):
+      env.relay.pager
+        .subscribedBy(me.userId, page)
+        .flatMap: pager =>
+          Ok.pageAsync:
+            html.relay.tour.subscribed(pager)
+  }
+
   private def page(key: String, menu: String) = Open:
     pageHit
     FoundPage(env.api.cmsRender(lila.cms.CmsPage.Key(key))): p =>

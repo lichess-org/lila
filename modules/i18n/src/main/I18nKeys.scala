@@ -1584,6 +1584,7 @@ object I18nKeys:
     val `myBroadcasts` = I18nKey("broadcast:myBroadcasts")
     val `liveBroadcasts` = I18nKey("broadcast:liveBroadcasts")
     val `newBroadcast` = I18nKey("broadcast:newBroadcast")
+    val `subscribedBroadcasts` = I18nKey("broadcast:subscribedBroadcasts")
     val `aboutBroadcasts` = I18nKey("broadcast:aboutBroadcasts")
     val `noRoundsYet` = I18nKey("broadcast:noRoundsYet")
     val `howToUseLichessBroadcasts` = I18nKey("broadcast:howToUseLichessBroadcasts")

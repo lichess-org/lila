@@ -84,6 +84,23 @@ object tour:
         )
       )
 
+  def subscribed(pager: Paginator[RelayTour | WithLastRound])(using PageContext) =
+    views.html.base.layout(
+      title = subscribedBroadcasts.txt(),
+      moreCss = cssTag("relay.index"),
+      moreJs = infiniteScrollTag
+    ):
+      main(cls := "relay-index page-menu")(
+        pageMenu("subscribed"),
+        div(cls := "page-menu__content box box-pad")(
+          boxTop:
+            h1(subscribedBroadcasts())
+          ,
+          standardFlash,
+          renderPager(pager)
+        )
+      )
+
   def showEmpty(t: RelayTour, owner: Option[LightUser], markup: Option[Html])(using PageContext) =
     views.html.base.layout(
       title = t.name,
@@ -134,6 +151,9 @@ object tour:
             " ",
             trans.broadcast.broadcasts()
           ),
+      a(href := routes.RelayTour.subscribed(), cls := menu.activeO("subscribed"))(
+        trans.broadcast.subscribedBroadcasts()
+      ),
       a(href := routes.RelayTour.form, cls := menu.activeO("new"))(trans.broadcast.newBroadcast()),
       a(href := routes.RelayTour.calendar, cls := menu.activeO("calendar"))(trans.tournamentCalendar()),
       a(href := routes.RelayTour.help, cls := menu.activeO("help"))(trans.broadcast.aboutBroadcasts())
