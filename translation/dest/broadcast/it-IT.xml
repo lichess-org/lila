@@ -8,6 +8,7 @@
   </plurals>
   <string name="liveBroadcasts">Tornei in diretta</string>
   <string name="newBroadcast">Nuova diretta</string>
+  <string name="subscribedBroadcasts">Trasmissioni abbonate</string>
   <string name="aboutBroadcasts">Informazioni sulle trasmissioni</string>
   <string name="noRoundsYet">Ancora nessun turno.</string>
   <string name="howToUseLichessBroadcasts">Istruzioni delle trasmissioni Lichess.</string>
