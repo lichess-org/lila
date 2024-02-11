@@ -21,7 +21,7 @@ final class RelayListing(
     _.refreshAfterWrite(5 seconds).buildAsyncFuture: _ =>
       for
         upcoming <- upcoming.get({})
-        max = 64
+        max = 100
         docs <- tourRepo.coll
           .aggregateList(max): framework =>
             import framework.*
