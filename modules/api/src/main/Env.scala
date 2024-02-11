@@ -57,7 +57,6 @@ final class Env(
     modLogApi: lila.mod.ModlogApi,
     activityWriteApi: lila.activity.ActivityWriteApi,
     ublogApi: lila.ublog.UblogApi,
-    blogApi: lila.blog.BlogApi,
     picfitUrl: lila.memo.PicfitUrl,
     picfitApi: lila.memo.PicfitApi,
     cmsApi: lila.cms.CmsApi,
@@ -116,8 +115,6 @@ final class Env(
   lazy val chatFreshness     = wire[ChatFreshness]
 
   private lazy val pagerDuty = wire[PagerDuty]
-
-  private lazy val prismicExport = wire[PrismicExport]
 
   import lila.cms.CmsPage
   def cmsRender(key: CmsPage.Key)(using ctx: Context): Fu[Option[CmsPage.Render]] =

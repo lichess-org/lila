@@ -22,7 +22,7 @@ object cms:
         rawHtml(page.html)
       )
 
-  def editButton(p: CmsPage.Render)(using Context) =
+  private def editButton(p: CmsPage.Render)(using Context) =
     isGranted(_.Pages) option a(
       href     := routes.Cms.edit(p.id),
       cls      := "button button-empty text",
