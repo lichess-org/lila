@@ -32,7 +32,7 @@ final class Team(env: Env, apiC: => Api) extends LilaController(env):
 
   def show(id: TeamId, page: Int, mod: Boolean) = Open:
     Reasonable(page):
-      Found(api team id) { renderTeam(_, page, mod && isGrantedOpt(_.ManageTeam)) }
+      Found(api team id) { renderTeam(_, page, mod && canEnterModView) }
 
   def members(id: TeamId, page: Int) = Open:
     Reasonable(page, config.Max(50)):
@@ -61,7 +61,7 @@ final class Team(env: Env, apiC: => Api) extends LilaController(env):
     team    <- api.withLeaders(team)
     info    <- env.teamInfo(team, ctx.me, withForum = canHaveForum(team.team, asMod))
     members <- paginator.teamMembers(team.team, page)
-    log     <- asMod.so(env.mod.logApi.teamLog(team.id))
+    log     <- (asMod && isGrantedOpt(_.ManageTeam)).so(env.mod.logApi.teamLog(team.id))
     hasChat = canHaveChat(info, asMod)
     chat <- hasChat soFu env.chat.api.userChat.cached.findMine(ChatId(team.id))
     _ <- env.user.lightUserApi.preloadMany:
@@ -70,6 +70,9 @@ final class Team(env: Env, apiC: => Api) extends LilaController(env):
     page    <- renderPage(html.team.show(team, members, info, chat, version, asMod, log))
   yield Ok(page).withCanonical(routes.Team.show(team.id))
 
+  private def canEnterModView(using Context) =
+    isGrantedOpt(_.Shusher) || isGrantedOpt(_.ManageTeam)
+
   private def canHaveChat(info: lila.app.mashup.TeamInfo, requestModView: Boolean)(using
       ctx: Context
   ): Boolean =
@@ -77,8 +80,7 @@ final class Team(env: Env, apiC: => Api) extends LilaController(env):
     team.enabled && !team.isChatFor(_.NONE) && ctx.kid.no && HTTPRequest.isHuman(ctx.req) && {
       (team.isChatFor(_.LEADERS) && info.ledByMe) ||
       (team.isChatFor(_.MEMBERS) && info.mine) ||
-      isGrantedOpt(_.Shusher) ||
-      (isGrantedOpt(_.ManageTeam) && requestModView)
+      (canEnterModView && requestModView)
     }
 
   private def canHaveForum(team: TeamModel, asMod: Boolean)(member: Option[TeamMember])(using
