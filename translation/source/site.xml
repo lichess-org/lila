@@ -705,6 +705,7 @@
   <string name="toggleVariationArrows">Toggle variation arrows</string>
   <string name="cyclePreviousOrNextVariation">Cycle previous/next variation</string>
   <string name="toggleGlyphAnnotations">Toggle glyph annotations</string>
+  <string name="togglePositionAnnotations">Toggle position annotations</string>
   <string name="variationArrowsInfo">Variation arrows let you navigate without using the move list.</string>
   <string name="playSelectedMove">play selected move</string>
   <string name="newTournament">New tournament</string>
