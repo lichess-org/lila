@@ -101,7 +101,7 @@ class DialogWrapper implements Dialog {
       if (m.type === 'childList')
         for (const n of m.removedNodes) {
           if (n === this.dialog) {
-            this.onClose();
+            this.onRemove();
             return;
           }
         }
@@ -122,7 +122,7 @@ class DialogWrapper implements Dialog {
     view.addEventListener('click', e => e.stopPropagation());
 
     dialog.addEventListener('cancel', () => !this.returnValue && (this.returnValue = 'cancel'));
-    dialog.addEventListener('close', this.onClose);
+    dialog.addEventListener('close', this.onRemove);
     dialog.querySelector('.close-button-anchor > .close-button')?.addEventListener('click', cancelOnInterval);
 
     if (!o.noClickAway) setTimeout(() => dialog.addEventListener('click', cancelOnInterval));
@@ -176,7 +176,7 @@ class DialogWrapper implements Dialog {
     this.dialog.close(this.returnValue || v || 'ok');
   };
 
-  private onClose = () => {
+  private onRemove = () => {
     this.observer.disconnect();
     if (!this.dialog.returnValue) this.dialog.returnValue = 'cancel';
     this.restore?.focus.focus(); // one modal at a time please
