@@ -91,27 +91,33 @@ export function view(ctrl: StudyForm): VNode {
       h(
         'form.form3',
         {
-          hook: bindSubmit(e => {
-            const getVal = (name: string): string => {
-              const el = (e.target as HTMLElement).querySelector('#study-' + name) as HTMLInputElement;
-              if (el) return el.value;
-              else throw `Missing form input: ${name}`;
-            };
-            ctrl.save(
-              {
-                name: getVal('name'),
-                visibility: getVal('visibility'),
-                computer: getVal('computer'),
-                explorer: getVal('explorer'),
-                cloneable: getVal('cloneable'),
-                shareable: getVal('shareable'),
-                chat: getVal('chat'),
-                sticky: getVal('sticky') as 'true' | 'false',
-                description: getVal('description') as 'true' | 'false',
-              },
-              isNew,
-            );
-          }, ctrl.redraw),
+          hook: bindSubmit(
+            e => {
+              const getVal = (name: string): string => {
+                const el = (e.target as HTMLElement).querySelector('#study-' + name) as HTMLInputElement;
+                if (el) return el.value;
+                else throw `Missing form input: ${name}`;
+              };
+              ctrl.save(
+                {
+                  name: getVal('name'),
+                  visibility: getVal('visibility'),
+                  computer: getVal('computer'),
+                  explorer: getVal('explorer'),
+                  cloneable: getVal('cloneable'),
+                  shareable: getVal('shareable'),
+                  chat: getVal('chat'),
+                  sticky: getVal('sticky') as 'true' | 'false',
+                  description: getVal('description') as 'true' | 'false',
+                },
+                isNew,
+              );
+            },
+            () => {
+              document.body.style.overflowY = 'scroll';
+              ctrl.redraw();
+            },
+          ),
         },
         [
           h('div.form-group' + (ctrl.relay ? '.none' : ''), [
