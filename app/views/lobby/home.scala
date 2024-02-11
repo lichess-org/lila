@@ -122,7 +122,7 @@ object home:
         ,
         ctx.noBot option bits.underboards(tours, simuls, leaderboard, tournamentWinners),
         div(cls := "lobby__feed"):
-          views.html.dailyFeed.lobbyUpdates(lastUpdates)
+          views.html.feed.lobbyUpdates(lastUpdates)
         ,
         div(cls := "lobby__support")(
           a(href := routes.Plan.index)(
