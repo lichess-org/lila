@@ -40,8 +40,8 @@
   <string name="editRoundStudy">Schtudie Rundi bearbeite</string>
   <string name="deleteTournament">Lösch das Turnier</string>
   <string name="definitivelyDeleteTournament">Das ganze Turnier, alli Runde und alli Partie definitiv lösche.</string>
-  <string name="automaticLeaderboard" comment="An option when creating a broadcast to calculate a leaderboard automatically from the players involved. Example: https://lichess.org/broadcast/2023-london-chess-classic/round-9/5icayRCY">Automatischi Ranglischte</string>
-  <string name="automaticLeaderboardHelp" comment="An option when creating a broadcast to calculate a leaderboard automatically from the players involved. Example: https://lichess.org/broadcast/2023-london-chess-classic/round-9/5icayRCY">Eifachi Ranglischte, uf Grund vu Schpielergäbnis berächnet, azeige</string>
+  <string name="automaticLeaderboard">Automatischi Ranglischte</string>
+  <string name="automaticLeaderboardHelp">Eifachi Ranglischte, uf Grund vu Schpielergäbnis berächnet, azeige</string>
   <string name="replace">Optional: Spielernäme, Bewertinge und Titel usblände</string>
   <string name="replaceHelp">1 Zile pro Schpiller, formatiert wie folgt:
 Ursprüngliche Name; Ersatzname; Optionali Ersatzbewertig; Optionale Ersatzbezeichnig
