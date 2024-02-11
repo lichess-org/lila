@@ -8,6 +8,7 @@
   </plurals>
   <string name="liveBroadcasts">Transmetime të drejtpërdrejta turnesh</string>
   <string name="newBroadcast">Transmetim i ri i drejtpërdrejtë</string>
+  <string name="subscribedBroadcasts">Transmetime me pajtim</string>
   <string name="aboutBroadcasts">Rreth transmetimeve</string>
   <string name="noRoundsYet">Ende pa raunde.</string>
   <string name="howToUseLichessBroadcasts">Si të përdoren Transmetimet Lichess.</string>
