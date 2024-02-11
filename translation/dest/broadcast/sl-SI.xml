@@ -10,6 +10,7 @@
   </plurals>
   <string name="liveBroadcasts">Prenos turnirjev v živo</string>
   <string name="newBroadcast">Nov prenos v živo</string>
+  <string name="subscribedBroadcasts">Naročene oddaje</string>
   <string name="aboutBroadcasts">O oddaji</string>
   <string name="noRoundsYet">Ni še krogov.</string>
   <string name="howToUseLichessBroadcasts">Kako uporabljati Lichess Broadcasts.</string>
