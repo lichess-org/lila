@@ -77,7 +77,7 @@ final class Team(env: Env, apiC: => Api) extends LilaController(env):
     team.enabled && !team.isChatFor(_.NONE) && ctx.kid.no && HTTPRequest.isHuman(ctx.req) && {
       (team.isChatFor(_.LEADERS) && info.ledByMe) ||
       (team.isChatFor(_.MEMBERS) && info.mine) ||
-      (isGrantedOpt(_.Shusher) && requestModView)
+      ((isGrantedOpt(_.Shusher) || isGrantedOpt(_.ManageTeam)) && requestModView)
     }
 
   private def canHaveForum(team: TeamModel, asMod: Boolean)(member: Option[TeamMember])(using
