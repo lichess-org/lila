@@ -10,6 +10,7 @@
   </plurals>
   <string name="liveBroadcasts">Živé vysielanie turnaja</string>
   <string name="newBroadcast">Nové živé vysielanie</string>
+  <string name="subscribedBroadcasts">Odoberané vysielania</string>
   <string name="addRound">Pridať kolo</string>
   <string name="ongoing">Prebiehajúci</string>
   <string name="upcoming">Nasledujúce</string>
