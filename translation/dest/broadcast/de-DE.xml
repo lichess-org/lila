@@ -8,6 +8,7 @@
   </plurals>
   <string name="liveBroadcasts">Live-Turnierübertragungen</string>
   <string name="newBroadcast">Neue Liveübertragung</string>
+  <string name="subscribedBroadcasts">Abonnierte Übertragungen</string>
   <string name="aboutBroadcasts">Über Übertragungen</string>
   <string name="noRoundsYet">Noch keine Runden.</string>
   <string name="howToUseLichessBroadcasts">Wie man Lichess-Übertragungen benutzt.</string>
