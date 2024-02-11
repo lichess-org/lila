@@ -74,20 +74,14 @@ export function view(ctrl: StudyChapterEditForm): VNode | undefined {
           h(
             'form.form3',
             {
-              hook: bindSubmit(
-                e => {
-                  ctrl.submit({
-                    name: chapterForm.fieldValue(e, 'name'),
-                    mode: chapterForm.fieldValue(e, 'mode') as ChapterMode,
-                    orientation: chapterForm.fieldValue(e, 'orientation') as Orientation,
-                    description: chapterForm.fieldValue(e, 'description'),
-                  });
-                },
-                () => {
-                  document.body.style.overflowY = 'scroll';
-                  ctrl.redraw();
-                },
-              ),
+              hook: bindSubmit(e => {
+                ctrl.submit({
+                  name: chapterForm.fieldValue(e, 'name'),
+                  mode: chapterForm.fieldValue(e, 'mode') as ChapterMode,
+                  orientation: chapterForm.fieldValue(e, 'orientation') as Orientation,
+                  description: chapterForm.fieldValue(e, 'description'),
+                });
+              }, ctrl.redraw),
             },
             [
               h('div.form-group', [

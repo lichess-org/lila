@@ -48,19 +48,13 @@ export const formView = (ctrl: TopicsCtrl, userId?: string): VNode =>
       h(
         'form',
         {
-          hook: bindSubmit(
-            _ => {
-              const tags = tagify?.value;
-              if (tags) {
-                ctrl.save(tags.map(t => t.value));
-                ctrl.open(false);
-              }
-            },
-            () => {
-              document.body.style.overflowY = 'scroll';
-              ctrl.redraw();
-            },
-          ),
+          hook: bindSubmit(_ => {
+            const tags = tagify?.value;
+            if (tags) {
+              ctrl.save(tags.map(t => t.value));
+              ctrl.open(false);
+            }
+          }, ctrl.redraw),
         },
         [
           h(
