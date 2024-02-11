@@ -39,8 +39,8 @@
   <string name="editRoundStudy">Chỉnh sửa vòng nghiên cứu</string>
   <string name="deleteTournament">Xóa giải đấu này</string>
   <string name="definitivelyDeleteTournament">Xóa dứt khoát toàn bộ giải đấu, tất cả các vòng và tất cả ván cờ trong đó.</string>
-  <string name="automaticLeaderboard" comment="An option when creating a broadcast to calculate a leaderboard automatically from the players involved. Example: https://lichess.org/broadcast/2023-london-chess-classic/round-9/5icayRCY">Bảng xếp hạng tự động</string>
-  <string name="automaticLeaderboardHelp" comment="An option when creating a broadcast to calculate a leaderboard automatically from the players involved. Example: https://lichess.org/broadcast/2023-london-chess-classic/round-9/5icayRCY">Tính toán và hiển thị bảng xếp hạng đơn giản dựa trên kết quả ván đấu</string>
+  <string name="automaticLeaderboard">Bảng xếp hạng tự động</string>
+  <string name="automaticLeaderboardHelp">Tính toán và hiển thị bảng xếp hạng đơn giản dựa trên kết quả ván đấu</string>
   <string name="replace">Tùy chọn: biệt danh, hệ số Elo và danh hiệu</string>
   <string name="replaceHelp">Một dòng cho mỗi người chơi, được định dạng như sau:
 Tên khai sinh; Tên thay thế; Hệ số Elo thay thế tùy chọn; Danh hiệu thay thế tùy chọn
