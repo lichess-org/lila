@@ -40,8 +40,8 @@
   <string name="editRoundStudy">Rediger rundestudie</string>
   <string name="deleteTournament">Slet denne turnering</string>
   <string name="definitivelyDeleteTournament">Slet hele turneringen, alle dens runder og alle dens partier.</string>
-  <string name="automaticLeaderboard" comment="An option when creating a broadcast to calculate a leaderboard automatically from the players involved. Example: https://lichess.org/broadcast/2023-london-chess-classic/round-9/5icayRCY">Automatisk rangliste</string>
-  <string name="automaticLeaderboardHelp" comment="An option when creating a broadcast to calculate a leaderboard automatically from the players involved. Example: https://lichess.org/broadcast/2023-london-chess-classic/round-9/5icayRCY">Beregn og vis en simpel rangliste baseret på resultater af partier</string>
+  <string name="automaticLeaderboard">Automatisk rangliste</string>
+  <string name="automaticLeaderboardHelp">Beregn og vis en simpel rangliste baseret på resultater af partier</string>
   <string name="replace">Valgfrit: udskift spillernavne, ratings og titler</string>
   <string name="replaceHelp">En linje pr. spiller, formateret således:
 Oprindeligt navn; Erstatningsnavn; Valgfri erstatnings-rating; Valgfri oprindelige erstatningstitel
