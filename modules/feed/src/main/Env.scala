@@ -1,5 +1,6 @@
 package lila.feed
 
+import lila.Lila.{ *, given }
 import com.softwaremill.macwire.*
 import lila.common.autoconfig.*
 import play.api.Configuration

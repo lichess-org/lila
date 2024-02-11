@@ -1,5 +1,6 @@
 package lila.feed
 
+import lila.Lila.{ *, given }
 import reactivemongo.api.bson.*
 import reactivemongo.api.bson.Macros.Annotations.Key
 import java.time.format.{ DateTimeFormatter, FormatStyle }
