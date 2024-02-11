@@ -658,7 +658,7 @@ trò chuyện trong ván đấu và có một URL có thể chia sẻ công khai
   <string name="keyGoToStartOrEnd">chuyển đến nước đi đầu/cuối</string>
   <string name="keyCycleSelectedVariation">Biến được chọn theo chu kỳ</string>
   <string name="keyShowOrHideComments">hiện/ẩn bình luận</string>
-  <string name="keyEnterOrExitVariation">vào/thoát thế cờ</string>
+  <string name="keyEnterOrExitVariation">vào/thoát biến</string>
   <string name="keyRequestComputerAnalysis">Yêu cầu máy tính phân tích, Học từ sai lầm của bạn</string>
   <string name="keyNextLearnFromYourMistakes">Tiếp theo (Học từ sai lầm của bạn)</string>
   <string name="keyNextBlunder">Nước đi sai nghiêm trọng tiếp theo</string>
@@ -869,8 +869,8 @@ trò chuyện trong ván đấu và có một URL có thể chia sẻ công khai
   <string name="joinTheTeamXToPost">Gia nhập %1$s để đăng trong diễn đàn này</string>
   <string name="teamNamedX">Đội %1$s</string>
   <string name="youCannotPostYetPlaySomeGames">Bạn chưa thể đăng bài lên diễn đàn bây giờ. Hãy chơi vài ván đã!</string>
-  <string name="subscribe">Đăng kí</string>
-  <string name="unsubscribe">Hủy đăng ký</string>
+  <string name="subscribe">Đăng ký theo dõi</string>
+  <string name="unsubscribe">Hủy đăng ký theo dõi</string>
   <string name="mentionedYouInX">đã nhắc đến bạn trong \"%1$s\".</string>
   <string name="xMentionedYouInY">%1$s đã nhắc đến bạn trong \"%2$s\".</string>
   <string name="invitedYouToX">đã mời bạn tham gia \"%1$s\".</string>
