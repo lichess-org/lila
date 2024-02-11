@@ -40,8 +40,8 @@
   <string name="editRoundStudy">फेरीचा अभ्यास संपादित करा</string>
   <string name="deleteTournament">ही स्पर्धा हटवा</string>
   <string name="definitivelyDeleteTournament">संपूर्ण टूर्नामेंट, त्याच्या सर्व फेऱ्या आणि त्याचे सर्व गेम निश्चितपणे हटवा.</string>
-  <string name="automaticLeaderboard" comment="An option when creating a broadcast to calculate a leaderboard automatically from the players involved. Example: https://lichess.org/broadcast/2023-london-chess-classic/round-9/5icayRCY">स्वयंचलित लीडरबोर्ड</string>
-  <string name="automaticLeaderboardHelp" comment="An option when creating a broadcast to calculate a leaderboard automatically from the players involved. Example: https://lichess.org/broadcast/2023-london-chess-classic/round-9/5icayRCY">गेम परिणामांवर आधारित एक साधा लीडरबोर्ड कम्प्युट करा आणि प्रदर्शित करा</string>
+  <string name="automaticLeaderboard">स्वयंचलित लीडरबोर्ड</string>
+  <string name="automaticLeaderboardHelp">गेम परिणामांवर आधारित एक साधा लीडरबोर्ड कम्प्युट करा आणि प्रदर्शित करा</string>
   <string name="replace">पर्यायी: खेळाडूंची नावे, रेटिंग आणि शीर्षके बदला</string>
   <string name="replaceHelp">प्रति खेळाडू एक ओळ, असे स्वरूपित:
 मूळ नाव; बदलण्याचे नाव; पर्यायी बदली रेटिंग; पर्यायी बदली शीर्षक
