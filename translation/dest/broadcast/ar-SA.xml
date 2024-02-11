@@ -44,8 +44,8 @@
   <string name="editRoundStudy">تعديل دراسة الجولة</string>
   <string name="deleteTournament">حذف هذه المسابقة</string>
   <string name="definitivelyDeleteTournament">قم بحذف البطولة جميعها و جميع جولاتها و جميع ألعابها.</string>
-  <string name="automaticLeaderboard" comment="An option when creating a broadcast to calculate a leaderboard automatically from the players involved. Example: https://lichess.org/broadcast/2023-london-chess-classic/round-9/5icayRCY">لوحة متصدرين تلقائية</string>
-  <string name="automaticLeaderboardHelp" comment="An option when creating a broadcast to calculate a leaderboard automatically from the players involved. Example: https://lichess.org/broadcast/2023-london-chess-classic/round-9/5icayRCY">حساب النتائج وعرض لوحة متصدرين بسيطة بناء على تلك النتائج</string>
+  <string name="automaticLeaderboard">لوحة متصدرين تلقائية</string>
+  <string name="automaticLeaderboardHelp">حساب النتائج وعرض لوحة متصدرين بسيطة بناء على تلك النتائج</string>
   <string name="replace">اختياري: استبدال أسماء اللاعبين وتقييماتهم وألقابهم</string>
   <string name="replaceHelp">سطر واحد لكل لاعب، على النحو التالي:
 الاسم الأصلي؛ الاسم البديل؛ التقييم البديل (اختياري)؛ لقب بديل (اختياري)
