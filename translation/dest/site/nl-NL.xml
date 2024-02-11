@@ -418,6 +418,7 @@
   <string name="blackCheckmatesInOneMove">Zwart zet schaakmat in één zet</string>
   <string name="retry">Probeer het opnieuw</string>
   <string name="reconnecting">Opnieuw aan het verbinden</string>
+  <string name="noNetwork">Offline</string>
   <plurals name="nbFriendsOnline">
     <item quantity="one">%s vriend online</item>
     <item quantity="other">%s vrienden online</item>
