@@ -8,7 +8,7 @@
   margin: 0 0.5rem;
   display: none;
 
-  @include breakpoint($mq-xx-small) {
+  @include breakpoint($mq-medium) {
     display: block;
   }
 

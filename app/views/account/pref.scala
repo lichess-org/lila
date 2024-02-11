@@ -84,6 +84,11 @@ object pref:
               showFlairs(),
               radios(form("flairs"), translatedBooleanChoices),
               "showFlairs"
+            ),
+            setting(
+              "Sticky navigation bar",
+              radios(form("stickyNavBar"), translatedBooleanChoices),
+              "stickyNavBar"
             )
           ),
           categFieldset(PrefCateg.ChessClock, categ)(

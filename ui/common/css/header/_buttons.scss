@@ -51,6 +51,9 @@
     display: none;
     position: absolute;
     #{$end-direction}: 0;
+    @media (min-width: 1780px) {
+      #{$end-direction}: var(--site-header-padding);
+    }
     top: var(--dropdown-top);
     background: $c-bg-header-dropdown;
     z-index: z('dropdown');
@@ -117,11 +120,40 @@
       color: c-clearer($c-bad, 20%);
     }
   }
+
+  .dasher {
+    @extend %flex-center-nowrap;
+
+    > a {
+      @extend %flex-center-nowrap;
+      margin: 0;
+      padding: 1rem;
+
+      &.anon {
+        font-size: 2rem;
+      }
+
+      &.signin {
+        margin-#{$end-direction}: -0.5rem; // mouseover hilite background overlap
+
+        &:hover {
+          color: $c-link-hover;
+        }
+      }
+    }
+  }
 }
 
 #user_tag {
-  padding-#{$end-direction}: 1rem;
+  padding-#{$end-direction}: 0.75rem;
   white-space: nowrap;
+  gap: 0.25rem;
+
+  &::after {
+    @extend %data-icon;
+    content: $licon-AccountCircle;
+    font-size: 2.75rem;
+  }
 }
 
 #notify-app .initiating {

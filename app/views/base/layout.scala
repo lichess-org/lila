@@ -116,6 +116,16 @@ object layout:
       div(id := "dasher_app", cls := "dropdown")
     )
 
+  private def anonDasher(using ctx: PageContext) =
+    val prefs = trans.preferences.preferences.txt()
+    div(cls := "dasher")(
+      a(href := s"${routes.Auth.login.url}?referred=${ctx.req.path}", cls := "signin button button-empty")(
+        trans.signIn.txt()
+      ),
+      a(cls  := "toggle anon link", title := prefs, aria.label := prefs, dataIcon := licon.Gear),
+      div(id := "dasher_app", cls         := "dropdown")
+    )
+
   private def allNotifications(using ctx: PageContext) =
     val challengeTitle = trans.challenge.challengesX.txt(ctx.nbChallenges)
     val notifTitle     = trans.notificationsX.txt(ctx.nbNotifications.value)
@@ -132,17 +142,6 @@ object layout:
   </button>
   <div id="notify-app" class="dropdown"></div>
 </div>"""
-
-  private def anonDasher(using ctx: PageContext) =
-    val preferences = trans.preferences.preferences.txt()
-    spaceless:
-      s"""<div class="dasher">
-  <button class="toggle link anon">
-    <span title="$preferences" aria-label="$preferences" data-icon="${licon.Gear}"></span>
-  </button>
-  <div id="dasher_app" class="dropdown"></div>
-</div>
-<a href="/login?referrer=${ctx.req.path}" class="signin button button-empty">${trans.signIn.txt()}</a>"""
 
   private val clinputLink = a(cls := "link")(span(dataIcon := licon.Search))
 
@@ -394,21 +393,23 @@ object layout:
         )
 
     def apply(zenable: Boolean)(using ctx: PageContext) =
-      header(id := "top")(
+      header(id := "top", ctx.pref.stickyNavBar option (cls := "sticky"))(
         div(cls := "site-title-nav")(
           !ctx.isAppealUser option topnavToggle,
           h1(cls := "site-title")(
             if ctx.kid.yes then span(title := trans.kidMode.txt(), cls := "kiddo")(":)")
             else ctx.isBot option botImage,
-            a(href := langHref("/"))(siteNameFrag)
+            a(href := langHref("/"), env.mode == play.api.Mode.Prod option (dataIcon := licon.Horsey))(
+              env.mode != play.api.Mode.Prod option siteNameFrag
+            )
           ),
-          ctx.blind option h2("Navigation"),
           !ctx.isAppealUser option frag(
-            topnav(),
-            ctx.kid.no && ctx.me.exists(!_.isPatron) && !zenable option a(cls := "site-title-nav__donate")(
-              href := routes.Plan.index
-            )(trans.patron.donate())
-          )
+            ctx.kid.no && !zenable option a(cls := "site-title-nav__donate")(
+              href := (if ctx.me.isEmpty then routes.Auth.login else routes.Plan.index)
+            )(trans.patron.donate()),
+            topnav()
+          ),
+          ctx.blind option h2("Navigation")
         ),
         div(cls := "site-buttons")(
           warnNoAutoplay,

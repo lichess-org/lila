@@ -51,6 +51,7 @@ private object PrefHandlers:
         resizeHandle = r.getD("resizeHandle", Pref.default.resizeHandle),
         moveEvent = r.getD("moveEvent", Pref.default.moveEvent),
         agreement = r.getD("agreement", 0),
+        stickyNavBar = r.getD("stickyNavBar", Pref.default.stickyNavBar),
         tags = r.getD("tags", Pref.default.tags)
       )
 
@@ -96,5 +97,6 @@ private object PrefHandlers:
         "pieceNotation" -> o.pieceNotation,
         "resizeHandle"  -> o.resizeHandle,
         "agreement"     -> o.agreement,
+        "stickyNavBar"  -> o.stickyNavBar,
         "tags"          -> o.tags
       )

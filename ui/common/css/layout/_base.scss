@@ -9,6 +9,7 @@ body {
   }
 
   --site-header-margin: 0px;
+  --site-header-padding: calc((100vw - 1780px) / 2);
 
   &.header-margin {
     --site-header-margin: 1em;
@@ -36,7 +37,7 @@ body {
     --main-max-width: 100%;
   }
 
-  margin-top: $site-header-margin;
+  margin-top: calc(var(--dropdown-top) + $site-header-margin);
 
   @media (hover: none) {
     body.clinput & {
