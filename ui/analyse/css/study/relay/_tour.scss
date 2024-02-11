@@ -28,6 +28,7 @@ main.has-relay-tour {
 
 .relay-tour {
   grid-area: relay-tour;
+
   &__round {
     @extend %box-radius, %flex-between-nowrap;
     background: mix($c-primary, $c-bg-box, 10%);
@@ -43,14 +44,48 @@ main.has-relay-tour {
     }
   }
 
-  .study__multiboard {
-    margin-top: $block-gap;
+  &__tabs {
+    margin-left: 5px;
+  }
+
+  &__image {
+    width: 100%;
+  }
+  &__image-upload {
+    margin-top: 3em;
+    text-align: center;
+  }
+
+  &__header {
+    @extend %flex-center-nowrap;
+    gap: 1em;
+    margin-bottom: 3vh;
+
+    h1 {
+      flex: auto;
+    }
+
+    > i:hover {
+      color: $c-font-clearer;
+      cursor: pointer;
+    }
+
+    .setting {
+      @extend %flex-center-nowrap;
+      label {
+        padding: 0 0.5em;
+        cursor: pointer;
+        white-space: nowrap;
+      }
+    }
+  }
+
+  &__box {
+    @extend %box-neat-force;
+    background: $c-bg-box;
   }
 
   &__text {
-    @extend %box-neat;
-
-    background: $c-bg-box;
     padding: 3vmin;
 
     &__schedule {
@@ -99,11 +134,7 @@ main.has-relay-tour {
 
     h1 {
       @include fluid-size('font-size', 15px, 27px);
-
-      color: $c-brag;
-      margin-bottom: 3vh;
     }
-
     h2,
     h3,
     h4 {

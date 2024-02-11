@@ -3,6 +3,7 @@ export interface RelayData {
   rounds: RelayRound[];
   sync?: RelaySync;
   leaderboard?: LeadPlayer[];
+  isSubscribed?: boolean; // undefined if anon
 }
 
 export interface RelayRound {
@@ -28,6 +29,7 @@ export interface RelayTour {
   description: string;
   official?: boolean;
   markup?: string;
+  image?: string;
 }
 
 export interface RelaySync {

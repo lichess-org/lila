@@ -42,7 +42,7 @@ final class ForumSearchApi(
         c.putMapping >> {
           postRepo.nonGhostCursor
             .documentSource()
-            .via(lila.common.LilaStream.logRate[ForumPost]("forum index")(logger))
+            .via(lila.common.LilaStream.logRate("forum index")(logger))
             .grouped(200)
             .mapAsync(1)(postApi.liteViews)
             .map(_.map(v => v.post.id.into(Id) -> toDoc(v)))

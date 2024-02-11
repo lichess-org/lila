@@ -49,6 +49,7 @@ export interface RoundData extends GameData {
   possibleMoves?: EncodedDests;
   possibleDrops?: string;
   forecastCount?: number;
+  opponentSignal?: number;
   crazyhouse?: CrazyData;
   correspondence: CorresClockData;
   tv?: Tv;

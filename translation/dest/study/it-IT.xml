@@ -53,6 +53,7 @@
   <string name="allSyncMembersRemainOnTheSamePosition">Tutti i membri in SYNC rimangono sulla stessa posizione</string>
   <string name="shareChanges">Condividi le modifiche con gli spettatori e salvale sul server</string>
   <string name="playing">In corso</string>
+  <string name="showEvalBar">Barre di valutazione</string>
   <string name="first">Primo</string>
   <string name="previous">Precedente</string>
   <string name="next">Successivo</string>
@@ -62,7 +63,7 @@
   <string name="studyPgn">PGN dello studio</string>
   <string name="downloadAllGames">Scarica tutte le partite</string>
   <string name="chapterPgn">PGN del capitolo</string>
-  <string name="copyChapterPgn" comment="A button which lets you copy the PGN text to your clipboard (i.e. similar to ⌘+C or Ctrl+C).">Copia in PGN</string>
+  <string name="copyChapterPgn">Copia in PGN</string>
   <string name="copyChapterPgnDescription">Copia il capitolo in PGN negli appunti.</string>
   <string name="downloadGame">Scarica partita</string>
   <string name="studyUrl">URL dello studio</string>
@@ -84,7 +85,7 @@
   <string name="pinnedChapterComment">Commento del capitolo</string>
   <string name="saveChapter">Salva capitolo</string>
   <string name="clearAnnotations">Cancella annotazioni</string>
-  <string name="clearVariations">Elimina le varianti</string>
+  <string name="clearVariations" comment="Clear is used as a verb here. This erases the variations in the study (https://lichess.org/study) you are preparing.">Elimina le varianti</string>
   <string name="deleteChapter">Elimina capitolo</string>
   <string name="deleteThisChapter">Vuoi davvero eliminare questo capitolo? Sarà perso per sempre!</string>
   <string name="clearAllCommentsInThisChapter">Cancellare tutti i commenti, le annotazioni e i disegni in questo capitolo?</string>

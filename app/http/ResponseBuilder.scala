@@ -5,6 +5,7 @@ import play.api.libs.json.*
 import play.api.http.*
 import play.api.mvc.*
 import alleycats.Zero
+import akka.stream.scaladsl.Source
 
 import lila.common.{ HTTPRequest, ApiVersion }
 
@@ -12,6 +13,7 @@ trait ResponseBuilder(using Executor)
     extends ControllerHelpers
     with RequestContext
     with ResponseWriter
+    with ResponseHeaders
     with CtrlExtensions
     with CtrlConversions
     with CtrlPage
@@ -81,6 +83,15 @@ trait ResponseBuilder(using Executor)
     else html.dmap(_.withHeaders(VARY -> "Accept"))
 
   def negotiateJson(result: => Fu[Result])(using Context) = negotiate(notFound, result)
+
+  def strToNdJson(source: Source[String, ?]): Result =
+    noProxyBuffer(Ok.chunked(source).as(ndJson.contentType))
+
+  def jsToNdJson(source: Source[JsValue, ?]): Result =
+    strToNdJson(ndJson.jsToString(source))
+
+  def jsOptToNdJson(source: Source[Option[JsValue], ?]): Result =
+    strToNdJson(ndJson.jsOptToString(source))
 
   def notFound(using ctx: Context): Fu[Result] =
     negotiate(

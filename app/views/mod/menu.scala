@@ -28,6 +28,8 @@ object menu:
         a(cls := active.active("notes"), href := routes.Mod.notes())("Mod notes"),
       isGranted(_.SetEmail) option
         a(cls := active.active("email"), href := routes.Mod.emailConfirm)("Email confirm"),
+      isGranted(_.Pages) option
+        a(cls := active.active("cms"), href := routes.Cms.index)("Pages"),
       isGranted(_.PracticeConfig) option
         a(cls := active.active("practice"), href := routes.Practice.config)("Practice"),
       isGranted(_.ManageTournament) option

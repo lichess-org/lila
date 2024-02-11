@@ -89,4 +89,7 @@
   <string name="nowOneMonth">أنت الآن راعي ليتشس لمدة شهر واحد!</string>
   <string name="downgradeNextMonth">في شهر واحد، لن يتم تحميل رسوم مرة أخرى، وحساب Lichess الخاص بك سيصبح حساب عادي.</string>
   <string name="changeCurrency">غير العملة</string>
+  <string name="paymentDetails">تفاصيل الدفع</string>
+  <string name="updatePaymentMethod">تحديث طريقة الدفع</string>
+  <string name="stripeManageSub">إدارة الاشتراك وتنزيل الفواتير والإيصالات الخاصة بك</string>
 </resources>

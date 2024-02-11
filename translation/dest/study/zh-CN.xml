@@ -50,6 +50,7 @@
   <string name="allSyncMembersRemainOnTheSamePosition">SYNC 中所有成员处于相同局面</string>
   <string name="shareChanges">与旁观者共享更改并云端保存</string>
   <string name="playing">正在对局</string>
+  <string name="showEvalBar">评估条</string>
   <string name="first">首页</string>
   <string name="previous">上一页</string>
   <string name="next">下一页</string>
@@ -59,7 +60,7 @@
   <string name="studyPgn">研究 PGN</string>
   <string name="downloadAllGames">下载所有棋局</string>
   <string name="chapterPgn">章节PGN</string>
-  <string name="copyChapterPgn" comment="A button which lets you copy the PGN text to your clipboard (i.e. similar to ⌘+C or Ctrl+C).">复制PGN</string>
+  <string name="copyChapterPgn">复制PGN</string>
   <string name="copyChapterPgnDescription">复制章节PGN到剪贴板。</string>
   <string name="downloadGame">下载棋局</string>
   <string name="studyUrl">研究链接</string>

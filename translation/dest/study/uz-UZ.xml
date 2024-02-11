@@ -62,7 +62,7 @@
   <string name="studyPgn">PGN o\'rganish</string>
   <string name="downloadAllGames">Barcha oʻyinlarni yuklab olish</string>
   <string name="chapterPgn">PGN bo\'limi</string>
-  <string name="copyChapterPgn" comment="A button which lets you copy the PGN text to your clipboard (i.e. similar to ⌘+C or Ctrl+C).">PGN ni nusxalash</string>
+  <string name="copyChapterPgn">PGN ni nusxalash</string>
   <string name="copyChapterPgnDescription">Bo‘lim PGN ini bufferga nushalash.</string>
   <string name="downloadGame">Oʻyinni yuklab olish</string>
   <string name="studyUrl">URL o\'rganish</string>

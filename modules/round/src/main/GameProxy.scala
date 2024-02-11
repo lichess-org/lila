@@ -25,9 +25,8 @@ final private class GameProxy(
     else fuccess(scheduleFlushProgress())
 
   def update(f: Game => Game): Funit =
-    withGame { g =>
+    withGame: g =>
       fuccess(set(f(g)))
-    }
 
   private[round] def saveAndFlush(progress: Progress): Funit =
     set(progress.game)
@@ -55,10 +54,9 @@ final private class GameProxy(
       case Some(Success(Some(g))) => f(g)
       case Some(Success(None))    => fufail(s"No proxy game: $id")
       case _ =>
-        cache flatMap {
+        cache flatMap:
           case None    => fufail(s"No proxy game: $id")
           case Some(g) => f(g)
-        }
 
   def withGameOptionSync[A](f: Game => A): Option[A] =
     cache.value match
@@ -67,25 +65,24 @@ final private class GameProxy(
 
   def terminate() = flushProgress()
 
+  def flushProgress(): Funit =
+    scheduledFlush.cancel()
+    dirtyProgress.so: prog =>
+      dirtyProgress = none
+      gameRepo.update(prog)
+
   // internals
 
   private var dirtyProgress: Option[Progress] = None
   private var scheduledFlush: Cancellable     = emptyCancellable
 
   private def shouldFlushProgress(p: Progress) =
-    p.statusChanged || p.game.isSimul || (
-      p.game.hasCorrespondenceClock && !p.game.hasAi && p.game.rated
-    )
+    p.statusChanged || p.game.isSimul || (p.game.hasCorrespondenceClock && p.game.rated)
 
   private def scheduleFlushProgress(): Unit =
     scheduledFlush.cancel()
     scheduledFlush = scheduler.scheduleOnce(scheduleDelay):
       flushProgress()
-
-  private def flushProgress(): Funit =
-    scheduledFlush.cancel()
-    dirtyProgress so gameRepo.update addEffect: _ =>
-      dirtyProgress = none
 
 private object GameProxy:
 

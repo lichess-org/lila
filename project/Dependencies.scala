@@ -17,10 +17,9 @@ object Dependencies {
   val alleycats   = "org.typelevel"                %% "alleycats-core"                  % "2.10.0"
   val scalalib    = "com.github.ornicar"           %% "scalalib"                        % "9.5.5"
   val hasher      = "com.roundeights"              %% "hasher"                          % "1.3.1"
-  val chess       = "org.lichess"                  %% "scalachess"                      % "15.7.5"
+  val chess       = "org.lichess"                  %% "scalachess"                      % "15.7.7"
   val compression = "org.lichess"                  %% "compression"                     % "1.10"
   val maxmind     = "com.maxmind.geoip2"            % "geoip2"                          % "4.0.1"
-  val prismic     = "io.prismic"                   %% "scala-kit"                       % "1.2.19_lila-3.2"
   val caffeine    = "com.github.ben-manes.caffeine" % "caffeine"                        % "3.1.8" % "compile"
   val scaffeine   = "com.github.blemale"           %% "scaffeine"                       % "5.2.1" % "compile"
   val googleOAuth = "com.google.auth"               % "google-auth-library-oauth2-http" % "1.22.0"
@@ -44,7 +43,7 @@ object Dependencies {
     val version = "0.64.8"
     val bundle =
       ("com.vladsch.flexmark" % "flexmark" % version) ::
-        List("ext-tables", "ext-autolink", "ext-gfm-strikethrough").map { ext =>
+        List("ext-tables", "ext-autolink", "ext-gfm-strikethrough", "html2md-converter").map { ext =>
           "com.vladsch.flexmark" % s"flexmark-$ext" % version
         }
   }

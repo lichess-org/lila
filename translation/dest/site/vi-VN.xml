@@ -63,7 +63,7 @@
   <string name="engineFailed">Lỗi khi đang tải động cơ</string>
   <string name="cloudAnalysis">Phân tích đám mây</string>
   <string name="goDeeper">Phân tích sâu hơn</string>
-  <string name="showThreat">Hiển thị các mối đe dọa</string>
+  <string name="showThreat">Hiện các mối đe dọa</string>
   <string name="inLocalBrowser">trong trình duyệt cục bộ</string>
   <string name="toggleLocalEvaluation">Kích hoạt đánh giá địa phương</string>
   <string name="promoteVariation">Thay đổi biến</string>
@@ -84,7 +84,7 @@
   <string name="unknown">Không chắc</string>
   <string name="database">Cơ sở dữ liệu</string>
   <string name="whiteDrawBlack">Trắng / Hòa / Đen</string>
-  <string name="averageRatingX">Xếp loại bình quân: %s</string>
+  <string name="averageRatingX">Hệ số Elo bình quân: %s</string>
   <string name="recentGames">Các ván cờ gần đây</string>
   <string name="topGames">Các ván đấu hàng đầu</string>
   <string name="masterDbExplanation">Các ván đấu OTB của các kỳ thủ có hệ số Elo %1$s+ do FIDE xếp hạng từ năm %2$s đến %3$s</string>
@@ -163,7 +163,7 @@
   <string name="youNeedAnAccountToDoThat">Bạn cần một tài khoản để thực hiện điều đó</string>
   <string name="signUp">Đăng ký</string>
   <string name="computersAreNotAllowedToPlay">Máy tính và người chơi có máy tính hỗ trợ không được phép chơi. Vui lòng không nhận hỗ trợ từ các công cụ cờ vua, cơ sở dữ liệu, hoặc từ những người chơi khác khi chơi. Cũng lưu ý rằng việc lập nhiều tài khoản không được khuyến khích và bạn có thể bị cấm vĩnh viễn nếu tạo quá nhiều tài khoản.</string>
-  <string name="games">Các ván cờ</string>
+  <string name="games">Số ván cờ</string>
   <string name="forum">Diễn đàn</string>
   <string name="xPostedInForumY">%1$s đã viết trong diễn đàn %2$s</string>
   <string name="latestForumPosts">Bài đăng mới nhất</string>
@@ -228,7 +228,7 @@
   <string name="accountConfirmed">Đã xác nhận người dùng %s thành công.</string>
   <string name="accountCanLogin">Bạn đã có thể đăng nhập ngay bây giờ tại %s.</string>
   <string name="accountConfirmationEmailNotNeeded">Bạn không cần xác nhận email.</string>
-  <string name="accountClosed">Tài khoản %s đã đóng.</string>
+  <string name="accountClosed">Tài khoản %s đã bị đóng.</string>
   <string name="accountRegisteredWithoutEmail">Tài khoản %s đã đăng ký mà không cần có email.</string>
   <string name="rank">Hạng</string>
   <string name="rankX">Hạng: %s</string>
@@ -390,6 +390,7 @@ trò chuyện trong ván đấu và có một URL có thể chia sẻ công khai
   <string name="blackCheckmatesInOneMove">Đen chiếu hết trong một nước đi</string>
   <string name="retry">Thử lại</string>
   <string name="reconnecting">Đang kết nối lại</string>
+  <string name="noNetwork">Ngoại tuyến</string>
   <plurals name="nbFriendsOnline">
     <item quantity="other">%s bạn trực tuyến</item>
   </plurals>
@@ -457,7 +458,7 @@ trò chuyện trong ván đấu và có một URL có thể chia sẻ công khai
   <string name="drawRate">Tỉ lệ hòa</string>
   <string name="draws">Hoà</string>
   <string name="nextXTournament">Giải đấu tiếp theo %s:</string>
-  <string name="averageOpponent">Xếp hạng trung bình của đối thủ</string>
+  <string name="averageOpponent">Hệ số Elo đối thủ trung bình</string>
   <string name="boardEditor">Chỉnh sửa bàn cờ</string>
   <string name="setTheBoard">Thiết lập bàn cờ</string>
   <string name="popularOpenings">Khai cuộc phổ biến</string>
@@ -536,7 +537,7 @@ trò chuyện trong ván đấu và có một URL có thể chia sẻ công khai
   <string name="noNoteYet">Chưa có ghi chú nào</string>
   <string name="invalidUsernameOrPassword">Tên tài khoản hoặc mật khẩu đăng nhập không đúng</string>
   <string name="incorrectPassword">Mật khẩu sai</string>
-  <string name="invalidAuthenticationCode">Mã xác thực sai</string>
+  <string name="invalidAuthenticationCode">Mã xác thực không hợp lệ</string>
   <string name="emailMeALink">Gửi cho tôi một liên kết trong Email</string>
   <string name="currentPassword">Nhập mật khẩu hiện tại</string>
   <string name="newPassword">Nhập mật khẩu mới</string>
@@ -650,7 +651,7 @@ trò chuyện trong ván đấu và có một URL có thể chia sẻ công khai
   <string name="lichessTournaments">Các giải đấu của Lichess</string>
   <string name="tournamentFAQ">Các câu hỏi hay gặp về giải đấu Đấu trường</string>
   <string name="timeBeforeTournamentStarts">Thời gian trước khi giải đấu bắt đầu</string>
-  <string name="averageCentipawnLoss">Phần trăm mất tốt trung bình mỗi nước (ACPL)</string>
+  <string name="averageCentipawnLoss">Tỉ lệ mất tốt trung bình (ACPL)</string>
   <string name="accuracy">Độ chính xác</string>
   <string name="keyboardShortcuts">Các phím tắt</string>
   <string name="keyMoveBackwardOrForward">tua lại/đi tới</string>

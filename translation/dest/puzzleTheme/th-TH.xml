@@ -37,7 +37,9 @@
   <string name="defensiveMove">ตาเดินแนวป้องกัน</string>
   <string name="defensiveMoveDescription">เป็นตาเดินที่มีความละเอียดอ่อนหรือตาเดินเป็นทอดๆ ที่หลีกเลี่ยงการเสียหมากหรือเสียความเป็นต่อ</string>
   <string name="deflection">การดึงดูด</string>
+  <string name="deflectionDescription">การเดินที่หันเหความสนใจของหมากฝ่ายตรงข้ามจากสิ่งที่มันต้องทำ เช่น การป้องกันช่องที่เป็นกุญแจสำคัญ บางครั้งเรียกว่า \"โอเวอร์โหลด\"</string>
   <string name="discoveredAttack">เปิดเผยการโจมตี</string>
+  <string name="discoveredAttackDescription">การเดินหมาก (อย่างเช่นม้า) ที่ก่อนหน้านี้ขวางการโจมตีของหมากระยะยาว (เรือหรือควีน) ออกไป</string>
   <string name="doubleCheck">ดับเบิ้ลรุก</string>
   <string name="doubleCheckDescription">รุกด้วยหมากสองตัวในคราเดียวกันทำให้เป็นการเปิดโจมตี โดยหมากตัวที่ถูกเดินในตานี้และหมากที่อยู่ข้างหลังหมากตัวที่เดินทำการรุกคิงพร้อมกัน</string>
   <string name="endgame">ท้ายเกม</string>
@@ -46,6 +48,7 @@
   <string name="exposedKing">คิงที่เปิดเผย</string>
   <string name="exposedKingDescription">เป็นกลยุทธ์ที่เกี่ยวกับการรุกจนคิงที่มีหมากป้องกันตัวป้องกันน้อย</string>
   <string name="fork">การโจมตีสองทาง</string>
+  <string name="forkDescription">การเดินหมากที่ทำให้หมากที่ถูกเดินโจมตีหมากของฝ่ายตรงข้ามสองตัวพร้อมกัน</string>
   <string name="hangingPiece">หมากลอย</string>
   <string name="hookMate">การรุกจนแบบ Hook</string>
   <string name="interference">ตาเดินขั้นระหว่าง</string>

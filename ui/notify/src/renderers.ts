@@ -2,7 +2,6 @@ import { h, VNode } from 'snabbdom';
 import * as licon from 'common/licon';
 import { Notification, Renderer, Renderers } from './interfaces';
 
-// function generic(n: Notification, url: string | undefined, icon: string, content: VNode[]): VNode {
 export default function makeRenderers(trans: Trans): Renderers {
   return {
     streamStart: {
@@ -16,6 +15,14 @@ export default function makeRenderers(trans: Trans): Renderers {
     genericLink: {
       html: n =>
         generic(n, n.content.url, n.content.icon, [
+          h('span', [h('strong', n.content.title), drawTime(n)]),
+          h('span', n.content.text),
+        ]),
+      text: n => n.content.title || n.content.text,
+    },
+    broadcastRound: {
+      html: n =>
+        generic(n, n.content.url, licon.RadioTower, [
           h('span', [h('strong', n.content.title), drawTime(n)]),
           h('span', n.content.text),
         ]),

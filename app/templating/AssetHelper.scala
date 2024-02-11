@@ -90,12 +90,6 @@ if (window.matchMedia('(prefers-color-scheme: dark)').media === 'not all')
   def fingerprintTag                         = iifeModule("javascripts/fipr.js")
   def chessgroundTag = script(tpe := "module", src := assetUrl("npm/chessground.min.js"))
 
-  def prismicJs(using PageContext): Frag =
-    raw:
-      isGranted(_.Prismic).so:
-        embedJsUnsafe("""window.prismic={endpoint:'https://lichess.prismic.io/api/v2'}""").render ++
-          """<script src="//static.cdn.prismic.io/prismic.min.js"></script>"""
-
   def basicCsp(using ctx: Context): ContentSecurityPolicy =
     val sockets = socketDomains map { x => s"wss://$x${!ctx.req.secure so s" ws://$x"}" }
     // include both ws and wss when insecure because requests may come through a secure proxy
@@ -103,11 +97,11 @@ if (window.matchMedia('(prefers-color-scheme: dark)').media === 'not all')
     ContentSecurityPolicy(
       defaultSrc = List("'self'", assetDomain.value),
       connectSrc =
-        "'self'" :: "data:" :: assetDomain.value :: sockets ::: "wss://cf-socket.lichess.org" :: env.explorerEndpoint :: env.tablebaseEndpoint :: localDev,
+        "'self'" :: "blob:" :: "data:" :: assetDomain.value :: sockets ::: "wss://cf-socket.lichess.org" :: env.explorerEndpoint :: env.tablebaseEndpoint :: localDev,
       styleSrc = List("'self'", "'unsafe-inline'", assetDomain.value),
       frameSrc = List("'self'", assetDomain.value, "www.youtube.com", "player.twitch.tv"),
       workerSrc = List("'self'", assetDomain.value, "blob:"),
-      imgSrc = List("data:", "*"),
+      imgSrc = List("'self'", "blob:", "data:", "*"),
       scriptSrc = List("'self'", assetDomain.value),
       fontSrc = List("'self'", assetDomain.value),
       baseUri = List("'none'")

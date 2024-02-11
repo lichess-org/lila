@@ -38,7 +38,7 @@
   <string name="whitePlays">دور الأبيض</string>
   <string name="blackPlays">دور الأسود</string>
   <plurals name="opponentLeftCounter">
-    <item quantity="zero">لقد غادر خصمك اللعبة. يمكنك المطالبة بالانتصار بعد %s ثانية.</item>
+    <item quantity="zero">انسحب خصمك من المباراة. يمكنك المطالبة بالفوز في غضون %s ثانية.</item>
     <item quantity="one">لقد غادر خصمك اللعبة. يمكنك الفوز بعد ثانية.</item>
     <item quantity="two">لقد غادر خصمك اللعبة. يمكنك الفوز بعد ثانيتين.</item>
     <item quantity="few">لقد غادر خصمك اللعبة. يمكنك الفوز بعد %s ثانية.</item>
@@ -54,7 +54,7 @@
   <string name="blackResigned">الأسود استسلم</string>
   <string name="whiteLeftTheGame">الأبيض ترك المباراة</string>
   <string name="blackLeftTheGame">الأسود ترك المباراة</string>
-  <string name="whiteDidntMove">لم يلعب الأبيض بعد</string>
+  <string name="whiteDidntMove">لم يقم الأبيض بالحركة</string>
   <string name="blackDidntMove">لم يلعب الأسود بعد</string>
   <string name="requestAComputerAnalysis">اطلب تحليل حاسب</string>
   <string name="computerAnalysis">تحليل الحاسوب</string>
@@ -69,10 +69,10 @@
   <string name="cloudAnalysis">تحليل سحابي</string>
   <string name="goDeeper">تحليل أعمق</string>
   <string name="showThreat">إظهار التهديد</string>
-  <string name="inLocalBrowser">باستخدام متصفحك</string>
+  <string name="inLocalBrowser">في متصفحك</string>
   <string name="toggleLocalEvaluation">التبديل للتحليل بالمتصفح</string>
   <string name="promoteVariation">رفع سلسلة الحركات</string>
-  <string name="makeMainLine">كتابة التفريع الرئيسي</string>
+  <string name="makeMainLine">رفع الى التسلسل الرئيسي</string>
   <string name="deleteFromHere">احذف من هنا</string>
   <string name="forceVariation">فرض التسلسل</string>
   <string name="copyVariationPgn">انسخ التفريع بصيغة PGN</string>
@@ -534,6 +534,7 @@
   <string name="blackCheckmatesInOneMove">كش مات للأسود في نقلة واحدة</string>
   <string name="retry">أعد المحاولة</string>
   <string name="reconnecting">إعادة الإتصال</string>
+  <string name="noNetwork">غير متصل</string>
   <plurals name="nbFriendsOnline">
     <item quantity="zero">%s أصدقاء متصلون</item>
     <item quantity="one">%s صديق متصل</item>

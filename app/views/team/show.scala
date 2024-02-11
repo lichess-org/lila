@@ -79,7 +79,7 @@ object show:
               ),
               info.ledByMe option a(
                 dataIcon := licon.InfoCircle,
-                href     := routes.ContentPage.loneBookmark("team-etiquette"),
+                href     := routes.Cms.lonePage("team-etiquette"),
                 cls      := "text"
               )("Team Etiquette")
             ),

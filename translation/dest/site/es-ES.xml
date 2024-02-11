@@ -418,6 +418,7 @@
   <string name="blackCheckmatesInOneMove">Juegan negras y dan mate en una</string>
   <string name="retry">Reintentar</string>
   <string name="reconnecting">Reconectando</string>
+  <string name="noNetwork">Sin conexión</string>
   <plurals name="nbFriendsOnline">
     <item quantity="one">%s amigo conectado</item>
     <item quantity="other">%s amigos conectados</item>

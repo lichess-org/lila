@@ -1,69 +1,63 @@
 import * as xhr from 'common/xhr';
-import { Ctrl, ChallengeOpts, ChallengeData, Reasons } from './interfaces';
+import { ChallengeOpts, ChallengeData, Reasons } from './interfaces';
 
-export default function (opts: ChallengeOpts, data: ChallengeData, redraw: () => void): Ctrl {
-  let trans = (key: string) => key;
-  let redirecting = false;
-  let reasons: Reasons = {};
+export default class ChallengeCtrl {
+  data: ChallengeData;
+  trans = (key: string) => key;
+  redirecting = false;
+  reasons: Reasons = {};
 
-  const showRatings = !document.body.classList.contains('no-rating');
+  showRatings = !document.body.classList.contains('no-rating');
 
-  function update(d: ChallengeData) {
-    data = d;
-    if (d.i18n) trans = lichess.trans(d.i18n).noarg;
-    if (d.reasons) reasons = d.reasons;
-    opts.setCount(countActiveIn());
-    notifyNew();
+  constructor(
+    readonly opts: ChallengeOpts,
+    data: ChallengeData,
+    readonly redraw: () => void,
+  ) {
+    this.update(data);
   }
 
-  function countActiveIn() {
-    return data.in.filter(c => !c.declined).length;
-  }
+  update = (d: ChallengeData) => {
+    this.data = d;
+    if (d.i18n) this.trans = lichess.trans(d.i18n).noarg;
+    if (d.reasons) this.reasons = d.reasons;
+    this.opts.setCount(this.countActiveIn());
+    this.notifyNew();
+  };
 
-  function notifyNew() {
-    data.in.forEach(c => {
+  countActiveIn = () => this.data.in.filter(c => !c.declined).length;
+
+  notifyNew = () =>
+    this.data.in.forEach(c => {
       if (lichess.once('c-' + c.id)) {
-        if (!lichess.quietMode && data.in.length <= 3) {
-          opts.show();
+        if (!lichess.quietMode && this.data.in.length <= 3) {
+          this.opts.show();
           lichess.sound.playOnce('newChallenge');
         }
-        opts.pulse();
+        this.opts.pulse();
       }
     });
-  }
 
-  update(data);
-
-  return {
-    data: () => data,
-    trans: () => trans,
-    reasons: () => reasons,
-    showRatings,
-    update,
-    decline(id, reason) {
-      data.in.forEach(c => {
-        if (c.id === id) {
-          c.declined = true;
-          xhr
-            .text(`/challenge/${id}/decline`, { method: 'post', body: xhr.form({ reason }) })
-            .catch(() => lichess.announce({ msg: 'Failed to send challenge decline' }));
-        }
-      });
-    },
-    cancel(id) {
-      data.out.forEach(c => {
-        if (c.id === id) {
-          c.declined = true;
-          xhr
-            .text(`/challenge/${id}/cancel`, { method: 'post' })
-            .catch(() => lichess.announce({ msg: 'Failed to send challenge cancellation' }));
-        }
-      });
-    },
-    redirecting: () => redirecting,
-    onRedirect() {
-      redirecting = true;
-      requestAnimationFrame(redraw);
-    },
+  decline = (id: string, reason: string) =>
+    this.data.in.forEach(c => {
+      if (c.id === id) {
+        c.declined = true;
+        xhr
+          .text(`/challenge/${id}/decline`, { method: 'post', body: xhr.form({ reason }) })
+          .catch(() => lichess.announce({ msg: 'Failed to send challenge decline' }));
+      }
+    });
+  cancel = (id: string) =>
+    this.data.out.forEach(c => {
+      if (c.id === id) {
+        c.declined = true;
+        xhr
+          .text(`/challenge/${id}/cancel`, { method: 'post' })
+          .catch(() => lichess.announce({ msg: 'Failed to send challenge cancellation' }));
+      }
+    });
+  onRedirect = () => {
+    this.redirecting = true;
+    requestAnimationFrame(this.redraw);
   };
 }

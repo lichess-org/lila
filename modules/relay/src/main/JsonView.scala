@@ -6,10 +6,14 @@ import lila.common.config.BaseUrl
 import lila.common.Json.given
 import lila.study.Chapter
 import lila.user.Me
+import lila.memo.PicfitUrl
 
-final class JsonView(baseUrl: BaseUrl, markup: RelayMarkup, leaderboardApi: RelayLeaderboardApi)(using
-    Executor
-):
+final class JsonView(
+    baseUrl: BaseUrl,
+    markup: RelayMarkup,
+    leaderboardApi: RelayLeaderboardApi,
+    picfitUrl: PicfitUrl
+)(using Executor):
 
   import JsonView.given
   import lila.study.JsonView.given
@@ -27,6 +31,7 @@ final class JsonView(baseUrl: BaseUrl, markup: RelayMarkup, leaderboardApi: Rela
         "createdAt"   -> t.createdAt
       )
       .add("tier" -> t.tier)
+      .add("image" -> t.image.map(id => RelayTour.thumbnail(picfitUrl, id, _.Size.Large)))
 
   given OWrites[RelayRound] = OWrites: r =>
     Json
@@ -82,12 +87,14 @@ final class JsonView(baseUrl: BaseUrl, markup: RelayMarkup, leaderboardApi: Rela
       trs: RelayTour.WithRounds,
       currentRoundId: RelayRoundId,
       studyData: lila.study.JsonView.JsData,
-      canContribute: Boolean
+      canContribute: Boolean,
+      isSubscribed: Option[Boolean] = none[Boolean]
   ) = leaderboardApi(trs.tour) map { leaderboard =>
     JsonView.JsData(
       relay = apply(trs)
         .add("sync" -> (canContribute so trs.rounds.find(_.id == currentRoundId).map(_.sync)))
-        .add("leaderboard" -> leaderboard.map(_.players)),
+        .add("leaderboard" -> leaderboard.map(_.players))
+        .add("isSubscribed" -> isSubscribed),
       study = studyData.study,
       analysis = studyData.analysis
     )

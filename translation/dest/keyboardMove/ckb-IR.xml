@@ -4,7 +4,7 @@
   <string name="performAMove">جووڵە بکە</string>
   <string name="movePieceFromE2ToE4">پارچەکە بجوڵێنە لە e2 بۆ e4</string>
   <string name="moveKnightToC3">ئەسپەکە بجوڵێنە بۆ c3</string>
-  <string name="kingsideCastle">ماڵ بکە بە ئاراستەی پاشا </string>
+  <string name="kingsideCastle">ماڵ بکە بە ئاراستەی پاشا</string>
   <string name="queensideCastle">ماڵ بکە بە ئاراستەی شاژن</string>
   <string name="promoteC8ToQueen">سەربازی c8 بکە بە شاژن</string>
   <string name="dropARookAtB4">قەڵاکەت لە b4 دابنێ(تەنھا بۆ جۆری crazyhouse)</string>

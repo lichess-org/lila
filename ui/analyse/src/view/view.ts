@@ -35,6 +35,8 @@ import { renderNextChapter } from '../study/nextChapter';
 import * as Prefs from 'common/prefs';
 import StudyCtrl from '../study/studyCtrl';
 
+window.addEventListener('popstate', () => window.location.reload());
+
 function makeConcealOf(ctrl: AnalyseCtrl): ConcealOf | undefined {
   const conceal =
     ctrl.study && ctrl.study.data.chapter.conceal !== undefined

@@ -62,10 +62,8 @@ case class Simul(
 
   def accept(userId: UserId, v: Boolean) =
     Created:
-      copy(applicants = applicants map {
-        case a if a is userId => a.copy(accepted = v)
-        case a                => a
-      })
+      copy(applicants = applicants.map: a =>
+        if a is userId then a.copy(accepted = v) else a)
 
   def removePairing(userId: UserId) =
     copy(pairings = pairings.filterNot(_ is userId)).finishIfDone
@@ -88,10 +86,8 @@ case class Simul(
 
   def updatePairing(gameId: GameId, f: SimulPairing => SimulPairing) =
     copy(
-      pairings = pairings collect {
-        case p if p.gameId == gameId => f(p)
-        case p                       => p
-      }
+      pairings = pairings.map: p =>
+        if p.gameId == gameId then f(p) else p
     ).finishIfDone
 
   def ejectCheater(userId: UserId): Option[Simul] =
@@ -106,7 +102,8 @@ case class Simul(
       )
     else this
 
-  def gameIds = pairings.map(_.gameId)
+  def gameIds        = pairings.map(_.gameId)
+  def ongoingGameIds = pairings.filter(_.ongoing).map(_.gameId)
 
   def perfTypes: List[PerfType] =
     variants.map:

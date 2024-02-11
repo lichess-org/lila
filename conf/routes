@@ -71,8 +71,8 @@ GET   /@/:username/blog                controllers.Ublog.index(username, page: I
 GET   /@/:username/blog/:slug/:id      controllers.Ublog.post(username, slug, id)
 GET   /@/:username/blog/drafts         controllers.Ublog.drafts(username, page: Int ?= 1)
 GET   /@/:username/blog/new            controllers.Ublog.form(username)
+POST  /@/:username/blog/new            controllers.Ublog.create(username)
 GET   /@/:username/blog.atom           controllers.Ublog.userAtom(username)
-POST  /ublog/new                       controllers.Ublog.create
 GET   /ublog/$id<\w{8}>/discuss        controllers.Ublog.discuss(id)
 GET   /ublog/$id<\w{8}>/redirect       controllers.Ublog.redirect(id)
 GET   /ublog/$id<\w{8}>/edit           controllers.Ublog.edit(id)
@@ -108,30 +108,25 @@ GET   /api/player                      controllers.User.apiList
 GET   /dasher                          controllers.Dasher.get
 
 # Blog
-GET   /blog                            controllers.Blog.index(page: Int ?= 1)
-GET   /blog/$year<2\d{3}>              controllers.Blog.year(year: Int)
-GET   /blog/discuss/:id                controllers.Blog.discuss(id)
+GET   /blog                            controllers.Main.movedPermanently(to = "/@/Lichess/blog")
 GET   /blog/topic                      controllers.Ublog.topics
 GET   /blog/topic/:topic               controllers.Ublog.topic(topic, page: Int ?= 1, byDate: Boolean ?= false)
-GET   /blog.atom                       controllers.Blog.atom
-GET   /blog.txt                        controllers.Blog.sitemapTxt
+GET   /blog.atom                       controllers.Main.movedPermanently(to = "/@/Lichess/blog.atom")
 GET   /blog/friends                    controllers.Ublog.friends(page: Int ?= 1)
 GET   /blog/liked                      controllers.Ublog.liked(page: Int ?= 1)
 GET   /blog/community                  controllers.Ublog.communityAll(page: Int ?= 1)
 GET   /$lang<\w\w\w?>/blog/community   controllers.Ublog.communityLang(lang, page: Int ?= 1)
 GET   /blog/community.atom             controllers.Ublog.communityAtom(lang = "all")
 GET   /blog/community/$lang<[\w-]{2,6}>.atom controllers.Ublog.communityAtom(lang)
-GET   /blog/:id/:slug                  controllers.Blog.show(id, slug, ref: Option[String] ?= None)
-GET   /blog/prismic-preview            controllers.Blog.preview(token)
+GET   /blog/:id/:slug                  controllers.Ublog.historicalBlogPost(id, slug)
 
-GET   /feed                            controllers.DailyFeed.index(page: Int ?= 1)
-GET   /feed/new                        controllers.DailyFeed.createForm
-POST  /feed/new                        controllers.DailyFeed.create
-GET   /feed/:id/edit                  controllers.DailyFeed.edit(id)
-GET   /feed/:id/edit                  controllers.DailyFeed.edit(id)
-POST  /feed/:id/edit                  controllers.DailyFeed.update(id)
-POST  /feed/:id/delete                controllers.DailyFeed.delete(id)
-GET   /feed.atom                       controllers.DailyFeed.atom
+GET   /feed                            controllers.Feed.index(page: Int ?= 1)
+GET   /feed/new                        controllers.Feed.createForm
+POST  /feed/new                        controllers.Feed.create
+GET   /feed/:id/edit                   controllers.Feed.edit(id)
+POST  /feed/:id/edit                   controllers.Feed.update(id)
+POST  /feed/:id/delete                 controllers.Feed.delete(id)
+GET   /feed.atom                       controllers.Feed.atom
 
 GET   /opening                         controllers.Opening.index(q: Option[String] ?= None)
 POST  /opening/config/:key             controllers.Opening.config(key)
@@ -252,12 +247,15 @@ POST  /broadcast/new                          controllers.RelayTour.create
 GET   /broadcast/calendar                     controllers.RelayTour.calendar
 GET   /broadcast/help                         controllers.RelayTour.help
 GET   /broadcast/by/:user                     controllers.RelayTour.by(user, page: Int ?= 1)
+GET   /broadcast/subscribed                   controllers.RelayTour.subscribed(page: Int ?= 1)
 GET   /broadcast/:ts/$anyId<\w{8}>            controllers.RelayTour.show(ts, anyId)
 GET   /api/broadcast/$tourId<\w{8}>.pgn       controllers.RelayTour.pgn(tourId)
 GET   /broadcast/$tourId<\w{8}>/edit          controllers.RelayTour.edit(tourId)
 POST  /broadcast/$tourId<\w{8}>/edit          controllers.RelayTour.update(tourId)
 POST  /broadcast/$tourId<\w{8}>/delete        controllers.RelayTour.delete(tourId)
+POST  /upload/image/broadcast/$id<\w{8}>      controllers.RelayTour.image(id)
 POST  /broadcast/$tourId<\w{8}>/clone         controllers.RelayTour.cloneTour(tourId)
+POST  /broadcast/$tourId<\w{8}>/subscribe     controllers.RelayTour.subscribe(tourId, set: Boolean)
 GET   /broadcast/$tourId<\w{8}>/new           controllers.RelayRound.form(tourId)
 POST  /broadcast/$tourId<\w{8}>/new           controllers.RelayRound.create(tourId)
 GET   /broadcast/:ts/:rs/$roundId<\w{8}>      controllers.RelayRound.show(ts, rs, roundId)
@@ -319,7 +317,6 @@ GET   /streamer/edit                   controllers.Streamer.edit
 POST  /streamer/new                    controllers.Streamer.create
 POST  /streamer/edit                   controllers.Streamer.editApply
 POST  /streamer/approval/request       controllers.Streamer.approvalRequest
-GET   /streamer/picture/edit           controllers.Streamer.picture
 POST  /streamer/subscribe/:streamer    controllers.Streamer.subscribe(streamer, set: Boolean ?= true)
 POST  /upload/image/streamer           controllers.Streamer.pictureApply
 GET   /streamer/:username              controllers.Streamer.show(username)
@@ -796,6 +793,13 @@ GET   /event/manager/clone/$id<\w{8}>  controllers.Event.cloneE(id)
 GET   /event/manager/new               controllers.Event.form
 POST  /event/manager                   controllers.Event.create
 
+GET   /cms                            controllers.Cms.index
+GET   /cms/new                        controllers.Cms.createForm
+POST  /cms/new                        controllers.Cms.create
+GET   /cms/:id/edit                   controllers.Cms.edit(id)
+POST  /cms/:id/edit                   controllers.Cms.update(id)
+POST  /cms/:id/delete                 controllers.Cms.delete(id)
+
 # Misc
 GET   /captcha/$id<\w{8}>              controllers.Main.captchaCheck(id)
 GET   /developers                      controllers.Main.webmasters
@@ -825,22 +829,22 @@ POST  /mobile/unregister               controllers.Push.mobileUnregister
 POST  /push/subscribe                  controllers.Push.webSubscribe
 
 # Pages
-GET   /terms-of-service                controllers.ContentPage.tos
-GET   /$bookmark<privacy|thanks|about|ads|changelog> controllers.ContentPage.menuBookmark(bookmark)
+GET   /terms-of-service                controllers.Cms.tos
+GET   /$key<privacy|thanks|about|ads|changelog> controllers.Cms.menuPage(key)
 GET   /contact                         controllers.Main.contact
 GET   /faq                             controllers.Main.faq
-GET   /source                          controllers.ContentPage.source
+GET   /source                          controllers.Cms.source
 GET   /qa/:id/:slug                    controllers.Main.legacyQaQuestion(id: Int, slug)
-GET   /how-to-cheat                    controllers.ContentPage.loneBookmark(bookmark = "how-to-cheat")
-GET   /page/:bookmark                  controllers.ContentPage.loneBookmark(bookmark)
+GET   /how-to-cheat                    controllers.Cms.lonePage(key = "how-to-cheat")
+GET   /page/:key                       controllers.Cms.lonePage(key)
 
 # Variants
-GET   /variant                         controllers.ContentPage.variantHome
-GET   /variant/:key                    controllers.ContentPage.variant(key)
+GET   /variant                         controllers.Cms.variantHome
+GET   /variant/:key                    controllers.Cms.variant(key)
 
 # Help
-GET   /help/contribute                 controllers.ContentPage.help
-GET   /help/master                     controllers.ContentPage.master
+GET   /help/contribute                 controllers.Cms.help
+GET   /help/master                     controllers.Cms.master
 GET   /help/keyboard-move              controllers.Main.keyboardMoveHelp
 GET   /help/voice/:module              controllers.Main.voiceHelp(module)
 # DGT

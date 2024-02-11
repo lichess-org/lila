@@ -65,6 +65,7 @@
   <string name="allSyncMembersRemainOnTheSamePosition">يظل جميع ألاعضاء الذين تمت مزامنة معلوماتهم في نفس الترتيب</string>
   <string name="shareChanges">شارك التغيبرات مع المشاهدين وإحفظهن الى الخادم</string>
   <string name="playing">يلعب الان</string>
+  <string name="showEvalBar">شرائط التقييم</string>
   <string name="first">الأولى</string>
   <string name="previous">السابق</string>
   <string name="next">التالي</string>
@@ -74,7 +75,7 @@
   <string name="studyPgn">PGN الدراسة</string>
   <string name="downloadAllGames">حمل جميع الألعاب</string>
   <string name="chapterPgn">PGN الفصل</string>
-  <string name="copyChapterPgn" comment="A button which lets you copy the PGN text to your clipboard (i.e. similar to ⌘+C or Ctrl+C).">نسخ PGN</string>
+  <string name="copyChapterPgn">نسخ PGN</string>
   <string name="copyChapterPgnDescription">نسخ فصل PGN إلى الحافظة.</string>
   <string name="downloadGame">حمل لعبة</string>
   <string name="studyUrl">رابط الدراسة</string>
@@ -96,7 +97,7 @@
   <string name="pinnedChapterComment">التعليق المثبت على الفصل</string>
   <string name="saveChapter">حفظ الفصل</string>
   <string name="clearAnnotations">مسح العلامات</string>
-  <string name="clearVariations">مسح اللاينات</string>
+  <string name="clearVariations" comment="Clear is used as a verb here. This erases the variations in the study (https://lichess.org/study) you are preparing.">مسح اللاينات</string>
   <string name="deleteChapter">حذف الفصل</string>
   <string name="deleteThisChapter">هل تريد حذف الفصل ؟ لايمكنك التراجع عن ذلك لاحقاً!</string>
   <string name="clearAllCommentsInThisChapter">مسح جميع التعليقات والغلافات والأشكال المرسومة في هذا الفصل؟</string>

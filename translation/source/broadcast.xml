@@ -8,6 +8,7 @@
   </plurals>
   <string name="liveBroadcasts">Live tournament broadcasts</string>
   <string name="newBroadcast">New live broadcast</string>
+  <string name="subscribedBroadcasts">Subscribed broadcasts</string>
   <string name="aboutBroadcasts">About broadcasts</string>
   <string name="noRoundsYet">No rounds yet.</string>
   <string name="howToUseLichessBroadcasts">How to use Lichess Broadcasts.</string>

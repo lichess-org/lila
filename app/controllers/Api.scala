@@ -253,20 +253,20 @@ final class Api(
       if u is lila.user.User.lichess4545Id then 900 else 500
     withIdsFromReqBody[UserId](ctx.body, max, id => UserStr.read(id).map(_.id)): ids =>
       GlobalConcurrencyLimitPerIP.events(ctx.ip)(
-        addKeepAlive:
+        ndJson.addKeepAlive:
           env.game.gamesByUsersStream(userIds = ids, withCurrentGames = getBool("withCurrentGames"))
-      )(sourceToNdJsonOption)
+      )(jsOptToNdJson)
 
   def gamesByIdsStream(streamId: String) = AnonOrScopedBody(parse.tolerantText)(): ctx ?=>
     withIdsFromReqBody[GameId](ctx.body, gamesByIdsMax, GameId.from): ids =>
       GlobalConcurrencyLimitPerIP.events(ctx.ip)(
-        addKeepAlive:
+        ndJson.addKeepAlive:
           env.game.gamesByIdsStream(
             streamId,
             initialIds = ids,
             maxGames = if ctx.me.isDefined then 5_000 else 1_000
           )
-      )(sourceToNdJsonOption)
+      )(jsOptToNdJson)
 
   def gamesByIdsStreamAddIds(streamId: String) = AnonOrScopedBody(parse.tolerantText)(): ctx ?=>
     withIdsFromReqBody[GameId](ctx.body, gamesByIdsMax, GameId.from): ids =>
@@ -305,11 +305,9 @@ final class Api(
       def limited = rateLimited:
         "Please don't poll this endpoint, it is intended to be streamed. See https://lichess.org/api#tag/Board/operation/apiStreamEvent."
       rateLimit(me, limited):
-        env.round.proxyRepo.urgentGames(me) flatMap { povs =>
-          env.challenge.api.createdByDestId(me) map { challenges =>
-            sourceToNdJsonOption(env.api.eventStream(povs.map(_.game), challenges))
-          }
-        }
+        env.round.proxyRepo.urgentGames(me) flatMap: povs =>
+          env.challenge.api.createdByDestId(me) map: challenges =>
+            jsOptToNdJson(env.api.eventStream(povs.map(_.game), challenges))
     }
 
   private val UserActivityRateLimitPerIP = lila.memo.RateLimit[IpAddress](
@@ -340,8 +338,8 @@ final class Api(
       case None => NotFound
       case Some(game) =>
         ApiMoveStreamGlobalConcurrencyLimitPerIP(req.ipAddress)(
-          addKeepAlive(env.round.apiMoveStream(game, gameC.delayMovesFromReq))
-        )(sourceToNdJsonOption)
+          ndJson.addKeepAlive(env.round.apiMoveStream(game, gameC.delayMovesFromReq))
+        )(jsOptToNdJson)
     }
 
   def perfStat(username: UserStr, perfKey: lila.rating.Perf.Key) = ApiRequest:
@@ -361,35 +359,16 @@ final class Api(
     json.fold[ApiResult](ApiResult.NoData)(ApiResult.Data.apply)
   def toApiResult(json: Seq[JsValue]): ApiResult = ApiResult.Data(JsArray(json))
 
-  def toHttp(result: ApiResult): Result =
-    result match
-      case ApiResult.Limited          => rateLimitedJson
-      case ApiResult.ClientError(msg) => BadRequest(jsonError(msg))
-      case ApiResult.NoData           => notFoundJson()
-      case ApiResult.Custom(result)   => result
-      case ApiResult.Done             => jsonOkResult
-      case ApiResult.Data(json)       => JsonOk(json)
+  val toHttp: ApiResult => Result =
+    case ApiResult.Limited          => rateLimitedJson
+    case ApiResult.ClientError(msg) => BadRequest(jsonError(msg))
+    case ApiResult.NoData           => notFoundJson()
+    case ApiResult.Custom(result)   => result
+    case ApiResult.Done             => jsonOkResult
+    case ApiResult.Data(json)       => JsonOk(json)
 
   def jsonDownload(makeSource: => Source[JsValue, ?])(using req: RequestHeader): Result =
-    GlobalConcurrencyLimitPerIP.download(req.ipAddress)(makeSource)(sourceToNdJson)
-
-  def addKeepAlive(source: Source[JsValue, ?]): Source[Option[JsValue], ?] =
-    source
-      .map(some)
-      .keepAlive(50.seconds, () => none) // play's idleTimeout = 75s
-
-  def sourceToNdJson(source: Source[JsValue, ?]): Result =
-    sourceToNdJsonString:
-      source.map: o =>
-        Json.stringify(o) + "\n"
-
-  def sourceToNdJsonOption(source: Source[Option[JsValue], ?]): Result =
-    sourceToNdJsonString:
-      source.map:
-        _.so(Json.stringify) + "\n"
-
-  private def sourceToNdJsonString(source: Source[String, ?]): Result =
-    Ok.chunked(source).as(ndJsonContentType) pipe noProxyBuffer
+    GlobalConcurrencyLimitPerIP.download(req.ipAddress)(makeSource)(jsToNdJson)
 
   def csvDownload(makeSource: => Source[String, ?])(using req: RequestHeader): Result =
     GlobalConcurrencyLimitPerIP.download(req.ipAddress)(makeSource)(sourceToCsv)

@@ -23,7 +23,7 @@ final class UblogPaginator(
 
   val maxPerPage = MaxPerPage(9)
 
-  def byUser(user: User, live: Boolean, page: Int): Fu[Paginator[PreviewPost]] =
+  def byUser[U: UserIdOf](user: U, live: Boolean, page: Int): Fu[Paginator[PreviewPost]] =
     byBlog(UblogBlog.Id.User(user.id), live, page)
 
   def byBlog(blog: UblogBlog.Id, live: Boolean, page: Int): Fu[Paginator[PreviewPost]] =

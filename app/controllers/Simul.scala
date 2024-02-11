@@ -17,23 +17,24 @@ final class Simul(env: Env) extends LilaController(env):
   def homeLang = LangPage(routes.Simul.home)(serveHome)
 
   private def serveHome(using ctx: Context) = NoBot:
-    fetchSimuls(ctx.me) flatMap { case (((pending, created), started), finished) =>
-      Ok.page(html.simul.home(pending, created, started, finished))
+    fetchSimuls flatMap { case (((pending, created), started), finished) =>
+      env.simul.api.checkOngoingSimuls(started) >>
+        Ok.page(html.simul.home(pending, created, started, finished))
     }
 
   val apiList = OpenOrScoped(): ctx ?=>
-    fetchSimuls(ctx.me) flatMap { case (((pending, created), started), finished) =>
+    fetchSimuls flatMap { case (((pending, created), started), finished) =>
       env.simul.jsonView.apiAll(pending, created, started, finished) map JsonOk
     }
 
   val homeReload = Open:
-    fetchSimuls(ctx.me) flatMap { case (((pending, created), started), finished) =>
+    fetchSimuls flatMap { case (((pending, created), started), finished) =>
       Ok.page(html.simul.homeInner(pending, created, started, finished))
     }
 
-  private def fetchSimuls(me: Option[lila.user.User]) =
+  private def fetchSimuls(using me: Option[lila.user.Me]) =
     me.so { u =>
-      env.simul.repo.findPending(u.id)
+      env.simul.repo.findPending(u.userId)
     } zip
       env.simul.allCreatedFeaturable.get {} zip
       env.simul.repo.allStarted zip

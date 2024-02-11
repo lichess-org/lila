@@ -62,9 +62,8 @@ final class PlayApi(env: Env, apiC: => Api)(using akka.stream.Materializer) exte
   private object impl:
 
     def gameStream(pov: Pov)(using Context, Me) =
-      env.game.gameRepo.withInitialFen(pov.game) map { wf =>
-        apiC.sourceToNdJsonOption(env.bot.gameStateStream(wf, pov.color))
-      }
+      env.game.gameRepo.withInitialFen(pov.game) map: wf =>
+        jsOptToNdJson(env.bot.gameStateStream(wf, pov.color))
 
     def move(pov: Pov, uci: String, offeringDraw: Option[Boolean])(using Me) =
       env.bot.player(pov, uci, offeringDraw) pipe toResult

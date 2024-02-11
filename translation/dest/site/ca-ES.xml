@@ -325,8 +325,8 @@
   <string name="exportGames">Exporta les partides</string>
   <string name="ratingRange">Rang de puntuació</string>
   <plurals name="giveNbSeconds">
-    <item quantity="one">Dóna %s segons</item>
-    <item quantity="other">Dóna %s segons</item>
+    <item quantity="one">Dona %s segon</item>
+    <item quantity="other">Dona %s segons</item>
   </plurals>
   <string name="thisAccountViolatedTos">Aquest compte ha violat els Termes de Servei de Lichess</string>
   <string name="openingExplorerAndTablebase">Explorador d\'obertures &amp; taula de finals</string>
@@ -418,6 +418,7 @@
   <string name="blackCheckmatesInOneMove">Les negres fan escac i mat en una jugada</string>
   <string name="retry">Reintentar</string>
   <string name="reconnecting">S\'està reconnectant</string>
+  <string name="noNetwork">Fora de línia</string>
   <plurals name="nbFriendsOnline">
     <item quantity="one">%s amic connectat</item>
     <item quantity="other">%s amics connectats</item>

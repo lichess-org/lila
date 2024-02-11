@@ -1,5 +1,3 @@
-import { domDialog } from './dialog';
-
 export const makeLinkPopups = (dom: HTMLElement | Cash, trans: Trans, selector = 'a[href^="http"]') =>
   $(dom).on('click', selector, function (this: HTMLLinkElement) {
     return onClick(this, trans);
@@ -9,10 +7,11 @@ export const onClick = (a: HTMLLinkElement, trans: Trans): boolean => {
   const url = new URL(a.href);
   if (isPassList(url)) return true;
 
-  domDialog({
-    class: 'link-popup',
-    cssPath: 'linkPopup',
-    htmlText: `
+  lichess.dialog
+    .dom({
+      class: 'link-popup',
+      css: [{ themed: 'linkPopup' }],
+      htmlText: `
       <div class="link-popup__content">
         <div class="link-popup__content__title">
           <h2>${trans('youAreLeavingLichess')}</h2>
@@ -25,11 +24,12 @@ export const onClick = (a: HTMLLinkElement, trans: Trans): boolean => {
           ${trans('proceedToX', url.host)}
         </a>
       </div>`,
-  }).then(dlg => {
-    $('.cancel', dlg.view).on('click', dlg.close);
-    $('a', dlg.view).on('click', () => setTimeout(dlg.close, 1000));
-    dlg.showModal();
-  });
+    })
+    .then(dlg => {
+      $('.cancel', dlg.view).on('click', dlg.close);
+      $('a', dlg.view).on('click', () => setTimeout(dlg.close, 1000));
+      dlg.showModal();
+    });
   return false;
 };
 

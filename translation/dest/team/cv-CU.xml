@@ -12,5 +12,5 @@
   <string name="joinTeam">Ушкӑна хутшӑн</string>
   <string name="quitTeam">Ушкӑнтан тух</string>
   <string name="teamRecentMembers">Тин хутшӑннӑ пайташсем</string>
-  <string name="joinLichessVariantTeam">Хыпар тата пулӑм пирки пӗлсе тӑрас тесен ухвитсаллӑ %s ушкӑна хутшӑн</string>
+  <string name="joinLichessVariantTeam">Хыпар тата пулӑм пирки пӗлсе тӑрас тесен ухвитсаллӑ %s ушкӑна хутшӑнмалла</string>
 </resources>

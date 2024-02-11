@@ -50,7 +50,7 @@ ThisBuild / libraryDependencySchemes ++= Seq(
 libraryDependencies ++= akka.bundle ++ playWs.bundle ++ macwire.bundle ++ Seq(
   play.json, play.server, play.netty, play.logback,
   chess, compression, scalalib, hasher,
-  reactivemongo.driver, /* reactivemongo.kamon, */ maxmind, prismic, scalatags,
+  reactivemongo.driver, /* reactivemongo.kamon, */ maxmind, scalatags,
   kamon.core, kamon.influxdb, kamon.metrics, kamon.prometheus,
   scaffeine, caffeine, lettuce, uaparser, nettyTransport, reactivemongo.shaded
 ) ++ tests.bundle
@@ -61,13 +61,13 @@ lazy val modules = Seq(
   gameSearch, timeline, forum, forumSearch, team, teamSearch,
   analyse, mod, round, pool, lobby, setup,
   importer, gathering, tournament, simul, relation, report, pref,
-  evaluation, chat, puzzle, tv, coordinate, blog,
+  evaluation, chat, puzzle, tv, coordinate, feed,
   history, video, shutup, push, appeal, mailer,
   playban, insight, perfStat, irc, challenge,
   study, studySearch, fishnet, explorer, learn, plan,
   event, coach, practice, evalCache, irwin,
   activity, relay, streamer, bot, clas, swiss, storm, racer,
-  ublog, tutor, opening
+  ublog, tutor, opening, cms
 )
 
 lazy val moduleRefs = modules map projectToRef
@@ -75,7 +75,7 @@ lazy val moduleCPDeps = moduleRefs map { sbt.ClasspathDependency(_, None) }
 
 lazy val api = module("api",
   moduleCPDeps,
-  Seq(play.api, play.json, hasher, kamon.core, kamon.influxdb, lettuce) ++ reactivemongo.bundle ++ tests.bundle
+  Seq(play.api, play.json, hasher, kamon.core, kamon.influxdb, lettuce) ++ reactivemongo.bundle ++ tests.bundle ++ flexmark.bundle
 ).settings(
   Runtime / aggregate := false,
   Test / aggregate := true  // Test <: Runtime
@@ -93,6 +93,11 @@ lazy val i18n = module("i18n",
       compileTo = (Compile / sourceManaged).value
     )
   }.taskValue
+)
+
+lazy val cms = module("cms",
+  Seq(user),
+  reactivemongo.bundle
 )
 
 lazy val puzzle = module("puzzle",
@@ -130,14 +135,14 @@ lazy val coordinate = module("coordinate",
   reactivemongo.bundle ++ macwire.bundle
 )
 
-lazy val blog = module("blog",
-  Seq(timeline),
-  Seq(prismic) ++ tests.bundle ++ reactivemongo.bundle
+lazy val feed = module("feed",
+  Seq(user),
+  reactivemongo.bundle
 )
 
 lazy val ublog = module("ublog",
   Seq(timeline),
-  Seq(bloomFilter) ++ tests.bundle ++ reactivemongo.bundle
+  Seq(bloomFilter) ++ reactivemongo.bundle
 )
 
 lazy val evaluation = module("evaluation",
@@ -339,7 +344,7 @@ lazy val study = module("study",
 ).dependsOn(common % "test->test")
 
 lazy val relay = module("relay",
-  Seq(study),
+  Seq(study, notifyModule),
   tests.bundle ++ Seq(galimatias) ++ reactivemongo.bundle
 )
 

@@ -53,9 +53,13 @@ final class Env(
     modEnv: lila.mod.Env,
     notifyEnv: lila.notify.Env,
     appealApi: lila.appeal.AppealApi,
+    shutupEnv: lila.shutup.Env,
+    modLogApi: lila.mod.ModlogApi,
     activityWriteApi: lila.activity.ActivityWriteApi,
     ublogApi: lila.ublog.UblogApi,
     picfitUrl: lila.memo.PicfitUrl,
+    picfitApi: lila.memo.PicfitApi,
+    cmsApi: lila.cms.CmsApi,
     cacheApi: lila.memo.CacheApi,
     ws: StandaloneWSClient,
     val mode: Mode
@@ -111,6 +115,11 @@ final class Env(
   lazy val chatFreshness     = wire[ChatFreshness]
 
   private lazy val pagerDuty = wire[PagerDuty]
+
+  import lila.cms.CmsPage
+  def cmsRender(key: CmsPage.Key)(using ctx: Context): Fu[Option[CmsPage.Render]] =
+    cmsApi.render(key)(ctx.req, ctx.user.flatMap(_.lang))
+  def cmsRenderKey(key: String)(using Context) = cmsRender(CmsPage.Key(key))
 
   Bus.subscribeFuns(
     "chatLinkCheck" -> { case GetLinkCheck(line, source, promise) =>

@@ -42,11 +42,11 @@ object signup:
             br,
             small(
               trans.byRegisteringYouAgreeToBeBoundByOur(
-                a(href := routes.ContentPage.tos)(trans.termsOfService())
+                a(href := routes.Cms.tos)(trans.termsOfService())
               ),
               br,
               trans.readAboutOur(
-                a(href := routes.ContentPage.menuBookmark("privacy"))(trans.privacyPolicy())
+                a(href := routes.Cms.menuPage("privacy"))(trans.privacyPolicy())
               ),
               br
             )
@@ -71,6 +71,6 @@ object signup:
   private def agreements(using Context) = List(
     "assistance" -> trans.agreementAssistance(),
     "nice"       -> trans.agreementNice(),
-    "account" -> trans.agreementMultipleAccounts(a(href := routes.ContentPage.tos)(trans.termsOfService())),
-    "policy"  -> trans.agreementPolicy()
+    "account"    -> trans.agreementMultipleAccounts(a(href := routes.Cms.tos)(trans.termsOfService())),
+    "policy"     -> trans.agreementPolicy()
   )

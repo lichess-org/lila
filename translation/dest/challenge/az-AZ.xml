@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="challengeToPlay">Oyuna çağırış</string>
-  <string name="challengeDeclined">Çağırış rədd edildi</string>
+  <string name="challengeDeclined">Çağırış rədd edildi.</string>
   <string name="challengeAccepted">Çağırış qəbul edildi!</string>
   <string name="challengeCanceled">Çağırışdan imtina edildi.</string>
   <string name="registerToSendChallenges">Çağırış göndərmək üçün lütfən qeydiyyatdan keçin.</string>

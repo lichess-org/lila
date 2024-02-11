@@ -84,4 +84,7 @@
   <string name="nowOneMonth">Тепер Ви Покровитель Lichess на один місяць!</string>
   <string name="downgradeNextMonth">Через один місяць з Вас НЕ буде списано кошти знову, а Ваш обліковий запис Lichess буде повернено до звичайного.</string>
   <string name="changeCurrency">Змінити валюту</string>
+  <string name="paymentDetails">Деталі оплати</string>
+  <string name="updatePaymentMethod">Оновити спосіб оплати</string>
+  <string name="stripeManageSub">Керувати своєю підпискою та завантажити ваші чеки</string>
 </resources>

@@ -38,8 +38,8 @@ trait ScalatagsAttrs:
     val credentialless  = attr("credentialless").empty
 
   val thSortNumber    = th(attr("data-sort-method") := "number")
-  val dataSort        = attr("data-sort")
-  val dataSortDefault = attr("data-sort-default").empty
+  val dataSort        = attrData("sort")
+  val dataSortDefault = attrData("sort-default").empty
 
 // collection of lila snippets
 trait ScalatagsSnippets:

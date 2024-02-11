@@ -207,7 +207,7 @@ object layout:
   private def spaceless(html: String) = raw(spaceRegex.replaceAllIn(html.replace("\\n", ""), ""))
 
   private val dailyNewsAtom = link(
-    href     := routes.DailyFeed.atom,
+    href     := routes.Feed.atom,
     st.title := "Lichess Updates Feed",
     tpe      := "application/atom+xml",
     rel      := "alternate"
@@ -343,22 +343,10 @@ object layout:
             )
           ),
           netConfig.socketDomains.nonEmpty option a(
-            id       := "reconnecting",
+            id       := "network-status",
             cls      := "link text",
             dataIcon := licon.ChasingArrows
-          )(trans.reconnecting()),
-          pref.agreementNeededSince.map: date =>
-            div(id := "agreement")(
-              div(
-                "Lichess has updated the ",
-                a(href := routes.ContentPage.tos)("Terms of Service"),
-                " as of ",
-                showDate(date),
-                "."
-              ),
-              postForm(action := routes.Pref.set("agreement")):
-                button(cls := "button")("OK")
-            ),
+          ),
           spinnerMask,
           loadScripts(moreJs)
         )
@@ -443,6 +431,8 @@ object layout:
       trans.pause,
       trans.resume,
       trans.nbFriendsOnline,
+      trans.reconnecting,
+      trans.noNetwork,
       trans.timeago.justNow,
       trans.timeago.inNbSeconds,
       trans.timeago.inNbMinutes,

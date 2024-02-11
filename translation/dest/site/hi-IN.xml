@@ -124,6 +124,7 @@
   <string name="memory">स्मृति (मेमोरी)</string>
   <string name="infiniteAnalysis">अनंत विश्लेषण</string>
   <string name="removesTheDepthLimit">गहराई सीमा को निकालता है, और आपके कंप्यूटर को गर्म रखता है</string>
+  <string name="engineManager">इंजन प्रबंधक</string>
   <string name="blunder">भयंकर गलती</string>
   <string name="mistake">ग़लती</string>
   <string name="inaccuracy">गलती</string>
@@ -155,6 +156,10 @@
   <plurals name="nbGames">
     <item quantity="one">%s खेल</item>
     <item quantity="other">%s खेल</item>
+  </plurals>
+  <plurals name="ratingXOverYGames">
+    <item quantity="one">%1$s खेलों में %2$s रेटिंग</item>
+    <item quantity="other">%1$s खेलों में %2$s रेटिंग</item>
   </plurals>
   <plurals name="nbBookmarks">
     <item quantity="one">%s पृष्ठ स्मृतियाँ</item>

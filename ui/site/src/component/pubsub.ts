@@ -1,18 +1,11 @@
-const subs: Dictionary<(() => void)[]> = Object.create(null);
+const subs: Dictionary<Set<() => void>> = Object.create(null);
 
 const pubsub: Pubsub = {
   on(name: string, cb) {
-    (subs[name] = subs[name] || []).push(cb);
+    (subs[name] = subs[name] || new Set()).add(cb);
   },
   off(name: string, cb) {
-    const cbs = subs[name];
-    if (cbs)
-      for (const i in cbs) {
-        if (cbs[i] === cb) {
-          cbs.splice(Number(i), 1);
-          break;
-        }
-      }
+    subs[name]?.delete(cb);
   },
   emit(name: string, ...args: any[]) {
     for (const fn of subs[name] || []) fn.apply(null, args);

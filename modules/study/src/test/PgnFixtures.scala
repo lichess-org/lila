@@ -44,17 +44,17 @@ object PgnFixtures:
   """
 
   val pgn5 = """
-  [Event "nt9's Study: Chapter 7"]
-  [Site "https://lichess.org/study/Q41XcI0B/JHnNE9Oi"]
-  [Result "*"]
-  [UTCDate "2023.05.23"]
-  [UTCTime "18:15:30"]
-  [Variant "Standard"]
-  [ECO "?"]
-  [Opening "?"]
-  [Annotator "https://lichess.org/@/nt9"]
-  [FEN "rnbqkbnr/pp1ppppp/2p5/8/3P1P2/8/PPP1P1PP/RNBQKBNR b KQkq - 0 2"]
-  [SetUp "1"]
+[Event "nt9's Study: Chapter 7"]
+[Site "https://lichess.org/study/Q41XcI0B/JHnNE9Oi"]
+[Result "*"]
+[UTCDate "2023.05.23"]
+[UTCTime "18:15:30"]
+[Variant "Standard"]
+[ECO "?"]
+[Opening "?"]
+[Annotator "https://lichess.org/@/nt9"]
+[FEN "rnbqkbnr/pp1ppppp/2p5/8/3P1P2/8/PPP1P1PP/RNBQKBNR b KQkq - 0 2"]
+[SetUp "1"]
 
 { custom position with Black to move }
   2... h5 3. b4
@@ -376,7 +376,7 @@ outright to } 29. c4+!) 28... Qg6 29. Qa8! Bd7 30. Qg8+ { and ending with
 Black's king on c1 and White being a piece up 7 moves later, but we have
 already gone way too far from the game. }) (13. c5!? dxc5 14. e5 { was an
 interesting positional sacrifice. A similar one occurred several moves later
-in the game. Here White has not played d4-d5 yet, but the evalutation remains
+in the game. Here White has not played d4-d5 yet, but the evaluation remains
 the same after } 14... Qh6 (14... Qe7) 15. Rad1! Bg4 16. Qb3 { . Originally I
 believed White to be slightly better here, but now I believe that it is sharp
 but equal, with any result possible. } 16... b6 (16... Rab8!?) 17. Qa4!? { is an

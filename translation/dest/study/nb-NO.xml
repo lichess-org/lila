@@ -53,6 +53,7 @@
   <string name="allSyncMembersRemainOnTheSamePosition">Alle synkroniserte medlemmer ser den samme stillingen</string>
   <string name="shareChanges">Del endringer med tilskuere og lagre dem på serveren</string>
   <string name="playing">Pågår</string>
+  <string name="showEvalBar">Evalueringssøyler</string>
   <string name="first">Første</string>
   <string name="previous">Forrige</string>
   <string name="next">Neste</string>
@@ -62,7 +63,7 @@
   <string name="studyPgn">Studie-PGN</string>
   <string name="downloadAllGames">Last ned alle partiene</string>
   <string name="chapterPgn">Kapittel-PGN</string>
-  <string name="copyChapterPgn" comment="A button which lets you copy the PGN text to your clipboard (i.e. similar to ⌘+C or Ctrl+C).">Kopier PGN</string>
+  <string name="copyChapterPgn">Kopier PGN</string>
   <string name="copyChapterPgnDescription">Kopier PGN for kapittelet til utklippstavlen.</string>
   <string name="downloadGame">Last ned partiet</string>
   <string name="studyUrl">Studie-URL</string>

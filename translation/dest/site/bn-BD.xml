@@ -9,7 +9,7 @@
   <string name="yourTurn">আপনার চাল</string>
   <string name="aiNameLevelAiLevel">%1$s এর লেভেল %2$s</string>
   <string name="level">লেভেল</string>
-  <string name="strength">শক্তিমত্তা</string>
+  <string name="strength">শক্তি</string>
   <string name="toggleTheChat">আড্ডা চালু/বন্ধ</string>
   <string name="chat">আড্ডা</string>
   <string name="resign">হার স্বীকার করুন</string>
@@ -25,8 +25,8 @@
   <string name="blackIsVictorious">কালো বিজয়ী</string>
   <string name="youPlayTheWhitePieces">আপনি সাদা গুটি নিয়ে খেলছেন</string>
   <string name="youPlayTheBlackPieces">আপনি কালো গুটি নিয়ে খেলছেন</string>
-  <string name="itsYourTurn">এবার আপনার দান!</string>
-  <string name="cheatDetected">চিট শনাক্ত হয়েছে</string>
+  <string name="itsYourTurn">এবার আপনার পালা!</string>
+  <string name="cheatDetected">প্রতারণা শনাক্ত করা হয়েছে</string>
   <string name="kingInTheCenter">রাজাকে কেন্দ্রে আনুন</string>
   <string name="threeChecks">তিনটি কিস্তি</string>
   <string name="raceFinished">প্রতিযোগিতা শেষ</string>
@@ -54,13 +54,13 @@
   <string name="requestAComputerAnalysis">কম্পিউটার বিশ্লেষণের জন্য অবেদন করুন</string>
   <string name="computerAnalysis">কম্পিউটারের বিশ্লেষণ</string>
   <string name="computerAnalysisAvailable">কম্পিউটার বিশ্লেষণ পাওয়া যায়</string>
-  <string name="computerAnalysisDisabled">কম্পিউটার বিশ্লেষণ নিষ্ক্রিয় করা আছে</string>
+  <string name="computerAnalysisDisabled">কম্পিউটার বিশ্লেষণ অচল করা আছে</string>
   <string name="analysis">বিশ্লেষণ বোর্ড</string>
   <string name="depthX">গভীরতা %s</string>
   <string name="usingServerAnalysis">সার্ভারের বিশ্লেষণ ব্যবহার করা হচ্ছে</string>
   <string name="loadingEngine">ইঞ্জিন লোড করা হচ্ছে...</string>
   <string name="calculatingMoves">চালগুলি গননা করা হচ্ছে...</string>
-  <string name="engineFailed">ইঞ্জিন লোড নিতে ব্যর্থ</string>
+  <string name="engineFailed">ইঞ্জিন লোড করতে ব্যর্থ</string>
   <string name="cloudAnalysis">মেঘবিশ্লেষণ</string>
   <string name="goDeeper">গভীরে যাও</string>
   <string name="showThreat">ন্হমকি দেখান</string>
@@ -69,7 +69,7 @@
   <string name="promoteVariation">বিজ্ঞাপন</string>
   <string name="makeMainLine">প্রাধান সীমা করা</string>
   <string name="deleteFromHere">এখান থেকে মুছুন</string>
-  <string name="forceVariation">ফোর্স ভ্যারিয়েশন</string>
+  <string name="forceVariation">জোর করে পরিবর্তন</string>
   <string name="move">চাল</string>
   <string name="variantLoss">ভিন্ন ক্ষতি</string>
   <string name="variantWin">ভিন্ন জয়</string>

@@ -53,6 +53,7 @@
   <string name="allSyncMembersRemainOnTheSamePosition">Alle SYNC-medlemene ser den same stillingen</string>
   <string name="shareChanges">Lagre endringar på serveren og del dei med tilskodarar</string>
   <string name="playing">Spelar no</string>
+  <string name="showEvalBar">Evalueringssøyler</string>
   <string name="first">Første</string>
   <string name="previous">Attende</string>
   <string name="next">Neste</string>
@@ -62,7 +63,7 @@
   <string name="studyPgn">Studie-PGN</string>
   <string name="downloadAllGames">Last ned alle spel</string>
   <string name="chapterPgn">Kapittel-PGN</string>
-  <string name="copyChapterPgn" comment="A button which lets you copy the PGN text to your clipboard (i.e. similar to ⌘+C or Ctrl+C).">Kopier PGN</string>
+  <string name="copyChapterPgn">Kopier PGN</string>
   <string name="copyChapterPgnDescription">Kopier kapittel-PGN til utklippstavla.</string>
   <string name="downloadGame">Last ned spel</string>
   <string name="studyUrl">Studie-URL</string>
@@ -84,7 +85,7 @@
   <string name="pinnedChapterComment">Fastspikra kapittelkommentar</string>
   <string name="saveChapter">Lagre kapittelet</string>
   <string name="clearAnnotations">Fjern notat</string>
-  <string name="clearVariations">Fjern variantar</string>
+  <string name="clearVariations" comment="Clear is used as a verb here. This erases the variations in the study (https://lichess.org/study) you are preparing.">Fjern variantar</string>
   <string name="deleteChapter">Slett kapittel</string>
   <string name="deleteThisChapter">Slette dette kapittelet? Avgjerda er endeleg og kan ikkje angrast!</string>
   <string name="clearAllCommentsInThisChapter">Fjern alle kommentarar og figurar i dette kapittelet?</string>

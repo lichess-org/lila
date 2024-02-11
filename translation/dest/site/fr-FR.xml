@@ -209,7 +209,7 @@
   <string name="changeUsername">Modifier le nom d\'utilisateur</string>
   <string name="changeUsernameNotSame">Seules les majuscules et les minuscules peuvent être changées - ex. JeanDupont plutôt que jeandupont.</string>
   <string name="changeUsernameDescription">Modifiez votre nom d\'utilisateur. Vous pouvez le faire une fois seulement. Seule la casse des lettres peut être modifiée.</string>
-  <string name="signupUsernameHint">Assurez-vous de choisir un nom d\'utilisateur convenable. Vous ne pourrez pas le modifier et tout nom d\'utilisateur inapproprié entraînera la fermeture du compte.</string>
+  <string name="signupUsernameHint">Assurez-vous de choisir un nom d\'utilisateur convenable. Vous ne pourrez pas le modifier et tout nom d\'utilisateur inapproprié entraînera la fermeture du compte !</string>
   <string name="signupEmailHint">Nous l\'utiliserons uniquement pour la réinitialisation du mot de passe.</string>
   <string name="password">Mot de passe</string>
   <string name="changePassword">Changer votre mot de passe</string>
@@ -221,7 +221,7 @@
   <string name="error.namePassword">N\'employez pas votre nom d\'utilisateur comme mot de passe.</string>
   <string name="blankedPassword">Vous avez utilisé le même mot de passe sur un autre site, et ce site a été compromis. Pour assurer la sécurité de votre compte Lichess, vous devez établir un nouveau mot de passe. Merci de votre compréhension.</string>
   <string name="youAreLeavingLichess">Vous quittez Lichess</string>
-  <string name="neverTypeYourPassword">N\'utilisez jamais votre mot de passe Lichess sur un autre site.</string>
+  <string name="neverTypeYourPassword">N\'utilisez jamais votre mot de passe Lichess sur un autre site !</string>
   <string name="proceedToX">Continuer vers %s</string>
   <string name="passwordSuggestion">N\'utilisez pas un mot de passe suggéré par une autre personne. Elle pourrait l\'utiliser pour voler votre compte.</string>
   <string name="emailSuggestion">N\'utilisez pas une adresse de courriel suggérée par une autre personne. Celle-ci pourrait l\'utiliser pour voler votre compte.</string>
@@ -418,6 +418,7 @@
   <string name="blackCheckmatesInOneMove">Les Noirs matent en un coup</string>
   <string name="retry">Réessayer</string>
   <string name="reconnecting">Reconnexion en cours</string>
+  <string name="noNetwork">Hors ligne</string>
   <plurals name="nbFriendsOnline">
     <item quantity="one">%s ami en ligne</item>
     <item quantity="other">%s amis en ligne</item>

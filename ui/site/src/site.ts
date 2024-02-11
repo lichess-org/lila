@@ -4,7 +4,6 @@ import * as miniGame from './component/miniGame';
 import * as timeago from './component/timeago';
 import * as xhr from 'common/xhr';
 import announce from './component/announce';
-import agreement from './component/agreement';
 import exportLichessGlobals from './site.lichess.globals';
 import info from './component/info';
 import OnlineFriends from './component/friends';
@@ -137,12 +136,10 @@ lichess.load.then(() => {
 
     if (setBlind && !lichess.blindMode) setTimeout(() => $('#blind-mode button').trigger('click'), 1500);
 
-    if (showDebug) lichess.asset.loadEsm('diagnostic');
+    if (showDebug) lichess.asset.loadEsm('diagnosticDialog');
 
     const pageAnnounce = document.body.getAttribute('data-announce');
     if (pageAnnounce) announce(JSON.parse(pageAnnounce));
-
-    agreement();
 
     serviceWorker();
 

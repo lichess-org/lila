@@ -6,7 +6,6 @@ import { eventPosition, opposite } from 'chessground/util';
 import { Rules } from 'chessops/types';
 import { parseFen } from 'chessops/fen';
 import { parseSquare, makeSquare } from 'chessops/util';
-import { domDialog } from 'common/dialog';
 import EditorCtrl from './ctrl';
 import chessground from './chessground';
 import { Selected, CastlingToggle, EditorState } from './interfaces';
@@ -248,7 +247,7 @@ function controls(ctrl: EditorCtrl, state: EditorState): VNode {
                 class: { button: true, 'button-empty': true, disabled: !state.playable },
                 on: {
                   click: () => {
-                    if (state.playable) domDialog({ cash: $('.continue-with'), show: 'modal' });
+                    if (state.playable) lichess.dialog.dom({ cash: $('.continue-with'), show: 'modal' });
                   },
                 },
               },
@@ -317,6 +316,7 @@ function inputs(ctrl: EditorCtrl, fen: string): VNode | undefined {
         attrs: { readonly: true, spellcheck: 'false', value: ctrl.makeEditorUrl(fen, ctrl.bottomColor()) },
       }),
     ]),
+    h('a', { attrs: { href: ctrl.makeImageUrl(fen) } }, 'SCREENSHOT'),
   ]);
 }
 

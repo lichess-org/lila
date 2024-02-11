@@ -1,2 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+  <string name="voiceCommands">음성 명령어</string>
+  <string name="watchTheVideoTutorial">튜토리얼 영상 보기</string>
+</resources>

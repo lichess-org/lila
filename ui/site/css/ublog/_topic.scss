@@ -16,17 +16,15 @@
       @extend %box-neat-force;
       font-size: 0.85em;
       line-height: 0;
-      .ublog-post-card {
-        &__title {
-          position: absolute;
-          bottom: 0;
-          #{$start-direction}: 0;
-          #{$end-direction}: 0;
-          padding: 3% 4% 3% 6%;
-          background: $c-bg-zebra;
-          opacity: 0.9;
-          line-height: 1.5em;
-        }
+      .ublog-post-card__title {
+        position: absolute;
+        bottom: 0;
+        #{$start-direction}: 0;
+        #{$end-direction}: 0;
+        padding: 3% 4% 3% 6%;
+        background: $c-bg-zebra;
+        opacity: 0.9;
+        line-height: 1.5em;
       }
     }
     &__title {

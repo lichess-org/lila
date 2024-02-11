@@ -5,6 +5,7 @@
   <string name="toInviteSomeoneToPlayGiveThisUrl">Pro pozvání někoho ke hře využijte tento odkaz</string>
   <string name="gameOver">Konec hry</string>
   <string name="waitingForOpponent">Čekání na soupeře</string>
+  <string name="orLetYourOpponentScanQrCode">Nebo nechte soupeře naskenovat tento QR kód</string>
   <string name="waiting">Čeká se</string>
   <string name="yourTurn">Jste na tahu</string>
   <string name="aiNameLevelAiLevel">AI %1$s úrovně %2$s</string>
@@ -72,6 +73,7 @@
   <string name="makeMainLine">Povýšit na hlavní variantu</string>
   <string name="deleteFromHere">Smazat odsud</string>
   <string name="forceVariation">Zobrazit jako variantu</string>
+  <string name="copyVariationPgn">Zkopírovat PGN varianty</string>
   <string name="move">Tah</string>
   <string name="variantLoss">Prohra</string>
   <string name="variantWin">Výhra</string>
@@ -459,6 +461,7 @@
   <string name="importGame">Importuj hru</string>
   <string name="importGameExplanation">Vložení partie ve formátu PGN Vám umožní přehrání partie, získáte počítačovou analýzu, chat ke hře a URL ke sdílení hry.</string>
   <string name="importGameCaveat">Varianty budou vymazány. Chcete-li je ponechat, importujte PGN prostřednictvím studie.</string>
+  <string name="importGameDataPrivacyWarning">K této PGN má přístup kdokoli. Chcete-li hru naimportovat soukromě, použijte studii.</string>
   <plurals name="nbImportedGames">
     <item quantity="one">%s importovaná</item>
     <item quantity="few">%s importované</item>
@@ -473,6 +476,7 @@
   <string name="blackCheckmatesInOneMove">Černý dá prvním tahem mat</string>
   <string name="retry">Zkusit znovu</string>
   <string name="reconnecting">Připojování</string>
+  <string name="noNetwork">Offline</string>
   <plurals name="nbFriendsOnline">
     <item quantity="one">%s kamarád online</item>
     <item quantity="few">%s kamarádi online</item>
@@ -570,6 +574,7 @@
   <string name="firstName">Jméno</string>
   <string name="lastName">Příjmení</string>
   <string name="biography">O mně</string>
+  <string name="countryRegion" comment="flag&#10;Appears when you edit your profile. Lets a player add a country/flag (not all flags are for countries) to their profile">Země nebo region</string>
   <string name="thankYou">Děkujeme!</string>
   <string name="socialMediaLinks">Odkazy na sociální sítě</string>
   <string name="oneUrlPerLine">Jedna URL na řádek.</string>
@@ -762,6 +767,10 @@
   <string name="keyNextBlunder">Další hrubá chyba</string>
   <string name="keyNextMistake">Další chyba</string>
   <string name="keyNextInaccuracy">Další nepřesnost</string>
+  <string name="toggleVariationArrows">Přepnout šipky variant</string>
+  <string name="toggleGlyphAnnotations">Přepnout poznámky glyfů</string>
+  <string name="variationArrowsInfo">Šipky variant umožňují navigaci bez použití seznamu tahů.</string>
+  <string name="playSelectedMove">zahrát vybraný tah</string>
   <string name="newTournament">Nový turnaj</string>
   <string name="tournamentHomeTitle">Šachové turnaje nabízejí různé časové možnosti a varianty</string>
   <string name="tournamentHomeDescription">Zahrajte si rychlý šachový turnaj! Připojte se k oficiálnímu plánovanému turnaji, nebo si vytvořte vlastní. Bullet, Blitz, Klasické, Chess960(Fisherovky), Král v centru, Tři šachy a další možnosti jsou k dispozici pro nekonečnou šachovou zábavu.</string>
@@ -806,6 +815,7 @@
   <string name="withFriends">S přáteli</string>
   <string name="withEverybody">Se všemi</string>
   <string name="kidMode">Dětský režim</string>
+  <string name="kidModeIsEnabled">Dětský režim je povolen.</string>
   <string name="kidModeExplanation">To je pro bezpečnost. V dětském režimu je jakákoli komunikace zablokována. Zapněte to pro děti a studenty, pro ochranu před ostatními na Internetu.</string>
   <string name="inKidModeTheLichessLogoGetsIconX">Když je zapnutý dětský režim, tak se u loga Lichess objeví ikona %s. Podle toho poznáte, že je Vaše dítě v bezpečí.</string>
   <string name="askYourChessTeacherAboutLiftingKidMode">Váš účet je spravován. Požádejte svého šachového učitele o zrušení dětského režimu.</string>
@@ -927,6 +937,8 @@
     <item quantity="many">a uložit %s předtažených variant</item>
     <item quantity="other">a uložit %s předtažených variant</item>
   </plurals>
+  <string name="showUnreadLichessMessage">Dostali jste soukromou zprávu od Lichess.</string>
+  <string name="clickHereToReadIt">Pro přečtení klikněte zde</string>
   <string name="sorry">Omlouváme se :(</string>
   <string name="weHadToTimeYouOutForAWhile">Museli jsme tě odpojit na chvíli.</string>
   <string name="why">Proč?</string>
@@ -1045,6 +1057,8 @@ Nechte toto pole prázdné, pokud chcete začínat z běžného základního pos
   <string name="switchSides">Prohodit strany</string>
   <string name="closingAccountWithdrawAppeal">Uzavřením vašeho účtu stáhnete vaše odvolání</string>
   <string name="ourEventTips">Naše tipy pro organizování akcí</string>
+  <string name="instructions">Pokyny</string>
+  <string name="showMeEverything">Ukaž mi všechno</string>
   <string name="lichessPatronInfo">Lichess je bezplatný a zcela svobodný/nezávislý softvér s otevřeným zdrojovým kódem.
 Veškeré provozní náklady, vývoj a obsah jsou financovány výhradně z příspěvků uživatelů.</string>
 </resources>

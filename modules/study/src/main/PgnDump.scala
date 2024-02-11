@@ -66,8 +66,6 @@ final class PgnDump(
       val genTags = List(
         Tag(_.Event, s"${study.name}: ${chapter.name}"),
         Tag(_.Site, chapterUrl(study.id, chapter.id)),
-        Tag(_.UTCDate, Tag.UTCDate.format.print(chapter.createdAt)),
-        Tag(_.UTCTime, Tag.UTCTime.format.print(chapter.createdAt)),
         Tag(_.Variant, chapter.setup.variant.name.capitalize),
         Tag(_.ECO, opening.fold("?")(_.eco)),
         Tag(_.Opening, opening.fold("?")(_.name)),
@@ -77,6 +75,11 @@ final class PgnDump(
         List(
           Tag(_.FEN, chapter.root.fen.value),
           Tag("SetUp", "1")
+        )
+      ) ::: (!chapter.tags.exists(_.Date)).so(
+        List(
+          Tag(_.UTCDate, Tag.UTCDate.format.print(chapter.createdAt)),
+          Tag(_.UTCTime, Tag.UTCTime.format.print(chapter.createdAt))
         )
       ) :::
         flags.source.so(List(Tag("Source", chapterUrl(study.id, chapter.id)))) :::
@@ -92,7 +95,7 @@ final class PgnDump(
     val root = chapter.root
     val tags = makeTags(study, chapter)(using flags)
     val pgn  = rootToPgn(root, tags)(using flags)
-    annotator toPgnString analysis.fold(pgn)(annotator.addEvals(pgn, _))
+    annotator toPgnString analysis.ifTrue(flags.comments).fold(pgn)(annotator.addEvals(pgn, _))
 
 object PgnDump:
 

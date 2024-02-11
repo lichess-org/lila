@@ -129,7 +129,9 @@ object MarkdownRender:
         "i.ibb.co",
         "i.postimg.cc",
         "xkcd.com",
-        "images.prismic.io"
+        "images.prismic.io",
+        "image.lichess1.org",
+        "127.0.0.1"
       )
 
     private def whitelistedSrc(src: String, assetDomain: Option[AssetDomain]): Option[String] = for
@@ -172,7 +174,7 @@ object MarkdownRender:
                 .attr("rel", rel)
                 .withAttr(resolvedLink)
                 .tag("a")
-                .text(altText)
+                .text(if altText.isEmpty then url else altText)
                 .tag("/a")
 
   private class PgnEmbedExtension(expander: PgnSourceExpand) extends HtmlRenderer.HtmlRendererExtension:

@@ -14,6 +14,7 @@ private object RelayInputSanity:
   def apply(chapters: List[Chapter], games: RelayGames): Either[Fail, RelayGames] = {
     if chapters.isEmpty then Right(games)
     else if isValidTCEC(chapters, games) then Right(games)
+    else if isValidPartial(chapters, games) then Right(games)
     else
       val relayChapters: List[RelayChapter] = chapters.flatMap: chapter =>
         chapter.relay map chapter.->
@@ -25,13 +26,14 @@ private object RelayInputSanity:
   private def detectMissingOrMisplaced(chapters: List[RelayChapter], games: Vector[RelayGame]): Option[Fail] =
     chapters
       .flatMap: (chapter, relay) =>
-        games.lift(relay.index) match
-          case None => Fail.Missing(relay.index).some
-          case Some(game) if !game.playerTagsMatch(chapter.tags) =>
-            games.zipWithIndex.collectFirst:
-              case (otherGame, otherPos) if otherGame playerTagsMatch chapter.tags =>
-                Fail.Misplaced(otherPos, relay.index)
-          case _ => None
+        relay.index flatMap: index =>
+          games.lift(index) match
+            case None => Fail.Missing(index).some
+            case Some(game) if !game.playerTagsMatch(chapter.tags) =>
+              games.zipWithIndex.collectFirst:
+                case (otherGame, otherPos) if otherGame playerTagsMatch chapter.tags =>
+                  Fail.Misplaced(otherPos, index)
+            case _ => None
       .headOption
 
   // TCEC style has one game per file, and reuses the file for all games
@@ -42,9 +44,13 @@ private object RelayInputSanity:
           onlyGame staticTagsMatch c.tags
       case _ => false
 
+  private def isValidPartial(chapters: List[Chapter], games: RelayGames) =
+    games.forall: game =>
+      game.isPush && chapters.exists(c => game.staticTagsMatch(c.tags))
+
   // DGT puts the kings in the center on game end
   // and sends it as actual moves if the kings were close to the center
-  // so we need to remove the boggus king moves
+  // so we need to remove the bogus king moves
   private def fixDgtKingsInTheCenter(games: RelayGames): RelayGames = games map { game =>
     game.copy(
       root = game.root.takeMainlineWhile: node =>

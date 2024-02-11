@@ -93,9 +93,8 @@ trait LilaLibraryExtensions extends LilaTypes:
 
   extension [A](list: List[A])
     def sortLike[B](other: Seq[B], f: A => B): List[A] =
-      list.sortWith { (x, y) =>
+      list.sortWith: (x, y) =>
         other.indexOf(f(x)) < other.indexOf(f(y))
-      }
     def tailOption: Option[List[A]] = list match
       case Nil       => None
       case _ :: rest => Some(rest)

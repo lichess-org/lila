@@ -6,6 +6,7 @@
   }
   &__meta {
     display: flex;
+    flex-flow: row wrap;
     justify-content: center;
     column-gap: 1.5em;
     align-items: center;
@@ -28,6 +29,9 @@
       font-size: 0.9rem;
       margin-#{$start-direction}: -0.5rem;
       vertical-align: top;
+      @media (hover: none) {
+        display: none;
+      }
     }
     &__date {
       unicode-bidi: embed;
@@ -107,6 +111,18 @@
     font-size: 1.2em;
     margin-bottom: 4vh;
     display: block;
+  }
+
+  &__patron-info {
+    margin: 2em 2em 0;
+  }
+  &__lichess {
+    text-align: center;
+    margin: 3em 0 3em 0;
+    .connect-links a {
+      display: inline-block;
+      margin: 1em 0.5em;
+    }
   }
   &__footer {
     margin: 5em 0 0 0;
