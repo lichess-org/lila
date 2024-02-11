@@ -3,7 +3,7 @@
   <string name="broadcasts">پەخشەکان.</string>
   <plurals name="nbBroadcasts">
     <item quantity="one">%s پەخش دەکرێت</item>
-    <item quantity="other">%s پەخش دەکرێت </item>
+    <item quantity="other">%s پەخش دەکرێت</item>
   </plurals>
   <string name="liveBroadcasts">پەخشی ڕاستەوخۆی پاڵەوانییەتیەکان</string>
   <string name="newBroadcast">پەخشێکی تازە</string>
