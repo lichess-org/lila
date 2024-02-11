@@ -7,6 +7,7 @@
   </plurals>
   <string name="liveBroadcasts">Các giải đấu phát sóng trực tiếp</string>
   <string name="newBroadcast">Phát sóng trực tiếp mới</string>
+  <string name="subscribedBroadcasts">Các phát sóng đã đăng ký theo dõi</string>
   <string name="aboutBroadcasts">Giới thiệu về phát sóng</string>
   <string name="noRoundsYet">Chưa có vòng nào.</string>
   <string name="howToUseLichessBroadcasts">Cách sử dụng Phát sóng của Lichess.</string>
