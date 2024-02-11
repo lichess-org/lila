@@ -10,6 +10,7 @@
   </plurals>
   <string name="liveBroadcasts">Онлайн трансляції турнірів</string>
   <string name="newBroadcast">Нова трансляція</string>
+  <string name="subscribedBroadcasts">Обрані трансляції</string>
   <string name="aboutBroadcasts">Про трансляцію</string>
   <string name="noRoundsYet">Поки що немає раундів.</string>
   <string name="howToUseLichessBroadcasts">Як користуватися Lichess трансляціями.</string>
