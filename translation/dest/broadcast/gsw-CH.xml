@@ -8,6 +8,7 @@
   </plurals>
   <string name="liveBroadcasts">Live Turnier-Überträgige</string>
   <string name="newBroadcast">Neui Live-Überträgige</string>
+  <string name="subscribedBroadcasts">Abonnierti Überträgige</string>
   <string name="aboutBroadcasts">Über Überträgige</string>
   <string name="noRoundsYet">No kei Rundene.</string>
   <string name="howToUseLichessBroadcasts">Wie mer Lichess-Überträgige benutzt.</string>
