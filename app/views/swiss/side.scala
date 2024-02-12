@@ -52,7 +52,8 @@ object side:
           div(a(targetBlank, href := pos.url)(pos.name))
         } orElse s.settings.position.map: fen =>
           div(
-            trans.customPosition(), " • ",
+            trans.customPosition(),
+            " • ",
             views.html.base.bits.fenAnalysisLink(fen)
           ),
         teamLink(s.teamId),

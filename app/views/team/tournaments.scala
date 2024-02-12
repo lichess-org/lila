@@ -95,11 +95,7 @@ object tournaments:
                   br,
                   renderStartsAt(any)
                 ),
-              s =>
-                frag(trans.swiss.xRoundsSwiss(s.settings.nbRounds),
-                  br,
-                  renderStartsAt(any)
-                )
+              s => frag(trans.swiss.xRoundsSwiss(s.settings.nbRounds), br, renderStartsAt(any))
             )
           ),
           td(cls := "text", dataIcon := licon.User)(any.nbPlayers.localize)

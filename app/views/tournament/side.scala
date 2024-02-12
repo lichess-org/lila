@@ -40,7 +40,9 @@ object side:
             trans.arena.arena(),
             (isGranted(_.ManageTournament) || (ctx.is(tour.createdBy) && tour.isEnterable)) option frag(
               " ",
-              a(href := routes.Tournament.edit(tour.id), title := trans.arena.editTournament.txt())(iconTag(licon.Gear))
+              a(href := routes.Tournament.edit(tour.id), title := trans.arena.editTournament.txt())(
+                iconTag(licon.Gear)
+              )
             )
           )
         ),

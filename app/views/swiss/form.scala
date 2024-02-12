@@ -89,7 +89,7 @@ object form:
       )
     }
 
-  private def advancedSettings(settings: Frag*)(using PageContext) =
+  private def advancedSettings(settings: Frag*)(using Context) =
     details(summary(trans.advancedSettings()), settings)
 
   private def condition(form: Form[SwissForm.SwissData])(using ctx: PageContext) =
