@@ -8,6 +8,7 @@
   </plurals>
   <string name="liveBroadcasts">Txapelketen zuzeneko emanaldiak</string>
   <string name="newBroadcast">Zuzeneko emanaldi berria</string>
+  <string name="subscribedBroadcasts">Harpidetutako emanaldiak</string>
   <string name="aboutBroadcasts">Zuzeneko emanaldiei buruz</string>
   <string name="noRoundsYet">Ez dago txandarik.</string>
   <string name="howToUseLichessBroadcasts">Nola erabili Lichessen Zuzenekoak.</string>
