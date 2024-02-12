@@ -86,7 +86,7 @@ object pref:
               "showFlairs"
             ),
             setting(
-              "Sticky navigation bar",
+              "Always show site menu and controls",
               radios(form("stickyNavBar"), translatedBooleanChoices),
               "stickyNavBar"
             )
