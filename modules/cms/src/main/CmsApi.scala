@@ -38,11 +38,7 @@ final class CmsApi(coll: Coll, markup: CmsMarkup)(using Executor):
 
   def update(prev: CmsPage, data: CmsForm.CmsPageData)(using me: Me): Fu[CmsPage] =
     val page = data update me
-    val idChange: Funit = (prev.id != page.id).so:
-      coll.exists($id(page.id)) flatMap:
-        case true  => fufail(s"A page with the ID ${page.id} already exists")
-        case false => coll.delete.one($id(prev.id)).void
-    idChange >> coll.update.one($id(page.id), page, upsert = true) inject page
+    coll.update.one($id(page.id), page) inject page
 
   def delete(id: Id): Funit = coll.delete.one($id(id)).void
 
