@@ -129,7 +129,6 @@ object MarkdownRender:
         "i.ibb.co",
         "i.postimg.cc",
         "xkcd.com",
-        "images.prismic.io",
         "image.lichess1.org",
         "127.0.0.1"
       )

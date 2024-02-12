@@ -8,6 +8,7 @@
   </plurals>
   <string name="liveBroadcasts">Retransmissions de tornejos en directe</string>
   <string name="newBroadcast">Nova retransmissió en directe</string>
+  <string name="subscribedBroadcasts">Emissions que segueixo</string>
   <string name="aboutBroadcasts">Sobre les retransmissions</string>
   <string name="noRoundsYet">Cap ronda encara.</string>
   <string name="howToUseLichessBroadcasts">Com utilitzar les retransmissions de Lichess.</string>
@@ -40,8 +41,8 @@
   <string name="editRoundStudy">Edita l\'estudi de la ronda</string>
   <string name="deleteTournament">Elimina aquest torneig</string>
   <string name="definitivelyDeleteTournament">Elimina el torneig de forma definitiva, amb totes les seves rondes i les seves partides.</string>
-  <string name="automaticLeaderboard" comment="An option when creating a broadcast to calculate a leaderboard automatically from the players involved. Example: https://lichess.org/broadcast/2023-london-chess-classic/round-9/5icayRCY">Taula de classificació automàtica</string>
-  <string name="automaticLeaderboardHelp" comment="An option when creating a broadcast to calculate a leaderboard automatically from the players involved. Example: https://lichess.org/broadcast/2023-london-chess-classic/round-9/5icayRCY">Calcula i mostra una taula de classificació simple basada en els resultats de les partides</string>
+  <string name="automaticLeaderboard">Taula de classificació automàtica</string>
+  <string name="automaticLeaderboardHelp">Calcula i mostra una taula de classificació simple basada en els resultats de les partides</string>
   <string name="replace">Opcional: Reemplaça noms dels jugadors, puntuacions i títols</string>
   <string name="replaceHelp">Una línia per jugador, seguint el següent format:
 Nom Original; Nom a mostrar; (Opcional) Puntuació opcional a mostrar; (Opcional) Títol a mostrar

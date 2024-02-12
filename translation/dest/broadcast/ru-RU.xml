@@ -10,6 +10,7 @@
   </plurals>
   <string name="liveBroadcasts">Прямые трансляции турнира</string>
   <string name="newBroadcast">Новая прямая трансляция</string>
+  <string name="subscribedBroadcasts">Подписанные рассылки</string>
   <string name="aboutBroadcasts">О трансляции</string>
   <string name="noRoundsYet">Пока нет туров.</string>
   <string name="howToUseLichessBroadcasts">Как пользоваться трансляциями Lichess.</string>
@@ -42,8 +43,8 @@
   <string name="editRoundStudy">Редактировать студию тура</string>
   <string name="deleteTournament">Удалить этот турнир</string>
   <string name="definitivelyDeleteTournament">Окончательно удалить весь турнир, его туры и партии.</string>
-  <string name="automaticLeaderboard" comment="An option when creating a broadcast to calculate a leaderboard automatically from the players involved. Example: https://lichess.org/broadcast/2023-london-chess-classic/round-9/5icayRCY">Автоматическая таблица лидеров</string>
-  <string name="automaticLeaderboardHelp" comment="An option when creating a broadcast to calculate a leaderboard automatically from the players involved. Example: https://lichess.org/broadcast/2023-london-chess-classic/round-9/5icayRCY">Вычислять и отображать простую таблицу лидеров на основе результатов партий</string>
+  <string name="automaticLeaderboard">Автоматическая таблица лидеров</string>
+  <string name="automaticLeaderboardHelp">Вычислять и отображать простую таблицу лидеров на основе результатов партий</string>
   <string name="replace">Необязательно: заменять имена игроков, рейтинги и звания</string>
   <string name="replaceHelp">По одной строке на каждого игрока, форматирование по образцу:
 Имя в системе; Имя для замены; Рейтинг для замены (необязательно); Звание для замены (необязательно)

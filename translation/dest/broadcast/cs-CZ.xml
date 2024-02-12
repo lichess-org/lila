@@ -42,8 +42,8 @@
   <string name="editRoundStudy">Upravit studie kola</string>
   <string name="deleteTournament">Smazat tento turnaj</string>
   <string name="definitivelyDeleteTournament">Opravdu smazat celý turnaj, všechna kola a hry.</string>
-  <string name="automaticLeaderboard" comment="An option when creating a broadcast to calculate a leaderboard automatically from the players involved. Example: https://lichess.org/broadcast/2023-london-chess-classic/round-9/5icayRCY">Automatický žebříček</string>
-  <string name="automaticLeaderboardHelp" comment="An option when creating a broadcast to calculate a leaderboard automatically from the players involved. Example: https://lichess.org/broadcast/2023-london-chess-classic/round-9/5icayRCY">Vypočítejte a zobrazte jednoduchý žebříček na základě výsledků hry</string>
+  <string name="automaticLeaderboard">Automatický žebříček</string>
+  <string name="automaticLeaderboardHelp">Vypočítejte a zobrazte jednoduchý žebříček na základě výsledků hry</string>
   <string name="replace">Volitelné: nahraďte jména hráčů, hodnocení a tituly</string>
   <string name="replaceHelp">Jeden řádek pro každého hráče a takto naformátovaný:
 Původní jméno; Náhradní jméno; Nepovinné náhradní hodnocení; Nepovinný náhradní název

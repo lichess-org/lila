@@ -1,4 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="reloadThisPage">بارگذاری مجدد صفحه</string>
+  <string name="lichessConnectivity">اتصال به لیچس</string>
+  <string name="textToSpeech">متن به گفتار</string>
 </resources>

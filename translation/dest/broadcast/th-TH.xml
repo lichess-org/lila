@@ -24,7 +24,7 @@
   <string name="broadcastUrl">URL การถ่ายทอดสด</string>
   <string name="currentRoundUrl">URL รอบปัจจุบัน</string>
   <string name="currentGameUrl">URL เกมปัจจุบัน</string>
-  <string name="automaticLeaderboard" comment="An option when creating a broadcast to calculate a leaderboard automatically from the players involved. Example: https://lichess.org/broadcast/2023-london-chess-classic/round-9/5icayRCY">ตารางผู้นำอัตโนมัติ</string>
-  <string name="automaticLeaderboardHelp" comment="An option when creating a broadcast to calculate a leaderboard automatically from the players involved. Example: https://lichess.org/broadcast/2023-london-chess-classic/round-9/5icayRCY">คำนวณและแสดงกระดานผู้นำอย่างง่ายตามผลลัพธ์ของเกม</string>
+  <string name="automaticLeaderboard">ตารางผู้นำอัตโนมัติ</string>
+  <string name="automaticLeaderboardHelp">คำนวณและแสดงกระดานผู้นำอย่างง่ายตามผลลัพธ์ของเกม</string>
   <string name="replace">ตัวเลือก: แทนที่ชื่อผู้เล่น, เรดติ้ง และ ตำแหน่ง</string>
 </resources>
