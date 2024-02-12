@@ -50,8 +50,11 @@
   <string name="fork">Виљушка</string>
   <string name="forkDescription">Потез где померена фигура напада две противничке фигуре од једном.</string>
   <string name="hangingPiece">Висећа фигура</string>
+  <string name="hangingPieceDescription">Тактика где је противникова фигура небрањена или недовољно брањена и могуће ју је узети.</string>
   <string name="hookMate">Кука-мат</string>
+  <string name="hookMateDescription">Мат топом, коњем и пешаком, при чему један противнички пешак онемогућава бег противничком краљу.</string>
   <string name="interference">Сметња</string>
+  <string name="interferenceDescription">Постављање фигуре између две противничке фигуре, тако да су једна или обе од нјих небрањене, као што је на пример скакач на брањеном пољу између два топа.</string>
   <string name="intermezzo">Интермецо</string>
   <string name="knightEndgame">Скакачка завршница</string>
   <string name="knightEndgameDescription">Завршница са само скакачима и пешацима.</string>
