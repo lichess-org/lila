@@ -128,10 +128,9 @@ export const bind = (ctrl: AnalyseCtrl) => {
     kbd.bind('n', ctrl.study.goToNextChapter);
     // ! ? !! ?? !? ?!
     for (let i = 1; i < 7; i++) kbd.bind(i.toString(), () => ctrl.study?.glyphForm.toggleGlyph(i));
-    // = (equality)
-    kbd.bind('shift+1', () => ctrl.study?.glyphForm.toggleGlyph(10));
-    // ∞ ⩲ ⩱ ± ∓ +- -+
-    for (let i = 2; i < 9; i++) kbd.bind(`shift+${i}`, () => ctrl.study?.glyphForm.toggleGlyph(11 + i));
+    // = ∞ ⩲ ⩱ ± ∓ +- -+
+    for (let i = 1; i < 9; i++)
+      kbd.bind(`shift+${i}`, () => ctrl.study?.glyphForm.toggleGlyph(i == 1 ? 10 : 11 + i));
   }
 };
 
