@@ -48,6 +48,6 @@
     "metals": "tail -F .metals/metals.log | stdbuf -oL cut -c 21- | rg -v '(notification for request|handleCancellation)'",
     "serverlog": "pnpm journal & pnpm metals",
     "multilog": "pnpm serverlog & ui/build -r",
-    "minilog": "pnpm journal | grep -E -v fishnet & ui/build -dr"
+    "minilog": "pnpm journal | grep -E -v fishnet & ui/build -cdr"
   }
 }

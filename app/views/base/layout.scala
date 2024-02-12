@@ -119,9 +119,7 @@ object layout:
   private def anonDasher(using ctx: PageContext) =
     val prefs = trans.preferences.preferences.txt()
     div(cls := "dasher")(
-      a(href := s"${routes.Auth.login.url}?referred=${ctx.req.path}", cls := "signin button button-empty")(
-        trans.signIn.txt()
-      ),
+      a(href := s"${routes.Auth.login.url}?referred=${ctx.req.path}", cls := "signin")(trans.signIn.txt()),
       a(cls  := "toggle anon link", title := prefs, aria.label := prefs, dataIcon := licon.Gear),
       div(id := "dasher_app", cls         := "dropdown")
     )
@@ -300,7 +298,8 @@ object layout:
               "no-flair"             -> !pref.flairs,
               "zen"                  -> (pref.isZen || (playing && pref.isZenAuto)),
               "zenable"              -> zenable,
-              "zen-auto"             -> (zenable && pref.isZenAuto)
+              "zen-auto"             -> (zenable && pref.isZenAuto),
+              "sticky" -> (ctx.data.inquiry.isEmpty && ctx.impersonatedBy.isEmpty && ctx.pref.stickyNavBar)
             )
           },
           dataDev,
@@ -393,7 +392,7 @@ object layout:
         )
 
     def apply(zenable: Boolean)(using ctx: PageContext) =
-      header(id := "top", ctx.pref.stickyNavBar option (cls := "sticky"))(
+      header(id := "top")(
         div(cls := "site-title-nav")(
           !ctx.isAppealUser option topnavToggle,
           h1(cls := "site-title")(

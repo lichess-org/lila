@@ -85,17 +85,3 @@
   backdrop-filter: blur($size);
   -webkit-backdrop-filter: blur($size);
 }
-
-@mixin topnav-unsticky {
-  #top.sticky {
-    position: relative;
-    max-width: 1800px;
-    --site-header-padding: 0;
-    top: unset;
-    left: unset;
-    right: unset;
-    padding: 0;
-    width: unset;
-    border-bottom: unset;
-  }
-}
