@@ -95,7 +95,6 @@ object bits:
 
   private val i18nKeys = List(
     trans.join,
-    trans.pause,
     trans.withdraw,
     trans.youArePlaying,
     trans.joinTheGame,
