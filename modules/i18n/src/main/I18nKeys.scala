@@ -1850,11 +1850,11 @@ object I18nKeys:
     val `numberOfLeadsPerTeam` = I18nKey("team:numberOfLeadsPerTeam")
     val `numberOfLeadsPerTeamHelp` = I18nKey("team:numberOfLeadsPerTeamHelp")
     val `innerTeam` = I18nKey("team:innerTeam")
-    val `battleOfNbTeams` = I18nKey("team:battleOfNbTeams")
     val `nbMembers` = I18nKey("team:nbMembers")
     val `teamLeaders` = I18nKey("team:teamLeaders")
     val `xJoinRequests` = I18nKey("team:xJoinRequests")
-    val `andNbLeaders` = I18nKey("team:andNbLeaders")
+    val `battleOfNbTeams` = I18nKey("team:battleOfNbTeams")
+    val `nbLeadersPerTeam` = I18nKey("team:nbLeadersPerTeam")
 
   object perfStat:
     val `perfStats` = I18nKey("perfStat:perfStats")

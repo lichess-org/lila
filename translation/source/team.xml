@@ -68,8 +68,8 @@ You can't remove a team if a player has already joined the tournament with it.</
     <item quantity="one">Battle of %s teams</item>
     <item quantity="other">Battle of %s teams</item>
   </plurals>
-  <plurals name="andNbLeaders">
-    <item quantity="one">and one leader</item>
-    <item quantity="other">and %s leaders</item>
+  <plurals name="nbLeadersPerTeam">
+    <item quantity="one">One leader per team</item>
+    <item quantity="other">%s leaders per team</item>
   </plurals>
 </resources>

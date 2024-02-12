@@ -85,12 +85,13 @@ object side:
     )
 
   private def teamBattle(tour: Tournament)(battle: TeamBattle)(using ctx: Context) =
-    st.section(cls := "team-battle")(
-      p(cls := "team-battle__title text", dataIcon := licon.Group)(
-        s"${trans.team.battleOfNbTeams.txt(battle.teams.size)} ${trans.team.andNbLeaders.pluralSameTxt(battle.nbLeaders)}",
-        (ctx.is(tour.createdBy) || isGranted(_.ManageTournament)) option
-          a(href := routes.Tournament.teamBattleEdit(tour.id), title := trans.arena.editTeamBattle.txt())(
+    st.section(cls := "team-battle", dataIcon := licon.Group):
+      div(
+        p(trans.team.battleOfNbTeams.pluralSameTxt(battle.teams.size)),
+        trans.team.nbLeadersPerTeam.pluralSameTxt(battle.nbLeaders),
+        (ctx.is(tour.createdBy) || isGranted(_.ManageTournament)) option frag(
+          " ",
+          a(href := routes.Tournament.teamBattleEdit(tour.id), title := trans.arena.editTeamBattle.txt()):
             iconTag(licon.Gear)
-          )
+        )
       )
-    )
