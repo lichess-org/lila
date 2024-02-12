@@ -1008,13 +1008,5 @@ All operating costs, development, and content are funded solely by user donation
 For instance, being ranked 3 in a tournament of 100 players = 3%%. Being ranked 10 in a tournament of 1000 players = 1%%.</string>
   <string name="medians">medians</string>
   <string name="allaveragesAreX">All averages on this page are %s.</string>
-  <string name="pointsAvg">Points average</string>
-  <string name="pointsSum">Points sum</string>
-  <string name="rankAvg">Rank average</string>
   <string name="total">Total</string>
-  <string name="xTournaments">%s tournaments</string>
-  <string name="xHasNotCreatedAnyTourYet">%s has not created any tournament yet!</string>
-  <string name="xHasNotPlayedInAnyTourYet">%s has not played in any tournament yet!</string>
-  <string name="xHasNotJoinedAnyTourYet">%s has not joined any tournament yet</string>
-  <string name="xUpcomingTournaments">%s upcoming tournaments</string>
 </resources>

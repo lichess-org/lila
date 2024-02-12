@@ -21,9 +21,9 @@ object chart:
             tr(
               th,
               th(trans.tournaments()),
-              th(trans.pointsAvg()),
-              th(trans.pointsSum()),
-              th(trans.rankAvg())
+              th(trans.arena.pointsAvg()),
+              th(trans.arena.pointsSum()),
+              th(trans.arena.rankAvg())
             )
           ),
           tbody(

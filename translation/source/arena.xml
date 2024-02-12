@@ -69,4 +69,12 @@ Play fast and return to the lobby to play more games and win more points.</strin
   <string name="pickYourTeam">Pick your team</string>
   <string name="whichTeamWillYouRepresentInThisBattle">Which team will you represent in this battle?</string>
   <string name="youMustJoinOneOfTheseTeamsToTarticipate">You must join one of these teams to participate!</string>
+  <string name="pointsAvg">Points average</string>
+  <string name="pointsSum">Points sum</string>
+  <string name="rankAvg">Rank average</string>
+  <string name="xTournaments">%s tournaments</string>
+  <string name="xHasNotCreatedAnyTourYet">%s has not created any tournament yet!</string>
+  <string name="xHasNotPlayedInAnyTourYet">%s has not played in any tournament yet!</string>
+  <string name="xHasNotJoinedAnyTourYet">%s has not joined any tournament yet</string>
+  <string name="xUpcomingTournaments">%s upcoming tournaments</string>
 </resources>
