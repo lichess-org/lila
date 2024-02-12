@@ -483,9 +483,6 @@
   <string name="youArePlaying">You are playing!</string>
   <string name="winRate">Win rate</string>
   <string name="berserkRate">Berserk rate</string>
-  <string name="byes">Byes</string>
-  <string name="absences">Absences</string>
-  <string name="tieBreak">Tie Break</string>
   <string name="performance">Performance</string>
   <string name="tournamentComplete">Tournament complete</string>
   <string name="movesPlayed">Moves played</string>
