@@ -779,6 +779,7 @@
   <string name="toggleVariationArrows">הפעלת חצי הווריאנטים</string>
   <string name="cyclePreviousOrNextVariation">מחזור הוריאנט הקודם/הבא</string>
   <string name="toggleGlyphAnnotations">הפעלת סמלי ההערות</string>
+  <string name="togglePositionAnnotations">הפעלת הערות עמדתיות</string>
   <string name="variationArrowsInfo">חצי הווריאנטים מאפשרים ניווט קל ללא צורך ברשימת המסעים.</string>
   <string name="playSelectedMove">שחקו את המהלך שנבחר</string>
   <string name="newTournament">טורניר חדש</string>
