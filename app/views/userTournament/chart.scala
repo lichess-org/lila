@@ -8,18 +8,13 @@ import lila.user.User
 object chart:
 
   def apply(u: User, data: lila.tournament.LeaderboardApi.ChartData)(using PageContext) =
-    bits.layout(
-      u,
-      title = s"${u.username} tournaments",
-      path = "chart"
-    ) {
+    bits.layout(u, title = s"${u.username} tournaments", path = "chart"):
       div(cls := "tournament-stats")(
-        boxTop(h1(trans.xTournamentStats.txt(userLink(u, withOnline = true)))),
+        boxTop(h1(trans.xTournamentStats(userLink(u, withOnline = true)))),
         p(cls := "box__pad")(trans.rankAvgHelp()),
         p(cls := "box__pad")(
-          trans.allaveragesAreX(
+          trans.allaveragesAreX:
             a(href := "https://www.dictionary.com/e/average-vs-mean-vs-median-vs-mode")(trans.medians())
-          )
         ),
         table(cls := "slist slist-pad perf-results")(
           thead(
@@ -51,4 +46,3 @@ object chart:
           )
         )
       )
-    }
