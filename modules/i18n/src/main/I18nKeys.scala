@@ -403,7 +403,7 @@ object I18nKeys:
   val `autoSwitch` = I18nKey("autoSwitch")
   val `puzzles` = I18nKey("puzzles")
   val `tournamentWinners` = I18nKey("tournamentWinners")
-  val `tournamentShieldsWinners` = I18nKey("tournamentShieldsWinners")
+  val `tournamentShields` = I18nKey("tournamentShields")
   val `xShields` = I18nKey("xShields")
   val `onlineBots` = I18nKey("onlineBots")
   val `name` = I18nKey("name")
@@ -929,14 +929,14 @@ object I18nKeys:
     val `averagePerformance` = I18nKey("arena:averagePerformance")
     val `averageScore` = I18nKey("arena:averageScore")
     val `myTournaments` = I18nKey("arena:myTournaments")
-    val `drawingWithinNbMoves` = I18nKey("arena:drawingWithinNbMoves")
-    val `viewAllXTeams` = I18nKey("arena:viewAllXTeams")
     val `editTournament` = I18nKey("arena:editTournament")
     val `editTeamBattle` = I18nKey("arena:editTeamBattle")
+    val `defender` = I18nKey("arena:defender")
     val `pickYourTeam` = I18nKey("arena:pickYourTeam")
     val `whichTeamWillYouRepresentInThisBattle` = I18nKey("arena:whichTeamWillYouRepresentInThisBattle")
     val `youMustJoinOneOfTheseTeamsToTarticipate` = I18nKey("arena:youMustJoinOneOfTheseTeamsToTarticipate")
-    val `defender` = I18nKey("arena:defender")
+    val `drawingWithinNbMoves` = I18nKey("arena:drawingWithinNbMoves")
+    val `viewAllXTeams` = I18nKey("arena:viewAllXTeams")
 
   object emails:
     val `emailConfirm_subject` = I18nKey("emails:emailConfirm_subject")
@@ -1849,11 +1849,11 @@ object I18nKeys:
     val `oneTeamPerLineHelp` = I18nKey("team:oneTeamPerLineHelp")
     val `numberOfLeadsPerTeam` = I18nKey("team:numberOfLeadsPerTeam")
     val `numberOfLeadsPerTeamHelp` = I18nKey("team:numberOfLeadsPerTeamHelp")
+    val `innerTeam` = I18nKey("team:innerTeam")
+    val `battleOfNbTeams` = I18nKey("team:battleOfNbTeams")
     val `nbMembers` = I18nKey("team:nbMembers")
     val `teamLeaders` = I18nKey("team:teamLeaders")
     val `xJoinRequests` = I18nKey("team:xJoinRequests")
-    val `innerTeam` = I18nKey("team:innerTeam")
-    val `battleOfNbTeams` = I18nKey("team:battleOfNbTeams")
     val `andNbLeaders` = I18nKey("team:andNbLeaders")
 
   object perfStat:
@@ -2095,7 +2095,7 @@ object I18nKeys:
     val `lagCompensationExplanation` = I18nKey("lag:lagCompensationExplanation")
 
   object swiss:
-    val `swiss` = I18nKey("swiss")
+    val `swiss` = I18nKey("swiss:swiss")
     val `swissTournaments` = I18nKey("swiss:swissTournaments")
     val `roundsAreStartedManually` = I18nKey("swiss:roundsAreStartedManually")
     val `startingIn` = I18nKey("swiss:startingIn")

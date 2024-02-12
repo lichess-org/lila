@@ -536,7 +536,7 @@
   <string name="autoSwitch">Auto switch</string>
   <string name="puzzles">Puzzles</string>
   <string name="tournamentWinners">Tournament winners</string>
-  <string name="tournamentShieldsWinners">Tournament shield winners</string>
+  <string name="tournamentShields">Tournament shields</string>
   <string name="xShields">%s shields</string>
   <string name="onlineBots">Online bots</string>
   <string name="name">Name</string>

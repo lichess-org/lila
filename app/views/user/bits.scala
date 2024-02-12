@@ -23,7 +23,7 @@ object bits:
         trans.tournamentWinners()
       ),
       a(cls := active.active("shield"), href := routes.Tournament.shields)(
-        trans.tournamentShieldsWinners()
+        trans.tournamentShields()
       ),
       a(cls := active.active("bots"), href := routes.PlayApi.botOnline)(
         trans.onlineBots()
