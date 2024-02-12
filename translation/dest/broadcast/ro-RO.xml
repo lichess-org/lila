@@ -41,8 +41,8 @@
   <string name="editRoundStudy">Editare rundă de studiu</string>
   <string name="deleteTournament">Șterge acest turneu</string>
   <string name="definitivelyDeleteTournament">Sigur doresc să ștergeți întregul turneu, toate rundele și toate jocurile sale.</string>
-  <string name="automaticLeaderboard" comment="An option when creating a broadcast to calculate a leaderboard automatically from the players involved. Example: https://lichess.org/broadcast/2023-london-chess-classic/round-9/5icayRCY">Clasament automat</string>
-  <string name="automaticLeaderboardHelp" comment="An option when creating a broadcast to calculate a leaderboard automatically from the players involved. Example: https://lichess.org/broadcast/2023-london-chess-classic/round-9/5icayRCY">Calculează și afișează un clasament simplu bazat pe rezultatele jocului</string>
+  <string name="automaticLeaderboard">Clasament automat</string>
+  <string name="automaticLeaderboardHelp">Calculează și afișează un clasament simplu bazat pe rezultatele jocului</string>
   <string name="replace">Opțional: înlocuiește numele jucătorilor, evaluări și titluri</string>
   <string name="replaceHelp">O singură linie per jucător, formatată ca such:
 Nume original; Nume de înlocuire; Clasificare de înlocuire opțională; Titlu de înlocuire opțională

@@ -94,8 +94,18 @@ export function snabDialog(o: SnabDialogOpts): VNode {
 }
 
 class DialogWrapper implements Dialog {
-  restore?: { focus: HTMLElement; overflow: string };
-  resolve?: (dialog: Dialog) => void;
+  private restore?: { focus: HTMLElement; overflow: string };
+  private resolve?: (dialog: Dialog) => void;
+  private observer: MutationObserver = new MutationObserver(list => {
+    for (const m of list)
+      if (m.type === 'childList')
+        for (const n of m.removedNodes) {
+          if (n === this.dialog) {
+            this.onRemove();
+            return;
+          }
+        }
+  });
 
   constructor(
     readonly dialog: HTMLDialogElement,
@@ -107,11 +117,12 @@ class DialogWrapper implements Dialog {
     const justThen = Date.now();
     const cancelOnInterval = () => Date.now() - justThen > 200 && this.close('cancel');
 
+    this.observer.observe(document.body, { childList: true, subtree: true });
     view.parentElement?.style.setProperty('--vh', `${window.innerHeight}px`);
     view.addEventListener('click', e => e.stopPropagation());
 
     dialog.addEventListener('cancel', () => !this.returnValue && (this.returnValue = 'cancel'));
-    dialog.addEventListener('close', this.onClose);
+    dialog.addEventListener('close', this.onRemove);
     dialog.querySelector('.close-button-anchor > .close-button')?.addEventListener('click', cancelOnInterval);
 
     if (!o.noClickAway) setTimeout(() => dialog.addEventListener('click', cancelOnInterval));
@@ -150,6 +161,7 @@ class DialogWrapper implements Dialog {
       focus: document.activeElement as HTMLElement,
       overflow: document.body.style.overflow,
     };
+
     $(focusQuery, this.view)[1]?.focus();
     document.body.style.overflow = 'hidden';
 
@@ -164,7 +176,8 @@ class DialogWrapper implements Dialog {
     this.dialog.close(this.returnValue || v || 'ok');
   };
 
-  onClose = () => {
+  private onRemove = () => {
+    this.observer.disconnect();
     if (!this.dialog.returnValue) this.dialog.returnValue = 'cancel';
     this.restore?.focus.focus(); // one modal at a time please
     if (this.restore?.overflow !== undefined) document.body.style.overflow = this.restore.overflow;

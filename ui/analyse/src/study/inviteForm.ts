@@ -83,7 +83,6 @@ export function view(ctrl: ReturnType<typeof makeCtrl>): VNode {
                 onSelect(v) {
                   input.value = '';
                   ctrl.invite(v.name);
-                  document.body.style.overflowY = 'scroll';
                   ctrl.redraw();
                 },
               })

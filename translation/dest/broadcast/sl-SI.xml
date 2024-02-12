@@ -10,6 +10,7 @@
   </plurals>
   <string name="liveBroadcasts">Prenos turnirjev v živo</string>
   <string name="newBroadcast">Nov prenos v živo</string>
+  <string name="subscribedBroadcasts">Naročene oddaje</string>
   <string name="aboutBroadcasts">O oddaji</string>
   <string name="noRoundsYet">Ni še krogov.</string>
   <string name="howToUseLichessBroadcasts">Kako uporabljati Lichess Broadcasts.</string>
@@ -42,8 +43,8 @@
   <string name="editRoundStudy">Uredi krog študije</string>
   <string name="deleteTournament">Zbrišite ta turnir</string>
   <string name="definitivelyDeleteTournament">Dokončno izbrišite celoten turnir, vse njegove kroge in vse njegove igre.</string>
-  <string name="automaticLeaderboard" comment="An option when creating a broadcast to calculate a leaderboard automatically from the players involved. Example: https://lichess.org/broadcast/2023-london-chess-classic/round-9/5icayRCY">Samodejna lestvica najboljših</string>
-  <string name="automaticLeaderboardHelp" comment="An option when creating a broadcast to calculate a leaderboard automatically from the players involved. Example: https://lichess.org/broadcast/2023-london-chess-classic/round-9/5icayRCY">Izračunajte in prikažite preprosto lestvico najboljših na podlagi rezultatov igre</string>
+  <string name="automaticLeaderboard">Samodejna lestvica najboljših</string>
+  <string name="automaticLeaderboardHelp">Izračunajte in prikažite preprosto lestvico najboljših na podlagi rezultatov igre</string>
   <string name="replace">Izbirno: zamenjajte imena igralcev, rejtinge in nazive</string>
   <string name="replaceHelp">Ena vrstica na igralca, oblikovana tako:
 izvirno ime; Nadomestno ime; Izbirno rejting zamenjave; Izbirno nadomestni naslov

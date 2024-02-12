@@ -419,6 +419,7 @@ loje dhe URL për ta ndarë me të tjerë.</string>
   <string name="blackCheckmatesInOneMove">I ziu në shah-mat me një lëvizje</string>
   <string name="retry">Riprovoni</string>
   <string name="reconnecting">Po rilidhet</string>
+  <string name="noNetwork">Jashtë linje</string>
   <plurals name="nbFriendsOnline">
     <item quantity="one">%s shok në linjë</item>
     <item quantity="other">%s shokë në linjë</item>

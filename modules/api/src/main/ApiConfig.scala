@@ -8,7 +8,6 @@ final class ApiConfig(
     val apiToken: Secret,
     val influxEventEndpoint: String,
     val influxEventEnv: String,
-    val prismicApiUrl: String,
     val pagerDuty: ApiConfig.PagerDuty
 )
 
@@ -31,7 +30,6 @@ object ApiConfig:
       c.get[Secret]("api.token"),
       c.get[String]("api.influx_event.endpoint"),
       c.get[String]("api.influx_event.env"),
-      c.get[String]("prismic.api_url"),
       new PagerDuty(
         c.get[String]("pagerDuty.serviceId"),
         c.get[Secret]("pagerDuty.apiKey")
