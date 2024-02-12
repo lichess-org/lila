@@ -89,9 +89,8 @@ object tournaments:
             any.value.fold(
               t =>
                 frag(
-                  t.teamBattle map { battle =>
-                    frag(trans.arena.nbTeamsBatte(battle.teams.size))
-                  } getOrElse trans.team.innerTeam(),
+                  t.teamBattle.fold(trans.team.innerTeam()): battle =>
+                    trans.arena.nbTeamsBatte(battle.teams.size),
                   br,
                   renderStartsAt(any)
                 ),
