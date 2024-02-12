@@ -79,6 +79,7 @@ object bits:
     trans.nbPlayers,
     trans.winRate,
     trans.berserkRate,
+    trans.study.downloadAllGames,
     trans.performance,
     trans.tournamentComplete,
     trans.movesPlayed,
@@ -93,6 +94,7 @@ object bits:
 
   private val teamBattleI18nKeys = List(
     trans.arena.viewAllXTeams,
+    trans.players,
     trans.arena.averagePerformance,
     trans.arena.averageScore,
     trans.team.teamPage,

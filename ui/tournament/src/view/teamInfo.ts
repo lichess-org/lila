@@ -28,7 +28,7 @@ export default function (ctrl: TournamentController): VNode | undefined {
     h('div.stats', [
       h('h2', [teamTag]),
       h('table', [
-        numberRow('Players', data.nbPlayers),
+        numberRow(noarg('players'), data.nbPlayers),
         ...(data.rating
           ? [
               ctrl.opts.showRatings ? numberRow(noarg('averageElo'), data.rating, 'raw') : null,
