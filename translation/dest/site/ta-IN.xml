@@ -13,7 +13,7 @@
   <string name="toggleTheChat">உரையாடலை மாற்று</string>
   <string name="chat">உரையாடு</string>
   <string name="resign">விலகு</string>
-  <string name="checkmate">முழுத்தடை</string>
+  <string name="checkmate">நிகர்தடை</string>
   <string name="stalemate">நகர்த்த வாய்ப்பின்மை</string>
   <string name="white">வெள்ளை</string>
   <string name="black">கருப்பு</string>
@@ -403,9 +403,9 @@
   <string name="thisIsAChessCaptcha">இது ஒரு சதுரங்கமுறை மாந்தத்தேர்வு (CAPTCHA)</string>
   <string name="clickOnTheBoardToMakeYourMove">பலகையிலே சொடுக்கி நகர்த்துங்கள், நீங்கள் மாந்தரென்று நிறுவுங்கள்</string>
   <string name="captcha.fail">சதுரங்க புதிரை தீர்க்கவும்.</string>
-  <string name="notACheckmate">முழுத்தடையன்று</string>
-  <string name="whiteCheckmatesInOneMove">வெள்ளையின் அடுத்த நகர்வில் இறுதி முற்றுகை</string>
-  <string name="blackCheckmatesInOneMove">கறுப்பின் அடுத்த நகர்வில் இறுதி முற்றுக்கை</string>
+  <string name="notACheckmate">நிகர்தடையன்று</string>
+  <string name="whiteCheckmatesInOneMove">வெள்ளையின் அடுத்த நகர்வில் நிகர்தடை</string>
+  <string name="blackCheckmatesInOneMove">கறுப்பின் அடுத்த நகர்வில் நிகர்தடை</string>
   <string name="retry">மீள்முயற்சி</string>
   <string name="reconnecting">மீண்டும் இணைகிறது</string>
   <string name="favoriteOpponents">பிடித்தமான எதிராளிகள்</string>

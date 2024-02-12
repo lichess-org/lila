@@ -8,6 +8,7 @@
   </plurals>
   <string name="liveBroadcasts">Live turnerings-udsendelser</string>
   <string name="newBroadcast">Ny live-udsendelse</string>
+  <string name="subscribedBroadcasts">Udsendelser, du abonnerer på</string>
   <string name="aboutBroadcasts">Om udsendelse</string>
   <string name="noRoundsYet">Ingen runder endnu.</string>
   <string name="howToUseLichessBroadcasts">Sådan bruges Lichess-udsendelser.</string>
@@ -40,8 +41,8 @@
   <string name="editRoundStudy">Rediger rundestudie</string>
   <string name="deleteTournament">Slet denne turnering</string>
   <string name="definitivelyDeleteTournament">Slet hele turneringen, alle dens runder og alle dens partier.</string>
-  <string name="automaticLeaderboard" comment="An option when creating a broadcast to calculate a leaderboard automatically from the players involved. Example: https://lichess.org/broadcast/2023-london-chess-classic/round-9/5icayRCY">Automatisk rangliste</string>
-  <string name="automaticLeaderboardHelp" comment="An option when creating a broadcast to calculate a leaderboard automatically from the players involved. Example: https://lichess.org/broadcast/2023-london-chess-classic/round-9/5icayRCY">Beregn og vis en simpel rangliste baseret på resultater af partier</string>
+  <string name="automaticLeaderboard">Automatisk rangliste</string>
+  <string name="automaticLeaderboardHelp">Beregn og vis en simpel rangliste baseret på resultater af partier</string>
   <string name="replace">Valgfrit: udskift spillernavne, ratings og titler</string>
   <string name="replaceHelp">En linje pr. spiller, formateret således:
 Oprindeligt navn; Erstatningsnavn; Valgfri erstatnings-rating; Valgfri oprindelige erstatningstitel
