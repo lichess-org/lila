@@ -123,5 +123,5 @@
   <string name="healthyMixDescription">Mỗi thứ một chút. Bạn không biết được thứ gì đang chờ mình, vậy nên bạn cần phải sẵn sàng cho mọi thứ! Như một ván cờ thật vậy!</string>
   <string name="playerGames">Các ván đấu của người chơi</string>
   <string name="playerGamesDescription">Những câu đố từ những ván cờ của bạn hoặc từ các ván cờ của những người chơi khác.</string>
-  <string name="puzzleDownloadInformation">Những câu đố này nằm ở máy chủ công khai, bạn có thể tải xuống ở %s.</string>
+  <string name="puzzleDownloadInformation">Những câu đố này thuộc phạm vi công khai và có thể tải về từ %s.</string>
 </resources>
