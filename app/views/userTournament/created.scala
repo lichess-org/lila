@@ -26,7 +26,7 @@ object created:
             thead(
               tr(
                 th(cls := "count")(pager.nbResults),
-                th(colspan := 2)(h1(trans.arena.xTournaments.txt(userLink(u, withOnline = true)))),
+                th(colspan := 2)(h1(trans.arena.xTournaments(userLink(u, withOnline = true)))),
                 th(trans.winner()),
                 th(trans.players())
               )
