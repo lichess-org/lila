@@ -706,6 +706,7 @@ analizzarla con il computer, commentarla in chat, e condividerla tramite un indi
   <string name="toggleVariationArrows">Mostra le frecce delle varianti</string>
   <string name="cyclePreviousOrNextVariation">Vai alla variante precedente/successiva</string>
   <string name="toggleGlyphAnnotations">Mostra i simboli delle annotazioni</string>
+  <string name="togglePositionAnnotations">Mostra le annotazioni della posizione</string>
   <string name="variationArrowsInfo">Le frecce delle varianti ti permettono di esplorare le mosse senza usare la lista.</string>
   <string name="playSelectedMove">gioca la mossa selezionata</string>
   <string name="newTournament">Nuovo torneo</string>
