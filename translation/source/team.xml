@@ -64,7 +64,10 @@ You can't remove a team if a player has already joined the tournament with it.</
   <string name="numberOfLeadsPerTeam">Number of leaders per team. The sum of their score is the score of the team.</string>
   <string name="numberOfLeadsPerTeamHelp">You really shouldn't change this value after the tournament has started!</string>
   <string name="innerTeam">Inner team</string>
-  <string name="battleOfNbTeams">Battle of %s teams</string>
+  <plurals name="battleOfNbTeams">
+    <item quantity="one">Battle of %s teams</item>
+    <item quantity="other">Battle of %s teams</item>
+  </plurals>
   <plurals name="andNbLeaders">
     <item quantity="one">and one leader</item>
     <item quantity="other">and %s leaders</item>
