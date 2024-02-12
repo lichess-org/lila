@@ -77,4 +77,10 @@ Play fast and return to the lobby to play more games and win more points.</strin
   <string name="xHasNotPlayedInAnyTourYet">%s has not played in any tournament yet!</string>
   <string name="xHasNotJoinedAnyTourYet">%s has not joined any tournament yet</string>
   <string name="xUpcomingTournaments">%s upcoming tournaments</string>
+  <string name="tournamentWinners">Tournament winners</string>
+  <string name="tournamentShields">Tournament shields</string>
+  <string name="xShields">%s shields</string>
+  <string name="onlyTitled">Only titled players</string>
+  <string name="onlyTitledHelp">Require an official title to join the tournament</string>
+  <string name="onlyTitledPlayers">Only titled players</string>
 </resources>

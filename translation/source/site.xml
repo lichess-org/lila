@@ -532,9 +532,6 @@
   <string name="automaticallyProceedToNextGameAfterMoving">Automatically proceed to next game after moving</string>
   <string name="autoSwitch">Auto switch</string>
   <string name="puzzles">Puzzles</string>
-  <string name="tournamentWinners">Tournament winners</string>
-  <string name="tournamentShields">Tournament shields</string>
-  <string name="xShields">%s shields</string>
   <string name="onlineBots">Online bots</string>
   <string name="name">Name</string>
   <string name="description">Description</string>
@@ -944,9 +941,6 @@ and impact players ratings</string>
   <string name="minimumRatedGames">Minimum rated games</string>
   <string name="minimumRating">Minimum rating</string>
   <string name="maximumWeeklyRating">Maximum weekly rating</string>
-  <string name="onlyTitled">Only titled players</string>
-  <string name="onlyTitledHelp">Require an official title to join the tournament</string>
-  <string name="onlyTitledPlayers">Only titled players</string>
   <string name="positionInputHelp">Paste a valid FEN to start every game from a given position.
 It only works for standard games, not with variants.
 You can use the %s to generate a FEN position, then paste it here.

@@ -19,7 +19,7 @@ object shields:
       main(cls := "page-menu")(
         views.html.user.bits.communityMenu("shield"),
         div(cls := "page-menu__content box box-pad")(
-          h1(cls := "box__top")(trans.tournamentShields()),
+          h1(cls := "box__top")(trans.arena.tournamentShields()),
           div(cls := "tournament-shields")(
             history.sorted.map { (categ, awards) =>
               section(
@@ -53,7 +53,7 @@ object shields:
           boxTop(
             h1(
               a(href := routes.Tournament.shields, dataIcon := licon.LessThan, cls := "text"),
-              trans.xShields(categ.name)
+              trans.arena.xShields(categ.name)
             )
           ),
           ol(awards.map { aw =>

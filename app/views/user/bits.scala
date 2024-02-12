@@ -20,10 +20,10 @@ object bits:
         trans.ratingStats()
       ),
       a(cls := active.active("tournament"), href := routes.Tournament.leaderboard)(
-        trans.tournamentWinners()
+        trans.arena.tournamentWinners()
       ),
       a(cls := active.active("shield"), href := routes.Tournament.shields)(
-        trans.tournamentShields()
+        trans.arena.tournamentShields()
       ),
       a(cls := active.active("bots"), href := routes.PlayApi.botOnline)(
         trans.onlineBots()

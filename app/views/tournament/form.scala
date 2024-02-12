@@ -159,8 +159,8 @@ object form:
         (ctx.me.exists(_.hasTitle) || isGranted(_.ManageTournament)) so {
           form3.checkbox(
             form.prefix("conditions.titled"),
-            trans.onlyTitled(),
-            help = trans.onlyTitledHelp().some,
+            trans.arena.onlyTitled(),
+            help = trans.arena.onlyTitledHelp().some,
             half = true
           )
         },
