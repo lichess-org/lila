@@ -705,6 +705,7 @@
   <string name="toggleVariationArrows">Activer/désactiver les flèches de variantes</string>
   <string name="cyclePreviousOrNextVariation">Variante précédente/suivante</string>
   <string name="toggleGlyphAnnotations">Activer/désactiver les annotations en symboles</string>
+  <string name="togglePositionAnnotations">Activer/désactiver les annotations de positions</string>
   <string name="variationArrowsInfo">Les flèches de variantes vous permettent de naviguer sans utiliser la liste des coups.</string>
   <string name="playSelectedMove">jouer le coup sélectionné</string>
   <string name="newTournament">Nouveau tournoi</string>
