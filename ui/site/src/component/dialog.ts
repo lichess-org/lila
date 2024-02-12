@@ -117,7 +117,7 @@ class DialogWrapper implements Dialog {
     const justThen = Date.now();
     const cancelOnInterval = () => Date.now() - justThen > 200 && this.close('cancel');
 
-    this.observer?.observe(document.body, { childList: true, subtree: true });
+    this.observer.observe(document.body, { childList: true, subtree: true });
     view.parentElement?.style.setProperty('--vh', `${window.innerHeight}px`);
     view.addEventListener('click', e => e.stopPropagation());
 
