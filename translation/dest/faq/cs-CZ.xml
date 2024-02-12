@@ -134,4 +134,28 @@ Je nejlepší myslet na hodnocení jako \"relativní\" údaje (na rozdíl od \"a
   <string name="viewSiteInformationPopUp">Zobrazit vyskakovací okno s informacemi o webu</string>
   <string name="lichessCanOptionnalySendPopUps">Lichess vám také může posílat oznámení, například když jste na tahu či po obdržení soukromé zprávy. 
 Klikněte na ikonu zámku vedle URL adresy ve Vašem prohlížeči, a poté vyberte zda zablokovat či povolit oznámení.</string>
+  <string name="enableAutoplayForSoundsQ">Povolit automatické přehrávání zvuků?</string>
+  <string name="enableAutoplayForSoundsA">Většina prohlížečů může v zájmu ochrany uživatelů zabránit přehrávání zvuku na čerstvě načtené stránce. Představte si, že by vás každá webová stránka mohla okamžitě bombardovat zvukovou reklamou.
+
+Červená ikona ztlumení zvuku se zobrazí, když prohlížeč zabrání přehrávání zvuku na stránce lichess.org. Obvykle se toto omezení zruší, jakmile na něco kliknete. V některých mobilních prohlížečích se přetažení figurky dotykem nepočítá jako kliknutí. V takovém případě musíte na začátku každé hry klepnout na šachovnici, aby byl zvuk povolen.
+
+Zobrazujeme červenou ikonu, abychom vás upozornili, když k tomu dojde. Často můžete výslovně povolit, aby lichess.org přehrával zvuky. Zde jsou pokyny, jak to udělat v posledních verzích některých populárních prohlížečů.</string>
+  <string name="desktop">počítač</string>
+  <string name="enableAutoplayForSoundsFirefox">1. Jděte na lichess.org
+2. Stiskněte klávesu Ctrl-i v systému Linux/Windows nebo cmd-i v systému MacOS.
+3. Klikněte na kartu Oprávnění
+4. Povolit zvuk a video na lichess.org</string>
+  <string name="enableAutoplayForSoundsChrome">1. Jděte na lichess.org
+2. Klikněte na ikonu zámku v adresním řádku
+3. Klikněte na možnost Nastavení webu
+4. Povolit zvuk</string>
+  <string name="enableAutoplayForSoundsSafari">1. Jděte na lichess.org
+2. Klikněte na Safari na liště nabídek
+3. Klikněte na položku Nastavení pro lichess.org ...
+4. Povolit veškeré automatické přehrávání</string>
+  <string name="enableAutoplayForSoundsMicrosoftEdge">1. Klikněte na tři tečky v pravém horním rohu.
+2. Klikněte na možnost Nastavení
+3. Klikněte na položku Cookies a oprávnění webu
+4. Přejděte dolů a klikněte na možnost Automatické přehrávání médií
+5. Přidejte lichess.org do Povolit</string>
 </resources>

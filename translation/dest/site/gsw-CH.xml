@@ -420,6 +420,7 @@ zum bewise dass du en Mänsch bisch.</string>
   <string name="blackCheckmatesInOneMove">Schwarz setzt i eim Zug Matt</string>
   <string name="retry">Probiers nomal</string>
   <string name="reconnecting">Widerverbindä</string>
+  <string name="noNetwork">Offline</string>
   <plurals name="nbFriendsOnline">
     <item quantity="one">%s Fründ online</item>
     <item quantity="other">%s Fründe online</item>

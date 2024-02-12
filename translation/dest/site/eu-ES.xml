@@ -5,6 +5,7 @@
   <string name="toInviteSomeoneToPlayGiveThisUrl">Norbait jokatzera gonbidatzeko, URL hau bidali iezaiozu</string>
   <string name="gameOver">Partida amaitu da</string>
   <string name="waitingForOpponent">Aurkariaren zain</string>
+  <string name="orLetYourOpponentScanQrCode">Edo utzi zure aurkariari QR kode hau eskaneatzen</string>
   <string name="waiting">Zain</string>
   <string name="yourTurn">Zure txanda</string>
   <string name="aiNameLevelAiLevel">%1$s, %2$s. maila</string>
@@ -417,6 +418,7 @@
   <string name="blackCheckmatesInOneMove">Beltzek xake-mate jokaldi bakarrean</string>
   <string name="retry">Berriro saiatu</string>
   <string name="reconnecting">Konektatuz</string>
+  <string name="noNetwork">Deskonektatuta</string>
   <plurals name="nbFriendsOnline">
     <item quantity="one">Lagun %s konektatuta</item>
     <item quantity="other">%s lagun konektatuta</item>

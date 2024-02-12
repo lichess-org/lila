@@ -30,7 +30,7 @@ object form:
           div(cls := "form-group")(
             p(
               a(
-                href     := routes.ContentPage.loneBookmark("report-faq"),
+                href     := routes.Cms.lonePage("report-faq"),
                 dataIcon := licon.InfoCircle,
                 cls      := "text"
               ):

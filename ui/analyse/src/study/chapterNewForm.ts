@@ -153,7 +153,10 @@ export function view(ctrl: StudyChapterNewForm): VNode {
                 fen: fieldValue(e, 'fen') || (ctrl.tab() === 'edit' ? ctrl.editorFen() : null),
                 isDefaultName: ctrl.isDefaultName(),
               }),
-            ctrl.redraw,
+            () => {
+              document.body.style.overflowY = 'scroll';
+              ctrl.redraw();
+            },
           ),
         },
         [

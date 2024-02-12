@@ -112,6 +112,18 @@
     margin-bottom: 4vh;
     display: block;
   }
+
+  &__patron-info {
+    margin: 2em 2em 0;
+  }
+  &__lichess {
+    text-align: center;
+    margin: 3em 0 3em 0;
+    .connect-links a {
+      display: inline-block;
+      margin: 1em 0.5em;
+    }
+  }
   &__footer {
     margin: 5em 0 0 0;
     h2 {

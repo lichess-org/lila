@@ -9,7 +9,7 @@ case class RelayGame(
     variant: chess.variant.Variant,
     root: Root,
     ending: Option[PgnImport.End],
-    index: Option[Int] = none[Int]
+    index: Option[Int] = none
 ):
 
   def staticTagsMatch(chapterTags: Tags): Boolean =
@@ -64,5 +64,5 @@ private object RelayGame:
               Pgn(g.tags, InitialComments.empty, lila.study.PgnDump.rootToTree(g.root)).render
             .toList
       ,
-      mul => RelayFetch.multiPgnToGames(mul).toOption.get
+      mul => RelayFetch.multiPgnToGames(mul).fold(e => throw e, identity)
     )

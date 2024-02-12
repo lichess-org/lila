@@ -7,16 +7,26 @@
   <string name="newDailyHighscore">नवीन दैनिक उच्चांक!</string>
   <string name="newWeeklyHighscore">नवीन साप्ताहिक उच्चांक!</string>
   <string name="newMonthlyHighscore">नवीन मासिक उच्चांक!</string>
+  <string name="newAllTimeHighscore">नवीन सर्वकालीन उच्चांक!</string>
+  <string name="previousHighscoreWasX">मागील उच्चांक %s होता</string>
   <string name="playAgain">परत खेळा</string>
   <plurals name="xRuns">
     <item quantity="one">१ प्रयत्न</item>
     <item quantity="other">%s प्रयत्न</item>
   </plurals>
+  <plurals name="playedNbRunsOfPuzzleStorm">
+    <item quantity="one">%2$s ची एक फेरी खेळून झाली</item>
+    <item quantity="other">%2$s च्या %1$s फेऱ्या खेळून झाल्या</item>
+  </plurals>
+  <string name="highscoreX">उच्च गुणसंख्या: %s</string>
   <string name="score">गुण</string>
   <string name="moves">चाली</string>
   <string name="accuracy">अचूकता</string>
   <string name="combo">चालींचा संयोग</string>
   <string name="time">वेळ</string>
+  <string name="timePerMove">वेळ प्रति मुव्ह</string>
+  <string name="highestSolved">सर्वोच्च सोडविलेले</string>
+  <string name="puzzlesPlayed">खेळलेली कोडी</string>
   <string name="waitingForMorePlayers">आणखी खेळाडू दाखल होण्याच्या प्रतिक्षेत...</string>
   <string name="skip">सोडा</string>
   <string name="thisWeek">या आठवड्यात</string>

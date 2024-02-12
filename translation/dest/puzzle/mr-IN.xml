@@ -13,18 +13,26 @@
   <string name="specialMoves">विशिष्ट चाली</string>
   <string name="didYouLikeThisPuzzle">आपल्याला हे कोडे आवडले का?</string>
   <string name="voteToLoadNextOne">पूढील येण्यासाठी मत द्या!</string>
+  <string name="upVote">कोड्याचं समर्थन करा</string>
+  <string name="downVote">कोड्याचं असमर्थन करा</string>
   <string name="yourPuzzleRatingWillNotChange">आपले कोड्यांचे मूल्यांकन बदलणार नाही. कृपया याची नोंद करा की कोडी सोडवणे ही स्पर्धा नाही. आपले मूल्यांकन आपल्या आत्ताच्या कौशल्याप्रमाणे आपल्यासाठी सर्वोत्तम कोडे निवडण्यासाठी मदत करते.</string>
   <string name="findTheBestMoveForWhite">पांढर्‍यासाठी सर्वोत्कृष्ट चाल शोधा.</string>
   <string name="findTheBestMoveForBlack">काळ्यासाठी सर्वोत्कृष्ट चाल शोधा.</string>
   <string name="toGetPersonalizedPuzzles">आपल्यासाठी वैयक्तिक कोडे येण्यासाठी:</string>
   <string name="puzzleId">कोडे %s</string>
   <string name="puzzleOfTheDay">आजचे कोडे</string>
+  <string name="dailyPuzzle">दररोजचं कोडं</string>
   <string name="clickToSolve">सोडवण्यासाठी क्लिक करा</string>
   <string name="goodMove">चांगली चाल</string>
   <string name="bestMove">उत्तम चाल!</string>
   <string name="keepGoing">सुरु ठेवा…</string>
   <string name="puzzleSuccess">यशस्वी!</string>
   <string name="puzzleComplete">कोडे सोडवले आहे!</string>
+  <string name="byOpenings">ओपनिंग द्वारे</string>
+  <string name="puzzlesByOpenings">ओपनिंग वर आधारित कोडी</string>
+  <string name="openingsYouPlayedTheMost">रेट केलेल्या खेळामध्ये तुम्ही सर्वात जास्त खेळलेल्या ओपनिंग</string>
+  <string name="useFindInPage">तुमची आवडती ओपनिंग शोधण्यासाठी ब्राउझर मेनूमध्ये \"Find in page\" वापरा!</string>
+  <string name="useCtrlF">तुमची आवडती ओपनिंग शोधण्यासाठी Ctrl+f वापरा!</string>
   <string name="notTheMove">ही ती चाल नव्हे!</string>
   <string name="trySomethingElse">काही वेगळा प्रयत्न करा.</string>
   <string name="ratingX">मूल्यांकन: %s</string>
@@ -51,6 +59,7 @@
   </plurals>
   <string name="example">उदाहरण</string>
   <string name="addAnotherTheme">अजून एक विषय वाढवा</string>
+  <string name="nextPuzzle">पुढचं कोडं</string>
   <string name="jumpToNextPuzzleImmediately">लगेच पुढचे कोडे सुरू करा</string>
   <string name="puzzleDashboard">कोड्यांचा माहितीफलक</string>
   <string name="improvementAreas">सुधारण्याचे क्षेत्र</string>

@@ -2,7 +2,7 @@
 <resources>
   <string name="challengesX">Desafíos: %1$s</string>
   <string name="challengeToPlay">Desafiar a una partida</string>
-  <string name="challengeDeclined">Desafío refusau</string>
+  <string name="challengeDeclined">Desafío refusau.</string>
   <string name="challengeAccepted">Desafío acceptau!</string>
   <string name="challengeCanceled">Desafío cancelau.</string>
   <string name="registerToSendChallenges">Has d\'estar rechistrau pa ninviar desafíos.</string>

@@ -12,7 +12,6 @@ import lila.common.HTTPRequest
 
 final class Main(
     env: Env,
-    prismicC: Prismic,
     assetsC: ExternalAssets
 ) extends LilaController(env):
 
@@ -60,8 +59,7 @@ final class Main(
 
   private def serveMobile(using Context) =
     pageHit
-    FoundPage(prismicC getBookmark "mobile-apk"): (doc, resolver) =>
-      html.mobile(doc, resolver)
+    FoundPage(env.api.cmsRenderKey("mobile-apk"))(html.mobile.apply)
 
   def dailyPuzzleSlackApp = Open:
     Ok.page(html.site.dailyPuzzleSlackApp())
@@ -148,7 +146,7 @@ final class Main(
         case 547  => s"$faq#leaving"
         case 259  => s"$faq#trophies"
         case 342  => s"$faq#provisional"
-        case 50   => routes.ContentPage.help.url
+        case 50   => routes.Cms.help.url
         case 46   => s"$faq#name"
         case 122  => s"$faq#marks"
         case _    => faq

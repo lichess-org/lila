@@ -30,6 +30,5 @@ object show:
       ),
       csp = analysisCsp.some,
       zoomable = true
-    ) {
+    ):
       main(cls := "analyse")
-    }

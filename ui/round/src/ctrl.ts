@@ -92,6 +92,7 @@ export default class RoundController implements MoveRootCtrl {
   preDrop?: cg.Role;
   sign: string = Math.random().toString(36);
   keyboardHelp: boolean = location.hash === '#keyboard';
+  blindfoldStorage: LichessBooleanStorage;
 
   constructor(
     readonly opts: RoundOpts,
@@ -111,6 +112,7 @@ export default class RoundController implements MoveRootCtrl {
     }, 3000);
 
     this.socket = makeSocket(opts.socketSend, this);
+    this.blindfoldStorage = lichess.storage.boolean(`blindfold.${this.data.player.user?.id ?? 'anon'}`);
 
     if (d.clock)
       this.clock = new ClockController(d, {
@@ -856,7 +858,7 @@ export default class RoundController implements MoveRootCtrl {
 
   blindfold = (v?: boolean): boolean => {
     if (v === undefined || v === this.data.player.blindfold) return this.data.player.blindfold ?? false;
-    lichess.storage.set('blindfold', v ? 'true' : 'false');
+    this.blindfoldStorage.set(v);
     this.data.player.blindfold = v;
     this.socket.send(`blindfold-${v ? 'yes' : 'no'}`);
     this.redraw();
@@ -895,9 +897,15 @@ export default class RoundController implements MoveRootCtrl {
       }
 
       if (!this.nvui) keyboard.init(this);
-      if (this.isPlaying() && d.steps.length === 1)
-        this.blindfold(lichess.storage.get('blindfold') === 'true');
+      if (this.isPlaying() && d.steps.length === 1) {
+        if (lichess.storage.get('blindfold') === 'true') {
+          // TODO - delete this if block & storage.set once a few weeks pass
+          lichess.storage.remove('blindfold');
+          this.blindfoldStorage.set(true);
+        }
 
+        this.blindfold(this.blindfoldStorage.get());
+      }
       wakeLock.request();
 
       setTimeout(() => {

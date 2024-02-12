@@ -64,7 +64,7 @@ object tree:
             " to contact us about other issues.",
             br,
             "You can also ",
-            a(href := routes.ContentPage.loneBookmark("appeal"))("find here more information about appeals.")
+            a(href := routes.Cms.lonePage("appeal"))("find here more information about appeals.")
           )
         )
       )
@@ -162,7 +162,7 @@ object tree:
           frag(
             p(
               "I accept that I have not followed the ",
-              a(href := routes.ContentPage.loneBookmark("communication-guidelines"))(
+              a(href := routes.Cms.lonePage("communication-guidelines"))(
                 "communication guidelines"
               ),
               ". I will behave better in future, please give me another chance."
@@ -182,7 +182,7 @@ object tree:
       ),
       content = p(
         "Read our ",
-        a(href := routes.ContentPage.loneBookmark("communication-guidelines"))("communication guidelines"),
+        a(href := routes.Cms.lonePage("communication-guidelines"))("communication guidelines"),
         ". Failure to follow the communication guidelines can result in accounts being muted."
       ).some
     )
@@ -280,7 +280,7 @@ object tree:
       ),
       content = frag(
         "Make sure to read again our ",
-        a(href := routes.ContentPage.loneBookmark("blog-etiquette"))("blog rules"),
+        a(href := routes.Cms.lonePage("blog-etiquette"))("blog rules"),
         "."
       ).some
     )
@@ -402,7 +402,7 @@ object tree:
           p(cls := "text warning-closure", dataIcon := licon.CautionTriangle)(closingAccountWithdrawAppeal()),
           p(cls := "text", dataIcon := licon.InfoCircle)(doNotMessageModerators()),
           p(
-            a(cls := "text", dataIcon := licon.InfoCircle, href := routes.ContentPage.loneBookmark("appeal"))(
+            a(cls := "text", dataIcon := licon.InfoCircle, href := routes.Cms.lonePage("appeal"))(
               "Read more about the appeal process"
             )
           ),

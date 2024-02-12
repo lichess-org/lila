@@ -54,7 +54,8 @@ object show:
             ))
       )
     ):
-      val canSeeMembers = asMod || (t.enabled && (t.publicMembers || info.mine))
+      val canManage     = asMod && isGranted(_.ManageTeam)
+      val canSeeMembers = canManage || (t.enabled && (t.publicMembers || info.mine))
       main(
         cls := "team-show box",
         socketVersion.map: v =>
@@ -70,7 +71,7 @@ object show:
         ),
         div(cls := "team-show__content")(
           div(cls := "team-show__content__col1")(
-            (t.enabled || info.ledByMe || asMod) option st.section(cls := "team-show__meta")(
+            (t.enabled || info.ledByMe || canManage) option st.section(cls := "team-show__meta")(
               t.publicLeaders.nonEmpty option p(
                 teamLeaders.pluralSame(t.publicLeaders.size),
                 ": ",
@@ -79,7 +80,7 @@ object show:
               ),
               info.ledByMe option a(
                 dataIcon := licon.InfoCircle,
-                href     := routes.ContentPage.loneBookmark("team-etiquette"),
+                href     := routes.Cms.lonePage("team-etiquette"),
                 cls      := "text"
               )("Team Etiquette")
             ),
@@ -100,7 +101,7 @@ object show:
                     postForm(action := teamRoutes.quit(t.id)):
                       submitButton(cls := "button button-red button-empty confirm")(trans.cancel())
                   )
-                else ctx.isAuth option joinButton(t.team)
+                else (ctx.isAuth && !asMod) option joinButton(t.team)
               ),
               t.enabled && info.mine option
                 postForm(
@@ -158,7 +159,7 @@ object show:
                     em(messageAllMembersOverview())
                   )
               ),
-              ((t.enabled && info.havePerm(_.Settings)) || asMod) option
+              ((t.enabled && info.havePerm(_.Settings)) || canManage) option
                 a(
                   href     := teamRoutes.edit(t.id),
                   cls      := "button button-empty text",
@@ -166,19 +167,19 @@ object show:
                 )(
                   trans.settings.settings()
                 ),
-              ((t.enabled && info.havePerm(_.Admin)) || asMod) option
+              ((t.enabled && info.havePerm(_.Admin)) || canManage) option
                 a(
                   cls      := "button button-empty text",
                   href     := teamRoutes.leaders(t.id),
                   dataIcon := licon.Group
                 )(teamLeaders()),
-              ((t.enabled && info.havePerm(_.Kick)) || asMod) option
+              ((t.enabled && info.havePerm(_.Kick)) || canManage) option
                 a(
                   cls      := "button button-empty text",
                   href     := teamRoutes.kick(t.id),
                   dataIcon := licon.InternalArrow
                 )(kickSomeone()),
-              ((t.enabled && info.havePerm(_.Request)) || asMod) option
+              ((t.enabled && info.havePerm(_.Request)) || canManage) option
                 a(
                   cls      := "button button-empty text",
                   href     := teamRoutes.declinedRequests(t.id),
@@ -211,7 +212,7 @@ object show:
                 a(href := teamRoutes.edit(t.id))("Give your team a short introduction text!")
             ),
             log.nonEmpty option renderLog(log),
-            (t.enabled || asMod) option st.section(cls := "team-show__desc")(
+            (t.enabled || canManage) option st.section(cls := "team-show__desc")(
               bits.markdown(t.team, t.descPrivate.ifTrue(info.mine) | t.description)
             ),
             t.enabled && info.hasRequests option div(cls := "team-show__requests")(

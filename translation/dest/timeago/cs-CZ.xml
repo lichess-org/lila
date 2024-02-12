@@ -80,4 +80,17 @@
     <item quantity="many">před %s lety</item>
     <item quantity="other">před %s lety</item>
   </plurals>
+  <plurals name="nbMinutesRemaining">
+    <item quantity="one">Zbývá %s minuta</item>
+    <item quantity="few">Zbývají %s minuty</item>
+    <item quantity="many">Zbývá %s minut</item>
+    <item quantity="other">Zbývá %s minut</item>
+  </plurals>
+  <plurals name="nbHoursRemaining">
+    <item quantity="one">Zbývá %s hodina</item>
+    <item quantity="few">Zbývají %s hodiny</item>
+    <item quantity="many">Zbývá %s hodin</item>
+    <item quantity="other">Zbývá %s hodin</item>
+  </plurals>
+  <string name="completed">dokončeno</string>
 </resources>

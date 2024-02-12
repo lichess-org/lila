@@ -18,20 +18,21 @@ final class LoginContext(
     val oauth: Option[TokenScopes]
 ):
   export me.{ isDefined as isAuth, isEmpty as isAnon }
-  def myId: Option[MyId]             = me.map(_.myId)
-  def is[U: UserIdOf](u: U): Boolean = me.exists(_ is u)
-  inline def user: Option[User]      = Me raw me
-  def userId: Option[UserId]         = user.map(_.id)
-  def username: Option[UserName]     = user.map(_.username)
-  def isBot                          = me.exists(_.isBot)
-  def noBot                          = !isBot
-  def troll                          = user.exists(_.marks.troll)
-  def isKidUser                      = user.exists(_.kid)
-  def isAppealUser                   = me.exists(_.enabled.no)
-  def isWebAuth                      = isAuth && oauth.isEmpty
-  def isOAuth                        = isAuth && oauth.isDefined
-  def isMobileOauth                  = oauth.exists(_.has(_.Web.Mobile))
-  def scopes                         = oauth | TokenScopes(Nil)
+  def myId: Option[MyId]               = me.map(_.myId)
+  def is[U: UserIdOf](u: U): Boolean   = me.exists(_ is u)
+  def isnt[U: UserIdOf](u: U): Boolean = !is(u)
+  inline def user: Option[User]        = Me raw me
+  def userId: Option[UserId]           = user.map(_.id)
+  def username: Option[UserName]       = user.map(_.username)
+  def isBot                            = me.exists(_.isBot)
+  def noBot                            = !isBot
+  def troll                            = user.exists(_.marks.troll)
+  def isKidUser                        = user.exists(_.kid)
+  def isAppealUser                     = me.exists(_.enabled.no)
+  def isWebAuth                        = isAuth && oauth.isEmpty
+  def isOAuth                          = isAuth && oauth.isDefined
+  def isMobileOauth                    = oauth.exists(_.has(_.Web.Mobile))
+  def scopes                           = oauth | TokenScopes(Nil)
 
 object LoginContext:
   val anon = LoginContext(none, false, none, none)

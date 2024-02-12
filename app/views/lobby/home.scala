@@ -116,10 +116,13 @@ object home:
         ,
         puzzle.map: p =>
           views.html.puzzle.embed.dailyLink(p)(cls := "lobby__puzzle"),
-        bits.lastPosts(lastPost, ublogPosts),
+        div(cls := "lobby__blog ublog-post-cards"):
+          ublogPosts.filter(_.isLichess || ctx.kid.no).take(3) map:
+            views.html.ublog.post.card(_, showAuthor = views.html.ublog.post.ShowAt.bottom, showIntro = false)
+        ,
         ctx.noBot option bits.underboards(tours, simuls, leaderboard, tournamentWinners),
         div(cls := "lobby__feed"):
-          views.html.dailyFeed.lobbyUpdates(lastUpdates)
+          views.html.feed.lobbyUpdates(lastUpdates)
         ,
         div(cls := "lobby__support")(
           a(href := routes.Plan.index)(
@@ -143,7 +146,7 @@ object home:
           a(href := "/faq")(trans.faq.faqAbbreviation()),
           a(href := "/contact")(trans.contact.contact()),
           a(href := "/mobile")(trans.mobileApp()),
-          a(href := routes.ContentPage.tos)(trans.termsOfService()),
+          a(href := routes.Cms.tos)(trans.termsOfService()),
           a(href := "/privacy")(trans.privacy()),
           a(href := "/source")(trans.sourceCode()),
           a(href := "/ads")("Ads"),

@@ -56,11 +56,10 @@ object clas:
       else renderClasses(current),
       (closed || others.nonEmpty) option div(cls := "clas-index__others")(
         a(href := s"${clasRoutes.index}?closed=${!closed}")(
-          "And ",
           others.size.localize,
           " ",
           if closed then "active" else "archived",
-          " classes"
+          if others.size == 1 then " class" else " classes"
         )
       )
     )

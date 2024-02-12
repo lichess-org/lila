@@ -415,6 +415,7 @@
   <string name="blackCheckmatesInOneMove">Սևերը մատ են անում մեկ քայլից</string>
   <string name="retry">Կրկին փորձել</string>
   <string name="reconnecting">Կապի միացում</string>
+  <string name="noNetwork">Օֆլայն</string>
   <plurals name="nbFriendsOnline">
     <item quantity="one">%s ընկեր առցանց է</item>
     <item quantity="other">%s ընկեր առցանց է</item>

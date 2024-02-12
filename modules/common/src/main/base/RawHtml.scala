@@ -37,7 +37,7 @@ object RawHtml:
   // word (i.e. preceded and followed by space or appropriate punctuation):
   // Yes: everyone says @ornicar is a pretty cool guy
   // No: contact@lichess.org, @1, http://example.com/@happy0, @lichess.org
-  val atUsernameRegex = """@(?<![\w@#/]@)([\w-]{2,30}+)(?![@\w-]|\.\w)""".r
+  val atUsernameRegex = """@(?<![\w@#/\[]@)([\w-]{2,30}+)(?![@\w-]|\.\w)""".r
 
   private[this] val atUsernamePat = atUsernameRegex.pattern
 

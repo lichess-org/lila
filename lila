@@ -32,6 +32,19 @@ BANNER
 version=$(java -version 2>&1 | awk -F '"' '/version/ {print $2}')
 echo Java "$version"
 
+javabin=$(which java)
+
+if [ -z "$JAVA_HOME" ]; then
+    echo "Warning, JAVA_HOME is unset"
+elif [ "$JAVA_HOME/bin/java" != "$javabin" ]; then
+    echo "Warning, JAVA_HOME [$JAVA_HOME] is not the same as java on PATH [$javabin]"
+fi
+
+if ! $(java --list-modules | grep -q jdk.compiler -); then
+    echo Warning, $javabin is missing module jdk.compiler - this can happen if you mistakenly use a JRE instead of a JDK.
+fi
+
+
 command="sbt $java_env $@"
 echo $command
 $command
