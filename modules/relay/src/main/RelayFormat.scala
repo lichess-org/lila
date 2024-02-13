@@ -82,7 +82,14 @@ final private class RelayFormatApi(
 
   private[relay] def httpGetAndGuessCharset(url: URL)(using CanProxy): Fu[String] =
     httpGetResponse(url).map: res =>
-      lila.common.String.charset.guessAndDecode(res.bodyAsBytes)
+      responseHeaderCharset(res) match
+        case None        => lila.common.String.charset.guessAndDecode(res.bodyAsBytes)
+        case Some(known) => res.bodyAsBytes.decodeString(known)
+
+  private def responseHeaderCharset(res: StandaloneWSResponse): Option[java.nio.charset.Charset] =
+    import play.shaded.ahc.org.asynchttpclient.util.HttpUtils
+    Option(HttpUtils.extractContentTypeCharsetAttribute(res.contentType)).orElse:
+      res.contentType.startsWith("text/") option java.nio.charset.StandardCharsets.ISO_8859_1
 
   private def httpGetResponse(url: URL)(using CanProxy): Future[StandaloneWSResponse] =
     val (req, proxy) = addProxy(url):

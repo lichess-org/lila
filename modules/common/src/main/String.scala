@@ -190,7 +190,7 @@ object String:
     import com.ibm.icu.text.CharsetDetector
 
     def guessAndDecode(str: ByteString): String =
-      str.decodeString(guess(str) | "UTF-8").ppAs(_.take(100), ~guess(str))
+      str.decodeString(guess(str) | "UTF-8")
 
     def guess(str: ByteString): Option[String] =
       Option:
