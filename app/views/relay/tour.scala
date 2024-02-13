@@ -142,17 +142,17 @@ object tour:
       a(href := routes.RelayTour.index(), cls := menu.activeO("index"))(broadcasts()),
       ctx.me.map: me =>
         a(href := routes.RelayTour.by(me.username, 1), cls := by.exists(_ is me).option("active")):
-          trans.broadcast.myBroadcasts()
+          myBroadcasts()
       ,
       by.filterNot(ctx.is)
         .map: user =>
           a(href := routes.RelayTour.by(user.name, 1), cls := "active")(
             user.name,
             " ",
-            trans.broadcast.broadcasts()
+            broadcasts()
           ),
       a(href := routes.RelayTour.subscribed(), cls := menu.activeO("subscribed"))(
-        trans.broadcast.subscribedBroadcasts()
+        subscribedBroadcasts()
       ),
       a(href := routes.RelayTour.form, cls := menu.activeO("new"))(newBroadcast()),
       a(href := routes.RelayTour.calendar, cls := menu.activeO("calendar"))(trans.tournamentCalendar()),
