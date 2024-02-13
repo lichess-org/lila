@@ -704,7 +704,8 @@
   <string name="keyNextBranch">Næste gren</string>
   <string name="toggleVariationArrows">Slå variantpile til/fra</string>
   <string name="cyclePreviousOrNextVariation">Gennemgå forrige/næste variant</string>
-  <string name="toggleGlyphAnnotations">Slå glyf-annotationer til/fra</string>
+  <string name="toggleGlyphAnnotations">Slå træk-annotationer til/fra</string>
+  <string name="togglePositionAnnotations">Slå positionsannotationer til/fra</string>
   <string name="variationArrowsInfo">Variantpile lader dig navigere uden at bruge træklisten.</string>
   <string name="playSelectedMove">spil valgte træk</string>
   <string name="newTournament">Ny turnering</string>

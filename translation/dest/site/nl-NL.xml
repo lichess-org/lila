@@ -705,6 +705,7 @@
   <string name="toggleVariationArrows">Schakel variatiepijlen in/uit</string>
   <string name="cyclePreviousOrNextVariation">Bekijk vorige/volgende variant</string>
   <string name="toggleGlyphAnnotations">Zet glyph-aantekeningen aan of uit</string>
+  <string name="togglePositionAnnotations">Zet stellingsaantekeningen aan of uit</string>
   <string name="variationArrowsInfo">Met de variantpijlen kunt u navigeren zonder de zettenlijst te gebruiken.</string>
   <string name="playSelectedMove">speel geselecteerde zet</string>
   <string name="newTournament">Nieuw toernooi</string>
