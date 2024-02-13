@@ -31,10 +31,22 @@ final private class RelayFetch(
 
   import RelayFetch.*
 
-  LilaScheduler("RelayFetch.official", _.Every(500 millis), _.AtMost(15 seconds), _.Delay(15 seconds)):
+  private val quickStart = false // for dev
+
+  LilaScheduler(
+    "RelayFetch.official",
+    _.Every(500 millis),
+    _.AtMost(15 seconds),
+    _.Delay(if quickStart then 1.milli else 15 seconds)
+  ):
     syncRelays(official = true)
 
-  LilaScheduler("RelayFetch.user", _.Every(750 millis), _.AtMost(10 seconds), _.Delay(33 seconds)):
+  LilaScheduler(
+    "RelayFetch.user",
+    _.Every(750 millis),
+    _.AtMost(10 seconds),
+    _.Delay(if quickStart then 1.milli else 33 seconds)
+  ):
     syncRelays(official = false)
 
   private val maxRelaysToSync = Max(50)
@@ -199,7 +211,8 @@ final private class RelayFetch(
               MultiPgn(results.sortBy(_._1).map(_._2))
     } flatMap { multiPgnToGames(_).toFuture }
 
-  private def httpGetPgn(url: URL)(using CanProxy): Fu[PgnStr] = PgnStr from formatApi.httpGet(url)
+  private def httpGetPgn(url: URL)(using CanProxy): Fu[PgnStr] =
+    PgnStr from formatApi.httpGetAndGuessCharset(url)
 
   private def httpGetJson[A: Reads](url: URL)(using CanProxy): Fu[A] = for
     str  <- formatApi.httpGet(url)
