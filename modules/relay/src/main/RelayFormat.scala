@@ -4,7 +4,12 @@ import io.mola.galimatias.URL
 import com.softwaremill.tagging.*
 import scala.util.matching.Regex
 import play.api.libs.json.*
-import play.api.libs.ws.{ StandaloneWSClient, StandaloneWSRequest, DefaultWSProxyServer }
+import play.api.libs.ws.{
+  StandaloneWSClient,
+  StandaloneWSRequest,
+  StandaloneWSResponse,
+  DefaultWSProxyServer
+}
 import play.api.libs.ws.DefaultBodyReadables.*
 import chess.format.pgn.PgnStr
 
@@ -12,7 +17,6 @@ import lila.study.MultiPgn
 import lila.memo.CacheApi.*
 import lila.memo.{ CacheApi, SettingStore }
 import lila.common.config.{ Max, Credentials, HostPort }
-import play.api.libs.ws.StandaloneWSResponse
 
 final private class RelayFormatApi(
     ws: StandaloneWSClient,
