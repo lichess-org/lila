@@ -45,21 +45,20 @@ object JsonView:
 
   import lila.rating.Glicko.given
 
-  private given Writes[Instant] = Writes { d =>
+  private given Writes[Instant] = Writes: d =>
     JsString(isoDateTimeFormatter print d)
-  }
-  given OWrites[User] = OWrites { u =>
+
+  given OWrites[User] = OWrites: u =>
     Json.obj("name" -> u.username)
-  }
-  given OWrites[Perf] = OWrites { p =>
+
+  given OWrites[Perf] = OWrites: p =>
     Json.obj("glicko" -> p.glicko, "nb" -> p.nb, "progress" -> p.progress)
-  }
-  private given Writes[Avg] = Writes { a =>
+
+  private given Writes[Avg] = Writes: a =>
     JsNumber(lila.common.Maths.roundDownAt(a.avg, 2))
-  }
-  given (using lang: Lang): OWrites[PerfType] = OWrites { pt =>
+
+  given (using lang: Lang): OWrites[PerfType] = OWrites: pt =>
     Json.obj(
       "key"  -> pt.key,
       "name" -> pt.trans
     )
-  }
