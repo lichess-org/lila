@@ -19,11 +19,6 @@ body > header {
   max-width: 1800px;
   margin: 0 auto;
   user-select: none;
-  margin: 0 auto;
-  user-select: none;
-}
-
-body.sticky > header {
   @include breakpoint($mq-site-header-tall) {
     max-width: unset;
     position: fixed;
@@ -63,12 +58,11 @@ body.sticky > header {
   &__donate {
     @extend %flex-center;
     color: $c-brag;
-    margin-#{$start-direction}: 0.5rem;
-    margin-#{$end-direction}: 1rem;
+    margin: 0 1rem;
     text-transform: uppercase;
     line-height: $site-header-height;
     @include breakpoint($mq-not-medium) {
-      margin-#{$start-direction}: 72px;
+      margin-#{$start-direction}: 64px;
     }
   }
 }

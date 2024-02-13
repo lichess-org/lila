@@ -298,8 +298,7 @@ object layout:
               "no-flair"             -> !pref.flairs,
               "zen"                  -> (pref.isZen || (playing && pref.isZenAuto)),
               "zenable"              -> zenable,
-              "zen-auto"             -> (zenable && pref.isZenAuto),
-              "sticky" -> (ctx.data.inquiry.isEmpty && ctx.impersonatedBy.isEmpty && ctx.pref.stickyNavBar)
+              "zen-auto"             -> (zenable && pref.isZenAuto)
             )
           },
           dataDev,
@@ -403,10 +402,10 @@ object layout:
             )
           ),
           !ctx.isAppealUser option frag(
+            topnav(),
             ctx.kid.no && !zenable option a(cls := "site-title-nav__donate")(
               href := (if ctx.me.isEmpty then routes.Auth.login else routes.Plan.index)
-            )(trans.patron.donate()),
-            topnav()
+            )(trans.patron.donate())
           ),
           ctx.blind option h2("Navigation")
         ),

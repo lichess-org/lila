@@ -51,7 +51,6 @@ object PrefForm:
     val ratings       = "ratings"       -> booleanNumber
     val flairs        = "flairs"        -> boolean
     val follow        = "follow"        -> booleanNumber
-    val stickyNavBar  = "stickyNavBar"  -> boolean
 
   def pref(lichobile: Boolean) = Form(
     mapping(
@@ -94,8 +93,7 @@ object PrefForm:
       "studyInvite"  -> optional(checkedNumber(Pref.StudyInvite.choices)),
       "insightShare" -> numberIn(Set(0, 1, 2)),
       fields.ratings.map2(optional),
-      fields.flairs.map2(optional),
-      fields.stickyNavBar.map2(optional)
+      fields.flairs.map2(optional)
     )(PrefData.apply)(unapply)
   )
 
@@ -141,8 +139,7 @@ object PrefForm:
       studyInvite: Option[Int],
       insightShare: Int,
       ratings: Option[Int],
-      flairs: Option[Boolean],
-      stickyNavBar: Option[Boolean]
+      flairs: Option[Boolean]
   ):
 
     def apply(pref: Pref) =
@@ -173,7 +170,6 @@ object PrefForm:
         zen = display.zen | pref.zen,
         ratings = ratings | pref.ratings,
         flairs = flairs | pref.flairs,
-        stickyNavBar = stickyNavBar | pref.stickyNavBar,
         resizeHandle = display.resizeHandle | pref.resizeHandle,
         rookCastle = behavior.rookCastle | pref.rookCastle,
         pieceNotation = display.pieceNotation | pref.pieceNotation,
@@ -218,8 +214,7 @@ object PrefForm:
         studyInvite = pref.studyInvite.some,
         insightShare = pref.insightShare,
         ratings = pref.ratings.some,
-        flairs = pref.flairs.some,
-        stickyNavBar = pref.stickyNavBar.some
+        flairs = pref.flairs.some
       )
 
   def prefOf(p: Pref): Form[PrefData] = pref(lichobile = false).fill(PrefData(p))
