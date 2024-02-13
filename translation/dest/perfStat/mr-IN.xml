@@ -22,10 +22,9 @@
   <string name="fromXToY">%1$s पासून %2$s पर्यंत</string>
   <string name="winningStreak">विजयाची मालिका</string>
   <string name="losingStreak">पराभवांची मािलका</string>
-  <string name="longestStreak" comment="%s is the string (number of games OR time spent playing, e.g. 4 hours non-stop play)&#10;String used to describe the longest consecutive winning &amp; losing streak of games. It is also used for a  streak of time spent playing.">सर्वात लांब मालिका: %s</string>
+  <string name="longestStreak">सर्वात लांब मालिका: %s</string>
   <string name="currentStreak">सद्य मालिका: %s</string>
   <string name="bestRated">गुणांनुसार सर्वोच्च विजय</string>
-  <string name="worstRated">गुणांनुसार सर्वात वाईट पराभव</string>
   <string name="gamesInARow">सलग खेळ</string>
   <string name="lessThanOneHour">दोन डावांमध्ये एका तासापेक्षा कमी वेळ</string>
   <string name="maxTimePlaying">खेळण्यात घालवलेला सर्वाधिक वेळ</string>
