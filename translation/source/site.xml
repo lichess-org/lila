@@ -993,8 +993,4 @@ All operating costs, development, and content are funded solely by user donation
   <string name="recentlyPlayed">Recently played</string>
   <string name="bestResults">Best results</string>
   <string name="stats">Stats</string>
-  <string name="xTournamentStats">%s tournament stats</string>
-  <string name="rankAvgHelp">The rank average is a percentage of your ranking. Lower is better.
-
-For instance, being ranked 3 in a tournament of 100 players = 3%%. Being ranked 10 in a tournament of 1000 players = 1%%.</string>
 </resources>

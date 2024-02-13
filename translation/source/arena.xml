@@ -69,6 +69,10 @@ Play fast and return to the lobby to play more games and win more points.</strin
   <string name="pickYourTeam">Pick your team</string>
   <string name="whichTeamWillYouRepresentInThisBattle">Which team will you represent in this battle?</string>
   <string name="youMustJoinOneOfTheseTeamsToTarticipate">You must join one of these teams to participate!</string>
+  <string name="xTournamentStats">%s tournament stats</string>
+  <string name="rankAvgHelp">The rank average is a percentage of your ranking. Lower is better.
+
+For instance, being ranked 3 in a tournament of 100 players = 3%%. Being ranked 10 in a tournament of 1000 players = 1%%.</string>
   <string name="medians">medians</string>
   <string name="allaveragesAreX">All averages on this page are %s.</string>
   <string name="total">Total</string>
