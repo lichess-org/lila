@@ -43,6 +43,8 @@ export const isMobile = (): boolean => isAndroid() || isIOS();
 
 export const isAndroid = (): boolean => /Android/.test(navigator.userAgent);
 
+export const isSafari = (): boolean => /^((?!chrome|android).)*safari/i.test(navigator.userAgent);
+
 export const isIOS = (constraint?: { below?: number; atLeast?: number }) => {
   let answer = ios();
   if (!constraint || !answer) return answer;

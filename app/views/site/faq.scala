@@ -56,7 +56,7 @@ object faq:
             findMoreAndSeeHowHelp(
               a(href := routes.Plan.index)(beingAPatron()),
               a(href := routes.Main.costs)(breakdownOfOurCosts()),
-              a(href := routes.ContentPage.help)(otherWaysToHelp())
+              a(href := routes.Cms.help)(otherWaysToHelp())
             )
           )
         ),
@@ -114,7 +114,7 @@ object faq:
             youCanUseOpeningBookNoEngine()
           ),
           p(
-            pleaseReadFairPlayPage(a(href := routes.ContentPage.loneBookmark("fair-play"))(fairPlayPage()))
+            pleaseReadFairPlayPage(a(href := routes.Cms.lonePage("fair-play"))(fairPlayPage()))
           )
         ),
         h2(gameplay()),
@@ -137,7 +137,7 @@ object faq:
           whatVariantsCanIplay.txt(),
           p(
             lichessSupportChessAnd(
-              a(href := routes.ContentPage.variantHome)(eightVariants())
+              a(href := routes.Cms.variantHome)(eightVariants())
             )
           )
         ),
@@ -275,7 +275,7 @@ object faq:
             ratingSystemUsedByLichess()
           ),
           p(
-            a(href := routes.ContentPage.loneBookmark("rating-systems"))("More about rating systems")
+            a(href := routes.Cms.lonePage("rating-systems"))("More about rating systems")
           )
         ),
         question(
@@ -326,7 +326,7 @@ object faq:
             whyAreRatingHigherExplanation()
           ),
           p(
-            a(href := routes.ContentPage.loneBookmark("rating-systems"))("More about rating systems")
+            a(href := routes.Cms.lonePage("rating-systems"))("More about rating systems")
           )
         ),
         question(

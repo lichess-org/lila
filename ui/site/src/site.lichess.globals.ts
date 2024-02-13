@@ -21,6 +21,7 @@ import * as miniGame from './component/miniGame';
 import { format as timeago, formatter as dateFormat } from './component/timeago';
 import watchers from './component/watchers';
 import { Chessground } from 'chessground';
+import { domDialog, ready, snabDialog } from './component/dialog';
 
 declare const __debug__: boolean;
 
@@ -59,4 +60,9 @@ export default () => {
     lichess.asset.loadEsm('chat', { init: { el: document.querySelector('.mchat')!, ...data } });
   l.makeChessground = Chessground;
   l.log = makeLog();
+  (l.dialog as any) = { ready };
+  ready.then(() => {
+    l.dialog.dom = domDialog;
+    l.dialog.snab = snabDialog;
+  });
 };

@@ -419,6 +419,7 @@ computer analysis, game chat and shareable URL.</string>
   <string name="blackCheckmatesInOneMove">Black to checkmate in one move</string>
   <string name="retry">Retry</string>
   <string name="reconnecting">Reconnecting</string>
+  <string name="noNetwork">Offline</string>
   <plurals name="nbFriendsOnline">
     <item quantity="one">%s friend online</item>
     <item quantity="other">%s friends online</item>

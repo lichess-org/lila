@@ -150,6 +150,7 @@ object RelayRoundForm:
         caption = caption,
         sync = makeSync(user),
         createdAt = nowInstant,
+        crowd = none,
         finished = ~finished,
         startsAt = startsAt,
         startedAt = none

@@ -62,7 +62,7 @@ final class NotifyApi(
 
   private val unreadCountCache = cacheApi[UserId, UnreadCount](32768, "notify.unreadCountCache") {
     _.expireAfterAccess(15 minutes)
-      .buildAsyncFuture(repo.unreadNotificationsCount)
+      .buildAsyncFuture(repo.expireAndCount)
   }
 
   def getNotifications(userId: UserId, page: Int): Fu[Paginator[Notification]] =
@@ -97,10 +97,10 @@ final class NotifyApi(
     repo.remove(to, selector) andDo unreadCountCache.invalidate(to)
 
   def markRead(to: UserId, selector: Bdoc): Funit =
-    repo.markManyRead(selector ++ $doc("notifies" -> to, "read" -> false)) andDo
-      unreadCountCache.invalidate(to)
-
-  def exists = repo.exists
+    repo
+      .markManyRead(selector ++ $doc("notifies" -> to, "read" -> false))
+      .map: nb =>
+        if nb > 0 then unreadCountCache.invalidate(to)
 
   def notifyOne[U: UserIdOf](to: U, content: NotificationContent): Funit =
     val note = Notification.make(to, content)
@@ -144,9 +144,13 @@ final class NotifyApi(
       )
 
   private def bellMany(recips: Iterable[NotifyAllows], content: NotificationContent): Funit =
+    val expiresIn = content match
+      case _: StreamStart    => 6.hours.some
+      case _: BroadcastRound => 6.hours.some
+      case _                 => none
     val bells = recips.collect { case r if r.allows.bell => r.userId }
     bells foreach unreadCountCache.invalidate // or maybe update only if getIfPresent?
-    repo.insertMany(bells.map(to => Notification.make(to, content))) andDo
+    repo.insertMany(bells.map(to => Notification.make(to, content, expiresIn))) andDo
       Bus.publish(
         SendTos(bells.toSet, "notifications", Json.obj("incrementUnread" -> true)),
         "socketUsers"

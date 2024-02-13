@@ -1,4 +1,3 @@
-import { domDialog } from 'common/dialog';
 import { isChrome } from 'common/device';
 import { load as loadDasher } from 'dasher';
 
@@ -6,7 +5,7 @@ export default function disableDarkBoard() {
   if (!document.body.classList.contains('dark-board') || !isChrome() || !lichess.once('disableDarkBoard'))
     return;
   loadDasher().then(m => m.background.set('dark'));
-  domDialog({
+  lichess.dialog.dom({
     htmlText:
       '<div><h2>Dark board theme disabled</h2>' +
       '<hr>' +

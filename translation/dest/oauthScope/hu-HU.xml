@@ -21,7 +21,7 @@
   <string name="puzzleRead" comment="In the context of an access token, a setting which permits third-party software to view the user's puzzle solving history.">Feladvány-aktivitási adatok olvasása</string>
   <string name="teamRead" comment="Gives permission to third-party software to *read* information that already exists. However it won't be able to write (create) private studies or broadcasts.">Privát csapatinformációk</string>
   <string name="teamWrite" comment="In the context of an access token, a setting that permits the third party software to join or leave teams on your behalf.">Csatlakozás és kilépés csapatokból</string>
-  <string name="teamLead">Csapatműveletek: PMek küldése, tagok eltávolítása</string>
+  <string name="teamLead">Csapatműveletek: privát üzenetek küldése, tagok eltávolítása</string>
   <string name="followRead" comment="In the context of an access token, a setting which permits third-party software to view (read) which players you are following.">Követett játékosok megtekintése</string>
   <string name="followWrite" comment="In the context of an access token, a setting which permits third-party software to follow and unfollow other players on your behalf.">Játékosok követése</string>
   <string name="msgWrite" comment="In the context of an access token, a setting which permits third-party software to send messages on your behalf.">Privát üzenete küldése játékosoknak</string>

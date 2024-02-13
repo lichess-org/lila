@@ -1,4 +1,8 @@
 import * as xhr from 'common/xhr';
+import { isSafari } from 'common/device';
+import { wireCropDialog } from 'common/controls';
+
+if (isSafari()) wireCropDialog(); // preload
 
 lichess.load.then(() => {
   $('.streamer-show, .streamer-list').on('change', '.streamer-subscribe input', (e: Event) => {
@@ -13,5 +17,12 @@ lichess.load.then(() => {
           { method: 'post' },
         );
       });
+  });
+  wireCropDialog({
+    aspectRatio: 1,
+    post: { url: '/upload/image/streamer', field: 'picture' },
+    max: { pixels: 1000 },
+    selectClicks: $('.select-image, .drop-target'),
+    selectDrags: $('.drop-target'),
   });
 });

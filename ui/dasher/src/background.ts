@@ -169,7 +169,7 @@ function replaceStylesheet(old: HTMLLinkElement, oldKey: string, newKey: string,
   link.href = old.href.replace('.' + oldKey + '.', '.' + newKey + '.');
   if (media) link.media = `(prefers-color-scheme: ${media})`;
   link.onload = () => setTimeout(() => old.remove(), 100);
-  document.head.appendChild(link);
+  document.head.insertBefore(link, document.getElementById('piece-sprite'));
 }
 
 function galleryInput(ctrl: BackgroundCtrl) {

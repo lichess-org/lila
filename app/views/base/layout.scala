@@ -207,7 +207,7 @@ object layout:
   private def spaceless(html: String) = raw(spaceRegex.replaceAllIn(html.replace("\\n", ""), ""))
 
   private val dailyNewsAtom = link(
-    href     := routes.DailyFeed.atom,
+    href     := routes.Feed.atom,
     st.title := "Lichess Updates Feed",
     tpe      := "application/atom+xml",
     rel      := "alternate"
@@ -343,10 +343,10 @@ object layout:
             )
           ),
           netConfig.socketDomains.nonEmpty option a(
-            id       := "reconnecting",
+            id       := "network-status",
             cls      := "link text",
             dataIcon := licon.ChasingArrows
-          )(trans.reconnecting()),
+          ),
           spinnerMask,
           loadScripts(moreJs)
         )
@@ -431,6 +431,8 @@ object layout:
       trans.pause,
       trans.resume,
       trans.nbFriendsOnline,
+      trans.reconnecting,
+      trans.noNetwork,
       trans.timeago.justNow,
       trans.timeago.inNbSeconds,
       trans.timeago.inNbMinutes,

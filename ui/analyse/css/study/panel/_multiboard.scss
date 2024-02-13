@@ -1,7 +1,8 @@
 .study__multiboard {
-  @extend %box-neat;
-
-  background: $c-bg-box;
+  .analyse__underboard & {
+    @extend %box-neat;
+    background: $c-bg-box;
+  }
 
   &.loading {
     opacity: 0.7;

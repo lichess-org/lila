@@ -165,7 +165,7 @@ export function side(ctrl: StudyCtrl): VNode {
       'span.relay-tour.text',
       {
         class: { active: tourShown },
-        hook: bind('mousedown', () => tourShow(true), ctrl.redraw),
+        hook: bind('mousedown', () => tourShow(true), ctrl.redrawAndUpdateAddressBar),
         attrs: { ...dataIcon(licon.RadioTower), role: 'tab' },
       },
       'Broadcast',

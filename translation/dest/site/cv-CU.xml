@@ -34,11 +34,11 @@
   <string name="whitePlays">Шуррисем ҫӳремелле</string>
   <string name="blackPlays">Хурисем ҫӳремелле</string>
   <plurals name="opponentLeftCounter">
-    <item quantity="other">Ӑмӑртуҫу вӑййинчен тухнӑ. %s ҫеккунтран ҫӗнтерӳ пирки пӗлтерме пултаратӑн.</item>
+    <item quantity="other">Ӑмӑртуҫу вӑййинчен тухнӑ. %s ҫеккунтран ҫӗнтерӳ ҫинчен пӗлтерме пултаратӑн.</item>
   </plurals>
   <string name="opponentLeftChoices">Тепӗр вӑйӑҫ вӑййинчен тухнӑ пек турӗ. Ҫӗнтерӳ, парма-пар ҫинчен пӗлтер йе кӗтсе тӑр.</string>
-  <string name="forceResignation">Ҫӗнтерӳ пирки пӗлтер</string>
-  <string name="forceDraw">Парма-пар пирки пӗлтер</string>
+  <string name="forceResignation">Ҫӗнтерӳ ҫинчен пӗлтер</string>
+  <string name="forceDraw">Парма-пар пирки чӗн</string>
   <string name="talkInChat">Калаҫура сӑпайлӑ пул!</string>
   <string name="theFirstPersonToComeOnThisUrlWillPlayWithYou">Ҫак каҫҫипе пӗрремӗш килекен ҫын санпа вылӗ.</string>
   <string name="whiteResigned">Шуррисем парӑнчӗҫ</string>
@@ -381,7 +381,7 @@
   <string name="streamersMenu">Стримҫӗ</string>
   <string name="mobileApp">Мобиллӗ хушӑм</string>
   <string name="webmasters">Веб маҫтӑрсем</string>
-  <string name="aboutX">%s пирки</string>
+  <string name="aboutX">%s ҫинчен</string>
   <string name="contribute">Пулӑшасси</string>
   <string name="termsOfService">Шыв-йӗрки</string>
   <string name="sourceCode">Source Code</string>
@@ -486,7 +486,7 @@
   <string name="youHaveJoinedTeamX">Эсӗ \"%1$s\" хутшӑннӑ.</string>
   <string name="resVsX">%1$s vs %2$s</string>
   <string name="cancelTournament">Турнира пӑрахӑҫла</string>
-  <string name="tournDescription">Турнир пирки</string>
+  <string name="tournDescription">Турнир ҫинчен</string>
   <string name="tournChat">Турнир калаҫӑвӗ</string>
   <string name="noChat">Калаҫусӑр</string>
 </resources>

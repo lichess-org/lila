@@ -87,8 +87,6 @@
     vertical-align: middle;
     margin: -2px 0 -2px 0.5em;
     opacity: 1;
-    width: 0.7em;
-    height: 0.7em;
     width: var(--loader-size);
     height: var(--loader-size);
     border: 3px solid;
@@ -242,8 +240,6 @@
         text-overflow: ellipsis;
         display: inline-block;
         vertical-align: top;
-        min-width: $tag-min-width;
-        max-width: $tag-max-width;
         min-width: var(--tag--min-width, $tag-min-width);
         max-width: var(--tag--max-width, $tag-max-width);
         transition:

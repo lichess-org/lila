@@ -8,6 +8,7 @@
   </plurals>
   <string name="liveBroadcasts">پخش زنده مسابقات</string>
   <string name="newBroadcast">پخش زنده جدید</string>
+  <string name="subscribedBroadcasts">پخش‌های دنبال‌شده</string>
   <string name="aboutBroadcasts">درباره پخش‌های همگانی</string>
   <string name="noRoundsYet">هنوز هیچ دوری وجود ندارد.</string>
   <string name="howToUseLichessBroadcasts">نحوه استفاده از پخش همگانی Lichess.</string>
@@ -40,8 +41,8 @@
   <string name="editRoundStudy">ویرایش مطالعه دور</string>
   <string name="deleteTournament">حذف این مسابقات</string>
   <string name="definitivelyDeleteTournament">کل مسابقات، شامل همه دورها و بازی‌هایش را به طور کامل حذف کن.</string>
-  <string name="automaticLeaderboard" comment="An option when creating a broadcast to calculate a leaderboard automatically from the players involved. Example: https://lichess.org/broadcast/2023-london-chess-classic/round-9/5icayRCY">جدول رده‌بندی خودکار</string>
-  <string name="automaticLeaderboardHelp" comment="An option when creating a broadcast to calculate a leaderboard automatically from the players involved. Example: https://lichess.org/broadcast/2023-london-chess-classic/round-9/5icayRCY">یک جدول رده‌بندی ساده را بر اساس نتایج بازی‌ها حساب کن و نمایش بده</string>
+  <string name="automaticLeaderboard">جدول رده‌بندی خودکار</string>
+  <string name="automaticLeaderboardHelp">یک جدول رده‌بندی ساده را بر اساس نتایج بازی‌ها حساب کن و نمایش بده</string>
   <string name="replace">اختیاری: عوض کردن نام، درجه‌بندی و عنوان بازیکنان</string>
   <string name="replaceHelp">یک خط برای هر بازیکن، به این صورت قالب‌بندی شده:
 نام اصلی؛ نام جایگزین؛ اختیاری-درجه‌بندی جایگزین؛ اختیاری-عنوان جایگزین

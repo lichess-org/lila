@@ -2,7 +2,6 @@ import * as control from './control';
 import AnalyseCtrl from './ctrl';
 import * as xhr from 'common/xhr';
 import { VNode } from 'snabbdom';
-import { snabDialog } from 'common/dialog';
 
 export const bind = (ctrl: AnalyseCtrl) => {
   let shiftAlone = 0;
@@ -127,12 +126,16 @@ export const bind = (ctrl: AnalyseCtrl) => {
     // navigation for next and prev chapters
     kbd.bind('p', ctrl.study.goToPrevChapter);
     kbd.bind('n', ctrl.study.goToNextChapter);
+    // ! ? !! ?? !? ?!
     for (let i = 1; i < 7; i++) kbd.bind(i.toString(), () => ctrl.study?.glyphForm.toggleGlyph(i));
+    // = ∞ ⩲ ⩱ ± ∓ +- -+
+    for (let i = 1; i < 9; i++)
+      kbd.bind(`shift+${i}`, () => ctrl.study?.glyphForm.toggleGlyph(i == 1 ? 10 : 11 + i));
   }
 };
 
 export function view(ctrl: AnalyseCtrl): VNode {
-  return snabDialog({
+  return lichess.dialog.snab({
     class: 'help.keyboard-help',
     htmlUrl: xhr.url('/analysis/help', { study: !!ctrl.study }),
     onClose() {

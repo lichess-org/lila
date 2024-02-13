@@ -8,22 +8,25 @@ import lila.common.config.MaxPerSecond
 import lila.common.{ config, IpAddress }
 import lila.relay.{ RelayTour as TourModel }
 
-final class RelayTour(env: Env, apiC: => Api, prismicC: => Prismic) extends LilaController(env):
+final class RelayTour(env: Env, apiC: => Api) extends LilaController(env):
 
   def index(page: Int, q: String) = Open:
     Reasonable(page, config.Max(20)):
-      Ok.pageAsync:
-        q.trim.take(100).some.filter(_.nonEmpty) match
-          case Some(query) =>
-            env.relay.pager
-              .search(query, page)
-              .map: pager =>
-                html.relay.tour.index(Nil, pager, query)
-          case None =>
-            for
-              active <- (page == 1).so(env.relay.api.officialActive.get({}))
-              pager  <- env.relay.pager.inactive(page)
-            yield html.relay.tour.index(active, pager)
+      q.trim.take(100).some.filter(_.nonEmpty) match
+        case Some(query) =>
+          env.relay.pager
+            .search(query, page)
+            .flatMap: pager =>
+              Ok.pageAsync:
+                html.relay.tour.search(pager, query)
+        case None =>
+          for
+            active   <- (page == 1) so env.relay.listing.active.get({})
+            upcoming <- (page == 1) so env.relay.listing.upcoming.get({})
+            past     <- env.relay.pager.inactive(page)
+            render <- renderAsync:
+              html.relay.tour.index(active, upcoming, past)
+          yield Ok(render)
 
   def calendar = page("broadcast-calendar", "calendar")
   def help     = page("broadcasts", "help")
@@ -36,10 +39,19 @@ final class RelayTour(env: Env, apiC: => Api, prismicC: => Prismic) extends Lila
           .map:
             html.relay.tour.byOwner(_, owner)
 
-  private def page(bookmark: String, menu: String) = Open:
+  def subscribed(page: Int) = Auth { ctx ?=> me ?=>
+    Reasonable(page, config.Max(20)):
+      env.relay.pager
+        .subscribedBy(me.userId, page)
+        .flatMap: pager =>
+          Ok.pageAsync:
+            html.relay.tour.subscribed(pager)
+  }
+
+  private def page(key: String, menu: String) = Open:
     pageHit
-    FoundPage(prismicC getBookmark bookmark): (doc, resolver) =>
-      html.relay.tour.page(doc, resolver, menu)
+    FoundPage(env.api.cmsRender(lila.cms.CmsPage.Key(key))): p =>
+      html.relay.tour.page(p, menu)
 
   def form = Auth { ctx ?=> _ ?=>
     NoLameOrBot:
@@ -99,6 +111,26 @@ final class RelayTour(env: Env, apiC: => Api, prismicC: => Prismic) extends Lila
       env.relay.api.deleteTourIfOwner(tour) inject Redirect(routes.RelayTour.by(me.username)).flashSuccess
   }
 
+  private val ImageRateLimitPerIp = lila.memo.RateLimit.composite[lila.common.IpAddress](
+    key = "relay.image.ip"
+  )(
+    ("fast", 10, 2.minutes),
+    ("slow", 60, 1.day)
+  )
+
+  def image(id: TourModel.Id) = AuthBody(parse.multipartFormData) { ctx ?=> me ?=>
+    WithTourCanUpdate(id): tour =>
+      ctx.body.body.file("image") match
+        case Some(image) =>
+          ImageRateLimitPerIp(ctx.ip, rateLimited):
+            env.relay.api.image.upload(me, tour, image) >> {
+              Ok
+            } recover { case e: Exception =>
+              BadRequest(e.getMessage)
+            }
+        case None => env.relay.api.image.delete(tour) >> Ok
+  }
+
   def subscribe(id: TourModel.Id, isSubscribed: Boolean) = Auth { _ ?=> me ?=>
     env.relay.api.subscribe(id, me.userId, isSubscribed) inject jsonOkResult
   }
@@ -114,7 +146,7 @@ final class RelayTour(env: Env, apiC: => Api, prismicC: => Prismic) extends Lila
   def show(slug: String, id: TourModel.Id) = Open:
     Found(env.relay.api tourById id): tour =>
       negotiate(
-        html = env.relay.api.defaultRoundToShow.get(tour.id) flatMap {
+        html = env.relay.listing.defaultRoundToShow.get(tour.id) flatMap {
           case None =>
             ctx.me
               .soUse { env.relay.api.canUpdate(tour) }

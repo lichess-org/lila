@@ -1,6 +1,5 @@
 import type Tagify from '@yaireo/tagify';
 import { prop } from 'common';
-import { snabDialog } from 'common/dialog';
 import { bind, bindSubmit, onInsert } from 'common/snabbdom';
 import * as xhr from 'common/xhr';
 import { h, VNode } from 'snabbdom';
@@ -38,7 +37,7 @@ export const view = (ctrl: StudyCtrl): VNode =>
 let tagify: Tagify | undefined;
 
 export const formView = (ctrl: TopicsCtrl, userId?: string): VNode =>
-  snabDialog({
+  lichess.dialog.snab({
     class: 'study-topics',
     onClose() {
       ctrl.open(false);

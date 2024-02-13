@@ -6,10 +6,14 @@ import lila.common.config.BaseUrl
 import lila.common.Json.given
 import lila.study.Chapter
 import lila.user.Me
+import lila.memo.PicfitUrl
 
-final class JsonView(baseUrl: BaseUrl, markup: RelayMarkup, leaderboardApi: RelayLeaderboardApi)(using
-    Executor
-):
+final class JsonView(
+    baseUrl: BaseUrl,
+    markup: RelayMarkup,
+    leaderboardApi: RelayLeaderboardApi,
+    picfitUrl: PicfitUrl
+)(using Executor):
 
   import JsonView.given
   import lila.study.JsonView.given
@@ -27,6 +31,7 @@ final class JsonView(baseUrl: BaseUrl, markup: RelayMarkup, leaderboardApi: Rela
         "createdAt"   -> t.createdAt
       )
       .add("tier" -> t.tier)
+      .add("image" -> t.image.map(id => RelayTour.thumbnail(picfitUrl, id, _.Size.Large)))
 
   given OWrites[RelayRound] = OWrites: r =>
     Json

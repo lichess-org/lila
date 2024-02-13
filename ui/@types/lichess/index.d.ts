@@ -1,19 +1,32 @@
 // eslint-disable-next-line
+/// <reference path="./tree.d.ts" />
+// eslint-disable-next-line
 /// <reference path="./chessground.d.ts" />
+// eslint-disable-next-line
+/// <reference path="./dialog.d.ts" />
+// eslint-disable-next-line
+/// <reference path="./voice.d.ts" />
 
+// file://./../../site/src/site.lichess.globals.ts
 interface Lichess {
-  load: Promise<void>; // DOMContentLoaded promise
-  info: any;
   debug: boolean;
+  StrongSocket: {
+    // file://./../../site/src/component/socket.ts
+    new (url: string, version: number | false, cfg?: any): any;
+    firstConnect: Promise<(tpe: string, data: any) => void>;
+    defaultParams: Record<string, any>;
+  };
+  mousetrap: LichessMousetrap; // file://./../../site/src/component/mousetrap.ts
   requestIdleCallback(f: () => void, timeout?: number): void;
   sri: string;
   storage: LichessStorageHelper;
   tempStorage: LichessStorageHelper;
   once(key: string, mod?: 'always'): boolean;
-  powertip: LichessPowertip;
+  powertip: LichessPowertip; // file://./../../site/src/component/powertip.ts
   clockWidget(el: HTMLElement, opts: { time: number; pause?: boolean }): void;
   spinnerHtml: string;
   asset: {
+    // file://./../../site/src/component/assets.ts
     baseUrl(): string;
     url(url: string, opts?: AssetUrlOpts): string;
     flairSrc(flair: Flair): string;
@@ -25,56 +38,51 @@ interface Lichess {
     hopscotch: any;
     userComplete(opts: UserCompleteOpts): Promise<UserComplete>;
   };
-  slider(): Promise<void>;
-  makeChat(data: any): any;
-  makeChessground(el: HTMLElement, config: CgConfig): CgApi;
   idleTimer(delay: number, onIdle: () => void, onWakeUp: () => void): void;
-  pubsub: Pubsub;
-  contentLoaded(parent?: HTMLElement): void;
-  blindMode: boolean;
+  pubsub: Pubsub; // file://./../../site/src/component/pubsub.ts
   unload: { expected: boolean };
-  watchers(el: HTMLElement): void;
   redirect(o: RedirectTo, beep?: boolean): void;
   reload(): void;
+  watchers(el: HTMLElement): void;
   escapeHtml(str: string): string;
   announce(d: LichessAnnouncement): void;
-  studyTour(study: Study): void;
-  studyTourChapter(study: Study): void;
-  siteI18n: I18nDict;
   trans(i18n: I18nDict): Trans;
-  timeago(date: number | Date): string;
-  dateFormat: () => (date: Date) => string;
-  quantity(n: number): 'zero' | 'one' | 'few' | 'many' | 'other';
-  socket: any;
-  sound: SoundI;
-  mic: Voice.Microphone;
-  quietMode?: boolean;
-  analysis?: any; // expose the analysis ctrl
-  ab?: any;
-
-  mousetrap: LichessMousetrap;
+  sound: SoundI; // file://./../../site/src/component/sound.ts
+  mic: Voice.Microphone; // file://./../../site/src/component/mic.ts
   miniBoard: {
+    // file://./../../common/src/miniBoard.ts
     init(node: HTMLElement): void;
     initAll(parent?: HTMLElement): void;
   };
   miniGame: {
+    // file://./../../site/src/component/miniGame.ts
     init(node: HTMLElement): string | null;
     initAll(parent?: HTMLElement): void;
     update(node: HTMLElement, data: MiniGameUpdateData): void;
     finish(node: HTMLElement, win?: Color): void;
   };
-  // socket.js
-  StrongSocket: {
-    new (url: string, version: number | false, cfg?: any): any;
-    firstConnect: Promise<(tpe: string, data: any) => void>;
-    defaultParams: Record<string, any>;
+  timeago(date: number | Date): string;
+  dateFormat: () => (date: Date) => string;
+  contentLoaded(parent?: HTMLElement): void;
+  blindMode: boolean;
+  makeChat(data: any): any;
+  makeChessground(el: HTMLElement, config: CgConfig): CgApi;
+  log: LichessLog; // file://./../../site/src/component/log.ts
+  dialog: {
+    // file://./../../site/src/component/dialog.ts
+    ready: Promise<boolean>;
+    dom(opts: DomDialogOpts): Promise<Dialog>;
+    snab(opts: SnabDialogOpts): _Snabbdom.VNode;
   };
-  // misc
-  advantageChart?: {
-    update(data: any, mainline: any[]): void;
-    (data: any, mainline: any[], trans: Trans, el: HTMLElement): void;
-  };
-  log: LichessLog;
+  info: any;
+
+  // the remaining are not set in site.lichess.globals.ts
+  load: Promise<void>; // DOMContentLoaded promise
+  quantity(n: number): 'zero' | 'one' | 'few' | 'many' | 'other';
+  siteI18n: I18nDict;
+  socket: any;
+  quietMode?: boolean;
+  analysis?: any; // expose the analysis ctrl
 }
 
 interface LichessLog {
@@ -93,6 +101,7 @@ type RedirectTo = string | { url: string; cookie: Cookie };
 type UserComplete = (opts: UserCompleteOpts) => void;
 
 interface LichessMousetrap {
+  // file://./../../site/src/component/mousetrap.ts
   bind(
     keys: string | string[],
     callback: (e: KeyboardEvent) => void,
@@ -101,6 +110,7 @@ interface LichessMousetrap {
 }
 
 interface LichessPowertip {
+  // file://./../../site/src/component/powertip.ts
   watchMouse(): void;
   manualGameIn(parent: HTMLElement): void;
   manualGame(el: HTMLElement): void;
@@ -122,6 +132,7 @@ interface UserCompleteOpts {
 }
 
 interface QuestionChoice {
+  // file://./../../round/src/ctrl.ts
   action: () => void;
   icon?: string;
   key?: I18nKey;
@@ -134,6 +145,7 @@ interface QuestionOpts {
 }
 
 type SoundMove = (opts?: {
+  // file://./../../site/src/component/sound.ts
   name?: string; // either provide this or valid san/uci
   san?: string;
   uci?: string;
@@ -141,6 +153,7 @@ type SoundMove = (opts?: {
 }) => void;
 
 interface SoundI {
+  // file://./../../site/src/component/sound.ts
   ctx?: AudioContext;
   load(name: string, path?: string): void;
   play(name: string, volume?: number): Promise<void>;
@@ -182,6 +195,7 @@ declare type SocketSend = (type: string, data?: any, opts?: any, noRetry?: boole
 type TransNoArg = (key: string) => string;
 
 interface Trans {
+  // file://./../../site/src/component/trans.ts
   (key: string, ...args: Array<string | number>): string;
   noarg: TransNoArg;
   plural(key: string, count: number, ...args: Array<string | number>): string;
@@ -193,6 +207,7 @@ interface Trans {
 type PubsubCallback = (...data: any[]) => void;
 
 interface Pubsub {
+  // file://./../../site/src/component/pubsub.ts
   on(msg: string, f: PubsubCallback): void;
   off(msg: string, f: PubsubCallback): void;
   emit(msg: string, ...args: any[]): void;
@@ -238,54 +253,8 @@ interface LichessEditor {
   setOrientation(o: Color): void;
 }
 
-declare namespace Voice {
-  export type MsgType = 'full' | 'partial' | 'status' | 'error' | 'stop' | 'start';
-  export type ListenMode = 'full' | 'partial';
-  export type Listener = (msgText: string, msgType: MsgType) => void;
-
-  export interface Microphone {
-    setLang(language: string): void;
-
-    getMics(): Promise<MediaDeviceInfo[]>;
-    setMic(micId: string): void;
-
-    initRecognizer(
-      words: string[],
-      also?: {
-        recId?: string; // = 'default' if not provided
-        partial?: boolean; // = false
-        listener?: Listener; // = undefined
-        listenerId?: string; // = recId (specify for multiple listeners on same recId)
-      },
-    ): void;
-    setRecognizer(recId: string): void;
-
-    addListener(
-      listener: Listener,
-      also?: {
-        recId?: string; // = 'default'
-        listenerId?: string; // = recId
-      },
-    ): void;
-    removeListener(listenerId: string): void;
-    setController(listener: Listener): void; // for status display, indicators, etc
-    stopPropagation(): void; // interrupt broadcast propagation on current rec (for modal interactions)
-
-    start(listen?: boolean): Promise<void>; // listen = true if not provided, if false just initialize
-    stop(): void; // stop listening/downloading/whatever
-    pause(): void;
-    resume(): void;
-
-    readonly isListening: boolean;
-    readonly isBusy: boolean; // are we downloading, extracting, or loading?
-    readonly status: string; // status display for setController listener
-    readonly recId: string; // get current recognizer
-    readonly micId: string;
-    readonly lang: string; // defaults to 'en'
-  }
-}
-
 declare namespace Editor {
+  // file://./../../editor/src/ctrl.ts
   export interface Config {
     el: HTMLElement;
     baseUrl: string;
@@ -432,112 +401,6 @@ interface Paginator<A> {
 interface EvalScore {
   cp?: number;
   mate?: number;
-}
-
-declare namespace Tree {
-  export type Path = string;
-
-  interface ClientEvalBase extends EvalScore {
-    fen: Fen;
-    depth: number;
-    nodes: number;
-    pvs: PvData[];
-  }
-  export interface CloudEval extends ClientEvalBase {
-    cloud: true;
-    millis?: undefined;
-  }
-  export interface LocalEval extends ClientEvalBase {
-    cloud?: false;
-    millis: number;
-  }
-  export type ClientEval = CloudEval | LocalEval;
-
-  export interface ServerEval extends EvalScore {
-    best?: Uci;
-    fen: Fen;
-    knodes: number;
-    depth: number;
-    pvs: PvDataServer[];
-  }
-
-  export interface PvDataServer extends EvalScore {
-    moves: string;
-  }
-
-  export interface PvData extends EvalScore {
-    moves: string[];
-  }
-
-  export interface TablebaseHit {
-    winner: Color | undefined;
-    best?: Uci;
-  }
-
-  export interface Node {
-    id: string;
-    ply: Ply;
-    uci?: Uci;
-    fen: Fen;
-    children: Node[];
-    comments?: Comment[];
-    gamebook?: Gamebook;
-    dests?: string;
-    drops?: string | null;
-    check?: Key;
-    threat?: LocalEval;
-    ceval?: ClientEval;
-    eval?: ServerEval;
-    tbhit?: TablebaseHit | null;
-    glyphs?: Glyph[];
-    clock?: Clock;
-    parentClock?: Clock;
-    forceVariation?: boolean;
-    shapes?: Shape[];
-    comp?: boolean;
-    san?: string;
-    threefold?: boolean;
-    fail?: boolean;
-    puzzle?: 'win' | 'fail' | 'good' | 'retry';
-    crazy?: NodeCrazy;
-  }
-
-  export interface NodeCrazy {
-    pockets: [CrazyPocket, CrazyPocket];
-  }
-
-  export interface CrazyPocket {
-    [role: string]: number;
-  }
-
-  export interface Comment {
-    id: string;
-    by:
-      | string
-      | {
-          id: string;
-          name: string;
-        };
-    text: string;
-  }
-
-  export interface Gamebook {
-    deviation?: string;
-    hint?: string;
-    shapes?: Shape[];
-  }
-
-  type GlyphId = number;
-
-  interface Glyph {
-    id: GlyphId;
-    name: string;
-    symbol: string;
-  }
-
-  export type Clock = number;
-
-  export interface Shape {}
 }
 
 interface MiniGameUpdateData {

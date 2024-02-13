@@ -48,7 +48,8 @@ object PgnTags:
       Event,
       Round,
       Board,
-      Annotator
+      Annotator,
+      FEN
     )
 
   val typesToString = sortedTypes mkString ","

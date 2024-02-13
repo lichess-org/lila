@@ -1,2 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+  <string name="welcome">Добродошли!</string>
+  <string name="welcomeToLichess">Добродошли на Lichess.org!</string>
+  <string name="thisIsYourProfilePage">Ово је страница са твојим профилом.</string>
+  <string name="enabledKidModeSuggestion" comment="%s is 'Kid mode'.">Да ли ће овај налог користити дете? Можда ћете желети да омогућите %s.</string>
+  <string name="whatNowSuggestions">Шта даље? Ево неколико сугестија:</string>
+  <string name="learnChessRules">Научи шаховска правила</string>
+  <string name="improveWithChessTacticsPuzzles">Учи кроз шаховске тактичке проблеме.</string>
+  <string name="playTheArtificialIntelligence">Играј против вештачке интелгенције.</string>
+  <string name="playOpponentsFromAroundTheWorld">Играј против противника широм света.</string>
+  <string name="followYourFriendsOnLichess">Прати своје пријатеље на Lichessu.</string>
+  <string name="playInTournaments">Играј на турнирима.</string>
+  <string name="learnFromXAndY" comment="%1$s is Study&#10;%2$s is Videos&#10;&#10;They are both links to pages titled that way, and the title is used verbatim.">Учи од %1$s и %2$s.</string>
+  <string name="configureLichess">Конфигуриши Lichess онако како желиш.</string>
+  <string name="exploreTheSiteAndHaveFun">Истражи сајт и забави се :)</string>
+</resources>

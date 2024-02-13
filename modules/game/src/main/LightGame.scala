@@ -14,6 +14,8 @@ case class LightGame(
   def players                                             = List(whitePlayer, blackPlayer)
   def playerByUserId(userId: UserId): Option[LightPlayer] = players.find(_.userId contains userId)
   def finished                                            = status >= Status.Mate
+  def winner: Option[LightPlayer]                         = win.map(_.fold(whitePlayer, blackPlayer))
+  def winnerUserId: Option[UserId]                        = winner.flatMap(_.userId)
 
 object LightGame:
 

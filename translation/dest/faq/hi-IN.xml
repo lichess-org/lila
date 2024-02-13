@@ -17,6 +17,7 @@
   <string name="areThereWebsitesBasedOnLichess">क्या लाइकस पर आधारित वेबसाइटें हैं?</string>
   <string name="yesLichessInspiredOtherOpenSourceWebsites">हाँ। Lichess ने वास्तव में अन्य ओपन-सोर्स साइटों को प्रेरित किया है जो हमारे%1$s,%2$s, या%3$s का उपयोग करते हैं।</string>
   <string name="keyboardShortcuts">वहां कौन से कीबोर्ड शॉर्टकट हैं?</string>
+  <string name="keyboardShortcutsExplanation">कुछ Lichess पृष्ठों में कीबोर्ड शॉर्टकट हैं जिनका आप उपयोग कर सकते हैं. \'दबाव\' दबाने की कोशिश करो \'?\' उपलब्ध कीबोर्ड शॉर्टकट को सूचीबद्ध करने के लिए एक अध्ययन, विश्लेषण, पहेली या गेम पेज पर कुंजी.</string>
   <string name="fairPlay">फेयर प्ले</string>
   <string name="whenAmIEligibleRatinRefund">जब मैं थिएटर से स्वचालित रेटिंग वापसी के लिए योग्य हूं?</string>
   <string name="ratingRefundExplanation">एक खिलाड़ी के चिह्नित होने के एक मिनट बाद, पिछले 3 दिनों में उनके 40 नवीनतम रेटेड गेम लिए जाते हैं। यदि आप उन खेलों में उनके प्रतिद्वंद्वी हैं, तो आपने रेटिंग खो दी (नुकसान या ड्रा के कारण), और आपकी रेटिंग अनंतिम नहीं थी, आपको रेटिंग रिफंड मिलता है। रिफंड आपके पीक रेटिंग और गेम के बाद आपकी रेटिंग की प्रगति के आधार पर कैप किया गया है।
@@ -26,6 +27,8 @@
   <string name="howCanIBecomeModerator">मैं एक मॉडरेटर कैसे बन सकता हूं?</string>
   <string name="youCannotApply">मॉडरेटर बनने के लिए आवेदन करना संभव नहीं है। यदि हम किसी ऐसे व्यक्ति को देखते हैं जो हमें लगता है कि एक मध्यस्थ के रूप में अच्छा होगा, तो हम उनसे सीधे संपर्क करेंगे।</string>
   <string name="isCorrespondenceDifferent">क्या पत्राचार सामान्य शतरंज से अलग है?</string>
+  <string name="pleaseReadFairPlayPage">अधिक जानकारी के लिए, कृपया हमारी पढ़ें %s</string>
+  <string name="fairPlayPage">निष्पक्ष खेल पृष्ठ</string>
   <string name="youCanUseOpeningBookNoEngine">Lichess पर, पत्राचार शतरंज के नियमों में मुख्य अंतर यह है कि एक उद्घाटन पुस्तक की अनुमति है। इंजन का उपयोग अभी भी निषिद्ध है और इसके परिणामस्वरूप इंजन सहायता के लिए ध्वजांकित किया जाएगा। हालांकि ICCF पत्राचार में इंजन के उपयोग की अनुमति देता है, लिचेस नहीं करता है।</string>
   <string name="gameplay">गेमप्ले</string>
   <string name="howBulletBlitzEtcDecided">बुलेट, ब्लिट्ज और अन्य समय नियंत्रण कैसे तय किए जाते हैं?</string>
@@ -51,6 +54,7 @@
 दुर्लभ मामलों में यह स्वचालित रूप से तय करने के लिए मुश्किल हो सकता है (मजबूर लाइनें, किले)। डिफ़ॉल्ट रूप से हम हमेशा उस खिलाड़ी के साथ होते हैं जो समय से बाहर नहीं भागता था।
 
 ध्यान दें कि एक एकल नाइट या बिशप के साथ संभोग करना संभव हो सकता है यदि प्रतिद्वंद्वी के पास एक टुकड़ा है जो राजा को अवरुद्ध कर सकता है।</string>
+  <string name="fideHandbook">FIDE हैंडबुक</string>
   <string name="fideHandbookX">FIDE हैंडबुक%s</string>
   <string name="discoveringEnPassant">जब पहले से ही पास हो तो कोई मोहरा दूसरे मोहरे पर कब्जा क्यों कर सकता है? (एन पासेंट)</string>
   <string name="explainingEnPassant">यह एक कानूनी कदम है जिसे \"एन पासेंट\" के रूप में जाना जाता है। विकिपीडिया लेख एक%1$s देता है।
@@ -62,6 +66,7 @@
 इसके साथ कुछ अभ्यास के लिए इस कदम पर%3$s देखें।</string>
   <string name="goodIntroduction">अच्छा परिचय</string>
   <string name="lichessTraining">लिच्छवि प्रशिक्षण</string>
+  <string name="watchIMRosenCheckmate">देखो अंतर्राष्ट्रीय मास्टर एरिक रोसेन चेकमेट %s.</string>
   <string name="threefoldRepetition">तिगुना दोहराव</string>
   <string name="threefoldRepetitionExplanation">यदि कोई स्थिति तीन बार होती है, तो खिलाड़ी%1$s द्वारा ड्रा का दावा कर सकते हैं। Lichess आधिकारिक FIDE नियमों को लागू करता है, जैसा कि%2$s के अनुच्छेद 9.2 में वर्णित है।</string>
   <string name="threefoldRepetitionLowerCase">तीन गुना दोहराव</string>
@@ -138,6 +143,25 @@
 अपने ब्राउज़र के URL बार में lichess.org पते के आगे लॉक आइकन पर क्लिक करें।
 
 फिर चयन करें कि क्या Lichess से नोटिफिकेशन या ब्लॉक करना है।</string>
+  <string name="enableAutoplayForSoundsQ">ध्वनियों के लिए ऑटोप्ले सक्षम करें?</string>
+  <string name="enableAutoplayForSoundsA">अधिकांश ब्राउज़र उपयोगकर्ताओं को बचाने के लिए ध्वनि को नए सिरे से लोड किए गए पृष्ठ पर खेलने से रोक सकते हैं. कल्पना कीजिए कि अगर हर वेबसाइट तुरंत आपको ऑडियो विज्ञापनों के साथ बमबारी कर सकती है.
+
+लाल म्यूट आइकन तब दिखाई देता है जब आपका ब्राउज़र lichess.org को ध्वनि चलाने से रोकता है. आमतौर पर कुछ क्लिक करने के बाद यह प्रतिबंध हटा दिया जाता है. कुछ मोबाइल ब्राउज़रों पर, एक टुकड़े को खींचने वाले स्पर्श को एक क्लिक के रूप में नहीं गिना जाता है. उस स्थिति में आपको प्रत्येक गेम की शुरुआत में ध्वनि की अनुमति देने के लिए बोर्ड को टैप करना होगा.
+
+ऐसा होने पर हम आपको सचेत करने के लिए लाल आइकन दिखाते हैं. अक्सर आप स्पष्ट रूप से lichess.org को ध्वनियों को खेलने की अनुमति दे सकते हैं. यहां कुछ लोकप्रिय ब्राउज़रों के हाल के संस्करणों पर ऐसा करने के निर्देश दिए गए हैं.</string>
+  <string name="desktop">डेस्कटॉप</string>
+  <string name="enableAutoplayForSoundsFirefox">1. Lichess.org पर जाएं
+2. MacOS पर Linux / Windows या cmd-i पर Ctrl-i दबाएं
+3. अनुमति टैब पर क्लिक करें
+4. Lichess.org पर ऑडियो और वीडियो की अनुमति दें</string>
+  <string name="enableAutoplayForSoundsChrome">1. Lichess.org पर जाएं
+2. पता बार में लॉक आइकन पर क्लिक करें
+3. साइट सेटिंग्स पर क्लिक करें
+4. ध्वनि की अनुमति दें</string>
+  <string name="enableAutoplayForSoundsSafari">1. Lichess.org पर जाएं
+2. मेनू बार में सफारी पर क्लिक करें
+3. Lichess.org के लिए सेटिंग्स पर क्लिक करें ...
+4. सभी ऑटो-प्ले की अनुमति दें</string>
   <string name="enableAutoplayForSoundsMicrosoftEdge">1. ऊपरी दाहिने कोने में तीन बिंदुओं पर क्लिक करें
 2. सेटिंग्स पर क्लिक करें
 3. कुकीज और साइट अनुमतियों पर क्लिक करें

@@ -12,7 +12,6 @@ import {
 import { defined, prop } from 'common';
 import { h, VNode } from 'snabbdom';
 import { Redraw } from '../interfaces';
-import { snabDialog } from 'common/dialog';
 import { StudySocketSend } from '../socket';
 
 export class StudyChapterEditForm {
@@ -64,7 +63,7 @@ export function view(ctrl: StudyChapterEditForm): VNode | undefined {
   const data = ctrl.current(),
     noarg = ctrl.trans.noarg;
   return data
-    ? snabDialog({
+    ? lichess.dialog.snab({
         class: 'edit-' + data.id, // full redraw when changing chapter
         onClose() {
           ctrl.current(null);

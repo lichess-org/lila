@@ -104,7 +104,8 @@ object timeline:
           trans.patron.xIsPatronForNbMonths
             .plural(months, userLink(userId), months)
         case BlogPost(id, slug, title) =>
-          a(cls := "text", dataIcon := licon.InkQuill, href := routes.Blog.show(id, slug))(title)
+          a(cls := "text", dataIcon := licon.InkQuill, href := routes.Ublog.historicalBlogPost(id, slug)):
+            title
         case UblogPostLike(userId, postId, postTitle) =>
           trans.xLikesY(
             userLink(userId),

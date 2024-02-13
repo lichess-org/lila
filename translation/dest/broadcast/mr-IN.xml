@@ -1,12 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="broadcasts">प्रसारणे</string>
+  <string name="myBroadcasts">माझे आवडते प्रसारण</string>
+  <plurals name="nbBroadcasts">
+    <item quantity="one">%s प्रसारणे</item>
+    <item quantity="other">%s प्रसारणे</item>
+  </plurals>
   <string name="liveBroadcasts">थेट स्पर्धा प्रसारणे</string>
   <string name="newBroadcast">नवीन थेट प्रसारण</string>
+  <string name="aboutBroadcasts">प्रसारणां बद्दल</string>
+  <string name="noRoundsYet">अजून फेऱ्या नाहीत.</string>
+  <string name="howToUseLichessBroadcasts">Lichess ब्रॉडकास्ट कसे वापरावे.</string>
+  <string name="theNewRoundHelp">नवीन फेरीत मागील प्रमाणेच सदस्य आणि योगदानकर्ते असतील.</string>
   <string name="addRound">फेरी जोडा</string>
   <string name="ongoing">चालू आहे</string>
   <string name="upcoming">आगामी</string>
   <string name="completed">पूर्ण</string>
+  <string name="completedHelp">स्रोत खेळाच्या आधारे Lichess फेरीची पूर्णता शोधते. स्रोत नसल्यास हे टॉगल वापरा.</string>
   <string name="roundName">फेरीचे नाव</string>
   <string name="roundNumber">फेरीचा क्रमांक</string>
   <string name="tournamentName">स्पर्धेचे नाव</string>
@@ -25,4 +35,19 @@
   <string name="downloadAllRounds">सर्व फेऱ्या डाउनलोड करा</string>
   <string name="resetRound">ही फेरी रेसेट करा</string>
   <string name="deleteRound">फेरी रद्द करा</string>
+  <string name="definitivelyDeleteRound">फेरी आणि त्याचे सर्व गेम निश्चितपणे हटवा.</string>
+  <string name="deleteAllGamesOfThisRound">या फेरीतील सर्व खेळ हटवा. ते पुन्हा तयार करण्यासाठी स्त्रोत सक्रिय असणे आवश्यक आहे.</string>
+  <string name="editRoundStudy">फेरीचा अभ्यास संपादित करा</string>
+  <string name="deleteTournament">ही स्पर्धा हटवा</string>
+  <string name="definitivelyDeleteTournament">संपूर्ण टूर्नामेंट, त्याच्या सर्व फेऱ्या आणि त्याचे सर्व गेम निश्चितपणे हटवा.</string>
+  <string name="automaticLeaderboard">स्वयंचलित लीडरबोर्ड</string>
+  <string name="automaticLeaderboardHelp">गेम परिणामांवर आधारित एक साधा लीडरबोर्ड कम्प्युट करा आणि प्रदर्शित करा</string>
+  <string name="replace">पर्यायी: खेळाडूंची नावे, रेटिंग आणि शीर्षके बदला</string>
+  <string name="replaceHelp">प्रति खेळाडू एक ओळ, असे स्वरूपित:
+मूळ नाव; बदलण्याचे नाव; पर्यायी बदली रेटिंग; पर्यायी बदली शीर्षक
+उदाहरण:
+DrNykterstein;Magnus Carlsen;2863
+AnishGiri;Anish Giri;2764;GM</string>
+  <string name="periodInSeconds">सेकंदात कालावधी</string>
+  <string name="periodInSecondsHelp">पर्यायी, विनंत्यांच्या दरम्यान किती वेळ प्रतीक्षा करावी. किमान 2s, कमाल 60s. डीफॉल्ट दर्शकांच्या संख्येच्या आधारावर स्वयंचलित.</string>
 </resources>

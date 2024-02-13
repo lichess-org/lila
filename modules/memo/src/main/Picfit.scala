@@ -67,6 +67,14 @@ final class PicfitApi(coll: Coll, val url: PicfitUrl, ws: StandaloneWSClient, co
               deleteByRel(image.rel) >>
               coll.insert.one(image) inject image
 
+  def deleteByIdsAndUser(ids: Seq[Id], user: UserId): Funit =
+    ids.nonEmpty so ids.traverse_ { id =>
+      coll
+        .findAndRemove($id(id) ++ $doc("user" -> user))
+        .flatMap { _.result[PicfitImage] so picfitServer.delete }
+        .void
+    }
+
   def deleteByRel(rel: String): Funit =
     coll
       .findAndRemove($doc("rel" -> rel))
@@ -74,8 +82,8 @@ final class PicfitApi(coll: Coll, val url: PicfitUrl, ws: StandaloneWSClient, co
       .void
 
   object bodyImage:
-    private val sizePx = Left(720)
-    private val RateLimitPerIp = RateLimit.composite[lila.common.IpAddress](key = "image.body.upload.ip")(
+    val sizePx = Left(800)
+    private val RateLimitPerIp = RateLimit.composite[IpAddress](key = "image.body.upload.ip")(
       ("fast", 10, 2.minutes),
       ("slow", 60, 1.day)
     )
@@ -95,7 +103,8 @@ final class PicfitApi(coll: Coll, val url: PicfitUrl, ws: StandaloneWSClient, co
         .flatMap:
           case res if res.status != 200 => fufail(s"${res.statusText} ${res.body[String] take 200}")
           case _ =>
-            lila.mon.picfit.uploadSize(image.user.value).record(image.size)
+            if image.size > 0 then lila.mon.picfit.uploadSize(image.user.value).record(image.size)
+            // else logger.warn(s"Unknown image size: ${image.id} by ${image.user}")
             funit
         .monSuccess(_.picfit.uploadTime(image.user.value))
 
@@ -111,7 +120,7 @@ final class PicfitApi(coll: Coll, val url: PicfitUrl, ws: StandaloneWSClient, co
 
 object PicfitApi:
 
-  val uploadMaxMb = 4
+  val uploadMaxMb = 6
 
   type FilePart           = MultipartFormData.FilePart[play.api.libs.Files.TemporaryFile]
   private type ByteSource = Source[ByteString, ?]
@@ -126,6 +135,15 @@ object PicfitApi:
       val boundary    = Multipart.randomBoundary()
       val contentType = s"multipart/form-data; boundary=$boundary"
       BodyWritable(b => SourceBody(Multipart.transform(b, boundary)), contentType)
+
+  def findInMarkdown(md: Markdown): Set[PicfitImage.Id] =
+    // path=some_username:ublogBody:mdTLUTfzboGg:wVo9Pqru.jpg
+    val regex = """(?i)&path=([a-z0-9_-]{2,30}:[a-z]+:\w{12}:\w{8}\.\w{3,4})&""".r
+    regex
+      .findAllMatchIn(md.value)
+      .map(_.group(1))
+      .map(PicfitImage.Id(_))
+      .toSet
 
 final class PicfitUrl(config: PicfitConfig):
 

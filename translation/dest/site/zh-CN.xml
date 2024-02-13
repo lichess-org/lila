@@ -389,6 +389,7 @@
   <string name="blackCheckmatesInOneMove">黑方一步将死</string>
   <string name="retry">重试</string>
   <string name="reconnecting">重新连接中</string>
+  <string name="noNetwork">离线</string>
   <plurals name="nbFriendsOnline">
     <item quantity="other">在线好友：%s</item>
   </plurals>

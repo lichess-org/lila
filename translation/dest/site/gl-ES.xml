@@ -226,7 +226,7 @@
   <string name="passwordSuggestion">Non empregues un contrasinal suxerido por outra persoa. Poden empregalo para roubar a túa conta.</string>
   <string name="emailSuggestion">Non empregues un enderezo de correo suxerido por outra persoa. Poden empregalo para roubar a túa conta.</string>
   <string name="emailConfirmHelp">Axuda coa confirmación por correo</string>
-  <string name="emailConfirmNotReceived">Non recibiches correo de confirmación despois de rexistrarte?</string>
+  <string name="emailConfirmNotReceived">Non recibiches o teu correo de confirmación despois de rexistrarte?</string>
   <string name="whatSignupUsername">Que nome de usuario empregaches para rexistrarte?</string>
   <string name="usernameNotFound">Non puidemos atopar ningún usuario con este nome: %s.</string>
   <string name="usernameCanBeUsedForNewAccount">Podes empregar este nome de usuario para crear unha nova conta</string>
@@ -418,6 +418,7 @@
   <string name="blackCheckmatesInOneMove">Xogas negras e dan mate nunha</string>
   <string name="retry">Tentar de novo</string>
   <string name="reconnecting">Conectando de novo</string>
+  <string name="noNetwork">Desconectado</string>
   <plurals name="nbFriendsOnline">
     <item quantity="one">%s amizade conectada</item>
     <item quantity="other">%s amizades conectadas</item>

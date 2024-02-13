@@ -21,7 +21,7 @@
   <string name="puzzleRead" comment="In the context of an access token, a setting which permits third-party software to view the user's puzzle solving history.">Odczyt aktywności w rozwiązywaniu zadań</string>
   <string name="teamRead" comment="Gives permission to third-party software to *read* information that already exists. However it won't be able to write (create) private studies or broadcasts.">Odczyt prywatnych informacji o klubie</string>
   <string name="teamWrite" comment="In the context of an access token, a setting that permits the third party software to join or leave teams on your behalf.">Dołączanie, opuszczanie i zarządzanie klubem</string>
-  <string name="teamLead">Zarządzaj klubami, którymi dowodzisz: wysyłaj wiadomości prywatne, wyrzucaj graczy </string>
+  <string name="teamLead">Zarządzaj klubami, którymi dowodzisz: wysyłaj wiadomości prywatne, wyrzucaj graczy</string>
   <string name="followRead" comment="In the context of an access token, a setting which permits third-party software to view (read) which players you are following.">Odczyt listy obserwowanych graczy</string>
   <string name="followWrite" comment="In the context of an access token, a setting which permits third-party software to follow and unfollow other players on your behalf.">Rozpoczęcie i zakończenie obserwowania innych graczy</string>
   <string name="msgWrite" comment="In the context of an access token, a setting which permits third-party software to send messages on your behalf.">Wysyłanie prywatnych wiadomości do innych graczy</string>

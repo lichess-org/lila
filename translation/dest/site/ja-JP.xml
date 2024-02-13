@@ -390,6 +390,7 @@
   <string name="blackCheckmatesInOneMove">黒 1 手でチェックメイト</string>
   <string name="retry">もう一度</string>
   <string name="reconnecting">再接続</string>
+  <string name="noNetwork">オフライン</string>
   <plurals name="nbFriendsOnline">
     <item quantity="other">%s 人の友達が接続中</item>
   </plurals>

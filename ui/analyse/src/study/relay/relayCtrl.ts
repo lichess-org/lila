@@ -1,16 +1,19 @@
 import { RelayData, LogEvent, RelaySync, RelayRound } from './interfaces';
-import { RelayTab, StudyChapter, StudyChapterRelay } from '../interfaces';
+import { StudyChapter, StudyChapterRelay } from '../interfaces';
 import { isFinished } from '../studyChapters';
 import { StudyMemberCtrl } from '../studyMembers';
 import { AnalyseSocketSend } from '../../socket';
-import { Toggle, prop, toggle } from 'common';
+import { Prop, Toggle, prop, toggle } from 'common';
+
+export const relayTabs = ['overview', 'games', 'schedule', 'leaderboard'] as const;
+export type RelayTab = (typeof relayTabs)[number];
 
 export default class RelayCtrl {
   log: LogEvent[] = [];
   cooldown = false;
   clockInterval?: number;
   tourShow: Toggle;
-  tab = prop<RelayTab>('overview');
+  tab: Prop<RelayTab>;
 
   constructor(
     public id: string,
@@ -19,9 +22,13 @@ export default class RelayCtrl {
     readonly redraw: () => void,
     readonly members: StudyMemberCtrl,
     chapter: StudyChapter,
+    hasBoards: boolean,
   ) {
     this.applyChapterRelay(chapter, chapter.relay);
     this.tourShow = toggle((location.pathname.match(/\//g) || []).length < 5);
+    const locationTab = location.hash.replace(/^#/, '') as RelayTab;
+    const initialTab = relayTabs.includes(locationTab) ? locationTab : hasBoards ? 'games' : 'overview';
+    this.tab = prop<RelayTab>(initialTab);
   }
 
   setSync = (v: boolean) => {
@@ -48,6 +55,13 @@ export default class RelayCtrl {
   roundPath = (round?: RelayRound) => {
     const r = round || this.currentRound();
     return r && `/broadcast/${this.data.tour.slug}/${r.slug}/${r.id}`;
+  };
+
+  updateAddressBar = (tourUrl: string, roundUrl: string) => {
+    const url = this.tourShow() ? `${tourUrl}${this.tab() === 'overview' ? '' : `#${this.tab()}`}` : roundUrl;
+    // when jumping from a tour tab to another page, remember which tour tab we were on.
+    if (!this.tourShow() && location.href.includes('#')) history.pushState({}, '', url);
+    else history.replaceState({}, '', url);
   };
 
   private convertDate = (r: StudyChapterRelay): StudyChapterRelay => {

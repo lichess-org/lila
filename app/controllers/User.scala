@@ -510,12 +510,10 @@ final class User(
           relateds <-
             ops
               .zip(followables)
-              .map { case ((u, nb), followable) =>
-                relationApi.fetchRelation(user.id, u.id) map {
+              .traverse { case ((u, nb), followable) =>
+                relationApi.fetchRelation(user.id, u.id) map:
                   lila.relation.Related(u, nb.some, followable, _)
-                }
               }
-              .parallel
           page <- renderPage(html.relation.bits.opponents(user, relateds))
         yield Ok(page)
   }
@@ -524,9 +522,8 @@ final class User(
     Found(env.perfStat.api.data(username, perfKey)): data =>
       negotiate(
         Ok.pageAsync:
-          env.history.ratingChartApi(data.user.user) map {
+          env.history.ratingChartApi(data.user.user) map:
             html.user.perfStat(data, _)
-          }
         ,
         JsonOk:
           getBool("graph")
@@ -597,8 +594,6 @@ final class User(
     }
 
   def tryRedirect(username: UserStr)(using Context): Fu[Option[Result]] =
-    env.user.repo byId username map {
-      _.filter(_.enabled.yes || isGrantedOpt(_.SeeReport)) map { user =>
+    env.user.repo byId username map:
+      _.filter(_.enabled.yes || isGrantedOpt(_.SeeReport)) map: user =>
         Redirect(routes.User.show(user.username))
-      }
-    }

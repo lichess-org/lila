@@ -1,20 +1,28 @@
 import * as xhr from 'common/xhr';
+import { isSafari } from 'common/device';
 import throttle from 'common/throttle';
 import Editor from '@toast-ui/editor';
 import Tagify from '@yaireo/tagify';
 import { currentTheme } from 'common/theme';
+import { wireCropDialog } from 'common/controls';
+
+if (isSafari()) wireCropDialog(); // preload
 
 lichess.load.then(() => {
-  $('.ublog-post-form__image').each(function (this: HTMLFormElement) {
-    setupImage(this);
-  });
-  $('#markdown-editor').each(function (this: HTMLTextAreaElement) {
+  $('.markdown-editor').each(function (this: HTMLTextAreaElement) {
     setupMarkdownEditor(this);
   });
   $('#form3-topics').each(function (this: HTMLTextAreaElement) {
     setupTopics(this);
   });
   $('.flash').addClass('fade');
+  wireCropDialog({
+    aspectRatio: 8 / 5,
+    post: { url: $('.ublog-image-edit').attr('data-post-url')!, field: 'image' },
+    max: { pixels: 1600 },
+    selectClicks: $('.select-image, .drop-target'),
+    selectDrags: $('.drop-target'),
+  });
 });
 
 const setupTopics = (el: HTMLTextAreaElement) =>
@@ -26,27 +34,6 @@ const setupTopics = (el: HTMLTextAreaElement) =>
     dropdown: { enabled: 0, maxItems: 20, highlightFirst: true, closeOnSelect: false },
     originalInputValueFormat: tags => tags.map(t => t.value).join(','),
   });
-
-const setupImage = (form: HTMLFormElement) => {
-  const showText = () =>
-    $('.ublog-post-form__image-text').toggleClass('visible', $('.ublog-post-image').hasClass('user-image'));
-  const submit = () => {
-    const replace = (html: string) => $(form).find('.ublog-post-image').replaceWith(html);
-    const wrap = (html: string) => '<div class="ublog-post-image">' + html + '</div>';
-    xhr.formToXhr(form).then(
-      html => {
-        replace(html);
-        showText();
-      },
-      err => replace(wrap(`<bad>${err}</bad>`)),
-    );
-    replace(wrap(lichess.spinnerHtml));
-    return false;
-  };
-  $(form).on('submit', submit);
-  $(form).find('input[name="image"]').on('change', submit);
-  showText();
-};
 
 const setupMarkdownEditor = (el: HTMLTextAreaElement) => {
   const postProcess = (markdown: string) => markdown.replace(/<br>/g, '').replace(/\n\s*#\s/g, '\n## ');

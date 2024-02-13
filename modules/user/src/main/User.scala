@@ -23,7 +23,8 @@ case class User(
     plan: Plan,
     flair: Option[Flair] = None,
     totpSecret: Option[TotpSecret] = None,
-    marks: UserMarks = UserMarks.empty
+    marks: UserMarks = UserMarks.empty,
+    hasEmail: Boolean
 ):
 
   override def equals(other: Any) = other match
@@ -310,7 +311,8 @@ object User:
         plan = r.getO[Plan](plan) | Plan.empty,
         totpSecret = r.getO[TotpSecret](totpSecret),
         flair = r.getO[Flair](flair).filter(FlairApi.exists),
-        marks = r.getO[UserMarks](marks) | UserMarks.empty
+        marks = r.getO[UserMarks](marks) | UserMarks.empty,
+        hasEmail = r.contains(email)
       )
 
     def writes(w: BSON.Writer, o: User) =
