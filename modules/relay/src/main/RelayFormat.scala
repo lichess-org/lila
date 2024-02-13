@@ -12,6 +12,7 @@ import lila.study.MultiPgn
 import lila.memo.CacheApi.*
 import lila.memo.{ CacheApi, SettingStore }
 import lila.common.config.{ Max, Credentials, HostPort }
+import play.api.libs.ws.StandaloneWSResponse
 
 final private class RelayFormatApi(
     ws: StandaloneWSClient,
@@ -77,6 +78,13 @@ final private class RelayFormatApi(
   }
 
   private[relay] def httpGet(url: URL)(using CanProxy): Fu[String] =
+    httpGetResponse(url).map(_.body)
+
+  private[relay] def httpGetAndGuessCharset(url: URL)(using CanProxy): Fu[String] =
+    httpGetResponse(url).map: res =>
+      lila.common.String.charset.guessAndDecode(res.bodyAsBytes)
+
+  private def httpGetResponse(url: URL)(using CanProxy): Future[StandaloneWSResponse] =
     val (req, proxy) = addProxy(url):
       ws.url(url.toString)
         .withRequestTimeout(4.seconds)
@@ -84,7 +92,7 @@ final private class RelayFormatApi(
     req
       .get()
       .flatMap: res =>
-        if res.status == 200 then fuccess(res.body)
+        if res.status == 200 then fuccess(res)
         else fufail(s"[${res.status}] $url")
       .monSuccess(_.relay.httpGet(url.host.toString, proxy))
 
