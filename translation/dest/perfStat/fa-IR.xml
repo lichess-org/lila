@@ -22,10 +22,9 @@
   <string name="fromXToY">از %1$s تا %2$s</string>
   <string name="winningStreak">بردهای متوالی</string>
   <string name="losingStreak">باخت‌های متوالی</string>
-  <string name="longestStreak" comment="%s is the string (number of games OR time spent playing, e.g. 4 hours non-stop play)&#10;String used to describe the longest consecutive winning &amp; losing streak of games. It is also used for a  streak of time spent playing.">طولانی‌ترین توالی: %s</string>
+  <string name="longestStreak">طولانی‌ترین توالی: %s</string>
   <string name="currentStreak">استمرار فعلی: %s</string>
   <string name="bestRated">بهترین پیروزی های رسمی</string>
-  <string name="worstRated">بدترین باخت های رسمی</string>
   <string name="gamesInARow">بازی های متوالی انجام شده</string>
   <string name="lessThanOneHour">کمتر از یک ساعت بین بازی‌ها</string>
   <string name="maxTimePlaying">بیشترین زمانی که صرف بازی شده است</string>
