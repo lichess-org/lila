@@ -285,7 +285,7 @@ object perfStat:
   private def result(stat: PerfStat, user: User)(using Lang): Frag =
     st.section(cls := "result split")(
       resultTable(stat.bestWins, bestRated(), user),
-      div
+      resultTable(stat.worstLosses, worstRated(), user)
     )
 
   private def playStreakNbStreak(s: lila.perfStat.Streak, title: Frag => Frag)(using Lang): Frag =

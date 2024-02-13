@@ -1840,6 +1840,7 @@ object I18nKeys:
     val `longestStreak` = I18nKey("perfStat:longestStreak")
     val `currentStreak` = I18nKey("perfStat:currentStreak")
     val `bestRated` = I18nKey("perfStat:bestRated")
+    val `worstRated` = I18nKey("perfStat:worstRated")
     val `gamesInARow` = I18nKey("perfStat:gamesInARow")
     val `lessThanOneHour` = I18nKey("perfStat:lessThanOneHour")
     val `maxTimePlaying` = I18nKey("perfStat:maxTimePlaying")
