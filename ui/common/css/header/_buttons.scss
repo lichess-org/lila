@@ -123,12 +123,12 @@
         font-size: 2rem;
       }
     }
-  }
-}
 
-body.sticky .dasher > .dropdown {
-  @media (min-width: #{$site-header-sticky-max-width}) {
-    #{$end-direction}: var(--site-header-sticky-padding);
+    > .dropdown {
+      @media (min-width: #{$site-header-sticky-max-width}) {
+        #{$end-direction}: var(--site-header-sticky-padding);
+      }
+    }
   }
 }
 
