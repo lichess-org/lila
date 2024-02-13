@@ -55,4 +55,6 @@ AnishGiri;Anish Giri;2764;GM</string>
   <string name="delayInSeconds">Delay in seconds</string>
   <string name="delayInSecondsHelp1">Optional, how long to delay moves coming from the source.</string>
   <string name="delayInSecondsHelp2">Add this delay to the start date of the event. E.g. if a tournament starts at 20:00 with a delay of 15 minutes, set the start date to 20:15.</string>
+  <string name="upcomingBroadcasts">Upcoming broadcasts</string>
+  <string name="pastBroadcasts">Past broadcasts</string>
 </resources>

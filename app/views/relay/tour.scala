@@ -40,12 +40,12 @@ object tour:
           nonEmptyTier(_.HIGH, "high"),
           nonEmptyTier(_.NORMAL, "normal"),
           upcoming.nonEmpty option frag(
-            h2(cls := "relay-index__section")("Upcoming broadcasts"),
+            h2(cls := "relay-index__section")(upcomingBroadcasts()),
             st.section(cls := "relay-cards relay-cards--upcoming"):
               upcoming.map:
                 card.render(_, ongoing = _ => false)
           ),
-          h2(cls := "relay-index__section")("Past broadcasts"),
+          h2(cls := "relay-index__section")(pastBroadcasts()),
           renderPager(asRelayPager(past), "")(cls := "relay-cards--past")
         )
       )
@@ -139,7 +139,7 @@ object tour:
 
   def pageMenu(menu: String, by: Option[LightUser] = none)(using ctx: Context) =
     views.html.site.bits.pageMenuSubnav(
-      a(href := routes.RelayTour.index(), cls := menu.activeO("index"))(trans.broadcast.broadcasts()),
+      a(href := routes.RelayTour.index(), cls := menu.activeO("index"))(broadcasts()),
       ctx.me.map: me =>
         a(href := routes.RelayTour.by(me.username, 1), cls := by.exists(_ is me).option("active")):
           trans.broadcast.myBroadcasts()
@@ -154,9 +154,9 @@ object tour:
       a(href := routes.RelayTour.subscribed(), cls := menu.activeO("subscribed"))(
         trans.broadcast.subscribedBroadcasts()
       ),
-      a(href := routes.RelayTour.form, cls := menu.activeO("new"))(trans.broadcast.newBroadcast()),
+      a(href := routes.RelayTour.form, cls := menu.activeO("new"))(newBroadcast()),
       a(href := routes.RelayTour.calendar, cls := menu.activeO("calendar"))(trans.tournamentCalendar()),
-      a(href := routes.RelayTour.help, cls := menu.activeO("help"))(trans.broadcast.aboutBroadcasts())
+      a(href := routes.RelayTour.help, cls := menu.activeO("help"))(aboutBroadcasts())
     )
 
   object thumbnail:
