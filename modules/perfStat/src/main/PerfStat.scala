@@ -12,7 +12,6 @@ case class PerfStat(
     highest: Option[RatingAt],
     lowest: Option[RatingAt],
     bestWins: Results,
-    worstLosses: Results,
     count: Count,
     resultStreak: ResultStreak,
     playStreak: PlayStreak
@@ -28,13 +27,12 @@ case class PerfStat(
         highest = RatingAt.agg(highest, pov, 1),
         lowest = if thisYear then RatingAt.agg(lowest, pov, -1) else lowest,
         bestWins = if ~pov.win then bestWins.agg(pov, 1) else bestWins,
-        worstLosses = if thisYear && ~pov.loss then worstLosses.agg(pov, -1) else worstLosses,
         count = count(pov),
         resultStreak = resultStreak agg pov,
         playStreak = playStreak agg pov
       )
 
-  def userIds = bestWins.userIds ::: worstLosses.userIds
+  def userIds = bestWins.userIds
 
 object PerfStat:
 
@@ -50,7 +48,6 @@ object PerfStat:
       highest = none,
       lowest = none,
       bestWins = Results(Nil),
-      worstLosses = Results(Nil),
       count = Count.init,
       resultStreak = ResultStreak(win = Streaks.init, loss = Streaks.init),
       playStreak = PlayStreak(nb = Streaks.init, time = Streaks.init, lastDate = none)

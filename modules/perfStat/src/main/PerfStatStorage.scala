@@ -34,12 +34,6 @@ final class PerfStatStorage(coll: AsyncCollFailingSilently)(using Executor):
           resultsDiff(a, b)(_.bestWins).map { set =>
             "bestWins" -> set
           },
-          resultsDiff(a, b)(_.worstLosses).map { set =>
-            "worstLosses" -> set
-          },
-          (a.worstLosses != b.worstLosses).so(resultsHandler.writeOpt(b.worstLosses)) map { worstLosses =>
-            "worstLosses" -> worstLosses
-          },
           streakDiff(a, b)(_.resultStreak.win.cur).map { set =>
             "resultStreak.win.cur" -> set
           },
@@ -92,9 +86,8 @@ final class PerfStatStorage(coll: AsyncCollFailingSilently)(using Executor):
 
   private def docDiff[T: BSONDocumentWriter](a: T, b: T): Map[String, BSONValue] =
     val (am, bm) = (docMap(a), docMap(b))
-    bm collect {
+    bm.collect:
       case (field, v) if am.get(field).forall(_ != v) => field -> v
-    }
 
   private def docMap[T](a: T)(using writer: BSONDocumentWriter[T]) =
     writer.writeTry(a).get.toMap
