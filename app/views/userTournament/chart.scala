@@ -13,8 +13,8 @@ object chart:
         boxTop(h1(trans.xTournamentStats(userLink(u, withOnline = true)))),
         p(cls := "box__pad")(trans.rankAvgHelp()),
         p(cls := "box__pad")(
-          trans.allaveragesAreX:
-            a(href := "https://www.dictionary.com/e/average-vs-mean-vs-median-vs-mode")(trans.medians())
+          trans.arena.allaveragesAreX:
+            a(href := "https://www.dictionary.com/e/average-vs-mean-vs-median-vs-mode")(trans.arena.medians())
         ),
         table(cls := "slist slist-pad perf-results")(
           thead(
@@ -37,7 +37,7 @@ object chart:
               )
             },
             tr(
-              th(trans.total()),
+              th(trans.arena.total()),
               td(data.allPerfResults.nb.localize),
               td(data.allPerfResults.points.median.map(_.toInt)),
               td(data.allPerfResults.points.sum.localize),

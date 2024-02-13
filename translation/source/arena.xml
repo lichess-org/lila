@@ -69,6 +69,9 @@ Play fast and return to the lobby to play more games and win more points.</strin
   <string name="pickYourTeam">Pick your team</string>
   <string name="whichTeamWillYouRepresentInThisBattle">Which team will you represent in this battle?</string>
   <string name="youMustJoinOneOfTheseTeamsToTarticipate">You must join one of these teams to participate!</string>
+  <string name="medians">medians</string>
+  <string name="allaveragesAreX">All averages on this page are %s.</string>
+  <string name="total">Total</string>
   <string name="pointsAvg">Points average</string>
   <string name="pointsSum">Points sum</string>
   <string name="rankAvg">Rank average</string>

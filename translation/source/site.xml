@@ -997,7 +997,4 @@ All operating costs, development, and content are funded solely by user donation
   <string name="rankAvgHelp">The rank average is a percentage of your ranking. Lower is better.
 
 For instance, being ranked 3 in a tournament of 100 players = 3%%. Being ranked 10 in a tournament of 1000 players = 1%%.</string>
-  <string name="medians">medians</string>
-  <string name="allaveragesAreX">All averages on this page are %s.</string>
-  <string name="total">Total</string>
 </resources>
