@@ -2,7 +2,7 @@
 <resources>
   <string name="challengesX">சவால்கள்: %1$s</string>
   <string name="challengeToPlay">ஆட அழை</string>
-  <string name="challengeDeclined">சவால்லய் மறு</string>
+  <string name="challengeDeclined">சவால் மறுக்கப்பட்டது.</string>
   <string name="challengeAccepted">சவால் ஏற்றுக்கொள்ளப்பட்டது!</string>
   <string name="challengeCanceled">சவால் ரத்து செய்யப்பட்டது.</string>
   <string name="registerToSendChallenges">சவால்களை அனுப்ப பதிவு செய்யுங்கள்.</string>
