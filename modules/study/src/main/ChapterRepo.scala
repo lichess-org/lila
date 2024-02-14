@@ -42,7 +42,14 @@ final class ChapterRepo(val coll: AsyncColl)(using Executor, akka.stream.Materia
       "name"       -> true,
       "setup"      -> true,
       "relay.path" -> true,
-      "tags"       -> $doc("$elemMatch" -> $doc("$regex" -> "^Result:"))
+      "tags" -> $doc(
+        "$filter" -> $doc(
+          "input" -> "$tags",
+          "as"    -> "ts",
+          "cond" -> $doc:
+            "$regexMatch" -> $doc("input" -> "$$ts", "regex" -> "^(Result|WhiteTeam|BlackTeam):")
+        )
+      )
     ).some
 
   def orderedMetadataByStudy(studyId: StudyId): Fu[List[Chapter.Metadata]] =

@@ -78,6 +78,7 @@ case class Chapter(
     name = name,
     setup = setup,
     outcome = tags.outcome.isDefined option tags.outcome,
+    teams = tags(_.WhiteTeam) zip tags(_.BlackTeam),
     hasRelayPath = relay.exists(!_.path.isEmpty)
   )
 
@@ -135,11 +136,14 @@ object Chapter:
 
     def looksOver = !looksAlive
 
+  type TeamName = String
+
   case class Metadata(
       _id: StudyChapterId,
       name: StudyChapterName,
       setup: Setup,
       outcome: Option[Option[Outcome]],
+      teams: Option[(TeamName, TeamName)],
       hasRelayPath: Boolean
   ) extends Like:
 

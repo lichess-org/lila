@@ -157,7 +157,8 @@ export default class StudyCtrl {
         this.redrawAndUpdateAddressBar,
         this.members,
         this.data.chapter,
-        !this.looksNew(),
+        this.chapters,
+        this.looksNew(),
       );
     this.multiBoard = new MultiBoardCtrl(
       this.data.id,
@@ -546,10 +547,7 @@ export default class StudyCtrl {
   explorerGame = (gameId: string, insert: boolean) =>
     this.makeChange('explorerGame', this.withPosition({ gameId, insert }));
   onPremoveSet = () => this.gamebookPlay?.onPremoveSet();
-  looksNew = () => {
-    const cs = this.chapters.list();
-    return cs.length == 1 && cs[0].name == 'Chapter 1' && !this.currentChapter().ongoing;
-  };
+  looksNew = () => this.chapters.looksNew() && !this.currentChapter().ongoing;
   updateAddressBar = () => {
     const current = location.href;
     const studyIdOffset = current.indexOf(`/${this.data.id}`);
