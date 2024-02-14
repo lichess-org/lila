@@ -74,14 +74,15 @@ final class Auth(
   def loginLang = LangPage(routes.Auth.login)(serveLogin)
 
   private def serveLogin(using ctx: Context) = NoBot:
-    val referrer = get("referrer") flatMap env.api.referrerRedirect.valid
-    val switch   = get("switch")
-    referrer ifTrue ctx.isAuth ifTrue switch.isEmpty match
-      case Some(url) => Redirect(url) // redirect immediately if already logged in
-      case None =>
-        val prefillUsername = lila.security.UserStrOrEmail(~switch.filter(_ != "1"))
-        val form            = api.loginFormFilled(prefillUsername)
-        Ok.page(html.auth.login(form, referrer)).map(_.withCanonical(routes.Auth.login))
+    RedirectToProfileIfLoggedIn:
+      val referrer = get("referrer") flatMap env.api.referrerRedirect.valid
+      val switch   = get("switch")
+      referrer ifTrue ctx.isAuth ifTrue switch.isEmpty match
+        case Some(url) => Redirect(url) // redirect immediately if already logged in
+        case None =>
+          val prefillUsername = lila.security.UserStrOrEmail(~switch.filter(_ != "1"))
+          val form            = api.loginFormFilled(prefillUsername)
+          Ok.page(html.auth.login(form, referrer)).map(_.withCanonical(routes.Auth.login))
 
   private val is2fa = Set("MissingTotpToken", "InvalidTotpToken")
 
@@ -161,8 +162,9 @@ final class Auth(
   def signup     = Open(serveSignup)
   def signupLang = LangPage(routes.Auth.signup)(serveSignup)
   private def serveSignup(using Context) = NoTor:
-    forms.signup.website.flatMap: form =>
-      Ok.page(html.auth.signup(form))
+    RedirectToProfileIfLoggedIn:
+      forms.signup.website.flatMap: form =>
+        Ok.page(html.auth.signup(form))
 
   private def authLog(user: UserName, email: Option[EmailAddress], msg: String) =
     lila.log("auth").info(s"$user ${email.fold("-")(_.value)} $msg")
