@@ -46,4 +46,5 @@
 示例:
 DrNykterstein;Magnus Carlsen;2863
 AnishGiri;Anish Giri;2764;GM</string>
+  <string name="periodInSeconds">时长（秒）</string>
 </resources>
