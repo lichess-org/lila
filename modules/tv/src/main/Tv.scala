@@ -78,7 +78,7 @@ object Tv:
           name = "Top Rated",
           icon = licon.CrownElite,
           secondsSinceLastMove = freshBlitz,
-          filters = Seq(!speed(S.Bullet), rated(2150), standard, noBot)
+          filters = Seq(notSpeed(S.Bullet), rated(2150), standard, noBot)
         )
     case Bullet
         extends Channel(
@@ -190,8 +190,9 @@ object Tv:
     val list  = values.toList
     val byKey = values.mapBy(_.key)
 
-  private def rated(min: Int)           = (c: Candidate) => c.game.rated && hasMinRating(c.game, min)
-  private def speed(speed: chess.Speed) = (c: Candidate) => c.game.speed == speed
+  private def rated(min: Int)               = (c: Candidate) => c.game.rated && hasMinRating(c.game, min)
+  private def speed(speed: chess.Speed)     = (c: Candidate) => c.game.speed == speed
+  private def notSpeed(speed: chess.Speed)  = (c: Candidate) => c.game.speed != speed
   private def variant(variant: chess.variant.Variant)   = (c: Candidate) => c.game.variant == variant
   private val standard                                  = variant(V.Standard)
   private val freshBlitz                                = 60 * 2
