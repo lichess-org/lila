@@ -1,5 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+  <string name="communityBlogs">சமூக வலைப்பதிவுகள்</string>
+  <string name="friendBlogs">நண்பர்களின் வலைப்பதிவுகள்</string>
+  <string name="likedBlogs">வலைப்பதிவு இடுகைகளை விரும்பியுள்ளார்</string>
+  <string name="continueReadingPost">இந்த இடுகையைத் தொடர்ந்து படிக்கவும்</string>
+  <string name="previousBlogPosts">முந்தைய வலைப்பதிவு இடுகைகள்</string>
   <string name="xBlog">%s இன் வலைப்பதிவு</string>
   <string name="newPost">புதிய இடுகை</string>
   <string name="editYourBlogPost">உங்கள் வலைப்பதிவு இடுகையைத் திருத்தவும்</string>
