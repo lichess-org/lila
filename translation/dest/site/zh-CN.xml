@@ -5,12 +5,12 @@
   <string name="toInviteSomeoneToPlayGiveThisUrl">邀人下棋，请分享这个网址</string>
   <string name="gameOver">棋局结束</string>
   <string name="waitingForOpponent">等待对手</string>
-  <string name="orLetYourOpponentScanQrCode">或请您的对手扫描此二维码</string>
+  <string name="orLetYourOpponentScanQrCode">也可以让你的对手扫这个二维码</string>
   <string name="waiting">等待中</string>
   <string name="yourTurn">你的回合</string>
   <string name="aiNameLevelAiLevel">%1$s级別%2$s</string>
   <string name="level">级别</string>
-  <string name="strength">强度</string>
+  <string name="strength">难度</string>
   <string name="toggleTheChat">聊天开关</string>
   <string name="chat">聊天</string>
   <string name="resign">认输</string>
@@ -22,8 +22,8 @@
   <string name="asBlack">持黑</string>
   <string name="randomColor">随机选色</string>
   <string name="createAGame">创建对局</string>
-  <string name="whiteIsVictorious">白方胜利</string>
-  <string name="blackIsVictorious">黑方胜利</string>
+  <string name="whiteIsVictorious">白方胜</string>
+  <string name="blackIsVictorious">黑方胜</string>
   <string name="youPlayTheWhitePieces">你执白棋</string>
   <string name="youPlayTheBlackPieces">你执黑棋</string>
   <string name="itsYourTurn">轮到你了！</string>
@@ -58,8 +58,8 @@
   <string name="analysis">分析面板</string>
   <string name="depthX">深度 %s</string>
   <string name="usingServerAnalysis">正在使用服务器分析</string>
-  <string name="loadingEngine">引擎载入中...</string>
-  <string name="calculatingMoves">计算着法中...</string>
+  <string name="loadingEngine">引擎载入中</string>
+  <string name="calculatingMoves">计算着法中</string>
   <string name="engineFailed">加载引擎时出错</string>
   <string name="cloudAnalysis">云分析</string>
   <string name="goDeeper">深入分析</string>
@@ -106,7 +106,7 @@
   <string name="lossOr50MovesByPriorMistake">输棋或因先前错误而50步作和</string>
   <string name="unknownDueToRounding">由上次吃子或兵动开始按残局库建议走法走才能保证胜败的判断正确。这是因为Syzygy残局库的DTZ数值可能经过四舍五入。</string>
   <string name="allSet">好了！</string>
-  <string name="importPgn">导入PGN文件</string>
+  <string name="importPgn">导入 PGN</string>
   <string name="delete">删除</string>
   <string name="deleteThisImportedGame">删除此导入的棋局？</string>
   <string name="replayMode">回放模式</string>
@@ -120,8 +120,8 @@
   <string name="multipleLines">多线搜索</string>
   <string name="cpus">CPU</string>
   <string name="memory">内存</string>
-  <string name="infiniteAnalysis">无限分析</string>
-  <string name="removesTheDepthLimit">取消深度限制 (提高电脑温度)</string>
+  <string name="infiniteAnalysis">开启无限分析</string>
+  <string name="removesTheDepthLimit">取消深度限制（会提升电脑温度）</string>
   <string name="engineManager">引擎管理</string>
   <string name="blunder">漏着</string>
   <string name="mistake">错着</string>
@@ -179,7 +179,7 @@
   <string name="realTime">实时棋局</string>
   <string name="correspondence">通讯棋</string>
   <string name="daysPerTurn">每步允许天数</string>
-  <string name="oneDay">1 天</string>
+  <string name="oneDay">1天</string>
   <plurals name="nbDays">
     <item quantity="other">%s 天</item>
   </plurals>
@@ -457,7 +457,7 @@
   <string name="drawRate">绘制速率</string>
   <string name="draws">和棋</string>
   <string name="nextXTournament">下一个 %s 锦标赛：</string>
-  <string name="averageOpponent">对手平均积分</string>
+  <string name="averageOpponent">对手平均等级分</string>
   <string name="boardEditor">棋盘编辑器</string>
   <string name="setTheBoard">摆棋</string>
   <string name="popularOpenings">常见开局</string>
@@ -620,7 +620,7 @@
   <string name="about">关于</string>
   <string name="aboutX">关于 %s</string>
   <string name="xIsAFreeYLibreOpenSourceChessServer">%1$s 是一个免费 (%2$s)，自由，无广告的开源国际象棋服务器。</string>
-  <string name="really">不信？</string>
+  <string name="really">真的</string>
   <string name="contribute">协助我们</string>
   <string name="termsOfService">服务条款</string>
   <string name="sourceCode">源代码</string>
@@ -669,6 +669,7 @@
   <string name="cyclePreviousOrNextVariation">切换上一个或下一个变着</string>
   <string name="toggleGlyphAnnotations">开启着法注释</string>
   <string name="togglePositionAnnotations">开启局面注释</string>
+  <string name="variationArrowsInfo">变着箭头让你不需要棋步列表也能浏览</string>
   <string name="playSelectedMove">走已选的棋步</string>
   <string name="newTournament">新锦标赛</string>
   <string name="tournamentHomeTitle">国际象棋锦标赛均设有不同的时间限制和变体</string>
@@ -780,8 +781,8 @@
   <string name="drawByFiftyMoves">对局因50步规则判和。</string>
   <string name="theGameIsADraw">本局和棋。</string>
   <string name="computerThinking">电脑正在思考...</string>
-  <string name="seeBestMove">查看最佳着</string>
-  <string name="hideBestMove">隐藏最佳着</string>
+  <string name="seeBestMove">查看最佳着法</string>
+  <string name="hideBestMove">隐藏最佳着法</string>
   <string name="getAHint">提示</string>
   <string name="evaluatingYourMove">评估着法中</string>
   <string name="whiteWinsGame">白方胜</string>
@@ -881,7 +882,7 @@
   <string name="gameVsX">与 %1$s 对局</string>
   <string name="resVsX">%1$s vs %2$s</string>
   <string name="lostAgainstTOSViolator">你输给了违反 Lichess 服务条款的用户</string>
-  <string name="refundXpointsTimeControlY">退回 %1$s %2$s 等级分。</string>
+  <string name="refundXpointsTimeControlY">退回了%2$s %1$s 的等级分</string>
   <string name="timeAlmostUp">时间快到了！</string>
   <string name="clickToRevealEmailAddress">[点击显示电子邮件地址]</string>
   <string name="download">下载</string>
