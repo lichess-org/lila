@@ -69,6 +69,7 @@ export default class ChatCtrl {
       initialGroup: opts.preset,
       post: this.post,
       redraw: this.redraw,
+      get_data: this.get_data,
     });
 
     /* If discussion is disabled, and we have another chat tab,
@@ -93,6 +94,10 @@ export default class ChatCtrl {
   get plugin() {
     return this.opts.plugin;
   }
+
+  get_data = (): ChatData => {
+    return this.data;
+  };
 
   post = (text: string): boolean => {
     text = text.trim();
