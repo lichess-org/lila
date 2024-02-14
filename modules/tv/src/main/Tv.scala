@@ -78,7 +78,7 @@ object Tv:
           name = "Top Rated",
           icon = licon.CrownElite,
           secondsSinceLastMove = freshBlitz,
-          filters = Seq(rated(2150), standard, noBot)
+          filters = Seq(!speed(S.Bullet), rated(2150), standard, noBot)
         )
     case Bullet
         extends Channel(
