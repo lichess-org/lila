@@ -65,7 +65,7 @@
   <string name="goDeeper">深入分析</string>
   <string name="showThreat">显示威胁</string>
   <string name="inLocalBrowser">在本地浏览器</string>
-  <string name="toggleLocalEvaluation">切换到本地分析</string>
+  <string name="toggleLocalEvaluation">使用本地分析</string>
   <string name="promoteVariation">提升变着</string>
   <string name="makeMainLine">做为主线</string>
   <string name="deleteFromHere">从此处开始删除</string>
@@ -114,9 +114,9 @@
   <string name="byCPL">按厘兵损失</string>
   <string name="openStudy">进入研讨室</string>
   <string name="enable">启用</string>
-  <string name="bestMoveArrow">箭头指示最佳着法</string>
+  <string name="bestMoveArrow">最佳着法指示</string>
   <string name="showVariationArrows">显示变着箭头</string>
-  <string name="evaluationGauge">显示局面评分</string>
+  <string name="evaluationGauge">显示局面评估</string>
   <string name="multipleLines">多线搜索</string>
   <string name="cpus">CPU</string>
   <string name="memory">内存</string>
@@ -665,7 +665,7 @@
   <string name="keyNextInaccuracy">下一个失准着</string>
   <string name="keyPreviousBranch">上一个分支</string>
   <string name="keyNextBranch">下一个分行</string>
-  <string name="toggleVariationArrows">切换变着箭头</string>
+  <string name="toggleVariationArrows">开启变着箭头</string>
   <string name="cyclePreviousOrNextVariation">切换上一个或下一个变着</string>
   <string name="toggleGlyphAnnotations">开启着法注释</string>
   <string name="togglePositionAnnotations">开启局面注释</string>
@@ -783,7 +783,7 @@
   <string name="seeBestMove">查看最佳着</string>
   <string name="hideBestMove">隐藏最佳着</string>
   <string name="getAHint">提示</string>
-  <string name="evaluatingYourMove">评估走法中……</string>
+  <string name="evaluatingYourMove">评估着法中</string>
   <string name="whiteWinsGame">白方胜</string>
   <string name="blackWinsGame">黑方胜</string>
   <string name="learnFromYourMistakes">从你的失误中学习</string>
@@ -919,8 +919,8 @@
   <string name="onlyTeamMembers">仅限队员</string>
   <string name="navigateMoveTree">定位</string>
   <string name="mouseTricks">鼠标使用技巧</string>
-  <string name="toggleLocalAnalysis">切换本地计算机分析</string>
-  <string name="toggleAllAnalysis">切换所有（本地+服务器）计算机分析</string>
+  <string name="toggleLocalAnalysis">使用本地分析</string>
+  <string name="toggleAllAnalysis">使用本地+服务器分析</string>
   <string name="playComputerMove">走电脑推荐的最佳招</string>
   <string name="analysisOptions">分析选项</string>
   <string name="focusChat">聚焦聊天</string>
