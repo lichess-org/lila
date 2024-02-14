@@ -50,7 +50,7 @@ ThisBuild / libraryDependencySchemes ++= Seq(
 libraryDependencies ++= akka.bundle ++ playWs.bundle ++ macwire.bundle ++ Seq(
   play.json, play.server, play.netty, play.logback,
   chess, compression, scalalib, hasher,
-  reactivemongo.driver, /* reactivemongo.kamon, */ maxmind, prismic, scalatags,
+  reactivemongo.driver, /* reactivemongo.kamon, */ maxmind, scalatags,
   kamon.core, kamon.influxdb, kamon.metrics, kamon.prometheus,
   scaffeine, caffeine, lettuce, uaparser, nettyTransport, reactivemongo.shaded
 ) ++ tests.bundle
@@ -61,7 +61,7 @@ lazy val modules = Seq(
   gameSearch, timeline, forum, forumSearch, team, teamSearch,
   analyse, mod, round, pool, lobby, setup,
   importer, gathering, tournament, simul, relation, report, pref,
-  evaluation, chat, puzzle, tv, coordinate, blog,
+  evaluation, chat, puzzle, tv, coordinate, feed,
   history, video, shutup, push, appeal, mailer,
   playban, insight, perfStat, irc, challenge,
   study, studySearch, fishnet, explorer, learn, plan,
@@ -135,9 +135,9 @@ lazy val coordinate = module("coordinate",
   reactivemongo.bundle ++ macwire.bundle
 )
 
-lazy val blog = module("blog",
-  Seq(timeline),
-  Seq(prismic) ++ tests.bundle ++ reactivemongo.bundle
+lazy val feed = module("feed",
+  Seq(user),
+  reactivemongo.bundle
 )
 
 lazy val ublog = module("ublog",

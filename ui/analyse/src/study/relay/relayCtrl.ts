@@ -22,11 +22,13 @@ export default class RelayCtrl {
     readonly redraw: () => void,
     readonly members: StudyMemberCtrl,
     chapter: StudyChapter,
+    hasBoards: boolean,
   ) {
     this.applyChapterRelay(chapter, chapter.relay);
     this.tourShow = toggle((location.pathname.match(/\//g) || []).length < 5);
     const locationTab = location.hash.replace(/^#/, '') as RelayTab;
-    this.tab = prop<RelayTab>(relayTabs.includes(locationTab) ? locationTab : 'overview');
+    const initialTab = relayTabs.includes(locationTab) ? locationTab : hasBoards ? 'games' : 'overview';
+    this.tab = prop<RelayTab>(initialTab);
   }
 
   setSync = (v: boolean) => {

@@ -22,10 +22,9 @@
   <string name="fromXToY">ó %1$s go %2$s</string>
   <string name="winningStreak">Stríoc bua</string>
   <string name="losingStreak">Stríoc caillte</string>
-  <string name="longestStreak" comment="%s is the string (number of games OR time spent playing, e.g. 4 hours non-stop play)&#10;String used to describe the longest consecutive winning &amp; losing streak of games. It is also used for a  streak of time spent playing.">Stríoc is faide: %s</string>
+  <string name="longestStreak">Stríoc is faide: %s</string>
   <string name="currentStreak">Stríoc reatha: %s</string>
   <string name="bestRated">Bua ar an rátáil is fearr</string>
-  <string name="worstRated">Cailleadh cluichí ar an rátáil is measa</string>
   <string name="gamesInARow">Cluichí a imrítear i ndiaidh a chéile</string>
   <string name="lessThanOneHour">Níos lú ná uair an chloig idir cluichí</string>
   <string name="maxTimePlaying">Uasmhéid ama caite ag imirt</string>

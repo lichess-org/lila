@@ -20,7 +20,6 @@ object Dependencies {
   val chess       = "org.lichess"                  %% "scalachess"                      % "15.7.7"
   val compression = "org.lichess"                  %% "compression"                     % "1.10"
   val maxmind     = "com.maxmind.geoip2"            % "geoip2"                          % "4.0.1"
-  val prismic     = "io.prismic"                   %% "scala-kit"                       % "1.2.19_lila-3.2"
   val caffeine    = "com.github.ben-manes.caffeine" % "caffeine"                        % "3.1.8" % "compile"
   val scaffeine   = "com.github.blemale"           %% "scaffeine"                       % "5.2.1" % "compile"
   val googleOAuth = "com.google.auth"               % "google-auth-library-oauth2-http" % "1.22.0"

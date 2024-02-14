@@ -714,6 +714,7 @@ gits nöd und es isch immer ungwertet.</string>
   <string name="toggleVariationArrows">Variatione-Pfil umschalte</string>
   <string name="cyclePreviousOrNextVariation">Zyklus vorherigi/nächschti Variante</string>
   <string name="toggleGlyphAnnotations">Glyph-Amerkige ischalte und usschalte (...was immer das glyph isch?!)</string>
+  <string name="togglePositionAnnotations">Positionsamerkige umschalte</string>
   <string name="variationArrowsInfo">Mit de Variationspfil chasch ohni d\'Zugslischte navigiere.</string>
   <string name="playSelectedMove">spill de gwählti zug</string>
   <string name="newTournament">Neus Turnier</string>

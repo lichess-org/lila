@@ -387,6 +387,7 @@
   <string name="blackCheckmatesInOneMove">흑이 한 수 만에 체크메이트하기</string>
   <string name="retry">재시도</string>
   <string name="reconnecting">연결 재시도 중</string>
+  <string name="noNetwork">오프라인</string>
   <plurals name="nbFriendsOnline">
     <item quantity="other">%s명의 친구들이 접속중</item>
   </plurals>

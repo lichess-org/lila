@@ -706,6 +706,7 @@ få en computeranalyse, chatte eller dele ein URL.</string>
   <string name="toggleVariationArrows">Slå variantpilar på/av</string>
   <string name="cyclePreviousOrNextVariation">Gå gjennom førre/neste variant</string>
   <string name="toggleGlyphAnnotations">Slå symbol-merknadar på/av</string>
+  <string name="togglePositionAnnotations">Slå merknader for stillingar på/av</string>
   <string name="variationArrowsInfo">Med hjelp av variantpiler kan du navigere utan å bruka trekklista.</string>
   <string name="playSelectedMove">spel valde trekk</string>
   <string name="newTournament">Ny turnering</string>

@@ -418,6 +418,7 @@
   <string name="blackCheckmatesInOneMove">Svart setter matt i ett trekk</string>
   <string name="retry">Prøv igjen</string>
   <string name="reconnecting">Gjenoppretter forbindelsen</string>
+  <string name="noNetwork">Frakoblet</string>
   <plurals name="nbFriendsOnline">
     <item quantity="one">%s venn online</item>
     <item quantity="other">%s venner online</item>
@@ -704,6 +705,7 @@
   <string name="toggleVariationArrows">Skru variantpiler av eller på</string>
   <string name="cyclePreviousOrNextVariation">Endre til forrige/neste variant</string>
   <string name="toggleGlyphAnnotations">Skru symboler i kommentarer av eller på</string>
+  <string name="togglePositionAnnotations">Skru kommentarer for stillinger av eller på</string>
   <string name="variationArrowsInfo">Variantpiler lar deg navigere uten å bruke notasjonslisten.</string>
   <string name="playSelectedMove">spill valgt trekk</string>
   <string name="newTournament">Ny turnering</string>

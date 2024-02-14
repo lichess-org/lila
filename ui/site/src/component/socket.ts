@@ -120,7 +120,7 @@ export default class StrongSocket {
     if (!navigator.onLine) {
       document.body.classList.remove('online');
       document.body.classList.add('offline');
-      $('#network-status').text(siteTrans('noNetwork'));
+      $('#network-status').text(lichess ? siteTrans('noNetwork') : 'Offline');
       this.scheduleConnect(1000);
       return;
     }
@@ -203,7 +203,7 @@ export default class StrongSocket {
     this.connectSchedule = setTimeout(() => {
       document.body.classList.add('offline');
       document.body.classList.remove('online');
-      $('#network-status').text(siteTrans('reconnecting'));
+      $('#network-status').text(lichess ? siteTrans('reconnecting') : 'Reconnecting');
       if (!this.tryOtherUrl && navigator.onLine) {
         // if this was set earlier, we've already logged the error
         this.tryOtherUrl = true;

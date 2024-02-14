@@ -30,7 +30,7 @@ final class Preload(
     lightUserApi: LightUserApi,
     roundProxy: lila.round.GameProxyRepo,
     simulIsFeaturable: SimulIsFeaturable,
-    getLastUpdates: lila.blog.DailyFeed.GetLastUpdates,
+    getLastUpdates: lila.feed.Feed.GetLastUpdates,
     lastPostsCache: AsyncLoadingCache[Unit, List[UblogPost.PreviewPost]],
     msgApi: lila.msg.MsgApi,
     relayListing: lila.relay.RelayListing,
@@ -148,7 +148,7 @@ object Preload:
       currentGame: Option[Preload.CurrentGame],
       isFeaturable: Simul => Boolean,
       blindGames: List[Pov],
-      lastUpdates: List[lila.blog.DailyFeed.Update],
+      lastUpdates: List[lila.feed.Feed.Update],
       ublogPosts: List[UblogPost.PreviewPost],
       me: Option[User.WithPerfs],
       hasUnreadLichessMessage: Boolean

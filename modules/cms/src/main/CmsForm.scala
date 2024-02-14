@@ -51,4 +51,4 @@ object CmsForm:
         by = user.id
       )
 
-    def update(user: User) = create(user)
+    def update(prev: CmsPage, user: User) = create(user).copy(id = prev.id)

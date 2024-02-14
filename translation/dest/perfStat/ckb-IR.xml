@@ -22,10 +22,9 @@
   <string name="fromXToY">لە %1$s بۆ %2$s</string>
   <string name="winningStreak">بردنەوەی یەک لە دوای یەک</string>
   <string name="losingStreak">دۆڕانی یەک بە دوای یەک</string>
-  <string name="longestStreak" comment="%s is the string (number of games OR time spent playing, e.g. 4 hours non-stop play)&#10;String used to describe the longest consecutive winning &amp; losing streak of games. It is also used for a  streak of time spent playing.">درێژترین ماوەی یەک بە دوای یەک: %s</string>
+  <string name="longestStreak">درێژترین ماوەی یەک بە دوای یەک: %s</string>
   <string name="currentStreak">بردنەوەی یەکبەدوای یەکی ئێستات:%s</string>
   <string name="bestRated">باشترین سەرکەوتنەکانی پلەبەندی</string>
-  <string name="worstRated">خراپترین شکستەکانی پلەبەندی</string>
   <string name="gamesInARow">یارییەکان لەسەریەک ئەنجامدراون</string>
   <string name="lessThanOneHour">کەمتر لە کاتژمێرێک لە نێوان یارییەکاندا</string>
   <string name="maxTimePlaying">زۆرترین کات بەسەربردن بە یاریکردن</string>

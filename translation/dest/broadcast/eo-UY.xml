@@ -8,6 +8,7 @@
   </plurals>
   <string name="liveBroadcasts">Vivaj turniraj elsendoj</string>
   <string name="newBroadcast">Nova viva elsendo</string>
+  <string name="subscribedBroadcasts">Abonitaj elsendoj</string>
   <string name="aboutBroadcasts">Pri elsendoj</string>
   <string name="noRoundsYet">Ankoraŭ neniom raŭndojn.</string>
   <string name="howToUseLichessBroadcasts">Kiel uzi Lichess Elsendojn.</string>
@@ -40,8 +41,8 @@
   <string name="editRoundStudy">Redakti raŭndan studon</string>
   <string name="deleteTournament">Forigi ĉi tiun turniron</string>
   <string name="definitivelyDeleteTournament">Sendube forigi la tuta turniro, kaj ĝiajn raŭndojn kaj ĉiujn ĝiajn ludojn.</string>
-  <string name="automaticLeaderboard" comment="An option when creating a broadcast to calculate a leaderboard automatically from the players involved. Example: https://lichess.org/broadcast/2023-london-chess-classic/round-9/5icayRCY">Aŭtomata ĉampionejo</string>
-  <string name="automaticLeaderboardHelp" comment="An option when creating a broadcast to calculate a leaderboard automatically from the players involved. Example: https://lichess.org/broadcast/2023-london-chess-classic/round-9/5icayRCY">Komputi kaj montri simplan ĉampionejon baze sur la ludrezultoj</string>
+  <string name="automaticLeaderboard">Aŭtomata ĉampionejo</string>
+  <string name="automaticLeaderboardHelp">Komputi kaj montri simplan ĉampionejon baze sur la ludrezultoj</string>
   <string name="replace">Laŭvola: anstataŭi ludantaj nomoj, atingoj, kaj titoloj</string>
   <string name="replaceHelp">Po unu lino por unu ludanto, aranĝita tiel:
 Origna namo; Anstataŭa namo; Laŭvola anstataŭa atingo; Laŭvola anstataŭa titolo

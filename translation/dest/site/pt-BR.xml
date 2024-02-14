@@ -32,7 +32,7 @@
   <string name="threeChecks">Três xeques</string>
   <string name="raceFinished">Corrida terminada</string>
   <string name="variantEnding">Fim da variante</string>
-  <string name="newOpponent">Novo adversário</string>
+  <string name="newOpponent">Novo oponente</string>
   <string name="yourOpponentWantsToPlayANewGameWithYou">Seu oponente quer jogar uma nova partida contra você</string>
   <string name="joinTheGame">Entrar no jogo</string>
   <string name="whitePlays">Brancas jogam</string>
@@ -41,7 +41,7 @@
     <item quantity="one">O seu adversário deixou a partida. Você pode reivindicar vitória em %s segundo.</item>
     <item quantity="other">O seu adversário deixou a partida. Você pode reivindicar vitória em %s segundos.</item>
   </plurals>
-  <string name="opponentLeftChoices">O seu adversário deixou a partida. Você pode reivindicar vitória, declarar empate ou aguardar.</string>
+  <string name="opponentLeftChoices">O seu oponente deixou a partida. Você pode reivindicar vitória, declarar empate ou aguardar.</string>
   <string name="forceResignation">Reivindicar vitória</string>
   <string name="forceDraw">Reivindicar empate</string>
   <string name="talkInChat">Por favor, seja gentil no chat!</string>
@@ -705,6 +705,7 @@
   <string name="toggleVariationArrows">Ativar/desativar setas</string>
   <string name="cyclePreviousOrNextVariation">Variante seguinte/anterior</string>
   <string name="toggleGlyphAnnotations">Ativar/desativar anotações</string>
+  <string name="togglePositionAnnotations">Ativar/desativar anotações de posição</string>
   <string name="variationArrowsInfo">Setas de variação permitem navegar sem usar a lista de movimentos.</string>
   <string name="playSelectedMove">jogar movimento selecionado</string>
   <string name="newTournament">Novo torneio</string>

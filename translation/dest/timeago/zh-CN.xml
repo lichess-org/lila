@@ -24,10 +24,10 @@
   </plurals>
   <string name="rightNow">刚刚</string>
   <plurals name="nbMinutesAgo">
-    <item quantity="other">%s分钟前</item>
+    <item quantity="other">%s 分钟前</item>
   </plurals>
   <plurals name="nbHoursAgo">
-    <item quantity="other">%s小时前</item>
+    <item quantity="other">%s 小时前</item>
   </plurals>
   <plurals name="nbDaysAgo">
     <item quantity="other">%s 天前</item>
@@ -39,7 +39,7 @@
     <item quantity="other">%s 月前</item>
   </plurals>
   <plurals name="nbYearsAgo">
-    <item quantity="other">%s年前</item>
+    <item quantity="other">%s 年前</item>
   </plurals>
   <plurals name="nbMinutesRemaining">
     <item quantity="other">还剩 %s 分钟</item>
