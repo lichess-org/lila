@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="dgtBoard">DGT 棋盘</string>
-  <string name="lichessAndDgt">Lichess 与 DGT</string>
+  <string name="lichessAndDgt">在 Lichess 中使用 DGT</string>
   <string name="dgtBoardRequirements">DGT 棋盘需求</string>
   <string name="dgtBoardLimitations">DGT 棋盘限制</string>
   <string name="thisPageAllowsConnectingDgtBoard">此页面说明如何将 DGT 棋盘连接至 Lichess，并将其投入使用。</string>
   <string name="toConnectTheDgtBoard">为了连接 DGT 电子棋盘，你需要安装 %s。</string>
-  <string name="downloadHere">您可以在此下载软件：%s。</string>
+  <string name="downloadHere">你可以在此下载软件：%s。</string>
   <string name="ifLiveChessRunningOnThisComputer">如果 %1$s 已在电脑上运行，你可以%2$s以检查是否连接。</string>
   <string name="openingThisLink">点击这里</string>
   <string name="ifLiveChessRunningElsewhere">如果 %1$s 运行在其他设备或不同的端口，则需要在%2$s设置 IP 地址和端口。</string>
@@ -17,8 +17,8 @@
   <string name="timeControlsForRatedGames">排位对局时限：慢棋、通讯棋以及部分快棋时限，包括 15+10 和 20+0</string>
   <string name="whenReadySetupBoard">准备就绪后，摆好你的棋盘然后点击%s。</string>
   <string name="ifMoveNotDetected">如果你的着法未被检测到</string>
-  <string name="checkYouHaveMadeOpponentsMove">先确保你在 DGT 棋盘上摆放了对手走的着法。复原你走的着法，再走一次。</string>
-  <string name="asALastResort">作为最后的手段，对照 Lichess 重新摆放棋子，然后%s</string>
+  <string name="checkYouHaveMadeOpponentsMove">先确认你在 DGT 棋盘上放置了对手走的着法。然后退回你走的着法，再走一次。</string>
+  <string name="asALastResort" comment="%s is 'Reload this page', a separate translatable string.&#10;&#10;Appears on DGT board pages. A DGT board is a digitally connected real life board which requires the player to set up the real life board to match what it is on the screen. Hence needing it to be set up identically to what is visible on Lichess.">作为最后的手段，对照 Lichess 重新摆放棋子，然后%s</string>
   <string name="reloadThisPage">重新加载此页面</string>
   <string name="dgtConfigure">DGT - 配置</string>
   <string name="lichessConnectivity">Lichess 连接状态</string>

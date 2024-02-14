@@ -22,10 +22,9 @@
   <string name="fromXToY">từ %1$s đến %2$s</string>
   <string name="winningStreak">Chuỗi thắng</string>
   <string name="losingStreak">Chuỗi thua</string>
-  <string name="longestStreak" comment="%s is the string (number of games OR time spent playing, e.g. 4 hours non-stop play)&#10;String used to describe the longest consecutive winning &amp; losing streak of games. It is also used for a  streak of time spent playing.">Chuỗi dài nhất: %s</string>
+  <string name="longestStreak">Chuỗi dài nhất: %s</string>
   <string name="currentStreak">Chuỗi hiện tại: %s</string>
   <string name="bestRated">Ván thắng được cộng Elo nhiều nhất</string>
-  <string name="worstRated">Ván thua mất Elo tệ nhất</string>
   <string name="gamesInARow">Số ván cờ được chơi liên tục</string>
   <string name="lessThanOneHour">Ít hơn một giờ giữa các ván cờ</string>
   <string name="maxTimePlaying">Thời gian dài nhất đã chơi</string>

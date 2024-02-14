@@ -25,7 +25,7 @@
   <string name="preventLeavingGameWithoutResigning">对没有认输就离开的玩家怎么处理？</string>
   <string name="leavingGameWithoutResigningExplanation">如果你的对手频繁中止或离开游戏，他们会被 “禁止游戏”，这意味着他们被暂时禁止参加对局。 这在他们的个人资料中不会说明。 如果这种行为继续下去，禁止游戏的期限就会延长――长期被禁止可能会导致账户的关闭。</string>
   <string name="howCanIBecomeModerator">如何成为仲裁人？</string>
-  <string name="youCannotApply">无法申请成为仲裁人。 如果我们看到我们认为会成为很好的仲裁人的人，我们将直接与他们联系。</string>
+  <string name="youCannotApply">你没有办法主动申请成为管理员。 如果有我们认为有能力担任管理员的人，我们会直接与他们联系。</string>
   <string name="isCorrespondenceDifferent">通讯棋是否不同于常规棋？</string>
   <string name="pleaseReadFairPlayPage">欲了解更多信息，请阅读我们的 %s</string>
   <string name="fairPlayPage">公平对弈页面</string>

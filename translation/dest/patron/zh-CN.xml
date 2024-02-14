@@ -78,4 +78,7 @@
   <string name="nowOneMonth">你是一个月的 Lichess 的赞助者！</string>
   <string name="downgradeNextMonth">在一个月内，你不会再次被收取费用，且你的 Lichess 账户将变回普通。</string>
   <string name="changeCurrency">更改币种</string>
+  <string name="paymentDetails">付款详情</string>
+  <string name="updatePaymentMethod">更新付款方式</string>
+  <string name="stripeManageSub">管理你的订阅并下载发票和收据信息</string>
 </resources>

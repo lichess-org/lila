@@ -866,7 +866,7 @@ trò chuyện trong ván đấu và có một URL có thể chia sẻ công khai
   <string name="tryTheContactPage">hãy thử trang trợ giúp</string>
   <string name="makeSureToRead">Hãy chắc rằng bạn đã đọc %1$s</string>
   <string name="theForumEtiquette">quy tắc diễn đàn</string>
-  <string name="thisTopicIsArchived">Đề tài này đã bị đóng nên bạn không thể bình luận nữa.</string>
+  <string name="thisTopicIsArchived">Chủ đề này đã được lưu trữ và không thể trả lời được nữa.</string>
   <string name="joinTheTeamXToPost">Gia nhập %1$s để đăng trong diễn đàn này</string>
   <string name="teamNamedX">Đội %1$s</string>
   <string name="youCannotPostYetPlaySomeGames">Bạn chưa thể đăng bài lên diễn đàn bây giờ. Hãy chơi vài ván đã!</string>
