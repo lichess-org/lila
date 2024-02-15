@@ -51,16 +51,19 @@ object layout:
           a(activeCls("twofactor"), href := routes.Account.twoFactor)(
             trans.tfa.twoFactorAuth()
           ),
+          a(activeCls("oauth.token"), href := routes.OAuthToken.index)(
+            trans.oauthScope.apiAccessTokens()
+          ),
           a(activeCls("security"), href := routes.Account.security)(
             trans.security()
           ),
           div(cls := "sep"),
-          a(href := routes.Plan.index)(trans.patron.lichessPatron()),
-          div(cls := "sep"),
-          a(activeCls("oauth.token"), href := routes.OAuthToken.index)(
-            trans.oauthScope.apiAccessTokens()
+          a(activeCls("network"), href := routes.Account.network(none))(
+            "Network"
           ),
-          ctx.noBot option a(href := routes.DgtCtrl.index)(trans.dgt.dgtBoard()),
+          ctx.noBot option a(href := routes.DgtCtrl.index)(
+            trans.dgt.dgtBoard()
+          ),
           div(cls := "sep"),
           a(activeCls("close"), href := routes.Account.close)(
             trans.settings.closeAccount()
