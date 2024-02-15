@@ -92,8 +92,17 @@ class NewTreeTest extends munit.ScalaCheckSuite:
       val (root, path) = rp
       oTree.isDefined ==> {
         val tree    = oTree.get.take(1).clearVariations
-        val oldRoot = root.toRoot.withChildren(_.addNodeAt(tree.toBranch, path))
-        oldRoot.map(_.toNewRoot) == root.addNodeAt(path, tree)
+        val oldRoot = root.toRoot.withChildren(_.addNodeAt(tree.toBranch, path.pp))
+        val x = oldRoot.map(_.toNewRoot)
+        val y = root.addNodeAt(path, tree)
+        if path.isEmpty then
+          rootToPgn(root).pp
+          tree.pp
+          println("x")
+          x.foreach(rootToPgn(_).pp)
+          println("x")
+          y.foreach(rootToPgn(_).pp)
+        assertEquals(x, y)
       }
 
   test("addChild"):

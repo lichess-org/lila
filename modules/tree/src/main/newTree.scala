@@ -11,6 +11,7 @@ import chess.variant.{ Variant, Crazyhouse }
 import chess.bitboard.Bitboard
 
 import Node.{ Comments, Comment, Gamebook, Shapes }
+import chess.Color
 
 case class Metas(
     ply: Ply,
@@ -29,11 +30,15 @@ case class Metas(
     crazyData: Option[Crazyhouse.Data] = None
     // TODO, add support for variationComments
 ):
-  def setComment(comment: Comment) = copy(comments = comments.set(comment))
-  def deleteComment(comment: Comment.Id) =
+  def setComment(comment: Comment): Metas =
+    copy(comments = comments.set(comment))
+  def deleteComment(comment: Comment.Id): Metas =
     copy(comments = comments.delete(comment))
-  def toggleGlyph(glyph: Glyph) = copy(glyphs = glyphs toggle glyph)
-  def turn                      = ply.turn
+  def deleteComments: Metas =
+    copy(comments = Comments.empty)
+  def toggleGlyph(glyph: Glyph): Metas =
+    copy(glyphs = glyphs toggle glyph)
+  def turn: Color                      = ply.turn
 
 object Metas:
   def default(variant: Variant): Metas =
