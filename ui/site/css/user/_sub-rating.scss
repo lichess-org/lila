@@ -77,6 +77,10 @@
   }
   .ai-level {
     pointer-events: none;
+    &.ai-level-8 rating {
+      color: $c-brag;
+      font-weight: bold;
+    }
   }
 
   h3 {

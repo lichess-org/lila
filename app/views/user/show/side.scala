@@ -109,7 +109,7 @@ object side {
   private def aiLevel(level: Int, variant: shogi.variant.Variant)(implicit lang: Lang) =
     div(
       dataIcon := 'n',
-      cls      := "perf-item ai-level",
+      cls      := s"perf-item ai-level ai-level-$level",
       span(
         h3(variantName(variant)),
         st.rating(
