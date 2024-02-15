@@ -34,7 +34,7 @@
   "dependencies": {
     "keyboardMove": "^1.0.0",
     "shogiground": "^0.8.4",
-    "shogiops": "^0.15.0",
+    "shogiops": "^0.15.1",
     "snabbdom": "^3.5.1"
   }
 }

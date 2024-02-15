@@ -27,7 +27,7 @@
     "@badrap/result": "^0.2",
     "common": "2.0.0",
     "idb-keyval": "^6.2",
-    "shogiops": "^0.15.0",
+    "shogiops": "^0.15.1",
     "snabbdom": "^3.5.1"
   }
 }
