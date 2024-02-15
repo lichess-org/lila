@@ -41,7 +41,7 @@ function localEvalInfo(ctrl: ParentCtrl, evs: NodeEvals): Array<VNode | string |
           `Cloud - ${ceval.shouldUseYaneuraou ? 'NNUE' : 'HCE'}`
         ),
       ]
-    : trans('depthX', depth + '/' + Math.max(depth, evs.client.maxDepth));
+    : [trans('depthX', depth + '/' + Math.max(depth, evs.client.maxDepth))];
   if (ceval.canGoDeeper())
     t.push(
       h('a.deeper', {
