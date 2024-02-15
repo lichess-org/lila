@@ -16,7 +16,7 @@ export type PresetText = string;
 export interface Preset {
   key: PresetKey;
   text: PresetText;
-  responseOnly: Boolean;
+  responseOnly: boolean;
 }
 
 export interface PresetGroups {
