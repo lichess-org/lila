@@ -1,4 +1,4 @@
-export type Sort = 'rating' | 'time';
+export type Sort = 'rating' | 'time' | 'rating-reverse' | 'time-reverse';
 export type Mode = 'list' | 'chart';
 export type Tab = 'presets' | 'real_time' | 'seeks' | 'now_playing';
 

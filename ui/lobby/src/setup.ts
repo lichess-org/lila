@@ -258,9 +258,10 @@ export default class Setup {
       }
       const ajaxSubmit = color => {
         $.modal.close();
+        const isSeeks = $timeModeSelect.val() === '2';
         this.root.setTab($timeModeSelect.val() === '1' ? 'real_time' : 'seeks');
         $.ajax({
-          url: $form.attr('action').replace(/sri-placeholder/, li.sri),
+          url: $form.attr('action').replace(/sri-placeholder/, li.sri) + (isSeeks ? '?noAutoPairing=1' : ''),
           data: $form.serialize() + '&color=' + color,
           type: 'post',
         });

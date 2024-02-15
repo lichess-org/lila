@@ -22,7 +22,7 @@
     }
     &.variants td {
       text-align: center;
-      padding: 3px 0;
+      padding: 4px 0;
       background: none;
       text-transform: uppercase;
       letter-spacing: 3px;
@@ -34,15 +34,22 @@
     padding: 1em;
     &.sortable {
       cursor: pointer;
+      padding-left: 0;
     }
     &.sortable:hover,
     &.sort {
       font-weight: normal;
     }
-    &.sort .is:before {
-      opacity: 0.7;
+    &.sortable .is:before {
+      opacity: 0;
       margin-right: 3px;
       content: 'R';
+    }
+    &.sortable.reverse .is:before {
+      content: 'S';
+    }
+    &.sort .is:before {
+      opacity: 0.7;
     }
     &.player {
       width: 110px;
@@ -78,7 +85,7 @@
 .lseeks .create {
   margin-top: 20px;
   text-align: center;
-  a {
+  a.accent {
     background: $c-accent;
     &:hover {
       background: $c-accent;

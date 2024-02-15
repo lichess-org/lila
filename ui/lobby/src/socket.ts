@@ -1,6 +1,7 @@
 import LobbyController from './ctrl';
 import * as hookRepo from './hookRepo';
 import { Hook } from './interfaces';
+import { action } from './util';
 import * as xhr from './xhr';
 
 interface Handlers {
@@ -21,7 +22,7 @@ export default class LobbySocket {
     this.handlers = {
       had(hook: Hook) {
         hookRepo.add(ctrl, hook);
-        if (hookRepo.action(hook) === 'cancel') ctrl.flushHooks(true);
+        if (action(hook) === 'cancel') ctrl.flushHooks(true);
         ctrl.redraw();
       },
       hrm(ids: string) {

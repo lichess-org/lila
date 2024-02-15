@@ -66,5 +66,14 @@
     &:hover {
       color: $c-accent-dim;
     }
+    i {
+      margin-left: 0.2rem;
+      font-size: 11px;
+    }
   }
+}
+
+.hook__filters {
+  // will be overridden by _hook-filter.scss once it's loaded
+  display: none;
 }

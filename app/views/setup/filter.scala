@@ -13,7 +13,6 @@ object filter {
 
   def apply(form: Form[_])(implicit ctx: Context) =
     frag(
-      cssTag("lobby.setup"),
       st.form(novalidate)(
         table(
           tbody(
@@ -27,11 +26,11 @@ object filter {
                 )
               )
             ),
-            tr(
+            tr(cls := "f-real_time")(
               td(trans.timeControl()),
               td(renderCheckboxes(form, "speed", translatedSpeedChoices))
             ),
-            tr(cls := "inline")(
+            tr(cls := "inline f-real_time")(
               td(trans.byoyomi()),
               td(
                 renderCheckboxes(
@@ -41,7 +40,7 @@ object filter {
                 )
               )
             ),
-            tr(cls := "inline")(
+            tr(cls := "inline f-real_time")(
               td(trans.increment()),
               td(
                 renderCheckboxes(
@@ -50,6 +49,10 @@ object filter {
                   translatedIncrementChoices
                 )
               )
+            ),
+            tr(cls := "f-seeks days")(
+              td(trans.daysPerTurn()),
+              td(renderCheckboxes(form, "days", translatedCorresDaysChoices))
             ),
             ctx.isAuth option tr(cls := "inline")(
               td(trans.mode()),

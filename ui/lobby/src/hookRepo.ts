@@ -3,20 +3,19 @@ import { Hook, Tab } from './interfaces';
 
 export const tabs: Tab[] = ['real_time', 'presets'];
 
-function ratingOrder(a: Hook, b: Hook) {
-  return (a.rating || 0) > (b.rating || 0) ? -1 : 1;
-}
+const ratingOrder =
+  (reverse: boolean) =>
+  (a: Hook, b: Hook): number =>
+    ((a.rating || 0) > (b.rating || 0) ? -1 : 1) * (reverse ? -1 : 1);
 
-function timeOrder(a: Hook, b: Hook) {
-  return a.t < b.t ? -1 : 1;
-}
+const timeOrder =
+  (reverse: boolean) =>
+  (a: Hook, b: Hook): number =>
+    (a.t > b.t ? -1 : 1) * (reverse ? -1 : 1);
 
 export function sort(ctrl: LobbyController, hooks: Hook[]) {
-  hooks.sort(ctrl.sort === 'time' ? timeOrder : ratingOrder);
-}
-
-export function action(hook: Hook): 'cancel' | 'join' {
-  return hook.sri === window.lishogi.sri ? 'cancel' : 'join';
+  const s = ctrl.sort;
+  hooks.sort(s.startsWith('time') ? timeOrder(s !== 'time') : ratingOrder(s !== 'rating'));
 }
 
 export function add(ctrl: LobbyController, hook: Hook) {

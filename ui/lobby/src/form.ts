@@ -7,6 +7,7 @@ export interface FormObject {
 export interface FormStore {
   get: () => FormLines | null;
   set: (lines: FormLines) => void;
+  remove: () => void;
 }
 
 export const toFormLines = (form: HTMLFormElement): FormLines =>
@@ -22,4 +23,5 @@ export const toFormObject = (lines: FormLines): FormObject =>
 export const makeStore = (storage: LishogiStorage): FormStore => ({
   get: () => JSON.parse(storage.get() || 'null') as FormLines,
   set: lines => storage.set(JSON.stringify(lines)),
+  remove: () => storage.remove(),
 });

@@ -5,6 +5,7 @@ import * as seekRepo from './seekRepo';
 import Setup from './setup';
 import LobbySocket from './socket';
 import { Stores, make as makeStores } from './store';
+import { action } from './util';
 import variantConfirm from './variant';
 import * as xhr from './xhr';
 
@@ -47,11 +48,10 @@ export default class LobbyController {
       rating: opts.data.me?.rating && parseInt(opts.data.me.rating),
       ratingDiff: 300,
     };
-    this.filter = new Filter(li.storage.make('lobby.filter'), this);
+    this.filter = new Filter(li.storage.make('lobby.filter2'), this);
     this.setup = new Setup(li.storage.make, this);
     this.initAllPresets();
 
-    seekRepo.sort(this);
     this.socket = new LobbySocket(opts.socketSend, this);
 
     this.stores = makeStores(this.data.me ? this.data.me.username.toLowerCase() : null);
@@ -149,8 +149,9 @@ export default class LobbyController {
     this.filter.open = false;
   };
 
-  setSort = (sort: Sort) => {
-    this.sort = this.stores.sort.set(sort);
+  setSort = (sort: Extract<'rating' | 'time', Sort>) => {
+    if (sort === this.sort) this.sort = this.stores.sort.set(sort + '-reverse');
+    else this.sort = this.stores.sort.set(sort);
   };
 
   onSetFilter = () => {
@@ -161,22 +162,21 @@ export default class LobbyController {
   clickHook = (id: string) => {
     const hook = hookRepo.find(this, id);
     if (!hook || hook.disabled || this.stepping || this.redirecting) return;
-    const action = hookRepo.action(hook);
-    if (action === 'cancel' || variantConfirm(hook.variant || 'standard', this.trans.noarg))
-      this.socket.send(action, hook.id);
+    const act = action(hook);
+    if (act === 'cancel' || variantConfirm(hook.variant || 'standard', this.trans.noarg))
+      this.socket.send(act, hook.id);
   };
 
   clickSeek = (id: string) => {
     const seek = seekRepo.find(this, id);
     if (!seek || this.redirecting) return;
-    const action = seekRepo.action(seek, this);
-    if (action === 'cancelSeek' || variantConfirm(seek.variant || 'standard', this.trans.noarg))
-      this.socket.send(action, seek.id);
+    const act = action(seek);
+    if (act === 'cancel' || variantConfirm(seek.variant || 'standard', this.trans.noarg))
+      this.socket.send(act + 'Seek', seek.id);
   };
 
   setSeeks = (seeks: Seek[]) => {
     this.data.seeks = seeks;
-    seekRepo.sort(this);
     this.redraw();
   };
 

@@ -4,6 +4,7 @@ import LobbyController from '../../ctrl';
 
 function initialize(ctrl: LobbyController, el: HTMLElement) {
   const f = ctrl.filter.data?.form,
+    isSeek: boolean = ctrl.tab === 'seeks',
     $div = $(el),
     $ratingRange = $div.find('.rating-range');
 
@@ -15,6 +16,9 @@ function initialize(ctrl: LobbyController, el: HTMLElement) {
     });
   else $div.find('input').prop('checked', true);
 
+  $('.f-real_time').toggleClass('none', isSeek);
+  $('.f-seeks').toggleClass('none', !isSeek);
+
   const save = () => ctrl.filter.save($div.find('form')[0] as HTMLFormElement);
 
   function changeRatingRange(values) {
@@ -24,7 +28,7 @@ function initialize(ctrl: LobbyController, el: HTMLElement) {
   }
   $div.find('input').change(save);
   $div.find('button.reset').click(function () {
-    ctrl.filter.set(null);
+    ctrl.filter.save(null);
     ctrl.filter.open = false;
     ctrl.redraw();
   });
@@ -56,15 +60,20 @@ function initialize(ctrl: LobbyController, el: HTMLElement) {
 }
 
 export function toggle(ctrl: LobbyController, nbFiltered: number) {
-  const filter = ctrl.filter;
-  return h('i.toggle.toggle-filter', {
-    class: { gamesFiltered: nbFiltered > 0, active: filter.open },
-    hook: bind('mousedown', filter.toggle, ctrl.redraw),
-    attrs: {
-      'data-icon': filter.open ? 'L' : '%',
-      title: ctrl.trans.noarg('filterGames'),
+  const filter = ctrl.filter,
+    hasFiltered = nbFiltered > 0;
+  return h(
+    'i.toggle.toggle-filter',
+    {
+      class: { gamesFiltered: hasFiltered, active: filter.open },
+      hook: bind('mousedown', filter.toggle, ctrl.redraw),
+      attrs: {
+        'data-icon': filter.open ? 'L' : '%',
+        title: ctrl.trans.noarg('filterGames'),
+      },
     },
-  });
+    hasFiltered && !filter.open ? h('i.unread', nbFiltered < 10 ? nbFiltered : '9+') : undefined
+  );
 }
 
 export interface FilterNode extends HTMLElement {
@@ -77,8 +86,10 @@ export function render(ctrl: LobbyController) {
       insert(vnode) {
         const el = vnode.elm as FilterNode;
         if (el.filterLoaded) return;
+        window.lishogi.loadCssPath('lobby.setup');
         $.ajax({
           url: '/setup/filter',
+          cache: true,
           success(html) {
             el.innerHTML = html;
             el.filterLoaded = true;

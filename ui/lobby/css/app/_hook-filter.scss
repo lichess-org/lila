@@ -3,6 +3,7 @@
   background: fade-out($c-bg-high, 0.5);
   height: 100%;
   white-space: nowrap;
+  display: block;
   td {
     padding: 1em 0;
   }
@@ -26,12 +27,15 @@
   .regular-checkbox {
     @extend %checkbox;
   }
-  tr.variant td:last-child {
-    display: flex;
-    flex-flow: row wrap;
-  }
-  tr.variant .checkable {
-    width: 33.3%;
+  tr.variant,
+  tr.days {
+    td:last-child {
+      display: flex;
+      flex-flow: row wrap;
+    }
+    .checkable {
+      width: 33.3%;
+    }
   }
   tr.inline .checkable {
     display: inline-block;

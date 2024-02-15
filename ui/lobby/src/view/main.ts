@@ -1,9 +1,8 @@
 import spinner from 'common/spinner';
 import { VNodeData, h } from 'snabbdom';
 import LobbyController from '../ctrl';
-import renderSeeks from './correspondence';
 import renderPlaying from './playing';
-import renderRealTime from './realTime/main';
+import renderTable from './table/main';
 import * as renderPresets from './presets';
 import renderTabs from './tabs';
 
@@ -18,10 +17,8 @@ export default function (ctrl: LobbyController) {
         data = { hook: renderPresets.presetHooks(ctrl) };
         break;
       case 'real_time':
-        body = renderRealTime(ctrl);
-        break;
       case 'seeks':
-        body = renderSeeks(ctrl);
+        body = renderTable(ctrl);
         break;
       case 'now_playing':
         body = renderPlaying(ctrl);
