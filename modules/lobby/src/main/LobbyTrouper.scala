@@ -3,7 +3,6 @@ package lila.lobby
 import actorApi._
 import cats.implicits._
 import org.joda.time.DateTime
-import scala.annotation.nowarn
 import scala.concurrent.duration._
 import scala.concurrent.Promise
 
@@ -35,22 +34,22 @@ final private class LobbyTrouper(
     // solve circular reference
     case SetSocket(trouper) => socket = trouper
 
-    case msg @ AddHook(hook) =>
+    case msg @ AddHook(hook, autoPairing) =>
       lila.mon.lobby.hook.create.increment()
       HookRepo bySri hook.sri foreach remove
       hook.sid ?? { sid =>
         HookRepo bySid sid foreach remove
       }
-      findCompatible(hook) match {
+      (autoPairing ?? findCompatible(hook)) match {
         case Some(h) => biteHook(h.id, hook.sri, hook.user)
         case None =>
           HookRepo save msg.hook
           socket ! msg
       }
 
-    case msg @ AddSeek(seek) =>
+    case msg @ AddSeek(seek, autoPairing) =>
       lila.mon.lobby.seek.create.increment()
-      findCompatible(seek) foreach {
+      (autoPairing ?? findCompatible(seek)) foreach {
         case Some(s) => this ! BiteSeek(s.id, seek.user)
         case None    => this ! SaveSeek(msg)
       }
@@ -90,9 +89,10 @@ final private class LobbyTrouper(
       socket ! msg
       remove(hook)
 
-    case msg @ JoinSeek(_, seek, game, _) =>
+    case msg @ JoinSeek(userId, seek, game, _) =>
       onStart(game.id)
       seekApi.archive(seek, game.id)
+      recentlySeekMatchedUserIdPairs register (userId, seek.user.id)
       socket ! msg
       socket ! RemoveSeek(seek.id)
 
@@ -161,7 +161,7 @@ final private class LobbyTrouper(
   private object recentlyAbortedUserIdPairs {
     private val cache                                     = new lila.memo.ExpireSetMemo(1 hour)
     private def makeKey(u1: User.ID, u2: User.ID): String = if (u1 < u2) s"$u1/$u2" else s"$u2/$u1"
-    @nowarn("cat=unused") def register(g: Game) =
+    def register(g: Game) =
       for {
         sp <- g.sentePlayer.userId
         gp <- g.gotePlayer.userId
@@ -170,9 +170,16 @@ final private class LobbyTrouper(
     def exists(u1: User.ID, u2: User.ID) = cache.get(makeKey(u1, u2))
   }
 
+  private object recentlySeekMatchedUserIdPairs {
+    private val cache                                     = new lila.memo.ExpireSetMemo(1 hour)
+    private def makeKey(u1: User.ID, u2: User.ID): String = if (u1 < u2) s"$u1/$u2" else s"$u2/$u1"
+    def register(u1: User.ID, u2: User.ID)                = cache.put(makeKey(u1, u2))
+    def exists(u1: User.ID, u2: User.ID)                  = cache.get(makeKey(u1, u2))
+  }
+
   private def findCompatible(seek: Seek): Fu[Option[Seek]] =
-    seekApi forUser seek.user map {
-      _ find (_ compatibleWith seek)
+    seekApi.forUser(seek.user) map { ls =>
+      ls.find(s => s.compatibleWith(seek) && !recentlySeekMatchedUserIdPairs.exists(s.user.id, seek.user.id))
     }
 
   private def remove(hook: Hook) = {

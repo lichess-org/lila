@@ -208,7 +208,8 @@ final class Setup(
                       userConfig withinLimits ctx.me,
                       Sri(sri),
                       HTTPRequest sid req,
-                      blocking
+                      blocking,
+                      autoPairing = !getBool("noAutoPairing")
                     ) map hookResponse
                   }
               )
@@ -230,7 +231,13 @@ final class Setup(
                   sameOpponents = game.userIds
                   hookResult <-
                     processor
-                      .hook(hookConfig, Sri(sri), HTTPRequest sid ctx.req, blocking ++ sameOpponents)
+                      .hook(
+                        hookConfig,
+                        Sri(sri),
+                        HTTPRequest sid ctx.req,
+                        blocking ++ sameOpponents,
+                        autoPairing = true
+                      )
                 } yield hookResponse(hookResult)
               }
             }

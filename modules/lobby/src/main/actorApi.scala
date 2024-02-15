@@ -25,5 +25,5 @@ private[lobby] case class HookIds(ids: Vector[String])
 
 private[lobby] case class GetSrisP(promise: Promise[Sris])
 
-case class AddHook(hook: Hook)
-case class AddSeek(seek: Seek)
+case class AddHook(hook: Hook, autoPairing: Boolean)
+case class AddSeek(seek: Seek, autoPairing: Boolean)
