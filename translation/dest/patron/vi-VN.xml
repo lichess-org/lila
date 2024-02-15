@@ -56,7 +56,7 @@ Tuy nhiên, Patron được quyền khoe khoang với những đôi cánh Ngư�
   <string name="tyvm">Cảm ơn sự giúp đỡ của bạn rất nhiều. Bạn thật tuyệt vời!</string>
   <string name="currentStatus">Trạng thái hiện tại</string>
   <string name="nextPayment">Lần thanh toán tiếp theo</string>
-  <string name="youWillBeChargedXOnY">Bạn sẽ trả %1$s vào ngày %2$s.</string>
+  <string name="youWillBeChargedXOnY">Bạn sẽ bị tính phí %1$s vào ngày %2$s.</string>
   <string name="makeAdditionalDonation">Ủng hộ thêm ngay bây giờ</string>
   <string name="giftPatronWingsShort">Tặng đôi cánh Người bảo trợ</string>
   <string name="giftPatronWings">Tặng đôi cánh Người bảo trợ cho kỳ thủ</string>

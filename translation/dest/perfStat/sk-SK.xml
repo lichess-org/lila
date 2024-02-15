@@ -22,10 +22,9 @@
   <string name="fromXToY">od %1$s do %2$s</string>
   <string name="winningStreak">Séria výhier</string>
   <string name="losingStreak">Séria prehier</string>
-  <string name="longestStreak" comment="%s is the string (number of games OR time spent playing, e.g. 4 hours non-stop play)&#10;String used to describe the longest consecutive winning &amp; losing streak of games. It is also used for a  streak of time spent playing.">Najdlhšia séria: %s</string>
+  <string name="longestStreak">Najdlhšia séria: %s</string>
   <string name="currentStreak">Súčasná séria: %s</string>
   <string name="bestRated">Najlepšie hodnotené víťazstvá</string>
-  <string name="worstRated">Najhoršie hodnotené víťazstvá</string>
   <string name="gamesInARow">Hry hrané v rade</string>
   <string name="lessThanOneHour">Menej ako hodina medzi hrami</string>
   <string name="maxTimePlaying">Max čas strávený hraním</string>

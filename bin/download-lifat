@@ -3,6 +3,7 @@
 # that's how I like to update the commit:
 # sed -i -r "s/^commit=.+$/commit=$(cat ~/lifat/.git/refs/heads/master)/" ~/lila/bin/download-lifat && git add bin/download-lifat && git commit -m "bump lifat"
 commit=dcf0daa20e4e1f58c6aec6c09f643c7ba3b21d11
+origin=https://github.com/lichess-org/lifat
 
 lifat_dir="${LIFAT_DIR:-lifat}"
 mkdir -p "$lifat_dir"
@@ -11,12 +12,15 @@ lifat_commit_dir=$(realpath "$lifat_dir")/lifat-$commit
 mkdir -p "$lifat_dir"
 
 if [ ! -d "$lifat_commit_dir" ]; then
+	echo "lifat new git repo at $lifat_commit_dir"
 	git init "$lifat_commit_dir"
 	cd "$lifat_commit_dir"
-	git remote add origin https://github.com/lichess-org/lifat
+	echo "lifat fetching repo data from $origin"
+	git remote add origin $origin
 	git fetch --depth 1 origin "$commit"
 	git checkout --detach "$commit"
 	git log -n 1 --pretty="oneline" >"commit.txt"
+	echo "lifat done fetching $(cat commit.txt)"
 	cd -
 fi
 

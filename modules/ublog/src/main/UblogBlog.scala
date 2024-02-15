@@ -1,6 +1,7 @@
 package lila.ublog
 
-import lila.user.User
+import lila.user.{ Me, User }
+import lila.security.Granter
 
 case class UblogBlog(
     _id: UblogBlog.Id,
@@ -13,6 +14,8 @@ case class UblogBlog(
 
   def userId = id match
     case UblogBlog.Id.User(userId) => userId
+
+  def allows = UblogBlog.Allows(userId)
 
 object UblogBlog:
 
@@ -56,3 +59,8 @@ object UblogBlog:
     tier = Tier default user,
     modTier = none
   )
+
+  class Allows(creator: UserId):
+    def moderate(using Option[Me]): Boolean   = Granter.opt(_.ModerateBlog)
+    def edit(using me: Option[Me]): Boolean   = me.exists(creator.is(_)) || moderate
+    def create(using me: Option[Me]): Boolean = edit || (creator == User.lichessId && Granter.opt(_.Pages))

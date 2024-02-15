@@ -1,6 +1,7 @@
 import * as xhr from 'common/xhr';
 import idleTimer from './idleTimer';
 import sri from './sri';
+import { siteTrans } from './trans';
 import { reload } from './reload';
 import { storage as makeStorage } from './storage';
 import { storedIntProp } from 'common/storage';
@@ -116,6 +117,13 @@ export default class StrongSocket {
 
   connect = () => {
     this.destroy();
+    if (!navigator.onLine) {
+      document.body.classList.remove('online');
+      document.body.classList.add('offline');
+      $('#network-status').text(lichess ? siteTrans('noNetwork') : 'Offline');
+      this.scheduleConnect(1000);
+      return;
+    }
     this.autoReconnect = true;
     const fullUrl = xhr.url(this.options.protocol + '//' + this.baseUrl() + this.url, {
       ...this.settings.params,
@@ -195,7 +203,8 @@ export default class StrongSocket {
     this.connectSchedule = setTimeout(() => {
       document.body.classList.add('offline');
       document.body.classList.remove('online');
-      if (!this.tryOtherUrl) {
+      $('#network-status').text(lichess ? siteTrans('reconnecting') : 'Reconnecting');
+      if (!this.tryOtherUrl && navigator.onLine) {
         // if this was set earlier, we've already logged the error
         this.tryOtherUrl = true;
         lichess.log(
@@ -308,7 +317,8 @@ export default class StrongSocket {
     }
     if (e.wasClean && e.code < 1002) return;
 
-    lichess.log(`${sri ? 'sri ' + sri : ''} unclean close ${e.code} ${url} ${e.reason}`);
+    if (navigator.onLine)
+      lichess.log(`${sri ? 'sri ' + sri : ''} unclean close ${e.code} ${url} ${e.reason}`);
     this.tryOtherUrl = true;
     clearTimeout(this.pingSchedule);
   };

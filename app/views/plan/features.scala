@@ -47,7 +47,7 @@ object features:
             ),
             tr(check)(
               "Standard chess and ",
-              a(href := routes.ContentPage.variantHome)("8 chess variants (Crazyhouse, Chess960, Horde, ...)")
+              a(href := routes.Cms.variantHome)("8 chess variants (Crazyhouse, Chess960, Horde, ...)")
             ),
             tr(custom(s"${lila.fishnet.FishnetLimiter.maxPerDay} per day"))(
               "Deep ",

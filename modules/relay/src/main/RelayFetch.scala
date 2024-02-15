@@ -31,10 +31,22 @@ final private class RelayFetch(
 
   import RelayFetch.*
 
-  LilaScheduler("RelayFetch.official", _.Every(500 millis), _.AtMost(15 seconds), _.Delay(15 seconds)):
+  private val quickStart = false // for dev
+
+  LilaScheduler(
+    "RelayFetch.official",
+    _.Every(500 millis),
+    _.AtMost(15 seconds),
+    _.Delay(if quickStart then 1.milli else 15 seconds)
+  ):
     syncRelays(official = true)
 
-  LilaScheduler("RelayFetch.user", _.Every(750 millis), _.AtMost(10 seconds), _.Delay(33 seconds)):
+  LilaScheduler(
+    "RelayFetch.user",
+    _.Every(750 millis),
+    _.AtMost(10 seconds),
+    _.Delay(if quickStart then 1.milli else 33 seconds)
+  ):
     syncRelays(official = false)
 
   private val maxRelaysToSync = Max(50)
@@ -199,7 +211,8 @@ final private class RelayFetch(
               MultiPgn(results.sortBy(_._1).map(_._2))
     } flatMap { multiPgnToGames(_).toFuture }
 
-  private def httpGetPgn(url: URL)(using CanProxy): Fu[PgnStr] = PgnStr from formatApi.httpGet(url)
+  private def httpGetPgn(url: URL)(using CanProxy): Fu[PgnStr] =
+    PgnStr from formatApi.httpGetAndGuessCharset(url)
 
   private def httpGetJson[A: Reads](url: URL)(using CanProxy): Fu[A] = for
     str  <- formatApi.httpGet(url)
@@ -241,11 +254,15 @@ private object RelayFetch:
     given Reads[RoundJsonPairing] = Json.reads
     given Reads[RoundJson]        = Json.reads
 
-    case class GameJson(moves: List[String], result: Option[String]):
+    case class GameJson(moves: List[String], result: Option[String], chess960: Option[Int] = none):
       def outcome = result.flatMap(Outcome.fromResult)
       def toPgn(extraTags: Tags = Tags.empty): PgnStr =
+        val fenTag = chess960
+          .filter(_ != 518) // LCC sends 518 for standard chess
+          .flatMap(chess.variant.Chess960.positionToFen)
+          .map(pos => Tag(_.FEN, pos.value))
         val outcomeTag = outcome.map(o => Tag(_.Result, Outcome.showResult(o.some)))
-        val tags       = outcomeTag.foldLeft(extraTags)(_ + _)
+        val tags       = extraTags ++ Tags(List(fenTag, outcomeTag).flatten)
         val strMoves = moves
           .map(_ split ' ')
           .mapWithIndex: (move, index) =>

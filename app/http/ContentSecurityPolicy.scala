@@ -70,17 +70,6 @@ case class ContentSecurityPolicy(
 
   def withPeer = copy(connectSrc = "wss://0.peerjs.com" :: connectSrc)
 
-  private def withPrismicEditor(maybe: Boolean): ContentSecurityPolicy =
-    if maybe then
-      copy(
-        scriptSrc = "https://static.cdn.prismic.io" :: scriptSrc,
-        frameSrc = "https://lichess.prismic.io" :: "https://lichess.cdn.prismic.io" :: frameSrc,
-        connectSrc = "https://lichess.prismic.io" :: "https://lichess.cdn.prismic.io" :: connectSrc
-      )
-    else this
-
-  def withPrismic(editor: Boolean): ContentSecurityPolicy = withPrismicEditor(editor).withTwitter
-
   def withAnyWs = copy(connectSrc = "ws:" :: "wss:" :: connectSrc)
 
   def withWikiBooks = copy(connectSrc = "en.wikibooks.org" :: connectSrc)

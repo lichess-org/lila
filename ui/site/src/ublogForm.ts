@@ -9,7 +9,7 @@ import { wireCropDialog } from 'common/controls';
 if (isSafari()) wireCropDialog(); // preload
 
 lichess.load.then(() => {
-  $('#markdown-editor').each(function (this: HTMLTextAreaElement) {
+  $('.markdown-editor').each(function (this: HTMLTextAreaElement) {
     setupMarkdownEditor(this);
   });
   $('#form3-topics').each(function (this: HTMLTextAreaElement) {

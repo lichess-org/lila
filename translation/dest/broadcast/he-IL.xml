@@ -10,6 +10,7 @@
   </plurals>
   <string name="liveBroadcasts">צפייה ישירה בטורנירים</string>
   <string name="newBroadcast">הקרנה ישירה חדשה</string>
+  <string name="subscribedBroadcasts">הקרנות שנרשמת אליהן</string>
   <string name="aboutBroadcasts">הסבר על הקרנות</string>
   <string name="noRoundsYet">טרם נוצרו סבבים.</string>
   <string name="howToUseLichessBroadcasts">איך להשתמש בהקרנות ב-Lichess.</string>
@@ -42,8 +43,8 @@
   <string name="editRoundStudy">עריכת לוח הלמידה של הסבב</string>
   <string name="deleteTournament">מחיקת הטורניר הזה</string>
   <string name="definitivelyDeleteTournament">מחיקה לצמיתות של הטורניר הזה, על כל סבביו והמשחקים שבו.</string>
-  <string name="automaticLeaderboard" comment="An option when creating a broadcast to calculate a leaderboard automatically from the players involved. Example: https://lichess.org/broadcast/2023-london-chess-classic/round-9/5icayRCY">טבלה אוטומטית</string>
-  <string name="automaticLeaderboardHelp" comment="An option when creating a broadcast to calculate a leaderboard automatically from the players involved. Example: https://lichess.org/broadcast/2023-london-chess-classic/round-9/5icayRCY">הצגת טבלה פשוטה שמתבססת על תוצאות המשחקים</string>
+  <string name="automaticLeaderboard">טבלה אוטומטית</string>
+  <string name="automaticLeaderboardHelp">הצגת טבלה פשוטה שמתבססת על תוצאות המשחקים</string>
   <string name="replace">אופציונאלי: החלפת השמות, הדירוגים והתארים של השחקנים</string>
   <string name="replaceHelp">שחקן אחד בכל שורה, על פי התבנית הבאה:
 שם מקורי; שם רצוי; דירוג להצגה; תואר להצגה

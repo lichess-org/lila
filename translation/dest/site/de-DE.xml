@@ -64,7 +64,7 @@
   <string name="engineFailed">Fehler beim Laden der Engine</string>
   <string name="cloudAnalysis">Cloud-Analyse</string>
   <string name="goDeeper">Tiefe erhöhen</string>
-  <string name="showThreat">Bedrohungen anzeigen</string>
+  <string name="showThreat">Drohungen anzeigen</string>
   <string name="inLocalBrowser">im lokalen Browser</string>
   <string name="toggleLocalEvaluation">Lokale Auswertung an-/ausschalten</string>
   <string name="promoteVariation">Variante aufwerten</string>
@@ -86,7 +86,7 @@
   <string name="database">Datenbank</string>
   <string name="whiteDrawBlack">Weiß / Remis / Schwarz</string>
   <string name="averageRatingX">Durchschnittliche Wertungszahl: %s</string>
-  <string name="recentGames">Neue Partien</string>
+  <string name="recentGames">Neueste Partien</string>
   <string name="topGames">Spitzenpartien</string>
   <string name="masterDbExplanation">Zwei Millionen OTB-Partien von Spielern mit einer Wertungszahl über %1$s FIDE aus den Jahren %2$s bis %3$s</string>
   <plurals name="mateInXHalfMoves">
@@ -418,6 +418,7 @@
   <string name="blackCheckmatesInOneMove">Schwarz setzt in einem Zug Matt</string>
   <string name="retry">Erneut versuchen</string>
   <string name="reconnecting">Wiederverbinden</string>
+  <string name="noNetwork">Offline</string>
   <plurals name="nbFriendsOnline">
     <item quantity="one">%s Freund online</item>
     <item quantity="other">%s Freunde online</item>
@@ -704,6 +705,7 @@
   <string name="toggleVariationArrows">Variantenpfeile ein-/auschalten</string>
   <string name="cyclePreviousOrNextVariation">Durch vorherige/nächste Variante schalten</string>
   <string name="toggleGlyphAnnotations">Schalten der Zeichen-Anmerkungen</string>
+  <string name="togglePositionAnnotations">Positionsanmerkungen umschalten</string>
   <string name="variationArrowsInfo">Mit Variantenpfeilen navigierst du durch die Zugliste.</string>
   <string name="playSelectedMove">den ausgewählten Zug ausführen</string>
   <string name="newTournament">Neues Turnier</string>

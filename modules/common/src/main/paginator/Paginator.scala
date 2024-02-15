@@ -97,3 +97,11 @@ object Paginator:
         // unfortunately can't do that without completing nbResults, so ig it's on them to check after
         results <- adapter.slice((safePage - 1) * maxPerPage.value, maxPerPage.value)
       yield new Paginator(safePage, maxPerPage, results, nbResults))
+
+  import akka.stream.scaladsl.*
+  def stream[A](getPage: Int => Fu[Paginator[A]])(using Executor, akka.stream.Materializer): Source[A, ?] =
+    Source
+      .unfoldAsync(1): page =>
+        getPage(page).map: pager =>
+          pager.currentPageResults.nonEmpty so pager.nextPage.map(_ -> pager.currentPageResults)
+      .flatMapConcat(Source.apply)

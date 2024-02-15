@@ -22,11 +22,13 @@ final class UblogApi(
 
   import UblogBsonHandlers.{ *, given }
 
-  def create(data: UblogForm.UblogPostData)(using me: Me): Fu[UblogPost] =
-    val post = data.create(me.value)
+  def create(data: UblogForm.UblogPostData, author: User): Fu[UblogPost] =
+    val post = data.create(author)
     colls.post.insert.one(
-      bsonWriteObjTry[UblogPost](post).get ++ $doc("likers" -> List(me.userId))
+      bsonWriteObjTry[UblogPost](post).get ++ $doc("likers" -> List(author.id))
     ) inject post
+
+  def getByPrismicId(id: String): Fu[Option[UblogPost]] = colls.post.one[UblogPost]($doc("prismicId" -> id))
 
   def update(data: UblogForm.UblogPostData, prev: UblogPost)(using me: Me): Fu[UblogPost] =
     getUserBlog(me.value, insertMissing = true) flatMap { blog =>
@@ -65,9 +67,9 @@ final class UblogApi(
 
   def getPost(id: UblogPostId): Fu[Option[UblogPost]] = colls.post.byId[UblogPost](id)
 
-  def findByUserBlogOrAdmin(id: UblogPostId)(using me: Me): Fu[Option[UblogPost]] =
+  def findEditableByMe(id: UblogPostId)(using me: Me): Fu[Option[UblogPost]] =
     colls.post.byId[UblogPost](id) dmap:
-      _.filter(_.isBy(me) || Granter(_.ModerateBlog))
+      _.filter(_.allows.edit)
 
   def findByIdAndBlog(id: UblogPostId, blog: UblogBlog.Id): Fu[Option[UblogPost]] =
     colls.post.one[UblogPost]($id(id) ++ $doc("blog" -> blog))

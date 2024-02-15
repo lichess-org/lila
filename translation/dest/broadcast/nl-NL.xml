@@ -40,8 +40,8 @@
   <string name="editRoundStudy">Studieronde bewerken</string>
   <string name="deleteTournament">Verwijder dit toernooi</string>
   <string name="definitivelyDeleteTournament">Verwijder definitief het hele toernooi, inclusief alle rondes en partijen.</string>
-  <string name="automaticLeaderboard" comment="An option when creating a broadcast to calculate a leaderboard automatically from the players involved. Example: https://lichess.org/broadcast/2023-london-chess-classic/round-9/5icayRCY">Automatisch scorebord</string>
-  <string name="automaticLeaderboardHelp" comment="An option when creating a broadcast to calculate a leaderboard automatically from the players involved. Example: https://lichess.org/broadcast/2023-london-chess-classic/round-9/5icayRCY">Bereken en toon een eenvoudig scorebord gebaseerd op de uitslagen</string>
+  <string name="automaticLeaderboard">Automatisch scorebord</string>
+  <string name="automaticLeaderboardHelp">Bereken en toon een eenvoudig scorebord gebaseerd op de uitslagen</string>
   <string name="replace">Optioneel: vervang spelersnamen, ratings en titels</string>
   <string name="replaceHelp">Eén regel per speler, geformatteerd zoals hieronder:
 Oorspronkelijke naam; Nieuwe naam; Nieuwe rating (optioneel); Nieuwe titel (optioneel)

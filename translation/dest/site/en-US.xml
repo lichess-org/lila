@@ -419,6 +419,7 @@ computer analysis, game chat and shareable URL.</string>
   <string name="blackCheckmatesInOneMove">Black to checkmate in one move</string>
   <string name="retry">Retry</string>
   <string name="reconnecting">Reconnecting</string>
+  <string name="noNetwork">Offline</string>
   <plurals name="nbFriendsOnline">
     <item quantity="one">%s friend online</item>
     <item quantity="other">%s friends online</item>
@@ -704,7 +705,8 @@ computer analysis, game chat and shareable URL.</string>
   <string name="keyNextBranch">Next branch</string>
   <string name="toggleVariationArrows">Toggle variation arrows</string>
   <string name="cyclePreviousOrNextVariation">Cycle previous/next variation</string>
-  <string name="toggleGlyphAnnotations">Toggle glyph annotations</string>
+  <string name="toggleGlyphAnnotations">Toggle move annotations</string>
+  <string name="togglePositionAnnotations">Toggle position annotations</string>
   <string name="variationArrowsInfo">Variation arrows let you navigate without using the move list.</string>
   <string name="playSelectedMove">play selected move</string>
   <string name="newTournament">New tournament</string>

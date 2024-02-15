@@ -8,6 +8,7 @@
   </plurals>
   <string name="liveBroadcasts">Live-Turnierübertragungen</string>
   <string name="newBroadcast">Neue Liveübertragung</string>
+  <string name="subscribedBroadcasts">Abonnierte Übertragungen</string>
   <string name="aboutBroadcasts">Über Übertragungen</string>
   <string name="noRoundsYet">Noch keine Runden.</string>
   <string name="howToUseLichessBroadcasts">Wie man Lichess-Übertragungen benutzt.</string>
@@ -40,8 +41,8 @@
   <string name="editRoundStudy">Rundenstudie bearbeiten</string>
   <string name="deleteTournament">Dieses Turnier löschen</string>
   <string name="definitivelyDeleteTournament">Lösche definitiv das gesamte Turnier, alle seine Runden und Partien.</string>
-  <string name="automaticLeaderboard" comment="An option when creating a broadcast to calculate a leaderboard automatically from the players involved. Example: https://lichess.org/broadcast/2023-london-chess-classic/round-9/5icayRCY">Automatische Rangliste</string>
-  <string name="automaticLeaderboardHelp" comment="An option when creating a broadcast to calculate a leaderboard automatically from the players involved. Example: https://lichess.org/broadcast/2023-london-chess-classic/round-9/5icayRCY">Berechne und zeige eine einfache Rangliste basierend auf den Spielergebnissen</string>
+  <string name="automaticLeaderboard">Automatische Rangliste</string>
+  <string name="automaticLeaderboardHelp">Berechne und zeige eine einfache Rangliste basierend auf den Spielergebnissen</string>
   <string name="replace">Optional: Spielernamen, Wertungen und Titel ersetzen</string>
   <string name="replaceHelp">Eine Zeile pro Spieler, wie folgt formatiert:
 Originalname; Ersatzname; optional Ersatzwertung; optional Ersatztitel

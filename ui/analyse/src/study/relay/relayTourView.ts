@@ -200,18 +200,20 @@ const roundStateIcon = (round: RelayRound) =>
 export function rounds(ctrl: StudyCtrl): VNode {
   const canContribute = ctrl.members.canContribute();
   const relay = ctrl.relay!;
+  const currentFrag = relay.tab() === 'overview' ? '' : `#${relay.tab()}`;
   return h(
     'div.study__relay__rounds',
     { hook: onInsert(el => scrollToInnerSelector(el, '.active')) },
     relay.data.rounds
-      .map(round =>
-        h('div', { key: round.id, class: { active: ctrl.data.id == round.id } }, [
-          h('a.link', { attrs: { href: relay.roundPath(round) } }, round.name),
+      .map(round => {
+        const roundFrag = !round.finished && !round.ongoing && currentFrag === '#games' ? '' : currentFrag;
+        return h('div', { key: round.id, class: { active: ctrl.data.id == round.id } }, [
+          h('a.link', { attrs: { href: `${relay.roundPath(round)}${roundFrag}` } }, round.name),
           roundStateIcon(round),
           canContribute &&
             h('a.act', { attrs: { ...dataIcon(licon.Gear), href: `/broadcast/round/${round.id}/edit` } }),
-        ]),
-      )
+        ]);
+      })
       .concat(
         canContribute
           ? [

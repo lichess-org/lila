@@ -49,17 +49,17 @@ object PgnFixtures:
   """
 
   val pgn6 = """
-  [Event "nt9's Study: Chapter 7"]
-  [Site "https://lichess.org/study/Q41XcI0B/JHnNE9Oi"]
-  [Result "*"]
-  [UTCDate "2023.05.23"]
-  [UTCTime "18:15:30"]
-  [Variant "Standard"]
-  [ECO "?"]
-  [Opening "?"]
-  [Annotator "https://lichess.org/@/nt9"]
-  [FEN "rnbqkbnr/pp1ppppp/2p5/8/3P1P2/8/PPP1P1PP/RNBQKBNR b KQkq - 0 2"]
-  [SetUp "1"]
+[Event "nt9's Study: Chapter 7"]
+[Site "https://lichess.org/study/Q41XcI0B/JHnNE9Oi"]
+[Result "*"]
+[UTCDate "2023.05.23"]
+[UTCTime "18:15:30"]
+[Variant "Standard"]
+[ECO "?"]
+[Opening "?"]
+[Annotator "https://lichess.org/@/nt9"]
+[FEN "rnbqkbnr/pp1ppppp/2p5/8/3P1P2/8/PPP1P1PP/RNBQKBNR b KQkq - 0 2"]
+[SetUp "1"]
 
 { custom position with Black to move }
   2... h5 3. b4

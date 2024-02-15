@@ -21,9 +21,9 @@ object form:
       moreCss = moreCss,
       moreJs = frag(jsModule("ublogForm"), captchaTag),
       title = s"${trans.ublog.xBlog.txt(user.username)} • ${trans.ublog.newPost.txt()}"
-    ) {
+    ):
       main(cls := "page-menu page-small")(
-        views.html.blog.bits.menu(none, "mine".some),
+        menu(Left(user.id)),
         div(cls := "page-menu__content box ublog-post-form")(
           standardFlash,
           boxTop(h1(trans.ublog.newPost())),
@@ -31,16 +31,15 @@ object form:
           inner(f, Left(user), captcha.some)
         )
       )
-    }
 
   def edit(post: UblogPost, f: Form[UblogPostData])(using ctx: PageContext) =
     views.html.base.layout(
       moreCss = moreCss,
       moreJs = jsModule("ublogForm"),
       title = s"${trans.ublog.xBlog.txt(titleNameOrId(post.created.by))} • ${post.title}"
-    ) {
+    ):
       main(cls := "page-menu page-small")(
-        views.html.blog.bits.menu(none, "mine".some),
+        menu(Left(post.created.by)),
         div(cls := "page-menu__content box ublog-post-form")(
           standardFlash,
           boxTop(
@@ -55,17 +54,14 @@ object form:
           postForm(
             cls    := "ublog-post-form__delete",
             action := routes.Ublog.delete(post.id)
-          )(
-            form3.action(
+          ):
+            form3.action:
               submitButton(
                 cls   := "button button-red button-empty confirm",
                 title := trans.ublog.deleteBlog.txt()
               )(trans.delete())
-            )
-          )
         )
       )
-    }
 
   private def image(post: UblogPost)(using ctx: PageContext) =
     div(cls := "ublog-image-edit", data("post-url") := routes.Ublog.image(post.id))(
@@ -81,12 +77,12 @@ object form:
               trans.ublog.safeToUseImages(),
               fragList(
                 List(
-                  "unsplash.com"        -> "https://unsplash.com",
-                  "creativecommons.org" -> "https://search.creativecommons.org",
-                  "pixabay.com"         -> "https://pixabay.com",
-                  "pexels.com"          -> "https://pexels.com",
-                  "piqsels.com"         -> "https://piqsels.com",
-                  "freeimages.com"      -> "https://freeimages.com"
+                  "unsplash.com"          -> "https://unsplash.com",
+                  "commons.wikimedia.org" -> "https://commons.wikimedia.org",
+                  "pixabay.com"           -> "https://pixabay.com",
+                  "pexels.com"            -> "https://pexels.com",
+                  "piqsels.com"           -> "https://piqsels.com",
+                  "freeimages.com"        -> "https://freeimages.com"
                 ).map: (name, url) =>
                   a(href := url, targetBlank)(name)
               )
@@ -112,7 +108,7 @@ object form:
   ) =
     postForm(
       cls    := "form3 ublog-post-form__main",
-      action := post.fold(_ => routes.Ublog.create, p => routes.Ublog.update(p.id.value))
+      action := post.fold(u => routes.Ublog.create(u.username), p => routes.Ublog.update(p.id.value))
     )(
       form3.globalError(form),
       post.toOption.map { p =>
@@ -133,12 +129,11 @@ object form:
           br,
           tips
         ).some
-      ) { field =>
+      ): field =>
         frag(
           form3.textarea(field)(),
-          div(id := "markdown-editor", attr("data-image-upload-url") := routes.Main.uploadImage("ublogBody"))
-        )
-      },
+          div(cls := "markdown-editor", attr("data-image-upload-url") := routes.Main.uploadImage("ublogBody"))
+        ),
       post.toOption match
         case None =>
           form3.group(form("topics"), frag(trans.ublog.selectPostTopics()))(
@@ -189,7 +184,7 @@ object form:
     p(
       a(
         dataIcon := licon.InfoCircle,
-        href     := routes.ContentPage.loneBookmark("blog-etiquette"),
+        href     := routes.Cms.lonePage("blog-etiquette"),
         cls      := "text",
         targetBlank
       )("Ranking your blog")
@@ -199,7 +194,7 @@ object form:
 
   def tips(using PageContext) = a(
     dataIcon := licon.InfoCircle,
-    href     := routes.ContentPage.loneBookmark("blog-tips"),
+    href     := routes.Cms.lonePage("blog-tips"),
     cls      := "text",
     targetBlank
   )(trans.ublog.blogTips())

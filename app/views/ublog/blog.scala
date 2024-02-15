@@ -27,23 +27,19 @@ object blog:
         st.title := title
       ).some,
       robots = netConfig.crawlable && blog.listed
-    ) {
+    ):
       main(cls := "page-menu")(
-        views.html.blog.bits.menu(none, (if ctx is user then "mine" else "community").some),
+        menu(Left(user.id)),
         div(cls := "page-menu__content box box-pad ublog-index")(
           boxTop(
             h1(trans.ublog.xBlog(userLink(user))),
             div(cls := "box__top__actions")(
-              if ctx is user then
-                frag(
-                  a(href := routes.Ublog.drafts(user.username))(trans.ublog.drafts()),
-                  postView.newPostLink
-                )
-              else
-                frag(
-                  isGranted(_.ModerateBlog) option tierForm(blog),
-                  views.html.site.bits.atomLink(routes.Ublog.userAtom(user.username))
-                )
+              blog.allows.moderate option tierForm(blog),
+              blog.allows.create option frag(
+                a(href := routes.Ublog.drafts(user.username))(trans.ublog.drafts()),
+                postView.newPostLink(user)
+              ),
+              views.html.site.bits.atomLink(routes.Ublog.userAtom(user.username))
             )
           ),
           standardFlash,
@@ -58,7 +54,6 @@ object blog:
             )
         )
       )
-    }
 
   def urlOfBlog(blog: UblogBlog): Call = urlOfBlog(blog.id)
   def urlOfBlog(blogId: UblogBlog.Id): Call = blogId match

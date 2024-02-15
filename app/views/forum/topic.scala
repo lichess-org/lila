@@ -45,7 +45,7 @@ object topic:
           ,
           p:
             trans.makeSureToRead:
-              strong(a(href := routes.ContentPage.loneBookmark("forum-etiquette"))(trans.theForumEtiquette()))
+              strong(a(href := routes.Cms.lonePage("forum-etiquette"))(trans.theForumEtiquette()))
         ),
         postForm(cls := "form3", action := routes.ForumTopic.create(categ.slug))(
           form3.group(form("name"), trans.subject())(form3.input(_)(autofocus)),
@@ -177,7 +177,7 @@ object topic:
               help = a(
                 dataIcon := licon.InfoCircle,
                 cls      := "text",
-                href     := routes.ContentPage.loneBookmark("forum-etiquette")
+                href     := routes.Cms.lonePage("forum-etiquette")
               )(
                 "Forum etiquette"
               ).some

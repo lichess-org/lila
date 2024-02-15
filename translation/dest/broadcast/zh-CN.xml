@@ -7,6 +7,7 @@
   </plurals>
   <string name="liveBroadcasts">赛事转播</string>
   <string name="newBroadcast">新实况转播</string>
+  <string name="subscribedBroadcasts">已订阅的转播</string>
   <string name="aboutBroadcasts">关于转播</string>
   <string name="noRoundsYet">尚未有任何棋局</string>
   <string name="howToUseLichessBroadcasts">如何使用Lichess转播</string>
@@ -37,8 +38,8 @@
   <string name="editRoundStudy">编辑该轮次的棋局研究</string>
   <string name="deleteTournament">删除该锦标赛</string>
   <string name="definitivelyDeleteTournament">确定删除整个锦标赛、所有轮次和其中所有比赛。</string>
-  <string name="automaticLeaderboard" comment="An option when creating a broadcast to calculate a leaderboard automatically from the players involved. Example: https://lichess.org/broadcast/2023-london-chess-classic/round-9/5icayRCY">自动生成排行榜</string>
-  <string name="automaticLeaderboardHelp" comment="An option when creating a broadcast to calculate a leaderboard automatically from the players involved. Example: https://lichess.org/broadcast/2023-london-chess-classic/round-9/5icayRCY">根据对局结果计算并显示一个简单的排行榜</string>
+  <string name="automaticLeaderboard">自动生成排行榜</string>
+  <string name="automaticLeaderboardHelp">根据对局结果计算并显示一个简单的排行榜</string>
   <string name="replace">可选：替换选手的姓名，等级分和头衔</string>
   <string name="replaceHelp">每行一位选手，格式如下：
 原始的名字; 替换的名字; 可选的替换的等级分; 可选的替换的头衔
