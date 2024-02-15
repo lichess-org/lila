@@ -136,7 +136,10 @@ private object bits {
     div(cls := "time_mode_config optional_config")(
       div(cls := "label_select")(
         renderLabel(form("timeMode"), trans.timeControl()),
-        renderSelect(form("timeMode"), translatedTimeModeChoices)
+        renderSelect(
+          form("timeMode"),
+          if (ctx.isAuth) translatedTimeModeChoices else anonTranslatedTimeModeChoices
+        )
       ),
       if (ctx.blind)
         frag(
@@ -193,7 +196,7 @@ private object bits {
         if (ctx.blind)
           div(cls := "days_choice")(
             renderLabel(form("days"), trans.daysPerTurn()),
-            renderSelect(form("days"), corresDaysChoices)
+            renderSelect(form("days"), translatedCorresDaysChoices)
           )
         else
           div(cls := "days_choice slider")(
