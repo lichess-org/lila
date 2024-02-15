@@ -93,6 +93,7 @@ object communication {
                   case PublicSource.Team(id)       => views.html.team.bits.link(id)
                   case PublicSource.Watcher(id) => a(href := routes.Round.watcher(id, "sente"))("Game #", id)
                   case PublicSource.Study(id)   => a(href := routes.Study.show(id))("Study #", id)
+                  case PublicSource.Unknown(source) => div(s"Unknown: $source")
                 },
                 " ",
                 line.text
