@@ -3,6 +3,8 @@ package views.html.base
 import play.api.i18n.Lang
 import play.api.libs.json.Json
 
+import org.joda.time.DateTime
+
 import lila.api.{ AnnounceStore, Context }
 import lila.app.templating.Environment._
 import lila.app.ui.ScalatagsTemplate._
@@ -230,6 +232,7 @@ object layout {
 
   private val dataVapid         = attr("data-vapid")
   private val dataUser          = attr("data-user")
+  private val dataDate          = attr("data-date")
   private val dataSocketDomains = attr("data-socket-domains")
   private val dataPreload       = attr("data-preload")
   private val dataI18n          = attr("data-i18n")
@@ -329,6 +332,7 @@ object layout {
           dataDev           := (!isProd).option("true"),
           dataVapid         := vapidPublicKey,
           dataUser          := ctx.userId,
+          dataDate          := (ctx.req.path == "/").option(showEnglishDayMonth(DateTime.now)),
           dataSoundSet      := ctx.currentSoundSet.toString,
           dataSocketDomains := socketDomains.mkString(","),
           dataAssetUrl      := assetBaseUrl,

@@ -11,7 +11,7 @@ import lila.i18n.{ I18nKeys => trans }
 import lila.rating.{ Perf, PerfType }
 import lila.user.{ Title, User }
 
-trait UserHelper { self: I18nHelper with StringHelper with NumberHelper =>
+trait UserHelper { self: I18nHelper with StringHelper with NumberHelper with DateHelper =>
 
   def ratingProgress(progress: Int): Option[Frag] =
     if (progress > 0) goodTag(cls := "rp")(progress).some
@@ -271,7 +271,7 @@ trait UserHelper { self: I18nHelper with StringHelper with NumberHelper =>
   def describeUser(user: User)(implicit lang: Lang) = {
     val name      = user.titleUsername
     val nbGames   = user.count.game
-    val createdAt = org.joda.time.format.DateTimeFormat forStyle "M-" print user.createdAt
+    val createdAt = showEnglishDate(user.createdAt)
     val currentRating = user.perfs.bestPerf ?? { case (pt, perf) =>
       s" Current ${pt.trans} rating: ${perf.intRating}."
     }
