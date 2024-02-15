@@ -54,7 +54,7 @@
     }
   }
   .time {
-    @extend %roboto, %box-shadow;
+    @extend %roboto;
     background: $c-bg-box;
     font-size: 2.5em;
     font-weight: bold;
@@ -88,7 +88,7 @@
     @extend %box-radius-top;
   }
   &-bottom .time {
-    @extend %box-radius-bottom;
+    @extend %box-radius-bottom, %box-shadow;
   }
   &-correspondence .time {
     font-size: 1.6em;

@@ -27,6 +27,8 @@ $mq-col3: $mq-col3-uniboard;
       'main'
       'table'
       'side';
+    grid-gap: 0;
+    row-gap: 2vmin;
   }
   &--map {
     grid-template-areas:
@@ -34,10 +36,6 @@ $mq-col3: $mq-col3-uniboard;
       'main';
   }
   grid-gap: 3vmin;
-  &--run {
-    grid-gap: 0;
-    row-gap: 2vmin;
-  }
 
   @include breakpoint($mq-col2) {
     &--run {

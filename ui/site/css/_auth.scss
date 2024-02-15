@@ -12,6 +12,13 @@
   .button {
     width: 100%;
     padding: 1rem;
+    &.frameless {
+      padding: 0.5rem;
+    }
+    .spinner {
+      width: 26px;
+      height: unset;
+    }
   }
 
   .alternative {
