@@ -184,4 +184,19 @@ lichess.load.then(() => {
       );
     });
   }, 800);
+
+  let lastScrollY = 0;
+  const header = document.getElementById('top')!;
+
+  window.addEventListener('scroll', () => {
+    if (window.scrollY === lastScrollY) return;
+    else if (window.scrollY > lastScrollY) {
+      header.classList.remove('show');
+      header.classList.add('hide');
+    } else {
+      header.classList.remove('hide');
+      header.classList.add('show');
+    }
+    lastScrollY = window.scrollY <= 0 ? 0 : window.scrollY;
+  });
 });

@@ -19,6 +19,7 @@ body > header {
   max-width: 1800px;
   margin: 0 auto;
   user-select: none;
+  transition: transform 0.3s ease-in-out;
   @include breakpoint($mq-site-header-tall) {
     max-width: unset;
     position: fixed;
@@ -36,6 +37,14 @@ body > header {
       background: $c-bg-page;
       border-bottom: 1px solid $c-border;
     }
+  }
+
+  &.hide {
+    transform: translateY(-100%);
+  }
+
+  &.show {
+    transform: translateY(0);
   }
 }
 
