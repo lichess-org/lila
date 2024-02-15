@@ -150,6 +150,7 @@ final class RelayApi(
           "tier"            -> tour.tier,
           "autoLeaderboard" -> tour.autoLeaderboard.some,
           "players"         -> tour.players,
+          "teams"           -> tour.teams,
           "spotlight"       -> tour.spotlight,
           "ownerId"         -> tour.ownerId.some
         )

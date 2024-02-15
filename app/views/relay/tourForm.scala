@@ -107,17 +107,30 @@ object tourForm:
         20000.localize
       ).some
     )(form3.textarea(_)(rows := 10)),
+    form3.checkbox(
+      form("autoLeaderboard"),
+      automaticLeaderboard(),
+      help = automaticLeaderboardHelp().some
+    ),
     form3.split(
-      form3.checkbox(
-        form("autoLeaderboard"),
-        automaticLeaderboard(),
-        help = automaticLeaderboardHelp().some,
-        half = true
-      ),
       form3.group(
         form("players"),
         replace(),
         help = replaceHelp().some,
+        half = true
+      )(form3.textarea(_)(rows := 3)),
+      form3.group(
+        form("teams"),
+        "Optional: assign players to teams",
+        help = lila.common.String.html
+          .nl2br("""One line per player, formatted as such:
+Team name; Player name
+Example:
+Offerspill;Magnus Carlsen
+Stavanger;M. Fiskaaen
+
+Source PGN tags WhiteTeam and BlackTeam are also used.""")
+          .some,
         half = true
       )(form3.textarea(_)(rows := 3))
     ),

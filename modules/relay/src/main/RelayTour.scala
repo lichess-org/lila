@@ -19,6 +19,7 @@ case class RelayTour(
     spotlight: Option[RelayTour.Spotlight] = None,
     autoLeaderboard: Boolean = true,
     players: Option[RelayPlayers] = None,
+    teams: Option[RelayTeams] = None,
     image: Option[PicfitImage.Id] = None
 ):
   inline def id = _id
