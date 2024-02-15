@@ -51,7 +51,7 @@ final class SeekApi(
       val filtered = seeks.filter { seek =>
         seek.user.id == user.id || biter.canJoin(seek, user)
       }
-      noDupsFor(user, filtered) take maxPerPage.value
+      noDupsFor(user, filtered) take maxHard.value
     }
 
   private def noDupsFor(user: LobbyUser, seeks: List[Seek]) =
@@ -119,6 +119,7 @@ private object SeekApi {
       val coll: Coll,
       val archiveColl: Coll,
       val maxPerPage: MaxPerPage,
+      val maxHard: Max,
       val maxPerUser: Max
   )
 }

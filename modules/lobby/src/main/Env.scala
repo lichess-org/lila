@@ -30,6 +30,7 @@ final class Env(
     coll = db(CollName("seek")),
     archiveColl = db(CollName("seek_archive")),
     maxPerPage = MaxPerPage(13),
+    maxHard = Max(48),
     maxPerUser = Max(5)
   )
 
