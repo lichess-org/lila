@@ -38,6 +38,7 @@ function mostPlayedOpponentsTable(data: OpponentResult, noarg: TransNoArg): VNod
         'a.table-col1.user-link.ulpt',
         {
           attrs: { href: '/@/' + key },
+          class: { small: key.length >= 16 },
         },
         key
       )

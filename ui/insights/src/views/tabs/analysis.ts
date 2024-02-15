@@ -61,7 +61,7 @@ function accuracyByMoveNumber(data: AnalysisResult, flt: InsightFilter, trans: T
         },
       },
     ],
-    opts: { trans, percentage: true },
+    opts: { trans, percentage: true, autoSkip: true },
   });
 }
 

@@ -19,7 +19,10 @@ export default function (ctrl: InsightCtrl): VNode {
 }
 
 function side(ctrl: InsightCtrl): VNode {
-  return h('aside.page-menu__menu', filter(ctrl));
+  return h('aside.page-menu__menu', [
+    h('h2.title-username', { class: { small: ctrl.username.length > 11 } }, ctrl.username),
+    filter(ctrl),
+  ]);
 }
 
 function tabsView(ctrl: InsightCtrl): VNode {

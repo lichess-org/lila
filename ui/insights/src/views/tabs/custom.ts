@@ -4,6 +4,7 @@ import { MyChartDataset, barChart } from '../charts';
 import { bind } from 'common/snabbdom';
 import { CustomResult, InsightCustom } from '../../types';
 import { accent, accuracy, bright, green, primary, red, total } from '../colors';
+import { translateStatusName } from '../util';
 
 export function custom(ctrl: InsightCtrl, res: CustomResult): VNode {
   const data = res.data,
@@ -109,8 +110,12 @@ function groupChart(
       };
     });
 
+  const labels =
+    custom.x === 'status'
+      ? data.labels.map(l => translateStatusName(l, trans).split(' '))
+      : data.labels.map(l => trans.noargOrCapitalize(l as any).split(' '));
   return barChart('custom-chart-' + custom.x + '-' + custom.y, key, {
-    labels: data.labels.map(l => trans.noargOrCapitalize(l as any).split(' ')),
+    labels: labels,
     datasets: parsedDatasets,
     total: !countMapping.includes(custom.y)
       ? parsedDatasets.filter(d => !!d.tooltip.total).reduce((a, b) => a + b.tooltip.total!, 0)

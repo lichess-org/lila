@@ -34,6 +34,7 @@
   @import 'custom';
 
   min-height: calc(98vh - 4rem - var(--site-header-height) - var(--site-header-margin));
+  height: calc(100% - 4rem);
   max-width: 100vw;
   position: relative;
   &.loading {
@@ -104,7 +105,6 @@
 
   .big-number-with-desc {
     text-align: center;
-    align-self: center;
     .big-number {
       font-size: 3rem;
       font-weight: bold;
@@ -159,6 +159,8 @@
     display: flex;
     height: 32px;
     padding: 1px 0;
+    overflow: hidden;
+    border-radius: 32px;
     div {
       display: inline-block;
       height: 100%;
@@ -206,24 +208,27 @@
       }
     }
     .table-col1 {
-      flex: 1;
+      flex: 2;
       display: flex;
       justify-content: center;
       align-items: center;
       font-weight: bold;
       text-align: center;
+      &.small {
+        font-size: 0.7rem;
+      }
     }
     .table-col2 {
-      flex: 1;
+      flex: 2;
       display: flex;
       justify-content: center;
       align-items: center;
       text-align: center;
     }
     .table-col3 {
-      flex: 3;
+      flex: 5;
       @include breakpoint($mq-small) {
-        flex: 4;
+        flex: 7;
       }
       display: flex;
       justify-content: center;

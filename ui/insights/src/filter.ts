@@ -7,7 +7,7 @@ export function defaultFilter(isBot: boolean): InsightFilter {
     color: 'both',
     rated: 'both',
     speeds: speeds,
-    includeComputer: 'no',
+    computer: 'no',
     custom: {
       type: 'game',
       x: 'color',
@@ -25,5 +25,5 @@ export const allOptions = {
   color: ['both', 'sente', 'gote'],
   rated: ['both', 'yes', 'no'],
   speeds: speeds,
-  includeComputer: ['yes', 'no'],
+  computer: ['both', 'yes', 'no'],
 };

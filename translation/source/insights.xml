@@ -26,10 +26,10 @@
   <string name="accuracyByMoveNumber">Accuracy by game turn</string>
   <string name="accuracyByPiece">Accuracy by piece</string>
   <string name="times" comment="Move and drop times">Times</string>
-  <string name="totalTimeSpentThinking">Total time spent thinking</string>
-  <string name="averageTimePerGame">Average time per game</string>
+  <string name="totalTimeSpentThinking">Total time spent on player's turn</string>
+  <string name="averageTimePerGame">Average time spent on player's turn per game</string>
   <string name="averageTimePerMoveOrDrop">Average time per move or drop</string>
-  <string name="timeSpentThinkingByPiece">Time spent thinking by piece</string>
+  <string name="timeSpentThinkingByPiece">Time spent by piece</string>
   <string name="movesAndDropsByPiece">Moves and drops by piece</string>
   <string name="capturesByPiece">Captured pieces</string>
   <string name="promotionsByPiece">Promoted pieces</string>
@@ -37,9 +37,9 @@
   <string name="openingMoves">Opening moves</string>
   <string name="insightsUpdate">Insights are refreshed every few hours.</string>
   <string name="accuracy">Accuracy</string>
-  <string name="nbOfMovesAndDrops">Number of moves and drops</string>
-  <string name="nbOfMovesAndDropsPerGame">Number of moves and drops per game</string>
-  <string name="nbOfCaptures">Number of captured pieces</string>
+  <string name="nbOfMovesAndDrops">Number of moves and drops made by player</string>
+  <string name="nbOfMovesAndDropsPerGame">Number of moves and drops made by player per game</string>
+  <string name="nbOfCaptures">Number of pieces captured</string>
   <string name="nbOfPromotions">Number of promoted pieces</string>
   <string name="opponentRating">Opponent rating</string>
   <string name="opponentRatingDiff">Opponent rating difference</string>

@@ -18,7 +18,7 @@ export function moves(ctrl: InsightCtrl, data: MovesResult): VNode {
     movesStatistics(data, trans.noarg),
     section(trans.noarg('movesAndDropsByPiece'), movesAndDropByRoleChart(data, ctrl.filter, trans)),
     section(trans.noarg('capturesByPiece'), capturesByRoleChart(data, ctrl.filter, trans)),
-    section(trans.noarg('mostPlayedOpenings'), mostPlayedMovesTable(ctrl, data)),
+    section(trans.noarg('mostPlayedOpenings'), mostPlayedMovesTable(ctrl, ctrl.filter, data)),
   ]);
 }
 
@@ -29,7 +29,7 @@ function movesStatistics(data: MovesResult, noarg: TransNoArg): VNode {
     h('div.third-wrap', [
       h('div.big-number-with-desc.total', [h('div.big-number', total), h('span.desc', noarg('nbOfMovesAndDrops'))]),
       h('div.big-number-with-desc.total-per-game', [
-        h('div.big-number', +(total / data.nbOfGames).toFixed(1)),
+        h('div.big-number', data.nbOfGames ? +(total / data.nbOfGames).toFixed(1) : 0),
         h('span.desc', noarg('nbOfMovesAndDropsPerGame')),
       ]),
       h('div.moves-drops', [
@@ -114,9 +114,9 @@ function capturesByRoleChart(data: MovesResult, flt: InsightFilter, trans: Trans
   });
 }
 
-function mostPlayedMovesTable(ctrl: InsightCtrl, data: MovesResult): VNode {
+function mostPlayedMovesTable(ctrl: InsightCtrl, flt: InsightFilter, data: MovesResult): VNode {
   const noarg = ctrl.trans.noarg;
-  const variant: VariantKey = 'standard';
+  const variant: VariantKey = flt.variant;
   const moves: Record<string, WinRate> = data.winrateByFirstMove[ctrl.mostPlayedMovesColor];
   return h('div.winrateTable-wrap', [
     colorSelector(ctrl),

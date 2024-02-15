@@ -18,8 +18,8 @@ final class Insights(env: Env) extends LilaController(env) {
       val isMe       = normalized == me.id
       OptionFuResult(if (isMe) fuccess(me.some) else env.user.repo named normalized) { user =>
         val shareFu =
-          if (isMe) fuccess(true)
-          else env.pref.api.getPref(user.id, pref => (pref.insightsShare || isGranted(_.SeeInsights)))
+          if (isMe || isGranted(_.SeeInsights)) fuccess(true)
+          else env.pref.api.getPref(user.id, pref => pref.insightsShare)
         shareFu map { share =>
           if (share) Ok(html.insights(user, path))
           else Ok(html.insights.privated(user))

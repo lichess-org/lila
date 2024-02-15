@@ -18,7 +18,7 @@ export interface InsightFilter {
   color: Color | 'both';
   rated: 'yes' | 'no' | 'both';
   speeds: Speed[];
-  includeComputer: 'yes' | 'no';
+  computer: 'yes' | 'no' | 'both';
   custom: InsightCustom;
 }
 export type InsightFilterWithoutCustom = Omit<InsightFilter, 'custom'>;
@@ -81,8 +81,10 @@ export interface TimesResult extends Result {
   avgTimePerMove: number;
   avgTimePerDrop: number;
   avgTimePerGame: number;
-  avgTimeByMoveRole: PartialRecord<Role, Centis>;
-  avgTimeByDropRole: PartialRecord<Role, Centis>;
+  sumOfTimesByMoveRole: PartialRecord<Role, Centis>;
+  sumOfTimesByDropRole: PartialRecord<Role, Centis>;
+  nbOfMovesByRole: CounterObj<Role>;
+  nbOfDropsByRole: CounterObj<Role>;
 }
 export interface AnalysisResult extends Result {
   accuracy: Accuracy;
@@ -121,29 +123,22 @@ export interface ClockConfig {
 
 export type Usi = string;
 
-export enum Outcome {
-  Win,
-  Draw,
-  Loss,
-}
-
 export enum Status {
-  Checkmate = 30,
-  Resign = 31,
-  Stalemate = 32,
-  Timeout = 33,
-  Draw = 34,
-  Outoftime = 35,
-  Cheat = 36,
-  NoStart = 37,
-  UnknownFinish = 38,
-  TryRule = 39,
-  PerpetualCheck = 40,
-  Impasse27 = 41,
-  RoyalsLost = 42,
-  BareKing = 43,
-  Repetition = 44,
-  SpecialVariantEnd = 45,
+  checkmate = 30,
+  resign = 31,
+  stalemate = 32,
+  timeout = 33,
+  draw = 34,
+  outoftime = 35,
+  cheat = 36,
+  noStart = 37,
+  unknownFinish = 38,
+  perpetualCheck = 40,
+  impasse27 = 41,
+  royalsLost = 42,
+  bareKing = 43,
+  repetition = 44,
+  specialVariantEnd = 45,
 }
 
 export const speeds: Speed[] = ['ultraBullet', 'bullet', 'blitz', 'rapid', 'classical', 'correspondence'];

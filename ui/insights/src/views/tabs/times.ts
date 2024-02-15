@@ -13,15 +13,15 @@ export function times(ctrl: InsightCtrl, data: TimesResult): VNode {
     h('section.padding', [
       h('div.third-wrap', [
         h('div.big-number-with-desc.total', [
-          h('div.big-number', seconds(data.totalTime)),
+          h('div.big-number', secondsToString(data.totalTime)),
           h('span.desc', noarg('totalTimeSpentThinking')),
         ]),
         h('div.big-number-with-desc.game', [
-          h('div.big-number', seconds(data.avgTimePerGame)),
+          h('div.big-number', secondsToString(data.avgTimePerGame)),
           h('span.desc', noarg('averageTimePerGame')),
         ]),
         h('div.big-number-with-desc.move-drop', [
-          h('div.big-number', seconds(data.avgTimePerMoveAndDrop)),
+          h('div.big-number', secondsToString(data.avgTimePerMoveAndDrop)),
           h('span.desc', noarg('averageTimePerMoveOrDrop')),
         ]),
       ]),
@@ -30,17 +30,23 @@ export function times(ctrl: InsightCtrl, data: TimesResult): VNode {
   ]);
 }
 
-function seconds(seconds: number): VNode {
-  const useMinutes = seconds > 3600;
-  if (useMinutes) return h('div', [fixed(seconds / 60, 1), h('span.tiny', 'm')]);
+function secondsToString(seconds: number): VNode {
+  const useMinutes = seconds > 3600, // 1 hour
+    useHours = seconds > 43200; // 12 hours
+  if (useHours) return h('div', [fixed(seconds / 3600, 1), h('span.tiny', 'h')]);
+  else if (useMinutes) return h('div', [fixed(seconds / 60, 0), h('span.tiny', 'm')]);
   else return h('div', [Math.round(seconds), h('span.tiny', 's')]);
 }
 
 function timesByRoleChart(data: TimesResult, flt: InsightFilter, trans: Trans): VNode {
-  const variant = 'standard',
-    moves = data.avgTimeByMoveRole,
-    drops = data.avgTimeByDropRole,
+  const variant = flt.variant,
+    moves = data.sumOfTimesByMoveRole,
+    movesCnt = data.nbOfMovesByRole,
+    drops = data.sumOfTimesByDropRole,
+    dropsCnt = data.nbOfDropsByRole,
     roles = allRoles(variant),
+    totals = roles.map(key => (moves[key] || 0) + (drops[key] || 0)),
+    totalsCnt = roles.map(key => (movesCnt[key] || 0) + (dropsCnt[key] || 0)),
     totalMoves = roles.reduce((a, b) => a + (moves[b] || 0), 0),
     totalDrops = roles.reduce((a, b) => a + (drops[b] || 0), 0);
 
@@ -52,28 +58,34 @@ function timesByRoleChart(data: TimesResult, flt: InsightFilter, trans: Trans): 
       {
         label: trans.noarg('moves'),
         backgroundColor: primary,
-        data: roles.map(key => moves[key] || 0),
+        data: roles.map(key => Math.round(moves[key] || 0)),
         tooltip: {
           valueMap,
+          counts: roles.map(key => movesCnt[key] || 0),
+          average: roles.map(key => (data.nbOfMovesByRole[key] ? (moves[key] || 0) / data.nbOfMovesByRole[key]! : 0)),
           total: totalMoves,
         },
       },
       {
         label: trans.noarg('drops'),
         backgroundColor: accent,
-        data: roles.map(key => drops[key] || 0),
+        data: roles.map(key => Math.round(drops[key] || 0)),
         tooltip: {
           valueMap,
+          counts: roles.map(key => dropsCnt[key] || 0),
+          average: roles.map(key => (data.nbOfDropsByRole[key] ? (drops[key] || 0) / data.nbOfDropsByRole[key]! : 0)),
           total: totalDrops,
         },
       },
       {
         label: trans.noarg('total'),
         backgroundColor: total,
-        data: roles.map(key => (moves[key] || 0) + (drops[key] || 0)),
+        data: totals.map(n => Math.round(n)),
         hidden: true,
         tooltip: {
           valueMap,
+          counts: totalsCnt,
+          average: roles.map((_, i) => (totalsCnt[i] ? (totals[i] || 0) / totalsCnt[i]! : 0)),
         },
       },
     ],

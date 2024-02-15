@@ -18,31 +18,21 @@ export function smallWinrateChart(winrate: WinRate): VNode {
     lossPercent = toPercentage(winrate[2], totalGames);
   return h('div.small-winrate-wrap', [
     h('div.small-winrate-info-wrap', [
-      h('span.win', winPercent + '%'),
-      winrate[1] ? h('span.draw', drawPercent + '%') : null,
-      h('span.loss', lossPercent + '%'),
+      winPercent ? h('span.win', winPercent + '%') : null,
+      drawPercent ? h('span.draw', drawPercent + '%') : null,
+      lossPercent ? h('span.loss', lossPercent + '%') : null,
     ]),
     horizontalBar([winPercent, drawPercent, lossPercent], ['win', 'draw', 'loss']),
   ]);
 }
 
 export function horizontalBar(numbers: number[], cls: string[] = []): VNode {
-  const noFirst = numbers[0] === 0,
-    noLast = numbers[numbers.length - 1] === 0;
   return h(
     'div.simple-horizontal-bar',
     numbers.map((n, i) =>
       h('div' + (cls[i] ? `.${cls[i]}` : ''), {
         style: {
           width: n + '%',
-          borderRadius:
-            n === 100
-              ? '10px'
-              : i === 0 || (noFirst && i === 1)
-                ? '10px 0 0 10px'
-                : i === numbers.length - 1 || (noLast && i === numbers.length - 2)
-                  ? '0 10px 10px 0'
-                  : '0',
         },
       })
     )
@@ -76,16 +66,20 @@ function tableContent(records: Record<string, WinRate>, fn: (key: string) => VNo
   });
 }
 
-export function bigNumberWithDesc(nb: number, desc: string, cls: string = '', affix: string = ''): VNode {
+export function bigNumberWithDesc(nb: number | string, desc: string, cls: string = '', affix: string = ''): VNode {
   const node = affix ? h('div', [nb, h('span.tiny', affix)]) : nb;
   return h('div.big-number-with-desc' + (cls ? '.' + cls : ''), [h('div.big-number', node), h('span.desc', desc)]);
 }
 
 export function translateStatus(status: Status, trans: Trans): string {
+  const key = Status[status];
+  return translateStatusName(key, trans);
+}
+
+export function translateStatusName(statusName: string, trans: Trans): string {
   const noarg = trans.noarg;
 
-  const key = Status[status].toLowerCase();
-  switch (key) {
+  switch (statusName) {
     case 'checkmate':
     case 'resign':
     case 'stalemate':
@@ -95,19 +89,20 @@ export function translateStatus(status: Status, trans: Trans): string {
     case 'royalsLost':
     case 'bareKing':
     case 'repetition':
-      return noarg(key);
+      return noarg(statusName);
     case 'timeout':
+      return trans('xLeftTheGame', 'X');
     case 'outoftime':
       return noarg('timeOut');
     case 'impasse27':
       return noarg('impasse');
-    case 'tryRule':
     case 'unknownFinish':
+      return noarg('unknown');
     case 'specialVariantEnd':
       return noarg('variant');
     case 'noStart':
-      return trans('xDidntMove', 'x');
+      return trans('xDidntMove', 'X');
     default:
-      return trans.noargOrCapitalize(key);
+      return trans.noargOrCapitalize(statusName);
   }
 }

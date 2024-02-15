@@ -4,6 +4,7 @@ import { h, VNode } from 'snabbdom';
 import { bg, fontClear, fontDimmer } from './colors';
 import { _DeepPartialObject } from 'chart.js/dist/types/utils';
 import { Options } from 'chartjs-plugin-datalabels/types/options';
+import { fixed } from '../util';
 
 const isLight = document.body.classList.contains('light');
 
@@ -42,6 +43,7 @@ export interface MyChartDataset {
   tooltip: {
     valueMap: (value: number | string) => string; // 'Average: 12.3'
     counts?: number[]; // absolute
+    average?: number[]; // absolute
     total?: number; // percent
   };
 }
@@ -50,9 +52,11 @@ export interface MyChartOptions {
   trans: Trans;
   percentage?: boolean;
   valueAffix?: string;
+  autoSkip?: boolean;
 }
 
 export function barChart(id: string, key: string, data: MyChartData): VNode {
+  const labelsLength = data.labels?.length || 0;
   return chart<'bar'>(id, key, true, {
     type: 'bar',
     data: barData(data),
@@ -60,11 +64,11 @@ export function barChart(id: string, key: string, data: MyChartData): VNode {
     options: {
       responsive: true,
       maintainAspectRatio: false,
-      scales: scales(data.opts),
+      scales: scales(data.opts, labelsLength),
       plugins: {
         legend: legend(data),
         tooltip: tooltip(data),
-        datalabels: datalabels(data),
+        datalabels: datalabels(data, labelsLength),
       },
     },
   });
@@ -76,7 +80,7 @@ export function lineChart(id: string, key: string, data: MyChartData): VNode {
     data: lineData(data),
     options: {
       responsive: true,
-      scales: scales(data.opts),
+      scales: scales(data.opts, data.labels?.length || 0),
       plugins: {
         legend: legend(data),
         tooltip: tooltip(data),
@@ -138,7 +142,7 @@ function legend(data: MyChartData): _DeepPartialObject<LegendOptions<'bar'>> {
   };
 }
 
-function scales(opts: MyChartOptions) {
+function scales(opts: MyChartOptions, nbOfLabels: number) {
   const affix = opts.valueAffix || (opts.percentage ? '%' : ''),
     suggestedMax = opts.percentage ? 100 : undefined;
   return {
@@ -148,7 +152,15 @@ function scales(opts: MyChartOptions) {
       },
       ticks: {
         color: fontClear(isLight),
+        autoSkip: !!opts.autoSkip,
+        maxRotation: 90,
+        minRotation: nbOfLabels >= 20 && !opts.autoSkip ? 90 : 0,
+        callback: function (value: any) {
+          const label = (this as any).getLabelForValue(value);
+          return nbOfLabels >= 14 && Array.isArray(label) ? [label.join(' ')] : label;
+        },
         font: {
+          size: nbOfLabels > 20 ? 10 : 12,
           weight: 'bold' as const,
         },
       },
@@ -164,13 +176,14 @@ function scales(opts: MyChartOptions) {
           return value + affix;
         },
       },
-      min: 0,
+      suggestedMin: 0,
       suggestedMax: suggestedMax,
     },
   };
 }
 
-function datalabels(data: MyChartData): _DeepPartialObject<Options> {
+function datalabels(data: MyChartData, labelsLength: number): _DeepPartialObject<Options> {
+  if (labelsLength >= 12) return { display: false };
   const maxValue = data.datasets.reduce((acc, cur) => {
     const max = Math.max(...(cur.data as number[]));
     return max > acc ? max : acc;
@@ -220,7 +233,7 @@ function tooltip<T extends 'bar' | 'line'>(data: MyChartData): _DeepPartialObjec
         const res: string[] = [],
           dataset = data.datasets[context.datasetIndex],
           index = context.dataIndex,
-          d = +dataset.data[index].toFixed(2);
+          d = fixed(dataset.data[index], 2);
 
         const dWithAffix = d + (data.opts.valueAffix || (data.opts.percentage ? '%' : ''));
         res.push(dataset.tooltip.valueMap(dWithAffix));
@@ -228,10 +241,16 @@ function tooltip<T extends 'bar' | 'line'>(data: MyChartData): _DeepPartialObjec
         const countData = dataset.tooltip.counts?.[index];
         if (countData !== undefined) res.push(`${data.opts.trans('count')}: ${countData}`);
 
-        const percentageOfDataset = dataset.tooltip.total ? Math.round((d / dataset.tooltip.total) * 100) : undefined;
+        const averageData = dataset.tooltip.average?.[index];
+        if (averageData !== undefined)
+          res.push(
+            `${data.opts.trans('average')}: ${fixed(averageData, 2) + (data.opts.valueAffix || (data.opts.percentage ? '%' : ''))}`
+          );
+
+        const percentageOfDataset = dataset.tooltip.total ? fixed((d / dataset.tooltip.total) * 100, 1) : undefined;
         if (percentageOfDataset) res.push(`${dataset.label}: ${percentageOfDataset}%`);
 
-        const percentageOfTotal = data.total ? Math.round((d / data.total) * 100) : undefined;
+        const percentageOfTotal = data.total ? fixed((d / data.total) * 100, 1) : undefined;
         if (percentageOfTotal) res.push(`${data.opts.trans('total')}: ${percentageOfTotal}%`);
 
         return res;

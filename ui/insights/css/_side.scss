@@ -1,4 +1,16 @@
 aside {
+  h2.title-username {
+    display: none;
+    padding: 0.5rem;
+    text-align: center;
+    font-weight: bold;
+    &.small {
+      @include fluid-size('font-size', 10px, 24px);
+    }
+    @include breakpoint($mq-small) {
+      display: block;
+    }
+  }
   .filter {
     min-width: 200px;
     padding: 0 1rem;

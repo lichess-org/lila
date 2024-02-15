@@ -1,10 +1,11 @@
-import { InsightData, InsightFilter, InsightOpts, Redraw, Tab, tabs } from './types';
+import { InsightData, InsightFilter, InsightOpts, Redraw, Tab, tabs, variants } from './types';
 import { defaultFilter, filterOptions } from './filter';
 import { idFromSpeed, idFromVariant } from './util';
 
 const li = window.lishogi;
 
 export default class InsightCtrl {
+  userId: string;
   username: string;
   usernameHash: string;
   endpoint: string;
@@ -28,6 +29,7 @@ export default class InsightCtrl {
     readonly redraw: Redraw
   ) {
     this.username = opts.username;
+    this.userId = this.username.toLowerCase();
     this.usernameHash = opts.usernameHash;
     this.endpoint = opts.endpoint;
     this.isBot = opts.isBot;
@@ -57,7 +59,7 @@ export default class InsightCtrl {
 
   updateUrl(): void {
     const q = this.queryString(this.activeTab, false);
-    window.history.replaceState('', '', `/insights/${this.username}/${this.activeTab}${q ? `?${q}` : ''}`);
+    window.history.replaceState('', '', `/insights/${this.userId}/${this.activeTab}${q ? `?${q}` : ''}`);
   }
 
   changeTab(tab: Tab): void {
@@ -75,7 +77,8 @@ export default class InsightCtrl {
     for (const key of keys) {
       let val: any = params.get(key);
       if (val) {
-        if (key === 'since' || key === 'variant') val = parseInt(val);
+        if (key === 'since') val = parseInt(val);
+        else if (key === 'variant') val = variants[(parseInt(val) || 1) - 1];
         else if (key === 'speeds')
           val = val
             .split('')
@@ -113,6 +116,7 @@ export default class InsightCtrl {
         return response.json();
       })
       .then(data => {
+        console.info(data);
         this.data[tab] = data;
         this.redraw();
       })
@@ -127,7 +131,7 @@ export default class InsightCtrl {
     const params: Record<string, string> = {},
       df = defaultFilter(false);
     if (forApi) {
-      params.u = this.username;
+      params.u = this.userId;
       params.tmz = Intl.DateTimeFormat().resolvedOptions().timeZone;
     }
 
@@ -135,7 +139,7 @@ export default class InsightCtrl {
     if (this.filter.variant !== df.variant) params.variant = idFromVariant(this.filter.variant).toString();
     if (this.filter.color !== df.color) params.color = this.filter.color;
     if (this.filter.rated !== df.rated) params.rated = this.filter.rated;
-    if (this.filter.includeComputer !== df.includeComputer) params.includeComputer = this.filter.includeComputer;
+    if (this.filter.computer !== df.computer) params.computer = this.filter.computer;
     if (this.filter.speeds.length < df.speeds.length)
       params.speeds = this.filter.speeds.map((s: Speed) => idFromSpeed(s)).join('');
 
@@ -156,16 +160,20 @@ export default class InsightCtrl {
     } else this.filter.custom[key] = value;
 
     this.updateUrl();
+    this.data.custom = undefined;
+    this.redraw();
     this.fetchData('custom');
   }
 
-  updateFilter(flt: Partial<InsightFilter>): void {
+  updateFilter(flt: Partial<InsightFilter>, debounce: boolean = false): void {
     if (flt.color && flt.color !== 'both') this.mostPlayedMovesColor = flt.color;
 
     Object.assign(this.filter, flt);
     this.updateUrl();
     this.resetData();
-    this.fetchData(this.activeTab);
+    this.redraw();
+    if (debounce) window.lishogi.debounce(() => this.fetchData(this.activeTab), 1500)();
+    else this.fetchData(this.activeTab);
   }
 
   resetData(): void {

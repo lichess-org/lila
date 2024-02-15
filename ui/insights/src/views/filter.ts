@@ -37,7 +37,9 @@ export function filter(ctrl: InsightCtrl): VNode {
         options(ctrl, 'rated', allOptions.rated, (s: 'both' | 'yes' | 'no') =>
           s === 'both' ? `${noarg('yes')}/${noarg('no')}` : noarg(s)
         ),
-        options(ctrl, 'includeComputer', allOptions.includeComputer, noarg),
+        options(ctrl, 'computer', allOptions.computer, (s: 'both' | 'yes' | 'no') =>
+          s === 'both' ? `${noarg('yes')}/${noarg('no')}` : noarg(s)
+        ),
         options(ctrl, 'speeds', allOptions.speeds, ctrl.trans.noargOrCapitalize, true),
       ]
     ),
@@ -65,7 +67,7 @@ function options(
     );
   }
   return h('div.options.key-' + key, [
-    h('h3', key === 'includeComputer' ? ctrl.trans('computer') : ctrl.trans(key as any)),
+    h('h3', key === 'computer' ? ctrl.trans('computer') : ctrl.trans(key as any)),
     h(
       'select',
       {
@@ -87,7 +89,7 @@ function options(
                 if (view.checked && !ctrl.filter.speeds.includes(view.value)) ctrl.filter.speeds.push(view.value);
                 else if (!view.checked && ctrl.filter.speeds.includes(view.value))
                   ctrl.filter.speeds = ctrl.filter.speeds.filter(s => s !== view.value);
-                ctrl.updateFilter({});
+                ctrl.updateFilter({}, true);
               },
             });
         }),

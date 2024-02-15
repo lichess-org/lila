@@ -6,4 +6,7 @@
       }
     }
   }
+  .winrate-table-row .table-col1 {
+    text-transform: uppercase; // we don't have usernames but ids - all lowercase, so try to hide it
+  }
 }

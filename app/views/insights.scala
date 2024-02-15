@@ -22,7 +22,7 @@ object insights {
         embedJsUnsafe(s"""$$(function() {
 LishogiInsights(document.getElementById('insights-app'), ${safeJsonValue(
             Json.obj(
-              "username" -> user.id,
+              "username" -> user.username,
               "usernameHash" -> MessageDigest
                 .getInstance("MD5")
                 .digest(
@@ -80,7 +80,8 @@ LishogiInsights(document.getElementById('insights-app'), ${safeJsonValue(
       trans.bareKing,
       trans.timeOut,
       trans.xDidntMove,
-      trans.cheat,
+      trans.xLeftTheGame,
+      trans.unknown,
       trans.yes,
       trans.no,
       trans.computer,
@@ -126,6 +127,7 @@ LishogiInsights(document.getElementById('insights-app'), ${safeJsonValue(
       trans.insights.opponentRating,
       trans.insights.opponentRatingDiff,
       trans.insights.totalTimeOfMovesAndDrops,
+      trans.insights.movesAndDrops,
       trans.insights.nbOfGames,
       // pieces
       trans.pieces.pawn,
