@@ -1,4 +1,4 @@
-import { defined, prop, Prop, scrollToInnerSelector } from 'common';
+import { prop, Prop, scrollToInnerSelector } from 'common';
 import * as licon from 'common/licon';
 import { bind, dataIcon, iconTag, looseH as h } from 'common/snabbdom';
 import { VNode } from 'snabbdom';
@@ -6,14 +6,7 @@ import AnalyseCtrl from '../ctrl';
 import { StudySocketSend } from '../socket';
 import { StudyChapterEditForm } from './chapterEditForm';
 import { StudyChapterNewForm } from './chapterNewForm';
-import {
-  LocalPaths,
-  StudyChapter,
-  StudyChapterConfig,
-  StudyChapterMeta,
-  TagArray,
-  TeamName,
-} from './interfaces';
+import { LocalPaths, StudyChapter, StudyChapterConfig, StudyChapterMeta, TagArray } from './interfaces';
 import StudyCtrl from './studyCtrl';
 
 export default class StudyChaptersCtrl {
@@ -44,26 +37,6 @@ export default class StudyChaptersCtrl {
   looksNew = () => {
     const cs = this.list();
     return cs.length == 1 && cs[0].name == 'Chapter 1';
-  };
-  teams = (): Set<TeamName> =>
-    new Set(
-      this.list()
-        .map(c => c.teams)
-        .filter(defined)
-        .flat(),
-    );
-  teamPairings = (): [[TeamName, TeamName], StudyChapterMeta[]][] => {
-    const res: [[TeamName, TeamName], StudyChapterMeta[]][] = [];
-    this.list()
-      .filter(c => c.teams)
-      .forEach(c => {
-        const teams = c.teams!;
-        const sorted: [TeamName, TeamName] = teams[0] < teams[1] ? teams : [teams[1], teams[0]];
-        const i = res.findIndex(([[t0, t1]]) => t0 === sorted[0] && t1 === sorted[1]);
-        if (i > -1) res[i][1].push(c);
-        else res.push([sorted, [c]]);
-      });
-    return res;
   };
 }
 

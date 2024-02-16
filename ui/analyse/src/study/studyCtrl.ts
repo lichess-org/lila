@@ -157,7 +157,6 @@ export default class StudyCtrl {
         this.redrawAndUpdateAddressBar,
         this.members,
         this.data.chapter,
-        this.chapters,
         this.looksNew(),
       );
     this.multiBoard = new MultiBoardCtrl(

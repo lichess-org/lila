@@ -1,0 +1,13 @@
+.relay-tour {
+  &__team__vs {
+    @extend %flex-between-nowrap;
+    gap: $block-gap;
+  }
+  &__team {
+    @extend %flex-between-nowrap;
+    flex: 1;
+    &:last-child {
+      flex-direction: row-reverse;
+    }
+  }
+}

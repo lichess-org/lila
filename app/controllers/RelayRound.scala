@@ -156,6 +156,17 @@ final class RelayRound(
                     )
   }
 
+  def teamsView(id: RelayRoundId) = Open:
+    env.relay.api
+      .byIdWithStudy(id)
+      .flatMap:
+        case None                                  => notFoundJson()
+        case Some(rt) if !rt.study.canView(ctx.me) => forbiddenJson()
+        case Some(rt) =>
+          env.study.chapterRepo idAndTagsByStudyId rt.relay.studyId map: chapters =>
+            val table = lila.relay.RelayTeams.makeTable(chapters)
+            JsonOk(lila.relay.RelayTeams.tableJson(table))
+
   private def WithRoundAndTour(@nowarn ts: String, @nowarn rs: String, id: RelayRoundId)(
       f: RoundModel.WithTour => Fu[Result]
   )(using ctx: Context): Fu[Result] =

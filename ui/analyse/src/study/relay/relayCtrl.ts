@@ -1,11 +1,13 @@
-import { RelayData, LogEvent, RelaySync, RelayRound } from './interfaces';
+import { RelayData, LogEvent, RelaySync, RelayRound, RoundId } from './interfaces';
 import { StudyChapter, StudyChapterRelay } from '../interfaces';
-import StudyChaptersCtrl, { isFinished } from '../studyChapters';
+import { isFinished } from '../studyChapters';
 import { StudyMemberCtrl } from '../studyMembers';
 import { AnalyseSocketSend } from '../../socket';
 import { Prop, Toggle, prop, toggle } from 'common';
+import RelayTeams from './relayTeams';
+import { Redraw } from 'common/snabbdom';
 
-export const relayTabs = ['overview', 'games', 'schedule', 'leaderboard'] as const;
+export const relayTabs = ['overview', 'games', 'teams', 'schedule', 'leaderboard'] as const;
 export type RelayTab = (typeof relayTabs)[number];
 
 export default class RelayCtrl {
@@ -14,15 +16,15 @@ export default class RelayCtrl {
   clockInterval?: number;
   tourShow: Toggle;
   tab: Prop<RelayTab>;
+  teams?: RelayTeams;
 
   constructor(
-    public id: string,
+    readonly id: RoundId,
     public data: RelayData,
     readonly send: AnalyseSocketSend,
-    readonly redraw: () => void,
+    readonly redraw: Redraw,
     readonly members: StudyMemberCtrl,
     chapter: StudyChapter,
-    private readonly chapters: StudyChaptersCtrl,
     looksNew: boolean,
   ) {
     this.applyChapterRelay(chapter, chapter.relay);
@@ -30,7 +32,7 @@ export default class RelayCtrl {
     const locationTab = location.hash.replace(/^#/, '') as RelayTab;
     const initialTab = relayTabs.includes(locationTab) ? locationTab : looksNew ? 'overview' : 'games';
     this.tab = prop<RelayTab>(initialTab);
-    console.log(this.chapters.teamPairings());
+    this.teams = new RelayTeams(id, redraw);
   }
 
   setSync = (v: boolean) => {

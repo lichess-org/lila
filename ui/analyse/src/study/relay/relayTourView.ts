@@ -10,6 +10,7 @@ import { defined, scrollToInnerSelector } from 'common';
 import StudyCtrl from '../studyCtrl';
 import { toggle } from 'common/controls';
 import * as xhr from 'common/xhr';
+import { teamsView } from './relayTeams';
 
 export default function (ctrl: AnalyseCtrl): VNode | undefined {
   const study = ctrl.study;
@@ -30,6 +31,7 @@ export default function (ctrl: AnalyseCtrl): VNode | undefined {
   const tabs = h('div.tabs-horiz.relay-tour__tabs', { attrs: { role: 'tablist' } }, [
     makeTab('overview', 'Overview'),
     !study.looksNew() && makeTab('games', 'Games'),
+    relay.teams && makeTab('teams', 'Teams'),
     makeTab('schedule', 'Schedule'),
     relay.data.leaderboard ? makeTab('leaderboard', 'Leaderboard') : undefined,
   ]);
@@ -38,6 +40,8 @@ export default function (ctrl: AnalyseCtrl): VNode | undefined {
       ? overview(relay, study, ctrl)
       : relay.tab() == 'games'
       ? games(relay, study, ctrl)
+      : relay.tab() == 'teams'
+      ? teams(relay, ctrl)
       : relay.tab() == 'schedule'
       ? schedule(relay, ctrl)
       : leaderboard(relay, ctrl);
@@ -128,6 +132,11 @@ const overview = (relay: RelayCtrl, study: StudyCtrl, ctrl: AnalyseCtrl) => {
 const games = (relay: RelayCtrl, study: StudyCtrl, ctrl: AnalyseCtrl) => [
   h('div.relay-tour__text.relay-tour__box', [header(relay, ctrl), multiBoardView(study.multiBoard, study)]),
 ];
+
+const teams = (relay: RelayCtrl, ctrl: AnalyseCtrl) =>
+  relay.teams
+    ? [h('div.relay-tour__text.relay-tour__box', [header(relay, ctrl), teamsView(relay.teams)])]
+    : [];
 
 const header = (relay: RelayCtrl, ctrl: AnalyseCtrl) => {
   const d = relay.data;

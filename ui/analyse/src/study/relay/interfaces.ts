@@ -6,8 +6,10 @@ export interface RelayData {
   isSubscribed?: boolean; // undefined if anon
 }
 
+export type RoundId = string;
+
 export interface RelayRound {
-  id: string;
+  id: RoundId;
   name: string;
   slug: string;
   finished?: boolean;
