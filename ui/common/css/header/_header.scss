@@ -19,7 +19,6 @@ body > header {
   max-width: 1800px;
   margin: 0 auto;
   user-select: none;
-  transition: transform 0.3s ease-in-out;
 
   @media (prefers-reduced-motion: no-preference) and (min-height: 600px) {
     // sticky header properties
@@ -28,6 +27,8 @@ body > header {
     top: 0;
     width: 100%;
     padding: 0 var(--site-header-sticky-padding);
+    transition: transform 0.3s ease-in-out;
+    transform: translateY(0);
 
     @if $theme == 'transp' {
       @include back-blur(6px);
@@ -35,6 +36,16 @@ body > header {
     } @else {
       background: $c-bg-page;
       border-bottom: 1px solid $c-border;
+    }
+
+    #topnav,
+    .dropdown {
+      opacity: 1;
+      visibility: visible;
+      pointer-events: auto;
+      transition:
+        opacity 0.3s,
+        visibility 0s linear 0s;
     }
 
     &.hide {
@@ -48,20 +59,6 @@ body > header {
         transition:
           opacity 0.3s,
           visibility 0s linear 0.3s;
-      }
-    }
-
-    &.show {
-      transform: translateY(0);
-
-      #topnav,
-      .dropdown {
-        opacity: 1;
-        visibility: visible;
-        pointer-events: auto;
-        transition:
-          opacity 0.3s,
-          visibility 0s linear 0s;
       }
     }
   }
