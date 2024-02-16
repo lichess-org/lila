@@ -107,10 +107,17 @@ object tourForm:
         20000.localize
       ).some
     )(form3.textarea(_)(rows := 10)),
-    form3.checkbox(
-      form("autoLeaderboard"),
-      automaticLeaderboard(),
-      help = automaticLeaderboardHelp().some
+    form3.split(
+      form3.checkbox(
+        form("autoLeaderboard"),
+        automaticLeaderboard(),
+        help = automaticLeaderboardHelp().some
+      ),
+      form3.checkbox(
+        form("teamTable"),
+        "Team tournament",
+        help = frag("Show a team leaderboard. Requires WhiteTeam and BlackTeam PGN tags.").some
+      )
     ),
     form3.split(
       form3.group(
@@ -128,8 +135,7 @@ Team name; Player name
 Example:
 Offerspill;Magnus Carlsen
 Stavanger;M. Fiskaaen
-
-Source PGN tags WhiteTeam and BlackTeam are also used.""")
+By default the PGN tags WhiteTeam and BlackTeam are used.""")
           .some,
         half = true
       )(form3.textarea(_)(rows := 3))

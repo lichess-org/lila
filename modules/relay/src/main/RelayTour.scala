@@ -18,6 +18,7 @@ case class RelayTour(
     syncedAt: Option[Instant],    // last time a round was synced
     spotlight: Option[RelayTour.Spotlight] = None,
     autoLeaderboard: Boolean = true,
+    teamTable: Boolean = false,
     players: Option[RelayPlayers] = None,
     teams: Option[RelayTeams] = None,
     image: Option[PicfitImage.Id] = None

@@ -32,6 +32,7 @@ export interface RelayTour {
   official?: boolean;
   markup?: string;
   image?: string;
+  teamTable?: boolean;
 }
 
 export interface RelaySync {

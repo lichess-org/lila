@@ -24,6 +24,7 @@ final class RelayTourForm:
       "markdown"        -> optional(cleanText(maxLength = 20_000).into[Markdown]),
       "tier"            -> optional(number(min = RelayTour.Tier.NORMAL, max = RelayTour.Tier.BEST)),
       "autoLeaderboard" -> boolean,
+      "teamTable"       -> boolean,
       "players"   -> optional(of(formatter.stringFormatter[RelayPlayers](_.sortedText, RelayPlayers(_)))),
       "teams"     -> optional(of(formatter.stringFormatter[RelayTeams](_.sortedText, RelayTeams(_)))),
       "spotlight" -> optional(spotlightMapping)
@@ -42,6 +43,7 @@ object RelayTourForm:
       markup: Option[Markdown],
       tier: Option[RelayTour.Tier],
       autoLeaderboard: Boolean,
+      teamTable: Boolean,
       players: Option[RelayPlayers],
       teams: Option[RelayTeams],
       spotlight: Option[RelayTour.Spotlight]
@@ -55,6 +57,7 @@ object RelayTourForm:
           markup = markup,
           tier = tier ifTrue Granter(_.Relay),
           autoLeaderboard = autoLeaderboard,
+          teamTable = teamTable,
           players = players,
           teams = teams,
           spotlight = spotlight.filterNot(_.isEmpty)
@@ -73,6 +76,7 @@ object RelayTourForm:
         createdAt = nowInstant,
         syncedAt = none,
         autoLeaderboard = autoLeaderboard,
+        teamTable = teamTable,
         players = players,
         teams = teams,
         spotlight = spotlight.filterNot(_.isEmpty)
@@ -87,6 +91,7 @@ object RelayTourForm:
         markup = tour.markup,
         tier = tour.tier,
         autoLeaderboard = tour.autoLeaderboard,
+        teamTable = tour.teamTable,
         players = tour.players,
         teams = tour.teams,
         spotlight = tour.spotlight

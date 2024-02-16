@@ -154,6 +154,7 @@ final class RelayApi(
           "markup"          -> tour.markup,
           "tier"            -> tour.tier,
           "autoLeaderboard" -> tour.autoLeaderboard.some,
+          "teamTable"       -> tour.teamTable.some,
           "players"         -> tour.players,
           "teams"           -> tour.teams,
           "spotlight"       -> tour.spotlight,
