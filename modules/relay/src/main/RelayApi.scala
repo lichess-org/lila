@@ -46,17 +46,22 @@ final class RelayApi(
         )
       .map(_ flatMap readRoundWithTour)
 
-  def byIdAndContributor(id: RelayRoundId)(using me: Me) =
-    byIdWithStudy(id).map:
+  def byIdAndContributor(id: RelayRoundId)(using me: Me): Fu[Option[WithTour]] =
+    byIdWithTourAndStudy(id).map:
       _.collect:
         case RelayRound.WithTourAndStudy(relay, tour, study) if study.canContribute(me) =>
           relay withTour tour
 
-  def byIdWithStudy(id: RelayRoundId): Fu[Option[RelayRound.WithTourAndStudy]] =
+  def byIdWithTourAndStudy(id: RelayRoundId): Fu[Option[RelayRound.WithTourAndStudy]] =
     byIdWithTour(id) flatMapz { case WithTour(relay, tour) =>
       studyApi.byId(relay.studyId) dmap2:
         RelayRound.WithTourAndStudy(relay, tour, _)
     }
+
+  def byIdWithStudy(id: RelayRoundId): Fu[Option[RelayRound.WithStudy]] =
+    byId(id) flatMapz: relay =>
+      studyApi.byId(relay.studyId) dmap2:
+        RelayRound.WithStudy(relay, _)
 
   def byTourOrdered(tour: RelayTour): Fu[List[WithTour]] =
     roundRepo.byTourOrdered(tour).dmap(_.map(_ withTour tour))

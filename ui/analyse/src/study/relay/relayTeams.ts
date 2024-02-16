@@ -22,7 +22,9 @@ interface TeamRow {
   teams: [TeamWithPoints, TeamWithPoints];
   games: TeamGame[];
 }
-type TeamTable = TeamRow[];
+type TeamTable = {
+  table: TeamRow[];
+};
 
 export default class RelayTeams {
   teams?: TeamTable;
@@ -44,7 +46,7 @@ export const teamsView = (ctrl: RelayTeams) =>
   ctrl.teams &&
   h(
     'div.relay-tour__teams',
-    ctrl.teams.map(row =>
+    ctrl.teams.table.map(row =>
       h(
         'div.relay-tour__team__vs',
         row.teams.map(team =>
