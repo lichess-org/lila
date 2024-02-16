@@ -45,8 +45,8 @@ $mq-hover-no: hover none;
 
 $mq-main-margin: $mq-small;
 
-$mq-topnav-visible: $mq-medium;
-$mq-topnav-hidden: $mq-not-medium;
+$mq-topnav-visible: min-width (1022px);
+$mq-topnav-hidden: max-width (1022px); // for user WWWWWWWWWWWWWWWWWWWW at 100% font size
 
 $mq-site-header-tall: $mq-tall;
 

@@ -1,42 +1,53 @@
 .site-title {
-  @extend %base-font;
-
+  @extend %base-font, %flex-center-nowrap;
+  padding: 0 1rem;
+  margin-#{$start-direction}: 0.5rem;
+  gap: 0.75rem;
   font-size: 25px;
-  line-height: #{$site-header-short-height - 3};
+  transform: translateY(-3px);
   text-shadow: $text-shadow;
-  white-space: nowrap;
-  margin: 0 0.5rem;
-  display: none;
+  color: $c-font;
 
-  @include breakpoint($mq-medium) {
-    display: block;
+  @include breakpoint($mq-not-x-small) {
+    display: none;
   }
 
   @include breakpoint($mq-topnav-hidden) {
-    /* move away from hamburger */
     margin-#{$start-direction}: calc(0.5rem + #{$site-header-height});
   }
 
   @include breakpoint($mq-site-header-tall) {
     font-size: 30px;
-    line-height: #{$site-header-tall-height - 3};
   }
 
-  @include breakpoint($mq-topnav-visible $mq-site-header-tall) {
-    line-height: #{$site-header-tall-height - 5};
-    margin: 0 1rem 0 1.5rem;
+  &:hover {
+    color: $c-primary;
+
+    span {
+      color: $c-primary-dim;
+    }
   }
 
-  a {
-    color: $c-font;
-    text-decoration: none;
+  .site-name {
+    display: none;
+  }
+  .site-icon {
+    font-size: larger;
+    display: block;
+  }
 
-    &:hover {
-      color: $c-primary;
+  @media (min-width: 1180px) {
+    .site-name {
+      display: block;
+    }
+    .site-icon {
+      display: none;
+    }
+  }
 
-      span {
-        color: $c-primary-dim;
-      }
+  @media (min-width: 1365px) {
+    .site-icon {
+      display: block;
     }
   }
 

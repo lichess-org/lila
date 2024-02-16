@@ -394,16 +394,15 @@ object layout:
       header(id := "top")(
         div(cls := "site-title-nav")(
           !ctx.isAppealUser option topnavToggle,
-          h1(cls := "site-title")(
+          a(cls := "site-title", href := langHref("/"))(
             if ctx.kid.yes then span(title := trans.kidMode.txt(), cls := "kiddo")(":)")
             else ctx.isBot option botImage,
-            a(href := langHref("/"), env.mode == play.api.Mode.Prod option (dataIcon := licon.Horsey))(
-              env.mode != play.api.Mode.Prod option siteNameFrag
-            )
+            div(cls := "site-icon", dataIcon := licon.Horsey),
+            div(cls := "site-name")(siteNameFrag)
           ),
           !ctx.isAppealUser option frag(
             topnav(),
-            ctx.kid.no && !zenable option a(cls := "site-title-nav__donate")(
+            ctx.kid.no && !ctx.me.exists(_.isPatron) && !zenable option a(cls := "site-title-nav__donate")(
               href := (if ctx.me.isEmpty then routes.Auth.login else routes.Plan.index)
             )(trans.patron.donate())
           ),

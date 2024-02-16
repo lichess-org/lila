@@ -90,12 +90,13 @@
   #top {
     position: relative;
     max-width: 1800px;
-    --site-header-sticky-padding: 0;
     top: unset;
     padding: 0;
     width: unset;
     background: unset;
     border-bottom: unset;
+    transform: unset;
+    --site-header-sticky-padding: 0;
   }
   #main-wrap {
     margin-top: #{$site-header-margin};

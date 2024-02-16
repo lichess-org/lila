@@ -20,31 +20,34 @@ body > header {
   margin: 0 auto;
   user-select: none;
   transition: transform 0.3s ease-in-out;
-  @include breakpoint($mq-site-header-tall) {
+
+  @media (prefers-reduced-motion: no-preference) and (min-height: 600px) {
+    // sticky header properties
     max-width: unset;
     position: fixed;
     top: 0;
     width: 100%;
     padding: 0 var(--site-header-sticky-padding);
+
     @if $theme == 'transp' {
       background: linear-gradient(
         to bottom,
         rgba(0, 0, 0, 1) 0%,
-        rgba(0, 0, 0, 0.8) calc(50px),
+        rgba(0, 0, 0, 0.8) 84%,
         rgba(0, 0, 0, 0) 100%
       );
     } @else {
       background: $c-bg-page;
       border-bottom: 1px solid $c-border;
     }
-  }
 
-  &.hide {
-    transform: translateY(-100%);
-  }
+    &.hide {
+      transform: translateY(-100%);
+    }
 
-  &.show {
-    transform: translateY(0);
+    &.show {
+      transform: translateY(0);
+    }
   }
 }
 
@@ -70,8 +73,9 @@ body > header {
     margin: 0 1rem;
     text-transform: uppercase;
     line-height: $site-header-height;
-    @include breakpoint($mq-not-medium) {
-      margin-#{$start-direction}: 64px;
+
+    @include breakpoint($mq-not-x-small) {
+      margin-#{$start-direction}: calc($site-header-height + 4px);
     }
   }
 }
