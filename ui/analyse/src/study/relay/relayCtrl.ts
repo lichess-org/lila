@@ -1,5 +1,5 @@
 import { RelayData, LogEvent, RelaySync, RelayRound, RoundId } from './interfaces';
-import { StudyChapter, StudyChapterRelay } from '../interfaces';
+import { ChapterId, StudyChapter, StudyChapterRelay } from '../interfaces';
 import { isFinished } from '../studyChapters';
 import { StudyMemberCtrl } from '../studyMembers';
 import { AnalyseSocketSend } from '../../socket';
@@ -26,13 +26,14 @@ export default class RelayCtrl {
     readonly members: StudyMemberCtrl,
     chapter: StudyChapter,
     looksNew: boolean,
+    setChapter: (id: ChapterId) => void,
   ) {
     this.applyChapterRelay(chapter, chapter.relay);
     this.tourShow = toggle((location.pathname.match(/\//g) || []).length < 5);
     const locationTab = location.hash.replace(/^#/, '') as RelayTab;
     const initialTab = relayTabs.includes(locationTab) ? locationTab : looksNew ? 'overview' : 'games';
     this.tab = prop<RelayTab>(initialTab);
-    this.teams = new RelayTeams(id, redraw);
+    this.teams = new RelayTeams(id, setChapter, () => this.roundPath(), redraw);
   }
 
   setSync = (v: boolean) => {

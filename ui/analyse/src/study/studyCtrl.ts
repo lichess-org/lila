@@ -33,6 +33,7 @@ import {
   TagArray,
   StudyChapterRelay,
   StudyTour,
+  ChapterId,
 } from './interfaces';
 import GamebookPlayCtrl from './gamebook/gamebookPlayCtrl';
 import { DescriptionCtrl } from './description';
@@ -158,6 +159,7 @@ export default class StudyCtrl {
         this.members,
         this.data.chapter,
         this.looksNew(),
+        (id: ChapterId) => this.setChapter(id),
       );
     this.multiBoard = new MultiBoardCtrl(
       this.data.id,

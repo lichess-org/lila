@@ -1,13 +1,56 @@
 .relay-tour {
-  &__team__vs {
-    @extend %flex-between-nowrap;
-    gap: $block-gap;
-  }
-  &__team {
-    @extend %flex-between-nowrap;
-    flex: 1;
-    &:last-child {
-      flex-direction: row-reverse;
+  &__team-match {
+    border-top: $border;
+    &__teams,
+    &__game {
+      @extend %flex-center-nowrap;
+      > * {
+        flex: 0 0 43%;
+        &:nth-child(2) {
+          flex: 0 0 14%;
+        }
+      }
+    }
+    &__teams {
+      @extend %metal;
+      border-bottom: $border;
+      padding: 0.5em 1em;
+      > * {
+        text-align: center;
+      }
+    }
+    &__team {
+      padding: 0.5em 1em;
+      &__points {
+        @extend %flex-around;
+        points {
+          font-weight: bold;
+        }
+        vs {
+          font-style: italic;
+        }
+      }
+    }
+    &__game {
+      @extend %roboto;
+      &:nth-child(even) {
+        background: $c-bg-zebra;
+      }
+      color: $c-font;
+      &:hover {
+        background: mix($c-bg-box, $c-link, 90%);
+        color: $c-font-clearer;
+      }
+      &__status {
+        padding: 0.4em 0;
+        text-align: center;
+        border: $border;
+        border-width: 0 1px;
+      }
+      &__player {
+        @extend %flex-between-nowrap;
+        padding: 0.4em 2em;
+      }
     }
   }
 }
