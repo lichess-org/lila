@@ -28,7 +28,6 @@ body > header {
     width: 100%;
     padding: 0 var(--site-header-sticky-padding);
     transition: transform 0.3s ease-in-out;
-    transform: translateY(0);
 
     @if $theme == 'transp' {
       @include back-blur(6px);
