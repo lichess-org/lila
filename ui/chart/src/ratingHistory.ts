@@ -272,6 +272,7 @@ export function initModule({ data, singlePerfName }: Opts) {
       if (min) btnClick(Math.max(startDate.valueOf(), endDate.subtract(min.duration).valueOf()));
       this.classList.add('active');
     });
+    chart.zoomScale('x', { min: initial.valueOf(), max: endDate.valueOf() });
   }
 }
 
