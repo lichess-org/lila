@@ -30,12 +30,8 @@ body > header {
     padding: 0 var(--site-header-sticky-padding);
 
     @if $theme == 'transp' {
-      background: linear-gradient(
-        to bottom,
-        rgba(0, 0, 0, 1) 0%,
-        rgba(0, 0, 0, 0.8) 84%,
-        rgba(0, 0, 0, 0) 100%
-      );
+      @include back-blur(6px);
+      background: rgba(0, 0, 0, 0.6);
     } @else {
       background: $c-bg-page;
       border-bottom: 1px solid $c-border;
@@ -43,10 +39,30 @@ body > header {
 
     &.hide {
       transform: translateY(-100%);
+
+      #topnav,
+      .dropdown {
+        opacity: 0;
+        visibility: hidden;
+        pointer-events: none;
+        transition:
+          opacity 0.3s,
+          visibility 0s linear 0.3s;
+      }
     }
 
     &.show {
       transform: translateY(0);
+
+      #topnav,
+      .dropdown {
+        opacity: 1;
+        visibility: visible;
+        pointer-events: auto;
+        transition:
+          opacity 0.3s,
+          visibility 0s linear 0s;
+      }
     }
   }
 }

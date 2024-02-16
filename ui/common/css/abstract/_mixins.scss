@@ -97,6 +97,14 @@
     border-bottom: unset;
     transform: unset;
     --site-header-sticky-padding: 0;
+
+    #topnav,
+    .dropdown {
+      opacity: unset;
+      visibility: unset;
+      pointer-events: unset;
+      transition: unset;
+    }
   }
   #main-wrap {
     margin-top: #{$site-header-margin};

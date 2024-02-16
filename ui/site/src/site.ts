@@ -188,14 +188,14 @@ lichess.load.then(() => {
     const header = document.getElementById('top')!;
 
     window.addEventListener('scroll', () => {
-      if (window.scrollY > lastScrollY) {
+      if (window.scrollY > lastScrollY + 10) {
         header.classList.remove('show');
         header.classList.add('hide');
-      } else if (window.scrollY < lastScrollY) {
+      } else if (window.scrollY <= Math.max(lastScrollY - 20, 0)) {
         header.classList.remove('hide');
         header.classList.add('show');
-      }
-      lastScrollY = window.scrollY < 0 ? 0 : window.scrollY;
+      } else return;
+      lastScrollY = Math.max(0, window.scrollY);
     });
   }, 800);
 });

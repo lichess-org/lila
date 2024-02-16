@@ -192,6 +192,10 @@
     }
   }
 
+  .piece .list {
+    overflow: auto;
+  }
+
   .board .zoom {
     display: none;
 

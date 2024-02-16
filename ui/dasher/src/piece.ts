@@ -2,6 +2,7 @@ import { h, VNode } from 'snabbdom';
 import * as xhr from 'common/xhr';
 import { header, Close } from './util';
 import { bind, Redraw } from 'common/snabbdom';
+import { elementScrollBarWidth } from 'common/scroll';
 
 type Piece = string;
 
@@ -38,10 +39,14 @@ export class PieceCtrl {
 
 export function view(ctrl: PieceCtrl): VNode {
   const d = ctrl.dimensionData();
-
+  const maxHeight = window.innerHeight - 150; // safari vh brokenness
   return h('div.sub.piece.' + ctrl.dimension(), [
     header(ctrl.trans.noarg('pieceSet'), () => ctrl.close()),
-    h('div.list', d.list.map(pieceView(d.current, ctrl.set, ctrl.dimension() == 'd3'))),
+    h(
+      'div.list',
+      { attrs: { style: `max-height:${maxHeight}px;` } },
+      d.list.map(pieceView(d.current, ctrl.set, ctrl.dimension() == 'd3')),
+    ),
   ]);
 }
 
@@ -53,17 +58,18 @@ function pieceImage(t: Piece, is3d: boolean) {
   return `piece/${t}/wN.svg`;
 }
 
-const pieceView = (current: Piece, set: (t: Piece) => void, is3d: boolean) => (t: Piece) =>
-  h(
+const pieceView = (current: Piece, set: (t: Piece) => void, is3d: boolean) => (t: Piece) => {
+  const pieceSize = (225 - elementScrollBarWidth()) / 3;
+  return h(
     'button.no-square',
     {
-      attrs: { title: t, type: 'button' },
+      attrs: { title: t, type: 'button', style: `width: ${pieceSize}px; height: ${pieceSize}px` },
       hook: bind('click', () => set(t)),
       class: { active: current === t },
     },
     [h('piece', { attrs: { style: `background-image:url(${lichess.asset.url(pieceImage(t, is3d))})` } })],
   );
-
+};
 function applyPiece(t: Piece, list: Piece[], is3d: boolean) {
   if (is3d) {
     $('body').removeClass(list.join(' ')).addClass(t);
