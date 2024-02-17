@@ -1,160 +1,90 @@
 .v-kyotoshogi piece.pawn.sente,
-      .sg-wrap[data-variant='kyotoshogi'] piece.pawn.sente,
       .v-kyotoshogi .sg-wrap.orientation-sente piece.pawn.sente,
-      .sg-wrap.orientation-sente[data-variant='kyotoshogi'] piece.pawn.sente,
       .v-kyotoshogi .sg-wrap.orientation-gote piece.pawn.gote,
-      .sg-wrap.orientation-gote[data-variant='kyotoshogi'] piece.pawn.gote,
       .v-kyotoshogi .hand-bottom piece.pawn.gote,
-      .sg-wrap[data-variant='kyotoshogi'] .hand-bottom piece.pawn.gote,
-      .main-v-kyotoshogi .spare-bottom piece.pawn {background-image:url('/assets/piece/Kyo_Intl/0FU.svg')!important;}
+      .spare-bottom.v-kyotoshogi piece.pawn {background-image:url('/assets/piece/Kyo_Intl/0FU.svg')!important;}
 .v-kyotoshogi piece.silver.sente,
-      .sg-wrap[data-variant='kyotoshogi'] piece.silver.sente,
       .v-kyotoshogi .sg-wrap.orientation-sente piece.silver.sente,
-      .sg-wrap.orientation-sente[data-variant='kyotoshogi'] piece.silver.sente,
       .v-kyotoshogi .sg-wrap.orientation-gote piece.silver.gote,
-      .sg-wrap.orientation-gote[data-variant='kyotoshogi'] piece.silver.gote,
       .v-kyotoshogi .hand-bottom piece.silver.gote,
-      .sg-wrap[data-variant='kyotoshogi'] .hand-bottom piece.silver.gote,
-      .main-v-kyotoshogi .spare-bottom piece.silver {background-image:url('/assets/piece/Kyo_Intl/0GI.svg')!important;}
+      .spare-bottom.v-kyotoshogi piece.silver {background-image:url('/assets/piece/Kyo_Intl/0GI.svg')!important;}
 .v-kyotoshogi piece.king.sente,
-      .sg-wrap[data-variant='kyotoshogi'] piece.king.sente,
       .v-kyotoshogi .sg-wrap.orientation-sente piece.king.sente,
-      .sg-wrap.orientation-sente[data-variant='kyotoshogi'] piece.king.sente,
-      .main-v-kyotoshogi .spare-bottom piece.king.sente {background-image:url('/assets/piece/Kyo_Intl/0GY.svg')!important;}
+      .spare-bottom.v-kyotoshogi piece.king.sente {background-image:url('/assets/piece/Kyo_Intl/0GY.svg')!important;}
 .v-kyotoshogi piece.rook.sente,
-      .sg-wrap[data-variant='kyotoshogi'] piece.rook.sente,
       .v-kyotoshogi .sg-wrap.orientation-sente piece.rook.sente,
-      .sg-wrap.orientation-sente[data-variant='kyotoshogi'] piece.rook.sente,
       .v-kyotoshogi .sg-wrap.orientation-gote piece.rook.gote,
-      .sg-wrap.orientation-gote[data-variant='kyotoshogi'] piece.rook.gote,
       .v-kyotoshogi .hand-bottom piece.rook.gote,
-      .sg-wrap[data-variant='kyotoshogi'] .hand-bottom piece.rook.gote,
-      .main-v-kyotoshogi .spare-bottom piece.rook {background-image:url('/assets/piece/Kyo_Intl/0HI.svg')!important;}
+      .spare-bottom.v-kyotoshogi piece.rook {background-image:url('/assets/piece/Kyo_Intl/0HI.svg')!important;}
 .v-kyotoshogi piece.bishop.sente,
-      .sg-wrap[data-variant='kyotoshogi'] piece.bishop.sente,
       .v-kyotoshogi .sg-wrap.orientation-sente piece.bishop.sente,
-      .sg-wrap.orientation-sente[data-variant='kyotoshogi'] piece.bishop.sente,
       .v-kyotoshogi .sg-wrap.orientation-gote piece.bishop.gote,
-      .sg-wrap.orientation-gote[data-variant='kyotoshogi'] piece.bishop.gote,
       .v-kyotoshogi .hand-bottom piece.bishop.gote,
-      .sg-wrap[data-variant='kyotoshogi'] .hand-bottom piece.bishop.gote,
-      .main-v-kyotoshogi .spare-bottom piece.bishop {background-image:url('/assets/piece/Kyo_Intl/0KA.svg')!important;}
+      .spare-bottom.v-kyotoshogi piece.bishop {background-image:url('/assets/piece/Kyo_Intl/0KA.svg')!important;}
 .v-kyotoshogi piece.knight.sente,
-      .sg-wrap[data-variant='kyotoshogi'] piece.knight.sente,
       .v-kyotoshogi .sg-wrap.orientation-sente piece.knight.sente,
-      .sg-wrap.orientation-sente[data-variant='kyotoshogi'] piece.knight.sente,
       .v-kyotoshogi .sg-wrap.orientation-gote piece.knight.gote,
-      .sg-wrap.orientation-gote[data-variant='kyotoshogi'] piece.knight.gote,
       .v-kyotoshogi .hand-bottom piece.knight.gote,
-      .sg-wrap[data-variant='kyotoshogi'] .hand-bottom piece.knight.gote,
-      .main-v-kyotoshogi .spare-bottom piece.knight {background-image:url('/assets/piece/Kyo_Intl/0KE.svg')!important;}
+      .spare-bottom.v-kyotoshogi piece.knight {background-image:url('/assets/piece/Kyo_Intl/0KE.svg')!important;}
 .v-kyotoshogi piece.gold.sente,
-      .sg-wrap[data-variant='kyotoshogi'] piece.gold.sente,
       .v-kyotoshogi .sg-wrap.orientation-sente piece.gold.sente,
-      .sg-wrap.orientation-sente[data-variant='kyotoshogi'] piece.gold.sente,
       .v-kyotoshogi .sg-wrap.orientation-gote piece.gold.gote,
-      .sg-wrap.orientation-gote[data-variant='kyotoshogi'] piece.gold.gote,
       .v-kyotoshogi .hand-bottom piece.gold.gote,
-      .sg-wrap[data-variant='kyotoshogi'] .hand-bottom piece.gold.gote,
-      .main-v-kyotoshogi .spare-bottom piece.gold {background-image:url('/assets/piece/Kyo_Intl/0KI.svg')!important;}
+      .spare-bottom.v-kyotoshogi piece.gold {background-image:url('/assets/piece/Kyo_Intl/0KI.svg')!important;}
 .v-kyotoshogi piece.lance.sente,
-      .sg-wrap[data-variant='kyotoshogi'] piece.lance.sente,
       .v-kyotoshogi .sg-wrap.orientation-sente piece.lance.sente,
-      .sg-wrap.orientation-sente[data-variant='kyotoshogi'] piece.lance.sente,
       .v-kyotoshogi .sg-wrap.orientation-gote piece.lance.gote,
-      .sg-wrap.orientation-gote[data-variant='kyotoshogi'] piece.lance.gote,
       .v-kyotoshogi .hand-bottom piece.lance.gote,
-      .sg-wrap[data-variant='kyotoshogi'] .hand-bottom piece.lance.gote,
-      .main-v-kyotoshogi .spare-bottom piece.lance {background-image:url('/assets/piece/Kyo_Intl/0KY.svg')!important;}
+      .spare-bottom.v-kyotoshogi piece.lance {background-image:url('/assets/piece/Kyo_Intl/0KY.svg')!important;}
 .v-kyotoshogi .sg-wrap.orientation-gote piece.king.gote,
-      .sg-wrap.orientation-gote[data-variant='kyotoshogi'] piece.king.gote,
-      .main-v-kyotoshogi .spare-bottom piece.king.gote {background-image:url('/assets/piece/Kyo_Intl/0OU.svg')!important;}
+      .spare-bottom.v-kyotoshogi piece.king.gote {background-image:url('/assets/piece/Kyo_Intl/0OU.svg')!important;}
 .v-kyotoshogi piece.tokin.sente,
-      .sg-wrap[data-variant='kyotoshogi'] piece.tokin.sente,
       .v-kyotoshogi .sg-wrap.orientation-sente piece.tokin.sente,
-      .sg-wrap.orientation-sente[data-variant='kyotoshogi'] piece.tokin.sente,
       .v-kyotoshogi .sg-wrap.orientation-gote piece.tokin.gote,
-      .sg-wrap.orientation-gote[data-variant='kyotoshogi'] piece.tokin.gote,
       .v-kyotoshogi .hand-bottom piece.tokin.gote,
-      .sg-wrap[data-variant='kyotoshogi'] .hand-bottom piece.tokin.gote,
-      .main-v-kyotoshogi .spare-bottom piece.tokin {background-image:url('/assets/piece/Kyo_Intl/0TO.svg')!important;}
+      .spare-bottom.v-kyotoshogi piece.tokin {background-image:url('/assets/piece/Kyo_Intl/0TO.svg')!important;}
 .v-kyotoshogi piece.pawn.gote,
-      .sg-wrap[data-variant='kyotoshogi'] piece.pawn.gote,
       .v-kyotoshogi .sg-wrap.orientation-sente piece.pawn.gote,
-      .sg-wrap.orientation-sente[data-variant='kyotoshogi'] piece.pawn.gote,
       .v-kyotoshogi .sg-wrap.orientation-gote piece.pawn.sente,
-      .sg-wrap.orientation-gote[data-variant='kyotoshogi'] piece.pawn.sente,
       .v-kyotoshogi .hand-top piece.pawn,
-      .sg-wrap[data-variant='kyotoshogi'] .hand-top piece.pawn,
-      .main-v-kyotoshogi .spare-top piece.pawn {background-image:url('/assets/piece/Kyo_Intl/1FU.svg')!important;}
+      .spare-top.v-kyotoshogi piece.pawn {background-image:url('/assets/piece/Kyo_Intl/1FU.svg')!important;}
 .v-kyotoshogi piece.silver.gote,
-      .sg-wrap[data-variant='kyotoshogi'] piece.silver.gote,
       .v-kyotoshogi .sg-wrap.orientation-sente piece.silver.gote,
-      .sg-wrap.orientation-sente[data-variant='kyotoshogi'] piece.silver.gote,
       .v-kyotoshogi .sg-wrap.orientation-gote piece.silver.sente,
-      .sg-wrap.orientation-gote[data-variant='kyotoshogi'] piece.silver.sente,
       .v-kyotoshogi .hand-top piece.silver,
-      .sg-wrap[data-variant='kyotoshogi'] .hand-top piece.silver,
-      .main-v-kyotoshogi .spare-top piece.silver {background-image:url('/assets/piece/Kyo_Intl/1GI.svg')!important;}
+      .spare-top.v-kyotoshogi piece.silver {background-image:url('/assets/piece/Kyo_Intl/1GI.svg')!important;}
 .v-kyotoshogi .sg-wrap.orientation-gote piece.king.sente,
-      .sg-wrap.orientation-gote[data-variant='kyotoshogi'] piece.king.sente,
-      .main-v-kyotoshogi .spare-top piece.king.sente {background-image:url('/assets/piece/Kyo_Intl/1GY.svg')!important;}
+      .spare-top.v-kyotoshogi piece.king.sente {background-image:url('/assets/piece/Kyo_Intl/1GY.svg')!important;}
 .v-kyotoshogi piece.rook.gote,
-      .sg-wrap[data-variant='kyotoshogi'] piece.rook.gote,
       .v-kyotoshogi .sg-wrap.orientation-sente piece.rook.gote,
-      .sg-wrap.orientation-sente[data-variant='kyotoshogi'] piece.rook.gote,
       .v-kyotoshogi .sg-wrap.orientation-gote piece.rook.sente,
-      .sg-wrap.orientation-gote[data-variant='kyotoshogi'] piece.rook.sente,
       .v-kyotoshogi .hand-top piece.rook,
-      .sg-wrap[data-variant='kyotoshogi'] .hand-top piece.rook,
-      .main-v-kyotoshogi .spare-top piece.rook {background-image:url('/assets/piece/Kyo_Intl/1HI.svg')!important;}
+      .spare-top.v-kyotoshogi piece.rook {background-image:url('/assets/piece/Kyo_Intl/1HI.svg')!important;}
 .v-kyotoshogi piece.bishop.gote,
-      .sg-wrap[data-variant='kyotoshogi'] piece.bishop.gote,
       .v-kyotoshogi .sg-wrap.orientation-sente piece.bishop.gote,
-      .sg-wrap.orientation-sente[data-variant='kyotoshogi'] piece.bishop.gote,
       .v-kyotoshogi .sg-wrap.orientation-gote piece.bishop.sente,
-      .sg-wrap.orientation-gote[data-variant='kyotoshogi'] piece.bishop.sente,
       .v-kyotoshogi .hand-top piece.bishop,
-      .sg-wrap[data-variant='kyotoshogi'] .hand-top piece.bishop,
-      .main-v-kyotoshogi .spare-top piece.bishop {background-image:url('/assets/piece/Kyo_Intl/1KA.svg')!important;}
+      .spare-top.v-kyotoshogi piece.bishop {background-image:url('/assets/piece/Kyo_Intl/1KA.svg')!important;}
 .v-kyotoshogi piece.knight.gote,
-      .sg-wrap[data-variant='kyotoshogi'] piece.knight.gote,
       .v-kyotoshogi .sg-wrap.orientation-sente piece.knight.gote,
-      .sg-wrap.orientation-sente[data-variant='kyotoshogi'] piece.knight.gote,
       .v-kyotoshogi .sg-wrap.orientation-gote piece.knight.sente,
-      .sg-wrap.orientation-gote[data-variant='kyotoshogi'] piece.knight.sente,
       .v-kyotoshogi .hand-top piece.knight,
-      .sg-wrap[data-variant='kyotoshogi'] .hand-top piece.knight,
-      .main-v-kyotoshogi .spare-top piece.knight {background-image:url('/assets/piece/Kyo_Intl/1KE.svg')!important;}
+      .spare-top.v-kyotoshogi piece.knight {background-image:url('/assets/piece/Kyo_Intl/1KE.svg')!important;}
 .v-kyotoshogi piece.gold.gote,
-      .sg-wrap[data-variant='kyotoshogi'] piece.gold.gote,
       .v-kyotoshogi .sg-wrap.orientation-sente piece.gold.gote,
-      .sg-wrap.orientation-sente[data-variant='kyotoshogi'] piece.gold.gote,
       .v-kyotoshogi .sg-wrap.orientation-gote piece.gold.sente,
-      .sg-wrap.orientation-gote[data-variant='kyotoshogi'] piece.gold.sente,
       .v-kyotoshogi .hand-top piece.gold,
-      .sg-wrap[data-variant='kyotoshogi'] .hand-top piece.gold,
-      .main-v-kyotoshogi .spare-top piece.gold {background-image:url('/assets/piece/Kyo_Intl/1KI.svg')!important;}
+      .spare-top.v-kyotoshogi piece.gold {background-image:url('/assets/piece/Kyo_Intl/1KI.svg')!important;}
 .v-kyotoshogi piece.lance.gote,
-      .sg-wrap[data-variant='kyotoshogi'] piece.lance.gote,
       .v-kyotoshogi .sg-wrap.orientation-sente piece.lance.gote,
-      .sg-wrap.orientation-sente[data-variant='kyotoshogi'] piece.lance.gote,
       .v-kyotoshogi .sg-wrap.orientation-gote piece.lance.sente,
-      .sg-wrap.orientation-gote[data-variant='kyotoshogi'] piece.lance.sente,
       .v-kyotoshogi .hand-top piece.lance,
-      .sg-wrap[data-variant='kyotoshogi'] .hand-top piece.lance,
-      .main-v-kyotoshogi .spare-top piece.lance {background-image:url('/assets/piece/Kyo_Intl/1KY.svg')!important;}
+      .spare-top.v-kyotoshogi piece.lance {background-image:url('/assets/piece/Kyo_Intl/1KY.svg')!important;}
 .v-kyotoshogi piece.king.gote,
-      .sg-wrap[data-variant='kyotoshogi'] piece.king.gote,
       .v-kyotoshogi .sg-wrap.orientation-sente piece.king.gote,
-      .sg-wrap.orientation-sente[data-variant='kyotoshogi'] piece.king.gote,
-      .main-v-kyotoshogi .spare-top piece.king.gote {background-image:url('/assets/piece/Kyo_Intl/1OU.svg')!important;}
+      .spare-top.v-kyotoshogi piece.king.gote {background-image:url('/assets/piece/Kyo_Intl/1OU.svg')!important;}
 .v-kyotoshogi piece.tokin.gote,
-      .sg-wrap[data-variant='kyotoshogi'] piece.tokin.gote,
       .v-kyotoshogi .sg-wrap.orientation-sente piece.tokin.gote,
-      .sg-wrap.orientation-sente[data-variant='kyotoshogi'] piece.tokin.gote,
       .v-kyotoshogi .sg-wrap.orientation-gote piece.tokin.sente,
-      .sg-wrap.orientation-gote[data-variant='kyotoshogi'] piece.tokin.sente,
       .v-kyotoshogi .hand-top piece.tokin,
-      .sg-wrap[data-variant='kyotoshogi'] .hand-top piece.tokin,
-      .main-v-kyotoshogi .spare-top piece.tokin {background-image:url('/assets/piece/Kyo_Intl/1TO.svg')!important;}
+      .spare-top.v-kyotoshogi piece.tokin {background-image:url('/assets/piece/Kyo_Intl/1TO.svg')!important;}

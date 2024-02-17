@@ -43,27 +43,23 @@ stanRoles = {
 def classesWithOrientation(color, role, flipped)
   if flipped
     if color == 'sente'
-      ".sg-wrap.orientation-gote[data-variant='kyotoshogi'] piece.#{role}.gote,
-      .v-kyotoshogi .sg-wrap.orientation-gote piece.#{role}.gote,
+      ".v-kyotoshogi .sg-wrap.orientation-gote piece.#{role}.gote,
       .v-kyotoshogi .hand-bottom piece.#{role}.gote,
-      .main-v-kyotoshogi .spare-bottom piece.#{role}.gote"
+      .spare-bottom.v-kyotoshogi piece.#{role}.gote"
     else
-      ".sg-wrap.orientation-gote[data-variant='kyotoshogi'] piece.#{role}.sente,
-      .v-kyotoshogi .sg-wrap.orientation-gote piece.#{role}.sente,
+      ".v-kyotoshogi .sg-wrap.orientation-gote piece.#{role}.sente,
       .v-kyotoshogi .hand-top piece.#{role}.sente,
-      .main-v-kyotoshogi .spare-top piece.#{role}.sente"
+      .spare-top.v-kyotoshogi piece.#{role}.sente"
     end
   else
     if color == 'sente'
-      ".sg-wrap.orientation-sente[data-variant='kyotoshogi'] piece.#{role}.sente,
-      .v-kyotoshogi .sg-wrap.orientation-sente piece.#{role}.sente,
+      ".v-kyotoshogi .sg-wrap.orientation-sente piece.#{role}.sente,
       .v-kyotoshogi .hand-bottom piece.#{role}.sente,
-      .main-v-kyotoshogi .spare-bottom piece.#{role}.sente"
+      .spare-bottom.v-kyotoshogi piece.#{role}.sente"
     else
-      ".sg-wrap.orientation-sente[data-variant='kyotoshogi'] piece.#{role}.gote,
-      .sg-wrap.orientation-sente piece.#{role}.gote,
+      ".sg-wrap.orientation-sente piece.#{role}.gote,
       .v-kyotoshogi .hand-top piece.#{role}.gote,
-      .main-v-kyotoshogi .spare-top piece.#{role}.gote"
+      .spare-top.v-kyotoshogi piece.#{role}.gote"
     end
   end
 end
@@ -72,46 +68,32 @@ def classes(color, role)
   if color == 'sente' # facing up
     if role == 'king'
       ".v-kyotoshogi .sg-wrap.orientation-gote piece.king.gote,
-      .sg-wrap.orientation-gote[data-variant='kyotoshogi'] piece.king.gote,
-      .main-v-kyotoshogi .spare-bottom piece.king.gote"
+      .spare-bottom.v-kyotoshogi piece.king.gote"
     elsif role == 'tama'
       ".v-kyotoshogi piece.king.sente,
-      .sg-wrap[data-variant='kyotoshogi'] piece.king.sente,
       .v-kyotoshogi .sg-wrap.orientation-sente piece.king.sente,
-      .sg-wrap.orientation-sente[data-variant='kyotoshogi'] piece.king.sente,
-      .main-v-kyotoshogi .spare-bottom piece.king.sente"
+      .spare-bottom.v-kyotoshogi piece.king.sente"
     else
       ".v-kyotoshogi piece.#{role}.sente,
-      .sg-wrap[data-variant='kyotoshogi'] piece.#{role}.sente,
       .v-kyotoshogi .sg-wrap.orientation-sente piece.#{role}.sente,
-      .sg-wrap.orientation-sente[data-variant='kyotoshogi'] piece.#{role}.sente,
       .v-kyotoshogi .sg-wrap.orientation-gote piece.#{role}.gote,
-      .sg-wrap.orientation-gote[data-variant='kyotoshogi'] piece.#{role}.gote,
       .v-kyotoshogi .hand-bottom piece.#{role}.gote,
-      .sg-wrap[data-variant='kyotoshogi'] .hand-bottom piece.#{role}.gote,
-      .main-v-kyotoshogi .spare-bottom piece.#{role}"
+      .spare-bottom.v-kyotoshogi piece.#{role}"
     end
   else # facing down
     if role == 'king'
       ".v-kyotoshogi piece.king.gote,
-      .sg-wrap[data-variant='kyotoshogi'] piece.king.gote,
       .v-kyotoshogi .sg-wrap.orientation-sente piece.king.gote,
-      .sg-wrap.orientation-sente[data-variant='kyotoshogi'] piece.king.gote,
-      .main-v-kyotoshogi .spare-top piece.king.gote"
+      .spare-top.v-kyotoshogi piece.king.gote"
     elsif role == 'tama'
       ".v-kyotoshogi .sg-wrap.orientation-gote piece.king.sente,
-      .sg-wrap.orientation-gote[data-variant='kyotoshogi'] piece.king.sente,
-      .main-v-kyotoshogi .spare-top piece.king.sente"
+      .spare-top.v-kyotoshogi piece.king.sente"
     else
       ".v-kyotoshogi piece.#{role}.gote,
-      .sg-wrap[data-variant='kyotoshogi'] piece.#{role}.gote,
       .v-kyotoshogi .sg-wrap.orientation-sente piece.#{role}.gote,
-      .sg-wrap.orientation-sente[data-variant='kyotoshogi'] piece.#{role}.gote,
       .v-kyotoshogi .sg-wrap.orientation-gote piece.#{role}.sente,
-      .sg-wrap.orientation-gote[data-variant='kyotoshogi'] piece.#{role}.sente,
       .v-kyotoshogi .hand-top piece.#{role},
-      .sg-wrap[data-variant='kyotoshogi'] .hand-top piece.#{role},
-      .main-v-kyotoshogi .spare-top piece.#{role}"
+      .spare-top.v-kyotoshogi piece.#{role}"
     end
   end
 end
@@ -134,7 +116,7 @@ themes.map { |theme|
     }
   }.flatten
   if ext == 'png'
-    classes.append("piece{ will-change: transform; background-repeat: unset; }")
+    classes.append(".v-kyotoshogi piece { will-change: transform !important; background-repeat: unset !important; }")
   end
   File.open(dest_dir + name + '.css', 'w') { |f| f.puts classes.join("\n") }
 }
@@ -157,7 +139,7 @@ bidirectional.map { |theme|
     }
   }.flatten
   if ext == 'png'
-    classes.append("piece{ will-change: transform; background-repeat: unset; }")
+    classes.append(".v-kyotoshogi piece { will-change: transform !important; background-repeat: unset !important; }")
   end
   File.open(dest_dir + name + '.css', 'w') { |f| f.puts classes.join("\n") }
 }
@@ -175,7 +157,7 @@ themes.map { |theme|
     }
   }.flatten
   if ext == 'png'
-    classes.append("piece{ will-change: transform; background-repeat: unset; }")
+    classes.append(".v-kyotoshogi piece { will-change: transform !important; background-repeat: unset !important; }")
   end
   File.open(dest_dir + name + '.external.css', 'w') { |f| f.puts classes.join("\n") }
 }
@@ -193,7 +175,7 @@ bidirectional.map { |theme|
     }
   }.flatten
   if ext == 'png'
-    classes.append("piece{ will-change: transform; background-repeat: unset; }")
+    classes.append(".v-kyotoshogi piece { will-change: transform !important; background-repeat: unset !important; }")
   end
   File.open(dest_dir + name + '.external.css', 'w') { |f| f.puts classes.join("\n") }
 }

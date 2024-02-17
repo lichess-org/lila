@@ -99,27 +99,27 @@ def sameUpDownM(role)
 end
 
 def classesMnemonic(color, role)
-  ".d-12x12 piece.#{role}.#{color}, .v-chushogi piece.#{role}.#{color}"
+  ".v-chushogi piece.#{role}.#{color}"
 end
 
 def classesWithOrientation(color, role, flipped)
   if flipped
     if color == 'sente'
-      ".sg-wrap.orientation-gote.d-12x12 piece.#{role}.gote,
-      .main-v-chushogi .spare-bottom piece.#{role}.gote"
+      ".v-chushogi .sg-wrap.orientation-gote piece.#{role}.gote,
+      .spare-bottom.v-chushogi piece.#{role}.gote"
     else
-      ".sg-wrap.orientation-gote.d-12x12 piece.#{role}.sente,
-      .main-v-chushogi .spare-top piece.#{role}.sente"
+      ".v-chushogi .sg-wrap.orientation-gote piece.#{role}.sente,
+      .spare-top.v-chushogi piece.#{role}.sente"
     end
   else
     if color == 'sente'
-      ".d-12x12 piece.#{role}.sente, .v-chushogi piece.#{role}.sente,
-      .sg-wrap.orientation-sente.d-12x12 piece.#{role}.sente,
-      .main-v-chushogi .spare-bottom piece.#{role}.sente"
+      ".v-chushogi piece.#{role}.sente,
+      .v-chushogi .sg-wrap.orientation-sente piece.#{role}.sente,
+      .spare-bottom.v-chushogi piece.#{role}.sente"
     else
-      ".d-12x12 piece.#{role}.gote, .v-chushogi piece.#{role}.gote,
-      .sg-wrap.orientation-sente.d-12x12 piece.#{role}.gote,
-      .main-v-chushogi .spare-top piece.#{role}.gote"
+      ".v-chushogi piece.#{role}.gote,
+      .v-chushogi .sg-wrap.orientation-sente piece.#{role}.gote,
+      .spare-top.v-chushogi piece.#{role}.gote"
     end
   end
 end
@@ -127,28 +127,28 @@ end
 def classes(color, role)
   if color == 'sente' # facing up
     if role == 'king'
-      ".sg-wrap.orientation-gote.d-12x12 piece.king.gote,
-      .main-v-chushogi .spare-bottom piece.king"
+      ".v-chushogi .sg-wrap.orientation-gote piece.king.gote,
+      .spare-bottom.v-chushogi piece.king"
     elsif role == 'tama'
-      ".d-12x12 piece.king.sente,
-      .sg-wrap.orientation-sente.d-12x12 piece.king.sente,
-      .main-v-chushogi .spare-bottom piece.king.sente"
+      ".v-chushogi piece.king.sente,
+      .v-chushogi .sg-wrap.orientation-sente piece.king.sente,
+      .spare-bottom.v-chushogi piece.king.sente"
     else
-      ".sg-wrap.orientation-sente.d-12x12 piece.#{role}.sente,
-      .sg-wrap.orientation-gote.d-12x12 piece.#{role}.gote,
-      .main-v-chushogi .spare-bottom piece.#{role}"
+      ".v-chushogi .sg-wrap.orientation-sente piece.#{role}.sente,
+      .v-chushogi .sg-wrap.orientation-gote piece.#{role}.gote,
+      .spare-bottom.v-chushogi piece.#{role}"
     end
   else # facing down
     if role == 'king'
-      ".sg-wrap.orientation-sente.d-12x12 piece.king.gote,
-      .main-v-chushogi .spare-top piece.king"
+      ".v-chushogi .sg-wrap.orientation-sente piece.king.gote,
+      .spare-top.v-chushogi piece.king"
     elsif role == 'tama'
-      ".sg-wrap.orientation-gote.d-12x12 piece.king.sente,
-      .main-v-chushogi .spare-top piece.king.sente"
+      ".v-chushogi .sg-wrap.orientation-gote piece.king.sente,
+      .spare-top.v-chushogi piece.king.sente"
     else
-      ".sg-wrap.orientation-sente.d-12x12 piece.#{role}.gote,
-      .sg-wrap.orientation-gote.d-12x12 piece.#{role}.sente,
-      .main-v-chushogi .spare-top piece.#{role}"
+      ".v-chushogi .sg-wrap.orientation-sente piece.#{role}.gote,
+      .v-chushogi .sg-wrap.orientation-gote piece.#{role}.sente,
+      .spare-top.v-chushogi piece.#{role}"
     end
   end
 end
@@ -170,9 +170,9 @@ themes.map { |theme|
     }
   }.flatten
   if ext == 'png'
-    classes.append("piece{ will-change: transform; background-repeat: unset; }")
+    classes.append(".v-chushogi piece { will-change: transform !important; background-repeat: unset !important; }")
   else
-    classes.append("piece{ will-change: auto; background-repeat: no-repeat; }")
+    classes.append(".v-chushogi piece { will-change: auto; background-repeat: no-repeat; }")
   end
   File.open(dest_dir + name + '.css', 'w') { |f| f.puts classes.join("\n") }
 }
@@ -201,12 +201,12 @@ bidirectional.map { |theme|
     }
   }.flatten
   if ext == 'png'
-    classes.append("piece{ will-change: transform; background-repeat: unset; }")
+    classes.append(".v-chushogi piece { will-change: transform !important; background-repeat: unset !important; }")
   else
-    classes.append("piece{ will-change: auto; background-repeat: no-repeat; }")
+    classes.append(".v-chushogi piece { will-change: auto; background-repeat: no-repeat; }")
   end
   if name == 'Chu_Mnemonic'
-    classes.append("piece{ background-size: contain !important; }")
+    classes.append(".v-chushogi piece { background-size: contain !important; }")
   end
   File.open(dest_dir + name + '.css', 'w') { |f| f.puts classes.join("\n") }
 }
@@ -223,9 +223,9 @@ themes.map { |theme|
     }
   }.flatten
   if ext == 'png'
-    classes.append("piece{ will-change: transform; background-repeat: unset; }")
+    classes.append(".v-chushogi piece { will-change: transform !important; background-repeat: unset !important; }")
   else
-    classes.append("piece{ will-change: auto; background-repeat: no-repeat; }")
+    classes.append(".v-chushogi piece { will-change: auto; background-repeat: no-repeat; }")
   end
   File.open(dest_dir + name + '.external.css', 'w') { |f| f.puts classes.join("\n") }
 }
@@ -242,12 +242,12 @@ bidirectional.map { |theme|
     }
   }.flatten
   if ext == 'png'
-    classes.append("piece{ will-change: transform; background-repeat: unset; }")
+    classes.append(".v-chushogi piece { will-change: transform !important; background-repeat: unset !important; }")
   else
-    classes.append("piece{ will-change: auto; background-repeat: no-repeat; }")
+    classes.append(".v-chushogi piece { will-change: auto; background-repeat: no-repeat; }")
   end
   if name == 'Chu_Mnemonic'
-    classes.append("piece{ background-size: contain !important; }")
+    classes.append(".v-chushogi piece { background-size: contain !important; }")
   end
   File.open(dest_dir + name + '.external.css', 'w') { |f| f.puts classes.join("\n") }
 }

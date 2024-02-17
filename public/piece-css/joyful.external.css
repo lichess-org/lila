@@ -208,6 +208,6 @@ piece.horse.gote,
       .sg-wrap.orientation-sente piece.horse.gote,
       .hand-top piece.horse.gote,
       .spare-top piece.horse.gote {background-image:url('/assets/piece/joyful/1UM.png')}
-piece{ will-change: transform; background-repeat: unset; }
-.d-12x12 piece { background-image: none !important; } 
-.sg-wrap[data-variant='kyotoshogi'] piece, .v-kyotoshogi piece { background-image: none !important; } 
+piece { will-change: transform; background-repeat: unset; }
+.v-chushogi piece, .v-kyotoshogi piece { will-change: auto; background-repeat: no-repeat; }
+.v-chushogi piece, .v-kyotoshogi piece { background-image: none !important; } 

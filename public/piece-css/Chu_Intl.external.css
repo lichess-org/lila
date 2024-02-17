@@ -1,238 +1,238 @@
-.sg-wrap.orientation-sente.d-12x12 piece.lance.sente,
-      .sg-wrap.orientation-gote.d-12x12 piece.lance.gote,
-      .main-v-chushogi .spare-bottom piece.lance {background-image:url('/assets/piece/Chu_Intl/0_LANCE.svg') !important;}
-.sg-wrap.orientation-sente.d-12x12 piece.leopard.sente,
-      .sg-wrap.orientation-gote.d-12x12 piece.leopard.gote,
-      .main-v-chushogi .spare-bottom piece.leopard {background-image:url('/assets/piece/Chu_Intl/0_LEOPARD.svg') !important;}
-.sg-wrap.orientation-sente.d-12x12 piece.copper.sente,
-      .sg-wrap.orientation-gote.d-12x12 piece.copper.gote,
-      .main-v-chushogi .spare-bottom piece.copper {background-image:url('/assets/piece/Chu_Intl/0_COPPER.svg') !important;}
-.sg-wrap.orientation-sente.d-12x12 piece.silver.sente,
-      .sg-wrap.orientation-gote.d-12x12 piece.silver.gote,
-      .main-v-chushogi .spare-bottom piece.silver {background-image:url('/assets/piece/Chu_Intl/0_SILVER.svg') !important;}
-.sg-wrap.orientation-sente.d-12x12 piece.gold.sente,
-      .sg-wrap.orientation-gote.d-12x12 piece.gold.gote,
-      .main-v-chushogi .spare-bottom piece.gold {background-image:url('/assets/piece/Chu_Intl/0_GOLD.svg') !important;}
-.sg-wrap.orientation-sente.d-12x12 piece.elephant.sente,
-      .sg-wrap.orientation-gote.d-12x12 piece.elephant.gote,
-      .main-v-chushogi .spare-bottom piece.elephant {background-image:url('/assets/piece/Chu_Intl/0_ELEPHANT.svg') !important;}
-.sg-wrap.orientation-sente.d-12x12 piece.chariot.sente,
-      .sg-wrap.orientation-gote.d-12x12 piece.chariot.gote,
-      .main-v-chushogi .spare-bottom piece.chariot {background-image:url('/assets/piece/Chu_Intl/0_CHARIOT.svg') !important;}
-.sg-wrap.orientation-sente.d-12x12 piece.bishop.sente,
-      .sg-wrap.orientation-gote.d-12x12 piece.bishop.gote,
-      .main-v-chushogi .spare-bottom piece.bishop {background-image:url('/assets/piece/Chu_Intl/0_BISHOP.svg') !important;}
-.sg-wrap.orientation-sente.d-12x12 piece.tiger.sente,
-      .sg-wrap.orientation-gote.d-12x12 piece.tiger.gote,
-      .main-v-chushogi .spare-bottom piece.tiger {background-image:url('/assets/piece/Chu_Intl/0_TIGER.svg') !important;}
-.sg-wrap.orientation-sente.d-12x12 piece.phoenix.sente,
-      .sg-wrap.orientation-gote.d-12x12 piece.phoenix.gote,
-      .main-v-chushogi .spare-bottom piece.phoenix {background-image:url('/assets/piece/Chu_Intl/0_PHOENIX.svg') !important;}
-.sg-wrap.orientation-sente.d-12x12 piece.kirin.sente,
-      .sg-wrap.orientation-gote.d-12x12 piece.kirin.gote,
-      .main-v-chushogi .spare-bottom piece.kirin {background-image:url('/assets/piece/Chu_Intl/0_KIRIN.svg') !important;}
-.sg-wrap.orientation-sente.d-12x12 piece.sidemover.sente,
-      .sg-wrap.orientation-gote.d-12x12 piece.sidemover.gote,
-      .main-v-chushogi .spare-bottom piece.sidemover {background-image:url('/assets/piece/Chu_Intl/0_SIDEMOVER.svg') !important;}
-.sg-wrap.orientation-sente.d-12x12 piece.verticalmover.sente,
-      .sg-wrap.orientation-gote.d-12x12 piece.verticalmover.gote,
-      .main-v-chushogi .spare-bottom piece.verticalmover {background-image:url('/assets/piece/Chu_Intl/0_VERTICALMOVER.svg') !important;}
-.sg-wrap.orientation-sente.d-12x12 piece.rook.sente,
-      .sg-wrap.orientation-gote.d-12x12 piece.rook.gote,
-      .main-v-chushogi .spare-bottom piece.rook {background-image:url('/assets/piece/Chu_Intl/0_ROOK.svg') !important;}
-.sg-wrap.orientation-sente.d-12x12 piece.horse.sente,
-      .sg-wrap.orientation-gote.d-12x12 piece.horse.gote,
-      .main-v-chushogi .spare-bottom piece.horse {background-image:url('/assets/piece/Chu_Intl/0_HORSE.svg') !important;}
-.sg-wrap.orientation-sente.d-12x12 piece.dragon.sente,
-      .sg-wrap.orientation-gote.d-12x12 piece.dragon.gote,
-      .main-v-chushogi .spare-bottom piece.dragon {background-image:url('/assets/piece/Chu_Intl/0_DRAGON.svg') !important;}
-.sg-wrap.orientation-sente.d-12x12 piece.queen.sente,
-      .sg-wrap.orientation-gote.d-12x12 piece.queen.gote,
-      .main-v-chushogi .spare-bottom piece.queen {background-image:url('/assets/piece/Chu_Intl/0_QUEEN.svg') !important;}
-.sg-wrap.orientation-sente.d-12x12 piece.lion.sente,
-      .sg-wrap.orientation-gote.d-12x12 piece.lion.gote,
-      .main-v-chushogi .spare-bottom piece.lion {background-image:url('/assets/piece/Chu_Intl/0_LION.svg') !important;}
-.sg-wrap.orientation-sente.d-12x12 piece.pawn.sente,
-      .sg-wrap.orientation-gote.d-12x12 piece.pawn.gote,
-      .main-v-chushogi .spare-bottom piece.pawn {background-image:url('/assets/piece/Chu_Intl/0_PAWN.svg') !important;}
-.sg-wrap.orientation-sente.d-12x12 piece.gobetween.sente,
-      .sg-wrap.orientation-gote.d-12x12 piece.gobetween.gote,
-      .main-v-chushogi .spare-bottom piece.gobetween {background-image:url('/assets/piece/Chu_Intl/0_GOBETWEEN.svg') !important;}
-.sg-wrap.orientation-gote.d-12x12 piece.king.gote,
-      .main-v-chushogi .spare-bottom piece.king {background-image:url('/assets/piece/Chu_Intl/0_KING.svg') !important;}
-.d-12x12 piece.king.sente,
-      .sg-wrap.orientation-sente.d-12x12 piece.king.sente,
-      .main-v-chushogi .spare-bottom piece.king.sente {background-image:url('/assets/piece/Chu_Intl/0_TAMA.svg') !important;}
-.sg-wrap.orientation-sente.d-12x12 piece.promotedpawn.sente,
-      .sg-wrap.orientation-gote.d-12x12 piece.promotedpawn.gote,
-      .main-v-chushogi .spare-bottom piece.promotedpawn {background-image:url('/assets/piece/Chu_Intl/0_PROMOTEDPAWN.svg') !important;}
-.sg-wrap.orientation-sente.d-12x12 piece.ox.sente,
-      .sg-wrap.orientation-gote.d-12x12 piece.ox.gote,
-      .main-v-chushogi .spare-bottom piece.ox {background-image:url('/assets/piece/Chu_Intl/0_OX.svg') !important;}
-.sg-wrap.orientation-sente.d-12x12 piece.stag.sente,
-      .sg-wrap.orientation-gote.d-12x12 piece.stag.gote,
-      .main-v-chushogi .spare-bottom piece.stag {background-image:url('/assets/piece/Chu_Intl/0_STAG.svg') !important;}
-.sg-wrap.orientation-sente.d-12x12 piece.boar.sente,
-      .sg-wrap.orientation-gote.d-12x12 piece.boar.gote,
-      .main-v-chushogi .spare-bottom piece.boar {background-image:url('/assets/piece/Chu_Intl/0_BOAR.svg') !important;}
-.sg-wrap.orientation-sente.d-12x12 piece.falcon.sente,
-      .sg-wrap.orientation-gote.d-12x12 piece.falcon.gote,
-      .main-v-chushogi .spare-bottom piece.falcon {background-image:url('/assets/piece/Chu_Intl/0_FALCON.svg') !important;}
-.sg-wrap.orientation-sente.d-12x12 piece.prince.sente,
-      .sg-wrap.orientation-gote.d-12x12 piece.prince.gote,
-      .main-v-chushogi .spare-bottom piece.prince {background-image:url('/assets/piece/Chu_Intl/0_PRINCE.svg') !important;}
-.sg-wrap.orientation-sente.d-12x12 piece.eagle.sente,
-      .sg-wrap.orientation-gote.d-12x12 piece.eagle.gote,
-      .main-v-chushogi .spare-bottom piece.eagle {background-image:url('/assets/piece/Chu_Intl/0_EAGLE.svg') !important;}
-.sg-wrap.orientation-sente.d-12x12 piece.whale.sente,
-      .sg-wrap.orientation-gote.d-12x12 piece.whale.gote,
-      .main-v-chushogi .spare-bottom piece.whale {background-image:url('/assets/piece/Chu_Intl/0_WHALE.svg') !important;}
-.sg-wrap.orientation-sente.d-12x12 piece.whitehorse.sente,
-      .sg-wrap.orientation-gote.d-12x12 piece.whitehorse.gote,
-      .main-v-chushogi .spare-bottom piece.whitehorse {background-image:url('/assets/piece/Chu_Intl/0_WHITEHORSE.svg') !important;}
-.sg-wrap.orientation-sente.d-12x12 piece.dragonpromoted.sente,
-      .sg-wrap.orientation-gote.d-12x12 piece.dragonpromoted.gote,
-      .main-v-chushogi .spare-bottom piece.dragonpromoted {background-image:url('/assets/piece/Chu_Intl/0_DRAGONPROMOTED.svg') !important;}
-.sg-wrap.orientation-sente.d-12x12 piece.horsepromoted.sente,
-      .sg-wrap.orientation-gote.d-12x12 piece.horsepromoted.gote,
-      .main-v-chushogi .spare-bottom piece.horsepromoted {background-image:url('/assets/piece/Chu_Intl/0_HORSEPROMOTED.svg') !important;}
-.sg-wrap.orientation-sente.d-12x12 piece.lionpromoted.sente,
-      .sg-wrap.orientation-gote.d-12x12 piece.lionpromoted.gote,
-      .main-v-chushogi .spare-bottom piece.lionpromoted {background-image:url('/assets/piece/Chu_Intl/0_LIONPROMOTED.svg') !important;}
-.sg-wrap.orientation-sente.d-12x12 piece.queenpromoted.sente,
-      .sg-wrap.orientation-gote.d-12x12 piece.queenpromoted.gote,
-      .main-v-chushogi .spare-bottom piece.queenpromoted {background-image:url('/assets/piece/Chu_Intl/0_QUEENPROMOTED.svg') !important;}
-.sg-wrap.orientation-sente.d-12x12 piece.bishoppromoted.sente,
-      .sg-wrap.orientation-gote.d-12x12 piece.bishoppromoted.gote,
-      .main-v-chushogi .spare-bottom piece.bishoppromoted {background-image:url('/assets/piece/Chu_Intl/0_BISHOPPROMOTED.svg') !important;}
-.sg-wrap.orientation-sente.d-12x12 piece.elephantpromoted.sente,
-      .sg-wrap.orientation-gote.d-12x12 piece.elephantpromoted.gote,
-      .main-v-chushogi .spare-bottom piece.elephantpromoted {background-image:url('/assets/piece/Chu_Intl/0_ELEPHANTPROMOTED.svg') !important;}
-.sg-wrap.orientation-sente.d-12x12 piece.sidemoverpromoted.sente,
-      .sg-wrap.orientation-gote.d-12x12 piece.sidemoverpromoted.gote,
-      .main-v-chushogi .spare-bottom piece.sidemoverpromoted {background-image:url('/assets/piece/Chu_Intl/0_SIDEMOVERPROMOTED.svg') !important;}
-.sg-wrap.orientation-sente.d-12x12 piece.verticalmoverpromoted.sente,
-      .sg-wrap.orientation-gote.d-12x12 piece.verticalmoverpromoted.gote,
-      .main-v-chushogi .spare-bottom piece.verticalmoverpromoted {background-image:url('/assets/piece/Chu_Intl/0_VERTICALMOVERPROMOTED.svg') !important;}
-.sg-wrap.orientation-sente.d-12x12 piece.rookpromoted.sente,
-      .sg-wrap.orientation-gote.d-12x12 piece.rookpromoted.gote,
-      .main-v-chushogi .spare-bottom piece.rookpromoted {background-image:url('/assets/piece/Chu_Intl/0_ROOKPROMOTED.svg') !important;}
-.sg-wrap.orientation-sente.d-12x12 piece.lance.gote,
-      .sg-wrap.orientation-gote.d-12x12 piece.lance.sente,
-      .main-v-chushogi .spare-top piece.lance {background-image:url('/assets/piece/Chu_Intl/1_LANCE.svg') !important;}
-.sg-wrap.orientation-sente.d-12x12 piece.leopard.gote,
-      .sg-wrap.orientation-gote.d-12x12 piece.leopard.sente,
-      .main-v-chushogi .spare-top piece.leopard {background-image:url('/assets/piece/Chu_Intl/1_LEOPARD.svg') !important;}
-.sg-wrap.orientation-sente.d-12x12 piece.copper.gote,
-      .sg-wrap.orientation-gote.d-12x12 piece.copper.sente,
-      .main-v-chushogi .spare-top piece.copper {background-image:url('/assets/piece/Chu_Intl/1_COPPER.svg') !important;}
-.sg-wrap.orientation-sente.d-12x12 piece.silver.gote,
-      .sg-wrap.orientation-gote.d-12x12 piece.silver.sente,
-      .main-v-chushogi .spare-top piece.silver {background-image:url('/assets/piece/Chu_Intl/1_SILVER.svg') !important;}
-.sg-wrap.orientation-sente.d-12x12 piece.gold.gote,
-      .sg-wrap.orientation-gote.d-12x12 piece.gold.sente,
-      .main-v-chushogi .spare-top piece.gold {background-image:url('/assets/piece/Chu_Intl/1_GOLD.svg') !important;}
-.sg-wrap.orientation-sente.d-12x12 piece.elephant.gote,
-      .sg-wrap.orientation-gote.d-12x12 piece.elephant.sente,
-      .main-v-chushogi .spare-top piece.elephant {background-image:url('/assets/piece/Chu_Intl/1_ELEPHANT.svg') !important;}
-.sg-wrap.orientation-sente.d-12x12 piece.chariot.gote,
-      .sg-wrap.orientation-gote.d-12x12 piece.chariot.sente,
-      .main-v-chushogi .spare-top piece.chariot {background-image:url('/assets/piece/Chu_Intl/1_CHARIOT.svg') !important;}
-.sg-wrap.orientation-sente.d-12x12 piece.bishop.gote,
-      .sg-wrap.orientation-gote.d-12x12 piece.bishop.sente,
-      .main-v-chushogi .spare-top piece.bishop {background-image:url('/assets/piece/Chu_Intl/1_BISHOP.svg') !important;}
-.sg-wrap.orientation-sente.d-12x12 piece.tiger.gote,
-      .sg-wrap.orientation-gote.d-12x12 piece.tiger.sente,
-      .main-v-chushogi .spare-top piece.tiger {background-image:url('/assets/piece/Chu_Intl/1_TIGER.svg') !important;}
-.sg-wrap.orientation-sente.d-12x12 piece.phoenix.gote,
-      .sg-wrap.orientation-gote.d-12x12 piece.phoenix.sente,
-      .main-v-chushogi .spare-top piece.phoenix {background-image:url('/assets/piece/Chu_Intl/1_PHOENIX.svg') !important;}
-.sg-wrap.orientation-sente.d-12x12 piece.kirin.gote,
-      .sg-wrap.orientation-gote.d-12x12 piece.kirin.sente,
-      .main-v-chushogi .spare-top piece.kirin {background-image:url('/assets/piece/Chu_Intl/1_KIRIN.svg') !important;}
-.sg-wrap.orientation-sente.d-12x12 piece.sidemover.gote,
-      .sg-wrap.orientation-gote.d-12x12 piece.sidemover.sente,
-      .main-v-chushogi .spare-top piece.sidemover {background-image:url('/assets/piece/Chu_Intl/1_SIDEMOVER.svg') !important;}
-.sg-wrap.orientation-sente.d-12x12 piece.verticalmover.gote,
-      .sg-wrap.orientation-gote.d-12x12 piece.verticalmover.sente,
-      .main-v-chushogi .spare-top piece.verticalmover {background-image:url('/assets/piece/Chu_Intl/1_VERTICALMOVER.svg') !important;}
-.sg-wrap.orientation-sente.d-12x12 piece.rook.gote,
-      .sg-wrap.orientation-gote.d-12x12 piece.rook.sente,
-      .main-v-chushogi .spare-top piece.rook {background-image:url('/assets/piece/Chu_Intl/1_ROOK.svg') !important;}
-.sg-wrap.orientation-sente.d-12x12 piece.horse.gote,
-      .sg-wrap.orientation-gote.d-12x12 piece.horse.sente,
-      .main-v-chushogi .spare-top piece.horse {background-image:url('/assets/piece/Chu_Intl/1_HORSE.svg') !important;}
-.sg-wrap.orientation-sente.d-12x12 piece.dragon.gote,
-      .sg-wrap.orientation-gote.d-12x12 piece.dragon.sente,
-      .main-v-chushogi .spare-top piece.dragon {background-image:url('/assets/piece/Chu_Intl/1_DRAGON.svg') !important;}
-.sg-wrap.orientation-sente.d-12x12 piece.queen.gote,
-      .sg-wrap.orientation-gote.d-12x12 piece.queen.sente,
-      .main-v-chushogi .spare-top piece.queen {background-image:url('/assets/piece/Chu_Intl/1_QUEEN.svg') !important;}
-.sg-wrap.orientation-sente.d-12x12 piece.lion.gote,
-      .sg-wrap.orientation-gote.d-12x12 piece.lion.sente,
-      .main-v-chushogi .spare-top piece.lion {background-image:url('/assets/piece/Chu_Intl/1_LION.svg') !important;}
-.sg-wrap.orientation-sente.d-12x12 piece.pawn.gote,
-      .sg-wrap.orientation-gote.d-12x12 piece.pawn.sente,
-      .main-v-chushogi .spare-top piece.pawn {background-image:url('/assets/piece/Chu_Intl/1_PAWN.svg') !important;}
-.sg-wrap.orientation-sente.d-12x12 piece.gobetween.gote,
-      .sg-wrap.orientation-gote.d-12x12 piece.gobetween.sente,
-      .main-v-chushogi .spare-top piece.gobetween {background-image:url('/assets/piece/Chu_Intl/1_GOBETWEEN.svg') !important;}
-.sg-wrap.orientation-sente.d-12x12 piece.king.gote,
-      .main-v-chushogi .spare-top piece.king {background-image:url('/assets/piece/Chu_Intl/1_KING.svg') !important;}
-.sg-wrap.orientation-gote.d-12x12 piece.king.sente,
-      .main-v-chushogi .spare-top piece.king.sente {background-image:url('/assets/piece/Chu_Intl/1_TAMA.svg') !important;}
-.sg-wrap.orientation-sente.d-12x12 piece.promotedpawn.gote,
-      .sg-wrap.orientation-gote.d-12x12 piece.promotedpawn.sente,
-      .main-v-chushogi .spare-top piece.promotedpawn {background-image:url('/assets/piece/Chu_Intl/1_PROMOTEDPAWN.svg') !important;}
-.sg-wrap.orientation-sente.d-12x12 piece.ox.gote,
-      .sg-wrap.orientation-gote.d-12x12 piece.ox.sente,
-      .main-v-chushogi .spare-top piece.ox {background-image:url('/assets/piece/Chu_Intl/1_OX.svg') !important;}
-.sg-wrap.orientation-sente.d-12x12 piece.stag.gote,
-      .sg-wrap.orientation-gote.d-12x12 piece.stag.sente,
-      .main-v-chushogi .spare-top piece.stag {background-image:url('/assets/piece/Chu_Intl/1_STAG.svg') !important;}
-.sg-wrap.orientation-sente.d-12x12 piece.boar.gote,
-      .sg-wrap.orientation-gote.d-12x12 piece.boar.sente,
-      .main-v-chushogi .spare-top piece.boar {background-image:url('/assets/piece/Chu_Intl/1_BOAR.svg') !important;}
-.sg-wrap.orientation-sente.d-12x12 piece.falcon.gote,
-      .sg-wrap.orientation-gote.d-12x12 piece.falcon.sente,
-      .main-v-chushogi .spare-top piece.falcon {background-image:url('/assets/piece/Chu_Intl/1_FALCON.svg') !important;}
-.sg-wrap.orientation-sente.d-12x12 piece.prince.gote,
-      .sg-wrap.orientation-gote.d-12x12 piece.prince.sente,
-      .main-v-chushogi .spare-top piece.prince {background-image:url('/assets/piece/Chu_Intl/1_PRINCE.svg') !important;}
-.sg-wrap.orientation-sente.d-12x12 piece.eagle.gote,
-      .sg-wrap.orientation-gote.d-12x12 piece.eagle.sente,
-      .main-v-chushogi .spare-top piece.eagle {background-image:url('/assets/piece/Chu_Intl/1_EAGLE.svg') !important;}
-.sg-wrap.orientation-sente.d-12x12 piece.whale.gote,
-      .sg-wrap.orientation-gote.d-12x12 piece.whale.sente,
-      .main-v-chushogi .spare-top piece.whale {background-image:url('/assets/piece/Chu_Intl/1_WHALE.svg') !important;}
-.sg-wrap.orientation-sente.d-12x12 piece.whitehorse.gote,
-      .sg-wrap.orientation-gote.d-12x12 piece.whitehorse.sente,
-      .main-v-chushogi .spare-top piece.whitehorse {background-image:url('/assets/piece/Chu_Intl/1_WHITEHORSE.svg') !important;}
-.sg-wrap.orientation-sente.d-12x12 piece.dragonpromoted.gote,
-      .sg-wrap.orientation-gote.d-12x12 piece.dragonpromoted.sente,
-      .main-v-chushogi .spare-top piece.dragonpromoted {background-image:url('/assets/piece/Chu_Intl/1_DRAGONPROMOTED.svg') !important;}
-.sg-wrap.orientation-sente.d-12x12 piece.horsepromoted.gote,
-      .sg-wrap.orientation-gote.d-12x12 piece.horsepromoted.sente,
-      .main-v-chushogi .spare-top piece.horsepromoted {background-image:url('/assets/piece/Chu_Intl/1_HORSEPROMOTED.svg') !important;}
-.sg-wrap.orientation-sente.d-12x12 piece.lionpromoted.gote,
-      .sg-wrap.orientation-gote.d-12x12 piece.lionpromoted.sente,
-      .main-v-chushogi .spare-top piece.lionpromoted {background-image:url('/assets/piece/Chu_Intl/1_LIONPROMOTED.svg') !important;}
-.sg-wrap.orientation-sente.d-12x12 piece.queenpromoted.gote,
-      .sg-wrap.orientation-gote.d-12x12 piece.queenpromoted.sente,
-      .main-v-chushogi .spare-top piece.queenpromoted {background-image:url('/assets/piece/Chu_Intl/1_QUEENPROMOTED.svg') !important;}
-.sg-wrap.orientation-sente.d-12x12 piece.bishoppromoted.gote,
-      .sg-wrap.orientation-gote.d-12x12 piece.bishoppromoted.sente,
-      .main-v-chushogi .spare-top piece.bishoppromoted {background-image:url('/assets/piece/Chu_Intl/1_BISHOPPROMOTED.svg') !important;}
-.sg-wrap.orientation-sente.d-12x12 piece.elephantpromoted.gote,
-      .sg-wrap.orientation-gote.d-12x12 piece.elephantpromoted.sente,
-      .main-v-chushogi .spare-top piece.elephantpromoted {background-image:url('/assets/piece/Chu_Intl/1_ELEPHANTPROMOTED.svg') !important;}
-.sg-wrap.orientation-sente.d-12x12 piece.sidemoverpromoted.gote,
-      .sg-wrap.orientation-gote.d-12x12 piece.sidemoverpromoted.sente,
-      .main-v-chushogi .spare-top piece.sidemoverpromoted {background-image:url('/assets/piece/Chu_Intl/1_SIDEMOVERPROMOTED.svg') !important;}
-.sg-wrap.orientation-sente.d-12x12 piece.verticalmoverpromoted.gote,
-      .sg-wrap.orientation-gote.d-12x12 piece.verticalmoverpromoted.sente,
-      .main-v-chushogi .spare-top piece.verticalmoverpromoted {background-image:url('/assets/piece/Chu_Intl/1_VERTICALMOVERPROMOTED.svg') !important;}
-.sg-wrap.orientation-sente.d-12x12 piece.rookpromoted.gote,
-      .sg-wrap.orientation-gote.d-12x12 piece.rookpromoted.sente,
-      .main-v-chushogi .spare-top piece.rookpromoted {background-image:url('/assets/piece/Chu_Intl/1_ROOKPROMOTED.svg') !important;}
-piece{ will-change: auto; background-repeat: no-repeat; }
+.v-chushogi .sg-wrap.orientation-sente piece.lance.sente,
+      .v-chushogi .sg-wrap.orientation-gote piece.lance.gote,
+      .spare-bottom.v-chushogi piece.lance {background-image:url('/assets/piece/Chu_Intl/0_LANCE.svg') !important;}
+.v-chushogi .sg-wrap.orientation-sente piece.leopard.sente,
+      .v-chushogi .sg-wrap.orientation-gote piece.leopard.gote,
+      .spare-bottom.v-chushogi piece.leopard {background-image:url('/assets/piece/Chu_Intl/0_LEOPARD.svg') !important;}
+.v-chushogi .sg-wrap.orientation-sente piece.copper.sente,
+      .v-chushogi .sg-wrap.orientation-gote piece.copper.gote,
+      .spare-bottom.v-chushogi piece.copper {background-image:url('/assets/piece/Chu_Intl/0_COPPER.svg') !important;}
+.v-chushogi .sg-wrap.orientation-sente piece.silver.sente,
+      .v-chushogi .sg-wrap.orientation-gote piece.silver.gote,
+      .spare-bottom.v-chushogi piece.silver {background-image:url('/assets/piece/Chu_Intl/0_SILVER.svg') !important;}
+.v-chushogi .sg-wrap.orientation-sente piece.gold.sente,
+      .v-chushogi .sg-wrap.orientation-gote piece.gold.gote,
+      .spare-bottom.v-chushogi piece.gold {background-image:url('/assets/piece/Chu_Intl/0_GOLD.svg') !important;}
+.v-chushogi .sg-wrap.orientation-sente piece.elephant.sente,
+      .v-chushogi .sg-wrap.orientation-gote piece.elephant.gote,
+      .spare-bottom.v-chushogi piece.elephant {background-image:url('/assets/piece/Chu_Intl/0_ELEPHANT.svg') !important;}
+.v-chushogi .sg-wrap.orientation-sente piece.chariot.sente,
+      .v-chushogi .sg-wrap.orientation-gote piece.chariot.gote,
+      .spare-bottom.v-chushogi piece.chariot {background-image:url('/assets/piece/Chu_Intl/0_CHARIOT.svg') !important;}
+.v-chushogi .sg-wrap.orientation-sente piece.bishop.sente,
+      .v-chushogi .sg-wrap.orientation-gote piece.bishop.gote,
+      .spare-bottom.v-chushogi piece.bishop {background-image:url('/assets/piece/Chu_Intl/0_BISHOP.svg') !important;}
+.v-chushogi .sg-wrap.orientation-sente piece.tiger.sente,
+      .v-chushogi .sg-wrap.orientation-gote piece.tiger.gote,
+      .spare-bottom.v-chushogi piece.tiger {background-image:url('/assets/piece/Chu_Intl/0_TIGER.svg') !important;}
+.v-chushogi .sg-wrap.orientation-sente piece.phoenix.sente,
+      .v-chushogi .sg-wrap.orientation-gote piece.phoenix.gote,
+      .spare-bottom.v-chushogi piece.phoenix {background-image:url('/assets/piece/Chu_Intl/0_PHOENIX.svg') !important;}
+.v-chushogi .sg-wrap.orientation-sente piece.kirin.sente,
+      .v-chushogi .sg-wrap.orientation-gote piece.kirin.gote,
+      .spare-bottom.v-chushogi piece.kirin {background-image:url('/assets/piece/Chu_Intl/0_KIRIN.svg') !important;}
+.v-chushogi .sg-wrap.orientation-sente piece.sidemover.sente,
+      .v-chushogi .sg-wrap.orientation-gote piece.sidemover.gote,
+      .spare-bottom.v-chushogi piece.sidemover {background-image:url('/assets/piece/Chu_Intl/0_SIDEMOVER.svg') !important;}
+.v-chushogi .sg-wrap.orientation-sente piece.verticalmover.sente,
+      .v-chushogi .sg-wrap.orientation-gote piece.verticalmover.gote,
+      .spare-bottom.v-chushogi piece.verticalmover {background-image:url('/assets/piece/Chu_Intl/0_VERTICALMOVER.svg') !important;}
+.v-chushogi .sg-wrap.orientation-sente piece.rook.sente,
+      .v-chushogi .sg-wrap.orientation-gote piece.rook.gote,
+      .spare-bottom.v-chushogi piece.rook {background-image:url('/assets/piece/Chu_Intl/0_ROOK.svg') !important;}
+.v-chushogi .sg-wrap.orientation-sente piece.horse.sente,
+      .v-chushogi .sg-wrap.orientation-gote piece.horse.gote,
+      .spare-bottom.v-chushogi piece.horse {background-image:url('/assets/piece/Chu_Intl/0_HORSE.svg') !important;}
+.v-chushogi .sg-wrap.orientation-sente piece.dragon.sente,
+      .v-chushogi .sg-wrap.orientation-gote piece.dragon.gote,
+      .spare-bottom.v-chushogi piece.dragon {background-image:url('/assets/piece/Chu_Intl/0_DRAGON.svg') !important;}
+.v-chushogi .sg-wrap.orientation-sente piece.queen.sente,
+      .v-chushogi .sg-wrap.orientation-gote piece.queen.gote,
+      .spare-bottom.v-chushogi piece.queen {background-image:url('/assets/piece/Chu_Intl/0_QUEEN.svg') !important;}
+.v-chushogi .sg-wrap.orientation-sente piece.lion.sente,
+      .v-chushogi .sg-wrap.orientation-gote piece.lion.gote,
+      .spare-bottom.v-chushogi piece.lion {background-image:url('/assets/piece/Chu_Intl/0_LION.svg') !important;}
+.v-chushogi .sg-wrap.orientation-sente piece.pawn.sente,
+      .v-chushogi .sg-wrap.orientation-gote piece.pawn.gote,
+      .spare-bottom.v-chushogi piece.pawn {background-image:url('/assets/piece/Chu_Intl/0_PAWN.svg') !important;}
+.v-chushogi .sg-wrap.orientation-sente piece.gobetween.sente,
+      .v-chushogi .sg-wrap.orientation-gote piece.gobetween.gote,
+      .spare-bottom.v-chushogi piece.gobetween {background-image:url('/assets/piece/Chu_Intl/0_GOBETWEEN.svg') !important;}
+.v-chushogi .sg-wrap.orientation-gote piece.king.gote,
+      .spare-bottom.v-chushogi piece.king {background-image:url('/assets/piece/Chu_Intl/0_KING.svg') !important;}
+.v-chushogi piece.king.sente,
+      .v-chushogi .sg-wrap.orientation-sente piece.king.sente,
+      .spare-bottom.v-chushogi piece.king.sente {background-image:url('/assets/piece/Chu_Intl/0_TAMA.svg') !important;}
+.v-chushogi .sg-wrap.orientation-sente piece.promotedpawn.sente,
+      .v-chushogi .sg-wrap.orientation-gote piece.promotedpawn.gote,
+      .spare-bottom.v-chushogi piece.promotedpawn {background-image:url('/assets/piece/Chu_Intl/0_PROMOTEDPAWN.svg') !important;}
+.v-chushogi .sg-wrap.orientation-sente piece.ox.sente,
+      .v-chushogi .sg-wrap.orientation-gote piece.ox.gote,
+      .spare-bottom.v-chushogi piece.ox {background-image:url('/assets/piece/Chu_Intl/0_OX.svg') !important;}
+.v-chushogi .sg-wrap.orientation-sente piece.stag.sente,
+      .v-chushogi .sg-wrap.orientation-gote piece.stag.gote,
+      .spare-bottom.v-chushogi piece.stag {background-image:url('/assets/piece/Chu_Intl/0_STAG.svg') !important;}
+.v-chushogi .sg-wrap.orientation-sente piece.boar.sente,
+      .v-chushogi .sg-wrap.orientation-gote piece.boar.gote,
+      .spare-bottom.v-chushogi piece.boar {background-image:url('/assets/piece/Chu_Intl/0_BOAR.svg') !important;}
+.v-chushogi .sg-wrap.orientation-sente piece.falcon.sente,
+      .v-chushogi .sg-wrap.orientation-gote piece.falcon.gote,
+      .spare-bottom.v-chushogi piece.falcon {background-image:url('/assets/piece/Chu_Intl/0_FALCON.svg') !important;}
+.v-chushogi .sg-wrap.orientation-sente piece.prince.sente,
+      .v-chushogi .sg-wrap.orientation-gote piece.prince.gote,
+      .spare-bottom.v-chushogi piece.prince {background-image:url('/assets/piece/Chu_Intl/0_PRINCE.svg') !important;}
+.v-chushogi .sg-wrap.orientation-sente piece.eagle.sente,
+      .v-chushogi .sg-wrap.orientation-gote piece.eagle.gote,
+      .spare-bottom.v-chushogi piece.eagle {background-image:url('/assets/piece/Chu_Intl/0_EAGLE.svg') !important;}
+.v-chushogi .sg-wrap.orientation-sente piece.whale.sente,
+      .v-chushogi .sg-wrap.orientation-gote piece.whale.gote,
+      .spare-bottom.v-chushogi piece.whale {background-image:url('/assets/piece/Chu_Intl/0_WHALE.svg') !important;}
+.v-chushogi .sg-wrap.orientation-sente piece.whitehorse.sente,
+      .v-chushogi .sg-wrap.orientation-gote piece.whitehorse.gote,
+      .spare-bottom.v-chushogi piece.whitehorse {background-image:url('/assets/piece/Chu_Intl/0_WHITEHORSE.svg') !important;}
+.v-chushogi .sg-wrap.orientation-sente piece.dragonpromoted.sente,
+      .v-chushogi .sg-wrap.orientation-gote piece.dragonpromoted.gote,
+      .spare-bottom.v-chushogi piece.dragonpromoted {background-image:url('/assets/piece/Chu_Intl/0_DRAGONPROMOTED.svg') !important;}
+.v-chushogi .sg-wrap.orientation-sente piece.horsepromoted.sente,
+      .v-chushogi .sg-wrap.orientation-gote piece.horsepromoted.gote,
+      .spare-bottom.v-chushogi piece.horsepromoted {background-image:url('/assets/piece/Chu_Intl/0_HORSEPROMOTED.svg') !important;}
+.v-chushogi .sg-wrap.orientation-sente piece.lionpromoted.sente,
+      .v-chushogi .sg-wrap.orientation-gote piece.lionpromoted.gote,
+      .spare-bottom.v-chushogi piece.lionpromoted {background-image:url('/assets/piece/Chu_Intl/0_LIONPROMOTED.svg') !important;}
+.v-chushogi .sg-wrap.orientation-sente piece.queenpromoted.sente,
+      .v-chushogi .sg-wrap.orientation-gote piece.queenpromoted.gote,
+      .spare-bottom.v-chushogi piece.queenpromoted {background-image:url('/assets/piece/Chu_Intl/0_QUEENPROMOTED.svg') !important;}
+.v-chushogi .sg-wrap.orientation-sente piece.bishoppromoted.sente,
+      .v-chushogi .sg-wrap.orientation-gote piece.bishoppromoted.gote,
+      .spare-bottom.v-chushogi piece.bishoppromoted {background-image:url('/assets/piece/Chu_Intl/0_BISHOPPROMOTED.svg') !important;}
+.v-chushogi .sg-wrap.orientation-sente piece.elephantpromoted.sente,
+      .v-chushogi .sg-wrap.orientation-gote piece.elephantpromoted.gote,
+      .spare-bottom.v-chushogi piece.elephantpromoted {background-image:url('/assets/piece/Chu_Intl/0_ELEPHANTPROMOTED.svg') !important;}
+.v-chushogi .sg-wrap.orientation-sente piece.sidemoverpromoted.sente,
+      .v-chushogi .sg-wrap.orientation-gote piece.sidemoverpromoted.gote,
+      .spare-bottom.v-chushogi piece.sidemoverpromoted {background-image:url('/assets/piece/Chu_Intl/0_SIDEMOVERPROMOTED.svg') !important;}
+.v-chushogi .sg-wrap.orientation-sente piece.verticalmoverpromoted.sente,
+      .v-chushogi .sg-wrap.orientation-gote piece.verticalmoverpromoted.gote,
+      .spare-bottom.v-chushogi piece.verticalmoverpromoted {background-image:url('/assets/piece/Chu_Intl/0_VERTICALMOVERPROMOTED.svg') !important;}
+.v-chushogi .sg-wrap.orientation-sente piece.rookpromoted.sente,
+      .v-chushogi .sg-wrap.orientation-gote piece.rookpromoted.gote,
+      .spare-bottom.v-chushogi piece.rookpromoted {background-image:url('/assets/piece/Chu_Intl/0_ROOKPROMOTED.svg') !important;}
+.v-chushogi .sg-wrap.orientation-sente piece.lance.gote,
+      .v-chushogi .sg-wrap.orientation-gote piece.lance.sente,
+      .spare-top.v-chushogi piece.lance {background-image:url('/assets/piece/Chu_Intl/1_LANCE.svg') !important;}
+.v-chushogi .sg-wrap.orientation-sente piece.leopard.gote,
+      .v-chushogi .sg-wrap.orientation-gote piece.leopard.sente,
+      .spare-top.v-chushogi piece.leopard {background-image:url('/assets/piece/Chu_Intl/1_LEOPARD.svg') !important;}
+.v-chushogi .sg-wrap.orientation-sente piece.copper.gote,
+      .v-chushogi .sg-wrap.orientation-gote piece.copper.sente,
+      .spare-top.v-chushogi piece.copper {background-image:url('/assets/piece/Chu_Intl/1_COPPER.svg') !important;}
+.v-chushogi .sg-wrap.orientation-sente piece.silver.gote,
+      .v-chushogi .sg-wrap.orientation-gote piece.silver.sente,
+      .spare-top.v-chushogi piece.silver {background-image:url('/assets/piece/Chu_Intl/1_SILVER.svg') !important;}
+.v-chushogi .sg-wrap.orientation-sente piece.gold.gote,
+      .v-chushogi .sg-wrap.orientation-gote piece.gold.sente,
+      .spare-top.v-chushogi piece.gold {background-image:url('/assets/piece/Chu_Intl/1_GOLD.svg') !important;}
+.v-chushogi .sg-wrap.orientation-sente piece.elephant.gote,
+      .v-chushogi .sg-wrap.orientation-gote piece.elephant.sente,
+      .spare-top.v-chushogi piece.elephant {background-image:url('/assets/piece/Chu_Intl/1_ELEPHANT.svg') !important;}
+.v-chushogi .sg-wrap.orientation-sente piece.chariot.gote,
+      .v-chushogi .sg-wrap.orientation-gote piece.chariot.sente,
+      .spare-top.v-chushogi piece.chariot {background-image:url('/assets/piece/Chu_Intl/1_CHARIOT.svg') !important;}
+.v-chushogi .sg-wrap.orientation-sente piece.bishop.gote,
+      .v-chushogi .sg-wrap.orientation-gote piece.bishop.sente,
+      .spare-top.v-chushogi piece.bishop {background-image:url('/assets/piece/Chu_Intl/1_BISHOP.svg') !important;}
+.v-chushogi .sg-wrap.orientation-sente piece.tiger.gote,
+      .v-chushogi .sg-wrap.orientation-gote piece.tiger.sente,
+      .spare-top.v-chushogi piece.tiger {background-image:url('/assets/piece/Chu_Intl/1_TIGER.svg') !important;}
+.v-chushogi .sg-wrap.orientation-sente piece.phoenix.gote,
+      .v-chushogi .sg-wrap.orientation-gote piece.phoenix.sente,
+      .spare-top.v-chushogi piece.phoenix {background-image:url('/assets/piece/Chu_Intl/1_PHOENIX.svg') !important;}
+.v-chushogi .sg-wrap.orientation-sente piece.kirin.gote,
+      .v-chushogi .sg-wrap.orientation-gote piece.kirin.sente,
+      .spare-top.v-chushogi piece.kirin {background-image:url('/assets/piece/Chu_Intl/1_KIRIN.svg') !important;}
+.v-chushogi .sg-wrap.orientation-sente piece.sidemover.gote,
+      .v-chushogi .sg-wrap.orientation-gote piece.sidemover.sente,
+      .spare-top.v-chushogi piece.sidemover {background-image:url('/assets/piece/Chu_Intl/1_SIDEMOVER.svg') !important;}
+.v-chushogi .sg-wrap.orientation-sente piece.verticalmover.gote,
+      .v-chushogi .sg-wrap.orientation-gote piece.verticalmover.sente,
+      .spare-top.v-chushogi piece.verticalmover {background-image:url('/assets/piece/Chu_Intl/1_VERTICALMOVER.svg') !important;}
+.v-chushogi .sg-wrap.orientation-sente piece.rook.gote,
+      .v-chushogi .sg-wrap.orientation-gote piece.rook.sente,
+      .spare-top.v-chushogi piece.rook {background-image:url('/assets/piece/Chu_Intl/1_ROOK.svg') !important;}
+.v-chushogi .sg-wrap.orientation-sente piece.horse.gote,
+      .v-chushogi .sg-wrap.orientation-gote piece.horse.sente,
+      .spare-top.v-chushogi piece.horse {background-image:url('/assets/piece/Chu_Intl/1_HORSE.svg') !important;}
+.v-chushogi .sg-wrap.orientation-sente piece.dragon.gote,
+      .v-chushogi .sg-wrap.orientation-gote piece.dragon.sente,
+      .spare-top.v-chushogi piece.dragon {background-image:url('/assets/piece/Chu_Intl/1_DRAGON.svg') !important;}
+.v-chushogi .sg-wrap.orientation-sente piece.queen.gote,
+      .v-chushogi .sg-wrap.orientation-gote piece.queen.sente,
+      .spare-top.v-chushogi piece.queen {background-image:url('/assets/piece/Chu_Intl/1_QUEEN.svg') !important;}
+.v-chushogi .sg-wrap.orientation-sente piece.lion.gote,
+      .v-chushogi .sg-wrap.orientation-gote piece.lion.sente,
+      .spare-top.v-chushogi piece.lion {background-image:url('/assets/piece/Chu_Intl/1_LION.svg') !important;}
+.v-chushogi .sg-wrap.orientation-sente piece.pawn.gote,
+      .v-chushogi .sg-wrap.orientation-gote piece.pawn.sente,
+      .spare-top.v-chushogi piece.pawn {background-image:url('/assets/piece/Chu_Intl/1_PAWN.svg') !important;}
+.v-chushogi .sg-wrap.orientation-sente piece.gobetween.gote,
+      .v-chushogi .sg-wrap.orientation-gote piece.gobetween.sente,
+      .spare-top.v-chushogi piece.gobetween {background-image:url('/assets/piece/Chu_Intl/1_GOBETWEEN.svg') !important;}
+.v-chushogi .sg-wrap.orientation-sente piece.king.gote,
+      .spare-top.v-chushogi piece.king {background-image:url('/assets/piece/Chu_Intl/1_KING.svg') !important;}
+.v-chushogi .sg-wrap.orientation-gote piece.king.sente,
+      .spare-top.v-chushogi piece.king.sente {background-image:url('/assets/piece/Chu_Intl/1_TAMA.svg') !important;}
+.v-chushogi .sg-wrap.orientation-sente piece.promotedpawn.gote,
+      .v-chushogi .sg-wrap.orientation-gote piece.promotedpawn.sente,
+      .spare-top.v-chushogi piece.promotedpawn {background-image:url('/assets/piece/Chu_Intl/1_PROMOTEDPAWN.svg') !important;}
+.v-chushogi .sg-wrap.orientation-sente piece.ox.gote,
+      .v-chushogi .sg-wrap.orientation-gote piece.ox.sente,
+      .spare-top.v-chushogi piece.ox {background-image:url('/assets/piece/Chu_Intl/1_OX.svg') !important;}
+.v-chushogi .sg-wrap.orientation-sente piece.stag.gote,
+      .v-chushogi .sg-wrap.orientation-gote piece.stag.sente,
+      .spare-top.v-chushogi piece.stag {background-image:url('/assets/piece/Chu_Intl/1_STAG.svg') !important;}
+.v-chushogi .sg-wrap.orientation-sente piece.boar.gote,
+      .v-chushogi .sg-wrap.orientation-gote piece.boar.sente,
+      .spare-top.v-chushogi piece.boar {background-image:url('/assets/piece/Chu_Intl/1_BOAR.svg') !important;}
+.v-chushogi .sg-wrap.orientation-sente piece.falcon.gote,
+      .v-chushogi .sg-wrap.orientation-gote piece.falcon.sente,
+      .spare-top.v-chushogi piece.falcon {background-image:url('/assets/piece/Chu_Intl/1_FALCON.svg') !important;}
+.v-chushogi .sg-wrap.orientation-sente piece.prince.gote,
+      .v-chushogi .sg-wrap.orientation-gote piece.prince.sente,
+      .spare-top.v-chushogi piece.prince {background-image:url('/assets/piece/Chu_Intl/1_PRINCE.svg') !important;}
+.v-chushogi .sg-wrap.orientation-sente piece.eagle.gote,
+      .v-chushogi .sg-wrap.orientation-gote piece.eagle.sente,
+      .spare-top.v-chushogi piece.eagle {background-image:url('/assets/piece/Chu_Intl/1_EAGLE.svg') !important;}
+.v-chushogi .sg-wrap.orientation-sente piece.whale.gote,
+      .v-chushogi .sg-wrap.orientation-gote piece.whale.sente,
+      .spare-top.v-chushogi piece.whale {background-image:url('/assets/piece/Chu_Intl/1_WHALE.svg') !important;}
+.v-chushogi .sg-wrap.orientation-sente piece.whitehorse.gote,
+      .v-chushogi .sg-wrap.orientation-gote piece.whitehorse.sente,
+      .spare-top.v-chushogi piece.whitehorse {background-image:url('/assets/piece/Chu_Intl/1_WHITEHORSE.svg') !important;}
+.v-chushogi .sg-wrap.orientation-sente piece.dragonpromoted.gote,
+      .v-chushogi .sg-wrap.orientation-gote piece.dragonpromoted.sente,
+      .spare-top.v-chushogi piece.dragonpromoted {background-image:url('/assets/piece/Chu_Intl/1_DRAGONPROMOTED.svg') !important;}
+.v-chushogi .sg-wrap.orientation-sente piece.horsepromoted.gote,
+      .v-chushogi .sg-wrap.orientation-gote piece.horsepromoted.sente,
+      .spare-top.v-chushogi piece.horsepromoted {background-image:url('/assets/piece/Chu_Intl/1_HORSEPROMOTED.svg') !important;}
+.v-chushogi .sg-wrap.orientation-sente piece.lionpromoted.gote,
+      .v-chushogi .sg-wrap.orientation-gote piece.lionpromoted.sente,
+      .spare-top.v-chushogi piece.lionpromoted {background-image:url('/assets/piece/Chu_Intl/1_LIONPROMOTED.svg') !important;}
+.v-chushogi .sg-wrap.orientation-sente piece.queenpromoted.gote,
+      .v-chushogi .sg-wrap.orientation-gote piece.queenpromoted.sente,
+      .spare-top.v-chushogi piece.queenpromoted {background-image:url('/assets/piece/Chu_Intl/1_QUEENPROMOTED.svg') !important;}
+.v-chushogi .sg-wrap.orientation-sente piece.bishoppromoted.gote,
+      .v-chushogi .sg-wrap.orientation-gote piece.bishoppromoted.sente,
+      .spare-top.v-chushogi piece.bishoppromoted {background-image:url('/assets/piece/Chu_Intl/1_BISHOPPROMOTED.svg') !important;}
+.v-chushogi .sg-wrap.orientation-sente piece.elephantpromoted.gote,
+      .v-chushogi .sg-wrap.orientation-gote piece.elephantpromoted.sente,
+      .spare-top.v-chushogi piece.elephantpromoted {background-image:url('/assets/piece/Chu_Intl/1_ELEPHANTPROMOTED.svg') !important;}
+.v-chushogi .sg-wrap.orientation-sente piece.sidemoverpromoted.gote,
+      .v-chushogi .sg-wrap.orientation-gote piece.sidemoverpromoted.sente,
+      .spare-top.v-chushogi piece.sidemoverpromoted {background-image:url('/assets/piece/Chu_Intl/1_SIDEMOVERPROMOTED.svg') !important;}
+.v-chushogi .sg-wrap.orientation-sente piece.verticalmoverpromoted.gote,
+      .v-chushogi .sg-wrap.orientation-gote piece.verticalmoverpromoted.sente,
+      .spare-top.v-chushogi piece.verticalmoverpromoted {background-image:url('/assets/piece/Chu_Intl/1_VERTICALMOVERPROMOTED.svg') !important;}
+.v-chushogi .sg-wrap.orientation-sente piece.rookpromoted.gote,
+      .v-chushogi .sg-wrap.orientation-gote piece.rookpromoted.sente,
+      .spare-top.v-chushogi piece.rookpromoted {background-image:url('/assets/piece/Chu_Intl/1_ROOKPROMOTED.svg') !important;}
+.v-chushogi piece { will-change: auto; background-repeat: no-repeat; }

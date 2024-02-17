@@ -136,5 +136,4 @@ piece.horse.gote,
       .sg-wrap.orientation-gote piece.horse.sente,
       .hand-top piece.horse,
       .spare-top piece.horse.sente {background-image:url('/assets/piece/Engraved_cz/1UM.svg')}
-.d-12x12 piece { background-image: none !important; } 
-.sg-wrap[data-variant='kyotoshogi'] piece, .v-kyotoshogi piece { background-image: none !important; } 
+.v-chushogi piece, .v-kyotoshogi piece { background-image: none !important; } 

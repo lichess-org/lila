@@ -136,6 +136,8 @@ piece.horse.gote,
       .sg-wrap.orientation-gote piece.horse.sente,
       .hand-top piece.horse,
       .spare-top piece.horse.sente {background-image:url('/assets/piece/pixel/1UM.png')}
-piece{ image-rendering: pixelated; }
-.d-12x12 piece { background-image: none !important; } 
-.sg-wrap[data-variant='kyotoshogi'] piece, .v-kyotoshogi piece { background-image: none !important; } 
+piece { image-rendering: pixelated; }
+.v-chushogi piece, .v-kyotoshogi piece { image-rendering: unset; }
+piece { will-change: transform; background-repeat: unset; }
+.v-chushogi piece, .v-kyotoshogi piece { will-change: auto; background-repeat: no-repeat; }
+.v-chushogi piece, .v-kyotoshogi piece { background-image: none !important; } 

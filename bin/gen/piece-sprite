@@ -8,10 +8,6 @@ lila_dir = pwd()
 source_dir = lila_dir + '/public/piece/'
 dest_dir = lila_dir + '/public/piece-css/'
 
-def add_variant_prefix(classes, variant)
-  classes.split(',').map { |s| '.v-' + variant + ' ' + s.strip }.join(', ')
-end
-
 bidirectional = [['shogi_BnW', 'svg'], ['joyful', 'png']]
 
 themes = [
@@ -143,12 +139,14 @@ themes.map { |theme|
     }
   }.flatten
   if name == 'pixel'
-    classes.append("piece{ image-rendering: pixelated; }")
-  elsif ext == 'png'
-    classes.append("piece{ will-change: transform; background-repeat: unset; }")
+    classes.append("piece { image-rendering: pixelated; }")
+    classes.append(".v-chushogi piece, .v-kyotoshogi piece { image-rendering: unset; }")
   end
-  classes.append(".d-12x12 piece, .main-v-chushogi .spare piece { background-image: none !important; } ")
-  classes.append(".sg-wrap[data-variant='kyotoshogi'] piece, .v-kyotoshogi piece { background-image: none !important; } ")
+  if ext == 'png'
+    classes.append("piece { will-change: transform; background-repeat: unset; }")
+    classes.append(".v-chushogi piece, .v-kyotoshogi piece { will-change: auto; background-repeat: no-repeat; }")
+  end
+  classes.append(".v-chushogi piece, .v-kyotoshogi piece { background-image: none !important; } ")
   File.open(dest_dir + name + '.css', 'w') { |f| f.puts classes.join("\n") }
 }
 bidirectional.map { |theme|
@@ -170,12 +168,14 @@ bidirectional.map { |theme|
     }
   }.flatten
   if name == 'pixel'
-    classes.append("piece{ image-rendering: pixelated; }")
-  elsif ext == 'png'
-    classes.append("piece{ will-change: transform; background-repeat: unset; }")
+    classes.append("piece { image-rendering: pixelated; }")
+    classes.append(".v-chushogi piece, .v-kyotoshogi piece { image-rendering: unset; }")
   end
-  classes.append(".d-12x12 piece { background-image: none !important; } ")
-  classes.append(".sg-wrap[data-variant='kyotoshogi'] piece, .v-kyotoshogi piece { background-image: none !important; } ")
+  if ext == 'png'
+    classes.append("piece { will-change: transform; background-repeat: unset; }")
+    classes.append(".v-chushogi piece, .v-kyotoshogi piece { will-change: auto; background-repeat: no-repeat; }")
+  end
+  classes.append(".v-chushogi piece, .v-kyotoshogi piece { background-image: none !important; } ")
   File.open(dest_dir + name + '.css', 'w') { |f| f.puts classes.join("\n") }
 }
 
@@ -192,12 +192,14 @@ themes.map { |theme|
     }
   }.flatten
   if name == 'pixel'
-    classes.append("piece{ image-rendering: pixelated; }")
-  elsif ext == 'png'
-    classes.append("piece{ will-change: transform; background-repeat: unset; }")
+    classes.append("piece { image-rendering: pixelated; }")
+    classes.append(".v-chushogi piece, .v-kyotoshogi piece { image-rendering: unset; }")
   end
-  classes.append(".d-12x12 piece { background-image: none !important; } ")
-  classes.append(".sg-wrap[data-variant='kyotoshogi'] piece, .v-kyotoshogi piece { background-image: none !important; } ")
+  if ext == 'png'
+    classes.append("piece { will-change: transform; background-repeat: unset; }")
+    classes.append(".v-chushogi piece, .v-kyotoshogi piece { will-change: auto; background-repeat: no-repeat; }")
+  end
+  classes.append(".v-chushogi piece, .v-kyotoshogi piece { background-image: none !important; } ")
   File.open(dest_dir + name + '.external.css', 'w') { |f| f.puts classes.join("\n") }
 }
 bidirectional.map { |theme|
@@ -214,11 +216,13 @@ bidirectional.map { |theme|
     }
   }.flatten
   if name == 'pixel'
-    classes.append("piece{ image-rendering: pixelated; }")
-  elsif ext == 'png'
-    classes.append("piece{ will-change: transform; background-repeat: unset; }")
+    classes.append("piece { image-rendering: pixelated; }")
+    classes.append(".v-chushogi piece, .v-kyotoshogi piece { image-rendering: unset; }")
   end
-  classes.append(".d-12x12 piece { background-image: none !important; } ")
-  classes.append(".sg-wrap[data-variant='kyotoshogi'] piece, .v-kyotoshogi piece { background-image: none !important; } ")
+  if ext == 'png'
+    classes.append("piece { will-change: transform; background-repeat: unset; }")
+    classes.append(".v-chushogi piece, .v-kyotoshogi piece { will-change: auto; background-repeat: no-repeat; }")
+  end
+  classes.append(".v-chushogi piece, .v-kyotoshogi piece { background-image: none !important; } ")
   File.open(dest_dir + name + '.external.css', 'w') { |f| f.puts classes.join("\n") }
 }
