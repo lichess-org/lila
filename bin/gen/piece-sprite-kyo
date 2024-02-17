@@ -12,6 +12,7 @@ bidirectional = []
 
 themes = [
   ['Kyo_doubutsu', 'svg'],
+  ['Kyo_joyful', 'png'],
   ['Kyo_orangain', 'svg'],
   ['Kyo_Kanji', 'svg'],
   ['Kyo_simple_kanji', 'svg'],

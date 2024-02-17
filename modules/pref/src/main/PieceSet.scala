@@ -88,6 +88,7 @@ object KyoPieceSet extends PieceSetBase {
     new PieceSet("Kyo_international", "International"),
     new PieceSet("Kyo_simple_kanji", "Simple Kanji"),
     new PieceSet("Kyo_doubutsu", "Doubutsu"),
+    new PieceSet("Kyo_joyful", "Joyful"),
     new PieceSet("Kyo_Logy_Games", "Logy Games")
   )
 

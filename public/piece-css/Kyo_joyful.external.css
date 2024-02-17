@@ -1,161 +1,91 @@
-.sg-wrap.orientation-gote[data-variant='kyotoshogi'] piece.pawn.gote,
-      .variant-kyotoshogi .sg-wrap.orientation-gote piece.pawn.gote,
-      .variant-kyotoshogi .hand-bottom piece.pawn.gote,
-      .variant-kyotoshogi .spare-bottom piece.pawn.gote {background-image:url('/assets/piece/Kyo_joyful/0FU-1.png')!important;}
-.sg-wrap.orientation-gote[data-variant='kyotoshogi'] piece.silver.gote,
-      .variant-kyotoshogi .sg-wrap.orientation-gote piece.silver.gote,
-      .variant-kyotoshogi .hand-bottom piece.silver.gote,
-      .variant-kyotoshogi .spare-bottom piece.silver.gote {background-image:url('/assets/piece/Kyo_joyful/0GI-1.png')!important;}
-.sg-wrap.orientation-gote[data-variant='kyotoshogi'] piece.tama.gote,
-      .variant-kyotoshogi .sg-wrap.orientation-gote piece.tama.gote,
-      .variant-kyotoshogi .hand-bottom piece.tama.gote,
-      .variant-kyotoshogi .spare-bottom piece.tama.gote {background-image:url('/assets/piece/Kyo_joyful/0GY-1.png')!important;}
-.sg-wrap.orientation-gote[data-variant='kyotoshogi'] piece.rook.gote,
-      .variant-kyotoshogi .sg-wrap.orientation-gote piece.rook.gote,
-      .variant-kyotoshogi .hand-bottom piece.rook.gote,
-      .variant-kyotoshogi .spare-bottom piece.rook.gote {background-image:url('/assets/piece/Kyo_joyful/0HI-1.png')!important;}
-.sg-wrap.orientation-gote[data-variant='kyotoshogi'] piece.bishop.gote,
-      .variant-kyotoshogi .sg-wrap.orientation-gote piece.bishop.gote,
-      .variant-kyotoshogi .hand-bottom piece.bishop.gote,
-      .variant-kyotoshogi .spare-bottom piece.bishop.gote {background-image:url('/assets/piece/Kyo_joyful/0KA-1.png')!important;}
-.sg-wrap.orientation-gote[data-variant='kyotoshogi'] piece.knight.gote,
-      .variant-kyotoshogi .sg-wrap.orientation-gote piece.knight.gote,
-      .variant-kyotoshogi .hand-bottom piece.knight.gote,
-      .variant-kyotoshogi .spare-bottom piece.knight.gote {background-image:url('/assets/piece/Kyo_joyful/0KE-1.png')!important;}
-.sg-wrap.orientation-gote[data-variant='kyotoshogi'] piece.gold.gote,
-      .variant-kyotoshogi .sg-wrap.orientation-gote piece.gold.gote,
-      .variant-kyotoshogi .hand-bottom piece.gold.gote,
-      .variant-kyotoshogi .spare-bottom piece.gold.gote {background-image:url('/assets/piece/Kyo_joyful/0KI-1.png')!important;}
-.sg-wrap.orientation-gote[data-variant='kyotoshogi'] piece.lance.gote,
-      .variant-kyotoshogi .sg-wrap.orientation-gote piece.lance.gote,
-      .variant-kyotoshogi .hand-bottom piece.lance.gote,
-      .variant-kyotoshogi .spare-bottom piece.lance.gote {background-image:url('/assets/piece/Kyo_joyful/0KY-1.png')!important;}
-.sg-wrap.orientation-gote[data-variant='kyotoshogi'] piece.king.gote,
-      .variant-kyotoshogi .sg-wrap.orientation-gote piece.king.gote,
-      .variant-kyotoshogi .hand-bottom piece.king.gote,
-      .variant-kyotoshogi .spare-bottom piece.king.gote {background-image:url('/assets/piece/Kyo_joyful/0OU-1.png')!important;}
-.sg-wrap.orientation-gote[data-variant='kyotoshogi'] piece.tokin.gote,
-      .variant-kyotoshogi .sg-wrap.orientation-gote piece.tokin.gote,
-      .variant-kyotoshogi .hand-bottom piece.tokin.gote,
-      .variant-kyotoshogi .spare-bottom piece.tokin.gote {background-image:url('/assets/piece/Kyo_joyful/0TO-1.png')!important;}
-.sg-wrap.orientation-gote[data-variant='kyotoshogi'] piece.pawn.sente,
-      .variant-kyotoshogi .sg-wrap.orientation-gote piece.pawn.sente,
-      .variant-kyotoshogi .hand-top piece.pawn.sente,
-      .variant-kyotoshogi .spare-top piece.pawn.sente {background-image:url('/assets/piece/Kyo_joyful/1FU-1.png')!important;}
-.sg-wrap.orientation-gote[data-variant='kyotoshogi'] piece.silver.sente,
-      .variant-kyotoshogi .sg-wrap.orientation-gote piece.silver.sente,
-      .variant-kyotoshogi .hand-top piece.silver.sente,
-      .variant-kyotoshogi .spare-top piece.silver.sente {background-image:url('/assets/piece/Kyo_joyful/1GI-1.png')!important;}
-.sg-wrap.orientation-gote[data-variant='kyotoshogi'] piece.tama.sente,
-      .variant-kyotoshogi .sg-wrap.orientation-gote piece.tama.sente,
-      .variant-kyotoshogi .hand-top piece.tama.sente,
-      .variant-kyotoshogi .spare-top piece.tama.sente {background-image:url('/assets/piece/Kyo_joyful/1GY-1.png')!important;}
-.sg-wrap.orientation-gote[data-variant='kyotoshogi'] piece.rook.sente,
-      .variant-kyotoshogi .sg-wrap.orientation-gote piece.rook.sente,
-      .variant-kyotoshogi .hand-top piece.rook.sente,
-      .variant-kyotoshogi .spare-top piece.rook.sente {background-image:url('/assets/piece/Kyo_joyful/1HI-1.png')!important;}
-.sg-wrap.orientation-gote[data-variant='kyotoshogi'] piece.bishop.sente,
-      .variant-kyotoshogi .sg-wrap.orientation-gote piece.bishop.sente,
-      .variant-kyotoshogi .hand-top piece.bishop.sente,
-      .variant-kyotoshogi .spare-top piece.bishop.sente {background-image:url('/assets/piece/Kyo_joyful/1KA-1.png')!important;}
-.sg-wrap.orientation-gote[data-variant='kyotoshogi'] piece.knight.sente,
-      .variant-kyotoshogi .sg-wrap.orientation-gote piece.knight.sente,
-      .variant-kyotoshogi .hand-top piece.knight.sente,
-      .variant-kyotoshogi .spare-top piece.knight.sente {background-image:url('/assets/piece/Kyo_joyful/1KE-1.png')!important;}
-.sg-wrap.orientation-gote[data-variant='kyotoshogi'] piece.gold.sente,
-      .variant-kyotoshogi .sg-wrap.orientation-gote piece.gold.sente,
-      .variant-kyotoshogi .hand-top piece.gold.sente,
-      .variant-kyotoshogi .spare-top piece.gold.sente {background-image:url('/assets/piece/Kyo_joyful/1KI-1.png')!important;}
-.sg-wrap.orientation-gote[data-variant='kyotoshogi'] piece.lance.sente,
-      .variant-kyotoshogi .sg-wrap.orientation-gote piece.lance.sente,
-      .variant-kyotoshogi .hand-top piece.lance.sente,
-      .variant-kyotoshogi .spare-top piece.lance.sente {background-image:url('/assets/piece/Kyo_joyful/1KY-1.png')!important;}
-.sg-wrap.orientation-gote[data-variant='kyotoshogi'] piece.king.sente,
-      .variant-kyotoshogi .sg-wrap.orientation-gote piece.king.sente,
-      .variant-kyotoshogi .hand-top piece.king.sente,
-      .variant-kyotoshogi .spare-top piece.king.sente {background-image:url('/assets/piece/Kyo_joyful/1OU-1.png')!important;}
-.sg-wrap.orientation-gote[data-variant='kyotoshogi'] piece.tokin.sente,
-      .variant-kyotoshogi .sg-wrap.orientation-gote piece.tokin.sente,
-      .variant-kyotoshogi .hand-top piece.tokin.sente,
-      .variant-kyotoshogi .spare-top piece.tokin.sente {background-image:url('/assets/piece/Kyo_joyful/1TO-1.png')!important;}
-.sg-wrap.orientation-sente[data-variant='kyotoshogi'] piece.pawn.sente,
-      .variant-kyotoshogi .sg-wrap.orientation-sente piece.pawn.sente,
-      .variant-kyotoshogi .hand-bottom piece.pawn.sente,
-      .variant-kyotoshogi .spare-bottom piece.pawn.sente {background-image:url('/assets/piece/Kyo_joyful/0FU.png')!important;}
-.sg-wrap.orientation-sente[data-variant='kyotoshogi'] piece.silver.sente,
-      .variant-kyotoshogi .sg-wrap.orientation-sente piece.silver.sente,
-      .variant-kyotoshogi .hand-bottom piece.silver.sente,
-      .variant-kyotoshogi .spare-bottom piece.silver.sente {background-image:url('/assets/piece/Kyo_joyful/0GI.png')!important;}
-.sg-wrap.orientation-sente[data-variant='kyotoshogi'] piece.tama.sente,
-      .variant-kyotoshogi .sg-wrap.orientation-sente piece.tama.sente,
-      .variant-kyotoshogi .hand-bottom piece.tama.sente,
-      .variant-kyotoshogi .spare-bottom piece.tama.sente {background-image:url('/assets/piece/Kyo_joyful/0GY.png')!important;}
-.sg-wrap.orientation-sente[data-variant='kyotoshogi'] piece.rook.sente,
-      .variant-kyotoshogi .sg-wrap.orientation-sente piece.rook.sente,
-      .variant-kyotoshogi .hand-bottom piece.rook.sente,
-      .variant-kyotoshogi .spare-bottom piece.rook.sente {background-image:url('/assets/piece/Kyo_joyful/0HI.png')!important;}
-.sg-wrap.orientation-sente[data-variant='kyotoshogi'] piece.bishop.sente,
-      .variant-kyotoshogi .sg-wrap.orientation-sente piece.bishop.sente,
-      .variant-kyotoshogi .hand-bottom piece.bishop.sente,
-      .variant-kyotoshogi .spare-bottom piece.bishop.sente {background-image:url('/assets/piece/Kyo_joyful/0KA.png')!important;}
-.sg-wrap.orientation-sente[data-variant='kyotoshogi'] piece.knight.sente,
-      .variant-kyotoshogi .sg-wrap.orientation-sente piece.knight.sente,
-      .variant-kyotoshogi .hand-bottom piece.knight.sente,
-      .variant-kyotoshogi .spare-bottom piece.knight.sente {background-image:url('/assets/piece/Kyo_joyful/0KE.png')!important;}
-.sg-wrap.orientation-sente[data-variant='kyotoshogi'] piece.gold.sente,
-      .variant-kyotoshogi .sg-wrap.orientation-sente piece.gold.sente,
-      .variant-kyotoshogi .hand-bottom piece.gold.sente,
-      .variant-kyotoshogi .spare-bottom piece.gold.sente {background-image:url('/assets/piece/Kyo_joyful/0KI.png')!important;}
-.sg-wrap.orientation-sente[data-variant='kyotoshogi'] piece.lance.sente,
-      .variant-kyotoshogi .sg-wrap.orientation-sente piece.lance.sente,
-      .variant-kyotoshogi .hand-bottom piece.lance.sente,
-      .variant-kyotoshogi .spare-bottom piece.lance.sente {background-image:url('/assets/piece/Kyo_joyful/0KY.png')!important;}
-.sg-wrap.orientation-sente[data-variant='kyotoshogi'] piece.king.sente,
-      .variant-kyotoshogi .sg-wrap.orientation-sente piece.king.sente,
-      .variant-kyotoshogi .hand-bottom piece.king.sente,
-      .variant-kyotoshogi .spare-bottom piece.king.sente {background-image:url('/assets/piece/Kyo_joyful/0OU.png')!important;}
-.sg-wrap.orientation-sente[data-variant='kyotoshogi'] piece.tokin.sente,
-      .variant-kyotoshogi .sg-wrap.orientation-sente piece.tokin.sente,
-      .variant-kyotoshogi .hand-bottom piece.tokin.sente,
-      .variant-kyotoshogi .spare-bottom piece.tokin.sente {background-image:url('/assets/piece/Kyo_joyful/0TO.png')!important;}
-.sg-wrap.orientation-sente[data-variant='kyotoshogi'] piece.pawn.gote,
-      .sg-wrap.orientation-sente piece.pawn.gote,
-      .variant-kyotoshogi .hand-top piece.pawn.gote,
-      .variant-kyotoshogi .spare-top piece.pawn.gote {background-image:url('/assets/piece/Kyo_joyful/1FU.png')!important;}
-.sg-wrap.orientation-sente[data-variant='kyotoshogi'] piece.silver.gote,
-      .sg-wrap.orientation-sente piece.silver.gote,
-      .variant-kyotoshogi .hand-top piece.silver.gote,
-      .variant-kyotoshogi .spare-top piece.silver.gote {background-image:url('/assets/piece/Kyo_joyful/1GI.png')!important;}
-.sg-wrap.orientation-sente[data-variant='kyotoshogi'] piece.tama.gote,
-      .sg-wrap.orientation-sente piece.tama.gote,
-      .variant-kyotoshogi .hand-top piece.tama.gote,
-      .variant-kyotoshogi .spare-top piece.tama.gote {background-image:url('/assets/piece/Kyo_joyful/1GY.png')!important;}
-.sg-wrap.orientation-sente[data-variant='kyotoshogi'] piece.rook.gote,
-      .sg-wrap.orientation-sente piece.rook.gote,
-      .variant-kyotoshogi .hand-top piece.rook.gote,
-      .variant-kyotoshogi .spare-top piece.rook.gote {background-image:url('/assets/piece/Kyo_joyful/1HI.png')!important;}
-.sg-wrap.orientation-sente[data-variant='kyotoshogi'] piece.bishop.gote,
-      .sg-wrap.orientation-sente piece.bishop.gote,
-      .variant-kyotoshogi .hand-top piece.bishop.gote,
-      .variant-kyotoshogi .spare-top piece.bishop.gote {background-image:url('/assets/piece/Kyo_joyful/1KA.png')!important;}
-.sg-wrap.orientation-sente[data-variant='kyotoshogi'] piece.knight.gote,
-      .sg-wrap.orientation-sente piece.knight.gote,
-      .variant-kyotoshogi .hand-top piece.knight.gote,
-      .variant-kyotoshogi .spare-top piece.knight.gote {background-image:url('/assets/piece/Kyo_joyful/1KE.png')!important;}
-.sg-wrap.orientation-sente[data-variant='kyotoshogi'] piece.gold.gote,
-      .sg-wrap.orientation-sente piece.gold.gote,
-      .variant-kyotoshogi .hand-top piece.gold.gote,
-      .variant-kyotoshogi .spare-top piece.gold.gote {background-image:url('/assets/piece/Kyo_joyful/1KI.png')!important;}
-.sg-wrap.orientation-sente[data-variant='kyotoshogi'] piece.lance.gote,
-      .sg-wrap.orientation-sente piece.lance.gote,
-      .variant-kyotoshogi .hand-top piece.lance.gote,
-      .variant-kyotoshogi .spare-top piece.lance.gote {background-image:url('/assets/piece/Kyo_joyful/1KY.png')!important;}
-.sg-wrap.orientation-sente[data-variant='kyotoshogi'] piece.king.gote,
-      .sg-wrap.orientation-sente piece.king.gote,
-      .variant-kyotoshogi .hand-top piece.king.gote,
-      .variant-kyotoshogi .spare-top piece.king.gote {background-image:url('/assets/piece/Kyo_joyful/1OU.png')!important;}
-.sg-wrap.orientation-sente[data-variant='kyotoshogi'] piece.tokin.gote,
-      .sg-wrap.orientation-sente piece.tokin.gote,
-      .variant-kyotoshogi .hand-top piece.tokin.gote,
-      .variant-kyotoshogi .spare-top piece.tokin.gote {background-image:url('/assets/piece/Kyo_joyful/1TO.png')!important;}
-piece{ will-change: transform; background-repeat: unset; }
+.v-kyotoshogi piece.pawn.sente,
+      .v-kyotoshogi .sg-wrap.orientation-sente piece.pawn.sente,
+      .v-kyotoshogi .sg-wrap.orientation-gote piece.pawn.gote,
+      .v-kyotoshogi .hand-bottom piece.pawn.gote,
+      .spare-bottom.v-kyotoshogi piece.pawn {background-image:url('/assets/piece/Kyo_joyful/0FU.png')!important;}
+.v-kyotoshogi piece.silver.sente,
+      .v-kyotoshogi .sg-wrap.orientation-sente piece.silver.sente,
+      .v-kyotoshogi .sg-wrap.orientation-gote piece.silver.gote,
+      .v-kyotoshogi .hand-bottom piece.silver.gote,
+      .spare-bottom.v-kyotoshogi piece.silver {background-image:url('/assets/piece/Kyo_joyful/0GI.png')!important;}
+.v-kyotoshogi piece.king.sente,
+      .v-kyotoshogi .sg-wrap.orientation-sente piece.king.sente,
+      .spare-bottom.v-kyotoshogi piece.king.sente {background-image:url('/assets/piece/Kyo_joyful/0GY.png')!important;}
+.v-kyotoshogi piece.rook.sente,
+      .v-kyotoshogi .sg-wrap.orientation-sente piece.rook.sente,
+      .v-kyotoshogi .sg-wrap.orientation-gote piece.rook.gote,
+      .v-kyotoshogi .hand-bottom piece.rook.gote,
+      .spare-bottom.v-kyotoshogi piece.rook {background-image:url('/assets/piece/Kyo_joyful/0HI.png')!important;}
+.v-kyotoshogi piece.bishop.sente,
+      .v-kyotoshogi .sg-wrap.orientation-sente piece.bishop.sente,
+      .v-kyotoshogi .sg-wrap.orientation-gote piece.bishop.gote,
+      .v-kyotoshogi .hand-bottom piece.bishop.gote,
+      .spare-bottom.v-kyotoshogi piece.bishop {background-image:url('/assets/piece/Kyo_joyful/0KA.png')!important;}
+.v-kyotoshogi piece.knight.sente,
+      .v-kyotoshogi .sg-wrap.orientation-sente piece.knight.sente,
+      .v-kyotoshogi .sg-wrap.orientation-gote piece.knight.gote,
+      .v-kyotoshogi .hand-bottom piece.knight.gote,
+      .spare-bottom.v-kyotoshogi piece.knight {background-image:url('/assets/piece/Kyo_joyful/0KE.png')!important;}
+.v-kyotoshogi piece.gold.sente,
+      .v-kyotoshogi .sg-wrap.orientation-sente piece.gold.sente,
+      .v-kyotoshogi .sg-wrap.orientation-gote piece.gold.gote,
+      .v-kyotoshogi .hand-bottom piece.gold.gote,
+      .spare-bottom.v-kyotoshogi piece.gold {background-image:url('/assets/piece/Kyo_joyful/0KI.png')!important;}
+.v-kyotoshogi piece.lance.sente,
+      .v-kyotoshogi .sg-wrap.orientation-sente piece.lance.sente,
+      .v-kyotoshogi .sg-wrap.orientation-gote piece.lance.gote,
+      .v-kyotoshogi .hand-bottom piece.lance.gote,
+      .spare-bottom.v-kyotoshogi piece.lance {background-image:url('/assets/piece/Kyo_joyful/0KY.png')!important;}
+.v-kyotoshogi .sg-wrap.orientation-gote piece.king.gote,
+      .spare-bottom.v-kyotoshogi piece.king.gote {background-image:url('/assets/piece/Kyo_joyful/0OU.png')!important;}
+.v-kyotoshogi piece.tokin.sente,
+      .v-kyotoshogi .sg-wrap.orientation-sente piece.tokin.sente,
+      .v-kyotoshogi .sg-wrap.orientation-gote piece.tokin.gote,
+      .v-kyotoshogi .hand-bottom piece.tokin.gote,
+      .spare-bottom.v-kyotoshogi piece.tokin {background-image:url('/assets/piece/Kyo_joyful/0TO.png')!important;}
+.v-kyotoshogi piece.pawn.gote,
+      .v-kyotoshogi .sg-wrap.orientation-sente piece.pawn.gote,
+      .v-kyotoshogi .sg-wrap.orientation-gote piece.pawn.sente,
+      .v-kyotoshogi .hand-top piece.pawn,
+      .spare-top.v-kyotoshogi piece.pawn {background-image:url('/assets/piece/Kyo_joyful/1FU.png')!important;}
+.v-kyotoshogi piece.silver.gote,
+      .v-kyotoshogi .sg-wrap.orientation-sente piece.silver.gote,
+      .v-kyotoshogi .sg-wrap.orientation-gote piece.silver.sente,
+      .v-kyotoshogi .hand-top piece.silver,
+      .spare-top.v-kyotoshogi piece.silver {background-image:url('/assets/piece/Kyo_joyful/1GI.png')!important;}
+.v-kyotoshogi .sg-wrap.orientation-gote piece.king.sente,
+      .spare-top.v-kyotoshogi piece.king.sente {background-image:url('/assets/piece/Kyo_joyful/1GY.png')!important;}
+.v-kyotoshogi piece.rook.gote,
+      .v-kyotoshogi .sg-wrap.orientation-sente piece.rook.gote,
+      .v-kyotoshogi .sg-wrap.orientation-gote piece.rook.sente,
+      .v-kyotoshogi .hand-top piece.rook,
+      .spare-top.v-kyotoshogi piece.rook {background-image:url('/assets/piece/Kyo_joyful/1HI.png')!important;}
+.v-kyotoshogi piece.bishop.gote,
+      .v-kyotoshogi .sg-wrap.orientation-sente piece.bishop.gote,
+      .v-kyotoshogi .sg-wrap.orientation-gote piece.bishop.sente,
+      .v-kyotoshogi .hand-top piece.bishop,
+      .spare-top.v-kyotoshogi piece.bishop {background-image:url('/assets/piece/Kyo_joyful/1KA.png')!important;}
+.v-kyotoshogi piece.knight.gote,
+      .v-kyotoshogi .sg-wrap.orientation-sente piece.knight.gote,
+      .v-kyotoshogi .sg-wrap.orientation-gote piece.knight.sente,
+      .v-kyotoshogi .hand-top piece.knight,
+      .spare-top.v-kyotoshogi piece.knight {background-image:url('/assets/piece/Kyo_joyful/1KE.png')!important;}
+.v-kyotoshogi piece.gold.gote,
+      .v-kyotoshogi .sg-wrap.orientation-sente piece.gold.gote,
+      .v-kyotoshogi .sg-wrap.orientation-gote piece.gold.sente,
+      .v-kyotoshogi .hand-top piece.gold,
+      .spare-top.v-kyotoshogi piece.gold {background-image:url('/assets/piece/Kyo_joyful/1KI.png')!important;}
+.v-kyotoshogi piece.lance.gote,
+      .v-kyotoshogi .sg-wrap.orientation-sente piece.lance.gote,
+      .v-kyotoshogi .sg-wrap.orientation-gote piece.lance.sente,
+      .v-kyotoshogi .hand-top piece.lance,
+      .spare-top.v-kyotoshogi piece.lance {background-image:url('/assets/piece/Kyo_joyful/1KY.png')!important;}
+.v-kyotoshogi piece.king.gote,
+      .v-kyotoshogi .sg-wrap.orientation-sente piece.king.gote,
+      .spare-top.v-kyotoshogi piece.king.gote {background-image:url('/assets/piece/Kyo_joyful/1OU.png')!important;}
+.v-kyotoshogi piece.tokin.gote,
+      .v-kyotoshogi .sg-wrap.orientation-sente piece.tokin.gote,
+      .v-kyotoshogi .sg-wrap.orientation-gote piece.tokin.sente,
+      .v-kyotoshogi .hand-top piece.tokin,
+      .spare-top.v-kyotoshogi piece.tokin {background-image:url('/assets/piece/Kyo_joyful/1TO.png')!important;}
+.v-kyotoshogi piece { will-change: transform !important; background-repeat: unset !important; }
