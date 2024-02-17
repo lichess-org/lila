@@ -64,10 +64,13 @@ export default class StrongSocket {
   tryOtherUrl = false;
   autoReconnect = true;
   nbConnects = 0;
-  storage: LichessStorage = makeStorage.make('surl17', 30 * 60 * 1000);
+  storage: LichessStorage = makeStorage.make(
+    document.body.dataset.socketAlternates ? 'surl-alt' : 'surl17',
+    30 * 60 * 1000,
+  );
   private _sign?: string;
   private resendWhenOpen: [string, any, any][] = [];
-  private baseUrls = document.body.dataset.socketDomains!.split(',');
+  private baseUrls = (document.body.dataset.socketAlts || document.body.dataset.socketDomains!).split(',');
   static defaultOptions: Options = {
     idle: false,
     pingMaxLag: 9000, // time to wait for pong before resetting the connection
@@ -344,7 +347,6 @@ export default class StrongSocket {
   };
 
   baseUrl = () => {
-    if (document.body.dataset.altSocket) return document.body.dataset.altSocket;
     let url = this.storage.get();
     if (!url) {
       url = this.baseUrls[Math.floor(Math.random() * this.baseUrls.length)];
