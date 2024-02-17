@@ -1,0 +1,13 @@
+#!/bin/sh
+
+# run from root dir of repo
+echo "Starting..."
+
+echo "Generating default piece sprites"
+ruby ./bin/gen/piece-sprite
+echo "Generating chushogi piece sprites"
+ruby ./bin/gen/piece-sprite-chu
+echo "Generating kyotoshogi piece sprites"
+ruby ./bin/gen/piece-sprite-kyo
+
+echo "Done"
