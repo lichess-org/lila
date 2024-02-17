@@ -30,9 +30,9 @@ $board-files: (
   position: absolute;
   background-color: black;
   border-radius: 50%;
-  margin: -4px;
   width: 7px;
   height: 7px;
+  margin: -4px;
   top: 0;
   left: 0;
 }
@@ -91,6 +91,9 @@ sg-squares {
         position: relative;
         &::after {
           @extend %grid-dot;
+          width: 5px;
+          height: 5px;
+          margin: -3px;
         }
       }
     }

@@ -93,6 +93,22 @@
   }
   &.v-chushogi .sg-wrap {
     padding: unset;
+    sg-squares sq::after {
+      width: 3px !important;
+      height: 3px !important;
+      margin: -2px !important;
+    }
+    .grid-width-2 & sg-squares sq::after,
+    .thick-grid:not(.custom) & sg-squares sq::after {
+      width: 5px !important;
+      height: 5px !important;
+      margin: -3px !important;
+    }
+    .grid-width-3 & sg-squares sq::after {
+      width: 6px !important;
+      height: 6px !important;
+      margin: -4px !important;
+    }
   }
 }
 
