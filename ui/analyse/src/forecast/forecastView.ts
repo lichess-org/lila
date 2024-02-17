@@ -1,4 +1,4 @@
-import { makeNotation, makeNotationLine, notationsWithColor } from 'common/notation';
+import { makeNotationLine, notationsWithColor } from 'common/notation';
 import { MaybeVNodes, bind, dataIcon } from 'common/snabbdom';
 import spinner from 'common/spinner';
 import { VNode, h } from 'snabbdom';
@@ -13,8 +13,8 @@ function onMyTurn(ctrl: AnalyseCtrl, fctrl: ForecastCtrl, cNodes: ForecastStep[]
   var lines = fcs.filter(function (fc) {
     return fc.length > 1;
   });
-  const initialSfen = firstNode.sfen,
-    moveNotation = firstNode.notation || makeNotation(initialSfen, ctrl.data.game.variant.key, cNodes[0].usi);
+  const moveNotation = firstNode.notation || ctrl.trans.noarg('move');
+
   return h(
     'button.on-my-turn.button.text',
     {
@@ -33,7 +33,8 @@ function onMyTurn(ctrl: AnalyseCtrl, fctrl: ForecastCtrl, cNodes: ForecastStep[]
 }
 
 function parentNode(ctrl: AnalyseCtrl, ply: number): Tree.Node {
-  return ctrl.mainline[ply - 1];
+  const properPly = ply - 1 - ctrl.mainline[0].ply;
+  return ctrl.mainline[properPly];
 }
 
 function makeCnodes(ctrl: AnalyseCtrl, fctrl: ForecastCtrl): ForecastStep[] {
@@ -79,7 +80,7 @@ export default function (ctrl: AnalyseCtrl, fctrl: ForecastCtrl): VNode {
         h(
           'div.list',
           fctrl.list().map(function (nodes, i) {
-            const par = parentNode(ctrl, nodes[0].ply - ctrl.plyOffset()),
+            const par = parentNode(ctrl, nodes[0].ply),
               notations = makeNotationLine(
                 par.sfen,
                 ctrl.data.game.variant.key,

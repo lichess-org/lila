@@ -174,6 +174,7 @@ object userAnalysisI18n {
     trans.playVariationToCreateConditionalPremoves,
     trans.noConditionalPremoves,
     trans.playX,
+    trans.move,
     trans.andSaveNbPremoveLines
   ).map(_.key)
 
