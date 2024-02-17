@@ -235,6 +235,12 @@ final class Account(
             Redirect(routes.Account.twoFactor).flashSuccess
   }
 
+  def network(usingAltSocket: Option[Boolean]) = Auth { _ ?=> _ ?=>
+    val page = (use: Option[Boolean]) => Ok.page(html.account.network(use))
+    if usingAltSocket.isEmpty || usingAltSocket.has(ctx.pref.isUsingAltSocket) then page(none)
+    else env.pref.api.setPref(ctx.pref.copy(usingAltSocket = usingAltSocket)) >> page(usingAltSocket)
+  }
+
   def close = Auth { _ ?=> me ?=>
     env.clas.api.student.isManaged(me) flatMap { managed =>
       env.security.forms.closeAccount.flatMap: form =>

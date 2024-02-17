@@ -150,7 +150,7 @@
     margin-bottom: 4rem;
   }
 
-  form section a {
+  section a {
     text-decoration: none;
     color: inherit;
   }
@@ -236,6 +236,11 @@
     input:checked + label {
       @extend %active-soft;
     }
+  }
+
+  .active-soft,
+  .active-soft:hover {
+    @extend %active-soft;
   }
 
   @include breakpoint($mq-not-xx-small) {
