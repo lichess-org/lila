@@ -2,6 +2,7 @@ package lila.app
 package templating
 
 import shogi.{ Clock, Color, Mode, Status => S }
+import shogi.variant.Variant
 import controllers.routes
 import play.api.i18n.Lang
 
@@ -81,10 +82,10 @@ trait GameHelper {
       case Mode.Rated  => trans.rated.txt()
     }
 
-  def variantClass(v: shogi.variant.Variant): String =
+  @inline def variantClass(v: Variant): String =
     s"v-${v.key}"
 
-  def mainVariantClass(v: shogi.variant.Variant): String =
+  @inline def mainVariantClass(v: Variant): String =
     s"main-v-${v.key}"
 
   def variantName(v: shogi.variant.Variant)(implicit lang: Lang): String =
@@ -248,6 +249,9 @@ trait GameHelper {
 
   def gameLink(pov: Pov)(implicit ctx: Context): String = gameLink(pov.game, pov.color)
 
+  private def miniBoardCls(gameId: String, variant: Variant, isLive: Boolean): String =
+    s"mini-board mini-board-${gameId} parse-sfen ${variantClass(variant)}${isLive ?? " live"}"
+
   def gameSfen(
       pov: Pov,
       ownerLink: Boolean = false,
@@ -261,15 +265,14 @@ trait GameHelper {
     val variant = game.variant
     val tag     = if (withLink) a else span
     tag(
-      href  := withLink.option(gameLink(game, pov.color, ownerLink, tv)),
-      title := withTitle.option(gameTitle(game, pov.color)),
-      cls :=
-        s"mini-board mini-board-${game.id} parse-sfen ${isLive ?? "live"}",
+      href         := withLink.option(gameLink(game, pov.color, ownerLink, tv)),
+      title        := withTitle.option(gameTitle(game, pov.color)),
+      cls          := miniBoardCls(game.id, variant, isLive),
       dataLive     := isLive.option(game.id),
       dataColor    := pov.color.name,
       dataSfen     := game.situation.toSfen.value,
       dataLastmove := ~game.lastMoveKeys,
-      dataVariant  := game.variant.key
+      dataVariant  := variant.key
     )(shogigroundEmpty(variant, pov.color))
   }
 
@@ -277,17 +280,14 @@ trait GameHelper {
     val isLive  = pov.game.isBeingPlayed
     val variant = pov.game.variant
     a(
-      href  := (if (tv) routes.Tv.index else routes.Round.watcher(pov.gameId, pov.color.name)),
-      title := gameTitle(pov.game, pov.color)(defaultLang),
-      cls := List(
-        s"mini-board mini-board-${pov.gameId} parse-sfen" -> true,
-        s"live mini-board-${pov.gameId}"                  -> isLive
-      ),
+      href         := (if (tv) routes.Tv.index else routes.Round.watcher(pov.gameId, pov.color.name)),
+      title        := gameTitle(pov.game, pov.color)(defaultLang),
+      cls          := miniBoardCls(pov.gameId, variant, isLive),
       dataLive     := isLive.option(pov.gameId),
       dataColor    := pov.color.name,
       dataSfen     := pov.game.situation.toSfen.value,
       dataLastmove := ~pov.game.lastMoveKeys,
-      dataVariant  := pov.game.variant.key,
+      dataVariant  := variant.key,
       target       := blank.option("_blank")
     )(shogigroundEmpty(variant, pov.color))
   }

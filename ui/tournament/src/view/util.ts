@@ -11,6 +11,7 @@ export function miniBoard(game) {
         'data-color': game.color,
         'data-sfen': game.sfen,
         'data-lastmove': game.lastMove,
+        'data-variant': game.variant,
       },
       hook: {
         insert(vnode) {

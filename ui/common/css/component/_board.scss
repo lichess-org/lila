@@ -20,16 +20,13 @@
     }
   }
   &.v-minishogi,
-  &.v-kyotoshogi,
-  &[data-variant='minishogi'],
-  &[data-variant='kyotoshogi'] {
+  &.v-kyotoshogi {
     padding-bottom: calc(100% / 11 * 12 / 5 * 7 + #{$hands-gap});
     .sg-wrap {
       grid-template-rows: 1fr 5fr 1fr;
     }
   }
-  &.v-chushogi,
-  &[data-variant='chushogi'] {
+  &.v-chushogi {
     padding-bottom: calc(100% / 11 * 12);
     .sg-wrap {
       grid-template-areas: 'sg-board';
@@ -94,10 +91,8 @@
       }
     }
   }
-  &[data-variant='chushogi'] {
-    .sg-wrap {
-      padding: unset;
-    }
+  &.v-chushogi .sg-wrap {
+    padding: unset;
   }
 }
 

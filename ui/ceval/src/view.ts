@@ -492,7 +492,7 @@ function renderPvBoard(ctrl: ParentCtrl): VNode | undefined {
     },
   };
   const sgVNode = h(
-    'div.mini-board',
+    'div.mini-board.v-' + instance.variant.key,
     h('div.sg-wrap', {
       hook: {
         insert: (vnode: any) => (vnode.elm._sg = window.Shogiground(sgConfig, { board: vnode.elm })),

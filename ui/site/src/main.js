@@ -349,9 +349,8 @@
       }, 500); // if not loaded yet
     // sometimes $elem is not a jQuery, can happen when content_loaded is triggered with random args
     if (!$elem || !$elem.each) $elem = $('.parse-sfen');
-    if (document.body.querySelector('.d-12x12')) lishogi.loadChushogiPieceSprite();
-    if (document.body.querySelector('[data-variant="kyotoshogi"]') || document.body.querySelector('.v-kyotoshogi'))
-      lishogi.loadKyotoshogiPieceSprite();
+    if (document.body.querySelector('.v-chushogi')) lishogi.loadChushogiPieceSprite();
+    if (document.body.querySelector('.v-kyotoshogi')) lishogi.loadKyotoshogiPieceSprite();
     $elem.each(function () {
       var $this = $(this).removeClass('parse-sfen');
       var sgWrap = this.firstChild;
@@ -361,7 +360,7 @@
       var ground = $this.data('shogiground');
       var playable = !!$this.data('playable');
       var resizable = !!$this.data('resizable');
-      var variant = $this.data('variant');
+      var variant = $this.data('variant') || 'stadard';
       var sfen = $this.data('sfen') || lishogi.readServerSfen($this.data('z'));
       var splitSfen = sfen.split(' ');
       var handRoles =

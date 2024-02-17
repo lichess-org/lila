@@ -29,7 +29,7 @@ export function sparePieces(ctrl: EditorCtrl, color: Color, position: 'top' | 'b
     }
   });
   return h(
-    'div.spare.spare-' + position + '.spare-' + color,
+    'div.spare.spare-' + position + '.spare-' + color + '.v-' + ctrl.rules,
     {
       // so we don't force redraw because of class change
       hook: {

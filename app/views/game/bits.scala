@@ -31,7 +31,7 @@ object bits {
       variant: shogi.variant.Variant = shogi.variant.Standard
   ): Frag =
     div(
-      cls         := s"mini-board parse-sfen",
+      cls         := s"mini-board parse-sfen ${variantClass(variant)}",
       dataColor   := color.name,
       dataSfen    := sfen.value,
       dataVariant := variant.key

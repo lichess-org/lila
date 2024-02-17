@@ -27,14 +27,14 @@ export default function (ctrl: LobbyController) {
     'div.now-playing',
     ctrl.data.nowPlaying.map(function (pov) {
       return h(
-        'a.' + pov.variant.key + (pov.isMyTurn ? '.my_turn' : ''),
+        'a' + (pov.isMyTurn ? '.my_turn' : ''),
         {
           key: pov.gameId,
           attrs: { href: '/' + pov.fullId },
         },
         [
           h(
-            'div.mini-board',
+            'div.mini-board.v-' + pov.variant.key,
             h('div.sg-wrap', {
               hook: {
                 insert(vnode) {
