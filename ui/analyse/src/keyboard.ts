@@ -13,7 +13,7 @@ export function bind(ctrl: AnalyseCtrl): void {
   if (!window.Mousetrap) return;
   const kbd = window.Mousetrap;
   kbd.bind(
-    ['left', 'k'],
+    ['left', 'j'],
     preventing(() => {
       control.prev(ctrl);
       ctrl.redraw();
@@ -27,7 +27,7 @@ export function bind(ctrl: AnalyseCtrl): void {
     })
   );
   kbd.bind(
-    ['right', 'j'],
+    ['right', 'k'],
     preventing(() => {
       if (!ctrl.fork.proceed()) control.next(ctrl);
       ctrl.redraw();
@@ -41,14 +41,14 @@ export function bind(ctrl: AnalyseCtrl): void {
     })
   );
   kbd.bind(
-    ['up', '0'],
+    ['up', '0', 'home'],
     preventing(() => {
       if (!ctrl.fork.prev()) control.first(ctrl);
       ctrl.redraw();
     })
   );
   kbd.bind(
-    ['down', '$'],
+    ['down', '$', 'end'],
     preventing(() => {
       if (!ctrl.fork.next()) control.last(ctrl);
       ctrl.redraw();

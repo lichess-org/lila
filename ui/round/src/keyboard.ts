@@ -1,4 +1,5 @@
 import RoundController from './ctrl';
+import { lastPly } from './round';
 
 const preventing = (f: () => void) => (e: MouseEvent) => {
   e.preventDefault();
@@ -16,30 +17,30 @@ export function next(ctrl: RoundController) {
 export function init(ctrl: RoundController) {
   const k = window.Mousetrap;
   k.bind(
-    ['left', 'h'],
+    ['left', 'j'],
     preventing(function () {
       prev(ctrl);
       ctrl.redraw();
     })
   );
   k.bind(
-    ['right', 'l'],
+    ['right', 'k'],
     preventing(function () {
       next(ctrl);
       ctrl.redraw();
     })
   );
   k.bind(
-    ['up', 'k'],
+    ['up', '0', 'home'],
     preventing(function () {
       ctrl.userJump(0);
       ctrl.redraw();
     })
   );
   k.bind(
-    ['down', 'j'],
+    ['down', '$', 'end'],
     preventing(function () {
-      ctrl.userJump(ctrl.data.steps.length - 1);
+      ctrl.userJump(lastPly(ctrl.data));
       ctrl.redraw();
     })
   );

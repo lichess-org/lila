@@ -7,26 +7,26 @@ const preventing = (f: () => void) => (e: MouseEvent) => {
 };
 
 export default function (ctrl: KeyboardController): void {
-  window.Mousetrap.bind(['left', 'k'], () => {
+  window.Mousetrap.bind(['left', 'j'], () => {
     control.prev(ctrl);
     ctrl.redraw();
   })
     .bind(
-      ['right', 'j'],
+      ['right', 'k'],
       preventing(() => {
         control.next(ctrl);
         ctrl.redraw();
       })
     )
     .bind(
-      ['up', '0'],
+      ['up', '0', 'home'],
       preventing(() => {
         control.first(ctrl);
         ctrl.redraw();
       })
     )
     .bind(
-      ['down', '$'],
+      ['down', '$', 'end'],
       preventing(() => {
         control.last(ctrl);
         ctrl.redraw();
