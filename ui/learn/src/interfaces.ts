@@ -1,4 +1,5 @@
 import { DrawShape, SquareHighlight } from 'shogiground/draw';
+import { VNode } from 'snabbdom';
 
 export type Score = 0 | 1 | 2 | 3;
 
@@ -24,7 +25,7 @@ export type Scenario = UsiWithColor[];
 
 export interface Level {
   id: LevelId;
-  goal: I18nKey; // i18n string displayed on the right
+  goal: I18nKey | ((trans: Trans) => VNode); // i18n string displayed on the right
   sfen: Sfen; // starting position of the level
   color: Color; // user's color
   nbMoves: number; // number of moves it takes to get perfect score

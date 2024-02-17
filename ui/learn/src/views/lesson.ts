@@ -161,7 +161,7 @@ export default function (ctrl: LearnCtrl): VNode {
             ? renderFailed(ctrl)
             : vm.levelState === 'completed'
               ? renderCompleted(ctrl)
-              : h('div.goal', ctrl.trans.noarg(level.goal)),
+              : h('div.goal', typeof level.goal === 'string' ? ctrl.trans.noarg(level.goal) : level.goal(ctrl.trans)),
           progress(ctrl),
         ]),
       ]),
