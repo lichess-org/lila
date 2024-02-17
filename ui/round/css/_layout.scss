@@ -29,14 +29,6 @@
   &__underboard {
     @extend %zen;
     grid-area: under;
-    @include breakpoint($mq-col3) {
-      @include hand-width(margin-left);
-      width: calc((100% - 4vmin) / 11 * 9 - #{$block-gap});
-      .main-v-chushogi & {
-        margin-left: 0;
-        width: calc(100% - #{$big-block-gap});
-      }
-    }
   }
   &__underchat {
     @extend %zen;
@@ -55,7 +47,8 @@
     grid-template-areas:
       'app   app'
       'under side'
-      'under uchat';
+      'under uchat'
+      'under .';
     &__app {
       justify-self: center;
     }
@@ -78,9 +71,10 @@
     &__underboard {
       display: grid;
       grid-template-columns: var(--col3-uniboard-main-size) $block-gap $col3-uniboard-table;
-      grid-template-areas: 'cs . .';
+      grid-template-areas:
+        'cs          . .'
+        'now-playing . .';
       width: 100%;
-      margin-left: 0;
       .crosstable {
         grid-area: cs;
       }
@@ -99,6 +93,9 @@
     @include crosstable-large;
     &.main-v-chushogi {
       grid-template-columns: $col3-uniboard-side $big-block-gap 1fr $col3-uniboard-table;
+      .round__underboard {
+        grid-template-columns: var(--col3-uniboard-main-size-no-hands) $block-gap $col3-uniboard-table;
+      }
     }
   }
 

@@ -1,4 +1,5 @@
 .round__now-playing {
+  grid-area: now-playing;
   h3 {
     @extend %flex-between;
     margin: 1em 0 0.5em 0;
