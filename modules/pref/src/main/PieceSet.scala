@@ -30,9 +30,9 @@ object PieceSet extends PieceSetBase {
   val default = new PieceSet("Ryoko_1Kanji", "Ryoko 1-Kanji")
 
   val all = List(
+    default,
     new PieceSet("kanji_light", "Kanji Light"),
     new PieceSet("kanji_brown", "Kanji Brown"),
-    default,
     new PieceSet("orangain", "orangain"),
     new PieceSet("kanji_red_wood", "Kanji Red Wood"),
     new PieceSet("Portella", "Portella"),
