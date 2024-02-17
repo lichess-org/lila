@@ -304,7 +304,7 @@ final class RelayApi(
       _ <- roundRepo.coll.insert.one(round)
     yield round
 
-  def officialTourStream(perSecond: MaxPerSecond, nb: Int): Source[RelayTour.WithRounds, ?] =
+  def officialTourStream(perSecond: MaxPerSecond, nb: Max): Source[RelayTour.WithRounds, ?] =
 
     val lookup = $lookup.pipeline(
       from = roundRepo.coll,
@@ -321,7 +321,7 @@ final class RelayApi(
           Sort(Descending("tier")),
           PipelineOperator(lookup)
         )
-      .documentSource(nb)
+      .documentSource(nb.value)
 
     val inactiveStream = tourRepo.coll
       .aggregateWith[Bdoc](readPreference = ReadPref.sec): framework =>
@@ -331,7 +331,7 @@ final class RelayApi(
           Sort(Descending("syncedAt")),
           PipelineOperator(lookup)
         )
-      .documentSource(nb)
+      .documentSource(nb.value)
 
     activeStream
       .concat(inactiveStream)
@@ -342,7 +342,7 @@ final class RelayApi(
             doc.getAsOpt[List[RelayRound]]("rounds") map tour.withRounds
           .toList
       .throttle(perSecond.value, 1 second)
-      .take(nb)
+      .take(nb.value)
   end officialTourStream
 
   def myRounds(perSecond: MaxPerSecond, max: Option[Max])(using
