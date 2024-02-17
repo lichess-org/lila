@@ -34,6 +34,9 @@
     grid-template-columns: repeat(auto-fill, minmax(30%, 1fr));
     a {
       @extend %box-radius;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
       color: $c-font;
       padding: 0.4em;
       @include transition(background);

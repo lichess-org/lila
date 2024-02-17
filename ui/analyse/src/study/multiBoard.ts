@@ -133,7 +133,7 @@ function makePreview(study: StudyCtrl) {
           makeSg(preview),
           makePlayer(preview.players[preview.orientation]),
         ]
-      : [h('div.name', preview.name), makeSg(preview)];
+      : [h('div.name', preview.name), makeSg(preview), h('div.name')]; // empty name to keep board centered
     return h(
       'a.' + preview.id,
       {
