@@ -891,6 +891,8 @@ export type I18nKey =
 'introBasics'|
 'introIntro'|
 'clickHereAfterYouveChosen'|
+'tellYourPiecesApart'|
+'howToSelectPieceSet'|
 'choosePieceDesign'|
 'promotionZone'|
 'senteGoesFirst'|

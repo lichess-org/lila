@@ -11,7 +11,9 @@
 	<string name="theIntroduction">Introduction</string>
 	<string name="introBasics">Let's learn some basics.</string>
 	<string name="introIntro">Your journey begins here.</string>
-    <string name="clickHereAfterYouveChosen">Click here after you've chosen the piece design you like.</string>
+	<string name="clickHereAfterYouveChosen">Click here or make a move after you've chosen the piece design you like.</string>
+	<string name="tellYourPiecesApart">It's important that you can tell your pieces apart, so make sure you choose the right piece set.</string>
+	<string name="howToSelectPieceSet">How to select your piece set?</string>
 	<string name="choosePieceDesign">It's important that you can tell your pieces apart, so make sure you choose the right piece set.
 To do that click on the cog wheel or your username(top right corner) and then click on 'piece set'.</string>
 	<string name="promotionZone">When some of your pieces reach or leave the first three ranks in your opponent's territory you can choose to promote your piece and make it stronger.</string>
