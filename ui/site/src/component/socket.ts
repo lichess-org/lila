@@ -275,8 +275,10 @@ export default class StrongSocket {
         break;
       default:
         // return true in a receive handler to prevent pubsub and events
-        if (!(this.settings.receive && this.settings.receive(m.t, m.d))) {
-          if (!(this.settings.events[m.t] && this.settings.events[m.t](m.d || null, m))) {
+        const received = this.settings.receive && this.settings.receive(m.t, m.d);
+        if (!received) {
+          const sentAsEvent = this.settings.events[m.t] && this.settings.events[m.t](m.d || null, m);
+          if (!sentAsEvent) {
             this.pubsub.emit('socket.in.' + m.t, m.d, m);
           }
         }

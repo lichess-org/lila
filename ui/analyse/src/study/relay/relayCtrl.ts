@@ -34,9 +34,15 @@ export default class RelayCtrl {
     const initialTab = relayTabs.includes(locationTab) ? locationTab : looksNew ? 'overview' : 'games';
     this.tab = prop<RelayTab>(initialTab);
     this.teams = data.tour.teamTable
-      ? new RelayTeams(id, setChapter, () => this.roundPath(), redraw)
+      ? new RelayTeams(
+          id,
+          setChapter,
+          () => this.roundPath(),
+          redraw,
+          send,
+          () => chapter.setup.variant.key,
+        )
       : undefined;
-    console.log(this);
   }
 
   setSync = (v: boolean) => {

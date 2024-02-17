@@ -47,6 +47,7 @@ import { opposite } from 'chessops/util';
 import StudyChaptersCtrl from './studyChapters';
 import { SearchCtrl } from './studySearch';
 import { GamebookOverride } from './gamebook/interfaces';
+import { EvalHitMulti, EvalHitMultiArray } from '../interfaces';
 
 interface Handlers {
   path(d: WithWhoAndPos): void;
@@ -75,6 +76,7 @@ interface Handlers {
   setTags(d: WithWhoAndChap & { tags: TagArray[] }): void;
   validationError(d: { error: string }): void;
   error(msg: string): void;
+  evalHitMulti(e: EvalHitMulti | EvalHitMultiArray): void;
 }
 
 // data.position.path represents the server state
@@ -569,7 +571,7 @@ export default class StudyCtrl {
       handler(d);
       return true;
     }
-    return !!this.relay && this.relay.socketHandler(t, d);
+    return !!this.relay?.socketHandler(t, d);
   };
 
   socketHandlers: Handlers = {
@@ -770,6 +772,12 @@ export default class StudyCtrl {
     },
     error(msg: string) {
       alert(msg);
+    },
+    evalHitMulti: (e: EvalHitMulti | EvalHitMultiArray) => {
+      ('multi' in e ? e.multi : [e]).forEach(ev => {
+        this.multiBoard.multiCloudEval.onCloudEval(ev);
+        this.relay?.teams?.multiCloudEval.onCloudEval(ev);
+      });
     },
   };
 }

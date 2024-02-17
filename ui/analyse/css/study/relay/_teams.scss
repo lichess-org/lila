@@ -1,4 +1,13 @@
 .relay-tour {
+  &__team-table {
+    &.loading {
+      opacity: 0.7;
+    }
+
+    &.nodata {
+      padding: 2em;
+    }
+  }
   &__team-match {
     border-top: $border;
     &__teams,
