@@ -9,8 +9,7 @@ import { opposite as CgOpposite } from 'chessground/util';
 import { opposite as oppositeColor } from 'chessops/util';
 import { ChapterPreview, ChapterPreviewPlayer, Position, StudyChapterMeta } from './interfaces';
 import StudyCtrl from './studyCtrl';
-import { defined } from 'common';
-import { GetCloudEval, MultiCloudEval, renderEvalToggle } from './multiCloudEval';
+import { GetCloudEval, MultiCloudEval, renderEvalToggle, renderScore } from './multiCloudEval';
 
 export class MultiBoardCtrl {
   loading = false;
@@ -222,7 +221,7 @@ const evalGauge = (chap: ChapterPreview, cloudEval: GetCloudEval): VNode =>
       hook: {
         postpatch(old, vnode) {
           const prevNodeCloud = old.data?.cloud;
-          const cev = cloudEval(chap) || prevNodeCloud;
+          const cev = cloudEval(chap.fen) || prevNodeCloud;
           if (cev?.chances != prevNodeCloud?.chances) {
             const elm = vnode.elm as HTMLElement;
             const gauge = elm.parentNode as HTMLElement;
@@ -236,11 +235,8 @@ const evalGauge = (chap: ChapterPreview, cloudEval: GetCloudEval): VNode =>
         },
       },
     }),
-    h('tick.zero'),
+    h('tick'),
   ]);
-
-const renderScore = (s: EvalScore) =>
-  s.mate ? '#' + s.mate : defined(s.cp) ? `${s.cp >= 0 ? '+' : ''}${s.cp / 100}` : '?';
 
 const userName = (u: ChapterPreviewPlayer) =>
   u.title ? [h('span.utitle', u.title), ' ' + u.name] : [u.name];

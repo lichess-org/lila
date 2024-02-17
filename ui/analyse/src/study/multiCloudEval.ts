@@ -1,15 +1,15 @@
-import { Prop } from 'common';
+import { Prop, defined } from 'common';
 import { EvalHitMulti } from '../interfaces';
 import { storedBooleanPropWithEffect } from 'common/storage';
 import { povChances } from 'ceval/src/winningChances';
-import { ChapterPreview } from './interfaces';
 import { bind, looseH as h } from 'common/snabbdom';
 import { VNode } from 'snabbdom';
+import { FEN } from 'chessground/types';
 
 interface CloudEval extends EvalHitMulti {
   chances: number;
 }
-export type GetCloudEval = (preview: ChapterPreview) => CloudEval | undefined;
+export type GetCloudEval = (fen: FEN) => CloudEval | undefined;
 
 export class MultiCloudEval {
   showEval: Prop<boolean>;
@@ -48,7 +48,7 @@ export class MultiCloudEval {
       this.cloudEvals.set(node.fen, { ...ev, chances: povChances('white', ev) });
   };
 
-  getCloudEval = (preview: ChapterPreview): CloudEval | undefined => this.cloudEvals.get(preview.fen);
+  getCloudEval: GetCloudEval = (fen: FEN): CloudEval | undefined => this.cloudEvals.get(fen);
 }
 
 export const renderEvalToggle = (ctrl: MultiCloudEval): VNode =>
@@ -56,3 +56,6 @@ export const renderEvalToggle = (ctrl: MultiCloudEval): VNode =>
     attrs: { type: 'checkbox', checked: ctrl.showEval() },
     hook: bind('change', e => ctrl.showEval((e.target as HTMLInputElement).checked)),
   });
+
+export const renderScore = (s: EvalScore) =>
+  s.mate ? '#' + s.mate : defined(s.cp) ? `${s.cp >= 0 ? '+' : ''}${s.cp / 100}` : '?';

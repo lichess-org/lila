@@ -1,10 +1,11 @@
-import { MaybeVNodes, Redraw, bind, looseH as h } from 'common/snabbdom';
+import { MaybeVNodes, Redraw, VNode, bind, looseH as h } from 'common/snabbdom';
 import * as xhr from 'common/xhr';
 import { RoundId } from './interfaces';
 import { ChapterId } from '../interfaces';
 import { Color } from 'chessops';
-import { MultiCloudEval } from '../multiCloudEval';
+import { GetCloudEval, MultiCloudEval, renderScore } from '../multiCloudEval';
 import { spinnerVdom as spinner } from 'common/spinner';
+import { defined } from 'common';
 
 interface TeamWithPoints {
   name: string;
@@ -19,7 +20,7 @@ interface TeamGame {
   id: ChapterId;
   players: [TeamPlayer, TeamPlayer];
   p0Color: Color;
-  fen: Fen;
+  fen?: Fen;
   outcome?: Color | 'draw';
 }
 interface TeamRow {
@@ -43,7 +44,13 @@ export default class RelayTeams {
     send: SocketSend,
     variant: () => VariantKey,
   ) {
-    const currentFens = () => (this.teams ? this.teams.table.map(r => r.games.map(g => g.fen)).flat() : []);
+    const currentFens = () =>
+      this.teams
+        ? this.teams.table
+            .map(r => r.games.map(g => g.fen))
+            .flat()
+            .filter(defined)
+        : [];
     this.multiCloudEval = new MultiCloudEval(redraw, send, variant, currentFens);
   }
 
@@ -97,23 +104,56 @@ const renderTeams = (teams: TeamTable, ctrl: RelayTeams): MaybeVNodes =>
                 false,
               ),
             },
-            [playerView(game.players[0]), statusView(game), playerView(game.players[1])],
+            [
+              playerView(game.players[0]),
+              statusView(game, ctrl.multiCloudEval.showEval() ? ctrl.multiCloudEval.getCloudEval : undefined),
+              playerView(game.players[1]),
+            ],
           ),
         ),
       ),
     ]),
   );
 
-const statusView = (g: TeamGame) =>
-  g.outcome
-    ? h(
-        'span.relay-tour__team-match__game__status',
-        !g.outcome ? '*' : g.outcome === 'draw' ? '½-½' : g.outcome === g.p0Color ? '1-0' : '0-1',
-      )
-    : h('span.relay-tour__team-match__game__status', '*');
-
 const playerView = (p: TeamPlayer) =>
   h('span.relay-tour__team-match__game__player', [
     `${p.title ? p.title + ' ' : ''}${p.name}`,
     p.rating && h('rating', `${p.rating}`),
+  ]);
+
+const statusView = (g: TeamGame, cloudEval?: GetCloudEval) =>
+  h(
+    'span.relay-tour__team-match__game__status',
+    g.outcome
+      ? g.outcome === 'draw'
+        ? '½-½'
+        : g.outcome === g.p0Color
+        ? '1-0'
+        : '0-1'
+      : cloudEval
+      ? evalGauge(g, cloudEval)
+      : '*',
+  );
+
+const evalGauge = (game: TeamGame, cloudEval: GetCloudEval): VNode =>
+  h(`span.eval-gauge-horiz.pov-${game.p0Color}`, [
+    h(`span.eval-gauge-horiz__black`, {
+      hook: {
+        postpatch(old, vnode) {
+          const prevNodeCloud = old.data?.cloud;
+          const cev = (game.fen && cloudEval(game.fen)) || prevNodeCloud;
+          if (cev?.chances != prevNodeCloud?.chances) {
+            const elm = vnode.elm as HTMLElement;
+            const gauge = elm.parentNode as HTMLElement;
+            elm.style.width = `${((1 - (cev?.chances || 0)) / 2) * 100}%`;
+            if (cev) {
+              gauge.title = `${renderScore(cev)} at depth ${cev.depth}`;
+              gauge.classList.add('eval-gauge-horiz--set');
+            }
+          }
+          vnode.data!.cloud = cev;
+        },
+      },
+    }),
+    h('tick.zero'),
   ]);

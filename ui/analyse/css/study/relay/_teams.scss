@@ -51,15 +51,62 @@
         color: $c-font-clearer;
       }
       &__status {
-        padding: 0.4em 0;
+        padding: 0.4em 1em;
         text-align: center;
         border: $border;
         border-width: 0 1px;
+        font-weight: bold;
       }
       &__player {
         @extend %flex-between-nowrap;
         padding: 0.4em 2em;
       }
+    }
+  }
+}
+
+.eval-gauge-horiz {
+  $white: #a0a0a0;
+  $black: #606060;
+  @if $theme-light {
+    $white: #fff;
+    $black: #888;
+  }
+  @extend %box-neat-force;
+  display: block;
+  position: relative;
+  height: 1em;
+
+  &__black {
+    display: none;
+    position: absolute;
+    height: 100%;
+    width: 50%;
+    background: $black;
+    transition: height 1s;
+  }
+
+  opacity: 0.7;
+  background: linear-gradient(to left, $white, $black);
+  &--set {
+    opacity: 1;
+    background: $white !important;
+    .eval-gauge-horiz__black {
+      display: block;
+    }
+    tick {
+      position: absolute;
+      height: 100%;
+      left: 2.5px;
+      opacity: 1;
+      border-right: 5px solid fade-out($c-accent, 0.5);
+      width: 50%;
+    }
+  }
+  &.pov-white {
+    background: linear-gradient(to right, $white, $black);
+    .eval-gauge-horiz__black {
+      right: 0;
     }
   }
 }

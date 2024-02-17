@@ -113,7 +113,7 @@ function(root, tags) {
         players: Pair[TeamPlayer],
         p0Color: Color,
         outcome: Option[Outcome],
-        ongoingFen: Option[Fen.Epd]
+        fen: Option[Fen.Epd]
     ):
       def ratingSum = ~players.a.rating + ~players.b.rating
     case class TeamMatch(teams: Pair[TeamWithPoints], games: List[TeamGame]):
