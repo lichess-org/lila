@@ -95,18 +95,6 @@ final class ChapterRepo(val coll: AsyncColl)(using Executor, akka.stream.Materia
             tags  <- doc.getAsOpt[Tags]("tags")
           yield Chapter.RelayAndTags(id, relay, tags)
 
-  def idAndTagsByStudyId(studyId: StudyId): Fu[List[Chapter.IdAndTags]] =
-    coll:
-      _.find($studyId(studyId), $doc("tags" -> true).some)
-        .cursor[Bdoc]()
-        .list(300)
-        .map: docs =>
-          for
-            doc  <- docs
-            id   <- doc.getAsOpt[StudyChapterId]("_id")
-            tags <- doc.getAsOpt[Tags]("tags")
-          yield Chapter.IdAndTags(id, tags)
-
   def sort(study: Study, ids: List[StudyChapterId]): Funit =
     coll: c =>
       ids
@@ -277,4 +265,4 @@ final class ChapterRepo(val coll: AsyncColl)(using Executor, akka.stream.Materia
   def delete(id: StudyChapterId): Funit = coll(_.delete.one($id(id))).void
   def delete(c: Chapter): Funit         = delete(c.id)
 
-  private def $studyId(id: StudyId) = $doc("studyId" -> id)
+  def $studyId(id: StudyId) = $doc("studyId" -> id)

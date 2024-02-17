@@ -134,8 +134,6 @@ object Chapter:
             tags.clockConfig.fold(40)(_.limitInMinutes.toInt / 2 atLeast 15 atMost 60)
     def looksOver = !looksAlive
 
-  case class IdAndTags(id: StudyChapterId, tags: Tags)
-
   type TeamName = String
 
   case class Metadata(

@@ -110,7 +110,7 @@ const statusView = (g: TeamGame) =>
         'span.relay-tour__team-match__game__status',
         !g.outcome ? '*' : g.outcome === 'draw' ? '½-½' : g.outcome === g.p0Color ? '1-0' : '0-1',
       )
-    : 'eval gauge';
+    : h('span.relay-tour__team-match__game__status', '*');
 
 const playerView = (p: TeamPlayer) =>
   h('span.relay-tour__team-match__game__player', [

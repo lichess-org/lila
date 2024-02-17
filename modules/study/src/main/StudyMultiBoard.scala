@@ -47,7 +47,7 @@ final class StudyMultiBoard(
   final private class ChapterPreviewAdapter(studyId: StudyId, playing: Boolean)
       extends AdapterLike[ChapterPreview]:
 
-    private val selector = $doc("studyId" -> studyId) ++ playing.so(playingSelector)
+    private val selector = chapterRepo.$studyId(studyId) ++ playing.so(playingSelector)
 
     def nbResults: Fu[Int] = chapterRepo.coll(_.countSel(selector))
 
@@ -102,16 +102,14 @@ function(root, tags) {
                     )
                   ,
                   "orientation" -> "$setup.orientation",
-                  "name"        -> true,
                   "lastMoveAt"  -> "$relay.lastMoveAt"
                 )
             )
         }
         .map: r =>
           for
-            doc  <- r
-            id   <- doc.getAsOpt[StudyChapterId]("_id")
-            name <- doc.getAsOpt[StudyChapterName]("name")
+            doc <- r
+            id  <- doc.getAsOpt[StudyChapterId]("_id")
             lastMoveAt = doc.getAsOpt[Instant]("lastMoveAt")
             comp      <- doc.getAsOpt[Bdoc]("comp")
             node      <- comp.getAsOpt[Bdoc]("node")
@@ -122,7 +120,6 @@ function(root, tags) {
             tags     = comp.getAsOpt[Tags]("tags")
           yield ChapterPreview(
             id = id,
-            name = name,
             players = tags flatMap ChapterPreview.players(clocks),
             orientation = doc.getAsOpt[Color]("orientation") | Color.White,
             fen = fen,
@@ -152,7 +149,6 @@ object StudyMultiBoard:
 
   case class ChapterPreview(
       id: StudyChapterId,
-      name: StudyChapterName,
       players: Option[ChapterPreview.Players],
       orientation: Color,
       fen: Fen.Epd,
