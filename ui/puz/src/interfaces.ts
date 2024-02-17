@@ -13,6 +13,7 @@ export interface PuzPrefs {
   highlightLastDests: boolean;
   highlightCheck: boolean;
   squareOverlay: boolean;
+  resizeHandler: number;
 }
 
 export type UserMove = (orig: Key, dest: Key, prom: boolean) => void;

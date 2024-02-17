@@ -71,7 +71,7 @@ function makeConfig(ctrl: Controller): SgConfig {
       move: ctrl.userMove,
       drop: ctrl.userDrop,
       insert(elements) {
-        if (elements) resizeHandle(elements, 2, ctrl.vm.node.ply, _ => true);
+        if (elements) resizeHandle(elements, ctrl.pref.resizeHandle, { visible: () => true });
       },
     },
     premovable: {

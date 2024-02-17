@@ -2,9 +2,15 @@ import * as sg from 'shogiground/types';
 
 export type MouchEvent = MouseEvent & TouchEvent;
 
-type Visible = (ply: Ply) => boolean;
-
-export default function resizeHandle(els: sg.BoardElements, pref: number, ply: number, visible?: Visible) {
+export default function resizeHandle(
+  els: sg.BoardElements,
+  pref: number,
+  conf: {
+    ply?: number;
+    initialPly?: number;
+    visible?: () => boolean;
+  }
+) {
   if (!pref) return;
 
   const el = document.createElement('sg-resize');
@@ -54,8 +60,9 @@ export default function resizeHandle(els: sg.BoardElements, pref: number, ply: n
   el.addEventListener('mousedown', startResize, { passive: false });
 
   if (pref == 1) {
-    const toggle = (ply: number) => el.classList.toggle('none', visible ? !visible(ply) : ply >= 2);
-    toggle(ply);
+    const toggle = (ply: number) =>
+      el.classList.toggle('none', conf.visible ? !conf.visible() : ply - (conf.initialPly || 0) >= 2);
+    toggle(conf.ply || 0);
     window.lishogi.pubsub.on('ply', toggle);
   }
 

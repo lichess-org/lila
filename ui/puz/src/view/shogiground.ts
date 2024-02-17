@@ -53,7 +53,7 @@ export function makeConfig(opts: SgConfig, pref: PuzPrefs, userMove: UserMove, u
       move: userMove,
       drop: userDrop,
       insert(elements) {
-        if (elements) resizeHandle(elements, 1, 0, p => p == 0);
+        if (elements) resizeHandle(elements, pref.resizeHandler, { visible: () => true });
       },
     },
     premovable: {

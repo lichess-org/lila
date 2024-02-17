@@ -77,7 +77,8 @@ export function makeConfig(ctrl: AnalyseCtrl): SgConfig {
         }
       },
       insert(boardEls?: sg.BoardElements, _handEls?: sg.HandElements) {
-        if (!ctrl.embed && boardEls) resizeHandle(boardEls, ctrl.data.pref.resizeHandle, ctrl.node.ply);
+        if (!ctrl.embed && boardEls)
+          resizeHandle(boardEls, ctrl.data.pref.resizeHandle, { ply: ctrl.node.ply, initialPly: ctrl.mainline[0].ply });
       },
     },
     premovable: {

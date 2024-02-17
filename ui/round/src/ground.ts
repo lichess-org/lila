@@ -10,7 +10,7 @@ import { handRoles, pieceCanPromote, pieceForcePromote, promotableOnDrop, promot
 import { h } from 'snabbdom';
 import RoundController from './ctrl';
 import { RoundData } from './interfaces';
-import { plyStep } from './round';
+import { firstPly, plyStep } from './round';
 import * as util from './util';
 
 export function makeConfig(ctrl: RoundController): Config {
@@ -48,7 +48,8 @@ export function makeConfig(ctrl: RoundController): Config {
         }
       },
       insert(elements) {
-        if (elements) resizeHandle(elements, data.pref.resizeHandle, ctrl.ply);
+        if (elements)
+          resizeHandle(elements, data.pref.resizeHandle, { ply: ctrl.ply, initialPly: firstPly(ctrl.data) });
       },
     },
     hands: {

@@ -1,7 +1,7 @@
 import resizeHandle from 'common/resize';
 import { notationFiles, notationRanks } from 'common/notation';
 import { Config as SgConfig } from 'shogiground/config';
-import { forsythToRole, initialSfen, roleToForsyth } from 'shogiops/sfen';
+import { forsythToRole, roleToForsyth } from 'shogiops/sfen';
 import { handRoles, promote, unpromote } from 'shogiops/variant/util';
 import { VNode, h } from 'snabbdom';
 import EditorCtrl from './ctrl';
@@ -75,8 +75,7 @@ export function makeConfig(ctrl: EditorCtrl): SgConfig {
     events: {
       change: ctrl.onChange.bind(ctrl),
       insert(boardEls?: BoardElements, _handEls?: HandElements) {
-        if (!ctrl.data.embed && boardEls)
-          resizeHandle(boardEls, ctrl.data.pref.resizeHandle, ctrl.getSfen() === initialSfen(ctrl.rules) ? 0 : 1);
+        if (!ctrl.data.embed && boardEls) resizeHandle(boardEls, ctrl.data.pref.resizeHandle, { visible: () => true });
       },
     },
   };

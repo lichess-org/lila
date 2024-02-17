@@ -61,7 +61,7 @@ export function initConfig(ctrl: LearnCtrl): Config {
       move: ctrl.onMove.bind(ctrl),
       drop: ctrl.onDrop.bind(ctrl),
       insert(boardEls) {
-        if (boardEls) resizeHandle(boardEls, ctrl.pref.resizeHandle, ctrl.vm?.usiCList.length || 0);
+        if (boardEls) resizeHandle(boardEls, ctrl.pref.resizeHandle, { visible: () => true });
       },
     },
     draggable: {

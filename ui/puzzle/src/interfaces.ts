@@ -113,6 +113,7 @@ export interface PuzzlePrefs {
     duration: number;
   };
   blindfold: boolean;
+  resizeHandle: number;
   keyboardMove: boolean;
 }
 

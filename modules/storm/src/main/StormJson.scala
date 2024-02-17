@@ -26,7 +26,8 @@ final class StormJson(sign: StormSign) {
       "moveEvent"          -> p.moveEvent,
       "highlightLastDests" -> p.highlightLastDests,
       "highlightCheck"     -> p.highlightCheck,
-      "squareOverlay"      -> p.squareOverlay
+      "squareOverlay"      -> p.squareOverlay,
+      "resizeHandle"       -> p.resizeHandle
     )
 
   def newHigh(n: Option[StormHigh.NewHigh]) =

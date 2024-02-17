@@ -92,6 +92,7 @@ final class JsonView(
       "highlightLastDests" -> p.highlightLastDests,
       "highlightCheck"     -> p.highlightCheck,
       "squareOverlay"      -> p.squareOverlay,
+      "resizeHandle"       -> p.resizeHandle,
       "keyboardMove"       -> (p.keyboardMove == lila.pref.Pref.KeyboardMove.YES)
     )
 
