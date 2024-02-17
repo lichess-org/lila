@@ -72,6 +72,14 @@ class NewTreeTest extends munit.ScalaCheckSuite:
       val oldRoot      = root.toRoot
       oldRoot.setClockAt(clock, path).map(_.toNewRoot) == root.modifyAt(path, _.copy(clock = clock))
 
+  test("forceVariationAt"):
+    forAll: (rp: RootWithPath, force: Boolean) =>
+      val (root, path) = rp
+      !path.isEmpty ==> {
+        val oldRoot      = root.toRoot
+        oldRoot.forceVariationAt(force, path).map(_.toNewRoot) == root.modifyBranchAt(path, _.copy(forceVariation = force))
+      }
+
   test("updateMainlineLast"):
     forAll: (root: NewRoot, c: Option[Centis]) =>
       val oldRoot = root.toRoot

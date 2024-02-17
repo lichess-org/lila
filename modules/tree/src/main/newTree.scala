@@ -245,6 +245,13 @@ case class NewRoot(metas: Metas, tree: Option[NewTree]):
         _.modifyAt(path.ids, Tree.liftOption(b)).map(x => copy(tree = x.some))
       )
 
+  def modifyBranchAt(path: UciPath, f: NewBranch => NewBranch): Option[NewRoot] =
+    if path.isEmpty then none
+    else
+      tree.flatMap(
+        _.modifyAt(path.ids, Tree.liftOption(f)).map(x => copy(tree = x.some))
+      )
+
   def modifyWithParentPath(path: UciPath, f: NewBranch => NewBranch): Option[NewRoot] =
     if tree.isEmpty && path.isEmpty then this.some
     else
