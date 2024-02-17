@@ -38,7 +38,7 @@ private object bits {
         div(cls := "sfen_position_wrap")(
           div(cls := "handicap label_select")(
             renderLabel(form("handicap"), trans.handicap.txt()),
-            renderSelect(form("handicap"), Nil, (a, _) => a == "default"),
+            renderSelect(form("handicap"), Nil),
             a(
               cls      := "button button-empty",
               dataIcon := "",
@@ -59,7 +59,7 @@ private object bits {
             span(cls := "preview")(
               validSfen.map { vf =>
                 div(
-                  cls           := "mini-board parse-sfen",
+                  cls           := s"mini-board parse-sfen ${variantClass(vf.situation.variant)}",
                   dataColor     := vf.color.name,
                   dataSfen      := vf.sfen.value,
                   dataVariant   := vf.situation.variant.key,
