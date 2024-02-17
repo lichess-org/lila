@@ -87,6 +87,14 @@ class NewTreeTest extends munit.ScalaCheckSuite:
       val oldRoot = root.toRoot
       oldRoot.mainline.map(NewTree.fromBranch) == root.mainlineValues
 
+  test("nodeAt"):
+    forAll: (rp: RootWithPath) =>
+      val (root, path) = rp
+      !path.isEmpty ==> {
+        val oldRoot      = root.toRoot
+        oldRoot.nodeAt(path).isEmpty == root.nodeAt(path).isEmpty
+      }
+
   test("addNodeAt".ignore):
     forAll: (rp: RootWithPath, oTree: Option[NewTree]) =>
       val (root, path) = rp

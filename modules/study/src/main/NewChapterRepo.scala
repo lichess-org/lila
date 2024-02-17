@@ -8,7 +8,6 @@ import reactivemongo.api.bson.*
 
 import lila.db.AsyncColl
 import lila.db.dsl.{ *, given }
-import lila.tree.{ Branch, Branches }
 
 import Node.{ BsonFields as F }
 import lila.tree.{ NewBranch, NewTree }
