@@ -54,16 +54,15 @@ final class JsonView(
           .add("url" -> withUrls.option(s"$baseUrl${trs.tour.path}"))
           .add("teamTable" -> trs.tour.teamTable),
         "rounds" -> trs.rounds.map: round =>
-          if withUrls then withUrl(round withTour trs.tour) else apply(round)
+          if withUrls then withUrl(round withTour trs.tour, withTour = false) else apply(round)
       )
 
   def apply(round: RelayRound): JsObject = Json.toJsObject(round)
 
-  def withUrl(rt: RelayRound.WithTour): JsObject =
-    apply(rt.round) ++ Json.obj(
-      "tour" -> rt.tour,
-      "url"  -> s"$baseUrl${rt.path}"
-    )
+  def withUrl(rt: RelayRound.WithTour, withTour: Boolean): JsObject =
+    apply(rt.round) ++ Json
+      .obj("url" -> s"$baseUrl${rt.path}")
+      .add("tour" -> withTour.option(rt.tour))
 
   def withUrlAndGames(rt: RelayRound.WithTourAndStudy, games: List[Chapter.Metadata])(using
       Option[Me]

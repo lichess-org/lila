@@ -77,7 +77,7 @@ final class RelayRound(
             BadRequest.page(html.relay.roundForm.edit(old, err)),
             jsonFormError(err)
           ),
-        rt => negotiate(Redirect(rt.path), JsonOk(env.relay.jsonView.withUrl(rt)))
+        rt => negotiate(Redirect(rt.path), JsonOk(env.relay.jsonView.withUrl(rt, withTour = true)))
       )
     }
   }
