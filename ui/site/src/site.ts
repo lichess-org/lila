@@ -183,20 +183,5 @@ lichess.load.then(() => {
           ),
       );
     });
-
-    let lastScrollY = 0;
-    const header = document.getElementById('top')!;
-
-    window.addEventListener('scroll', () => {
-      if (window.scrollY > lastScrollY + 10) header.classList.add('hide');
-      else if (
-        window.scrollY <= Math.max(lastScrollY - 20, 0) &&
-        window.scrollY < document.body.scrollHeight - window.innerHeight
-      )
-        header.classList.remove('hide');
-      else return;
-
-      lastScrollY = Math.max(0, window.scrollY);
-    });
   }, 800);
 });
