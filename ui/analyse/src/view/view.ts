@@ -34,6 +34,7 @@ import type * as studyDeps from '../study/studyDeps';
 import { renderNextChapter } from '../study/nextChapter';
 import * as Prefs from 'common/prefs';
 import StudyCtrl from '../study/studyCtrl';
+import { dispatchChessgroundResize } from 'common/resize';
 
 window.addEventListener('popstate', () => window.location.reload());
 
@@ -337,7 +338,7 @@ export default function (deps?: typeof studyDeps) {
             forceInnerCoords(ctrl, needsInnerCoords);
           },
           postpatch(old, vnode) {
-            if (old.data!.gaugeOn !== gaugeOn) document.body.dispatchEvent(new Event('chessground.resize'));
+            if (old.data!.gaugeOn !== gaugeOn) dispatchChessgroundResize();
             vnode.data!.gaugeOn = gaugeOn;
           },
         },

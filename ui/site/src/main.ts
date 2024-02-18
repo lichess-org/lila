@@ -16,6 +16,7 @@ import { requestIdleCallback } from './functions';
 import { siteTrans } from './trans';
 import { isIOS } from 'common/device';
 import { scrollToInnerSelector } from 'common';
+import { dispatchChessgroundResize } from 'common/resize';
 
 window.$as = <T>(cashOrHtml: Cash | string) =>
   (typeof cashOrHtml === 'string' ? $(cashOrHtml) : cashOrHtml)[0] as T;
@@ -90,7 +91,7 @@ site.load.then(() => {
 
     topBar();
 
-    window.addEventListener('resize', () => document.body.dispatchEvent(new Event('chessground.resize')));
+    window.addEventListener('resize', dispatchChessgroundResize);
 
     $('.user-autocomplete').each(function (this: HTMLInputElement) {
       const focus = !!this.autofocus;

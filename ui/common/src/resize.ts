@@ -7,6 +7,12 @@ type MouchEvent = Event & Partial<MouseEvent & TouchEvent>;
 
 type Visible = (ply: Ply) => boolean;
 
+export const dispatchChessgroundResize = (): boolean =>
+  document.body.dispatchEvent(new Event('chessground.resize'));
+
+export const bindChessgroundResize = (f: () => void): void =>
+  document.body.addEventListener('chessground.resize', f);
+
 export default function resizeHandle(
   els: cg.Elements,
   pref: Prefs.ShowResizeHandle,
