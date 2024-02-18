@@ -644,7 +644,7 @@ object Game {
 
   def allowRated(initialSfen: Option[Sfen], clock: Option[Clock.Config], variant: Variant) =
     initialSfen.filterNot(_.initialOf(variant)).isEmpty && clock.fold(true) { c =>
-      c.periodsTotal <= 1 && (!c.hasByoyomi || !c.hasIncrement)
+      c.periodsTotal <= 1 && (!c.hasByoyomi || !c.hasIncrement) && (!variant.chushogi || c.estimateTotalSeconds >= 250)
     }
 
   val gameIdSize   = 8

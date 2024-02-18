@@ -9,12 +9,16 @@ export function clockShow(lim: number, byo: number, inc: number, per?: number): 
 }
 
 export function clockToPerf(lim: number, byo: number, inc: number, per?: number): Perf {
-  const timeSum = lim + 60 * inc + 25 * (per || 1) * byo;
+  const timeSum = clockEstimateSeconds(lim, byo, inc, per);
   if (timeSum < 60) return 'ultraBullet';
   else if (timeSum < 300) return 'bullet';
   else if (timeSum < 599) return 'blitz';
   else if (timeSum < 1500) return 'rapid';
   else return 'classical';
+}
+
+export function clockEstimateSeconds(lim: number, byo: number, inc: number, per?: number): number {
+  return lim + 60 * inc + 25 * (per || 1) * byo;
 }
 
 function limitString(lim: number): string {

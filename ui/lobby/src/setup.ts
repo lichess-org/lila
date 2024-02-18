@@ -3,6 +3,7 @@ import { findHandicaps, isHandicap } from 'shogiops/handicaps';
 import { initialSfen } from 'shogiops/sfen';
 import LobbyController from './ctrl';
 import { FormStore, makeStore, toFormLines } from './form';
+import { clockEstimateSeconds } from 'common/clock';
 
 const li = window.lishogi;
 
@@ -212,7 +213,11 @@ export default class Setup {
         per = $periodsInput.filter(':checked').val(),
         hasSfen = !!$sfenInput.val(),
         cantBeRated =
-          hasSfen || (typ === 'hook' && timeMode === '0') || (timeMode === '1' && (per > 1 || (inc > 0 && byo > 0)));
+          hasSfen ||
+          (typ === 'hook' && timeMode === '0') ||
+          (timeMode == '1' && (per > 1 || (inc > 0 && byo > 0))) ||
+          (variantId == '3' &&
+            clockEstimateSeconds(parseInt(limit) * 60, parseInt(byo), parseInt(inc), parseInt(per)) < 250);
 
       $periods.toggle(byo > 0);
 
