@@ -196,6 +196,7 @@ object JsonView:
       .obj("id" -> c._id, "name" -> c.name)
       .add("ongoing", c.looksOngoing)
       .add("res" -> c.resultStr)
+      .add("teams" -> c.teams.map((w, b) => Json.arr(w, b)))
 
   private[study] given Writes[Position.Ref] = Json.writes
   private[study] given Writes[Study.Liking] = Json.writes

@@ -81,6 +81,7 @@ final private class RelayFetch(
     else
       fetchGames(rt)
         .map(games => rt.tour.players.fold(games)(_ update games))
+        .map(games => rt.tour.teams.fold(games)(_ update games))
         .mon(_.relay.fetchTime(rt.tour.official, rt.round.slug))
         .addEffect(gs => lila.mon.relay.games(rt.tour.official, rt.round.slug).update(gs.size))
         .flatMap: games =>

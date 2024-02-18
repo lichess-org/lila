@@ -46,17 +46,22 @@ final class RelayApi(
         )
       .map(_ flatMap readRoundWithTour)
 
-  def byIdAndContributor(id: RelayRoundId)(using me: Me) =
-    byIdWithStudy(id).map:
+  def byIdAndContributor(id: RelayRoundId)(using me: Me): Fu[Option[WithTour]] =
+    byIdWithTourAndStudy(id).map:
       _.collect:
         case RelayRound.WithTourAndStudy(relay, tour, study) if study.canContribute(me) =>
           relay withTour tour
 
-  def byIdWithStudy(id: RelayRoundId): Fu[Option[RelayRound.WithTourAndStudy]] =
+  def byIdWithTourAndStudy(id: RelayRoundId): Fu[Option[RelayRound.WithTourAndStudy]] =
     byIdWithTour(id) flatMapz { case WithTour(relay, tour) =>
       studyApi.byId(relay.studyId) dmap2:
         RelayRound.WithTourAndStudy(relay, tour, _)
     }
+
+  def byIdWithStudy(id: RelayRoundId): Fu[Option[RelayRound.WithStudy]] =
+    byId(id) flatMapz: relay =>
+      studyApi.byId(relay.studyId) dmap2:
+        RelayRound.WithStudy(relay, _)
 
   def byTourOrdered(tour: RelayTour): Fu[List[WithTour]] =
     roundRepo.byTourOrdered(tour).dmap(_.map(_ withTour tour))
@@ -149,7 +154,9 @@ final class RelayApi(
           "markup"          -> tour.markup,
           "tier"            -> tour.tier,
           "autoLeaderboard" -> tour.autoLeaderboard.some,
+          "teamTable"       -> tour.teamTable.some,
           "players"         -> tour.players,
+          "teams"           -> tour.teams,
           "spotlight"       -> tour.spotlight,
           "ownerId"         -> tour.ownerId.some
         )
@@ -297,7 +304,7 @@ final class RelayApi(
       _ <- roundRepo.coll.insert.one(round)
     yield round
 
-  def officialTourStream(perSecond: MaxPerSecond, nb: Int): Source[RelayTour.WithRounds, ?] =
+  def officialTourStream(perSecond: MaxPerSecond, nb: Max): Source[RelayTour.WithRounds, ?] =
 
     val lookup = $lookup.pipeline(
       from = roundRepo.coll,
@@ -314,7 +321,7 @@ final class RelayApi(
           Sort(Descending("tier")),
           PipelineOperator(lookup)
         )
-      .documentSource(nb)
+      .documentSource(nb.value)
 
     val inactiveStream = tourRepo.coll
       .aggregateWith[Bdoc](readPreference = ReadPref.sec): framework =>
@@ -324,7 +331,7 @@ final class RelayApi(
           Sort(Descending("syncedAt")),
           PipelineOperator(lookup)
         )
-      .documentSource(nb)
+      .documentSource(nb.value)
 
     activeStream
       .concat(inactiveStream)
@@ -335,7 +342,7 @@ final class RelayApi(
             doc.getAsOpt[List[RelayRound]]("rounds") map tour.withRounds
           .toList
       .throttle(perSecond.value, 1 second)
-      .take(nb)
+      .take(nb.value)
   end officialTourStream
 
   def myRounds(perSecond: MaxPerSecond, max: Option[Max])(using

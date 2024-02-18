@@ -705,6 +705,7 @@
   <string name="toggleVariationArrows">Activar/desactivar as frechas das variantes</string>
   <string name="cyclePreviousOrNextVariation">Variante anterior/seguinte</string>
   <string name="toggleGlyphAnnotations">Activar/desactivar as anotacións con símbolos</string>
+  <string name="togglePositionAnnotations">Alternar anotaciones de posición</string>
   <string name="variationArrowsInfo">As frechas das variantes permítenche navegar sen usar a lista de movementos.</string>
   <string name="playSelectedMove">facer a xogada seleccionada</string>
   <string name="newTournament">Novo torneo</string>

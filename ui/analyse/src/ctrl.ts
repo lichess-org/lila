@@ -637,7 +637,8 @@ export default class AnalyseCtrl {
           this.retro?.onCeval();
           this.practice?.onCeval();
           this.studyPractice?.onCeval();
-          this.study?.multiBoard.onLocalCeval(node, ev);
+          this.study?.multiBoard.multiCloudEval.onLocalCeval(node, ev);
+          this.study?.relay?.teams?.multiCloudEval.onLocalCeval(node, ev);
           this.evalCache.onLocalCeval();
         }
         this.redraw();

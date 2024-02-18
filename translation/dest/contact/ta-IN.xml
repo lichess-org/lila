@@ -1,4 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="contact">தொடர்பு</string>
+  <string name="contactLichess">Lichessஐ தொடர்பு கொள்</string>
+  <string name="forgotPassword">என் கடவுச்சொல்லை மறந்துவிட்டேன்</string>
+  <string name="forgotUsername">என் பயனர்பெயரை மறந்துவிட்டேன்</string>
 </resources>

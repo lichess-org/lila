@@ -42,7 +42,14 @@ final class ChapterRepo(val coll: AsyncColl)(using Executor, akka.stream.Materia
       "name"       -> true,
       "setup"      -> true,
       "relay.path" -> true,
-      "tags"       -> $doc("$elemMatch" -> $doc("$regex" -> "^Result:"))
+      "tags" -> $doc(
+        "$filter" -> $doc(
+          "input" -> "$tags",
+          "as"    -> "ts",
+          "cond" -> $doc:
+            "$regexMatch" -> $doc("input" -> "$$ts", "regex" -> "^(Result|WhiteTeam|BlackTeam):")
+        )
+      )
     ).some
 
   def orderedMetadataByStudy(studyId: StudyId): Fu[List[Chapter.Metadata]] =
@@ -77,10 +84,7 @@ final class ChapterRepo(val coll: AsyncColl)(using Executor, akka.stream.Materia
 
   def relaysAndTagsByStudyId(studyId: StudyId): Fu[List[Chapter.RelayAndTags]] =
     coll:
-      _.find(
-        $studyId(studyId),
-        $doc("relay" -> true, "tags" -> true).some
-      )
+      _.find($studyId(studyId), $doc("relay" -> true, "tags" -> true).some)
         .cursor[Bdoc]()
         .list(300)
         .map: docs =>
@@ -261,4 +265,4 @@ final class ChapterRepo(val coll: AsyncColl)(using Executor, akka.stream.Materia
   def delete(id: StudyChapterId): Funit = coll(_.delete.one($id(id))).void
   def delete(c: Chapter): Funit         = delete(c.id)
 
-  private def $studyId(id: StudyId) = $doc("studyId" -> id)
+  def $studyId(id: StudyId) = $doc("studyId" -> id)

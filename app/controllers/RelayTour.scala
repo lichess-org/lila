@@ -7,6 +7,7 @@ import lila.app.{ given, * }
 import lila.common.config.MaxPerSecond
 import lila.common.{ config, IpAddress }
 import lila.relay.{ RelayTour as TourModel }
+import lila.common.config.Max
 
 final class RelayTour(env: Env, apiC: => Api) extends LilaController(env):
 
@@ -177,8 +178,8 @@ final class RelayTour(env: Env, apiC: => Api) extends LilaController(env):
   def apiIndex = Anon:
     apiC.jsonDownload:
       env.relay.api
-        .officialTourStream(MaxPerSecond(20), getInt("nb") | 20)
-        .map(env.relay.jsonView.apply(_, withUrls = true))
+        .officialTourStream(MaxPerSecond(20), Max(getInt("nb") | 20).atMost(100))
+        .map(env.relay.jsonView(_, withUrls = true))
 
   private def WithTour(id: TourModel.Id)(f: TourModel => Fu[Result])(using Context): Fu[Result] =
     Found(env.relay.api tourById id)(f)

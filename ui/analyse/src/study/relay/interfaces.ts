@@ -6,8 +6,10 @@ export interface RelayData {
   isSubscribed?: boolean; // undefined if anon
 }
 
+export type RoundId = string;
+
 export interface RelayRound {
-  id: string;
+  id: RoundId;
   name: string;
   slug: string;
   finished?: boolean;
@@ -30,6 +32,7 @@ export interface RelayTour {
   official?: boolean;
   markup?: string;
   image?: string;
+  teamTable?: boolean;
 }
 
 export interface RelaySync {
