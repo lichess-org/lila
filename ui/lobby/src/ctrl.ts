@@ -68,12 +68,12 @@ export default class LobbyController {
       if (this.playban.remainingSecond < 86400) setTimeout(li.reload, this.playban.remainingSeconds * 1000);
     } else {
       setInterval(() => {
-        if (['real_time', 'presets'].includes(this.tab) && !this.data.hooks.length) this.socket.realTimeIn();
+        if (hookRepo.tabs.includes(this.tab) && !this.data.hooks.length) this.socket.realTimeIn();
       }, 10 * 1000);
     }
 
     li.pubsub.on('socket.open', () => {
-      if (['real_time', 'presets'].includes(this.tab)) {
+      if (hookRepo.tabs.includes(this.tab)) {
         this.data.hooks = [];
         this.socket.realTimeIn();
       }
