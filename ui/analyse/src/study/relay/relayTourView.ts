@@ -81,7 +81,7 @@ const leaderboard = (relay: RelayCtrl, ctrl: AnalyseCtrl): VNode[] => {
 const overview = (relay: RelayCtrl, study: StudyCtrl, ctrl: AnalyseCtrl) => {
   const round = relay.currentRound();
   return [
-    h('div.box.box-pad.relay-tour__box', [
+    h('div.box.relay-tour__box.relay-tour__overview', [
       relay.data.tour.image
         ? h('img.relay-tour__image', { attrs: { src: relay.data.tour.image } })
         : study.members.isOwner()
@@ -94,7 +94,7 @@ const overview = (relay: RelayCtrl, study: StudyCtrl, ctrl: AnalyseCtrl) => {
             ),
           )
         : undefined,
-      header(relay, ctrl),
+      header(relay, ctrl, true),
       h(
         'a.relay-tour__round',
         {
@@ -116,10 +116,10 @@ const overview = (relay: RelayCtrl, study: StudyCtrl, ctrl: AnalyseCtrl) => {
         ],
       ),
       relay.data.tour.markup
-        ? h('div.relay-tour__markup', {
+        ? h('div.relay-tour__markup.box-pad', {
             hook: innerHTML(relay.data.tour.markup, () => relay.data.tour.markup!),
           })
-        : h('div.relay-tour__markup', relay.data.tour.description),
+        : h('div.relay-tour__markup.box-pad', relay.data.tour.description),
     ]),
   ];
 };

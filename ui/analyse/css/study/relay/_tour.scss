@@ -30,10 +30,11 @@ main.has-relay-tour {
   grid-area: relay-tour;
 
   &__round {
-    @extend %box-radius, %flex-between-nowrap;
+    @extend %box-padding-horiz, %flex-between-nowrap;
+    padding-top: 1em;
+    padding-bottom: 1em;
+    margin: -1em 0;
     background: mix($c-primary, $c-bg-box, 10%);
-    margin-bottom: 3em;
-    padding: 1em 2em;
     strong {
       @extend %roboto;
       font-size: 1.2em;
