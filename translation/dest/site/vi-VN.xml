@@ -166,7 +166,7 @@
   <string name="games">Số ván cờ</string>
   <string name="forum">Diễn đàn</string>
   <string name="xPostedInForumY">%1$s đã viết trong diễn đàn %2$s</string>
-  <string name="latestForumPosts">Bài đăng mới nhất</string>
+  <string name="latestForumPosts">Bài đăng diễn đàn mới nhất</string>
   <string name="players">Kỳ thủ</string>
   <string name="friends">Bạn bè</string>
   <string name="discussions">Trò chuyện</string>
@@ -508,7 +508,7 @@ trò chuyện trong ván đấu và có một URL có thể chia sẻ công khai
   <string name="help">Hỗ trợ:</string>
   <string name="createANewTopic">Tạo một chủ đề mới</string>
   <string name="topics">Các chủ đề</string>
-  <string name="posts">Số bài viết</string>
+  <string name="posts">Số bài đăng</string>
   <string name="lastPost">Bài đăng gần đây nhất</string>
   <string name="views">Lượt xem</string>
   <string name="replies">Số bình luận</string>

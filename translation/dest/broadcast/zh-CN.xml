@@ -11,6 +11,7 @@
   <string name="aboutBroadcasts">关于转播</string>
   <string name="noRoundsYet">尚未有任何棋局</string>
   <string name="howToUseLichessBroadcasts">如何使用Lichess转播</string>
+  <string name="theNewRoundHelp">新一轮的成员和贡献者将与前一轮相同。</string>
   <string name="addRound">添加一轮</string>
   <string name="ongoing">进行中</string>
   <string name="upcoming">即将举行</string>
@@ -46,4 +47,6 @@
 示例:
 DrNykterstein;Magnus Carlsen;2863
 AnishGiri;Anish Giri;2764;GM</string>
+  <string name="periodInSeconds">时长（秒）</string>
+  <string name="periodInSecondsHelp">可选项，请求之间等待多长时间。最小2秒，最大60秒。默认值为基于观众数量的自动值。</string>
 </resources>
