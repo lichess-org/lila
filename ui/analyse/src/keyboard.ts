@@ -20,7 +20,7 @@ export function bind(ctrl: AnalyseCtrl): void {
     })
   );
   kbd.bind(
-    ['shift+left', 'shift+k'],
+    ['shift+left', 'shift+j'],
     preventing(() => {
       control.exitVariation(ctrl);
       ctrl.redraw();
@@ -34,7 +34,7 @@ export function bind(ctrl: AnalyseCtrl): void {
     })
   );
   kbd.bind(
-    ['shift+right', 'shift+j'],
+    ['shift+right', 'shift+k'],
     preventing(() => {
       control.enterVariation(ctrl);
       ctrl.redraw();
