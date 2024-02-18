@@ -240,6 +240,7 @@ object home {
     trans.lobby,
     trans.custom,
     trans.anonymous,
-    trans.readyToPlay
+    trans.readyToPlay,
+    trans.xPlays
   ).map(_.key)
 }
