@@ -4,7 +4,7 @@ $vp-max-width: 1200px;
 body {
   --site-header-height: #{$site-header-short-height};
 
-  @include breakpoint($mq-site-header-tall) {
+  @media (min-height: at-least($sticky-header)) {
     --site-header-height: #{$site-header-tall-height};
   }
 
@@ -15,9 +15,9 @@ body {
     --site-header-margin: 1em;
   }
 
-  --main-margin: 0;
+  --main-margin: 0px;
 
-  @include breakpoint($mq-main-margin) {
+  @media (min-width: at-least($small)) {
     --main-margin: 1vw;
     margin-bottom: $block-gap;
   }
@@ -46,9 +46,9 @@ body {
 }
 
 #main-wrap {
-  margin-top: #{$site-header-margin};
-  @media (prefers-reduced-motion: no-preference) and (min-height: 600px) {
-    margin-top: calc(#{$site-header-height} + #{$site-header-margin});
+  margin-top: $site-header-margin;
+  @media (prefers-reduced-motion: no-preference) and (min-height: $sticky-header) {
+    margin-top: $site-header-outer-height;
   }
 }
 

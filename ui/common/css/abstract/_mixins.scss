@@ -96,7 +96,7 @@
     background: unset;
     border-bottom: unset;
     transform: unset;
-    --site-header-sticky-padding: 0;
+    --site-header-sticky-padding: 0px;
 
     #topnav,
     .dropdown {
@@ -107,6 +107,6 @@
     }
   }
   #main-wrap {
-    margin-top: #{$site-header-margin};
+    margin-top: $site-header-margin;
   }
 }

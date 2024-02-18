@@ -12,6 +12,7 @@
 }
 
 .blind-mode {
+  @include topnav-unsticky;
   .is::before,
   .is::after,
   [data-icon]::before {

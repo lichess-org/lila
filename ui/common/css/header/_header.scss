@@ -3,13 +3,6 @@
 @import 'title';
 @import 'buttons';
 
-body {
-  --dropdown-top: $site-header-short-height;
-  @include breakpoint($mq-site-header-tall) {
-    --dropdown-top: $site-header-tall-height;
-  }
-}
-
 body > header {
   height: $site-header-height;
   display: flex;
@@ -20,8 +13,7 @@ body > header {
   margin: 0 auto;
   user-select: none;
 
-  @media (prefers-reduced-motion: no-preference) and (min-height: 600px) {
-    // sticky header properties
+  @media (prefers-reduced-motion: no-preference) and (min-height: $sticky-header) {
     max-width: unset;
     position: fixed;
     top: 0;
@@ -31,13 +23,12 @@ body > header {
 
     @if $theme == 'transp' {
       @include back-blur(6px);
-      background: rgba(0, 0, 0, 0.6);
+      background: hsla(0, 0, 60%, 0.14);
     } @else {
       background: $c-bg-page;
-      border-bottom: 1px solid $c-border;
+      border-bottom: $border;
     }
 
-    #topnav,
     .dropdown {
       opacity: 1;
       visibility: visible;
@@ -86,7 +77,7 @@ body > header {
     text-transform: uppercase;
     line-height: $site-header-height;
 
-    @include breakpoint($mq-not-x-small) {
+    @media (max-width: at-most($x-small)) {
       margin-#{$start-direction}: calc($site-header-height + 4px);
     }
   }

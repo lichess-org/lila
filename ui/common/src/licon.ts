@@ -131,4 +131,4 @@ export const Move = ''; // e075
 export const OneHalf = ''; // e076
 export const Mute = ''; // e077
 export const AccountCircle = ''; // e078
-export const Horsey = ''; // e079
+export const Logo = ''; // e079

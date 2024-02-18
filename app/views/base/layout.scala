@@ -119,9 +119,9 @@ object layout:
   private def anonDasher(using ctx: PageContext) =
     val prefs = trans.preferences.preferences.txt()
     div(cls := "dasher")(
-      a(href := s"${routes.Auth.login.url}?referred=${ctx.req.path}", cls := "signin")(trans.signIn.txt()),
-      a(cls  := "toggle anon link", title := prefs, aria.label := prefs, dataIcon := licon.Gear),
-      div(id := "dasher_app", cls         := "dropdown")
+      a(href := s"${routes.Auth.login.url}?referrer=${ctx.req.path}", cls := "signin")(trans.signIn.txt()),
+      button(cls := "toggle anon link", title := prefs, aria.label := prefs, dataIcon := licon.Gear),
+      div(id     := "dasher_app", cls         := "dropdown")
     )
 
   private def allNotifications(using ctx: PageContext) =
@@ -399,13 +399,13 @@ object layout:
           a(cls := "site-title", href := langHref("/"))(
             if ctx.kid.yes then span(title := trans.kidMode.txt(), cls := "kiddo")(":)")
             else ctx.isBot option botImage,
-            div(cls := "site-icon", dataIcon := licon.Horsey),
+            div(cls := "site-icon", dataIcon := licon.Logo),
             div(cls := "site-name")(siteNameFrag)
           ),
           !ctx.isAppealUser option frag(
             topnav(),
             ctx.kid.no && !ctx.me.exists(_.isPatron) && !zenable option a(cls := "site-title-nav__donate")(
-              href := (if ctx.me.isEmpty then routes.Auth.login else routes.Plan.index)
+              href := (routes.Plan.index)
             )(trans.patron.donate())
           ),
           ctx.blind option h2("Navigation")

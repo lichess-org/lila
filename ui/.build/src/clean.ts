@@ -2,15 +2,6 @@ import { promises as fs } from 'fs';
 import * as fg from 'fast-glob';
 import { env, colors as c } from './main';
 
-const globs = [
-  '**/node_modules',
-  'ui/*/dist',
-  'ui/*/tsconfig.tsbuildinfo',
-  'public/compiled',
-  'public/npm',
-  'public/css/*.css*',
-];
-
 const globOpts: fg.Options = {
   absolute: true,
   onlyFiles: false,
@@ -20,6 +11,17 @@ const globOpts: fg.Options = {
 
 export async function clean() {
   if (!env.clean) return;
+
+  const globs = [
+    '**/node_modules',
+    'ui/*/dist',
+    'ui/*/tsconfig.tsbuildinfo',
+    'public/compiled',
+    'public/npm',
+    'public/css/*.css*',
+  ];
+  if (env.cleanTheme) globs.push('**/css/build/!(_)*'); // will blow away mod.inquiry.scss
+
   for (const glob of globs) {
     env.log(`Cleaning '${c.cyan(glob)}'...`);
     for await (const f of fg.stream(glob, { cwd: env.rootDir, ...globOpts })) {

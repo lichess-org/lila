@@ -250,8 +250,8 @@
   position: fixed;
   top: 0;
   #{$start-direction}: 0;
-  bottom: 0;
-  #{$end-direction}: 0;
+  width: 100vw; // escape from bounding box of any fixed position parent
+  height: 100vh;
   background: $c-page-mask;
   z-index: z('fullscreen-mask');
 }

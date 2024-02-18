@@ -21,10 +21,10 @@ body {
 .msg-app {
   display: flex;
   flex-flow: row nowrap;
-  height: calc(var(--app-height) - var(--site-header-height));
+  height: calc(var(--app-height) - $site-header-height);
 
   @include breakpoint($mq-main-margin) {
-    height: calc(var(--app-height) * 0.98 - var(--site-header-height));
+    height: calc(var(--app-height) * 0.98 - $site-header-height);
   }
 
   overflow: hidden;
