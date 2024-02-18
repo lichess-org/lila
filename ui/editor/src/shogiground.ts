@@ -63,6 +63,7 @@ export function makeConfig(ctrl: EditorCtrl): SgConfig {
     },
     selectable: {
       enabled: ctrl.data.pref.moveEvent !== 1,
+      forceSpares: true,
       addSparesToHand: true,
     },
     forsyth: {
