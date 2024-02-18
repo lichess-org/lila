@@ -4,9 +4,9 @@
 @import 'buttons';
 
 body {
-  --dropdown-top: 40px;
+  --dropdown-top: $site-header-short-height;
   @include breakpoint($mq-site-header-tall) {
-    --dropdown-top: 60px;
+    --dropdown-top: $site-header-tall-height;
   }
 }
 
