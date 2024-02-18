@@ -1,8 +1,7 @@
 import { h, VNode } from 'snabbdom';
 import * as xhr from 'common/xhr';
-import { header, Close } from './util';
+import { header, Close, elementScrollBarWidth } from './util';
 import { bind, Redraw } from 'common/snabbdom';
-import { elementScrollBarWidth } from 'common/scroll';
 
 type Piece = string;
 
