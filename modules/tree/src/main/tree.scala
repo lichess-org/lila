@@ -289,7 +289,7 @@ case class Root(
 
   def lastMainlineNode: Node = children.lastMainlineNode getOrElse this
 
-  def takeMainlineWhile(f: Branch => Boolean) =
+  def takeMainlineWhile(f: Branch => Boolean): Root =
     if children.first.isDefined
     then copy(children = children.takeMainlineWhile(f))
     else this

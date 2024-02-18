@@ -85,6 +85,16 @@ class NewTreeTest extends munit.ScalaCheckSuite:
       val oldRoot = root.toRoot
       oldRoot.updateMainlineLast(_.copy(clock = c)).toNewRoot == root.updateMainlineLast(_.copy(clock = c))
 
+  override def scalaCheckInitialSeed = "OhayJX-NSkjod3-vTDxYsY2XWp5pjWu1LJK8_ruPi9F="
+  test("takeMainlineWhile".only):
+    forAll: (root: NewRoot, c: Option[Centis]) =>
+      val oldRoot = root.clearVariations.toRoot
+      val x = oldRoot.takeMainlineWhile(x => x.clock == c).toNewRoot
+      val y = root.clearVariations.takeMainlineWhile(x => x.metas.clock == c)
+      y.size >= 2 ==> {
+        x.pp == y.pp
+      }
+
   test("clearVariations"):
     forAll: (root: NewRoot) =>
       val oldRoot = root.toRoot
@@ -94,6 +104,28 @@ class NewTreeTest extends munit.ScalaCheckSuite:
     forAll: (root: NewRoot) =>
       val oldRoot = root.toRoot
       oldRoot.mainline.map(NewTree.fromBranch) == root.mainlineValues
+
+  test("lastMainlinePly"):
+    forAll: (root: NewRoot) =>
+      val oldRoot = root.toRoot
+      oldRoot.lastMainlinePly == root.lastMainlinePly
+
+  test("lastMainlinePlyOf"):
+    forAll: (rp: RootWithPath) =>
+      val (root, path) = rp
+      val oldRoot = root.toRoot
+      oldRoot.lastMainlinePlyOf(path) == root.lastMainlinePlyOf(path)
+
+  test("mainlinePath"):
+    forAll: (root: NewRoot) =>
+      val oldRoot = root.toRoot
+      oldRoot.mainlinePath == root.mainlinePath
+
+  test("lastMainlineNode"):
+    forAll: (root: NewRoot) =>
+      val oldRoot = root.toRoot
+      root.lastMainlineNode.isEmpty ||
+      NewTree.fromBranch(oldRoot.lastMainlineNode.asInstanceOf[Branch]) == root.lastMainlineNode.map(_.value).get
 
   test("nodeAt"):
     forAll: (rp: RootWithPath) =>

@@ -38,7 +38,7 @@ case class Metas(
     copy(comments = Comments.empty)
   def toggleGlyph(glyph: Glyph): Metas =
     copy(glyphs = glyphs toggle glyph)
-  def turn: Color                      = ply.turn
+  def turn: Color = ply.turn
 
 object Metas:
   def default(variant: Variant): Metas =
@@ -201,8 +201,19 @@ case class NewRoot(metas: Metas, tree: Option[NewTree]):
     crazyData
   }
 
-  def mainlineValues: List[NewBranch] = tree.fold(List.empty[NewBranch])(_.mainlineValues)
   def mainline: List[NewTree]         = tree.fold(List.empty[NewTree])(_.mainline)
+
+  def mainlineValues: List[NewBranch] = tree.fold(List.empty[NewBranch])(_.mainlineValues)
+
+  def lastMainlinePly: Ply            = mainlineValues.lastOption.fold(Ply.initial)(_.ply)
+
+  def lastMainlinePlyOf(path: UciPath) =
+    mainlineValues
+      .zip(path.computeIds)
+      .takeWhile((node, id) => node.id == id)
+      .lastOption
+      .fold(Ply.initial)((node, _) => node.metas.ply)
+
 
   def mapChildren(f: NewBranch => NewBranch): NewRoot =
     copy(tree = tree.map(_.map(f)))
@@ -276,6 +287,9 @@ case class NewRoot(metas: Metas, tree: Option[NewTree]):
   def lastMainlineNode: Option[ChessNode[NewBranch]] = tree.map(_.lastMainlineNode)
   def lastMainlineMetas: Option[Metas]               = lastMainlineNode.map(_.value.metas)
   def lastMainlineMetasOrRoots: Metas                = lastMainlineMetas | metas
+
+  def takeMainlineWhile(f: NewBranch => Boolean): NewRoot =
+    tree.fold(this)(t => copy(tree = t.takeMainlineWhile(f)))
 
   // TODO: better name modifyLastMainlineOrRoot
   def updateMainlineLast(f: Metas => Metas): NewRoot =
