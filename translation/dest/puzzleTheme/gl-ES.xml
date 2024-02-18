@@ -48,7 +48,7 @@
   <string name="exposedKing">Rei exposto</string>
   <string name="exposedKingDescription">Táctica que involucra a un rei con pouca defensa ó seu redor, a miúdo conducindo a xaque mate.</string>
   <string name="fork">Garfo</string>
-  <string name="forkDescription">Movemento no que a peza movida ataca a dúas pezas opoñentes á vez.</string>
+  <string name="forkDescription">Xogada na que a peza movida ataca dúas pezas adversarias simultaneamente.</string>
   <string name="hangingPiece">Peza colgada</string>
   <string name="hangingPieceDescription">Unha táctica que involucra unha peza do opoñente que non está suficientemente defendida e que por tanto se pode capturar.</string>
   <string name="hookMate">Mate do gancho</string>
