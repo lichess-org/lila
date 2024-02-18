@@ -146,25 +146,26 @@ final class RelayTour(env: Env, apiC: => Api) extends LilaController(env):
 
   def show(slug: String, id: TourModel.Id) = Open:
     Found(env.relay.api tourById id): tour =>
-      negotiate(
-        html = env.relay.listing.defaultRoundToShow.get(tour.id) flatMap {
-          case None =>
-            ctx.me
-              .soUse { env.relay.api.canUpdate(tour) }
-              .flatMap:
-                if _ then Redirect(routes.RelayRound.form(tour.id))
-                else
-                  for
-                    owner <- env.user.lightUser(tour.ownerId)
-                    markup = tour.markup.map(env.relay.markup(tour))
-                    page <- Ok.page(html.relay.tour.showEmpty(tour, owner, markup))
-                  yield page
-          case Some(round) => Redirect(round.withTour(tour).path)
-        },
-        json = env.relay.api.withRounds(tour) map { trs =>
-          Ok(env.relay.jsonView(trs, withUrls = true))
-        }
-      )
+      env.relay.listing.defaultRoundToShow.get(tour.id) flatMap:
+        case None =>
+          ctx.me
+            .soUse(env.relay.api.canUpdate(tour))
+            .flatMap:
+              if _ then Redirect(routes.RelayRound.form(tour.id))
+              else
+                for
+                  owner <- env.user.lightUser(tour.ownerId)
+                  markup = tour.markup.map(env.relay.markup(tour))
+                  page <- Ok.page(html.relay.tour.showEmpty(tour, owner, markup))
+                yield page
+        case Some(round) => Redirect(round.withTour(tour).path)
+
+  def apiShow(id: TourModel.Id) = Open:
+    Found(env.relay.api tourById id): tour =>
+      for
+        trs         <- env.relay.api.withRounds(tour)
+        leaderboard <- getBool("leaderboard").so(env.relay.leaderboard(tour))
+      yield Ok(env.relay.jsonView(trs, withUrls = true, leaderboard))
 
   def pgn(id: TourModel.Id) = OpenOrScoped(): ctx ?=>
     Found(env.relay.api tourById id): tour =>
