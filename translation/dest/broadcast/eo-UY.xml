@@ -8,6 +8,7 @@
   </plurals>
   <string name="liveBroadcasts">Vivaj turniraj elsendoj</string>
   <string name="newBroadcast">Nova viva elsendo</string>
+  <string name="subscribedBroadcasts">Abonitaj elsendoj</string>
   <string name="aboutBroadcasts">Pri elsendoj</string>
   <string name="noRoundsYet">Ankoraŭ neniom raŭndojn.</string>
   <string name="howToUseLichessBroadcasts">Kiel uzi Lichess Elsendojn.</string>

@@ -772,6 +772,7 @@
   <string name="keyNextBlunder">Naslednji spodrsljaj</string>
   <string name="keyNextMistake">Naslednja napaka</string>
   <string name="keyNextInaccuracy">Naslednja nepravilnost</string>
+  <string name="togglePositionAnnotations">Preklop opomb o položaju</string>
   <string name="newTournament">Nov turnir</string>
   <string name="tournamentHomeTitle">Turnir z možnostjo različnih variant in različnih igralnih časov</string>
   <string name="tournamentHomeDescription">Igraj turnirje z hitrim tempom! Pridruži se uradnemu turnirju ali ustvari svoj turnir. Hitropotezno, Pospešeno, Klasično, Šah960, Trojni šah in ostale možnosti so na voljo za neskončno šahovsko zabavo.</string>

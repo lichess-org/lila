@@ -267,6 +267,7 @@ POST  /broadcast/round/$roundId<\w{8}>/reset  controllers.RelayRound.reset(round
 POST  /broadcast/round/$roundId<\w{8}>/push   controllers.RelayRound.push(roundId)
 POST  /api/broadcast/round/$roundId<\w{8}>/push controllers.RelayRound.push(roundId)
 GET   /broadcast/:ts/:rs/$roundId<\w{8}>.pgn  controllers.RelayRound.pgn(ts, rs, roundId)
+GET   /broadcast/$roundId<\w{8}>/teams        controllers.RelayRound.teamsView(roundId)
 GET   /api/broadcast/round/$roundId<\w{8}>.pgn controllers.RelayRound.apiPgn(roundId)
 GET   /api/stream/broadcast/round/$roundId<\w{8}>.pgn controllers.RelayRound.stream(roundId)
 GET   /api/broadcast                          controllers.RelayTour.apiIndex
@@ -754,6 +755,8 @@ POST  /account/reopen/send             controllers.Account.reopenApply
 GET   /account/reopen/sent             controllers.Account.reopenSent
 GET   /account/reopen/login/:token     controllers.Account.reopenLogin(token)
 GET   /account/personal-data           controllers.Account.data
+GET   /account/network                 controllers.Account.network(usingAltSocket: Option[Boolean] ?= None)
+
 # App BC
 GET   /account/security                controllers.Account.security
 POST  /account/signout/:sessionId      controllers.Account.signout(sessionId)

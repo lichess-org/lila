@@ -34,6 +34,10 @@ export default class StudyChaptersCtrl {
     if (this.newForm.isOpen() || this.list().length < 64) this.newForm.toggle();
     else alert('You have reached the limit of 64 chapters per study. Please create a new study.');
   };
+  looksNew = () => {
+    const cs = this.list();
+    return cs.length == 1 && cs[0].name == 'Chapter 1';
+  };
 }
 
 export function isFinished(c: StudyChapter) {

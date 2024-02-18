@@ -166,7 +166,7 @@
   <string name="games">Số ván cờ</string>
   <string name="forum">Diễn đàn</string>
   <string name="xPostedInForumY">%1$s đã viết trong diễn đàn %2$s</string>
-  <string name="latestForumPosts">Bài đăng mới nhất</string>
+  <string name="latestForumPosts">Bài đăng diễn đàn mới nhất</string>
   <string name="players">Kỳ thủ</string>
   <string name="friends">Bạn bè</string>
   <string name="discussions">Trò chuyện</string>
@@ -508,7 +508,7 @@ trò chuyện trong ván đấu và có một URL có thể chia sẻ công khai
   <string name="help">Hỗ trợ:</string>
   <string name="createANewTopic">Tạo một chủ đề mới</string>
   <string name="topics">Các chủ đề</string>
-  <string name="posts">Số bài viết</string>
+  <string name="posts">Số bài đăng</string>
   <string name="lastPost">Bài đăng gần đây nhất</string>
   <string name="views">Lượt xem</string>
   <string name="replies">Số bình luận</string>
@@ -668,7 +668,8 @@ trò chuyện trong ván đấu và có một URL có thể chia sẻ công khai
   <string name="keyNextBranch">Nhánh tiếp theo</string>
   <string name="toggleVariationArrows">Đổi mũi tên của từng biến</string>
   <string name="cyclePreviousOrNextVariation">Chu kì của biến trước/tiếp theo</string>
-  <string name="toggleGlyphAnnotations">Đổi chú thích bằng dấu</string>
+  <string name="toggleGlyphAnnotations">Đổi chú thích nước cờ</string>
+  <string name="togglePositionAnnotations">Chuyển đổi chú thích thế cờ</string>
   <string name="variationArrowsInfo">Mũi tên của biến cho phép bạn điều hướng mà không cần sử dụng danh sách nước đi.</string>
   <string name="playSelectedMove">chơi nước đi đã chọn</string>
   <string name="newTournament">Giải đấu mới</string>
@@ -865,7 +866,7 @@ trò chuyện trong ván đấu và có một URL có thể chia sẻ công khai
   <string name="tryTheContactPage">hãy thử trang trợ giúp</string>
   <string name="makeSureToRead">Hãy chắc rằng bạn đã đọc %1$s</string>
   <string name="theForumEtiquette">quy tắc diễn đàn</string>
-  <string name="thisTopicIsArchived">Đề tài này đã bị đóng nên bạn không thể bình luận nữa.</string>
+  <string name="thisTopicIsArchived">Chủ đề này đã được lưu trữ và không thể trả lời được nữa.</string>
   <string name="joinTheTeamXToPost">Gia nhập %1$s để đăng trong diễn đàn này</string>
   <string name="teamNamedX">Đội %1$s</string>
   <string name="youCannotPostYetPlaySomeGames">Bạn chưa thể đăng bài lên diễn đàn bây giờ. Hãy chơi vài ván đã!</string>

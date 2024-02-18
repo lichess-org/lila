@@ -212,6 +212,7 @@ object layout:
 
   private val dataVapid         = attr("data-vapid")
   private val dataSocketDomains = attr("data-socket-domains") := netConfig.socketDomains.mkString(",")
+  private val dataSocketAlts    = attr("data-socket-alts")    := netConfig.socketAlts.mkString(",")
   private val dataNonce         = attr("data-nonce")
   private val dataAnnounce      = attr("data-announce")
   val dataSoundSet              = attr("data-sound-set")
@@ -306,6 +307,7 @@ object layout:
           dataUser     := ctx.userId,
           dataSoundSet := pref.currentSoundSet.toString,
           dataSocketDomains,
+          pref.isUsingAltSocket option dataSocketAlts,
           dataAssetUrl,
           dataAssetVersion := assetVersion,
           dataNonce        := ctx.nonce.ifTrue(sameAssetDomain).map(_.value),

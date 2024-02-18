@@ -64,10 +64,13 @@ export default class StrongSocket {
   tryOtherUrl = false;
   autoReconnect = true;
   nbConnects = 0;
-  storage: LichessStorage = makeStorage.make('surl17', 30 * 60 * 1000);
+  storage: LichessStorage = makeStorage.make(
+    document.body.dataset.socketAlternates ? 'surl-alt' : 'surl17',
+    30 * 60 * 1000,
+  );
   private _sign?: string;
   private resendWhenOpen: [string, any, any][] = [];
-  private baseUrls = document.body.dataset.socketDomains!.split(',');
+  private baseUrls = (document.body.dataset.socketAlts || document.body.dataset.socketDomains!).split(',');
   static defaultOptions: Options = {
     idle: false,
     pingMaxLag: 9000, // time to wait for pong before resetting the connection
@@ -276,7 +279,8 @@ export default class StrongSocket {
       default:
         // return true in a receive handler to prevent pubsub and events
         if (!(this.settings.receive && this.settings.receive(m.t, m.d))) {
-          if (!(this.settings.events[m.t] && this.settings.events[m.t](m.d || null, m))) {
+          const sentAsEvent = this.settings.events[m.t] && this.settings.events[m.t](m.d || null, m);
+          if (!sentAsEvent) {
             this.pubsub.emit('socket.in.' + m.t, m.d, m);
           }
         }
@@ -344,7 +348,6 @@ export default class StrongSocket {
   };
 
   baseUrl = () => {
-    if (lichess.storage.get('socket.host')) return lichess.storage.get('socket.host'); // TODO - remove
     let url = this.storage.get();
     if (!url) {
       url = this.baseUrls[Math.floor(Math.random() * this.baseUrls.length)];

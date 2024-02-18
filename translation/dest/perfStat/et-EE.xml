@@ -22,10 +22,9 @@
   <string name="fromXToY">ajavahemikus %1$s - %2$s</string>
   <string name="winningStreak">Võitude seeria</string>
   <string name="losingStreak">Kaotuste seeria</string>
-  <string name="longestStreak" comment="%s is the string (number of games OR time spent playing, e.g. 4 hours non-stop play)&#10;String used to describe the longest consecutive winning &amp; losing streak of games. It is also used for a  streak of time spent playing.">Pikim seeria: %s</string>
+  <string name="longestStreak">Pikim seeria: %s</string>
   <string name="currentStreak">Praegune seeria: %s</string>
   <string name="bestRated">Parimad reitinguga võidud</string>
-  <string name="worstRated">Halvimad reitinguga kaotused</string>
   <string name="gamesInARow">Järjestikusi mänge</string>
   <string name="lessThanOneHour">Mängude vahel vähem kui tund</string>
   <string name="maxTimePlaying">Pikim aeg mängimas</string>
