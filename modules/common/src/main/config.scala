@@ -74,7 +74,7 @@ object config:
       @ConfigName("stage.banner") stageBanner: Boolean,
       @ConfigName("site.name") siteName: String,
       @ConfigName("socket.domains") socketDomains: List[String],
-      @ConfigName("socket.alternate") altSocket: NetDomain,
+      @ConfigName("socket.alts") socketAlts: List[String],
       crawlable: Boolean,
       @ConfigName("ratelimit") rateLimit: RateLimit,
       email: EmailAddress

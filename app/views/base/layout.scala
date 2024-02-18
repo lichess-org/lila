@@ -214,8 +214,8 @@ object layout:
   )
 
   private val dataVapid         = attr("data-vapid")
-  private val dataAltSocket     = attr("data-alt-socket")
   private val dataSocketDomains = attr("data-socket-domains") := netConfig.socketDomains.mkString(",")
+  private val dataSocketAlts    = attr("data-socket-alts")    := netConfig.socketAlts.mkString(",")
   private val dataNonce         = attr("data-nonce")
   private val dataAnnounce      = attr("data-announce")
   val dataSoundSet              = attr("data-sound-set")
@@ -309,8 +309,8 @@ object layout:
           dataVapid    := (ctx.isAuth && env.lilaCookie.isRememberMe(ctx.req)) option vapidPublicKey,
           dataUser     := ctx.userId,
           dataSoundSet := pref.currentSoundSet.toString,
-          pref.isUsingAltSocket option (dataAltSocket := netConfig.altSocket.value),
           dataSocketDomains,
+          pref.isUsingAltSocket option dataSocketAlts,
           dataAssetUrl,
           dataAssetVersion := assetVersion,
           dataNonce        := ctx.nonce.ifTrue(sameAssetDomain).map(_.value),
