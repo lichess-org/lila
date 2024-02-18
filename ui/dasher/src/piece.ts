@@ -105,7 +105,15 @@ function isKyo(key: PieceSetKey): boolean {
 }
 
 function isPngPiece(key: PieceSetKey): boolean {
-  return ['Portella', 'Portella_2Kanji', 'Intl_Portella', 'joyful', 'pixel', 'Chu_Eigetsu_Gyoryu'].includes(key);
+  return [
+    'Portella',
+    'Portella_2Kanji',
+    'Intl_Portella',
+    'joyful',
+    'pixel',
+    'Chu_Eigetsu_Gyoryu',
+    'Kyo_joyful',
+  ].includes(key);
 }
 
 function pieceView(current: PieceSetKey) {
