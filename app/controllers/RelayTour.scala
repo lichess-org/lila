@@ -179,8 +179,11 @@ final class RelayTour(env: Env, apiC: => Api) extends LilaController(env):
   def apiIndex = Anon:
     apiC.jsonDownload:
       env.relay.api
-        .officialTourStream(MaxPerSecond(20), Max(getInt("nb") | 20).atMost(100))
-        .map(env.relay.jsonView(_, withUrls = true))
+        .officialTourStream(
+          MaxPerSecond(20),
+          Max(getInt("nb") | 20).atMost(100),
+          withLeaderboards = getBool("leaderboard")
+        )
 
   private def WithTour(id: TourModel.Id)(f: TourModel => Fu[Result])(using Context): Fu[Result] =
     Found(env.relay.api tourById id)(f)
