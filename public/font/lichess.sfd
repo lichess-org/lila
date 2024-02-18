@@ -87,7 +87,7 @@ NameList: AGL For New Fonts
 DisplaySize: -128
 AntiAlias: 1
 FitToEm: 0
-WinInfo: 57393 9 8
+WinInfo: 57402 9 8
 BeginChars: 65539 125
 
 StartChar: .notdef
@@ -7579,7 +7579,7 @@ SplineSet
 EndSplineSet
 EndChar
 
-StartChar: horsey
+StartChar: logo
 Encoding: 57465 57465 124
 Width: 512
 Flags: W

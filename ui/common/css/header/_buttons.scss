@@ -118,10 +118,10 @@
       @extend %flex-center-nowrap;
       margin: 0;
       padding: 1rem;
+    }
 
-      &.anon {
-        font-size: 2rem;
-      }
+    > button {
+      font-size: 2rem;
     }
 
     > .dropdown {

@@ -58,7 +58,7 @@ function pieceImage(t: Piece, is3d: boolean) {
 }
 
 const pieceView = (current: Piece, set: (t: Piece) => void, is3d: boolean) => (t: Piece) => {
-  const pieceSize = (225 - elementScrollBarWidth()) / 3;
+  const pieceSize = (222 - elementScrollBarWidth()) / 3;
   return h(
     'button.no-square',
     {

@@ -136,4 +136,4 @@ object licon:
   val OneHalf: Icon         = "" // e076
   val Mute: Icon            = "" // e077
   val AccountCircle: Icon   = "" // e078
-  val Horsey: Icon          = "" // e079
+  val Logo: Icon            = "" // e079
