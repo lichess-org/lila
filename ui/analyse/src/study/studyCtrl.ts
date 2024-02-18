@@ -33,6 +33,7 @@ import {
   TagArray,
   StudyChapterRelay,
   StudyTour,
+  ChapterId,
 } from './interfaces';
 import GamebookPlayCtrl from './gamebook/gamebookPlayCtrl';
 import { DescriptionCtrl } from './description';
@@ -46,6 +47,7 @@ import { opposite } from 'chessops/util';
 import StudyChaptersCtrl from './studyChapters';
 import { SearchCtrl } from './studySearch';
 import { GamebookOverride } from './gamebook/interfaces';
+import { EvalHitMulti, EvalHitMultiArray } from '../interfaces';
 
 interface Handlers {
   path(d: WithWhoAndPos): void;
@@ -74,6 +76,7 @@ interface Handlers {
   setTags(d: WithWhoAndChap & { tags: TagArray[] }): void;
   validationError(d: { error: string }): void;
   error(msg: string): void;
+  evalHitMulti(e: EvalHitMulti | EvalHitMultiArray): void;
 }
 
 // data.position.path represents the server state
@@ -157,7 +160,8 @@ export default class StudyCtrl {
         this.redrawAndUpdateAddressBar,
         this.members,
         this.data.chapter,
-        !this.looksNew(),
+        this.looksNew(),
+        (id: ChapterId) => this.setChapter(id),
       );
     this.multiBoard = new MultiBoardCtrl(
       this.data.id,
@@ -546,10 +550,7 @@ export default class StudyCtrl {
   explorerGame = (gameId: string, insert: boolean) =>
     this.makeChange('explorerGame', this.withPosition({ gameId, insert }));
   onPremoveSet = () => this.gamebookPlay?.onPremoveSet();
-  looksNew = () => {
-    const cs = this.chapters.list();
-    return cs.length == 1 && cs[0].name == 'Chapter 1' && !this.currentChapter().ongoing;
-  };
+  looksNew = () => this.chapters.looksNew() && !this.currentChapter().ongoing;
   updateAddressBar = () => {
     const current = location.href;
     const studyIdOffset = current.indexOf(`/${this.data.id}`);
@@ -570,7 +571,7 @@ export default class StudyCtrl {
       handler(d);
       return true;
     }
-    return !!this.relay && this.relay.socketHandler(t, d);
+    return !!this.relay?.socketHandler(t, d);
   };
 
   socketHandlers: Handlers = {
@@ -771,6 +772,12 @@ export default class StudyCtrl {
     },
     error(msg: string) {
       alert(msg);
+    },
+    evalHitMulti: (e: EvalHitMulti | EvalHitMultiArray) => {
+      ('multi' in e ? e.multi : [e]).forEach(ev => {
+        this.multiBoard.multiCloudEval.onCloudEval(ev);
+        this.relay?.teams?.multiCloudEval.onCloudEval(ev);
+      });
     },
   };
 }

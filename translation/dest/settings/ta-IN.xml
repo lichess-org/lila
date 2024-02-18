@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="settings">அமைப்புகள்</string>
-  <string name="closeAccount">கணக்கு மூடவும்</string>
+  <string name="closeAccount">கணக்கை மூடவும்</string>
   <string name="managedAccountCannotBeClosed" comment="managedAccountCannotBeClosed&#10;&#10;A managed account is typically one that has been registered by a chess teacher. The teacher retains control over the account, but they can release this control.">உங்களின் கணக்கு நிர்வாகிக்கப்படுவதால் அதை நீக்க இயலாது. </string>
   <string name="closingIsDefinitive">நிச்சயமாக மூடப்படும். மாற்ற முடியாது. உறுதிப்படுத்தவா?</string>
   <string name="cantOpenSimilarAccount">உங்களால் புதிய கணக்கொன்றை பேரெழுத்துக்களையோ, சிற்றெழுத்துக்களையோ மாற்றி அதே பெயரில் உருவாக்க இயலாது.</string>

@@ -37,13 +37,13 @@ final class RelayPgnStream(
     val date = dateFormatter.print(tour.syncedAt | tour.createdAt)
     fileR.replaceAllIn(s"lichess_broadcast_${tour.slug}_${tour.id}_$date", "")
 
-  def streamRoundGames(rt: RelayRound.WithTourAndStudy): Source[PgnStr, ?] = {
-    if rt.relay.hasStarted then studyPgnDump.chaptersOf(rt.study, flags).throttle(16, 1 second)
+  def streamRoundGames(rs: RelayRound.WithStudy): Source[PgnStr, ?] = {
+    if rs.relay.hasStarted then studyPgnDump.chaptersOf(rs.study, flags).throttle(16, 1 second)
     else Source.empty[PgnStr]
   } concat Source
     .queue[Set[StudyChapterId]](8, akka.stream.OverflowStrategy.dropHead)
     .mapMaterializedValue: queue =>
-      val chan = SyncResult busChannel rt.relay.id
+      val chan = SyncResult busChannel rs.relay.id
       val sub = Bus.subscribeFun(chan) { case SyncResult.Ok(chapters, _) =>
         queue.offer(chapters.view.filter(c => c.tagUpdate || c.newMoves > 0).map(_.id).toSet)
       }
@@ -53,4 +53,4 @@ final class RelayPgnStream(
           Bus.unsubscribe(sub, chan)
     .flatMapConcat(studyChapterRepo.byIdsSource)
     .throttle(16, 1 second)
-    .mapAsync(1)(studyPgnDump.ofChapter(rt.study, flags))
+    .mapAsync(1)(studyPgnDump.ofChapter(rs.study, flags))

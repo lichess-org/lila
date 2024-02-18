@@ -47,7 +47,7 @@ final class StudyMultiBoard(
   final private class ChapterPreviewAdapter(studyId: StudyId, playing: Boolean)
       extends AdapterLike[ChapterPreview]:
 
-    private val selector = $doc("studyId" -> studyId) ++ playing.so(playingSelector)
+    private val selector = chapterRepo.$studyId(studyId) ++ playing.so(playingSelector)
 
     def nbResults: Fu[Int] = chapterRepo.coll(_.countSel(selector))
 
@@ -102,29 +102,25 @@ function(root, tags) {
                     )
                   ,
                   "orientation" -> "$setup.orientation",
-                  "name"        -> true,
                   "lastMoveAt"  -> "$relay.lastMoveAt"
                 )
             )
         }
         .map: r =>
           for
-            doc  <- r
-            id   <- doc.getAsOpt[StudyChapterId]("_id")
-            name <- doc.getAsOpt[StudyChapterName]("name")
+            doc <- r
+            id  <- doc.getAsOpt[StudyChapterId]("_id")
             lastMoveAt = doc.getAsOpt[Instant]("lastMoveAt")
-            comp   <- doc.getAsOpt[Bdoc]("comp")
-            node   <- comp.getAsOpt[Bdoc]("node")
-            fen    <- node.getAsOpt[Fen.Epd]("fen")
-            clocks <- comp.getAsOpt[Bdoc]("clocks")
-            lastMove   = node.getAsOpt[Uci]("uci")
-            tags       = comp.getAsOpt[Tags]("tags")
-            blackClock = clocks.getAsOpt[Centis]("black")
-            whiteClock = clocks.getAsOpt[Centis]("white")
+            comp      <- doc.getAsOpt[Bdoc]("comp")
+            node      <- comp.getAsOpt[Bdoc]("node")
+            fen       <- node.getAsOpt[Fen.Epd]("fen")
+            clocksDoc <- comp.getAsOpt[Bdoc]("clocks")
+            clocks   = ByColor[Option[Centis]](c => clocksDoc.getAsOpt[Centis](c.name))
+            lastMove = node.getAsOpt[Uci]("uci")
+            tags     = comp.getAsOpt[Tags]("tags")
           yield ChapterPreview(
             id = id,
-            name = name,
-            players = tags flatMap ChapterPreview.players(blackClock = blackClock, whiteClock = whiteClock),
+            players = tags flatMap ChapterPreview.players(clocks),
             orientation = doc.getAsOpt[Color]("orientation") | Color.White,
             fen = fen,
             lastMove = lastMove,
@@ -153,7 +149,6 @@ object StudyMultiBoard:
 
   case class ChapterPreview(
       id: StudyChapterId,
-      name: StudyChapterName,
       players: Option[ChapterPreview.Players],
       orientation: Color,
       fen: Fen.Epd,
@@ -169,10 +164,7 @@ object StudyMultiBoard:
 
     type Players = ByColor[Player]
 
-    def players(blackClock: Option[Centis], whiteClock: Option[Centis])(tags: Tags): Option[Players] = for
-      wName <- tags(_.White)
-      bName <- tags(_.Black)
-    yield ByColor(
-      white = Player(wName, tags(_.WhiteTitle), tags(_.WhiteElo).flatMap(_.toIntOption), whiteClock),
-      black = Player(bName, tags(_.BlackTitle), tags(_.BlackElo).flatMap(_.toIntOption), blackClock)
-    )
+    def players(clocks: ByColor[Option[Centis]])(tags: Tags): Option[Players] =
+      chess.ByColor(tags.players(_)) map: names =>
+        names zip tags.titles zip tags.elos zip clocks map:
+          case (((n, t), e), c) => Player(n, t, e, c)
