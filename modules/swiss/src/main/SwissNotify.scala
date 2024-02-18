@@ -9,7 +9,7 @@ final private class SwissNotify(mongo: SwissMongo)(using Executor, Scheduler):
 
   private val doneMemo = lila.memo.ExpireSetMemo[SwissId](10 minutes)
 
-  LilaScheduler("SwissNotify", _.Every(20 seconds), _.AtMost(10 seconds), _.Delay(1 minute)) {
+  LilaScheduler("SwissNotify", _.Every(20 seconds), _.AtMost(10 seconds), _.Delay(1 minute)):
     mongo.swiss
       .find(
         $doc(
@@ -22,19 +22,15 @@ final private class SwissNotify(mongo: SwissMongo)(using Executor, Scheduler):
       )
       .cursor[Swiss]()
       .list(5)
-      .flatMap {
-        _.map { swiss =>
+      .flatMap:
+        _.traverse_ { swiss =>
           doneMemo put swiss.id
-          SwissPlayer.fields { f =>
+          SwissPlayer.fields: f =>
             mongo.player
               .distinctEasy[UserId, List](f.userId, $doc(f.swissId -> swiss.id))
-              .map { userIds =>
+              .map: userIds =>
                 lila.common.Bus.publish(
                   TourSoon(tourId = swiss.id.value, tourName = swiss.name, userIds, swiss = true),
                   "tourSoon"
                 )
-              }
-          }
-        }.parallel.void
-      }
-  }
+        }
