@@ -1,6 +1,4 @@
 import * as xhr from 'common/xhr';
-import once from './component/once';
-import { hopscotch } from './component/assets';
 import { makeLinkPopups } from 'common/linkPopup';
 
 export function initModule(opts: { i18n: I18nDict }): void {
@@ -43,8 +41,8 @@ export function initModule(opts: { i18n: I18nDict }): void {
     });
   });
 
-  if ($('#perfStat.correspondence .view_games').length && once('user-correspondence-view-games'))
-    hopscotch().then(() => {
+  if ($('#perfStat.correspondence .view_games').length && lichess.once('user-correspondence-view-games'))
+    lichess.asset.hopscotch().then(() => {
       window.hopscotch
         .configure({
           i18n: {

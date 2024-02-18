@@ -1,27 +1,25 @@
 import * as licon from 'common/licon';
 import * as miniBoard from 'common/miniBoard';
-import * as miniGame from './component/miniGame';
-import * as timeago from './component/timeago';
+import * as miniGame from './miniGame';
+import * as timeago from './timeago';
 import * as xhr from 'common/xhr';
-import announce from './component/announce';
+import announce from './announce';
 import exportLichessGlobals from './site.lichess.globals';
-import info from './component/info';
-import OnlineFriends from './component/friends';
-import powertip from './component/powertip';
-import pubsub from './component/pubsub';
-import serviceWorker from './component/serviceWorker';
-import StrongSocket from './component/socket';
-import topBar from './component/topBar';
-import watchers from './component/watchers';
-import { requestIdleCallback } from './component/functions';
-import { siteTrans } from './component/trans';
+import OnlineFriends from './friends';
+import powertip from './powertip';
+import pubsub from './pubsub';
+import serviceWorker from './serviceWorker';
+import StrongSocket from './socket';
+import topBar from './topBar';
+import watchers from './watchers';
+import { requestIdleCallback } from './functions';
+import { siteTrans } from './trans';
 import { isIOS } from 'common/device';
 import { scrollToInnerSelector } from 'common';
 
 window.$as = <T>(cashOrHtml: Cash | string) =>
   (typeof cashOrHtml === 'string' ? $(cashOrHtml) : cashOrHtml)[0] as T;
 exportLichessGlobals();
-lichess.info = info;
 
 lichess.load.then(() => {
   $('#user_tag').removeAttr('href');

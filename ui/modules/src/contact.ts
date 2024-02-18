@@ -1,4 +1,4 @@
-import contactEmail from './component/contactEmail';
+import contactEmail from './contactEmail';
 
 lichess.load.then(() => {
   location.hash ||= '#help-root';

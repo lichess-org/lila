@@ -1,10 +1,10 @@
 import * as licon from 'common/licon';
 import * as xhr from 'common/xhr';
-import flairPicker from './component/flairPicker';
+import { loadFlairPicker } from './flairPicker';
 
 lichess.load.then(() => {
   $('.emoji-details').each(function (this: HTMLElement) {
-    flairPicker(this);
+    loadFlairPicker(this);
   });
 
   const localPrefs: [string, string, string, boolean][] = [

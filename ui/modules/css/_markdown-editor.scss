@@ -1,5 +1,5 @@
-@import '../../../../public/vendor/toastui/toastui-editor';
-@import '../../../../public/vendor/toastui/toastui-editor-dark';
+@use '../node_modules/@toast-ui/editor/dist/toastui-editor.css';
+@use '../node_modules/@toast-ui/editor/dist/theme/toastui-editor-dark.css';
 
 .markdown-editor {
   height: 60vh;

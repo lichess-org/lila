@@ -186,11 +186,11 @@ export const mic = new (class implements Voice.Microphone {
     this.interrupt = true;
   }
 
-  private get micTrack(): MediaStreamTrack | undefined {
+  /*private*/ get micTrack(): MediaStreamTrack | undefined {
     return this.mediaStream?.getAudioTracks()[0];
   }
 
-  private initKaldi(recId: string, rec: RecNode) {
+  /*private*/ initKaldi(recId: string, rec: RecNode) {
     if (rec.node) return;
     rec.node = this.vosk?.initRecognizer({
       recId: recId,
@@ -201,7 +201,7 @@ export const mic = new (class implements Voice.Microphone {
     });
   }
 
-  private async initModel(): Promise<void> {
+  /*private*/ async initModel(): Promise<void> {
     if (this.vosk?.isLoaded(this.lang)) {
       await this.initAudio();
       return;
@@ -221,7 +221,7 @@ export const mic = new (class implements Voice.Microphone {
     await audioAsync;
   }
 
-  private async initAudio(): Promise<void> {
+  /*private*/ async initAudio(): Promise<void> {
     if (this.audioCtx?.state === 'suspended') await this.audioCtx.resume();
     if (this.audioCtx?.state === 'running') return;
     else if (this.audioCtx) throw `Error ${this.audioCtx.state}`;
@@ -241,7 +241,7 @@ export const mic = new (class implements Voice.Microphone {
     this.recs.ctx = { vosk: this.vosk, source: this.micSource, ctx: this.audioCtx };
   }
 
-  private broadcast(text: string, msgType: Voice.MsgType = 'status', forMs = 0) {
+  /*private*/ broadcast(text: string, msgType: Voice.MsgType = 'status', forMs = 0) {
     this.ctrl?.call(this, text, msgType);
     if (msgType === 'status' || msgType === 'full') window.clearTimeout(this.broadcastTimeout);
     this.voskStatus = text;
@@ -252,7 +252,7 @@ export const mic = new (class implements Voice.Microphone {
     this.broadcastTimeout = forMs > 0 ? window.setTimeout(() => this.broadcast(''), forMs) : undefined;
   }
 
-  private async downloadModel(emscriptenPath: string): Promise<void> {
+  /*private*/ async downloadModel(emscriptenPath: string): Promise<void> {
     const voskStore = await objectStorage<any>({
       db: '/vosk',
       store: 'FILE_DATA',

@@ -1,6 +1,5 @@
 import Lpv from 'lichess-pgn-viewer';
 import PgnViewer from 'lichess-pgn-viewer/pgnViewer';
-import { loadCssPath } from './component/assets';
 import { Opts as LpvOpts } from 'lichess-pgn-viewer/interfaces';
 import { text as xhrText } from 'common/xhr';
 
@@ -12,7 +11,7 @@ function autostart() {
   $('.lpv--autostart').each(function (this: HTMLElement) {
     const pgn = this.dataset['pgn']!.replace(/<br>/g, '\n');
     const gamebook = pgn.includes('[ChapterMode "gamebook"]');
-    loadCssPath('lpv').then(() => {
+    lichess.asset.loadCssPath('lpv').then(() => {
       const config: Partial<LpvOpts> = {
         pgn,
         orientation: this.dataset['orientation'] as Color | undefined,
@@ -36,7 +35,7 @@ function autostart() {
 }
 
 async function loadPgnAndStart(el: HTMLElement, url: string, opts: LpvOpts) {
-  await loadCssPath('lpv');
+  await lichess.asset.loadCssPath('lpv');
   const pgn = await xhrText(url, {
     headers: {
       Accept: 'application/x-chess-pgn',

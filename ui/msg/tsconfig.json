@@ -1,7 +1,7 @@
 {
   "extends": "../tsconfig.base.json",
   "compilerOptions": {
-    "types": ["lichess", "web", "cash"],
+    "types": ["lichess", "web"],
     "noEmit": true
   },
   "isolateModules": true,

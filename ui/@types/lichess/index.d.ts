@@ -6,6 +6,8 @@
 /// <reference path="./dialog.d.ts" />
 // eslint-disable-next-line
 /// <reference path="./voice.d.ts" />
+// eslint-disable-next-line
+/// <reference path="./cash.d.ts" />
 
 // file://./../../site/src/site.lichess.globals.ts
 interface Lichess {
@@ -459,3 +461,4 @@ type SocketHandlers = Dictionary<(d: any) => void>;
 
 declare const lichess: Lichess;
 declare const $as: <T>(cashOrHtml: Cash | string) => T;
+declare module 'tablesort';

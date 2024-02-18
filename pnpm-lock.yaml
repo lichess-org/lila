@@ -8,9 +8,6 @@ importers:
 
   .:
     dependencies:
-      '@types/cash':
-        specifier: workspace:*
-        version: link:ui/@types/cash
       '@types/lichess':
         specifier: workspace:*
         version: link:ui/@types/lichess
@@ -66,13 +63,7 @@ importers:
         specifier: ^29.6.2
         version: 29.6.2
 
-  ui/@types/cash: {}
-
-  ui/@types/lichess:
-    dependencies:
-      '@types/cash':
-        specifier: 8.0.0
-        version: link:../cash
+  ui/@types/lichess: {}
 
   ui/analyse:
     dependencies:
@@ -241,9 +232,6 @@ importers:
 
   ui/common:
     dependencies:
-      dialog-polyfill:
-        specifier: 0.5.6
-        version: 0.5.6
       lichess-pgn-viewer:
         specifier: ^2.0.1
         version: 2.0.1
@@ -406,6 +394,66 @@ importers:
       tablesort:
         specifier: ^5.3.0
         version: 5.3.0
+
+  ui/modules:
+    dependencies:
+      '@fnando/sparkline':
+        specifier: ^0.3.10
+        version: 0.3.10
+      '@toast-ui/editor':
+        specifier: '=3.1.7'
+        version: 3.1.7
+      '@types/debounce-promise':
+        specifier: ^3.1.6
+        version: 3.1.6
+      '@types/fnando__sparkline':
+        specifier: ^0.3.4
+        version: 0.3.4
+      '@types/yaireo__tagify':
+        specifier: ^4.17.0
+        version: 4.17.3
+      '@types/zxcvbn':
+        specifier: ^4.4.1
+        version: 4.4.4
+      '@yaireo/tagify':
+        specifier: ^4.17.6
+        version: 4.17.9(prop-types@15.8.1)
+      chat:
+        specifier: workspace:*
+        version: link:../chat
+      chess:
+        specifier: workspace:*
+        version: link:../chess
+      common:
+        specifier: workspace:*
+        version: link:../common
+      cropperjs:
+        specifier: ^1.6.1
+        version: 1.6.1
+      debounce-promise:
+        specifier: ^3.1.2
+        version: 3.1.2
+      emoji-mart:
+        specifier: ^5.5.2
+        version: 5.5.2
+      flatpickr:
+        specifier: ^4.6.13
+        version: 4.6.13
+      hopscotch:
+        specifier: ^0.3.1
+        version: 0.3.1
+      lichess-pgn-viewer:
+        specifier: ^2.0.1
+        version: 2.0.1
+      prop-types:
+        specifier: ^15.8.1
+        version: 15.8.1
+      tablesort:
+        specifier: ^5.3.0
+        version: 5.3.0
+      zxcvbn:
+        specifier: ^4.4.2
+        version: 4.4.2
 
   ui/msg:
     dependencies:
@@ -592,27 +640,6 @@ importers:
 
   ui/site:
     dependencies:
-      '@fnando/sparkline':
-        specifier: ^0.3.10
-        version: 0.3.10
-      '@toast-ui/editor':
-        specifier: '=3.1.7'
-        version: 3.1.7
-      '@types/debounce-promise':
-        specifier: ^3.1.6
-        version: 3.1.6
-      '@types/fnando__sparkline':
-        specifier: ^0.3.4
-        version: 0.3.4
-      '@types/yaireo__tagify':
-        specifier: ^4.17.0
-        version: 4.17.3
-      '@types/zxcvbn':
-        specifier: ^4.4.1
-        version: 4.4.4
-      '@yaireo/tagify':
-        specifier: ^4.17.6
-        version: 4.17.9(prop-types@15.8.1)
       chat:
         specifier: workspace:*
         version: link:../chat
@@ -622,36 +649,18 @@ importers:
       common:
         specifier: workspace:*
         version: link:../common
-      cropperjs:
-        specifier: ^1.6.1
-        version: 1.6.1
-      debounce-promise:
-        specifier: ^3.1.2
-        version: 3.1.2
-      emoji-mart:
-        specifier: ^5.5.2
-        version: 5.5.2
-      flatpickr:
-        specifier: ^4.6.13
-        version: 4.6.13
-      hopscotch:
-        specifier: ^0.3.1
-        version: 0.3.1
+      dialog-polyfill:
+        specifier: 0.5.6
+        version: 0.5.6
       lichess-pgn-viewer:
-        specifier: ^2.0.1
+        specifier: 2.0.1
         version: 2.0.1
-      prop-types:
-        specifier: ^15.8.1
-        version: 15.8.1
       tablesort:
         specifier: ^5.3.0
         version: 5.3.0
       voice:
         specifier: workspace:*
         version: link:../voice
-      zxcvbn:
-        specifier: ^4.4.2
-        version: 4.4.2
 
   ui/storm:
     dependencies:

@@ -2,78 +2,37 @@
   "name": "site",
   "version": "2.0.0",
   "private": true,
-  "description": "lichess.org website",
+  "description": "lichess.org website globals",
   "author": "Thibault Duplessis",
   "license": "AGPL-3.0-or-later",
+  "types": "main.d.ts",
+  "exports": {
+    ".": "./dist/main.js",
+    "./*": "./dist/*.js"
+  },
+  "typesVersions": {
+    "*": {
+      "*": [
+        "dist/*"
+      ]
+    }
+  },
   "dependencies": {
-    "@fnando/sparkline": "^0.3.10",
-    "@toast-ui/editor": "=3.1.7",
-    "@types/debounce-promise": "^3.1.6",
-    "@types/fnando__sparkline": "^0.3.4",
-    "@types/yaireo__tagify": "^4.17.0",
-    "@types/zxcvbn": "^4.4.1",
-    "@yaireo/tagify": "^4.17.6",
+    "dialog-polyfill": "0.5.6",
     "chat": "workspace:*",
     "chess": "workspace:*",
     "common": "workspace:*",
-    "cropperjs": "^1.6.1",
-    "debounce-promise": "^3.1.2",
-    "flatpickr": "^4.6.13",
-    "hopscotch": "^0.3.1",
-    "lichess-pgn-viewer": "^2.0.1",
-    "prop-types": "^15.8.1",
-    "tablesort": "^5.3.0",
+    "lichess-pgn-viewer": "2.0.1",
     "voice": "workspace:*",
-    "zxcvbn": "^4.4.2",
-    "emoji-mart": "^5.5.2"
-  },
-  "scripts": {
-    "compile": "tsc",
-    "dev": "tsc"
+    "tablesort": "^5.3.0"
   },
   "lichess": {
     "modules": {
-      "iife": {},
       "esm": {
-        "src/site.ts": "lichess",
+        "src/main.ts": "lichess",
         "src/tvEmbed.ts": "tvEmbed",
         "src/puzzleEmbed.ts": "puzzle.embed",
-        "src/user.ts": "user",
-        "src/clas.ts": "clas",
-        "src/captcha.ts": "captcha",
-        "src/expandText.ts": "expandText",
-        "src/lpv.ts": "lpv",
-        "src/lpv.embed.ts": "lpv.embed",
-        "src/team.ts": "team",
-        "src/forum.ts": "forum",
-        "src/account.ts": "account",
-        "src/passwordComplexity.ts": "passwordComplexity",
-        "src/coachForm.ts": "coach.form",
-        "src/challengePage.ts": "challengePage",
-        "src/checkout.ts": "checkout",
-        "src/plan.ts": "plan",
-        "src/login.ts": "login",
-        "src/teamBattleForm.ts": "teamBattleForm",
-        "src/tourForm.ts": "tourForm",
-        "src/gameSearch.ts": "gameSearch",
-        "src/userComplete.ts": "userComplete",
-        "src/infiniteScroll.ts": "infiniteScroll",
-        "src/flatpickr.ts": "flatpickr",
-        "src/appeal.ts": "appeal",
-        "src/publicChats.ts": "publicChats",
-        "src/contact.ts": "contact",
-        "src/userGamesDownload.ts": "userGamesDownload",
-        "src/tvGames.ts": "tvGames",
-        "src/ublog.ts": "ublog",
-        "src/ublogForm.ts": "ublogForm",
-        "src/streamer.ts": "streamer",
-        "src/soundMove.ts": "soundMove",
-        "src/flairPicker.ts": "flairPicker",
-        "src/dailyFeed.ts": "dailyFeed",
-        "src/relayForm.ts": "relayForm",
-        "src/dialog/diagnostic.ts": "diagnosticDialog",
-        "src/dialog/crop.ts": "cropDialog",
-        "src/cms.ts": "cms"
+        "src/lpvEmbed.ts": "lpv.embed"
       }
     },
     "copy": [
@@ -82,15 +41,7 @@
         "dest": "../../public/npm/hopscotch/dist"
       },
       {
-        "src": "node_modules/@yaireo/tagify/dist/tagify.min.js",
-        "dest": "../../public/npm/tagify"
-      },
-      {
-        "src": "node_modules/cropperjs/dist/cropper.min.css",
-        "dest": "../../public/npm"
-      },
-      {
-        "src": "../../node_modules/chessground/dist/chessground.min.js",
+        "src": "node_modules/dialog-polyfill/dist/dialog-polyfill.esm.js",
         "dest": "../../public/npm"
       }
     ]

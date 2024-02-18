@@ -68,15 +68,22 @@ export async function loadEsm<T, ModuleOpts = any>(
 }
 
 export const userComplete = async (opts: UserCompleteOpts): Promise<UserComplete> => {
-  loadCssPath('complete');
-  return loadEsm('userComplete', { init: opts });
+  const [userComplete] = await Promise.all([
+    loadEsm('userComplete', { init: opts }),
+    loadCssPath('complete'),
+  ]);
+  return userComplete as UserComplete;
 };
 
 export const hopscotch = () => {
-  loadCss('npm/hopscotch/dist/css/hopscotch.min.css');
-  return loadIife('npm/hopscotch/dist/js/hopscotch.min.js', {
-    noVersion: true,
-  });
+  return Promise.all([
+    loadCss('npm/hopscotch/dist/css/hopscotch.min.css'),
+    loadIife('npm/hopscotch/dist/js/hopscotch.min.js', {
+      noVersion: true,
+    }),
+  ]);
 };
 
-export const embedChessground = () => import(url('npm/chessground.min.js'));
+export function embedChessground() {
+  return import(url('npm/chessground.min.js'));
+}
