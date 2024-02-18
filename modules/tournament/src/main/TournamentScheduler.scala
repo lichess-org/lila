@@ -103,11 +103,12 @@ Thank you all, you rock!"""
       List( // yearly variant tournaments!
         secondWeekOf(JANUARY).withDayOfWeek(WEDNESDAY) -> Minishogi,
         secondWeekOf(APRIL).withDayOfWeek(WEDNESDAY)   -> Checkshogi,
-        secondWeekOf(JUNE).withDayOfWeek(WEDNESDAY)    -> Annanshogi,
-        secondWeekOf(AUGUST).withDayOfWeek(WEDNESDAY)  -> Kyotoshogi
+        // secondWeekOf(???).withDayOfWeek(WEDNESDAY)   -> Chushogi,
+        secondWeekOf(JUNE).withDayOfWeek(WEDNESDAY)   -> Annanshogi,
+        secondWeekOf(AUGUST).withDayOfWeek(WEDNESDAY) -> Kyotoshogi
       ).flatMap { case (day, variant) =>
         at(day, 17) filter farFuture.isAfter map { date =>
-          Schedule(Yearly, SuperBlitz, variant, none, date).plan
+          Schedule(Yearly, Blitz, variant, none, date).plan
         }
       },
       List(thisMonth, nextMonth).flatMap { month =>
@@ -124,13 +125,14 @@ Thank you all, you rock!"""
             }
           },
           List( // monthly variant tournaments!
-            month.lastWeek.withDayOfWeek(MONDAY)    -> Minishogi,
-            month.lastWeek.withDayOfWeek(TUESDAY)   -> Annanshogi,
-            month.lastWeek.withDayOfWeek(WEDNESDAY) -> Kyotoshogi,
-            month.lastWeek.withDayOfWeek(THURSDAY)  -> Checkshogi
+            month.firstWeek.withDayOfWeek(MONDAY) -> Minishogi,
+            // month.firstWeek.withDayOfWeek(TUESDAY)   -> Chushogi,
+            month.firstWeek.withDayOfWeek(WEDNESDAY) -> Annanshogi,
+            month.firstWeek.withDayOfWeek(THURSDAY)  -> Kyotoshogi,
+            month.firstWeek.withDayOfWeek(FRIDAY)    -> Checkshogi
           ).flatMap { case (day, variant) =>
-            at(day, 19) map { date =>
-              Schedule(Monthly, SuperBlitz, variant, none, date).plan
+            at(day, 17) map { date =>
+              Schedule(Monthly, Blitz, variant, none, date).plan
             }
           },
           List( // shield tournaments!
@@ -150,7 +152,11 @@ Thank you all, you rock!"""
             }
           },
           List( // shield variant tournaments!
-            month.thirdWeek.withDayOfWeek(MONDAY) -> Minishogi
+            month.thirdWeek.withDayOfWeek(MONDAY) -> Minishogi,
+            // month.thirdWeek.withDayOfWeek(TUESDAY) -> Chushogi, // reserved
+            month.thirdWeek.withDayOfWeek(WEDNESDAY) -> Annanshogi,
+            month.thirdWeek.withDayOfWeek(THURSDAY)  -> Kyotoshogi,
+            month.thirdWeek.withDayOfWeek(FRIDAY)    -> Checkshogi
           ).flatMap { case (day, variant) =>
             at(day, 16) map { date =>
               Schedule(Shield, Blitz, variant, none, date) plan {
@@ -170,17 +176,17 @@ Thank you all, you rock!"""
         nextThursday  -> Rapid,
         nextFriday    -> Classical
       ).flatMap { case (day, speed) =>
-        at(day, 13) map { date =>
+        at(day, 17) map { date =>
           Schedule(Weekly, speed, Standard, none, date pipe orNextWeek).plan
         }
       },
-      List( // weekly variant tournaments!
-        nextMonday -> Minishogi
-      ).flatMap { case (day, variant) =>
-        at(day, 19) map { date =>
-          Schedule(Weekly, SuperBlitz, variant, none, date pipe orNextWeek).plan
-        }
-      },
+      // List( // weekly variant tournaments!
+      //   nextMonday -> Minishogi
+      // ).flatMap { case (day, variant) =>
+      //   at(day, 19) map { date =>
+      //     Schedule(Weekly, SuperBlitz, variant, none, date pipe orNextWeek).plan
+      //   }
+      // },
       List( // week-end elite tournaments!
         nextSaturday -> Blitz,
         nextSunday   -> HyperRapid
@@ -190,40 +196,25 @@ Thank you all, you rock!"""
         }
       },
       List( // daily tournaments!
-        at(today, 14) map { date =>
-          Schedule(Daily, Bullet, Standard, none, date pipe orTomorrow).plan
-        },
-        at(today, 16) map { date =>
+        at(today, 15) map { date =>
           Schedule(Daily, HyperRapid, Standard, none, date pipe orTomorrow).plan
         },
         at(today, 18) map { date =>
           Schedule(Daily, Rapid, Standard, none, date pipe orTomorrow).plan
         },
-        at(today, 20) map { date =>
+        at(today, 21) map { date =>
           Schedule(Daily, HyperRapid, Standard, none, date pipe orTomorrow).plan
-        },
-        at(today, 22) map { date =>
-          Schedule(Daily, Rapid, Standard, none, date pipe orTomorrow).plan
         },
         at(today, 0) map { date =>
           Schedule(Daily, Classical, Standard, none, date pipe orTomorrow).plan
         }
       ).flatten,
       List( // eastern tournaments!
-        at(today, 2) map { date =>
-          Schedule(Eastern, Bullet, Standard, none, date pipe orTomorrow).plan
-        },
-        at(today, 4) map { date =>
-          Schedule(Eastern, SuperBlitz, Standard, none, date pipe orTomorrow).plan
-        },
         at(today, 6) map { date =>
           Schedule(Eastern, Blitz, Standard, none, date pipe orTomorrow).plan
         },
-        at(today, 8) map { date =>
+        at(today, 9) map { date =>
           Schedule(Eastern, HyperRapid, Standard, none, date pipe orTomorrow).plan
-        },
-        at(today, 10) map { date =>
-          Schedule(Eastern, Rapid, Standard, none, date pipe orTomorrow).plan
         },
         at(today, 12) map { date =>
           Schedule(Eastern, Classical, Standard, none, date pipe orTomorrow).plan
