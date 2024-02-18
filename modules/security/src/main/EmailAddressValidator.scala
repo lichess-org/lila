@@ -11,7 +11,7 @@ final class EmailAddressValidator(
     userRepo: UserRepo,
     disposable: DisposableEmailDomain,
     dnsApi: DnsApi,
-    checkMail: CheckMail
+    verifyMail: VerifyMail
 )(using Executor):
 
   import EmailAddressValidator.*
@@ -46,14 +46,12 @@ final class EmailAddressValidator(
     if DisposableEmailDomain.whitelisted(domain into Domain) then fuccess(Result.Passlist)
     else if disposable(domain into Domain) then fuccess(Result.Blocklist)
     else
-      dnsApi.mx(domain).flatMap { domains =>
+      dnsApi.mx(domain) flatMap: domains =>
         if domains.isEmpty then fuccess(Result.DnsMissing)
         else if domains.exists(disposable.asMxRecord) then fuccess(Result.DnsBlocklist)
         else
-          checkMail(domain).map { ck =>
+          verifyMail(domain).map: ck =>
             if ck then Result.Alright else Result.Reputation
-          }
-      }
 
   // the DNS emails should have been preloaded
   private[security] val withAcceptableDns = Constraint[EmailAddress]("constraint.email_acceptable") { email =>

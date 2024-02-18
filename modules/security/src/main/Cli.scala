@@ -6,7 +6,7 @@ import lila.common.{ Domain, IpAddress, EmailAddress }
 final private[security] class Cli(
     userRepo: UserRepo,
     emailValidator: EmailAddressValidator,
-    checkMail: CheckMail,
+    verifyMail: VerifyMail,
     ip2proxy: Ip2Proxy
 )(using ec: Executor)
     extends lila.common.Cli:
@@ -23,7 +23,7 @@ final private[security] class Cli(
 
     case "disposable" :: "reload" :: emailOrDomain :: Nil =>
       WithDomain(emailOrDomain): dom =>
-        checkMail.invalidate(dom) >>
+        verifyMail.invalidate(dom) >>
           emailValidator.validateDomain(dom) map { r =>
             s"reloaded: $r ${r.error | ""}"
           }
