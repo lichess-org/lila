@@ -59,7 +59,7 @@ export default function (ctrl: DasherCtrl): VNode {
           'button.text',
           {
             attrs: { 'data-icon': licon.DiscBigOutline, title: 'Keyboard: z', type: 'button' },
-            hook: bind('click', () => lichess.pubsub.emit('zen')),
+            hook: bind('click', () => site.pubsub.emit('zen')),
           },
           noarg('zenMode'),
         ),

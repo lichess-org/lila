@@ -9,7 +9,7 @@ interface Opts {
 
 export const redirect = async (opts: string | Opts, beep?: boolean) => {
   try {
-    if (beep) await promiseTimeout(lichess.sound.play('genericNotify'), 1000);
+    if (beep) await promiseTimeout(site.sound.play('genericNotify'), 1000);
   } catch (e) {
     console.warn(e);
   }
@@ -39,7 +39,7 @@ export const unload = {
 export const reload = () => {
   if (redirectInProgress) return;
   unload.expected = true;
-  lichess.socket.disconnect();
+  site.socket.disconnect();
   if (location.hash) location.reload();
   else location.assign(location.href);
 };

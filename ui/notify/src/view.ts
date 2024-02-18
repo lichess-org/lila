@@ -73,10 +73,10 @@ function clickHook(f: () => void) {
   };
 }
 
-const contentLoaded = (vnode: VNode) => lichess.contentLoaded(vnode.elm as HTMLElement);
+const contentLoaded = (vnode: VNode) => site.contentLoaded(vnode.elm as HTMLElement);
 
 function recentNotifications(d: NotifyData, scrolling: boolean): VNode {
-  const trans = lichess.trans(d.i18n);
+  const trans = site.trans(d.i18n);
   return h(
     'div',
     {

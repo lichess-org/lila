@@ -12,7 +12,7 @@ const onPowertipPreRender = (id: string, preload?: (url: string) => void) => (el
   xhr.text(url + '/mini').then(html => {
     const el = document.getElementById(id) as HTMLElement;
     el.innerHTML = html;
-    lichess.contentLoaded(el);
+    site.contentLoaded(el);
   });
 };
 
@@ -43,7 +43,7 @@ const gamePowertip = (el: HTMLElement) =>
   $(el)
     .removeClass('glpt')
     .powerTip({
-      preRender: onPowertipPreRender('miniGame', () => lichess.spinnerHtml),
+      preRender: onPowertipPreRender('miniGame', () => site.spinnerHtml),
       placement: inCrosstable(el) ? 'n' : 'w',
       popupId: 'miniGame',
     });

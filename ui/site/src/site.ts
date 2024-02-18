@@ -1,0 +1,74 @@
+import StrongSocket from './socket';
+import Mousetrap from './mousetrap';
+import { requestIdleCallback, escapeHtml } from './functions';
+import once from './once';
+import { spinnerHtml } from 'common/spinner';
+import sri from './sri';
+import { storage, tempStorage } from './storage';
+import powertip from './powertip';
+import clockWidget from './clockWidget';
+import * as assets from './assets';
+import makeLog from './log';
+import idleTimer from './idleTimer';
+import pubsub from './pubsub';
+import { unload, redirect, reload } from './reload';
+import announce from './announce';
+import { trans } from './trans';
+import sound from './sound';
+import { mic } from './mic';
+import * as miniBoard from 'common/miniBoard';
+import * as miniGame from './miniGame';
+import { format as timeago, formatter as dateFormat } from './timeago';
+import watchers from './watchers';
+import { Chessground } from 'chessground';
+import { domDialog, ready, snabDialog } from './dialog';
+
+declare const __debug__: boolean;
+declare const __info__: {
+  date: string;
+  commit: string;
+  message: string;
+};
+
+export default () => {
+  const l = window.site;
+  l.debug = __debug__;
+  l.info = __info__;
+  l.StrongSocket = StrongSocket;
+  l.mousetrap = new Mousetrap(document);
+  l.requestIdleCallback = requestIdleCallback;
+  l.sri = sri;
+  l.storage = storage;
+  l.tempStorage = tempStorage;
+  l.once = once;
+  l.powertip = powertip;
+  l.clockWidget = clockWidget;
+  l.spinnerHtml = spinnerHtml;
+  l.asset = assets;
+  l.idleTimer = idleTimer;
+  l.pubsub = pubsub;
+  l.unload = unload;
+  l.redirect = redirect;
+  l.reload = reload;
+  l.watchers = watchers;
+  l.escapeHtml = escapeHtml;
+  l.announce = announce;
+  l.trans = trans;
+  l.sound = sound;
+  l.mic = mic;
+  l.miniBoard = miniBoard;
+  l.miniGame = miniGame;
+  l.timeago = timeago;
+  l.dateFormat = dateFormat;
+  l.contentLoaded = (parent?: HTMLElement) => pubsub.emit('content-loaded', parent);
+  l.blindMode = document.body.classList.contains('blind-mode');
+  l.makeChat = data =>
+    site.asset.loadEsm('chat', { init: { el: document.querySelector('.mchat')!, ...data } });
+  l.makeChessground = Chessground;
+  l.log = makeLog();
+  (l.dialog as any) = { ready };
+  ready.then(() => {
+    l.dialog.dom = domDialog;
+    l.dialog.snab = snabDialog;
+  });
+};

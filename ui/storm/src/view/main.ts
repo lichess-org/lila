@@ -23,7 +23,7 @@ const chessground = (ctrl: StormCtrl): VNode =>
     hook: {
       insert: vnode =>
         ctrl.ground(
-          lichess.makeChessground(
+          site.makeChessground(
             vnode.elm as HTMLElement,
             makeCgConfig(makeCgOpts(ctrl.run, !ctrl.run.endAt, ctrl.flipped), ctrl.pref, ctrl.userMove),
           ),

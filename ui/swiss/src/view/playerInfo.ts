@@ -93,7 +93,7 @@ function result(p: Pairing): string {
 
 function setup(vnode: VNode) {
   const el = vnode.elm as HTMLElement,
-    p = lichess.powertip;
+    p = site.powertip;
   p.manualUserIn(el);
   p.manualGameIn(el);
 }

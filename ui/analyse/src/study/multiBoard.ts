@@ -193,7 +193,7 @@ function renderPagerNav(pager: Paginator<ChapterPreview>, ctrl: MultiBoardCtrl):
     pagerButton(ctrl.trans.noarg('last'), licon.JumpLast, ctrl.lastPage, page < pager.nbPages, ctrl),
     h('button.fbt', {
       attrs: { 'data-icon': licon.Search, title: 'Search' },
-      hook: bind('click', () => lichess.pubsub.emit('study.search.open')),
+      hook: bind('click', () => site.pubsub.emit('study.search.open')),
     }),
   ]);
 }
@@ -224,19 +224,19 @@ const makePreview = (study: StudyCtrl, cloudEval?: GetCloudEval) => (preview: Ch
       hook: {
         insert(vnode) {
           const el = vnode.elm as HTMLElement;
-          lichess.miniGame.init(el);
+          site.miniGame.init(el);
           vnode.data!.fen = preview.fen;
           el.addEventListener('mousedown', _ => study.setChapter(preview.id));
         },
         postpatch(old, vnode) {
           if (old.data!.fen !== preview.fen) {
             if (preview.outcome) {
-              lichess.miniGame.finish(
+              site.miniGame.finish(
                 vnode.elm as HTMLElement,
                 preview.outcome === '1-0' ? 'white' : preview.outcome === '0-1' ? 'black' : undefined,
               );
             } else {
-              lichess.miniGame.update(vnode.elm as HTMLElement, {
+              site.miniGame.update(vnode.elm as HTMLElement, {
                 lm: preview.lastMove!,
                 fen: preview.fen,
                 wc: computeTimeLeft(preview, 'white'),

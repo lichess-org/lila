@@ -7,10 +7,10 @@ let dialogPolyfill: { registerDialog: (dialog: HTMLDialogElement) => void };
 
 // for usage see file://./../../../@types/lichess/dialog.d.ts
 
-export const ready = lichess.load.then(async () => {
+export const ready = site.load.then(async () => {
   window.addEventListener('resize', onResize);
   if (window.HTMLDialogElement) return true;
-  dialogPolyfill = (await import(lichess.asset.url('npm/dialog-polyfill.esm.js')).catch(() => undefined))
+  dialogPolyfill = (await import(site.asset.url('npm/dialog-polyfill.esm.js')).catch(() => undefined))
     ?.default;
   return dialogPolyfill !== undefined;
 });
@@ -190,8 +190,8 @@ class DialogWrapper implements Dialog {
 
 function assets(o: DialogOpts) {
   const cssPromises = (o.css ?? []).map(css => {
-    if ('themed' in css) return lichess.asset.loadCssPath(css.themed);
-    else if ('url' in css) return lichess.asset.loadCss(css.url);
+    if ('themed' in css) return site.asset.loadCssPath(css.themed);
+    else if ('url' in css) return site.asset.loadCss(css.url);
     else return Promise.resolve();
   });
   return Promise.all([

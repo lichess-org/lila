@@ -3,9 +3,6 @@ import * as fs from 'node:fs';
 import { Readable } from 'node:stream';
 import { finished } from 'node:stream/promises';
 
-// Based on the original implementation by Sam 'Spammy' Ezeh who found Vosk-browser and first
-// got it working in lichess.
-//
 // requires node 18.x
 
 let builder: Builder;

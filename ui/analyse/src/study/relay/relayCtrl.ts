@@ -95,7 +95,7 @@ export default class RelayCtrl {
       }, 4500);
       this.redraw();
       if (event.error) {
-        if (this.data.sync.log.slice(-2).every(e => e.error)) lichess.sound.play('error');
+        if (this.data.sync.log.slice(-2).every(e => e.error)) site.sound.play('error');
         console.warn(`relay synchronisation error: ${event.error}`);
       }
     },

@@ -329,7 +329,7 @@ export default function (deps?: typeof studyDeps) {
               const chatOpts = ctrl.opts.chat;
               chatOpts.instance?.then(c => c.destroy());
               chatOpts.parseMoves = true;
-              chatOpts.instance = lichess.makeChat(chatOpts);
+              chatOpts.instance = site.makeChat(chatOpts);
             }
             gridHacks.start(elm);
           },
@@ -359,7 +359,7 @@ export default function (deps?: typeof studyDeps) {
             addChapterId(study, 'div.analyse__board.main-board'),
             {
               hook:
-                'ontouchstart' in window || !lichess.storage.boolean('scrollMoves').getOrDefault(true)
+                'ontouchstart' in window || !site.storage.boolean('scrollMoves').getOrDefault(true)
                   ? undefined
                   : bindNonPassive(
                       'wheel',
@@ -451,7 +451,7 @@ export default function (deps?: typeof studyDeps) {
                   ],
             ),
         study && study.relay && deps?.relayManager(study.relay),
-        h('div.chat__members.none', { hook: onInsert(lichess.watchers) }),
+        h('div.chat__members.none', { hook: onInsert(site.watchers) }),
       ],
     );
   };

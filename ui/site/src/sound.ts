@@ -77,7 +77,7 @@ export default new (class implements SoundI {
       }
     }
     if (o?.filter === 'game' || this.theme !== 'music') return;
-    this.music ??= await lichess.asset.loadEsm<SoundMove>('soundMove');
+    this.music ??= await site.asset.loadEsm<SoundMove>('soundMove');
     this.music(o);
   }
 
@@ -99,7 +99,7 @@ export default new (class implements SoundI {
   playOnce(name: string): void {
     // increase chances that the first tab can put a local storage lock
     const doIt = () => {
-      const storage = lichess.storage.make('just-played');
+      const storage = site.storage.make('just-played');
       if (Date.now() - parseInt(storage.get()!, 10) < 2000) return;
       storage.set('' + Date.now());
       this.play(name);
@@ -132,8 +132,8 @@ export default new (class implements SoundI {
       msg.lang = translated ? document.documentElement!.lang : 'en-US';
       if (!isIOS()) {
         // speech events are unreliable on iOS, but iphones do their own cancellation
-        msg.onstart = _ => lichess.mic.pause();
-        msg.onend = msg.onerror = _ => lichess.mic.resume();
+        msg.onstart = _ => site.mic.pause();
+        msg.onend = msg.onerror = _ => site.mic.resume();
       }
       speechSynthesis.speak(msg);
       return true;

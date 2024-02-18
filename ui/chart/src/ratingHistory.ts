@@ -164,7 +164,7 @@ export function initModule({ data, singlePerfName }: Opts) {
               $el.addClass('panning');
               return true; // why
             },
-            onPan: () => lichess.pubsub.emit('chart.panning'),
+            onPan: () => site.pubsub.emit('chart.panning'),
             onPanComplete: ctx => {
               toggleEvents(ctx.chart as Chart<'line'>, false);
               $el.removeClass('panning');
@@ -244,7 +244,7 @@ export function initModule({ data, singlePerfName }: Opts) {
     // Disable events while dragging for a slight performance boost
     slider.on('start', () => toggleEvents(chart, true));
     slider.on('end', () => toggleEvents(chart, false));
-    lichess.pubsub.on('chart.panning', () => {
+    site.pubsub.on('chart.panning', () => {
       slider.set([chart.scales.x.min, chart.scales.x.max]);
     });
     const timeBtn = (t: string) => `<button class = "btn-rack__btn">${t}</button>`;

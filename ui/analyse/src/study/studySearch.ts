@@ -16,7 +16,7 @@ export class SearchCtrl {
     readonly redraw: Redraw,
   ) {
     this.open = propWithEffect(false, () => this.query(''));
-    lichess.pubsub.on('study.search.open', () => this.open(true));
+    site.pubsub.on('study.search.open', () => this.open(true));
   }
 
   cleanQuery = () => this.query().toLowerCase().trim();
@@ -48,7 +48,7 @@ const escapeRegExp = (s: string) => s.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'); //
 export function view(ctrl: SearchCtrl) {
   const cleanQuery = ctrl.cleanQuery();
   const highlightRegex = cleanQuery && new RegExp(escapeRegExp(cleanQuery), 'gi');
-  return lichess.dialog.snab({
+  return site.dialog.snab({
     class: 'study-search',
     onClose() {
       ctrl.open(false);

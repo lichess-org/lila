@@ -50,7 +50,7 @@ export default class DasherCtrl {
     readonly data: DasherData,
     readonly redraw: Redraw,
   ) {
-    this.trans = lichess.trans(data.i18n);
+    this.trans = site.trans(data.i18n);
     this.ping = new PingCtrl(this.trans, this.redraw);
     const dimension = () => (this.data.board.is3d ? 'd3' : 'd2');
     this.langs = new LangsCtrl(this.data.lang, this.trans, this.close);
@@ -59,7 +59,7 @@ export default class DasherCtrl {
     this.board = new BoardCtrl(this.data.board, this.trans, this.redraw, this.close);
     this.theme = new ThemeCtrl(this.data.theme, this.trans, dimension, this.redraw, this.close);
     this.piece = new PieceCtrl(this.data.piece, this.trans, dimension, this.redraw, this.close);
-    lichess.pubsub.on('top.toggle.user_tag', () => this.setMode(defaultMode));
+    site.pubsub.on('top.toggle.user_tag', () => this.setMode(defaultMode));
   }
 
   mode: Prop<Mode> = prop(defaultMode as Mode);

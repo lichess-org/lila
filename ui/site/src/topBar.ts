@@ -3,7 +3,7 @@ import { loadCssPath, loadEsm } from './assets';
 import { memoize } from 'common';
 
 export default function () {
-  const initiatingHtml = `<div class="initiating">${lichess.spinnerHtml}</div>`,
+  const initiatingHtml = `<div class="initiating">${site.spinnerHtml}</div>`,
     isVisible = (selector: string) => {
       const el = document.querySelector(selector),
         display = el && window.getComputedStyle(el).display;
@@ -97,7 +97,7 @@ export default function () {
             if (!isVisible(selector)) $toggle.trigger('click');
           },
           setNotified() {
-            lichess.socket.send('notified');
+            site.socket.send('notified');
           },
           pulse() {
             $toggle.addClass('pulse');
@@ -162,7 +162,7 @@ export default function () {
         $('body').hasClass('clinput') ? $input[0]!.blur() : $input[0]!.focus();
       },
     });
-    lichess.mousetrap
+    site.mousetrap
       .bind('/', () => {
         $input.val('/');
         $input[0]!.focus();

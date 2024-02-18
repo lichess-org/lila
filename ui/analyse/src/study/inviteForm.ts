@@ -29,12 +29,12 @@ export function makeCtrl(
     spectators = prop<string[]>([]);
 
   const toggle = () => {
-    if (!open()) lichess.pubsub.emit('analyse.close-all');
+    if (!open()) site.pubsub.emit('analyse.close-all');
     open(!open());
     redraw();
   };
 
-  lichess.pubsub.on('analyse.close-all', () => open(false));
+  site.pubsub.on('analyse.close-all', () => open(false));
 
   const previouslyInvited = storedSet<string>('study.previouslyInvited', 10);
   return {
@@ -58,7 +58,7 @@ export function view(ctrl: ReturnType<typeof makeCtrl>): VNode {
   const candidates = [...new Set([...ctrl.spectators(), ...ctrl.previouslyInvited()])]
     .filter(s => !ctrl.members()[titleNameToId(s)]) // remove existing members
     .sort();
-  return lichess.dialog.snab({
+  return site.dialog.snab({
     class: 'study__invite',
     onClose() {
       ctrl.open(false);
@@ -76,7 +76,7 @@ export function view(ctrl: ReturnType<typeof makeCtrl>): VNode {
         h('input', {
           attrs: { placeholder: ctrl.trans.noarg('searchByUsername'), spellcheck: 'false' },
           hook: onInsert<HTMLInputElement>(input =>
-            lichess.asset
+            site.asset
               .userComplete({
                 input,
                 tag: 'span',

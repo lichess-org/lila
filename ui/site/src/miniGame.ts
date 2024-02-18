@@ -25,7 +25,7 @@ export const init = (node: Element, withCg?: typeof Chessground) => {
   domData.set(
     $cg[0] as Element,
     'chessground',
-    (withCg ?? lichess.makeChessground)($cg[0] as HTMLElement, config),
+    (withCg ?? site.makeChessground)($cg[0] as HTMLElement, config),
   );
 
   ['white', 'black'].forEach((color: Color) =>

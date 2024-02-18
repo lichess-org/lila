@@ -63,7 +63,7 @@ export function view(ctrl: StudyChapterEditForm): VNode | undefined {
   const data = ctrl.current(),
     noarg = ctrl.trans.noarg;
   return data
-    ? lichess.dialog.snab({
+    ? site.dialog.snab({
         class: 'edit-' + data.id, // full redraw when changing chapter
         onClose() {
           ctrl.current(null);

@@ -21,7 +21,7 @@ export const loadCss = (href: string, media?: 'dark' | 'light'): Promise<void> =
   if (!loadedCss.has(href)) {
     const el = document.createElement('link');
     el.rel = 'stylesheet';
-    el.href = url(lichess.debug ? `${href}?_=${Date.now()}` : href);
+    el.href = url(site.debug ? `${href}?_=${Date.now()}` : href);
     if (media) el.media = `(prefers-color-scheme: ${media})`;
     loadedCss.set(
       href,

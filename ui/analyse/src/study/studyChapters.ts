@@ -89,7 +89,7 @@ export function view(ctrl: StudyCtrl): VNode {
         });
       };
       if (window.Sortable) makeSortable();
-      else lichess.asset.loadIife('javascripts/vendor/Sortable.min.js').then(makeSortable);
+      else site.asset.loadIife('javascripts/vendor/Sortable.min.js').then(makeSortable);
     }
   }
 
@@ -110,7 +110,7 @@ export function view(ctrl: StudyCtrl): VNode {
           });
           vnode.data!.li = {};
           update(vnode);
-          lichess.pubsub.emit('chat.resize');
+          site.pubsub.emit('chat.resize');
         },
         postpatch(old, vnode) {
           vnode.data!.li = old.data!.li;

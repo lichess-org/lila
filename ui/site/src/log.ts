@@ -44,7 +44,7 @@ export default function makeLog(): LichessLog {
   }
 
   const log: LichessLog = async (...args: any[]) => {
-    const msg = `#${lichess.info.commit.substr(0, 7)} - ${args.map(stringify).join(' ')}`;
+    const msg = `#${site.info.commit.substr(0, 7)} - ${args.map(stringify).join(' ')}`;
     let nextKey = Date.now();
     console.log(...args);
     if (nextKey === lastKey) {

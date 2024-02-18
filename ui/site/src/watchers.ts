@@ -20,7 +20,7 @@ export default function watchers(element: HTMLElement) {
   ).appendTo($innerElement);
   const $listEl = $('<div>').appendTo($innerElement);
 
-  lichess.pubsub.on('socket.in.crowd', data => set(data.watchers || data));
+  site.pubsub.on('socket.in.crowd', data => set(data.watchers || data));
 
   const set = (data: Data): void => {
     watchersData = data;

@@ -8,11 +8,6 @@
   "dependencies": {
     "types-serviceworker": "^0.0.1"
   },
-  "scripts": {
-    "compile": "tsc",
-    "dev": "tsc",
-    "prod": "tsc"
-  },
   "lichess": {
     "modules": {
       "iife": {

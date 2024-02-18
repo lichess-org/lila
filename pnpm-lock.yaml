@@ -395,7 +395,61 @@ importers:
         specifier: ^5.3.0
         version: 5.3.0
 
-  ui/modules:
+  ui/msg:
+    dependencies:
+      common:
+        specifier: workspace:*
+        version: link:../common
+      snabbdom:
+        specifier: ^3.5.1
+        version: 3.5.1
+
+  ui/notify:
+    dependencies:
+      common:
+        specifier: workspace:*
+        version: link:../common
+      snabbdom:
+        specifier: ^3.5.1
+        version: 3.5.1
+
+  ui/nvui:
+    dependencies:
+      chess:
+        specifier: workspace:*
+        version: link:../chess
+      chessops:
+        specifier: ^0.13.0
+        version: 0.13.0
+      snabbdom:
+        specifier: ^3.5.1
+        version: 3.5.1
+
+  ui/opening:
+    dependencies:
+      '@types/debounce-promise':
+        specifier: ^3.1.6
+        version: 3.1.6
+      chart.js:
+        specifier: '=4.4.0'
+        version: 4.4.0
+      chartjs-adapter-dayjs-4:
+        specifier: ^1.0.4
+        version: 1.0.4(chart.js@4.4.0)(dayjs@1.11.10)
+      common:
+        specifier: workspace:*
+        version: link:../common
+      dayjs:
+        specifier: ^1.11.10
+        version: 1.11.10
+      debounce-promise:
+        specifier: ^3.1.2
+        version: 3.1.2
+      lichess-pgn-viewer:
+        specifier: ^2.0.1
+        version: 2.0.1
+
+  ui/pagelets:
     dependencies:
       '@fnando/sparkline':
         specifier: ^0.3.10
@@ -454,60 +508,6 @@ importers:
       zxcvbn:
         specifier: ^4.4.2
         version: 4.4.2
-
-  ui/msg:
-    dependencies:
-      common:
-        specifier: workspace:*
-        version: link:../common
-      snabbdom:
-        specifier: ^3.5.1
-        version: 3.5.1
-
-  ui/notify:
-    dependencies:
-      common:
-        specifier: workspace:*
-        version: link:../common
-      snabbdom:
-        specifier: ^3.5.1
-        version: 3.5.1
-
-  ui/nvui:
-    dependencies:
-      chess:
-        specifier: workspace:*
-        version: link:../chess
-      chessops:
-        specifier: ^0.13.0
-        version: 0.13.0
-      snabbdom:
-        specifier: ^3.5.1
-        version: 3.5.1
-
-  ui/opening:
-    dependencies:
-      '@types/debounce-promise':
-        specifier: ^3.1.6
-        version: 3.1.6
-      chart.js:
-        specifier: '=4.4.0'
-        version: 4.4.0
-      chartjs-adapter-dayjs-4:
-        specifier: ^1.0.4
-        version: 1.0.4(chart.js@4.4.0)(dayjs@1.11.10)
-      common:
-        specifier: workspace:*
-        version: link:../common
-      dayjs:
-        specifier: ^1.11.10
-        version: 1.11.10
-      debounce-promise:
-        specifier: ^3.1.2
-        version: 3.1.2
-      lichess-pgn-viewer:
-        specifier: ^2.0.1
-        version: 2.0.1
 
   ui/palantir:
     dependencies:

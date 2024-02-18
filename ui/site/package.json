@@ -5,18 +5,6 @@
   "description": "lichess.org website globals",
   "author": "Thibault Duplessis",
   "license": "AGPL-3.0-or-later",
-  "types": "main.d.ts",
-  "exports": {
-    ".": "./dist/main.js",
-    "./*": "./dist/*.js"
-  },
-  "typesVersions": {
-    "*": {
-      "*": [
-        "dist/*"
-      ]
-    }
-  },
   "dependencies": {
     "dialog-polyfill": "0.5.6",
     "chat": "workspace:*",
@@ -29,7 +17,7 @@
   "lichess": {
     "modules": {
       "esm": {
-        "src/main.ts": "lichess",
+        "src/main.ts": "site",
         "src/tvEmbed.ts": "tvEmbed",
         "src/puzzleEmbed.ts": "puzzle.embed",
         "src/lpvEmbed.ts": "lpv.embed"

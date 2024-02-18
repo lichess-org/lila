@@ -134,7 +134,7 @@ export function boardSetting(): Setting<BoardStyle> {
       ['table', 'table: layout using a table with rank and file columns and row headers'],
     ],
     default: 'plain',
-    storage: lichess.storage.make('nvui.boardLayout'),
+    storage: site.storage.make('nvui.boardLayout'),
   });
 }
 
@@ -148,7 +148,7 @@ export function styleSetting(): Setting<Style> {
       ['nato', 'Nato: knight takes foxtrot 3'],
     ],
     default: 'anna', // all the rage in OTB blind chess tournaments
-    storage: lichess.storage.make('nvui.moveNotation'),
+    storage: site.storage.make('nvui.moveNotation'),
   });
 }
 
@@ -161,7 +161,7 @@ export function pieceSetting(): Setting<PieceStyle> {
       ['white uppercase name', 'White uppercase name: Pawn, pawn'],
     ],
     default: 'letter',
-    storage: lichess.storage.make('nvui.pieceStyle'),
+    storage: site.storage.make('nvui.pieceStyle'),
   });
 }
 
@@ -173,7 +173,7 @@ export function prefixSetting(): Setting<PrefixStyle> {
       ['none', 'None'],
     ],
     default: 'letter',
-    storage: lichess.storage.make('nvui.prefixStyle'),
+    storage: site.storage.make('nvui.prefixStyle'),
   });
 }
 
@@ -185,7 +185,7 @@ export function positionSetting(): Setting<PositionStyle> {
       ['none', 'none'],
     ],
     default: 'before',
-    storage: lichess.storage.make('nvui.positionStyle'),
+    storage: site.storage.make('nvui.positionStyle'),
   });
 }
 const renderPieceStyle = (piece: string, pieceStyle: PieceStyle) => {

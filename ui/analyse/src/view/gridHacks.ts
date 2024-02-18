@@ -10,7 +10,7 @@ export function start(container: HTMLElement) {
   gridHacks.bindChessgroundResizeOnce(runHacks);
 
   if (!booted) {
-    lichess.pubsub.on('chat.resize', runHacks);
+    site.pubsub.on('chat.resize', runHacks);
     booted = true;
   }
 }

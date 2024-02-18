@@ -4,7 +4,7 @@ import * as miniGame from './miniGame';
 import * as timeago from './timeago';
 import * as xhr from 'common/xhr';
 import announce from './announce';
-import exportLichessGlobals from './site.lichess.globals';
+import exportLichessGlobals from './site';
 import OnlineFriends from './friends';
 import powertip from './powertip';
 import pubsub from './pubsub';
@@ -21,7 +21,7 @@ window.$as = <T>(cashOrHtml: Cash | string) =>
   (typeof cashOrHtml === 'string' ? $(cashOrHtml) : cashOrHtml)[0] as T;
 exportLichessGlobals();
 
-lichess.load.then(() => {
+site.load.then(() => {
   $('#user_tag').removeAttr('href');
   const setBlind = location.hash === '#blind';
   const showDebug = location.hash.startsWith('#debug');
@@ -85,7 +85,7 @@ lichess.load.then(() => {
     powertip.watchMouse();
 
     setTimeout(() => {
-      if (!lichess.socket) lichess.socket = new StrongSocket('/socket/v5', false);
+      if (!site.socket) site.socket = new StrongSocket('/socket/v5', false);
     }, 300);
 
     topBar();
@@ -95,7 +95,7 @@ lichess.load.then(() => {
     $('.user-autocomplete').each(function (this: HTMLInputElement) {
       const focus = !!this.autofocus;
       const start = () =>
-        lichess.asset.userComplete({
+        site.asset.userComplete({
           input: this,
           friend: !!this.dataset.friend,
           tag: this.dataset.tag as any,
@@ -132,9 +132,9 @@ lichess.load.then(() => {
       el.setAttribute('content', el.getAttribute('content') + ',maximum-scale=1.0');
     }
 
-    if (setBlind && !lichess.blindMode) setTimeout(() => $('#blind-mode button').trigger('click'), 1500);
+    if (setBlind && !site.blindMode) setTimeout(() => $('#blind-mode button').trigger('click'), 1500);
 
-    if (showDebug) lichess.asset.loadEsm('diagnosticDialog');
+    if (showDebug) site.asset.loadEsm('diagnosticDialog');
 
     const pageAnnounce = document.body.getAttribute('data-announce');
     if (pageAnnounce) announce(JSON.parse(pageAnnounce));
@@ -143,8 +143,8 @@ lichess.load.then(() => {
 
     // socket default receive handlers
     pubsub.on('socket.in.redirect', (d: RedirectTo) => {
-      lichess.unload.expected = true;
-      lichess.redirect(d);
+      site.unload.expected = true;
+      site.redirect(d);
     });
     pubsub.on('socket.in.fen', e =>
       document.querySelectorAll('.mini-game-' + e.id).forEach((el: HTMLElement) => miniGame.update(el, e)),

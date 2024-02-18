@@ -50,7 +50,7 @@ const origSend = WebSocket.prototype.send;
 
 // versioned events, acks, retries, resync
 export default class StrongSocket {
-  pubsub = lichess.pubsub;
+  pubsub = site.pubsub;
   settings: Settings;
   options: Options;
   version: number | false;
@@ -123,7 +123,7 @@ export default class StrongSocket {
     if (!navigator.onLine) {
       document.body.classList.remove('online');
       document.body.classList.add('offline');
-      $('#network-status').text(lichess ? siteTrans('noNetwork') : 'Offline');
+      $('#network-status').text(site ? siteTrans('noNetwork') : 'Offline');
       this.scheduleConnect(1000);
       return;
     }
@@ -187,7 +187,7 @@ export default class StrongSocket {
         setTimeout(() => {
           if (once(`socket.rep.${Math.round(Date.now() / 1000 / 3600 / 3)}`))
             this.send('rep', { n: `soc: ${message} ${stack}` });
-          else lichess.socket.destroy();
+          else site.socket.destroy();
         }, 10000);
     }
     this.debug('send ' + message);
@@ -206,13 +206,11 @@ export default class StrongSocket {
     this.connectSchedule = setTimeout(() => {
       document.body.classList.add('offline');
       document.body.classList.remove('online');
-      $('#network-status').text(lichess ? siteTrans('reconnecting') : 'Reconnecting');
+      $('#network-status').text(site ? siteTrans('reconnecting') : 'Reconnecting');
       if (!this.tryOtherUrl && navigator.onLine) {
         // if this was set earlier, we've already logged the error
         this.tryOtherUrl = true;
-        lichess.log(
-          `sri ${this.settings.params!.sri} timeout ${delay}ms, trying ${this.baseUrl()}${this.url}`,
-        );
+        site.log(`sri ${this.settings.params!.sri} timeout ${delay}ms, trying ${this.baseUrl()}${this.url}`);
       }
       this.connect();
     }, delay);
@@ -320,8 +318,7 @@ export default class StrongSocket {
     }
     if (e.wasClean && e.code < 1002) return;
 
-    if (navigator.onLine)
-      lichess.log(`${sri ? 'sri ' + sri : ''} unclean close ${e.code} ${url} ${e.reason}`);
+    if (navigator.onLine) site.log(`${sri ? 'sri ' + sri : ''} unclean close ${e.code} ${url} ${e.reason}`);
     this.tryOtherUrl = true;
     clearTimeout(this.pingSchedule);
   };

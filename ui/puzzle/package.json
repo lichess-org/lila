@@ -24,11 +24,6 @@
     "tree": "workspace:*",
     "voice": "workspace:*"
   },
-  "scripts": {
-    "compile": "tsc",
-    "dev": "tsc",
-    "prod": "tsc"
-  },
   "lichess": {
     "modules": {
       "esm": {

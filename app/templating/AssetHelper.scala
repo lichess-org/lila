@@ -67,16 +67,16 @@ if (window.matchMedia('(prefers-color-scheme: dark)').media === 'not all')
   def jsModule(name: String): Frag =
     script(tpe := "module", src := assetUrl(s"compiled/$name${minifiedAssets so ".min"}.js"))
   def jsModuleInit(name: String)(using PageContext) =
-    frag(jsModule(name), embedJsUnsafeLoadThen(s"lichess.asset.loadEsm('$name')"))
+    frag(jsModule(name), embedJsUnsafeLoadThen(s"site.asset.loadEsm('$name')"))
   def jsModuleInit(name: String, text: String)(using PageContext) =
-    frag(jsModule(name), embedJsUnsafeLoadThen(s"lichess.asset.loadEsm('$name',{init:$text})"))
+    frag(jsModule(name), embedJsUnsafeLoadThen(s"site.asset.loadEsm('$name',{init:$text})"))
   def jsModuleInit(name: String, json: JsValue)(using PageContext): Frag =
     jsModuleInit(name, safeJsonValue(json))
   def jsModuleInit(name: String, text: String, nonce: lila.api.Nonce) =
-    frag(jsModule(name), embedJsUnsafeLoadThen(s"lichess.asset.loadEsm('$name',{init:$text})", nonce))
+    frag(jsModule(name), embedJsUnsafeLoadThen(s"site.asset.loadEsm('$name',{init:$text})", nonce))
   def jsModuleInit(name: String, json: JsValue, nonce: lila.api.Nonce) = frag(
     jsModule(name),
-    embedJsUnsafeLoadThen(s"lichess.asset.loadEsm('$name',{init:${safeJsonValue(json)}})", nonce)
+    embedJsUnsafeLoadThen(s"site.asset.loadEsm('$name',{init:${safeJsonValue(json)}})", nonce)
   )
   def analyseInit(mode: String, json: JsValue)(using ctx: PageContext) =
     jsModuleInit("analysisBoard", Json.obj("mode" -> mode, "cfg" -> json))
@@ -122,7 +122,7 @@ if (window.matchMedia('(prefers-color-scheme: dark)').media === 'not all')
     s"""<script nonce="$nonce">$js</script>"""
 
   def embedJsUnsafeLoadThen(js: String)(using PageContext): Frag =
-    embedJsUnsafe(s"""lichess.load.then(()=>{$js})""")
+    embedJsUnsafe(s"""site.load.then(()=>{$js})""")
 
   def embedJsUnsafeLoadThen(js: String, nonce: lila.api.Nonce): Frag =
-    embedJsUnsafe(s"""lichess.load.then(()=>{$js})""", nonce)
+    embedJsUnsafe(s"""site.load.then(()=>{$js})""", nonce)

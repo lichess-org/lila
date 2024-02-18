@@ -12,9 +12,9 @@ import { numberRow } from './util';
 import { MaybeVNodes } from 'common/snabbdom';
 
 function confetti(data: TournamentData): VNode | undefined {
-  if (data.me && data.isRecentlyFinished && lichess.once('tournament.end.canvas.' + data.id))
+  if (data.me && data.isRecentlyFinished && site.once('tournament.end.canvas.' + data.id))
     return h('canvas#confetti', {
-      hook: { insert: _ => lichess.asset.loadIife('javascripts/confetti.js') },
+      hook: { insert: _ => site.asset.loadIife('javascripts/confetti.js') },
     });
   return undefined;
 }

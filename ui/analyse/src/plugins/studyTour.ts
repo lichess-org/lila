@@ -158,7 +158,7 @@ export function initModule(): StudyTour {
 
     tour.start();
 
-    lichess.pubsub.on('analyse.close-all', tour.cancel);
+    site.pubsub.on('analyse.close-all', tour.cancel);
   }
 
   function chapter(setTab: (tab: ChapterTab) => void) {
@@ -270,6 +270,6 @@ export function initModule(): StudyTour {
 
     tour.start();
 
-    lichess.pubsub.on('analyse.close-all', tour.cancel);
+    site.pubsub.on('analyse.close-all', tour.cancel);
   }
 }
