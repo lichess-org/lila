@@ -104,8 +104,9 @@ final class Tv(env: Env, apiC: => Api, gameC: => Game) extends LilaController(en
       else jsToNdJson(source)
     }
 
-  def frame = Anon:
-    env.tv.tv.getBestGame.flatMap:
-      _.fold(notFoundText()): game =>
-        InEmbedContext:
-          Ok(views.html.tv.embed(Pov naturalOrientation game))
+  def frame(chanKey: String) = Anon:
+       env.tv.tv.getGame(Channel.byKey.get(chanKey).getOrElse(Channel.Best)).flatMap:
+         _.fold(notFoundText()): game =>
+           InEmbedContext:
+             Ok(views.html.tv.embed(Pov naturalOrientation game))
+     
