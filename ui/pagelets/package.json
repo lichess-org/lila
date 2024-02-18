@@ -82,6 +82,10 @@
         "dest": "../../public/npm"
       },
       {
+        "src": "node_modules/hopscotch/dist/**",
+        "dest": "../../public/npm/hopscotch/dist"
+      },
+      {
         "src": "../../node_modules/chessground/dist/chessground.min.js",
         "dest": "../../public/npm"
       }

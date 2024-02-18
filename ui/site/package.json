@@ -25,10 +25,6 @@
     },
     "copy": [
       {
-        "src": "node_modules/hopscotch/dist/**",
-        "dest": "../../public/npm/hopscotch/dist"
-      },
-      {
         "src": "node_modules/dialog-polyfill/dist/dialog-polyfill.esm.js",
         "dest": "../../public/npm"
       }
