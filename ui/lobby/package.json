@@ -20,11 +20,6 @@
     "debounce-promise": "^3.1.2",
     "snabbdom": "^3.5.1"
   },
-  "scripts": {
-    "compile": "tsc",
-    "dev": "tsc",
-    "prod": "tsc"
-  },
   "lichess": {
     "modules": {
       "esm": {

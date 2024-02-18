@@ -43,7 +43,7 @@ export default class PuzzleStreak {
         this.store(this.data);
       } else {
         this.store(null);
-        lichess.reload();
+        site.reload();
       }
     } else {
       this.fail = true;

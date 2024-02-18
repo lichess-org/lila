@@ -1,5 +1,5 @@
-import * as miniGame from './component/miniGame';
-import { embedChessground } from './component/assets';
+import * as miniGame from './miniGame';
+import { embedChessground } from './assets';
 
 function resize() {
   const el = document.querySelector('#featured-game') as HTMLElement;

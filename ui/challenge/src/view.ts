@@ -20,7 +20,7 @@ function renderContent(ctrl: ChallengeCtrl): VNode[] {
   return nb ? [allChallenges(ctrl, d, nb)] : [empty()];
 }
 
-const userPowertips = (vnode: VNode) => lichess.powertip.manualUserIn(vnode.elm as HTMLElement);
+const userPowertips = (vnode: VNode) => site.powertip.manualUserIn(vnode.elm as HTMLElement);
 
 const allChallenges = (ctrl: ChallengeCtrl, d: ChallengeData, nb: number): VNode =>
   h(
@@ -62,7 +62,7 @@ function challenge(ctrl: ChallengeCtrl, dir: ChallengeDirection) {
               attrs: { 'data-state': `${c.initialFen},${myColor}` },
               hook: {
                 insert(vnode) {
-                  lichess.miniBoard.init(vnode.elm as HTMLElement);
+                  site.miniBoard.init(vnode.elm as HTMLElement);
                 },
               },
             })

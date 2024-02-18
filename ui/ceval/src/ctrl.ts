@@ -14,8 +14,8 @@ import { Rules } from 'chessops';
 const cevalDisabledSentinel = '1';
 
 function enabledAfterDisable() {
-  const enabledAfter = lichess.tempStorage.get('ceval.enabled-after');
-  const disable = lichess.storage.get('ceval.disable') || cevalDisabledSentinel;
+  const enabledAfter = site.tempStorage.get('ceval.enabled-after');
+  const disable = site.storage.get('ceval.disable') || cevalDisabledSentinel;
   return enabledAfter === disable;
 }
 
@@ -74,7 +74,7 @@ export default class CevalCtrl {
     if (ev.fen !== this.lastEmitFen && enabledAfterDisable()) {
       // amnesty while auto disable not processed
       this.lastEmitFen = ev.fen;
-      lichess.storage.fire('ceval.fen', ev.fen);
+      site.storage.fire('ceval.fen', ev.fen);
     }
     if (!this.lastStarted || this.isDeeper() || this.infinite() || work.threatMode) return;
 
@@ -136,8 +136,8 @@ export default class CevalCtrl {
     }
 
     // Notify all other tabs to disable ceval.
-    lichess.storage.fire('ceval.disable');
-    lichess.tempStorage.set('ceval.enabled-after', lichess.storage.get('ceval.disable')!);
+    site.storage.fire('ceval.disable');
+    site.tempStorage.set('ceval.enabled-after', site.storage.get('ceval.disable')!);
 
     if (!this.worker) this.worker = this.engines.make({ variant: this.opts.variant.key });
 
@@ -175,10 +175,10 @@ export default class CevalCtrl {
     return this.worker?.getState() ?? CevalState.Initial;
   }
 
-  setThreads = (threads: number) => lichess.storage.set('ceval.threads', threads.toString());
+  setThreads = (threads: number) => site.storage.set('ceval.threads', threads.toString());
 
   threads = () => {
-    const stored = lichess.storage.get('ceval.threads');
+    const stored = site.storage.get('ceval.threads');
     const desired = stored ? parseInt(stored) : this.recommendedThreads();
     return constrain(desired, { min: this.engines.active?.minThreads ?? 1, max: this.maxThreads() });
   };
@@ -196,10 +196,10 @@ export default class CevalCtrl {
       ? Math.min(this.engines.active?.maxThreads ?? 32, navigator.hardwareConcurrency)
       : this.engines.active?.maxThreads ?? 32);
 
-  setHashSize = (hash: number) => lichess.storage.set('ceval.hash-size', hash.toString());
+  setHashSize = (hash: number) => site.storage.set('ceval.hash-size', hash.toString());
 
   hashSize = () => {
-    const stored = lichess.storage.get('ceval.hash-size');
+    const stored = site.storage.get('ceval.hash-size');
     return Math.min(this.maxHash(), stored ? parseInt(stored, 10) : 16);
   };
 
@@ -224,11 +224,11 @@ export default class CevalCtrl {
     if (!this.possible || !this.allowed()) return;
     this.stop();
     if (!this.enabled() && !document.hidden) {
-      const disable = lichess.storage.get('ceval.disable') || cevalDisabledSentinel;
-      if (disable) lichess.tempStorage.set('ceval.enabled-after', disable);
+      const disable = site.storage.get('ceval.disable') || cevalDisabledSentinel;
+      if (disable) site.tempStorage.set('ceval.enabled-after', disable);
       this.enabled(true);
     } else {
-      lichess.tempStorage.set('ceval.enabled-after', '');
+      site.tempStorage.set('ceval.enabled-after', '');
       this.enabled(false);
       this.download = undefined;
     }

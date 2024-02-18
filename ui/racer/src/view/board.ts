@@ -18,7 +18,7 @@ const renderGround = (ctrl: RacerCtrl): VNode =>
     hook: {
       insert: vnode =>
         ctrl.ground(
-          lichess.makeChessground(
+          site.makeChessground(
             vnode.elm as HTMLElement,
             makeCgConfig(
               ctrl.isRacing() && ctrl.isPlayer()

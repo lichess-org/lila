@@ -131,7 +131,7 @@ export function view(ctrl: AnalyseCtrl): VNode {
           'a',
           {
             hook: bind('click', () =>
-              lichess.dialog.dom({ cash: $('.continue-with.g_' + d.game.id), show: 'modal' }),
+              site.dialog.dom({ cash: $('.continue-with.g_' + d.game.id), show: 'modal' }),
             ),
             attrs: dataIcon(licon.Swords),
           },

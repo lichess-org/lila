@@ -32,7 +32,7 @@ export function main(ctrl: RoundController): VNode {
           'div.round__app__board.main-board' + (hideBoard ? '.blindfold' : ''),
           {
             hook:
-              'ontouchstart' in window || !lichess.storage.boolean('scrollMoves').getOrDefault(true)
+              'ontouchstart' in window || !site.storage.boolean('scrollMoves').getOrDefault(true)
                 ? undefined
                 : util.bind(
                     'wheel',

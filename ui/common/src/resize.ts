@@ -61,7 +61,7 @@ export default function resizeHandle(
   if (pref === Prefs.ShowResizeHandle.OnlyAtStart) {
     const toggle = (ply: number) => el.classList.toggle('none', visible ? !visible(ply) : ply >= 2);
     toggle(ply);
-    lichess.pubsub.on('ply', toggle);
+    site.pubsub.on('ply', toggle);
   }
 }
 

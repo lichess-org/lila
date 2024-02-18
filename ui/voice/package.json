@@ -20,10 +20,6 @@
     "snabbdom": "^3.5.1",
     "vosk-browser": "^0.0.8"
   },
-  "scripts": {
-    "compile": "tsc",
-    "dev": "tsc"
-  },
   "lichess": {
     "modules": {
       "esm": {

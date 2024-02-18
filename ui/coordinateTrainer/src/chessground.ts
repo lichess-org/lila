@@ -9,7 +9,7 @@ export default function (ctrl: CoordinateTrainerCtrl): VNode {
     hook: {
       insert: vnode => {
         const el = vnode.elm as HTMLElement;
-        ctrl.chessground = lichess.makeChessground(el, makeConfig(ctrl));
+        ctrl.chessground = site.makeChessground(el, makeConfig(ctrl));
       },
       destroy: () => ctrl.chessground!.destroy(),
     },

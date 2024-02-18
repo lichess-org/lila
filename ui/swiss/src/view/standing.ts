@@ -36,7 +36,7 @@ function playerTr(ctrl: SwissCtrl, player: Player) {
                 ? h(p, title('Late'), '½')
                 : h(
                     'a.glpt.' + (p.o ? 'ongoing' : p.w === true ? 'win' : p.w === false ? 'loss' : 'draw'),
-                    { attrs: { key: p.g, href: `/${p.g}` }, hook: onInsert(lichess.powertip.manualGame) },
+                    { attrs: { key: p.g, href: `/${p.g}` }, hook: onInsert(site.powertip.manualGame) },
                     p.o ? '*' : p.w === true ? '1' : p.w === false ? '0' : '½',
                   ),
             )
@@ -53,7 +53,7 @@ const title = (str: string) => ({ attrs: { title: str } });
 
 let lastBody: MaybeVNodes | undefined;
 
-const preloadUserTips = (vn: VNode) => lichess.powertip.manualUserIn(vn.elm as HTMLElement);
+const preloadUserTips = (vn: VNode) => site.powertip.manualUserIn(vn.elm as HTMLElement);
 
 export default function standing(ctrl: SwissCtrl, pag: Pager, klass?: string): VNode {
   const tableBody = pag.currentPageResults

@@ -4,8 +4,5 @@
   "private": true,
   "description": "lichess.org type declarations",
   "author": "Thibault Duplessis",
-  "license": "AGPL-3.0-or-later",
-  "dependencies": {
-    "@types/cash": "8.0.0"
-  }
+  "license": "AGPL-3.0-or-later"
 }

@@ -6,7 +6,7 @@ ui/build was lovingly crafted from a single block of wood as a personal gift to 
 
 Options:
   -c, --clean       clean build artifacts, build only if additional args provided
-  -d, --debug       build assets with lichess.debug = true
+  -d, --debug       build assets with site.debug = true
   -p, --prod        build minified assets (prod builds)
   -w, --watch       build, watch for changes, but terminate on package.json changes
   -r, --rebuild     build, watch, and rebuild on package.json changes
@@ -22,10 +22,10 @@ Options:
 
 Examples:
   ./build -c                 # clean build artifacts, exit without building
-  ./build -d                 # build client sssets with lichess.debug = true
+  ./build -d                 # build client sssets with site.debug = true
   ./build -wn                # build, watch for changes, no pnpm install
   ./build -r                 # build, watch, and rebuild on package.json change
-  ./build -rd                # build, watch, rebuild on package.json change, lichess.debug = true
+  ./build -rd                # build, watch, rebuild on package.json change, site.debug = true
   ./build -cp                # clean, build minified
   ./build -rc                # clean, build, watch, and clean rebuild on package.json change
   ./build analyse site msg   # build analyse, site, and msg modules (as opposed to everything)

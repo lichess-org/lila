@@ -39,10 +39,10 @@ if (this.innerText == 'YES') this.style.color = 'green'; else if (this.innerText
       moreCss = cssTag("source"),
       contentCls = "page force-ltr",
       moreJs = embedJsUnsafeLoadThen:
-        """$('#asset-version-date').text(lichess.info.date);
-$('#asset-version-commit').attr('href', 'https://github.com/lichess-org/lila/commits/' + lichess.info.commit).find('pre').text(lichess.info.commit.substr(0, 7));
-$('#asset-version-upcoming').attr('href', 'https://github.com/lichess-org/lila/compare/' + lichess.info.commit + '...master').find('pre').text('...');
-$('#asset-version-message').text(lichess.info.message);"""
+        """$('#asset-version-date').text(site.info.date);
+$('#asset-version-commit').attr('href', 'https://github.com/lichess-org/lila/commits/' + site.info.commit).find('pre').text(site.info.commit.substr(0, 7));
+$('#asset-version-upcoming').attr('href', 'https://github.com/lichess-org/lila/compare/' + site.info.commit + '...master').find('pre').text('...');
+$('#asset-version-message').text(site.info.message);"""
     ):
       val commit = env.appVersionCommit | "???"
       frag(

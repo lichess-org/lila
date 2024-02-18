@@ -12,15 +12,15 @@ export default class SimulCtrl {
     readonly redraw: () => void,
   ) {
     this.data = opts.data;
-    this.trans = lichess.trans(opts.i18n);
+    this.trans = site.trans(opts.i18n);
     this.socket = makeSocket(opts.socketSend, this);
     if (this.createdByMe() && this.data.isCreated) this.setupCreatedHost();
   }
 
   private setupCreatedHost = () => {
-    lichess.storage.set('lichess.move_on', '1'); // hideous hack :D
+    site.storage.set('site.move_on', '1'); // hideous hack :D
     let hostIsAround = true;
-    lichess.idleTimer(
+    site.idleTimer(
       15 * 60 * 1000,
       () => {
         hostIsAround = false;

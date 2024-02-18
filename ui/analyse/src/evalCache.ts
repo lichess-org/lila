@@ -70,7 +70,7 @@ export default class EvalCache {
   private upgradable = prop(false);
 
   constructor(readonly opts: EvalCacheOpts) {
-    lichess.pubsub.on('socket.in.crowd', d => this.upgradable(d.nb > 2 && d.nb < 99999));
+    site.pubsub.on('socket.in.crowd', d => this.upgradable(d.nb > 2 && d.nb < 99999));
   }
 
   onLocalCeval = throttle(500, () => {

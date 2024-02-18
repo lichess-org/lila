@@ -111,7 +111,7 @@ const overview = (relay: RelayCtrl, study: StudyCtrl, ctrl: AnalyseCtrl) => {
               h(
                 'time.timeago',
                 { hook: onInsert(el => el.setAttribute('datetime', '' + round.startsAt)) },
-                lichess.timeago(round.startsAt),
+                site.timeago(round.startsAt),
               ),
         ],
       ),
@@ -155,7 +155,7 @@ const header = (relay: RelayCtrl, ctrl: AnalyseCtrl, pad: boolean = false) => {
             attrs: dataIcon(licon.InfoCircle),
             hook: onInsert(el => {
               el.addEventListener('click', () => {
-                lichess.dialog.dom({
+                site.dialog.dom({
                   htmlText: `<h2>Broadcast notifications</h2>
 <p>Subscribe to be notified when each round starts. Make sure that bell or push notifications are
 enabled for broadcasts in your <a href="/account/preferences/notification">notification settings</a>.</p>`,
@@ -180,11 +180,8 @@ const schedule = (relay: RelayCtrl, ctrl: AnalyseCtrl): MaybeVNodes => [
           relay.data.rounds.map(round =>
             h('tr', [
               h('th', h('a.link', { attrs: { href: relay.roundPath(round) } }, round.name)),
-              h('td', round.startsAt ? lichess.dateFormat()(new Date(round.startsAt)) : undefined),
-              h(
-                'td',
-                roundStateIcon(round) || (round.startsAt ? lichess.timeago(round.startsAt) : undefined),
-              ),
+              h('td', round.startsAt ? site.dateFormat()(new Date(round.startsAt)) : undefined),
+              h('td', roundStateIcon(round) || (round.startsAt ? site.timeago(round.startsAt) : undefined)),
             ]),
           ),
         ),

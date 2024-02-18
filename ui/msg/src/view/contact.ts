@@ -43,5 +43,5 @@ const renderDate = (msg: LastMsg): VNode =>
   h(
     'time.timeago',
     { key: msg.date.getTime(), attrs: { title: msg.date.toLocaleString(), datetime: msg.date.getTime() } },
-    lichess.timeago(msg.date),
+    site.timeago(msg.date),
   );
