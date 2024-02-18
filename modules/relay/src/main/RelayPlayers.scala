@@ -4,11 +4,13 @@ import play.api.data.Forms.*
 import chess.format.pgn.{ Tag, Tags }
 
 // used to change names and ratings of broadcast players
-private case class RelayPlayer(name: String, rating: Option[Int], title: Option[UserTitle])
+private case class RelayPlayer(name: PlayerName, rating: Option[Int], title: Option[UserTitle])
 
-private case class RelayPlayers(text: String):
+private class RelayPlayers(val text: String):
 
-  lazy val players: Map[String, RelayPlayer] = text.linesIterator
+  def sortedText = text.linesIterator.toList.sorted.mkString("\n")
+
+  lazy val players: Map[PlayerName, RelayPlayer] = text.linesIterator
     .take(1000)
     .toList
     .flatMap: line =>
@@ -26,10 +28,9 @@ private case class RelayPlayers(text: String):
   private def update(tags: Tags): Tags =
     chess.Color.all.foldLeft(tags): (tags, color) =>
       tags ++ Tags:
-        tags(color.name).flatMap(players.get) so { rp =>
+        tags(color.name).flatMap(players.get) so: rp =>
           List(
             Tag(color.fold(Tag.White, Tag.Black), rp.name).some,
             rp.rating.map { rating => Tag(color.fold(Tag.WhiteElo, Tag.BlackElo), rating.toString) },
             rp.title.map { title => Tag(color.fold(Tag.WhiteTitle, Tag.BlackTitle), title.value) }
           ).flatten
-        }

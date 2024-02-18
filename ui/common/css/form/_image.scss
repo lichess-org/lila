@@ -3,7 +3,8 @@
   padding: var(--box-padding);
   gap: var(--box-padding);
   background: $c-bg-zebra;
-  img {
+  img,
+  i {
     flex: 1 1 50%;
   }
   > div {

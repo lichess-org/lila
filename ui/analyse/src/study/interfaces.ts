@@ -9,6 +9,8 @@ export type Tab = 'intro' | 'members' | 'chapters';
 export type ChapterTab = 'init' | 'edit' | 'game' | 'fen' | 'pgn';
 export type ToolTab = 'tags' | 'comments' | 'glyphs' | 'serverEval' | 'share' | 'multiBoard';
 export type Visibility = 'public' | 'unlisted' | 'private';
+export type ChapterId = string;
+export type TeamName = string;
 
 export interface StudyTour {
   study(ctrl: AnalyseCtrl): void;
@@ -17,11 +19,11 @@ export interface StudyTour {
 
 export interface StudyVm {
   loading: boolean;
-  nextChapterId?: string;
-  justSetChapterId?: string;
+  nextChapterId?: ChapterId;
+  justSetChapterId?: ChapterId;
   tab: Prop<Tab>;
   toolTab: Prop<ToolTab>;
-  chapterId: string;
+  chapterId: ChapterId;
   mode: {
     sticky: boolean;
     write: boolean;
@@ -74,7 +76,7 @@ export interface ReloadData {
 }
 
 export interface Position {
-  chapterId: string;
+  chapterId: ChapterId;
   path: Tree.Path;
 }
 
@@ -86,10 +88,11 @@ export interface StudyFeatures {
 }
 
 export interface StudyChapterMeta {
-  id: string;
+  id: ChapterId;
   name: string;
   ongoing?: boolean;
   res?: '1-0' | '0-1' | '½-½' | '*';
+  teams?: [string, string];
 }
 
 export interface StudyChapterConfig extends StudyChapterMeta {
@@ -101,7 +104,7 @@ export interface StudyChapterConfig extends StudyChapterMeta {
 }
 
 export interface StudyChapter {
-  id: string;
+  id: ChapterId;
   name: string;
   ownerId: string;
   setup: StudyChapterSetup;
@@ -161,7 +164,7 @@ export interface LocalPaths {
 }
 
 export interface ChapterPreview {
-  id: string;
+  id: ChapterId;
   name: string;
   players?: {
     white: ChapterPreviewPlayer;
@@ -198,7 +201,7 @@ export interface ChapterData {
 }
 
 export interface EditChapterData {
-  id: string;
+  id: ChapterId;
   name: string;
   orientation: Orientation;
   mode: ChapterMode;
@@ -242,7 +245,7 @@ export interface WithPosition {
 }
 
 export interface WithChapterId {
-  chapterId: string;
+  chapterId: ChapterId;
 }
 
 export type WithWhoAndPos = WithWho & WithPosition;
