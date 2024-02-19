@@ -15,9 +15,12 @@ export default function () {
   if ('ontouchstart' in window && window.matchMedia('(min-width: 1020px)').matches)
     $('#topnav > section > a').removeAttr('href');
 
-  $('#tn-tg').on('change', e =>
-    document.body.classList.toggle('masked', (e.target as HTMLInputElement).checked),
-  );
+  $('#tn-tg').on('change', e => {
+    const menuOpen = (e.target as HTMLInputElement).checked;
+    document.body.classList.toggle('masked', menuOpen);
+    // transp #top's blur filter creates a stacking context. turn it off so 'bottom: 0' is screen height
+    $as<HTMLElement>('#top').style.backdropFilter = menuOpen ? 'unset' : '';
+  });
 
   $('#top').on('click', '.toggle', function (this: HTMLElement) {
     const $p = $(this).parent().toggleClass('shown');
