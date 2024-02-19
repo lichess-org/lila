@@ -112,14 +112,14 @@ final class Env(
 
   private lazy val dnsApi: DnsApi = wire[DnsApi]
 
-  private lazy val checkMail: CheckMail = wire[CheckMail]
+  private lazy val verifyMail: VerifyMail = wire[VerifyMail]
 
   lazy val emailAddressValidator = wire[EmailAddressValidator]
 
   private lazy val disposableEmailDomain = DisposableEmailDomain(
     ws = ws,
     providerUrl = config.disposableEmail.providerUrl,
-    checkMailBlocked = () => checkMail.fetchAllBlocked
+    verifyMailBlocked = () => verifyMail.fetchAllBlocked
   )
 
   lazy val spamKeywordsSetting = settingStore[Strings](

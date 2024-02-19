@@ -19,7 +19,7 @@ final private class SecurityConfig(
     val tor: Tor,
     @ConfigName("disposable_email") val disposableEmail: DisposableEmail,
     @ConfigName("dns_api") val dnsApi: DnsApi,
-    @ConfigName("check_mail_api") val checkMail: CheckMail,
+    @ConfigName("verifymail") val verifyMail: VerifyMail,
     val hcaptcha: Hcaptcha.Config,
     @ConfigName("ip2proxy") val ip2Proxy: Ip2Proxy,
     @ConfigName("lame_name_check") val lameNameCheck: LameNameCheck,
@@ -59,11 +59,8 @@ private object SecurityConfig:
   case class DnsApi(url: String, timeout: FiniteDuration)
   given ConfigLoader[DnsApi] = AutoConfig.loader
 
-  case class CheckMail(
-      url: String,
-      key: Secret
-  )
-  given ConfigLoader[CheckMail] = AutoConfig.loader
+  case class VerifyMail(key: Secret)
+  given ConfigLoader[VerifyMail] = AutoConfig.loader
 
   case class Ip2Proxy(
       enabled: Boolean,
