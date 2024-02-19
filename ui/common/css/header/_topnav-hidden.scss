@@ -1,4 +1,4 @@
-@include breakpoint($mq-topnav-hidden) {
+@media (max-width: at-most($show-topnav)) {
   .topnav-toggle {
     display: block;
     position: absolute;
@@ -27,7 +27,7 @@
         border-radius: 3px;
         background-color: $c-font-dim;
 
-        @include breakpoint($mq-site-header-tall) {
+        @media (min-height: at-least($sticky-header)) {
           width: 34px;
           height: 3px;
         }
@@ -36,7 +36,7 @@
       top: 50%;
       #{$start-direction}: 8.5px;
 
-      @include breakpoint($mq-site-header-tall) {
+      @media (min-height: at-least($sticky-header)) {
         #{$start-direction}: 13px;
       }
 
@@ -50,7 +50,7 @@
       &::before {
         top: -6px;
 
-        @include breakpoint($mq-site-header-tall) {
+        @media (min-height: at-least($sticky-header)) {
           top: -9px;
         }
 
@@ -62,7 +62,7 @@
       &::after {
         bottom: -7px;
 
-        @include breakpoint($mq-site-header-tall) {
+        @media (min-height: at-least($sticky-header)) {
           bottom: -10px;
         }
 
@@ -101,6 +101,7 @@
   }
 
   #topnav {
+    @include back-blur(6px);
     display: flex;
     flex-flow: row wrap;
     position: fixed;
@@ -109,7 +110,6 @@
     #{$start-direction}: 0;
     background: $c-bg-high;
     transform: translateX(calc(-100% * #{$transform-direction} - 10px * #{$transform-direction}));
-
     @include transition(transform, 200ms);
 
     padding-bottom: 1.2rem;
@@ -119,7 +119,7 @@
     border-radius: 0 3px 0 0;
     max-width: 80%;
 
-    @include breakpoint($mq-xx-small) {
+    @media (min-width: at-least($xx-small)) {
       max-width: 70%;
     }
 

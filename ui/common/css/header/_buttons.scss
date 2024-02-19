@@ -51,7 +51,7 @@
     display: none;
     position: absolute;
     #{$end-direction}: 0;
-    top: var(--dropdown-top);
+    top: $site-header-height;
     background: $c-bg-header-dropdown;
     z-index: z('dropdown');
 
@@ -114,7 +114,8 @@
   .dasher {
     @extend %flex-center-nowrap;
 
-    > a {
+    > a,
+    > button {
       @extend %flex-center-nowrap;
       margin: 0;
       padding: 1rem;
@@ -125,7 +126,7 @@
     }
 
     > .dropdown {
-      @media (min-width: #{$site-header-sticky-max-width}) {
+      @media (min-width: at-least($site-header-sticky-max-width)) {
         #{$end-direction}: var(--site-header-sticky-padding);
       }
     }
@@ -135,7 +136,7 @@
 #user_tag {
   padding-#{$end-direction}: 0.75rem;
   white-space: nowrap;
-  gap: 0.25rem;
+  gap: 0.5rem;
 
   &::after {
     @extend %data-icon;

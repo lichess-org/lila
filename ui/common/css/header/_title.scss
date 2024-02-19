@@ -8,15 +8,15 @@
   text-shadow: $text-shadow;
   color: $c-font;
 
-  @include breakpoint($mq-not-x-small) {
+  @media (max-width: at-most($x-small)) {
     display: none;
   }
 
-  @include breakpoint($mq-topnav-hidden) {
-    margin-#{$start-direction}: calc(0.5rem + #{$site-header-height});
+  @media (max-width: at-most($show-topnav)) {
+    margin-#{$start-direction}: calc(0.5rem + $site-header-height);
   }
 
-  @include breakpoint($mq-site-header-tall) {
+  @media (min-height: at-least($sticky-header)) {
     font-size: 30px;
   }
 
@@ -36,7 +36,7 @@
     display: block;
   }
 
-  @media (min-width: 1180px) {
+  @media (min-width: at-least($show-hostname)) {
     .site-name {
       display: block;
     }
@@ -45,7 +45,7 @@
     }
   }
 
-  @media (min-width: 1365px) {
+  @media (min-width: at-least($xx-large)) {
     .site-icon {
       display: block;
     }

@@ -267,8 +267,6 @@ object index:
       dl(
         dt(whereMoneyGoes()),
         dd(
-          serversAndDeveloper(userIdLink(UserId("thibault").some)),
-          br,
           a(href := routes.Main.costs, targetBlank)(costBreakdown()),
           "."
         ),
