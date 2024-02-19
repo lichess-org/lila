@@ -50,4 +50,4 @@ export const trans = (i18n: I18nDict) => {
   return trans;
 };
 
-export const siteTrans = trans(site.siteI18n);
+export const siteTrans = trans(window.site?.siteI18n || {});
