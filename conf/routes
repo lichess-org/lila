@@ -29,7 +29,7 @@ POST  /bookmark/$gameId<\w{8}>         controllers.Game.bookmark(gameId)
 
 # TV
 GET   /$lang<\w\w\w?>/tv               controllers.Tv.indexLang(lang)
-GET   /tv/frame                        controllers.Tv.frame(chanKey = "best")
+GET   /tv/frame                        controllers.Tv.frameDefault
 GET   /tv/feed                         controllers.Tv.feed
 GET   /tv/channels                     controllers.Main.movedPermanently(to = "/api/tv/channels")
 GET   /tv/:chanKey                     controllers.Tv.onChannel(chanKey)

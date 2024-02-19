@@ -7,14 +7,14 @@ object embed:
 
   private val dataStreamUrl = attr("data-stream-url") := "/tv/feed?bc=1"
 
-  def apply(pov: lila.game.Pov)(using EmbedContext) =
+  def apply(pov: lila.game.Pov, channelKey: Option[String] = None)(using EmbedContext) =
     views.html.base.embed(
       title = "lichess.org chess TV",
       cssModule = "tv.embed"
     )(
       dataStreamUrl,
       div(id := "featured-game", cls := "embedded", title := "lichess.org TV")(
-        views.html.game.mini.noCtx(pov, tv = true)(targetBlank)
+        views.html.game.mini.noCtx(pov, tv = true, channelKey)(targetBlank)
       ),
       cashTag,
       chessgroundTag,

@@ -1,10 +1,10 @@
 package controllers
 
 import play.api.http.ContentTypes
+
 import scala.util.chaining.*
 import play.api.libs.json.*
 import views.*
-
 import lila.app.{ given, * }
 import lila.game.Pov
 import lila.tv.Tv.Channel
@@ -104,9 +104,15 @@ final class Tv(env: Env, apiC: => Api, gameC: => Game) extends LilaController(en
       else jsToNdJson(source)
     }
 
+  def frameDefault = Anon:
+    serveFrameFromChannel(Channel.Best)
+
   def frame(chanKey: String) = Anon:
-       env.tv.tv.getGame(Channel.byKey.get(chanKey).getOrElse(Channel.Best)).flatMap:
-         _.fold(notFoundText()): game =>
-           InEmbedContext:
-             Ok(views.html.tv.embed(Pov naturalOrientation game))
+    serveFrameFromChannel(Channel.byKey.get(chanKey) getOrElse Channel.Best)
+
+  private def serveFrameFromChannel(channel: Channel)(using Context) =
+    env.tv.tv.getGame(channel).flatMap:
+      _.fold(notFoundText()): g =>
+        InEmbedContext:
+          Ok(views.html.tv.embed(Pov naturalOrientation g, Option(channel.key)))
      
