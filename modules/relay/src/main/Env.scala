@@ -42,6 +42,8 @@ final class Env(
 
   private lazy val tourRepo = RelayTourRepo(colls.tour)
 
+  private lazy val groupRepo = RelayGroupRepo(colls.group)
+
   lazy val leaderboard = wire[RelayLeaderboardApi]
 
   private lazy val notifier = wire[RelayNotifier]

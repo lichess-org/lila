@@ -58,6 +58,11 @@ main.has-relay-tour {
     text-align: center;
   }
 
+  &__group-select {
+    flex: auto;
+    @include fluid-size('font-size', 14px, 24px);
+  }
+
   &__header {
     @extend %flex-center-nowrap;
     gap: 1em;

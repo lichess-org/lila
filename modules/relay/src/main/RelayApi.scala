@@ -6,18 +6,19 @@ import play.api.libs.json.*
 import reactivemongo.api.bson.*
 import scala.util.chaining.*
 
-import lila.common.config.MaxPerSecond
+import lila.common.config.{ Max, MaxPerSecond }
 import lila.db.dsl.{ *, given }
 import lila.memo.{ PicfitApi, CacheApi }
 import lila.study.{ Settings, Study, StudyApi, StudyId, StudyMaker, StudyMultiBoard, StudyRepo, StudyTopic }
 import lila.security.Granter
 import lila.user.{ User, Me, MyId }
-import lila.common.config.Max
 import lila.relay.RelayRound.WithTour
 
 final class RelayApi(
     roundRepo: RelayRoundRepo,
     tourRepo: RelayTourRepo,
+    groupRepo: RelayGroupRepo,
+    colls: RelayColls,
     studyApi: StudyApi,
     studyRepo: StudyRepo,
     multiboard: StudyMultiBoard,
@@ -95,6 +96,11 @@ final class RelayApi(
 
   def tourById(id: RelayTour.Id) = tourRepo.coll.byId[RelayTour](id)
 
+  def withTours(tour: RelayTour): Fu[RelayTour.WithGroupTours] = for
+    group <- groupRepo.byTour(tour.id)
+    tours <- tourRepo.idNames(group.so(_.tours))
+  yield RelayTour.WithGroupTours(tour, group.map(RelayGroup.WithTours(_, tours)))
+
   private def toSyncSelect = $doc(
     "sync.until" $exists true,
     "sync.nextAt" $lt nowInstant
@@ -142,8 +148,8 @@ final class RelayApi(
   def tourUpdate(prev: RelayTour, data: RelayTourForm.Data)(using Me): Funit =
     val tour = data update prev
     import toBSONValueOption.given
-    tourRepo.coll.update
-      .one(
+    for
+      _ <- tourRepo.coll.update.one(
         $id(tour.id),
         $setsAndUnsets(
           "name"            -> tour.name.some,
@@ -158,7 +164,8 @@ final class RelayApi(
           "ownerId"         -> tour.ownerId.some
         )
       )
-      .void
+      _ <- Granter(_.Relay).so(groupRepo.update(tour.id, data.grouping))
+    yield ()
 
   def create(data: RelayRoundForm.Data, tour: RelayTour)(using me: Me): Fu[RelayRound.WithTourAndStudy] =
     roundRepo.lastByTour(tour) flatMapz { last =>
@@ -266,7 +273,7 @@ final class RelayApi(
   def cloneTour(from: RelayTour)(using me: Me): Fu[RelayTour] =
     val tour = from.copy(
       id = RelayTour.makeId,
-      name = s"${from.name} (clone)",
+      name = RelayTour.Name(s"${from.name} (clone)"),
       ownerId = me.userId,
       createdAt = nowInstant,
       syncedAt = none

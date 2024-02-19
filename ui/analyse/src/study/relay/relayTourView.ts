@@ -4,7 +4,7 @@ import * as licon from 'common/licon';
 import { bind, dataIcon, onInsert, looseH as h, MaybeVNodes } from 'common/snabbdom';
 import { VNode } from 'snabbdom';
 import { innerHTML } from 'common/richText';
-import { RelayRound } from './interfaces';
+import { RelayGroup, RelayRound } from './interfaces';
 import { view as multiBoardView } from '../multiBoard';
 import { defined, scrollToInnerSelector } from 'common';
 import StudyCtrl from '../studyCtrl';
@@ -124,6 +124,23 @@ const overview = (relay: RelayCtrl, study: StudyCtrl, ctrl: AnalyseCtrl) => {
   ];
 };
 
+const groupSelect = (relay: RelayCtrl, group: RelayGroup) =>
+  h('div.mselect.relay-tour__group-select', [
+    h('input#mselect-relay-group.mselect__toggle.fullscreen-toggle', { attrs: { type: 'checkbox' } }),
+    h('label.mselect__label', { attrs: { for: 'mselect-relay-group' } }, relay.data.tour.name),
+    h('label.fullscreen-mask', { attrs: { for: 'mselect-relay-group' } }),
+    h(
+      'nav.mselect__list',
+      group.tours.map(tour =>
+        h(
+          `a${tour.id == relay.data.tour.id ? '.current' : ''}`,
+          { attrs: { href: `/broadcast/-/${tour.id}` } },
+          tour.name,
+        ),
+      ),
+    ),
+  ]);
+
 const games = (relay: RelayCtrl, study: StudyCtrl, ctrl: AnalyseCtrl) => [
   h('div.box.relay-tour__box', [header(relay, ctrl, true), multiBoardView(study.multiBoard, study)]),
 ];
@@ -134,7 +151,7 @@ const teams = (relay: RelayCtrl, ctrl: AnalyseCtrl) =>
 const header = (relay: RelayCtrl, ctrl: AnalyseCtrl, pad: boolean = false) => {
   const d = relay.data;
   return h(`div.relay-tour__header${pad ? '.box-pad' : ''}`, [
-    h('h1', d.tour.name),
+    relay.data.group ? groupSelect(relay, relay.data.group) : h('h1', d.tour.name),
     ...(defined(d.isSubscribed)
       ? [
           toggle(

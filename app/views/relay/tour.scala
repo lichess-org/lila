@@ -103,7 +103,7 @@ object tour:
 
   def showEmpty(t: RelayTour, owner: Option[LightUser], markup: Option[Html])(using PageContext) =
     views.html.base.layout(
-      title = t.name,
+      title = t.name.value,
       moreCss = cssTag("page")
     ):
       main(cls := "relay-tour page-menu")(
