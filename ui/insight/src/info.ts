@@ -42,14 +42,14 @@ export default function (ctrl: Ctrl) {
                   action: `/insights/refresh/${ctrl.env.user.id}`,
                   method: 'post',
                 },
-                hook: onInsert(_el => lichess.refreshInsightForm()),
+                hook: onInsert(_el => site.refreshInsightForm()),
               },
               [
                 h('button.button.text', { attrs: { 'data-icon': licon.Checkmark } }, 'Update insights'),
                 h(
                   'div.crunching.none',
                   {
-                    hook: onInsert(el => el.insertAdjacentHTML('afterbegin', lichess.spinnerHtml)),
+                    hook: onInsert(el => el.insertAdjacentHTML('afterbegin', site.spinnerHtml)),
                   },
                   [h('br'), h('p', h('strong', 'Now crunching data just for you!'))],
                 ),

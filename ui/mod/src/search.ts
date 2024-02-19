@@ -3,7 +3,7 @@ import extendTablesortNumber from 'common/tablesortNumber';
 import tablesort from 'tablesort';
 import { checkBoxAll, expandCheckboxZone, selector, shiftClickCheckboxRange } from './checkBoxes';
 
-lichess.load.then(() => {
+site.load.then(() => {
   $('.slist, slist-pad')
     .find('.mark-alt')
     .on('click', function (this: HTMLAnchorElement) {

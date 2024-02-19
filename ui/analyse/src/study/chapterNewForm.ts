@@ -43,11 +43,11 @@ export class StudyChapterNewForm {
     readonly setTab: () => void,
     readonly root: AnalyseCtrl,
   ) {
-    lichess.pubsub.on('analyse.close-all', () => this.isOpen(false));
+    site.pubsub.on('analyse.close-all', () => this.isOpen(false));
   }
 
   open = () => {
-    lichess.pubsub.emit('analyse.close-all');
+    site.pubsub.emit('analyse.close-all');
     this.isOpen(true);
     this.loadVariants();
     this.initial(false);
@@ -77,8 +77,8 @@ export class StudyChapterNewForm {
   };
   startTour = async () => {
     const [tour] = await Promise.all([
-      lichess.asset.loadEsm<StudyTour>('study.tour'),
-      lichess.asset.loadCssPath('shepherd'),
+      site.asset.loadEsm<StudyTour>('study.tour'),
+      site.asset.loadCssPath('shepherd'),
     ]);
 
     tour.chapter(tab => {
@@ -124,7 +124,7 @@ export function view(ctrl: StudyChapterNewForm): VNode {
     : 'normal';
   const noarg = trans.noarg;
 
-  return lichess.dialog.snab({
+  return site.dialog.snab({
     class: 'chapter-new',
     onClose() {
       ctrl.isOpen(false);
@@ -194,7 +194,7 @@ export function view(ctrl: StudyChapterNewForm): VNode {
                         onChange: ctrl.editorFen,
                         coordinates: true,
                       };
-                      ctrl.editor = await lichess.asset.loadEsm<LichessEditor>('editor', { init: data });
+                      ctrl.editor = await site.asset.loadEsm<LichessEditor>('editor', { init: data });
                       ctrl.editorFen(ctrl.editor.getFen());
                     });
                   },

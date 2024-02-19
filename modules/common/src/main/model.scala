@@ -66,7 +66,7 @@ object Domain extends OpaqueString[Domain]:
   // https://stackoverflow.com/a/26987741/1744715
   private val regex =
     """(?i)^_?[a-z0-9-]{1,63}+(?:\._?[a-z0-9-]{1,63}+)*$""".r
-  def isValid(str: String)              = regex.matches(str)
+  def isValid(str: String)              = str.contains('.') && regex.matches(str)
   def from(str: String): Option[Domain] = isValid(str) option Domain(str)
   def unsafe(str: String): Domain       = Domain(str)
 

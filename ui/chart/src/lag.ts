@@ -29,7 +29,7 @@ const v = {
 };
 
 export async function initModule() {
-  lichess.StrongSocket.firstConnect.then(() => lichess.socket.send('moveLat', true));
+  site.StrongSocket.firstConnect.then(() => site.socket.send('moveLat', true));
   $('.meter canvas').each(function (this: HTMLCanvasElement, index) {
     const colors = ['#55bf3b', '#dddf0d', '#df5353'];
     const dataset: ChartDataset<'doughnut'>[] = [
@@ -100,7 +100,7 @@ export async function initModule() {
     };
     const chart = new Chart(this, config);
     if (index == 0)
-      lichess.pubsub.on('socket.in.mlat', (d: number) => {
+      site.pubsub.on('socket.in.mlat', (d: number) => {
         v.server = d;
         if (v.server <= 0) return;
         chart.options.plugins!.needle!.value = Math.min(750, v.server);
@@ -109,7 +109,7 @@ export async function initModule() {
       });
     else {
       setInterval(function () {
-        v.network = Math.round(lichess.socket.averageLag);
+        v.network = Math.round(site.socket.averageLag);
         if (v.network <= 0) return;
         chart.options.plugins!.needle!.value = Math.min(750, v.network);
         chart.options.plugins!.title!.text! = makeTitle(index, v.network);

@@ -43,7 +43,7 @@ export function initModule(opts: PalantirOpts): Palantir | undefined {
             (s: any) => {
               myStream = s;
               setState('ready');
-              lichess.sound.say('Voice chat is ready.', true, true);
+              site.sound.say('Voice chat is ready.', true, true);
               ping();
             },
             function (err) {
@@ -81,7 +81,7 @@ export function initModule(opts: PalantirOpts): Palantir | undefined {
       .on('stream', () => {
         log('call.stream');
         setState('on', call.peer);
-        lichess.sound.say('Connected', true, true);
+        site.sound.say('Connected', true, true);
       })
       .on('close', () => {
         log('call.close');
@@ -185,12 +185,12 @@ export function initModule(opts: PalantirOpts): Palantir | undefined {
   }
 
   function ping() {
-    if (state != 'off') lichess.pubsub.emit('socket.send', 'palantirPing');
+    if (state != 'off') site.pubsub.emit('socket.send', 'palantirPing');
   }
 
-  lichess.pubsub.on('socket.in.palantir', uids => uids.forEach(call));
-  lichess.pubsub.on('socket.in.palantirOff', lichess.reload); // remote disconnection
-  lichess.pubsub.on('palantir.toggle', v => {
+  site.pubsub.on('socket.in.palantir', uids => uids.forEach(call));
+  site.pubsub.on('socket.in.palantirOff', site.reload); // remote disconnection
+  site.pubsub.on('palantir.toggle', v => {
     if (!v) stop();
   });
 

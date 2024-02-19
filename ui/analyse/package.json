@@ -32,11 +32,6 @@
     "snabbdom": "^3.5.1",
     "tree": "workspace:*"
   },
-  "scripts": {
-    "compile": "tsc",
-    "dev": "tsc",
-    "prod": "tsc"
-  },
   "lichess": {
     "modules": {
       "esm": {

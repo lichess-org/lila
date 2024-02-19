@@ -7,7 +7,7 @@ import { memoize } from 'common';
 
 export default function (ctrl: RelayCtrl): VNode | undefined {
   return ctrl.members.canContribute()
-    ? h('div.relay-admin', { hook: onInsert(_ => lichess.asset.loadCssPath('analyse.relay-admin')) }, [
+    ? h('div.relay-admin', { hook: onInsert(_ => site.asset.loadCssPath('analyse.relay-admin')) }, [
         h('h2', [
           h('span.text', { attrs: dataIcon(licon.RadioTower) }, 'Broadcast manager'),
           h('a', { attrs: { href: `/broadcast/round/${ctrl.id}/edit`, 'data-icon': licon.Gear } }),

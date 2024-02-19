@@ -17,6 +17,7 @@ import { toggleButton as boardMenuToggleButton } from 'board/menu';
 import boardMenu from './boardMenu';
 import * as Prefs from 'common/prefs';
 import PuzzleCtrl from '../ctrl';
+import { dispatchChessgroundResize } from 'common/resize';
 
 const renderAnalyse = (ctrl: PuzzleCtrl): VNode => lh('div.puzzle__moves.areplay', [treeView(ctrl)]);
 
@@ -79,7 +80,7 @@ export default function (ctrl: PuzzleCtrl): VNode {
             if (ctrl.pref.coords === Prefs.Coords.Outside) {
               $('body').toggleClass('coords-in', gaugeOn).toggleClass('coords-out', !gaugeOn);
             }
-            document.body.dispatchEvent(new Event('chessground.resize'));
+            dispatchChessgroundResize();
           }
           vnode.data!.gaugeOn = gaugeOn;
         },
@@ -97,7 +98,7 @@ export default function (ctrl: PuzzleCtrl): VNode {
         'div.puzzle__board.main-board' + (ctrl.blindfold() ? '.blindfold' : ''),
         {
           hook:
-            'ontouchstart' in window || !lichess.storage.boolean('scrollMoves').getOrDefault(true)
+            'ontouchstart' in window || !site.storage.boolean('scrollMoves').getOrDefault(true)
               ? undefined
               : bindNonPassive(
                   'wheel',

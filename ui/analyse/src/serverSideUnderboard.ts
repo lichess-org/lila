@@ -34,16 +34,16 @@ export default function (element: HTMLElement, ctrl: AnalyseCtrl) {
     });
   };
 
-  if (!lichess.blindMode) {
-    lichess.pubsub.on('theme.change', () => updateGifLinks(inputFen.value));
-    lichess.pubsub.on('analysis.comp.toggle', (v: boolean) => {
+  if (!site.blindMode) {
+    site.pubsub.on('theme.change', () => updateGifLinks(inputFen.value));
+    site.pubsub.on('analysis.comp.toggle', (v: boolean) => {
       if (v) {
         setTimeout(() => $menu.find('.computer-analysis').first().trigger('mousedown'), 50);
       } else {
         $menu.find('span:not(.computer-analysis)').first().trigger('mousedown');
       }
     });
-    lichess.pubsub.on('analysis.change', (fen: Fen, _) => {
+    site.pubsub.on('analysis.change', (fen: Fen, _) => {
       const nextInputHash = `${fen}${ctrl.bottomColor()}`;
       if (fen && nextInputHash !== lastInputHash) {
         inputFen.value = fen;
@@ -51,7 +51,7 @@ export default function (element: HTMLElement, ctrl: AnalyseCtrl) {
         lastInputHash = nextInputHash;
       }
     });
-    lichess.pubsub.on('analysis.server.progress', (d: AnalyseData) => {
+    site.pubsub.on('analysis.server.progress', (d: AnalyseData) => {
       if (!advChart) startAdvantageChart();
       else advChart.updateData(d, ctrl.mainline);
       if (d.analysis && !d.analysis.partial) $('#acpl-chart-container-loader').remove();
@@ -59,10 +59,10 @@ export default function (element: HTMLElement, ctrl: AnalyseCtrl) {
   }
 
   const chartLoader = () =>
-    `<div id="acpl-chart-container-loader"><span>Stockfish 16<br>server analysis</span>${lichess.spinnerHtml}</div>`;
+    `<div id="acpl-chart-container-loader"><span>Stockfish 16<br>server analysis</span>${site.spinnerHtml}</div>`;
 
   function startAdvantageChart() {
-    if (advChart || lichess.blindMode) return;
+    if (advChart || site.blindMode) return;
     const loading = !ctrl.tree.root.eval || !Object.keys(ctrl.tree.root.eval).length;
     const $panel = $panels.filter('.computer-analysis');
     if (!$('#acpl-chart-container').length)
@@ -71,7 +71,7 @@ export default function (element: HTMLElement, ctrl: AnalyseCtrl) {
           (loading ? chartLoader() : ''),
       );
     else if (loading && !$('#acpl-chart-container-loader').length) $panel.append(chartLoader());
-    lichess.asset.loadEsm<ChartGame>('chart.game').then(m => {
+    site.asset.loadEsm<ChartGame>('chart.game').then(m => {
       m.acpl($('#acpl-chart')[0] as HTMLCanvasElement, data, ctrl.serverMainline(), ctrl.trans).then(
         chart => {
           advChart = chart;
@@ -80,7 +80,7 @@ export default function (element: HTMLElement, ctrl: AnalyseCtrl) {
     });
   }
 
-  const storage = lichess.storage.make('analysis.panel');
+  const storage = site.storage.make('analysis.panel');
   const setPanel = function (panel: string) {
     $menu.children('.active').removeClass('active');
     $menu.find(`[data-panel="${panel}"]`).addClass('active');
@@ -89,7 +89,7 @@ export default function (element: HTMLElement, ctrl: AnalyseCtrl) {
       .filter('.' + panel)
       .addClass('active');
     if ((panel == 'move-times' || ctrl.opts.hunter) && !timeChartLoaded)
-      lichess.asset.loadEsm<ChartGame>('chart.game').then(m => {
+      site.asset.loadEsm<ChartGame>('chart.game').then(m => {
         timeChartLoaded = true;
         m.movetime($('#movetimes-chart')[0] as HTMLCanvasElement, data, ctrl.trans, ctrl.opts.hunter);
       });
@@ -125,7 +125,7 @@ export default function (element: HTMLElement, ctrl: AnalyseCtrl) {
         else
           res.text().then(t => {
             if (t && !t.startsWith('<!DOCTYPE html>')) alert(t);
-            lichess.reload();
+            site.reload();
           });
       });
       return false;
@@ -145,14 +145,14 @@ export default function (element: HTMLElement, ctrl: AnalyseCtrl) {
     // uglier in the process.
     const url = `${baseUrl()}/embed/game/${data.game.id}?theme=auto&bg=auto${location.hash}`;
     const iframe = `<iframe src="${url}"\nwidth=600 height=397 frameborder=0></iframe>`;
-    lichess.dialog.dom({
+    site.dialog.dom({
       show: 'modal',
       htmlText:
         '<div><strong style="font-size:1.5em">' +
         $(this).html() +
         '</strong><br /><br />' +
         '<pre>' +
-        lichess.escapeHtml(iframe) +
+        site.escapeHtml(iframe) +
         '</pre><br />' +
         iframe +
         '<br /><br />' +

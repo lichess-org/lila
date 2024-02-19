@@ -15,7 +15,7 @@ export default class Persistence {
       path: undefined,
       flipped: this.ctrl.flipped,
     });
-    lichess.reload();
+    site.reload();
   };
 
   autosave(): void {
