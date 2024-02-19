@@ -19,7 +19,7 @@ final private class SecurityConfig(
     val tor: Tor,
     @ConfigName("disposable_email") val disposableEmail: DisposableEmail,
     @ConfigName("dns_api") val dnsApi: DnsApi,
-    @ConfigName("verifymail_api") val verifyMail: VerifyMail,
+    @ConfigName("verifymail") val verifyMail: VerifyMail,
     val hcaptcha: Hcaptcha.Config,
     @ConfigName("ip2proxy") val ip2Proxy: Ip2Proxy,
     @ConfigName("lame_name_check") val lameNameCheck: LameNameCheck,

@@ -59,14 +59,17 @@ final private class VerifyMail(
       .get()
       .withTimeout(8.seconds, "VerifyMail.fetch")
       .map: res =>
-        if res.status == 200 then
-          def readBool(key: String) = ~(res.body[JsValue] \ key).asOpt[Boolean]
-          val block                 = readBool("block")
-          val disposable            = readBool("disposable")
-          val privacy               = readBool("privacy")
-          val ok                    = !block && !disposable
+        (for
+          js <- res.body[JsValue].asOpt[JsObject]
+          if res.status == 200
+          block <- js boolean "block"
+          disposable = ~js.boolean("disposable")
+          privacy    = ~js.boolean("privacy")
+        yield
+          val ok = !block && !disposable
           logger.info:
             s"VerifyMail $domain = $ok {block:$block,disposable:$disposable,privacy:$privacy}"
           ok
-        else throw lila.base.LilaException(s"$url ${res.status} ${res.body[String] take 200}")
+        ).getOrElse:
+          throw lila.base.LilaException(s"$url ${res.status} ${res.body[String] take 200}")
       .monTry(res => _.security.verifyMailApi.fetch(res.isSuccess, res.getOrElse(true)))

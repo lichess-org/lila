@@ -50,17 +50,16 @@ final class EmailAddressValidator(
         if domains.isEmpty then fuccess(Result.DnsMissing)
         else if domains.exists(disposable.asMxRecord) then fuccess(Result.DnsBlocklist)
         else
-          verifyMail(domain).map: ck =>
-            if ck then Result.Alright else Result.Reputation
+          verifyMail(domain).map: ok =>
+            if ok then Result.Alright else Result.Reputation
 
   // the DNS emails should have been preloaded
   private[security] val withAcceptableDns = Constraint[EmailAddress]("constraint.email_acceptable") { email =>
     val result: Result = apply(email).awaitOrElse(
       90.millis,
       "dns", {
-        logger.warn(
+        logger.warn:
           s"EmailAddressValidator.withAcceptableDns timeout! $email records should have been preloaded"
-        )
         Result.DnsTimeout
       }
     )
