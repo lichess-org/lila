@@ -39,32 +39,22 @@ object edit:
     ):
       div(cls := "coach-edit box")(
         div(cls := "top")(
-          div(cls := "picture_wrap")(
-            if c.coach.hasPicture then
-              a(
-                cls   := "upload_picture",
-                href  := routes.Coach.picture,
-                title := "Change/delete your profile picture"
-              )(
-                picture.thumbnail(c, 250)
-              )
-            else
-              div(cls := "upload_picture")(
-                a(cls := "button", href := routes.Coach.picture)("Upload a profile picture")
-              )
+          span(
+            h1(widget.titleName(c)),
+            a(
+              href     := routes.Coach.show(c.user.username),
+              cls      := "button button-empty text",
+              dataIcon := licon.Eye
+            )("Preview coach page")
           ),
           div(cls := "overview")(
-            h1(widget.titleName(c)),
             div(cls := "todo", attr("data-profile") := c.user.profileOrDefault.nonEmptyRealName.isDefined)(
               h3("TODO list before publishing your coach profile"),
               ul
             ),
-            div(
-              a(
-                href     := routes.Coach.show(c.user.username),
-                cls      := "button button-empty text",
-                dataIcon := licon.Eye
-              )("Preview coach page")
+            div(cls := "picture_wrap")(
+              picture.thumbnail(c, 250)(attr("draggable") := "true", cls := "drop-target"),
+              div(label("Drag file or"), form3.file.selectImage)
             )
           )
         ),
