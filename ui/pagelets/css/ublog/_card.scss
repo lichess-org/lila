@@ -23,11 +23,13 @@
   &__top {
     display: block;
     position: relative;
+    line-height: 0;
   }
 
   &__over-image {
     position: absolute;
     top: 0;
+    line-height: 1.3em;
     &.pos-bottom {
       top: unset;
       bottom: 0;
