@@ -66,7 +66,7 @@ object RelayTourForm:
 
     def make(using me: Me) =
       RelayTour(
-        _id = RelayTour.makeId,
+        id = RelayTour.makeId,
         name = name,
         description = description,
         markup = markup,

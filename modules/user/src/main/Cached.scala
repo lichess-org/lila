@@ -45,10 +45,8 @@ final class Cached(
     _.refreshAfterWrite(10 minutes).buildAsyncFuture:
       loader: _ =>
         PerfType.leaderboardable
-          .map { perf =>
+          .traverse: perf =>
             rankingApi.topPerf(perf.id, 1)
-          }
-          .parallel
           .dmap(_.flatten)
 
   def topWeek = topWeekCache.get {}

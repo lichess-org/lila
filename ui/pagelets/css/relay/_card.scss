@@ -49,6 +49,8 @@
     .relay-card:hover & {
       opacity: 1;
     }
+
+    @include broken-img(2 / 1);
   }
 
   &__body {
