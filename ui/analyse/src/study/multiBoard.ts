@@ -9,35 +9,24 @@ import { opposite as CgOpposite } from 'chessground/util';
 import { opposite as oppositeColor } from 'chessops/util';
 import { ChapterPreview, ChapterPreviewPlayer, Position, StudyChapterMeta } from './interfaces';
 import StudyCtrl from './studyCtrl';
-import { EvalHitMulti } from '../interfaces';
-import { povChances } from 'ceval/src/winningChances';
-import { Prop, defined } from 'common';
-import { storedBooleanPropWithEffect } from 'common/storage';
-
-interface CloudEval extends EvalHitMulti {
-  chances: number;
-}
+import { GetCloudEval, MultiCloudEval, renderEvalToggle, renderScore } from './multiCloudEval';
 
 export class MultiBoardCtrl {
   loading = false;
   page = 1;
   pager?: Paginator<ChapterPreview>;
   playing = false;
-  showEval: Prop<boolean>;
-
-  private cloudEvals: Map<Fen, CloudEval> = new Map();
+  multiCloudEval: MultiCloudEval;
 
   constructor(
     readonly studyId: string,
     readonly redraw: () => void,
     readonly trans: Trans,
-    private readonly send: SocketSend,
-    private readonly variant: () => VariantKey,
+    send: SocketSend,
+    variant: () => VariantKey,
   ) {
-    this.showEval = storedBooleanPropWithEffect('analyse.multiboard.showEval', true, () => {
-      redraw();
-      this.requestCloudEvals();
-    });
+    const currentFens = () => this.pager?.currentPageResults.map(c => c.fen) || [];
+    this.multiCloudEval = new MultiCloudEval(redraw, send, variant, currentFens);
   }
 
   addNode = (pos: Position, node: Tree.Node) => {
@@ -50,7 +39,7 @@ export class MultiBoardCtrl {
       // at this point `(cp: ChapterPreview).lastMoveAt` becomes outdated but should be ok since not in use anymore
       // to mitigate bad usage, setting it as `undefined`
       cp.lastMoveAt = undefined;
-      this.requestCloudEvals();
+      this.multiCloudEval.sendRequest();
       this.redraw();
     }
   };
@@ -80,16 +69,7 @@ export class MultiBoardCtrl {
     }
     this.loading = false;
     this.redraw();
-
-    this.requestCloudEvals();
-  };
-
-  private requestCloudEvals = () => {
-    if (this.pager?.currentPageResults.length && this.showEval())
-      this.send('evalGetMulti', {
-        fens: this.pager?.currentPageResults.map(c => c.fen),
-        ...(this.variant() != 'standard' ? { variant: this.variant() } : {}),
-      });
+    this.multiCloudEval.sendRequest();
   };
 
   reloadEventually = debounce(this.reload, 1000);
@@ -110,19 +90,6 @@ export class MultiBoardCtrl {
     this.playing = v;
     this.reload();
   };
-
-  onCloudEval = (d: EvalHitMulti) => {
-    this.cloudEvals.set(d.fen, { ...d, chances: povChances('white', d) });
-    this.redraw();
-  };
-
-  getCloudEval = (preview: ChapterPreview): CloudEval | undefined => this.cloudEvals.get(preview.fen);
-
-  onLocalCeval = (node: Tree.Node, ev: Tree.ClientEval) => {
-    const cur = this.cloudEvals.get(node.fen);
-    if (!cur || cur.depth < ev.depth)
-      this.cloudEvals.set(node.fen, { ...ev, chances: povChances('white', ev) });
-  };
 }
 
 export function view(ctrl: MultiBoardCtrl, study: StudyCtrl): VNode | undefined {
@@ -133,7 +100,7 @@ export function view(ctrl: MultiBoardCtrl, study: StudyCtrl): VNode | undefined 
   return h(
     'div.study__multiboard',
     {
-      class: { loading: ctrl.loading, nopager: !ctrl.pager },
+      class: { loading: ctrl.loading, nodata: !ctrl.pager },
       hook: {
         insert(vnode: VNode) {
           ctrl.reload(true);
@@ -151,35 +118,27 @@ export function view(ctrl: MultiBoardCtrl, study: StudyCtrl): VNode | undefined 
 
 function renderPager(pager: Paginator<ChapterPreview>, study: StudyCtrl): MaybeVNodes {
   const ctrl = study.multiBoard;
-  const cloudEval = ctrl.showEval() ? ctrl.getCloudEval : undefined;
+  const cloudEval = ctrl.multiCloudEval.showEval() ? ctrl.multiCloudEval.getCloudEval : undefined;
   return [
     h('div.study__multiboard__top', [
       renderPagerNav(pager, ctrl),
-      h('div.study__multiboard__options', [renderEvalToggle(ctrl), renderPlayingToggle(ctrl)]),
+      h('div.study__multiboard__options', [
+        h('label.eval', [renderEvalToggle(ctrl.multiCloudEval), ctrl.trans.noarg('showEvalBar')]),
+        renderPlayingToggle(ctrl),
+      ]),
     ]),
     h('div.now-playing', pager.currentPageResults.map(makePreview(study, cloudEval))),
   ];
 }
 
-function renderPlayingToggle(ctrl: MultiBoardCtrl): VNode {
-  return h('label.playing', [
+const renderPlayingToggle = (ctrl: MultiBoardCtrl): VNode =>
+  h('label.playing', [
     h('input', {
       attrs: { type: 'checkbox', checked: ctrl.playing },
       hook: bind('change', e => ctrl.setPlaying((e.target as HTMLInputElement).checked)),
     }),
     ctrl.trans.noarg('playing'),
   ]);
-}
-
-function renderEvalToggle(ctrl: MultiBoardCtrl): VNode {
-  return h('label.eval', [
-    h('input', {
-      attrs: { type: 'checkbox', checked: ctrl.showEval() },
-      hook: bind('change', e => ctrl.showEval((e.target as HTMLInputElement).checked)),
-    }),
-    ctrl.trans.noarg('showEvalBar'),
-  ]);
-}
 
 function renderPagerNav(pager: Paginator<ChapterPreview>, ctrl: MultiBoardCtrl): VNode {
   const page = ctrl.page,
@@ -193,7 +152,7 @@ function renderPagerNav(pager: Paginator<ChapterPreview>, ctrl: MultiBoardCtrl):
     pagerButton(ctrl.trans.noarg('last'), licon.JumpLast, ctrl.lastPage, page < pager.nbPages, ctrl),
     h('button.fbt', {
       attrs: { 'data-icon': licon.Search, title: 'Search' },
-      hook: bind('click', () => lichess.pubsub.emit('study.search.open')),
+      hook: bind('click', () => site.pubsub.emit('study.search.open')),
     }),
   ]);
 }
@@ -211,8 +170,6 @@ function pagerButton(
   });
 }
 
-type GetCloudEval = (preview: ChapterPreview) => CloudEval | undefined;
-
 const makePreview = (study: StudyCtrl, cloudEval?: GetCloudEval) => (preview: ChapterPreview) =>
   h(
     `a.mini-game.mini-game-${preview.id}.mini-game--init.is2d`,
@@ -224,19 +181,19 @@ const makePreview = (study: StudyCtrl, cloudEval?: GetCloudEval) => (preview: Ch
       hook: {
         insert(vnode) {
           const el = vnode.elm as HTMLElement;
-          lichess.miniGame.init(el);
+          site.miniGame.init(el);
           vnode.data!.fen = preview.fen;
           el.addEventListener('mousedown', _ => study.setChapter(preview.id));
         },
         postpatch(old, vnode) {
           if (old.data!.fen !== preview.fen) {
             if (preview.outcome) {
-              lichess.miniGame.finish(
+              site.miniGame.finish(
                 vnode.elm as HTMLElement,
                 preview.outcome === '1-0' ? 'white' : preview.outcome === '0-1' ? 'black' : undefined,
               );
             } else {
-              lichess.miniGame.update(vnode.elm as HTMLElement, {
+              site.miniGame.update(vnode.elm as HTMLElement, {
                 lm: preview.lastMove!,
                 fen: preview.fen,
                 wc: computeTimeLeft(preview, 'white'),
@@ -264,7 +221,7 @@ const evalGauge = (chap: ChapterPreview, cloudEval: GetCloudEval): VNode =>
       hook: {
         postpatch(old, vnode) {
           const prevNodeCloud = old.data?.cloud;
-          const cev = cloudEval(chap) || prevNodeCloud;
+          const cev = cloudEval(chap.fen) || prevNodeCloud;
           if (cev?.chances != prevNodeCloud?.chances) {
             const elm = vnode.elm as HTMLElement;
             const gauge = elm.parentNode as HTMLElement;
@@ -278,11 +235,8 @@ const evalGauge = (chap: ChapterPreview, cloudEval: GetCloudEval): VNode =>
         },
       },
     }),
-    h('tick.zero'),
+    h('tick'),
   ]);
-
-const renderScore = (s: EvalScore) =>
-  s.mate ? '#' + s.mate : defined(s.cp) ? `${s.cp >= 0 ? '+' : ''}${s.cp / 100}` : '?';
 
 const userName = (u: ChapterPreviewPlayer) =>
   u.title ? [h('span.utitle', u.title), ' ' + u.name] : [u.name];

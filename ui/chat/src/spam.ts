@@ -6,10 +6,10 @@ export const selfReport = (txt: string) => {
   if (isKnownSpammer()) return;
   const hasSuspLink = suspLink(txt);
   if (hasSuspLink) xhr.text(`/jslog/${window.location.href.substr(-12)}?n=spam`, { method: 'post' });
-  if (hasSuspLink || followMe(txt)) lichess.storage.set('chat-spam', '1');
+  if (hasSuspLink || followMe(txt)) site.storage.set('chat-spam', '1');
 };
 
-const isKnownSpammer = () => lichess.storage.get('chat-spam') == '1';
+const isKnownSpammer = () => site.storage.get('chat-spam') == '1';
 
 const spamRegex = new RegExp(
   [

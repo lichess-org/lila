@@ -62,8 +62,8 @@
   <string name="notifyChallenge">Các lời thách đấu</string>
   <string name="notifyTournamentSoon">Giải đấu sắp bắt đầu</string>
   <string name="notifyTimeAlarm">Thời gian đánh cờ qua thư sắp hết</string>
-  <string name="notifyBell">Chuông thông báo trong Lichess</string>
-  <string name="notifyPush">Thông báo tới thiết bị của bạn khi bạn không truy cập Lichess</string>
+  <string name="notifyBell">Chuông thông báo khi đang trực tuyến trong Lichess</string>
+  <string name="notifyPush">Thông báo tới thiết bị của bạn khi bạn đang ngoại tuyến trên Lichess</string>
   <string name="notifyWeb">Trình duyệt</string>
   <string name="notifyDevice">Thiết bị</string>
   <string name="bellNotificationSound">Âm thanh chuông báo</string>

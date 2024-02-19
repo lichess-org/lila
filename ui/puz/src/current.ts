@@ -43,8 +43,8 @@ export default class CurrentPuzzle {
       this.position(this.moveIndex),
       parseUci(this.line[Math.max(this.moveIndex, 0)])!,
     );
-    // adding san is garbage of course, but lichess.sound just cares about x, #, and +
+    // adding san is garbage of course, but site.sound just cares about x, #, and +
     const combined = this.isOver() ? prevSan : prevSan + currSan;
-    lichess.sound.move({ san: combined, uci: this.lastMove() });
+    site.sound.move({ san: combined, uci: this.lastMove() });
   }
 }

@@ -48,19 +48,19 @@ export function report(name: string, text: string): Promise<any> {
 }
 
 export function post(dest: string, text: string) {
-  lichess.pubsub.emit('socket.send', 'msgSend', { dest, text });
+  site.pubsub.emit('socket.send', 'msgSend', { dest, text });
 }
 
 export function setRead(dest: string) {
-  lichess.pubsub.emit('socket.send', 'msgRead', dest);
+  site.pubsub.emit('socket.send', 'msgRead', dest);
 }
 
 export function typing(dest: string) {
-  lichess.pubsub.emit('socket.send', 'msgType', dest);
+  site.pubsub.emit('socket.send', 'msgType', dest);
 }
 
 export function websocketHandler(ctrl: MsgCtrl) {
-  const listen = lichess.pubsub.on;
+  const listen = site.pubsub.on;
   listen('socket.in.msgNew', msg => {
     ctrl.receive({
       ...upgradeMsg(msg),

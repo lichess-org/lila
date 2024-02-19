@@ -9,7 +9,7 @@ export default function (ctrl: EditorCtrl): VNode {
     hook: {
       insert: vnode => {
         const el = vnode.elm as HTMLElement;
-        ctrl.chessground = lichess.makeChessground(el, makeConfig(ctrl));
+        ctrl.chessground = site.makeChessground(el, makeConfig(ctrl));
         bindEvents(el, ctrl);
       },
       destroy: () => ctrl.chessground!.destroy(),
@@ -135,7 +135,7 @@ function makeConfig(ctrl: EditorCtrl): CgConfig {
     },
     drawable: {
       enabled: true,
-      defaultSnapToValidMove: lichess.storage.boolean('arrow.snap').getOrDefault(true),
+      defaultSnapToValidMove: site.storage.boolean('arrow.snap').getOrDefault(true),
     },
     draggable: {
       showGhost: true,

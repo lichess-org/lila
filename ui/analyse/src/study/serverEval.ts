@@ -38,15 +38,15 @@ export function view(ctrl: ServerEval): VNode {
   const mainline = ctrl.requested ? ctrl.root.data.treeParts : ctrl.analysedMainline();
   const chart = h('canvas.study__server-eval.ready.' + analysis.id, {
     hook: onInsert(el => {
-      lichess.requestIdleCallback(async () => {
-        (await lichess.asset.loadEsm<ChartGame>('chart.game'))
+      site.requestIdleCallback(async () => {
+        (await site.asset.loadEsm<ChartGame>('chart.game'))
           .acpl(el as HTMLCanvasElement, ctrl.root.data, mainline, ctrl.root.trans)
           .then(chart => (ctrl.chart = chart));
       }, 800);
     }),
   });
 
-  lichess.pubsub.on('analysis.server.progress', ctrl.updateChart);
+  site.pubsub.on('analysis.server.progress', ctrl.updateChart);
 
   const loading = mainline.find(ctrl.root.partialAnalysisCallback);
   return h('div.study__server-eval.ready.', loading ? [chart, chartSpinner()] : chart);

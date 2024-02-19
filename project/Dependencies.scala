@@ -17,7 +17,7 @@ object Dependencies {
   val alleycats   = "org.typelevel"                %% "alleycats-core"                  % "2.10.0"
   val scalalib    = "com.github.ornicar"           %% "scalalib"                        % "9.5.5"
   val hasher      = "com.roundeights"              %% "hasher"                          % "1.3.1"
-  val chess       = "org.lichess"                  %% "scalachess"                      % "15.7.8"
+  val chess       = "org.lichess"                  %% "scalachess"                      % "15.7.9"
   val compression = "org.lichess"                  %% "compression"                     % "1.10"
   val maxmind     = "com.maxmind.geoip2"            % "geoip2"                          % "4.0.1"
   val caffeine    = "com.github.ben-manes.caffeine" % "caffeine"                        % "3.1.8" % "compile"
@@ -34,7 +34,7 @@ object Dependencies {
   val apacheMath  = "org.apache.commons"          % "commons-math3"       % "3.6.1"
   val bloomFilter = "com.github.alexandrnikitin" %% "bloom-filter"        % "0.13.1_lila-1"
   val kittens     = "org.typelevel"              %% "kittens"             % "3.2.0"
-  val testKit     = "org.lichess"                %% "scalachess-test-kit" % "15.7.10"   % Test
+  val testKit     = "org.lichess"                %% "scalachess-test-kit" % "15.7.9"    % Test
   val scalacheck  = "org.scalacheck"             %% "scalacheck"          % "1.17.0"    % Test
   val munitCheck  = "org.scalameta"              %% "munit-scalacheck"    % "1.0.0-M8"  % Test
 
@@ -60,7 +60,7 @@ object Dependencies {
   }
 
   object reactivemongo {
-    val driver = "org.reactivemongo" %% "reactivemongo"                              % "1.1.0-RC11"
+    val driver = "org.reactivemongo" %% "reactivemongo"                              % "1.1.0-RC12"
     val stream = "org.reactivemongo" %% "reactivemongo-akkastream"                   % "1.1.0-RC12"
     val shaded = "org.reactivemongo"  % s"reactivemongo-shaded-native-$os-$dashArch" % "1.1.0-RC12"
     // val kamon  = "org.reactivemongo" %% "reactivemongo-kamon"         % "1.0.8"

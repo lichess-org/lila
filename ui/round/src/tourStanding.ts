@@ -21,7 +21,7 @@ export const tourStandingCtrl = (
     name: name,
   },
   view(): VNode {
-    return h('div', { hook: onInsert(_ => lichess.asset.loadCssPath('round.tour-standing')) }, [
+    return h('div', { hook: onInsert(_ => site.asset.loadCssPath('round.tour-standing')) }, [
       team ? h('h3.text', { attrs: { 'data-icon': licon.Group } }, team.name) : null,
       h('table.slist', [
         h(

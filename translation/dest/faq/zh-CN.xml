@@ -41,7 +41,7 @@
   <string name="lichessSupportChessAnd">Lichess 支持标准国际象棋和 %1$s。</string>
   <string name="eightVariants">8种国际象棋变体</string>
   <string name="whatIsACPL">平均厘兵损失 (ACPL) 是什么？</string>
-  <string name="acplExplanation">厘兵是国际象棋计算优势所用的计量单位。1厘兵等于兵价值的1/100。也就是说，100厘兵=1兵。这些价值在游戏中不起正式作用，但对玩家有用，对电脑来评估局面也很重要。
+  <string name="acplExplanation">厘兵是国际象棋计算优势所用的计量单位。1厘兵等于兵价值的百分之一，也就是100厘兵=1兵。这些价值在游戏中不起正式作用，但对玩家有用，对电脑评估局面也很重要。
 
 最佳的电脑着法将会损失0厘兵，但较差的着法将导致厘兵计量下局面的恶化。
 
@@ -158,6 +158,10 @@ Lichess 上的电脑分析是基于 Stockfish 的。</string>
 2.点击网址栏上的锁图标
 3.点击网站设置
 4.允许声音播放</string>
+  <string name="enableAutoplayForSoundsSafari">1. 登录lichess.org
+2. 点击Safari浏览器菜单栏
+3.点击lichess.org 设置
+4. 允许所有自动播放</string>
   <string name="enableAutoplayForSoundsMicrosoftEdge">1. 点击右上角的三个小点
 2. 点击“设置”
 3. 点击“Cookie 和网站权限”

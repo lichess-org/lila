@@ -58,9 +58,9 @@
   </plurals>
   <string name="onlyVisibleToTeachers">仅对班级老师可见</string>
   <string name="lastActiveDate">最近登录</string>
-  <string name="managed">管理</string>
+  <string name="managed">被管理</string>
   <string name="thisStudentAccountIsManaged">此学生账户被管理</string>
-  <string name="upgradeFromManaged">从处理的升级为自主的</string>
+  <string name="upgradeFromManaged">由被管理升级为自主</string>
   <string name="release">释放</string>
   <string name="releaseTheAccount">释放账户，以便学生能够自主管理。</string>
   <string name="releaseDesc1">已释放的账户不能再次被管理。学生将能切换幼儿模式开关和重置密码。</string>

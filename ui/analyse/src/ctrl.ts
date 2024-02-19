@@ -141,10 +141,8 @@ export default class AnalyseCtrl {
 
     if (this.data.forecast) this.forecast = new ForecastCtrl(this.data.forecast, this.data, redraw);
     if (this.opts.wiki) this.wiki = wikiTheory();
-    if (lichess.blindMode)
-      lichess.asset
-        .loadEsm<NvuiPlugin>('analysisBoard.nvui', { init: this })
-        .then(nvui => (this.nvui = nvui));
+    if (site.blindMode)
+      site.asset.loadEsm<NvuiPlugin>('analysisBoard.nvui', { init: this }).then(nvui => (this.nvui = nvui));
 
     this.instanciateEvalCache();
 
@@ -171,7 +169,7 @@ export default class AnalyseCtrl {
 
     if (location.hash === '#practice' || (this.study && this.study.data.chapter.practice))
       this.togglePractice();
-    else if (location.hash === '#menu') lichess.requestIdleCallback(this.actionMenu.toggle, 500);
+    else if (location.hash === '#menu') site.requestIdleCallback(this.actionMenu.toggle, 500);
 
     keyboard.bind(this);
 
@@ -183,22 +181,22 @@ export default class AnalyseCtrl {
       } catch (e) {
         console.info(e);
       }
-      lichess.redirect('/analysis');
+      site.redirect('/analysis');
     }
 
-    lichess.pubsub.on('jump', (ply: string) => {
+    site.pubsub.on('jump', (ply: string) => {
       this.jumpToMain(parseInt(ply));
       this.redraw();
     });
 
-    lichess.pubsub.on('ply.trigger', () =>
-      lichess.pubsub.emit('ply', this.node.ply, this.tree.lastMainlineNode(this.path).ply === this.node.ply),
+    site.pubsub.on('ply.trigger', () =>
+      site.pubsub.emit('ply', this.node.ply, this.tree.lastMainlineNode(this.path).ply === this.node.ply),
     );
-    lichess.pubsub.on('analysis.chart.click', index => {
+    site.pubsub.on('analysis.chart.click', index => {
       this.jumpToIndex(index);
       this.redraw();
     });
-    lichess.pubsub.on('theme.change', redraw);
+    site.pubsub.on('theme.change', redraw);
     this.persistence?.merge();
   }
 
@@ -222,7 +220,7 @@ export default class AnalyseCtrl {
         : treePath.fromNodeList(treeOps.mainlineNodeList(this.tree.root));
     this.fork = makeFork(this);
 
-    lichess.sound.preloadBoardSounds();
+    site.sound.preloadBoardSounds();
   }
 
   private makeInitialPath = (): string => {
@@ -362,7 +360,7 @@ export default class AnalyseCtrl {
   }
 
   private onChange: () => void = throttle(300, () => {
-    lichess.pubsub.emit('analysis.change', this.node.fen, this.path);
+    site.pubsub.emit('analysis.change', this.node.fen, this.path);
   });
 
   private updateHref: () => void = debounce(() => {
@@ -382,11 +380,11 @@ export default class AnalyseCtrl {
     this.setPath(path);
     if (pathChanged) {
       if (this.study) this.study.setPath(path, this.node);
-      if (isForwardStep) lichess.sound.move(this.node);
+      if (isForwardStep) site.sound.move(this.node);
       this.threatMode(false);
       this.ceval?.stop();
       this.startCeval();
-      lichess.sound.saySan(this.node.san, true);
+      site.sound.saySan(this.node.san, true);
     }
     this.justPlayed = this.justDropped = this.justCaptured = undefined;
     this.explorer.setNode();
@@ -398,7 +396,7 @@ export default class AnalyseCtrl {
       if (this.practice) this.practice.onJump();
       if (this.study) this.study.onJump();
     }
-    lichess.pubsub.emit('ply', this.node.ply, this.tree.lastMainlineNode(this.path).ply === this.node.ply);
+    site.pubsub.emit('ply', this.node.ply, this.tree.lastMainlineNode(this.path).ply === this.node.ply);
     this.showGround();
   }
 
@@ -481,7 +479,7 @@ export default class AnalyseCtrl {
       this.justPlayed = roleToChar(piece.role).toUpperCase() + '@' + pos;
       this.justDropped = piece.role;
       this.justCaptured = undefined;
-      lichess.sound.move();
+      site.sound.move();
       const drop = {
         role: piece.role,
         pos,
@@ -637,7 +635,8 @@ export default class AnalyseCtrl {
           this.retro?.onCeval();
           this.practice?.onCeval();
           this.studyPractice?.onCeval();
-          this.study?.multiBoard.onLocalCeval(node, ev);
+          this.study?.multiBoard.multiCloudEval.onLocalCeval(node, ev);
+          this.study?.relay?.teams?.multiCloudEval.onLocalCeval(node, ev);
           this.evalCache.onLocalCeval();
         }
         this.redraw();
@@ -809,7 +808,7 @@ export default class AnalyseCtrl {
     this.showComputer(value);
     if (!value && this.practice) this.togglePractice();
     this.onToggleComputer();
-    lichess.pubsub.emit('analysis.comp.toggle', value);
+    site.pubsub.emit('analysis.comp.toggle', value);
   };
 
   mergeAnalysisData(data: ServerEvalData) {
@@ -820,7 +819,7 @@ export default class AnalyseCtrl {
       data.analysis.partial = !!treeOps.findInMainline(data.tree, this.partialAnalysisCallback);
     if (data.division) this.data.game.division = data.division;
     if (this.retro) this.retro.onMergeAnalysisData();
-    lichess.pubsub.emit('analysis.server.progress', this.data);
+    site.pubsub.emit('analysis.server.progress', this.data);
     this.redraw();
   }
 

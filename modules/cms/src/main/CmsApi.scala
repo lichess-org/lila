@@ -5,6 +5,7 @@ import lila.db.dsl.{ *, given }
 import lila.user.Me
 import play.api.mvc.RequestHeader
 import lila.i18n.{ Language, LangList, I18nLangPicker }
+import play.api.i18n.Lang
 
 final class CmsApi(coll: Coll, markup: CmsMarkup)(using Executor):
 
@@ -27,8 +28,8 @@ final class CmsApi(coll: Coll, markup: CmsMarkup)(using Executor):
       .list[CmsPage]($doc("key" -> key))
       .map(_.sortLike(LangList.popularLanguages.toVector, _.language))
 
-  def render(key: Key)(req: RequestHeader, userLang: Option[String]): Fu[Option[Render]] =
-    getBestFor(key)(req, userLang).flatMapz: page =>
+  def render(key: Key)(req: RequestHeader, prefLang: Lang): Fu[Option[Render]] =
+    getBestFor(key)(req, prefLang).flatMapz: page =>
       markup(page).map: html =>
         Render(page, html).some
 
@@ -42,8 +43,8 @@ final class CmsApi(coll: Coll, markup: CmsMarkup)(using Executor):
 
   def delete(id: Id): Funit = coll.delete.one($id(id)).void
 
-  private def getBestFor(key: Key)(req: RequestHeader, userLang: Option[String]): Fu[Option[CmsPage]] =
-    val prefered = I18nLangPicker.preferedLanguages(req, userLang) :+ lila.i18n.defaultLanguage
+  private def getBestFor(key: Key)(req: RequestHeader, prefLang: Lang): Fu[Option[CmsPage]] =
+    val prefered = I18nLangPicker.preferedLanguages(req, prefLang) :+ lila.i18n.defaultLanguage
     coll
       .list[CmsPage]($doc("key" -> key, "language" $in prefered))
       .map: pages =>

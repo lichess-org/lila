@@ -46,7 +46,7 @@ export function moderationCtrl(opts: ModerationOpts): ModerationCtrl {
         if (new URLSearchParams(window.location.search).get('mod') === 'true') {
           await timeout(opts.resourceId, body);
           window.location.reload(); // to load new state since it won't be sent over the socket
-        } else lichess.pubsub.emit('socket.send', 'timeout', body);
+        } else site.pubsub.emit('socket.send', 'timeout', body);
       }
       close();
       opts.redraw();
@@ -156,7 +156,7 @@ export function moderationView(ctrl?: ModerationCtrl): VNode[] | undefined {
             {
               hook: {
                 insert() {
-                  lichess.contentLoaded();
+                  site.contentLoaded();
                 },
               },
             },

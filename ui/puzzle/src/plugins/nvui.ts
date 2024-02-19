@@ -32,7 +32,7 @@ import { Api } from 'chessground/api';
 import throttle from 'common/throttle';
 import PuzzleCtrl from '../ctrl';
 
-const throttled = (sound: string) => throttle(100, () => lichess.sound.play(sound));
+const throttled = (sound: string) => throttle(100, () => site.sound.play(sound));
 const selectSound = throttled('select');
 const borderSound = throttled('outOfBound');
 const errorSound = throttled('error');
@@ -49,7 +49,7 @@ export function initModule() {
       notify.redraw = ctrl.redraw;
       const ground =
         ctrl.ground() ||
-        lichess.makeChessground(document.createElement('div'), {
+        site.makeChessground(document.createElement('div'), {
           ...makeConfig(ctrl),
           animation: { enabled: false },
           drawable: { enabled: false },

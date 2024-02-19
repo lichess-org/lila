@@ -400,12 +400,10 @@ object BSONHandlers:
       id    <- doc.getAsTry[StudyChapterId]("_id")
       name  <- doc.getAsTry[StudyChapterName]("name")
       setup <- doc.getAsTry[Chapter.Setup]("setup")
-      outcome = doc
-        .getAsOpt[List[String]]("tags")
-        .flatMap {
-          _.headOption // because only the Result: tag is fetched by metadataProjection
-            .map(_ drop 7)
-            .map(Outcome.fromResult)
-        }
+      tags    = ~doc.getAsOpt[List[String]]("tags")
+      outcome = tags.find(_.startsWith("Result:")).map(_ drop 7).map(Outcome.fromResult)
+      teams =
+        tags.find(_.startsWith("WhiteTeam:")).map(_ drop 10) zip
+          tags.find(_.startsWith("BlackTeam:")).map(_ drop 10)
       hasRelayPath = doc.getAsOpt[Bdoc]("relay").flatMap(_ string "path").exists(_.nonEmpty)
-    yield Chapter.Metadata(id, name, setup, outcome, hasRelayPath)
+    yield Chapter.Metadata(id, name, setup, outcome, teams, hasRelayPath)

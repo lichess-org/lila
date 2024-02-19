@@ -3,7 +3,6 @@ package lila.relay
 import akka.stream.scaladsl.*
 import alleycats.Zero
 import play.api.libs.json.*
-import reactivemongo.akkastream.cursorProducer
 import reactivemongo.api.bson.*
 import scala.util.chaining.*
 
@@ -13,8 +12,6 @@ import lila.memo.{ PicfitApi, CacheApi }
 import lila.study.{ Settings, Study, StudyApi, StudyId, StudyMaker, StudyMultiBoard, StudyRepo, StudyTopic }
 import lila.security.Granter
 import lila.user.{ User, Me, MyId }
-import lila.relay.RelayTour.ActiveWithSomeRounds
-import lila.i18n.I18nKeys.streamer.visibility
 import lila.common.config.Max
 import lila.relay.RelayRound.WithTour
 
@@ -46,17 +43,22 @@ final class RelayApi(
         )
       .map(_ flatMap readRoundWithTour)
 
-  def byIdAndContributor(id: RelayRoundId)(using me: Me) =
-    byIdWithStudy(id).map:
+  def byIdAndContributor(id: RelayRoundId)(using me: Me): Fu[Option[WithTour]] =
+    byIdWithTourAndStudy(id).map:
       _.collect:
         case RelayRound.WithTourAndStudy(relay, tour, study) if study.canContribute(me) =>
           relay withTour tour
 
-  def byIdWithStudy(id: RelayRoundId): Fu[Option[RelayRound.WithTourAndStudy]] =
+  def byIdWithTourAndStudy(id: RelayRoundId): Fu[Option[RelayRound.WithTourAndStudy]] =
     byIdWithTour(id) flatMapz { case WithTour(relay, tour) =>
       studyApi.byId(relay.studyId) dmap2:
         RelayRound.WithTourAndStudy(relay, tour, _)
     }
+
+  def byIdWithStudy(id: RelayRoundId): Fu[Option[RelayRound.WithStudy]] =
+    byId(id) flatMapz: relay =>
+      studyApi.byId(relay.studyId) dmap2:
+        RelayRound.WithStudy(relay, _)
 
   def byTourOrdered(tour: RelayTour): Fu[List[WithTour]] =
     roundRepo.byTourOrdered(tour).dmap(_.map(_ withTour tour))
@@ -149,7 +151,9 @@ final class RelayApi(
           "markup"          -> tour.markup,
           "tier"            -> tour.tier,
           "autoLeaderboard" -> tour.autoLeaderboard.some,
+          "teamTable"       -> tour.teamTable.some,
           "players"         -> tour.players,
+          "teams"           -> tour.teams,
           "spotlight"       -> tour.spotlight,
           "ownerId"         -> tour.ownerId.some
         )
@@ -261,7 +265,7 @@ final class RelayApi(
 
   def cloneTour(from: RelayTour)(using me: Me): Fu[RelayTour] =
     val tour = from.copy(
-      _id = RelayTour.makeId,
+      id = RelayTour.makeId,
       name = s"${from.name} (clone)",
       ownerId = me.userId,
       createdAt = nowInstant,
@@ -277,7 +281,7 @@ final class RelayApi(
 
   private def cloneWithStudy(from: RelayRound, to: RelayTour)(using me: Me): Fu[RelayRound] =
     val round = from.copy(
-      _id = RelayRound.makeId,
+      id = RelayRound.makeId,
       tourId = to.id
     )
     for
@@ -296,47 +300,6 @@ final class RelayApi(
             studyApi.addTopics(round.studyId, List(StudyTopic.broadcast.value))
       _ <- roundRepo.coll.insert.one(round)
     yield round
-
-  def officialTourStream(perSecond: MaxPerSecond, nb: Int): Source[RelayTour.WithRounds, ?] =
-
-    val lookup = $lookup.pipeline(
-      from = roundRepo.coll,
-      as = "rounds",
-      local = "_id",
-      foreign = "tourId",
-      pipe = List($doc("$sort" -> roundRepo.sort.start))
-    )
-    val activeStream = tourRepo.coll
-      .aggregateWith[Bdoc](readPreference = ReadPref.sec): framework =>
-        import framework.*
-        List(
-          Match(tourRepo.selectors.officialActive),
-          Sort(Descending("tier")),
-          PipelineOperator(lookup)
-        )
-      .documentSource(nb)
-
-    val inactiveStream = tourRepo.coll
-      .aggregateWith[Bdoc](readPreference = ReadPref.sec): framework =>
-        import framework.*
-        List(
-          Match(tourRepo.selectors.officialInactive),
-          Sort(Descending("syncedAt")),
-          PipelineOperator(lookup)
-        )
-      .documentSource(nb)
-
-    activeStream
-      .concat(inactiveStream)
-      .mapConcat: doc =>
-        doc
-          .asOpt[RelayTour]
-          .flatMap: tour =>
-            doc.getAsOpt[List[RelayRound]]("rounds") map tour.withRounds
-          .toList
-      .throttle(perSecond.value, 1 second)
-      .take(nb)
-  end officialTourStream
 
   def myRounds(perSecond: MaxPerSecond, max: Option[Max])(using
       me: Me

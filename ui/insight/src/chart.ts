@@ -200,7 +200,7 @@ let chart: InsightChart;
 function chartHook(vnode: VNode, ctrl: Ctrl) {
   const el = vnode.elm as HTMLCanvasElement;
   if (ctrl.vm.loading || !ctrl.vm.answer) {
-    $(el).html(lichess.spinnerHtml);
+    $(el).html(site.spinnerHtml);
   } else {
     if (!maybeChart(el)) chart = insightChart(el, ctrl.vm.answer);
     else if (chart) chart.updateData(ctrl.vm.answer);

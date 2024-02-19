@@ -1,5 +1,6 @@
 package lila.relay
 
+import reactivemongo.api.bson.Macros.Annotations.Key
 import play.api.i18n.Lang
 
 import lila.user.User
@@ -7,7 +8,7 @@ import lila.i18n.Language
 import lila.memo.{ PicfitUrl, PicfitImage }
 
 case class RelayTour(
-    _id: RelayTour.Id,
+    @Key("_id") id: RelayTour.Id,
     name: String,
     description: String,
     markup: Option[Markdown] = None,
@@ -18,11 +19,11 @@ case class RelayTour(
     syncedAt: Option[Instant],    // last time a round was synced
     spotlight: Option[RelayTour.Spotlight] = None,
     autoLeaderboard: Boolean = true,
+    teamTable: Boolean = false,
     players: Option[RelayPlayers] = None,
+    teams: Option[RelayTeams] = None,
     image: Option[PicfitImage.Id] = None
 ):
-  inline def id = _id
-
   lazy val slug =
     val s = lila.common.String slugify name
     if s.isEmpty then "-" else s

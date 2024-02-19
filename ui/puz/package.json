@@ -23,10 +23,5 @@
     "chessops": "^0.13.0",
     "common": "workspace:*",
     "snabbdom": "^3.5.1"
-  },
-  "scripts": {
-    "compile": "tsc",
-    "dev": "tsc",
-    "prod": "tsc"
   }
 }
