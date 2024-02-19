@@ -1508,7 +1508,6 @@ object I18nKeys:
     val `weAreSmallTeam` = I18nKey("patron:weAreSmallTeam")
     val `celebratedPatrons` = I18nKey("patron:celebratedPatrons")
     val `whereMoneyGoes` = I18nKey("patron:whereMoneyGoes")
-    val `serversAndDeveloper` = I18nKey("patron:serversAndDeveloper")
     val `costBreakdown` = I18nKey("patron:costBreakdown")
     val `officialNonProfit` = I18nKey("patron:officialNonProfit")
     val `actOfCreation` = I18nKey("patron:actOfCreation")
