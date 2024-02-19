@@ -3,7 +3,6 @@ package lila.relay
 import akka.stream.scaladsl.*
 import alleycats.Zero
 import play.api.libs.json.*
-import reactivemongo.akkastream.cursorProducer
 import reactivemongo.api.bson.*
 import scala.util.chaining.*
 
@@ -13,8 +12,6 @@ import lila.memo.{ PicfitApi, CacheApi }
 import lila.study.{ Settings, Study, StudyApi, StudyId, StudyMaker, StudyMultiBoard, StudyRepo, StudyTopic }
 import lila.security.Granter
 import lila.user.{ User, Me, MyId }
-import lila.relay.RelayTour.ActiveWithSomeRounds
-import lila.i18n.I18nKeys.streamer.visibility
 import lila.common.config.Max
 import lila.relay.RelayRound.WithTour
 
@@ -303,51 +300,6 @@ final class RelayApi(
             studyApi.addTopics(round.studyId, List(StudyTopic.broadcast.value))
       _ <- roundRepo.coll.insert.one(round)
     yield round
-
-  def officialTourStream(perSecond: MaxPerSecond, nb: Max, withLeaderboards: Boolean): Source[JsObject, ?] =
-
-    val lookup = $lookup.pipeline(
-      from = roundRepo.coll,
-      as = "rounds",
-      local = "_id",
-      foreign = "tourId",
-      pipe = List($doc("$sort" -> roundRepo.sort.start))
-    )
-    val activeStream = tourRepo.coll
-      .aggregateWith[Bdoc](readPreference = ReadPref.sec): framework =>
-        import framework.*
-        List(
-          Match(tourRepo.selectors.officialActive),
-          Sort(Descending("tier")),
-          PipelineOperator(lookup)
-        )
-      .documentSource(nb.value)
-
-    val inactiveStream = tourRepo.coll
-      .aggregateWith[Bdoc](readPreference = ReadPref.sec): framework =>
-        import framework.*
-        List(
-          Match(tourRepo.selectors.officialInactive),
-          Sort(Descending("syncedAt")),
-          PipelineOperator(lookup)
-        )
-      .documentSource(nb.value)
-
-    activeStream
-      .concat(inactiveStream)
-      .mapConcat: doc =>
-        doc
-          .asOpt[RelayTour]
-          .flatMap: tour =>
-            doc.getAsOpt[List[RelayRound]]("rounds") map tour.withRounds
-          .toList
-      .throttle(perSecond.value, 1 second)
-      .take(nb.value)
-      .mapAsync(1): t =>
-        withLeaderboards.so(leaderboard(t.tour)).map(t -> _)
-      .map: (t, l) =>
-        jsonView(t, withUrls = true, leaderboard = l)
-  end officialTourStream
 
   def myRounds(perSecond: MaxPerSecond, max: Option[Max])(using
       me: Me

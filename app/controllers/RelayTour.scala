@@ -178,7 +178,7 @@ final class RelayTour(env: Env, apiC: => Api) extends LilaController(env):
 
   def apiIndex = Anon:
     apiC.jsonDownload:
-      env.relay.api
+      env.relay.tourStream
         .officialTourStream(
           MaxPerSecond(20),
           Max(getInt("nb") | 20).atMost(100),
