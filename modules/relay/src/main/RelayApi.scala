@@ -304,7 +304,7 @@ final class RelayApi(
       _ <- roundRepo.coll.insert.one(round)
     yield round
 
-  def officialTourStream(perSecond: MaxPerSecond, nb: Max): Source[RelayTour.WithRounds, ?] =
+  def officialTourStream(perSecond: MaxPerSecond, nb: Max, withLeaderboards: Boolean): Source[JsObject, ?] =
 
     val lookup = $lookup.pipeline(
       from = roundRepo.coll,
@@ -343,6 +343,10 @@ final class RelayApi(
           .toList
       .throttle(perSecond.value, 1 second)
       .take(nb.value)
+      .mapAsync(1): t =>
+        withLeaderboards.so(leaderboard(t.tour)).map(t -> _)
+      .map: (t, l) =>
+        jsonView(t, withUrls = true, leaderboard = l)
   end officialTourStream
 
   def myRounds(perSecond: MaxPerSecond, max: Option[Max])(using
