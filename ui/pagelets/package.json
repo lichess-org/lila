@@ -6,12 +6,12 @@
   "author": "T-Bone Duplexus",
   "license": "AGPL-3.0-or-later",
   "exports": {
-    "./*": "./dist/*.js"
+    "./*": "./dist/exports/*.js"
   },
   "typesVersions": {
     "*": {
       "*": [
-        "dist/*"
+        "dist/exports/*"
       ]
     }
   },
@@ -36,6 +36,7 @@
     "tablesort": "^5.3.0",
     "zxcvbn": "^4.4.2"
   },
+  "sideEffects": false,
   "lichess": {
     "modules": {
       "esm": {

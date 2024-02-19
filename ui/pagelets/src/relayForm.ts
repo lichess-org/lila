@@ -1,5 +1,5 @@
 import { isSafari } from 'common/device';
-import { wire as wireCropDialog } from './crop';
+import { wire as wireCropDialog } from './exports/crop';
 
 if (isSafari()) wireCropDialog(); // preload
 

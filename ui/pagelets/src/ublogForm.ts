@@ -4,7 +4,7 @@ import throttle from 'common/throttle';
 import Editor from '@toast-ui/editor';
 import Tagify from '@yaireo/tagify';
 import { currentTheme } from 'common/theme';
-import { wire as wireCropDialog } from './crop';
+import { wire as wireCropDialog } from './exports/crop';
 
 if (isSafari()) wireCropDialog(); // preload
 
