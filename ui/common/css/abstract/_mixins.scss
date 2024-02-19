@@ -85,3 +85,21 @@
   backdrop-filter: blur($size);
   -webkit-backdrop-filter: blur($size);
 }
+
+@mixin broken-img($aspect-ratio) {
+  display: block;
+  position: relative;
+  aspect-ratio: $aspect-ratio;
+  &::after {
+    @extend %flex-center;
+    justify-content: center;
+    content: attr(alt);
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: $c-font-dimmer;
+    color: $c-font-dim;
+  }
+}
