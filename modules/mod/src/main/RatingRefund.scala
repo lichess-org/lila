@@ -33,7 +33,7 @@ final private class RatingRefund(
           gameRepo.coll
             .find:
               Query.user(sus.user.id) ++ Query.rated ++ Query
-                .createdSince(nowInstant minusDays 3) ++ Query.finished
+                .createdSince(nowInstant minusDays 5) ++ Query.finished
             .sort(Query.sortCreated)
             .cursor[Game](ReadPref.sec)
             .list(40)

@@ -2,7 +2,7 @@
   "extends": "../tsconfig.base.json",
   "include": ["src"],
   "compilerOptions": {
-    "types": ["lichess", "web", "cash"],
+    "types": ["lichess", "web"],
     "noEmit": true,
     "composite": true
   },

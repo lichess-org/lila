@@ -6,7 +6,7 @@ import perfIcons from 'common/perfIcons';
 import { TournamentData } from '../interfaces';
 
 const startClock = (time: number): Hooks => ({
-  insert: vnode => lichess.clockWidget(vnode.elm as HTMLElement, { time }),
+  insert: vnode => site.clockWidget(vnode.elm as HTMLElement, { time }),
 });
 
 const oneDayInSeconds = 60 * 60 * 24;
@@ -46,7 +46,7 @@ function image(d: TournamentData): VNode | undefined {
   if (d.isFinished) return;
   if (hasFreq('shield', d) || hasFreq('marathon', d)) return;
   const s = d.spotlight;
-  if (s && s.iconImg) return h('img.img', { attrs: { src: lichess.asset.url('images/' + s.iconImg) } });
+  if (s && s.iconImg) return h('img.img', { attrs: { src: site.asset.url('images/' + s.iconImg) } });
   return h('i.img', { attrs: dataIcon(s?.iconFont || licon.Trophy) });
 }
 

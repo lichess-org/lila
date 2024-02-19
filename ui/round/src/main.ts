@@ -26,7 +26,7 @@ function app(opts: RoundOpts, nvui?: NvuiPlugin) {
 
   if (ctrl.isPlaying()) menuHover();
 
-  lichess.sound.preloadBoardSounds();
+  site.sound.preloadBoardSounds();
 
   return {
     socketReceive: ctrl.socket.receive,

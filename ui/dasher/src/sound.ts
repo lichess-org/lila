@@ -16,7 +16,7 @@ export interface SoundData {
 
 export class SoundCtrl {
   list: Sound[];
-  api: SoundI = lichess.sound; // ???
+  api: SoundI = site.sound; // ???
 
   constructor(
     raw: string[],
@@ -32,7 +32,7 @@ export class SoundCtrl {
     (soundSet: string) =>
       xhr
         .text('/pref/soundSet', { body: xhr.form({ soundSet }), method: 'post' })
-        .catch(() => lichess.announce({ msg: 'Failed to save sound preference' })),
+        .catch(() => site.announce({ msg: 'Failed to save sound preference' })),
   );
 
   makeList = () => {
@@ -41,7 +41,7 @@ export class SoundCtrl {
   };
   set = (k: Key) => {
     this.api.speech(k == 'speech');
-    lichess.pubsub.emit('speech.enabled', this.api.speech());
+    site.pubsub.emit('speech.enabled', this.api.speech());
     if (this.api.speech()) {
       this.api.changeSet('standard');
       this.postSet('standard');

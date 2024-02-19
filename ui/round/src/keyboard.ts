@@ -6,7 +6,7 @@ export const prev = (ctrl: RoundController) => ctrl.userJump(ctrl.ply - 1);
 export const next = (ctrl: RoundController) => ctrl.userJump(ctrl.ply + 1);
 
 export const init = (ctrl: RoundController) =>
-  lichess.mousetrap
+  site.mousetrap
     .bind(['left', 'k'], () => {
       prev(ctrl);
       ctrl.redraw();
@@ -24,7 +24,7 @@ export const init = (ctrl: RoundController) =>
       ctrl.redraw();
     })
     .bind('f', ctrl.flipNow)
-    .bind('z', () => lichess.pubsub.emit('zen'))
+    .bind('z', () => site.pubsub.emit('zen'))
     .bind('B', () => ctrl.blindfold(!ctrl.blindfold()))
     .bind('?', () => {
       ctrl.keyboardHelp = !ctrl.keyboardHelp;
@@ -32,7 +32,7 @@ export const init = (ctrl: RoundController) =>
     });
 
 export const view = (ctrl: RoundController): VNode =>
-  lichess.dialog.snab({
+  site.dialog.snab({
     class: 'help',
     htmlUrl: '/round/help',
     onClose() {

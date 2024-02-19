@@ -7,8 +7,7 @@ import PuzzleCtrl from '../ctrl';
 export default function (ctrl: PuzzleCtrl): VNode {
   return h('div.cg-wrap', {
     hook: {
-      insert: vnode =>
-        ctrl.setChessground(lichess.makeChessground(vnode.elm as HTMLElement, makeConfig(ctrl))),
+      insert: vnode => ctrl.setChessground(site.makeChessground(vnode.elm as HTMLElement, makeConfig(ctrl))),
       destroy: () => ctrl.ground()!.destroy(),
     },
   });
@@ -50,7 +49,7 @@ export function makeConfig(ctrl: PuzzleCtrl): CgConfig {
     },
     drawable: {
       enabled: true,
-      defaultSnapToValidMove: lichess.storage.boolean('arrow.snap').getOrDefault(true),
+      defaultSnapToValidMove: site.storage.boolean('arrow.snap').getOrDefault(true),
     },
     highlight: {
       lastMove: ctrl.pref.highlight,

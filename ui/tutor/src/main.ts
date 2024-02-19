@@ -1,9 +1,9 @@
 import Lpv from 'lichess-pgn-viewer';
 
-lichess.load.then(() => {
+site.load.then(() => {
   $('.tutor-card--link').on('click', function (this: HTMLElement) {
     const href = this.dataset['href'];
-    if (href) lichess.redirect(href);
+    if (href) site.redirect(href);
   });
 
   $('.tutor__opening .lpv').each(function (this: HTMLElement) {
@@ -26,7 +26,7 @@ lichess.load.then(() => {
   const waitingGames = Array.from($('.tutor__waiting-game')),
     nbWaitingGames = waitingGames.length;
   if (nbWaitingGames) {
-    setTimeout(lichess.reload, 60 * 1000);
+    setTimeout(site.reload, 60 * 1000);
     waitingGames.forEach((el: HTMLElement, index: number) => {
       const lpv = Lpv(el, {
         pgn: el.dataset['pgn']!,

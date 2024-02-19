@@ -6,7 +6,7 @@ export default function wikiTheory(): WikiTheory {
   const cache = new Map<string, string>();
   const show = (html: string) => {
     $('.analyse__wiki').html(html).toggleClass('empty', !html);
-    lichess.pubsub.emit('chat.resize');
+    site.pubsub.emit('chat.resize');
   };
 
   const plyPrefix = (node: Tree.Node) =>

@@ -175,7 +175,7 @@ object layout:
     frag(
       ctx.needsFp option fingerprintTag,
       ctx.nonce map inlineJs.apply,
-      frag(cashTag, jsModule("lichess")),
+      frag(cashTag, jsModule("site")),
       moreJs,
       ctx.data.inquiry.isDefined option jsModule("mod.inquiry"),
       ctx.pref.bg == lila.pref.Pref.Bg.SYSTEM option embedJsUnsafe(systemThemePolyfillJs)
@@ -460,7 +460,7 @@ object layout:
         _ =>
           val qty  = lila.i18n.JsQuantity(lang)
           val i18n = safeJsonValue(i18nJsObject(i18nKeys))
-          s"""lichess={load:new Promise(r=>document.addEventListener("DOMContentLoaded",r)),quantity:$qty,siteI18n:$i18n}"""
+          s"""site={load:new Promise(r=>document.addEventListener("DOMContentLoaded",r)),quantity:$qty,siteI18n:$i18n}"""
       )
     def apply(nonce: Nonce)(using Lang) =
       embedJsUnsafe(jsCode, nonce)

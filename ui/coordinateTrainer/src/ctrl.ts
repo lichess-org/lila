@@ -71,7 +71,7 @@ export default class CoordinateTrainerCtrl {
   score = 0;
   timeAtStart: Date;
   timeLeft = DURATION;
-  trans: Trans = lichess.trans(this.config.i18n);
+  trans: Trans = site.trans(this.config.i18n);
   wrong: boolean;
   wrongTimeout: number;
   zen: boolean;
@@ -89,21 +89,21 @@ export default class CoordinateTrainerCtrl {
         }),
     );
 
-    lichess.pubsub.on('zen', () => {
+    site.pubsub.on('zen', () => {
       const zen = $('body').toggleClass('zen').hasClass('zen');
       window.dispatchEvent(new Event('resize'));
       setZen(zen);
     });
 
-    $('#zentog').on('click', () => lichess.pubsub.emit('zen'));
-    lichess.mousetrap.bind('z', () => lichess.pubsub.emit('zen'));
+    $('#zentog').on('click', () => site.pubsub.emit('zen'));
+    site.mousetrap.bind('z', () => site.pubsub.emit('zen'));
 
-    lichess.mousetrap.bind('enter', () => (this.playing ? null : this.start()));
+    site.mousetrap.bind('enter', () => (this.playing ? null : this.start()));
 
     window.addEventListener('resize', () => requestAnimationFrame(this.updateCharts), true);
 
     this.voice = makeVoiceCtrl({ redraw: this.redraw, tpe: 'coords' });
-    lichess.mic.initRecognizer([...'abcdefgh', ...Object.keys(rankWords), 'start', 'stop'], {
+    site.mic.initRecognizer([...'abcdefgh', ...Object.keys(rankWords), 'start', 'stop'], {
       partial: true,
       listener: this.onVoice.bind(this),
     });

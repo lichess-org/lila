@@ -11,7 +11,7 @@ export const render = (ctrl: AnalyseCtrl): VNode =>
   h('div.cg-wrap.cgv' + ctrl.cgVersion.js, {
     hook: {
       insert: vnode => {
-        ctrl.chessground = lichess.makeChessground(vnode.elm as HTMLElement, makeConfig(ctrl));
+        ctrl.chessground = site.makeChessground(vnode.elm as HTMLElement, makeConfig(ctrl));
         ctrl.setAutoShapes();
         if (ctrl.node.shapes) ctrl.chessground.setShapes(ctrl.node.shapes as DrawShape[]);
         ctrl.cgVersion.dom = ctrl.cgVersion.js;
@@ -72,7 +72,7 @@ export function makeConfig(ctrl: AnalyseCtrl): CgConfig {
     drawable: {
       enabled: true,
       eraseOnClick: !ctrl.opts.study || !!ctrl.opts.practice,
-      defaultSnapToValidMove: lichess.storage.boolean('arrow.snap').getOrDefault(true),
+      defaultSnapToValidMove: site.storage.boolean('arrow.snap').getOrDefault(true),
     },
     highlight: {
       lastMove: pref.highlight,

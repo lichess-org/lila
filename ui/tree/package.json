@@ -14,10 +14,5 @@
   "license": "AGPL-3.0-or-later",
   "dependencies": {
     "common": "workspace:*"
-  },
-  "scripts": {
-    "compile": "tsc",
-    "dev": "tsc",
-    "prod": "tsc"
   }
 }

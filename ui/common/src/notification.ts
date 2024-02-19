@@ -12,12 +12,12 @@ function listenToFocus() {
 }
 
 function notify(msg: string | (() => string)) {
-  const storage = lichess.storage.make('just-notified');
+  const storage = site.storage.make('just-notified');
   if (document.hasFocus() || Date.now() - parseInt(storage.get()!, 10) < 1000) return;
   storage.set('' + Date.now());
   if ($.isFunction(msg)) msg = msg();
   const notification = new Notification('lichess.org', {
-    icon: lichess.asset.url('logo/lichess-favicon-256.png', { noVersion: true }),
+    icon: site.asset.url('logo/lichess-favicon-256.png', { noVersion: true }),
     body: msg,
   });
   notification.onclick = () => window.focus();

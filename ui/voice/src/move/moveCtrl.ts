@@ -15,7 +15,7 @@ import { type Transform, movesTo, findTransforms } from '../util';
 export function makeVoiceMove(ctrl: MoveRootCtrl, initial: MoveUpdate): VoiceMove {
   let move: VoiceMove;
   const ui = makeCtrl({ redraw: ctrl.redraw, module: () => move, tpe: 'move' });
-  lichess.asset.loadEsm<VoiceMove>('voice.move', { init: { root: ctrl, ui, initial } }).then(x => (move = x));
+  site.asset.loadEsm<VoiceMove>('voice.move', { init: { root: ctrl, ui, initial } }).then(x => (move = x));
   return {
     ui,
     initGrammar: () => move?.initGrammar(),
@@ -59,7 +59,7 @@ export function initModule(opts: { root: MoveRootCtrl; ui: VoiceCtrl; initial: M
     no: as(['ok', 'clear'], () => (ui.showHelp() ? ui.showHelp(false) : clearMoveProgress())),
     help: as(['ok'], () => ui.showHelp(true)),
     vocabulary: as(['ok'], () => ui.showHelp('list')),
-    'mic-off': as(['ok'], () => lichess.mic.stop()),
+    'mic-off': as(['ok'], () => site.mic.stop()),
     flip: as(['ok'], () => root.flipNow()),
     draw: as(['ok'], () => setConfirm('draw', v => v && root.offerDraw?.(true, true))),
     resign: as(['ok'], () => setConfirm('resign', v => v && root.resign?.(true, true))),
@@ -88,7 +88,7 @@ export function initModule(opts: { root: MoveRootCtrl; ui: VoiceCtrl; initial: M
   };
 
   async function initGrammar(): Promise<void> {
-    const g = await xhr.jsonSimple(lichess.asset.url(`compiled/grammar/move-${ui.lang()}.json`));
+    const g = await xhr.jsonSimple(site.asset.url(`compiled/grammar/move-${ui.lang()}.json`));
     byWord.clear();
     byTok.clear();
     byVal.clear();
@@ -107,7 +107,7 @@ export function initModule(opts: { root: MoveRootCtrl; ui: VoiceCtrl; initial: M
   function initDefaultRec() {
     const excludeTag = root?.vote ? 'round' : 'puzzle'; // reduce unneeded vocabulary
     const words = tagWords().filter(x => byWord.get(x)?.tags?.includes(excludeTag) !== true);
-    lichess.mic.initRecognizer(words, { listener: listen });
+    site.mic.initRecognizer(words, { listener: listen });
   }
 
   function initTimerRec() {
@@ -115,7 +115,7 @@ export function initModule(opts: { root: MoveRootCtrl; ui: VoiceCtrl; initial: M
     const words = [...partials.commands, ...(colorsPref() ? partials.colors : partials.numbers)].map(w =>
       valWord(w),
     );
-    lichess.mic.initRecognizer(words, { recId: 'timer', partial: true, listener: listenTimer });
+    site.mic.initRecognizer(words, { recId: 'timer', partial: true, listener: listenTimer });
   }
 
   function listen(heard: string, msgType: Voice.MsgType) {
@@ -149,7 +149,7 @@ export function initModule(opts: { root: MoveRootCtrl; ui: VoiceCtrl; initial: M
     if (val !== 'no' && !move) return;
     clearMoveProgress();
     if (move) submit(move);
-    lichess.mic.setRecognizer('default');
+    site.mic.setRecognizer('default');
     cg.redrawAll();
   }
 
@@ -318,17 +318,17 @@ export function initModule(opts: { root: MoveRootCtrl; ui: VoiceCtrl; initial: M
         () => {
           submit(options[0][0]);
           choiceTimeout = undefined;
-          lichess.mic.setRecognizer('default');
+          site.mic.setRecognizer('default');
         },
         timer() * 1000 + 100,
       );
-      lichess.mic.setRecognizer('timer');
+      site.mic.setRecognizer('timer');
     }
     let arrows = true;
     if (root.blindfold?.()) {
       if (preferred) {
-        lichess.sound.saySan(cs.sanOf(board, options[0][0]));
-        arrows = !lichess.sound.say('confirm?');
+        site.sound.saySan(cs.sanOf(board, options[0][0]));
+        arrows = !site.sound.say('confirm?');
       }
     }
     if (arrows) {
@@ -373,16 +373,16 @@ export function initModule(opts: { root: MoveRootCtrl; ui: VoiceCtrl; initial: M
   function promotionHook() {
     return (ctrl: PromotionCtrl, roles: cs.Role[] | false) =>
       roles
-        ? lichess.mic.addListener(
+        ? site.mic.addListener(
             (text: string) => {
               const val = matchOneTags(text, ['role'], ['no']);
-              lichess.mic.stopPropagation();
+              site.mic.stopPropagation();
               if (val && roles.includes(cs.charRole(val))) ctrl.finish(cs.charRole(val));
               else if (val === 'no') ctrl.cancel();
             },
             { listenerId: 'promotion' },
           )
-        : lichess.mic.removeListener('promotion');
+        : site.mic.removeListener('promotion');
   }
 
   // given each uci, build every possible move phrase for it, and keep clues

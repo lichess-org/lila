@@ -31,7 +31,7 @@ export class PieceCtrl {
     const field = `pieceSet${this.dimension() === 'd3' ? '3d' : ''}`;
     xhr
       .text(`/pref/${field}`, { body: xhr.form({ [field]: t }), method: 'post' })
-      .catch(() => lichess.announce({ msg: 'Failed to save piece set  preference' }));
+      .catch(() => site.announce({ msg: 'Failed to save piece set  preference' }));
     this.redraw();
   };
 }
@@ -66,7 +66,7 @@ const pieceView = (current: Piece, set: (t: Piece) => void, is3d: boolean) => (t
       hook: bind('click', () => set(t)),
       class: { active: current === t },
     },
-    [h('piece', { attrs: { style: `background-image:url(${lichess.asset.url(pieceImage(t, is3d))})` } })],
+    [h('piece', { attrs: { style: `background-image:url(${site.asset.url(pieceImage(t, is3d))})` } })],
   );
 };
 function applyPiece(t: Piece, list: Piece[], is3d: boolean) {
@@ -77,5 +77,5 @@ function applyPiece(t: Piece, list: Piece[], is3d: boolean) {
     sprite.href = sprite.href.replace(/[\w-]+(\.external|)\.css/, t + '$1.css');
     document.body.dataset.pieceSet = t;
   }
-  lichess.pubsub.emit('theme.change');
+  site.pubsub.emit('theme.change');
 }

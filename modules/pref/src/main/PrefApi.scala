@@ -6,7 +6,7 @@ import reactivemongo.api.bson.*
 import lila.db.dsl.{ given, * }
 import lila.memo.CacheApi.*
 import lila.user.User
-import chess.ByColor
+import chess.{ Color, ByColor }
 
 final class PrefApi(
     val coll: Coll,
@@ -58,8 +58,9 @@ final class PrefApi(
   def byId(both: ByColor[Option[UserId]]): Fu[ByColor[Pref]] =
     both.traverse(_.fold(fuccess(Pref.default))(byId))
 
-  def get(both: ByColor[Option[User]]): Fu[ByColor[Pref]] =
-    both.traverse(_.fold(fuccess(Pref.default))(get))
+  def get(both: ByColor[Option[User]], myPov: Color, myPref: Pref): Fu[ByColor[Pref]] =
+    both(!myPov).so(get) map: opponent =>
+      myPov.fold(ByColor(myPref, opponent), ByColor(opponent, myPref))
 
   def followable(userId: UserId): Fu[Boolean] =
     coll.primitiveOne[Boolean]($id(userId), "follow").map(_ | Pref.default.follow)

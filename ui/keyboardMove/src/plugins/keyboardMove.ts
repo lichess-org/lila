@@ -24,7 +24,7 @@ interface Opts {
 }
 
 export function load(opts: Opts): Promise<KeyboardMoveHandler> {
-  return lichess.asset.loadEsm('keyboardMove', { init: opts });
+  return site.asset.loadEsm('keyboardMove', { init: opts });
 }
 
 export function initModule(opts: Opts) {
@@ -98,7 +98,7 @@ export function initModule(opts: Opts) {
       }
     } else if (v.length > 0 && 'who'.startsWith(v.toLowerCase())) {
       if ('who' === v.toLowerCase() && opts.ctrl.opponent) {
-        lichess.sound.say(opts.ctrl.opponent, false, true);
+        site.sound.say(opts.ctrl.opponent, false, true);
         clear();
       }
     } else if (v.length > 0 && 'draw'.startsWith(v.toLowerCase())) {
@@ -129,12 +129,12 @@ export function initModule(opts: Opts) {
     } else if (submitOpts.yourMove && v.length > 0 && legalSans && !sanCandidates(v, legalSans).length) {
       // submitOpts.yourMove is true only when it is newly the player's turn, not on subsequent
       // updates when it is still the player's turn
-      setTimeout(() => lichess.sound.play('error'), 500);
+      setTimeout(() => site.sound.play('error'), 500);
       opts.input.value = '';
       opts.ctrl.checker?.clear();
     } else {
       const wrong = v.length && legalSans && !sanCandidates(v, legalSans).length;
-      if (wrong && !opts.input.classList.contains('wrong')) lichess.sound.play('error');
+      if (wrong && !opts.input.classList.contains('wrong')) site.sound.play('error');
       opts.input.classList.toggle('wrong', !!wrong);
     }
   };
@@ -164,7 +164,7 @@ function iccfToUci(v: string) {
 }
 
 function makeBindings(opts: Opts, submit: Submit, clear: () => void) {
-  lichess.mousetrap.bind('enter', () => opts.input.focus());
+  site.mousetrap.bind('enter', () => opts.input.focus());
   /* keypress doesn't cut it here;
    * at the time it fires, the last typed char
    * is not available yet. Reported by:

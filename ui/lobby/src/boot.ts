@@ -19,32 +19,32 @@ export function initModule(opts: LobbyOpts) {
     { id: '30+0', lim: 30, inc: 0, perf: 'Classical' },
     { id: '30+20', lim: 30, inc: 20, perf: 'Classical' },
   ];
-  opts.trans = lichess.trans(opts.i18n);
+  opts.trans = site.trans(opts.i18n);
 
-  lichess.socket = new lichess.StrongSocket('/lobby/socket/v5', false, {
+  site.socket = new site.StrongSocket('/lobby/socket/v5', false, {
     receive: (t: string, d: any) => lobbyCtrl.socket.receive(t, d),
     events: {
       n(_: string, msg: { d: number; r: number }) {
         lobbyCtrl.spreadPlayersNumber && lobbyCtrl.spreadPlayersNumber(msg.d);
         setTimeout(
           () => lobbyCtrl.spreadGamesNumber && lobbyCtrl.spreadGamesNumber(msg.r),
-          lichess.socket.pingInterval() / 2,
+          site.socket.pingInterval() / 2,
         );
       },
       reload_timeline() {
         xhr.text('/timeline').then(html => {
           $('.timeline').html(html);
-          lichess.contentLoaded();
+          site.contentLoaded();
         });
       },
       featured(o: { html: string }) {
         $('.lobby__tv').html(o.html);
-        lichess.contentLoaded();
+        site.contentLoaded();
       },
       redirect(e: RedirectTo) {
         lobbyCtrl.leavePool();
         lobbyCtrl.setRedirecting();
-        lichess.redirect(e, true);
+        site.redirect(e, true);
         return true;
       },
       fen(e: any) {
@@ -52,12 +52,12 @@ export function initModule(opts: LobbyOpts) {
       },
     },
   });
-  lichess.StrongSocket.firstConnect.then(() => {
+  site.StrongSocket.firstConnect.then(() => {
     const gameId = new URLSearchParams(location.search).get('hook_like');
     if (!gameId) return;
     const { ratingMin, ratingMax } = lobbyCtrl.setupCtrl.makeSetupStore('hook')();
     xhr.text(
-      xhr.url(`/setup/hook/${lichess.sri}/like/${gameId}`, { deltaMin: ratingMin, deltaMax: ratingMax }),
+      xhr.url(`/setup/hook/${site.sri}/like/${gameId}`, { deltaMin: ratingMin, deltaMax: ratingMax }),
       {
         method: 'post',
       },
@@ -67,6 +67,6 @@ export function initModule(opts: LobbyOpts) {
     history.replaceState(null, '', '/');
   });
 
-  opts.socketSend = lichess.socket.send;
+  opts.socketSend = site.socket.send;
   const lobbyCtrl = main(opts);
 }

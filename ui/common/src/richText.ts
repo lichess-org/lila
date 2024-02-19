@@ -48,7 +48,7 @@ export const userLinkReplace = (_: string, prefix: string, user: string) =>
 export const expandMentions = (html: string) => html.replace(userPattern, userLinkReplace);
 
 export function enrichText(text: string, allowNewlines = true): string {
-  let html = autolink(lichess.escapeHtml(text), toLink);
+  let html = autolink(site.escapeHtml(text), toLink);
   if (allowNewlines) html = html.replace(newLineRegex, '<br>');
   return html;
 }
@@ -74,7 +74,7 @@ const userLinkReplacePawn = (orig: string, prefix: string, user: string) =>
   user.match(pawnDropPattern) ? orig : userLinkReplace(orig, prefix, user);
 
 export function enhance(text: string, parseMoves: boolean): string {
-  const escaped = lichess.escapeHtml(text);
+  const escaped = site.escapeHtml(text);
   const linked = escaped.replace(userPattern, userLinkReplacePawn).replace(linkPattern, linkReplace);
   const plied = parseMoves && linked === escaped ? addPlies(linked) : linked;
   return plied;

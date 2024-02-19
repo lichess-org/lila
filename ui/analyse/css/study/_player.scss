@@ -99,6 +99,14 @@ $player-height: 1.6rem;
     margin-#{$start-direction}: 0.5ch;
     flex: 3;
   }
+  .team {
+    @extend %roboto;
+    margin-#{$end-direction}: 1ch;
+    padding: 0 1ch;
+    flex: 2;
+    background: $c-bg-zebra;
+    color: $c-fancy;
+  }
 
   .elo {
     margin-#{$start-direction}: 0.5em;

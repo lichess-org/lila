@@ -9,11 +9,11 @@ import view from './view/main';
 export function initModule(opts: SwissOpts) {
   const element = document.querySelector('main.swiss') as HTMLElement;
 
-  lichess.socket = new lichess.StrongSocket('/swiss/' + opts.data.id, opts.data.socketVersion || 0, {
+  site.socket = new site.StrongSocket('/swiss/' + opts.data.id, opts.data.socketVersion || 0, {
     receive: (t: string, d: any) => ctrl.socket.receive(t, d),
   });
   opts.classes = element.getAttribute('class');
-  opts.socketSend = lichess.socket.send;
+  opts.socketSend = site.socket.send;
   opts.element = element;
   opts.$side = $('.swiss__side').clone();
 

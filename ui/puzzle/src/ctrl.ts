@@ -41,7 +41,7 @@ export default class PuzzleCtrl implements ParentCtrl {
   ground: Prop<CgApi> = prop<CgApi | undefined>(undefined) as Prop<CgApi>;
   threatMode: Toggle = toggle(false);
   streak?: PuzzleStreak;
-  streakFailStorage = lichess.storage.make('puzzle.streak.fail');
+  streakFailStorage = site.storage.make('puzzle.streak.fail');
   session: PuzzleSession;
   menu: Toggle;
   flipped = toggle(false);
@@ -74,7 +74,7 @@ export default class PuzzleCtrl implements ParentCtrl {
     readonly redraw: Redraw,
     readonly nvui?: NvuiPlugin,
   ) {
-    this.trans = lichess.trans(opts.i18n);
+    this.trans = site.trans(opts.i18n);
     this.rated = storedBooleanPropWithEffect('puzzle.rated', true, this.redraw);
     this.autoNext = storedBooleanProp(
       `puzzle.autoNext${opts.data.streak ? '.streak' : ''}`,
@@ -102,21 +102,21 @@ export default class PuzzleCtrl implements ParentCtrl {
     // chessground is not displayed, and the first move is not fully applied.
     // Make sure chessground is fully shown when the page goes back to being visible.
     document.addEventListener('visibilitychange', () =>
-      lichess.requestIdleCallback(() => this.jump(this.path), 500),
+      site.requestIdleCallback(() => this.jump(this.path), 500),
     );
 
-    lichess.pubsub.on('zen', () => {
+    site.pubsub.on('zen', () => {
       const zen = $('body').toggleClass('zen').hasClass('zen');
       window.dispatchEvent(new Event('resize'));
       if (!$('body').hasClass('zen-auto')) xhr.setZen(zen);
     });
     $('body').addClass('playing'); // for zen
-    $('#zentog').on('click', () => lichess.pubsub.emit('zen'));
+    $('#zentog').on('click', () => site.pubsub.emit('zen'));
   }
 
   private loadSound = (file: string, volume?: number) => {
-    lichess.sound.load(file, `${lichess.sound.baseUrl}/${file}`);
-    return () => lichess.sound.play(file, volume);
+    site.sound.load(file, `${site.sound.baseUrl}/${file}`);
+    return () => site.sound.play(file, volume);
   };
   sound = {
     good: this.loadSound('lisp/PuzzleStormGood', 0.7),
@@ -181,7 +181,7 @@ export default class PuzzleCtrl implements ParentCtrl {
     this.pov = this.initialNode.ply % 2 == 1 ? 'black' : 'white';
     this.isDaily = location.href.endsWith('/daily');
 
-    this.setPath(lichess.blindMode ? initialPath : treePath.init(initialPath));
+    this.setPath(site.blindMode ? initialPath : treePath.init(initialPath));
     setTimeout(
       () => {
         this.jump(initialPath);
@@ -313,7 +313,7 @@ export default class PuzzleCtrl implements ParentCtrl {
     this.withGround(g => g.playPremove());
 
     const progress = moveTest(this);
-    if (progress === 'fail') lichess.sound.say('incorrect');
+    if (progress === 'fail') site.sound.say('incorrect');
     if (progress) this.applyProgress(progress);
     this.reorderChildren(path);
     this.redraw();
@@ -340,7 +340,7 @@ export default class PuzzleCtrl implements ParentCtrl {
   };
 
   revertUserMove = (): void => {
-    if (lichess.blindMode) this.instantRevertUserMove();
+    if (site.blindMode) this.instantRevertUserMove();
     else setTimeout(this.instantRevertUserMove, 100);
   };
 
@@ -406,7 +406,7 @@ export default class PuzzleCtrl implements ParentCtrl {
       this.round = res.round;
       if (res.round?.ratingDiff) this.session.setRatingDiff(this.data.puzzle.id, res.round.ratingDiff);
     }
-    if (win) lichess.sound.say('Success!');
+    if (win) site.sound.say('Success!');
     if (next) {
       this.next.resolve(this.data.replay && res.replayComplete ? this.data.replay : next);
       if (this.streak && win) this.streak.onComplete(true, res.next);
@@ -415,7 +415,7 @@ export default class PuzzleCtrl implements ParentCtrl {
     if (!next) {
       if (!this.data.replay) {
         alert('No more puzzles available! Try another theme.');
-        lichess.redirect('/training/themes');
+        site.redirect('/training/themes');
       }
     }
   };
@@ -435,7 +435,7 @@ export default class PuzzleCtrl implements ParentCtrl {
     });
 
     if (this.data.replay && this.round === undefined) {
-      lichess.redirect(`/training/dashboard/${this.data.replay.days}`);
+      site.redirect(`/training/dashboard/${this.data.replay.days}`);
     }
 
     if (!this.streak && !this.data.replay) {
@@ -526,8 +526,8 @@ export default class PuzzleCtrl implements ParentCtrl {
     this.withGround(this.showGround);
     if (pathChanged) {
       if (isForwardStep) {
-        lichess.sound.saySan(this.node.san);
-        lichess.sound.move(this.node);
+        site.sound.saySan(this.node.san);
+        site.sound.move(this.node);
       }
       this.threatMode(false);
       this.ceval.stop();
@@ -537,7 +537,7 @@ export default class PuzzleCtrl implements ParentCtrl {
     this.justPlayed = undefined;
     this.autoScrollRequested = true;
     this.auxUpdate(this.node.fen);
-    lichess.pubsub.emit('ply', this.node.ply);
+    site.pubsub.emit('ply', this.node.ply);
   };
 
   userJump = (path: Tree.Path): void => {

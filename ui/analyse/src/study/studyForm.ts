@@ -80,7 +80,7 @@ export function view(ctrl: StudyForm): VNode {
     ['member', ctrl.trans.noarg('members')],
     ['everyone', ctrl.trans.noarg('everyone')],
   ];
-  return lichess.dialog.snab({
+  return site.dialog.snab({
     class: 'study-edit',
     onClose() {
       ctrl.open(false);

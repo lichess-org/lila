@@ -3,7 +3,7 @@ package lila.relay
 import play.api.libs.json.*
 
 import lila.common.config.BaseUrl
-import lila.common.Json.given
+import lila.common.Json.{ writeAs, given }
 import lila.study.Chapter
 import lila.user.Me
 import lila.memo.PicfitUrl
@@ -45,7 +45,13 @@ final class JsonView(
       .add("ongoing" -> (r.hasStarted && !r.finished))
       .add("startsAt" -> r.startsAt.orElse(r.startedAt))
 
-  def apply(trs: RelayTour.WithRounds, withUrls: Boolean = false): JsObject =
+  given Writes[RelayLeaderboard] = writeAs(_.players)
+
+  def apply(
+      trs: RelayTour.WithRounds,
+      withUrls: Boolean = false,
+      leaderboard: Option[RelayLeaderboard] = none
+  ): JsObject =
     Json
       .obj(
         "tour" -> Json
@@ -56,6 +62,7 @@ final class JsonView(
         "rounds" -> trs.rounds.map: round =>
           if withUrls then withUrl(round withTour trs.tour, withTour = false) else apply(round)
       )
+      .add("leaderboard" -> leaderboard)
 
   def apply(round: RelayRound): JsObject = Json.toJsObject(round)
 
@@ -93,7 +100,7 @@ final class JsonView(
     JsonView.JsData(
       relay = apply(trs)
         .add("sync" -> (canContribute so trs.rounds.find(_.id == currentRoundId).map(_.sync)))
-        .add("leaderboard" -> leaderboard.map(_.players))
+        .add("leaderboard" -> leaderboard)
         .add("isSubscribed" -> isSubscribed),
       study = studyData.study,
       analysis = studyData.analysis
