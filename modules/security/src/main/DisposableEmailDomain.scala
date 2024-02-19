@@ -8,7 +8,7 @@ import lila.common.Domain
 final class DisposableEmailDomain(
     ws: StandaloneWSClient,
     providerUrl: String,
-    checkMailBlocked: () => Fu[List[String]]
+    verifyMailBlocked: () => Fu[List[String]]
 )(using Executor):
 
   import DisposableEmailDomain.*
@@ -23,7 +23,7 @@ final class DisposableEmailDomain(
         logger.warn("DisposableEmailDomain.refresh", e)
         Iterator.empty
       }
-      checked <- checkMailBlocked()
+      checked <- verifyMailBlocked()
     do
       val regexStr  = s"${toRegexStr(blacklist)}|${toRegexStr(checked.iterator)}"
       val nbDomains = regexStr.count('|' ==)

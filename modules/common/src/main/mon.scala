@@ -298,9 +298,9 @@ object mon:
     def concurrencyLimit(key: String) = counter("security.concurrencyLimit.count").withTag("key", key)
     object dnsApi:
       val mx = future("security.dnsApi.mx.time")
-    object checkMailApi:
+    object verifyMailApi:
       def fetch(success: Boolean, block: Boolean) =
-        timer("checkMail.fetch").withTags(tags("success" -> successTag(success), "block" -> block))
+        timer("verifyMail.fetch").withTags(tags("success" -> successTag(success), "block" -> block))
     def usersAlikeTime(field: String)  = timer("security.usersAlike.time").withTag("field", field)
     def usersAlikeFound(field: String) = histogram("security.usersAlike.found").withTag("field", field)
     object hCaptcha:
