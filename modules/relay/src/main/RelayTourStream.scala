@@ -11,8 +11,7 @@ import lila.common.config.Max
 import lila.relay.RelayRound.WithTour
 
 final class RelayTourStream(
-    roundRepo: RelayRoundRepo,
-    tourRepo: RelayTourRepo,
+    colls: RelayColls,
     jsonView: JsonView,
     leaderboard: RelayLeaderboardApi
 )(using Executor, akka.stream.Materializer):
@@ -22,38 +21,31 @@ final class RelayTourStream(
 
   def officialTourStream(perSecond: MaxPerSecond, nb: Max, withLeaderboards: Boolean): Source[JsObject, ?] =
 
-    val lookup = $lookup.pipeline(
-      from = roundRepo.coll,
+    val roundLookup = $lookup.pipeline(
+      from = colls.round,
       as = "rounds",
       local = "_id",
       foreign = "tourId",
-      pipe = List($doc("$sort" -> roundRepo.sort.start))
+      pipe = List($doc("$sort" -> RelayRoundRepo.sort.start))
     )
-    val activeStream = tourRepo.coll
-    // val groupLookup = $lookup.pipeline(
-    //   from = colls.group,
-    //   as = "rounds",
-    //   local = "_id",
-    //   foreign = "tourId",
-    //   pipe = List($doc("$sort" -> roundRepo.sort.start))
-    // )
 
+    val activeStream = colls.tour
       .aggregateWith[Bdoc](readPreference = ReadPref.sec): framework =>
         import framework.*
         List(
-          Match(tourRepo.selectors.officialActive),
+          Match(RelayTourRepo.selectors.officialActive),
           Sort(Descending("tier")),
-          PipelineOperator(lookup)
+          PipelineOperator(roundLookup)
         )
       .documentSource(nb.value)
 
-    val inactiveStream = tourRepo.coll
+    val inactiveStream = colls.tour
       .aggregateWith[Bdoc](readPreference = ReadPref.sec): framework =>
         import framework.*
         List(
-          Match(tourRepo.selectors.officialInactive),
+          Match(RelayTourRepo.selectors.officialInactive),
           Sort(Descending("syncedAt")),
-          PipelineOperator(lookup)
+          PipelineOperator(roundLookup)
         )
       .documentSource(nb.value)
 
