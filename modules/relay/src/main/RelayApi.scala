@@ -268,7 +268,7 @@ final class RelayApi(
 
   def cloneTour(from: RelayTour)(using me: Me): Fu[RelayTour] =
     val tour = from.copy(
-      _id = RelayTour.makeId,
+      id = RelayTour.makeId,
       name = s"${from.name} (clone)",
       ownerId = me.userId,
       createdAt = nowInstant,
