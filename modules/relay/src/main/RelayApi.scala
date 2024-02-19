@@ -284,7 +284,7 @@ final class RelayApi(
 
   private def cloneWithStudy(from: RelayRound, to: RelayTour)(using me: Me): Fu[RelayRound] =
     val round = from.copy(
-      _id = RelayRound.makeId,
+      id = RelayRound.makeId,
       tourId = to.id
     )
     for
