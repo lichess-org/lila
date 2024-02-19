@@ -4,7 +4,7 @@ import * as miniGame from './miniGame';
 import * as timeago from './timeago';
 import * as xhr from 'common/xhr';
 import announce from './announce';
-import exportLichessGlobals from './site';
+import exportSiteGlobals from './site';
 import OnlineFriends from './friends';
 import powertip from './powertip';
 import pubsub from './pubsub';
@@ -21,7 +21,7 @@ import { dispatchChessgroundResize } from 'common/resize';
 
 window.$as = <T>(cashOrHtml: Cash | string) =>
   (typeof cashOrHtml === 'string' ? $(cashOrHtml) : cashOrHtml)[0] as T;
-exportLichessGlobals();
+exportSiteGlobals();
 site.info = info;
 
 site.load.then(() => {
