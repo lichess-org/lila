@@ -96,6 +96,7 @@ final class RelayApi(
 
   def tourById(id: RelayTour.Id) = tourRepo.coll.byId[RelayTour](id)
 
+  // #TODO cache?
   def withTours(tour: RelayTour): Fu[RelayTour.WithGroupTours] = for
     group <- groupRepo.byTour(tour.id)
     tours <- tourRepo.idNames(group.so(_.tours))

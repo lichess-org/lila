@@ -6,7 +6,12 @@ import lila.db.dsl.*
 import lila.relay.RelayTour.WithLastRound
 import lila.memo.CacheApi
 
-final class RelayPager(tourRepo: RelayTourRepo, roundRepo: RelayRoundRepo, cacheApi: CacheApi)(using
+final class RelayPager(
+    tourRepo: RelayTourRepo,
+    roundRepo: RelayRoundRepo,
+    colls: RelayColls,
+    cacheApi: CacheApi
+)(using
     Executor
 ):
 
@@ -106,6 +111,8 @@ final class RelayPager(tourRepo: RelayTourRepo, roundRepo: RelayRoundRepo, cache
     aggregateRound(framework) ::: List(framework.UnwindField("round"))
 
   private def aggregateRound(framework: tourRepo.coll.AggregationFramework.type) = List(
+    framework.PipelineOperator(RelayListing.groupLookup(colls.group)),
+    framework.Match(RelayListing.groupFilter),
     framework.PipelineOperator(
       $lookup.pipeline(
         from = roundRepo.coll,
