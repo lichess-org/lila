@@ -21,12 +21,14 @@ body > header {
     padding: 0 var(--site-header-sticky-padding);
     transition: transform 0.3s ease-in-out;
 
-    @if $theme == 'transp' {
-      @include back-blur(6px);
-      background: hsla(0, 0, 60%, 0.14);
-    } @else {
-      background: $c-bg-page;
-      border-bottom: $border;
+    &.middle-of-page {
+      @if $theme == 'transp' {
+        @include back-blur(6px);
+        background: hsla(0, 0, 60%, 0.14);
+      } @else {
+        background: $c-bg-page;
+        border-bottom: $border;
+      }
     }
 
     .dropdown {

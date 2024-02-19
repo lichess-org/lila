@@ -180,14 +180,21 @@ export default function () {
     let lastScrollY = 0;
     const header = document.getElementById('top')!;
 
+    if (window.scrollY > 0) header.classList.add('middle-of-page');
+
     window.addEventListener(
       'scroll',
       () => {
         const y = window.scrollY;
-        if (y > lastScrollY + 10) header.classList.add('hide');
-        else if (y <= Math.max(lastScrollY - 20, 0) && y < document.body.scrollHeight - window.innerHeight)
+        if (y > lastScrollY + 10) {
+          header.classList.add('hide', 'middle-of-page');
+        } else if (
+          y <= Math.max(lastScrollY - 20, 0) &&
+          y < document.body.scrollHeight - window.innerHeight
+        ) {
           header.classList.remove('hide');
-        else return;
+          if (y == 0) header.classList.remove('middle-of-page');
+        } else return;
 
         lastScrollY = Math.max(0, y);
       },
