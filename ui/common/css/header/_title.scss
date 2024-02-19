@@ -8,10 +8,6 @@
   text-shadow: $text-shadow;
   color: $c-font;
 
-  @media (max-width: at-most($x-small)) {
-    display: none;
-  }
-
   @media (max-width: at-most($show-topnav)) {
     margin-#{$start-direction}: calc(0.5rem + $site-header-height);
   }
@@ -31,9 +27,16 @@
   .site-name {
     display: none;
   }
+
   .site-icon {
-    font-size: larger;
-    display: block;
+    font-size: 36px;
+    display: none;
+  }
+
+  @media (min-width: at-least($xx-small)) {
+    .site-icon {
+      display: block;
+    }
   }
 
   @media (min-width: at-least($show-hostname)) {

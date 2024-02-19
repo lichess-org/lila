@@ -77,8 +77,8 @@ body > header {
     text-transform: uppercase;
     line-height: $site-header-height;
 
-    @media (max-width: at-most($x-small)) {
-      margin-#{$start-direction}: calc($site-header-height + 4px);
+    @media (max-width: at-most($xx-small)) {
+      display: none;
     }
   }
 }
