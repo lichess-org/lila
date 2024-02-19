@@ -4,6 +4,8 @@ import lila.db.dsl.{ *, given }
 
 final private class RelayTourRepo(val coll: Coll)(using Executor):
 
+  import RelayTourRepo.*
+
   def setSyncedNow(tour: RelayTour): Funit =
     coll.updateField($id(tour.id), "syncedAt", nowInstant).void
 
@@ -38,7 +40,8 @@ final private class RelayTourRepo(val coll: Coll)(using Executor):
   def delete(tour: RelayTour): Funit =
     coll.delete.one($id(tour.id)).void
 
-  private[relay] object selectors:
+private object RelayTourRepo:
+  object selectors:
     val official                = $doc("tier" $exists true)
     val active                  = $doc("active" -> true)
     val inactive                = $doc("active" -> false)

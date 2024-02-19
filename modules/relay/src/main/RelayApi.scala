@@ -73,7 +73,7 @@ final class RelayApi(
   def withRounds(tour: RelayTour) = roundRepo.byTourOrdered(tour).dmap(tour.withRounds)
 
   def denormalizeTourActive(tourId: RelayTour.Id): Funit =
-    roundRepo.coll.exists(roundRepo.selectors.tour(tourId) ++ $doc("finished" -> false)) flatMap {
+    roundRepo.coll.exists(RelayRoundRepo.selectors.tour(tourId) ++ $doc("finished" -> false)) flatMap {
       tourRepo.setActive(tourId, _)
     }
 
@@ -257,10 +257,10 @@ final class RelayApi(
 
   def canUpdate(tour: RelayTour)(using me: Me): Fu[Boolean] =
     fuccess(Granter(_.StudyAdmin) || me.is(tour.ownerId)) >>|
-      roundRepo.coll.distinctEasy[StudyId, List]("_id", roundRepo.selectors tour tour.id).flatMap { ids =>
-        studyRepo.membersByIds(ids) map {
-          _.exists(_ contributorIds me)
-        }
+      roundRepo.coll.distinctEasy[StudyId, List]("_id", RelayRoundRepo.selectors tour tour.id).flatMap {
+        ids =>
+          studyRepo.membersByIds(ids) map:
+            _.exists(_ contributorIds me)
       }
 
   def cloneTour(from: RelayTour)(using me: Me): Fu[RelayTour] =

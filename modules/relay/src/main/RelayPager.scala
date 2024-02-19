@@ -21,7 +21,7 @@ final class RelayPager(tourRepo: RelayTourRepo, roundRepo: RelayRoundRepo, cache
         tourRepo.coll
           .aggregateList(length, _.sec): framework =>
             import framework.*
-            Match(tourRepo.selectors.ownerId(owner.id)) -> {
+            Match(RelayTourRepo.selectors.ownerId(owner.id)) -> {
               List(Sort(Descending("createdAt"))) ::: aggregateRound(framework) ::: List(
                 Skip(offset),
                 Limit(length)
@@ -40,7 +40,7 @@ final class RelayPager(tourRepo: RelayTourRepo, roundRepo: RelayRoundRepo, cache
         tourRepo.coll
           .aggregateList(length, _.sec): framework =>
             import framework.*
-            Match(tourRepo.selectors.subscriberId(userId)) -> {
+            Match(RelayTourRepo.selectors.subscriberId(userId)) -> {
               List(Sort(Descending("createdAt"))) ::: aggregateRoundAndUnwind(framework) ::: List(
                 Skip(offset),
                 Limit(length)
@@ -58,7 +58,7 @@ final class RelayPager(tourRepo: RelayTourRepo, roundRepo: RelayRoundRepo, cache
       tourRepo.coll
         .aggregateList(length, _.sec): framework =>
           import framework.*
-          Match(tourRepo.selectors.officialInactive) -> {
+          Match(RelayTourRepo.selectors.officialInactive) -> {
             List(Sort(Descending("syncedAt"))) ::: aggregateRoundAndUnwind(framework) ::: List(
               Skip(offset),
               Limit(length)
@@ -113,7 +113,7 @@ final class RelayPager(tourRepo: RelayTourRepo, roundRepo: RelayRoundRepo, cache
         local = "_id",
         foreign = "tourId",
         pipe = List(
-          $doc("$sort"      -> roundRepo.sort.start),
+          $doc("$sort"      -> RelayRoundRepo.sort.start),
           $doc("$limit"     -> 1),
           $doc("$addFields" -> $doc("sync.log" -> $arr()))
         )

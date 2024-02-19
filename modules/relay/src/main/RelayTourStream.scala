@@ -30,6 +30,14 @@ final class RelayTourStream(
       pipe = List($doc("$sort" -> roundRepo.sort.start))
     )
     val activeStream = tourRepo.coll
+    // val groupLookup = $lookup.pipeline(
+    //   from = colls.group,
+    //   as = "rounds",
+    //   local = "_id",
+    //   foreign = "tourId",
+    //   pipe = List($doc("$sort" -> roundRepo.sort.start))
+    // )
+
       .aggregateWith[Bdoc](readPreference = ReadPref.sec): framework =>
         import framework.*
         List(

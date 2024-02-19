@@ -6,8 +6,7 @@ import lila.relay.RelayTour.ActiveWithSomeRounds
 import lila.db.dsl.{ *, given }
 
 final class RelayListing(
-    roundRepo: RelayRoundRepo,
-    tourRepo: RelayTourRepo,
+    colls: RelayColls,
     cacheApi: lila.memo.CacheApi
 )(using Executor):
 
@@ -22,21 +21,21 @@ final class RelayListing(
       for
         upcoming <- upcoming.get({})
         max = 100
-        docs <- tourRepo.coll
+        docs <- colls.tour
           .aggregateList(max): framework =>
             import framework.*
-            Match(tourRepo.selectors.officialActive ++ $doc("_id" $nin upcoming.map(_.tour.id))) -> List(
+            Match(RelayTourRepo.selectors.officialActive ++ $doc("_id" $nin upcoming.map(_.tour.id))) -> List(
               Sort(Descending("tier")),
               PipelineOperator:
                 $lookup.pipeline(
-                  from = roundRepo.coll,
+                  from = colls.round,
                   as = "round",
                   local = "_id",
                   foreign = "tourId",
                   pipe = List(
                     $doc("$match"     -> $doc("finished" -> false)),
                     $doc("$addFields" -> $doc("sync.log" -> $arr())),
-                    $doc("$sort"      -> roundRepo.sort.chrono),
+                    $doc("$sort"      -> RelayRoundRepo.sort.chrono),
                     $doc("$limit"     -> 1)
                   )
                 )
@@ -71,14 +70,14 @@ final class RelayListing(
   val upcoming = cacheApi.unit[List[RelayTour.WithLastRound]]:
     _.refreshAfterWrite(14 seconds).buildAsyncFuture: _ =>
       val max = 64
-      tourRepo.coll
+      colls.tour
         .aggregateList(max): framework =>
           import framework.*
-          Match(tourRepo.selectors.officialActive) -> List(
+          Match(RelayTourRepo.selectors.officialActive) -> List(
             Sort(Descending("tier")),
             PipelineOperator:
               $lookup.pipeline(
-                from = roundRepo.coll,
+                from = colls.round,
                 as = "round",
                 local = "_id",
                 foreign = "tourId",
@@ -108,17 +107,17 @@ final class RelayListing(
   val defaultRoundToShow = cacheApi[RelayTour.Id, Option[RelayRound]](32, "relay.lastAndNextRounds"):
     _.expireAfterWrite(5 seconds).buildAsyncFuture: tourId =>
       val chronoSort = $doc("startsAt" -> 1, "createdAt" -> 1)
-      val lastStarted = roundRepo.coll
+      val lastStarted = colls.round
         .find($doc("tourId" -> tourId, "startedAt" $exists true))
         .sort($doc("startedAt" -> -1))
         .one[RelayRound]
-      val next = roundRepo.coll
+      val next = colls.round
         .find($doc("tourId" -> tourId, "finished" -> false))
         .sort(chronoSort)
         .one[RelayRound]
       lastStarted zip next flatMap {
         case (None, _) => // no round started yet, show the first one
-          roundRepo.coll
+          colls.round
             .find($doc("tourId" -> tourId))
             .sort(chronoSort)
             .one[RelayRound]
