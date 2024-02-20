@@ -26,8 +26,7 @@ object Dependencies {
   val galimatias  = "io.mola.galimatias"            % "galimatias"                      % "0.2.2-NF"
   val scalatags   = "com.lihaoyi"                  %% "scalatags"                       % "0.12.0"
   val lettuce     = "io.lettuce"                    % "lettuce-core"                    % "6.3.1.RELEASE"
-  val nettyTransport =
-    "io.netty" % s"netty-transport-native-$notifier" % "4.1.106.Final" classifier s"$os-$arch"
+  val nettyTransport = "io.netty" % s"netty-transport-native-$notifier" % "4.1.107.Final" classifier s"$os-$arch"
   val munit       = "org.scalameta"              %% "munit"         % "1.0.0-M11" % Test
   val uaparser    = "org.uaparser"               %% "uap-scala"     % "0.16.0"
   val apacheText  = "org.apache.commons"          % "commons-text"  % "1.11.0"
