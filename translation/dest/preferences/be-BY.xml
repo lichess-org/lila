@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="preferences">Налады</string>
-  <string name="display">Выгляд</string>
+  <string name="display">Адлюстраванне</string>
   <string name="privacy">Прыватнасць</string>
   <string name="notifications">Апавяшчэнні</string>
   <string name="pieceAnimation">Анімацыя фігур</string>
@@ -9,15 +9,17 @@
   <string name="boardHighlights">Падсвечваць апошні ход і шах</string>
   <string name="pieceDestinations">Паказваць дапушчальныя хады</string>
   <string name="boardCoordinates">Каардынаты дошкі</string>
-  <string name="moveListWhilePlaying">Паказваць спіс хадоў</string>
-  <string name="pgnPieceNotation">Пазнака фігуры ў натацыі</string>
-  <string name="chessPieceSymbol">Знак шахматнай фігуры</string>
+  <string name="moveListWhilePlaying">Паказваць спіс рухаў пад час гульні</string>
+  <string name="pgnPieceNotation">Натацыя рухаў</string>
+  <string name="chessPieceSymbol">Сымбаль шахматнай фігуры</string>
   <string name="pgnLetter">Літара (K, Q, R, B, N)</string>
   <string name="zenMode" comment="zenMode&#10;&#10;This is not the religious meaning. Turning this option on takes away make elements of the user interface.&#10;&#10;Can also translate as 'Focus mode' as one example.">Рэжым Дзэн</string>
   <string name="showPlayerRatings">Паказваць рэйтынг гульцоў</string>
+  <string name="showFlairs">Паказваць эмодзі гульцоў</string>
   <string name="explainShowPlayerRatings">Гэта дазваляе схаваць усе рэйтынгі на сайце, каб дапамагчы сканцэнтравацца на шахматах. Гульні ўсё яшчэ могуць быць рэйтынгавымі, змены адбудуцца толькі візуальныя.</string>
   <string name="displayBoardResizeHandle">Паказваць ручку змены памеру дошкі</string>
   <string name="onlyOnInitialPosition">Толькі ў пачатковым становішчы</string>
+  <string name="inGameOnly">Выключна ў партыі</string>
   <string name="chessClock">Шахматны гадзіннік</string>
   <string name="tenthsOfSeconds">Дзясятыя долі секунды</string>
   <string name="whenTimeRemainingLessThanTenSeconds" comment="whenTimeRemainingLessThanTenSeconds&#10;&#10;The &amp;lt; symbol is not required (you can write it as a word), just do NOT use &lt; in its place.&#10;&#10;Technical information: &lt; is a reserved character in HTML, which is why it cannot be used.">Калі засталося менш за 10 с</string>
