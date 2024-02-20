@@ -20,31 +20,31 @@ export function makeCtrl(opts: {
     if (pushTalk()) {
       enabled(false);
       pushTalk(false);
-    } else enabled(!enabled()) ? lichess.mic.start() : lichess.mic.stop();
-    if (opts.tpe === 'move' && lichess.once('voice.rtfm')) showHelp(true);
+    } else enabled(!enabled()) ? site.mic.start() : site.mic.stop();
+    if (opts.tpe === 'move' && site.once('voice.rtfm')) showHelp(true);
   }
 
   function micId(deviceId?: string) {
-    if (deviceId) lichess.mic.setMic(deviceId);
-    return lichess.mic.micId;
+    if (deviceId) site.mic.setMic(deviceId);
+    return site.mic.micId;
   }
 
   const enabled = prop.storedBooleanProp('voice.on', false);
 
   const pushTalk = prop.storedBooleanPropWithEffect('voice.pushTalk', false, val => {
-    lichess.mic.stop();
+    site.mic.stop();
     enabled(val);
-    if (enabled()) lichess.mic.start(!val);
+    if (enabled()) site.mic.start(!val);
   });
 
   const lang = prop.storedStringPropWithEffect('voice.lang', 'en', code => {
-    if (code === lichess.mic.lang) return;
-    lichess.mic.setLang(code);
+    if (code === site.mic.lang) return;
+    site.mic.setLang(code);
     opts
       .module?.()
       .initGrammar()
       .then(() => {
-        if (enabled()) lichess.mic.start(!pushTalk());
+        if (enabled()) site.mic.start(!pushTalk());
       });
   });
   const showHelp = propWithEffect<boolean | 'list'>(false, opts.redraw);
@@ -52,18 +52,18 @@ export function makeCtrl(opts: {
   let keyupTimeout: number;
   document.addEventListener('keydown', (e: KeyboardEvent) => {
     if (e.key !== 'Shift' || !pushTalk()) return;
-    lichess.mic.start();
+    site.mic.start();
     clearTimeout(keyupTimeout);
   });
   document.addEventListener('keyup', (e: KeyboardEvent) => {
     if (e.key !== 'Shift' || !pushTalk()) return;
     clearTimeout(keyupTimeout);
-    keyupTimeout = setTimeout(() => lichess.mic.stop(), 600);
+    keyupTimeout = setTimeout(() => site.mic.stop(), 600);
   });
 
-  lichess.mic.setLang(lang());
-  if (pushTalk()) lichess.mic.start(false);
-  else if (enabled()) lichess.mic.start(true);
+  site.mic.setLang(lang());
+  if (pushTalk()) site.mic.start(false);
+  else if (enabled()) site.mic.start(true);
 
   return {
     lang,

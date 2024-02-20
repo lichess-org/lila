@@ -144,7 +144,7 @@ object RelayRoundForm:
 
     def make(user: User, tour: RelayTour) =
       RelayRound(
-        _id = RelayRound.makeId,
+        id = RelayRound.makeId,
         tourId = tour.id,
         name = name,
         caption = caption,

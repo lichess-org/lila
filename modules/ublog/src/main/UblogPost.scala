@@ -32,7 +32,7 @@ case class UblogPost(
   def allText   = s"$title $intro $markdown"
 
   def allows                    = UblogBlog.Allows(created.by)
-  def canView(using Option[Me]) = live || allows.edit
+  def canView(using Option[Me]) = live || allows.draft
 
 case class UblogImage(id: PicfitImage.Id, alt: Option[String] = None, credit: Option[String] = None)
 

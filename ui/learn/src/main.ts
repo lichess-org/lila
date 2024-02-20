@@ -44,7 +44,7 @@ export function initModule({ data, i18n }: LearnServerOpts) {
 
   m.route.mode = 'hash';
 
-  const trans = lichess.trans(opts.i18n);
+  const trans = site.trans(opts.i18n);
   const side = mapSide(opts, trans);
   const sideCtrl = side.controller();
 

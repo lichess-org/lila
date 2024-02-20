@@ -83,7 +83,7 @@ export default class MsgCtrl {
   };
 
   private onLoadConvo = (convo: Convo) => {
-    this.textStore = lichess.storage.make(`msg:area:${convo.user.id}`);
+    this.textStore = site.storage.make(`msg:area:${convo.user.id}`);
     this.onLoadMsgs(convo.msgs);
     if (this.typing) {
       clearTimeout(this.typing.timeout);
@@ -169,7 +169,7 @@ export default class MsgCtrl {
   setRead = () => {
     const msg = this.currentContact()?.lastMsg;
     if (msg && msg.user != this.data.me.id) {
-      lichess.pubsub.emit('notify-app.set-read', msg.user);
+      site.pubsub.emit('notify-app.set-read', msg.user);
       if (msg.read) return false;
       msg.read = true;
       network.setRead(msg.user);

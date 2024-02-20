@@ -8,6 +8,7 @@
   </plurals>
   <string name="liveBroadcasts">Transmissões ao vivo do torneio</string>
   <string name="newBroadcast">Nova transmissão ao vivo</string>
+  <string name="subscribedBroadcasts">Transmissões em que você se inscreveu</string>
   <string name="aboutBroadcasts">Sobre as transmissões</string>
   <string name="noRoundsYet">Sem rodadas ainda.</string>
   <string name="howToUseLichessBroadcasts">Como usar as transmissões do Lichess.</string>
@@ -40,8 +41,8 @@
   <string name="editRoundStudy">Editar estudo da rodada</string>
   <string name="deleteTournament">Excluir este torneio</string>
   <string name="definitivelyDeleteTournament">Excluir permanentemente todo o torneio, incluindo todas as rodadas e jogos.</string>
-  <string name="automaticLeaderboard" comment="An option when creating a broadcast to calculate a leaderboard automatically from the players involved. Example: https://lichess.org/broadcast/2023-london-chess-classic/round-9/5icayRCY">Placar automático</string>
-  <string name="automaticLeaderboardHelp" comment="An option when creating a broadcast to calculate a leaderboard automatically from the players involved. Example: https://lichess.org/broadcast/2023-london-chess-classic/round-9/5icayRCY">Calcula e exibe um placar simples baseado nos resultados dos jogos</string>
+  <string name="automaticLeaderboard">Placar automático</string>
+  <string name="automaticLeaderboardHelp">Calcula e exibe um placar simples baseado nos resultados dos jogos</string>
   <string name="replace">Opcional: nomes de jogador, classificações e títulos alternativos</string>
   <string name="replaceHelp">Uma linha por jogador, no seguinte formato:
 Nome original; Nome alternativo; Classificação alternativa opcional; Título alternativo opcional

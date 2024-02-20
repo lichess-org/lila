@@ -16,7 +16,7 @@ object tourForm:
     layout(newBroadcast.txt(), menu = "new".some)(
       boxTop(h1(dataIcon := licon.RadioTower, cls := "text")(newBroadcast())),
       postForm(cls := "form3", action := routes.RelayTour.create)(
-        inner(form),
+        inner(form, none),
         form3.actions(
           a(href := routes.RelayTour.index(1))(trans.cancel()),
           form3.submit(trans.apply())
@@ -24,27 +24,28 @@ object tourForm:
       )
     )
 
-  def edit(t: RelayTour, form: Form[Data])(using PageContext) =
-    layout(t.name, menu = none)(
+  def edit(tg: RelayTour.WithGroupTours, form: Form[Data])(using PageContext) =
+    import tg.*
+    layout(tour.name.value, menu = none)(
       boxTop:
         h1(dataIcon := licon.Pencil, cls := "text"):
-          a(href := routes.RelayTour.show(t.slug, t.id))(t.name)
+          a(href := routes.RelayTour.show(tour.slug, tour.id))(tour.name)
       ,
-      image(t),
-      postForm(cls := "form3", action := routes.RelayTour.update(t.id))(
-        inner(form),
+      image(tour),
+      postForm(cls := "form3", action := routes.RelayTour.update(tour.id))(
+        inner(form, tg.some),
         form3.actions(
-          a(href := routes.RelayTour.show(t.slug, t.id))(trans.cancel()),
+          a(href := routes.RelayTour.show(tour.slug, tour.id))(trans.cancel()),
           form3.submit(trans.apply())
         )
       ),
       div(cls := "relay-form__actions")(
-        postForm(action := routes.RelayTour.delete(t.id))(
+        postForm(action := routes.RelayTour.delete(tour.id))(
           submitButton(
             cls := "button button-red button-empty confirm"
           )(strong(deleteTournament()), em(definitivelyDeleteTournament()))
         ),
-        isGranted(_.Relay) option postForm(action := routes.RelayTour.cloneTour(t.id))(
+        isGranted(_.Relay) option postForm(action := routes.RelayTour.cloneTour(tour.id))(
           submitButton(
             cls := "button button-green button-empty confirm"
           )(strong("Clone as broadcast admin"), em("Clone this broadcast, its rounds, and their studies"))
@@ -83,7 +84,7 @@ object tourForm:
       case None => main(cls := "page-small box box-pad")(body)
     )
 
-  private def inner(form: Form[Data])(using Context) = frag(
+  private def inner(form: Form[Data], tg: Option[RelayTour.WithGroupTours])(using Context) = frag(
     div(cls := "form-group")(bits.howToUse),
     form3.globalError(form),
     form3.split(
@@ -111,18 +112,38 @@ object tourForm:
       form3.checkbox(
         form("autoLeaderboard"),
         automaticLeaderboard(),
-        help = automaticLeaderboardHelp().some,
-        half = true
+        help = automaticLeaderboardHelp().some
       ),
+      form3.checkbox(
+        form("teamTable"),
+        "Team tournament",
+        help = frag("Show a team leaderboard. Requires WhiteTeam and BlackTeam PGN tags.").some
+      )
+    ),
+    form3.split(
       form3.group(
         form("players"),
         replace(),
         help = replaceHelp().some,
         half = true
+      )(form3.textarea(_)(rows := 3)),
+      form3.group(
+        form("teams"),
+        "Optional: assign players to teams",
+        help = lila.common.String.html
+          .nl2br("""One line per player, formatted as such:
+Team name; Player name
+Example:
+Offerspill;Magnus Carlsen
+Stavanger;M. Fiskaaen
+By default the PGN tags WhiteTeam and BlackTeam are used.""")
+          .some,
+        half = true
       )(form3.textarea(_)(rows := 3))
     ),
     if isGranted(_.Relay) then
       frag(
+        tg.isDefined option grouping(form),
         form3.split(
           form3.group(
             form("tier"),
@@ -149,3 +170,24 @@ object tourForm:
       )
     else form3.hidden(form("tier"))
   )
+
+  def grouping(form: Form[Data])(using Context) =
+    form3.split(cls := "relay-form__grouping")(
+      form3.group(
+        form("grouping"),
+        "Optional: assign tournaments to a group (admins only)",
+        half = true
+      )(form3.textarea(_)(rows := 3)),
+      div(cls := "form-group form-half form-help"):
+        lila.common.String.html
+          .nl2br(
+            """First line is the group name.
+Subsequent lines are the tournament IDs and names in the group. Names are facultative and only used for display purposes in this textarea.
+You can add, remove, and re-order tournaments; and you can rename the group.
+Example:
+Youth Championship 2024
+tour1-id Youth Championship 2024 | G20
+tour2-id Youth Championship 2024 | G16
+"""
+          )
+    )

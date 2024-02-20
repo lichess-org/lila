@@ -27,7 +27,7 @@ export function render(ctrl: AnalyseCtrl): VNode {
     () => {
       study.commentForm.start(study.vm.chapterId, ctrl.path, ctrl.node);
       study.vm.toolTab('comments');
-      lichess.requestIdleCallback(
+      site.requestIdleCallback(
         () =>
           $('#comment-text').each(function (this: HTMLTextAreaElement) {
             this.focus();
@@ -95,7 +95,7 @@ export function render(ctrl: AnalyseCtrl): VNode {
 
   return h(
     'div.gamebook-edit',
-    { hook: { insert: () => lichess.asset.loadCssPath('analyse.gamebook.edit') } },
+    { hook: { insert: () => site.asset.loadCssPath('analyse.gamebook.edit') } },
     content,
   );
 }

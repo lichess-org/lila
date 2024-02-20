@@ -14,7 +14,7 @@ trait AssetHelper extends HasEnv:
   private lazy val netDomain      = env.net.domain
   private lazy val assetDomain    = env.net.assetDomain
   private lazy val assetBaseUrl   = env.net.assetBaseUrl
-  private lazy val socketDomains  = env.net.socketDomains
+  private lazy val socketDomains  = env.net.socketDomains ::: env.net.socketAlts
   private lazy val minifiedAssets = env.net.minifiedAssets
   lazy val vapidPublicKey         = env.push.vapidPublicKey
 
@@ -63,20 +63,22 @@ if (window.matchMedia('(prefers-color-scheme: dark)').media === 'not all')
   // load iife scripts in <head> and defer
   def iifeModule(path: String): Frag = script(deferAttr, src := assetUrl(path))
 
+  private val loadEsmFunction = "site.asset.loadEsm"
+
   // jsModule is esm, no defer needed
   def jsModule(name: String): Frag =
     script(tpe := "module", src := assetUrl(s"compiled/$name${minifiedAssets so ".min"}.js"))
   def jsModuleInit(name: String)(using PageContext) =
-    frag(jsModule(name), embedJsUnsafeLoadThen(s"lichess.asset.loadEsm('$name')"))
+    frag(jsModule(name), embedJsUnsafeLoadThen(s"$loadEsmFunction('$name')"))
   def jsModuleInit(name: String, text: String)(using PageContext) =
-    frag(jsModule(name), embedJsUnsafeLoadThen(s"lichess.asset.loadEsm('$name',{init:$text})"))
+    frag(jsModule(name), embedJsUnsafeLoadThen(s"$loadEsmFunction('$name',{init:$text})"))
   def jsModuleInit(name: String, json: JsValue)(using PageContext): Frag =
     jsModuleInit(name, safeJsonValue(json))
   def jsModuleInit(name: String, text: String, nonce: lila.api.Nonce) =
-    frag(jsModule(name), embedJsUnsafeLoadThen(s"lichess.asset.loadEsm('$name',{init:$text})", nonce))
+    frag(jsModule(name), embedJsUnsafeLoadThen(s"$loadEsmFunction('$name',{init:$text})", nonce))
   def jsModuleInit(name: String, json: JsValue, nonce: lila.api.Nonce) = frag(
     jsModule(name),
-    embedJsUnsafeLoadThen(s"lichess.asset.loadEsm('$name',{init:${safeJsonValue(json)}})", nonce)
+    embedJsUnsafeLoadThen(s"$loadEsmFunction('$name',{init:${safeJsonValue(json)}})", nonce)
   )
   def analyseInit(mode: String, json: JsValue)(using ctx: PageContext) =
     jsModuleInit("analysisBoard", Json.obj("mode" -> mode, "cfg" -> json))
@@ -97,7 +99,7 @@ if (window.matchMedia('(prefers-color-scheme: dark)').media === 'not all')
     ContentSecurityPolicy(
       defaultSrc = List("'self'", assetDomain.value),
       connectSrc =
-        "'self'" :: "blob:" :: "data:" :: assetDomain.value :: sockets ::: "wss://cf-socket.lichess.org" :: env.explorerEndpoint :: env.tablebaseEndpoint :: localDev,
+        "'self'" :: "blob:" :: "data:" :: assetDomain.value :: sockets ::: env.explorerEndpoint :: env.tablebaseEndpoint :: localDev,
       styleSrc = List("'self'", "'unsafe-inline'", assetDomain.value),
       frameSrc = List("'self'", assetDomain.value, "www.youtube.com", "player.twitch.tv"),
       workerSrc = List("'self'", assetDomain.value, "blob:"),
@@ -121,8 +123,10 @@ if (window.matchMedia('(prefers-color-scheme: dark)').media === 'not all')
   def embedJsUnsafe(js: String, nonce: lila.api.Nonce): Frag = raw:
     s"""<script nonce="$nonce">$js</script>"""
 
+  private val onLoadFunction = "site.load.then"
+
   def embedJsUnsafeLoadThen(js: String)(using PageContext): Frag =
-    embedJsUnsafe(s"""lichess.load.then(()=>{$js})""")
+    embedJsUnsafe(s"""$onLoadFunction(()=>{$js})""")
 
   def embedJsUnsafeLoadThen(js: String, nonce: lila.api.Nonce): Frag =
-    embedJsUnsafe(s"""lichess.load.then(()=>{$js})""", nonce)
+    embedJsUnsafe(s"""$onLoadFunction(()=>{$js})""", nonce)

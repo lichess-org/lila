@@ -34,7 +34,7 @@
   <string name="shareUrl">Уртаклаш бу URL кешеләрнең керүенә: %s</string>
   <string name="variant">Вариант</string>
   <string name="history">Мәйдан тарихы</string>
-  <plurals name="viewAllXTeams" comment="viewAllXTeams [one] [other]&#10;&#10;%s is the number of teams that can be viewed">
+  <plurals name="viewAllXTeams" comment="%s is the number of teams that can be viewed.&#10;&#10;Appears in team battles that feature lots of teams. As of the time of writing, Lichess lists up to 10 teams at a time, so this button lets you view all teams.">
     <item quantity="other">Карарга барлык %s төркемләрне</item>
   </plurals>
 </resources>

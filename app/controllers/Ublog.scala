@@ -79,9 +79,7 @@ final class Ublog(env: Env) extends LilaController(env):
       }
   private def WithBlogOf[U: UserIdOf](
       u: U
-  )(f: (UserModel, UblogBlog) => Fu[Result])(using
-      ctx: Context
-  ): Fu[Result] =
+  )(f: (UserModel, UblogBlog) => Fu[Result])(using Context): Fu[Result] =
     Found(env.user.repo.byId(u)): user =>
       env.ublog.api.getUserBlog(user) flatMap: blog =>
         f(user, blog)

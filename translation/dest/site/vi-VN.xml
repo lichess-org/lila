@@ -130,7 +130,7 @@
     <item quantity="other">%s sai lầm nghiêm trọng</item>
   </plurals>
   <plurals name="nbMistakes">
-    <item quantity="other">%s nước đi sai</item>
+    <item quantity="other">%s sai lầm</item>
   </plurals>
   <plurals name="nbInaccuracies">
     <item quantity="other">%s nước đi không chính xác</item>
@@ -166,7 +166,7 @@
   <string name="games">Số ván cờ</string>
   <string name="forum">Diễn đàn</string>
   <string name="xPostedInForumY">%1$s đã viết trong diễn đàn %2$s</string>
-  <string name="latestForumPosts">Bài đăng mới nhất</string>
+  <string name="latestForumPosts">Bài đăng diễn đàn mới nhất</string>
   <string name="players">Kỳ thủ</string>
   <string name="friends">Bạn bè</string>
   <string name="discussions">Trò chuyện</string>
@@ -337,7 +337,7 @@
     <item quantity="other">≥ %s ván xếp hạng</item>
   </plurals>
   <plurals name="moreThanNbPerfRatedGames">
-    <item quantity="other">≥ %1$s ván %2$s xếp hạng</item>
+    <item quantity="other">Đã chơi ≥ %1$s ván %2$s xếp hạng</item>
   </plurals>
   <plurals name="needNbMorePerfGames">
     <item quantity="other">Bạn cần chơi thêm %1$s ván %2$s xếp hạng</item>
@@ -347,8 +347,8 @@
   </plurals>
   <string name="yourPerfRatingIsProvisional">Hệ số %s của bạn là tạm thời</string>
   <string name="yourPerfRatingIsTooHigh">Hệ số %1$s (%2$s) của bạn quá cao</string>
-  <string name="yourTopWeeklyPerfRatingIsTooHigh">Hệ số %1$s theo tuần của bạn quá cao (%2$s)</string>
-  <string name="yourPerfRatingIsTooLow">Hệ số %1$s của bạn quá thấp (%2$s)</string>
+  <string name="yourTopWeeklyPerfRatingIsTooHigh">Hệ số %1$s hàng tuần của bạn quá cao (%2$s)</string>
+  <string name="yourPerfRatingIsTooLow">Hệ số %1$s (%2$s) của bạn quá thấp</string>
   <string name="ratedMoreThanInPerf">Hệ số %2$s ≥ %1$s</string>
   <string name="ratedLessThanInPerf">Xếp hạng %2$s tuần trước ≤ %1$s</string>
   <string name="mustBeInTeam">Phải ở trong đội %s</string>
@@ -404,7 +404,7 @@ trò chuyện trong ván đấu và có một URL có thể chia sẻ công khai
   <string name="blocked">Đã chặn</string>
   <string name="unblock">Bỏ chặn</string>
   <string name="followsYou">Theo dõi bạn</string>
-  <string name="xStartedFollowingY">%1$s bắt đầu theo dõi %2$s</string>
+  <string name="xStartedFollowingY">%1$s đã bắt đầu theo dõi %2$s</string>
   <plurals name="nbFollowers">
     <item quantity="other">%s người theo dõi</item>
   </plurals>
@@ -508,7 +508,7 @@ trò chuyện trong ván đấu và có một URL có thể chia sẻ công khai
   <string name="help">Hỗ trợ:</string>
   <string name="createANewTopic">Tạo một chủ đề mới</string>
   <string name="topics">Các chủ đề</string>
-  <string name="posts">Số bài viết</string>
+  <string name="posts">Số bài đăng</string>
   <string name="lastPost">Bài đăng gần đây nhất</string>
   <string name="views">Lượt xem</string>
   <string name="replies">Số bình luận</string>
@@ -646,7 +646,7 @@ trò chuyện trong ván đấu và có một URL có thể chia sẻ công khai
   <string name="simulClockHint">Thiết lập Đồng hồ Fischer. Bạn càng chơi với nhiều người thì càng có thể cần nhiều thời gian.</string>
   <string name="simulAddExtraTime">Bạn có thể thêm thời gian ban đầu cho đồng hồ của mình để đấu cờ đồng loạt dễ hơn.</string>
   <string name="simulHostExtraTime">Thời gian thêm ban đầu cho người chủ trì</string>
-  <string name="simulAddExtraTimePerPlayer">Thêm thời gian ban đầu vào đồng hồ của bạn cho mỗi người chơi tham gia cờ đồng loạt.</string>
+  <string name="simulAddExtraTimePerPlayer">Thêm thời gian ban đầu vào đồng hồ của bạn cho mỗi người chơi tham gia sự kiện đồng loạt.</string>
   <string name="simulHostExtraTimePerPlayer">Thời gian thêm cho mỗi người tham gia</string>
   <string name="lichessTournaments">Các giải đấu của Lichess</string>
   <string name="tournamentFAQ">Các câu hỏi hay gặp về giải đấu Đấu trường</string>
@@ -658,7 +658,7 @@ trò chuyện trong ván đấu và có một URL có thể chia sẻ công khai
   <string name="keyGoToStartOrEnd">chuyển đến nước đi đầu/cuối</string>
   <string name="keyCycleSelectedVariation">Biến được chọn theo chu kỳ</string>
   <string name="keyShowOrHideComments">hiện/ẩn bình luận</string>
-  <string name="keyEnterOrExitVariation">vào/thoát thế cờ</string>
+  <string name="keyEnterOrExitVariation">vào/thoát biến</string>
   <string name="keyRequestComputerAnalysis">Yêu cầu máy tính phân tích, Học từ sai lầm của bạn</string>
   <string name="keyNextLearnFromYourMistakes">Tiếp theo (Học từ sai lầm của bạn)</string>
   <string name="keyNextBlunder">Nước đi sai nghiêm trọng tiếp theo</string>
@@ -668,7 +668,8 @@ trò chuyện trong ván đấu và có một URL có thể chia sẻ công khai
   <string name="keyNextBranch">Nhánh tiếp theo</string>
   <string name="toggleVariationArrows">Đổi mũi tên của từng biến</string>
   <string name="cyclePreviousOrNextVariation">Chu kì của biến trước/tiếp theo</string>
-  <string name="toggleGlyphAnnotations">Đổi chú thích bằng dấu</string>
+  <string name="toggleGlyphAnnotations">Đổi chú thích nước cờ</string>
+  <string name="togglePositionAnnotations">Chuyển đổi chú thích thế cờ</string>
   <string name="variationArrowsInfo">Mũi tên của biến cho phép bạn điều hướng mà không cần sử dụng danh sách nước đi.</string>
   <string name="playSelectedMove">chơi nước đi đã chọn</string>
   <string name="newTournament">Giải đấu mới</string>
@@ -865,12 +866,12 @@ trò chuyện trong ván đấu và có một URL có thể chia sẻ công khai
   <string name="tryTheContactPage">hãy thử trang trợ giúp</string>
   <string name="makeSureToRead">Hãy chắc rằng bạn đã đọc %1$s</string>
   <string name="theForumEtiquette">quy tắc diễn đàn</string>
-  <string name="thisTopicIsArchived">Đề tài này đã bị đóng nên bạn không thể bình luận nữa.</string>
+  <string name="thisTopicIsArchived">Chủ đề này đã được lưu trữ và không thể trả lời được nữa.</string>
   <string name="joinTheTeamXToPost">Gia nhập %1$s để đăng trong diễn đàn này</string>
   <string name="teamNamedX">Đội %1$s</string>
   <string name="youCannotPostYetPlaySomeGames">Bạn chưa thể đăng bài lên diễn đàn bây giờ. Hãy chơi vài ván đã!</string>
-  <string name="subscribe">Đăng kí</string>
-  <string name="unsubscribe">Hủy đăng ký</string>
+  <string name="subscribe">Đăng ký theo dõi</string>
+  <string name="unsubscribe">Hủy đăng ký theo dõi</string>
   <string name="mentionedYouInX">đã nhắc đến bạn trong \"%1$s\".</string>
   <string name="xMentionedYouInY">%1$s đã nhắc đến bạn trong \"%2$s\".</string>
   <string name="invitedYouToX">đã mời bạn tham gia \"%1$s\".</string>

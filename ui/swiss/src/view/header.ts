@@ -4,7 +4,7 @@ import { dataIcon } from 'common/snabbdom';
 import SwissCtrl from '../ctrl';
 
 const startClock = (time: number): Hooks => ({
-  insert: (vnode: VNode) => lichess.clockWidget(vnode.elm as HTMLElement, { time }),
+  insert: (vnode: VNode) => site.clockWidget(vnode.elm as HTMLElement, { time }),
 });
 
 const oneDayInSeconds = 60 * 60 * 24;

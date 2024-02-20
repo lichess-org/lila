@@ -8,6 +8,7 @@
   </plurals>
   <string name="liveBroadcasts">Transmetime të drejtpërdrejta turnesh</string>
   <string name="newBroadcast">Transmetim i ri i drejtpërdrejtë</string>
+  <string name="subscribedBroadcasts">Transmetime me pajtim</string>
   <string name="aboutBroadcasts">Rreth transmetimeve</string>
   <string name="noRoundsYet">Ende pa raunde.</string>
   <string name="howToUseLichessBroadcasts">Si të përdoren Transmetimet Lichess.</string>
@@ -39,8 +40,8 @@
   <string name="editRoundStudy">Përpunoni analizë raundi</string>
   <string name="deleteTournament">Fshije këtë turne</string>
   <string name="definitivelyDeleteTournament">Fshihe përfundimisht krejt turneun, krejt raundet e tij dhe krejt lojërat në të.</string>
-  <string name="automaticLeaderboard" comment="An option when creating a broadcast to calculate a leaderboard automatically from the players involved. Example: https://lichess.org/broadcast/2023-london-chess-classic/round-9/5icayRCY">Tabelë automatike</string>
-  <string name="automaticLeaderboardHelp" comment="An option when creating a broadcast to calculate a leaderboard automatically from the players involved. Example: https://lichess.org/broadcast/2023-london-chess-classic/round-9/5icayRCY">Harto dhe shfaq një tabelë të thjeshtë bazuar në përfundime lojërash</string>
+  <string name="automaticLeaderboard">Tabelë automatike</string>
+  <string name="automaticLeaderboardHelp">Harto dhe shfaq një tabelë të thjeshtë bazuar në përfundime lojërash</string>
   <string name="replace">Opsionale: zëvendësoni emra lojëtarësh, vlerësime dhe tituj</string>
   <string name="replaceHelp">Një rresht për lojtar, formatuar kështu:
 Emri origjinal name; Emri zëvendësim; Vlerësim opsional zëvendësim; Titull opsional zëvendësim

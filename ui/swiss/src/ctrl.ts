@@ -17,14 +17,14 @@ export default class SwissCtrl {
   disableClicks = true;
   searching = false;
 
-  private lastStorage = lichess.storage.make('last-redirect');
+  private lastStorage = site.storage.make('last-redirect');
 
   constructor(
     readonly opts: SwissOpts,
     readonly redraw: () => void,
   ) {
     this.data = this.readData(opts.data);
-    this.trans = lichess.trans(opts.i18n);
+    this.trans = site.trans(opts.i18n);
     this.socket = makeSocket(opts.socketSend, this);
     this.page = this.data.standing.page;
     this.focusOnMe = this.isIn();
@@ -67,7 +67,7 @@ export default class SwissCtrl {
     setTimeout(() => {
       if (this.lastStorage.get() !== gameId) {
         this.lastStorage.set(gameId);
-        lichess.redirect('/' + gameId, true);
+        site.redirect('/' + gameId, true);
       }
     }, delay);
   };

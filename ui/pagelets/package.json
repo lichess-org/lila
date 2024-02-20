@@ -1,0 +1,95 @@
+{
+  "name": "pagelets",
+  "version": "2.0.0",
+  "private": true,
+  "description": "assorted modules",
+  "author": "T-Bone Duplexus",
+  "license": "AGPL-3.0-or-later",
+  "exports": {
+    "./*": "./dist/load/*.js"
+  },
+  "typesVersions": {
+    "*": {
+      "*": [
+        "dist/load/*"
+      ]
+    }
+  },
+  "dependencies": {
+    "@fnando/sparkline": "^0.3.10",
+    "@toast-ui/editor": "=3.1.7",
+    "@types/debounce-promise": "^3.1.6",
+    "@types/fnando__sparkline": "^0.3.4",
+    "@types/yaireo__tagify": "^4.17.0",
+    "@types/zxcvbn": "^4.4.1",
+    "@yaireo/tagify": "^4.17.6",
+    "chat": "workspace:*",
+    "chess": "workspace:*",
+    "common": "workspace:*",
+    "cropperjs": "^1.6.1",
+    "debounce-promise": "^3.1.2",
+    "emoji-mart": "^5.5.2",
+    "flatpickr": "^4.6.13",
+    "hopscotch": "^0.3.1",
+    "lichess-pgn-viewer": "^2.0.1",
+    "prop-types": "^15.8.1",
+    "tablesort": "^5.3.0",
+    "zxcvbn": "^4.4.2"
+  },
+  "sideEffects": false,
+  "lichess": {
+    "modules": {
+      "esm": {
+        "src/user.ts": "user",
+        "src/clas.ts": "clas",
+        "src/captcha.ts": "captcha",
+        "src/expandText.ts": "expandText",
+        "src/lpv.ts": "lpv",
+        "src/team.ts": "team",
+        "src/forum.ts": "forum",
+        "src/account.ts": "account",
+        "src/passwordComplexity.ts": "passwordComplexity",
+        "src/coachForm.ts": "coach.form",
+        "src/challengePage.ts": "challengePage",
+        "src/checkout.ts": "checkout",
+        "src/plan.ts": "plan",
+        "src/login.ts": "login",
+        "src/teamBattleForm.ts": "teamBattleForm",
+        "src/tourForm.ts": "tourForm",
+        "src/gameSearch.ts": "gameSearch",
+        "src/userComplete.ts": "userComplete",
+        "src/infiniteScroll.ts": "infiniteScroll",
+        "src/flatpickr.ts": "flatpickr",
+        "src/appeal.ts": "appeal",
+        "src/publicChats.ts": "publicChats",
+        "src/contact.ts": "contact",
+        "src/userGamesDownload.ts": "userGamesDownload",
+        "src/tvGames.ts": "tvGames",
+        "src/ublog.ts": "ublog",
+        "src/ublogForm.ts": "ublogForm",
+        "src/streamer.ts": "streamer",
+        "src/soundMove.ts": "soundMove",
+        "src/flairPicker.ts": "flairPicker",
+        "src/dailyFeed.ts": "dailyFeed",
+        "src/relayForm.ts": "relayForm",
+        "src/diagnostic.ts": "diagnosticDialog",
+        "src/crop.ts": "cropDialog",
+        "src/cms.ts": "cms"
+      }
+    },
+    "copy": [
+      {
+        "src": "node_modules/cropperjs/dist/cropper.min.css",
+        "dest": "../../public/npm"
+      },
+      {
+        "src": "node_modules/hopscotch/dist/**",
+        "dest": "../../public/npm/hopscotch/dist"
+      },
+      {
+        "src": "../../node_modules/chessground/dist/chessground.min.js",
+        "dest": "../../public/npm"
+      }
+    ]
+  }
+}

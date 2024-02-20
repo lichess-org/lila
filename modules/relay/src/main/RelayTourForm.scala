@@ -19,30 +19,36 @@ final class RelayTourForm:
 
   val form = Form(
     mapping(
-      "name"            -> cleanText(minLength = 3, maxLength = 80),
+      "name"            -> cleanText(minLength = 3, maxLength = 80).into[RelayTour.Name],
       "description"     -> cleanText(minLength = 3, maxLength = 400),
       "markdown"        -> optional(cleanText(maxLength = 20_000).into[Markdown]),
       "tier"            -> optional(number(min = RelayTour.Tier.NORMAL, max = RelayTour.Tier.BEST)),
       "autoLeaderboard" -> boolean,
-      "players"         -> optional(of(formatter.stringFormatter[RelayPlayers](_.text, RelayPlayers.apply))),
-      "spotlight"       -> optional(spotlightMapping)
+      "teamTable"       -> boolean,
+      "players"   -> optional(of(formatter.stringFormatter[RelayPlayers](_.sortedText, RelayPlayers(_)))),
+      "teams"     -> optional(of(formatter.stringFormatter[RelayTeams](_.sortedText, RelayTeams(_)))),
+      "spotlight" -> optional(spotlightMapping),
+      "grouping"  -> RelayGroup.form.mapping
     )(Data.apply)(unapply)
   )
 
   def create = form
 
-  def edit(t: RelayTour) = form fill Data.make(t)
+  def edit(t: RelayTour.WithGroupTours) = form fill Data.make(t)
 
 object RelayTourForm:
 
   case class Data(
-      name: String,
+      name: RelayTour.Name,
       description: String,
       markup: Option[Markdown],
       tier: Option[RelayTour.Tier],
       autoLeaderboard: Boolean,
+      teamTable: Boolean,
       players: Option[RelayPlayers],
-      spotlight: Option[RelayTour.Spotlight]
+      teams: Option[RelayTeams],
+      spotlight: Option[RelayTour.Spotlight],
+      grouping: Option[RelayGroup.form.Data]
   ):
 
     def update(tour: RelayTour)(using Me) =
@@ -53,14 +59,16 @@ object RelayTourForm:
           markup = markup,
           tier = tier ifTrue Granter(_.Relay),
           autoLeaderboard = autoLeaderboard,
+          teamTable = teamTable,
           players = players,
+          teams = teams,
           spotlight = spotlight.filterNot(_.isEmpty)
         )
         .reAssignIfOfficial
 
     def make(using me: Me) =
       RelayTour(
-        _id = RelayTour.makeId,
+        id = RelayTour.makeId,
         name = name,
         description = description,
         markup = markup,
@@ -70,19 +78,25 @@ object RelayTourForm:
         createdAt = nowInstant,
         syncedAt = none,
         autoLeaderboard = autoLeaderboard,
+        teamTable = teamTable,
         players = players,
+        teams = teams,
         spotlight = spotlight.filterNot(_.isEmpty)
       ).reAssignIfOfficial
 
   object Data:
 
-    def make(tour: RelayTour) =
+    def make(tg: RelayTour.WithGroupTours) =
+      import tg.*
       Data(
         name = tour.name,
         description = tour.description,
         markup = tour.markup,
         tier = tour.tier,
         autoLeaderboard = tour.autoLeaderboard,
+        teamTable = tour.teamTable,
         players = tour.players,
-        spotlight = tour.spotlight
+        teams = tour.teams,
+        spotlight = tour.spotlight,
+        grouping = group.map(RelayGroup.form.Data.apply)
       )

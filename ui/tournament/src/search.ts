@@ -17,7 +17,7 @@ export function input(ctrl: TournamentController): VNode {
     h('input', {
       attrs: { spellcheck: 'false' },
       hook: onInsert((el: HTMLInputElement) => {
-        lichess.asset
+        site.asset
           .userComplete({
             input: el,
             tour: ctrl.data.id,

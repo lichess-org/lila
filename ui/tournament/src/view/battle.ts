@@ -10,7 +10,7 @@ export function joinWithTeamSelector(ctrl: TournamentController) {
     ctrl.joinWithTeamSelector = false;
     ctrl.redraw();
   };
-  return lichess.dialog.snab({
+  return site.dialog.snab({
     class: 'team-battle__choice',
     onInsert(dlg) {
       $('.team-picker__team', dlg.view).on('click', e => {

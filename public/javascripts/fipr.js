@@ -1076,10 +1076,10 @@ window.fipr = (function () {
   return e;
 })();
 
-lichess.load.then(() =>
+site.load.then(() =>
   setTimeout(() => {
     const t = performance.now(),
-      storage = lichess.storage.make('fipr'),
+      storage = site.storage.make('fipr'),
       send = hash => {
         storage.set(hash);
         const $i = $('#signup-fp-input');

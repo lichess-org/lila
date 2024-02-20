@@ -39,10 +39,10 @@ if (this.innerText == 'YES') this.style.color = 'green'; else if (this.innerText
       moreCss = cssTag("source"),
       contentCls = "page force-ltr",
       moreJs = embedJsUnsafeLoadThen:
-        """$('#asset-version-date').text(lichess.info.date);
-$('#asset-version-commit').attr('href', 'https://github.com/lichess-org/lila/commits/' + lichess.info.commit).find('pre').text(lichess.info.commit.substr(0, 7));
-$('#asset-version-upcoming').attr('href', 'https://github.com/lichess-org/lila/compare/' + lichess.info.commit + '...master').find('pre').text('...');
-$('#asset-version-message').text(lichess.info.message);"""
+        """$('#asset-version-date').text(site.info.date);
+$('#asset-version-commit').attr('href', 'https://github.com/lichess-org/lila/commits/' + site.info.commit).find('pre').text(site.info.commit.substr(0, 7));
+$('#asset-version-upcoming').attr('href', 'https://github.com/lichess-org/lila/compare/' + site.info.commit + '...master').find('pre').text('...');
+$('#asset-version-message').text(site.info.message);"""
     ):
       val commit = env.appVersionCommit | "???"
       frag(
@@ -94,96 +94,110 @@ $('#asset-version-message').text(lichess.info.message);"""
       contentCls = "page force-ltr"
     ):
       frag(
-        st.section(cls := "box box-pad developers body")(
+        st.section(cls := "box box-pad developers")(
           h1(cls := "box__top")("HTTP API"),
           p(
-            raw(
-              """Lichess exposes a RESTish HTTP/JSON API that you are welcome to use. Read the <a href="/api" class="blue">HTTP API documentation</a>."""
-            )
+            "Lichess exposes a RESTish HTTP/JSON API that you are welcome to use. Read the ",
+            a(href := "/api")("HTTP API documentation</a>"),
+            "."
           )
         ),
         br,
-        st.section(cls := "box box-pad developers body") {
+        st.section(cls := "box box-pad developers") {
           val args = """style="width: 400px; height: 444px;" allowtransparency="true" frameborder="0""""
           frag(
             h1(cls := "box__top", id := "embed-tv")("Embed Lichess TV in your site"),
-            div(cls := "center")(raw(s"""<iframe src="/tv/frame?theme=brown&bg=dark" $args></iframe>""")),
-            p("Add the following HTML to your site:"),
-            p(cls := "copy-zone")(
-              input(
-                id    := "tv-embed-src",
-                cls   := "copyable autoselect",
-                value := s"""<iframe src="$netBaseUrl/tv/frame?theme=brown&bg=dark" $args></iframe>"""
+            div(cls := "body")(
+              div(cls := "center")(raw(s"""<iframe src="/tv/frame?theme=brown&bg=dark" $args></iframe>""")),
+              p("Add the following HTML to your site:"),
+              p(cls := "copy-zone")(
+                input(
+                  id    := "tv-embed-src",
+                  cls   := "copyable autoselect",
+                  value := s"""<iframe src="$netBaseUrl/tv/frame?theme=brown&bg=dark" $args></iframe>"""
+                ),
+                button(
+                  st.title := "Copy code",
+                  cls      := "copy button",
+                  dataRel  := "tv-embed-src",
+                  dataIcon := licon.Link
+                )
               ),
-              button(
-                st.title := "Copy code",
-                cls      := "copy button",
-                dataRel  := "tv-embed-src",
-                dataIcon := licon.Link
-              )
-            ),
-            parameters
-          )
-        },
-        br,
-        st.section(cls := "box box-pad developers body") {
-          val args = """style="width: 400px; height: 444px;" allowtransparency="true" frameborder="0""""
-          frag(
-            h1(cls := "box__top", id := "embed-puzzle")("Embed the daily puzzle in your site"),
-            div(cls := "center")(
-              raw(s"""<iframe src="/training/frame?theme=brown&bg=dark" $args></iframe>""")
-            ),
-            p("Add the following HTML to your site:"),
-            p(cls := "copy-zone")(
-              input(
-                id    := "puzzle-embed-src",
-                cls   := "copyable autoselect",
-                value := s"""<iframe src="$netBaseUrl/training/frame?theme=brown&bg=dark" $args></iframe>"""
-              ),
-              button(
-                st.title := "Copy code",
-                cls      := "copy button",
-                dataRel  := "puzzle-embed-src",
-                dataIcon := licon.Link
-              )
-            ),
-            parameters,
-            p("The text is automatically translated to your visitor's language."),
-            p(
-              "Alternatively, you can ",
-              a(href := routes.Main.dailyPuzzleSlackApp)("post the puzzle in your slack workspace"),
-              "."
+              parameters
             )
           )
         },
         br,
-        st.section(cls := "box box-pad developers body") {
-          val args = """style="width: 600px; height: 397px;" frameborder="0""""
+        st.section(cls := "box box-pad developers") {
+          val args = """style="width: 400px; height: 444px;" allowtransparency="true" frameborder="0""""
           frag(
-            h1(cls := "box__top", id := "embed-study")("Embed a chess analysis in your site"),
-            raw(s"""<iframe src="/study/embed/XtFCFYlM/GCUTf2Jk?bg=auto&theme=auto" $args></iframe>"""),
-            p(
-              "Create ",
-              a(href := routes.Study.allDefault())("a study"),
-              ", then click the share button to get the HTML code for the current chapter."
-            ),
-            parameters,
-            p("The text is automatically translated to your visitor's language.")
+            h1(cls := "box__top", id := "embed-puzzle")("Embed the daily puzzle in your site"),
+            div(cls := "body")(
+              div(cls := "center")(
+                raw(s"""<iframe src="/training/frame?theme=brown&bg=dark" $args></iframe>""")
+              ),
+              p("Add the following HTML to your site:"),
+              p(cls := "copy-zone")(
+                input(
+                  id    := "puzzle-embed-src",
+                  cls   := "copyable autoselect",
+                  value := s"""<iframe src="$netBaseUrl/training/frame?theme=brown&bg=dark" $args></iframe>"""
+                ),
+                button(
+                  st.title := "Copy code",
+                  cls      := "copy button",
+                  dataRel  := "puzzle-embed-src",
+                  dataIcon := licon.Link
+                )
+              ),
+              parameters,
+              p("The text is automatically translated to your visitor's language."),
+              p(
+                "Alternatively, you can ",
+                a(href := routes.Main.dailyPuzzleSlackApp)("post the puzzle in your slack workspace"),
+                "."
+              )
+            )
           )
         },
         br,
-        st.section(cls := "box box-pad developers body") {
+        st.section(cls := "box box-pad developers") {
+          val args = """style="width: 600px; height: 397px;" frameborder="0""""
+          frag(
+            h1(cls := "box__top", id := "embed-study")("Embed a chess analysis in your site"),
+            div(cls := "body")(
+              div(cls := "center"):
+                raw(s"""<iframe src="/study/embed/XtFCFYlM/GCUTf2Jk?bg=auto&theme=auto" $args></iframe>""")
+              ,
+              p(
+                "Create ",
+                a(href := routes.Study.allDefault())("a study"),
+                ", then click the share button to get the HTML code for the current chapter."
+              ),
+              parameters,
+              p("The text is automatically translated to your visitor's language.")
+            )
+          )
+        },
+        br,
+        st.section(cls := "box box-pad developers") {
           val args = """style="width: 600px; height: 397px;" frameborder="0""""
           frag(
             h1(cls := "box__top")("Embed a chess game in your site"),
-            raw(s"""<iframe src="/embed/game/MPJcy1JW?bg=auto&theme=auto" $args></iframe>"""),
-            p(
-              raw("""On a game analysis page, click the <em>"FEN &amp; PGN"</em> tab at the bottom, then """),
-              "\"",
-              em(trans.embedInYourWebsite(), "\".")
-            ),
-            parameters,
-            p("The text is automatically translated to your visitor's language.")
+            div(cls := "body")(
+              div(cls := "center"):
+                raw(s"""<iframe src="/embed/game/MPJcy1JW?bg=auto&theme=auto" $args></iframe>""")
+              ,
+              p(
+                raw(
+                  """On a game analysis page, click the <em>"FEN &amp; PGN"</em> tab at the bottom, then """
+                ),
+                "\"",
+                em(trans.embedInYourWebsite(), "\".")
+              ),
+              parameters,
+              p("The text is automatically translated to your visitor's language.")
+            )
           )
         }
       )

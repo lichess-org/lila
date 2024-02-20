@@ -30,10 +30,11 @@ main.has-relay-tour {
   grid-area: relay-tour;
 
   &__round {
-    @extend %box-radius, %flex-between-nowrap;
+    @extend %box-padding-horiz, %flex-between-nowrap;
+    padding-top: 1em;
+    padding-bottom: 1em;
+    margin: -1em 0;
     background: mix($c-primary, $c-bg-box, 10%);
-    margin-bottom: 3em;
-    padding: 1em 2em;
     strong {
       @extend %roboto;
       font-size: 1.2em;
@@ -50,19 +51,29 @@ main.has-relay-tour {
 
   &__image {
     width: 100%;
+    aspect-ratio: 2/1;
   }
   &__image-upload {
     margin-top: 3em;
     text-align: center;
   }
 
+  &__group-title {
+    @extend %flex-center-nowrap;
+    gap: 1ch;
+  }
+  &__group-select {
+    flex: auto;
+    @include fluid-size('font-size', 14px, 24px);
+  }
+
   &__header {
     @extend %flex-center-nowrap;
     gap: 1em;
-    margin-bottom: 3vh;
 
     h1 {
       flex: auto;
+      @include fluid-size('font-size', 15px, 27px);
     }
 
     > i:hover {
@@ -85,99 +96,44 @@ main.has-relay-tour {
     background: $c-bg-box;
   }
 
-  &__text {
-    padding: 3vmin;
+  &__markup {
+    @include rendered-markdown(2em, 50vh);
+  }
 
-    &__schedule {
-      td:nth-child(3) {
-        text-align: center;
+  &__schedule {
+    td:nth-child(3) {
+      text-align: center;
+    }
+  }
+
+  &__leaderboard {
+    thead {
+      background: none;
+      th {
+        border: none;
       }
     }
-
-    &__leaderboard {
-      thead {
-        background: none;
-        th {
-          border: 0;
-          padding: 0 0.8rem;
-          &:first-child {
-            padding-left: 0;
-          }
-        }
-      }
-      th,
-      td {
-        text-align: $end-direction;
-        &:first-child {
-          text-align: $start-direction;
-        }
-      }
-      td {
-        &:nth-child(3) {
-          font-weight: bold;
-        }
-        &:last-child {
-          padding-#{$end-direction}: 1.5em;
-        }
+    th,
+    td {
+      text-align: $end-direction;
+      &:first-child {
+        text-align: $start-direction;
       }
     }
-
-    .slist {
-      border-bottom: 0;
-      ongoing {
-        color: $c-red;
-      }
-      finished {
-        color: $c-good;
+    td {
+      &:nth-child(3) {
+        font-weight: bold;
       }
     }
+  }
 
-    h1 {
-      @include fluid-size('font-size', 15px, 27px);
+  .slist {
+    border-bottom: 0;
+    ongoing {
+      color: $c-red;
     }
-    h2,
-    h3,
-    h4 {
-      line-height: 2em;
-    }
-
-    h2 {
-      font-size: 1.8em;
-    }
-
-    h3 {
-      font-size: 1.5em;
-      line-height: 2em;
-    }
-
-    h4 {
-      font-size: 1.3em;
-    }
-
-    em {
-      font-style: italic;
-    }
-
-    ul li {
-      list-style: disc outside;
-      margin: 0.5em 0 0 1.5em;
-    }
-
-    ol li {
-      list-style: decimal inside;
-      margin: 0.5em 0;
-    }
-
-    li {
-      margin-#{$start-direction}: 2em;
-
-      p {
-        display: inline;
-      }
-    }
-
-    img {
-      max-width: 100%;
+    finished {
+      color: $c-good;
     }
   }
 }

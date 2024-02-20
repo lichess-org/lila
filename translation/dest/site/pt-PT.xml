@@ -706,6 +706,7 @@ análise de computador, sala de chat do jogo e link de partilha.</string>
   <string name="toggleVariationArrows">Ativar/desactivar seta da variante</string>
   <string name="cyclePreviousOrNextVariation">Ciclo anterior/próxima variante</string>
   <string name="toggleGlyphAnnotations">Ativar/desativar anotações com símbolos</string>
+  <string name="togglePositionAnnotations">Ativar/desativar anotações de posição</string>
   <string name="variationArrowsInfo">Setas de variação permitem navegar sem usar a lista de movimentos.</string>
   <string name="playSelectedMove">jogar o movimento selecionado</string>
   <string name="newTournament">Novo torneio</string>

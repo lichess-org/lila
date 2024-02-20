@@ -22,10 +22,9 @@
   <string name="fromXToY">fra %1$s til %2$s</string>
   <string name="winningStreak">Sejrsstime</string>
   <string name="losingStreak">Tabsstime</string>
-  <string name="longestStreak" comment="%s is the string (number of games OR time spent playing, e.g. 4 hours non-stop play)&#10;String used to describe the longest consecutive winning &amp; losing streak of games. It is also used for a  streak of time spent playing.">Længste stime: %s</string>
+  <string name="longestStreak">Længste stime: %s</string>
   <string name="currentStreak">Aktuel stime: %s</string>
   <string name="bestRated">Bedst ratede sejre</string>
-  <string name="worstRated">Værst ratede nederlag</string>
   <string name="gamesInARow">Partier spillet i træk</string>
   <string name="lessThanOneHour">Mindre end en time mellem partier</string>
   <string name="maxTimePlaying">Maks tid brugt på at spille</string>

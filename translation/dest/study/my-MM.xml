@@ -6,7 +6,7 @@
   <string name="embedInYourWebsite">မိမိ ဝက်ဗ်ဆိုက် သို့မဟုတ် ဘလော့ဂ်တွင် embed လုပ်ပါ</string>
   <string name="readMoreAboutEmbedding">Embed လုပ်ခြင်းနှင့် ပတ်သက်၍ နောက်ထပ် ဖတ်ရှုမည်</string>
   <string name="importFromChapterX">%s မှ တင်သွင်းပါ</string>
-  <string name="clearVariations">လိုင်းကွဲများကို ရှင်းပစ်ပါ</string>
+  <string name="clearVariations" comment="Clear is used as a verb here. This erases the variations in the study (https://lichess.org/study) you are preparing.">လိုင်းကွဲများကို ရှင်းပစ်ပါ</string>
   <string name="topics">အကြောင်းအရာ</string>
   <string name="myTopics">ကျွန်ုပ် ရွေးချယ်ထားသည့် အကြောင်းအရာများ</string>
   <string name="popularTopics">လူကြိုက်များသည့် အကြောင်းအရာများ</string>

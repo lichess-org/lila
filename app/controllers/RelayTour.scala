@@ -6,7 +6,8 @@ import views.*
 import lila.app.{ given, * }
 import lila.common.config.MaxPerSecond
 import lila.common.{ config, IpAddress }
-import lila.relay.{ RelayTour as TourModel }
+import lila.relay.{ RelayTour as TourModel, RelayGroup }
+import lila.common.config.Max
 
 final class RelayTour(env: Env, apiC: => Api) extends LilaController(env):
 
@@ -81,26 +82,26 @@ final class RelayTour(env: Env, apiC: => Api) extends LilaController(env):
   }
 
   def edit(id: TourModel.Id) = Auth { ctx ?=> _ ?=>
-    WithTourCanUpdate(id): tour =>
+    WithTourCanUpdate(id): tg =>
       Ok.page:
-        html.relay.tourForm.edit(tour, env.relay.tourForm.edit(tour))
+        html.relay.tourForm.edit(tg, env.relay.tourForm.edit(tg))
   }
 
   def update(id: TourModel.Id) = AuthOrScopedBody(_.Study.Write) { ctx ?=> me ?=>
-    WithTourCanUpdate(id): tour =>
+    WithTourCanUpdate(id): tg =>
       env.relay.tourForm
-        .edit(tour)
+        .edit(tg)
         .bindFromRequest()
         .fold(
           err =>
             negotiate(
-              BadRequest.page(html.relay.tourForm.edit(tour, err)),
+              BadRequest.page(html.relay.tourForm.edit(tg, err)),
               jsonFormError(err)
             ),
           setup =>
-            env.relay.api.tourUpdate(tour, setup) >>
+            env.relay.api.tourUpdate(tg.tour, setup) >>
               negotiate(
-                Redirect(routes.RelayTour.show(tour.slug, tour.id)),
+                Redirect(routes.RelayTour.show(tg.tour.slug, tg.tour.id)),
                 jsonOkResult
               )
         )
@@ -119,16 +120,16 @@ final class RelayTour(env: Env, apiC: => Api) extends LilaController(env):
   )
 
   def image(id: TourModel.Id) = AuthBody(parse.multipartFormData) { ctx ?=> me ?=>
-    WithTourCanUpdate(id): tour =>
+    WithTourCanUpdate(id): tg =>
       ctx.body.body.file("image") match
         case Some(image) =>
           ImageRateLimitPerIp(ctx.ip, rateLimited):
-            env.relay.api.image.upload(me, tour, image) >> {
+            env.relay.api.image.upload(me, tg.tour, image) >> {
               Ok
             } recover { case e: Exception =>
               BadRequest(e.getMessage)
             }
-        case None => env.relay.api.image.delete(tour) >> Ok
+        case None => env.relay.api.image.delete(tg.tour) >> Ok
   }
 
   def subscribe(id: TourModel.Id, isSubscribed: Boolean) = Auth { _ ?=> me ?=>
@@ -137,33 +138,32 @@ final class RelayTour(env: Env, apiC: => Api) extends LilaController(env):
 
   def cloneTour(id: TourModel.Id) = Secure(_.Relay) { _ ?=> me ?=>
     WithTour(id): from =>
-      env.relay.api
-        .cloneTour(from)
-        .map: tour =>
-          Redirect(routes.RelayTour.edit(tour.id)).flashSuccess
+      env.relay.api.cloneTour(from) map: tour =>
+        Redirect(routes.RelayTour.edit(tour.id)).flashSuccess
   }
 
   def show(slug: String, id: TourModel.Id) = Open:
     Found(env.relay.api tourById id): tour =>
-      negotiate(
-        html = env.relay.listing.defaultRoundToShow.get(tour.id) flatMap {
-          case None =>
-            ctx.me
-              .soUse { env.relay.api.canUpdate(tour) }
-              .flatMap:
-                if _ then Redirect(routes.RelayRound.form(tour.id))
-                else
-                  for
-                    owner <- env.user.lightUser(tour.ownerId)
-                    markup = tour.markup.map(env.relay.markup(tour))
-                    page <- Ok.page(html.relay.tour.showEmpty(tour, owner, markup))
-                  yield page
-          case Some(round) => Redirect(round.withTour(tour).path)
-        },
-        json = env.relay.api.withRounds(tour) map { trs =>
-          Ok(env.relay.jsonView(trs, withUrls = true))
-        }
-      )
+      env.relay.listing.defaultRoundToShow.get(tour.id) flatMap:
+        case None =>
+          ctx.me
+            .soUse(env.relay.api.canUpdate(tour))
+            .flatMap:
+              if _ then Redirect(routes.RelayRound.form(tour.id))
+              else
+                for
+                  owner <- env.user.lightUser(tour.ownerId)
+                  markup = tour.markup.map(env.relay.markup(tour))
+                  page <- Ok.page(html.relay.tour.showEmpty(tour, owner, markup))
+                yield page
+        case Some(round) => Redirect(round.withTour(tour).path)
+
+  def apiShow(id: TourModel.Id) = Open:
+    Found(env.relay.api tourById id): tour =>
+      for
+        trs         <- env.relay.api.withRounds(tour)
+        leaderboard <- getBool("leaderboard").so(env.relay.leaderboard(tour))
+      yield Ok(env.relay.jsonView(trs, withUrls = true, leaderboard))
 
   def pgn(id: TourModel.Id) = OpenOrScoped(): ctx ?=>
     Found(env.relay.api tourById id): tour =>
@@ -176,18 +176,22 @@ final class RelayTour(env: Env, apiC: => Api) extends LilaController(env):
 
   def apiIndex = Anon:
     apiC.jsonDownload:
-      env.relay.api
-        .officialTourStream(MaxPerSecond(20), getInt("nb") | 20)
-        .map(env.relay.jsonView.apply(_, withUrls = true))
+      env.relay.tourStream
+        .officialTourStream(
+          MaxPerSecond(20),
+          Max(getInt("nb") | 20).atMost(100),
+          withLeaderboards = getBool("leaderboard")
+        )
 
   private def WithTour(id: TourModel.Id)(f: TourModel => Fu[Result])(using Context): Fu[Result] =
     Found(env.relay.api tourById id)(f)
 
   private def WithTourCanUpdate(
       id: TourModel.Id
-  )(f: TourModel => Fu[Result])(using ctx: Context): Fu[Result] =
+  )(f: TourModel.WithGroupTours => Fu[Result])(using ctx: Context): Fu[Result] =
     WithTour(id): tour =>
-      ctx.me.soUse { env.relay.api.canUpdate(tour) } elseNotFound f(tour)
+      ctx.me.soUse { env.relay.api.canUpdate(tour) } elseNotFound:
+        env.relay.api.withTours.addTo(tour).flatMap(f)
 
   private val CreateLimitPerUser = lila.memo.RateLimit[UserId](
     credits = 10 * 10,

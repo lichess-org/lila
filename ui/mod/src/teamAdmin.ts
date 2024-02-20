@@ -2,7 +2,7 @@ import Tagify from '@yaireo/tagify';
 import debounce from 'debounce-promise';
 import * as xhr from 'common/xhr';
 
-lichess.load.then(() => {
+site.load.then(() => {
   $('#form3-leaders').each(function (this: HTMLInputElement) {
     initTagify(this, 10);
   });
@@ -10,7 +10,7 @@ lichess.load.then(() => {
     initTagify(this, 100);
   });
   $('form.team-add-leader input[name="name"]').each(function (this: HTMLInputElement) {
-    lichess.asset.userComplete({
+    site.asset.userComplete({
       input: this,
       team: this.dataset.teamId,
       tag: 'span',

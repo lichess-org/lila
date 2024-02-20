@@ -10,6 +10,7 @@
   <string name="enableTwoFactor">启用双重认证</string>
   <string name="disableTwoFactor">禁用双重认证</string>
   <string name="twoFactorEnabled">双重验证已开启</string>
+  <string name="twoFactorToDisable">您需要您的密码和身份验证器应用的身份验证码来禁用双重身份验证。</string>
   <string name="openTwoFactorApp">打开你设备上的双重认证应用以查看双重验证码并识别你的身份。</string>
   <string name="setupReminder">请在 https://lichess.org/account/twofactor 启用双重验证以确保你的账户安全。
 你收到此消息是因为你的账户承担着特殊的责任，如队长、教练、老师或主播</string>

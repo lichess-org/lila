@@ -85,7 +85,7 @@
   <string name="pinnedChapterComment">Comentario do capítulo fixado</string>
   <string name="saveChapter">Gardar capítulo</string>
   <string name="clearAnnotations">Borrar anotacións</string>
-  <string name="clearVariations">Borrar variantes</string>
+  <string name="clearVariations" comment="Clear is used as a verb here. This erases the variations in the study (https://lichess.org/study) you are preparing.">Borrar variantes</string>
   <string name="deleteChapter">Borrar capítulo</string>
   <string name="deleteThisChapter">Realmente queres borrar o capítulo? Non hai volta atrás!</string>
   <string name="clearAllCommentsInThisChapter">Borrar todos os comentarios, símbolos e marcas do capítulo</string>

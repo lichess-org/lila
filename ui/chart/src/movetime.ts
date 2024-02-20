@@ -200,14 +200,14 @@ export default async function (el: HTMLCanvasElement, data: AnalyseData, trans: 
       onClick(_event, elements, _chart) {
         let blackOffset = elements[0].datasetIndex & 1;
         if ((firstPly & 1) != 0) blackOffset = blackOffset ^ 1;
-        lichess.pubsub.emit('analysis.chart.click', elements[0].index * 2 + blackOffset);
+        site.pubsub.emit('analysis.chart.click', elements[0].index * 2 + blackOffset);
       },
     },
   };
   const movetimeChart = new Chart(el, config) as PlyChart;
   movetimeChart.selectPly = selectPly.bind(movetimeChart);
-  lichess.pubsub.on('ply', movetimeChart.selectPly);
-  lichess.pubsub.emit('ply.trigger');
+  site.pubsub.on('ply', movetimeChart.selectPly);
+  site.pubsub.emit('ply.trigger');
   return movetimeChart;
 }
 

@@ -779,6 +779,7 @@
   <string name="toggleVariationArrows">Pokaż strzałki wariantów</string>
   <string name="cyclePreviousOrNextVariation">Powtarzaj poprzedni/następny wariant</string>
   <string name="toggleGlyphAnnotations">Przełącz adnotacje symbolami</string>
+  <string name="togglePositionAnnotations">Przełącz adnotacje pozycji</string>
   <string name="variationArrowsInfo">Strzałki wariantów pozwalają nawigować bez użycia listy posunięć.</string>
   <string name="playSelectedMove">wykonaj wybrane posunięcie</string>
   <string name="newTournament">Nowy turniej</string>

@@ -37,7 +37,7 @@ export const view = (ctrl: StudyCtrl): VNode =>
 let tagify: Tagify | undefined;
 
 export const formView = (ctrl: TopicsCtrl, userId?: string): VNode =>
-  lichess.dialog.snab({
+  site.dialog.snab({
     class: 'study-topics',
     onClose() {
       ctrl.open(false);
@@ -48,19 +48,13 @@ export const formView = (ctrl: TopicsCtrl, userId?: string): VNode =>
       h(
         'form',
         {
-          hook: bindSubmit(
-            _ => {
-              const tags = tagify?.value;
-              if (tags) {
-                ctrl.save(tags.map(t => t.value));
-                ctrl.open(false);
-              }
-            },
-            () => {
-              document.body.style.overflowY = 'scroll';
-              ctrl.redraw();
-            },
-          ),
+          hook: bindSubmit(_ => {
+            const tags = tagify?.value;
+            if (tags) {
+              ctrl.save(tags.map(t => t.value));
+              ctrl.open(false);
+            }
+          }, ctrl.redraw),
         },
         [
           h(
@@ -79,8 +73,8 @@ export const formView = (ctrl: TopicsCtrl, userId?: string): VNode =>
   });
 
 function setupTagify(elm: HTMLInputElement | HTMLTextAreaElement, userId?: string) {
-  lichess.asset.loadCssPath('tagify');
-  lichess.asset.loadIife('npm/tagify/tagify.min.js').then(() => {
+  site.asset.loadCssPath('tagify');
+  site.asset.loadIife('npm/tagify/tagify.min.js').then(() => {
     const tagi = (tagify = new (window.Tagify as typeof Tagify)(elm, { pattern: /.{2,}/, maxTags: 30 }));
     let abortCtrl: AbortController | undefined; // for aborting the call
     tagi.on('input', e => {

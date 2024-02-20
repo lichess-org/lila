@@ -10,7 +10,7 @@
   <string name="yourTurn">你的回合</string>
   <string name="aiNameLevelAiLevel">%1$s级別%2$s</string>
   <string name="level">级别</string>
-  <string name="strength">强度</string>
+  <string name="strength">电脑的难度</string>
   <string name="toggleTheChat">聊天开关</string>
   <string name="chat">聊天</string>
   <string name="resign">认输</string>
@@ -22,8 +22,8 @@
   <string name="asBlack">持黑</string>
   <string name="randomColor">随机选色</string>
   <string name="createAGame">创建对局</string>
-  <string name="whiteIsVictorious">白方胜利</string>
-  <string name="blackIsVictorious">黑方胜利</string>
+  <string name="whiteIsVictorious">白方胜</string>
+  <string name="blackIsVictorious">黑方胜</string>
   <string name="youPlayTheWhitePieces">你执白棋</string>
   <string name="youPlayTheBlackPieces">你执黑棋</string>
   <string name="itsYourTurn">轮到你了！</string>
@@ -38,9 +38,9 @@
   <string name="whitePlays">白方走棋</string>
   <string name="blackPlays">黑方走棋</string>
   <plurals name="opponentLeftCounter">
-    <item quantity="other">你的对手已离开棋局。你可以在 %s 秒后宣布胜利。</item>
+    <item quantity="other">您的对手已离开棋局。您可以在 %s 秒后宣布胜利。</item>
   </plurals>
-  <string name="opponentLeftChoices">你的对手可能已离开棋局。你可以宣布胜利，和棋，或继续等待。</string>
+  <string name="opponentLeftChoices">您的对手可能已离开棋局。您可以宣布胜利，和棋，或继续等待。</string>
   <string name="forceResignation">宣布胜利</string>
   <string name="forceDraw">和棋</string>
   <string name="talkInChat">聊天请注意文明用语。</string>
@@ -70,18 +70,18 @@
   <string name="makeMainLine">做为主线</string>
   <string name="deleteFromHere">从此处开始删除</string>
   <string name="forceVariation">强制作为变着</string>
-  <string name="copyVariationPgn">复制变体的 PGN</string>
+  <string name="copyVariationPgn">复制变着的PGN</string>
   <string name="move">着法</string>
   <string name="variantLoss">变体输了</string>
   <string name="variantWin">变体胜利</string>
-  <string name="insufficientMaterial">棋子不足</string>
+  <string name="insufficientMaterial">子力不足</string>
   <string name="pawnMove">走兵</string>
   <string name="capture">吃子</string>
   <string name="close">关闭</string>
-  <string name="winning">胜棋</string>
+  <string name="winning">赢棋</string>
   <string name="losing">输棋</string>
   <string name="drawn">和棋</string>
-  <string name="unknown">未知</string>
+  <string name="unknown">结局未知</string>
   <string name="database">数据库</string>
   <string name="whiteDrawBlack">白胜／和棋／黑胜</string>
   <string name="averageRatingX">平均等级分：%s</string>
@@ -106,7 +106,7 @@
   <string name="lossOr50MovesByPriorMistake">输棋或因先前错误而50步作和</string>
   <string name="unknownDueToRounding">由上次吃子或兵动开始按残局库建议走法走才能保证胜败的判断正确。这是因为Syzygy残局库的DTZ数值可能经过四舍五入。</string>
   <string name="allSet">好了！</string>
-  <string name="importPgn">导入PGN文件</string>
+  <string name="importPgn">导入 PGN</string>
   <string name="delete">删除</string>
   <string name="deleteThisImportedGame">删除此导入的棋局？</string>
   <string name="replayMode">回放模式</string>
@@ -114,14 +114,14 @@
   <string name="byCPL">按厘兵损失</string>
   <string name="openStudy">进入研讨室</string>
   <string name="enable">启用</string>
-  <string name="bestMoveArrow">箭头指示最佳着</string>
+  <string name="bestMoveArrow">最佳着法指示</string>
   <string name="showVariationArrows">显示变着箭头</string>
-  <string name="evaluationGauge">显示局面评分</string>
+  <string name="evaluationGauge">显示局面评估</string>
   <string name="multipleLines">多线搜索</string>
   <string name="cpus">CPU</string>
   <string name="memory">内存</string>
-  <string name="infiniteAnalysis">无限分析</string>
-  <string name="removesTheDepthLimit">取消深度限制 (提高电脑温度)</string>
+  <string name="infiniteAnalysis">开启无限分析</string>
+  <string name="removesTheDepthLimit">取消深度限制（会提升电脑温度）</string>
   <string name="engineManager">引擎管理</string>
   <string name="blunder">漏着</string>
   <string name="mistake">错着</string>
@@ -179,7 +179,7 @@
   <string name="realTime">实时棋局</string>
   <string name="correspondence">通讯棋</string>
   <string name="daysPerTurn">每步允许天数</string>
-  <string name="oneDay">1 天</string>
+  <string name="oneDay">1天</string>
   <plurals name="nbDays">
     <item quantity="other">%s 天</item>
   </plurals>
@@ -376,7 +376,7 @@
   <string name="toStudy">研讨</string>
   <string name="importGame">导入棋局</string>
   <string name="importGameExplanation">粘贴PGN棋谱后可重放棋局、使用电脑分析、使用对局聊天室以及获得通往本局的链接。</string>
-  <string name="importGameCaveat">变着分支将被删除。若要保存这些变着，请通过导入PGN棋谱创建一个研究。</string>
+  <string name="importGameCaveat">变着分支将被删除。若要保存这些变着，请通过研讨导入 PGN。</string>
   <string name="importGameDataPrivacyWarning">该PGN（用以记录棋类游戏棋谱的文件格式）可被公众访问。私人导入游戏请用研究研究</string>
   <plurals name="nbImportedGames">
     <item quantity="other">%s盘导入的棋局</item>
@@ -389,6 +389,7 @@
   <string name="blackCheckmatesInOneMove">黑方一步将死</string>
   <string name="retry">重试</string>
   <string name="reconnecting">重新连接中</string>
+  <string name="noNetwork">离线</string>
   <plurals name="nbFriendsOnline">
     <item quantity="other">在线好友：%s</item>
   </plurals>
@@ -456,7 +457,7 @@
   <string name="drawRate">绘制速率</string>
   <string name="draws">和棋</string>
   <string name="nextXTournament">下一个 %s 锦标赛：</string>
-  <string name="averageOpponent">对手平均积分</string>
+  <string name="averageOpponent">对手平均等级分</string>
   <string name="boardEditor">棋盘编辑器</string>
   <string name="setTheBoard">摆棋</string>
   <string name="popularOpenings">常见开局</string>
@@ -483,7 +484,7 @@
   <string name="socialMediaLinks">社交媒体链接</string>
   <string name="oneUrlPerLine">每行一个URL。</string>
   <string name="inlineNotation">紧凑显示棋谱</string>
-  <string name="makeAStudy">这便于保管和分享，以及考虑创建一项研讨。</string>
+  <string name="makeAStudy">如果要保管和分享，请考虑创建一项研讨。</string>
   <string name="clearSavedMoves">清除着法储存</string>
   <string name="previouslyOnLichessTV">过去的 Lichess TV</string>
   <string name="onlinePlayers">在线棋手</string>
@@ -619,7 +620,7 @@
   <string name="about">关于</string>
   <string name="aboutX">关于 %s</string>
   <string name="xIsAFreeYLibreOpenSourceChessServer">%1$s 是一个免费 (%2$s)，自由，无广告的开源国际象棋服务器。</string>
-  <string name="really">不信？</string>
+  <string name="really">真的</string>
   <string name="contribute">协助我们</string>
   <string name="termsOfService">服务条款</string>
   <string name="sourceCode">源代码</string>
@@ -654,9 +655,9 @@
   <string name="keyboardShortcuts">快捷键</string>
   <string name="keyMoveBackwardOrForward">后退/前进</string>
   <string name="keyGoToStartOrEnd">跳到开始/结束</string>
-  <string name="keyCycleSelectedVariation">经历选定的变化</string>
+  <string name="keyCycleSelectedVariation">选择变着</string>
   <string name="keyShowOrHideComments">显示／隐藏评论</string>
-  <string name="keyEnterOrExitVariation">进入／退出变着</string>
+  <string name="keyEnterOrExitVariation">进入或退出变着</string>
   <string name="keyRequestComputerAnalysis">请求电脑分析，并从你的失误中学习</string>
   <string name="keyNextLearnFromYourMistakes">下一个 (从你的失误中学习)</string>
   <string name="keyNextBlunder">下一个漏着</string>
@@ -664,9 +665,11 @@
   <string name="keyNextInaccuracy">下一个失准着</string>
   <string name="keyPreviousBranch">上一个分支</string>
   <string name="keyNextBranch">下一个分行</string>
-  <string name="toggleVariationArrows">切换变化箭头</string>
-  <string name="cyclePreviousOrNextVariation">循环切换上一个/下一个变化</string>
-  <string name="toggleGlyphAnnotations">切换符号标注</string>
+  <string name="toggleVariationArrows">开启变着箭头</string>
+  <string name="cyclePreviousOrNextVariation">切换上一个或下一个变着</string>
+  <string name="toggleGlyphAnnotations">开启着法注释</string>
+  <string name="togglePositionAnnotations">开启局面注释</string>
+  <string name="variationArrowsInfo">变着箭头让你不需要棋步列表也能浏览</string>
   <string name="playSelectedMove">走已选的棋步</string>
   <string name="newTournament">新锦标赛</string>
   <string name="tournamentHomeTitle">国际象棋锦标赛均设有不同的时间限制和变体</string>
@@ -695,12 +698,12 @@
   <string name="readAboutOur">阅读我们的 %s</string>
   <string name="networkLagBetweenYouAndLichess">你和 Lichess 之间的网络延迟</string>
   <string name="timeToProcessAMoveOnLichessServer">Lichess 服务器上处理一步的时间</string>
-  <string name="downloadAnnotated">下载有注释的PGN</string>
+  <string name="downloadAnnotated">下载有注释的 PGN</string>
   <string name="downloadRaw">下载无注释的PGN</string>
   <string name="downloadImported">下载导入的棋局</string>
   <string name="crosstable">比分表</string>
   <string name="youCanAlsoScrollOverTheBoardToMoveInTheGame">你也可以用鼠标滚轮浏览棋局。</string>
-  <string name="scrollOverComputerVariationsToPreviewThem">将鼠标移到电脑给出的变着上进行预览</string>
+  <string name="scrollOverComputerVariationsToPreviewThem">移到电脑给出的变着上进行预览</string>
   <string name="analysisShapesHowTo">按shift+左键单击或右键单击在棋盘上绘制圆圈和箭头。</string>
   <string name="letOtherPlayersMessageYou">允许其他人给您发私信</string>
   <string name="receiveForumNotifications">在论坛中被提及时接收通知</string>
@@ -778,10 +781,10 @@
   <string name="drawByFiftyMoves">对局因50步规则判和。</string>
   <string name="theGameIsADraw">本局和棋。</string>
   <string name="computerThinking">电脑正在思考...</string>
-  <string name="seeBestMove">查看最佳着</string>
-  <string name="hideBestMove">隐藏最佳着</string>
+  <string name="seeBestMove">查看最佳着法</string>
+  <string name="hideBestMove">隐藏最佳着法</string>
   <string name="getAHint">提示</string>
-  <string name="evaluatingYourMove">评估走法中……</string>
+  <string name="evaluatingYourMove">评估着法中</string>
   <string name="whiteWinsGame">白方胜</string>
   <string name="blackWinsGame">黑方胜</string>
   <string name="learnFromYourMistakes">从你的失误中学习</string>
@@ -879,7 +882,7 @@
   <string name="gameVsX">与 %1$s 对局</string>
   <string name="resVsX">%1$s vs %2$s</string>
   <string name="lostAgainstTOSViolator">你输给了违反 Lichess 服务条款的用户</string>
-  <string name="refundXpointsTimeControlY">退回 %1$s %2$s 等级分。</string>
+  <string name="refundXpointsTimeControlY">退回了%2$s %1$s 的等级分</string>
   <string name="timeAlmostUp">时间快到了！</string>
   <string name="clickToRevealEmailAddress">[点击显示电子邮件地址]</string>
   <string name="download">下载</string>
@@ -917,8 +920,8 @@
   <string name="onlyTeamMembers">仅限队员</string>
   <string name="navigateMoveTree">定位</string>
   <string name="mouseTricks">鼠标使用技巧</string>
-  <string name="toggleLocalAnalysis">切换本地计算机分析</string>
-  <string name="toggleAllAnalysis">切换所有（本地+服务器）计算机分析</string>
+  <string name="toggleLocalAnalysis">使用本地分析</string>
+  <string name="toggleAllAnalysis">使用本地+服务器分析</string>
   <string name="playComputerMove">走电脑推荐的最佳招</string>
   <string name="analysisOptions">分析选项</string>
   <string name="focusChat">聚焦聊天</string>

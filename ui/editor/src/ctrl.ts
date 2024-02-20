@@ -40,7 +40,7 @@ export default class EditorCtrl {
   ) {
     this.options = cfg.options || {};
 
-    this.trans = lichess.trans(this.cfg.i18n);
+    this.trans = site.trans(this.cfg.i18n);
 
     this.selected = prop('pointer');
 
@@ -49,7 +49,7 @@ export default class EditorCtrl {
     if (cfg.endgamePositions)
       cfg.endgamePositions.forEach(p => (p.epd = p.fen.split(' ').splice(0, 4).join(' ')));
 
-    lichess.mousetrap.bind('f', () => {
+    site.mousetrap.bind('f', () => {
       if (this.chessground) this.chessground.toggleOrientation();
       this.onChange();
     });
@@ -191,7 +191,7 @@ export default class EditorCtrl {
   }
 
   makeImageUrl = (fen: string): string =>
-    `${lichess.asset.baseUrl()}/export/fen.gif?fen=${urlFen(fen)}&color=${this.bottomColor()}`;
+    `${site.asset.baseUrl()}/export/fen.gif?fen=${urlFen(fen)}&color=${this.bottomColor()}`;
 
   bottomColor = (): Color =>
     this.chessground ? this.chessground.state.orientation : this.options.orientation || 'white';

@@ -13,7 +13,7 @@ function timer(pov: NowPlaying) {
         },
       },
     },
-    lichess.timeago(date),
+    site.timeago(date),
   );
 }
 
@@ -26,7 +26,7 @@ export default function (ctrl: LobbyController) {
           attrs: { 'data-state': `${pov.fen},${pov.orientation || pov.color},${pov.lastMove}` },
           hook: {
             insert(vnode) {
-              lichess.miniBoard.init(vnode.elm as HTMLElement);
+              site.miniBoard.init(vnode.elm as HTMLElement);
             },
           },
         }),

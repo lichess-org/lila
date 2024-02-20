@@ -42,7 +42,7 @@ export const userLink = (u: AnyUser): VNode =>
   );
 
 export const userFlair = (u: HasFlair): VNode | undefined =>
-  u.flair ? h('img.uflair', { attrs: { src: lichess.asset.flairSrc(u.flair) } }) : undefined;
+  u.flair ? h('img.uflair', { attrs: { src: site.asset.flairSrc(u.flair) } }) : undefined;
 
 export const userLine = (u: HasLine): VNode | undefined =>
   u.line !== false

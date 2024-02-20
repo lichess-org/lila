@@ -302,7 +302,7 @@ export default class SetupController {
     this.root.redraw();
 
     let urlPath = `/setup/${this.gameType}`;
-    if (this.gameType === 'hook') urlPath += `/${lichess.sri}`;
+    if (this.gameType === 'hook') urlPath += `/${site.sri}`;
     const urlParams = { user: this.friendUser || undefined };
     let response;
     try {

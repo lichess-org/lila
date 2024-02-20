@@ -31,7 +31,7 @@ export class ThemeCtrl {
     const field = `theme${this.dimension() === 'd3' ? '3d' : ''}`;
     xhr
       .text(`/pref/${field}`, { body: xhr.form({ [field]: t }), method: 'post' })
-      .catch(() => lichess.announce({ msg: 'Failed to save theme preference' }));
+      .catch(() => site.announce({ msg: 'Failed to save theme preference' }));
     this.redraw();
   };
 }
@@ -59,5 +59,5 @@ const themeView = (current: Theme, set: (t: Theme) => void) => (t: Theme) =>
 function applyTheme(t: Theme, list: Theme[], is3d: boolean) {
   $('body').removeClass(list.join(' ')).addClass(t);
   if (!is3d) document.body.dataset.boardTheme = t;
-  lichess.pubsub.emit('theme.change');
+  site.pubsub.emit('theme.change');
 }

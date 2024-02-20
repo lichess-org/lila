@@ -22,9 +22,9 @@ export default function (variant?: string) {
   return (
     !variant ||
     Object.keys(variantConfirms).every(function (key: keyof typeof variantConfirms) {
-      if (variant === key && !lichess.storage.get(storageKey(key))) {
+      if (variant === key && !site.storage.get(storageKey(key))) {
         const c = confirm(variantConfirms[key]);
-        if (c) lichess.storage.set(storageKey(key), '1');
+        if (c) site.storage.set(storageKey(key), '1');
         return c;
       } else return true;
     })

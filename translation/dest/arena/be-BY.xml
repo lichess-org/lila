@@ -41,7 +41,7 @@
   <string name="variant">Варыянт</string>
   <string name="minimumGameLength">Мінімальны лік хадоў</string>
   <string name="history">Гісторыя Арэны</string>
-  <plurals name="viewAllXTeams" comment="viewAllXTeams [one] [other]&#10;&#10;%s is the number of teams that can be viewed">
+  <plurals name="viewAllXTeams" comment="%s is the number of teams that can be viewed.&#10;&#10;Appears in team battles that feature lots of teams. As of the time of writing, Lichess lists up to 10 teams at a time, so this button lets you view all teams.">
     <item quantity="one">Паглядзець каманду</item>
     <item quantity="few">Паглядзець усе %s каманды</item>
     <item quantity="many">Паглядзець усе %s камандаў</item>

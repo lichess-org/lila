@@ -46,7 +46,7 @@ final private[api] class RoundApi(
     for
       initialFen <- gameRepo.initialFen(pov.game)
       users      <- users.orLoad(userApi.gamePlayers(pov.game.userIdPair, pov.game.perfType))
-      prefs      <- prefApi.get(users.map(_.map(_.user)))
+      prefs      <- prefApi.get(users.map(_.map(_.user)), pov.color, ctx.pref)
       given Lang = ctx.lang
       (((((json, simul), swiss), note), forecast), bookmarked) <-
         jsonView.playerJson(pov, prefs, users, initialFen, ctxFlags) zip

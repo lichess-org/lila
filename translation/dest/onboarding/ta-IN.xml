@@ -1,2 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+  <string name="learnChessRules">சதுரங்க விதிமுறைகளைக் கற்க</string>
+  <string name="followYourFriendsOnLichess">Lichessல் உள்ள உங்கள் நண்பர்களைப் பின்தொடருங்கள்.</string>
+</resources>

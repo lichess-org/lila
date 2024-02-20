@@ -17,11 +17,11 @@ export default function (ctrl: SwissCtrl) {
   const d = ctrl.data;
   const content =
     d.status == 'created' ? created(ctrl) : d.status == 'started' ? started(ctrl) : finished(ctrl);
-  return h('main.' + ctrl.opts.classes, { hook: { postpatch: () => lichess.miniGame.initAll() } }, [
+  return h('main.' + ctrl.opts.classes, { hook: { postpatch: () => site.miniGame.initAll() } }, [
     h('aside.swiss__side', {
       hook: onInsert(el => {
         $(el).replaceWith(ctrl.opts.$side);
-        ctrl.opts.chat && lichess.makeChat(ctrl.opts.chat);
+        ctrl.opts.chat && site.makeChat(ctrl.opts.chat);
       }),
     }),
     h('div.swiss__underchat', {
@@ -29,7 +29,7 @@ export default function (ctrl: SwissCtrl) {
     }),
     playerInfo(ctrl) || stats(ctrl) || boards.top(d.boards, ctrl.opts),
     h('div.swiss__main', [h('div.box.swiss__main-' + d.status, content), boards.many(d.boards, ctrl.opts)]),
-    ctrl.opts.chat && h('div.chat__members.none', { hook: onInsert(lichess.watchers) }),
+    ctrl.opts.chat && h('div.chat__members.none', { hook: onInsert(site.watchers) }),
   ]);
 }
 
@@ -183,10 +183,10 @@ function confetti(data: SwissData) {
   return (
     data.me &&
     data.isRecentlyFinished &&
-    lichess.once('tournament.end.canvas.' + data.id) &&
+    site.once('tournament.end.canvas.' + data.id) &&
     h('canvas#confetti', {
       hook: {
-        insert: _ => lichess.asset.loadIife('javascripts/confetti.js'),
+        insert: _ => site.asset.loadIife('javascripts/confetti.js'),
       },
     })
   );

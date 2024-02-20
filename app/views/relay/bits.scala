@@ -25,7 +25,7 @@ object bits:
     )(
       i(cls := "img", dataIcon := licon.RadioTower),
       span(cls := "content")(
-        span(cls := "name")(tr.tour.spotlight.flatMap(_.title) | tr.tour.name),
+        span(cls := "name")(tr.tour.spotlight.flatMap(_.title) | tr.tour.name.value),
         span(cls := "more")(
           tr.display.caption.fold(tr.display.name.value)(_.value),
           " • ",

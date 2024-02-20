@@ -178,7 +178,7 @@ object layout:
     frag(
       ctx.needsFp option fingerprintTag,
       ctx.nonce map inlineJs.apply,
-      frag(cashTag, jsModule("lichess")),
+      frag(cashTag, jsModule("site")),
       moreJs,
       ctx.data.inquiry.isDefined option jsModule("mod.inquiry"),
       ctx.pref.bg == lila.pref.Pref.Bg.SYSTEM option embedJsUnsafe(systemThemePolyfillJs)
@@ -215,6 +215,7 @@ object layout:
 
   private val dataVapid         = attr("data-vapid")
   private val dataSocketDomains = attr("data-socket-domains") := netConfig.socketDomains.mkString(",")
+  private val dataSocketAlts    = attr("data-socket-alts")    := netConfig.socketAlts.mkString(",")
   private val dataNonce         = attr("data-nonce")
   private val dataAnnounce      = attr("data-announce")
   val dataSoundSet              = attr("data-sound-set")
@@ -309,6 +310,7 @@ object layout:
           dataUser     := ctx.userId,
           dataSoundSet := pref.currentSoundSet.toString,
           dataSocketDomains,
+          pref.isUsingAltSocket option dataSocketAlts,
           dataAssetUrl,
           dataAssetVersion := assetVersion,
           dataNonce        := ctx.nonce.ifTrue(sameAssetDomain).map(_.value),
@@ -460,7 +462,7 @@ object layout:
         _ =>
           val qty  = lila.i18n.JsQuantity(lang)
           val i18n = safeJsonValue(i18nJsObject(i18nKeys))
-          s"""lichess={load:new Promise(r=>document.addEventListener("DOMContentLoaded",r)),quantity:$qty,siteI18n:$i18n}"""
+          s"""site={load:new Promise(r=>document.addEventListener("DOMContentLoaded",r)),quantity:$qty,siteI18n:$i18n}"""
       )
     def apply(nonce: Nonce)(using Lang) =
       embedJsUnsafe(jsCode, nonce)

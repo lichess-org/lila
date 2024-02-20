@@ -118,7 +118,7 @@ final class Env(
 
   import lila.cms.CmsPage
   def cmsRender(key: CmsPage.Key)(using ctx: Context): Fu[Option[CmsPage.Render]] =
-    cmsApi.render(key)(ctx.req, ctx.user.flatMap(_.lang))
+    cmsApi.render(key)(ctx.req, ctx.lang)
   def cmsRenderKey(key: String)(using Context) = cmsRender(CmsPage.Key(key))
 
   Bus.subscribeFuns(

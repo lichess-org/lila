@@ -22,10 +22,9 @@
   <string name="fromXToY">vu %1$s bis %2$s</string>
   <string name="winningStreak">Sieges Serie</string>
   <string name="losingStreak">Niderlage Serie</string>
-  <string name="longestStreak" comment="%s is the string (number of games OR time spent playing, e.g. 4 hours non-stop play)&#10;String used to describe the longest consecutive winning &amp; losing streak of games. It is also used for a  streak of time spent playing.">Längschti Serie: %s</string>
+  <string name="longestStreak">Längschti Serie: %s</string>
   <string name="currentStreak">Aktuelli Serie: %s</string>
   <string name="bestRated">die beschte Sieg</string>
-  <string name="worstRated">schlimmschti Niederlage</string>
   <string name="gamesInARow">In Serie gschpillti Partie</string>
   <string name="lessThanOneHour">Weniger als 1 Schtund zwüsche de Schpil</string>
   <string name="maxTimePlaying">Maximali Schpillzit</string>

@@ -8,6 +8,7 @@
   </plurals>
   <string name="liveBroadcasts">Txapelketen zuzeneko emanaldiak</string>
   <string name="newBroadcast">Zuzeneko emanaldi berria</string>
+  <string name="subscribedBroadcasts">Harpidetutako emanaldiak</string>
   <string name="aboutBroadcasts">Zuzeneko emanaldiei buruz</string>
   <string name="noRoundsYet">Ez dago txandarik.</string>
   <string name="howToUseLichessBroadcasts">Nola erabili Lichessen Zuzenekoak.</string>
@@ -40,8 +41,8 @@
   <string name="editRoundStudy">Editatu txandako azterlana</string>
   <string name="deleteTournament">Ezabatu txapelketa hau</string>
   <string name="definitivelyDeleteTournament">Txapelketa behin betiko ezabatu, bere txanda eta partida guztiak barne.</string>
-  <string name="automaticLeaderboard" comment="An option when creating a broadcast to calculate a leaderboard automatically from the players involved. Example: https://lichess.org/broadcast/2023-london-chess-classic/round-9/5icayRCY">Sailkapen automatikoa</string>
-  <string name="automaticLeaderboardHelp" comment="An option when creating a broadcast to calculate a leaderboard automatically from the players involved. Example: https://lichess.org/broadcast/2023-london-chess-classic/round-9/5icayRCY">Partiden emaitzetan oinarritutako sailkapen sinplea kalkulatu eta erakutsi</string>
+  <string name="automaticLeaderboard">Sailkapen automatikoa</string>
+  <string name="automaticLeaderboardHelp">Partiden emaitzetan oinarritutako sailkapen sinplea kalkulatu eta erakutsi</string>
   <string name="replace">Hautazkoa: aldatu jokalarien izen, puntuazio eta tituluak</string>
   <string name="replaceHelp">Lerro bat jokalari bakotizeko, horrela formateatuta:
 Jatorrizko izena; Ordezko izena; Ordezko puntuazioa (hautazkoa); Ordezko titulua (hautazkoa)

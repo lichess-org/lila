@@ -20,8 +20,8 @@ export default class StudyPractice {
     readonly data: StudyPracticeData,
   ) {
     this.goal = prop<Goal>(root.data.practiceGoal!);
-    lichess.sound.load('practiceSuccess', `${lichess.sound.baseUrl}/other/energy3`);
-    lichess.sound.load('practiceFailure', `${lichess.sound.baseUrl}/other/failure2`);
+    site.sound.load('practiceSuccess', `${site.sound.baseUrl}/other/energy3`);
+    site.sound.load('practiceFailure', `${site.sound.baseUrl}/other/failure2`);
     this.onLoad();
   }
 
@@ -59,7 +59,7 @@ export default class StudyPractice {
 
   onVictory = (): void => {
     this.saveNbMoves();
-    lichess.sound.play('practiceSuccess');
+    site.sound.play('practiceSuccess');
     if (this.studyData.chapter.practice && this.autoNext())
       setTimeout(this.root.study!.goToNextChapter, 1000);
   };
@@ -75,7 +75,7 @@ export default class StudyPractice {
 
   onFailure = (): void => {
     this.root.node.fail = true;
-    lichess.sound.play('practiceFailure');
+    site.sound.play('practiceFailure');
   };
 
   onJump = () => {

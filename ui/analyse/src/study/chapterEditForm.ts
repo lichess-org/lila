@@ -63,7 +63,7 @@ export function view(ctrl: StudyChapterEditForm): VNode | undefined {
   const data = ctrl.current(),
     noarg = ctrl.trans.noarg;
   return data
-    ? lichess.dialog.snab({
+    ? site.dialog.snab({
         class: 'edit-' + data.id, // full redraw when changing chapter
         onClose() {
           ctrl.current(null);
@@ -74,20 +74,14 @@ export function view(ctrl: StudyChapterEditForm): VNode | undefined {
           h(
             'form.form3',
             {
-              hook: bindSubmit(
-                e => {
-                  ctrl.submit({
-                    name: chapterForm.fieldValue(e, 'name'),
-                    mode: chapterForm.fieldValue(e, 'mode') as ChapterMode,
-                    orientation: chapterForm.fieldValue(e, 'orientation') as Orientation,
-                    description: chapterForm.fieldValue(e, 'description'),
-                  });
-                },
-                () => {
-                  document.body.style.overflowY = 'scroll';
-                  ctrl.redraw();
-                },
-              ),
+              hook: bindSubmit(e => {
+                ctrl.submit({
+                  name: chapterForm.fieldValue(e, 'name'),
+                  mode: chapterForm.fieldValue(e, 'mode') as ChapterMode,
+                  orientation: chapterForm.fieldValue(e, 'orientation') as Orientation,
+                  description: chapterForm.fieldValue(e, 'description'),
+                });
+              }, ctrl.redraw),
             },
             [
               h('div.form-group', [

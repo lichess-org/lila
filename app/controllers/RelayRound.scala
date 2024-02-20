@@ -77,7 +77,7 @@ final class RelayRound(
             BadRequest.page(html.relay.roundForm.edit(old, err)),
             jsonFormError(err)
           ),
-        rt => negotiate(Redirect(rt.path), JsonOk(env.relay.jsonView.withUrl(rt)))
+        rt => negotiate(Redirect(rt.path), JsonOk(env.relay.jsonView.withUrl(rt, withTour = true)))
       )
     }
   }
@@ -125,10 +125,10 @@ final class RelayRound(
   }
 
   def stream(id: RelayRoundId) = AnonOrScoped(): ctx ?=>
-    Found(env.relay.api.byIdWithStudy(id)): rt =>
-      studyC.CanView(rt.study) {
+    Found(env.relay.api.byIdWithStudy(id)): rs =>
+      studyC.CanView(rs.study) {
         apiC.GlobalConcurrencyLimitPerIP
-          .events(req.ipAddress)(env.relay.pgnStream.streamRoundGames(rt)): source =>
+          .events(req.ipAddress)(env.relay.pgnStream.streamRoundGames(rs)): source =>
             noProxyBuffer(Ok.chunked[PgnStr](source.keepAlive(60.seconds, () => PgnStr(" "))))
       }(Unauthorized, Forbidden)
 
@@ -137,24 +137,27 @@ final class RelayRound(
       env.study.api.byIdWithChapterOrFallback(rt.round.studyId, chapterId) orNotFound { doShow(rt, _) }
 
   def push(id: RelayRoundId) = ScopedBody(parse.tolerantText)(Seq(_.Study.Write)) { ctx ?=> me ?=>
-    env.relay.api
-      .byIdWithStudy(id)
-      .flatMap:
-        case None                                    => notFoundJson()
-        case Some(rt) if !rt.study.canContribute(me) => forbiddenJson()
-        case Some(rt) =>
-          given Writes[Tag] = Writes(tag => Json.obj(tag.name.name -> tag.value))
-          env.relay
-            .push(rt.withTour, PgnStr(ctx.body.body))
-            .map: results =>
-              JsonOk:
-                Json.obj:
-                  "games" -> results.map:
-                    _.fold(
-                      fail => Json.obj("tags" -> fail.tags.value, "error" -> fail.error),
-                      pass => Json.obj("tags" -> pass.tags.value, "moves" -> pass.moves)
-                    )
+    Found(env.relay.api.byIdWithTourAndStudy(id)): rt =>
+      if !rt.study.canContribute(me) then forbiddenJson()
+      else
+        given Writes[Tag] = Writes(tag => Json.obj(tag.name.name -> tag.value))
+        env.relay
+          .push(rt.withTour, PgnStr(ctx.body.body))
+          .map: results =>
+            JsonOk:
+              Json.obj:
+                "games" -> results.map:
+                  _.fold(
+                    fail => Json.obj("tags" -> fail.tags.value, "error" -> fail.error),
+                    pass => Json.obj("tags" -> pass.tags.value, "moves" -> pass.moves)
+                  )
   }
+
+  def teamsView(id: RelayRoundId) = Open:
+    Found(env.relay.api.byIdWithStudy(id)): rt =>
+      studyC.CanView(rt.study) {
+        env.relay.teamTable.tableJson(rt.relay) map JsonStrOk
+      }(Unauthorized, Forbidden)
 
   private def WithRoundAndTour(@nowarn ts: String, @nowarn rs: String, id: RelayRoundId)(
       f: RoundModel.WithTour => Fu[Result]
@@ -185,12 +188,14 @@ final class RelayRound(
       for
         (sc, studyData) <- studyC.getJsonData(oldSc)
         rounds          <- env.relay.api.byTourOrdered(rt.tour)
+        group           <- env.relay.api.withTours.get(rt.tour.id)
         isSubscribed <- ctx.me.soFu: me =>
           env.relay.api.isSubscribed(rt.tour.id, me.userId)
         data <- env.relay.jsonView.makeData(
           rt.tour withRounds rounds.map(_.round),
           rt.round.id,
           studyData,
+          group,
           ctx.userId exists sc.study.canContribute,
           isSubscribed
         )

@@ -1,11 +1,13 @@
-import { RelayData, LogEvent, RelaySync, RelayRound } from './interfaces';
-import { StudyChapter, StudyChapterRelay } from '../interfaces';
+import { RelayData, LogEvent, RelaySync, RelayRound, RoundId } from './interfaces';
+import { ChapterId, StudyChapter, StudyChapterRelay } from '../interfaces';
 import { isFinished } from '../studyChapters';
 import { StudyMemberCtrl } from '../studyMembers';
 import { AnalyseSocketSend } from '../../socket';
 import { Prop, Toggle, prop, toggle } from 'common';
+import RelayTeams from './relayTeams';
+import { Redraw } from 'common/snabbdom';
 
-export const relayTabs = ['overview', 'games', 'schedule', 'leaderboard'] as const;
+export const relayTabs = ['overview', 'games', 'teams', 'schedule', 'leaderboard'] as const;
 export type RelayTab = (typeof relayTabs)[number];
 
 export default class RelayCtrl {
@@ -14,21 +16,33 @@ export default class RelayCtrl {
   clockInterval?: number;
   tourShow: Toggle;
   tab: Prop<RelayTab>;
+  teams?: RelayTeams;
 
   constructor(
-    public id: string,
+    readonly id: RoundId,
     public data: RelayData,
     readonly send: AnalyseSocketSend,
-    readonly redraw: () => void,
+    readonly redraw: Redraw,
     readonly members: StudyMemberCtrl,
     chapter: StudyChapter,
-    hasBoards: boolean,
+    looksNew: boolean,
+    setChapter: (id: ChapterId) => void,
   ) {
     this.applyChapterRelay(chapter, chapter.relay);
     this.tourShow = toggle((location.pathname.match(/\//g) || []).length < 5);
     const locationTab = location.hash.replace(/^#/, '') as RelayTab;
-    const initialTab = relayTabs.includes(locationTab) ? locationTab : hasBoards ? 'games' : 'overview';
+    const initialTab = relayTabs.includes(locationTab) ? locationTab : looksNew ? 'overview' : 'games';
     this.tab = prop<RelayTab>(initialTab);
+    this.teams = data.tour.teamTable
+      ? new RelayTeams(
+          id,
+          setChapter,
+          () => this.roundPath(),
+          redraw,
+          send,
+          () => chapter.setup.variant.key,
+        )
+      : undefined;
   }
 
   setSync = (v: boolean) => {
@@ -95,7 +109,7 @@ export default class RelayCtrl {
       }, 4500);
       this.redraw();
       if (event.error) {
-        if (this.data.sync.log.slice(-2).every(e => e.error)) lichess.sound.play('error');
+        if (this.data.sync.log.slice(-2).every(e => e.error)) site.sound.play('error');
         console.warn(`relay synchronisation error: ${event.error}`);
       }
     },

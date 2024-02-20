@@ -418,6 +418,7 @@
   <string name="blackCheckmatesInOneMove">La nigra ludanto devas matigi per unu movo</string>
   <string name="retry">Reprovi</string>
   <string name="reconnecting">Rekonektante</string>
+  <string name="noNetwork">Nekonektita</string>
   <plurals name="nbFriendsOnline">
     <item quantity="one">%s amiko enreta</item>
     <item quantity="other">%s amikoj enretaj</item>
