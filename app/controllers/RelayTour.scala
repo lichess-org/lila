@@ -6,7 +6,7 @@ import views.*
 import lila.app.{ given, * }
 import lila.common.config.MaxPerSecond
 import lila.common.{ config, IpAddress }
-import lila.relay.{ RelayTour as TourModel }
+import lila.relay.{ RelayTour as TourModel, RelayGroup }
 import lila.common.config.Max
 
 final class RelayTour(env: Env, apiC: => Api) extends LilaController(env):
@@ -191,7 +191,7 @@ final class RelayTour(env: Env, apiC: => Api) extends LilaController(env):
   )(f: TourModel.WithGroupTours => Fu[Result])(using ctx: Context): Fu[Result] =
     WithTour(id): tour =>
       ctx.me.soUse { env.relay.api.canUpdate(tour) } elseNotFound:
-        env.relay.api.withTours(tour).flatMap(f)
+        env.relay.api.withTours.addTo(tour).flatMap(f)
 
   private val CreateLimitPerUser = lila.memo.RateLimit[UserId](
     credits = 10 * 10,

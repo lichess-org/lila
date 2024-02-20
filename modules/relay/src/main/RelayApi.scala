@@ -96,11 +96,17 @@ final class RelayApi(
 
   def tourById(id: RelayTour.Id) = tourRepo.coll.byId[RelayTour](id)
 
-  // #TODO cache?
-  def withTours(tour: RelayTour): Fu[RelayTour.WithGroupTours] = for
-    group <- groupRepo.byTour(tour.id)
-    tours <- tourRepo.idNames(group.so(_.tours))
-  yield RelayTour.WithGroupTours(tour, group.map(RelayGroup.WithTours(_, tours)))
+  object withTours:
+    private val cache = cacheApi[RelayTour.Id, Option[RelayGroup.WithTours]](256, "relay.groupWithTours"):
+      _.expireAfterWrite(1.minute).buildAsyncFuture: id =>
+        for
+          group <- groupRepo.byTour(id)
+          tours <- tourRepo.idNames(group.so(_.tours))
+        yield group.map(RelayGroup.WithTours(_, tours))
+    export cache.get
+    def addTo(tour: RelayTour): Fu[RelayTour.WithGroupTours] =
+      get(tour.id).map(RelayTour.WithGroupTours(tour, _))
+    def invalidate(id: RelayTour.Id) = cache.underlying.synchronous.invalidate(id)
 
   private def toSyncSelect = $doc(
     "sync.until" $exists true,
@@ -166,7 +172,7 @@ final class RelayApi(
         )
       )
       _ <- Granter(_.Relay).so(groupRepo.update(tour.id, data.grouping))
-    yield ()
+    yield withTours.invalidate(tour.id)
 
   def create(data: RelayRoundForm.Data, tour: RelayTour)(using me: Me): Fu[RelayRound.WithTourAndStudy] =
     roundRepo.lastByTour(tour) flatMapz { last =>
