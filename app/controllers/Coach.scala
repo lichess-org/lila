@@ -62,17 +62,13 @@ final class Coach(env: Env) extends LilaController(env):
         )
   }
 
-  def picture = Secure(_.Coach) { ctx ?=> me ?=>
-    FoundPage(api.findOrInit)(html.coach.picture(_)).map(_.noCache)
-  }
-
   def pictureApply = SecureBody(parse.multipartFormData)(_.Coach) { ctx ?=> me ?=>
     Found(api.findOrInit): c =>
       ctx.body.body.file("picture") match
         case Some(pic) =>
           api.uploadPicture(c, pic) inject Redirect(routes.Coach.edit) recoverWith {
             case e: lila.base.LilaException =>
-              BadRequest.page(html.coach.picture(c, e.message.some))
+              Redirect(routes.Coach.edit)
           }
         case None => Redirect(routes.Coach.edit)
   }

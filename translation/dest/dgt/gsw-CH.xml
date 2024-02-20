@@ -20,7 +20,7 @@ D\'Möglichkeit uszwähle, welere Partie me will biträtte, chunnt bald...</stri
   <string name="whenReadySetupBoard">Wänn du bereit bisch, schtellsch dis Brätt uf und klicksch uf %s.</string>
   <string name="ifMoveNotDetected">Falls en Zug nöd regischtriert worde isch...</string>
   <string name="checkYouHaveMadeOpponentsMove">Überprüef zerscht, ob du de Zug vum Gägner uf em DGT - Schachbrätt scho usgfüehrt häsch. Nimm din Zug zrugg. Zieh nomal.</string>
-  <string name="asALastResort">Als letschti Möglichkeit: Schtell dis Brätt genau so uf wie das vu Lichess und dänn %s</string>
+  <string name="asALastResort" comment="%s is 'Reload this page', a separate translatable string.&#10;&#10;Appears on DGT board pages. A DGT board is a digitally connected real life board which requires the player to set up the real life board to match what it is on the screen. Hence needing it to be set up identically to what is visible on Lichess.">Als letschti Möglichkeit: Schtell dis Brätt genau so uf wie das vu Lichess und dänn %s</string>
   <string name="reloadThisPage">ladsch die Site neu</string>
   <string name="dgtConfigure">DGT - Schachbrätt - Konfiguration</string>
   <string name="lichessConnectivity">Lichess Verbindig</string>

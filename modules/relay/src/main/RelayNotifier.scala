@@ -13,7 +13,7 @@ final private class RelayNotifier(notifyApi: lila.notify.NotifyApi, tourRepo: Re
                 subscribers,
                 lila.notify.BroadcastRound(
                   rt.path,
-                  rt.tour.name,
+                  rt.tour.name.value,
                   s"${rt.round.name} has begun"
                 )
               )

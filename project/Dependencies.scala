@@ -22,13 +22,12 @@ object Dependencies {
   val maxmind     = "com.maxmind.geoip2"            % "geoip2"                          % "4.0.1"
   val caffeine    = "com.github.ben-manes.caffeine" % "caffeine"                        % "3.1.8" % "compile"
   val scaffeine   = "com.github.blemale"           %% "scaffeine"                       % "5.2.1" % "compile"
-  val googleOAuth = "com.google.auth"               % "google-auth-library-oauth2-http" % "1.22.0"
+  val googleOAuth = "com.google.auth"               % "google-auth-library-oauth2-http" % "1.23.0"
   val galimatias  = "io.mola.galimatias"            % "galimatias"                      % "0.2.2-NF"
   val scalatags   = "com.lihaoyi"                  %% "scalatags"                       % "0.12.0"
   val lettuce     = "io.lettuce"                    % "lettuce-core"                    % "6.3.1.RELEASE"
-  val nettyTransport =
-    "io.netty" % s"netty-transport-native-$notifier" % "4.1.106.Final" classifier s"$os-$arch"
-  val munit       = "org.scalameta"              %% "munit"         % "1.0.0-M10" % Test
+  val nettyTransport = "io.netty" % s"netty-transport-native-$notifier" % "4.1.107.Final" classifier s"$os-$arch"
+  val munit       = "org.scalameta"              %% "munit"         % "1.0.0-M11" % Test
   val uaparser    = "org.uaparser"               %% "uap-scala"     % "0.16.0"
   val apacheText  = "org.apache.commons"          % "commons-text"  % "1.11.0"
   val apacheMath  = "org.apache.commons"          % "commons-math3" % "3.6.1"

@@ -82,7 +82,7 @@
   <string name="pinnedChapterComment">章の優先表示コメント</string>
   <string name="saveChapter">章を保存</string>
   <string name="clearAnnotations">注釈をクリア</string>
-  <string name="clearVariations">手順をクリア</string>
+  <string name="clearVariations" comment="Clear is used as a verb here. This erases the variations in the study (https://lichess.org/study) you are preparing.">手順をクリア</string>
   <string name="deleteChapter">章を削除</string>
   <string name="deleteThisChapter">ほんとうに削除しますか？　戻せませんよ！</string>
   <string name="clearAllCommentsInThisChapter">この章のコメントと図形をすべて削除しますか？</string>

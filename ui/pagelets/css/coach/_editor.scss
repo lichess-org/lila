@@ -3,49 +3,52 @@
 .coach-edit,
 .coach-picture {
   .top {
-    display: flex;
+    > span {
+      @extend %flex-between;
+      padding: 1em;
 
-    h1 {
-      @extend %roboto;
+      > h1 {
+        @extend %roboto;
+        margin: 0;
+        padding: 0 1em !important;
+        font-size: 2rem;
+        line-height: 2;
+        text-transform: uppercase;
+        letter-spacing: 3px;
+      }
 
-      margin: 0;
-      padding: 0 !important;
-      font-size: 2rem;
-      line-height: 2;
-      text-transform: uppercase;
-      letter-spacing: 3px;
+      > a {
+        margin-#{$start-direction}: auto;
+      }
     }
 
-    .picture_wrap img {
-      margin-#{$end-direction}: 10px;
-      width: 100px !important;
-      height: 100px !important;
-
-      @include breakpoint($mq-picture) {
-        margin-#{$end-direction}: 30px;
-        width: 250px !important;
-        height: 250px !important;
-      }
+    .picture_wrap {
+      @extend %image-preview-and-upload, %box-neat;
     }
   }
 }
 
 .coach-edit {
-  .top .upload_picture {
-    text-align: center;
-    margin-top: 80px;
-  }
-
   .overview {
     width: 100%;
-    height: 250px;
     display: flex;
     flex-flow: column;
+    padding: 0 var(--box-padding);
   }
 
   .overview .todo {
     display: none;
     margin-right: 2em;
+
+    h3 {
+      margin: 0;
+      color: $c-bad;
+      font-weight: bold;
+    }
+
+    li {
+      list-style: disc inside;
+    }
   }
 
   .overview.with-todo .todo {
@@ -57,16 +60,6 @@
     background: mix($c-error, $c-bg-box, 15%);
     border: 1px solid $c-error;
     margin-bottom: 2rem;
-  }
-
-  .overview .todo h3 {
-    margin: 0;
-    color: $c-bad;
-    font-weight: bold;
-  }
-
-  .overview .todo li {
-    list-style: disc inside;
   }
 
   .tabs {

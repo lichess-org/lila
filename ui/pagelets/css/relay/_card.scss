@@ -49,6 +49,10 @@
     .relay-card:hover & {
       opacity: 1;
     }
+
+    &:not(.relay-image--fallback) {
+      @include broken-img(2 / 1);
+    }
   }
 
   &__body {

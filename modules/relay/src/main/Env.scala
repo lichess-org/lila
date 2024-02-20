@@ -42,6 +42,8 @@ final class Env(
 
   private lazy val tourRepo = RelayTourRepo(colls.tour)
 
+  private lazy val groupRepo = RelayGroupRepo(colls.group)
+
   lazy val leaderboard = wire[RelayLeaderboardApi]
 
   private lazy val notifier = wire[RelayNotifier]
@@ -51,6 +53,8 @@ final class Env(
   lazy val listing: RelayListing = wire[RelayListing]
 
   lazy val api: RelayApi = wire[RelayApi]
+
+  lazy val tourStream: RelayTourStream = wire[RelayTourStream]
 
   lazy val pager = wire[RelayPager]
 
@@ -121,6 +125,7 @@ final class Env(
 private class RelayColls(mainDb: lila.db.Db, yoloDb: lila.db.AsyncDb @@ lila.db.YoloDb):
   val round = mainDb(CollName("relay"))
   val tour  = mainDb(CollName("relay_tour"))
+  val group = mainDb(CollName("relay_group"))
   val delay = yoloDb(CollName("relay_delay"))
 
 private trait ProxyCredentials

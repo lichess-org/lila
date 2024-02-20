@@ -1,5 +1,5 @@
-import { loadFlairPicker } from './flairPicker';
+import flairPicker from './load/flairPicker';
 
 $('.emoji-details').each(function (this: HTMLElement) {
-  loadFlairPicker(this);
+  flairPicker(this);
 });

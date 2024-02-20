@@ -84,7 +84,7 @@
   <string name="pinnedChapterComment">Vasgepende hoofstuk kommentaar</string>
   <string name="saveChapter">Stoor hoofstuk</string>
   <string name="clearAnnotations">Vee annotasies uit</string>
-  <string name="clearVariations">Verwyder variasies</string>
+  <string name="clearVariations" comment="Clear is used as a verb here. This erases the variations in the study (https://lichess.org/study) you are preparing.">Verwyder variasies</string>
   <string name="deleteChapter">Vee hoofstuk uit</string>
   <string name="deleteThisChapter">Vee die hoofstuk uit? Jy gaan dit nie kan terugvat nie!</string>
   <string name="clearAllCommentsInThisChapter">Vee al die kommentaar, karakters en getekende vorms in die hoofstuk uit?</string>

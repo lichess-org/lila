@@ -19,7 +19,7 @@ final class RelayTourForm:
 
   val form = Form(
     mapping(
-      "name"            -> cleanText(minLength = 3, maxLength = 80),
+      "name"            -> cleanText(minLength = 3, maxLength = 80).into[RelayTour.Name],
       "description"     -> cleanText(minLength = 3, maxLength = 400),
       "markdown"        -> optional(cleanText(maxLength = 20_000).into[Markdown]),
       "tier"            -> optional(number(min = RelayTour.Tier.NORMAL, max = RelayTour.Tier.BEST)),
@@ -27,18 +27,19 @@ final class RelayTourForm:
       "teamTable"       -> boolean,
       "players"   -> optional(of(formatter.stringFormatter[RelayPlayers](_.sortedText, RelayPlayers(_)))),
       "teams"     -> optional(of(formatter.stringFormatter[RelayTeams](_.sortedText, RelayTeams(_)))),
-      "spotlight" -> optional(spotlightMapping)
+      "spotlight" -> optional(spotlightMapping),
+      "grouping"  -> RelayGroup.form.mapping
     )(Data.apply)(unapply)
   )
 
   def create = form
 
-  def edit(t: RelayTour) = form fill Data.make(t)
+  def edit(t: RelayTour.WithGroupTours) = form fill Data.make(t)
 
 object RelayTourForm:
 
   case class Data(
-      name: String,
+      name: RelayTour.Name,
       description: String,
       markup: Option[Markdown],
       tier: Option[RelayTour.Tier],
@@ -46,7 +47,8 @@ object RelayTourForm:
       teamTable: Boolean,
       players: Option[RelayPlayers],
       teams: Option[RelayTeams],
-      spotlight: Option[RelayTour.Spotlight]
+      spotlight: Option[RelayTour.Spotlight],
+      grouping: Option[RelayGroup.form.Data]
   ):
 
     def update(tour: RelayTour)(using Me) =
@@ -66,7 +68,7 @@ object RelayTourForm:
 
     def make(using me: Me) =
       RelayTour(
-        _id = RelayTour.makeId,
+        id = RelayTour.makeId,
         name = name,
         description = description,
         markup = markup,
@@ -84,7 +86,8 @@ object RelayTourForm:
 
   object Data:
 
-    def make(tour: RelayTour) =
+    def make(tg: RelayTour.WithGroupTours) =
+      import tg.*
       Data(
         name = tour.name,
         description = tour.description,
@@ -94,5 +97,6 @@ object RelayTourForm:
         teamTable = tour.teamTable,
         players = tour.players,
         teams = tour.teams,
-        spotlight = tour.spotlight
+        spotlight = tour.spotlight,
+        grouping = group.map(RelayGroup.form.Data.apply)
       )

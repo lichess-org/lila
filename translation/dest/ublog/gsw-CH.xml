@@ -6,7 +6,7 @@
   <string name="blogTopics">Tagebuech Theme</string>
   <string name="lichessOfficialBlog">Offiziells Lichess Tagebuech</string>
   <string name="continueReadingPost">De Bitrag witer läse</string>
-  <string name="lichessBlogPostsFromXYear">Lichess Tagebuech Biträg in %s</string>
+  <string name="lichessBlogPostsFromXYear" comment="Appears on a list of posts from the official Lichess Blog, which were published in a specific year.&#10;&#10;%s is the specific year of posts from the official blog (e.g. 2021).">Lichess Tagebuech Biträg in %s</string>
   <string name="previousBlogPosts">Vorherigi Tagebuech Biträg</string>
   <string name="xBlog">%s\'s Blog</string>
   <string name="newPost">Neue Bitrag</string>

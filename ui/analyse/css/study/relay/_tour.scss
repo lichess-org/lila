@@ -51,10 +51,20 @@ main.has-relay-tour {
 
   &__image {
     width: 100%;
+    aspect-ratio: 2/1;
   }
   &__image-upload {
     margin-top: 3em;
     text-align: center;
+  }
+
+  &__group-title {
+    @extend %flex-center-nowrap;
+    gap: 1ch;
+  }
+  &__group-select {
+    flex: auto;
+    @include fluid-size('font-size', 14px, 24px);
   }
 
   &__header {

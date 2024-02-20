@@ -1,5 +1,6 @@
 package lila.relay
 
+import reactivemongo.api.bson.Macros.Annotations.Key
 import ornicar.scalalib.ThreadLocalRandom
 
 import lila.study.Study
@@ -7,7 +8,7 @@ import lila.common.Seconds
 
 case class RelayRound(
     /* Same as the Study id it refers to */
-    _id: RelayRoundId,
+    @Key("_id") id: RelayRoundId,
     tourId: RelayTour.Id,
     name: RelayRoundName,
     caption: Option[RelayRound.Caption],
@@ -22,9 +23,6 @@ case class RelayRound(
     createdAt: Instant,
     crowd: Option[Int]
 ):
-
-  inline def id = _id
-
   inline def studyId = id into StudyId
 
   lazy val slug =
@@ -136,7 +134,18 @@ object RelayRound:
     def path(chapterId: StudyChapterId): String = s"$path/$chapterId"
     def crowd                                   = display.crowd orElse link.crowd
 
+  trait AndGroup:
+    def group: Option[RelayGroup.Name]
+
+  trait AndTourAndGroup extends AndTour with AndGroup
+
   case class WithTour(round: RelayRound, tour: RelayTour) extends AndTour:
+    def display                 = round
+    def link                    = round
+    def withStudy(study: Study) = WithTourAndStudy(round, tour, study)
+
+  case class WithTourAndGroup(round: RelayRound, tour: RelayTour, group: Option[RelayGroup.Name])
+      extends AndTourAndGroup:
     def display                 = round
     def link                    = round
     def withStudy(study: Study) = WithTourAndStudy(round, tour, study)

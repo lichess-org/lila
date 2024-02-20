@@ -11,7 +11,7 @@
   <string name="playOpponentsFromAroundTheWorld">Schpill mit Gägner us de ganze Wält.</string>
   <string name="followYourFriendsOnLichess">Folg dine Fründe uf Lichess.</string>
   <string name="playInTournaments">Schpill bi Tunrier mit.</string>
-  <string name="learnFromXAndY">Lern vu %1$s und %2$s.</string>
+  <string name="learnFromXAndY" comment="%1$s is Study&#10;%2$s is Videos&#10;&#10;They are both links to pages titled that way, and the title is used verbatim.">Lern vu %1$s und %2$s.</string>
   <string name="configureLichess">Konfigurier dir Lichess so, wie\'s dir g\'fallt.</string>
   <string name="exploreTheSiteAndHaveFun">Entdeck die ganzi Site und amüsier dich :)</string>
 </resources>

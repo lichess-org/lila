@@ -84,7 +84,7 @@
   <string name="pinnedChapterComment">Καρφιτσωμένο σχόλιο κεφαλαίου</string>
   <string name="saveChapter">Αποθήκευση κεφαλαίου</string>
   <string name="clearAnnotations">Διαγραφή σχολιασμών</string>
-  <string name="clearVariations">Εκκαθάριση βαριάντων</string>
+  <string name="clearVariations" comment="Clear is used as a verb here. This erases the variations in the study (https://lichess.org/study) you are preparing.">Εκκαθάριση βαριάντων</string>
   <string name="deleteChapter">Διαγραφή κεφαλαίου</string>
   <string name="deleteThisChapter">Διαγραφή κεφαλαίου; Μη αναιρέσιμη ενέργεια!</string>
   <string name="clearAllCommentsInThisChapter">Καθαρισμός όλων των σχολίων, συμβόλων και σχεδίων στο τρέχον κεφάλαιο;</string>

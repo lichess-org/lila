@@ -6,7 +6,12 @@ import lila.db.dsl.*
 import lila.relay.RelayTour.WithLastRound
 import lila.memo.CacheApi
 
-final class RelayPager(tourRepo: RelayTourRepo, roundRepo: RelayRoundRepo, cacheApi: CacheApi)(using
+final class RelayPager(
+    tourRepo: RelayTourRepo,
+    roundRepo: RelayRoundRepo,
+    colls: RelayColls,
+    cacheApi: CacheApi
+)(using
     Executor
 ):
 
@@ -21,7 +26,7 @@ final class RelayPager(tourRepo: RelayTourRepo, roundRepo: RelayRoundRepo, cache
         tourRepo.coll
           .aggregateList(length, _.sec): framework =>
             import framework.*
-            Match(tourRepo.selectors.ownerId(owner.id)) -> {
+            Match(RelayTourRepo.selectors.ownerId(owner.id)) -> {
               List(Sort(Descending("createdAt"))) ::: aggregateRound(framework) ::: List(
                 Skip(offset),
                 Limit(length)
@@ -40,7 +45,7 @@ final class RelayPager(tourRepo: RelayTourRepo, roundRepo: RelayRoundRepo, cache
         tourRepo.coll
           .aggregateList(length, _.sec): framework =>
             import framework.*
-            Match(tourRepo.selectors.subscriberId(userId)) -> {
+            Match(RelayTourRepo.selectors.subscriberId(userId)) -> {
               List(Sort(Descending("createdAt"))) ::: aggregateRoundAndUnwind(framework) ::: List(
                 Skip(offset),
                 Limit(length)
@@ -58,7 +63,7 @@ final class RelayPager(tourRepo: RelayTourRepo, roundRepo: RelayRoundRepo, cache
       tourRepo.coll
         .aggregateList(length, _.sec): framework =>
           import framework.*
-          Match(tourRepo.selectors.officialInactive) -> {
+          Match(RelayTourRepo.selectors.officialInactive) -> {
             List(Sort(Descending("syncedAt"))) ::: aggregateRoundAndUnwind(framework) ::: List(
               Skip(offset),
               Limit(length)
@@ -106,6 +111,8 @@ final class RelayPager(tourRepo: RelayTourRepo, roundRepo: RelayRoundRepo, cache
     aggregateRound(framework) ::: List(framework.UnwindField("round"))
 
   private def aggregateRound(framework: tourRepo.coll.AggregationFramework.type) = List(
+    framework.PipelineOperator(RelayListing.group.lookup(colls.group)),
+    framework.Match(RelayListing.group.filter),
     framework.PipelineOperator(
       $lookup.pipeline(
         from = roundRepo.coll,
@@ -113,7 +120,7 @@ final class RelayPager(tourRepo: RelayTourRepo, roundRepo: RelayRoundRepo, cache
         local = "_id",
         foreign = "tourId",
         pipe = List(
-          $doc("$sort"      -> roundRepo.sort.start),
+          $doc("$sort"      -> RelayRoundRepo.sort.start),
           $doc("$limit"     -> 1),
           $doc("$addFields" -> $doc("sync.log" -> $arr()))
         )
@@ -125,11 +132,13 @@ final class RelayPager(tourRepo: RelayTourRepo, roundRepo: RelayRoundRepo, cache
     doc   <- docs
     tour  <- doc.asOpt[RelayTour]
     round <- doc.getAsOpt[RelayRound]("round")
-  yield WithLastRound(tour, round)
+    group = RelayListing.group.readFrom(doc)
+  yield WithLastRound(tour, round, group)
 
   private def readTours(docs: List[Bdoc]): List[RelayTour | WithLastRound] = for
     doc    <- docs
     tour   <- doc.asOpt[RelayTour]
     rounds <- doc.getAsOpt[List[RelayRound]]("round")
     round = rounds.headOption
-  yield round.fold(tour)(WithLastRound(tour, _))
+    group = RelayListing.group.readFrom(doc)
+  yield round.fold(tour)(WithLastRound(tour, _, group))

@@ -1,10 +1,10 @@
 import * as licon from 'common/licon';
 import * as xhr from 'common/xhr';
-import { loadFlairPicker } from './flairPicker';
+import flairPicker from './load/flairPicker';
 
 site.load.then(() => {
   $('.emoji-details').each(function (this: HTMLElement) {
-    loadFlairPicker(this);
+    flairPicker(this);
   });
 
   const localPrefs: [string, string, string, boolean][] = [

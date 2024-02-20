@@ -47,7 +47,7 @@ Imir go tapa agus filleadh chuig an forhalla chun níos mó cluichí a imirt agu
   <string name="variant">Leagan</string>
   <string name="minimumGameLength">Íosfhad cluiche</string>
   <string name="history">Stair Láithreach</string>
-  <plurals name="viewAllXTeams" comment="viewAllXTeams [one] [other]&#10;&#10;%s is the number of teams that can be viewed">
+  <plurals name="viewAllXTeams" comment="%s is the number of teams that can be viewed.&#10;&#10;Appears in team battles that feature lots of teams. As of the time of writing, Lichess lists up to 10 teams at a time, so this button lets you view all teams.">
     <item quantity="one">Féach ar an bhfoireann</item>
     <item quantity="two">Féach ar na %s fhoireann ar fad</item>
     <item quantity="few">Féach ar na %s bhfoireann go léir</item>

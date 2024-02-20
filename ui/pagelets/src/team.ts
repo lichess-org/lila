@@ -1,5 +1,5 @@
 import * as xhr from 'common/xhr';
-import { loadFlairPicker } from './flairPicker';
+import flairPicker from './load/flairPicker';
 
 interface TeamOpts {
   id: string;
@@ -29,5 +29,5 @@ $('button.explain').on('click', e => {
 });
 
 $('.emoji-details').each(function (this: HTMLElement) {
-  loadFlairPicker(this);
+  flairPicker(this);
 });
