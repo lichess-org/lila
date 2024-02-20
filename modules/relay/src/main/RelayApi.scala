@@ -6,18 +6,19 @@ import play.api.libs.json.*
 import reactivemongo.api.bson.*
 import scala.util.chaining.*
 
-import lila.common.config.MaxPerSecond
+import lila.common.config.{ Max, MaxPerSecond }
 import lila.db.dsl.{ *, given }
 import lila.memo.{ PicfitApi, CacheApi }
 import lila.study.{ Settings, Study, StudyApi, StudyId, StudyMaker, StudyMultiBoard, StudyRepo, StudyTopic }
 import lila.security.Granter
 import lila.user.{ User, Me, MyId }
-import lila.common.config.Max
 import lila.relay.RelayRound.WithTour
 
 final class RelayApi(
     roundRepo: RelayRoundRepo,
     tourRepo: RelayTourRepo,
+    groupRepo: RelayGroupRepo,
+    colls: RelayColls,
     studyApi: StudyApi,
     studyRepo: StudyRepo,
     multiboard: StudyMultiBoard,
@@ -73,7 +74,7 @@ final class RelayApi(
   def withRounds(tour: RelayTour) = roundRepo.byTourOrdered(tour).dmap(tour.withRounds)
 
   def denormalizeTourActive(tourId: RelayTour.Id): Funit =
-    roundRepo.coll.exists(roundRepo.selectors.tour(tourId) ++ $doc("finished" -> false)) flatMap {
+    roundRepo.coll.exists(RelayRoundRepo.selectors.tour(tourId) ++ $doc("finished" -> false)) flatMap {
       tourRepo.setActive(tourId, _)
     }
 
@@ -94,6 +95,18 @@ final class RelayApi(
       .map(_.exists(_.contains("tier")))
 
   def tourById(id: RelayTour.Id) = tourRepo.coll.byId[RelayTour](id)
+
+  object withTours:
+    private val cache = cacheApi[RelayTour.Id, Option[RelayGroup.WithTours]](256, "relay.groupWithTours"):
+      _.expireAfterWrite(1.minute).buildAsyncFuture: id =>
+        for
+          group <- groupRepo.byTour(id)
+          tours <- tourRepo.idNames(group.so(_.tours))
+        yield group.map(RelayGroup.WithTours(_, tours))
+    export cache.get
+    def addTo(tour: RelayTour): Fu[RelayTour.WithGroupTours] =
+      get(tour.id).map(RelayTour.WithGroupTours(tour, _))
+    def invalidate(id: RelayTour.Id) = cache.underlying.synchronous.invalidate(id)
 
   private def toSyncSelect = $doc(
     "sync.until" $exists true,
@@ -142,8 +155,8 @@ final class RelayApi(
   def tourUpdate(prev: RelayTour, data: RelayTourForm.Data)(using Me): Funit =
     val tour = data update prev
     import toBSONValueOption.given
-    tourRepo.coll.update
-      .one(
+    for
+      _ <- tourRepo.coll.update.one(
         $id(tour.id),
         $setsAndUnsets(
           "name"            -> tour.name.some,
@@ -158,7 +171,8 @@ final class RelayApi(
           "ownerId"         -> tour.ownerId.some
         )
       )
-      .void
+      _ <- Granter(_.Relay).so(groupRepo.update(tour.id, data.grouping))
+    yield withTours.invalidate(tour.id)
 
   def create(data: RelayRoundForm.Data, tour: RelayTour)(using me: Me): Fu[RelayRound.WithTourAndStudy] =
     roundRepo.lastByTour(tour) flatMapz { last =>
@@ -257,16 +271,16 @@ final class RelayApi(
 
   def canUpdate(tour: RelayTour)(using me: Me): Fu[Boolean] =
     fuccess(Granter(_.StudyAdmin) || me.is(tour.ownerId)) >>|
-      roundRepo.coll.distinctEasy[StudyId, List]("_id", roundRepo.selectors tour tour.id).flatMap { ids =>
-        studyRepo.membersByIds(ids) map {
-          _.exists(_ contributorIds me)
-        }
+      roundRepo.coll.distinctEasy[StudyId, List]("_id", RelayRoundRepo.selectors tour tour.id).flatMap {
+        ids =>
+          studyRepo.membersByIds(ids) map:
+            _.exists(_ contributorIds me)
       }
 
   def cloneTour(from: RelayTour)(using me: Me): Fu[RelayTour] =
     val tour = from.copy(
       id = RelayTour.makeId,
-      name = s"${from.name} (clone)",
+      name = RelayTour.Name(s"${from.name} (clone)"),
       ownerId = me.userId,
       createdAt = nowInstant,
       syncedAt = none

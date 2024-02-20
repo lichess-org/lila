@@ -33,6 +33,14 @@ final class JsonView(
       .add("tier" -> t.tier)
       .add("image" -> t.image.map(id => RelayTour.thumbnail(picfitUrl, id, _.Size.Large)))
 
+  given OWrites[RelayTour.IdName] = Json.writes[RelayTour.IdName]
+
+  given OWrites[RelayGroup.WithTours] = OWrites: g =>
+    Json.obj(
+      "name"  -> g.group.name,
+      "tours" -> g.withShorterTourNames.tours
+    )
+
   given OWrites[RelayRound] = OWrites: r =>
     Json
       .obj(
@@ -94,6 +102,7 @@ final class JsonView(
       trs: RelayTour.WithRounds,
       currentRoundId: RelayRoundId,
       studyData: lila.study.JsonView.JsData,
+      group: Option[RelayGroup.WithTours],
       canContribute: Boolean,
       isSubscribed: Option[Boolean] = none[Boolean]
   ) = leaderboardApi(trs.tour) map: leaderboard =>
@@ -101,6 +110,7 @@ final class JsonView(
       relay = apply(trs)
         .add("sync" -> (canContribute so trs.rounds.find(_.id == currentRoundId).map(_.sync)))
         .add("leaderboard" -> leaderboard)
+        .add("group" -> group)
         .add("isSubscribed" -> isSubscribed),
       study = studyData.study,
       analysis = studyData.analysis

@@ -20,9 +20,8 @@ object bits:
     views.html.base.bits.mselect(
       "orders",
       span(order.name()),
-      orders.map { o =>
+      orders.map: o =>
         a(href := url(o.key), cls := (order == o).option("current"))(o.name())
-      }
     )
 
   def newForm()(using PageContext) =

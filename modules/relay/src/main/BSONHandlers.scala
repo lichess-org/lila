@@ -38,7 +38,11 @@ object BSONHandlers:
   given BSONDocumentHandler[RelayTour.Spotlight]    = Macros.handler
   given tourHandler: BSONDocumentHandler[RelayTour] = Macros.handler
 
+  given BSONDocumentHandler[RelayTour.IdName] = Macros.handler
+
   def readRoundWithTour(doc: Bdoc): Option[RelayRound.WithTour] = for
     round <- doc.asOpt[RelayRound]
     tour  <- doc.getAsOpt[RelayTour]("tour")
   yield RelayRound.WithTour(round, tour)
+
+  given BSONDocumentHandler[RelayGroup] = Macros.handler

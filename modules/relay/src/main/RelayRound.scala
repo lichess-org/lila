@@ -134,7 +134,18 @@ object RelayRound:
     def path(chapterId: StudyChapterId): String = s"$path/$chapterId"
     def crowd                                   = display.crowd orElse link.crowd
 
+  trait AndGroup:
+    def group: Option[RelayGroup.Name]
+
+  trait AndTourAndGroup extends AndTour with AndGroup
+
   case class WithTour(round: RelayRound, tour: RelayTour) extends AndTour:
+    def display                 = round
+    def link                    = round
+    def withStudy(study: Study) = WithTourAndStudy(round, tour, study)
+
+  case class WithTourAndGroup(round: RelayRound, tour: RelayTour, group: Option[RelayGroup.Name])
+      extends AndTourAndGroup:
     def display                 = round
     def link                    = round
     def withStudy(study: Study) = WithTourAndStudy(round, tour, study)
