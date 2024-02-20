@@ -610,7 +610,6 @@ POST /inbox/:username/delete           controllers.Msg.convoDelete(username)
 GET   /coach                           controllers.Coach.all(page: Int ?= 1)
 GET   /coach/edit                      controllers.Coach.edit
 POST  /coach/edit                      controllers.Coach.editApply
-GET   /coach/picture/edit              controllers.Coach.picture
 POST  /upload/image/coach              controllers.Coach.pictureApply
 GET   /coach/:username                 controllers.Coach.show(username)
 GET   /coach/:lang/:country/:order     controllers.Coach.search(lang, order, country, page: Int ?= 1)
