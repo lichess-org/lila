@@ -122,6 +122,7 @@ object Work {
       acquired: Option[Acquired],
       postGameStudies: Set[lila.analyse.Analysis.PostGameStudy], // set of studies to inform
       skipPositions: List[Int],
+      puzzleWorthy: Boolean,
       createdAt: DateTime
   ) extends Work {
 

@@ -90,6 +90,7 @@ final class Analyser(
                 variant = variant,
                 moves = moves take maxPlies map (_.usi) mkString " "
               ),
+              puzzleWorthy = false,
               // if gote moves first, use 1 as startPly so the analysis doesn't get reversed
               startPly = initialSfen.flatMap(_.color).??(_.fold(0, 1)),
               sender = sender
@@ -140,10 +141,16 @@ final class Analyser(
         moves = game.usiMoves.take(maxPlies).map(_.usi).mkString(" ")
       ),
       startPly = game.shogi.startedAtPly,
+      puzzleWorthy = game.userRatings.exists(_ > 1600),
       sender = sender
     )
 
-  private def makeWork(game: Work.Game, startPly: Int, sender: Work.Sender): Work.Analysis =
+  private def makeWork(
+      game: Work.Game,
+      startPly: Int,
+      puzzleWorthy: Boolean,
+      sender: Work.Sender
+  ): Work.Analysis =
     Work.Analysis(
       _id = Work.makeId,
       sender = sender,
@@ -155,6 +162,7 @@ final class Analyser(
       acquired = none,
       skipPositions = Nil,
       postGameStudies = sender.postGameStudy.toSet,
+      puzzleWorthy = puzzleWorthy,
       createdAt = DateTime.now
     )
 }
