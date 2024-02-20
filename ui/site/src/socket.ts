@@ -348,7 +348,7 @@ export default class StrongSocket {
 
   baseUrl = () => {
     let url = this.storage.get();
-    if (!url) {
+    if (!url || !this.baseUrls.includes(url)) {
       url = this.baseUrls[Math.floor(Math.random() * this.baseUrls.length)];
       this.storage.set(url);
     } else if (this.tryOtherUrl) {
