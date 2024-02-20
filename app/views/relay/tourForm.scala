@@ -175,15 +175,15 @@ By default the PGN tags WhiteTeam and BlackTeam are used.""")
     form3.split(cls := "relay-form__grouping")(
       form3.group(
         form("grouping"),
-        "Optional: assign the tournament to a group (admins only)",
+        "Optional: assign tournaments to a group (admins only)",
         half = true
       )(form3.textarea(_)(rows := 3)),
       div(cls := "form-group form-half form-help"):
         lila.common.String.html
           .nl2br(
             """First line is the group name.
-Subsequent lines are the tournament in the group. Names are facultative and only used for display purposes.
-You can add, remove, and re-order tournaments.
+Subsequent lines are the tournament IDs and names in the group. Names are facultative and only used for display purposes in this textarea.
+You can add, remove, and re-order tournaments; and you can rename the group.
 Example:
 Group name
 tour1-id Tournament 1 name

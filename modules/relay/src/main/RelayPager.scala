@@ -111,8 +111,8 @@ final class RelayPager(
     aggregateRound(framework) ::: List(framework.UnwindField("round"))
 
   private def aggregateRound(framework: tourRepo.coll.AggregationFramework.type) = List(
-    framework.PipelineOperator(RelayListing.groupLookup(colls.group)),
-    framework.Match(RelayListing.groupFilter),
+    framework.PipelineOperator(RelayListing.group.lookup(colls.group)),
+    framework.Match(RelayListing.group.filter),
     framework.PipelineOperator(
       $lookup.pipeline(
         from = roundRepo.coll,
@@ -132,11 +132,13 @@ final class RelayPager(
     doc   <- docs
     tour  <- doc.asOpt[RelayTour]
     round <- doc.getAsOpt[RelayRound]("round")
-  yield WithLastRound(tour, round)
+    group = RelayListing.group.readFrom(doc)
+  yield WithLastRound(tour, round, group)
 
   private def readTours(docs: List[Bdoc]): List[RelayTour | WithLastRound] = for
     doc    <- docs
     tour   <- doc.asOpt[RelayTour]
     rounds <- doc.getAsOpt[List[RelayRound]]("round")
     round = rounds.headOption
-  yield round.fold(tour)(WithLastRound(tour, _))
+    group = RelayListing.group.readFrom(doc)
+  yield round.fold(tour)(WithLastRound(tour, _, group))

@@ -183,7 +183,7 @@ object tour:
     private def image(t: RelayTour) = t.image.fold(thumbnail.fallback(cls := "relay-card__image")): id =>
       img(cls := "relay-card__image", src := thumbnail.url(id, _.Size.Small))
 
-    def render[A <: RelayRound.AndTour](tr: A, ongoing: A => Boolean)(using Context) =
+    def render[A <: RelayRound.AndTourAndGroup](tr: A, ongoing: A => Boolean)(using Context) =
       link(tr.tour, tr.path, ongoing(tr))(
         image(tr.tour),
         span(cls := "relay-card__body")(
@@ -198,7 +198,7 @@ object tour:
               )
             else tr.display.startedAt.orElse(tr.display.startsAt).map(momentFromNow(_))
           ),
-          h3(cls := "relay-card__title")(tr.tour.name),
+          h3(cls := "relay-card__title")(tr.group.fold(tr.tour.name.value)(_.value)),
           span(cls := "relay-card__desc")(tr.tour.description)
         )
       )

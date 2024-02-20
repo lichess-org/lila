@@ -73,11 +73,16 @@ object RelayTour:
 
   case class WithRounds(tour: RelayTour, rounds: List[RelayRound])
 
-  case class ActiveWithSomeRounds(tour: RelayTour, display: RelayRound, link: RelayRound)
-      extends RelayRound.AndTour:
+  case class ActiveWithSomeRounds(
+      tour: RelayTour,
+      display: RelayRound,
+      link: RelayRound,
+      group: Option[RelayGroup.Name]
+  ) extends RelayRound.AndTourAndGroup:
     export display.{ hasStarted as ongoing }
 
-  case class WithLastRound(tour: RelayTour, round: RelayRound) extends RelayRound.AndTour:
+  case class WithLastRound(tour: RelayTour, round: RelayRound, group: Option[RelayGroup.Name])
+      extends RelayRound.AndTourAndGroup:
     def link    = round
     def display = round
 

@@ -40,8 +40,8 @@ final class RelayListing(
             import framework.*
             Match(RelayTourRepo.selectors.officialActive ++ $doc("_id" $nin upcoming.map(_.tour.id))) -> List(
               Sort(Descending("tier")),
-              PipelineOperator(groupLookup(colls.group)),
-              Match(groupFilter),
+              PipelineOperator(group.lookup(colls.group)),
+              Match(group.filter),
               PipelineOperator(roundLookup),
               UnwindField("round"),
               Limit(max)
@@ -50,17 +50,18 @@ final class RelayListing(
           doc   <- docs
           tour  <- doc.asOpt[RelayTour]
           round <- doc.getAsOpt[RelayRound]("round")
-        yield (tour, round)
-        sorted = tours.sortBy: (tour, round) =>
+          group = RelayListing.group.readFrom(doc)
+        yield (tour, round, group)
+        sorted = tours.sortBy: (tour, round, _) =>
           (
             !round.startedAt.isDefined,                    // ongoing tournaments first
             0 - ~tour.tier,                                // then by tier
             0 - ~round.crowd,                              // then by viewers
             round.startsAt.fold(Long.MaxValue)(_.toMillis) // then by next round date
           )
-        active <- sorted.traverse: (tour, round) =>
+        active <- sorted.traverse: (tour, round, group) =>
           defaultRoundToShow.get(tour.id) map: link =>
-            RelayTour.ActiveWithSomeRounds(tour, display = round, link = link | round)
+            RelayTour.ActiveWithSomeRounds(tour, display = round, link = link | round, group)
       yield
         spotlightCache = active
           .filter(_.tour.spotlight.exists(_.enabled))
@@ -78,8 +79,8 @@ final class RelayListing(
           import framework.*
           Match(RelayTourRepo.selectors.officialActive) -> List(
             Sort(Descending("tier")),
-            PipelineOperator(groupLookup(colls.group)),
-            Match(groupFilter),
+            PipelineOperator(group.lookup(colls.group)),
+            Match(group.filter),
             PipelineOperator:
               $lookup.pipeline(
                 from = colls.round,
@@ -101,7 +102,8 @@ final class RelayListing(
             doc   <- docs
             tour  <- doc.asOpt[RelayTour]
             round <- doc.getAsOpt[RelayRound]("round")
-          yield RelayTour.WithLastRound(tour, round)
+            group = RelayListing.group.readFrom(doc)
+          yield RelayTour.WithLastRound(tour, round, group)
         .map:
           _.sortBy: rt =>
             (
@@ -137,20 +139,28 @@ final class RelayListing(
 
 private object RelayListing:
 
-  // look at the groups where the tour appears.
-  // only keep the tour if there is no group,
-  // or if the tour is the first in the group.
-  def groupLookup(groupColl: Coll) = $lookup.pipelineFull(
-    from = groupColl.name,
-    as = "group",
-    let = $doc("id" -> "$_id"),
-    pipe = List(
-      $doc("$match" -> $doc("$expr" -> $doc("$in" -> $arr("$$id", "$tours")))),
-      $doc:
-        "$project" -> $doc(
-          "_id"   -> false,
-          "first" -> $doc("$eq" -> $arr("$$id", $doc("$first" -> "$tours")))
-        )
+  object group:
+    // look at the groups where the tour appears.
+    // only keep the tour if there is no group,
+    // or if the tour is the first in the group.
+    def lookup(groupColl: Coll) = $lookup.pipelineFull(
+      from = groupColl.name,
+      as = "group",
+      let = $doc("id" -> "$_id"),
+      pipe = List(
+        $doc("$match" -> $doc("$expr" -> $doc("$in" -> $arr("$$id", "$tours")))),
+        $doc:
+          "$project" -> $doc(
+            "_id"   -> false,
+            "name"  -> true,
+            "first" -> $doc("$eq" -> $arr("$$id", $doc("$first" -> "$tours")))
+          )
+      )
     )
-  )
-  val groupFilter = $doc("group.0.first" $ne false)
+    val filter = $doc("group.0.first" $ne false)
+
+    def readFrom(doc: Bdoc): Option[RelayGroup.Name] = for
+      garr <- doc.getAsOpt[Barr]("group")
+      gdoc <- garr.getAsOpt[Bdoc](0)
+      name <- gdoc.getAsOpt[RelayGroup.Name]("name")
+    yield name
