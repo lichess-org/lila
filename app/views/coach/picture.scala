@@ -12,13 +12,11 @@ object picture:
   object thumbnail:
     def apply(c: Coach.WithUser, cssSize: Int = Coach.imageSize) =
       img(
-        widthA    := Coach.imageSize,
-        heightA   := Coach.imageSize,
-        cssWidth  := cssSize,
-        cssHeight := cssSize,
-        cls       := "picture",
-        src       := url(c.coach),
-        alt       := s"${c.user.titleUsername} Lichess coach picture"
+        widthA  := Coach.imageSize,
+        heightA := Coach.imageSize,
+        cls     := "picture",
+        src     := url(c.coach),
+        alt     := s"${c.user.titleUsername} Lichess coach picture"
       )
     def url(c: Coach) =
       c.picture match

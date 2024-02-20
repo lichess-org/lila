@@ -54,7 +54,7 @@ object edit:
             ),
             div(cls := "picture_wrap")(
               picture.thumbnail(c, 250)(attr("draggable") := "true", cls := "drop-target"),
-              div(label("Drag file or"), form3.file.selectImage)
+              div(label("Drag file or"), " ", form3.file.selectImage)
             )
           )
         ),

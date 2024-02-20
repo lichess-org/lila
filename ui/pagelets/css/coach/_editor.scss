@@ -23,23 +23,7 @@
     }
 
     .picture_wrap {
-      @extend %flex-center;
-      justify-content: center;
-      column-gap: 30px;
-
-      img {
-        cursor: pointer;
-        width: 250px !important;
-        height: 250px !important;
-      }
-
-      > div {
-        @extend %flex-column;
-        align-items: center;
-      }
-      label {
-        padding: 1em;
-      }
+      @extend %image-preview-and-upload, %box-neat;
     }
   }
 }
