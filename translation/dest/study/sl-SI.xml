@@ -90,7 +90,7 @@
   <string name="pinnedChapterComment">Pripet komentar poglavja</string>
   <string name="saveChapter">Shrani poglavje</string>
   <string name="clearAnnotations">Zbriši oznake</string>
-  <string name="clearVariations">Izbriši variante</string>
+  <string name="clearVariations" comment="Clear is used as a verb here. This erases the variations in the study (https://lichess.org/study) you are preparing.">Izbriši variante</string>
   <string name="deleteChapter">Izbriši poglavje</string>
   <string name="deleteThisChapter">Izbriši to poglavje? Poti nazaj ni več!</string>
   <string name="clearAllCommentsInThisChapter">Izbriši vse komentarje in oblike v tem poglavju?</string>
