@@ -6,12 +6,12 @@
   "author": "T-Bone Duplexus",
   "license": "AGPL-3.0-or-later",
   "exports": {
-    "./*": "./dist/exports/*.js"
+    "./*": "./dist/load/*.js"
   },
   "typesVersions": {
     "*": {
       "*": [
-        "dist/exports/*"
+        "dist/load/*"
       ]
     }
   },

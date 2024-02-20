@@ -1,8 +1,5 @@
 import * as xhr from 'common/xhr';
-import { isSafari } from 'common/device';
-import { wire as wireCropDialog } from './exports/crop';
-
-if (isSafari()) wireCropDialog(); // preload
+import { wireCropDialog } from './load/crop';
 
 site.load.then(() => {
   $('.streamer-show, .streamer-list').on('change', '.streamer-subscribe input', (e: Event) => {

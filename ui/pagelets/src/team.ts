@@ -1,5 +1,5 @@
 import * as xhr from 'common/xhr';
-import flairPicker from './exports/flairPicker';
+import flairPicker from './load/flairPicker';
 
 interface TeamOpts {
   id: string;

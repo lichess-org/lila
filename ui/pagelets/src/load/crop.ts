@@ -1,6 +1,7 @@
+import { isSafari } from 'common/device';
 export { type CropOpts } from '../crop';
 
-export function wire(args?: {
+export function wireCropDialog(args?: {
   aspectRatio: number;
   selectClicks?: Cash;
   selectDrags?: Cash;
@@ -31,3 +32,5 @@ export function wire(args?: {
     }
   });
 }
+
+if (isSafari()) wireCropDialog(); // preload
