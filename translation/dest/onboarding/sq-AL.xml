@@ -11,7 +11,7 @@
   <string name="playOpponentsFromAroundTheWorld">Luani me kundërshtarë nga anembanë bota.</string>
   <string name="followYourFriendsOnLichess">Ndiqni shokët tuaj në Lichess.</string>
   <string name="playInTournaments">Luani në turne.</string>
-  <string name="learnFromXAndY">Mësoni nga %1$s dhe %2$s.</string>
+  <string name="learnFromXAndY" comment="%1$s is Study&#10;%2$s is Videos&#10;&#10;They are both links to pages titled that way, and the title is used verbatim.">Mësoni nga %1$s dhe %2$s.</string>
   <string name="configureLichess">Formësojeni Lichess-in si t’ju pëlqejë.</string>
   <string name="exploreTheSiteAndHaveFun">Eksploroni sajtin dhe zbavituni :)</string>
 </resources>
