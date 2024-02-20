@@ -18,7 +18,7 @@
   <string name="whenReadySetupBoard">Quando estiveres pronto, configura o teu tabuleiro e clique em %s.</string>
   <string name="ifMoveNotDetected">Se um movimento não for detetado</string>
   <string name="checkYouHaveMadeOpponentsMove">Verifique se fizestes primeiro o movimento do teu oponente no tabuleiro DGT. Reverte o teu movimento. Joga novamente.</string>
-  <string name="asALastResort">Como último recurso, configura o tabuleiro de forma idêntica com do Lichess, e então %s</string>
+  <string name="asALastResort" comment="%s is 'Reload this page', a separate translatable string.&#10;&#10;Appears on DGT board pages. A DGT board is a digitally connected real life board which requires the player to set up the real life board to match what it is on the screen. Hence needing it to be set up identically to what is visible on Lichess.">Como último recurso, configura o tabuleiro de forma idêntica com do Lichess, e então %s</string>
   <string name="reloadThisPage">Recarrega esta pagina</string>
   <string name="dgtConfigure">DGT — Configuração</string>
   <string name="lichessConnectivity">Conexão com o Lichess</string>

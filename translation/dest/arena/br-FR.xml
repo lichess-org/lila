@@ -41,7 +41,7 @@ Grit buan da vezañ trec\'h evit distreiñ d\'ar sal c\'hortoz da c\'hounit muio
   <string name="shareUrl">Skignit an URL-mañ da zesachañ c\'hoarierien: %s</string>
   <string name="minimumGameLength">Padelezh izelañ rekis</string>
   <string name="history">Istor an Arenoù</string>
-  <plurals name="viewAllXTeams" comment="viewAllXTeams [one] [other]&#10;&#10;%s is the number of teams that can be viewed">
+  <plurals name="viewAllXTeams" comment="%s is the number of teams that can be viewed.&#10;&#10;Appears in team battles that feature lots of teams. As of the time of writing, Lichess lists up to 10 teams at a time, so this button lets you view all teams.">
     <item quantity="one">Gwelet ar skipailh</item>
     <item quantity="two">Gwelet %s skipailh</item>
     <item quantity="few">Gwelet %s skipailh</item>
