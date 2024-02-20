@@ -85,7 +85,7 @@
   <string name="pinnedChapterComment">Aghänkte Kapitel Kommentar</string>
   <string name="saveChapter">Kapitel schpeichere</string>
   <string name="clearAnnotations">Amerkige lösche</string>
-  <string name="clearVariations">Variante lösche</string>
+  <string name="clearVariations" comment="Clear is used as a verb here. This erases the variations in the study (https://lichess.org/study) you are preparing.">Variante lösche</string>
   <string name="deleteChapter">Kapitel lösche</string>
   <string name="deleteThisChapter">Kapitel lösche? Das chann nöd rückgängig gmacht werde!</string>
   <string name="clearAllCommentsInThisChapter">Alli Kommentär, Symbol und Zeichnigsforme i dem Kapitel lösche?</string>
