@@ -42,7 +42,7 @@ Mängige kiiresti ning naaske ooteruumi, et mängida rohkem mänge ja võita roh
   <string name="variant">Variant</string>
   <string name="minimumGameLength">Vähim käikude arv</string>
   <string name="history">Areena ajalugu</string>
-  <plurals name="viewAllXTeams" comment="viewAllXTeams [one] [other]&#10;&#10;%s is the number of teams that can be viewed">
+  <plurals name="viewAllXTeams" comment="%s is the number of teams that can be viewed.&#10;&#10;Appears in team battles that feature lots of teams. As of the time of writing, Lichess lists up to 10 teams at a time, so this button lets you view all teams.">
     <item quantity="one">Vaata võistkonda</item>
     <item quantity="other">Vaata kõiki %s võistkonda</item>
   </plurals>
