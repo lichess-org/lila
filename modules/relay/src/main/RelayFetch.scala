@@ -96,6 +96,9 @@ final private class RelayFetch(
         .recover:
           case e: Exception =>
             val result = e.match
+              case e @ LilaInvalid(msg) =>
+                logger.info(s"Sync fail ${rt.round} $msg")
+                SyncResult.Error(msg)
               case SyncResult.Timeout =>
                 if rt.tour.official then logger.info(s"Sync timeout ${rt.round}")
                 SyncResult.Timeout
