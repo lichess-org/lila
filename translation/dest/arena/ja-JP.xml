@@ -35,7 +35,7 @@
   <string name="variant">バリアント</string>
   <string name="minimumGameLength">最小手数</string>
   <string name="history">過去のアリーナ</string>
-  <plurals name="viewAllXTeams" comment="viewAllXTeams [one] [other]&#10;&#10;%s is the number of teams that can be viewed">
+  <plurals name="viewAllXTeams" comment="%s is the number of teams that can be viewed.&#10;&#10;Appears in team battles that feature lots of teams. As of the time of writing, Lichess lists up to 10 teams at a time, so this button lets you view all teams.">
     <item quantity="other">%s チームを表示</item>
   </plurals>
   <string name="newTeamBattle">新しいチームバトル</string>
@@ -47,7 +47,7 @@
   <string name="arenaStreaks">連勝ボーナスあり</string>
   <string name="arenaStreaksHelp">2 連勝すると以降の勝ちは 2 ではなく 4 ポイントになる。</string>
   <string name="noBerserkAllowed">バーサークなし</string>
-  <string name="noArenaStreaks">連勝ボーナスなし</string>
+  <string name="noArenaStreaks" comment="A possible setting when creating an arena tournament.&#10;When enabled: After 2 wins, consecutive wins grant 4 points instead of 2.">連勝ボーナスなし</string>
   <string name="averagePerformance">平均パフォーマンス</string>
   <string name="averageScore">平均スコア</string>
   <string name="myTournaments">作成したトーナメント</string>
