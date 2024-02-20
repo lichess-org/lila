@@ -185,9 +185,9 @@ By default the PGN tags WhiteTeam and BlackTeam are used.""")
 Subsequent lines are the tournament IDs and names in the group. Names are facultative and only used for display purposes in this textarea.
 You can add, remove, and re-order tournaments; and you can rename the group.
 Example:
-Group name
-tour1-id Tournament 1 name
-tour2-id Tournament 2 name
+Youth Championship 2024
+tour1-id Youth Championship 2024 | G20
+tour2-id Youth Championship 2024 | G16
 """
           )
     )

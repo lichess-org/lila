@@ -125,20 +125,27 @@ const overview = (relay: RelayCtrl, study: StudyCtrl, ctrl: AnalyseCtrl) => {
 };
 
 const groupSelect = (relay: RelayCtrl, group: RelayGroup) =>
-  h('div.mselect.relay-tour__group-select', [
-    h('input#mselect-relay-group.mselect__toggle.fullscreen-toggle', { attrs: { type: 'checkbox' } }),
-    h('label.mselect__label', { attrs: { for: 'mselect-relay-group' } }, relay.data.tour.name),
-    h('label.fullscreen-mask', { attrs: { for: 'mselect-relay-group' } }),
-    h(
-      'nav.mselect__list',
-      group.tours.map(tour =>
-        h(
-          `a${tour.id == relay.data.tour.id ? '.current' : ''}`,
-          { attrs: { href: `/broadcast/-/${tour.id}` } },
-          tour.name,
+  h('div.relay-tour__group-title', [
+    h('h1', group.name),
+    h('div.mselect.relay-tour__group-select', [
+      h('input#mselect-relay-group.mselect__toggle.fullscreen-toggle', { attrs: { type: 'checkbox' } }),
+      h(
+        'label.mselect__label',
+        { attrs: { for: 'mselect-relay-group' } },
+        group.tours.find(t => t.id == relay.data.tour.id)?.name || relay.data.tour.name,
+      ),
+      h('label.fullscreen-mask', { attrs: { for: 'mselect-relay-group' } }),
+      h(
+        'nav.mselect__list',
+        group.tours.map(tour =>
+          h(
+            `a${tour.id == relay.data.tour.id ? '.current' : ''}`,
+            { attrs: { href: `/broadcast/-/${tour.id}` } },
+            tour.name,
+          ),
         ),
       ),
-    ),
+    ]),
   ]);
 
 const games = (relay: RelayCtrl, study: StudyCtrl, ctrl: AnalyseCtrl) => [

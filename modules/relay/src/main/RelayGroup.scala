@@ -14,7 +14,13 @@ object RelayGroup:
   opaque type Name = String
   object Name extends OpaqueString[Name]
 
-  case class WithTours(group: RelayGroup, tours: List[RelayTour.IdName])
+  case class WithTours(group: RelayGroup, tours: List[RelayTour.IdName]):
+    def withShorterTourNames = copy(tours = tours.map: tour =>
+      if tour.name.value.startsWith(group.name.value)
+      then
+        val shortName = tour.name.value.drop(group.name.value.size + 1).dropWhile(!_.isLetterOrDigit)
+        tour.copy(name = RelayTour.Name(shortName))
+      else tour)
 
   private[relay] object form:
     import play.api.data.*

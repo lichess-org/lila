@@ -38,7 +38,7 @@ final class JsonView(
   given OWrites[RelayGroup.WithTours] = OWrites: g =>
     Json.obj(
       "name"  -> g.group.name,
-      "tours" -> g.tours
+      "tours" -> g.withShorterTourNames.tours
     )
 
   given OWrites[RelayRound] = OWrites: r =>
