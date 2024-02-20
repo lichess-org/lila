@@ -85,7 +85,7 @@
   <string name="pinnedChapterComment">Fastnålad kommentar till kapitlet</string>
   <string name="saveChapter">Spara kapitlet</string>
   <string name="clearAnnotations">Rensa kommentarer</string>
-  <string name="clearVariations">Rensa variationer</string>
+  <string name="clearVariations" comment="Clear is used as a verb here. This erases the variations in the study (https://lichess.org/study) you are preparing.">Rensa variationer</string>
   <string name="deleteChapter">Ta bort kapitel</string>
   <string name="deleteThisChapter">Vill du ta bort hela studien? Detta går inte att ångra!</string>
   <string name="clearAllCommentsInThisChapter">Rensa alla kommentarer, symboler och former i detta kapitel?</string>
