@@ -29,11 +29,11 @@ export function remove(ctrl: LobbyController, id: string) {
   ctrl.stepHooks.forEach(h => {
     if (h.id === id) h.disabled = true;
   });
-  if (ctrl.currentPresetId && id === window.lishogi.sri) ctrl.currentPresetId = undefined;
+  if (ctrl.currentPresetId && id === window.lishogi.sri) ctrl.currentPresetId = '';
 }
 export function syncIds(ctrl: LobbyController, ids: string[]) {
   ctrl.data.hooks = ctrl.data.hooks.filter(h => ids.includes(h.id));
-  if (ctrl.currentPresetId && !ids.includes(window.lishogi.sri)) ctrl.currentPresetId = undefined;
+  if (ctrl.currentPresetId && !ids.includes(window.lishogi.sri)) ctrl.currentPresetId = '';
 }
 export function find(ctrl: LobbyController, id: string) {
   return ctrl.data.hooks.find(h => h.id === id);

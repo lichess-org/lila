@@ -255,11 +255,6 @@ case class Game(
         mode = Mode(mode.rated && userIds.distinct.sizeIs == 2)
       )
 
-  def startClock =
-    clock map { c =>
-      start.withClock(c.start)
-    }
-
   def correspondenceClock: Option[CorrespondenceClock] =
     daysPerTurn map { days =>
       val increment   = days * 24 * 60 * 60

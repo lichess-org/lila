@@ -28,7 +28,7 @@ export default class LobbyController {
   setup: Setup;
   presetOpts: PresetOpts;
   allPresets: Preset[];
-  currentPresetId: string | undefined;
+  currentPresetId: string;
 
   private flushHooksTimeout?: number;
   private alreadyWatching: string[] = [];
