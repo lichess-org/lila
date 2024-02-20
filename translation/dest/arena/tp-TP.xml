@@ -42,7 +42,7 @@ o musi lon tenpo lili la o tawa tawa tomo awen. tan ni la sina ken musi mute li 
   <string name="shareUrl">o pana e nimi open tawa jan la jan li ken kama: %s</string>
   <string name="variant">musi pi nasin ante</string>
   <string name="history">ma utala pi tenpo pini</string>
-  <plurals name="viewAllXTeams" comment="viewAllXTeams [one] [other]&#10;&#10;%s is the number of teams that can be viewed">
+  <plurals name="viewAllXTeams" comment="%s is the number of teams that can be viewed.&#10;&#10;Appears in team battles that feature lots of teams. As of the time of writing, Lichess lists up to 10 teams at a time, so this button lets you view all teams.">
     <item quantity="one">o lukin e kulupu</item>
     <item quantity="other">o lukin e kulupu %s</item>
   </plurals>
