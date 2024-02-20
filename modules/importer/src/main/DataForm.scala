@@ -56,7 +56,7 @@ case class ImportData(notation: String, analyse: Option[String]) {
       case "引き分け" | "引分け" | "HIKIWAKE"                                              => Status.Draw
       case "入玉勝ち" | "KACHI"                                                         => Status.Impasse27
       case "切れ負け" | "TIME-UP" | "TIME_UP"                                           => Status.Outoftime
-      case "反則勝ち" | "反則負け" | "ILLEGAL_MOVE" | "+ILLEGAL_ACTION" | "-ILLEGAL_ACTION" => Status.Cheat
+      case "反則勝ち" | "反則負け" | "ILLEGAL_MOVE" | "+ILLEGAL_ACTION" | "-ILLEGAL_ACTION" => Status.UnknownFinish
       case _                                                                        => Status.UnknownFinish
     }
 
@@ -79,10 +79,8 @@ case class ImportData(notation: String, analyse: Option[String]) {
       Reader.fromParsedNotation(
         parsed,
         parsedMoves => parsedMoves.copy(value = parsedMoves.value take maxPlies)
-      ) pipe evenIncomplete pipe { case replay @ Replay(init, state) =>
-        val game = state.copy(clock = None)
-
-        val status = createStatus(~parsed.tags(_.Termination).map(_.toUpperCase))
+      ) pipe evenIncomplete pipe { case replay @ Replay(init, game) =>
+        val status = createStatus(~parsed.tags(_.Termination).map(_.toUpperCase)).pp("A")
 
         val date = parsed.tags.anyDate
 
@@ -117,11 +115,7 @@ case class ImportData(notation: String, analyse: Option[String]) {
             case Some(situationStatus) => dbGame.finish(situationStatus, game.situation.winner)
             case None =>
               parsed.tags.resultColor
-                .map {
-                  case Some(color)                            => TagResult(status, color.some)
-                  case None if status == Status.UnknownFinish => TagResult(Status.Draw, none)
-                  case None                                   => TagResult(status, none)
-                }
+                .map(winner => TagResult(status, winner))
                 .filter(_.status > Status.Started)
                 .fold(dbGame) { res =>
                   dbGame.finish(res.status, res.winner)

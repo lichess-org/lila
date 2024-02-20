@@ -43,9 +43,7 @@ object side {
                   views.html.bookmark.toggle(game, bookmarked),
                   if (game.imported)
                     div(
-                      a(href := routes.Importer.importGame, title := trans.importGame.txt())("IMPORT"),
-                      separator,
-                      bits.variantLink(game.variant, game.perfType)
+                      a(href := routes.Importer.importGame, title := trans.importGame.txt())("IMPORT")
                     )
                   else
                     frag(

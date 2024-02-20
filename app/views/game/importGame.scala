@@ -47,7 +47,7 @@ object importGame {
               form3.action(form3.submit(trans.importGame(), "/".some))
             )
           ),
-          form("notation").value flatMap { notation =>
+          form("notation").value.filterNot(_.isEmpty) flatMap { notation =>
             lila.importer
               .ImportData(notation, none)
               .preprocess(none)
