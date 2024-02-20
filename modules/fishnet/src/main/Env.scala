@@ -19,8 +19,7 @@ private class FishnetConfig(
     @ConfigName("offline_mode") val offlineMode: Boolean,
     @ConfigName("analysis.nodes") val analysisNodes: Int,
     @ConfigName("move.plies") val movePlies: Int,
-    @ConfigName("client_min_version") val clientMinVersion: String,
-    @ConfigName("client_min_version_puzzle") val clientMinVersionPuzzle: String
+    @ConfigName("client_min_version") val clientMinVersion: String
 )
 
 case class FishnetColls(
@@ -72,8 +71,7 @@ final class Env(
   private lazy val apiConfig = FishnetApi.Config(
     offlineMode = config.offlineMode,
     analysisNodes = config.analysisNodes,
-    clientVersion = new Client.ClientVersion(config.clientMinVersion),
-    clientVersionPuzzle = new Client.ClientVersion(config.clientMinVersionPuzzle)
+    clientVersion = new Client.ClientVersion(config.clientMinVersion)
   )
 
   private lazy val socketExists: Game.ID => Fu[Boolean] = id =>

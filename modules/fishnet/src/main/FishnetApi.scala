@@ -89,28 +89,26 @@ final class FishnetApi(
     }.map { _ map JsonApi.analysisFromWork(config.analysisNodes) }
 
   private def acquirePuzzle(client: Client, verifiable: Boolean): Fu[Option[JsonApi.Work]] =
-    if (client.instance.exists(ins => config.clientVersionPuzzle.accept(ins.version).isSuccess))
-      workQueue {
-        colls.puzzle
-          .find(
-            $doc("acquired" $exists false) ++
-              $doc("verifiable" -> verifiable) ++ {
-                $doc("lastTryByKey" $ne client.key) // client alternation
-              }
-          )
-          .sort(
-            $doc(
-              "createdAt" -> 1 // oldest requests first
-            )
-          )
-          .one[Work.Puzzle]
-          .flatMap {
-            _ ?? { work =>
-              repo.updatePuzzle(work assignTo client) inject work.some
+    workQueue {
+      colls.puzzle
+        .find(
+          $doc("acquired" $exists false) ++
+            $doc("verifiable" -> verifiable) ++ {
+              $doc("lastTryByKey" $ne client.key) // client alternation
             }
+        )
+        .sort(
+          $doc(
+            "createdAt" -> 1 // oldest requests first
+          )
+        )
+        .one[Work.Puzzle]
+        .flatMap {
+          _ ?? { work =>
+            repo.updatePuzzle(work assignTo client) inject work.some
           }
-      }.map { _ map JsonApi.puzzleFromWork }
-    else fuccess(None)
+        }
+    }.map { _ map JsonApi.puzzleFromWork }
 
   def postMove(workId: Work.Id, client: Client, data: JsonApi.Request.PostMove): Funit =
     fuccess {
@@ -337,8 +335,7 @@ object FishnetApi {
   case class Config(
       offlineMode: Boolean,
       analysisNodes: Int,
-      clientVersion: Client.ClientVersion,
-      clientVersionPuzzle: Client.ClientVersion
+      clientVersion: Client.ClientVersion
   )
 
   case object WorkNotFound extends LilaException {
@@ -355,8 +352,8 @@ object FishnetApi {
 
   sealed trait PostAnalysisResult
   object PostAnalysisResult {
-    case class Complete(work: Work, analysis: lila.analyse.Analysis) extends PostAnalysisResult
-    case class Partial(analysis: lila.analyse.Analysis)              extends PostAnalysisResult
-    case object UnusedPartial                                        extends PostAnalysisResult
+    case class Complete(work: Work.Analysis, analysis: lila.analyse.Analysis) extends PostAnalysisResult
+    case class Partial(analysis: lila.analyse.Analysis)                       extends PostAnalysisResult
+    case object UnusedPartial                                                 extends PostAnalysisResult
   }
 }
