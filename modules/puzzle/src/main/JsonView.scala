@@ -178,8 +178,7 @@ final class JsonView(
             fen = chess.format.Fen write game,
             check = game.situation.check,
             crazyData = none
-          )
-          (game, branch :: branches)
+          )(game, branch :: branches)
       }
       branchList.foldLeft[Option[tree.Branch]](None) {
         case (None, branch)        => branch.some

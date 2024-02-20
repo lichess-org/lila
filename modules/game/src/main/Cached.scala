@@ -40,8 +40,7 @@ final class Cached(
   ): loader =>
     _.expireAfterAccess(10 minutes)
       .buildAsyncFuture:
-        loader: userId =>
-          gameRepo.coll countSel Query.imported(userId)
+        loader: userId => gameRepo.coll countSel Query.imported(userId)
 
   private val nbTotalCache = mongoCache.unit[Long](
     "game:total",
@@ -49,5 +48,4 @@ final class Cached(
   ): loader =>
     _.refreshAfterWrite(30 minutes)
       .buildAsyncFuture:
-        loader: _ =>
-          gameRepo.coll.countAll
+        loader: _ => gameRepo.coll.countAll

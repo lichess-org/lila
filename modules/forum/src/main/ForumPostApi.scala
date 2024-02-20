@@ -83,8 +83,7 @@ final class ForumPostApi(
         case (_, post) if !post.canStillBeEdited =>
           fufail("Post can no longer be edited")
         case (_, post) =>
-          val newPost = post.editPost(nowInstant, spam replace newText)
-          (newPost.text != post.text).so {
+          val newPost = post.editPost(nowInstant, spam replace newText)(newPost.text != post.text).so {
             postRepo.coll.update.one($id(post.id), newPost) >> newPost.isAnonModPost.so {
               logAnonPost(newPost, edit = true)
             } andDo promotion.save(newPost.text)

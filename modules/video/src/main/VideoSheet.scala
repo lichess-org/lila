@@ -22,8 +22,7 @@ final private class VideoSheet(ws: StandaloneWSClient, url: String, api: VideoAp
                   lang = entry.lang,
                   ads = entry.ads,
                   startTime = entry.startTime
-                )
-                (video != updated) so {
+                )(video != updated) so {
                   logger.info(s"sheet update $updated")
                   api.video.save(updated)
                 }
