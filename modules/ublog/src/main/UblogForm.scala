@@ -98,11 +98,13 @@ object UblogForm:
 
   val tier = Form:
     single:
-      "tier" -> number(min = UblogBlog.Tier.HIDDEN.value, max = UblogBlog.Tier.BEST.value)
-        .into[UblogBlog.Tier]
+      "tier" -> number(min = UblogRank.Tier.HIDDEN.value, max = UblogRank.Tier.BEST.value)
+        .into[UblogRank.Tier]
 
   val adjust = Form:
     tuple(
-      "days"   -> optional(number(min = -180, max = 180)),
-      "pinned" -> boolean
+      "pinned" -> boolean,
+      "tier" -> number(min = UblogRank.Tier.HIDDEN.value, max = UblogRank.Tier.BEST.value)
+        .into[UblogRank.Tier],
+      "days" -> optional(number(min = -180, max = 180))
     )

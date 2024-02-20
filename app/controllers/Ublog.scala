@@ -9,7 +9,7 @@ import lila.app.{ given, * }
 import lila.common.config
 import lila.i18n.{ I18nLangPicker, LangList, Language }
 import lila.report.Suspect
-import lila.ublog.{ UblogBlog, UblogPost }
+import lila.ublog.{ UblogBlog, UblogPost, UblogRank }
 import lila.user.{ User as UserModel }
 import play.api.mvc.Result
 
@@ -194,7 +194,7 @@ final class Ublog(env: Env) extends LilaController(env):
               user <- env.user.repo.byId(blog.userId) orFail "Missing blog user!" dmap Suspect.apply
               _    <- env.ublog.api.setTier(blog.id, tier)
               _    <- env.ublog.rank.recomputeRankOfAllPostsOfBlog(blog.id)
-              _    <- env.mod.logApi.blogTier(user, UblogBlog.Tier.name(tier))
+              _    <- env.mod.logApi.blogTier(user, UblogRank.Tier.name(tier))
             yield Redirect(urlOfBlog(blog)).flashSuccess
         )
   }
@@ -205,15 +205,16 @@ final class Ublog(env: Env) extends LilaController(env):
         .bindFromRequest()
         .fold(
           _ => Redirect(urlOfPost(post)).flashFailure,
-          (rankAdjustDays, pinned) =>
+          (pinned, tier, rankAdjustDays) =>
             for
+              _ <- env.ublog.api.setTier(post.blog, tier)
               _ <- env.ublog.api.setRankAdjust(post.id, ~rankAdjustDays, pinned)
               _ <- logModAction(
                 post,
                 s"${~rankAdjustDays} days${pinned so " and pinned to top"} rank adjustement",
                 logIncludingMe = true
               )
-              _ <- env.ublog.rank.recomputePostRank(post)
+              _ <- env.ublog.rank.recomputeRankOfAllPostsOfBlog(post.blog)
             yield Redirect(urlOfPost(post)).flashSuccess
         )
   }

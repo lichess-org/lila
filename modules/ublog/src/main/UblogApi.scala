@@ -85,8 +85,8 @@ final class UblogApi(
     val blogId = UblogBlog.Id.User(user.id)
     val canView = fuccess(me.exists(_ is user)) >>|
       colls.blog
-        .primitiveOne[UblogBlog.Tier]($id(blogId.full), "tier")
-        .dmap(_.exists(_ >= UblogBlog.Tier.VISIBLE))
+        .primitiveOne[UblogRank.Tier]($id(blogId.full), "tier")
+        .dmap(_.exists(_ >= UblogRank.Tier.VISIBLE))
     canView flatMapz { blogPreview(blogId, nb).dmap(some) }
 
   def blogPreview(blogId: UblogBlog.Id, nb: Int): Fu[UblogPost.BlogPreview] =
@@ -161,7 +161,7 @@ final class UblogApi(
   def delete(post: UblogPost): Funit =
     colls.post.delete.one($id(post.id)) >> image.deleteAll(post)
 
-  def setTier(blog: UblogBlog.Id, tier: UblogBlog.Tier): Funit =
+  def setTier(blog: UblogBlog.Id, tier: UblogRank.Tier): Funit =
     colls.blog.update
       .one($id(blog), $set("modTier" -> tier, "tier" -> tier), upsert = true)
       .void
@@ -173,8 +173,8 @@ final class UblogApi(
     colls.post.find($doc("blog" -> s"user:${user.id}")).cursor[UblogPost](ReadPref.priTemp)
 
   private[ublog] def setShadowban(userId: UserId, v: Boolean) = {
-    if v then fuccess(UblogBlog.Tier.HIDDEN)
-    else userApi.withPerfs(userId).map(_.fold(UblogBlog.Tier.HIDDEN)(UblogBlog.Tier.default))
+    if v then fuccess(UblogRank.Tier.HIDDEN)
+    else userApi.withPerfs(userId).map(_.fold(UblogRank.Tier.HIDDEN)(UblogRank.Tier.default))
   }.flatMap:
     setTier(UblogBlog.Id.User(userId), _)
 
