@@ -11,8 +11,9 @@ import lila.tree.Eval.{ Cp, Mate }
 // finds candidates for puzzle from analysis
 private object PuzzleFinder {
 
-  def apply(work: Work, analysis: Analysis): List[Work.Puzzle] =
+  def apply(work: Work.Analysis, analysis: Analysis): List[Work.Puzzle] =
     if (
+      work.puzzleWorthy &&
       work.isStandard &&
       work.game.initialSfen.fold(true)(_.initialOf(work.game.variant)) &&
       work.game.studyId.isEmpty
@@ -26,14 +27,16 @@ private object PuzzleFinder {
         ._1
         .toList
       val investigatable = analysis.infos
+        .map(_.eval)
         .sliding(2)
         .zipWithIndex
-        .drop(5) // no need to look at the first few positions
+        .drop(10) // no need to look at the first few positions
         .collect {
-          case (List(prev, next), index) if (shouldInvestigate(prev.eval, next.eval)) =>
-            index
+          case (List(prev, next), index) if (shouldInvestigate(prev, next).pp(s"AT: $index]\n[")) =>
+            index + 1
         }
         .toList
+        .takeRight(5)
 
       investigatable flatMap { index =>
         games.lift(index).map { game =>
@@ -44,7 +47,7 @@ private object PuzzleFinder {
               initialSfen = game.toSfen.some,
               studyId = none,
               variant = game.variant,
-              moves = ~game.usiMoves.lift(index).map(_.usi)
+              moves = ~work.game.usiList.lift(index).map(_.usi)
             ),
             engine = lila.game.EngineConfig.Engine.YaneuraOu.name,
             source = Work.Puzzle.Source(
@@ -76,9 +79,9 @@ private object PuzzleFinder {
           // From even to winning
           (Math.abs(a_cp) < 350 && Math.abs(b_cp - a_cp) >= 1250) ||
           // From winning to even
-          (Math.abs(a_cp) >= 2000 && Math.abs(b_cp) < 250) ||
+          (Math.abs(a_cp) >= 2000 && Math.abs(b_cp) < 300) ||
           // From winning to losing
-          (Math.abs(a_cp) >= 1250 && a_cp.sign != b_cp.sign)
+          (Math.abs(a_cp) >= 1250 && Math.abs(b_cp) >= 750 && a_cp.sign != b_cp.sign)
         case (Left(Cp(a_cp)), Right(Mate(b_mate))) =>
           // From even to checkmate
           (Math.abs(a_cp) < 500) ||
