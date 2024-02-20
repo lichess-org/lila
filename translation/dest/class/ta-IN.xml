@@ -11,4 +11,7 @@
   <string name="noClassesYet">இன்னமும் வகுப்புக்கள் இல்லை.</string>
   <string name="teachersX">ஆசிரியர்: %s</string>
   <string name="newClass">புதிய வகுப்பு</string>
+  <string name="reopen">மீண்டும் திற</string>
+  <string name="addStudent">மாணவரைச் சேர்</string>
+  <string name="lastActiveDate">இணையத்தில் உள்ளார்</string>
 </resources>
