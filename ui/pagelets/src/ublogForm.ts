@@ -1,12 +1,9 @@
 import * as xhr from 'common/xhr';
-import { isSafari } from 'common/device';
 import throttle from 'common/throttle';
 import Editor from '@toast-ui/editor';
 import Tagify from '@yaireo/tagify';
 import { currentTheme } from 'common/theme';
-import { wire as wireCropDialog } from './crop';
-
-if (isSafari()) wireCropDialog(); // preload
+import { wireCropDialog } from './load/crop';
 
 site.load.then(() => {
   $('.markdown-editor').each(function (this: HTMLTextAreaElement) {

@@ -96,6 +96,9 @@ final private class RelayFetch(
         .recover:
           case e: Exception =>
             val result = e.match
+              case e @ LilaInvalid(msg) =>
+                logger.info(s"Sync fail ${rt.round} $msg")
+                SyncResult.Error(msg)
               case SyncResult.Timeout =>
                 if rt.tour.official then logger.info(s"Sync timeout ${rt.round}")
                 SyncResult.Timeout
@@ -231,7 +234,8 @@ private object RelayFetch:
         fname: Option[String],
         mname: Option[String],
         lname: Option[String],
-        title: Option[String]
+        title: Option[String],
+        fideid: Option[Int]
     ):
       def fullName = some {
         List(fname, mname, lname).flatten mkString " "
@@ -246,8 +250,10 @@ private object RelayFetch:
         List(
           white.flatMap(_.fullName) map { Tag(_.White, _) },
           white.flatMap(_.title) map { Tag(_.WhiteTitle, _) },
+          white.flatMap(_.fideid) map { Tag(_.WhiteFideId, _) },
           black.flatMap(_.fullName) map { Tag(_.Black, _) },
           black.flatMap(_.title) map { Tag(_.BlackTitle, _) },
+          black.flatMap(_.fideid) map { Tag(_.BlackFideId, _) },
           result.map(Tag(_.Result, _))
         ).flatten
     case class RoundJson(pairings: List[RoundJsonPairing])
