@@ -35,6 +35,7 @@ import { renderNextChapter } from '../study/nextChapter';
 import * as Prefs from 'common/prefs';
 import StudyCtrl from '../study/studyCtrl';
 import { dispatchChessgroundResize } from 'common/resize';
+import { tourTabs } from '../study/relay/relayTourView';
 
 window.addEventListener('popstate', () => window.location.reload());
 
@@ -420,6 +421,8 @@ export default function (deps?: typeof studyDeps) {
         !tour && trainingView(ctrl),
         ctrl.studyPractice
           ? deps?.studyPracticeView.side(study!)
+          : study?.relay
+          ? tourTabs(ctrl)
           : h(
               'aside.analyse__side',
               {
@@ -451,7 +454,7 @@ export default function (deps?: typeof studyDeps) {
                       ),
                   ],
             ),
-        study && study.relay && deps?.relayManager(study.relay),
+        study?.relay && deps?.relayManager(study.relay),
         h('div.chat__members.none', { hook: onInsert(site.watchers) }),
       ],
     );

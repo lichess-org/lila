@@ -45,6 +45,12 @@ export default class RelayCtrl {
       : undefined;
   }
 
+  openTab = (t: RelayTab) => {
+    this.tab(t);
+    this.tourShow(true);
+    this.redraw();
+  };
+
   setSync = (v: boolean) => {
     this.send('relaySync', v);
     this.redraw();

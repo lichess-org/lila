@@ -6,35 +6,16 @@ import { VNode } from 'snabbdom';
 import { innerHTML } from 'common/richText';
 import { RelayGroup, RelayRound } from './interfaces';
 import { view as multiBoardView } from '../multiBoard';
-import { defined, scrollToInnerSelector } from 'common';
+import { defined } from 'common';
 import StudyCtrl from '../studyCtrl';
 import { toggle } from 'common/controls';
 import * as xhr from 'common/xhr';
 import { teamsView } from './relayTeams';
 
 export default function (ctrl: AnalyseCtrl): VNode | undefined {
-  const study = ctrl.study;
-  const relay = study?.relay;
+  const study = ctrl.study,
+    relay = study?.relay;
   if (!study || !relay?.tourShow()) return undefined;
-
-  const makeTab = (key: RelayTab, name: string) =>
-    h(
-      'span.' + key,
-      {
-        class: { active: relay.tab() === key },
-        attrs: { role: 'tab' },
-        hook: bind('mousedown', () => relay.tab(key), relay.redraw),
-      },
-      name,
-    );
-
-  const tabs = h('div.tabs-horiz.relay-tour__tabs', { attrs: { role: 'tablist' } }, [
-    makeTab('overview', 'Overview'),
-    !study.looksNew() && makeTab('games', 'Games'),
-    relay.teams && makeTab('teams', 'Teams'),
-    makeTab('schedule', 'Schedule'),
-    relay.data.leaderboard ? makeTab('leaderboard', 'Leaderboard') : undefined,
-  ]);
   const content =
     relay.tab() == 'overview'
       ? overview(relay, study, ctrl)
@@ -46,8 +27,36 @@ export default function (ctrl: AnalyseCtrl): VNode | undefined {
       ? schedule(relay, ctrl)
       : leaderboard(relay, ctrl);
 
-  return h('div.relay-tour', [tabs, ...content]);
+  return h('div.relay-tour', content);
 }
+
+export const tourTabs = (ctrl: AnalyseCtrl) => {
+  const study = ctrl.study,
+    relay = study?.relay;
+  if (!relay) return undefined;
+
+  const makeTab = (key: RelayTab, name: string) =>
+    h(
+      'a.' + key,
+      {
+        class: { active: relay.tab() === key },
+        attrs: { role: 'tab' },
+        hook: bind('mousedown', () => relay.openTab(key)),
+      },
+      name,
+    );
+
+  return h(
+    'aside.subnav.relay-tour__tabs',
+    h('nav.subnav__inner', { attrs: { role: 'tablist' } }, [
+      makeTab('overview', 'Overview'),
+      !study.looksNew() && makeTab('games', 'Games'),
+      relay.teams && makeTab('teams', 'Teams'),
+      makeTab('schedule', 'Schedule'),
+      relay.data.leaderboard ? makeTab('leaderboard', 'Leaderboard') : undefined,
+    ]),
+  );
+};
 
 const leaderboard = (relay: RelayCtrl, ctrl: AnalyseCtrl): VNode[] => {
   const players = relay.data.leaderboard || [];
@@ -205,39 +214,3 @@ const roundStateIcon = (round: RelayRound) =>
   round.ongoing
     ? h('ongoing', { attrs: { ...dataIcon(licon.DiscBig), title: 'Ongoing' } })
     : round.finished && h('finished', { attrs: { ...dataIcon(licon.Checkmark), title: 'Finished' } });
-
-export function rounds(ctrl: StudyCtrl): VNode {
-  const canContribute = ctrl.members.canContribute();
-  const relay = ctrl.relay!;
-  const currentFrag = relay.tab() === 'overview' ? '' : `#${relay.tab()}`;
-  return h(
-    'div.study__relay__rounds',
-    { hook: onInsert(el => scrollToInnerSelector(el, '.active')) },
-    relay.data.rounds
-      .map(round => {
-        const roundFrag = !round.finished && !round.ongoing && currentFrag === '#games' ? '' : currentFrag;
-        return h('div', { key: round.id, class: { active: ctrl.data.id == round.id } }, [
-          h('a.link', { attrs: { href: `${relay.roundPath(round)}${roundFrag}` } }, round.name),
-          roundStateIcon(round),
-          canContribute &&
-            h('a.act', { attrs: { ...dataIcon(licon.Gear), href: `/broadcast/round/${round.id}/edit` } }),
-        ]);
-      })
-      .concat(
-        canContribute
-          ? [
-              h(
-                'div.add',
-                h(
-                  'a.text',
-                  {
-                    attrs: { href: `/broadcast/${relay.data.tour.id}/new`, 'data-icon': licon.PlusButton },
-                  },
-                  ctrl.trans.noarg('addRound'),
-                ),
-              ),
-            ]
-          : [],
-      ),
-  );
-}

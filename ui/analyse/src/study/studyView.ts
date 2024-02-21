@@ -6,7 +6,6 @@ import { VNode } from 'snabbdom';
 import * as licon from 'common/licon';
 import { iconTag, bind, dataIcon, MaybeVNodes, looseH as h } from 'common/snabbdom';
 import { playButtons as gbPlayButtons, overrideButton as gbOverrideButton } from './gamebook/gamebookButtons';
-import { rounds as relayTourRounds } from './relay/relayTourView';
 import { Tab, ToolTab } from './interfaces';
 import { view as chapterEditFormView } from './chapterEditForm';
 import { view as chapterNewFormView } from './chapterNewForm';
@@ -194,9 +193,7 @@ export function side(ctrl: StudyCtrl): VNode {
       }),
   ]);
 
-  const content = tourShown
-    ? relayTourRounds(ctrl)
-    : (activeTab === 'members' ? memberView : chapterView)(ctrl);
+  const content = (activeTab === 'members' ? memberView : chapterView)(ctrl);
 
   return h('div.study__side', [tabs, content]);
 }

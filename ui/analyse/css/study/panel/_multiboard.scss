@@ -65,10 +65,6 @@
       background: fade-out($c-bg-box, 0.6);
       overflow: hidden;
 
-      &:nth-child(even) {
-        background: $c-bg-zebra2;
-      }
-
       &:hover {
         background: fade-out($c-link, 0.6);
         color: $c-font-clear;

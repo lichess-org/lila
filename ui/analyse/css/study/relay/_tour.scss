@@ -45,10 +45,6 @@ main.has-relay-tour {
     }
   }
 
-  &__tabs {
-    margin-left: 5px;
-  }
-
   &__image {
     width: 100%;
     aspect-ratio: 2/1;
@@ -86,6 +82,18 @@ main.has-relay-tour {
         padding: 0 0.5em;
         cursor: pointer;
         white-space: nowrap;
+      }
+    }
+  }
+
+  &__tabs {
+    @include breakpoint($mq-subnav-side) {
+      a {
+        text-align: right;
+        &:hover::after,
+        &.active::after {
+          display: none;
+        }
       }
     }
   }
