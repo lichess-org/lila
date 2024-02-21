@@ -44,14 +44,6 @@
   <string name="automaticLeaderboard">Automatic leaderboard</string>
   <string name="automaticLeaderboardHelp">Compute and display a simple leaderboard based on game results</string>
   <string name="replacePlayerTags">Optional: replace player names, ratings and titles</string>
-  <string name="replacePlayerTagsHelp">One line per player, formatted as such:
-player name / new rating / new title / new name
-All values are optional. The player name will match regardless of punctuation, casing, and word order.
-Example:
-Magnus Carlsen / 2863 / GM
-A Giri / 2764 / GM / Anish Giri
-YouGotLittUp / 1890 / / Louis Litt
-</string>
   <string name="periodInSeconds">Period in seconds</string>
   <string name="periodInSecondsHelp">Optional, how long to wait between requests. Min 2s, max 60s. Defaults to automatic based on the number of viewers.</string>
 </resources>

@@ -1621,7 +1621,6 @@ object I18nKeys:
     val `automaticLeaderboard` = I18nKey("broadcast:automaticLeaderboard")
     val `automaticLeaderboardHelp` = I18nKey("broadcast:automaticLeaderboardHelp")
     val `replacePlayerTags` = I18nKey("broadcast:replacePlayerTags")
-    val `replacePlayerTagsHelp` = I18nKey("broadcast:replacePlayerTagsHelp")
     val `periodInSeconds` = I18nKey("broadcast:periodInSeconds")
     val `periodInSecondsHelp` = I18nKey("broadcast:periodInSecondsHelp")
     val `nbBroadcasts` = I18nKey("broadcast:nbBroadcasts")
