@@ -76,11 +76,6 @@ main.has-relay-tour {
       @include fluid-size('font-size', 15px, 27px);
     }
 
-    > i:hover {
-      color: $c-font-clearer;
-      cursor: pointer;
-    }
-
     .setting {
       @extend %flex-center-nowrap;
       label {
