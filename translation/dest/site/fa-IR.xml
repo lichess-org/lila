@@ -301,7 +301,7 @@
   <string name="subject">عنوان</string>
   <string name="send">ارسال</string>
   <string name="incrementInSeconds">پاداش زمانی(به ثانیه)</string>
-  <string name="freeOnlineChess">شطرنج آنلاین رایگان</string>
+  <string name="freeOnlineChess">شطرنج بَرخط رایگان</string>
   <plurals name="nbRated">
     <item quantity="one">%s بازی رسمی</item>
     <item quantity="other">%s بازی رسمی</item>
@@ -520,7 +520,7 @@
   <string name="makeAStudy">برای نگهداری مطمئن و اشتراک‌گذاری، ایجاد یک مطالعه را در نظر بگیرید.</string>
   <string name="clearSavedMoves">حرکت های واضح</string>
   <string name="previouslyOnLichessTV">بازی قبلی در لیچس</string>
-  <string name="onlinePlayers">بازکنان آنلاین</string>
+  <string name="onlinePlayers">بازیکنان بَرخط</string>
   <string name="activePlayers">بازیکنان فعال</string>
   <string name="bewareTheGameIsRatedButHasNoClock">مراقب باشید،این بازی رتبه بندی میشود اما بدون ساعت!</string>
   <string name="success">موفق شدید</string>
