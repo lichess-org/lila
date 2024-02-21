@@ -43,6 +43,7 @@
   <string name="definitivelyDeleteTournament">Excluir definitivamente todo o torneio, todas as rondas e todos os jogos.</string>
   <string name="automaticLeaderboard">Tabela de classificação automática</string>
   <string name="automaticLeaderboardHelp">Calcula e exibe uma tabela de classificação simples baseada nos resultados dos jogos</string>
+  <string name="replacePlayerTags">Opcional: substituir nomes de jogadores, avaliações e títulos</string>
   <string name="periodInSeconds">Período em segundos</string>
   <string name="periodInSecondsHelp">Opcional, quanto tempo de espera entre as requisições. Mínimo 2s, máximo de 60s. O padrão é automático com base no número de espetadores.</string>
 </resources>
