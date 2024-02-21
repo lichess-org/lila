@@ -43,12 +43,6 @@
   <string name="definitivelyDeleteTournament">Das ganze Turnier, alli Runde und alli Partie definitiv lösche.</string>
   <string name="automaticLeaderboard">Automatischi Ranglischte</string>
   <string name="automaticLeaderboardHelp">Eifachi Ranglischte, uf Grund vu Schpielergäbnis berächnet, azeige</string>
-  <string name="replace">Optional: Spielernäme, Bewertinge und Titel usblände</string>
-  <string name="replaceHelp">1 Zile pro Schpiller, formatiert wie folgt:
-Ursprüngliche Name; Ersatzname; Optionali Ersatzbewertig; Optionale Ersatzbezeichnig
-zum Bischpiel so:
-Grobian;Jan Grob;2134
-Musterpierre;Peter Muster;2345;FM</string>
   <string name="periodInSeconds">Periode i Sekunde</string>
   <string name="periodInSecondsHelp">Optional, wie lang zwüsche Afrage gwartet werden söll. Minimal 2, maximal 60 Sekunde. Die Standardischtellig isch automatisch, basierend uf der Azahl vu de Zueschauer.</string>
 </resources>

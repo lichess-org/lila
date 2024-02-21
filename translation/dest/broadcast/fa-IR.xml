@@ -43,12 +43,6 @@
   <string name="definitivelyDeleteTournament">کل مسابقات، شامل همه دورها و بازی‌هایش را به طور کامل حذف کن.</string>
   <string name="automaticLeaderboard">جدول رده‌بندی خودکار</string>
   <string name="automaticLeaderboardHelp">یک جدول رده‌بندی ساده را بر اساس نتایج بازی‌ها حساب کن و نمایش بده</string>
-  <string name="replace">اختیاری: عوض کردن نام، درجه‌بندی و عنوان بازیکنان</string>
-  <string name="replaceHelp">یک خط برای هر بازیکن، به این صورت قالب‌بندی شده:
-نام اصلی؛ نام جایگزین؛ اختیاری-درجه‌بندی جایگزین؛ اختیاری-عنوان جایگزین
-مثال:
-دکترنیک‌سرشت؛مگنس کارلسن؛2863
-آنیش‌گیری؛آنیش گیری؛2764؛اُب</string>
   <string name="periodInSeconds">مدت در واحد ثانیه</string>
   <string name="periodInSecondsHelp">اختیاری است، چه مدت باید بین درخواست‌ها صبر کرد. حداقل 2 ثانیه، حداکثر 60 ثانیه. بر اساس تعداد بینندگان، پیشفرض‌ها، به صورت خودکار مقدار می‌گیرند.</string>
 </resources>
