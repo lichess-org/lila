@@ -124,7 +124,7 @@ object tourForm:
       form3.group(
         form("players"),
         replacePlayerTags(),
-        help = frag(
+        help = frag( // do not translate
           "One line per player, formatted as such:",
           pre("player name / rating / title / new name"),
           "All values are optional. The player name will match regardless of punctuation, casing, and word order.",
@@ -139,7 +139,7 @@ YouGotLittUp / 1890 / / Louis Litt""")
       form3.group(
         form("teams"),
         "Optional: assign players to teams",
-        help = frag(
+        help = frag( // do not translate
           "One line per player, formatted as such:",
           pre("Team name; Player name"),
           "Example:",
@@ -187,7 +187,7 @@ Stavanger;M. Fiskaaen"""),
         "Optional: assign tournaments to a group (admins only)",
         half = true
       )(form3.textarea(_)(rows := 5)),
-      div(cls := "form-group form-half form-help")(
+      div(cls := "form-group form-half form-help")( // do not translate
         "First line is the group name. Subsequent lines are the tournament IDs and names in the group. Names are facultative and only used for display in this textarea.",
         br,
         "You can add, remove, and re-order tournaments; and you can rename the group.",
