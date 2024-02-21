@@ -40,7 +40,7 @@
   <string name="thisIsPrivate">এটা হয় একটি ব্যক্তিগত প্রতিযোগিতা</string>
   <string name="shareUrl">মানুষদের যোগ দিতে এই URL শেয়ার করুন: %s</string>
   <string name="history">অ্যারিনার ইতিহাস</string>
-  <plurals name="viewAllXTeams" comment="viewAllXTeams [one] [other]&#10;&#10;%s is the number of teams that can be viewed">
+  <plurals name="viewAllXTeams" comment="%s is the number of teams that can be viewed.&#10;&#10;Appears in team battles that feature lots of teams. As of the time of writing, Lichess lists up to 10 teams at a time, so this button lets you view all teams.">
     <item quantity="one">দলকে দেখুন</item>
     <item quantity="other">পুরো %sটি দল দেখুন</item>
   </plurals>

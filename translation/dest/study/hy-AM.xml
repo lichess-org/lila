@@ -84,7 +84,7 @@
   <string name="pinnedChapterComment">Գլխի ամրակցված մեկնաբանություն</string>
   <string name="saveChapter">Պահպանել գլուխը</string>
   <string name="clearAnnotations">Հեռացնել անոտացիան</string>
-  <string name="clearVariations">Հեռացնել տարբերակները</string>
+  <string name="clearVariations" comment="Clear is used as a verb here. This erases the variations in the study (https://lichess.org/study) you are preparing.">Հեռացնել տարբերակները</string>
   <string name="deleteChapter">Հեռացնել գլուխը</string>
   <string name="deleteThisChapter">Հեռացնե՞լ գլուխը։ Վերականգնել հնարավոր չի լինի։</string>
   <string name="clearAllCommentsInThisChapter">Մաքրե՞լ այս գլխի բոլոր մեկնաբանություններն ու նշումները</string>

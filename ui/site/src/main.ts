@@ -12,7 +12,6 @@ import serviceWorker from './serviceWorker';
 import StrongSocket from './socket';
 import topBar from './topBar';
 import watchers from './watchers';
-import info from './info';
 import { requestIdleCallback } from './functions';
 import { siteTrans } from './trans';
 import { isIOS } from 'common/device';
@@ -22,7 +21,6 @@ import { dispatchChessgroundResize } from 'common/resize';
 window.$as = <T>(cashOrHtml: Cash | string) =>
   (typeof cashOrHtml === 'string' ? $(cashOrHtml) : cashOrHtml)[0] as T;
 exportSiteGlobals();
-site.info = info;
 
 site.load.then(() => {
   $('#user_tag').removeAttr('href');

@@ -1,6 +1,6 @@
 import * as licon from 'common/licon';
 import * as xhr from 'common/xhr';
-import flairPicker from 'common/flairPicker';
+import flairPicker from './load/flairPicker';
 
 site.load.then(() => {
   $('.emoji-details').each(function (this: HTMLElement) {

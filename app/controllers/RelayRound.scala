@@ -188,12 +188,14 @@ final class RelayRound(
       for
         (sc, studyData) <- studyC.getJsonData(oldSc)
         rounds          <- env.relay.api.byTourOrdered(rt.tour)
+        group           <- env.relay.api.withTours.get(rt.tour.id)
         isSubscribed <- ctx.me.soFu: me =>
           env.relay.api.isSubscribed(rt.tour.id, me.userId)
         data <- env.relay.jsonView.makeData(
           rt.tour withRounds rounds.map(_.round),
           rt.round.id,
           studyData,
+          group,
           ctx.userId exists sc.study.canContribute,
           isSubscribed
         )

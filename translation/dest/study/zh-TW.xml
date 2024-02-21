@@ -81,7 +81,7 @@
   <string name="pinnedChapterComment">置頂留言</string>
   <string name="saveChapter">儲存章節</string>
   <string name="clearAnnotations">清除註記</string>
-  <string name="clearVariations">清除變化</string>
+  <string name="clearVariations" comment="Clear is used as a verb here. This erases the variations in the study (https://lichess.org/study) you are preparing.">清除變化</string>
   <string name="deleteChapter">刪除章節</string>
   <string name="deleteThisChapter">刪除此章節? 此動作將無法取消！</string>
   <string name="clearAllCommentsInThisChapter">清除此章節中的所有註釋和圖形嗎？</string>

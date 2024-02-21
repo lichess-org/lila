@@ -1,7 +1,11 @@
 import debounce from 'common/debounce';
 import * as xhr from 'common/xhr';
+import { isSafari } from 'common/device';
 import { notNull } from 'common';
 import Tagify from '@yaireo/tagify';
+import { wireCropDialog } from './load/crop';
+
+if (isSafari()) wireCropDialog(); // preload
 
 site.load.then(() => {
   const $editor = $('.coach-edit');
@@ -106,4 +110,12 @@ site.load.then(() => {
     });
     todo();
   }, 1000);
+
+  wireCropDialog({
+    aspectRatio: 1,
+    post: { url: '/upload/image/coach', field: 'picture' },
+    max: { pixels: 1000 },
+    selectClicks: $('.select-image, .drop-target'),
+    selectDrags: $('.drop-target'),
+  });
 });
