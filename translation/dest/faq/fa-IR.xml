@@ -66,7 +66,7 @@
   <string name="usernamesCannotBeChanged">خیر، نام کاربری به دلایل فنی و عملی قابل تغییر نیست. نام‌های کاربری در جاهای مختلف ثبت شده اند: پایگاه‌های داده، گزارش‌ها و در نظر مردم. می توانید یک بار حروف بزرگ را تنظیم کنید.</string>
   <string name="uniqueTrophies">غنائم منحصر به فرد</string>
   <string name="aHourlyBulletTournament">یک مسابقه چندجانبه گلوله‌ای یک‌ساعته</string>
-  <string name="lichessRatings">rating های lichess</string>
+  <string name="lichessRatings">درجه‌بندی در lichess</string>
   <string name="whichRatingSystemUsedByLichess">lichess از چه سیستم امتیاز دهی ای استفاده می کند؟</string>
   <string name="ratingSystemUsedByLichess">رتبه‌بندی‌ها با استفاده از روش رتبه‌بندی Glicko-2 که توسط مارک گلیکمن ایجاد شده است، محاسبه می‌شوند. این یک روش رتبه‌بندی بسیار محبوب است و توسط تعداد قابل توجهی از سازمان‌های شطرنج استفاده می‌شود (FIDE یک مثال متقابل قابل‌توجه است، زیرا هنوز از سیستم رتبه‌بندی Elo استفاده می‌کنند).
 
