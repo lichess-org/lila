@@ -245,11 +245,12 @@ object post:
           span(
             input(
               tpe   := "checkbox",
+              id    := "ublog-post-pinned",
               name  := "pinned",
               value := "true",
               post.pinned.has(true) option checked
             ),
-            label(`for` := "pinned")(" Pin to top")
+            label(`for` := "ublog-post-pinned")(" Pin to top")
           ),
           span(
             "User tier:",
