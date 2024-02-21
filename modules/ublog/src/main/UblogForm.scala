@@ -96,15 +96,17 @@ object UblogForm:
         lived = prev.lived orElse live.option(UblogPost.Recorded(user.id, nowInstant))
       )
 
+  private val tierMapping =
+    "tier" -> number(min = UblogRank.Tier.HIDDEN.value, max = UblogRank.Tier.BEST.value)
+      .into[UblogRank.Tier]
+
   val tier = Form:
     single:
-      "tier" -> number(min = UblogRank.Tier.HIDDEN.value, max = UblogRank.Tier.BEST.value)
-        .into[UblogRank.Tier]
+      tierMapping
 
   val adjust = Form:
     tuple(
       "pinned" -> boolean,
-      "tier" -> number(min = UblogRank.Tier.HIDDEN.value, max = UblogRank.Tier.BEST.value)
-        .into[UblogRank.Tier],
+      tierMapping,
       "days" -> optional(number(min = -180, max = 180))
     )
