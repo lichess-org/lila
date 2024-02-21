@@ -387,7 +387,7 @@
   <string name="xCreatedTeamY">%1$s تیم %2$s را ایجاد کرد</string>
   <string name="startedStreaming">شروع به استریم کرده است</string>
   <string name="xStartedStreaming">%s شروع به استریم کرده است</string>
-  <string name="averageElo">میانگین ریتینگ</string>
+  <string name="averageElo">میانگین درجه‌بندی</string>
   <string name="location">محل</string>
   <string name="filterGames">دستچین کردن بازی‌ها</string>
   <string name="reset">تنظیم مجدد</string>
@@ -727,7 +727,7 @@
   <string name="youDoNotHaveAnEstablishedPerfTypeRating">شما درجه‌بندی %s تثبیت‌شده‌ای ندارید.</string>
   <string name="yourRating">درجه‌بندی شما</string>
   <string name="cumulative">تجمعی</string>
-  <string name="glicko2Rating">کلیکو(سیستم امتیاز شطرنج)</string>
+  <string name="glicko2Rating">درجه‌بندی Glicko-2</string>
   <string name="checkYourEmail">ایمیل خود را چک کنید</string>
   <string name="weHaveSentYouAnEmailClickTheLink">ما به شما ایمیل فرستادیم. روی لینکی که در ایمیل است کلیک کنید</string>
   <string name="ifYouDoNotSeeTheEmailCheckOtherPlaces">اگر رایانامه را نمی‌بینید، مکان‌های دیگری مانند پوشه‌های ناخواسته، هرزنامه، اجتماعی یا سایر موارد را بررسی کنید.</string>
@@ -808,7 +808,7 @@
   <string name="custom">دلخواه</string>
   <string name="notifications">گزارش</string>
   <string name="notificationsX">هشدار: %1$s</string>
-  <string name="perfRatingX">ریتینگ. %s</string>
+  <string name="perfRatingX">درجه‌بندی: %s</string>
   <plurals name="nbSecondsToPlayTheFirstMove">
     <item quantity="one">%s ثانیه برای شروع اولین حرکت</item>
     <item quantity="other">%s ثانیه برای شروع اولین حرکت</item>
@@ -923,8 +923,8 @@
   <string name="congratsYouWon">تبریک، شما برنده شدید!</string>
   <string name="gameVsX">بازی در برابر %1$s</string>
   <string name="resVsX">%1$s در برابر %2$s</string>
-  <string name="lostAgainstTOSViolator">شما از شخصی که قوانین لایچس را نقض کرده است، شکست خوردید</string>
-  <string name="refundXpointsTimeControlY">جبران: %1$s امتیاز از نوع %2$s.</string>
+  <string name="lostAgainstTOSViolator">شما در مقابل کسی که قوانین Lichess را نقض کرده، امتیاز درجه‌بندی از دست دادید</string>
+  <string name="refundXpointsTimeControlY">پس‌دادن: %1$s امتیاز به درجه‌بندی %2$s.</string>
   <string name="timeAlmostUp">زمان تقریباً تمام شده است!</string>
   <string name="clickToRevealEmailAddress">جهت مشاهده ایمیل کلیک کنید</string>
   <string name="download">بارگیری</string>
@@ -933,12 +933,13 @@
   <string name="cancelTournament">لغو مسابقه</string>
   <string name="tournDescription">توضیحات مسابقه</string>
   <string name="tournDescriptionHelp">نکته خاصی را می خواهید با شرکت کنندگان در میان بگذارید؟ سعی کنید کوتاه باشد. لینک های علامت گذاری موجود هستند: [name] (https://url)</string>
-  <string name="ratedFormHelp">بازی ها رتبه بندی می شوند و در ریتینگ بازیکنان موثر است</string>
+  <string name="ratedFormHelp">بازی‌ها رسمی هستند
+و روی درجه‌بندی بازیکنان تاثیر می‌گذارند</string>
   <string name="onlyMembersOfTeam">تنها اعضای تیم</string>
   <string name="noRestriction">بدون محدودیت</string>
   <string name="minimumRatedGames">حداقل بازی های ریتد</string>
-  <string name="minimumRating">حداقل امتیاز</string>
-  <string name="maximumWeeklyRating">حداکثر امتیاز هفتگی</string>
+  <string name="minimumRating">حداقل درجه‌بندی</string>
+  <string name="maximumWeeklyRating">حداکثر درجه‌بندی هفتگی</string>
   <string name="onlyTitled">تنها بازیکنان عنوان دار</string>
   <string name="onlyTitledHelp">نیاز به یک عنوان رسمی برای پیوستن به مسابقه است</string>
   <string name="positionInputHelp">برای شروع هر بازی از یک پوزیشن مشخص یک FEN معتبر را جایگذاری کنید.
