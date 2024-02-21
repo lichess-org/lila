@@ -81,7 +81,7 @@ final private class RelayFidePlayerUpdate(api: RelayFidePlayerApi, ws: Standalon
           .drop(1) // first line is a header
           .map(parseLine)
           .mapConcat(_.toList)
-          .mapAsync(4)(api.upsert)
+          .mapAsync(1)(api.upsert)
           .runWith(lila.common.LilaStream.sinkCount)
           .monSuccess(_.relay.fidePlayers.update)
           .addEffect(lila.mon.relay.fidePlayers.nb.update(_))
