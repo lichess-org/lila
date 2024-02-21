@@ -95,6 +95,14 @@ final class Env(
     text = "Broadcast: source domains that use a proxy, as a regex".some
   ).taggedWith[ProxyDomainRegex]
 
+  val fidePlayerApi = wire[RelayFidePlayerApi]
+
+  def cli = new lila.common.Cli:
+    def process =
+      case "relay" :: "fide" :: "player" :: "update" :: Nil =>
+        fidePlayerApi.update()
+        fuccess("Updating the database in the background.")
+
   // start the sync scheduler
   wire[RelayFetch]
 
@@ -123,10 +131,11 @@ final class Env(
   )
 
 private class RelayColls(mainDb: lila.db.Db, yoloDb: lila.db.AsyncDb @@ lila.db.YoloDb):
-  val round = mainDb(CollName("relay"))
-  val tour  = mainDb(CollName("relay_tour"))
-  val group = mainDb(CollName("relay_group"))
-  val delay = yoloDb(CollName("relay_delay"))
+  val round      = mainDb(CollName("relay"))
+  val tour       = mainDb(CollName("relay_tour"))
+  val group      = mainDb(CollName("relay_group"))
+  val delay      = yoloDb(CollName("relay_delay"))
+  val fidePlayer = yoloDb(CollName("relay_fide_player"))
 
 private trait ProxyCredentials
 private trait ProxyHostPort
