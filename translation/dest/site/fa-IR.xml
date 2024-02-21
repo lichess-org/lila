@@ -257,7 +257,7 @@
     <item quantity="one">%s بازی با شما</item>
     <item quantity="other">%s بازی با شما</item>
   </plurals>
-  <string name="cancel">انصراف</string>
+  <string name="cancel">لغو</string>
   <string name="whiteTimeOut">زمان سفید تمام شد</string>
   <string name="blackTimeOut">زمان سیاه تمام شد</string>
   <string name="drawOfferSent">پیشنهاد تساوی ارسال شد</string>
@@ -373,7 +373,7 @@
     <item quantity="one">شما باید%s بازی رسمی دیگر انجام دهید.</item>
     <item quantity="other">شما باید%s بازی رسمی دیگر انجام دهید.</item>
   </plurals>
-  <string name="yourPerfRatingIsProvisional">امتیاز%s شما قطعی نشده است.</string>
+  <string name="yourPerfRatingIsProvisional">درجه‌بندی %s شما موقتی است</string>
   <string name="yourPerfRatingIsTooHigh">درجه‌بندی %1$s شما (%2$s) بیش از حد بالاست</string>
   <string name="yourTopWeeklyPerfRatingIsTooHigh">درجه‌بندی %1$s هفتگی‌تان (%2$s) بیش از حد بالاست</string>
   <string name="yourPerfRatingIsTooLow">درجه‌بندی %1$s شما (%2$s) بیش از حد پایین است</string>
