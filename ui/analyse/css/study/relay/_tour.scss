@@ -65,6 +65,9 @@ main.has-relay-tour {
   &__group-select {
     flex: auto;
     @include fluid-size('font-size', 14px, 24px);
+    .mselect__list > a {
+      gap: 1em;
+    }
   }
 
   &__header {
