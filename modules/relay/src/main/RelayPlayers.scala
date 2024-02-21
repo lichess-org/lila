@@ -4,7 +4,12 @@ import play.api.data.Forms.*
 import chess.format.pgn.{ Tag, Tags }
 
 // used to change names and ratings of broadcast players
-private case class RelayPlayer(name: Option[PlayerName], rating: Option[Int], title: Option[UserTitle])
+private case class RelayPlayer(
+    name: Option[PlayerName],
+    rating: Option[Int],
+    title: Option[UserTitle],
+    fideId: Option[FideId] = none
+)
 
 private class RelayPlayers(val text: String):
 
@@ -41,13 +46,18 @@ private class RelayPlayers(val text: String):
         case _                       => none
     // Original name / Optional rating / Optional title / Optional replacement name
     val v2 = (line: String) =>
-      val arr = line.split('/').map(_.trim)
-      arr lift 0 map: fromName =>
-        fromName -> RelayPlayer(
-          name = arr.lift(3).filter(_.nonEmpty),
-          rating = arr.lift(1).flatMap(_.toIntOption),
-          title = arr.lift(2).flatMap(lila.user.Title.get)
-        )
+      line.split('=').map(_.trim) match
+        case Array(name, fideId) =>
+          fideId.toIntOption map: id =>
+            name -> RelayPlayer(name.some, none, none, id.some)
+        case _ =>
+          val arr = line.split('/').map(_.trim)
+          arr lift 0 map: fromName =>
+            fromName -> RelayPlayer(
+              name = arr.lift(3).filter(_.nonEmpty),
+              rating = arr.lift(1).flatMap(_.toIntOption),
+              title = arr.lift(2).flatMap(lila.user.Title.get)
+            )
 
   def update(games: RelayGames): RelayGames = games.map: game =>
     game.copy(tags = update(game.tags))
@@ -56,11 +66,14 @@ private class RelayPlayers(val text: String):
     chess.Color.all.foldLeft(tags): (tags, color) =>
       tags ++ Tags:
         tags(color.name).flatMap(findMatching) so: rp =>
-          List(
-            rp.name.map(name => Tag(color.fold(Tag.White, Tag.Black), name)),
-            rp.rating.map { rating => Tag(color.fold(Tag.WhiteElo, Tag.BlackElo), rating.toString) },
-            rp.title.map { title => Tag(color.fold(Tag.WhiteTitle, Tag.BlackTitle), title.value) }
-          ).flatten
+          rp.fideId match
+            case Some(fideId) => List(Tag(color.fold(Tag.WhiteFideId, Tag.BlackFideId), fideId.toString))
+            case None =>
+              List(
+                rp.name.map(name => Tag(color.fold(Tag.White, Tag.Black), name)),
+                rp.rating.map { rating => Tag(color.fold(Tag.WhiteElo, Tag.BlackElo), rating.toString) },
+                rp.title.map { title => Tag(color.fold(Tag.WhiteTitle, Tag.BlackTitle), title.value) }
+              ).flatten
 
   private def findMatching(name: PlayerName): Option[RelayPlayer] =
     players.get(name) orElse tokenizedPlayers.get(tokenize(name))
