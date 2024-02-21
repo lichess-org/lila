@@ -95,12 +95,13 @@ final class Env(
     text = "Broadcast: source domains that use a proxy, as a regex".some
   ).taggedWith[ProxyDomainRegex]
 
-  val fidePlayerApi = wire[RelayFidePlayerApi]
+  val fidePlayerApi                 = wire[RelayFidePlayerApi]
+  private lazy val fidePlayerUpdate = wire[RelayFidePlayerUpdate]
 
   def cli = new lila.common.Cli:
     def process =
       case "relay" :: "fide" :: "player" :: "update" :: Nil =>
-        fidePlayerApi.update()
+        fidePlayerUpdate()
         fuccess("Updating the database in the background.")
 
   // start the sync scheduler
