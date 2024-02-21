@@ -1,17 +1,20 @@
-package lila.round
+package lila.tv
 
 import akka.actor.*
 import akka.stream.scaladsl.*
 import chess.format.Fen
+import lila.Lila.{GameId, none}
+import lila.common.Json.given
+import lila.common.{Bus, LightUser}
+import lila.game.actorApi.MoveGameEvent
+import lila.hub.actorApi.tv.TvSelect
+import lila.socket.Socket
 import play.api.libs.json.*
 
-import lila.common.{ Bus, LightUser }
-import lila.common.Json.given
-import lila.game.actorApi.MoveGameEvent
-import lila.socket.Socket
-
 final private class TvBroadcast(
-    lightUserSync: LightUser.GetterSync
+    lightUserSync: LightUser.GetterSync,
+    channel: Tv.Channel,
+    gameRepo: lila.game.GameRepo,
 ) extends Actor:
 
   import TvBroadcast.*
@@ -20,7 +23,7 @@ final private class TvBroadcast(
 
   private var featured = none[Featured]
 
-  Bus.subscribe(self, "changeFeaturedGame")
+  Bus.subscribe(self, "tvSelect")
 
   given Executor = context.system.dispatcher
 
@@ -47,29 +50,31 @@ final private class TvBroadcast(
     case Add(client)    => clients = clients + client
     case Remove(client) => clients = clients - client
 
-    case ChangeFeatured(pov, msg) =>
+    case TvSelect(gameId, speed, data) =>
+      val game = gameRepo.game(gameId).getIfPresent.get
+      val povColor = chess.Color.White
       unsubscribeFromFeaturedId()
-      Bus.subscribe(self, MoveGameEvent makeChan pov.gameId)
+      Bus.subscribe(self, MoveGameEvent makeChan gameId)
       val feat = Featured(
-        pov.gameId,
+        gameId,
         Json.obj(
-          "id"          -> pov.gameId,
-          "orientation" -> pov.color.name,
-          "players" -> pov.game.players.mapList { p =>
+          "id"          -> gameId,
+          "orientation" -> povColor,
+          "players" -> game.players.mapList { p =>
             val user = p.userId.flatMap(lightUserSync)
             Json
               .obj("color" -> p.color.name)
               .add("user" -> user.map(LightUser.write))
               .add("ai" -> p.aiLevel)
               .add("rating" -> p.rating)
-              .add("seconds" -> pov.game.clock.map(_.remainingTime(pov.color).roundSeconds))
+              .add("seconds" -> game.clock.map(_.remainingTime(povColor).roundSeconds))
           }
         ),
-        fen = Fen write pov.game.situation
+        fen = Fen write game.situation
       )
       clients.foreach { client =>
         client.queue offer {
-          if client.fromLichess then msg
+          if client.fromLichess then data
           else feat.socketMsg
         }
       }

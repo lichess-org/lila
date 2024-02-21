@@ -1,6 +1,6 @@
 package lila.tv
 
-import akka.actor.ActorSystem
+import akka.actor.{ActorSystem, Props}
 import com.softwaremill.macwire.*
 
 @Module
@@ -19,6 +19,10 @@ final class Env(
   private val tvSyncActor = wire[TvSyncActor]
 
   lazy val tv = wire[Tv]
+
+  val channelBroadcasts = Tv.Channel.values.map { c =>
+    c -> system.actorOf(Props(wire[TvBroadcast]))
+  }.toMap
 
   system.scheduler.scheduleWithFixedDelay(12 seconds, 3 seconds) { () =>
     tvSyncActor ! TvSyncActor.Select
