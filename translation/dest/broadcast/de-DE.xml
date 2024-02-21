@@ -43,12 +43,6 @@
   <string name="definitivelyDeleteTournament">Lösche definitiv das gesamte Turnier, alle seine Runden und Partien.</string>
   <string name="automaticLeaderboard">Automatische Rangliste</string>
   <string name="automaticLeaderboardHelp">Berechne und zeige eine einfache Rangliste basierend auf den Spielergebnissen</string>
-  <string name="replace">Optional: Spielernamen, Wertungen und Titel ersetzen</string>
-  <string name="replaceHelp">Eine Zeile pro Spieler, wie folgt formatiert:
-Originalname; Ersatzname; optional Ersatzwertung; optional Ersatztitel
-Beispiel:
-DrNykterstein;Magnus Carlsen;2863
-AnishGiri;Anish Giri;2764;GM</string>
   <string name="periodInSeconds">Dauer in Sekunden</string>
   <string name="periodInSecondsHelp">Optional, wie lange zwischen den Anfragen gewartet werden soll. Mindestens 2s, maximal 60s. Standardmäßig auf der Zuschaueranzahl basierend.</string>
 </resources>
