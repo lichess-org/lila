@@ -65,10 +65,13 @@ main.has-relay-tour {
   &__group-select {
     flex: auto;
     @include fluid-size('font-size', 14px, 24px);
+    .mselect__list > a {
+      gap: 1em;
+    }
   }
 
   &__header {
-    @extend %flex-center-nowrap;
+    @extend %flex-between-nowrap;
     gap: 1em;
 
     h1 {
@@ -76,13 +79,9 @@ main.has-relay-tour {
       @include fluid-size('font-size', 15px, 27px);
     }
 
-    > i:hover {
-      color: $c-font-clearer;
-      cursor: pointer;
-    }
-
     .setting {
       @extend %flex-center-nowrap;
+      margin-#{$end-direction}: -1em;
       label {
         padding: 0 0.5em;
         cursor: pointer;
