@@ -35,7 +35,17 @@ final private class RelayFidePlayerApi(colls: RelayColls, cacheApi: lila.memo.Ca
   private val coll = colls.fidePlayer
   import BSONHandlers.given
 
-  def upsert(p: RelayFidePlayer) = coll(_.update.one($id(p.id), p, upsert = true))
+  def upsert(ps: Seq[RelayFidePlayer]) = coll: c =>
+    val update = c.update(ordered = false)
+    for
+      elements <- ps.traverse: p =>
+        update.element(
+          q = $id(p.id),
+          u = summon[BSONDocumentWriter[RelayFidePlayer]].writeOpt(p).get,
+          upsert = true
+        )
+      _ <- elements.nonEmpty so update.many(elements).void
+    yield ()
 
   def enrichGames(tour: RelayTour)(games: RelayGames): Fu[RelayGames] =
     val tc = guessTimeControl(tour) | FideTC.Standard
@@ -85,6 +95,7 @@ final private class RelayFidePlayerUpdate(api: RelayFidePlayerApi, ws: Standalon
           .drop(1) // first line is a header
           .map(parseLine)
           .mapConcat(_.toList)
+          .grouped(100)
           .mapAsync(1)(api.upsert)
           .runWith(lila.common.LilaStream.sinkCount)
           .monSuccess(_.relay.fidePlayers.update)
