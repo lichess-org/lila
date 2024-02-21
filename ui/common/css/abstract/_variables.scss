@@ -22,7 +22,7 @@ $site-header-short-height: 40px;
 $site-header-sticky-max-width: 1780px;
 $site-header-height: var(--site-header-height);
 $site-header-margin: var(--site-header-margin);
-$site-header-outer-height: calc($site-header-height + $site-header-margin);
+$site-header-outer-height: calc($site-header-height + $site-header-margin + var(--sticky-gap));
 
 $main-margin: var(--main-margin);
 $main-max-width: 1300px !default;
@@ -43,4 +43,3 @@ $x-tall: 700px;
 
 $show-hostname: 1180px; // lichess.org & WWWWWWWWWWWWWWWWWWWW both fit onscreen at 100%
 $show-topnav: 1020px; // topnav menu & WWWWWWWWWWWWWWWWWWWW both fit at 100%
-$sticky-header: 600px;

@@ -127,7 +127,7 @@ function compile(sources: string[], tellTheWorld = true) {
         (src: string) =>
           `${src}:${path.join(
             env.cssDir,
-            path.basename(src).replace(/(.*)scss$/, env.prod ? '$1min.css' : '$1dev.css'),
+            path.basename(src).replace(/-?(.*)scss$/, env.prod ? '$1min.css' : '$1dev.css'),
           )}`,
       ),
     ),

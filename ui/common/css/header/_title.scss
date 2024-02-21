@@ -12,7 +12,7 @@
     margin-#{$start-direction}: calc(0.5rem + $site-header-height);
   }
 
-  @media (min-height: at-least($sticky-header)) {
+  @media (min-height: at-least($tall)) {
     font-size: 30px;
   }
 
@@ -29,7 +29,10 @@
   }
 
   .site-icon {
-    font-size: 36px;
+    font-size: 24px;
+    @media (min-height: at-least($tall)) {
+      font-size: 36px;
+    }
     display: none;
   }
 

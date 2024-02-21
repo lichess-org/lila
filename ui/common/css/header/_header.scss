@@ -13,7 +13,7 @@ body > header {
   margin: 0 auto;
   user-select: none;
 
-  @media (prefers-reduced-motion: no-preference) and (min-height: $sticky-header) {
+  @media (prefers-reduced-motion: no-preference) and (min-height: $tall) {
     max-width: unset;
     position: fixed;
     top: 0;

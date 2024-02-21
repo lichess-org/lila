@@ -27,7 +27,7 @@
         border-radius: 3px;
         background-color: $c-font-dim;
 
-        @media (min-height: at-least($sticky-header)) {
+        @media (min-height: at-least($tall)) {
           width: 34px;
           height: 3px;
         }
@@ -36,7 +36,7 @@
       top: 50%;
       #{$start-direction}: 8.5px;
 
-      @media (min-height: at-least($sticky-header)) {
+      @media (min-height: at-least($tall)) {
         #{$start-direction}: 13px;
       }
 
@@ -50,7 +50,7 @@
       &::before {
         top: -6px;
 
-        @media (min-height: at-least($sticky-header)) {
+        @media (min-height: at-least($tall)) {
           top: -9px;
         }
 
@@ -62,7 +62,7 @@
       &::after {
         bottom: -7px;
 
-        @media (min-height: at-least($sticky-header)) {
+        @media (min-height: at-least($tall)) {
           bottom: -10px;
         }
 

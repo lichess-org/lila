@@ -141,7 +141,10 @@
   &::after {
     @extend %data-icon;
     content: $licon-AccountCircle;
-    font-size: 2.75rem;
+    font-size: 2.25rem;
+    @media (min-height: at-least($tall)) {
+      font-size: 2.75rem;
+    }
   }
 }
 
