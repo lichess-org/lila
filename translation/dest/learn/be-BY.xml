@@ -3,9 +3,9 @@
   <string name="learnChess">Вучыцеся</string>
   <string name="byPlaying">гуляючы!</string>
   <string name="menu">Меню</string>
-  <string name="progressX">Прагрэс: %s</string>
-  <string name="resetMyProgress">Скінуць прагрэс</string>
-  <string name="youWillLoseAllYourProgress">Увесь ваш прагрэс будзе скінуты!</string>
+  <string name="progressX">Зроблена: %s</string>
+  <string name="resetMyProgress">Скасаваць дасягненні</string>
+  <string name="youWillLoseAllYourProgress">Усе вашыя дасягненні будуць скасаваныя!</string>
   <string name="play" comment="play&#10;&#10;A small ribbon that appears on your current chapter in the Chess Basics course. Please keep this string short.">гуляць!</string>
   <string name="chessPieces">Шахматныя фігуры</string>
   <string name="theRook">Ладдзя</string>
@@ -13,17 +13,17 @@
   <string name="rookIntro">Ладдзя — гэта цяжкая фігура. Ці гатовы вы кіраваць ёй?</string>
   <string name="rookGoal">Націсніце на ладдзю і давядзіце яе да зорачкі!</string>
   <string name="grabAllTheStars">Збярыце ўсе зоркі!</string>
-  <string name="theFewerMoves">Чым менш хадоў вы зробіце,
+  <string name="theFewerMoves">Чым менш рухаў вы зробіце,
 тым больш балаў атрымаеце!</string>
   <string name="useTwoRooks">Скарыстайцеся дзвюма ладдзямі, каб паскорыць працэс!</string>
-  <string name="rookComplete">Віншуем! Вы навучыліся хадзіць ладдзёй.</string>
+  <string name="rookComplete">Віншуем! Вы з поспехам апанавалі ладдзю.</string>
   <string name="theBishop">Слон</string>
   <string name="itMovesDiagonally">Рухаецца па дыяганалях</string>
   <string name="bishopIntro">Далей мы навучымся хадзіць сланом!</string>
   <string name="youNeedBothBishops">Палі белага колеру кантралюе адзін слон,
 палі чорнага колеру — іншы.
 Вам патрэбныя абодва сланы!</string>
-  <string name="bishopComplete">Віншуем! Вы навучыліся хадзіць сланом.</string>
+  <string name="bishopComplete">Віншуем! Вы апанавалі слана.</string>
   <string name="theQueen">Ферзь</string>
   <string name="queenCombinesRookAndBishop">Ферзь = ладдзя + слон</string>
   <string name="queenIntro">Наймагутнейшая фігура. Яго вялікасць — ферзь!</string>
