@@ -43,6 +43,7 @@
   <string name="definitivelyDeleteTournament">Excluir permanentemente todo o torneio, incluindo todas as rodadas e jogos.</string>
   <string name="automaticLeaderboard">Placar automático</string>
   <string name="automaticLeaderboardHelp">Calcula e exibe um placar simples baseado nos resultados dos jogos</string>
+  <string name="replacePlayerTags">Opcional: substituir nomes de jogador, ratings e títulos</string>
   <string name="periodInSeconds">Período em segundos</string>
   <string name="periodInSecondsHelp">Opcional: tempo entre as solicitações. Mín. 2s, máx. 60s. Por padrão, é calculado com base no número de espectadores.</string>
 </resources>
