@@ -3,10 +3,10 @@
   <string name="perfStats">وضعیت %s</string>
   <string name="viewTheGames">بازی ها را تماشا کنید</string>
   <string name="provisional">موقت</string>
-  <string name="notEnoughRatedGames">بازی های دارای امتیاز کافی برای ایجاد رتبه بندی قابل اعتماد انجام نشده است.</string>
+  <string name="notEnoughRatedGames">بازی های رسمی کافی برای تعیین کردن یک درجه‌بندی قابل‌اتکا انجام نشده است.</string>
   <string name="progressOverLastXGames">پیشرفت در آخرین %s بازی ها:</string>
   <string name="ratingDeviation">انحراف درجه‌بندی: %s.</string>
-  <string name="ratingDeviationTooltip" comment="ratingDeviationTooltip&#10;&#10;This is a tooltip (appears on mouseover) for the rating deviation. Appears on performance statistics pages such as https://lichess.org/@/thibault/perf/ultraBullet&#10;&#10;As of 2021-05-19, $1%s is set to 110.">مقدار کمتر به این معنی است که امتیاز پایدارتر است. بالاتر از %1$s، امتیاز موقتی است. برای لحاظ شدن در رتبه‌بندی، این مقدار باید پایین‌تر از %2$s (برای شطرنج استاندارد) یا %3$s (سایر مدلها) قرار گیرد.</string>
+  <string name="ratingDeviationTooltip" comment="ratingDeviationTooltip&#10;&#10;This is a tooltip (appears on mouseover) for the rating deviation. Appears on performance statistics pages such as https://lichess.org/@/thibault/perf/ultraBullet&#10;&#10;As of 2021-05-19, $1%s is set to 110.">مقدار کمتر به این معنی است که درجه‌بندی پایدارتر است. بالاتر از %1$s، درجه‌بندی موقت در نظر گرفته می‌شود. برای قرار گرفتن در درجه‌بندی‌ها، این مقدار باید کم‌تر از %2$s (در شطرنج استاندارد) یا %3$s (در شطرنج‌گونه‌ها) باشد.</string>
   <string name="totalGames">تمام بازی ها</string>
   <string name="ratedGames">بازی های رسمی</string>
   <string name="tournamentGames">بازی های مسابقه ای</string>
@@ -17,8 +17,8 @@
   <string name="defeats">شکست ها</string>
   <string name="disconnections">قطع ارتباطها</string>
   <string name="notEnoughGames">تعداد بازی های انجام شده کافی نیست</string>
-  <string name="highestRating">بالاترین امتیاز: %s</string>
-  <string name="lowestRating">پایین‌ترین امتیاز: %s</string>
+  <string name="highestRating">بالاترین درجه‌بندی: %s</string>
+  <string name="lowestRating">پایین‌ترین درجه‌بندی: %s</string>
   <string name="fromXToY">از %1$s تا %2$s</string>
   <string name="winningStreak">بردهای متوالی</string>
   <string name="losingStreak">باخت‌های متوالی</string>
