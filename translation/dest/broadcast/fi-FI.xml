@@ -42,12 +42,6 @@
   <string name="definitivelyDeleteTournament">Poista lopullisesti koko turnaus, sen kaikki kierrokset ja kaikki pelit.</string>
   <string name="automaticLeaderboard">Automaattinen tulostaulukko</string>
   <string name="automaticLeaderboardHelp">Laske ja näytä yksinkertainen tulostaulukko pelien tulosten pohjalta</string>
-  <string name="replace">Valinnainen: korvaa pelaajien nimet, vahvuusluvut ja arvonimet</string>
-  <string name="replaceHelp">Yksi rivi pelaajaa kohden tässä muodossa:
-Alkuperäinen nimi; Korvaava nimi; Haluttaessa korvaava vahvuusluku; Haluttaessa korvaava arvonimi
-Esimerkki:
-DrNykterstein;Magnus Carlsen;2863
-AnishGiri;Anish Giri;2764;GM</string>
   <string name="periodInSeconds">Jakso sekunteina</string>
   <string name="periodInSecondsHelp">Tarvittaessa pyyntöjen välinen odotusaika: vähintään 2 s, enintään 60 s. Oletuksena on katsojien määrään perustuva automaattinen arvo.</string>
 </resources>
