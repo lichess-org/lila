@@ -136,14 +136,13 @@ final class ZipInputStreamSource private (
           override def onPull(): Unit =
             fillBuffer(maxBuffer)
             buffer match
-              case Seq() =>
-                finalize()
               case head +: Seq() =>
                 push(out, head)
                 finalize()
               case head +: tail =>
                 push(out, head)
                 buffer = tail
+              case _ => finalize()
             def finalize() =
               try is.close()
               finally
