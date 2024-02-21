@@ -20,10 +20,11 @@ private type FideId = Int
 case class RelayFidePlayer(
     @Key("_id") id: FideId,
     name: String,
+    fed: Option[String],
     title: Option[UserTitle],
-    standard: Option[IntRating],
-    rapid: Option[IntRating],
-    blitz: Option[IntRating]
+    standard: Option[Int],
+    rapid: Option[Int],
+    blitz: Option[Int]
 ):
   def ratingOf(tc: FideTC) = tc match
     case FideTC.Standard => standard
@@ -96,7 +97,6 @@ final private class RelayFidePlayerUpdate(api: RelayFidePlayerApi, ws: Standalon
   private def parseLine(line: String): Option[RelayFidePlayer] =
     def string(start: Int, end: Int) = line.substring(start, end).trim.some.filter(_.nonEmpty)
     def number(start: Int, end: Int) = string(start, end).flatMap(_.toIntOption)
-    def rating(start: Int, end: Int) = number(start, end).map(IntRating(_))
     for
       id   <- number(0, 15)
       name <- string(15, 76)
@@ -105,8 +105,9 @@ final private class RelayFidePlayerUpdate(api: RelayFidePlayerApi, ws: Standalon
     yield RelayFidePlayer(
       id = id,
       name = name,
+      fed = string(76, 79),
       title = lila.user.Title.mostValuable(title, wTitle),
-      standard = rating(113, 117),
-      rapid = rating(126, 132),
-      blitz = rating(139, 145)
+      standard = number(113, 117),
+      rapid = number(126, 132),
+      blitz = number(139, 145)
     )
