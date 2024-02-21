@@ -68,7 +68,7 @@ main.has-relay-tour {
   }
 
   &__header {
-    @extend %flex-center-nowrap;
+    @extend %flex-between-nowrap;
     gap: 1em;
 
     h1 {
@@ -78,6 +78,7 @@ main.has-relay-tour {
 
     .setting {
       @extend %flex-center-nowrap;
+      margin-#{$end-direction}: -1em;
       label {
         padding: 0 0.5em;
         cursor: pointer;
