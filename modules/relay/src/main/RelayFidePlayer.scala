@@ -1,6 +1,7 @@
 package lila.relay
 
 import reactivemongo.api.bson.Macros.Annotations.Key
+import reactivemongo.api.bson.BSONDocumentWriter
 import akka.util.ByteString
 import akka.stream.scaladsl.*
 import akka.stream.contrib.ZipInputStreamSource
@@ -14,8 +15,6 @@ import lila.db.dsl.{ *, given }
 
 private enum FideTC:
   case Standard, Rapid, Blitz
-
-private type FideId = Int
 
 case class RelayFidePlayer(
     @Key("_id") id: FideId,
@@ -51,8 +50,8 @@ final private class RelayFidePlayerApi(colls: RelayColls, cacheApi: lila.memo.Ca
     val tc = guessTimeControl(tour) | FideTC.Standard
     games.traverse: game =>
       for
-        white <- game.tags(_.WhiteFideId).flatMap(_.toIntOption).so(cache.get)
-        black <- game.tags(_.BlackFideId).flatMap(_.toIntOption).so(cache.get)
+        white <- FideId.from(game.tags(_.WhiteFideId).flatMap(_.toIntOption)).so(cache.get)
+        black <- FideId.from(game.tags(_.BlackFideId).flatMap(_.toIntOption)).so(cache.get)
       yield game.copy(tags = update(game.tags, tc, ByColor(white, black)))
 
   private val cache = cacheApi[FideId, Option[RelayFidePlayer]](1024, "relay.fidePlayer"):
@@ -117,7 +116,7 @@ final private class RelayFidePlayerUpdate(api: RelayFidePlayerApi, ws: Standalon
       title  = string(84, 89).flatMap(lila.user.Title.get)
       wTitle = string(89, 105).flatMap(lila.user.Title.get)
     yield RelayFidePlayer(
-      id = id,
+      id = FideId(id),
       name = name,
       fed = string(76, 79),
       title = lila.user.Title.mostValuable(title, wTitle),

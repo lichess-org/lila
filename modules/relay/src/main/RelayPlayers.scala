@@ -49,7 +49,7 @@ private class RelayPlayers(val text: String):
       line.split('=').map(_.trim) match
         case Array(name, fideId) =>
           fideId.toIntOption map: id =>
-            name -> RelayPlayer(name.some, none, none, id.some)
+            name -> RelayPlayer(name.some, none, none, FideId(id).some)
         case _ =>
           val arr = line.split('/').map(_.trim)
           arr lift 0 map: fromName =>

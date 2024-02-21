@@ -64,9 +64,9 @@ final class StreamerApi(
         coll.update.one($id(user.id), $set("seenAt" -> nowInstant)).void
 
   def setLangLiveNow(streams: List[Stream]): Funit =
-    val update = coll.update(ordered = false)
+    val update: coll.UpdateBuilder = coll.update(ordered = false)
     for
-      elements <- streams.map { s =>
+      elements <- streams.traverse: s =>
         update.element(
           q = $id(s.streamer.id),
           u = $set(
@@ -74,7 +74,6 @@ final class StreamerApi(
             "lastStreamLang" -> s.language
           )
         )
-      }.parallel
       _            <- elements.nonEmpty so update.many(elements).void
       candidateIds <- cache.candidateIds.getUnit
     yield if streams.map(_.streamer.id).exists(candidateIds.contains) then cache.candidateIds.invalidateUnit()
