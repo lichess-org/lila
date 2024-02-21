@@ -65,9 +65,12 @@ final private class RelayFidePlayerApi(colls: RelayColls, cacheApi: lila.memo.Ca
           ).flatten
 
 final private class RelayFidePlayerUpdate(api: RelayFidePlayerApi, ws: StandaloneWSClient)(using
-    Executor,
-    akka.stream.Materializer
-):
+    scheduler: Scheduler
+)(using Executor, akka.stream.Materializer):
+
+  scheduler.scheduleWithFixedDelay(1.hour, 1.hour): () =>
+    if nowDateTime.getDayOfWeek == java.time.DayOfWeek.SUNDAY && nowDateTime.getHour == 4 then apply()
+
   // the file is big. We want to stream the http response into the zip reader,
   // and stream the zip output into the database as it's being extracted.
   // Don't load the whole thing in memory.

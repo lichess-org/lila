@@ -95,8 +95,8 @@ final class Env(
     text = "Broadcast: source domains that use a proxy, as a regex".some
   ).taggedWith[ProxyDomainRegex]
 
-  val fidePlayerApi                 = wire[RelayFidePlayerApi]
-  private lazy val fidePlayerUpdate = wire[RelayFidePlayerUpdate]
+  val fidePlayerApi            = wire[RelayFidePlayerApi]
+  private val fidePlayerUpdate = wire[RelayFidePlayerUpdate]
 
   def cli = new lila.common.Cli:
     def process =
