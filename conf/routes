@@ -41,6 +41,7 @@ GET   /games/:chanKey                  controllers.Tv.gamesChannel(chanKey)
 GET   /games/:chanKey/replacement/$gameId<\w{8}> controllers.Tv.gameChannelReplacement(chanKey, gameId, exclude: List[String])
 GET   /api/tv/channels                 controllers.Tv.channels
 GET   /api/tv/feed                     controllers.Tv.feedDefault
+GET   /api/tv/:chanKey/feed            controllers.Tv.feed(chanKey)
 GET   /api/tv/:chanKey                 controllers.Tv.apiGamesChannel(chanKey)
 
 # Relation

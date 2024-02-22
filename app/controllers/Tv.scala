@@ -94,7 +94,7 @@ final class Tv(env: Env, apiC: => Api, gameC: => Game) extends LilaController(en
     serveFeedFromChannel(Channel.Best)
 
   def feed(chanKey: String) = Anon:
-    serveFeedFromChannel(Channel.byKey.get(chanKey) get)
+    Channel.byKey.get(chanKey) so serveFeedFromChannel
 
   private def serveFeedFromChannel(channel: Channel)(using Context) =
     import makeTimeout.short
@@ -114,7 +114,7 @@ final class Tv(env: Env, apiC: => Api, gameC: => Game) extends LilaController(en
     serveFrameFromChannel(Channel.Best)
 
   def frame(chanKey: String) = Anon:
-    serveFrameFromChannel(Channel.byKey.get(chanKey) get)
+    Channel.byKey.get(chanKey) so serveFrameFromChannel
 
   private def serveFrameFromChannel(channel: Channel)(using Context) =
     env.tv.tv
