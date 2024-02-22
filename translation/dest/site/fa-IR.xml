@@ -503,7 +503,7 @@
   <string name="reportXToModerators">گزارش %s به مدیران سایت</string>
   <string name="profileCompletion">میزان تکمیل نمایه: %s</string>
   <string name="xRating">درجه‌‏بندی %s</string>
-  <string name="ifNoneLeaveEmpty">اگر ندارید،خالی بگذارید</string>
+  <string name="ifNoneLeaveEmpty">اگر ندارید، خالی گذارید</string>
   <string name="profile">نمایه</string>
   <string name="editProfile">ویرایش نمایه</string>
   <string name="firstName">نام</string>
