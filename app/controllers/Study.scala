@@ -212,16 +212,12 @@ final class Study(
   def chapter(id: StudyId, chapterId: StudyChapterId) =
     Open:
       orRelay(id, chapterId.some):
-        env.study.api
-          .byIdWithChapter(id, chapterId)
-          .flatMap:
-            case None =>
-              env.study.studyRepo
-                .exists(id)
-                .flatMap:
-                  if _ then Redirect(routes.Study.show(id))
-                  else showQuery(fuccess(none))
-            case sc => showQuery(fuccess(sc))
+        env.study.api.byIdWithChapter(id, chapterId) flatMap:
+          case None =>
+            env.study.studyRepo.exists(id) flatMap:
+              if _ then Redirect(routes.Study.show(id))
+              else showQuery(fuccess(none))
+          case sc => showQuery(fuccess(sc))
 
   def chapterMeta(id: StudyId, chapterId: StudyChapterId) = Open:
     env.study.chapterRepo
