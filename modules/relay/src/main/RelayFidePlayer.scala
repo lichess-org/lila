@@ -53,13 +53,12 @@ final private class RelayFidePlayerApi(colls: RelayColls, cacheApi: lila.memo.Ca
 
   def enrichGames(tour: RelayTour)(games: RelayGames): Fu[RelayGames] =
     val tc = guessTimeControl(tour) | FideTC.Standard
-    games
-      .traverse: game =>
-        (game.tags.fideIds zip game.tags.names zip game.tags.titles)
-          .traverse:
-            case ((fideId, name), title) => guessPlayer(fideId, name, UserTitle from title)
-          .map: guesses =>
-            game.copy(tags = update(game.tags, tc, guesses))
+    games.traverse: game =>
+      (game.tags.fideIds zip game.tags.names zip game.tags.titles)
+        .traverse:
+          case ((fideId, name), title) => guessPlayer(fideId, name, UserTitle from title)
+        .map: guesses =>
+          game.copy(tags = update(game.tags, tc, guesses))
 
   private def guessPlayer(
       fideId: Option[FideId],
@@ -67,7 +66,8 @@ final private class RelayFidePlayerApi(colls: RelayColls, cacheApi: lila.memo.Ca
       title: Option[UserTitle]
   ): Fu[Option[RelayFidePlayer]] = fideId match
     case Some(fideId) => idToPlayerCache.get(fideId)
-    case None         => name.map(TokenTitle(_, title)) so guessPlayerCache.get
+    case None =>
+      name.map(RelayPlayer.tokenize).map(TokenTitle(_, title)).so(guessPlayerCache.get)
 
   private val idToPlayerCache = cacheApi[FideId, Option[RelayFidePlayer]](1024, "relay.fidePlayer.byId"):
     _.expireAfterWrite(1.minute).buildAsyncFuture: id =>
