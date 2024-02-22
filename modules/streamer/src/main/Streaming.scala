@@ -41,7 +41,7 @@ final private class Streaming(
         } zip ytApi.fetchStreams(streamers)
       streams = LiveStreams {
         ThreadLocalRandom.shuffle {
-          (twitchStreams ::: youTubeStreams) pipe dedupStreamers
+          (youTubeStreams ::: twitchStreams) pipe dedupStreamers
         }
       }
       _ <- api.setLangLiveNow(streams.streams)

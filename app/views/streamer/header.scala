@@ -7,7 +7,9 @@ object header:
 
   import trans.streamer.*
 
-  def apply(s: lila.streamer.Streamer.WithUserAndStream, modView: Boolean = false)(using PageContext) =
+  def apply(s: lila.streamer.Streamer.WithUserAndStream, modView: Boolean = false)(using ctx: PageContext) =
+    val isMe  = ctx.userId.has(s.streamer._id into UserId)
+    val isMod = isGranted(_.ModLog)
     div(cls := "streamer-header")(
       picture.thumbnail(s.streamer, s.user),
       div(cls := "overview")(
@@ -50,7 +52,12 @@ object header:
             p(cls := "at")(trans.lastSeenActive(momentFromNow(s.streamer.seenAt))),
             s.streamer.liveAt.map { liveAt =>
               p(cls := "at")(lastStream(momentFromNow(liveAt)))
-            }
+            },
+            s.streamer.youTube.isDefined && (isMe || isMod) option
+              button(
+                cls                               := "button online-check",
+                isMod option (data("streamer-id") := s.streamer._id.value)
+              )("force online check")
           )
         ),
         div(cls := "streamer-footer")(

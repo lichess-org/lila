@@ -323,6 +323,7 @@ POST  /streamer/subscribe/:streamer    controllers.Streamer.subscribe(streamer, 
 POST  /upload/image/streamer           controllers.Streamer.pictureApply
 GET   /streamer/:username              controllers.Streamer.show(username)
 GET   /streamer/:username/redirect     controllers.Streamer.redirect(username)
+POST  /streamer-check                  controllers.Streamer.forceOnlineCheck(streamer: Option[String] ?= None)
 
 # Round
 GET   /$gameId<\w{8}>                            controllers.Round.watcher(gameId, color = "white")

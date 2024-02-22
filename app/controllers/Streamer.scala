@@ -151,6 +151,17 @@ final class Streamer(env: Env, apiC: => Api) extends LilaController(env):
     Ok
   }
 
+  private val forceOnlineLimit =
+    lila.memo.RateLimit[UserId](1, 1.minutes, "streamer.forceOnlineCheck")
+
+  def forceOnlineCheck(streamer: Option[String]) = Auth { _ ?=> me ?=>
+    if streamer.isDefined && !isGranted(_.ModLog) then notFound
+    else
+      val uid = streamer.fold(me.userId)(UserId(_))
+      forceOnlineLimit(uid, rateLimited)(env.streamer.api.forceCheck(uid)) inject
+        Redirect(routes.Streamer.show(uid))
+  }
+
   def onYouTubeVideo = AnonBodyOf(parse.tolerantXml): body =>
     env.streamer.ytApi.onVideoXml(body)
     NoContent
