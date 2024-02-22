@@ -172,7 +172,9 @@ final class RelayApi(
         )
       )
       _ <- Granter(_.Relay).so(groupRepo.update(tour.id, data.grouping))
-    yield (tour.id :: data.grouping.so(_.tourIds)).foreach(withTours.invalidate)
+    yield
+      leaderboard invalidate tour.id
+      (tour.id :: data.grouping.so(_.tourIds)).foreach(withTours.invalidate)
 
   def create(data: RelayRoundForm.Data, tour: RelayTour)(using me: Me): Fu[RelayRound.WithTourAndStudy] =
     roundRepo.lastByTour(tour) flatMapz { last =>
