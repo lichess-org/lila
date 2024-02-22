@@ -61,7 +61,7 @@ final private class YouTubeApi(
           syncDb(tubers, streams)
           lastResults = streams
 
-  // youtube doesn't provide a low quota API to check for videos on a known channel id
+  // youtube does not provide a low quota API to check for videos on a known channel id
   // and they don't provide the rss feed to non-browsers, so we're left to scrape the html.
   def forceCheck(tuber: Streamer.YouTube) =
     ws.url(s"https://www.youtube.com/channel/${tuber.channelId}")
