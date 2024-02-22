@@ -3,9 +3,10 @@ package lila.tv
 import akka.actor.*
 import akka.stream.scaladsl.*
 import chess.format.Fen
-import lila.Lila.{GameId, none}
+import lila.Lila.{ GameId, none }
 import lila.common.Json.given
-import lila.common.{Bus, LightUser}
+import lila.common.{ Bus, LightUser }
+import lila.game.Pov
 import lila.game.actorApi.MoveGameEvent
 import lila.hub.actorApi.tv.TvSelect
 import lila.socket.Socket
@@ -14,7 +15,7 @@ import play.api.libs.json.*
 final private class TvBroadcast(
     lightUserSync: LightUser.GetterSync,
     channel: Tv.Channel,
-    gameRepo: lila.game.GameRepo,
+    gameProxyRepo: lila.round.GameProxyRepo
 ) extends Actor:
 
   import TvBroadcast.*
@@ -51,34 +52,35 @@ final private class TvBroadcast(
     case Remove(client) => clients = clients - client
 
     case TvSelect(gameId, speed, data) =>
-      val game = gameRepo.game(gameId).getIfPresent.get
-      val povColor = chess.Color.White
-      unsubscribeFromFeaturedId()
-      Bus.subscribe(self, MoveGameEvent makeChan gameId)
-      val feat = Featured(
-        gameId,
-        Json.obj(
-          "id"          -> gameId,
-          "orientation" -> povColor,
-          "players" -> game.players.mapList { p =>
-            val user = p.userId.flatMap(lightUserSync)
-            Json
-              .obj("color" -> p.color.name)
-              .add("user" -> user.map(LightUser.write))
-              .add("ai" -> p.aiLevel)
-              .add("rating" -> p.rating)
-              .add("seconds" -> game.clock.map(_.remainingTime(povColor).roundSeconds))
+      gameProxyRepo game gameId map2 { game =>
+        unsubscribeFromFeaturedId()
+        Bus.subscribe(self, MoveGameEvent makeChan gameId)
+        val pov = Pov naturalOrientation game
+        val feat = Featured(
+          gameId,
+          Json.obj(
+            "id"          -> gameId,
+            "orientation" -> pov.color.name,
+            "players" -> game.players.mapList { p =>
+              val user = p.userId.flatMap(lightUserSync)
+              Json
+                .obj("color" -> p.color.name)
+                .add("user" -> user.map(LightUser.write))
+                .add("ai" -> p.aiLevel)
+                .add("rating" -> p.rating)
+                .add("seconds" -> game.clock.map(_.remainingTime(pov.color).roundSeconds))
+            }
+          ),
+          fen = Fen write game.situation
+        )
+        clients.foreach { client =>
+          client.queue offer {
+            if client.fromLichess then data
+            else feat.socketMsg
           }
-        ),
-        fen = Fen write game.situation
-      )
-      clients.foreach { client =>
-        client.queue offer {
-          if client.fromLichess then data
-          else feat.socketMsg
         }
+        featured = feat.some
       }
-      featured = feat.some
 
     case MoveGameEvent(game, fen, move) =>
       val msg = Socket.makeMessage(

@@ -30,16 +30,17 @@ POST  /bookmark/$gameId<\w{8}>         controllers.Game.bookmark(gameId)
 # TV
 GET   /$lang<\w\w\w?>/tv               controllers.Tv.indexLang(lang)
 GET   /tv/frame                        controllers.Tv.frameDefault
-GET   /tv/feed                         controllers.Tv.feed
+GET   /tv/feed                         controllers.Tv.feedDefault
 GET   /tv/channels                     controllers.Main.movedPermanently(to = "/api/tv/channels")
 GET   /tv/:chanKey                     controllers.Tv.onChannel(chanKey)
 GET   /tv/:chanKey/frame               controllers.Tv.frame(chanKey)
+GET   /tv/:chanKey/feed                controllers.Tv.feed(chanKey)
 GET   /tv/$gameId<\w{8}>/$color<white|black>/sides controllers.Tv.sides(gameId, color)
 GET   /games                           controllers.Tv.games
 GET   /games/:chanKey                  controllers.Tv.gamesChannel(chanKey)
 GET   /games/:chanKey/replacement/$gameId<\w{8}> controllers.Tv.gameChannelReplacement(chanKey, gameId, exclude: List[String])
 GET   /api/tv/channels                 controllers.Tv.channels
-GET   /api/tv/feed                     controllers.Tv.feed
+GET   /api/tv/feed                     controllers.Tv.feedDefault
 GET   /api/tv/:chanKey                 controllers.Tv.apiGamesChannel(chanKey)
 
 # Relation

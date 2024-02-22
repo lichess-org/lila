@@ -1,6 +1,6 @@
 package lila.tv
 
-import akka.actor.{ActorSystem, Props}
+import akka.actor.{ ActorSystem, Props }
 import com.softwaremill.macwire.*
 
 @Module
