@@ -5,6 +5,8 @@ import views.*
 import lila.app.{ given, * }
 import lila.common.IpAddress
 import lila.forum.ForumCateg.diagnosticId
+import lila.Lila.{ UserId }
+import lila.relation.{ Follow, Block }
 
 final class ForumTopic(env: Env) extends LilaController(env) with ForumController:
 
@@ -55,20 +57,26 @@ final class ForumTopic(env: Env) extends LilaController(env) with ForumControlle
         then notFound
         else
           for
-            unsub       <- ctx.me soUse env.timeline.status(s"forum:${topic.id}")
-            canRead     <- access.isGrantedRead(categ.slug)
+            unsub   <- ctx.me soUse env.timeline.status(s"forum:${topic.id}")
+            canRead <- access.isGrantedRead(categ.slug)
+            topicUserId = topic.userId.getOrElse(UserId(""))
+            relation <- ctx.userId.so(
+              env.relation.api.fetchRelation(topicUserId: UserId, _)
+            )
+            replyBlocked = relation.exists(_ == Block)
             canWrite    <- access.isGrantedWrite(categ.slug, tryingToPostAsMod = true)
             canModCateg <- access.isGrantedMod(categ.slug)
             inOwnTeam   <- ~(categ.team, ctx.me).mapN(env.team.api.isLeader(_, _))
             form <- ctx.me
-              .filter(_ => canWrite && topic.open && !topic.isOld)
+              .filter(_ => canWrite && topic.open && !topic.isOld && !replyBlocked)
               .soUse: _ ?=>
                 forms.postWithCaptcha(inOwnTeam) map some
             _ <- env.user.lightUserApi preloadMany posts.currentPageResults.flatMap(_.post.userId)
             res <-
               if canRead then
-                Ok.page(html.forum.topic.show(categ, topic, posts, form, unsub, canModCateg))
-                  .map(_.withCanonical(routes.ForumTopic.show(categ.slug, topic.slug, page)))
+                Ok.page(
+                  html.forum.topic.show(categ, topic, posts, form, unsub, canModCateg, None, replyBlocked)
+                ).map(_.withCanonical(routes.ForumTopic.show(categ.slug, topic.slug, page)))
               else notFound
           yield res
 

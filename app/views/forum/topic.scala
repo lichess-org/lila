@@ -73,7 +73,8 @@ object topic:
       formWithCaptcha: Option[FormWithCaptcha],
       unsub: Option[Boolean],
       canModCateg: Boolean,
-      formText: Option[String] = None
+      formText: Option[String] = None,
+      replyBlocked: Boolean = false
   )(using ctx: PageContext) =
     views.html.base.layout(
       title = s"${topic.name} • page ${posts.currentPage}/${posts.nbPages} • ${categ.name}",
@@ -136,6 +137,7 @@ object topic:
                     a(href := teamRoutes.show(teamId))(trans.teamNamedX(teamLink(teamId, true)))
               .orElse:
                 if ctx.me.exists(_.isBot) then p("Bots cannot post in the forum.").some
+                else if replyBlocked then p("You are blocked by the forum author.").some
                 else ctx.isAuth option p(trans.youCannotPostYetPlaySomeGames())
           ,
           div(
