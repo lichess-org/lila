@@ -62,9 +62,6 @@ final private class YouTubeApi(
             lastResults = streams
           syncDb(tubers, streams)
 
-  def fetchStream(streamer: Streamer): Fu[Option[YouTube.Stream]] =
-    fetchStreams(List(streamer), false) map (_.headOption)
-
   def onVideoXml(xml: scala.xml.NodeSeq): Funit =
     val channel = (xml \ "entry" \ "channelId").text
     val video   = (xml \ "entry" \ "videoId").text
