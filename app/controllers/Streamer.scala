@@ -160,7 +160,7 @@ final class Streamer(env: Env, apiC: => Api) extends LilaController(env):
     if ctx.userId.has(uid) || isMod then
       checkOnlineLimit(uid, rateLimited)(env.streamer.api.forceCheck(uid)) inject
         Redirect(routes.Streamer.show(uid).url)
-          .flashSuccess(s"Checking if ${if isMod then s"$uid is" else "you are"} live on youtube...")
+          .flashSuccess(s"Please wait one minute while we check, then reload the page.")
     else Unauthorized
   }
 
