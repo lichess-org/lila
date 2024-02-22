@@ -10,6 +10,18 @@ private case class RelayPlayer(
     title: Option[UserTitle],
     fideId: Option[FideId] = none
 )
+object RelayPlayer:
+  type Token = String
+  private val splitRegex = """\W""".r
+  def tokenize(name: PlayerName): Token =
+    splitRegex
+      .split(name.toLowerCase.trim)
+      .toList
+      .map(_.trim)
+      .filter(_.nonEmpty)
+      .distinct
+      .sorted
+      .mkString(" ")
 
 private class RelayPlayers(val text: String):
 
@@ -21,18 +33,8 @@ private class RelayPlayers(val text: String):
       val parse = parser.pick(lines.next)
       text.linesIterator.take(1000).toList.flatMap(parse).toMap
 
-  private type Token = String
-  private val splitRegex = """\W""".r
-  private def tokenize(name: PlayerName): Token =
-    splitRegex
-      .split(name.toLowerCase.trim)
-      .toList
-      .map(_.trim)
-      .filter(_.nonEmpty)
-      .distinct
-      .sorted
-      .mkString(" ")
-  private lazy val tokenizedPlayers: Map[Token, RelayPlayer] = players.mapKeys(tokenize)
+  private lazy val tokenizedPlayers: Map[RelayPlayer.Token, RelayPlayer] =
+    players.mapKeys(RelayPlayer.tokenize)
 
   private object parser:
     def pick(line: String) = if line.contains(';') then parser.v1 else parser.v2
@@ -76,4 +78,4 @@ private class RelayPlayers(val text: String):
               ).flatten
 
   private def findMatching(name: PlayerName): Option[RelayPlayer] =
-    players.get(name) orElse tokenizedPlayers.get(tokenize(name))
+    players.get(name) orElse tokenizedPlayers.get(RelayPlayer.tokenize(name))

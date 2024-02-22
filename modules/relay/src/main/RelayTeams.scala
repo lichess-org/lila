@@ -21,6 +21,9 @@ private class RelayTeams(val text: String):
     .mapValues(_.map(_._2))
     .toMap
 
+  private lazy val tokenizedPlayerTeams: Map[RelayPlayer.Token, TeamName] =
+    playerTeams.mapKeys(RelayPlayer.tokenize)
+
   private lazy val playerTeams: Map[PlayerName, TeamName] =
     teams.flatMap: (team, players) =>
       players.map(_ -> team)
@@ -32,9 +35,12 @@ private class RelayTeams(val text: String):
     chess.Color.all.foldLeft(tags): (tags, color) =>
       tags
         .players(color)
-        .flatMap(playerTeams.get)
+        .flatMap(findMatching)
         .fold(tags): team =>
           tags + Tag(color.fold(Tag.WhiteTeam, Tag.BlackTeam), team)
+
+  private def findMatching(name: PlayerName): Option[TeamName] =
+    playerTeams.get(name) orElse tokenizedPlayerTeams.get(RelayPlayer.tokenize(name))
 
 final class RelayTeamTable(chapterRepo: lila.study.ChapterRepo, cacheApi: lila.memo.CacheApi)(using Executor):
 
