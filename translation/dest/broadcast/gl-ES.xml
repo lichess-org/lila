@@ -43,13 +43,6 @@
   <string name="definitivelyDeleteTournament">Eliminar o torneo de forma definitiva, con todas as súas roldas e partidas.</string>
   <string name="automaticLeaderboard">Listaxe de líderes automática</string>
   <string name="automaticLeaderboardHelp">Calcula e amosa unha listaxe de líderes simple baseada nos resultados das partidas</string>
-  <string name="replace">Opcional: substitúe os nomes dos xogadores, as puntuacións e os títulos</string>
-  <string name="replaceHelp">Unha liña por xogador, con este formato:
-Nome orixinal; Nome alternativo; Puntuación alternativa (opcional); Título alternativo (opcional)
-
-Exemplo:
-DrNykterstein;Magnus Carlsen;2863
-AnishGiri;Anish Giri;2764;GM</string>
   <string name="periodInSeconds">Período en segundos</string>
   <string name="periodInSecondsHelp">Opcional: canto tempo se agarda entre peticións. Min 2s, max 60s. Por defecto é automático baseado no número de espectadores.</string>
 </resources>

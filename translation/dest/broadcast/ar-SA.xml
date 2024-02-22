@@ -47,12 +47,6 @@
   <string name="definitivelyDeleteTournament">قم بحذف البطولة جميعها و جميع جولاتها و جميع ألعابها.</string>
   <string name="automaticLeaderboard">لوحة متصدرين تلقائية</string>
   <string name="automaticLeaderboardHelp">حساب النتائج وعرض لوحة متصدرين بسيطة بناء على تلك النتائج</string>
-  <string name="replace">اختياري: استبدال أسماء اللاعبين وتقييماتهم وألقابهم</string>
-  <string name="replaceHelp">سطر واحد لكل لاعب، على النحو التالي:
-الاسم الأصلي؛ الاسم البديل؛ التقييم البديل (اختياري)؛ لقب بديل (اختياري)
-مثال:
-DrNykterstein;Magnus Carlsen;2863
-AnishGiri;Anish Giri;2764;GM</string>
   <string name="periodInSeconds">المدّة بالثواني</string>
   <string name="periodInSecondsHelp">أختياري، كم مدة الانتظار بين الطلبات، تتراوح المدة بين الثانيتين والدقيقة، يحدد الإعداد الافتراضي بناء على عدد المشاهدين.</string>
 </resources>

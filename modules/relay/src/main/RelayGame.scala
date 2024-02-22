@@ -32,6 +32,12 @@ case class RelayGame(
     tags = tags.copy(value = tags.value.filter(_.name != Tag.Result))
   )
 
+  def fideIds: Option[PairOf[Option[FideId]]] =
+    (
+      FideId from tags(_.WhiteFideId).flatMap(_.toIntOption),
+      FideId from tags(_.BlackFideId).flatMap(_.toIntOption)
+    ).some.filter(p => p._1.isDefined || p._2.isDefined)
+
   lazy val looksLikeLichess = tags(_.Site).exists: site =>
     RelayGame.lichessDomains.exists: domain =>
       site startsWith s"https://$domain/"

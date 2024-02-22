@@ -24,6 +24,7 @@ final private class RelayFetch(
     irc: lila.irc.IrcApi,
     formatApi: RelayFormatApi,
     delayer: RelayDelay,
+    fidePlayers: RelayFidePlayerApi,
     gameRepo: GameRepo,
     pgnDump: PgnDump,
     gameProxy: GameProxyRepo
@@ -81,6 +82,7 @@ final private class RelayFetch(
     else
       fetchGames(rt)
         .map(games => rt.tour.players.fold(games)(_ update games))
+        .flatMap(fidePlayers.enrichGames(rt.tour))
         .map(games => rt.tour.teams.fold(games)(_ update games))
         .mon(_.relay.fetchTime(rt.tour.official, rt.round.slug))
         .addEffect(gs => lila.mon.relay.games(rt.tour.official, rt.round.slug).update(gs.size))

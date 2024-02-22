@@ -5,6 +5,7 @@
   <string name="toInviteSomeoneToPlayGiveThisUrl">Выкарыстайце гэтую спасылку каб запрасіць кагосьці да гульні</string>
   <string name="gameOver">Гульня скончана</string>
   <string name="waitingForOpponent">Чакаем апанента</string>
+  <string name="orLetYourOpponentScanQrCode">Або дазвольце апаненту адсканаваць гэты QR-код</string>
   <string name="waiting">Чакаем</string>
   <string name="yourTurn">Ваша чарга</string>
   <string name="aiNameLevelAiLevel">%1$s узровень %2$s</string>
@@ -72,6 +73,7 @@
   <string name="makeMainLine">Зрабіць асноўным варыянтам</string>
   <string name="deleteFromHere">Выдаліць з гэтага месца</string>
   <string name="forceVariation">Прасунуць варыянт</string>
+  <string name="copyVariationPgn">Скап\'яваць варыянт у фармаце PGN</string>
   <string name="move">Ход</string>
   <string name="variantLoss">Пройгрышны варыянт</string>
   <string name="variantWin">Пераможны варыянт</string>

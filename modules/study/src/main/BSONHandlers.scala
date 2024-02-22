@@ -316,9 +316,16 @@ object BSONHandlers:
   )
   given (using handler: BSONHandler[List[Tag]]): BSONHandler[Tags] = handler.as[Tags](Tags.apply, _.value)
   private given BSONDocumentHandler[Chapter.Setup]                 = Macros.handler
-  given BSONDocumentHandler[Chapter.Relay]                         = Macros.handler
-  given BSONDocumentHandler[Chapter.ServerEval]                    = Macros.handler
-  given BSONDocumentHandler[Chapter]                               = Macros.handler
+  given BSONHandler[Option[FideId]] = quickHandler(
+    {
+      case BSONInteger(v) => FideId(v).some
+      case BSONNull       => none
+    },
+    f => f.fold(BSONNull)(id => BSONInteger(id.value))
+  )
+  given BSONDocumentHandler[Chapter.Relay]      = Macros.handler
+  given BSONDocumentHandler[Chapter.ServerEval] = Macros.handler
+  given BSONDocumentHandler[Chapter]            = Macros.handler
 
   given BSONHandler[Position.Ref] = tryHandler(
     { case BSONString(v) => Position.Ref.decode(v) toTry s"Invalid position $v" },

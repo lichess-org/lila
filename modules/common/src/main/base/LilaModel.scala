@@ -159,3 +159,6 @@ trait LilaModel:
 
   opaque type Crawler = Boolean
   object Crawler extends YesNo[Crawler]
+
+  opaque type FideId = Int
+  object FideId extends OpaqueInt[FideId]

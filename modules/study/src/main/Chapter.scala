@@ -119,10 +119,13 @@ object Chapter:
   case class Relay(
       index: Option[Int], // game index in the source URL, none to always match tags
       path: UciPath,
-      lastMoveAt: Instant
+      lastMoveAt: Instant,
+      fideIds: Option[Relay.FideIds]
   ):
     def secondsSinceLastMove: Int = (nowSeconds - lastMoveAt.toSeconds).toInt
     def isPush                    = index.isEmpty
+  object Relay:
+    type FideIds = PairOf[Option[FideId]]
 
   case class ServerEval(path: UciPath, done: Boolean)
 
