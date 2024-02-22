@@ -52,7 +52,7 @@
   <string name="blackLeftTheGame">سیاه بازی را ترک کرد</string>
   <string name="whiteDidntMove">سفید تکان نخورد</string>
   <string name="blackDidntMove">مشکی تکان نخورد</string>
-  <string name="requestAComputerAnalysis">یک تحلیل رایانه‌ای درخواست بدهید</string>
+  <string name="requestAComputerAnalysis">درخواست تحلیل رایانه‌ای</string>
   <string name="computerAnalysis">تحليل رایانه‌ای</string>
   <string name="computerAnalysisAvailable">تحلیل رایانه‌ای موجود است</string>
   <string name="computerAnalysisDisabled">تحلیل رایانه‌ای غیرفعال شد</string>
