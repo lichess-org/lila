@@ -185,7 +185,10 @@ export default function () {
       () => {
         const y = window.scrollY;
         if (y > lastScrollY + 10) header.classList.add('hide');
-        else if (y <= Math.max(lastScrollY - 20, 0) && y < document.body.scrollHeight - window.innerHeight)
+        else if (
+          y <= Math.max(lastScrollY - 20, 0) &&
+          y <= Math.max(document.body.scrollHeight - window.innerHeight, 0)
+        )
           header.classList.remove('hide');
         else return;
 
