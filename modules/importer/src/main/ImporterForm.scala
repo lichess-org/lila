@@ -87,7 +87,7 @@ case class ImportData(pgn: PgnStr, analyse: Option[String]):
               players = ByColor: c =>
                 Player.makeImported(
                   c,
-                  parsed.tags.players(c),
+                  parsed.tags.names(c),
                   IntRating from parsed.tags.elos(c)
                 ),
               mode = Mode.Casual,
@@ -95,24 +95,18 @@ case class ImportData(pgn: PgnStr, analyse: Option[String]):
               pgnImport = PgnImport.make(user = user, date = date, pgn = pgn).some
             )
             .sloppy
-            .start pipe { dbGame =>
-            // apply the result from the board or the tags
-
-            val tagStatus: Option[TagResult] = parsed.tags.outcome
-              .map {
-                case Outcome(Some(winner))           => TagResult(status, winner.some)
-                case _ if status == Status.Outoftime => TagResult(status, none)
-                case _                               => TagResult(Status.Draw, none)
-              }
-              .filter(_.status > Status.Started)
-
-            tagStatus
-              .orElse { game.situation.status.map(TagResult(_, game.situation.winner)) }
-              .fold(dbGame) { res =>
-                dbGame.finish(res.status, res.winner)
-              }
-
-          }
+            .start
+            .pipe: dbGame =>
+              // apply the result from the board or the tags
+              parsed.tags.outcome
+                .map:
+                  case Outcome(Some(winner))           => TagResult(status, winner.some)
+                  case _ if status == Status.Outoftime => TagResult(status, none)
+                  case _                               => TagResult(Status.Draw, none)
+                .filter(_.status > Status.Started)
+                .orElse { game.situation.status.map(TagResult(_, game.situation.winner)) }
+                .fold(dbGame): res =>
+                  dbGame.finish(res.status, res.winner)
 
           Preprocessed(NewGame(dbGame), replay.copy(state = game), initialFen, parsed)
         }

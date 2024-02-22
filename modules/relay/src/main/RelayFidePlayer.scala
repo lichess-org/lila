@@ -9,7 +9,7 @@ import play.api.libs.ws.StandaloneWSClient
 import java.io.InputStream
 import java.util.zip.ZipInputStream
 import chess.format.pgn.{ Tag, Tags }
-import chess.ByColor
+import chess.{ FideId, ByColor }
 
 import lila.db.dsl.{ *, given }
 
@@ -18,7 +18,8 @@ private enum FideTC:
 
 case class RelayFidePlayer(
     @Key("_id") id: FideId,
-    name: String,
+    name: PlayerName,
+    token: RelayPlayer.Token,
     fed: Option[String],
     title: Option[UserTitle],
     standard: Option[Int],
@@ -30,9 +31,13 @@ case class RelayFidePlayer(
     case FideTC.Rapid    => rapid
     case FideTC.Blitz    => blitz
 
+object RelayFidePlayer:
+  case class TokenTitle(token: RelayPlayer.Token, title: Option[UserTitle])
+
 final private class RelayFidePlayerApi(colls: RelayColls, cacheApi: lila.memo.CacheApi)(using Executor):
   private val coll = colls.fidePlayer
   import BSONHandlers.given
+  import RelayFidePlayer.*
 
   def upsert(ps: Seq[RelayFidePlayer]) = coll: c =>
     val update = c.update(ordered = false)
@@ -48,15 +53,33 @@ final private class RelayFidePlayerApi(colls: RelayColls, cacheApi: lila.memo.Ca
 
   def enrichGames(tour: RelayTour)(games: RelayGames): Fu[RelayGames] =
     val tc = guessTimeControl(tour) | FideTC.Standard
-    games.traverse: game =>
-      for
-        white <- FideId.from(game.tags(_.WhiteFideId).flatMap(_.toIntOption)).so(cache.get)
-        black <- FideId.from(game.tags(_.BlackFideId).flatMap(_.toIntOption)).so(cache.get)
-      yield game.copy(tags = update(game.tags, tc, ByColor(white, black)))
+    games
+      .traverse: game =>
+        (game.tags.fideIds zip game.tags.names zip game.tags.titles)
+          .traverse:
+            case ((fideId, name), title) => guessPlayer(fideId, name, UserTitle from title)
+          .map: guesses =>
+            game.copy(tags = update(game.tags, tc, guesses))
 
-  private val cache = cacheApi[FideId, Option[RelayFidePlayer]](1024, "relay.fidePlayer"):
+  private def guessPlayer(
+      fideId: Option[FideId],
+      name: Option[PlayerName],
+      title: Option[UserTitle]
+  ): Fu[Option[RelayFidePlayer]] = fideId match
+    case Some(fideId) => idToPlayerCache.get(fideId)
+    case None         => name.map(TokenTitle(_, title)) so guessPlayerCache.get
+
+  private val idToPlayerCache = cacheApi[FideId, Option[RelayFidePlayer]](1024, "relay.fidePlayer.byId"):
     _.expireAfterWrite(1.minute).buildAsyncFuture: id =>
       coll(_.byId[RelayFidePlayer](id))
+
+  private val guessPlayerCache =
+    cacheApi[TokenTitle, Option[RelayFidePlayer]](1024, "relay.fidePlayer.byName"):
+      _.expireAfterWrite(1.minute).buildAsyncFuture: tt =>
+        coll:
+          _.find($doc("token" -> tt.token, "title" -> tt.title)).cursor[RelayFidePlayer]().list(2) map:
+            case List(onlyMatch) => onlyMatch.some
+            case _               => none
 
   private def guessTimeControl(tour: RelayTour): Option[FideTC] =
     tour.description.split('|').lift(2).map(_.trim.toLowerCase.replace("classical", "standard")) so: tcStr =>
@@ -67,10 +90,10 @@ final private class RelayFidePlayerApi(colls: RelayColls, cacheApi: lila.memo.Ca
       tags ++ Tags:
         fidePlayers(color).so: fide =>
           List(
-            Tag(color.fold(Tag.White, Tag.Black), fide.name).some,
-            fide.title.map { title => Tag(color.fold(Tag.WhiteTitle, Tag.BlackTitle), title.value) },
-            fide.ratingOf(tc) map: rating =>
-              Tag(color.fold(Tag.WhiteElo, Tag.BlackElo), rating.toString)
+            Tag(_.fideIds(color), fide.id.toString).some,
+            Tag(_.names(color), fide.name).some,
+            fide.title.map { title => Tag(_.titles(color), title.value) },
+            fide.ratingOf(tc).map { rating => Tag(_.elos(color), rating.toString) }
           ).flatten
 
 final private class RelayFidePlayerUpdate(api: RelayFidePlayerApi, ws: StandaloneWSClient)(using
@@ -118,6 +141,7 @@ final private class RelayFidePlayerUpdate(api: RelayFidePlayerApi, ws: Standalon
     yield RelayFidePlayer(
       id = FideId(id),
       name = name,
+      token = RelayPlayer.tokenize(name),
       fed = string(76, 79),
       title = lila.user.Title.mostValuable(title, wTitle),
       standard = number(113, 117),

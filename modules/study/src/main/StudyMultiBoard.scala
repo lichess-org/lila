@@ -165,7 +165,7 @@ object StudyMultiBoard:
     type Players = ByColor[Player]
 
     def players(clocks: ByColor[Option[Centis]])(tags: Tags): Option[Players] =
-      val names = chess.ByColor[Option[String]](tags.players(_))
+      val names = chess.ByColor[Option[String]](tags.names(_))
       names.exists(_.isDefined) option:
         names zip tags.titles zip tags.elos zip clocks map:
           case (((n, t), e), c) => Player(n | "Unknown player", t, e, c)

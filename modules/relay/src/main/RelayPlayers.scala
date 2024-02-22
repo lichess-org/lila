@@ -2,6 +2,7 @@ package lila.relay
 
 import play.api.data.Forms.*
 import chess.format.pgn.{ Tag, Tags }
+import chess.FideId
 
 // used to change names and ratings of broadcast players
 private case class RelayPlayer(
@@ -69,12 +70,12 @@ private class RelayPlayers(val text: String):
       tags ++ Tags:
         tags(color.name).flatMap(findMatching) so: rp =>
           rp.fideId match
-            case Some(fideId) => List(Tag(color.fold(Tag.WhiteFideId, Tag.BlackFideId), fideId.toString))
+            case Some(fideId) => List(Tag(_.fideIds(color), fideId.toString))
             case None =>
               List(
-                rp.name.map(name => Tag(color.fold(Tag.White, Tag.Black), name)),
-                rp.rating.map { rating => Tag(color.fold(Tag.WhiteElo, Tag.BlackElo), rating.toString) },
-                rp.title.map { title => Tag(color.fold(Tag.WhiteTitle, Tag.BlackTitle), title.value) }
+                rp.name.map(name => Tag(_.names(color), name)),
+                rp.rating.map { rating => Tag(_.elos(color), rating.toString) },
+                rp.title.map { title => Tag(_.titles(color), title.value) }
               ).flatten
 
   private def findMatching(name: PlayerName): Option[RelayPlayer] =

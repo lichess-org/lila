@@ -70,6 +70,8 @@ final class StudySearchApi(
     Tag.Round,
     Tag.White,
     Tag.Black,
+    Tag.WhiteFideId,
+    Tag.BlackFideId,
     Tag.ECO,
     Tag.Opening,
     Tag.Annotator

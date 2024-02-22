@@ -49,12 +49,11 @@ case class RealPlayers(players: Map[UserId, RealPlayer]):
     pgn.copy(
       tags = pgn.tags ++ Tags:
         game.players.flatMap: player =>
-          player.userId.flatMap(players.get) so { rp =>
+          player.userId.flatMap(players.get) so: rp =>
             List(
-              rp.name.map { name => Tag(player.color.fold(Tag.White, Tag.Black), name.value) },
-              rp.rating.map { rating => Tag(player.color.fold(Tag.WhiteElo, Tag.BlackElo), rating.toString) }
+              rp.name.map { name => Tag(_.names(player.color), name.value) },
+              rp.rating.map { rating => Tag(_.elos(player.color), rating.toString) }
             ).flatten
-          }
     )
 
 case class RealPlayer(name: Option[UserName], rating: Option[IntRating])

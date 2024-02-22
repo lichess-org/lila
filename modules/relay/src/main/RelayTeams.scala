@@ -34,10 +34,10 @@ private class RelayTeams(val text: String):
   private def update(tags: Tags): Tags =
     chess.Color.all.foldLeft(tags): (tags, color) =>
       tags
-        .players(color)
+        .names(color)
         .flatMap(findMatching)
         .fold(tags): team =>
-          tags + Tag(color.fold(Tag.WhiteTeam, Tag.BlackTeam), team)
+          tags + Tag(_.teams(color), team)
 
   private def findMatching(name: PlayerName): Option[TeamName] =
     playerTeams.get(name) orElse tokenizedPlayerTeams.get(RelayPlayer.tokenize(name))
@@ -139,7 +139,7 @@ function(root, tags) {
         .foldLeft(List.empty[TeamMatch]): (table, chap) =>
           (for
             teams <- chap.tags.teams.tupled.map(Pair.apply)
-            names <- chess.ByColor(chap.tags.players(_))
+            names <- chess.ByColor(chap.tags.names(_))
             players = names zip chap.tags.titles zip chap.tags.elos map:
               case ((n, t), e) => TeamPlayer(n, t, e)
             m0 = table.find(_.is(teams)) | TeamMatch(teams.map(TeamWithPoints(_)), Nil)
