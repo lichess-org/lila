@@ -43,6 +43,7 @@
   <string name="definitivelyDeleteTournament">Supprimer définitivement le tournoi, toutes ses rondes et toutes ses parties.</string>
   <string name="automaticLeaderboard">Classement automatique</string>
   <string name="automaticLeaderboardHelp">Calculer et afficher un échiquier principal simplifié basé sur les résultats de parties</string>
+  <string name="replacePlayerTags">Facultatif : remplacer les noms des joueurs, les classements et les titres</string>
   <string name="periodInSeconds">Période en secondes</string>
   <string name="periodInSecondsHelp">Facultatif : temps d\'attente entre les requêtes. Min. 2 sec, max. 60 sec. Par défaut automatique selon le nombre de spectateurs.</string>
 </resources>

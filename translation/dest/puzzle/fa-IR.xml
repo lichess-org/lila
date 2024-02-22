@@ -15,7 +15,7 @@
   <string name="voteToLoadNextOne">موافقت برای بارگذاری معمای بعدی!</string>
   <string name="upVote">معمای خوبی بود</string>
   <string name="downVote">معمای بدی بود</string>
-  <string name="yourPuzzleRatingWillNotChange">امتیازبندی معمایی شما تغییری نخواهد کرد. توجه داشته باشید که معماها یک رقابت نیستند. امتیازبندی‌تان به انتخاب بهترین معماها برای سطح مهارت فعلی‌تان کمک می‌کند.</string>
+  <string name="yourPuzzleRatingWillNotChange">درجه‌بندی معمایی شما تغییری نخواهد کرد. توجه داشته باشید که معماها یک رقابت نیستند. درجه‌بندی‌تان به انتخاب بهترین معماها برای سطح مهارت فعلی‌تان کمک می‌کند.</string>
   <string name="findTheBestMoveForWhite">بهترین حرکت برای سفید را پیدا کنید.</string>
   <string name="findTheBestMoveForBlack">بهترین حرکت برای سیاه را پیدا کنید.</string>
   <string name="toGetPersonalizedPuzzles">دریافت معماهای شخصی‌سازی‌شده:</string>
@@ -35,7 +35,7 @@
   <string name="useCtrlF">از Ctrl+f برای پیدا کردن گشایش مورد علاقه خود استفاده کنید!</string>
   <string name="notTheMove">این حرکت نیست!</string>
   <string name="trySomethingElse">چیز دیگری پیدا کنید</string>
-  <string name="ratingX">امتیاز: %s</string>
+  <string name="ratingX">درجه‌بندی: %s</string>
   <string name="hidden">پنهان</string>
   <plurals name="playedXTimes">
     <item quantity="one">%s بار بازی شده است</item>
@@ -54,8 +54,8 @@
   <string name="harder">سخت‌تر</string>
   <string name="hardest">سخت‌ترین</string>
   <plurals name="nbPointsAboveYourPuzzleRating">
-    <item quantity="one">یک امتیاز بالاتر از امتیازبندی معمایی‌تان</item>
-    <item quantity="other">%s امتیاز بالاتر از امتیازبندی معمایی‌تان</item>
+    <item quantity="one">یک امتیاز بالاتر از درجه‌بندی معمایی‌تان</item>
+    <item quantity="other">%s امتیاز بالاتر از درجه‌بندی معمایی‌تان</item>
   </plurals>
   <string name="example">مثال</string>
   <string name="addAnotherTheme">افزودن موضوع دیگری</string>
