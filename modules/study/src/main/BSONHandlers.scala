@@ -317,11 +317,8 @@ object BSONHandlers:
   given (using handler: BSONHandler[List[Tag]]): BSONHandler[Tags] = handler.as[Tags](Tags.apply, _.value)
   private given BSONDocumentHandler[Chapter.Setup]                 = Macros.handler
   given BSONHandler[Option[FideId]] = quickHandler(
-    {
-      case BSONInteger(v) => FideId(v).some
-      case BSONNull       => none
-    },
-    f => f.fold(BSONNull)(id => BSONInteger(id.value))
+    { case BSONInteger(v) => v > 0 option FideId(v) },
+    id => BSONInteger(id.so(_.value))
   )
   given BSONDocumentHandler[Chapter.Relay]      = Macros.handler
   given BSONDocumentHandler[Chapter.ServerEval] = Macros.handler
