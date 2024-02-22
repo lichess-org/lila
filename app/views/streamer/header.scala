@@ -1,5 +1,6 @@
 package views.html.streamer
 
+import controllers.routes
 import lila.app.templating.Environment.{ given, * }
 import lila.app.ui.ScalatagsTemplate.{ *, given }
 
@@ -45,20 +46,22 @@ object header:
             )
           }
         ),
-        div(cls := "ats")(
-          s.stream.map { s =>
-            p(cls := "at")(currentlyStreaming(strong(s.status)))
-          } getOrElse frag(
-            p(cls := "at")(trans.lastSeenActive(momentFromNow(s.streamer.seenAt))),
-            s.streamer.liveAt.map { liveAt =>
-              p(cls := "at")(lastStream(momentFromNow(liveAt)))
-            },
-            s.streamer.youTube.isDefined && (isMe || isMod) option
-              button(
-                cls                               := "button online-check",
-                isMod option (data("streamer-id") := s.streamer._id.value)
-              )("force online check")
-          )
+        span(
+          div(cls := "ats")(
+            s.stream.map { s =>
+              p(cls := "at")(currentlyStreaming(strong(s.status)))
+            } getOrElse frag(
+              p(cls := "at")(trans.lastSeenActive(momentFromNow(s.streamer.seenAt))),
+              s.streamer.liveAt.map { liveAt =>
+                p(cls := "at")(lastStream(momentFromNow(liveAt)))
+              }
+            )
+          ),
+          s.streamer.youTube.isDefined && s.stream.isEmpty && (isMe || isMod) option
+            form(
+              action := routes.Streamer.checkOnline(s.streamer._id.value).url,
+              method := "post"
+            )(input(cls := "button online-check", tpe := "submit", value := "force online check"))
         ),
         div(cls := "streamer-footer")(
           !modView option bits.subscribeButtonFor(s),

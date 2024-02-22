@@ -15,16 +15,6 @@ site.load.then(() => {
         );
       });
   });
-  $('.online-check').on('click', e => {
-    const uid = (e.target as HTMLElement).dataset.streamerId;
-    xhr.text(`/streamer-check${uid ? `?streamer=${uid}` : ''}`, { method: 'post' });
-    site.dialog.dom({
-      htmlText: `<p><strong>Checking ${uid ? uid + "'s" : 'your'} channel for a live stream.</strong></p>
-      <p>You cannot check again until one minute has passed. This page will not refresh.</p>
-      <p>Please reload in one minute and verify approval and lichess.org in your stream title.</p>`,
-      show: 'modal',
-    });
-  });
   wireCropDialog({
     aspectRatio: 1,
     post: { url: '/upload/image/streamer', field: 'picture' },
