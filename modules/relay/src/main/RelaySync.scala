@@ -122,8 +122,8 @@ final private class RelaySync(
                   .Relay(
                     index = game.index,
                     path = position.path + n.id,
-                    lastMoveAt = nowInstant
-                    // fideIds = game.fideIds
+                    lastMoveAt = nowInstant,
+                    fideIds = game.fideIds
                   )
                   .some
               )(by) inject position + n
@@ -202,8 +202,8 @@ final private class RelaySync(
           .Relay(
             index = game.index,
             path = game.root.mainlinePath,
-            lastMoveAt = nowInstant
-            // fideIds = game.fideIds
+            lastMoveAt = nowInstant,
+            fideIds = game.fideIds
           )
           .some
       )
