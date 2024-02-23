@@ -6,7 +6,7 @@
     <item quantity="other">%s 直播</item>
   </plurals>
   <string name="liveBroadcasts">赛事转播</string>
-  <string name="newBroadcast">新实况转播</string>
+  <string name="newBroadcast">新建实况转播</string>
   <string name="subscribedBroadcasts">已订阅的转播</string>
   <string name="aboutBroadcasts">关于转播</string>
   <string name="noRoundsYet">尚未有任何棋局</string>
@@ -41,6 +41,7 @@
   <string name="definitivelyDeleteTournament">确定删除整个锦标赛、所有轮次和其中所有比赛。</string>
   <string name="automaticLeaderboard">自动生成排行榜</string>
   <string name="automaticLeaderboardHelp">根据对局结果计算并显示一个简单的排行榜</string>
+  <string name="replacePlayerTags">可选项：替换选手的名字、等级分和头衔</string>
   <string name="periodInSeconds">时长（秒）</string>
   <string name="periodInSecondsHelp">可选项，请求之间等待多长时间。最小2秒，最大60秒。默认值为基于观众数量的自动值。</string>
 </resources>
