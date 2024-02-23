@@ -717,8 +717,8 @@
   <string name="returnToTournamentsHomepage">بازگشت به صفحه اصلی مسابقات</string>
   <string name="weeklyPerfTypeRatingDistribution">توزیع درجه‌بندی %s هفتگی</string>
   <plurals name="nbPerfTypePlayersThisWeek">
-    <item quantity="one">در هفته گذشته،%1$s بازیکن در واریانت %2$s فعال بود.</item>
-    <item quantity="other">در هفته گذشته،%1$s بازیکن در واریانت %2$s فعال بودند.</item>
+    <item quantity="one">%1$s بازیکن %2$s این هفته فعالیت داشته‌ است.</item>
+    <item quantity="other">%1$s بازیکن %2$s این هفته فعالیت داشته‌اند.</item>
   </plurals>
   <string name="yourPerfTypeRatingIsRating">درجه‌بندی %1$s شما %2$s است.</string>
   <string name="youAreBetterThanPercentOfPerfTypePlayers">شما بهتر از %1$s بازیکن ها در %2$s هستید.</string>
@@ -739,7 +739,7 @@
   <string name="downloadAnnotated">بارگیری حرکت‌نویسی</string>
   <string name="downloadRaw">دانلود خام</string>
   <string name="downloadImported">دانلود جایگذاری شده</string>
-  <string name="crosstable">تابلو امتیازات</string>
+  <string name="crosstable">نتایج رودررو</string>
   <string name="youCanAlsoScrollOverTheBoardToMoveInTheGame">شما  می توانید برای حرکت در بازی از صفحه استفاده کنید</string>
   <string name="scrollOverComputerVariationsToPreviewThem">برای مشاهده آن ها اسکرول کنید.</string>
   <string name="analysisShapesHowTo">و کلیک کنید یا راست کلیک کنید تا دایره یا فلش در صفحه بکشید shift</string>
