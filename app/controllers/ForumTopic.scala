@@ -6,7 +6,7 @@ import lila.app.{ given, * }
 import lila.common.IpAddress
 import lila.forum.ForumCateg.diagnosticId
 import lila.Lila.{ UserId }
-import lila.relation.{ Follow, Block }
+import lila.relation.{ Block }
 
 final class ForumTopic(env: Env) extends LilaController(env) with ForumController:
 
