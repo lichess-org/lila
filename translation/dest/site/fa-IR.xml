@@ -394,7 +394,7 @@
   <string name="apply">تایید</string>
   <string name="save">ذخیره</string>
   <string name="leaderboard">جدول رده‌بندی</string>
-  <string name="screenshotCurrentPosition">عکس گرفتن از تخته‌</string>
+  <string name="screenshotCurrentPosition">از وضعیت فعلی نماگرفت بگیرید</string>
   <string name="gameAsGIF">دانلود گیف بازی</string>
   <string name="pasteTheFenStringHere">پوزیشن دلخواه(FEN) را در این قسمت وارد کنید</string>
   <string name="pasteThePgnStringHere">متن PGN را در این قسمت وارد کنید</string>
