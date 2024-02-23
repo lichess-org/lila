@@ -35,6 +35,7 @@
       &:nth-child(even) {
         background: $c-bg-zebra;
         justify-content: space-between;
+        overflow: hidden;
 
         .picture {
           order: 3;
