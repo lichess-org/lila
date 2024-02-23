@@ -1,6 +1,6 @@
 import pubsub from './pubsub';
 import { loadCssPath, loadEsm } from './assets';
-import { memoize } from 'common';
+import { memoize, clamp } from 'common';
 
 export default function () {
   const initiatingHtml = `<div class="initiating">${site.spinnerHtml}</div>`,
@@ -177,19 +177,19 @@ export default function () {
 
   {
     // stick top bar
-    let lastScrollY = 0;
+    let lastY = 0;
     const header = document.getElementById('top')!;
 
     window.addEventListener(
       'scroll',
       () => {
         const y = window.scrollY;
-        if (y > lastScrollY + 10) header.classList.add('hide');
-        else if (y <= Math.max(lastScrollY - 20, 0) && y < document.body.scrollHeight - window.innerHeight)
+        if (y > lastY + 10) header.classList.add('hide');
+        else if (y <= clamp(lastY - 20, { min: 0, max: document.body.scrollHeight - window.innerHeight }))
           header.classList.remove('hide');
         else return;
 
-        lastScrollY = Math.max(0, y);
+        lastY = Math.max(0, y);
       },
       { passive: true },
     );
