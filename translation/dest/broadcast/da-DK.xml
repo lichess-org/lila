@@ -43,6 +43,7 @@
   <string name="definitivelyDeleteTournament">Slet hele turneringen, alle dens runder og alle dens partier.</string>
   <string name="automaticLeaderboard">Automatisk rangliste</string>
   <string name="automaticLeaderboardHelp">Beregn og vis en simpel rangliste baseret på resultater af partier</string>
+  <string name="replacePlayerTags">Valgfrit: udskift spillernavne, ratings og titler</string>
   <string name="periodInSeconds">Periode i sekunder</string>
   <string name="periodInSecondsHelp">Valgfri, hvor lang tid der skal ventes mellem anmodninger. Min 2s, maks. 60s. Er som standard automatisk baseret på antallet af seere.</string>
 </resources>

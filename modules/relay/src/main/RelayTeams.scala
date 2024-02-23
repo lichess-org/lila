@@ -21,6 +21,9 @@ private class RelayTeams(val text: String):
     .mapValues(_.map(_._2))
     .toMap
 
+  private lazy val tokenizedPlayerTeams: Map[RelayPlayer.Token, TeamName] =
+    playerTeams.mapKeys(RelayPlayer.tokenize)
+
   private lazy val playerTeams: Map[PlayerName, TeamName] =
     teams.flatMap: (team, players) =>
       players.map(_ -> team)
@@ -31,10 +34,13 @@ private class RelayTeams(val text: String):
   private def update(tags: Tags): Tags =
     chess.Color.all.foldLeft(tags): (tags, color) =>
       tags
-        .players(color)
-        .flatMap(playerTeams.get)
+        .names(color)
+        .flatMap(findMatching)
         .fold(tags): team =>
-          tags + Tag(color.fold(Tag.WhiteTeam, Tag.BlackTeam), team)
+          tags + Tag(_.teams(color), team)
+
+  private def findMatching(name: PlayerName): Option[TeamName] =
+    playerTeams.get(name) orElse tokenizedPlayerTeams.get(RelayPlayer.tokenize(name))
 
 final class RelayTeamTable(chapterRepo: lila.study.ChapterRepo, cacheApi: lila.memo.CacheApi)(using Executor):
 
@@ -133,7 +139,7 @@ function(root, tags) {
         .foldLeft(List.empty[TeamMatch]): (table, chap) =>
           (for
             teams <- chap.tags.teams.tupled.map(Pair.apply)
-            names <- chess.ByColor(chap.tags.players(_))
+            names <- chess.ByColor(chap.tags.names(_))
             players = names zip chap.tags.titles zip chap.tags.elos map:
               case ((n, t), e) => TeamPlayer(n, t, e)
             m0 = table.find(_.is(teams)) | TeamMatch(teams.map(TeamWithPoints(_)), Nil)

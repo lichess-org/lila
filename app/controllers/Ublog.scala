@@ -211,7 +211,7 @@ final class Ublog(env: Env) extends LilaController(env):
               _ <- env.ublog.api.setRankAdjust(post.id, ~rankAdjustDays, pinned)
               _ <- logModAction(
                 post,
-                s"${~rankAdjustDays} days${pinned so " and pinned to top"} rank adjustement",
+                s"Set tier: $tier, pinned: $pinned, post adjust: ${~rankAdjustDays} days",
                 logIncludingMe = true
               )
               _ <- env.ublog.rank.recomputeRankOfAllPostsOfBlog(post.blog)

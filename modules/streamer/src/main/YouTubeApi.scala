@@ -17,15 +17,14 @@ final private class YouTubeApi(
     coll: lila.db.dsl.Coll,
     keyword: Stream.Keyword,
     cfg: StreamerConfig,
-    net: NetConfig,
-    isOnline: lila.socket.IsOnline
+    net: NetConfig
 )(using Executor, akka.stream.Materializer):
 
   private var lastResults: List[YouTube.Stream] = List()
 
   private case class Tuber(streamer: Streamer, youTube: Streamer.YouTube)
 
-  def fetchStreams(streamers: List[Streamer]): Fu[List[YouTube.Stream]] =
+  def fetchStreams(streamers: List[Streamer], scheduled: Boolean = true): Fu[List[YouTube.Stream]] =
     val maxResults = 50
     val tubers     = streamers.flatMap { s => s.youTube.map(Tuber(s, _)) }
     val idPages = tubers
@@ -52,15 +51,16 @@ final private class YouTubeApi(
                   Nil
       .map(_.flatten)
       .addEffect: streams =>
-        if streams != lastResults then
-          val newStreams  = streams.filterNot(s => lastResults.exists(_.videoId == s.videoId))
-          val goneStreams = lastResults.filterNot(s => streams.exists(_.videoId == s.videoId))
-          if newStreams.nonEmpty then
-            logger.info(s"fetchStreams NEW ${newStreams.map(_.channelId).mkString(" ")}")
-          if goneStreams.nonEmpty then
-            logger.info(s"fetchStreams GONE ${goneStreams.map(_.channelId).mkString(" ")}")
+        if streams != lastResults || !scheduled then
+          if scheduled then
+            val newStreams  = streams.filterNot(s => lastResults.exists(_.videoId == s.videoId))
+            val goneStreams = lastResults.filterNot(s => streams.exists(_.videoId == s.videoId))
+            if newStreams.nonEmpty then
+              logger.info(s"fetchStreams NEW ${newStreams.map(_.channelId).mkString(" ")}")
+            if goneStreams.nonEmpty then
+              logger.info(s"fetchStreams GONE ${goneStreams.map(_.channelId).mkString(" ")}")
+            lastResults = streams
           syncDb(tubers, streams)
-          lastResults = streams
 
   def onVideoXml(xml: scala.xml.NodeSeq): Funit =
     val channel = (xml \ "entry" \ "channelId").text
@@ -84,10 +84,10 @@ final private class YouTubeApi(
       .map:
         case Some(s) =>
           isLiveStream(videoId).map: isLive =>
-            if isLive && isOnline(s.id.userId) then
-              logger.info(s"YouTube: LIVE and ONLINE ${s.id} vid:$videoId ch:$channelId")
+            // this is the only notification we'll get, so don't filter offline users here.
+            if isLive then
+              logger.info(s"YouTube: LIVE ${s.id} vid:$videoId ch:$channelId")
               coll.update.one($doc("_id" -> s.id), $set("youTube.pubsubVideoId" -> videoId))
-            else if isLive then logger.warn(s"YouTube: LIVE but OFFLINE ${s.id} vid:$videoId ch:$channelId")
             else logger.debug(s"YouTube: IGNORED ${s.id} vid:$videoId ch:$channelId")
         case None =>
           logger.info(s"YouTube: UNAPPROVED vid:$videoId ch:$channelId")

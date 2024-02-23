@@ -26,4 +26,5 @@
   <string name="currentGameUrl">URL เกมปัจจุบัน</string>
   <string name="automaticLeaderboard">ตารางผู้นำอัตโนมัติ</string>
   <string name="automaticLeaderboardHelp">คำนวณและแสดงกระดานผู้นำอย่างง่ายตามผลลัพธ์ของเกม</string>
+  <string name="replacePlayerTags">ตัวเลือก: แทนที่ชื่อผู้เล่น, เรดติ้ง และ ตำแหน่ง</string>
 </resources>

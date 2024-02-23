@@ -58,9 +58,10 @@ main.has-relay-tour {
     @extend %flex-center-nowrap;
     gap: 1ch;
   }
+
   &__group-select {
     flex: auto;
-    @include fluid-size('font-size', 14px, 24px);
+    @include fluid-size('font-size', 12px, 20px);
     .mselect__list > a {
       gap: 1em;
     }
@@ -72,7 +73,7 @@ main.has-relay-tour {
 
     h1 {
       flex: auto;
-      @include fluid-size('font-size', 15px, 27px);
+      @include fluid-size('font-size', 14px, 24px);
     }
 
     .setting {

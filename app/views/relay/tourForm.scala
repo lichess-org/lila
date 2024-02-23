@@ -127,12 +127,11 @@ object tourForm:
         help = frag( // do not translate
           "One line per player, formatted as such:",
           pre("player name / rating / title / new name"),
-          "All values are optional. The player name will match regardless of punctuation, casing, and word order.",
-          br,
-          "Example:",
+          "All values are optional. The player name will match regardless of punctuation, casing, and word order. Example:",
           pre("""Magnus Carlsen / 2863 / GM
-A Giri / 2764 / GM / Anish Giri
-YouGotLittUp / 1890 / / Louis Litt""")
+YouGotLittUp / 1890 / / Louis Litt"""),
+          "Alternatively, you may set a FIDE ID:",
+          pre("""Magnus Carlsen = 1503014""")
         ).some,
         half = true
       )(form3.textarea(_)(rows := 3)),

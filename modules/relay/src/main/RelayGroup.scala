@@ -29,8 +29,9 @@ object RelayGroup:
     import lila.common.Form.formatter
     case class Data(name: RelayGroup.Name, tours: List[RelayTour.IdName]):
       override def toString = s"$name\n${tours.map(t => s"${t.id} ${t.name}").mkString("\n")}"
-      def update(group: RelayGroup): RelayGroup = group.copy(name = name, tours = tours.map(_.id))
-      def make: RelayGroup                      = RelayGroup(RelayGroup.Id.make, name, tours.map(_.id))
+      def tourIds           = tours.map(_.id)
+      def update(group: RelayGroup): RelayGroup = group.copy(name = name, tours = tourIds)
+      def make: RelayGroup                      = RelayGroup(RelayGroup.Id.make, name, tourIds)
     object Data:
       def apply(group: RelayGroup.WithTours): Data = Data(group.group.name, group.tours)
       def parse(value: String): Option[Data] =

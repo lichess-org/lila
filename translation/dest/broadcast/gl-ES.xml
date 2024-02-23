@@ -43,6 +43,7 @@
   <string name="definitivelyDeleteTournament">Eliminar o torneo de forma definitiva, con todas as súas roldas e partidas.</string>
   <string name="automaticLeaderboard">Listaxe de líderes automática</string>
   <string name="automaticLeaderboardHelp">Calcula e amosa unha listaxe de líderes simple baseada nos resultados das partidas</string>
+  <string name="replacePlayerTags">Opcional: substituír os nomes dos xogadores, as puntuacións e os títulos</string>
   <string name="periodInSeconds">Período en segundos</string>
   <string name="periodInSecondsHelp">Opcional: canto tempo se agarda entre peticións. Min 2s, max 60s. Por defecto é automático baseado no número de espectadores.</string>
 </resources>
