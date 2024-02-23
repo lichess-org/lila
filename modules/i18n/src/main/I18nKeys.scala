@@ -746,6 +746,7 @@ object I18nKeys:
   val `joinTheTeamXToPost` = I18nKey("joinTheTeamXToPost")
   val `teamNamedX` = I18nKey("teamNamedX")
   val `youCannotPostYetPlaySomeGames` = I18nKey("youCannotPostYetPlaySomeGames")
+  val `youBlockedByBlogAuthor` = I18nKey("youBlockedByBlogAuthor")
   val `subscribe` = I18nKey("subscribe")
   val `unsubscribe` = I18nKey("unsubscribe")
   val `mentionedYouInX` = I18nKey("mentionedYouInX")

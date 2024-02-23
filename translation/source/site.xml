@@ -911,6 +911,7 @@
   <string name="joinTheTeamXToPost">Join the %1$s, to post in this forum</string>
   <string name="teamNamedX">%1$s team</string>
   <string name="youCannotPostYetPlaySomeGames">You can't post in the forums yet. Play some games!</string>
+  <string name="youBlockedByBlogAuthor">You are blocked by the blog author.</string>
   <string name="subscribe">Subscribe</string>
   <string name="unsubscribe">Unsubscribe</string>
   <string name="mentionedYouInX">mentioned you in "%1$s".</string>

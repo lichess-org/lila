@@ -59,7 +59,7 @@ final class ForumTopic(env: Env) extends LilaController(env) with ForumControlle
           for
             unsub   <- ctx.me soUse env.timeline.status(s"forum:${topic.id}")
             canRead <- access.isGrantedRead(categ.slug)
-            topicUserId = topic.pp.userId.getOrElse(UserId(""))
+            topicUserId = topic.userId.getOrElse(UserId(""))
             relation <- ctx.userId.so(
               env.relation.api.fetchRelation(topicUserId: UserId, _)
             )

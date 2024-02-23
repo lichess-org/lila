@@ -137,7 +137,7 @@ object topic:
                     a(href := teamRoutes.show(teamId))(trans.teamNamedX(teamLink(teamId, true)))
               .orElse:
                 if ctx.me.exists(_.isBot) then p("Bots cannot post in the forum.").some
-                else if replyBlocked then p("You are blocked by the blog author.").some
+                else if replyBlocked then p(trans.youBlockedByBlogAuthor()).some
                 else ctx.isAuth option p(trans.youCannotPostYetPlaySomeGames())
           ,
           div(
