@@ -41,15 +41,20 @@ const layoutHacks = () =>
         if (cols > 2) $('.lobby .lobby__timeline').appendTo('.lobby__side');
         else $('.lobby__side .lobby__timeline').appendTo('.lobby');
       }
+
+      // fake tv for debugging layout, ui/build with -d flag
       if (site.debug && !this.querySelector('.lobby__tv')) {
         const tv = $as<HTMLElement>(
-          `<div class="lobby__tv"><span class="text">Fake TV</span><span class="mini-board"
-          data-state="3R1r1k/pp4p1/2n1Q1bp/1Bp5/PqN4P/2b2NP1/1P4P1/2K4R,black,d1d8"/></div>`,
+          `<div class="lobby__tv">
+            <a href="/tv" class="mini-game mini-game-abcd1234 standard is2d">
+              <span class="mini-game__player"><span class="mini-game__user"><span class="utitle" title="Grandmaster">GM</span>&nbsp;Tester1<span class="rating">2556</span></span><span class="mini-game__clock mini-game__clock--black" data-time="32">0:01</span></span>
+              <span id="fake-tv" data-state="3R1r1k/pp4p1/2n1Q1bp/1Bp5/PqN4P/2b2NP1/1P4P1/2K4R,black,d1d8"></span>
+              <span class="mini-game__player"><span class="mini-game__user"><span class="utitle" title="Grandmaster">GM</span>&nbsp;tester2<span class="rating">2717</span></span><span class="mini-game__clock mini-game__clock--white clock--run" data-time="81">1:09</span></span>
+            </a>
+          </div>`,
         );
-        initBoard(tv.querySelector('.mini-board')!);
-        tv.append($as<HTMLElement>('<span class="text">Cannot hurt you!</span>'));
+        initBoard(tv.querySelector('#fake-tv')!);
         this.append(tv);
-        // fake tv for debugging layout, ui/build with -d flag
       }
     });
   });
