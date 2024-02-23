@@ -31,11 +31,11 @@
   &__main {
     .coach-widget {
       border-top: $border;
+      overflow: hidden;
 
       &:nth-child(even) {
         background: $c-bg-zebra;
         justify-content: space-between;
-        overflow: hidden;
 
         .picture {
           order: 3;
