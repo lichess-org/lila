@@ -9,7 +9,7 @@ object header:
   import trans.streamer.*
 
   def apply(s: lila.streamer.Streamer.WithUserAndStream, modView: Boolean = false)(using ctx: PageContext) =
-    val isMe  = ctx.userId.has(s.streamer._id into UserId)
+    val isMe  = ctx is s.streamer
     val isMod = isGranted(_.ModLog)
     div(cls := "streamer-header")(
       picture.thumbnail(s.streamer, s.user),
