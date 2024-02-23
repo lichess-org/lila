@@ -76,12 +76,12 @@
 
 نکته دیگری که باید به آن توجه کرد این است که با گذشت زمان، بازه اطمینان افزایش می‌یابد. این به شما امکان می‌دهد سریع‌تر امتیاز کسب کنید/از دست دهید، تا با هر تغییری در سطح مهارت‌تان در طول زمان، جور درآید.</string>
   <string name="whatIsProvisionalRating">چرا کنار *درجه‌بندی* علامت سوال (؟) وجود دارد؟</string>
-  <string name="provisionalRatingExplanation">علامت سؤال به این معنی است که درجه‌بندی موقت است. دلایل عبارتند از:</string>
+  <string name="provisionalRatingExplanation">علامت سوال به این معنی است که درجه‌بندی موقت است. دلایلش عبارتند از:</string>
   <string name="notPlayedEnoughRatedGamesAgainstX">بازیکن هنوز بازی‌های رسمی کافی در برابر %1$s (از نظر درجه‌بندی) نکرده است.</string>
   <string name="similarOpponents">حریفانی با قدرت مشابه</string>
-  <string name="notPlayedRecently">بازیکن اخیرا به اندازه کافی بازی نکرده است. بسته به تعداد بازی‌هایی که انجام داده‌اید، ممکن است حدود یک سال از نداشتن فعالیت طول بکشد، تا دوباره درجه‌بندی‌تان موقتی شود.</string>
+  <string name="notPlayedRecently">بازیکن اخیرا به اندازه کافی بازی نکرده است. بسته به تعداد بازی‌هایی که انجام داده‌اید، ممکن است حدود یک سال از فعالیت نداشتن‌تان بگذرد، تا دوباره درجه‌بندی‌تان موقتی شود.</string>
   <string name="ratingDeviationMorethanOneHundredTen">به طور مشخص، به این معنی است که «اِنحراف Glicko-2» بیشتر از 110 است. انحراف به معنی ضریب اطمینانی است که شیوه Glicko-2 به درجه‌بندی دارد. هرچه انحراف کمتر باشد، درجه‌بندی قابل‌اِتکاتر است.</string>
-  <string name="howDoLeaderoardsWork">رتبه ها و تابلو امتیازات چگونه کار می کنند؟</string>
+  <string name="howDoLeaderoardsWork">جداول رده‌بندی و رتبه‌ها چگونه محاسبه می‌شوند؟</string>
   <string name="inOrderToAppearsYouMust">برای اینکه وارد %1$s شوید شما باید:</string>
   <string name="ratingLeaderboards">جدول رده‌بندی</string>
   <string name="havePlayedMoreThanThirtyGamesInThatRating">حداقل 30 بازی رسمی کرده باشید،</string>
