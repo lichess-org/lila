@@ -59,7 +59,7 @@ export default function (element: HTMLElement, ctrl: AnalyseCtrl) {
   }
 
   const chartLoader = () =>
-    `<div id="acpl-chart-container-loader"><span>Stockfish 16<br>server analysis</span>${site.spinnerHtml}</div>`;
+    `<div id="acpl-chart-container-loader"><span>Stockfish 16.1<br>server analysis</span>${site.spinnerHtml}</div>`;
 
   function startAdvantageChart() {
     if (advChart || site.blindMode) return;
