@@ -26,23 +26,23 @@
   <string name="bishopComplete">Віншуем! Вы апанавалі слана.</string>
   <string name="theQueen">Ферзь</string>
   <string name="queenCombinesRookAndBishop">Ферзь = ладдзя + слон</string>
-  <string name="queenIntro">Наймагутнейшая фігура. Яго вялікасць — ферзь!</string>
-  <string name="queenComplete">Віншуем! Вы навучыліся хадзіць ферзём.</string>
+  <string name="queenIntro">Вось сапраўдная моц. Яго вялікасць — ферзь!</string>
+  <string name="queenComplete">Віншуем! Ферзь для вас больш не з\'яўляецца загадкай.</string>
   <string name="theKing">Кароль</string>
   <string name="theMostImportantPiece">Найважнейшая фігура</string>
   <string name="kingIntro">Вы - кароль. Калі вы загінеце ў бітве - гульня прайграна.</string>
   <string name="theKingIsSlow">Кароль рухаецца павольна.</string>
-  <string name="lastOne">І апошні!</string>
-  <string name="kingComplete">Вы навучыліся хадзіць каралём!</string>
+  <string name="lastOne">І апошні крок!</string>
+  <string name="kingComplete">Кароль цяпер пад тваім кіраўніцтвам!</string>
   <string name="theKnight">Конь</string>
-  <string name="itMovesInAnLShape">Xодзіць літарай \"Г\"</string>
+  <string name="itMovesInAnLShape">Рухаецца літарай \"Г\"</string>
   <string name="knightIntro">Асвоіць каня не так проста, бо ён — хітрая фігура.</string>
   <string name="knightsHaveAFancyWay">Коні маюць мудрагелісты спосаб пераскокваць!</string>
   <string name="knightsCanJumpOverObstacles">Коні могуць скакаць праз перашкоды!
 Выберацеся і збярыце ўсе зоркі!</string>
-  <string name="knightComplete">Віншуем! Вы навучыліся хадзіць канём!</string>
+  <string name="knightComplete">Віншуем! Вы навучыліся панаваць над канём.</string>
   <string name="thePawn">Пешка</string>
-  <string name="itMovesForwardOnly">Ходзіць толькі наперад</string>
+  <string name="itMovesForwardOnly">Рухаецца выключна наперад</string>
   <string name="pawnIntro">Пешкі слабыя, але ў іх шмат патэнцыялу.</string>
   <string name="pawnsMoveOneSquareOnly">Пешкі ходзяць толькі на адну клетку наперад. Але дасягнуўшы іншага канца дошкі, яны ператвараюцца ў мацнейшую фігуру!</string>
   <string name="mostOfTheTimePromotingToAQueenIsBest">У большасці выпадкаў пешку лепш ператварыць у ферзя.
