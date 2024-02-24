@@ -80,6 +80,7 @@
 
     &:hover .reveal {
       transform: translateY(-100%);
+      overflow-y: scroll;
       opacity: 1;
     }
 
