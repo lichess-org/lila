@@ -20,7 +20,8 @@
         "src/main.ts": "site",
         "src/tvEmbed.ts": "tvEmbed",
         "src/puzzleEmbed.ts": "puzzle.embed",
-        "src/lpvEmbed.ts": "lpv.embed"
+        "src/lpvEmbed.ts": "lpv.embed",
+        "src/devMode.ts": "dev-mode"
       }
     },
     "copy": [
