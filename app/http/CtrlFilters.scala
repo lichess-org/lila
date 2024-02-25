@@ -87,6 +87,13 @@ trait CtrlFilters extends ControllerHelpers with ResponseBuilder with CtrlConver
         _.fold(a): ban =>
           negotiate(keyPages.home(Results.Forbidden), playbanJsonError(ban))
 
+  def AuthOrTrustedIp(f: => Fu[Result])(using ctx: Context)(using Executor): Fu[Result] =
+    if ctx.isAuth then f
+    else
+      env.security.ip2proxy(ctx.ip) flatMap: ip =>
+        if ip.in(_.empty, _.vpn) then f
+        else Redirect(controllers.routes.Auth.login)
+
   private val csrfForbiddenResult = Forbidden("Cross origin request forbidden")
 
   def CSRF(f: => Fu[Result])(using req: RequestHeader): Fu[Result] =
