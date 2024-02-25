@@ -140,10 +140,10 @@ YouGotLittUp / 1890 / / Louis Litt"""),
         "Optional: assign players to teams",
         help = frag( // do not translate
           "One line per player, formatted as such:",
-          pre("Team name; Player name"),
+          pre("Team name; Fide Id or Player name"),
           "Example:",
-          pre("""Offerspill;Magnus Carlsen
-Stavanger;M. Fiskaaen"""),
+          pre("""Team Cats ; 3408230
+Team Dogs ; Scooby Doo"""),
           "By default the PGN tags WhiteTeam and BlackTeam are used."
         ).some,
         half = true
