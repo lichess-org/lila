@@ -72,6 +72,8 @@ case class Tournament(
 
   def finishesAt = startsAt plusMinutes minutes
 
+  def imminentStart = isCreated && (startsAt.toMillis - nowMillis) < 1000
+
   def secondsToStart = (startsAt.toSeconds - nowSeconds).toInt atLeast 0
 
   def secondsToFinish = (finishesAt.toSeconds - nowSeconds).toInt atLeast 0

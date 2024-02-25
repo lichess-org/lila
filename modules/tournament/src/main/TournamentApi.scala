@@ -291,13 +291,15 @@ final class TournamentApi(
                   publish()
                   JoinResult.Ok
                 tour.teamBattle.fold(proceedWithTeam(none)): battle =>
-                  data.team match
-                    case None if prevPlayer.isDefined => proceedWithTeam(none)
-                    case Some(team) if battle.teams contains team =>
-                      getMyTeamIds(me).flatMap: myTeams =>
-                        if myTeams.has(team) then proceedWithTeam(team.some)
-                        else fuccess(JoinResult.MissingTeam)
-                    case _ => fuccess(JoinResult.MissingTeam)
+                  if prevPlayer.isDefined && tour.imminentStart then fuccess(JoinResult.Ok)
+                  else
+                    data.team match
+                      case None if prevPlayer.isDefined => proceedWithTeam(none) // re-join ongoing
+                      case Some(team) if battle.teams contains team =>
+                        getMyTeamIds(me).flatMap: myTeams =>
+                          if myTeams.has(team) then proceedWithTeam(team.some)
+                          else fuccess(JoinResult.MissingTeam)
+                      case _ => fuccess(JoinResult.MissingTeam)
           else fuccess(JoinResult.WrongEntryCode)
         fuResult.map: result =>
           if result.ok then
