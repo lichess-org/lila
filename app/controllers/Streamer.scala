@@ -155,9 +155,9 @@ final class Streamer(env: Env, apiC: => Api) extends LilaController(env):
     lila.memo.RateLimit[UserId](1, 1.minutes, "streamer.checkOnline")
 
   def checkOnline(streamer: UserStr) = Auth { _ ?=> me ?=>
-    val uid   = streamer into UserId
+    val uid   = streamer.id
     val isMod = isGranted(_.ModLog)
-    if ctx.userId.has(uid) || isMod then
+    if ctx.is(uid) || isMod then
       checkOnlineLimit(uid, rateLimited)(env.streamer.api.forceCheck(uid)) inject
         Redirect(routes.Streamer.show(uid).url)
           .flashSuccess(s"Please wait one minute while we check, then reload the page.")
