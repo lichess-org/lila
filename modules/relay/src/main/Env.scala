@@ -30,7 +30,7 @@ final class Env(
     notifyApi: lila.notify.NotifyApi,
     picfitApi: lila.memo.PicfitApi,
     picfitUrl: lila.memo.PicfitUrl
-)(using Executor, ActorSystem, akka.stream.Materializer)(using scheduler: Scheduler):
+)(using Executor, ActorSystem, akka.stream.Materializer, play.api.Mode)(using scheduler: Scheduler):
 
   lazy val roundForm = wire[RelayRoundForm]
 
