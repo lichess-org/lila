@@ -117,9 +117,7 @@ final class Tv(env: Env, apiC: => Api, gameC: => Game) extends LilaController(en
     Channel.byKey.get(chanKey) so serveFrameFromChannel
 
   private def serveFrameFromChannel(channel: Channel)(using Context) =
-    env.tv.tv
-      .getGame(channel)
-      .flatMap:
-        _.fold(notFoundText()): g =>
-          InEmbedContext:
-            Ok(views.html.tv.embed(Pov naturalOrientation g, Option(channel.key)))
+    env.tv.tv.getGame(channel) flatMap:
+      _.fold(notFoundText()): g =>
+        InEmbedContext:
+          Ok(views.html.tv.embed(Pov naturalOrientation g, channel.key.some))

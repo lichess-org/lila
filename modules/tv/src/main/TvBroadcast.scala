@@ -62,7 +62,7 @@ final private class TvBroadcast(
             Json.obj(
               "id"          -> gameId,
               "orientation" -> pov.color.name,
-              "players" -> game.players.mapList { p =>
+              "players" -> game.players.mapList: p =>
                 val user = p.userId.flatMap(lightUserSync)
                 Json
                   .obj("color" -> p.color.name)
@@ -70,16 +70,13 @@ final private class TvBroadcast(
                   .add("ai" -> p.aiLevel)
                   .add("rating" -> p.rating)
                   .add("seconds" -> game.clock.map(_.remainingTime(pov.color).roundSeconds))
-              }
             ),
             fen = Fen write game.situation
           )
-          clients.foreach { client =>
-            client.queue offer {
+          clients.foreach: client =>
+            client.queue.offer:
               if client.fromLichess then data
               else feat.socketMsg
-            }
-          }
           featured = feat.some
         }
 

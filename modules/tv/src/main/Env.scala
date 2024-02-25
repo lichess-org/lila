@@ -2,9 +2,10 @@ package lila.tv
 
 import akka.actor.{ ActorSystem, Props }
 import com.softwaremill.macwire.*
+import akka.actor.ActorRef
+import lila.tv.Tv.Channel
 
 @Module
-@annotation.nowarn("msg=unused")
 final class Env(
     gameRepo: lila.game.GameRepo,
     renderer: lila.hub.actors.Renderer,
@@ -20,10 +21,9 @@ final class Env(
 
   lazy val tv = wire[Tv]
 
-  val channelBroadcasts = Tv.Channel.values.map { c =>
+  val channelBroadcasts: Map[Channel, ActorRef] = Tv.Channel.values.map { c =>
     c -> system.actorOf(Props(wire[TvBroadcast]))
   }.toMap
 
-  system.scheduler.scheduleWithFixedDelay(12 seconds, 3 seconds) { () =>
+  system.scheduler.scheduleWithFixedDelay(12 seconds, 3 seconds): () =>
     tvSyncActor ! TvSyncActor.Select
-  }

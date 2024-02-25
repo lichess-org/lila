@@ -7,8 +7,8 @@ object embed:
 
   private val defaultDataStreamUrl = "/tv/feed?bc=1"
 
-  def apply(pov: lila.game.Pov, channelKey: Option[String] = None)(using EmbedContext) =
-    val dataStreamUrl = channelKey.fold(defaultDataStreamUrl)(key => "/tv/" + key + "/feed?bc=1")
+  def apply(pov: lila.game.Pov, channelKey: Option[String])(using EmbedContext) =
+    val dataStreamUrl = channelKey.fold(defaultDataStreamUrl)(key => s"/tv/${key}/feed?bc=1")
     views.html.base.embed(
       title = "lichess.org chess TV",
       cssModule = "tv.embed"
