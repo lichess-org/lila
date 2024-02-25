@@ -62,7 +62,7 @@ final class Study(
   def byOwnerDefault(username: UserStr, page: Int) = byOwner(username, Order.default, page)
 
   def byOwner(username: UserStr, order: Order, page: Int) = Open:
-    Found(env.user.repo.byId(username)): owner =>
+    Found(meOrFetch(username)): owner =>
       env.study.pager.byOwner(owner, order, page) flatMap: pag =>
         preloadMembers(pag) >> negotiate(
           Ok.page(html.study.list.byOwner(pag, order, owner)),

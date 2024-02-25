@@ -207,16 +207,15 @@ final class Api(
     }
 
   def tournamentsByOwner(name: UserStr, status: List[Int]) = Anon:
-    (name.id != lila.user.User.lichessId) so env.user.repo.byId(name) orNotFound { user =>
+    Found(meOrFetch(name).map(_.filterNot(_ is lila.user.User.lichessId))): user =>
       val nb = getInt("nb") | Int.MaxValue
       jsonDownload:
         env.tournament.api
           .byOwnerStream(user, status flatMap lila.tournament.Status.apply, MaxPerSecond(20), nb)
           .mapAsync(1)(env.tournament.apiJsonView.fullJson)
-    }
 
   def swissGames(id: SwissId) = AnonOrScoped(): ctx ?=>
-    env.swiss.cache.swissCache byId id orNotFound { swiss =>
+    Found(env.swiss.cache.swissCache byId id): swiss =>
       val config = GameApiV2.BySwissConfig(
         swissId = swiss.id,
         format = GameApiV2.Format byRequest req,
@@ -230,7 +229,6 @@ final class Api(
           Ok.chunked(source)
             .pipe(asAttachmentStream(filename))
             .as(gameC gameContentType config)
-    }
 
   private def gamesPerSecond(me: Option[lila.user.User]) = MaxPerSecond:
     30 + me.isDefined.so(20) + me.exists(_.isVerified).so(40)
@@ -319,10 +317,9 @@ final class Api(
   def activity(name: UserStr) = ApiRequest:
     UserActivityRateLimitPerIP(req.ipAddress, fuccess(ApiResult.Limited), cost = 1):
       lila.mon.api.activity.increment(1)
-      env.user.repo byId name flatMapz { user =>
-        env.activity.read.recentAndPreload(user) flatMap {
-          _.map { env.activity.jsonView(_, user) }.parallel
-        }
+      meOrFetch(name).flatMapz { user =>
+        env.activity.read.recentAndPreload(user) flatMap:
+          _.traverse(env.activity.jsonView(_, user))
       } map toApiResult
 
   private val ApiMoveStreamGlobalConcurrencyLimitPerIP =
@@ -334,13 +331,10 @@ final class Api(
     )
 
   def moveStream(gameId: GameId) = Anon:
-    env.round.proxyRepo.game(gameId).map {
-      case None => NotFound
-      case Some(game) =>
-        ApiMoveStreamGlobalConcurrencyLimitPerIP(req.ipAddress)(
-          ndJson.addKeepAlive(env.round.apiMoveStream(game, gameC.delayMovesFromReq))
-        )(jsOptToNdJson)
-    }
+    Found(env.round.proxyRepo.game(gameId)): game =>
+      ApiMoveStreamGlobalConcurrencyLimitPerIP(req.ipAddress)(
+        ndJson.addKeepAlive(env.round.apiMoveStream(game, gameC.delayMovesFromReq))
+      )(jsOptToNdJson)
 
   def perfStat(username: UserStr, perfKey: lila.rating.Perf.Key) = ApiRequest:
     env.perfStat.api.data(username, perfKey) map:
@@ -400,7 +394,7 @@ final class Api(
     name = "API concurrency per user",
     key = "api.user",
     ttl = 1.hour,
-    maxConcurrency = 1
+    maxConcurrency = 1 // #TODO allow more for app
   )
   private[controllers] def GlobalConcurrencyLimitPerUserOption[T](
       user: Option[lila.user.User]
