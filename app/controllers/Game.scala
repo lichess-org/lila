@@ -54,7 +54,7 @@ final class Game(env: Env, apiC: => Api) extends LilaController(env):
 
   private def handleExport(username: UserStr)(using ctx: Context) =
     meOrFetch(username).flatMap:
-      _.filter(u => u.enabled.yes || ctx.is(u) || isGrantedOpt(_.GamesModView)) so { user =>
+      _.filter(u => u.enabled.yes || ctx.is(u) || isGrantedOpt(_.GamesModView)) so: user =>
         val format = GameApiV2.Format byRequest req
         import lila.rating.{ Perf, PerfType }
         WithVs: vs =>
@@ -101,8 +101,6 @@ final class Game(env: Env, apiC: => Api) extends LilaController(env):
                         asAttachmentStream:
                           s"lichess_${user.username}_${fileDate}.${format.toString.toLowerCase}"
                       .as(gameContentType(config))
-
-      }
 
   private def fileDate = DateTimeFormatter ofPattern "yyyy-MM-dd" print nowInstant
 

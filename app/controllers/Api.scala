@@ -394,13 +394,20 @@ final class Api(
     name = "API concurrency per user",
     key = "api.user",
     ttl = 1.hour,
-    maxConcurrency = 1 // #TODO allow more for app
+    maxConcurrency = 2
   )
-  private[controllers] def GlobalConcurrencyLimitPerUserOption[T](
-      user: Option[lila.user.User]
+  private[controllers] val GlobalConcurrencyLimitUserMobile = lila.memo.ConcurrencyLimit[UserId](
+    name = "API concurrency per mobile user",
+    key = "api.user.mobile",
+    ttl = 1.hour,
+    maxConcurrency = 3
+  )
+  private[controllers] def GlobalConcurrencyLimitPerUserOption[T](using
+      ctx: Context
   ): Option[SourceIdentity[T]] =
-    user.fold(some[SourceIdentity[T]](identity)): u =>
-      GlobalConcurrencyLimitUser.compose[T](u.id)
+    ctx.me.fold(some[SourceIdentity[T]](identity)): me =>
+      val limiter = if ctx.isMobileOauth then GlobalConcurrencyLimitUserMobile else GlobalConcurrencyLimitUser
+      limiter.compose[T](me.userId)
 
   private[controllers] def GlobalConcurrencyLimitPerIpAndUserOption[T, U: UserIdOf](
       about: Option[U]
@@ -409,11 +416,13 @@ final class Api(
       if ctx.me.exists(u => about.exists(u.is(_)))
       then GlobalConcurrencyLimitPerIP.generous
       else GlobalConcurrencyLimitPerIP.download
-    ipLimiter.compose[T](req.ipAddress) flatMap { limitIp =>
-      GlobalConcurrencyLimitPerUserOption[T](ctx.me) map { limitUser =>
-        makeResult(limitIp(limitUser(makeSource)))
-      }
-    } getOrElse lila.memo.ConcurrencyLimit.limitedDefault(1)
+    ipLimiter
+      .compose[T](req.ipAddress)
+      .flatMap: limitIp =>
+        GlobalConcurrencyLimitPerUserOption[T].map: limitUser =>
+          makeResult(limitIp(limitUser(makeSource)))
+      .getOrElse:
+        lila.memo.ConcurrencyLimit.limitedDefault(1)
 
   private type SourceIdentity[T] = Source[T, ?] => Source[T, ?]
 
