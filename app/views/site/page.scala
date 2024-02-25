@@ -123,7 +123,25 @@ $('#asset-version-message').text(site.info.message);"""
                   dataIcon := licon.Link
                 )
               ),
-              parameters
+              parameters,
+              p(
+                "You can also show the channel for a specific variant or time control by adding the channel key to the URL, corresponding to the channels available at ",
+                a(href := "/tv")("lichess.org/tv"),
+                ". If not included, the top rated game will be shown."
+              ),
+              p(cls := "copy-zone")(
+                input(
+                  id    := "tv-channel-embed-src",
+                  cls   := "copyable autoselect",
+                  value := s"""<iframe src="$netBaseUrl/tv/rapid/frame?theme=brown&bg=dark" $args></iframe>"""
+                ),
+                button(
+                  st.title := "Copy code",
+                  cls      := "copy button",
+                  dataRel  := "tv-channel-embed-src",
+                  dataIcon := licon.Link
+                )
+              )
             )
           )
         },
