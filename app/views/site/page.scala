@@ -98,7 +98,7 @@ $('#asset-version-message').text(site.info.message);"""
           h1(cls := "box__top")("HTTP API"),
           p(
             "Lichess exposes a RESTish HTTP/JSON API that you are welcome to use. Read the ",
-            a(href := "/api")("HTTP API documentation</a>"),
+            a(href := "/api")("HTTP API documentation"),
             "."
           )
         ),
