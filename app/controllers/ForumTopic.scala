@@ -6,7 +6,6 @@ import lila.app.{ given, * }
 import lila.common.IpAddress
 import lila.forum.ForumCateg.diagnosticId
 import lila.Lila.{ UserId }
-import lila.relation.{ Block }
 
 final class ForumTopic(env: Env) extends LilaController(env) with ForumController:
 
@@ -59,14 +58,9 @@ final class ForumTopic(env: Env) extends LilaController(env) with ForumControlle
           for
             unsub   <- ctx.me soUse env.timeline.status(s"forum:${topic.id}")
             canRead <- access.isGrantedRead(categ.slug)
-            topicUserId = topic.userId.getOrElse(UserId(""))
-            relation <- ctx.userId.so(
-              env.relation.api.fetchRelation(topicUserId: UserId, _)
-            )
             canWrite    <- access.isGrantedWrite(categ.slug, tryingToPostAsMod = true)
             canModCateg <- access.isGrantedMod(categ.slug)
-            isUblog      = topic.ublogId.isDefined
-            replyBlocked = relation.exists(_ == Block) && !canModCateg && isUblog
+            replyBlocked <- access.isReplyBlockedOnUBlog(topic, canModCateg)
             inOwnTeam <- ~(categ.team, ctx.me).mapN(env.team.api.isLeader(_, _))
             form <- ctx.me
               .filter(_ => canWrite && topic.open && !topic.isOld && !replyBlocked)

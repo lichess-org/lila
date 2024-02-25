@@ -5,7 +5,7 @@ import views.*
 import lila.app.{ given, * }
 import lila.common.IpAddress
 import lila.msg.MsgPreset
-import lila.relation.{ Block }
+import lila.i18n.{ I18nKeys as trans }
 
 final class ForumPost(env: Env) extends LilaController(env) with ForumController:
 
@@ -40,14 +40,9 @@ final class ForumPost(env: Env) extends LilaController(env) with ForumController
         else
           for
             canModCateg <- access.isGrantedMod(categ.slug)
-            topicUserId = topic.userId.getOrElse(UserId(""))
-            relation <- ctx.userId.so(
-              env.relation.api.fetchRelation(topicUserId: UserId, _)
-            )
-            isUblog      = topic.ublogId.isDefined
-            replyBlocked = relation.exists(_ == Block) && !canModCateg && isUblog
+            replyBlocked <- access.isReplyBlockedOnUBlog(topic, canModCateg)
             res <-
-              if replyBlocked then Future.successful(BadRequest("You are blocked by the blog author"))
+              if replyBlocked then fuccess(BadRequest(trans.ublog.youBlockedByBlogAuthor()))
               else
                 categ.team.so(env.team.api.isLeader(_, me)) flatMap { inOwnTeam =>
                   forms
