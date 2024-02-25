@@ -3,6 +3,7 @@ package controllers
 import play.api.http.ContentTypes
 
 import scala.util.chaining.*
+import play.api.mvc.Result
 import play.api.libs.json.*
 import views.*
 import lila.app.{ *, given }
@@ -96,19 +97,20 @@ final class Tv(env: Env, apiC: => Api, gameC: => Game) extends LilaController(en
   def feed(chanKey: String) = Anon:
     Channel.byKey.get(chanKey) so serveFeedFromChannel
 
-  private def serveFeedFromChannel(channel: Channel)(using Context) =
+  private def serveFeedFromChannel(channel: Channel)(using Context): Fu[Result] =
     import makeTimeout.short
     import akka.pattern.ask
     import play.api.libs.EventSource
     import lila.tv.TvBroadcast
     val bc   = getBool("bc")
     val ctag = summon[scala.reflect.ClassTag[TvBroadcast.SourceType]]
-    env.tv.channelBroadcasts(channel) ? TvBroadcast.Connect(bc) mapTo ctag map { source =>
-      if bc then
-        Ok.chunked(source via EventSource.flow log "Tv.feed")
-          .as(ContentTypes.EVENT_STREAM) pipe noProxyBuffer
-      else jsToNdJson(source)
-    }
+    env.tv.channelBroadcasts.get(channel) so: actor =>
+      actor ? TvBroadcast.Connect(bc) mapTo ctag map { source =>
+        if bc then
+          Ok.chunked(source via EventSource.flow log "Tv.feed")
+            .as(ContentTypes.EVENT_STREAM) pipe noProxyBuffer
+        else jsToNdJson(source)
+      }
 
   def frameDefault = Anon:
     serveFrameFromChannel(Channel.Best)
