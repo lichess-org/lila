@@ -2,6 +2,7 @@ package lila.relay
 
 import chess.format.pgn.*
 import chess.format.Fen
+import chess.FideId
 
 type TeamName = String
 
@@ -9,22 +10,26 @@ private class RelayTeams(val text: String):
 
   def sortedText = text.linesIterator.toList.sorted.mkString("\n")
 
-  lazy val teams: Map[TeamName, List[PlayerName]] = text.linesIterator
+  lazy val teams: Map[TeamName, List[PlayerName | FideId]] = text.linesIterator
     .take(1000)
     .toList
     .flatMap: line =>
       line.split(';').map(_.trim) match
-        case Array(team, player) => Some(team -> player)
+        case Array(team, player) => Some(team -> (player.toIntOption.fold(player)(FideId(_))))
         case _                   => none
     .groupBy(_._1)
     .view
     .mapValues(_.map(_._2))
     .toMap
 
-  private lazy val tokenizedPlayerTeams: Map[RelayPlayer.Token, TeamName] =
-    playerTeams.mapKeys(RelayPlayer.tokenize)
+  private lazy val tokenizedPlayerTeams: Map[RelayPlayer.Token | FideId, TeamName] =
+    playerTeams.mapKeys(tokenizePlayer)
 
-  private lazy val playerTeams: Map[PlayerName, TeamName] =
+  private val tokenizePlayer: PlayerName | FideId => RelayPlayer.Token | FideId =
+    case name: PlayerName => RelayPlayer.tokenize(name)
+    case fideId           => fideId
+
+  private lazy val playerTeams: Map[PlayerName | FideId, TeamName] =
     teams.flatMap: (team, players) =>
       players.map(_ -> team)
 
@@ -34,13 +39,15 @@ private class RelayTeams(val text: String):
   private def update(tags: Tags): Tags =
     chess.Color.all.foldLeft(tags): (tags, color) =>
       tags
-        .names(color)
+        .fideIds(color)
+        .orElse(tags.names(color))
         .flatMap(findMatching)
         .fold(tags): team =>
           tags + Tag(_.teams(color), team)
 
-  private def findMatching(name: PlayerName): Option[TeamName] =
-    playerTeams.get(name) orElse tokenizedPlayerTeams.get(RelayPlayer.tokenize(name))
+  private def findMatching(player: PlayerName | FideId): Option[TeamName] =
+    playerTeams.get(player) orElse
+      tokenizedPlayerTeams.get(tokenizePlayer(player))
 
 final class RelayTeamTable(chapterRepo: lila.study.ChapterRepo, cacheApi: lila.memo.CacheApi)(using Executor):
 
