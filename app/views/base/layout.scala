@@ -182,7 +182,7 @@ object layout:
       moreJs,
       ctx.data.inquiry.isDefined option jsModule("mod.inquiry"),
       ctx.pref.bg == lila.pref.Pref.Bg.SYSTEM option embedJsUnsafe(systemThemePolyfillJs),
-      !netConfig.isProd option jsModule("dev-mode")
+      !netConfig.isProd option jsModule("devMode")
     )
 
   private def hrefLang(langStr: String, path: String) =
