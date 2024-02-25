@@ -63,6 +63,6 @@ object blog:
     val form = lila.ublog.UblogForm.tier.fill(blog.tier)
     frag(
       span(dataIcon := licon.Agent, cls := "text")("Set to:"),
-      form3.select(form("tier"), lila.ublog.UblogBlog.Tier.options)
+      form3.select(form("tier"), lila.ublog.UblogRank.Tier.options)
     )
   }

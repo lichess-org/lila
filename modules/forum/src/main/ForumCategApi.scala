@@ -13,11 +13,11 @@ final class ForumCategApi(
 
   import BSONHandlers.given
 
-  def makeTeam(teamId: TeamId, name: String): Funit =
+  def makeTeam(teamId: TeamId, name: String, author: UserId): Funit =
     val categ = ForumCateg(
       _id = ForumCateg.fromTeamId(teamId),
       name = name,
-      desc = "Forum of the team " + name,
+      desc = s"Forum of the team $name",
       team = teamId.some,
       nbTopics = 0,
       nbPosts = 0,
@@ -30,13 +30,13 @@ final class ForumCategApi(
       categId = categ.id,
       slug = s"$teamId-forum",
       name = name + " forum",
-      userId = User.lichessId,
+      userId = author,
       troll = false
     )
     val post = ForumPost.make(
       topicId = topic.id,
-      userId = User.lichessId.some,
-      text = "Welcome to the %s forum!" format name,
+      userId = author.some,
+      text = s"Welcome to the $name forum!",
       number = 1,
       troll = false,
       lang = "en".some,

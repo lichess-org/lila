@@ -123,21 +123,29 @@ object tourForm:
     form3.split(
       form3.group(
         form("players"),
-        replace(),
-        help = replaceHelp().some,
+        replacePlayerTags(),
+        help = frag( // do not translate
+          "One line per player, formatted as such:",
+          pre("player name / rating / title / new name"),
+          "All values are optional. The player name will match regardless of punctuation, casing, and word order. Example:",
+          pre("""Magnus Carlsen / 2863 / GM
+YouGotLittUp / 1890 / / Louis Litt"""),
+          "Alternatively, you may set a FIDE ID:",
+          pre("""Magnus Carlsen = 1503014""")
+        ).some,
         half = true
       )(form3.textarea(_)(rows := 3)),
       form3.group(
         form("teams"),
         "Optional: assign players to teams",
-        help = lila.common.String.html
-          .nl2br("""One line per player, formatted as such:
-Team name; Player name
-Example:
-Offerspill;Magnus Carlsen
-Stavanger;M. Fiskaaen
-By default the PGN tags WhiteTeam and BlackTeam are used.""")
-          .some,
+        help = frag( // do not translate
+          "One line per player, formatted as such:",
+          pre("Team name; Fide Id or Player name"),
+          "Example:",
+          pre("""Team Cats ; 3408230
+Team Dogs ; Scooby Doo"""),
+          "By default the PGN tags WhiteTeam and BlackTeam are used."
+        ).some,
         half = true
       )(form3.textarea(_)(rows := 3))
     ),
@@ -177,17 +185,16 @@ By default the PGN tags WhiteTeam and BlackTeam are used.""")
         form("grouping"),
         "Optional: assign tournaments to a group (admins only)",
         half = true
-      )(form3.textarea(_)(rows := 3)),
-      div(cls := "form-group form-half form-help"):
-        lila.common.String.html
-          .nl2br(
-            """First line is the group name.
-Subsequent lines are the tournament IDs and names in the group. Names are facultative and only used for display purposes in this textarea.
-You can add, remove, and re-order tournaments; and you can rename the group.
-Example:
-Youth Championship 2024
+      )(form3.textarea(_)(rows := 5)),
+      div(cls := "form-group form-half form-help")( // do not translate
+        "First line is the group name. Subsequent lines are the tournament IDs and names in the group. Names are facultative and only used for display in this textarea.",
+        br,
+        "You can add, remove, and re-order tournaments; and you can rename the group.",
+        br,
+        "Example:",
+        pre("""Youth Championship 2024
 tour1-id Youth Championship 2024 | G20
 tour2-id Youth Championship 2024 | G16
-"""
-          )
+""")
+      )
     )

@@ -43,12 +43,7 @@
   <string name="definitivelyDeleteTournament">Elimina el torneig de forma definitiva, amb totes les seves rondes i les seves partides.</string>
   <string name="automaticLeaderboard">Taula de classificació automàtica</string>
   <string name="automaticLeaderboardHelp">Calcula i mostra una taula de classificació simple basada en els resultats de les partides</string>
-  <string name="replace">Opcional: Reemplaça noms dels jugadors, puntuacions i títols</string>
-  <string name="replaceHelp">Una línia per jugador, seguint el següent format:
-Nom Original; Nom a mostrar; (Opcional) Puntuació opcional a mostrar; (Opcional) Títol a mostrar
-Per exemple:
-DrNykterstein;Magnus Carlsen;2863
-AnishGiri;Anish Giri;2764;GM</string>
+  <string name="replacePlayerTags">Opcional: Reemplaça noms dels jugadors, puntuacions i títols</string>
   <string name="periodInSeconds">Període en segons</string>
   <string name="periodInSecondsHelp">Opcional, quant de temps esperar entre sol·licituds. Mínim 2 segons, màxim 60 segons. Per defecte es gestiona automàticament en funció del nombre de visualitzadors.</string>
 </resources>

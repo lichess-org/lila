@@ -12,12 +12,72 @@ import lila.hub.actorApi.timeline.{ Propagate, UblogPostLike }
 import lila.user.{ Me, User }
 import lila.i18n.Language
 
+object UblogRank:
+
+  opaque type Tier = Int
+  object Tier extends OpaqueInt[Tier]:
+    val HIDDEN: Tier  = 0 // not visible
+    val VISIBLE: Tier = 1 // not listed in community page
+    val LOW: Tier     = 2 // from here, ranking boost
+    val NORMAL: Tier  = 3
+    val HIGH: Tier    = 4
+    val BEST: Tier    = 5
+
+    def default(user: User.WithPerfs) =
+      if user.marks.troll then Tier.HIDDEN
+      else if user.hasTitle || user.perfs.standard.glicko.establishedIntRating.exists(_ > 2200)
+      then Tier.NORMAL
+      else Tier.LOW
+    val options = List(
+      HIDDEN  -> "Hidden",
+      VISIBLE -> "Unlisted",
+      LOW     -> "Low",
+      NORMAL  -> "Normal",
+      HIGH    -> "High",
+      BEST    -> "Best"
+    )
+    val verboseOptions = List(
+      HIDDEN  -> "Hidden",
+      VISIBLE -> "Unlisted",
+      LOW     -> "Low (30 day penalty)",
+      NORMAL  -> "Normal",
+      HIGH    -> "High (10 day bonus)",
+      BEST    -> "Best (15 day bonus)"
+    )
+    def name(tier: Tier) = options.collectFirst {
+      case (t, n) if t == tier => n
+    } | "???"
+
+  def computeRank(
+      likes: UblogPost.Likes,
+      liveAt: Instant,
+      language: Language,
+      tier: Tier,
+      hasImage: Boolean,
+      days: Int
+  ) = UblogPost.RankDate {
+    import Tier.*
+    liveAt minusMonths (if tier < LOW || !hasImage then 3 else 0) plusHours:
+      val tierBase = 24 * tier.match
+        case LOW    => -30
+        case NORMAL => 0
+        case HIGH   => 10
+        case BEST   => 15
+        case _      => 0
+
+      val adjustBonus = 24 * days
+      val likesBonus  = math.sqrt(likes.value * 25) + likes.value / 100
+      val langBonus   = if language == lila.i18n.defaultLanguage then 0 else -24 * 10
+
+      (tierBase + likesBonus + langBonus + adjustBonus).toInt
+  }
+
 final class UblogRank(
     colls: UblogColls,
     timeline: lila.hub.actors.Timeline
 )(using Executor, akka.stream.Materializer):
 
-  import UblogBsonHandlers.given
+  import UblogBsonHandlers.given, UblogRank.Tier
 
   private def selectLiker(userId: UserId) = $doc("likers" -> userId)
 
@@ -57,7 +117,7 @@ final class UblogRank(
               id       <- doc.getAsOpt[UblogPostId]("_id")
               likes    <- doc.getAsOpt[UblogPost.Likes]("likes")
               liveAt   <- doc.getAsOpt[Instant]("at")
-              tier     <- doc.getAsOpt[UblogBlog.Tier]("tier")
+              tier     <- doc.getAsOpt[Tier]("tier")
               language <- doc.getAsOpt[Language]("language")
               title    <- doc string "title"
               adjust   = ~doc.int("rankAdjustDays")
@@ -74,10 +134,10 @@ final class UblogRank(
                 $id(postId),
                 $set(
                   "likes" -> likes,
-                  "rank"  -> computeRank(likes, liveAt, language, tier, hasImage, adjust)
+                  "rank"  -> UblogRank.computeRank(likes, liveAt, language, tier, hasImage, adjust)
                 )
               ) andDo {
-                if res.nModified > 0 && v && tier >= UblogBlog.Tier.LOW
+                if res.nModified > 0 && v && tier >= Tier.LOW
                 then timeline ! (Propagate(UblogPostLike(me, id.value, title)) toFollowersOf me)
               } inject likes
 
@@ -108,7 +168,7 @@ final class UblogRank(
             .updateField(
               $id(id),
               "rank",
-              computeRank(likes, lived.at, language, blog.tier, hasImage, adjust)
+              UblogRank.computeRank(likes, lived.at, language, blog.tier, hasImage, adjust)
             )
             .void)
 
@@ -124,7 +184,7 @@ final class UblogRank(
 
   def computeRank(blog: UblogBlog, post: UblogPost): Option[UblogPost.RankDate] =
     post.lived.map: lived =>
-      computeRank(
+      UblogRank.computeRank(
         post.likes,
         lived.at,
         post.language,
@@ -132,27 +192,3 @@ final class UblogRank(
         post.image.nonEmpty,
         ~post.rankAdjustDays
       )
-
-  private def computeRank(
-      likes: UblogPost.Likes,
-      liveAt: Instant,
-      language: Language,
-      tier: UblogBlog.Tier,
-      hasImage: Boolean,
-      days: Int
-  ) = UblogPost.RankDate {
-    import UblogBlog.Tier.*
-    liveAt minusMonths (if tier < LOW || !hasImage then 3 else 0) plusHours:
-      val tierBase = 24 * tier.match
-        case LOW    => -30
-        case NORMAL => 0
-        case HIGH   => 10
-        case BEST   => 15
-        case _      => 0
-
-      val adjustBonus = 24 * days
-      val likesBonus  = math.sqrt(likes.value * 25) + likes.value / 100
-      val langBonus   = if language == lila.i18n.defaultLanguage then 0 else -24 * 10
-
-      (tierBase + likesBonus + langBonus + adjustBonus).toInt
-  }

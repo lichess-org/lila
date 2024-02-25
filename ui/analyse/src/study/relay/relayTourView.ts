@@ -175,19 +175,6 @@ const header = (relay: RelayCtrl, ctrl: AnalyseCtrl, pad: boolean = false) => {
             ctrl.trans,
             ctrl.redraw,
           ),
-          h('i', {
-            attrs: dataIcon(licon.InfoCircle),
-            hook: onInsert(el => {
-              el.addEventListener('click', () => {
-                site.dialog.dom({
-                  htmlText: `<h2>Broadcast notifications</h2>
-<p>Subscribe to be notified when each round starts. Make sure that bell or push notifications are
-enabled for broadcasts in your <a href="/account/preferences/notification">notification settings</a>.</p>`,
-                  show: 'modal',
-                });
-              });
-            }),
-          }),
         ]
       : []),
   ]);

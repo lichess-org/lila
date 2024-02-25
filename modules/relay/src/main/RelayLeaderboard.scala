@@ -45,13 +45,16 @@ final class RelayLeaderboardApi(
             case Outcome(None)                            => (0.5, 1)
             case Outcome(Some(winner)) if winner == color => (1d, 1)
             case _                                        => (0d, 1)
-          val rating = game(s"${color}Elo").flatMap(_.toIntOption)
-          val title  = game(s"${color}Title")
           lead.getOrElse(name, (0d, 0, none, none)) match
             case (prevScore, prevPlayed, prevRating, prevTitle) =>
               lead.updated(
                 name,
-                (prevScore + score, prevPlayed + played, rating orElse prevRating, title orElse prevTitle)
+                (
+                  prevScore + score,
+                  prevPlayed + played,
+                  game.elos(color) orElse prevRating,
+                  game.titles(color) orElse prevTitle
+                )
               )
   yield RelayLeaderboard:
     players.toList.sortBy(-_._2._1) map { case (name, (score, played, rating, title)) =>

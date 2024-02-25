@@ -182,9 +182,6 @@ package timeline:
     def modsOnly(value: Boolean)         = add(ModsOnly(value))
     private def add(p: Propagation)      = copy(propagations = p :: propagations)
 
-package tv:
-  case class TvSelect(gameId: GameId, speed: chess.Speed, data: JsObject)
-
 package notify:
   case class NotifiedBatch(userIds: Iterable[UserId])
 

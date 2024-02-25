@@ -104,6 +104,7 @@
   <string name="lossSavedBy50MoveRule">รอดจากการแพ้ด้วยกฎการเดิน 50 รอบ</string>
   <string name="winOr50MovesByPriorMistake">ชนะหรือเดิน 50 ตาโดยไม่ได้ตั้งใจ</string>
   <string name="lossOr50MovesByPriorMistake">แพ้หรือเดิน 50 ตาโดยไม่ได้ตั้งใจ</string>
+  <string name="unknownDueToRounding">จะรับประกันการแพ้/ชนะ ก็ต่อเมี่อเดินหมากตามฐานตารางตั้งแต่การกินหมากหรือการเดินหมากเบี้ยครั้งสุดท้าย เนื่องจากการปัดเศษค่า DTZ ที่เป็นไปได้ในฐานตาราง Syzygy</string>
   <string name="allSet">พร้อมลุย!</string>
   <string name="importPgn">ป้อน PGN</string>
   <string name="delete">ลบ</string>
@@ -220,6 +221,7 @@
   <string name="emailSent">เราได้ส่งอีเมลไปที่ %s</string>
   <string name="emailCanTakeSomeTime">อาจจะเป็นเวลาสักพักก่อนที่จะได้รับ</string>
   <string name="refreshInboxAfterFiveMinutes">รอ 5 นาทีและรีเฟรชกล่องจดหมายของคุณ</string>
+  <string name="checkSpamFolder">ตรวจสอบโฟลเดอร์สแปมของคุณด้วย มันอาจจะไปอยู่ที่นั่น หากเป็นเช่นนั้น ให้ทำเครื่องหมายว่าไม่ใช่สแปม</string>
   <string name="emailForSignupHelp">ถ้ายังไม่สามารถสมัครได้ ส่งอีเมลมาหาเราที่นี่:</string>
   <string name="copyTextToEmail">คัดลอกและวางข้อความข้างบน แล้วส่งไปที่ %s</string>
   <string name="waitForSignupHelp">เราจะติดต่อคุณอย่างรวดเร็วเพื่อช่วยคุณสมัครบัญชีให้สำเร็จ</string>
@@ -387,6 +389,7 @@
   <string name="blackCheckmatesInOneMove">ดำต้องรุกจนโดยเดินครั้งเดียว</string>
   <string name="retry">ลองอีกครั้ง</string>
   <string name="reconnecting">กำลังเชื่อมต่อใหม่</string>
+  <string name="noNetwork">ออฟไลน์</string>
   <plurals name="nbFriendsOnline">
     <item quantity="other">เพื่อนออนไลน์ %s คน</item>
   </plurals>
@@ -665,6 +668,7 @@
   <string name="toggleVariationArrows">ควบคุมศรตาเดินแขนงอื่น</string>
   <string name="cyclePreviousOrNextVariation">กู้คืน ตาเดินแขนงก่อนหน้า หรือ แขนงถัดไป</string>
   <string name="toggleGlyphAnnotations">สลับคำอธิบายประกอบสัญลักษณ์</string>
+  <string name="togglePositionAnnotations">สลับคำอธิบายประกอบหมากรุก</string>
   <string name="variationArrowsInfo">ตาเดินอื่นๆ ทำให้คุณนำร่องตาเดินได้โดยไม่ต้องให้ดูแผ่นตาเดิน</string>
   <string name="playSelectedMove">เล่นตาเดินที่เลือก</string>
   <string name="newTournament">ทัวร์นาเมนต์ใหม่</string>
@@ -895,6 +899,10 @@
   <string name="maximumWeeklyRating">ระดับคะแนนรายสัปดาห์สูงสุด</string>
   <string name="onlyTitled">เฉพาะผู้เล่นที่เคยชนะเลิศ</string>
   <string name="onlyTitledHelp">ต้องการชื่อเรียกแบบทางการเพื่อเข้าร่วมทัวร์นาเมนต์</string>
+  <string name="positionInputHelp">ใส่ค่าตำแหน่ง FEN ที่ถูกต้อง เพี่อที่จะเริ่มเกมทุกเกมในทัวร์นาเมนต์ด้วยตำแหน่งหมากที่กำหนดไว้
+การใส่ค่าตำแหน่ง FEN สามารถใช้งานได้กับเกมปกติเท่านั้น ไม่สามารถใช้ได้กับเกมตัวแปรกติกาได้
+คุณสามารถใช้ %s เพี่อสร้างค่าตำแหน่ง FEN แล้วนำมาวางที่นี่
+ถ้าปล่อยว่าง จะเริ่มเกมจากตำแหน่งปกติ</string>
   <string name="cancelSimul">ยกเลิกไซมัล</string>
   <string name="simulHostcolor">สีโฮสต์ในแต่ละเกม</string>
   <string name="estimatedStart">เวลาเริ่มโดยประมาณ</string>

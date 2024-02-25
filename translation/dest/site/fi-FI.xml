@@ -704,6 +704,7 @@
   <string name="toggleVariationArrows">Muunnelmanuolet päälle/pois</string>
   <string name="cyclePreviousOrNextVariation">Siirry edelliseen/seuraavaan muunnelmaan</string>
   <string name="toggleGlyphAnnotations">Symbolikommentit päälle/pois</string>
+  <string name="togglePositionAnnotations">Aseman kommentit päälle/pois</string>
   <string name="variationArrowsInfo">Muunnelmanuolia napsauttamalla voit edetä muunnelmissa siirtolistaa käyttämättä.</string>
   <string name="playSelectedMove">tee valittu siirto</string>
   <string name="newTournament">Uusi turnaus</string>

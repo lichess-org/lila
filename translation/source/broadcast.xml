@@ -43,12 +43,7 @@
   <string name="definitivelyDeleteTournament">Definitively delete the entire tournament, all its rounds and all its games.</string>
   <string name="automaticLeaderboard">Automatic leaderboard</string>
   <string name="automaticLeaderboardHelp">Compute and display a simple leaderboard based on game results</string>
-  <string name="replace">Optional: replace player names, ratings and titles</string>
-  <string name="replaceHelp">One line per player, formatted as such:
-Original name; Replacement name; Optional replacement rating; Optional replacement title
-Example:
-DrNykterstein;Magnus Carlsen;2863
-AnishGiri;Anish Giri;2764;GM</string>
+  <string name="replacePlayerTags">Optional: replace player names, ratings and titles</string>
   <string name="periodInSeconds">Period in seconds</string>
   <string name="periodInSecondsHelp">Optional, how long to wait between requests. Min 2s, max 60s. Defaults to automatic based on the number of viewers.</string>
 </resources>

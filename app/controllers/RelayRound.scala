@@ -10,7 +10,7 @@ import lila.relay.{ RelayRound as RoundModel, RelayRoundForm, RelayTour as TourM
 import chess.format.pgn.{ PgnStr, Tag }
 import views.*
 import lila.common.config.{ Max, MaxPerSecond }
-import play.api.libs.json.{ Writes, Json }
+import play.api.libs.json.{ OWrites, Json }
 
 final class RelayRound(
     env: Env,
@@ -70,7 +70,7 @@ final class RelayRound(
               .dmap(_ withTour rt.tour)
               .dmap(Right(_))
         ) dmap some
-    } orNotFound {
+    } orNotFound:
       _.fold(
         (old, err) =>
           negotiate(
@@ -79,7 +79,6 @@ final class RelayRound(
           ),
         rt => negotiate(Redirect(rt.path), JsonOk(env.relay.jsonView.withUrl(rt, withTour = true)))
       )
-    }
   }
 
   def reset(id: RelayRoundId) = Auth { ctx ?=> me ?=>
@@ -140,7 +139,7 @@ final class RelayRound(
     Found(env.relay.api.byIdWithTourAndStudy(id)): rt =>
       if !rt.study.canContribute(me) then forbiddenJson()
       else
-        given Writes[Tag] = Writes(tag => Json.obj(tag.name.name -> tag.value))
+        given OWrites[List[Tag]] = OWrites(tags => Json.obj(tags.map(t => (t.name.name, t.value))*))
         env.relay
           .push(rt.withTour, PgnStr(ctx.body.body))
           .map: results =>

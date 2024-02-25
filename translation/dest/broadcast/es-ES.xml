@@ -43,12 +43,7 @@
   <string name="definitivelyDeleteTournament">Elimina definitivamente todo el torneo, rondas y partidas incluidas.</string>
   <string name="automaticLeaderboard">Tabla de clasificación automática</string>
   <string name="automaticLeaderboardHelp">Calcula y muestra una tabla de clasificación simple según los resultados de la partida</string>
-  <string name="replace">Opcional: reemplazar nombres de jugadores, puntuaciones y títulos</string>
-  <string name="replaceHelp">Una línea por jugador, con este formato: 
-Nombre original; Nombre de reemplazo; Puntuación opcional de reemplazo; Título opcional de reemplazo
-Ejemplo:
-DrNykterstein;Magnus Carlsen;2863
-AnishGiri;Anish Giri;2764;GM</string>
+  <string name="replacePlayerTags">Opcional: reemplazar nombres de jugadores, puntuaciones y títulos</string>
   <string name="periodInSeconds">Período en segundos</string>
   <string name="periodInSecondsHelp">Opcional, cuánto tiempo esperar entre peticiones. Mín. 2 s., máx. 60 s. Por defecto es automático según el número de espectadores.</string>
 </resources>
