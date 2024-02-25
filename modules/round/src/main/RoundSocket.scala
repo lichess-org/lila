@@ -14,7 +14,6 @@ import lila.game.{ Event, Game, Pov }
 import lila.hub.actorApi.map.{ Exists, Tell, TellAll, TellIfExists, TellMany }
 import lila.hub.actorApi.round.{ Abort, Berserk, Rematch, Resign, TourStanding }
 import lila.hub.actorApi.socket.remote.{ TellSriIn, TellSriOut }
-import lila.hub.actorApi.tv.TvSelect
 import lila.hub.AsyncActorConcMap
 import lila.room.RoomSocket.{ Protocol as RP, * }
 import lila.socket.RemoteSocket.{ Protocol as P, * }
@@ -181,7 +180,7 @@ final class RoundSocket(
     "finishGame",
     "roundUnplayed"
   ):
-    case TvSelect(gameId, speed, json) =>
+    case actorApi.TvSelect(gameId, speed, _, json) =>
       sendForGameId(gameId)(Protocol.Out.tvSelect(gameId, speed, json))
     case Tell(id, e @ BotConnected(color, v)) =>
       val gameId = GameId(id)

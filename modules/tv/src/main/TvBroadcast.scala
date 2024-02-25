@@ -8,7 +8,7 @@ import lila.common.Json.given
 import lila.common.{ Bus, LightUser }
 import lila.game.Pov
 import lila.game.actorApi.MoveGameEvent
-import lila.hub.actorApi.tv.TvSelect
+import lila.round.actorApi.TvSelect
 import lila.socket.Socket
 import play.api.libs.json.*
 
@@ -51,8 +51,8 @@ final private class TvBroadcast(
     case Add(client)    => clients = clients + client
     case Remove(client) => clients = clients - client
 
-    case TvSelect(gameId, speed, data) =>
-      if (data \ "channel").get.as[JsString].value equals channel.key then
+    case TvSelect(gameId, speed, chanKey, data) =>
+      if chanKey == channel.key then
         gameProxyRepo game gameId map2 { game =>
           unsubscribeFromFeaturedId()
           Bus.subscribe(self, MoveGameEvent makeChan gameId)
