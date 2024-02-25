@@ -26,56 +26,56 @@
   <string name="bishopComplete">Віншуем! Вы апанавалі слана.</string>
   <string name="theQueen">Ферзь</string>
   <string name="queenCombinesRookAndBishop">Ферзь = ладдзя + слон</string>
-  <string name="queenIntro">Наймагутнейшая фігура. Яго вялікасць — ферзь!</string>
-  <string name="queenComplete">Віншуем! Вы навучыліся хадзіць ферзём.</string>
+  <string name="queenIntro">Вось сапраўдная моц. Яго вялікасць — ферзь!</string>
+  <string name="queenComplete">Віншуем! Ферзь для вас больш не з\'яўляецца загадкай.</string>
   <string name="theKing">Кароль</string>
   <string name="theMostImportantPiece">Найважнейшая фігура</string>
   <string name="kingIntro">Вы - кароль. Калі вы загінеце ў бітве - гульня прайграна.</string>
   <string name="theKingIsSlow">Кароль рухаецца павольна.</string>
-  <string name="lastOne">І апошні!</string>
-  <string name="kingComplete">Вы навучыліся хадзіць каралём!</string>
+  <string name="lastOne">І апошні крок!</string>
+  <string name="kingComplete">Кароль цяпер пад тваім кіраўніцтвам!</string>
   <string name="theKnight">Конь</string>
-  <string name="itMovesInAnLShape">Xодзіць літарай \"Г\"</string>
+  <string name="itMovesInAnLShape">Рухаецца літарай \"Г\"</string>
   <string name="knightIntro">Асвоіць каня не так проста, бо ён — хітрая фігура.</string>
   <string name="knightsHaveAFancyWay">Коні маюць мудрагелісты спосаб пераскокваць!</string>
   <string name="knightsCanJumpOverObstacles">Коні могуць скакаць праз перашкоды!
 Выберацеся і збярыце ўсе зоркі!</string>
-  <string name="knightComplete">Віншуем! Вы навучыліся хадзіць канём!</string>
+  <string name="knightComplete">Віншуем! Вы навучыліся панаваць над канём.</string>
   <string name="thePawn">Пешка</string>
-  <string name="itMovesForwardOnly">Ходзіць толькі наперад</string>
-  <string name="pawnIntro">Пешкі слабыя, але ў іх шмат патэнцыялу.</string>
-  <string name="pawnsMoveOneSquareOnly">Пешкі ходзяць толькі на адну клетку наперад. Але дасягнуўшы іншага канца дошкі, яны ператвараюцца ў мацнейшую фігуру!</string>
+  <string name="itMovesForwardOnly">Рухаецца выключна наперад</string>
+  <string name="pawnIntro">Пешкі слабыя, але ў іх вялікі патэнцыял.</string>
+  <string name="pawnsMoveOneSquareOnly">Пешкі крочаць толькі на адну клетку наперад. Але дасягнуўшы іншага канца дошкі, яны ператвараюцца ў мацнейшую фігуру!</string>
   <string name="mostOfTheTimePromotingToAQueenIsBest">У большасці выпадкаў пешку лепш ператварыць у ферзя.
 Але часам ператварэнне ў каня можа быць выгадней!</string>
   <string name="pawnsMoveForward">Пешкі рухаюцца наперад, але б\'юць па дыяганалях!</string>
   <string name="captureThenPromote">Пабіце, потым ператварыцеся!</string>
   <string name="useAllThePawns">Скарыстайцеся ўсімі пешкамі!
 Неабавязкова іх ператвараць.</string>
-  <string name="aPawnOnTheSecondRank">Пешка на другім шэрагу можа хадзіць на два палі за ход!</string>
+  <string name="aPawnOnTheSecondRank">Пешка з другога шэрагу можа хадзіць на два палі за ход!</string>
   <string name="grabAllTheStarsNoNeedToPromote">Збярыце ўсе зоркі!
 Неабавязкова ператвараць пешкі.</string>
   <string name="pawnComplete">Віншуем! У пешак няма сакрэтаў для вас.</string>
   <string name="pawnPromotion">Ператварэнне пешкі</string>
-  <string name="yourPawnReachedTheEndOfTheBoard">Ваша пешка дасягнула краю дошкі!</string>
-  <string name="itNowPromotesToAStrongerPiece">Цяпер яна можа стаць любой іншай фігурай.</string>
-  <string name="selectThePieceYouWant">Абярыце якую захочаце!</string>
+  <string name="yourPawnReachedTheEndOfTheBoard">Ваша пешка дасягнула апошняй лініі дошкі!</string>
+  <string name="itNowPromotesToAStrongerPiece">Цяпер яна можа стаць больш моцнай фігурай.</string>
+  <string name="selectThePieceYouWant">Абярыце якую пажадаеце!</string>
   <string name="fundamentals">Асновы</string>
   <string name="capture">Узяцце</string>
-  <string name="takeTheEnemyPieces">Забярыце фігуры суперніка</string>
+  <string name="takeTheEnemyPieces">Забярыце варожыя фігуры</string>
   <string name="captureIntro">Знайдзіце неабароненыя фігуры суперніка і забярыце іх!</string>
   <string name="takeTheBlackPieces">Забярыце чорныя фігуры!</string>
-  <string name="takeTheBlackPiecesAndDontLoseYours">Забярыце ўсе чорныя фігуры! І не страцьце свае.</string>
-  <string name="captureComplete">Віншуем! Цяпер вы ведаеце, як браць фігуры!</string>
+  <string name="takeTheBlackPiecesAndDontLoseYours">Забярыце ўсе чорныя фігуры! І не страцьце сваіх.</string>
+  <string name="captureComplete">Віншуем! Зараз вы ведаеце, як ваяваць з шахматнымі фігурамі!</string>
   <string name="protection">Абарона</string>
   <string name="keepYourPiecesSafe">Бараніце вашы фігуры</string>
-  <string name="protectionIntro">Вызначыце, якія вашы фігуры атакуе супернік, і абараніце іх!</string>
+  <string name="protectionIntro">Вызначыце, якія вашыя фігуры атакуе супернік, і абараніце іх!</string>
   <string name="protectionComplete">Віншуем! Кожная абароненая фігура – крок да перамогі!</string>
   <string name="escape">Вас атакуюць! Ухіліцеся ад пагрозы!</string>
   <string name="noEscape">Няма куды бегчы,
 але вы можаце абараніцца!</string>
   <string name="dontLetThemTakeAnyUndefendedPiece">Не дайце ім забраць
 ніводнай неабароненай фігуры!</string>
-  <string name="combat">Бой</string>
+  <string name="combat">Бітва</string>
   <string name="captureAndDefendPieces">Узяцце і абарона фігур</string>
   <string name="combatIntro">Добры ваяр ведае і як нападаць, і як абараняцца!</string>
   <string name="combatComplete">Віншуем! Цяпер вы ведаеце, як ідзе бой у шахматах!</string>
