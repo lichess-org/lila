@@ -63,7 +63,7 @@ final private class YouTubeApi(
 
   // youtube does not provide a low quota API to check for videos on a known channel id
   // and they don't provide the rss feed to non-browsers, so we're left to scrape the html.
-  def forceCheck(tuber: Streamer.YouTube) =
+  def forceCheckWithHtmlScraping(tuber: Streamer.YouTube) =
     ws.url(s"https://www.youtube.com/channel/${tuber.channelId}")
       .get()
       .map: rsp =>
