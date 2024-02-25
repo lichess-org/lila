@@ -15,7 +15,6 @@ requestAnimationFrame(() => {
             </a>
         </div>`.trim(),
       );
-      console.log(tv);
       initBoard(tv.querySelector('#fake-tv')!);
       this.append(tv);
     }
