@@ -5,7 +5,6 @@ import views.*
 import lila.app.{ given, * }
 import lila.common.IpAddress
 import lila.forum.ForumCateg.diagnosticId
-import lila.Lila.{ UserId }
 
 final class ForumTopic(env: Env) extends LilaController(env) with ForumController:
 
