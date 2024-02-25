@@ -88,9 +88,8 @@ final private class YouTubeApi(
       .find($doc("youTube.channelId" -> channelId, "approval.granted" -> true))
       .sort($sort desc "seenAt")
       .cursor[Streamer]()
-      .list(1)
-      .map(_.headOption)
-      .map:
+      .uno
+      .flatMap:
         case Some(s) =>
           isLiveStream(videoId).map: isLive =>
             // this is the only notification we'll get, so don't filter offline users here.
@@ -99,7 +98,8 @@ final private class YouTubeApi(
               coll.update.one($doc("_id" -> s.id), $set("youTube.pubsubVideoId" -> videoId))
             else logger.debug(s"YouTube: IGNORED ${s.id} vid:$videoId ch:$channelId")
         case None =>
-          logger.info(s"YouTube: UNAPPROVED vid:$videoId ch:$channelId")
+          fuccess:
+            logger.info(s"YouTube: UNAPPROVED vid:$videoId ch:$channelId")
 
   private def isLiveStream(videoId: String): Fu[Boolean] =
     cfg.googleApiKey.value.nonEmpty so ws
