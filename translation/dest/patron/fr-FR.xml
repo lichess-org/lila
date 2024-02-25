@@ -32,21 +32,21 @@
   <string name="logInToDonate">Connectez-vous pour faire un don.</string>
   <string name="weAreSmallTeam">Nous sommes une petite équipe, ainsi votre soutien fait une énorme différence !</string>
   <string name="celebratedPatrons">Les mécènes illustres qui rendent Lichess possible</string>
-  <string name="whereMoneyGoes">Où va l\'argent ?</string>
+  <string name="whereMoneyGoes">Où va l\'argent?</string>
   <string name="serversAndDeveloper">Premièrement, des servers puissants.
-Puis nous payons un développeur à plein-temps : %s, le créateur de Lichess.</string>
+Puis nous payons un développeur à plein-temps: %s, le créateur de Lichess.</string>
   <string name="costBreakdown">Voir la liste détaillée des frais</string>
-  <string name="officialNonProfit">Lichess est-elle officiellement une ONG ?</string>
+  <string name="officialNonProfit">Lichess est-elle officiellement une ONG?</string>
   <string name="actOfCreation">Oui, voici l\'acte de création</string>
-  <string name="changeMonthlySupport">Puis-je changer/annuler mon soutien mensuel ?</string>
+  <string name="changeMonthlySupport">Puis-je changer/annuler mon soutien mensuel?</string>
   <string name="changeOrContact">Oui, à n\'importe quel moment, depuis cette page.
 Ou vous pouvez %s.</string>
   <string name="contactSupport">contacter l\'assistance de Lichess</string>
-  <string name="otherMethods">Y a-t-il d\'autres moyens pour donner ?</string>
+  <string name="otherMethods">Y a-t-il d\'autres moyens pour donner?</string>
   <string name="lichessIsRegisteredWith">Lichess est enregistré auprès de %s.</string>
   <string name="bankTransfers">Nous acceptons aussi les virements</string>
   <string name="onlyDonationFromAbove">Prenez note que seul le formulaire de don ci-dessus permet d\'obtenir le titre de mécène.</string>
-  <string name="patronFeatures">Certaines fonctionnalités sont-elles réservées aux mécènes ?</string>
+  <string name="patronFeatures">Certaines fonctionnalités sont-elles réservées aux mécènes?</string>
   <string name="noPatronFeatures">Non, parce que Lichess est entièrement gratuit, pour toujours et pour tout le monde. C\'est une promesse.
 Cependant, les mécènes sont distingués au moyen d\'une nouvelle icône de profil très sympa.</string>
   <string name="featuresComparison">Voir la comparaison détaillée des fonctionnalités</string>

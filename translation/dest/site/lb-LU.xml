@@ -417,6 +417,7 @@
   <string name="blackCheckmatesInOneMove">Schwaarz huet Schachmatt an engem Zuch</string>
   <string name="retry">Nei probéieren</string>
   <string name="reconnecting">Remverbannen</string>
+  <string name="noNetwork">Offline</string>
   <plurals name="nbFriendsOnline">
     <item quantity="one">%s Kolleeg online</item>
     <item quantity="other">%s Kolleegen online</item>

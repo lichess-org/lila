@@ -87,22 +87,20 @@ final class Relation(env: Env, apiC: => Api) extends LilaController(env):
 
   def following(username: UserStr, page: Int) = Open:
     Reasonable(page, config.Max(20)):
-      Found(env.user.repo byId username): user =>
-        RelatedPager(api.followingPaginatorAdapter(user.id), page) flatMap { pag =>
+      Found(meOrFetch(username)): user =>
+        RelatedPager(api.followingPaginatorAdapter(user.id), page) flatMap: pag =>
           negotiate(
             if ctx.is(user) || isGrantedOpt(_.CloseAccount)
             then Ok.page(html.relation.bits.friends(user, pag))
             else Found(ctx.me)(me => Redirect(routes.Relation.following(me.username))),
             Ok(jsonRelatedPaginator(pag))
           )
-        }
 
   def followers(username: UserStr, page: Int) = Open:
     negotiateJson:
       Reasonable(page, config.Max(20)):
-        RelatedPager(api.followersPaginatorAdapter(username.id), page) flatMap { pag =>
+        RelatedPager(api.followersPaginatorAdapter(username.id), page) flatMap: pag =>
           Ok(jsonRelatedPaginator(pag))
-        }
 
   def apiFollowing = Scoped(_.Follow.Read, _.Web.Mobile) { ctx ?=> me ?=>
     apiC.jsonDownload:

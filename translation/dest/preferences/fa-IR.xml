@@ -14,13 +14,9 @@
   <string name="chessPieceSymbol">نماد مهره</string>
   <string name="pgnLetter">حرف (K, Q, R, B, N)</string>
   <string name="zenMode" comment="zenMode&#10;&#10;This is not the religious meaning. Turning this option on takes away make elements of the user interface.&#10;&#10;Can also translate as 'Focus mode' as one example.">حالت ذن</string>
-  <string name="showPlayerRatings">نشان دادن ریتینگ بازیکنان
-
-این یک تنظیمات بله/خیر است
-
-این تنظیمات به شما این اجازه را می دهد که انتخاب کنید که ریتینگ بازیکنان دیگر نشان داده شود یا نه. این تنظیمات برای این است که بعضی از بازیکنان، بازی خود را تحت تاثیر ریتینگ بقیه بازیکنان قرار می دهند</string>
+  <string name="showPlayerRatings">نشان دادن درجه‌بندی بازیکنان</string>
   <string name="showFlairs">نمایش نشان بازیکنان</string>
-  <string name="explainShowPlayerRatings">این کار اجازه می دهد تمام امتیازها را از سایت پاک کنید، تا بتوانید روی شطرنج تمرکز کامل داشته باشید. بازی ها هنوز هم می توانند امتیازی باشند، فقط شما دیگر نمی توانید آن را ببینید.</string>
+  <string name="explainShowPlayerRatings">این گزینه همه درجه‌بندی‌ها در Lichess را پنهان می‌کند تا کمک کند روی شطرنج تمرکز کنید. بازی‌های رسمی همچنان بر درجه‌بندی‌تان تاثیر می‌گذارند، این گزینه فقط مربوط به دیدن/ندیدن درجه‌بندی‌هاست.</string>
   <string name="displayBoardResizeHandle">نمایش دستگیره برای تغییر اندازه صفحه</string>
   <string name="onlyOnInitialPosition">فقط در آغاز بازی</string>
   <string name="inGameOnly">تنها در بازی</string>

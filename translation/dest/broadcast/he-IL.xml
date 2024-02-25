@@ -45,6 +45,7 @@
   <string name="definitivelyDeleteTournament">מחיקה לצמיתות של הטורניר הזה, על כל סבביו והמשחקים שבו.</string>
   <string name="automaticLeaderboard">טבלה אוטומטית</string>
   <string name="automaticLeaderboardHelp">הצגת טבלה פשוטה שמתבססת על תוצאות המשחקים</string>
+  <string name="replacePlayerTags">אופציונאלי: החלפה של שמות השחקנים, דירוגיהם ותאריהם</string>
   <string name="periodInSeconds">תדירות בשניות</string>
   <string name="periodInSecondsHelp">אופציונאלי. משפיע על משך הזמן שעובר בין משיכות הנתונים מהמקור. בין 2 ל-60 שניות. כתלות במספר הצופים, הקצב עשוי לחזור לברירת המחדל.</string>
 </resources>

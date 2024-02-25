@@ -366,14 +366,13 @@ final class Account(
     }
 
   def data = Auth { _ ?=> me ?=>
-    val userId: UserId = getUserStr("user")
-      .map(_.id)
-      .filter(id => me.is(id) || isGranted(_.Impersonate)) | me.userId
-    env.user.repo byId userId orNotFound { user =>
-      if getBool("text") then
-        apiC.GlobalConcurrencyLimitUser(me)(env.api.personalDataExport(user)): source =>
-          Ok.chunked(source.map(_ + "\n"))
-            .pipe(asAttachmentStream(s"lichess_${user.username}.txt"))
-      else Ok.page(html.account.bits.data(user))
-    }
+    meOrFetch(getUserStr("user"))
+      .map:
+        _.filter(u => ctx.is(u) || isGrantedOpt(_.Impersonate))
+      .orNotFound: user =>
+        if getBool("text") then
+          apiC.GlobalConcurrencyLimitUser(me)(env.api.personalDataExport(user)): source =>
+            Ok.chunked(source.map(_ + "\n"))
+              .pipe(asAttachmentStream(s"lichess_${user.username}.txt"))
+        else Ok.page(html.account.bits.data(user))
   }

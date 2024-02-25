@@ -140,7 +140,8 @@ final class RelayRound(
     Found(env.relay.api.byIdWithTourAndStudy(id)): rt =>
       if !rt.study.canContribute(me) then forbiddenJson()
       else
-        given Writes[Tag] = Writes(tag => Json.obj(tag.name.name -> tag.value))
+        given Writes[List[Tag]] =
+          Writes(tags => Json.toJson(tags.map { case t => (t.name.name, t.value) }.toMap))
         env.relay
           .push(rt.withTour, PgnStr(ctx.body.body))
           .map: results =>

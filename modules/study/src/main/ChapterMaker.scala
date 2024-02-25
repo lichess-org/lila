@@ -74,9 +74,9 @@ final private class ChapterMaker(
   private def resolveOrientation(data: Data, root: Root, userId: UserId, tags: Tags = Tags.empty): Color =
     def isMe(name: Option[String]) = name.flatMap(UserStr.read).exists(_.id == userId)
     data.orientation match
-      case Orientation.Fixed(color)      => color
-      case _ if isMe(tags.players.white) => Color.white
-      case _ if isMe(tags.players.black) => Color.black
+      case Orientation.Fixed(color)    => color
+      case _ if isMe(tags.names.white) => Color.white
+      case _ if isMe(tags.names.black) => Color.black
       // if an outcome is known, then it's a finished game, which we show from white perspective by convention
       case _ if tags.outcome.isDefined => Color.white
       // in gamebooks (interactive chapter), we guess the orientation based on the last node

@@ -123,7 +123,7 @@ final private class RelaySync(
                     index = game.index,
                     path = position.path + n.id,
                     lastMoveAt = nowInstant,
-                    fideIds = game.fideIds
+                    fideIds = game.fideIdsPair
                   )
                   .some
               )(by) inject position + n
@@ -203,7 +203,7 @@ final private class RelaySync(
             index = game.index,
             path = game.root.mainlinePath,
             lastMoveAt = nowInstant,
-            fideIds = game.fideIds
+            fideIds = game.fideIdsPair
           )
           .some
       )
