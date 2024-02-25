@@ -133,10 +133,9 @@ final class Appeal(env: Env, reportC: => report.Report, userC: => User) extends 
   private def asMod(
       username: UserStr
   )(f: (AppealModel, Suspect) => Fu[Result])(using Context): Fu[Result] =
-    env.user.repo byId username flatMapz { user =>
-      env.appeal.api byId user flatMapz { appeal =>
-        f(appeal, Suspect(user)) dmap some
-      }
-    } flatMap {
-      _.fold(notFound)(fuccess)
-    }
+    meOrFetch(username)
+      .flatMapz: user =>
+        env.appeal.api byId user flatMapz: appeal =>
+          f(appeal, Suspect(user)) dmap some
+      .flatMap:
+        _.so(fuccess)

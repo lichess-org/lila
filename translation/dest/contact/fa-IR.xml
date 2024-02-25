@@ -24,7 +24,7 @@
   <string name="changeUsernameCase">از این صفحه برای تغییر بزرگی یا کوچکیِ حروفِ نام کاربری خود استفاده کنید</string>
   <string name="cantChangeMore">ما نمی‌توانیم بیشتر از بزرگی یا کوچکی حروف، چیزی را تغییر دهیم. این کار صرفاً به دلایل فنی، غیرممکن است.</string>
   <string name="orCloseAccount">اگرچه، شما می‌توانید حساب کاربری فعلی خود را بسته، و یک حساب کاربری جدید ایجاد کنید.</string>
-  <string name="wantClearHistory">من می‌خواهم تاریخچه یا امتیاز خود را پاک کنم</string>
+  <string name="wantClearHistory">می‌خواهم پیشینه یا درجه‌بندی‌ام را پاک کنم</string>
   <string name="cantClearHistory">امکان پاک کردن پیشینه بازی‌ها، پیشینه معماها یا درجه‌بندی وجود ندارد.</string>
   <string name="wantReport">می‌خواهم یک کاربر را گزارش کنم</string>
   <string name="toReportAPlayerUseForm">برای گزارش کردنِ یک کاربر، از فرم گزارش استفاده کنید</string>
@@ -50,8 +50,8 @@
   <string name="insufficientMaterial">نبودِ مهره کافی برای مات کردن</string>
   <string name="fideMate">بازگشت به قوانین فیده برای شطرنج بخش 6.9، اگر کیش و مات با هر گونه سلسله حرکتهای قانونی ممکن باشد، آنگاه بازی مساوی نیست</string>
   <string name="knightMate">این ممکن است که با فقط یک اسب یا یک فیل، اگر که حریف بیشتر از شاه مهره‌ای روی صفحه داشته باشد، بازی را مات نمود.</string>
-  <string name="noRatingPoints">هیچ امتیازی اختصاص داده نشد</string>
-  <string name="ratedGame">مطمئن شوید که یک بازی امتیازگذاری شده را بازی کرده‌اید. بازیهای دست‌گرمی و بدون امتیاز، تاثیری در رده‌بندی بازیکنان ندارند.</string>
+  <string name="noRatingPoints">هیچ امتیازی داده نشد</string>
+  <string name="ratedGame">مطمئن شوید که یک بازی *رسمی* کرده‌اید. بازی‌های *غیررسمی* بر درجه‌بندی بازیکنان تأثیر نمی‌گذارد.</string>
   <string name="botRatingAbuse">در مواقع مشخص و در بازی مقابل یک حساب کاربری ربات، اگر مشخص شود که بازیکن در حال سوءِ استفاده از ربات برای دریافت امتیاز است ممکن است به بازی امتیازی تعلق نگیرد.</string>
   <string name="errorPage">صفحه خطا</string>
   <string name="reportErrorPage">اگر با صفحه خطا مواجه شدید، می‌توانید آن را گزارش کنید:</string>

@@ -43,6 +43,7 @@
   <string name="definitivelyDeleteTournament">Elimina definitivamente l\'intero torneo, tutti i turni e tutte le partite.</string>
   <string name="automaticLeaderboard">Classifica automatica</string>
   <string name="automaticLeaderboardHelp">Calcola e mostra una semplice classifica basata sui risultati delle partite</string>
+  <string name="replacePlayerTags">Facoltativo: sostituisci i nomi dei giocatori, i punteggi e i titoli</string>
   <string name="periodInSeconds">Intervallo in secondi</string>
   <string name="periodInSecondsHelp">Facoltativo: quanto a lungo aspettare tra due richieste. Minimo 2s, massimo 60s. Il default è scelto in base al numeri di spettatori.</string>
 </resources>

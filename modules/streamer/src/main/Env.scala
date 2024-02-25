@@ -34,11 +34,7 @@ final class Env(
     prefApi: lila.pref.PrefApi,
     db: lila.db.Db,
     net: lila.common.config.NetConfig
-)(using
-    ec: Executor,
-    scheduler: Scheduler,
-    mat: akka.stream.Materializer
-):
+)(using scheduler: Scheduler)(using Executor, akka.stream.Materializer):
 
   private given ConfigLoader[TwitchConfig]   = AutoConfig.loader[TwitchConfig]
   private given ConfigLoader[Stream.Keyword] = strLoader(Stream.Keyword.apply)

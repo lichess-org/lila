@@ -167,13 +167,10 @@ final class Simul(env: Env) extends LilaController(env):
 
   def byUser(username: UserStr, page: Int) = Open:
     Reasonable(page):
-      val userOption =
-        env.user.repo.byId(username).map { _.filter(_.enabled.yes || isGrantedOpt(_.SeeReport)) }
-      Found(userOption): user =>
+      Found(meOrFetch(username).map(_.filter(_.enabled.yes || isGrantedOpt(_.SeeReport)))): user =>
         Ok.pageAsync:
-          env.simul.api.hostedByUser(user.id, page).map {
+          env.simul.api.hostedByUser(user.id, page) map:
             html.simul.hosted(user, _)
-          }
 
   private def AsHost(simulId: SimulId)(f: Sim => Fu[Result])(using ctx: Context): Fu[Result] =
     Found(env.simul.repo.find(simulId)): simul =>

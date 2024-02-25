@@ -52,7 +52,7 @@
   <string name="blackLeftTheGame">سیاه بازی را ترک کرد</string>
   <string name="whiteDidntMove">سفید تکان نخورد</string>
   <string name="blackDidntMove">مشکی تکان نخورد</string>
-  <string name="requestAComputerAnalysis">یک تحلیل رایانه‌ای درخواست بدهید</string>
+  <string name="requestAComputerAnalysis">درخواست تحلیل رایانه‌ای</string>
   <string name="computerAnalysis">تحليل رایانه‌ای</string>
   <string name="computerAnalysisAvailable">تحلیل رایانه‌ای موجود است</string>
   <string name="computerAnalysisDisabled">تحلیل رایانه‌ای غیرفعال شد</string>
@@ -85,7 +85,7 @@
   <string name="unknown">ناشناخته</string>
   <string name="database">پایگاه داده</string>
   <string name="whiteDrawBlack">سفید / مساوی / سیاه</string>
-  <string name="averageRatingX">درجه‌بندیِ میانگین: %s</string>
+  <string name="averageRatingX">میانگین درجه‌بندی: %s</string>
   <string name="recentGames">بازی‌های اخیر</string>
   <string name="topGames">بازی‌های برتر</string>
   <string name="masterDbExplanation">دو میلیون بازی حقیقی بازیکنان دارای امتیاز بیشتر از %1$s در درجه‌بندی فیده از %2$s تا %3$s</string>
@@ -158,7 +158,7 @@
     <item quantity="other">%s بازی</item>
   </plurals>
   <plurals name="ratingXOverYGames">
-    <item quantity="one">%1$s ریتینگ در %2$s بازی</item>
+    <item quantity="one">درجه‌بندی %1$s در %2$s بازی</item>
     <item quantity="other">%1$s ریتینگ در %2$s بازی</item>
   </plurals>
   <plurals name="nbBookmarks">
@@ -202,8 +202,8 @@
     <item quantity="other">%s دقیقه</item>
   </plurals>
   <string name="time">زمان</string>
-  <string name="rating">ریتینگ</string>
-  <string name="ratingStats">آمار ریتنگ</string>
+  <string name="rating">درجه‌بندی</string>
+  <string name="ratingStats">آماره‌های درجه‌بندی</string>
   <string name="username">نام کاربری</string>
   <string name="usernameOrEmail">نام کاربری یا ایمیل</string>
   <string name="changeUsername">تغییر نام کاربری</string>
@@ -257,7 +257,7 @@
     <item quantity="one">%s بازی با شما</item>
     <item quantity="other">%s بازی با شما</item>
   </plurals>
-  <string name="cancel">انصراف</string>
+  <string name="cancel">لغو</string>
   <string name="whiteTimeOut">زمان سفید تمام شد</string>
   <string name="blackTimeOut">زمان سیاه تمام شد</string>
   <string name="drawOfferSent">پیشنهاد تساوی ارسال شد</string>
@@ -301,7 +301,7 @@
   <string name="subject">عنوان</string>
   <string name="send">ارسال</string>
   <string name="incrementInSeconds">پاداش زمانی(به ثانیه)</string>
-  <string name="freeOnlineChess">شطرنج آنلاین رایگان</string>
+  <string name="freeOnlineChess">شطرنج بَرخط رایگان</string>
   <plurals name="nbRated">
     <item quantity="one">%s بازی رسمی</item>
     <item quantity="other">%s بازی رسمی</item>
@@ -323,7 +323,7 @@
     <item quantity="other">%s بازی در حال انجام</item>
   </plurals>
   <string name="exportGames">استخراج بازی ها</string>
-  <string name="ratingRange">محدوده ریتینگ</string>
+  <string name="ratingRange">محدوده درجه‌بندی</string>
   <plurals name="giveNbSeconds">
     <item quantity="one">%s ثانیه اضافه کن</item>
     <item quantity="other">%s ثانیه اضافه کن</item>
@@ -373,10 +373,10 @@
     <item quantity="one">شما باید%s بازی رسمی دیگر انجام دهید.</item>
     <item quantity="other">شما باید%s بازی رسمی دیگر انجام دهید.</item>
   </plurals>
-  <string name="yourPerfRatingIsProvisional">امتیاز%s شما قطعی نشده است.</string>
-  <string name="yourPerfRatingIsTooHigh">امتیاز %1$s شما (%2$s) بیشتر از حد مجاز است!</string>
-  <string name="yourTopWeeklyPerfRatingIsTooHigh">امتیاز %1$s شما(%2$s) بیشتر از حد مجاز است!</string>
-  <string name="yourPerfRatingIsTooLow">امتیاز%1$s شما(%2$s) کمتر از حد مجاز است :/</string>
+  <string name="yourPerfRatingIsProvisional">درجه‌بندی %s شما موقتی است</string>
+  <string name="yourPerfRatingIsTooHigh">درجه‌بندی %1$s شما (%2$s) بیش از حد بالاست</string>
+  <string name="yourTopWeeklyPerfRatingIsTooHigh">درجه‌بندی %1$s هفتگی‌تان (%2$s) بیش از حد بالاست</string>
+  <string name="yourPerfRatingIsTooLow">درجه‌بندی %1$s شما (%2$s) بیش از حد پایین است</string>
   <string name="ratedMoreThanInPerf">امتیاز %2$s بالاتر از %1$s لازم است.</string>
   <string name="ratedLessThanInPerf">برای ورود،امتیاز%2$s شما باید کمتر از%1$s باشد.</string>
   <string name="mustBeInTeam">باید در تیمه %s باشید</string>
@@ -387,14 +387,14 @@
   <string name="xCreatedTeamY">%1$s تیم %2$s را ایجاد کرد</string>
   <string name="startedStreaming">شروع به استریم کرده است</string>
   <string name="xStartedStreaming">%s شروع به استریم کرده است</string>
-  <string name="averageElo">میانگین ریتینگ</string>
+  <string name="averageElo">میانگین درجه‌بندی</string>
   <string name="location">محل</string>
   <string name="filterGames">دستچین کردن بازی‌ها</string>
   <string name="reset">تنظیم مجدد</string>
   <string name="apply">تایید</string>
   <string name="save">ذخیره</string>
   <string name="leaderboard">جدول رده‌بندی</string>
-  <string name="screenshotCurrentPosition">عکس گرفتن از تخته‌</string>
+  <string name="screenshotCurrentPosition">از وضعیت فعلی نماگرفت بگیرید</string>
   <string name="gameAsGIF">دانلود گیف بازی</string>
   <string name="pasteTheFenStringHere">پوزیشن دلخواه(FEN) را در این قسمت وارد کنید</string>
   <string name="pasteThePgnStringHere">متن PGN را در این قسمت وارد کنید</string>
@@ -503,7 +503,7 @@
   <string name="reportXToModerators">گزارش %s به مدیران سایت</string>
   <string name="profileCompletion">میزان تکمیل نمایه: %s</string>
   <string name="xRating">درجه‌‏بندی %s</string>
-  <string name="ifNoneLeaveEmpty">اگر ندارید،خالی بگذارید</string>
+  <string name="ifNoneLeaveEmpty">اگر ندارید، خالی گذارید</string>
   <string name="profile">نمایه</string>
   <string name="editProfile">ویرایش نمایه</string>
   <string name="firstName">نام</string>
@@ -520,7 +520,7 @@
   <string name="makeAStudy">برای نگهداری مطمئن و اشتراک‌گذاری، ایجاد یک مطالعه را در نظر بگیرید.</string>
   <string name="clearSavedMoves">حرکت های واضح</string>
   <string name="previouslyOnLichessTV">بازی قبلی در لیچس</string>
-  <string name="onlinePlayers">بازکنان آنلاین</string>
+  <string name="onlinePlayers">بازیکنان بَرخط</string>
   <string name="activePlayers">بازیکنان فعال</string>
   <string name="bewareTheGameIsRatedButHasNoClock">مراقب باشید،این بازی رتبه بندی میشود اما بدون ساعت!</string>
   <string name="success">موفق شدید</string>
@@ -556,7 +556,7 @@
   <string name="cheat">تقلب</string>
   <string name="insult">توهین کردن</string>
   <string name="troll">ترول</string>
-  <string name="ratingManipulation">دستکاری ریتینگ</string>
+  <string name="ratingManipulation">دستکاری درجه‌بندی</string>
   <string name="other">موضوعات دیگر</string>
   <string name="reportDescriptionHelp">لینک بازی های این کاربر را قرار دهید و توضیع دهید خطای رفتار این بازیکن چه بوده است</string>
   <string name="error.provideOneCheatedGameLink">لطفآ حداقل یک نمونه تقلب در بازی را مطرح کنید.</string>
@@ -634,7 +634,7 @@
   <string name="error.maxLength">باید حداقل دارای %s حرف باشد</string>
   <string name="error.min">باید حداقل %s باشد</string>
   <string name="error.max">باید حداکثر %s باشد</string>
-  <string name="ifRatingIsPlusMinusX">اگر ریتینگ  %s± بود</string>
+  <string name="ifRatingIsPlusMinusX">اگر درجه‌بندی‌شان %s± است</string>
   <string name="ifRegistered">در صورت ثبت نام</string>
   <string name="onlyExistingConversations">تنها مکالمات موجود</string>
   <string name="onlyFriends">فقط دوستان</string>
@@ -715,19 +715,19 @@
   <string name="tournamentDoesNotExist">این مسابقات وجود ندارد</string>
   <string name="tournamentMayHaveBeenCanceled">ممکن است مسابقه لغو شده باشد,شاید همه ی بازیکنان مسابقه را قبل از شروع ترک کرده باشند</string>
   <string name="returnToTournamentsHomepage">بازگشت به صفحه اصلی مسابقات</string>
-  <string name="weeklyPerfTypeRatingDistribution">%s توزیع ریتینگ ماهیانه</string>
+  <string name="weeklyPerfTypeRatingDistribution">توزیع درجه‌بندی %s هفتگی</string>
   <plurals name="nbPerfTypePlayersThisWeek">
-    <item quantity="one">در هفته گذشته،%1$s بازیکن در واریانت %2$s فعال بود.</item>
-    <item quantity="other">در هفته گذشته،%1$s بازیکن در واریانت %2$s فعال بودند.</item>
+    <item quantity="one">%1$s بازیکن %2$s این هفته فعالیت داشته‌ است.</item>
+    <item quantity="other">%1$s بازیکن %2$s این هفته فعالیت داشته‌اند.</item>
   </plurals>
-  <string name="yourPerfTypeRatingIsRating">.است %1$s شما %2$s ریتینگ</string>
+  <string name="yourPerfTypeRatingIsRating">درجه‌بندی %1$s شما %2$s است.</string>
   <string name="youAreBetterThanPercentOfPerfTypePlayers">شما بهتر از %1$s بازیکن ها در %2$s هستید.</string>
   <string name="userIsBetterThanPercentOfPerfTypePlayers">%1$s بهتر از %2$s از بازیکنان %3$s میباشد.</string>
   <string name="betterThanPercentPlayers">بهتر از %1$s بازیکنان در %2$s</string>
-  <string name="youDoNotHaveAnEstablishedPerfTypeRating">. ندارید %s چرا شما ریتینگ پایدار برای</string>
-  <string name="yourRating">ریتینگ شما</string>
+  <string name="youDoNotHaveAnEstablishedPerfTypeRating">شما درجه‌بندی %s تثبیت‌شده‌ای ندارید.</string>
+  <string name="yourRating">درجه‌بندی شما</string>
   <string name="cumulative">تجمعی</string>
-  <string name="glicko2Rating">کلیکو(سیستم امتیاز شطرنج)</string>
+  <string name="glicko2Rating">درجه‌بندی Glicko-2</string>
   <string name="checkYourEmail">ایمیل خود را چک کنید</string>
   <string name="weHaveSentYouAnEmailClickTheLink">ما به شما ایمیل فرستادیم. روی لینکی که در ایمیل است کلیک کنید</string>
   <string name="ifYouDoNotSeeTheEmailCheckOtherPlaces">اگر رایانامه را نمی‌بینید، مکان‌های دیگری مانند پوشه‌های ناخواسته، هرزنامه، اجتماعی یا سایر موارد را بررسی کنید.</string>
@@ -739,7 +739,7 @@
   <string name="downloadAnnotated">بارگیری حرکت‌نویسی</string>
   <string name="downloadRaw">دانلود خام</string>
   <string name="downloadImported">دانلود جایگذاری شده</string>
-  <string name="crosstable">تابلو امتیازات</string>
+  <string name="crosstable">نتایج رودررو</string>
   <string name="youCanAlsoScrollOverTheBoardToMoveInTheGame">شما  می توانید برای حرکت در بازی از صفحه استفاده کنید</string>
   <string name="scrollOverComputerVariationsToPreviewThem">برای مشاهده آن ها اسکرول کنید.</string>
   <string name="analysisShapesHowTo">و کلیک کنید یا راست کلیک کنید تا دایره یا فلش در صفحه بکشید shift</string>
@@ -808,7 +808,7 @@
   <string name="custom">دلخواه</string>
   <string name="notifications">گزارش</string>
   <string name="notificationsX">هشدار: %1$s</string>
-  <string name="perfRatingX">ریتینگ. %s</string>
+  <string name="perfRatingX">درجه‌بندی: %s</string>
   <plurals name="nbSecondsToPlayTheFirstMove">
     <item quantity="one">%s ثانیه برای شروع اولین حرکت</item>
     <item quantity="other">%s ثانیه برای شروع اولین حرکت</item>
@@ -923,8 +923,8 @@
   <string name="congratsYouWon">تبریک، شما برنده شدید!</string>
   <string name="gameVsX">بازی در برابر %1$s</string>
   <string name="resVsX">%1$s در برابر %2$s</string>
-  <string name="lostAgainstTOSViolator">شما از شخصی که قوانین لایچس را نقض کرده است، شکست خوردید</string>
-  <string name="refundXpointsTimeControlY">جبران: %1$s امتیاز از نوع %2$s.</string>
+  <string name="lostAgainstTOSViolator">شما در مقابل کسی که قوانین Lichess را نقض کرده، امتیاز درجه‌بندی از دست دادید</string>
+  <string name="refundXpointsTimeControlY">پس‌دادن: %1$s امتیاز به درجه‌بندی %2$s.</string>
   <string name="timeAlmostUp">زمان تقریباً تمام شده است!</string>
   <string name="clickToRevealEmailAddress">جهت مشاهده ایمیل کلیک کنید</string>
   <string name="download">بارگیری</string>
@@ -933,12 +933,13 @@
   <string name="cancelTournament">لغو مسابقه</string>
   <string name="tournDescription">توضیحات مسابقه</string>
   <string name="tournDescriptionHelp">نکته خاصی را می خواهید با شرکت کنندگان در میان بگذارید؟ سعی کنید کوتاه باشد. لینک های علامت گذاری موجود هستند: [name] (https://url)</string>
-  <string name="ratedFormHelp">بازی ها رتبه بندی می شوند و در ریتینگ بازیکنان موثر است</string>
+  <string name="ratedFormHelp">بازی‌ها رسمی هستند
+و روی درجه‌بندی بازیکنان تاثیر می‌گذارند</string>
   <string name="onlyMembersOfTeam">تنها اعضای تیم</string>
   <string name="noRestriction">بدون محدودیت</string>
   <string name="minimumRatedGames">حداقل بازی های ریتد</string>
-  <string name="minimumRating">حداقل امتیاز</string>
-  <string name="maximumWeeklyRating">حداکثر امتیاز هفتگی</string>
+  <string name="minimumRating">حداقل درجه‌بندی</string>
+  <string name="maximumWeeklyRating">حداکثر درجه‌بندی هفتگی</string>
   <string name="onlyTitled">تنها بازیکنان عنوان دار</string>
   <string name="onlyTitledHelp">نیاز به یک عنوان رسمی برای پیوستن به مسابقه است</string>
   <string name="positionInputHelp">برای شروع هر بازی از یک پوزیشن مشخص یک FEN معتبر را جایگذاری کنید.

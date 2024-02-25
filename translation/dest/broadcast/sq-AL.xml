@@ -42,6 +42,7 @@
   <string name="definitivelyDeleteTournament">Fshihe përfundimisht krejt turneun, krejt raundet e tij dhe krejt lojërat në të.</string>
   <string name="automaticLeaderboard">Tabelë automatike</string>
   <string name="automaticLeaderboardHelp">Harto dhe shfaq një tabelë të thjeshtë bazuar në përfundime lojërash</string>
+  <string name="replacePlayerTags">Opsionale: zëvendësoni emra lojëtarësh, vlerësime dhe tituj</string>
   <string name="periodInSeconds">Periudhë, në sekonda</string>
   <string name="periodInSecondsHelp">Opsionale, sa gjatë të pritet mes kërkesash. Min. 2s, maks. 60s. Si parazgjedhje, përdoret vlera automatike bazuar në numrin e parësve.</string>
 </resources>

@@ -31,5 +31,6 @@
   <string name="deleteAllGamesOfThisRound">Skrap alle spelle van hierdie rondte. Die bron sal aktief moet wees om hulle te kan herskep.</string>
   <string name="deleteTournament">Vee hierdie toernooi uit</string>
   <string name="definitivelyDeleteTournament">Vee beslis die hele toernooi uit, met al sy rondtes en spelle.</string>
+  <string name="replacePlayerTags">Opsioneel: vervang spelername, graderings en titels</string>
   <string name="periodInSeconds">Periode in sekondes</string>
 </resources>

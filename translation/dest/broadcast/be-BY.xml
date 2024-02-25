@@ -34,4 +34,5 @@
   <string name="editRoundStudy">Рэдагаваць навучанне туру</string>
   <string name="deleteTournament">Выдаліць гэты турнір</string>
   <string name="definitivelyDeleteTournament">Канчаткова выдаліць увесь турнір, усе яго туры і ўсе гульні.</string>
+  <string name="automaticLeaderboard">Аўтаматычная дошка лідэраў</string>
 </resources>

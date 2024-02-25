@@ -43,5 +43,6 @@
   <string name="definitivelyDeleteTournament">Sigur doresc să ștergeți întregul turneu, toate rundele și toate jocurile sale.</string>
   <string name="automaticLeaderboard">Clasament automat</string>
   <string name="automaticLeaderboardHelp">Calculează și afișează un clasament simplu bazat pe rezultatele jocului</string>
+  <string name="replacePlayerTags">Opțional: înlocuiește numele jucătorilor, ratingurile și titlurile</string>
   <string name="periodInSeconds">Perioada în secunde</string>
 </resources>

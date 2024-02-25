@@ -33,7 +33,7 @@ final class User(
   import env.user.lightUserApi
 
   def tv(username: UserStr) = Open:
-    Found(env.user.repo byId username): user =>
+    Found(meOrFetch(username)): user =>
       currentlyPlaying(user) orElse lastPlayed(user) flatMap {
         _.fold(fuccess(Redirect(routes.User.show(username.value)))): pov =>
           ctx.me.filterNot(_ => pov.game.bothPlayersHaveMoved).flatMap { Pov(pov.game, _) } match
@@ -85,8 +85,9 @@ final class User(
       yield page
 
   def download(username: UserStr) = OpenBody:
-    val userOption = if username.value == "me" then fuccess(ctx.user) else env.user.repo byId username
-    FoundPage(userOption.dmap(_.filter(u => u.enabled.yes || ctx.is(u) || isGrantedOpt(_.GamesModView)))):
+    val user =
+      meOrFetch(username).dmap(_.filter(u => u.enabled.yes || ctx.is(u) || isGrantedOpt(_.GamesModView)))
+    FoundPage(user):
       html.user.download(_)
 
   def gamesAll(username: UserStr, page: Int) = games(username, GameFilter.All.name, page)
@@ -142,7 +143,7 @@ final class User(
         notFoundJson("Deleted user")
       )
     else
-      env.user.repo byId username flatMap {
+      meOrFetch(username).flatMap:
         case None if isGrantedOpt(_.UserModView) =>
           ctx.me.soUse(modC.searchTerm(username.value))
         case None                                                    => notFound
@@ -155,7 +156,6 @@ final class User(
             },
             NotFound(jsonError("No such user, or account closed"))
           )
-      }
   def showMini(username: UserStr) = Open:
     Found(env.user.api withPerfs username): user =>
       if user.enabled.yes || isGrantedOpt(_.UserModView)
@@ -462,7 +462,7 @@ final class User(
   }
 
   def apiReadNote(username: UserStr) = Scoped() { _ ?=> me ?=>
-    Found(env.user.repo byId username):
+    Found(meOrFetch(username)):
       env.socialInfo.fetchNotes(_) flatMap {
         lila.user.JsonView.notes(_)(using lightUserApi)
       } map JsonOk
@@ -478,7 +478,7 @@ final class User(
       username: UserStr,
       data: lila.user.UserForm.NoteData
   )(f: UserModel => Fu[Result])(using Context, Me) =
-    Found(env.user.repo byId username): user =>
+    Found(meOrFetch(username)): user =>
       val isMod = data.mod && isGranted(_.ModNote)
       env.user.noteApi.write(user, data.text, isMod, isMod && data.dox) >> f(user)
 
@@ -497,25 +497,22 @@ final class User(
   }
 
   def opponents = Auth { ctx ?=> me ?=>
-    getUserStr("u")
-      .ifTrue(isGranted(_.BoostHunter))
-      .so(env.user.repo.byId)
-      .map(_ | me.value)
-      .flatMap: user =>
-        for
-          usersAndGames <- env.game.favoriteOpponents(user.id)
-          withPerfs     <- env.user.perfsRepo.withPerfs(usersAndGames.map(_._1))
-          ops = withPerfs.toList zip usersAndGames.map(_._2)
-          followables <- env.pref.api.followables(ops.map(_._1.id))
-          relateds <-
-            ops
-              .zip(followables)
-              .traverse { case ((u, nb), followable) =>
-                relationApi.fetchRelation(user.id, u.id) map:
-                  lila.relation.Related(u, nb.some, followable, _)
-              }
-          page <- renderPage(html.relation.bits.opponents(user, relateds))
-        yield Ok(page)
+    val user = meOrFetch(getUserStr("u")).map(_.filter(u => ctx.is(u) || isGrantedOpt(_.BoostHunter)))
+    Found(user): user =>
+      for
+        usersAndGames <- env.game.favoriteOpponents(user.id)
+        withPerfs     <- env.user.perfsRepo.withPerfs(usersAndGames.map(_._1))
+        ops = withPerfs.toList zip usersAndGames.map(_._2)
+        followables <- env.pref.api.followables(ops.map(_._1.id))
+        relateds <-
+          ops
+            .zip(followables)
+            .traverse { case ((u, nb), followable) =>
+              relationApi.fetchRelation(user.id, u.id) map:
+                lila.relation.Related(u, nb.some, followable, _)
+            }
+        page <- renderPage(html.relation.bits.opponents(user, relateds))
+      yield Ok(page)
   }
 
   def perfStat(username: UserStr, perfKey: Perf.Key) = Open:
@@ -578,10 +575,8 @@ final class User(
           username match
             case Some(name) =>
               EnabledUser(name): u =>
-                env.user.perfsRepo
-                  .withPerfs(u)
-                  .flatMap: u =>
-                    Ok.page(html.stat.ratingDistribution(perfType, data, u.some))
+                env.user.perfsRepo.withPerfs(u) flatMap: u =>
+                  Ok.page(html.stat.ratingDistribution(perfType, data, u.some))
             case _ => Ok.page(html.stat.ratingDistribution(perfType, data, none))
 
   def myself = Auth { _ ?=> me ?=>
@@ -594,6 +589,6 @@ final class User(
     }
 
   def tryRedirect(username: UserStr)(using Context): Fu[Option[Result]] =
-    env.user.repo byId username map:
+    meOrFetch(username).map:
       _.filter(_.enabled.yes || isGrantedOpt(_.SeeReport)) map: user =>
         Redirect(routes.User.show(user.username))

@@ -17,7 +17,7 @@ object Dependencies {
   val alleycats   = "org.typelevel"                %% "alleycats-core"                  % "2.10.0"
   val scalalib    = "com.github.ornicar"           %% "scalalib"                        % "9.5.5"
   val hasher      = "com.roundeights"              %% "hasher"                          % "1.3.1"
-  val chess       = "org.lichess"                  %% "scalachess"                      % "15.7.9"
+  val chess       = "org.lichess"                  %% "scalachess"                      % "15.7.10"
   val compression = "org.lichess"                  %% "compression"                     % "1.10"
   val maxmind     = "com.maxmind.geoip2"            % "geoip2"                          % "4.0.1"
   val caffeine    = "com.github.ben-manes.caffeine" % "caffeine"                        % "3.1.8" % "compile"
@@ -26,7 +26,8 @@ object Dependencies {
   val galimatias  = "io.mola.galimatias"            % "galimatias"                      % "0.2.2-NF"
   val scalatags   = "com.lihaoyi"                  %% "scalatags"                       % "0.12.0"
   val lettuce     = "io.lettuce"                    % "lettuce-core"                    % "6.3.1.RELEASE"
-  val nettyTransport = "io.netty" % s"netty-transport-native-$notifier" % "4.1.107.Final" classifier s"$os-$arch"
+  val nettyTransport =
+    "io.netty" % s"netty-transport-native-$notifier" % "4.1.107.Final" classifier s"$os-$arch"
   val munit       = "org.scalameta"              %% "munit"         % "1.0.0-M11" % Test
   val uaparser    = "org.uaparser"               %% "uap-scala"     % "0.16.0"
   val apacheText  = "org.apache.commons"          % "commons-text"  % "1.11.0"

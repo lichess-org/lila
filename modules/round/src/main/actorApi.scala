@@ -1,6 +1,7 @@
 package lila.round
 package actorApi
 
+import play.api.libs.json.JsObject
 import chess.format.Uci
 import chess.{ Color, MoveMetrics }
 
@@ -25,6 +26,8 @@ object SocketStatus:
 case class GameAndSocketStatus(game: lila.game.Game, socket: SocketStatus)
 case class RoomCrowd(white: Boolean, black: Boolean)
 case class BotConnected(color: Color, v: Boolean)
+
+case class TvSelect(gameId: GameId, speed: chess.Speed, channel: String, data: JsObject)
 
 package round:
 

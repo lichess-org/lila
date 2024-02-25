@@ -43,12 +43,7 @@ final class TournamentApi(
     cacheApi: lila.memo.CacheApi,
     lightUserApi: lila.user.LightUserApi,
     proxyRepo: lila.round.GameProxyRepo
-)(using
-    Executor,
-    akka.actor.ActorSystem,
-    Scheduler,
-    akka.stream.Materializer
-):
+)(using Executor, akka.actor.ActorSystem, Scheduler, akka.stream.Materializer):
 
   export tournamentRepo.{ byId as get }
 
@@ -275,18 +270,16 @@ final class TournamentApi(
         val fuResult: Fu[JoinResult] =
           if me.marks.arenaBan then fuccess(JoinResult.ArenaBanned)
           else if me.marks.prizeban && tour.prizeInDescription then fuccess(JoinResult.PrizeBanned)
-          else if prevPlayer.nonEmpty || tour.password.forall(p =>
+          else if prevPlayer.nonEmpty || tour.password.forall: p =>
               // plain text access code
               MessageDigest.isEqual(p.getBytes(UTF_8), (~data.password).getBytes(UTF_8)) ||
                 // user-specific access code: HMAC-SHA256(access code, user id)
-                MessageDigest
-                  .isEqual(
-                    Algo.hmac(p).sha256(me.userId.value).hex.getBytes(UTF_8),
-                    (~data.password).getBytes(UTF_8)
-                  )
-            )
+                MessageDigest.isEqual(
+                  Algo.hmac(p).sha256(me.userId.value).hex.getBytes(UTF_8),
+                  (~data.password).getBytes(UTF_8)
+                )
           then
-            getVerdicts(tour, prevPlayer.isDefined) flatMap { verdicts =>
+            getVerdicts(tour, prevPlayer.isDefined) flatMap: verdicts =>
               if !verdicts.accepted then fuccess(JoinResult.Verdicts)
               else if !pause.canJoin(me, tour) then fuccess(JoinResult.Paused)
               else
@@ -297,16 +290,16 @@ final class TournamentApi(
                 yield
                   publish()
                   JoinResult.Ok
-                tour.teamBattle.fold(proceedWithTeam(none)) { battle =>
-                  data.team match
-                    case None if prevPlayer.isDefined => proceedWithTeam(none)
-                    case Some(team) if battle.teams contains team =>
-                      getMyTeamIds(me).flatMap: myTeams =>
-                        if myTeams.has(team) then proceedWithTeam(team.some)
-                        else fuccess(JoinResult.MissingTeam)
-                    case _ => fuccess(JoinResult.MissingTeam)
-                }
-            }
+                tour.teamBattle.fold(proceedWithTeam(none)): battle =>
+                  if prevPlayer.isDefined && tour.imminentStart then fuccess(JoinResult.Ok)
+                  else
+                    data.team match
+                      case None if prevPlayer.isDefined => proceedWithTeam(none) // re-join ongoing
+                      case Some(team) if battle.teams contains team =>
+                        getMyTeamIds(me).flatMap: myTeams =>
+                          if myTeams.has(team) then proceedWithTeam(team.some)
+                          else fuccess(JoinResult.MissingTeam)
+                      case _ => fuccess(JoinResult.MissingTeam)
           else fuccess(JoinResult.WrongEntryCode)
         fuResult.map: result =>
           if result.ok then

@@ -41,10 +41,9 @@ final class Clas(env: Env, authC: Auth) extends LilaController(env):
           yield res
 
   def teacher(username: UserStr) = Secure(_.Admin) { ctx ?=> _ ?=>
-    FoundPage(env.user.repo byId username): teacher =>
-      env.clas.api.clas.of(teacher) map {
+    FoundPage(meOrFetch(username)): teacher =>
+      env.clas.api.clas.of(teacher) map:
         html.mod.search.teacher(teacher.id, _)
-      }
   }
 
   private def renderHome(using Context) =
@@ -527,7 +526,7 @@ final class Clas(env: Env, authC: Auth) extends LilaController(env):
   private def WithStudent(clas: lila.clas.Clas, username: UserStr)(
       f: lila.clas.Student.WithUser => Fu[Result]
   )(using Context): Fu[Result] =
-    Found(env.user.repo byId username): user =>
+    Found(meOrFetch(username)): user =>
       Found(env.clas.api.student.get(clas, user))(f)
 
   private def SafeTeacher(f: => Fu[Result])(using Context): Fu[Result] =
