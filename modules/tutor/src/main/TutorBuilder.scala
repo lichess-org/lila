@@ -53,7 +53,7 @@ final private class TutorBuilder(
     _ <- insightApi.indexAll(user).monSuccess(_.tutor buildSegment "insight-index")
     perfStats <- perfStatsApi(user, eligiblePerfTypesOf(user), fishnet.maxGamesToConsider)
       .monSuccess(_.tutor buildSegment "perf-stats")
-    peerMatches <- findPeerMatches(perfStats.mapValues(_.stats.rating).toMap)
+    peerMatches <- findPeerMatches(perfStats.view.mapValues(_.stats.rating).toMap)
     tutorUsers = perfStats
       .map { (pt, stats) => TutorUser(user, pt, stats.stats, peerMatches.find(_.perf == pt)) }
       .toList
