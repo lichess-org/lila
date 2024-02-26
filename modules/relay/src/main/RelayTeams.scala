@@ -136,23 +136,18 @@ function(root, tags) {
             TeamGame(chap.id, sorted.map(_._1), t0Color, outcome, outcome.isEmpty option chap.fen) :: games,
           teams = teams.bimap(_.add(outcome, t0Color), _.add(outcome, !t0Color))
         )
-      def sortGames = copy(games = games.sortBy(-_.ratingSum))
 
     def makeTable(chapters: List[Chapter]): List[TeamMatch] =
-      chapters
-        .foldLeft(List.empty[TeamMatch]): (table, chap) =>
-          (for
-            teams <- chap.tags.teams.tupled.map(Pair.apply)
-            names <- chess.ByColor(chap.tags.names(_))
-            players = names zip chap.tags.titles zip chap.tags.elos map:
-              case ((n, t), e) => TeamPlayer(n, t, e)
-            m0 = table.find(_.is(teams)) | TeamMatch(teams.map(TeamWithPoints(_)), Nil)
-            m1 = m0.add(chap, Pair(players.white -> teams.a, players.black -> teams.b), chap.tags.outcome)
-            newTable = m1 :: table.filterNot(_.is(teams))
-          yield newTable) | table
-        .map(_.sortGames)
-        .sortBy: m =>
-          0 - ~m.games.headOption.map(_.ratingSum)
+      chapters.reverse.foldLeft(List.empty[TeamMatch]): (table, chap) =>
+        (for
+          teams <- chap.tags.teams.tupled.map(Pair.apply)
+          names <- chess.ByColor(chap.tags.names(_))
+          players = names zip chap.tags.titles zip chap.tags.elos map:
+            case ((n, t), e) => TeamPlayer(n, t, e)
+          m0       = table.find(_.is(teams)) | TeamMatch(teams.map(TeamWithPoints(_)), Nil)
+          m1       = m0.add(chap, Pair(players.white -> teams.a, players.black -> teams.b), chap.tags.outcome)
+          newTable = m1 :: table.filterNot(_.is(teams))
+        yield newTable) | table
 
     object json:
       import lila.common.Json.given
