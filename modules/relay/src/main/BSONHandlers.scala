@@ -46,5 +46,3 @@ object BSONHandlers:
   yield RelayRound.WithTour(round, tour)
 
   given BSONDocumentHandler[RelayGroup] = Macros.handler
-
-  given BSONDocumentHandler[RelayFidePlayer] = Macros.handler

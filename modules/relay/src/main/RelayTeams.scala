@@ -4,6 +4,8 @@ import chess.format.pgn.*
 import chess.format.Fen
 import chess.FideId
 
+import lila.player.{ PlayerName, PlayerToken, FidePlayer }
+
 type TeamName = String
 
 private class RelayTeams(val text: String):
@@ -22,11 +24,11 @@ private class RelayTeams(val text: String):
     .mapValues(_.map(_._2))
     .toMap
 
-  private lazy val tokenizedPlayerTeams: Map[RelayPlayer.Token | FideId, TeamName] =
+  private lazy val tokenizedPlayerTeams: Map[PlayerToken | FideId, TeamName] =
     playerTeams.mapKeys(tokenizePlayer)
 
-  private val tokenizePlayer: PlayerName | FideId => RelayPlayer.Token | FideId =
-    case name: PlayerName => RelayPlayer.tokenize(name)
+  private val tokenizePlayer: PlayerName | FideId => PlayerToken | FideId =
+    case name: PlayerName => FidePlayer.tokenize(name)
     case fideId           => fideId
 
   private lazy val playerTeams: Map[PlayerName | FideId, TeamName] =

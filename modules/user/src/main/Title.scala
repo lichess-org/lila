@@ -31,21 +31,6 @@ object Title:
   def get(str: String): Option[UserTitle]      = UserTitle(str.toUpperCase).some filter names.contains
   def get(strs: List[String]): List[UserTitle] = strs flatMap { get(_) }
 
-  // ordered by difficulty to achieve
-  // if a player has multiple titles, the most valuable one is used
-  private val rankOf: Map[UserTitle, Int] = UserTitle
-    .from:
-      List("GM", "IM", "WGM", "FM", "WIM", "WFM", "NM", "CM", "WCM", "WNM")
-    .zipWithIndex
-    .toMap
-
-  def mostValuable(t1: Option[UserTitle], t2: Option[UserTitle]): Option[UserTitle] =
-    t1.flatMap(rankOf.get)
-      .fold(t2): v1 =>
-        t2.flatMap(rankOf.get)
-          .fold(t1): v2 =>
-            if v1 < v2 then t1 else t2
-
   object fromUrl:
 
     // https://ratings.fide.com/card.phtml?event=740411

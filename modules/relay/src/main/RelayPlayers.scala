@@ -3,7 +3,8 @@ package lila.relay
 import play.api.data.Forms.*
 import chess.format.pgn.{ Tag, Tags }
 import chess.FideId
-import java.text.Normalizer
+
+import lila.player.{ PlayerName, PlayerToken, FidePlayer }
 
 // used to change names and ratings of broadcast players
 private case class RelayPlayer(
@@ -12,23 +13,6 @@ private case class RelayPlayer(
     title: Option[UserTitle],
     fideId: Option[FideId] = none
 )
-object RelayPlayer:
-  type Token = String
-  private val nonLetterRegex = """[^a-zA-Z0-9\s]+""".r
-  private val splitRegex     = """\W""".r
-  def tokenize(name: PlayerName): Token =
-    splitRegex
-      .split:
-        Normalizer
-          .normalize(name.trim, Normalizer.Form.NFD)
-          .replaceAllIn(nonLetterRegex, "")
-          .toLowerCase
-      .toList
-      .map(_.trim)
-      .filter(_.nonEmpty)
-      .distinct
-      .sorted
-      .mkString(" ")
 
 private class RelayPlayers(val text: String):
 
@@ -41,13 +25,13 @@ private class RelayPlayers(val text: String):
       text.linesIterator.take(1000).toList.flatMap(parse).toMap
 
   // With tokenized player names
-  private lazy val tokenizedPlayers: Map[RelayPlayer.Token, RelayPlayer] =
-    players.mapKeys(RelayPlayer.tokenize)
+  private lazy val tokenizedPlayers: Map[PlayerToken, RelayPlayer] =
+    players.mapKeys(FidePlayer.tokenize)
 
   // With player names combinations.
   // For example, if the tokenized player name is "A B C D", the combinations will be:
   // A B, A C, A D, B C, B D, C D, A B C, A B D, A C D, B C D
-  private lazy val combinationPlayers: Map[RelayPlayer.Token, RelayPlayer] =
+  private lazy val combinationPlayers: Map[PlayerToken, RelayPlayer] =
     tokenizedPlayers.flatMap: (fullToken, player) =>
       val words = fullToken.split(' ').filter(_.sizeIs > 1).toList
       for
@@ -98,5 +82,5 @@ private class RelayPlayers(val text: String):
 
   private def findMatching(name: PlayerName): Option[RelayPlayer] =
     players.get(name) orElse:
-      val token = RelayPlayer.tokenize(name)
+      val token = FidePlayer.tokenize(name)
       tokenizedPlayers.get(token) orElse combinationPlayers.get(token)
