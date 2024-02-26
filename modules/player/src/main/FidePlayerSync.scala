@@ -12,11 +12,9 @@ import chess.{ FideId, ByColor }
 import lila.db.dsl.{ *, given }
 
 final private class FidePlayerSync(api: FidePlayerApi, ws: StandaloneWSClient)(using
-    scheduler: Scheduler
-)(using Executor, akka.stream.Materializer):
-
-  scheduler.scheduleWithFixedDelay(1.hour, 1.hour): () =>
-    if nowDateTime.getDayOfWeek == java.time.DayOfWeek.SUNDAY && nowDateTime.getHour == 4 then apply()
+    Executor,
+    akka.stream.Materializer
+):
 
   import FidePlayer.*
   import api.playerHandler
