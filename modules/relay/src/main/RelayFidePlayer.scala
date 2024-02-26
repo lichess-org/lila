@@ -24,7 +24,8 @@ case class RelayFidePlayer(
     title: Option[UserTitle],
     standard: Option[Int],
     rapid: Option[Int],
-    blitz: Option[Int]
+    blitz: Option[Int],
+    fetchedAt: Instant
 ):
   def ratingOf(tc: FideTC) = tc match
     case FideTC.Standard => standard
@@ -50,6 +51,9 @@ final private class RelayFidePlayerApi(colls: RelayColls, cacheApi: lila.memo.Ca
         )
       _ <- elements.nonEmpty so update.many(elements).void
     yield ()
+
+  def deleteOlderThan(date: Instant): Fu[Int] =
+    coll(_.delete.one($doc("fetchedAt" $lt date))).map(_.n)
 
   def enrichGames(tour: RelayTour)(games: RelayGames): Fu[RelayGames] =
     val tc = guessTimeControl(tour) | FideTC.Standard
@@ -109,6 +113,7 @@ final private class RelayFidePlayerUpdate(api: RelayFidePlayerApi, ws: Standalon
   def apply(): Funit =
     ws.url("http://ratings.fide.com/download/players_list.zip").stream() flatMap:
       case res if res.status == 200 =>
+        val startAt = nowInstant
         ZipInputStreamSource: () =>
           ZipInputStream(res.bodyAsSource.runWith(StreamConverters.asInputStream()))
         .map(_._2)
@@ -121,9 +126,11 @@ final private class RelayFidePlayerUpdate(api: RelayFidePlayerApi, ws: Standalon
           .mapAsync(1)(api.upsert)
           .runWith(lila.common.LilaStream.sinkCount)
           .monSuccess(_.relay.fidePlayers.update)
-          .addEffect(lila.mon.relay.fidePlayers.nb.update(_))
-          .addEffect(nb => logger.info(s"RelayFidePlayerApi.update done $nb"))
-          .void
+          .flatMap: nb =>
+            lila.mon.relay.fidePlayers.nb.update(nb)
+            api.deleteOlderThan(startAt) map: deleted =>
+              logger.info(s"RelayFidePlayerApi.update upserted: $nb, deleted: $nb")
+
       case res => fufail(s"RelayFidePlayerApi.pull ${res.status} ${res.statusText}")
 
   /*
@@ -146,5 +153,6 @@ final private class RelayFidePlayerUpdate(api: RelayFidePlayerApi, ws: Standalon
       title = lila.user.Title.mostValuable(title, wTitle),
       standard = number(113, 117),
       rapid = number(126, 132),
-      blitz = number(139, 145)
+      blitz = number(139, 145),
+      fetchedAt = nowInstant
     )
