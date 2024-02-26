@@ -21,6 +21,8 @@ case class Game(
     status: Status,
     daysPerTurn: Option[Int],
     binaryMoveTimes: Option[ByteArray] = None,
+    pausedSeconds: Option[Int] = None,
+    sealedUsi: Option[Usi] = None,
     mode: Mode = Mode.default,
     bookmarks: Int = 0,
     createdAt: DateTime = DateTime.now,
@@ -102,9 +104,9 @@ case class Game(
   // because if moretime was given,
   // elapsed time is no longer representing the game duration
   def durationSeconds: Option[Int] =
-    (movedAt.getSeconds - createdAt.getSeconds) match {
+    (movedAt.getSeconds - createdAt.getSeconds - ~pausedSeconds) match {
       case seconds if seconds > 60 * 60 * 12 => none // no way it lasted more than 12 hours, come on.
-      case seconds                           => seconds.toInt.some
+      case seconds                           => (seconds.toInt atLeast 0).some
     }
 
   private def everyOther[A](l: List[A]): List[A] =
@@ -181,17 +183,43 @@ case class Game(
     }
   }
 
-  // apply a move
-  def update(
-      game: ShogiGame, // new shogi position
+  def resumeGame(game: ShogiGame) = {
+    val p        = (nowSeconds - movedAt.getSeconds).toInt atLeast 0
+    val updated = copy(
+      shogi =
+        game.copy(clock = clock.map(_.copy(color = game.situation.color).start)), // clock was already updated
+      status = Status.Started,
+      sealedUsi = none,
+      pausedSeconds = pausedSeconds.map(_ + p).orElse(p.some),
+      movedAt = DateTime.now
+    )
+    Progress(this, updated, List(Event.Reload))
+  }
+
+  def pauseAndSealUsi(
       usi: Usi,
-      blur: Boolean = false
+      game: ShogiGame, // new shogi position
+      blur: Boolean
+  ) =
+    applyGame(game, blur, true).map { g =>
+      g.copy(
+        sentePlayer = g.sentePlayer.removePauseOffer,
+        gotePlayer = g.gotePlayer.removePauseOffer,
+        shogi = shogi.copy(clock = game.clock.map(_.stop)), // use old shogi position but new clock
+        sealedUsi = usi.some,
+        status = Status.Paused
+      )
+    }
+
+  // after making a move
+  def applyGame(
+      game: ShogiGame, // new shogi position
+      blur: Boolean,
+      reload: Boolean = false
   ): Progress = {
     def copyPlayer(player: Player) =
-      if (blur && !game.situation.color == player.color)
-        player.copy(
-          blurs = player.blurs.add(playerMoves(player.color))
-        )
+      if (blur && turnColor == player.color)
+        player.addBlurs(playerMoves(player.color))
       else player
 
     // This must be computed eagerly
@@ -218,18 +246,23 @@ case class Game(
       movedAt = DateTime.now
     )
 
-    val state = Event.State(
-      color = game.situation.color,
-      plies = game.plies,
-      status = (status != updated.status) option updated.status,
-      winner = game.situation.winner
-    )
-
-    val clockEvent = updated.shogi.clock map Event.Clock.apply orElse {
-      updated.playableCorrespondenceClock map Event.CorrespondenceClock.apply
+    val event = game.usiMoves.lastOption.ifFalse(reload).fold[Event](Event.Reload) { usi =>
+      Event.UsiEvent(
+        usi = usi,
+        situation = game.situation,
+        state = Event.State(
+          color = game.situation.color,
+          plies = game.plies,
+          status = (status != updated.status) option updated.status,
+          winner = game.situation.winner
+        ),
+        clock = updated.shogi.clock map Event.Clock.apply orElse {
+          updated.playableCorrespondenceClock map Event.CorrespondenceClock.apply
+        }
+      )
     }
 
-    Progress(this, updated, List(Event.UsiEvent(usi, game.situation, state, clockEvent)))
+    Progress(this, updated, List(event))
   }
 
   def lastMoveKeys: Option[String] =
@@ -258,7 +291,7 @@ case class Game(
   def correspondenceClock: Option[CorrespondenceClock] =
     daysPerTurn map { days =>
       val increment   = days * 24 * 60 * 60
-      val secondsLeft = (movedAt.getSeconds + increment - nowSeconds).toInt max 0
+      val secondsLeft = if (paused) increment else (movedAt.getSeconds + increment - nowSeconds).toInt max 0
       CorrespondenceClock(
         increment = increment,
         senteTime = turnColor.fold(secondsLeft, increment).toFloat,
@@ -276,6 +309,10 @@ case class Game(
 
   def started = status >= Status.Started
 
+  def prePaused = players.forall(_.isOfferingPause)
+
+  def paused = status == Status.Paused
+
   def notStarted = !started
 
   def aborted = status == Status.Aborted
@@ -284,9 +321,9 @@ case class Game(
 
   def abort = copy(status = Status.Aborted)
 
-  def playable = status < Status.Aborted && !imported
+  def playable = status < Status.Aborted && !imported && !paused
 
-  def playableEvenImported = status < Status.Aborted
+  def playableEvenPaused = status < Status.Aborted && !imported
 
   def playableBy(p: Player): Boolean = playable && turnOf(p)
 
@@ -314,7 +351,7 @@ case class Game(
     )
 
   def playerCanOfferDraw(color: Color) =
-    variant.chushogi &&
+    Game.drawableVariants.contains(variant) &&
       started && playable &&
       plies >= 2 &&
       !player(color).isOfferingDraw &&
@@ -323,6 +360,13 @@ case class Game(
 
   def playerHasOfferedDraw(color: Color) =
     player(color).lastDrawOffer ?? (_ >= plies - 20)
+
+  def playerCanOfferPause(color: Color) =
+    Game.pausableVariants.contains(variant) &&
+      started && playable &&
+      plies >= 20 && players.forall(_.hasUser) &&
+      !player(color).isOfferingPause &&
+      nonAi
 
   def playerCouldRematch =
     finishedOrAborted &&
@@ -525,7 +569,7 @@ case class Game(
     if (playedPlies > 5) (player(color).blurs.nb * 100) / playerMoves(color)
     else 0
 
-  def isBeingPlayed = !isNotationImport && !finishedOrAborted
+  def isBeingPlayed = !isNotationImport && !finishedOrAborted && !paused
 
   def olderThan(seconds: Int) = movedAt isBefore DateTime.now.minusSeconds(seconds)
 
@@ -628,6 +672,14 @@ object Game {
   )
 
   val unanalysableVariants: Set[Variant] = Variant.all.toSet -- analysableVariants
+
+  val drawableVariants: Set[Variant] = Set(
+    shogi.variant.Chushogi
+  )
+
+  val pausableVariants: Set[Variant] = Set(
+    shogi.variant.Chushogi
+  )
 
   val blindModeVariants: Set[Variant] = Set(
     shogi.variant.Standard,
@@ -754,9 +806,9 @@ object Game {
     val hands              = "hs"
     val bookmarks          = "bm"
     val createdAt          = "ca"
-    val movedAt            = "ua"   // ua = updatedAt (bc)
+    val movedAt            = "ua" // ua = updatedAt (bc)
     val source             = "so"
-    val notationImport     = "pgni" // todo - rename
+    val notationImport     = "pgni"
     val tournamentId       = "tid"
     val simulId            = "sid"
     val tvAt               = "tv"
@@ -764,7 +816,9 @@ object Game {
     val winnerId           = "wid"
     val initialSfen        = "if"
     val checkAt            = "ck"
-    val perfType           = "pt"   // only set on student games for aggregation
+    val sealedUsi          = "su"
+    val pausedSeconds      = "ps"
+    val perfType           = "pt" // only set on student games for aggregation
   }
 }
 

@@ -5,6 +5,7 @@ import { GameData } from './interfaces';
 export const ids = {
   created: 10,
   started: 20,
+  paused: 21,
   aborted: 25,
   mate: 30,
   resign: 31,
@@ -24,6 +25,14 @@ export const ids = {
 
 export function started(data: GameData): boolean {
   return data.game.status.id >= ids.started;
+}
+
+export function prepaused(data: GameData): boolean {
+  return !!data.player.offeringPause && !!data.opponent.offeringPause;
+}
+
+export function paused(data: GameData): boolean {
+  return data.game.status.id === ids.paused;
 }
 
 export function finished(data: GameData): boolean {

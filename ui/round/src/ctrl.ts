@@ -79,12 +79,14 @@ export default class RoundController {
   goneBerserk: GoneBerserk = {};
   resignConfirm?: Timeout = undefined;
   drawConfirm?: Timeout = undefined;
+  pauseConfirm?: Timeout = undefined;
   // will be replaced by view layer
   autoScroll: () => void = $.noop;
   challengeRematched: boolean = false;
   shouldSendMoveTime: boolean = false;
   openStudyModal = false;
   lastDrawOfferAtPly?: Ply;
+  lastPauseOfferAtTime?: number;
   nvui?: NvuiPlugin;
 
   private music?: any;
@@ -258,12 +260,14 @@ export default class RoundController {
   };
 
   private onMove = (_orig: Key, _dest: Key, _prom: boolean, captured?: Piece) => {
+    if (status.prepaused(this.data)) return;
     if (captured) {
       sound.capture();
     } else sound.move();
   };
 
   private onDrop = (_piece: Piece, _key: Key, _prom: boolean) => {
+    if (status.prepaused(this.data)) return;
     sound.move();
   };
 
@@ -376,7 +380,7 @@ export default class RoundController {
     }
     this.socket.send('usi', data, socketOpts);
 
-    this.transientMove.register(this.clock?.times[this.data.player.color]);
+    if (!status.prepaused(this.data)) this.transientMove.register(this.clock?.times[this.data.player.color]);
     this.redraw();
   };
 
@@ -732,6 +736,10 @@ export default class RoundController {
     return d.opponent.gone !== false && !game.isPlayerTurn(d) && game.resignable(d) && d.opponent.gone;
   };
 
+  showDrawButton = (): boolean => {
+    return this.data.game.variant.key === 'chushogi';
+  };
+
   canOfferDraw = (): boolean => {
     return game.drawable(this.data) && (!this.lastDrawOfferAtPly || this.lastDrawOfferAtPly < this.ply - 20);
   };
@@ -756,6 +764,43 @@ export default class RoundController {
   private doOfferDraw = () => {
     this.lastDrawOfferAtPly = this.ply;
     this.socket.sendLoading('draw-yes', null);
+  };
+
+  showPauseButton = (): boolean => {
+    return this.data.game.variant.key === 'chushogi';
+  };
+
+  canOfferPause = (): boolean => {
+    return (
+      game.pausable(this.data) &&
+      (!this.lastPauseOfferAtTime || Date.now() - this.lastPauseOfferAtTime > 10 * 60 * 1000)
+    );
+  };
+
+  offerPause = (v: boolean): void => {
+    if (this.canOfferPause()) {
+      if (this.pauseConfirm) {
+        if (v) this.doOfferPause();
+        clearTimeout(this.pauseConfirm);
+        this.pauseConfirm = undefined;
+      } else if (v) {
+        if (this.data.pref.confirmResign)
+          this.pauseConfirm = setTimeout(() => {
+            this.offerPause(false);
+          }, 3500);
+        else this.doOfferPause();
+      }
+    }
+    this.redraw();
+  };
+
+  private doOfferPause = () => {
+    this.lastPauseOfferAtTime = Date.now();
+    this.socket.sendLoading('pause-yes', null);
+  };
+
+  showImpasseButton = (): boolean => {
+    return !this.showDrawButton();
   };
 
   private setKeyboardMove = () => {

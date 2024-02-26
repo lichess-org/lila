@@ -20,6 +20,8 @@ final class Cached(
 
   def nbPlaying = nbPlayingCache.get _
 
+  def nbPaused = nbPausedCache.get _
+
   def lastPlayedPlayingId(userId: User.ID): Fu[Option[Game.ID]] = lastPlayedPlayingIdCache get userId
 
   private val lastPlayedPlayingIdCache: LoadingCache[User.ID, Fu[Option[Game.ID]]] =
@@ -35,6 +37,13 @@ final class Cached(
     _.expireAfterWrite(15 seconds)
       .buildAsyncFuture { userId =>
         gameRepo.coll.countSel(Query nowPlaying userId)
+      }
+  }
+
+  private val nbPausedCache = cacheApi[User.ID, Int](256, "game.nbPaused") {
+    _.expireAfterWrite(1 minute)
+      .buildAsyncFuture { userId =>
+        gameRepo.coll.countSel(Query paused userId)
       }
   }
 

@@ -1,6 +1,7 @@
 package lila.game
 
 import shogi.format.forsyth.Sfen
+import shogi.format.usi.Usi
 import shogi.variant.Variant
 import shogi.{
   Clock,
@@ -58,7 +59,8 @@ object BSONHandlers {
 
       val plies    = r int F.plies atMost Game.maxPlies(gameVariant) // unlimited can cause StackOverflowError
       val plyColor = Color.fromPly(plies)
-      val createdAt = r date F.createdAt
+      val clockColor = if (light.status == Status.Paused) !plyColor else plyColor
+      val createdAt  = r date F.createdAt
 
       val periodEntries = BinaryFormat.periodEntries
         .read(
@@ -93,7 +95,7 @@ object BSONHandlers {
         usiMoves = usiMoves,
         clock = r.getO[Color => Clock](F.clock) {
           clockBSONReader(createdAt, periodEntries, light.sentePlayer.berserk, light.gotePlayer.berserk)
-        } map (_(plyColor)),
+        } map (_(clockColor)),
         plies = plies,
         startedAtPly = startedAtPly,
         startedAtMove = startedAtMove
@@ -119,8 +121,10 @@ object BSONHandlers {
         status = light.status,
         daysPerTurn = r intO F.daysPerTurn,
         binaryMoveTimes = r bytesO F.moveTimes,
+        sealedUsi = r.strO(F.sealedUsi).flatMap(Usi.apply),
         mode = Mode(r boolD F.rated),
         bookmarks = r intD F.bookmarks,
+        pausedSeconds = r intO F.pausedSeconds,
         createdAt = createdAt,
         movedAt = r.dateD(F.movedAt, createdAt),
         metadata = Metadata(
@@ -156,6 +160,7 @@ object BSONHandlers {
         }),
         F.daysPerTurn        -> o.daysPerTurn,
         F.moveTimes          -> o.binaryMoveTimes,
+        F.sealedUsi          -> o.sealedUsi.map(_.usi),
         F.senteClockHistory  -> clockHistory(Sente, o.clockHistory, o.shogi.clock, o.flagged),
         F.goteClockHistory   -> clockHistory(Gote, o.clockHistory, o.shogi.clock, o.flagged),
         F.periodsSente       -> periodEntries(Sente, o.clockHistory),
@@ -166,6 +171,7 @@ object BSONHandlers {
         F.bookmarks          -> w.intO(o.bookmarks),
         F.createdAt          -> w.date(o.createdAt),
         F.movedAt            -> w.date(o.movedAt),
+        F.pausedSeconds      -> o.pausedSeconds,
         F.lastLionCapture    -> o.history.lastLionCapture.map(_.key),
         F.consecutiveAttacks -> o.history.consecutiveAttacks,
         F.source             -> o.metadata.source.map(_.id),

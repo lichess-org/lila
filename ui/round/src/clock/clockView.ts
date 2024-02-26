@@ -13,7 +13,7 @@ export function renderClock(ctrl: RoundController, player: Player, position: Pos
     isPlayer = ctrl.data.player.color === player.color,
     usingByo = clock.isUsingByo(player.color),
     isRunning = player.color === clock.times.activeColor,
-    isOver = ctrl.data.game.status.id > 20;
+    isOver = ctrl.data.game.status.id > 20 && ctrl.data.game.status.name !== 'paused';
 
   const update = (el: HTMLElement) => {
     const els = clock.elements[player.color],

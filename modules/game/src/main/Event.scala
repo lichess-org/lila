@@ -241,6 +241,18 @@ object Event {
     override def owner = true
   }
 
+  case class PauseOffer(by: Option[Color]) extends Event {
+    def typ            = "reload"
+    def data           = reloadOr("pauseOffer", by)
+    override def owner = true
+  }
+
+  case class ResumeOffer(by: Option[Color]) extends Event {
+    def typ            = "reload"
+    def data           = reloadOr("resumeOffer", by)
+    override def owner = true
+  }
+
   case class Crowd(
       sente: Boolean,
       gote: Boolean,

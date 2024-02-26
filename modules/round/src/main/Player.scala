@@ -3,22 +3,23 @@ package lila.round
 import shogi.format.usi.Usi
 import shogi.{ Centis, MoveMetrics, Status }
 
-import actorApi.round.{ DrawNo, ForecastPlay, HumanPlay, TakebackNo, TooManyPlies }
-import lila.game.actorApi.MoveGameEvent
+import actorApi.round.{ DrawNo, ForecastPlay, HumanPlay, PauseNo, TakebackNo, TooManyPlies }
+import lila.game.actorApi.{ MoveGameEvent, PauseGame }
 import lila.common.Bus
-import lila.game.{ Game, Pov, Progress }
+import lila.game.{ Game, GameRepo, Pov, Progress }
 import lila.game.Game.PlayerId
 import cats.data.Validated
 
 final private class Player(
     fishnetPlayer: lila.fishnet.Player,
+    gameRepo: GameRepo,
     finisher: Finisher,
     scheduleExpiration: ScheduleExpiration
 )(implicit ec: scala.concurrent.ExecutionContext) {
 
-  sealed private trait MoveResult
-  private case object Flagged                        extends MoveResult
-  private case class MoveApplied(progress: Progress) extends MoveResult
+  sealed private trait UsiResult
+  private case object Flagged                       extends UsiResult
+  private case class UsiApplied(progress: Progress) extends UsiResult
 
   private[round] def human(play: HumanPlay, round: RoundDuct)(
       pov: Pov
@@ -35,11 +36,12 @@ final private class Player(
               .fold(errs => fufail(ClientError(errs.toString)), fuccess)
               .flatMap {
                 case Flagged => finisher.outOfTime(game)
-                case MoveApplied(progress) =>
+                case UsiApplied(progress) =>
                   proxy.save(progress) >>
                     postHumanOrBotPlay(round, pov, progress, usi)
               }
           case Pov(game, _) if game.finished           => fufail(ClientError(s"$pov game is finished"))
+          case Pov(game, _) if game.paused             => fufail(ClientError(s"$pov game is paused"))
           case Pov(game, _) if game.aborted            => fufail(ClientError(s"$pov game is aborted"))
           case Pov(game, color) if !game.turnOf(color) => fufail(ClientError(s"$pov not your turn"))
           case _ => fufail(ClientError(s"$pov move refused for some reason"))
@@ -56,7 +58,7 @@ final private class Player(
           .fold(errs => fufail(ClientError(errs.toString)), fuccess)
           .flatMap {
             case Flagged => finisher.outOfTime(game)
-            case MoveApplied(progress) =>
+            case UsiApplied(progress) =>
               proxy.save(progress) >> postHumanOrBotPlay(round, pov, progress, usi)
           }
       case Pov(game, _) if game.finished           => fufail(ClientError(s"$pov game is finished"))
@@ -71,12 +73,15 @@ final private class Player(
       progress: Progress,
       usi: Usi
   )(implicit proxy: GameProxy): Fu[Events] = {
-    notifyMove(usi, progress.game)
+    if (progress.game.paused) notifyOfPausedGame(usi, progress.game)
+    else notifyMove(usi, progress.game)
+
     if (progress.game.finished) moveFinish(progress.game) dmap { progress.events ::: _ }
     else {
       if (progress.game.playableByAi) requestFishnet(progress.game, round)
       if (pov.opponent.isOfferingDraw) round ! DrawNo(PlayerId(pov.player.id))
       if (pov.player.isProposingTakeback) round ! TakebackNo(PlayerId(pov.player.id))
+      if (pov.player.isOfferingPause) round ! PauseNo(PlayerId(pov.player.id))
       if (progress.game.forecastable) round ! ForecastPlay(usi)
       scheduleExpiration(progress.game)
       fuccess(progress.events)
@@ -89,7 +94,7 @@ final private class Player(
         .fold(errs => fufail(ClientError(errs.toString)), fuccess)
         .flatMap {
           case Flagged => finisher.outOfTime(game)
-          case MoveApplied(progress) =>
+          case UsiApplied(progress) =>
             proxy.save(progress) >>-
               notifyMove(usi, progress.game) >> {
                 if (progress.game.finished) moveFinish(progress.game) dmap { progress.events ::: _ }
@@ -119,13 +124,19 @@ final private class Player(
       usi: Usi,
       blur: Boolean,
       metrics: MoveMetrics
-  ): Validated[String, MoveResult] =
+  ): Validated[String, UsiResult] =
     game.shogi(usi, metrics) map { nsg =>
       if (nsg.clock.exists(_.outOfTime(game.turnColor, withGrace = false))) Flagged
-      else MoveApplied(game.update(nsg, usi, blur))
+      else if (game.prePaused && !nsg.situation.end(withImpasse = true))
+        UsiApplied(game.pauseAndSealUsi(usi, nsg, blur))
+      else UsiApplied(game.applyGame(nsg, blur))
     }
 
-  private def notifyMove(usi: Usi, game: Game): Unit = {
+  private def notifyOfPausedGame(usi: Usi, game: Game): Funit = {
+    gameRepo.pause(game.id, usi).void >>- Bus.publish(PauseGame(game), "pauseGame")
+  }
+
+  private[round] def notifyMove(usi: Usi, game: Game): Unit = {
     import lila.hub.actorApi.round.{ CorresMoveEvent, MoveEvent, SimulMoveEvent }
     val color = !game.situation.color
     val moveEvent = MoveEvent(

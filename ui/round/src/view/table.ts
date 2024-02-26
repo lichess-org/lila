@@ -9,6 +9,7 @@ import renderCorresClock from '../corresClock/corresClockView';
 import RoundController from '../ctrl';
 import { Position } from '../interfaces';
 import * as button from './button';
+import * as suggestion from './suggestions';
 import renderExpiration from './expiration';
 import * as replay from './replay';
 import * as renderUser from './user';
@@ -48,26 +49,36 @@ export const renderTableEnd = (ctrl: RoundController) => {
 
 export const renderTableWatch = (ctrl: RoundController) => {
   return renderTableWith(ctrl, [
-    isLoading(ctrl) ? loader() : game.playable(ctrl.data) ? undefined : button.watcherFollowUp(ctrl),
+    isLoading(ctrl) ? loader() : game.playableEvenPaused(ctrl.data) ? undefined : button.watcherFollowUp(ctrl),
   ]);
 };
 
 export const renderTablePlay = (ctrl: RoundController) => {
   const d = ctrl.data,
     loading = isLoading(ctrl),
-    submit = button.submitUsi(ctrl),
+    pausable = ctrl.showPauseButton(),
+    paused = pausable && (status.paused(ctrl.data) || status.prepaused(ctrl.data)),
+    submit = button.submitUsi(ctrl) || suggestion.sealedUsi(ctrl),
     icons =
-      loading || submit
+      loading || submit || paused
         ? []
         : [
             game.abortable(d)
               ? button.standard(ctrl, undefined, 'L', 'abortGame', 'abort')
               : button.standard(ctrl, game.takebackable, 'i', 'proposeATakeback', 'takeback-yes', ctrl.takebackYes),
-            ctrl.data.game.variant.key !== 'chushogi'
-              ? button.impasse(ctrl)
-              : ctrl.drawConfirm
+            ctrl.showImpasseButton() ? button.impasse(ctrl) : null,
+            ctrl.showDrawButton()
+              ? ctrl.drawConfirm
                 ? button.drawConfirm(ctrl)
-                : button.standard(ctrl, ctrl.canOfferDraw, '', 'offerDraw', 'draw-yes', () => ctrl.offerDraw(true)),
+                : button.standard(ctrl, ctrl.canOfferDraw, '', 'offerDraw', 'draw-yes', () => ctrl.offerDraw(true))
+              : null,
+            pausable
+              ? ctrl.pauseConfirm
+                ? button.pauseConfirm(ctrl)
+                : button.standard(ctrl, ctrl.canOfferPause, 'Z', 'offerAdjournment', 'pause-yes', () =>
+                    ctrl.offerPause(true)
+                  )
+              : null,
             ctrl.resignConfirm
               ? button.resignConfirm(ctrl)
               : button.standard(ctrl, game.resignable, 'b', 'resign', 'resign-confirm', () => ctrl.resign(true)),
@@ -78,10 +89,13 @@ export const renderTablePlay = (ctrl: RoundController) => {
       : submit
         ? [submit]
         : [
+            suggestion.impasse(ctrl),
+            button.resume(ctrl),
             button.opponentGone(ctrl),
-            button.impasseHelp(ctrl),
             button.cancelDrawOffer(ctrl),
+            button.cancelPauseOffer(ctrl),
             button.answerOpponentDrawOffer(ctrl),
+            button.answerOpponentPauseOffer(ctrl),
             button.cancelTakebackProposition(ctrl),
             button.answerOpponentTakebackProposition(ctrl),
           ];
@@ -93,7 +107,7 @@ export const renderTablePlay = (ctrl: RoundController) => {
         'div.ricons',
         {
           class: {
-            confirm: !!(ctrl.drawConfirm || ctrl.resignConfirm),
+            confirm: !!(ctrl.drawConfirm || ctrl.resignConfirm || ctrl.pauseConfirm),
             empty: icons.length === 0,
           },
         },
@@ -126,7 +140,7 @@ function whosTurn(ctrl: RoundController, color: Color, position: Position) {
 function anyClock(ctrl: RoundController, position: Position) {
   const player = ctrl.playerAt(position);
   if (ctrl.clock) return renderClock(ctrl, player, position);
-  else if (ctrl.data.correspondence && ctrl.data.game.plies > 1 && !(ctrl.data.game.status.id > 20))
+  else if (ctrl.data.correspondence && ctrl.data.game.plies > 1 && !(ctrl.data.game.status.id > 21))
     return renderCorresClock(ctrl.corresClock!, ctrl.trans, player.color, position, ctrl.data.game.player);
   else return whosTurn(ctrl, player.color, position);
 }
@@ -137,7 +151,7 @@ export const renderTable = (ctrl: RoundController): MaybeVNodes => [
   renderPlayer(ctrl, 'top'),
   ...(ctrl.data.player.spectator
     ? renderTableWatch(ctrl)
-    : game.playable(ctrl.data)
+    : game.playableEvenPaused(ctrl.data)
       ? renderTablePlay(ctrl)
       : renderTableEnd(ctrl)),
   renderPlayer(ctrl, 'bottom'),

@@ -35,7 +35,7 @@ final private[round] class Titivate(
   implicit def ec = context.system.dispatcher
   def scheduler   = context.system.scheduler
 
-  def scheduleNext(): Unit = scheduler.scheduleOnce(5 seconds, self, Run).unit
+  def scheduleNext(): Unit = scheduler.scheduleOnce(10 seconds, self, Run).unit
 
   def receive = {
     case ReceiveTimeout =>
@@ -86,7 +86,7 @@ final private[round] class Titivate(
     case Right(game) =>
       game match {
 
-        case game if game.finished || game.isNotationImport || game.playedThenAborted =>
+        case game if game.finished || game.isNotationImport || game.playedThenAborted || game.paused =>
           gameRepo unsetCheckAt game.id
 
         case game if game.outoftime(withGrace = true) =>

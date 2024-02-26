@@ -39,6 +39,7 @@ export interface Status {
 
 export type StatusName =
   | 'started'
+  | 'paused'
   | 'aborted'
   | 'mate'
   | 'resign'
@@ -68,6 +69,9 @@ export interface Player {
   proposingTakeback?: boolean;
   offeringRematch?: boolean;
   offeringDraw?: boolean;
+  offeringPause?: boolean;
+  offeringResume?: boolean;
+  sealedUsi?: Usi; // only for the player who played it
   ai: number | null;
   aiName: string | null;
   onGame: boolean;

@@ -124,11 +124,6 @@
         &.empty {
           display: none;
         }
-        &.confirm > button {
-          visibility: visible;
-          opacity: 0.5;
-          pointer-events: none;
-        }
       }
     }
 

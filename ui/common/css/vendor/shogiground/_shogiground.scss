@@ -79,6 +79,9 @@ sg-squares {
     &.force-selected:not(.selected) {
       animation: selected 1s ease-in-out infinite alternate;
     }
+    &.sealed {
+      background-color: rgba(20, 30, 85, 0.5);
+    }
   }
 }
 piece {

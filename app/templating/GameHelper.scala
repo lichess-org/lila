@@ -215,6 +215,7 @@ trait GameHelper {
       case S.Repetition => trans.repetition.txt()
       case S.Draw       => trans.draw.txt()
       case S.Outoftime  => trans.timeOut.txt()
+      case S.Paused     => trans.gameAdjourned.txt()
       case S.NoStart =>
         game.loserColor
           .map(l => transWithColorName(trans.xDidntMove, l, game.isHandicap))

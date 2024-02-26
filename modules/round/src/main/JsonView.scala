@@ -10,7 +10,7 @@ import lila.game.{ Game, Player => GamePlayer, Pov }
 import lila.pref.Pref
 import lila.user.{ User, UserRepo }
 
-import shogi.{ Clock, Color }
+import shogi.Clock
 
 import actorApi.SocketStatus
 
@@ -23,7 +23,8 @@ final class JsonView(
     moretimer: Moretimer,
     divider: lila.game.Divider,
     evalCache: lila.evalCache.EvalCacheApi,
-    isOfferingRematch: (Game.ID, Color) => Boolean,
+    isOfferingRematch: IsOfferingRematch,
+    isOfferingResume: IsOfferingResume,
     moretime: MoretimeDuration
 )(implicit ec: scala.concurrent.ExecutionContext) {
 
@@ -43,6 +44,8 @@ final class JsonView(
       .add("offeringRematch" -> isOfferingRematch(g.id, p.color))
       .add("offeringDraw" -> p.isOfferingDraw)
       .add("proposingTakeback" -> p.isProposingTakeback)
+      .add("offeringPause" -> p.isOfferingPause)
+      .add("offeringResume" -> g.paused ?? isOfferingResume(g.id, p.color))
       .add("berserk" -> p.berserk)
       .add("blurs" -> (withFlags.blurs ?? blurs(g, p)))
 
@@ -67,7 +70,12 @@ final class JsonView(
                 "id"      -> playerId,
                 "version" -> socket.version.value
               )
-            }.add("onGame" -> (player.isAi || socket.onGame(player.color))),
+            }
+              .add("onGame" -> (player.isAi || socket.onGame(player.color)))
+              .add(
+                "sealedUsi" -> (pov.game.paused && player.color == pov.game.turnColor) ?? pov.game.sealedUsi
+                  .map(_.usi)
+              ),
             "opponent" -> {
               commonPlayerJson(game, opponent, opponentUser, withFlags) ++ Json.obj(
                 "color"  -> opponent.color.name,

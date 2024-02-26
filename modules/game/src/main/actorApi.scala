@@ -13,6 +13,8 @@ case class FinishGame(
   def isVsSelf = sente.isDefined && sente == gote
 }
 
+case class PauseGame(game: Game)
+
 case class InsertGame(game: Game)
 
 case class AbortedBy(pov: Pov)

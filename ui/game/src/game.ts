@@ -4,6 +4,10 @@ import * as status from './status';
 export * from './interfaces';
 
 export function playable(data: GameData): boolean {
+  return data.game.status.id < status.ids.aborted && !imported(data) && !status.paused(data);
+}
+
+export function playableEvenPaused(data: GameData): boolean {
   return data.game.status.id < status.ids.aborted && !imported(data);
 }
 
@@ -51,6 +55,16 @@ export function takebackable(data: GameData): boolean {
 
 export function drawable(data: GameData): boolean {
   return playable(data) && data.game.plies >= 2 && !data.player.offeringDraw && !hasAi(data);
+}
+
+export function pausable(data: GameData): boolean {
+  return (
+    data.game.variant.key === 'chushogi' &&
+    playable(data) &&
+    data.game.plies >= 20 &&
+    !data.player.offeringPause &&
+    !hasAi(data)
+  );
 }
 
 export function resignable(data: GameData): boolean {

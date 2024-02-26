@@ -55,7 +55,11 @@ object side {
                     )
                 ),
                 game.notationImport.flatMap(_.date).map(frag(_)) getOrElse {
-                  frag(if (game.isBeingPlayed) trans.playingRightNow() else momentFromNow(game.createdAt))
+                  frag(
+                    if (game.isBeingPlayed) trans.playingRightNow()
+                    else if (game.paused) trans.gameAdjourned()
+                    else momentFromNow(game.createdAt)
+                  )
                 }
               ),
               game.notationImport.exists(_.date.isDefined) option small(

@@ -137,7 +137,7 @@ window.lishogi.RoundNVUI = function (redraw: Redraw) {
           h('h2', 'Actions'),
           ...(ctrl.data.player.spectator
             ? renderTableWatch(ctrl)
-            : game.playable(ctrl.data)
+            : game.playableEvenPaused(ctrl.data)
               ? renderTablePlay(ctrl)
               : renderTableEnd(ctrl)),
           h('h2', [NVUITrans('Board'), ' & ', NVUITrans('hands')]),

@@ -20,6 +20,7 @@ object GameFilter {
   case object Loss     extends GameFilter("loss")
   case object Draw     extends GameFilter("draw")
   case object Playing  extends GameFilter("playing")
+  case object Paused   extends GameFilter("paused")
   case object Bookmark extends GameFilter("bookmark")
   case object Imported extends GameFilter("import")
   case object Search   extends GameFilter("search")
@@ -38,7 +39,7 @@ object GameFilterMenu {
   import GameFilter._
 
   val all: NonEmptyList[GameFilter] =
-    NonEmptyList.of(All, Me, Rated, Win, Loss, Draw, Playing, Bookmark, Imported, Search)
+    NonEmptyList.of(All, Me, Rated, Win, Loss, Draw, Playing, Paused, Bookmark, Imported, Search)
 
   def apply(user: User, nbs: UserInfo.NbGames, currentName: String): GameFilterMenu = {
 
@@ -51,6 +52,7 @@ object GameFilterMenu {
         (user.count.loss > 0) option Loss,
         (user.count.draw > 0) option Draw,
         (nbs.playing > 0) option Playing,
+        (nbs.paused > 0) option Paused,
         (nbs.bookmark > 0) option Bookmark,
         (nbs.imported > 0) option Imported,
         (user.count.game > 0) option Search
@@ -81,6 +83,7 @@ object GameFilterMenu {
       case Draw     => user.count.draw.some
       case Search   => user.count.game.some
       case Playing  => nbs.map(_.playing)
+      case Paused   => nbs.map(_.paused)
       case _        => None
     }
 
@@ -130,6 +133,7 @@ object GameFilterMenu {
             .addEffect { p =>
               p.currentPageResults.filter(_.finishedOrAborted) foreach gameRepo.unsetPlayingUids
             }
+        case Paused => std(Query paused user.id)
         case Search => userGameSearch(user, page)
       }
     }

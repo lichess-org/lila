@@ -132,7 +132,12 @@
 	<string name="flipBoard">Flip board</string>
 	<string name="claimADraw">Claim a draw</string>
 	<string name="offerDraw">Offer draw</string>
+	<string name="offerAdjournment">Offer adjournment</string>
+	<string name="offerResumption">Offer resumption</string>
+	<string name="acceptResumption">Accept resumption</string>
 	<string name="draw">Draw</string>
+	<string name="gameAdjourned">Game was adjourned</string>
+	<string name="gameResumed">Game was resumed</string>
 	<plurals name="nbPlayers">
 		<item quantity="one">%s player</item>
 		<item quantity="other">%s players</item>
@@ -214,9 +219,22 @@
 	<string name="drawOfferDeclined">Draw offer declined</string>
 	<string name="drawOfferAccepted">Draw offer accepted</string>
 	<string name="drawOfferCanceled">Draw offer cancelled</string>
+	<string name="adjournmentOfferSent">Adjournment offer sent</string>
+	<string name="adjournmentOfferCanceled">Adjournment offer cancelled</string>
+	<string name="adjournmentOfferAccepted">Adjournment offer accepted</string>
+	<string name="resumptionOfferSent">Resumption offer sent</string>
+	<string name="resumptionOfferCanceled">Resumption offer cancelled</string>
 	<string name="xOffersDraw" comment="%s - sente(black)/gote(white)">%s offers draw</string>
 	<string name="xDeclinesDraw" comment="%s - sente(black)/gote(white)">%s declines draw</string>
 	<string name="yourOpponentOffersADraw">Your opponent offers a draw</string>
+	<string name="xOffersAdjournment" comment="%s - sente(black)/gote(white)">%s offers adjournment</string>
+	<string name="xDeclinesAdjournment" comment="%s - sente(black)/gote(white)">%s declines adjournment</string>
+	<string name="yourOpponentOffersAnAdjournment">Your opponent offers an adjournment</string>
+	<string name="xOffersResumption" comment="%s - sente(black)/gote(white)">%s proposes resumption</string>
+	<string name="xDeclinesResumption" comment="%s - sente(black)/gote(white)">%s declines resumption</string>
+	<string name="yourOpponentProposesResumption">Your opponent proposes resumption</string>
+	<string name="makeASealedMove">Make a move, that will be played after the game is resumed</string>
+	<string name="waitingForASealedMove">Waiting for the opponent to make a sealed move</string>
 	<string name="accept">Accept</string>
 	<string name="decline">Decline</string>
 	<string name="playingRightNow">Playing right now</string>
@@ -290,6 +308,10 @@
 	<plurals name="nbPlaying">
 		<item quantity="one">%s playing</item>
 		<item quantity="other">%s playing</item>
+	</plurals>
+	<plurals name="nbAdjourned" comment="Paused games">
+		<item quantity="one">%s adjourned</item>
+		<item quantity="other">%s adjourned</item>
 	</plurals>
 	<string name="exportGames">Export games</string>
 	<string name="export">Export</string>
@@ -581,7 +603,9 @@
 	<string name="xAnsweredY">%1$s answered %2$s</string>
 	<string name="xCommentedY">%1$s commented %2$s</string>
 	<string name="victory">Victory</string>
+	<string name="youWon">You won</string>
 	<string name="defeat">Defeat</string>
+	<string name="youLost">You lost</string>
 	<string name="victoryVsYInZ">%1$s vs %2$s in %3$s</string>
 	<string name="defeatVsYInZ">%1$s vs %2$s in %3$s</string>
 	<string name="drawVsYInZ">%1$s vs %2$s in %3$s</string>

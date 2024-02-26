@@ -6,6 +6,8 @@ export default function status(trans: Trans, status: Status, winner: Color | und
   switch (status.name) {
     case 'started':
       return noarg('playingRightNow');
+    case 'paused':
+      return noarg('gameAdjourned');
     case 'aborted':
       return noarg('gameAborted');
     case 'mate':

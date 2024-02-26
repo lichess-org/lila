@@ -13,7 +13,7 @@ object jsI18n {
         if (g.isCorrespondence) correspondenceTranslations
         else realtimeTranslations
       } ++ {
-        !g.variant.standard ?? variantTranslations
+        g.variant.chushogi ?? chushogiTranslations
       } ++ {
         g.isTournament ?? tournamentTranslations
       }
@@ -27,8 +27,19 @@ object jsI18n {
 
   private val realtimeTranslations = Vector(trans.nbSecondsToPlayTheFirstMove).map(_.key)
 
-  private val variantTranslations = Vector(
-    trans.variantEnding
+  private val chushogiTranslations = Vector(
+    trans.royalsLost,
+    trans.bareKing,
+    trans.gameAdjourned,
+    trans.offerAdjournment,
+    trans.adjournmentOfferSent,
+    trans.yourOpponentOffersAnAdjournment,
+    trans.offerResumption,
+    trans.acceptResumption,
+    trans.resumptionOfferSent,
+    trans.yourOpponentProposesResumption,
+    trans.makeASealedMove,
+    trans.waitingForASealedMove
   ).map(_.key)
 
   private val tournamentTranslations = Vector(
@@ -68,8 +79,6 @@ object jsI18n {
     trans.checkmate,
     trans.xResigned,
     trans.stalemate,
-    trans.royalsLost,
-    trans.bareKing,
     trans.check,
     trans.repetition,
     trans.perpetualCheck,
@@ -78,6 +87,7 @@ object jsI18n {
     trans.draw,
     trans.impasse,
     trans.timeOut,
+    trans.variantEnding,
     trans.xIsVictorious,
     trans.withdraw,
     trans.rematch,

@@ -26,6 +26,10 @@ object Query {
 
   val playable: Bdoc = F.status $lt Status.Aborted.id
 
+  val paused: Bdoc = F.status $eq Status.Paused.id
+
+  def paused(u: String): Bdoc = user(u) ++ paused
+
   val mate: Bdoc = status(Status.Mate)
 
   def draw(u: String): Bdoc = user(u) ++ finished ++ F.winnerId.$exists(false)

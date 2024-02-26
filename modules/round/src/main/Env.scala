@@ -150,6 +150,10 @@ final class Env(
 
   private lazy val drawer = wire[Drawer]
 
+  private lazy val pauser: Pauser = wire[Pauser]
+
+  lazy val isOfferingResume = new IsOfferingResume(pauser.isOfferingResume)
+
   lazy val messenger = wire[Messenger]
 
   lazy val getSocketStatus = (game: Game) => roundSocket.rounds.ask[SocketStatus](game.id)(GetSocketStatus)

@@ -1,7 +1,6 @@
 import { modal } from 'common/modal';
 import { MaybeVNode, MaybeVNodes, onInsert } from 'common/snabbdom';
 import spinner from 'common/spinner';
-import { impasseInfo } from 'common/impasse';
 import * as game from 'game';
 import { game as gameRoute } from 'game/router';
 import * as status from 'game/status';
@@ -300,6 +299,59 @@ function rematchButtons(ctrl: RoundController): MaybeVNodes {
   ];
 }
 
+export function resume(ctrl: RoundController): MaybeVNode {
+  if (!status.paused(ctrl.data)) return null;
+  const d = ctrl.data,
+    me = !!d.player.offeringResume,
+    them = !!d.opponent.offeringResume,
+    noarg = ctrl.noarg;
+  return h('div.resume-button', [
+    them
+      ? h(
+          'button.resume-decline',
+          {
+            attrs: {
+              'data-icon': 'L',
+              title: noarg('decline'),
+            },
+            hook: util.bind('click', () => {
+              ctrl.socket.send('resume-no');
+            }),
+          },
+          ctrl.nvui ? noarg('decline') : ''
+        )
+      : null,
+    h(
+      'button.fbt.resume.sente',
+      {
+        class: {
+          me,
+          glowing: them,
+          disabled: !me && !(d.opponent.onGame || (!d.clock && d.player.user && d.opponent.user)),
+        },
+        attrs: {
+          title: them ? noarg('yourOpponentProposesResumption') : me ? noarg('resumptionOfferSent') : '',
+        },
+        hook: util.bind(
+          'click',
+          () => {
+            const d = ctrl.data;
+            if (d.player.offeringResume) {
+              d.player.offeringResume = false;
+              ctrl.socket.send('resume-no');
+            } else if (d.opponent.onGame) {
+              d.player.offeringResume = true;
+              ctrl.socket.send('resume-yes');
+            }
+          },
+          ctrl.redraw
+        ),
+      },
+      [me ? spinner() : h('span', noarg(them ? 'acceptResumption' : 'offerResumption'))]
+    ),
+  ]);
+}
+
 export function standard(
   ctrl: RoundController,
   condition: ((d: RoundData) => boolean) | undefined,
@@ -328,7 +380,6 @@ export function standard(
 }
 
 export function impasse(ctrl: RoundController): MaybeVNode {
-  if (ctrl.nvui) return undefined;
   return h(
     'button.fbt.impasse',
     {
@@ -398,8 +449,20 @@ export function drawConfirm(ctrl: RoundController): VNode {
   return actConfirm(ctrl, ctrl.offerDraw, 'offerDraw', '', 'draw-yes');
 }
 
+export function pauseConfirm(ctrl: RoundController): VNode {
+  return actConfirm(ctrl, ctrl.offerPause, 'offerAdjournment', 'Z', 'pause-yes');
+}
+
 export function cancelDrawOffer(ctrl: RoundController) {
   return ctrl.data.player.offeringDraw ? h('div.pending', [h('p', ctrl.noarg('drawOfferSent'))]) : null;
+}
+
+export function cancelPauseOffer(ctrl: RoundController) {
+  return ctrl.data.player.offeringPause ? h('div.pending', [h('p', ctrl.noarg('adjournmentOfferSent'))]) : null;
+}
+
+export function cancelResumeOffer(ctrl: RoundController) {
+  return ctrl.data.player.offeringResume ? h('div.pending', [h('p', ctrl.noarg('resumptionOfferSent'))]) : null;
 }
 
 export function answerOpponentDrawOffer(ctrl: RoundController) {
@@ -412,43 +475,14 @@ export function answerOpponentDrawOffer(ctrl: RoundController) {
     : null;
 }
 
-export function impasseHelp(ctrl: RoundController) {
-  if (!ctrl.impasseHelp) return null;
-
-  const lastStep = ctrl.data.steps[ctrl.data.steps.length - 1],
-    rules = ctrl.data.game.variant.key,
-    initialSfen = ctrl.data.game.initialSfen,
-    i = impasseInfo(rules, lastStep.sfen, initialSfen);
-
-  if (!i) return null;
-
-  return h('div.suggestion', [
-    h(
-      'h5',
-      {
-        hook: onSuggestionHook,
-      },
-      [ctrl.noarg('impasse'), h('a.q-explanation', { attrs: { href: '/page/impasse', target: '_blank' } }, '?')]
-    ),
-    h('div.impasse', [
-      h(
-        'div.color-icon.sente',
-        h('ul.impasse-list', [
-          h('li', [ctrl.noarg('enteringKing') + ': ', i.sente.king ? h('span.good', '✓') : '✗']),
-          h('li', [ctrl.noarg('invadingPieces') + ': ', i.sente.nbOfPieces + '/10']),
-          h('li', [ctrl.noarg('totalImpasseValue') + ': ', i.sente.pieceValue + '/28']),
-        ])
-      ),
-      h(
-        'div.color-icon.gote',
-        h('ul.impasse-list', [
-          h('li', [ctrl.noarg('enteringKing') + ': ', i.gote.king ? h('span.good', '✓') : '✗']),
-          h('li', [ctrl.noarg('invadingPieces') + ': ', i.gote.nbOfPieces + '/10']),
-          h('li', [ctrl.noarg('totalImpasseValue') + ': ', i.gote.pieceValue + '/27']),
-        ])
-      ),
-    ]),
-  ]);
+export function answerOpponentPauseOffer(ctrl: RoundController) {
+  return ctrl.data.opponent.offeringPause
+    ? h('div.negotiation.pause', [
+        h('p', ctrl.noarg('yourOpponentOffersAnAdjournment')),
+        acceptButton(ctrl, 'pause-yes', () => ctrl.socket.sendLoading('pause-yes')),
+        declineButton(ctrl, () => ctrl.socket.sendLoading('pause-no')),
+      ])
+    : null;
 }
 
 export function cancelTakebackProposition(ctrl: RoundController) {
@@ -546,7 +580,7 @@ export function backToTournament(ctrl: RoundController): VNode | undefined {
               action: '/tournament/' + d.tournament.id + '/withdraw',
             },
           },
-          [h('button.text.fbt.weak', util.justIcon('Z'), 'Pause')]
+          [h('button.text.fbt.weak', util.justIcon('Z'), ctrl.trans.noargOrCapitalize('pause'))]
         ),
         analysisButton(ctrl),
       ])

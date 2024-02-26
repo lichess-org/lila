@@ -32,6 +32,10 @@ final private class CorresAlarm(
 
   system.scheduler.scheduleOnce(10 seconds) { scheduleNext() }
 
+  Bus.subscribeFun("pauseGame") { case lila.game.actorApi.PauseGame(game) =>
+    if (game.hasCorrespondenceClock && !game.hasAi) coll.delete.one($id(game.id)).unit
+  }
+
   Bus.subscribeFun("finishGame") { case lila.game.actorApi.FinishGame(game, _, _) =>
     if (game.hasCorrespondenceClock && !game.hasAi) coll.delete.one($id(game.id)).unit
   }

@@ -1,4 +1,5 @@
 import { h } from 'snabbdom';
+import * as status from 'game/status';
 import { Millis } from '../clock/clockCtrl';
 import { Position } from '../interfaces';
 import { moretime } from '../view/button';
@@ -52,7 +53,7 @@ export default function (
     {
       class: {
         outoftime: millis <= 0,
-        running: runningColor === color,
+        running: runningColor === color && !status.paused(ctrl.root.data),
       },
     },
     [

@@ -289,6 +289,41 @@ final class GameRepo(val coll: Coll)(implicit ec: scala.concurrent.ExecutionCont
 
   private def holdAlertField(color: Color) = s"p${color.fold(0, 1)}.${Player.BSONFields.holdAlert}"
 
+  def pause(id: ID, sealedUsi: shogi.format.usi.Usi) =
+    coll.update.one(
+      $id(id),
+      nonEmptyMod(
+        "$set",
+        $doc(
+          F.status    -> Status.Paused.id,
+          F.sealedUsi -> sealedUsi.usi
+        )
+      ) ++ $doc(
+        "$unset" -> $doc(
+          F.checkAt     -> true,
+          F.playingUids -> true
+        )
+      )
+    )
+
+  def resume(id: ID, pausedSeconds: Option[Int], userIds: List[User.ID]) =
+    coll.update.one(
+      $id(id),
+      nonEmptyMod(
+        "$set",
+        $doc(
+          F.status        -> Status.Started.id,
+          F.checkAt       -> DateTime.now.plusHours(1),
+          F.playingUids   -> (userIds.nonEmpty).option(userIds),
+          F.pausedSeconds -> pausedSeconds
+        )
+      ) ++ $doc(
+        "$unset" -> $doc(
+          F.sealedUsi -> true
+        )
+      )
+    )
+
   private val finishUnsets = $doc(
     F.positionHashes                              -> true,
     F.playingUids                                 -> true,
@@ -298,6 +333,8 @@ final class GameRepo(val coll: Coll)(implicit ec: scala.concurrent.ExecutionCont
     ("p1." + Player.BSONFields.lastDrawOffer)     -> true,
     ("p0." + Player.BSONFields.isOfferingDraw)    -> true,
     ("p1." + Player.BSONFields.isOfferingDraw)    -> true,
+    ("p0." + Player.BSONFields.isOfferingPause)   -> true,
+    ("p1." + Player.BSONFields.isOfferingPause)   -> true,
     ("p0." + Player.BSONFields.proposeTakebackAt) -> true,
     ("p1." + Player.BSONFields.proposeTakebackAt) -> true
   )

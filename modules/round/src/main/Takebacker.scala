@@ -2,14 +2,13 @@ package lila.round
 
 import shogi.Color
 import lila.common.Bus
-import lila.game.{ Event, Game, GameRepo, Pov, Progress, Rewind }
+import lila.game.{ Event, Game, Pov, Progress, Rewind }
 import lila.pref.{ Pref, PrefApi }
 import lila.i18n.{ defaultLang, I18nKeys => trans }
 import RoundDuct.TakebackSituation
 
 final private class Takebacker(
     messenger: Messenger,
-    gameRepo: GameRepo,
     prefApi: PrefApi
 )(implicit ec: scala.concurrent.ExecutionContext) {
 
@@ -89,7 +88,7 @@ final private class Takebacker(
       )
 
   private def IfAllowed[A](game: Game)(f: => Fu[A]): Fu[A] =
-    if (!game.playable) fufail(ClientError("[takebacker] game is over " + game.id))
+    if (!game.playable) fufail(ClientError("[takebacker] game is over or paused" + game.id))
     else if (game.isMandatory) fufail(ClientError("[takebacker] game disallows it " + game.id))
     else
       isAllowedByPrefs(game) flatMap {

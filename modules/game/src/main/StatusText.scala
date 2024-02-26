@@ -10,6 +10,7 @@ object StatusText {
   def apply(status: Status, win: Option[Color], variant: Variant): String =
     status match {
       case Aborted                                 => "Game was aborted."
+      case Paused                                  => "Game was adjourned."
       case Mate                                    => s"${winner(win)} wins by checkmate."
       case Resign                                  => s"${loser(win)} resigns."
       case UnknownFinish                           => s"${winner(win)} wins."

@@ -263,6 +263,7 @@ trait UserHelper { self: I18nHelper with StringHelper with NumberHelper with Dat
       case GameFilter.Loss     => trans.nbLosses.pluralSameTxt(u.count.loss)
       case GameFilter.Draw     => trans.nbDraws.pluralSameTxt(u.count.draw)
       case GameFilter.Playing  => trans.nbPlaying.pluralSameTxt(nbs.playing)
+      case GameFilter.Paused   => trans.nbAdjourned.pluralSameTxt(nbs.paused)
       case GameFilter.Bookmark => trans.nbBookmarks.pluralSameTxt(nbs.bookmark)
       case GameFilter.Imported => trans.nbImportedGames.pluralSameTxt(nbs.imported)
       case GameFilter.Search   => trans.search.advancedSearch.txt()

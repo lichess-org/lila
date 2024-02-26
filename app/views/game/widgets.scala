@@ -61,6 +61,7 @@ object widgets {
           ),
           div(cls := "result")(
             if (g.isBeingPlayed) trans.playingRightNow()
+            else if (g.paused) trans.gameAdjourned()
             else {
               if (g.finishedOrAborted)
                 span(cls := g.winner.flatMap(w => fromPlayer.map(p => if (p == w) "win" else "loss")))(

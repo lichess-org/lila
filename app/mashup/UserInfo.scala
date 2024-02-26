@@ -84,6 +84,7 @@ object UserInfo {
   case class NbGames(
       crosstable: Option[Crosstable.WithMatchup],
       playing: Int,
+      paused: Int,
       imported: Int,
       bookmark: Int
   ) {
@@ -100,12 +101,14 @@ object UserInfo {
         crosstableApi.withMatchup(me.id, u.id) dmap some
       }).mon(_.user segment "crosstable") zip
         gameCached.nbPlaying(u.id).mon(_.user segment "nbPlaying") zip
+        gameCached.nbPaused(u.id).mon(_.user segment "nbPaused") zip
         gameCached.nbImportedBy(u.id).mon(_.user segment "nbImported") zip
         bookmarkApi.countByUser(u).mon(_.user segment "nbBookmarks") dmap {
-          case (((crosstable, playing), imported), bookmark) =>
+          case ((((crosstable, playing), paused), imported), bookmark) =>
             NbGames(
               crosstable,
               playing = playing,
+              paused = paused,
               imported = imported,
               bookmark = bookmark
             )

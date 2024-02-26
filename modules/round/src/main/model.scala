@@ -28,3 +28,8 @@ final class IsOfferingRematch(f: (Game.ID, shogi.Color) => Boolean)
     extends ((Game.ID, shogi.Color) => Boolean) {
   def apply(g: Game.ID, c: shogi.Color) = f(g, c)
 }
+
+final class IsOfferingResume(f: (Game.ID, shogi.Color) => Boolean)
+    extends ((Game.ID, shogi.Color) => Boolean) {
+  def apply(g: Game.ID, c: shogi.Color) = f(g, c)
+}

@@ -42,24 +42,35 @@ function plyOffset(ctrl: RoundController): number {
 }
 
 export function renderResult(ctrl: RoundController): VNode | undefined {
-  if (status.finished(ctrl.data) || status.aborted(ctrl.data)) {
+  if (status.finished(ctrl.data) || status.aborted(ctrl.data) || status.paused(ctrl.data)) {
     const winner = ctrl.data.game.winner,
+      spectator = !ctrl.data.player.spectator,
       handicap = isHandicap({ rules: ctrl.data.game.variant.key, sfen: ctrl.data.game.initialSfen });
-    return h('div.result-wrap', [
-      h(
-        'p.status',
-        {
-          hook: util.onInsert(() => {
-            if (ctrl.autoScroll) ctrl.autoScroll();
-            else setTimeout(() => ctrl.autoScroll(), 200);
-          }),
+
+    return h(
+      'div.result-wrap',
+      {
+        class: {
+          victorious: spectator && !!winner && winner === ctrl.data.player.color,
+          defeated: spectator && !!winner && winner !== ctrl.data.player.color,
         },
-        [
-          viewStatus(ctrl.trans, ctrl.data.game.status, ctrl.data.game.winner, handicap),
-          winner ? ' - ' + transWithColorName(ctrl.trans, 'xIsVictorious', winner, handicap) : '',
-        ]
-      ),
-    ]);
+      },
+      [
+        h(
+          'p.status',
+          {
+            hook: util.onInsert(() => {
+              if (ctrl.autoScroll) ctrl.autoScroll();
+              else setTimeout(() => ctrl.autoScroll(), 200);
+            }),
+          },
+          [
+            viewStatus(ctrl.trans, ctrl.data.game.status, ctrl.data.game.winner, handicap),
+            winner ? ' - ' + transWithColorName(ctrl.trans, 'xIsVictorious', winner, handicap) : '',
+          ]
+        ),
+      ]
+    );
   }
   return;
 }

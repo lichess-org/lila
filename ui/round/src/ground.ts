@@ -20,7 +20,8 @@ export function makeConfig(ctrl: RoundController): Config {
     step = plyStep(data, ctrl.ply),
     playing = ctrl.isPlaying(),
     posRes = playing ? parseSfen(variant, step.sfen, false) : undefined,
-    splitSfen = step.sfen.split(' ');
+    splitSfen = step.sfen.split(' '),
+    sealedUsi = data.player.sealedUsi && usiToSquareNames(data.player.sealedUsi);
   return {
     sfen: { board: splitSfen[0], hands: splitSfen[2] },
     orientation: boardOrientation(data, ctrl.flip),
@@ -121,7 +122,7 @@ export function makeConfig(ctrl: RoundController): Config {
     },
     drawable: {
       enabled: true,
-      squares: [],
+      squares: sealedUsi ? sealedUsi.map(s => ({ key: s, className: 'sealed' })) : [],
     },
   };
 }

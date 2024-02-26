@@ -54,6 +54,10 @@
         font-weight: bold;
       }
     }
+    .sealed-move {
+      font-size: 1.1rem;
+      padding: 2rem 1rem;
+    }
   }
   .pending {
     @extend %flex-center-nowrap;
@@ -169,7 +173,8 @@
       order: 1;
     }
   }
-  .rematch {
+  .rematch,
+  .resume {
     &.fbt {
       @extend %metal;
       font-size: 1.2em;
@@ -209,6 +214,19 @@
       animation: none;
     }
   }
+  .resume-button {
+    position: relative;
+    .fbt.resume {
+      width: 100%;
+      .spinner {
+        width: 45px;
+        height: 55px;
+        path {
+          stroke: white;
+        }
+      }
+    }
+  }
   @keyframes button-glowing {
     0% {
       opacity: 0;
@@ -242,6 +260,7 @@
     }
   }
   .rematch-decline,
+  .resume-decline,
   .post-game-study-decline {
     @extend %flex-center-nowrap, %box-radius-right, %box-shadow;
     background: $c-bg-zebra;

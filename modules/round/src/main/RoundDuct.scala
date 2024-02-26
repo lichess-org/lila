@@ -355,6 +355,18 @@ final private[round] class RoundDuct(
       }
     case TooManyPlies => handle(drawer force _)
 
+    case PauseYes(playerId) => handle(playerId)(pauser.yes)
+    case PauseNo(playerId)  => handle(playerId)(pauser.no)
+
+    case ResumeYes(playerId) =>
+      handle(playerId) { pov =>
+        getPlayer(!pov.color).isOnline ?? {
+          val res = pauser.resumeYes(pov)
+          res.map(_._1)
+        }
+      }
+    case ResumeNo(playerId) => handle(playerId)(pauser.resumeNo)
+
     case RematchYes(playerId) => handle(PlayerId(playerId))(rematcher.yes)
     case RematchNo(playerId)  => handle(PlayerId(playerId))(rematcher.no)
 
@@ -418,7 +430,7 @@ final private[round] class RoundDuct(
 
     case AbortForce =>
       handle { game =>
-        game.playable ?? finisher.other(game, _.Aborted, None)
+        game.playableEvenPaused ?? finisher.other(game, _.Aborted, None)
       }
 
     case BotConnected(color, v) =>
@@ -572,6 +584,7 @@ object RoundDuct {
       val rematcher: Rematcher,
       val player: Player,
       val drawer: Drawer,
+      val pauser: Pauser,
       val forecastApi: ForecastApi,
       val isSimulHost: IsSimulHost
   )

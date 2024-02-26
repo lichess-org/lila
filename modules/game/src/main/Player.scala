@@ -17,6 +17,7 @@ case class Player(
     isOfferingDraw: Boolean = false,
     lastDrawOffer: Option[Int] = None,
     proposeTakebackAt: Int = 0, // ply when takeback was proposed
+    isOfferingPause: Boolean = false,
     userId: Player.UserId = None,
     rating: Option[Int] = None,
     ratingDiff: Option[Int] = None,
@@ -59,10 +60,15 @@ case class Player(
       isOfferingDraw = true,
       lastDrawOffer = Some(turn)
     )
-
   def removeDrawOffer = copy(isOfferingDraw = false)
 
   def proposeTakeback(ply: Int) = copy(proposeTakebackAt = ply)
+
+  def offerPause =
+    copy(
+      isOfferingPause = true
+    )
+  def removePauseOffer = copy(isOfferingPause = false)
 
   def removeTakebackProposition = copy(proposeTakebackAt = 0)
 
@@ -89,6 +95,10 @@ case class Player(
   def stableRating = rating ifFalse provisional
 
   def stableRatingAfter = stableRating map (_ + ~ratingDiff)
+
+  def addBlurs(move: Int) = copy(
+    blurs = blurs.add(move)
+  )
 }
 
 object Player {
@@ -158,7 +168,7 @@ object Player {
   object BSONFields {
 
     val aiLevel           = "ai"
-    val aiEngine          = "et"
+    val aiEngine          = "a"
     val isOfferingDraw    = "od"
     val lastDrawOffer     = "ld"
     val proposeTakebackAt = "ta"
@@ -169,6 +179,7 @@ object Player {
     val holdAlert         = "h"
     val berserk           = "be"
     val name              = "na"
+    val isOfferingPause   = "po"
   }
 
   import reactivemongo.api.bson._
@@ -216,6 +227,7 @@ object Player {
                 isOfferingDraw = r boolD isOfferingDraw,
                 lastDrawOffer = r intO lastDrawOffer,
                 proposeTakebackAt = r intD proposeTakebackAt,
+                isOfferingPause = r boolD isOfferingPause,
                 userId = userId,
                 rating = r intO rating flatMap ratingRange(userId),
                 ratingDiff = r intO ratingDiff flatMap ratingDiffRange(userId),
@@ -232,6 +244,7 @@ object Player {
           aiEngine          -> p.aiEngine.map(_.code),
           isOfferingDraw    -> w.boolO(p.isOfferingDraw),
           lastDrawOffer     -> p.lastDrawOffer,
+          isOfferingPause   -> w.boolO(p.isOfferingPause),
           proposeTakebackAt -> w.intO(p.proposeTakebackAt),
           rating            -> p.rating,
           ratingDiff        -> p.ratingDiff,

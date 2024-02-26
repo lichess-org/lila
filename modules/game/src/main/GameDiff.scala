@@ -112,6 +112,7 @@ object GameDiff {
       val player: Game => Player = if (i == 0) (_.sentePlayer) else (_.gotePlayer)
       dOpt(s"$name$lastDrawOffer", player(_).lastDrawOffer, (l: Option[Int]) => l flatMap w.intO)
       dOpt(s"$name$isOfferingDraw", player(_).isOfferingDraw, w.boolO)
+      dOpt(s"$name$isOfferingPause", player(_).isOfferingPause, w.boolO)
       dOpt(s"$name$proposeTakebackAt", player(_).proposeTakebackAt, w.intO)
       dTry(s"$name$blursBits", player(_).blurs, Blurs.BlursBSONHandler.writeTry)
     }
