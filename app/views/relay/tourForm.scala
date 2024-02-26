@@ -187,7 +187,7 @@ Team Dogs ; Scooby Doo"""),
     form3.split(cls := "relay-form__grouping")(
       form3.group(
         form("grouping"),
-        "Optional: assign tournaments to a group (admins only)",
+        "Optional: assign tournaments to a group",
         half = true
       )(form3.textarea(_)(rows := 5)),
       div(cls := "form-group form-half form-help")( // do not translate

@@ -45,6 +45,9 @@ final private class RelayTourRepo(val coll: Coll)(using Executor):
   def idNames(ids: List[Id]): Fu[List[IdName]] =
     coll.byOrderedIds[IdName, Id](ids, $doc("name" -> true).some)(_.id)
 
+  def isOwnerOfAll(u: UserId, ids: List[Id]): Fu[Boolean] =
+    !coll.exists($doc($inIds(ids), "ownerId" $ne u))
+
 private object RelayTourRepo:
   object selectors:
     val official                = $doc("tier" $exists true)
