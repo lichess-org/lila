@@ -38,16 +38,13 @@ private class RelayTeams(val text: String):
 
   private def update(tags: Tags): Tags =
     chess.Color.all.foldLeft(tags): (tags, color) =>
-      tags
-        .fideIds(color)
-        .orElse(tags.names(color))
-        .flatMap(findMatching)
-        .fold(tags): team =>
-          tags + Tag(_.teams(color), team)
+      val found = tags.fideIds(color).flatMap(findMatching) orElse
+        tags.names(color).flatMap(findMatching)
+      found.fold(tags): team =>
+        tags + Tag(_.teams(color), team)
 
   private def findMatching(player: PlayerName | FideId): Option[TeamName] =
-    playerTeams.get(player) orElse
-      tokenizedPlayerTeams.get(tokenizePlayer(player))
+    playerTeams.get(player) orElse tokenizedPlayerTeams.get(tokenizePlayer(player))
 
 final class RelayTeamTable(chapterRepo: lila.study.ChapterRepo, cacheApi: lila.memo.CacheApi)(using Executor):
 
