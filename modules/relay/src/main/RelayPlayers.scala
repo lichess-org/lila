@@ -49,7 +49,7 @@ private class RelayPlayers(val text: String):
   // A B, A C, A D, B C, B D, C D, A B C, A B D, A C D, B C D
   private lazy val combinationPlayers: Map[RelayPlayer.Token, RelayPlayer] =
     tokenizedPlayers.flatMap: (fullToken, player) =>
-      val words = fullToken.split(' ').toList
+      val words = fullToken.split(' ').filter(_.sizeIs > 1).toList
       for
         size        <- 2 to words.length.atMost(4)
         combination <- words.combinations(size)
