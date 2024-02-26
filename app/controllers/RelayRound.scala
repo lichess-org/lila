@@ -225,7 +225,8 @@ final class RelayRound(
       create: => Fu[Result]
   )(using me: Me, req: RequestHeader): Fu[Result] =
     val cost =
-      if isGranted(_.Relay) then 2
+      if isGranted(_.StudyAdmin) then 1
+      else if isGranted(_.Relay) then 2
       else if me.hasTitle || me.isVerified then 5
       else 10
     CreateLimitPerUser(me, fail, cost = cost):

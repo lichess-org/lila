@@ -89,7 +89,7 @@ object tourForm:
     form3.globalError(form),
     form3.split(
       form3.group(form("name"), tournamentName(), half = true)(form3.input(_)(autofocus)),
-      isGranted(_.Relay) option form3.group(
+      isGranted(_.StudyAdmin) option form3.group(
         form("spotlight.title"),
         "Homepage spotlight custom tournament name",
         help = raw("Leave empty to use the tournament name").some,
@@ -163,24 +163,24 @@ Team Dogs ; Scooby Doo"""),
             help = raw("Feature on /broadcast - for admins only").some,
             half = true
           )(form3.select(_, RelayTour.Tier.options))
-        ),
-        form3.split(
-          form3.checkbox(
-            form("spotlight.enabled"),
-            "Show a homepage spotlight",
-            help = raw("As a Big Blue Button - for admins only").some,
-            half = true
-          ),
-          form3.group(
-            form("spotlight.lang"),
-            "Homepage spotlight language",
-            help = raw("Only show to users who speak this language. English is shown to everyone.").some,
-            half = true
-          ):
-            form3.select(_, lila.i18n.LangForm.popularLanguages.choices)
         )
       )
-    else form3.hidden(form("tier"))
+    else form3.hidden(form("tier")),
+    isGranted(_.StudyAdmin) option form3.split(
+      form3.checkbox(
+        form("spotlight.enabled"),
+        "Show a homepage spotlight",
+        help = raw("As a Big Blue Button - for admins only").some,
+        half = true
+      ),
+      form3.group(
+        form("spotlight.lang"),
+        "Homepage spotlight language",
+        help = raw("Only show to users who speak this language. English is shown to everyone.").some,
+        half = true
+      ):
+        form3.select(_, lila.i18n.LangForm.popularLanguages.choices)
+    )
   )
 
   def grouping(form: Form[Data])(using Context) =
