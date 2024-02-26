@@ -34,8 +34,20 @@ private class RelayPlayers(val text: String):
       val parse = parser.pick(lines.next)
       text.linesIterator.take(1000).toList.flatMap(parse).toMap
 
+  // With tokenized player names
   private lazy val tokenizedPlayers: Map[RelayPlayer.Token, RelayPlayer] =
     players.mapKeys(RelayPlayer.tokenize)
+
+  // With player names combinations.
+  // For example, if the tokenized player name is "A B C D", the combinations will be:
+  // A B, A C, A D, B C, B D, C D, A B C, A B D, A C D, B C D
+  private lazy val combinationPlayers: Map[RelayPlayer.Token, RelayPlayer] =
+    tokenizedPlayers.flatMap: (fullToken, player) =>
+      val words = fullToken.split(' ').toList
+      for
+        size        <- 2 to words.length.atMost(4)
+        combination <- words.combinations(size)
+      yield combination.mkString(" ") -> player
 
   private object parser:
     def pick(line: String) = if line.contains(';') then parser.v1 else parser.v2
@@ -79,4 +91,6 @@ private class RelayPlayers(val text: String):
               ).flatten
 
   private def findMatching(name: PlayerName): Option[RelayPlayer] =
-    players.get(name) orElse tokenizedPlayers.get(RelayPlayer.tokenize(name))
+    players.get(name) orElse:
+      val token = RelayPlayer.tokenize(name)
+      tokenizedPlayers.get(token) orElse combinationPlayers.get(token)
