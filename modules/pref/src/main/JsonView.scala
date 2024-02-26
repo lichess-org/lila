@@ -26,6 +26,7 @@ object JsonView:
       "animation"     -> p.animation,
       "captured"      -> p.captured,
       "follow"        -> p.follow,
+      "spectate"      -> p.spectate,
       "highlight"     -> p.highlight,
       "destination"   -> p.destination,
       "coords"        -> p.coords,

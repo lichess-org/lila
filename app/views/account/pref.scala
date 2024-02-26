@@ -211,6 +211,11 @@ object pref:
               trans.shareYourInsightsData(),
               radios(form("insightShare"), translatedInsightShareChoices),
               "shareYourInsightsData"
+            ),
+            setting(
+              trans.appearToOtherUsersWhileSpectating(),
+              radios(form("spectate"), booleanChoices),
+              "appearToOtherUsersWhileSpectating"
             )
           ),
           p(cls := "saved text none", dataIcon := licon.Checkmark)(yourPreferencesHaveBeenSaved())

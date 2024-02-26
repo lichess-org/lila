@@ -746,6 +746,7 @@
   <string name="letOtherPlayersMessageYou">Let other players message you</string>
   <string name="receiveForumNotifications">Receive notifications when mentioned in the forum</string>
   <string name="shareYourInsightsData">Share your chess insights data</string>
+  <string name="appearToOtherUsersWhileSpectating">Appear to other users while spectating</string>
   <string name="withNobody">With nobody</string>
   <string name="withFriends">With friends</string>
   <string name="withEverybody">With everybody</string>

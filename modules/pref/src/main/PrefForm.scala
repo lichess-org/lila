@@ -51,6 +51,7 @@ object PrefForm:
     val ratings       = "ratings"       -> booleanNumber
     val flairs        = "flairs"        -> boolean
     val follow        = "follow"        -> booleanNumber
+    val spectate      = "spectate"      -> booleanNumber
 
   def pref(lichobile: Boolean) = Form(
     mapping(
@@ -88,6 +89,7 @@ object PrefForm:
         fields.moretime
       )(ClockData.apply)(unapply),
       fields.follow,
+      fields.spectate,
       "challenge"    -> checkedNumber(Pref.Challenge.choices),
       "message"      -> checkedNumber(Pref.Message.choices),
       "studyInvite"  -> optional(checkedNumber(Pref.StudyInvite.choices)),
@@ -134,6 +136,7 @@ object PrefForm:
       behavior: BehaviorData,
       clock: ClockData,
       follow: Int,
+      spectate: Int,
       challenge: Int,
       message: Int,
       studyInvite: Option[Int],
@@ -152,6 +155,7 @@ object PrefForm:
         clockBar = clock.bar == 1,
         clockSound = clock.sound == 1,
         follow = follow == 1,
+        spectate = spectate == 1,
         highlight = display.highlight == 1,
         destination = display.destination == 1,
         coords = display.coords,
@@ -212,6 +216,7 @@ object PrefForm:
         challenge = pref.challenge,
         message = pref.message,
         studyInvite = pref.studyInvite.some,
+        spectate = if pref.spectate then 1 else 0,
         insightShare = pref.insightShare,
         ratings = pref.ratings.some,
         flairs = pref.flairs.some
