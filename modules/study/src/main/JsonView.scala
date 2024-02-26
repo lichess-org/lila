@@ -25,7 +25,7 @@ final class JsonView(
     for
       liked       <- me.so(studyRepo.liked(study, _))
       fidePlayers <- fidePlayerApi.players(currentChapter.tags.fideIds)
-      flags = fidePlayers.mapList(_.flatMap(_.flag)).some.filter(_.exists(_.isDefined))
+      feds = fidePlayers.mapList(_.flatMap(_.fed)).some.filter(_.exists(_.isDefined))
     yield Json.toJsObject(study) ++ Json
       .obj(
         "liked" -> liked,
@@ -52,7 +52,7 @@ final class JsonView(
           .add("description", currentChapter.description)
           .add("serverEval", currentChapter.serverEval)
           .add("relay", currentChapter.relay)
-          .add("flags" -> flags)
+          .add("feds" -> feds)
           .pipe(addChapterMode(currentChapter))
       )
       .add("description", study.description)

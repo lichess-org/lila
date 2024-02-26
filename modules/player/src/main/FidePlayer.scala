@@ -23,8 +23,6 @@ case class FidePlayer(
     case FideTC.Rapid    => rapid
     case FideTC.Blitz    => blitz
 
-  def flag: Option[String] = fed.map(_ take 2)
-
 object FidePlayer:
   case class TokenTitle(token: PlayerToken, title: Option[UserTitle])
   private val nonLetterRegex = """[^a-zA-Z0-9\s]+""".r
