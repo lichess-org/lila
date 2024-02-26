@@ -3,6 +3,7 @@ package lila.relay
 import play.api.data.Forms.*
 import chess.format.pgn.{ Tag, Tags }
 import chess.FideId
+import java.text.Normalizer
 
 // used to change names and ratings of broadcast players
 private case class RelayPlayer(
@@ -13,10 +14,15 @@ private case class RelayPlayer(
 )
 object RelayPlayer:
   type Token = String
-  private val splitRegex = """\W""".r
+  private val nonLetterRegex = """[^a-zA-Z0-9\s]+""".r
+  private val splitRegex     = """\W""".r
   def tokenize(name: PlayerName): Token =
     splitRegex
-      .split(name.toLowerCase.trim)
+      .split:
+        Normalizer
+          .normalize(name.trim, Normalizer.Form.NFD)
+          .replaceAllIn(nonLetterRegex, "")
+          .toLowerCase
       .toList
       .map(_.trim)
       .filter(_.nonEmpty)
