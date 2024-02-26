@@ -130,6 +130,10 @@ object tourForm:
           "All values are optional. The player name will match regardless of punctuation, casing, and word order. Example:",
           pre("""Magnus Carlsen / 2863 / GM
 YouGotLittUp / 1890 / / Louis Litt"""),
+          "Player names will match all possible combinations:",
+          br,
+          """"Jorge Joao Vito" will match "Jorge Joao", "Jorge Vito", and "Joao Vito".""",
+          br,
           "Alternatively, you may set a FIDE ID:",
           pre("""Magnus Carlsen = 1503014""")
         ).some,
