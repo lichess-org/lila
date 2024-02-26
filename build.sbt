@@ -339,17 +339,17 @@ lazy val challenge = module("challenge",
 )
 
 lazy val study = module("study",
-  Seq(explorer),
+  Seq(explorer, player),
   Seq(scalatags, lettuce) ++ tests.bundle ++ reactivemongo.bundle
 ).dependsOn(common % "test->test")
 
 lazy val player = module("player",
-  Seq( memo),
+  Seq(memo),
   reactivemongo.bundle
-  )
+)
 
 lazy val relay = module("relay",
-  Seq(study, notifyModule, player),
+  Seq(study, notifyModule),
   tests.bundle ++ Seq(galimatias) ++ reactivemongo.bundle
 )
 

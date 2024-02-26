@@ -116,6 +116,7 @@ export interface StudyChapter {
   description?: string;
   relay?: StudyChapterRelay;
   serverEval?: StudyChapterServerEval;
+  flags?: [string?, string?];
 }
 
 export interface StudyChapterServerEval {

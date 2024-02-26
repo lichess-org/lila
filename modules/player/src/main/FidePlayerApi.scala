@@ -1,7 +1,7 @@
 package lila.player
 
 import reactivemongo.api.bson.*
-import chess.FideId
+import chess.{ ByColor, FideId }
 
 import lila.db.dsl.{ given, * }
 
@@ -11,14 +11,17 @@ final class FidePlayerApi(private[player] val coll: Coll, cacheApi: lila.memo.Ca
 
   private[player] given playerHandler: BSONDocumentHandler[FidePlayer] = Macros.handler
 
+  def players(ids: ByColor[Option[FideId]]): Fu[ByColor[Option[FidePlayer]]] =
+    ids.traverse:
+      _.so(idToPlayerCache.get)
+
   def guessPlayer(
       fideId: Option[FideId],
       name: Option[PlayerName],
       title: Option[UserTitle]
   ): Fu[Option[FidePlayer]] = fideId match
     case Some(fideId) => idToPlayerCache.get(fideId)
-    case None =>
-      name.map(FidePlayer.tokenize).map(TokenTitle(_, title)).so(guessPlayerCache.get)
+    case None         => name.map(FidePlayer.tokenize).map(TokenTitle(_, title)).so(guessPlayerCache.get)
 
   private val idToPlayerCache = cacheApi[FideId, Option[FidePlayer]](1024, "player.fidePlayer.byId"):
     _.expireAfterWrite(1.minute).buildAsyncFuture: id =>

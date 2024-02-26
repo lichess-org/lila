@@ -18,10 +18,12 @@ case class FidePlayer(
     blitz: Option[Int],
     fetchedAt: Instant
 ):
-  def ratingOf(tc: FideTC) = tc match
+  def ratingOf(tc: FideTC): Option[Int] = tc match
     case FideTC.Standard => standard
     case FideTC.Rapid    => rapid
     case FideTC.Blitz    => blitz
+
+  def flag: Option[String] = fed.map(_ take 2)
 
 object FidePlayer:
   case class TokenTitle(token: PlayerToken, title: Option[UserTitle])

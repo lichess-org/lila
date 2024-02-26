@@ -19,6 +19,7 @@ final class Env(
     userRepo: lila.user.UserRepo,
     explorerImporter: lila.explorer.ExplorerImporter,
     notifyApi: lila.notify.NotifyApi,
+    fidePlayerApi: lila.player.FidePlayerApi,
     prefApi: lila.pref.PrefApi,
     relationApi: lila.relation.RelationApi,
     remoteSocketApi: lila.socket.RemoteSocket,
