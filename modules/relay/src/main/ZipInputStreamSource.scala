@@ -149,11 +149,11 @@ final class ZipInputStreamSource private (
                 matValue.success(readBytesTotal)
                 complete(out)
 
-          override def onDownstreamFinish(): Unit =
+          override def onDownstreamFinish(cause: Throwable): Unit =
             try is.close()
             finally
               matValue.success(readBytesTotal)
-              super.onDownstreamFinish()
+              super.onDownstreamFinish(cause)
       ) // end of handler
 
       @tailrec private def nextEntry(streams: Seq[ZipInputStream]): (Option[ZipEntry], Seq[ZipInputStream]) =

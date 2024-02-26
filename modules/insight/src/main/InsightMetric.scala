@@ -218,11 +218,11 @@ object InsightMetric:
     case Result =>
       lila.insight.Result.values.map { r =>
         MetricValue(BSONInteger(r.id), MetricValueName(r.name))
-      }
+      }.toIndexedSeq
     case Termination =>
       lila.insight.Termination.values.map { r =>
         MetricValue(BSONInteger(r.id), MetricValueName(r.name))
-      }
+      }.toIndexedSeq
     case PieceRole =>
       chess.Role.all.reverse.map { r =>
         MetricValue(BSONString(r.forsyth.toString), MetricValueName(r.toString))

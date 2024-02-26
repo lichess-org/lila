@@ -12,7 +12,7 @@ final private class NotifyCli(api: NotifyApi, userRepo: UserRepo)(using Material
 
   def process =
     case "notify" :: "url" :: "users" :: users :: url :: words =>
-      val userIds = users.split(',').flatMap(UserStr.read).map(_.id)
+      val userIds = users.split(',').flatMap(UserStr.read).map(_.id).toIndexedSeq
       notifyUrlTo(Source(userIds), url, words)
     case "notify" :: "url" :: "titled" :: url :: words =>
       val userIds = userRepo
