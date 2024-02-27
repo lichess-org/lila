@@ -80,7 +80,7 @@ case class ImportData(notation: String, analyse: Option[String]) {
         parsed,
         parsedMoves => parsedMoves.copy(value = parsedMoves.value take maxPlies)
       ) pipe evenIncomplete pipe { case replay @ Replay(init, game) =>
-        val status = createStatus(~parsed.tags(_.Termination).map(_.toUpperCase)).pp("A")
+        val status = createStatus(~parsed.tags(_.Termination).map(_.toUpperCase))
 
         val date = parsed.tags.anyDate
 

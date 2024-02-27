@@ -74,9 +74,9 @@ final private class Player(
       usi: Usi
   )(implicit proxy: GameProxy): Fu[Events] = {
     if (progress.game.paused) notifyOfPausedGame(usi, progress.game)
-    else notifyMove(usi, progress.game)
+    else notifyUsi(usi, progress.game)
 
-    if (progress.game.finished) moveFinish(progress.game) dmap { progress.events ::: _ }
+    if (progress.game.finished) usiFinish(progress.game) dmap { progress.events ::: _ }
     else {
       if (progress.game.playableByAi) requestFishnet(progress.game, round)
       if (pov.opponent.isOfferingDraw) round ! DrawNo(PlayerId(pov.player.id))
@@ -96,8 +96,8 @@ final private class Player(
           case Flagged => finisher.outOfTime(game)
           case UsiApplied(progress) =>
             proxy.save(progress) >>-
-              notifyMove(usi, progress.game) >> {
-                if (progress.game.finished) moveFinish(progress.game) dmap { progress.events ::: _ }
+              notifyUsi(usi, progress.game) >> {
+                if (progress.game.finished) usiFinish(progress.game) dmap { progress.events ::: _ }
                 else
                   fuccess(progress.events)
               }
@@ -136,7 +136,7 @@ final private class Player(
     gameRepo.pause(game.id, usi).void >>- Bus.publish(PauseGame(game), "pauseGame")
   }
 
-  private[round] def notifyMove(usi: Usi, game: Game): Unit = {
+  private[round] def notifyUsi(usi: Usi, game: Game): Unit = {
     import lila.hub.actorApi.round.{ CorresMoveEvent, MoveEvent, SimulMoveEvent }
     val color = !game.situation.color
     val moveEvent = MoveEvent(
@@ -173,7 +173,7 @@ final private class Player(
     )
   }
 
-  private def moveFinish(game: Game)(implicit proxy: GameProxy): Fu[Events] = {
+  private def usiFinish(game: Game)(implicit proxy: GameProxy): Fu[Events] = {
     game.status match {
       case Status.Mate              => finisher.other(game, _.Mate, game.situation.winner)
       case Status.Stalemate         => finisher.other(game, _.Stalemate, game.situation.winner)

@@ -3,7 +3,6 @@ package lila.fishnet
 import lila.db.dsl._
 import reactivemongo.api.bson._
 
-import shogi.format.usi.{ UciToUsi, Usi }
 import shogi.variant.Variant
 
 private object BSONHandlers {
@@ -30,11 +29,6 @@ private object BSONHandlers {
   implicit val VariantBSONHandler = quickHandler[Variant](
     { case BSONInteger(v) => Variant.orDefault(v) },
     x => BSONInteger(x.id)
-  )
-
-  implicit val UsiHandler = tryHandler[Usi](
-    { case BSONString(v) => Usi(v).orElse(UciToUsi(v)) toTry s"Bad USI: $v" },
-    x => BSONString(x.usi)
   )
 
   implicit val WorkIdBSONHandler = stringAnyValHandler[Work.Id](_.value, Work.Id.apply)

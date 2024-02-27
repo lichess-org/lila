@@ -64,10 +64,7 @@ case class Player(
 
   def proposeTakeback(ply: Int) = copy(proposeTakebackAt = ply)
 
-  def offerPause =
-    copy(
-      isOfferingPause = true
-    )
+  def offerPause       = copy(isOfferingPause = true)
   def removePauseOffer = copy(isOfferingPause = false)
 
   def removeTakebackProposition = copy(proposeTakebackAt = 0)
@@ -172,6 +169,7 @@ object Player {
     val isOfferingDraw    = "od"
     val lastDrawOffer     = "ld"
     val proposeTakebackAt = "ta"
+    val isOfferingPause   = "po"
     val rating            = "e"
     val ratingDiff        = "d"
     val provisional       = "p"
@@ -179,7 +177,6 @@ object Player {
     val holdAlert         = "h"
     val berserk           = "be"
     val name              = "na"
-    val isOfferingPause   = "po"
   }
 
   import reactivemongo.api.bson._
