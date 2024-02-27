@@ -58,4 +58,5 @@
   <string name="inappropriateContentAccountClosed">Невідповідності в дописі можуть спричинити блокування профілю.</string>
   <string name="blogTips">Наші прості поради для написання хороших дописів</string>
   <string name="discussThisBlogPostInTheForum">Обговорити цей допис блогу на форумі</string>
+  <string name="youBlockedByBlogAuthor">Ви заблоковані автором блогу.</string>
 </resources>
