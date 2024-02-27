@@ -30,7 +30,6 @@ case class FidePlayer(
   def age: Option[Int] = year.map(nowInstant.date.getYear - _)
 
 object FidePlayer:
-  case class TokenTitle(token: PlayerToken, title: Option[UserTitle])
   private val nonLetterRegex = """[^a-zA-Z0-9\s]+""".r
   private val splitRegex     = """\W""".r
   def tokenize(name: PlayerName): PlayerToken =
