@@ -52,4 +52,5 @@
   <string name="inappropriateContentAccountClosed">Anything inappropriate could get your account closed.</string>
   <string name="blogTips">Our simple tips to write great blog posts</string>
   <string name="discussThisBlogPostInTheForum">Discuss this blog post in the forum</string>
+  <string name="youBlockedByBlogAuthor">You are blocked by the blog author.</string>
 </resources>
