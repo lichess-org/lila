@@ -48,4 +48,5 @@
   </plurals>
   <string name="uploadAnImageForYourPost">Naložite sliko za svojo objavo</string>
   <string name="discussThisBlogPostInTheForum">Razpravljajte o tej objavi v spletnem dnevniku na forumu</string>
+  <string name="youBlockedByBlogAuthor">Avtor bloga vas je blokiral.</string>
 </resources>
