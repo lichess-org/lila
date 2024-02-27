@@ -58,4 +58,5 @@
   <string name="inappropriateContentAccountClosed">כל דבר לא הולם עלול להוביל לסגירת חשבונך.</string>
   <string name="blogTips">הטיפים שלנו לכתיבת פוסטים מעולים</string>
   <string name="discussThisBlogPostInTheForum">שיחה על הבלוג הזה בפורומים</string>
+  <string name="youBlockedByBlogAuthor">נחסמת על-ידי כותב הבלוג.</string>
 </resources>
