@@ -17,8 +17,7 @@ final private class YouTubeApi(
     coll: lila.db.dsl.Coll,
     keyword: Stream.Keyword,
     cfg: StreamerConfig,
-    net: NetConfig,
-    isOnline: lila.socket.IsOnline
+    net: NetConfig
 )(using Executor, akka.stream.Materializer):
 
   private var lastResults: List[YouTube.Stream] = List()
@@ -62,6 +61,16 @@ final private class YouTubeApi(
           syncDb(tubers, streams)
           lastResults = streams
 
+  // youtube does not provide a low quota API to check for videos on a known channel id
+  // and they don't provide the rss feed to non-browsers, so we're left to scrape the html.
+  def forceCheckWithHtmlScraping(tuber: Streamer.YouTube) =
+    ws.url(s"https://www.youtube.com/channel/${tuber.channelId}")
+      .get()
+      .map: rsp =>
+        raw""""videoId":"(\S{11})"""".r
+          .findFirstMatchIn(rsp.body)
+          .foreach(m => onVideo(tuber.channelId, m.group(1)))
+
   def onVideoXml(xml: scala.xml.NodeSeq): Funit =
     val channel = (xml \ "entry" \ "channelId").text
     val video   = (xml \ "entry" \ "videoId").text
@@ -79,18 +88,18 @@ final private class YouTubeApi(
       .find($doc("youTube.channelId" -> channelId, "approval.granted" -> true))
       .sort($sort desc "seenAt")
       .cursor[Streamer]()
-      .list(1)
-      .map(_.headOption)
-      .map:
+      .uno
+      .flatMap:
         case Some(s) =>
           isLiveStream(videoId).map: isLive =>
-            if isLive && isOnline(s.id.userId) then
-              logger.info(s"YouTube: LIVE and ONLINE ${s.id} vid:$videoId ch:$channelId")
+            // this is the only notification we'll get, so don't filter offline users here.
+            if isLive then
+              logger.info(s"YouTube: LIVE ${s.id} vid:$videoId ch:$channelId")
               coll.update.one($doc("_id" -> s.id), $set("youTube.pubsubVideoId" -> videoId))
-            else if isLive then logger.warn(s"YouTube: LIVE but OFFLINE ${s.id} vid:$videoId ch:$channelId")
             else logger.debug(s"YouTube: IGNORED ${s.id} vid:$videoId ch:$channelId")
         case None =>
-          logger.info(s"YouTube: UNAPPROVED vid:$videoId ch:$channelId")
+          fuccess:
+            logger.info(s"YouTube: UNAPPROVED vid:$videoId ch:$channelId")
 
   private def isLiveStream(videoId: String): Fu[Boolean] =
     cfg.googleApiKey.value.nonEmpty so ws

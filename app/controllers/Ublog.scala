@@ -9,7 +9,7 @@ import lila.app.{ given, * }
 import lila.common.config
 import lila.i18n.{ I18nLangPicker, LangList, Language }
 import lila.report.Suspect
-import lila.ublog.{ UblogBlog, UblogPost }
+import lila.ublog.{ UblogBlog, UblogPost, UblogRank }
 import lila.user.{ User as UserModel }
 import play.api.mvc.Result
 
@@ -21,8 +21,7 @@ final class Ublog(env: Env) extends LilaController(env):
 
   def index(username: UserStr, page: Int) = Open:
     NotForKids:
-      val userFu = if username == UserStr("me") then fuccess(ctx.user) else env.user.repo.byId(username)
-      FoundPage(userFu): user =>
+      FoundPage(meOrFetch(username)): user =>
         env.ublog.api
           .getUserBlog(user)
           .flatMap: blog =>
@@ -79,10 +78,8 @@ final class Ublog(env: Env) extends LilaController(env):
       }
   private def WithBlogOf[U: UserIdOf](
       u: U
-  )(f: (UserModel, UblogBlog) => Fu[Result])(using
-      ctx: Context
-  ): Fu[Result] =
-    Found(env.user.repo.byId(u)): user =>
+  )(f: (UserModel, UblogBlog) => Fu[Result])(using Context): Fu[Result] =
+    Found(meOrFetch(u)): user =>
       env.ublog.api.getUserBlog(user) flatMap: blog =>
         f(user, blog)
 
@@ -168,11 +165,9 @@ final class Ublog(env: Env) extends LilaController(env):
       me: Me
   ): Funit =
     isGrantedOpt(_.ModerateBlog).so:
-      (logIncludingMe || !me.is(post.created.by)) so {
-        env.user.repo.byId(post.created.by) flatMapz { user =>
+      (logIncludingMe || !me.is(post.created.by)) so:
+        env.user.repo.byId(post.created.by) flatMapz: user =>
           env.mod.logApi.blogPostEdit(Suspect(user), post.id, post.title, action)
-        }
-      }
 
   def like(id: UblogPostId, v: Boolean) = Auth { ctx ?=> _ ?=>
     NoBot:
@@ -196,7 +191,7 @@ final class Ublog(env: Env) extends LilaController(env):
               user <- env.user.repo.byId(blog.userId) orFail "Missing blog user!" dmap Suspect.apply
               _    <- env.ublog.api.setTier(blog.id, tier)
               _    <- env.ublog.rank.recomputeRankOfAllPostsOfBlog(blog.id)
-              _    <- env.mod.logApi.blogTier(user, UblogBlog.Tier.name(tier))
+              _    <- env.mod.logApi.blogTier(user, UblogRank.Tier.name(tier))
             yield Redirect(urlOfBlog(blog)).flashSuccess
         )
   }
@@ -207,15 +202,16 @@ final class Ublog(env: Env) extends LilaController(env):
         .bindFromRequest()
         .fold(
           _ => Redirect(urlOfPost(post)).flashFailure,
-          (rankAdjustDays, pinned) =>
+          (pinned, tier, rankAdjustDays) =>
             for
+              _ <- env.ublog.api.setTier(post.blog, tier)
               _ <- env.ublog.api.setRankAdjust(post.id, ~rankAdjustDays, pinned)
               _ <- logModAction(
                 post,
-                s"${~rankAdjustDays} days${pinned so " and pinned to top"} rank adjustement",
+                s"Set tier: $tier, pinned: $pinned, post adjust: ${~rankAdjustDays} days",
                 logIncludingMe = true
               )
-              _ <- env.ublog.rank.recomputePostRank(post)
+              _ <- env.ublog.rank.recomputeRankOfAllPostsOfBlog(post.blog)
             yield Redirect(urlOfPost(post)).flashSuccess
         )
   }
@@ -236,9 +232,8 @@ final class Ublog(env: Env) extends LilaController(env):
             ImageRateLimitPerIp(ctx.ip, rateLimited):
               env.ublog.api.image.upload(me, post, image)
           case None =>
-            env.ublog.api.image.delete(post) flatMap { newPost =>
+            env.ublog.api.image.delete(post) flatMap: newPost =>
               logModAction(newPost, "delete image")
-            }
         .inject(Redirect(urlOfPost(post)).flashSuccess)
         .recover { case e: Exception =>
           BadRequest(e.getMessage)
@@ -304,16 +299,13 @@ final class Ublog(env: Env) extends LilaController(env):
               html.ublog.index.topic(top, _, byDate)
 
   def userAtom(username: UserStr) = Anon:
-    env.user.repo
-      .enabledById(username)
-      .flatMap:
-        case None => NotFound
-        case Some(user) =>
-          env.ublog.api
-            .getUserBlog(user)
-            .flatMap: blog =>
-              (isBlogVisible(user, blog) so env.ublog.paginator.byUser(user, true, 1)) map: posts =>
-                Ok(html.ublog.atom.user(user, posts.currentPageResults)) as XML
+    env.user.repo.enabledById(username) flatMap:
+      _.fold(notFound): user =>
+        env.ublog.api
+          .getUserBlog(user)
+          .flatMap: blog =>
+            (isBlogVisible(user, blog) so env.ublog.paginator.byUser(user, true, 1)) map: posts =>
+              Ok(html.ublog.atom.user(user, posts.currentPageResults)) as XML
 
   def historicalBlogPost(id: String, slug: String) = Open:
     Found(env.ublog.api.getByPrismicId(id)): post =>

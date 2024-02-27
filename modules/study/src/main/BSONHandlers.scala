@@ -3,18 +3,15 @@ package lila.study
 import chess.format.pgn.{ Glyph, Glyphs, Tag, Tags, SanStr }
 import chess.format.{ Fen, Uci, UciCharPair, UciPath }
 import chess.variant.{ Crazyhouse, Variant }
-import chess.{ Centis, ByColor, Square, PromotableRole, Role, Outcome, Ply, Check }
+import chess.{ Centis, ByColor, Square, PromotableRole, Role, Outcome, Ply, Check, FideId }
 import reactivemongo.api.bson.*
 import scala.util.Success
 
 import lila.db.BSON
 import lila.db.BSON.{ Reader, Writer }
 import lila.db.dsl.{ *, given }
-import lila.tree.{ Score, Root, Branch, Branches }
+import lila.tree.{ Score, Root, Branch, Branches, NewBranch, Metas, NewRoot }
 import lila.tree.Node.{ Comment, Comments, Gamebook, Shape, Shapes }
-import lila.tree.NewBranch
-import lila.tree.Metas
-import lila.tree.NewRoot
 
 object BSONHandlers:
 
@@ -320,6 +317,10 @@ object BSONHandlers:
   given BSONDocumentHandler[Chapter.ServerEval]                    = Macros.handler
   given BSONDocumentHandler[Chapter]                               = Macros.handler
   given BSONDocumentHandler[NewChapter]                            = Macros.handler
+  given BSONHandler[Option[FideId]] = quickHandler(
+    { case BSONInteger(v) => v > 0 option FideId(v) },
+    id => BSONInteger(id.so(_.value))
+  )
 
   given BSONHandler[Position.Ref] = tryHandler(
     { case BSONString(v) => Position.Ref.decode(v) toTry s"Invalid position $v" },

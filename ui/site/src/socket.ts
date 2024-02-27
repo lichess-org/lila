@@ -48,6 +48,8 @@ interface Settings {
 
 const origSend = WebSocket.prototype.send;
 
+const isOnline = () => !('onLine' in navigator) || navigator.onLine;
+
 // versioned events, acks, retries, resync
 export default class StrongSocket {
   pubsub = site.pubsub;
@@ -120,7 +122,7 @@ export default class StrongSocket {
 
   connect = () => {
     this.destroy();
-    if (!navigator.onLine) {
+    if (!isOnline()) {
       document.body.classList.remove('online');
       document.body.classList.add('offline');
       $('#network-status').text(site ? siteTrans('noNetwork') : 'Offline');
@@ -207,7 +209,7 @@ export default class StrongSocket {
       document.body.classList.add('offline');
       document.body.classList.remove('online');
       $('#network-status').text(site ? siteTrans('reconnecting') : 'Reconnecting');
-      if (!this.tryOtherUrl && navigator.onLine) {
+      if (!this.tryOtherUrl && isOnline()) {
         // if this was set earlier, we've already logged the error
         this.tryOtherUrl = true;
         site.log(`sri ${this.settings.params!.sri} timeout ${delay}ms, trying ${this.baseUrl()}${this.url}`);
@@ -319,7 +321,7 @@ export default class StrongSocket {
     }
     if (e.wasClean && e.code < 1002) return;
 
-    if (navigator.onLine) site.log(`${sri ? 'sri ' + sri : ''} unclean close ${e.code} ${url} ${e.reason}`);
+    if (isOnline()) site.log(`${sri ? 'sri ' + sri : ''} unclean close ${e.code} ${url} ${e.reason}`);
     this.tryOtherUrl = true;
     clearTimeout(this.pingSchedule);
   };
@@ -346,7 +348,7 @@ export default class StrongSocket {
 
   baseUrl = () => {
     let url = this.storage.get();
-    if (!url) {
+    if (!url || !this.baseUrls.includes(url)) {
       url = this.baseUrls[Math.floor(Math.random() * this.baseUrls.length)];
       this.storage.set(url);
     } else if (this.tryOtherUrl) {

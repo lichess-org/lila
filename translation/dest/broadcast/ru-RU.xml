@@ -45,12 +45,7 @@
   <string name="definitivelyDeleteTournament">Окончательно удалить весь турнир, его туры и партии.</string>
   <string name="automaticLeaderboard">Автоматическая таблица лидеров</string>
   <string name="automaticLeaderboardHelp">Вычислять и отображать простую таблицу лидеров на основе результатов партий</string>
-  <string name="replace">Необязательно: заменять имена игроков, рейтинги и звания</string>
-  <string name="replaceHelp">По одной строке на каждого игрока, форматирование по образцу:
-Имя в системе; Имя для замены; Рейтинг для замены (необязательно); Звание для замены (необязательно)
-Например:
-DrNykterstein;Magnus Carlsen;2863
-AnishGiri;Anish Giri;2764;GM</string>
+  <string name="replacePlayerTags">Необязательно: заменить имена игроков, рейтинги и звания</string>
   <string name="periodInSeconds">Период в секундах</string>
   <string name="periodInSecondsHelp">Необязательно: сколько времени ждать между запросами. Минимум 2 сек, максимум 60 сек. По умолчанию устанавливается автоматически, в зависимости от количества зрителей.</string>
 </resources>

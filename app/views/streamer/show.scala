@@ -78,6 +78,7 @@ object show:
                 )
               } getOrElse div(cls := "box embed")(div(cls := "nostream")(offline()))
           ,
+          standardFlash,
           div(cls := "box streamer")(
             views.html.streamer.header(s),
             div(cls := "description")(richText(s.streamer.description.fold("")(_.value))),

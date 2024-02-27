@@ -7,6 +7,7 @@ import lila.db.dsl.{ *, given }
 
 final private class RelayRoundRepo(val coll: Coll)(using Executor):
 
+  import RelayRoundRepo.*
   import BSONHandlers.given
 
   def byTourOrderedCursor(tour: RelayTour) =
@@ -45,10 +46,15 @@ final private class RelayRoundRepo(val coll: Coll)(using Executor):
   def deleteByTour(tour: RelayTour): Funit =
     coll.delete.one(selectors.tour(tour.id)).void
 
-  private[relay] object sort:
+  def studyIdsOf(tourId: RelayTour.Id): Fu[List[StudyId]] =
+    coll.distinctEasy[StudyId, List]("_id", selectors tour tourId)
+
+private object RelayRoundRepo:
+
+  object sort:
     val chrono        = $doc("createdAt" -> 1)
     val reverseChrono = $doc("createdAt" -> -1)
     val start         = $doc("startedAt" -> -1, "startsAt" -> -1, "name" -> -1)
 
-  private[relay] object selectors:
+  object selectors:
     def tour(id: RelayTour.Id) = $doc("tourId" -> id)

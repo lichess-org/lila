@@ -6,7 +6,7 @@
   <string name="blogTopics">Blog-Themen</string>
   <string name="lichessOfficialBlog">Offizieller Lichess-Blog</string>
   <string name="continueReadingPost">Diesen Beitrag weiterlesen</string>
-  <string name="lichessBlogPostsFromXYear">Blogbeiträge von Lichess in %s</string>
+  <string name="lichessBlogPostsFromXYear" comment="Appears on a list of posts from the official Lichess Blog, which were published in a specific year.&#10;&#10;%s is the specific year of posts from the official blog (e.g. 2021).">Blogbeiträge von Lichess in %s</string>
   <string name="previousBlogPosts">Frühere Blogeinträge</string>
   <string name="xBlog">Blog von %s</string>
   <string name="newPost">Neuer Beitrag</string>

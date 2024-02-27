@@ -6,7 +6,7 @@ import play.api.mvc.Call
 
 import lila.app.templating.Environment.{ given, * }
 import lila.app.ui.ScalatagsTemplate.{ *, given }
-import lila.ublog.{ UblogBlog, UblogPost }
+import lila.ublog.{ UblogBlog, UblogPost, UblogRank }
 import lila.user.User
 
 object post:
@@ -41,7 +41,7 @@ object post:
         href     := routes.Ublog.userAtom(user.username),
         st.title := trans.ublog.xBlog.txt(user.username)
       ).some,
-      robots = netConfig.crawlable && blog.listed && (post.indexable || blog.tier >= UblogBlog.Tier.HIGH),
+      robots = netConfig.crawlable && blog.listed && (post.indexable || blog.tier >= UblogRank.Tier.HIGH),
       csp = defaultCsp.withTwitter.withInlineIconFont.some
     ):
       main(cls := "page-menu page-small")(
@@ -54,18 +54,13 @@ object post:
             ),
           ctx.is(user) || isGranted(_.ModerateBlog) option standardFlash,
           h1(cls := "ublog-post__title")(post.title),
+          isGranted(_.ModerateBlog) option modTools(blog, post),
           div(cls := "ublog-post__meta")(
             a(
               cls      := userClass(user.id, none, withOnline = true),
               href     := routes.Ublog.index(user.username),
               dataHref := routes.User.show(user.username)
-            )(
-              userLinkContent(user),
-              !ctx.is(user) && isGranted(_.ModerateBlog) option
-                (if blog.tier <= UblogBlog.Tier.VISIBLE then badTag else goodTag) (
-                  cls := "ublog-post__tier"
-                )(UblogBlog.Tier.name(blog.tier))
-            ),
+            )(userLinkContent(user)),
             iconTag(licon.InfoCircle)(
               cls      := "ublog-post__meta__disclaimer",
               st.title := "Opinions expressed by Lichess contributors are their own."
@@ -99,8 +94,9 @@ object post:
                 ),
                 dataIcon := licon.CautionTriangle
               )
+            ,
+            langName(post.language)
           ),
-          !ctx.is(user) && isGranted(_.ModerateBlog) option rankAdjust(blog, post),
           div(cls := "ublog-post__topics")(
             post.topics.map: topic =>
               a(href := routes.Ublog.topic(topic.url, 1))(topic.value)
@@ -126,29 +122,6 @@ object post:
             others.size > 0 option div(cls := "ublog-post-cards")(others map { card(_) })
           )
         )
-      )
-
-  private def rankAdjust(blog: UblogBlog, post: UblogPost)(using PageContext) =
-    env.ublog.rank.computeRank(blog, post) map: rank =>
-      postForm(cls := "ublog-post__meta", action := routes.Ublog.rankAdjust(post.id))(
-        "Rank date:",
-        span(cls := "ublog-post__meta__date")(semanticDate(rank.value)),
-        s"adjust${post.rankAdjustDays.nonEmpty so "ed"} by",
-        span(
-          input(
-            tpe         := "number",
-            name        := "days",
-            min         := -180,
-            max         := 180,
-            placeholder := "Days",
-            value       := post.rankAdjustDays.so(_.toString)
-          )
-        ),
-        span(
-          input(tpe := "checkbox", name := "pinned", value := "true", if ~post.pinned then checked else none),
-          label(`for` := "pinned")(" Pin to top")
-        ),
-        form3.submit("Submit")(cls := "button-empty")
       )
 
   private def editButton(post: UblogPost)(using PageContext) = a(
@@ -254,3 +227,47 @@ object post:
       post.image match
         case Some(image) => UblogPost.thumbnail(picfitUrl, image.id, size)
         case _           => assetUrl("images/user-blog-default.png")
+
+  private def modTools(blog: UblogBlog, post: UblogPost)(using PageContext) =
+    env.ublog.rank.computeRank(blog, post) map: rank =>
+      postForm(cls := "ublog-post__meta", action := routes.Ublog.rankAdjust(post.id))(
+        fieldset(cls := "ublog-post__mod-tools")(
+          legend(
+            span(
+              span(
+                label("Rank date:"),
+                if ~post.pinned then "pinned"
+                else span(cls := "ublog-post__meta__date")(semanticDate(rank.value))
+              ),
+              form3.submit("Submit")(cls := "button-empty")
+            )
+          ),
+          span(
+            input(
+              tpe   := "checkbox",
+              id    := "ublog-post-pinned",
+              name  := "pinned",
+              value := "true",
+              post.pinned.has(true) option checked
+            ),
+            label(`for` := "ublog-post-pinned")(" Pin to top")
+          ),
+          span(
+            "User tier:",
+            st.select(name := "tier", cls := "form-control")(UblogRank.Tier.verboseOptions.map:
+              (value, name) => option(st.value := value.toString, blog.tier == value option selected)(name)
+            )
+          ),
+          span(
+            "Post adjust:",
+            input(
+              tpe   := "number",
+              name  := "days",
+              min   := -180,
+              max   := 180,
+              value := post.rankAdjustDays.so(_.toString)
+            ),
+            "days"
+          )
+        )
+      )

@@ -53,6 +53,7 @@
   <string name="allSyncMembersRemainOnTheSamePosition">Kaikki SYNC-jäsenet pysyvät samassa asemassa</string>
   <string name="shareChanges">Anna katsojien nähdä muutokset ja tallenna ne palvelimelle</string>
   <string name="playing">Meneillään</string>
+  <string name="showEvalBar">Arviopalkit</string>
   <string name="first">Alkuun</string>
   <string name="previous">Edellinen</string>
   <string name="next">Seuraava</string>
@@ -84,7 +85,7 @@
   <string name="pinnedChapterComment">Kiinnitetty lukukommentti</string>
   <string name="saveChapter">Tallenna luku</string>
   <string name="clearAnnotations">Poista kommentit</string>
-  <string name="clearVariations">Tyhjennä muunnelmat</string>
+  <string name="clearVariations" comment="Clear is used as a verb here. This erases the variations in the study (https://lichess.org/study) you are preparing.">Tyhjennä muunnelmat</string>
   <string name="deleteChapter">Poista luku</string>
   <string name="deleteThisChapter">Poistetaanko tämä luku? Et voi palauttaa sitä enää!</string>
   <string name="clearAllCommentsInThisChapter">Poista kaikki kommentit, symbolit ja piirtokuviot tästä luvusta?</string>

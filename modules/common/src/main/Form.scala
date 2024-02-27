@@ -154,12 +154,11 @@ object Form:
   object formatter:
     def string[A <: String](to: String => A): Formatter[A]                   = strBase.transform(to, identity)
     def stringFormatter[A](from: A => String, to: String => A): Formatter[A] = strBase.transform(to, from)
-    def stringOptionFormatter[A](from: A => String, to: String => Option[A]): Formatter[A] =
-      new Formatter[A]:
-        def bind(key: String, data: Map[String, String]) = strBase.bind(key, data) flatMap { str =>
-          to(str) toRight Seq(FormError(key, s"Invalid value: $str", Nil))
-        }
-        def unbind(key: String, value: A) = strBase.unbind(key, from(value))
+    def stringOptionFormatter[A](from: A => String, to: String => Option[A]): Formatter[A] = new:
+      def bind(key: String, data: Map[String, String]) = strBase.bind(key, data) flatMap { str =>
+        to(str) toRight Seq(FormError(key, s"Invalid value: $str", Nil))
+      }
+      def unbind(key: String, value: A) = strBase.unbind(key, from(value))
     def int[A <: Int](to: Int => A): Formatter[A]                   = intBase.transform(to, identity)
     def intFormatter[A](from: A => Int, to: Int => A): Formatter[A] = intBase.transform(to, from)
     val tolerantBooleanFormatter: Formatter[Boolean] = new Formatter[Boolean]:

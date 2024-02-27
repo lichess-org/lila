@@ -3,7 +3,18 @@ export interface RelayData {
   rounds: RelayRound[];
   sync?: RelaySync;
   leaderboard?: LeadPlayer[];
+  group?: RelayGroup;
   isSubscribed?: boolean; // undefined if anon
+}
+
+export interface RelayGroup {
+  name: string;
+  tours: RelayTourIdName[];
+}
+
+export interface RelayTourIdName {
+  id: string;
+  name: string;
 }
 
 export type RoundId = string;

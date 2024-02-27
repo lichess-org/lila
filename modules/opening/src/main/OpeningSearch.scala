@@ -51,12 +51,11 @@ private object OpeningSearch:
         .map(_.trim)
         .filter(_.nonEmpty)
         .take(6)
-        .map { token =>
+        .map: token =>
           Normalizer
             .normalize(token, Normalizer.Form.NFD)
             .toLowerCase
             .replaceAllIn(nonLetterRegex, "")
-        }
         .map(t => replace.getOrElse(t, t))
         .toSet
         .diff(exclude)

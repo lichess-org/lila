@@ -17,6 +17,7 @@ import lila.study.MultiPgn
 import lila.memo.CacheApi.*
 import lila.memo.{ CacheApi, SettingStore }
 import lila.common.config.{ Max, Credentials, HostPort }
+import lila.base.LilaInvalid
 
 final private class RelayFormatApi(
     ws: StandaloneWSClient,
@@ -76,7 +77,8 @@ final private class RelayFormatApi(
 
     guessLcc(originalUrl) orElse
       guessSingleFile(originalUrl) orElse
-      guessManyFiles(originalUrl) orFail "No games found, check your source URL"
+      guessManyFiles(originalUrl) orFailWith
+      LilaInvalid(s"No games found at $originalUrl")
   } addEffect { format =>
     logger.info(s"guessed format of $upstream: $format")
   }

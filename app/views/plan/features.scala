@@ -10,7 +10,7 @@ import controllers.routes
 
 object features:
 
-  val engineFullName = "Stockfish 16 NNUE"
+  val engineFullName = "Stockfish 16.1"
 
   def apply()(using PageContext) =
     views.html.base.layout(

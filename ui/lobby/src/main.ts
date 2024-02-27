@@ -1,6 +1,5 @@
 import { init, classModule, attributesModule, eventListenersModule } from 'snabbdom';
 import { LobbyOpts } from './interfaces';
-import { init as initBoard } from 'common/miniBoard';
 import makeCtrl from './ctrl';
 import appView from './view/main';
 import tableView from './view/table';
@@ -40,16 +39,6 @@ const layoutHacks = () =>
         cols = newCols;
         if (cols > 2) $('.lobby .lobby__timeline').appendTo('.lobby__side');
         else $('.lobby__side .lobby__timeline').appendTo('.lobby');
-      }
-      if (site.debug && !this.querySelector('.lobby__tv')) {
-        const tv = $as<HTMLElement>(
-          `<div class="lobby__tv"><span class="text">Fake TV</span><span class="mini-board"
-          data-state="3R1r1k/pp4p1/2n1Q1bp/1Bp5/PqN4P/2b2NP1/1P4P1/2K4R,black,d1d8"/></div>`,
-        );
-        initBoard(tv.querySelector('.mini-board')!);
-        tv.append($as<HTMLElement>('<span class="text">Cannot hurt you!</span>'));
-        this.append(tv);
-        // fake tv for debugging layout, ui/build with -d flag
       }
     });
   });

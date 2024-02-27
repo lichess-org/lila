@@ -81,7 +81,7 @@
   <string name="pinnedChapterComment">Kinnitatud peatüki kommentaar</string>
   <string name="saveChapter">Salvesta peatükk</string>
   <string name="clearAnnotations">Eemalda kommentaarid</string>
-  <string name="clearVariations">Eemalda variatsioonid</string>
+  <string name="clearVariations" comment="Clear is used as a verb here. This erases the variations in the study (https://lichess.org/study) you are preparing.">Eemalda variatsioonid</string>
   <string name="deleteChapter">Kustuta peatükk</string>
   <string name="deleteThisChapter">Kustuta see peatükk? Seda ei saa tühistada!</string>
   <string name="clearAllCommentsInThisChapter">Puhasta kõik kommentaarid, glüüfid ja joonistatud kujundid sellest peatükist</string>

@@ -6,6 +6,7 @@ import chess.format.pgn.{ Tag, Tags, SanStr, PgnStr }
 import com.github.blemale.scaffeine.LoadingCache
 import io.mola.galimatias.URL
 import play.api.libs.json.*
+import play.api.Mode
 
 import lila.base.LilaInvalid
 import lila.common.{ Seconds, LilaScheduler }
@@ -24,28 +25,27 @@ final private class RelayFetch(
     irc: lila.irc.IrcApi,
     formatApi: RelayFormatApi,
     delayer: RelayDelay,
+    fidePlayers: RelayFidePlayerApi,
     gameRepo: GameRepo,
     pgnDump: PgnDump,
     gameProxy: GameProxyRepo
-)(using Executor, Scheduler):
+)(using Executor, Scheduler)(using mode: Mode):
 
   import RelayFetch.*
 
-  private val quickStart = false // for dev
-
   LilaScheduler(
     "RelayFetch.official",
-    _.Every(500 millis),
+    _.Every(if mode == Mode.Dev then 2.seconds else 500 millis),
     _.AtMost(15 seconds),
-    _.Delay(if quickStart then 1.milli else 15 seconds)
+    _.Delay(if mode == Mode.Dev then 1.second else 21 seconds)
   ):
     syncRelays(official = true)
 
   LilaScheduler(
     "RelayFetch.user",
-    _.Every(750 millis),
+    _.Every(if mode == Mode.Dev then 2.seconds else 750 millis),
     _.AtMost(10 seconds),
-    _.Delay(if quickStart then 1.milli else 33 seconds)
+    _.Delay(if mode == Mode.Dev then 2.second else 33 seconds)
   ):
     syncRelays(official = false)
 
@@ -81,6 +81,7 @@ final private class RelayFetch(
     else
       fetchGames(rt)
         .map(games => rt.tour.players.fold(games)(_ update games))
+        .flatMap(fidePlayers.enrichGames(rt.tour))
         .map(games => rt.tour.teams.fold(games)(_ update games))
         .mon(_.relay.fetchTime(rt.tour.official, rt.round.slug))
         .addEffect(gs => lila.mon.relay.games(rt.tour.official, rt.round.slug).update(gs.size))
@@ -96,6 +97,9 @@ final private class RelayFetch(
         .recover:
           case e: Exception =>
             val result = e.match
+              case e @ LilaInvalid(msg) =>
+                logger.info(s"Sync fail ${rt.round} $msg")
+                SyncResult.Error(msg)
               case SyncResult.Timeout =>
                 if rt.tour.official then logger.info(s"Sync timeout ${rt.round}")
                 SyncResult.Timeout
@@ -231,7 +235,8 @@ private object RelayFetch:
         fname: Option[String],
         mname: Option[String],
         lname: Option[String],
-        title: Option[String]
+        title: Option[String],
+        fideid: Option[Int]
     ):
       def fullName = some {
         List(fname, mname, lname).flatten mkString " "
@@ -246,8 +251,10 @@ private object RelayFetch:
         List(
           white.flatMap(_.fullName) map { Tag(_.White, _) },
           white.flatMap(_.title) map { Tag(_.WhiteTitle, _) },
+          white.flatMap(_.fideid) map { Tag(_.WhiteFideId, _) },
           black.flatMap(_.fullName) map { Tag(_.Black, _) },
           black.flatMap(_.title) map { Tag(_.BlackTitle, _) },
+          black.flatMap(_.fideid) map { Tag(_.BlackFideId, _) },
           result.map(Tag(_.Result, _))
         ).flatten
     case class RoundJson(pairings: List[RoundJsonPairing])

@@ -69,7 +69,7 @@
       position: absolute;
       top: 100%;
       width: 100%;
-      height: 80%;
+      height: fit-content;
       border-top: $border;
       z-index: 1;
       padding: 10px 10px 0 10px;
@@ -123,10 +123,6 @@
       text-align: center;
       display: block;
       margin-bottom: 0.8em;
-    }
-
-    .tags span {
-      display: block;
     }
   }
 

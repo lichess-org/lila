@@ -51,28 +51,38 @@ main.has-relay-tour {
 
   &__image {
     width: 100%;
+    aspect-ratio: 2/1;
   }
   &__image-upload {
     margin-top: 3em;
     text-align: center;
   }
 
-  &__header {
+  &__group-title {
     @extend %flex-center-nowrap;
+    gap: 1ch;
+  }
+
+  &__group-select {
+    flex: auto;
+    @include fluid-size('font-size', 12px, 20px);
+    .mselect__list > a {
+      gap: 1em;
+    }
+  }
+
+  &__header {
+    @extend %flex-between-nowrap;
     gap: 1em;
 
     h1 {
       flex: auto;
-      @include fluid-size('font-size', 15px, 27px);
-    }
-
-    > i:hover {
-      color: $c-font-clearer;
-      cursor: pointer;
+      @include fluid-size('font-size', 14px, 24px);
     }
 
     .setting {
       @extend %flex-center-nowrap;
+      margin-#{$end-direction}: -1em;
       label {
         padding: 0 0.5em;
         cursor: pointer;

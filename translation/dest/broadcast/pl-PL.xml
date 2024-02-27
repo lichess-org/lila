@@ -45,12 +45,7 @@
   <string name="definitivelyDeleteTournament">Ostatecznie usuń cały turniej, jego wszystkie rundy i partie.</string>
   <string name="automaticLeaderboard">Automatyczna tablica wyników</string>
   <string name="automaticLeaderboardHelp">Oblicz i wyświetl prostą tablicę wyników w oparciu o wyniki partii</string>
-  <string name="replace">Opcjonalnie: zastąp nazwy, rankingi i tytuły graczy</string>
-  <string name="replaceHelp">Jeden wiersz na gracza, w następującym formacie:
-oryginalna nazwa; nowa nazwa; nowy ranking (opcjonalnie); nowy tytuł (opcjonalnie)
-Przykład:
-DrNykterstein; Magnus Carlsen;2863
-AnishGiri;Anish Giri;2764;GM</string>
+  <string name="replacePlayerTags">Opcjonalnie: zmień nazwy, rankingi oraz tytuły gracza</string>
   <string name="periodInSeconds">Przedział czasu w sekundach</string>
   <string name="periodInSecondsHelp">Opcjonalnie, jak długo czekać pomiędzy odpytaniami. Min 2s, max 60s. Domyślnie jest to ustawiane automatycznie na podstawie liczby widzów.</string>
 </resources>

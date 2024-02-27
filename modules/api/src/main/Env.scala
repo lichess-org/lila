@@ -26,6 +26,7 @@ final class Env(
     fishnetEnv: lila.fishnet.Env,
     studyEnv: lila.study.Env,
     studySearchEnv: lila.studySearch.Env,
+    playerEnv: lila.player.Env,
     coachEnv: lila.coach.Env,
     evalCacheEnv: lila.evalCache.Env,
     planEnv: lila.plan.Env,

@@ -10,7 +10,7 @@ import lila.relay.{ RelayRound as RoundModel, RelayRoundForm, RelayTour as TourM
 import chess.format.pgn.{ PgnStr, Tag }
 import views.*
 import lila.common.config.{ Max, MaxPerSecond }
-import play.api.libs.json.{ Writes, Json }
+import play.api.libs.json.{ OWrites, Json }
 
 final class RelayRound(
     env: Env,
@@ -70,7 +70,7 @@ final class RelayRound(
               .dmap(_ withTour rt.tour)
               .dmap(Right(_))
         ) dmap some
-    } orNotFound {
+    } orNotFound:
       _.fold(
         (old, err) =>
           negotiate(
@@ -79,7 +79,6 @@ final class RelayRound(
           ),
         rt => negotiate(Redirect(rt.path), JsonOk(env.relay.jsonView.withUrl(rt, withTour = true)))
       )
-    }
   }
 
   def reset(id: RelayRoundId) = Auth { ctx ?=> me ?=>
@@ -140,7 +139,7 @@ final class RelayRound(
     Found(env.relay.api.byIdWithTourAndStudy(id)): rt =>
       if !rt.study.canContribute(me) then forbiddenJson()
       else
-        given Writes[Tag] = Writes(tag => Json.obj(tag.name.name -> tag.value))
+        given OWrites[List[Tag]] = OWrites(tags => Json.obj(tags.map(t => (t.name.name, t.value))*))
         env.relay
           .push(rt.withTour, PgnStr(ctx.body.body))
           .map: results =>
@@ -188,12 +187,14 @@ final class RelayRound(
       for
         (sc, studyData) <- studyC.getJsonData(oldSc)
         rounds          <- env.relay.api.byTourOrdered(rt.tour)
+        group           <- env.relay.api.withTours.get(rt.tour.id)
         isSubscribed <- ctx.me.soFu: me =>
           env.relay.api.isSubscribed(rt.tour.id, me.userId)
         data <- env.relay.jsonView.makeData(
           rt.tour withRounds rounds.map(_.round),
           rt.round.id,
           studyData,
+          group,
           ctx.userId exists sc.study.canContribute,
           isSubscribed
         )
@@ -224,7 +225,8 @@ final class RelayRound(
       create: => Fu[Result]
   )(using me: Me, req: RequestHeader): Fu[Result] =
     val cost =
-      if isGranted(_.Relay) then 2
+      if isGranted(_.StudyAdmin) then 1
+      else if isGranted(_.Relay) then 2
       else if me.hasTitle || me.isVerified then 5
       else 10
     CreateLimitPerUser(me, fail, cost = cost):

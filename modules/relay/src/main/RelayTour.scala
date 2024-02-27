@@ -9,7 +9,7 @@ import lila.memo.{ PicfitUrl, PicfitImage }
 
 case class RelayTour(
     @Key("_id") id: RelayTour.Id,
-    name: String,
+    name: RelayTour.Name,
     description: String,
     markup: Option[Markdown] = None,
     ownerId: UserId,
@@ -25,14 +25,14 @@ case class RelayTour(
     image: Option[PicfitImage.Id] = None
 ):
   lazy val slug =
-    val s = lila.common.String slugify name
+    val s = lila.common.String slugify name.value
     if s.isEmpty then "-" else s
 
   def withRounds(rounds: List[RelayRound]) = RelayTour.WithRounds(this, rounds)
 
   def official = tier.isDefined
 
-  def reAssignIfOfficial = if official then copy(ownerId = User.broadcasterId) else this
+  def giveToBroadcasterIf(cond: Boolean) = if cond then copy(ownerId = User.broadcasterId) else this
 
   def path: String = s"/broadcast/$slug/$id"
 
@@ -45,6 +45,9 @@ object RelayTour:
 
   opaque type Id = String
   object Id extends OpaqueString[Id]
+
+  opaque type Name = String
+  object Name extends OpaqueString[Name]
 
   type Tier = Int
   object Tier:
@@ -70,13 +73,23 @@ object RelayTour:
 
   case class WithRounds(tour: RelayTour, rounds: List[RelayRound])
 
-  case class ActiveWithSomeRounds(tour: RelayTour, display: RelayRound, link: RelayRound)
-      extends RelayRound.AndTour:
+  case class ActiveWithSomeRounds(
+      tour: RelayTour,
+      display: RelayRound,
+      link: RelayRound,
+      group: Option[RelayGroup.Name]
+  ) extends RelayRound.AndTourAndGroup:
     export display.{ hasStarted as ongoing }
 
-  case class WithLastRound(tour: RelayTour, round: RelayRound) extends RelayRound.AndTour:
+  case class WithLastRound(tour: RelayTour, round: RelayRound, group: Option[RelayGroup.Name])
+      extends RelayRound.AndTourAndGroup:
     def link    = round
     def display = round
+
+  case class IdName(@Key("_id") id: Id, name: Name)
+
+  case class WithGroup(tour: RelayTour, group: Option[RelayGroup])
+  case class WithGroupTours(tour: RelayTour, group: Option[RelayGroup.WithTours])
 
   object thumbnail:
     enum Size(val width: Int):

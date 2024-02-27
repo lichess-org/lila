@@ -230,11 +230,10 @@ final class Auth(
         .fold(
           err => BadRequest.page(html.auth.checkYourEmail(userEmail.some, err.some)),
           email =>
-            env.user.repo.byId(userEmail.username) flatMap {
+            env.user.repo.byId(userEmail.username) flatMap:
               _.fold(Redirect(routes.Auth.signup).toFuccess): user =>
-                env.user.repo.mustConfirmEmail(user.id) flatMap {
-                  case false => Redirect(routes.Auth.login)
-                  case _ =>
+                env.user.repo.mustConfirmEmail(user.id) flatMap:
+                  if _ then
                     val newUserEmail = userEmail.copy(email = email)
                     EmailConfirmRateLimit(newUserEmail, ctx.req, rateLimited):
                       lila.mon.email.send.fix.increment()
@@ -245,8 +244,7 @@ final class Auth(
                             Redirect(routes.Auth.checkYourEmail).withCookies:
                               lila.security.EmailConfirm.cookie
                                 .make(env.lilaCookie, user, newUserEmail.email)(using ctx.req)
-                }
-            }
+                  else Redirect(routes.Auth.login)
         )
     }
 

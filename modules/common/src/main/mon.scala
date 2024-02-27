@@ -261,6 +261,10 @@ object mon:
     def syncTime(official: Boolean, slug: String)  = timer("relay.sync.time").withTags(relay(official, slug))
     def httpGet(host: String, proxy: Option[String]) =
       future("relay.http.get", tags("host" -> host, "proxy" -> proxy.getOrElse("none")))
+    object fidePlayers:
+      val update = future("relay.fidePlayers.update")
+      val nb     = gauge("relay.fidePlayers.nb").withoutTags()
+
   object bot:
     def moves(username: String)   = counter("bot.moves").withTag("name", username)
     def chats(username: String)   = counter("bot.chats").withTag("name", username)

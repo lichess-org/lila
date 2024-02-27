@@ -331,6 +331,13 @@ abstract private[controllers] class LilaController(val env: Env)
     .flatMap:
       f(using _)
 
+  def meOrFetch[U: UserIdOf](id: U)(using ctx: Context): Fu[Option[lila.user.User]] =
+    if id.isMe then fuccess(ctx.user)
+    else ctx.user.filter(_ is id).fold(env.user.repo byId id)(u => fuccess(u.some))
+
+  def meOrFetch[U: UserIdOf](id: Option[U])(using ctx: Context): Fu[Option[lila.user.User]] =
+    id.fold(fuccess(ctx.user))(meOrFetch)
+
   given (using req: RequestHeader): lila.chat.AllMessages = lila.chat.AllMessages(HTTPRequest.isLitools(req))
 
   /* We roll our own action, as we don't want to compose play Actions. */

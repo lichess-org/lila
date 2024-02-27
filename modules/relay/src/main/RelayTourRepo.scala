@@ -4,10 +4,14 @@ import lila.db.dsl.{ *, given }
 
 final private class RelayTourRepo(val coll: Coll)(using Executor):
 
+  import BSONHandlers.given
+  import RelayTourRepo.*
+  import RelayTour.{ Id, IdName }
+
   def setSyncedNow(tour: RelayTour): Funit =
     coll.updateField($id(tour.id), "syncedAt", nowInstant).void
 
-  def setActive(tourId: RelayTour.Id, active: Boolean): Funit =
+  def setActive(tourId: Id, active: Boolean): Funit =
     coll.updateField($id(tourId), "active", active).void
 
   def lookup(local: String) = $lookup.simple(coll, "tour", local, "_id")
@@ -15,15 +19,15 @@ final private class RelayTourRepo(val coll: Coll)(using Executor):
   def countByOwner(owner: UserId): Fu[Int] =
     coll.countSel(selectors.ownerId(owner))
 
-  def subscribers(tid: RelayTour.Id): Fu[Set[UserId]] =
+  def subscribers(tid: Id): Fu[Set[UserId]] =
     coll.distinctEasy[UserId, Set]("subscribers", $id(tid))
 
-  def setSubscribed(tid: RelayTour.Id, uid: UserId, isSubscribed: Boolean): Funit =
+  def setSubscribed(tid: Id, uid: UserId, isSubscribed: Boolean): Funit =
     coll.update
       .one($id(tid), if isSubscribed then $addToSet("subscribers" -> uid) else $pull("subscribers" -> uid))
       .void
 
-  def isSubscribed(tid: RelayTour.Id, uid: UserId): Fu[Boolean] =
+  def isSubscribed(tid: Id, uid: UserId): Fu[Boolean] =
     coll.exists($doc($id(tid), "subscribers" -> uid))
 
   def countBySubscriberId(uid: UserId): Fu[Int] =
@@ -38,7 +42,14 @@ final private class RelayTourRepo(val coll: Coll)(using Executor):
   def delete(tour: RelayTour): Funit =
     coll.delete.one($id(tour.id)).void
 
-  private[relay] object selectors:
+  def idNames(ids: List[Id]): Fu[List[IdName]] =
+    coll.byOrderedIds[IdName, Id](ids, $doc("name" -> true).some)(_.id)
+
+  def isOwnerOfAll(u: UserId, ids: List[Id]): Fu[Boolean] =
+    !coll.exists($doc($inIds(ids), "ownerId" $ne u))
+
+private object RelayTourRepo:
+  object selectors:
     val official                = $doc("tier" $exists true)
     val active                  = $doc("active" -> true)
     val inactive                = $doc("active" -> false)

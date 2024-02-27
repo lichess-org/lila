@@ -85,6 +85,7 @@ case class NewChapter(
     name = name,
     setup = setup,
     outcome = tags.outcome.isDefined option tags.outcome,
+    teams = tags(_.WhiteTeam) zip tags(_.BlackTeam),
     hasRelayPath = relay.exists(!_.path.isEmpty)
   )
 
