@@ -65,3 +65,9 @@ object fide:
       main(cls := "page-small box box-pad fide-player")(
         h1(a(href := routes.Fide.index())("FIDE players"), " • ", player.name)
       )
+
+  def federation(code: String, name: String)(using PageContext) =
+    layout(s"$name - FIDE federation"):
+      main(cls := "page-small box box-pad fide-player")(
+        h1(a(href := routes.Fide.federations)("Federations"), " • ", name)
+      )
