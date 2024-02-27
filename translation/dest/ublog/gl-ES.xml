@@ -52,5 +52,5 @@
   <string name="inappropriateContentAccountClosed">Calquera cousa inadecuada pode facer que pechemos a túa conta.</string>
   <string name="blogTips">Os nosos sinxelos consellos para escribir boas publicacións</string>
   <string name="discussThisBlogPostInTheForum">Falar desta publicación no foro</string>
-  <string name="youBlockedByBlogAuthor">Estás bloqueado/a no blog do/a autor/a.</string>
+  <string name="youBlockedByBlogAuthor">Estás bloqueado polo autor do blog.</string>
 </resources>
