@@ -52,4 +52,5 @@
   <string name="inappropriateContentAccountClosed">هر چیز نامناسبی می تواند حساب شما را ببندد.</string>
   <string name="blogTips">نکات پیشنهادی ما برای نوشتن پست های خوب وبلاگ</string>
   <string name="discussThisBlogPostInTheForum">راجع‌به این نوشته در انجمن بحث کنید</string>
+  <string name="youBlockedByBlogAuthor">نویسنده وبنوشت شما را مسدود کرده است.</string>
 </resources>
