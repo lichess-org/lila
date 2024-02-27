@@ -582,7 +582,7 @@
   <string name="privacy">حریم شخصی</string>
   <string name="privacyPolicy">سیاست حریم شخصی</string>
   <string name="letOtherPlayersFollowYou">بقیه بازیکنان شما را دنبال کنند</string>
-  <string name="letOtherPlayersChallengeYou">بقیه بازیکنان با شما بازی کنند</string>
+  <string name="letOtherPlayersChallengeYou">اجازه دهید بازیکنان دیگر به شما پیشنهاد بازی دهند</string>
   <string name="letOtherPlayersInviteYouToStudy">اجازه دهید دیگر بازیکن شما را به مطالعه دعوت کنند</string>
   <string name="sound">صدا</string>
   <string name="none">هیچ کدام</string>
@@ -635,7 +635,7 @@
   <string name="error.min">باید حداقل %s باشد</string>
   <string name="error.max">باید حداکثر %s باشد</string>
   <string name="ifRatingIsPlusMinusX">اگر درجه‌بندی‌شان %s± است</string>
-  <string name="ifRegistered">در صورت ثبت نام</string>
+  <string name="ifRegistered">اگر نام‌نویسی‌کرده</string>
   <string name="onlyExistingConversations">تنها مکالمات موجود</string>
   <string name="onlyFriends">فقط دوستان</string>
   <string name="menu">فهرست</string>
@@ -770,7 +770,7 @@
   <string name="correspondenceChess">شطرنج مکاتبه ای</string>
   <string name="onlineAndOfflinePlay">بازی کردن بَرخط و بُرون‌خط</string>
   <string name="viewTheSolution">دیدن راهِ حل</string>
-  <string name="followAndChallengeFriends">دنبال کردن و به مبارزه طلبیدنِ دوستان</string>
+  <string name="followAndChallengeFriends">دنبال کردن و پیشنهاد بازی دادن به دوستان</string>
   <plurals name="availableInNbLanguages">
     <item quantity="one">در %s  زبان‌ها موجود است</item>
     <item quantity="other">در %s  زبان‌ها موجود است</item>
