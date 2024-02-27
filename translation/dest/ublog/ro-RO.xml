@@ -55,4 +55,5 @@
   <string name="inappropriateContentAccountClosed">Orice lucru nepotrivit ar putea duce la închiderea contului tău.</string>
   <string name="blogTips">Sfaturile noastre simple pentru a scrie cele mai bune postări pe blog</string>
   <string name="discussThisBlogPostInTheForum">Discută această postare pe forum</string>
+  <string name="youBlockedByBlogAuthor">Ești blocat de autorul blogului.</string>
 </resources>
