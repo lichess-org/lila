@@ -52,4 +52,5 @@
   <string name="inappropriateContentAccountClosed">Alt upassende kan medføre, at din konto lukkes.</string>
   <string name="blogTips">Vores enkle tips til at skrive gode blogindlæg</string>
   <string name="discussThisBlogPostInTheForum">Diskutér dette blogindlæg i forummet</string>
+  <string name="youBlockedByBlogAuthor">Du er blokeret af blogforfatteren.</string>
 </resources>
