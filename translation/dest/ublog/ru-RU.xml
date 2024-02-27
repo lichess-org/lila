@@ -58,4 +58,5 @@
   <string name="inappropriateContentAccountClosed">Неуместное содержание может стать причиной закрытия вашего аккаунта.</string>
   <string name="blogTips">Наши простые советы по написанию отличных записей в блоге</string>
   <string name="discussThisBlogPostInTheForum">Обсудить эту запись в блоге на форуме</string>
+  <string name="youBlockedByBlogAuthor">Вы заблокированы автором блога.</string>
 </resources>
