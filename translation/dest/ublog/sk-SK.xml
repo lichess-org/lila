@@ -58,4 +58,5 @@
   <string name="inappropriateContentAccountClosed">Akýkoľvek nevhodný obsah môže mať za následok zrušenie Vášho účtu.</string>
   <string name="blogTips">Naše jednoduché tipy ako písať skvelé blogové príspevky</string>
   <string name="discussThisBlogPostInTheForum">Diskutovať o tomto príspevku na fóre</string>
+  <string name="youBlockedByBlogAuthor">Autor blogu Vás zablokoval.</string>
 </resources>
