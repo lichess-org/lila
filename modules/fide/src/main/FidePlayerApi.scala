@@ -1,21 +1,21 @@
-package lila.player
+package lila.fide
 
 import reactivemongo.api.bson.*
 import chess.{ ByColor, FideId }
 
 import lila.db.dsl.{ given, * }
 
-final class FidePlayerApi(private[player] val coll: Coll, cacheApi: lila.memo.CacheApi)(using Executor):
+final class FidePlayerApi(private[fide] val coll: Coll, cacheApi: lila.memo.CacheApi)(using Executor):
 
   import FidePlayer.*
 
-  private[player] given playerHandler: BSONDocumentHandler[FidePlayer] = Macros.handler
+  private[fide] given playerHandler: BSONDocumentHandler[FidePlayer] = Macros.handler
 
   def players(ids: ByColor[Option[FideId]]): Fu[ByColor[Option[FidePlayer]]] =
     ids.traverse:
       _.so(idToPlayerCache.get)
 
-  def federationsOf(ids: List[FideId]): Fu[Federations] =
+  def federationsOf(ids: List[FideId]): Fu[Federation.ByFideIds] =
     idToPlayerCache.getAll(ids) map:
       _.mapValues(_.flatMap(_.fed))
         .collect:

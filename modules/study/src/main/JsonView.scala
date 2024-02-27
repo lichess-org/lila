@@ -12,7 +12,7 @@ import lila.user.User
 final class JsonView(
     studyRepo: StudyRepo,
     lightUserApi: lila.user.LightUserApi,
-    fidePlayerApi: lila.player.FidePlayerApi
+    fidePlayerApi: lila.fide.FidePlayerApi
 )(using Executor):
 
   import JsonView.given

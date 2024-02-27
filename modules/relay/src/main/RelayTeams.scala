@@ -4,8 +4,7 @@ import chess.format.pgn.*
 import chess.format.Fen
 import chess.FideId
 
-import lila.player.{ PlayerName, PlayerToken, FidePlayer }
-import lila.player.FidePlayerApi
+import lila.fide.{ FidePlayerApi, PlayerName, PlayerToken, FidePlayer, Federation }
 
 type TeamName = String
 
@@ -146,7 +145,7 @@ function(root, tags) {
           teams = teams.bimap(_.add(outcome, t0Color), _.add(outcome, !t0Color))
         )
 
-    def makeTable(chapters: List[Chapter], federations: FidePlayer.Federations): List[TeamMatch] =
+    def makeTable(chapters: List[Chapter], federations: Federation.ByFideIds): List[TeamMatch] =
       chapters.reverse.foldLeft(List.empty[TeamMatch]): (table, chap) =>
         (for
           teams <- chap.tags.teams.tupled.map(Pair.apply)
