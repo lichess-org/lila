@@ -32,6 +32,14 @@
   #{$move-tag} {
     @extend %move-notation;
   }
+  .result-wrap {
+    &.victorious {
+      color: $c-good;
+    }
+    &.defeated {
+      color: $c-bad;
+    }
+  }
 
   @import 'moves-col1';
   @import 'moves-col2';
