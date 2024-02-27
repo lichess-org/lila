@@ -2,6 +2,8 @@
 <resources>
   <string name="dgtBoard">DGT 보드</string>
   <string name="lichessAndDgt">Lichess &amp; DGT</string>
+  <string name="dgtBoardRequirements">DGT 보드 요구사항</string>
+  <string name="dgtBoardLimitations">DGT 보드 제약사항</string>
   <string name="thisPageAllowsConnectingDgtBoard">이 페이지에서는 DGT 보드를 Lichess에 연결하여 사용 할 수 있습니다.</string>
   <string name="toConnectTheDgtBoard">DGT 보드에 연결하려면 %s를 설치해야 합니다.</string>
   <string name="downloadHere">소프트웨어 다운로드가 가능합니다: %s.</string>
@@ -15,9 +17,13 @@
   <string name="checkYouHaveMadeOpponentsMove">DGT 보드에서 먼저 상대방이 말을 움직였는지 확인하고, 다시 시도해주세요.</string>
   <string name="asALastResort" comment="%s is 'Reload this page', a separate translatable string.&#10;&#10;Appears on DGT board pages. A DGT board is a digitally connected real life board which requires the player to set up the real life board to match what it is on the screen. Hence needing it to be set up identically to what is visible on Lichess.">마지막 수단으로 보드를 Liches와 동일하게 설정한 다음 %s</string>
   <string name="reloadThisPage">이 페이지를 다시 로드하세요</string>
+  <string name="dgtConfigure">DGT - 설정</string>
   <string name="lichessConnectivity">Lichess 연결</string>
+  <string name="validDgtOauthToken">DGT 플레이에 적합한 OAuth 토큰이 있습니다.</string>
   <string name="noSuitableOauthToken">알맞은 OAuth 토큰이 생성되지 않았습니다</string>
   <string name="dgtBoardConnectivity">DGT 보드 연결</string>
+  <string name="clickToGenerateOne">눌러서 생성하기</string>
+  <string name="webSocketUrl">%s WebSocket URL</string>
   <string name="useWebSocketUrl">%2$s가 다른 장치나 포트에서 작동하는 것이 아니라면 \"%1$s\"를 사용하십시오.</string>
   <string name="textToSpeech">텍스트 음성 변환</string>
   <string name="configureVoiceNarration">각 플레이어의 수에 음성 내레이션을 구성하여 보드에 더 집중 할 수 있게 만듭니다</string>
@@ -25,6 +31,8 @@
   <string name="speechSynthesisVoice">합성 음성 출력</string>
   <string name="announceAllMoves">모든 수 알리기</string>
   <string name="selectAnnouncePreference">YES를 선택하면 자신의 수와 상대의 수를 모두 알 수 있고, NO를 선택하면 상대의 수만 알 수 있습니다.</string>
+  <string name="announceMoveFormat">수 알림 표기법</string>
+  <string name="moveFormatDescription">SAN은 \"Nf6\"과 같은, Lichess에서 쓰이는 표준 표기법입니다. UCI는 \"g8f6\"과 같은, 체스 엔진에서 흔이 쓰이는 표기법입니다.</string>
   <string name="keywords">키워드</string>
   <string name="keywordFormatDescription">키워드는 JSON 형식입니다. 이동 및 결과를 언어로 변환하는 데 사용됩니다. 기본값은 영어이지만, 자유롭게 변경하셔도 좋습니다.</string>
   <string name="debug">디버그</string>
