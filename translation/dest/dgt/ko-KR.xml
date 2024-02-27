@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="dgtBoard">DGT 보드</string>
+  <string name="lichessAndDgt">Lichess &amp; DGT</string>
   <string name="thisPageAllowsConnectingDgtBoard">이 페이지에서는 DGT 보드를 Lichess에 연결하여 사용 할 수 있습니다.</string>
   <string name="toConnectTheDgtBoard">DGT 보드에 연결하려면 %s를 설치해야 합니다.</string>
   <string name="downloadHere">소프트웨어 다운로드가 가능합니다: %s.</string>
