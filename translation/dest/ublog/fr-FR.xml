@@ -52,4 +52,5 @@
   <string name="inappropriateContentAccountClosed">Toute conduite inappropriée peut aboutir à la fermeture de votre compte.</string>
   <string name="blogTips">Conseils pratiques pour rédiger de bons messages</string>
   <string name="discussThisBlogPostInTheForum">Discuter de cet article de blogue dans le forum</string>
+  <string name="youBlockedByBlogAuthor">Vous êtes bloqué par l\'auteur du blogue.</string>
 </resources>
