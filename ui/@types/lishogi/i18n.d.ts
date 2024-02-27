@@ -483,7 +483,9 @@ export type I18nKey =
 'xAnsweredY'|
 'xCommentedY'|
 'victory'|
+'youWon'|
 'defeat'|
+'youLost'|
 'victoryVsYInZ'|
 'defeatVsYInZ'|
 'drawVsYInZ'|
@@ -1540,11 +1542,6 @@ export type I18nKey =
 'teachingMethod'|
 'publicStudies'|
 'youtubeVideos'|
-'thankYouForReview'|
-'xWillApproveIt'|
-'reviewCoach'|
-'describeExperienceWith'|
-'studentReviews'|
 'broadcasts'|
 'liveBroadcasts'|
 'newBroadcast'|

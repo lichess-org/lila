@@ -73,20 +73,6 @@ $(function () {
     submit();
   });
 
-  if ($editor.find('.reviews .review').length) $editor.find('.tabs div[data-tab=reviews]').click();
-
-  $reviews = $editor.find('.reviews');
-  $reviews.find('.actions a').click(function () {
-    var $review = $(this).parents('.review');
-    $.ajax({
-      method: 'post',
-      url: $review.data('action') + '?v=' + $(this).data('value'),
-    });
-    $review.hide();
-    $editor.find('.tabs div[data-tab=reviews]').attr('data-count', $reviews.find('.review').length - 1);
-    return false;
-  });
-
   $('.coach_picture form.upload input[type=file]').change(function () {
     $('.picture_wrap').html(lishogi.spinnerHtml);
     $(this).parents('form').submit();

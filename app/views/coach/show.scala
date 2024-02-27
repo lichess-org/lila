@@ -22,25 +22,13 @@ object show {
 
   def apply(
       c: lila.coach.Coach.WithUser,
-      coachReviews: lila.coach.CoachReview.Reviews,
-      studies: Seq[lila.study.Study.WithChaptersAndLiked],
-      myReview: Option[lila.coach.CoachReview]
+      studies: Seq[lila.study.Study.WithChaptersAndLiked]
   )(implicit ctx: Context) = {
     val profile   = c.coach.profile
     val coachName = s"${c.user.title.??(t => s"$t ")}${c.user.realNameOrUsername}"
     val title     = xCoachesStudents.txt(coachName)
     views.html.base.layout(
       title = title,
-      moreJs = frag(
-        jsAt("vendor/bar-rating/dist/jquery.barrating.min.js"),
-        ctx.isAuth option embedJsUnsafe("""$(function() {
-$(".bar-rating").barrating();
-$('.coach-review-form .toggle').click(function() {
-$(this).remove();
-$('.coach-review-form form').show();
-});
-});""")
-      ),
       moreCss = cssTag("coach"),
       openGraph = lila.app.ui
         .OpenGraph(
@@ -68,9 +56,7 @@ $('.coach-review-form form').show();
               cls      := "text button button-empty",
               dataIcon := "c",
               href     := s"${routes.Msg.convo(c.user.username)}"
-            )(sendPM()),
-          ctx.me.exists(_.id != c.user.id) option review.form(c, myReview),
-          review.list(coachReviews)
+            )(sendPM())
         ),
         div(cls := "coach-show__main coach-main box")(
           div(cls := "coach-widget")(widget(c, link = false)),

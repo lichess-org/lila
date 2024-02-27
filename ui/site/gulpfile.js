@@ -51,14 +51,6 @@ const hopscotch = () =>
     })
     .pipe(gulp.dest('../../public/vendor/hopscotch/'));
 
-const jqueryBarRating = () =>
-  gulp
-    .src(['dist/jquery.barrating.min.js'], {
-      cwd: path.dirname(require.resolve('jquery-bar-rating/package.json')),
-      cwdbase: true,
-    })
-    .pipe(gulp.dest('../../public/vendor/bar-rating/'));
-
 const highcharts = () =>
   gulp
     .src(['highcharts.js', 'highcharts-more.js', 'highstock.js'], {
@@ -201,7 +193,6 @@ const tasks = [
   captcha,
   deps,
   hopscotch,
-  jqueryBarRating,
   highcharts,
   spectrum,
   fairy,

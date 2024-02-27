@@ -34,7 +34,7 @@ final private class ReportScore(
     // https://github.com/lichess-org/lila/issues/4587
     def fixedAutoCommPrintScore(c: Report.Candidate)(score: Double): Double =
       if (c.isAutoComm) baseScore
-      else if (c.isPrint || c.isCoachReview || c.isPlaybans) baseScoreAboveThreshold
+      else if (c.isPrint || c.isPlaybans) baseScoreAboveThreshold
       else score
 
     def commFlagScore(c: Report.Candidate)(score: Double): Double =

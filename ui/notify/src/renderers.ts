@@ -108,14 +108,6 @@ export const renderers: Renderers = {
       ]),
     text: _ => 'Patron account expired',
   },
-  coachReview: {
-    html: n =>
-      generic(n, '/coach/edit', ':', [
-        h('span', [h('strong', 'New pending review'), drawTime(n)]),
-        h('span', 'Someone reviewed your coach profile.'),
-      ]),
-    text: _ => 'New pending review',
-  },
   ratingRefund: {
     html: n =>
       generic(n, '/player/myself', '', [

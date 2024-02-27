@@ -23,5 +23,4 @@ private[coach] object BsonHandlers {
 
   implicit val CoachBSONHandler = Macros.handler[Coach]
 
-  implicit val CoachReviewBSONHandler = Macros.handler[CoachReview]
 }

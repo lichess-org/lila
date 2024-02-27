@@ -136,7 +136,6 @@ object Report {
     def scored(score: Score) = Candidate.Scored(this, score)
     def isAutomatic          = reporter.id == ReporterId.lishogi
     def isAutoComm           = isAutomatic && isComm
-    def isCoachReview        = isOther && text.contains("COACH REVIEW")
     def isCommFlag           = text contains Reason.Comm.flagText
   }
 

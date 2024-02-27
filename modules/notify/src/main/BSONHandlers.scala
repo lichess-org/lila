@@ -72,7 +72,6 @@ private object BSONHandlers {
         case x: PlanExpire                 => PlanExpireHandler.writeTry(x).get
         case x: RatingRefund               => RatingRefundHandler.writeTry(x).get
         case ReportedBanned                => $empty
-        case CoachReview                   => $empty
         case x: CorresAlarm                => CorresAlarmHandler.writeTry(x).get
         case x: GenericLink                => GenericLinkHandler.writeTry(x).get
       }
@@ -108,7 +107,6 @@ private object BSONHandlers {
         case "planExpire"     => PlanExpireHandler.readTry(reader.doc).get
         case "ratingRefund"   => RatingRefundHandler.readTry(reader.doc).get
         case "reportedBanned" => ReportedBanned
-        case "coachReview"    => CoachReview
         case "corresAlarm"    => CorresAlarmHandler.readTry(reader.doc).get
         case "genericLink"    => GenericLinkHandler.readTry(reader.doc).get
       }

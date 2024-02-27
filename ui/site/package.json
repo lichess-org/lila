@@ -28,7 +28,6 @@
     "fairy-stockfish-nnue.wasm": "=1.1.5",
     "highcharts": "=4.2.5",
     "hopscotch": "^0.3.1",
-    "jquery-bar-rating": "^1.2.2",
     "shogiground": "^0.8.4",
     "shogiops": "^0.15.1",
     "spectrum": "github:WandererXII/spectrum",

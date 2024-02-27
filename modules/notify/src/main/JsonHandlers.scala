@@ -34,7 +34,7 @@ final class JSONHandlers(getLightUser: LightUser.GetterSync) {
             "id"   -> id.value,
             "name" -> name.value
           )
-        case ReportedBanned | CoachReview => Json.obj()
+        case ReportedBanned => Json.obj()
         case TitledTournamentInvitation(id, text) =>
           Json.obj(
             "id"   -> id,

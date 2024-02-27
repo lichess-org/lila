@@ -25,12 +25,4 @@
 	<string name="teachingMethod">Teaching methodology</string>
 	<string name="publicStudies">Public studies</string>
 	<string name="youtubeVideos">YouTube videos</string>
-	<plurals name="studentReviews">
-		<item quantity="one">One student review</item>
-		<item quantity="other">%s student reviews</item>
-	</plurals>
-	<string name="thankYouForReview">Thank you for the review!</string>
-	<string name="xWillApproveIt">%s will approve it very soon, or a moderator will have a look at it.</string>
-	<string name="reviewCoach">Review this coach</string>
-	<string name="describeExperienceWith">Describe your coaching experience with %s</string>
 </resources>

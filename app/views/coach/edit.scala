@@ -7,7 +7,7 @@ import lila.api.Context
 import lila.app.templating.Environment._
 import lila.i18n.LangList
 import lila.app.ui.ScalatagsTemplate._
-import lila.common.String.html.{ richText, safeJsonValue }
+import lila.common.String.html.safeJsonValue
 
 import controllers.routes
 
@@ -29,7 +29,7 @@ object edit {
     }
   }
 
-  def apply(c: lila.coach.Coach.WithUser, form: Form[_], reviews: lila.coach.CoachReview.Reviews)(implicit
+  def apply(c: lila.coach.Coach.WithUser, form: Form[_])(implicit
       ctx: Context
   ) = {
     views.html.account.layout(
@@ -37,7 +37,6 @@ object edit {
       evenMoreCss = frag(cssTag("coach.editor"), cssTag("tagify")),
       evenMoreJs = frag(
         jsAt("vendor/jquery.form.min.js"),
-        jsAt("vendor/bar-rating/dist/jquery.barrating.min.js"),
         tagifyTag,
         jsTag("coach.form.js")
       ),
@@ -78,10 +77,7 @@ object edit {
           div(cls := "tabs")(
             div(dataTab := "basics", cls := "active")("Basics"),
             div(dataTab := "texts")("Texts"),
-            div(dataTab := "contents")("Contents"),
-            div(dataTab := "reviews", dataCount := reviews.list.size, cls := "data-count")(
-              "Pending reviews"
-            )
+            div(dataTab := "contents")("Contents")
           ),
           div(cls := "panels")(
             div(cls := "panel basics active")(
@@ -166,32 +162,6 @@ object edit {
                 raw("Featured youtube videos"),
                 help = raw("Up to 6 Youtube video URLs, one per line").some
               )(form3.textarea(_)(rows := 6))
-            ),
-            div(cls := "panel reviews")(
-              p(cls := "help text", dataIcon := "")("Reviews are visible only after you approve them."),
-              reviews.list.map { r =>
-                div(cls := "review", attr("data-action") := routes.Coach.approveReview(r.id))(
-                  div(cls := "user")(
-                    userIdLink(r.userId.some),
-                    review.barRating(selected = r.score.some, enabled = false),
-                    momentFromNow(r.updatedAt)
-                  ),
-                  div(cls := "content")(
-                    r.moddedAt.isDefined option div(cls := "modded")(
-                      "Moderators have disapproved this review. Please only accept reviews from ",
-                      "actual students, based on actual lessons. Reviews must be about your coaching services.",
-                      br,
-                      "You may delete this review, or ask the author to rephrase it, then approve it."
-                    ),
-                    richText(r.text)
-                  ),
-                  div(cls := "actions btn-rack")(
-                    r.moddedAt.fold(true)(_.isBefore(r.updatedAt)) option
-                      a(dataValue := "1", cls := "btn-rack__btn yes", dataIcon := "E"),
-                    a(dataValue := "0", cls := "btn-rack__btn no", dataIcon := "L")
-                  )
-                )
-              }
             )
           ),
           div(cls := "status text", dataIcon := "E")("Your changes have been saved.")

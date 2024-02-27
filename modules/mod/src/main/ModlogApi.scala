@@ -188,11 +188,6 @@ final class ModlogApi(repo: ModlogRepo, userRepo: UserRepo)(implicit
       Modlog(mod, user.some, Modlog.modMessage, details = subject.some)
     }
 
-  def coachReview(mod: User.ID, coach: User.ID, author: User.ID) =
-    add {
-      Modlog(mod, coach.some, Modlog.coachReview, details = s"by $author".some)
-    }
-
   def cheatDetected(user: User.ID, gameId: String) =
     add {
       Modlog("lishogi", user.some, Modlog.cheatDetected, details = s"game $gameId".some)
