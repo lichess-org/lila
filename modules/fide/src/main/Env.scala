@@ -14,7 +14,8 @@ final class Env(db: lila.db.Db, cacheApi: CacheApi, ws: StandaloneWSClient)(usin
     akka.stream.Materializer
 )(using mode: Mode, scheduler: Scheduler):
 
-  private val fidePlayerColl = db(CollName("fide_player"))
+  val repo =
+    FideRepo(playerColl = db(CollName("fide_player")), federationColl = db(CollName("fide_federation")))
 
   lazy val api = wire[FidePlayerApi]
 

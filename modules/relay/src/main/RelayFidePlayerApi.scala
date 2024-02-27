@@ -9,7 +9,7 @@ import lila.fide.{ FideTC, FidePlayer, FidePlayerApi }
 final private class RelayFidePlayerApi(playerApi: FidePlayerApi)(using Executor):
 
   def enrichGames(tour: RelayTour)(games: RelayGames): Fu[RelayGames] =
-    val tc = guessTimeControl(tour) | FideTC.Standard
+    val tc = guessTimeControl(tour) | FideTC.standard
     games.traverse: game =>
       (game.tags.fideIds zip game.tags.names zip game.tags.titles)
         .traverse:
@@ -19,7 +19,7 @@ final private class RelayFidePlayerApi(playerApi: FidePlayerApi)(using Executor)
 
   private def guessTimeControl(tour: RelayTour): Option[FideTC] =
     tour.description.split('|').lift(2).map(_.trim.toLowerCase.replace("classical", "standard")) so: tcStr =>
-      FideTC.values.find(tc => tcStr.contains(tc.toString.toLowerCase))
+      FideTC.values.find(tc => tcStr.contains(tc.toString))
 
   private def update(tags: Tags, tc: FideTC, fidePlayers: ByColor[Option[FidePlayer]]): Tags =
     chess.Color.all.foldLeft(tags): (tags, color) =>

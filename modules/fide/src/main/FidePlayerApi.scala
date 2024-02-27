@@ -5,12 +5,10 @@ import chess.{ ByColor, FideId }
 
 import lila.db.dsl.{ given, * }
 
-final class FidePlayerApi(private[fide] val coll: Coll, cacheApi: lila.memo.CacheApi)(using Executor):
+final class FidePlayerApi(repo: FideRepo, cacheApi: lila.memo.CacheApi)(using Executor):
 
-  import FidePlayerApi.playerHandler
+  import repo.player.handler
   import FidePlayer.*
-
-  def fetch(id: FideId): Fu[Option[FidePlayer]] = coll.byId[FidePlayer](id)
 
   def players(ids: ByColor[Option[FideId]]): Fu[ByColor[Option[FidePlayer]]] =
     ids.traverse:
@@ -32,16 +30,14 @@ final class FidePlayerApi(private[fide] val coll: Coll, cacheApi: lila.memo.Cach
     case None         => name.map(FidePlayer.tokenize).map(TokenTitle(_, title)).so(guessPlayerCache.get)
 
   private val idToPlayerCache = cacheApi[FideId, Option[FidePlayer]](1024, "player.fidePlayer.byId"):
-    _.expireAfterWrite(1.minute).buildAsyncFuture: id =>
-      coll.byId[FidePlayer](id)
+    _.expireAfterWrite(1.minute).buildAsyncFuture(repo.player.fetch)
 
   private val guessPlayerCache =
     cacheApi[TokenTitle, Option[FidePlayer]](1024, "player.fidePlayer.byName"):
       _.expireAfterWrite(1.minute).buildAsyncFuture: tt =>
-        coll.find($doc("token" -> tt.token, "title" -> tt.title)).cursor[FidePlayer]().list(2) map:
+        repo.playerColl
+          .find($doc("token" -> tt.token, "title" -> tt.title))
+          .cursor[FidePlayer]()
+          .list(2) map:
           case List(onlyMatch) => onlyMatch.some
           case _               => none
-
-private object FidePlayerApi:
-
-  given playerHandler: BSONDocumentHandler[FidePlayer] = Macros.handler

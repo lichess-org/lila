@@ -5,7 +5,7 @@ import java.text.Normalizer
 import chess.FideId
 
 enum FideTC:
-  case Standard, Rapid, Blitz
+  case standard, rapid, blitz
 
 case class FidePlayer(
     @Key("_id") id: FideId,
@@ -21,9 +21,9 @@ case class FidePlayer(
     fetchedAt: Instant
 ):
   def ratingOf(tc: FideTC): Option[Int] = tc match
-    case FideTC.Standard => standard
-    case FideTC.Rapid    => rapid
-    case FideTC.Blitz    => blitz
+    case FideTC.standard => standard
+    case FideTC.rapid    => rapid
+    case FideTC.blitz    => blitz
 
   def slug: String = FidePlayer.nameToSlug(name)
 

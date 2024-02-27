@@ -1,6 +1,22 @@
 package lila.fide
 
+import monocle.syntax.all.*
+import reactivemongo.api.bson.Macros.Annotations.Key
 import chess.FideId
+
+case class Federation(
+    @Key("_id") code: Federation.Code,
+    name: Federation.Name,
+    nbPlayers: Int,
+    standard: Federation.Stats,
+    rapid: Federation.Stats,
+    blitz: Federation.Stats,
+    updatedAt: Instant
+):
+  def stats(tc: FideTC) = tc match
+    case FideTC.standard => this.focus(_.standard)
+    case FideTC.rapid    => this.focus(_.rapid)
+    case FideTC.blitz    => this.focus(_.blitz)
 
 // Obviously, FIDE country codes don't follow any existing standard.
 // https://ratings.fide.com/top_federations.phtml
@@ -10,11 +26,27 @@ object Federation:
   type Code = String
   type Name = String
 
+  case class Stats(rank: Int, nbPlayers: Int, top10Rating: Int)
+
   type ByFideIds = Map[FideId, Code]
 
-  def name(code: Code): Name = all.getOrElse(code, code)
+  export FidePlayer.nameToSlug
 
-  val all: Map[Code, Name] = Map(
+  def name(code: Code): Name = names.getOrElse(code, code)
+
+  def find(str: String): Option[(Code, Name)] =
+    names.get(str.toUpperCase).map(str.toUpperCase -> _) orElse
+      bySlug
+        .get(str)
+        .orElse(bySlug.get(nameToSlug(str)))
+        .flatMap: code =>
+          names.get(code).map(code -> _)
+
+  lazy val bySlug: Map[String, Code] = names
+    .map: (code, name) =>
+      nameToSlug(name) -> code
+
+  val names: Map[Code, Name] = Map(
     "USA" -> "United States of America",
     "IND" -> "India",
     "CHN" -> "China",
