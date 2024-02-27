@@ -36,10 +36,6 @@
     &__date {
       unicode-bidi: embed;
     }
-    input[type='number'] {
-      width: 6em;
-      margin-right: 1em;
-    }
   }
   &__topics {
     @extend %flex-wrap;
@@ -156,5 +152,28 @@
     &.followed .ublog-post__follow__yes {
       display: block;
     }
+  }
+}
+
+.ublog-post__mod-tools {
+  @extend %flex-between;
+  justify-content: center;
+  padding: 1.5em;
+  gap: 1.5em;
+  border: $border-width $border-style $c-accent;
+  span {
+    @extend %flex-center;
+    column-gap: 0.5em;
+  }
+  legend {
+    width: 100%;
+    padding-#{$start-direction}: 1em;
+    > span {
+      @extend %flex-between;
+    }
+  }
+  input[type='number'] {
+    width: 64px;
+    padding: 0.5em;
   }
 }

@@ -83,8 +83,8 @@ $player-height: 1.6rem;
   }
 
   .info {
+    @extend %flex-center-nowrap;
     margin-#{$start-direction}: 10px;
-    display: flex;
     overflow: hidden;
 
     > * {
@@ -104,8 +104,11 @@ $player-height: 1.6rem;
     margin-#{$end-direction}: 1ch;
     padding: 0 1ch;
     flex: 2;
-    background: $c-bg-zebra;
-    color: $c-fancy;
+    color: $c-font-dim;
+  }
+  .flag {
+    height: 1em;
+    margin-#{$end-direction}: 1ch;
   }
 
   .elo {

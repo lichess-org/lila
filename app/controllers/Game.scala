@@ -53,8 +53,8 @@ final class Game(env: Env, apiC: => Api) extends LilaController(env):
   def apiExportByUser(username: UserStr) = AnonOrScoped()(handleExport(username))
 
   private def handleExport(username: UserStr)(using ctx: Context) =
-    env.user.repo byId username flatMap {
-      _.filter(u => u.enabled.yes || ctx.is(u) || isGrantedOpt(_.GamesModView)) so { user =>
+    meOrFetch(username).flatMap:
+      _.filter(u => u.enabled.yes || ctx.is(u) || isGrantedOpt(_.GamesModView)) so: user =>
         val format = GameApiV2.Format byRequest req
         import lila.rating.{ Perf, PerfType }
         WithVs: vs =>
@@ -102,9 +102,6 @@ final class Game(env: Env, apiC: => Api) extends LilaController(env):
                           s"lichess_${user.username}_${fileDate}.${format.toString.toLowerCase}"
                       .as(gameContentType(config))
 
-      }
-    }
-
   private def fileDate = DateTimeFormatter ofPattern "yyyy-MM-dd" print nowInstant
 
   def apiExportByUserImportedGames() = AuthOrScoped() { ctx ?=> me ?=>
@@ -129,14 +126,11 @@ final class Game(env: Env, apiC: => Api) extends LilaController(env):
       .download(req.ipAddress)(env.api.gameApiV2.exportByIds(config)): source =>
         noProxyBuffer(Ok.chunked(source)).as(gameContentType(config))
 
-  private def WithVs(f: Option[lila.user.User] => Fu[Result])(using RequestHeader): Fu[Result] =
-    getUserStr("vs") match
-      case None => f(none)
-      case Some(name) =>
-        env.user.repo byId name flatMap {
-          case None       => notFoundJson(s"No such opponent: $name")
-          case Some(user) => f(user.some)
-        }
+  private def WithVs(f: Option[lila.user.User] => Fu[Result])(using Context): Fu[Result] =
+    getUserStr("vs").fold(f(none)): name =>
+      meOrFetch(name).flatMap:
+        _.fold[Fu[Result]](notFoundJson(s"No such opponent: $name")): user =>
+          f(user.some)
 
   private[controllers] def requestPgnFlags(extended: Boolean)(using RequestHeader) =
     lila.game.PgnDump.WithFlags(

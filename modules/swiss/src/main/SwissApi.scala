@@ -130,16 +130,14 @@ final class SwissApi(
     ranking <- rankingApi(swiss)
     perfs   <- perfsRepo.perfOf(ranking.keys, swiss.perfType)
     update = mongo.player.update(ordered = false)
-    elements <- perfs.map { (userId, perf) =>
-      update
-        .element(
-          q = $id(SwissPlayer.makeId(swiss.id, userId)),
-          u = $set(
-            SwissPlayer.Fields.rating      -> perf.intRating,
-            SwissPlayer.Fields.provisional -> perf.provisional.yes.option(true)
-          )
+    elements <- perfs.toSeq.traverse: (userId, perf) =>
+      update.element(
+        q = $id(SwissPlayer.makeId(swiss.id, userId)),
+        u = $set(
+          SwissPlayer.Fields.rating      -> perf.intRating,
+          SwissPlayer.Fields.provisional -> perf.provisional.yes.option(true)
         )
-    }.parallel // doesn't talk to the db yet
+      )
     _ <- elements.nonEmpty so update.many(elements).void
   yield ()
 

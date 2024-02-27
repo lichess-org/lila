@@ -29,7 +29,7 @@ object ServerEval:
         .so:
           val unlimitedFu =
             fuccess(unlimited) >>|
-              fuccess(userId == User.lichessId) >>| userRepo.me(userId).map(Granter.opt(_.Relay)(using _))
+              fuccess(userId == User.lichessId) >>| userRepo.me(userId).map(_.soUse(Granter.opt(_.Relay)))
           unlimitedFu.flatMap: unlimited =>
             chapterRepo
               .startServerEval(chapter)

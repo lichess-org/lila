@@ -35,5 +35,6 @@
   <string name="editRoundStudy">Ronnen-Etüd modifiéieren</string>
   <string name="deleteTournament">Dësen Turnéier läschen</string>
   <string name="definitivelyDeleteTournament">De ganzen Turnéier definitiv läschen, all seng Ronnen an all seng Partien.</string>
+  <string name="replacePlayerTags">Optional: Spillernimm, Wäertungen an Titelen ersetzen</string>
   <string name="periodInSeconds">Period a Sekonnen</string>
 </resources>

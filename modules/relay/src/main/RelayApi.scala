@@ -171,8 +171,15 @@ final class RelayApi(
           "ownerId"         -> tour.ownerId.some
         )
       )
-      _ <- Granter(_.Relay).so(groupRepo.update(tour.id, data.grouping))
-    yield withTours.invalidate(tour.id)
+      _ <- data.grouping.so(updateGrouping(tour, _))
+    yield
+      leaderboard invalidate tour.id
+      (tour.id :: data.grouping.so(_.tourIds)).foreach(withTours.invalidate)
+
+  private def updateGrouping(tour: RelayTour, data: RelayGroup.form.Data)(using me: Me): Funit =
+    Granter(_.Relay).so:
+      val canGroup = fuccess(Granter(_.StudyAdmin)) >>| tourRepo.isOwnerOfAll(me.userId, data.tourIds)
+      canGroup flatMapz groupRepo.update(tour.id, data)
 
   def create(data: RelayRoundForm.Data, tour: RelayTour)(using me: Me): Fu[RelayRound.WithTourAndStudy] =
     roundRepo.lastByTour(tour) flatMapz { last =>
@@ -254,28 +261,25 @@ final class RelayApi(
         denormalizeTourActive(rt.tour.id) inject rt.tour.some
 
   def deleteTourIfOwner(tour: RelayTour)(using me: Me): Fu[Boolean] =
-    tour.ownerId
-      .is(me)
-      .so:
-        for
-          _      <- tourRepo.delete(tour)
-          rounds <- roundRepo.idsByTourOrdered(tour)
-          _      <- roundRepo.deleteByTour(tour)
-          _      <- rounds.map(_ into StudyId).traverse_(studyApi.deleteById)
-        yield true
+    tour.ownerId.is(me) so:
+      for
+        _      <- tourRepo.delete(tour)
+        rounds <- roundRepo.idsByTourOrdered(tour)
+        _      <- roundRepo.deleteByTour(tour)
+        _      <- rounds.map(_ into StudyId).traverse_(studyApi.deleteById)
+      yield true
 
   def getOngoing(id: RelayRoundId): Fu[Option[WithTour]] =
-    roundRepo.coll.one[RelayRound]($doc("_id" -> id, "finished" -> false)) flatMapz { relay =>
+    roundRepo.coll.one[RelayRound]($doc("_id" -> id, "finished" -> false)) flatMapz: relay =>
       tourById(relay.tourId) map2 relay.withTour
-    }
 
   def canUpdate(tour: RelayTour)(using me: Me): Fu[Boolean] =
     fuccess(Granter(_.StudyAdmin) || me.is(tour.ownerId)) >>|
-      roundRepo.coll.distinctEasy[StudyId, List]("_id", RelayRoundRepo.selectors tour tour.id).flatMap {
-        ids =>
+      roundRepo
+        .studyIdsOf(tour.id)
+        .flatMap: ids =>
           studyRepo.membersByIds(ids) map:
             _.exists(_ contributorIds me)
-      }
 
   def cloneTour(from: RelayTour)(using me: Me): Fu[RelayTour] =
     val tour = from.copy(

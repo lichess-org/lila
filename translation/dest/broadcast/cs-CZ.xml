@@ -44,12 +44,6 @@
   <string name="definitivelyDeleteTournament">Opravdu smazat celý turnaj, všechna kola a hry.</string>
   <string name="automaticLeaderboard">Automatický žebříček</string>
   <string name="automaticLeaderboardHelp">Vypočítejte a zobrazte jednoduchý žebříček na základě výsledků hry</string>
-  <string name="replace">Volitelné: nahraďte jména hráčů, hodnocení a tituly</string>
-  <string name="replaceHelp">Jeden řádek pro každého hráče a takto naformátovaný:
-Původní jméno; Náhradní jméno; Nepovinné náhradní hodnocení; Nepovinný náhradní název
-Příklad:
-DrNykterstein;Magnus Carlsen;2863
-AnishGiri;Anish Giri;2764;GM</string>
   <string name="periodInSeconds">Doba v sekundách</string>
   <string name="periodInSecondsHelp">Volitelné, jak dlouho se má čekat mezi jednotlivými požadavky. Min. 2s, max. 60s. Výchozí hodnota je automatická podle počtu diváků.</string>
 </resources>

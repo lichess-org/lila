@@ -15,6 +15,7 @@ final class Env(
     ws: StandaloneWSClient,
     db: lila.db.Db,
     yoloDb: lila.db.AsyncDb @@ lila.db.YoloDb,
+    fidePlayerApi: lila.player.FidePlayerApi,
     studyApi: lila.study.StudyApi,
     multiboard: lila.study.StudyMultiBoard,
     studyRepo: lila.study.StudyRepo,
@@ -30,7 +31,7 @@ final class Env(
     notifyApi: lila.notify.NotifyApi,
     picfitApi: lila.memo.PicfitApi,
     picfitUrl: lila.memo.PicfitUrl
-)(using Executor, ActorSystem, akka.stream.Materializer)(using scheduler: Scheduler):
+)(using Executor, ActorSystem, akka.stream.Materializer, play.api.Mode)(using scheduler: Scheduler):
 
   lazy val roundForm = wire[RelayRoundForm]
 
@@ -94,6 +95,8 @@ final class Env(
     default = "-".r,
     text = "Broadcast: source domains that use a proxy, as a regex".some
   ).taggedWith[ProxyDomainRegex]
+
+  private val relayFidePlayerApi = wire[RelayFidePlayerApi]
 
   // start the sync scheduler
   wire[RelayFetch]

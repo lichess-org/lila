@@ -137,7 +137,7 @@ object RelayRoundForm:
         },
         until = none,
         nextAt = none,
-        period = period ifTrue Granter.of(_.Relay)(user),
+        period = period ifTrue Granter.of(_.StudyAdmin)(user),
         delay = delay,
         log = SyncLog.empty
       )

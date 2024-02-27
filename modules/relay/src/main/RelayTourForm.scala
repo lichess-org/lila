@@ -64,7 +64,6 @@ object RelayTourForm:
           teams = teams,
           spotlight = spotlight.filterNot(_.isEmpty)
         )
-        .reAssignIfOfficial
 
     def make(using me: Me) =
       RelayTour(
@@ -82,7 +81,7 @@ object RelayTourForm:
         players = players,
         teams = teams,
         spotlight = spotlight.filterNot(_.isEmpty)
-      ).reAssignIfOfficial
+      ).giveToBroadcasterIf(Granter(_.StudyAdmin))
 
   object Data:
 

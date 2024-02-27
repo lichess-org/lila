@@ -32,7 +32,7 @@ object MovetimeRange:
   def reversedNoInf = values.reverse drop 1
   val byId          = values.mapBy(_.id)
   def toRange(mr: MovetimeRange): (Int, Int) = (
-    values.indexOption(mr).map(_ - 1).flatMap(values.lift).fold(0)(_.tenths),
+    values.toIndexedSeq.indexOption(mr).map(_ - 1).flatMap(values.lift).fold(0)(_.tenths),
     mr.tenths
   )
 
@@ -73,7 +73,7 @@ object TimeVariance:
     if tv == VeryVariable then (QuiteVariable.intFactored, Int.MaxValue)
     else
       (
-        values.indexOption(tv).map(_ - 1).flatMap(values.lift).fold(0)(_.intFactored),
+        values.toIndexedSeq.indexOption(tv).map(_ - 1).flatMap(values.lift).fold(0)(_.intFactored),
         tv.intFactored
       )
 

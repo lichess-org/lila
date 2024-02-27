@@ -503,8 +503,7 @@ final class Puzzle(env: Env, apiC: => Api) extends LilaController(env):
 
   private def DashboardPage(username: Option[UserStr])(f: Context ?=> User => Fu[Result]) =
     Auth { ctx ?=> me ?=>
-      username
-        .so(env.user.repo.byId)
+      meOrFetch(username)
         .flatMapz: user =>
           (fuccess(isGranted(_.CheatHunter)) >>|
             user.enabled.yes.so(env.clas.api.clas.isTeacherOf(me, user.id))) map {

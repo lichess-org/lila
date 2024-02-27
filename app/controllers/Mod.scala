@@ -104,9 +104,8 @@ final class Mod(
   }(actionResult(username))
 
   def closeAccount(username: UserStr) = OAuthMod(_.CloseAccount) { _ ?=> me ?=>
-    env.user.repo byId username flatMapz { user =>
+    meOrFetch(username).flatMapz: user =>
       env.api.accountClosure.close(user) map some
-    }
   }(actionResult(username))
 
   def reopenAccount(username: UserStr) = OAuthMod(_.CloseAccount) { _ ?=> me ?=>
@@ -137,7 +136,7 @@ final class Mod(
     if username == UserName("-") && env.mod.impersonate.isImpersonated(me) then
       env.mod.impersonate.stop(me)
       Redirect(routes.User.show(me.username))
-    else if isGranted(_.Impersonate) || (isGranted(_.Admin) && username.id == lila.user.User.lichessId) then
+    else if isGranted(_.Impersonate) || (isGranted(_.Admin) && username.is(lila.user.User.lichessId)) then
       Found(env.user.repo byId username): user =>
         env.mod.impersonate.start(me, user)
         Redirect(routes.User.show(user.username))
@@ -217,9 +216,7 @@ final class Mod(
   }
 
   private def communications(username: UserStr, priv: Boolean) =
-    Secure { perms =>
-      if priv then perms.ViewPrivateComms else perms.Shadowban
-    } { ctx ?=> me ?=>
+    Secure(perms => if priv then perms.ViewPrivateComms else perms.Shadowban) { ctx ?=> me ?=>
       FoundPage(env.user.repo byId username): user =>
         given lila.mod.IpRender.RenderIp = env.mod.ipRender.apply
         env.game.gameRepo

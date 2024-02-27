@@ -43,12 +43,7 @@
   <string name="definitivelyDeleteTournament">Slett heile turneringa med alle rundene og alle partia.</string>
   <string name="automaticLeaderboard">Automatisk rangliste</string>
   <string name="automaticLeaderboardHelp">Berekne og vise ei enkel rangliste baseret på resultatar frå partia</string>
-  <string name="replace">Valfritt: erstatt spelaramn, rangeringar og titlar</string>
-  <string name="replaceHelp">Ei linje per spelar, formattert slik:
-Opphavleg namn; valfritt alternativt namn; valfri alternativ rating; valfri alternativ tittel
-Døme:
-DrNykterstein;Magnus Carlsen;2863
-AnishGiri;Anish Giri;2764;GM</string>
+  <string name="replacePlayerTags">Valfritt: bytt ut spelarnamn, rangeringar og titlar</string>
   <string name="periodInSeconds">Periode i sekund</string>
   <string name="periodInSecondsHelp">Ventetida mellom førespurnadene er valfri frå 2 til 60 sekund. Default tid er basert på sjåartalet.</string>
 </resources>

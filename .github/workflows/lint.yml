@@ -17,17 +17,13 @@ jobs:
       security-events: write
     steps:
       - uses: actions/checkout@v4
-      - uses: pnpm/action-setup@v2
+      - uses: pnpm/action-setup@v3
         with:
-          version: '8.11'
-      - uses: actions/setup-node@v4
-        with:
-          node-version: '19'
-          cache: pnpm
+          version: 8
+          run_install: true
       - uses: github/codeql-action/init@v3
         with:
           languages: javascript
       - uses: github/codeql-action/analyze@v3
-      - run: pnpm install
       - run: pnpm run lint
       - run: pnpm run check-format

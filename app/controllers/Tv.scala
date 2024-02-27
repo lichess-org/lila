@@ -1,11 +1,12 @@
 package controllers
 
 import play.api.http.ContentTypes
+
 import scala.util.chaining.*
+import play.api.mvc.Result
 import play.api.libs.json.*
 import views.*
-
-import lila.app.{ given, * }
+import lila.app.{ *, given }
 import lila.game.Pov
 import lila.tv.Tv.Channel
 import lila.common.Json.given
@@ -90,22 +91,35 @@ final class Tv(env: Env, apiC: => Api, gameC: => Game) extends LilaController(en
       }
     }
 
-  def feed = Anon:
+  def feedDefault = Anon:
+    serveFeedFromChannel(Channel.Best)
+
+  def feed(chanKey: String) = Anon:
+    Channel.byKey.get(chanKey) so serveFeedFromChannel
+
+  private def serveFeedFromChannel(channel: Channel)(using Context): Fu[Result] =
     import makeTimeout.short
     import akka.pattern.ask
-    import lila.round.TvBroadcast
     import play.api.libs.EventSource
+    import lila.tv.TvBroadcast
     val bc   = getBool("bc")
     val ctag = summon[scala.reflect.ClassTag[TvBroadcast.SourceType]]
-    env.round.tvBroadcast ? TvBroadcast.Connect(bc) mapTo ctag map { source =>
-      if bc then
-        Ok.chunked(source via EventSource.flow log "Tv.feed")
-          .as(ContentTypes.EVENT_STREAM) pipe noProxyBuffer
-      else jsToNdJson(source)
-    }
+    env.tv.channelBroadcasts.get(channel) so: actor =>
+      actor ? TvBroadcast.Connect(bc) mapTo ctag map { source =>
+        if bc then
+          Ok.chunked(source via EventSource.flow log "Tv.feed")
+            .as(ContentTypes.EVENT_STREAM) pipe noProxyBuffer
+        else jsToNdJson(source)
+      }
 
-  def frame = Anon:
-    env.tv.tv.getBestGame.flatMap:
-      _.fold(notFoundText()): game =>
+  def frameDefault = Anon:
+    serveFrameFromChannel(Channel.Best)
+
+  def frame(chanKey: String) = Anon:
+    Channel.byKey.get(chanKey) so serveFrameFromChannel
+
+  private def serveFrameFromChannel(channel: Channel)(using Context) =
+    env.tv.tv.getGame(channel) flatMap:
+      _.fold(notFoundText()): g =>
         InEmbedContext:
-          Ok(views.html.tv.embed(Pov naturalOrientation game))
+          Ok(views.html.tv.embed(Pov naturalOrientation g, channel.key.some))

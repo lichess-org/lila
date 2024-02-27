@@ -2,6 +2,9 @@ package lila.relay
 
 import chess.format.pgn.*
 import chess.format.Fen
+import chess.FideId
+
+import lila.player.{ PlayerName, PlayerToken, FidePlayer }
 
 type TeamName = String
 
@@ -9,19 +12,26 @@ private class RelayTeams(val text: String):
 
   def sortedText = text.linesIterator.toList.sorted.mkString("\n")
 
-  lazy val teams: Map[TeamName, List[PlayerName]] = text.linesIterator
+  lazy val teams: Map[TeamName, List[PlayerName | FideId]] = text.linesIterator
     .take(1000)
     .toList
     .flatMap: line =>
       line.split(';').map(_.trim) match
-        case Array(team, player) => Some(team -> player)
+        case Array(team, player) => Some(team -> (player.toIntOption.fold(player)(FideId(_))))
         case _                   => none
     .groupBy(_._1)
     .view
     .mapValues(_.map(_._2))
     .toMap
 
-  private lazy val playerTeams: Map[PlayerName, TeamName] =
+  private lazy val tokenizedPlayerTeams: Map[PlayerToken | FideId, TeamName] =
+    playerTeams.mapKeys(tokenizePlayer)
+
+  private val tokenizePlayer: PlayerName | FideId => PlayerToken | FideId =
+    case name: PlayerName => FidePlayer.tokenize(name)
+    case fideId           => fideId
+
+  private lazy val playerTeams: Map[PlayerName | FideId, TeamName] =
     teams.flatMap: (team, players) =>
       players.map(_ -> team)
 
@@ -30,11 +40,13 @@ private class RelayTeams(val text: String):
 
   private def update(tags: Tags): Tags =
     chess.Color.all.foldLeft(tags): (tags, color) =>
-      tags
-        .players(color)
-        .flatMap(playerTeams.get)
-        .fold(tags): team =>
-          tags + Tag(color.fold(Tag.WhiteTeam, Tag.BlackTeam), team)
+      val found = tags.fideIds(color).flatMap(findMatching) orElse
+        tags.names(color).flatMap(findMatching)
+      found.fold(tags): team =>
+        tags + Tag(_.teams(color), team)
+
+  private def findMatching(player: PlayerName | FideId): Option[TeamName] =
+    playerTeams.get(player) orElse tokenizedPlayerTeams.get(tokenizePlayer(player))
 
 final class RelayTeamTable(chapterRepo: lila.study.ChapterRepo, cacheApi: lila.memo.CacheApi)(using Executor):
 
@@ -126,23 +138,18 @@ function(root, tags) {
             TeamGame(chap.id, sorted.map(_._1), t0Color, outcome, outcome.isEmpty option chap.fen) :: games,
           teams = teams.bimap(_.add(outcome, t0Color), _.add(outcome, !t0Color))
         )
-      def sortGames = copy(games = games.sortBy(-_.ratingSum))
 
     def makeTable(chapters: List[Chapter]): List[TeamMatch] =
-      chapters
-        .foldLeft(List.empty[TeamMatch]): (table, chap) =>
-          (for
-            teams <- chap.tags.teams.tupled.map(Pair.apply)
-            names <- chess.ByColor(chap.tags.players(_))
-            players = names zip chap.tags.titles zip chap.tags.elos map:
-              case ((n, t), e) => TeamPlayer(n, t, e)
-            m0 = table.find(_.is(teams)) | TeamMatch(teams.map(TeamWithPoints(_)), Nil)
-            m1 = m0.add(chap, Pair(players.white -> teams.a, players.black -> teams.b), chap.tags.outcome)
-            newTable = m1 :: table.filterNot(_.is(teams))
-          yield newTable) | table
-        .map(_.sortGames)
-        .sortBy: m =>
-          0 - ~m.games.headOption.map(_.ratingSum)
+      chapters.reverse.foldLeft(List.empty[TeamMatch]): (table, chap) =>
+        (for
+          teams <- chap.tags.teams.tupled.map(Pair.apply)
+          names <- chess.ByColor(chap.tags.names(_))
+          players = names zip chap.tags.titles zip chap.tags.elos map:
+            case ((n, t), e) => TeamPlayer(n, t, e)
+          m0       = table.find(_.is(teams)) | TeamMatch(teams.map(TeamWithPoints(_)), Nil)
+          m1       = m0.add(chap, Pair(players.white -> teams.a, players.black -> teams.b), chap.tags.outcome)
+          newTable = m1 :: table.filterNot(_.is(teams))
+        yield newTable) | table
 
     object json:
       import lila.common.Json.given

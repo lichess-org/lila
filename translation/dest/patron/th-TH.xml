@@ -13,6 +13,8 @@
   <string name="freeChess">หมากรุกเล่นฟรีสำหรับทุกคน ตลอดไป!</string>
   <string name="noAdsNoSubs">ไม่มีโฆษณา ไม่มีการสมัครสมาชิก แต่เป็น \"open source\" และความหลงใหล</string>
   <string name="thankYou">ขอบคุณสำหรับการบริจาคของคุณ</string>
+  <string name="youHaveLifetime">คุณมีบัญชีผู้อุปถัมภ์ Lichess ตลอดชีวิต มันเจ๋งมาก!</string>
+  <string name="patronUntil">คุณมีบัญชีผู้อุปถัมภ์ Lichess จนถึง %s</string>
   <string name="lifetime">ตลอดชีพ</string>
   <string name="monthly">รายเดือน</string>
   <string name="onetime">รายครั้ง</string>

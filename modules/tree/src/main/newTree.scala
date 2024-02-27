@@ -87,14 +87,14 @@ case class NewBranch(
     crazyData
   }
   override def toString                    = s"$ply, $id, ${move.uci}"
-  def withClock(centis: Option[Centis])    = this.focus(_.metas.clock).set(centis)
+  def withClock(centis: Option[Centis])    = this.focus(_.metas.clock).replace(centis)
   def withForceVariation(force: Boolean)   = copy(forceVariation = force)
   def isCommented                          = metas.comments.value.nonEmpty
   def setComment(comment: Comment)         = this.focus(_.metas).modify(_.setComment(comment))
   def deleteComment(commentId: Comment.Id) = this.focus(_.metas).modify(_.deleteComment(commentId))
-  def deleteComments                       = this.focus(_.metas.comments).set(Comments.empty)
-  def setGamebook(gamebook: Gamebook)      = this.focus(_.metas.gamebook).set(gamebook.some)
-  def setShapes(s: Shapes)                 = this.focus(_.metas.shapes).set(s)
+  def deleteComments                       = this.focus(_.metas.comments).replace(Comments.empty)
+  def setGamebook(gamebook: Gamebook)      = this.focus(_.metas.gamebook).replace(gamebook.some)
+  def setShapes(s: Shapes)                 = this.focus(_.metas.shapes).replace(s)
   def toggleGlyph(glyph: Glyph)            = this.focus(_.metas).modify(_.toggleGlyph(glyph))
   def clearAnnotations = this.focus(_.metas).modify(_.copy(shapes = Shapes.empty, glyphs = Glyphs.empty))
   def setComp          = copy(comp = true)
@@ -226,7 +226,7 @@ case class NewRoot(metas: Metas, tree: Option[NewTree]):
 
   def size = tree.fold(0L)(_.size)
 
-  def mainlinePath = tree.fold(UciPath.root)(x => UciPath.fromIds(x.mainlinePath.toIterable))
+  def mainlinePath = tree.fold(UciPath.root)(x => UciPath.fromIds(x.mainlinePath))
 
   def lastMainlineNode         = tree.map(_.lastMainlineNode)
   def lastMainlineMetas        = lastMainlineNode.map(_.value.metas)

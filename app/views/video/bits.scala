@@ -19,12 +19,7 @@ object bits:
       span(cls := "reveal")(
         span(cls := "full-title")(vv.video.title),
         span(cls := "author")(vv.video.author),
-        span(cls := "target")(vv.video.targets.map(lila.video.Target.name).mkString(", ")),
-        span(cls := "tags")(
-          vv.video.tags.map { tag =>
-            span(dataIcon := licon.Tag)(tag.capitalize)
-          }
-        )
+        span(cls := "target")(vv.video.targets.map(lila.video.Target.name).mkString(", "))
       )
     )
 
