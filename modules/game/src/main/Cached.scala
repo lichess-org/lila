@@ -41,7 +41,7 @@ final class Cached(
   }
 
   private val nbPausedCache = cacheApi[User.ID, Int](256, "game.nbPaused") {
-    _.expireAfterWrite(1 minute)
+    _.expireAfterWrite(2 minute)
       .buildAsyncFuture { userId =>
         gameRepo.coll.countSel(Query paused userId)
       }

@@ -184,7 +184,7 @@ case class Game(
   }
 
   def resumeGame(game: ShogiGame) = {
-    val p        = (nowSeconds - movedAt.getSeconds).toInt atLeast 0
+    val p = (nowSeconds - movedAt.getSeconds).toInt atLeast 0
     val updated = copy(
       shogi =
         game.copy(clock = clock.map(_.copy(color = game.situation.color).start)), // clock was already updated
@@ -363,10 +363,10 @@ case class Game(
 
   def playerCanOfferPause(color: Color) =
     Game.pausableVariants.contains(variant) &&
-      started && playable &&
+      started && playable && nonAi &&
       plies >= 20 && players.forall(_.hasUser) &&
       !player(color).isOfferingPause &&
-      nonAi
+      !(clock.exists(_.config.limitSeconds < 60 * 15))
 
   def playerCouldRematch =
     finishedOrAborted &&

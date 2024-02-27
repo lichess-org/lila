@@ -362,6 +362,9 @@ final private[round] class RoundDuct(
       handle(playerId) { pov =>
         getPlayer(!pov.color).isOnline ?? {
           val res = pauser.resumeYes(pov)
+          res.map(_._2 map { case (usi, game) =>
+            player.notifyUsi(usi, game)
+          })
           res.map(_._1)
         }
       }

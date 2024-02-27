@@ -65,7 +65,7 @@ final private[round] class Pauser(
 
   def resumeYes(
       pov: Pov
-  )(implicit proxy: GameProxy): Fu[(Events, Option[(shogi.format.usi.Usi, shogi.Game)])] =
+  )(implicit proxy: GameProxy): Fu[(Events, Option[(shogi.format.usi.Usi, Game)])] =
     pov match {
       case Pov(g, color) if g.paused =>
         if (isOfferingResume(g.id, !color)) {
@@ -75,7 +75,7 @@ final private[round] class Pauser(
           val prog    = newGame.fold(g.resumeGame(g.shogi))(nsg => g.resumeGame(nsg))
           proxy.save(prog) >>
             gameRepo.resume(g.id, prog.game.pausedSeconds, prog.game.userIds.distinct) inject (
-              prog.events -> newGame.flatMap(ng => ng.usiMoves.lastOption.map(u => (u, ng)))
+              prog.events -> newGame.flatMap(ng => ng.usiMoves.lastOption.map(u => (u, prog.game)))
             )
         } else {
           resumeOffers.put(g.id, Pauser.ResumeOffers(sente = color.sente, gote = color.gote))
