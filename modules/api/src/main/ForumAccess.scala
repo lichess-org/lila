@@ -51,9 +51,7 @@ final class ForumAccess(
     if Granter.opt(_.ModerateForum) then fuTrue
     else ForumCateg.toTeamId(categId).so(teamApi.hasPerm(_, me, _.Comm))
 
-  def isReplyBlockedOnUBlog(topic: lila.forum.ForumTopic, canModCateg: Boolean)(using
-      meOpt: Option[Me]
-  ): Fu[Boolean] = meOpt.so: me =>
+  def isReplyBlockedOnUBlog(topic: lila.forum.ForumTopic, canModCateg: Boolean)(using me: Me): Fu[Boolean] =
     topic.userId.so: topicAuthor =>
       if topic.ublogId.isEmpty then fuFalse
       else if canModCateg then fuFalse
