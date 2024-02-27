@@ -52,4 +52,5 @@
   <string name="inappropriateContentAccountClosed">Errespetua galduz gero, zure kontua itxiko dugu.</string>
   <string name="blogTips">Blogeko sarrerak idazteko gure aholkuak</string>
   <string name="discussThisBlogPostInTheForum">Eztabaidatu artikulu honi buruz foroan</string>
+  <string name="youBlockedByBlogAuthor">Blogaren egileak blokeatu egin zaitu.</string>
 </resources>
