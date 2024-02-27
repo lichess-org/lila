@@ -202,7 +202,7 @@ const tasks = [
 const dev = gulp.series(tasks.concat([devSource]));
 
 gulp.task('prod', gulp.series(tasks, prodSource, makeBundle(`${fileBaseName}.source.min.js`)));
-gulp.task('dev', gulp.series(tasks, dev));
+gulp.task('dev', dev);
 gulp.task(
   'default',
   gulp.series(tasks, dev, () => gulp.watch('src/**/*.js', dev))
