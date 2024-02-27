@@ -39,10 +39,10 @@ object UblogRank:
     val verboseOptions = List(
       HIDDEN  -> "Hidden",
       VISIBLE -> "Unlisted",
-      LOW     -> "Low (30 day penalty)",
+      LOW     -> "Low (-7 day penalty)",
       NORMAL  -> "Normal",
-      HIGH    -> "High (10 day bonus)",
-      BEST    -> "Best (15 day bonus)"
+      HIGH    -> "High (5 day bonus)",
+      BEST    -> "Best (7 day bonus)"
     )
     def name(tier: Tier) = options.collectFirst {
       case (t, n) if t == tier => n
@@ -59,10 +59,10 @@ object UblogRank:
     import Tier.*
     liveAt minusMonths (if tier < LOW || !hasImage then 3 else 0) plusHours:
       val tierBase = 24 * tier.match
-        case LOW    => -30
+        case LOW    => -7
         case NORMAL => 0
-        case HIGH   => 10
-        case BEST   => 15
+        case HIGH   => 5
+        case BEST   => 7
         case _      => 0
 
       val adjustBonus = 24 * days
