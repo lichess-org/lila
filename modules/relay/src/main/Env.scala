@@ -15,7 +15,7 @@ final class Env(
     ws: StandaloneWSClient,
     db: lila.db.Db,
     yoloDb: lila.db.AsyncDb @@ lila.db.YoloDb,
-    fidePlayerApi: lila.player.FidePlayerApi,
+    fidePlayerApi: lila.fide.FidePlayerApi,
     studyApi: lila.study.StudyApi,
     multiboard: lila.study.StudyMultiBoard,
     studyRepo: lila.study.StudyRepo,

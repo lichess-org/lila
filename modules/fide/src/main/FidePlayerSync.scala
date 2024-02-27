@@ -1,4 +1,4 @@
-package lila.player
+package lila.fide
 
 import akka.util.ByteString
 import akka.stream.scaladsl.*
@@ -40,7 +40,7 @@ final private class FidePlayerSync(api: FidePlayerApi, ws: StandaloneWSClient)(u
           .monSuccess(_.relay.fidePlayers.update)
           .flatMap: nb =>
             lila.mon.relay.fidePlayers.nb.update(nb)
-            deleteOlderThan(startAt) map: deleted =>
+            setDeletedFlags(startAt) map: deleted =>
               logger.info(s"RelayFidePlayerApi.update upserted: $nb, deleted: $nb")
 
       case res => fufail(s"RelayFidePlayerApi.pull ${res.status} ${res.statusText}")
@@ -57,6 +57,7 @@ final private class FidePlayerSync(api: FidePlayerApi, ws: StandaloneWSClient)(u
       name <- string(15, 76)
       title  = UserTitle from string(84, 89)
       wTitle = UserTitle from string(89, 105)
+      year   = number(152, 156).filter(_ > 1000)
     yield FidePlayer(
       id = FideId(id),
       name = name,
@@ -66,6 +67,7 @@ final private class FidePlayerSync(api: FidePlayerApi, ws: StandaloneWSClient)(u
       standard = number(113, 117),
       rapid = number(126, 132),
       blitz = number(139, 145),
+      year = year,
       fetchedAt = nowInstant
     )
 
@@ -96,5 +98,9 @@ final private class FidePlayerSync(api: FidePlayerApi, ws: StandaloneWSClient)(u
       _ <- elements.nonEmpty so update.many(elements).void
     yield ()
 
-  private def deleteOlderThan(date: Instant): Fu[Int] =
-    api.coll.delete.one($doc("fetchedAt" $lt date)).map(_.n)
+  private def setDeletedFlags(date: Instant): Fu[Int] = for
+    nbDeleted <- api.coll.update
+      .one($doc("deleted" $ne true, "fetchedAt" $lt date), $set("deleted" -> true), multi = true)
+      .map(_.n)
+    _ <- api.coll.update.one($doc("deleted" -> true, "fetchedAt" $gte date), $unset("deleted"), multi = true)
+  yield nbDeleted

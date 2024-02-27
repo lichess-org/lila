@@ -1,4 +1,4 @@
-package lila.player
+package lila.fide
 
 export lila.Lila.{ *, given }
 

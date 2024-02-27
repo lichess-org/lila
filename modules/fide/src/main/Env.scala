@@ -1,4 +1,4 @@
-package lila.player
+package lila.fide
 
 import com.softwaremill.macwire.*
 import play.api.libs.ws.StandaloneWSClient

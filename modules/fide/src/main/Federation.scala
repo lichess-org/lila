@@ -1,12 +1,16 @@
-package lila.player
+package lila.fide
+
+import chess.FideId
 
 // Obviously, FIDE country codes don't follow any existing standard.
 // https://ratings.fide.com/top_federations.phtml
 // all=[];$('#federations_table').find('tbody tr').each(function(){all.push([$(this).find('img').attr('src').slice(5,8),$(this).find('a,strong').text().trim()])})
-object FideFederation:
+object Federation:
 
   type Code = String
   type Name = String
+
+  type ByFideIds = Map[FideId, Code]
 
   val all: Map[Code, Name] = Map(
     "USA" -> "United States of America",

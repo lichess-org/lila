@@ -5,6 +5,7 @@ import views.*
 import lila.app.{ given, * }
 import lila.common.IpAddress
 import lila.msg.MsgPreset
+import lila.i18n.{ I18nKeys as trans }
 
 final class ForumPost(env: Env) extends LilaController(env) with ForumController:
 
@@ -37,30 +38,44 @@ final class ForumPost(env: Env) extends LilaController(env) with ForumController
         if topic.closed then BadRequest("This topic is closed")
         else if topic.isOld then BadRequest("This topic is archived")
         else
-          categ.team.so(env.team.api.isLeader(_, me)) flatMap { inOwnTeam =>
-            forms
-              .post(inOwnTeam)
-              .bindFromRequest()
-              .fold(
-                err =>
-                  CategGrantWrite(categId, tryingToPostAsMod = true):
-                    for
-                      captcha     <- forms.anyCaptcha
-                      unsub       <- env.timeline.status(s"forum:${topic.id}")
-                      canModCateg <- access.isGrantedMod(categ.slug)
-                      page <- renderPage:
-                        html.forum.topic
-                          .show(categ, topic, posts, Some(err -> captcha), unsub, canModCateg = canModCateg)
-                    yield BadRequest(page)
-                ,
-                data =>
-                  CategGrantWrite(categId, tryingToPostAsMod = ~data.modIcon):
-                    CreateRateLimit(ctx.ip, rateLimited):
-                      postApi.makePost(categ, topic, data) map { post =>
-                        Redirect(routes.ForumPost.redirect(post.id))
-                      }
-              )
-          }
+          for
+            canModCateg <- access.isGrantedMod(categ.slug)
+            replyBlocked <- access.isReplyBlockedOnUBlog(topic, canModCateg)
+            res <-
+              if replyBlocked then fuccess(BadRequest(trans.ublog.youBlockedByBlogAuthor()))
+              else
+                categ.team.so(env.team.api.isLeader(_, me)) flatMap { inOwnTeam =>
+                  forms
+                    .post(inOwnTeam)
+                    .bindFromRequest()
+                    .fold(
+                      err =>
+                        CategGrantWrite(categId, tryingToPostAsMod = true):
+                          for
+                            captcha     <- forms.anyCaptcha
+                            unsub       <- env.timeline.status(s"forum:${topic.id}")
+                            canModCateg <- access.isGrantedMod(categ.slug)
+                            page <- renderPage:
+                              html.forum.topic
+                                .show(
+                                  categ,
+                                  topic,
+                                  posts,
+                                  Some(err -> captcha),
+                                  unsub,
+                                  canModCateg = canModCateg
+                                )
+                          yield BadRequest(page)
+                      ,
+                      data =>
+                        CategGrantWrite(categId, tryingToPostAsMod = ~data.modIcon):
+                          CreateRateLimit(ctx.ip, rateLimited):
+                            postApi.makePost(categ, topic, data) map { post =>
+                              Redirect(routes.ForumPost.redirect(post.id))
+                            }
+                    )
+                }
+          yield res
   }
 
   def edit(postId: ForumPostId) = AuthBody { ctx ?=> me ?=>
