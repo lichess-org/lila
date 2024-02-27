@@ -9,6 +9,7 @@
   &__pl,
   &__op {
     @extend %ellipsis;
+    width: 40%;
     max-width: 45%;
   }
   &__pl {
@@ -16,5 +17,9 @@
   }
   &__op {
     text-align: right;
+  }
+  &__clock {
+    text-align: center;
+    width: 20%;
   }
 }
