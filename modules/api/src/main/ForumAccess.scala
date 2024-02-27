@@ -54,7 +54,7 @@ final class ForumAccess(
   def isReplyBlockedOnUBlog(topic: lila.forum.ForumTopic, canModCateg: Boolean)(using
       meOpt: Option[Me]
   ): Fu[Boolean] = meOpt.so: me =>
-    if topic.ublogId.isEmpty then fuFalse
-    else if topic.userId.isEmpty then fuFalse
-    else if canModCateg then fuFalse
-    else relationApi.fetchRelation(topic.userId.get, me).map(_.contains(Block))
+    topic.userId.so: topicAuthor =>
+      if topic.ublogId.isEmpty then fuFalse
+      else if canModCateg then fuFalse
+      else relationApi.fetchRelation(topicAuthor, me).map(_.contains(Block))
