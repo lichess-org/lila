@@ -6,3 +6,4 @@ private val logger = lila.log("player")
 
 type PlayerName  = String
 type PlayerToken = String
+type Federation  = String

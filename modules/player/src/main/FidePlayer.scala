@@ -11,7 +11,7 @@ case class FidePlayer(
     @Key("_id") id: FideId,
     name: PlayerName,
     token: PlayerToken,
-    fed: Option[String],
+    fed: Option[Federation],
     title: Option[UserTitle],
     standard: Option[Int],
     rapid: Option[Int],
@@ -40,3 +40,5 @@ object FidePlayer:
       .distinct
       .sorted
       .mkString(" ")
+
+  type Federations = Map[FideId, Federation]

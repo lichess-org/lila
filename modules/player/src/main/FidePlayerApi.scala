@@ -15,6 +15,13 @@ final class FidePlayerApi(private[player] val coll: Coll, cacheApi: lila.memo.Ca
     ids.traverse:
       _.so(idToPlayerCache.get)
 
+  def federationsOf(ids: List[FideId]): Fu[Federations] =
+    idToPlayerCache.getAll(ids) map:
+      _.mapValues(_.flatMap(_.fed))
+        .collect:
+          case (k, Some(v)) => k -> v
+        .toMap
+
   def guessPlayer(
       fideId: Option[FideId],
       name: Option[PlayerName],

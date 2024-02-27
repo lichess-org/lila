@@ -62,10 +62,7 @@ function renderPlayer(
       result && h('span.result', result),
       h('span.info', [
         player.team && h('span.team', player.team),
-        player.fed &&
-          h('img.flag', {
-            attrs: { src: site.asset.url(`images/fide-fed/${player.fed}.svg`) },
-          }),
+        player.fed && playerFed(player.fed),
         title && h('span.utitle', title == 'BOT' ? { attrs: { 'data-bot': true } } : {}, title + ' '),
         h('span.name', player.name),
         elo && h('span.elo', elo),
@@ -75,3 +72,8 @@ function renderPlayer(
     clocks?.[color === 'white' ? 0 : 1],
   ]);
 }
+
+export const playerFed = (fed: string) =>
+  h('img.flag', {
+    attrs: { src: site.asset.url(`images/fide-fed/${fed}.svg`) },
+  });
