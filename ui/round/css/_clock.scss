@@ -11,6 +11,7 @@
   /* overflow: hidden; is not possible because of clock bars and shadows */
   @include breakpoint($mq-col2) {
     justify-content: space-between;
+    height: 45px;
     &-bottom {
       /* over the table shadow */
       z-index: 0;
@@ -28,8 +29,8 @@
       }
     }
     @include breakpoint($mq-col2) {
-      height: 2.2em;
-      line-height: 2.2em;
+      height: 45px;
+      line-height: 45px;
     }
   }
   .clock-byo {
