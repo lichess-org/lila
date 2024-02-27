@@ -597,7 +597,7 @@ object I18nKeys:
   val `letOtherPlayersMessageYou` = I18nKey("letOtherPlayersMessageYou")
   val `receiveForumNotifications` = I18nKey("receiveForumNotifications")
   val `shareYourInsightsData` = I18nKey("shareYourInsightsData")
-  val `appearToOtherUsersWhileSpectating` = I18nKey("appearToOtherUsersWhileSpectating")
+  val `doNotappearToOtherUsersWhileSpectating` = I18nKey("doNotappearToOtherUsersWhileSpectating")
   val `withNobody` = I18nKey("withNobody")
   val `withFriends` = I18nKey("withFriends")
   val `withEverybody` = I18nKey("withEverybody")

@@ -213,9 +213,9 @@ object pref:
               "shareYourInsightsData"
             ),
             setting(
-              trans.appearToOtherUsersWhileSpectating(),
-              radios(form("spectate"), booleanChoices),
-              "appearToOtherUsersWhileSpectating"
+              trans.doNotappearToOtherUsersWhileSpectating(),
+              radios(form("appearAnon"), booleanChoices),
+              "doNotappearToOtherUsersWhileSpectating"
             )
           ),
           p(cls := "saved text none", dataIcon := licon.Checkmark)(yourPreferencesHaveBeenSaved())
