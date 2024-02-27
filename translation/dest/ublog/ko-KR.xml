@@ -2,6 +2,7 @@
 <resources>
   <string name="communityBlogs">커뮤니티 블로그</string>
   <string name="friendBlogs">친구 블로그</string>
+  <string name="likedBlogs">좋아요 표시한 블로그 글</string>
   <string name="blogTopics">블로그 주제</string>
   <string name="lichessOfficialBlog">Lichess 공식 블로그</string>
   <string name="continueReadingPost">이 게시글 계속 읽기</string>
@@ -48,4 +49,5 @@
   <string name="inappropriateContentAccountClosed">부적절한 행위로 인해 계정이 폐쇄될 수 있습니다.</string>
   <string name="blogTips">멋진 블로그 게시물을 작성하기 위한 간단한 팁</string>
   <string name="discussThisBlogPostInTheForum">포럼에서 이 게시글에 대해 토론하기</string>
+  <string name="youBlockedByBlogAuthor">이 블로그 글의 작성자가 당신을 차단했습니다.</string>
 </resources>
