@@ -52,7 +52,6 @@ final class ForumAccess(
     else ForumCateg.toTeamId(categId).so(teamApi.hasPerm(_, me, _.Comm))
 
   def isReplyBlockedOnUBlog(topic: lila.forum.ForumTopic, canModCateg: Boolean)(using me: Me): Fu[Boolean] =
-    topic.userId.so: topicAuthor =>
-      if topic.ublogId.isEmpty then fuFalse
-      else if canModCateg then fuFalse
-      else relationApi.fetchBlocks(topicAuthor, me)
+    (topic.ublogId.isDefined && !canModCateg).so:
+      topic.userId.so: topicAuthor =>
+        relationApi.fetchBlocks(topicAuthor, me)
