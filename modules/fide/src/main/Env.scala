@@ -13,9 +13,12 @@ final class Env(db: lila.db.Db, cacheApi: CacheApi, ws: StandaloneWSClient)(usin
     Executor,
     akka.stream.Materializer
 )(using mode: Mode, scheduler: Scheduler):
+
   private val fidePlayerColl = db(CollName("fide_player"))
 
-  lazy val fideApi = wire[FidePlayerApi]
+  lazy val api = wire[FidePlayerApi]
+
+  lazy val paginator = wire[FidePaginator]
 
   private lazy val fideSync = wire[FidePlayerSync]
 

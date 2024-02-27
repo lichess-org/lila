@@ -7,9 +7,10 @@ import lila.db.dsl.{ given, * }
 
 final class FidePlayerApi(private[fide] val coll: Coll, cacheApi: lila.memo.CacheApi)(using Executor):
 
+  import FidePlayerApi.playerHandler
   import FidePlayer.*
 
-  private[fide] given playerHandler: BSONDocumentHandler[FidePlayer] = Macros.handler
+  def fetch(id: FideId): Fu[Option[FidePlayer]] = coll.byId[FidePlayer](id)
 
   def players(ids: ByColor[Option[FideId]]): Fu[ByColor[Option[FidePlayer]]] =
     ids.traverse:
@@ -40,3 +41,7 @@ final class FidePlayerApi(private[fide] val coll: Coll, cacheApi: lila.memo.Cach
         coll.find($doc("token" -> tt.token, "title" -> tt.title)).cursor[FidePlayer]().list(2) map:
           case List(onlyMatch) => onlyMatch.some
           case _               => none
+
+private object FidePlayerApi:
+
+  given playerHandler: BSONDocumentHandler[FidePlayer] = Macros.handler

@@ -12,6 +12,8 @@ object Federation:
 
   type ByFideIds = Map[FideId, Code]
 
+  def name(code: Code): Name = all.getOrElse(code, code)
+
   val all: Map[Code, Name] = Map(
     "USA" -> "United States of America",
     "IND" -> "India",

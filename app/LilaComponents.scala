@@ -162,6 +162,7 @@ final class LilaComponents(
   lazy val bulkPairing: BulkPairing       = wire[BulkPairing]
   lazy val opening: Opening               = wire[Opening]
   lazy val cms: Cms                       = wire[Cms]
+  lazy val fide: Fide                     = wire[Fide]
 
   // eagerly wire up all controllers
   private val appealRouter: _root_.router.appeal.Routes = wire[_root_.router.appeal.Routes]

@@ -4,7 +4,7 @@ import controllers.routes
 
 import lila.app.templating.Environment.{ given, * }
 import lila.app.ui.ScalatagsTemplate.{ *, given }
-import lila.player.FidePlayer
+import lila.fide.{ FidePlayer, Federation }
 import lila.common.paginator.Paginator
 
 object fide:
@@ -18,23 +18,50 @@ object fide:
 
   def index(players: Paginator[FidePlayer])(using PageContext) =
     layout("FIDE players"):
-      main(cls := "page-small box box-pad page")(
-        div(cls := "fide box box-pad")(
-          boxTop(
-            h1("FIDE players"),
-            div(cls := "box__top__actions"):
-              input(cls := "fide__search", placeholder := trans.search.search.txt(), autofocus)
-          ),
-          playerList(players)
-        )
+      main(cls := "page-small box page fide-players")(
+        boxTop(
+          h1("FIDE players"),
+          div(cls := "box__top__actions"):
+            input(cls := "fide__search", placeholder := trans.search.search.txt(), autofocus)
+        ),
+        playerList(players)
       )
 
-  def playerList(players: Paginator[FidePlayer])(using Context) =
-    div(cls := "fide__players infinite-scroll")(
-      players.currentPageResults
-        .map: player =>
-          div(cls := "fide__player paginated", id := player.id)(
-            player.name
+  private def playerList(players: Paginator[FidePlayer])(using Context) =
+    table(cls := "slist slist-pad")(
+      thead:
+        tr(
+          th("Name"),
+          th(iconTag(licon.FlagOutline)),
+          th("Classic"),
+          th("Rapid"),
+          th("Blitz"),
+          th("Age")
+        )
+      ,
+      tbody(cls := "infinite-scroll")(
+        players.currentPageResults.map: player =>
+          tr(cls := "paginated", id := player.id)(
+            td(a(href := routes.Fide.show(player.id, player.slug))(player.name)),
+            td:
+              player.fed.map: fed =>
+                img(
+                  cls   := "flag",
+                  title := Federation.name(fed),
+                  src   := assetUrl(s"images/fide-fed/${fed}.svg")
+                )
+            ,
+            td(player.standard),
+            td(player.rapid),
+            td(player.blitz),
+            td(player.age)
           ),
-      pagerNext(players, np => routes.Fide.index(np).url)
+        pagerNextTable(players, np => routes.Fide.index(np).url)
+      )
     )
+
+  def show(player: FidePlayer)(using PageContext) =
+    layout(s"${player.name} - FIDE player ${player.id}"):
+      main(cls := "page-small box box-pad fide-player")(
+        h1(a(href := routes.Fide.index())("FIDE players"), " • ", player.name)
+      )

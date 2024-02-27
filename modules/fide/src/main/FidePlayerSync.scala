@@ -17,7 +17,6 @@ final private class FidePlayerSync(api: FidePlayerApi, ws: StandaloneWSClient)(u
 ):
 
   import FidePlayer.*
-  import api.playerHandler
 
   // the file is big. We want to stream the http response into the zip reader,
   // and stream the zip output into the database as it's being extracted.
@@ -58,6 +57,7 @@ final private class FidePlayerSync(api: FidePlayerApi, ws: StandaloneWSClient)(u
       title  = UserTitle from string(84, 89)
       wTitle = UserTitle from string(89, 105)
       year   = number(152, 156).filter(_ > 1000)
+      flags  = string(158, 159)
     yield FidePlayer(
       id = FideId(id),
       name = name,
@@ -68,6 +68,7 @@ final private class FidePlayerSync(api: FidePlayerApi, ws: StandaloneWSClient)(u
       rapid = number(126, 132),
       blitz = number(139, 145),
       year = year,
+      inactive = flags.contains("i") option true,
       fetchedAt = nowInstant
     )
 
@@ -92,7 +93,7 @@ final private class FidePlayerSync(api: FidePlayerApi, ws: StandaloneWSClient)(u
       elements <- ps.traverse: p =>
         update.element(
           q = $id(p.id),
-          u = api.playerHandler.writeOpt(p).get,
+          u = FidePlayerApi.playerHandler.writeOpt(p).get,
           upsert = true
         )
       _ <- elements.nonEmpty so update.many(elements).void
