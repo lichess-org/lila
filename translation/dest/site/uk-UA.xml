@@ -777,6 +777,8 @@
   <string name="keyPreviousBranch">Попередній варіант</string>
   <string name="keyNextBranch">Наступний варіант</string>
   <string name="toggleVariationArrows">Показати стрілки варіантів</string>
+  <string name="toggleGlyphAnnotations">Перемкнути анотації ходів</string>
+  <string name="togglePositionAnnotations">Перемкнути анотації позицій</string>
   <string name="playSelectedMove">зіграти обраний хід</string>
   <string name="newTournament">Новий турнір</string>
   <string name="tournamentHomeTitle">Шаховий турнір із різними контролем часу та варіантами</string>
