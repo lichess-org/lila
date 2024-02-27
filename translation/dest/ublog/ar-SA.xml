@@ -6,7 +6,7 @@
   <string name="blogTopics">مواضيع المدونة</string>
   <string name="lichessOfficialBlog">مدونة Lichess الرسمية</string>
   <string name="continueReadingPost">تابع قراءة هذا المنشور</string>
-  <string name="lichessBlogPostsFromXYear" comment="Appears on a list of posts from the official Lichess Blog, which were published in a specific year.&#10;&#10;%s is the specific year of posts from the official blog (e.g. 2021).">تجد منشورات مدونة ليتشيس %s</string>
+  <string name="lichessBlogPostsFromXYear">تجد منشورات مدونة ليتشيس %s</string>
   <string name="previousBlogPosts">مشاركات المدونة السابقة</string>
   <string name="xBlog">مدونة %s</string>
   <string name="newPost">منشور جديد</string>
