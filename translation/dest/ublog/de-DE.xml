@@ -52,4 +52,5 @@
   <string name="inappropriateContentAccountClosed">Jegliche unangemessenen Inhalte können zur Schließung deines Benutzerkontos führen.</string>
   <string name="blogTips">Unsere einfachen Tipps, um tolle Blog-Beiträge zu schreiben</string>
   <string name="discussThisBlogPostInTheForum">Diesen Blog-Beitrag im Forum diskutieren</string>
+  <string name="youBlockedByBlogAuthor">Du wurdest vom Blog-Author gesperrt.</string>
 </resources>
