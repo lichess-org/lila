@@ -55,4 +55,4 @@ final class ForumAccess(
     topic.userId.so: topicAuthor =>
       if topic.ublogId.isEmpty then fuFalse
       else if canModCateg then fuFalse
-      else relationApi.fetchRelation(topicAuthor, me).map(_.contains(Block))
+      else relationApi.fetchBlocks(topicAuthor, me)
