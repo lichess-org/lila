@@ -36,13 +36,19 @@ object UblogRank:
       HIGH    -> "High",
       BEST    -> "Best"
     )
+    object tierDays:
+      val LOW  = -7
+      val HIGH = 5
+      val BEST = 7
+      val map  = Map(Tier.LOW -> LOW, Tier.HIGH -> HIGH, Tier.BEST -> BEST)
+
     val verboseOptions = List(
       HIDDEN  -> "Hidden",
       VISIBLE -> "Unlisted",
-      LOW     -> "Low (-7 day penalty)",
+      LOW     -> s"Low (${tierDays.LOW} day penalty)",
       NORMAL  -> "Normal",
-      HIGH    -> "High (5 day bonus)",
-      BEST    -> "Best (7 day bonus)"
+      HIGH    -> s"High (${tierDays.HIGH} day bonus)",
+      BEST    -> s"Best (${tierDays.BEST} day bonus)"
     )
     def name(tier: Tier) = options.collectFirst {
       case (t, n) if t == tier => n
@@ -58,13 +64,7 @@ object UblogRank:
   ) = UblogPost.RankDate {
     import Tier.*
     liveAt minusMonths (if tier < LOW || !hasImage then 3 else 0) plusHours:
-      val tierBase = 24 * tier.match
-        case LOW    => -7
-        case NORMAL => 0
-        case HIGH   => 5
-        case BEST   => 7
-        case _      => 0
-
+      val tierBase    = 24 * tierDays.map.getOrElse(tier, 0)
       val adjustBonus = 24 * days
       val likesBonus  = math.sqrt(likes.value * 25) + likes.value / 100
       val langBonus   = if language == lila.i18n.defaultLanguage then 0 else -24 * 10
