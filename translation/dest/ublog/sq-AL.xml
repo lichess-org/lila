@@ -52,4 +52,5 @@
   <string name="inappropriateContentAccountClosed">Çfarëdo gjëje e papërshtatshme mund të sjellë mbylljen e llogarisë tuaj.</string>
   <string name="blogTips">Ndihmëzat tona të thjeshta për shkrim postimesh të goditura blogu</string>
   <string name="discussThisBlogPostInTheForum">Diskutojeni në forum këtë postim blogu</string>
+  <string name="youBlockedByBlogAuthor">Jeni bllokuar nga autori i blogut.</string>
 </resources>
