@@ -40,7 +40,7 @@ final private class FidePlayerSync(api: FidePlayerApi, ws: StandaloneWSClient)(u
           .monSuccess(_.relay.fidePlayers.update)
           .flatMap: nb =>
             lila.mon.relay.fidePlayers.nb.update(nb)
-            unpublishOlderThan(startAt) map: deleted =>
+            setDeletedFlags(startAt) map: deleted =>
               logger.info(s"RelayFidePlayerApi.update upserted: $nb, deleted: $nb")
 
       case res => fufail(s"RelayFidePlayerApi.pull ${res.status} ${res.statusText}")
@@ -68,8 +68,7 @@ final private class FidePlayerSync(api: FidePlayerApi, ws: StandaloneWSClient)(u
       rapid = number(126, 132),
       blitz = number(139, 145),
       year = year,
-      fetchedAt = nowInstant,
-      public = true
+      fetchedAt = nowInstant
     )
 
   // ordered by difficulty to achieve
@@ -99,5 +98,9 @@ final private class FidePlayerSync(api: FidePlayerApi, ws: StandaloneWSClient)(u
       _ <- elements.nonEmpty so update.many(elements).void
     yield ()
 
-  private def unpublishOlderThan(date: Instant): Fu[Int] =
-    api.coll.update.one($doc("fetchedAt" $lt date), $set("public" -> false), multi = true).map(_.n)
+  private def setDeletedFlags(date: Instant): Fu[Int] = for
+    nbDeleted <- api.coll.update
+      .one($doc("deleted" $ne true, "fetchedAt" $lt date), $set("deleted" -> true), multi = true)
+      .map(_.n)
+    _ <- api.coll.update.one($doc("deleted" -> true, "fetchedAt" $gte date), $unset("deleted"), multi = true)
+  yield nbDeleted

@@ -17,8 +17,7 @@ case class FidePlayer(
     rapid: Option[Int],
     blitz: Option[Int],
     year: Option[Int],
-    fetchedAt: Instant,
-    public: Boolean
+    fetchedAt: Instant
 ):
   def ratingOf(tc: FideTC): Option[Int] = tc match
     case FideTC.Standard => standard
