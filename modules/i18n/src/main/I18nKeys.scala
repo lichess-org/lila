@@ -1827,7 +1827,7 @@ object I18nKeys:
     val `entryCodeDescriptionForLeader` = I18nKey("team:entryCodeDescriptionForLeader")
     val `incorrectEntryCode` = I18nKey("team:incorrectEntryCode")
     val `teamAlreadyExists` = I18nKey("team:teamAlreadyExists")
-    val `upcomingTournaments` = I18nKey("team:upcomingTourns")
+    val `upcomingTournaments` = I18nKey("team:upcomingTournaments")
     val `completedTourns` = I18nKey("team:completedTourns")
     val `declinedRequests` = I18nKey("team:declinedRequests")
     val `joinLichessVariantTeam` = I18nKey("team:joinLichessVariantTeam")
@@ -1949,7 +1949,6 @@ object I18nKeys:
     val `xTeamBattle` = I18nKey("tourname:xTeamBattle")
     val `eliteXArena` = I18nKey("tourname:eliteXArena")
     val `eliteX` = I18nKey("tourname:eliteX")
-    val `maxRatingXArena` = I18nKey("tourname:maxRatingXArena")
     val `xArena` = I18nKey("tourname:xArena")
 
   object faq:
