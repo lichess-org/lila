@@ -46,7 +46,7 @@ Spēlē ātri un atgriezies vestibilā lai spēlētu vairāk spēļu un iegūtu 
   <string name="variant">Variants</string>
   <string name="minimumGameLength">Minimālais spēles garums</string>
   <string name="history">Arēnu vēsture</string>
-  <plurals name="viewAllXTeams" comment="%s is the number of teams that can be viewed.&#10;&#10;Appears in team battles that feature lots of teams. As of the time of writing, Lichess lists up to 10 teams at a time, so this button lets you view all teams.">
+  <plurals name="viewAllXTeams" comment="viewAllXTeams [one] [other]&#10;&#10;%s is the number of teams that can be viewed">
     <item quantity="zero">Skatīt %s komandas</item>
     <item quantity="one">Skatīt %s komandu</item>
     <item quantity="other">Skatīt visas %s komandas</item>
@@ -60,7 +60,7 @@ Spēlē ātri un atgriezies vestibilā lai spēlētu vairāk spēļu un iegūtu 
   <string name="arenaStreaks">Arēnas uzvaru sērija</string>
   <string name="arenaStreaksHelp">Pēc 2 uzvarām, secīgās uzvaras piešķirs 4 punktus nevis 2.</string>
   <string name="noBerserkAllowed">\"Dullās\" spēles nav atļautas</string>
-  <string name="noArenaStreaks" comment="A possible setting when creating an arena tournament.&#10;When enabled: After 2 wins, consecutive wins grant 4 points instead of 2.">Arēnas uzvaru sērijas atspējotas</string>
+  <string name="noArenaStreaks">Arēnas uzvaru sērijas atspējotas</string>
   <string name="averagePerformance">Vidējais sniegums</string>
   <string name="averageScore">Vidējais rezultāts</string>
   <string name="myTournaments">Mani turnīri</string>
