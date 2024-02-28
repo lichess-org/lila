@@ -50,7 +50,6 @@ Lojtarët të cilëve s’u pëlqen të marrin mesazhe nga ju, mund të dalin ng
   <string name="entryCodeDescriptionForLeader">(Opsionale) Një kod hyrjeje që anëtarët e rinj duhet ta dinë për të marrë pjesë në këtë ekip.</string>
   <string name="incorrectEntryCode">Kod hyrjeje i pasaktë.</string>
   <string name="teamAlreadyExists">Ky ekip ekziston tashmë.</string>
-  <string name="upcomingTourns">Turne të ardhshëm</string>
   <string name="completedTourns">Turne të plotësuar</string>
   <string name="declinedRequests">Kërkesa të Hedhura Poshtë</string>
   <string name="joinLichessVariantTeam">Bëhuni pjesë e ekipit zyrtar %s, për lajme dhe veprimtari</string>
