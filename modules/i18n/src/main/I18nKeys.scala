@@ -890,7 +890,6 @@ object I18nKeys:
     val `minimumGameLength` = I18nKey("arena:minimumGameLength")
     val `history` = I18nKey("arena:history")
     val `newTeamBattle` = I18nKey("arena:newTeamBattle")
-    val `nbTeamsBattle` = I18nKey("arena:nbTeamsBattle")
     val `customStartDate` = I18nKey("arena:customStartDate")
     val `customStartDateHelp` = I18nKey("arena:customStartDateHelp")
     val `allowBerserk` = I18nKey("arena:allowBerserk")
@@ -930,6 +929,7 @@ object I18nKeys:
     val `onlyTitledHelp` = I18nKey("arena:onlyTitledHelp")
     val `drawingWithinNbMoves` = I18nKey("arena:drawingWithinNbMoves")
     val `viewAllXTeams` = I18nKey("arena:viewAllXTeams")
+    val `nbTeamsBattle` = I18nKey("arena:nbTeamsBattle")
 
   object emails:
     val `emailConfirm_subject` = I18nKey("emails:emailConfirm_subject")
