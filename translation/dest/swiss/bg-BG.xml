@@ -79,4 +79,5 @@
   <string name="predefinedUsers">Позволете само на определени играчи да участват</string>
   <string name="forbiddedUsers">Само играчите от този списък ще могат да участват, освен ако списъкът е празен. Въведете само по едно потребителско име на ред.</string>
   <string name="playYourGames">Играйте игрите си</string>
+  <string name="absences">Отсъствия</string>
 </resources>
