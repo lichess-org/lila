@@ -594,7 +594,6 @@ kompiuterinę analizę, partijos pokalbį bei URL dalinimuisi.</string>
   <string name="automaticallyProceedToNextGameAfterMoving">Po ėjimo automatiškai pereiti prie kitos partijos</string>
   <string name="autoSwitch">Automatinis perjungimas</string>
   <string name="puzzles">Užduotys</string>
-  <string name="tournamentWinners">Turnyrų nugalėtojai</string>
   <string name="name">Pavadinimas</string>
   <string name="description">Aprašymas</string>
   <string name="descPrivate">Privatus aprašymas</string>
@@ -1006,8 +1005,6 @@ ir daro įtaką žaidėjų reitingams</string>
   <string name="minimumRatedGames">Mažiausiai įvertintos partijos</string>
   <string name="minimumRating">Minimalus reitingas</string>
   <string name="maximumWeeklyRating">Maksimalus savaitinis reitingas</string>
-  <string name="onlyTitled">Tik tituluoti žaidėjai</string>
-  <string name="onlyTitledHelp">Jungiantis prie turnyro reikalauti oficialaus titulo</string>
   <string name="positionInputHelp">Norėdami pradėti žaidimą nuo specifinės pozicijos, įklijuokite teisingą FEN.
 Veikia tik standartiniams žaidimams, ne variantams.
 Norėdami sugeneruoti FEN poziciją galite naudotis %s, tada ją įklijuokite čia.
