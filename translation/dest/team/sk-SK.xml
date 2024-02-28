@@ -56,7 +56,6 @@ Hráči, ktorí nemajú záujem o prijímanie vašich správ, môžu opustiť va
   <string name="entryCodeDescriptionForLeader">(Voliteľné) Vstupný kód, ktorý musia noví členovia poznať, aby sa mohli pripojiť k družstvu.</string>
   <string name="incorrectEntryCode">Nesprávny vstupný kód.</string>
   <string name="teamAlreadyExists">Toto družstvo už existuje.</string>
-  <string name="upcomingTourns">Nadchádzajúce turnaje</string>
   <string name="completedTourns">Ukončené turnaje</string>
   <string name="declinedRequests">Zamietnuté žiadosti</string>
   <string name="joinLichessVariantTeam">Pridajte sa k oficiálnemu tímu %s a sledujte novinky a udalosti</string>
