@@ -56,7 +56,6 @@
   <string name="entryCodeDescriptionForLeader">(אופציונלי) סיסמא שמשתמשים חדשים יצטרכו לדעת כדי להצטרף לקבוצה זו.</string>
   <string name="incorrectEntryCode">סיסמא שגויה.</string>
   <string name="teamAlreadyExists">שם הקבוצה תפוס.</string>
-  <string name="upcomingTourns">טורנירים קרובים</string>
   <string name="completedTourns">טורנירים שהושלמו</string>
   <string name="declinedRequests">בקשות שנדחתו</string>
   <string name="joinLichessVariantTeam">הצטרפו לקבוצת %s הרשמית של ליצ\'ס כדי לקבל עדכונים על חדשות ואירועים</string>
