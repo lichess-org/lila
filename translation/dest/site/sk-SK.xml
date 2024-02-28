@@ -599,7 +599,6 @@
   <string name="automaticallyProceedToNextGameAfterMoving">po ťahu automaticky prejdite k ďalšej hre</string>
   <string name="autoSwitch">Prepnite automaticky</string>
   <string name="puzzles">Šachové úlohy</string>
-  <string name="tournamentWinners">Víťazi turnaja</string>
   <string name="name">Meno</string>
   <string name="description">Popis</string>
   <string name="descPrivate">Opis pre členov tímu</string>
@@ -1012,8 +1011,6 @@ a ovplyvnia rating hráčov</string>
   <string name="minimumRatedGames">Minimum hodnotených partií</string>
   <string name="minimumRating">Minimálny rating</string>
   <string name="maximumWeeklyRating">Maximálny týždenný rating</string>
-  <string name="onlyTitled">Iba hráči s titulom</string>
-  <string name="onlyTitledHelp">Požadovať oficiálny šachový titul na prihlásenie sa do turnaja</string>
   <string name="positionInputHelp">Vložte platný FEN pre začatie každej partie z konkrétnej pozície!
 Funguje len pre štandardné partie, nie pre varianty.
 Môžete použiť %s na vygenerovanie FEN pozície a potom ju sem vložiť.
