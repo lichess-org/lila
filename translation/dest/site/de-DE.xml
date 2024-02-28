@@ -276,6 +276,7 @@
   <string name="abortGame">Partie abbrechen</string>
   <string name="gameAborted">Partie abgebrochen</string>
   <string name="standard">Standard</string>
+  <string name="customPosition">Benutzerdefinierte Stellung</string>
   <string name="unlimited">Unbegrenzt</string>
   <string name="mode">Modus</string>
   <string name="casual">Ungewertet</string>
@@ -531,6 +532,7 @@
   <string name="automaticallyProceedToNextGameAfterMoving">Nach dem Zug automatisch zur nächsten Partie gehen</string>
   <string name="autoSwitch">Automatischer Wechsel</string>
   <string name="puzzles">Aufgaben</string>
+  <string name="onlineBots">Online-Bots</string>
   <string name="name">Name</string>
   <string name="description">Beschreibung</string>
   <string name="descPrivate">Interne Beschreibung</string>
@@ -987,4 +989,5 @@ Leer lassen, um Partien von der normalen Ausgangsstellung aus zu starten.</strin
   <string name="showMeEverything">Alles zeigen</string>
   <string name="lichessPatronInfo">Lichess ist eine Wohltätigkeitsorganisation und eine völlig kostenlose/freie Open-Source-Software.
 Alle Betriebskosten, Entwicklung und Inhalte werden ausschließlich durch Benutzerspenden finanziert.</string>
+  <string name="nothingToSeeHere">Im Moment gibt es hier nichts zu sehen.</string>
 </resources>
