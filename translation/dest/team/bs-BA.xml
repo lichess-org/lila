@@ -53,7 +53,6 @@ Igrači koji ne vole primati Vaše poruke mogli bi napustiti tim.</string>
   <string name="entryCodeDescriptionForLeader">(Izborno) Ulazna koda koju novi članovi moraju znati da bi se pridružili ovom timu.</string>
   <string name="incorrectEntryCode">Netačna ulazna koda.</string>
   <string name="teamAlreadyExists">Ovaj tim već postoji.</string>
-  <string name="upcomingTourns">Nadolazeći turniri</string>
   <string name="completedTourns">Završeni turniri</string>
   <string name="declinedRequests">Odbijeni zahtjevi</string>
   <string name="joinLichessVariantTeam">Pridružite se zvaničnom %s timu za novosti i događaje</string>
