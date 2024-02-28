@@ -50,7 +50,6 @@ Jogadores que não gostem de receber suas mensagens podem deixar a equipe.</stri
   <string name="entryCodeDescriptionForLeader">(Opcional) Um código de entrada que novos membros devem saber para entrarem nesta equipe.</string>
   <string name="incorrectEntryCode">Código de entrada incorreto.</string>
   <string name="teamAlreadyExists">Esta equipe já existe.</string>
-  <string name="upcomingTourns">Próximos torneios</string>
   <string name="completedTourns">Torneios concluídos</string>
   <string name="declinedRequests">Pedidos recusados</string>
   <string name="joinLichessVariantTeam">Junte-se à equipe oficial do %s e fique por dentro das novidades e eventos</string>
