@@ -52,6 +52,7 @@
   <string name="roundInterval">Інтервал між турами</string>
   <string name="forbiddenPairings">Заборонені пари</string>
   <string name="forbiddenPairingsHelp">Імена гравців, які не повинні грати разом (наприклад, родичі). Два імені у рядку, розділені пробілом.</string>
+  <string name="manualPairings">Задання парингів уручну в наступному раунді</string>
   <string name="newSwiss">Новий турнір за швейцарською системою</string>
   <string name="swissVsArenaQ">Коли проводити швейцарські турніри замість арен?</string>
   <string name="swissVsArenaA">В турнірі за швейцарською системою всі участники грають однакову кількість ігор і можуть грати один з одним лише один раз. Це може бути гарним варіантом для клубів та офіційних турнірів.</string>
