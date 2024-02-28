@@ -595,7 +595,6 @@
   <string name="automaticallyProceedToNextGameAfterMoving">Automaticky přejdi k další hře po tahu</string>
   <string name="autoSwitch">Přepnout automaticky</string>
   <string name="puzzles">Puzzle</string>
-  <string name="tournamentWinners">Vítěz turnaje</string>
   <string name="name">Jméno</string>
   <string name="description">Popis</string>
   <string name="descPrivate">Soukromý popis</string>
@@ -1011,8 +1010,6 @@
   <string name="minimumRatedGames">Minimální počet her s ratingem</string>
   <string name="minimumRating">Minimální rating</string>
   <string name="maximumWeeklyRating">Maximální tydenní rating</string>
-  <string name="onlyTitled">Pouze hráči s oficiálním titulem</string>
-  <string name="onlyTitledHelp">Povolit registraci na turnaj pouze hráčům s oficiálním titulem</string>
   <string name="positionInputHelp">Vložte platný FEN popis šachovnice, pokud chcete, aby všechny hry začaly z dané pozice.
 Funguje to pouze pro standardní hry, ne pro varianty.
 Můžete použít %s pro vygenerování FEN popisu zadané pozice a potom ho sem vložit.
