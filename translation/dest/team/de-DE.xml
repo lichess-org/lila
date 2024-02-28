@@ -48,7 +48,6 @@
   <string name="entryCodeDescriptionForLeader">(Optional) Ein Passwort, das neue Teammitglieder kennen müssen, um dem Team beizutreten.</string>
   <string name="incorrectEntryCode">Falscher Beitrittscode.</string>
   <string name="teamAlreadyExists">Dieses Team existiert bereits.</string>
-  <string name="upcomingTourns">Anstehende Turniere</string>
   <string name="completedTourns">Beendete Turniere</string>
   <string name="declinedRequests">Abgelehnte Anfragen</string>
   <string name="joinLichessVariantTeam">Tritt dem offiziellen %s-Team für Neuigkeiten und Ereignisse bei</string>
