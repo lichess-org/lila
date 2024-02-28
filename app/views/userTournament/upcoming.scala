@@ -22,7 +22,7 @@ object upcoming:
               tr(
                 th(cls := "count")(pager.nbResults),
                 th(colspan := 2)(
-                  h1(frag(userLink(u, withOnline = true)), " • ", trans.team.upcomingTourns())
+                  h1(frag(userLink(u, withOnline = true)), " • ", trans.team.upcomingTournaments())
                 ),
                 th(trans.players())
               )

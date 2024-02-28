@@ -50,7 +50,7 @@ Players who don't like receiving your messages might leave the team.</string>
   <string name="entryCodeDescriptionForLeader">(Optional) An entry code that new members must know to join this team.</string>
   <string name="incorrectEntryCode">Incorrect entry code.</string>
   <string name="teamAlreadyExists">This team already exists.</string>
-  <string name="upcomingTourns">Upcoming tournaments</string>
+  <string name="upcomingTournaments">Upcoming tournaments</string>
   <string name="completedTourns">Completed tournaments</string>
   <string name="declinedRequests">Declined Requests</string>
   <string name="joinLichessVariantTeam">Join the official %s team for news and events</string>

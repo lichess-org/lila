@@ -31,7 +31,7 @@ object tournaments:
           ,
           div(cls := "team-events team-tournaments team-tournaments--both")(
             div(cls := "team-tournaments__next")(
-              h2(trans.team.upcomingTourns()),
+              h2(trans.team.upcomingTournaments()),
               table(cls := "slist slist-pad slist-invert")(
                 renderList(tours.next)
               )
