@@ -50,7 +50,6 @@ Spillere som ikke liker å motta meldinger fra deg, kan komme til å forlate lag
   <string name="entryCodeDescriptionForLeader">(Valgfritt) En adgangskode som nye medlemmer må ha for å bli med på dette laget.</string>
   <string name="incorrectEntryCode">Feil adgangskode.</string>
   <string name="teamAlreadyExists">Dette laget finnes allerede.</string>
-  <string name="upcomingTourns">Kommende turneringer</string>
   <string name="completedTourns">Fullførte turneringer</string>
   <string name="declinedRequests">Avslåtte ønsker</string>
   <string name="joinLichessVariantTeam">Bli med i det offisielle laget for %s for nyheter og hendelser</string>
