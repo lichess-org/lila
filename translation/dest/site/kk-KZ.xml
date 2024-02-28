@@ -524,7 +524,6 @@
   <string name="automaticallyProceedToNextGameAfterMoving">Жүрістен кейін келесі ойынға бірден өту</string>
   <string name="autoSwitch">Авто қосу</string>
   <string name="puzzles">Жұмбақтар</string>
-  <string name="tournamentWinners">Жарыс женімпаздары</string>
   <string name="name">Атауы</string>
   <string name="description">Сипаттама</string>
   <string name="descPrivate">Құпия сипаттама</string>
@@ -920,8 +919,6 @@
   <string name="minimumRatedGames">Бағалы ойындар кемінде</string>
   <string name="minimumRating">Рейтинг кемінде</string>
   <string name="maximumWeeklyRating">Апталық рейтингтің ең көбі</string>
-  <string name="onlyTitled">Тек атаққа ие ойыншылар</string>
-  <string name="onlyTitledHelp">Жарысқа қосу үшін ресми атағын талап ету</string>
   <string name="positionInputHelp">Әр ойынды нақты бір күйден бастау үшін FEN еңгізіңіз.
 Бұл тек классикалық ойындарда ғана жұмыс істейді, басқа шахмат түрлерінде емес.
 Күйдің FEN-ін құру үшін %s қолданыңыз, кейін осында еңгізіңіз.
