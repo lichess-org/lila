@@ -19,7 +19,7 @@ object created:
       path = path,
       moreJs = infiniteScrollTag
     ):
-      if pager.nbResults == 0 then div(cls := "box-pad")(trans.arena.thisPlayerHasNotCreatedAnyTourYet(u.username))
+      if pager.nbResults == 0 then div(cls := "box-pad")(trans.arena.thisPlayerHasNotCreatedAnyTourYet())
       else
         div(cls := "tournament-list")(
           table(cls := "slist")(
