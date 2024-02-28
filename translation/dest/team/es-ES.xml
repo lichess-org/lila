@@ -50,9 +50,26 @@ Los jugadores a los que no les guste recibir tus mensajes pueden abandonar el eq
   <string name="entryCodeDescriptionForLeader">(Opcional) Un código de entrada que los nuevos miembros deben saber para unirse a este equipo.</string>
   <string name="incorrectEntryCode">Código de entrada incorrecto.</string>
   <string name="teamAlreadyExists">Este equipo ya existe.</string>
-  <string name="upcomingTourns">Próximos torneos</string>
+  <string name="upcomingTournaments">Próximos torneos</string>
   <string name="completedTourns">Torneos terminados</string>
   <string name="declinedRequests">Solicitudes rechazadas</string>
   <string name="joinLichessVariantTeam">Únete al equipo oficial de %s para noticias y eventos</string>
   <string name="teamPage">Página del equipo</string>
+  <string name="thisTeamBattleIsOver">Este torneo ha terminado y los equipos ya no pueden ser actualizados.</string>
+  <string name="listTheTeamsThatWillCompete">Listar los equipos que competirán en esta batalla.</string>
+  <string name="oneTeamPerLine">Un equipo por línea. Utiliza el autocompletado.</string>
+  <string name="oneTeamPerLineHelp">¡Puedes copiar y pegar esta lista de un torneo a otro!
+
+No puedes eliminar un equipo si un jugador ya se ha unido al torneo con él.</string>
+  <string name="numberOfLeadsPerTeam">Cantidad de líderes por equipo. La suma de su puntuación es la puntuación del equipo.</string>
+  <string name="numberOfLeadsPerTeamHelp">¡No deberías cambiar este valor después de que el torneo haya comenzado!</string>
+  <string name="innerTeam">Equipo interno</string>
+  <plurals name="battleOfNbTeams">
+    <item quantity="one">Batalla de %s equipos</item>
+    <item quantity="other">Batalla de %s equipos</item>
+  </plurals>
+  <plurals name="nbLeadersPerTeam">
+    <item quantity="one">Un líder por equipo</item>
+    <item quantity="other">%s líderes por equipo</item>
+  </plurals>
 </resources>
