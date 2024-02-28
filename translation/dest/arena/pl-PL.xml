@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+  <string name="arena">Arena</string>
   <string name="arenaTournaments">Areny</string>
   <string name="isItRated">Czy turniej jest rankingowy?</string>
   <string name="willBeNotified">Zostaniesz powiadomiony o rozpoczęciu turnieju, możesz więc bez przeszkód rozgrywać inne partie w innej karcie.</string>
@@ -63,4 +64,28 @@ Graj szybko i wracaj do poczekalni, by rozegrać więcej partii i zdobyć więce
   <string name="averagePerformance">Średni wynik</string>
   <string name="averageScore">Średnia ocena</string>
   <string name="myTournaments">Moje turnieje</string>
+  <string name="editTournament">Edytuj turniej</string>
+  <string name="editTeamBattle">Edytuj bitwę drużyn</string>
+  <string name="defender">Obrońca</string>
+  <string name="pickYourTeam">Wybierz swoją drużynę</string>
+  <string name="whichTeamWillYouRepresentInThisBattle">Którą drużynę będziesz reprezentował w tej bitwie?</string>
+  <string name="youMustJoinOneOfTheseTeamsToParticipate">Musisz dołączyć do jednej z tych drużyn aby wziąć udział!</string>
+  <string name="created">Utworzono</string>
+  <string name="recentlyPlayed">Ostatnio rozegrane</string>
+  <string name="bestResults">Najlepsze wyniki</string>
+  <string name="stats">Statystyki</string>
+  <string name="tournamentStats">Statystyki turniejowe</string>
+  <string name="rankAvgHelp">Średnia ranga to procent twojego rankingu. Niższa jest lepsza.
+
+Na przykład, będąc 3 w rankingu turnieju liczącym 100 graczy = 3%. Będąc 10 w rankingu turnieju liczącym 1000 graczy = 1%.</string>
+  <string name="medians">mediany</string>
+  <string name="allAveragesAreX">Wszystkie średnie na tej stronie to %s.</string>
+  <string name="total">Ogółem</string>
+  <string name="pointsAvg">Średnia liczba punktów</string>
+  <string name="pointsSum">Suma punktów</string>
+  <string name="rankAvg">Średni ranking</string>
+  <string name="tournamentWinners">Zwycięzcy turnieju</string>
+  <string name="tournamentShields">Tarcze turniejowe</string>
+  <string name="onlyTitled">Tylko gracze z tytułem</string>
+  <string name="onlyTitledHelp">Wymagany oficjalny tytuł, aby dołączyć do turnieju</string>
 </resources>
