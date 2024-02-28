@@ -59,4 +59,14 @@ Speel snel en ga terug naar de toernooilobby om meer partijen te spelen en meer 
   <string name="averagePerformance">Gemiddelde prestatie</string>
   <string name="averageScore">Gemiddelde score</string>
   <string name="myTournaments">Mijn toernooien</string>
+  <string name="pickYourTeam">Kies je team</string>
+  <string name="created">Aangemaakt</string>
+  <string name="recentlyPlayed">Onlangs gespeeld</string>
+  <string name="bestResults">Beste resultaten</string>
+  <string name="stats">Statistieken</string>
+  <string name="tournamentStats">Toernooi statistieken</string>
+  <string name="allAveragesAreX">Alle gemiddelden op deze pagina zijn %s.</string>
+  <string name="total">Totaal</string>
+  <string name="pointsAvg">Gemiddeld punten</string>
+  <string name="pointsSum">Aantal punten</string>
 </resources>
