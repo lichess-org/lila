@@ -306,6 +306,7 @@
   <string name="abortGame">Скасувати гру</string>
   <string name="gameAborted">Гру скасовано</string>
   <string name="standard">Стандартний</string>
+  <string name="customPosition">Користувацька позиція</string>
   <string name="unlimited">Необмежений</string>
   <string name="mode">Режим</string>
   <string name="casual">Дружня гра</string>
