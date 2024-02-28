@@ -527,7 +527,6 @@
   <string name="automaticallyProceedToNextGameAfterMoving">Automatesch bei déi nächst Partie goen nom Zéien</string>
   <string name="autoSwitch">Auto switch</string>
   <string name="puzzles">Aufgaben</string>
-  <string name="tournamentWinners">Turnéier Gewënner</string>
   <string name="name">Numm</string>
   <string name="description">Beschreiwung</string>
   <string name="descPrivate">Privat Beschreiwung</string>
@@ -925,8 +924,6 @@ a verännere Spillerwäertungen</string>
   <string name="minimumRatedGames">Minimum gewäert Partien</string>
   <string name="minimumRating">Minimum Wäertung</string>
   <string name="maximumWeeklyRating">Maximal wöchentlech Wäertung</string>
-  <string name="onlyTitled">Just Spiller mat Titel</string>
-  <string name="onlyTitledHelp">Offiziellen Titel viraussetzen fir Turnéier bäizetrieden</string>
   <string name="positionInputHelp">Füg eng gülteg FEN an, fir all Partie aus enger bestëmmter Positioun ze starten.
 Et funktioneiert nëmmen fir Standardpartien, net fir Varianten.
 Du kanns de %s benotzen, fir eng FEN-Positioun ze generéieren an dës dann hei afügen.
