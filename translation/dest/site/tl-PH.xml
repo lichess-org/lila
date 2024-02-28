@@ -464,7 +464,6 @@
   <string name="automaticallyProceedToNextGameAfterMoving">Awtomatikong pumupunta sa sunod na laro pagkatapos ng paggalaw</string>
   <string name="autoSwitch">Awtomatikong paglipat</string>
   <string name="puzzles">Mga palaisipan</string>
-  <string name="tournamentWinners">Mga nanalo sa paligsahan</string>
   <string name="name">Pangalan</string>
   <string name="description">Paglalarawan</string>
   <string name="descPrivate">Pribadong deskripsyon</string>
@@ -840,8 +839,6 @@ at epekto sa mga rating ng mga manlalaro</string>
   <string name="minimumRatedGames">Minimum na na-rate na mga laro</string>
   <string name="minimumRating">Minimum na rating</string>
   <string name="maximumWeeklyRating">Maximum na lingguhang rating</string>
-  <string name="onlyTitled">Mga manlalaro lamang na may pamagat</string>
-  <string name="onlyTitledHelp">Humiling ng isang opisyal na pamagat upang sumali sa paligsahan</string>
   <string name="positionInputHelp">I-paste ang isang wastong FEN upang simulan ang bawat laro mula sa isang naibigay na posisyon.
 Gumagawa lamang ito para sa karaniwang mga laro, hindi sa mga iba-iba.
 Maaari mong gamitin ang %s upang makabuo ng isang posisyon ng FEN, pagkatapos ay i-paste ito dito.
