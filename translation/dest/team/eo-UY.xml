@@ -50,7 +50,6 @@ Ludantoj, kiuj ne ŝatas ricevi viajn mesaĝojn povus forlasi la teamon.</string
   <string name="entryCodeDescriptionForLeader">(Nedevige) Enirkodo, kiun novaj membroj devas scii por aliĝu al ĉi tiu teamo.</string>
   <string name="incorrectEntryCode">Malĝusta enirkodo.</string>
   <string name="teamAlreadyExists">Ĉi tiu teamo jam ekzistas.</string>
-  <string name="upcomingTourns">Venontaj turniroj</string>
   <string name="completedTourns">Kompletigitaj turniroj</string>
   <string name="declinedRequests">Malakceptitaj aliĝpetoj</string>
   <string name="joinLichessVariantTeam">Aliĝu al la oficiala %s teamo por novaĵoj kaj eventoj</string>
