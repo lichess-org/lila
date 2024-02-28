@@ -599,7 +599,6 @@
   <string name="automaticallyProceedToNextGameAfterMoving">Po ruchu automatycznie przejdź do kolejnej partii</string>
   <string name="autoSwitch">Przełącz po ruchu</string>
   <string name="puzzles">Zadania szachowe</string>
-  <string name="tournamentWinners">Zwycięzcy turniejów</string>
   <string name="name">Nazwa</string>
   <string name="description">Opis</string>
   <string name="descPrivate">Prywatny opis</string>
@@ -1024,8 +1023,6 @@ na ranking graczy</string>
   <string name="minimumRatedGames">Minimalna liczba partii rankingowych</string>
   <string name="minimumRating">Minimalny ranking</string>
   <string name="maximumWeeklyRating">Maksymalny tygodniowy ranking</string>
-  <string name="onlyTitled">Tylko gracze z tytułem</string>
-  <string name="onlyTitledHelp">Wymagaj oficjalnego tytułu, aby dołączyć do turnieju</string>
   <string name="positionInputHelp">Wklej poprawny FEN, aby rozpocząć każdą partię z danej pozycji.
 Działa tylko dla standardowych gier, nie działa dla wariantów.
 Możesz użyć %s , aby wygenerować pozycję FEN, a następnie wkleić ją tutaj.
