@@ -59,7 +59,6 @@ D’fhéadfadh imreoirí nach maith leo do theachtaireachtaí a fháil an fhoire
   <string name="entryCodeDescriptionForLeader">(Roghnach) Cód iontrála nach mór a bheith ar eolas ag baill nua le bheith ar an bhfoireann seo.</string>
   <string name="incorrectEntryCode">Cód iontrála mícheart.</string>
   <string name="teamAlreadyExists">Tá an foireann seo ann cheana féin.</string>
-  <string name="upcomingTourns">Comórtais le teacht</string>
   <string name="completedTourns">Comórtais críochnaithe</string>
   <string name="declinedRequests">Iarrataí Diúltaithe</string>
   <string name="joinLichessVariantTeam">Bí ar an bhfoireann oifigiúil %s le haghaidh nuachta agus imeachtaí</string>
