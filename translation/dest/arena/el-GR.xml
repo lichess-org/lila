@@ -43,7 +43,7 @@ To Berserk δεν ισχύει για παρτίδες με μηδενικό α�
   <string name="variant">Εκδοχή</string>
   <string name="minimumGameLength">Ελάχιστος αριθμός κινήσεων</string>
   <string name="history">Ιστορικό αρένας</string>
-  <plurals name="viewAllXTeams" comment="%s is the number of teams that can be viewed.&#10;&#10;Appears in team battles that feature lots of teams. As of the time of writing, Lichess lists up to 10 teams at a time, so this button lets you view all teams.">
+  <plurals name="viewAllXTeams" comment="viewAllXTeams [one] [other]&#10;&#10;%s is the number of teams that can be viewed">
     <item quantity="one">Δείτε την ομάδα</item>
     <item quantity="other">Δείτε όλες τις %s ομάδες</item>
   </plurals>
@@ -55,7 +55,7 @@ To Berserk δεν ισχύει για παρτίδες με μηδενικό α�
   <string name="allowChatHelp">Να επιτρέπεται στους παίκτες να συζητούν σε δωμάτιο συνομιλίας</string>
   <string name="arenaStreaks">Arena streaks</string>
   <string name="arenaStreaksHelp">Μετά από 2 νίκες, επιπλέον διαδοχικές νίκες σας 4 πόντους αντί για 2.</string>
-  <string name="noArenaStreaks" comment="A possible setting when creating an arena tournament.&#10;When enabled: After 2 wins, consecutive wins grant 4 points instead of 2.">Χωρίς σερί νικών Αρένας</string>
+  <string name="noArenaStreaks">Χωρίς σερί νικών Αρένας</string>
   <string name="averagePerformance">Μέση επίδοση</string>
   <string name="averageScore">Μέση βαθμολογία</string>
   <string name="myTournaments">Τα τουρνουά μου</string>
