@@ -56,7 +56,6 @@
   <string name="entryCodeDescriptionForLeader">(Не обов\'язково) Вхідний код, який повинен знати кожний новий учасник, для того щоб приєднатися до цієї команди.</string>
   <string name="incorrectEntryCode">Невірний вхідний код.</string>
   <string name="teamAlreadyExists">Така команда вже існує.</string>
-  <string name="upcomingTourns">Майбутні турніри</string>
   <string name="completedTourns">Завершені турніри</string>
   <string name="declinedRequests">Відхилені запити</string>
   <string name="joinLichessVariantTeam">Приєднатися до офіційної команди %s, щоб отримувати інформацію про новини та події</string>
