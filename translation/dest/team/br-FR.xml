@@ -58,7 +58,6 @@ Gallout a rit gervel anezhe da gemer perzh e-barzh ur tournamant pe un emgann sk
   <string name="entryCodeDescriptionForLeader">(Diret) Ur c\'hod diret a rank bezañ anavet gant an izili nevez evit dont er skipailh.</string>
   <string name="incorrectEntryCode">Kod mont e-barzh direizh.</string>
   <string name="teamAlreadyExists">Bez eus eus ar skipailh-mañ dija.</string>
-  <string name="upcomingTourns">Tournamantoù da zont</string>
   <string name="completedTourns">Tournamantoù echuet</string>
   <string name="declinedRequests">Goulennoù emezelañ nac\'het</string>
   <string name="joinLichessVariantTeam">Emezelit d\'ar skipailh ofisiel %s evit bezañ kelaouet ha kemer perzh e darvoudoù zo</string>
