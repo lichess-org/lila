@@ -929,7 +929,6 @@ object I18nKeys:
     val `onlyTitledHelp` = I18nKey("arena:onlyTitledHelp")
     val `drawingWithinNbMoves` = I18nKey("arena:drawingWithinNbMoves")
     val `viewAllXTeams` = I18nKey("arena:viewAllXTeams")
-    val `nbTeamsBattle` = I18nKey("arena:nbTeamsBattle")
 
   object emails:
     val `emailConfirm_subject` = I18nKey("emails:emailConfirm_subject")

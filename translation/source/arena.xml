@@ -50,10 +50,6 @@ Play fast and return to the lobby to play more games and win more points.</strin
     <item quantity="other">View all %s teams</item>
   </plurals>
   <string name="newTeamBattle">New Team Battle</string>
-  <plurals name="nbTeamsBattle">
-    <item quantity="one">%s team battle</item>
-    <item quantity="other">%s teams battle</item>
-  </plurals>
   <string name="customStartDate">Custom start date</string>
   <string name="customStartDateHelp">In your own local timezone. This overrides the "Time before tournament starts" setting</string>
   <string name="allowBerserk">Allow Berserk</string>
