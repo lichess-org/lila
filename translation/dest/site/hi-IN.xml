@@ -521,7 +521,6 @@
   <string name="automaticallyProceedToNextGameAfterMoving">चाल चलने के बाद अपने आप अगले खेल पर जाएँ</string>
   <string name="autoSwitch">अपने आप खेल बदलें।</string>
   <string name="puzzles">पहेलियाँ</string>
-  <string name="tournamentWinners">टूर्नामेंट के विजेता</string>
   <string name="name">नाम</string>
   <string name="description">विवरण</string>
   <string name="descPrivate">टेक्स्ट जो केवल टीम के सदस्य देखेंगे। यदि सेट किया जाता है, तो टीम के सदस्यों के लिए सार्वजनिक विवरण को बदल देता है।</string>
@@ -905,8 +904,6 @@
   <string name="minimumRatedGames">न्यूनतम मूल्यांकित खेलों की संख्या</string>
   <string name="minimumRating">न्यूनतम मूल्यांकन</string>
   <string name="maximumWeeklyRating">न्यूनतम साप्ताहिक मूल्यांकन</string>
-  <string name="onlyTitled">केवल उपाधिप्राप्त खिलाड़ी</string>
-  <string name="onlyTitledHelp">प्रतियोगिता से जुड़ने के लिए आधिकारिक उपाधि आवश्यक</string>
   <string name="positionInputHelp">किसी निर्धारित स्थिति से खेल आरंभ करने के लिए एक वैध FEN डालें।
 यह केवल मूल खेलों के लिए काम करता है, रूपांतरण के साथ नहीं।
 आप %s का प्रयोग FEN स्थिति को प्राप्त करने के लिए कर सकते हैं फिर उसे यहाँ डाल दीजिए।
