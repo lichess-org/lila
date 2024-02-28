@@ -1,5 +1,6 @@
 package views.html.fide
 
+import play.api.mvc.Call
 import controllers.routes
 
 import lila.app.templating.Environment.{ given, * }
@@ -17,10 +18,10 @@ object player:
           div(cls := "box__top__actions"):
             input(cls := "fide__search", placeholder := trans.search.search.txt(), autofocus)
         ),
-        playerList(players)
+        playerList(players, np => routes.Fide.index(np))
       )
 
-  def playerList(players: Paginator[FidePlayer], withFlag: Boolean = true)(using Context) =
+  def playerList(players: Paginator[FidePlayer], url: Int => Call, withFlag: Boolean = true)(using Context) =
     table(cls := "slist slist-pad")(
       thead:
         tr(
@@ -45,7 +46,7 @@ object player:
             td(player.blitz),
             td(player.age)
           ),
-        pagerNextTable(players, np => routes.Fide.index(np).url)
+        pagerNextTable(players, np => url(np).url)
       )
     )
 

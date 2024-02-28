@@ -53,10 +53,10 @@ object federation:
   )
 
   def show(fed: Federation, players: Paginator[FidePlayer])(using PageContext) =
-    bits.layout(s"$name - FIDE federation"):
+    bits.layout(s"${fed.name} - FIDE federation"):
       main(cls := "page-small box fide-federation")(
         div(cls := "box__top")(
           h1(a(href := routes.Fide.federations(1))("Federations"), " • ", flag(fed.id, fed.id), fed.name)
         ),
-        player.playerList(players, withFlag = false)
+        player.playerList(players, np => routes.Fide.federation(fed.slug, np), withFlag = false)
       )
