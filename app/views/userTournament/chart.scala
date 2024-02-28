@@ -8,7 +8,7 @@ import lila.user.User
 object chart:
 
   def apply(u: User, data: lila.tournament.LeaderboardApi.ChartData)(using PageContext) =
-    bits.layout(u, title = s"${u.username} tournaments", path = "chart"):
+    bits.layout(u, title = s"${u.username} • ${trans.arena.tournamentStats.txt()}", path = "chart"):
       div(cls := "tournament-stats")(
         boxTop(h1(frag(userLink(u, withOnline = true), " • ", trans.arena.tournamentStats()))),
         p(cls := "box__pad")(trans.arena.rankAvgHelp()),
