@@ -10,15 +10,15 @@ import lila.common.paginator.Paginator
 object federation:
 
   def index(feds: Paginator[Federation])(using PageContext) =
-    bits.layout("FIDE federations"):
-      main(cls := "page-small box page fide-federations")(
-        boxTop(
-          h1("FIDE federations"),
-          div(cls := "box__top__actions"):
-            input(cls := "fide__search", placeholder := trans.search.search.txt(), autofocus)
-        ),
-        federationList(feds)
-      )
+    bits.layout("FIDE federations", "federations")(
+      cls := "fide-federations",
+      boxTop(
+        h1("FIDE federations"),
+        div(cls := "box__top__actions"):
+          input(cls := "fide__search", placeholder := trans.search.search.txt(), autofocus)
+      ),
+      federationList(feds)
+    )
 
   private def federationList(feds: Paginator[Federation])(using Context) =
     def ratingCell(stats: Federation.Stats) =
@@ -52,11 +52,32 @@ object federation:
     src      := assetUrl(s"images/fide-fed/${id}.svg")
   )
 
+  private def card(name: Frag, value: Frag) =
+    div(cls := "fide-card fide-federation__card")(em(name), div(value))
+
   def show(fed: Federation, players: Paginator[FidePlayer])(using PageContext) =
-    bits.layout(s"${fed.name} - FIDE federation"):
-      main(cls := "page-small box fide-federation")(
-        div(cls := "box__top")(
-          h1(a(href := routes.Fide.federations(1))("Federations"), " • ", flag(fed.id, fed.id), fed.name)
-        ),
-        player.playerList(players, np => routes.Fide.federation(fed.slug, np), withFlag = false)
+    bits.layout(s"${fed.name} - FIDE federation", "federations")(
+      cls := "fide-federation",
+      div(cls := "box__top fide-federation__head")(
+        flag(fed.id, fed.id),
+        div(h1(fed.name), p(trans.nbPlayers.plural(fed.nbPlayers, fed.nbPlayers.localize)))
+      ),
+      div(cls := "fide-cards fide-federation__cards box__pad")(
+        bits.tcTrans.map: (tc, name) =>
+          val stats = fed.stats(tc)
+          card(
+            name(),
+            frag(
+              p("Rank", strong(stats.get.rank)),
+              p("Top 10 rating", strong(stats.get.top10Rating)),
+              p("Players", strong(stats.get.nbPlayers.localize))
+            )
+          )
+      ),
+      player.playerList(
+        players,
+        np => routes.Fide.federation(fed.slug, np),
+        withFlag = false,
+        title = "Players"
       )
+    )

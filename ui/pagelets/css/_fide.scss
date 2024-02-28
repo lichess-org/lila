@@ -5,6 +5,29 @@
   }
 }
 
+.fide-cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+  grid-gap: 1em;
+  font-size: 1.5em;
+  @include breakpoint($mq-x-small) {
+    grid-template-columns: repeat(auto-fill, minmax(30%, 1fr));
+    font-size: 1.8em;
+  }
+}
+.fide-card {
+  @extend %box-neat, %flex-column;
+  align-items: center;
+  gap: 1em;
+  background: $c-bg-zebra;
+  padding: 1.5em 1em;
+  em {
+    @extend %roboto;
+    text-transform: uppercase;
+    color: $c-font-dim;
+  }
+}
+
 .fide-federations {
   .flag {
     margin-right: 1em;
@@ -12,40 +35,40 @@
   }
 }
 .fide-federation {
-  .flag {
-    height: 1em;
-    margin-right: 1ch;
-    vertical-align: middle;
+  &__head {
+    justify-content: flex-start;
+    gap: 2em;
+    .flag {
+      @extend %box-radius;
+      height: 5em;
+    }
+  }
+  &__cards {
+    margin-bottom: var(--box-padding);
+  }
+  &__card {
+    div {
+      width: 100%;
+    }
+    p {
+      @extend %flex-between;
+      color: $c-font-dim;
+      font-size: 1.2rem;
+      margin-bottom: 0.5em;
+    }
+    strong {
+      color: $c-brag;
+    }
   }
 }
 .fide-player {
-  &__cards {
-    margin-top: var(--box-padding);
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
-    grid-gap: 1em;
-    font-size: 1.5em;
-    @include breakpoint($mq-x-small) {
-      grid-template-columns: repeat(auto-fill, minmax(30%, 1fr));
-      font-size: 1.8em;
-    }
-  }
-  &__card {
-    @extend %box-neat, %flex-column;
-    align-items: center;
-    gap: 1em;
-    background: $c-bg-zebra;
-    padding: 1.5em 1em;
-    em {
-      @extend %roboto;
-      text-transform: uppercase;
-      color: $c-font-dimmer;
-    }
-  }
   .flag {
     height: 1em;
     margin-right: 1ch;
     vertical-align: middle;
+  }
+  &__cards {
+    margin-top: var(--box-padding);
   }
   &__tours {
     margin-top: var(--box-padding);

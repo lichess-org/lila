@@ -12,21 +12,26 @@ import lila.relay.RelayTour
 object player:
 
   def index(players: Paginator[FidePlayer])(using PageContext) =
-    bits.layout("FIDE players"):
-      main(cls := "page-small box page fide-players")(
-        boxTop(
-          h1("FIDE players"),
-          div(cls := "box__top__actions"):
-            input(cls := "fide__search", placeholder := trans.search.search.txt(), autofocus)
-        ),
-        playerList(players, np => routes.Fide.index(np))
-      )
+    bits.layout("FIDE players", "players")(
+      cls := "fide-players",
+      boxTop(
+        h1("FIDE players"),
+        div(cls := "box__top__actions"):
+          input(cls := "fide__search", placeholder := trans.search.search.txt(), autofocus)
+      ),
+      playerList(players, np => routes.Fide.index(np))
+    )
 
-  def playerList(players: Paginator[FidePlayer], url: Int => Call, withFlag: Boolean = true)(using Context) =
+  def playerList(
+      players: Paginator[FidePlayer],
+      url: Int => Call,
+      withFlag: Boolean = true,
+      title: String = "Name"
+  )(using Context) =
     table(cls := "slist slist-pad")(
       thead:
         tr(
-          th("Name"),
+          th(title),
           withFlag option th(iconTag(licon.FlagOutline)),
           th("Classic"),
           th("Rapid"),
@@ -53,35 +58,36 @@ object player:
       )
     )
 
-  private def card(name: Frag, value: Frag) = div(cls := "fide-player__card")(em(name), strong(value))
+  private def card(name: Frag, value: Frag) =
+    div(cls := "fide-card fide-player__card")(em(name), strong(value))
 
   def show(player: FidePlayer, tours: Paginator[RelayTour.WithLastRound])(using PageContext) =
-    bits.layout(s"${player.name} - FIDE player ${player.id}"):
-      main(cls := "page-small box box-pad fide-player")(
-        h1(a(href := routes.Fide.index())("FIDE players"), " • ", titleTag(player.title), player.name),
-        div(cls := "fide-player__cards")(
-          player.fed.map: fed =>
-            card(
-              "Federation",
-              a(href := routes.Fide.federation(Federation.idToSlug(fed)))(
-                federation.flag(fed, fed),
-                Federation.name(fed)
-              )
-            ),
+    bits.layout(s"${player.name} - FIDE player ${player.id}", "players")(
+      cls := "box-pad fide-player",
+      h1(titleTag(player.title), player.name),
+      div(cls := "fide-cards fide-player__cards")(
+        player.fed.map: fed =>
           card(
-            "FIDE profile",
-            a(href := s"https://ratings.fide.com/profile/${player.id}")(player.id)
+            "Federation",
+            a(href := routes.Fide.federation(Federation.idToSlug(fed)))(
+              federation.flag(fed, fed),
+              Federation.name(fed)
+            )
           ),
-          card(
-            "Age",
-            player.age
-          ),
-          bits.tcTrans.map: (tc, name) =>
-            card(name(), player.ratingOf(tc).fold("-")(_.toString))
+        card(
+          "FIDE profile",
+          a(href := s"https://ratings.fide.com/profile/${player.id}")(player.id)
         ),
-        tours.nbResults > 0 option div(cls := "fide-player__tours")(
-          h2("Recent tournaments"),
-          views.html.relay.tour.renderPager(views.html.relay.tour.asRelayPager(tours)): page =>
-            routes.Fide.show(player.id, player.slug, page)
-        )
+        card(
+          "Age",
+          player.age
+        ),
+        bits.tcTrans.map: (tc, name) =>
+          card(name(), player.ratingOf(tc).fold("-")(_.toString))
+      ),
+      tours.nbResults > 0 option div(cls := "fide-player__tours")(
+        h2("Recent tournaments"),
+        views.html.relay.tour.renderPager(views.html.relay.tour.asRelayPager(tours)): page =>
+          routes.Fide.show(player.id, player.slug, page)
       )
+    )
