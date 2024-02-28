@@ -74,10 +74,11 @@ final private class FidePlayerSync(repo: FideRepo, api: FidePlayerApi, ws: Stand
                 ReplaceRootField("_id")
               )
           .map2: o =>
-            def count(tc: FideTC) = o.int(s"$tc-count")
-            def top(tc: FideTC)   = o.double(s"$tc-top").map(_.toInt)
-            def stats(tc: FideTC) =
-              Federation.Stats(rank = 0, nbPlayers = ~count(tc), top10Rating = ~top(tc))
+            def stats(tc: FideTC) = Federation.Stats(
+              rank = 0,
+              nbPlayers = ~o.int(s"$tc-count"),
+              top10Rating = ~o.double(s"$tc-top").map(_.toInt)
+            )
             Federation(
               code = code,
               name = name,

@@ -14,7 +14,7 @@ private case class RelayPlayer(
     fideId: Option[FideId] = none
 )
 
-private class RelayPlayers(val text: String):
+private class RelayPlayersTextarea(val text: String):
 
   def sortedText = text.linesIterator.toList.sorted.mkString("\n")
 

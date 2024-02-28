@@ -8,7 +8,7 @@ import lila.fide.{ FidePlayerApi, PlayerName, PlayerToken, FidePlayer, Federatio
 
 type TeamName = String
 
-private class RelayTeams(val text: String):
+private class RelayTeamsTextarea(val text: String):
 
   def sortedText = text.linesIterator.toList.sorted.mkString("\n")
 
