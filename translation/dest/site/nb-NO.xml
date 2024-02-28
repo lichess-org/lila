@@ -531,7 +531,6 @@
   <string name="automaticallyProceedToNextGameAfterMoving">Fortsett automatisk til neste parti etter utført trekk</string>
   <string name="autoSwitch">Autosyklus</string>
   <string name="puzzles">Sjakknøtter</string>
-  <string name="tournamentWinners">Turneringsvinnere</string>
   <string name="name">Navn</string>
   <string name="description">Beskrivelse</string>
   <string name="descPrivate">Privat beskrivelse</string>
@@ -940,8 +939,6 @@ og påvirker spillernes rating</string>
   <string name="minimumRatedGames">Minimum ratede partier</string>
   <string name="minimumRating">Minimum rating</string>
   <string name="maximumWeeklyRating">Maksimum ukerating</string>
-  <string name="onlyTitled">Kun spillere med sjakktittel</string>
-  <string name="onlyTitledHelp">Krev en offisiell sjakktittel for å bli med i turneringen</string>
   <string name="positionInputHelp">Lim inn gyldig FEN for å begynne hvert parti fra gitt stilling.
 Det fungerer bare for standardpartier, ikke for varianter.
 Du kan bruke %s for å generere en FEN-stilling, som du limer inn her.
