@@ -1,10 +1,10 @@
-.fide-players,
-.fide-federations {
+.fide-players {
+  a {
+    font-weight: bold;
+  }
   .flag {
     height: 1em;
   }
-}
-.fide-players {
   &__search {
     &-form {
       flex: 2 1 auto;
@@ -57,8 +57,12 @@
 
 .fide-federations {
   .flag {
+    height: 1.5em;
     margin-right: 1em;
     vertical-align: middle;
+  }
+  a {
+    font-weight: bold;
   }
 }
 .fide-federation {
