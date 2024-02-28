@@ -50,7 +50,6 @@
   <string name="entryCodeDescriptionForLeader">کدی است که اعضای جدید برای ورود به تیم باید بدانند(اختیاری).</string>
   <string name="incorrectEntryCode">کد ورودی اشتباه است.</string>
   <string name="teamAlreadyExists">این تیم هم‌اکنون وجود دارد.</string>
-  <string name="upcomingTourns">مسابقاتِ پیش رو</string>
   <string name="completedTourns">مسابقاتِ کامل شده</string>
   <string name="declinedRequests">درخواست‌های رد شده</string>
   <string name="joinLichessVariantTeam">برای دسترسی به اخبار و رویداد ها در تیم رسمی %s عضو شوید</string>
