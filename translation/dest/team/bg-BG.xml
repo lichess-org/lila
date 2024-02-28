@@ -50,7 +50,6 @@
   <string name="entryCodeDescriptionForLeader">(По избор) Парола, която новите членове трябва да знаят, за да се присъединят към този екип.</string>
   <string name="incorrectEntryCode">Грешен код за включване.</string>
   <string name="teamAlreadyExists">Този отбор вече съществува.</string>
-  <string name="upcomingTourns">Предстоящи турнири</string>
   <string name="completedTourns">Завършени турнири</string>
   <string name="declinedRequests">Отказани заявки за присъединяване</string>
   <string name="joinLichessVariantTeam">Присъединете се към официалния %s отбор за следите новините и събитията</string>
