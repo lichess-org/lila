@@ -63,6 +63,9 @@
   <string name="editTournament">Редактиране на турнира</string>
   <string name="defender">Защитаващ</string>
   <string name="pickYourTeam">Изберете отбора си</string>
+  <string name="created">Създадено</string>
+  <string name="recentlyPlayed">Изиграни наскоро</string>
+  <string name="bestResults">Най-добри резултати</string>
   <string name="stats">Статистика</string>
   <string name="tournamentStats">Статистика от турнира</string>
   <string name="medians">медиани</string>
@@ -70,4 +73,7 @@
   <string name="pointsAvg">Среднени точки</string>
   <string name="pointsSum">Сума на точките</string>
   <string name="rankAvg">Среднен рейтинг</string>
+  <string name="tournamentWinners">Победители в турнира</string>
+  <string name="onlyTitled">Само титулувани играчи</string>
+  <string name="onlyTitledHelp">Изискване на официална титла за участие в турнира</string>
 </resources>
