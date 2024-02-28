@@ -50,7 +50,6 @@ Xabarlaringizni qabul qilishni yoqtirmaydigan oʻyinchilar jamoani tark etishlar
   <string name="entryCodeDescriptionForLeader">(Ixtiyoriy) Jamoaga qo‘shilish uchun jamoa a‘zolari bilish kerak bo‘lgan kirish kodi.</string>
   <string name="incorrectEntryCode">Noto‘g‘ri kirish kodi.</string>
   <string name="teamAlreadyExists">Ushbu jamoa mavjud.</string>
-  <string name="upcomingTourns">Yaqinlashayotgan turnirlar</string>
   <string name="completedTourns">Yakunlangan turnirlar</string>
   <string name="declinedRequests">Rad etilgan so‘rovlar</string>
   <string name="joinLichessVariantTeam">Yangilik va voqeiliklarda bahramand bo‘lish uchun %s rasmiy jamoaga qo‘shiling</string>
