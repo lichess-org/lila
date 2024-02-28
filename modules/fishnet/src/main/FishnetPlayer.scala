@@ -20,19 +20,21 @@ final class FishnetPlayer(
 ):
 
   def apply(game: Game): Funit =
-    game.aiLevel so { level =>
-      LilaFuture.delay(delayFor(game) | 0.millis) {
-        openingBook(game, level) flatMap {
-          case Some(move) =>
-            uciMemo sign game map { sign =>
-              Bus.publish(Tell(game.id.value, FishnetPlay(move, sign)), "roundSocket")
-            }
-          case None => makeWork(game, level) addEffect redis.request void
+    game.aiLevel
+      .so: level =>
+        LilaFuture.delay(delayFor(game) | 0.millis) {
+          openingBook(game, level).flatMap {
+            case Some(move) =>
+              uciMemo
+                .sign(game)
+                .map: sign =>
+                  Bus.publish(Tell(game.id.value, FishnetPlay(move, sign)), "roundSocket")
+            case None => makeWork(game, level).addEffect(redis.request).void
+          }
         }
+      .recover { case e: Exception =>
+        logger.info(e.getMessage)
       }
-    } recover { case e: Exception =>
-      logger.info(e.getMessage)
-    }
 
   private val delayFactor  = 0.011f
   private val defaultClock = Clock(Clock.LimitSeconds(300), Clock.IncrementSeconds(0))
