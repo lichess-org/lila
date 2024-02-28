@@ -306,6 +306,7 @@
   <string name="abortGame">Przerwij partię</string>
   <string name="gameAborted">Partia została przerwana</string>
   <string name="standard">Standard</string>
+  <string name="customPosition">Niestandardowa pozycja</string>
   <string name="unlimited">Bez limitu</string>
   <string name="mode">Rodzaj</string>
   <string name="casual">Towarzyska</string>
@@ -599,6 +600,7 @@
   <string name="automaticallyProceedToNextGameAfterMoving">Po ruchu automatycznie przejdź do kolejnej partii</string>
   <string name="autoSwitch">Przełącz po ruchu</string>
   <string name="puzzles">Zadania szachowe</string>
+  <string name="onlineBots">Boty online</string>
   <string name="name">Nazwa</string>
   <string name="description">Opis</string>
   <string name="descPrivate">Prywatny opis</string>
@@ -1071,4 +1073,5 @@ Pozostaw puste, aby rozpoczynać partie z normalnej pozycji początkowej.</strin
   <string name="showMeEverything">Pokaż mi wszystko</string>
   <string name="lichessPatronInfo">Lichess jest organizacją niedochodową i całkowicie darmowym otwartym oprogramowaniem.
 Wszystkie koszty operacyjne, rozwój i treści są finansowane wyłącznie z darowizn użytkowników.</string>
+  <string name="nothingToSeeHere">W tej chwili nie ma nic do zobaczenia.</string>
 </resources>
