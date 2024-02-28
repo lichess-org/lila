@@ -25,8 +25,12 @@ final class RelayTourForm:
       "tier"            -> optional(number(min = RelayTour.Tier.NORMAL, max = RelayTour.Tier.BEST)),
       "autoLeaderboard" -> boolean,
       "teamTable"       -> boolean,
-      "players"   -> optional(of(formatter.stringFormatter[RelayPlayersTextarea](_.sortedText, RelayPlayersTextarea(_)))),
-      "teams"     -> optional(of(formatter.stringFormatter[RelayTeamsTextarea](_.sortedText, RelayTeamsTextarea(_)))),
+      "players" -> optional(
+        of(formatter.stringFormatter[RelayPlayersTextarea](_.sortedText, RelayPlayersTextarea(_)))
+      ),
+      "teams" -> optional(
+        of(formatter.stringFormatter[RelayTeamsTextarea](_.sortedText, RelayTeamsTextarea(_)))
+      ),
       "spotlight" -> optional(spotlightMapping),
       "grouping"  -> RelayGroup.form.mapping
     )(Data.apply)(unapply)

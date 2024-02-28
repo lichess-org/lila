@@ -39,7 +39,7 @@ final class ForumPost(env: Env) extends LilaController(env) with ForumController
         else if topic.isOld then BadRequest("This topic is archived")
         else
           for
-            canModCateg <- access.isGrantedMod(categ.slug)
+            canModCateg  <- access.isGrantedMod(categ.slug)
             replyBlocked <- access.isReplyBlockedOnUBlog(topic, canModCateg)
             res <-
               if replyBlocked then fuccess(BadRequest(trans.ublog.youBlockedByBlogAuthor()))
