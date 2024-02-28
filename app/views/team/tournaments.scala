@@ -94,7 +94,12 @@ object tournaments:
                   br,
                   renderStartsAt(any)
                 ),
-              s => frag(trans.swiss.xRoundsSwiss.pluralSame(s.settings.nbRounds), br, renderStartsAt(any))
+              s =>
+                frag(
+                  trans.swiss.xRoundsSwiss.plural(s.settings.nbRounds, s.settings.nbRounds.localize),
+                  br,
+                  renderStartsAt(any)
+                )
             )
           ),
           td(cls := "text", dataIcon := licon.User)(any.nbPlayers.localize)
