@@ -926,7 +926,6 @@ object I18nKeys:
     val `thisPlayerHasNotJoinedAnyTourYet` = I18nKey("arena:thisPlayerHasNotJoinedAnyTourYet")
     val `tournamentWinners` = I18nKey("arena:tournamentWinners")
     val `tournamentShields` = I18nKey("arena:tournamentShields")
-    val `xShields` = I18nKey("arena:xShields")
     val `onlyTitled` = I18nKey("arena:onlyTitled")
     val `onlyTitledHelp` = I18nKey("arena:onlyTitledHelp")
     val `drawingWithinNbMoves` = I18nKey("arena:drawingWithinNbMoves")
