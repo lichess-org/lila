@@ -191,8 +191,6 @@ final class Env(
 
   val playing = wire[PlayingUsers]
 
-  val tvBroadcast = system.actorOf(Props(wire[TvBroadcast]))
-
   val apiMoveStream = wire[ApiMoveStream]
 
   def resign(pov: Pov): Unit =

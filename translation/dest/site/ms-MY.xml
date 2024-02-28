@@ -5,6 +5,7 @@
   <string name="toInviteSomeoneToPlayGiveThisUrl">Untuk menjemput seseorang bermain, berikan pautan ini</string>
   <string name="gameOver">Permainan Tamat</string>
   <string name="waitingForOpponent">Menunggu untuk lawan</string>
+  <string name="orLetYourOpponentScanQrCode">Atau biarkan lawan anda mengimbas kod QR</string>
   <string name="waiting">Menunggu</string>
   <string name="yourTurn">Giliran anda</string>
   <string name="aiNameLevelAiLevel">%1$s tahap %2$s</string>
@@ -96,6 +97,7 @@
   <string name="openingExplorer">Membuka explorer</string>
   <string name="openingEndgameExplorer">Penjelajah pembukaan/akhir permainan</string>
   <string name="xOpeningExplorer">%s membuka explorer</string>
+  <string name="playFirstOpeningEndgameExplorerMove">Main pembukaan pertama/permainantamat-penjelajah gerakan</string>
   <string name="winPreventedBy50MoveRule">Kemenangan yang dihalan oleh peraturan 50-pergerakan</string>
   <string name="lossSavedBy50MoveRule">Kekalahan diselamatkan oleh peraturan 50-pergerakan</string>
   <string name="winOr50MovesByPriorMistake">Menang atau 50 gerakan dengan kesilapan sebelumnya</string>
@@ -111,12 +113,14 @@
   <string name="openStudy">Open study</string>
   <string name="enable">Membolehkan</string>
   <string name="bestMoveArrow">Anak panah gerak terbaik</string>
+  <string name="showVariationArrows">Tunjuk anak panah variasi</string>
   <string name="evaluationGauge">Tolok penialian</string>
   <string name="multipleLines">Multiple lines</string>
   <string name="cpus">CPU</string>
   <string name="memory">Memori</string>
   <string name="infiniteAnalysis">Analisis tak terbatas</string>
   <string name="removesTheDepthLimit">Kurangkan had kedalaman dan pastikan komputer anda sihat</string>
+  <string name="engineManager">Pengurus enjin</string>
   <string name="blunder">Kesilapan</string>
   <string name="mistake">Kesilapan</string>
   <string name="inaccuracy">Inaccuracy</string>

@@ -11,7 +11,7 @@ lazy val root = Project("lila", file("."))
   .dependsOn(api)
   .aggregate(api)
   .settings(buildSettings)
-  .settings(scalacOptions ++= Seq("-deprecation"))
+  .settings(scalacOptions ++= Seq("-unchecked", "-deprecation"))
 
 organization         := "org.lichess"
 Compile / run / fork := true
@@ -67,7 +67,7 @@ lazy val modules = Seq(
   study, studySearch, fishnet, explorer, learn, plan,
   event, coach, practice, evalCache, irwin,
   activity, relay, streamer, bot, clas, swiss, storm, racer,
-  ublog, tutor, opening, cms
+  ublog, tutor, opening, cms, fide
 )
 
 lazy val moduleRefs = modules map projectToRef
@@ -338,8 +338,13 @@ lazy val challenge = module("challenge",
   Seq(scalatags, lettuce) ++ tests.bundle ++ reactivemongo.bundle
 )
 
+lazy val fide = module("fide",
+  Seq(memo),
+  reactivemongo.bundle
+)
+
 lazy val study = module("study",
-  Seq(explorer),
+  Seq(explorer, fide),
   Seq(scalatags, lettuce) ++ tests.bundle ++ reactivemongo.bundle
 ).dependsOn(common % "test->test")
 

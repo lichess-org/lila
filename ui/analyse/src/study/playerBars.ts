@@ -8,6 +8,7 @@ import { findTag, isFinished, looksLikeLichessGame, resultOf } from './studyChap
 interface Player {
   name: string;
   team?: string;
+  fed?: string;
 }
 interface Players {
   white: Player;
@@ -18,9 +19,10 @@ export default function (ctrl: AnalyseCtrl): VNode[] | undefined {
   const study = ctrl.study;
   if (!study) return;
   const tags = study.data.chapter.tags,
+    feds = study.data.chapter.feds || [],
     players = {
-      white: { name: findTag(tags, 'white')!, team: findTag(tags, 'whiteteam')! },
-      black: { name: findTag(tags, 'black')!, team: findTag(tags, 'blackteam')! },
+      white: { name: findTag(tags, 'white')!, team: findTag(tags, 'whiteteam'), fed: feds[0] },
+      black: { name: findTag(tags, 'black')!, team: findTag(tags, 'blackteam'), fed: feds[1] },
     };
 
   const clocks = renderClocks(ctrl),
@@ -60,6 +62,7 @@ function renderPlayer(
       result && h('span.result', result),
       h('span.info', [
         player.team && h('span.team', player.team),
+        player.fed && playerFed(player.fed),
         title && h('span.utitle', title == 'BOT' ? { attrs: { 'data-bot': true } } : {}, title + ' '),
         h('span.name', player.name),
         elo && h('span.elo', elo),
@@ -69,3 +72,8 @@ function renderPlayer(
     clocks?.[color === 'white' ? 0 : 1],
   ]);
 }
+
+export const playerFed = (fed: string) =>
+  h('img.flag', {
+    attrs: { src: site.asset.url(`images/fide-fed/${fed}.svg`) },
+  });

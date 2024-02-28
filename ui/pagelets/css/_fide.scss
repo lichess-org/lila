@@ -1,0 +1,118 @@
+.fide-players {
+  a {
+    font-weight: bold;
+  }
+  .flag {
+    height: 1em;
+  }
+  &__search {
+    &-form {
+      flex: 2 1 auto;
+      display: flex;
+
+      input {
+        @extend %box-radius-left;
+
+        flex: 1 1 100%;
+        // height: $top-height;
+        font-size: 1.1em;
+
+        @include breakpoint($mq-xx-small) {
+          font-size: 1.2em;
+        }
+      }
+
+      .button {
+        @extend %box-radius-right;
+
+        padding: 0 1.5em;
+        border-#{$start-direction}: 0;
+      }
+    }
+  }
+}
+
+.fide-cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+  grid-gap: 1em;
+  font-size: 1.5em;
+  @include breakpoint($mq-x-small) {
+    grid-template-columns: repeat(auto-fill, minmax(30%, 1fr));
+    font-size: 1.8em;
+  }
+}
+.fide-card {
+  @extend %box-neat, %flex-column;
+  align-items: center;
+  gap: 1em;
+  background: $c-bg-zebra;
+  padding: 1.5em 1em;
+  em {
+    @extend %roboto;
+    text-transform: uppercase;
+    color: $c-font-dim;
+  }
+}
+
+.fide-federations {
+  .flag {
+    height: 1.5em;
+    margin-right: 1em;
+    vertical-align: middle;
+  }
+  a {
+    font-weight: bold;
+  }
+}
+.fide-federation {
+  &__head {
+    justify-content: flex-start;
+    gap: 2em;
+    .flag {
+      @extend %box-radius;
+      height: 5em;
+    }
+  }
+  &__cards {
+    margin-bottom: var(--box-padding);
+  }
+  &__card {
+    div {
+      width: 100%;
+    }
+    p {
+      @extend %flex-between;
+      color: $c-font-dim;
+      font-size: 1.2rem;
+      margin-bottom: 0.5em;
+    }
+    strong {
+      color: $c-brag;
+    }
+  }
+  &__kosovo {
+    font-size: 0.8em;
+    color: $c-font-dim;
+    font-style: italic;
+  }
+}
+.fide-player {
+  &__federation {
+    @extend %flex-center-nowrap;
+    .flag {
+      height: 1em;
+      margin-right: 1ch;
+      vertical-align: middle;
+    }
+  }
+  &__cards {
+    margin-top: var(--box-padding);
+  }
+  &__tours {
+    margin-top: var(--box-padding);
+    h2 {
+      margin-bottom: 1em;
+    }
+  }
+}

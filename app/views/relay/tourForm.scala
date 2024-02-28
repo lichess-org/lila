@@ -89,7 +89,7 @@ object tourForm:
     form3.globalError(form),
     form3.split(
       form3.group(form("name"), tournamentName(), half = true)(form3.input(_)(autofocus)),
-      isGranted(_.Relay) option form3.group(
+      isGranted(_.StudyAdmin) option form3.group(
         form("spotlight.title"),
         "Homepage spotlight custom tournament name",
         help = raw("Leave empty to use the tournament name").some,
@@ -130,6 +130,10 @@ object tourForm:
           "All values are optional. The player name will match regardless of punctuation, casing, and word order. Example:",
           pre("""Magnus Carlsen / 2863 / GM
 YouGotLittUp / 1890 / / Louis Litt"""),
+          "Player names will match all possible combinations:",
+          br,
+          """"Jorge Joao Vito" will match "Jorge Joao", "Jorge Vito", and "Joao Vito".""",
+          br,
           "Alternatively, you may set a FIDE ID:",
           pre("""Magnus Carlsen = 1503014""")
         ).some,
@@ -140,10 +144,10 @@ YouGotLittUp / 1890 / / Louis Litt"""),
         "Optional: assign players to teams",
         help = frag( // do not translate
           "One line per player, formatted as such:",
-          pre("Team name; Player name"),
+          pre("Team name; Fide Id or Player name"),
           "Example:",
-          pre("""Offerspill;Magnus Carlsen
-Stavanger;M. Fiskaaen"""),
+          pre("""Team Cats ; 3408230
+Team Dogs ; Scooby Doo"""),
           "By default the PGN tags WhiteTeam and BlackTeam are used."
         ).some,
         half = true
@@ -159,31 +163,31 @@ Stavanger;M. Fiskaaen"""),
             help = raw("Feature on /broadcast - for admins only").some,
             half = true
           )(form3.select(_, RelayTour.Tier.options))
-        ),
-        form3.split(
-          form3.checkbox(
-            form("spotlight.enabled"),
-            "Show a homepage spotlight",
-            help = raw("As a Big Blue Button - for admins only").some,
-            half = true
-          ),
-          form3.group(
-            form("spotlight.lang"),
-            "Homepage spotlight language",
-            help = raw("Only show to users who speak this language. English is shown to everyone.").some,
-            half = true
-          ):
-            form3.select(_, lila.i18n.LangForm.popularLanguages.choices)
         )
       )
-    else form3.hidden(form("tier"))
+    else form3.hidden(form("tier")),
+    isGranted(_.StudyAdmin) option form3.split(
+      form3.checkbox(
+        form("spotlight.enabled"),
+        "Show a homepage spotlight",
+        help = raw("As a Big Blue Button - for admins only").some,
+        half = true
+      ),
+      form3.group(
+        form("spotlight.lang"),
+        "Homepage spotlight language",
+        help = raw("Only show to users who speak this language. English is shown to everyone.").some,
+        half = true
+      ):
+        form3.select(_, lila.i18n.LangForm.popularLanguages.choices)
+    )
   )
 
   def grouping(form: Form[Data])(using Context) =
     form3.split(cls := "relay-form__grouping")(
       form3.group(
         form("grouping"),
-        "Optional: assign tournaments to a group (admins only)",
+        "Optional: assign tournaments to a group",
         half = true
       )(form3.textarea(_)(rows := 5)),
       div(cls := "form-group form-half form-help")( // do not translate

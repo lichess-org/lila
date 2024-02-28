@@ -31,7 +31,7 @@ object Condition:
   case class WithVerdict(condition: Condition, verdict: Verdict)
 
   case object Titled extends Condition with FlatCond:
-    def name(pt: PerfType)(using Lang) = "Only titled players"
+    def name(pt: PerfType)(using Lang) = trans.arena.onlyTitled.txt()
     def apply(pt: PerfType)(using me: Me, perf: Perf) =
       if me.title.exists(_ != Title.LM) && me.noBot
       then Accepted

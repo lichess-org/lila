@@ -25,8 +25,12 @@ final class RelayTourForm:
       "tier"            -> optional(number(min = RelayTour.Tier.NORMAL, max = RelayTour.Tier.BEST)),
       "autoLeaderboard" -> boolean,
       "teamTable"       -> boolean,
-      "players"   -> optional(of(formatter.stringFormatter[RelayPlayers](_.sortedText, RelayPlayers(_)))),
-      "teams"     -> optional(of(formatter.stringFormatter[RelayTeams](_.sortedText, RelayTeams(_)))),
+      "players" -> optional(
+        of(formatter.stringFormatter[RelayPlayersTextarea](_.sortedText, RelayPlayersTextarea(_)))
+      ),
+      "teams" -> optional(
+        of(formatter.stringFormatter[RelayTeamsTextarea](_.sortedText, RelayTeamsTextarea(_)))
+      ),
       "spotlight" -> optional(spotlightMapping),
       "grouping"  -> RelayGroup.form.mapping
     )(Data.apply)(unapply)
@@ -45,8 +49,8 @@ object RelayTourForm:
       tier: Option[RelayTour.Tier],
       autoLeaderboard: Boolean,
       teamTable: Boolean,
-      players: Option[RelayPlayers],
-      teams: Option[RelayTeams],
+      players: Option[RelayPlayersTextarea],
+      teams: Option[RelayTeamsTextarea],
       spotlight: Option[RelayTour.Spotlight],
       grouping: Option[RelayGroup.form.Data]
   ):
@@ -64,7 +68,6 @@ object RelayTourForm:
           teams = teams,
           spotlight = spotlight.filterNot(_.isEmpty)
         )
-        .reAssignIfOfficial
 
     def make(using me: Me) =
       RelayTour(
@@ -82,7 +85,7 @@ object RelayTourForm:
         players = players,
         teams = teams,
         spotlight = spotlight.filterNot(_.isEmpty)
-      ).reAssignIfOfficial
+      ).giveToBroadcasterIf(Granter(_.StudyAdmin))
 
   object Data:
 

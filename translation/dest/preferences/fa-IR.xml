@@ -59,7 +59,7 @@
   <string name="notifyForumMention">در کامنتی نام شما ذکر شده است</string>
   <string name="notifyInvitedStudy">دعوت به مطالعه</string>
   <string name="notifyGameEvent">اعلان به روزرسانی بازی</string>
-  <string name="notifyChallenge">چالش ها</string>
+  <string name="notifyChallenge">پیشنهاد بازی</string>
   <string name="notifyTournamentSoon">تورنمت به زودی آغاز می شود</string>
   <string name="notifyTimeAlarm">هشدار تنگی زمان</string>
   <string name="notifyBell">زنگوله اعلانات لیچس</string>

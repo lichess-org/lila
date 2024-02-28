@@ -705,6 +705,7 @@
   <string name="toggleVariationArrows">Aktibatu/desaktibatu ingurabidearen geziak</string>
   <string name="cyclePreviousOrNextVariation">Aldatu aurreko/hurrengo ingurabidean</string>
   <string name="toggleGlyphAnnotations">Aktibatu/Desaktibatu ikur bidezko oharrak</string>
+  <string name="togglePositionAnnotations">Aktibatu/Desaktibatu posizioko oharrak</string>
   <string name="variationArrowsInfo">Ingurabidearen geziek jokaldi zerrenda erabili gabe nabigatzen uzten dute.</string>
   <string name="playSelectedMove">jokatu aukeratutako jokaldia</string>
   <string name="newTournament">Txapelketa berria</string>

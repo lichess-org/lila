@@ -6,8 +6,8 @@ import lila.db.dsl.{ *, given }
 
 object BSONHandlers:
 
-  given BSONHandler[RelayPlayers] = stringAnyValHandler(_.text, RelayPlayers(_))
-  given BSONHandler[RelayTeams]   = stringAnyValHandler(_.text, RelayTeams(_))
+  given BSONHandler[RelayPlayersTextarea] = stringAnyValHandler(_.text, RelayPlayersTextarea(_))
+  given BSONHandler[RelayTeamsTextarea]   = stringAnyValHandler(_.text, RelayTeamsTextarea(_))
 
   import RelayRound.Sync
   import Sync.{ Upstream, UpstreamIds, UpstreamUrl }
@@ -46,5 +46,3 @@ object BSONHandlers:
   yield RelayRound.WithTour(round, tour)
 
   given BSONDocumentHandler[RelayGroup] = Macros.handler
-
-  given BSONDocumentHandler[RelayFidePlayer] = Macros.handler

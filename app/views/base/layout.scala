@@ -181,7 +181,8 @@ object layout:
       frag(cashTag, jsModule("site")),
       moreJs,
       ctx.data.inquiry.isDefined option jsModule("mod.inquiry"),
-      ctx.pref.bg == lila.pref.Pref.Bg.SYSTEM option embedJsUnsafe(systemThemePolyfillJs)
+      ctx.pref.bg == lila.pref.Pref.Bg.SYSTEM option embedJsUnsafe(systemThemePolyfillJs),
+      !netConfig.isProd option jsModule("devMode")
     )
 
   private def hrefLang(langStr: String, path: String) =
@@ -252,11 +253,11 @@ object layout:
           viewport,
           metaCsp(csp),
           metaThemeColor,
-          st.headTitle {
+          st.headTitle:
             val prodTitle = fullTitle | s"$title • $siteName"
             if netConfig.isProd then prodTitle
             else s"${ctx.me.so(_.username + " ")} $prodTitle"
-          },
+          ,
           cssTag("site"),
           pref.is3d option cssTag("board-3d"),
           ctx.data.inquiry.isDefined option cssTagNoTheme("mod.inquiry"),

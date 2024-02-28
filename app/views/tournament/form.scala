@@ -159,8 +159,8 @@ object form:
         (ctx.me.exists(_.hasTitle) || isGranted(_.ManageTournament)) so {
           form3.checkbox(
             form.prefix("conditions.titled"),
-            trans.onlyTitled(),
-            help = trans.onlyTitledHelp().some,
+            trans.arena.onlyTitled(),
+            help = trans.arena.onlyTitledHelp().some,
             half = true
           )
         },
@@ -204,7 +204,7 @@ final private class TourFields(form: Form[?], tour: Option[Tournament])(using
       div(
         form3.input(f),
         " ",
-        if isTeamBattle then "Team Battle" else "Arena",
+        if isTeamBattle then trans.team.teamBattle() else trans.arena.arena(),
         br,
         small(cls := "form-help")(
           trans.safeTournamentName(),

@@ -84,7 +84,7 @@ final private[tv] class TvSyncActor(
             "rating" -> player.rating
           )
       )
-      Bus.publish(lila.hub.actorApi.tv.TvSelect(game.id, game.speed, data), "tvSelect")
+      Bus.publish(lila.round.actorApi.TvSelect(game.id, game.speed, channel.key, data), "tvSelect")
       if channel == Tv.Channel.Best then
         actorAsk(renderer.actor, RenderFeaturedJs(game))(makeTimeout(100 millis)) foreach {
           case html: String =>

@@ -31,7 +31,7 @@ object tournaments:
           ,
           div(cls := "team-events team-tournaments team-tournaments--both")(
             div(cls := "team-tournaments__next")(
-              h2(trans.team.upcomingTourns()),
+              h2(trans.team.upcomingTournaments()),
               table(cls := "slist slist-pad slist-invert")(
                 renderList(tours.next)
               )
@@ -89,16 +89,14 @@ object tournaments:
             any.value.fold(
               t =>
                 frag(
-                  t.teamBattle map { battle =>
-                    frag(battle.teams.size, " teams battle")
-                  } getOrElse "Inner team",
+                  t.teamBattle.fold(trans.team.innerTeam()): battle =>
+                    trans.team.battleOfNbTeams.plural(battle.teams.size, battle.teams.size.localize),
                   br,
                   renderStartsAt(any)
                 ),
               s =>
                 frag(
-                  s.settings.nbRounds,
-                  " rounds swiss",
+                  trans.swiss.xRoundsSwiss.plural(s.settings.nbRounds, s.settings.nbRounds.localize),
                   br,
                   renderStartsAt(any)
                 )

@@ -209,7 +209,8 @@ final class RelayTour(env: Env, apiC: => Api) extends LilaController(env):
       fail: => Fu[Result]
   )(create: => Fu[Result])(using req: RequestHeader, me: Me): Fu[Result] =
     val cost =
-      if isGranted(_.Relay) then 2
+      if isGranted(_.StudyAdmin) then 1
+      else if isGranted(_.Relay) then 2
       else if me.hasTitle || me.isVerified then 5
       else 10
     CreateLimitPerUser(me, fail, cost = cost):
