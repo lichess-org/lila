@@ -89,10 +89,13 @@
   }
 }
 .fide-player {
-  .flag {
-    height: 1em;
-    margin-right: 1ch;
-    vertical-align: middle;
+  &__federation {
+    @extend %flex-center-nowrap;
+    .flag {
+      height: 1em;
+      margin-right: 1ch;
+      vertical-align: middle;
+    }
   }
   &__cards {
     margin-top: var(--box-padding);
