@@ -50,7 +50,6 @@ Spelers wat nie daarvan hou om u boodskappe te ontvang nie, mag dalk die span ve
   <string name="entryCodeDescriptionForLeader">(Opsioneel) \'n Insluitings kode wat die nuwe lede moet ken om aan hierdie span te kan deelneem.</string>
   <string name="incorrectEntryCode">Verkeerde insluitings kode.</string>
   <string name="teamAlreadyExists">Hierdie span bestaan reeds.</string>
-  <string name="upcomingTourns">Opkomende toernooie</string>
   <string name="completedTourns">Voltooide toernooie</string>
   <string name="declinedRequests">Verwerpede Versoeke</string>
   <string name="joinLichessVariantTeam">Sluit aan by die amptelike %s-span vir nuus en gebeure</string>
