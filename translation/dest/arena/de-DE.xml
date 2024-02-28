@@ -43,7 +43,7 @@ Spiele schnell und kehre zur Turnierübersicht zurück, um mehr Spiele zu spiele
   <string name="variant">Variante</string>
   <string name="minimumGameLength">Minimale Partielänge</string>
   <string name="history">Arena-Historie</string>
-  <plurals name="viewAllXTeams" comment="%s is the number of teams that can be viewed.&#10;&#10;Appears in team battles that feature lots of teams. As of the time of writing, Lichess lists up to 10 teams at a time, so this button lets you view all teams.">
+  <plurals name="viewAllXTeams" comment="viewAllXTeams [one] [other]&#10;&#10;%s is the number of teams that can be viewed">
     <item quantity="one">Das Team ansehen</item>
     <item quantity="other">Alle %s Teams ansehen</item>
   </plurals>
@@ -56,7 +56,7 @@ Spiele schnell und kehre zur Turnierübersicht zurück, um mehr Spiele zu spiele
   <string name="arenaStreaks">Arena-Siegesserien</string>
   <string name="arenaStreaksHelp">Nach 2 Siegen gewähren aufeinander folgende Siege 4 Punkte anstelle von 2.</string>
   <string name="noBerserkAllowed">Kein Berserken erlaubt</string>
-  <string name="noArenaStreaks" comment="A possible setting when creating an arena tournament.&#10;When enabled: After 2 wins, consecutive wins grant 4 points instead of 2.">Keine Arena-Siegesserien</string>
+  <string name="noArenaStreaks">Keine Arena-Siegesserien</string>
   <string name="averagePerformance">Durchschnittliche Leistung</string>
   <string name="averageScore">Durchschnittliche Punktzahl</string>
   <string name="myTournaments">Meine Turniere</string>
