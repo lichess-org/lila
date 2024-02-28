@@ -50,7 +50,6 @@
   <string name="entryCodeDescriptionForLeader">(ئارەزوومەندانە) کۆدێکی چوونە ژوورەوە کە ئەندامانی نوێ دەبێت بزانن بۆ ئەوەی بەشداری ئەم تیمە بکەن.</string>
   <string name="incorrectEntryCode">وشەی تێپەڕ ھەڵەیە.</string>
   <string name="teamAlreadyExists">ئەم تیمە لە ڕاستیا بەردەستە.</string>
-  <string name="upcomingTourns">پاڵەوانێتیەکانی داھاتوو</string>
   <string name="completedTourns">پاڵەوانێتیەکە کۆتای ھاتوە</string>
   <string name="declinedRequests">رەتکردنەوەی داواکردن</string>
   <string name="joinLichessVariantTeam">بەشداری تیمی فەرمی %s بکە بۆ زانینی هەواڵ و ڕووداوەکان</string>
