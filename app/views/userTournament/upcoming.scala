@@ -14,7 +14,7 @@ object upcoming:
       title = s"${u.username} upcoming tournaments",
       path = "upcoming"
     ):
-      if pager.nbResults == 0 then div(cls := "box-pad")(trans.arena.thisPlayerHasNotJoinedAnyTourYet())
+      if pager.nbResults == 0 then div(cls := "box-pad")(trans.nothingToSeeHere())
       else
         div(cls := "tournament-list")(
           table(cls := "slist")(

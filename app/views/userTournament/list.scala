@@ -18,7 +18,7 @@ object list:
       pager: Paginator[lila.tournament.LeaderboardApi.TourEntry],
       count: String
   )(using Lang) =
-    if pager.nbResults == 0 then div(cls := "box-pad")(trans.arena.thisPlayerHasNotPlayedInAnyTourYet())
+    if pager.nbResults == 0 then div(cls := "box-pad")(trans.nothingToSeeHere())
     else
       div(cls := "tournament-list")(
         table(cls := "slist")(
