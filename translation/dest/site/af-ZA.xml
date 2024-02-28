@@ -524,7 +524,6 @@ rekenaar analise, kletskamer en deelbare URL te kry.</string>
   <string name="automaticallyProceedToNextGameAfterMoving">Gaan outomaties voort na die volgende spel ná jy skuif</string>
   <string name="autoSwitch">Outomatiese oorskakel</string>
   <string name="puzzles">Kopkrappers</string>
-  <string name="tournamentWinners">Toernooi wenners</string>
   <string name="name">Naam</string>
   <string name="description">Beskrywing</string>
   <string name="descPrivate">Private beskrywing</string>
@@ -930,8 +929,6 @@ en beïnvloed speler graderings</string>
   <string name="minimumRatedGames">Minimum gegradeerde spelle</string>
   <string name="minimumRating">Minimum gradering</string>
   <string name="maximumWeeklyRating">Maksimum weeklikse gradering</string>
-  <string name="onlyTitled">Slegs getitelde spelers</string>
-  <string name="onlyTitledHelp">Benodig \'n amptelike titel om by die toernooi aan te sluit</string>
   <string name="positionInputHelp">Plak \'n geldige FEN om elke spel van \'n sekere posisie te begin.
 Dit werk slegs met standaard spelle, nie met variante nie.
 Jy kan die %s gebruik om \'n FEN posisie te genereer, en dit dan hier plak.
