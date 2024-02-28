@@ -50,7 +50,6 @@ Spelarar som ikkje er interesserte i å få meldingar kan kome til å forlate gr
   <string name="entryCodeDescriptionForLeader">(Valfritt) Ein tilgangskode som nye medlemar må kjenne til for å bli med på dette laget.</string>
   <string name="incorrectEntryCode">Feil tilgangskode.</string>
   <string name="teamAlreadyExists">Dette laget finst allereie.</string>
-  <string name="upcomingTourns">Komande turneringar</string>
   <string name="completedTourns">Avslutta turneringar</string>
   <string name="declinedRequests">Avviste førespurnader</string>
   <string name="joinLichessVariantTeam">Meld deg på det offisielle %s-laget for hendingar og nyhende</string>
