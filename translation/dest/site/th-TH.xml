@@ -497,7 +497,6 @@
   <string name="automaticallyProceedToNextGameAfterMoving">ดำเนินสู่เกมถัดไปอัตโนมัติหลังจากการเดิน</string>
   <string name="autoSwitch">สลับอัตโนมัติ</string>
   <string name="puzzles">ปริศนา</string>
-  <string name="tournamentWinners">ผู้ชนะทัวร์นาเมนต์</string>
   <string name="name">ชื่อ</string>
   <string name="description">คำอธิบาย</string>
   <string name="descPrivate">คำบรรยายส่วนตัว</string>
@@ -897,8 +896,6 @@
   <string name="minimumRatedGames">จำนวนเกมต่ำสุดที่คิดคะแนน</string>
   <string name="minimumRating">ระดับคะแนนต่ำสุด</string>
   <string name="maximumWeeklyRating">ระดับคะแนนรายสัปดาห์สูงสุด</string>
-  <string name="onlyTitled">เฉพาะผู้เล่นที่เคยชนะเลิศ</string>
-  <string name="onlyTitledHelp">ต้องการชื่อเรียกแบบทางการเพื่อเข้าร่วมทัวร์นาเมนต์</string>
   <string name="positionInputHelp">ใส่ค่าตำแหน่ง FEN ที่ถูกต้อง เพี่อที่จะเริ่มเกมทุกเกมในทัวร์นาเมนต์ด้วยตำแหน่งหมากที่กำหนดไว้
 การใส่ค่าตำแหน่ง FEN สามารถใช้งานได้กับเกมปกติเท่านั้น ไม่สามารถใช้ได้กับเกมตัวแปรกติกาได้
 คุณสามารถใช้ %s เพี่อสร้างค่าตำแหน่ง FEN แล้วนำมาวางที่นี่
