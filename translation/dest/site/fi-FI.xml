@@ -531,7 +531,6 @@
   <string name="automaticallyProceedToNextGameAfterMoving">Avaa heti seuraavan pelisi tehtyäsi siirron</string>
   <string name="autoSwitch">Automaattinen siirtyminen</string>
   <string name="puzzles">Tehtävät</string>
-  <string name="tournamentWinners">Turnausvoittajat</string>
   <string name="name">Nimi</string>
   <string name="description">Kuvaus</string>
   <string name="descPrivate">Yksityinen kuvaus</string>
@@ -939,8 +938,6 @@ vaikutus pelaajien vahvuuslukuihin</string>
   <string name="minimumRatedGames">Pisteytettyjä pelejä vähintään</string>
   <string name="minimumRating">Vahvuusluku vähintään</string>
   <string name="maximumWeeklyRating">Viikoittainen vahvuusluku enintään</string>
-  <string name="onlyTitled">Vain arvonimen saaneet pelaajat</string>
-  <string name="onlyTitledHelp">Turnaukseen osallistuminen edellyttää virallista arvonimeä</string>
   <string name="positionInputHelp">Liitä tähän FEN-koodi, jos haluat jokaisen pelin alkavan tietystä asemasta.
 Se toimii vain tavallisissa peleissä, ei varianteissa.
 Voit luoda aseman %slla ja kopioida FEN-koodin sieltä tänne.
