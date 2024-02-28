@@ -87,7 +87,8 @@ $player-height: 1.6rem;
     margin-#{$start-direction}: 10px;
     overflow: hidden;
 
-    > * {
+    .team,
+    .name {
       overflow: hidden;
       text-overflow: ellipsis;
       max-width: fit-content;
