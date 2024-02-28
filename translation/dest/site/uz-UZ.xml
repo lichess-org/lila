@@ -521,7 +521,6 @@
   <string name="automaticallyProceedToNextGameAfterMoving">Yurishdan so\'ng avtomatik tarzda keyingi o\'yinga o\'tish</string>
   <string name="autoSwitch">Avtomatik ulanish</string>
   <string name="puzzles">Boshqotirmalar</string>
-  <string name="tournamentWinners">Turnir g\'oliblari</string>
   <string name="name">Ism</string>
   <string name="description">Izoh</string>
   <string name="descPrivate">Yopiq izoh</string>
@@ -914,8 +913,6 @@ va o‘yinchilar reytingiga ta‘sir qiladi</string>
   <string name="minimumRatedGames">Minimal reytingli o‘yinlar</string>
   <string name="minimumRating">Minimal reyting</string>
   <string name="maximumWeeklyRating">Haftalik maksimal reyting</string>
-  <string name="onlyTitled">Faqat titulga ega o‘yinchilar</string>
-  <string name="onlyTitledHelp">Turnirda ishtirok etish uchun rasmiy unvon talab etiladi</string>
   <string name="positionInputHelp">O‘yinni kelgan joyidan boshlash uchun xatosiz FEN ni qo‘ying.
 Bu faqat standart o‘yinlarga ishlaydi, boshqa varinatlar bilan emas.
 Siz %s dan foydalanib FEN ni generatsiya qilishingiz va keyin bu yerga qo‘yishingiz mumkin.
