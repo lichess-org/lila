@@ -50,8 +50,30 @@ object player:
       )
     )
 
+  private def card(name: Frag, value: Frag) = div(cls := "fide-player__card")(em(name), strong(value))
+
   def show(player: FidePlayer)(using PageContext) =
     bits.layout(s"${player.name} - FIDE player ${player.id}"):
       main(cls := "page-small box box-pad fide-player")(
-        h1(a(href := routes.Fide.index())("FIDE players"), " • ", player.name)
+        h1(a(href := routes.Fide.index())("FIDE players"), " • ", player.name),
+        div(cls := "fide-player__cards")(
+          player.fed.map: fed =>
+            card(
+              "Federation",
+              a(href := routes.Fide.federation(Federation.idToSlug(fed)))(
+                federation.flag(fed, fed),
+                Federation.name(fed)
+              )
+            ),
+          card(
+            "FIDE profile",
+            a(href := s"https://ratings.fide.com/profile/${player.id}")(player.id)
+          ),
+          card(
+            "Age",
+            player.age
+          ),
+          bits.tcTrans.map: (tc, name) =>
+            card(name(), player.ratingOf(tc).fold("-")(_.toString))
+        )
       )

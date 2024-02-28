@@ -4,9 +4,6 @@ import reactivemongo.api.bson.Macros.Annotations.Key
 import java.text.Normalizer
 import chess.FideId
 
-enum FideTC:
-  case standard, rapid, blitz
-
 case class FidePlayer(
     @Key("_id") id: FideId,
     name: PlayerName,
