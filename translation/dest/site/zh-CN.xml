@@ -497,7 +497,6 @@
   <string name="automaticallyProceedToNextGameAfterMoving">走棋后自动进入下一盘棋</string>
   <string name="autoSwitch">自动切换</string>
   <string name="puzzles">谜题</string>
-  <string name="tournamentWinners">锦标赛冠军</string>
   <string name="name">名称</string>
   <string name="description">描述</string>
   <string name="descPrivate">内部简介</string>
@@ -898,8 +897,6 @@
   <string name="minimumRatedGames">最少排位赛局数</string>
   <string name="minimumRating">最低等级分</string>
   <string name="maximumWeeklyRating">本周最高等级分</string>
-  <string name="onlyTitled">仅限有头衔玩家</string>
-  <string name="onlyTitledHelp">需要官方头衔才能加入比赛</string>
   <string name="positionInputHelp">将一个有效的 FEN 粘贴于此作为所有对局的起始位置。
 仅适用于标准国际象棋，对变体无效。
 你可以试用 %s 来生成 FEN，然后将其粘贴到这里。
