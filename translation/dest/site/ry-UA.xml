@@ -455,7 +455,6 @@
   </plurals>
   <string name="autoSwitch">Автопереміна</string>
   <string name="puzzles">Задачі</string>
-  <string name="tournamentWinners">Уграчі турнірув</string>
   <string name="name">Имня</string>
   <string name="description">Опис</string>
   <string name="descPrivateHelp">Текст, котрый будут відїти лем участникы дружины. Кідь покладено, публічный опис помінят ся вшыткым участникам дружины.</string>
@@ -608,7 +607,6 @@
   <string name="tournDescriptionHelp">Хочете дашто уповісти хосновачам? Будьте курті у свойих словах. Приступні одкликованя у форматови Markdown:[name](https://url)</string>
   <string name="minimumRating">Мінімум рейтінґу</string>
   <string name="maximumWeeklyRating">Максімум тыждньвого рейтінґу</string>
-  <string name="onlyTitledHelp">Мусай мати офіціалный шахматный статус бы бавити</string>
   <string name="positionInputHelp">Уведіт добрый шор FEN, обы кажда бавка ся зачинала из такої позіції.
 То фунґує лем на прості бавкы, а не варіанты.
 Вы можете хосновати %s для учиненя позіції FEN, а пак вписати ї туй. 
