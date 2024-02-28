@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+  <string name="swiss">Švicar</string>
   <string name="swissTournaments">Turnirji švicarskega formata</string>
   <plurals name="viewAllXRounds" comment="viewAllXRounds [one] [other]&#10;&#10;%s is the number of rounds in the Swiss tournament.">
     <item quantity="one">Ogled kroga</item>
@@ -52,6 +53,16 @@
   <string name="roundInterval">Interval med krogi</string>
   <string name="forbiddenPairings">Prepovedano delanje parov</string>
   <string name="forbiddenPairingsHelp">Uporabniška imena igralcev, ki ne smejo igrati skupaj (na primer bratje in sestre). Dve uporabniški imeni na vrstico, ločeni s presledkom.</string>
+  <string name="manualPairings">Ročno sestavljanje parov v naslednjem krogu</string>
+  <string name="manualPairingsHelp">Ročno določite vse pare naslednjega kroga. En igralski par na linijo. primer:
+IgralecA IgralecB
+IgralecC IgralecD
+Če želite igralcu dati slovo (1 točka) namesto seznanjanja, dodajte vrstico tako:
+IgralecE 1
+Manjkajoči igralci bodo obravnavani kot odsotni in bodo prejeli nič točk.
+Pustite to polje prazno, da lichess samodejno ustvari pare.</string>
+  <string name="mustHavePlayedTheirLastSwissGame">Verjetno so odigrali svojo zadnjo švicarsko tekmo</string>
+  <string name="mustHavePlayedTheirLastSwissGameHelp">Igralci naj se pridružijo samo, če so igrali zadnjo švicarsko igro. Če se niso pojavili na nedavnem švicarskem dogodku, se ne bodo mogli prijaviti na vaš. Posledica tega je boljša švicarska izkušnja za igralce, ki se dejansko pojavijo.</string>
   <string name="newSwiss">Nov švicarski turnir</string>
   <string name="swissVsArenaQ">Kdaj uporabiti švicarske turnirje namesto aren?</string>
   <string name="swissVsArenaA">Na švicarskem turnirju vsi udeleženci igrajo enako število iger in lahko med seboj igrajo le enkrat.
@@ -77,4 +88,6 @@ Ustvarjalec švicarskega dogodka se lahko vseeno odloči, da mu dovoli, da se do
   <string name="predefinedUsers">Dovoli pridružitev samo vnaprej določenim uporabnikom</string>
   <string name="forbiddedUsers">Če ta seznam ni prazen, se bo uporabniškim imenom, ki niso na tem seznamu, prepovedano pridružiti. Eno uporabniško ime na vrstico.</string>
   <string name="playYourGames">Igraj svoje igre</string>
+  <string name="byes">Adijo</string>
+  <string name="absences">Odsotnosti</string>
 </resources>
