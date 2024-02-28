@@ -532,7 +532,6 @@ få en computeranalyse, chatte eller dele ein URL.</string>
   <string name="automaticallyProceedToNextGameAfterMoving">Gå automatisk til neste parti etter trekk</string>
   <string name="autoSwitch">Hopp automatisk til neste parti</string>
   <string name="puzzles">Sjakknøtter</string>
-  <string name="tournamentWinners">Turneringsvinnarar</string>
   <string name="name">Namn</string>
   <string name="description">Forklaring</string>
   <string name="descPrivate">Privat omtale</string>
@@ -941,8 +940,6 @@ og påverkar rangeringa til spelarane</string>
   <string name="minimumRatedGames">Minste antal rangerte parti</string>
   <string name="minimumRating">Lågaste rating</string>
   <string name="maximumWeeklyRating">Høgste rating siste veke</string>
-  <string name="onlyTitled">Berre spelarar med sjakktittel</string>
-  <string name="onlyTitledHelp">Krev ein offisiell sjakktittel for å delta med i turneringa</string>
   <string name="positionInputHelp">Sett inn ein gyldig FEN for å starte kvart parti frå gjeven stilling.
 Det fungerar berre for standardparti, ikke for variantar.
 Du kan bruke %s for å generere en FEN-stilling, som du limar inn her.
