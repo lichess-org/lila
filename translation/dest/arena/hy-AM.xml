@@ -42,7 +42,7 @@
   <string name="variant">Տարբերակ</string>
   <string name="minimumGameLength">Քայլերի նվազագույն քանակ</string>
   <string name="history">«Արենայի» պատմություն</string>
-  <plurals name="viewAllXTeams" comment="%s is the number of teams that can be viewed.&#10;&#10;Appears in team battles that feature lots of teams. As of the time of writing, Lichess lists up to 10 teams at a time, so this button lets you view all teams.">
+  <plurals name="viewAllXTeams" comment="viewAllXTeams [one] [other]&#10;&#10;%s is the number of teams that can be viewed">
     <item quantity="one">Դիտել ակումբը</item>
     <item quantity="other">Դիտել բոլոր %s ակումբները</item>
   </plurals>
@@ -55,7 +55,7 @@
   <string name="arenaStreaks">«Արենայի» շարքեր</string>
   <string name="arenaStreaksHelp">Երկու անընդմեջ հաղթանակից հետո յուրաքանչյուր հաջորդ հաղթանակը տալիս է ոչ թե 2, այլ 4 միավոր։</string>
   <string name="noBerserkAllowed">Բերսերկ չի թույլատրվում</string>
-  <string name="noArenaStreaks" comment="A possible setting when creating an arena tournament.&#10;When enabled: After 2 wins, consecutive wins grant 4 points instead of 2.">Առանց Արենայի շարքեր</string>
+  <string name="noArenaStreaks">Առանց Արենայի շարքեր</string>
   <string name="averagePerformance">Միջին պերֆորմանս</string>
   <string name="averageScore">Միավորների միջին քանակ</string>
   <string name="myTournaments">Իմ մրցաշարերը</string>
