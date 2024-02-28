@@ -44,7 +44,7 @@ Speel vinnig en keer terug na die ontvangs om meer te speel en meer punte te kry
   <string name="variant">Variant</string>
   <string name="minimumGameLength">Minimum spel lengte</string>
   <string name="history">Arena Geskiedenis</string>
-  <plurals name="viewAllXTeams" comment="%s is the number of teams that can be viewed.&#10;&#10;Appears in team battles that feature lots of teams. As of the time of writing, Lichess lists up to 10 teams at a time, so this button lets you view all teams.">
+  <plurals name="viewAllXTeams" comment="viewAllXTeams [one] [other]&#10;&#10;%s is the number of teams that can be viewed">
     <item quantity="one">Bekyk die span</item>
     <item quantity="other">Bekyk al %s spanne</item>
   </plurals>
@@ -57,7 +57,7 @@ Speel vinnig en keer terug na die ontvangs om meer te speel en meer punte te kry
   <string name="arenaStreaks">Arena reekse</string>
   <string name="arenaStreaksHelp">Na 2 wenne, elke opeenvolgende wen verdien 4 punte in plaas van 2.</string>
   <string name="noBerserkAllowed">Geen Berserk toegelaat nie</string>
-  <string name="noArenaStreaks" comment="A possible setting when creating an arena tournament.&#10;When enabled: After 2 wins, consecutive wins grant 4 points instead of 2.">Geen Arena reekse</string>
+  <string name="noArenaStreaks">Geen Arena reekse</string>
   <string name="averagePerformance">Gemiddelde prestasie</string>
   <string name="averageScore">Gemiddelde telling</string>
 </resources>
