@@ -4,6 +4,33 @@
     height: 1em;
   }
 }
+.fide-players {
+  &__search {
+    &-form {
+      flex: 2 1 auto;
+      display: flex;
+
+      input {
+        @extend %box-radius-left;
+
+        flex: 1 1 100%;
+        // height: $top-height;
+        font-size: 1.1em;
+
+        @include breakpoint($mq-xx-small) {
+          font-size: 1.2em;
+        }
+      }
+
+      .button {
+        @extend %box-radius-right;
+
+        padding: 0 1.5em;
+        border-#{$start-direction}: 0;
+      }
+    }
+  }
+}
 
 .fide-cards {
   display: grid;

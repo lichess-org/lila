@@ -46,13 +46,15 @@ final class FidePaginator(repo: FideRepo)(using Executor):
       maxPerPage = maxPerPage
     )
 
-  def best(page: Int): Fu[Paginator[FidePlayer]] =
+  def best(page: Int, query: String): Fu[Paginator[FidePlayer]] =
     Paginator(
       adapter = new AdapterLike[FidePlayer]:
         def nbResults: Fu[Int] = fuccess(100 * maxPerPage.value)
         def slice(offset: Int, length: Int) =
+          val searchSelect: Bdoc = query.toLowerCase.some.filter(_.size > 1).so($text(_))
           repo.playerColl
-            .find(repo.player.selectActive)
+            .find:
+              repo.player.selectActive ++ searchSelect
             .sort(repo.player.sortStandard)
             .skip(offset)
             .cursor[FidePlayer]()

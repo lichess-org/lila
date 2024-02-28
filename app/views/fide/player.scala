@@ -11,15 +11,29 @@ import lila.relay.RelayTour
 
 object player:
 
-  def index(players: Paginator[FidePlayer])(using PageContext) =
+  def index(players: Paginator[FidePlayer], query: String)(using PageContext) =
     bits.layout("FIDE players", "players")(
       cls := "fide-players",
       boxTop(
         h1("FIDE players"),
         div(cls := "box__top__actions"):
-          input(cls := "fide__search", placeholder := trans.search.search.txt(), autofocus)
+          searchForm(query)
       ),
-      playerList(players, np => routes.Fide.index(np))
+      playerList(players, np => routes.Fide.index(np, query.some.filter(_.nonEmpty)))
+    )
+
+  def searchForm(q: String) =
+    st.form(cls := "fide-players__search-form", action := routes.Fide.index(1), method := "get")(
+      input(
+        cls            := "fide-players__search-form__input",
+        name           := "q",
+        st.placeholder := "Search for players",
+        st.value       := q,
+        autofocus      := true,
+        autocomplete   := "off",
+        spellcheck     := "false"
+      ),
+      submitButton(cls := "button", dataIcon := licon.Search)
     )
 
   def playerList(
