@@ -49,4 +49,5 @@
   <string name="inappropriateContentAccountClosed">不適切な内容の場合、あなたのアカウントを停止することがあります。</string>
   <string name="blogTips">すばらしいブログを書くための簡単なヒント</string>
   <string name="discussThisBlogPostInTheForum">このブログ記事についてフォーラムで話す</string>
+  <string name="youBlockedByBlogAuthor">ブログの筆者によってブロックされています。</string>
 </resources>
