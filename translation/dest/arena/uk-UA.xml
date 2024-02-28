@@ -64,11 +64,22 @@
   <string name="averageScore">Середній результат</string>
   <string name="myTournaments">Мої турніри</string>
   <string name="editTournament">Редагувати турнір</string>
+  <string name="editTeamBattle">Редагувати командну битву</string>
+  <string name="defender">Захисник</string>
   <string name="pickYourTeam">Оберіть команду</string>
   <string name="whichTeamWillYouRepresentInThisBattle">Яку команду ви представлятимете в цій битві?</string>
   <string name="youMustJoinOneOfTheseTeamsToParticipate">Ви повинні приєднатися до однієї з цих команд, щоб взяти участь!</string>
+  <string name="created">Створено</string>
+  <string name="recentlyPlayed">Нещодавно зіграні</string>
   <string name="bestResults">Найкращі результати</string>
+  <string name="stats">Показники</string>
+  <string name="tournamentStats">Показники турніру</string>
+  <string name="medians">медіани</string>
+  <string name="total">Загальні</string>
+  <string name="pointsAvg">Середні значення очків</string>
+  <string name="pointsSum">Сума очок</string>
   <string name="tournamentWinners">Переможці турніру</string>
+  <string name="tournamentShields">Турнірні щити</string>
   <string name="onlyTitled">Тільки титуловані гравці</string>
   <string name="onlyTitledHelp">Необхідний офіційний титул, щоб приєднатися до турніру</string>
 </resources>
