@@ -20,12 +20,12 @@ object player:
         playerList(players)
       )
 
-  private def playerList(players: Paginator[FidePlayer])(using Context) =
+  def playerList(players: Paginator[FidePlayer], withFlag: Boolean = true)(using Context) =
     table(cls := "slist slist-pad")(
       thead:
         tr(
           th("Name"),
-          th(iconTag(licon.FlagOutline)),
+          withFlag option th(iconTag(licon.FlagOutline)),
           th("Classic"),
           th("Rapid"),
           th("Blitz"),
@@ -36,7 +36,7 @@ object player:
         players.currentPageResults.map: player =>
           tr(cls := "paginated")(
             td(a(href := routes.Fide.show(player.id, player.slug))(player.name)),
-            td:
+            withFlag option td:
               player.fed.map: fed =>
                 federation.flag(fed, Federation.name(fed))
             ,

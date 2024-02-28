@@ -30,6 +30,22 @@ final class FidePaginator(repo: FideRepo)(using Executor):
       maxPerPage = maxPerPage
     )
 
+  def federationPlayers(fed: Federation, page: Int): Fu[Paginator[FidePlayer]] =
+    Paginator(
+      adapter = new AdapterLike[FidePlayer]:
+        def nbResults: Fu[Int] = fuccess(100 * maxPerPage.value)
+        def slice(offset: Int, length: Int) =
+          repo.playerColl
+            .find(repo.player.selectActive ++ repo.player.selectFed(fed.id))
+            .sort(repo.player.sortStandard)
+            .skip(offset)
+            .cursor[FidePlayer]()
+            .list(length)
+      ,
+      currentPage = page,
+      maxPerPage = maxPerPage
+    )
+
   def best(page: Int): Fu[Paginator[FidePlayer]] =
     Paginator(
       adapter = new AdapterLike[FidePlayer]:
@@ -37,7 +53,7 @@ final class FidePaginator(repo: FideRepo)(using Executor):
         def slice(offset: Int, length: Int) =
           repo.playerColl
             .find(repo.player.selectActive)
-            .sort($sort desc "standard")
+            .sort(repo.player.sortStandard)
             .skip(offset)
             .cursor[FidePlayer]()
             .list(length)

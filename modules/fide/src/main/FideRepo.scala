@@ -12,6 +12,8 @@ final private class FideRepo(
   object player:
     given handler: BSONDocumentHandler[FidePlayer] = Macros.handler
     val selectActive: Bdoc                         = $doc("deleted" $ne true, "inactive" $ne true)
+    def selectFed(fed: Federation.Id): Bdoc        = $doc("fed" -> fed)
+    def sortStandard: Bdoc                         = $sort desc "standard"
     def fetch(id: FideId): Fu[Option[FidePlayer]]  = playerColl.byId[FidePlayer](id)
 
   object federation:

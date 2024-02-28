@@ -33,9 +33,13 @@ final class Fide(env: Env) extends LilaController(env):
         renderedPage <- renderPage(html.fide.federation.index(feds))
       yield Ok(renderedPage)
 
-  def federation(slug: String) = Open:
+  def federation(slug: String, page: Int) = Open:
     WIP:
-      Found(env.fide.federationApi.find(slug).thenPp(slug)): fed =>
+      Found(env.fide.federationApi.find(slug)): fed =>
         val fedSlug = Federation.nameToSlug(fed.name)
         if slug != fedSlug then Redirect(routes.Fide.federation(fedSlug))
-        else Ok.page(html.fide.federation.show(fed))
+        else
+          for
+            players  <- env.fide.paginator.federationPlayers(fed, page)
+            rendered <- renderPage(html.fide.federation.show(fed, players))
+          yield Ok(rendered)

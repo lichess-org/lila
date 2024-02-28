@@ -52,8 +52,11 @@ object federation:
     src      := assetUrl(s"images/fide-fed/${id}.svg")
   )
 
-  def show(fed: Federation)(using PageContext) =
+  def show(fed: Federation, players: Paginator[FidePlayer])(using PageContext) =
     bits.layout(s"$name - FIDE federation"):
-      main(cls := "page-small box box-pad fide-player")(
-        h1(a(href := routes.Fide.federations(1))("Federations"), " • ", fed.name)
+      main(cls := "page-small box fide-federation")(
+        div(cls := "box__top")(
+          h1(a(href := routes.Fide.federations(1))("Federations"), " • ", flag(fed.id, fed.id), fed.name)
+        ),
+        player.playerList(players, withFlag = false)
       )
