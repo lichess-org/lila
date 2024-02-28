@@ -85,15 +85,8 @@ final class ChapterRepo(val coll: AsyncColl)(using Executor, akka.stream.Materia
   def relaysAndTagsByStudyId(studyId: StudyId): Fu[List[Chapter.RelayAndTags]] =
     coll:
       _.find($studyId(studyId), $doc("relay" -> true, "tags" -> true).some)
-        .cursor[Bdoc]()
+        .cursor[Chapter.RelayAndTags]()
         .list(300)
-        .map: docs =>
-          for
-            doc   <- docs
-            id    <- doc.getAsOpt[StudyChapterId]("_id")
-            relay <- doc.getAsOpt[Chapter.Relay]("relay")
-            tags  <- doc.getAsOpt[Tags]("tags")
-          yield Chapter.RelayAndTags(id, relay, tags)
 
   def studyIdsByRelayFideId(fideId: chess.FideId): Fu[List[StudyId]] =
     coll(_.distinctEasy[StudyId, List]("studyId", $doc("relay.fideIds" -> fideId)))
