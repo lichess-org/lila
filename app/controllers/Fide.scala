@@ -20,13 +20,13 @@ final class Fide(env: Env) extends LilaController(env):
           renderedPage <- renderPage(html.fide.player.index(players))
         yield Ok(renderedPage)
 
-  def show(id: chess.FideId, slug: String) = Open:
+  def show(id: chess.FideId, slug: String, page: Int) = Open:
     WIP:
       Found(env.fide.repo.player.fetch(id)): player =>
         if player.slug != slug then Redirect(routes.Fide.show(id, player.slug))
         else
           for
-            tours    <- env.relay.playerTour.playerTours(player)
+            tours    <- env.relay.playerTour.playerTours(player, page)
             rendered <- renderPage(html.fide.player.show(player, tours))
           yield Ok(rendered)
 

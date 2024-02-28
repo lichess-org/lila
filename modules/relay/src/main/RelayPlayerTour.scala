@@ -20,9 +20,9 @@ final class RelayPlayerTour(
         .flatMap: studyIds =>
           colls.round.distinctEasy[RelayTour.Id, List]("tourId", $inIds(studyIds))
 
-  def playerTours(player: FidePlayer): Fu[Paginator[RelayTour.WithLastRound]] =
+  def playerTours(player: FidePlayer, page: Int): Fu[Paginator[RelayTour.WithLastRound]] =
     tourIdsCache.get(player.id) flatMap:
-      pager.byIds(_, page = 1)
+      pager.byIds(_, page)
 
   guessAndDenormalizeFideIds() // needs only run once. Can be removed then.
 
