@@ -22,11 +22,11 @@ final class FidePlayerApi(repo: FideRepo, cacheApi: lila.memo.CacheApi)(using Ex
         .toMap
 
   private val idToPlayerCache = cacheApi[FideId, Option[FidePlayer]](1024, "player.fidePlayer.byId"):
-    _.expireAfterWrite(1.minute).buildAsyncFuture(repo.player.fetch)
+    _.expireAfterWrite(3.minutes).buildAsyncFuture(repo.player.fetch)
 
   object guessPlayer:
 
-    private case class TokenTitle(token: PlayerToken, title: Option[UserTitle])
+    private case class TitleName(title: Option[UserTitle], name: PlayerName)
 
     def apply(
         fideId: Option[FideId],
@@ -34,13 +34,13 @@ final class FidePlayerApi(repo: FideRepo, cacheApi: lila.memo.CacheApi)(using Ex
         title: Option[UserTitle]
     ): Fu[Option[FidePlayer]] = fideId match
       case Some(fideId) => idToPlayerCache.get(fideId)
-      case None         => name.map(FidePlayer.tokenize).map(TokenTitle(_, title)).so(cache.get)
+      case None         => name.map(TitleName(title, _)).so(cache.get)
 
     private val cache =
-      cacheApi[TokenTitle, Option[FidePlayer]](1024, "player.fidePlayer.byName"):
-        _.expireAfterWrite(1.minute).buildAsyncFuture: tt =>
+      cacheApi[TitleName, Option[FidePlayer]](1024, "player.fidePlayer.byName"):
+        _.expireAfterWrite(3.minutes).buildAsyncFuture: p =>
           repo.playerColl
-            .find($doc("token" -> tt.token, "title" -> tt.title))
+            .find($doc("token" -> FidePlayer.tokenize(p.name), "title" -> p.title))
             .cursor[FidePlayer]()
             .list(2) map:
             case List(onlyMatch) => onlyMatch.some
