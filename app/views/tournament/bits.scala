@@ -64,11 +64,13 @@ object bits:
   private val i18nKeys = List(
     trans.standing,
     trans.starting,
+    trans.swiss.startingIn,
     trans.tournamentIsStarting,
     trans.youArePlaying,
     trans.standByX,
     trans.tournamentPairingsAreNowClosed,
     trans.join,
+    trans.pause,
     trans.withdraw,
     trans.joinTheGame,
     trans.signIn,
@@ -77,6 +79,7 @@ object bits:
     trans.nbPlayers,
     trans.winRate,
     trans.berserkRate,
+    trans.study.downloadAllGames,
     trans.performance,
     trans.tournamentComplete,
     trans.movesPlayed,
@@ -85,14 +88,19 @@ object bits:
     trans.drawRate,
     trans.nextXTournament,
     trans.averageOpponent,
-    trans.tournamentEntryCode
+    trans.tournamentEntryCode,
+    trans.topGames
   )
 
   private val teamBattleI18nKeys = List(
     trans.arena.viewAllXTeams,
+    trans.players,
     trans.arena.averagePerformance,
     trans.arena.averageScore,
-    trans.team.teamPage
+    trans.team.teamPage,
+    trans.arena.pickYourTeam,
+    trans.arena.whichTeamWillYouRepresentInThisBattle,
+    trans.arena.youMustJoinOneOfTheseTeamsToParticipate
   )
 
   private val schedulei18nKeys = List(

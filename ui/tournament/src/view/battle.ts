@@ -22,11 +22,11 @@ export function joinWithTeamSelector(ctrl: TournamentController) {
     onClose,
     vnodes: [
       h('div.team-picker', [
-        h('h2', 'Pick your team'),
+        h('h2', ctrl.trans.noarg('pickYourTeam')),
         h('br'),
         ...(tb.joinWith.length
           ? [
-              h('p', 'Which team will you represent in this battle?'),
+              h('p', ctrl.trans.noarg('whichTeamWillYouRepresentInThisBattle')),
               ...tb.joinWith.map(id =>
                 h(
                   'button.button.team-picker__team',
@@ -36,7 +36,7 @@ export function joinWithTeamSelector(ctrl: TournamentController) {
               ),
             ]
           : [
-              h('p', 'You must join one of these teams to participate!'),
+              h('p', ctrl.trans.noarg('youMustJoinOneOfTheseTeamsToParticipate')),
               h(
                 'ul',
                 shuffleArray(Object.keys(tb.teams)).map((id: string) =>
