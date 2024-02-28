@@ -25,7 +25,9 @@ trait CtrlExtensions extends ControllerHelpers:
     def enableSharedArrayBuffer(using req: RequestHeader): Result =
       val coep =
         if HTTPRequest
-            .isChrome96Plus(req) || (HTTPRequest.isFirefox119Plus(req) && !HTTPRequest.isMobileBrowser(req))
+            .isChrome96Plus(req) || (HTTPRequest.isFirefox119Plus(req) && !HTTPRequest.isMobileBrowser(
+            req
+          )) || (!HTTPRequest.isFirefox119Plus(req) && HTTPRequest.isMobileBrowser(req))
         then "credentialless"
         else "require-corp"
       result.withHeaders(
