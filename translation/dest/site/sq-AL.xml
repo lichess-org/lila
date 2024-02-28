@@ -528,7 +528,6 @@ loje dhe URL për ta ndarë me të tjerë.</string>
   <string name="automaticallyProceedToNextGameAfterMoving">Kalo automatikisht në lojën tjetër pas lëvizjes</string>
   <string name="autoSwitch">Kalim automatik</string>
   <string name="puzzles">Ushtrime</string>
-  <string name="tournamentWinners">Fitues të turneve</string>
   <string name="name">Emër</string>
   <string name="description">Përshkrim</string>
   <string name="descPrivate">Përshkrim privat</string>
@@ -928,8 +927,6 @@ dhe ndikojnë te vlerësimet e lojëtarëve</string>
   <string name="minimumRatedGames">Lojëra të vlerësuara në minimum</string>
   <string name="minimumRating">Vlerësim minimum</string>
   <string name="maximumWeeklyRating">Vlerësimi më i madh javor</string>
-  <string name="onlyTitled">Vetëm lojtarë me titull</string>
-  <string name="onlyTitledHelp">Për të marrë pjesë në turne, kërko doemos një titull zyrtar</string>
   <string name="positionInputHelp">Ngjitni një FEN të vlefshëm, që çdo lojë të niset prej një pozicioni të dhënë.
 Funksionon vetëm për lojëra standarde, jo me variante.
 Mund të përdorni %s për të prodhuar një pozicion FEN, mandej ta ngjitni këtu.
