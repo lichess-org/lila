@@ -53,7 +53,6 @@ Spēlētāji, kas nevēlēsies saņemt jūsu ziņas varētu pamest komandu.</str
   <string name="entryCodeDescriptionForLeader">(Neobligāts) Kods, kas jāzina jauniem dalībniekiem, lai pievienotos komandai.</string>
   <string name="incorrectEntryCode">Nepareizs pievienošanās kods.</string>
   <string name="teamAlreadyExists">Šī komanda jau pastāv.</string>
-  <string name="upcomingTourns">Gaidāmie turnīri</string>
   <string name="completedTourns">Notikušie turnīri</string>
   <string name="declinedRequests">Noraidītie pieprasījumi</string>
   <string name="joinLichessVariantTeam">Pievienojieties oficiālajai \"%s\" komandai, lai saņemtu jaunumus un informāciju par pasākumiem</string>
