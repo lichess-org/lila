@@ -48,8 +48,26 @@
   <string name="entryCodeDescriptionForLeader">(Optional) Ein Passwort, das neue Teammitglieder kennen müssen, um dem Team beizutreten.</string>
   <string name="incorrectEntryCode">Falscher Beitrittscode.</string>
   <string name="teamAlreadyExists">Dieses Team existiert bereits.</string>
+  <string name="upcomingTournaments">Anstehende Turniere</string>
   <string name="completedTourns">Beendete Turniere</string>
   <string name="declinedRequests">Abgelehnte Anfragen</string>
   <string name="joinLichessVariantTeam">Tritt dem offiziellen %s-Team für Neuigkeiten und Ereignisse bei</string>
   <string name="teamPage">Teamseite</string>
+  <string name="thisTeamBattleIsOver">Dieses Turnier ist vorbei und die Teams können nicht mehr aktualisiert werden.</string>
+  <string name="listTheTeamsThatWillCompete">Liste die Teams auf, die in diesem Kampf antreten werden.</string>
+  <string name="oneTeamPerLine">Ein Team pro Zeile. Verwende die Auto-Vervollständigung.</string>
+  <string name="oneTeamPerLineHelp">Du kannst diese Liste von einem Turnier zu einem anderen kopieren!
+
+Du kannst kein Team entfernen, wenn ein Spieler aus diesem Team bereits dem Turnier beigetreten ist.</string>
+  <string name="numberOfLeadsPerTeam">Anzahl der Führenden pro Team. Die Summe ihrer Punkte entspricht der Punktzahl des Teams.</string>
+  <string name="numberOfLeadsPerTeamHelp">Du solltest diesen Wert wirklich nicht ändern, nachdem das Turnier begonnen hat!</string>
+  <string name="innerTeam">Inneres Team</string>
+  <plurals name="battleOfNbTeams">
+    <item quantity="one">Kampf von %s Teams</item>
+    <item quantity="other">Kampf von %s Teams</item>
+  </plurals>
+  <plurals name="nbLeadersPerTeam">
+    <item quantity="one">Ein Führender pro Team</item>
+    <item quantity="other">%s Führende pro Team</item>
+  </plurals>
 </resources>
