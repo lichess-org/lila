@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+  <string name="swiss">Schweizer System</string>
   <string name="swissTournaments">Turniere nach Schweizer System</string>
   <plurals name="viewAllXRounds" comment="viewAllXRounds [one] [other]&#10;&#10;%s is the number of rounds in the Swiss tournament.">
     <item quantity="one">Die Runde ansehen</item>
@@ -38,6 +39,16 @@
   <string name="roundInterval">Zeitabstand zwischen den Runden</string>
   <string name="forbiddenPairings">Verbotene Paarungen</string>
   <string name="forbiddenPairingsHelp">Benutzernamen von Spielern, die nicht gegeneinander spielen dürfen (zum Beispiel Geschwister). Zwei Benutzernamen pro Zeile, getrennt durch ein Leerzeichen.</string>
+  <string name="manualPairings">Manuelle Paarungen in der nächsten Runde</string>
+  <string name="manualPairingsHelp">Gebe alle Paarungen der nächsten Runde manuell ein. Ein Spieler-Paar pro Zeile. Zum Beispiel:
+PlayerA PlayerB
+PlayerC PlayerD
+Um einem Spieler ein Freilos (1 Punkt) statt einer Paarung zu geben, füge eine Zeile wie folgt ein:
+SpielerE 1
+Nicht gelistete Spieler werden als abwesend betrachtet und erhalten Null Punkte.
+Lasse dieses Feld leer, um Lichess automatisch Paare erstellen zu lassen.</string>
+  <string name="mustHavePlayedTheirLastSwissGame">Muss die letzte Partie im Turnier nach Schweizer System gespielt haben</string>
+  <string name="mustHavePlayedTheirLastSwissGameHelp">Spieler dürfen nur teilnehmen, wenn sie ihre letzte Partie nach Schweizer System auch gespielt haben. Wenn sie es trotz Anmeldung nicht geschafft haben, bei einem kürzlich stattfindenden Turnier nach Schweizer System zu erscheinen, werden sie auch nicht in der Lage sein, deinem Turnier beizutreten. Dies führt zu einem besseren Turniererlebnis für die Spieler, die am Ende tatsächlich auftauchen.</string>
   <string name="newSwiss">Neues Turnier nach Schweizer System</string>
   <string name="swissVsArenaQ">Wann sollten Turniere nach Schweizer System anstelle von Arena-Turnieren verwendet werden?</string>
   <string name="swissVsArenaA">Bei einem Turnier nach Schweizer System spielen alle Teilnehmer die gleiche Anzahl von Spielen und können nur einmal gegeneinander spielen.
@@ -111,4 +122,7 @@ Am nähesten an ein online Rundenturnier kommt, ein Turnier nach Schweizer Syste
   <string name="predefinedUsers">Nur vordefinierten Benutzern erlauben beizutreten</string>
   <string name="forbiddedUsers">Falls diese Liste nicht leer ist, können nicht aufgeführte Benutzer nicht teilnehmen. Ein Benutzername pro Zeile.</string>
   <string name="playYourGames">Spiele deine Partien</string>
+  <string name="byes">Freilose</string>
+  <string name="absences">Abwesend</string>
+  <string name="tieBreak">Tie-break</string>
 </resources>
