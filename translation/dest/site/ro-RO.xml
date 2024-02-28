@@ -563,7 +563,6 @@
   <string name="automaticallyProceedToNextGameAfterMoving">Du-te automat la partida următoare după mutare</string>
   <string name="autoSwitch">Schimbă automat</string>
   <string name="puzzles">Probleme de șah</string>
-  <string name="tournamentWinners">Câștigători de turnee</string>
   <string name="name">Nume</string>
   <string name="description">Descriere</string>
   <string name="descPrivate">Descriere privată</string>
@@ -978,8 +977,6 @@
   <string name="minimumRatedGames">Numar minim de partide evaluate jucate</string>
   <string name="minimumRating">Rating minim</string>
   <string name="maximumWeeklyRating">Rating săptămânal maxim</string>
-  <string name="onlyTitled">Doar jucători titrati</string>
-  <string name="onlyTitledHelp">Solicitați un titlu oficial pentru a se alătura turneului</string>
   <string name="positionInputHelp">Lipiți un FEN valid pentru a începe fiecare joc dintr-o poziție dată.
 Funcționează doar pentru jocuri standard, nu si pentru variante.
 Puteți utiliza %s pentru a genera o poziție FEN, apoi lipiți-o aici.
