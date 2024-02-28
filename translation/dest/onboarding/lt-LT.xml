@@ -1,6 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="learnFromXAndY" comment="%1$s is Study&#10;%2$s is Videos&#10;&#10;They are both links to pages titled that way, and the title is used verbatim.">Mokytis iš %1$s ir %2$s.</string>
+  <string name="welcome">Sveiki!</string>
+  <string name="welcomeToLichess">Sveiki atvykę į lichess.org!</string>
+  <string name="thisIsYourProfilePage">Tai jūsų profilio puslapis.</string>
+  <string name="enabledKidModeSuggestion" comment="%s is 'Kid mode'.">Šia paskyra naudosis vaikas? Galite įjungti %s.</string>
+  <string name="whatNowSuggestions">Kas toliau? Štai keli pasiūlymai:</string>
+  <string name="learnChessRules">Mokykitės šachmatų taisyklių</string>
+  <string name="improveWithChessTacticsPuzzles">Tobulėkite su šachmatų taktikos galvosūkiais.</string>
+  <string name="playTheArtificialIntelligence">Žaiskite prieš dirbtinį intelektą.</string>
+  <string name="playOpponentsFromAroundTheWorld">Žaiskite prieš varžovus iš viso pasaulio.</string>
+  <string name="followYourFriendsOnLichess">Sekite savo draugus Lichess.</string>
+  <string name="playInTournaments">Žaiskite turnyruose.</string>
+  <string name="learnFromXAndY" comment="%1$s is Study&#10;%2$s is Videos&#10;&#10;They are both links to pages titled that way, and the title is used verbatim.">Mokykitės iš %1$s ir %2$s.</string>
   <string name="configureLichess">Pritaikykite Lichess sau.</string>
   <string name="exploreTheSiteAndHaveFun">Tyrinėkite svetainę ir sėkmės :)</string>
 </resources>
