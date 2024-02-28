@@ -95,6 +95,9 @@ final class ChapterRepo(val coll: AsyncColl)(using Executor, akka.stream.Materia
             tags  <- doc.getAsOpt[Tags]("tags")
           yield Chapter.RelayAndTags(id, relay, tags)
 
+  def studyIdsByRelayFideId(fideId: chess.FideId): Fu[List[StudyId]] =
+    coll(_.distinctEasy[StudyId, List]("studyId", $doc("relay.fideIds" -> fideId)))
+
   def sort(study: Study, ids: List[StudyChapterId]): Funit =
     coll: c =>
       ids

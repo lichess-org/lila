@@ -47,4 +47,10 @@
     margin-right: 1ch;
     vertical-align: middle;
   }
+  &__tours {
+    margin-top: var(--box-padding);
+    h2 {
+      margin-bottom: 1em;
+    }
+  }
 }

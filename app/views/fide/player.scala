@@ -7,6 +7,7 @@ import lila.app.templating.Environment.{ given, * }
 import lila.app.ui.ScalatagsTemplate.{ *, given }
 import lila.fide.{ FidePlayer, Federation }
 import lila.common.paginator.Paginator
+import lila.relay.RelayTour
 
 object player:
 
@@ -52,7 +53,7 @@ object player:
 
   private def card(name: Frag, value: Frag) = div(cls := "fide-player__card")(em(name), strong(value))
 
-  def show(player: FidePlayer)(using PageContext) =
+  def show(player: FidePlayer, tours: Paginator[RelayTour.WithLastRound])(using PageContext) =
     bits.layout(s"${player.name} - FIDE player ${player.id}"):
       main(cls := "page-small box box-pad fide-player")(
         h1(a(href := routes.Fide.index())("FIDE players"), " • ", titleTag(player.title), player.name),
@@ -75,5 +76,10 @@ object player:
           ),
           bits.tcTrans.map: (tc, name) =>
             card(name(), player.ratingOf(tc).fold("-")(_.toString))
+        ),
+        tours.nbResults > 0 option div(cls := "fide-player__tours")(
+          h2("Recent tournaments"),
+          views.html.relay.tour.renderPager:
+            views.html.relay.tour.asRelayPager(tours)
         )
       )

@@ -24,7 +24,11 @@ final class Fide(env: Env) extends LilaController(env):
     WIP:
       Found(env.fide.repo.player.fetch(id)): player =>
         if player.slug != slug then Redirect(routes.Fide.show(id, player.slug))
-        else Ok.page(html.fide.player.show(player))
+        else
+          for
+            tours    <- env.relay.playerTour.playerTours(player)
+            rendered <- renderPage(html.fide.player.show(player, tours))
+          yield Ok(rendered)
 
   def federations(page: Int) = Open:
     WIP:

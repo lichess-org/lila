@@ -216,7 +216,7 @@ object tour:
     st.form(cls := "search", action := routes.RelayTour.index()):
       input(st.name := "q", value := search, placeholder := trans.search.search.txt())
 
-  private def renderPager(
+  def renderPager(
       pager: Paginator[RelayTour | WithLastRound],
       query: String = "",
       owner: Option[LightUser] = None
