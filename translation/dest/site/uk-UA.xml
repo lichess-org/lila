@@ -600,7 +600,7 @@
   <string name="automaticallyProceedToNextGameAfterMoving">Автоматично перейти до наступної гри після ходу</string>
   <string name="autoSwitch">Автоперехід</string>
   <string name="puzzles">Задачі</string>
-  <string name="tournamentWinners">Переможці турнірів</string>
+  <string name="onlineBots">Онлайн-боти</string>
   <string name="name">Назва</string>
   <string name="description">Опис</string>
   <string name="descPrivate">Приватний опис</string>
@@ -1020,8 +1020,6 @@
   <string name="minimumRatedGames">Мінімум рейтингових ігор</string>
   <string name="minimumRating">Мінімальний рейтинг</string>
   <string name="maximumWeeklyRating">Максимальний тижневий рейтинг</string>
-  <string name="onlyTitled">Лише титуловані гравці</string>
-  <string name="onlyTitledHelp">Вимагає офіційний титул щоб приєднатись до турніру</string>
   <string name="positionInputHelp">Вставте правильний FEN для початку кожної гри з даної позиції.
 Він працює тільки з стандартними іграми, а не з варіантами.
 Для генерації позиції FEN ви можете використати %s щоб вставити його тут.
@@ -1069,4 +1067,5 @@
   <string name="instructions">Інструкція</string>
   <string name="showMeEverything">Показати все</string>
   <string name="lichessPatronInfo">Lichess - це благодійне і абсолютно безкоштовне програмне забезпечення з відкритим кодом. Усі витрати на обслуговування, розробка та вміст фінансуються виключно за рахунок пожертвувань користувачів.</string>
+  <string name="nothingToSeeHere">Поки тут нічого немає.</string>
 </resources>
