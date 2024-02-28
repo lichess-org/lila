@@ -492,7 +492,6 @@
   <string name="automaticallyProceedToNextGameAfterMoving">수를 둔 다음에 자동으로 다음 게임에 이동</string>
   <string name="autoSwitch">자동 전환</string>
   <string name="puzzles">퍼즐</string>
-  <string name="tournamentWinners">토너먼트 우승자</string>
   <string name="name">이름</string>
   <string name="description">설명</string>
   <string name="descPrivate">비공개 설명</string>
@@ -886,8 +885,6 @@
   <string name="minimumRatedGames">최소 레이팅 게임 참여 횟수</string>
   <string name="minimumRating">최소 레이팅</string>
   <string name="maximumWeeklyRating">최대 주간 레이팅</string>
-  <string name="onlyTitled">타이틀 플레이어만</string>
-  <string name="onlyTitledHelp">토너먼트에 참여하기 위해서는 공식 타이틀이 있어야 합니다</string>
   <string name="positionInputHelp">모든 게임을 주어진 포지션으로 시작하려면 FEN을 붙여넣으세요.
 일반 게임이 아닌 변형 체스에는 적용되지 않습니다.
 FEN 포지션을 생성하기 위해 %s를 사용할 수 있습니다.
