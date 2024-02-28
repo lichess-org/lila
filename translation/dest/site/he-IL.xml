@@ -599,7 +599,6 @@
   <string name="automaticallyProceedToNextGameAfterMoving">המשיכו אוטומטית למשחק הבא אחרי שביצעתם מהלך</string>
   <string name="autoSwitch">החלפה אוטומטית</string>
   <string name="puzzles">חידות</string>
-  <string name="tournamentWinners">מנצחי הטורנירים</string>
   <string name="name">שם</string>
   <string name="description">תיאור</string>
   <string name="descPrivate">תיאור פרטי</string>
@@ -1025,8 +1024,6 @@
   <string name="minimumRatedGames">מספר משחקים מדורגים מינימלי</string>
   <string name="minimumRating">דירוג מינימלי</string>
   <string name="maximumWeeklyRating">דירוג שבועי מקסימלי</string>
-  <string name="onlyTitled">רק שחקנים עם תואר</string>
-  <string name="onlyTitledHelp">רק שחקנים עם תואר</string>
   <string name="positionInputHelp">הדביקו FEN חוקי כדי להתחיל כל משחק מעמדה נתונה.
 שדה זה עובד רק עבור משחקים סטנדרטיים, לא עבור וריאנטים.
 את/ה יכול/ה להשתמש ב%s כדי ליצור עמדת FEN, ואז להדביק אותה כאן.
