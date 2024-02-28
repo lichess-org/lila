@@ -50,7 +50,6 @@ I giocatori a cui non piace ricevere i tuoi messaggi potrebbero lasciare la squa
   <string name="entryCodeDescriptionForLeader">(Opzionale) Un codice di accesso che i nuovi membri devono conoscere per unirsi a questa squadra.</string>
   <string name="incorrectEntryCode">Codice di accesso errato.</string>
   <string name="teamAlreadyExists">Questa squadra esiste già.</string>
-  <string name="upcomingTourns">Prossimi tornei</string>
   <string name="completedTourns">Tornei completati</string>
   <string name="declinedRequests">Richieste Rifiutate</string>
   <string name="joinLichessVariantTeam">Unisciti al team ufficiale di %s per novità ed eventi</string>
