@@ -13,9 +13,7 @@ object federation:
     bits.layout("FIDE federations", "federations")(
       cls := "fide-federations",
       boxTop(
-        h1("FIDE federations"),
-        div(cls := "box__top__actions"):
-          input(cls := "fide__search", placeholder := trans.search.search.txt(), autofocus)
+        h1("FIDE federations")
       ),
       federationList(feds)
     )
