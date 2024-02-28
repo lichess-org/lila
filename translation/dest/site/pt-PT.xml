@@ -532,7 +532,6 @@ análise de computador, sala de chat do jogo e link de partilha.</string>
   <string name="automaticallyProceedToNextGameAfterMoving">Passar automaticamente ao jogo seguinte após a jogada</string>
   <string name="autoSwitch">Alternar automaticamente</string>
   <string name="puzzles">Problemas</string>
-  <string name="tournamentWinners">Vencedores de torneios</string>
   <string name="name">Nome</string>
   <string name="description">Descrição</string>
   <string name="descPrivate">Descrição privada</string>
@@ -941,8 +940,6 @@ e afetam as avaliações dos jogadores</string>
   <string name="minimumRatedGames">Jogos com classificação mínima</string>
   <string name="minimumRating">Classificação mínima</string>
   <string name="maximumWeeklyRating">Avaliação semanal máxima</string>
-  <string name="onlyTitled">Apenas jogadores com títulos</string>
-  <string name="onlyTitledHelp">Exigir um título oficial para entrar no torneio</string>
   <string name="positionInputHelp">Cole um FEN válido para iniciar todos os jogos a partir de uma determinada posição.
 Só funciona para os jogos padrão, não com variantes.
 Você pode usar o %s para gerar uma posição FEN e, em seguida, colá-lo aqui.
