@@ -56,8 +56,24 @@ Gracze, którzy nie chcą otrzymywać Twoich wiadomości, mogą opuścić klub.<
   <string name="entryCodeDescriptionForLeader">Opcjonalny kod dostępu, który należy znać, aby dołączyć do tego klubu.</string>
   <string name="incorrectEntryCode">Niepoprawny kod dostępu.</string>
   <string name="teamAlreadyExists">Taki klub już istnieje.</string>
+  <string name="upcomingTournaments">Nadchodzące turnieje</string>
   <string name="completedTourns">Ukończone turnieje</string>
   <string name="declinedRequests">Odrzucone prośby</string>
   <string name="joinLichessVariantTeam">Dołącz do oficjalnego klubu %s, aby być na bieżąco z naszymi aktualnościami i wydarzeniami</string>
   <string name="teamPage">Strona klubu</string>
+  <string name="thisTeamBattleIsOver">Ten turniej zakończył się, a drużyny nie mogą być już aktualizowane.</string>
+  <string name="listTheTeamsThatWillCompete">Wymień drużyny, które będą konkurować w tej bitwie.</string>
+  <string name="oneTeamPerLine">Jeden zespół na linię. Użyj autouzupełniania.</string>
+  <string name="oneTeamPerLineHelp">Możesz skopiować tę listę do innego turnieju!
+
+Nie możesz usunąć drużyny, jeśli jej gracz już dołączył do turnieju.</string>
+  <string name="numberOfLeadsPerTeam">Liczba liderów na drużynę. Suma ich punktów to wynik drużyny.</string>
+  <string name="numberOfLeadsPerTeamHelp">Naprawdę nie powinieneś zmieniać tej wartości po rozpoczęciu turnieju!</string>
+  <string name="innerTeam">Zespół wewnętrzny</string>
+  <plurals name="battleOfNbTeams">
+    <item quantity="one">Bitwa %s drużyny</item>
+    <item quantity="few">Bitwa %s drużyn</item>
+    <item quantity="many">Bitwa %s drużyn</item>
+    <item quantity="other">Bitwa %s drużyn</item>
+  </plurals>
 </resources>
