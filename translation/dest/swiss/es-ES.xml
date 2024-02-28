@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+  <string name="swiss">Suizo</string>
   <string name="swissTournaments">Torneos suizos</string>
   <plurals name="viewAllXRounds" comment="viewAllXRounds [one] [other]&#10;&#10;%s is the number of rounds in the Swiss tournament.">
     <item quantity="one">Ver la ronda</item>
@@ -38,6 +39,16 @@
   <string name="roundInterval">Intervalo entre rondas</string>
   <string name="forbiddenPairings">Emparejamientos prohibidos</string>
   <string name="forbiddenPairingsHelp">Nombres de usuario de jugadores que no deben enfrentarse (por ejemplo, hermanos). Dos nombres de usuario por línea, separados por un espacio.</string>
+  <string name="manualPairings">Emparejamientos manuales en la siguiente ronda</string>
+  <string name="manualPairingsHelp">Especifica manualmente todos los emparejamientos de la siguiente ronda. Una pareja de jugadores por línea. Ejemplo:
+JugadorA JugadorB
+JugadorC JugadorD
+Para otorgar un bye (1 punto) a un jugador en lugar de un emparejamiento, agrega una línea como esta:
+JugadorE 1
+Los jugadores faltantes se considerarán ausentes y obtendrán cero puntos.
+Deja este campo vacío para permitir que Lichess cree emparejamientos automáticamente.</string>
+  <string name="mustHavePlayedTheirLastSwissGame">Debe haber jugado su última partida de torneo suizo</string>
+  <string name="mustHavePlayedTheirLastSwissGameHelp">Sólo permite que los jugadores se unan si han jugado su última partida suiza. Si no se presentaron en un torneo suizo reciente, no podrán entrar en el tuyo. Esto da como resultado una mejor experiencia suiza para los jugadores que realmente se presentan.</string>
   <string name="newSwiss">Nuevo torneo suizo</string>
   <string name="swissVsArenaQ">¿Cuándo usar torneos suizos en lugar de los torneos estándar?</string>
   <string name="swissVsArenaA">En un torneo suizo, todos los participantes juegan el mismo número de partidas, y solo pueden enfrentarse una vez a un mismo jugador.
@@ -114,4 +125,7 @@ El formato más próximo a un torneo en línea de todos contra todos es un torne
   <string name="predefinedUsers">Permitir unirse únicamente a usuarios predefinidos</string>
   <string name="forbiddedUsers">Si esta lista no está vacía, a los usuarios ausentes de esta lista les estará prohibido unirse. Un nombre de usuario por línea.</string>
   <string name="playYourGames">Juega tus partidas</string>
+  <string name="byes">Byes</string>
+  <string name="absences">Ausencias</string>
+  <string name="tieBreak">Desempate</string>
 </resources>
