@@ -557,7 +557,6 @@ računarsku analizu, mogućnost dopisivanja i link za slanje drugima.</string>
   <string name="automaticallyProceedToNextGameAfterMoving">Automatski prebaci na narednu partiju nakon odigranog poteza</string>
   <string name="autoSwitch">Prebaci automatski</string>
   <string name="puzzles">Problemi</string>
-  <string name="tournamentWinners">Pobjednici turnira</string>
   <string name="name">Ime</string>
   <string name="description">Opis</string>
   <string name="descPrivate">Privatni opis</string>
@@ -960,8 +959,6 @@ i utječu na ocjenu igrača</string>
   <string name="minimumRatedGames">Minimalan broj ocijenjenih igri</string>
   <string name="minimumRating">Minimalna ocjena</string>
   <string name="maximumWeeklyRating">Maksimalna sedmična ocjena</string>
-  <string name="onlyTitled">Samo ovlašteni igrači</string>
-  <string name="onlyTitledHelp">Potrebno službeno ovlaštenje za pridruživanje turniru</string>
   <string name="positionInputHelp">Zalijepite važeći FEN da biste započeli svaku igru sa određene pozicije.
 Radi samo za standardne igre, ne sa vrstama.
 Možete koristiti %s za generisanje FEN pozicije, a zatim ga zalijepite ovdje.
