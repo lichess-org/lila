@@ -531,7 +531,6 @@
   <string name="automaticallyProceedToNextGameAfterMoving">Aller automatiquement à la prochaine partie après chaque coup</string>
   <string name="autoSwitch">Changement automatique</string>
   <string name="puzzles">Problèmes</string>
-  <string name="tournamentWinners">Vainqueurs de tournois</string>
   <string name="name">Nom</string>
   <string name="description">Description</string>
   <string name="descPrivate">Description privée</string>
@@ -940,8 +939,6 @@ et ont un impact sur le classement des joueurs</string>
   <string name="minimumRatedGames">Nombre minimum de parties classées</string>
   <string name="minimumRating">Classement minimal</string>
   <string name="maximumWeeklyRating">Classement hebdomadaire maximal</string>
-  <string name="onlyTitled">Joueurs titrés seulement</string>
-  <string name="onlyTitledHelp">Titre officiel requis pour participer à un tournoi</string>
   <string name="positionInputHelp">Collez un FEN valide pour commencer chaque partie à partir d\'une position donnée.
 Cela ne fonctionne que pour les parties normales, pas avec les variantes.
 Vous pouvez utiliser le %s pour créer une position FEN puis la coller ici.
