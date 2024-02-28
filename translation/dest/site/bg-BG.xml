@@ -528,7 +528,6 @@
   <string name="automaticallyProceedToNextGameAfterMoving">Автоматично преминаване към следващата игра след хода</string>
   <string name="autoSwitch">Автоматично превключване</string>
   <string name="puzzles">Задачи</string>
-  <string name="tournamentWinners">Победители от състезанията</string>
   <string name="name">Име</string>
   <string name="description">Описание</string>
   <string name="descPrivate">Вътрешно описание</string>
@@ -926,8 +925,6 @@
   <string name="minimumRatedGames">Минимален брой игри с рейтинг</string>
   <string name="minimumRating">Минимален рейтинг</string>
   <string name="maximumWeeklyRating">Максимален седмичен рейтинг</string>
-  <string name="onlyTitled">Само титулувани играчи</string>
-  <string name="onlyTitledHelp">Изискване на официална титла за участие в турнира</string>
   <string name="positionInputHelp">За започва всяка игра от зададена позиция, въведете валиден FEN код. 
 Това работи само за стандартни игри, но не с варианти. Можете да използвате %s за да създадете FEN позиция и след това да копирате кода тук.
 За да започват игрите от обичайната позиция, оставете полето празно.</string>
