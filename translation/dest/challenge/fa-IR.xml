@@ -22,5 +22,5 @@
   <string name="declineVariant">الان مایل نیستم این شطرنج‌گونه را بازی کنم.</string>
   <string name="declineNoBot">من پیشنهاد بازی از ربات‌ها را نمی‌پذیرم.</string>
   <string name="declineOnlyBot">من فقط پیشنهاد بازی از ربات‌ها را می‌پذیرم.</string>
-  <string name="inviteLichessUser">یا دعوت کردن از یک کاربر لایچس:</string>
+  <string name="inviteLichessUser">یا یک کاربر Lichess را دعوت کنید:</string>
 </resources>
