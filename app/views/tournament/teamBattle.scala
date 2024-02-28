@@ -42,7 +42,7 @@ object teamBattle:
               form3.input(_)(tpe := "number")
             ),
             form3.globalError(form),
-            form3.submit(trans.patron.update())(tour.isFinished.option(disabled))
+            form3.submit(trans.save())(tour.isFinished.option(disabled))
           )
         )
       )
