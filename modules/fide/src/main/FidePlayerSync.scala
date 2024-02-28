@@ -37,7 +37,7 @@ final private class FidePlayerSync(repo: FideRepo, api: FidePlayerApi, ws: Stand
         .map: objs =>
           for
             obj       <- objs
-            code      <- obj.getAsOpt[Federation.Code]("_id")
+            code      <- obj.getAsOpt[Federation.Id]("_id")
             name      <- Federation.names.get(code)
             nbPlayers <- obj.int("count")
             if nbPlayers >= 5
@@ -80,7 +80,7 @@ final private class FidePlayerSync(repo: FideRepo, api: FidePlayerApi, ws: Stand
               top10Rating = ~o.double(s"$tc-top").map(_.toInt)
             )
             Federation(
-              code = code,
+              id = code,
               name = name,
               nbPlayers = nbPlayers,
               standard = stats(FideTC.standard),

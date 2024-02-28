@@ -1,5 +1,13 @@
-.fide-players {
+.fide-players,
+.fide-federations {
   .flag {
     height: 1em;
+  }
+}
+
+.fide-federations {
+  .flag {
+    margin-right: 1em;
+    vertical-align: middle;
   }
 }

@@ -5,7 +5,7 @@ import reactivemongo.api.bson.Macros.Annotations.Key
 import chess.FideId
 
 case class Federation(
-    @Key("_id") code: Federation.Code,
+    @Key("_id") id: Federation.Id,
     name: Federation.Name,
     nbPlayers: Int,
     standard: Federation.Stats,
@@ -17,36 +17,33 @@ case class Federation(
     case FideTC.standard => this.focus(_.standard)
     case FideTC.rapid    => this.focus(_.rapid)
     case FideTC.blitz    => this.focus(_.blitz)
+  def slug = Federation.nameToSlug(name)
 
 // Obviously, FIDE country codes don't follow any existing standard.
 // https://ratings.fide.com/top_federations.phtml
 // all=[];$('#federations_table').find('tbody tr').each(function(){all.push([$(this).find('img').attr('src').slice(5,8),$(this).find('a,strong').text().trim()])})
 object Federation:
 
-  type Code = String
+  type Id   = String
   type Name = String
 
   case class Stats(rank: Int, nbPlayers: Int, top10Rating: Int)
 
-  type ByFideIds = Map[FideId, Code]
+  type ByFideIds = Map[FideId, Id]
 
   export FidePlayer.nameToSlug
 
-  def name(code: Code): Name = names.getOrElse(code, code)
+  def name(code: Id): Name = names.getOrElse(code, code)
 
-  def find(str: String): Option[(Code, Name)] =
-    names.get(str.toUpperCase).map(str.toUpperCase -> _) orElse
-      bySlug
-        .get(str)
-        .orElse(bySlug.get(nameToSlug(str)))
-        .flatMap: code =>
-          names.get(code).map(code -> _)
+  def find(str: String): Option[Id] =
+    names.contains(str.toUpperCase).option(str.toUpperCase) orElse
+      bySlug.get(str).orElse(bySlug.get(nameToSlug(str)))
 
-  lazy val bySlug: Map[String, Code] = names
+  lazy val bySlug: Map[String, Id] = names
     .map: (code, name) =>
       nameToSlug(name) -> code
 
-  val names: Map[Code, Name] = Map(
+  val names: Map[Id, Name] = Map(
     "USA" -> "United States of America",
     "IND" -> "India",
     "CHN" -> "China",

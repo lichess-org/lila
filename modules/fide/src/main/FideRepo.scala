@@ -18,4 +18,5 @@ final private class FideRepo(
     given BSONDocumentHandler[Federation.Stats]    = Macros.handler
     given handler: BSONDocumentHandler[Federation] = Macros.handler
     def upsert(fed: Federation): Funit =
-      federationColl.update.one($id(fed.code), fed, upsert = true).void
+      federationColl.update.one($id(fed.id), fed, upsert = true).void
+    def fetch(code: Federation.Id): Fu[Option[Federation]] = federationColl.byId[Federation](code)

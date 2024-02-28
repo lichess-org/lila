@@ -9,9 +9,26 @@ import lila.db.paginator.Adapter
 
 final class FidePaginator(repo: FideRepo)(using Executor):
 
-  import repo.player.handler
+  import repo.player.given
+  import repo.federation.given
 
   val maxPerPage = MaxPerPage(30)
+
+  def federations(page: Int): Fu[Paginator[Federation]] =
+    Paginator(
+      adapter = new AdapterLike[Federation]:
+        def nbResults: Fu[Int] = fuccess(Federation.names.size)
+        def slice(offset: Int, length: Int) =
+          repo.federationColl
+            .find($empty)
+            .sort($sort desc "standard.top10Rating")
+            .skip(offset)
+            .cursor[Federation]()
+            .list(length)
+      ,
+      currentPage = page,
+      maxPerPage = maxPerPage
+    )
 
   def best(page: Int): Fu[Paginator[FidePlayer]] =
     Paginator(

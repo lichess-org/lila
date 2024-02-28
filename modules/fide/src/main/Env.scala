@@ -17,7 +17,9 @@ final class Env(db: lila.db.Db, cacheApi: CacheApi, ws: StandaloneWSClient)(usin
   val repo =
     FideRepo(playerColl = db(CollName("fide_player")), federationColl = db(CollName("fide_federation")))
 
-  lazy val api = wire[FidePlayerApi]
+  lazy val playerApi = wire[FidePlayerApi]
+
+  lazy val federationApi = wire[FederationApi]
 
   lazy val paginator = wire[FidePaginator]
 

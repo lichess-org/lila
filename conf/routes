@@ -110,9 +110,9 @@ GET   /api/player                      controllers.User.apiList
 
 # FIDE Player
 GET   /fide                            controllers.Fide.index(page: Int ?= 1)
-GET   /fide/:fideId/:name              controllers.Fide.show(fideId: Int, name)
-GET   /fide/federation                 controllers.Fide.federations
+GET   /fide/federation                 controllers.Fide.federations(page: Int ?= 1)
 GET   /fide/federation/:name           controllers.Fide.federation(name)
+GET   /fide/:fideId/:name              controllers.Fide.show(fideId: Int, name)
 
 GET   /dasher                          controllers.Dasher.get
 

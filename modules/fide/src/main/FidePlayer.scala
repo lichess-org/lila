@@ -11,7 +11,7 @@ case class FidePlayer(
     @Key("_id") id: FideId,
     name: PlayerName,
     token: PlayerToken,
-    fed: Option[Federation.Code],
+    fed: Option[Federation.Id],
     title: Option[UserTitle],
     standard: Option[Int],
     rapid: Option[Int],
