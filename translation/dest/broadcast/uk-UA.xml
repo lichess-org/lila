@@ -45,6 +45,7 @@
   <string name="definitivelyDeleteTournament">Остаточно видалити весь турнір, всі його раунди та всі його ігри.</string>
   <string name="automaticLeaderboard">Автоматична таблиця лідерів</string>
   <string name="automaticLeaderboardHelp">Розрахунки та показ простої таблиці лідерів на основі результатів гри</string>
+  <string name="replacePlayerTags">За бажанням: замінити імена, рейтинги та титули гравців</string>
   <string name="periodInSeconds">Період у секундах</string>
   <string name="periodInSecondsHelp">Опціонально: час очікування між запитами. Мінімально 2 с, максимально 60 с. За замовчуванням - автоматично, виходячи з кількості запитів глядачів.</string>
 </resources>
