@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+  <string name="arena">Arena</string>
   <string name="arenaTournaments">Arena-Turniere</string>
   <string name="isItRated">Sind die Partien gewertet?</string>
   <string name="willBeNotified">Du wirst benachrichtigt, wenn das Turnier beginnt. Es ist somit möglich, während der Wartezeit in einem anderen Tab zu spielen.</string>
@@ -60,4 +61,28 @@ Spiele schnell und kehre zur Turnierübersicht zurück, um mehr Spiele zu spiele
   <string name="averagePerformance">Durchschnittliche Leistung</string>
   <string name="averageScore">Durchschnittliche Punktzahl</string>
   <string name="myTournaments">Meine Turniere</string>
+  <string name="editTournament">Turnier bearbeiten</string>
+  <string name="editTeamBattle">Teamkampf bearbeiten</string>
+  <string name="defender">Verteidiger</string>
+  <string name="pickYourTeam">Wähle dein Team</string>
+  <string name="whichTeamWillYouRepresentInThisBattle">Welches Team wirst du in diesem Kampf repräsentieren?</string>
+  <string name="youMustJoinOneOfTheseTeamsToParticipate">Du musst einem dieser Teams beitreten, um teilnehmen zu können!</string>
+  <string name="created">Erstellt</string>
+  <string name="recentlyPlayed">Kürzlich gespielt</string>
+  <string name="bestResults">Beste Ergebnisse</string>
+  <string name="stats">Statistiken</string>
+  <string name="tournamentStats">Turnierstatistiken</string>
+  <string name="rankAvgHelp">Der Platzierungs-Durchschnitt ist ein Prozentwert deiner Platzierungen. Niedriger ist besser.
+
+Ein Beispiel: Wenn man in einem Turnier von 100 Spielern Platz 3 erreicht hat = Top 3%. In einem Turnier mit 1000 Spielern den Rang 10 zu erreichen = Top 1%.</string>
+  <string name="medians">Median</string>
+  <string name="allAveragesAreX">Alle Durchschnittswerte auf dieser Seite sind %s.</string>
+  <string name="total">Insgesamt</string>
+  <string name="pointsAvg">Punkte-Durchschnitt</string>
+  <string name="pointsSum">Punktesumme</string>
+  <string name="rankAvg">Platzierungs-Durchschnitt</string>
+  <string name="tournamentWinners">Turniersieger</string>
+  <string name="tournamentShields">Turnier-Schilde</string>
+  <string name="onlyTitled">Nur Spieler mit Titel</string>
+  <string name="onlyTitledHelp">Erfordert einen offiziellen Titel, um dem Turnier beizutreten</string>
 </resources>
