@@ -53,7 +53,6 @@ Jucatorii carora nu le place să primească mesaje de la tine pot ieși din echi
   <string name="entryCodeDescriptionForLeader">(Opțional) Un cod de intrare pe care noii membri trebuie să îl cunoască pentru a se alătura acestei echipe.</string>
   <string name="incorrectEntryCode">Cod de intrare incorect.</string>
   <string name="teamAlreadyExists">Această echipă există deja.</string>
-  <string name="upcomingTourns">Turnee viitoare</string>
   <string name="completedTourns">Turnee finalizate</string>
   <string name="declinedRequests">Cereri refuzate</string>
   <string name="joinLichessVariantTeam">Alătură-te echipei oficiale %s pentru știri și evenimente</string>
