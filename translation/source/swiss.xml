@@ -40,7 +40,7 @@
   <string name="forbiddenPairings">Forbidden pairings</string>
   <string name="forbiddenPairingsHelp">Usernames of players that must not play together (Siblings, for instance). Two usernames per line, separated by a space.</string>
   <string name="manualPairings">Manual pairings in next round</string>
-  <string name="manualPairingsHelp">"Specify all pairings of the next round manually. One player pair per line. Example:
+  <string name="manualPairingsHelp">Specify all pairings of the next round manually. One player pair per line. Example:
 PlayerA PlayerB
 PlayerC PlayerD
 To give a bye (1 point) to a player instead of a pairing, add a line like so:
