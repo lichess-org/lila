@@ -47,7 +47,6 @@
   <string name="entryCodeDescriptionForLeader">（オプション）新メンバーがこのチームに加入する時に必要なコード。</string>
   <string name="incorrectEntryCode">参加コードが違います。</string>
   <string name="teamAlreadyExists">このチームはすでに存在します。</string>
-  <string name="upcomingTourns">今後のトーナメント</string>
   <string name="completedTourns">完了したトーナメント</string>
   <string name="declinedRequests">却下した申請</string>
   <string name="joinLichessVariantTeam">公式チーム %s にはニュースやイベント情報が</string>
