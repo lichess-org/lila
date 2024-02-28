@@ -55,7 +55,7 @@ object player:
   def show(player: FidePlayer)(using PageContext) =
     bits.layout(s"${player.name} - FIDE player ${player.id}"):
       main(cls := "page-small box box-pad fide-player")(
-        h1(a(href := routes.Fide.index())("FIDE players"), " • ", player.name),
+        h1(a(href := routes.Fide.index())("FIDE players"), " • ", titleTag(player.title), player.name),
         div(cls := "fide-player__cards")(
           player.fed.map: fed =>
             card(
