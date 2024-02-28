@@ -56,7 +56,6 @@ Gracze, którzy nie chcą otrzymywać Twoich wiadomości, mogą opuścić klub.<
   <string name="entryCodeDescriptionForLeader">Opcjonalny kod dostępu, który należy znać, aby dołączyć do tego klubu.</string>
   <string name="incorrectEntryCode">Niepoprawny kod dostępu.</string>
   <string name="teamAlreadyExists">Taki klub już istnieje.</string>
-  <string name="upcomingTourns">Nadchodzące turnieje</string>
   <string name="completedTourns">Ukończone turnieje</string>
   <string name="declinedRequests">Odrzucone prośby</string>
   <string name="joinLichessVariantTeam">Dołącz do oficjalnego klubu %s, aby być na bieżąco z naszymi aktualnościami i wydarzeniami</string>
