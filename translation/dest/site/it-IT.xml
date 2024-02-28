@@ -532,7 +532,6 @@ analizzarla con il computer, commentarla in chat, e condividerla tramite un indi
   <string name="automaticallyProceedToNextGameAfterMoving">Passa automaticamente alla partita successiva dopo aver mosso</string>
   <string name="autoSwitch">Cambia automaticamente</string>
   <string name="puzzles">Puzzle</string>
-  <string name="tournamentWinners">Vincitori dei tornei</string>
   <string name="name">Nome</string>
   <string name="description">Descrizione</string>
   <string name="descPrivate">Descrizione privata</string>
@@ -941,8 +940,6 @@ e impattano le valutazioni dei giocatori</string>
   <string name="minimumRatedGames">Giochi votati al minimo</string>
   <string name="minimumRating">Valutazione minima</string>
   <string name="maximumWeeklyRating">Valutazione settimanale massima</string>
-  <string name="onlyTitled">Solo giocatori intitolati</string>
-  <string name="onlyTitledHelp">Richiedi un titolo ufficiale per partecipare al torneo</string>
   <string name="positionInputHelp">Incolla un FEN valido per avviare ogni partita da una data posizione.
 Funziona solo per le partite standard, non con le varianti.
 Puoi usare %s per generare una posizione FEN, poi incollala qui.
