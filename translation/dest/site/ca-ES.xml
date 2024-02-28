@@ -531,7 +531,6 @@
   <string name="automaticallyProceedToNextGameAfterMoving">Anar automàticament a la següent partida després de cada moviment</string>
   <string name="autoSwitch">Canvi automàtic</string>
   <string name="puzzles">Problemes</string>
-  <string name="tournamentWinners">Guanyadors de torneigs</string>
   <string name="name">Nom</string>
   <string name="description">Descripció</string>
   <string name="descPrivate">Descripció privada</string>
@@ -939,8 +938,6 @@ i impacten les puntuacions dels jugadors</string>
   <string name="minimumRatedGames">Mínims partits puntuats</string>
   <string name="minimumRating">Puntuació mínima</string>
   <string name="maximumWeeklyRating">Puntuació màxima aquesta setmana</string>
-  <string name="onlyTitled">Només jugadors titulats</string>
-  <string name="onlyTitledHelp">Es necessita un títol oficial per entrar en el torneig</string>
   <string name="positionInputHelp">Enganxa un FEN vàlid per començar cada joc d\'una posició donada.
 Només funciona per jocs estàndard, no per a variants.
 Pots utilitzar l\'%s per generar una posició FEN, i després enganxar-ho aquí.
