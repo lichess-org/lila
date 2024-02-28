@@ -15,7 +15,7 @@
   <string name="thisIsPrivate">Ini tornemen peribadi</string>
   <string name="shareUrl">Kongsi URL ini untuk orang lain sertai: %s</string>
   <string name="history">Sejarah Arena</string>
-  <plurals name="viewAllXTeams" comment="%s is the number of teams that can be viewed.&#10;&#10;Appears in team battles that feature lots of teams. As of the time of writing, Lichess lists up to 10 teams at a time, so this button lets you view all teams.">
+  <plurals name="viewAllXTeams" comment="viewAllXTeams [one] [other]&#10;&#10;%s is the number of teams that can be viewed">
     <item quantity="other">Lihat semua %s pasukan</item>
   </plurals>
   <string name="newTeamBattle">Pertempuran Pasukan yang baru</string>
