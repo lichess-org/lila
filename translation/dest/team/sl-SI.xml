@@ -54,8 +54,29 @@
   <string name="entryCodeDescriptionForLeader">(Izbirno) Geslo, ki ga morajo poznati novi člani, da se pridružijo tej skupini.</string>
   <string name="incorrectEntryCode">Nepravilna vstopna koda.</string>
   <string name="teamAlreadyExists">Ta ekipa že obstaja.</string>
-  <string name="upcomingTourns">Prihajajoči turnirji</string>
+  <string name="upcomingTournaments">Prihajajoči turnirji</string>
   <string name="completedTourns">Končani turnirji</string>
   <string name="declinedRequests">Zavrnjene zahteve</string>
   <string name="teamPage">Ekipna stran</string>
+  <string name="thisTeamBattleIsOver">Ta turnir je končan in ekip ni več mogoče posodobiti.</string>
+  <string name="listTheTeamsThatWillCompete">Naštej ekipe, ki bodo tekmovale v tej bitki.</string>
+  <string name="oneTeamPerLine">Ena ekipa na linijo. Uporabite samodejno dokončanje.</string>
+  <string name="oneTeamPerLineHelp">Ta seznam lahko kopirate in prilepite z enega turnirja na drugega!
+
+Ekipe ne morete odstraniti, če se je igralec z njo že pridružil turnirju.</string>
+  <string name="numberOfLeadsPerTeam">Število vodij na ekipo. Seštevek njihovega rezultata je rezultat ekipe.</string>
+  <string name="numberOfLeadsPerTeamHelp">Te vrednosti res ne bi smeli spreminjati po začetku turnirja!</string>
+  <string name="innerTeam">Notranja ekipa</string>
+  <plurals name="battleOfNbTeams">
+    <item quantity="one">Bitka %s ekipe</item>
+    <item quantity="two">Bitka %s ekip</item>
+    <item quantity="few">Bitka %s ekip</item>
+    <item quantity="other">Bitka %s ekip</item>
+  </plurals>
+  <plurals name="nbLeadersPerTeam">
+    <item quantity="one">En vodja na ekipo</item>
+    <item quantity="two">%s vodji na ekipo</item>
+    <item quantity="few">%s vodje na ekipo</item>
+    <item quantity="other">%s vodij na ekipo</item>
+  </plurals>
 </resources>
