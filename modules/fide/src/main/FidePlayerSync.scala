@@ -134,7 +134,7 @@ final private class FidePlayerSync(repo: FideRepo, api: FidePlayerApi, ws: Stand
         flags  = string(158, 159)
       yield FidePlayer(
         id = FideId(id),
-        name = name,
+        name = name.filterNot(_.isDigit).trim,
         token = FidePlayer.tokenize(name),
         fed = string(76, 79),
         title = mostValuable(title, wTitle),
