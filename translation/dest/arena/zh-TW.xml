@@ -41,7 +41,7 @@
   <string name="variant">變體</string>
   <string name="minimumGameLength">最少對局步數</string>
   <string name="history">先前的重要錦標賽</string>
-  <plurals name="viewAllXTeams" comment="%s is the number of teams that can be viewed.&#10;&#10;Appears in team battles that feature lots of teams. As of the time of writing, Lichess lists up to 10 teams at a time, so this button lets you view all teams.">
+  <plurals name="viewAllXTeams" comment="viewAllXTeams [one] [other]&#10;&#10;%s is the number of teams that can be viewed">
     <item quantity="other">查看所有 %s 團隊</item>
   </plurals>
   <string name="newTeamBattle">新團隊戰</string>
@@ -53,7 +53,7 @@
   <string name="arenaStreaks">競技場連勝</string>
   <string name="arenaStreaksHelp">2次勝利後，連勝將會取得4分，而不是2分。</string>
   <string name="noBerserkAllowed">禁止「神速」模式</string>
-  <string name="noArenaStreaks" comment="A possible setting when creating an arena tournament.&#10;When enabled: After 2 wins, consecutive wins grant 4 points instead of 2.">無競技場連勝</string>
+  <string name="noArenaStreaks">無競技場連勝</string>
   <string name="averagePerformance">平均表現</string>
   <string name="averageScore">平均分數</string>
   <string name="myTournaments">我的錦標賽</string>
