@@ -44,7 +44,6 @@
   <string name="entryCodeDescriptionForLeader">(เป็นตัวเลือก) เป็นรหัสที่ผู้เล่นใหม่ต้องรู้เพื่อเข้าร่วมทีม</string>
   <string name="incorrectEntryCode">รหัสเข้าร่วมไม่ถูกต้อง</string>
   <string name="teamAlreadyExists">ทีมนี้มีอยู่แล้ว</string>
-  <string name="upcomingTourns">ทัวร์นาเมนต์ที่กำลังจะมา</string>
   <string name="completedTourns">ทัวร์นาเมนต์ที่เสร็จสมบูรณ์</string>
   <string name="declinedRequests">ปฏิเสธคำขอ</string>
   <string name="joinLichessVariantTeam">เข้าร่วมทีม %s เพื่อดูข่าวและเหตุการณ์สำคัญ</string>
