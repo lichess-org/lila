@@ -49,4 +49,5 @@
   <string name="inappropriateContentAccountClosed">任何违规的内容都可能导致你的账户被封禁。</string>
   <string name="blogTips">写出好博文的小提示</string>
   <string name="discussThisBlogPostInTheForum">在论坛讨论这篇博客</string>
+  <string name="youBlockedByBlogAuthor">您被博客作者拉黑了</string>
 </resources>
