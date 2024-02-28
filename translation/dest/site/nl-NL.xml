@@ -531,7 +531,6 @@
   <string name="automaticallyProceedToNextGameAfterMoving">Na je zet direct doorgaan naar de volgende partij</string>
   <string name="autoSwitch">Automatische switch</string>
   <string name="puzzles">Puzzels</string>
-  <string name="tournamentWinners">Toernooiwinnaars</string>
   <string name="name">Naam</string>
   <string name="description">Beschrijving</string>
   <string name="descPrivate">Interne beschrijving</string>
@@ -940,8 +939,6 @@ en hebben effect op de rating van de spelers</string>
   <string name="minimumRatedGames">Minimumaantal partijen met rating</string>
   <string name="minimumRating">Minimumrating</string>
   <string name="maximumWeeklyRating">Maximale wekelijkse rating</string>
-  <string name="onlyTitled">Alleen titelhouders</string>
-  <string name="onlyTitledHelp">Officiële titel vereist voor deelname aan het toernooi</string>
   <string name="positionInputHelp">Plak een geldige FEN-code om een partij te beginnen vanaf een bepaalde stelling.
 Het werkt alleen voor standaardpartijen, niet met varianten.
 U kunt de %s gebruiken om een FEN-code te genereren en deze hier plakken.
