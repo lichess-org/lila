@@ -890,7 +890,7 @@ object I18nKeys:
     val `minimumGameLength` = I18nKey("arena:minimumGameLength")
     val `history` = I18nKey("arena:history")
     val `newTeamBattle` = I18nKey("arena:newTeamBattle")
-    val `nbTeamsBatte` = I18nKey("arena:nbTeamsBatte")
+    val `nbTeamsBattle` = I18nKey("arena:nbTeamsBattle")
     val `customStartDate` = I18nKey("arena:customStartDate")
     val `customStartDateHelp` = I18nKey("arena:customStartDateHelp")
     val `allowBerserk` = I18nKey("arena:allowBerserk")

@@ -90,7 +90,7 @@ object tournaments:
               t =>
                 frag(
                   t.teamBattle.fold(trans.team.innerTeam()): battle =>
-                    trans.arena.nbTeamsBatte(battle.teams.size),
+                    trans.arena.nbTeamsBattle(battle.teams.size),
                   br,
                   renderStartsAt(any)
                 ),
