@@ -523,7 +523,6 @@
   <string name="automaticallyProceedToNextGameAfterMoving">Հակառակորդի քայլից հետո ավտոմատ կերպով անցնել հաջորդ քայլին</string>
   <string name="autoSwitch">միանգամից անցնել հաջորդ խաղին</string>
   <string name="puzzles">Խնդիրներ</string>
-  <string name="tournamentWinners">Մրցաշարերի հաղթողները</string>
   <string name="name">Անուն</string>
   <string name="description">Նկարագրություն</string>
   <string name="descPrivate">Մասնավոր նկարագրություն</string>
@@ -915,8 +914,6 @@
   <string name="minimumRatedGames">Նվազագույն վարկանիշային խաղեր</string>
   <string name="minimumRating">Նվազագույն վարկանիշ</string>
   <string name="maximumWeeklyRating">Առավելագույն ամենշաբաթյա վարկանիշ</string>
-  <string name="onlyTitled">Միայն տիտղոսավոր խաղացողներ</string>
-  <string name="onlyTitledHelp">Պահանջում է պաշտոնական տիտղոս մրցաշարին մասնակցելու համար</string>
   <string name="positionInputHelp">Տեղադրեք FEN-ի ճիշտ տողը, որպեսզի յուրաքանչյուր խաղ սկսվի տվյալ դիրքից:
 Սա աշխատում է միայն ստանդարտ խաղերի համար, բայց ոչ տարբերակների հետ:
 Դուք կարող եք օգտագործել %s՝ FEN դիրքը ստեղծելու համար, այնուհետև տեղադրեք այն այստեղ:
