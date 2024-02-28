@@ -530,7 +530,7 @@
   <string name="automaticallyProceedToNextGameAfterMoving">بەشێوەیەکی خۆکارانە دوای جوڵەکردن دەچێتە یاری داهاتوو</string>
   <string name="autoSwitch">گۆڕینی خۆکارانە</string>
   <string name="puzzles">مەتەڵەکان</string>
-  <string name="tournamentWinners">براوەکانی پاڵەوانیەتی</string>
+  <string name="onlineBots">بۆتی ئۆنلاین</string>
   <string name="name">ناو</string>
   <string name="description">باسکردن</string>
   <string name="descPrivate">باسێکی تایبەت</string>
@@ -928,8 +928,6 @@
   <string name="minimumRatedGames">کەمترین یارییەکانی ڕیزبەندی</string>
   <string name="minimumRating">کەمترین ڕیزبەندی</string>
   <string name="maximumWeeklyRating">زۆرترین ڕیزبەندی هەفتانە</string>
-  <string name="onlyTitled">تەنها یاریزانی خاوەن نازناو</string>
-  <string name="onlyTitledHelp">پێویستە نازناوی فەرمیت هەبێت بۆ بەشداریکردن لە پاڵەوانیەتییەکە</string>
   <string name="positionInputHelp">FEN ێکی دروست لێبدە بۆ دەستپێکردنی هەموو یارییەک لە شوێنێکی دیاریکراوەوە.
  تەنها بۆ یارییە ستانداردەکان کاردەکات.
  دەتوانیت %s بەکاربهێنیت بۆ دروستکردنی شوێنی FEN، پاشان لێرەدا لێی پەیست بکە.
@@ -976,4 +974,5 @@
   <string name="ourEventTips">پێشنیارەکانمان بۆ ڕێکخستنی ئیڤێنت</string>
   <string name="lichessPatronInfo">لیچێس وێبسایتێکی خێرخوازی و بەخۆڕایە، بە بێ هیچ رێکلامێک و بە تەواوەتی سەرچاوەی سیستەمی کراوەیە.
 هەموو سەرچاوە داراییەکانی ئیشپێکردن و گەشەپێدان و بەڕێوەبردنی لەلایەن بەکارهێنەرانی خۆبەخش دابین دەکرێت.</string>
+  <string name="nothingToSeeHere">لە ئێستادا هیچ شتێک لێرەدا نابینرێت.</string>
 </resources>
