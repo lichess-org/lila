@@ -543,7 +543,6 @@ računalnu analizu, chat partije i URL za dijeljenje.</string>
   <string name="automaticallyProceedToNextGameAfterMoving">Automatski prebaci na sljedeću partiju nakon odigranog poteza</string>
   <string name="autoSwitch">Prebaci automatski</string>
   <string name="puzzles">Problemi</string>
-  <string name="tournamentWinners">Pobjednici turnira</string>
   <string name="name">Ime</string>
   <string name="description">Opis</string>
   <string name="descPrivate">Privatni opis</string>
@@ -938,8 +937,6 @@ i utječu na ocjene igrača</string>
   <string name="minimumRatedGames">Minimalni broj rejting partija</string>
   <string name="minimumRating">Minimalni rejting</string>
   <string name="maximumWeeklyRating">Maksimalni tjedni rejting</string>
-  <string name="onlyTitled">Samo igrači s titulom</string>
-  <string name="onlyTitledHelp">Zahtijevajte službenu titulu radi pridruživanja turniru</string>
   <string name="positionInputHelp">Zalijepite važeći FEN da biste započeli svaku igru s određene pozicije.
 Radi samo za standardne igre, ne i za varijante.
 Možete koristiti %s za generiranje FEN pozicije, a zatim ga zalijepite ovdje.
