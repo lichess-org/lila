@@ -531,7 +531,6 @@
   <string name="automaticallyProceedToNextGameAfterMoving">Automatisk videre til næste spil efter træk</string>
   <string name="autoSwitch">Autoskift</string>
   <string name="puzzles">Taktikopgaver</string>
-  <string name="tournamentWinners">Turneringsvindere</string>
   <string name="name">Navn</string>
   <string name="description">Beskrivelse</string>
   <string name="descPrivate">Privat beskrivelse</string>
@@ -940,8 +939,6 @@ og påvirker spilleres ratings</string>
   <string name="minimumRatedGames">Minimum ratede partier</string>
   <string name="minimumRating">Minimum rating</string>
   <string name="maximumWeeklyRating">Maksimal ugentlig rating</string>
-  <string name="onlyTitled">Kun spilere med titel</string>
-  <string name="onlyTitledHelp">Kræv en officiel titel for at deltage i turneringen</string>
   <string name="positionInputHelp">Indsæt en gyldig FEN for at starte hvert parti fra en given stilling.
 Det virker kun for standardspil, ikke med varianter.
 Du kan bruge %s til at generere en FEN-stilling og derefter indsætte den her.
