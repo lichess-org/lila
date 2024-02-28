@@ -913,7 +913,7 @@ object I18nKeys:
     val `recentlyPlayed` = I18nKey("arena:recentlyPlayed")
     val `bestResults` = I18nKey("arena:bestResults")
     val `stats` = I18nKey("arena:stats")
-    val `xTournamentStats` = I18nKey("arena:xTournamentStats")
+    val `tournamentStats` = I18nKey("arena:tournamentStats")
     val `rankAvgHelp` = I18nKey("arena:rankAvgHelp")
     val `medians` = I18nKey("arena:medians")
     val `allAveragesAreX` = I18nKey("arena:allAveragesAreX")

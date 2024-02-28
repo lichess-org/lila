@@ -53,7 +53,7 @@ object shields:
           boxTop(
             h1(
               a(href := routes.Tournament.shields, dataIcon := licon.LessThan, cls := "text"),
-              frag(categ.name, " • ", trans.tournamentShields())
+              frag(categ.name, " • ", trans.arena.tournamentShields())
             )
           ),
           ol(awards.map { aw =>

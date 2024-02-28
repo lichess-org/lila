@@ -100,7 +100,7 @@ object bits:
     trans.team.teamPage,
     trans.arena.pickYourTeam,
     trans.arena.whichTeamWillYouRepresentInThisBattle,
-    trans.arena.youMustJoinOneOfTheseTeamsToTarticipate
+    trans.arena.youMustJoinOneOfTheseTeamsToParticipate
   )
 
   private val schedulei18nKeys = List(
