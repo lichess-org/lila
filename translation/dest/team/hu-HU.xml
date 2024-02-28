@@ -50,7 +50,6 @@ Azok a játékosok akik nem szeretnek üzeneteket kapni akár ki is léphetnek.<
   <string name="entryCodeDescriptionForLeader">(Nem kötelező) Egyszeri kód amit az új tagoknak ismerniük kell a csapathoz való csatlakozáshoz.</string>
   <string name="incorrectEntryCode">Érvénytelen belépési kód.</string>
   <string name="teamAlreadyExists">Ez a csapat már létezik.</string>
-  <string name="upcomingTourns">Közelgő versenyek</string>
   <string name="completedTourns">Véget ért versenyek</string>
   <string name="declinedRequests">Visszautasított kérelmek</string>
   <string name="joinLichessVariantTeam">Csatlakozz a hivatalos %s csapathoz, hogy értesülj hírekről és eseményekről</string>
