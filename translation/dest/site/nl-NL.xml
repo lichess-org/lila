@@ -531,6 +531,7 @@
   <string name="automaticallyProceedToNextGameAfterMoving">Na je zet direct doorgaan naar de volgende partij</string>
   <string name="autoSwitch">Automatische switch</string>
   <string name="puzzles">Puzzels</string>
+  <string name="onlineBots">Online bots</string>
   <string name="name">Naam</string>
   <string name="description">Beschrijving</string>
   <string name="descPrivate">Interne beschrijving</string>
