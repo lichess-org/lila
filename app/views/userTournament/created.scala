@@ -19,14 +19,14 @@ object created:
       path = path,
       moreJs = infiniteScrollTag
     ):
-      if pager.nbResults == 0 then div(cls := "box-pad")(trans.arena.xHasNotCreatedAnyTourYet(u.username))
+      if pager.nbResults == 0 then div(cls := "box-pad")(trans.arena.thisPlayerHasNotCreatedAnyTourYet(u.username))
       else
         div(cls := "tournament-list")(
           table(cls := "slist")(
             thead(
               tr(
                 th(cls := "count")(pager.nbResults),
-                th(colspan := 2)(h1(trans.arena.xTournaments(userLink(u, withOnline = true)))),
+                th(colspan := 2)(h1(frag(userLink(u, withOnline = true), " • ", trans.tournaments()))),
                 th(trans.winner()),
                 th(trans.players())
               )

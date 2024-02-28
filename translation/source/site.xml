@@ -989,8 +989,4 @@ Leave empty to start games from the normal initial position.</string>
   <string name="showMeEverything">Show me everything</string>
   <string name="lichessPatronInfo">Lichess is a charity and entirely free/libre open source software.
 All operating costs, development, and content are funded solely by user donations.</string>
-  <string name="created">Created</string>
-  <string name="recentlyPlayed">Recently played</string>
-  <string name="bestResults">Best results</string>
-  <string name="stats">Stats</string>
 </resources>

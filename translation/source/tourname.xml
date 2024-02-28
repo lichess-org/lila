@@ -44,6 +44,5 @@
   <string name="eliteXArena">Elite %s Arena</string>
   <string name="eliteX">Elite %s</string>
   <string name="maxRatingXArena">≤ %1$s %2$s Arena</string>
-  <string name="maxRatingX">≤ %1$s %2$s</string>
   <string name="xArena">%s Arena</string>
 </resources>

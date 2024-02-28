@@ -36,7 +36,7 @@ export function joinWithTeamSelector(ctrl: TournamentController) {
               ),
             ]
           : [
-              h('p', ctrl.trans.noarg('youMustJoinOneOfTheseTeamsToTarticipate')),
+              h('p', ctrl.trans.noarg('youMustJoinOneOfTheseTeamsToParticipate')),
               h(
                 'ul',
                 shuffleArray(Object.keys(tb.teams)).map((id: string) =>

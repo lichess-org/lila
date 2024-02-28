@@ -10,10 +10,10 @@ object chart:
   def apply(u: User, data: lila.tournament.LeaderboardApi.ChartData)(using PageContext) =
     bits.layout(u, title = s"${u.username} tournaments", path = "chart"):
       div(cls := "tournament-stats")(
-        boxTop(h1(trans.arena.xTournamentStats(userLink(u, withOnline = true)))),
+        boxTop(h1(frag(userLink(u, withOnline = true), " • ", trans.arena.tournamentStats()))),
         p(cls := "box__pad")(trans.arena.rankAvgHelp()),
         p(cls := "box__pad")(
-          trans.arena.allaveragesAreX:
+          trans.arena.allAveragesAreX:
             a(href := "https://www.dictionary.com/e/average-vs-mean-vs-median-vs-mode")(trans.arena.medians())
         ),
         table(cls := "slist slist-pad perf-results")(

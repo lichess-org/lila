@@ -50,7 +50,7 @@ Play fast and return to the lobby to play more games and win more points.</strin
     <item quantity="other">View all %s teams</item>
   </plurals>
   <string name="newTeamBattle">New Team Battle</string>
-  <string name="nbTeamsBatte">%s Team Battle</string>
+  <string name="nbTeamsBatte">%s teams battle</string>
   <string name="customStartDate">Custom start date</string>
   <string name="customStartDateHelp">In your own local timezone. This overrides the "Time before tournament starts" setting</string>
   <string name="allowBerserk">Allow Berserk</string>
@@ -68,26 +68,26 @@ Play fast and return to the lobby to play more games and win more points.</strin
   <string name="defender">Defender</string>
   <string name="pickYourTeam">Pick your team</string>
   <string name="whichTeamWillYouRepresentInThisBattle">Which team will you represent in this battle?</string>
-  <string name="youMustJoinOneOfTheseTeamsToTarticipate">You must join one of these teams to participate!</string>
-  <string name="xTournamentStats">%s tournament stats</string>
+  <string name="youMustJoinOneOfTheseTeamsToParticipate">You must join one of these teams to participate!</string>
+  <string name="created">Created</string>
+  <string name="recentlyPlayed">Recently played</string>
+  <string name="bestResults">Best results</string>
+  <string name="stats">Stats</string>
+  <string name="tournamentStats">Tournament stats</string>
   <string name="rankAvgHelp">The rank average is a percentage of your ranking. Lower is better.
 
 For instance, being ranked 3 in a tournament of 100 players = 3%%. Being ranked 10 in a tournament of 1000 players = 1%%.</string>
   <string name="medians">medians</string>
-  <string name="allaveragesAreX">All averages on this page are %s.</string>
+  <string name="allAveragesAreX">All averages on this page are %s.</string>
   <string name="total">Total</string>
   <string name="pointsAvg">Points average</string>
   <string name="pointsSum">Points sum</string>
   <string name="rankAvg">Rank average</string>
-  <string name="xTournaments">%s tournaments</string>
-  <string name="xHasNotCreatedAnyTourYet">%s has not created any tournament yet!</string>
-  <string name="xHasNotPlayedInAnyTourYet">%s has not played in any tournament yet!</string>
-  <string name="xHasNotJoinedAnyTourYet">%s has not joined any tournament yet</string>
-  <string name="xUpcomingTournaments">%s upcoming tournaments</string>
+  <string name="thisPlayerHasNotCreatedAnyTourYet">This player has not created any tournament yet.</string>
+  <string name="thisPlayerHasNotPlayedInAnyTourYet">This player has not played in any tournament yet.</string>
+  <string name="thisPlayerHasNotJoinedAnyTourYet">his player has not joined any tournament yet.</string>
   <string name="tournamentWinners">Tournament winners</string>
   <string name="tournamentShields">Tournament shields</string>
-  <string name="xShields">%s shields</string>
   <string name="onlyTitled">Only titled players</string>
   <string name="onlyTitledHelp">Require an official title to join the tournament</string>
-  <string name="onlyTitledPlayers">Only titled players</string>
 </resources>

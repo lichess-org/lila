@@ -18,14 +18,14 @@ object list:
       pager: Paginator[lila.tournament.LeaderboardApi.TourEntry],
       count: String
   )(using Lang) =
-    if pager.nbResults == 0 then div(cls := "box-pad")(trans.arena.xHasNotPlayedInAnyTourYet(u.username))
+    if pager.nbResults == 0 then div(cls := "box-pad")(trans.arena.thisPlayerHasNotPlayedInAnyTourYet(u.username))
     else
       div(cls := "tournament-list")(
         table(cls := "slist")(
           thead(
             tr(
               th(cls := "count")(count),
-              th(h1(trans.arena.xTournaments(userLink(u, withOnline = true)))),
+              th(h1(frag(userLink(u, withOnline = true), trans.tournaments()))),
               th(trans.games()),
               th(trans.points()),
               th(trans.rank())

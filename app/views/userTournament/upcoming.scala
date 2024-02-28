@@ -14,14 +14,14 @@ object upcoming:
       title = s"${u.username} upcoming tournaments",
       path = "upcoming"
     ):
-      if pager.nbResults == 0 then div(cls := "box-pad")(trans.arena.xHasNotJoinedAnyTourYet(u.username))
+      if pager.nbResults == 0 then div(cls := "box-pad")(trans.arena.thisPlayerHasNotJoinedAnyTourYet(u.username))
       else
         div(cls := "tournament-list")(
           table(cls := "slist")(
             thead(
               tr(
                 th(cls := "count")(pager.nbResults),
-                th(colspan := 2)(h1(trans.arena.xUpcomingTournaments(userLink(u, withOnline = true)))),
+                th(colspan := 2)(h1(frag(userLink(u, withOnline = true)), " • ", trans.team.upcomingTourns())),
                 th(trans.players())
               )
             ),

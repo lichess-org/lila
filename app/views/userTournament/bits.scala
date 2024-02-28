@@ -39,20 +39,20 @@ object bits:
       main(cls := "page-menu")(
         views.html.site.bits.pageMenuSubnav(
           a(cls := path.active("created"), href := routes.UserTournament.path(u.username, "created"))(
-            trans.created()
+            trans.arena.created()
           ),
           ctx.is(u) option
             a(cls := path.active("upcoming"), href := routes.UserTournament.path(u.username, "upcoming"))(
               trans.broadcast.upcoming()
             ),
           a(cls := path.active("recent"), href := routes.UserTournament.path(u.username, "recent"))(
-            trans.recentlyPlayed()
+            trans.arena.recentlyPlayed()
           ),
           a(cls := path.active("best"), href := routes.UserTournament.path(u.username, "best"))(
-            trans.bestResults()
+            trans.arena.bestResults()
           ),
           a(cls := path.active("chart"), href := routes.UserTournament.path(u.username, "chart"))(
-            trans.stats()
+            trans.arena.stats()
           )
         ),
         div(cls := "page-menu__content box")(body)
