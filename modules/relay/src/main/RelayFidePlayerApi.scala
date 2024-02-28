@@ -11,11 +11,15 @@ final private class RelayFidePlayerApi(playerApi: FidePlayerApi)(using Executor)
   def enrichGames(tour: RelayTour)(games: RelayGames): Fu[RelayGames] =
     val tc = guessTimeControl(tour) | FideTC.standard
     games.traverse: game =>
-      (game.tags.fideIds zip game.tags.names zip game.tags.titles)
-        .traverse:
-          case ((fideId, name), title) => playerApi.guessPlayer(fideId, name, UserTitle from title)
-        .map: guesses =>
-          game.copy(tags = update(game.tags, tc, guesses))
+      enrichTags(game.tags, tc).map: tags =>
+        game.copy(tags = tags)
+
+  private def enrichTags(tags: Tags, tc: FideTC): Fu[Tags] =
+    (tags.fideIds zip tags.names zip tags.titles)
+      .traverse:
+        case ((fideId, name), title) => playerApi.guessPlayer(fideId, name, UserTitle from title)
+      .map:
+        update(tags, tc, _)
 
   private def guessTimeControl(tour: RelayTour): Option[FideTC] =
     tour.description.split('|').lift(2).map(_.trim.toLowerCase.replace("classical", "standard")) so: tcStr =>
