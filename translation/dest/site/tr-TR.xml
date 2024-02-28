@@ -530,7 +530,6 @@
   <string name="automaticallyProceedToNextGameAfterMoving">Hamle yaptıktan sonra otomatik olarak diğer oyuna geç</string>
   <string name="autoSwitch">Otomatik Seç</string>
   <string name="puzzles">Bulmacalar</string>
-  <string name="tournamentWinners">Turnuva şampiyonları</string>
   <string name="name">İsim</string>
   <string name="description">Açıklama</string>
   <string name="descPrivate">Üyelere özel açıklama</string>
@@ -937,8 +936,6 @@
   <string name="minimumRatedGames">En düşük puanlı oyunlar</string>
   <string name="minimumRating">En düşük puan</string>
   <string name="maximumWeeklyRating">Haftalık en yüksek puan</string>
-  <string name="onlyTitled">Sadece unvanlı oyuncular</string>
-  <string name="onlyTitledHelp">Sadece resmî bir unvana sahip oyuncular turnuvaya katılsın</string>
   <string name="positionInputHelp">Her oyunda belirli bir pozisyondan başlamak için geçerli FEN yazınız.
 Sadece standart oyunlarda çalışır, varyantlarda çalışmaz.
 FEN pozisyonu oluşturmak için %s kullanıp buraya yazabilirsiniz.
