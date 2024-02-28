@@ -40,7 +40,7 @@ object player:
             td(a(href := routes.Fide.show(player.id, player.slug))(player.name)),
             withFlag option td:
               player.fed.map: fed =>
-                federation.flag(fed, Federation.name(fed))
+                a(href := routes.Fide.federation(Federation.name(fed)))(federation.flag(fed, Federation.name(fed)))
             ,
             td(player.standard),
             td(player.rapid),
