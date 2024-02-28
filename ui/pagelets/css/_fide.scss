@@ -91,6 +91,11 @@
       color: $c-brag;
     }
   }
+  &__kosovo {
+    font-size: 0.8em;
+    color: $c-font-dim;
+    font-style: italic;
+  }
 }
 .fide-player {
   &__federation {

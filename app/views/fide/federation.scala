@@ -58,7 +58,8 @@ object federation:
       cls := "fide-federation",
       div(cls := "box__top fide-federation__head")(
         flag(fed.id, fed.id),
-        div(h1(fed.name), p(trans.nbPlayers.plural(fed.nbPlayers, fed.nbPlayers.localize)))
+        div(h1(fed.name), p(trans.nbPlayers.plural(fed.nbPlayers, fed.nbPlayers.localize))),
+        fed.id == "KOS" option p(cls := "fide-federation__kosovo")(kosovoText)
       ),
       div(cls := "fide-cards fide-federation__cards box__pad")(
         bits.tcTrans.map: (tc, name) =>
@@ -79,3 +80,6 @@ object federation:
         title = "Players"
       )
     )
+
+  private val kosovoText =
+    """All reference to Kosovo, whether to the territory, institutions or population, in this text shall be understood in full compliance with United Nations Security Council Resolution 1244 and without prejudice to the status of Kosovo"""
