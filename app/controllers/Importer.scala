@@ -51,7 +51,7 @@ final class Importer(env: Env) extends LilaController(env):
                         lila.fishnet.Work.Sender(
                           userId = me,
                           ip = ctx.ip.some,
-                          mod = isGranted(_.UserEvaluate) || isGranted(_.Relay),
+                          mod = isGranted(_.UserEvaluate),
                           system = false
                         )
                       )

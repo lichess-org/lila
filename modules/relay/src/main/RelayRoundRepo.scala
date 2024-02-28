@@ -46,6 +46,9 @@ final private class RelayRoundRepo(val coll: Coll)(using Executor):
   def deleteByTour(tour: RelayTour): Funit =
     coll.delete.one(selectors.tour(tour.id)).void
 
+  def studyIdsOf(tourId: RelayTour.Id): Fu[List[StudyId]] =
+    coll.distinctEasy[StudyId, List]("_id", selectors tour tourId)
+
 private object RelayRoundRepo:
 
   object sort:

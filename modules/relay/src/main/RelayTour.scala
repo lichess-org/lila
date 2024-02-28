@@ -20,8 +20,8 @@ case class RelayTour(
     spotlight: Option[RelayTour.Spotlight] = None,
     autoLeaderboard: Boolean = true,
     teamTable: Boolean = false,
-    players: Option[RelayPlayers] = None,
-    teams: Option[RelayTeams] = None,
+    players: Option[RelayPlayersTextarea] = None,
+    teams: Option[RelayTeamsTextarea] = None,
     image: Option[PicfitImage.Id] = None
 ):
   lazy val slug =
@@ -32,7 +32,7 @@ case class RelayTour(
 
   def official = tier.isDefined
 
-  def reAssignIfOfficial = if official then copy(ownerId = User.broadcasterId) else this
+  def giveToBroadcasterIf(cond: Boolean) = if cond then copy(ownerId = User.broadcasterId) else this
 
   def path: String = s"/broadcast/$slug/$id"
 

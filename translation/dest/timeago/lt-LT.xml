@@ -80,4 +80,16 @@
     <item quantity="many">Prieš %s metų</item>
     <item quantity="other">Prieš %s metų</item>
   </plurals>
+  <plurals name="nbMinutesRemaining">
+    <item quantity="one">Liko %s minutė</item>
+    <item quantity="few">Liko %s minutės</item>
+    <item quantity="many">Liko %s minučių</item>
+    <item quantity="other">Liko %s minučių</item>
+  </plurals>
+  <plurals name="nbHoursRemaining">
+    <item quantity="one">Liko %s valanda</item>
+    <item quantity="few">Liko %s valandos</item>
+    <item quantity="many">Liko %s valandų</item>
+    <item quantity="other">Liko %s valandų</item>
+  </plurals>
 </resources>

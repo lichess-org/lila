@@ -4,8 +4,9 @@
   <string name="friendBlogs">நண்பர்களின் வலைப்பதிவுகள்</string>
   <string name="likedBlogs">வலைப்பதிவு இடுகைகளை விரும்பியுள்ளார்</string>
   <string name="blogTopics">வலைப்பதிவின் தலைப்புகள்</string>
+  <string name="lichessOfficialBlog">Lichess-ன் அதிகாரப்பூர்வ வலைப்பதிவு</string>
   <string name="continueReadingPost">இந்த இடுகையைத் தொடர்ந்து படிக்கவும்</string>
-  <string name="lichessBlogPostsFromXYear" comment="Appears on a list of posts from the official Lichess Blog, which were published in a specific year.&#10;&#10;%s is the specific year of posts from the official blog (e.g. 2021).">%s ஆண்டின் Lichess வலைப்பதிவுகள்</string>
+  <string name="lichessBlogPostsFromXYear">%s ஆண்டின் Lichess வலைப்பதிவுகள்</string>
   <string name="previousBlogPosts">முந்தைய வலைப்பதிவு இடுகைகள்</string>
   <string name="xBlog">%s இன் வலைப்பதிவு</string>
   <string name="newPost">புதிய இடுகை</string>
@@ -51,4 +52,5 @@
   <string name="inappropriateContentAccountClosed">முறையற்ற எதுவும் உங்கள் கணக்கை மூடக்கூடும்.</string>
   <string name="blogTips">சிறந்த வலைப்பதிவு இடுகைகளை எழுத எங்கள் எளிய குறிப்புகள்</string>
   <string name="discussThisBlogPostInTheForum">இந்த வலைப்பதிவு இடுகையை மன்றத்தில் விவாதிக்கவும்</string>
+  <string name="youBlockedByBlogAuthor">வலைப்பதிவாளரால் நீங்கள் தடைசெய்யப் பட்டுள்ளீர்கள்.</string>
 </resources>

@@ -69,7 +69,7 @@ object roundForm:
       form3.globalError(form),
       form3.split(
         form3.group(form("name"), roundName(), half = true)(form3.input(_)(autofocus)),
-        isGranted(_.Relay) option form3.group(
+        isGranted(_.StudyAdmin) option form3.group(
           form("caption"),
           "Homepage spotlight custom round name",
           help = raw("Leave empty to use the round name").some,
@@ -117,7 +117,7 @@ object roundForm:
           ).some,
           half = true
         )(form3.input(_, typ = "number")),
-        isGranted(_.Relay) option
+        isGranted(_.StudyAdmin) option
           form3.group(
             form("period"),
             periodInSeconds(),

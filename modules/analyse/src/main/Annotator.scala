@@ -1,7 +1,5 @@
 package lila.analyse
 
-import monocle.syntax.all.*
-
 import chess.format.pgn.{ Glyphs, Move, Pgn, Tag, PgnStr, Comment }
 import chess.opening.*
 import chess.{ Color, Tree, Variation, Status, Ply }

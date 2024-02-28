@@ -83,11 +83,12 @@ $player-height: 1.6rem;
   }
 
   .info {
+    @extend %flex-center-nowrap;
     margin-#{$start-direction}: 10px;
-    display: flex;
     overflow: hidden;
 
-    > * {
+    .team,
+    .name {
       overflow: hidden;
       text-overflow: ellipsis;
       max-width: fit-content;
@@ -105,6 +106,10 @@ $player-height: 1.6rem;
     padding: 0 1ch;
     flex: 2;
     color: $c-font-dim;
+  }
+  .flag {
+    height: 1em;
+    margin-#{$end-direction}: 1ch;
   }
 
   .elo {

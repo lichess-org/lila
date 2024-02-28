@@ -105,7 +105,7 @@ object Appeal:
       none                 -> Left(licon.User)
     )
     val byName: Map[String, Filter] =
-      UserMark.byKey.mapValues(userMark => Filter(userMark.some)).toMap + ("clean" -> Filter(none))
+      UserMark.byKey.view.mapValues(userMark => Filter(userMark.some)).toMap + ("clean" -> Filter(none))
 
 case class AppealMsg(
     by: UserId,

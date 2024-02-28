@@ -108,6 +108,12 @@ GET   /player/online                   controllers.User.online
 GET   /api/player/autocomplete         controllers.User.autocomplete
 GET   /api/player                      controllers.User.apiList
 
+# FIDE Player
+GET   /fide                            controllers.Fide.index(page: Int ?= 1, q: Option[String] ?= None)
+GET   /fide/federation                 controllers.Fide.federations(page: Int ?= 1)
+GET   /fide/federation/:name           controllers.Fide.federation(name, page: Int ?= 1)
+GET   /fide/:fideId/:name              controllers.Fide.show(fideId: Int, name, page: Int ?= 1)
+
 GET   /dasher                          controllers.Dasher.get
 
 # Blog

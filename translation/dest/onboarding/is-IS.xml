@@ -1,2 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+  <string name="welcome">Velkomin!</string>
+  <string name="welcomeToLichess">Velkomin(n) á lichess.org!</string>
+  <string name="thisIsYourProfilePage">Þetta er forsíðan þín.</string>
+  <string name="enabledKidModeSuggestion" comment="%s is 'Kid mode'.">Mun barn nota þennan aðgang? Þú gætir viljað virkja %s.</string>
+  <string name="whatNowSuggestions">Hvað nú? Hér eru nokkrar tillögur:</string>
+  <string name="learnChessRules">Læra mannganginn</string>
+</resources>
