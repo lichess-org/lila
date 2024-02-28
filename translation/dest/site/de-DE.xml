@@ -531,7 +531,6 @@
   <string name="automaticallyProceedToNextGameAfterMoving">Nach dem Zug automatisch zur nächsten Partie gehen</string>
   <string name="autoSwitch">Automatischer Wechsel</string>
   <string name="puzzles">Aufgaben</string>
-  <string name="tournamentWinners">Turniersieger</string>
   <string name="name">Name</string>
   <string name="description">Beschreibung</string>
   <string name="descPrivate">Interne Beschreibung</string>
@@ -940,8 +939,6 @@ und beeinflussen die Wertungszahl der Spieler</string>
   <string name="minimumRatedGames">Mindestanzahl gewerteter Partien</string>
   <string name="minimumRating">Niedrigste Wertungszahl</string>
   <string name="maximumWeeklyRating">Höchste Wertungszahl in dieser Woche</string>
-  <string name="onlyTitled">Nur Spieler mit Titel</string>
-  <string name="onlyTitledHelp">Benötigt einen offiziellen Titel, um dem Turnier beizutreten</string>
   <string name="positionInputHelp">Füge eine gültige FEN ein, um jede Partie aus einer gegebenen Stellung zu beginnen.
 Das funktioniert nur für Standardspiele, nicht für Varianten.
 Du kannst den %s verwenden, um eine FEN-Stellung zu generieren und diese dann hier einfügen.
