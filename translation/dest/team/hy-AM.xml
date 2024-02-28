@@ -50,7 +50,6 @@
   <string name="entryCodeDescriptionForLeader">(Պարտադիր չէ) Կոդ, որը պետք է իմանան նոր անդամները՝ թիմում ընդգրկվելու համար։</string>
   <string name="incorrectEntryCode">Մուտքի սխալ կոդ։</string>
   <string name="teamAlreadyExists">Այդպիսի թիմ արդեն գոյություն ունի։</string>
-  <string name="upcomingTourns">Գալիք մրցաշարեր</string>
   <string name="completedTourns">Ավարտված մրցաշարեր</string>
   <string name="declinedRequests">Մերժված հայտեր</string>
   <string name="joinLichessVariantTeam">Անդամագրվեք %s ակումբին՝ նորություններին և իրադարձություններին տեղեկացված լինելու համար</string>
