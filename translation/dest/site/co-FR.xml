@@ -482,7 +482,6 @@
   <string name="automaticallyProceedToNextGameAfterMoving">Passà di modu automaticu à a prossima partita dopu à u colpu</string>
   <string name="autoSwitch">Auto cambiamentu</string>
   <string name="puzzles">Puzzle</string>
-  <string name="tournamentWinners">Vincitori di i turnei</string>
   <string name="name">Nome</string>
   <string name="description">Descrizzione</string>
   <string name="descPrivate">Descrizzione privata</string>
@@ -859,8 +858,6 @@
   <string name="minimumRatedGames">Minimu di partite classificate</string>
   <string name="minimumRating">Classifica minimale</string>
   <string name="maximumWeeklyRating">Classifica massimale durante a settimana</string>
-  <string name="onlyTitled">Soltantu ghjucadori cù un titulu</string>
-  <string name="onlyTitledHelp">Ci vole un titulu ufficiale pè ghjunghje u turneu</string>
   <string name="positionInputHelp">Incollate un FEN validu pè principà tutte e partite cù una pusizione scelta.
 Viaghja soltantu cù e partite classiche, ùn viaghja cù e variante.
 Pudete aduprà u %s pè creà a pusizione FEN, pò incollà la.
