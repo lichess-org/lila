@@ -50,7 +50,6 @@ Os jogadores que não gostam de receber as tuas mensagens podem sair da equipa.<
   <string name="entryCodeDescriptionForLeader">(Opcional) Um código de entrada que os novos membros devem saber para se juntarem a esta equipa.</string>
   <string name="incorrectEntryCode">Código incorreto.</string>
   <string name="teamAlreadyExists">Esta equipa já existe.</string>
-  <string name="upcomingTourns">Próximos torneios</string>
   <string name="completedTourns">Torneios concluídos</string>
   <string name="declinedRequests">Pedidos Recusados</string>
   <string name="joinLichessVariantTeam">Junte-se à equipa oficial do %s para ficar a par de novidades e eventos</string>
