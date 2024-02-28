@@ -50,7 +50,6 @@ Os xogadores que non gosten de recibiren mensaxes poden abandonar o equipo.</str
   <string name="entryCodeDescriptionForLeader">(Opcional) Un contrasinal que os novos membros deben saber para unirse a este equipo.</string>
   <string name="incorrectEntryCode">Código de entrada incorrecto.</string>
   <string name="teamAlreadyExists">Este equipo xa existe.</string>
-  <string name="upcomingTourns">Vindeiros torneos</string>
   <string name="completedTourns">Torneos finalizados</string>
   <string name="declinedRequests">Solicitudes rexeitadas</string>
   <string name="joinLichessVariantTeam">Únete ó equipo oficial de %s para novidades e eventos</string>
