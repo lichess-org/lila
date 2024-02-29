@@ -69,5 +69,7 @@ Chơi nhanh và trở lại phòng chờ để chơi được nhiều ván và g
   <string name="stats">Thống kê</string>
   <string name="total">Tổng</string>
   <string name="pointsAvg">Điểm trung bình</string>
+  <string name="rankAvg">Thứ hạng trung bình</string>
   <string name="tournamentWinners">Các nhà vô địch giải</string>
+  <string name="onlyTitled">Chỉ những kỳ thủ có danh hiệu</string>
 </resources>
