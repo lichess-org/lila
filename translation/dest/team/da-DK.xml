@@ -61,7 +61,15 @@ Spillere som ikke bryder sig om at modtage dine beskeder forlader måske holdet.
   <string name="oneTeamPerLineHelp">Du kan copy-paste denne liste fra en turnering til en anden!
 
 Du kan ikke fjerne et hold, hvis en spiller allerede har deltaget i turneringen med det.</string>
-  <string name="numberOfLeadsPerTeam">Antal ledere per hold. Summen af deres score er holdets score.</string>
+  <string name="numberOfLeadsPerTeam">Antal ledere pr. hold. Summen af deres score er holdets score.</string>
   <string name="numberOfLeadsPerTeamHelp">Du bør bestemt ikke ændre denne værdi, efter at turneringen er startet!</string>
   <string name="innerTeam">Indre hold</string>
+  <plurals name="battleOfNbTeams">
+    <item quantity="one">Kamp mellem %s hold</item>
+    <item quantity="other">Kamp mellem %s hold</item>
+  </plurals>
+  <plurals name="nbLeadersPerTeam">
+    <item quantity="one">En leder pr. hold</item>
+    <item quantity="other">%s ledere pr. hold</item>
+  </plurals>
 </resources>
