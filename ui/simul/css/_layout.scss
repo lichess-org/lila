@@ -26,7 +26,7 @@
 
   @include breakpoint($mq-col2) {
     &:not(.simul-created) {
-      grid-template-columns: $col2-uniboard-default-width $col2-uniboard-default-table;
+      grid-template-columns: $col2-uniboard-default-width $col2-uniboard-table;
       grid-template-rows: auto max-content;
       grid-template-areas:
         'main side'
@@ -37,7 +37,7 @@
 
   @include breakpoint($mq-col3) {
     &.simul {
-      grid-template-columns: $col3-uniboard-side $col3-uniboard-default-width $col3-uniboard-default-table;
+      grid-template-columns: $col3-uniboard-side $col3-uniboard-default-width $col3-uniboard-table;
       grid-template-rows: auto fit-content(0);
       grid-template-areas:
         'side  main main'

@@ -42,7 +42,6 @@ $col3-uniboard-default-max-width: calc(
   100vh * #{$col3-uniboard-default-scale} - #{$site-header-outer-height} - #{$col3-uniboard-controls}
 );
 $col3-uniboard-default-width: minmax(#{$col3-uniboard-default-min-width}, #{$col3-uniboard-default-max-width});
-$col3-uniboard-default-table: minmax(240px, 400px);
 
 // COL 2
 
@@ -59,7 +58,6 @@ $col2-uniboard-main-max-height: $col3-uniboard-main-max-height;
 $col2-uniboard-main-size: Min(#{$col2-uniboard-main-max-width}, #{$col2-uniboard-main-max-height});
 
 $col2-uniboard-default-width: $col3-uniboard-default-width;
-$col2-uniboard-default-table: $col3-uniboard-default-table;
 
 // COL 1
 
