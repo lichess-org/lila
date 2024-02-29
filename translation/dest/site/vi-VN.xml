@@ -261,6 +261,7 @@
   <string name="abortGame">Hủy ván cờ</string>
   <string name="gameAborted">Ván cờ đã bị hủy bỏ</string>
   <string name="standard">Tiêu chuẩn</string>
+  <string name="customPosition">Thế trận tùy chỉnh</string>
   <string name="unlimited">Vô hạn</string>
   <string name="mode">Chế độ</string>
   <string name="casual">Không xếp hạng</string>
@@ -498,6 +499,7 @@ trò chuyện trong ván đấu và có một URL có thể chia sẻ công khai
   <string name="automaticallyProceedToNextGameAfterMoving">Tự động chuyển đến ván tiếp theo sau khi thực hiện nước đi</string>
   <string name="autoSwitch">Tự động chuyển</string>
   <string name="puzzles">Câu đố</string>
+  <string name="onlineBots">Các Bot trực tuyến</string>
   <string name="name">Tên</string>
   <string name="description">Mô tả</string>
   <string name="descPrivate">Mô tả riêng tư</string>
