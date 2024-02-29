@@ -54,4 +54,21 @@ Os xogadores que non gosten de recibiren mensaxes poden abandonar o equipo.</str
   <string name="declinedRequests">Solicitudes rexeitadas</string>
   <string name="joinLichessVariantTeam">Únete ó equipo oficial de %s para novidades e eventos</string>
   <string name="teamPage">Páxina do equipo</string>
+  <string name="thisTeamBattleIsOver">Este torneo rematou e os equipos xa non poden ser actualizados.</string>
+  <string name="listTheTeamsThatWillCompete">Enumera os equipos que competirán nesta batalla.</string>
+  <string name="oneTeamPerLine">Un equipo por liña. Usar o autocompletado.</string>
+  <string name="oneTeamPerLineHelp">Podes copiar esta lista dun torneo e pegala noutro!
+
+Non se pode eliminar un equipo se un dos seus xogadores se incorporou ó torneo.</string>
+  <string name="numberOfLeadsPerTeam">Número de líderes por equipo. A suma dos seus puntos é igual á puntuación do equipo.</string>
+  <string name="numberOfLeadsPerTeamHelp">Por favor, non cambies este valor unha vez que o torneo comezou!</string>
+  <string name="innerTeam">Equipo interno</string>
+  <plurals name="battleOfNbTeams">
+    <item quantity="one">Batalla de %s equipo</item>
+    <item quantity="other">Batalla de %s equipos</item>
+  </plurals>
+  <plurals name="nbLeadersPerTeam">
+    <item quantity="one">Un líder por equipo</item>
+    <item quantity="other">%s líderes por equipo</item>
+  </plurals>
 </resources>
