@@ -17,7 +17,7 @@ final class JsonView(
 
   import JsonView.given
 
-  def apply(study: Study, chapters: List[Chapter.Metadata], currentChapter: Chapter, me: Option[User]) =
+  def apply(study: Study, chapters: List[Chapter.MetadataMin], currentChapter: Chapter, me: Option[User]) =
 
     def allowed(selection: Settings => Settings.UserSelection): Boolean =
       Settings.UserSelection.allows(selection(study.settings), study, me.map(_.id))
@@ -195,7 +195,7 @@ object JsonView:
     JsArray(tags.value map Json.toJson)
   private given OWrites[Chapter.Setup] = Json.writes
 
-  given OWrites[Chapter.Metadata] = OWrites: c =>
+  given OWrites[Chapter.MetadataMin] = OWrites: c =>
     Json
       .obj("id" -> c._id, "name" -> c.name)
       .add("res" -> c.resultStr)

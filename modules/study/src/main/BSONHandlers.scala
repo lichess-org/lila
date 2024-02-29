@@ -395,18 +395,26 @@ object BSONHandlers:
 
   given BSONDocumentReader[Study.LightStudy] with
     def readDocument(doc: BSONDocument) =
-      Success(
+      Success:
         Study.LightStudy(
           isPublic = doc.string("visibility") has "public",
           contributors = doc.getAsOpt[StudyMembers]("members").so(_.contributorIds)
         )
-      )
 
-  given BSONDocumentReader[Chapter.Metadata] with
+  given BSONDocumentReader[Chapter.MetadataMin] with
     def readDocument(doc: Bdoc) = for
-      id    <- doc.getAsTry[StudyChapterId]("_id")
-      name  <- doc.getAsTry[StudyChapterName]("name")
-      setup <- doc.getAsTry[Chapter.Setup]("setup")
-      tags    = ~doc.getAsOpt[List[String]]("tags")
-      outcome = tags.find(_.startsWith("Result:")).map(_ drop 7).map(Outcome.fromResult)
-    yield Chapter.Metadata(id, name, setup, outcome)
+      id   <- doc.getAsTry[StudyChapterId]("_id")
+      name <- doc.getAsTry[StudyChapterName]("name")
+      outcome = doc
+        .getAsOpt[List[String]]("tags")
+        .flatMap:
+          _.headOption // because only the Result: tag is fetched by metadataProjection
+            .map(_ drop 7)
+            .map(Outcome.fromResult)
+    yield Chapter.MetadataMin(id, name, outcome)
+
+  given BSONDocumentReader[Chapter.MetadataExt] with
+    def readDocument(doc: Bdoc) = for
+      min <- doc.asTry[Chapter.MetadataMin]
+      tags = doc.getAsOpt[Tags]("tags")
+    yield Chapter.MetadataExt(min, tags | Tags.empty)

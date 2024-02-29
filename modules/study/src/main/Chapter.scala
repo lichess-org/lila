@@ -73,10 +73,9 @@ case class Chapter(
       createdAt = nowInstant
     )
 
-  def metadata = Chapter.Metadata(
+  def metadataMin = Chapter.MetadataMin(
     _id = _id,
     name = name,
-    setup = setup,
     outcome = tags.outcome.isDefined option tags.outcome
   )
 
@@ -101,7 +100,6 @@ object Chapter:
   trait Like:
     val _id: StudyChapterId
     val name: StudyChapterName
-    val setup: Chapter.Setup
     inline def id = _id
 
     def initialPosition = Position.Ref(id, UciPath.root)
@@ -135,14 +133,20 @@ object Chapter:
 
   type TeamName = String
 
-  case class Metadata(
+  trait Metadata extends Like:
+    val _id: StudyChapterId
+    val name: StudyChapterName
+    val outcome: Option[Option[Outcome]]
+
+  case class MetadataMin(
       _id: StudyChapterId,
       name: StudyChapterName,
-      setup: Setup,
       outcome: Option[Option[Outcome]]
   ) extends Like:
-
     def resultStr: Option[String] = outcome.map(o => Outcome.showResult(o).replace("1/2", "½"))
+
+  case class MetadataExt(min: MetadataMin, tags: Tags) extends Metadata:
+    export min.*
 
   case class IdName(id: StudyChapterId, name: StudyChapterName)
 

@@ -21,7 +21,7 @@ case class UserPractice(
 case class UserStudy(
     practice: UserPractice,
     practiceStudy: PracticeStudy,
-    chapters: List[Chapter.Metadata],
+    chapters: List[Chapter.MetadataMin],
     study: Study.WithChapter,
     section: PracticeSection
 ):

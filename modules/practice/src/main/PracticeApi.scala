@@ -42,7 +42,7 @@ final class PracticeApi(
   private def makeUserStudy(
       studyOption: Option[Study.WithChapter],
       up: UserPractice,
-      chapters: List[Chapter.Metadata]
+      chapters: List[Chapter.MetadataMin]
   ) = for
     rawSc <- studyOption
     sc = rawSc.copy(
@@ -51,9 +51,8 @@ final class PracticeApi(
     )
     practiceStudy <- up.structure study sc.study.id
     section       <- up.structure findSection sc.study.id
-    publishedChapters = chapters.filterNot { c =>
+    publishedChapters = chapters.filterNot: c =>
       PracticeStructure isChapterNameCommented c.name
-    }
     if publishedChapters.exists(_.id == sc.chapter.id)
   yield UserStudy(up, practiceStudy, publishedChapters, sc, section)
 

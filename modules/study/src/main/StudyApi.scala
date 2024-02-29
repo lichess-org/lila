@@ -33,7 +33,7 @@ final class StudyApi(
   import sequencer.*
 
   export studyRepo.{ byId, byOrderedIds as byIds, publicIdNames }
-  export chapterRepo.{ orderedMetadataByStudy as chapterMetadatas }
+  export chapterRepo.{ orderedMetadataMin as chapterMetadatas }
 
   def publicByIds(ids: Seq[StudyId]) = byIds(ids) map { _.filter(_.isPublic) }
 
@@ -169,7 +169,7 @@ final class StudyApi(
         val study = study1 rewindTo first
         studyRepo.insert(study) inject study
 
-  def resetIfOld(study: Study, chapters: List[Chapter.Metadata]): Fu[(Study, Option[Chapter])] =
+  def resetIfOld(study: Study, chapters: List[Chapter.MetadataMin]): Fu[(Study, Option[Chapter])] =
     chapters.headOption match
       case Some(c) if study.isOld && study.position != c.initialPosition =>
         val newStudy = study rewindTo c
@@ -664,7 +664,7 @@ final class StudyApi(
     sequenceStudy(studyId): study =>
       Contribute(who.u, study):
         chapterRepo.byIdAndStudy(chapterId, studyId) flatMapz { chapter =>
-          chapterRepo.orderedMetadataByStudy(studyId).flatMap { chaps =>
+          chapterRepo.orderedMetadataMin(studyId).flatMap { chaps =>
             // deleting the only chapter? Automatically create an empty one
             if chaps.sizeIs < 2 then
               chapterMaker(
@@ -794,9 +794,8 @@ final class StudyApi(
     sendTo(study.id)(_.reloadSriBecauseOf(sri, chapterId))
 
   def reloadChapters(study: Study) =
-    chapterRepo.orderedMetadataByStudy(study.id).foreach { chapters =>
+    chapterRepo.orderedMetadataMin(study.id) foreach: chapters =>
       sendTo(study.id)(_ reloadChapters chapters)
-    }
 
   private def canActAsOwner(study: Study, userId: UserId): Fu[Boolean] =
     fuccess(study isOwner userId) >>| studyRepo.isAdminMember(study, userId)

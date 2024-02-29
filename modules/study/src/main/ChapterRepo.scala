@@ -38,18 +38,27 @@ final class ChapterRepo(val coll: AsyncColl)(using Executor, akka.stream.Materia
   def existsByStudy(studyId: StudyId): Fu[Boolean] =
     coll(_ exists $studyId(studyId))
 
-  private val metadataProjection =
+  private val metadataMinProjection =
     $doc(
-      "name"  -> true,
-      "setup" -> true,
-      "tags"  -> $doc("$elemMatch" -> $doc("$regex" -> "^Result:"))
+      "name" -> true,
+      "tags" -> $doc("$elemMatch" -> $doc("$regex" -> "^Result:"))
     ).some
 
-  def orderedMetadataByStudy(studyId: StudyId): Fu[List[Chapter.Metadata]] =
+  def orderedMetadataMin(studyId: StudyId): Fu[List[Chapter.MetadataMin]] =
     coll:
-      _.find($studyId(studyId), metadataProjection)
+      _.find($studyId(studyId), metadataMinProjection)
         .sort($sort asc "order")
-        .cursor[Chapter.Metadata]()
+        .cursor[Chapter.MetadataMin]()
+        .list(300)
+
+  private val metadataExtProjection =
+    $doc("name" -> true, "tags" -> true).some
+
+  def orderedMetadataExt(studyId: StudyId): Fu[List[Chapter.MetadataExt]] =
+    coll:
+      _.find($studyId(studyId), metadataExtProjection)
+        .sort($sort asc "order")
+        .cursor[Chapter.MetadataExt]()
         .list(300)
 
   def orderedByStudySource(studyId: StudyId): Source[Chapter, ?] =

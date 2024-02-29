@@ -174,7 +174,7 @@ final class Study(
 
   private[controllers] def getJsonData(sc: WithChapter)(using ctx: Context): Fu[(WithChapter, JsData)] =
     for
-      chapters                <- env.study.chapterRepo.orderedMetadataByStudy(sc.study.id)
+      chapters                <- env.study.chapterRepo.orderedMetadataMin(sc.study.id)
       (study, resetToChapter) <- env.study.api.resetIfOld(sc.study, chapters)
       chapter = resetToChapter | sc.chapter
       _ <- env.user.lightUserApi preloadMany study.members.ids.toList
@@ -321,7 +321,7 @@ final class Study(
         data =>
           doImportPgn(id, data, Socket.Sri("api")): chapters =>
             import lila.study.JsonView.given
-            JsonOk(Json.obj("chapters" -> chapters.map(_.metadata)))
+            JsonOk(Json.obj("chapters" -> chapters.map(_.metadataMin)))
       )
   }
 
