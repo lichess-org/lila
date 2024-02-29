@@ -288,10 +288,7 @@ final class Study(
 
   private def doImportPgn(id: StudyId, data: StudyForm.importPgn.Data, sri: Socket.Sri)(
       f: List[Chapter] => Result
-  )(using
-      ctx: Context,
-      me: Me
-  ): Future[Result] =
+  )(using ctx: Context, me: Me): Future[Result] =
     val chapterDatas = data.toChapterDatas
     ImportPgnLimitPerUser(me, rateLimited, cost = chapterDatas.size):
       env.study.api.importPgns(

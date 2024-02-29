@@ -654,12 +654,10 @@ final class StudyApi(
           val newChapter = chapter.copy(
             description = data.clean.nonEmpty option data.clean
           )
-          (chapter != newChapter) so {
-            chapterRepo.update(newChapter) andDo {
+          (chapter != newChapter) so:
+            chapterRepo.update(newChapter) andDo:
               sendTo(study.id)(_.descChapter(newChapter.id, newChapter.description, who))
               indexStudy(study)
-            }
-          }
         }
 
   def deleteChapter(studyId: StudyId, chapterId: StudyChapterId)(who: Who) =
@@ -675,16 +673,13 @@ final class StudyApi(
                 1,
                 who.u,
                 withRatings = true
-              ) flatMap { c =>
+              ) flatMap: c =>
                 doAddChapter(study, c, sticky = true, who) >> doSetChapter(study, c.id, who)
-              }
             // deleting the current chapter? Automatically move to another one
             else
-              (study.position.chapterId == chapterId).so {
-                chaps.find(_.id != chapterId) so { newChap =>
+              (study.position.chapterId == chapterId).so:
+                chaps.find(_.id != chapterId) so: newChap =>
                   doSetChapter(study, newChap.id, who)
-                }
-              }
           } >> chapterRepo.delete(chapter.id) andDo reloadChapters(study)
         }
 
