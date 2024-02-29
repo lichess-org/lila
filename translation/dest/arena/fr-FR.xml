@@ -79,6 +79,7 @@ Par exemple, être classé 3e dans un tournoi de 100 joueurs = 3%. Être classé
   <string name="pointsSum">Somme des points</string>
   <string name="rankAvg">Classement moyen</string>
   <string name="tournamentWinners">Vainqueurs du tournoi</string>
+  <string name="tournamentShields">Tournoi des Boucliers</string>
   <string name="onlyTitled">Uniquement les joueurs titrés</string>
   <string name="onlyTitledHelp">Un titre officiel est requis pour pouvoir participer au tournoi</string>
 </resources>
