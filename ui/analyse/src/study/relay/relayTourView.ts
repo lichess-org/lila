@@ -11,6 +11,7 @@ import StudyCtrl from '../studyCtrl';
 import { toggle } from 'common/controls';
 import * as xhr from 'common/xhr';
 import { teamsView } from './relayTeams';
+import { userTitle } from 'common/userLink';
 
 export default function (ctrl: AnalyseCtrl): VNode | undefined {
   const study = ctrl.study;
@@ -63,14 +64,20 @@ const leaderboard = (relay: RelayCtrl, ctrl: AnalyseCtrl): VNode[] => {
           ),
           h(
             'tbody',
-            players.map(player =>
-              h('tr', [
-                h('th', player.name),
+            players.map(player => {
+              const fullName = [userTitle(player), player.name];
+              return h('tr', [
+                h(
+                  'th',
+                  player.fideId
+                    ? h('a', { attrs: { href: `/fide/${player.fideId}/redirect` } }, fullName)
+                    : fullName,
+                ),
                 withRating && player.rating ? h('td', `${player.rating}`) : undefined,
                 h('td', `${player.score}`),
                 h('td', `${player.played}`),
-              ]),
-            ),
+              ]);
+            }),
           ),
         ]),
       ]),
