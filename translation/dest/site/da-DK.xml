@@ -243,7 +243,7 @@
   <string name="accountClosed">Kontoen %s er lukket.</string>
   <string name="accountRegisteredWithoutEmail">Kontoen %s blev registreret uden en e-mail.</string>
   <string name="rank">Rang</string>
-  <string name="rankX">Rang: %s</string>
+  <string name="rankX">Rangering: %s</string>
   <plurals name="rankIsUpdatedEveryNbMinutes">
     <item quantity="one">Ranking opdateres hvert minut</item>
     <item quantity="other">Ranking opdateres hvert %s minut</item>
@@ -276,6 +276,7 @@
   <string name="abortGame">Afbryd parti</string>
   <string name="gameAborted">Partiet blev afbrudt</string>
   <string name="standard">Standard</string>
+  <string name="customPosition">Brugerdefineret stilling</string>
   <string name="unlimited">Ubegrænset</string>
   <string name="mode">Variant</string>
   <string name="casual">Uformelt</string>
@@ -531,6 +532,7 @@
   <string name="automaticallyProceedToNextGameAfterMoving">Automatisk videre til næste spil efter træk</string>
   <string name="autoSwitch">Autoskift</string>
   <string name="puzzles">Taktikopgaver</string>
+  <string name="onlineBots">Online bots</string>
   <string name="name">Navn</string>
   <string name="description">Beskrivelse</string>
   <string name="descPrivate">Privat beskrivelse</string>
@@ -987,4 +989,5 @@ Lad stå tomt for at starte partier fra den normale udgangsstilling.</string>
   <string name="showMeEverything">Vis mig alt</string>
   <string name="lichessPatronInfo">Lichess er en velgørenhedsorganisation og helt gratis/libre open source-software.
 Alle driftsomkostninger, udvikling og indhold finansieres udelukkende af brugerdonationer.</string>
+  <string name="nothingToSeeHere">Intet at se her i øjeblikket.</string>
 </resources>
