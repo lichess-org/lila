@@ -47,8 +47,24 @@
   <string name="entryCodeDescriptionForLeader">（オプション）新メンバーがこのチームに加入する時に必要なコード。</string>
   <string name="incorrectEntryCode">参加コードが違います。</string>
   <string name="teamAlreadyExists">このチームはすでに存在します。</string>
+  <string name="upcomingTournaments">今後のトーナメント</string>
   <string name="completedTourns">完了したトーナメント</string>
   <string name="declinedRequests">却下した申請</string>
   <string name="joinLichessVariantTeam">公式チーム %s にはニュースやイベント情報が</string>
   <string name="teamPage">チームのページ</string>
+  <string name="thisTeamBattleIsOver">このトーナメントは終了しており、チームの更新はできません。</string>
+  <string name="listTheTeamsThatWillCompete">このバトルに参加するチームをリストしてください。</string>
+  <string name="oneTeamPerLine">1 行に 1 チームです。オートコンプリートを使用します。</string>
+  <string name="oneTeamPerLineHelp">このリストは別のトーナメントへコピー＆ペーストできます！
+
+プレイヤーがすでに参加しているチームは削除できません。</string>
+  <string name="numberOfLeadsPerTeam">各チームのリーダー数。上位この人数のスコアの合計がチームのスコアです。</string>
+  <string name="numberOfLeadsPerTeamHelp">トーナメント開始後はこの値を変更しないように！</string>
+  <string name="innerTeam">チーム内イベント</string>
+  <plurals name="battleOfNbTeams">
+    <item quantity="other">バトル、%s チーム</item>
+  </plurals>
+  <plurals name="nbLeadersPerTeam">
+    <item quantity="other">各チーム %s 人がリーダー</item>
+  </plurals>
 </resources>
