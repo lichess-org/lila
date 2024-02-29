@@ -171,7 +171,7 @@ export function side(ctrl: StudyCtrl): VNode {
     );
 
   const chaptersTab =
-    (tourShow && ctrl.looksNew() && !ctrl.members.canContribute()) ||
+    (tourShow && ctrl.chapters.looksNew() && !ctrl.members.canContribute()) ||
     makeTab(
       'chapters',
       ctrl.trans.pluralSame(ctrl.relay ? 'nbGames' : 'nbChapters', ctrl.chapters.list().length),

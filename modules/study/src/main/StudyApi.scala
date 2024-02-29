@@ -169,7 +169,7 @@ final class StudyApi(
         val study = study1 rewindTo first
         studyRepo.insert(study) inject study
 
-  def resetIfOld(study: Study, chapters: List[Chapter.MetadataMin]): Fu[(Study, Option[Chapter])] =
+  def resetIfOld(study: Study, chapters: List[Chapter.Metadata]): Fu[(Study, Option[Chapter])] =
     chapters.headOption match
       case Some(c) if study.isOld && study.position != c.initialPosition =>
         val newStudy = study rewindTo c

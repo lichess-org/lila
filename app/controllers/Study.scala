@@ -173,8 +173,13 @@ final class Study(
     .dmap(_.noCache)
 
   private[controllers] def getJsonData(sc: WithChapter)(using ctx: Context): Fu[(WithChapter, JsData)] =
+    env.study.chapterRepo.orderedMetadataMin(sc.study.id) flatMap:
+      getJsonData(sc, _)
+
+  private[controllers] def getJsonData(sc: WithChapter, chapters: List[Chapter.Metadata])(using
+      ctx: Context
+  ): Fu[(WithChapter, JsData)] =
     for
-      chapters                <- env.study.chapterRepo.orderedMetadataMin(sc.study.id)
       (study, resetToChapter) <- env.study.api.resetIfOld(sc.study, chapters)
       chapter = resetToChapter | sc.chapter
       _ <- env.user.lightUserApi preloadMany study.members.ids.toList

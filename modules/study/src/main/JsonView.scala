@@ -17,7 +17,7 @@ final class JsonView(
 
   import JsonView.given
 
-  def apply(study: Study, chapters: List[Chapter.MetadataMin], currentChapter: Chapter, me: Option[User]) =
+  def apply(study: Study, chapters: List[Chapter.Metadata], currentChapter: Chapter, me: Option[User]) =
 
     def allowed(selection: Settings => Settings.UserSelection): Boolean =
       Settings.UserSelection.allows(selection(study.settings), study, me.map(_.id))
@@ -195,10 +195,17 @@ object JsonView:
     JsArray(tags.value map Json.toJson)
   private given OWrites[Chapter.Setup] = Json.writes
 
-  given OWrites[Chapter.MetadataMin] = OWrites: c =>
+  val metadataMinWrites: OWrites[Chapter.MetadataMin] = OWrites: c =>
     Json
       .obj("id" -> c._id, "name" -> c.name)
       .add("res" -> c.resultStr)
+  val metadataExtWrites: OWrites[Chapter.MetadataExt] = OWrites: c =>
+    val players = (c.tags.titles zip c.tags.names zip c.tags.elos zip c.tags.fideIds).mapList:
+      case (((t, n), e), f) => Json.arr(t, n, e, f)
+    metadataMinWrites.writes(c.min) ++ Json.obj("players" -> players)
+  given OWrites[Chapter.Metadata] = OWrites:
+    case c: Chapter.MetadataMin => metadataMinWrites.writes(c)
+    case c: Chapter.MetadataExt => metadataExtWrites.writes(c)
 
   private[study] given Writes[Position.Ref] = Json.writes
   private[study] given Writes[Study.Liking] = Json.writes

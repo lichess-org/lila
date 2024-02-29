@@ -142,7 +142,7 @@ object Chapter:
       _id: StudyChapterId,
       name: StudyChapterName,
       outcome: Option[Option[Outcome]]
-  ) extends Like:
+  ) extends Metadata:
     def resultStr: Option[String] = outcome.map(o => Outcome.showResult(o).replace("1/2", "½"))
 
   case class MetadataExt(min: MetadataMin, tags: Tags) extends Metadata:

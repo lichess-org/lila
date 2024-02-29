@@ -79,7 +79,7 @@ final class JsonView(
       .obj("url" -> s"$baseUrl${rt.path}")
       .add("tour" -> withTour.option(rt.tour))
 
-  def withUrlAndGames(rt: RelayRound.WithTourAndStudy, games: List[Chapter.MetadataMin])(using
+  def withUrlAndGames(rt: RelayRound.WithTourAndStudy, games: List[Chapter.Metadata])(using
       Option[Me]
   ): JsObject =
     myRound(rt) ++
