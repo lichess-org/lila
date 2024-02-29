@@ -40,6 +40,19 @@
   <string name="forbiddenPairings">Emparellamentos prohibidos</string>
   <string name="forbiddenPairingsHelp">Xogadores que non poden enfrontarse (por exemplo irmáns). Dous nomes de usuario por liña, separados por un espazo.</string>
   <string name="manualPairings">Emparellamentos manuais na seguinte rolda</string>
+  <string name="manualPairingsHelp">Especificar manualmente todos os emparellamentos da seguinte rolda. Unha parella de xogadores por liña. Exemplo:
+
+XogadorA XogadorB
+XogadorC XogadorD
+
+Para darlle unha exención de rolda ou \"bye\" (1 punto) a un xogador en troques dun emparellamento, engadir unha liña coma esta:
+
+XogadorE 1
+
+Os xogadores achantados serán considerados ausentes e recibirán cero puntos.
+Deixar este campo baleiro para que o lichess cree os emparellamentos automaticamente.</string>
+  <string name="mustHavePlayedTheirLastSwissGame">Debe ter xogado a última partida nun suízo</string>
+  <string name="mustHavePlayedTheirLastSwissGameHelp">Deixar que se incorporen só os xogadores que completasen a súa última partida nun suízo. Se non se presentaron nun Torneo suízo recente, non poderán participar no teu. Deste xeito acadamos unha mellor experiencia para os xogadores que si se presentan ós Torneos suízos.</string>
   <string name="newSwiss">Novo torneo suízo</string>
   <string name="swissVsArenaQ">Cando usar torneos suízos en lugar de Arenas?</string>
   <string name="swissVsArenaA">Nun torneo suízo, todos os participantes xogan o mesmo número de partidas e só se enfrontan unha vez con cada opoñente.
@@ -116,4 +129,7 @@ O formato máis próximo a un torneo \"todos contra todos\" en liña é un torne
   <string name="predefinedUsers">Permitir unirse só a usuarios predefinidos</string>
   <string name="forbiddedUsers">Se esta lista non está baleira, ós usuarios ausentes desta lista lles estará prohibido unirse. Un nome de usuario por liña.</string>
   <string name="playYourGames">Xoga as túas partidas</string>
+  <string name="byes">Byes</string>
+  <string name="absences">Ausencias</string>
+  <string name="tieBreak">Desempate</string>
 </resources>
