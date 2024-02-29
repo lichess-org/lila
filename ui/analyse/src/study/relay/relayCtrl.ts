@@ -7,7 +7,7 @@ import { Prop, Toggle, prop, toggle } from 'common';
 import RelayTeams from './relayTeams';
 import { Redraw } from 'common/snabbdom';
 
-export const relayTabs = ['overview', 'games', 'teams', 'schedule', 'leaderboard'] as const;
+export const relayTabs = ['overview', 'games', 'teams', 'leaderboard'] as const;
 export type RelayTab = (typeof relayTabs)[number];
 
 export default class RelayCtrl {

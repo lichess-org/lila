@@ -45,35 +45,79 @@ main.has-relay-tour {
     }
   }
 
-  &__image {
-    width: 100%;
-    aspect-ratio: 2/1;
-  }
-  &__image-upload {
-    margin-top: 3em;
-    text-align: center;
-  }
-
-  &__group-title {
-    @extend %flex-center-nowrap;
-    gap: 1ch;
-  }
-
-  &__group-select {
-    flex: auto;
-    @include fluid-size('font-size', 12px, 20px);
-    .mselect__list > a {
-      gap: 1em;
-    }
-  }
-
   &__header {
-    @extend %flex-between-nowrap;
-    gap: 1em;
+    @extend %flex-center-nowrap;
+    background: $c-bg-zebra;
+    gap: 2em;
+
+    &__image {
+      // overflow: hidden;
+      flex: 0 0 38%;
+      line-height: 0;
+      img {
+        width: 100%;
+        aspect-ratio: 2/1;
+      }
+    }
+    &__image-upload {
+      margin-top: 3em;
+      text-align: center;
+    }
 
     h1 {
       flex: auto;
       @include fluid-size('font-size', 14px, 24px);
+    }
+
+    &__content {
+      @extend %flex-column;
+      gap: 1em;
+    }
+
+    &__selectors {
+      @extend %flex-center;
+      gap: 1em;
+    }
+    &__mselect {
+      flex: auto;
+      @include fluid-size('font-size', 12px, 18px);
+      .mselect__list a {
+        gap: 1em;
+      }
+    }
+    &__round-select {
+      .mselect__list {
+        @extend %flex-column;
+        left: unset;
+        right: 0;
+        overflow: hidden;
+        a {
+          @extend %flex-between-nowrap;
+          gap: 2em;
+          font-size: 1rem;
+          span {
+            flex: 1 1 auto;
+            font-weight: bold;
+          }
+          &.current::after {
+            content: none;
+          }
+          time {
+            flex: 1 1 auto;
+            font-size: 0.8em;
+          }
+          ongoing {
+            color: $c-red;
+          }
+          finished {
+            color: $c-good;
+          }
+          .round-status {
+            flex: 0 0 30%;
+            text-align: $end-direction;
+          }
+        }
+      }
     }
 
     .setting {
@@ -108,12 +152,6 @@ main.has-relay-tour {
     @include rendered-markdown(2em, 50vh);
   }
 
-  &__schedule {
-    td:nth-child(3) {
-      text-align: center;
-    }
-  }
-
   &__leaderboard {
     thead {
       background: none;
@@ -132,16 +170,6 @@ main.has-relay-tour {
       &:nth-child(3) {
         font-weight: bold;
       }
-    }
-  }
-
-  .slist {
-    border-bottom: 0;
-    ongoing {
-      color: $c-red;
-    }
-    finished {
-      color: $c-good;
     }
   }
 }

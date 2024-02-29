@@ -1,7 +1,7 @@
 import AnalyseCtrl from '../../ctrl';
 import RelayCtrl, { RelayTab } from './relayCtrl';
 import * as licon from 'common/licon';
-import { bind, dataIcon, onInsert, looseH as h, MaybeVNodes } from 'common/snabbdom';
+import { bind, dataIcon, looseH as h } from 'common/snabbdom';
 import { VNode } from 'snabbdom';
 import { innerHTML } from 'common/richText';
 import { RelayGroup, RelayRound } from './interfaces';
@@ -19,13 +19,11 @@ export default function (ctrl: AnalyseCtrl): VNode | undefined {
   if (!study || !relay?.tourShow()) return undefined;
   const content =
     relay.tab() == 'overview'
-      ? overview(relay, study, ctrl)
+      ? overview(relay, ctrl)
       : relay.tab() == 'games'
       ? games(relay, study, ctrl)
       : relay.tab() == 'teams'
       ? teams(relay, ctrl)
-      : relay.tab() == 'schedule'
-      ? schedule(relay, ctrl)
       : leaderboard(relay, ctrl);
 
   return h('div.relay-tour', content);
@@ -53,7 +51,6 @@ export const tourTabs = (ctrl: AnalyseCtrl) => {
       makeTab('overview', 'Overview'),
       !study.looksNew() && makeTab('games', 'Games'),
       relay.teams && makeTab('teams', 'Teams'),
-      makeTab('schedule', 'Schedule'),
       relay.data.leaderboard ? makeTab('leaderboard', 'Leaderboard') : undefined,
     ]),
   );
@@ -64,7 +61,7 @@ const leaderboard = (relay: RelayCtrl, ctrl: AnalyseCtrl): VNode[] => {
   const withRating = !!players.find(p => p.rating);
   return [
     h('div.box.relay-tour__box', [
-      header(relay, ctrl, true),
+      header(relay, ctrl),
       h('div.relay-tour__leaderboard', [
         h('table.slist.slist-invert.slist-pad', [
           h(
@@ -94,130 +91,130 @@ const leaderboard = (relay: RelayCtrl, ctrl: AnalyseCtrl): VNode[] => {
   ];
 };
 
-const overview = (relay: RelayCtrl, study: StudyCtrl, ctrl: AnalyseCtrl) => {
-  const round = relay.currentRound();
-  return [
-    h('div.box.relay-tour__box.relay-tour__overview', [
-      relay.data.tour.image
-        ? h('img.relay-tour__image', { attrs: { src: relay.data.tour.image } })
-        : study.members.isOwner()
-        ? h(
-            'div.relay-tour__image-upload',
-            h(
-              'a.button',
-              { attrs: { href: `/broadcast/${relay.data.tour.id}/edit` } },
-              'Upload tournament image',
-            ),
-          )
-        : undefined,
-      header(relay, ctrl, true),
-      h(
-        'a.relay-tour__round',
-        {
-          class: { ongoing: !!round.ongoing },
-          attrs: { tabindex: 0 },
-          hook: bind('click', () => $('span.chapters[role="tab"]').trigger('mousedown')),
-        },
-        [
-          h('strong', round.name),
-          ' ',
-          round.ongoing
-            ? study.trans.noarg('playingRightNow')
-            : !!round.startsAt &&
-              h(
-                'time.timeago',
-                { hook: onInsert(el => el.setAttribute('datetime', '' + round.startsAt)) },
-                site.timeago(round.startsAt),
-              ),
-        ],
-      ),
-      relay.data.tour.markup
-        ? h('div.relay-tour__markup.box-pad', {
-            hook: innerHTML(relay.data.tour.markup, () => relay.data.tour.markup!),
-          })
-        : h('div.relay-tour__markup.box-pad', relay.data.tour.description),
-    ]),
-  ];
-};
-
-const groupSelect = (relay: RelayCtrl, group: RelayGroup) =>
-  h('div.relay-tour__group-title', [
-    h('h1', group.name),
-    h('div.mselect.relay-tour__group-select', [
-      h('input#mselect-relay-group.mselect__toggle.fullscreen-toggle', { attrs: { type: 'checkbox' } }),
-      h(
-        'label.mselect__label',
-        { attrs: { for: 'mselect-relay-group' } },
-        group.tours.find(t => t.id == relay.data.tour.id)?.name || relay.data.tour.name,
-      ),
-      h('label.fullscreen-mask', { attrs: { for: 'mselect-relay-group' } }),
-      h(
-        'nav.mselect__list',
-        group.tours.map(tour =>
-          h(
-            `a${tour.id == relay.data.tour.id ? '.current' : ''}`,
-            { attrs: { href: `/broadcast/-/${tour.id}` } },
-            tour.name,
-          ),
-        ),
-      ),
-    ]),
-  ]);
-
-const games = (relay: RelayCtrl, study: StudyCtrl, ctrl: AnalyseCtrl) => [
-  h('div.box.relay-tour__box', [header(relay, ctrl, true), multiBoardView(study.multiBoard, study)]),
-];
-
-const teams = (relay: RelayCtrl, ctrl: AnalyseCtrl) =>
-  relay.teams ? [h('div.box.relay-tour__box', [header(relay, ctrl, true), teamsView(relay.teams)])] : [];
-
-const header = (relay: RelayCtrl, ctrl: AnalyseCtrl, pad: boolean = false) => {
-  const d = relay.data;
-  return h(`div.relay-tour__header${pad ? '.box-pad' : ''}`, [
-    relay.data.group ? groupSelect(relay, relay.data.group) : h('h1', d.tour.name),
-    ...(defined(d.isSubscribed)
-      ? [
-          toggle(
-            {
-              name: 'Subscribe',
-              id: 'tour-subscribe',
-              checked: d.isSubscribed,
-              change: (v: boolean) => {
-                xhr.text(`/broadcast/${d.tour.id}/subscribe?set=${v}`, { method: 'post' });
-                d.isSubscribed = v;
-                ctrl.redraw();
-              },
-            },
-            ctrl.trans,
-            ctrl.redraw,
-          ),
-        ]
-      : []),
-  ]);
-};
-
-const schedule = (relay: RelayCtrl, ctrl: AnalyseCtrl): MaybeVNodes => [
-  h('div.box.relay-tour__box', [
-    h('div.relay-tour__schedule', [
-      header(relay, ctrl, true),
-      h(
-        'table.slist.slist-invert.slist-pad',
-        h(
-          'tbody',
-          relay.data.rounds.map(round =>
-            h('tr', [
-              h('th', h('a.link', { attrs: { href: relay.roundPath(round) } }, round.name)),
-              h('td', round.startsAt ? site.dateFormat()(new Date(round.startsAt)) : undefined),
-              h('td', roundStateIcon(round) || (round.startsAt ? site.timeago(round.startsAt) : undefined)),
-            ]),
-          ),
-        ),
-      ),
-    ]),
+const overview = (relay: RelayCtrl, ctrl: AnalyseCtrl) => [
+  h('div.box.relay-tour__box.relay-tour__overview', [
+    header(relay, ctrl),
+    // h(
+    //   'a.relay-tour__round',
+    //   {
+    //     class: { ongoing: !!round.ongoing },
+    //     attrs: { tabindex: 0 },
+    //     hook: bind('click', () => $('span.chapters[role="tab"]').trigger('mousedown')),
+    //   },
+    //   [
+    //     h('strong', round.name),
+    //     ' ',
+    //     round.ongoing
+    //       ? study.trans.noarg('playingRightNow')
+    //       : !!round.startsAt &&
+    //         h(
+    //           'time.timeago',
+    //           { hook: onInsert(el => el.setAttribute('datetime', '' + round.startsAt)) },
+    //           site.timeago(round.startsAt),
+    //         ),
+    //   ],
+    // ),
+    relay.data.tour.markup
+      ? h('div.relay-tour__markup.box-pad', {
+          hook: innerHTML(relay.data.tour.markup, () => relay.data.tour.markup!),
+        })
+      : h('div.relay-tour__markup.box-pad', relay.data.tour.description),
   ]),
 ];
 
+const groupSelect = (relay: RelayCtrl, group: RelayGroup) =>
+  h('div.mselect.relay-tour__header__mselect.relay-tour__group-select', [
+    h('input#mselect-relay-group.mselect__toggle.fullscreen-toggle', { attrs: { type: 'checkbox' } }),
+    h(
+      'label.mselect__label',
+      { attrs: { for: 'mselect-relay-group' } },
+      group.tours.find(t => t.id == relay.data.tour.id)?.name || relay.data.tour.name,
+    ),
+    h('label.fullscreen-mask', { attrs: { for: 'mselect-relay-group' } }),
+    h(
+      'nav.mselect__list',
+      group.tours.map(tour =>
+        h(
+          `a${tour.id == relay.data.tour.id ? '.current' : ''}`,
+          { attrs: { href: `/broadcast/-/${tour.id}` } },
+          tour.name,
+        ),
+      ),
+    ),
+  ]);
+
+const roundSelect = (relay: RelayCtrl, study: StudyCtrl) =>
+  h('div.mselect.relay-tour__header__mselect.relay-tour__header__round-select', [
+    h('input#mselect-relay-round.mselect__toggle.fullscreen-toggle', { attrs: { type: 'checkbox' } }),
+    h(
+      'label.mselect__label',
+      { attrs: { for: 'mselect-relay-round' } },
+      relay.data.rounds.find(r => r.id == study.data.id)?.name || study.data.name,
+    ),
+    h('label.fullscreen-mask', { attrs: { for: 'mselect-relay-round' } }),
+    h(
+      'nav.mselect__list',
+      relay.data.rounds.map(round =>
+        h(`a${round.id == study.data.id ? '.current' : ''}`, { attrs: { href: relay.roundPath(round) } }, [
+          h('span', round.name),
+          h('time', !!round.startsAt ? site.dateFormat()(new Date(round.startsAt)) : '-'),
+          roundStateIcon(round) ||
+            (round.startsAt ? h('time.round-status', site.timeago(round.startsAt)) : undefined),
+        ]),
+      ),
+    ),
+  ]);
+
+const games = (relay: RelayCtrl, study: StudyCtrl, ctrl: AnalyseCtrl) => [
+  h('div.box.relay-tour__box', [header(relay, ctrl), multiBoardView(study.multiBoard, study)]),
+];
+
+const teams = (relay: RelayCtrl, ctrl: AnalyseCtrl) =>
+  relay.teams ? [h('div.box.relay-tour__box', [header(relay, ctrl), teamsView(relay.teams)])] : [];
+
+const header = (relay: RelayCtrl, ctrl: AnalyseCtrl) => {
+  const d = relay.data,
+    study = ctrl.study!,
+    group = relay.data.group;
+  return h('div.relay-tour__header', [
+    h('div.relay-tour__header__image', [
+      d.tour.image
+        ? h('img', { attrs: { src: d.tour.image } })
+        : study.members.isOwner()
+        ? h(
+            'a.button.relay-tour__image-upload',
+            { attrs: { href: `/broadcast/${relay.data.tour.id}/edit` } },
+            'Upload tournament image',
+          )
+        : undefined,
+    ]),
+    h('div.relay-tour__header__content', [
+      h('h1', group?.name || d.tour.name),
+      h('div.relay-tour__header__selectors', [group && groupSelect(relay, group), roundSelect(relay, study)]),
+      ...(defined(d.isSubscribed)
+        ? [
+            toggle(
+              {
+                name: 'Subscribe',
+                id: 'tour-subscribe',
+                checked: d.isSubscribed,
+                change: (v: boolean) => {
+                  xhr.text(`/broadcast/${d.tour.id}/subscribe?set=${v}`, { method: 'post' });
+                  d.isSubscribed = v;
+                  ctrl.redraw();
+                },
+              },
+              ctrl.trans,
+              ctrl.redraw,
+            ),
+          ]
+        : []),
+    ]),
+  ]);
+};
+
 const roundStateIcon = (round: RelayRound) =>
   round.ongoing
-    ? h('ongoing', { attrs: { ...dataIcon(licon.DiscBig), title: 'Ongoing' } })
-    : round.finished && h('finished', { attrs: { ...dataIcon(licon.Checkmark), title: 'Finished' } });
+    ? h('ongoing.round-status', { attrs: { ...dataIcon(licon.DiscBig), title: 'Ongoing' } })
+    : round.finished &&
+      h('finished.round-status', { attrs: { ...dataIcon(licon.Checkmark), title: 'Finished' } });
