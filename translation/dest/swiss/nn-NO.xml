@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+  <string name="swiss">Sveitsisk</string>
   <string name="swissTournaments">Sveitserturneringar</string>
   <plurals name="viewAllXRounds" comment="viewAllXRounds [one] [other]&#10;&#10;%s is the number of rounds in the Swiss tournament.">
     <item quantity="one">Vis runden</item>
@@ -38,6 +39,7 @@
   <string name="roundInterval">Intervall mellom rundar</string>
   <string name="forbiddenPairings">Forbodne parsamansetjingar</string>
   <string name="forbiddenPairingsHelp">Brukernamn for spelarar som ikkje må spela saman (til dømes sysken). To brukarnamn per linje, skilde med eit mellomrom.</string>
+  <string name="manualPairings">Manuelle samankoblingar neste runde</string>
   <string name="newSwiss">Ny sveitserturnering</string>
   <string name="swissVsArenaQ">Når skal du arrangera etter sveitsarsystemet i staden for arenaturnering?</string>
   <string name="swissVsArenaA">I ein sveitsarturnering spelar alle deltakarane det same antal spel og kan spela mot kvarandre berre éin gong.
