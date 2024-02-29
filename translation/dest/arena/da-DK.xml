@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+  <string name="arena">Arena</string>
   <string name="arenaTournaments">Arenaturneringer</string>
   <string name="isItRated">Er den ratet?</string>
   <string name="willBeNotified">Du får besked, når turneringen starter. Så du kan roligt spille i en anden fane, mens du venter.</string>
@@ -58,4 +59,28 @@ Spil hurtigt og vend tilbage til lobbyen for at spille flere partier og vinde fl
   <string name="averagePerformance">Gennemsnitlig præstation</string>
   <string name="averageScore">Gennemsnitlig score</string>
   <string name="myTournaments">Mine turneringer</string>
+  <string name="editTournament">Rediger turnering</string>
+  <string name="editTeamBattle">Rediger holdkamp</string>
+  <string name="defender">Forsvarer</string>
+  <string name="pickYourTeam">Vælg dit hold</string>
+  <string name="whichTeamWillYouRepresentInThisBattle">Hvilket hold vil du repræsentere i denne kamp?</string>
+  <string name="youMustJoinOneOfTheseTeamsToParticipate">Du skal være med på et af disse hold for at deltage!</string>
+  <string name="created">Oprettet</string>
+  <string name="recentlyPlayed">Spillet for nylig</string>
+  <string name="bestResults">Bedste resultater</string>
+  <string name="stats">Statistik</string>
+  <string name="tournamentStats">Turneringsstatistik</string>
+  <string name="rankAvgHelp">Den gennemsnitlige rangering er en procentdel af din rangering. Lavere er bedre.
+
+Eksempelvis er en rangering som nummer 3 i en turnering med 100 spillere = 3%. At være rangeret som nummer 10 i en turnering med 1000 spillere = 1%.</string>
+  <string name="medians">medianer</string>
+  <string name="allAveragesAreX">Alle gennemsnit på denne side er %s.</string>
+  <string name="total">I alt</string>
+  <string name="pointsAvg">Gennemsnitlige point</string>
+  <string name="pointsSum">Sum af point</string>
+  <string name="rankAvg">Gennemsnitlig rangering</string>
+  <string name="tournamentWinners">Turneringsvindere</string>
+  <string name="tournamentShields">Turneringsskjold</string>
+  <string name="onlyTitled">Kun spillere med titel</string>
+  <string name="onlyTitledHelp">Kræv en officiel titel for at deltage i turneringen</string>
 </resources>
