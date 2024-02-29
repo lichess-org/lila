@@ -214,7 +214,8 @@ object replay {
                 span(dataPanel := "sfen-notation")(trans.export())
               )
             )
-          )
+          ),
+          div(cls := "analyse__acpl")
         ),
         if (ctx.blind)
           div(cls := "blind-content none")(

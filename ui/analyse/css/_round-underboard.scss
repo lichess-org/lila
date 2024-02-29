@@ -45,6 +45,7 @@ $col2-panel-height: 240px;
     @include breakpoint($mq-col2) {
       --panel-height: #{$col2-panel-height};
     }
+    min-height: var(--panel-height);
     > div {
       height: var(--panel-height);
       display: none;

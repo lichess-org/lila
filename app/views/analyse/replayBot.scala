@@ -42,7 +42,8 @@ object replayBot {
               )
             }
           )
-        )
+        ),
+        div(cls := "analyse__acpl")
       )
     }
   }

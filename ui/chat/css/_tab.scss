@@ -15,7 +15,8 @@
     &:hover {
       background: mix($c-accent, $c-bg-box, 15%);
     }
-    &-active {
+    &-active,
+    &:only-child {
       color: $c-font;
       background: $c-bg-box !important;
     }
