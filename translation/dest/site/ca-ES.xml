@@ -276,6 +276,7 @@
   <string name="abortGame">Avortar la partida</string>
   <string name="gameAborted">Partida avortada</string>
   <string name="standard">Estàndard</string>
+  <string name="customPosition">Posició personalitzada</string>
   <string name="unlimited">Il·limitat</string>
   <string name="mode">Mode</string>
   <string name="casual">Amistosa</string>
@@ -531,6 +532,7 @@
   <string name="automaticallyProceedToNextGameAfterMoving">Anar automàticament a la següent partida després de cada moviment</string>
   <string name="autoSwitch">Canvi automàtic</string>
   <string name="puzzles">Problemes</string>
+  <string name="onlineBots">Bots en línia</string>
   <string name="name">Nom</string>
   <string name="description">Descripció</string>
   <string name="descPrivate">Descripció privada</string>
@@ -986,4 +988,5 @@ Deixa-ho en blanc per començar els jocs de la posició inicial.</string>
   <string name="showMeEverything">Mostrar tot</string>
   <string name="lichessPatronInfo">Lichess és una entitat sense ànim de lucre i un programari totalment lliure i de codi obert.
 Les despeses de funcionament, desenvolupament i continguts es financen exclusivament amb donacions d\'usuaris.</string>
+  <string name="nothingToSeeHere">Res a veure per aquí de moment.</string>
 </resources>
