@@ -5,6 +5,7 @@
   <string name="toInviteSomeoneToPlayGiveThisUrl">Om ien út te noegjen foar in partij, stjoer dizze URL</string>
   <string name="gameOver">De partij is dien</string>
   <string name="waitingForOpponent">Wachtsje op tsjinstanner</string>
+  <string name="orLetYourOpponentScanQrCode">Of lit dyn tsjinstanner dizze QR-koade scanne</string>
   <string name="waiting">Wachtsje</string>
   <string name="yourTurn">Do meist</string>
   <string name="aiNameLevelAiLevel">%1$s nivo %2$s</string>
@@ -59,6 +60,8 @@
   <string name="depthX">Djipte %s</string>
   <string name="usingServerAnalysis">Serveranalyze yn gebrûk</string>
   <string name="loadingEngine">\'Engine\' wurdt laden ...</string>
+  <string name="calculatingMoves">Setten berekkenje...</string>
+  <string name="engineFailed">Fout by it laden fan de engine</string>
   <string name="cloudAnalysis">\'Cloud\'-analyze</string>
   <string name="goDeeper">Djipper gean</string>
   <string name="showThreat">Toan driging</string>
@@ -68,6 +71,7 @@
   <string name="makeMainLine">Ta haadline meitsje</string>
   <string name="deleteFromHere">Fuortsmite fanôf hjirre</string>
   <string name="forceVariation">Fariaasje ôfdwinge</string>
+  <string name="copyVariationPgn">Kopiearje fariaasje PGN</string>
   <string name="move">Set</string>
   <string name="variantLoss">Ferlies fariant</string>
   <string name="variantWin">Winst fariant</string>
@@ -85,12 +89,20 @@
   <string name="recentGames">Resinte partijen</string>
   <string name="topGames">Top partijen</string>
   <string name="masterDbExplanation">Twa miljoen fysyk oan-it-boerd partijen fan %1$s + FIDE-rating spilers fan %2$s oant %3$s</string>
+  <string name="dtzWithRounding">DTZ50\'\' mei ôfrûning, basearre op it oantal healsetten oant folgjende slach of pionset</string>
   <string name="noGameFound">Gjin partij fûn</string>
+  <string name="maxDepthReached">Max djipte berikke!</string>
   <string name="maybeIncludeMoreGamesFromThePreferencesMenu">Miskien mear partijen tafoegje út it foarkarmenu?</string>
+  <string name="openings">Iepeningen</string>
   <string name="openingExplorer">Iepeningsblêder</string>
+  <string name="openingEndgameExplorer">Iepening/einspul ferkenner</string>
   <string name="xOpeningExplorer">%s iepeningsblêder</string>
+  <string name="playFirstOpeningEndgameExplorerMove">Spylje earste iepening/einspul-ferkenner set</string>
   <string name="winPreventedBy50MoveRule">Oerwinning ferhindere troch 50-settenregel</string>
   <string name="lossSavedBy50MoveRule">Ferlies foarkommen troch de 50-settenregel</string>
+  <string name="winOr50MovesByPriorMistake">Oerwinning of 50 setten troch eardere fout</string>
+  <string name="lossOr50MovesByPriorMistake">Ferlies of 50 setten troch eardere fout</string>
+  <string name="unknownDueToRounding">Oerwinning/ferlies allinnich garandearre as de oanbefoalen tablebase line folge is sûnt de lêtste slach of pionset, troch mooglike ôfrûning fan DTZ weardes yn Syzygy tablebases.</string>
   <string name="allSet">Ynoarder!</string>
   <string name="importPgn">Ymportear PGN</string>
   <string name="delete">Fourtsmite</string>
@@ -101,15 +113,29 @@
   <string name="openStudy">Iepenje stúdzje</string>
   <string name="enable">Ynskeakelje</string>
   <string name="bestMoveArrow">Bêste set-pylk</string>
+  <string name="showVariationArrows">Toan fariaasje pylken</string>
   <string name="evaluationGauge">Evaluaasjemeter</string>
   <string name="multipleLines">Oantal farianten</string>
   <string name="cpus">CPUs</string>
   <string name="memory">Geheugen</string>
   <string name="infiniteAnalysis">Ûneinige analyse</string>
   <string name="removesTheDepthLimit">Ferwideret de djipte limyt en hâldt dyn kompjûter waarm</string>
+  <string name="engineManager">Engine manager</string>
   <string name="blunder">Flater</string>
   <string name="mistake">Flater</string>
   <string name="inaccuracy">Ûnkrekt</string>
+  <plurals name="nbBlunders">
+    <item quantity="one">%s flater</item>
+    <item quantity="other">%s flaters</item>
+  </plurals>
+  <plurals name="nbMistakes">
+    <item quantity="one">%s fout</item>
+    <item quantity="other">%s fouten</item>
+  </plurals>
+  <plurals name="nbInaccuracies">
+    <item quantity="one">%s ûnsekuerens</item>
+    <item quantity="other">%s ûnsekuerens</item>
+  </plurals>
   <string name="moveTimes">Set tiden</string>
   <string name="flipBoard">Draai boerd</string>
   <string name="threefoldRepetition">Trijefâldich deselde posysje</string>
@@ -120,10 +146,17 @@
     <item quantity="one">%s spilers</item>
     <item quantity="other">%s spilers</item>
   </plurals>
+  <string name="drawByMutualAgreement">Oerienkame remize</string>
+  <string name="fiftyMovesWithoutProgress">Fyftich setten sûnder progresje</string>
   <string name="currentGames">Aktuele partijen</string>
+  <plurals name="ratingXOverYGames">
+    <item quantity="one">%1$s rating oer %2$s partij</item>
+    <item quantity="other">%1$s rating oer %2$s partijen</item>
+  </plurals>
   <string name="viewInFullSize">Besjoch yn folsleine grutte</string>
   <string name="logOut">Út logge</string>
   <string name="signIn">Oanmelde</string>
+  <string name="rememberMe">Ynlogd bliuwe</string>
   <string name="youNeedAnAccountToDoThat">Jo moatte in akkount hawwe om dat te dwaan</string>
   <string name="signUp">Registrearje</string>
   <string name="computersAreNotAllowedToPlay">Kompjûters en spilers mei help fan skaakcomputers of -software binne hjir net tastien te spyljen. Brûk asjebleaft gjin skaaksoftware of -databases as de help fan oare spilers by it spiljen fan dyn partijen.</string>
@@ -152,6 +185,10 @@
     <item quantity="one">%s oeren</item>
     <item quantity="other">%s oeren</item>
   </plurals>
+  <plurals name="nbMinutes">
+    <item quantity="one">%s minuut</item>
+    <item quantity="other">%s minuten</item>
+  </plurals>
   <string name="time">Tiid</string>
   <string name="rating">Rating</string>
   <string name="ratingStats">Ratingsstatistiken</string>
@@ -160,12 +197,16 @@
   <string name="changeUsername">Feroarje brûkersnamme</string>
   <string name="changeUsernameNotSame">Allinne lytse letters feroarje yn grutte of oarsom. Bygelyks \"pytsjesmit\" yn \"PytsjeSmit\".</string>
   <string name="changeUsernameDescription">Feroarje dyn brûkersnamme. Dit kin mar ien kear dien wurde en do kinst allinich haad- en lytseletters yn dyn brûkersnamme feroarje.</string>
+  <string name="signupUsernameHint">Tink derom in fatsoenlike gebrûkersnamme te kiezen. Kinst it letter net mear feroarje en alle accounts mei ûnfatsoenlike gebrûkersnammen wurde slúten!</string>
+  <string name="signupEmailHint">Wy sille it allinnich brûke foar wachtwurd reset.</string>
   <string name="password">Wachtwurd</string>
   <string name="changePassword">Wachtwurd feroarje</string>
   <string name="changeEmail">Email feroarje</string>
   <string name="email">Email</string>
   <string name="passwordReset">Wachtwurdreset</string>
   <string name="forgotPassword">Wachtwurd ferjitte?</string>
+  <string name="error.weakPassword">Dit wachtwurd komt tige faak foar en is te maklik te rieden.</string>
+  <string name="error.namePassword">Brûk alsjeblieft net dyn gebrûkersnamme as dyn wachtwurd.</string>
   <string name="rank">Posysje</string>
   <string name="rankX">Posysje: %s</string>
   <plurals name="rankIsUpdatedEveryNbMinutes">
