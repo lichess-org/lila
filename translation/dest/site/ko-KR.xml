@@ -376,6 +376,7 @@
   <string name="importGame">게임 불러오기</string>
   <string name="importGameExplanation">게임의 PGN 을 붙여넣으면, 브라우저에서의 리플레이, 컴퓨터 해석, 게임챗, 공유가능 URL을 얻습니다.</string>
   <string name="importGameCaveat">변형은 지워집니다. 변형을 유지하려면 스터디를 통해 PGN을 가져오세요.</string>
+  <string name="importGameDataPrivacyWarning">이 PGN은 모두가 볼 수 있게 됩니다. 비공개로 게임을 불러오려면, 연구 기능을 이용하세요.</string>
   <plurals name="nbImportedGames">
     <item quantity="other">불러온 게임 %s개</item>
   </plurals>
@@ -930,6 +931,7 @@ FEN 포지션을 생성하기 위해 %s를 사용할 수 있습니다.
   <string name="closingAccountWithdrawAppeal">계정을 폐쇄하면 이의 제기는 자동으로 취소됩니다</string>
   <string name="ourEventTips">이벤트 준비를 위한 팁</string>
   <string name="instructions">설명</string>
+  <string name="showMeEverything">모두 보기</string>
   <string name="lichessPatronInfo">Lichess는 비영리 기구이며 완전한 무료/자유 오픈소스 소프트웨어입니다.
 모든 운영 비용, 개발, 컨텐츠 조달은 전적으로 사용자들의 기부로 이루어집니다.</string>
 </resources>
