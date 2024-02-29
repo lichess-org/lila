@@ -275,6 +275,7 @@
   <string name="abortGame">Ndërprite lojën</string>
   <string name="gameAborted">Loja u ndërpre</string>
   <string name="standard">Standard</string>
+  <string name="customPosition">Pozicion vetjak</string>
   <string name="unlimited">E pakufizuar</string>
   <string name="mode">Lloji</string>
   <string name="casual">Rastësore</string>
@@ -528,6 +529,7 @@ loje dhe URL për ta ndarë me të tjerë.</string>
   <string name="automaticallyProceedToNextGameAfterMoving">Kalo automatikisht në lojën tjetër pas lëvizjes</string>
   <string name="autoSwitch">Kalim automatik</string>
   <string name="puzzles">Ushtrime</string>
+  <string name="onlineBots">Robotë internetorë</string>
   <string name="name">Emër</string>
   <string name="description">Përshkrim</string>
   <string name="descPrivate">Përshkrim privat</string>
@@ -975,4 +977,5 @@ Që lojërat të fillojnë nga pozicioni fillestar normal, lëreni të zbrazët.
   <string name="showMeEverything">Shfaqmë gjithçka</string>
   <string name="lichessPatronInfo">Lichess është një program bamirësie dhe krejtësisht falas/libre, me burim të hapët.
 Krejt kostot operative, zhvillimi dhe lënda financohen vetëm me dhurime nga përdoruesit.</string>
+  <string name="nothingToSeeHere">S’ka ç’shihet këtu tani.</string>
 </resources>
