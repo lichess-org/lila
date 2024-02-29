@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+  <string name="arena">Arena</string>
   <string name="arenaTournaments">Torneig Arena</string>
   <string name="isItRated">És puntuat?</string>
   <string name="willBeNotified">Seràs notificat quan comenci el torneig, per tant és segur jugar en una altra pestanya mentre esperes.</string>
@@ -58,4 +59,28 @@ Juga ràpid i torna al vestíbul per jugar més partits i guanyar més punts.</s
   <string name="averagePerformance">Rendiment mitjà</string>
   <string name="averageScore">Puntuació mitjana</string>
   <string name="myTournaments">Els meus tornejos</string>
+  <string name="editTournament">Edita el torneig</string>
+  <string name="editTeamBattle">Edita la batalla d\'equips</string>
+  <string name="defender">Defensor</string>
+  <string name="pickYourTeam">Tria el teu equip</string>
+  <string name="whichTeamWillYouRepresentInThisBattle">Quin equip vols representar en aquesta batalla?</string>
+  <string name="youMustJoinOneOfTheseTeamsToParticipate">Heu d\'unir-vos a un d\'aquests equips per participar!</string>
+  <string name="created">Creat el</string>
+  <string name="recentlyPlayed">Jugat recentment</string>
+  <string name="bestResults">Millors resultats</string>
+  <string name="stats">Estadístiques</string>
+  <string name="tournamentStats">Estadístiques del torneig</string>
+  <string name="rankAvgHelp">El rànquing mitjà és un percentatge del vostre rànquing. Els valors més petits són millors.
+
+Per exemple, estar en el tercer lloc en un torneig de 100 jugadors = 3%. Ser classificat 10 en un torneig de 1000 jugadors = 1%.</string>
+  <string name="medians">mitjanes</string>
+  <string name="allAveragesAreX">Totes les mitjanes d\'aquesta pàgina són %s.</string>
+  <string name="total">Total</string>
+  <string name="pointsAvg">Mitjana de punts</string>
+  <string name="pointsSum">Suma de punts</string>
+  <string name="rankAvg">Rànquing mitjà</string>
+  <string name="tournamentWinners">Guanyadors de tornejos</string>
+  <string name="tournamentShields">Insígnies de tornejos</string>
+  <string name="onlyTitled">Només jugadors titulats</string>
+  <string name="onlyTitledHelp">Demana un títol oficial per entrar al torneig</string>
 </resources>
