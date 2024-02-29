@@ -276,6 +276,7 @@
   <string name="abortGame">Cancelar partida</string>
   <string name="gameAborted">Partida cancelada</string>
   <string name="standard">Padrão</string>
+  <string name="customPosition">Posição personalizada</string>
   <string name="unlimited">Ilimitado</string>
   <string name="mode">Modo</string>
   <string name="casual">Amistosa</string>
@@ -531,6 +532,7 @@
   <string name="automaticallyProceedToNextGameAfterMoving">Passar automaticamente ao jogo seguinte após o lance</string>
   <string name="autoSwitch">Alternar automaticamente</string>
   <string name="puzzles">Quebra-cabeças</string>
+  <string name="onlineBots">Bots online</string>
   <string name="name">Nome</string>
   <string name="description">Descrição</string>
   <string name="descPrivate">Descrição privada</string>
@@ -986,4 +988,5 @@ Deixe em branco para começar as partidas na posição inicial padrão.</string>
   <string name="instructions">Instruções</string>
   <string name="showMeEverything">Mostrar tudo</string>
   <string name="lichessPatronInfo">Lichess é um software de código aberto, totalmente grátis e sem fins lucrativos. Todos os custos operacionais, de desenvolvimento, e os conteúdos são financiados unicamente através de doações de usuários.</string>
+  <string name="nothingToSeeHere">Nada para ver aqui no momento.</string>
 </resources>
