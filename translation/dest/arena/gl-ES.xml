@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+  <string name="arena">Arena</string>
   <string name="arenaTournaments">Torneos Arena</string>
   <string name="isItRated">É puntuado?</string>
   <string name="willBeNotified">Serás notificado cando comece o torneo, polo que podes xogar sen problema noutra lapela mentres agardas.</string>
@@ -59,4 +60,28 @@ Xoga rápido e volta á sala de espera para xogar máis partidas e gañar máis 
   <string name="averagePerformance">Rendemento medio</string>
   <string name="averageScore">Puntuación media</string>
   <string name="myTournaments">Os meus torneos</string>
+  <string name="editTournament">Editar o torneo</string>
+  <string name="editTeamBattle">Editar a batalla por equipos</string>
+  <string name="defender">Defensor</string>
+  <string name="pickYourTeam">Escolle o teu equipo</string>
+  <string name="whichTeamWillYouRepresentInThisBattle">A que equipo representarás nesta batalla?</string>
+  <string name="youMustJoinOneOfTheseTeamsToParticipate">Tes que unirte a algún destes equipos para participar!</string>
+  <string name="created">Creado</string>
+  <string name="recentlyPlayed">Xogado recentemente</string>
+  <string name="bestResults">Mellores resultados</string>
+  <string name="stats">Estatísticas</string>
+  <string name="tournamentStats">Estatísticas do torneo</string>
+  <string name="rankAvgHelp">A clasificación media é unha porcentaxe da túa clasificación. Canto máis baixa, mellor.
+
+Por exemplo, ficar en 3º lugar nun torneo de 100 xogadores = 3%. Ficar 10º nun torneo de 1000 xogadores = 1%.</string>
+  <string name="medians">medianas</string>
+  <string name="allAveragesAreX">Todas as medias nesta páxina son %s.</string>
+  <string name="total">Total</string>
+  <string name="pointsAvg">Media de puntos</string>
+  <string name="pointsSum">Suma dos puntos</string>
+  <string name="rankAvg">Clasificación media</string>
+  <string name="tournamentWinners">Gañadores do torneo</string>
+  <string name="tournamentShields">Escudos do torneo</string>
+  <string name="onlyTitled">Só xogadores titulados</string>
+  <string name="onlyTitledHelp">Esixir un título oficial para unirse ó torneo</string>
 </resources>
