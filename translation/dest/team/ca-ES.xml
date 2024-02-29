@@ -50,8 +50,18 @@ Els jugadors que no els agrada rebre missatges podrien abandonar l\'equip.</stri
   <string name="entryCodeDescriptionForLeader">(Opcional) Una contrasenya que els nous membres han de saber per unir-se a l\'equip.</string>
   <string name="incorrectEntryCode">Codi d\'entrada incorrecte.</string>
   <string name="teamAlreadyExists">Aquest equip ja existeix.</string>
+  <string name="upcomingTournaments">Propers tornejos</string>
   <string name="completedTourns">Tornejos finalitzats</string>
   <string name="declinedRequests">Sol·licituds declinades</string>
   <string name="joinLichessVariantTeam">Uniu-vos a l\'equip oficial %s per estar al cas de les notícies i esdeveniments</string>
   <string name="teamPage">Pàgina de l\'equip</string>
+  <string name="thisTeamBattleIsOver">El torneig ha finalitzat i ja no es pot editar els equips.</string>
+  <string name="listTheTeamsThatWillCompete">Enumera els equips que competiran en aquesta batalla.</string>
+  <string name="oneTeamPerLine">Un equip per línia. Utilitzeu l\'autocompletat.</string>
+  <string name="oneTeamPerLineHelp">Podeu copiar i pegar aquesta llista d\'un torneig a un altre!
+
+No podeu eliminar un equip si un dels seus jugadors s\'ha unit al torneig.</string>
+  <string name="numberOfLeadsPerTeam">Nombre dels líders de l\'equip. La suma de la seva puntuació és la puntuació de l\'equip.</string>
+  <string name="numberOfLeadsPerTeamHelp">No hauríeu de canviar aquest valor una vegada hagi començat el torneig!</string>
+  <string name="innerTeam">Intern de l\'equip</string>
 </resources>
