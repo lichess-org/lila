@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+  <string name="arena">Arène</string>
   <string name="arenaTournaments">Tournois Arène</string>
   <string name="isItRated">Est-ce classé ?</string>
   <string name="willBeNotified">Vous serez notifié lorsque le tournoi commencera, vous pouvez donc jouer dans un autre onglet en attendant.</string>
@@ -58,4 +59,18 @@ Jouez vite et retournez à la page d\'accueil du tournoi pour jouer plus de part
   <string name="averagePerformance">Performance moyenne</string>
   <string name="averageScore">Score moyen</string>
   <string name="myTournaments">Mes tournois</string>
+  <string name="editTournament">Éditer le tournoi</string>
+  <string name="editTeamBattle">Éditer la bataille en équipe</string>
+  <string name="pickYourTeam">Choisissez votre équipe</string>
+  <string name="whichTeamWillYouRepresentInThisBattle">Quelle équipe désirez-vous représenter dans cette bataille ?</string>
+  <string name="youMustJoinOneOfTheseTeamsToParticipate">Vous devez rejoindre l\'une de ces équipes pour participer !</string>
+  <string name="recentlyPlayed">Joué récemment</string>
+  <string name="bestResults">Meilleurs résultats</string>
+  <string name="stats">Statistiques</string>
+  <string name="tournamentStats">Statistiques du tournoi</string>
+  <string name="total">Total</string>
+  <string name="pointsSum">Somme des points</string>
+  <string name="tournamentWinners">Vainqueurs du tournoi</string>
+  <string name="onlyTitled">Uniquement les joueurs titrés</string>
+  <string name="onlyTitledHelp">Un titre officiel est requis pour pouvoir participer au tournoi</string>
 </resources>
