@@ -51,7 +51,7 @@ export default function (ctrl: AnalyseCtrl): VNode | undefined {
 
 const leaderboard = (relay: RelayCtrl, ctrl: AnalyseCtrl): VNode[] => {
   const players = relay.data.leaderboard || [];
-  const withRating = players.find(p => p.rating);
+  const withRating = !!players.find(p => p.rating);
   return [
     h('div.box.relay-tour__box', [
       header(relay, ctrl, true),
@@ -66,7 +66,7 @@ const leaderboard = (relay: RelayCtrl, ctrl: AnalyseCtrl): VNode[] => {
             players.map(player =>
               h('tr', [
                 h('th', player.name),
-                withRating ? h('td', `${player.rating}`) : undefined,
+                withRating && player.rating ? h('td', `${player.rating}`) : undefined,
                 h('td', `${player.score}`),
                 h('td', `${player.played}`),
               ]),
