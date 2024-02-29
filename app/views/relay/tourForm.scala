@@ -126,16 +126,18 @@ object tourForm:
         replacePlayerTags(),
         help = frag( // do not translate
           "One line per player, formatted as such:",
+          pre("player name = FIDE ID"),
+          "Example:",
+          pre("""Magnus Carlsen = 1503014"""),
+          "Player names ignore case and punctuation, and match all possible combinations of 2 words:",
+          br,
+          """"Jorge Rick Vito" will match "Jorge Rick", "jorge vito", "Rick, Vito", etc.""",
+          br,
+          "Alternatively, you may set tags manually, like so:",
           pre("player name / rating / title / new name"),
-          "All values are optional. The player name will match regardless of punctuation, casing, and word order. Example:",
+          "All values are optional. Example:",
           pre("""Magnus Carlsen / 2863 / GM
-YouGotLittUp / 1890 / / Louis Litt"""),
-          "Player names will match all possible combinations:",
-          br,
-          """"Jorge Joao Vito" will match "Jorge Joao", "Jorge Vito", and "Joao Vito".""",
-          br,
-          "Alternatively, you may set a FIDE ID:",
-          pre("""Magnus Carlsen = 1503014""")
+YouGotLittUp / 1890 / / Louis Litt""")
         ).some,
         half = true
       )(form3.textarea(_)(rows := 3)),
