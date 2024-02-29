@@ -9,6 +9,7 @@ interface Player {
   name: string;
   team?: string;
   fed?: string;
+  fideId?: string;
 }
 interface Players {
   white: Player;
@@ -21,8 +22,18 @@ export default function (ctrl: AnalyseCtrl): VNode[] | undefined {
   const tags = study.data.chapter.tags,
     feds = study.data.chapter.feds || [],
     players = {
-      white: { name: findTag(tags, 'white')!, team: findTag(tags, 'whiteteam'), fed: feds[0] },
-      black: { name: findTag(tags, 'black')!, team: findTag(tags, 'blackteam'), fed: feds[1] },
+      white: {
+        name: findTag(tags, 'white')!,
+        team: findTag(tags, 'whiteteam'),
+        fideId: findTag(tags, 'whitefideid'),
+        fed: feds[0],
+      },
+      black: {
+        name: findTag(tags, 'black')!,
+        team: findTag(tags, 'blackteam'),
+        fideId: findTag(tags, 'blackfideid'),
+        fed: feds[1],
+      },
     };
 
   const clocks = renderClocks(ctrl),
@@ -64,7 +75,9 @@ function renderPlayer(
         player.team && h('span.team', player.team),
         player.fed && playerFed(player.fed),
         title && h('span.utitle', title == 'BOT' ? { attrs: { 'data-bot': true } } : {}, title + ' '),
-        h('span.name', player.name),
+        player.fideId
+          ? h('a.name', { attrs: { href: `/fide/${player.fideId}/redirect` } }, player.name)
+          : h('span.name', player.name),
         elo && h('span.elo', elo),
       ]),
     ]),
