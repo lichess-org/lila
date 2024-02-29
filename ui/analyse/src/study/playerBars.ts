@@ -4,6 +4,7 @@ import AnalyseCtrl from '../ctrl';
 import { renderMaterialDiffs } from '../view/view';
 import { TagArray } from './interfaces';
 import { findTag, isFinished, looksLikeLichessGame, resultOf } from './studyChapters';
+import { userTitle } from 'common/userLink';
 
 interface Player {
   name: string;
@@ -74,7 +75,7 @@ function renderPlayer(
       h('span.info', [
         player.team && h('span.team', player.team),
         player.fed && playerFed(player.fed),
-        title && h('span.utitle', title == 'BOT' ? { attrs: { 'data-bot': true } } : {}, title + ' '),
+        userTitle({ title }),
         player.fideId
           ? h('a.name', { attrs: { href: `/fide/${player.fideId}/redirect` } }, player.name)
           : h('span.name', player.name),
