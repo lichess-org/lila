@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+  <string name="arena">Arena</string>
   <string name="arenaTournaments">Arena tournaments</string>
   <string name="isItRated">Is it rated?</string>
   <string name="willBeNotified">You will be notified when the tournament starts, so it is safe to play in another tab while waiting.</string>
@@ -61,4 +62,28 @@ Play fast and return to the lobby to play more games and win more points.</strin
   <string name="averagePerformance">Average performance</string>
   <string name="averageScore">Average score</string>
   <string name="myTournaments">My tournaments</string>
+  <string name="editTournament">Edit tournament</string>
+  <string name="editTeamBattle">Edit team battle</string>
+  <string name="defender">Defender</string>
+  <string name="pickYourTeam">Pick your team</string>
+  <string name="whichTeamWillYouRepresentInThisBattle">Which team will you represent in this battle?</string>
+  <string name="youMustJoinOneOfTheseTeamsToParticipate">You must join one of these teams to participate!</string>
+  <string name="created">Created</string>
+  <string name="recentlyPlayed">Recently played</string>
+  <string name="bestResults">Best results</string>
+  <string name="stats">Stats</string>
+  <string name="tournamentStats">Tournament stats</string>
+  <string name="rankAvgHelp">The rank average is a percentage of your ranking. Lower is better.
+
+For instance, being ranked 3 in a tournament of 100 players = 3%. Being ranked 10 in a tournament of 1000 players = 1%.</string>
+  <string name="medians">medians</string>
+  <string name="allAveragesAreX">All averages on this page are %s.</string>
+  <string name="total">Total</string>
+  <string name="pointsAvg">Points avg</string>
+  <string name="pointsSum">Points sum</string>
+  <string name="rankAvg">Rank avg</string>
+  <string name="tournamentWinners">Tournament winners</string>
+  <string name="tournamentShields">Tournament shields</string>
+  <string name="onlyTitled">Only titled players</string>
+  <string name="onlyTitledHelp">Require an official title to join the tournament</string>
 </resources>
