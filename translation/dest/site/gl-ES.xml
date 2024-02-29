@@ -276,6 +276,7 @@
   <string name="abortGame">Abortar partida</string>
   <string name="gameAborted">Partida abortada</string>
   <string name="standard">Estándar</string>
+  <string name="customPosition">Posición á medida</string>
   <string name="unlimited">Ilimitado</string>
   <string name="mode">Modo</string>
   <string name="casual">Amigable</string>
