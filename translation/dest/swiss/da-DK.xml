@@ -113,4 +113,7 @@ Det tætteste du kan komme på Round Robin online er at spille en schweizisk tur
   <string name="predefinedUsers">Tillad kun bestemte brugere at deltage</string>
   <string name="forbiddedUsers">Hvis denne liste ikke er tom, vil brugernavne, der ikke findes på listen, ikke kunne deltage. Ét brugernavn pr. linje.</string>
   <string name="playYourGames">Spil dine partier</string>
+  <string name="byes">Byes</string>
+  <string name="absences">Fravær</string>
+  <string name="tieBreak">Tiebreak</string>
 </resources>
