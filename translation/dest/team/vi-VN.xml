@@ -47,8 +47,15 @@ Những kỳ thủ không muốn nhận tin nhắn của bạn có thể sẽ r�
   <string name="entryCodeDescriptionForLeader">(Tuỳ chọn) Mã gia nhập mà các thành viên mới phải biết để tham gia đội.</string>
   <string name="incorrectEntryCode">Mã không chính xác.</string>
   <string name="teamAlreadyExists">Đội này đã tồn tại.</string>
+  <string name="upcomingTournaments">Các giải đấu sắp tới</string>
   <string name="completedTourns">Các giải đấu đã hoàn thành</string>
   <string name="declinedRequests">Yêu cầu bị từ chối</string>
   <string name="joinLichessVariantTeam">Tham gia đội %s chính thức để cập nhật tin tức và các sự kiện</string>
   <string name="teamPage">Trang đội</string>
+  <plurals name="battleOfNbTeams">
+    <item quantity="other">Trận chiến giữa %s đội</item>
+  </plurals>
+  <plurals name="nbLeadersPerTeam">
+    <item quantity="other">mỗi đội %s đội trưởng</item>
+  </plurals>
 </resources>
