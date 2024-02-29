@@ -63,4 +63,13 @@ Les joueurs qui n\'aiment pas recevoir vos messages risquent de quitter l\'équi
 Vous ne pouvez pas supprimer une équipe si un joueur a déjà rejoint le tournoi pour elle.</string>
   <string name="numberOfLeadsPerTeam">Nombre de leaders par équipe. La somme de leurs résultats constituera celui de l\'équipe.</string>
   <string name="numberOfLeadsPerTeamHelp">Vous ne devriez pas modifier ce nombre après le début du tournoi!</string>
+  <string name="innerTeam">Équipe interne</string>
+  <plurals name="battleOfNbTeams">
+    <item quantity="one">Bataille entre %s équipes</item>
+    <item quantity="other">Bataille entre %s équipes</item>
+  </plurals>
+  <plurals name="nbLeadersPerTeam">
+    <item quantity="one">Un leader par équipe</item>
+    <item quantity="other">%s leaders par équipe</item>
+  </plurals>
 </resources>
