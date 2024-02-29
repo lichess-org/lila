@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+  <string name="arena">Arena</string>
   <string name="arenaTournaments">Arena-turneringar</string>
   <string name="isItRated">Er det rangert?</string>
   <string name="willBeNotified">Du blir varsla når turneringa startar. Det er difor mogleg å bruke ventetida til å spela i ei anna fane.</string>
@@ -53,4 +54,28 @@ Berserk gjev eitt ekstrapoeng berre om du spelar minst 7 trekk i partiet.</strin
   <string name="averagePerformance">Gjennomsnittleg prestasjon</string>
   <string name="averageScore">Gjennomsnittleg poengsum</string>
   <string name="myTournaments">Mine turneringar</string>
+  <string name="editTournament">Rediger turnering</string>
+  <string name="editTeamBattle">Rediger lagkamp</string>
+  <string name="defender">Forsvarar</string>
+  <string name="pickYourTeam">Vel ut laget ditt</string>
+  <string name="whichTeamWillYouRepresentInThisBattle">Kva lag vil du spela på i denne kampen?</string>
+  <string name="youMustJoinOneOfTheseTeamsToParticipate">For å delta må du bli med i eit av desse laga!</string>
+  <string name="created">Oppretta</string>
+  <string name="recentlyPlayed">Nett spela</string>
+  <string name="bestResults">Beste resultat</string>
+  <string name="stats">Statistikk</string>
+  <string name="tournamentStats">Turneringsstatistikk</string>
+  <string name="rankAvgHelp">Plasseringssnittet er eit prosentverde av plasseringa di. Jo lågare, dess betre.
+
+Til dømes vil ein tredjeplass i ei turnering med 100 deltakarar gje plasseringssnittet 3%. Tiandeplass i ei turnering med 1000 deltakarar = 1%.</string>
+  <string name="medians">medianar</string>
+  <string name="allAveragesAreX">Alle snittverdiar på denne sida er %s.</string>
+  <string name="total">Totalt</string>
+  <string name="pointsAvg">Poengsnitt</string>
+  <string name="pointsSum">Poengsum</string>
+  <string name="rankAvg">Snittplassering</string>
+  <string name="tournamentWinners">Turneringsvinnarar</string>
+  <string name="tournamentShields">Turneringsskjold</string>
+  <string name="onlyTitled">Berre spelarar med sjakktittel</string>
+  <string name="onlyTitledHelp">Berre spelarar med offisielle sjakktitlar kan delta i turneringa</string>
 </resources>
