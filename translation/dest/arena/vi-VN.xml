@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+  <string name="arena">Đấu trường</string>
   <string name="arenaTournaments">Các giải đấu Đấu trường</string>
   <string name="isItRated">Có tính xếp hạng?</string>
   <string name="willBeNotified">Bạn sẽ được thông báo khi giải đấu bắt đầu, vì vậy hãy yên tâm chơi trong tab khác trong lúc chờ.</string>
@@ -58,4 +59,15 @@ Chơi nhanh và trở lại phòng chờ để chơi được nhiều ván và g
   <string name="averagePerformance">Hiệu suất trung bình</string>
   <string name="averageScore">Điểm trung bình</string>
   <string name="myTournaments">Giải đấu của tôi</string>
+  <string name="editTournament">Chỉnh sửa giải đấu</string>
+  <string name="pickYourTeam">Chọn đội của bạn</string>
+  <string name="whichTeamWillYouRepresentInThisBattle">Bạn sẽ đại diện cho đội nào trong trận chiến này?</string>
+  <string name="youMustJoinOneOfTheseTeamsToParticipate">Bạn phải tham gia một trong những đội này để tham gia!</string>
+  <string name="created">Đã tạo</string>
+  <string name="recentlyPlayed">Đã chơi gần đây</string>
+  <string name="bestResults">Kết quả tốt nhất</string>
+  <string name="stats">Thống kê</string>
+  <string name="total">Tổng</string>
+  <string name="pointsAvg">Điểm trung bình</string>
+  <string name="tournamentWinners">Các nhà vô địch giải</string>
 </resources>
