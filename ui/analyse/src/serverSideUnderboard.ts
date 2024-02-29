@@ -121,7 +121,7 @@ export default function (element: HTMLElement, ctrl: AnalyseCtrl) {
   const stored = storage.get();
   if (stored && $menu.children(`[data-panel="${stored}"]:visible`).length) setPanel(stored);
   else {
-    const $menuCt = $menu.children('[data-panel="ctable"]');
+    const $menuCt = $menu.children('[data-panel="sfen-notation"]');
     ($menuCt.length ? $menuCt : $menu.children(':first-child')).trigger('mousedown');
   }
   if (!data.analysis) {
