@@ -58,4 +58,6 @@
   <string name="averagePerformance">میانگین عملکرد</string>
   <string name="averageScore">میانگین امتیاز</string>
   <string name="myTournaments">مسابقات من</string>
+  <string name="defender">مدافع</string>
+  <string name="pickYourTeam">تیم خود را انتخاب کنید</string>
 </resources>
