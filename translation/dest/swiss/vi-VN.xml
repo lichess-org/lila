@@ -9,7 +9,7 @@
     <item quantity="other">%s vòng đấu</item>
   </plurals>
   <plurals name="xRoundsSwiss" comment="%s rounds of a Swiss game">
-    <item quantity="other">%s vòng Thụy Sĩ</item>
+    <item quantity="other">%s vòng hệ Thụy Sĩ</item>
   </plurals>
   <plurals name="oneRoundEveryXDays">
     <item quantity="other">Một vòng đấu mỗi %s ngày</item>
@@ -32,6 +32,16 @@
   <string name="roundInterval">Khoảng thời gian giữa các vòng đấu</string>
   <string name="forbiddenPairings">Ghép cặp bị cấm</string>
   <string name="forbiddenPairingsHelp">Tên người dùng của những kỳ thủ không được đấu với nhau (Ví dụ: Anh chị em ruột). Hai tên người dùng trên mỗi dòng, được phân tách bằng dấu cách.</string>
+  <string name="manualPairings">Ghép cặp thủ công ở vòng tiếp theo</string>
+  <string name="manualPairingsHelp">Chỉ định tất cả các cặp của vòng tiếp theo theo cách thủ công. Một cặp người chơi trên mỗi dòng. Ví dụ:
+KyThuA KyThuB
+KyThuC KyThuD
+Để miễn (1 điểm) cho một người chơi thay vì ghép đôi, hãy thêm một dòng như sau:
+KyThuE 1
+Những kỳ thủ bị thiếu sẽ bị coi là vắng mặt và không được điểm.
+Để trống phần này để Lichess tự động tạo các cặp.</string>
+  <string name="mustHavePlayedTheirLastSwissGame">Chắc chắn đã phải chơi trận trong giải hệ Thụy Sĩ cuối cùng của họ</string>
+  <string name="mustHavePlayedTheirLastSwissGameHelp">Chỉ cho phép kỳ thủ tham gia nếu họ đã chơi trận trong giải hệ Thụy Sĩ cuối cùng. Nếu họ không xuất hiện trong một sự kiện hệ Thụy Sĩ gần đây, họ sẽ không thể tham gia sự kiện của bạn. Điều này mang lại trải nghiệm giải đấu hệ Thụy Sĩ tốt hơn cho những kỳ thủ thực sự xuất hiện.</string>
   <string name="newSwiss">Giải đấu hệ Thụy Sĩ mới</string>
   <string name="swissVsArenaQ">Khi nào nên chơi giải hệ Thụy Sĩ thay vì giải Đấu trường?</string>
   <string name="swissVsArenaA">Trong một giải đấu hệ Thụy Sĩ, tất cả người chơi chơi cùng số lượng ván đấu, và chỉ chơi mỗi người một lần.
@@ -107,6 +117,7 @@ Thứ gần nhất bạn có thể có với một giải đấu vòng tròn là
   <string name="predefinedUsers">Chỉ cho phép những người dùng được chỉ định trước tham gia</string>
   <string name="forbiddedUsers">Ngoại trừ những người trong danh sách này, những người khác đều bị cấm tham gia. Mỗi dòng một tên người dùng.</string>
   <string name="playYourGames">Chơi các ván đấu của bạn</string>
+  <string name="byes">Miễn</string>
   <string name="absences">Vắng mặt</string>
   <string name="tieBreak">Điểm số phụ</string>
 </resources>
