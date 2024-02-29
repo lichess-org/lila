@@ -50,8 +50,23 @@ Jogadores que não gostem de receber suas mensagens podem deixar a equipe.</stri
   <string name="entryCodeDescriptionForLeader">(Opcional) Um código de entrada que novos membros devem saber para entrarem nesta equipe.</string>
   <string name="incorrectEntryCode">Código de entrada incorreto.</string>
   <string name="teamAlreadyExists">Esta equipe já existe.</string>
+  <string name="upcomingTournaments">Próximos torneios</string>
   <string name="completedTourns">Torneios concluídos</string>
   <string name="declinedRequests">Pedidos recusados</string>
   <string name="joinLichessVariantTeam">Junte-se à equipe oficial do %s e fique por dentro das novidades e eventos</string>
   <string name="teamPage">Página da equipe</string>
+  <string name="thisTeamBattleIsOver">Este torneio acabou, e as equipes não podem mais ser atualizadas.</string>
+  <string name="listTheTeamsThatWillCompete">Liste as equipes que vão competir nesta batalha.</string>
+  <string name="oneTeamPerLine">Uma equipe por linha. Use o preenchimento automático.</string>
+  <string name="numberOfLeadsPerTeam">Número de líderes por equipe. A soma da pontuação deles é a pontuação da equipe.</string>
+  <string name="numberOfLeadsPerTeamHelp">Você não deve mudar esse valor após o torneio ter começado!</string>
+  <string name="innerTeam">Equipe interna</string>
+  <plurals name="battleOfNbTeams">
+    <item quantity="one">Batalha de %s equipe</item>
+    <item quantity="other">Batalha de %s equipes</item>
+  </plurals>
+  <plurals name="nbLeadersPerTeam">
+    <item quantity="one">Um líder por equipe</item>
+    <item quantity="other">%s líderes por equipe</item>
+  </plurals>
 </resources>
