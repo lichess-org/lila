@@ -198,7 +198,6 @@ object JsonView:
   given OWrites[Chapter.Metadata] = OWrites: c =>
     Json
       .obj("id" -> c._id, "name" -> c.name)
-      .add("ongoing", c.looksOngoing)
       .add("res" -> c.resultStr)
 
   private[study] given Writes[Position.Ref] = Json.writes

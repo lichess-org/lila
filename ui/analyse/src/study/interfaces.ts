@@ -90,7 +90,6 @@ export interface StudyFeatures {
 export interface StudyChapterMeta {
   id: ChapterId;
   name: string;
-  ongoing?: boolean;
   res?: '1-0' | '0-1' | '½-½' | '*';
 }
 

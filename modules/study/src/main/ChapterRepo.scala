@@ -40,10 +40,9 @@ final class ChapterRepo(val coll: AsyncColl)(using Executor, akka.stream.Materia
 
   private val metadataProjection =
     $doc(
-      "name"       -> true,
-      "setup"      -> true,
-      "relay.path" -> true,
-      "tags"       -> $doc("$elemMatch" -> $doc("$regex" -> "^Result:"))
+      "name"  -> true,
+      "setup" -> true,
+      "tags"  -> $doc("$elemMatch" -> $doc("$regex" -> "^Result:"))
     ).some
 
   def orderedMetadataByStudy(studyId: StudyId): Fu[List[Chapter.Metadata]] =

@@ -45,15 +45,18 @@ export const tourTabs = (ctrl: AnalyseCtrl) => {
       name,
     );
 
-  return h(
-    'aside.subnav.relay-tour__tabs',
-    h('nav.subnav__inner', { attrs: { role: 'tablist' } }, [
-      makeTab('overview', 'Overview'),
-      !study.looksNew() && makeTab('games', 'Games'),
-      relay.teams && makeTab('teams', 'Teams'),
-      relay.data.leaderboard ? makeTab('leaderboard', 'Leaderboard') : undefined,
-    ]),
-  );
+  return h('aside.relay-tour__side', [
+    h(
+      'div.subnav.relay-tour__tabs',
+      h('nav.subnav__inner', { attrs: { role: 'tablist' } }, [
+        makeTab('overview', 'Overview'),
+        makeTab('games', 'Games'),
+        relay.teams && makeTab('teams', 'Teams'),
+        relay.data.leaderboard ? makeTab('leaderboard', 'Leaderboard') : undefined,
+      ]),
+    ),
+    gamesList(),
+  ]);
 };
 
 const leaderboard = (relay: RelayCtrl, ctrl: AnalyseCtrl): VNode[] => {
@@ -172,6 +175,10 @@ const roundSelect = (relay: RelayCtrl, study: StudyCtrl) =>
       ),
     ),
   ]);
+
+const gamesList = () => {
+  return h('div.relay-tour__games-list', []);
+};
 
 const games = (relay: RelayCtrl, study: StudyCtrl, ctrl: AnalyseCtrl) => [
   h('div.box.relay-tour__box', [header(relay, ctrl), multiBoardView(study.multiBoard, study)]),

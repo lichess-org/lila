@@ -142,8 +142,7 @@ export function view(ctrl: StudyCtrl): VNode {
           [
             h('span', loading ? h('span.ddloader') : ['' + (i + 1)]),
             h('h3', chapter.name),
-            chapter.ongoing && h('ongoing', { attrs: { ...dataIcon(licon.DiscBig), title: 'Ongoing' } }),
-            !chapter.ongoing && chapter.res && h('res', chapter.res),
+            chapter.res && h('res', chapter.res),
             canContribute && h('i.act', { attrs: { ...dataIcon(licon.Gear), title: 'Edit chapter' } }),
           ],
         );

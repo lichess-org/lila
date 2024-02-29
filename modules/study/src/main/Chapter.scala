@@ -77,8 +77,7 @@ case class Chapter(
     _id = _id,
     name = name,
     setup = setup,
-    outcome = tags.outcome.isDefined option tags.outcome,
-    hasRelayPath = relay.exists(!_.path.isEmpty)
+    outcome = tags.outcome.isDefined option tags.outcome
   )
 
   def isPractice = ~practice
@@ -140,11 +139,8 @@ object Chapter:
       _id: StudyChapterId,
       name: StudyChapterName,
       setup: Setup,
-      outcome: Option[Option[Outcome]],
-      hasRelayPath: Boolean
+      outcome: Option[Option[Outcome]]
   ) extends Like:
-
-    def looksOngoing = outcome.exists(_.isEmpty) && hasRelayPath
 
     def resultStr: Option[String] = outcome.map(o => Outcome.showResult(o).replace("1/2", "½"))
 

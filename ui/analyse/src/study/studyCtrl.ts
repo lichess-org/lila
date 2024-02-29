@@ -160,7 +160,7 @@ export default class StudyCtrl {
         this.redrawAndUpdateAddressBar,
         this.members,
         this.data.chapter,
-        this.looksNew(),
+        this.chapters.looksNew(),
         (id: ChapterId) => this.setChapter(id),
       );
     this.multiBoard = new MultiBoardCtrl(
@@ -550,7 +550,6 @@ export default class StudyCtrl {
   explorerGame = (gameId: string, insert: boolean) =>
     this.makeChange('explorerGame', this.withPosition({ gameId, insert }));
   onPremoveSet = () => this.gamebookPlay?.onPremoveSet();
-  looksNew = () => this.chapters.looksNew() && !this.currentChapter().ongoing;
   updateAddressBar = () => {
     const current = location.href;
     const studyIdOffset = current.indexOf(`/${this.data.id}`);
