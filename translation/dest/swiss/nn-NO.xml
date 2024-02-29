@@ -40,6 +40,15 @@
   <string name="forbiddenPairings">Forbodne parsamansetjingar</string>
   <string name="forbiddenPairingsHelp">Brukernamn for spelarar som ikkje må spela saman (til dømes sysken). To brukarnamn per linje, skilde med eit mellomrom.</string>
   <string name="manualPairings">Manuelle samankoblingar neste runde</string>
+  <string name="manualPairingsHelp">Angje alle samansetjingar i neste runde manuelt. Eit spelarpar per linje. Døme:
+PlayerA PlayerB
+PlayerC PlayerD
+For å gje ein spelar walkoversiger (1 poeng) i staden for ein motspelar kan du legge til ei linje som:
+PlayerE 1
+Spelarar som ikkje er på lista blir rekna som fråverande og får null poeng.
+La dette feltet stå tomt for å la lichess opprette spelarpar automatisk.</string>
+  <string name="mustHavePlayedTheirLastSwissGame">Må ha spela sitt siste parti i sveitsarturneringa</string>
+  <string name="mustHavePlayedTheirLastSwissGameHelp">Aksepter berre spelarar som spela det siste sveitsarparti dei var påmelde til. Dei som trass påmelding ikkje dukka opp i ei nyleg avhalden sveitsarturnering får då ikkje delta i turneringa di. Dette vil gje dei spelarane som faktisk dukkar opp ei betre turneringsoppleving.</string>
   <string name="newSwiss">Ny sveitserturnering</string>
   <string name="swissVsArenaQ">Når skal du arrangera etter sveitsarsystemet i staden for arenaturnering?</string>
   <string name="swissVsArenaA">I ein sveitsarturnering spelar alle deltakarane det same antal spel og kan spela mot kvarandre berre éin gong.
@@ -112,4 +121,7 @@ Grunnen er at det ikke finst ein rettvis måte å handtera spelarar som forlet t
   <string name="predefinedUsers">Tillat berre førehandsbestemde brukarar å delta</string>
   <string name="forbiddedUsers">Så sant denne lista ikkje er tom vil brukarar som ikkje er oppførde bli nekta å vera med. Eit brukarnamn per linje.</string>
   <string name="playYourGames">Spel partia dine</string>
+  <string name="byes">Walkover</string>
+  <string name="absences">Fråverande</string>
+  <string name="tieBreak">Tiebreak</string>
 </resources>
