@@ -97,7 +97,7 @@ lazy val video = module("video",
 )
 
 lazy val coach = module("coach",
-  Seq(common, hub, db, user, security, notifyModule),
+  Seq(common, hub, db, user, security, game),
   reactivemongo.bundle
 )
 
