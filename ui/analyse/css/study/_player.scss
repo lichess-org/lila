@@ -94,6 +94,12 @@ $player-height: 1.6rem;
       max-width: fit-content;
       flex: 1;
     }
+    a.name {
+      color: $c-font;
+      &:hover {
+        color: $c-link;
+      }
+    }
   }
 
   .name {
