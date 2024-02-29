@@ -72,4 +72,19 @@
   <string name="bestResults">התוצאות הטובות ביותר</string>
   <string name="stats">סטטיסטיקות</string>
   <string name="tournamentStats">נתוני הטורנירים</string>
+  <string name="rankAvgHelp">ממוצע הדירוג הוא האחוזון של הדירוגים שלך. ככל שהוא נמוך יותר, כך הוא טוב יותר!
+
+לדוגמה, מי שזוכה מקום שלישי בטורניר עם 100 משתתפים הוא באחוזון השלישי (3%).
+
+מי שזוכה במקום העשירי מתוך אלף משתתפים הוא באחוזון העליון (1%).</string>
+  <string name="medians">חציונים</string>
+  <string name="allAveragesAreX">כל הממוצעים בעמוד זה הם למעשה %s.</string>
+  <string name="total">סך הכל</string>
+  <string name="pointsAvg">ממוצע הנקודות</string>
+  <string name="pointsSum">סכום הנקודות</string>
+  <string name="rankAvg">ממוצע הדירוג</string>
+  <string name="tournamentWinners">מנצחי הטורנירים</string>
+  <string name="tournamentShields">מגיני הטורנירים</string>
+  <string name="onlyTitled">שחקנים עטורי דרגות בלבד</string>
+  <string name="onlyTitledHelp">יהיה צורך בתואר רשמי כדי להצטרף לטורניר</string>
 </resources>
