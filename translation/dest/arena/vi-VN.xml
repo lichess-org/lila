@@ -60,6 +60,8 @@ Chơi nhanh và trở lại phòng chờ để chơi được nhiều ván và g
   <string name="averageScore">Điểm trung bình</string>
   <string name="myTournaments">Giải đấu của tôi</string>
   <string name="editTournament">Chỉnh sửa giải đấu</string>
+  <string name="editTeamBattle">Chỉnh sửa trận chiến đội</string>
+  <string name="defender">Người giữ khiên</string>
   <string name="pickYourTeam">Chọn đội của bạn</string>
   <string name="whichTeamWillYouRepresentInThisBattle">Bạn sẽ đại diện cho đội nào trong trận chiến này?</string>
   <string name="youMustJoinOneOfTheseTeamsToParticipate">Bạn phải tham gia một trong những đội này để tham gia!</string>
@@ -67,9 +69,18 @@ Chơi nhanh và trở lại phòng chờ để chơi được nhiều ván và g
   <string name="recentlyPlayed">Đã chơi gần đây</string>
   <string name="bestResults">Kết quả tốt nhất</string>
   <string name="stats">Thống kê</string>
+  <string name="tournamentStats">Thống kê giải đấu</string>
+  <string name="rankAvgHelp">Thứ hạng trung bình là phần trăm thứ hạng của bạn. Thấp hơn là tốt hơn.
+
+Ví dụ: được hạng 3 trong một giải đấu có 100 kỳ thủ = 3%. Hạng 10 trong giải đấu 1000 kỳ thủ = 1%.</string>
+  <string name="medians">trung vị</string>
+  <string name="allAveragesAreX">Tất cả các giá trị trung bình trên trang này đều là %s.</string>
   <string name="total">Tổng</string>
   <string name="pointsAvg">Điểm trung bình</string>
+  <string name="pointsSum">Tổng điểm</string>
   <string name="rankAvg">Thứ hạng trung bình</string>
   <string name="tournamentWinners">Các nhà vô địch giải</string>
+  <string name="tournamentShields">Các khiên giải đấu</string>
   <string name="onlyTitled">Chỉ những kỳ thủ có danh hiệu</string>
+  <string name="onlyTitledHelp">Yêu cầu có một danh hiệu chính thức để tham gia giải đấu</string>
 </resources>
