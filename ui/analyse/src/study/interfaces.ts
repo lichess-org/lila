@@ -91,9 +91,18 @@ export interface StudyChapterMeta {
   id: ChapterId;
   name: string;
   res?: '1-0' | '0-1' | '½-½' | '*';
+  ongoing?: boolean; // only set by StudyChapterMetaExt
 }
 
-export interface StudyChapterConfig extends StudyChapterMeta {
+export interface StudyChapterMetaMin extends StudyChapterMeta {}
+
+export interface StudyChapterMetaExt extends StudyChapterMeta {
+  players: [RelayPlayer, RelayPlayer];
+}
+
+export type RelayPlayer = [string?, string?, number?];
+
+export interface StudyChapterConfig extends StudyChapterMetaMin {
   orientation: Color;
   description?: string;
   practice: boolean;

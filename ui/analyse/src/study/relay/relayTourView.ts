@@ -12,6 +12,7 @@ import { toggle } from 'common/controls';
 import * as xhr from 'common/xhr';
 import { teamsView } from './relayTeams';
 import { userTitle } from 'common/userLink';
+import { ChapterId, StudyChapterMetaExt } from '../interfaces';
 
 export default function (ctrl: AnalyseCtrl): VNode | undefined {
   const study = ctrl.study,
@@ -55,7 +56,7 @@ export const tourTabs = (ctrl: AnalyseCtrl) => {
         relay.data.leaderboard ? makeTab('leaderboard', 'Leaderboard') : undefined,
       ]),
     ),
-    gamesList(),
+    gamesList(study, relay),
   ]);
 };
 
@@ -176,8 +177,46 @@ const roundSelect = (relay: RelayCtrl, study: StudyCtrl) =>
     ),
   ]);
 
-const gamesList = () => {
-  return h('div.relay-tour__games-list', []);
+export const gameLinkProps = (
+  roundPath: () => string,
+  setChapter: (id: ChapterId) => void,
+  game: { id: ChapterId },
+) => ({
+  attrs: { href: `${roundPath()}/${game.id}` },
+  hook: bind(
+    'click',
+    () => {
+      setChapter(game.id);
+      return false;
+    },
+    undefined,
+    false,
+  ),
+});
+
+const gamesList = (study: StudyCtrl, relay: RelayCtrl) => {
+  const chapters = study.chapters.list() as StudyChapterMetaExt[];
+  return h(
+    'div.relay-games',
+    chapters.map(c =>
+      h('a.relay-game', gameLinkProps(relay.roundPath, study.setChapter, c), [
+        h('span.relay-game__gauge', [
+          h('span.relay-game__gauge__black', {
+            hook: {
+              postpatch() {
+                // do the magic here, like in multiboard.ts
+              },
+            },
+          }),
+          h('tick'),
+        ]),
+        h(
+          'span.relay-game__players',
+          c.players.map(p => h('span.relay-game__player', [p[0] && userTitle({ title: p[0] }), p[1]])),
+        ),
+      ]),
+    ),
+  );
 };
 
 const games = (relay: RelayCtrl, study: StudyCtrl, ctrl: AnalyseCtrl) => [
