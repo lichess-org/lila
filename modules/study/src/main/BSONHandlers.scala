@@ -407,10 +407,7 @@ object BSONHandlers:
       id    <- doc.getAsTry[StudyChapterId]("_id")
       name  <- doc.getAsTry[StudyChapterName]("name")
       setup <- doc.getAsTry[Chapter.Setup]("setup")
-      tags    = ~doc.getAsOpt[List[String]]("tags")
-      outcome = tags.find(_.startsWith("Result:")).map(_ drop 7).map(Outcome.fromResult)
-      teams =
-        tags.find(_.startsWith("WhiteTeam:")).map(_ drop 10) zip
-          tags.find(_.startsWith("BlackTeam:")).map(_ drop 10)
+      tags         = ~doc.getAsOpt[List[String]]("tags")
+      outcome      = tags.find(_.startsWith("Result:")).map(_ drop 7).map(Outcome.fromResult)
       hasRelayPath = doc.getAsOpt[Bdoc]("relay").flatMap(_ string "path").exists(_.nonEmpty)
-    yield Chapter.Metadata(id, name, setup, outcome, teams, hasRelayPath)
+    yield Chapter.Metadata(id, name, setup, outcome, hasRelayPath)

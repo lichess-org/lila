@@ -92,7 +92,6 @@ export interface StudyChapterMeta {
   name: string;
   ongoing?: boolean;
   res?: '1-0' | '0-1' | '½-½' | '*';
-  teams?: [string, string];
 }
 
 export interface StudyChapterConfig extends StudyChapterMeta {
