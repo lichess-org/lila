@@ -274,6 +274,11 @@ final class Study(
           case Some(tour) => Redirect(routes.RelayTour.show(tour.slug, tour.id))
   }
 
+  def apiChapterDelete(id: StudyId, chapterId: StudyChapterId) = ScopedBody(_.Study.Write) { _ ?=> me ?=>
+    Found(env.study.api.byIdAndOwnerOrAdmin(id, me)): study =>
+      env.study.api.deleteChapter(id, chapterId)(Who(me.userId, Socket.Sri("api"))) inject NoContent
+  }
+
   def clearChat(id: StudyId) = Auth { _ ?=> me ?=>
     env.study.api.isOwnerOrAdmin(id, me) flatMapz {
       env.chat.api.userChat.clear(id into ChatId)
