@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+  <string name="swiss">Suisse</string>
   <string name="swissTournaments">Tournoi au système suisse</string>
   <plurals name="viewAllXRounds" comment="viewAllXRounds [one] [other]&#10;&#10;%s is the number of rounds in the Swiss tournament.">
     <item quantity="one">Voir la ronde</item>
@@ -38,6 +39,14 @@
   <string name="roundInterval">Délai entre les rondes</string>
   <string name="forbiddenPairings">Appariements interdits</string>
   <string name="forbiddenPairingsHelp">Pseudos des joueurs qui ne doivent pas jouer ensemble (frères et sœurs par exemple). Deux pseudos par ligne séparés par un espace.</string>
+  <string name="manualPairings">Appariements manuels pour la prochaine ronde</string>
+  <string name="manualPairingsHelp">Indiquez manuellement tous les appariements de la ronde suivante. Un appariement de joueurs par ligne. Par exemple :
+JoueurA JoueurB
+JoueurC JoueurD
+Pour accorder une exemption (1 point) à un joueur au lieu d\'un appariement, ajoutez une ligne comme suit :
+JoueurE 1
+Les joueurs manquants seront considérés comme absents et recevront zéro point.
+Laissez ce champ vide pour autoriser lichess à générer des appariements automatiquement.</string>
   <string name="newSwiss">Nouveau tournoi suisse</string>
   <string name="swissVsArenaQ">Quand utiliser un tournoi suisse plutôt qu\'un tournoi arène ?</string>
   <string name="swissVsArenaA">Dans un tournoi suisse, les participants jouent le même nombre de parties et n\'affrontent jamais deux fois un même adversaire.
