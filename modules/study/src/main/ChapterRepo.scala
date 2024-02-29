@@ -25,6 +25,7 @@ final class ChapterRepo(val coll: AsyncColl)(using Executor, akka.stream.Materia
 
   def deleteByStudyIds(ids: List[StudyId]): Funit = coll(_.delete.one($doc("studyId" $in ids))).void
 
+  // studyId is useful to ensure that the chapter belongs to the study
   def byIdAndStudy(id: StudyChapterId, studyId: StudyId): Fu[Option[Chapter]] =
     coll(_.one($id(id) ++ $studyId(studyId)))
 

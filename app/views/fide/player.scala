@@ -56,7 +56,7 @@ object player:
       tbody(cls := "infinite-scroll")(
         players.currentPageResults.map: player =>
           tr(cls := "paginated")(
-            td(a(href := routes.Fide.show(player.id, player.slug))(player.name)),
+            td(a(href := routes.Fide.show(player.id, player.slug))(titleTag(player.title), player.name)),
             withFlag option td:
               player.fed.map: fed =>
                 a(href := routes.Fide.federation(Federation.name(fed))):
