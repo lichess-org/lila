@@ -7,9 +7,10 @@ export function enhance(text: string, parseMoves: boolean): string {
 
 const moreThanTextPattern = /[&<>"@]/;
 const possibleLinkPattern = /\.\w/;
+export const possibleTitlePattern = /^\[.*?\]/;
 
-export function isMoreThanText(str: string) {
-  return moreThanTextPattern.test(str) || possibleLinkPattern.test(str);
+export function isMoreThanText(str: string, system: boolean) {
+  return moreThanTextPattern.test(str) || possibleLinkPattern.test(str) || (system && possibleTitlePattern.test(str));
 }
 
 const linkPattern = /\b(https?:\/\/|lishogi\.org\/)[-–—\w+&'@#\/%?=()~|!:,.;]+[\w+&@#\/%=~|]/gi;

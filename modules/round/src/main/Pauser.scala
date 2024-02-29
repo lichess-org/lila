@@ -2,6 +2,8 @@ package lila.round
 
 import scala.concurrent.duration._
 import com.github.blemale.scaffeine.Cache
+import org.joda.time.DateTime
+import org.joda.time.format.DateTimeFormat
 
 import lila.game.{ Event, Game, GameRepo, Pov, Progress }
 import lila.memo.CacheApi
@@ -20,18 +22,24 @@ final private[round] class Pauser(
     key = "round.pauser"
   )
 
+  private val dateTimeStyle     = "MS"
+  private val dateTimeFormatter = DateTimeFormat forStyle dateTimeStyle
+
   def yes(pov: Pov)(implicit proxy: GameProxy): Fu[Events] =
     pov match {
       case Pov(g, color) if pov.opponent.isOfferingPause && !g.prePaused =>
         proxy.save {
-          messenger.system(g, trans.adjournmentOfferAccepted.txt())
+          messenger.system(
+            g,
+            timestampMessage(trans.adjournmentOfferAccepted.txt(), g.plies)
+          )
           Progress(g, g.updatePlayers(_.offerPause))
         } inject List(Event.PauseOffer(by = color.some))
-      case Pov(g, color) if g.playerCanOfferPause(color) && rateLimit(pov.fullId)(true)(false).pp("RL") =>
+      case Pov(g, color) if g.playerCanOfferPause(color) && rateLimit(pov.fullId)(true)(false) =>
         proxy.save {
           messenger.system(
             g,
-            trans.xOffersAdjournment.txt(color.toString).toLowerCase.capitalize + s" (${g.plies}.)"
+            timestampMessage(trans.xOffersAdjournment.txt(color.toString), g.plies)
           )
           Progress(g, g.updatePlayer(color, _.offerPause))
         } inject List(Event.PauseOffer(by = color.some))
@@ -42,16 +50,19 @@ final private[round] class Pauser(
     pov match {
       case Pov(g, color) if pov.player.isOfferingPause =>
         proxy.save {
-          messenger.system(g, trans.adjournmentOfferCanceled.txt())
+          messenger.system(g, timestampMessage(trans.adjournmentOfferCanceled.txt(), g.plies))
           Progress(g, g.updatePlayer(color, _.removePauseOffer))
         } inject List(Event.PauseOffer(by = none))
       case Pov(g, color) if pov.opponent.isOfferingPause =>
         proxy.save {
-          messenger.system(g, trans.xDeclinesAdjournment.txt(pov.color))
+          messenger.system(g, timestampMessage(trans.xDeclinesAdjournment.txt(color), g.plies))
           Progress(g, g.updatePlayer(!color, _.removePauseOffer))
         } inject List(Event.PauseOffer(by = none))
       case _ => fuccess(List(Event.ReloadOwner))
     }
+
+  private def timestampMessage(str: String, moveNumber: Int): String =
+    s"[${dateTimeFormatter print DateTime.now} ($moveNumber. move)]${str.toLowerCase.capitalize}"
 
   private val resumeOffers: Cache[Game.ID, Pauser.ResumeOffers] = CacheApi.scaffeineNoScheduler
     .expireAfterWrite(3 minutes)
@@ -65,24 +76,31 @@ final private[round] class Pauser(
 
   def resumeYes(
       pov: Pov
-  )(implicit proxy: GameProxy): Fu[(Events, Option[(shogi.format.usi.Usi, Game)])] =
+  )(implicit proxy: GameProxy): Fu[Either[Events, (shogi.format.usi.Usi, Progress)]] =
     pov match {
       case Pov(g, color) if g.paused =>
         if (isOfferingResume(g.id, !color)) {
           resumeOffers invalidate g.id
           messenger.system(g, trans.gameResumed.txt())
-          val newGame = g.sealedUsi.flatMap(u => g.shogi(u).toOption)
-          val prog    = newGame.fold(g.resumeGame(g.shogi))(nsg => g.resumeGame(nsg))
+          val prog = Progress(g, g.resume, List(Event.Reload))
           proxy.save(prog) >>
-            gameRepo.resume(g.id, prog.game.pausedSeconds, prog.game.userIds.distinct) inject (
-              prog.events -> newGame.flatMap(ng => ng.usiMoves.lastOption.map(u => (u, prog.game)))
+            gameRepo.resume(prog.game.id, prog.game.pausedSeconds, prog.game.userIds.distinct) inject (
+              prog.game.usiMoves.lastOption
+                .filter(usi => Some(usi) == g.sealedUsi && g.plies < prog.game.plies)
+                .fold {
+                  messenger.system(g, "Couldn't play sealed move") // should never happen
+                  Left(prog.events)
+                    .withRight[(shogi.format.usi.Usi, Progress)]
+                } { usi =>
+                  Right((usi, prog)).withLeft[Events]
+                }
             )
         } else {
           resumeOffers.put(g.id, Pauser.ResumeOffers(sente = color.sente, gote = color.gote))
           messenger.system(g, trans.xOffersResumption.txt(color))
-          fuccess(List(Event.ResumeOffer(by = color.some)) -> none)
+          fuccess(Left(List(Event.ResumeOffer(by = color.some))))
         }
-      case _ => fuccess(List(Event.ReloadOwner) -> none)
+      case _ => fuccess(Left(List(Event.ReloadOwner)))
     }
 
   def resumeNo(pov: Pov)(implicit proxy: GameProxy): Fu[Events] =

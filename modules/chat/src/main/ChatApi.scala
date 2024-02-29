@@ -105,7 +105,7 @@ final class ChatApi(
     def clear(chatId: Chat.Id) = coll.delete.one($id(chatId)).void
 
     def system(chatId: Chat.Id, text: String, busChan: BusChan.Select): Funit = {
-      val line = UserLine(systemUserId, None, text, troll = false, deleted = false)
+      val line = UserLine(systemUserId, none, text, troll = false, deleted = false)
       pushLine(chatId, line) >>- {
         cached.invalidate(chatId)
         publish(chatId, actorApi.ChatLine(chatId, line), busChan)
@@ -114,12 +114,9 @@ final class ChatApi(
 
     // like system, but not persisted.
     def volatile(chatId: Chat.Id, text: String, busChan: BusChan.Select): Unit = {
-      val line = UserLine(systemUserId, None, text, troll = false, deleted = false)
+      val line = UserLine(systemUserId, none, text, troll = false, deleted = false)
       publish(chatId, actorApi.ChatLine(chatId, line), busChan)
     }
-
-    def service(chatId: Chat.Id, text: String, busChan: BusChan.Select, isVolatile: Boolean): Unit =
-      (if (isVolatile) volatile _ else system _) (chatId, text, busChan).unit
 
     def timeout(
         chatId: Chat.Id,

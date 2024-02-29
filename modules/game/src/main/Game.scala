@@ -183,29 +183,46 @@ case class Game(
     }
   }
 
-  def resumeGame(game: ShogiGame) = {
-    val p = (nowSeconds - movedAt.getSeconds).toInt atLeast 0
-    val updated = copy(
-      shogi =
-        game.copy(clock = clock.map(_.copy(color = game.situation.color).start)), // clock was already updated
-      status = Status.Started,
-      sealedUsi = none,
-      pausedSeconds = pausedSeconds.map(_ + p).orElse(p.some),
-      movedAt = DateTime.now
-    )
-    Progress(this, updated, List(Event.Reload))
-  }
+  def resume =
+    if (!paused) this
+    else {
+      val newShogi = sealedUsi.flatMap(u => shogi(u).toOption).getOrElse(shogi)
+      val sealedUsiApplied =
+        newShogi.usiMoves.lastOption.exists(_.some == sealedUsi && plies < newShogi.plies)
+      val pSeconds = (nowSeconds - movedAt.getSeconds).toInt atLeast 0
+      val resumed = copy(
+        // clock was already updated, make sure proper color is set
+        shogi = newShogi.copy(clock = clock.map(_.copy(color = newShogi.situation.color).start)),
+        status = Status.Started,
+        sealedUsi = none,
+        pausedSeconds = pausedSeconds.map(_ + pSeconds).orElse(pSeconds.some),
+        movedAt = DateTime.now
+      )
+
+      if (sealedUsiApplied) resumed
+      else
+        resumed.copy(
+          binaryMoveTimes = binaryMoveTimes.map { binary =>
+            val moveTimes = BinaryFormat.moveTime.read(binary, playedPlies)
+            BinaryFormat.moveTime.write(moveTimes)
+          },
+          loadClockHistory = _ =>
+            clockHistory.map { ch =>
+              (ch.update(newShogi.color, _.dropRight(1)))
+            }
+        )
+    }
 
   def pauseAndSealUsi(
       usi: Usi,
-      game: ShogiGame, // new shogi position
+      newShogi: ShogiGame, // new shogi position
       blur: Boolean
   ) =
-    applyGame(game, blur, true).map { g =>
+    applyGame(newShogi, blur, true).map { g =>
       g.copy(
         sentePlayer = g.sentePlayer.removePauseOffer,
         gotePlayer = g.gotePlayer.removePauseOffer,
-        shogi = shogi.copy(clock = game.clock.map(_.stop)), // use old shogi position but new clock
+        shogi = shogi.copy(clock = newShogi.clock.map(_.stop)), // use old shogi position but new clock
         sealedUsi = usi.some,
         status = Status.Paused
       )
@@ -213,7 +230,7 @@ case class Game(
 
   // after making a move
   def applyGame(
-      game: ShogiGame, // new shogi position
+      newShogi: ShogiGame, // new shogi position
       blur: Boolean,
       reload: Boolean = false
   ): Progress = {
@@ -225,7 +242,7 @@ case class Game(
     // This must be computed eagerly
     // because it depends on the current time
     val newClockHistory = for {
-      clk <- game.clock
+      clk <- newShogi.clock
       ch  <- clockHistory
     } yield ch
       .record(turnColor, clk, shogi.fullTurnNumber)
@@ -233,7 +250,7 @@ case class Game(
     val updated = copy(
       sentePlayer = copyPlayer(sentePlayer),
       gotePlayer = copyPlayer(gotePlayer),
-      shogi = game,
+      shogi = newShogi,
       binaryMoveTimes = (!isNotationImport && !shogi.clock.isDefined).option {
         BinaryFormat.moveTime.write {
           binaryMoveTimes.?? { t =>
@@ -242,19 +259,19 @@ case class Game(
         }
       },
       loadClockHistory = _ => newClockHistory,
-      status = game.situation.status | status,
+      status = newShogi.situation.status | status,
       movedAt = DateTime.now
     )
 
-    val event = game.usiMoves.lastOption.ifFalse(reload).fold[Event](Event.Reload) { usi =>
+    val event = newShogi.usiMoves.lastOption.ifFalse(reload).fold[Event](Event.Reload) { usi =>
       Event.UsiEvent(
         usi = usi,
-        situation = game.situation,
+        situation = newShogi.situation,
         state = Event.State(
-          color = game.situation.color,
-          plies = game.plies,
+          color = newShogi.situation.color,
+          plies = newShogi.plies,
           status = (status != updated.status) option updated.status,
-          winner = game.situation.winner
+          winner = newShogi.situation.winner
         ),
         clock = updated.shogi.clock map Event.Clock.apply orElse {
           updated.playableCorrespondenceClock map Event.CorrespondenceClock.apply
@@ -366,7 +383,7 @@ case class Game(
       started && playable && nonAi &&
       plies >= 20 && players.forall(_.hasUser) &&
       !player(color).isOfferingPause &&
-      !(clock.exists(_.config.limitSeconds < 60 * 15))
+      clock.exists(_.config.limitSeconds >= 60 * 15) // only real time - for now
 
   def playerCouldRematch =
     finishedOrAborted &&
