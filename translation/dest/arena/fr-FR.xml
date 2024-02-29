@@ -61,15 +61,23 @@ Jouez vite et retournez à la page d\'accueil du tournoi pour jouer plus de part
   <string name="myTournaments">Mes tournois</string>
   <string name="editTournament">Éditer le tournoi</string>
   <string name="editTeamBattle">Éditer la bataille en équipe</string>
+  <string name="defender">Défenseur</string>
   <string name="pickYourTeam">Choisissez votre équipe</string>
   <string name="whichTeamWillYouRepresentInThisBattle">Quelle équipe désirez-vous représenter dans cette bataille ?</string>
   <string name="youMustJoinOneOfTheseTeamsToParticipate">Vous devez rejoindre l\'une de ces équipes pour participer !</string>
+  <string name="created">Créé</string>
   <string name="recentlyPlayed">Joué récemment</string>
   <string name="bestResults">Meilleurs résultats</string>
   <string name="stats">Statistiques</string>
   <string name="tournamentStats">Statistiques du tournoi</string>
+  <string name="rankAvgHelp">Le classement moyen est un pourcentage de votre classement. Plus il est bas, mieux c\'est.
+
+Par exemple, être classé 3e dans un tournoi de 100 joueurs = 3%. Être classé 10e dans un tournoi de 1000 joueurs = 1%.</string>
+  <string name="allAveragesAreX">Toutes les moyennes sur cette page sont %s.</string>
   <string name="total">Total</string>
+  <string name="pointsAvg">Moyenne des points</string>
   <string name="pointsSum">Somme des points</string>
+  <string name="rankAvg">Classement moyen</string>
   <string name="tournamentWinners">Vainqueurs du tournoi</string>
   <string name="onlyTitled">Uniquement les joueurs titrés</string>
   <string name="onlyTitledHelp">Un titre officiel est requis pour pouvoir participer au tournoi</string>
