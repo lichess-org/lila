@@ -39,6 +39,16 @@
   <string name="roundInterval">Intervalo entre rondas</string>
   <string name="forbiddenPairings">Emparelhamentos proibidos</string>
   <string name="forbiddenPairingsHelp">Nomes de utilizador de jogadores que não devem jogar juntos (irmãos, por exemplo). Dois nomes de utilizador por linha, separados por um espaço.</string>
+  <string name="manualPairings">Emparelhamentos manuais na próxima ronda</string>
+  <string name="manualPairingsHelp">Especificar todos os pares da próxima ronda manualmente. Um par por linha. Exemplo:
+PlayerA PlayerB
+PlayerC PlayerD
+Para dar um bye (1 ponto) para um jogador ao invés de um emparelhar, adiciona uma linha assim:
+PlayerE 1
+Jogadores ausentes serão considerados ausentes e obterão zero pontos.
+Deixa este campo vazio para que o lichess crie pares automaticamente.</string>
+  <string name="mustHavePlayedTheirLastSwissGame">Deve ter jogado o último jogo suíço</string>
+  <string name="mustHavePlayedTheirLastSwissGameHelp">Só permite que jogadores se juntem se tiverem jogado as últimas partidas suíças. Se eles não aparecerem num evento suíço recente, não poderão entrar no teu. Isto resulta numa melhor experiência para os jogadores que realmente aparecem.</string>
   <string name="newSwiss">Novo torneio em sistema Suíço</string>
   <string name="swissVsArenaQ">Quando utilizar torneios Suíços em vez de arenas?</string>
   <string name="swissVsArenaA">Num torneio suíço, todos jogam o mesmo número de vezes e só podem jogar um contra o outro uma vez.
@@ -114,4 +124,7 @@ O mais perto que podes ter do Round Robin é jogar um torneio suiço com um núm
   <string name="predefinedUsers">Permitir que se juntem apenas utilizadores pré-definidos</string>
   <string name="forbiddedUsers">Se esta lista não estiver vazia, então os nomes de utilizador ausentes desta lista serão impedidos de entrar. Um nome de utilizador por linha.</string>
   <string name="playYourGames">Jogar os seus jogos</string>
+  <string name="byes">Byes</string>
+  <string name="absences">Ausências</string>
+  <string name="tieBreak">Desempate</string>
 </resources>
