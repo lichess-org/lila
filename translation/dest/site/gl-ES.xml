@@ -532,6 +532,7 @@
   <string name="automaticallyProceedToNextGameAfterMoving">Pasar automaticamente á seguinte partida despois de mover</string>
   <string name="autoSwitch">Auto-cambio</string>
   <string name="puzzles">Problemas</string>
+  <string name="onlineBots">Bots en liña</string>
   <string name="name">Nome</string>
   <string name="description">Descrición</string>
   <string name="descPrivate">Descrición privada</string>
@@ -988,4 +989,5 @@ Deixa en branco para comezar as partidas dende a posición inicial normal.</stri
   <string name="showMeEverything">Amósamo todo</string>
   <string name="lichessPatronInfo">Lichess é unha organización benéfica e un programa totalmente libre e de código aberto.
 Todos os custos de funcionamento, desenvolvemento e contidos fináncianse unicamente mediante as doazóns dos usuarios.</string>
+  <string name="nothingToSeeHere">Nada que ver aquí polo de agora.</string>
 </resources>
