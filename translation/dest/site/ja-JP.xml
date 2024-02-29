@@ -261,6 +261,7 @@
   <string name="abortGame">対局を中止する</string>
   <string name="gameAborted">対局を中止しました</string>
   <string name="standard">スタンダード</string>
+  <string name="customPosition">自由配置局面</string>
   <string name="unlimited">無制限</string>
   <string name="mode">モード</string>
   <string name="casual">非レート戦</string>
@@ -943,4 +944,5 @@
   <string name="showMeEverything">すべてを表示</string>
   <string name="lichessPatronInfo">Lichess は非営利組織であり、完全に無料/自由なオープンソースソフトウェアです。
 運営費、開発、コンテンツを支えているのはすべてユーザーの寄付です。</string>
+  <string name="nothingToSeeHere">今は何もありません。</string>
 </resources>
