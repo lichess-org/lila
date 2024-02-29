@@ -73,6 +73,7 @@ Jouez vite et retournez à la page d\'accueil du tournoi pour jouer plus de part
   <string name="rankAvgHelp">Le classement moyen est un pourcentage de votre classement. Plus il est bas, mieux c\'est.
 
 Par exemple, être classé 3e dans un tournoi de 100 joueurs = 3%. Être classé 10e dans un tournoi de 1000 joueurs = 1%.</string>
+  <string name="medians">médianes</string>
   <string name="allAveragesAreX">Toutes les moyennes sur cette page sont %s.</string>
   <string name="total">Total</string>
   <string name="pointsAvg">Moyenne des points</string>
