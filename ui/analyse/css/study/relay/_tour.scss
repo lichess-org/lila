@@ -87,35 +87,44 @@ main.has-relay-tour {
     }
     &__round-select {
       .mselect__list {
-        @extend %flex-column;
+        display: table;
         left: unset;
         right: 0;
-        overflow: hidden;
-        a {
-          @extend %flex-between-nowrap;
-          gap: 2em;
-          font-size: 1rem;
-          span {
-            flex: 1 1 auto;
-            font-weight: bold;
+        tr {
+          display: table-row;
+          &.current-round {
+            background: $c-bg-zebra;
           }
-          &.current::after {
-            content: none;
-          }
-          time {
-            flex: 1 1 auto;
-            font-size: 0.8em;
-          }
-          ongoing {
-            color: $c-red;
-          }
-          finished {
-            color: $c-good;
-          }
-          .round-status {
-            flex: 0 0 30%;
-            text-align: $end-direction;
-          }
+        }
+        td {
+          cursor: pointer;
+        }
+        .name {
+          padding: 0.3em 1em;
+        }
+        .time,
+        .status {
+          font-size: 0.8rem;
+          color: $c-font-dim;
+        }
+        .time {
+          @extend %roboto;
+          padding: 0.5em 1em;
+        }
+        tr:hover * {
+          color: $c-primary-over;
+        }
+        .status {
+          padding: 0.5em 1.5rem 0.5em 0;
+        }
+        ongoing {
+          color: $c-red;
+        }
+        finished {
+          color: $c-good;
+        }
+        .status {
+          text-align: $end-direction;
         }
       }
     }

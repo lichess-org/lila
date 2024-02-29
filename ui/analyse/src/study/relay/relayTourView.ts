@@ -153,13 +153,21 @@ const roundSelect = (relay: RelayCtrl, study: StudyCtrl) =>
     ),
     h('label.fullscreen-mask', { attrs: { for: 'mselect-relay-round' } }),
     h(
-      'nav.mselect__list',
+      'table.mselect__list',
+      {
+        hook: bind('click', (e: MouseEvent) => {
+          const target = e.target as HTMLElement;
+          if (target.tagName != 'A') site.redirect($(target).parents('tr').find('a').attr('href')!);
+        }),
+      },
       relay.data.rounds.map(round =>
-        h(`a${round.id == study.data.id ? '.current' : ''}`, { attrs: { href: relay.roundPath(round) } }, [
-          h('span', round.name),
-          h('time', !!round.startsAt ? site.dateFormat()(new Date(round.startsAt)) : '-'),
-          roundStateIcon(round) ||
-            (round.startsAt ? h('time.round-status', site.timeago(round.startsAt)) : undefined),
+        h(`tr${round.id == study.data.id ? '.current-round' : ''}`, [
+          h('td.name', h('a', { attrs: { href: relay.roundPath(round) } }, round.name)),
+          h('td.time', !!round.startsAt ? site.dateFormat()(new Date(round.startsAt)) : '-'),
+          h(
+            'td.status',
+            roundStateIcon(round) || (round.startsAt ? site.timeago(round.startsAt) : undefined),
+          ),
         ]),
       ),
     ),
@@ -215,6 +223,5 @@ const header = (relay: RelayCtrl, ctrl: AnalyseCtrl) => {
 
 const roundStateIcon = (round: RelayRound) =>
   round.ongoing
-    ? h('ongoing.round-status', { attrs: { ...dataIcon(licon.DiscBig), title: 'Ongoing' } })
-    : round.finished &&
-      h('finished.round-status', { attrs: { ...dataIcon(licon.Checkmark), title: 'Finished' } });
+    ? h('ongoing', { attrs: { ...dataIcon(licon.DiscBig), title: 'Ongoing' } })
+    : round.finished && h('finished', { attrs: { ...dataIcon(licon.Checkmark), title: 'Finished' } });
