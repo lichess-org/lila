@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+  <string name="swiss">Schweizer</string>
   <string name="swissTournaments">Schweizerturneringer</string>
   <plurals name="viewAllXRounds" comment="viewAllXRounds [one] [other]&#10;&#10;%s is the number of rounds in the Swiss tournament.">
     <item quantity="one">Se runden</item>
@@ -38,6 +39,16 @@
   <string name="roundInterval">Interval mellem runder</string>
   <string name="forbiddenPairings">Forbudte parringer</string>
   <string name="forbiddenPairingsHelp">Brugernavne på spillere der ikke må spille sammen (for eksempel søskende). To brugernavne pr. linje, adskilt af et mellemrum.</string>
+  <string name="manualPairings">Manuelle parringer i næste runde</string>
+  <string name="manualPairingsHelp">Angiv alle parringer i næste runde manuelt. Et spillerpar pr. linje. Eksempel:
+SpillerA SpillerB
+SpillerC SpillerD
+Hvis du vil give en bye (1 point) til en spiller i stedet for en parring, skal du tilføje en linje som følger:
+SpillerE 1
+Manglende spillere vil blive betragtet som fraværende og få nul point.
+Lad dette felt være tomt for at lade Lichess oprette par automatisk.</string>
+  <string name="mustHavePlayedTheirLastSwissGame">Skal have spillet deres seneste schweizer-parti</string>
+  <string name="mustHavePlayedTheirLastSwissGameHelp">Lad kun spillere deltage, hvis de har spillet deres seneste schweizer-parti. Hvis de ikke dukkede op til en nylig schweizer-begivenhed, kan de ikke deltage i din. Dette resulterer i en bedre schweizer-oplevelse for de spillere, der rent faktisk møder op.</string>
   <string name="newSwiss">Ny schweizerturnering</string>
   <string name="swissVsArenaQ">Hvornår skal du bruge schweizerturneringer i stedet for arenaer?</string>
   <string name="swissVsArenaA">I en schweizerturnering spiller alle deltagere det samme antal spil, og kan kun spille mod hinanden én gang.
