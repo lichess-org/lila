@@ -21,6 +21,16 @@
     letter-spacing: -0.5px;
   }
 
+  .user-blindfold {
+    @extend %button-none;
+    color: $c-font-dim;
+    margin-#{$start-direction}: 0.2em;
+  }
+
+  button.user-blindfold:hover {
+    color: $c-primary;
+  }
+
   rating {
     flex: 0 0 auto;
     margin: 0 0.25em 0 0.3em;

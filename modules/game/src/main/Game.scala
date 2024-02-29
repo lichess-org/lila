@@ -360,7 +360,11 @@ case class Game(
           )
 
   def setBlindfold(color: Color, blindfold: Boolean): Progress =
-    Progress(this, updatePlayer(color, _.copy(blindfold = blindfold)), Nil)
+    Progress(
+      this,
+      updatePlayer(color, _.copy(blindfold = blindfold)),
+      List(Event.Blindfold(color, blindfold))
+    )
 
   def resignable      = playable && !abortable
   def forceResignable = resignable && nonAi && !fromFriend && hasClock && !isSwiss && !hasRule(_.NoClaimWin)

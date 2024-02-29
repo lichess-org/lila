@@ -1,9 +1,28 @@
+$logo-color: 'dadada';
 .blindfold {
   &.main-board piece,
   .now-playing piece {
     opacity: 0;
   }
-
+  /* i left this her but commented out because the little blindfold icon in the side
+     might not really jump out to a confused user. Whereas a massive translucent
+     blindfold superimposed on the board with "press shift B" under it might
+     be a better choice. The only problem is this would be super annoying to people
+     who actually want to play blindfold.
+     */
+  /*&.main-board {
+    color: #000;
+    &::after {
+      @extend %data-icon;
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      color: #00000077;
+      content: $licon-Blindfold;
+      font-size: 384px;
+    }
+  }*/
   &.main-board .check {
     background-image: none;
   }

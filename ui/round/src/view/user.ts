@@ -1,4 +1,4 @@
-import { looseH as h } from 'common/snabbdom';
+import { looseH as h, onInsert } from 'common/snabbdom';
 import * as licon from 'common/licon';
 import { Player } from 'game';
 import { Position } from '../interfaces';
@@ -44,6 +44,13 @@ export function userHtml(ctrl: RoundController, player: Player, position: Positi
           online: false,
           line: false,
         }),
+        player.blindfold &&
+          (player.color === d.player.color
+            ? h('button.user-blindfold', {
+                hook: onInsert(e => e.addEventListener('click', () => ctrl.blindfold(!ctrl.blindfold()))),
+                attrs: { 'data-icon': licon.Blindfold, title: 'Blindfolded' },
+              })
+            : h('span.user-blindfold', { attrs: { 'data-icon': licon.Blindfold, title: 'Blindfolded' } })),
         !!signal && signalBars(signal),
         !!rating && h('rating', rating + (player.provisional ? '?' : '')),
         !!rating && ratingDiff(player),
