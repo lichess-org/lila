@@ -360,7 +360,7 @@
       var ground = $this.data('shogiground');
       var playable = !!$this.data('playable');
       var resizable = !!$this.data('resizable');
-      var variant = $this.data('variant') || 'stadard';
+      var variant = $this.data('variant') || 'standard';
       var sfen = $this.data('sfen') || lishogi.readServerSfen($this.data('z'));
       var splitSfen = sfen.split(' ');
       var handRoles =
