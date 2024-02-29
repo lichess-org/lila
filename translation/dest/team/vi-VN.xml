@@ -52,6 +52,15 @@ Những kỳ thủ không muốn nhận tin nhắn của bạn có thể sẽ r�
   <string name="declinedRequests">Yêu cầu bị từ chối</string>
   <string name="joinLichessVariantTeam">Tham gia đội %s chính thức để cập nhật tin tức và các sự kiện</string>
   <string name="teamPage">Trang đội</string>
+  <string name="thisTeamBattleIsOver">Giải đấu này đã kết thúc và không thể được cập nhật các đội nữa.</string>
+  <string name="listTheTeamsThatWillCompete">Liệt kê các đội sẽ thi đấu trong trận chiến này.</string>
+  <string name="oneTeamPerLine">Mỗi dòng một đội. Sử dụng tính năng tự động hoàn thành.</string>
+  <string name="oneTeamPerLineHelp">Bạn có thể sao chép danh sách từ giải đấu này dán sang giải đấu khác!
+
+Bạn không thể xóa một đội nếu một kỳ thủ đã tham gia giải đấu với đội đó.</string>
+  <string name="numberOfLeadsPerTeam">Số đội trưởng mỗi đội. Tổng số điểm của họ là điểm của đội đó.</string>
+  <string name="numberOfLeadsPerTeamHelp">Bạn thực sự không nên thay đổi giá trị này sau khi giải đấu đã bắt đầu!</string>
+  <string name="innerTeam">Giải nội bộ</string>
   <plurals name="battleOfNbTeams">
     <item quantity="other">Trận chiến giữa %s đội</item>
   </plurals>
