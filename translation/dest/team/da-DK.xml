@@ -50,8 +50,18 @@ Spillere som ikke bryder sig om at modtage dine beskeder forlader måske holdet.
   <string name="entryCodeDescriptionForLeader">(Valgfrit) En adgangskode som nye medlemmer skal kende for at melde sig til dette hold.</string>
   <string name="incorrectEntryCode">Forkert adgangskode.</string>
   <string name="teamAlreadyExists">Dette hold findes allerede.</string>
+  <string name="upcomingTournaments">Kommende turneringer</string>
   <string name="completedTourns">Afsluttede turneringer</string>
   <string name="declinedRequests">Afviste anmodninger</string>
   <string name="joinLichessVariantTeam">Meld dig til det officielle %s hold for nyheder og begivenheder</string>
   <string name="teamPage">Holdside</string>
+  <string name="thisTeamBattleIsOver">Turneringen er slut, og holdene kan ikke længere opdateres.</string>
+  <string name="listTheTeamsThatWillCompete">Oplist de hold, der skal konkurrere i denne kamp.</string>
+  <string name="oneTeamPerLine">Et hold pr. linje. Brug den automatiske udfyldning.</string>
+  <string name="oneTeamPerLineHelp">Du kan copy-paste denne liste fra en turnering til en anden!
+
+Du kan ikke fjerne et hold, hvis en spiller allerede har deltaget i turneringen med det.</string>
+  <string name="numberOfLeadsPerTeam">Antal ledere per hold. Summen af deres score er holdets score.</string>
+  <string name="numberOfLeadsPerTeamHelp">Du bør bestemt ikke ændre denne værdi, efter at turneringen er startet!</string>
+  <string name="innerTeam">Indre hold</string>
 </resources>
