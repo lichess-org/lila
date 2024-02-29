@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+  <string name="arena">זירה</string>
   <string name="arenaTournaments">טורנירי זירה</string>
   <string name="isItRated">האם הטורנירים נכללים בדירוג?</string>
   <string name="willBeNotified">תישלח הודעה על תחילת התחרות, כך שבינתיים את/ה יכול/ה לשחק במקביל.</string>
@@ -60,4 +61,15 @@
   <string name="averagePerformance">ביצוע ממוצע</string>
   <string name="averageScore">ניקוד ממוצע</string>
   <string name="myTournaments">הטורנירים שלי</string>
+  <string name="editTournament">עריכת הטורניר</string>
+  <string name="editTeamBattle">עריכת קרב הקבוצות</string>
+  <string name="defender">האלוף היוצא</string>
+  <string name="pickYourTeam">בחר/י את הקבוצה שלך</string>
+  <string name="whichTeamWillYouRepresentInThisBattle">איזו קבוצה תרצו לייצג בקרב?</string>
+  <string name="youMustJoinOneOfTheseTeamsToParticipate">עליכם להצטרף לאחת מהקבוצות האלה כדי לשחק!</string>
+  <string name="created">נוצר</string>
+  <string name="recentlyPlayed">שוחק לאחרונה</string>
+  <string name="bestResults">התוצאות הטובות ביותר</string>
+  <string name="stats">סטטיסטיקות</string>
+  <string name="tournamentStats">נתוני הטורנירים</string>
 </resources>
