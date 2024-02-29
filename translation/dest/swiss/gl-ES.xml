@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+  <string name="swiss">Suízo</string>
   <string name="swissTournaments">Torneos suízos</string>
   <plurals name="viewAllXRounds" comment="viewAllXRounds [one] [other]&#10;&#10;%s is the number of rounds in the Swiss tournament.">
     <item quantity="one">Ver a rolda</item>
@@ -38,6 +39,7 @@
   <string name="roundInterval">Intervalo entre roldas</string>
   <string name="forbiddenPairings">Emparellamentos prohibidos</string>
   <string name="forbiddenPairingsHelp">Xogadores que non poden enfrontarse (por exemplo irmáns). Dous nomes de usuario por liña, separados por un espazo.</string>
+  <string name="manualPairings">Emparellamentos manuais na seguinte rolda</string>
   <string name="newSwiss">Novo torneo suízo</string>
   <string name="swissVsArenaQ">Cando usar torneos suízos en lugar de Arenas?</string>
   <string name="swissVsArenaA">Nun torneo suízo, todos os participantes xogan o mesmo número de partidas e só se enfrontan unha vez con cada opoñente.
