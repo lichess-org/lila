@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+  <string name="arena">アリーナ</string>
   <string name="arenaTournaments">アリーナ トーナメント</string>
   <string name="isItRated">レート戦ですか？</string>
   <string name="willBeNotified">トーナメントが始まると通知が来るので、それまで別のタブで対局していても大丈夫です。</string>
@@ -51,4 +52,27 @@
   <string name="averagePerformance">平均パフォーマンス</string>
   <string name="averageScore">平均スコア</string>
   <string name="myTournaments">作成したトーナメント</string>
+  <string name="editTournament">トーナメントを編集</string>
+  <string name="editTeamBattle">チームバトルを編集</string>
+  <string name="pickYourTeam">チームを選択</string>
+  <string name="whichTeamWillYouRepresentInThisBattle">このバトルでどのチームに所属しますか？</string>
+  <string name="youMustJoinOneOfTheseTeamsToParticipate">参加するにはどれかのチームに入ってください！</string>
+  <string name="created">自分で作成</string>
+  <string name="recentlyPlayed">最近に参加</string>
+  <string name="bestResults">成績上位</string>
+  <string name="stats">統計</string>
+  <string name="tournamentStats">トーナメントの統計</string>
+  <string name="rankAvgHelp">平均順位はあなたの順位の百分位です。低いほど優秀です。
+
+たとえば 100 人参加のトーナメントで 3 位なら 3 %、 1000 人参加のトーナメントで 10 位なら 1 %となります。</string>
+  <string name="medians">中央値</string>
+  <string name="allAveragesAreX">このページで言う「平均」はすべて %s です。</string>
+  <string name="total">合計</string>
+  <string name="pointsAvg">平均ポイント数</string>
+  <string name="pointsSum">累計ポイント数</string>
+  <string name="rankAvg">平均順位</string>
+  <string name="tournamentWinners">トーナメント優勝者</string>
+  <string name="tournamentShields">トーナメント・シールド</string>
+  <string name="onlyTitled">公式タイトル保持者のみ</string>
+  <string name="onlyTitledHelp">参加には公式タイトルの保持を必須とする</string>
 </resources>
