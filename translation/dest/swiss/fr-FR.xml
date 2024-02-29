@@ -47,6 +47,8 @@ Pour accorder une exemption (1 point) à un joueur au lieu d\'un appariement, aj
 JoueurE 1
 Les joueurs manquants seront considérés comme absents et recevront zéro point.
 Laissez ce champ vide pour autoriser lichess à générer des appariements automatiquement.</string>
+  <string name="mustHavePlayedTheirLastSwissGame">Dernière partie jouée dans un tr. au sys. suisse</string>
+  <string name="mustHavePlayedTheirLastSwissGameHelp">N\'autorisez les joueurs à participer que s\'ils ont joué leur dernière partie dans un tournoi au système suisse. S\'ils ne se sont pas présentés lors d’un tournoi au système suisse récent, ils ne pourront pas participer au vôtre. Cela permet d’améliorer la qualité de la participation des joueurs qui prennent part à des tournois au système suisse.</string>
   <string name="newSwiss">Nouveau tournoi suisse</string>
   <string name="swissVsArenaQ">Quand utiliser un tournoi suisse plutôt qu\'un tournoi arène ?</string>
   <string name="swissVsArenaA">Dans un tournoi suisse, les participants jouent le même nombre de parties et n\'affrontent jamais deux fois un même adversaire.
@@ -122,4 +124,7 @@ Ce qui se rapproche le plus d\'un tournoi en rondes complètes, c\'est un tourno
   <string name="predefinedUsers">Autoriser uniquement les utilisateurs prédéfinis à s\'inscrire</string>
   <string name="forbiddedUsers">Si la liste n\'est pas vide, seuls les utilisateurs y figurant pourront s\'inscrire. Un nom d\'utilisateur par ligne.</string>
   <string name="playYourGames">Jouez vos parties</string>
+  <string name="byes">Byes</string>
+  <string name="absences">Absences</string>
+  <string name="tieBreak">Départage</string>
 </resources>
