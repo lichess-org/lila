@@ -35,8 +35,8 @@ final class EventStream(
     Bus.publish(PoisonPill, s"eventStreamFor:${me.userId}")
 
     blueprint.mapMaterializedValue: queue =>
-      gamesInProgress map { gameJson(_, "gameStart") } foreach queue.offer
-      challenges map challengeJson("challenge") map some foreach queue.offer
+      gamesInProgress.map { gameJson(_, "gameStart") }.foreach(queue.offer)
+      challenges.map(challengeJson("challenge")).map(some).foreach(queue.offer)
 
       val actor = system.actorOf(Props(mkActor(queue)))
 
@@ -72,15 +72,15 @@ final class EventStream(
       case SetOnline =>
         onlineApiUsers.setOnline(me)
 
-        if lastSetSeenAt isBefore nowInstant.minusMinutes(10) then
-          userRepo setSeenAt me
+        if lastSetSeenAt.isBefore(nowInstant.minusMinutes(10)) then
+          userRepo.setSeenAt(me)
           lastSetSeenAt = nowInstant
 
         context.system.scheduler
           .scheduleOnce(6 second):
             if online then
               // gotta send a message to check if the client has disconnected
-              queue offer None
+              queue.offer(None)
               self ! SetOnline
 
       case StartGame(game) => queue.offer(gameJson(game, "gameStart"))
@@ -106,7 +106,7 @@ final class EventStream(
           .foreach:
             _.foreach: c =>
               val json = challengeJson("challenge")(c) ++ challengeCompat(c)
-              queue offer json.some
+              queue.offer(json.some)
 
       // pretend like the rematch cancel is a challenge cancel
       case lila.hub.actorApi.round.RematchCancel(gameId) =>

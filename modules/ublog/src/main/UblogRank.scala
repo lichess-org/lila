@@ -63,13 +63,15 @@ object UblogRank:
       days: Int
   ) = UblogPost.RankDate {
     import Tier.*
-    liveAt.minusMonths(if tier < LOW || !hasImage then 3 else 0).plusHours:
-      val tierBase    = 24 * tierDays.map.getOrElse(tier, 0)
-      val adjustBonus = 24 * days
-      val likesBonus  = math.sqrt(likes.value * 25) + likes.value / 100
-      val langBonus   = if language == lila.i18n.defaultLanguage then 0 else -24 * 10
+    liveAt
+      .minusMonths(if tier < LOW || !hasImage then 3 else 0)
+      .plusHours:
+        val tierBase    = 24 * tierDays.map.getOrElse(tier, 0)
+        val adjustBonus = 24 * days
+        val likesBonus  = math.sqrt(likes.value * 25) + likes.value / 100
+        val langBonus   = if language == lila.i18n.defaultLanguage then 0 else -24 * 10
 
-      (tierBase + likesBonus + langBonus + adjustBonus).toInt
+        (tierBase + likesBonus + langBonus + adjustBonus).toInt
   }
 
 final class UblogRank(
@@ -119,7 +121,7 @@ final class UblogRank(
               liveAt   <- doc.getAsOpt[Instant]("at")
               tier     <- doc.getAsOpt[Tier]("tier")
               language <- doc.getAsOpt[Language]("language")
-              title    <- doc string "title"
+              title    <- doc.string("title")
               adjust   = ~doc.int("rankAdjustDays")
               hasImage = doc.contains("imageId")
             yield (id, likes, liveAt, tier, language, title, hasImage, adjust)
@@ -130,16 +132,19 @@ final class UblogRank(
               // but values should be approximately correct, match a real like
               // count (though perhaps not the latest one), and any uncontended
               // query will set the precisely correct value.
-              colls.post.update.one(
-                $id(postId),
-                $set(
-                  "likes" -> likes,
-                  "rank"  -> UblogRank.computeRank(likes, liveAt, language, tier, hasImage, adjust)
+              colls.post.update
+                .one(
+                  $id(postId),
+                  $set(
+                    "likes" -> likes,
+                    "rank"  -> UblogRank.computeRank(likes, liveAt, language, tier, hasImage, adjust)
+                  )
                 )
-              ) andDo {
-                if res.nModified > 0 && v && tier >= Tier.LOW
-                then timeline ! (Propagate(UblogPostLike(me, id.value, title)) toFollowersOf me)
-              } inject likes
+                .andDo {
+                  if res.nModified > 0 && v && tier >= Tier.LOW
+                  then timeline ! (Propagate(UblogPostLike(me, id.value, title)).toFollowersOf(me))
+                }
+                .inject(likes)
 
   def recomputePostRank(post: UblogPost): Funit =
     recomputeRankOfAllPostsOfBlog(post.blog, post.id.some)
@@ -175,7 +180,7 @@ final class UblogRank(
   def recomputeRankOfAllPosts: Funit =
     colls.blog
       .find($empty)
-      .sort($sort desc "tier")
+      .sort($sort.desc("tier"))
       .cursor[UblogBlog](ReadPref.sec)
       .documentSource()
       .mapAsyncUnordered(4)(recomputeRankOfAllPostsOfBlog(_, none))
