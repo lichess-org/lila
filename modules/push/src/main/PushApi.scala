@@ -114,7 +114,7 @@ final private class PushApi(
           game.players.collect {
             case p if p.isProposingTakeback => Pov(game, game opponent p)
           }.so { pov => // the pov of the receiver
-            pov.player.userId so: userId =>
+            pov.player.userId.so: userId =>
               val data = LazyFu: () =>
                 for
                   opponent <- asyncOpponentName(pov)
@@ -134,12 +134,12 @@ final private class PushApi(
 
   def drawOffer(gameId: GameId): Funit =
     LilaFuture.delay(1 seconds):
-      proxyRepo.game(gameId) flatMap:
+      proxyRepo.game(gameId).flatMap:
         _.filter(_.playable).so: game =>
           game.players.collect {
             case p if p.isOfferingDraw => Pov(game, game opponent p)
-          } so { pov => // the pov of the receiver
-            pov.player.userId so: userId =>
+          }.so { pov => // the pov of the receiver
+            pov.player.userId.so: userId =>
               val data = LazyFu: () =>
                 for
                   opponent <- asyncOpponentName(pov)
@@ -227,8 +227,8 @@ final private class PushApi(
 
   def challengeCreate(c: Challenge): Funit =
     c.destUser.so: dest =>
-      c.challengerUser.ifFalse(c.hasClock) so: challenger =>
-        lightUser(challenger.id) flatMap: lightChallenger =>
+      c.challengerUser.ifFalse(c.hasClock).so: challenger =>
+        lightUser(challenger.id).flatMap: lightChallenger =>
           maybePushNotif(
             dest.id,
             _.challenge.create,
@@ -248,8 +248,8 @@ final private class PushApi(
           )
 
   def challengeAccept(c: Challenge, joinerId: Option[UserId]): Funit =
-    c.challengerUser.ifTrue(c.finalColor.white && !c.hasClock) so: challenger =>
-      joinerId so lightUser.optional flatMap: lightJoiner =>
+    c.challengerUser.ifTrue(c.finalColor.white && !c.hasClock).so: challenger =>
+      joinerId.so(lightUser.optional).flatMap: lightJoiner =>
         maybePushNotif(
           challenger.id,
           _.challenge.accept,

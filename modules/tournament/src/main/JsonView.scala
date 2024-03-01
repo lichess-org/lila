@@ -229,14 +229,14 @@ final class JsonView(
     cacheApi[TourId, CachableData](64, "tournament.json.cachable"):
       _.expireAfterWrite(1 second).buildAsyncFuture: id =>
         for
-          tour               <- cached.tourCache byId id
+          tour               <- cached.tourCache.byId(id)
           (duels, jsonDuels) <- duelsJson(id)
-          duelTeams <- tour.exists(_.isTeamBattle) so:
+          duelTeams <- tour.exists(_.isTeamBattle).so:
             playerRepo.teamsOfPlayers(id, duels.flatMap(_.userIds)) map: teams =>
               JsObject(teams.map: (userId, teamId) =>
                 (userId.value, JsString(teamId.value))).some
-          featured <- tour so fetchFeaturedGame
-          podium   <- tour.exists(_.isFinished) so podiumJsonCache.get(id)
+          featured <- tour.so(fetchFeaturedGame)
+          podium   <- tour.exists(_.isFinished).so(podiumJsonCache.get(id))
         yield CachableData(
           duels = jsonDuels,
           duelTeams = duelTeams,

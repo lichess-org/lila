@@ -66,7 +66,7 @@ final class Insight(env: Env) extends LilaController(env):
 
   private def Accessible(username: UserStr)(f: User => Fu[Result])(using ctx: Context) =
     Found(meOrFetch(username)): u =>
-      env.insight.share.grant(u) flatMap:
+      env.insight.share.grant(u).flatMap:
         if _ then f(u)
         else Forbidden.page(html.insight.forbidden(u))
 
