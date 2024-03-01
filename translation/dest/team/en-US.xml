@@ -60,12 +60,12 @@ Players who don\'t like receiving your messages might leave the team.</string>
   <string name="oneTeamPerLine">One team per line. Use the auto-completion.</string>
   <string name="oneTeamPerLineHelp">You can copy-paste this list from a tournament to another!
 
-You can\'t remove a team if a player has already joined the tournament with it.</string>
+You can\'t remove a team if a player has already joined the tournament.</string>
   <string name="numberOfLeadsPerTeam">Number of leaders per team. The sum of their score is the score of the team.</string>
   <string name="numberOfLeadsPerTeamHelp">You really shouldn\'t change this value after the tournament has started!</string>
   <string name="innerTeam">Inner team</string>
   <plurals name="battleOfNbTeams">
-    <item quantity="one">Battle of %s teams</item>
+    <item quantity="one">Battle of %s team</item>
     <item quantity="other">Battle of %s teams</item>
   </plurals>
   <plurals name="nbLeadersPerTeam">
