@@ -257,7 +257,7 @@ trait UserHelper extends HasEnv:
     case p: UserPerfs => p.bestRatedPerf.so(p => renderRating(p.perf))
 
   def userUrl(username: UserName, params: String = ""): Option[String] =
-    !User.isGhost(username.id).option(s"""${routes.User.show(username.value)}$params""")
+    (!User.isGhost(username.id)).option(s"""${routes.User.show(username.value)}$params""")
 
   def userClass(
       userId: UserId,

@@ -6,7 +6,7 @@ object BuildSettings {
   import Dependencies._
 
   val lilaVersion        = "4.0"
-  val globalScalaVersion = "3.4.0"
+  val globalScalaVersion = "3.3.3"
 
   def buildSettings =
     Defaults.coreDefaultSettings ++ Seq(
@@ -54,7 +54,8 @@ object BuildSettings {
     "-feature",
     "-language:postfixOps",
     "-language:implicitConversions",
-    "-release:21"
+    "-release:21",
+    "-Wconf:cat=deprecation"
     // "-Wunused:all"
   )
 
