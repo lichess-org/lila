@@ -35,7 +35,7 @@ final private class LobbySyncActor(
       hookRepo.bySri(hook.sri).foreach(remove)
       hook.sid.so: sid =>
         hookRepo.bySid(sid).foreach(remove)
-      !hook.compatibleWithPools.so(findCompatible(hook)) match
+      (!hook.compatibleWithPools).so(findCompatible(hook)) match
         case Some(h) =>
           biteHook(h.id, hook.sri, hook.user)
           publishRemoveHook(hook)
