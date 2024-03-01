@@ -38,4 +38,4 @@ private[controllers] trait TheftPrevention:
 
   protected lazy val theftResponse = Unauthorized(
     jsonError("This game requires authentication")
-  ) as JSON
+  ).as(JSON)

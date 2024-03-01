@@ -380,7 +380,8 @@ final class Puzzle(env: Env, apiC: => Api) extends LilaController(env):
           case "improvementAreas" =>
             Ok.page(views.html.puzzle.dashboard.improvementAreas(user, dashboard, days))
           case "strengths" => Ok.page(views.html.puzzle.dashboard.strengths(user, dashboard, days))
-          case _ => Redirect(routes.Puzzle.dashboard(days, "dashboard", (!ctx.is(user)).option(user.username)))
+          case _ =>
+            Redirect(routes.Puzzle.dashboard(days, "dashboard", (!ctx.is(user)).option(user.username)))
       }
     }
 
