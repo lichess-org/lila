@@ -133,7 +133,7 @@ final class Study(
       env.study.jsonView.pagerData
     Ok(Json.obj("paginator" -> PaginatorJson(pager)))
 
-  private def orRelay(id: StudyId, chapterId: Option[StudyChapterId] = None)(
+  private def orRelayRedirect(id: StudyId, chapterId: Option[StudyChapterId] = None)(
       f: => Fu[Result]
   )(using ctx: Context): Fu[Result] =
     if HTTPRequest isRedirectable ctx.req
@@ -172,14 +172,14 @@ final class Study(
       }(privateUnauthorizedFu(oldSc.study), privateForbiddenFu(oldSc.study))
     .dmap(_.noCache)
 
-  private[controllers] def getJsonData(sc: WithChapter)(using ctx: Context): Fu[(WithChapter, JsData)] =
-    env.study.chapterRepo.orderedMetadataMin(sc.study.id) flatMap:
-      getJsonData(sc, _)
-
-  private[controllers] def getJsonData(sc: WithChapter, chapters: List[Chapter.Metadata])(using
+  private[controllers] def getJsonData(sc: WithChapter)(using
       ctx: Context
   ): Fu[(WithChapter, JsData)] =
     for
+      chapters <-
+        if sc.study.isRelay
+        then env.study.chapterRepo.orderedMetadataExt(sc.study.id)
+        else env.study.chapterRepo.orderedMetadataMin(sc.study.id)
       (study, resetToChapter) <- env.study.api.resetIfOld(sc.study, chapters)
       chapter = resetToChapter | sc.chapter
       _ <- env.user.lightUserApi preloadMany study.members.ids.toList
@@ -211,12 +211,12 @@ final class Study(
     )
 
   def show(id: StudyId) = Open:
-    orRelay(id):
+    orRelayRedirect(id):
       showQuery(env.study.api byIdWithChapter id)
 
   def chapter(id: StudyId, chapterId: StudyChapterId) =
     Open:
-      orRelay(id, chapterId.some):
+      orRelayRedirect(id, chapterId.some):
         env.study.api.byIdWithChapter(id, chapterId) flatMap:
           case None =>
             env.study.studyRepo.exists(id) flatMap:

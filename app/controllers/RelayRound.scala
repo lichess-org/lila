@@ -185,8 +185,7 @@ final class RelayRound(
   ): Fu[Result] =
     studyC.CanView(oldSc.study)(
       for
-        chapters        <- env.study.chapterRepo.orderedMetadataExt(oldSc.study.id)
-        (sc, studyData) <- studyC.getJsonData(oldSc, chapters)
+        (sc, studyData) <- studyC.getJsonData(oldSc)
         rounds          <- env.relay.api.byTourOrdered(rt.tour)
         group           <- env.relay.api.withTours.get(rt.tour.id)
         isSubscribed <- ctx.me.soFu: me =>
