@@ -324,7 +324,7 @@ object Permission:
 
   def apply(dbKey: String): Option[Permission] = allByDbKey.get(dbKey)
 
-  def apply(dbKeys: Seq[String]): Set[Permission] = dbKeys.flatMap(allByDbKey.get) toSet
+  def apply(dbKeys: Seq[String]): Set[Permission] = dbKeys.flatMap(allByDbKey.get).toSet
 
   def expanded(dbKeys: Seq[String]): Set[Permission] =
     val level0 = apply(dbKeys)
@@ -333,7 +333,7 @@ object Permission:
     level0 ++ level1 ++ level2
 
   def findGranterPackage(perms: Set[Permission], perm: Permission): Option[Permission] =
-    !perms(perm).so(perms.find(_.is(perm)))
+    !perms(perm) so perms.find(_.is(perm))
 
   def diff(orig: Set[Permission], dest: Set[Permission]): Map[Permission, Boolean] = {
     orig.diff(dest).map(_ -> false) ++ dest.diff(orig).map(_ -> true)

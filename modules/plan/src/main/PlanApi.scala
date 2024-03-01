@@ -42,7 +42,7 @@ final class PlanApi(
   def cancel(user: User): Funit =
     def onCancel =
       isLifetime(user).flatMap { lifetime =>
-        !lifetime.so(setDbUserPlan(user.mapPlan(_.disable)))
+        !lifetime so setDbUserPlan(user.mapPlan(_.disable))
       } >>
         mongo.patron.update
           .one($id(user.id), $unset("stripe", "payPal", "payPalCheckout", "expiresAt"))
@@ -534,7 +534,7 @@ final class PlanApi(
             "lastLevelUp" -> nowInstant,
             "lifetime"    -> isLifetime,
             "free"        -> Patron.Free(nowInstant, by = from.id.some),
-            "expiresAt"   -> (!isLifetime.option(nowInstant.plusMonths(1)))
+            "expiresAt"   -> (!isLifetime).option(nowInstant.plusMonths(1))
           ),
           upsert = true
         )

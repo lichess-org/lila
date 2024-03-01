@@ -78,9 +78,8 @@ final class RacerApi(
       race
     }
 
-  private[racer] def manualStart(race: RacerRace): Unit = !race.isLobby.so {
+  private[racer] def manualStart(race: RacerRace): Unit = !race.isLobby so:
     doStart(race).foreach(saveAndPublish)
-  }
 
   private def doStart(race: RacerRace): Option[RacerRace] =
     race.startCountdown.map: starting =>

@@ -62,7 +62,7 @@ object PlayerAssessment:
     import pov.{ color, game }
 
     Basics(
-      moveTimes = intAvgSd(~game.moveTimes(color).map(_.roundTenths)),
+      moveTimes = intAvgSd(game.moveTimes(color).orZero.map(_.roundTenths)),
       blurs = game.playerBlurPercent(color),
       hold = holdAlerts.exists(_.suspicious),
       blurStreak = highestChunkBlursOf(pov).some.filter(0 <),

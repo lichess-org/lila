@@ -142,20 +142,17 @@ final class PlaybanApi(
   private val cleanUserIds = lila.memo.ExpireSetMemo[UserId](30 minutes)
 
   def currentBan[U: UserIdOf](user: U): Fu[Option[TempBan]] =
-    !cleanUserIds
-      .get(user.id)
-      .so(
-        coll
-          .find(
-            $doc("_id" -> user.id, "b.0".$exists(true)),
-            $doc("_id" -> false, "b" -> $doc("$slice" -> -1)).some
-          )
-          .one[Bdoc]
-          .dmap:
-            _.flatMap(_.getAsOpt[List[TempBan]]("b")).so(_.find(_.inEffect))
-          .addEffect: ban =>
-            if ban.isEmpty then cleanUserIds.put(user.id)
-      )
+    !cleanUserIds.get(user.id) so:
+      coll
+        .find(
+          $doc("_id" -> user.id, "b.0".$exists(true)),
+          $doc("_id" -> false, "b" -> $doc("$slice" -> -1)).some
+        )
+        .one[Bdoc]
+        .dmap:
+          _.flatMap(_.getAsOpt[List[TempBan]]("b")).so(_.find(_.inEffect))
+        .addEffect: ban =>
+          if ban.isEmpty then cleanUserIds.put(user.id)
 
   def hasCurrentBan[U: UserIdOf](u: U): Fu[Boolean] = currentBan(u).map(_.isDefined)
 

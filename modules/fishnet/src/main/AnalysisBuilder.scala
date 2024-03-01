@@ -37,7 +37,7 @@ final private class AnalysisBuilder(evalCache: IFishnetEvalCache)(using Executor
                 id = Analysis.Id(work.game.studyId, work.game.id),
                 infos = makeInfos(mergeEvalsAndCached(work, evals, cached), work.game.uciList, work.startPly),
                 startPly = work.startPly,
-                fk = !client.lichess.option(client.key.value),
+                fk = (!client.lichess).option(client.key.value),
                 date = nowInstant
               )
             )

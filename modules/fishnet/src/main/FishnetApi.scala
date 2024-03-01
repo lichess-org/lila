@@ -56,7 +56,7 @@ final class FishnetApi(
       analysisColl
         .find(
           $doc("acquired".$exists(false)) ++ {
-            !client.offline.so($doc("lastTryByKey".$ne(client.key))) // client alternation
+            (!client.offline).so($doc("lastTryByKey".$ne(client.key))) // client alternation
           } ++ {
             slow.so($doc("sender.system" -> true))
           }
