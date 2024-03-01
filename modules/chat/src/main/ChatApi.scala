@@ -56,8 +56,10 @@ final class ChatApi(
       val mine = chat.forMe
       for
         lines <- JsonView.asyncLines(mine)
-        timeout <- me.ifFalse(mine.isEmpty) so:
-          chatTimeout.isActive(chat.id, _)
+        timeout <- me
+          .ifFalse(mine.isEmpty)
+          .so:
+            chatTimeout.isActive(chat.id, _)
       yield UserChat.Mine(mine, lines, timeout)
 
     def write(
@@ -68,7 +70,7 @@ final class ChatApi(
         busChan: BusChan.Select,
         persist: Boolean = true
     ): Funit =
-      makeLine(chatId, userId, text) flatMapz: line =>
+      makeLine(chatId, userId, text).flatMapz: line =>
         isChatFresh(publicSource) flatMap:
           if _ then
             linkCheck(line, publicSource) flatMap:
@@ -134,23 +136,27 @@ final class ChatApi(
       }
 
     def publicTimeout(data: ChatTimeout.TimeoutFormData)(using Me): Funit =
-      ChatTimeout.Reason(data.reason) so: reason =>
-        timeout(
-          chatId = data.roomId into ChatId,
-          userId = data.userId.id,
-          reason = reason,
-          scope = ChatTimeout.Scope.Global,
-          text = data.text,
-          busChan = data.chan match
-            case "tournament" => _.Tournament
-            case "swiss"      => _.Swiss
-            case "team"       => _.Team
-            case _            => _.Study
-        )
+      ChatTimeout
+        .Reason(data.reason)
+        .so: reason =>
+          timeout(
+            chatId = data.roomId into ChatId,
+            userId = data.userId.id,
+            reason = reason,
+            scope = ChatTimeout.Scope.Global,
+            text = data.text,
+            busChan = data.chan match
+              case "tournament" => _.Tournament
+              case "swiss"      => _.Swiss
+              case "team"       => _.Team
+              case _            => _.Study
+          )
 
     def userModInfo(username: UserStr): Fu[Option[UserModInfo]] =
-      userRepo byId username flatMapz: user =>
-        chatTimeout.history(user, 20) dmap { UserModInfo(user, _).some }
+      userRepo
+        .byId(username)
+        .flatMapz: user =>
+          chatTimeout.history(user, 20) dmap { UserModInfo(user, _).some }
 
     private def doTimeout(
         c: UserChat,

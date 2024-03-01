@@ -99,9 +99,11 @@ final class ModApi(
 
   def setKid(mod: ModId, username: UserStr): Funit =
     withUser(username): user =>
-      userRepo.isKid(user.id).flatMap {
-        !_.so({ (userRepo.setKid(user, true)) } >> logApi.setKidMode(mod, user.id))
-      }
+      userRepo
+        .isKid(user.id)
+        .flatMap: isKid =>
+          (!isKid).so:
+            userRepo.setKid(user, true) >> logApi.setKidMode(mod, user.id)
 
   def setTitle(username: UserStr, title: Option[UserTitle])(using Me): Funit =
     withUser(username): user =>

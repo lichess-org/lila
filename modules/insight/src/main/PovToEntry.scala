@@ -48,7 +48,7 @@ final private class PovToEntry(
               .situations(
                 sans = game.sans,
                 initialFen = fen.orElse {
-                  !pov.game.variant.standardInitialPosition.option(pov.game.variant.initialFen)
+                  (!pov.game.variant.standardInitialPosition).option(pov.game.variant.initialFen)
                 },
                 variant = game.variant
               )

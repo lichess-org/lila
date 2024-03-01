@@ -122,13 +122,13 @@ trait LilaLibraryExtensions extends LilaTypes:
       fua.andThen:
         case _ => sideEffect
 
-    def >>[B](fub: => Fu[B])(using Executor): Fu[B] =
+    infix def >>[B](fub: => Fu[B])(using Executor): Fu[B] =
       fua.flatMap(_ => fub)
 
     inline def void: Fu[Unit] =
       dmap(_ => ())
 
-    inline def inject[B](b: => B): Fu[B] =
+    inline infix def inject[B](b: => B): Fu[B] =
       dmap(_ => b)
 
     def injectAnyway[B](b: => B)(using Executor): Fu[B] = fold(_ => b, _ => b)
@@ -265,13 +265,13 @@ trait LilaLibraryExtensions extends LilaTypes:
 
   extension (fua: Fu[Boolean])
 
-    def >>&(fub: => Fu[Boolean]): Fu[Boolean] =
+    infix def >>&(fub: => Fu[Boolean]): Fu[Boolean] =
       fua.flatMap { if _ then fub else fuFalse }(EC.parasitic)
 
-    def >>|(fub: => Fu[Boolean]): Fu[Boolean] =
+    infix def >>|(fub: => Fu[Boolean]): Fu[Boolean] =
       fua.flatMap { if _ then fuTrue else fub }(EC.parasitic)
 
-    def flatMapz[B](fub: => Fu[B])(using zero: Zero[B]): Fu[B] =
+    infix def flatMapz[B](fub: => Fu[B])(using zero: Zero[B]): Fu[B] =
       fua.flatMap { if _ then fub else fuccess(zero.zero) }(EC.parasitic)
     def mapz[B](fb: => B)(using zero: Zero[B]): Fu[B] =
       fua.map { if _ then fb else zero.zero }(EC.parasitic)
@@ -305,5 +305,5 @@ trait LilaLibraryExtensions extends LilaTypes:
         case Some(scala.util.Success(v)) => v
         case _                           => None
 
-    def mapz[B: Zero](fb: A => B)(using Executor): Fu[B]          = fua.map { _ so fb }
-    def flatMapz[B: Zero](fub: A => Fu[B])(using Executor): Fu[B] = fua.flatMap { _ so fub }
+    def mapz[B: Zero](fb: A => B)(using Executor): Fu[B]                = fua.map { _ so fb }
+    infix def flatMapz[B: Zero](fub: A => Fu[B])(using Executor): Fu[B] = fua.flatMap { _ so fub }

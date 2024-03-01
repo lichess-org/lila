@@ -111,14 +111,15 @@ final class AssessApi(
     getPlayerAggregateAssessment(userId, nb).flatMap(_.soFu(withGames))
 
   def refreshAssessOf(user: User): Funit =
-    !user.isBot.so(gameRepo.gamesForAssessment(user.id, 100).flatMap { gs =>
-      gs.map: g =>
-        analysisRepo.byGame(g).flatMapz {
-          onAnalysisReady(g, _, thenAssessUser = false)
-        }
-      .parallel
-        .void
-    } >> assessUser(user.id))
+    (!user.isBot).so:
+      gameRepo.gamesForAssessment(user.id, 100).flatMap { gs =>
+        gs.map: g =>
+          analysisRepo.byGame(g).flatMapz {
+            onAnalysisReady(g, _, thenAssessUser = false)
+          }
+        .parallel
+          .void
+      } >> assessUser(user.id)
 
   def onAnalysisReady(game: Game, analysis: Analysis, thenAssessUser: Boolean = true): Funit =
     gameRepo.holdAlert.game(game).flatMap { holdAlerts =>

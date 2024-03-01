@@ -99,7 +99,7 @@ final class StudyRepo(private[study] val coll: AsyncColl)(using
   def sourceByOwner(ownerId: UserId, isMe: Boolean): Source[Study, ?] =
     Source.futureSource:
       coll.map:
-        _.find(selectOwnerId(ownerId) ++ (!isMe.so(selectPublic)))
+        _.find(selectOwnerId(ownerId) ++ (!isMe).so(selectPublic))
           .sort($sort.desc("updatedAt"))
           .cursor[Study]()
           .documentSource()
@@ -107,7 +107,7 @@ final class StudyRepo(private[study] val coll: AsyncColl)(using
   def sourceByMember(memberId: UserId, isMe: Boolean, select: Bdoc = $empty): Source[Study, ?] =
     Source.futureSource:
       coll.map:
-        _.find(selectMemberId(memberId) ++ select ++ (!isMe.so(selectPublic)))
+        _.find(selectMemberId(memberId) ++ select ++ (!isMe).so(selectPublic))
           .sort($sort.desc("rank"))
           .cursor[Study]()
           .documentSource()
@@ -283,8 +283,8 @@ final class StudyRepo(private[study] val coll: AsyncColl)(using
         $doc(F.likes -> true, F.createdAt -> true).some
       )
         .cursor[Bdoc]()
-        .foldWhileM(0) { (count, doc) =>
-          ~(for
+        .foldWhileM(0): (count, doc) =>
+          (for
             id        <- doc.getAsOpt[StudyId]("_id")
             likes     <- doc.getAsOpt[Study.Likes](F.likes)
             createdAt <- doc.getAsOpt[Instant](F.createdAt)
@@ -294,8 +294,8 @@ final class StudyRepo(private[study] val coll: AsyncColl)(using
                 $id(id),
                 $set(F.rank -> Study.Rank.compute(likes, createdAt))
               )
-          .void).inject(Cursor.Cont(count + 1))
-        }
+              .void
+          ).orZero.inject(Cursor.Cont(count + 1))
 
   private[study] def isAdminMember(study: Study, userId: UserId): Fu[Boolean] =
     coll(_.exists($id(study.id) ++ $doc(s"members.$userId.admin" -> true)))

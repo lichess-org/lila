@@ -34,11 +34,8 @@ final class Messenger(api: ChatApi):
           val source = PublicSource.Watcher(gameId)
           api.userChat.write(gameWatcherId(gameId), userId, text.drop(command.length), source.some, _.Round)
       .getOrElse:
-        !text
-          .startsWith("/")
-          .so( // mistyped command?
-            api.userChat.write(gameId.into(ChatId), userId, text, publicSource = none, _.Round)
-          )
+        !text.startsWith("/") so: // mistyped command?
+          api.userChat.write(gameId.into(ChatId), userId, text, publicSource = none, _.Round)
 
   def owner(game: Game, anonColor: chess.Color, text: String): Funit =
     (game.fromFriend || presets.contains(text))
