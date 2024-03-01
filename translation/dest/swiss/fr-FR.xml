@@ -40,15 +40,15 @@
   <string name="forbiddenPairings">Appariements interdits</string>
   <string name="forbiddenPairingsHelp">Pseudos des joueurs qui ne doivent pas jouer ensemble (frères et sœurs par exemple). Deux pseudos par ligne séparés par un espace.</string>
   <string name="manualPairings">Appariements manuels pour la prochaine ronde</string>
-  <string name="manualPairingsHelp">Indiquez manuellement tous les appariements de la ronde suivante. Un appariement de joueurs par ligne. Par exemple :
+  <string name="manualPairingsHelp">Indiquez manuellement tous les appariements de la ronde suivante. Deux joueurs par ligne. Par exemple :
 JoueurA JoueurB
 JoueurC JoueurD
-Pour accorder une exemption (1 point) à un joueur au lieu d\'un appariement, ajoutez une ligne comme suit :
+Pour accorder un bye (1 point) à un joueur au lieu de l\'apparier, ajoutez une ligne comme suit :
 JoueurE 1
 Les joueurs manquants seront considérés comme absents et recevront zéro point.
-Laissez ce champ vide pour autoriser lichess à générer des appariements automatiquement.</string>
-  <string name="mustHavePlayedTheirLastSwissGame">Dernière partie jouée dans un tr. au sys. suisse</string>
-  <string name="mustHavePlayedTheirLastSwissGameHelp">N\'autorisez les joueurs à participer que s\'ils ont joué leur dernière partie dans un tournoi au système suisse. S\'ils ne se sont pas présentés lors d’un tournoi au système suisse récent, ils ne pourront pas participer au vôtre. Cela permet d’améliorer la qualité de la participation des joueurs qui prennent part à des tournois au système suisse.</string>
+Laissez ce champ vide pour autoriser Lichess à générer des appariements automatiquement.</string>
+  <string name="mustHavePlayedTheirLastSwissGame">Doivent avoir joué leur dernière partie dans un tournoi au format suisse</string>
+  <string name="mustHavePlayedTheirLastSwissGameHelp">N\'autorisez les joueurs à participer que s\'ils ont joué leur dernière partie dans un tournoi au format suisse. S\'ils ne se sont pas présentés lors d’un tournoi récent, ils ne pourront pas participer au vôtre. Cela permet d’améliorer l\'expérience des joueurs qui sont effectivement présents.</string>
   <string name="newSwiss">Nouveau tournoi suisse</string>
   <string name="swissVsArenaQ">Quand utiliser un tournoi suisse plutôt qu\'un tournoi arène ?</string>
   <string name="swissVsArenaA">Dans un tournoi suisse, les participants jouent le même nombre de parties et n\'affrontent jamais deux fois un même adversaire.
