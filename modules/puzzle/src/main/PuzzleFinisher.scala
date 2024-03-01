@@ -33,7 +33,7 @@ final private[puzzle] class PuzzleFinisher(
     solutions
       .foldM((perf, List.empty[(PuzzleRound, IntRatingDiff)])):
         case ((perf, rounds), sol) =>
-          apply(sol.id, angle, sol.win, sol.mode).map:
+          apply(sol.id, angle, sol.win, sol.mode)(using me, perf).map:
             case Some((round, newPerf)) =>
               val rDiff = IntRatingDiff(newPerf.intRating.value - perf.intRating.value)
               (newPerf, (round, rDiff) :: rounds)
@@ -48,14 +48,14 @@ final private[puzzle] class PuzzleFinisher(
       mode: Mode
   )(using me: Me, perf: Perf): Fu[Option[(PuzzleRound, Perf)]] =
     if api.casual(me.value, id) then
-      fuccess {
-        PuzzleRound(
-          id = PuzzleRound.Id(me.userId, id),
-          win = win,
-          fixedAt = none,
-          date = nowInstant
-        ) -> perf
-      } dmap some
+      fuccess:
+        some:
+          PuzzleRound(
+            id = PuzzleRound.Id(me.userId, id),
+            win = win,
+            fixedAt = none,
+            date = nowInstant
+          ) -> perf
     else
       sequencer(id):
         api.round.find(me.value, id) zip api.puzzle.find(id) flatMap {
@@ -112,12 +112,10 @@ final private[puzzle] class PuzzleFinisher(
                           fixedAt = none,
                           date = now
                         )
-                      val userPerf =
-                        perf
-                          .addOrReset(_.puzzle.crazyGlicko, s"puzzle ${puzzle.id}")(userRating, now) pipe {
-                          p =>
-                            p.copy(glicko = ponder.player(angle, win, perf.glicko -> p.glicko, puzzle.glicko))
-                        }
+                      val userPerf = perf
+                        .addOrReset(_.puzzle.crazyGlicko, s"puzzle ${puzzle.id}")(userRating, now)
+                        .pipe: p =>
+                          p.copy(glicko = ponder.player(angle, win, perf.glicko -> p.glicko, puzzle.glicko))
                       (round, newPuzzleGlicko, userPerf)
               .flatMap: (round, newPuzzleGlicko, userPerf) =>
                 api.round.upsert(round, angle) zip
