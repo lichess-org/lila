@@ -63,7 +63,7 @@ object UblogRank:
       days: Int
   ) = UblogPost.RankDate {
     import Tier.*
-    liveAt minusMonths (if tier < LOW || !hasImage then 3 else 0) plusHours:
+    liveAt.minusMonths(if tier < LOW || !hasImage then 3 else 0).plusHours:
       val tierBase    = 24 * tierDays.map.getOrElse(tier, 0)
       val adjustBonus = 24 * days
       val likesBonus  = math.sqrt(likes.value * 25) + likes.value / 100

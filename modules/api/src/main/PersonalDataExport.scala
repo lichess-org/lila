@@ -35,7 +35,7 @@ final class PersonalDataExport(
   def apply(user: User): Source[String, ?] =
 
     val intro = Source.futureSource:
-      userRepo.currentOrPrevEmail(user.id) map { email =>
+      userRepo.currentOrPrevEmail(user.id).map { email =>
         Source(
           List(
             textTitle(s"Personal data export for ${user.username}"),
@@ -56,12 +56,12 @@ final class PersonalDataExport(
         }
 
     val followedUsers = Source.futureSource:
-      relationEnv.api.fetchFollowing(user.id) map { userIds =>
+      relationEnv.api.fetchFollowing(user.id).map { userIds =>
         Source(List(textTitle("Followed players")) ++ userIds.map(_.value))
       }
 
     val streamer = Source.futureSource:
-      streamerApi.find(user) map {
+      streamerApi.find(user).map {
         _.map(_.streamer).so: s =>
           List(textTitle("Streamer profile")) :::
             List(
@@ -77,10 +77,10 @@ final class PersonalDataExport(
               "liveAt"      -> s.liveAt.so(textDate)
             ).map: (k, v) =>
               s"$k: $v"
-      } map Source.apply
+      }.map(Source.apply)
 
     val coach = Source.futureSource:
-      coachApi.find(user) map {
+      coachApi.find(user).map {
         _.map(_.coach).so: c =>
           List(textTitle("Coach profile")) :::
             c.profile.textLines :::
@@ -91,7 +91,7 @@ final class PersonalDataExport(
               "updatedAt" -> textDate(c.updatedAt)
             ).map: (k, v) =>
               s"$k: $v"
-      } map Source.apply
+      }.map(Source.apply)
 
     val forumPosts =
       Source(List(textTitle("Forum posts"))) concat
@@ -202,7 +202,7 @@ final class PersonalDataExport(
               s"${l.date.so(textDate)}\n${l.text}$bigSep"
 
     val timeouts = Source.futureSource:
-      modLogApi.timeoutPersonalExport(user.id) map: modlogs =>
+      modLogApi.timeoutPersonalExport(user.id).map: modlogs =>
         Source:
           List(textTitle("Messages you were timeouted for")) :::
             modlogs.map: m =>

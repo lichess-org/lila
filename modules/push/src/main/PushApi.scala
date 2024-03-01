@@ -48,7 +48,7 @@ final private class PushApi(
     if !game.isCorrespondence || game.hasAi then funit
     else
       game.userIds.traverse_ { userId =>
-        Pov(game, userId) so: pov =>
+        Pov(game, userId).so: pov =>
           val data = LazyFu: () =>
             for
               nbMyTurn <- gameRepo.countWhereUserTurn(userId)

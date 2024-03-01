@@ -49,7 +49,7 @@ final private class StartedOrganizer(
     else startPairing(tour)
 
   private def startPairing(tour: Tournament, smallTourNbActivePlayers: Option[Int] = None): Funit =
-    !tour.pairingsClosed.so(
+    (!tour.pairingsClosed).so(
       socket
         .getWaitingUsers(tour)
         .monSuccess(_.tournament.startedOrganizer.waitingUsers)

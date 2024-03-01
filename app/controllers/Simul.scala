@@ -169,7 +169,7 @@ final class Simul(env: Env) extends LilaController(env):
     Reasonable(page):
       Found(meOrFetch(username).map(_.filter(_.enabled.yes || isGrantedOpt(_.SeeReport)))): user =>
         Ok.pageAsync:
-          env.simul.api.hostedByUser(user.id, page) map:
+          env.simul.api.hostedByUser(user.id, page).map:
             html.simul.hosted(user, _)
 
   private def AsHost(simulId: SimulId)(f: Sim => Fu[Result])(using ctx: Context): Fu[Result] =

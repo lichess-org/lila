@@ -88,7 +88,7 @@ final class Report(
         case "profile" => modC.userUrl(inquiry.user, mod = true).some
         case url       => url.some
       }
-    def process() = !processed.so(api.process(inquiry))
+    def process() = (!processed).so(api.process(inquiry))
     thenGoTo match
       case Some(url) => process().inject(Redirect(url))
       case _ =>
@@ -139,7 +139,7 @@ final class Report(
   }
 
   def form = Auth { _ ?=> _ ?=>
-    getUserStr("username").so(env.user.repo.byId.flatMap { user =>
+    getUserStr("username").so(env.user.repo.byId).flatMap { user =>
       if user.map(_.id).has(UserModel.lichessId) then Redirect(controllers.routes.Main.contact)
       else
         Ok.pageAsync:
@@ -154,7 +154,7 @@ final class Report(
                 )
             case _ => form
           html.report.form(filledForm, user)
-    })
+    }
   }
 
   def create = AuthBody { _ ?=> me ?=>

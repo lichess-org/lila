@@ -23,7 +23,7 @@ final class ActivityWriteApi(
       userId <- game.userIds
       player <- game.player(userId)
     yield update(userId): a =>
-      val setGames = !game.isCorrespondence.so(
+      val setGames = (!game.isCorrespondence).so(
         $doc(
           ActivityFields.games -> a.games.orZero
             .add(game.perfType, Score.make(game.wonBy(player.color), RatingProg.make(player.light)))
@@ -80,10 +80,10 @@ final class ActivityWriteApi(
 
   def follow(from: UserId, to: UserId) =
     update(from) { a =>
-      $doc(ActivityFields.follows -> { ~a.follows.addOut(to) })
+      $doc(ActivityFields.follows -> { (~a.follows).addOut(to) })
     } >>
       update(to): a =>
-        $doc(ActivityFields.follows -> { ~a.follows.addIn(from) })
+        $doc(ActivityFields.follows -> { (~a.follows).addIn(from) })
 
   def unfollowAll(from: User, following: Set[UserId]) =
     withColl: coll =>

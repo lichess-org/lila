@@ -37,7 +37,7 @@ final class ForumPostApi(
       val anonMod   = modIcon && !publicMod
       val post = ForumPost.make(
         topicId = topic.id,
-        userId = !anonMod.option(me),
+        userId = (!anonMod).option(me),
         text = spam.replace(data.text),
         number = topic.nbPosts + 1,
         lang = lang.map(_.language),
@@ -53,7 +53,7 @@ final class ForumPostApi(
             _ <- topicRepo.coll.update.one($id(topic.id), topic.withPost(post))
             _ <- categRepo.coll.update.one($id(categ.id), categ.withPost(topic, post))
           yield
-            !categ.quiet.so(indexer ! InsertPost(post))
+            (!categ.quiet).so(indexer ! InsertPost(post))
             promotion.save(post.text)
             shutup ! {
               if post.isTeam

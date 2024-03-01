@@ -36,8 +36,8 @@ final private class ForumTopicApi(
     topic.nbPosts / config.postMaxPerPage.value + 1
 
   def showLastPage(categId: ForumCategId, slug: String)(using NetDomain)(using me: Option[Me]) =
-    topicRepo.byTree(categId, slug) flatMapz: topic =>
-      show(categId, slug, topic lastPage config.postMaxPerPage)
+    topicRepo.byTree(categId, slug).flatMapz: topic =>
+      show(categId, slug, topic.lastPage(config.postMaxPerPage))
 
   def show(
       categId: ForumCategId,

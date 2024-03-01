@@ -203,9 +203,9 @@ final class JsonView(
     else pairingRepo.playingByTourAndUserId(tour.id, user.id)
 
   private def fetchFeaturedGame(tour: Tournament): Fu[Option[FeaturedGame]] =
-    tour.featuredId.ifTrue(tour.isStarted) so pairingRepo.byId flatMapz: pairing =>
-      proxyRepo game pairing.gameId flatMapz: game =>
-        cached ranking tour flatMap: ranking =>
+    tour.featuredId.ifTrue(tour.isStarted).so(pairingRepo.byId).flatMapz: pairing =>
+      proxyRepo.game(pairing.gameId).flatMapz: game =>
+        cached.ranking(tour).flatMap: ranking =>
           playerRepo.pairByTourAndUserIds(tour.id, pairing.user1, pairing.user2) map: pairOption =>
             for
               (p1, p2) <- pairOption

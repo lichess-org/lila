@@ -1,6 +1,8 @@
 package lila
 package tournament
 
+import com.github.blemale.scaffeine.AsyncLoadingCache
+
 final class TournamentFeaturing(
     api: TournamentApi,
     cached: TournamentCache,
@@ -10,7 +12,7 @@ final class TournamentFeaturing(
 
   object tourIndex:
     def get(teamIds: List[TeamId]): Fu[(List[Tournament], VisibleTournaments)] = for
-      (base, scheduled) <- sameForEveryone.get()
+      (base, scheduled) <- sameForEveryone.get(())
       teamTours         <- visibleForTeams(teamIds, 5 * 60, "index")
       forMe = base.add(teamTours)
     yield (scheduled, forMe)
@@ -25,11 +27,11 @@ final class TournamentFeaturing(
   object homepage:
 
     def get(teamIds: List[TeamId]): Fu[List[Tournament]] = for
-      base      <- sameForEveryone.get()
+      base      <- sameForEveryone.get(())
       teamTours <- visibleForTeams(teamIds, 3 * 60, "homepage")
     yield teamTours ::: base
 
-    private val sameForEveryone = cacheApi.unit[List[Tournament]]:
+    private val sameForEveryone: AsyncLoadingCache[Unit, List[Tournament]] = cacheApi.unit[List[Tournament]]:
       _.refreshAfterWrite(2 seconds)
         .buildAsyncFuture: _ =>
           repo.scheduledStillWorthEntering

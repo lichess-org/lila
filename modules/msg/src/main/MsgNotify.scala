@@ -25,7 +25,7 @@ final private class MsgNotify(
   def onPost(threadId: MsgThread.Id): Unit = schedule(threadId)
 
   def onRead(threadId: MsgThread.Id, userId: UserId, contactId: UserId): Funit =
-    !cancel(threadId).so(
+    (!cancel(threadId)).so(
       notifyApi
         .markRead(
           userId,
@@ -60,9 +60,7 @@ final private class MsgNotify(
   private def doNotify(threadId: MsgThread.Id): Funit =
     colls.thread.byId[MsgThread](threadId.value).flatMapz { thread =>
       val msg = thread.lastMsg
-      !thread
-        .delBy(thread.other(msg.user))
-        .so(
-          notifyApi.notifyOne(thread.other(msg.user), PrivateMessage(msg.user, text = shorten(msg.text, 40)))
-        )
+      (!thread.delBy(thread.other(msg.user))).so(
+        notifyApi.notifyOne(thread.other(msg.user), PrivateMessage(msg.user, text = shorten(msg.text, 40)))
+      )
     }
