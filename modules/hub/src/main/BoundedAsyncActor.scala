@@ -69,7 +69,8 @@ object BoundedAsyncActor:
   private case class SizedQueue(queue: Queue[Matchable], size: Int):
     def enqueue(a: Matchable) = SizedQueue(queue.enqueue(a), size + 1)
     def isEmpty               = size == 0
-    def tailOption            = !isEmpty.option(SizedQueue(queue.tail, size - 1))
+    def nonEmpty              = !isEmpty
+    def tailOption            = nonEmpty.option(SizedQueue(queue.tail, size - 1))
     def headOption            = queue.headOption
   private val emptyQueue = SizedQueue(Queue.empty, 0)
 
