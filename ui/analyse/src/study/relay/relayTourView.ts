@@ -1,7 +1,7 @@
 import AnalyseCtrl from '../../ctrl';
 import RelayCtrl, { RelayTab } from './relayCtrl';
 import * as licon from 'common/licon';
-import { bind, dataIcon, looseH as h } from 'common/snabbdom';
+import { bind, dataIcon, onInsert, looseH as h } from 'common/snabbdom';
 import { VNode } from 'snabbdom';
 import { innerHTML } from 'common/richText';
 import { RelayGroup, RelayRound } from './interfaces';
@@ -13,6 +13,7 @@ import * as xhr from 'common/xhr';
 import { teamsView } from './relayTeams';
 import { userTitle } from 'common/userLink';
 import { ChapterId, StudyChapterMetaExt } from '../interfaces';
+import { makeChat } from '../../view/view';
 
 export default function (ctrl: AnalyseCtrl): VNode | undefined {
   const study = ctrl.study,
@@ -30,17 +31,21 @@ export default function (ctrl: AnalyseCtrl): VNode | undefined {
   return h('div.relay-tour', content);
 }
 
-export const tourSide = (study: StudyCtrl, relay: RelayCtrl) => {
-  return h('aside.relay-tour__side', [
+export const tourSide = (ctrl: AnalyseCtrl, study: StudyCtrl, relay: RelayCtrl) =>
+  h('aside.relay-tour__side', [
     h(
       'a.relay-tour__side__name',
       { hook: bind('click', relay.tourShow.toggle, relay.redraw) },
       relay.data.tour.name,
     ),
     gamesList(study, relay),
+    h('div.chat__members.none', {
+      hook: onInsert(el => {
+        makeChat(ctrl, chat => el.parentNode!.insertBefore(chat, el));
+        site.watchers(el);
+      }),
+    }),
   ]);
-};
-
 const leaderboard = (relay: RelayCtrl, ctrl: AnalyseCtrl): VNode[] => {
   const players = relay.data.leaderboard || [];
   const withRating = !!players.find(p => p.rating);
@@ -159,24 +164,39 @@ const gamesList = (study: StudyCtrl, relay: RelayCtrl) => {
   const chapters = study.chapters.list() as StudyChapterMetaExt[];
   return h(
     'div.relay-games',
-    chapters.map(c =>
-      h('a.relay-game', gameLinkProps(relay.roundPath, study.setChapter, c), [
-        h('span.relay-game__gauge', [
-          h('span.relay-game__gauge__black', {
-            hook: {
-              postpatch() {
-                // do the magic here, like in multiboard.ts
+    chapters.map(c => {
+      const status =
+        c.res === '*' ? ['clock', 'clock'] : c.res ? [c.res.slice(0, 1), c.res.slice(2, 3)] : ['-', '-'];
+      return h(
+        'a.relay-game',
+        {
+          ...gameLinkProps(relay.roundPath, study.setChapter, c),
+          class: { 'relay-game--current': c.id === study.data.chapter.id },
+        },
+        [
+          h('span.relay-game__gauge', [
+            h('span.relay-game__gauge__black', {
+              hook: {
+                postpatch() {
+                  // do the magic here, like in multiboard.ts
+                },
               },
-            },
-          }),
-          h('tick'),
-        ]),
-        h(
-          'span.relay-game__players',
-          c.players.map(p => h('span.relay-game__player', [p[0] && userTitle({ title: p[0] }), p[1]])),
-        ),
-      ]),
-    ),
+            }),
+            h('tick'),
+          ]),
+          h(
+            'span.relay-game__players',
+            c.players.map((p, i) => {
+              const s = status[i];
+              return h('span.relay-game__player', [
+                h('player', [p[0] && userTitle({ title: p[0] }), p[1]]),
+                h(s == '1' ? 'good' : s == '0' ? 'bad' : 'status', s),
+              ]);
+            }),
+          ),
+        ],
+      );
+    }),
   );
 };
 

@@ -264,6 +264,18 @@ function renderPlayerStrips(ctrl: AnalyseCtrl): [VNode, VNode] | undefined {
   ];
 }
 
+export function makeChat(ctrl: AnalyseCtrl, insert: (chat: HTMLElement) => void) {
+  if (ctrl.opts.chat) {
+    const chatEl = document.createElement('section');
+    chatEl.classList.add('mchat');
+    insert(chatEl);
+    const chatOpts = ctrl.opts.chat;
+    chatOpts.instance?.then(c => c.destroy());
+    chatOpts.parseMoves = true;
+    chatOpts.instance = site.makeChat(chatOpts);
+  }
+}
+
 export default function (deps?: typeof studyDeps) {
   function renderResult(ctrl: AnalyseCtrl): VNode[] {
     const render = (result: string, status: VNodeKids) => [h('div.result', result), h('div.status', status)];
@@ -309,7 +321,7 @@ export default function (deps?: typeof studyDeps) {
       playerStrips = !playerBars && renderPlayerStrips(ctrl),
       gaugeOn = ctrl.showEvalGauge(),
       needsInnerCoords = ctrl.data.pref.showCaptured || !!gaugeOn || !!playerBars,
-      isRelay = !!study?.relay,
+      relay = study?.relay,
       tourUi = deps?.relayTour(ctrl);
 
     return h(
@@ -325,15 +337,7 @@ export default function (deps?: typeof studyDeps) {
                 ctrl.redraw();
               });
             }
-            if (ctrl.opts.chat) {
-              const chatEl = document.createElement('section');
-              chatEl.classList.add('mchat');
-              elm.appendChild(chatEl);
-              const chatOpts = ctrl.opts.chat;
-              chatOpts.instance?.then(c => c.destroy());
-              chatOpts.parseMoves = true;
-              chatOpts.instance = site.makeChat(chatOpts);
-            }
+            if (!relay) makeChat(ctrl, elm.appendChild);
             gridHacks.start(elm);
           },
           update(_, _2) {
@@ -350,7 +354,7 @@ export default function (deps?: typeof studyDeps) {
           'has-players': !!playerBars,
           'gamebook-play': !!gamebookPlayView,
           'has-relay-tour': !!tourUi,
-          'is-relay': isRelay,
+          'is-relay': !!relay,
           'analyse-hunter': ctrl.opts.hunter,
           'analyse--wiki': !!ctrl.wiki && !ctrl.study,
         },
@@ -423,8 +427,8 @@ export default function (deps?: typeof studyDeps) {
         !tourUi && trainingView(ctrl),
         ctrl.studyPractice
           ? deps?.studyPracticeView.side(study!)
-          : study?.relay
-          ? tourSide(study, study.relay)
+          : relay
+          ? tourSide(ctrl, study, relay)
           : h(
               'aside.analyse__side',
               {
@@ -456,8 +460,7 @@ export default function (deps?: typeof studyDeps) {
                       ),
                   ],
             ),
-        study?.relay && deps?.relayManager(study.relay),
-        h('div.chat__members.none', { hook: onInsert(site.watchers) }),
+        relay ? deps?.relayManager(relay) : h('div.chat__members.none', { hook: onInsert(site.watchers) }),
       ],
     );
   };
