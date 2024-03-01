@@ -29,7 +29,7 @@ final class PublicChat(
 
   private def tournamentChats: Fu[List[(Tournament, UserChat)]] =
     tournamentApi.fetchVisibleTournaments.flatMap: visibleTournaments =>
-      val ids = visibleTournaments.all.map(_.id into ChatId)
+      val ids = visibleTournaments.all.map(_.id.into(ChatId))
       chatApi.userChat.findAll(ids) map: chats =>
         sortTournamentsByRelevance:
           chats

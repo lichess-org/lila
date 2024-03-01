@@ -80,9 +80,9 @@ final private class RelayFetch(
     if !rt.round.sync.playing then fuccess(updating(_.withSync(_.play)))
     else
       fetchGames(rt)
-        .map(games => rt.tour.players.fold(games)(_ update games))
+        .map(games => rt.tour.players.fold(games)(_.update(games)))
         .flatMap(fidePlayers.enrichGames(rt.tour))
-        .map(games => rt.tour.teams.fold(games)(_ update games))
+        .map(games => rt.tour.teams.fold(games)(_.update(games)))
         .mon(_.relay.fetchTime(rt.tour.official, rt.round.slug))
         .addEffect(gs => lila.mon.relay.games(rt.tour.official, rt.round.slug).update(gs.size))
         .flatMap: games =>
@@ -92,7 +92,7 @@ final private class RelayFetch(
             .mon(_.relay.syncTime(rt.tour.official, rt.round.slug))
             .map: res =>
               res -> updating:
-                _.withSync(_ addLog SyncLog.event(res.nbMoves, none))
+                _.withSync(_.addLog(SyncLog.event(res.nbMoves, none)))
                   .copy(finished = games.nonEmpty && games.forall(_.ending.isDefined))
         .recover:
           case e: Exception =>
@@ -107,7 +107,7 @@ final private class RelayFetch(
                 if rt.tour.official then logger.info(s"Sync error ${rt.round} ${e.getMessage take 80}")
                 SyncResult.Error(e.getMessage)
             result -> updating:
-              _.withSync(_ addLog SyncLog.event(0, e.some))
+              _.withSync(_.addLog(SyncLog.event(0, e.some)))
         .map: (result, updatingRelay) =>
           afterSync(result, rt.tour, updatingRelay)
 

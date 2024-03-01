@@ -45,7 +45,7 @@ final class Env(
   private lazy val pushApi: PushApi = wire[PushApi]
 
   private def logUnit(f: Fu[?]): Unit =
-    f logFailure logger
+    f.logFailure(logger)
     ()
   lila.common.Bus.subscribeFun(
     "finishGame",
@@ -57,20 +57,20 @@ final class Env(
     "notifyPush"
   ):
     case lila.game.actorApi.FinishGame(game, _) =>
-      logUnit { pushApi finish game }
+      logUnit { pushApi.finish(game) }
     case lila.hub.actorApi.round.CorresMoveEvent(move, _, pushable, _, _) if pushable =>
-      logUnit { pushApi move move }
+      logUnit { pushApi.move(move) }
     case lila.hub.actorApi.round.CorresTakebackOfferEvent(gameId) =>
-      logUnit { pushApi takebackOffer gameId }
+      logUnit { pushApi.takebackOffer(gameId) }
     case lila.hub.actorApi.round.CorresDrawOfferEvent(gameId) =>
-      logUnit { pushApi drawOffer gameId }
+      logUnit { pushApi.drawOffer(gameId) }
     case lila.challenge.Event.Create(c) =>
-      logUnit { pushApi challengeCreate c }
+      logUnit { pushApi.challengeCreate(c) }
     case lila.challenge.Event.Accept(c, joinerId) =>
       logUnit { pushApi.challengeAccept(c, joinerId) }
     case lila.game.actorApi.CorresAlarmEvent(pov) =>
-      logUnit { pushApi corresAlarm pov }
+      logUnit { pushApi.corresAlarm(pov) }
     case lila.notify.PushNotification(to, content, _) =>
-      logUnit { pushApi notifyPush (to, content) }
+      logUnit { pushApi.notifyPush(to, content) }
     case t: lila.hub.actorApi.push.TourSoon =>
-      logUnit { pushApi tourSoon t }
+      logUnit { pushApi.tourSoon(t) }

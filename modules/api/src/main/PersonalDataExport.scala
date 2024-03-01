@@ -188,14 +188,14 @@ final class PersonalDataExport(
                 s"${textDate(msg.at)} by $author\n${msg.text}$bigSep"
 
     val reports = Source.futureSource:
-      reportEnv.api.personalExport(user) map: atoms =>
+      reportEnv.api.personalExport(user).map: atoms =>
         Source:
           List(textTitle("Reports you created")) :::
             atoms.map: a =>
               s"${textDate(a.at)}\n${a.text}$bigSep"
 
     val dubiousChats = Source.futureSource:
-      shutupEnv.api.getPublicLines(user.id) map: lines =>
+      shutupEnv.api.getPublicLines(user.id).map: lines =>
         Source:
           List(textTitle("Dubious public chats")) :::
             lines.map: l =>
