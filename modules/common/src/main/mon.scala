@@ -8,6 +8,8 @@ import lila.common.ApiVersion
 
 object mon:
 
+  import kamon.Kamon.{ timer, gauge, counter, histogram }
+
   private def tags(elems: (String, Any)*): Map[String, Any] = Map.from(elems)
 
   object http:
@@ -662,11 +664,6 @@ object mon:
 
   type TimerPath   = lila.mon.type => Timer
   type CounterPath = lila.mon.type => Counter
-
-  private def timer(name: String)     = kamon.Kamon.timer(name)
-  private def gauge(name: String)     = kamon.Kamon.gauge(name)
-  private def counter(name: String)   = kamon.Kamon.counter(name)
-  private def histogram(name: String) = kamon.Kamon.histogram(name)
 
   private def future(name: String) = (success: Boolean) => timer(name).withTag("success", successTag(success))
   private def future(name: String, tags: Map[String, Any]) = (success: Boolean) =>
