@@ -42,3 +42,7 @@ eea12a89f8550d74518f19ec9cda404e3f73b3d0
 
 # prettier 3.0.1 update from 2.x
 72d993c45d9b9d17395e0f0a2726af325ef0621c
+
+# scalafmt AvoidInfix rewrite
+5e0ecbebe4f43ed6744f8ec4f67ea66fae28fde6
+7b5eb9197e2436eb9002a64e100c0a43f562fb30
