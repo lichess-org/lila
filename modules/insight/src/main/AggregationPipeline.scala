@@ -40,8 +40,10 @@ final private class AggregationPipeline(store: InsightStorage)(using
 
         def groupOptions(identifiers: pack.Value)(ops: (String, Option[GroupFunction])*) =
           Group(identifiers)(ops.collect { case (k, Some(f)) => k -> f }*)
+
         def groupFieldOptions(idField: String)(ops: (String, Option[GroupFunction])*) =
           GroupField(idField)(ops.collect { case (k, Some(f)) => k -> f }*)
+
         def bucketAutoOptions(groupBy: pack.Value, buckets: Int, granularity: Option[String])(
             output: (String, Option[GroupFunction])*
         ) = BucketAuto(groupBy, buckets, granularity)(output.collect { case (k, Some(f)) => k -> f }*)
@@ -74,6 +76,7 @@ final private class AggregationPipeline(store: InsightStorage)(using
               )
             )
           }
+
         lazy val accuracyPercentDispatcher =
           $doc( // rounding
             "$multiply" -> $arr(
@@ -182,10 +185,10 @@ final private class AggregationPipeline(store: InsightStorage)(using
                 "nb"  -> SumAll.some,
                 "ids" -> addGameId
               )
-          ) map some
+          ).map(some)
 
         def groupMulti(d: InsightDimension[?], metricDbKey: String): List[Option[PipelineOperator]] =
-          dimensionGrouping(d) match {
+          dimensionGrouping(d).match {
             case Grouping.Group =>
               List(
                 groupOptions($doc("dimension" -> dimensionGroupId(d), "metric" -> s"$$$metricDbKey"))(
@@ -214,7 +217,7 @@ final private class AggregationPipeline(store: InsightStorage)(using
                 includeSomeGameIds,
                 Sort(Ascending("_id.min")).some
               ).flatten
-          } map some
+          }.map(some)
 
         val fieldExistsMatcher: Bdoc = dimension.some
           .filter(InsightDimension.optionalDimensions.contains)

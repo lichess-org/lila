@@ -55,7 +55,7 @@ final class RelayTourStream(
         doc
           .asOpt[RelayTour]
           .flatMap: tour =>
-            doc.getAsOpt[List[RelayRound]]("rounds") map tour.withRounds
+            doc.getAsOpt[List[RelayRound]]("rounds").map(tour.withRounds)
           .toList
       .throttle(perSecond.value, 1 second)
       .take(nb.value)
