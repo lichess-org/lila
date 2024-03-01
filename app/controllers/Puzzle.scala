@@ -420,7 +420,7 @@ final class Puzzle(env: Env, apiC: => Api) extends LilaController(env):
                     _.map { (round, rDiff) => env.puzzle.jsonView.roundJson.api(round, rDiff) }
                   }
               case None =>
-                data.solutions.map { sol => env.puzzle.finisher.incPuzzlePlays(sol.id) }.parallel inject Nil
+                data.solutions.traverse_ { sol => env.puzzle.finisher.incPuzzlePlays(sol.id) } inject Nil
             given Option[Me] <- ctx.me.so(env.user.repo.me)
             nextPuzzles <- WithPuzzlePerf:
               batchSelect(angle, reqDifficulty, ~getInt("nb"))
