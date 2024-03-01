@@ -78,5 +78,14 @@ Gioca in fretta e ritorna nella lobby per avere la possibilità di giocare più 
   <string name="bestResults">Risultati migliori</string>
   <string name="stats">Statistiche</string>
   <string name="tournamentStats">Statistiche torneo</string>
+  <string name="rankAvgHelp">La media del piazzamento è la percentuale del tuo piazzamento. Più è basso, più è meglio.
+
+Per esempio, essere classificato in 3ª posizione in un torneo di 100 giocatori = 3%. Essere classificato in 10ª posizione in un torneo di 1000 = 1%.</string>
+  <string name="medians">mediane</string>
+  <string name="allAveragesAreX">Tutte le medie in questa pagina sono %.</string>
+  <string name="total">Totale</string>
   <string name="pointsAvg">Media punti</string>
+  <string name="pointsSum">Somma punti</string>
+  <string name="rankAvg">Media del piazzamento</string>
+  <string name="tournamentWinners">Vincitori torneo</string>
 </resources>
