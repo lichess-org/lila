@@ -32,7 +32,7 @@ final private class AggregationPipeline(store: InsightStorage)(using
         import InsightEntry.{ BSONFields as F }
 
         val limitGames     = Limit(nbGames.value)
-        val sortDate       = target.isLeft so List(Sort(Descending(F.date)))
+        val sortDate       = target.isLeft.so(List(Sort(Descending(F.date))))
         val limitMoves     = Limit((200_000 / maxGames.value.toDouble * nbGames.value).toInt).some
         val unwindMoves    = UnwindField(F.moves).some
         val sortNb         = Sort(Descending("nb")).some

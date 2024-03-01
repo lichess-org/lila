@@ -79,14 +79,14 @@ final private class PushApi(
 
   def move(move: MoveEvent): Funit =
     LilaFuture.delay(2 seconds):
-      proxyRepo.game(move.gameId) flatMap:
-        _.filter(_.playable) so: game =>
+      proxyRepo.game(move.gameId).flatMap:
+        _.filter(_.playable).so: game =>
           game.sans.lastOption.so: sanMove =>
             game.povs.traverse_ { pov =>
-              pov.player.userId so: userId =>
+              pov.player.userId.so: userId =>
                 val data = LazyFu: () =>
                   for
-                    _ <- proxyRepo flushIfPresent game.id // ensure game is updated before we count user games
+                    _ <- proxyRepo.flushIfPresent(game.id) // ensure game is updated before we count user games
                     nbMyTurn <- gameRepo.countWhereUserTurn(userId)
                     opponent <- asyncOpponentName(pov)
                     payload  <- corresGamePayload(pov, "gameMove", userId)
@@ -109,11 +109,11 @@ final private class PushApi(
 
   def takebackOffer(gameId: GameId): Funit =
     LilaFuture.delay(1 seconds):
-      proxyRepo.game(gameId) flatMap:
+      proxyRepo.game(gameId).flatMap:
         _.filter(_.playable).so: game =>
           game.players.collect {
             case p if p.isProposingTakeback => Pov(game, game opponent p)
-          } so { pov => // the pov of the receiver
+          }.so { pov => // the pov of the receiver
             pov.player.userId so: userId =>
               val data = LazyFu: () =>
                 for

@@ -18,7 +18,7 @@ object ApiConfig:
     val maxAge = 365 days
     def make(lilaCookie: LilaCookie)(enable: Boolean)(using RequestHeader) = lilaCookie.cookie(
       name,
-      enable so "1",
+      enable.so("1"),
       maxAge = maxAge.toSeconds.toInt.some,
       httpOnly = true.some
     )

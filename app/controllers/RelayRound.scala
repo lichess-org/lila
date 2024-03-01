@@ -44,7 +44,7 @@ final class RelayRound(
               ),
             setup =>
               rateLimitCreation(whenRateLimited):
-                env.relay.api.create(setup, tour) flatMap: rt =>
+                env.relay.api.create(setup, tour).flatMap: rt =>
                   negotiate(
                     Redirect(routes.RelayRound.show(tour.slug, rt.relay.slug, rt.relay.id)),
                     JsonOk(env.relay.jsonView.myRound(rt))

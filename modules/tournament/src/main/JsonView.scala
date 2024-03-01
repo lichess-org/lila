@@ -206,7 +206,7 @@ final class JsonView(
     tour.featuredId.ifTrue(tour.isStarted).so(pairingRepo.byId).flatMapz: pairing =>
       proxyRepo.game(pairing.gameId).flatMapz: game =>
         cached.ranking(tour).flatMap: ranking =>
-          playerRepo.pairByTourAndUserIds(tour.id, pairing.user1, pairing.user2) map: pairOption =>
+          playerRepo.pairByTourAndUserIds(tour.id, pairing.user1, pairing.user2).map: pairOption =>
             for
               (p1, p2) <- pairOption
               rp1      <- RankedPlayer(ranking.ranking)(p1)
@@ -222,7 +222,7 @@ final class JsonView(
 
   private def duelsJson(tourId: TourId): Fu[(List[Duel], JsArray)] =
     val duels = duelStore.bestRated(tourId, 6)
-    (duels.map(duelJson).parallel: Fu[List[JsObject]]) map: jsons =>
+    (duels.map(duelJson).parallel: Fu[List[JsObject]]).map: jsons =>
       (duels, JsArray(jsons))
 
   private[tournament] val cachableData =

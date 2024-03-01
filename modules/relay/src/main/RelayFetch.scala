@@ -59,7 +59,7 @@ final private class RelayFetch(
         relays
           .map: rt =>
             if rt.round.sync.ongoing then
-              processRelay(rt) flatMap: updating =>
+              processRelay(rt).flatMap: updating =>
                 api.reFetchAndUpdate(rt.round)(updating.reRun)
             else if rt.round.hasStarted then
               logger.info(s"Finish by lack of activity ${rt.round}")
@@ -179,8 +179,7 @@ final private class RelayFetch(
             else
               throw LilaInvalid:
                 s"Invalid game IDs: ${ids.filter(id => !games.exists(_._1.id == id)) mkString ", "}"
-          } flatMap:
-            multiPgnToGames(_).toFuture
+          } flatMap(multiPgnToGames(_).toFuture)
       case url: UpstreamUrl =>
         delayer(url, rt, fetchFromUpstream(using CanProxy(rt.tour.official)))
 

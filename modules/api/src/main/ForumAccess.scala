@@ -19,7 +19,7 @@ final class ForumAccess(
     ForumCateg
       .toTeamId(categId)
       .fold(fuTrue): teamId =>
-        teamCached.forumAccess get teamId flatMap {
+        teamCached.forumAccess.get(teamId).flatMap {
           case Team.Access.NONE     => fuFalse
           case Team.Access.EVERYONE =>
             // when the team forum is open to everyone, you still need to belong to the team in order to post
@@ -38,7 +38,7 @@ final class ForumAccess(
       me: Option[Me]
   ): Fu[Boolean] =
     if tryingToPostAsMod && Granter.opt(_.Shusher) then fuTrue
-    else canWriteInAnyForum so isGranted(categId, Operation.Write)
+    else canWriteInAnyForum.so(isGranted(categId, Operation.Write))
 
   private def canWriteInAnyForum(using me: Option[Me]) = me.exists: me =>
     !me.isBot && {
