@@ -447,7 +447,7 @@ object Pref:
     animation = Animation.NORMAL,
     captured = true,
     follow = true,
-    appearAnon = true,
+    appearAnon = false,
     highlight = true,
     destination = true,
     coords = Coords.INSIDE,
