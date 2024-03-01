@@ -46,7 +46,7 @@ object Federation:
       nameToSlug(name) -> id
 
   val names: Map[Id, Name] = Map(
-    "FID" -> "FIDE"
+    "FID" -> "FIDE",
     "USA" -> "United States of America",
     "IND" -> "India",
     "CHN" -> "China",
