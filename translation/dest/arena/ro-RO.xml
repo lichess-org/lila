@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+  <string name="arena">Arena</string>
   <string name="arenaTournaments">Turnee de tip arenă</string>
   <string name="isItRated">Este evaluat?</string>
   <string name="willBeNotified">Vei fi notificat când competiția începe, deci este în regulă să joci în altă filă în timp ce aștepți.</string>
@@ -63,4 +64,7 @@ Joacă rapid și întoarce-te la lobby pentru a juca mai multe partide și pentr
   <string name="averagePerformance">Performanță medie</string>
   <string name="averageScore">Scor mediu</string>
   <string name="myTournaments">Turneele mele</string>
+  <string name="bestResults">Cele mai bune rezultate</string>
+  <string name="stats">Statistici</string>
+  <string name="tournamentStats">Statistici turneu</string>
 </resources>
