@@ -28,8 +28,8 @@
     <item quantity="other">%s peticións de ingreso</item>
   </plurals>
   <string name="willBeReviewed">Os líderes do equipo revisarán a túa solicitude de ingreso.</string>
-  <string name="beingReviewed">O líder do equipo está a revisar a túa solicitude de ingreso.</string>
-  <string name="requestDeclined">O líder do equipo rexeitou a túa solicitude de ingreso.</string>
+  <string name="beingReviewed">Un líder do equipo está a revisar a túa solicitude de ingreso.</string>
+  <string name="requestDeclined">Un líder do equipo rexeitou a túa solicitude de ingreso.</string>
   <string name="subToTeamMessages">Subscríbete ás mensaxes de equipo</string>
   <string name="teamBattle">Batalla por equipos</string>
   <string name="teamBattleOverview">Unha batalla entre varios equipos onde cada xogador anota puntos para o seu equipo</string>
@@ -50,6 +50,7 @@ Os xogadores que non gosten de recibiren mensaxes poden abandonar o equipo.</str
   <string name="entryCodeDescriptionForLeader">(Opcional) Un contrasinal que os novos membros deben saber para unirse a este equipo.</string>
   <string name="incorrectEntryCode">Código de entrada incorrecto.</string>
   <string name="teamAlreadyExists">Este equipo xa existe.</string>
+  <string name="upcomingTournaments">Vindeiros torneos</string>
   <string name="completedTourns">Torneos finalizados</string>
   <string name="declinedRequests">Solicitudes rexeitadas</string>
   <string name="joinLichessVariantTeam">Únete ó equipo oficial de %s para novidades e eventos</string>
