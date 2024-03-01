@@ -415,6 +415,8 @@ object BSONHandlers:
 
   given BSONDocumentReader[Chapter.MetadataExt] with
     def readDocument(doc: Bdoc) = for
-      min <- doc.asTry[Chapter.MetadataMin]
-      tags = doc.getAsOpt[Tags]("tags")
-    yield Chapter.MetadataExt(min, tags | Tags.empty)
+      id   <- doc.getAsTry[StudyChapterId]("_id")
+      name <- doc.getAsTry[StudyChapterName]("name")
+      tags    = doc.getAsOpt[Tags]("tags") | Tags.empty
+      outcome = tags.outcome
+    yield Chapter.MetadataExt(Chapter.MetadataMin(id, name, outcome.some), tags)
