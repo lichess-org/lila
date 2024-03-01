@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+  <string name="arena">Arena</string>
   <string name="arenaTournaments">Tornei arena</string>
   <string name="isItRated">Questo torneo è classificato?</string>
   <string name="willBeNotified">Riceverai una notifica quando il torneo inizierà. Durante l\'attesa puoi tranquillamente giocare in un\'altra scheda.</string>
@@ -66,4 +67,16 @@ Gioca in fretta e ritorna nella lobby per avere la possibilità di giocare più 
   <string name="averagePerformance">Prestazione media</string>
   <string name="averageScore">Punteggio medio</string>
   <string name="myTournaments">I miei tornei</string>
+  <string name="editTournament">Modifica il torneo</string>
+  <string name="editTeamBattle">Modifica battaglia a squadre</string>
+  <string name="defender">Difensore</string>
+  <string name="pickYourTeam">Scegli la tua squadra</string>
+  <string name="whichTeamWillYouRepresentInThisBattle">Quale squadra rappresenterai in questa battaglia?</string>
+  <string name="youMustJoinOneOfTheseTeamsToParticipate">Devi unirti a una di queste squadre per partecipare!</string>
+  <string name="created">Creato</string>
+  <string name="recentlyPlayed">Giocato recentemente</string>
+  <string name="bestResults">Risultati migliori</string>
+  <string name="stats">Statistiche</string>
+  <string name="tournamentStats">Statistiche torneo</string>
+  <string name="pointsAvg">Media punti</string>
 </resources>
