@@ -11,7 +11,7 @@ import lila.app.{ given, * }
 import lila.common.ApiVersion
 import lila.common.Json.given
 import lila.common.config.MaxPerSecond
-import lila.puzzle.PuzzleForm.RoundData
+import lila.puzzle.PuzzleForm
 import lila.puzzle.{ Puzzle as Puz, PuzzleAngle, PuzzleSettings, PuzzleStreak, PuzzleTheme, PuzzleDifficulty }
 import lila.user.User
 import lila.common.LangPath
@@ -118,9 +118,9 @@ final class Puzzle(env: Env, apiC: => Api) extends LilaController(env):
       page    <- renderPage(views.html.puzzle.ofPlayer(name.so(_.value), user, puzzles))
     yield Ok(page)
 
-  private def onComplete[A](form: Form[RoundData])(id: PuzzleId, angle: PuzzleAngle, mobileBc: Boolean)(using
-      ctx: BodyContext[A]
-  ): Fu[Result] =
+  private def onComplete[A](
+      form: Form[PuzzleForm.RoundData]
+  )(id: PuzzleId, angle: PuzzleAngle, mobileBc: Boolean)(using ctx: BodyContext[A]): Fu[Result] =
     form
       .bindFromRequest()
       .fold(
@@ -229,7 +229,7 @@ final class Puzzle(env: Env, apiC: => Api) extends LilaController(env):
       JsonOk(json)
 
   def apiStreakResult(score: Int) = ScopedBody(_.Puzzle.Write, _.Web.Mobile) { _ ?=> me ?=>
-    if score > 0 && score < lila.puzzle.PuzzleForm.maxStreakScore then
+    if score > 0 && score < PuzzleForm.maxStreakScore then
       lila.mon.streak.run.score("mobile").record(score)
       setStreakResult(me, score)
       NoContent
@@ -406,7 +406,7 @@ final class Puzzle(env: Env, apiC: => Api) extends LilaController(env):
 
   def apiBatchSolve(angleStr: String) = AnonOrScopedBody(parse.json)(_.Puzzle.Write, _.Web.Mobile): ctx ?=>
     ctx.body.body
-      .validate[lila.puzzle.PuzzleForm.batch.SolveData]
+      .validate[PuzzleForm.batch.SolveData]
       .fold(
         err => BadRequest(err.toString),
         data =>
@@ -460,7 +460,7 @@ final class Puzzle(env: Env, apiC: => Api) extends LilaController(env):
   /* Mobile API: tell the server about puzzles solved while offline */
   def mobileBcBatchSolve = AuthBody(parse.json) { ctx ?=> me ?=>
     negotiateJson:
-      import lila.puzzle.PuzzleForm.bc.*
+      import PuzzleForm.bc.*
       import lila.puzzle.PuzzleWin
       ctx.body.body
         .validate[SolveDataBc]
