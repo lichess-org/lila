@@ -7,27 +7,51 @@ main.has-relay-tour {
     'round-training';
 
   @include breakpoint($mq-col2) {
-    grid-template-columns: minmax(230px, 350px) minmax(70%, 800px);
-    grid-template-rows: auto auto 2.5em;
     grid-template-areas:
-      'side  relay-tour'
-      'chat  relay-tour'
-      'uchat relay-tour'
-      'round-training relay-tour'
-      '. relay-tour';
-    grid-column-gap: $block-gap;
+      'relay-tour           . side'
+      'relay-tour           . chat'
+      'relay-tour          . uchat'
+      'relay-tour . round-training';
+  }
 
-    .analyse__side {
-      margin-top: 0;
-    }
+  @include breakpoint($mq-col3) {
+    grid-template-columns: $col3-uniboard-side $block-gap var(--col3-uniboard-width) var(--gauge-gap) $col3-uniboard-table;
+    grid-template-areas:
+      'side           . relay-tour relay-tour relay-tour'
+      'chat           . relay-tour relay-tour relay-tour'
+      'uchat          . relay-tour relay-tour relay-tour'
+      'round-training . relay-tour relay-tour relay-tour';
+
     .mchat {
       height: 48vh;
     }
   }
 }
 
+main.analyse.is-relay:not(.has-relay-tour) {
+  @include breakpoint($mq-col3) {
+    grid-template-rows: 30vh auto 15vh auto;
+    grid-template-areas:
+      'side    . board gauge tools'
+      'chat    . board gauge tools'
+      'chat    . under .     controls'
+      'uchat   . under .     round-training';
+  }
+}
+
 .relay-tour {
   grid-area: relay-tour;
+
+  &__side {
+    grid-area: side;
+    @extend %box-neat, %flex-column;
+    background: $c-bg-box;
+    &__name {
+      @extend %box-radius;
+      background: $c-bg-zebra;
+      padding: 1em;
+    }
+  }
 
   &__round {
     @extend %box-padding-horiz, %flex-between-nowrap;
@@ -142,13 +166,19 @@ main.has-relay-tour {
   }
 
   &__tabs {
-    @include breakpoint($mq-subnav-side) {
-      a {
-        text-align: right;
-        &:hover::after,
-        &.active::after {
-          display: none;
-        }
+    @extend %flex-center-nowrap;
+    margin: 2em var(--box-padding);
+    gap: 1em;
+    span {
+      @extend %box-radius;
+      cursor: pointer;
+      padding: 0.8em 1.5em;
+      border: $border;
+      &:hover {
+        @extend %metal;
+      }
+      &.active {
+        @extend %metal, %box-shadow;
       }
     }
   }
@@ -160,6 +190,7 @@ main.has-relay-tour {
 
   &__markup {
     @include rendered-markdown(2em, 50vh);
+    margin: 3em var(--box-padding);
   }
 
   &__leaderboard {
@@ -185,9 +216,9 @@ main.has-relay-tour {
 }
 
 .relay-games {
-  @extend %box-neat;
-  background: $c-bg-box;
+  overflow-y: auto;
   font-size: 0.9em;
+  max-height: 50vh;
   .relay-game {
     @extend %flex-center-nowrap;
     align-items: stretch;

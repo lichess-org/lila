@@ -30,31 +30,12 @@ export default function (ctrl: AnalyseCtrl): VNode | undefined {
   return h('div.relay-tour', content);
 }
 
-export const tourTabs = (ctrl: AnalyseCtrl) => {
-  const study = ctrl.study,
-    relay = study?.relay;
-  if (!relay) return undefined;
-
-  const makeTab = (key: RelayTab, name: string) =>
-    h(
-      'a.' + key,
-      {
-        class: { active: relay.tab() === key },
-        attrs: { role: 'tab' },
-        hook: bind('mousedown', () => relay.openTab(key)),
-      },
-      name,
-    );
-
+export const tourSide = (study: StudyCtrl, relay: RelayCtrl) => {
   return h('aside.relay-tour__side', [
     h(
-      'div.subnav.relay-tour__tabs',
-      h('nav.subnav__inner', { attrs: { role: 'tablist' } }, [
-        makeTab('overview', 'Overview'),
-        makeTab('games', 'Games'),
-        relay.teams && makeTab('teams', 'Teams'),
-        relay.data.leaderboard ? makeTab('leaderboard', 'Leaderboard') : undefined,
-      ]),
+      'a.relay-tour__side__name',
+      { hook: bind('click', relay.tourShow.toggle, relay.redraw) },
+      relay.data.tour.name,
     ),
     gamesList(study, relay),
   ]);
@@ -65,7 +46,7 @@ const leaderboard = (relay: RelayCtrl, ctrl: AnalyseCtrl): VNode[] => {
   const withRating = !!players.find(p => p.rating);
   return [
     h('div.box.relay-tour__box', [
-      header(relay, ctrl),
+      ...header(relay, ctrl),
       h('div.relay-tour__leaderboard', [
         h('table.slist.slist-invert.slist-pad', [
           h(
@@ -83,7 +64,7 @@ const leaderboard = (relay: RelayCtrl, ctrl: AnalyseCtrl): VNode[] => {
                     ? h('a', { attrs: { href: `/fide/${player.fideId}/redirect` } }, fullName)
                     : fullName,
                 ),
-                withRating && player.rating ? h('td', `${player.rating}`) : undefined,
+                h('td', withRating && player.rating ? `${player.rating}` : undefined),
                 h('td', `${player.score}`),
                 h('td', `${player.played}`),
               ]);
@@ -97,32 +78,12 @@ const leaderboard = (relay: RelayCtrl, ctrl: AnalyseCtrl): VNode[] => {
 
 const overview = (relay: RelayCtrl, ctrl: AnalyseCtrl) => [
   h('div.box.relay-tour__box.relay-tour__overview', [
-    header(relay, ctrl),
-    // h(
-    //   'a.relay-tour__round',
-    //   {
-    //     class: { ongoing: !!round.ongoing },
-    //     attrs: { tabindex: 0 },
-    //     hook: bind('click', () => $('span.chapters[role="tab"]').trigger('mousedown')),
-    //   },
-    //   [
-    //     h('strong', round.name),
-    //     ' ',
-    //     round.ongoing
-    //       ? study.trans.noarg('playingRightNow')
-    //       : !!round.startsAt &&
-    //         h(
-    //           'time.timeago',
-    //           { hook: onInsert(el => el.setAttribute('datetime', '' + round.startsAt)) },
-    //           site.timeago(round.startsAt),
-    //         ),
-    //   ],
-    // ),
+    ...header(relay, ctrl),
     relay.data.tour.markup
-      ? h('div.relay-tour__markup.box-pad', {
+      ? h('div.relay-tour__markup', {
           hook: innerHTML(relay.data.tour.markup, () => relay.data.tour.markup!),
         })
-      : h('div.relay-tour__markup.box-pad', relay.data.tour.description),
+      : h('div.relay-tour__markup', relay.data.tour.description),
   ]),
 ];
 
@@ -220,50 +181,78 @@ const gamesList = (study: StudyCtrl, relay: RelayCtrl) => {
 };
 
 const games = (relay: RelayCtrl, study: StudyCtrl, ctrl: AnalyseCtrl) => [
-  h('div.box.relay-tour__box', [header(relay, ctrl), multiBoardView(study.multiBoard, study)]),
+  h('div.box.relay-tour__box', [...header(relay, ctrl), multiBoardView(study.multiBoard, study)]),
 ];
 
 const teams = (relay: RelayCtrl, ctrl: AnalyseCtrl) =>
-  relay.teams ? [h('div.box.relay-tour__box', [header(relay, ctrl), teamsView(relay.teams)])] : [];
+  relay.teams ? [h('div.box.relay-tour__box', [...header(relay, ctrl), teamsView(relay.teams)])] : [];
 
 const header = (relay: RelayCtrl, ctrl: AnalyseCtrl) => {
   const d = relay.data,
     study = ctrl.study!,
     group = relay.data.group;
-  return h('div.relay-tour__header', [
-    h('div.relay-tour__header__image', [
-      d.tour.image
-        ? h('img', { attrs: { src: d.tour.image } })
-        : study.members.isOwner()
-        ? h(
-            'a.button.relay-tour__image-upload',
-            { attrs: { href: `/broadcast/${relay.data.tour.id}/edit` } },
-            'Upload tournament image',
-          )
-        : undefined,
-    ]),
-    h('div.relay-tour__header__content', [
-      h('h1', group?.name || d.tour.name),
-      h('div.relay-tour__header__selectors', [group && groupSelect(relay, group), roundSelect(relay, study)]),
-      ...(defined(d.isSubscribed)
-        ? [
-            toggle(
-              {
-                name: 'Subscribe',
-                id: 'tour-subscribe',
-                checked: d.isSubscribed,
-                change: (v: boolean) => {
-                  xhr.text(`/broadcast/${d.tour.id}/subscribe?set=${v}`, { method: 'post' });
-                  d.isSubscribed = v;
-                  ctrl.redraw();
+  return [
+    h('div.relay-tour__header', [
+      h('div.relay-tour__header__image', [
+        d.tour.image
+          ? h('img', { attrs: { src: d.tour.image } })
+          : study.members.isOwner()
+          ? h(
+              'a.button.relay-tour__image-upload',
+              { attrs: { href: `/broadcast/${relay.data.tour.id}/edit` } },
+              'Upload tournament image',
+            )
+          : undefined,
+      ]),
+      h('div.relay-tour__header__content', [
+        h('h1', group?.name || d.tour.name),
+        h('div.relay-tour__header__selectors', [
+          group && groupSelect(relay, group),
+          roundSelect(relay, study),
+        ]),
+        ...(defined(d.isSubscribed)
+          ? [
+              toggle(
+                {
+                  name: 'Subscribe',
+                  id: 'tour-subscribe',
+                  checked: d.isSubscribed,
+                  change: (v: boolean) => {
+                    xhr.text(`/broadcast/${d.tour.id}/subscribe?set=${v}`, { method: 'post' });
+                    d.isSubscribed = v;
+                    ctrl.redraw();
+                  },
                 },
-              },
-              ctrl.trans,
-              ctrl.redraw,
-            ),
-          ]
-        : []),
+                ctrl.trans,
+                ctrl.redraw,
+              ),
+            ]
+          : []),
+      ]),
     ]),
+    makeTabs(ctrl),
+  ];
+};
+
+const makeTabs = (ctrl: AnalyseCtrl) => {
+  const study = ctrl.study,
+    relay = study?.relay;
+  if (!relay) return undefined;
+
+  const makeTab = (key: RelayTab, name: string) =>
+    h(
+      `span${relay.tab() === key ? '.active' : ''}`,
+      {
+        attrs: { role: 'tab' },
+        hook: bind('mousedown', () => relay.openTab(key)),
+      },
+      name,
+    );
+  return h('nav.relay-tour__tabs', { attrs: { role: 'tablist' } }, [
+    makeTab('overview', 'Overview'),
+    makeTab('games', 'Boards'),
+    relay.teams && makeTab('teams', 'Teams'),
+    relay.data.leaderboard ? makeTab('leaderboard', 'Leaderboard') : undefined,
   ]);
 };
 

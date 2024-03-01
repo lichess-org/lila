@@ -35,7 +35,7 @@ import { renderNextChapter } from '../study/nextChapter';
 import * as Prefs from 'common/prefs';
 import StudyCtrl from '../study/studyCtrl';
 import { dispatchChessgroundResize } from 'common/resize';
-import { tourTabs } from '../study/relay/relayTourView';
+import { tourSide } from '../study/relay/relayTourView';
 
 window.addEventListener('popstate', () => window.location.reload());
 
@@ -309,7 +309,8 @@ export default function (deps?: typeof studyDeps) {
       playerStrips = !playerBars && renderPlayerStrips(ctrl),
       gaugeOn = ctrl.showEvalGauge(),
       needsInnerCoords = ctrl.data.pref.showCaptured || !!gaugeOn || !!playerBars,
-      tour = deps?.relayTour(ctrl);
+      isRelay = !!study?.relay,
+      tourUi = deps?.relayTour(ctrl);
 
     return h(
       'main.analyse.variant-' + ctrl.data.game.variant.key,
@@ -348,7 +349,8 @@ export default function (deps?: typeof studyDeps) {
           'gauge-on': gaugeOn,
           'has-players': !!playerBars,
           'gamebook-play': !!gamebookPlayView,
-          'has-relay-tour': !!tour,
+          'has-relay-tour': !!tourUi,
+          'is-relay': isRelay,
           'analyse-hunter': ctrl.opts.hunter,
           'analyse--wiki': !!ctrl.wiki && !ctrl.study,
         },
@@ -356,7 +358,7 @@ export default function (deps?: typeof studyDeps) {
       [
         ctrl.keyboardHelp && keyboardView(ctrl),
         study && deps?.studyView.overboard(study),
-        tour ||
+        tourUi ||
           h(
             addChapterId(study, 'div.analyse__board.main-board'),
             {
@@ -389,10 +391,10 @@ export default function (deps?: typeof studyDeps) {
               ctrl.promotion.view(ctrl.data.game.variant.key === 'antichess'),
             ],
           ),
-        gaugeOn && !tour && cevalView.renderGauge(ctrl),
-        !menuIsOpen && !tour && crazyView(ctrl, ctrl.topColor(), 'top'),
+        gaugeOn && !tourUi && cevalView.renderGauge(ctrl),
+        !menuIsOpen && !tourUi && crazyView(ctrl, ctrl.topColor(), 'top'),
         gamebookPlayView ||
-          (!tour &&
+          (!tourUi &&
             h(addChapterId(study, 'div.analyse__tools'), [
               ...(menuIsOpen
                 ? [actionMenu(ctrl)]
@@ -405,9 +407,9 @@ export default function (deps?: typeof studyDeps) {
                     retroView(ctrl) || practiceView(ctrl) || explorerView(ctrl),
                   ]),
             ])),
-        !menuIsOpen && !tour && crazyView(ctrl, ctrl.bottomColor(), 'bottom'),
-        !gamebookPlayView && !tour && controls(ctrl),
-        !tour &&
+        !menuIsOpen && !tourUi && crazyView(ctrl, ctrl.bottomColor(), 'bottom'),
+        !gamebookPlayView && !tourUi && controls(ctrl),
+        !tourUi &&
           h(
             'div.analyse__underboard',
             {
@@ -418,11 +420,11 @@ export default function (deps?: typeof studyDeps) {
             },
             study ? deps?.studyView.underboard(ctrl) : [inputs(ctrl)],
           ),
-        !tour && trainingView(ctrl),
+        !tourUi && trainingView(ctrl),
         ctrl.studyPractice
           ? deps?.studyPracticeView.side(study!)
           : study?.relay
-          ? tourTabs(ctrl)
+          ? tourSide(study, study.relay)
           : h(
               'aside.analyse__side',
               {
