@@ -50,7 +50,7 @@ final class Env(
   def cli: lila.common.Cli = new:
     def process =
       case "video" :: "sheet" :: Nil =>
-        sheet.fetchAll map { nb => s"Processed $nb videos" }
+        sheet.fetchAll.map { nb => s"Processed $nb videos" }
 
   if mode == Mode.Prod then
     scheduler.scheduleWithFixedDelay(config.sheetDelay, config.sheetDelay): () =>

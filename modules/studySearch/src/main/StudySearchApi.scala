@@ -22,8 +22,8 @@ final class StudySearchApi(
     extends SearchReadApi[Study, Query]:
 
   def search(query: Query, from: From, size: Size) =
-    client.search(query, from, size) flatMap { res =>
-      studyRepo byOrderedIds res.ids.map { StudyId(_) }
+    client.search(query, from, size).flatMap { res =>
+      studyRepo.byOrderedIds(res.ids.map { StudyId(_) })
     }
 
   def count(query: Query) = client.count(query).dmap(_.value)
@@ -31,7 +31,7 @@ final class StudySearchApi(
   def store(study: Study) = fuccess {
     indexThrottler ! LateMultiThrottler.work(
       id = study.id,
-      run = studyRepo byId study.id flatMapz doStore,
+      run = studyRepo.byId(study.id).flatMapz(doStore),
       delay = 30.seconds.some
     )
   }
@@ -39,7 +39,7 @@ final class StudySearchApi(
   private def doStore(study: Study) =
     getChapters(study)
       .flatMap { s =>
-        client.store(s.study.id into Id, toDoc(s))
+        client.store(s.study.id.into(Id), toDoc(s))
       }
       .prefixFailure(study.id.value)
 
@@ -84,9 +84,9 @@ final class StudySearchApi(
 
   private def extraText(c: Chapter): List[String] =
     List(
-      c.isPractice option "practice",
-      c.isConceal option "conceal puzzle",
-      c.isGamebook option "lesson",
+      c.isPractice.option("practice"),
+      c.isConceal.option("conceal puzzle"),
+      c.isGamebook.option("lesson"),
       c.description
     ).flatten
 
@@ -94,10 +94,10 @@ final class StudySearchApi(
     commentsText(n.comments) + " " + n.children.nodes.map(nodeText).mkString(" ")
 
   private def commentsText(cs: Comments): String =
-    cs.value.map(_.text.value) mkString " "
+    cs.value.map(_.text.value).mkString(" ")
 
   private def getChapters(s: Study): Fu[Study.WithActualChapters] =
-    chapterRepo.orderedByStudy(s.id) map { Study.WithActualChapters(s, _) }
+    chapterRepo.orderedByStudy(s.id).map { Study.WithActualChapters(s, _) }
 
   private val multiSpaceRegex            = """\s{2,}""".r
   private def noMultiSpace(text: String) = multiSpaceRegex.replaceAllIn(text, " ")
@@ -111,7 +111,7 @@ final class StudySearchApi(
           val sinceOption: Either[Unit, Option[LocalDate]] =
             if sinceStr == "reset" then Left(()) else Right(parseDate(sinceStr))
           val since = sinceOption match
-            case Right(None) => sys error "Missing since date argument"
+            case Right(None) => sys.error("Missing since date argument")
             case Right(Some(date)) =>
               logger.info(s"Resume since $date")
               date
@@ -126,8 +126,8 @@ final class StudySearchApi(
             .futureSource {
               studyRepo
                 .sortedCursor(
-                  $doc("createdAt" $gte since),
-                  sort = $sort asc "createdAt"
+                  $doc("createdAt".$gte(since)),
+                  sort = $sort.asc("createdAt")
                 )
                 .map(_.documentSource())
             }
@@ -140,5 +140,5 @@ final class StudySearchApi(
       case _ => funit
 
   private def parseDate(str: String): Option[LocalDate] =
-    val dateFormatter = java.time.format.DateTimeFormatter ofPattern "yyyy-MM-dd"
+    val dateFormatter = java.time.format.DateTimeFormatter.ofPattern("yyyy-MM-dd")
     scala.util.Try(java.time.LocalDate.parse(str, dateFormatter)).toOption

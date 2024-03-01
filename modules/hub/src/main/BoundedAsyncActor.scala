@@ -21,7 +21,7 @@ final class BoundedAsyncActor(maxSize: Max, name: String, logging: Boolean = tru
         Some:
           state.fold(emptyQueue): q =>
             if q.size >= maxSize.value then q
-            else q enqueue msg
+            else q.enqueue(msg)
       .match
         case None => // previous state was idle, we can run immediately
           run(msg)
@@ -38,7 +38,7 @@ final class BoundedAsyncActor(maxSize: Max, name: String, logging: Boolean = tru
   def ask[A](makeMsg: Promise[A] => Matchable): Fu[A] =
     val promise = Promise[A]()
     val success = this ! makeMsg(promise)
-    if !success then promise failure new EnqueueException(s"The $name asyncActor queue is full ($maxSize)")
+    if !success then promise.failure(new EnqueueException(s"The $name asyncActor queue is full ($maxSize)"))
     promise.future
 
   def queueSize = stateRef.get().fold(0)(_.size + 1)
@@ -53,10 +53,10 @@ final class BoundedAsyncActor(maxSize: Max, name: String, logging: Boolean = tru
   private[this] val stateRef: AtomicReference[State] = new AtomicReference(None)
 
   private[this] def run(msg: Matchable): Unit =
-    process.applyOrElse(msg, fallback) onComplete postRun
+    process.applyOrElse(msg, fallback).onComplete(postRun)
 
   private[this] val postRun = (_: Matchable) =>
-    stateRef.getAndUpdate(postRunUpdate) flatMap (_.headOption) foreach run
+    stateRef.getAndUpdate(postRunUpdate).flatMap(_.headOption).foreach(run)
 
   private[this] lazy val fallback = (msg: Any) =>
     lila.log("asyncActor").warn(s"[$name] unhandled msg: $msg")
@@ -67,9 +67,9 @@ object BoundedAsyncActor:
   final class EnqueueException(msg: String) extends Exception(msg)
 
   private case class SizedQueue(queue: Queue[Matchable], size: Int):
-    def enqueue(a: Matchable) = SizedQueue(queue enqueue a, size + 1)
+    def enqueue(a: Matchable) = SizedQueue(queue.enqueue(a), size + 1)
     def isEmpty               = size == 0
-    def tailOption            = !isEmpty option SizedQueue(queue.tail, size - 1)
+    def tailOption            = !isEmpty.option(SizedQueue(queue.tail, size - 1))
     def headOption            = queue.headOption
   private val emptyQueue = SizedQueue(Queue.empty, 0)
 

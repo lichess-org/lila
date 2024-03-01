@@ -21,7 +21,7 @@ final class IrwinStream:
       .keepAlive(60.seconds, () => keepAliveMsg)
 
   def apply()(using Executor): Source[String, ?] =
-    blueprint mapMaterializedValue { queue =>
+    blueprint.mapMaterializedValue { queue =>
       val sub = Bus.subscribeFun(channel) { case req: IrwinRequest =>
         lila.mon.mod.irwin.streamEventType("request").increment()
         queue.offer(req)
@@ -43,7 +43,7 @@ final class IrwinStream:
         "games"  -> req.suspect.user.count.rated
       ),
       "games" -> req.games.map { case (game, analysis) =>
-        val moveTimes = game.clockHistory.isDefined so game.moveTimes.map(_.map(_.centis))
+        val moveTimes = game.clockHistory.isDefined.so(game.moveTimes.map(_.map(_.centis)))
         Json.obj(
           "id"    -> game.id,
           "white" -> game.whitePlayer.userId,
@@ -52,12 +52,14 @@ final class IrwinStream:
           "emts"  -> moveTimes,
           "analysis" -> analysis.map {
             _.infos.map { info =>
-              info.cp.map { cp =>
-                Json.obj("cp" -> cp.value)
-              } orElse
-                info.mate.map { mate =>
+              info.cp
+                .map { cp =>
+                  Json.obj("cp" -> cp.value)
+                }
+                .orElse(info.mate.map { mate =>
                   Json.obj("mate" -> mate.value)
-                } getOrElse JsNull
+                })
+                .getOrElse(JsNull)
             }
           }
         )

@@ -23,7 +23,7 @@ private object Mappings:
   val boardApiVariantKeys       = typeIn(boardApiVariants)
   val time                      = of[Double].verifying(HookConfig validateTime _)
   val increment                 = of[Clock.IncrementSeconds].verifying(HookConfig validateIncrement _)
-  val daysChoices               = Days from List(1, 2, 3, 5, 7, 10, 14)
+  val daysChoices               = Days.from(List(1, 2, 3, 5, 7, 10, 14))
   val days                      = typeIn(daysChoices.toSet)
   def timeMode                  = number.verifying(TimeMode.ids contains _)
   def mode(withRated: Boolean)  = optional(rawMode(withRated))

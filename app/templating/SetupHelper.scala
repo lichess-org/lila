@@ -61,7 +61,7 @@ trait SetupHelper:
 
   val clockIncrementChoices: List[SelectChoice] = {
     (0 to 20).toList ::: List(25, 30, 35, 40, 45, 60, 90, 120, 150, 180)
-  } map { s =>
+  }.map { s =>
     (s.toString, s.toString, none)
   }
 
@@ -160,7 +160,7 @@ trait SetupHelper:
       variantTupleId(chess.variant.FromPosition)
 
   def translatedSpeedChoices(using Lang) =
-    Speed.limited map { s =>
+    Speed.limited.map { s =>
       val minutes = s.range.max / 60 + 1
       (
         s.id.toString,

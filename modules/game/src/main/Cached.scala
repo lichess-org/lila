@@ -17,7 +17,7 @@ final class Cached(
 
   def nbTotal: Fu[Long] = nbTotalCache.get {}
 
-  def lastPlayedPlayingId(userId: UserId): Fu[Option[GameId]] = lastPlayedPlayingIdCache get userId
+  def lastPlayedPlayingId(userId: UserId): Fu[Option[GameId]] = lastPlayedPlayingIdCache.get(userId)
 
   private val lastPlayedPlayingIdCache: LoadingCache[UserId, Fu[Option[GameId]]] =
     CacheApi.scaffeineNoScheduler
@@ -25,12 +25,12 @@ final class Cached(
       .build(gameRepo.lastPlayedPlayingId)
 
   lila.common.Bus.subscribeFun("startGame") { case lila.game.actorApi.StartGame(game) =>
-    game.userIds foreach lastPlayedPlayingIdCache.invalidate
+    game.userIds.foreach(lastPlayedPlayingIdCache.invalidate)
   }
 
   private val nbPlayingCache = cacheApi[UserId, Int](256, "game.nbPlaying"):
     _.expireAfterWrite(15 seconds).buildAsyncFuture: userId =>
-      gameRepo.coll.countSel(Query nowPlaying userId)
+      gameRepo.coll.countSel(Query.nowPlaying(userId))
 
   private val nbImportedCache = mongoCache[UserId, Int](
     4096,
@@ -41,7 +41,7 @@ final class Cached(
     _.expireAfterAccess(10 minutes)
       .buildAsyncFuture:
         loader: userId =>
-          gameRepo.coll countSel Query.imported(userId)
+          gameRepo.coll.countSel(Query.imported(userId))
 
   private val nbTotalCache = mongoCache.unit[Long](
     "game:total",

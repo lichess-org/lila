@@ -20,7 +20,7 @@ object Room:
 
   given Iso.StringIso[Room] = Iso.string(k => byKey.getOrElse(k, Other), _.key)
 
-  def apply(key: String): Option[Room] = byKey get key
+  def apply(key: String): Option[Room] = byKey.get(key)
 
   def apply(reason: Reason): Room =
     import lila.report.{ Reason as R }

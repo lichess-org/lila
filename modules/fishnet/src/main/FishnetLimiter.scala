@@ -11,12 +11,14 @@ final private class FishnetLimiter(
   import FishnetLimiter.*
 
   def apply(sender: Work.Sender, ignoreConcurrentCheck: Boolean, ownGame: Boolean): Fu[Analyser.Result] =
-    (fuccess(ignoreConcurrentCheck) >>| concurrentCheck(sender)) flatMap {
-      if _ then perDayCheck(sender)
-      else fuccess(Analyser.Result.ConcurrentAnalysis)
-    } flatMap { result =>
-      (result.ok so requesterApi.add(sender.userId, ownGame)) inject result
-    }
+    (fuccess(ignoreConcurrentCheck) >>| concurrentCheck(sender))
+      .flatMap {
+        if _ then perDayCheck(sender)
+        else fuccess(Analyser.Result.ConcurrentAnalysis)
+      }
+      .flatMap { result =>
+        (result.ok.so(requesterApi.add(sender.userId, ownGame))).inject(result)
+      }
 
   private val RequestLimitPerIP = lila.memo.RateLimit[IpAddress](
     credits = 120,

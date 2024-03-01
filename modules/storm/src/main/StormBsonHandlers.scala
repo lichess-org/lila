@@ -22,7 +22,7 @@ object StormBsonHandlers:
     val sep = ':'
     tryHandler[StormDay.Id](
       { case BSONString(v) =>
-        v split sep match
+        v.split(sep) match
           case Array(userId, dayStr) =>
             Success(StormDay.Id(UserId(userId), LichessDay(Integer.parseInt(dayStr))))
           case _ => handlerBadValue(s"Invalid storm day id $v")

@@ -31,7 +31,7 @@ private object TutorBsonHandlers:
       vcOpt =>
         {
           for vc <- vcOpt; v <- handler.writeOpt(vc.value) yield $arr(v, BSONInteger(vc.count))
-        } getOrElse BSONNull
+        }.getOrElse(BSONNull)
     )
 
   given [A](using handler: BSONHandler[A], ordering: Ordering[A]): BSONHandler[TutorBothValues[A]] =

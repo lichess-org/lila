@@ -17,7 +17,7 @@ object UserLagCache:
         cache
           .getIfPresent(userId)
           .fold(lag):
-            _ avg lag
+            _.avg(lag)
       )
 
   export cache.{ getIfPresent as get }

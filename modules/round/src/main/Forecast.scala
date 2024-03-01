@@ -11,7 +11,7 @@ import lila.game.Game
 case class Forecast(_id: GameFullId, steps: Forecast.Steps, date: Instant):
 
   def apply(g: Game, lastMove: Move): Option[(Forecast, Uci.Move)] =
-    nextMove(g, lastMove) map { move =>
+    nextMove(g, lastMove).map { move =>
       copy(
         steps = steps.collect {
           case fst :: snd :: rest if rest.nonEmpty && g.ply == fst.ply && fst.is(lastMove) && snd.is(move) =>
@@ -22,7 +22,7 @@ case class Forecast(_id: GameFullId, steps: Forecast.Steps, date: Instant):
     }
 
   // accept up to 30 lines of 30 moves each
-  def truncate = copy(steps = steps.take(30).map(_ take 30))
+  def truncate = copy(steps = steps.take(30).map(_.take(30)))
 
   private def nextMove(g: Game, last: Move) =
     steps.foldLeft(none[Uci.Move]) {

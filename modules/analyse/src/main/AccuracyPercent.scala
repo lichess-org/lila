@@ -48,7 +48,7 @@ for x in xs:
         val winDiff = before.value - after.value
         val raw     = 103.1668100711649 * Math.exp(-0.04354415386753951 * winDiff) + -3.166924740191411
         raw + 1 // uncertainty bonus (due to imperfect analysis)
-      } atMost 100 atLeast 0
+      }.atMost(100).atLeast(0)
   }
 
   def fromEvalsAndPov(pov: Game.SideAndStart, evals: List[Eval]): List[AccuracyPercent] =
@@ -74,14 +74,14 @@ for x in xs:
 
   // a mean of volatility-weighted mean and harmonic mean
   def gameAccuracy(startColor: Color, cps: List[Cp]): Option[ByColor[AccuracyPercent]] =
-    val allWinPercents      = (Cp.initial :: cps) map WinPercent.fromCentiPawns
-    val windowSize          = (cps.size / 10) atLeast 2 atMost 8
-    val allWinPercentValues = WinPercent raw allWinPercents
+    val allWinPercents      = (Cp.initial :: cps).map(WinPercent.fromCentiPawns)
+    val windowSize          = (cps.size / 10).atLeast(2).atMost(8)
+    val allWinPercentValues = WinPercent.raw(allWinPercents)
     val windows =
       List
-        .fill(windowSize.atMost(allWinPercentValues.size) - 2)(allWinPercentValues take windowSize)
+        .fill(windowSize.atMost(allWinPercentValues.size) - 2)(allWinPercentValues.take(windowSize))
         .toList ::: allWinPercentValues.sliding(windowSize).toList
-    val weights = windows map { xs => ~Maths.standardDeviation(xs) atLeast 0.5 atMost 12 }
+    val weights = windows.map { xs => ~Maths.standardDeviation(xs).atLeast(0.5).atMost(12) }
     val weightedAccuracies: Iterable[((Double, Double), Color)] = allWinPercents
       .sliding(2)
       .zip(weights)

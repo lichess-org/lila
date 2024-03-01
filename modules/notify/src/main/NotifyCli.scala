@@ -28,7 +28,7 @@ final private class NotifyCli(api: NotifyApi, userRepo: UserRepo)(using Material
     userIds
       .grouped(20)
       .mapAsyncUnordered(1): uids =>
-        api.notifyManyIgnoringPrefs(uids, notification) inject uids.size
+        api.notifyManyIgnoringPrefs(uids, notification).inject(uids.size)
       .runWith(Sink.fold(0)(_ + _))
       .map: nb =>
         s"Notified $nb users"

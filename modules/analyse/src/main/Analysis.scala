@@ -20,9 +20,9 @@ case class Analysis(
   lazy val advices: List[Advice] = infoAdvices.flatMap(_._2)
 
   def summary: List[(Color, List[(Advice.Judgement, Int)])] =
-    Color.all map { color =>
-      color -> (Advice.Judgement.all map { judgment =>
-        judgment -> (advices count { adv =>
+    Color.all.map { color =>
+      color -> (Advice.Judgement.all.map { judgment =>
+        judgment -> (advices.count { adv =>
           adv.color == color && adv.judgment == judgment
         })
       })

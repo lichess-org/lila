@@ -14,7 +14,7 @@ final class Share(
   def grant(insighted: User)(using to: Option[Me]): Fu[Boolean] =
     if to.exists(Granter(_.SeeInsight)(using _)) then fuTrue
     else
-      getPrefId(insighted) flatMap {
+      getPrefId(insighted).flatMap {
         case _ if to.contains(insighted) => fuTrue
         case Pref.InsightShare.EVERYBODY => fuTrue
         case Pref.InsightShare.FRIENDS =>

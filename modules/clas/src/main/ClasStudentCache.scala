@@ -14,21 +14,21 @@ final class ClasStudentCache(colls: ClasColls)(using scheduler: Scheduler)(using
   private var bloomFilter: BloomFilter[String] =
     BloomFilter[String](100, falsePositiveRate) // temporary empty filter
 
-  def isStudent(userId: UserId) = bloomFilter mightContain userId.value
+  def isStudent(userId: UserId) = bloomFilter.mightContain(userId.value)
 
-  def addStudent(userId: UserId): Unit = bloomFilter add userId.value
+  def addStudent(userId: UserId): Unit = bloomFilter.add(userId.value)
 
   private def rebuildBloomFilter(): Unit =
     colls.student.countAll.foreach: count =>
       val nextBloom = BloomFilter[String](count + 1, falsePositiveRate)
       colls.student
-        .find($doc("archived" $exists false), $doc("userId" -> true, "_id" -> false).some)
+        .find($doc("archived".$exists(false)), $doc("userId" -> true, "_id" -> false).some)
         .cursor[Bdoc](ReadPref.priTemp)
         .documentSource()
         .throttle(300, 1.second)
         .runWith(Sink.fold[Int, Bdoc](0): (counter, doc) =>
           if counter % 500 == 0 then logger.info(s"ClasStudentCache.rebuild $counter")
-          doc.string("userId") foreach nextBloom.add
+          doc.string("userId").foreach(nextBloom.add)
           counter + 1
         )
         .addEffect: nb =>

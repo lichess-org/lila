@@ -37,7 +37,7 @@ final class JsonView(
 
     // writes as percentage
     given Writes[TourRatio] = Writes { r =>
-      JsNumber((r.value * 100).toInt atLeast 1)
+      JsNumber((r.value * 100).toInt.atLeast(1))
     }
     given (using Lang): OWrites[TourEntry] = OWrites { e =>
       val name = getTourName.sync(e.tourId).orZero
@@ -104,7 +104,7 @@ final class JsonView(
         .add("tournaments", a.tours)
         .add(
           "practice",
-          a.practice.map(_.toList.sortBy(-_._2) map { (study, nb) =>
+          a.practice.map(_.toList.sortBy(-_._2).map { (study, nb) =>
             Json.obj(
               "url"         -> s"/practice/-/${study.slug}/${study.id}",
               "name"        -> study.name,
@@ -112,7 +112,7 @@ final class JsonView(
             )
           })
         )
-        .add("simuls", a.simuls.map(_ map simulWrites(user).writes))
+        .add("simuls", a.simuls.map(_.map(simulWrites(user).writes)))
         .add(
           "correspondenceMoves",
           a.corresMoves.map: (nb, povs) =>
@@ -126,7 +126,7 @@ final class JsonView(
         .add("follows" -> a.follows)
         .add("studies" -> a.studies)
         .add("teams" -> a.teams)
-        .add("posts" -> a.forumPosts.map(_ map { (topic, posts) =>
+        .add("posts" -> a.forumPosts.map(_.map { (topic, posts) =>
           Json.obj(
             "topicUrl"  -> s"/forum/${topic.categId}/${topic.slug}",
             "topicName" -> topic.name,

@@ -36,8 +36,8 @@ object PlayerAssessment:
 
   private def highlyConsistentMoveTimeStreaksOf(pov: Pov): Boolean =
     pov.game.clock.exists(_.estimateTotalSeconds > 60) && {
-      Statistics.slidingMoveTimesCvs(pov) so {
-        _ exists Statistics.cvIndicatesHighlyFlatTimesForStreaks
+      Statistics.slidingMoveTimesCvs(pov).so {
+        _.exists(Statistics.cvIndicatesHighlyFlatTimesForStreaks)
       }
     }
 
@@ -62,8 +62,8 @@ object PlayerAssessment:
     import pov.{ color, game }
 
     Basics(
-      moveTimes = intAvgSd(~game.moveTimes(color) map (_.roundTenths)),
-      blurs = game playerBlurPercent color,
+      moveTimes = intAvgSd(~game.moveTimes(color).map(_.roundTenths)),
+      blurs = game.playerBlurPercent(color),
       hold = holdAlerts.exists(_.suspicious),
       blurStreak = highestChunkBlursOf(pov).some.filter(0 <),
       mtStreak = highlyConsistentMoveTimeStreaksOf(pov)
@@ -91,7 +91,7 @@ object PlayerAssessment:
 
     lazy val highlyConsistentMoveTimes: Boolean =
       game.clock.exists(_.estimateTotalSeconds > 60) && {
-        moveTimeCoefVariation(pov) so cvIndicatesHighlyFlatTimes
+        moveTimeCoefVariation(pov).so(cvIndicatesHighlyFlatTimes)
       }
 
     lazy val suspiciousErrorRate: Boolean =
@@ -164,7 +164,7 @@ object PlayerAssessment:
     PlayerAssessment(
       _id = s"${game.id}/${color.name}",
       gameId = game.id,
-      userId = game.player(color).userId err s"PlayerAssessment $game $color no userId",
+      userId = game.player(color).userId.err(s"PlayerAssessment $game $color no userId"),
       color = color,
       assessment = assessment,
       date = nowInstant,

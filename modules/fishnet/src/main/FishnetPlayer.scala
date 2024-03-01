@@ -49,9 +49,9 @@ final class FishnetPlayer(
         clock     = g.clock | defaultClock
         totalTime = clock.estimateTotalTime.centis
         if totalTime > 20 * 100
-        delay = (clock.remainingTime(pov.color).centis atMost totalTime) * delayFactor
-        accel = 1 - ((g.ply.value - 20) atLeast 0 atMost 100) / 150f
-        sleep = (delay * accel) atMost 500
+        delay = (clock.remainingTime(pov.color).centis.atMost(totalTime)) * delayFactor
+        accel = 1 - ((g.ply.value - 20).atLeast(0).atMost(100)) / 150f
+        sleep = (delay * accel).atMost(500)
         if sleep > 25
         millis     = sleep * 10
         randomized = millis + millis * (ThreadLocalRandom.nextDouble() - 0.5)
@@ -59,9 +59,9 @@ final class FishnetPlayer(
       yield divided.toInt.millis
 
   private def makeWork(game: Game, level: Int): Fu[Work.Move] =
-    if game.situation playable true then
+    if game.situation.playable(true) then
       if game.ply <= maxPlies then
-        gameRepo.initialFen(game) zip uciMemo.get(game) map { case (initialFen, moves) =>
+        gameRepo.initialFen(game).zip(uciMemo.get(game)).map { case (initialFen, moves) =>
           Work.Move(
             _id = Work.makeId,
             game = Work.Game(
@@ -69,7 +69,7 @@ final class FishnetPlayer(
               initialFen = initialFen,
               studyId = none,
               variant = game.variant,
-              moves = moves mkString " "
+              moves = moves.mkString(" ")
             ),
             level =
               if level < 3 && game.clock.exists(_.config.limit.toSeconds < 60) then 3

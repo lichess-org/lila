@@ -41,7 +41,7 @@ object TutorClockUsage:
       )
       compute(coll)(
         aggregateMine = mineSelect =>
-          Match(mineSelect ++ select ++ $doc(F.perf $in perfs)) -> List(
+          Match(mineSelect ++ select ++ $doc(F.perf.$in(perfs))) -> List(
             Sort(Descending(F.date)),
             Limit(maxGames.value)
           ).appendedAll(sharedPipeline),

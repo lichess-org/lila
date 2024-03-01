@@ -36,7 +36,7 @@ final class Adapter[A: BSONDocumentReader](
       .skip(offset)
       .pipe: query =>
         hint.fold(query): h =>
-          query.hint(collection hint h)
+          query.hint(collection.hint(h))
       .cursor[A](readPref)
       .list(length)
 
@@ -46,4 +46,4 @@ final class StaticAdapter[A](results: Seq[A])(using Executor) extends AdapterLik
 
   def nbResults = fuccess(results.size)
 
-  def slice(offset: Int, length: Int) = fuccess(results drop offset take length)
+  def slice(offset: Int, length: Int) = fuccess(results.drop(offset).take(length))

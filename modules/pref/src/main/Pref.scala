@@ -62,7 +62,7 @@ case class Pref(
 
   def realSoundSet = SoundSet(soundSet)
 
-  def coordsClass = Coords classOf coords
+  def coordsClass = Coords.classOf(coords)
 
   def hasDgt = tags contains Tag.dgt
 
@@ -397,7 +397,7 @@ object Pref:
   object Agreement:
     val current    = 2
     val changedAt  = instantOf(2021, 12, 28, 8, 0)
-    val showPrompt = changedAt.isAfter(nowInstant minusMonths 6)
+    val showPrompt = changedAt.isAfter(nowInstant.minusMonths(6))
 
   object Zen:
     val NO        = 0
@@ -423,7 +423,7 @@ object Pref:
       if user.createdAt.isAfter(systemByDefaultSince) then Bg.SYSTEM
       else if user.createdAt.isAfter(darkByDefaultSince) then Bg.DARK
       else Bg.LIGHT,
-    agreement = if user.createdAt isAfter Agreement.changedAt then Agreement.current else 0
+    agreement = if user.createdAt.isAfter(Agreement.changedAt) then Agreement.current else 0
   )
 
   lazy val default = Pref(

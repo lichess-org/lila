@@ -30,11 +30,13 @@ object CoachProfileForm:
           "publicStudies"      -> optional(nonEmptyText)
         )(CoachProfile.apply)(unapply)
       )(Data.apply)(unapply)
-    ) fill Data(
-      listed = coach.listed.value,
-      available = coach.available.value,
-      languages = "",
-      profile = coach.profile
+    ).fill(
+      Data(
+        listed = coach.listed.value,
+        available = coach.available.value,
+        languages = "",
+        profile = coach.profile
+      )
     )
 
   private case class TagifyLang(code: String)

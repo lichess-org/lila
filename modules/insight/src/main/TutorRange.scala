@@ -12,7 +12,7 @@ enum RelativeStrength(val id: Int, val name: String):
 object RelativeStrength:
   val byId = values.mapBy(_.id)
   def apply(myRating: IntRating, opRating: IntRating): RelativeStrength = apply(
-    (opRating - myRating) into IntRatingDiff
+    (opRating - myRating).into(IntRatingDiff)
   )
   def apply(diff: IntRatingDiff): RelativeStrength = diff match
     case d if d < -200 => MuchWeaker
@@ -29,7 +29,7 @@ enum MovetimeRange(val id: Int, val name: String, val tenths: Int):
   case MTR30  extends MovetimeRange(30, "10 to 30 seconds", 300)
   case MTRInf extends MovetimeRange(60, "More than 30 seconds", Int.MaxValue)
 object MovetimeRange:
-  def reversedNoInf = values.reverse drop 1
+  def reversedNoInf = values.reverse.drop(1)
   val byId          = values.mapBy(_.id)
   def toRange(mr: MovetimeRange): (Int, Int) = (
     values.toIndexedSeq.indexOption(mr).map(_ - 1).flatMap(values.lift).fold(0)(_.tenths),
@@ -127,11 +127,11 @@ object WinPercentRange:
 final class ClockPercentRange(val name: String, val bottom: ClockPercent)
 object ClockPercentRange:
   val all = NonEmptyList.of[ClockPercentRange](
-    ClockPercentRange("≤3% time left", ClockPercent fromPercent 0),
-    ClockPercentRange("3% to 10% time left", ClockPercent fromPercent 3),
-    ClockPercentRange("10% to 25% time left", ClockPercent fromPercent 10),
-    ClockPercentRange("25% to 50% time left", ClockPercent fromPercent 25),
-    ClockPercentRange("≥50% time left", ClockPercent fromPercent 50)
+    ClockPercentRange("≤3% time left", ClockPercent.fromPercent(0)),
+    ClockPercentRange("3% to 10% time left", ClockPercent.fromPercent(3)),
+    ClockPercentRange("10% to 25% time left", ClockPercent.fromPercent(10)),
+    ClockPercentRange("25% to 50% time left", ClockPercent.fromPercent(25)),
+    ClockPercentRange("≥50% time left", ClockPercent.fromPercent(50))
   )
   val byPercent = all.toList.mapBy(_.bottom.toInt)
   def toRange(x: ClockPercentRange): (ClockPercent, ClockPercent) = (

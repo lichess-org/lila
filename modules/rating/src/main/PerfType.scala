@@ -172,12 +172,12 @@ object PerfType:
 
   val default = Standard
 
-  def apply(key: Perf.Key): Option[PerfType] = byKey get key
+  def apply(key: Perf.Key): Option[PerfType] = byKey.get(key)
   def orDefault(key: Perf.Key): PerfType     = apply(key) | default
 
-  def apply(id: Perf.Id): Option[PerfType] = byId get id
+  def apply(id: Perf.Id): Option[PerfType] = byId.get(id)
 
-  def id2key(id: Perf.Id): Option[Perf.Key] = byId get id map (_.key)
+  def id2key(id: Perf.Id): Option[Perf.Key] = byId.get(id).map(_.key)
 
   val nonPuzzle: List[PerfType] = all.filter(_ != Puzzle)
 
@@ -234,7 +234,7 @@ object PerfType:
     case Speed.Correspondence => Correspondence
 
   def apply(variant: chess.variant.Variant, speed: Speed): PerfType =
-    byVariant(variant) getOrElse standardBySpeed(speed)
+    byVariant(variant).getOrElse(standardBySpeed(speed))
 
   lazy val totalTimeRoughEstimation: Map[PerfType, Centis] =
     nonPuzzle.view

@@ -18,9 +18,9 @@ final class Messenger(api: ChatApi):
     case Messenger.SystemMessage.Volatile(msg)   => system(persistent = false)(game, msg)
 
   def system(persistent: Boolean)(game: Game, message: String): Unit = if game.nonAi then
-    api.userChat.volatile(chatWatcherId(game.id into ChatId), message, _.Round)
-    if persistent then api.userChat.system(game.id into ChatId, message, _.Round)
-    else api.userChat.volatile(game.id into ChatId, message, _.Round)
+    api.userChat.volatile(chatWatcherId(game.id.into(ChatId)), message, _.Round)
+    if persistent then api.userChat.system(game.id.into(ChatId), message, _.Round)
+    else api.userChat.volatile(game.id.into(ChatId), message, _.Round)
 
   def watcher(gameId: GameId, userId: UserId, text: String) =
     api.userChat.write(gameWatcherId(gameId), userId, text, PublicSource.Watcher(gameId).some, _.Round)
@@ -30,16 +30,19 @@ final class Messenger(api: ChatApi):
   def owner(gameId: GameId, userId: UserId, text: String): Funit =
     whisperCommands
       .collectFirst:
-        case command if text startsWith command =>
+        case command if text.startsWith(command) =>
           val source = PublicSource.Watcher(gameId)
-          api.userChat.write(gameWatcherId(gameId), userId, text drop command.length, source.some, _.Round)
+          api.userChat.write(gameWatcherId(gameId), userId, text.drop(command.length), source.some, _.Round)
       .getOrElse:
-        !text.startsWith("/") so // mistyped command?
-          api.userChat.write(gameId into ChatId, userId, text, publicSource = none, _.Round)
+        !text
+          .startsWith("/")
+          .so( // mistyped command?
+            api.userChat.write(gameId.into(ChatId), userId, text, publicSource = none, _.Round)
+          )
 
   def owner(game: Game, anonColor: chess.Color, text: String): Funit =
-    (game.fromFriend || presets.contains(text)) so
-      api.playerChat.write(game.id into ChatId, anonColor, text, _.Round)
+    (game.fromFriend || presets.contains(text))
+      .so(api.playerChat.write(game.id.into(ChatId), anonColor, text, _.Round))
 
   def timeout(chatId: ChatId, suspect: UserId, reason: String, text: String)(using mod: Me.Id): Funit =
     ChatTimeout

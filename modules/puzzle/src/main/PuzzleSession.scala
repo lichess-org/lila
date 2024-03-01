@@ -42,8 +42,8 @@ final class PuzzleSessionApi(pathApi: PuzzlePathApi, cacheApi: CacheApi)(using E
   import BsonHandlers.*
 
   def onComplete(round: PuzzleRound, angle: PuzzleAngle): Funit =
-    sessions.getIfPresent(round.userId) so {
-      _ map { session =>
+    sessions.getIfPresent(round.userId).so {
+      _.map { session =>
         // yes, even if the completed puzzle was not the current session puzzle
         // in that case we just skip a puzzle on the path, which doesn't matter
         if session.path.angle == angle then sessions.put(round.userId, fuccess(session.next))
@@ -57,18 +57,24 @@ final class PuzzleSessionApi(pathApi: PuzzlePathApi, cacheApi: CacheApi)(using E
 
   def setDifficulty(difficulty: PuzzleDifficulty)(using Me, Perf): Funit =
     updateSession: prev =>
-      prev.forall(_.settings.difficulty != difficulty) option
-        createSessionFor(
-          prev.map(_.path.angle) | PuzzleAngle.mix,
-          PuzzleSettings(difficulty, prev.flatMap(_.settings.color))
+      prev
+        .forall(_.settings.difficulty != difficulty)
+        .option(
+          createSessionFor(
+            prev.map(_.path.angle) | PuzzleAngle.mix,
+            PuzzleSettings(difficulty, prev.flatMap(_.settings.color))
+          )
         )
 
   def setAngleAndColor(angle: PuzzleAngle, color: Option[Color])(using Me, Perf): Funit =
     updateSession: prev =>
-      prev.forall(p => p.settings.color != color || p.path.angle != angle) option
-        createSessionFor(
-          angle,
-          PuzzleSettings(prev.fold(PuzzleDifficulty.default)(_.settings.difficulty), color)
+      prev
+        .forall(p => p.settings.color != color || p.path.angle != angle)
+        .option(
+          createSessionFor(
+            angle,
+            PuzzleSettings(prev.fold(PuzzleDifficulty.default)(_.settings.difficulty), color)
+          )
         )
 
   private[puzzle] def set(session: PuzzleSession)(using me: Me) = sessions.put(me.userId, fuccess(session))
@@ -76,11 +82,11 @@ final class PuzzleSessionApi(pathApi: PuzzlePathApi, cacheApi: CacheApi)(using E
   private def updateSession(f: Option[PuzzleSession] => Option[Fu[PuzzleSession]])(using me: Me): Funit =
     sessions
       .getIfPresent(me.userId)
-      .fold(fuccess(none[PuzzleSession]))(_ dmap some)
+      .fold(fuccess(none[PuzzleSession]))(_.dmap(some))
       .flatMap: prev =>
         f(prev).so:
           _.map: next =>
-            !prev.exists(next.similarTo) so sessions.put(me.userId, fuccess(next))
+            !prev.exists(next.similarTo).so(sessions.put(me.userId, fuccess(next)))
 
   private val sessions = cacheApi.notLoading[UserId, PuzzleSession](16_384, "puzzle.session"):
     _.expireAfterWrite(1 hour).buildAsync()
@@ -93,7 +99,7 @@ final class PuzzleSessionApi(pathApi: PuzzlePathApi, cacheApi: CacheApi)(using E
       .getFuture(me.userId, _ => createSessionFor(angle, PuzzleSettings.default))
       .flatMap: current =>
         if current.path.angle != angle || (canFlush && shouldFlushSession(current))
-        then createSessionFor(angle, current.settings) tap { sessions.put(me.userId, _) }
+        then createSessionFor(angle, current.settings).tap { sessions.put(me.userId, _) }
         else fuccess(current)
 
   // renew the session often for provisional players

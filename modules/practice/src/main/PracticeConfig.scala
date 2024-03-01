@@ -5,7 +5,7 @@ import play.api.ConfigLoader
 
 final class PracticeConfig(val sections: List[PracticeConfigSection]):
 
-  def studyIds = sections.flatMap(_.studies.map(_.id)) map { StudyId(_) }
+  def studyIds = sections.flatMap(_.studies.map(_.id)).map { StudyId(_) }
 
 object PracticeConfig:
   val empty = PracticeConfig(Nil)

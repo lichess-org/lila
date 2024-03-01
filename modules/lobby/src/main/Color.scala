@@ -40,6 +40,6 @@ object Color:
 
   val names = all.map(_.name)
 
-  val choices = names zip names
+  val choices = names.zip(names)
 
   val default = Random

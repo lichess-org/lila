@@ -35,7 +35,7 @@ case class Report(
             atoms = {
               existing.copy(
                 at = atom.at,
-                score = atom.score atLeast existing.score,
+                score = atom.score.atLeast(existing.score),
                 text = s"${existing.text}\n\n${atom.text}"
               ) :: atoms.toList.filterNot(_.by == atom.by)
             }.toNel | atoms
@@ -49,10 +49,12 @@ case class Report(
   def oldestAtom: Atom = atoms.last
   def bestAtom: Atom   = bestAtoms(1).headOption | recentAtom
   def bestAtoms(nb: Int): List[Atom] =
-    atoms.toList.sortBy { a =>
-      (-a.score.value, -a.at.toSeconds)
-    } take nb
-  def onlyAtom: Option[Atom]                       = atoms.tail.isEmpty option atoms.head
+    atoms.toList
+      .sortBy { a =>
+        (-a.score.value, -a.at.toSeconds)
+      }
+      .take(nb)
+  def onlyAtom: Option[Atom]                       = atoms.tail.isEmpty.option(atoms.head)
   def atomBy(reporterId: ReporterId): Option[Atom] = atoms.toList.find(_.by == reporterId)
   def bestAtomByHuman: Option[Atom]                = bestAtoms(10).find(_.byHuman)
 
@@ -63,7 +65,7 @@ case class Report(
   def process(by: User) =
     copy(
       open = false,
-      done = Report.Done(by.id into ModId, nowInstant).some
+      done = Report.Done(by.id.into(ModId), nowInstant).some
     )
 
   def userIds: List[UserId] = user :: atoms.toList.map(_.by.userId)
@@ -93,7 +95,7 @@ object Report:
         else if a >= 50 then "yellow"
         else "green"
       def atLeast(s: Score): Score = math.max(a, s)
-      def withinBounds: Score      = a atLeast 5 atMost 100
+      def withinBounds: Score      = a.atLeast(5).atMost(100)
 
   case class Atom(
       by: ReporterId,
@@ -101,13 +103,13 @@ object Report:
       score: Score,
       at: Instant
   ):
-    def simplifiedText = text.linesIterator.filterNot(_ startsWith "[AUTOREPORT]") mkString "\n"
+    def simplifiedText = text.linesIterator.filterNot(_.startsWith("[AUTOREPORT]")).mkString("\n")
 
     def byHuman = !byLichess && by.isnt(ReporterId.irwin)
 
-    def byLichess = by is ReporterId.lichess
+    def byLichess = by.is(ReporterId.lichess)
 
-    def isFlag = text startsWith Reason.Comm.flagText
+    def isFlag = text.startsWith(Reason.Comm.flagText)
 
   case class Done(by: ModId, at: Instant)
 
@@ -116,8 +118,8 @@ object Report:
   case class WithSuspect(report: Report, suspect: User.WithPerfs, isOnline: Boolean):
     def urgency: Int =
       report.score.value.toInt +
-        (isOnline so 1000) +
-        (report.closed so -999999)
+        (isOnline.so(1000)) +
+        (report.closed.so(-999999))
 
   case class ByAndAbout(by: List[Report], about: List[Report]):
     def userIds = by.flatMap(_.userIds) ::: about.flatMap(_.userIds)
@@ -154,7 +156,7 @@ object Report:
     import c.*
     existing.fold(
       Report(
-        id = Id(ThreadLocalRandom nextString 8),
+        id = Id(ThreadLocalRandom.nextString(8)),
         user = candidate.suspect.user.id,
         reason = candidate.reason,
         room = Room(candidate.reason),
@@ -164,6 +166,6 @@ object Report:
         open = true,
         done = none
       )
-    )(_ add c.atom)
+    )(_.add(c.atom))
 
   private[report] case class SnoozeKey(snoozerId: UserId, reportId: Id)

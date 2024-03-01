@@ -104,7 +104,7 @@ object Query:
 
   def winnerColors(using lang: Lang) = List(1 -> trans.white.txt(), 2 -> trans.black.txt())
 
-  val sources = lila.game.Source.searchable map { v =>
+  val sources = lila.game.Source.searchable.map { v =>
     v.id -> v.name.capitalize
   }
 
@@ -115,13 +115,13 @@ object Query:
     _.toString
   )
 
-  val averageRatings = (RatingRange.min.value to RatingRange.max.value by 100).toList map { e =>
+  val averageRatings = (RatingRange.min.value to RatingRange.max.value by 100).toList.map { e =>
     e -> e.toString
   }
 
   def hasAis(using lang: Lang) = List(0 -> trans.human.txt(), 1 -> trans.computer.txt())
 
-  val aiLevels = (1 to 8) map { l =>
+  val aiLevels = (1 to 8).map { l =>
     l -> s"level $l"
   }
 

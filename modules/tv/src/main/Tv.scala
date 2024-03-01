@@ -17,7 +17,7 @@ final class Tv(
   import gameProxyRepo.game as roundProxyGame
 
   def getGame(channel: Tv.Channel): Fu[Option[Game]] =
-    actor.ask[Option[GameId]](TvSyncActor.GetGameId(channel, _)) flatMapz roundProxyGame
+    actor.ask[Option[GameId]](TvSyncActor.GetGameId(channel, _)).flatMapz(roundProxyGame)
 
   def getReplacementGame(channel: Tv.Channel, oldId: GameId, exclude: List[GameId]): Fu[Option[Game]] =
     actor
@@ -25,29 +25,29 @@ final class Tv(
       .flatMapz(roundProxyGame)
 
   def getGameAndHistory(channel: Tv.Channel): Fu[Option[(Game, List[Pov])]] =
-    actor.ask[GameIdAndHistory](TvSyncActor.GetGameIdAndHistory(channel, _)) flatMap {
+    actor.ask[GameIdAndHistory](TvSyncActor.GetGameIdAndHistory(channel, _)).flatMap {
       case GameIdAndHistory(gameId, historyIds) =>
         for
-          game <- gameId so roundProxyGame
+          game <- gameId.so(roundProxyGame)
           games <-
             historyIds
               .map: id =>
-                roundProxyGame(id) orElse gameRepo.game(id)
+                roundProxyGame(id).orElse(gameRepo.game(id))
               .parallel
               .dmap(_.flatten)
-          history = games map Pov.naturalOrientation
-        yield game map (_ -> history)
+          history = games.map(Pov.naturalOrientation)
+        yield game.map(_ -> history)
     }
 
   def getGames(channel: Tv.Channel, max: Int): Fu[List[Game]] =
-    getGameIds(channel, max) flatMap {
+    getGameIds(channel, max).flatMap {
       _.map(roundProxyGame).parallel.map(_.flatten)
     }
 
   def getGameIds(channel: Tv.Channel, max: Int): Fu[List[GameId]] =
     actor.ask[List[GameId]](TvSyncActor.GetGameIds(channel, max, _))
 
-  def getBestGame = getGame(Tv.Channel.Best) orElse gameRepo.random
+  def getBestGame = getGame(Tv.Channel.Best).orElse(gameRepo.random)
 
   def getBestAndHistory = getGameAndHistory(Tv.Channel.Best)
 

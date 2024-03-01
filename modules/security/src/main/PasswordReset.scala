@@ -20,13 +20,14 @@ final class PasswordReset(
   import Mailer.html.*
 
   def send(user: User, email: EmailAddress)(using lang: Lang): Funit =
-    tokener make user.id flatMap { token =>
+    tokener.make(user.id).flatMap { token =>
       lila.mon.email.send.resetPassword.increment()
       val url = s"$baseUrl/password/reset/confirm/$token"
-      mailer send Mailer.Message(
-        to = email,
-        subject = trans.passwordReset_subject.txt(user.username),
-        text = Mailer.txt.addServiceNote(s"""
+      mailer.send(
+        Mailer.Message(
+          to = email,
+          subject = trans.passwordReset_subject.txt(user.username),
+          text = Mailer.txt.addServiceNote(s"""
 ${trans.passwordReset_intro.txt()}
 
 ${trans.passwordReset_clickOrIgnore.txt()}
@@ -34,17 +35,18 @@ ${trans.passwordReset_clickOrIgnore.txt()}
 $url
 
 ${trans.common_orPaste.txt()}"""),
-        htmlBody = emailMessage(
-          pDesc(trans.passwordReset_intro()),
-          p(trans.passwordReset_clickOrIgnore()),
-          potentialAction(metaName("Reset password"), Mailer.html.url(url)),
-          serviceNote
-        ).some
+          htmlBody = emailMessage(
+            pDesc(trans.passwordReset_intro()),
+            p(trans.passwordReset_clickOrIgnore()),
+            potentialAction(metaName("Reset password"), Mailer.html.url(url)),
+            serviceNote
+          ).some
+        )
       )
     }
 
   def confirm(token: String): Fu[Option[Me]] =
-    tokener read token flatMapz userRepo.me map {
+    tokener.read(token).flatMapz(userRepo.me).map {
       _.filter(_.canFullyLogin)
     }
 
@@ -52,7 +54,7 @@ ${trans.common_orPaste.txt()}"""),
     secret = tokenerSecret,
     getCurrentValue = id =>
       for
-        hash  <- userRepo getPasswordHash id
-        email <- userRepo email id
+        hash  <- userRepo.getPasswordHash(id)
+        email <- userRepo.email(id)
       yield ~hash + email.fold("")(_.value)
   )

@@ -23,8 +23,8 @@ final class PracticeApi(
   def getStudyWithFirstOngoingChapter(user: Option[User], studyId: StudyId): Fu[Option[UserStudy]] = for
     up       <- get(user)
     chapters <- studyApi.chapterMetadatas(studyId)
-    chapter = up.progress firstOngoingIn chapters
-    studyOption <- chapter.fold(studyApi byIdWithFirstChapter studyId) { chapter =>
+    chapter = up.progress.firstOngoingIn(chapters)
+    studyOption <- chapter.fold(studyApi.byIdWithFirstChapter(studyId)) { chapter =>
       studyApi.byIdWithChapterOrFallback(studyId, chapter.id)
     }
   yield makeUserStudy(studyOption, up, chapters)
@@ -49,16 +49,16 @@ final class PracticeApi(
       study = rawSc.study.rewindTo(rawSc.chapter).withoutMembers,
       chapter = rawSc.chapter.withoutChildrenIfPractice
     )
-    practiceStudy <- up.structure study sc.study.id
-    section       <- up.structure findSection sc.study.id
+    practiceStudy <- up.structure.study(sc.study.id)
+    section       <- up.structure.findSection(sc.study.id)
     publishedChapters = chapters.filterNot { c =>
-      PracticeStructure isChapterNameCommented c.name
+      PracticeStructure.isChapterNameCommented(c.name)
     }
     if publishedChapters.exists(_.id == sc.chapter.id)
   yield UserStudy(up, practiceStudy, publishedChapters, sc, section)
 
   object config:
-    def get  = configStore.get dmap (_ | PracticeConfig.empty)
+    def get  = configStore.get.dmap(_ | PracticeConfig.empty)
     def set  = configStore.set
     def form = configStore.makeForm
 
@@ -76,7 +76,7 @@ final class PracticeApi(
     def get     = cache.getUnit
     def clear() = cache.invalidateUnit()
     def onSave(study: Study) =
-      get foreach { structure =>
+      get.foreach { structure =>
         if structure.hasStudy(study.id) then clear()
       }
 
@@ -85,7 +85,7 @@ final class PracticeApi(
     import PracticeProgress.NbMoves
 
     def get(user: User): Fu[PracticeProgress] =
-      coll.one[PracticeProgress]($id(user.id)) dmap {
+      coll.one[PracticeProgress]($id(user.id)).dmap {
         _ | PracticeProgress.empty(user.id)
       }
 
@@ -93,13 +93,17 @@ final class PracticeApi(
       coll.update.one($id(p.id), p, upsert = true).void
 
     def setNbMoves(user: User, chapterId: StudyChapterId, score: NbMoves): Funit =
-      get(user).flatMap { prog =>
-        save(prog.withNbMoves(chapterId, score))
-      } andDo studyApi
-        .studyIdOf(chapterId)
-        .foreach:
-          _.so: studyId =>
-            Bus.publish(PracticeProgress.OnComplete(user.id, studyId, chapterId), "finishPractice")
+      get(user)
+        .flatMap { prog =>
+          save(prog.withNbMoves(chapterId, score))
+        }
+        .andDo(
+          studyApi
+            .studyIdOf(chapterId)
+            .foreach:
+              _.so: studyId =>
+                Bus.publish(PracticeProgress.OnComplete(user.id, studyId, chapterId), "finishPractice")
+        )
 
     def reset(user: User) =
       coll.delete.one($id(user.id)).void
@@ -108,7 +112,7 @@ final class PracticeApi(
       coll
         .aggregateList(Int.MaxValue, _.sec): framework =>
           import framework.*
-          Match($doc("_id" $in userIds)) -> List(
+          Match($doc("_id".$in(userIds))) -> List(
             Project(
               $doc(
                 "nb" -> $doc(

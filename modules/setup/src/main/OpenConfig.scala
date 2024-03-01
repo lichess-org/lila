@@ -49,7 +49,7 @@ object OpenConfig:
       days = days,
       rated = rated,
       position = pos,
-      userIds = usernames.map(_.map(_.id)) collect { case List(w, b) =>
+      userIds = usernames.map(_.map(_.id)).collect { case List(w, b) =>
         (w, b)
       },
       rules = ~rules,

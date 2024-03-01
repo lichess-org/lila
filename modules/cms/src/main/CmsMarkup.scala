@@ -28,7 +28,7 @@ final class CmsMarkup(
         fuccess(process(id)(markdown))
 
   private def process(id: CmsPage.Id): Markdown => Html =
-    MarkdownToastUi.unescapeAtUsername.apply andThen
-      renderer(s"cms:$id") andThen
-      MarkdownToastUi.imageParagraph andThen
-      MarkdownToastUi.unescapeUnderscoreInLinks.apply
+    MarkdownToastUi.unescapeAtUsername.apply
+      .andThen(renderer(s"cms:$id"))
+      .andThen(MarkdownToastUi.imageParagraph)
+      .andThen(MarkdownToastUi.unescapeUnderscoreInLinks.apply)

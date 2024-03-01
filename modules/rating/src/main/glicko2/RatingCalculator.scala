@@ -42,7 +42,7 @@ final class RatingCalculator(
     */
   def updateRatings(results: RatingPeriodResults[?], skipDeviationIncrease: Boolean = false) =
     val players = results.getParticipants
-    players foreach { player =>
+    players.foreach { player =>
       val elapsedRatingPeriods = if skipDeviationIncrease then 0 else 1
       if results.getResults(player).sizeIs > 0 then
         calculateNewRating(player, results.getResults(player), elapsedRatingPeriods)
@@ -56,7 +56,7 @@ final class RatingCalculator(
     }
 
     // now iterate through the participants and confirm their new ratings
-    players foreach { _.finaliseRating() }
+    players.foreach { _.finaliseRating() }
 
   /** This is the formula defined in step 6. It is also used for players who have not competed during the
     * rating period.
@@ -69,7 +69,7 @@ final class RatingCalculator(
     */
   def previewDeviation(player: Rating, ratingPeriodEndDate: Instant, reverse: Boolean): Double =
     var elapsedRatingPeriods = 0d
-    player.lastRatingPeriodEnd.ifTrue(ratingPeriodsPerMilli > 0) foreach { periodEnd =>
+    player.lastRatingPeriodEnd.ifTrue(ratingPeriodsPerMilli > 0).foreach { periodEnd =>
       val interval = java.time.Duration.between(periodEnd, ratingPeriodEndDate)
       elapsedRatingPeriods = interval.toMillis * ratingPeriodsPerMilli
     }
@@ -124,7 +124,7 @@ final class RatingCalculator(
     if iterations == ITERATION_MAX then
       println(String.format("Convergence fail at %d iterations", iterations))
       println(player.toString())
-      results foreach println
+      results.foreach(println)
       throw new RuntimeException("Convergence fail")
 
     val newSigma = Math.exp(A / 2.0)

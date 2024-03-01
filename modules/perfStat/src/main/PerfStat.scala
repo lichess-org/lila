@@ -23,15 +23,15 @@ case class PerfStat(
   def agg(pov: Pov) =
     if !pov.game.finished then this
     else
-      val thisYear = pov.game.createdAt isAfter nowInstant.minusYears(1)
+      val thisYear = pov.game.createdAt.isAfter(nowInstant.minusYears(1))
       copy(
         highest = RatingAt.agg(highest, pov, 1),
         lowest = if thisYear then RatingAt.agg(lowest, pov, -1) else lowest,
         bestWins = if ~pov.win then bestWins.agg(pov, 1) else bestWins,
         worstLosses = if thisYear && ~pov.loss then worstLosses.agg(pov, -1) else worstLosses,
         count = count(pov),
-        resultStreak = resultStreak agg pov,
-        playStreak = playStreak agg pov
+        resultStreak = resultStreak.agg(pov),
+        playStreak = playStreak.agg(pov)
       )
 
   def userIds = bestWins.userIds ::: worstLosses.userIds
@@ -78,7 +78,7 @@ case class PlayStreak(nb: Streaks, time: Streaks, lastDate: Option[Instant]):
     else copy(nb = nb.reset, time = time.reset)
   private def isContinued(at: Instant) =
     lastDate.forall: ld =>
-      at.isBefore(ld plusMinutes PlayStreak.expirationMinutes)
+      at.isBefore(ld.plusMinutes(PlayStreak.expirationMinutes))
 object PlayStreak:
   val expirationMinutes = 60
 
@@ -103,7 +103,7 @@ case class Streak(v: Int, from: Option[GameAt], to: Option[GameAt]):
   private def inc(pov: Pov, by: Int) =
     val at  = GameAt(pov.game.createdAt, pov.gameId).some
     val end = GameAt(pov.game.movedAt, pov.gameId).some
-    Streak(v + by, from orElse at, end)
+    Streak(v + by, from.orElse(at), end)
   def duration = Duration.ofSeconds(v)
 object Streak:
   val init = Streak(0, none, none)
@@ -129,7 +129,7 @@ case class Count(
       draw = draw + (if pov.win.isEmpty then 1 else 0),
       tour = tour + (if pov.game.isTournament then 1 else 0),
       berserk = berserk + (if pov.player.berserk then 1 else 0),
-      opAvg = pov.opponent.stableRating.fold(opAvg)(r => opAvg agg r.value),
+      opAvg = pov.opponent.stableRating.fold(opAvg)(r => opAvg.agg(r.value)),
       seconds = seconds + (pov.game.durationSeconds match
         case Some(s) if s <= 3 * 60 * 60 => s
         case _                           => 0
@@ -173,7 +173,8 @@ object RatingAt:
           r.value.compare(c.int.value) == comp
       .map {
         RatingAt(_, pov.game.movedAt, pov.gameId)
-      } orElse cur
+      }
+      .orElse(cur)
 
 import reactivemongo.api.bson.Macros.Annotations.Key
 case class Result(@Key("opInt") opRating: IntRating, opId: UserId, at: Instant, gameId: GameId)

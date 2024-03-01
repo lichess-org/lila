@@ -26,4 +26,4 @@ object Source:
   val searchable = List(Lobby, Friend, Ai, Position, Import, Arena, Simul, Pool, Swiss)
   val expirable  = Set(Lobby, Arena, Pool, Swiss)
 
-  def apply(id: Int): Option[Source] = byId get id
+  def apply(id: Int): Option[Source] = byId.get(id)
