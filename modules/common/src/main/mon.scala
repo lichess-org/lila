@@ -263,9 +263,6 @@ object mon:
     def syncTime(official: Boolean, slug: String)  = timer("relay.sync.time").withTags(relay(official, slug))
     def httpGet(host: String, proxy: Option[String]) =
       future("relay.http.get", tags("host" -> host, "proxy" -> proxy.getOrElse("none")))
-    object fidePlayers:
-      val update = future("relay.fidePlayers.update")
-      val nb     = gauge("relay.fidePlayers.nb").withoutTags()
 
   object bot:
     def moves(username: String)   = counter("bot.moves").withTag("name", username)
@@ -649,6 +646,10 @@ object mon:
   object picfit:
     def uploadTime(user: String) = future("picfit.upload.time", tags("user" -> user))
     def uploadSize(user: String) = histogram("picfit.upload.size").withTag("user", user)
+  object fideSync:
+    val time    = future("fide.sync.time")
+    val players = gauge("fide.sync.players").withoutTags()
+    val deleted = gauge("fide.sync.deleted").withoutTags()
 
   object jvm:
     def threads() =

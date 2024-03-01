@@ -110,10 +110,11 @@ final private class FidePlayerSync(repo: FideRepo, api: FidePlayerApi, ws: Stand
             .grouped(100)
             .mapAsync(1)(upsert)
             .runWith(lila.common.LilaStream.sinkCount)
-            .monSuccess(_.relay.fidePlayers.update)
+            .monSuccess(_.fideSync.time)
             .flatMap: nb =>
-              lila.mon.relay.fidePlayers.nb.update(nb)
+              lila.mon.fideSync.players.update(nb)
               setDeletedFlags(startAt) map: deleted =>
+                lila.mon.fideSync.deleted.update(nb)
                 logger.info(s"RelayFidePlayerApi.update upserted: $nb, deleted: $nb")
 
         case res => fufail(s"RelayFidePlayerApi.pull ${res.status} ${res.statusText}")
