@@ -1,13 +1,14 @@
 package views.html.relay
 
+import play.api.mvc.Call
 import lila.app.templating.Environment.{ given, * }
 import lila.app.ui.ScalatagsTemplate.{ *, given }
-import lila.common.paginator.Paginator
 
 import controllers.routes
 import lila.relay.{ RelayRound, RelayTour }
 import lila.relay.RelayTour.WithLastRound
 import lila.common.LightUser
+import lila.common.paginator.Paginator
 import lila.memo.PicfitImage
 
 object tour:
@@ -216,18 +217,20 @@ object tour:
     st.form(cls := "search", action := routes.RelayTour.index()):
       input(st.name := "q", value := search, placeholder := trans.search.search.txt())
 
-  private def renderPager(
+  def renderPager(
       pager: Paginator[RelayTour | WithLastRound],
       query: String = "",
       owner: Option[LightUser] = None
-  )(using Context) =
-    def next(page: Int) = owner match
+  )(using Context): Tag = renderPager(pager): page =>
+    owner match
       case None    => routes.RelayTour.index(page, query)
       case Some(u) => routes.RelayTour.by(u.name, page)
+
+  def renderPager(pager: Paginator[RelayTour | WithLastRound])(next: Int => Call)(using Context): Tag =
     st.section(cls := "infinite-scroll relay-cards")(
-      pager.currentPageResults.map {
+      pager.currentPageResults.map:
         case w: WithLastRound => card.render(w, ongoing = _ => false)(cls := "paginated")
         case t: RelayTour     => card.empty(t)(cls := "paginated")
-      },
+      ,
       pagerNext(pager, next(_).url)
     )

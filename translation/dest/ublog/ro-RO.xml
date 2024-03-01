@@ -6,7 +6,7 @@
   <string name="blogTopics">Topicuri de blog</string>
   <string name="lichessOfficialBlog">Blog Oficial Lichess</string>
   <string name="continueReadingPost">Continuă să citești această postare</string>
-  <string name="lichessBlogPostsFromXYear" comment="Appears on a list of posts from the official Lichess Blog, which were published in a specific year.&#10;&#10;%s is the specific year of posts from the official blog (e.g. 2021).">Postări pe blog Lichess în %s</string>
+  <string name="lichessBlogPostsFromXYear">Postări pe blog Lichess în %s</string>
   <string name="previousBlogPosts">Postări anterioare pe blog</string>
   <string name="xBlog">Blog-ul lui %s</string>
   <string name="newPost">Postare nouă</string>
@@ -55,4 +55,5 @@
   <string name="inappropriateContentAccountClosed">Orice lucru nepotrivit ar putea duce la închiderea contului tău.</string>
   <string name="blogTips">Sfaturile noastre simple pentru a scrie cele mai bune postări pe blog</string>
   <string name="discussThisBlogPostInTheForum">Discută această postare pe forum</string>
+  <string name="youBlockedByBlogAuthor">Ești blocat de autorul blogului.</string>
 </resources>

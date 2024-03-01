@@ -4,7 +4,7 @@ import play.api.data.Forms.*
 import chess.format.pgn.{ Tag, Tags }
 import chess.FideId
 
-import lila.player.{ PlayerName, PlayerToken, FidePlayer }
+import lila.fide.{ PlayerName, PlayerToken, FidePlayer }
 
 // used to change names and ratings of broadcast players
 private case class RelayPlayer(
@@ -14,7 +14,7 @@ private case class RelayPlayer(
     fideId: Option[FideId] = none
 )
 
-private class RelayPlayers(val text: String):
+private class RelayPlayersTextarea(val text: String):
 
   def sortedText = text.linesIterator.toList.sorted.mkString("\n")
 

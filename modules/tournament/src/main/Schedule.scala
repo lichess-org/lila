@@ -182,6 +182,8 @@ object Schedule:
     val name = Speed.this.toString
     val key  = lila.common.String lcfirst name
     def trans(using Lang): String = this match
+      case Speed.Bullet    => I18nKeys.bullet.txt()
+      case Speed.Blitz     => I18nKeys.blitz.txt()
       case Speed.Rapid     => I18nKeys.rapid.txt()
       case Speed.Classical => I18nKeys.classical.txt()
       case _               => name

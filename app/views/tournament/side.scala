@@ -37,10 +37,12 @@ object side:
             ),
             if tour.mode.rated then trans.ratedTournament() else trans.casualTournament(),
             separator,
-            "Arena",
+            trans.arena.arena(),
             (isGranted(_.ManageTournament) || (ctx.is(tour.createdBy) && tour.isEnterable)) option frag(
               " ",
-              a(href := routes.Tournament.edit(tour.id), title := "Edit tournament")(iconTag(licon.Gear))
+              a(href := routes.Tournament.edit(tour.id), title := trans.arena.editTournament.txt())(
+                iconTag(licon.Gear)
+              )
             )
           )
         ),
@@ -57,7 +59,7 @@ object side:
         tour.description.map: d =>
           st.section(cls := "description")(
             shieldOwner.map: owner =>
-              p(cls := "defender", dataIcon := licon.Shield)("Defender:", userIdLink(owner.some)),
+              p(cls := "defender", dataIcon := licon.Shield)(trans.arena.defender(), userIdLink(owner.some)),
             markdownLinksOrRichText(d)
           ),
         tour.looksLikePrize option bits.userPrizeDisclaimer(tour.createdBy),
@@ -72,7 +74,7 @@ object side:
           p(a(href := pos.url)(pos.name))
         } orElse tour.position.map { fen =>
           p(
-            "Custom position",
+            trans.customPosition(),
             separator,
             views.html.base.bits.fenAnalysisLink(fen into chess.format.Fen.Epd)
           )
@@ -83,12 +85,13 @@ object side:
     )
 
   private def teamBattle(tour: Tournament)(battle: TeamBattle)(using ctx: Context) =
-    st.section(cls := "team-battle")(
-      p(cls := "team-battle__title text", dataIcon := licon.Group)(
-        s"Battle of ${battle.teams.size} teams and ${battle.nbLeaders} leaders",
-        (ctx.is(tour.createdBy) || isGranted(_.ManageTournament)) option
-          a(href := routes.Tournament.teamBattleEdit(tour.id), title := "Edit team battle")(
+    st.section(cls := "team-battle", dataIcon := licon.Group):
+      div(
+        p(trans.team.battleOfNbTeams.pluralSameTxt(battle.teams.size)),
+        trans.team.nbLeadersPerTeam.pluralSameTxt(battle.nbLeaders),
+        (ctx.is(tour.createdBy) || isGranted(_.ManageTournament)) option frag(
+          " ",
+          a(href := routes.Tournament.teamBattleEdit(tour.id), title := trans.arena.editTeamBattle.txt()):
             iconTag(licon.Gear)
-          )
+        )
       )
-    )

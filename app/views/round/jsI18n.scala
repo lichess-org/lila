@@ -87,6 +87,7 @@ object jsI18n:
     trans.drawByMutualAgreement,
     trans.fiftyMovesWithoutProgress,
     trans.insufficientMaterial,
+    trans.pause,
     trans.withdraw,
     trans.rematch,
     trans.rematchOfferSent,

@@ -63,7 +63,7 @@
   <string name="longDescription">سه حرکت برای پیروزی.</string>
   <string name="master">بازی‌های اساتید</string>
   <string name="masterDescription">معماهای برگرفته‌شده از بازی‌های بازیکنان عنوان‌دار.</string>
-  <string name="masterVsMaster">بازیهای استاد در مقابل استاد</string>
+  <string name="masterVsMaster">بازی‌های اساتید در برابر هم</string>
   <string name="masterVsMasterDescription">معماهای برگرفته‌شده از بازی‌های بین دو بازیکن عنوان‌دار.</string>
   <string name="mate">کیش و مات</string>
   <string name="mateDescription">بازی را با سبک خاصی ببرید.</string>

@@ -33,6 +33,8 @@ export interface LeadPlayer {
   score: number;
   played: number;
   rating?: number;
+  title?: string;
+  fideId?: number;
 }
 
 export interface RelayTour {

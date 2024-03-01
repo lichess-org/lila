@@ -6,6 +6,7 @@ import { Color } from 'chessops';
 import { GetCloudEval, MultiCloudEval, renderScore } from '../multiCloudEval';
 import { spinnerVdom as spinner } from 'common/spinner';
 import { defined } from 'common';
+import { playerFed } from '../playerBars';
 
 interface TeamWithPoints {
   name: string;
@@ -15,6 +16,7 @@ interface TeamPlayer {
   name: string;
   title?: string;
   rating?: number;
+  fed?: string;
 }
 interface TeamGame {
   id: ChapterId;
@@ -117,7 +119,7 @@ const renderTeams = (teams: TeamTable, ctrl: RelayTeams): MaybeVNodes =>
 
 const playerView = (p: TeamPlayer) =>
   h('span.relay-tour__team-match__game__player', [
-    `${p.title ? p.title + ' ' : ''}${p.name}`,
+    h('span', [p.fed && playerFed(p.fed), `${p.title ? p.title + ' ' : ''}${p.name}`]),
     p.rating && h('rating', `${p.rating}`),
   ]);
 

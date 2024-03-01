@@ -15,7 +15,7 @@ final class Env(
     ws: StandaloneWSClient,
     db: lila.db.Db,
     yoloDb: lila.db.AsyncDb @@ lila.db.YoloDb,
-    fidePlayerApi: lila.player.FidePlayerApi,
+    fidePlayerApi: lila.fide.FidePlayerApi,
     studyApi: lila.study.StudyApi,
     multiboard: lila.study.StudyMultiBoard,
     studyRepo: lila.study.StudyRepo,
@@ -66,6 +66,8 @@ final class Env(
   lazy val pgnStream = wire[RelayPgnStream]
 
   lazy val teamTable = wire[RelayTeamTable]
+
+  lazy val playerTour = wire[RelayPlayerTour]
 
   private lazy val sync = wire[RelaySync]
 

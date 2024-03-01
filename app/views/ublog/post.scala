@@ -67,19 +67,19 @@ object post:
             ),
             post.lived.map: live =>
               span(cls := "ublog-post__meta__date")(semanticDate(live.at)),
-            likeButton(post, liked, showText = false),
-            span(cls := "ublog-post__views")(
+            post.live option likeButton(post, liked, showText = false),
+            post.live option span(cls := "ublog-post__views")(
               trans.ublog.nbViews.plural(post.views.value, strong(post.views.value.localize))
             ),
             if ctx is user then
               div(cls := "ublog-post__meta__owner")(
-                (if post.live then goodTag else badTag):
-                  if post.live then trans.ublog.thisPostIsPublished() else trans.ublog.thisIsADraft()
-                ,
+                if post.live then goodTag(trans.ublog.thisPostIsPublished())
+                else badTag(trans.ublog.thisIsADraft()),
                 " ",
                 editButton(post)
               )
             else if isGranted(_.ModerateBlog) then editButton(post)
+            else if !post.live then badTag(trans.ublog.thisIsADraft())
             else
               a(
                 titleOrText(trans.reportXToModerators.txt(user.username)),

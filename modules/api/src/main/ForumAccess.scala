@@ -1,13 +1,16 @@
 package lila.api
 
-import lila.forum.ForumCateg
+import lila.forum.{ ForumCateg, ForumTopic }
 import lila.security.{ Granter, Permission }
 import lila.team.Team
 import lila.user.{ User, Me }
+import lila.relation.Block
 
-final class ForumAccess(teamApi: lila.team.TeamApi, teamCached: lila.team.Cached)(using
-    Executor
-):
+final class ForumAccess(
+    teamApi: lila.team.TeamApi,
+    teamCached: lila.team.Cached,
+    relationApi: lila.relation.RelationApi
+)(using Executor):
 
   enum Operation:
     case Read, Write
@@ -45,3 +48,8 @@ final class ForumAccess(teamApi: lila.team.TeamApi, teamCached: lila.team.Cached
   def isGrantedMod(categId: ForumCategId)(using meOpt: Option[Me]): Fu[Boolean] = meOpt.so: me =>
     if Granter.opt(_.ModerateForum) then fuTrue
     else ForumCateg.toTeamId(categId).so(teamApi.hasPerm(_, me, _.Comm))
+
+  def isReplyBlockedOnUBlog(topic: ForumTopic, canModCateg: Boolean)(using me: Me): Fu[Boolean] =
+    (topic.ublogId.isDefined && !canModCateg).so:
+      topic.userId.so: topicAuthor =>
+        relationApi.fetchBlocks(topicAuthor, me)

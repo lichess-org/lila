@@ -41,7 +41,7 @@ final class PuzzleStreakApi(colls: PuzzleColls, cacheApi: CacheApi)(using Execut
           _.aggregateList(poolSize): framework =>
             import framework.*
             Facet(
-              buckets.map { case (rating, nbPuzzles) =>
+              buckets.map { (rating, nbPuzzles) =>
                 val (tier, samples, deviation) =
                   if rating > 2300 then (PuzzleTier.good, 5, 110) else (PuzzleTier.top, 1, 85)
                 rating.toString -> List(

@@ -43,6 +43,7 @@
   <string name="definitivelyDeleteTournament">Txapelketa behin betiko ezabatu, bere txanda eta partida guztiak barne.</string>
   <string name="automaticLeaderboard">Sailkapen automatikoa</string>
   <string name="automaticLeaderboardHelp">Partiden emaitzetan oinarritutako sailkapen sinplea kalkulatu eta erakutsi</string>
+  <string name="replacePlayerTags">Hautazkoa: aldatu jokalarien izen, puntuazio eta tituluak</string>
   <string name="periodInSeconds">Aldia segundotan</string>
   <string name="periodInSecondsHelp">Hautazkoa, zenbat itxaron eskaeren artean. Gutxienez 2 segundo, gehienez 60 segundo. Automatikora itzuliko da ikusle kopuruaren arabera.</string>
 </resources>

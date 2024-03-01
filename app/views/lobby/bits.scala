@@ -39,7 +39,7 @@ object bits:
       ),
       div(cls := s"lobby__box ${if ctx.pref.showRatings then "lobby__winners" else "lobby__wide-winners"}")(
         div(cls := "lobby__box__top")(
-          h2(cls := "title text", dataIcon := licon.Trophy)(trans.tournamentWinners()),
+          h2(cls := "title text", dataIcon := licon.Trophy)(trans.arena.tournamentWinners()),
           a(cls := "more", href := routes.Tournament.leaderboard)(trans.more(), " »")
         ),
         div(cls := "lobby__box__content"):

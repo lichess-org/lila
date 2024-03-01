@@ -10,7 +10,7 @@ final private[api] class Cli(
     fishnet: lila.fishnet.Env,
     study: lila.study.Env,
     studySearch: lila.studySearch.Env,
-    player: lila.player.Env,
+    fide: lila.fide.Env,
     evalCache: lila.evalCache.Env,
     plan: lila.plan.Env,
     msg: lila.msg.Env,
@@ -73,5 +73,5 @@ final private[api] class Cli(
       video.cli.process orElse
       team.cli.process orElse
       notify.cli.process orElse
-      player.cli.process orElse
+      fide.cli.process orElse
       process

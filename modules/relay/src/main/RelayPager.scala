@@ -2,7 +2,7 @@ package lila.relay
 
 import lila.common.config.MaxPerPage
 import lila.common.paginator.{ AdapterLike, Paginator }
-import lila.db.dsl.*
+import lila.db.dsl.{ *, given }
 import lila.relay.RelayTour.WithLastRound
 import lila.memo.CacheApi
 
@@ -88,9 +88,14 @@ final class RelayPager(
       )
 
   def search(query: String, page: Int): Fu[Paginator[WithLastRound]] =
+    forSelector($text(query) ++ $doc("tier" $exists true), page)
+
+  def byIds(ids: List[RelayTour.Id], page: Int): Fu[Paginator[WithLastRound]] =
+    forSelector($inIds(ids) ++ $doc("tier" $exists true), page)
+
+  private def forSelector(selector: Bdoc, page: Int): Fu[Paginator[WithLastRound]] =
     Paginator(
       adapter = new:
-        private val selector   = $text(query) ++ $doc("tier" $exists true)
         def nbResults: Fu[Int] = tourRepo.coll.countSel(selector)
         def slice(offset: Int, length: Int): Fu[List[WithLastRound]] =
           tourRepo.coll
