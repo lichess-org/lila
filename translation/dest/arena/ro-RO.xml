@@ -67,4 +67,8 @@ Joacă rapid și întoarce-te la lobby pentru a juca mai multe partide și pentr
   <string name="bestResults">Cele mai bune rezultate</string>
   <string name="stats">Statistici</string>
   <string name="tournamentStats">Statistici turneu</string>
+  <string name="medians">mediane</string>
+  <string name="total">Total</string>
+  <string name="pointsAvg">Medie puncte</string>
+  <string name="pointsSum">Sumă puncte</string>
 </resources>
