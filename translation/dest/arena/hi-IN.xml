@@ -82,4 +82,6 @@
   <string name="rankAvg">रैंक औसत</string>
   <string name="tournamentWinners">टूर्नामेंट विजेता</string>
   <string name="tournamentShields">टूर्नामेंट शील्ड्स</string>
+  <string name="onlyTitled">केवल शीर्षक वाले खिलाड़ी</string>
+  <string name="onlyTitledHelp">टूर्नामेंट में शामिल होने के लिए एक आधिकारिक शीर्षक की आवश्यकता है</string>
 </resources>
