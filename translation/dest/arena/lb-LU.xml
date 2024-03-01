@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+  <string name="arena">Arena</string>
   <string name="arenaTournaments">Arena Turnéier</string>
   <string name="isItRated">Ass et gewäert?</string>
   <string name="willBeNotified">Mir soen dir Bescheed wann den Turnéier ufänkt, du kanns also an der Zwëschenzäit an engem aneren Tab spillen.</string>
@@ -60,4 +61,20 @@ Spill schnell an géih zeréck an d\'Turnéieriwwersicht fir méi Partien ze spi
   <string name="averagePerformance">Duerchschnëttlech Performance</string>
   <string name="averageScore">Duerchschnëttlech Punktzuel</string>
   <string name="myTournaments">Meng Turnéier</string>
+  <string name="editTournament">Turnéier änneren</string>
+  <string name="defender">Verdeedeger</string>
+  <string name="pickYourTeam">Wiel deng Ekipp</string>
+  <string name="recentlyPlayed">Viru Kuerzem gespillt</string>
+  <string name="bestResults">Bescht Resultater</string>
+  <string name="stats">Statistiken</string>
+  <string name="tournamentStats">Turnéierstatistiken</string>
+  <string name="medians">Median</string>
+  <string name="allAveragesAreX">All Duerchschnëttswäerter op dëser Säit sinn %s.</string>
+  <string name="total">Insgesamt</string>
+  <string name="pointsAvg">Punktenduerchschnëtt</string>
+  <string name="pointsSum">Punktenzomm</string>
+  <string name="tournamentWinners">Gewënner vum Turnéier</string>
+  <string name="tournamentShields">Turnéierschëlter</string>
+  <string name="onlyTitled">Just Spiller mat Titel</string>
+  <string name="onlyTitledHelp">Et brauch een en offiziellen Titel fir um Turnéier deelhuelen ze kënnen</string>
 </resources>
