@@ -362,14 +362,16 @@ final private class StudySocket(
         "w" -> who
       )
     )
-  def setClock(pos: Position.Ref, clock: Option[Centis], who: Who) =
+  def setClock(pos: Position.Ref, clock: Option[Centis], onRelayPath: Boolean, who: Who) =
     version(
       "clock",
-      Json.obj(
-        "p" -> pos,
-        "c" -> clock,
-        "w" -> who
-      )
+      Json
+        .obj(
+          "p" -> pos,
+          "c" -> clock,
+          "w" -> who
+        )
+        .add("onRelayPath", onRelayPath)
     )
   def forceVariation(pos: Position.Ref, force: Boolean, who: Who) =
     version(

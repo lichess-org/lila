@@ -242,6 +242,18 @@ export interface AnaDrop {
   path: string;
   ch?: string;
 }
+export interface ServerNodeMsg extends WithWhoAndPos {
+  d: string;
+  n: Tree.Node;
+  o: Opening;
+  s: boolean;
+  relay?: StudyChapterRelay;
+}
+export interface ServerClockMsg extends WithWhoAndPos {
+  c?: number;
+  onRelayPath?: boolean;
+}
+
 export interface WithWho {
   w: {
     s: string;

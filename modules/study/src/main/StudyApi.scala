@@ -433,13 +433,13 @@ final class StudyApi(
     sc.chapter.setClock(clock, position.path) match
       case Some(newChapter) =>
         studyRepo.updateNow(sc.study)
+        val onRelayPath = sc.chapter.relay.exists(_.path == position.path)
         chapterRepo
           .setClock(clock)(newChapter, position.path)
-          .andDo(sendTo(sc.study.id)(_.setClock(position, clock, who)))
+          .andDo(sendTo(sc.study.id)(_.setClock(position, clock, onRelayPath, who)))
       case None =>
-        fufail(s"Invalid setClock $position $clock").andDo(
+        fufail(s"Invalid setClock $position $clock").andDo:
           reloadSriBecauseOf(sc.study, who.sri, position.chapterId)
-        )
 
   def setTag(studyId: StudyId, setTag: actorApi.SetTag)(who: Who) =
     sequenceStudyWithChapter(studyId, setTag.chapterId):

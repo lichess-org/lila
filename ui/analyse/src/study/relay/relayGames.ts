@@ -21,7 +21,7 @@ export const gamesList = (study: StudyCtrl, relay: RelayCtrl) => {
           const status =
             !c.status || c.status == '*' ? renderClocks(c) : [c.status.slice(0, 1), c.status.slice(2, 3)];
           return h(
-            'a.relay-game',
+            `a.relay-game.relay-game--${c.id}`,
             {
               ...gameLinkProps(relay.roundPath, study.setChapter, c),
               class: { 'relay-game--current': c.id === study.data.chapter.id },
@@ -69,7 +69,7 @@ const renderClocks = (chapter: ChapterPreview) => {
 export const renderClock = (color: Color, time: number, ticking: boolean) =>
   h(`span.mini-game__clock.mini-game__clock--${color}`, {
     hook: {
-      update(_, vnode) {
+      postpatch(_, vnode) {
         site.clockWidget(vnode.elm as HTMLElement, {
           time: time,
           pause: !ticking,
