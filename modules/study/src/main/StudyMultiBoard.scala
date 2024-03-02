@@ -37,11 +37,11 @@ final class StudyMultiBoard(
 
   private val playingSelector = $doc("tags" -> "Result:*", "relay.path".$ne(""))
 
-  private def fetch(studyId: StudyId, page: Int, playing: Boolean): Fu[Paginator[ChapterPreview]] =
+  def fetch(studyId: StudyId, page: Int, playing: Boolean, max: MaxPerPage = maxPerPage): Fu[Paginator[ChapterPreview]] =
     Paginator[ChapterPreview](
       ChapterPreviewAdapter(studyId, playing),
       currentPage = page,
-      maxPerPage = maxPerPage
+      maxPerPage = max
     )
 
   final private class ChapterPreviewAdapter(studyId: StudyId, playing: Boolean)

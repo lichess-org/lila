@@ -8,6 +8,7 @@ import lila.app.{ given, * }
 import lila.analyse.Analysis
 import lila.common.paginator.{ Paginator, PaginatorJson }
 import lila.common.{ Bus, HTTPRequest, IpAddress, LpvEmbed }
+import lila.common.config.MaxPerPage
 import lila.socket.Socket
 import lila.study.actorApi.{ BecomeStudyAdmin, Who }
 import lila.study.JsonView.JsData
@@ -201,8 +202,8 @@ final class Study(
   ): Fu[(WithChapter, JsData)] =
     for
       chapters <-
-        if sc.study(isRelay)
-        then env.study.chapterRepo.orderedMetadataExt(sc.study.id)
+        if sc.study.isRelay
+        then env.study.multiBoard.fetch(sc.study.id, 1, false, MaxPerPage(64)).map(_.currentPageResults)
         else env.study.chapterRepo.orderedMetadataMin(sc.study.id)
       (study, resetToChapter) <- env.study.api.resetIfOld(sc.study, chapters)
       chapter = resetToChapter | sc.chapter

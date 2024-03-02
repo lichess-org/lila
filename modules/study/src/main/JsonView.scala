@@ -17,7 +17,7 @@ final class JsonView(
 
   import JsonView.given
 
-  def apply(study: Study, chapters: List[Chapter.Metadata], currentChapter: Chapter, me: Option[User]) =
+  def apply(study: Study, chapters: Seq[Chapter.Metadata], currentChapter: Chapter, me: Option[User]) =
 
     def allowed(selection: Settings => Settings.UserSelection): Boolean =
       Settings.UserSelection.allows(selection(study.settings), study, me.map(_.id))
