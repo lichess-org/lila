@@ -238,10 +238,10 @@
   <string name="copyTextToEmail">Kopiere den obigen Text, füge ihn hier ein und sende alles an %s</string>
   <string name="waitForSignupHelp">Wir werden uns bald mit dir in Verbindung setzen, um deine Registrierung abzuschließen.</string>
   <string name="accountConfirmed">Der Benutzer %s ist erfolgreich bestätigt.</string>
-  <string name="accountCanLogin">Du kannst dich als %s einloggen.</string>
+  <string name="accountCanLogin">Du kannst dich ab sofort als %s einloggen.</string>
   <string name="accountConfirmationEmailNotNeeded">Du benötigst keine Bestätigungs-E-Mail.</string>
   <string name="accountClosed">Das Benutzerkonto %s ist geschlossen.</string>
-  <string name="accountRegisteredWithoutEmail">Das Benutzerkonto %s wurde ohne eine E-Mail-Adresse registriert.</string>
+  <string name="accountRegisteredWithoutEmail">Das Benutzerkonto %s wurde ohne eine E-Mail-Adresse angelegt.</string>
   <string name="rank">Rang</string>
   <string name="rankX">Platz: %s</string>
   <plurals name="rankIsUpdatedEveryNbMinutes">
