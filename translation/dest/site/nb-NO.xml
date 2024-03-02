@@ -276,6 +276,7 @@
   <string name="abortGame">Avbryt partiet</string>
   <string name="gameAborted">Partiet er avbrutt</string>
   <string name="standard">Standard</string>
+  <string name="customPosition">Brukerdefinert stilling</string>
   <string name="unlimited">Ubegrenset</string>
   <string name="mode">Modus</string>
   <string name="casual">Urangert</string>
@@ -531,6 +532,7 @@
   <string name="automaticallyProceedToNextGameAfterMoving">Fortsett automatisk til neste parti etter utført trekk</string>
   <string name="autoSwitch">Autosyklus</string>
   <string name="puzzles">Sjakknøtter</string>
+  <string name="onlineBots">Påloggede boter</string>
   <string name="name">Navn</string>
   <string name="description">Beskrivelse</string>
   <string name="descPrivate">Privat beskrivelse</string>
@@ -987,4 +989,5 @@ La feltet stå tomt for å begynne partiene fra den normale utgangsstillingen.</
   <string name="showMeEverything">Vis meg alt</string>
   <string name="lichessPatronInfo">Lichess er en ideell forening, basert på fri programvare med åpen kildekode.
 Alle kostnader for drift, utvikling og innhold finansieres utelukkende av brukerbidrag.</string>
+  <string name="nothingToSeeHere">Ingenting her for nå.</string>
 </resources>
