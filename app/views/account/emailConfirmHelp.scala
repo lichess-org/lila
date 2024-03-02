@@ -35,7 +35,7 @@ object emailConfirmHelp:
             )
           ),
           div(cls := "replies")(
-            status map {
+            status.map {
               case Status.NoSuchUser(name) =>
                 frag(
                   p(trans.usernameNotFound(strong(name))),

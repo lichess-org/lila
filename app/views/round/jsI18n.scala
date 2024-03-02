@@ -13,11 +13,11 @@ object jsI18n:
         if g.isCorrespondence then correspondenceTranslations
         else realtimeTranslations
       } ++ {
-        g.variant.exotic so variantTranslations
+        g.variant.exotic.so(variantTranslations)
       } ++ {
-        g.isTournament so tournamentTranslations
+        g.isTournament.so(tournamentTranslations)
       } ++ {
-        g.isSwiss so swissTranslations
+        g.isSwiss.so(swissTranslations)
       }
 
   private val correspondenceTranslations = Vector(

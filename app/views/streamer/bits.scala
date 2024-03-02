@@ -38,16 +38,19 @@ object bits:
           a(cls := active.active("show"), href := routes.Streamer.show(st.streamer.id.value))(
             st.streamer.name
           ),
-          (ctx.is(st.user) || isGranted(_.Streamers)) option
+          (ctx.is(st.user) || isGranted(_.Streamers)).option(
             a(cls := active.active("edit"), href := s"${routes.Streamer.edit}?u=${st.streamer.id.value}")(
               editPage()
             )
+          )
         )
-      } getOrElse a(href := routes.Streamer.edit)(yourPage()),
-      isGranted(_.Streamers) option a(
-        cls  := active.active("requests"),
-        href := s"${routes.Streamer.index()}?requests=1"
-      )("Approval requests"),
+      }.getOrElse(a(href := routes.Streamer.edit)(yourPage())),
+      isGranted(_.Streamers).option(
+        a(
+          cls  := active.active("requests"),
+          href := s"${routes.Streamer.index()}?requests=1"
+        )("Approval requests")
+      ),
       a(
         dataIcon := licon.InfoCircle,
         cls      := "text",
@@ -65,19 +68,20 @@ object bits:
 
   def liveStreams(l: lila.streamer.LiveStreams.WithTitles): Frag =
     l.live.streams.map { s =>
-      redirectLink(s.streamer.id into UserStr)(
+      redirectLink(s.streamer.id.into(UserStr))(
         cls   := "stream highlight",
         title := s.status
       )(
-        strong(cls := "text", dataIcon := licon.Mic)(l titleName s),
+        strong(cls := "text", dataIcon := licon.Mic)(l.titleName(s)),
         " ",
         s.cleanStatus
       )
     }
 
   def contextual(streamers: List[UserId])(using Lang): Option[Tag] =
-    streamers.nonEmpty option div(cls := "context-streamers"):
-      streamers map contextual
+    streamers.nonEmpty.option(div(cls := "context-streamers"):
+      streamers.map(contextual)
+    )
 
   def contextual(userId: UserId)(using Lang): Tag =
     redirectLink(userId)(cls := "context-streamer text", dataIcon := licon.Mic):
@@ -107,11 +111,11 @@ object bits:
     span(cls := "streamer-title")(
       h1(dataIcon := licon.Mic)(titleTag(s.user.title), s.streamer.name),
       s.streamer.lastStreamLang.map: language =>
-        span(cls := "streamer-lang")(LangList nameByLanguage language)
+        span(cls := "streamer-lang")(LangList.nameByLanguage(language))
     )
 
   def subscribeButtonFor(s: lila.streamer.Streamer.WithContext)(using ctx: PageContext): Option[Tag] =
-    ctx.isAuth && !ctx.is(s.user) option {
+    (ctx.isAuth && !ctx.is(s.user)).option {
       val id = s"streamer-subscribe-${s.streamer.userId}"
       label(cls := "streamer-subscribe")(
         `for`          := id,

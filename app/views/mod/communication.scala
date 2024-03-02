@@ -31,10 +31,10 @@ object communication:
       title = u.username + " communications",
       moreCss = frag(
         cssTag("mod.communication"),
-        isGranted(_.UserModView) option cssTag("mod.user")
+        isGranted(_.UserModView).option(cssTag("mod.user"))
       ),
       moreJs = frag:
-        isGranted(_.UserModView) option jsModule("mod.user")
+        isGranted(_.UserModView).option(jsModule("mod.user"))
     ):
       main(id := "communication", cls := "box box-pad")(
         boxTop(
@@ -47,7 +47,7 @@ object communication:
                 titleOrText("Mod zone (Hotkey: m)"),
                 dataIcon := licon.Agent
               ),
-              isGranted(_.ViewPrivateComms) option {
+              isGranted(_.ViewPrivateComms).option {
                 if priv then
                   a(cls := "priv button active", href := routes.Mod.communicationPublic(u.username))("PMs")
                 else
@@ -60,41 +60,48 @@ object communication:
             )
           )
         ),
-        isGranted(_.UserModView) option frag(
-          div(cls := "mod-zone mod-zone-full none"),
-          views.html.user.mod.otherUsers(mod, u, logins, appeals)(
-            cls := "mod-zone communication__logins"
+        isGranted(_.UserModView).option(
+          frag(
+            div(cls := "mod-zone mod-zone-full none"),
+            views.html.user.mod.otherUsers(mod, u, logins, appeals)(
+              cls := "mod-zone communication__logins"
+            )
           )
         ),
-        history.nonEmpty option frag(
-          h2("Moderation history"),
-          div(cls := "history")(
-            history.map: e =>
-              div(
-                userIdLink(e.mod.userId.some),
-                " ",
-                b(e.showAction),
-                " ",
-                u.username,
-                " ",
-                e.details,
-                " ",
-                momentFromNowServer(e.date)
-              )
-          )
-        ),
-        notes.nonEmpty option frag(
-          h2("Notes from other users"),
-          div(cls := "notes")(
-            notes.map: note =>
-              (isGranted(_.Admin) || !note.dox) option
+        history.nonEmpty.option(
+          frag(
+            h2("Moderation history"),
+            div(cls := "history")(
+              history.map: e =>
                 div(
-                  userIdLink(note.from.some),
+                  userIdLink(e.mod.userId.some),
                   " ",
-                  momentFromNowServer(note.date),
-                  ": ",
-                  richText(note.text)
+                  b(e.showAction),
+                  " ",
+                  u.username,
+                  " ",
+                  e.details,
+                  " ",
+                  momentFromNowServer(e.date)
                 )
+            )
+          )
+        ),
+        notes.nonEmpty.option(
+          frag(
+            h2("Notes from other users"),
+            div(cls := "notes")(
+              notes.map: note =>
+                (isGranted(_.Admin) || !note.dox).option(
+                  div(
+                    userIdLink(note.from.some),
+                    " ",
+                    momentFromNowServer(note.date),
+                    ": ",
+                    richText(note.text)
+                  )
+                )
+            )
           )
         ),
         h2("Dubious public chats"),
@@ -120,68 +127,76 @@ object communication:
               )
           )
         ,
-        priv option frag(
-          h2("Recent private chats"),
-          div(cls := "player_chats")(
-            players.map: (pov, chat) =>
-              div(cls := "game")(
-                a(
-                  href := routes.Round.player(pov.fullId),
-                  cls := List(
-                    "title"        -> true,
-                    "friend_title" -> pov.game.fromFriend
-                  ),
-                  title := pov.game.fromFriend.option("Friend game")
-                )(
-                  titleNameOrAnon(pov.opponent.userId),
-                  " – ",
-                  momentFromNowServer(pov.game.movedAt)
-                ),
-                div(cls := "chat")(
-                  chat.lines.map: line =>
-                    div(
-                      cls := List(
-                        "line"   -> true,
-                        "author" -> (UserStr(line.author) is u)
-                      )
-                    )(
-                      userIdLink(line.userIdMaybe, withOnline = false, withTitle = false),
-                      nbsp,
-                      span(cls := "message")(Analyser.highlightBad(line.text))
-                    )
-                )
-              )
-          ),
-          div(cls := "threads")(
-            h2("Recent inbox messages"),
-            convos.map: modConvo =>
-              div(cls := "thread")(
-                p(cls := "title")(
-                  strong(userLink(modConvo.contact)),
-                  showSbMark(modConvo.contact),
-                  modConvo.relations.in.has(Follow) option span(cls := "friend_title")(
-                    "is following this user",
-                    br
-                  )
-                ),
-                table(cls := "slist")(
-                  tbody(
-                    modConvo.truncated option div(cls := "truncated-convo")(
-                      s"Truncated, showing last ${modConvo.msgs.length} messages"
+        priv.option(
+          frag(
+            h2("Recent private chats"),
+            div(cls := "player_chats")(
+              players.map: (pov, chat) =>
+                div(cls := "game")(
+                  a(
+                    href := routes.Round.player(pov.fullId),
+                    cls := List(
+                      "title"        -> true,
+                      "friend_title" -> pov.game.fromFriend
                     ),
-                    modConvo.msgs.reverse.map: msg =>
-                      val author = msg.user == u.id
-                      tr(cls := List("post" -> true, "author" -> author))(
-                        td(momentFromNowServer(msg.date)),
-                        td(strong(if author then u.username else modConvo.contact.username)),
-                        td(cls := "message")(Analyser.highlightBad(msg.text))
+                    title := pov.game.fromFriend.option("Friend game")
+                  )(
+                    titleNameOrAnon(pov.opponent.userId),
+                    " – ",
+                    momentFromNowServer(pov.game.movedAt)
+                  ),
+                  div(cls := "chat")(
+                    chat.lines.map: line =>
+                      div(
+                        cls := List(
+                          "line"   -> true,
+                          "author" -> (UserStr(line.author).is(u))
+                        )
+                      )(
+                        userIdLink(line.userIdMaybe, withOnline = false, withTitle = false),
+                        nbsp,
+                        span(cls := "message")(Analyser.highlightBad(line.text))
                       )
                   )
                 )
-              )
+            ),
+            div(cls := "threads")(
+              h2("Recent inbox messages"),
+              convos.map: modConvo =>
+                div(cls := "thread")(
+                  p(cls := "title")(
+                    strong(userLink(modConvo.contact)),
+                    showSbMark(modConvo.contact),
+                    modConvo.relations.in
+                      .has(Follow)
+                      .option(
+                        span(cls := "friend_title")(
+                          "is following this user",
+                          br
+                        )
+                      )
+                  ),
+                  table(cls := "slist")(
+                    tbody(
+                      modConvo.truncated.option(
+                        div(cls := "truncated-convo")(
+                          s"Truncated, showing last ${modConvo.msgs.length} messages"
+                        )
+                      ),
+                      modConvo.msgs.reverse.map: msg =>
+                        val author = msg.user == u.id
+                        tr(cls := List("post" -> true, "author" -> author))(
+                          td(momentFromNowServer(msg.date)),
+                          td(strong(if author then u.username else modConvo.contact.username)),
+                          td(cls := "message")(Analyser.highlightBad(msg.text))
+                        )
+                    )
+                  )
+                )
+            )
           )
         )
       )
 
   private def showSbMark(u: User) =
-    u.marks.troll option span(cls := "user_marks")(iconTag(licon.BubbleSpeech))
+    u.marks.troll.option(span(cls := "user_marks")(iconTag(licon.BubbleSpeech)))

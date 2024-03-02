@@ -18,8 +18,8 @@ object blog:
     views.html.base.layout(
       moreCss = cssTag("ublog"),
       moreJs = frag(
-        posts.hasNextPage option infiniteScrollTag,
-        ctx.isAuth option jsModule("ublog")
+        posts.hasNextPage.option(infiniteScrollTag),
+        ctx.isAuth.option(jsModule("ublog"))
       ),
       title = title,
       atomLinkTag = link(
@@ -34,10 +34,12 @@ object blog:
           boxTop(
             h1(trans.ublog.xBlog(userLink(user))),
             div(cls := "box__top__actions")(
-              blog.allows.moderate option tierForm(blog),
-              blog.allows.create option frag(
-                a(href := routes.Ublog.drafts(user.username))(trans.ublog.drafts()),
-                postView.newPostLink(user)
+              blog.allows.moderate.option(tierForm(blog)),
+              blog.allows.create.option(
+                frag(
+                  a(href := routes.Ublog.drafts(user.username))(trans.ublog.drafts()),
+                  postView.newPostLink(user)
+                )
               ),
               views.html.site.bits.atomLink(routes.Ublog.userAtom(user.username))
             )
@@ -45,7 +47,7 @@ object blog:
           standardFlash,
           if posts.nbResults > 0 then
             div(cls := "ublog-index__posts ublog-post-cards infinite-scroll")(
-              posts.currentPageResults map { postView.card(_) },
+              posts.currentPageResults.map { postView.card(_) },
               pagerNext(posts, np => s"${routes.Ublog.index(user.username, np).url}")
             )
           else

@@ -42,7 +42,7 @@ object empty:
           " players in the queue before you.",
           br,
           "You will get your results in about ",
-          showMinutes(in.eta.toMinutes.toInt atLeast 1),
+          showMinutes(in.eta.toMinutes.toInt.atLeast(1)),
           "."
         )
       ),

@@ -35,7 +35,7 @@ object show:
           description = shorten(~(c.coach.profile.headline), 152),
           url = s"$netBaseUrl${routes.Coach.show(c.user.username)}",
           `type` = "profile",
-          image = c.coach.picture.isDefined option picture.thumbnail.url(c.coach)
+          image = c.coach.picture.isDefined.option(picture.thumbnail.url(c.coach))
         )
         .some
     ) {
@@ -44,7 +44,7 @@ object show:
           a(cls := "button button-empty", href := routes.User.show(c.user.username))(
             viewXProfile(c.user.username)
           ),
-          if ctx.me.exists(_ is c.coach) then
+          if ctx.me.exists(_.is(c.coach)) then
             frag(
               if c.coach.listed.value then p("This page is now public.")
               else "This page is not public yet. ",
@@ -67,37 +67,45 @@ object show:
             section(bestSkills(), profile.skills),
             section(teachingMethod(), profile.methodology)
           ),
-          posts.nonEmpty option st.section(cls := "coach-show__posts")(
-            h2(cls := "coach-show__title")(trans.ublog.latestBlogPosts()),
-            div(cls := "ublog-post-cards ")(
-              posts map { views.html.ublog.post.card(_) }
+          posts.nonEmpty.option(
+            st.section(cls := "coach-show__posts")(
+              h2(cls := "coach-show__title")(trans.ublog.latestBlogPosts()),
+              div(cls := "ublog-post-cards ")(
+                posts.map { views.html.ublog.post.card(_) }
+              )
             )
           ),
-          studies.nonEmpty option st.section(cls := "coach-show__studies")(
-            h2(cls := "coach-show__title")(publicStudies()),
-            div(cls := "studies")(
-              studies.map { s =>
-                st.article(cls := "study")(study.bits.widget(s, h3))
-              }
+          studies.nonEmpty.option(
+            st.section(cls := "coach-show__studies")(
+              h2(cls := "coach-show__title")(publicStudies()),
+              div(cls := "studies")(
+                studies.map { s =>
+                  st.article(cls := "study")(study.bits.widget(s, h3))
+                }
+              )
             )
           ),
-          profile.youtubeUrls.nonEmpty option st.section(cls := "coach-show__youtube")(
-            h2(cls := "coach-show__title")(
-              profile.youtubeChannel.map { url =>
-                a(href := url, targetBlank, noFollow)(youtubeVideos())
-              } getOrElse youtubeVideos()
-            ),
-            div(cls := "list")(
-              profile.youtubeUrls.map { url =>
-                iframe(
-                  widthA              := "256",
-                  heightA             := "192",
-                  src                 := url.value,
-                  attr("frameborder") := "0",
-                  frame.credentialless,
-                  frame.allowfullscreen
-                )
-              }
+          profile.youtubeUrls.nonEmpty.option(
+            st.section(cls := "coach-show__youtube")(
+              h2(cls := "coach-show__title")(
+                profile.youtubeChannel
+                  .map { url =>
+                    a(href := url, targetBlank, noFollow)(youtubeVideos())
+                  }
+                  .getOrElse(youtubeVideos())
+              ),
+              div(cls := "list")(
+                profile.youtubeUrls.map { url =>
+                  iframe(
+                    widthA              := "256",
+                    heightA             := "192",
+                    src                 := url.value,
+                    attr("frameborder") := "0",
+                    frame.credentialless,
+                    frame.allowfullscreen
+                  )
+                }
+              )
             )
           )
         )

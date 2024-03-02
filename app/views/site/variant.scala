@@ -33,8 +33,8 @@ object variant:
         "Chess variants introduce variations of or new mechanics in regular Chess that gives it a unique, compelling, or sophisticated gameplay. Are you ready to think outside the box?"
       ),
       div(cls := "variants")(
-        lila.rating.PerfType.variants map: pt =>
-          val variant = lila.rating.PerfType variantOf pt
+        lila.rating.PerfType.variants.map: pt =>
+          val variant = lila.rating.PerfType.variantOf(pt)
           a(cls := "variant text box__pad", href := routes.Cms.variant(pt.key), dataIcon := pt.icon):
             span(
               h2(variant.name),
@@ -57,7 +57,7 @@ object variant:
     ):
       main(cls := "page-menu")(
         views.html.site.bits.pageMenuSubnav(
-          lila.rating.PerfType.variants map { pt =>
+          lila.rating.PerfType.variants.map { pt =>
             a(
               cls      := List("text" -> true, "active" -> active.has(pt)),
               href     := routes.Cms.variant(pt.key),

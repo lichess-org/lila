@@ -34,33 +34,40 @@ final class PrefApi(
     else
       coll.update
         .one($id(user.id), $unset(s"tags.${tag(Pref.Tag)}"))
-        .void andDo { cache invalidate user.id }
-  } andDo { cache invalidate user.id }
+        .void
+        .andDo { cache.invalidate(user.id) }
+  }.andDo { cache.invalidate(user.id) }
 
-  def get(user: User): Fu[Pref] = cache.get(user.id).dmap:
-    _ | Pref.create(user)
+  def get(user: User): Fu[Pref] = cache
+    .get(user.id)
+    .dmap:
+      _ | Pref.create(user)
 
-  def get[A](user: User, pref: Pref => A): Fu[A] = get(user) dmap pref
+  def get[A](user: User, pref: Pref => A): Fu[A] = get(user).dmap(pref)
 
   def get[A](userId: UserId, pref: Pref => A): Fu[A] =
     getPrefById(userId).dmap(p => pref(p | Pref.default))
 
   def get(user: User, req: RequestHeader): Fu[Pref] =
-    get(user) dmap RequestPref.queryParamOverride(req)
+    get(user).dmap(RequestPref.queryParamOverride(req))
 
   def get(user: Option[User], req: RequestHeader): Fu[Pref] = user match
-    case Some(u) => get(u) dmap RequestPref.queryParamOverride(req)
+    case Some(u) => get(u).dmap(RequestPref.queryParamOverride(req))
     case None    => fuccess(RequestPref.fromRequest(req))
 
-  def byId(userId: UserId): Fu[Pref] = cache get userId dmap:
-    _ | Pref.create(userId)
+  def byId(userId: UserId): Fu[Pref] = cache
+    .get(userId)
+    .dmap:
+      _ | Pref.create(userId)
 
   def byId(both: ByColor[Option[UserId]]): Fu[ByColor[Pref]] =
     both.traverse(_.fold(fuccess(Pref.default))(byId))
 
   def get(both: ByColor[Option[User]], myPov: Color, myPref: Pref): Fu[ByColor[Pref]] =
-    both(!myPov).so(get) map: opponent =>
-      myPov.fold(ByColor(myPref, opponent), ByColor(opponent, myPref))
+    both(!myPov)
+      .so(get)
+      .map: opponent =>
+        myPov.fold(ByColor(myPref, opponent), ByColor(opponent, myPref))
 
   def followable(userId: UserId): Fu[Boolean] =
     coll.primitiveOne[Boolean]($id(userId), "follow").map(_ | Pref.default.follow)
@@ -72,11 +79,11 @@ final class PrefApi(
     )
 
   def followableIds(userIds: List[UserId]): Fu[Set[UserId]] =
-    unfollowableIds(userIds) map userIds.toSet.diff
+    unfollowableIds(userIds).map(userIds.toSet.diff)
 
   def followables(userIds: List[UserId]): Fu[List[Boolean]] =
     followableIds(userIds).map: followables =>
-      userIds map followables.contains
+      userIds.map(followables.contains)
 
   private def unmentionableIds(userIds: Set[UserId]): Fu[Set[UserId]] =
     coll.secondaryPreferred.distinctEasy[UserId, Set](
@@ -85,18 +92,19 @@ final class PrefApi(
     )
 
   def mentionableIds(userIds: Set[UserId]): Fu[Set[UserId]] =
-    unmentionableIds(userIds) map userIds.diff
+    unmentionableIds(userIds).map(userIds.diff)
 
   def setPref(pref: Pref): Funit =
-    coll.update.one($id(pref.id), pref, upsert = true).void andDo
-      cache.put(pref.id, fuccess(pref.some))
+    coll.update.one($id(pref.id), pref, upsert = true).void.andDo(cache.put(pref.id, fuccess(pref.some)))
 
   def setPref(user: User, change: Pref => Pref): Funit =
-    get(user) map change flatMap setPref
+    get(user).map(change).flatMap(setPref)
 
   def agree(user: User): Funit =
-    coll.update.one($id(user.id), $set("agreement" -> Pref.Agreement.current), upsert = true).void andDo
-      cache.invalidate(user.id)
+    coll.update
+      .one($id(user.id), $set("agreement" -> Pref.Agreement.current), upsert = true)
+      .void
+      .andDo(cache.invalidate(user.id))
 
   def setBot(user: User): Funit = setPref(
     user,
@@ -108,5 +116,5 @@ final class PrefApi(
   )
 
   def saveNewUserPrefs(user: User, req: RequestHeader): Funit =
-    val reqPref = RequestPref fromRequest req
-    (reqPref != Pref.default) so setPref(reqPref.copy(_id = user.id))
+    val reqPref = RequestPref.fromRequest(req)
+    (reqPref != Pref.default).so(setPref(reqPref.copy(_id = user.id)))

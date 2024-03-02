@@ -21,7 +21,7 @@ object widget:
   def apply(c: lila.coach.Coach.WithUser, link: Boolean)(using Context) =
     val profile = c.user.profileOrDefault
     frag(
-      link option a(cls := "overlay", href := routes.Coach.show(c.user.username)),
+      link.option(a(cls := "overlay", href := routes.Coach.show(c.user.username))),
       picture.thumbnail(c, if link then 300 else 350),
       div(cls := "overview")(
         (if link then h2 else h1) (cls := "coach-name")(titleName(c)),
@@ -51,7 +51,7 @@ object widget:
             ),
             tr(cls := "languages")(
               th(languages()),
-              td(c.coach.languages.map(LangList.name) mkString ", ")
+              td(c.coach.languages.map(LangList.name).mkString(", "))
             ),
             tr(cls := "rating")(
               th(rating()),
@@ -72,12 +72,14 @@ object widget:
                 th(hourlyRate()),
                 td(r)
               ),
-            !link option tr(cls := "available")(
-              th(availability()),
-              td:
-                if c.coach.available.yes
-                then span(cls := "text", dataIcon := licon.Checkmark)(accepting())
-                else span(cls := "text", dataIcon := licon.X)(notAccepting())
+            !link.option(
+              tr(cls := "available")(
+                th(availability()),
+                td:
+                  if c.coach.available.yes
+                  then span(cls := "text", dataIcon := licon.Checkmark)(accepting())
+                  else span(cls := "text", dataIcon := licon.X)(notAccepting())
+              )
             ),
             c.user.seenAt.map: seen =>
               tr(cls := "seen")(

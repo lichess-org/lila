@@ -13,7 +13,7 @@ object user:
   import trans.search.*
 
   def apply(u: User, form: Form[?])(using Context) =
-    val commons = bits of form
+    val commons = bits.of(form)
     import commons.*
     st.form(
       noFollow,

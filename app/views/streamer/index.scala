@@ -24,7 +24,7 @@ object index:
       frag(
         if requests then a(href := s"${routes.Streamer.edit}?u=${s.user.username}", cls := "overlay")
         else bits.redirectLink(s.user.username, stream.isDefined.some)(cls := "overlay"),
-        stream.isDefined option span(cls := "live-ribbon")(span(trans.streamer.live())),
+        stream.isDefined.option(span(cls := "live-ribbon")(span(trans.streamer.live()))),
         picture.thumbnail(s.streamer, s.user),
         div(cls := "overview")(
           bits.streamerTitle(s),
@@ -53,7 +53,7 @@ object index:
                 )
           ,
           div(cls := "streamer-footer")(
-            !requests option bits.subscribeButtonFor(s),
+            !requests.option(bits.subscribeButtonFor(s)),
             bits.streamerProfile(s)
           )
         )
@@ -68,12 +68,14 @@ object index:
         bits.menu(if requests then "requests" else "index", none)(cls := " page-menu__menu"),
         div(cls := "page-menu__content box streamer-list")(
           boxTop(h1(dataIcon := licon.Mic, cls := "text")(title)),
-          !requests option div(cls := "list force-ltr live")(
-            live.map: s =>
-              st.article(cls := "streamer")(widget(s, s.stream))
+          !requests.option(
+            div(cls := "list force-ltr live")(
+              live.map: s =>
+                st.article(cls := "streamer")(widget(s, s.stream))
+            )
           ),
           div(cls := "list force-ltr infinite-scroll")(
-            (live.size % 2 == 1) option div(cls := "none"),
+            (live.size % 2 == 1).option(div(cls := "none")),
             pager.currentPageResults.map: s =>
               st.article(cls := "streamer paginated", dataDedup := s.streamer.id.value)(widget(s, none)),
             pagerNext(

@@ -49,7 +49,7 @@ object discussion:
               postForm(action := routes.Mod.spontaneousInquiry(appeal.id))(
                 submitButton(cls := "button")("Handle this appeal")
               )
-            case Some(Inquiry(mod, _)) if ctx.userId has mod =>
+            case Some(Inquiry(mod, _)) if ctx.userId.has(mod) =>
               postForm(action := appealRoutes.mute(modData.suspect.user.username))(
                 if appeal.isMuted then
                   submitButton("Un-mute")(
@@ -83,14 +83,16 @@ object discussion:
       h1(
         div(cls := "title")(
           "Appeal",
-          as.isLeft option frag(" by ", userIdLink(appeal.id.some))
+          as.isLeft.option(frag(" by ", userIdLink(appeal.id.some)))
         ),
-        as.isLeft option div(cls := "actions")(
-          a(
-            cls  := "button button-empty mod-zone-toggle",
-            href := routes.User.mod(appeal.id),
-            titleOrText("Mod zone (Hotkey: m)"),
-            dataIcon := licon.Agent
+        as.isLeft.option(
+          div(cls := "actions")(
+            a(
+              cls  := "button button-empty mod-zone-toggle",
+              href := routes.User.mod(appeal.id),
+              titleOrText("Mod zone (Hotkey: m)"),
+              dataIcon := licon.Agent
+            )
           )
         )
       ),
@@ -107,7 +109,7 @@ object discussion:
       standardFlash,
       div(cls := "body")(
         appeal.msgs.map: msg =>
-          div(cls := s"appeal__msg appeal__msg--${if appeal isByMod msg then "mod" else "suspect"}")(
+          div(cls := s"appeal__msg appeal__msg--${if appeal.isByMod(msg) then "mod" else "suspect"}")(
             div(cls := "appeal__msg__header")(
               renderUser(appeal, msg.by, as.isLeft),
               if as.isRight then momentFromNowOnce(msg.at)
@@ -116,24 +118,30 @@ object discussion:
             div(cls := "appeal__msg__text")(richText(msg.text, expandImg = false))
           ),
         as.left
-          .exists(_.markedByMe) option div(dataIcon := licon.CautionTriangle, cls := "marked-by-me text")(
-          "You have marked this user. Appeal should be handled by another moderator"
-        ),
+          .exists(_.markedByMe)
+          .option(
+            div(dataIcon := licon.CautionTriangle, cls := "marked-by-me text")(
+              "You have marked this user. Appeal should be handled by another moderator"
+            )
+          ),
         if as.isRight && !appeal.canAddMsg then p("Please wait for a moderator to reply.")
         else
-          as.fold(_.inquiry.isDefined, _ => true) option renderForm(
-            textForm,
-            action =
-              if as.isLeft then appealRoutes.reply(appeal.id).url
-              else appealRoutes.post.url,
-            isNew = false,
-            presets = as.left.toOption.map(_.presets)
-          )
+          as.fold(_.inquiry.isDefined, _ => true)
+            .option(
+              renderForm(
+                textForm,
+                action =
+                  if as.isLeft then appealRoutes.reply(appeal.id).url
+                  else appealRoutes.post.url,
+                isNew = false,
+                presets = as.left.toOption.map(_.presets)
+              )
+            )
       )
     )
 
   private def renderMark(suspect: User)(using ctx: PageContext) =
-    val query = isGranted(_.Appeals) so ctx.req.queryString.toMap
+    val query = isGranted(_.Appeals).so(ctx.req.queryString.toMap)
     if suspect.enabled.no || query.contains("alt") then tree.closedByModerators
     else if suspect.marks.engine || query.contains("engine") then tree.engineMarked
     else if suspect.marks.boost || query.contains("boost") then tree.boosterMarked
@@ -142,14 +150,16 @@ object discussion:
     else tree.cleanAllGood
 
   private def renderUser(appeal: Appeal, userId: UserId, asMod: Boolean)(using PageContext) =
-    if appeal isAbout userId then userIdLink(userId.some, params = asMod so "?mod")
+    if appeal.isAbout(userId) then userIdLink(userId.some, params = asMod.so("?mod"))
     else
       span(
         userIdLink(User.lichessId.some),
-        isGranted(_.Appeals) option frag(
-          " (",
-          userIdLink(userId.some),
-          ")"
+        isGranted(_.Appeals).option(
+          frag(
+            " (",
+            userIdLink(userId.some),
+            ")"
+          )
         )
       )
 
@@ -161,30 +171,32 @@ object discussion:
       form3.group(
         form("text"),
         if isNew then "Create an appeal" else "Add something to the appeal",
-        help = !isGranted(_.Appeals) option frag("Please be concise. Maximum 1000 chars.")
+        help = !isGranted(_.Appeals).option(frag("Please be concise. Maximum 1000 chars."))
       )(f => form3.textarea(f.copy(constraints = Seq.empty))(rows := 6, maxlength := Appeal.maxLengthClient)),
-      presets.map { ps =>
-        form3.actions(
-          div(
-            select(cls := "appeal-presets")(
-              option(st.value := "")("Presets"),
-              ps.value.map { case ModPreset(name, text, _) =>
-                option(
-                  st.value := text,
-                  st.title := text
-                )(name)
-              }
+      presets
+        .map { ps =>
+          form3.actions(
+            div(
+              select(cls := "appeal-presets")(
+                option(st.value := "")("Presets"),
+                ps.value.map { case ModPreset(name, text, _) =>
+                  option(
+                    st.value := text,
+                    st.title := text
+                  )(name)
+                }
+              ),
+              isGranted(_.Presets).option(a(href := routes.Mod.presets("appeal"))("Edit presets"))
             ),
-            isGranted(_.Presets) option a(href := routes.Mod.presets("appeal"))("Edit presets")
-          ),
-          form3.submit(
-            "Send and process appeal",
-            nameValue = ("process" -> true.toString).some
-          ),
-          form3.submit(
-            trans.send(),
-            nameValue = ("process" -> false.toString).some
+            form3.submit(
+              "Send and process appeal",
+              nameValue = ("process" -> true.toString).some
+            ),
+            form3.submit(
+              trans.send(),
+              nameValue = ("process" -> false.toString).some
+            )
           )
-        )
-      } getOrElse form3.submit(trans.send())
+        }
+        .getOrElse(form3.submit(trans.send()))
     )

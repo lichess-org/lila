@@ -239,7 +239,7 @@ object contact:
             br,
             ifLegit()
           )
-        ) pipe { appealBase =>
+        ).pipe { appealBase =>
           Branch(
             "appeal",
             banAppeal(),

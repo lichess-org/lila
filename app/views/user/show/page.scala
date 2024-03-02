@@ -31,7 +31,7 @@ object page:
       moreJs = moreJs(info),
       moreCss = frag(
         cssTag("user.show"),
-        isGranted(_.UserModView) option cssTag("mod.user")
+        isGranted(_.UserModView).option(cssTag("mod.user"))
       ),
       robots = u.count.game >= 10
     ):
@@ -53,14 +53,14 @@ object page:
   )(using PageContext) =
     val u          = info.user
     val filterName = userGameFilterTitleNoTag(u, info.nbs, filters.current)
-    val pageName   = (games.currentPage > 1) so s" - page ${games.currentPage}"
+    val pageName   = (games.currentPage > 1).so(s" - page ${games.currentPage}")
     views.html.base.layout(
       title = s"${u.username} $filterName$pageName",
       moreJs = moreJs(info, filters.current.name == "search"),
       moreCss = frag(
         cssTag("user.show"),
-        filters.current.name == "search" option cssTag("user.show.search"),
-        isGranted(_.UserModView) option cssTag("mod.user")
+        (filters.current.name == "search").option(cssTag("user.show.search")),
+        isGranted(_.UserModView).option(cssTag("mod.user"))
       ),
       robots = u.count.game >= 10
     ) {
@@ -84,8 +84,8 @@ object page:
           "chart.ratingHistory",
           s"{data:$rc}"
         ),
-      withSearch option jsModule("gameSearch"),
-      isGranted(_.UserModView) option jsModule("mod.user")
+      withSearch.option(jsModule("gameSearch")),
+      isGranted(_.UserModView).option(jsModule("mod.user"))
     )
 
   def disabled(u: User)(using PageContext) =
