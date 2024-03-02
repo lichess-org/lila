@@ -19,14 +19,14 @@ object created:
       path = path,
       moreJs = infiniteScrollTag
     ):
-      if pager.nbResults == 0 then div(cls := "box-pad")(u.username, " hasn't created any tournament yet!")
+      if pager.nbResults == 0 then div(cls := "box-pad")(trans.nothingToSeeHere())
       else
         div(cls := "tournament-list")(
           table(cls := "slist")(
             thead(
               tr(
                 th(cls := "count")(pager.nbResults),
-                th(colspan := 2)(h1(userLink(u, withOnline = true), " tournaments")),
+                th(colspan := 2)(h1(frag(userLink(u, withOnline = true), " • ", trans.tournaments()))),
                 th(trans.winner()),
                 th(trans.players())
               )
@@ -38,7 +38,7 @@ object created:
                   views.html.tournament.finishedList.header(t),
                   td(momentFromNow(t.startsAt)),
                   td(cls := "winner")(
-                    t.winnerId.isDefined option userIdLink(t.winnerId, withOnline = false)
+                    t.winnerId.isDefined.option(userIdLink(t.winnerId, withOnline = false))
                   ),
                   td(cls := "text", dataIcon := licon.User)(t.nbPlayers.localize)
                 )

@@ -8,7 +8,7 @@ final class EmailReminder(mongoCache: MongoCache.Api, userRepo: UserRepo, api: M
     Executor
 ):
 
-  def apply(userId: UserId) = cache get userId
+  def apply(userId: UserId) = cache.get(userId)
 
   private val emailReminderMsg = s"""No email associated with your account
 
@@ -29,4 +29,4 @@ Please visit $baseUrl/account/email to set your account email address. That way,
               .withoutEmail(userId)
               .flatMap:
                 _.fold(fuccess(true)): user =>
-                  api.systemPost(userId, emailReminderMsg) inject false
+                  api.systemPost(userId, emailReminderMsg).inject(false)

@@ -13,7 +13,7 @@ case class SyncLog(events: Vector[SyncLog.Event]) extends AnyVal:
   def add(event: SyncLog.Event) =
     copy(
       events = {
-        if events.sizeIs > SyncLog.historySize then events drop 1
+        if events.sizeIs > SyncLog.historySize then events.drop(1)
         else events
       } :+ event
     )
@@ -31,14 +31,14 @@ object SyncLog:
   ):
     export error.{ isEmpty as isOk, nonEmpty as isKo }
     def hasMoves  = moves > 0
-    def isTimeout = error has SyncResult.Timeout.getMessage
+    def isTimeout = error.has(SyncResult.Timeout.getMessage)
 
   def event(moves: Int, e: Option[Exception]) =
     Event(
       moves = moves,
-      error = e map {
+      error = e.map {
         case _: java.util.concurrent.TimeoutException => "Request timeout"
-        case e: Exception                             => e.getMessage take 100
+        case e: Exception                             => e.getMessage.take(100)
       },
       at = nowInstant
     )

@@ -43,15 +43,18 @@ final class UblogMarkup(
     _.maximumSize(2048)
       .expireAfterWrite(if mode == Mode.Prod then 15 minutes else 1 second)
       .buildAsyncFuture: (id, markdown) =>
-        Bus.ask("lpv")(AllPgnsFromText(markdown.value, _)) andThen { case scala.util.Success(pgns) =>
-          pgnCache.putAll(pgns)
-        } inject process(id)(markdown)
+        Bus
+          .ask("lpv")(AllPgnsFromText(markdown.value, _))
+          .andThen { case scala.util.Success(pgns) =>
+            pgnCache.putAll(pgns)
+          }
+          .inject(process(id)(markdown))
 
-  private def process(id: UblogPostId): Markdown => Html = replaceGameGifs.apply andThen
-    MarkdownToastUi.unescapeAtUsername.apply andThen
-    renderer(s"ublog:${id}") andThen
-    MarkdownToastUi.imageParagraph andThen
-    MarkdownToastUi.unescapeUnderscoreInLinks.apply
+  private def process(id: UblogPostId): Markdown => Html = replaceGameGifs.apply
+    .andThen(MarkdownToastUi.unescapeAtUsername.apply)
+    .andThen(renderer(s"ublog:${id}"))
+    .andThen(MarkdownToastUi.imageParagraph)
+    .andThen(MarkdownToastUi.unescapeUnderscoreInLinks.apply)
 
   // replace game GIFs URLs with actual game URLs that can be embedded
   private object replaceGameGifs:

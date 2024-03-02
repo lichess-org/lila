@@ -46,7 +46,7 @@ final class Env(
               api.notifyOne(userId, CorresAlarm(gameId = pov.gameId, opponent = opponent))
     },
     "streamStart" -> { case lila.hub.actorApi.streamer.StreamStart(userId, streamerName) =>
-      subsRepo.subscribersOnlineSince(userId, 7) map { subs =>
+      subsRepo.subscribersOnlineSince(userId, 7).map { subs =>
         api.notifyMany(subs, StreamStart(userId, streamerName))
       }
     }

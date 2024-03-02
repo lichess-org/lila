@@ -11,9 +11,9 @@ final class Analyser(
 )(using Executor):
 
   def get(game: Game): Fu[Option[Analysis]] =
-    analysisRepo byGame game
+    analysisRepo.byGame(game)
 
-  def byId(id: Analysis.Id): Fu[Option[Analysis]] = analysisRepo byId id
+  def byId(id: Analysis.Id): Fu[Option[Analysis]] = analysisRepo.byId(id)
 
   def save(analysis: Analysis): Funit =
     analysis.id match

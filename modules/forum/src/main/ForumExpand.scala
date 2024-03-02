@@ -21,6 +21,6 @@ final class ForumTextExpand(using Executor, Scheduler):
       .map(_.text)
       .traverse(one)
       .map:
-        _ zip posts map { (body, post) =>
+        _.zip(posts).map { (body, post) =>
           ForumPost.WithFrag(post, body)
         }

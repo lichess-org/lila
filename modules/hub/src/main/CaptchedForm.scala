@@ -24,10 +24,10 @@ trait CaptchedForm:
     (captcher.actor ? GetCaptcha(id)).mapTo[Captcha]
 
   def withCaptcha[A](form: Form[A])(using Executor): Fu[(Form[A], Captcha)] =
-    anyCaptcha map (form -> _)
+    anyCaptcha.map(form -> _)
 
   import scala.reflect.Selectable.reflectiveSelectable
   def validateCaptcha(data: CaptchedData) =
-    getCaptcha(data.gameId).await(2 seconds, "getCaptcha") valid data.move.trim.toLowerCase
+    getCaptcha(data.gameId).await(2 seconds, "getCaptcha").valid(data.move.trim.toLowerCase)
 
   def captchaFailMessage = Captcha.failMessage

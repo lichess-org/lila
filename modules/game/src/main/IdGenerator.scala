@@ -22,8 +22,8 @@ final class IdGenerator(gameRepo: GameRepo)(using Executor):
     else if nb < 5 then Set.fill(nb)(game).parallel
     else
       val ids = Set.fill(nb)(uncheckedGame)
-      gameRepo.coll.distinctEasy[GameId, Set]("_id", $inIds(ids)) flatMap { collisions =>
-        games(collisions.size) dmap { _ ++ (ids diff collisions) }
+      gameRepo.coll.distinctEasy[GameId, Set]("_id", $inIds(ids)).flatMap { collisions =>
+        games(collisions.size).dmap { _ ++ (ids.diff(collisions)) }
       }
 
 object IdGenerator:
@@ -31,10 +31,10 @@ object IdGenerator:
   private[this] val whiteSuffixChars = ('0' to '4') ++ ('A' to 'Z') mkString
   private[this] val blackSuffixChars = ('5' to '9') ++ ('a' to 'z') mkString
 
-  def uncheckedGame = GameId(ThreadLocalRandom nextString GameId.size)
+  def uncheckedGame = GameId(ThreadLocalRandom.nextString(GameId.size))
 
   def player(color: Color): GamePlayerId =
     // Trick to avoid collisions between player ids in the same game.
     val suffixChars = color.fold(whiteSuffixChars, blackSuffixChars)
-    val suffix      = suffixChars(SecureRandom nextInt suffixChars.length)
+    val suffix      = suffixChars(SecureRandom.nextInt(suffixChars.length))
     GamePlayerId(SecureRandom.nextString(GamePlayerId.size - 1) + suffix)

@@ -12,10 +12,10 @@ final class Paginator[A] private[paginator] (
     val nbResults: Int
 ):
 
-  def previousPage: Option[Int] = (currentPage > 1) option (currentPage - 1)
+  def previousPage: Option[Int] = (currentPage > 1).option(currentPage - 1)
 
   def nextPage: Option[Int] =
-    (currentPage < nbPages && currentPageResults.nonEmpty) option (currentPage + 1)
+    (currentPage < nbPages && currentPageResults.nonEmpty).option(currentPage + 1)
 
   def nbPages: Int =
     if maxPerPage.value > 0 then (nbResults + maxPerPage.value - 1) / maxPerPage.value
@@ -36,16 +36,16 @@ final class Paginator[A] private[paginator] (
     )
 
   def mapResults[B](f: A => B): Paginator[B] =
-    withCurrentPageResults(currentPageResults map f)
+    withCurrentPageResults(currentPageResults.map(f))
 
   def mapList[B](f: Seq[A] => Seq[B]): Paginator[B] =
     withCurrentPageResults(f(currentPageResults))
 
   def mapFutureResults[B](f: A => Fu[B])(using Executor): Fu[Paginator[B]] =
-    currentPageResults.traverse(f) dmap withCurrentPageResults
+    currentPageResults.traverse(f).dmap(withCurrentPageResults)
 
   def mapFutureList[B](f: Seq[A] => Fu[Seq[B]]): Fu[Paginator[B]] =
-    f(currentPageResults) dmap withCurrentPageResults
+    f(currentPageResults).dmap(withCurrentPageResults)
 
 object Paginator:
 
@@ -54,7 +54,7 @@ object Paginator:
       currentPage: Int,
       maxPerPage: MaxPerPage
   )(using Executor): Fu[Paginator[A]] =
-    validate(adapter, currentPage, maxPerPage) getOrElse apply(adapter, 1, maxPerPage)
+    validate(adapter, currentPage, maxPerPage).getOrElse(apply(adapter, 1, maxPerPage))
 
   def empty[A]: Paginator[A] = new Paginator(0, MaxPerPage(0), Nil, 0)
 
@@ -65,7 +65,7 @@ object Paginator:
     def map[A, B](p: Paginator[A])(f: A => B) = new Paginator(
       currentPage = p.currentPage,
       maxPerPage = p.maxPerPage,
-      currentPageResults = p.currentPageResults map f,
+      currentPageResults = p.currentPageResults.map(f),
       nbResults = p.nbResults
     )
 
@@ -103,5 +103,5 @@ object Paginator:
     Source
       .unfoldAsync(1): page =>
         getPage(page).map: pager =>
-          pager.currentPageResults.nonEmpty so pager.nextPage.map(_ -> pager.currentPageResults)
+          pager.currentPageResults.nonEmpty.so(pager.nextPage.map(_ -> pager.currentPageResults))
       .flatMapConcat(Source.apply)

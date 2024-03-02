@@ -17,13 +17,13 @@ final class FavoriteOpponents(
   }
 
   def apply(userId: UserId): Fu[List[(User, Int)]] =
-    userIdsCache get userId flatMap { opponents =>
-      userRepo enabledByIds opponents.map(_._1) map {
-        _ flatMap { user =>
-          opponents find (_._1 == user.id) map { opponent =>
+    userIdsCache.get(userId).flatMap { opponents =>
+      userRepo.enabledByIds(opponents.map(_._1)).map {
+        _.flatMap { user =>
+          opponents.find(_._1 == user.id).map { opponent =>
             user -> opponent._2
           }
-        } sortBy (-_._2)
+        }.sortBy(-_._2)
       }
     }
 

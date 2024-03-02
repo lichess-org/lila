@@ -21,8 +21,8 @@ final class Coach(env: Env) extends LilaController(env):
 
   private def searchResults(l: String, o: String, c: String, page: Int)(using Context) =
     val order   = CoachPager.Order(o)
-    val lang    = (l != "all") so play.api.i18n.Lang.get(l)
-    val country = (c != "all") so Flags.info(c)
+    val lang    = (l != "all").so(play.api.i18n.Lang.get(l))
+    val country = (c != "all").so(Flags.info(c))
     for
       langCodes <- env.coach.api.allLanguages
       countries <- env.coach.api.countrySelection
@@ -31,7 +31,7 @@ final class Coach(env: Env) extends LilaController(env):
     yield Ok(page)
 
   def show(username: UserStr) = Open:
-    Found(api find username): c =>
+    Found(api.find(username)): c =>
       WithVisibleCoach(c):
         for
           stu     <- env.study.api.publicByIds(c.coach.profile.studyIds)
@@ -42,12 +42,12 @@ final class Coach(env: Env) extends LilaController(env):
         yield Ok(page)
 
   private def WithVisibleCoach(c: CoachModel.WithUser)(f: Fu[Result])(using ctx: Context) =
-    if c.isListed || ctx.me.exists(_ is c.coach) || isGrantedOpt(_.Admin) then f
+    if c.isListed || ctx.me.exists(_.is(c.coach)) || isGrantedOpt(_.Admin) then f
     else notFound
 
   def edit = Secure(_.Coach) { ctx ?=> me ?=>
     FoundPage(api.findOrInit): c =>
-      env.msg.twoFactorReminder(me) inject html.coach.edit(c, CoachProfileForm edit c.coach)
+      env.msg.twoFactorReminder(me).inject(html.coach.edit(c, CoachProfileForm.edit(c.coach)))
     .map(_.noCache)
   }
 
@@ -58,7 +58,7 @@ final class Coach(env: Env) extends LilaController(env):
         .bindFromRequest()
         .fold(
           _ => BadRequest,
-          data => api.update(c, data) inject Ok
+          data => api.update(c, data).inject(Ok)
         )
   }
 
@@ -66,7 +66,7 @@ final class Coach(env: Env) extends LilaController(env):
     Found(api.findOrInit): c =>
       ctx.body.body.file("picture") match
         case Some(pic) =>
-          api.uploadPicture(c, pic) inject Redirect(routes.Coach.edit) recoverWith {
+          api.uploadPicture(c, pic).inject(Redirect(routes.Coach.edit)).recoverWith {
             case e: lila.base.LilaException =>
               Redirect(routes.Coach.edit)
           }

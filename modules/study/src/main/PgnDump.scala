@@ -31,12 +31,12 @@ final class PgnDump(
         ofChapter(study, flags)(chapter).map(some)
 
   def ofChapter(study: Study, flags: WithFlags)(chapter: Chapter): Fu[PgnStr] =
-    chapter.serverEval.exists(_.done) so analyser.byId(Analysis.Id(study.id, chapter.id)) map { analysis =>
+    chapter.serverEval.exists(_.done).so(analyser.byId(Analysis.Id(study.id, chapter.id))).map { analysis =>
       ofChapter(study, flags)(chapter, analysis)
     }
 
   private val fileR         = """[\s,]""".r
-  private val dateFormatter = java.time.format.DateTimeFormatter ofPattern "yyyy.MM.dd"
+  private val dateFormatter = java.time.format.DateTimeFormatter.ofPattern("yyyy.MM.dd")
 
   def ownerName(study: Study) = lightUserApi.sync(study.ownerId).fold(study.ownerId)(_.name)
 
@@ -95,7 +95,7 @@ final class PgnDump(
     val root = chapter.root
     val tags = makeTags(study, chapter)(using flags)
     val pgn  = rootToPgn(root, tags)(using flags)
-    annotator toPgnString analysis.ifTrue(flags.comments).fold(pgn)(annotator.addEvals(pgn, _))
+    annotator.toPgnString(analysis.ifTrue(flags.comments).fold(pgn)(annotator.addEvals(pgn, _)))
 
 object PgnDump:
 
@@ -114,7 +114,7 @@ object PgnDump:
   def rootToPgn(root: Root, tags: Tags)(using WithFlags): Pgn =
     Pgn(
       tags,
-      InitialComments(root.comments.value.map(_.text into Comment) ::: shapeComment(root.shapes).toList),
+      InitialComments(root.comments.value.map(_.text.into(Comment)) ::: shapeComment(root.shapes).toList),
       rootToTree(root)
     )
 
@@ -137,11 +137,11 @@ object PgnDump:
       san = node.move.san,
       glyphs = if flags.comments then node.metas.glyphs else Glyphs.empty,
       comments = flags.comments.so:
-        node.comments.value.map(_.text into Comment) ::: shapeComment(node.shapes).toList
+        node.comments.value.map(_.text.into(Comment)) ::: shapeComment(node.shapes).toList
       ,
       opening = none,
       result = none,
-      secondsLeft = flags.clocks so node.clock.map(_.roundSeconds)
+      secondsLeft = flags.clocks.so(node.clock.map(_.roundSeconds))
     )
 
   // [%csl Gb4,Yd5,Rf6][%cal Ge2e4,Ye2d4,Re2g4]
@@ -158,4 +158,4 @@ object PgnDump:
       shapes.value.collect { case Shape.Arrow(brush, orig, dest) =>
         s"${brush.head.toUpper}${orig.key}${dest.key}"
       }
-    Comment from s"$circles$arrows".some.filter(_.nonEmpty)
+    Comment.from(s"$circles$arrows".some.filter(_.nonEmpty))

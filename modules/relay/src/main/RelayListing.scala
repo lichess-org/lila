@@ -38,7 +38,9 @@ final class RelayListing(
         docs <- colls.tour
           .aggregateList(max): framework =>
             import framework.*
-            Match(RelayTourRepo.selectors.officialActive ++ $doc("_id" $nin upcoming.map(_.tour.id))) -> List(
+            Match(
+              RelayTourRepo.selectors.officialActive ++ $doc("_id".$nin(upcoming.map(_.tour.id)))
+            ) -> List(
               Sort(Descending("tier")),
               PipelineOperator(group.lookup(colls.group)),
               Match(group.filter),
@@ -60,8 +62,10 @@ final class RelayListing(
             round.startsAt.fold(Long.MaxValue)(_.toMillis) // then by next round date
           )
         active <- sorted.traverse: (tour, round, group) =>
-          defaultRoundToShow.get(tour.id) map: link =>
-            RelayTour.ActiveWithSomeRounds(tour, display = round, link = link | round, group)
+          defaultRoundToShow
+            .get(tour.id)
+            .map: link =>
+              RelayTour.ActiveWithSomeRounds(tour, display = round, link = link | round, group)
       yield
         spotlightCache = active
           .filter(_.tour.spotlight.exists(_.enabled))
@@ -90,7 +94,7 @@ final class RelayListing(
                 pipe = List(
                   $doc("$sort"  -> $sort.asc("startsAt")),
                   $doc("$limit" -> 1),
-                  $doc("$match" -> $doc("finished" -> false, "startsAt" $gte nowInstant))
+                  $doc("$match" -> $doc("finished" -> false, "startsAt".$gte(nowInstant)))
                 )
               )
             ,
@@ -115,14 +119,14 @@ final class RelayListing(
     _.expireAfterWrite(5 seconds).buildAsyncFuture: tourId =>
       val chronoSort = $doc("startsAt" -> 1, "createdAt" -> 1)
       val lastStarted = colls.round
-        .find($doc("tourId" -> tourId, "startedAt" $exists true))
+        .find($doc("tourId" -> tourId, "startedAt".$exists(true)))
         .sort($doc("startedAt" -> -1))
         .one[RelayRound]
       val next = colls.round
         .find($doc("tourId" -> tourId, "finished" -> false))
         .sort(chronoSort)
         .one[RelayRound]
-      lastStarted zip next flatMap {
+      lastStarted.zip(next).flatMap {
         case (None, _) => // no round started yet, show the first one
           colls.round
             .find($doc("tourId" -> tourId))
@@ -130,7 +134,7 @@ final class RelayListing(
             .one[RelayRound]
         case (Some(last), Some(next)) => // show the next one if it's less than an hour away
           fuccess:
-            if next.startsAt.exists(_ isBefore nowInstant.plusHours(1))
+            if next.startsAt.exists(_.isBefore(nowInstant.plusHours(1)))
             then next.some
             else last.some
         case (Some(last), None) =>
@@ -157,7 +161,7 @@ private object RelayListing:
           )
       )
     )
-    val filter = $doc("group.0.first" $ne false)
+    val filter = $doc("group.0.first".$ne(false))
 
     def readFrom(doc: Bdoc): Option[RelayGroup.Name] = for
       garr <- doc.getAsOpt[Barr]("group")

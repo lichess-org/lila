@@ -7,7 +7,7 @@ import play.api.libs.ws.StandaloneWSClient
 final private class PagerDuty(ws: StandaloneWSClient, config: ApiConfig.PagerDuty)(using Executor):
 
   def lilaRestart(date: Instant): Funit =
-    (config.serviceId.nonEmpty && config.apiKey.value.nonEmpty) so
+    (config.serviceId.nonEmpty && config.apiKey.value.nonEmpty).so(
       ws.url("https://api.pagerduty.com/maintenance_windows")
         .withHttpHeaders(
           "Authorization" -> s"Token token=${config.apiKey.value}",
@@ -39,5 +39,6 @@ final private class PagerDuty(ws: StandaloneWSClient, config: ApiConfig.PagerDut
               logger.warn(s"lilaRestart status=${res.status}")
         )
         .void
+    )
 
   private lazy val logger = lila.log("pagerDuty")

@@ -1,13 +1,14 @@
 package views.html.relay
 
+import play.api.mvc.Call
 import lila.app.templating.Environment.{ given, * }
 import lila.app.ui.ScalatagsTemplate.{ *, given }
-import lila.common.paginator.Paginator
 
 import controllers.routes
 import lila.relay.{ RelayRound, RelayTour }
 import lila.relay.RelayTour.WithLastRound
 import lila.common.LightUser
+import lila.common.paginator.Paginator
 import lila.memo.PicfitImage
 
 object tour:
@@ -28,9 +29,10 @@ object tour:
     ):
       def nonEmptyTier(selector: RelayTour.Tier.Selector, tier: String) =
         val selected = active.filter(_.tour.tierIs(selector))
-        selected.nonEmpty option st.section(cls := s"relay-cards relay-cards--tier-$tier"):
+        selected.nonEmpty.option(st.section(cls := s"relay-cards relay-cards--tier-$tier"):
           selected.map:
             card.render(_, ongoing = _.ongoing)
+        )
 
       main(cls := "relay-index page-menu")(
         pageMenu("index"),
@@ -39,11 +41,13 @@ object tour:
           nonEmptyTier(_.BEST, "best"),
           nonEmptyTier(_.HIGH, "high"),
           nonEmptyTier(_.NORMAL, "normal"),
-          upcoming.nonEmpty option frag(
-            h2(cls := "relay-index__section")("Upcoming broadcasts"),
-            st.section(cls := "relay-cards relay-cards--upcoming"):
-              upcoming.map:
-                card.render(_, ongoing = _ => false)
+          upcoming.nonEmpty.option(
+            frag(
+              h2(cls := "relay-index__section")("Upcoming broadcasts"),
+              st.section(cls := "relay-cards relay-cards--upcoming"):
+                upcoming.map:
+                  card.render(_, ongoing = _ => false)
+            )
           ),
           h2(cls := "relay-index__section")("Past broadcasts"),
           renderPager(asRelayPager(past), "")(cls := "relay-cards--past")
@@ -141,7 +145,7 @@ object tour:
     views.html.site.bits.pageMenuSubnav(
       a(href := routes.RelayTour.index(), cls := menu.activeO("index"))(trans.broadcast.broadcasts()),
       ctx.me.map: me =>
-        a(href := routes.RelayTour.by(me.username, 1), cls := by.exists(_ is me).option("active")):
+        a(href := routes.RelayTour.by(me.username, 1), cls := by.exists(_.is(me)).option("active")):
           trans.broadcast.myBroadcasts()
       ,
       by.filterNot(ctx.is)
@@ -188,13 +192,15 @@ object tour:
         image(tr.tour),
         span(cls := "relay-card__body")(
           span(cls := "relay-card__info")(
-            tr.tour.active option span(cls := "relay-card__round")(tr.display.name),
+            tr.tour.active.option(span(cls := "relay-card__round")(tr.display.name)),
             if ongoing(tr)
             then
               span(cls := "relay-card__live")(
                 "LIVE",
-                tr.crowd.filter(_ > 2) map: nb =>
-                  span(cls := "relay-card__crowd text", dataIcon := licon.User)(nb.localize)
+                tr.crowd
+                  .filter(_ > 2)
+                  .map: nb =>
+                    span(cls := "relay-card__crowd text", dataIcon := licon.User)(nb.localize)
               )
             else tr.display.startedAt.orElse(tr.display.startsAt).map(momentFromNow(_))
           ),
@@ -216,18 +222,20 @@ object tour:
     st.form(cls := "search", action := routes.RelayTour.index()):
       input(st.name := "q", value := search, placeholder := trans.search.search.txt())
 
-  private def renderPager(
+  def renderPager(
       pager: Paginator[RelayTour | WithLastRound],
       query: String = "",
       owner: Option[LightUser] = None
-  )(using Context) =
-    def next(page: Int) = owner match
+  )(using Context): Tag = renderPager(pager): page =>
+    owner match
       case None    => routes.RelayTour.index(page, query)
       case Some(u) => routes.RelayTour.by(u.name, page)
+
+  def renderPager(pager: Paginator[RelayTour | WithLastRound])(next: Int => Call)(using Context): Tag =
     st.section(cls := "infinite-scroll relay-cards")(
-      pager.currentPageResults.map {
+      pager.currentPageResults.map:
         case w: WithLastRound => card.render(w, ongoing = _ => false)(cls := "paginated")
         case t: RelayTour     => card.empty(t)(cls := "paginated")
-      },
+      ,
       pagerNext(pager, next(_).url)
     )

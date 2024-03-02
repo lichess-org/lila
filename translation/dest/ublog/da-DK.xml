@@ -6,7 +6,7 @@
   <string name="blogTopics">Blog-emner</string>
   <string name="lichessOfficialBlog">Lichess\' officielle blog</string>
   <string name="continueReadingPost">Fortsæt med at læse dette indlæg</string>
-  <string name="lichessBlogPostsFromXYear" comment="Appears on a list of posts from the official Lichess Blog, which were published in a specific year.&#10;&#10;%s is the specific year of posts from the official blog (e.g. 2021).">Lichess-blogindlæg i %s</string>
+  <string name="lichessBlogPostsFromXYear">Lichess-blogindlæg i %s</string>
   <string name="previousBlogPosts">Tidligere blogindlæg</string>
   <string name="xBlog">Blog - %s</string>
   <string name="newPost">Nyt indlæg</string>
@@ -52,4 +52,5 @@
   <string name="inappropriateContentAccountClosed">Alt upassende kan medføre, at din konto lukkes.</string>
   <string name="blogTips">Vores enkle tips til at skrive gode blogindlæg</string>
   <string name="discussThisBlogPostInTheForum">Diskutér dette blogindlæg i forummet</string>
+  <string name="youBlockedByBlogAuthor">Du er blokeret af blogforfatteren.</string>
 </resources>

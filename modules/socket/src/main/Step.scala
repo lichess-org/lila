@@ -18,7 +18,7 @@ case class Step(
   // who's color plays next
   def color = ply.turn
 
-  def toJson = Json toJson this
+  def toJson = Json.toJson(this)
 
 object Step:
 

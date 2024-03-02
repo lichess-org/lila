@@ -4,11 +4,11 @@ import chess.format.pgn.*
 import chess.format.Fen
 import chess.FideId
 
-import lila.player.{ PlayerName, PlayerToken, FidePlayer }
+import lila.fide.{ FidePlayerApi, PlayerName, PlayerToken, FidePlayer, Federation }
 
 type TeamName = String
 
-private class RelayTeams(val text: String):
+private class RelayTeamsTextarea(val text: String):
 
   def sortedText = text.linesIterator.toList.sorted.mkString("\n")
 
@@ -40,15 +40,18 @@ private class RelayTeams(val text: String):
 
   private def update(tags: Tags): Tags =
     chess.Color.all.foldLeft(tags): (tags, color) =>
-      val found = tags.fideIds(color).flatMap(findMatching) orElse
-        tags.names(color).flatMap(findMatching)
+      val found = tags.fideIds(color).flatMap(findMatching).orElse(tags.names(color).flatMap(findMatching))
       found.fold(tags): team =>
         tags + Tag(_.teams(color), team)
 
   private def findMatching(player: PlayerName | FideId): Option[TeamName] =
-    playerTeams.get(player) orElse tokenizedPlayerTeams.get(tokenizePlayer(player))
+    playerTeams.get(player).orElse(tokenizedPlayerTeams.get(tokenizePlayer(player)))
 
-final class RelayTeamTable(chapterRepo: lila.study.ChapterRepo, cacheApi: lila.memo.CacheApi)(using Executor):
+final class RelayTeamTable(
+    chapterRepo: lila.study.ChapterRepo,
+    cacheApi: lila.memo.CacheApi,
+    fidePlayerApi: FidePlayerApi
+)(using Executor):
 
   import play.api.libs.json.*
 
@@ -63,10 +66,12 @@ final class RelayTeamTable(chapterRepo: lila.study.ChapterRepo, cacheApi: lila.m
 
     case class Chapter(id: StudyChapterId, tags: Tags, fen: Fen.Epd)
 
-    def makeJson(studyId: StudyId): Fu[JsonStr] =
-      aggregateChapters(studyId).map: chapters =>
-        import json.given
-        JsonStr(Json.stringify(Json.obj("table" -> makeTable(chapters))))
+    def makeJson(studyId: StudyId): Fu[JsonStr] = for
+      chapters    <- aggregateChapters(studyId)
+      federations <- fidePlayerApi.federationsOf(chapters.flatMap(_.tags.fideIds.flatten))
+    yield
+      import json.given
+      JsonStr(Json.stringify(Json.obj("table" -> makeTable(chapters, federations))))
 
     def aggregateChapters(studyId: StudyId, max: Int = 300): Fu[List[Chapter]] =
       import reactivemongo.api.bson.*
@@ -114,7 +119,7 @@ function(root, tags) {
           case None               => 0.5f
           case _                  => 0
         ))
-    case class TeamPlayer(name: String, title: Option[String], rating: Option[Int])
+    case class TeamPlayer(name: String, title: Option[String], rating: Option[Int], fed: Option[String])
     case class Pair[A](a: A, b: A):
       def is(p: Pair[A])                 = (a == p.a && b == p.b) || (a == p.b && b == p.a)
       def map[B](f: A => B)              = Pair(f(a), f(b))
@@ -129,23 +134,23 @@ function(root, tags) {
     ):
       def ratingSum = ~players.a.rating + ~players.b.rating
     case class TeamMatch(teams: Pair[TeamWithPoints], games: List[TeamGame]):
-      def is(teamNames: Pair[TeamName]) = teams.map(_.name) is teamNames
+      def is(teamNames: Pair[TeamName]) = teams.map(_.name).is(teamNames)
       def add(chap: Chapter, playerAndTeam: Pair[(TeamPlayer, TeamName)], outcome: Option[Outcome]) =
         val t0Color = Color.fromWhite(playerAndTeam.a._2 == teams.a.name)
         val sorted  = if t0Color.white then playerAndTeam else playerAndTeam.reverse
         copy(
           games =
-            TeamGame(chap.id, sorted.map(_._1), t0Color, outcome, outcome.isEmpty option chap.fen) :: games,
+            TeamGame(chap.id, sorted.map(_._1), t0Color, outcome, outcome.isEmpty.option(chap.fen)) :: games,
           teams = teams.bimap(_.add(outcome, t0Color), _.add(outcome, !t0Color))
         )
 
-    def makeTable(chapters: List[Chapter]): List[TeamMatch] =
+    def makeTable(chapters: List[Chapter], federations: Federation.ByFideIds): List[TeamMatch] =
       chapters.reverse.foldLeft(List.empty[TeamMatch]): (table, chap) =>
         (for
           teams <- chap.tags.teams.tupled.map(Pair.apply)
           names <- chess.ByColor(chap.tags.names(_))
-          players = names zip chap.tags.titles zip chap.tags.elos map:
-            case ((n, t), e) => TeamPlayer(n, t, e)
+          players = (names, chap.tags.titles, chap.tags.elos, chap.tags.fideIds).mapN:
+            case (n, t, e, id) => TeamPlayer(n, t, e, id.flatMap(federations.get))
           m0       = table.find(_.is(teams)) | TeamMatch(teams.map(TeamWithPoints(_)), Nil)
           m1       = m0.add(chap, Pair(players.white -> teams.a, players.black -> teams.b), chap.tags.outcome)
           newTable = m1 :: table.filterNot(_.is(teams))

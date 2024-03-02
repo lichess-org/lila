@@ -29,20 +29,20 @@ object TreeBuilder:
       if variant.standard && root.fen.isInitial then initialStandardDests
       else
         val sit = chess.Game(variant.some, root.fen.some).situation
-        sit.playable(false) so sit.destinations
+        sit.playable(false).so(sit.destinations)
     makeRoot(root, variant).copy(dests = dests.some)
 
   // DEBUG should be done in BSONHandler
   def toBranch(node: Branch, variant: Variant): Branch =
     node.copy(
-      opening = opening(variant, node.fen),
+      opening = Variant.list.openingSensibleVariants(variant).so(OpeningDb.findByEpdFen(node.fen)),
       children = toBranches(node.children, variant)
     )
 
   // DEBUG should be done in BSONHandler
   def makeRoot(root: Root, variant: Variant): Root =
     root.copy(
-      opening = opening(variant, root.fen),
+      opening = Variant.list.openingSensibleVariants(variant).so(OpeningDb.findByEpdFen(root.fen)),
       children = toBranches(root.children, variant)
     )
 

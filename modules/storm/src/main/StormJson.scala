@@ -36,10 +36,10 @@ object StormJson:
 
   given OWrites[StormHigh] = Json.writes
 
-  private val dateFormatter = java.time.format.DateTimeFormatter ofPattern "Y/M/d"
+  private val dateFormatter = java.time.format.DateTimeFormatter.ofPattern("Y/M/d")
 
   given Writes[StormDay.Id] = Writes { id =>
-    JsString(dateFormatter print id.day.toDate)
+    JsString(dateFormatter.print(id.day.toDate))
   }
   given OWrites[StormDay] = Json.writes
 

@@ -27,9 +27,9 @@ final private class SwissBoardApi(
     .build[SwissId, List[SwissBoard]]()
 
   def apply(id: SwissId): Fu[List[SwissBoard.WithGame]] =
-    boardsCache.getIfPresent(id) so {
+    boardsCache.getIfPresent(id).so {
       _.map { board =>
-        gameProxyRepo.game(board.gameId) map2 {
+        gameProxyRepo.game(board.gameId).map2 {
           SwissBoard.WithGame(board, _)
         }
       }.parallel.dmap(_.flatten)
@@ -38,7 +38,7 @@ final private class SwissBoardApi(
   def update(data: SwissScoring.Result): Funit =
     data match
       case SwissScoring.Result(swiss, leaderboard, playerMap, pairings) =>
-        rankingApi(swiss) map { ranks =>
+        rankingApi(swiss).map { ranks =>
           boardsCache
             .put(
               swiss.id,
@@ -47,8 +47,8 @@ final private class SwissBoardApi(
                   case (player, _) if player.present => player
                 }
                 .flatMap { player =>
-                  pairings get player.userId flatMap {
-                    _ get swiss.round
+                  pairings.get(player.userId).flatMap {
+                    _.get(swiss.round)
                   }
                 }
                 .filter(_.isOngoing)
@@ -56,12 +56,12 @@ final private class SwissBoardApi(
                 .take(displayBoards)
                 .flatMap { pairing =>
                   for
-                    p1 <- playerMap get pairing.white
-                    p2 <- playerMap get pairing.black
-                    u1 <- lightUserApi sync p1.userId
-                    u2 <- lightUserApi sync p2.userId
-                    r1 <- ranks get p1.userId
-                    r2 <- ranks get p2.userId
+                    p1 <- playerMap.get(pairing.white)
+                    p2 <- playerMap.get(pairing.black)
+                    u1 <- lightUserApi.sync(p1.userId)
+                    u2 <- lightUserApi.sync(p2.userId)
+                    r1 <- ranks.get(p1.userId)
+                    r2 <- ranks.get(p2.userId)
                   yield SwissBoard(
                     pairing.gameId,
                     white = SwissBoard.Player(u1, r1, p1.rating),

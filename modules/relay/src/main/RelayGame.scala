@@ -37,7 +37,7 @@ case class RelayGame(
 
   lazy val looksLikeLichess = tags(_.Site).exists: site =>
     RelayGame.lichessDomains.exists: domain =>
-      site startsWith s"https://$domain/"
+      site.startsWith(s"https://$domain/")
 
 private object RelayGame:
 

@@ -18,7 +18,7 @@ object IsProxy extends OpaqueString[IsProxy]:
   extension (a: IsProxy)
     def is                                  = a.value.nonEmpty
     def in(any: (IsProxy.type => IsProxy)*) = any.exists(f => f(IsProxy) == a)
-    def name                                = a.value.nonEmpty option a.value
+    def name                                = a.value.nonEmpty.option(a.value)
   def unapply(a: IsProxy): Option[String] = a.name
   // https://blog.ip2location.com/knowledge-base/what-are-the-proxy-types-supported-in-ip2proxy/
   val vpn         = IsProxy("VPN") // paid VPNs (safe for users)
@@ -71,7 +71,7 @@ final class Ip2ProxyServer(
       case Nil     => fuccess(Seq.empty[IsProxy])
       case Seq(ip) => apply(ip).dmap(Seq(_))
       case ips =>
-        ips.flatMap(getCached).parallel flatMap { cached =>
+        ips.flatMap(getCached).parallel.flatMap { cached =>
           if cached.sizeIs == ips.size then fuccess(cached)
           else
             val uncachedIps = ips.filterNot(cached.contains)
@@ -80,8 +80,10 @@ final class Ip2ProxyServer(
               .get()
               .withTimeout(1 second, "Ip2Proxy.batch")
               .map:
-                _.body[JsValue].asOpt[Seq[JsObject]] so:
-                  _.map(readProxyName)
+                _.body[JsValue]
+                  .asOpt[Seq[JsObject]]
+                  .so:
+                    _.map(readProxyName)
               .flatMap: res =>
                 if res.sizeIs == uncachedIps.size then fuccess(res)
                 else fufail(s"Ip2Proxy missing results for $uncachedIps -> $res")

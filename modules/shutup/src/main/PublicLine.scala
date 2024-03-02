@@ -20,7 +20,7 @@ object PublicLine:
   import lila.db.dsl.*
   private given BSONHandler[Source] = lila.db.dsl.tryHandler[Source](
     { case BSONString(v) =>
-      v split ':' match
+      v.split(':') match
         case Array("t", id) => Success(Source.Tournament(TourId(id)))
         case Array("s", id) => Success(Source.Simul(SimulId(id)))
         case Array("w", id) => Success(Source.Watcher(GameId(id)))
@@ -48,7 +48,7 @@ object PublicLine:
 
   given BSONHandler[PublicLine] = lila.db.dsl.tryHandler[PublicLine](
     {
-      case doc: BSONDocument => objectHandler readTry doc
+      case doc: BSONDocument => objectHandler.readTry(doc)
       case BSONString(text)  => Success(PublicLine(text, none, none))
       case a                 => lila.db.BSON.handlerBadValue(s"Invalid PublicLine $a")
     },

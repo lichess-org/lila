@@ -26,7 +26,7 @@ object bits:
   def enterable(tours: List[Tournament])(using Context) =
     table(cls := "tournaments")(
       tours.map: tour =>
-        val visiblePlayers = tour.nbPlayers >= 10 option tour.nbPlayers
+        val visiblePlayers = (tour.nbPlayers >= 10).option(tour.nbPlayers)
         tr(
           td(cls := "name")(
             a(cls := "text", dataIcon := tournamentIcon(tour), href := routes.Tournament.show(tour.id)):
@@ -48,27 +48,34 @@ object bits:
     )
 
   def userPrizeDisclaimer(ownerId: UserId) =
-    !env.prizeTournamentMakers.get().value.contains(ownerId) option
-      div(cls := "tour__prize")(
-        "This tournament is not organized by Lichess.",
-        br,
-        "If it has prizes, Lichess is not responsible for paying them."
+    (!env.prizeTournamentMakers
+      .get()
+      .value
+      .contains(ownerId))
+      .option(
+        div(cls := "tour__prize")(
+          "This tournament is not organized by Lichess.",
+          br,
+          "If it has prizes, Lichess is not responsible for paying them."
+        )
       )
 
   def scheduleJsI18n(using Context) = i18nJsObject(schedulei18nKeys)
 
   def jsI18n(tour: Tournament)(using Context) = i18nJsObject(
-    i18nKeys ++ (tour.isTeamBattle so teamBattleI18nKeys)
+    i18nKeys ++ (tour.isTeamBattle.so(teamBattleI18nKeys))
   )
 
   private val i18nKeys = List(
     trans.standing,
     trans.starting,
+    trans.swiss.startingIn,
     trans.tournamentIsStarting,
     trans.youArePlaying,
     trans.standByX,
     trans.tournamentPairingsAreNowClosed,
     trans.join,
+    trans.pause,
     trans.withdraw,
     trans.joinTheGame,
     trans.signIn,
@@ -77,6 +84,7 @@ object bits:
     trans.nbPlayers,
     trans.winRate,
     trans.berserkRate,
+    trans.study.downloadAllGames,
     trans.performance,
     trans.tournamentComplete,
     trans.movesPlayed,
@@ -85,14 +93,19 @@ object bits:
     trans.drawRate,
     trans.nextXTournament,
     trans.averageOpponent,
-    trans.tournamentEntryCode
+    trans.tournamentEntryCode,
+    trans.topGames
   )
 
   private val teamBattleI18nKeys = List(
     trans.arena.viewAllXTeams,
+    trans.players,
     trans.arena.averagePerformance,
     trans.arena.averageScore,
-    trans.team.teamPage
+    trans.team.teamPage,
+    trans.arena.pickYourTeam,
+    trans.arena.whichTeamWillYouRepresentInThisBattle,
+    trans.arena.youMustJoinOneOfTheseTeamsToParticipate
   )
 
   private val schedulei18nKeys = List(

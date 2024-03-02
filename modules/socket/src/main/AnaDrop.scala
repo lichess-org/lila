@@ -27,15 +27,15 @@ case class AnaDrop(
       .map: (game, drop) =>
         val uci     = Uci(drop)
         val movable = !game.situation.end
-        val fen     = chess.format.Fen write game
+        val fen     = chess.format.Fen.write(game)
         Branch(
           id = UciCharPair(uci),
           ply = game.ply,
           move = Uci.WithSan(uci, drop.san),
           fen = fen,
           check = game.situation.check,
-          dests = Some(movable so game.situation.destinations),
-          opening = OpeningDb findByEpdFen fen,
+          dests = Some(movable.so(game.situation.destinations)),
+          opening = OpeningDb.findByEpdFen(fen),
           drops = if movable then game.situation.drops else Some(Nil),
           crazyData = game.situation.board.crazyData
         )
@@ -70,9 +70,9 @@ object AnaDrop:
   def parse(o: JsObject) =
     import chess.variant.Variant
     for
-      d    <- o obj "d"
-      role <- d str "role" flatMap chess.Role.allByName.get
-      pos  <- d str "pos" flatMap { chess.Square.fromKey(_) }
+      d    <- o.obj("d")
+      role <- d.str("role").flatMap(chess.Role.allByName.get)
+      pos  <- d.str("pos").flatMap { chess.Square.fromKey(_) }
       variant = Variant.orDefault(d.get[Variant.LilaKey]("variant"))
       fen  <- d.get[Fen.Epd]("fen")
       path <- d.get[UciPath]("path")

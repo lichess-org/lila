@@ -6,7 +6,7 @@
   <string name="blogTopics">Teme bloga</string>
   <string name="lichessOfficialBlog">Uradni blog Lichess</string>
   <string name="continueReadingPost">Nadaljujte z branjem te objave</string>
-  <string name="lichessBlogPostsFromXYear" comment="Appears on a list of posts from the official Lichess Blog, which were published in a specific year.&#10;&#10;%s is the specific year of posts from the official blog (e.g. 2021).">Objave v spletnem dnevniku Lichess v %s</string>
+  <string name="lichessBlogPostsFromXYear">Objave v spletnem dnevniku Lichess v %s</string>
   <string name="previousBlogPosts">Prejšnje objave v spletnem dnevniku</string>
   <string name="xBlog">%s blog</string>
   <string name="newPost">Nova objava</string>
@@ -48,4 +48,5 @@
   </plurals>
   <string name="uploadAnImageForYourPost">Naložite sliko za svojo objavo</string>
   <string name="discussThisBlogPostInTheForum">Razpravljajte o tej objavi v spletnem dnevniku na forumu</string>
+  <string name="youBlockedByBlogAuthor">Avtor bloga vas je blokiral.</string>
 </resources>

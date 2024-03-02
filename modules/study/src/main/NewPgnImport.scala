@@ -53,7 +53,7 @@ object NewPgnImport:
                 ),
                 parsedPgn.tree.flatMap(makeTree(replay.setup, _, annotator))
               )
-            val end: Option[PgnImport.End] = (game.finished option game.status).map { status =>
+            val end: Option[PgnImport.End] = (game.finished.option(game.status)).map { status =>
               PgnImport.End(
                 status = status,
                 outcome = Outcome(game.winnerColor),

@@ -31,14 +31,14 @@ final private class Player(
           case Pov(game, _) if game.ply > Game.maxPlies =>
             round ! TooManyPlies
             fuccess(Nil)
-          case Pov(game, color) if game playableBy color =>
+          case Pov(game, color) if game.playableBy(color) =>
             applyUci(game, uci, blur, lag)
               .leftMap(e => s"$pov $e")
               .fold(errs => fufail(ClientError(errs)), fuccess)
               .flatMap {
                 case Flagged => finisher.outOfTime(game)
                 case MoveApplied(progress, moveOrDrop, compedLag) =>
-                  compedLag foreach { lag =>
+                  compedLag.foreach { lag =>
                     lila.mon.round.move.lag.moveComp.record(lag.millis, TimeUnit.MILLISECONDS)
                   }
                   proxy.save(progress) >>
@@ -54,9 +54,9 @@ final private class Player(
       case Pov(game, _) if game.ply > Game.maxPlies =>
         round ! TooManyPlies
         fuccess(Nil)
-      case Pov(game, color) if game playableBy color =>
+      case Pov(game, color) if game.playableBy(color) =>
         applyUci(game, uci, blur = false, botLag)
-          .fold(errs => fufail(ClientError(ErrorStr raw errs)), fuccess)
+          .fold(errs => fufail(ClientError(ErrorStr.raw(errs))), fuccess)
           .flatMap {
             case Flagged => finisher.outOfTime(game)
             case MoveApplied(progress, moveOrDrop, _) =>
@@ -75,7 +75,7 @@ final private class Player(
   )(using GameProxy): Fu[Events] =
     if pov.game.hasAi then uciMemo.add(pov.game, moveOrDrop)
     notifyMove(moveOrDrop, progress.game)
-    if progress.game.finished then moveFinish(progress.game) dmap { progress.events ::: _ }
+    if progress.game.finished then moveFinish(progress.game).dmap { progress.events ::: _ }
     else
       if progress.game.playableByAi then requestFishnet(progress.game, round)
       if pov.opponent.isOfferingDraw then round ! Draw(pov.player.id, false)
@@ -89,10 +89,10 @@ final private class Player(
 
   private[round] def fishnet(game: Game, sign: String, uci: Uci)(using proxy: GameProxy): Fu[Events] =
     if game.playable && game.player.isAi then
-      uciMemo sign game flatMap { expectedSign =>
+      uciMemo.sign(game).flatMap { expectedSign =>
         if expectedSign == sign then
           applyUci(game, uci, blur = false, metrics = fishnetLag)
-            .fold(errs => fufail(ClientError(ErrorStr raw errs)), fuccess)
+            .fold(errs => fufail(ClientError(ErrorStr.raw(errs))), fuccess)
             .flatMap:
               case Flagged => finisher.outOfTime(game)
               case MoveApplied(progress, moveOrDrop, _) =>
@@ -103,7 +103,7 @@ final private class Player(
                     lila.mon.fishnet.move(~game.aiLevel).increment()
                     notifyMove(moveOrDrop, progress.game)
                   .>> {
-                    if progress.game.finished then moveFinish(progress.game) dmap { progress.events ::: _ }
+                    if progress.game.finished then moveFinish(progress.game).dmap { progress.events ::: _ }
                     else fuccess(progress.events)
                   }
         else
@@ -132,11 +132,11 @@ final private class Player(
   ): Either[ErrorStr, MoveResult] =
     (uci match
       case Uci.Move(orig, dest, prom) =>
-        game.chess.moveWithCompensated(orig, dest, prom, metrics) map { (ncg, move) =>
+        game.chess.moveWithCompensated(orig, dest, prom, metrics).map { (ncg, move) =>
           ncg -> move
         }
       case Uci.Drop(role, pos) =>
-        game.chess.drop(role, pos, metrics) map { (ncg, drop) =>
+        game.chess.drop(role, pos, metrics).map { (ncg, drop) =>
           Clock.WithCompensatedLag(ncg, None) -> drop
         }
     ).map {
@@ -154,14 +154,14 @@ final private class Player(
     val color = moveOrDrop.color
     val moveEvent = MoveEvent(
       gameId = game.id,
-      fen = Fen write game.chess,
+      fen = Fen.write(game.chess),
       move = moveOrDrop.fold(_.toUci.keys, _.toUci.uci)
     )
 
     // I checked and the bus doesn't do much if there's no subscriber for a classifier,
     // so we should be good here.
     // also used for targeted TvBroadcast subscription
-    Bus.publish(MoveGameEvent(game, moveEvent.fen, moveEvent.move), MoveGameEvent makeChan game.id)
+    Bus.publish(MoveGameEvent(game, moveEvent.fen, moveEvent.move), MoveGameEvent.makeChan(game.id))
 
     // publish correspondence moves
     if game.isCorrespondence && game.nonAi then

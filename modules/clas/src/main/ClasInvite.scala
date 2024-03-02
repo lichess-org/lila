@@ -20,7 +20,7 @@ object ClasInvite:
 
   def make(clas: Clas, user: User, realName: String)(using teacher: Me) =
     ClasInvite(
-      _id = Id(ThreadLocalRandom nextString 8),
+      _id = Id(ThreadLocalRandom.nextString(8)),
       userId = user.id,
       realName = realName,
       clasId = clas.id,

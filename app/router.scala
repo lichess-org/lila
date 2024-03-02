@@ -31,6 +31,7 @@ given Conversion[String, ForumPostId]                                    = Forum
 given Conversion[String, lila.cms.CmsPage.Id]                            = lila.cms.CmsPage.Id(_)
 given Conversion[String, lila.cms.CmsPage.Key]                           = lila.cms.CmsPage.Key(_)
 given Conversion[String, Sri]                                            = Sri(_)
+given Conversion[Int, chess.FideId]                                      = chess.FideId(_)
 given challengeId: Conversion[String, Challenge.Id]                      = Challenge.Id(_)
 given appealId: Conversion[String, Appeal.Id]                            = Appeal.Id(_)
 given reportId: Conversion[String, Report.Id]                            = Report.Id(_)
@@ -68,13 +69,14 @@ object ReverseRouterConversions:
   given variantKeyOpt: Conversion[Option[Variant.LilaKey], Option[String]] = Variant.LilaKey.raw(_)
   given Conversion[Option[UserName], Option[String]]                       = UserName.raw(_)
   // where a UserStr is accepted, we can pass a UserName or UserId
-  given Conversion[UserName, UserStr]                                = _ into UserStr
-  given Conversion[UserId, UserStr]                                  = _ into UserStr
+  given Conversion[UserName, UserStr]                                = _.into(UserStr)
+  given Conversion[UserId, UserStr]                                  = _.into(UserStr)
   given Conversion[ForumCategId, String]                             = _.value
   given Conversion[ForumTopicId, String]                             = _.value
   given Conversion[lila.cms.CmsPage.Id, String]                      = _.value
   given Conversion[lila.cms.CmsPage.Key, String]                     = _.value
   given Conversion[lila.i18n.Language, String]                       = _.value
+  given Conversion[chess.FideId, Int]                                = _.value
   given challengeIdConv: Conversion[Challenge.Id, String]            = _.value
   given appealIdConv: Conversion[Appeal.Id, String]                  = _.value
   given reportIdConv: Conversion[Report.Id, String]                  = _.value

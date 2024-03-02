@@ -25,8 +25,12 @@ final class RelayTourForm:
       "tier"            -> optional(number(min = RelayTour.Tier.NORMAL, max = RelayTour.Tier.BEST)),
       "autoLeaderboard" -> boolean,
       "teamTable"       -> boolean,
-      "players"   -> optional(of(formatter.stringFormatter[RelayPlayers](_.sortedText, RelayPlayers(_)))),
-      "teams"     -> optional(of(formatter.stringFormatter[RelayTeams](_.sortedText, RelayTeams(_)))),
+      "players" -> optional(
+        of(formatter.stringFormatter[RelayPlayersTextarea](_.sortedText, RelayPlayersTextarea(_)))
+      ),
+      "teams" -> optional(
+        of(formatter.stringFormatter[RelayTeamsTextarea](_.sortedText, RelayTeamsTextarea(_)))
+      ),
       "spotlight" -> optional(spotlightMapping),
       "grouping"  -> RelayGroup.form.mapping
     )(Data.apply)(unapply)
@@ -34,7 +38,7 @@ final class RelayTourForm:
 
   def create = form
 
-  def edit(t: RelayTour.WithGroupTours) = form fill Data.make(t)
+  def edit(t: RelayTour.WithGroupTours) = form.fill(Data.make(t))
 
 object RelayTourForm:
 
@@ -45,8 +49,8 @@ object RelayTourForm:
       tier: Option[RelayTour.Tier],
       autoLeaderboard: Boolean,
       teamTable: Boolean,
-      players: Option[RelayPlayers],
-      teams: Option[RelayTeams],
+      players: Option[RelayPlayersTextarea],
+      teams: Option[RelayTeamsTextarea],
       spotlight: Option[RelayTour.Spotlight],
       grouping: Option[RelayGroup.form.Data]
   ):
@@ -57,7 +61,7 @@ object RelayTourForm:
           name = name,
           description = description,
           markup = markup,
-          tier = tier ifTrue Granter(_.Relay),
+          tier = tier.ifTrue(Granter(_.Relay)),
           autoLeaderboard = autoLeaderboard,
           teamTable = teamTable,
           players = players,
@@ -72,7 +76,7 @@ object RelayTourForm:
         description = description,
         markup = markup,
         ownerId = me,
-        tier = tier ifTrue Granter(_.Relay),
+        tier = tier.ifTrue(Granter(_.Relay)),
         active = false,
         createdAt = nowInstant,
         syncedAt = none,

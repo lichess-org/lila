@@ -6,7 +6,7 @@ import chess.format.Fen
 
 object Thematic:
 
-  def byFen(fen: Fen.Standard): Option[StartingPosition] = fenIndex get fen
+  def byFen(fen: Fen.Standard): Option[StartingPosition] = fenIndex.get(fen)
 
   def byEco = ecoIndexForBc.get
 

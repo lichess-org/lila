@@ -20,12 +20,12 @@ case class RelayTour(
     spotlight: Option[RelayTour.Spotlight] = None,
     autoLeaderboard: Boolean = true,
     teamTable: Boolean = false,
-    players: Option[RelayPlayers] = None,
-    teams: Option[RelayTeams] = None,
+    players: Option[RelayPlayersTextarea] = None,
+    teams: Option[RelayTeamsTextarea] = None,
     image: Option[PicfitImage.Id] = None
 ):
   lazy val slug =
-    val s = lila.common.String slugify name.value
+    val s = lila.common.String.slugify(name.value)
     if s.isEmpty then "-" else s
 
   def withRounds(rounds: List[RelayRound]) = RelayTour.WithRounds(this, rounds)
@@ -69,7 +69,7 @@ object RelayTour:
 
   case class Spotlight(enabled: Boolean, language: Language, title: Option[String]):
     def isEmpty                           = !enabled && specialLanguage.isEmpty && title.isEmpty
-    def specialLanguage: Option[Language] = language != lila.i18n.defaultLanguage option language
+    def specialLanguage: Option[Language] = (language != lila.i18n.defaultLanguage).option(language)
 
   case class WithRounds(tour: RelayTour, rounds: List[RelayRound])
 
@@ -102,4 +102,4 @@ object RelayTour:
       picfitUrl.thumbnail(image, size(thumbnail).width, size(thumbnail).height)
 
   import ornicar.scalalib.ThreadLocalRandom
-  def makeId = Id(ThreadLocalRandom nextString 8)
+  def makeId = Id(ThreadLocalRandom.nextString(8))

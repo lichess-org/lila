@@ -5,6 +5,7 @@
   <string name="toInviteSomeoneToPlayGiveThisUrl">За да поканите някого на игра, дайте му този адрес</string>
   <string name="gameOver">Край на партията</string>
   <string name="waitingForOpponent">Изчакване на противник</string>
+  <string name="orLetYourOpponentScanQrCode">Или дайте на противника си да сканира този QR код</string>
   <string name="waiting">Изчакване</string>
   <string name="yourTurn">Вашият ход</string>
   <string name="aiNameLevelAiLevel">%1$s ниво %2$s</string>
@@ -416,6 +417,7 @@
   <string name="blackCheckmatesInOneMove">Черните на ход, мат в един ход</string>
   <string name="retry">Опитай отново</string>
   <string name="reconnecting">Свързване</string>
+  <string name="noNetwork">Офлайн</string>
   <plurals name="nbFriendsOnline">
     <item quantity="one">%s приятел онлайн</item>
     <item quantity="other">%s приятели онлайн</item>

@@ -47,7 +47,7 @@ final class PoolApi(
   def socketIds(ids: Sris) = actors.values.foreach(_ ! ids)
 
   private def sendTo(poolId: PoolConfig.Id, msg: Any) =
-    actors get poolId foreach { _ ! msg }
+    actors.get(poolId).foreach { _ ! msg }
 
 object PoolApi:
 
@@ -58,7 +58,7 @@ object PoolApi:
       lame: Boolean,
       blocking: Blocking
   )(using val me: Me.Id):
-    def is(member: PoolMember) = member is me
+    def is(member: PoolMember) = member.is(me)
 
   object Joiner:
     given UserIdOf[Joiner] = _.me.userId

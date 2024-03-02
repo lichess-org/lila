@@ -15,9 +15,9 @@ final private class RoundNotifier(
       game.player(color).userId.foreach { userId =>
         timeline ! Propagate(
           TLGameEnd(
-            fullId = game fullIdOf color,
+            fullId = game.fullIdOf(color),
             opponent = game.player(!color).userId,
-            win = game.winnerColor map (color ==),
+            win = game.winnerColor.map(color ==),
             perf = game.perfType.key.value
           )
         ).toUser(userId)
@@ -26,9 +26,9 @@ final private class RoundNotifier(
             notifyApi.notifyOne(
               userId,
               GameEnd(
-                game fullIdOf color,
+                game.fullIdOf(color),
                 game.opponent(color).userId,
-                Win from game.wonBy(color)
+                Win.from(game.wonBy(color))
               )
             )
           case _ =>

@@ -24,7 +24,7 @@ object TutorResourcefulness:
     )
     val select = $doc(
       F.analysed -> true,
-      F.moves    -> $doc("$elemMatch" -> $doc("w" $lt WinPercent(33.3), "i" $lt -1))
+      F.moves    -> $doc("$elemMatch" -> $doc("w".$lt(WinPercent(33.3)), "i".$lt(-1)))
     )
     val compute = TutorCustomInsight(users, question, "resourcefulness", _.resourcefulness): docs =>
       for
@@ -45,7 +45,7 @@ object TutorResourcefulness:
       )
       compute(coll)(
         aggregateMine = mineSelect =>
-          Match(select ++ mineSelect ++ $doc(F.perf $in perfs)) -> List(
+          Match(select ++ mineSelect ++ $doc(F.perf.$in(perfs))) -> List(
             Sort(Descending(F.date)),
             Limit(maxGames.value),
             groupByPerf

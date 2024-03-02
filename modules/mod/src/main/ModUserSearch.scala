@@ -11,15 +11,18 @@ import lila.security.IsProxy
 final class ModUserSearch(userRepo: UserRepo, userApi: UserApi)(using Executor):
 
   def apply(query: String): Fu[List[User.WithEmails]] =
-    EmailAddress.from(query).map(searchEmail) getOrElse
-      searchUsername(UserStr(query)) flatMap userApi.withEmails
+    EmailAddress
+      .from(query)
+      .map(searchEmail)
+      .getOrElse(searchUsername(UserStr(query)))
+      .flatMap(userApi.withEmails)
 
-  private def searchUsername(username: UserStr) = userRepo byId username map (_.toList)
+  private def searchUsername(username: UserStr) = userRepo.byId(username).map(_.toList)
 
   private def searchEmail(email: EmailAddress): Fu[List[User]] =
     val normalized = email.normalize
-    userRepo.byEmail(normalized) flatMap { current =>
-      userRepo.byPrevEmail(normalized) map current.toList.:::
+    userRepo.byEmail(normalized).flatMap { current =>
+      userRepo.byPrevEmail(normalized).map(current.toList.:::)
     }
 
 object ModUserSearch:

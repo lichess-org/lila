@@ -37,23 +37,30 @@ final class RoundSocket(
 
   Lilakka.shutdown(shutdown, _.PhaseServiceUnbind, "Stop round socket"): () =>
     stopping = true
-    rounds.tellAllWithAck(RoundAsyncActor.LilaStop.apply) map: nb =>
-      Lilakka.shutdownLogger.info(s"$nb round asyncActors have stopped")
+    rounds
+      .tellAllWithAck(RoundAsyncActor.LilaStop.apply)
+      .map: nb =>
+        Lilakka.shutdownLogger.info(s"$nb round asyncActors have stopped")
 
   def getGame(gameId: GameId): Fu[Option[Game]] =
-    rounds.getOrMake(gameId).getGame addEffect: g =>
-      if g.isEmpty then finishRound(gameId)
+    rounds
+      .getOrMake(gameId)
+      .getGame
+      .addEffect: g =>
+        if g.isEmpty then finishRound(gameId)
 
   def getGames(gameIds: List[GameId]): Fu[List[(GameId, Option[Game])]] =
     gameIds.traverse: id =>
-      rounds.getOrMake(id).getGame dmap { id -> _ }
+      rounds.getOrMake(id).getGame.dmap { id -> _ }
 
   def getMany(gameIds: List[GameId]): Fu[List[GameAndSocketStatus]] =
     gameIds
       .traverse: id =>
         gameAndStatusIfPresent(id).orElse:
-          roundDependencies.gameRepo game id map2: g =>
-            GameAndSocketStatus(g, SocketStatus.default)
+          roundDependencies.gameRepo
+            .game(id)
+            .map2: g =>
+              GameAndSocketStatus(g, SocketStatus.default)
       .map(_.flatten)
 
   def gameIfPresent(gameId: GameId): Fu[Option[Game]] = rounds.getIfPresent(gameId).so(_.getGame)
@@ -64,7 +71,7 @@ final class RoundSocket(
 
   // update the proxied game
   def updateIfPresent(gameId: GameId)(f: Game => Game): Funit =
-    rounds.getIfPresent(gameId).so(_ updateGame f)
+    rounds.getIfPresent(gameId).so(_.updateGame(f))
 
   def gameAndStatusIfPresent(gameId: GameId): Fu[Option[GameAndSocketStatus]] =
     rounds.askIfPresent[GameAndSocketStatus](gameId)(GetGameAndSocketStatus.apply)
@@ -74,7 +81,7 @@ final class RoundSocket(
 
   val rounds = AsyncActorConcMap[GameId, RoundAsyncActor](
     mkAsyncActor =
-      id => makeRoundActor(id, SocketVersion(0), roundDependencies.gameRepo game id recoverDefault none),
+      id => makeRoundActor(id, SocketVersion(0), roundDependencies.gameRepo.game(id).recoverDefault(none)),
     initialCapacity = 65536
   )
 
@@ -86,7 +93,7 @@ final class RoundSocket(
       socketSend = sendForGameId(id),
       version = version
     )
-    terminationDelay schedule id
+    terminationDelay.schedule(id)
     gameFu.dforeach:
       _.foreach: game =>
         scheduleExpiration(game)
@@ -132,9 +139,9 @@ final class RoundSocket(
       onlines.foreach:
         case (gameId, Some(on)) =>
           rounds.tell(gameId, on)
-          terminationDelay cancel gameId
+          terminationDelay.cancel(gameId)
         case (gameId, _) =>
-          if rounds exists gameId then terminationDelay schedule gameId
+          if rounds.exists(gameId) then terminationDelay.schedule(gameId)
     case Protocol.In.Bye(fullId) => rounds.tell(fullId.gameId, ByePlayer(fullId.playerId))
     case RP.In.TellRoomSri(_, P.In.TellSri(_, _, tpe, _)) =>
       logger.warn(s"Unhandled round socket message: $tpe")
@@ -157,7 +164,7 @@ final class RoundSocket(
       logger.warn("Remote socket boot")
       // schedule termination for all game asyncActors
       // until players actually reconnect
-      rounds foreachKey terminationDelay.schedule
+      rounds.foreachKey(terminationDelay.schedule)
       rounds.tellAll(RoundAsyncActor.WsBoot)
 
   private def finishRound(gameId: GameId): Unit =
@@ -168,9 +175,11 @@ final class RoundSocket(
   private val sendForGameId: GameId => SocketSend = gameId =>
     SocketSend(msg => send.sticky(gameId.value, msg))
 
-  remoteSocketApi.subscribeRoundRobin("r-in", Protocol.In.reader, parallelism = 16)(
-    roundHandler orElse remoteSocketApi.baseHandler
-  ) andDo send(P.Out.boot)
+  remoteSocketApi
+    .subscribeRoundRobin("r-in", Protocol.In.reader, parallelism = 16)(
+      roundHandler.orElse(remoteSocketApi.baseHandler)
+    )
+    .andDo(send(P.Out.boot))
 
   Bus.subscribeFun(
     "tvSelect",
@@ -190,26 +199,30 @@ final class RoundSocket(
     case TellIfExists(gameId, msg)  => rounds.tellIfPresent(GameId(gameId), msg)
     case TellMany(gameIds, msg)     => rounds.tellIds(gameIds.asInstanceOf[Seq[GameId]], msg)
     case TellAll(msg)               => rounds.tellAll(msg)
-    case Exists(gameId, promise)    => promise success rounds.exists(GameId(gameId))
+    case Exists(gameId, promise)    => promise.success(rounds.exists(GameId(gameId)))
     case TourStanding(tourId, json) => send(Protocol.Out.tourStanding(tourId, json))
     case lila.game.actorApi.StartGame(game) if game.hasClock =>
-      game.userIds.some.filter(_.nonEmpty) foreach: usersPlaying =>
-        sendForGameId(game.id)(Protocol.Out.startGame(usersPlaying))
+      game.userIds.some
+        .filter(_.nonEmpty)
+        .foreach: usersPlaying =>
+          sendForGameId(game.id)(Protocol.Out.startGame(usersPlaying))
     case lila.game.actorApi.FinishGame(game, _) if game.hasClock =>
-      game.userIds.some.filter(_.nonEmpty) foreach: usersPlaying =>
-        sendForGameId(game.id)(Protocol.Out.finishGame(game.id, game.winnerColor, usersPlaying))
+      game.userIds.some
+        .filter(_.nonEmpty)
+        .foreach: usersPlaying =>
+          sendForGameId(game.id)(Protocol.Out.finishGame(game.id, game.winnerColor, usersPlaying))
     case lila.hub.actorApi.round.DeleteUnplayed(gameId) => finishRound(gameId)
 
   Bus.subscribeFun(BusChan.Round.chan, BusChan.Global.chan):
     case lila.chat.ChatLine(id, l) =>
-      val line = lila.chat.RoundLine(l, id.value endsWith "/w")
+      val line = lila.chat.RoundLine(l, id.value.endsWith("/w"))
       rounds.tellIfPresent(GameId.take(id.value), line)
     case lila.chat.OnTimeout(id, userId) =>
       send:
-        RP.Out.tellRoom(GameId take id.value into RoomId, Socket.makeMessage("chat_timeout", userId))
+        RP.Out.tellRoom(GameId.take(id.value).into(RoomId), Socket.makeMessage("chat_timeout", userId))
     case lila.chat.OnReinstate(id, userId) =>
       send:
-        RP.Out.tellRoom(GameId take id.value into RoomId, Socket.makeMessage("chat_reinstate", userId))
+        RP.Out.tellRoom(GameId.take(id.value).into(RoomId), Socket.makeMessage("chat_reinstate", userId))
 
   scheduler.scheduleWithFixedDelay(25 seconds, tickInterval): () =>
     rounds.tellAll(RoundAsyncActor.Tick)
@@ -222,7 +235,7 @@ final class RoundSocket(
   // on startup we get all ongoing game IDs and versions from lila-ws
   // load them into round actors with batched DB queries
   private def preloadRoundsWithVersions(rooms: Iterable[(String, SocketVersion)]) =
-    val bootLog = lila log "boot"
+    val bootLog = lila.log("boot")
 
     // load all actors synchronously, giving them game futures from promises we'll fulfill later
     val gamePromises: Map[GameId, Promise[Option[Game]]] = rooms.view.map { (id, version) =>
@@ -242,11 +255,11 @@ final class RoundSocket(
       .grouped(1024)
       .map: ids =>
         roundDependencies.gameRepo
-          .byIdsCursor(GameId from ids)
+          .byIdsCursor(GameId.from(ids))
           .foldWhile(Set.empty[GameId])(
             (ids, game) =>
               Cursor.Cont[Set[GameId]]:
-                gamePromises.get(game.id).foreach(_ success game.some)
+                gamePromises.get(game.id).foreach(_.success(game.some))
                 ids + game.id
             ,
             Cursor.ContOnError { (_, err) => bootLog.error("Can't load round game", err) }
@@ -265,9 +278,9 @@ final class RoundSocket(
           val missingIds = gamePromises.keySet -- loadedIds
           if missingIds.nonEmpty then
             bootLog.warn:
-              s"RoundSocket ${missingIds.size} round games could not be loaded: ${missingIds.take(20) mkString " "}"
+              s"RoundSocket ${missingIds.size} round games could not be loaded: ${missingIds.take(20).mkString(" ")}"
             missingIds.foreach: id =>
-              gamePromises.get(id).foreach(_ success none)
+              gamePromises.get(id).foreach(_.success(none))
         case scala.util.Failure(err) =>
           bootLog.error(s"RoundSocket Can't load ${gamePromises.size} round games", err)
       .chronometer
@@ -321,12 +334,12 @@ object RoundSocket:
         raw.path match
           case "r/ons" =>
             PlayerOnlines:
-              P.In.commas(raw.args) map {
-                _ splitAt GameId.size match
+              P.In.commas(raw.args).map {
+                _.splitAt(GameId.size) match
                   case (gameId, cs) =>
                     (
                       GameId(gameId),
-                      cs.nonEmpty option RoomCrowd(cs(0) == '+', cs(1) == '+')
+                      cs.nonEmpty.option(RoomCrowd(cs(0) == '+', cs(1) == '+'))
                     )
               }
             .some
@@ -334,7 +347,7 @@ object RoundSocket:
             raw.get(2) { case Array(fullId, payload) =>
               for
                 obj <- Json.parse(payload).asOpt[JsObject]
-                tpe <- obj str "t"
+                tpe <- obj.str("t")
               yield PlayerDo(GameFullId(fullId), tpe)
             }
           case "r/move" =>
@@ -371,25 +384,25 @@ object RoundSocket:
           case "r/report" =>
             raw.get(4) { case Array(fullId, ip, user, name) =>
               IpAddress.from(ip).map { ip =>
-                SelfReport(GameFullId(fullId), ip, UserId from P.In.optional(user), name)
+                SelfReport(GameFullId(fullId), ip, UserId.from(P.In.optional(user)), name)
               }
             }
           case "r/flag" =>
             raw.get(3) { case Array(gameId, color, playerId) =>
               readColor(color).map:
-                Flag(GameId(gameId), _, P.In.optional(playerId) map { GamePlayerId(_) })
+                Flag(GameId(gameId), _, P.In.optional(playerId).map { GamePlayerId(_) })
             }
           case "r/get" =>
             raw.get(2) { case Array(reqId, anyId) =>
               reqId.toIntOption.map:
                 GetGame(_, GameAnyId(anyId))
             }
-          case "r/latency" => raw.args.toIntOption map WsLatency.apply
+          case "r/latency" => raw.args.toIntOption.map(WsLatency.apply)
           case _           => RP.In.reader(raw)
 
       private def centis(s: String): Option[Centis] =
         if s == "-" then none
-        else Centis from s.toIntOption
+        else Centis.from(s.toIntOption)
 
       private def readColor(s: String) =
         if s == "w" then Some(White)
@@ -409,27 +422,30 @@ object RoundSocket:
         if e.watcher then flags += 's'
         else if e.owner then flags += 'p'
         else
-          e.only.map(_.fold('w', 'b')).orElse {
-            e.moveBy.map(_.fold('W', 'B'))
-          } foreach flags.+=
+          e.only
+            .map(_.fold('w', 'b'))
+            .orElse {
+              e.moveBy.map(_.fold('W', 'B'))
+            }
+            .foreach(flags.+=)
         if e.troll then flags += 't'
         if flags.isEmpty then flags += '-'
         s"r/ver $roomId $version $flags ${e.typ} ${e.data}"
 
       def tvSelect(gameId: GameId, speed: chess.Speed, data: JsObject) =
-        s"tv/select $gameId ${speed.id} ${Json stringify data}"
+        s"tv/select $gameId ${speed.id} ${Json.stringify(data)}"
 
       def botConnected(gameId: GameId, color: Color, v: Boolean) =
         s"r/bot/online $gameId ${P.Out.color(color)} ${P.Out.boolean(v)}"
 
       def tourStanding(tourId: TourId, data: JsValue) =
-        s"r/tour/standing $tourId ${Json stringify data}"
+        s"r/tour/standing $tourId ${Json.stringify(data)}"
 
       def startGame(users: List[UserId]) = s"r/start ${P.Out.commas(users)}"
       def finishGame(gameId: GameId, winner: Option[Color], users: List[UserId]) =
         s"r/finish $gameId ${P.Out.color(winner)} ${P.Out.commas(users)}"
 
-      def respond(reqId: Int, data: JsObject) = s"req/response $reqId ${Json stringify data}"
+      def respond(reqId: Int, data: JsObject) = s"req/response $reqId ${Json.stringify(data)}"
 
       def versioningReady = "r/versioning-ready"
 
@@ -448,9 +464,9 @@ object RoundSocket:
         (id, canc) =>
           Option(canc).foreach(_.cancel())
           scheduler.scheduleOnce(duration):
-            terminations remove id
+            terminations.remove(id)
             terminate(id)
       )
 
     def cancel(gameId: GameId): Unit =
-      Option(terminations remove gameId).foreach(_.cancel())
+      Option(terminations.remove(gameId)).foreach(_.cancel())

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="preferences">Настройки</string>
-  <string name="display">Отображать</string>
+  <string name="display">Отображение</string>
   <string name="privacy">Конфиденциальность</string>
   <string name="notifications">Уведомления</string>
   <string name="pieceAnimation">Анимация фигур</string>

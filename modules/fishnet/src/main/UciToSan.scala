@@ -41,7 +41,7 @@ private object UciToSan:
     onlyMeaningfulVariations.foldLeft[WithErrors[List[Info]]]((Nil, Nil)) {
       case ((infos, errs), info) if info.variation.isEmpty => (info :: infos, errs)
       case ((infos, errs), info) =>
-        uciToSan(info.ply, SanStr raw info.variation).fold(
+        uciToSan(info.ply, SanStr.raw(info.variation)).fold(
           err => (info.dropVariation :: infos, LilaException(err) :: errs),
           pgn => (info.copy(variation = pgn) :: infos, errs)
         )

@@ -14,7 +14,7 @@ object NameSection extends OpaqueString[NameSection]:
   private[opening] def variationName(prev: OpeningName, next: OpeningName): NameSection =
     sectionsOf(prev).toList
       .zipAll(sectionsOf(next).toList, "", "")
-      .dropWhile { case (a, b) => a == b }
+      .dropWhile { (a, b) => a == b }
       .headOption
       .map(_._2)
       .filter(_.nonEmpty)
@@ -29,4 +29,4 @@ object NameSection extends OpaqueString[NameSection]:
   def sectionsOf(openingName: OpeningName): NonEmptyList[NameSection] =
     openingName.value.split(":", 2) match
       case Array(f, v) => NonEmptyList(f, v.split(",").toList.map(_.trim))
-      case _           => NonEmptyList(openingName into NameSection, Nil)
+      case _           => NonEmptyList(openingName.into(NameSection), Nil)

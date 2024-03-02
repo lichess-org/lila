@@ -19,7 +19,7 @@ object opening:
     bits.layout(
       title = s"Lichess Tutor • ${perfReport.perf.trans} • ${as.name} • ${report.family.name.value}",
       menu = frag(
-        perfReport.openings(as).families map { family =>
+        perfReport.openings(as).families.map { family =>
           a(
             href := routes.Tutor
               .opening(user.username, perfReport.perf.key, as.name, family.family.key.value),

@@ -1,13 +1,16 @@
 package lila.api
 
-import lila.forum.ForumCateg
+import lila.forum.{ ForumCateg, ForumTopic }
 import lila.security.{ Granter, Permission }
 import lila.team.Team
 import lila.user.{ User, Me }
+import lila.relation.Block
 
-final class ForumAccess(teamApi: lila.team.TeamApi, teamCached: lila.team.Cached)(using
-    Executor
-):
+final class ForumAccess(
+    teamApi: lila.team.TeamApi,
+    teamCached: lila.team.Cached,
+    relationApi: lila.relation.RelationApi
+)(using Executor):
 
   enum Operation:
     case Read, Write
@@ -16,7 +19,7 @@ final class ForumAccess(teamApi: lila.team.TeamApi, teamCached: lila.team.Cached
     ForumCateg
       .toTeamId(categId)
       .fold(fuTrue): teamId =>
-        teamCached.forumAccess get teamId flatMap {
+        teamCached.forumAccess.get(teamId).flatMap {
           case Team.Access.NONE     => fuFalse
           case Team.Access.EVERYONE =>
             // when the team forum is open to everyone, you still need to belong to the team in order to post
@@ -35,7 +38,7 @@ final class ForumAccess(teamApi: lila.team.TeamApi, teamCached: lila.team.Cached
       me: Option[Me]
   ): Fu[Boolean] =
     if tryingToPostAsMod && Granter.opt(_.Shusher) then fuTrue
-    else canWriteInAnyForum so isGranted(categId, Operation.Write)
+    else canWriteInAnyForum.so(isGranted(categId, Operation.Write))
 
   private def canWriteInAnyForum(using me: Option[Me]) = me.exists: me =>
     !me.isBot && {
@@ -45,3 +48,8 @@ final class ForumAccess(teamApi: lila.team.TeamApi, teamCached: lila.team.Cached
   def isGrantedMod(categId: ForumCategId)(using meOpt: Option[Me]): Fu[Boolean] = meOpt.so: me =>
     if Granter.opt(_.ModerateForum) then fuTrue
     else ForumCateg.toTeamId(categId).so(teamApi.hasPerm(_, me, _.Comm))
+
+  def isReplyBlockedOnUBlog(topic: ForumTopic, canModCateg: Boolean)(using me: Me): Fu[Boolean] =
+    (topic.ublogId.isDefined && !canModCateg).so:
+      topic.userId.so: topicAuthor =>
+        relationApi.fetchBlocks(topicAuthor, me)

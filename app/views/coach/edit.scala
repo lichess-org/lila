@@ -16,7 +16,7 @@ object edit:
   private val dataValue = attr("data-value")
 
   private lazy val jsonLanguages = safeJsonValue {
-    Json toJson LangList.popularNoRegion.map { l =>
+    Json.toJson(LangList.popularNoRegion.map { l =>
       Json.obj(
         "code"  -> l.code,
         "value" -> LangList.name(l),
@@ -25,7 +25,7 @@ object edit:
           l.toLocale.getDisplayCountry
         ).mkString(",")
       )
-    }
+    })
   }
 
   def apply(c: lila.coach.Coach.WithUser, form: Form[?])(using

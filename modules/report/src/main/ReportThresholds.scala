@@ -27,7 +27,7 @@ private object ReportThresholds:
 
   given BSONHandler[ScoreThresholds]  = lila.db.dsl.isoHandler
   given StringReader[ScoreThresholds] = StringReader.fromIso
-  given Formable[ScoreThresholds]     = new Formable(t => Form(single("v" -> text)) fill iso.to(t))
+  given Formable[ScoreThresholds]     = new Formable(t => Form(single("v" -> text)).fill(iso.to(t)))
 
   def makeScoreSetting(store: lila.memo.SettingStore.Builder) =
     store[ScoreThresholds](

@@ -24,7 +24,7 @@ final class SecurityForm(
   private val newPasswordField =
     nonEmptyText(minLength = 4, maxLength = 999).verifying(PasswordCheck.newConstraint)
   private def newPasswordFieldForMe(using me: Me) =
-    newPasswordField.verifying(PasswordCheck.sameConstraint(me.username into UserStr))
+    newPasswordField.verifying(PasswordCheck.sameConstraint(me.username.into(UserStr)))
 
   private val anyEmail: Mapping[EmailAddress] =
     LilaForm
@@ -51,8 +51,8 @@ final class SecurityForm(
 
     val username = LilaForm.cleanNonEmptyText
       .verifying(
-        Constraints minLength 2,
-        Constraints maxLength 20,
+        Constraints.minLength(2),
+        Constraints.maxLength(20),
         Constraints.pattern(
           regex = User.newUsernamePrefix,
           error = "usernamePrefixInvalid"
@@ -157,7 +157,7 @@ final class SecurityForm(
       Form(
         mapping(
           "passwd" -> passwordMapping(candidate),
-          "email"  -> fullyValidEmail.verifying(emailValidator differentConstraint old)
+          "email"  -> fullyValidEmail.verifying(emailValidator.differentConstraint(old))
         )(ChangeEmail.apply)(unapply)
       ).fillOption(old.map { ChangeEmail("", _) })
 
@@ -193,11 +193,11 @@ final class SecurityForm(
 
   def fixEmail(old: EmailAddress) =
     Form(
-      single("email" -> fullyValidEmail(using none).verifying(emailValidator differentConstraint old.some))
+      single("email" -> fullyValidEmail(using none).verifying(emailValidator.differentConstraint(old.some)))
     ).fill(old)
 
   def modEmail(user: User) = Form(
-    single("email" -> anyEmail.verifying(emailValidator uniqueConstraint user.some))
+    single("email" -> anyEmail.verifying(emailValidator.uniqueConstraint(user.some)))
   )
 
   private def passwordProtected(using Me) =
@@ -235,7 +235,7 @@ object SecurityForm:
       agreement: AgreementData,
       fp: Option[String]
   ):
-    def fingerPrint   = FingerPrint from fp.filter(_.nonEmpty)
+    def fingerPrint   = FingerPrint.from(fp.filter(_.nonEmpty))
     def clearPassword = User.ClearPassword(password)
 
   case class MobileSignupData(

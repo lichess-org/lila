@@ -23,19 +23,20 @@ final class ChapterRepo(val coll: AsyncColl)(using Executor, akka.stream.Materia
 
   def deleteByStudy(s: Study): Funit = coll(_.delete.one($studyId(s.id))).void
 
-  def deleteByStudyIds(ids: List[StudyId]): Funit = coll(_.delete.one($doc("studyId" $in ids))).void
+  def deleteByStudyIds(ids: List[StudyId]): Funit = coll(_.delete.one($doc("studyId".$in(ids)))).void
 
+  // studyId is useful to ensure that the chapter belongs to the study
   def byIdAndStudy(id: StudyChapterId, studyId: StudyId): Fu[Option[Chapter]] =
     coll(_.one($id(id) ++ $studyId(studyId)))
 
   def firstByStudy(studyId: StudyId): Fu[Option[Chapter]] =
-    coll(_.find($studyId(studyId)).sort($sort asc "order").one[Chapter])
+    coll(_.find($studyId(studyId)).sort($sort.asc("order")).one[Chapter])
 
   private[study] def lastByStudy(studyId: StudyId): Fu[Option[Chapter]] =
-    coll(_.find($studyId(studyId)).sort($sort desc "order").one[Chapter])
+    coll(_.find($studyId(studyId)).sort($sort.desc("order")).one[Chapter])
 
   def existsByStudy(studyId: StudyId): Fu[Boolean] =
-    coll(_ exists $studyId(studyId))
+    coll(_.exists($studyId(studyId)))
 
   private val metadataProjection =
     $doc(
@@ -55,7 +56,7 @@ final class ChapterRepo(val coll: AsyncColl)(using Executor, akka.stream.Materia
   def orderedMetadataByStudy(studyId: StudyId): Fu[List[Chapter.Metadata]] =
     coll:
       _.find($studyId(studyId), metadataProjection)
-        .sort($sort asc "order")
+        .sort($sort.asc("order"))
         .cursor[Chapter.Metadata]()
         .list(300)
 
@@ -63,7 +64,7 @@ final class ChapterRepo(val coll: AsyncColl)(using Executor, akka.stream.Materia
     Source.futureSource:
       coll.map:
         _.find($studyId(studyId))
-          .sort($sort asc "order")
+          .sort($sort.asc("order"))
           .cursor[Chapter]()
           .documentSource()
 
@@ -78,22 +79,18 @@ final class ChapterRepo(val coll: AsyncColl)(using Executor, akka.stream.Materia
   def orderedByStudy(studyId: StudyId): Fu[List[Chapter]] =
     coll:
       _.find($studyId(studyId))
-        .sort($sort asc "order")
+        .sort($sort.asc("order"))
         .cursor[Chapter]()
         .list(300)
 
   def relaysAndTagsByStudyId(studyId: StudyId): Fu[List[Chapter.RelayAndTags]] =
     coll:
       _.find($studyId(studyId), $doc("relay" -> true, "tags" -> true).some)
-        .cursor[Bdoc]()
+        .cursor[Chapter.RelayAndTags]()
         .list(300)
-        .map: docs =>
-          for
-            doc   <- docs
-            id    <- doc.getAsOpt[StudyChapterId]("_id")
-            relay <- doc.getAsOpt[Chapter.Relay]("relay")
-            tags  <- doc.getAsOpt[Tags]("tags")
-          yield Chapter.RelayAndTags(id, relay, tags)
+
+  def studyIdsByRelayFideId(fideId: chess.FideId): Fu[List[StudyId]] =
+    coll(_.distinctEasy[StudyId, List]("studyId", $doc("relay.fideIds" -> fideId)))
 
   def sort(study: Study, ids: List[StudyChapterId]): Funit =
     coll: c =>
@@ -104,7 +101,7 @@ final class ChapterRepo(val coll: AsyncColl)(using Executor, akka.stream.Materia
         .void
 
   def nextOrderByStudy(studyId: StudyId): Fu[Int] =
-    coll(_.primitiveOne[Int]($studyId(studyId), $sort desc "order", "order")) dmap { ~_ + 1 }
+    coll(_.primitiveOne[Int]($studyId(studyId), $sort.desc("order"), "order")).dmap { ~_ + 1 }
 
   def setConceal(chapterId: StudyChapterId, conceal: chess.Ply) =
     coll(_.updateField($id(chapterId), "conceal", conceal)).void
@@ -122,19 +119,19 @@ final class ChapterRepo(val coll: AsyncColl)(using Executor, akka.stream.Materia
     coll(_.updateField($id(chapter.id), "tags", chapter.tags)).void
 
   def setShapes(shapes: lila.tree.Node.Shapes) =
-    setNodeValue(F.shapes, shapes.value.nonEmpty option shapes)
+    setNodeValue(F.shapes, shapes.value.nonEmpty.option(shapes))
 
   def setComments(comments: lila.tree.Node.Comments) =
-    setNodeValue(F.comments, comments.value.nonEmpty option comments)
+    setNodeValue(F.comments, comments.value.nonEmpty.option(comments))
 
   def setGamebook(gamebook: lila.tree.Node.Gamebook) =
-    setNodeValue(F.gamebook, gamebook.nonEmpty option gamebook)
+    setNodeValue(F.gamebook, gamebook.nonEmpty.option(gamebook))
 
   def setGlyphs(glyphs: chess.format.pgn.Glyphs) = setNodeValue(F.glyphs, glyphs.nonEmpty)
 
   def setClock(clock: Option[chess.Centis]) = setNodeValue(F.clock, clock)
 
-  def forceVariation(force: Boolean) = setNodeValue(F.forceVariation, force option true)
+  def forceVariation(force: Boolean) = setNodeValue(F.forceVariation, force.option(true))
 
   // insert node and its children
   // and sets the parent order field
@@ -143,9 +140,9 @@ final class ChapterRepo(val coll: AsyncColl)(using Executor, akka.stream.Materia
     coll(_.update.one($id(chapter.id), $set(set))).void
 
   private def subTreeToBsonElements(parentPath: UciPath, subTree: Branch): List[(String, Bdoc)] =
-    (parentPath.depth < Node.MAX_PLIES) so {
+    (parentPath.depth < Node.MAX_PLIES).so {
       val path = parentPath + subTree.id
-      subTree.children.nodes.flatMap(subTreeToBsonElements(path, _)) :+ {
+      subTree.children.nodes.flatMap(subTreeToBsonElements(path, _)).appended {
         path.toDbField -> writeBranch(subTree)
       }
     }
@@ -159,11 +156,10 @@ final class ChapterRepo(val coll: AsyncColl)(using Executor, akka.stream.Materia
       parentPath: UciPath,
       children: Branches
   ): List[(String, Bdoc)] =
-    (parentPath.depth < Node.MAX_PLIES) so
-      children.nodes.flatMap { node =>
-        val path = parentPath + node.id
-        childrenTreeToBsonElements(path, node.children) appended (path.toDbField -> writeBranch(node))
-      }
+    (parentPath.depth < Node.MAX_PLIES).so(children.nodes.flatMap { node =>
+      val path = parentPath + node.id
+      childrenTreeToBsonElements(path, node.children).appended(path.toDbField -> writeBranch(node))
+    })
 
   private def setNodeValue[A: BSONWriter](
       field: String,
@@ -171,7 +167,7 @@ final class ChapterRepo(val coll: AsyncColl)(using Executor, akka.stream.Materia
   )(chapter: Chapter, path: UciPath): Funit =
     coll:
       _.updateOrUnsetField(
-        $id(chapter.id) ++ $doc(path.toDbField $exists true),
+        $id(chapter.id) ++ $doc(path.toDbField.$exists(true)),
         pathToField(path, field),
         value
       ).void
@@ -189,7 +185,7 @@ final class ChapterRepo(val coll: AsyncColl)(using Executor, akka.stream.Materia
         coll {
           _.update
             .one(
-              $id(chapter.id) ++ $doc(path.toDbField $exists true),
+              $id(chapter.id) ++ $doc(path.toDbField.$exists(true)),
               $set($doc(sets))
             )
             .void
@@ -202,34 +198,34 @@ final class ChapterRepo(val coll: AsyncColl)(using Executor, akka.stream.Materia
       studyIds: Seq[StudyId],
       nbChaptersPerStudy: Int
   ): Fu[Map[StudyId, Vector[Chapter.IdName]]] =
-    studyIds.nonEmpty so coll {
+    studyIds.nonEmpty.so(coll {
       _.find(
-        $doc("studyId" $in studyIds),
+        $doc("studyId".$in(studyIds)),
         $doc("studyId" -> true, "_id" -> true, "name" -> true).some
       )
-        .sort($sort asc "order")
+        .sort($sort.asc("order"))
         .cursor[Bdoc]()
         .list(nbChaptersPerStudy * studyIds.size)
     }
       .map { docs =>
         docs.foldLeft(Map.empty[StudyId, Vector[Chapter.IdName]]) { case (hash, doc) =>
           doc.getAsOpt[StudyId]("studyId").fold(hash) { studyId =>
-            hash get studyId match
+            hash.get(studyId) match
               case Some(chapters) if chapters.sizeIs >= nbChaptersPerStudy => hash
               case maybe =>
                 val chapters = ~maybe
                 hash + (studyId -> readIdName(doc).fold(chapters)(chapters :+ _))
           }
         }
-      }
+      })
 
   def idNames(studyId: StudyId): Fu[List[Chapter.IdName]] =
     coll:
       _.find($studyId(studyId), $doc("_id" -> true, "name" -> true).some)
-        .sort($sort asc "order")
+        .sort($sort.asc("order"))
         .cursor[Bdoc]()
         .list(Study.maxChapters * 2)
-    .dmap(_ flatMap readIdName)
+    .dmap(_.flatMap(readIdName))
 
   private def readIdName(doc: Bdoc) =
     for
@@ -238,7 +234,7 @@ final class ChapterRepo(val coll: AsyncColl)(using Executor, akka.stream.Materia
     yield Chapter.IdName(id, name)
 
   def tagsByStudyIds(studyIds: Iterable[StudyId]): Fu[List[Tags]] =
-    studyIds.nonEmpty so coll { _.primitive[Tags]("studyId" $in studyIds, "tags") }
+    studyIds.nonEmpty.so(coll { _.primitive[Tags]("studyId".$in(studyIds), "tags") })
 
   def startServerEval(chapter: Chapter) =
     coll:
@@ -258,7 +254,7 @@ final class ChapterRepo(val coll: AsyncColl)(using Executor, akka.stream.Materia
   def countByStudyId(studyId: StudyId): Fu[Int] =
     coll(_.countSel($studyId(studyId)))
 
-  def insert(s: Chapter): Funit = coll(_.insert one s).void
+  def insert(s: Chapter): Funit = coll(_.insert.one(s)).void
 
   def update(c: Chapter): Funit = coll(_.update.one($id(c.id), c)).void
 

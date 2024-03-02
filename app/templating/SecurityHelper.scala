@@ -22,4 +22,4 @@ trait SecurityHelper:
   def reportScore(score: lila.report.Report.Score): Frag =
     span(cls := s"score ${score.color}")(score.value.toInt)
 
-  def canCloseAlt(using me: Option[Me]): Boolean = me soUse Granter.canCloseAlt
+  def canCloseAlt(using me: Option[Me]): Boolean = me.soUse(Granter.canCloseAlt)

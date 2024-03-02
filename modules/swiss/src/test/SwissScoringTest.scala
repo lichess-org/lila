@@ -5,7 +5,7 @@ class SwissScoringTest extends munit.FunSuite:
   import SwissScoring.*
 
   def compute(nbRounds: Int, players: List[SwissPlayer], pairings: List[SwissPairing]) =
-    val rounds     = SwissRoundNumber from (1 to nbRounds).toList
+    val rounds     = SwissRoundNumber.from((1 to nbRounds).toList)
     val pairingMap = SwissPairing.toMap(pairings)
     val sheets     = SwissSheet.many(rounds, players, pairingMap)
     val withSheets = players.zip(sheets).map(SwissSheet.OfPlayer.withSheetPoints)
@@ -107,7 +107,7 @@ class SwissScoringTest extends munit.FunSuite:
     performance = None,
     score = Swiss.Score(0),
     absent = false,
-    byes = SwissRoundNumber from byes
+    byes = SwissRoundNumber.from(byes)
   )
   def pairing(round: Int, white: Char, black: Char, outcome: String) = SwissPairing(
     id = GameId(s"game-$round$white$black"),

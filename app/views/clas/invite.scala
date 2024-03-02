@@ -25,20 +25,23 @@ object invite:
           if _ then flashMessage("success")(trans.clas.youAcceptedThisInvitation())
           else flashMessage("warning")(trans.clas.youDeclinedThisInvitation())
         },
-        invite.accepted.forall(false.==) option
-          postForm(cls := "form3", action := clasRoutes.invitationAccept(invite._id.value))(
-            form3.actions(
-              if !invite.accepted.has(false) then
+        invite.accepted
+          .forall(false.==)
+          .option(
+            postForm(cls := "form3", action := clasRoutes.invitationAccept(invite._id.value))(
+              form3.actions(
+                if !invite.accepted.has(false) then
+                  form3.submit(
+                    trans.decline(),
+                    nameValue = ("v" -> false.toString).some,
+                    icon = licon.X.some
+                  )(cls := "button-red button-fat")
+                else p,
                 form3.submit(
-                  trans.decline(),
-                  nameValue = ("v" -> false.toString).some,
-                  icon = licon.X.some
-                )(cls := "button-red button-fat")
-              else p,
-              form3.submit(
-                trans.accept(),
-                nameValue = ("v" -> true.toString).some
-              )(cls := "button-green button-fat")
+                  trans.accept(),
+                  nameValue = ("v" -> true.toString).some
+                )(cls := "button-green button-fat")
+              )
             )
           )
       )

@@ -1,14 +1,54 @@
-package lila.player
+package lila.fide
+
+import monocle.syntax.all.*
+import reactivemongo.api.bson.Macros.Annotations.Key
+import chess.FideId
+
+case class Federation(
+    @Key("_id") id: Federation.Id,
+    name: Federation.Name,
+    nbPlayers: Int,
+    standard: Federation.Stats,
+    rapid: Federation.Stats,
+    blitz: Federation.Stats,
+    updatedAt: Instant
+):
+  def stats(tc: FideTC) = tc match
+    case FideTC.standard => this.focus(_.standard)
+    case FideTC.rapid    => this.focus(_.rapid)
+    case FideTC.blitz    => this.focus(_.blitz)
+  def slug = Federation.nameToSlug(name)
 
 // Obviously, FIDE country codes don't follow any existing standard.
 // https://ratings.fide.com/top_federations.phtml
 // all=[];$('#federations_table').find('tbody tr').each(function(){all.push([$(this).find('img').attr('src').slice(5,8),$(this).find('a,strong').text().trim()])})
-object FideFederation:
+object Federation:
 
-  type Code = String
+  type Id   = String
   type Name = String
 
-  val all: Map[Code, Name] = Map(
+  case class Stats(rank: Int, nbPlayers: Int, top10Rating: Int)
+
+  type ByFideIds = Map[FideId, Id]
+
+  export FidePlayer.nameToSlug
+
+  def idToSlug(id: Id): String = nameToSlug(name(id))
+
+  def name(id: Id): Name = names.getOrElse(id, id)
+
+  def find(str: String): Option[Id] =
+    names
+      .contains(str.toUpperCase)
+      .option(str.toUpperCase)
+      .orElse(bySlug.get(str).orElse(bySlug.get(nameToSlug(str))))
+
+  lazy val bySlug: Map[String, Id] = names
+    .map: (id, name) =>
+      nameToSlug(name) -> id
+
+  val names: Map[Id, Name] = Map(
+    "FID" -> "FIDE",
     "USA" -> "United States of America",
     "IND" -> "India",
     "CHN" -> "China",

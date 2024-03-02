@@ -22,10 +22,10 @@ object Mobile:
 
     val currentVersion = ApiVersion.lichobile
 
-    val acceptedVersions: Set[ApiVersion] = Set(1, 2, 3, 4, 5, 6) map { ApiVersion(_) }
+    val acceptedVersions: Set[ApiVersion] = Set(1, 2, 3, 4, 5, 6).map { ApiVersion(_) }
 
     def requestVersion(req: RequestHeader): Option[ApiVersion] =
-      HTTPRequest apiVersion req filter acceptedVersions.contains
+      HTTPRequest.apiVersion(req).filter(acceptedVersions.contains)
 
     def requested(req: RequestHeader) = requestVersion(req).isDefined
 
@@ -44,11 +44,11 @@ object Mobile:
     def is(ua: UserAgent): Boolean = ua.value.startsWith("Lichess Mobile/")
     private val Regex =
       """(?i)lichess mobile/(\S+)(?: \(\d*\))? as:(\S+) sri:(\S+) os:(Android|iOS)/(\S+) dev:(.*)""".r
-    def parse(req: RequestHeader): Option[LichessMobileUa] = HTTPRequest.userAgent(req) flatMap parse
+    def parse(req: RequestHeader): Option[LichessMobileUa] = HTTPRequest.userAgent(req).flatMap(parse)
     def parse(ua: UserAgent): Option[LichessMobileUa] = is(ua).so:
       ua.value match
         case Regex(version, user, sri, osName, osVersion, device) =>
-          val userId = (user != "anon") option UserStr(user).id
+          val userId = (user != "anon").option(UserStr(user).id)
           LichessMobileUa(version, userId, Sri(sri), osName, osVersion, device).some
         case _ => none
 
@@ -64,4 +64,4 @@ object Mobile:
         case Regex(version, osName, osVersion, device) =>
           LichessMobileUaTrim(version, osName, osVersion, device).some
         case _ => none
-    def write(m: LichessMobileUa) = s"""LM/${m.version} ${m.osName}/${m.osVersion} ${m.device take 60}"""
+    def write(m: LichessMobileUa) = s"""LM/${m.version} ${m.osName}/${m.osVersion} ${m.device.take(60)}"""

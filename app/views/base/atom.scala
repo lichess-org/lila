@@ -24,15 +24,15 @@ object atom:
       link(rel := "alternate", tpe := "text/html", href            := s"${netBaseUrl}$htmlCall"),
       link(rel := "self", tpe      := "application/atom+xml", href := s"${netBaseUrl}$atomCall"),
       tag("title")(title),
-      tag("updated")(updated map atomDate),
+      tag("updated")(updated.map(atomDate)),
       elems.map: el =>
         tag("entry")(elem(el)),
       raw("</feed>")
     )
 
-  def atomDate(date: Instant): String = isoDateTimeFormatter print date
+  def atomDate(date: Instant): String = isoDateTimeFormatter.print(date)
   def atomDate(date: LocalDate): String =
-    java.time.format.DateTimeFormatter.ISO_DATE.withZone(utcZone) print date
+    java.time.format.DateTimeFormatter.ISO_DATE.withZone(utcZone).print(date)
 
   private val termAttr   = attr("term")
   private val labelAttr  = attr("label")

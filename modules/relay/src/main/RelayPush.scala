@@ -52,7 +52,7 @@ final class RelayPush(sync: RelaySync, api: RelayApi, irc: lila.irc.IrcApi)(usin
             irc.broadcastStart(rt.round.id, rt.fullName)
           api
             .update(rt.round): r1 =>
-              val r2 = r1.withSync(_ addLog event)
+              val r2 = r1.withSync(_.addLog(event))
               val r3 = if event.hasMoves then r2.ensureStarted.resume else r2
               r3.copy(finished = games.nonEmpty && games.forall(_.ending.isDefined))
 

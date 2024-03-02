@@ -2,7 +2,7 @@ package lila.security
 
 opaque type FingerPrint = String
 object FingerPrint extends OpaqueString[FingerPrint]:
-  extension (a: FingerPrint) def hash: Option[FingerHash] = FingerHash from a
+  extension (a: FingerPrint) def hash: Option[FingerHash] = FingerHash.from(a)
 
 opaque type FingerHash = String
 object FingerHash extends OpaqueString[FingerHash]:
@@ -14,9 +14,11 @@ object FingerHash extends OpaqueString[FingerHash]:
       import java.util.Base64
       import org.apache.commons.codec.binary.Hex
       FingerHash {
-        Base64.getEncoder encodeToString {
-          Hex decodeHex normalize(print).toArray
-        } take length
+        Base64.getEncoder
+          .encodeToString {
+            Hex.decodeHex(normalize(print).toArray)
+          }
+          .take(length)
       } some
     catch case _: Exception => none
 

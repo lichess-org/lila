@@ -29,7 +29,7 @@ private object PgnStorage:
     def encode(sans: Vector[SanStr]) =
       ByteArray:
         monitor(_.game.pgn.encode("huffman")):
-          Encoder.encode(SanStr raw sans.toArray)
+          Encoder.encode(SanStr.raw(sans.toArray))
 
     def decode(bytes: ByteArray, plies: Ply, id: GameId): Decoded =
       monitor(_.game.pgn.decode("huffman")):
@@ -40,11 +40,11 @@ private object PgnStorage:
               logger.error(s"Can't decode game $id PGN", e)
               throw e
         Decoded(
-          sans = SanStr from decoded.pgnMoves.toVector,
+          sans = SanStr.from(decoded.pgnMoves.toVector),
           board = chessBoard(decoded.board),
           positionHashes = PositionHash(decoded.positionHashes),
           unmovedRooks = UnmovedRooks(decoded.board.castlingRights),
-          lastMove = Option(decoded.lastUci) flatMap Uci.apply,
+          lastMove = Option(decoded.lastUci).flatMap(Uci.apply),
           castles = Castles(decoded.board.castlingRights),
           halfMoveClock = HalfMoveClock(decoded.halfMoveClock)
         )

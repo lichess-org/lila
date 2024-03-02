@@ -18,7 +18,7 @@ final class Analyse(
 ) extends LilaController(env):
 
   def requestAnalysis(id: GameId) = AuthOrScoped(_.Web.Mobile) { ctx ?=> me ?=>
-    Found(env.game.gameRepo game id): game =>
+    Found(env.game.gameRepo.game(id)): game =>
       env.fishnet
         .analyser(
           game,
@@ -37,16 +37,16 @@ final class Analyse(
     if HTTPRequest.isCrawler(ctx.req).yes then replayBot(pov)
     else
       for
-        initialFen <- env.game.gameRepo initialFen pov.gameId
+        initialFen <- env.game.gameRepo.initialFen(pov.gameId)
         users      <- env.user.api.gamePlayers(pov.game.players.map(_.userId), pov.game.perfType)
         _ = gameC.preloadUsers(users)
         res <- RedirectAtFen(pov, initialFen):
           (
             env.analyse.analyser.get(pov.game),
-            !pov.game.metadata.analysed so env.fishnet.api.userAnalysisExists(pov.gameId),
-            pov.game.simulId so env.simul.repo.find,
+            !pov.game.metadata.analysed.so(env.fishnet.api.userAnalysisExists(pov.gameId)),
+            pov.game.simulId.so(env.simul.repo.find),
             roundC.getWatcherChat(pov.game),
-            ctx.noBlind so env.game.crosstableApi.withMatchup(pov.game),
+            ctx.noBlind.so(env.game.crosstableApi.withMatchup(pov.game)),
             env.bookmark.api.exists(pov.game, ctx.me),
             env.api.pgnDump(
               pov.game,
@@ -97,7 +97,7 @@ final class Analyse(
 
   def embedReplayGame(gameId: GameId, color: String) = Anon:
     InEmbedContext:
-      env.api.textLpvExpand.getPgn(gameId) map {
+      env.api.textLpvExpand.getPgn(gameId).map {
         case Some(LpvEmbed.PublicPgn(pgn)) =>
           render:
             case AcceptsPgn() => Ok(pgn)
@@ -124,9 +124,9 @@ final class Analyse(
         )
 
   private def replayBot(pov: Pov)(using Context) = for
-    initialFen <- env.game.gameRepo initialFen pov.gameId
-    analysis   <- env.analyse.analyser get pov.game
-    simul      <- pov.game.simulId so env.simul.repo.find
+    initialFen <- env.game.gameRepo.initialFen(pov.gameId)
+    analysis   <- env.analyse.analyser.get(pov.game)
+    simul      <- pov.game.simulId.so(env.simul.repo.find)
     crosstable <- env.game.crosstableApi.withMatchup(pov.game)
     pgn        <- env.api.pgnDump(pov.game, initialFen, analysis, PgnDump.WithFlags(clocks = false))
     page <- renderPage:
@@ -140,8 +140,8 @@ final class Analyse(
   yield Ok(page)
 
   def externalEngineList = ScopedBody(_.Engine.Read) { _ ?=> me ?=>
-    env.analyse.externalEngine.list(me) map { list =>
-      JsonOk(JsArray(list map lila.analyse.ExternalEngine.jsonWrites.writes))
+    env.analyse.externalEngine.list(me).map { list =>
+      JsonOk(JsArray(list.map(lila.analyse.ExternalEngine.jsonWrites.writes)))
     }
   }
 
@@ -151,14 +151,14 @@ final class Analyse(
   }
 
   def externalEngineCreate = ScopedBody(_.Engine.Write) { ctx ?=> me ?=>
-    HTTPRequest.bearer(ctx.req) so { bearer =>
-      val tokenId = AccessToken.Id from bearer
+    HTTPRequest.bearer(ctx.req).so { bearer =>
+      val tokenId = AccessToken.Id.from(bearer)
       lila.analyse.ExternalEngine.form
         .bindFromRequest()
         .fold(
           jsonFormError,
           data =>
-            env.analyse.externalEngine.create(me, data, tokenId.value) map { engine =>
+            env.analyse.externalEngine.create(me, data, tokenId.value).map { engine =>
               Created(lila.analyse.ExternalEngine.jsonWrites.writes(engine))
             }
         )
@@ -172,12 +172,12 @@ final class Analyse(
         .fold(
           jsonFormError,
           data =>
-            env.analyse.externalEngine.update(engine, data) map { engine =>
+            env.analyse.externalEngine.update(engine, data).map { engine =>
               JsonOk(lila.analyse.ExternalEngine.jsonWrites.writes(engine))
             }
         )
   }
 
   def externalEngineDelete(id: String) = AuthOrScoped(_.Engine.Write) { _ ?=> me ?=>
-    env.analyse.externalEngine.delete(me, id) elseNotFound jsonOkResult
+    env.analyse.externalEngine.delete(me, id).elseNotFound(jsonOkResult)
   }

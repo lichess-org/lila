@@ -96,29 +96,29 @@ final class ExternalEngineApi(coll: Coll, cacheApi: CacheApi)(using Executor):
   private def doFetchList(userId: UserId) = coll.list[ExternalEngine]($doc("userId" -> userId), 64)
   private def reloadCache(userId: UserId) = userCache.put(userId, doFetchList(userId))
 
-  def list(by: User): Fu[List[ExternalEngine]] = userCache get by.id
+  def list(by: User): Fu[List[ExternalEngine]] = userCache.get(by.id)
 
   def create(by: User, data: ExternalEngine.FormData, oauthTokenId: String): Fu[ExternalEngine] =
-    val engine = data make by.id
+    val engine = data.make(by.id)
     val bson = {
-      engineHandler writeOpt engine err "external engine bson"
+      engineHandler.writeOpt(engine).err("external engine bson")
     } ++ $doc("oauthToken" -> oauthTokenId)
-    coll.insert.one(bson) andDo reloadCache(by.id) inject engine
+    coll.insert.one(bson).andDo(reloadCache(by.id)).inject(engine)
 
   def find(by: User, id: String): Fu[Option[ExternalEngine]] =
     list(by).map(_.find(_._id == id))
 
   def update(prev: ExternalEngine, data: ExternalEngine.FormData): Fu[ExternalEngine] =
-    val engine = data update prev
-    coll.update.one($id(engine._id), engine) andDo reloadCache(engine.userId) inject engine
+    val engine = data.update(prev)
+    coll.update.one($id(engine._id), engine).andDo(reloadCache(engine.userId)).inject(engine)
 
   def delete(by: User, id: String): Fu[Boolean] =
-    coll.delete.one($doc("userId" -> by.id) ++ $id(id)) map { result =>
+    coll.delete.one($doc("userId" -> by.id) ++ $id(id)).map { result =>
       reloadCache(by.id)
       result.n > 0
     }
 
   private[analyse] def onTokenRevoke(id: String) =
-    coll.primitiveOne[UserId]($doc("oauthToken" -> id), "userId") flatMapz { userId =>
-      coll.delete.one($doc("oauthToken" -> id)).void andDo reloadCache(userId)
+    coll.primitiveOne[UserId]($doc("oauthToken" -> id), "userId").flatMapz { userId =>
+      coll.delete.one($doc("oauthToken" -> id)).void.andDo(reloadCache(userId))
     }

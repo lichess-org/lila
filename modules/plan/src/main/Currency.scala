@@ -47,22 +47,22 @@ final class CurrencyApi(
   }
 
   def convert(money: Money, currency: Currency): Fu[Option[Money]] =
-    ratesCache.get {} map { rates =>
+    ratesCache.get {}.map { rates =>
       for
-        fromRate <- rates get money.currencyCode
-        toRate   <- rates get currency.getCurrencyCode
+        fromRate <- rates.get(money.currencyCode)
+        toRate   <- rates.get(currency.getCurrencyCode)
       yield Money(money.amount / fromRate * toRate, currency)
     }
 
   def toUsd(money: Money): Fu[Option[Usd]] =
-    ratesCache.get {} map { rates =>
-      rates.get(money.currencyCode) map { fromRate =>
+    ratesCache.get {}.map { rates =>
+      rates.get(money.currencyCode).map { fromRate =>
         Usd(money.amount / fromRate)
       }
     }
 
-  val USD = Currency getInstance "USD"
-  val EUR = Currency getInstance "EUR"
+  val USD = Currency.getInstance("USD")
+  val EUR = Currency.getInstance("EUR")
 
   def currencyByCountryCodeOrLang(countryCode: Option[String], lang: Lang): Currency =
     countryCode
@@ -76,13 +76,13 @@ object CurrencyApi:
   case class Config(appId: config.Secret)
   given ConfigLoader[Config] = AutoConfig.loader
 
-  val acceptableCurrencies: Set[Currency] = payPalCurrencies intersect stripeCurrencies
+  val acceptableCurrencies: Set[Currency] = payPalCurrencies.intersect(stripeCurrencies)
 
   val currencyList: List[Currency] = acceptableCurrencies.toList.sortBy(_.getCurrencyCode)
 
   def currencyOption(code: String) = anyCurrencyOption(code).filter(acceptableCurrencies.contains)
   def currencyOption(locale: Locale) =
-    Try(Currency getInstance locale).toOption.filter(acceptableCurrencies.contains)
+    Try(Currency.getInstance(locale)).toOption.filter(acceptableCurrencies.contains)
 
   val zeroDecimalCurrencies: Set[Currency] = Set(
     "BIF",
@@ -270,4 +270,4 @@ object CurrencyApi:
     "ZMW"
   ).flatMap(anyCurrencyOption)
 
-  private def anyCurrencyOption(code: String) = Try(Currency getInstance code).toOption
+  private def anyCurrencyOption(code: String) = Try(Currency.getInstance(code)).toOption

@@ -86,7 +86,7 @@ final private class YouTubeApi(
     import BsonHandlers.given
     coll
       .find($doc("youTube.channelId" -> channelId, "approval.granted" -> true))
-      .sort($sort desc "seenAt")
+      .sort($sort.desc("seenAt"))
       .cursor[Streamer]()
       .uno
       .flatMap:
@@ -102,24 +102,26 @@ final private class YouTubeApi(
             logger.info(s"YouTube: UNAPPROVED vid:$videoId ch:$channelId")
 
   private def isLiveStream(videoId: String): Fu[Boolean] =
-    cfg.googleApiKey.value.nonEmpty so ws
-      .url("https://youtube.googleapis.com/youtube/v3/videos")
-      .withQueryStringParameters(
-        "part" -> "snippet",
-        "id"   -> videoId,
-        "key"  -> cfg.googleApiKey.value
-      )
-      .get()
-      .map { rsp =>
-        rsp.body[JsValue].validate[YouTube.Result] match
-          case JsSuccess(data, _) =>
-            data.items.headOption.fold(false): item =>
-              item.snippet.liveBroadcastContent == "live" && item.snippet.title.value.toLowerCase
-                .contains(keyword.toLowerCase)
-          case JsError(err) =>
-            logger.warn(s"YouTube ERROR: ${rsp.status} $err ${rsp.body[String].take(200)}")
-            false
-      }
+    cfg.googleApiKey.value.nonEmpty.so(
+      ws
+        .url("https://youtube.googleapis.com/youtube/v3/videos")
+        .withQueryStringParameters(
+          "part" -> "snippet",
+          "id"   -> videoId,
+          "key"  -> cfg.googleApiKey.value
+        )
+        .get()
+        .map { rsp =>
+          rsp.body[JsValue].validate[YouTube.Result] match
+            case JsSuccess(data, _) =>
+              data.items.headOption.fold(false): item =>
+                item.snippet.liveBroadcastContent == "live" && item.snippet.title.value.toLowerCase
+                  .contains(keyword.toLowerCase)
+            case JsError(err) =>
+              logger.warn(s"YouTube ERROR: ${rsp.status} $err ${rsp.body[String].take(200)}")
+              false
+        }
+    )
 
   def channelSubscribe(channelId: String, subscribe: Boolean): Funit = ws
     .url("https://pubsubhubbub.appspot.com/subscribe")
@@ -164,12 +166,12 @@ final private class YouTubeApi(
       .parallel
       .map(bulk many _)
 
-  private[streamer] def subscribeAll: Funit = cfg.googleApiKey.value.nonEmpty so {
+  private[streamer] def subscribeAll: Funit = cfg.googleApiKey.value.nonEmpty.so {
     import akka.stream.scaladsl.*
     import reactivemongo.akkastream.cursorProducer
     coll
       .find(
-        $doc("youTube.channelId" $exists true, "approval.granted" -> true),
+        $doc("youTube.channelId".$exists(true), "approval.granted" -> true),
         $doc("youTube.channelId" -> true).some
       )
       .cursor[Bdoc]()

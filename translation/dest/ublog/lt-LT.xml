@@ -1,5 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+  <string name="communityBlogs">Bendruomenės tinklaraščiai</string>
+  <string name="blogTopics">Tinklaraščių temos</string>
+  <string name="lichessOfficialBlog">Oficialus Lichess tinklaraštis</string>
+  <string name="continueReadingPost">Toliau skaityti šį įrašą</string>
+  <string name="lichessBlogPostsFromXYear">Lichess tinklaraščių įrašai %s</string>
+  <string name="previousBlogPosts">Praėję įrašai</string>
   <string name="xBlog">%s Tinklaraštis</string>
   <string name="newPost">Naujas įrašas</string>
   <string name="editYourBlogPost">Keisti savo tinklaraščio įrašą</string>
@@ -49,4 +55,6 @@
   <string name="safeAndRespectfulContent">Talpinkite tik saugų ir pagarbų turinį. Nekopijuokite kieno nors kito turinio.</string>
   <string name="inappropriateContentAccountClosed">Bet koks nepriimtinas turinys privers mus uždaryti jūsų paskyrą.</string>
   <string name="blogTips">Keli patarimai kaip rašyti puikius tinklaraščio įrašus</string>
+  <string name="discussThisBlogPostInTheForum">Diskutuoti apie šį įrašą forume</string>
+  <string name="youBlockedByBlogAuthor">Jūs buvote tinklaraščio autoriaus užblokuotas.</string>
 </resources>

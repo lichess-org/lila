@@ -11,9 +11,9 @@ class BinaryMoveTimeTest extends munit.FunSuite:
 
   val _0_ = "00000000"
   def write(c: Vector[Int]): List[String] =
-    (BinaryFormat.moveTime write c.map(Centis(10) * _)).showBytes.split(',').toList
+    (BinaryFormat.moveTime.write(c.map(Centis(10) * _))).showBytes.split(',').toList
   def read(bytes: List[String], turns: Ply): Vector[Int] =
-    BinaryFormat.moveTime.read(ByteArray.parseBytes(bytes), turns) map (_.roundTenths)
+    BinaryFormat.moveTime.read(ByteArray.parseBytes(bytes), turns).map(_.roundTenths)
 
   test("write") {
     assertEquals(write(Vector(1, 10, 100, 5)), "00000010" :: "10100001" :: Nil)
@@ -38,17 +38,17 @@ class BinaryMoveTimeTest extends munit.FunSuite:
     assertEquals(again, rounded)
   }
   test("buckets - short game") {
-    val times    = Centis from Vector(0, 30, 60, 90)
+    val times    = Centis.from(Vector(0, 30, 60, 90))
     val rounded  = BinaryFormat.moveTime.read(BinaryFormat.moveTime.write(times), 4)
-    val expected = Centis from Vector(10, 10, 50, 100)
+    val expected = Centis.from(Vector(10, 10, 50, 100))
     assertEquals(rounded, expected)
     val again = BinaryFormat.moveTime.read(BinaryFormat.moveTime.write(rounded), 4)
     assertEquals(again, rounded)
   }
   test("buckets - short game - odd number of moves") {
-    val times    = Centis from Vector(0, 30, 60)
+    val times    = Centis.from(Vector(0, 30, 60))
     val rounded  = BinaryFormat.moveTime.read(BinaryFormat.moveTime.write(times), 3)
-    val expected = Centis from Vector(10, 10, 50)
+    val expected = Centis.from(Vector(10, 10, 50))
     assertEquals(rounded, expected)
     val again = BinaryFormat.moveTime.read(BinaryFormat.moveTime.write(rounded), 3)
     assertEquals(again, rounded)

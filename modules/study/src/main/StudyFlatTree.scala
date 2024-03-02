@@ -16,8 +16,10 @@ private object StudyFlatTree:
     val depth = path.depth
 
     def toNodeWithChildren(children: Option[Branches]): Option[Branch] =
-      path.lastId.flatMap { readBranch(data, _) } map:
-        _.copy(children = children | Branches.empty)
+      path.lastId
+        .flatMap { readBranch(data, _) }
+        .map:
+          _.copy(children = children | Branches.empty)
 
     def toNodeWithChild(child: Option[NewTree]): Option[NewTree] =
       readNewBranch(data, path).map(NewTree(_, child, Nil))
@@ -46,7 +48,7 @@ private object StudyFlatTree:
       children
         .foldLeft(Map.empty[UciPath, Branches]) { (roots, flat) =>
           flat
-            .toNodeWithChildren(roots get flat.path)
+            .toNodeWithChildren(roots.get(flat.path))
             .fold(roots): node =>
               roots
                 .removed(flat.path)
@@ -57,7 +59,7 @@ private object StudyFlatTree:
         .get(UciPath.root) | Branches.empty
 
     private def traverseN(xs: List[FlatNode]): Option[NewTree] =
-      xs.nonEmpty so
+      xs.nonEmpty.so(
         xs.foldLeft(Map.empty[UciPath, NewTree]) { (roots, flat) =>
           // assumes that node has a greater depth than roots (sort beforehand)
           flat
@@ -69,6 +71,7 @@ private object StudyFlatTree:
                   case None           => node.some
                   case Some(siblings) => siblings.addVariation(node.toVariation).some
         }.get(UciPath.root)
+      )
 
   object writer:
 
@@ -85,8 +88,10 @@ private object StudyFlatTree:
           ).toList
 
     private def traverse(node: Branch, parentPath: UciPath): List[(String, Bdoc)] =
-      (parentPath.depth < Node.MAX_PLIES) so:
+      (parentPath.depth < Node.MAX_PLIES).so:
         val path = parentPath + node.id
-        node.children.nodes.flatMap {
-          traverse(_, path)
-        } appended (UciPathDb.encodeDbKey(path) -> writeBranch(node))
+        node.children.nodes
+          .flatMap {
+            traverse(_, path)
+          }
+          .appended(UciPathDb.encodeDbKey(path) -> writeBranch(node))

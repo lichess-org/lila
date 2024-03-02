@@ -17,8 +17,8 @@ final private class TournamentNotify(repo: TournamentRepo, cached: TournamentCac
       .flatMap:
         _.traverse_ { tour =>
           lila.mon.tournament.notifier.tournaments.increment()
-          doneMemo put tour.id
-          cached ranking tour map { ranking =>
+          doneMemo.put(tour.id)
+          cached.ranking(tour).map { ranking =>
             if ranking.ranking.nonEmpty then
               Bus
                 .publish(

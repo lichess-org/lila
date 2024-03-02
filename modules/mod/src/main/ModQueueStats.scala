@@ -31,7 +31,7 @@ final class ModQueueStats(
 
   private def compute(period: Period): Fu[Result] =
     repo.coll
-      .find($doc("_id" $gte dateFormat.print(Period dateSince period)))
+      .find($doc("_id".$gte(dateFormat.print(Period.dateSince(period)))))
       .cursor[Bdoc](ReadPref.priTemp)
       .listAll()
       .map: docs =>

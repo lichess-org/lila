@@ -11,10 +11,10 @@ case class Trophy(
   def timestamp = date.toMillis
 
   def compare(other: Trophy) =
-    if kind.order == other.kind.order then date compareTo other.date
+    if kind.order == other.kind.order then date.compareTo(other.date)
     else Integer.compare(kind.order, other.kind.order)
 
-  def anyUrl = url orElse kind.url
+  def anyUrl = url.orElse(kind.url)
 
 case class TrophyKind(
     _id: String,

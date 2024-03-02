@@ -25,7 +25,7 @@ object skills:
         )
       ),
       bits.mascotSays(
-        ul(report skillHighlights 3 map compare.show)
+        ul(report.skillHighlights(3).map(compare.show))
       ),
       div(cls := "tutor__pad")(
         grade.peerGradeWithDetail(concept.accuracy, report.accuracy, InsightPosition.Move),

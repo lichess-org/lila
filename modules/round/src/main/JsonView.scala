@@ -28,7 +28,7 @@ final class JsonView(
   import JsonView.*
 
   private def checkCount(game: Game, color: Color) =
-    (game.variant == chess.variant.ThreeCheck) option game.history.checkCount(color)
+    (game.variant == chess.variant.ThreeCheck).option(game.history.checkCount(color))
 
   private def commonPlayerJson(
       g: Game,
@@ -54,7 +54,7 @@ final class JsonView(
       .add("checks" -> checkCount(g, p.color))
       .add("berserk" -> p.berserk)
       .add("blindfold" -> p.blindfold)
-      .add("blurs" -> (withFlags.blurs so blurs(g, p)))
+      .add("blurs" -> (withFlags.blurs.so(blurs(g, p))))
 
   def playerJson(
       pov: Pov,
@@ -156,7 +156,7 @@ final class JsonView(
       .add("provisional" -> (p.provisional.yes && withFlags.rating))
       .add("checks" -> checkCount(g, p.color))
       .add("berserk" -> p.berserk)
-      .add("blurs" -> (withFlags.blurs so blurs(g, p)))
+      .add("blurs" -> (withFlags.blurs.so(blurs(g, p))))
 
   def watcherJson(
       pov: Pov,
@@ -173,7 +173,7 @@ final class JsonView(
         .obj(
           "game" -> gameJsonView
             .baseWithChessDenorm(game, initialFen)
-            .add("moveCentis" -> (flags.movetimes so game.moveTimes.map(_.map(_.centis))))
+            .add("moveCentis" -> (flags.movetimes.so(game.moveTimes.map(_.map(_.centis)))))
             .add("division" -> flags.division.option(divider(game, initialFen)))
             .add("opening" -> game.opening)
             .add("importedBy" -> game.pgnImport.flatMap(_.user)),
@@ -221,7 +221,7 @@ final class JsonView(
         })
 
   def replayJson(pov: Pov, pref: Pref, initialFen: Option[Fen.Epd]) =
-    pov.game.whitePlayer.userId.so(lightUserGet) zip pov.game.blackPlayer.userId.so(lightUserGet) map {
+    pov.game.whitePlayer.userId.so(lightUserGet).zip(pov.game.blackPlayer.userId.so(lightUserGet)).map {
       case (white, black) =>
         import pov.*
         import LightUser.lightUserWrites
@@ -255,7 +255,7 @@ final class JsonView(
       division: Option[chess.Division] = None
   ) =
     import pov.*
-    val fen = Fen write game.chess
+    val fen = Fen.write(game.chess)
     Json
       .obj(
         "game" -> Json
@@ -306,7 +306,7 @@ final class JsonView(
       case _                                                             => false
 
   private def blurs(game: Game, player: lila.game.Player) =
-    player.blurs.nonEmpty option {
+    player.blurs.nonEmpty.option {
       Json.toJsObject(player.blurs) +
         ("percent" -> JsNumber(game.playerBlurPercent(player.color)))
     }
@@ -315,13 +315,16 @@ final class JsonView(
     Json.toJsObject(clock) + ("moretime" -> JsNumber(actorApi.round.Moretime.defaultDuration.toSeconds))
 
   private def possibleMoves(pov: Pov): Option[JsValue] =
-    pov.game.playableBy(pov.player) option
-      lila.game.Event.PossibleMoves.json(pov.game.situation.destinations)
+    pov.game
+      .playableBy(pov.player)
+      .option(lila.game.Event.PossibleMoves.json(pov.game.situation.destinations))
 
   private def possibleDrops(pov: Pov): Option[JsValue] =
-    (pov.game playableBy pov.player).so:
-      pov.game.situation.drops.map: drops =>
-        JsString(drops.map(_.key).mkString)
+    (pov.game
+      .playableBy(pov.player))
+      .so:
+        pov.game.situation.drops.map: drops =>
+          JsString(drops.map(_.key).mkString)
 
   private def animationMillis(pov: Pov, pref: Pref) =
     pref.animationMillis * {

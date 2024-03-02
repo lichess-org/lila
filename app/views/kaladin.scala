@@ -29,11 +29,13 @@ object kaladin:
               if dashboard.seenRecently then span(cls := "up")("Operational")
               else
                 span(cls := "down")(
-                  dashboard.lastSeenAt.map { seenAt =>
-                    frag("Last seen ", momentFromNow(seenAt))
-                  } getOrElse {
-                    frag("Unknown")
-                  }
+                  dashboard.lastSeenAt
+                    .map { seenAt =>
+                      frag("Last seen ", momentFromNow(seenAt))
+                    }
+                    .getOrElse {
+                      frag("Unknown")
+                    }
                 )
             ),
             div(cls := "box__top__actions")(
@@ -59,8 +61,8 @@ object kaladin:
                 tr(cls := "report")(
                   td(userIdLink(entry._id.some, params = "?mod")),
                   td(cls := "little")(momentFromNow(entry.queuedAt)),
-                  td(cls := "little")(entry.startedAt map { momentFromNow(_) }),
-                  td(cls := "little completed")(entry.response.map(_.at) map { momentFromNow(_) }),
+                  td(cls := "little")(entry.startedAt.map { momentFromNow(_) }),
+                  td(cls := "little completed")(entry.response.map(_.at).map { momentFromNow(_) }),
                   td {
                     entry.queuedBy match
                       case KaladinUser.Requester.Mod(id) => userIdLink(id.some)

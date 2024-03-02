@@ -4,11 +4,13 @@ import AnalyseCtrl from '../ctrl';
 import { renderMaterialDiffs } from '../view/view';
 import { TagArray } from './interfaces';
 import { findTag, isFinished, looksLikeLichessGame, resultOf } from './studyChapters';
+import { userTitle } from 'common/userLink';
 
 interface Player {
   name: string;
   team?: string;
   fed?: string;
+  fideId?: string;
 }
 interface Players {
   white: Player;
@@ -21,8 +23,18 @@ export default function (ctrl: AnalyseCtrl): VNode[] | undefined {
   const tags = study.data.chapter.tags,
     feds = study.data.chapter.feds || [],
     players = {
-      white: { name: findTag(tags, 'white')!, team: findTag(tags, 'whiteteam'), fed: feds[0] },
-      black: { name: findTag(tags, 'black')!, team: findTag(tags, 'blackteam'), fed: feds[1] },
+      white: {
+        name: findTag(tags, 'white')!,
+        team: findTag(tags, 'whiteteam'),
+        fideId: findTag(tags, 'whitefideid'),
+        fed: feds[0],
+      },
+      black: {
+        name: findTag(tags, 'black')!,
+        team: findTag(tags, 'blackteam'),
+        fideId: findTag(tags, 'blackfideid'),
+        fed: feds[1],
+      },
     };
 
   const clocks = renderClocks(ctrl),
@@ -62,12 +74,11 @@ function renderPlayer(
       result && h('span.result', result),
       h('span.info', [
         player.team && h('span.team', player.team),
-        player.fed &&
-          h('img.flag', {
-            attrs: { src: site.asset.url(`images/fide-fed/${player.fed}.svg`) },
-          }),
-        title && h('span.utitle', title == 'BOT' ? { attrs: { 'data-bot': true } } : {}, title + ' '),
-        h('span.name', player.name),
+        player.fed && playerFed(player.fed),
+        userTitle({ title }),
+        player.fideId
+          ? h('a.name', { attrs: { href: `/fide/${player.fideId}/redirect` } }, player.name)
+          : h('span.name', player.name),
         elo && h('span.elo', elo),
       ]),
     ]),
@@ -75,3 +86,8 @@ function renderPlayer(
     clocks?.[color === 'white' ? 0 : 1],
   ]);
 }
+
+export const playerFed = (fed: string) =>
+  h('img.flag', {
+    attrs: { src: site.asset.url(`images/fide-fed/${fed}.svg`) },
+  });

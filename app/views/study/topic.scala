@@ -60,7 +60,7 @@ object topic:
             bits.orderSelect(order, active, url),
             bits.newForm()
           ),
-          myTopics.ifTrue(order == Order.Mine) map { ts =>
+          myTopics.ifTrue(order == Order.Mine).map { ts =>
             div(cls := "box__pad")(
               topicsList(ts, Order.Mine)
             )

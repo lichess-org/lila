@@ -25,7 +25,7 @@ abstract class SyncActor(using Executor) extends lila.common.Tellable:
 
   def !(msg: Matchable): Unit =
     if isAlive && stateRef
-        .getAndUpdate(state => Some(state.fold(Queue.empty[Matchable])(_ enqueue msg)))
+        .getAndUpdate(state => Some(state.fold(Queue.empty[Matchable])(_.enqueue(msg))))
         .isEmpty
     then run(msg)
 
@@ -46,10 +46,10 @@ abstract class SyncActor(using Executor) extends lila.common.Tellable:
   private[this] def run(msg: Matchable): Unit =
     Future {
       process.applyOrElse(msg, fallback)
-    } onComplete postRun
+    }.onComplete(postRun)
 
   private[this] val postRun = (_: Matchable) =>
-    stateRef.getAndUpdate(postRunUpdate) flatMap (_.headOption) foreach run
+    stateRef.getAndUpdate(postRunUpdate).flatMap(_.headOption).foreach(run)
 
   private val fallback: Receive = { case msg =>
     lila.log("actor").warn(s"unhandled msg: $msg")
@@ -63,7 +63,7 @@ object SyncActor:
 
   private val postRunUpdate = new UnaryOperator[State]:
     override def apply(state: State): State =
-      state flatMap { q =>
+      state.flatMap { q =>
         if q.isEmpty then None else Some(q.tail)
       }
 

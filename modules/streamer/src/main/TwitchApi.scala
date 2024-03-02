@@ -19,7 +19,7 @@ final private class TwitchApi(ws: StandaloneWSClient, config: TwitchConfig)(usin
       page: Int,
       pagination: Option[Twitch.Pagination]
   ): Fu[List[Twitch.TwitchStream]] =
-    (config.clientId.nonEmpty && config.secret.value.nonEmpty && page < 10) so {
+    (config.clientId.nonEmpty && config.secret.value.nonEmpty && page < 10).so {
       val query = List(
         "game_id" -> "743", // chess
         "first"   -> "100"  // max results per page
@@ -50,7 +50,7 @@ final private class TwitchApi(ws: StandaloneWSClient, config: TwitchConfig)(usin
         .monSuccess(_.tv.streamer.twitch)
         .flatMap { result =>
           if result.data.exists(_.nonEmpty) then
-            fetchStreams(streamers, page + 1, result.pagination) map (result.liveStreams ::: _)
+            fetchStreams(streamers, page + 1, result.pagination).map(result.liveStreams ::: _)
           else fuccess(Nil)
         }
     }
@@ -65,7 +65,7 @@ final private class TwitchApi(ws: StandaloneWSClient, config: TwitchConfig)(usin
       .post(Map.empty[String, String])
       .flatMap {
         case res if res.status == 200 =>
-          res.body[JsValue].asOpt[JsObject].flatMap(_ str "access_token") match
+          res.body[JsValue].asOpt[JsObject].flatMap(_.str("access_token")) match
             case Some(token) =>
               tmpToken = Secret(token)
               funit

@@ -36,17 +36,19 @@ object EventForm:
       "icon"          -> stringIn(icon.choices),
       "countdown"     -> boolean
     )(Data.apply)(unapply)
-  ) fill Data(
-    title = "",
-    headline = "",
-    description = none,
-    homepageHours = 0,
-    url = "",
-    lang = lila.i18n.defaultLanguage,
-    enabled = true,
-    startsAt = nowDateTime,
-    finishesAt = nowDateTime,
-    countdown = true
+  ).fill(
+    Data(
+      title = "",
+      headline = "",
+      description = none,
+      homepageHours = 0,
+      url = "",
+      lang = lila.i18n.defaultLanguage,
+      enabled = true,
+      startsAt = nowDateTime,
+      finishesAt = nowDateTime,
+      countdown = true
+    )
   )
 
   case class Data(
@@ -116,7 +118,7 @@ object EventForm:
         enabled = event.enabled,
         startsAt = event.startsAt.dateTime,
         finishesAt = event.finishesAt.dateTime,
-        hostedBy = event.hostedBy.map(_ into UserStr),
+        hostedBy = event.hostedBy.map(_.into(UserStr)),
         icon = ~event.icon,
         countdown = event.countdown
       )

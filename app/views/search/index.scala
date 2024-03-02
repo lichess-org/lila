@@ -15,7 +15,7 @@ object index:
   def apply(form: Form[?], paginator: Option[Paginator[lila.game.Game]] = None, nbGames: Long)(using
       ctx: PageContext
   ) =
-    val commons = bits of form
+    val commons = bits.of(form)
     import commons.*
     views.html.base.layout(
       title = searchInXGames.txt(nbGames.localize, nbGames),

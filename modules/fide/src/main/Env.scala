@@ -1,4 +1,4 @@
-package lila.player
+package lila.fide
 
 import com.softwaremill.macwire.*
 import play.api.libs.ws.StandaloneWSClient
@@ -13,9 +13,15 @@ final class Env(db: lila.db.Db, cacheApi: CacheApi, ws: StandaloneWSClient)(usin
     Executor,
     akka.stream.Materializer
 )(using mode: Mode, scheduler: Scheduler):
-  private val fidePlayerColl = db(CollName("fide_player"))
 
-  lazy val fideApi = wire[FidePlayerApi]
+  val repo =
+    FideRepo(playerColl = db(CollName("fide_player")), federationColl = db(CollName("fide_federation")))
+
+  lazy val playerApi = wire[FidePlayerApi]
+
+  lazy val federationApi = wire[FederationApi]
+
+  lazy val paginator = wire[FidePaginator]
 
   private lazy val fideSync = wire[FidePlayerSync]
 

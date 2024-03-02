@@ -1,7 +1,5 @@
 package lila.analyse
 
-import monocle.syntax.all.*
-
 import chess.format.pgn.{ Glyphs, Move, Pgn, Tag, PgnStr, Comment }
 import chess.opening.*
 import chess.{ Color, Tree, Variation, Status, Ply }
@@ -80,7 +78,7 @@ final class Annotator(netDomain: lila.common.config.NetDomain):
           .getOrElse(pgn)
 
   private def makeVariation(advice: Advice): Option[Variation[Move]] =
-    val sans = advice.info.variation take 20
+    val sans = advice.info.variation.take(20)
     Tree
       .buildWithIndex(sans, (san, index) => Move(Ply(advice.ply.value + index), san))
       .map(_.toVariation)

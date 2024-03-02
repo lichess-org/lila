@@ -37,7 +37,7 @@ final private[tournament] class PairingSystem(
     .result
 
   private def evenOrAll(data: Data, users: WaitingUsers) =
-    makePreps(data, users.evenNumber) flatMap {
+    makePreps(data, users.evenNumber).flatMap {
       case Nil if users.isOdd => makePreps(data, users.all)
       case x                  => fuccess(x)
     }
@@ -48,16 +48,16 @@ final private[tournament] class PairingSystem(
     import data.*
     if users.sizeIs < 2 then fuccess(Nil)
     else
-      playerRepo.rankedByTourAndUserIds(tour.id, users, ranking) map { idles =>
+      playerRepo.rankedByTourAndUserIds(tour.id, users, ranking).map { idles =>
         lazy val nbIdles = idles.size
         if nbIdles < 2 then Nil
         else if data.tour.isRecentlyStarted && !data.tour.isTeamBattle then initialPairings(idles)
         else if nbIdles <= maxGroupSize then bestPairings(data, idles)
         else
           // make sure groupSize is even with / 4 * 2
-          val groupSize = (nbIdles / 4 * 2) atMost maxGroupSize
+          val groupSize = (nbIdles / 4 * 2).atMost(maxGroupSize)
           // make 2 best pairing groups
-          bestPairings(data, idles take groupSize) :::
+          bestPairings(data, idles.take(groupSize)) :::
             bestPairings(data, idles.slice(groupSize, groupSize * 2)) :::
             // then up to 6 more groups of cheap pairing
             proximityPairings(idles.slice(groupSize * 2, groupSize * 8))
@@ -70,7 +70,7 @@ final private[tournament] class PairingSystem(
     .result
 
   private def prepsToPairings(tour: Tournament, preps: List[Pairing.Prep]): Fu[List[Pairing.WithPlayers]] =
-    idGenerator.games(preps.size) map { ids =>
+    idGenerator.games(preps.size).map { ids =>
       preps.zip(ids).map { case (prep, id) =>
         // color was chosen in prepWithColor function
         prep.toPairing(tour.id, id)
@@ -78,19 +78,23 @@ final private[tournament] class PairingSystem(
     }
 
   private def initialPairings(players: RankedPlayers): List[Pairing.Prep] =
-    players grouped 2 collect { case List(p1, p2) =>
-      Pairing.prepWithRandomColor(p1.player, p2.player)
-    } toList
+    players
+      .grouped(2)
+      .collect { case List(p1, p2) =>
+        Pairing.prepWithRandomColor(p1.player, p2.player)
+      } toList
 
   private def proximityPairings(players: RankedPlayers): List[Pairing.Prep] =
-    addColorHistory(players) grouped 2 collect { case List(p1, p2) =>
-      Pairing.prepWithColor(p1, p2)
-    } toList
+    addColorHistory(players)
+      .grouped(2)
+      .collect { case List(p1, p2) =>
+        Pairing.prepWithColor(p1, p2)
+      } toList
 
   private def bestPairings(data: Data, players: RankedPlayers): List[Pairing.Prep] =
-    (players.sizeIs > 1) so AntmaPairing(data, addColorHistory(players))
+    (players.sizeIs > 1).so(AntmaPairing(data, addColorHistory(players)))
 
-  private def addColorHistory(players: RankedPlayers) = players.map(_ withColorHistory colorHistoryApi.get)
+  private def addColorHistory(players: RankedPlayers) = players.map(_.withColorHistory(colorHistoryApi.get))
 
 private object PairingSystem:
 
@@ -117,5 +121,5 @@ private object PairingSystem:
   ): (RankedPlayerWithColorHistory, RankedPlayerWithColorHistory) => Int =
     val maxRank = players.maxBy(_.rank.value).rank
     (a, b) =>
-      val rank = a.rank atMost b.rank
+      val rank = a.rank.atMost(b.rank)
       300 + 1700 * (maxRank - rank).value / maxRank.value

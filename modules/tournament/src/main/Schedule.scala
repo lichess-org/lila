@@ -113,9 +113,9 @@ case class Schedule(
 
   def sameConditions(other: Schedule) = conditions == other.conditions
 
-  def sameMaxRating(other: Schedule) = conditions sameMaxRating other.conditions
+  def sameMaxRating(other: Schedule) = conditions.sameMaxRating(other.conditions)
 
-  def similarConditions(other: Schedule) = conditions similar other.conditions
+  def similarConditions(other: Schedule) = conditions.similar(other.conditions)
 
   def sameDay(other: Schedule) = day == other.day
 
@@ -136,7 +136,7 @@ object Schedule:
   def uniqueFor(tour: Tournament) =
     Schedule(
       freq = Freq.Unique,
-      speed = Speed fromClock tour.clock,
+      speed = Speed.fromClock(tour.clock),
       variant = tour.variant,
       position = tour.position,
       at = tour.startsAt.dateTime
@@ -180,8 +180,10 @@ object Schedule:
 
   enum Speed(val id: Int):
     val name = Speed.this.toString
-    val key  = lila.common.String lcfirst name
+    val key  = lila.common.String.lcfirst(name)
     def trans(using Lang): String = this match
+      case Speed.Bullet    => I18nKeys.bullet.txt()
+      case Speed.Blitz     => I18nKeys.blitz.txt()
       case Speed.Rapid     => I18nKeys.rapid.txt()
       case Speed.Classical => I18nKeys.classical.txt()
       case _               => name
@@ -197,7 +199,7 @@ object Schedule:
     val all                      = values.toList
     val mostPopular: List[Speed] = List(Bullet, Blitz, Rapid, Classical)
     val byId                     = values.mapBy(_.id)
-    def apply(key: String) = all.find(_.key == key) orElse all.find(_.key.toLowerCase == key.toLowerCase)
+    def apply(key: String) = all.find(_.key == key).orElse(all.find(_.key.toLowerCase == key.toLowerCase))
     def similar(s1: Speed, s2: Speed) =
       (s1, s2) match
         case (a, b) if a == b                                        => true
@@ -347,8 +349,8 @@ object Schedule:
           case _                                   => 0
 
       TournamentCondition.All(
-        nbRatedGame = nbRatedGame.some.filter(0 <) map Condition.NbRatedGame.apply,
-        minRating = minRating.some.filter(_ > 0) map Condition.MinRating.apply,
+        nbRatedGame = nbRatedGame.some.filter(0 <).map(Condition.NbRatedGame.apply),
+        minRating = minRating.some.filter(_ > 0).map(Condition.MinRating.apply),
         maxRating = none,
         titled = none,
         teamMember = none,

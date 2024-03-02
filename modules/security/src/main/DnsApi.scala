@@ -16,8 +16,8 @@ final private class DnsApi(
 
   // only valid email domains that are not whitelisted should make it here
   def mx(lower: Domain.Lower): Fu[List[Domain]] =
-    failsafe(lower, List(lower into Domain)) {
-      mxCache get lower
+    failsafe(lower, List(lower.into(Domain))) {
+      mxCache.get(lower)
     }
 
   private val mxCache = mongoCache.noHeap[Domain.Lower, List[Domain]](
@@ -26,13 +26,13 @@ final private class DnsApi(
     _.value
   ) { domain =>
     fetch(domain, "mx") {
-      _ take 20 flatMap { obj =>
+      _.take(20).flatMap { obj =>
         (obj \ "data")
           .asOpt[String]
-          .map(_ split ' ')
+          .map(_.split(' '))
           .collect { case Array(_, domain) =>
             Domain.from {
-              if domain endsWith "." then domain.init
+              if domain.endsWith(".") then domain.init
               else domain
             }
           }
@@ -46,15 +46,16 @@ final private class DnsApi(
       .withQueryStringParameters("name" -> domain.value, "type" -> tpe)
       .withHttpHeaders("Accept" -> "application/dns-json")
       .get()
-      .withTimeout(config.timeout, "DnsApi.fetch") map {
-      case res if res.status == 200 || res.status == 404 =>
-        f(~(res.body[JsValue] \ "Answer").asOpt[List[JsObject]])
-      case res => throw LilaException(s"Status ${res.status}")
-    }
+      .withTimeout(config.timeout, "DnsApi.fetch")
+      .map {
+        case res if res.status == 200 || res.status == 404 =>
+          f(~(res.body[JsValue] \ "Answer").asOpt[List[JsObject]])
+        case res => throw LilaException(s"Status ${res.status}")
+      }
 
   // if the DNS service fails, assume the best
   private def failsafe[A](domain: Domain.Lower, default: => A)(f: => Fu[A]): Fu[A] =
-    f recover { case e: Exception =>
+    f.recover { case e: Exception =>
       logger.warn(s"DnsApi $domain", e)
       default
     }

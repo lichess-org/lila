@@ -91,8 +91,10 @@ final class Env(
         opening.recomputeAll
         fuccess("started in background")
       case "puzzle" :: "issue" :: id :: issue :: Nil =>
-        api.puzzle.setIssue(PuzzleId(id), issue) map: res =>
-          if res then "done" else "not found"
+        api.puzzle
+          .setIssue(PuzzleId(id), issue)
+          .map: res =>
+            if res then "done" else "not found"
 
   scheduler.scheduleAtFixedRate(10 minutes, 1 day): () =>
     tagger.addAllMissing

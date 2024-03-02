@@ -8,6 +8,8 @@ import lila.common.ApiVersion
 
 object mon:
 
+  import kamon.Kamon.{ timer, gauge, counter, histogram }
+
   private def tags(elems: (String, Any)*): Map[String, Any] = Map.from(elems)
 
   object http:
@@ -261,9 +263,6 @@ object mon:
     def syncTime(official: Boolean, slug: String)  = timer("relay.sync.time").withTags(relay(official, slug))
     def httpGet(host: String, proxy: Option[String]) =
       future("relay.http.get", tags("host" -> host, "proxy" -> proxy.getOrElse("none")))
-    object fidePlayers:
-      val update = future("relay.fidePlayers.update")
-      val nb     = gauge("relay.fidePlayers.nb").withoutTags()
 
   object bot:
     def moves(username: String)   = counter("bot.moves").withTag("name", username)
@@ -271,7 +270,7 @@ object mon:
     def gameStream(event: String) = counter("bot.gameStream").withTag("event", event)
   object cheat:
     def selfReport(wildName: String, auth: Boolean) =
-      val name = if wildName startsWith "soc: " then "soc" else wildName.takeWhile(' ' !=)
+      val name = if wildName.startsWith("soc: ") then "soc" else wildName.takeWhile(' ' !=)
       counter("cheat.selfReport").withTags(tags("name" -> name, "auth" -> auth))
     val holdAlert                    = counter("cheat.holdAlert").withoutTags()
     def autoAnalysis(reason: String) = counter("cheat.autoAnalysis").withTag("reason", reason)
@@ -297,7 +296,7 @@ object mon:
       val prints = gauge("security.firewall.prints").withoutTags()
     object proxy:
       val request                   = future("security.proxy.time")
-      def result(r: Option[String]) = counter("security.proxy.result").withTag("result", r getOrElse "none")
+      def result(r: Option[String]) = counter("security.proxy.result").withTag("result", r.getOrElse("none"))
     def rateLimit(key: String)        = counter("security.rateLimit.count").withTag("key", key)
     def concurrencyLimit(key: String) = counter("security.concurrencyLimit.count").withTag("key", key)
     object dnsApi:
@@ -647,6 +646,10 @@ object mon:
   object picfit:
     def uploadTime(user: String) = future("picfit.upload.time", tags("user" -> user))
     def uploadSize(user: String) = histogram("picfit.upload.size").withTag("user", user)
+  object fideSync:
+    val time    = future("fide.sync.time")
+    val players = gauge("fide.sync.players").withoutTags()
+    val deleted = gauge("fide.sync.deleted").withoutTags()
 
   object jvm:
     def threads() =
@@ -662,11 +665,6 @@ object mon:
 
   type TimerPath   = lila.mon.type => Timer
   type CounterPath = lila.mon.type => Counter
-
-  private def timer(name: String)     = kamon.Kamon.timer(name)
-  private def gauge(name: String)     = kamon.Kamon.gauge(name)
-  private def counter(name: String)   = kamon.Kamon.counter(name)
-  private def histogram(name: String) = kamon.Kamon.histogram(name)
 
   private def future(name: String) = (success: Boolean) => timer(name).withTag("success", successTag(success))
   private def future(name: String, tags: Map[String, Any]) = (success: Boolean) =>

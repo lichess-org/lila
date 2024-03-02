@@ -23,13 +23,13 @@ object UblogBlog:
     case User(id: UserId) extends Id(s"user${Id.sep}$id")
   object Id:
     private val sep = ':'
-    def apply(full: String): Option[Id] = full split sep match
+    def apply(full: String): Option[Id] = full.split(sep) match
       case Array("user", id) => User(UserId(id)).some
       case _                 => none
 
   def make(user: User.WithPerfs) = UblogBlog(
     _id = Id.User(user.id),
-    tier = UblogRank.Tier default user,
+    tier = UblogRank.Tier.default(user),
     modTier = none
   )
 
@@ -37,4 +37,5 @@ object UblogBlog:
     def moderate(using Option[Me]): Boolean   = Granter.opt(_.ModerateBlog)
     def edit(using me: Option[Me]): Boolean   = me.exists(creator.is(_)) || moderate
     def create(using me: Option[Me]): Boolean = edit || (creator == User.lichessId && Granter.opt(_.Pages))
-    def draft(using me: Option[Me]): Boolean  = create
+    def draft(using me: Option[Me]): Boolean =
+      create || (Granter.opt(_.LichessTeam) && creator == User.lichessId)

@@ -65,7 +65,7 @@ final class Env(
   lazy val forms                            = wire[ForumForm]
 
   lazy val recentTeamPosts = RecentTeamPosts: id =>
-    postRepo.recentInCateg(ForumCateg.fromTeamId(id), 6) flatMap postApi.miniPosts
+    postRepo.recentInCateg(ForumCateg.fromTeamId(id), 6).flatMap(postApi.miniPosts)
 
   lila.common.Bus.subscribeFun("team", "gdprErase"):
     case CreateTeam(id, name, author)   => categApi.makeTeam(id, name, author)

@@ -12,4 +12,4 @@ private enum Status(val id: Int):
 
 object Status:
   val byId                           = values.mapBy(_.id)
-  def apply(id: Int): Option[Status] = byId get id
+  def apply(id: Int): Option[Status] = byId.get(id)

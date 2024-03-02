@@ -10,41 +10,47 @@ object FormCompatLayer:
   private type FormData = Map[String, Seq[String]]
 
   def apply(pref: Pref, req: Request[?]): FormData =
-    reqToFormData(req) pipe
-      moveToAndRename(
-        "clock",
-        List(
-          "clockTenths" -> "tenths",
-          "clockBar"    -> "bar",
-          "clockSound"  -> "sound",
-          "moretime"    -> "moretime"
+    reqToFormData(req)
+      .pipe(
+        moveToAndRename(
+          "clock",
+          List(
+            "clockTenths" -> "tenths",
+            "clockBar"    -> "bar",
+            "clockSound"  -> "sound",
+            "moretime"    -> "moretime"
+          )
         )
-      ) pipe
-      addMissing("clock.moretime", pref.moretime.toString) pipe
-      moveTo(
-        "behavior",
-        List(
-          "moveEvent",
-          "premove",
-          "takeback",
-          "autoQueen",
-          "autoThreefold",
-          "submitMove",
-          "confirmResign",
-          "keyboardMove"
+      )
+      .pipe(addMissing("clock.moretime", pref.moretime.toString))
+      .pipe(
+        moveTo(
+          "behavior",
+          List(
+            "moveEvent",
+            "premove",
+            "takeback",
+            "autoQueen",
+            "autoThreefold",
+            "submitMove",
+            "confirmResign",
+            "keyboardMove"
+          )
         )
-      ) pipe
-      moveTo(
-        "display",
-        List(
-          "animation",
-          "captured",
-          "highlight",
-          "destination",
-          "coords",
-          "replay",
-          "pieceNotation",
-          "blindfold"
+      )
+      .pipe(
+        moveTo(
+          "display",
+          List(
+            "animation",
+            "captured",
+            "highlight",
+            "destination",
+            "coords",
+            "replay",
+            "pieceNotation",
+            "blindfold"
+          )
         )
       )
 

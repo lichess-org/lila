@@ -15,7 +15,7 @@ final class Env(
     ws: StandaloneWSClient,
     db: lila.db.Db,
     yoloDb: lila.db.AsyncDb @@ lila.db.YoloDb,
-    fidePlayerApi: lila.player.FidePlayerApi,
+    fidePlayerApi: lila.fide.FidePlayerApi,
     studyApi: lila.study.StudyApi,
     multiboard: lila.study.StudyMultiBoard,
     studyRepo: lila.study.StudyRepo,
@@ -67,6 +67,8 @@ final class Env(
 
   lazy val teamTable = wire[RelayTeamTable]
 
+  lazy val playerTour = wire[RelayPlayerTour]
+
   private lazy val sync = wire[RelaySync]
 
   private lazy val formatApi = wire[RelayFormatApi]
@@ -112,7 +114,7 @@ final class Env(
       studyApi
         .isContributor(id, who.u)
         .foreach:
-          _ so api.requestPlay(id into RelayRoundId, v)
+          _.so(api.requestPlay(id.into(RelayRoundId), v))
     },
     "kickStudy" -> { case lila.study.actorApi.Kick(studyId, userId, who) =>
       roundRepo.tourIdByStudyId(studyId).flatMapz(api.kickBroadcast(userId, _, who))
@@ -121,7 +123,7 @@ final class Env(
       api.becomeStudyAdmin(studyId, me)
     },
     "isOfficialRelay" -> { case lila.study.actorApi.IsOfficialRelay(studyId, promise) =>
-      promise completeWith api.isOfficial(studyId)
+      promise.completeWith(api.isOfficial(studyId))
     }
   )
 

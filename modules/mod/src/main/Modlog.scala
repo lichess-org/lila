@@ -12,7 +12,7 @@ case class Modlog(
     index: Option[String] = None
 ):
 
-  def isLichess = mod is lila.user.User.lichessId
+  def isLichess = mod.is(lila.user.User.lichessId)
 
   def notable      = action != Modlog.terminateTournament
   def notableZulip = notable && !isLichess
@@ -164,6 +164,6 @@ object Modlog:
   val blankedPassword     = "blankedPassword"
 
   private val explainRegex = """^[\w-]{3,}+: (.++)$""".r
-  def explain(e: Modlog) = (e.index has "team") so ~e.details match
+  def explain(e: Modlog) = (e.index.has("team")).so(~e.details) match
     case explainRegex(explain) => explain.some
     case _                     => none

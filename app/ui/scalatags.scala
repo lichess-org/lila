@@ -71,8 +71,8 @@ trait ScalatagsSnippets:
   def userTitleTag(t: UserTitle) =
     span(
       cls := "utitle",
-      t == lila.user.Title.BOT option dataBotAttr,
-      title := Title titleName t
+      (t == lila.user.Title.BOT).option(dataBotAttr),
+      title := Title.titleName(t)
     )(t)
 
   val utcLink =
@@ -139,12 +139,12 @@ trait ScalatagsExtensions:
   given GenericAttr[BigDecimal] = GenericAttr[BigDecimal]
 
   given [A](using av: AttrValue[A]): AttrValue[Option[A]] with
-    def apply(t: Builder, a: Attr, v: Option[A]): Unit = v foreach { av.apply(t, a, _) }
+    def apply(t: Builder, a: Attr, v: Option[A]): Unit = v.foreach { av.apply(t, a, _) }
 
   /* for class maps such as List("foo" -> true, "active" -> isActive) */
   given AttrValue[List[(String, Boolean)]] with
     def apply(t: Builder, a: Attr, m: List[(String, Boolean)]): Unit =
-      val cls = m collect { case (s, true) => s } mkString " "
+      val cls = m.collect { case (s, true) => s }.mkString(" ")
       if cls.nonEmpty then t.setAttr(a.name, Builder.GenericAttrValueSource(cls))
 
   val emptyFrag: Frag = RawFrag("")

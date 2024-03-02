@@ -51,10 +51,10 @@ this.setSelectionRange(this.value.length, this.value.length);
                   td(email.fold("-")(_.value)),
                   td(u.count.game.localize),
                   td(
-                    u.marks.engine option "ENGINE",
-                    u.marks.boost option "BOOSTER",
-                    u.marks.troll option "SHADOWBAN",
-                    u.enabled.no option "CLOSED"
+                    u.marks.engine.option("ENGINE"),
+                    u.marks.boost.option("BOOSTER"),
+                    u.marks.troll.option("SHADOWBAN"),
+                    u.enabled.no.option("CLOSED")
                   ),
                   td(momentFromNow(u.createdAt)),
                   td(u.seenAt.map(momentFromNow(_))),

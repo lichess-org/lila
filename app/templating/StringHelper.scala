@@ -45,4 +45,4 @@ trait StringHelper:
 
   extension (e: String)
     def active(other: String, one: String = "active")  = if e == other then one else ""
-    def activeO(other: String, one: String = "active") = e == other option one
+    def activeO(other: String, one: String = "active") = (e == other).option(one)
