@@ -23,7 +23,7 @@ export default function (ctrl: AnalyseCtrl): VNode | undefined {
   const content =
     relay.tab() == 'overview'
       ? overview(relay, ctrl)
-      : relay.tab() == 'games'
+      : relay.tab() == 'boards'
       ? games(relay, study, ctrl)
       : relay.tab() == 'teams'
       ? teams(relay, ctrl)
@@ -222,8 +222,9 @@ const makeTabs = (ctrl: AnalyseCtrl) => {
 
   const makeTab = (key: RelayTab, name: string) =>
     h(
-      `span${relay.tab() === key ? '.active' : ''}`,
+      `span.relay-tour__tabs--${key}`,
       {
+        class: { active: relay.tab() === key },
         attrs: { role: 'tab' },
         hook: bind('mousedown', () => relay.openTab(key)),
       },
@@ -231,7 +232,7 @@ const makeTabs = (ctrl: AnalyseCtrl) => {
     );
   return h('nav.relay-tour__tabs', { attrs: { role: 'tablist' } }, [
     makeTab('overview', 'Overview'),
-    makeTab('games', 'Boards'),
+    makeTab('boards', 'Boards'),
     relay.teams && makeTab('teams', 'Teams'),
     relay.data.leaderboard ? makeTab('leaderboard', 'Leaderboard') : undefined,
   ]);

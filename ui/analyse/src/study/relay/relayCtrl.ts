@@ -16,7 +16,7 @@ import { Redraw } from 'common/snabbdom';
 import { fenColor } from 'common/miniBoard';
 import { opposite } from 'chessops/util';
 
-export const relayTabs = ['overview', 'games', 'teams', 'leaderboard'] as const;
+export const relayTabs = ['overview', 'boards', 'teams', 'leaderboard'] as const;
 export type RelayTab = (typeof relayTabs)[number];
 
 export default class RelayCtrl {
@@ -41,7 +41,7 @@ export default class RelayCtrl {
     this.applyChapterRelay(chapter, chapter.relay);
     this.tourShow = toggle((location.pathname.match(/\//g) || []).length < 5);
     const locationTab = location.hash.replace(/^#/, '') as RelayTab;
-    const initialTab = relayTabs.includes(locationTab) ? locationTab : looksNew ? 'overview' : 'games';
+    const initialTab = relayTabs.includes(locationTab) ? locationTab : looksNew ? 'overview' : 'boards';
     this.tab = prop<RelayTab>(initialTab);
     this.teams = data.tour.teamTable
       ? new RelayTeams(
