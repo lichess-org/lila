@@ -64,7 +64,7 @@ object home:
           h2(trans.lichessTournaments()),
           div(cls := "scheduled")(
             scheduled.map: tour =>
-              tour.schedule.filter(s => s.freq != lila.tournament.Schedule.Freq.Hourly) map { s =>
+              tour.schedule.filter(s => s.freq != lila.tournament.Schedule.Freq.Hourly).map { s =>
                 a(href := routes.Tournament.show(tour.id), dataIcon := tournamentIcon(tour))(
                   strong(tour.name(full = false)),
                   momentFromNow(s.at.instant)
@@ -75,12 +75,14 @@ object home:
         st.section(cls := "tour-home__schedule box")(
           boxTop(
             h1(trans.tournaments()),
-            ctx.isAuth option div(cls := "box__top__actions")(
-              a(
-                href     := routes.Tournament.form,
-                cls      := "button button-green text",
-                dataIcon := licon.PlusButton
-              )(trans.createANewTournament())
+            ctx.isAuth.option(
+              div(cls := "box__top__actions")(
+                a(
+                  href     := routes.Tournament.form,
+                  cls      := "button button-green text",
+                  dataIcon := licon.PlusButton
+                )(trans.createANewTournament())
+              )
             )
           ),
           div(cls := "tour-chart")

@@ -64,30 +64,40 @@ final class Preload(
         ublogPosts
       ),
       lichessMsg
-    ) <- lobbyApi.apply.mon(_.lobby segment "lobbyApi") zip
-      tours.mon(_.lobby segment "tours") zip
-      events.mon(_.lobby segment "events") zip
-      simuls.mon(_.lobby segment "simuls") zip
-      tv.getBestGame.mon(_.lobby segment "tvBestGame") zip
-      (ctx.userId so timelineApi.userEntries).mon(_.lobby segment "timeline") zip
-      userCached.topWeek.mon(_.lobby segment "userTopWeek") zip
-      tourWinners.all.dmap(_.top).mon(_.lobby segment "tourWinners") zip
-      (ctx.noBot so dailyPuzzle()).mon(_.lobby segment "puzzle") zip
-      (ctx.kid.no so liveStreamApi.all
-        .dmap(_.homepage(streamerSpots, ctx.acceptLanguages) withTitles lightUserApi)
-        .mon(_.lobby segment "streams")) zip
-      (ctx.userId so playbanApi.currentBan).mon(_.lobby segment "playban") zip
-      (ctx.blind so ctx.me so roundProxy.urgentGames) zip
-      lastPostsCache.get {} zip
-      ctx.userId
-        .ifTrue(nbNotifications > 0)
-        .filterNot(liveStreamApi.isStreaming)
-        .so(msgApi.hasUnreadLichessMessage)
-    (currentGame, _) <- (ctx.me soUse currentGameMyTurn(povs, lightUserApi.sync))
-      .mon(_.lobby segment "currentGame") zip
-      lightUserApi
-        .preloadMany(tWinners.map(_.userId) ::: entries.flatMap(_.userIds).toList)
-        .mon(_.lobby segment "lightUsers")
+    ) <- lobbyApi.apply
+      .mon(_.lobby.segment("lobbyApi"))
+      .zip(tours.mon(_.lobby.segment("tours")))
+      .zip(events.mon(_.lobby.segment("events")))
+      .zip(simuls.mon(_.lobby.segment("simuls")))
+      .zip(tv.getBestGame.mon(_.lobby.segment("tvBestGame")))
+      .zip((ctx.userId.so(timelineApi.userEntries)).mon(_.lobby.segment("timeline")))
+      .zip(userCached.topWeek.mon(_.lobby.segment("userTopWeek")))
+      .zip(tourWinners.all.dmap(_.top).mon(_.lobby.segment("tourWinners")))
+      .zip((ctx.noBot.so(dailyPuzzle())).mon(_.lobby.segment("puzzle")))
+      .zip(
+        ctx.kid.no.so(
+          liveStreamApi.all
+            .dmap(_.homepage(streamerSpots, ctx.acceptLanguages).withTitles(lightUserApi))
+            .mon(_.lobby.segment("streams"))
+        )
+      )
+      .zip((ctx.userId.so(playbanApi.currentBan)).mon(_.lobby.segment("playban")))
+      .zip(ctx.blind.so(ctx.me).so(roundProxy.urgentGames))
+      .zip(lastPostsCache.get {})
+      .zip(
+        ctx.userId
+          .ifTrue(nbNotifications > 0)
+          .filterNot(liveStreamApi.isStreaming)
+          .so(msgApi.hasUnreadLichessMessage)
+      )
+    (currentGame, _) <- (ctx.me
+      .soUse(currentGameMyTurn(povs, lightUserApi.sync)))
+      .mon(_.lobby.segment("currentGame"))
+      .zip(
+        lightUserApi
+          .preloadMany(tWinners.map(_.userId) ::: entries.flatMap(_.userIds).toList)
+          .mon(_.lobby.segment("lightUsers"))
+      )
   yield Homepage(
     data,
     entries,
@@ -112,18 +122,21 @@ final class Preload(
   )
 
   def currentGameMyTurn(using me: Me): Fu[Option[CurrentGame]] =
-    gameRepo.playingRealtimeNoAi(me).flatMap {
-      _.map { roundProxy.pov(_, me) }.parallel.dmap(_.flatten)
-    } flatMap {
-      currentGameMyTurn(_, lightUserApi.sync)
-    }
+    gameRepo
+      .playingRealtimeNoAi(me)
+      .flatMap {
+        _.map { roundProxy.pov(_, me) }.parallel.dmap(_.flatten)
+      }
+      .flatMap {
+        currentGameMyTurn(_, lightUserApi.sync)
+      }
 
   private def currentGameMyTurn(povs: List[Pov], lightUser: lila.common.LightUser.GetterSync)(using
       me: Me
   ): Fu[Option[CurrentGame]] =
     ~povs.collectFirst {
       case p1 if p1.game.nonAi && p1.game.hasClock && p1.isMyTurn =>
-        roundProxy.pov(p1.gameId, me) dmap (_ | p1) map { pov =>
+        roundProxy.pov(p1.gameId, me).dmap(_ | p1).map { pov =>
           val opponent = lila.game.Namer.playerTextBlocking(pov.opponent)(using lightUser)
           CurrentGame(pov = pov, opponent = opponent).some
         }

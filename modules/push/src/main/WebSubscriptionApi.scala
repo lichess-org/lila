@@ -41,11 +41,11 @@ final class WebSubscriptionApi(coll: Coll)(using Executor):
     coll
       .aggregateList(100_000, _.sec): framework =>
         import framework.*
-        Match($doc("userId" $in userIds)) -> List(
+        Match($doc("userId".$in(userIds))) -> List(
           Sort(Descending("seenAt")),
           GroupField("userId")("subs" -> Push(BSONString("$$ROOT"))),
           Project($doc("subs" -> Slice(BSONString("$subs"), BSONInteger(maxPerUser)), "_id" -> false)),
           Unwind("subs"),
           ReplaceRootField("subs")
         )
-      .map(_ flatMap webSubscriptionReader.readOpt)
+      .map(_.flatMap(webSubscriptionReader.readOpt))

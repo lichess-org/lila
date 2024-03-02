@@ -13,13 +13,13 @@ final class AsyncDb(
 )(using Executor):
 
   private lazy val connection: Fu[(MongoConnection, Option[String])] =
-    MongoConnection.fromString(uri) flatMap { parsedUri =>
+    MongoConnection.fromString(uri).flatMap { parsedUri =>
       driver.connect(parsedUri, name.some).dmap(_ -> parsedUri.db)
     }
 
   private def makeDb: Future[DB] =
-    connection flatMap { case (conn, dbName) =>
-      conn database dbName.getOrElse("lichess")
+    connection.flatMap { case (conn, dbName) =>
+      conn.database(dbName.getOrElse("lichess"))
     }
 
   private val dbCache = new SingleFutureCache[DB](
@@ -35,7 +35,7 @@ final class Db(
     driver: AsyncDriver
 )(using Executor):
 
-  private val logger = lila.db.logger branch name
+  private val logger = lila.db.logger.branch(name)
 
   private lazy val db: DB = Chronometer.syncEffect(
     MongoConnection
@@ -43,7 +43,7 @@ final class Db(
       .flatMap { parsedUri =>
         driver
           .connect(parsedUri, name.some)
-          .flatMap(_ database parsedUri.db.getOrElse("lichess"))
+          .flatMap(_.database(parsedUri.db.getOrElse("lichess")))
       }
       .await(5.seconds, s"db:$name")
   ) { lap =>

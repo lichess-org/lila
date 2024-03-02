@@ -25,15 +25,15 @@ object Count:
 
     def reads(r: BSON.Reader): Count =
       Count(
-        ai = r nInt "ai",
-        draw = r nInt "draw",
-        drawH = r nInt "drawH",
-        game = r nInt "game",
-        loss = r nInt "loss",
-        lossH = r nInt "lossH",
-        rated = r nInt "rated",
-        win = r nInt "win",
-        winH = r nInt "winH"
+        ai = r.nInt("ai"),
+        draw = r.nInt("draw"),
+        drawH = r.nInt("drawH"),
+        game = r.nInt("game"),
+        loss = r.nInt("loss"),
+        lossH = r.nInt("lossH"),
+        rated = r.nInt("rated"),
+        win = r.nInt("win"),
+        winH = r.nInt("winH")
       )
 
     def writes(w: BSON.Writer, o: Count) =

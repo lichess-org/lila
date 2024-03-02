@@ -81,10 +81,10 @@ final private class PayPalClient(
 
   // actually triggers the payment for a onetime order
   def captureOrder(id: PayPalOrderId): Fu[PayPalOrder] =
-    postOne[PayPalOrder](path capture id, Json.obj())
+    postOne[PayPalOrder](path.capture(id), Json.obj())
 
   def createSubscription(checkout: PlanCheckout, user: User): Fu[PayPalSubscriptionCreated] =
-    plans.get(checkout.money.currency) flatMap { plan =>
+    plans.get(checkout.money.currency).flatMap { plan =>
       postOne[PayPalSubscriptionCreated](
         path.subscriptions,
         Json.obj(
@@ -115,7 +115,7 @@ final private class PayPalClient(
     getOne[PayPalOrder](s"${path.orders}/$id")
 
   def getSubscription(id: PayPalSubscriptionId): Fu[Option[PayPalSubscription]] =
-    getOne[PayPalSubscription](s"${path.subscriptions}/$id") recover {
+    getOne[PayPalSubscription](s"${path.subscriptions}/$id").recover {
       case CantParseException(json, _)
           if json.str("status").exists(status => status == "CANCELLED" || status == "SUSPENDED") =>
         none
@@ -170,27 +170,27 @@ final private class PayPalClient(
     )
 
   private def getOne[A: Reads](url: String): Fu[Option[A]] =
-    get[A](url) dmap some recover { case _: NotFoundException =>
+    get[A](url).dmap(some).recover { case _: NotFoundException =>
       None
     }
 
   private def get[A: Reads](url: String): Fu[A] =
     logger.debug(s"GET $url")
-    request(url) flatMap { _.get() flatMap response[A] }
+    request(url).flatMap { _.get().flatMap(response[A]) }
 
   private def postOne[A: Reads](url: String, data: JsObject): Fu[A] = post[A](url, data)
 
   private def post[A: Reads](url: String, data: JsObject): Fu[A] =
     logger.info(s"POST $url $data")
-    request(url) flatMap { _.post(data) flatMap response[A] }
+    request(url).flatMap { _.post(data).flatMap(response[A]) }
 
   private def postOneNoResponse(url: String, data: JsObject): Funit =
     logger.info(s"POST $url $data")
-    request(url) flatMap { _.post(data) } void
+    request(url).flatMap { _.post(data) } void
 
-  private val logger = lila.plan.logger branch "payPal"
+  private val logger = lila.plan.logger.branch("payPal")
 
-  private def request(url: String) = tokenCache.get {} map { bearer =>
+  private def request(url: String) = tokenCache.get {}.map { bearer =>
     ws.url(s"${config.endpoint}/$url")
       .withHttpHeaders(
         "Authorization" -> s"Bearer $bearer",
@@ -202,10 +202,12 @@ final private class PayPalClient(
   private def response[A: Reads](res: StandaloneWSResponse): Fu[A] =
     res.status match
       case 200 | 201 | 204 =>
-        (summon[Reads[A]] reads res.body[JsValue]).fold(
-          errs => fufail(new CantParseException(res.body[JsValue], JsError(errs))),
-          fuccess
-        )
+        (summon[Reads[A]]
+          .reads(res.body[JsValue]))
+          .fold(
+            errs => fufail(new CantParseException(res.body[JsValue], JsError(errs))),
+            fuccess
+          )
       case 404 => fufail { new NotFoundException(res.status, s"[paypal] Not found") }
       case status if status >= 400 && status < 500 =>
         (res.body[JsValue] \ "error" \ "message").asOpt[String] match
@@ -220,10 +222,10 @@ final private class PayPalClient(
         .post(Map("grant_type" -> Seq("client_credentials")))
         .flatMap {
           case res if res.status != 200 =>
-            fufail(s"PayPal access token ${res.statusText} ${res.body[String] take 200}")
+            fufail(s"PayPal access token ${res.statusText} ${res.body[String].take(200)}")
           case res =>
             (res.body[JsValue] \ "access_token").validate[String] match
-              case JsError(err)        => fufail(s"PayPal access token ${err} ${res.body[String] take 200}")
+              case JsError(err)        => fufail(s"PayPal access token ${err} ${res.body[String].take(200)}")
               case JsSuccess(token, _) => fuccess(AccessToken(token))
         }
         .monSuccess(_.plan.paypalCheckout.fetchAccessToken)
@@ -232,7 +234,7 @@ final private class PayPalClient(
 
   @annotation.nowarn
   private def debugInput(data: Seq[(String, Matchable)]) =
-    fixInput(data) map { case (k, v) => s"$k=$v" } mkString " "
+    fixInput(data).map { case (k, v) => s"$k=$v" }.mkString(" ")
 
 object PayPalClient:
 

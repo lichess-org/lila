@@ -35,7 +35,8 @@ final class UserAnalysis(
     val decodedFen: Option[Fen.Epd] = lila.common.String
       .decodeUriPath(urlFen)
       .filter(_.trim.nonEmpty)
-      .orElse(get("fen")) map Fen.Epd.clean
+      .orElse(get("fen"))
+      .map(Fen.Epd.clean)
     val pov         = makePov(decodedFen, variant)
     val orientation = get("color").flatMap(chess.Color.fromName) | pov.color
     for
@@ -57,9 +58,10 @@ final class UserAnalysis(
     val orientation = get("color").flatMap(chess.Color.fromName) | pov.color
     Ok.pageAsync:
       env.api.roundApi
-        .userAnalysisJson(pov, ctx.pref, none, orientation, owner = false, me = ctx.me) map { data =>
-        html.board.userAnalysis(data, pov, inlinePgn = pgn.replace("_", " ").some)
-      }
+        .userAnalysisJson(pov, ctx.pref, none, orientation, owner = false, me = ctx.me)
+        .map { data =>
+          html.board.userAnalysis(data, pov, inlinePgn = pgn.replace("_", " ").some)
+        }
     .map(_.enableSharedArrayBuffer)
 
   private[controllers] def makePov(fen: Option[Fen.Epd], variant: Variant): Pov =
@@ -87,8 +89,8 @@ final class UserAnalysis(
 
   // correspondence premove aka forecast
   def game(id: GameId, color: String) = Open:
-    Found(env.game.gameRepo game id): g =>
-      env.round.proxyRepo upgradeIfPresent g flatMap { game =>
+    Found(env.game.gameRepo.game(id)): g =>
+      env.round.proxyRepo.upgradeIfPresent(g).flatMap { game =>
         val pov = Pov(game, chess.Color.fromName(color) | White)
         negotiateApi(
           html =
@@ -96,7 +98,7 @@ final class UserAnalysis(
             else
               val owner = isMyPov(pov)
               for
-                initialFen <- env.game.gameRepo initialFen game.id
+                initialFen <- env.game.gameRepo.initialFen(game.id)
                 data <-
                   env.api.roundApi
                     .userAnalysisJson(pov, ctx.pref, initialFen, pov.color, owner = owner, me = ctx.me)
@@ -112,7 +114,7 @@ final class UserAnalysis(
   private def mobileAnalysis(pov: Pov)(using
       ctx: Context
   ): Fu[Result] = for
-    initialFen <- env.game.gameRepo initialFen pov.gameId
+    initialFen <- env.game.gameRepo.initialFen(pov.gameId)
     users      <- env.user.api.gamePlayers.noCache(pov.game.userIdPair, pov.game.perfType)
     owner = isMyPov(pov)
     _     = gameC.preloadUsers(users)
@@ -142,7 +144,7 @@ final class UserAnalysis(
 
   def forecasts(fullId: GameFullId) = AuthBody(parse.json) { ctx ?=> _ ?=>
     import lila.round.Forecast
-    Found(env.round.proxyRepo pov fullId): pov =>
+    Found(env.round.proxyRepo.pov(fullId)): pov =>
       if isTheft(pov) then theftResponse
       else
         ctx.body.body
@@ -150,10 +152,12 @@ final class UserAnalysis(
           .fold(
             err => BadRequest(err.toString),
             forecasts =>
-              env.round.forecastApi.save(pov, forecasts) >>
-                env.round.forecastApi.loadForDisplay(pov) map {
+              (env.round.forecastApi.save(pov, forecasts) >>
+                env.round.forecastApi.loadForDisplay(pov))
+                .map {
                   _.fold(JsonOk(Json.obj("none" -> true)))(JsonOk(_))
-                } recover {
+                }
+                .recover {
                   case Forecast.OutOfSync        => forecastReload
                   case _: lila.round.ClientError => forecastReload
                 }
@@ -163,7 +167,7 @@ final class UserAnalysis(
   def forecastsOnMyTurn(fullId: GameFullId, uci: String) =
     AuthBody(parse.json) { ctx ?=> _ ?=>
       import lila.round.Forecast
-      Found(env.round.proxyRepo pov fullId): pov =>
+      Found(env.round.proxyRepo.pov(fullId)): pov =>
         if isTheft(pov) then theftResponse
         else
           ctx.body.body
@@ -171,10 +175,9 @@ final class UserAnalysis(
             .fold(
               err => BadRequest(err.toString),
               forecasts =>
-                val wait = 50 + (Forecast maxPlies forecasts min 10) * 50
-                env.round.forecastApi.playAndSave(pov, uci, forecasts).recoverDefault >>
-                  lila.common.LilaFuture.sleep(wait.millis) inject
-                  forecastReload
+                val wait = 50 + (Forecast.maxPlies(forecasts).min(10)) * 50
+                (env.round.forecastApi.playAndSave(pov, uci, forecasts).recoverDefault >>
+                  lila.common.LilaFuture.sleep(wait.millis)).inject(forecastReload)
             )
     }
 

@@ -56,7 +56,7 @@ z-index: 99;
     pagination(page => s"$route?page=$page", pager, showPost)
 
   def pagination(url: Int => String, pager: Paginator[?], showPost: Boolean): Option[Frag] =
-    pager.hasToPaginate option pagination(url, pager.currentPage, pager.nbPages, showPost)
+    pager.hasToPaginate.option(pagination(url, pager.currentPage, pager.nbPages, showPost))
 
   def pagination(url: Int => String, page: Int, nbPages: Int, showPost: Boolean): Tag =
     st.nav(cls := "pagination")(
@@ -74,7 +74,7 @@ z-index: 99;
     )
 
   private def sliding(page: Int, nbPages: Int, length: Int, showPost: Boolean): List[Option[Int]] =
-    val fromPage = 1 max (page - length)
+    val fromPage = 1.max(page - length)
     val toPage   = nbPages.min(page + length)
     val pre = fromPage match
       case 1 => Nil

@@ -18,31 +18,33 @@ final class EntryApi(
   private val projection = $doc("users" -> false)
 
   def userEntries(userId: UserId): Fu[Vector[Entry]] =
-    userEntries(userId, userMax, since = none) flatMap broadcast.interleave(none)
+    userEntries(userId, userMax, since = none).flatMap(broadcast.interleave(none))
 
   def moreUserEntries(userId: UserId, nb: Max, since: Option[Instant]): Fu[Vector[Entry]] =
-    userEntries(userId, nb, since) flatMap broadcast.interleave(since)
+    userEntries(userId, nb, since).flatMap(broadcast.interleave(since))
 
   private def userEntries(userId: UserId, max: Max, since: Option[Instant]): Fu[Vector[Entry]] =
-    (max > 0) so coll
-      .find(
-        $doc(
-          "users" -> userId,
-          "date" $gt since.getOrElse(nowInstant.minusWeeks(2))
-        ),
-        projection.some
-      )
-      .sort($sort desc "date")
-      .cursor[Entry](ReadPref.sec)
-      .vector(max.value)
+    (max > 0).so(
+      coll
+        .find(
+          $doc(
+            "users" -> userId,
+            "date".$gt(since.getOrElse(nowInstant.minusWeeks(2)))
+          ),
+          projection.some
+        )
+        .sort($sort.desc("date"))
+        .cursor[Entry](ReadPref.sec)
+        .vector(max.value)
+    )
 
   def findRecent(typ: String, since: Instant, max: Max) =
     coll
       .find(
-        $doc("typ" -> typ, "date" $gt since),
+        $doc("typ" -> typ, "date".$gt(since)),
         projection.some
       )
-      .sort($sort desc "date")
+      .sort($sort.desc("date"))
       .cursor[Entry](ReadPref.sec)
       .vector(max.value)
 
@@ -51,7 +53,7 @@ final class EntryApi(
       $doc(
         "users" -> userId,
         "chan"  -> channel,
-        "date" $gt nowInstant.minusDays(7)
+        "date".$gt(nowInstant.minusDays(7))
       )
 
   def insert(e: Entry.ForUsers) =
@@ -62,7 +64,7 @@ final class EntryApi(
   private[timeline] def removeRecentFollowsBy(userId: UserId): Funit =
     coll.update
       .one(
-        $doc("typ"  -> "follow", "data.u1" -> userId, "date" $gt nowInstant.minusHours(1)),
+        $doc("typ"  -> "follow", "data.u1" -> userId, "date".$gt(nowInstant.minusHours(1))),
         $set("date" -> nowInstant.minusDays(365)),
         multi = true
       )
@@ -75,8 +77,8 @@ final class EntryApi(
     private val cache = cacheApi.unit[Vector[Entry]]:
       _.refreshAfterWrite(1 hour).buildAsyncFuture: _ =>
         coll
-          .find($doc("users" $exists false, "date" $gt nowInstant.minusWeeks(2)))
-          .sort($sort desc "date")
+          .find($doc("users".$exists(false), "date".$gt(nowInstant.minusWeeks(2))))
+          .sort($sort.desc("date"))
           .cursor[Entry](ReadPref.pri) // must be on primary for cache refresh to work
           .vector(3)
 
@@ -89,12 +91,12 @@ final class EntryApi(
           .fold(entries): mostRecentBc =>
             val interleaved =
               val oldestEntry = entries.lastOption
-              if oldestEntry.forall(_.date isBefore mostRecentBc.date) then
+              if oldestEntry.forall(_.date.isBefore(mostRecentBc.date)) then
                 (entries ++ bcs).sortBy(-_.date.toMillis)
               else entries
             // sneak recent broadcast at first place
-            if mostRecentBc.date.isAfter(nowInstant minusDays 1) then
+            if mostRecentBc.date.isAfter(nowInstant.minusDays(1)) then
               mostRecentBc +: interleaved.filter(mostRecentBc !=)
             else interleaved
 
-    def insert(atom: Atom): Funit = coll.insert.one(Entry make atom).void andDo cache.invalidateUnit()
+    def insert(atom: Atom): Funit = coll.insert.one(Entry.make(atom)).void.andDo(cache.invalidateUnit())

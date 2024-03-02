@@ -45,10 +45,12 @@ object tourForm:
             cls := "button button-red button-empty confirm"
           )(strong(deleteTournament()), em(definitivelyDeleteTournament()))
         ),
-        isGranted(_.Relay) option postForm(action := routes.RelayTour.cloneTour(tour.id))(
-          submitButton(
-            cls := "button button-green button-empty confirm"
-          )(strong("Clone as broadcast admin"), em("Clone this broadcast, its rounds, and their studies"))
+        isGranted(_.Relay).option(
+          postForm(action := routes.RelayTour.cloneTour(tour.id))(
+            submitButton(
+              cls := "button button-green button-empty confirm"
+            )(strong("Clone as broadcast admin"), em("Clone this broadcast, its rounds, and their studies"))
+          )
         )
       )
     )
@@ -89,12 +91,14 @@ object tourForm:
     form3.globalError(form),
     form3.split(
       form3.group(form("name"), tournamentName(), half = true)(form3.input(_)(autofocus)),
-      isGranted(_.StudyAdmin) option form3.group(
-        form("spotlight.title"),
-        "Homepage spotlight custom tournament name",
-        help = raw("Leave empty to use the tournament name").some,
-        half = true
-      )(form3.input(_))
+      isGranted(_.StudyAdmin).option(
+        form3.group(
+          form("spotlight.title"),
+          "Homepage spotlight custom tournament name",
+          help = raw("Leave empty to use the tournament name").some,
+          half = true
+        )(form3.input(_))
+      )
     ),
     form3.group(form("description"), tournamentDescription())(form3.textarea(_)(rows := 2)),
     form3.group(
@@ -157,7 +161,7 @@ Team Dogs ; Scooby Doo"""),
     ),
     if isGranted(_.Relay) then
       frag(
-        tg.isDefined option grouping(form),
+        tg.isDefined.option(grouping(form)),
         form3.split(
           form3.group(
             form("tier"),
@@ -168,20 +172,22 @@ Team Dogs ; Scooby Doo"""),
         )
       )
     else form3.hidden(form("tier")),
-    isGranted(_.StudyAdmin) option form3.split(
-      form3.checkbox(
-        form("spotlight.enabled"),
-        "Show a homepage spotlight",
-        help = raw("As a Big Blue Button - for admins only").some,
-        half = true
-      ),
-      form3.group(
-        form("spotlight.lang"),
-        "Homepage spotlight language",
-        help = raw("Only show to users who speak this language. English is shown to everyone.").some,
-        half = true
-      ):
-        form3.select(_, lila.i18n.LangForm.popularLanguages.choices)
+    isGranted(_.StudyAdmin).option(
+      form3.split(
+        form3.checkbox(
+          form("spotlight.enabled"),
+          "Show a homepage spotlight",
+          help = raw("As a Big Blue Button - for admins only").some,
+          half = true
+        ),
+        form3.group(
+          form("spotlight.lang"),
+          "Homepage spotlight language",
+          help = raw("Only show to users who speak this language. English is shown to everyone.").some,
+          half = true
+        ):
+          form3.select(_, lila.i18n.LangForm.popularLanguages.choices)
+      )
     )
   )
 

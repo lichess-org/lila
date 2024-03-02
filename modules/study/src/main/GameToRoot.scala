@@ -17,11 +17,11 @@ private object GameToRoot:
       withFlags = WithFlags(clocks = withClocks)
     )
     endComment(game).fold(root) { comment =>
-      root updateMainlineLast { _.setComment(comment) }
+      root.updateMainlineLast { _.setComment(comment) }
     }
 
   private def endComment(game: Game) =
-    game.finished option {
+    game.finished.option {
       val result = Outcome.showResult(Outcome(game.winnerColor).some)
       val status = lila.game.StatusText(game)
       val text   = s"$result $status"

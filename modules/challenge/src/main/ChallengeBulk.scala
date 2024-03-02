@@ -42,7 +42,7 @@ final class ChallengeBulkApi(
   )
 
   def scheduledBy(me: User): Fu[List[ScheduledBulk]] =
-    coll.find($doc("by" -> me.id)).sort($sort desc "pairAt").cursor[ScheduledBulk]().list(100)
+    coll.find($doc("by" -> me.id)).sort($sort.desc("pairAt")).cursor[ScheduledBulk]().list(100)
 
   def findBy(id: String, me: User): Fu[Option[ScheduledBulk]] =
     coll.one[ScheduledBulk]($doc("_id" -> id, "by" -> me.id))
@@ -52,35 +52,39 @@ final class ChallengeBulkApi(
 
   def startClocksAsap(id: String, me: User): Fu[Boolean] =
     coll
-      .updateField($doc("_id" -> id, "by" -> me.id, "pairedAt" $exists true), "startClocksAt", nowInstant)
+      .updateField($doc("_id" -> id, "by" -> me.id, "pairedAt".$exists(true)), "startClocksAt", nowInstant)
       .map(_.n == 1)
 
   def schedule(bulk: ScheduledBulk): Fu[Either[String, ScheduledBulk]] = workQueue(bulk.by):
-    coll.list[ScheduledBulk]($doc("by" -> bulk.by, "pairedAt" $exists false)) flatMap: bulks =>
-      if bulks.sizeIs >= maxBulks then fuccess(Left("Already too many bulks queued"))
-      else if bulks.map(_.games.size).sum >= 1000
-      then fuccess(Left("Already too many games queued"))
-      else if bulks.exists(_ collidesWith bulk)
-      then fuccess(Left("A bulk containing the same players is scheduled at the same time"))
-      else coll.insert.one(bulk) inject Right(bulk)
+    coll
+      .list[ScheduledBulk]($doc("by" -> bulk.by, "pairedAt".$exists(false)))
+      .flatMap: bulks =>
+        if bulks.sizeIs >= maxBulks then fuccess(Left("Already too many bulks queued"))
+        else if bulks.map(_.games.size).sum >= 1000
+        then fuccess(Left("Already too many games queued"))
+        else if bulks.exists(_.collidesWith(bulk))
+        then fuccess(Left("A bulk containing the same players is scheduled at the same time"))
+        else coll.insert.one(bulk).inject(Right(bulk))
 
   private[challenge] def tick: Funit =
     checkForPairing >> checkForClocks
 
   private def checkForPairing: Funit =
     coll
-      .one[ScheduledBulk]($doc("pairAt" $lte nowInstant, "pairedAt" $exists false))
+      .one[ScheduledBulk]($doc("pairAt".$lte(nowInstant), "pairedAt".$exists(false)))
       .flatMapz: bulk =>
         workQueue(bulk.by):
           makePairings(bulk).void
 
   private def checkForClocks: Funit =
-    coll.one[ScheduledBulk](
-      $doc("startClocksAt" $lte nowInstant, "startedClocksAt" $exists false, "pairedAt" $exists true)
-    ) flatMapz: bulk =>
-      workQueue(bulk.by):
-        Bus.publish(TellMany(bulk.games.map(_.id.value), StartClock), "roundSocket")
-        coll.updateField($id(bulk.id), "startedClocksAt", nowInstant).void
+    coll
+      .one[ScheduledBulk](
+        $doc("startClocksAt".$lte(nowInstant), "startedClocksAt".$exists(false), "pairedAt".$exists(true))
+      )
+      .flatMapz: bulk =>
+        workQueue(bulk.by):
+          Bus.publish(TellMany(bulk.games.map(_.id.value), StartClock), "roundSocket")
+          coll.updateField($id(bulk.id), "startedClocksAt", nowInstant).void
 
   private def makePairings(bulk: ScheduledBulk): Funit =
     def timeControl =
@@ -89,8 +93,10 @@ final class ChallengeBulkApi(
     val perfType           = PerfType(bulk.variant, Speed(bulk.clock.left.toOption))
     Source(bulk.games)
       .mapAsyncUnordered(8): game =>
-        userApi.gamePlayers.loggedIn(game.userIds, bulk.perfType, useCache = false) map2: users =>
-          (game.id, users)
+        userApi.gamePlayers
+          .loggedIn(game.userIds, bulk.perfType, useCache = false)
+          .map2: users =>
+            (game.id, users)
       .mapConcat(_.toList)
       .map: (id, users) =>
         val game = Game

@@ -120,17 +120,20 @@ object JsonView:
         perfType.key.value -> perfWrites.writes(perfs(perfType))
 
   def notes(ns: List[Note])(using lightUser: LightUserApi) =
-    lightUser.preloadMany(ns.flatMap(_.userIds).distinct) inject JsArray:
-      ns.map: note =>
-        Json
-          .obj(
-            "from" -> lightUser.syncFallback(note.from),
-            "to"   -> lightUser.syncFallback(note.to),
-            "text" -> note.text,
-            "date" -> note.date
-          )
-          .add("mod", note.mod)
-          .add("dox", note.dox)
+    lightUser
+      .preloadMany(ns.flatMap(_.userIds).distinct)
+      .inject(JsArray:
+        ns.map: note =>
+          Json
+            .obj(
+              "from" -> lightUser.syncFallback(note.from),
+              "to"   -> lightUser.syncFallback(note.to),
+              "text" -> note.text,
+              "date" -> note.date
+            )
+            .add("mod", note.mod)
+            .add("dox", note.dox)
+      )
 
   given leaderboardsWrites(using OWrites[User.LightPerf]): OWrites[UserPerfs.Leaderboards] =
     OWrites: leaderboards =>

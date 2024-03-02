@@ -13,19 +13,23 @@ final class UnsubApi(coll: Coll)(using Executor):
   def set(channel: String, userId: UserId, v: Boolean): Funit = {
     if v then coll.insert.one(select(channel, userId)).void
     else coll.delete.one(select(channel, userId)).void
-  } recover { case _: Exception =>
+  }.recover { case _: Exception =>
     ()
   }
 
   def get(channel: String, userId: UserId): Fu[Boolean] =
-    coll.countSel(select(channel, userId)) dmap (0 !=)
+    coll.countSel(select(channel, userId)).dmap(0 !=)
 
-  private def canUnsub(channel: String) = channel startsWith "forum:"
+  private def canUnsub(channel: String) = channel.startsWith("forum:")
 
   def filterUnsub(channel: String, userIds: List[UserId]): Fu[List[UserId]] =
-    canUnsub(channel) so coll.distinctEasy[String, List](
-      "_id",
-      $inIds(userIds.map { makeId(channel, _) })
-    ) dmap { unsubs =>
-      userIds diff unsubs.map(id => UserId(id takeWhile ('@' !=)))
-    }
+    canUnsub(channel)
+      .so(
+        coll.distinctEasy[String, List](
+          "_id",
+          $inIds(userIds.map { makeId(channel, _) })
+        )
+      )
+      .dmap { unsubs =>
+        userIds.diff(unsubs.map(id => UserId(id.takeWhile('@' !=))))
+      }

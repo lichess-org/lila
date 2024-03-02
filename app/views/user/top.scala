@@ -32,9 +32,11 @@ object top:
               tr(
                 td(i + 1),
                 td(lightUserLink(u.user)),
-                ctx.pref.showRatings option frag(
-                  td(u.rating),
-                  td(ratingProgress(u.progress))
+                ctx.pref.showRatings.option(
+                  frag(
+                    td(u.rating),
+                    td(ratingProgress(u.progress))
+                  )
                 )
               )
           )

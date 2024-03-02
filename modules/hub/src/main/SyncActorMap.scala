@@ -8,11 +8,11 @@ final class SyncActorMap[Id, T <: SyncActor](
     accessTimeout: FiniteDuration
 ):
 
-  def getOrMake(id: Id): T = actors get id
+  def getOrMake(id: Id): T = actors.get(id)
 
   def touchOrMake(id: Id): Unit = getOrMake(id)
 
-  def getIfPresent(id: Id): Option[T] = actors getIfPresent id
+  def getIfPresent(id: Id): Option[T] = actors.getIfPresent(id)
 
   def tell(id: Id, msg: Matchable): Unit = getOrMake(id) ! msg
 

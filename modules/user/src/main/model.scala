@@ -19,20 +19,20 @@ object Me extends TotalWrapper[Me, User]:
   given lila.db.NoDbHandler[Me] with {}
   extension (me: Me)
     def userId: UserId      = me.id
-    inline def modId: ModId = userId into ModId
-    inline def myId: MyId   = userId into MyId
+    inline def modId: ModId = userId.into(ModId)
+    inline def myId: MyId   = userId.into(MyId)
 
 opaque type MyId = String
 object MyId extends TotalWrapper[MyId, String]:
   given UserIdOf[MyId]                         = u => u
   given Conversion[MyId, UserId]               = UserId(_)
   given [M[_]]: Conversion[M[MyId], M[UserId]] = u => UserId.from(MyId.raw(u))
-  given Conversion[Me, MyId]                   = _.id into MyId
+  given Conversion[Me, MyId]                   = _.id.into(MyId)
   given (using me: Me): MyId                   = Me.myId(me)
   given (using me: MyId): Option[MyId]         = Some(me)
   extension (me: Me.Id)
-    inline def modId: ModId   = me into ModId
-    inline def userId: UserId = me into UserId
+    inline def modId: ModId   = me.into(ModId)
+    inline def userId: UserId = me.into(UserId)
 
 opaque type UserEnabled = Boolean
 object UserEnabled extends YesNo[UserEnabled]

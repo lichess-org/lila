@@ -36,7 +36,7 @@ final class Tutor(env: Env) extends LilaController(env):
             .find(opName)
             .flatMap(perf.openings(color).find)
             .fold(Redirect(routes.Tutor.openings(user.username, perf.perf.key)).toFuccess): family =>
-              env.puzzle.opening.find(family.family.key) flatMap { puzzle =>
+              env.puzzle.opening.find(family.family.key).flatMap { puzzle =>
                 Ok.page(views.html.tutor.opening(perf, family, color, user, puzzle))
               }
     }
@@ -54,7 +54,7 @@ final class Tutor(env: Env) extends LilaController(env):
   }
 
   def refresh(username: UserStr) = TutorPageAvailability(username) { _ ?=> user => availability =>
-    env.tutor.api.request(user, availability) inject redirHome(user)
+    env.tutor.api.request(user, availability).inject(redirHome(user))
   }
 
   private def TutorPageAvailability(
@@ -62,12 +62,12 @@ final class Tutor(env: Env) extends LilaController(env):
   )(f: Context ?=> UserModel => TutorFullReport.Availability => Fu[Result]): EssentialAction =
     Secure(_.Beta) { ctx ?=> me ?=>
       def proceed(user: UserModel.WithPerfs) = env.tutor.api.availability(user).flatMap(f(user.user))
-      if me is username then env.user.api.withPerfs(me.value).flatMap(proceed)
+      if me.is(username) then env.user.api.withPerfs(me.value).flatMap(proceed)
       else
         Found(env.user.api.withPerfs(username)): user =>
           if isGranted(_.SeeInsight) then proceed(user)
           else
-            (user.enabled.yes so env.clas.api.clas.isTeacherOf(me, user.id)) flatMap {
+            (user.enabled.yes.so(env.clas.api.clas.isTeacherOf(me, user.id))).flatMap {
               if _ then proceed(user) else notFound
             }
     }

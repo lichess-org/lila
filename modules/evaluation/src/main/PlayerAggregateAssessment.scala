@@ -32,7 +32,7 @@ case class PlayerAggregateAssessment(
     val bannable: Boolean = false
 
     def sigDif(dif: Int)(a: Option[(Int, Int, Int)], b: Option[(Int, Int, Int)]): Option[Boolean] =
-      (a, b) mapN { (a, b) => b._1 - a._1 > dif }
+      (a, b).mapN { (a, b) => b._1 - a._1 > dif }
 
     val difs = List(
       (sfAvgBlurs, sfAvgNoBlurs),
@@ -41,7 +41,7 @@ case class PlayerAggregateAssessment(
     )
 
     val actionable: Boolean =
-      val difFlags = difs map (sigDif(10)).tupled
+      val difFlags = difs.map((sigDif(10)).tupled)
       difFlags.forall(_.isEmpty) || difFlags.exists(~_) || assessmentsCount < 50
 
     if actionable then
@@ -54,7 +54,7 @@ case class PlayerAggregateAssessment(
     else Nothing
 
   def countAssessmentValue(assessment: GameAssessment) =
-    playerAssessments count {
+    playerAssessments.count {
       _.assessment == assessment
     }
 
@@ -65,7 +65,7 @@ case class PlayerAggregateAssessment(
   val likelyCheatingSum = countAssessmentValue(LikelyCheating)
 
   def weightedAssessmentValue(assessment: GameAssessment): Double =
-    playerAssessments map { pa =>
+    playerAssessments.map { pa =>
       if pa.assessment != assessment then 0.0
       else pa.tcFactor.getOrElse(1.0) * (if pa.flags.highlyConsistentMoveTimes then 1.6 else 1.0)
     } sum
@@ -119,4 +119,4 @@ $gameLinks"""
 object PlayerAggregateAssessment:
 
   case class WithGames(pag: PlayerAggregateAssessment, games: List[lila.game.Game]):
-    def pov(pa: PlayerAssessment) = games find (_.id == pa.gameId) map { lila.game.Pov(_, pa.color) }
+    def pov(pa: PlayerAssessment) = games.find(_.id == pa.gameId).map { lila.game.Pov(_, pa.color) }

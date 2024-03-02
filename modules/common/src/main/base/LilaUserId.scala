@@ -21,7 +21,7 @@ trait LilaUserId:
   // specialized UserIds like Coach.Id
   trait OpaqueUserId[A] extends OpaqueString[A]:
     given UserIdOf[A]                          = _.value
-    extension (a: A) inline def userId: UserId = a into UserId
+    extension (a: A) inline def userId: UserId = a.into(UserId)
 
   // Properly cased for display
   opaque type UserName = String

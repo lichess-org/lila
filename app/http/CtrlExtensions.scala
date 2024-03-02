@@ -14,7 +14,7 @@ trait CtrlExtensions extends ControllerHelpers:
     def sid       = HTTPRequest.sid(req)
 
   extension (result: Result)
-    def toFuccess                         = Future successful result
+    def toFuccess                         = Future.successful(result)
     def flashSuccess(msg: String): Result = result.flashing("success" -> msg)
     def flashSuccess: Result              = flashSuccess("")
     def flashFailure(msg: String): Result = result.flashing("failure" -> msg)

@@ -25,16 +25,18 @@ final class CrudForm(repo: TournamentRepo, forms: TournamentForm):
       "teamBattle"    -> boolean,
       "setup"         -> forms.create(Nil).mapping
     )(Data.apply)(unapply)
-  ) fill Data(
-    id = Tournament.makeId,
-    homepageHours = 0,
-    image = "",
-    headline = "",
-    teamBattle = false,
-    setup = forms.empty()
+  ).fill(
+    Data(
+      id = Tournament.makeId,
+      homepageHours = 0,
+      image = "",
+      headline = "",
+      teamBattle = false,
+      setup = forms.empty()
+    )
   )
 
-  def edit(tour: Tournament)(using me: Me) = apply(tour.some) fill
+  def edit(tour: Tournament)(using me: Me) = apply(tour.some).fill(
     Data(
       id = tour.id,
       homepageHours = ~tour.spotlight.flatMap(_.homepageHours),
@@ -43,6 +45,7 @@ final class CrudForm(repo: TournamentRepo, forms: TournamentForm):
       teamBattle = tour.isTeamBattle,
       setup = forms.fillFromTour(tour)
     )
+  )
 
 object CrudForm:
 
@@ -92,5 +95,5 @@ object CrudForm:
           iconFont = none,
           iconImg = image.some.filter(_.nonEmpty)
         ).some,
-        teamBattle = teamBattle option (tour.teamBattle | TeamBattle(Set.empty, 10))
+        teamBattle = teamBattle.option(tour.teamBattle | TeamBattle(Set.empty, 10))
       )

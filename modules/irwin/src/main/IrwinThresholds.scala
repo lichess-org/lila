@@ -25,7 +25,7 @@ private object IrwinThresholds:
 
   given BSONHandler[IrwinThresholds]  = lila.db.dsl.isoHandler
   given StringReader[IrwinThresholds] = StringReader.fromIso
-  given Formable[IrwinThresholds]     = new Formable(t => Form(single("v" -> text)) fill iso.to(t))
+  given Formable[IrwinThresholds]     = new Formable(t => Form(single("v" -> text)).fill(iso.to(t)))
 
   def makeSetting(name: String, store: lila.memo.SettingStore.Builder) =
     store[IrwinThresholds](

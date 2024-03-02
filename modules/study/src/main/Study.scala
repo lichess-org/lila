@@ -25,9 +25,9 @@ case class Study(
 
   inline def id = _id
 
-  def owner = members get ownerId
+  def owner = members.get(ownerId)
 
-  def isOwner[U: UserIdOf](u: U) = ownerId is u
+  def isOwner[U: UserIdOf](u: U) = ownerId.is(u)
 
   def isMember[U: UserIdOf](u: U) = members contains u.id
 
@@ -89,7 +89,7 @@ object Study:
   case class IdName(_id: StudyId, name: StudyName):
     inline def id = _id
 
-  def toName(str: String) = StudyName(lila.common.String.fullCleanUp(str) take 100)
+  def toName(str: String) = StudyName(lila.common.String.fullCleanUp(str).take(100))
 
   enum Visibility:
     case Private, Unlisted, Public
@@ -106,7 +106,7 @@ object Study:
   opaque type Rank = Instant
   object Rank extends OpaqueInstant[Rank]:
     def compute(likes: Likes, createdAt: Instant) =
-      Rank(createdAt plusHours likesToHours(likes))
+      Rank(createdAt.plusHours(likesToHours(likes)))
     private def likesToHours(likes: Likes): Int =
       if likes < 1 then 0
       else (5 * math.log(likes) + 1).toInt.min(likes) * 24
@@ -144,7 +144,7 @@ object Study:
 
   case class LightStudy(isPublic: Boolean, contributors: Set[UserId])
 
-  def makeId = StudyId(ThreadLocalRandom nextString 8)
+  def makeId = StudyId(ThreadLocalRandom.nextString(8))
 
   def make(
       user: User,

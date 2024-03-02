@@ -12,17 +12,19 @@ trait CtrlErrors extends ControllerHelpers:
 
   def jsonError[A: Writes](err: A): JsObject = Json.obj("error" -> err)
 
-  def notFoundJson(msg: String = "Not found"): Result = NotFound(jsonError(msg)) as JSON
+  def notFoundJson(msg: String = "Not found"): Result = NotFound(jsonError(msg)).as(JSON)
   def notFoundText(msg: String = "Not found"): Result = Results.NotFound(msg)
 
-  def forbiddenJson(msg: String = "You can't do that"): Result = Forbidden(jsonError(msg)) as JSON
+  def forbiddenJson(msg: String = "You can't do that"): Result = Forbidden(jsonError(msg)).as(JSON)
   def forbiddenText(msg: String = "You can't do that"): Result = Results.Forbidden(msg)
 
   private val jsonGlobalErrorRenamer: Reads[JsObject] =
     import play.api.libs.json.*
-    __.json update (
-      (__ \ "global").json copyFrom (__ \ "").json.pick
-    ) andThen (__ \ "").json.prune
+    __.json
+      .update(
+        (__ \ "global").json.copyFrom((__ \ "").json.pick)
+      )
+      .andThen((__ \ "").json.prune)
 
   def errorsAsJson(form: Form[?])(using lang: Lang): JsObject =
     val json = JsObject:
@@ -34,7 +36,7 @@ trait CtrlErrors extends ControllerHelpers:
             errors.map: e =>
               JsString(Translator.txt.literal(I18nKey(e.message), e.args, lang))
         .toMap
-    json validate jsonGlobalErrorRenamer getOrElse json
+    json.validate(jsonGlobalErrorRenamer).getOrElse(json)
 
   /* This is what we want
    * { "error" -> { "key" -> "value" } }

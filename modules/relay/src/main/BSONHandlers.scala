@@ -16,8 +16,8 @@ object BSONHandlers:
 
   given BSONHandler[Upstream] = tryHandler(
     {
-      case d: BSONDocument if d.contains("url") => upstreamUrlHandler readTry d
-      case d: BSONDocument if d.contains("ids") => upstreamIdsHandler readTry d
+      case d: BSONDocument if d.contains("url") => upstreamUrlHandler.readTry(d)
+      case d: BSONDocument if d.contains("ids") => upstreamIdsHandler.readTry(d)
     },
     {
       case url: UpstreamUrl => upstreamUrlHandler.writeTry(url).get

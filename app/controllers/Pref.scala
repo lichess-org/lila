@@ -14,7 +14,7 @@ final class Pref(env: Env) extends LilaController(env):
   private def forms = lila.pref.PrefForm
 
   def apiGet = Scoped(_.Preference.Read, _.Web.Mobile) { _ ?=> me ?=>
-    env.pref.api.get(me) map { prefs =>
+    env.pref.api.get(me).map { prefs =>
       JsonOk:
         import play.api.libs.json.*
         Json
@@ -29,23 +29,23 @@ final class Pref(env: Env) extends LilaController(env):
   )
 
   def form(categSlug: String) =
-    redirects get categSlug match
+    redirects.get(categSlug) match
       case Some(redir) => Action(Redirect(routes.Pref.form(redir)))
       case None =>
         Auth { ctx ?=> me ?=>
           lila.pref.PrefCateg(categSlug) match
             case None if categSlug == "notification" =>
               Ok.pageAsync:
-                env.notifyM.api.prefs.form(me) map {
+                env.notifyM.api.prefs.form(me).map {
                   html.account.notification(_)
                 }
             case None        => notFound
-            case Some(categ) => Ok.page(html.account.pref(me, forms prefOf ctx.pref, categ))
+            case Some(categ) => Ok.page(html.account.pref(me, forms.prefOf(ctx.pref), categ))
         }
 
   def formApply = AuthBody { ctx ?=> _ ?=>
     def onSuccess(data: lila.pref.PrefForm.PrefData) =
-      api.setPref(data(ctx.pref)) inject Ok("saved")
+      api.setPref(data(ctx.pref)).inject(Ok("saved"))
     val form = forms.pref(lichobile = HTTPRequest.isLichobile(req))
     form
       .bindFromRequest()
@@ -66,7 +66,7 @@ final class Pref(env: Env) extends LilaController(env):
       .bindFromRequest()
       .fold(
         err => BadRequest(err.toString).toFuccess,
-        data => env.notifyM.api.prefs.set(me, data) inject Ok("saved")
+        data => env.notifyM.api.prefs.set(me, data).inject(Ok("saved"))
       )
   }
 
@@ -74,7 +74,7 @@ final class Pref(env: Env) extends LilaController(env):
     if name == "zoom"
     then Ok.withCookies(env.lilaCookie.cookie("zoom", (getInt("v") | 85).toString))
     else if name == "agreement" then
-      ctx.me.so(api.agree(_)) inject {
+      ctx.me.so(api.agree(_)).inject {
         if HTTPRequest.isXhr(ctx.req) then NoContent else Redirect(routes.Lobby.home)
       }
     else
@@ -84,7 +84,7 @@ final class Pref(env: Env) extends LilaController(env):
           change.form
             .bindFromRequest()
             .fold(
-              form => fuccess(BadRequest(form.errors.flatMap(_.messages) mkString "\n")),
+              form => fuccess(BadRequest(form.errors.flatMap(_.messages).mkString("\n"))),
               v =>
                 ctx.me
                   .so(api.setPref(_, change.update(v)))
@@ -101,6 +101,6 @@ final class Pref(env: Env) extends LilaController(env):
           .bindFromRequest()
           .fold(
             jsonFormError,
-            v => api.setPref(me, change.update(v)) inject NoContent
+            v => api.setPref(me, change.update(v)).inject(NoContent)
           )
   }

@@ -21,7 +21,7 @@ final case class ApiConfig(
     rules: Set[GameRule] = Set.empty
 ):
 
-  def perfType: PerfType = PerfType(variant, chess.Speed(days.isEmpty so clock))
+  def perfType: PerfType = PerfType(variant, chess.Speed(days.isEmpty.so(clock)))
 
   def validFen = ApiConfig.validFen(variant, position)
 
@@ -61,7 +61,7 @@ object ApiConfig extends BaseHumanConfig:
       rated = r,
       color = Color.orDefault(~c),
       position = pos,
-      message = msg map Template.apply,
+      message = msg.map(Template.apply),
       keepAliveStream = ~keepAliveStream,
       rules = ~rules
     ).autoVariant
@@ -71,5 +71,5 @@ object ApiConfig extends BaseHumanConfig:
     then fen.forall(f => Chess960.positionNumber(f).isDefined)
     else if variant.fromPosition then
       fen.exists: f =>
-        Fen.read(f).exists(_ playable false)
+        Fen.read(f).exists(_.playable(false))
     else true

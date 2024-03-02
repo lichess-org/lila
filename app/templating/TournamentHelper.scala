@@ -23,7 +23,7 @@ trait TournamentHelper extends HasEnv:
       "tournament" -> Json.obj("id" -> tour.id),
       "version"    -> version
     )
-    Json stringify {
+    Json.stringify {
       user.fold(data) { u =>
         data ++ Json.obj("username" -> u.username)
       }
@@ -44,7 +44,7 @@ trait TournamentHelper extends HasEnv:
     )(tournamentIdToName(tourId))
 
   def tournamentIdToName(id: TourId)(using Lang): String =
-    env.tournament.getTourName sync id getOrElse "Tournament"
+    env.tournament.getTourName.sync(id).getOrElse("Tournament")
 
   object scheduledTournamentNameShortHtml:
     private def icon(c: licon.Icon) = s"""<span data-icon="$c"></span>"""

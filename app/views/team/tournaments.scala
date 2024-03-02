@@ -65,7 +65,7 @@ object tournaments:
                     t.clock.show,
                     " • ",
                     if t.variant.exotic then t.variant.name else t.perfType.trans,
-                    t.position.isDefined option frag(" • ", trans.thematic()),
+                    t.position.isDefined.option(frag(" • ", trans.thematic())),
                     " • ",
                     if t.mode.rated then trans.ratedTournament() else trans.casualTournament(),
                     " • ",

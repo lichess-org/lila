@@ -31,57 +31,66 @@ object side:
                 tour.perfType,
                 shortName = true
               ),
-              tour.position.isDefined so s"$separator${trans.thematic.txt()}",
+              tour.position.isDefined.so(s"$separator${trans.thematic.txt()}"),
               separator,
               tour.durationString
             ),
             if tour.mode.rated then trans.ratedTournament() else trans.casualTournament(),
             separator,
             trans.arena.arena(),
-            (isGranted(_.ManageTournament) || (ctx.is(tour.createdBy) && tour.isEnterable)) option frag(
-              " ",
-              a(href := routes.Tournament.edit(tour.id), title := trans.arena.editTournament.txt())(
-                iconTag(licon.Gear)
+            (isGranted(_.ManageTournament) || (ctx.is(tour.createdBy) && tour.isEnterable)).option(
+              frag(
+                " ",
+                a(href := routes.Tournament.edit(tour.id), title := trans.arena.editTournament.txt())(
+                  iconTag(licon.Gear)
+                )
               )
             )
           )
         ),
-        tour.teamBattle map teamBattle(tour),
-        variantTeamLinks.get(tour.variant.key) filter { (team, _) =>
-          tour.createdBy.is(lila.user.User.lichessId) || tour.conditions.teamMember
-            .exists(_.teamId == team.id)
-        } map { (team, link) =>
-          st.section(
-            if isMyTeamSync(team.id) then frag(trans.team.team(), " ", link)
-            else trans.team.joinLichessVariantTeam(link)
-          )
-        },
+        tour.teamBattle.map(teamBattle(tour)),
+        variantTeamLinks
+          .get(tour.variant.key)
+          .filter { (team, _) =>
+            tour.createdBy.is(lila.user.User.lichessId) || tour.conditions.teamMember
+              .exists(_.teamId == team.id)
+          }
+          .map { (team, link) =>
+            st.section(
+              if isMyTeamSync(team.id) then frag(trans.team.team(), " ", link)
+              else trans.team.joinLichessVariantTeam(link)
+            )
+          },
         tour.description.map: d =>
           st.section(cls := "description")(
             shieldOwner.map: owner =>
               p(cls := "defender", dataIcon := licon.Shield)(trans.arena.defender(), userIdLink(owner.some)),
             markdownLinksOrRichText(d)
           ),
-        tour.looksLikePrize option bits.userPrizeDisclaimer(tour.createdBy),
+        tour.looksLikePrize.option(bits.userPrizeDisclaimer(tour.createdBy)),
         views.html.gathering.verdicts(verdicts, tour.perfType, tour.isEnterable),
-        tour.noBerserk option div(cls := "text", dataIcon := licon.Berserk)(trans.arena.noBerserkAllowed()),
-        tour.noStreak option div(cls := "text", dataIcon := licon.Fire)(trans.arena.noArenaStreaks()),
-        !tour.isScheduled option frag(small(trans.by(userIdLink(tour.createdBy.some))), br),
-        (!tour.isStarted || (tour.isScheduled && tour.position.isDefined)) option absClientInstant(
-          tour.startsAt
-        ),
-        tour.startingPosition.map { pos =>
-          p(a(href := pos.url)(pos.name))
-        } orElse tour.position.map { fen =>
-          p(
-            trans.customPosition(),
-            separator,
-            views.html.base.bits.fenAnalysisLink(fen into chess.format.Fen.Epd)
+        tour.noBerserk.option(div(cls := "text", dataIcon := licon.Berserk)(trans.arena.noBerserkAllowed())),
+        tour.noStreak.option(div(cls := "text", dataIcon := licon.Fire)(trans.arena.noArenaStreaks())),
+        (!tour.isScheduled).option(frag(small(trans.by(userIdLink(tour.createdBy.some))), br)),
+        (!tour.isStarted || (tour.isScheduled && tour.position.isDefined)).option(
+          absClientInstant(
+            tour.startsAt
           )
-        }
+        ),
+        tour.startingPosition
+          .map { pos =>
+            p(a(href := pos.url)(pos.name))
+          }
+          .orElse(tour.position.map { fen =>
+            p(
+              trans.customPosition(),
+              separator,
+              views.html.base.bits.fenAnalysisLink(fen.into(chess.format.Fen.Epd))
+            )
+          })
       ),
       views.html.streamer.bits.contextual(streamers),
-      chat option views.html.chat.frag
+      chat.option(views.html.chat.frag)
     )
 
   private def teamBattle(tour: Tournament)(battle: TeamBattle)(using ctx: Context) =
@@ -89,9 +98,11 @@ object side:
       div(
         p(trans.team.battleOfNbTeams.pluralSameTxt(battle.teams.size)),
         trans.team.nbLeadersPerTeam.pluralSameTxt(battle.nbLeaders),
-        (ctx.is(tour.createdBy) || isGranted(_.ManageTournament)) option frag(
-          " ",
-          a(href := routes.Tournament.teamBattleEdit(tour.id), title := trans.arena.editTeamBattle.txt()):
-            iconTag(licon.Gear)
+        (ctx.is(tour.createdBy) || isGranted(_.ManageTournament)).option(
+          frag(
+            " ",
+            a(href := routes.Tournament.teamBattleEdit(tour.id), title := trans.arena.editTeamBattle.txt()):
+              iconTag(licon.Gear)
+          )
         )
       )

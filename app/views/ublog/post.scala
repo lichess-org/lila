@@ -25,13 +25,13 @@ object post:
       moreCss = cssTag("ublog"),
       moreJs = frag(
         jsModule("expandText"),
-        ctx.isAuth option jsModule("ublog")
+        ctx.isAuth.option(jsModule("ublog"))
       ),
       title = s"${trans.ublog.xBlog.txt(user.username)} • ${post.title}",
       openGraph = lila.app.ui
         .OpenGraph(
           `type` = "article",
-          image = post.image.isDefined option thumbnail.url(post, _.Size.Large),
+          image = post.image.isDefined.option(thumbnail.url(post, _.Size.Large)),
           title = post.title,
           url = s"$netBaseUrl${routes.Ublog.post(user.username, post.slug, post.id)}",
           description = post.intro
@@ -52,9 +52,9 @@ object post:
               thumbnail(post, _.Size.Large)(cls := "ublog-post__image"),
               image.credit.map { p(cls := "ublog-post__image-credit")(_) }
             ),
-          ctx.is(user) || isGranted(_.ModerateBlog) option standardFlash,
+          (ctx.is(user) || isGranted(_.ModerateBlog)).option(standardFlash),
           h1(cls := "ublog-post__title")(post.title),
-          isGranted(_.ModerateBlog) option modTools(blog, post),
+          isGranted(_.ModerateBlog).option(modTools(blog, post)),
           div(cls := "ublog-post__meta")(
             a(
               cls      := userClass(user.id, none, withOnline = true),
@@ -67,11 +67,13 @@ object post:
             ),
             post.lived.map: live =>
               span(cls := "ublog-post__meta__date")(semanticDate(live.at)),
-            post.live option likeButton(post, liked, showText = false),
-            post.live option span(cls := "ublog-post__views")(
-              trans.ublog.nbViews.plural(post.views.value, strong(post.views.value.localize))
+            post.live.option(likeButton(post, liked, showText = false)),
+            post.live.option(
+              span(cls := "ublog-post__views")(
+                trans.ublog.nbViews.plural(post.views.value, strong(post.views.value.localize))
+              )
             ),
-            if ctx is user then
+            if ctx.is(user) then
               div(cls := "ublog-post__meta__owner")(
                 if post.live then goodTag(trans.ublog.thisPostIsPublished())
                 else badTag(trans.ublog.thisIsADraft()),
@@ -103,23 +105,28 @@ object post:
           ),
           strong(cls := "ublog-post__intro")(post.intro),
           div(cls := "ublog-post__markup expand-text")(markup),
-          post.isLichess option div(cls := "ublog-post__lichess")(
-            views.html.base.bits.connectLinks,
-            p(a(href := routes.Plan.index)(trans.lichessPatronInfo()))
+          post.isLichess.option(
+            div(cls := "ublog-post__lichess")(
+              views.html.base.bits.connectLinks,
+              p(a(href := routes.Plan.index)(trans.lichessPatronInfo()))
+            )
           ),
           div(cls := "ublog-post__footer")(
-            post.live && ~post.discuss option a(
-              href     := routes.Ublog.discuss(post.id),
-              cls      := "button text ublog-post__discuss",
-              dataIcon := licon.BubbleConvo
-            )(trans.ublog.discussThisBlogPostInTheForum()),
-            (ctx.isAuth && !ctx.is(user)) option
+            (post.live && ~post.discuss).option(
+              a(
+                href     := routes.Ublog.discuss(post.id),
+                cls      := "button text ublog-post__discuss",
+                dataIcon := licon.BubbleConvo
+              )(trans.ublog.discussThisBlogPostInTheForum())
+            ),
+            (ctx.isAuth && ctx.isnt(user)).option(
               div(cls := "ublog-post__actions")(
                 likeButton(post, liked, showText = true),
-                followable option followButton(user, followed)
-              ),
+                followable.option(followButton(user, followed))
+              )
+            ),
             h2(a(href := routes.Ublog.index(user.username))(trans.ublog.moreBlogPostsBy(user.username))),
-            others.size > 0 option div(cls := "ublog-post-cards")(others map { card(_) })
+            (others.size > 0).option(div(cls := "ublog-post-cards")(others.map { card(_) }))
           )
         )
       )
@@ -144,11 +151,13 @@ object post:
       title   := text
     )(
       span(cls := "ublog-post__like__nb")(post.likes.value.localize),
-      showText option span(
-        cls                      := "button-label",
-        attr("data-i18n-like")   := trans.study.like.txt(),
-        attr("data-i18n-unlike") := trans.study.unlike.txt()
-      )(text)
+      showText.option(
+        span(
+          cls                      := "button-label",
+          attr("data-i18n-like")   := trans.study.like.txt(),
+          attr("data-i18n-unlike") := trans.study.unlike.txt()
+        )(text)
+      )
     )
 
   private def followButton(user: User, followed: Boolean)(using PageContext) =
@@ -182,7 +191,7 @@ object post:
     a(cls := "ublog-post-card ublog-post-card--link", href := makeUrl(post))(
       span(cls := "ublog-post-card__top")(
         thumbnail(post, _.Size.Small)(cls := "ublog-post-card__image"),
-        post.lived map { live => semanticDate(live.at)(cls := "ublog-post-card__over-image") },
+        post.lived.map { live => semanticDate(live.at)(cls := "ublog-post-card__over-image") },
         showAuthor match
           case ShowAt.none => emptyFrag
           case showAt =>
@@ -190,7 +199,7 @@ object post:
       ),
       span(cls := "ublog-post-card__content")(
         h2(cls := "ublog-post-card__title")(post.title),
-        showIntro option span(cls := "ublog-post-card__intro")(shorten(post.intro, 100))
+        showIntro.option(span(cls := "ublog-post-card__intro")(shorten(post.intro, 100)))
       )
     )
 
@@ -229,45 +238,48 @@ object post:
         case _           => assetUrl("images/user-blog-default.png")
 
   private def modTools(blog: UblogBlog, post: UblogPost)(using PageContext) =
-    env.ublog.rank.computeRank(blog, post) map: rank =>
-      postForm(cls := "ublog-post__meta", action := routes.Ublog.rankAdjust(post.id))(
-        fieldset(cls := "ublog-post__mod-tools")(
-          legend(
-            span(
+    env.ublog.rank
+      .computeRank(blog, post)
+      .map: rank =>
+        postForm(cls := "ublog-post__meta", action := routes.Ublog.rankAdjust(post.id))(
+          fieldset(cls := "ublog-post__mod-tools")(
+            legend(
               span(
-                label("Rank date:"),
-                if ~post.pinned then "pinned"
-                else span(cls := "ublog-post__meta__date")(semanticDate(rank.value))
+                span(
+                  label("Rank date:"),
+                  if ~post.pinned then "pinned"
+                  else span(cls := "ublog-post__meta__date")(semanticDate(rank.value))
+                ),
+                form3.submit("Submit")(cls := "button-empty")
+              )
+            ),
+            span(
+              input(
+                tpe   := "checkbox",
+                id    := "ublog-post-pinned",
+                name  := "pinned",
+                value := "true",
+                post.pinned.has(true).option(checked)
               ),
-              form3.submit("Submit")(cls := "button-empty")
-            )
-          ),
-          span(
-            input(
-              tpe   := "checkbox",
-              id    := "ublog-post-pinned",
-              name  := "pinned",
-              value := "true",
-              post.pinned.has(true) option checked
+              label(`for` := "ublog-post-pinned")(" Pin to top")
             ),
-            label(`for` := "ublog-post-pinned")(" Pin to top")
-          ),
-          span(
-            "User tier:",
-            st.select(name := "tier", cls := "form-control")(UblogRank.Tier.verboseOptions.map:
-              (value, name) => option(st.value := value.toString, blog.tier == value option selected)(name)
-            )
-          ),
-          span(
-            "Post adjust:",
-            input(
-              tpe   := "number",
-              name  := "days",
-              min   := -180,
-              max   := 180,
-              value := post.rankAdjustDays.so(_.toString)
+            span(
+              "User tier:",
+              st.select(name := "tier", cls := "form-control")(UblogRank.Tier.verboseOptions.map:
+                (value, name) =>
+                  option(st.value := value.toString, (blog.tier == value).option(selected))(name)
+              )
             ),
-            "days"
+            span(
+              "Post adjust:",
+              input(
+                tpe   := "number",
+                name  := "days",
+                min   := -180,
+                max   := 180,
+                value := post.rankAdjustDays.so(_.toString)
+              ),
+              "days"
+            )
           )
         )
-      )

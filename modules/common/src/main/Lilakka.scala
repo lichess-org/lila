@@ -15,4 +15,5 @@ object Lilakka:
       shutdownLogger.info(msg)
       Chronometer(f())
         .log(shutdownLogger)(_ => msg)
-        .result inject akka.Done
+        .result
+        .inject(akka.Done)

@@ -72,7 +72,7 @@ object Team:
     else
       {
         15 + daysBetween(u.createdAt, nowInstant) / 7
-      } atMost maxJoinCeiling
+      }.atMost(maxJoinCeiling)
 
   type Access = Int
   object Access:
@@ -93,9 +93,9 @@ object Team:
         value.endsWith(s"$separator$teamId") ||
         value.contains(s"$separator$teamId$separator")
 
-    def toArray: Array[TeamId] = TeamId.from(value split IdsStr.separator)
-    def toList                 = value.nonEmpty so toArray.toList
-    def toSet                  = value.nonEmpty so toArray.toSet
+    def toArray: Array[TeamId] = TeamId.from(value.split(IdsStr.separator))
+    def toList                 = value.nonEmpty.so(toArray.toList)
+    def toSet                  = value.nonEmpty.so(toArray.toSet)
     def size                   = value.count(_ == separator) + 1
     def nonEmpty               = value.nonEmpty
 
@@ -105,7 +105,7 @@ object Team:
 
     val empty = IdsStr("")
 
-    def apply(ids: Iterable[TeamId]): IdsStr = IdsStr(ids mkString separator.toString)
+    def apply(ids: Iterable[TeamId]): IdsStr = IdsStr(ids.mkString(separator.toString))
 
   def make(
       id: TeamId,
@@ -139,4 +139,4 @@ object Team:
     // if most chars are not latin, go for random slug
     if slug.lengthIs > (name.length / 2) then TeamId(slug) else randomId()
 
-  private[team] def randomId() = TeamId(ThreadLocalRandom nextString 8)
+  private[team] def randomId() = TeamId(ThreadLocalRandom.nextString(8))

@@ -28,9 +28,9 @@ final class ESClientHttp(
     extends ESClient:
 
   def store(id: Id, doc: JsObject) =
-    config.writeable so monitor("store") {
+    config.writeable.so(monitor("store") {
       HTTP(s"store/$index/${id.value}", doc)
-    }
+    })
 
   def search[Q: Writes](query: Q, from: From, size: Size) =
     monitor("search") {
@@ -45,10 +45,10 @@ final class ESClientHttp(
     }
 
   def deleteById(id: lila.search.Id) =
-    config.writeable so HTTP(s"delete/id/$index/${id.value}", Json.obj())
+    config.writeable.so(HTTP(s"delete/id/$index/${id.value}", Json.obj()))
 
   def deleteByIds(ids: List[lila.search.Id]) =
-    config.writeable so HTTP(s"delete/ids/$index", Json.obj("ids" -> ids))
+    config.writeable.so(HTTP(s"delete/ids/$index", Json.obj("ids" -> ids)))
 
   def putMapping =
     HTTP(s"mapping/$index", Json.obj())
@@ -56,7 +56,7 @@ final class ESClientHttp(
   def storeBulk(docs: Seq[(Id, JsObject)]) =
     HTTP(
       s"store/bulk/$index",
-      JsObject(docs map { case (id, doc) =>
+      JsObject(docs.map { case (id, doc) =>
         id.value -> JsString(Json.stringify(doc))
       })
     )
@@ -65,7 +65,7 @@ final class ESClientHttp(
     HTTP(s"refresh/$index", Json.obj())
 
   private[search] def HTTP[D: Writes, R](url: String, data: D, read: String => R): Fu[Option[R]] =
-    ws.url(s"${config.endpoint}/$url").post(Json toJson data) flatMap {
+    ws.url(s"${config.endpoint}/$url").post(Json.toJson(data)).flatMap {
       case res if res.status == 200 => fuccess(read(res.body).some)
       case res if res.status == 400 => fuccess(none)
       case res                      => fufail(s"$url ${res.status}")

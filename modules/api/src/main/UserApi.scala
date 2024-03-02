@@ -38,8 +38,8 @@ final class UserApi(
       withFollows: Boolean,
       withTrophies: Boolean
   )(using Option[Me], Lang): Fu[Option[JsObject]] =
-    userApi withPerfs username flatMapz {
-      extended(_, withFollows, withTrophies) dmap some
+    userApi.withPerfs(username).flatMapz {
+      extended(_, withFollows, withTrophies).dmap(some)
     }
 
   def extended(
@@ -53,13 +53,13 @@ final class UserApi(
       case u: User.WithPerfs => fuccess(u)
     .flatMap: u =>
         if u.enabled.no
-        then fuccess(jsonView disabled u.light)
+        then fuccess(jsonView.disabled(u.light))
         else
           (
             gameProxyRepo.urgentGames(u).dmap(_.headOption),
             as.filter(u !=).so(me => crosstableApi.nbGames(me.userId, u.id)),
             withFollows.soFu(relationApi.countFollowing(u.id)),
-            as.isDefined.so(prefApi followable u.id),
+            as.isDefined.so(prefApi.followable(u.id)),
             as.map(_.userId).so(relationApi.fetchRelation(_, u.id)),
             as.map(_.userId).so(relationApi.fetchFollows(u.id, _)),
             bookmarkApi.countByUser(u.user),
@@ -109,7 +109,7 @@ final class UserApi(
                   .add("streaming", liveStreamApi.isStreaming(u.id))
                   .add("nbFollowing", following)
                   .add("nbFollowers", withFollows.option(0))
-                  .add("trophies", trophiesAndAwards map trophiesJson)
+                  .add("trophies", trophiesAndAwards.map(trophiesJson))
                   .add(
                     "streamer",
                     streamer.map: s =>

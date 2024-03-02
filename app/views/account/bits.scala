@@ -31,13 +31,13 @@ object bits:
 
   def radios[A](field: play.api.data.Field, options: Iterable[(A, String)]) =
     st.group(cls := "radio"):
-      options.toList map: (key, value) =>
+      options.toList.map: (key, value) =>
         val id      = s"ir${field.id}_$key"
-        val checked = field.value has key.toString
+        val checked = field.value.has(key.toString)
         div(
           input(
             st.id := id,
-            checked option st.checked,
+            checked.option(st.checked),
             tpe      := "radio",
             st.value := key.toString,
             name     := field.name
@@ -51,7 +51,7 @@ object bits:
       div(
         input(
           st.id := s"ir${field.id}_hidden",
-          true option st.checked,
+          true.option(st.checked),
           tpe      := "hidden",
           st.value := "",
           name     := field.name
@@ -65,7 +65,7 @@ object bits:
           div(
             input(
               st.id := id,
-              checked option st.checked,
+              checked.option(st.checked),
               tpe               := "checkbox",
               st.value          := key.toString,
               attr("data-name") := field.name

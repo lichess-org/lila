@@ -35,7 +35,7 @@ case class TutorOpeningFamily(
     awareness: TutorBothValueOptions[GoodPercent]
 ):
 
-  def mix: TutorBothValueOptions[GoodPercent] = accuracy.map(a => GoodPercent(a.value)) mix awareness
+  def mix: TutorBothValueOptions[GoodPercent] = accuracy.map(a => GoodPercent(a.value)).mix(awareness)
 
 private case object TutorOpening:
 
@@ -53,7 +53,7 @@ private case object TutorOpening:
     myPerfsFull <- answerMine(perfQuestion(color), user)
     myPerfs = myPerfsFull.copy(answer =
       myPerfsFull.answer.copy(
-        clusters = myPerfsFull.answer.clusters take nbOpeningsPerColor
+        clusters = myPerfsFull.answer.clusters.take(nbOpeningsPerColor)
       )
     )
     peerPerfs <- answerPeer(myPerfs.alignedQuestion, user, Max(10_000))
@@ -62,15 +62,15 @@ private case object TutorOpening:
       .withMetric(InsightMetric.MeanAccuracy)
       .filter(Filter(InsightDimension.Phase, List(Phase.Opening, Phase.Middle)))
     accuracy <- answerBoth(accuracyQuestion, user, Max(1000))
-    awarenessQuestion = accuracyQuestion withMetric InsightMetric.Awareness
+    awarenessQuestion = accuracyQuestion.withMetric(InsightMetric.Awareness)
     awareness <- answerBoth(awarenessQuestion, user, Max(1000))
   yield TutorColorOpenings {
     performances.mine.list.map { (family, myPerformance) =>
       TutorOpeningFamily(
         family,
-        performance = IntRating from performances.valueMetric(family, myPerformance).map(roundToInt),
-        accuracy = AccuracyPercent from accuracy.valueMetric(family),
-        awareness = GoodPercent from awareness.valueMetric(family)
+        performance = IntRating.from(performances.valueMetric(family, myPerformance).map(roundToInt)),
+        accuracy = AccuracyPercent.from(accuracy.valueMetric(family)),
+        awareness = GoodPercent.from(awareness.valueMetric(family))
       )
     }
   }

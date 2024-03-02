@@ -34,7 +34,7 @@ object show:
         .OpenGraph(
           title = s"${t.name} team",
           url = s"$netBaseUrl${teamRoutes.show(t.id).url}",
-          description = t.intro so { shorten(_, 152) }
+          description = t.intro.so { shorten(_, 152) }
         )
         .some,
       moreJs = jsModuleInit(
@@ -66,44 +66,55 @@ object show:
           div:
             if t.disabled then span(cls := "staff")("CLOSED")
             else
-              canSeeMembers option a(href := teamRoutes.members(t.slug)):
+              canSeeMembers.option(a(href := teamRoutes.members(t.slug)):
                 nbMembers.plural(t.nbMembers, strong(t.nbMembers.localize))
+              )
         ),
         div(cls := "team-show__content")(
           div(cls := "team-show__content__col1")(
-            (t.enabled || info.ledByMe || canManage) option st.section(cls := "team-show__meta")(
-              t.publicLeaders.nonEmpty option p(
-                teamLeaders.pluralSame(t.publicLeaders.size),
-                ": ",
-                t.publicLeaders.map: l =>
-                  userIdLink(l.some)
-              ),
-              info.ledByMe option a(
-                dataIcon := licon.InfoCircle,
-                href     := routes.Cms.lonePage("team-etiquette"),
-                cls      := "text"
-              )("Team Etiquette")
+            (t.enabled || info.ledByMe || canManage).option(
+              st.section(cls := "team-show__meta")(
+                t.publicLeaders.nonEmpty.option(
+                  p(
+                    teamLeaders.pluralSame(t.publicLeaders.size),
+                    ": ",
+                    t.publicLeaders.map: l =>
+                      userIdLink(l.some)
+                  )
+                ),
+                info.ledByMe.option(
+                  a(
+                    dataIcon := licon.InfoCircle,
+                    href     := routes.Cms.lonePage("team-etiquette"),
+                    cls      := "text"
+                  )("Team Etiquette")
+                )
+              )
             ),
-            (t.enabled && chatOption.isDefined) option frag(
-              views.html.chat.frag,
-              views.html.chat.spectatorsFrag
+            (t.enabled && chatOption.isDefined).option(
+              frag(
+                views.html.chat.frag,
+                views.html.chat.spectatorsFrag
+              )
             ),
             div(cls := "team-show__actions")(
-              (t.enabled && !info.mine) option frag(
-                if info.myRequest.exists(_.declined) then
-                  frag(
-                    strong(requestDeclined()),
-                    a(cls := "button disabled button-metal")(joinTeam())
-                  )
-                else if info.myRequest.isDefined then
-                  frag(
-                    strong(beingReviewed()),
-                    postForm(action := teamRoutes.quit(t.id)):
-                      submitButton(cls := "button button-red button-empty confirm")(trans.cancel())
-                  )
-                else (ctx.isAuth && !asMod) option joinButton(t.team)
+              (t.enabled && !info.mine).option(
+                frag(
+                  if info.myRequest.exists(_.declined) then
+                    frag(
+                      strong(requestDeclined()),
+                      a(cls := "button disabled button-metal")(joinTeam())
+                    )
+                  else if info.myRequest.isDefined then
+                    frag(
+                      strong(beingReviewed()),
+                      postForm(action := teamRoutes.quit(t.id)):
+                        submitButton(cls := "button button-red button-empty confirm")(trans.cancel())
+                    )
+                  else (ctx.isAuth && !asMod).option(joinButton(t.team))
+                )
               ),
-              t.enabled && info.mine option
+              (t.enabled && info.mine).option(
                 postForm(
                   cls    := "team-show__subscribe form3",
                   action := teamRoutes.subscribe(t.id)
@@ -112,131 +123,155 @@ object show:
                     span(form3.cmnToggle("team-subscribe", "subscribe", checked = info.subscribed)),
                     label(`for` := "team-subscribe")(subToTeamMessages.txt())
                   )
-                ),
-              (info.mine && !info.havePerm(_.Admin)) option
+                )
+              ),
+              (info.mine && !info.havePerm(_.Admin)).option(
                 postForm(cls := "quit", action := teamRoutes.quit(t.id))(
                   submitButton(cls := "button button-empty button-red confirm")(quitTeam.txt())
-                ),
-              t.enabled && info.havePerm(_.Tour) option frag(
-                a(
-                  href     := routes.Tournament.teamBattleForm(t.id),
-                  cls      := "button button-empty text",
-                  dataIcon := licon.Trophy
-                ):
-                  span(
-                    strong(teamBattle()),
-                    em(teamBattleOverview())
-                  )
-                ,
-                a(
-                  href     := s"${routes.Tournament.form}?team=${t.id}",
-                  cls      := "button button-empty text",
-                  dataIcon := licon.Trophy
-                ):
-                  span(
-                    strong(teamTournament()),
-                    em(teamTournamentOverview())
-                  )
-                ,
-                a(
-                  href     := s"${routes.Swiss.form(t.id)}",
-                  cls      := "button button-empty text",
-                  dataIcon := licon.Trophy
-                ):
-                  span(
-                    strong(trans.swiss.swissTournaments()),
-                    em(swissTournamentOverview())
-                  )
+                )
               ),
-              t.enabled && info.havePerm(_.PmAll) option frag(
-                a(
-                  href     := teamRoutes.pmAll(t.id),
-                  cls      := "button button-empty text",
-                  dataIcon := licon.Envelope
-                ):
-                  span(
-                    strong(messageAllMembers()),
-                    em(messageAllMembersOverview())
-                  )
+              (t.enabled && info.havePerm(_.Tour)).option(
+                frag(
+                  a(
+                    href     := routes.Tournament.teamBattleForm(t.id),
+                    cls      := "button button-empty text",
+                    dataIcon := licon.Trophy
+                  ):
+                    span(
+                      strong(teamBattle()),
+                      em(teamBattleOverview())
+                    )
+                  ,
+                  a(
+                    href     := s"${routes.Tournament.form}?team=${t.id}",
+                    cls      := "button button-empty text",
+                    dataIcon := licon.Trophy
+                  ):
+                    span(
+                      strong(teamTournament()),
+                      em(teamTournamentOverview())
+                    )
+                  ,
+                  a(
+                    href     := s"${routes.Swiss.form(t.id)}",
+                    cls      := "button button-empty text",
+                    dataIcon := licon.Trophy
+                  ):
+                    span(
+                      strong(trans.swiss.swissTournaments()),
+                      em(swissTournamentOverview())
+                    )
+                )
               ),
-              ((t.enabled && info.havePerm(_.Settings)) || canManage) option
+              (t.enabled && info.havePerm(_.PmAll)).option(
+                frag(
+                  a(
+                    href     := teamRoutes.pmAll(t.id),
+                    cls      := "button button-empty text",
+                    dataIcon := licon.Envelope
+                  ):
+                    span(
+                      strong(messageAllMembers()),
+                      em(messageAllMembersOverview())
+                    )
+                )
+              ),
+              ((t.enabled && info.havePerm(_.Settings)) || canManage).option(
                 a(
                   href     := teamRoutes.edit(t.id),
                   cls      := "button button-empty text",
                   dataIcon := licon.Gear
                 )(
                   trans.settings.settings()
-                ),
-              ((t.enabled && info.havePerm(_.Admin)) || canManage) option
+                )
+              ),
+              ((t.enabled && info.havePerm(_.Admin)) || canManage).option(
                 a(
                   cls      := "button button-empty text",
                   href     := teamRoutes.leaders(t.id),
                   dataIcon := licon.Group
-                )(teamLeaders()),
-              ((t.enabled && info.havePerm(_.Kick)) || canManage) option
+                )(teamLeaders())
+              ),
+              ((t.enabled && info.havePerm(_.Kick)) || canManage).option(
                 a(
                   cls      := "button button-empty text",
                   href     := teamRoutes.kick(t.id),
                   dataIcon := licon.InternalArrow
-                )(kickSomeone()),
-              ((t.enabled && info.havePerm(_.Request)) || canManage) option
+                )(kickSomeone())
+              ),
+              ((t.enabled && info.havePerm(_.Request)) || canManage).option(
                 a(
                   cls      := "button button-empty text",
                   href     := teamRoutes.declinedRequests(t.id),
                   dataIcon := licon.Cancel
                 )(
                   declinedRequests()
-                ),
-              ((isGranted(_.ManageTeam) || isGranted(_.Shusher)) && !asMod) option a(
-                href := teamRoutes.show(t.id, 1, mod = true),
-                cls  := "button button-red"
-              ):
-                "View team as Mod"
+                )
+              ),
+              ((isGranted(_.ManageTeam) || isGranted(_.Shusher)) && !asMod).option(
+                a(
+                  href := teamRoutes.show(t.id, 1, mod = true),
+                  cls  := "button button-red"
+                ):
+                  "View team as Mod"
+              )
             ),
-            canSeeMembers option div(cls := "team-show__members")(
-              st.section(cls := "recent-members")(
-                h2(a(href := teamRoutes.members(t.slug))(teamRecentMembers())),
-                div(cls := "userlist infinite-scroll")(
-                  members.currentPageResults.map { member =>
-                    div(cls := "paginated")(lightUserLink(member))
-                  },
-                  pagerNext(members, np => teamRoutes.show(t.id, np).url)
+            canSeeMembers.option(
+              div(cls := "team-show__members")(
+                st.section(cls := "recent-members")(
+                  h2(a(href := teamRoutes.members(t.slug))(teamRecentMembers())),
+                  div(cls := "userlist infinite-scroll")(
+                    members.currentPageResults.map { member =>
+                      div(cls := "paginated")(lightUserLink(member))
+                    },
+                    pagerNext(members, np => teamRoutes.show(t.id, np).url)
+                  )
                 )
               )
             )
           ),
           div(cls := "team-show__content__col2")(
             standardFlash,
-            t.intro.isEmpty && info.havePerm(_.Settings) option div(cls := "flash flash-warning")(
-              div(cls := "flash__content"):
-                a(href := teamRoutes.edit(t.id))("Give your team a short introduction text!")
+            (t.intro.isEmpty && info.havePerm(_.Settings)).option(
+              div(cls := "flash flash-warning")(
+                div(cls := "flash__content"):
+                  a(href := teamRoutes.edit(t.id))("Give your team a short introduction text!")
+              )
             ),
-            log.nonEmpty option renderLog(log),
-            (t.enabled || canManage) option st.section(cls := "team-show__desc")(
-              bits.markdown(t.team, t.descPrivate.ifTrue(info.mine) | t.description)
+            log.nonEmpty.option(renderLog(log)),
+            (t.enabled || canManage).option(
+              st.section(cls := "team-show__desc")(
+                bits.markdown(t.team, t.descPrivate.ifTrue(info.mine) | t.description)
+              )
             ),
-            t.enabled && info.hasRequests option div(cls := "team-show__requests")(
-              h2(xJoinRequests.pluralSame(info.requests.size)),
-              views.html.team.request.list(info.requests, t.team.some)
+            (t.enabled && info.hasRequests).option(
+              div(cls := "team-show__requests")(
+                h2(xJoinRequests.pluralSame(info.requests.size)),
+                views.html.team.request.list(info.requests, t.team.some)
+              )
             ),
             div(
-              t.enabled && info.simuls.nonEmpty option frag(
-                st.section(cls := "team-show__tour team-events team-simuls")(
-                  h2(trans.simultaneousExhibitions()),
-                  views.html.simul.bits.allCreated(info.simuls)
+              (t.enabled && info.simuls.nonEmpty).option(
+                frag(
+                  st.section(cls := "team-show__tour team-events team-simuls")(
+                    h2(trans.simultaneousExhibitions()),
+                    views.html.simul.bits.allCreated(info.simuls)
+                  )
                 )
               ),
-              t.enabled && info.tours.nonEmpty option frag(
-                st.section(cls := "team-show__tour team-events team-tournaments")(
-                  h2(a(href := teamRoutes.tournaments(t.id))(trans.tournaments())),
-                  table(cls := "slist")(
-                    tournaments.renderList(
-                      info.tours.next ::: info.tours.past.take(5 - info.tours.next.size)
+              (t.enabled && info.tours.nonEmpty).option(
+                frag(
+                  st.section(cls := "team-show__tour team-events team-tournaments")(
+                    h2(a(href := teamRoutes.tournaments(t.id))(trans.tournaments())),
+                    table(cls := "slist")(
+                      tournaments.renderList(
+                        info.tours.next ::: info.tours.past.take(5 - info.tours.next.size)
+                      )
                     )
                   )
                 )
               ),
-              info.forum map { forumPosts =>
+              info.forum.map { forumPosts =>
                 st.section(cls := "team-show__forum")(
                   h2(a(href := teamForumUrl(t.id))(trans.forum())),
                   forumPosts.take(10).map { post =>
@@ -244,7 +279,7 @@ object show:
                       div(cls := "meta")(
                         strong(post.topicName),
                         em(
-                          post.userId map titleNameOrId,
+                          post.userId.map(titleNameOrId),
                           " • ",
                           momentFromNow(post.createdAt)
                         )

@@ -27,8 +27,7 @@ final private[timeline] class TimelinePush(
           unsubApi.filterUnsub(data.channel, users)
         .foreach: users =>
           if users.nonEmpty then
-            insertEntry(users, data) andDo
-              lila.common.Bus.publish(ReloadTimelines(users), "lobbySocket")
+            insertEntry(users, data).andDo(lila.common.Bus.publish(ReloadTimelines(users), "lobbySocket"))
           lila.mon.timeline.notification.increment(users.size)
   }
 
@@ -46,11 +45,11 @@ final private[timeline] class TimelinePush(
           case (fus, Propagation.ExceptUser(id)) => fus.dmap(_.filter(id !=))
           case (fus, Propagation.ModsOnly(true)) =>
             fus.flatMap: us =>
-              userRepo.userIdsWithRoles(modPermissions.map(_.dbKey)) dmap { userIds =>
-                us filter userIds.contains
+              userRepo.userIdsWithRoles(modPermissions.map(_.dbKey)).dmap { userIds =>
+                us.filter(userIds.contains)
               }
           case (fus, Propagation.WithTeam(teamId)) =>
-            teamCache.forumAccess get teamId flatMap {
+            teamCache.forumAccess.get(teamId).flatMap {
               case lila.team.Team.Access.MEMBERS =>
                 fus.flatMap: us =>
                   memberRepo.filterUserIdsInTeam(teamId, us).map(_.toList)
@@ -70,4 +69,4 @@ final private[timeline] class TimelinePush(
     )
 
   private def insertEntry(users: List[UserId], data: Atom): Funit =
-    entryApi insert Entry.ForUsers(Entry.make(data), users)
+    entryApi.insert(Entry.ForUsers(Entry.make(data), users))

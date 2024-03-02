@@ -33,8 +33,10 @@ object MoveOpts:
   }
 
   private given Reads[MoveOpts] = (
-    (__ \ "write").readNullable[Boolean].map(_ | default.write) and
-      (__ \ "sticky").readNullable[Boolean].map(_ | default.sticky) and
-      (__ \ "promote").readNullable[Boolean].map(_ | default.promoteToMainline) and
-      (__ \ "clock").readNullable[Centis]
+    (__ \ "write")
+      .readNullable[Boolean]
+      .map(_ | default.write)
+      .and((__ \ "sticky").readNullable[Boolean].map(_ | default.sticky))
+      .and((__ \ "promote").readNullable[Boolean].map(_ | default.promoteToMainline))
+      .and((__ \ "clock").readNullable[Centis])
   )(MoveOpts.apply)

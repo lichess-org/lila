@@ -25,11 +25,11 @@ object index:
       bestIds: List[UserId],
       pricing: lila.plan.PlanPricing
   )(using ctx: PageContext) =
-    val localeParam = lila.plan.PayPalClient.locale(ctx.lang) so { l => s"&locale=$l" }
+    val localeParam = lila.plan.PayPalClient.locale(ctx.lang).so { l => s"&locale=$l" }
     views.html.base.layout(
       title = becomePatron.txt(),
       moreCss = cssTag("plan"),
-      moreJs = ctx.isAuth option
+      moreJs = ctx.isAuth.option(
         frag(
           stripeScript,
           frag(
@@ -48,7 +48,8 @@ object index:
           embedJsUnsafeLoadThen(s"""checkoutStart("$stripePublicKey", ${safeJsonValue(
               lila.plan.PlanPricingApi.pricingWrites.writes(pricing)
             )})""")
-        ),
+        )
+      ),
       openGraph = lila.app.ui
         .OpenGraph(
           title = becomePatron.txt(),
@@ -68,31 +69,36 @@ object index:
           )
         ),
         div(cls := "page-menu__content box")(
-          patron.ifTrue(ctx.me.so(_.isPatron)).map { p =>
-            div(cls := "banner one_time_active")(
-              iconTag(patronIconChar),
-              div(
-                h1(cls := "box__top")(thankYou()),
-                if p.isLifetime then youHaveLifetime()
-                else
-                  p.expiresAt.map { expires =>
-                    frag(
-                      patronUntil(showDate(expires)),
-                      br,
-                      ifNotRenewedThenAccountWillRevert()
-                    )
-                  }
-              ),
-              iconTag(patronIconChar)
-            )
-          } getOrElse div(cls := "banner moto")(
-            iconTag(patronIconChar),
-            div(
-              h1(cls := "box__top")(freeChess()),
-              p(noAdsNoSubs())
+          patron
+            .ifTrue(ctx.me.so(_.isPatron))
+            .map { p =>
+              div(cls := "banner one_time_active")(
+                iconTag(patronIconChar),
+                div(
+                  h1(cls := "box__top")(thankYou()),
+                  if p.isLifetime then youHaveLifetime()
+                  else
+                    p.expiresAt.map { expires =>
+                      frag(
+                        patronUntil(showDate(expires)),
+                        br,
+                        ifNotRenewedThenAccountWillRevert()
+                      )
+                    }
+                ),
+                iconTag(patronIconChar)
+              )
+            }
+            .getOrElse(
+              div(cls := "banner moto")(
+                iconTag(patronIconChar),
+                div(
+                  h1(cls := "box__top")(freeChess()),
+                  p(noAdsNoSubs())
+                ),
+                iconTag(patronIconChar)
+              )
             ),
-            iconTag(patronIconChar)
-          ),
           div(cls := "box__pad")(
             div(cls := "wrapper")(
               div(cls := "text")(
@@ -105,7 +111,7 @@ object index:
                   attr("data-email")           := email.so(_.value),
                   attr("data-lifetime-amount") := pricing.lifetime.amount
                 )(
-                  ctx.me map { me =>
+                  ctx.me.map { me =>
                     st.group(cls := "radio buttons dest")(
                       div(
                         input(
@@ -168,7 +174,7 @@ object index:
                         tpe  := "radio",
                         name := "freq",
                         id   := "freq_lifetime",
-                        patron.exists(_.isLifetime) option disabled,
+                        patron.exists(_.isLifetime).option(disabled),
                         value := "lifetime",
                         cls   := List("lifetime-check" -> patron.exists(_.isLifetime))
                       ),
@@ -181,11 +187,11 @@ object index:
                         val id = s"plan_${money.code}"
                         div(
                           input(
-                            cls   := money == pricing.default option "default",
+                            cls   := (money == pricing.default).option("default"),
                             tpe   := "radio",
                             name  := "plan",
                             st.id := id,
-                            money == pricing.default option checked,
+                            (money == pricing.default).option(checked),
                             value               := money.amount,
                             attr("data-amount") := money.amount
                           ),
@@ -222,11 +228,13 @@ object index:
                           href := s"${routes.Auth.login}?referrer=${routes.Plan.index}"
                         )(logInToDonate())
                     ),
-                    ctx.isAuth option div(cls := "other-choices")(
-                      a(cls := "currency-toggle")(trans.patron.changeCurrency()),
-                      div(cls := "links")(
-                        a(cls := "stripe")("Google Pay"),
-                        a(cls := "stripe")("Apple Pay")
+                    ctx.isAuth.option(
+                      div(cls := "other-choices")(
+                        a(cls := "currency-toggle")(trans.patron.changeCurrency()),
+                        div(cls := "links")(
+                          a(cls := "stripe")("Google Pay"),
+                          a(cls := "stripe")("Apple Pay")
+                        )
                       )
                     ),
                     form(cls := "currency none", action := routes.Plan.list)(
@@ -234,7 +242,7 @@ object index:
                         lila.plan.CurrencyApi.currencyList.map { cur =>
                           option(
                             value := cur.getCurrencyCode,
-                            pricing.currencyCode == cur.getCurrencyCode option selected
+                            (pricing.currencyCode == cur.getCurrencyCode).option(selected)
                           )(showCurrency(cur))
                         }
                       )

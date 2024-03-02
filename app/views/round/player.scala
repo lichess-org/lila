@@ -30,7 +30,7 @@ object player:
             c.lines,
             name = trans.chatRoom.txt(),
             timeout = false,
-            withNoteAge = ctx.isAuth option pov.game.secondsSinceCreation,
+            withNoteAge = ctx.isAuth.option(pov.game.secondsSinceCreation),
             public = false,
             resourceId = lila.chat.Chat.ResourceId(s"game/${c.chat.id}"),
             palantir = ctx.canPalantir
@@ -75,10 +75,11 @@ object player:
         bits.roundAppPreload(pov),
         div(cls := "round__underboard")(
           bits.crosstable(cross, pov.game),
-          (playing.nonEmpty || simul.exists(_ isHost ctx.me)) option
+          (playing.nonEmpty || simul.exists(_.isHost(ctx.me))).option(
             div(cls := "round__now-playing")(
-              bits.others(playing, simul.filter(_ isHost ctx.me))
+              bits.others(playing, simul.filter(_.isHost(ctx.me)))
             )
+          )
         ),
-        div(cls := "round__underchat")(bits underchat pov.game)
+        div(cls := "round__underchat")(bits.underchat(pov.game))
       )

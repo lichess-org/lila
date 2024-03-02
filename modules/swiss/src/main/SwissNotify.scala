@@ -14,17 +14,17 @@ final private class SwissNotify(mongo: SwissMongo)(using Executor, Scheduler):
       .find(
         $doc(
           "featurable" -> true,
-          "settings.i" $lte 600 // hits the partial index
+          "settings.i".$lte(600) // hits the partial index
         ) ++ $doc(
-          "startsAt" $gt nowInstant.plusMinutes(10) $lt nowInstant.plusMinutes(11),
-          "_id" $nin doneMemo.keys
+          "startsAt".$gt(nowInstant.plusMinutes(10)).$lt(nowInstant.plusMinutes(11)),
+          "_id".$nin(doneMemo.keys)
         )
       )
       .cursor[Swiss]()
       .list(5)
       .flatMap:
         _.traverse_ { swiss =>
-          doneMemo put swiss.id
+          doneMemo.put(swiss.id)
           SwissPlayer.fields: f =>
             mongo.player
               .distinctEasy[UserId, List](f.userId, $doc(f.swissId -> swiss.id))

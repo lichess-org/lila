@@ -23,16 +23,16 @@ final class Authenticator(
     passHasher.check(auth.bpass, newP)
 
   def authenticateById(id: UserId, passwordAndToken: PasswordAndToken): Fu[Option[User]] =
-    loginCandidateById(id) map { _ flatMap { _ option passwordAndToken } }
+    loginCandidateById(id).map { _.flatMap { _.option(passwordAndToken) } }
 
   def authenticateByEmail(
       email: NormalizedEmailAddress,
       passwordAndToken: PasswordAndToken
   ): Fu[Option[User]] =
-    loginCandidateByEmail(email) map { _ flatMap { _ option passwordAndToken } }
+    loginCandidateByEmail(email).map { _.flatMap { _.option(passwordAndToken) } }
 
   def loginCandidate(using me: Me): Fu[User.LoginCandidate] =
-    loginCandidateById(me.userId) dmap { _ | User.LoginCandidate(me, _ => false, false) }
+    loginCandidateById(me.userId).dmap { _ | User.LoginCandidate(me, _ => false, false) }
 
   def loginCandidateById(id: UserId): Fu[Option[User.LoginCandidate]] =
     loginCandidate($id(id))
@@ -51,17 +51,16 @@ final class Authenticator(
   private def authWithBenefits(auth: AuthData)(p: ClearPassword): Boolean =
     val res = compare(auth, p)
     if res && auth.salt.isDefined then
-      setPassword(id = auth._id, p) andDo lila.mon.user.auth.bcFullMigrate.increment()
+      setPassword(id = auth._id, p).andDo(lila.mon.user.auth.bcFullMigrate.increment())
     res
 
   private def loginCandidate(select: Bdoc): Fu[Option[User.LoginCandidate]] = {
-    userRepo.coll.one[AuthData](select, authProjection) zip
-      userRepo.coll.one[User](select) map {
-        case (Some(authData), Some(user)) =>
-          User.LoginCandidate(user, authWithBenefits(authData), authData.isBlanked).some
-        case _ => none
-      }
-  } recover {
+    userRepo.coll.one[AuthData](select, authProjection).zip(userRepo.coll.one[User](select)).map {
+      case (Some(authData), Some(user)) =>
+        User.LoginCandidate(user, authWithBenefits(authData), authData.isBlanked).some
+      case _ => none
+    }
+  }.recover {
     case _: reactivemongo.api.bson.exceptions.HandlerException           => none
     case _: reactivemongo.api.bson.exceptions.BSONValueNotFoundException => none // erased user
   }

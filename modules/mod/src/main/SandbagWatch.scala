@@ -23,7 +23,7 @@ final private class SandbagWatch(
     if game.rated && !game.fromApi
     userId <- game.userIds
   do
-    (records getIfPresent userId, outcomeOf(game, loser, userId)) match
+    (records.getIfPresent(userId), outcomeOf(game, loser, userId)) match
       case (None, Good)         =>
       case (Some(record), Good) => setRecord(userId, record + Good, game)
       case (record, outcome)    => setRecord(userId, (record | emptyRecord) + outcome, game)
@@ -31,7 +31,7 @@ final private class SandbagWatch(
   private def setRecord(userId: UserId, record: Record, game: Game): Funit =
     if record.immaculate then
       fuccess:
-        records invalidate userId
+        records.invalidate(userId)
     else if game.isTournament && userId.is(game.winnerUserId) then
       // if your opponent always resigns to you in a tournament
       // we'll assume you're not boosting
@@ -107,9 +107,10 @@ private object SandbagWatch:
       case Outcome.Sandbag(_) => true
       case _                  => false
 
-    def countSandbagWithLatest: Int = latestIsSandbag so outcomes.count:
+    def countSandbagWithLatest: Int = latestIsSandbag.so(outcomes.count:
       case Outcome.Sandbag(_) => true
       case _                  => false
+    )
 
     def sandbagOpponents = outcomes.collect { case Outcome.Sandbag(opponent) => opponent }.distinct
 

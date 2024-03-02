@@ -32,7 +32,7 @@ final class Search(env: Env) extends LilaController(env):
         )
       else
         NoCrawlers:
-          val page = p atLeast 1
+          val page = p.atLeast(1)
           Reasonable(page, config.Max(100)):
             val cost = scala.math.sqrt(page.toDouble).toInt
             def limited =
@@ -62,7 +62,7 @@ final class Search(env: Env) extends LilaController(env):
                               _.so(env.gameSearch.paginator(query, page))
                         .flatMap: pager =>
                           negotiate(
-                            Ok.page(html.search.index(searchForm fill data, pager, nbGames)),
+                            Ok.page(html.search.index(searchForm.fill(data), pager, nbGames)),
                             pager.fold(BadRequest(jsonError("Could not process search query")).toFuccess):
                               pager => env.api.userGameApi.jsPaginator(pager).dmap(Ok(_))
                           )

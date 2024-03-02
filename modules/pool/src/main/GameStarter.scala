@@ -24,7 +24,7 @@ final private class GameStarter(
       workQueue:
         val userIds = couples.flatMap(_.userIds)
         for
-          (perfs, ids) <- perfsRepo.perfOf(userIds, pool.perfType) zip idGenerator.games(couples.size)
+          (perfs, ids) <- perfsRepo.perfOf(userIds, pool.perfType).zip(idGenerator.games(couples.size))
           pairings     <- couples.zip(ids).map((one(pool, perfs)).tupled).parallel
         yield lila.common.Bus.publish(Pairings(pairings.flatten.toList), "poolPairings")
 
@@ -45,7 +45,7 @@ final private class GameStarter(
             whiteMember.userId -> whitePerf,
             blackMember.userId -> blackPerf
           ).start
-          _ <- gameRepo insertDenormalized game
+          _ <- gameRepo.insertDenormalized(game)
         yield
           onStart(game.id)
           Pairing(

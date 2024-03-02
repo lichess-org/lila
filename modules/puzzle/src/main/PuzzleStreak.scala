@@ -47,8 +47,8 @@ final class PuzzleStreakApi(colls: PuzzleColls, cacheApi: CacheApi)(using Execut
                 rating.toString -> List(
                   Match(
                     $doc(
-                      "min" $lte f"${theme}${sep}${tier}${sep}${rating}%04d",
-                      "max" $gte f"${theme}${sep}${tier}${sep}${rating}%04d"
+                      "min".$lte(f"${theme}${sep}${tier}${sep}${rating}%04d"),
+                      "max".$gte(f"${theme}${sep}${tier}${sep}${rating}%04d")
                     )
                   ),
                   Sample(samples),
@@ -62,7 +62,7 @@ final class PuzzleStreakApi(colls: PuzzleColls, cacheApi: CacheApi)(using Execut
                       as = "puzzle",
                       local = "ids",
                       foreign = "_id",
-                      pipe = List($doc("$match" -> $doc("glicko.d" $lte deviation)))
+                      pipe = List($doc("$match" -> $doc("glicko.d".$lte(deviation))))
                     )
                   ),
                   UnwindField("puzzle"),
@@ -83,20 +83,20 @@ final class PuzzleStreakApi(colls: PuzzleColls, cacheApi: CacheApi)(using Execut
         .addEffect(monitor)
         .map: puzzles =>
           puzzles.headOption.map:
-            PuzzleStreak(puzzles.map(_.id) mkString " ", _)
+            PuzzleStreak(puzzles.map(_.id).mkString(" "), _)
 
   private def monitor(puzzles: List[Puzzle]): Unit =
     val nb = puzzles.size
     lila.mon.streak.selector.count.record(nb)
     if nb < poolSize * 0.9 then logger.warn(s"Streak selector wanted $poolSize puzzles, only got $nb")
     if nb > 1 then
-      val rest = puzzles.toVector drop 1
-      lila.common.Maths.mean(rest.map(_.glicko.intRating.value)) foreach { r =>
+      val rest = puzzles.toVector.drop(1)
+      lila.common.Maths.mean(rest.map(_.glicko.intRating.value)).foreach { r =>
         lila.mon.streak.selector.rating.record(r.toInt)
       }
-      (0 to poolSize by 10) foreach { i =>
-        val slice = rest drop i take 10
-        lila.common.Maths.mean(slice.map(_.glicko.intRating.value)) foreach { r =>
+      (0 to poolSize by 10).foreach { i =>
+        val slice = rest.drop(i).take(10)
+        lila.common.Maths.mean(slice.map(_.glicko.intRating.value)).foreach { r =>
           lila.mon.streak.selector.ratingSlice(i).record(r.toInt)
         }
       }

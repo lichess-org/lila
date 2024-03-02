@@ -2,7 +2,7 @@ package lila.search
 
 final class Range[A] private (val a: Option[A], val b: Option[A]):
 
-  def map[B](f: A => B) = new Range(a map f, b map f)
+  def map[B](f: A => B) = new Range(a.map(f), b.map(f))
 
   def nonEmpty = a.nonEmpty || b.nonEmpty
 

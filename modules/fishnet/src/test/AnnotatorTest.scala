@@ -138,5 +138,5 @@ private def makeChessGame(tags: Tags) =
   )
   g.copy(
     startedAtPly = g.ply,
-    clock = tags.clockConfig map Clock.apply
+    clock = tags.clockConfig.map(Clock.apply)
   )

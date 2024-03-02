@@ -13,7 +13,7 @@ final private class RacerSocket(
   import RacerSocket.*
 
   def publishState(race: RacerRace): Unit = send:
-    Protocol.Out.publishState(race.id, json state race)
+    Protocol.Out.publishState(race.id, json.state(race))
 
   private lazy val send: String => Unit = remoteSocketApi.makeSender("racer-out").apply
 
@@ -32,9 +32,9 @@ final private class RacerSocket(
         .foreach(api.manualStart)
 
   remoteSocketApi.subscribe("racer-in", Protocol.In.reader):
-    racerHandler orElse minRoomHandler(rooms, logger) orElse remoteSocketApi.baseHandler
+    racerHandler.orElse(minRoomHandler(rooms, logger)).orElse(remoteSocketApi.baseHandler)
 
-  api registerSocket this
+  api.registerSocket(this)
 
 object RacerSocket:
 
@@ -46,7 +46,7 @@ object RacerSocket:
       case class PlayerScore(race: RacerRace.Id, player: RacerPlayer.Id, score: Int) extends P.In
       case class RaceStart(race: RacerRace.Id, player: RacerPlayer.Id)               extends P.In
 
-      val reader: P.In.Reader = raw => raceReader(raw) orElse RP.In.reader(raw)
+      val reader: P.In.Reader = raw => raceReader(raw).orElse(RP.In.reader(raw))
 
       val raceReader: P.In.Reader = raw =>
         raw.path match
@@ -56,7 +56,7 @@ object RacerSocket:
             }
           case "racer/score" =>
             raw.get(3) { case Array(raceId, playerId, scoreStr) =>
-              scoreStr.toIntOption map { PlayerScore(RacerRace.Id(raceId), RacerPlayer.Id(playerId), _) }
+              scoreStr.toIntOption.map { PlayerScore(RacerRace.Id(raceId), RacerPlayer.Id(playerId), _) }
             }
           case "racer/start" =>
             raw.get(2) { case Array(raceId, playerId) =>
@@ -66,4 +66,4 @@ object RacerSocket:
 
     object Out:
 
-      def publishState(id: RacerRace.Id, data: JsObject) = s"racer/state $id ${Json stringify data}"
+      def publishState(id: RacerRace.Id, data: JsObject) = s"racer/state $id ${Json.stringify(data)}"

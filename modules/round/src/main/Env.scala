@@ -69,7 +69,7 @@ final class Env(
     else
       def of(color: chess.Color): Fu[Float] =
         game.player(color).userId.fold(defaultGoneWeight)(uid => playban.getRageSit(uid).dmap(_.goneWeight))
-      of(chess.White) zip of(chess.Black)
+      of(chess.White).zip(of(chess.Black))
 
   private val isSimulHost =
     IsSimulHost(userId => Bus.ask[Set[UserId]]("simulGetHosts")(GetHostIds.apply).dmap(_ contains userId))
@@ -86,8 +86,10 @@ final class Env(
   lazy val roundSocket: RoundSocket       = wire[RoundSocket]
 
   private def resignAllGamesOf(userId: UserId) =
-    gameRepo allPlaying userId foreach:
-      _ foreach { pov => tellRound(pov.gameId, Resign(pov.playerId)) }
+    gameRepo
+      .allPlaying(userId)
+      .foreach:
+        _.foreach { pov => tellRound(pov.gameId, Resign(pov.playerId)) }
 
   Bus.subscribeFuns(
     "accountClose" -> { case lila.hub.actorApi.security.CloseAccount(userId) =>
@@ -108,13 +110,17 @@ final class Env(
     TellRound((gameId: GameId, msg: Any) => roundSocket.rounds.tell(gameId, msg))
 
   lazy val onStart: OnStart = OnStart: gameId =>
-    proxyRepo game gameId foreach:
-      _.foreach: game =>
-        lightUserApi.preloadMany(game.userIds) andDo:
-          val sg = lila.game.actorApi.StartGame(game)
-          Bus.publish(sg, "startGame")
-          game.userIds.foreach: userId =>
-            Bus.publish(sg, s"userStartGame:$userId")
+    proxyRepo
+      .game(gameId)
+      .foreach:
+        _.foreach: game =>
+          lightUserApi
+            .preloadMany(game.userIds)
+            .andDo:
+              val sg = lila.game.actorApi.StartGame(game)
+              Bus.publish(sg, "startGame")
+              game.userIds.foreach: userId =>
+                Bus.publish(sg, s"userStartGame:$userId")
 
   lazy val proxyRepo: GameProxyRepo = wire[GameProxyRepo]
 

@@ -63,19 +63,19 @@ final class InsightPerfStatsApi(
               "ids"   -> $doc("$slice" -> $arr("$ids", gameIdsPerPerf.value))
             )
           ),
-          Match($doc("total" $gte 5))
+          Match($doc("total".$gte(5)))
         )
       .map: docs =>
         for
           doc <- docs
           id  <- doc.getAsOpt[Perf.Id]("_id")
           pt  <- PerfType(id)
-          ra  <- doc double "r"
+          ra  <- doc.double("r")
           nw = ~doc.int("nw")
           nb = ~doc.int("nb")
           t   <- doc.getAsOpt[Centis]("t")
           ids <- doc.getAsOpt[List[String]]("ids")
-          gameIds = ids map GameId.take
+          gameIds = ids.map(GameId.take)
           interval = for
             start <- doc.getAsOpt[Instant]("from")
             end   <- doc.getAsOpt[Instant]("to")

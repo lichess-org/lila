@@ -30,7 +30,7 @@ final class MsgApi(
   def myThreads(using me: Me): Fu[List[MsgThread]] =
     colls.thread
       .find(selectMyThreads)
-      .sort($sort desc "lastMsg.date")
+      .sort($sort.desc("lastMsg.date"))
       .cursor[MsgThread]()
       .list(inboxSize)
       .flatMap(maybeSortAgain)
@@ -43,10 +43,10 @@ final class MsgApi(
       // we're done
       fuccess(threads)
     else
-      val receivedMultis = threads.filter(_.maskFor.exists(_ isnt me))
+      val receivedMultis = threads.filter(_.maskFor.exists(_.isnt(me)))
       colls.thread
         .find(selectMyThreads)
-        .sort($sort desc "maskWith.date") // sorting on maskWith.date now
+        .sort($sort.desc("maskWith.date")) // sorting on maskWith.date now
         .cursor[MsgThread]()
         .list(inboxSize)
         // last we filter receivedMultis and reinsert them according to their lastMsg.date
@@ -76,14 +76,16 @@ final class MsgApi(
     val threadId = MsgThread.id(me, userId)
     val before = beforeMillis.flatMap: millis =>
       util.Try(millisToInstant(millis)).toOption
-    (userId isnt me) so lightUserApi.async(userId).flatMapz { contact =>
-      for
-        _         <- setReadBy(threadId, me, userId)
-        msgs      <- threadMsgsFor(threadId, me, before)
-        relations <- relationApi.fetchRelations(me, userId)
-        postable  <- security.may.post(me, userId, isNew = msgs.headOption.isEmpty)
-      yield MsgConvo(contact, msgs, relations, postable).some
-    }
+    (userId
+      .isnt(me))
+      .so(lightUserApi.async(userId).flatMapz { contact =>
+        for
+          _         <- setReadBy(threadId, me, userId)
+          msgs      <- threadMsgsFor(threadId, me, before)
+          relations <- relationApi.fetchRelations(me, userId)
+          postable  <- security.may.post(me, userId, isNew = msgs.headOption.isEmpty)
+        yield MsgConvo(contact, msgs, relations, postable).some
+      })
 
   def delete(username: UserStr)(using me: Me): Funit =
     val threadId = MsgThread.id(me, username.id)
@@ -104,13 +106,13 @@ final class MsgApi(
     Msg.make(text, orig, date).fold[Fu[PostResult]](fuccess(PostResult.Invalid)) { msgPre =>
       val threadId = MsgThread.id(orig, dest)
       for
-        contacts <- userRepo.contacts(orig, dest) orFail s"Missing convo contact user $orig->$dest"
+        contacts <- userRepo.contacts(orig, dest).orFail(s"Missing convo contact user $orig->$dest")
         isNew    <- !colls.thread.exists($id(threadId))
         verdict <-
           if ignoreSecurity then fuccess(MsgSecurity.Ok)
           else security.can.post(contacts, msgPre.text, isNew, unlimited = multi)
         _       = lila.mon.msg.post(verdict.toString, isNew = isNew, multi = multi).increment()
-        maskFor = multi option orig
+        maskFor = multi.option(orig)
         maskWith <-
           if multi && !isNew then lastDirectMsg(threadId, orig) else fuccess(None)
         res <- verdict match
@@ -129,7 +131,7 @@ final class MsgApi(
                 colls.thread.insert.one:
                   writeThread(
                     MsgThread.make(orig, dest, msg, maskFor, maskWith),
-                    List(multi option orig, send.mute option dest).flatten
+                    List(multi.option(orig), send.mute.option(dest)).flatten
                   )
               else
                 colls.thread.update
@@ -142,24 +144,28 @@ final class MsgApi(
                     else
                       $set("lastMsg" -> msg.asLast, "maskWith.date" -> msg.date)
                         ++ $unset("maskFor", "maskWith.text", "maskWith.user", "maskWith.read")
-                        ++ $pull("del" $in (orig :: (!send.mute).option(dest).toList))
+                        ++ $pull("del".$in(orig :: (!send.mute).option(dest).toList))
                     // keep maskWith.date always valid (though sometimes redundant)
                     // unset "deleted by receiver" unless the message is muted
                   )
-            (msgWrite zip threadWrite).void andDo {
-              import MsgSecurity.*
-              import lila.hub.actorApi.socket.SendTo
-              import lila.socket.Socket.makeMessage
-              if send == Ok || send == TrollFriend then
-                notifier.onPost(threadId)
-                Bus.publish(SendTo(dest, makeMessage("msgNew", json.renderMsg(msg))), "socketUsers")
-              if send == Ok then shutup ! lila.hub.actorApi.shutup.RecordPrivateMessage(orig, dest, text)
-            } inject PostResult.Success
+            (msgWrite
+              .zip(threadWrite))
+              .void
+              .andDo {
+                import MsgSecurity.*
+                import lila.hub.actorApi.socket.SendTo
+                import lila.socket.Socket.makeMessage
+                if send == Ok || send == TrollFriend then
+                  notifier.onPost(threadId)
+                  Bus.publish(SendTo(dest, makeMessage("msgNew", json.renderMsg(msg))), "socketUsers")
+                if send == Ok then shutup ! lila.hub.actorApi.shutup.RecordPrivateMessage(orig, dest, text)
+              }
+              .inject(PostResult.Success)
       yield res
     }
 
   def lastDirectMsg(threadId: MsgThread.Id, maskFor: UserId): Fu[Option[Msg.Last]] =
-    colls.thread.one[MsgThread]($id(threadId)) map {
+    colls.thread.one[MsgThread]($id(threadId)).map {
       case Some(doc) =>
         if doc.maskFor.contains(maskFor) then doc.maskWith
         else Some(doc.lastMsg)
@@ -175,7 +181,7 @@ final class MsgApi(
         true
       )
       .flatMap: res =>
-        (res.nModified > 0) so notifier.onRead(threadId, userId, contactId)
+        (res.nModified > 0).so(notifier.onRead(threadId, userId, contactId))
 
   def postPreset(destId: UserId, preset: MsgPreset): Fu[PostResult] =
     systemPost(destId, preset.text)
@@ -186,7 +192,7 @@ final class MsgApi(
   def multiPost(destSource: Source[UserId, ?], text: String)(using me: Me): Fu[Int] =
     val now = nowInstant // same timestamp on all
     destSource
-      .filterNot(_ is me)
+      .filterNot(_.is(me))
       .mapAsync(4):
         post(me, _, text, multi = true, date = now)
           .logFailure(logger)
@@ -195,9 +201,9 @@ final class MsgApi(
       .run()
 
   def cliMultiPost(orig: UserStr, dests: Seq[UserId], text: String): Fu[String] =
-    userRepo me orig flatMap {
+    userRepo.me(orig).flatMap {
       case None     => fuccess(s"Unknown sender $orig")
-      case Some(me) => multiPost(Source(dests), text)(using me) inject "done"
+      case Some(me) => multiPost(Source(dests), text)(using me).inject("done")
     }
 
   def recentByForMod(user: User, nb: Int): Fu[List[ModMsgConvo]] =
@@ -208,7 +214,7 @@ final class MsgApi(
           Sort(Descending("lastMsg.date")),
           Limit(nb),
           UnwindField("users"),
-          Match($doc("users" $ne user.id)),
+          Match($doc("users".$ne(user.id))),
           PipelineOperator:
             $lookup.pipeline(
               from = colls.msg,
@@ -237,14 +243,14 @@ final class MsgApi(
           doc     <- docs
           msgs    <- doc.getAsOpt[List[Msg]]("msgs")
           contact <- doc.getAsOpt[User]("contact")
-        yield relationApi.fetchRelation(contact.id, user.id) map { relation =>
-          ModMsgConvo(contact, msgs take 10, Relations(relation, none), msgs.length == 11)
+        yield relationApi.fetchRelation(contact.id, user.id).map { relation =>
+          ModMsgConvo(contact, msgs.take(10), Relations(relation, none), msgs.length == 11)
         }).parallel
 
   def deleteAllBy(user: User): Funit = for
     threads <- colls.thread.list[MsgThread]($doc("users" -> user.id))
     _       <- colls.thread.delete.one($doc("users" -> user.id))
-    _       <- colls.msg.delete.one($doc("tid" $in threads.map(_.id)))
+    _       <- colls.msg.delete.one($doc("tid".$in(threads.map(_.id))))
     _       <- notifier.deleteAllBy(threads, user)
   yield ()
 
@@ -254,28 +260,28 @@ final class MsgApi(
     colls.msg
       .find(
         $doc("tid" -> threadId) ++ before.so: b =>
-          $doc("date" $lt b),
+          $doc("date".$lt(b)),
         msgProjection.some
       )
-      .sort($sort desc "date")
+      .sort($sort.desc("date"))
       .cursor[Bdoc]()
       .list(msgsPerPage.value)
       .map:
         _.flatMap: doc =>
-          doc.getAsOpt[List[UserId]]("del").forall(!_.has(me.id)) so doc.asOpt[Msg]
+          doc.getAsOpt[List[UserId]]("del").forall(!_.has(me.id)).so(doc.asOpt[Msg])
 
   private def setReadBy(threadId: MsgThread.Id, me: User, contactId: UserId): Funit =
     colls.thread
       .updateField(
         $id(threadId) ++ $doc(
-          "lastMsg.user" $ne me.id,
+          "lastMsg.user".$ne(me.id),
           "lastMsg.read" -> false
         ),
         "lastMsg.read",
         true
       )
       .flatMap: res =>
-        (res.nModified > 0) so notifier.onRead(threadId, me.id, contactId)
+        (res.nModified > 0).so(notifier.onRead(threadId, me.id, contactId))
 
   private val hasUnreadLichessMessageSelect = $doc(
     "lastMsg.read" -> false,
@@ -319,8 +325,8 @@ final class MsgApi(
       .documentSource()
       .mapConcat: doc =>
         (for
-          msg  <- doc child "msg"
-          text <- msg string "text"
+          msg  <- doc.child("msg")
+          text <- msg.string("text")
           date <- msg.getAsOpt[Instant]("date")
         yield (text, date)).toList
 

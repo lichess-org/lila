@@ -28,7 +28,7 @@ object config:
               ol(
                 structure.sections.map { section =>
                   li(
-                    h2(section.name, "#", section.id, section.hide so " [hidden]"),
+                    h2(section.name, "#", section.id, section.hide.so(" [hidden]")),
                     ol(
                       section.studies.map { stud =>
                         li(
@@ -38,7 +38,7 @@ object config:
                                 stud.name,
                                 "#",
                                 stud.id,
-                                stud.hide so " [hidden]"
+                                stud.hide.so(" [hidden]")
                               )
                             ),
                             em(stud.desc),

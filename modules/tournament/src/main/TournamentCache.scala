@@ -26,15 +26,15 @@ final class TournamentCache(
   val nameCache = cacheApi.sync[(TourId, Lang), Option[String]](
     name = "tournament.name",
     initialCapacity = 65536,
-    compute = (id, lang) => tournamentRepo byId id dmap2 { _.name()(using lang) },
+    compute = (id, lang) => tournamentRepo.byId(id).dmap2 { _.name()(using lang) },
     default = _ => none,
     strategy = Syncache.Strategy.WaitAfterUptime(20 millis),
     expireAfter = Syncache.ExpireAfter.Access(20 minutes)
   )
 
   def ranking(tour: Tournament): Fu[FullRanking] =
-    if tour.isFinished then finishedRanking get tour.id
-    else ongoingRanking get tour.id
+    if tour.isFinished then finishedRanking.get(tour.id)
+    else ongoingRanking.get(tour.id)
 
   // only applies to ongoing tournaments
   private val ongoingRanking = cacheApi[TourId, FullRanking](64, "tournament.ongoingRanking"):
@@ -60,8 +60,10 @@ final class TournamentCache(
       cacheApi[TourId, List[TeamBattle.RankedTeam]](32, "tournament.teamStanding"):
         _.expireAfterWrite(1 second)
           .buildAsyncFuture: id =>
-            tournamentRepo teamBattleOf id flatMapz:
-              playerRepo.bestTeamIdsByTour(id, _)
+            tournamentRepo
+              .teamBattleOf(id)
+              .flatMapz:
+                playerRepo.bestTeamIdsByTour(id, _)
 
   private[tournament] object sheet:
 
@@ -103,8 +105,10 @@ final class TournamentCache(
       )
 
     private def compute(key: SheetKey): Fu[Sheet] =
-      pairingRepo.finishedByPlayerChronological(key.tourId, key.userId) map:
-        arena.Sheet.buildFromScratch(key.userId, _, key.version, key.streakable, key.variant)
+      pairingRepo
+        .finishedByPlayerChronological(key.tourId, key.userId)
+        .map:
+          arena.Sheet.buildFromScratch(key.userId, _, key.version, key.streakable, key.variant)
 
     private val cache = cacheApi[SheetKey, Sheet](32768, "tournament.sheet"):
       _.expireAfterAccess(4 minutes)

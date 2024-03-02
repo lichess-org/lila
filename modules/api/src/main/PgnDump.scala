@@ -29,21 +29,26 @@ final class PgnDump(
       teams: Option[GameTeams] = None,
       realPlayers: Option[RealPlayers] = None
   ): Fu[Pgn] =
-    dumper(game, initialFen, flags, teams) flatMap { pgn =>
-      if flags.tags then
-        (game.simulId so simulApi.idToName)
-          .orElse(game.tournamentId so getTournamentName.async)
-          .orElse(game.swissId so getSwissName.async) map {
-          _.fold(pgn)(pgn.withEvent)
-        }
-      else fuccess(pgn)
-    } map { pgn =>
-      val evaled = analysis.ifTrue(flags.evals).fold(pgn)(annotator.addEvals(pgn, _))
-      if flags.literate then annotator(evaled, game, analysis)
-      else evaled
-    } map { pgn =>
-      realPlayers.fold(pgn)(_.update(game, pgn))
-    }
+    dumper(game, initialFen, flags, teams)
+      .flatMap { pgn =>
+        if flags.tags then
+          (game.simulId
+            .so(simulApi.idToName))
+            .orElse(game.tournamentId.so(getTournamentName.async))
+            .orElse(game.swissId.so(getSwissName.async))
+            .map {
+              _.fold(pgn)(pgn.withEvent)
+            }
+        else fuccess(pgn)
+      }
+      .map { pgn =>
+        val evaled = analysis.ifTrue(flags.evals).fold(pgn)(annotator.addEvals(pgn, _))
+        if flags.literate then annotator(evaled, game, analysis)
+        else evaled
+      }
+      .map { pgn =>
+        realPlayers.fold(pgn)(_.update(game, pgn))
+      }
 
   def formatter(
       flags: WithFlags
@@ -57,4 +62,4 @@ final class PgnDump(
         teams: Option[GameTeams],
         realPlayers: Option[RealPlayers]
     ) =>
-      apply(game, initialFen, analysis, flags, teams, realPlayers) dmap annotator.toPgnString dmap (_.value)
+      apply(game, initialFen, analysis, flags, teams, realPlayers).dmap(annotator.toPgnString).dmap(_.value)

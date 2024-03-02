@@ -28,7 +28,7 @@ final class StreamerPager(
 
   def nextRequestId: Fu[Option[Streamer.Id]] = coll.primitiveOne[Streamer.Id](
     $doc("approval.requested" -> true, "approval.ignored" -> false),
-    $sort asc "updatedAt",
+    $sort.asc("updatedAt"),
     "_id"
   )
 
@@ -44,7 +44,7 @@ final class StreamerPager(
             $doc(
               "approval.granted" -> true,
               "listed"           -> Streamer.Listed(true),
-              "_id" $nin live.streams.map(_.streamer.id)
+              "_id".$nin(live.streams.map(_.streamer.id))
             )
           ) -> List(
             Sort(Descending("liveAt")),
@@ -61,7 +61,7 @@ final class StreamerPager(
           yield Streamer.WithUser(streamer, user, false)
         .flatMap: streamers =>
           me.fold(fuccess(streamers)): me =>
-            subsRepo.filterSubscribed(me, streamers.map(_.user.id)) map { subs =>
+            subsRepo.filterSubscribed(me, streamers.map(_.user.id)).map { subs =>
               streamers.map(s => s.copy(subscribed = subs(s.user.id)))
             }
 

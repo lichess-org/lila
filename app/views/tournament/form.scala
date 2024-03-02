@@ -63,7 +63,7 @@ object form:
           fields.startDate
         )
       ),
-      fields.isTeamBattle option form3.hidden(form.prefix("teamBattleByTeam"))
+      fields.isTeamBattle.option(form3.hidden(form.prefix("teamBattleByTeam")))
     )
 
   private[tournament] def setupEdit(tour: Tournament, form: Form[?], myTeams: List[LightTeam])(using
@@ -72,7 +72,7 @@ object form:
   ) =
     val fields = TourFields(form, tour.some)
     frag(
-      form3.split(fields.name, tour.isCreated option fields.startDate),
+      form3.split(fields.name, tour.isCreated.option(fields.startDate)),
       form3.split(fields.rated, fields.variant),
       fields.clock,
       form3.split(
@@ -125,7 +125,7 @@ object form:
     frag(
       form3.split(
         fields.entryCode,
-        tour.isEmpty && teams.nonEmpty option {
+        (tour.isEmpty && teams.nonEmpty).option {
           val baseField = form.prefix("conditions.teamMember.teamId")
           val field = ctx.req.queryString
             .get("team")
@@ -156,7 +156,7 @@ object form:
         )(form3.textarea(_)(rows := 4))
       ),
       form3.split(
-        (ctx.me.exists(_.hasTitle) || isGranted(_.ManageTournament)) so {
+        (ctx.me.exists(_.hasTitle) || isGranted(_.ManageTournament)).so {
           form3.checkbox(
             form.prefix("conditions.titled"),
             trans.arena.onlyTitled(),

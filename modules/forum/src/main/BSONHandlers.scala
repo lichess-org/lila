@@ -11,7 +11,7 @@ private object BSONHandlers:
   given BSONDocumentHandler[OldVersion] = Macros.handler
 
   private given reactionIso: Iso.StringIso[ForumPost.Reaction] =
-    Iso.string(key => ForumPost.Reaction(key) err s"Unknown reaction $key", _.key)
+    Iso.string(key => ForumPost.Reaction(key).err(s"Unknown reaction $key"), _.key)
 
   given BSONHandler[ForumPost.Reaction] = quickHandler[ForumPost.Reaction](
     { case BSONString(key) => reactionIso.from(key) },

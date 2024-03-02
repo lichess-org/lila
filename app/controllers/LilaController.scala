@@ -229,10 +229,10 @@ abstract private[controllers] class LilaController(val env: Env)
   private def handleScopedCommon(selectors: Seq[OAuthScope.Selector])(using req: RequestHeader)(
       f: OAuthScope.Scoped => Fu[Result]
   ) =
-    val accepted = OAuthScope.select(selectors) into EndpointScopes
+    val accepted = OAuthScope.select(selectors).into(EndpointScopes)
     env.security.api.oauthScoped(req, accepted).flatMap {
       case Left(e)       => handleScopedFail(accepted, e)
-      case Right(scoped) => f(scoped) map OAuthServer.responseHeaders(accepted, scoped.scopes)
+      case Right(scoped) => f(scoped).map(OAuthServer.responseHeaders(accepted, scoped.scopes))
     }
 
   def handleScopedFail(accepted: EndpointScopes, e: OAuthServer.AuthError)(using RequestHeader) = e match
@@ -295,7 +295,7 @@ abstract private[controllers] class LilaController(val env: Env)
     form
       .bindFromRequest()
       .fold(
-        form => err(form) dmap { BadRequest(_) },
+        form => err(form).dmap { BadRequest(_) },
         op
       )
 
@@ -333,7 +333,7 @@ abstract private[controllers] class LilaController(val env: Env)
 
   def meOrFetch[U: UserIdOf](id: U)(using ctx: Context): Fu[Option[lila.user.User]] =
     if id.isMe then fuccess(ctx.user)
-    else ctx.user.filter(_ is id).fold(env.user.repo byId id)(u => fuccess(u.some))
+    else ctx.user.filter(_.is(id)).fold(env.user.repo.byId(id))(u => fuccess(u.some))
 
   def meOrFetch[U: UserIdOf](id: Option[U])(using ctx: Context): Fu[Option[lila.user.User]] =
     id.fold(fuccess(ctx.user))(meOrFetch)

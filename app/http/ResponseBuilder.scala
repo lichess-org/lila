@@ -42,10 +42,10 @@ trait ResponseBuilder(using Executor)
 
   extension [A](fua: Fu[Option[A]])
     def orNotFound(f: A => Fu[Result])(using Context): Fu[Result] =
-      fua flatMap { _.fold(notFound)(f) }
+      fua.flatMap { _.fold(notFound)(f) }
   extension [A](fua: Fu[Boolean])
     def elseNotFound(f: => Fu[Result])(using Context): Fu[Result] =
-      fua flatMap { if _ then f else notFound }
+      fua.flatMap { if _ then f else notFound }
 
   val rateLimitedMsg                         = "Too many requests. Try again later."
   val rateLimitedJson                        = TooManyRequests(jsonError(rateLimitedMsg))
@@ -62,19 +62,19 @@ trait ResponseBuilder(using Executor)
   val jsonOkResult           = JsonOk(jsonOkBody)
   def jsonOkMsg(msg: String) = JsonOk(Json.obj("ok" -> msg))
 
-  def JsonOk(body: JsValue): Result               = Ok(body) as JSON
-  def JsonOk[A: Writes](body: A): Result          = Ok(Json toJson body) as JSON
+  def JsonOk(body: JsValue): Result               = Ok(body).as(JSON)
+  def JsonOk[A: Writes](body: A): Result          = Ok(Json.toJson(body)).as(JSON)
   def JsonOk[A: Writes](fua: Fu[A]): Fu[Result]   = fua.dmap(JsonOk)
   def JsonOptionOk[A: Writes](fua: Fu[Option[A]]) = fua.map(_.fold(notFoundJson())(JsonOk))
-  def JsonStrOk(str: JsonStr): Result             = Ok(str) as JSON
-  def JsonBadRequest(body: JsValue): Result       = BadRequest(body) as JSON
+  def JsonStrOk(str: JsonStr): Result             = Ok(str).as(JSON)
+  def JsonBadRequest(body: JsValue): Result       = BadRequest(body).as(JSON)
   def JsonBadRequest(msg: String): Result         = JsonBadRequest(jsonError(msg))
 
   def negotiateApi(html: => Fu[Result], api: ApiVersion => Fu[Result])(using ctx: Context): Fu[Result] =
     lila.security.Mobile.Api
       .requestVersion(ctx.req)
       .fold(html): v =>
-        api(v).dmap(_ as JSON)
+        api(v).dmap(_.as(JSON))
       .dmap(_.withHeaders(VARY -> "Accept"))
 
   def negotiate(html: => Fu[Result], json: => Fu[Result])(using ctx: Context): Fu[Result] =
@@ -108,7 +108,7 @@ trait ResponseBuilder(using Executor)
         if HTTPRequest.isClosedLoginPath(ctx.req)
         then controllers.routes.Auth.login
         else controllers.routes.Auth.signup
-      ) withCookies env.lilaCookie.session(env.security.api.AccessUri, ctx.req.uri),
+      ).withCookies(env.lilaCookie.session(env.security.api.AccessUri, ctx.req.uri)),
       json = env.lilaCookie.ensure(ctx.req):
         Unauthorized(jsonError("Login required"))
     )
@@ -143,7 +143,7 @@ trait ResponseBuilder(using Executor)
       jsonError(
         s"Banned from playing for ${ban.remainingMinutes} minutes. Reason: Too many aborts, unplayed games, or rage quits."
       ) + ("minutes" -> JsNumber(ban.remainingMinutes))
-    ) as JSON
+    ).as(JSON)
 
   def redirectWithQueryString(path: String)(using req: RequestHeader) =
     Redirect:
@@ -162,4 +162,4 @@ trait ResponseBuilder(using Executor)
     "donate"  -> "/patron"
   )
   def staticRedirect(key: String): Option[Fu[Result]] =
-    movedMap get key map { MovedPermanently(_) }
+    movedMap.get(key).map { MovedPermanently(_) }
