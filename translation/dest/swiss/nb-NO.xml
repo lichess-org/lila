@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+  <string name="swiss">Sveitser</string>
   <string name="swissTournaments">Sveitserturneringer</string>
   <plurals name="viewAllXRounds" comment="viewAllXRounds [one] [other]&#10;&#10;%s is the number of rounds in the Swiss tournament.">
     <item quantity="one">Vis runden</item>
@@ -38,6 +39,16 @@
   <string name="roundInterval">Intervall mellom rundene</string>
   <string name="forbiddenPairings">Forbudte par</string>
   <string name="forbiddenPairingsHelp">Brukernavn for spillere som ikke skal spille mot hverandre (søsken, for eksempel). To brukernavn på hver linje, skilt med mellomrom.</string>
+  <string name="manualPairings">Manuell paring i neste runde</string>
+  <string name="manualPairingsHelp">Angi alle parene for neste runde manuelt. Ett spillerpar per linje. Eksempel:
+SpillerA SpillerB
+SpillerC SpillerD
+Gi fripoeng til en spiller slik:
+SpillerE 1
+Spillere som mangler, vil bli ansett som fraværende og få null poeng.
+La dette feltet være tomt for å la lichess opprette par automatisk.</string>
+  <string name="mustHavePlayedTheirLastSwissGame">Må ha spilt sitt siste parti i sveitserturneringen</string>
+  <string name="mustHavePlayedTheirLastSwissGameHelp">La kun spillere delta hvis de har spilt sitt siste sveitserparti. Hvis de ikke møtte opp i en nylig sveitserturnering, vil de ikke kunne delta i din. Dette resulterer i en bedre sveitseropplevelse for spillerne som faktisk møter opp.</string>
   <string name="newSwiss">Ny sveitserturnering</string>
   <string name="swissVsArenaQ">Når bør sveitserturneringer brukes i stedet for arenaturneringer?</string>
   <string name="swissVsArenaA">I sveitserturneringer spiller alle deltakerne like mange partier og kan bare møtes én gang.
@@ -114,4 +125,7 @@ Det nærmeste man kommer en alle-mot-alle-turnering på nett, er å spille en sv
   <string name="predefinedUsers">Tillat bare forhåndsbestemte brukere å delta</string>
   <string name="forbiddedUsers">Hvis denne listen ikke er tom, vil brukere som ikke er på listen, ikke få delta. Ett brukernavn pr. linje.</string>
   <string name="playYourGames">Spill partiene dine</string>
+  <string name="byes">Fripoeng</string>
+  <string name="absences">Fravær</string>
+  <string name="tieBreak">Kvalitet</string>
 </resources>
