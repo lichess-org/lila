@@ -43,7 +43,7 @@
   <string name="manualPairingsHelp">Especifica manualmente todos los emparejamientos de la siguiente ronda. Una pareja de jugadores por línea. Ejemplo:
 JugadorA JugadorB
 JugadorC JugadorD
-Para otorgar un bye (1 punto) a un jugador en lugar de un emparejamiento, agrega una línea como esta:
+Para otorgar una libranza de 1 punto a un jugador en lugar de un emparejamiento, agrega una línea como esta:
 JugadorE 1
 Los jugadores faltantes se considerarán ausentes y obtendrán cero puntos.
 Deja este campo vacío para permitir que Lichess cree emparejamientos automáticamente.</string>
@@ -125,7 +125,7 @@ El formato más próximo a un torneo en línea de todos contra todos es un torne
   <string name="predefinedUsers">Permitir unirse únicamente a usuarios predefinidos</string>
   <string name="forbiddedUsers">Si esta lista no está vacía, a los usuarios ausentes de esta lista les estará prohibido unirse. Un nombre de usuario por línea.</string>
   <string name="playYourGames">Juega tus partidas</string>
-  <string name="byes">Byes</string>
+  <string name="byes">Libranzas</string>
   <string name="absences">Ausencias</string>
   <string name="tieBreak">Desempate</string>
 </resources>
