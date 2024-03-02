@@ -36,4 +36,4 @@ final private[plan] class PlanNotifier(
     Bus.publish(lila.hub.actorApi.plan.PlanGift(from.id, to.id, isLifetime), "planStart")
 
   private def pushTimeline(user: User)(f: UserId => Atom): Unit =
-    timeline ! (Propagate(f(user.id)) toFollowersOf user.id)
+    timeline ! (Propagate(f(user.id)).toFollowersOf(user.id))

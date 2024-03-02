@@ -46,7 +46,7 @@ object player:
       thead:
         tr(
           th(title),
-          withFlag option th(iconTag(licon.FlagOutline)),
+          withFlag.option(th(iconTag(licon.FlagOutline))),
           th("Classic"),
           th("Rapid"),
           th("Blitz"),
@@ -57,11 +57,11 @@ object player:
         players.currentPageResults.map: player =>
           tr(cls := "paginated")(
             td(a(href := routes.Fide.show(player.id, player.slug))(titleTag(player.title), player.name)),
-            withFlag option td:
+            withFlag.option(td:
               player.fed.map: fed =>
                 a(href := routes.Fide.federation(Federation.name(fed))):
                   federation.flag(fed, Federation.name(fed))
-            ,
+            ),
             td(player.standard),
             td(player.rapid),
             td(player.blitz),
@@ -98,9 +98,11 @@ object player:
         bits.tcTrans.map: (tc, name) =>
           card(name(), player.ratingOf(tc).fold("-")(_.toString))
       ),
-      tours.nbResults > 0 option div(cls := "fide-player__tours")(
-        h2("Recent tournaments"),
-        views.html.relay.tour.renderPager(views.html.relay.tour.asRelayPager(tours)): page =>
-          routes.Fide.show(player.id, player.slug, page)
+      (tours.nbResults > 0).option(
+        div(cls := "fide-player__tours")(
+          h2("Recent tournaments"),
+          views.html.relay.tour.renderPager(views.html.relay.tour.asRelayPager(tours)): page =>
+            routes.Fide.show(player.id, player.slug, page)
+        )
       )
     )

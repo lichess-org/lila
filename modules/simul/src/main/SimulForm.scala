@@ -24,8 +24,8 @@ object SimulForm:
   val clockIncrementDefault = IncrementSeconds(60)
 
   val clockExtrasPositive = (0 to 15 by 5) ++ (20 to 60 by 10) ++ (90 to 120 by 30)
-  val clockExtras         = clockExtrasPositive.tail.map(-_).reverse concat clockExtrasPositive
-  val clockExtraChoices = options(clockExtras, "%d minute{s}") map {
+  val clockExtras         = clockExtrasPositive.tail.map(-_).reverse.concat(clockExtrasPositive)
+  val clockExtraChoices = options(clockExtras, "%d minute{s}").map {
     case (d, str) if d > 0 => (d, s"+$str")
     case pair              => pair
   }
@@ -54,35 +54,39 @@ object SimulForm:
     )
 
   def create(teams: List[LightTeam])(using host: Me) =
-    baseForm(teams) fill Setup(
-      name = host.titleUsername,
-      clockTime = clockTimeDefault,
-      clockIncrement = clockIncrementDefault,
-      clockExtra = clockExtraDefault,
-      clockExtraPerPlayer = clockExtraPerPlayerDefault,
-      variants = List(chess.variant.Standard.id),
-      position = none,
-      color = colorDefault,
-      text = "",
-      estimatedStartAt = none,
-      featured = host.hasTitle.some,
-      conditions = SimulCondition.All.empty
+    baseForm(teams).fill(
+      Setup(
+        name = host.titleUsername,
+        clockTime = clockTimeDefault,
+        clockIncrement = clockIncrementDefault,
+        clockExtra = clockExtraDefault,
+        clockExtraPerPlayer = clockExtraPerPlayerDefault,
+        variants = List(chess.variant.Standard.id),
+        position = none,
+        color = colorDefault,
+        text = "",
+        estimatedStartAt = none,
+        featured = host.hasTitle.some,
+        conditions = SimulCondition.All.empty
+      )
     )
 
   def edit(teams: List[LightTeam], simul: Simul)(using Me) =
-    baseForm(teams) fill Setup(
-      name = simul.name,
-      clockTime = LimitMinutes(simul.clock.config.limitInMinutes.toInt),
-      clockIncrement = simul.clock.config.incrementSeconds,
-      clockExtra = simul.clock.hostExtraMinutes,
-      clockExtraPerPlayer = simul.clock.hostExtraTimePerPlayer,
-      variants = simul.variants.map(_.id),
-      position = simul.position,
-      color = simul.color | "random",
-      text = simul.text,
-      estimatedStartAt = simul.estimatedStartAt,
-      featured = simul.featurable,
-      conditions = simul.conditions
+    baseForm(teams).fill(
+      Setup(
+        name = simul.name,
+        clockTime = LimitMinutes(simul.clock.config.limitInMinutes.toInt),
+        clockIncrement = simul.clock.config.incrementSeconds,
+        clockExtra = simul.clock.hostExtraMinutes,
+        clockExtraPerPlayer = simul.clock.hostExtraTimePerPlayer,
+        variants = simul.variants.map(_.id),
+        position = simul.position,
+        color = simul.color | "random",
+        text = simul.text,
+        estimatedStartAt = simul.estimatedStartAt,
+        featured = simul.featurable,
+        conditions = simul.conditions
+      )
     )
 
   private def baseForm(teams: List[LightTeam])(using host: Me) =

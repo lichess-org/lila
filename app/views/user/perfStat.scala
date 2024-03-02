@@ -53,7 +53,7 @@ object perfStat:
               )(viewTheGames())
             )
           ),
-          ratingChart.isDefined option ratingHistoryContainer,
+          ratingChart.isDefined.option(ratingHistoryContainer),
           div(cls := "box__pad perf-stat__content")(
             glicko(user, perfType, user.perfs(perfType), percentile),
             counter(stat.count),
@@ -88,17 +88,19 @@ object perfStat:
             else decimal(perf.glicko.rating).toString
           )
         ),
-        perf.glicko.provisional.yes option frag(
-          " ",
-          span(
-            title := notEnoughRatedGames.txt(),
-            cls   := "details"
-          )("(", provisional(), ")")
+        perf.glicko.provisional.yes.option(
+          frag(
+            " ",
+            span(
+              title := notEnoughRatedGames.txt(),
+              cls   := "details"
+            )("(", provisional(), ")")
+          )
         ),
         ". ",
         percentile.filter(_ != 0.0 && perf.glicko.provisional.no).map { percentile =>
           span(cls := "details")(
-            if ctx is u then
+            if ctx.is(u) then
               trans.youAreBetterThanPercentOfPerfTypePlayers(
                 a(href := routes.User.ratingDistribution(perfType.key))(strong(percentile, "%")),
                 a(href := routes.User.topNb(200, perfType.key))(perfType.trans)
@@ -136,7 +138,7 @@ object perfStat:
     )
 
   private def pct(num: Int, denom: Int): String =
-    (denom != 0) so s"${Math.round(num * 100.0 / denom)}%"
+    (denom != 0).so(s"${Math.round(num * 100.0 / denom)}%")
 
   private def counter(count: lila.perfStat.Count)(using Lang): Frag =
     st.section(cls := "counter split")(
@@ -163,9 +165,11 @@ object perfStat:
               td(count.berserk.localize),
               td(pct(count.berserk, count.tour))
             ),
-            count.seconds > 0 option tr(cls := "full")(
-              th(timeSpentPlaying()),
-              td(colspan := "2")(showDuration(count.duration))
+            (count.seconds > 0).option(
+              tr(cls := "full")(
+                th(timeSpentPlaying()),
+                td(colspan := "2")(showDuration(count.duration))
+              )
             )
           )
         )
@@ -195,7 +199,7 @@ object perfStat:
             ),
             tr(cls := "full")(
               th(disconnections()),
-              td(count.disconnects > count.all * 100 / 15 option tag("red"))(
+              td((count.disconnects > count.all * 100 / 15).option(tag("red")))(
                 count.disconnects.localize
               ),
               td(pct(count.disconnects, count.all))
@@ -273,7 +277,7 @@ object perfStat:
           tr(th(colspan := 2)(h2(title)))
         ,
         tbody:
-          results.results map: r =>
+          results.results.map: r =>
             tr(
               td(userIdLink(r.opId.some, withOnline = false), " (", r.opRating, ")"),
               td:
@@ -285,10 +289,12 @@ object perfStat:
   private def result(stat: PerfStat, user: User)(using Context): Frag =
     st.section(cls := "result split")(
       resultTable(stat.bestWins, bestRated(), user),
-      isGranted(_.BoostHunter) || isGranted(_.CheatHunter) option resultTable(
-        stat.worstLosses,
-        "Worst rated defeats",
-        user
+      (isGranted(_.BoostHunter) || isGranted(_.CheatHunter)).option(
+        resultTable(
+          stat.worstLosses,
+          "Worst rated defeats",
+          user
+        )
       )
     )
 

@@ -29,7 +29,7 @@ object history:
           div(cls := "arena-list")(
             table(cls := "slist slist-pad")(
               tbody(cls := "infinite-scroll")(
-                pager.currentPageResults map finishedList.apply,
+                pager.currentPageResults.map(finishedList.apply),
                 pagerNextTable(pager, p => routes.Tournament.history(freq.name, p).url)
               )
             )

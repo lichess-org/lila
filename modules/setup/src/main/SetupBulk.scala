@@ -80,9 +80,9 @@ object SetupBulk:
           clock,
           days,
           rated,
-          pairTs map millisToInstant,
-          clockTs map millisToInstant,
-          message map Template.apply,
+          pairTs.map(millisToInstant),
+          clockTs.map(millisToInstant),
+          message.map(Template.apply),
           ~rules,
           fen
         ).autoVariant
@@ -106,7 +106,7 @@ object SetupBulk:
     str
       .split(',')
       .view
-      .map(_ split ":")
+      .map(_.split(":"))
       .collect:
         case Array(w, b) =>
           w.trim -> b.trim
@@ -140,7 +140,7 @@ object SetupBulk:
     def collidesWith(other: ScheduledBulk) = {
       pairAt == other.pairAt || startClocksAt.exists(other.startClocksAt.contains)
     } && userSet.exists(other.userSet.contains)
-    def nonEmptyRules = rules.nonEmpty option rules
+    def nonEmptyRules = rules.nonEmpty.option(rules)
     def perfType      = PerfType(variant, chess.Speed(clock.left.toOption))
 
   enum ScheduleError:
@@ -199,7 +199,7 @@ final class SetupBulkApi(oauthServer: OAuthServer, idGenerator: IdGenerator)(usi
       .mapConcat: (whiteToken, blackToken) =>
         List(whiteToken, blackToken) // flatten now, re-pair later!
       .mapAsync(8): token =>
-        oauthServer.auth(token, OAuthScope.select(_.Challenge.Write) into EndpointScopes, none) map {
+        oauthServer.auth(token, OAuthScope.select(_.Challenge.Write).into(EndpointScopes), none).map {
           _.left.map { BadToken(token, _) }
         }
       .runFold[Either[List[BadToken], List[UserId]]](Right(Nil)):
@@ -231,13 +231,13 @@ final class SetupBulkApi(oauthServer: OAuthServer, idGenerator: IdGenerator)(usi
               idGenerator
                 .games(nbGames)
                 .map:
-                  _.toList zip pairs
+                  _.toList.zip(pairs)
                 .map:
                   _.map:
                     case (id, (w, b)) => ScheduledGame(id, w, b)
                 .dmap:
                   ScheduledBulk(
-                    id = ThreadLocalRandom nextString 8,
+                    id = ThreadLocalRandom.nextString(8),
                     by = me.id,
                     _,
                     data.variant,

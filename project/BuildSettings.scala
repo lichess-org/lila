@@ -48,13 +48,14 @@ object BuildSettings {
     // "-nowarn", // during migration
     // "-rewrite",
     // "-source:future-migration",
-    // "-indent",
+    "-indent",
     // "-explaintypes",
     // "-explain",
     "-feature",
     "-language:postfixOps",
     "-language:implicitConversions",
-    "-release:21"
+    "-release:21",
+    "-Wconf:msg=qualifier will be deprecated:s"
     // "-Wunused:all"
   )
 

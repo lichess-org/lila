@@ -20,7 +20,7 @@ object CmsPage:
 
   opaque type Id = String
   object Id extends TotalWrapper[Id, String]:
-    def random = Id(ornicar.scalalib.ThreadLocalRandom nextString 6)
+    def random = Id(ornicar.scalalib.ThreadLocalRandom.nextString(6))
 
   opaque type Key = String
   object Key extends TotalWrapper[Key, String]

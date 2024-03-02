@@ -21,7 +21,7 @@ object show:
       stream: Option[lila.streamer.Stream],
       verdicts: Condition.WithVerdicts
   )(using ctx: PageContext) =
-    val userIsHost = ctx.userId has sim.hostId
+    val userIsHost = ctx.userId.has(sim.hostId)
     views.html.base.layout(
       moreCss = cssTag("simul.show"),
       title = sim.fullName,
@@ -58,9 +58,11 @@ object show:
                     sim.variants.map(_.name).mkString(", "),
                     " • ",
                     trans.casual(),
-                    (isGranted(_.ManageSimul) || userIsHost) && sim.isCreated option frag(
-                      " • ",
-                      a(href := routes.Simul.edit(sim.id), title := "Edit simul")(iconTag(licon.Gear))
+                    ((isGranted(_.ManageSimul) || userIsHost) && sim.isCreated).option(
+                      frag(
+                        " • ",
+                        a(href := routes.Simul.edit(sim.id), title := "Edit simul")(iconTag(licon.Gear))
+                      )
                     )
                   )
                 )
@@ -84,15 +86,18 @@ object show:
                 case Some("black") => trans.black()
                 case _             => trans.randomColor()
               ),
-              sim.position.flatMap(p => lila.tournament.Thematic.byFen(p.opening)) map { pos =>
-                frag(br, a(targetBlank, href := pos.url)(pos.name))
-              } orElse sim.position.map { fen =>
-                frag(
-                  br,
-                  "Custom position • ",
-                  views.html.base.bits.fenAnalysisLink(fen)
-                )
-              }
+              sim.position
+                .flatMap(p => lila.tournament.Thematic.byFen(p.opening))
+                .map { pos =>
+                  frag(br, a(targetBlank, href := pos.url)(pos.name))
+                }
+                .orElse(sim.position.map { fen =>
+                  frag(
+                    br,
+                    "Custom position • ",
+                    views.html.base.bits.fenAnalysisLink(fen)
+                  )
+                })
             ),
             views.html.gathering.verdicts(verdicts, sim.mainPerfType, relevant = !userIsHost) | br,
             trans.by(userIdLink(sim.hostId.some)),
@@ -101,7 +106,7 @@ object show:
           ),
           stream.map: s =>
             views.html.streamer.bits.contextual(s.streamer.userId),
-          chatOption.isDefined option views.html.chat.frag
+          chatOption.isDefined.option(views.html.chat.frag)
         ),
         div(cls := "simul__main box")(spinner)
       )

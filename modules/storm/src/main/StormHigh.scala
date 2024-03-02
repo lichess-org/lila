@@ -6,10 +6,10 @@ import lila.memo.CacheApi
 case class StormHigh(day: Int, week: Int, month: Int, allTime: Int):
 
   def update(score: Int) = copy(
-    day = day atLeast score,
-    week = week atLeast score,
-    month = month atLeast score,
-    allTime = allTime atLeast score
+    day = day.atLeast(score),
+    week = week.atLeast(score),
+    month = month.atLeast(score),
+    allTime = allTime.atLeast(score)
   )
 
 object StormHigh:
@@ -33,7 +33,7 @@ final class StormHighApi(coll: Coll, cacheApi: CacheApi)(using Executor):
   export cache.get
 
   def update(userId: UserId, prev: StormHigh, score: Int): Option[NewHigh] =
-    val high = prev update score
+    val high = prev.update(score)
     (high != prev).so:
       cache.put(userId, fuccess(high))
       import NewHigh.*
@@ -46,9 +46,9 @@ final class StormHighApi(coll: Coll, cacheApi: CacheApi)(using Executor):
     coll
       .aggregateOne(): framework =>
         import framework.*
-        def matchSince(sinceId: UserId => StormDay.Id) = Match($doc("_id" $gte sinceId(userId)))
+        def matchSince(sinceId: UserId => StormDay.Id) = Match($doc("_id".$gte(sinceId(userId))))
         val scoreSort                                  = Sort(Descending("score"))
-        Match($doc("_id" $lte StormDay.Id.today(userId) $gt StormDay.Id.allTime(userId))) -> List(
+        Match($doc("_id".$lte(StormDay.Id.today(userId)).$gt(StormDay.Id.allTime(userId)))) -> List(
           Project($doc("score" -> true)),
           Sort(Descending("_id")),
           Facet(

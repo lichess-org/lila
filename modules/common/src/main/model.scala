@@ -21,7 +21,7 @@ object AssetVersion extends OpaqueString[AssetVersion]:
   def change() =
     stored = random
     Bus.publish(Changed(current), "assetVersion")
-  private def random = AssetVersion(SecureRandom nextString 6)
+  private def random = AssetVersion(SecureRandom.nextString(6))
   case class Changed(version: AssetVersion)
 
 opaque type Bearer = String
@@ -58,8 +58,8 @@ object Domain extends OpaqueString[Domain]:
     // tail.domain.com, tail.domain.co.uk, tail.domain.edu.au, etc.
     def withoutSubdomain: Option[Domain] =
       a.value.split('.').toList.reverse match
-        case tld :: sld :: tail :: _ if sld.lengthIs <= 3 => Domain from s"$tail.$sld.$tld"
-        case tld :: sld :: _                              => Domain from s"$sld.$tld"
+        case tld :: sld :: tail :: _ if sld.lengthIs <= 3 => Domain.from(s"$tail.$sld.$tld")
+        case tld :: sld :: _                              => Domain.from(s"$sld.$tld")
         case _                                            => none
     def lower = Domain.Lower(a.value.toLowerCase)
 
@@ -67,7 +67,7 @@ object Domain extends OpaqueString[Domain]:
   private val regex =
     """(?i)^_?[a-z0-9-]{1,63}+(?:\._?[a-z0-9-]{1,63}+)*$""".r
   def isValid(str: String)              = str.contains('.') && regex.matches(str)
-  def from(str: String): Option[Domain] = isValid(str) option Domain(str)
+  def from(str: String): Option[Domain] = isValid(str).option(Domain(str))
   def unsafe(str: String): Domain       = Domain(str)
 
   opaque type Lower = String
@@ -97,7 +97,7 @@ object Preload:
 
 final class LazyFu[A](run: () => Fu[A]):
   lazy val value: Fu[A]             = run()
-  def dmap[B](f: A => B): LazyFu[B] = LazyFu(() => value dmap f)
+  def dmap[B](f: A => B): LazyFu[B] = LazyFu(() => value.dmap(f))
 object LazyFu:
   def sync[A](v: => A): LazyFu[A] = LazyFu(() => fuccess(v))
 

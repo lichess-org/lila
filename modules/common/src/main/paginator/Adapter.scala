@@ -21,11 +21,11 @@ abstract class AdapterLike[A](using Executor):
     def nbResults = AdapterLike.this.nbResults
 
     def slice(offset: Int, length: Int) =
-      AdapterLike.this.slice(offset, length) dmap { _ map f }
+      AdapterLike.this.slice(offset, length).dmap { _.map(f) }
 
   def mapFutureList[B](f: Seq[A] => Fu[Seq[B]]): AdapterLike[B] = new:
 
     def nbResults = AdapterLike.this.nbResults
 
     def slice(offset: Int, length: Int) =
-      AdapterLike.this.slice(offset, length) flatMap f
+      AdapterLike.this.slice(offset, length).flatMap(f)

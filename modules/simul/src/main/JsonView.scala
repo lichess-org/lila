@@ -16,7 +16,7 @@ final class JsonView(
 )(using Executor):
 
   private def fetchGames(simul: Simul): Fu[List[Game]] =
-    if simul.isFinished then gameRepo gamesFromSecondary simul.gameIds
+    if simul.isFinished then gameRepo.gamesFromSecondary(simul.gameIds)
     else simul.gameIds.map(proxyRepo.game).parallel.dmap(_.flatten)
 
   def apply(simul: Simul, verdicts: WithVerdicts): Fu[JsObject] = for
@@ -103,7 +103,7 @@ final class JsonView(
           .add("provisional" -> ~player.provisional)
 
   private def applicantJson(app: SimulApplicant): Fu[JsObject] =
-    playerJson(app.player) map { player =>
+    playerJson(app.player).map { player =>
       Json.obj(
         "player"   -> player,
         "variant"  -> app.player.variant.key,
@@ -132,13 +132,15 @@ final class JsonView(
       .add("winner" -> g.winnerColor.map(_.name))
 
   private def pairingJson(games: List[Game], hostId: UserId)(p: SimulPairing): Fu[Option[JsObject]] =
-    games.find(_.id == p.gameId) so: game =>
-      playerJson(p.player) map: player =>
-        Json
-          .obj(
-            "player"    -> player,
-            "variant"   -> p.player.variant.key,
-            "hostColor" -> p.hostColor,
-            "game"      -> gameJson(hostId, game)
-          )
-          .some
+    games
+      .find(_.id == p.gameId)
+      .so: game =>
+        playerJson(p.player).map: player =>
+          Json
+            .obj(
+              "player"    -> player,
+              "variant"   -> p.player.variant.key,
+              "hostColor" -> p.hostColor,
+              "game"      -> gameJson(hostId, game)
+            )
+            .some

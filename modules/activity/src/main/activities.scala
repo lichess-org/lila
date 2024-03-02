@@ -12,7 +12,7 @@ object activities:
   opaque type Games = Map[PerfType, Score]
   object Games extends TotalWrapper[Games, Map[PerfType, Score]]:
     extension (a: Games)
-      def add(pt: PerfType, score: Score): Games = a.value + (pt -> a.value.get(pt).fold(score)(_ add score))
+      def add(pt: PerfType, score: Score): Games = a.value + (pt -> a.value.get(pt).fold(score)(_.add(score)))
       def hasNonCorres                           = a.value.exists(_._1 != PerfType.Correspondence)
     given Zero[Games] = Zero(Map.empty)
 
@@ -28,21 +28,21 @@ object activities:
 
   opaque type Puzzles = Score
   object Puzzles extends TotalWrapper[Puzzles, Score]:
-    extension (a: Puzzles) def +(s: Score) = Puzzles(a.value add s)
+    extension (a: Puzzles) def +(s: Score) = Puzzles(a.value.add(s))
     given Zero[Puzzles]                    = Zero(Score.empty)
 
   case class Storm(runs: Int, score: Int):
-    def +(s: Int) = Storm(runs = runs + 1, score = score atLeast s)
+    def +(s: Int) = Storm(runs = runs + 1, score = score.atLeast(s))
   object Storm:
     given Zero[Storm] = Zero(Storm(0, 0))
 
   case class Racer(runs: Int, score: Int):
-    def +(s: Int) = Racer(runs = runs + 1, score = score atLeast s)
+    def +(s: Int) = Racer(runs = runs + 1, score = score.atLeast(s))
   object Racer:
     given Zero[Racer] = Zero(Racer(0, 0))
 
   case class Streak(runs: Int, score: Int):
-    def +(s: Int) = Streak(runs = runs + 1, score = score atLeast s)
+    def +(s: Int) = Streak(runs = runs + 1, score = score.atLeast(s))
   object Streak:
     given Zero[Streak] = Zero(Streak(0, 0))
 
@@ -70,7 +70,7 @@ object activities:
   case class Corres(moves: Int, movesIn: List[GameId], end: List[GameId]):
     def add(gameId: GameId, moved: Boolean, ended: Boolean) =
       Corres(
-        moves = moves + (moved so 1),
+        moves = moves + (moved.so(1)),
         movesIn = if moved then (gameId :: movesIn).distinct.take(maxSubEntries) else movesIn,
         end = if ended then (gameId :: end).take(maxSubEntries) else end
       )
@@ -85,8 +85,8 @@ object activities:
       else
         val newIds = (id :: ids).distinct
         copy(
-          ids = newIds take maxSubEntries,
-          nb = nb.map(1 +).orElse(newIds.size > maxSubEntries option newIds.size)
+          ids = newIds.take(maxSubEntries),
+          nb = nb.map(1 +).orElse((newIds.size > maxSubEntries).option(newIds.size))
         )
     def isEmpty = ids.isEmpty
   given Zero[FollowList] = Zero(FollowList(Nil, None))
@@ -100,17 +100,17 @@ object activities:
 
   opaque type Studies = List[StudyId]
   object Studies extends TotalWrapper[Studies, List[StudyId]]:
-    extension (a: Studies) def +(s: StudyId): Studies = (s :: a.value) take maxSubEntries
+    extension (a: Studies) def +(s: StudyId): Studies = (s :: a.value).take(maxSubEntries)
     given Zero[Studies]                               = Zero(Nil)
 
   opaque type Teams = List[TeamId]
   object Teams extends TotalWrapper[Teams, List[TeamId]]:
-    extension (a: Teams) def +(s: TeamId): Teams = (s :: a.value).distinct take maxSubEntries
+    extension (a: Teams) def +(s: TeamId): Teams = (s :: a.value).distinct.take(maxSubEntries)
     given Zero[Teams]                            = Zero(Nil)
 
   case class SwissRank(id: SwissId, rank: Rank)
 
   opaque type Swisses = List[SwissRank]
   object Swisses extends TotalWrapper[Swisses, List[SwissRank]]:
-    extension (a: Swisses) def +(s: SwissRank): Swisses = (s :: a.value) take maxSubEntries
+    extension (a: Swisses) def +(s: SwissRank): Swisses = (s :: a.value).take(maxSubEntries)
     given Zero[Swisses]                                 = Zero(Nil)

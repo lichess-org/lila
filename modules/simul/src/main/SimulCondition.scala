@@ -21,11 +21,14 @@ object SimulCondition:
         GetMaxRating,
         Executor
     ): Fu[WithVerdicts] =
-      list.map {
-        case c: MaxRating  => c(pt) map c.withVerdict
-        case c: TeamMember => c.apply map c.withVerdict
-        case c: FlatCond   => fuccess(c withVerdict c(pt))
-      }.parallel dmap WithVerdicts.apply
+      list
+        .map {
+          case c: MaxRating  => c(pt).map(c.withVerdict)
+          case c: TeamMember => c.apply.map(c.withVerdict)
+          case c: FlatCond   => fuccess(c.withVerdict(c(pt)))
+        }
+        .parallel
+        .dmap(WithVerdicts.apply)
 
   object All:
     val empty = All(none, none, none)

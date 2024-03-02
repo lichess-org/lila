@@ -56,8 +56,8 @@ final private class SwissDirector(
             _ <- SwissPlayer.fields { f =>
               mongo.player.update
                 .one(
-                  $doc(f.userId $in byes, f.swissId -> swiss.id),
-                  $addToSet(f.byes                  -> swiss.round),
+                  $doc(f.userId.$in(byes), f.swissId -> swiss.id),
+                  $addToSet(f.byes                   -> swiss.round),
                   multi = true
                 )
                 .void
@@ -65,7 +65,7 @@ final private class SwissDirector(
             _ <- mongo.pairing.insert.many(pairings).void
             games = pairings.map(makeGame(swiss, players.mapBy(_.userId)))
             _ <- games.traverse_ : game =>
-              gameRepo.insertDenormalized(game) andDo onStart(game.id)
+              gameRepo.insertDenormalized(game).andDo(onStart(game.id))
           yield swiss.some
       }
       .recover { case PairingSystem.BBPairingException(msg, input) =>
@@ -90,7 +90,7 @@ final private class SwissDirector(
           )
           .copy(clock = swiss.clock.toClock.some),
         players = ByColor: c =>
-          val player = players get pairing(c) err s"Missing pairing $c $pairing"
+          val player = players.get(pairing(c)).err(s"Missing pairing $c $pairing")
           lila.game.Player.make(c, player.userId, player.rating, player.provisional)
         ,
         mode = chess.Mode(swiss.settings.rated),

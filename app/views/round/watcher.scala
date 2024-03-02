@@ -27,7 +27,7 @@ object watcher:
         c.lines,
         name = trans.spectatorRoom.txt(),
         timeout = c.timeout,
-        withNoteAge = ctx.isAuth option pov.game.secondsSinceCreation,
+        withNoteAge = ctx.isAuth.option(pov.game.secondsSinceCreation),
         public = true,
         resourceId = lila.chat.Chat.ResourceId(s"game/${c.chat.id}"),
         palantir = ctx.canPalantir
@@ -57,7 +57,7 @@ object watcher:
         ),
         bits.roundAppPreload(pov),
         div(cls := "round__underboard")(bits.crosstable(cross, pov.game)),
-        div(cls := "round__underchat")(bits underchat pov.game)
+        div(cls := "round__underchat")(bits.underchat(pov.game))
       )
 
   def crawler(pov: Pov, initialFen: Option[chess.format.Fen.Epd], pgn: chess.format.pgn.Pgn)(using

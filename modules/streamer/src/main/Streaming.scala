@@ -27,21 +27,26 @@ final private class Streaming(
       activeIds = streamerIds.filter { id =>
         liveStreams.has(id) || isOnline(id.userId)
       }
-      streamers <- api byIds activeIds
+      streamers <- api.byIds(activeIds)
       (twitchStreams, youTubeStreams) <-
-        twitchApi.fetchStreams(streamers, 0, None) map {
-          _.collect { case Twitch.TwitchStream(name, title, _, langStr) =>
-            streamers.find { s =>
-              s.twitch.exists(_.userId.toLowerCase == name.toLowerCase) && {
-                title.value.toLowerCase.contains(keyword.toLowerCase) ||
-                alwaysFeatured().value.contains(s.userId)
-              }
-            } map { Twitch.Stream(name, title, _, Lang.get(langStr) | lila.i18n.defaultLang) }
-          }.flatten
-        } zip ytApi.fetchStreams(streamers)
+        twitchApi
+          .fetchStreams(streamers, 0, None)
+          .map {
+            _.collect { case Twitch.TwitchStream(name, title, _, langStr) =>
+              streamers
+                .find { s =>
+                  s.twitch.exists(_.userId.toLowerCase == name.toLowerCase) && {
+                    title.value.toLowerCase.contains(keyword.toLowerCase) ||
+                    alwaysFeatured().value.contains(s.userId)
+                  }
+                }
+                .map { Twitch.Stream(name, title, _, Lang.get(langStr) | lila.i18n.defaultLang) }
+            }.flatten
+          }
+          .zip(ytApi.fetchStreams(streamers))
       streams = LiveStreams {
         ThreadLocalRandom.shuffle {
-          (youTubeStreams ::: twitchStreams) pipe dedupStreamers
+          (youTubeStreams ::: twitchStreams).pipe(dedupStreamers)
         }
       }
       _ <- api.setLangLiveNow(streams.streams)
@@ -52,18 +57,20 @@ final private class Streaming(
 
   private def publishStreams(streamers: List[Streamer], newStreams: LiveStreams) =
     if newStreams != liveStreams then
-      newStreams.streams filterNot { s =>
-        liveStreams has s.streamer
-      } foreach { s =>
-        import s.streamer.userId
-        if streamStartOnceEvery(userId) then
-          Bus.publish(
-            lila.hub.actorApi.streamer.StreamStart(userId, s.streamer.name.value),
-            "streamStart"
-          )
-      }
+      newStreams.streams
+        .filterNot { s =>
+          liveStreams.has(s.streamer)
+        }
+        .foreach { s =>
+          import s.streamer.userId
+          if streamStartOnceEvery(userId) then
+            Bus.publish(
+              lila.hub.actorApi.streamer.StreamStart(userId, s.streamer.name.value),
+              "streamStart"
+            )
+        }
     liveStreams = newStreams
-    streamers foreach { streamer =>
+    streamers.foreach { streamer =>
       streamer.twitch.foreach { t =>
         if liveStreams.streams.exists(s => s.serviceName == "twitch" && s.is(streamer)) then
           lila.mon.tv.streamer.present(s"${t.userId}@twitch").increment()

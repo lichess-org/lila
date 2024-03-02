@@ -20,7 +20,7 @@ final class TournamentLilaHttp(
     redisClient: RedisClient
 )(using akka.stream.Materializer, Scheduler, Executor):
 
-  def handles(tour: Tournament) = isOnLilaHttp get tour.id
+  def handles(tour: Tournament) = isOnLilaHttp.get(tour.id)
   private def handledIds        = isOnLilaHttp.keys
   def hit(tour: Tournament) =
     if tour.nbPlayers > 10 && !tour.isFinished && hitCounter(tour.id)
@@ -38,7 +38,7 @@ final class TournamentLilaHttp(
       .documentSource()
       .mapAsyncUnordered(4): tour =>
         if tour.finishedSinceSeconds.exists(_ > 20) then isOnLilaHttp.remove(tour.id)
-        arenaFullJson(tour) map Json.stringify
+        arenaFullJson(tour).map(Json.stringify)
       .map: str =>
         lila.mon.tournament.lilaHttp.fullSize.record(str.size)
         conn.async.publish(channel, str)
@@ -49,7 +49,7 @@ final class TournamentLilaHttp(
   }
 
   private def arenaFullJson(tour: Tournament): Fu[JsObject] = for
-    data  <- jsonView.cachableData get tour.id
+    data  <- jsonView.cachableData.get(tour.id)
     stats <- statsApi(tour)
     teamStanding <- tour.isTeamBattle.soFu:
       jsonView.fetchAndRenderTeamStandingJson(TeamBattle.maxTeams)(tour.id)
@@ -83,18 +83,20 @@ final class TournamentLilaHttp(
       rankedPlayer: RankedPlayer
   )(using Executor): Fu[JsObject] =
     val p = rankedPlayer.player
-    lightUserApi asyncFallback p.userId map: light =>
-      Json
-        .obj(
-          "name"   -> light.name,
-          "rating" -> p.rating,
-          "score"  -> p.score,
-          "sheet"  -> sheet.scoresToString
-        )
-        .add("title" -> light.title)
-        .add("flair" -> light.flair)
-        .add("provisional" -> p.provisional)
-        .add("withdraw" -> p.withdraw)
-        .add("team" -> p.team)
-        .add("fire" -> p.fire)
-        .add("pause" -> p.withdraw.so(pause.remainingDelay(p.userId, tour)))
+    lightUserApi
+      .asyncFallback(p.userId)
+      .map: light =>
+        Json
+          .obj(
+            "name"   -> light.name,
+            "rating" -> p.rating,
+            "score"  -> p.score,
+            "sheet"  -> sheet.scoresToString
+          )
+          .add("title" -> light.title)
+          .add("flair" -> light.flair)
+          .add("provisional" -> p.provisional)
+          .add("withdraw" -> p.withdraw)
+          .add("team" -> p.team)
+          .add("fire" -> p.fire)
+          .add("pause" -> p.withdraw.so(pause.remainingDelay(p.userId, tour)))

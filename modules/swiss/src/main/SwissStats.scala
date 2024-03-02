@@ -27,7 +27,7 @@ final class SwissStatsApi(
   import BsonHandlers.given
 
   def apply(swiss: Swiss): Fu[Option[SwissStats]] =
-    swiss.isFinished so cache.get(swiss.id).dmap(some).dmap(_.filter(_.games > 0))
+    swiss.isFinished.so(cache.get(swiss.id).dmap(some).dmap(_.filter(_.games > 0)))
 
   private given BSONDocumentHandler[SwissStats] = Macros.handler
 
@@ -35,7 +35,7 @@ final class SwissStatsApi(
     _.expireAfterAccess(5 seconds).maximumSize(256).buildAsyncFuture(loader(fetch))
 
   private def fetch(id: SwissId): Fu[SwissStats] =
-    mongo.swiss.byId[Swiss](id) flatMap {
+    mongo.swiss.byId[Swiss](id).flatMap {
       _.filter(_.nbPlayers > 0).fold(fuccess(SwissStats())) { swiss =>
         sheetApi
           .source(swiss, sort = $empty)

@@ -14,8 +14,8 @@ final private class Tor(ws: StandaloneWSClient, config: SecurityConfig.Tor)(usin
   private var ips = Set.empty[IpAddress]
 
   private def refresh: Funit =
-    ws.url(config.providerUrl).get() map { res =>
-      ips = res.body[String].linesIterator.filterNot(_ startsWith "#").flatMap(IpAddress.from).toSet
+    ws.url(config.providerUrl).get().map { res =>
+      ips = res.body[String].linesIterator.filterNot(_.startsWith("#")).flatMap(IpAddress.from).toSet
       lila.mon.security.torNodes.update(ips.size)
     }
 

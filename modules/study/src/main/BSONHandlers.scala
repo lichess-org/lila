@@ -19,27 +19,31 @@ object BSONHandlers:
 
   given BSON[Shape] with
     def reads(r: Reader) =
-      val brush = r str "b"
-      r.getO[Square]("p") map { pos =>
-        Shape.Circle(brush, pos)
-      } getOrElse Shape.Arrow(brush, r.get[Square]("o"), r.get[Square]("d"))
+      val brush = r.str("b")
+      r.getO[Square]("p")
+        .map { pos =>
+          Shape.Circle(brush, pos)
+        }
+        .getOrElse(Shape.Arrow(brush, r.get[Square]("o"), r.get[Square]("d")))
     def writes(w: Writer, t: Shape) =
       t match
         case Shape.Circle(brush, pos)       => $doc("b" -> brush, "p" -> pos.key)
         case Shape.Arrow(brush, orig, dest) => $doc("b" -> brush, "o" -> orig.key, "d" -> dest.key)
 
   given chessRoleHandler: BSONHandler[PromotableRole] = tryHandler[PromotableRole](
-    { case BSONString(v) => v.headOption flatMap Role.allPromotableByForsyth.get toTry s"No such role: $v" },
+    { case BSONString(v) =>
+      v.headOption.flatMap(Role.allPromotableByForsyth.get).toTry(s"No such role: $v")
+    },
     x => BSONString(x.forsyth.toString)
   )
 
   given BSONHandler[Role] = tryHandler[Role](
-    { case BSONString(v) => v.headOption flatMap Role.allByForsyth.get toTry s"No such role: $v" },
+    { case BSONString(v) => v.headOption.flatMap(Role.allByForsyth.get).toTry(s"No such role: $v") },
     x => BSONString(x.forsyth.toString)
   )
 
   given BSONHandler[Uci] = tryHandler[Uci](
-    { case BSONString(v) => Uci(v) toTry s"Bad UCI: $v" },
+    { case BSONString(v) => Uci(v).toTry(s"Bad UCI: $v") },
     x => BSONString(x.uci)
   )
 
@@ -65,7 +69,7 @@ object BSONHandlers:
             id   <- doc.getAsOpt[UserId]("id")
             name <- doc.getAsOpt[String]("name")
           yield Comment.Author.User(id, name)
-        } err s"Invalid comment author $doc"
+        }.err(s"Invalid comment author $doc")
       case _ => Comment.Author.Unknown
     },
     {
@@ -102,8 +106,8 @@ object BSONHandlers:
     val intReader = collectionReader[List, Int]
     tryHandler[Glyphs](
       { case arr: Barr =>
-        intReader.readTry(arr) map { ints =>
-          Glyphs.fromList(ints flatMap Glyph.find)
+        intReader.readTry(arr).map { ints =>
+          Glyphs.fromList(ints.flatMap(Glyph.find))
         }
       },
       x => BSONArray(x.toList.map(_.id).map(BSONInteger.apply))
@@ -116,7 +120,7 @@ object BSONHandlers:
         if v >= mateFactor || v <= -mateFactor then Score.mate(v / mateFactor)
         else Score.cp(v),
       _.fold(
-        cp => cp.value atLeast (-mateFactor + 1) atMost (mateFactor - 1),
+        cp => cp.value.atLeast(-mateFactor + 1).atMost(mateFactor - 1),
         mate => mate.value * mateFactor
       )
     )
@@ -130,10 +134,10 @@ object BSONHandlers:
       san <- doc.getAsOpt[SanStr](F.san)
       fen <- doc.getAsOpt[Fen.Epd](F.fen)
       check          = ~doc.getAsOpt[Check](F.check)
-      shapes         = doc.getAsOpt[Shapes](F.shapes) getOrElse Shapes.empty
-      comments       = doc.getAsOpt[Comments](F.comments) getOrElse Comments.empty
+      shapes         = doc.getAsOpt[Shapes](F.shapes).getOrElse(Shapes.empty)
+      comments       = doc.getAsOpt[Comments](F.comments).getOrElse(Comments.empty)
       gamebook       = doc.getAsOpt[Gamebook](F.gamebook)
-      glyphs         = doc.getAsOpt[Glyphs](F.glyphs) getOrElse Glyphs.empty
+      glyphs         = doc.getAsOpt[Glyphs](F.glyphs).getOrElse(Glyphs.empty)
       eval           = doc.getAsOpt[Score](F.score).map(_.eval)
       clock          = doc.getAsOpt[Centis](F.clock)
       crazyData      = doc.getAsOpt[Crazyhouse.Data](F.crazy)
@@ -165,10 +169,10 @@ object BSONHandlers:
       san <- doc.getAsOpt[SanStr](F.san)
       fen <- doc.getAsOpt[Fen.Epd](F.fen)
       check          = ~doc.getAsOpt[Check](F.check)
-      shapes         = doc.getAsOpt[Shapes](F.shapes) getOrElse Shapes.empty
-      comments       = doc.getAsOpt[Comments](F.comments) getOrElse Comments.empty
+      shapes         = doc.getAsOpt[Shapes](F.shapes).getOrElse(Shapes.empty)
+      comments       = doc.getAsOpt[Comments](F.comments).getOrElse(Comments.empty)
       gamebook       = doc.getAsOpt[Gamebook](F.gamebook)
-      glyphs         = doc.getAsOpt[Glyphs](F.glyphs) getOrElse Glyphs.empty
+      glyphs         = doc.getAsOpt[Glyphs](F.glyphs).getOrElse(Glyphs.empty)
       eval           = doc.getAsOpt[Score](F.score).map(_.eval)
       clock          = doc.getAsOpt[Centis](F.clock)
       crazyData      = doc.getAsOpt[Crazyhouse.Data](F.crazy)
@@ -233,12 +237,12 @@ object BSONHandlers:
   private[study] given BSON[Root] with
     import Node.{ BsonFields as F }
     def reads(fullReader: Reader) =
-      val rootNode = fullReader.doc.getAsOpt[Bdoc](UciPathDb.rootDbKey) err "Missing root"
+      val rootNode = fullReader.doc.getAsOpt[Bdoc](UciPathDb.rootDbKey).err("Missing root")
       val r        = Reader(rootNode)
       Root(
         ply = r.get[Ply](F.ply),
         fen = r.get[Fen.Epd](F.fen),
-        check = r yesnoD F.check,
+        check = r.yesnoD(F.check),
         shapes = r.getO[Shapes](F.shapes) | Shapes.empty,
         comments = r.getO[Comments](F.comments) | Comments.empty,
         gamebook = r.getO[Gamebook](F.gamebook),
@@ -249,7 +253,7 @@ object BSONHandlers:
         children = StudyFlatTree.reader.rootChildren(fullReader.doc)
       )
     def writes(w: Writer, r: Root) = $doc(
-      StudyFlatTree.writer.rootChildren(r) appended {
+      StudyFlatTree.writer.rootChildren(r).appended {
         UciPathDb.rootDbKey -> $doc(
           F.ply      -> r.ply,
           F.fen      -> r.fen,
@@ -268,13 +272,13 @@ object BSONHandlers:
   private[study] given BSON[NewRoot] with
     import Node.{ BsonFields as F }
     def reads(fullReader: Reader) =
-      val rootNode = fullReader.doc.getAsOpt[Bdoc](UciPathDb.rootDbKey) err "Missing root"
+      val rootNode = fullReader.doc.getAsOpt[Bdoc](UciPathDb.rootDbKey).err("Missing root")
       val r        = Reader(rootNode)
       NewRoot(
         Metas(
           ply = r.get[Ply](F.ply),
           fen = r.get[Fen.Epd](F.fen),
-          check = r yesnoD F.check,
+          check = r.yesnoD(F.check),
           shapes = r.getO[Shapes](F.shapes) | Shapes.empty,
           comments = r.getO[Comments](F.comments) | Comments.empty,
           gamebook = r.getO[Gamebook](F.gamebook),
@@ -286,7 +290,7 @@ object BSONHandlers:
         tree = StudyFlatTree.reader.newRoot(fullReader.doc)
       )
     def writes(w: Writer, r: NewRoot) = $doc(
-      StudyFlatTree.writer.newRootChildren(r) appended {
+      StudyFlatTree.writer.newRootChildren(r).appended {
         UciPathDb.rootDbKey -> $doc(
           F.ply      -> r.metas.ply,
           F.fen      -> r.metas.fen,
@@ -314,7 +318,7 @@ object BSONHandlers:
   given (using handler: BSONHandler[List[Tag]]): BSONHandler[Tags] = handler.as[Tags](Tags.apply, _.value)
   private given BSONDocumentHandler[Chapter.Setup]                 = Macros.handler
   given BSONHandler[Option[FideId]] = quickHandler(
-    { case BSONInteger(v) => v > 0 option FideId(v) },
+    { case BSONInteger(v) => (v > 0).option(FideId(v)) },
     id => BSONInteger(id.so(_.value))
   )
   given BSONDocumentHandler[Chapter.Relay]      = Macros.handler
@@ -329,11 +333,11 @@ object BSONHandlers:
     yield Chapter.RelayAndTags(id, relay, tags)
 
   given BSONHandler[Position.Ref] = tryHandler(
-    { case BSONString(v) => Position.Ref.decode(v) toTry s"Invalid position $v" },
+    { case BSONString(v) => Position.Ref.decode(v).toTry(s"Invalid position $v") },
     x => BSONString(x.encode)
   )
   given studyRoleHandler: BSONHandler[StudyMember.Role] = tryHandler(
-    { case BSONString(v) => StudyMember.Role.byId get v toTry s"Invalid role $v" },
+    { case BSONString(v) => StudyMember.Role.byId.get(v).toTry(s"Invalid role $v") },
     x => BSONString(x.id)
   )
   private[study] case class DbMember(role: StudyMember.Role)
@@ -343,14 +347,14 @@ object BSONHandlers:
   private[study] given (using handler: BSONHandler[Map[String, DbMember]]): BSONHandler[StudyMembers] =
     handler.as[StudyMembers](
       members =>
-        StudyMembers(members map { (id, dbMember) =>
+        StudyMembers(members.map { (id, dbMember) =>
           UserId(id) -> StudyMember(UserId(id), dbMember.role)
         }),
       _.members.view.map((id, m) => id.value -> DbMember(m.role)).toMap
     )
   import Study.Visibility
   private[study] given BSONHandler[Visibility] = tryHandler[Visibility](
-    { case BSONString(v) => Visibility.byKey get v toTry s"Invalid visibility $v" },
+    { case BSONString(v) => Visibility.byKey.get(v).toTry(s"Invalid visibility $v") },
     v => BSONString(v.key)
   )
   import Study.From
@@ -374,7 +378,7 @@ object BSONHandlers:
   )
   import Settings.UserSelection
   private[study] given BSONHandler[UserSelection] = tryHandler[UserSelection](
-    { case BSONString(v) => UserSelection.byKey get v toTry s"Invalid user selection $v" },
+    { case BSONString(v) => UserSelection.byKey.get(v).toTry(s"Invalid user selection $v") },
     x => BSONString(x.key)
   )
   given BSON[Settings] with
@@ -395,11 +399,12 @@ object BSONHandlers:
 
   given BSONDocumentReader[Study.LightStudy] with
     def readDocument(doc: BSONDocument) =
-      Success:
+      Success(
         Study.LightStudy(
-          isPublic = doc.string("visibility") has "public",
+          isPublic = doc.string("visibility").has("public"),
           contributors = doc.getAsOpt[StudyMembers]("members").so(_.contributorIds)
         )
+      )
 
   given BSONDocumentReader[Chapter.MetadataMin] with
     def readDocument(doc: Bdoc) = for

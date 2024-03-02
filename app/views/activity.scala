@@ -13,29 +13,29 @@ object activity:
 
   def apply(u: User.WithPerfs, as: Iterable[lila.activity.ActivityView])(using Context) =
     div(cls := "activity")(
-      as.toSeq filterNot (_.isEmpty) map { a =>
+      as.toSeq.filterNot(_.isEmpty).map { a =>
         st.section(
           h2(semanticDate(a.interval.start)),
           div(cls := "entries")(
-            a.patron map renderPatron,
-            a.practice map renderPractice,
-            a.puzzles map renderPuzzles(u),
-            a.storm map renderStorm,
-            a.racer map renderRacer,
-            a.streak map renderStreak,
-            a.games map renderGames,
-            a.forumPosts map renderForumPosts,
-            a.ublogPosts map renderUblogPosts(u.user),
-            a.corresMoves map renderCorresMoves,
-            a.corresEnds map renderCorresEnds,
-            a.follows map renderFollows,
-            a.simuls map renderSimuls(u.user),
-            a.studies map renderStudies,
-            a.tours map renderTours,
-            a.swisses map renderSwisses,
-            a.teams map renderTeams,
-            a.stream option renderStream(u.user),
-            a.signup option renderSignup
+            a.patron.map(renderPatron),
+            a.practice.map(renderPractice),
+            a.puzzles.map(renderPuzzles(u)),
+            a.storm.map(renderStorm),
+            a.racer.map(renderRacer),
+            a.streak.map(renderStreak),
+            a.games.map(renderGames),
+            a.forumPosts.map(renderForumPosts),
+            a.ublogPosts.map(renderUblogPosts(u.user)),
+            a.corresMoves.map(renderCorresMoves),
+            a.corresEnds.map(renderCorresEnds),
+            a.follows.map(renderFollows),
+            a.simuls.map(renderSimuls(u.user)),
+            a.studies.map(renderStudies),
+            a.tours.map(renderTours),
+            a.swisses.map(renderSwisses),
+            a.teams.map(renderTeams),
+            a.stream.option(renderStream(u.user)),
+            a.signup.option(renderSignup)
           )
         )
       }
@@ -58,9 +58,9 @@ object activity:
     entryTag(
       iconTag(licon.Bullseye),
       div(
-        ps.headOption map onePractice,
+        ps.headOption.map(onePractice),
         ps match
-          case _ :: rest if rest.nonEmpty => subTag(rest map onePractice)
+          case _ :: rest if rest.nonEmpty => subTag(rest.map(onePractice))
           case _                          => emptyFrag
       )
     )
@@ -79,7 +79,7 @@ object activity:
       scoreFrag(p.value),
       div(
         trans.activity.solvedNbPuzzles.pluralSame(p.value.size),
-        p.value.rp.filterNot(_.isEmpty || (u.perfs.dubiousPuzzle && !ctx.is(u))).map(ratingProgFrag)
+        p.value.rp.filterNot(_.isEmpty || (u.perfs.dubiousPuzzle && ctx.isnt(u))).map(ratingProgFrag)
       )
     )
 
@@ -128,36 +128,40 @@ object activity:
   private def renderForumPosts(posts: Map[lila.forum.ForumTopic, List[lila.forum.ForumPost]])(using
       ctx: Context
   ) =
-    ctx.kid.no option entryTag(
-      iconTag(licon.BubbleConvo),
-      div(
-        posts.toSeq.map: (topic, posts) =>
-          frag(
-            trans.activity.postedNbMessages
-              .plural(
-                posts.size,
-                posts.size,
-                a(href := routes.ForumTopic.show(topic.categId, topic.slug))(shorten(topic.name, 70))
-              ),
-            subTag(
-              posts.map { post =>
-                div(cls := "line")(a(href := routes.ForumPost.redirect(post.id))(shorten(post.text, 120)))
-              }
+    ctx.kid.no.option(
+      entryTag(
+        iconTag(licon.BubbleConvo),
+        div(
+          posts.toSeq.map: (topic, posts) =>
+            frag(
+              trans.activity.postedNbMessages
+                .plural(
+                  posts.size,
+                  posts.size,
+                  a(href := routes.ForumTopic.show(topic.categId, topic.slug))(shorten(topic.name, 70))
+                ),
+              subTag(
+                posts.map { post =>
+                  div(cls := "line")(a(href := routes.ForumPost.redirect(post.id))(shorten(post.text, 120)))
+                }
+              )
             )
-          )
+        )
       )
     )
 
   private def renderUblogPosts(user: User)(posts: List[lila.ublog.UblogPost.LightPost])(using
       ctx: Context
   ) =
-    ctx.kid.no option entryTag(
-      iconTag(licon.InkQuill),
-      div(
-        trans.ublog.publishedNbBlogPosts.pluralSame(posts.size),
-        subTag(posts.map: post =>
-          div:
-            a(href := routes.Ublog.post(user.username, post.slug, post.id))(shorten(post.title, 120))
+    ctx.kid.no.option(
+      entryTag(
+        iconTag(licon.InkQuill),
+        div(
+          trans.ublog.publishedNbBlogPosts.pluralSame(posts.size),
+          subTag(posts.map: post =>
+            div:
+              a(href := routes.Ublog.post(user.username, post.slug, post.id))(shorten(post.title, 120))
+          )
         )
       )
     )
@@ -221,7 +225,7 @@ object activity:
     entryTag(
       iconTag(licon.ThumbsUp),
       div(
-        List(all.in.map(_ -> true), all.out.map(_ -> false)).flatten map { (f, in) =>
+        List(all.in.map(_ -> true), all.out.map(_ -> false)).flatten.map { (f, in) =>
           frag(
             if in then trans.activity.gainedNbFollowers.pluralSame(f.actualNb)
             else trans.activity.followedNbPlayers.pluralSame(f.actualNb),
@@ -254,7 +258,7 @@ object activity:
                     userIdLink(s.hostId.some)
                   ),
                   if isHost then scoreFrag(Score(s.wins, s.losses, s.draws, none))
-                  else scoreFrag(Score(win.has(true) so 1, win.has(false) so 1, win.isEmpty so 1, none))
+                  else scoreFrag(Score(win.has(true).so(1), win.has(false).so(1), win.isEmpty.so(1), none))
                 )
             )
           )
@@ -274,11 +278,13 @@ object activity:
     )
 
   private def renderTeams(teams: Teams)(using ctx: Context) =
-    ctx.kid.no option entryTag(
-      iconTag(licon.Group),
-      div(
-        trans.activity.joinedNbTeams.pluralSame(teams.value.size),
-        subTag(fragList(teams.value.map(id => teamLink(id))))
+    ctx.kid.no.option(
+      entryTag(
+        iconTag(licon.Group),
+        div(
+          trans.activity.joinedNbTeams.pluralSame(teams.value.size),
+          subTag(fragList(teams.value.map(id => teamLink(id))))
+        )
       )
     )
 
@@ -332,9 +338,11 @@ object activity:
     )
 
   private def renderStream(u: User)(using ctx: Context) =
-    ctx.kid.no option entryTag(
-      iconTag(licon.Mic),
-      a(href := routes.Streamer.redirect(u.username))(trans.activity.hostedALiveStream())
+    ctx.kid.no.option(
+      entryTag(
+        iconTag(licon.Mic),
+        a(href := routes.Streamer.redirect(u.username))(trans.activity.hostedALiveStream())
+      )
     )
 
   private def renderSignup(using Context) =
@@ -356,7 +364,7 @@ object activity:
       )}</score>"""
 
   private def ratingProgFrag(r: RatingProg)(using ctx: Context) =
-    ctx.pref.showRatings option ratingTag(r.after.value, ratingProgress(r.diff))
+    ctx.pref.showRatings.option(ratingTag(r.after.value, ratingProgress(r.diff)))
 
   private def scoreStr(tag: String, p: Int, name: lila.i18n.I18nKey)(using Context) =
     if p == 0 then ""

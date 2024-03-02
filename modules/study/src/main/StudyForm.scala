@@ -89,7 +89,7 @@ object StudyForm:
         pgns.mapWithIndex: (onePgn, index) =>
           ChapterMaker.Data(
             // only the first chapter can be named
-            name = StudyChapterName((index == 0) so name),
+            name = StudyChapterName((index == 0).so(name)),
             variant = variant,
             pgn = onePgn.some,
             orientation = orientation | ChapterMaker.Orientation.Auto,
@@ -101,4 +101,4 @@ object StudyForm:
   def topicsForm = Form(single("topics" -> text))
 
   def topicsForm(topics: StudyTopics) =
-    Form(single("topics" -> text)) fill topics.value.mkString(",")
+    Form(single("topics" -> text)).fill(topics.value.mkString(","))

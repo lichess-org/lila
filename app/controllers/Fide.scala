@@ -10,13 +10,16 @@ final class Fide(env: Env) extends LilaController(env):
   def index(page: Int, q: Option[String] = None) = Open:
     Reasonable(page):
       val query = q.so(_.trim)
-      chess.FideId.from(query.toIntOption).so(env.fide.playerApi.fetch) flatMap:
-        case Some(player) => Redirect(routes.Fide.show(player.id, player.slug))
-        case None =>
-          for
-            players      <- env.fide.paginator.best(page, query)
-            renderedPage <- renderPage(html.fide.player.index(players, query))
-          yield Ok(renderedPage)
+      chess.FideId
+        .from(query.toIntOption)
+        .so(env.fide.playerApi.fetch)
+        .flatMap:
+          case Some(player) => Redirect(routes.Fide.show(player.id, player.slug))
+          case None =>
+            for
+              players      <- env.fide.paginator.best(page, query)
+              renderedPage <- renderPage(html.fide.player.index(players, query))
+            yield Ok(renderedPage)
 
   def show(id: chess.FideId, slug: String, page: Int) = Open:
     Found(env.fide.repo.player.fetch(id)): player =>

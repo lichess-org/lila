@@ -29,4 +29,4 @@ object NameSection extends OpaqueString[NameSection]:
   def sectionsOf(openingName: OpeningName): NonEmptyList[NameSection] =
     openingName.value.split(":", 2) match
       case Array(f, v) => NonEmptyList(f, v.split(",").toList.map(_.trim))
-      case _           => NonEmptyList(openingName into NameSection, Nil)
+      case _           => NonEmptyList(openingName.into(NameSection), Nil)

@@ -13,9 +13,11 @@ final class EvalCacheApi(coll: AsyncCollFailingSilently, cacheApi: lila.memo.Cac
   import BSONHandlers.given
 
   def getEvalJson(variant: Variant, fen: Fen.Epd, multiPv: MultiPv): Fu[Option[JsObject]] =
-    getEval(Id(variant, SmallFen.make(variant, fen.simple)), multiPv) map {
-      _.map { JsonView.writeEval(_, fen) }
-    } addEffect monitorRequest(fen)
+    getEval(Id(variant, SmallFen.make(variant, fen.simple)), multiPv)
+      .map {
+        _.map { JsonView.writeEval(_, fen) }
+      }
+      .addEffect(monitorRequest(fen))
 
   def getSinglePvEval(variant: Variant, fen: Fen.Epd): Fu[Option[Eval]] =
     getEval(Id(variant, SmallFen.make(variant, fen.simple)), MultiPv(1))
@@ -31,7 +33,7 @@ final class EvalCacheApi(coll: AsyncCollFailingSilently, cacheApi: lila.memo.Cac
     coll(_.delete.one($id(id)).void)
 
   private def getEval(id: Id, multiPv: MultiPv): Fu[Option[Eval]] =
-    cache.get(id).map(_.flatMap(_ makeBestMultiPvEval multiPv))
+    cache.get(id).map(_.flatMap(_.makeBestMultiPvEval(multiPv)))
 
   private val cache = cacheApi[Id, Option[EvalCacheEntry]](32_768, "evalCache"):
     _.expireAfterWrite(5 minutes).buildAsyncFuture: id =>

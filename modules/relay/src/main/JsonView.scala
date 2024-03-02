@@ -68,7 +68,7 @@ final class JsonView(
           .add("url" -> withUrls.option(s"$baseUrl${trs.tour.path}"))
           .add("teamTable" -> trs.tour.teamTable),
         "rounds" -> trs.rounds.map: round =>
-          if withUrls then withUrl(round withTour trs.tour, withTour = false) else apply(round)
+          if withUrls then withUrl(round.withTour(trs.tour), withTour = false) else apply(round)
       )
       .add("leaderboard" -> leaderboard)
 
@@ -87,7 +87,7 @@ final class JsonView(
         Json.toJsObject(g) + ("url" -> JsString(s"$baseUrl${rt.path}/${g.id}"))
       })
 
-  def sync(round: RelayRound) = Json toJsObject round.sync
+  def sync(round: RelayRound) = Json.toJsObject(round.sync)
 
   def myRound(r: RelayRound.WithTourAndStudy)(using me: Option[Me]) = Json
     .obj(
@@ -105,10 +105,10 @@ final class JsonView(
       group: Option[RelayGroup.WithTours],
       canContribute: Boolean,
       isSubscribed: Option[Boolean] = none[Boolean]
-  ) = leaderboardApi(trs.tour) map: leaderboard =>
+  ) = leaderboardApi(trs.tour).map: leaderboard =>
     JsonView.JsData(
       relay = apply(trs)
-        .add("sync" -> (canContribute so trs.rounds.find(_.id == currentRoundId).map(_.sync)))
+        .add("sync" -> (canContribute.so(trs.rounds.find(_.id == currentRoundId).map(_.sync))))
         .add("leaderboard" -> leaderboard)
         .add("group" -> group)
         .add("isSubscribed" -> isSubscribed),

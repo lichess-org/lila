@@ -37,10 +37,10 @@ final class Signup(
     def apply(print: Option[FingerPrint], email: EmailAddress, suspIp: Boolean)(using
         req: RequestHeader
     ): Fu[MustConfirmEmail] =
-      val ip = HTTPRequest ipAddress req
-      store.recentByIpExists(ip, 7.days) flatMap { ipExists =>
+      val ip = HTTPRequest.ipAddress(req)
+      store.recentByIpExists(ip, 7.days).flatMap { ipExists =>
         if ipExists then fuccess(YesBecauseIpExists)
-        else if HTTPRequest weirdUA req then fuccess(YesBecauseUA)
+        else if HTTPRequest.weirdUA(req) then fuccess(YesBecauseUA)
         else
           print.fold[Fu[MustConfirmEmail]](fuccess(YesBecausePrintMissing)): fp =>
             store
@@ -55,15 +55,15 @@ final class Signup(
   def website(
       blind: Boolean
   )(using req: Request[?], lang: Lang, formBinding: FormBinding): Fu[Signup.Result] =
-    val ip = HTTPRequest ipAddress req
-    forms.signup.website flatMap {
+    val ip = HTTPRequest.ipAddress(req)
+    forms.signup.website.flatMap {
       _.form
         .bindFromRequest()
         .fold[Fu[Signup.Result]](
           err =>
             fuccess:
-              disposableEmailAttempt.onFail(err, HTTPRequest ipAddress req)
-              Signup.Result.Bad(err tap signupErrLog)
+              disposableEmailAttempt.onFail(err, HTTPRequest.ipAddress(req))
+              Signup.Result.Bad(err.tap(signupErrLog))
           ,
           data =>
             for
@@ -77,10 +77,10 @@ final class Signup(
                     suspIp = suspIp,
                     captched = hcaptchaResult == Hcaptcha.Result.Valid
                   ):
-                    MustConfirmEmail(data.fingerPrint, data.email, suspIp = suspIp) flatMap { mustConfirm =>
+                    MustConfirmEmail(data.fingerPrint, data.email, suspIp = suspIp).flatMap { mustConfirm =>
                       lila.mon.user.register.count(none)
                       lila.mon.user.register.mustConfirmEmail(mustConfirm.toString).increment()
-                      val passwordHash = authenticator passEnc data.clearPassword
+                      val passwordHash = authenticator.passEnc(data.clearPassword)
                       userRepo
                         .create(
                           data.username,
@@ -111,8 +111,7 @@ final class Signup(
       if mustConfirm.value then
         emailConfirm.send(user, email) >> {
           if emailConfirm.effective then
-            api.saveSignup(user.id, apiVersion, fingerPrint) inject
-              Signup.Result.ConfirmEmail(user, email)
+            api.saveSignup(user.id, apiVersion, fingerPrint).inject(Signup.Result.ConfirmEmail(user, email))
           else fuccess(Signup.Result.AllSet(user, email))
         }
       else fuccess(Signup.Result.AllSet(user, email))
@@ -121,14 +120,14 @@ final class Signup(
   def mobile(
       apiVersion: ApiVersion
   )(using req: Request[?])(using Lang, FormBinding): Fu[Signup.Result] =
-    val ip = HTTPRequest ipAddress req
+    val ip = HTTPRequest.ipAddress(req)
     forms.signup.mobile
       .bindFromRequest()
       .fold[Fu[Signup.Result]](
         err =>
           fuccess:
-            disposableEmailAttempt.onFail(err, HTTPRequest ipAddress req)
-            Signup.Result.Bad(err tap signupErrLog)
+            disposableEmailAttempt.onFail(err, HTTPRequest.ipAddress(req))
+            Signup.Result.Bad(err.tap(signupErrLog))
         ,
         data =>
           for
@@ -137,7 +136,7 @@ final class Signup(
               val mustConfirm = MustConfirmEmail.YesBecauseMobile
               lila.mon.user.register.count(apiVersion.some).increment()
               lila.mon.user.register.mustConfirmEmail(mustConfirm.toString).increment()
-              val passwordHash = authenticator passEnc User.ClearPassword(data.password)
+              val passwordHash = authenticator.passEnc(User.ClearPassword(data.password))
               userRepo
                 .create(
                   data.username,
@@ -175,8 +174,8 @@ final class Signup(
         enforce = netConfig.rateLimit,
         userCost = 1,
         ipCost = ipCost
-      )(id into UserIdOrEmail, req): _ =>
-        signupRateLimitPerIP(HTTPRequest ipAddress req, rateLimitDefault, cost = ipCost)(f)
+      )(id.into(UserIdOrEmail), req): _ =>
+        signupRateLimitPerIP(HTTPRequest.ipAddress(req), rateLimitDefault, cost = ipCost)(f)
 
   private def logSignup(
       req: RequestHeader,
@@ -186,12 +185,12 @@ final class Signup(
       apiVersion: Option[ApiVersion],
       mustConfirm: MustConfirmEmail
   ) =
-    disposableEmailAttempt.onSuccess(user, email, HTTPRequest ipAddress req)
+    disposableEmailAttempt.onSuccess(user, email, HTTPRequest.ipAddress(req))
     authLog(
-      user.username into UserStr,
+      user.username.into(UserStr),
       email.value,
       s"fp: $fingerPrint mustConfirm: $mustConfirm fp: ${fingerPrint
-          .so(_.value)} ip: ${HTTPRequest ipAddress req} api: $apiVersion"
+          .so(_.value)} ip: ${HTTPRequest.ipAddress(req)} api: $apiVersion"
     )
 
   private def signupErrLog(err: Form[?]) = for

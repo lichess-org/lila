@@ -24,7 +24,7 @@ final class CrosstableApi(
     coll.one[Crosstable](select(u1, u2))
 
   def withMatchup(u1: UserId, u2: UserId): Fu[Crosstable.WithMatchup] =
-    apply(u1, u2) zip getMatchup(u1, u2) dmap Crosstable.WithMatchup.apply.tupled
+    apply(u1, u2).zip(getMatchup(u1, u2)).dmap(Crosstable.WithMatchup.apply.tupled)
 
   def nbGames(u1: UserId, u2: UserId): Fu[Int] =
     coll
@@ -79,7 +79,7 @@ final class CrosstableApi(
             )
             .void
         }
-        updateCrosstable zip updateMatchup void
+        updateCrosstable.zip(updateMatchup) void
       case _ => funit
 
   private val matchupProjection = $doc(F.lastPlayed -> false)

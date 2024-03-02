@@ -19,7 +19,7 @@ object bits:
       href     := routes.Swiss.show(swissId).url
     )(name)
 
-  def idToName(id: SwissId): String = env.swiss.getName sync id getOrElse "Tournament"
+  def idToName(id: SwissId): String = env.swiss.getName.sync(id).getOrElse("Tournament")
 
   def notFound()(using PageContext) =
     views.html.base.layout(
@@ -38,7 +38,7 @@ object bits:
   def forTeam(swisses: List[Swiss])(using PageContext) =
     table(cls := "slist")(
       tbody(
-        swisses map { s =>
+        swisses.map { s =>
           tr(
             cls := List(
               "enterable" -> s.isNotFinished,

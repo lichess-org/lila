@@ -11,7 +11,7 @@ trait LilaModel:
   // apply updates to a value, and keep track of the updates
   // so they can all be replayed on another value
   case class Updating[A](current: A, reRun: Update[A] = (a: A) => a):
-    def apply(up: Update[A]) = Updating(up(current), up compose reRun)
+    def apply(up: Update[A]) = Updating(up(current), up.compose(reRun))
 
   trait OpaqueInstant[A](using A =:= Instant) extends TotalWrapper[A, Instant]
 
@@ -28,8 +28,8 @@ trait LilaModel:
   object GameId extends OpaqueString[GameId]:
     def size                              = 8
     private val idRegex                   = """[\w-]{8}""".r
-    def validate(id: GameId)              = idRegex matches id.value
-    def take(str: String): GameId         = GameId(str take size)
+    def validate(id: GameId)              = idRegex.matches(id.value)
+    def take(str: String): GameId         = GameId(str.take(size))
     def from(str: String): Option[GameId] = Some(take(str)).filter(validate)
 
   opaque type GameFullId = String
@@ -38,8 +38,8 @@ trait LilaModel:
     def apply(gameId: GameId, playerId: GamePlayerId): GameFullId = s"$gameId$playerId"
     extension (e: GameFullId)
       def gameId: GameId         = GameId.take(e)
-      def playerId: GamePlayerId = GamePlayerId(e drop GameId.size)
-      def anyId: GameAnyId       = e into GameAnyId
+      def playerId: GamePlayerId = GamePlayerId(e.drop(GameId.size))
+      def anyId: GameAnyId       = e.into(GameAnyId)
 
   // Either a GameId or a GameFullId
   opaque type GameAnyId = String

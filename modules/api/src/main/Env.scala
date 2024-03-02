@@ -71,7 +71,7 @@ final class Env(
     materializer: akka.stream.Materializer
 ):
 
-  val config = ApiConfig loadFrom appConfig
+  val config = ApiConfig.loadFrom(appConfig)
   export config.{ apiToken, pagerDuty as pagerDutyConfig }
   export net.{ baseUrl, domain }
 
@@ -124,17 +124,17 @@ final class Env(
 
   Bus.subscribeFuns(
     "chatLinkCheck" -> { case GetLinkCheck(line, source, promise) =>
-      promise completeWith linkCheck(line, source)
+      promise.completeWith(linkCheck(line, source))
     },
     "chatFreshness" -> { case IsChatFresh(source, promise) =>
-      promise completeWith chatFreshness.of(source)
+      promise.completeWith(chatFreshness.of(source))
     },
     "announce" -> {
       case Announce(msg, date, _) if msg contains "will restart" => pagerDuty.lilaRestart(date)
     },
     "lpv" -> {
-      case AllPgnsFromText(text, p)       => p completeWith textLpvExpand.allPgnsFromText(text)
-      case LpvLinkRenderFromText(text, p) => p completeWith textLpvExpand.linkRenderFromText(text)
+      case AllPgnsFromText(text, p)       => p.completeWith(textLpvExpand.allPgnsFromText(text))
+      case LpvLinkRenderFromText(text, p) => p.completeWith(textLpvExpand.linkRenderFromText(text))
     }
   )
 

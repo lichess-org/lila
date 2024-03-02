@@ -39,14 +39,14 @@ final class CmsApi(coll: Coll, markup: CmsMarkup)(using Executor):
 
   def update(prev: CmsPage, data: CmsForm.CmsPageData)(using me: Me): Fu[CmsPage] =
     val page = data.update(prev, me)
-    coll.update.one($id(page.id), page) inject page
+    coll.update.one($id(page.id), page).inject(page)
 
   def delete(id: Id): Funit = coll.delete.one($id(id)).void
 
   private def getBestFor(key: Key)(req: RequestHeader, prefLang: Lang): Fu[Option[CmsPage]] =
     val prefered = I18nLangPicker.preferedLanguages(req, prefLang) :+ lila.i18n.defaultLanguage
     coll
-      .list[CmsPage]($doc("key" -> key, "language" $in prefered))
+      .list[CmsPage]($doc("key" -> key, "language".$in(prefered)))
       .map: pages =>
         prefered.foldLeft(none[CmsPage]): (found, language) =>
-          found orElse pages.find(_.language == language)
+          found.orElse(pages.find(_.language == language))

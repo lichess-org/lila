@@ -11,11 +11,11 @@ final class ForumCateg(env: Env) extends LilaController(env) with ForumControlle
   def index = Open:
     NotForKids:
       for
-        allTeamIds <- ctx.userId so teamCache.teamIdsList
+        allTeamIds <- ctx.userId.so(teamCache.teamIdsList)
         teamIds <- allTeamIds.filterA:
           teamCache.forumAccess.get(_).map(_ != Team.Access.NONE)
         categs <- postApi.categsForUser(teamIds, ctx.me)
-        _      <- env.user.lightUserApi preloadMany categs.flatMap(_.lastPostUserId)
+        _      <- env.user.lightUserApi.preloadMany(categs.flatMap(_.lastPostUserId))
         page   <- renderPage(html.forum.categ.index(categs))
       yield Ok(page)
 
@@ -29,8 +29,8 @@ final class ForumCateg(env: Env) extends LilaController(env) with ForumControlle
             for
               canRead     <- access.isGrantedRead(categ.id)
               canWrite    <- access.isGrantedWrite(categ.id)
-              stickyPosts <- (page == 1) so env.forum.topicApi.getSticky(categ, ctx.me)
-              _ <- env.user.lightUserApi preloadMany topics.currentPageResults.flatMap(_.lastPostUserId)
+              stickyPosts <- (page == 1).so(env.forum.topicApi.getSticky(categ, ctx.me))
+              _ <- env.user.lightUserApi.preloadMany(topics.currentPageResults.flatMap(_.lastPostUserId))
               res <-
                 if canRead then Ok.page(html.forum.categ.show(categ, topics, canWrite, stickyPosts))
                 else notFound

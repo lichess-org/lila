@@ -13,10 +13,10 @@ final class BotJsonView(
     rematches: lila.game.Rematches
 )(using Executor):
 
-  def gameFull(game: Game)(using Lang): Fu[JsObject] = gameRepo.withInitialFen(game) flatMap gameFull
+  def gameFull(game: Game)(using Lang): Fu[JsObject] = gameRepo.withInitialFen(game).flatMap(gameFull)
 
   def gameFull(wf: Game.WithInitialFen)(using Lang): Fu[JsObject] =
-    gameState(wf) map { state =>
+    gameState(wf).map { state =>
       gameImmutable(wf) ++ Json.obj(
         "type"  -> "gameFull",
         "state" -> state
@@ -43,7 +43,7 @@ final class BotJsonView(
 
   def gameState(wf: Game.WithInitialFen): Fu[JsObject] =
     import wf.*
-    chess.format.UciDump(game.sans, fen, game.variant).toFuture map { uciMoves =>
+    chess.format.UciDump(game.sans, fen, game.variant).toFuture.map { uciMoves =>
       Json
         .obj(
           "type"   -> "gameState",
@@ -81,7 +81,7 @@ final class BotJsonView(
   )
 
   private def playerJson(pov: Pov) =
-    val light = pov.player.userId flatMap lightUserApi.sync
+    val light = pov.player.userId.flatMap(lightUserApi.sync)
     Json
       .obj()
       .add("aiLevel" -> pov.player.aiLevel)

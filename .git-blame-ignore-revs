@@ -42,3 +42,6 @@ eea12a89f8550d74518f19ec9cda404e3f73b3d0
 
 # prettier 3.0.1 update from 2.x
 72d993c45d9b9d17395e0f0a2726af325ef0621c
+
+# scalafmt AvoidInfix rewrite // https://github.com/lichess-org/lila/pull/14777
+7b84562ada7f2985bdc8bff6c190b503ffda8524

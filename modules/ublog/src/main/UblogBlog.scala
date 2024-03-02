@@ -23,13 +23,13 @@ object UblogBlog:
     case User(id: UserId) extends Id(s"user${Id.sep}$id")
   object Id:
     private val sep = ':'
-    def apply(full: String): Option[Id] = full split sep match
+    def apply(full: String): Option[Id] = full.split(sep) match
       case Array("user", id) => User(UserId(id)).some
       case _                 => none
 
   def make(user: User.WithPerfs) = UblogBlog(
     _id = Id.User(user.id),
-    tier = UblogRank.Tier default user,
+    tier = UblogRank.Tier.default(user),
     modTier = none
   )
 

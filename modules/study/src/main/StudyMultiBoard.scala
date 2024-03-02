@@ -25,7 +25,7 @@ final class StudyMultiBoard(
   def json(studyId: StudyId, page: Int, playing: Boolean): Fu[JsObject] = {
     if page == 1 && !playing then firstPageCache.get(studyId)
     else fetch(studyId, page, playing)
-  } map { PaginatorJson(_) }
+  }.map { PaginatorJson(_) }
 
   def invalidate(studyId: StudyId): Unit = firstPageCache.synchronous().invalidate(studyId)
 
@@ -35,7 +35,7 @@ final class StudyMultiBoard(
       .expireAfterAccess(10 minutes)
       .buildAsyncFuture[StudyId, Paginator[ChapterPreview]] { fetch(_, 1, playing = false) }
 
-  private val playingSelector = $doc("tags" -> "Result:*", "relay.path" $ne "")
+  private val playingSelector = $doc("tags" -> "Result:*", "relay.path".$ne(""))
 
   private def fetch(studyId: StudyId, page: Int, playing: Boolean): Fu[Paginator[ChapterPreview]] =
     Paginator[ChapterPreview](
@@ -122,7 +122,7 @@ function(root, tags) {
           yield ChapterPreview(
             id = id,
             name = name,
-            players = tags flatMap ChapterPreview.players(clocks),
+            players = tags.flatMap(ChapterPreview.players(clocks)),
             orientation = doc.getAsOpt[Color]("orientation") | Color.White,
             fen = fen,
             lastMove = lastMove,

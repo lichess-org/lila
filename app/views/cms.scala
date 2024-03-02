@@ -16,18 +16,22 @@ object cms:
     else
       frag(
         editButton(page),
-        !page.live option span(cls := "cms__draft text", dataIcon := licon.Eye)(
-          "This draft is not published"
+        (!page.live).option(
+          span(cls := "cms__draft text", dataIcon := licon.Eye)(
+            "This draft is not published"
+          )
         ),
         rawHtml(page.html)
       )
 
   private def editButton(p: CmsPage.Render)(using Context) =
-    isGranted(_.Pages) option a(
-      href     := routes.Cms.edit(p.id),
-      cls      := "button button-empty text",
-      dataIcon := licon.Pencil
-    )("Edit")
+    isGranted(_.Pages).option(
+      a(
+        href     := routes.Cms.edit(p.id),
+        cls      := "button button-empty text",
+        dataIcon := licon.Pencil
+      )("Edit")
+    )
 
   private def layout(title: String, edit: Boolean = false)(body: Modifier*)(using PageContext) =
     views.html.base.layout(
@@ -111,10 +115,12 @@ object cms:
           )
       ),
       standardFlash,
-      alts.nonEmpty option div(cls := "cms__alternatives")(
-        renderTable(alts, "Alt languages"),
-        br,
-        br
+      alts.nonEmpty.option(
+        div(cls := "cms__alternatives")(
+          renderTable(alts, "Alt languages"),
+          br,
+          br
+        )
       ),
       postForm(cls := "content_box_content form3", action := routes.Cms.update(page.id)):
         inForm(form, page.some)

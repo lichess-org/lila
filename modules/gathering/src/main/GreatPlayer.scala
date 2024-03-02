@@ -606,9 +606,9 @@ object GreatPlayer:
   private val names: Vector[String] =
     all.view.map { (k, _) => k }.toVector
 
-  def randomName: String = names(ThreadLocalRandom nextInt size)
+  def randomName: String = names(ThreadLocalRandom.nextInt(size))
 
   def wikiUrl(name: String) =
-    all get name map { s =>
+    all.get(name).map { s =>
       s"https://wikipedia.org/wiki/$s"
     }

@@ -30,9 +30,9 @@ final private class Pause:
     )
 
   def remainingDelay(userId: UserId, tour: Tournament): Option[Delay] =
-    cache getIfPresent userId flatMap { record =>
+    cache.getIfPresent(userId).flatMap { record =>
       val seconds = record.pausedAt.toSeconds - nowSeconds + delayOf(record, tour).value
-      seconds > 1 option Delay(seconds.toInt)
+      (seconds > 1).option(Delay(seconds.toInt))
     }
 
   def canJoin(userId: UserId, tour: Tournament): Boolean =

@@ -73,9 +73,11 @@ final private class RelayDelay(colls: RelayColls)(using Executor):
     private def getPgn(upstream: UpstreamUrl, delay: Seconds): Fu[Option[PgnStr]] =
       colls.delay:
         _.find(
-          $doc("_id" $gt idOf(upstream, longPast) $lte idOf(upstream, nowInstant.minusSeconds(delay.value))),
+          $doc(
+            "_id".$gt(idOf(upstream, longPast)).$lte(idOf(upstream, nowInstant.minusSeconds(delay.value)))
+          ),
           $doc("pgn" -> true).some
-        ).sort($sort desc "_id")
+        ).sort($sort.desc("_id"))
           .one[Bdoc]
           .map:
             _.flatMap(_.getAsOpt[PgnStr]("pgn"))

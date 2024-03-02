@@ -9,20 +9,21 @@ import lila.common.IpAddress
 
 private object JsonHandlers:
 
-  given Reads[Currency] = lila.common.Json.tryRead(code => Try(Currency getInstance code.toUpperCase))
+  given Reads[Currency] = lila.common.Json.tryRead(code => Try(Currency.getInstance(code.toUpperCase)))
 
   object stripe:
     given Reads[StripePrice] = Json.reads
     given Reads[StripeItem]  = Json.reads
     // require that the items array is not empty.
     given Reads[StripeSubscription] = (
-      (__ \ "id").read[String] and
-        (__ \ "items" \ "data" \ 0).read[StripeItem] and
-        (__ \ "customer").read[StripeCustomerId] and
-        (__ \ "cancel_at_period_end").read[Boolean] and
-        (__ \ "status").read[String] and
-        (__ \ "default_payment_method").readNullable[String] and
-        (__ \ "ipAddress").readNullable[String].map(_ flatMap IpAddress.from)
+      (__ \ "id")
+        .read[String]
+        .and((__ \ "items" \ "data" \ 0).read[StripeItem])
+        .and((__ \ "customer").read[StripeCustomerId])
+        .and((__ \ "cancel_at_period_end").read[Boolean])
+        .and((__ \ "status").read[String])
+        .and((__ \ "default_payment_method").readNullable[String])
+        .and((__ \ "ipAddress").readNullable[String].map(_.flatMap(IpAddress.from)))
     )(StripeSubscription.apply)
     given Reads[StripeSubscriptions]         = Json.reads
     given Reads[StripeCustomer]              = Json.reads

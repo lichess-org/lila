@@ -46,7 +46,7 @@ object Chart:
       Xaxis(
         name = dimension.name,
         categories = clusters.map(_.x).map(InsightDimension.valueJson(dimension)),
-        dataType = InsightDimension dataTypeOf dimension
+        dataType = InsightDimension.dataTypeOf(dimension)
       )
 
     def sizeSerie =
@@ -105,33 +105,36 @@ object Chart:
       }
 
     def gameUserJson(player: lila.game.Player): Fu[JsObject] =
-      (player.userId so getLightUser) map { lu =>
+      (player.userId.so(getLightUser)).map { lu =>
         Json
           .obj("rating" -> player.rating)
           .add("name", lu.map(_.name))
           .add("title", lu.map(_.title))
       }
 
-    povs.map { pov =>
-      for
-        user1 <- gameUserJson(pov.player)
-        user2 <- gameUserJson(pov.opponent)
-      yield Json.obj(
-        "id"       -> pov.gameId,
-        "fen"      -> (chess.format.Fen writeBoard pov.game.board),
-        "color"    -> pov.player.color.name,
-        "lastMove" -> (pov.game.lastMoveKeys | ""),
-        "user1"    -> user1,
-        "user2"    -> user2
-      )
-    }.parallel map { games =>
-      Chart(
-        question = JsonQuestion fromQuestion question,
-        xAxis = xAxis,
-        valueYaxis = Yaxis(metric.name, metric.dataType.name),
-        sizeYaxis = Yaxis(metric.per.tellNumber, InsightMetric.DataType.Count.name),
-        series = sortedSeries,
-        sizeSerie = sizeSerie,
-        games = games
-      )
-    }
+    povs
+      .map { pov =>
+        for
+          user1 <- gameUserJson(pov.player)
+          user2 <- gameUserJson(pov.opponent)
+        yield Json.obj(
+          "id"       -> pov.gameId,
+          "fen"      -> (chess.format.Fen.writeBoard(pov.game.board)),
+          "color"    -> pov.player.color.name,
+          "lastMove" -> (pov.game.lastMoveKeys | ""),
+          "user1"    -> user1,
+          "user2"    -> user2
+        )
+      }
+      .parallel
+      .map { games =>
+        Chart(
+          question = JsonQuestion.fromQuestion(question),
+          xAxis = xAxis,
+          valueYaxis = Yaxis(metric.name, metric.dataType.name),
+          sizeYaxis = Yaxis(metric.per.tellNumber, InsightMetric.DataType.Count.name),
+          series = sortedSeries,
+          sizeSerie = sizeSerie,
+          games = games
+        )
+      }

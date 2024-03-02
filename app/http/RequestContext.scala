@@ -47,20 +47,22 @@ trait RequestContext(using Executor):
 
   private def getAndSaveLang(req: RequestHeader, me: Option[Me]): Lang =
     val lang = I18nLangPicker(req, me.flatMap(_.lang))
-    me.filter(_.lang.forall(_ != lang.code)) foreach { env.user.repo.setLang(_, lang) }
+    me.filter(_.lang.forall(_ != lang.code)).foreach { env.user.repo.setLang(_, lang) }
     lang
 
   private def pageDataBuilder(using ctx: Context): Fu[PageData] =
-    if HTTPRequest isSynchronousHttp ctx.req
+    if HTTPRequest.isSynchronousHttp(ctx.req)
     then
       val nonce = Nonce.random.some
       ctx.me.foldUse(fuccess(PageData.anon(nonce))): me ?=>
-        env.user.lightUserApi preloadUser me
-        val enabledId = me.enabled.yes option me.userId
-        enabledId.so(env.team.api.nbRequests) zip
-          enabledId.so(env.challenge.api.countInFor.get) zip
-          enabledId.so(env.notifyM.api.unreadCount) zip
-          env.mod.inquiryApi.forMod map { case (((teamNbRequests, nbChallenges), nbNotifications), inquiry) =>
+        env.user.lightUserApi.preloadUser(me)
+        val enabledId = me.enabled.yes.option(me.userId)
+        enabledId
+          .so(env.team.api.nbRequests)
+          .zip(enabledId.so(env.challenge.api.countInFor.get))
+          .zip(enabledId.so(env.notifyM.api.unreadCount))
+          .zip(env.mod.inquiryApi.forMod)
+          .map { case (((teamNbRequests, nbChallenges), nbNotifications), inquiry) =>
             PageData(
               teamNbRequests,
               nbChallenges,
@@ -79,20 +81,23 @@ trait RequestContext(using Executor):
     f(using EmbedContext(ctx.req))
 
   private def makeUserContext(req: RequestHeader): Fu[LoginContext] =
-    env.security.api restoreUser req dmap {
-      case Some(Left(AppealUser(me))) if HTTPRequest.isClosedLoginPath(req) =>
-        FingerPrintedUser(me, true).some
-      case Some(Right(d)) if !env.net.isProd =>
-        d.copy(me = d.me.map:
-          _.addRole(lila.security.Permission.Beta.dbKey)
-        ).some
-      case Some(Right(d)) => d.some
-      case _              => none
-    } flatMap {
-      case None => fuccess(LoginContext.anon)
-      case Some(d) =>
-        env.mod.impersonate.impersonating(d.me) map {
-          _.fold(LoginContext(d.me.some, !d.hasFingerPrint, none, none)): impersonated =>
-            LoginContext(Me(impersonated).some, needsFp = false, d.me.some, none)
-        }
-    }
+    env.security.api
+      .restoreUser(req)
+      .dmap {
+        case Some(Left(AppealUser(me))) if HTTPRequest.isClosedLoginPath(req) =>
+          FingerPrintedUser(me, true).some
+        case Some(Right(d)) if !env.net.isProd =>
+          d.copy(me = d.me.map:
+            _.addRole(lila.security.Permission.Beta.dbKey)
+          ).some
+        case Some(Right(d)) => d.some
+        case _              => none
+      }
+      .flatMap {
+        case None => fuccess(LoginContext.anon)
+        case Some(d) =>
+          env.mod.impersonate.impersonating(d.me).map {
+            _.fold(LoginContext(d.me.some, !d.hasFingerPrint, none, none)): impersonated =>
+              LoginContext(Me(impersonated).some, needsFp = false, d.me.some, none)
+          }
+      }

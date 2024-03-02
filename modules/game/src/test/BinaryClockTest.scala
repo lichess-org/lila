@@ -10,7 +10,7 @@ class BinaryClockTest extends munit.FunSuite:
 
   val _0_                  = "00000000"
   val since                = nowInstant.minusHours(1)
-  def writeBytes(c: Clock) = BinaryFormat.clock(since) write c
+  def writeBytes(c: Clock) = BinaryFormat.clock(since).write(c)
   def readBytes(bytes: ByteArray, berserk: Boolean = false): Clock =
     (BinaryFormat.clock(since).read(bytes, berserk, false))(White)
   def isomorphism(c: Clock): Clock = readBytes(writeBytes(c))
@@ -73,7 +73,7 @@ class BinaryClockTest extends munit.FunSuite:
     val c4 = clock.start
     assert(Maths.isCloseTo(isomorphism(c4).timer.get.value, c4.timer.get.value, 10d))
 
-    Clock(120, 60) pipe { c =>
+    Clock(120, 60).pipe { c =>
       assertEquals(isomorphism(c), c)
     }
   }

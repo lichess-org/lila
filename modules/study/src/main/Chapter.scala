@@ -37,7 +37,7 @@ case class Chapter(
     updateRoot:
       _.withChildren(_.addNodeAt(node, path))
     .map:
-      _.copy(relay = newRelay orElse relay)
+      _.copy(relay = newRelay.orElse(relay))
 
   def setShapes(shapes: Shapes, path: UciPath): Option[Chapter] =
     updateRoot(_.setShapesAt(shapes, path))
@@ -61,8 +61,9 @@ case class Chapter(
     updateRoot(_.forceVariationAt(force, path))
 
   def opening: Option[Opening] =
-    Variant.list.openingSensibleVariants(setup.variant) so
-      OpeningDb.searchInFens(root.mainline.map(_.fen.opening))
+    Variant.list
+      .openingSensibleVariants(setup.variant)
+      .so(OpeningDb.searchInFens(root.mainline.map(_.fen.opening)))
 
   def isEmptyInitial = order == 1 && root.children.isEmpty
 
@@ -88,7 +89,7 @@ case class Chapter(
 
   def withoutChildrenIfPractice = if isPractice then copy(root = root.withoutChildren) else this
 
-  def relayAndTags = relay map { Chapter.RelayAndTags(id, _, tags) }
+  def relayAndTags = relay.map { Chapter.RelayAndTags(id, _, tags) }
 
   def isOverweight = root.children.countRecursive >= Chapter.maxNodes
 
@@ -151,9 +152,9 @@ object Chapter:
   private val defaultNameRegex           = """Chapter \d+""".r
   def isDefaultName(n: StudyChapterName) = n.value.isEmpty || defaultNameRegex.matches(n.value)
 
-  def fixName(n: StudyChapterName) = StudyChapterName(lila.common.String.softCleanUp(n.value) take 80)
+  def fixName(n: StudyChapterName) = StudyChapterName(lila.common.String.softCleanUp(n.value).take(80))
 
-  def makeId = StudyChapterId(ThreadLocalRandom nextString 8)
+  def makeId = StudyChapterId(ThreadLocalRandom.nextString(8))
 
   def make(
       studyId: StudyId,
@@ -177,8 +178,8 @@ object Chapter:
       tags = tags,
       order = order,
       ownerId = ownerId,
-      practice = practice option true,
-      gamebook = gamebook option true,
+      practice = practice.option(true),
+      gamebook = gamebook.option(true),
       conceal = conceal,
       relay = relay,
       createdAt = nowInstant

@@ -23,10 +23,10 @@ case class RelayRound(
     createdAt: Instant,
     crowd: Option[Int]
 ):
-  inline def studyId = id into StudyId
+  inline def studyId = id.into(StudyId)
 
   lazy val slug =
-    val s = lila.common.String slugify name.value
+    val s = lila.common.String.slugify(name.value)
     if s.isEmpty then "-" else s
 
   def finish =
@@ -41,15 +41,15 @@ case class RelayRound(
       sync = sync.play
     )
 
-  def ensureStarted     = copy(startedAt = startedAt orElse nowInstant.some)
+  def ensureStarted     = copy(startedAt = startedAt.orElse(nowInstant.some))
   def hasStarted        = startedAt.isDefined
-  def hasStartedEarly   = hasStarted && startsAt.exists(_ isAfter nowInstant)
-  def shouldHaveStarted = hasStarted || startsAt.exists(_ isBefore nowInstant)
+  def hasStartedEarly   = hasStarted && startsAt.exists(_.isAfter(nowInstant))
+  def shouldHaveStarted = hasStarted || startsAt.exists(_.isBefore(nowInstant))
 
   def shouldGiveUp =
     !hasStarted && startsAt.match
-      case Some(at) => at.isBefore(nowInstant minusHours 3)
-      case None     => createdAt.isBefore(nowInstant minusDays 1)
+      case Some(at) => at.isBefore(nowInstant.minusHours(3))
+      case None     => createdAt.isBefore(nowInstant.minusDays(1))
 
   def withSync(f: RelayRound.Sync => RelayRound.Sync) = copy(sync = f(sync))
 
@@ -59,7 +59,7 @@ case class RelayRound(
 
 object RelayRound:
 
-  def makeId = RelayRoundId(ThreadLocalRandom nextString 8)
+  def makeId = RelayRoundId(ThreadLocalRandom.nextString(8))
 
   opaque type Caption = String
   object Caption extends OpaqueString[Caption]
@@ -79,10 +79,10 @@ object RelayRound:
       if hasUpstream then copy(until = nowInstant.plusHours(1).some)
       else pause
 
-    def ongoing = until so nowInstant.isBefore
+    def ongoing = until.so(nowInstant.isBefore)
 
     def play =
-      if hasUpstream then renew.copy(nextAt = nextAt orElse nowInstant.plusSeconds(3).some)
+      if hasUpstream then renew.copy(nextAt = nextAt.orElse(nowInstant.plusSeconds(3).some))
       else pause
 
     def pause =
@@ -99,7 +99,7 @@ object RelayRound:
     def playing = nextAt.isDefined
     def paused  = !playing
 
-    def addLog(event: SyncLog.Event) = copy(log = log add event)
+    def addLog(event: SyncLog.Event) = copy(log = log.add(event))
     def clearLog                     = copy(log = SyncLog.empty)
 
     def hasDelay      = delay.exists(_.value > 0)
@@ -132,7 +132,7 @@ object RelayRound:
     def path: String =
       s"/broadcast/${tour.slug}/${if link.slug == tour.slug then "-" else link.slug}/${link.id}"
     def path(chapterId: StudyChapterId): String = s"$path/$chapterId"
-    def crowd                                   = display.crowd orElse link.crowd
+    def crowd                                   = display.crowd.orElse(link.crowd)
 
   trait AndGroup:
     def group: Option[RelayGroup.Name]

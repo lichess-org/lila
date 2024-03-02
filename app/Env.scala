@@ -149,10 +149,11 @@ final class Env(
     Future {
       puzzle.daily.get
     }.flatMap(identity)
-      .withTimeoutDefault(50.millis, none) recover { case e: Exception =>
-      lila.log("preloader").warn("daily puzzle", e)
-      none
-    }
+      .withTimeoutDefault(50.millis, none)
+      .recover { case e: Exception =>
+        lila.log("preloader").warn("daily puzzle", e)
+        none
+      }
 
   system.actorOf(Props(new templating.RendererActor), name = config.get[String]("hub.actor.renderer"))
 end Env
@@ -257,4 +258,4 @@ final class EnvBoot(
     lila.log("boot").info(s"Loaded lila modules in ${c.showDuration}")
     c.result
 
-  templating.Environment setEnv env
+  templating.Environment.setEnv(env)

@@ -27,8 +27,8 @@ final class Env(
   def apply(me: Option[User])(text: String, page: Int) =
     Paginator[Study.WithChaptersAndLiked](
       adapter = new AdapterLike[Study]:
-        def query                           = Query(text take 100, me.map(_.id))
-        def nbResults                       = api count query
+        def query                           = Query(text.take(100), me.map(_.id))
+        def nbResults                       = api.count(query)
         def slice(offset: Int, length: Int) = api.search(query, From(offset), Size(length))
       .mapFutureList(pager.withChaptersAndLiking(me)),
       currentPage = page,
@@ -37,9 +37,9 @@ final class Env(
 
   def cli = new lila.common.Cli:
     def process =
-      case "study" :: "search" :: "reset" :: Nil          => api.reset("reset") inject "done"
-      case "study" :: "search" :: "index" :: since :: Nil => api.reset(since) inject "done"
+      case "study" :: "search" :: "reset" :: Nil          => api.reset("reset").inject("done")
+      case "study" :: "search" :: "index" :: since :: Nil => api.reset(since).inject("done")
 
   Bus.subscribeFun("study"):
     case lila.study.actorApi.SaveStudy(study) => api.store(study)
-    case RemoveStudy(id)                      => client.deleteById(id into Id)
+    case RemoveStudy(id)                      => client.deleteById(id.into(Id))

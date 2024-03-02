@@ -44,7 +44,7 @@ object SwissPlayer:
       userId = user.id,
       rating = user.perf.intRating,
       provisional = user.perf.provisional,
-      points = SwissPoints fromDoubled 0,
+      points = SwissPoints.fromDoubled(0),
       tieBreak = Swiss.TieBreak(0),
       performance = none,
       score = Swiss.Score(0),
@@ -53,7 +53,7 @@ object SwissPlayer:
     ).recomputeScore
 
   case class WithRank(player: SwissPlayer, rank: Int):
-    def is(other: WithRank)       = player is other.player
+    def is(other: WithRank)       = player.is(other.player)
     def withUser(user: LightUser) = WithUserAndRank(player, user, rank)
     override def toString         = s"$rank. ${player.userId}[${player.rating}]"
 

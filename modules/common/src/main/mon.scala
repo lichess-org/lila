@@ -270,7 +270,7 @@ object mon:
     def gameStream(event: String) = counter("bot.gameStream").withTag("event", event)
   object cheat:
     def selfReport(wildName: String, auth: Boolean) =
-      val name = if wildName startsWith "soc: " then "soc" else wildName.takeWhile(' ' !=)
+      val name = if wildName.startsWith("soc: ") then "soc" else wildName.takeWhile(' ' !=)
       counter("cheat.selfReport").withTags(tags("name" -> name, "auth" -> auth))
     val holdAlert                    = counter("cheat.holdAlert").withoutTags()
     def autoAnalysis(reason: String) = counter("cheat.autoAnalysis").withTag("reason", reason)
@@ -296,7 +296,7 @@ object mon:
       val prints = gauge("security.firewall.prints").withoutTags()
     object proxy:
       val request                   = future("security.proxy.time")
-      def result(r: Option[String]) = counter("security.proxy.result").withTag("result", r getOrElse "none")
+      def result(r: Option[String]) = counter("security.proxy.result").withTag("result", r.getOrElse("none"))
     def rateLimit(key: String)        = counter("security.rateLimit.count").withTag("key", key)
     def concurrencyLimit(key: String) = counter("security.concurrencyLimit.count").withTag("key", key)
     object dnsApi:

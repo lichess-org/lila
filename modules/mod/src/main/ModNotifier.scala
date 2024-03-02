@@ -9,8 +9,8 @@ final private class ModNotifier(
 )(using Executor):
 
   def reporters(mod: ModId, sus: Suspect): Funit =
-    reportApi.recentReportersOf(sus) flatMap {
-      _.filterNot(_ is mod)
+    reportApi.recentReportersOf(sus).flatMap {
+      _.filterNot(_.is(mod))
         .map: reporterId =>
           notifyApi.notifyOne(reporterId, lila.notify.ReportedBanned)
         .parallel

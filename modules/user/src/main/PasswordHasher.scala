@@ -38,7 +38,7 @@ private object Aes:
   def iv(bytes: Array[Byte]): InitVector = new IvParameterSpec(bytes)
 
 case class HashedPassword(bytes: Array[Byte]) extends AnyVal:
-  def parse     = bytes.lengthIs == 39 option bytes.splitAt(16)
+  def parse     = (bytes.lengthIs == 39).option(bytes.splitAt(16))
   def isBlanked = bytes.isEmpty
 
 final private class PasswordHasher(
@@ -93,7 +93,7 @@ object PasswordHasher:
       userCost: Int = 1
   )(id: UserIdOrEmail, req: RequestHeader)(run: RateLimit.Charge => Fu[A]): Fu[A] =
     if enforce.yes then
-      val ip = HTTPRequest ipAddress req
+      val ip = HTTPRequest.ipAddress(req)
       rateLimitPerUser.chargeable(id, default, cost = userCost, msg = s"IP: $ip"): chargeUser =>
         rateLimitPerIP.chargeable(ip, default, cost = ipCost): chargeIp =>
           rateLimitGlobal("-", default, msg = s"IP: $ip"):

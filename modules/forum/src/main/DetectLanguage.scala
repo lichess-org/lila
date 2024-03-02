@@ -34,20 +34,24 @@ final class DetectLanguage(
             "key" -> config.key.value,
             "q"   -> message.take(messageMaxLength)
           )
-        ) map { response =>
-        (response.body[JsValue] \ "data" \ "detections").asOpt[List[Detection]] match
-          case None =>
-            lila.log("DetectLanguage").warn(s"Invalide service response ${response.body[JsValue]}")
-            None
-          case Some(res) =>
-            res
-              .filter(_.isReliable)
-              .sortBy(-_.confidence)
-              .headOption map (_.language) flatMap Lang.get
-      } recover { case e: Exception =>
-        lila.log("DetectLanguage").warn(e.getMessage, e)
-        defaultLang.some
-      }
+        )
+        .map { response =>
+          (response.body[JsValue] \ "data" \ "detections").asOpt[List[Detection]] match
+            case None =>
+              lila.log("DetectLanguage").warn(s"Invalide service response ${response.body[JsValue]}")
+              None
+            case Some(res) =>
+              res
+                .filter(_.isReliable)
+                .sortBy(-_.confidence)
+                .headOption
+                .map(_.language)
+                .flatMap(Lang.get)
+        }
+        .recover { case e: Exception =>
+          lila.log("DetectLanguage").warn(e.getMessage, e)
+          defaultLang.some
+        }
 
 object DetectLanguage:
 

@@ -16,7 +16,7 @@ final class SwissCache(
       _.expireAfterWrite(1 second)
         .buildAsyncFuture(id => mongo.swiss.byId[Swiss](id))
 
-    def clear(id: SwissId) = cache invalidate id
+    def clear(id: SwissId) = cache.invalidate(id)
     export cache.{ get as byId }
     def notFinishedById(id: SwissId) = byId(id).dmap(_.filter(_.isNotFinished))
     def createdById(id: SwissId)     = byId(id).dmap(_.filter(_.isCreated))
@@ -41,14 +41,14 @@ final class SwissCache(
       val max = 5
       for
         enterable <- mongo.swiss.primitive[SwissId](
-          $doc("teamId" -> teamId, "finishedAt" $exists false),
-          $sort asc "startsAt",
+          $doc("teamId" -> teamId, "finishedAt".$exists(false)),
+          $sort.asc("startsAt"),
           nb = max,
           "_id"
         )
         finished <- mongo.swiss.primitive[SwissId](
-          $doc("teamId" -> teamId, "finishedAt" $exists true),
-          $sort desc "startsAt",
+          $doc("teamId" -> teamId, "finishedAt".$exists(true)),
+          $sort.desc("startsAt"),
           nb = max - enterable.size,
           "_id"
         )

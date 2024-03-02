@@ -12,7 +12,7 @@ final class TournamentStatsApi(
 )(using Executor):
 
   def apply(tournament: Tournament): Fu[Option[TournamentStats]] =
-    tournament.isFinished soFu cache.get(tournament.id)
+    tournament.isFinished.soFu(cache.get(tournament.id))
 
   private given BSONDocumentHandler[TournamentStats] = Macros.handler
 

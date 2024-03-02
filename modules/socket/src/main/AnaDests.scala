@@ -21,10 +21,10 @@ case class AnaDests(
     if isInitial then AnaDests.initialDests
     else
       val sit = chess.Game(variant.some, fen.some).situation
-      sit.playable(false) so destString(sit.destinations)
+      sit.playable(false).so(destString(sit.destinations))
 
-  lazy val opening = Variant.list.openingSensibleVariants(variant) so {
-    OpeningDb findByEpdFen fen
+  lazy val opening = Variant.list.openingSensibleVariants(variant).so {
+    OpeningDb.findByEpdFen(fen)
   }
 
   def json =
@@ -44,9 +44,9 @@ object AnaDests:
     import lila.common.Json.given
     import chess.variant.Variant
     for
-      d <- o obj "d"
+      d <- o.obj("d")
       variant = Variant.orDefault(d.get[Variant.LilaKey]("variant"))
       fen  <- d.get[Fen.Epd]("fen")
-      path <- d str "path"
+      path <- d.str("path")
       chapterId = d.get[StudyChapterId]("ch")
     yield AnaDests(variant = variant, fen = fen, path = path, chapterId = chapterId)

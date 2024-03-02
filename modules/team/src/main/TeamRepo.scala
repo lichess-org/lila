@@ -40,7 +40,7 @@ final class TeamRepo(val coll: Coll)(using Executor):
   private[team] def countCreatedSince(userId: UserId, duration: Period): Fu[Int] =
     coll.countSel:
       $doc(
-        "createdAt" $gt nowInstant.minus(duration),
+        "createdAt".$gt(nowInstant.minus(duration)),
         "createdBy" -> userId
       )
 
@@ -56,7 +56,7 @@ final class TeamRepo(val coll: Coll)(using Executor):
   def addRequest(teamId: TeamId, request: TeamRequest): Funit =
     coll.update
       .one(
-        $id(teamId) ++ $doc("requests.user" $ne request.user),
+        $id(teamId) ++ $doc("requests.user".$ne(request.user)),
         $push("requests" -> request.user)
       )
       .void
@@ -67,13 +67,17 @@ final class TeamRepo(val coll: Coll)(using Executor):
     coll.secondaryPreferred.primitiveOne[Team.Access]($id(id), "forum")
 
   def filterHideMembers(ids: Iterable[TeamId]): Fu[Set[TeamId]] =
-    ids.nonEmpty so coll.secondaryPreferred
-      .distinctEasy[TeamId, Set]("_id", $inIds(ids) ++ $doc("hideMembers" -> true))
+    ids.nonEmpty.so(
+      coll.secondaryPreferred
+        .distinctEasy[TeamId, Set]("_id", $inIds(ids) ++ $doc("hideMembers" -> true))
+    )
 
   def filterHideForum(ids: Iterable[TeamId]): Fu[Set[TeamId]] =
-    ids.nonEmpty so coll.secondaryPreferred
-      .distinctEasy[TeamId, Set]("_id", $inIds(ids) ++ $doc("forum" $ne Team.Access.EVERYONE))
+    ids.nonEmpty.so(
+      coll.secondaryPreferred
+        .distinctEasy[TeamId, Set]("_id", $inIds(ids) ++ $doc("forum".$ne(Team.Access.EVERYONE)))
+    )
 
   private[team] val enabledSelect = $doc("enabled" -> true)
 
-  private[team] val sortPopular = $sort desc "nbMembers"
+  private[team] val sortPopular = $sort.desc("nbMembers")

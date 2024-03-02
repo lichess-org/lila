@@ -18,7 +18,7 @@ final private class SwissSocket(
     reloadThrottler ! LateMultiThrottler.work(
       id = id,
       run = fuccess:
-        send(RP.Out.tellRoom(id into RoomId, makeMessage("reload")))
+        send(RP.Out.tellRoom(id.into(RoomId), makeMessage("reload")))
       ,
       delay = 1.seconds.some
     )
@@ -34,13 +34,15 @@ final private class SwissSocket(
       logger,
       roomId => _.Swiss(SwissId(roomId.value)).some,
       localTimeout = Some: (roomId, modId, _) =>
-        teamOf(SwissId(roomId.value)) flatMapz: teamId =>
+        teamOf(SwissId(roomId.value)).flatMapz: teamId =>
           lila.common.Bus.ask[Boolean]("teamIsLeader") { IsLeaderWithCommPerm(teamId, modId, _) },
       chatBusChan = _.Swiss
     )
 
   private lazy val send: String => Unit = remoteSocketApi.makeSender("swiss-out").apply
 
-  remoteSocketApi.subscribe("swiss-in", RP.In.reader)(
-    handler orElse remoteSocketApi.baseHandler
-  ) andDo send(P.Out.boot)
+  remoteSocketApi
+    .subscribe("swiss-in", RP.In.reader)(
+      handler.orElse(remoteSocketApi.baseHandler)
+    )
+    .andDo(send(P.Out.boot))

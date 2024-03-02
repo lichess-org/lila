@@ -55,14 +55,14 @@ case class Tournament(
     else schedule.fold(if full then s"$name Arena" else name)(_.name(full))
 
   def isMarathon =
-    schedule.map(_.freq) exists {
+    schedule.map(_.freq).exists {
       case Schedule.Freq.ExperimentalMarathon | Schedule.Freq.Marathon => true
       case _                                                           => false
     }
 
-  def isShield = schedule.map(_.freq) has Schedule.Freq.Shield
+  def isShield = schedule.map(_.freq).has(Schedule.Freq.Shield)
 
-  def isUnique = schedule.map(_.freq) has Schedule.Freq.Unique
+  def isUnique = schedule.map(_.freq).has(Schedule.Freq.Unique)
 
   def isMarathonOrUnique = isMarathon || isUnique
 
@@ -70,13 +70,13 @@ case class Tournament(
 
   def isRated = mode == Mode.Rated
 
-  def finishesAt = startsAt plusMinutes minutes
+  def finishesAt = startsAt.plusMinutes(minutes)
 
   def imminentStart = isCreated && (startsAt.toMillis - nowMillis) < 1000
 
-  def secondsToStart = (startsAt.toSeconds - nowSeconds).toInt atLeast 0
+  def secondsToStart = (startsAt.toSeconds - nowSeconds).toInt.atLeast(0)
 
-  def secondsToFinish = (finishesAt.toSeconds - nowSeconds).toInt atLeast 0
+  def secondsToFinish = (finishesAt.toSeconds - nowSeconds).toInt.atLeast(0)
 
   def pairingsClosed = secondsToFinish < math.max(30, math.min(clock.limitSeconds.value / 2, 120))
 
@@ -85,26 +85,26 @@ case class Tournament(
       secondsToFinish > (minutes * 60 / 3).atMost(20 * 60)
     }
 
-  def finishedSinceSeconds: Option[Long] = isFinished option (nowSeconds - finishesAt.toSeconds)
+  def finishedSinceSeconds: Option[Long] = isFinished.option(nowSeconds - finishesAt.toSeconds)
 
   def isRecentlyFinished = finishedSinceSeconds.exists(_ < 30 * 60)
 
   def isRecentlyStarted = isStarted && (nowSeconds - startsAt.toSeconds) < 15
 
-  def isNowOrSoon = startsAt.isBefore(nowInstant plusMinutes 15) && !isFinished
+  def isNowOrSoon = startsAt.isBefore(nowInstant.plusMinutes(15)) && !isFinished
 
-  def isDistant = startsAt.isAfter(nowInstant plusDays 1)
+  def isDistant = startsAt.isAfter(nowInstant.plusDays(1))
 
   def duration = java.time.Duration.ofMinutes(minutes)
 
   def interval = TimeInterval(startsAt, duration)
 
-  def overlaps(other: Tournament) = interval overlaps other.interval
+  def overlaps(other: Tournament) = interval.overlaps(other.interval)
 
   def similarTo(other: Tournament) =
     (schedule, other.schedule) match
-      case (Some(s1), Some(s2)) if s1 similarTo s2 => true
-      case _                                       => false
+      case (Some(s1), Some(s2)) if s1.similarTo(s2) => true
+      case _                                        => false
 
   def sameNameAndTeam(other: Tournament) =
     name == other.name && conditions.teamMember == other.conditions.teamMember
@@ -124,10 +124,10 @@ case class Tournament(
     secondsToFinish.pipe: s =>
       "%02d:%02d".format(s / 60, s % 60)
 
-  def schedulePair = schedule map { this -> _ }
+  def schedulePair = schedule.map { this -> _ }
 
   def winner =
-    winnerId map { userId =>
+    winnerId.map { userId =>
       Winner(
         tourId = id,
         userId = userId,
@@ -136,11 +136,11 @@ case class Tournament(
       )
     }
 
-  def nonLichessCreatedBy = (createdBy != User.lichessId) option createdBy
+  def nonLichessCreatedBy = (createdBy != User.lichessId).option(createdBy)
 
   def ratingVariant = if variant.fromPosition then chess.variant.Standard else variant
 
-  def startingPosition = position flatMap Thematic.byFen
+  def startingPosition = position.flatMap(Thematic.byFen)
 
   lazy val prizeInDescription = lila.gathering.looksLikePrize(s"$name $description")
   lazy val looksLikePrize     = !isScheduled && prizeInDescription
@@ -178,7 +178,7 @@ object Tournament:
       mode = setup.realMode,
       password = setup.password,
       conditions = setup.conditions,
-      teamBattle = setup.teamBattleByTeam map TeamBattle.init,
+      teamBattle = setup.teamBattleByTeam.map(TeamBattle.init),
       noBerserk = !((setup.berserkable | true) && !setup.timeControlPreventsBerserk),
       noStreak = !(setup.streakable | true),
       schedule = None,
@@ -193,7 +193,7 @@ object Tournament:
       id = makeId,
       name = sched.name(full = false)(using defaultLang),
       status = Status.Created,
-      clock = Schedule clockFor sched,
+      clock = Schedule.clockFor(sched),
       minutes = minutes,
       createdBy = User.lichessId,
       createdAt = nowInstant,
@@ -203,12 +203,12 @@ object Tournament:
       mode = Mode.Rated,
       conditions = sched.conditions,
       schedule = Some(sched),
-      startsAt = sched.at.instant plusSeconds ThreadLocalRandom.nextInt(60)
+      startsAt = sched.at.instant.plusSeconds(ThreadLocalRandom.nextInt(60))
     )
 
   def tournamentUrl(tourId: TourId): String = s"https://lichess.org/tournament/$tourId"
 
-  def makeId = TourId(ThreadLocalRandom nextString 8)
+  def makeId = TourId(ThreadLocalRandom.nextString(8))
 
   case class PastAndNext(past: List[Tournament], next: List[Tournament])
 

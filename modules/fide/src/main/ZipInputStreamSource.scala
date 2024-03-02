@@ -55,7 +55,7 @@ object ZipInputStreamSource:
   ): Source[(ZipEntryData, ByteString), Future[Long]] =
     Source
       .fromGraph(new ZipInputStreamSource(in, chunkSize, allowedZipExtensions))
-      .withAttributes(name("zipInputStreamSource") and IODispatcher)
+      .withAttributes(name("zipInputStreamSource").and(IODispatcher))
 
   /** Java API: Factory for [[ZipInputStreamSource]] instances wrapped into [[Source]].
     *
@@ -76,7 +76,7 @@ object ZipInputStreamSource:
   ): Source[(ZipEntryData, ByteString), Future[Long]] =
     Source
       .fromGraph(new ZipInputStreamSource(in, chunkSize, allowedZipExtensions))
-      .withAttributes(name("zipInputStreamSource") and IODispatcher)
+      .withAttributes(name("zipInputStreamSource").and(IODispatcher))
 
 /** A stage that works as a [[Source]] of data chunks extracted from zip files. In addition to regular files,
   * the zip file might contain directories and other zip files. Every chunk is a tuple of [[ZipEntryData]] and

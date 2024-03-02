@@ -43,7 +43,7 @@ final class Env(
 
   private val teamSocket = wire[TeamSocket]
 
-  def version(teamId: TeamId) = teamSocket.rooms.ask[SocketVersion](teamId into RoomId)(GetVersion.apply)
+  def version(teamId: TeamId) = teamSocket.rooms.ask[SocketVersion](teamId.into(RoomId))(GetVersion.apply)
 
   private lazy val notifier = wire[Notifier]
 
@@ -59,7 +59,7 @@ final class Env(
     def process =
       case "team" :: "members" :: "add" :: teamId :: members :: Nil =>
         for
-          team <- teamRepo byId TeamId(teamId) orFail s"Team $teamId not found"
+          team <- teamRepo.byId(TeamId(teamId)).orFail(s"Team $teamId not found")
           userIds = members.split(',').flatMap(UserStr.read).map(_.id).toIndexedSeq
           _ <- api.addMembers(team, userIds)
         yield s"Added ${userIds.size} members to team ${team.name}"
@@ -70,14 +70,14 @@ final class Env(
     },
     "teamIsLeader" -> {
       case lila.hub.actorApi.team.IsLeader(teamId, userId, promise) =>
-        promise completeWith api.isLeader(teamId, userId)
+        promise.completeWith(api.isLeader(teamId, userId))
       case lila.hub.actorApi.team.IsLeaderWithCommPerm(teamId, userId, promise) =>
-        promise completeWith api.hasPerm(teamId, userId, _.Comm)
+        promise.completeWith(api.hasPerm(teamId, userId, _.Comm))
     },
     "teamJoinedBy" -> { case lila.hub.actorApi.team.TeamIdsJoinedBy(userId, promise) =>
-      promise completeWith cached.teamIdsList(userId)
+      promise.completeWith(cached.teamIdsList(userId))
     },
     "teamIsLeaderOf" -> { case lila.hub.actorApi.team.IsLeaderOf(leaderId, memberId, promise) =>
-      promise completeWith api.isLeaderOf(leaderId, memberId)
+      promise.completeWith(api.isLeaderOf(leaderId, memberId))
     }
   )

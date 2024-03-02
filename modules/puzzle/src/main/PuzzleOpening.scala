@@ -25,10 +25,10 @@ case class PuzzleOpeningCollection(
       case None =>
         (
           families.find(_.family.key == op.opening.family.key).so(_.count),
-          op.opening.ref.variation.isDefined so Set(op)
+          op.opening.ref.variation.isDefined.so(Set(op))
         ).some
       case Some((famCount, ops)) =>
-        (famCount, if op.opening.ref.variation.isDefined then ops incl op else ops).some
+        (famCount, if op.opening.ref.variation.isDefined then ops.incl(op) else ops).some
 
   val treePopular: TreeList = treeMap.toList
     .map { case (family, (famCount, ops)) =>
@@ -74,47 +74,52 @@ final class PuzzleOpeningApi(
   private val collectionCache =
     cacheApi.unit[PuzzleOpeningCollection]:
       _.refreshAfterWrite(1 hour).buildAsyncFuture: _ =>
-        countedCache.get(()) map {
-          _.foldLeft(PuzzleOpeningCollection(Nil, Nil)): (acc, obj) =>
-            val count = ~obj.int("count")
-            obj
-              .string("_id")
-              .fold(acc): keyStr =>
-                LilaOpeningFamily.find(keyStr) match
-                  case Some(fam) => acc.copy(families = FamilyWithCount(fam, count) :: acc.families)
-                  case None =>
-                    SimpleOpening
-                      .find(keyStr)
-                      .filter(_.ref.variation != SimpleOpening.otherVariations)
-                      .fold(acc): op =>
-                        acc.copy(openings = PuzzleOpening.WithCount(op, count) :: acc.openings)
-        } map { case PuzzleOpeningCollection(families, openings) =>
-          PuzzleOpeningCollection(families.reverse, openings.reverse)
-        }
+        countedCache
+          .get(())
+          .map {
+            _.foldLeft(PuzzleOpeningCollection(Nil, Nil)): (acc, obj) =>
+              val count = ~obj.int("count")
+              obj
+                .string("_id")
+                .fold(acc): keyStr =>
+                  LilaOpeningFamily.find(keyStr) match
+                    case Some(fam) => acc.copy(families = FamilyWithCount(fam, count) :: acc.families)
+                    case None =>
+                      SimpleOpening
+                        .find(keyStr)
+                        .filter(_.ref.variation != SimpleOpening.otherVariations)
+                        .fold(acc): op =>
+                          acc.copy(openings = PuzzleOpening.WithCount(op, count) :: acc.openings)
+          }
+          .map { case PuzzleOpeningCollection(families, openings) =>
+            PuzzleOpeningCollection(families.reverse, openings.reverse)
+          }
 
   def getClosestTo(
       opening: Opening
   ): Fu[Option[Either[PuzzleOpening.FamilyWithCount, PuzzleOpening.WithCount]]] =
     SimpleOpening(opening).so: lilaOp =>
       collection.map: coll =>
-        coll.openingMap.get(lilaOp.key).map(Right.apply) orElse
-          coll.familyMap.get(lilaOp.family.key).map(Left.apply)
+        coll.openingMap
+          .get(lilaOp.key)
+          .map(Right.apply)
+          .orElse(coll.familyMap.get(lilaOp.family.key).map(Left.apply))
 
   def find(family: OpeningFamily): Fu[Option[PuzzleOpening.FamilyWithCount]] =
-    find(family.key into LilaOpeningFamily.Key)
+    find(family.key.into(LilaOpeningFamily.Key))
 
   def find(family: LilaOpeningFamily.Key): Fu[Option[PuzzleOpening.FamilyWithCount]] =
-    collection map { _.familyMap.get(family) }
+    collection.map { _.familyMap.get(family) }
 
   def collection: Fu[PuzzleOpeningCollection] =
-    collectionCache get {}
+    collectionCache.get {}
 
   def count(key: Either[LilaOpeningFamily.Key, SimpleOpening.Key]): Fu[Int] =
     collection.dmap: coll =>
       key.fold(f => coll.familyMap.get(f).so(_.count), o => coll.openingMap.get(o).so(_.count))
 
   def recomputeAll: Funit = colls.puzzle:
-    _.find($doc(Puzzle.BSONFields.opening $exists true))
+    _.find($doc(Puzzle.BSONFields.opening.$exists(true)))
       .cursor[Puzzle]()
       .documentSource()
       .mapAsyncUnordered(2)(updateOpening)
@@ -125,12 +130,12 @@ final class PuzzleOpeningApi(
       .void
 
   private[puzzle] def updateOpening(puzzle: Puzzle): Funit =
-    (!puzzle.hasTheme(PuzzleTheme.equality) && puzzle.initialPly < 36) so {
-      gameRepo gameFromSecondary puzzle.gameId flatMapz { game =>
+    (!puzzle.hasTheme(PuzzleTheme.equality) && puzzle.initialPly < 36).so {
+      gameRepo.gameFromSecondary(puzzle.gameId).flatMapz { game =>
         OpeningDb.search(game.sans).map(_.opening).flatMap(SimpleOpening.apply) match
           case None =>
             fuccess:
-              logger warn s"No opening for https://lichess.org/training/${puzzle.id}"
+              logger.warn(s"No opening for https://lichess.org/training/${puzzle.id}")
           case Some(o) =>
             val keys = List(o.family.key.value, o.key.value)
             colls.puzzle:

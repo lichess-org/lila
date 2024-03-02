@@ -10,11 +10,11 @@ case class UserPractice(
   def progressOn(studyId: StudyId) =
     val chapterIds = structure.study(studyId).so(_.chapterIds)
     Completion(
-      done = progress countDone chapterIds,
+      done = progress.countDone(chapterIds),
       total = chapterIds.size
     )
 
-  lazy val nbDoneChapters = structure.chapterIds count progress.chapters.contains
+  lazy val nbDoneChapters = structure.chapterIds.count(progress.chapters.contains)
 
   lazy val progressPercent = nbDoneChapters * 100 / structure.nbUnhiddenChapters.atLeast(1)
 

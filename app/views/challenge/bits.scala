@@ -39,7 +39,7 @@ object bits:
         )
       ),
       div(cls := "mode")(
-        c.open.fold(c.colorChoice.some)(_.colorFor(requestedColor)) map { colorChoice =>
+        c.open.fold(c.colorChoice.some)(_.colorFor(requestedColor)).map { colorChoice =>
           frag(colorChoice.trans(), br)
         },
         modeName(c.mode)

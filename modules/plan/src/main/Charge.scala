@@ -26,13 +26,13 @@ case class Charge(
     else if isPayPalCheckout then "paypal checkout"
     else "???"
 
-  def toGift = (userId, giftTo) mapN { Charge.Gift(_, _, date) }
+  def toGift = (userId, giftTo).mapN { Charge.Gift(_, _, date) }
 
   def copyAsNew = copy(_id = Charge.makeId, date = nowInstant)
 
 object Charge:
 
-  private def makeId = ThreadLocalRandom nextString 8
+  private def makeId = ThreadLocalRandom.nextString(8)
 
   def make(
       userId: Option[UserId],

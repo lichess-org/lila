@@ -66,7 +66,7 @@ object mini:
     span(cls := "mini-game__player")(
       span(cls := "mini-game__user")(
         playerUsername(pov.player.light, pov.player.userId.flatMap(lightUser), withRating = false),
-        withRating option span(cls := "rating")(lila.game.Namer ratingString pov.player)
+        withRating.option(span(cls := "rating")(lila.game.Namer.ratingString(pov.player)))
       ),
       if pov.game.finished then renderResult(pov)
       else pov.game.clock.map { renderClock(_, pov.color) }

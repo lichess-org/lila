@@ -35,7 +35,7 @@ final class KaladinApi(
     lila.hub.AsyncActorSequencer(maxSize = Max(512), timeout = 2 minutes, name = "kaladinApi")
 
   private def sequence[A <: Matchable](user: Suspect)(f: Option[KaladinUser] => Fu[A]): Fu[A] =
-    workQueue { coll(_.byId[KaladinUser](user.id.value)) flatMap f }
+    workQueue { coll(_.byId[KaladinUser](user.id.value)).flatMap(f) }
 
   def get(user: User): Fu[Option[KaladinUser]] =
     coll(_.byId[KaladinUser](user.id))
@@ -43,19 +43,19 @@ final class KaladinApi(
   def dashboard: Fu[KaladinUser.Dashboard] = for
     c <- coll.get
     completed <- c
-      .find($doc("response.at" $exists true))
+      .find($doc("response.at".$exists(true)))
       .sort($doc("response.at" -> -1))
       .cursor[KaladinUser]()
       .list(30)
     queued <- c
-      .find($doc("response.at" $exists false))
+      .find($doc("response.at".$exists(false)))
       .sort($doc("queuedAt" -> -1))
       .cursor[KaladinUser]()
       .list(30)
   yield KaladinUser.Dashboard(completed ::: queued)
 
   def modRequest(user: Suspect)(using me: Me) =
-    request(user, KaladinUser.Requester.Mod(me)) andDo notification.add(user.id)
+    request(user, KaladinUser.Requester.Mod(me)).andDo(notification.add(user.id))
 
   private def request(sus: Suspect, requester: KaladinUser.Requester) = sus.user.noBot.so:
     sequence(sus):
@@ -79,9 +79,9 @@ final class KaladinApi(
       // hits a mongodb index
       // db.kaladin_queue.createIndex({'response.at':1,'response.read':1},{partialFilterExpression:{'response.at':{$exists:true}}})
       coll
-        .find($doc("response.at" $exists true, "response.read" $ne true))
+        .find($doc("response.at".$exists(true), "response.read".$ne(true)))
         .sort($doc("response.at" -> 1))
-        .hint(coll hint "response.at_1_response.read_1")
+        .hint(coll.hint("response.at_1_response.read_1"))
         .cursor[KaladinUser]()
         .list(50)
         .flatMap: docs =>
@@ -93,7 +93,7 @@ final class KaladinApi(
   private def readResponse(user: KaladinUser): Funit = user.response.so: res =>
     res.pred match
       case Some(pred) =>
-        markOrReport(user, pred) andDo {
+        markOrReport(user, pred).andDo {
           notification(user)
           lila.mon.mod.kaladin.activation.record(pred.percent)
         }
@@ -106,7 +106,7 @@ final class KaladinApi(
 
     def sendReport = for
       suspect <- getSuspect(user.suspectId.value)
-      kaladin <- userRepo.kaladin orFail s"Kaladin user not found" dmap Mod.apply
+      kaladin <- userRepo.kaladin.orFail(s"Kaladin user not found").dmap(Mod.apply)
       _ <- reportApi.create(
         Report
           .Candidate(
@@ -121,11 +121,12 @@ final class KaladinApi(
       ()
 
     if pred.percent >= thresholds.get().mark then
-      userRepo.hasTitle(user.id) flatMap {
+      userRepo.hasTitle(user.id).flatMap {
         if _ then sendReport
         else
-          modApi.autoMark(user.suspectId, pred.note)(using User.kaladinId.into(Me.Id)) andDo
-            lila.mon.mod.kaladin.mark.increment()
+          modApi
+            .autoMark(user.suspectId, pred.note)(using User.kaladinId.into(Me.Id))
+            .andDo(lila.mon.mod.kaladin.mark.increment())
       }
     else if pred.percent >= thresholds.get().report then sendReport
     else funit
@@ -138,7 +139,7 @@ final class KaladinApi(
       subs = subs.updated(suspectId, ~subs.get(suspectId) + me.modId)
 
     private[KaladinApi] def apply(user: KaladinUser): Funit =
-      subs.get(user.suspectId) so { modIds =>
+      subs.get(user.suspectId).so { modIds =>
         subs = subs - user.suspectId
         modIds
           .map { modId =>
@@ -152,12 +153,12 @@ final class KaladinApi(
     coll {
       _.aggregateList(Int.MaxValue, _.sec): framework =>
         import framework.*
-        Match($doc("response.at" $exists false)) -> List(GroupField("priority")("nb" -> SumAll))
+        Match($doc("response.at".$exists(false))) -> List(GroupField("priority")("nb" -> SumAll))
       .map: res =>
         for
           obj      <- res
-          priority <- obj int "_id"
-          nb       <- obj int "nb"
+          priority <- obj.int("_id")
+          nb       <- obj.int("nb")
         yield (priority, nb)
     }.map:
       _.foreach: (priority, nb) =>
@@ -179,7 +180,7 @@ final class KaladinApi(
           import lila.db.ByteArray.given
           gameRepo.coll
             .find(
-              Query.user(userId) ++ Query.rated ++ Query.createdSince(nowInstant minusMonths 6),
+              Query.user(userId) ++ Query.rated ++ Query.createdSince(nowInstant.minusMonths(6)),
               $doc(F.turns -> true, F.clock -> true).some
             )
             .cursor[Bdoc](ReadPref.sec)
@@ -211,8 +212,8 @@ final class KaladinApi(
     suspects.traverse_(autoRequest(KaladinUser.Requester.TopOnline))
 
   private def getSuspect(suspectId: UserId) =
-    userRepo byId suspectId orFail s"suspect $suspectId not found" dmap Suspect.apply
+    userRepo.byId(suspectId).orFail(s"suspect $suspectId not found").dmap(Suspect.apply)
 
   lila.common.Bus.subscribeFun("cheatReport") { case lila.hub.actorApi.report.CheatReportCreated(userId) =>
-    getSuspect(userId) flatMap autoRequest(KaladinUser.Requester.Report)
+    getSuspect(userId).flatMap(autoRequest(KaladinUser.Requester.Report))
   }

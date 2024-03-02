@@ -98,30 +98,32 @@ object ServerEval:
         import BSONHandlers.given
         import lila.db.dsl.given
         import lila.study.Node.{ BsonFields as F }
-        ((info.eval.score.isDefined && node.eval.isEmpty) || (advOpt.isDefined && !node.comments.hasLichessComment)) so
-          chapterRepo
-            .setNodeValues(
-              chapter,
-              nextPath,
-              List(
-                F.score -> info.eval.score
-                  .ifTrue:
-                    node.eval.isEmpty ||
-                      advOpt.isDefined && node.comments.findBy(Comment.Author.Lichess).isEmpty
-                  .flatMap(bsonWriteOpt),
-                F.comments -> advOpt
-                  .map: adv =>
-                    node.comments + Comment(
-                      Comment.Id.make,
-                      adv.makeComment(withEval = false, withBestMove = true) into Comment.Text,
-                      Comment.Author.Lichess
-                    )
-                  .flatMap(bsonWriteOpt),
-                F.glyphs -> advOpt
-                  .map(adv => node.glyphs merge Glyphs.fromList(List(adv.judgment.glyph)))
-                  .flatMap(bsonWriteOpt)
+        ((info.eval.score.isDefined && node.eval.isEmpty) || (advOpt.isDefined && !node.comments.hasLichessComment))
+          .so(
+            chapterRepo
+              .setNodeValues(
+                chapter,
+                nextPath,
+                List(
+                  F.score -> info.eval.score
+                    .ifTrue:
+                      node.eval.isEmpty ||
+                        advOpt.isDefined && node.comments.findBy(Comment.Author.Lichess).isEmpty
+                    .flatMap(bsonWriteOpt),
+                  F.comments -> advOpt
+                    .map: adv =>
+                      node.comments + Comment(
+                        Comment.Id.make,
+                        adv.makeComment(withEval = false, withBestMove = true).into(Comment.Text),
+                        Comment.Author.Lichess
+                      )
+                    .flatMap(bsonWriteOpt),
+                  F.glyphs -> advOpt
+                    .map(adv => node.glyphs.merge(Glyphs.fromList(List(adv.judgment.glyph))))
+                    .flatMap(bsonWriteOpt)
+                )
               )
-            )
+          )
 
       saveAnalysisLine()
         >> saveInfoAdvice().inject(nextPath)
@@ -130,7 +132,7 @@ object ServerEval:
 
     private def analysisLine(root: Node, variant: chess.variant.Variant, info: Info): Option[Branch] =
       val (_, reversedGames, error) =
-        chess.Replay.gameMoveWhileValidReverse(info.variation take 20, root.fen, variant)
+        chess.Replay.gameMoveWhileValidReverse(info.variation.take(20), root.fen, variant)
       error.foreach(e => logger.info(e.value))
       reversedGames match
         case Nil => none
@@ -146,7 +148,7 @@ object ServerEval:
         id = UciCharPair(m.uci),
         ply = g.ply,
         move = m,
-        fen = Fen write g,
+        fen = Fen.write(g),
         check = g.situation.check,
         crazyData = g.situation.board.crazyData,
         clock = none,
@@ -175,7 +177,7 @@ object ServerEval:
 
     def divisionOf(chapter: Chapter) =
       divider(
-        id = chapter.id into GameId,
+        id = chapter.id.into(GameId),
         sans = chapter.root.mainline.map(_.move.san).toVector,
         variant = chapter.setup.variant,
         initialFen = chapter.root.fen.some
