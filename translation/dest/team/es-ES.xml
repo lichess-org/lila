@@ -60,8 +60,8 @@ Los jugadores a los que no les guste recibir tus mensajes pueden abandonar el eq
   <string name="oneTeamPerLine">Un equipo por línea. Utiliza el autocompletado.</string>
   <string name="oneTeamPerLineHelp">¡Puedes copiar y pegar esta lista de un torneo a otro!
 
-No puedes eliminar un equipo si un jugador ya se ha unido al torneo con él.</string>
-  <string name="numberOfLeadsPerTeam">Cantidad de líderes por equipo. La suma de su puntuación es la puntuación del equipo.</string>
+No puedes eliminar un equipo si un jugador ya se ha unido al torneo en ese equipo.</string>
+  <string name="numberOfLeadsPerTeam">Cantidad de líderes por equipo. La suma de sus puntuaciones será la puntuación del equipo.</string>
   <string name="numberOfLeadsPerTeamHelp">¡No deberías cambiar este valor después de que el torneo haya comenzado!</string>
   <string name="innerTeam">Equipo interno</string>
   <plurals name="battleOfNbTeams">
