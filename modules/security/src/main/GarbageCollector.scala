@@ -33,8 +33,8 @@ final class GarbageCollector(
 
   // User just signed up and doesn't have security data yet, so wait a bit
   def delay(user: User, email: EmailAddress, req: RequestHeader, quickly: Boolean): Unit =
-    if user.createdAt.isAfter(nowInstant minusDays 3) then
-      val ip = HTTPRequest ipAddress req
+    if user.createdAt.isAfter(nowInstant.minusDays(3)) then
+      val ip = HTTPRequest.ipAddress(req)
       scheduler.scheduleOnce(6 seconds):
         val applyData = ApplyData(user, ip, email, req, quickly)
         logger.debug(s"delay $applyData")
@@ -48,7 +48,7 @@ final class GarbageCollector(
           .recoverDefault >> apply(applyData)
 
   private def ensurePrintAvailable(data: ApplyData): Funit =
-    userLogins userHasPrint data.user flatMap {
+    userLogins.userHasPrint(data.user).flatMap {
       case false => fufail("No print available yet")
       case _     => funit
     }
@@ -75,31 +75,35 @@ final class GarbageCollector(
                   spy.ips
                     .existsM(ipTrust.isSuspicious)
                     .map:
-                      _ so collect(
-                        user,
-                        email,
-                        msg = s"Prev users: ${others.map(o => "@" + o.username).mkString(", ")}",
-                        quickly = quickly
+                      _.so(
+                        collect(
+                          user,
+                          email,
+                          msg = s"Prev users: ${others.map(o => "@" + o.username).mkString(", ")}",
+                          quickly = quickly
+                        )
                       )
         yield ()
 
   private def badOtherAccounts(accounts: List[User]): Option[List[User]] =
     val others = accounts
       .sortBy(-_.createdAt.toMillis)
-      .takeWhile(_.createdAt.isAfter(nowInstant minusDays 10))
+      .takeWhile(_.createdAt.isAfter(nowInstant.minusDays(10)))
       .take(4)
-    (others.sizeIs > 1 && others.forall(isBadAccount) && others.headOption.exists(_.enabled.no)) option others
+    (others.sizeIs > 1 && others.forall(isBadAccount) && others.headOption.exists(_.enabled.no))
+      .option(others)
 
   private def isBadAccount(user: User) = user.lameOrTrollOrAlt
 
   private def collect(user: User, email: EmailAddress, msg: => String, quickly: Boolean): Funit =
     justOnce(user.id).so:
-      !hasBeenCollectedBefore(user) map {
+      !hasBeenCollectedBefore(user).map {
         if _ then
           val armed = isArmed()
           val wait  = if quickly then 3.seconds else (30 + ThreadLocalRandom.nextInt(300)).seconds
           val message =
-            s"Will dispose of https://lichess.org/${user.username} in $wait. Email: ${email.value}. $msg${!armed so " [SIMULATION]"}"
+            s"Will dispose of https://lichess.org/${user.username} in $wait. Email: ${email.value}. $msg${!armed
+                .so(" [SIMULATION]")}"
           logger.info(message)
           noteApi.lichessWrite(user, s"Garbage collected because of $msg")
           if armed then
@@ -108,7 +112,7 @@ final class GarbageCollector(
       }
 
   private def hasBeenCollectedBefore(user: User): Fu[Boolean] =
-    noteApi.byUserForMod(user.id).map(_.exists(_.text startsWith "Garbage collected"))
+    noteApi.byUserForMod(user.id).map(_.exists(_.text.startsWith("Garbage collected")))
 
   private def doCollect(user: UserId): Unit =
     Bus.publish(

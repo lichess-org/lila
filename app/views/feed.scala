@@ -56,7 +56,7 @@ object feed:
                       cls      := "button button-green button-empty button-thin text",
                       dataIcon := licon.Pencil
                     ),
-                    !update.public.option(badTag(nbsp, "[Draft]")),
+                    (!update.public).option(badTag(nbsp, "[Draft]")),
                     update.future.option(goodTag(nbsp, "[Future]"))
                   )
                 )

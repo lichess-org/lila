@@ -17,7 +17,7 @@ final class FidePlayerApi(repo: FideRepo, cacheApi: lila.memo.CacheApi)(using Ex
       _.so(idToPlayerCache.get)
 
   def federationsOf(ids: List[FideId]): Fu[Federation.ByFideIds] =
-    idToPlayerCache.getAll(ids) map:
+    idToPlayerCache.getAll(ids).map:
       _.view
         .mapValues(_.flatMap(_.fed))
         .collect:

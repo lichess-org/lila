@@ -16,36 +16,41 @@ final class UserRepo(val coll: Coll)(using Executor):
   def withColl[A](f: Coll => A): A = f(coll)
 
   def topNbGame(nb: Int): Fu[List[User]] =
-    coll.find(enabledNoBotSelect ++ notLame).sort($sort desc "count.game").cursor[User]().list(nb)
+    coll.find(enabledNoBotSelect ++ notLame).sort($sort.desc("count.game")).cursor[User]().list(nb)
 
   def byId[U: UserIdOf](u: U): Fu[Option[User]] =
-    User.noGhost(u.id) so coll
-      .byId[User](u)
-      .recover:
-        case _: reactivemongo.api.bson.exceptions.BSONValueNotFoundException => none // probably GDPRed user
+    User
+      .noGhost(u.id)
+      .so(
+        coll
+          .byId[User](u)
+          .recover:
+            case _: reactivemongo.api.bson.exceptions.BSONValueNotFoundException =>
+              none // probably GDPRed user
+      )
 
   def byIds[U: UserIdOf](
       us: Iterable[U],
       readPref: ReadPref = _.pri
   ): Fu[List[User]] =
     val ids = us.map(_.id).filter(User.noGhost)
-    ids.nonEmpty so coll.byIds[User, UserId](ids, readPref)
+    ids.nonEmpty.so(coll.byIds[User, UserId](ids, readPref))
 
   def byIdsSecondary(ids: Iterable[UserId]): Fu[List[User]] =
     coll.byIds[User, UserId](ids, _.sec)
 
   def enabledById[U: UserIdOf](u: U): Fu[Option[User]] =
-    User.noGhost(u.id) so coll.one[User](enabledSelect ++ $id(u))
+    User.noGhost(u.id).so(coll.one[User](enabledSelect ++ $id(u)))
 
   def enabledByIds[U: UserIdOf](us: Iterable[U]): Fu[List[User]] =
     val ids = us.map(_.id).filter(User.noGhost)
     coll.list[User](enabledSelect ++ $inIds(ids), _.priTemp)
 
   def byIdOrGhost(id: UserId): Fu[Option[Either[LightUser.Ghost, User]]] =
-    if User isGhost id
+    if User.isGhost(id)
     then fuccess(Left(LightUser.ghost).some)
     else
-      coll.byId[User](id).map2(Right.apply) recover { case _: exceptions.BSONValueNotFoundException =>
+      coll.byId[User](id).map2(Right.apply).recover { case _: exceptions.BSONValueNotFoundException =>
         Left(LightUser.ghost).some
       }
 
@@ -63,16 +68,16 @@ final class UserRepo(val coll: Coll)(using Executor):
     coll.primitiveOne[UserId]($doc(F.email -> email), "_id")
 
   def countRecentByPrevEmail(email: NormalizedEmailAddress, since: Instant): Fu[Int] =
-    coll.countSel($doc(F.prevEmail -> email, F.createdAt $gt since))
+    coll.countSel($doc(F.prevEmail -> email, F.createdAt.$gt(since)))
 
   def pair(x: Option[UserId], y: Option[UserId]): Fu[(Option[User], Option[User])] =
-    coll.byIds[User, UserId](List(x, y).flatten) map { users =>
+    coll.byIds[User, UserId](List(x, y).flatten).map { users =>
       x.so(xx => users.find(_.id == xx)) ->
         y.so(yy => users.find(_.id == yy))
     }
 
   def pair(x: UserId, y: UserId): Fu[Option[(User, User)]] =
-    coll.byIds[User, UserId](List(x, y)) map { users =>
+    coll.byIds[User, UserId](List(x, y)).map { users =>
       for
         xx <- users.find(_.id == x)
         yy <- users.find(_.id == y)
@@ -91,10 +96,10 @@ final class UserRepo(val coll: Coll)(using Executor):
     coll.optionsByOrderedIds[User, UserId](userIds, readPref = _.sec)(_.id)
 
   def isEnabled(id: UserId): Fu[Boolean] =
-    User.noGhost(id) so coll.exists(enabledSelect ++ $id(id))
+    User.noGhost(id).so(coll.exists(enabledSelect ++ $id(id)))
 
   def disabledById(id: UserId): Fu[Option[User]] =
-    User.noGhost(id) so coll.one[User](disabledSelect ++ $id(id))
+    User.noGhost(id).so(coll.one[User](disabledSelect ++ $id(id)))
 
   def enabledTitledCursor(proj: Option[Bdoc]) =
     coll
@@ -161,14 +166,16 @@ final class UserRepo(val coll: Coll)(using Executor):
     coll.updateField($id(id), F.profile, profile).void
 
   def setUsernameCased(id: UserId, name: UserName): Funit =
-    if id is name then
-      coll.update.one(
-        $id(id) ++ F.changedCase.$exists(false),
-        $set(F.username -> name, F.changedCase -> true)
-      ) flatMap { result =>
-        if result.n == 0 then fufail(s"You have already changed your username")
-        else funit
-      }
+    if id.is(name) then
+      coll.update
+        .one(
+          $id(id) ++ F.changedCase.$exists(false),
+          $set(F.username -> name, F.changedCase -> true)
+        )
+        .flatMap { result =>
+          if result.n == 0 then fufail(s"You have already changed your username")
+          else funit
+        }
     else fufail(s"Proposed username $name does not match old username $id")
 
   def addTitle(id: UserId, title: UserTitle): Funit =
@@ -184,16 +191,16 @@ final class UserRepo(val coll: Coll)(using Executor):
   val disabledSelect = $doc(F.enabled -> false)
   def markSelect(mark: UserMark)(v: Boolean): Bdoc =
     if v then $doc(F.marks -> mark.key)
-    else F.marks $ne mark.key
-  def engineSelect       = markSelect(UserMark.Engine)
-  def trollSelect        = markSelect(UserMark.Troll)
-  val lame               = $doc(F.marks $in List(UserMark.Engine.key, UserMark.Boost.key))
-  val lameOrTroll        = $doc(F.marks $in List(UserMark.Engine.key, UserMark.Boost.key, UserMark.Troll.key))
-  val notLame            = $doc(F.marks $nin List(UserMark.Engine.key, UserMark.Boost.key))
-  val enabledNoBotSelect = enabledSelect ++ $doc(F.title $ne Title.BOT)
+    else F.marks.$ne(mark.key)
+  def engineSelect = markSelect(UserMark.Engine)
+  def trollSelect  = markSelect(UserMark.Troll)
+  val lame         = $doc(F.marks.$in(List(UserMark.Engine.key, UserMark.Boost.key)))
+  val lameOrTroll  = $doc(F.marks.$in(List(UserMark.Engine.key, UserMark.Boost.key, UserMark.Troll.key)))
+  val notLame      = $doc(F.marks.$nin(List(UserMark.Engine.key, UserMark.Boost.key)))
+  val enabledNoBotSelect = enabledSelect ++ $doc(F.title.$ne(Title.BOT))
   val patronSelect       = $doc(s"${F.plan}.active" -> true)
 
-  val sortCreatedAtDesc = $sort desc F.createdAt
+  val sortCreatedAtDesc = $sort.desc(F.createdAt)
 
   def incNbGames(
       id: UserId,
@@ -205,8 +212,8 @@ final class UserRepo(val coll: Coll)(using Executor):
   ) =
     val incs: List[BSONElement] = List(
       "count.game".some,
-      rated option "count.rated",
-      ai option "count.ai",
+      rated.option("count.rated"),
+      ai.option("count.ai"),
       (result match
         case -1 => "count.loss".some
         case 1  => "count.win".some
@@ -218,10 +225,10 @@ final class UserRepo(val coll: Coll)(using Executor):
         case 1  => "count.winH".some
         case 0  => "count.drawH".some
         case _  => none
-      ) ifFalse ai
+      ).ifFalse(ai)
     ).flatten.map(k => BSONElement(k, BSONInteger(1))) ::: List(
-      totalTime map (v => BSONElement(s"${F.playTime}.total", BSONInteger(v + 2))),
-      tvTime map (v => BSONElement(s"${F.playTime}.tv", BSONInteger(v + 2)))
+      totalTime.map(v => BSONElement(s"${F.playTime}.total", BSONInteger(v + 2))),
+      tvTime.map(v => BSONElement(s"${F.playTime}.tv", BSONInteger(v + 2)))
     ).flatten
 
     coll.update.one($id(id), $inc($doc(incs*)))
@@ -238,13 +245,13 @@ final class UserRepo(val coll: Coll)(using Executor):
       mustConfirmEmail: Boolean,
       lang: Option[String] = None
   ): Fu[Option[User]] =
-    !exists(name) flatMapz {
+    !exists(name).flatMapz {
       val doc = newUser(name, passwordHash, email, blind, mobileApiVersion, mustConfirmEmail, lang) ++
         ("len" -> BSONInteger(name.value.length))
       coll.insert.one(doc) >> byId(name.id)
     }
 
-  def exists[U](id: U)(using uid: UserIdOf[U]): Fu[Boolean] = coll exists $id(uid(id))
+  def exists[U](id: U)(using uid: UserIdOf[U]): Fu[Boolean] = coll.exists($id(uid(id)))
 
   def filterExists(ids: Set[UserId]): Fu[List[UserId]] =
     coll.primitive[UserId]($inIds(ids), F.id)
@@ -255,7 +262,7 @@ final class UserRepo(val coll: Coll)(using Executor):
   private[user] def userIdsLikeFilter(text: UserSearch, filter: Bdoc, max: Int): Fu[List[UserId]] =
     coll
       .find(
-        $doc(F.id $startsWith text.value) ++ enabledSelect ++ filter,
+        $doc(F.id.$startsWith(text.value)) ++ enabledSelect ++ filter,
         $doc(F.id -> true).some
       )
       .sort($doc("len" -> 1))
@@ -286,17 +293,17 @@ final class UserRepo(val coll: Coll)(using Executor):
     coll.distinct[UserId, Set]("_id", Some($inIds(ids) ++ lame))
 
   def filterNotKid(ids: Seq[UserId]): Fu[Set[UserId]] =
-    coll.distinct[UserId, Set]("_id", Some($inIds(ids) ++ $doc(F.kid $ne true)))
+    coll.distinct[UserId, Set]("_id", Some($inIds(ids) ++ $doc(F.kid.$ne(true))))
 
   def filterKid[U: UserIdOf](ids: Seq[U]): Fu[Set[UserId]] =
-    coll.distinct[UserId, Set]("_id", Some($inIds(ids.map(_.id)) ++ $doc(F.kid $eq true)))
+    coll.distinct[UserId, Set]("_id", Some($inIds(ids.map(_.id)) ++ $doc(F.kid.$eq(true))))
 
   def isTroll(id: UserId): Fu[Boolean] = coll.exists($id(id) ++ trollSelect(true))
 
   def isBot(id: UserId): Fu[Boolean] = coll.exists($id(id) ++ botSelect(true))
 
   def isCreatedSince(id: UserId, since: Instant): Fu[Boolean] =
-    coll.exists($id(id) ++ $doc(F.createdAt $lt since))
+    coll.exists($id(id) ++ $doc(F.createdAt.$lt(since)))
 
   def setRoles(id: UserId, roles: List[String]): Funit =
     coll.updateField($id(id), F.roles, roles).void
@@ -304,16 +311,16 @@ final class UserRepo(val coll: Coll)(using Executor):
   def getRoles[U: UserIdOf](u: U): Fu[List[String]] =
     coll.primitiveOne[List[String]]($id(u), User.BSONFields.roles).dmap(_.orZero)
 
-  def withoutTwoFactor(id: UserId) = coll.one[User]($id(id) ++ $doc(F.totpSecret $exists false))
+  def withoutTwoFactor(id: UserId) = coll.one[User]($id(id) ++ $doc(F.totpSecret.$exists(false)))
 
-  def withoutEmail(id: UserId) = coll.one[User]($id(id) ++ $doc(F.email $exists false))
+  def withoutEmail(id: UserId) = coll.one[User]($id(id) ++ $doc(F.email.$exists(false)))
 
   def disableTwoFactor(id: UserId) = coll.update.one($id(id), $unset(F.totpSecret))
 
   def setupTwoFactor(id: UserId, totp: TotpSecret): Funit =
     coll.update
       .one(
-        $id(id) ++ (F.totpSecret $exists false), // never overwrite existing secret
+        $id(id) ++ (F.totpSecret.$exists(false)), // never overwrite existing secret
         $set(F.totpSecret -> totp.secret)
       )
       .void
@@ -322,7 +329,7 @@ final class UserRepo(val coll: Coll)(using Executor):
     coll.updateField($id(id), F.enabled, true) >>
       coll.update
         .one(
-          $id(id) ++ $doc(F.email $exists false),
+          $id(id) ++ $doc(F.email.$exists(false)),
           $doc("$rename" -> $doc(F.prevEmail -> F.email)) ++
             $doc("$unset" -> $doc(F.eraseAt -> true))
         )
@@ -342,7 +349,7 @@ final class UserRepo(val coll: Coll)(using Executor):
 
   import Authenticator.*
   def getPasswordHash(id: UserId): Fu[Option[String]] =
-    coll.byId[AuthData](id, authProjection) map {
+    coll.byId[AuthData](id, authProjection).map {
       _.map { _.hashToken }
     }
 
@@ -359,10 +366,10 @@ final class UserRepo(val coll: Coll)(using Executor):
         lila.common.Bus.publish(lila.hub.actorApi.user.ChangeEmail(id, email), "email")
 
   private[user] def anyEmail(doc: Bdoc): Option[EmailAddress] =
-    doc.getAsOpt[EmailAddress](F.verbatimEmail) orElse doc.getAsOpt[EmailAddress](F.email)
+    doc.getAsOpt[EmailAddress](F.verbatimEmail).orElse(doc.getAsOpt[EmailAddress](F.email))
 
   private def anyEmailOrPrevious(doc: Bdoc): Option[EmailAddress] =
-    anyEmail(doc) orElse doc.getAsOpt[EmailAddress](F.prevEmail)
+    anyEmail(doc).orElse(doc.getAsOpt[EmailAddress](F.prevEmail))
 
   def email(id: UserId): Fu[Option[EmailAddress]] =
     coll
@@ -384,7 +391,7 @@ final class UserRepo(val coll: Coll)(using Executor):
         for
           doc         <- maybeDoc
           storedEmail <- anyEmail(doc)
-          user        <- summon[BSONHandler[User]] readOpt doc
+          user        <- summon[BSONHandler[User]].readOpt(doc)
         yield (user, storedEmail)
 
   def prevEmail(id: UserId): Fu[Option[EmailAddress]] =
@@ -395,7 +402,7 @@ final class UserRepo(val coll: Coll)(using Executor):
       .find($id(id), $doc(F.email -> true, F.verbatimEmail -> true, F.prevEmail -> true).some)
       .one[Bdoc]
       .mapz: doc =>
-        anyEmail(doc) orElse doc.getAsOpt[EmailAddress](F.prevEmail)
+        anyEmail(doc).orElse(doc.getAsOpt[EmailAddress](F.prevEmail))
 
   def emailMap(ids: List[UserId]): Fu[Map[UserId, EmailAddress]] =
     coll
@@ -460,7 +467,7 @@ final class UserRepo(val coll: Coll)(using Executor):
       coll.secondaryPreferred.exists($inIds(userIds) ++ disabledSelect)
 
   def userIdsWithRoles(roles: List[String]): Fu[Set[UserId]] =
-    coll.distinctEasy[UserId, Set]("_id", $doc("roles" $in roles))
+    coll.distinctEasy[UserId, Set]("_id", $doc("roles".$in(roles)))
 
   def countEngines(userIds: List[UserId]): Fu[Int] =
     coll.secondaryPreferred.countSel($inIds(userIds) ++ engineSelect(true))
@@ -472,12 +479,12 @@ final class UserRepo(val coll: Coll)(using Executor):
     coll.exists($inIds(userIds) ++ engineSelect(true))
 
   def mustConfirmEmail(id: UserId): Fu[Boolean] =
-    coll.exists($id(id) ++ $doc(F.mustConfirmEmail $exists true))
+    coll.exists($id(id) ++ $doc(F.mustConfirmEmail.$exists(true)))
 
   def setEmailConfirmed(id: UserId): Fu[Option[EmailAddress]] =
-    coll.update.one($id(id) ++ $doc(F.mustConfirmEmail $exists true), $unset(F.mustConfirmEmail)) flatMap {
+    coll.update.one($id(id) ++ $doc(F.mustConfirmEmail.$exists(true)), $unset(F.mustConfirmEmail)).flatMap {
       res =>
-        (res.nModified == 1) so email(id)
+        (res.nModified == 1).so(email(id))
     }
 
   def setFlair(user: User, flair: Option[Flair]): Funit =
@@ -496,27 +503,29 @@ final class UserRepo(val coll: Coll)(using Executor):
     coll.one[User.Speaker]($id(id), speakerProjection)
 
   def contacts(orig: UserId, dest: UserId): Fu[Option[User.Contacts]] =
-    coll.byOrderedIds[User.Contact, UserId](
-      List(orig, dest),
-      $doc(F.kid -> true, F.marks -> true, F.roles -> true, F.createdAt -> true).some
-    )(_._id) map {
-      case List(o, d) => User.Contacts(o, d).some
-      case _          => none
-    }
+    coll
+      .byOrderedIds[User.Contact, UserId](
+        List(orig, dest),
+        $doc(F.kid -> true, F.marks -> true, F.roles -> true, F.createdAt -> true).some
+      )(_._id)
+      .map {
+        case List(o, d) => User.Contacts(o, d).some
+        case _          => none
+      }
 
   def isErased(user: User): Fu[User.Erased] = User.Erased.from:
     user.enabled.no.so:
-      coll.exists($id(user.id) ++ $doc(F.erasedAt $exists true))
+      coll.exists($id(user.id) ++ $doc(F.erasedAt.$exists(true)))
 
   def filterClosedOrInactiveIds(since: Instant)(ids: Iterable[UserId]): Fu[List[UserId]] =
     coll.distinctEasy[UserId, List](
       F.id,
-      $inIds(ids) ++ $or(disabledSelect, F.seenAt $lt since),
+      $inIds(ids) ++ $or(disabledSelect, F.seenAt.$lt(since)),
       _.sec
     )
 
   def setEraseAt(user: User) =
-    coll.updateField($id(user.id), F.eraseAt, nowInstant plusDays 1).void
+    coll.updateField($id(user.id), F.eraseAt, nowInstant.plusDays(1)).void
 
   private def newUser(
       name: UserName,
@@ -546,7 +555,7 @@ final class UserRepo(val coll: Coll)(using Executor):
       F.playTime              -> User.PlayTime(0, 0),
       F.lang                  -> lang
     ) ++ {
-      (email.value != normalizedEmail.value) so $doc(F.verbatimEmail -> email)
+      (email.value != normalizedEmail.value).so($doc(F.verbatimEmail -> email))
     } ++ {
-      blind so $doc(F.blind -> true)
+      blind.so($doc(F.blind -> true))
     }

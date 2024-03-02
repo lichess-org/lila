@@ -24,14 +24,16 @@ final class EmailAddressValidator(
   def uniqueConstraint(forUser: Option[User]) =
     Constraint[EmailAddress]("constraint.email_unique") { email =>
       val (taken, reused) =
-        (isTakenBySomeoneElse(email, forUser) zip wasUsedTwiceRecently(email)).await(2 seconds, "emailUnique")
+        (isTakenBySomeoneElse(email, forUser)
+          .zip(wasUsedTwiceRecently(email)))
+          .await(2 seconds, "emailUnique")
       if taken || reused then Invalid(ValidationError("error.email_unique"))
       else Valid
     }
 
   def differentConstraint(than: Option[EmailAddress]) =
     Constraint[EmailAddress]("constraint.email_different") { email =>
-      if than has email then Invalid(ValidationError("error.email_different"))
+      if than.has(email) then Invalid(ValidationError("error.email_different"))
       else Valid
     }
 
@@ -43,15 +45,17 @@ final class EmailAddressValidator(
     e.domain.map(_.lower).fold(fuccess(Result.DomainMissing))(validateDomain)
 
   private[security] def validateDomain(domain: Domain.Lower): Fu[Result] =
-    if DisposableEmailDomain.whitelisted(domain into Domain) then fuccess(Result.Passlist)
-    else if disposable(domain into Domain) then fuccess(Result.Blocklist)
+    if DisposableEmailDomain.whitelisted(domain.into(Domain)) then fuccess(Result.Passlist)
+    else if disposable(domain.into(Domain)) then fuccess(Result.Blocklist)
     else
-      dnsApi.mx(domain) flatMap: domains =>
-        if domains.isEmpty then fuccess(Result.DnsMissing)
-        else if domains.exists(disposable.asMxRecord) then fuccess(Result.DnsBlocklist)
-        else
-          verifyMail(domain).map: ok =>
-            if ok then Result.Alright else Result.Reputation
+      dnsApi
+        .mx(domain)
+        .flatMap: domains =>
+          if domains.isEmpty then fuccess(Result.DnsMissing)
+          else if domains.exists(disposable.asMxRecord) then fuccess(Result.DnsBlocklist)
+          else
+            verifyMail(domain).map: ok =>
+              if ok then Result.Alright else Result.Reputation
 
   // the DNS emails should have been preloaded
   private[security] val withAcceptableDns = Constraint[EmailAddress]("constraint.email_acceptable") { email =>
@@ -75,7 +79,7 @@ final class EmailAddressValidator(
     * @return
     */
   private def isTakenBySomeoneElse(email: EmailAddress, forUser: Option[User]): Fu[Boolean] =
-    userRepo.idByEmail(email.normalize) dmap (_ -> forUser) dmap {
+    userRepo.idByEmail(email.normalize).dmap(_ -> forUser).dmap {
       case (None, _)                  => false
       case (Some(userId), Some(user)) => userId != user.id
       case (_, _)                     => true

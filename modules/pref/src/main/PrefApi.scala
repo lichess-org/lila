@@ -37,7 +37,7 @@ final class PrefApi(
         .void andDo { cache invalidate user.id }
   } andDo { cache invalidate user.id }
 
-  def get(user: User): Fu[Pref] = cache get user.id dmap:
+  def get(user: User): Fu[Pref] = cache.get(user.id).dmap:
     _ | Pref.create(user)
 
   def get[A](user: User, pref: Pref => A): Fu[A] = get(user) dmap pref

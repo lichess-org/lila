@@ -17,9 +17,9 @@ object Bus:
 
   def subscribe(ref: ActorRef, to: Channel) = bus.subscribe(Tellable.Actor(ref), to)
 
-  def subscribe(subscriber: Tellable, to: Channel*)   = to foreach { bus.subscribe(subscriber, _) }
-  def subscribe(ref: ActorRef, to: Channel*)          = to foreach { bus.subscribe(Tellable.Actor(ref), _) }
-  def subscribe(ref: ActorRef, to: Iterable[Channel]) = to foreach { bus.subscribe(Tellable.Actor(ref), _) }
+  def subscribe(subscriber: Tellable, to: Channel*)   = to.foreach { bus.subscribe(subscriber, _) }
+  def subscribe(ref: ActorRef, to: Channel*)          = to.foreach { bus.subscribe(Tellable.Actor(ref), _) }
+  def subscribe(ref: ActorRef, to: Iterable[Channel]) = to.foreach { bus.subscribe(Tellable.Actor(ref), _) }
 
   def subscribeFun(to: Channel*)(f: PartialFunction[Matchable, Unit]): Tellable =
     val t = Tellable(f)
@@ -81,6 +81,6 @@ final private class EventBus[Event, Channel, Subscriber](
       )
 
   def publish(event: Event, channel: Channel): Unit =
-    Option(entries get channel).foreach:
-      _ foreach:
+    Option(entries.get(channel)).foreach:
+      _.foreach:
         publish(_, event)

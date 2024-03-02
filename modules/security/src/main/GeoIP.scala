@@ -12,7 +12,7 @@ import com.maxmind.geoip2.model.CityResponse
 final class GeoIP(config: GeoIP.Config):
 
   val reader: Option[DatabaseReader] =
-    try config.file.nonEmpty option new DatabaseReader.Builder(new java.io.File(config.file)).build
+    try config.file.nonEmpty.option(new DatabaseReader.Builder(new java.io.File(config.file)).build)
     catch
       case e: Exception =>
         logger.error("MaxMindIpGeo couldn't load", e)
@@ -26,10 +26,10 @@ final class GeoIP(config: GeoIP.Config):
   private def compute(ip: IpAddress): Option[Location] = for
     r    <- reader
     inet <- ip.inet
-    res  <- Try(r city inet).toOption
+    res  <- Try(r.city(inet)).toOption
   yield Location(res)
 
-  def apply(ip: IpAddress): Option[Location] = cache get ip
+  def apply(ip: IpAddress): Option[Location] = cache.get(ip)
 
   def orUnknown(ip: IpAddress): Location = apply(ip) | Location.unknown
 
@@ -52,7 +52,7 @@ case class Location(
 
   def shortCountry: String = ~country.split(',').headOption
 
-  override def toString = List(shortCountry.some, region, city).flatten mkString " > "
+  override def toString = List(shortCountry.some, region, city).flatten.mkString(" > ")
 
 object Location:
 

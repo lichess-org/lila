@@ -22,7 +22,7 @@ final class RankingApi(
     save(user, perfType, perfs(perfType))
 
   def save(user: User, perfType: PerfType, perf: Perf): Funit =
-    (user.rankable && perf.nb >= 2 && PerfType.isLeaderboardable(perfType)) so coll:
+    (user.rankable && perf.nb >= 2 && PerfType.isLeaderboardable(perfType)).so(coll:
       _.update
         .one(
           $id(makeId(user.id, perfType)),
@@ -30,22 +30,23 @@ final class RankingApi(
             "perf"      -> perfType.id,
             "rating"    -> perf.intRating,
             "prog"      -> perf.progress,
-            "stable"    -> perf.rankable(PerfType variantOf perfType),
+            "stable"    -> perf.rankable(PerfType.variantOf(perfType)),
             "expiresAt" -> nowInstant.plusDays(7)
           ),
           upsert = true
         )
         .void
+    )
 
   def remove(userId: UserId): Funit =
     coll:
-      _.delete.one($doc("_id" $startsWith s"$userId:")).void
+      _.delete.one($doc("_id".$startsWith(s"$userId:"))).void
 
   private def makeId(userId: UserId, perfType: PerfType) =
     s"$userId:${perfType.id}"
 
   private[user] def topPerf(perfId: Perf.Id, nb: Int): Fu[List[User.LightPerf]] =
-    PerfType.id2key(perfId).filter(k => PerfType(k).exists(PerfType.isLeaderboardable)) so { perfKey =>
+    PerfType.id2key(perfId).filter(k => PerfType(k).exists(PerfType.isLeaderboardable)).so { perfKey =>
       coll:
         _.find($doc("perf" -> perfId, "stable" -> true))
           .sort($doc("rating" -> -1))
@@ -102,7 +103,7 @@ final class RankingApi(
       cache.getUnit.value match
         case Some(Success(all)) =>
           all.flatMap: (pt, ranking) =>
-            ranking get userId map (pt -> _)
+            ranking.get(userId).map(pt -> _)
         case _ => Map.empty
 
     private val cache = cacheApi.unit[Map[PerfType, Map[UserId, Rank]]]:
@@ -149,35 +150,38 @@ final class RankingApi(
 
     // from 600 to 2800 by Stat.group
     private def compute(perfId: Perf.Id): Fu[List[NbUsers]] =
-      lila.rating.PerfType(perfId).exists(lila.rating.PerfType.leaderboardable.contains) so coll:
-        _.aggregateList(maxDocs = Int.MaxValue): framework =>
-          import framework.*
-          Match($doc("perf" -> perfId)) -> List(
-            Project(
-              $doc(
-                "_id" -> false,
-                "r" -> $doc(
-                  "$subtract" -> $arr(
-                    "$rating",
-                    $doc("$mod" -> $arr("$rating", Stat.group))
+      lila.rating
+        .PerfType(perfId)
+        .exists(lila.rating.PerfType.leaderboardable.contains)
+        .so(coll:
+          _.aggregateList(maxDocs = Int.MaxValue): framework =>
+            import framework.*
+            Match($doc("perf" -> perfId)) -> List(
+              Project(
+                $doc(
+                  "_id" -> false,
+                  "r" -> $doc(
+                    "$subtract" -> $arr(
+                      "$rating",
+                      $doc("$mod" -> $arr("$rating", Stat.group))
+                    )
                   )
                 )
-              )
-            ),
-            GroupField("r")("nb" -> SumAll)
-          )
-        .map: res =>
-          val hash: Map[Int, NbUsers] = res.view
-            .flatMap: obj =>
-              for
-                rating <- obj.int("_id")
-                nb     <- obj.getAsOpt[NbUsers]("nb")
-              yield rating -> nb
-            .to(Map)
-          (Glicko.minRating.value to 2800 by Stat.group)
-            .map(hash.getOrElse(_, 0))
-            .toList
-      .addEffect(monitorRatingDistribution(perfId))
+              ),
+              GroupField("r")("nb" -> SumAll)
+            )
+          .map: res =>
+            val hash: Map[Int, NbUsers] = res.view
+              .flatMap: obj =>
+                for
+                  rating <- obj.int("_id")
+                  nb     <- obj.getAsOpt[NbUsers]("nb")
+                yield rating -> nb
+              .to(Map)
+            (Glicko.minRating.value to 2800 by Stat.group)
+              .map(hash.getOrElse(_, 0))
+              .toList
+        .addEffect(monitorRatingDistribution(perfId)))
 
     /* monitors cumulated ratio of players in each rating group, for a perf
      *

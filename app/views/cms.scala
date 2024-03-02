@@ -16,7 +16,7 @@ object cms:
     else
       frag(
         editButton(page),
-        !page.live.option(
+        (!page.live).option(
           span(cls := "cms__draft text", dataIcon := licon.Eye)(
             "This draft is not published"
           )

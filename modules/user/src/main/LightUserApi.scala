@@ -42,7 +42,7 @@ final class LightUserApi(repo: UserRepo, cacheApi: CacheApi)(using Executor) ext
     compute = id =>
       if User isGhost id then fuccess(LightUser.ghost.some)
       else
-        repo.coll.find($id(id), projection).one[LightUser] recover:
+        repo.coll.find($id(id), projection).one[LightUser].recover:
           case _: reactivemongo.api.bson.exceptions.BSONValueNotFoundException => LightUser.ghost.some
     ,
     default = id => LightUser(id, id into UserName, None, None, isPatron = false).some,

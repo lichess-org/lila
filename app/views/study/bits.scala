@@ -54,7 +54,7 @@ object bits:
         div(
           tag(cls := "study-name")(s.study.name),
           span(
-            !s.study.isPublic.option(
+            (!s.study.isPublic).option(
               frag(
                 iconTag(licon.Padlock)(cls := "private", ariaTitle(trans.study.`private`.txt())),
                 " "

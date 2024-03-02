@@ -29,4 +29,4 @@ object Captcha:
 
   import scala.reflect.Selectable.reflectiveSelectable
   def isFailed(form: Form.FormLike) =
-    form.errors.exists { _.messages has failMessage }
+    form.errors.exists { _.messages.has(failMessage) }
