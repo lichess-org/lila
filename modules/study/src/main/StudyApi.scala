@@ -27,7 +27,8 @@ final class StudyApi(
     lightUserApi: lila.user.LightUserApi,
     chatApi: ChatApi,
     timeline: lila.hub.actors.Timeline,
-    serverEvalRequester: ServerEval.Requester
+    serverEvalRequester: ServerEval.Requester,
+    multiboard: StudyMultiBoard
 )(using Executor, akka.stream.Materializer):
 
   import sequencer.*
@@ -819,7 +820,10 @@ final class StudyApi(
     sendTo(study.id)(_.reloadSriBecauseOf(sri, chapterId))
 
   def reloadChapters(study: Study) =
-    chapterRepo.orderedMetadataMin(study.id).foreach { chapters =>
+    val chapters =
+      if study.isRelay then multiboard.list(study.id)
+      else chapterRepo.orderedMetadataMin(study.id)
+    chapters.foreach { chapters =>
       sendTo(study.id)(_.reloadChapters(chapters))
     }
 

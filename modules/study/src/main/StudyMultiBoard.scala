@@ -37,6 +37,9 @@ final class StudyMultiBoard(
 
   private val playingSelector = $doc("tags" -> "Result:*", "relay.path".$ne(""))
 
+  def list(studyId: StudyId): Fu[Seq[ChapterPreview]] =
+    fetch(studyId, 1, false, MaxPerPage(64)).map(_.currentPageResults)
+
   def fetch(studyId: StudyId, page: Int, playing: Boolean, max: MaxPerPage = maxPerPage): Fu[Paginator[ChapterPreview]] =
     Paginator[ChapterPreview](
       ChapterPreviewAdapter(studyId, playing),
@@ -62,11 +65,44 @@ final class StudyMultiBoard(
               Limit(length),
               Project:
                 $doc(
+                  "name" -> true,
                   "comp" -> $doc:
                     "$function" -> $doc(
                       "lang" -> "js",
                       "args" -> $arr("$root", "$tags"),
-                      "body" -> """
+                      "body" -> chapterTagsJsComputation
+                    )
+                  ,
+                  "orientation" -> "$setup.orientation",
+                  "lastMoveAt"  -> "$relay.lastMoveAt"
+                )
+            )
+        }
+        .map: r =>
+          for
+            doc  <- r
+            id   <- doc.getAsOpt[StudyChapterId]("_id")
+            name <- doc.getAsOpt[StudyChapterName]("name")
+            lastMoveAt = doc.getAsOpt[Instant]("lastMoveAt")
+            comp      <- doc.getAsOpt[Bdoc]("comp")
+            node      <- comp.getAsOpt[Bdoc]("node")
+            fen       <- node.getAsOpt[Fen.Epd]("fen")
+            clocksDoc <- comp.getAsOpt[Bdoc]("clocks")
+            clocks   = ByColor[Option[Centis]](c => clocksDoc.getAsOpt[Centis](c.name))
+            lastMove = node.getAsOpt[Uci]("uci")
+            tags     = comp.getAsOpt[Tags]("tags")
+          yield ChapterPreview(
+            id = id,
+            name = name,
+            players = tags.flatMap(ChapterPreview.players(clocks)),
+            orientation = doc.getAsOpt[Color]("orientation") | Color.White,
+            fen = fen,
+            lastMove = lastMove,
+            lastMoveAt = lastMoveAt,
+            result = tags.flatMap(_(_.Result)) map Outcome.fromResult
+          )
+
+  private val chapterTagsJsComputation = """
 function(root, tags) {
   tags = tags.filter(t => t.startsWith('White') || t.startsWith('Black') || t.startsWith('Result'));
   const [node, clockTicking] = tags.length ?
@@ -99,37 +135,6 @@ function(root, tags) {
     }
   }
 }""".stripMargin
-                    )
-                  ,
-                  "orientation" -> "$setup.orientation",
-                  "lastMoveAt"  -> "$relay.lastMoveAt"
-                )
-            )
-        }
-        .map: r =>
-          for
-            doc  <- r
-            id   <- doc.getAsOpt[StudyChapterId]("_id")
-            name <- doc.getAsOpt[StudyChapterName]("name")
-            lastMoveAt = doc.getAsOpt[Instant]("lastMoveAt")
-            comp      <- doc.getAsOpt[Bdoc]("comp")
-            node      <- comp.getAsOpt[Bdoc]("node")
-            fen       <- node.getAsOpt[Fen.Epd]("fen")
-            clocksDoc <- comp.getAsOpt[Bdoc]("clocks")
-            clocks   = ByColor[Option[Centis]](c => clocksDoc.getAsOpt[Centis](c.name))
-            lastMove = node.getAsOpt[Uci]("uci")
-            tags     = comp.getAsOpt[Tags]("tags")
-          yield ChapterPreview(
-            id = id,
-            name = name,
-            players = tags.flatMap(ChapterPreview.players(clocks)),
-            orientation = doc.getAsOpt[Color]("orientation") | Color.White,
-            fen = fen,
-            lastMove = lastMove,
-            lastMoveAt = lastMoveAt,
-            playing = lastMove.isDefined && tags.flatMap(_(_.Result)).has("*"),
-            outcome = tags.flatMap(_.outcome)
-          )
 
 object StudyMultiBoard:
 
@@ -141,9 +146,9 @@ object StudyMultiBoard:
       fen: Fen.Epd,
       lastMove: Option[Uci],
       lastMoveAt: Option[Instant],
-      playing: Boolean,
-      outcome: Option[Outcome]
-  ) extends Chapter.Metadata
+      result: Option[Option[Outcome]]
+  ) extends Chapter.Metadata:
+    def playing = lastMove.isDefined && result.contains(None)
 
   object ChapterPreview:
 
@@ -171,4 +176,14 @@ object StudyMultiBoard:
 
   given Writes[Outcome] = writeAs(_.toString.replace("1/2", "½"))
 
-  given chapterPreviewWrites: OWrites[ChapterPreview] = Json.writes
+  given chapterPreviewWrites: OWrites[ChapterPreview] = c =>
+    Json.obj(
+      "id"          -> c.id,
+      "name"        -> c.name,
+      "players"     -> c.players,
+      "orientation" -> c.orientation,
+      "fen"         -> c.fen,
+      "lastMove"    -> c.lastMove,
+      "lastMoveAt"  -> c.lastMoveAt,
+      "status"      -> c.statusStr
+    )

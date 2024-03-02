@@ -142,7 +142,7 @@ export function view(ctrl: StudyCtrl): VNode {
           [
             h('span', loading ? h('span.ddloader') : ['' + (i + 1)]),
             h('h3', chapter.name),
-            chapter.res && h('res', chapter.res),
+            chapter.status && h('res', chapter.status),
             canContribute && h('i.act', { attrs: { ...dataIcon(licon.Gear), title: 'Edit chapter' } }),
           ],
         );

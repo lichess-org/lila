@@ -203,7 +203,7 @@ final class Study(
     for
       chapters <-
         if sc.study.isRelay
-        then env.study.multiBoard.fetch(sc.study.id, 1, false, MaxPerPage(64)).map(_.currentPageResults)
+        then env.study.multiBoard.list(sc.study.id)
         else env.study.chapterRepo.orderedMetadataMin(sc.study.id)
       (study, resetToChapter) <- env.study.api.resetIfOld(sc.study, chapters)
       chapter = resetToChapter | sc.chapter

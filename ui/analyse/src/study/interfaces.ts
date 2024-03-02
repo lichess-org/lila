@@ -11,6 +11,8 @@ export type ToolTab = 'tags' | 'comments' | 'glyphs' | 'serverEval' | 'share' | 
 export type Visibility = 'public' | 'unlisted' | 'private';
 export type ChapterId = string;
 export type TeamName = string;
+export type OutcomeStr = '1-0' | '0-1' | '½-½';
+export type StatusStr = OutcomeStr | '*';
 
 export interface StudyTour {
   study(ctrl: AnalyseCtrl): void;
@@ -90,15 +92,11 @@ export interface StudyFeatures {
 export interface StudyChapterMeta {
   id: ChapterId;
   name: string;
-  res?: '1-0' | '0-1' | '½-½' | '*';
-  ongoing?: boolean; // only set by StudyChapterMetaExt
+  status?: StatusStr;
+  playing?: boolean; // only set by ChapterPreview
 }
 
 export interface StudyChapterMetaMin extends StudyChapterMeta {}
-
-export interface StudyChapterMetaExt extends StudyChapterMeta {
-  players: [RelayPlayer, RelayPlayer];
-}
 
 export type RelayPlayer = [string?, string?, number?];
 
@@ -171,19 +169,22 @@ export interface LocalPaths {
   [chapterId: string]: Tree.Path;
 }
 
-export interface ChapterPreview {
+export interface ChapterPreview extends StudyChapterMeta {
   id: ChapterId;
   name: string;
-  players?: {
-    white: ChapterPreviewPlayer;
-    black: ChapterPreviewPlayer;
-  };
+  players?: ChapterPreviewPlayers;
   orientation: Color;
   fen: string;
   lastMove?: string;
   lastMoveAt?: number;
   playing: boolean;
-  outcome?: '1-0' | '0-1' | '½-½';
+}
+export function isChapterPreview(c: StudyChapterMeta): c is ChapterPreview {
+  return 'fen' in c;
+}
+export interface ChapterPreviewPlayers {
+  white: ChapterPreviewPlayer;
+  black: ChapterPreviewPlayer;
 }
 
 export interface ChapterPreviewPlayer {

@@ -179,7 +179,7 @@ const header = (relay: RelayCtrl, ctrl: AnalyseCtrl) => {
           ? h('img', { attrs: { src: d.tour.image } })
           : study.members.isOwner()
           ? h(
-              'a.button.relay-tour__image-upload',
+              'a.button.relay-tour__header__image-upload',
               { attrs: { href: `/broadcast/${relay.data.tour.id}/edit` } },
               'Upload tournament image',
             )

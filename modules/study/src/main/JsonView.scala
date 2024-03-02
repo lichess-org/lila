@@ -199,7 +199,7 @@ object JsonView:
   val metadataMinWrites: OWrites[Chapter.MetadataMin] = OWrites: c =>
     Json
       .obj("id" -> c.id, "name" -> c.name)
-      .add("res" -> c.resultStr)
+      .add("status" -> c.statusStr)
   given OWrites[Chapter.Metadata] = OWrites:
     case c: Chapter.MetadataMin            => metadataMinWrites.writes(c)
     case c: StudyMultiBoard.ChapterPreview => StudyMultiBoard.chapterPreviewWrites.writes(c)

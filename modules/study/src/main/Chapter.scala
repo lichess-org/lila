@@ -78,7 +78,7 @@ case class Chapter(
   def metadataMin = Chapter.MetadataMin(
     id = id,
     name = name,
-    outcome = tags.outcome
+    result = tags.outcome.isDefined.option(tags.outcome)
   )
 
   def isPractice = ~practice
@@ -136,14 +136,18 @@ object Chapter:
   trait Metadata extends Like:
     val id: StudyChapterId
     val name: StudyChapterName
-    val outcome: Option[Outcome]
+    /* None = No Result PGN tag, the chapter may not be a game
+     * Some(None) = Result PGN tag is "*", the game is ongoing
+     * Some(Some(Outcome)) = Game is over with a result
+     */
+    val result: Option[Option[Outcome]]
+    def statusStr: Option[String] = result.map(o => Outcome.showResult(o).replace("1/2", "½"))
 
   case class MetadataMin(
       @Key("_id") id: StudyChapterId,
       name: StudyChapterName,
-      outcome: Option[Outcome]
-  ) extends Metadata:
-    def resultStr: Option[String] = outcome.isDefined option Outcome.showResult(outcome).replace("1/2", "½")
+      result: Option[Option[Outcome]]
+  ) extends Metadata
 
   case class IdName(id: StudyChapterId, name: StudyChapterName)
 

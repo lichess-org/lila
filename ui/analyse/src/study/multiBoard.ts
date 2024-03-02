@@ -49,9 +49,8 @@ export class MultiBoardCtrl {
     for (const meta of metas) {
       const cp = this.pager && this.pager.currentPageResults.find(cp => cp.id == meta.id);
       if (cp?.playing) {
-        const oldOutcome = cp.outcome;
-        cp.outcome = meta.res !== '*' ? meta.res : undefined;
-        changed = changed || cp.outcome !== oldOutcome;
+        changed = changed || cp.status !== meta.status;
+        cp.status = meta.status;
       }
     }
     if (changed) this.redraw();
@@ -187,10 +186,10 @@ const makePreview = (study: StudyCtrl, cloudEval?: GetCloudEval) => (preview: Ch
         },
         postpatch(old, vnode) {
           if (old.data!.fen !== preview.fen) {
-            if (preview.outcome) {
+            if (preview.status) {
               site.miniGame.finish(
                 vnode.elm as HTMLElement,
-                preview.outcome === '1-0' ? 'white' : preview.outcome === '0-1' ? 'black' : undefined,
+                preview.status === '1-0' ? 'white' : preview.status === '0-1' ? 'black' : undefined,
               );
             } else {
               site.miniGame.update(vnode.elm as HTMLElement, {
@@ -253,7 +252,7 @@ function renderPlayer(player: ChapterPreviewPlayer | undefined): VNode | undefin
   );
 }
 
-const computeTimeLeft = (preview: ChapterPreview, color: Color): number | undefined => {
+export const computeTimeLeft = (preview: ChapterPreview, color: Color): number | undefined => {
   const player = preview.players && preview.players[color];
   if (player && player.clock) {
     if (preview.lastMoveAt && fenColor(preview.fen) == color) {
@@ -269,7 +268,7 @@ const computeTimeLeft = (preview: ChapterPreview, color: Color): number | undefi
 
 const boardPlayer = (preview: ChapterPreview, color: Color) => {
   const player = preview.players && preview.players[color];
-  const result = preview.outcome?.split('-')[color === 'white' ? 0 : 1];
+  const result = preview.status?.split('-')[color === 'white' ? 0 : 1];
   const resultNode = result && h('span.mini-game__result', result);
   const timeleft = computeTimeLeft(preview, color);
   const clock = timeleft && renderClock(color, timeleft);

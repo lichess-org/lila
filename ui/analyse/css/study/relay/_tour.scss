@@ -100,10 +100,11 @@ main.analyse.is-relay:not(.has-relay-tour) {
         aspect-ratio: 2/1;
         @include broken-img(2 / 1);
       }
+      text-align: center;
     }
     &__image-upload {
-      margin-top: 3em;
-      text-align: center;
+      margin: 3em auto;
+      line-height: 2em;
     }
 
     h1 {
@@ -114,6 +115,7 @@ main.analyse.is-relay:not(.has-relay-tour) {
     &__content {
       @extend %flex-column;
       gap: 1em;
+      margin: 1em 0;
     }
 
     &__selectors {
