@@ -50,8 +50,26 @@ Spillere som ikke liker å motta meldinger fra deg, kan komme til å forlate lag
   <string name="entryCodeDescriptionForLeader">(Valgfritt) En adgangskode som nye medlemmer må ha for å bli med på dette laget.</string>
   <string name="incorrectEntryCode">Feil adgangskode.</string>
   <string name="teamAlreadyExists">Dette laget finnes allerede.</string>
+  <string name="upcomingTournaments">Kommende turneringer</string>
   <string name="completedTourns">Fullførte turneringer</string>
   <string name="declinedRequests">Avslåtte ønsker</string>
   <string name="joinLichessVariantTeam">Bli med i det offisielle laget for %s for nyheter og hendelser</string>
   <string name="teamPage">Lagside</string>
+  <string name="thisTeamBattleIsOver">Turneringen er avsluttet, og lagene kan ikke oppdateres lenger.</string>
+  <string name="listTheTeamsThatWillCompete">List opp lagene som deltar i denne kampen.</string>
+  <string name="oneTeamPerLine">Ett lag per linje. Bruk autofullføring.</string>
+  <string name="oneTeamPerLineHelp">Du kan kopiere denne listen fra en turnering til en annen!
+
+Du kan ikke fjerne et lag hvis en av spillerne allerede har blitt med i turneringen.</string>
+  <string name="numberOfLeadsPerTeam">Antall ledere per lag. Summen av poengene deres er lagets poengsum.</string>
+  <string name="numberOfLeadsPerTeamHelp">Du bør virkelig ikke endre denne verdien etter at turneringen har startet!</string>
+  <string name="innerTeam">Indre lag</string>
+  <plurals name="battleOfNbTeams">
+    <item quantity="one">Kamp mellom %s lag</item>
+    <item quantity="other">Kamp mellom %s lag</item>
+  </plurals>
+  <plurals name="nbLeadersPerTeam">
+    <item quantity="one">Én leder per lag</item>
+    <item quantity="other">%s ledere per lag</item>
+  </plurals>
 </resources>
