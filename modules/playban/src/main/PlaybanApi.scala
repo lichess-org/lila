@@ -142,7 +142,7 @@ final class PlaybanApi(
   private val cleanUserIds = lila.memo.ExpireSetMemo[UserId](30 minutes)
 
   def currentBan[U: UserIdOf](user: U): Fu[Option[TempBan]] =
-    !cleanUserIds.get(user.id) so:
+    (!cleanUserIds.get(user.id)).so:
       coll
         .find(
           $doc("_id" -> user.id, "b.0".$exists(true)),

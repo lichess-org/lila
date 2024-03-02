@@ -12,7 +12,7 @@ import chess.opening.Opening.nameToKey
 
 case class SimpleOpening(ref: Opening, name: SimpleOpening.Name, family: LilaOpeningFamily):
   import SimpleOpening.*
-  val key            = nameToKey(name into OpeningName) into Key
+  val key            = nameToKey(name.into(OpeningName)).into(Key)
   def isFamily       = ref.variation.isEmpty
   def familyKeyOrKey = if isFamily then Key(family.key.value) else key
   def variation      = ref.variation | otherVariations
@@ -29,9 +29,9 @@ object SimpleOpening:
 
   val otherVariations = OpeningVariation("Other variations")
 
-  def apply(key: Key): Option[SimpleOpening] = openings get key
+  def apply(key: Key): Option[SimpleOpening] = openings.get(key)
   def apply(ref: Opening): Option[SimpleOpening] =
-    openings get nameToKey(OpeningName(nameOf(ref))).into(Key)
+    openings.get(nameToKey(OpeningName(nameOf(ref))).into(Key))
 
   def find(key: String): Option[SimpleOpening] = apply(Key(key))
 
@@ -39,9 +39,9 @@ object SimpleOpening:
 
   lazy val openings: Map[Key, SimpleOpening] = OpeningDb.all
     .foldLeft(Map.empty[Key, SimpleOpening]): (acc, ref) =>
-      LilaOpeningFamily(ref.family.key into LilaOpeningFamily.Key).fold(acc): fam =>
+      LilaOpeningFamily(ref.family.key.into(LilaOpeningFamily.Key)).fold(acc): fam =>
         val op   = SimpleOpening(ref, nameOf(ref), fam)
-        val prev = acc get op.key
+        val prev = acc.get(op.key)
         if prev.forall(_.nbMoves > op.nbMoves) then acc.updated(op.key, op)
         else acc
 
