@@ -33,7 +33,7 @@ final class UserForm:
       "bio"        -> optional(cleanNonEmptyText(maxLength = 400)),
       "firstName"  -> nameField,
       "lastName"   -> nameField,
-      "fideRating" -> optional(number(min = 1000, max = 3000)),
+      "fideRating" -> optional(number(min = 1400, max = 3000)),
       "uscfRating" -> optional(number(min = 100, max = 3000)),
       "ecfRating"  -> optional(number(min = 0, max = 3000)),
       "rcfRating"  -> optional(number(min = 0, max = 3000)),
