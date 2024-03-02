@@ -17,12 +17,14 @@ final class FidePlayerApi(repo: FideRepo, cacheApi: lila.memo.CacheApi)(using Ex
       _.so(idToPlayerCache.get)
 
   def federationsOf(ids: List[FideId]): Fu[Federation.ByFideIds] =
-    idToPlayerCache.getAll(ids).map:
-      _.view
-        .mapValues(_.flatMap(_.fed))
-        .collect:
-          case (k, Some(v)) => k -> v
-        .toMap
+    idToPlayerCache
+      .getAll(ids)
+      .map:
+        _.view
+          .mapValues(_.flatMap(_.fed))
+          .collect:
+            case (k, Some(v)) => k -> v
+          .toMap
 
   private val idToPlayerCache = cacheApi[FideId, Option[FidePlayer]](1024, "player.fidePlayer.byId"):
     _.expireAfterWrite(3.minutes).buildAsyncFuture(repo.player.fetch)
@@ -45,6 +47,7 @@ final class FidePlayerApi(repo: FideRepo, cacheApi: lila.memo.CacheApi)(using Ex
           repo.playerColl
             .find($doc("token" -> FidePlayer.tokenize(p.name), "title" -> p.title))
             .cursor[FidePlayer]()
-            .list(2) map:
-            case List(onlyMatch) => onlyMatch.some
-            case _               => none
+            .list(2)
+            .map:
+              case List(onlyMatch) => onlyMatch.some
+              case _               => none
