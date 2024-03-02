@@ -155,7 +155,7 @@ object replay:
           div(cls := "analyse__board main-board")(chessgroundBoard),
           div(cls := "analyse__tools")(div(cls := "ceval")),
           div(cls := "analyse__controls"),
-          !ctx.blind.option(
+          (!ctx.blind).option(
             frag(
               div(cls := "analyse__underboard")(
                 div(role := "tablist", cls := "analyse__underboard__menu")(

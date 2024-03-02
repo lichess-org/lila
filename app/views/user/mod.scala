@@ -527,7 +527,7 @@ object mod:
           )
         ),
         tbody(
-          pag.pag.playerAssessmen.s
+          pag.pag.playerAssessments
             .sortBy(-_.assessment.id)
             .take(15)
             .map: result =>
