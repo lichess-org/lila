@@ -4,14 +4,15 @@ import chess.format.pgn.{ Glyph, Tags }
 import chess.format.UciPath
 import chess.opening.{ Opening, OpeningDb }
 import chess.variant.Variant
-import chess.{ Ply, Centis, Color, Outcome }
+import chess.{ Ply, Centis, Color, Outcome, ByColor }
 import ornicar.scalalib.ThreadLocalRandom
 
 import lila.tree.{ Root, Branch, Branches }
 import lila.tree.Node.{ Comment, Gamebook, Shapes }
+import reactivemongo.api.bson.Macros.Annotations.Key
 
 case class Chapter(
-    _id: StudyChapterId,
+    @Key("_id") id: StudyChapterId,
     studyId: StudyId,
     name: StudyChapterName,
     setup: Chapter.Setup,
@@ -67,16 +68,16 @@ case class Chapter(
 
   def cloneFor(study: Study) =
     copy(
-      _id = Chapter.makeId,
+      id = Chapter.makeId,
       studyId = study.id,
       ownerId = study.ownerId,
       createdAt = nowInstant
     )
 
   def metadataMin = Chapter.MetadataMin(
-    _id = _id,
+    id = id,
     name = name,
-    outcome = tags.outcome.isDefined option tags.outcome
+    outcome = tags.outcome
   )
 
   def isPractice = ~practice
@@ -98,10 +99,8 @@ object Chapter:
   val maxNodes = 3000
 
   trait Like:
-    val _id: StudyChapterId
+    val id: StudyChapterId
     val name: StudyChapterName
-    inline def id = _id
-
     def initialPosition = Position.Ref(id, UciPath.root)
 
   case class Setup(
@@ -134,19 +133,16 @@ object Chapter:
   type TeamName = String
 
   trait Metadata extends Like:
-    val _id: StudyChapterId
+    val id: StudyChapterId
     val name: StudyChapterName
-    val outcome: Option[Option[Outcome]]
+    val outcome: Option[Outcome]
 
   case class MetadataMin(
-      _id: StudyChapterId,
+      @Key("_id") id: StudyChapterId,
       name: StudyChapterName,
-      outcome: Option[Option[Outcome]]
+      outcome: Option[Outcome]
   ) extends Metadata:
-    def resultStr: Option[String] = outcome.map(o => Outcome.showResult(o).replace("1/2", "½"))
-
-  case class MetadataExt(min: MetadataMin, tags: Tags) extends Metadata:
-    export min.*
+    def resultStr: Option[String] = outcome.isDefined option Outcome.showResult(outcome).replace("1/2", "½")
 
   case class IdName(id: StudyChapterId, name: StudyChapterName)
 
@@ -173,7 +169,7 @@ object Chapter:
       relay: Option[Relay] = None
   ) =
     Chapter(
-      _id = makeId,
+      id = makeId,
       studyId = studyId,
       name = fixName(name),
       setup = setup,

@@ -84,7 +84,7 @@ final class JsonView(
   ): JsObject =
     myRound(rt) ++
       Json.obj("games" -> games.map { g =>
-        Json.toJsObject(g) + ("url" -> JsString(s"$baseUrl${rt.path}/${g._id}"))
+        Json.toJsObject(g) + ("url" -> JsString(s"$baseUrl${rt.path}/${g.id}"))
       })
 
   def sync(round: RelayRound) = Json toJsObject round.sync

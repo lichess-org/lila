@@ -108,8 +108,9 @@ function(root, tags) {
         }
         .map: r =>
           for
-            doc <- r
-            id  <- doc.getAsOpt[StudyChapterId]("_id")
+            doc  <- r
+            id   <- doc.getAsOpt[StudyChapterId]("_id")
+            name <- doc.getAsOpt[StudyChapterName]("name")
             lastMoveAt = doc.getAsOpt[Instant]("lastMoveAt")
             comp      <- doc.getAsOpt[Bdoc]("comp")
             node      <- comp.getAsOpt[Bdoc]("node")
@@ -120,6 +121,7 @@ function(root, tags) {
             tags     = comp.getAsOpt[Tags]("tags")
           yield ChapterPreview(
             id = id,
+            name = name,
             players = tags flatMap ChapterPreview.players(clocks),
             orientation = doc.getAsOpt[Color]("orientation") | Color.White,
             fen = fen,
@@ -128,6 +130,32 @@ function(root, tags) {
             playing = lastMove.isDefined && tags.flatMap(_(_.Result)).has("*"),
             outcome = tags.flatMap(_.outcome)
           )
+
+object StudyMultiBoard:
+
+  case class ChapterPreview(
+      id: StudyChapterId,
+      name: StudyChapterName,
+      players: Option[ChapterPreview.Players],
+      orientation: Color,
+      fen: Fen.Epd,
+      lastMove: Option[Uci],
+      lastMoveAt: Option[Instant],
+      playing: Boolean,
+      outcome: Option[Outcome]
+  ) extends Chapter.Metadata
+
+  object ChapterPreview:
+
+    case class Player(name: String, title: Option[String], rating: Option[Int], clock: Option[Centis])
+
+    type Players = ByColor[Player]
+
+    def players(clocks: ByColor[Option[Centis]])(tags: Tags): Option[Players] =
+      val names = chess.ByColor[Option[String]](tags.names(_))
+      names.exists(_.isDefined) option:
+        names zip tags.titles zip tags.elos zip clocks map:
+          case (((n, t), e), c) => Player(n | "Unknown player", t, e, c)
 
   import lila.common.Json.{ writeAs, given }
 
@@ -143,29 +171,4 @@ function(root, tags) {
 
   given Writes[Outcome] = writeAs(_.toString.replace("1/2", "½"))
 
-  given Writes[ChapterPreview] = Json.writes
-
-object StudyMultiBoard:
-
-  case class ChapterPreview(
-      id: StudyChapterId,
-      players: Option[ChapterPreview.Players],
-      orientation: Color,
-      fen: Fen.Epd,
-      lastMove: Option[Uci],
-      lastMoveAt: Option[Instant],
-      playing: Boolean,
-      outcome: Option[Outcome]
-  )
-
-  object ChapterPreview:
-
-    case class Player(name: String, title: Option[String], rating: Option[Int], clock: Option[Centis])
-
-    type Players = ByColor[Player]
-
-    def players(clocks: ByColor[Option[Centis]])(tags: Tags): Option[Players] =
-      val names = chess.ByColor[Option[String]](tags.names(_))
-      names.exists(_.isDefined) option:
-        names zip tags.titles zip tags.elos zip clocks map:
-          case (((n, t), e), c) => Player(n | "Unknown player", t, e, c)
+  given chapterPreviewWrites: OWrites[ChapterPreview] = Json.writes

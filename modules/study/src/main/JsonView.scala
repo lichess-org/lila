@@ -197,15 +197,11 @@ object JsonView:
 
   val metadataMinWrites: OWrites[Chapter.MetadataMin] = OWrites: c =>
     Json
-      .obj("id" -> c._id, "name" -> c.name)
+      .obj("id" -> c.id, "name" -> c.name)
       .add("res" -> c.resultStr)
-  val metadataExtWrites: OWrites[Chapter.MetadataExt] = OWrites: c =>
-    val players = (c.tags.titles zip c.tags.names zip c.tags.elos).mapList:
-      case ((t, n), e) => Json.arr(t, n, e)
-    metadataMinWrites.writes(c.min) ++ Json.obj("players" -> players)
   given OWrites[Chapter.Metadata] = OWrites:
-    case c: Chapter.MetadataMin => metadataMinWrites.writes(c)
-    case c: Chapter.MetadataExt => metadataExtWrites.writes(c)
+    case c: Chapter.MetadataMin            => metadataMinWrites.writes(c)
+    case c: StudyMultiBoard.ChapterPreview => StudyMultiBoard.chapterPreviewWrites.writes(c)
 
   private[study] given Writes[Position.Ref] = Json.writes
   private[study] given Writes[Study.Liking] = Json.writes

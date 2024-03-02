@@ -51,16 +51,6 @@ final class ChapterRepo(val coll: AsyncColl)(using Executor, akka.stream.Materia
         .cursor[Chapter.MetadataMin]()
         .list(300)
 
-  private val metadataExtProjection =
-    $doc("name" -> true, "tags" -> true).some
-
-  def orderedMetadataExt(studyId: StudyId): Fu[List[Chapter.MetadataExt]] =
-    coll:
-      _.find($studyId(studyId), metadataExtProjection)
-        .sort($sort asc "order")
-        .cursor[Chapter.MetadataExt]()
-        .list(300)
-
   def orderedByStudySource(studyId: StudyId): Source[Chapter, ?] =
     Source.futureSource:
       coll.map:

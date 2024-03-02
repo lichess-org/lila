@@ -410,13 +410,5 @@ object BSONHandlers:
         .flatMap:
           _.headOption // because only the Result: tag is fetched by metadataProjection
             .map(_ drop 7)
-            .map(Outcome.fromResult)
+            .flatMap(Outcome.fromResult)
     yield Chapter.MetadataMin(id, name, outcome)
-
-  given BSONDocumentReader[Chapter.MetadataExt] with
-    def readDocument(doc: Bdoc) = for
-      id   <- doc.getAsTry[StudyChapterId]("_id")
-      name <- doc.getAsTry[StudyChapterName]("name")
-      tags    = doc.getAsOpt[Tags]("tags") | Tags.empty
-      outcome = tags.outcome
-    yield Chapter.MetadataExt(Chapter.MetadataMin(id, name, outcome.some), tags)
