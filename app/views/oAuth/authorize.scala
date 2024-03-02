@@ -19,7 +19,7 @@ object authorize:
 
   def apply(prompt: AuthorizationRequest.Prompt, me: User, authorizeUrl: String)(using PageContext) =
     import prompt.{ isDanger, looksLikeLichessMobile as mobile }
-    val buttonClass        = s"button${isDanger so " button-red confirm text"}"
+    val buttonClass        = s"button${isDanger.so(" button-red confirm text")}"
     val buttonDelay        = if isDanger then 5000 else 2000
     val otherUserRequested = prompt.userId.filterNot(me.is(_)).map(lightUserFallback)
     views.html.base.layout(
@@ -39,7 +39,7 @@ object authorize:
           then h2("Lichess Mobile")
           else strong(code(prompt.redirectUri.clientOrigin))
         ),
-        prompt.redirectUri.insecure option flashMessage("warning")("Does not use a secure connection"),
+        prompt.redirectUri.insecure.option(flashMessage("warning")("Does not use a secure connection")),
         postForm(action := authorizeUrl)(
           p(
             "Grant access to your ",
@@ -80,7 +80,7 @@ object authorize:
       otherUserRequested: Option[LightUser]
   )(using ctx: PageContext) =
     div(cls := "oauth__footer")(
-      ctx.me ifTrue otherUserRequested.isEmpty map { me =>
+      ctx.me.ifTrue(otherUserRequested.isEmpty).map { me =>
         p(
           "Not ",
           me.username,
@@ -92,7 +92,9 @@ object authorize:
       then p("Not using Lichess Mobile? ", a(href := prompt.cancelUrl)("Cancel"))
       else
         frag(
-          !prompt.trusted option p(cls := List("danger" -> isDanger))("Not owned or operated by lichess.org"),
+          !prompt.trusted.option(
+            p(cls := List("danger" -> isDanger))("Not owned or operated by lichess.org")
+          ),
           p(cls := "oauth__redirect")("Will redirect to ", prompt.redirectUri.withoutQuery)
         )
     )

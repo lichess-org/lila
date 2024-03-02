@@ -57,12 +57,14 @@ private class RelayPlayersTextarea(val text: String):
             name -> RelayPlayer(name.some, none, none, FideId(id).some)
         case _ =>
           val arr = line.split('/').map(_.trim)
-          arr.lift(0).map: fromName =>
-            fromName -> RelayPlayer(
-              name = arr.lift(3).filter(_.nonEmpty),
-              rating = arr.lift(1).flatMap(_.toIntOption),
-              title = arr.lift(2).flatMap(lila.user.Title.get)
-            )
+          arr
+            .lift(0)
+            .map: fromName =>
+              fromName -> RelayPlayer(
+                name = arr.lift(3).filter(_.nonEmpty),
+                rating = arr.lift(1).flatMap(_.toIntOption),
+                title = arr.lift(2).flatMap(lila.user.Title.get)
+              )
 
   def update(games: RelayGames): RelayGames = games.map: game =>
     game.copy(tags = update(game.tags))
@@ -70,17 +72,21 @@ private class RelayPlayersTextarea(val text: String):
   private def update(tags: Tags): Tags =
     chess.Color.all.foldLeft(tags): (tags, color) =>
       tags ++ Tags:
-        tags(color.name).flatMap(findMatching).so: rp =>
-          rp.fideId match
-            case Some(fideId) => List(Tag(_.fideIds(color), fideId.toString))
-            case None =>
-              List(
-                rp.name.map(name => Tag(_.names(color), name)),
-                rp.rating.map { rating => Tag(_.elos(color), rating.toString) },
-                rp.title.map { title => Tag(_.titles(color), title.value) }
-              ).flatten
+        tags(color.name)
+          .flatMap(findMatching)
+          .so: rp =>
+            rp.fideId match
+              case Some(fideId) => List(Tag(_.fideIds(color), fideId.toString))
+              case None =>
+                List(
+                  rp.name.map(name => Tag(_.names(color), name)),
+                  rp.rating.map { rating => Tag(_.elos(color), rating.toString) },
+                  rp.title.map { title => Tag(_.titles(color), title.value) }
+                ).flatten
 
   private def findMatching(name: PlayerName): Option[RelayPlayer] =
-    players.get(name) orElse:
-      val token = FidePlayer.tokenize(name)
-      tokenizedPlayers.get(token) orElse combinationPlayers.get(token)
+    players
+      .get(name)
+      .orElse:
+        val token = FidePlayer.tokenize(name)
+        tokenizedPlayers.get(token).orElse(combinationPlayers.get(token))

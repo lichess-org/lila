@@ -39,7 +39,7 @@ object thanks:
                 pat.payPalCheckout.exists(_.renew) ||
                 stripeCustomer.exists(_.renew)
               then
-                ctx.me map { me =>
+                ctx.me.map { me =>
                   p(
                     permanentPatron(),
                     br,

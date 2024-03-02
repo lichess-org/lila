@@ -16,22 +16,24 @@ object homeInner:
     div(cls := "box")(
       h1(cls := "box__top")(trans.simultaneousExhibitions()),
       table(cls := "slist slist-pad")(
-        pendings.nonEmpty option frag(
-          thead(
-            tr(
-              th(trans.yourPendingSimuls()),
-              th(cls := "host")(trans.host()),
-              th(cls := "players")(trans.players())
-            )
-          ),
-          tbody(
-            pendings.map { sim =>
-              tr(cls := "scheduled")(
-                simTd(sim),
-                simHost(sim),
-                td(cls := "players text", dataIcon := licon.User)(sim.applicants.size)
+        pendings.nonEmpty.option(
+          frag(
+            thead(
+              tr(
+                th(trans.yourPendingSimuls()),
+                th(cls := "host")(trans.host()),
+                th(cls := "players")(trans.players())
               )
-            }
+            ),
+            tbody(
+              pendings.map { sim =>
+                tr(cls := "scheduled")(
+                  simTd(sim),
+                  simHost(sim),
+                  td(cls := "players text", dataIcon := licon.User)(sim.applicants.size)
+                )
+              }
+            )
           )
         ),
         thead(
@@ -58,7 +60,7 @@ object homeInner:
             )
           )
         ),
-        starteds.nonEmpty option (
+        starteds.nonEmpty.option(
           frag(
             thead(
               tr(
@@ -106,8 +108,10 @@ object homeInner:
   private def simHost(sim: lila.simul.Simul)(using ctx: PageContext) =
     td(cls := "host")(
       userIdLink(sim.hostId.some, withOnline = false),
-      ctx.pref.showRatings option frag(
-        br,
-        strong(sim.hostRating)
+      ctx.pref.showRatings.option(
+        frag(
+          br,
+          strong(sim.hostRating)
+        )
       )
     )

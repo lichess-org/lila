@@ -16,7 +16,7 @@ object teacherDashboard:
       students: List[Student.WithUserLike],
       active: String
   )(modifiers: Modifier*)(using PageContext) =
-    bits.layout(c.name, Left(c withStudents students.map(_.student)))(
+    bits.layout(c.name, Left(c.withStudents(students.map(_.student))))(
       cls := s"clas-show dashboard dashboard-teacher dashboard-teacher-$active",
       div(cls := "clas-show__top")(
         h1(dataIcon := licon.Group, cls := "text")(c.name),
@@ -49,7 +49,7 @@ object teacherDashboard:
   )(using PageContext) =
     layout(c, students, "overview")(
       div(cls := "clas-show__overview")(
-        c.desc.trim.nonEmpty option div(cls := "clas-show__desc")(richText(c.desc)),
+        c.desc.trim.nonEmpty.option(div(cls := "clas-show__desc")(richText(c.desc))),
         div(cls := "clas-show__overview__manage")(
           clas.teachers(c),
           a(
@@ -83,7 +83,7 @@ object teacherDashboard:
                   tr(
                     td(userIdLink(i.userId.some)),
                     td(i.realName),
-                    td(if i.accepted has false then "Declined" else "Pending"),
+                    td(if i.accepted.has(false) then "Declined" else "Pending"),
                     td(momentFromNow(i.created.at)),
                     td:
                       postForm(action := clasRoutes.invitationRevoke(i._id.value)):
@@ -139,7 +139,7 @@ object teacherDashboard:
             ),
             tbody(
               students.sortBy(_.user.username.value).map { case s @ Student.WithUserPerf(_, user, perf) =>
-                val prog = progress(user withPerf perf)
+                val prog = progress(user.withPerf(perf))
                 tr(
                   studentTd(c, s),
                   td(dataSort := perf.intRating, cls := "rating")(
@@ -277,7 +277,7 @@ object teacherDashboard:
               td(dataSort := user.seenAt.map(_.toMillis.toString))(user.seenAt.map(momentFromNowOnce)),
               td(
                 dataSort := (if student.managed then 1 else 0),
-                student.managed option iconTag(licon.Shield)(title := trans.clas.managed.txt())
+                student.managed.option(iconTag(licon.Shield)(title := trans.clas.managed.txt()))
               )
             )
           }

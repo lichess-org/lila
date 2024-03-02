@@ -40,7 +40,7 @@ object bits:
       simuls.map: simul =>
         val url = routes.Simul.show(simul.id)
         tr(
-          withName option td(cls := "name")(a(href := url)(simul.fullName)),
+          withName.option(td(cls := "name")(a(href := url)(simul.fullName))),
           td:
             if withName then userIdLink(simul.hostId.some)
             else a(href := url)(userIdSpanMini(simul.hostId, true))

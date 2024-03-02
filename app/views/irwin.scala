@@ -28,11 +28,13 @@ object irwin:
               if dashboard.seenRecently then span(cls := "up")("Operational")
               else
                 span(cls := "down")(
-                  dashboard.lastSeenAt.map { seenAt =>
-                    frag("Last seen ", momentFromNow(seenAt))
-                  } getOrElse {
-                    frag("Unknown")
-                  }
+                  dashboard.lastSeenAt
+                    .map { seenAt =>
+                      frag("Last seen ", momentFromNow(seenAt))
+                    }
+                    .getOrElse {
+                      frag("Unknown")
+                    }
                 )
             ),
             div(cls := "box__top__actions")(
@@ -113,7 +115,7 @@ object irwin:
                       link = false
                     ),
                     br,
-                    pov.game.isTournament so frag(iconTag(licon.Trophy), " "),
+                    pov.game.isTournament.so(frag(iconTag(licon.Trophy), " ")),
                     iconTag(pov.game.perfType.icon),
                     shortClockName(pov.game.clock.map(_.config)),
                     " ",

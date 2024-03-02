@@ -22,8 +22,8 @@ final class RelayTour(env: Env, apiC: => Api) extends LilaController(env):
                 html.relay.tour.search(pager, query)
         case None =>
           for
-            active   <- (page == 1) so env.relay.listing.active.get({})
-            upcoming <- (page == 1) so env.relay.listing.upcoming.get({})
+            active   <- (page == 1).so(env.relay.listing.active.get({}))
+            upcoming <- (page == 1).so(env.relay.listing.upcoming.get({}))
             past     <- env.relay.pager.inactive(page)
             render <- renderAsync:
               html.relay.tour.index(active, upcoming, past)
@@ -72,7 +72,7 @@ final class RelayTour(env: Env, apiC: => Api) extends LilaController(env):
             ),
           setup =>
             rateLimitCreation(whenRateLimited):
-              env.relay.api.tourCreate(setup) flatMap { tour =>
+              env.relay.api.tourCreate(setup).flatMap { tour =>
                 negotiate(
                   Redirect(routes.RelayRound.form(tour.id)).flashSuccess,
                   JsonOk(env.relay.jsonView(tour.withRounds(Nil), withUrls = true))
@@ -109,7 +109,7 @@ final class RelayTour(env: Env, apiC: => Api) extends LilaController(env):
 
   def delete(id: TourModel.Id) = AuthOrScoped(_.Study.Write) { _ ?=> me ?=>
     WithTour(id): tour =>
-      env.relay.api.deleteTourIfOwner(tour) inject Redirect(routes.RelayTour.by(me.username)).flashSuccess
+      env.relay.api.deleteTourIfOwner(tour).inject(Redirect(routes.RelayTour.by(me.username)).flashSuccess)
   }
 
   private val ImageRateLimitPerIp = lila.memo.RateLimit.composite[lila.common.IpAddress](
@@ -124,55 +124,59 @@ final class RelayTour(env: Env, apiC: => Api) extends LilaController(env):
       ctx.body.body.file("image") match
         case Some(image) =>
           ImageRateLimitPerIp(ctx.ip, rateLimited):
-            env.relay.api.image.upload(me, tg.tour, image) >> {
+            (env.relay.api.image.upload(me, tg.tour, image) >> {
               Ok
-            } recover { case e: Exception =>
+            }).recover { case e: Exception =>
               BadRequest(e.getMessage)
             }
         case None => env.relay.api.image.delete(tg.tour) >> Ok
   }
 
   def subscribe(id: TourModel.Id, isSubscribed: Boolean) = Auth { _ ?=> me ?=>
-    env.relay.api.subscribe(id, me.userId, isSubscribed) inject jsonOkResult
+    env.relay.api.subscribe(id, me.userId, isSubscribed).inject(jsonOkResult)
   }
 
   def cloneTour(id: TourModel.Id) = Secure(_.Relay) { _ ?=> me ?=>
     WithTour(id): from =>
-      env.relay.api.cloneTour(from) map: tour =>
-        Redirect(routes.RelayTour.edit(tour.id)).flashSuccess
+      env.relay.api
+        .cloneTour(from)
+        .map: tour =>
+          Redirect(routes.RelayTour.edit(tour.id)).flashSuccess
   }
 
   def show(slug: String, id: TourModel.Id) = Open:
-    Found(env.relay.api tourById id): tour =>
-      env.relay.listing.defaultRoundToShow.get(tour.id) flatMap:
-        case None =>
-          ctx.me
-            .soUse(env.relay.api.canUpdate(tour))
-            .flatMap:
-              if _ then Redirect(routes.RelayRound.form(tour.id))
-              else
-                for
-                  owner <- env.user.lightUser(tour.ownerId)
-                  markup = tour.markup.map(env.relay.markup(tour))
-                  page <- Ok.page(html.relay.tour.showEmpty(tour, owner, markup))
-                yield page
-        case Some(round) => Redirect(round.withTour(tour).path)
+    Found(env.relay.api.tourById(id)): tour =>
+      env.relay.listing.defaultRoundToShow
+        .get(tour.id)
+        .flatMap:
+          case None =>
+            ctx.me
+              .soUse(env.relay.api.canUpdate(tour))
+              .flatMap:
+                if _ then Redirect(routes.RelayRound.form(tour.id))
+                else
+                  for
+                    owner <- env.user.lightUser(tour.ownerId)
+                    markup = tour.markup.map(env.relay.markup(tour))
+                    page <- Ok.page(html.relay.tour.showEmpty(tour, owner, markup))
+                  yield page
+          case Some(round) => Redirect(round.withTour(tour).path)
 
   def apiShow(id: TourModel.Id) = Open:
-    Found(env.relay.api tourById id): tour =>
+    Found(env.relay.api.tourById(id)): tour =>
       for
         trs         <- env.relay.api.withRounds(tour)
         leaderboard <- getBool("leaderboard").so(env.relay.leaderboard(tour))
       yield Ok(env.relay.jsonView(trs, withUrls = true, leaderboard))
 
   def pgn(id: TourModel.Id) = OpenOrScoped(): ctx ?=>
-    Found(env.relay.api tourById id): tour =>
+    Found(env.relay.api.tourById(id)): tour =>
       val canViewPrivate = ctx.isWebAuth || ctx.scopes.has(_.Study.Read)
       apiC.GlobalConcurrencyLimitPerIP.download(req.ipAddress)(
-        env.relay.pgnStream.exportFullTourAs(tour, ctx.me ifTrue canViewPrivate)
+        env.relay.pgnStream.exportFullTourAs(tour, ctx.me.ifTrue(canViewPrivate))
       ): source =>
-        asAttachmentStream(s"${env.relay.pgnStream filename tour}.pgn"):
-          Ok chunked source as pgnContentType
+        asAttachmentStream(s"${env.relay.pgnStream.filename(tour)}.pgn"):
+          Ok.chunked(source).as(pgnContentType)
 
   def apiIndex = Anon:
     apiC.jsonDownload:
@@ -184,14 +188,16 @@ final class RelayTour(env: Env, apiC: => Api) extends LilaController(env):
         )
 
   private def WithTour(id: TourModel.Id)(f: TourModel => Fu[Result])(using Context): Fu[Result] =
-    Found(env.relay.api tourById id)(f)
+    Found(env.relay.api.tourById(id))(f)
 
   private def WithTourCanUpdate(
       id: TourModel.Id
   )(f: TourModel.WithGroupTours => Fu[Result])(using ctx: Context): Fu[Result] =
     WithTour(id): tour =>
-      ctx.me.soUse { env.relay.api.canUpdate(tour) } elseNotFound:
-        env.relay.api.withTours.addTo(tour).flatMap(f)
+      ctx.me
+        .soUse { env.relay.api.canUpdate(tour) }
+        .elseNotFound:
+          env.relay.api.withTours.addTo(tour).flatMap(f)
 
   private val CreateLimitPerUser = lila.memo.RateLimit[UserId](
     credits = 10 * 10,

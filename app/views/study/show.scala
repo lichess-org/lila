@@ -41,11 +41,11 @@ object show:
                 c.lines,
                 name = trans.chatRoom.txt(),
                 timeout = c.timeout,
-                writeable = ctx.userId exists s.canChat,
+                writeable = ctx.userId.exists(s.canChat),
                 public = true,
                 resourceId = lila.chat.Chat.ResourceId(s"study/${c.chat.id}"),
-                palantir = ctx.userId exists s.isMember,
-                localMod = ctx.userId exists s.canContribute
+                palantir = ctx.userId.exists(s.isMember),
+                localMod = ctx.userId.exists(s.canContribute)
               ),
             "socketUrl"     -> socketUrl(s.id),
             "socketVersion" -> socketVersion

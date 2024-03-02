@@ -15,7 +15,7 @@ object bits:
   def orderSelect(order: Order, active: String, url: String => Call)(using PageContext) =
     val orders =
       if active == "all" then Order.withoutSelector
-      else if active startsWith "topic" then Order.list
+      else if active.startsWith("topic") then Order.list
       else Order.withoutMine
     views.html.base.bits.mselect(
       "orders",
@@ -54,9 +54,11 @@ object bits:
         div(
           tag(cls := "study-name")(s.study.name),
           span(
-            !s.study.isPublic option frag(
-              iconTag(licon.Padlock)(cls := "private", ariaTitle(trans.study.`private`.txt())),
-              " "
+            !s.study.isPublic.option(
+              frag(
+                iconTag(licon.Padlock)(cls := "private", ariaTitle(trans.study.`private`.txt())),
+                " "
+              )
             ),
             iconTag(if s.liked then licon.Heart else licon.HeartOutline),
             " ",

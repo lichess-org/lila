@@ -86,8 +86,8 @@ object indexStripe:
                       },
                       name := "amount",
                       value := {
-                        (info.subscription.item.price.currency == pricing.currency) so
-                          info.subscription.item.price.money.amount.toString
+                        (info.subscription.item.price.currency == pricing.currency)
+                          .so(info.subscription.item.price.money.amount.toString)
                       }
                     ),
                     submitButton(cls := "button")(trans.apply()),
@@ -104,7 +104,7 @@ object indexStripe:
             tr(
               th(paymentDetails()),
               td(
-                info.paymentMethod.flatMap(_.card) map { m =>
+                info.paymentMethod.flatMap(_.card).map { m =>
                   frag(
                     m.brand.toUpperCase,
                     " - ",
@@ -124,7 +124,7 @@ object indexStripe:
               th("Gifts"),
               td(
                 a(href := s"${routes.Plan.list}?dest=gift")(giftPatronWings()),
-                gifts.nonEmpty option
+                gifts.nonEmpty.option(
                   table(cls := "slist gifts")(
                     tbody(
                       gifts.map { gift =>
@@ -135,6 +135,7 @@ object indexStripe:
                       }
                     )
                   )
+                )
               )
             ),
             tr(
