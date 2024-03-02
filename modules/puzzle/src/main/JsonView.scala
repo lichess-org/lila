@@ -109,11 +109,14 @@ final class JsonView(
 
   def batch(puzzles: Seq[Puzzle])(using me: Option[Me], perf: Perf): Fu[JsObject] = for
     games <- gameRepo.gameOptionsFromSecondary(puzzles.map(_.gameId))
-    jsons <- (puzzles zip games).collect { case (puzzle, Some(game)) =>
-      gameJson.noCache(game, puzzle.initialPly) map {
-        puzzleAndGamejson(puzzle, _)
+    jsons <- (puzzles
+      .zip(games))
+      .collect { case (puzzle, Some(game)) =>
+        gameJson.noCache(game, puzzle.initialPly).map {
+          puzzleAndGamejson(puzzle, _)
+        }
       }
-    }.parallel
+      .parallel
   yield
     import lila.rating.Glicko.given
     Json.obj("puzzles" -> jsons).add("glicko" -> me.map(_ => perf.glicko))
@@ -121,7 +124,7 @@ final class JsonView(
   object bc:
 
     def apply(puzzle: Puzzle)(using me: Option[Me], perf: Perf): Fu[JsObject] =
-      gameJson(gameId = puzzle.gameId, plies = puzzle.initialPly, bc = true) map: gameJson =>
+      gameJson(gameId = puzzle.gameId, plies = puzzle.initialPly, bc = true).map: gameJson =>
         Json
           .obj(
             "game"   -> gameJson,
@@ -131,14 +134,17 @@ final class JsonView(
 
     def batch(puzzles: Seq[Puzzle])(using me: Option[Me], perf: Perf): Fu[JsObject] = for
       games <- gameRepo.gameOptionsFromSecondary(puzzles.map(_.gameId))
-      jsons <- (puzzles zip games).collect { case (puzzle, Some(game)) =>
-        gameJson.noCacheBc(game, puzzle.initialPly) map { gameJson =>
-          Json.obj(
-            "game"   -> gameJson,
-            "puzzle" -> puzzleJson(puzzle)
-          )
+      jsons <- (puzzles
+        .zip(games))
+        .collect { case (puzzle, Some(game)) =>
+          gameJson.noCacheBc(game, puzzle.initialPly).map { gameJson =>
+            Json.obj(
+              "game"   -> gameJson,
+              "puzzle" -> puzzleJson(puzzle)
+            )
+          }
         }
-      }.parallel
+        .parallel
     yield Json
       .obj("puzzles" -> jsons)
       .add("user" -> me.map(_ => perf.intRating).map(userJson))
@@ -170,12 +176,12 @@ final class JsonView(
         case ((prev, branches), uci) =>
           val (game, move) =
             prev(uci.orig, uci.dest, uci.promotion)
-              .fold(err => sys error s"puzzle ${puzzle.id} $err", identity)
+              .fold(err => sys.error(s"puzzle ${puzzle.id} $err"), identity)
           val branch = tree.Branch(
             id = UciCharPair(move.toUci),
             ply = game.ply,
             move = Uci.WithSan(move.toUci, game.sans.last),
-            fen = chess.format.Fen write game,
+            fen = chess.format.Fen.write(game),
             check = game.situation.check,
             crazyData = none
           )
@@ -183,7 +189,7 @@ final class JsonView(
       }
       branchList.foldLeft[Option[tree.Branch]](None) {
         case (None, branch)        => branch.some
-        case (Some(child), branch) => Some(branch addChild child)
+        case (Some(child), branch) => Some(branch.addChild(child))
       }
 
 object JsonView:
