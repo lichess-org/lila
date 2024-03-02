@@ -499,6 +499,7 @@
   <string name="automaticallyProceedToNextGameAfterMoving">指した後 自動的に次のゲームに切り替える</string>
   <string name="autoSwitch">自動切り替え</string>
   <string name="puzzles">タクティクス問題</string>
+  <string name="onlineBots">オンラインのボット</string>
   <string name="name">名称</string>
   <string name="description">説明</string>
   <string name="descPrivate">非公開説明文</string>
