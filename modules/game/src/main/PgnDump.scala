@@ -43,7 +43,7 @@ final class PgnDump(
         makeTree(
           flags.keepDelayIf(game.playable).applyDelay(game.sans),
           fenSituation.fold(Ply.initial)(_.ply),
-          flags.clocks so ~game.bothClockStates,
+          flags.clocks.so(~game.bothClockStates),
           game.startColor
         )
       Pgn(ts, InitialComments.empty, tree)
@@ -51,7 +51,7 @@ final class PgnDump(
   private def gameUrl(id: GameId) = s"$baseUrl/$id"
 
   private def gameLightUsers(game: Game): Fu[ByColor[Option[LightUser]]] =
-    game.players.traverse(_.userId so lightUserApi.async)
+    game.players.traverse(_.userId.so(lightUserApi.async))
 
   private def rating(p: Player) = p.rating.orElse(p.nameSplit.flatMap(_._2)).fold("?")(_.toString)
 
@@ -65,13 +65,16 @@ final class PgnDump(
 
   private def eventOf(game: Game) =
     val perf = game.perfType.trans(using lila.i18n.defaultLang)
-    game.tournamentId.map { id =>
-      s"${game.mode} $perf tournament https://lichess.org/tournament/$id"
-    } orElse game.simulId.map { id =>
-      s"$perf simul https://lichess.org/simul/$id"
-    } getOrElse {
-      s"${game.mode} $perf game"
-    }
+    game.tournamentId
+      .map { id =>
+        s"${game.mode} $perf tournament https://lichess.org/tournament/$id"
+      }
+      .orElse(game.simulId.map { id =>
+        s"$perf simul https://lichess.org/simul/$id"
+      })
+      .getOrElse {
+        s"${game.mode} $perf game"
+      }
 
   private def ratingDiffTag(p: Player, tag: Tag.type => TagType) =
     p.ratingDiff.map { rd =>
@@ -101,30 +104,36 @@ final class PgnDump(
             Tag(_.White, player(game.whitePlayer, wu)).some,
             Tag(_.Black, player(game.blackPlayer, bu)).some,
             Tag(_.Result, result(game)).some,
-            importedDate.isEmpty option Tag(
-              _.UTCDate,
-              imported.flatMap(_.tags(_.UTCDate)) | Tag.UTCDate.format.print(game.createdAt)
+            importedDate.isEmpty.option(
+              Tag(
+                _.UTCDate,
+                imported.flatMap(_.tags(_.UTCDate)) | Tag.UTCDate.format.print(game.createdAt)
+              )
             ),
-            importedDate.isEmpty option Tag(
-              _.UTCTime,
-              imported.flatMap(_.tags(_.UTCTime)) | Tag.UTCTime.format.print(game.createdAt)
+            importedDate.isEmpty.option(
+              Tag(
+                _.UTCTime,
+                imported.flatMap(_.tags(_.UTCTime)) | Tag.UTCTime.format.print(game.createdAt)
+              )
             ),
-            withRating option Tag(_.WhiteElo, rating(game.whitePlayer)),
-            withRating option Tag(_.BlackElo, rating(game.blackPlayer)),
-            withRating so ratingDiffTag(game.whitePlayer, _.WhiteRatingDiff),
-            withRating so ratingDiffTag(game.blackPlayer, _.BlackRatingDiff),
-            wu.flatMap(_.title) map:
-              Tag(_.WhiteTitle, _)
+            withRating.option(Tag(_.WhiteElo, rating(game.whitePlayer))),
+            withRating.option(Tag(_.BlackElo, rating(game.blackPlayer))),
+            withRating.so(ratingDiffTag(game.whitePlayer, _.WhiteRatingDiff)),
+            withRating.so(ratingDiffTag(game.blackPlayer, _.BlackRatingDiff)),
+            wu.flatMap(_.title)
+              .map:
+                Tag(_.WhiteTitle, _)
             ,
-            bu.flatMap(_.title) map:
-              Tag(_.BlackTitle, _)
+            bu.flatMap(_.title)
+              .map:
+                Tag(_.BlackTitle, _)
             ,
             teams.map { t => Tag("WhiteTeam", t.white) },
             teams.map { t => Tag("BlackTeam", t.black) },
             Tag(_.Variant, game.variant.name.capitalize).some,
             Tag.timeControl(game.clock.map(_.config)).some,
             Tag(_.ECO, game.opening.fold("?")(_.opening.eco)).some,
-            withOpening option Tag(_.Opening, game.opening.fold("?")(_.opening.name)),
+            withOpening.option(Tag(_.Opening, game.opening.fold("?")(_.opening.name))),
             Tag(
               _.Termination, {
                 import chess.Status.*
@@ -180,11 +189,11 @@ object PgnDump:
   ):
     def applyDelay[M](moves: Seq[M]): Seq[M] =
       if !delayMoves then moves
-      else moves.take((moves.size - delayMovesBy) atLeast delayKeepsFirstMoves)
+      else moves.take((moves.size - delayMovesBy).atLeast(delayKeepsFirstMoves))
 
     def keepDelayIf(cond: Boolean) = copy(delayMoves = delayMoves && cond)
 
     def requiresAnalysis = evals || accuracy
 
   def result(game: Game) =
-    Outcome.showResult(game.finished option Outcome(game.winnerColor))
+    Outcome.showResult(game.finished.option(Outcome(game.winnerColor)))

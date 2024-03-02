@@ -14,8 +14,8 @@ final class GamesByUsersStream(gameRepo: lila.game.GameRepo)(using akka.stream.M
 
   def apply(userIds: Set[UserId], withCurrentGames: Boolean): Source[JsValue, ?] =
     val initialGames = if withCurrentGames then currentGamesSource(userIds) else Source.empty
-    val startStream = Source.queue[Game](150, akka.stream.OverflowStrategy.dropHead) mapMaterializedValue {
-      queue =>
+    val startStream =
+      Source.queue[Game](150, akka.stream.OverflowStrategy.dropHead).mapMaterializedValue { queue =>
         def matches(game: Game) = game.userIds match
           case List(u1, u2) if u1 != u2 => userIds(u1) && userIds(u2)
           case _                        => false
@@ -26,7 +26,7 @@ final class GamesByUsersStream(gameRepo: lila.game.GameRepo)(using akka.stream.M
           .watchCompletion()
           .addEffectAnyway:
             Bus.unsubscribe(sub, chans)
-    }
+      }
     initialGames
       .concat(startStream)
       .mapAsync(1)(gameRepo.withInitialFen)
@@ -40,7 +40,7 @@ final class GamesByUsersStream(gameRepo: lila.game.GameRepo)(using akka.stream.M
       .aggregateWith[Game](readPreference = ReadPref.sec): framework =>
         import framework.*
         List(
-          Match($doc(Game.BSONFields.playingUids $in userIds)),
+          Match($doc(Game.BSONFields.playingUids.$in(userIds))),
           AddFields:
             $doc:
               "both" -> $doc("$setIsSubset" -> $arr("$" + Game.BSONFields.playingUids, userIds))

@@ -7,4 +7,4 @@ private type Ranking       = Map[UserId, Rank]
 private type Waiting       = Map[UserId, Rank]
 
 private val logger        = lila.log("tournament")
-private val pairingLogger = logger branch "pairing"
+private val pairingLogger = logger.branch("pairing")

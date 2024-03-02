@@ -50,7 +50,7 @@ final class Challenge(
   )(using ctx: Context): Fu[Result] =
     env.challenge
       .version(c.id)
-      .flatMap{ version =>
+      .flatMap { version =>
         val mine = justCreated || isMine(c)
         import lila.challenge.Direction
         val direction: Option[Direction] =
@@ -78,7 +78,8 @@ final class Challenge(
           ,
           json = Ok(json)
         ).flatMap(withChallengeAnonCookie(mine && c.challengerIsAnon, c, owner = true))
-      }.map(env.lilaCookie.ensure(ctx.req))
+      }
+      .map(env.lilaCookie.ensure(ctx.req))
 
   private def isMine(challenge: ChallengeModel)(using Context) =
     challenge.challenger match

@@ -17,21 +17,21 @@ private object RelayInputSanity:
     else if isValidPartial(chapters, games) then Right(games)
     else
       val relayChapters: List[RelayChapter] = chapters.flatMap: chapter =>
-        chapter.relay map chapter.->
-      detectMissingOrMisplaced(relayChapters, games) toLeft games
-  } map fixDgtKingsInTheCenter
+        chapter.relay.map(chapter.->)
+      detectMissingOrMisplaced(relayChapters, games).toLeft(games)
+  }.map(fixDgtKingsInTheCenter)
 
   private type RelayChapter = (Chapter, Chapter.Relay)
 
   private def detectMissingOrMisplaced(chapters: List[RelayChapter], games: Vector[RelayGame]): Option[Fail] =
     chapters
       .flatMap: (chapter, relay) =>
-        relay.index flatMap: index =>
+        relay.index.flatMap: index =>
           games.lift(index) match
             case None => Fail.Missing(index).some
             case Some(game) if !game.playerTagsMatch(chapter.tags) =>
               games.zipWithIndex.collectFirst:
-                case (otherGame, otherPos) if otherGame playerTagsMatch chapter.tags =>
+                case (otherGame, otherPos) if otherGame.playerTagsMatch(chapter.tags) =>
                   Fail.Misplaced(otherPos, index)
             case _ => None
       .headOption
@@ -41,7 +41,7 @@ private object RelayInputSanity:
     games match
       case Vector(onlyGame) =>
         chapters.lastOption.exists: c =>
-          onlyGame staticTagsMatch c.tags
+          onlyGame.staticTagsMatch(c.tags)
       case _ => false
 
   private def isValidPartial(chapters: List[Chapter], games: RelayGames) =
@@ -51,7 +51,7 @@ private object RelayInputSanity:
   // DGT puts the kings in the center on game end
   // and sends it as actual moves if the kings were close to the center
   // so we need to remove the bogus king moves
-  private def fixDgtKingsInTheCenter(games: RelayGames): RelayGames = games map { game =>
+  private def fixDgtKingsInTheCenter(games: RelayGames): RelayGames = games.map { game =>
     game.copy(
       root = game.root.takeMainlineWhile: node =>
         !dgtBoggusKingMoveRegex.matches(node.move.san.value) ||

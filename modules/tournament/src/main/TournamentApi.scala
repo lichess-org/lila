@@ -265,7 +265,7 @@ final class TournamentApi(
       promise: Option[Promise[Tournament.JoinResult]]
   )(using getMyTeamIds: GetMyTeamIds, me: Me): Funit =
     Parallel(tourId, "join")(cached.tourCache.enterable): tour =>
-      playerRepo.find(tour.id, me) flatMap { prevPlayer =>
+      playerRepo.find(tour.id, me).flatMap { prevPlayer =>
         import Tournament.JoinResult
         val fuResult: Fu[JoinResult] =
           if me.marks.arenaBan then fuccess(JoinResult.ArenaBanned)
@@ -279,7 +279,7 @@ final class TournamentApi(
                   (~data.password).getBytes(UTF_8)
                 )
           then
-            getVerdicts(tour, prevPlayer.isDefined) flatMap: verdicts =>
+            getVerdicts(tour, prevPlayer.isDefined).flatMap: verdicts =>
               if !verdicts.accepted then fuccess(JoinResult.Verdicts)
               else if !pause.canJoin(me, tour) then fuccess(JoinResult.Paused)
               else
@@ -295,7 +295,7 @@ final class TournamentApi(
                   else
                     data.team match
                       case None if prevPlayer.isDefined => proceedWithTeam(none) // re-join ongoing
-                      case Some(team) if battle.teams contains team =>
+                      case Some(team) if battle.teams.contains(team) =>
                         getMyTeamIds(me).flatMap: myTeams =>
                           if myTeams.has(team) then proceedWithTeam(team.some)
                           else fuccess(JoinResult.MissingTeam)
@@ -303,11 +303,11 @@ final class TournamentApi(
           else fuccess(JoinResult.WrongEntryCode)
         fuResult.map: result =>
           if result.ok then
-            data.team.ifTrue(asLeader && tour.isTeamBattle) foreach {
+            data.team.ifTrue(asLeader && tour.isTeamBattle).foreach {
               tournamentRepo.setForTeam(tour.id, _)
             }
             if ~data.pairMeAsap then
-              pairingRepo.isPlaying(tourId, me) foreach { isPlaying =>
+              pairingRepo.isPlaying(tourId, me).foreach { isPlaying =>
                 if !isPlaying then waitingUsers.addApiUser(tour, me)
               }
           socket.reload(tour.id)

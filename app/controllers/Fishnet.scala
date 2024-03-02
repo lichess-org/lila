@@ -16,9 +16,12 @@ final class Fishnet(env: Env) extends LilaController(env):
 
   def acquire(slow: Boolean = false) =
     ClientAction[JsonApi.Request.Acquire] { _ => client =>
-      api.acquire(client, slow) addEffect { jobOpt =>
-        lila.mon.fishnet.http.request(jobOpt.isDefined).increment()
-      } map Right.apply
+      api
+        .acquire(client, slow)
+        .addEffect { jobOpt =>
+          lila.mon.fishnet.http.request(jobOpt.isDefined).increment()
+        }
+        .map(Right.apply)
     }
 
   def analysis(workId: String, slow: Boolean = false, stop: Boolean = false) =
@@ -26,7 +29,7 @@ final class Fishnet(env: Env) extends LilaController(env):
       import lila.fishnet.FishnetApi.*
       def onComplete =
         if stop then fuccess(Left(NoContent))
-        else api.acquire(client, slow) map Right.apply
+        else api.acquire(client, slow).map(Right.apply)
       api
         .postAnalysis(Work.Id(workId), client, data)
         .flatFold(
@@ -48,17 +51,17 @@ final class Fishnet(env: Env) extends LilaController(env):
 
   def abort(workId: String) =
     ClientAction[JsonApi.Request.Acquire] { _ => client =>
-      api.abort(Work.Id(workId), client) inject Right(none)
+      api.abort(Work.Id(workId), client).inject(Right(none))
     }
 
   def keyExists(key: String) = Anon:
-    api keyExists lila.fishnet.Client.Key(key) map {
+    api.keyExists(lila.fishnet.Client.Key(key)).map {
       if _ then Ok
       else NotFound
     }
 
   val status = Anon:
-    api.status map { JsonStrOk(_) }
+    api.status.map { JsonStrOk(_) }
 
   private def ClientAction[A <: JsonApi.Request](
       f: A => lila.fishnet.Client => Fu[Either[Result, Option[JsonApi.Work]]]
@@ -69,14 +72,14 @@ final class Fishnet(env: Env) extends LilaController(env):
         .fold(
           err =>
             logger.warn(s"Malformed request: $err\n${body}")
-            BadRequest(jsonError(JsError toJson err))
+            BadRequest(jsonError(JsError.toJson(err)))
           ,
           data =>
-            api.authenticateClient(data, req.ipAddress) flatMap {
+            api.authenticateClient(data, req.ipAddress).flatMap {
               case Failure(msg) => Unauthorized(jsonError(msg.getMessage))
               case Success(client) =>
                 f(data)(client).map {
-                  case Right(Some(work)) => Accepted(Json toJson work)
+                  case Right(Some(work)) => Accepted(Json.toJson(work))
                   case Right(None)       => NoContent
                   case Left(result)      => result
                 }
