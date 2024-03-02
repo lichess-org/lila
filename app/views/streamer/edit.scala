@@ -69,7 +69,7 @@ object edit:
                           if s.streamer.completeEnough then
                             whenReady(
                               postForm(action := routes.Streamer.approvalRequest)(
-                                button(tpe := "submit", cls := "button", (!ctx.is(s.user)).option(disabled))(
+                                button(tpe := "submit", cls := "button", ctx.isnt(s.user).option(disabled))(
                                   requestReview()
                                 )
                               )
@@ -147,7 +147,7 @@ object edit:
               },
               postForm(
                 cls    := "form3",
-                action := s"${routes.Streamer.edit}${(!ctx.is(s.user)).so(s"?u=${s.user.id}")}"
+                action := s"${routes.Streamer.edit}${ctx.isnt(s.user).so(s"?u=${s.user.id}")}"
               )(
                 isGranted(_.Streamers).option(
                   div(cls := "mod")(

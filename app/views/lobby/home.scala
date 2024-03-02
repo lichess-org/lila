@@ -80,7 +80,7 @@ object home:
           div(cls := "lobby__spotlights")(
             events.map(bits.spotlight),
             views.html.relay.bits.spotlight(relays),
-            (!ctx.isBot).option {
+            ctx.noBot.option {
               val nbManual = events.size + relays.size
               val simulBBB = simuls.find(isFeaturable(_) && nbManual < 4)
               val nbForced = nbManual + simulBBB.size.toInt

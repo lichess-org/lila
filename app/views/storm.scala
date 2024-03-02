@@ -72,7 +72,8 @@ object storm:
         div(cls := "storm-dashboard__high box box-pad")(
           boxTop(
             h1(
-              (!ctx.is(user))
+              ctx
+                .isnt(user)
                 .option(
                   frag(
                     userLink(user),

@@ -540,7 +540,7 @@ final class Clas(env: Env, authC: Auth) extends LilaController(env):
       Found(env.clas.api.student.get(clas, user))(f)
 
   private def SafeTeacher(f: => Fu[Result])(using Context): Fu[Result] =
-    if ctx.me.exists(!_.lameOrTroll) && !ctx.isBot then f
+    if ctx.me.exists(!_.lameOrTroll) && ctx.noBot then f
     else Redirect(routes.Clas.index)
 
   private def redirectTo(c: lila.clas.Clas): Result = redirectTo(c.id)

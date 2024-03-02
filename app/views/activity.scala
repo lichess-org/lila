@@ -79,7 +79,7 @@ object activity:
       scoreFrag(p.value),
       div(
         trans.activity.solvedNbPuzzles.pluralSame(p.value.size),
-        p.value.rp.filterNot(_.isEmpty || (u.perfs.dubiousPuzzle && !ctx.is(u))).map(ratingProgFrag)
+        p.value.rp.filterNot(_.isEmpty || (u.perfs.dubiousPuzzle && ctx.isnt(u))).map(ratingProgFrag)
       )
     )
 

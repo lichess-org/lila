@@ -34,7 +34,7 @@ object side:
         ,
         span(
           h3(perfType.trans),
-          if isPuzzle && u.perfs.dubiousPuzzle && !ctx.is(u) && ctx.pref.showRatings then
+          if isPuzzle && u.perfs.dubiousPuzzle && ctx.isnt(u) && ctx.pref.showRatings then
             st.rating(strong("?"))
           else
             st.rating(

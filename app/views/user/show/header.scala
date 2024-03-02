@@ -99,7 +99,7 @@ object header:
               splitNumber(s"${info.ublog.so(_.nbPosts)} blog posts")
             )
           ),
-          (ctx.isAuth && !ctx.is(u))
+          (ctx.isAuth && ctx.isnt(u))
             .option(a(cls := "nm-item note-zone-toggle")(splitNumber(s"${social.notes.size} Notes")))
         ),
         div(cls := "user-actions btn-rack")(
@@ -135,7 +135,8 @@ object header:
             titleOrText(trans.watchGames.txt()),
             dataIcon := licon.AnalogTv
           ),
-          (!ctx.is(u))
+          ctx
+            .isnt(u)
             .option(
               views.html.relation.actions(
                 u.light,
@@ -156,7 +157,7 @@ object header:
             titleOrText(trans.exportGames.txt()),
             dataIcon := licon.Download
           ),
-          (ctx.isAuth && ctx.kid.no && !ctx.is(u)).option(
+          (ctx.isAuth && ctx.kid.no && ctx.isnt(u)).option(
             a(
               titleOrText(trans.reportXToModerators.txt(u.username)),
               cls      := "btn-rack__btn",
@@ -166,21 +167,22 @@ object header:
           )
         )
       ),
-      (!ctx.is(u)).option(noteZone(u, social.notes)),
+      ctx.isnt(u).option(noteZone(u, social.notes)),
       isGranted(_.UserModView).option(div(cls := "mod-zone mod-zone-full none")),
       standardFlash,
       angle match
         case UserInfo.Angle.Games(Some(searchForm)) => views.html.search.user(u, searchForm)
         case _ =>
           val profile   = u.profileOrDefault
-          val hideTroll = u.marks.troll && !ctx.is(u)
+          val hideTroll = u.marks.troll && ctx.isnt(u)
           div(id := "us_profile")(
             if info.ratingChart.isDefined && (!u.lame || ctx.is(u) || isGranted(_.UserModView)) then
               views.html.user.perfStat.ratingHistoryContainer
             else (ctx.is(u) && u.count.game < 10).option(newPlayer(u)),
             div(cls := "profile-side")(
               div(cls := "user-infos")(
-                (!ctx.is(u))
+                ctx
+                  .isnt(u)
                   .option(
                     frag(
                       u.lame.option(

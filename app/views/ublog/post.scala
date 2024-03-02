@@ -119,7 +119,7 @@ object post:
                 dataIcon := licon.BubbleConvo
               )(trans.ublog.discussThisBlogPostInTheForum())
             ),
-            (ctx.isAuth && !ctx.is(user)).option(
+            (ctx.isAuth && ctx.isnt(user)).option(
               div(cls := "ublog-post__actions")(
                 likeButton(post, liked, showText = true),
                 followable.option(followButton(user, followed))

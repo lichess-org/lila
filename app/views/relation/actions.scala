@@ -17,7 +17,7 @@ object actions:
       signup: Boolean = false
   )(using ctx: Context) =
     div(cls := "relation-actions btn-rack")(
-      (!ctx.is(user) && !blocked).option(
+      (ctx.isnt(user) && !blocked).option(
         a(
           titleOrText(trans.challenge.challengeToPlay.txt()),
           href     := s"${routes.Lobby.home}?user=${user.name}#friend",

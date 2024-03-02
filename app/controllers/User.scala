@@ -171,7 +171,7 @@ final class User(
           .flatMap { case (((blocked, crosstable), followable), relation) =>
             val ping = env.socket.isOnline(user.id).so(UserLagCache.getLagRating(user.id))
             negotiate(
-              html = (!ctx.is(user)).so(currentlyPlaying(user.user)).flatMap { pov =>
+              html = (ctx.isnt(user)).so(currentlyPlaying(user.user)).flatMap { pov =>
                 Ok.page(html.user.mini(user, pov, blocked, followable, relation, ping, crosstable))
                   .map(_.withHeaders(CACHE_CONTROL -> "max-age=5"))
               },
