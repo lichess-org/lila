@@ -71,7 +71,7 @@ object side:
         views.html.gathering.verdicts(verdicts, tour.perfType, tour.isEnterable),
         tour.noBerserk.option(div(cls := "text", dataIcon := licon.Berserk)(trans.arena.noBerserkAllowed())),
         tour.noStreak.option(div(cls := "text", dataIcon := licon.Fire)(trans.arena.noArenaStreaks())),
-        !tour.isScheduled.option(frag(small(trans.by(userIdLink(tour.createdBy.some))), br)),
+        (!tour.isScheduled).option(frag(small(trans.by(userIdLink(tour.createdBy.some))), br)),
         (!tour.isStarted || (tour.isScheduled && tour.position.isDefined)).option(
           absClientInstant(
             tour.startsAt

@@ -32,11 +32,14 @@ object SwissCondition:
         perfType: PerfType,
         getBannedUntil: GetBannedUntil
     )(using me: Me)(using Perf, Executor, GetMaxRating): Fu[WithVerdicts] =
-      list.map {
-        case PlayYourGames => getBannedUntil(me.userId) map PlayYourGames.withBan
-        case c: MaxRating  => c(perfType) map c.withVerdict
-        case c: FlatCond   => fuccess(c withVerdict c(perfType))
-      }.parallel dmap WithVerdicts.apply
+      list
+        .map {
+          case PlayYourGames => getBannedUntil(me.userId).map(PlayYourGames.withBan)
+          case c: MaxRating  => c(perfType).map(c.withVerdict)
+          case c: FlatCond   => fuccess(c.withVerdict(c(perfType)))
+        }
+        .parallel
+        .dmap(WithVerdicts.apply)
 
     def similar(other: All) = sameRatings(other) && titled == other.titled
 
@@ -62,7 +65,7 @@ object SwissCondition:
         "titled"      -> titled,
         "allowList"   -> allowList,
         "playYourGames" -> optional(boolean)
-          .transform(_.contains(true) option PlayYourGames, _.isDefined option true)
+          .transform(_.contains(true).option(PlayYourGames), _.isDefined.option(true))
       )(All.apply)(unapply).verifying("Invalid ratings", _.validRatings)
 
   import reactivemongo.api.bson.*

@@ -48,10 +48,10 @@ object bits:
     )
 
   def userPrizeDisclaimer(ownerId: UserId) =
-    !env.prizeTournamentMakers
+    (!env.prizeTournamentMakers
       .get()
       .value
-      .contains(ownerId)
+      .contains(ownerId))
       .option(
         div(cls := "tour__prize")(
           "This tournament is not organized by Lichess.",

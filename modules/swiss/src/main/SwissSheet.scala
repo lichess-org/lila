@@ -71,7 +71,7 @@ private object SwissSheet:
   ): SwissSheet =
     SwissSheet:
       rounds.map: round =>
-        pairingMap get round match
+        pairingMap.get(round) match
           case Some(pairing) =>
             pairing.status match
               case Left(_)     => Ongoing
@@ -93,7 +93,7 @@ final private class SwissSheetApi(mongo: SwissMongo)(using
       sort: Bdoc
   ): Source[(SwissPlayer, Map[SwissRoundNumber, SwissPairing], SwissSheet), ?] =
     val readPref: ReadPref =
-      if swiss.finishedAt.exists(_ isBefore nowInstant.minusSeconds(10))
+      if swiss.finishedAt.exists(_.isBefore(nowInstant.minusSeconds(10)))
       then _.priTemp
       else _.pri
     SwissPlayer
