@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="arena">Torneo</string>
+  <string name="arena">Arena</string>
   <string name="arenaTournaments">Torneos</string>
   <string name="isItRated">¿Es por puntos?</string>
   <string name="willBeNotified">Se te avisará cuando empiece el torneo. Puedes jugar tranquilamente en otra pestaña mientras esperas.</string>
@@ -63,7 +63,7 @@ Juega rápido y vuelve al recibidor para jugar más partidas y ganar más puntos
   <string name="myTournaments">Mis torneos</string>
   <string name="editTournament">Editar torneo</string>
   <string name="editTeamBattle">Editar batalla de equipo</string>
-  <string name="defender">Defensor</string>
+  <string name="defender" comment="In this context, this is the current holder of a shield trophy, who are defending their trophy in the next shield tournament of that variant. https://lichess.org/tournament/shields">Defensor</string>
   <string name="pickYourTeam">Elige tu equipo</string>
   <string name="whichTeamWillYouRepresentInThisBattle">¿A qué equipo representarás en esta batalla?</string>
   <string name="youMustJoinOneOfTheseTeamsToParticipate">¡Debes unirte a uno de estos equipos para participar!</string>
@@ -75,8 +75,8 @@ Juega rápido y vuelve al recibidor para jugar más partidas y ganar más puntos
   <string name="rankAvgHelp">El promedio de clasificación es un porcentaje de tu clasificación. Más bajo es mejor.
 
 Por ejemplo, ocupar el puesto 3 en un torneo de 100 jugadores = 3%. Estar en el puesto 10 en un torneo de 1000 jugadores = 1%.</string>
-  <string name="medians">medianas</string>
-  <string name="allAveragesAreX">Todos los promedios en esta página son %s.</string>
+  <string name="medians" comment="Part of a longer sentence,  &quot;All averages on this page are %s.&quot; (where %s is this word, medians)">medianas</string>
+  <string name="allAveragesAreX" comment="%s is the word 'medians', which is available for translation separately.">Todos los promedios en esta página son %s.</string>
   <string name="total">Total</string>
   <string name="pointsAvg">Promedio de puntos</string>
   <string name="pointsSum">Suma de puntos</string>
@@ -84,5 +84,5 @@ Por ejemplo, ocupar el puesto 3 en un torneo de 100 jugadores = 3%. Estar en el 
   <string name="tournamentWinners">Ganadores del torneo</string>
   <string name="tournamentShields">Escudos de torneo</string>
   <string name="onlyTitled">Solo jugadores titulados</string>
-  <string name="onlyTitledHelp">Requiere un título oficial para unirse al torneo</string>
+  <string name="onlyTitledHelp">Exigir un título oficial para participar en el torneo</string>
 </resources>
