@@ -28,11 +28,14 @@ private object BSONHandlers:
   given BSON[TimeControl] with
     import chess.Clock
     def reads(r: Reader) =
-      (r.getO[Clock.LimitSeconds]("l"), r.getO[Clock.IncrementSeconds]("i")) mapN { (limit, inc) =>
-        TimeControl.Clock(chess.Clock.Config(limit, inc))
-      } orElse {
-        r.getO[Days]("d") map TimeControl.Correspondence.apply
-      } getOrElse TimeControl.Unlimited
+      (r.getO[Clock.LimitSeconds]("l"), r.getO[Clock.IncrementSeconds]("i"))
+        .mapN { (limit, inc) =>
+          TimeControl.Clock(chess.Clock.Config(limit, inc))
+        }
+        .orElse {
+          r.getO[Days]("d").map(TimeControl.Correspondence.apply)
+        }
+        .getOrElse(TimeControl.Unlimited)
     def writes(w: Writer, t: TimeControl) =
       t match
         case TimeControl.Clock(chess.Clock.Config(l, i)) => $doc("l" -> l, "i" -> i)
@@ -62,8 +65,8 @@ private object BSONHandlers:
 
   given BSON[Challenger] with
     def reads(r: Reader) =
-      if r contains "id" then registeredHandler reads r
-      else if r contains "s" then anonHandler reads r
+      if r contains "id" then registeredHandler.reads(r)
+      else if r contains "s" then anonHandler.reads(r)
       else Challenger.Open
     def writes(w: Writer, c: Challenger) =
       c match

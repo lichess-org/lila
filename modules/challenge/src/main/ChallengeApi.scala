@@ -23,7 +23,7 @@ final class ChallengeApi(
   import Challenge.*
 
   def allFor(userId: UserId, max: Int = 50): Fu[AllChallenges] =
-    createdByDestId(userId, max) zip createdByChallengerId(userId) dmap (AllChallenges.apply).tupled
+    createdByDestId(userId, max).zip(createdByChallengerId(userId)).dmap((AllChallenges.apply).tupled)
 
   // returns boolean success
   def create(c: Challenge): Fu[Boolean] =
@@ -45,16 +45,18 @@ final class ChallengeApi(
       rules = config.rules,
       expiresAt = config.expiresAt
     )
-    doCreate(c) andDo me.foreach(me => openCreatedBy.put(c.id, me)) inject c
+    doCreate(c).andDo(me.foreach(me => openCreatedBy.put(c.id, me))).inject(c)
 
   private val openCreatedBy =
     cacheApi.notLoadingSync[Id, UserId](512, "challenge.open.by"):
       _.expireAfterWrite(1 hour).build()
 
   private def doCreate(c: Challenge) =
-    repo.insertIfMissing(c) andDo:
-      uncacheAndNotify(c)
-      Bus.publish(Event.Create(c), "challenge")
+    repo
+      .insertIfMissing(c)
+      .andDo:
+        uncacheAndNotify(c)
+        Bus.publish(Event.Create(c), "challenge")
 
   def isOpenBy(id: Id, maker: User) = openCreatedBy.getIfPresent(id).contains(maker.id)
 
@@ -67,9 +69,9 @@ final class ChallengeApi(
       .byId(id)
       .dmap(_.filter { c =>
         c.active && c.challenger.match
-          case Challenger.Registered(orig, _) if maker is orig => true
-          case Challenger.Open if isOpenBy(id, maker)          => true
-          case _                                               => false
+          case Challenger.Registered(orig, _) if maker.is(orig) => true
+          case Challenger.Open if isOpenBy(id, maker)           => true
+          case _                                                => false
       })
 
   val countInFor = cacheApi[UserId, Int](131072, "challenge.countInFor"):
@@ -77,27 +79,33 @@ final class ChallengeApi(
 
   def createdByChallengerId = repo.createdByChallengerId()
 
-  def createdByDestId(userId: UserId, max: Int = 50) = countInFor get userId flatMap: nb =>
-    if nb > 5 then repo.createdByPopularDestId(max)(userId)
-    else repo.createdByDestId()(userId)
+  def createdByDestId(userId: UserId, max: Int = 50) = countInFor
+    .get(userId)
+    .flatMap: nb =>
+      if nb > 5 then repo.createdByPopularDestId(max)(userId)
+      else repo.createdByDestId()(userId)
 
   def cancel(c: Challenge) =
-    repo.cancel(c) andDo:
-      uncacheAndNotify(c)
-      Bus.publish(Event.Cancel(c.cancel), "challenge")
+    repo
+      .cancel(c)
+      .andDo:
+        uncacheAndNotify(c)
+        Bus.publish(Event.Cancel(c.cancel), "challenge")
 
-  private def offline(c: Challenge) = repo.offline(c) andDo uncacheAndNotify(c)
+  private def offline(c: Challenge) = repo.offline(c).andDo(uncacheAndNotify(c))
 
   private[challenge] def ping(id: Id): Funit =
-    repo statusById id flatMap:
-      case Some(Status.Created) => repo setSeen id
-      case Some(Status.Offline) => repo.setSeenAgain(id) >> byId(id).map { _ foreach uncacheAndNotify }
-      case _                    => fuccess(socketReload(id))
+    repo
+      .statusById(id)
+      .flatMap:
+        case Some(Status.Created) => repo.setSeen(id)
+        case Some(Status.Offline) => repo.setSeenAgain(id) >> byId(id).map { _.foreach(uncacheAndNotify) }
+        case _                    => fuccess(socketReload(id))
 
   def decline(c: Challenge, reason: Challenge.DeclineReason) =
-    repo.decline(c, reason) andDo {
+    repo.decline(c, reason).andDo {
       uncacheAndNotify(c)
-      Bus.publish(Event.Decline(c declineWith reason), "challenge")
+      Bus.publish(Event.Decline(c.declineWith(reason)), "challenge")
     }
 
   private val acceptQueue =
@@ -123,12 +131,12 @@ final class ChallengeApi(
           me      <- me
           open    <- c.open
           userIds <- open.userIds
-        yield chess.Color.fromWhite(me is userIds._1)
-        val color = openFixedColor orElse requestedColor
+        yield chess.Color.fromWhite(me.is(userIds._1))
+        val color = openFixedColor.orElse(requestedColor)
         if c.challengerIsOpen
         then
           withPerf.flatMap: me =>
-            repo.setChallenger(c.setChallenger(me, sid), color) inject none.asRight
+            repo.setChallenger(c.setChallenger(me, sid), color).inject(none.asRight)
         else if color.map(Challenge.ColorChoice.apply).has(c.colorChoice)
         then fuccess(Left("This color has already been chosen"))
         else
@@ -137,28 +145,31 @@ final class ChallengeApi(
             join <- joiner(c, me)
             result <- join match
               case Right(pov) =>
-                repo.accept(c) inject:
-                  uncacheAndNotify(c)
-                  Bus.publish(Event.Accept(c, me.map(_.id)), "challenge")
-                  c.rematchOf.foreach: gameId =>
-                    import lila.hub.actorApi.map.TellIfExists
-                    import lila.game.actorApi.NotifyRematch
-                    lila.common.Bus
-                      .publish(TellIfExists(gameId.value, NotifyRematch(pov.game)), "roundSocket")
-                  Right(pov.some)
+                repo
+                  .accept(c)
+                  .inject:
+                    uncacheAndNotify(c)
+                    Bus.publish(Event.Accept(c, me.map(_.id)), "challenge")
+                    c.rematchOf.foreach: gameId =>
+                      import lila.hub.actorApi.map.TellIfExists
+                      import lila.game.actorApi.NotifyRematch
+                      lila.common.Bus
+                        .publish(TellIfExists(gameId.value, NotifyRematch(pov.game)), "roundSocket")
+                    Right(pov.some)
               case Left(err) => fuccess(Left(err))
           yield result
 
   def offerRematchForGame(game: Game, user: User): Fu[Boolean] =
-    challengeMaker.makeRematchOf(game, user) flatMapz { challenge =>
-      create(challenge) recover lila.db.recoverDuplicateKey: _ =>
+    challengeMaker.makeRematchOf(game, user).flatMapz { challenge =>
+      create(challenge).recover(lila.db.recoverDuplicateKey: _ =>
         logger.warn(s"${game.id} duplicate key ${challenge.id}")
         false
+      )
     }
 
   def setDestUser(c: Challenge, u: User): Funit = for
     user <- perfsRepo.withPerf(u, c.perfType)
-    challenge = c setDestUser user
+    challenge = c.setDestUser(user)
     _ <- repo.update(challenge)
   yield
     uncacheAndNotify(challenge)
@@ -168,7 +179,7 @@ final class ChallengeApi(
     repo.allWithUserId(userId).flatMap(_.traverse_(remove)).void
 
   def removeByGameId(gameId: GameId): Funit =
-    repo.byId(gameId into Id).flatMap(_ so remove)
+    repo.byId(gameId.into(Id)).flatMap(_.so(remove))
 
   private def isLimitedByMaxPlaying(c: Challenge) =
     if c.hasClock then fuFalse
@@ -177,32 +188,32 @@ final class ChallengeApi(
         .map: userId =>
           gameCache.nbPlaying(userId).dmap(lila.game.Game.maxPlaying <=)
         .parallel
-        .dmap(_ exists identity)
+        .dmap(_.exists(identity))
 
   private[challenge] def sweep: Funit =
     repo
-      .realTimeUnseenSince(nowInstant minusSeconds 20, max = 50)
+      .realTimeUnseenSince(nowInstant.minusSeconds(20), max = 50)
       .flatMap(_.traverse_(offline)) >>
       repo.expired(50).flatMap(_.traverse_(remove))
 
   private def remove(c: Challenge) =
-    repo.remove(c.id) andDo uncacheAndNotify(c)
+    repo.remove(c.id).andDo(uncacheAndNotify(c))
 
   private def uncacheAndNotify(c: Challenge): Unit =
-    c.destUserId foreach countInFor.invalidate
-    c.destUserId foreach notifyUser.apply
-    c.challengerUserId foreach notifyUser.apply
+    c.destUserId.foreach(countInFor.invalidate)
+    c.destUserId.foreach(notifyUser.apply)
+    c.challengerUserId.foreach(notifyUser.apply)
     socketReload(c.id)
 
   private def socketReload(id: Id): Unit =
-    socket.foreach(_ reload id)
+    socket.foreach(_.reload(id))
 
   private object notifyUser:
     private val throttler = new lila.hub.EarlyMultiThrottler[UserId](logger)
     def apply(userId: UserId): Unit = throttler(userId, 3.seconds):
       for
         all  <- allFor(userId)
-        lang <- userRepo langOf userId map I18nLangPicker.byStrOrDefault
+        lang <- userRepo.langOf(userId).map(I18nLangPicker.byStrOrDefault)
         _    <- lightUserApi.preloadMany(all.all.flatMap(_.userIds))
       yield Bus.publish(
         SendTo(userId, lila.socket.Socket.makeMessage("challenges", jsonView(all)(using lang))),

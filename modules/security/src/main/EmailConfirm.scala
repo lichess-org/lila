@@ -42,7 +42,7 @@ final class EmailConfirmMailer(
   val maxTries = 3
 
   def send(user: User, email: EmailAddress)(using Lang): Funit =
-    !email.looksLikeFakeEmail.so {
+    (!email.looksLikeFakeEmail).so {
       tokener.make(user.id).flatMap { token =>
         lila.mon.email.send.confirmation.increment()
         val url = s"$baseUrl/signup/confirm/$token"

@@ -107,7 +107,7 @@ final class NotifyApi(
 
   def notifyOne[U: UserIdOf](to: U, content: NotificationContent): Funit =
     val note = Notification.make(to, content)
-    !shouldSkip(note).flatMapz {
+    (!shouldSkip(note)).flatMapz {
       NotificationPref.Event.byKey.get(content.key) match
         case None => bellOne(note)
         case Some(event) =>

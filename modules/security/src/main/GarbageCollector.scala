@@ -97,12 +97,12 @@ final class GarbageCollector(
 
   private def collect(user: User, email: EmailAddress, msg: => String, quickly: Boolean): Funit =
     justOnce(user.id).so:
-      !hasBeenCollectedBefore(user).map {
+      (!hasBeenCollectedBefore(user)).map {
         if _ then
           val armed = isArmed()
           val wait  = if quickly then 3.seconds else (30 + ThreadLocalRandom.nextInt(300)).seconds
           val message =
-            s"Will dispose of https://lichess.org/${user.username} in $wait. Email: ${email.value}. $msg${!armed
+            s"Will dispose of https://lichess.org/${user.username} in $wait. Email: ${email.value}. $msg${(!armed)
                 .so(" [SIMULATION]")}"
           logger.info(message)
           noteApi.lichessWrite(user, s"Garbage collected because of $msg")

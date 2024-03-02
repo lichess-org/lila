@@ -13,21 +13,21 @@ final private class ChallengeSocket(
   import ChallengeSocket.*
 
   def reload(challengeId: Challenge.Id): Unit =
-    rooms.tell(challengeId into RoomId, NotifyVersion("reload", JsNull))
+    rooms.tell(challengeId.into(RoomId), NotifyVersion("reload", JsNull))
 
   private lazy val send: String => Unit = remoteSocketApi.makeSender("chal-out").apply
 
   lazy val rooms = makeRoomMap(send)
 
   private lazy val challengeHandler: Handler = { case Protocol.In.OwnerPings(ids) =>
-    ids foreach api.ping
+    ids.foreach(api.ping)
   }
 
   remoteSocketApi.subscribe("chal-in", Protocol.In.reader)(
-    challengeHandler orElse minRoomHandler(rooms, lila log "challenge") orElse remoteSocketApi.baseHandler
+    challengeHandler.orElse(minRoomHandler(rooms, lila.log("challenge"))).orElse(remoteSocketApi.baseHandler)
   )
 
-  api registerSocket this
+  api.registerSocket(this)
 
 object ChallengeSocket:
 
@@ -39,5 +39,5 @@ object ChallengeSocket:
 
       val reader: P.In.Reader = raw =>
         raw.path match
-          case "challenge/pings" => OwnerPings(Challenge.Id from P.In.commas(raw.args)).some
+          case "challenge/pings" => OwnerPings(Challenge.Id.from(P.In.commas(raw.args))).some
           case _                 => RP.In.reader(raw)
