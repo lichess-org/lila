@@ -19,7 +19,7 @@ final class Firewall(
 
   def blocks(req: RequestHeader): Boolean =
     val v = blocksIp:
-      lila.common.HTTPRequest ipAddress req
+      lila.common.HTTPRequest.ipAddress(req)
     if v then lila.mon.security.firewall.block.increment()
     v
 
@@ -37,7 +37,7 @@ final class Firewall(
     } >> loadFromDb
 
   def unblockIps(ips: Iterable[IpAddress]): Funit =
-    coll.delete.one($inIds(ips)).void andDo loadFromDb
+    coll.delete.one($inIds(ips)).void.andDo(loadFromDb)
 
   private def loadFromDb: Funit =
     coll.distinctEasy[String, Set]("_id", $empty).map { ips =>
