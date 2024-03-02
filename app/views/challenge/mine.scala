@@ -115,7 +115,7 @@ object mine:
                   div(cls := "board-preview", views.html.board.bits.mini(fen.board, c.finalColor)(div))
                 )
               },
-              !c.isOpen.option(cancelForm)
+              (!c.isOpen).option(cancelForm)
             )
           case Status.Declined =>
             div(cls := "follow-up")(

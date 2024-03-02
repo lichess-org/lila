@@ -23,7 +23,7 @@ object bits:
   def percentFrag[A](v: A)(using TutorNumber[A])           = frag(strong(percentNumber(v)), "%")
 
   private[tutor] def otherUser(user: lila.user.User)(using ctx: Context) =
-    !ctx.is(user).option(userSpan(user, withOnline = false))
+    (!ctx.is(user)).option(userSpan(user, withOnline = false))
 
   private[tutor] def layout(
       menu: Frag,

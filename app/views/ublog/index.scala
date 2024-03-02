@@ -171,7 +171,7 @@ object index:
               span(
                 "Sort by ",
                 span(cls := "btn-rack")(
-                  a(cls := s"btn-rack__btn${!v.so(" active")}", href := route(1, false.some))("rank"),
+                  a(cls := s"btn-rack__btn${(!v).so(" active")}", href := route(1, false.some))("rank"),
                   a(cls := s"btn-rack__btn${v.so(" active")}", href := route(1, true.some))("date")
                 )
               )

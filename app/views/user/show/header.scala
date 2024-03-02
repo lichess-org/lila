@@ -20,7 +20,7 @@ object header:
         cls      := userClass(u.id, none, withOnline = !u.isPatron, withPowerTip = false),
         dataHref := userUrl(u.username)
       )(
-        !u.isPatron.so(lineIcon(u)),
+        (!u.isPatron).so(lineIcon(u)),
         titleTag(u.title),
         u.username,
         userFlair(u).map: flair =>
@@ -135,8 +135,7 @@ object header:
             titleOrText(trans.watchGames.txt()),
             dataIcon := licon.AnalogTv
           ),
-          !ctx
-            .is(u)
+          (!ctx.is(u))
             .option(
               views.html.relation.actions(
                 u.light,
@@ -245,7 +244,7 @@ object header:
                         p(trans.tpTimeSpentOnTV(showDuration(tvDuration)))
                       }
                     ),
-                  !hideTroll.option(
+                  (!hideTroll).option(
                     div(cls := "social_links col2")(
                       profile.actualLinks.nonEmpty.option(strong(trans.socialMediaLinks())),
                       profile.actualLinks.map: link =>

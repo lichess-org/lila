@@ -44,7 +44,7 @@ object grade:
           metric.mine.count.localize,
           " ",
           position.short,
-          !metric.mine.reliableEnough.option(
+          (!metric.mine.reliableEnough).option(
             frag(
               " (",
               em(cls := "text", dataIcon := licon.CautionTriangle)("small sample!"),

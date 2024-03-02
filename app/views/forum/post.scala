@@ -122,7 +122,7 @@ object post:
             )
           else postFrag
         ,
-        !post.erased.option(reactions(post, canReact)),
+        (!post.erased).option(reactions(post, canReact)),
         ctx.me
           .soUse(post.shouldShowEditForm)
           .option(

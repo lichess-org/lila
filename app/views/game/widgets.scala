@@ -79,7 +79,7 @@ object widgets:
           ),
           if g.playedTurns > 0 then
             div(cls := "opening")(
-              (!g.fromPosition.so(g.opening)).map { opening =>
+              ((!g.fromPosition).so(g.opening)).map { opening =>
                 strong(opening.opening.name)
               },
               div(cls := "pgn")(

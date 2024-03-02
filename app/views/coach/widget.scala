@@ -72,7 +72,7 @@ object widget:
                 th(hourlyRate()),
                 td(r)
               ),
-            !link.option(
+            (!link).option(
               tr(cls := "available")(
                 th(availability()),
                 td:

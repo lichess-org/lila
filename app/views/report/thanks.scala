@@ -26,7 +26,7 @@ fetch(this.dataset.action, {method:'post'})
         p("The moderators will review it very soon, and take appropriate action."),
         br,
         br,
-        !blocked.option(
+        (!blocked).option(
           p(
             "In the meantime, you can block this user: ",
             submitButton(

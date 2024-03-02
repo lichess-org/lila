@@ -164,7 +164,7 @@ object replay:
                       trans.computerAnalysis()
                     )
                   ),
-                  !game.isPgnImport.option(
+                  (!game.isPgnImport).option(
                     frag(
                       (game.ply > 1)
                         .option(span(role := "tab", dataPanel := "move-times")(trans.moveTimes())),

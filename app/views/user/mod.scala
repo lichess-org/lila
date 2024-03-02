@@ -248,13 +248,13 @@ object mod:
   def gdprEraseButton(u: User)(using Context) =
     val allowed = u.marks.clean || isGranted(_.Admin)
     submitButton(
-      cls := !allowed.option("disabled"),
+      cls := (!allowed).option("disabled"),
       title := {
         if allowed
         then "Definitely erase everything about this user"
         else "This user has some history, only admins can erase"
       },
-      !allowed.option(disabled)
+      (!allowed).option(disabled)
     )("GDPR erasure")
 
   def prefs(u: User)(pref: lila.pref.Pref)(using Context) =
@@ -527,7 +527,7 @@ object mod:
           )
         ),
         tbody(
-          pag.pag.playerAssessments
+          pag.pag.playerAssessmen.s
             .sortBy(-_.assessment.id)
             .take(15)
             .map: result =>
@@ -901,7 +901,7 @@ object mod:
               else
                 canCloseAlt.option(
                   td(
-                    !u.marks.alt.option(
+                    (!u.marks.alt).option(
                       button(
                         cls  := "button button-empty button-thin button-red mark-alt",
                         href := routes.Mod.alt(u.id, !u.marks.alt)

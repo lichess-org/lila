@@ -147,7 +147,7 @@ object edit:
               },
               postForm(
                 cls    := "form3",
-                action := s"${routes.Streamer.edit}${!ctx.is(s.user).so(s"?u=${s.user.id}")}"
+                action := s"${routes.Streamer.edit}${(!ctx.is(s.user)).so(s"?u=${s.user.id}")}"
               )(
                 isGranted(_.Streamers).option(
                   div(cls := "mod")(

@@ -53,7 +53,7 @@ object index:
                 )
           ,
           div(cls := "streamer-footer")(
-            !requests.option(bits.subscribeButtonFor(s)),
+            (!requests).option(bits.subscribeButtonFor(s)),
             bits.streamerProfile(s)
           )
         )
@@ -68,7 +68,7 @@ object index:
         bits.menu(if requests then "requests" else "index", none)(cls := " page-menu__menu"),
         div(cls := "page-menu__content box streamer-list")(
           boxTop(h1(dataIcon := licon.Mic, cls := "text")(title)),
-          !requests.option(
+          (!requests).option(
             div(cls := "list force-ltr live")(
               live.map: s =>
                 st.article(cls := "streamer")(widget(s, s.stream))

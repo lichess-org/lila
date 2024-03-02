@@ -25,7 +25,7 @@ object request:
           h1(cls := "box__top")(title),
           div(cls := "team-show__desc")(bits.markdown(t, t.description)),
           postForm(cls := "form3", action := teamRoutes.requestCreate(t.id))(
-            !t.open.so(
+            (!t.open).so(
               frag(
                 form3.group(form("message"), trans.message())(form3.textarea(_)()),
                 p(willBeReviewed())

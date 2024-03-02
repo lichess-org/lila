@@ -57,7 +57,7 @@ object layout:
       crossorigin = true,
       "font/woff2".some
     ),
-    !ctx.pref.pieceNotationIsLetter.option(
+    (!ctx.pref.pieceNotationIsLetter).option(
       preload(assetUrl("font/lichess.chess.woff2"), "font", crossorigin = true, "font/woff2".some)
     )
   )
@@ -187,7 +187,7 @@ object layout:
       moreJs,
       ctx.data.inquiry.isDefined.option(jsModule("mod.inquiry")),
       (ctx.pref.bg == lila.pref.Pref.Bg.SYSTEM).option(embedJsUnsafe(systemThemePolyfillJs)),
-      !netConfig.isProd.option(jsModule("devMode"))
+      (!netConfig.isProd).option(jsModule("devMode"))
     )
 
   private def hrefLang(langStr: String, path: String) =
@@ -282,7 +282,7 @@ object layout:
           ),
           link(rel := "mask-icon", href := assetUrl("logo/lichess.svg"), attr("color") := "black"),
           favicons,
-          !robots.option(raw("""<meta content="noindex, nofollow" name="robots">""")),
+          (!robots).option(raw("""<meta content="noindex, nofollow" name="robots">""")),
           noTranslate,
           openGraph.map(_.frags),
           atomLinkTag | dailyNewsAtom,
@@ -419,14 +419,14 @@ object layout:
     def apply(zenable: Boolean)(using ctx: PageContext) =
       header(id := "top")(
         div(cls := "site-title-nav")(
-          !ctx.isAppealUser.option(topnavToggle),
+          (!ctx.isAppealUser).option(topnavToggle),
           h1(cls := "site-title")(
             if ctx.kid.yes then span(title := trans.kidMode.txt(), cls := "kiddo")(":)")
             else ctx.isBot.option(botImage),
             a(href := langHref("/"))(siteNameFrag)
           ),
           ctx.blind.option(h2("Navigation")),
-          !ctx.isAppealUser.option(
+          (!ctx.isAppealUser).option(
             frag(
               topnav(),
               (ctx.kid.no && ctx.me.exists(!_.isPatron) && !zenable).option(
@@ -439,7 +439,7 @@ object layout:
         ),
         div(cls := "site-buttons")(
           warnNoAutoplay,
-          !ctx.isAppealUser.option(clinput),
+          (!ctx.isAppealUser).option(clinput),
           reports,
           teamRequests,
           if ctx.isAppealUser then
@@ -450,7 +450,7 @@ object layout:
               .map { me =>
                 frag(allNotifications, dasher(me))
               }
-              .getOrElse { !ctx.data.error.option(anonDasher) }
+              .getOrElse { (!ctx.data.error).option(anonDasher) }
         )
       )
 
