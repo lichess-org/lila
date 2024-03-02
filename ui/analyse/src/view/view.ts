@@ -440,7 +440,7 @@ export default function (deps?: typeof studyDeps) {
               ctrl.studyPractice
                 ? [deps?.studyPracticeView.side(study!)]
                 : study
-                ? [deps?.studyView.side(study)]
+                ? [deps?.studyView.side(study, true)]
                 : [
                     ctrl.forecast && forecastView(ctrl, ctrl.forecast),
                     !ctrl.synthetic &&
@@ -460,7 +460,9 @@ export default function (deps?: typeof studyDeps) {
                       ),
                   ],
             ),
-        relay ? deps?.relayManager(relay) : h('div.chat__members.none', { hook: onInsert(site.watchers) }),
+        relay && deps
+          ? deps.relayManager(relay, study)
+          : h('div.chat__members.none', { hook: onInsert(site.watchers) }),
       ],
     );
   };

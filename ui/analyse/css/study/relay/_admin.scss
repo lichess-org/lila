@@ -68,6 +68,7 @@
     overflow-y: auto;
     white-space: nowrap;
     padding: 0.3em 0.7em;
+    max-height: 20vh;
 
     > div {
       @extend %flex-center-nowrap;

@@ -1,6 +1,6 @@
 import { Config as CgConfig } from 'chessground/config';
 import { DrawShape } from 'chessground/draw';
-import { prop, defined } from 'common';
+import { prop, defined, Prop } from 'common';
 import throttle, { throttlePromiseDelay } from 'common/throttle';
 import debounce from 'common/debounce';
 import AnalyseCtrl from '../ctrl';
@@ -35,6 +35,7 @@ import {
   ChapterId,
   ServerNodeMsg,
   ServerClockMsg,
+  ChapterPreview,
 } from './interfaces';
 import GamebookPlayCtrl from './gamebook/gamebookPlayCtrl';
 import { DescriptionCtrl } from './description';
@@ -114,7 +115,7 @@ export default class StudyCtrl {
     const sticked = data.features.sticky && !ctrl.initialPath && !isManualChapter && !practiceData;
     this.vm = {
       loading: false,
-      tab: prop<Tab>(relayData || data.chapters.length > 1 ? 'chapters' : 'members'),
+      tab: prop<Tab>(!relayData && data.chapters.length > 1 ? 'chapters' : 'members'),
       toolTab: prop<ToolTab>('tags'),
       chapterId: sticked ? data.position.chapterId : data.chapter.id,
       // path is at ctrl.path
@@ -158,7 +159,7 @@ export default class StudyCtrl {
         this.redrawAndUpdateAddressBar,
         this.members,
         this.data.chapter,
-        this.chapters.list,
+        this.chapters.list as Prop<ChapterPreview[]>,
         this.chapters.looksNew(),
         (id: ChapterId) => this.setChapter(id),
       );
@@ -260,7 +261,6 @@ export default class StudyCtrl {
   };
 
   setTab = (tab: Tab) => {
-    this.relay?.tourShow(false);
     this.vm.tab(tab);
     this.redraw();
   };

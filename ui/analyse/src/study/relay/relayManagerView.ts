@@ -1,21 +1,28 @@
 import * as licon from 'common/licon';
-import { bind, onInsert, dataIcon } from 'common/snabbdom';
-import { h, VNode } from 'snabbdom';
+import { looseH as h, bind, onInsert, dataIcon, MaybeVNode } from 'common/snabbdom';
 import { LogEvent } from './interfaces';
 import RelayCtrl from './relayCtrl';
 import { memoize } from 'common';
+import { side as studyViewSide } from '../studyView';
+import StudyCtrl from '../studyCtrl';
 
-export default function (ctrl: RelayCtrl): VNode | undefined {
-  return ctrl.members.canContribute()
-    ? h('div.relay-admin', { hook: onInsert(_ => site.asset.loadCssPath('analyse.relay-admin')) }, [
-        h('h2', [
-          h('span.text', { attrs: dataIcon(licon.RadioTower) }, 'Broadcast manager'),
-          h('a', { attrs: { href: `/broadcast/round/${ctrl.id}/edit`, 'data-icon': licon.Gear } }),
-        ]),
-        ctrl.data.sync?.url || ctrl.data.sync?.ids
-          ? (ctrl.data.sync.ongoing ? stateOn : stateOff)(ctrl)
-          : null,
-        renderLog(ctrl),
+export default function (ctrl: RelayCtrl, study: StudyCtrl): MaybeVNode {
+  const contributor = ctrl.members.canContribute();
+  return contributor || study.data.admin
+    ? h('div.relay-admin__container', [
+        contributor
+          ? h('div.relay-admin', { hook: onInsert(_ => site.asset.loadCssPath('analyse.relay-admin')) }, [
+              h('h2', [
+                h('span.text', { attrs: dataIcon(licon.RadioTower) }, 'Broadcast manager'),
+                h('a', { attrs: { href: `/broadcast/round/${ctrl.id}/edit`, 'data-icon': licon.Gear } }),
+              ]),
+              ctrl.data.sync?.url || ctrl.data.sync?.ids
+                ? (ctrl.data.sync.ongoing ? stateOn : stateOff)(ctrl)
+                : null,
+              renderLog(ctrl),
+            ])
+          : undefined,
+        contributor || study.data.admin ? studyViewSide(study, false) : undefined,
       ])
     : undefined;
 }

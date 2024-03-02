@@ -142,50 +142,36 @@ function metadata(ctrl: StudyCtrl): VNode {
   ]);
 }
 
-export function side(ctrl: StudyCtrl): VNode {
-  const activeTab = ctrl.vm.tab(),
-    tourShow = ctrl.relay?.tourShow,
-    tourShown = !!tourShow && tourShow();
+export function side(ctrl: StudyCtrl, withSearch: boolean): VNode {
+  const activeTab = ctrl.vm.tab();
 
   const makeTab = (key: Tab, name: string) =>
     h(
       `span.${key}`,
       {
-        class: { active: !tourShown && activeTab === key },
+        class: { active: activeTab === key },
         attrs: { role: 'tab' },
         hook: bind('mousedown', () => ctrl.setTab(key)),
       },
       name,
     );
 
-  const tourTab =
-    tourShow &&
-    h(
-      'span.relay-tour.text',
-      {
-        class: { active: tourShown },
-        hook: bind('mousedown', () => tourShow(true), ctrl.redrawAndUpdateAddressBar),
-        attrs: { ...dataIcon(licon.RadioTower), role: 'tab' },
-      },
-      'Broadcast',
-    );
-
   const chaptersTab =
-    (tourShow && ctrl.chapters.looksNew() && !ctrl.members.canContribute()) ||
+    (ctrl.chapters.looksNew() && !ctrl.members.canContribute()) ||
     makeTab(
       'chapters',
       ctrl.trans.pluralSame(ctrl.relay ? 'nbGames' : 'nbChapters', ctrl.chapters.list().length),
     );
 
   const tabs = h('div.tabs-horiz', { attrs: { role: 'tablist' } }, [
-    tourTab,
     chaptersTab,
-    (!tourTab || ctrl.members.canContribute() || ctrl.data.admin) &&
+    (ctrl.members.canContribute() || ctrl.data.admin) &&
       makeTab('members', ctrl.trans.pluralSame('nbMembers', ctrl.members.size())),
-    h('span.search.narrow', {
-      attrs: { ...dataIcon(licon.Search), title: 'Search' },
-      hook: bind('click', () => ctrl.search.open(true)),
-    }),
+    withSearch &&
+      h('span.search.narrow', {
+        attrs: { ...dataIcon(licon.Search), title: 'Search' },
+        hook: bind('click', () => ctrl.search.open(true)),
+      }),
     ctrl.members.isOwner() &&
       h('span.more.narrow', {
         attrs: { ...dataIcon(licon.Hamburger), title: 'Edit study' },
