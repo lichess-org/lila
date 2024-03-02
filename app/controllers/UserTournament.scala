@@ -25,7 +25,7 @@ final class UserTournament(env: Env) extends LilaController(env):
             env.tournament.api.byOwnerPager(user, page).flatMap { pager =>
               Ok.page(html.userTournament.created(user, pager))
             }
-          case "upcoming" if ctx is user => // only mine because it's very expensive
+          case "upcoming" if ctx.is(user) => // only mine because it's very expensive
             env.tournament.api.upcomingByPlayerPager(user, page).flatMap { pager =>
               Ok.page(html.userTournament.upcoming(user, pager))
             }

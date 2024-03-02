@@ -13,7 +13,7 @@ case class Sheet(scores: List[Sheet.Score], total: Int, variant: Variant):
 
   def addResult(userId: UserId, p: Pairing, version: Version, streakable: Streakable): Sheet =
     val berserk =
-      if p berserkOf userId then if p.notSoQuickFinish then Berserk.Valid else Berserk.Invalid
+      if p.berserkOf(userId) then if p.notSoQuickFinish then Berserk.Valid else Berserk.Invalid
       else Berserk.No
     val score = p.winner match
       case None if p.quickDraw => Score(Result.DQ, Flag.Normal, berserk)
@@ -44,7 +44,7 @@ case class Sheet(scores: List[Sheet.Score], total: Int, variant: Variant):
   def scoresToString: String =
     val sb = new java.lang.StringBuilder(16)
     scores.foreach: score =>
-      sb append score.value
+      sb.append(score.value)
     sb.toString
 
 object Sheet:
@@ -66,7 +66,7 @@ object Sheet:
     val V1: Version       = 1
     val V2: Version       = 2
     private val v2date    = instantOf(2020, 4, 21, 0, 0)
-    def of(date: Instant) = if date isBefore v2date then V1 else V2
+    def of(date: Instant) = if date.isBefore(v2date) then V1 else V2
 
   opaque type Streakable <: Boolean = Boolean
   object Streakable:

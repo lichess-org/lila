@@ -53,11 +53,11 @@ private class RelayPlayersTextarea(val text: String):
     val v2 = (line: String) =>
       line.split('=').map(_.trim) match
         case Array(name, fideId) =>
-          fideId.toIntOption map: id =>
+          fideId.toIntOption.map: id =>
             name -> RelayPlayer(name.some, none, none, FideId(id).some)
         case _ =>
           val arr = line.split('/').map(_.trim)
-          arr lift 0 map: fromName =>
+          arr.lift(0).map: fromName =>
             fromName -> RelayPlayer(
               name = arr.lift(3).filter(_.nonEmpty),
               rating = arr.lift(1).flatMap(_.toIntOption),
@@ -70,7 +70,7 @@ private class RelayPlayersTextarea(val text: String):
   private def update(tags: Tags): Tags =
     chess.Color.all.foldLeft(tags): (tags, color) =>
       tags ++ Tags:
-        tags(color.name).flatMap(findMatching) so: rp =>
+        tags(color.name).flatMap(findMatching).so: rp =>
           rp.fideId match
             case Some(fideId) => List(Tag(_.fideIds(color), fideId.toString))
             case None =>

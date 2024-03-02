@@ -10,24 +10,29 @@ object JsonView:
 
   import writers.{ *, given }
 
-  lazy val timeoutReasons = Json toJson ChatTimeout.Reason.all
+  lazy val timeoutReasons = Json.toJson(ChatTimeout.Reason.all)
 
   def asyncLines(chat: AnyChat)(using flairs: FlairApi)(using Executor): Fu[JsonChatLines] =
-    flairs.flairsOf(chat.flairUserIds) map: flairs =>
-      syncLines(chat)(using flairs)
+    flairs
+      .flairsOf(chat.flairUserIds)
+      .map: flairs =>
+        syncLines(chat)(using flairs)
 
   def syncLines(chat: AnyChat)(using FlairApi.FlairMap): JsonChatLines = JsonChatLines:
     chat match
-      case c: MixedChat => JsArray(c.lines map lineWriter.writes)
-      case c: UserChat  => JsArray(c.lines map userLineWriter.writes)
+      case c: MixedChat => JsArray(c.lines.map(lineWriter.writes))
+      case c: UserChat  => JsArray(c.lines.map(userLineWriter.writes))
 
   def apply(line: Line)(using getFlair: FlairApi.Getter)(using Executor): Fu[JsObject] =
-    line.userIdMaybe.ifTrue(line.flair).so(getFlair) map: flair =>
-      given FlairApi.FlairMap = ~(for
-        userId <- line.userIdMaybe
-        flair  <- flair
-      yield Map(userId -> flair))
-      lineWriter.writes(line)
+    line.userIdMaybe
+      .ifTrue(line.flair)
+      .so(getFlair)
+      .map: flair =>
+        given FlairApi.FlairMap = ~(for
+          userId <- line.userIdMaybe
+          flair  <- flair
+        yield Map(userId -> flair))
+        lineWriter.writes(line)
 
   def userModInfo(using LightUser.GetterSync)(u: UserModInfo) =
     lila.user.JsonView.modWrites.writes(u.user) ++ Json.obj:
@@ -59,8 +64,8 @@ object JsonView:
         )
 
     private[chat] def lineWriter(using FlairApi.FlairMap): OWrites[Line] = OWrites:
-      case l: UserLine   => userLineWriter writes l
-      case l: PlayerLine => playerLineWriter writes l
+      case l: UserLine   => userLineWriter.writes(l)
+      case l: PlayerLine => playerLineWriter.writes(l)
 
     def userLineWriter(using getFlair: FlairApi.FlairMap): OWrites[UserLine] = OWrites: l =>
       Json

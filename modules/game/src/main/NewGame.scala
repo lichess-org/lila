@@ -4,7 +4,7 @@ package lila.game
 case class NewGame(sloppy: Game) extends AnyVal:
   def withId(id: GameId): Game = sloppy.withId(id)
   def withUniqueId(using idGenerator: IdGenerator): Fu[Game] =
-    idGenerator.game dmap sloppy.withId
+    idGenerator.game.dmap(sloppy.withId)
 
   def start: NewGame = NewGame(sloppy.start)
 

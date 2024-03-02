@@ -12,11 +12,11 @@ final class ChatPanic:
     }
 
   def allowed(id: UserId, fetch: UserId => Fu[Option[User]]): Fu[Boolean] =
-    if enabled then fetch(id) dmap { _ so allowed }
+    if enabled then fetch(id).dmap { _.so(allowed) }
     else fuTrue
 
   def enabled =
-    until exists { d =>
+    until.exists { d =>
       d.isAfterNow || {
         until = none
         false

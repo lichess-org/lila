@@ -15,7 +15,7 @@ final private class ExplorerGame(
 )(using Executor):
 
   def quote(gameId: GameId): Fu[Option[Comment]] =
-    importer(gameId) mapz { game =>
+    importer(gameId).mapz { game =>
       gameComment(game).some
     }
 
@@ -24,25 +24,27 @@ final private class ExplorerGame(
       logger.info(s"Overweight chapter ${study.id}/${position.chapter.id}")
       fuccess(none)
     else
-      importer(gameId) mapz { game =>
-        position.node so { fromNode =>
-          GameToRoot(game, none, withClocks = false).pipe { root =>
-            root.setCommentAt(
-              comment = gameComment(game),
-              path = UciPath.fromIds(root.mainline.map(_.id))
-            )
-          } so { gameRoot =>
-            merge(fromNode, position.path, gameRoot) flatMap { case (newNode, path) =>
-              position.chapter.addNode(newNode, path) map (_ -> path)
+      importer(gameId).mapz { game =>
+        position.node.so { fromNode =>
+          GameToRoot(game, none, withClocks = false)
+            .pipe { root =>
+              root.setCommentAt(
+                comment = gameComment(game),
+                path = UciPath.fromIds(root.mainline.map(_.id))
+              )
             }
-          }
+            .so { gameRoot =>
+              merge(fromNode, position.path, gameRoot).flatMap { case (newNode, path) =>
+                position.chapter.addNode(newNode, path).map(_ -> path)
+              }
+            }
         }
       }
 
   private def compareFens(a: Fen.Epd, b: Fen.Epd) = a.simple == b.simple
 
   private def merge(fromNode: Node, fromPath: UciPath, game: Root): Option[(Branch, UciPath)] =
-    val gameNodes = game.mainline.dropWhile(n => !compareFens(n.fen, fromNode.fen)) drop 1
+    val gameNodes = game.mainline.dropWhile(n => !compareFens(n.fen, fromNode.fen)).drop(1)
     val (path, foundGameNode) = gameNodes.foldLeft((UciPath.root, none[Branch])) {
       case ((path, None), gameNode) =>
         val nextPath = path + gameNode.id
@@ -72,5 +74,5 @@ final private class ExplorerGame(
       (pgn.flatMap(_.tags(_.Event)), pgn.flatMap(_.tags.year).map(_.toString)) match
         case (Some(event), Some(year)) if event.contains(year) => event.some
         case (Some(event), Some(year))                         => s"$event, $year".some
-        case (eventO, yearO)                                   => eventO orElse yearO
+        case (eventO, yearO)                                   => eventO.orElse(yearO)
     s"$white - $black, $result, ${event | "-"}"

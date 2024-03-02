@@ -8,10 +8,10 @@ import chess.format.UciPath
 object PgnTags:
 
   def apply(tags: Tags): Tags =
-    tags pipe filterRelevant pipe removeContradictingTermination pipe sort
+    tags.pipe(filterRelevant).pipe(removeContradictingTermination).pipe(sort)
 
   def setRootClockFromTags(c: Chapter): Option[Chapter] =
-    c.updateRoot { _.setClockAt(c.tags.clockConfig map (_.limit), UciPath.root) } filter (c !=)
+    c.updateRoot { _.setClockAt(c.tags.clockConfig.map(_.limit), UciPath.root) }.filter(c !=)
 
   private def filterRelevant(tags: Tags) =
     Tags(tags.value.filter { t =>
@@ -52,7 +52,7 @@ object PgnTags:
       FEN
     )
 
-  val typesToString = sortedTypes mkString ","
+  val typesToString = sortedTypes.mkString(",")
 
   private val relevantTypeSet: Set[TagType] = sortedTypes.toSet
 

@@ -26,7 +26,7 @@ case class Player(
 
   def playerUser =
     userId.flatMap: uid =>
-      rating map { PlayerUser(uid, _, ratingDiff) }
+      rating.map { PlayerUser(uid, _, ratingDiff) }
 
   def isAi = aiLevel.isDefined
 
@@ -44,7 +44,7 @@ case class Player(
 
   def goBerserk = copy(berserk = true)
 
-  def finish(winner: Boolean) = copy(isWinner = winner option true)
+  def finish(winner: Boolean) = copy(isWinner = winner.option(true))
 
   def offerDraw = copy(isOfferingDraw = true)
 
@@ -57,7 +57,7 @@ case class Player(
   def isProposingTakeback = proposeTakebackAt > 0
 
   def nameSplit: Option[(String, Option[Int])] =
-    name map:
+    name.map:
       case Player.nameSplitRegex(n, r) => n.trim -> r.toIntOption
       case n                           => n      -> none
 
@@ -70,7 +70,7 @@ case class Player(
 
   def ratingAfter = rating.map(_.applyDiff(~ratingDiff))
 
-  def stableRating = rating ifFalse provisional.value
+  def stableRating = rating.ifFalse(provisional.value)
 
   def stableRatingAfter = stableRating.map(_.applyDiff(~ratingDiff))
 
@@ -120,7 +120,7 @@ object Player:
       id = IdGenerator.player(color),
       color = color,
       aiLevel = none,
-      name = name orElse "?".some,
+      name = name.orElse("?".some),
       rating = rating
     )
 
@@ -130,7 +130,7 @@ object Player:
     type Map = ByColor[Option[HoldAlert]]
     val emptyMap: Map                 = ByColor(none, none)
     def suspicious(ply: Ply): Boolean = ply >= 16 && ply <= 40
-    def suspicious(m: Map): Boolean   = m exists { _ exists (_.suspicious) }
+    def suspicious(m: Map): Boolean   = m.exists { _.exists(_.suspicious) }
 
   case class UserInfo(id: UserId, rating: IntRating, provisional: RatingProvisional)
 
@@ -157,20 +157,20 @@ object Player:
     import BSONFields.*
     val p = light.player(color)
     Player(
-      id = GamePlayerId(color.fold(ids take 4, ids drop 4)),
+      id = GamePlayerId(color.fold(ids.take(4), ids.drop(4))),
       color = p.color,
       aiLevel = p.aiLevel,
       isWinner = light.win.map(_ == color),
-      isOfferingDraw = doc booleanLike isOfferingDraw getOrElse false,
-      proposeTakebackAt = Ply(doc int proposeTakebackAt getOrElse 0),
+      isOfferingDraw = doc.booleanLike(isOfferingDraw).getOrElse(false),
+      proposeTakebackAt = Ply(doc.int(proposeTakebackAt).getOrElse(0)),
       userId = p.userId,
       rating = p.rating,
       ratingDiff = p.ratingDiff,
       provisional = p.provisional,
-      blurs = doc.getAsOpt[Blurs](blursBits) getOrElse Blurs.zeroBlurs.zero,
+      blurs = doc.getAsOpt[Blurs](blursBits).getOrElse(Blurs.zeroBlurs.zero),
       berserk = p.berserk,
       blindfold = ~doc.getAsOpt[Boolean](blindfold),
-      name = doc string name
+      name = doc.string(name)
     )
 
   def playerWrite(p: Player) =
