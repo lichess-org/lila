@@ -5,6 +5,7 @@
       @extend %box-radius-top, %metal;
       flex: 0 0 auto;
       padding: 1em;
+      main.has-relay-tour &,
       &:hover {
         background: $c-primary;
         color: $c-primary-over;
