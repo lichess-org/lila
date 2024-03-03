@@ -20,7 +20,7 @@ $clock-height: 20px;
 }
 
 .analyse__clock {
-  @extend %metal, %box-shadow;
+  @extend %metal;
 
   position: absolute;
   right: 0;
@@ -48,5 +48,6 @@ $clock-height: 20px;
   }
   @include breakpoint($mq-col2) {
     @include hand-width(right);
+    margin-right: 1px;
   }
 }

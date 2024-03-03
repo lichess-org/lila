@@ -46,7 +46,8 @@
   @include breakpoint($mq-col2) {
     padding: 0.5em 0.5em 0.5em 0.3em;
     line-height: inherit;
-    a {
+    a,
+    name {
       flex: 1 1 auto;
     }
   }

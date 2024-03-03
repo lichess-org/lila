@@ -90,7 +90,7 @@ $col2-panel-height: 240px;
     .notation-options {
       div {
         @extend %flex-wrap;
-        width: 100%;
+        flex: 1;
       }
       a,
       span {
