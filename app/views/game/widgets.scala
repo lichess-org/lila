@@ -126,7 +126,11 @@ object widgets {
         )
       } getOrElse {
         player.engineConfig map { ec =>
-          span(aiName(ec))
+          frag(
+            span(engineName(ec)),
+            br,
+            engineLevel(ec)
+          )
         } getOrElse {
           (player.nameSplit.fold[Frag](anonSpan) { case (name, rating) =>
             frag(

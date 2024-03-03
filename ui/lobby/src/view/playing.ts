@@ -4,6 +4,7 @@ import { forsythToRole } from 'shogiops/sfen';
 import { handRoles } from 'shogiops/variant/util';
 import { h } from 'snabbdom';
 import LobbyController from '../ctrl';
+import { engineNameFromCode } from 'common/engineName';
 
 function timer(pov) {
   const date = Date.now() + pov.secondsLeft * 1000;
@@ -68,7 +69,9 @@ export default function (ctrl: LobbyController) {
             })
           ),
           h('span.meta', [
-            pov.opponent.ai ? ctrl.trans('aiNameLevelAiLevel', 'Engine', pov.opponent.ai) : pov.opponent.username,
+            pov.opponent.ai
+              ? engineNameFromCode(pov.opponent.aiCode, pov.opponent.ai, ctrl.trans)
+              : pov.opponent.username,
             h(
               'span.indicator',
               pov.isMyTurn

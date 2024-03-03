@@ -1,13 +1,10 @@
 import { colorName } from 'common/colorName';
+import { engineNameFromCode } from 'common/engineName';
 import { Player } from 'game';
 import { isHandicap } from 'shogiops/handicaps';
 import { h } from 'snabbdom';
 import RoundController from '../ctrl';
 import { Position } from '../interfaces';
-
-export function aiName(ctrl: RoundController, name: string | null, level: number) {
-  return ctrl.trans('aiNameLevelAiLevel', name || 'Engine', level);
-}
 
 export function userHtml(ctrl: RoundController, player: Player, position: Position) {
   const d = ctrl.data,
@@ -101,14 +98,15 @@ export function userHtml(ctrl: RoundController, player: Player, position: Positi
           title: connecting ? 'Connecting to the game' : player.onGame ? 'Joined the game' : 'Left the game',
         },
       }),
-      h('name', player.name || 'Anonymous'),
+      h('name', player.ai ? engineNameFromCode(player.aiCode) : player.name || 'Anonymous'),
+      player.ai ? h('rating', ctrl.trans('levelX', player.ai)) : null,
     ]
   );
 }
 
-export function userTxt(ctrl: RoundController, player: Player) {
+export function userTxt(player: Player) {
   if (player.user) {
     return (player.user.title ? player.user.title + ' ' : '') + player.user.username;
-  } else if (player.ai) return aiName(ctrl, player.aiName, player.ai);
+  } else if (player.ai) return engineNameFromCode(player.aiCode);
   else return 'Anonymous';
 }

@@ -3,6 +3,7 @@ import { clockShow, clockToPerf } from 'common/clock';
 import { Hooks, VNode, h } from 'snabbdom';
 import LobbyController from '../ctrl';
 import { Hook, Preset, PresetOpts, Seek } from '../interfaces';
+import { engineName } from 'common/engineName';
 
 export function render(ctrl: LobbyController) {
   return ctrl.allPresets
@@ -38,7 +39,7 @@ export function presetHooks(ctrl: LobbyController): Hooks {
 function presetButton(p: Preset, ctrl: LobbyController): VNode {
   const clock = p.timeMode == 2 ? ctrl.trans.plural('nbDays', p.days) : clockShow(p.lim * 60, p.byo, p.inc || 0, p.per),
     perf = p.ai
-      ? ctrl.trans('aiNameLevelAiLevel', 'AI', p.ai)
+      ? 'AI - ' + ctrl.trans('levelX', p.ai).toLowerCase()
       : p.timeMode == 2
         ? ctrl.trans.noarg('correspondence')
         : ctrl.trans.noargOrCapitalize(clockToPerf(p.lim * 60, p.byo, p.inc || 0, p.per)),
@@ -46,12 +47,16 @@ function presetButton(p: Preset, ctrl: LobbyController): VNode {
       !!p.ai ||
       (p.timeMode == 2
         ? ctrl.data.seeks.some(s => isSameSeek(p, s, ctrl))
-        : ctrl.data.hooks.some(h => isSameHook(h, clock, ctrl)));
+        : ctrl.data.hooks.some(h => isSameHook(h, clock, ctrl))),
+    attrs = {
+      'data-id': p.id,
+    };
+  if (p.ai) attrs['title'] = engineName('standard', undefined, p.ai);
 
   return h(
     'div' + (p.ai === 1 && ctrl.presetOpts.isNewPlayer ? '.highlight' : ''),
     {
-      attrs: { 'data-id': p.id },
+      attrs,
       class: {
         highlight: p.ai === 1 && ctrl.presetOpts.isNewPlayer,
         disabled: ctrl.currentPresetId === p.id || (p.timeMode === 2 && !ctrl.data.me),

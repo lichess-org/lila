@@ -403,7 +403,7 @@ export default class RoundController {
     if (game.isPlayerTurn(d))
       notify(() => {
         let txt = this.trans('yourTurn'),
-          opponent = renderUser.userTxt(this, d.opponent);
+          opponent = renderUser.userTxt(d.opponent);
         if (this.ply < 1) txt = opponent + '\njoined the game.\n' + txt;
         else {
           const m_step = d.steps[d.steps.length - 1];
@@ -417,7 +417,7 @@ export default class RoundController {
       });
     else if (this.isPlaying() && this.ply < 1)
       notify(() => {
-        return renderUser.userTxt(this, d.opponent) + '\njoined the game.';
+        return renderUser.userTxt(d.opponent) + '\njoined the game.';
       });
   };
 

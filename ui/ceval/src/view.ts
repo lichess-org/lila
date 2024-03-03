@@ -88,7 +88,7 @@ function threatButton(ctrl: ParentCtrl): VNode | null {
 
 function engineName(ctrl: CevalCtrl): VNode[] {
   return [
-    h('span', { attrs: { title: ctrl.longEngineName() || '' } }, ctrl.engineName),
+    h('span', ctrl.engineName),
     ctrl.technology == 'nnue'
       ? h(
           'span.technology.good',

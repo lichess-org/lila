@@ -43,10 +43,6 @@ export abstract class AbstractWorker<T> {
     return this.getProtocol().isComputing();
   }
 
-  engineName(): string | undefined {
-    return this.getProtocol().engineName;
-  }
-
   protected abstract getProtocol(): Protocol;
   protected abstract boot(cfg: Config): void;
   abstract destroy(): void;

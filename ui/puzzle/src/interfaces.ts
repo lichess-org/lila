@@ -162,6 +162,7 @@ export interface PuzzlePlayer {
   name: string;
   title?: string;
   ai?: number;
+  aiCode?: EngineCode;
   color: Color;
 }
 

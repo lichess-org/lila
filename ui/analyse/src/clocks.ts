@@ -2,6 +2,7 @@ import * as game from 'game';
 import { VNode, h } from 'snabbdom';
 import { defined } from 'common/common';
 import AnalyseCtrl from './ctrl';
+import { engineNameFromCode } from 'common/engineName';
 
 export default function renderClocks(ctrl: AnalyseCtrl, withNames: boolean): [VNode, VNode] | undefined {
   if (ctrl.embed || (ctrl.data.game.status.name === 'started' && !ctrl.imported)) return;
@@ -81,7 +82,7 @@ function playerName(player: game.Player | undefined, showSeparator: boolean): st
     (player.user
       ? player.user.username
       : player.ai
-        ? 'Engine'
+        ? engineNameFromCode(player.aiCode)
         : player.name && player.name !== '?'
           ? player.name
           : 'Anonymous') + (showSeparator ? sep : '')

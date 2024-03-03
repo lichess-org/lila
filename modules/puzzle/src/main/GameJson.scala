@@ -87,6 +87,7 @@ final private class GameJson(
       )
       .add("title" -> user.title)
       .add("ai" -> p.aiLevel)
+      .add("aiCode" -> p.aiCode)
   })
 
   private def generateBc(game: Game, plies: Int): JsObject =

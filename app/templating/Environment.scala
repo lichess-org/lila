@@ -14,7 +14,6 @@ object Environment
     with PaginatorHelper
     with FormHelper
     with SetupHelper
-    with AiHelper
     with GameHelper
     with UserHelper
     with ForumHelper

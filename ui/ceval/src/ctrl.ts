@@ -1,5 +1,6 @@
 import { Result } from '@badrap/result';
 import { prop } from 'common/common';
+import { engineName } from 'common/engineName';
 import { isImpasse } from 'common/impasse';
 import { isAndroid, isIOS, isIPad } from 'common/mobile';
 import { storedProp } from 'common/storage';
@@ -46,17 +47,6 @@ function defaultDepth(technology: CevalTechnology, threads: number, multiPv: num
       return 18 + extraDepth;
     case 'nnue':
       return 20 + extraDepth;
-  }
-}
-
-function engineName(technology: CevalTechnology): string {
-  switch (technology) {
-    case 'none':
-      return '';
-    case 'hce':
-      return 'Fairy Stockfish';
-    case 'nnue':
-      return 'YaneuraOu K-P';
   }
 }
 
@@ -388,8 +378,7 @@ export default function (opts: CevalOpts): CevalCtrl {
       !isDeeper() &&
       ((!infinite() && !worker?.isComputing()) || showingCloud()),
     isComputing: () => !!running && !!worker?.isComputing(),
-    engineName: engineName(technology),
-    longEngineName: () => worker?.engineName(),
+    engineName: technology !== 'none' ? engineName(opts.variant.key, opts.initialSfen) : undefined,
     destroy: () => worker?.destroy(),
     redraw: opts.redraw,
     shouldUseYaneuraou: useYaneuraou,

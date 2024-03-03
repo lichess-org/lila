@@ -1,4 +1,4 @@
-import { colorName, transWithColorName } from 'common/colorName';
+import { transWithColorName } from 'common/colorName';
 import { MaybeVNodes } from 'common/snabbdom';
 import * as game from 'game';
 import * as status from 'game/status';
@@ -16,23 +16,7 @@ import * as renderUser from './user';
 
 function renderPlayer(ctrl: RoundController, position: Position) {
   const player = ctrl.playerAt(position);
-  return ctrl.nvui
-    ? undefined
-    : player.ai
-      ? h('div.user-link.online.ruser.ruser-' + position, [
-          h(`div.player-color.${player.color}`, {
-            attrs: {
-              title: colorName(
-                ctrl.trans.noarg,
-                player.color,
-                isHandicap({ rules: ctrl.data.game.variant.key, sfen: ctrl.data.game.initialSfen })
-              ),
-            },
-          }),
-          h('i.line'),
-          h('name', renderUser.aiName(ctrl, player.aiName, player.ai)),
-        ])
-      : renderUser.userHtml(ctrl, player, position);
+  return ctrl.nvui ? undefined : renderUser.userHtml(ctrl, player, position);
 }
 
 const isLoading = (ctrl: RoundController): boolean => ctrl.loading || ctrl.redirecting;

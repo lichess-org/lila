@@ -1,4 +1,5 @@
 import { colorName } from 'common/colorName';
+import { engineName } from 'common/engineName';
 import { findHandicaps, isHandicap } from 'shogiops/handicaps';
 import { initialSfen } from 'shogiops/sfen';
 import LobbyController from './ctrl';
@@ -431,12 +432,7 @@ export default class Setup {
         $level = $('div.level'),
         $info = $level.find('.ai_info'),
         rules = this.idToRules(variant),
-        level = parseInt($level.find('input:checked').val()),
-        useYane =
-          variant == 1 &&
-          level > 1 &&
-          (!sfen || isHandicap({ sfen: sfen, rules: 'standard' }) || initialSfen('standard') === sfen);
-
+        level = parseInt($level.find('input:checked').val());
       $form
         .find('.color-submits button[value="sente"]')
         .attr('title', colorName(this.root.trans.noarg, 'sente', isHandicap({ sfen, rules })));
@@ -444,7 +440,7 @@ export default class Setup {
         .find('.color-submits button[value="gote"]')
         .attr('title', colorName(this.root.trans.noarg, 'gote', isHandicap({ sfen, rules })));
 
-      $info.text(useYane ? 'YaneuraOu' : 'Fairy Stockfish');
+      $info.text(engineName(rules, sfen, level));
     };
 
     const setHandicapvalue = () => {

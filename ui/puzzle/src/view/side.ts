@@ -1,4 +1,5 @@
 import { MaybeVNode, dataIcon, onInsert } from 'common/snabbdom';
+import { engineNameFromCode } from 'common/engineName';
 import { VNode, h } from 'snabbdom';
 import { Controller, Puzzle, PuzzleDifficulty, PuzzleGame, PuzzlePlayer } from '../interfaces';
 
@@ -76,11 +77,12 @@ function sourceInfos(ctrl: Controller, game: PuzzleGame): VNode {
 }
 
 function gameInfos(ctrl: Controller, game: PuzzleGame, puzzle: Puzzle): VNode {
-  const gameName = game.clock ? `${game.clock} - ${game.perf!.name}` : `${game.perf!.name}`;
+  const perfName = game.perf?.name || game.id,
+    gameName = game.clock ? `${game.clock} - ${perfName}` : `${perfName}`;
   return h(
     'div.infos',
     {
-      attrs: dataIcon(game.perf!.icon),
+      attrs: game.perf ? dataIcon(game.perf.icon) : undefined,
     },
     [
       h('div', [
@@ -107,7 +109,7 @@ function gameInfos(ctrl: Controller, game: PuzzleGame, puzzle: Puzzle): VNode {
             h(
               'div.player.color-icon.is.text.' + p.color,
               p.ai
-                ? 'Engine level ' + p.ai
+                ? engineNameFromCode(p.aiCode, p.ai, ctrl.trans)
                 : p.userId === 'anon'
                   ? 'Anonymous'
                   : p.userId

@@ -73,7 +73,7 @@ export interface Player {
   offeringResume?: boolean;
   sealedUsi?: Usi; // only for the player who played it
   ai: number | null;
-  aiName: string | null;
+  aiCode?: EngineCode;
   onGame: boolean;
   gone: number | boolean;
   blurs?: Blurs;

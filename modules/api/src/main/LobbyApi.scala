@@ -56,7 +56,8 @@ final class LobbyApi(
               .playerTextBlocking(pov.opponent, withRating = false)(lightUserApi.sync)
           )
           .add("rating" -> pov.opponent.rating)
-          .add("ai" -> pov.opponent.aiLevel),
+          .add("ai" -> pov.opponent.aiLevel)
+          .add("aiCode" -> pov.opponent.aiCode),
         "isMyTurn" -> pov.isMyTurn
       )
       .add("secondsLeft" -> pov.remainingSeconds)

@@ -41,7 +41,7 @@ final class JsonView(
       .add("rating" -> p.rating)
       .add("ratingDiff" -> p.ratingDiff)
       .add("provisional" -> p.provisional)
-      .add("offeringRematch" -> isOfferingRematch(g.id, p.color))
+      .add("offeringRematch" -> g.finishedOrAborted ?? isOfferingRematch(g.id, p.color))
       .add("offeringDraw" -> p.isOfferingDraw)
       .add("proposingTakeback" -> p.isProposingTakeback)
       .add("offeringPause" -> p.isOfferingPause)
@@ -78,11 +78,11 @@ final class JsonView(
               ),
             "opponent" -> {
               commonPlayerJson(game, opponent, opponentUser, withFlags) ++ Json.obj(
-                "color"  -> opponent.color.name,
-                "ai"     -> opponent.aiLevel,
-                "aiName" -> opponent.aiEngine.map(_.fullName)
+                "color" -> opponent.color.name,
+                "ai"    -> opponent.aiLevel
               )
-            }.add("isGone" -> (!opponent.isAi && socket.isGone(opponent.color)))
+            }.add("aiCode", opponent.aiCode)
+              .add("isGone" -> (!opponent.isAi && socket.isGone(opponent.color)))
               .add("onGame" -> (opponent.isAi || socket.onGame(opponent.color))),
             "url" -> Json.obj(
               "socket" -> s"/play/$fullId/v$apiVersion",
@@ -139,6 +139,7 @@ final class JsonView(
       )
       .add("user" -> user.map { userJsonView.minimal(_, g.perfType) })
       .add("ai" -> p.aiLevel)
+      .add("aiCode" -> p.aiCode)
       .add("rating" -> p.rating)
       .add("ratingDiff" -> p.ratingDiff)
       .add("provisional" -> p.provisional)
@@ -236,11 +237,13 @@ final class JsonView(
           "color" -> color.name,
           "name"  -> player.name
         ),
-        "opponent" -> Json.obj(
-          "color" -> opponent.color.name,
-          "ai"    -> opponent.aiLevel,
-          "name"  -> opponent.name
-        ),
+        "opponent" -> Json
+          .obj(
+            "color" -> opponent.color.name,
+            "ai"    -> opponent.aiLevel,
+            "name"  -> opponent.name
+          )
+          .add("aiCode", opponent.aiCode),
         "orientation" -> orientation.name,
         "pref" -> Json
           .obj(

@@ -30,7 +30,7 @@ object embed {
         )(
           div(id := "featured-game", cls := "embedded", title := "lishogi.org TV")(
             gameSfenNoCtx(pov, tv = true, blank = true),
-            views.html.game.bits.vstext(pov)(none)
+            views.html.game.bits.vstext(pov)(config.lang)
           ),
           jQueryTag,
           jsAt("javascripts/vendor/shogiground.min.js", false),

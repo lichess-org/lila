@@ -65,7 +65,7 @@ object gamesContent {
               pager.currentPageResults.flatMap { Pov(_, u) }.map { p =>
                 a(href := gameLink(p), cls := "paginated")(
                   gameSfen(p, withLink = false),
-                  views.html.game.bits.vstext(p)(ctx.some)
+                  views.html.game.bits.vstext(p)
                 )
               }
             else views.html.game.widgets(pager.currentPageResults, user = u.some, ownerLink = ctx is u)

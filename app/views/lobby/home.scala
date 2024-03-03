@@ -152,7 +152,7 @@ object home {
         featured map { g =>
           a(cls := "lobby__tv", href := routes.Tv.index)(
             gameSfen(Pov first g, withLink = false, tv = true),
-            views.html.game.bits.vstext(Pov first g)(ctx.some)
+            views.html.game.bits.vstext(Pov first g)
           )
         },
         puzzle map { p =>
@@ -231,7 +231,7 @@ object home {
     trans.youNeedAnAccountToDoThat,
     trans.oneDay,
     trans.nbDays,
-    trans.aiNameLevelAiLevel,
+    trans.levelX,
     trans.yourTurn,
     trans.rating,
     trans.createAGame,

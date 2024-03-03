@@ -1,6 +1,5 @@
 import { defined } from 'common/common';
-import { isHandicap } from 'shogiops/handicaps';
-import { initialSfen } from 'shogiops/sfen';
+import { engineName } from 'common/engineName';
 import AnalyseCtrl from './ctrl';
 import { AnalyseData } from './interfaces';
 import { baseUrl } from './util';
@@ -79,13 +78,8 @@ export default function (element: HTMLElement, ctrl: AnalyseCtrl) {
   }
 
   function chartLoader() {
-    const engineName =
-      ctrl.data.game.initialSfen &&
-      ctrl.data.game.initialSfen !== initialSfen('standard') &&
-      !isHandicap({ sfen: ctrl.data.game.initialSfen, rules: ctrl.data.game.variant.key })
-        ? 'Fairy Stockfish'
-        : 'YaneuraOu V7';
-    return `<div id="acpl-chart-loader"><span>${engineName}<br>server analysis</span>${li.spinnerHtml}</div>`;
+    const name = engineName(ctrl.data.game.variant.key, ctrl.data.game.initialSfen);
+    return `<div id="acpl-chart-loader"><span>${name}<br>${ctrl.trans.noarg('serverAnalysis')}</span>${li.spinnerHtml}</div>`;
   }
   function startAdvantageChart() {
     if (li.advantageChart || li.AnalyseNVUI) return;

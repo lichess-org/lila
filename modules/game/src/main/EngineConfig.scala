@@ -14,14 +14,16 @@ object EngineConfig {
   sealed trait Engine {
     val name: String
     val fullName: String
+    def jpFullName = fullName
     val code: String
   }
   object Engine {
 
     case object YaneuraOu extends Engine {
-      val name     = "yaneuraou"
-      val fullName = "YaneuraOu"
-      val code     = "yn"
+      val name                = "yaneuraou"
+      val fullName            = "YaneuraOu"
+      override def jpFullName = "やねうら王"
+      val code                = "yn"
     }
     case object Fairy extends Engine {
       val name     = "fairy"

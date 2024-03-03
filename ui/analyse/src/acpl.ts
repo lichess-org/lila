@@ -1,4 +1,5 @@
 import { defined } from 'common/common';
+import { engineNameFromCode } from 'common/engineName';
 import { bind, dataIcon } from 'common/snabbdom';
 import * as game from 'game';
 import { VNode, VNodeData, h, thunk } from 'snabbdom';
@@ -33,8 +34,7 @@ function renderPlayer(ctrl: AnalyseCtrl, color: Color): VNode {
   return h(
     'span',
     p.name ||
-      (ctrl.data.game.variant.key == 'standard' && p.ai && 'YaneuraOu level ' + p.ai) ||
-      (p.ai && 'Fairy-Stockfish level ' + p.ai) ||
+      (p.ai && engineNameFromCode(p.aiCode, p.ai, ctrl.trans)) ||
       (ctrl.study && findTag(ctrl.study.data.chapter.tags, color)) ||
       'Anonymous'
   );

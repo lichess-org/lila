@@ -13,12 +13,7 @@ import lila.i18n.{ defaultLang, I18nKeys => trans }
 import lila.user.{ Title, User }
 
 trait GameHelper {
-  self: I18nHelper
-    with UserHelper
-    with AiHelper
-    with StringHelper
-    with ShogigroundHelper
-    with ColorNameHelper =>
+  self: I18nHelper with UserHelper with StringHelper with ShogigroundHelper with ColorNameHelper =>
 
   private val dataLive     = attr("data-live")
   private val dataColor    = attr("data-color")
@@ -118,7 +113,20 @@ trait GameHelper {
       case _                        => "C"
     }
 
-  def playerUsername(player: Player, withRating: Boolean = true, withTitle: Boolean = true): Frag =
+  def engineName(ec: lila.game.EngineConfig)(implicit lang: Lang): String =
+    if (lang.language == "ja") ec.engine.jpFullName
+    else ec.engine.fullName
+
+  def engineLevel(ec: lila.game.EngineConfig)(implicit lang: Lang): String =
+    trans.levelX.txt(ec.level)
+
+  def engineText(ec: lila.game.EngineConfig, withLevel: Boolean = true)(implicit lang: Lang): String =
+    if (withLevel) s"${engineName(ec)} (${engineLevel(ec).toLowerCase})"
+    else engineName(ec)
+
+  def playerUsername(player: Player, withRating: Boolean = true, withTitle: Boolean = true)(implicit
+      lang: Lang
+  ): Frag =
     player.engineConfig.fold[Frag](
       player.userId.flatMap(lightUser).fold[Frag](lila.user.User.anonymous) { user =>
         val title = user.title ifTrue withTitle map { t =>
@@ -135,11 +143,14 @@ trait GameHelper {
         else frag(title, user.name)
       }
     ) { ec =>
-      raw(aiNameNoLang(ec))
+      if (withRating) frag(engineName(ec), " ", "(", engineLevel(ec).toLowerCase, ")")
+      else engineName(ec)
     }
 
-  def playerText(player: Player, withRating: Boolean = false) =
-    Namer.playerTextBlocking(player, withRating)(lightUser)
+  def playerText(player: Player, withRating: Boolean = false)(implicit lang: Lang) =
+    player.engineConfig.fold(
+      Namer.playerTextBlocking(player, withRating)(lightUser)
+    )(ec => engineText(ec, withRating))
 
   def gameVsText(game: Game, withRatings: Boolean = false): String =
     Namer.gameVsTextBlocking(game, withRatings)(lightUser)
@@ -163,7 +174,7 @@ trait GameHelper {
         val klass = cssClass.??(" " + _)
         span(cls := s"user-link$klass")(
           (player.engineConfig, player.name) match {
-            case (Some(ec), _)   => aiNameFrag(ec)
+            case (Some(ec), _)   => engineText(ec, withRating).replace(" ", "&nbsp;")
             case (_, Some(name)) => name
             case _               => User.anonymous
           },

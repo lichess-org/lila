@@ -76,8 +76,7 @@ export interface CevalCtrl {
   analysable: boolean;
   cachable: boolean;
   isComputing(): boolean;
-  engineName: string;
-  longEngineName(): string | undefined;
+  engineName: string | undefined;
   variant: Variant;
   setHovering: (sfen: string, usi?: string) => void;
   setPvBoard: (pvBoard: PvBoard | null) => void;

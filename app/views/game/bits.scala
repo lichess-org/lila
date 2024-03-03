@@ -16,13 +16,13 @@ object bits {
   def featuredJs(pov: Pov): Frag =
     frag(
       gameSfenNoCtx(pov, tv = true),
-      vstext(pov)(none)
+      vstext(pov)(lila.i18n.defaultLang)
     )
 
   def mini(pov: Pov)(implicit ctx: Context): Frag =
     a(href := gameLink(pov))(
       gameSfen(pov, withLink = false),
-      vstext(pov)(ctx.some)
+      vstext(pov)
     )
 
   def miniBoard(
@@ -102,7 +102,7 @@ object bits {
       span(cls := "title", dataBot(t), title := Title titleName t)(t.value)
     }
 
-  def vstext(pov: Pov)(ctxOption: Option[Context]): Frag =
+  def vstext(pov: Pov)(implicit lang: Lang): Frag =
     span(cls := "vstext")(
       span(cls := "vstext__pl user-link")(
         playerUsername(pov.player, withRating = false, withTitle = false),
@@ -110,24 +110,22 @@ object bits {
         playerTitle(pov.player) map { t =>
           frag(t, " ")
         },
-        pov.player.rating,
+        pov.player.rating.map(_.toString).orElse(pov.player.engineConfig.map(engineLevel)),
         pov.player.provisional option "?"
       ),
       pov.game.clock map { c =>
         span(cls := "vstext__clock")(shortClockName(c.config))
       } orElse {
-        ctxOption flatMap { implicit ctx =>
-          pov.game.daysPerTurn map { days =>
-            span(cls := "vstext__clock")(
-              if (days == 1) trans.oneDay() else trans.nbDays.pluralSame(days)
-            )
-          }
+        pov.game.daysPerTurn map { days =>
+          span(cls := "vstext__clock")(
+            if (days == 1) trans.oneDay() else trans.nbDays.pluralSame(days)
+          )
         }
       },
       span(cls := "vstext__op user-link")(
         playerUsername(pov.opponent, withRating = false, withTitle = false),
         br,
-        pov.opponent.rating,
+        pov.opponent.rating.map(_.toString).orElse(pov.opponent.engineConfig.map(engineLevel)),
         pov.opponent.provisional option "?",
         playerTitle(pov.opponent) map { t =>
           frag(" ", t)

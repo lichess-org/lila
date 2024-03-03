@@ -35,6 +35,7 @@ case class Player(
   def isAi     = engineConfig.isDefined
   def aiLevel  = engineConfig.map(_.level)
   def aiEngine = engineConfig.map(_.engine)
+  def aiCode   = engineConfig.map(_.engine.code)
 
   def isHuman = !isAi
 
