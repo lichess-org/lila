@@ -767,7 +767,12 @@ export default class RoundController {
   };
 
   showPauseButton = (): boolean => {
-    return this.data.game.variant.key === 'chushogi';
+    return (
+      this.data.game.variant.key === 'chushogi' &&
+      !!this.data.opponent.user &&
+      !!document.body.dataset.user &&
+      (this.data.clock?.initial || 0) > 60 * 15
+    );
   };
 
   canOfferPause = (): boolean => {
