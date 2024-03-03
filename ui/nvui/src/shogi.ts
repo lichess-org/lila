@@ -243,23 +243,6 @@ const colorsJP = {
   gote: '後手',
 };
 
-// quick and dirty to do later
-const jpTrans: Record<string, string> = {
-  pieces: '駒',
-  board: '将棋盤',
-  hands: '駒台',
-  none: 'ない',
-  moves: '総手数',
-  'current position': '現在の局面',
-  'move form': '手のフォーム',
-  'command input': '指令入力',
-};
-
-export function NVUITrans(key: string): string {
-  if (document.documentElement.lang === 'ja-JP') return jpTrans[key.toLowerCase()] || key;
-  else return key;
-}
-
 function renderColor(c: Color, s: Style): string {
   if (s === 'japanese') return colorsJP[c];
   else return c;

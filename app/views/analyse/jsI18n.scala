@@ -1,13 +1,17 @@
 package views.html.analyse
 
-import play.api.i18n.Lang
-
+import lila.api.Context
 import lila.app.templating.Environment._
 import lila.i18n.{ I18nKeys => trans }
 
 private object jsI18n {
 
-  def apply()(implicit lang: Lang) = i18nJsObject(i18nKeys)
+  def apply()(implicit ctx: Context) =
+    i18nJsObject {
+      i18nKeys ++ {
+        ctx.blind ?? nvuiTranslations
+      }
+    }
 
   private val i18nKeys = List(
     trans.black,
@@ -48,6 +52,7 @@ private object jsI18n {
     trans.goodMove,
     trans.viewTheSolution,
     trans.youNeedAnAccountToDoThat,
+    trans.levelX,
     // study
     trans.postGameStudy,
     trans.standardStudy,
@@ -68,6 +73,7 @@ private object jsI18n {
     trans.inLocalBrowser,
     trans.toggleLocalEvaluation,
     trans.variantNotSupported,
+    trans.serverAnalysis,
     // action menu
     trans.menu,
     trans.toStudy,

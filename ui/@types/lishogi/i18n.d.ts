@@ -8,9 +8,9 @@ export type I18nKey =
 'waitingForOpponent'|
 'waiting'|
 'yourTurn'|
-'aiNameLevelAiLevel'|
 'defeatedAiNameAiLevel'|
 'level'|
+'levelX'|
 'strength'|
 'toggleTheChat'|
 'toggleSound'|
@@ -66,6 +66,7 @@ export type I18nKey =
 'analysis'|
 'analysisDescription'|
 'depthX'|
+'serverAnalysis'|
 'usingServerAnalysis'|
 'loadingEngine'|
 'cloudAnalysis'|

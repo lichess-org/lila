@@ -29,7 +29,7 @@ object theirs {
               h1(
                 if (c.isOpen) trans.openChallenge.txt()
                 else
-                  user.fold[Frag]("Anonymous")(u =>
+                  user.fold[Frag](trans.anonymous.txt())(u =>
                     frag(
                       userLink(u),
                       " (",

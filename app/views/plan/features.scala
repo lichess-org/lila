@@ -41,10 +41,10 @@ object features {
               a(href := routes.Page.variantHome)(trans.variants())
             ),
             tr(check)(
-              s"${trans.localAnalysis.txt()} - YaneuraOu/Fairy-Stockfish"
+              s"${trans.localAnalysis.txt()} - YaneuraOu & Fairy-Stockfish"
             ),
             tr(check)(
-              s"${trans.cloudAnalysis.txt()} - YaneuraOu/Fairy-Stockfish"
+              s"${trans.cloudAnalysis.txt()} - YaneuraOu & Fairy-Stockfish"
             ),
             tr(check)(
               a(href := "https://lishogi.org/study")(

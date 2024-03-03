@@ -14,12 +14,6 @@ object jsI18n {
   val i18nKeys: List[lila.i18n.MessageKey] = {
     import trans.study._
     List(
-      trans.black,
-      trans.white,
-      trans.sente,
-      trans.gote,
-      trans.shitate,
-      trans.uwate,
       trans.name,
       trans.variant,
       trans.clearBoard,
@@ -132,12 +126,6 @@ object jsI18n {
       trans.rematch,
       trans.backToGame,
       trans.newOpponent,
-      trans.standard,
-      trans.minishogi,
-      trans.chushogi,
-      trans.annanshogi,
-      trans.kyotoshogi,
-      trans.checkshogi,
       manageTopics,
       startTag,
       endTag,
@@ -171,7 +159,6 @@ object jsI18n {
       hintOnDemand,
       playerTip,
       playQuestion,
-      trans.goodMove,
       trans.mistake,
       trans.learn.goldComplete,
       trans.analyse,

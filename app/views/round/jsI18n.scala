@@ -1,13 +1,12 @@
 package views.html.round
 
-import play.api.i18n.Lang
-
+import lila.api.Context
 import lila.app.templating.Environment._
 import lila.i18n.{ I18nKeys => trans }
 
 object jsI18n {
 
-  def apply(g: lila.game.Game)(implicit lang: Lang) =
+  def apply(g: lila.game.Game)(implicit ctx: Context) =
     i18nJsObject {
       baseTranslations ++ {
         if (g.isCorrespondence) correspondenceTranslations
@@ -16,6 +15,8 @@ object jsI18n {
         g.variant.chushogi ?? chushogiTranslations
       } ++ {
         g.isTournament ?? tournamentTranslations
+      } ++ {
+        ctx.blind ?? nvuiTranslations
       }
     }
 
@@ -56,7 +57,7 @@ object jsI18n {
     trans.shitate,
     trans.uwate,
     trans.flipBoard,
-    trans.aiNameLevelAiLevel,
+    trans.levelX,
     trans.yourTurn,
     trans.abortGame,
     trans.proposeATakeback,

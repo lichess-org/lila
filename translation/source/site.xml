@@ -8,9 +8,9 @@
 	<string name="waitingForOpponent">Waiting for opponent</string>
 	<string name="waiting">Waiting</string>
 	<string name="yourTurn">Your turn</string>
-	<string name="aiNameLevelAiLevel" comment="Example: Stockfish level 5">%1$s level %2$s</string>
 	<string name="defeatedAiNameAiLevel" comment="Example: Defeated Stockfish level 3">Defeated %1$s level %2$s</string>
 	<string name="level">Level</string>
+	<string name="levelX" comment="Engine difficulty level">Level %s</string>
 	<string name="strength">Strength</string>
 	<string name="toggleTheChat">Toggle the chat</string>
 	<string name="toggleSound">Toggle sound</string>
@@ -70,6 +70,7 @@
 	<string name="analysis">Analysis board</string>
 	<string name="analysisDescription">Analyse shogi positions and variations on an interactive shogi board</string>
 	<string name="depthX">Depth %s</string>
+	<string name="serverAnalysis">Server analysis</string>
 	<string name="usingServerAnalysis">Using server analysis</string>
 	<string name="loadingEngine">Loading engine ...</string>
 	<string name="cloudAnalysis">Cloud analysis</string>

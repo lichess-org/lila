@@ -13,7 +13,6 @@ import {
   supportedVariant,
   validUsi,
   renderHand,
-  NVUITrans,
 } from 'nvui/shogi';
 import { Shogiground } from 'shogiground';
 import { VNode, h } from 'snabbdom';
@@ -21,6 +20,7 @@ import AnalyseController from '../ctrl';
 import { makeConfig as makeSgConfig } from '../ground';
 import { AnalyseData, Redraw } from '../interfaces';
 import { opposite } from 'shogiground/util';
+import { engineNameFromCode } from 'common/engineName';
 
 window.lishogi.AnalyseNVUI = function (redraw: Redraw) {
   const notify = new Notify(redraw),
@@ -35,7 +35,8 @@ window.lishogi.AnalyseNVUI = function (redraw: Redraw) {
     render(ctrl: AnalyseController): VNode {
       const d = ctrl.data,
         style = moveStyle.get(),
-        variantNope = !supportedVariant(d.game.variant.key) && 'Sorry, this variant is not supported in blind mode.';
+        variantNope = !supportedVariant(d.game.variant.key) && 'Sorry, this variant is not supported in blind mode.',
+        noarg = ctrl.trans.noarg;
       if (!ctrl.shogiground)
         ctrl.shogiground = Shogiground({
           ...makeSgConfig(ctrl),
@@ -49,14 +50,16 @@ window.lishogi.AnalyseNVUI = function (redraw: Redraw) {
 
       return h('main.analyse', [
         h('div.nvui', [
-          h('h1', 'Textual representation'),
-          h('h2', 'Game info'),
+          h('h1', noarg('textualRepresentation')),
+          h('h2', noarg('gameInfo')),
           ...['sente', 'gote'].map((color: Color) =>
             h('p', [color + ' player: ', renderPlayer(ctrl, playerByColor(d, color))])
           ),
-          h('p', `${d.game.rated ? 'Rated' : 'Casual'} ${d.game.perf}`),
-          d.clock ? h('p', `Clock: ${d.clock.initial / 60} + ${d.clock.increment}`) : null,
-          h('h2', NVUITrans('Moves')),
+          h('p', `${noarg(d.game.rated ? 'rated' : 'casual')} ${d.game.perf}`),
+          d.clock
+            ? h('p', noarg('clock') + `: ${d.clock.initial / 60} + ${d.clock.increment} | ${d.clock.byoyomi})`)
+            : null,
+          h('h2', noarg('moves')),
           h(
             'p.moves',
             {
@@ -67,9 +70,9 @@ window.lishogi.AnalyseNVUI = function (redraw: Redraw) {
             },
             renderMainline(ctrl.mainline, ctrl.path, ctrl.data.game.variant.key, style)
           ),
-          h('h2', NVUITrans('Pieces')),
+          h('h2', noarg('pieces')),
           h('div.pieces', renderPieces(ctrl.shogiground.state.pieces, style)),
-          h('h2', NVUITrans('Current position')),
+          h('h2', noarg('currentPosition')),
           h(
             'p.position',
             {
@@ -80,7 +83,7 @@ window.lishogi.AnalyseNVUI = function (redraw: Redraw) {
             },
             renderCurrentNode(ctrl.node, ctrl.data.game.variant.key, style)
           ),
-          h('h2', NVUITrans('Move form')),
+          h('h2', noarg('moveForm')),
           h(
             'form',
             {
@@ -94,7 +97,7 @@ window.lishogi.AnalyseNVUI = function (redraw: Redraw) {
             },
             [
               h('label', [
-                NVUITrans('Command input'),
+                noarg('commandInput'),
                 h('input.move.mousetrap', {
                   attrs: {
                     name: 'move',
@@ -109,11 +112,11 @@ window.lishogi.AnalyseNVUI = function (redraw: Redraw) {
           notify.render(),
           // h('h2', 'Actions'),
           // h('div.actions', tableInner(ctrl)),
-          h('h2', 'Computer analysis'),
+          h('h2', noarg('computerAnalysis')),
           ...(renderAcpl(ctrl, ctrl.data.game.variant.key, style) || [
             requestAnalysisButton(ctrl, analysisInProgress, notify.set),
           ]),
-          h('h2', [NVUITrans('Board'), ' & ', NVUITrans('hands')]),
+          h('h2', [noarg('board'), ' & ', noarg('hands')]),
           h(
             'pre.hand',
             renderHand(
@@ -145,11 +148,11 @@ window.lishogi.AnalyseNVUI = function (redraw: Redraw) {
               },
             },
           }),
-          h('h2', 'Settings'),
-          h('label', ['Move notation', renderSetting(moveStyle, ctrl.redraw)]),
-          h('h2', 'Keyboard shortcuts'),
-          h('p', ['Use arrow keys to navigate in the game.']),
-          h('h2', 'Commands'),
+          h('h2', noarg('settings')),
+          h('label', [noarg('notationSystem'), renderSetting(moveStyle, ctrl.redraw)]),
+          h('h2', noarg('keyboardShortcuts')),
+          h('p', noarg('useArrowKeys')),
+          h('h2', noarg('commands')),
           h('p', [
             'Type these commands in the command input.',
             h('br'),
@@ -291,7 +294,7 @@ function renderComment(comment: Tree.Comment): string {
 }
 
 function renderPlayer(ctrl: AnalyseController, player: Player) {
-  return player.ai ? ctrl.trans('aiNameLevelAiLevel', 'Engine', player.ai) : userHtml(ctrl, player);
+  return player.ai ? engineNameFromCode(player.aiCode, player.ai, ctrl.trans) : userHtml(ctrl, player);
 }
 
 function userHtml(ctrl: AnalyseController, player: Player) {

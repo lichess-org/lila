@@ -6,7 +6,7 @@ import play.api.libs.json.JsObject
 import play.api.mvc.Call
 
 import lila.app.ui.ScalatagsTemplate._
-import lila.i18n.{ I18nKey, JsDump, LangList, MessageKey, TimeagoLocales, Translator }
+import lila.i18n.{ I18nKey, I18nKeys => trans, JsDump, LangList, MessageKey, TimeagoLocales, Translator }
 import lila.user.UserContext
 
 trait I18nHelper extends HasEnv with UserContext.ToLang {
@@ -46,5 +46,26 @@ trait I18nHelper extends HasEnv with UserContext.ToLang {
 
   def urlWithLangQuery(url: String, langCode: String): String =
     s"$url${if (url.contains("?")) "&" else "?"}lang=$langCode"
+
+  val nvuiTranslations = Vector[I18nKey](
+    trans.nvui.textualRepresentation,
+    trans.nvui.gameInfo,
+    trans.nvui.pieces,
+    trans.nvui.board,
+    trans.nvui.hands,
+    trans.nvui.none,
+    trans.nvui.moves,
+    trans.nvui.currentPosition,
+    trans.nvui.moveForm,
+    trans.nvui.commandInput,
+    trans.nvui.commands,
+    trans.nvui.useArrowKeys,
+    trans.rated,
+    trans.casual,
+    trans.clock,
+    trans.computerAnalysis,
+    trans.notationSystem,
+    trans.settings.settings
+  ).map(_.key)
 
 }

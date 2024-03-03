@@ -3,7 +3,6 @@ import { commands } from 'nvui/command';
 import { Notify } from 'nvui/notify';
 import { renderSetting } from 'nvui/setting';
 import {
-  NVUITrans,
   Style,
   renderBoard,
   renderHand,
@@ -25,6 +24,7 @@ import { onInsert } from '../util';
 import { renderResult } from '../view/replay';
 import { renderTableEnd, renderTablePlay, renderTableWatch } from '../view/table';
 import { opposite } from 'shogiground/util';
+import { engineNameFromCode } from 'common/engineName';
 
 window.lishogi.RoundNVUI = function (redraw: Redraw) {
   const notify = new Notify(redraw),
@@ -40,7 +40,8 @@ window.lishogi.RoundNVUI = function (redraw: Redraw) {
       const d = ctrl.data,
         step = plyStep(d, ctrl.ply),
         style = moveStyle.get(),
-        variantNope = !supportedVariant(d.game.variant.key) && 'Sorry, this variant is not supported in blind mode.';
+        variantNope = !supportedVariant(d.game.variant.key) && 'Sorry, this variant is not supported in blind mode.',
+        noarg = ctrl.trans.noarg;
       if (!ctrl.shogiground) {
         ctrl.shogiground = Shogiground({
           ...makeSgConfig(ctrl),
@@ -57,13 +58,15 @@ window.lishogi.RoundNVUI = function (redraw: Redraw) {
         },
         [
           h('h1', gameText(ctrl)),
-          h('h2', 'Game info'),
+          h('h2', noarg('gameInfo')),
           ...['sente', 'gote'].map((color: Color) =>
             h('p', [color + ' player: ', playerHtml(ctrl, ctrl.playerByColor(color))])
           ),
-          h('p', `${d.game.rated ? 'Rated' : 'Casual'} ${d.game.perf}`),
-          d.clock ? h('p', `Clock: ${d.clock.initial / 60} + ${d.clock.increment}`) : null,
-          h('h2', NVUITrans('Moves')),
+          h('p', `${noarg(d.game.rated ? 'rated' : 'casual')} ${d.game.perf}`),
+          d.clock
+            ? h('p', noarg('clock') + `: ${d.clock.initial / 60} + ${d.clock.increment} | ${d.clock.byoyomi})`)
+            : null,
+          h('h2', noarg('moves')),
           h(
             'p.moves',
             {
@@ -74,7 +77,7 @@ window.lishogi.RoundNVUI = function (redraw: Redraw) {
             },
             renderMoves(d.steps.slice(1), ctrl.data.game.variant.key, style)
           ),
-          h('h2', NVUITrans('Pieces')),
+          h('h2', noarg('pieces')),
           h('div.pieces', renderPieces(ctrl.shogiground.state.pieces, style)),
           h('h2', 'Game status'),
           h(
@@ -101,7 +104,7 @@ window.lishogi.RoundNVUI = function (redraw: Redraw) {
           ),
           ...(ctrl.isPlaying()
             ? [
-                h('h2', NVUITrans('Move form')),
+                h('h2', noarg('moveForm')),
                 h(
                   'form',
                   {
@@ -140,7 +143,7 @@ window.lishogi.RoundNVUI = function (redraw: Redraw) {
             : game.playableEvenPaused(ctrl.data)
               ? renderTablePlay(ctrl)
               : renderTableEnd(ctrl)),
-          h('h2', [NVUITrans('Board'), ' & ', NVUITrans('hands')]),
+          h('h2', [noarg('board'), ' & ', noarg('hands')]),
           h(
             'pre.hand',
             renderHand(
@@ -165,9 +168,9 @@ window.lishogi.RoundNVUI = function (redraw: Redraw) {
               style
             )
           ),
-          h('h2', 'Settings'),
-          h('label', ['Move notation', renderSetting(moveStyle, ctrl.redraw)]),
-          h('h2', 'Commands'),
+          h('h2', noarg('settings')),
+          h('label', [noarg('notationSystem'), renderSetting(moveStyle, ctrl.redraw)]),
+          h('h2', noarg('commands')),
           h('p', [
             'Type these commands in the move input.',
             h('br'),
@@ -258,12 +261,8 @@ function renderMoves(steps: Step[], variant: VariantKey, style: Style) {
   return res;
 }
 
-function renderAi(ctrl: RoundController, level: number): string {
-  return ctrl.trans('aiNameLevelAiLevel', 'Engine', level);
-}
-
 function playerHtml(ctrl: RoundController, player: game.Player) {
-  if (player.ai) return renderAi(ctrl, player.ai);
+  if (player.ai) return engineNameFromCode(player.aiCode, player.ai, ctrl.trans);
   const d = ctrl.data,
     user = player.user,
     perf = user ? user.perfs[d.game.perf] : null,
@@ -286,7 +285,7 @@ function playerHtml(ctrl: RoundController, player: game.Player) {
 }
 
 function playerText(ctrl: RoundController, player: game.Player) {
-  if (player.ai) return renderAi(ctrl, player.ai);
+  if (player.ai) return engineNameFromCode(player.aiCode, player.ai, ctrl.trans);
   const d = ctrl.data,
     user = player.user,
     perf = user ? user.perfs[d.game.perf] : null,

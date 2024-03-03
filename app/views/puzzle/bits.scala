@@ -110,6 +110,7 @@ object bits {
       trans.playWithTheMachine,
       trans.pressXtoFocus,
       trans.pressXtoSubmit,
+      trans.levelX,
       // ceval
       trans.depthX,
       trans.usingServerAnalysis,
