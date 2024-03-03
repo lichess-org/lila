@@ -580,6 +580,15 @@ export default class AnalyseCtrl {
     if (this.study) this.study.deleteNode(path);
   }
 
+  deleteEarlierMoves(path: Tree.Path): void {
+    const node = this.tree.nodeAtPath(path);
+    if (!node) return;
+    this.tree = makeTree(node);
+    console.log('in ui/analyse/analyseCtrl.deleteEarlierMoves');
+    console.log('this.tree', this.tree);
+    this.redraw();
+  }
+
   promote(path: Tree.Path, toMainline: boolean): void {
     this.tree.promoteAt(path, toMainline);
     this.jump(path);

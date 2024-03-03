@@ -90,6 +90,9 @@ function view(opts: Opts, coords: Coords): VNode {
       action(licon.Clipboard, trans('copyVariationPgn'), () =>
         navigator.clipboard.writeText(renderVariationPgn(opts.root.tree.getNodeList(opts.path))),
       ),
+      //* Create a button labelled 'study from here' that creates a study from the current node
+      // strange issue whereby the moves cannot be played after the studyFromHere button is clicked
+      action(licon.StudyBoard, trans('deleteEarlierMoves'), () => ctrl.deleteEarlierMoves(opts.path)),
     ],
   );
 }
