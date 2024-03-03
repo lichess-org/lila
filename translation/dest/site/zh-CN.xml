@@ -497,6 +497,7 @@
   <string name="automaticallyProceedToNextGameAfterMoving">走棋后自动进入下一盘棋</string>
   <string name="autoSwitch">自动切换</string>
   <string name="puzzles">谜题</string>
+  <string name="onlineBots">在线机器人</string>
   <string name="name">名称</string>
   <string name="description">描述</string>
   <string name="descPrivate">内部简介</string>
