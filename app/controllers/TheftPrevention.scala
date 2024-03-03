@@ -31,14 +31,13 @@ private[controllers] trait TheftPrevention { self: LilaController =>
   protected def playablePovForReq(game: GameModel)(implicit ctx: Context) =
     (!game.isNotationImport && game.playableEvenPaused) ?? {
       ctx.userId
-        .flatMap(game.playerByUserId)
-        .orElse {
+        .fold(
           ctx.req.cookies
             .get(AnonCookie.name)
             .map(_.value)
             .flatMap(game.player)
             .filterNot(_.hasUser)
-        }
+        )(game.playerByUserId)
         .filterNot(_.isAi)
         .map { Pov(game, _) }
     }
