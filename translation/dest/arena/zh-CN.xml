@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+  <string name="arena">竞技场</string>
   <string name="arenaTournaments">竞技场</string>
   <string name="isItRated">会影响等级分吗？</string>
   <string name="willBeNotified">当锦标赛开始时，你将收到通知，所以在其他标签页中下棋是无碍的。</string>
@@ -56,4 +57,5 @@
   <string name="averagePerformance">平均表现</string>
   <string name="averageScore">平均分数</string>
   <string name="myTournaments">我的锦标赛</string>
+  <string name="editTournament">编辑锦标赛</string>
 </resources>
