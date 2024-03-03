@@ -84,5 +84,5 @@ Ein Beispiel: Wenn man in einem Turnier von 100 Spielern Platz 3 erreicht hat = 
   <string name="tournamentWinners">Turniersieger</string>
   <string name="tournamentShields">Turnier-Schilde</string>
   <string name="onlyTitled">Nur Spieler mit Titel</string>
-  <string name="onlyTitledHelp">Erfordert einen offiziellen Titel, um dem Turnier beizutreten</string>
+  <string name="onlyTitledHelp">Für die Teilnahme am Turnier ist ein offizieller Titel erforderlich</string>
 </resources>
