@@ -70,7 +70,7 @@
   <string name="promoteVariation">Προώθηση βαριάντας</string>
   <string name="makeMainLine">Δημιουργία κύριας γραμμής</string>
   <string name="deleteFromHere">Διαγραφή από εδώ</string>
-  <string name="forceVariation">Θέσε σε βαριάντα</string>
+  <string name="forceVariation">Φορσέ βαριάντα</string>
   <string name="copyVariationPgn">Αντιγραφή PGN αρχείου κινήσεων</string>
   <string name="move">Κίνηση</string>
   <string name="variantLoss">Ήττα εκδοχής</string>
@@ -167,7 +167,7 @@
   <string name="viewInFullSize">Προβολή σε πλήρες μέγεθος</string>
   <string name="logOut">Έξοδος</string>
   <string name="signIn">Είσοδος</string>
-  <string name="rememberMe">Απομνημόνευση των στοιχείων μου</string>
+  <string name="rememberMe">Απομνημόνευση των στοιχείων σύνδεσης</string>
   <string name="youNeedAnAccountToDoThat">Χρειάζεστε λογαριασμό για να το κάνετε αυτό</string>
   <string name="signUp">Εγγραφή</string>
   <string name="computersAreNotAllowedToPlay">Δεν επιτρέπουμε στους υπολογιστές και παίκτες με υποβοήθηση υπολογιστή να παίζουν στο Lichess. Παρακαλούμε μη δεχτείτε βοήθεια από σκακιστικούς υπολογιστές, βάσεις δεδομένων ή άλλους παίκτες όσο παίζετε εδώ. Επίσης σημειώστε πως αποθαρρύνουμε την δημιουργία πολλών λογαριασμών και υπερβολή σε αυτό θα καταλήξει σε αποκλεισμό.</string>
