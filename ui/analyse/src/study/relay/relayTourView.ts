@@ -40,7 +40,7 @@ export const tourSide = (ctrl: AnalyseCtrl, study: StudyCtrl, relay: RelayCtrl) 
       relay.data.tour.name,
     ),
     gamesList(study, relay),
-    h('div.chat__members.none', {
+    h('div.chat__members', {
       hook: onInsert(el => {
         makeChat(ctrl, chat => el.parentNode!.insertBefore(chat, el));
         site.watchers(el);
