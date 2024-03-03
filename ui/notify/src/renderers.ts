@@ -92,6 +92,14 @@ export const renderers: Renderers = {
       return result + ' vs ' + userFullName(n.content.opponent);
     },
   },
+  pausedGame: {
+    html: n =>
+      generic(n, '/' + n.content.id, 'G', [
+        h('span', [h('strong', 'Do not forget!'), drawTime(n)]),
+        h('span', 'Adjourned game with ' + userFullName(n.content.opponent)),
+      ]),
+    text: n => 'Adjourned game with ' + userFullName(n.content.opponent),
+  },
   planStart: {
     html: n =>
       generic(n, '/patron', '', [

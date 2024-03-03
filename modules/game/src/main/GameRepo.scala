@@ -296,11 +296,11 @@ final class GameRepo(val coll: Coll)(implicit ec: scala.concurrent.ExecutionCont
         "$set",
         $doc(
           F.status    -> Status.Paused.id,
-          F.sealedUsi -> sealedUsi.usi
+          F.sealedUsi -> sealedUsi.usi,
+          F.checkAt   -> DateTime.now.plusDays(14)
         )
       ) ++ $doc(
         "$unset" -> $doc(
-          F.checkAt     -> true,
           F.playingUids -> true
         )
       )
