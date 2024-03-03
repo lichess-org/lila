@@ -13,9 +13,14 @@
   .clear {
     display: flex;
     justify-content: flex-end;
+    border-bottom: $border;
+    min-height: 33px;
     button {
+      padding: 0.5rem;
+      box-shadow: unset;
       &:hover {
         color: $c-bad;
+        background: unset;
       }
     }
   }
@@ -65,6 +70,7 @@
   .pager {
     display: block;
     padding: 0.5rem;
+    min-height: 33px;
     text-align: center;
     &.disabled::before {
       opacity: 0.3;

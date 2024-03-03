@@ -25,14 +25,7 @@ function renderContent(ctrl: Ctrl, d: NotifyData): VNode[] {
         hook: clickHook(ctrl.previousPage),
       })
     );
-  else if (pager.nextPage)
-    nodes.push(
-      h('div.pager.prev.disabled', {
-        attrs: { 'data-icon': 'S' },
-      })
-    );
-
-  if (nb > 0 && pager.currentPage == 1)
+  else if (nb > 0)
     nodes.push(
       h(
         'div.clear',
