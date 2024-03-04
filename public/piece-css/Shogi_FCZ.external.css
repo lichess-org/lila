@@ -1,0 +1,139 @@
+piece.pawn.sente,
+      .sg-wrap.orientation-sente piece.pawn.sente,
+      .sg-wrap.orientation-gote piece.pawn.gote,
+      .hand-bottom piece.pawn.gote,
+      .spare-bottom piece.pawn.gote {background-image:url('/assets/piece/Shogi_FCZ/0FU.svg')}
+piece.silver.sente,
+      .sg-wrap.orientation-sente piece.silver.sente,
+      .sg-wrap.orientation-gote piece.silver.gote,
+      .hand-bottom piece.silver.gote,
+      .spare-bottom piece.silver.gote {background-image:url('/assets/piece/Shogi_FCZ/0GI.svg')}
+piece.king.sente,
+      .sg-wrap.orientation-sente piece.king.sente {background-image:url('/assets/piece/Shogi_FCZ/0GY.svg')}
+piece.rook.sente,
+      .sg-wrap.orientation-sente piece.rook.sente,
+      .sg-wrap.orientation-gote piece.rook.gote,
+      .hand-bottom piece.rook.gote,
+      .spare-bottom piece.rook.gote {background-image:url('/assets/piece/Shogi_FCZ/0HI.svg')}
+piece.bishop.sente,
+      .sg-wrap.orientation-sente piece.bishop.sente,
+      .sg-wrap.orientation-gote piece.bishop.gote,
+      .hand-bottom piece.bishop.gote,
+      .spare-bottom piece.bishop.gote {background-image:url('/assets/piece/Shogi_FCZ/0KA.svg')}
+piece.knight.sente,
+      .sg-wrap.orientation-sente piece.knight.sente,
+      .sg-wrap.orientation-gote piece.knight.gote,
+      .hand-bottom piece.knight.gote,
+      .spare-bottom piece.knight.gote {background-image:url('/assets/piece/Shogi_FCZ/0KE.svg')}
+piece.gold.sente,
+      .sg-wrap.orientation-sente piece.gold.sente,
+      .sg-wrap.orientation-gote piece.gold.gote,
+      .hand-bottom piece.gold.gote,
+      .spare-bottom piece.gold.gote {background-image:url('/assets/piece/Shogi_FCZ/0KI.svg')}
+piece.lance.sente,
+      .sg-wrap.orientation-sente piece.lance.sente,
+      .sg-wrap.orientation-gote piece.lance.gote,
+      .hand-bottom piece.lance.gote,
+      .spare-bottom piece.lance.gote {background-image:url('/assets/piece/Shogi_FCZ/0KY.svg')}
+piece.promotedsilver.sente,
+      .sg-wrap.orientation-sente piece.promotedsilver.sente,
+      .sg-wrap.orientation-gote piece.promotedsilver.gote,
+      .hand-bottom piece.promotedsilver.gote,
+      .spare-bottom piece.promotedsilver.gote {background-image:url('/assets/piece/Shogi_FCZ/0NG.svg')}
+piece.promotedknight.sente,
+      .sg-wrap.orientation-sente piece.promotedknight.sente,
+      .sg-wrap.orientation-gote piece.promotedknight.gote,
+      .hand-bottom piece.promotedknight.gote,
+      .spare-bottom piece.promotedknight.gote {background-image:url('/assets/piece/Shogi_FCZ/0NK.svg')}
+piece.promotedlance.sente,
+      .sg-wrap.orientation-sente piece.promotedlance.sente,
+      .sg-wrap.orientation-gote piece.promotedlance.gote,
+      .hand-bottom piece.promotedlance.gote,
+      .spare-bottom piece.promotedlance.gote {background-image:url('/assets/piece/Shogi_FCZ/0NY.svg')}
+.sg-wrap.orientation-gote piece.king.gote,
+      .spare-bottom piece.king.gote {background-image:url('/assets/piece/Shogi_FCZ/0OU.svg')}
+piece.dragon.sente,
+      .sg-wrap.orientation-sente piece.dragon.sente,
+      .sg-wrap.orientation-gote piece.dragon.gote,
+      .hand-bottom piece.dragon.gote,
+      .spare-bottom piece.dragon.gote {background-image:url('/assets/piece/Shogi_FCZ/0RY.svg')}
+piece.tokin.sente,
+      .sg-wrap.orientation-sente piece.tokin.sente,
+      .sg-wrap.orientation-gote piece.tokin.gote,
+      .hand-bottom piece.tokin.gote,
+      .spare-bottom piece.tokin.gote {background-image:url('/assets/piece/Shogi_FCZ/0TO.svg')}
+piece.horse.sente,
+      .sg-wrap.orientation-sente piece.horse.sente,
+      .sg-wrap.orientation-gote piece.horse.gote,
+      .hand-bottom piece.horse.gote,
+      .spare-bottom piece.horse.gote {background-image:url('/assets/piece/Shogi_FCZ/0UM.svg')}
+piece.pawn.gote,
+      .sg-wrap.orientation-sente piece.pawn.gote,
+      .sg-wrap.orientation-gote piece.pawn.sente,
+      .hand-top piece.pawn,
+      .spare-top piece.pawn.sente {background-image:url('/assets/piece/Shogi_FCZ/1FU.svg')}
+piece.silver.gote,
+      .sg-wrap.orientation-sente piece.silver.gote,
+      .sg-wrap.orientation-gote piece.silver.sente,
+      .hand-top piece.silver,
+      .spare-top piece.silver.sente {background-image:url('/assets/piece/Shogi_FCZ/1GI.svg')}
+.sg-wrap.orientation-gote piece.king.sente,
+      .spare-top piece.king.sente {background-image:url('/assets/piece/Shogi_FCZ/1GY.svg')}
+piece.rook.gote,
+      .sg-wrap.orientation-sente piece.rook.gote,
+      .sg-wrap.orientation-gote piece.rook.sente,
+      .hand-top piece.rook,
+      .spare-top piece.rook.sente {background-image:url('/assets/piece/Shogi_FCZ/1HI.svg')}
+piece.bishop.gote,
+      .sg-wrap.orientation-sente piece.bishop.gote,
+      .sg-wrap.orientation-gote piece.bishop.sente,
+      .hand-top piece.bishop,
+      .spare-top piece.bishop.sente {background-image:url('/assets/piece/Shogi_FCZ/1KA.svg')}
+piece.knight.gote,
+      .sg-wrap.orientation-sente piece.knight.gote,
+      .sg-wrap.orientation-gote piece.knight.sente,
+      .hand-top piece.knight,
+      .spare-top piece.knight.sente {background-image:url('/assets/piece/Shogi_FCZ/1KE.svg')}
+piece.gold.gote,
+      .sg-wrap.orientation-sente piece.gold.gote,
+      .sg-wrap.orientation-gote piece.gold.sente,
+      .hand-top piece.gold,
+      .spare-top piece.gold.sente {background-image:url('/assets/piece/Shogi_FCZ/1KI.svg')}
+piece.lance.gote,
+      .sg-wrap.orientation-sente piece.lance.gote,
+      .sg-wrap.orientation-gote piece.lance.sente,
+      .hand-top piece.lance,
+      .spare-top piece.lance.sente {background-image:url('/assets/piece/Shogi_FCZ/1KY.svg')}
+piece.promotedsilver.gote,
+      .sg-wrap.orientation-sente piece.promotedsilver.gote,
+      .sg-wrap.orientation-gote piece.promotedsilver.sente,
+      .hand-top piece.promotedsilver,
+      .spare-top piece.promotedsilver.sente {background-image:url('/assets/piece/Shogi_FCZ/1NG.svg')}
+piece.promotedknight.gote,
+      .sg-wrap.orientation-sente piece.promotedknight.gote,
+      .sg-wrap.orientation-gote piece.promotedknight.sente,
+      .hand-top piece.promotedknight,
+      .spare-top piece.promotedknight.sente {background-image:url('/assets/piece/Shogi_FCZ/1NK.svg')}
+piece.promotedlance.gote,
+      .sg-wrap.orientation-sente piece.promotedlance.gote,
+      .sg-wrap.orientation-gote piece.promotedlance.sente,
+      .hand-top piece.promotedlance,
+      .spare-top piece.promotedlance.sente {background-image:url('/assets/piece/Shogi_FCZ/1NY.svg')}
+piece.king.gote,
+      .sg-wrap.orientation-sente piece.king.gote {background-image:url('/assets/piece/Shogi_FCZ/1OU.svg')}
+piece.dragon.gote,
+      .sg-wrap.orientation-sente piece.dragon.gote,
+      .sg-wrap.orientation-gote piece.dragon.sente,
+      .hand-top piece.dragon,
+      .spare-top piece.dragon.sente {background-image:url('/assets/piece/Shogi_FCZ/1RY.svg')}
+piece.tokin.gote,
+      .sg-wrap.orientation-sente piece.tokin.gote,
+      .sg-wrap.orientation-gote piece.tokin.sente,
+      .hand-top piece.tokin,
+      .spare-top piece.tokin.sente {background-image:url('/assets/piece/Shogi_FCZ/1TO.svg')}
+piece.horse.gote,
+      .sg-wrap.orientation-sente piece.horse.gote,
+      .sg-wrap.orientation-gote piece.horse.sente,
+      .hand-top piece.horse,
+      .spare-top piece.horse.sente {background-image:url('/assets/piece/Shogi_FCZ/1UM.svg')}
+.v-chushogi piece, .v-kyotoshogi piece { background-image: none !important; } 
