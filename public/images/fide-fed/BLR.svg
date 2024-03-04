@@ -1,13 +1,1 @@
-<?xml version="1.0" encoding="utf-8"?>
-<svg id="svg8" version="1.1" viewBox="0 0 640 480" height="480px" width="640px" xmlns="http://www.w3.org/2000/svg">
-  <rect style="fill: rgb(0, 0, 204);" width="640" height="480"/>
-  <g transform="matrix(0.417737, 0, 0, 0.417737, 110, 30)">
-    <circle r="502.708" cy="502.708" cx="502.708" style="fill: none; stroke: rgb(255, 255, 255); stroke-width: 52.9167; transform-origin: -14.9358% 112.338%;"/>
-    <path d="M 173.268 842.335 C 377.127 724.638 628.29 724.638 832.148 842.335" style="fill: none; stroke: rgb(255, 255, 255); stroke-width: 52.9167; stroke-linecap: square; transform-origin: -49.0887% 425.278%;"/>
-    <path d="M 832.148 163.081 C 628.29 280.778 377.127 280.778 173.268 163.081" style="fill: none; stroke: rgb(255, 255, 255); stroke-width: 52.9167; stroke-linecap: square; transform-origin: -49.0887% 1094.77%;"/>
-    <path d="M 501.568 1004.559 C 344.008 885.829 251.354 699.995 251.354 502.708 C 251.354 305.421 344.008 119.587 501.568 0.857" style="fill: none; stroke: rgb(255, 255, 255); stroke-width: 52.9167; transform-origin: -160.471% 112.445%;"/>
-    <path d="M 502.708 0 L 502.708 1005.416" style="fill: none; stroke: rgb(255, 255, 255); stroke-width: 52.9166; transform-origin: 0% 112.338%;"/>
-    <path d="M 0 502.708 L 1005.417 502.708" style="fill: none; stroke: rgb(255, 255, 255); stroke-width: 52.9166; transform-origin: -14.9358% 0%;"/>
-    <path d="M -804.2 2258.062 C -961.76 2139.332 -1054.414 1953.498 -1054.414 1756.211 C -1054.414 1558.924 -961.76 1373.091 -804.2 1254.36" style="fill: none; stroke: rgb(255, 255, 255); stroke-width: 52.9167; transform-box: fill-box; transform-origin: 361.383% -12.4449%;" transform="matrix(-1, 0, 0, -1, -0.000021, -0.000356)"/>
-  </g>
-</svg>
+W.svg
