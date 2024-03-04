@@ -43,8 +43,8 @@ object Federation:
       .option(str.toUpperCase)
       .orElse(bySlug.get(str).orElse(bySlug.get(nameToSlug(str))))
 
-  lazy val bySlug: Map[String, Id] = names
-    .map: (id, name) =>
+  lazy val bySlug: Map[String, Id] =
+    names.map: (id, name) =>
       nameToSlug(name) -> id
 
   val names: Map[Id, Name] = Map(
