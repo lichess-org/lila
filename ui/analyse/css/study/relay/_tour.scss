@@ -1,10 +1,20 @@
 .relay-tour {
   &__side {
     @extend %flex-column;
+    user-select: none;
     &__name {
-      @extend %box-radius-top, %metal;
+      @extend %flex-center-nowrap, %box-radius-top, %metal;
       flex: 0 0 auto;
       padding: 1em;
+      gap: 1em;
+      &::before {
+        @extend %data-icon;
+        content: $licon-LessThan;
+        font-size: 1.6em;
+      }
+      main.has-relay-tour &::before {
+        content: $licon-RadioTower;
+      }
       main.has-relay-tour &,
       &:hover {
         background: $c-primary;
