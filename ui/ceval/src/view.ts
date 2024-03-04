@@ -10,7 +10,7 @@ import { Position } from 'shogiops/variant/position';
 import { handRoles } from 'shogiops/variant/util';
 import { VNode, h } from 'snabbdom';
 import { CevalCtrl, Eval, NodeEvals, ParentCtrl } from './types';
-import { cubicRegressionEval, renderEval, unsupportedVariants } from './util';
+import { renderEval, unsupportedVariants } from './util';
 import * as winningChances from './winningChances';
 
 let gaugeLast = 0;
@@ -142,6 +142,7 @@ export function renderGauge(ctrl: ParentCtrl): VNode | undefined {
     ev = winningChances.povChances('sente', bestEv);
     gaugeLast = ev;
   } else ev = gaugeLast;
+
   return h(
     'div.eval-gauge',
     {
@@ -150,7 +151,7 @@ export function renderGauge(ctrl: ParentCtrl): VNode | undefined {
         reverse: ctrl.getOrientation() === 'gote',
       },
     },
-    [h('div.gote', { attrs: { style: `height: ${100 - cubicRegressionEval(ev) * 50}%` } }), ...gaugeTicks]
+    [h('div.gote', { attrs: { style: `height: ${100 - (ev + 1) * 50}%` } }), ...gaugeTicks]
   );
 }
 
