@@ -52,7 +52,8 @@ object show:
               resourceId = lila.chat.Chat.ResourceId(s"team/${chat.chat.id}"),
               localMod = info.havePerm(_.Comm)
             ))
-      )
+      ),
+      robots = t.team.enabled
     ):
       val canManage     = asMod && isGranted(_.ManageTeam)
       val canSeeMembers = canManage || (t.enabled && (t.publicMembers || info.mine))
