@@ -7,6 +7,7 @@ import { gameLinkProps } from './relayTourView';
 import { userTitle } from 'common/userLink';
 import { computeTimeLeft } from '../multiBoard';
 import { fenColor } from 'common/miniBoard';
+import { defined } from 'common';
 
 export const gamesList = (study: StudyCtrl, relay: RelayCtrl) => {
   const chapters = study.chapters.list().filter(isChapterPreview);
@@ -59,7 +60,7 @@ const renderClocks = (chapter: ChapterPreview) => {
   return ['white', 'black'].map((color: Color) => {
     const timeleft = computeTimeLeft(chapter, color);
     const ticking = turnColor == color && clockIsRunning(chapter.fen, color);
-    return timeleft ? renderClock(timeleft, ticking) : '*';
+    return defined(timeleft) ? renderClock(timeleft, ticking) : '*';
   });
 };
 
