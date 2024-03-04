@@ -10,10 +10,10 @@ final class PromotionApi(domain: NetDomain):
     me.isVerified || me.isAdmin || {
       val promotions = extract(text)
       promotions.isEmpty || {
-        val prevTextPromotion = prevText so extract
+        val prevTextPromotion = prevText.so(extract)
         val prev              = ~cache.getIfPresent(me) -- prevTextPromotion
         val accept            = prev.sizeIs < 3 && !prev.exists(promotions.contains)
-        if !accept then logger.info(s"Promotion @${me.username} ${identify(text) mkString ", "}")
+        if !accept then logger.info(s"Promotion @${me.username} ${identify(text).mkString(", ")}")
         accept
       }
     }
@@ -44,11 +44,11 @@ final class PromotionApi(domain: NetDomain):
 
   private def extract(text: String): Set[Id] =
     regexes
-      .flatMap(_ findAllMatchIn text)
+      .flatMap(_.findAllMatchIn(text))
       .view
       .flatMap: m =>
-        Option(m group 1)
+        Option(m.group(1))
       .toSet
 
   private def identify(text: String): List[String] =
-    regexes.flatMap(_ findAllMatchIn text).map(_.matched)
+    regexes.flatMap(_.findAllMatchIn(text)).map(_.matched)

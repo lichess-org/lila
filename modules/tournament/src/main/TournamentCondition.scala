@@ -26,28 +26,38 @@ object TournamentCondition:
         GetMaxRating,
         GetMyTeamIds
     ): Fu[WithVerdicts] =
-      list.map {
-        case c: MaxRating  => c(perfType) map c.withVerdict
-        case c: FlatCond   => fuccess(c withVerdict c(perfType))
-        case c: TeamMember => c.apply map { c withVerdict _ }
-      }.parallel dmap WithVerdicts.apply
+      list
+        .map {
+          case c: MaxRating  => c(perfType).map(c.withVerdict)
+          case c: FlatCond   => fuccess(c.withVerdict(c(perfType)))
+          case c: TeamMember => c.apply.map { c withVerdict _ }
+        }
+        .parallel
+        .dmap(WithVerdicts.apply)
 
     def withRejoinVerdicts(using
         me: Me,
         ex: Executor,
         getMyTeamIds: GetMyTeamIds
     ): Fu[WithVerdicts] =
-      list.map {
-        case c: TeamMember => c.apply map { c withVerdict _ }
-        case c             => fuccess(WithVerdict(c, Accepted))
-      }.parallel dmap WithVerdicts.apply
+      list
+        .map {
+          case c: TeamMember => c.apply.map { c withVerdict _ }
+          case c             => fuccess(WithVerdict(c, Accepted))
+        }
+        .parallel
+        .dmap(WithVerdicts.apply)
 
     def similar(other: All) = sameRatings(other) && titled == other.titled && teamMember == other.teamMember
 
     // if the new allowList is empty, assume the tournament is open to all, kick nobody
     def removedFromAllowList(prev: All): Set[UserId] =
-      allowList.so(_.userIds).some.filter(_.nonEmpty) so: current =>
-        prev.allowList.so(_.userIds diff current)
+      allowList
+        .so(_.userIds)
+        .some
+        .filter(_.nonEmpty)
+        .so: current =>
+          prev.allowList.so(_.userIds.diff(current))
 
   object All:
     val empty             = All(none, none, none, none, none, none)

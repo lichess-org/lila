@@ -34,13 +34,13 @@ case class User(
   override def hashCode: Int = id.hashCode
 
   override def toString =
-    s"User $username games:${count.game}${marks.troll so " troll"}${marks.engine so " engine"}${enabled.no so " closed"}"
+    s"User $username games:${count.game}${marks.troll.so(" troll")}${marks.engine.so(" engine")}${enabled.no.so(" closed")}"
 
   def light = LightUser(id = id, name = username, title = title, flair = flair, isPatron = isPatron)
 
   def realNameOrUsername = profileOrDefault.nonEmptyRealName | username.value
 
-  def realLang: Option[Lang]     = lang flatMap Lang.get
+  def realLang: Option[Lang]     = lang.flatMap(Lang.get)
   def language: Option[Language] = realLang.map(Language.apply)
 
   def titleUsername: String = title.fold(username.value)(t => s"$t $username")
@@ -75,15 +75,15 @@ case class User(
 
   def isPatron = plan.active
 
-  def activePlan: Option[Plan] = plan.active option plan
+  def activePlan: Option[Plan] = plan.active.option(plan)
 
   def planMonths: Option[Int] = activePlan.map(_.months)
 
   def mapPlan(f: Plan => Plan) = copy(plan = f(plan))
 
-  def createdSinceDays(days: Int) = createdAt isBefore nowInstant.minusDays(days)
+  def createdSinceDays(days: Int) = createdAt.isBefore(nowInstant.minusDays(days))
 
-  def isBot = title has Title.BOT
+  def isBot = title.has(Title.BOT)
   def noBot = !isBot
 
   def rankable = enabled.yes && noBot && !marks.rankban
@@ -137,7 +137,7 @@ object User:
         else if check(p.password) then
           user.totpSecret.fold[Result](Result.Success(user)): tp =>
             p.token.fold[Result](Result.MissingTotpToken): token =>
-              if tp verify token then Result.Success(user) else Result.InvalidTotpToken
+              if tp.verify(token) then Result.Success(user) else Result.InvalidTotpToken
         else if isBlanked then Result.BlankedPassword
         else Result.InvalidUsernameOrPassword
       lila.mon.user.auth.count(res.success).increment()
@@ -167,7 +167,7 @@ object User:
   val challengermodeId                 = UserId("challengermode")
   val watcherbotId                     = UserId("watcherbot")
   val ghostId                          = UserId("ghost")
-  def isLichess[U: UserIdOf](user: U)  = lichessId is user
+  def isLichess[U: UserIdOf](user: U)  = lichessId.is(user)
   def isOfficial[U: UserIdOf](user: U) = isLichess(user) || broadcasterId.is(user)
 
   val seenRecently = 2.minutes
@@ -198,7 +198,7 @@ object User:
       plan: Option[Plan],
       marks: Option[UserMarks]
   ):
-    def isBot    = title has Title.BOT
+    def isBot    = title.has(Title.BOT)
     def isTroll  = marks.exists(_.troll)
     def isPatron = plan.exists(_.active)
 
@@ -214,8 +214,8 @@ object User:
     def isTroll                = marks.exists(_.troll)
     def isVerified             = roles.exists(_ contains "ROLE_VERIFIED")
     def isApiHog               = roles.exists(_ contains "ROLE_API_HOG")
-    def isDaysOld(days: Int)   = createdAt isBefore nowInstant.minusDays(days)
-    def isHoursOld(hours: Int) = createdAt isBefore nowInstant.minusHours(hours)
+    def isDaysOld(days: Int)   = createdAt.isBefore(nowInstant.minusDays(days))
+    def isHoursOld(hours: Int) = createdAt.isBefore(nowInstant.minusHours(hours))
     def isLichess              = _id == User.lichessId
   case class Contacts(orig: Contact, dest: Contact):
     def hasKid  = orig.isKid || dest.isKid
@@ -225,7 +225,7 @@ object User:
     import java.time.Duration
     def totalDuration      = Duration.ofSeconds(total)
     def tvDuration         = Duration.ofSeconds(tv)
-    def nonEmptyTvDuration = tv > 0 option tvDuration
+    def nonEmptyTvDuration = (tv > 0).option(tvDuration)
   given BSONDocumentHandler[PlayTime] = Macros.handler[PlayTime]
 
   // what existing usernames are like
@@ -239,7 +239,7 @@ object User:
 
   def couldBeUsername(str: UserStr) = noGhost(str.id) && historicalUsernameRegex.matches(str.value)
 
-  def validateId(str: UserStr): Option[UserId] = couldBeUsername(str) option str.id
+  def validateId(str: UserStr): Option[UserId] = couldBeUsername(str).option(str.id)
 
   def isGhost(id: UserId) = id == ghostId || id.value.startsWith("!")
 
@@ -301,12 +301,12 @@ object User:
         enabled = r.get[UserEnabled](enabled),
         roles = ~r.getO[List[String]](roles),
         profile = r.getO[Profile](profile),
-        toints = r nIntD toints,
+        toints = r.nIntD(toints),
         playTime = r.getO[PlayTime](playTime),
-        createdAt = r date createdAt,
-        seenAt = r dateO seenAt,
-        kid = r boolD kid,
-        lang = r strO lang,
+        createdAt = r.date(createdAt),
+        seenAt = r.dateO(seenAt),
+        kid = r.boolD(kid),
+        lang = r.strO(lang),
         title = userTitle,
         plan = r.getO[Plan](plan) | Plan.empty,
         totpSecret = r.getO[TotpSecret](totpSecret),

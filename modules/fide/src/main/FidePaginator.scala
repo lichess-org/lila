@@ -21,7 +21,7 @@ final class FidePaginator(repo: FideRepo)(using Executor):
         def slice(offset: Int, length: Int) =
           repo.federationColl
             .find($empty)
-            .sort($sort desc "standard.top10Rating")
+            .sort($sort.desc("standard.top10Rating"))
             .skip(offset)
             .cursor[Federation]()
             .list(length)

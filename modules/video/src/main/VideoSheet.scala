@@ -23,7 +23,7 @@ final private class VideoSheet(ws: StandaloneWSClient, url: String, api: VideoAp
                   ads = entry.ads,
                   startTime = entry.startTime
                 )
-                (video != updated) so {
+                (video != updated).so {
                   logger.info(s"sheet update $updated")
                   api.video.save(updated)
                 }
@@ -55,7 +55,7 @@ final private class VideoSheet(ws: StandaloneWSClient, url: String, api: VideoAp
               processed
 
   private def fetch: Fu[List[Entry]] =
-    ws.url(url).get() flatMap {
+    ws.url(url).get().flatMap {
       case res if res.status == 200 =>
         Future {
           res.bodyAsBytes.utf8String.linesIterator

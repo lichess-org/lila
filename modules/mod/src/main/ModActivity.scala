@@ -46,9 +46,9 @@ final class ModActivity(repo: ModlogRepo, reportApi: lila.report.ReportApi, cach
               "open" -> false,
               who match
                 case Who.Me(userId) => "done.by" -> userId
-                case Who.Team       => "done.by" $nin List(User.lichessId, User.irwinId)
+                case Who.Team       => "done.by".$nin(List(User.lichessId, User.irwinId))
               ,
-              "done.at" $gt Period.dateSince(period)
+              "done.at".$gt(Period.dateSince(period))
             )
           ),
           Group($arr(dateToString("done.at"), "$room"))("nb" -> SumAll)
@@ -57,7 +57,7 @@ final class ModActivity(repo: ModlogRepo, reportApi: lila.report.ReportApi, cach
         Match(
           $doc(
             "human" -> true,
-            "date" $gt Period.dateSince(period)
+            "date".$gt(Period.dateSince(period))
           ) ++ who.match
             case Who.Me(userId) => $doc("mod" -> userId)
             case Who.Team       => $empty
@@ -79,7 +79,7 @@ final class ModActivity(repo: ModlogRepo, reportApi: lila.report.ReportApi, cach
           doc  <- docs
           id   <- doc.getAsOpt[List[String]]("_id")
           date <- id.headOption
-          key  <- id lift 1
+          key  <- id.lift(1)
           nb   <- doc.int("nb")
         yield (date, key, nb)
       .map:
@@ -97,7 +97,7 @@ final class ModActivity(repo: ModlogRepo, reportApi: lila.report.ReportApi, cach
           who,
           period,
           data.toList.sortBy(_._1).reverse.flatMap { (date, row) =>
-            Try(java.time.LocalDate.parse(date, dateFormat)).toOption map {
+            Try(java.time.LocalDate.parse(date, dateFormat)).toOption.map {
               _.atStartOfDay.instant -> row
             }
           }
@@ -115,7 +115,7 @@ object ModActivity:
     def set(action: Action, nb: Int) = copy(actions = actions.updated(action, nb))
     def set(room: Room, nb: Int)     = copy(reports = reports.updated(room, nb))
 
-  val dateFormat = java.time.format.DateTimeFormatter ofPattern "yyyy-MM-dd"
+  val dateFormat = java.time.format.DateTimeFormatter.ofPattern("yyyy-MM-dd")
 
   enum Period:
     def key = toString.toLowerCase

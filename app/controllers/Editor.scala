@@ -11,7 +11,7 @@ import lila.common.Json.given
 final class Editor(env: Env) extends LilaController(env):
 
   private lazy val positionsJson =
-    JsArray(chess.StartingPosition.all map { p =>
+    JsArray(chess.StartingPosition.all.map { p =>
       Json.obj(
         "eco"  -> p.eco,
         "name" -> p.name,
@@ -20,7 +20,7 @@ final class Editor(env: Env) extends LilaController(env):
     })
 
   private lazy val endgamePositionsJson =
-    JsArray(chess.EndgamePosition.positions map { p =>
+    JsArray(chess.EndgamePosition.positions.map { p =>
       Json.obj(
         "name" -> p.name,
         "fen"  -> p.fen
@@ -41,7 +41,7 @@ final class Editor(env: Env) extends LilaController(env):
     JsonOk(html.board.editor.jsData())
 
   def game(id: GameId) = Open:
-    Found(env.game.gameRepo game id): game =>
+    Found(env.game.gameRepo.game(id)): game =>
       Redirect:
         if game.playable
         then routes.Round.watcher(game.id, "white").url
@@ -50,5 +50,5 @@ final class Editor(env: Env) extends LilaController(env):
   private[controllers] def editorUrl(fen: Fen.Epd, variant: Variant): String =
     if fen == Fen.initial && variant.standard then routes.Editor.index.url
     else
-      val params = variant.exotic so s"?variant=${variant.key}"
+      val params = variant.exotic.so(s"?variant=${variant.key}")
       routes.Editor.load(lila.common.String.underscoreFen(fen)).url + params

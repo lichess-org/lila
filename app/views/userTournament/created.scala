@@ -38,7 +38,7 @@ object created:
                   views.html.tournament.finishedList.header(t),
                   td(momentFromNow(t.startsAt)),
                   td(cls := "winner")(
-                    t.winnerId.isDefined option userIdLink(t.winnerId, withOnline = false)
+                    t.winnerId.isDefined.option(userIdLink(t.winnerId, withOnline = false))
                   ),
                   td(cls := "text", dataIcon := licon.User)(t.nbPlayers.localize)
                 )

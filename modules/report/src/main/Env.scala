@@ -38,9 +38,9 @@ final class Env(
 
   private lazy val reportColl = db(config.reportColl)
 
-  lazy val scoreThresholdsSetting = ReportThresholds makeScoreSetting settingStore
+  lazy val scoreThresholdsSetting = ReportThresholds.makeScoreSetting(settingStore)
 
-  lazy val discordScoreThresholdSetting = ReportThresholds makeDiscordSetting settingStore
+  lazy val discordScoreThresholdSetting = ReportThresholds.makeDiscordSetting(settingStore)
 
   private val thresholds = Thresholds(
     score = (() => scoreThresholdsSetting.get()),

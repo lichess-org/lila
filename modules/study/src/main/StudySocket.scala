@@ -76,13 +76,13 @@ final private class StudySocket(
           AnaMove
             .parse(o)
             .foreach: move =>
-              applyWho(moveOrDrop(studyId, move, MoveOpts parse o))
+              applyWho(moveOrDrop(studyId, move, MoveOpts.parse(o)))
 
         case "anaDrop" =>
           AnaDrop
             .parse(o)
             .foreach: drop =>
-              applyWho(moveOrDrop(studyId, drop, MoveOpts parse o))
+              applyWho(moveOrDrop(studyId, drop, MoveOpts.parse(o)))
 
         case "deleteNode" =>
           reading[AtPosition](o): position =>
@@ -126,7 +126,7 @@ final private class StudySocket(
             (o \ "d" \ "shapes")
               .asOpt[List[Shape]]
               .foreach: shapes =>
-                applyWho(api.setShapes(studyId, position.ref, Shapes(shapes take 32)))
+                applyWho(api.setShapes(studyId, position.ref, Shapes(shapes.take(32))))
 
         case "addChapter" =>
           reading[ChapterMaker.Data](o): data =>
@@ -186,7 +186,7 @@ final private class StudySocket(
             (o \ "d" \ "text")
               .asOpt[String]
               .foreach: text =>
-                applyWho(api.setComment(studyId, position.ref, Comment sanitize text))
+                applyWho(api.setComment(studyId, position.ref, Comment.sanitize(text)))
 
         case "deleteComment" =>
           reading[AtPosition](o): position =>
@@ -265,15 +265,17 @@ final private class StudySocket(
             api.addNode(
               studyId,
               Position.Ref(chapterId, m.path),
-              branch withClock opts.clock,
+              branch.withClock(opts.clock),
               opts
             )(who)
 
   private lazy val send: String => Unit = remoteSocketApi.makeSender("study-out").apply
 
-  remoteSocketApi.subscribe("study-in", RP.In.reader)(
-    studyHandler orElse rHandler orElse remoteSocketApi.baseHandler
-  ) andDo send(P.Out.boot)
+  remoteSocketApi
+    .subscribe("study-in", RP.In.reader)(
+      studyHandler.orElse(rHandler).orElse(remoteSocketApi.baseHandler)
+    )
+    .andDo(send(P.Out.boot))
 
   // send API
 
@@ -282,7 +284,7 @@ final private class StudySocket(
   import lila.tree.Node.{ defaultNodeJsonWriter, given }
   private type SendToStudy = StudyId => Unit
   private def version[A: Writes](tpe: String, data: A): SendToStudy =
-    studyId => rooms.tell(studyId into RoomId, NotifyVersion(tpe, data))
+    studyId => rooms.tell(studyId.into(RoomId), NotifyVersion(tpe, data))
   private def notifySri[A: Writes](sri: Sri, tpe: String, data: A): SendToStudy =
     _ => send(P.Out.tellSri(sri, makeMessage(tpe, data)))
 
@@ -432,12 +434,12 @@ final private class StudySocket(
     key = "study_invite.user"
   )
 
-  api registerSocket this
+  api.registerSocket(this)
 
 object StudySocket:
 
-  given Conversion[RoomId, StudyId] = _ into StudyId
-  given Conversion[StudyId, RoomId] = _ into RoomId
+  given Conversion[RoomId, StudyId] = _.into(StudyId)
+  given Conversion[StudyId, RoomId] = _.into(RoomId)
 
   object Protocol:
 
@@ -445,14 +447,16 @@ object StudySocket:
       import play.api.libs.functional.syntax.*
 
       def reading[A](o: JsValue)(f: A => Unit)(using reader: Reads[A]): Unit =
-        o obj "d" flatMap { d =>
-          reader.reads(d).asOpt
-        } foreach f
+        o.obj("d")
+          .flatMap { d =>
+            reader.reads(d).asOpt
+          }
+          .foreach(f)
 
       case class AtPosition(path: UciPath, chapterId: StudyChapterId):
         def ref = Position.Ref(chapterId, path)
       given Reads[AtPosition] =
-        ((__ \ "path").read[UciPath] and (__ \ "ch").read[StudyChapterId])(AtPosition.apply)
+        ((__ \ "path").read[UciPath].and((__ \ "ch").read[StudyChapterId]))(AtPosition.apply)
       case class SetRole(userId: UserId, role: String)
       given Reads[SetRole]                  = Json.reads
       given Reads[ChapterMaker.Mode]        = optRead(ChapterMaker.Mode.apply)

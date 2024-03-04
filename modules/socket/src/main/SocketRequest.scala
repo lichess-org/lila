@@ -20,7 +20,7 @@ object SocketRequest:
     sendReq(id)
     val promise = Promise[String]()
     inFlight.put(id, promise)
-    promise.future map readRes
+    promise.future.map(readRes)
 
   private[socket] def onResponse(reqId: Int, response: String): Unit =
-    asMap.remove(reqId).foreach(_ success response)
+    asMap.remove(reqId).foreach(_.success(response))

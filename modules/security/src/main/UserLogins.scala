@@ -42,7 +42,7 @@ final class UserLoginsApi(
   import UserLogins.*
 
   def apply(user: User, maxOthers: Int): Fu[UserLogins] =
-    store.chronoInfoByUser(user) flatMap { infos =>
+    store.chronoInfoByUser(user).flatMap { infos =>
       val ips = distinctRecent(infos.map(_.datedIp))
       val fps = distinctRecent(infos.flatMap(_.datedFp))
       val fpClients: Map[FingerHash, UserClient] = infos.view
@@ -53,8 +53,9 @@ final class UserLoginsApi(
       val ipClients: Map[IpAddress, Set[UserClient]] =
         infos.foldLeft(Map.empty[IpAddress, Set[UserClient]]): (acc, info) =>
           acc.updated(info.ip, acc.get(info.ip).foldLeft(Set(UserClient(info.ua)))(_ ++ _))
-      fetchOtherUsers(user, ips.map(_.value).toSet, fps.map(_.value).toSet, maxOthers) zip
-        ip2proxy.keepProxies(ips.map(_.value).toList) map { (otherUsers, proxies) =>
+      fetchOtherUsers(user, ips.map(_.value).toSet, fps.map(_.value).toSet, maxOthers)
+        .zip(ip2proxy.keepProxies(ips.map(_.value).toList))
+        .map { (otherUsers, proxies) =>
           val othersByIp = otherUsers.foldLeft(Map.empty[IpAddress, Set[User]]) { (acc, other) =>
             other.ips.foldLeft(acc): (acc, ip) =>
               acc.updated(ip, acc.getOrElse(ip, Set.empty) + other.user)
@@ -67,8 +68,8 @@ final class UserLoginsApi(
             ips = ips.map { ip =>
               IPData(
                 ip,
-                firewall blocksIp ip.value,
-                geoIP orUnknown ip.value,
+                firewall.blocksIp(ip.value),
+                geoIP.orUnknown(ip.value),
                 IsProxy(proxies.getOrElse(ip.value, "")),
                 Alts(othersByIp.getOrElse(ip.value, Set.empty)),
                 ipClients.getOrElse(ip.value, Set.empty)
@@ -77,7 +78,7 @@ final class UserLoginsApi(
             prints = fps.map { fp =>
               FPData(
                 fp,
-                printBan blocks fp.value,
+                printBan.blocks(fp.value),
                 Alts(othersByFp.getOrElse(fp.value, Set.empty)),
                 fpClients.getOrElse(fp.value, UserClient.PC)
               )
@@ -89,7 +90,7 @@ final class UserLoginsApi(
     }
 
   private[security] def userHasPrint(u: User): Fu[Boolean] =
-    store.coll.secondaryPreferred.exists($doc("user" -> u.id, "fp" $exists true))
+    store.coll.secondaryPreferred.exists($doc("user" -> u.id, "fp".$exists(true)))
 
   private def fetchOtherUsers(
       user: User,
@@ -97,68 +98,72 @@ final class UserLoginsApi(
       fpSet: Set[FingerHash],
       max: Int
   ): Fu[List[OtherUser[User]]] =
-    ipSet.nonEmpty so store.coll
-      .aggregateList(max, _.priTemp): framework =>
-        import framework.*
-        import FingerHash.given
-        Match(
-          $doc(
-            $or(
-              "ip" $in ipSet,
-              "fp" $in fpSet
+    ipSet.nonEmpty.so(
+      store.coll
+        .aggregateList(max, _.priTemp): framework =>
+          import framework.*
+          import FingerHash.given
+          Match(
+            $doc(
+              $or(
+                "ip".$in(ipSet),
+                "fp".$in(fpSet)
+              ),
+              "user".$ne(user.id),
+              "date".$gt(nowInstant.minusYears(1))
+            )
+          ) -> List(
+            GroupField("user")(
+              "ips" -> AddFieldToSet("ip"),
+              "fps" -> AddFieldToSet("fp")
             ),
-            "user" $ne user.id,
-            "date" $gt nowInstant.minusYears(1)
-          )
-        ) -> List(
-          GroupField("user")(
-            "ips" -> AddFieldToSet("ip"),
-            "fps" -> AddFieldToSet("fp")
-          ),
-          AddFields(
-            $doc(
-              "nbIps" -> $doc("$size" -> "$ips"),
-              "nbFps" -> $doc("$size" -> "$fps")
-            )
-          ),
-          AddFields(
-            $doc(
-              "score" -> $doc(
-                "$add" -> $arr("$nbIps", "$nbFps", $doc("$multiply" -> $arr("$nbIps", "$nbFps")))
+            AddFields(
+              $doc(
+                "nbIps" -> $doc("$size" -> "$ips"),
+                "nbFps" -> $doc("$size" -> "$fps")
               )
-            )
-          ),
-          Sort(Descending("score")),
-          Limit(max),
-          PipelineOperator(
-            $lookup.simple(
-              from = userRepo.coll,
-              as = "user",
-              local = "_id",
-              foreign = "_id"
-            )
-          ),
-          UnwindField("user")
-        )
-      .map: docs =>
-        import lila.user.User.given
-        import FingerHash.given
-        for
-          doc  <- docs
-          user <- doc.getAsOpt[User]("user")
-          ips  <- doc.getAsOpt[Set[IpAddress]]("ips")(collectionReader)
-          fps  <- doc.getAsOpt[Set[FingerHash]]("fps")(collectionReader)
-        yield OtherUser(user, ips intersect ipSet, fps intersect fpSet)
+            ),
+            AddFields(
+              $doc(
+                "score" -> $doc(
+                  "$add" -> $arr("$nbIps", "$nbFps", $doc("$multiply" -> $arr("$nbIps", "$nbFps")))
+                )
+              )
+            ),
+            Sort(Descending("score")),
+            Limit(max),
+            PipelineOperator(
+              $lookup.simple(
+                from = userRepo.coll,
+                as = "user",
+                local = "_id",
+                foreign = "_id"
+              )
+            ),
+            UnwindField("user")
+          )
+        .map: docs =>
+          import lila.user.User.given
+          import FingerHash.given
+          for
+            doc  <- docs
+            user <- doc.getAsOpt[User]("user")
+            ips  <- doc.getAsOpt[Set[IpAddress]]("ips")(collectionReader)
+            fps  <- doc.getAsOpt[Set[FingerHash]]("fps")(collectionReader)
+          yield OtherUser(user, ips.intersect(ipSet), fps.intersect(fpSet))
+    )
 
   def getUserIdsWithSameIpAndPrint(userId: UserId): Fu[Set[UserId]] =
     for
-      (ips, fps) <- nextValues("ip", userId) zip nextValues("fp", userId)
-      users <- (ips.nonEmpty && fps.nonEmpty) so store.coll.secondaryPreferred.distinctEasy[UserId, Set](
-        "user",
-        $doc(
-          "ip" $in ips,
-          "fp" $in fps,
-          "user" $ne userId
+      (ips, fps) <- nextValues("ip", userId).zip(nextValues("fp", userId))
+      users <- (ips.nonEmpty && fps.nonEmpty).so(
+        store.coll.secondaryPreferred.distinctEasy[UserId, Set](
+          "user",
+          $doc(
+            "ip".$in(ips),
+            "fp".$in(fps),
+            "user".$ne(userId)
+          )
         )
       )
     yield users
@@ -218,7 +223,7 @@ object UserLogins:
       emails: Map[UserId, EmailAddress]
   ):
     def withUsers[V: UserIdOf](newUsers: List[V]) = copy(others = others.flatMap { o =>
-      newUsers.find(_ is o.user).map { u => o.copy(user = u) }
+      newUsers.find(_.is(o.user)).map { u => o.copy(user = u) }
     })
 
   def withMeSortedWithEmails(
@@ -226,7 +231,7 @@ object UserLogins:
       me: User,
       userLogins: UserLogins
   )(using Executor): Fu[WithMeSortedWithEmails[User]] =
-    userRepo.emailMap(me.id :: userLogins.otherUsers.map(_.user.id)) map { emailMap =>
+    userRepo.emailMap(me.id :: userLogins.otherUsers.map(_.user.id)).map { emailMap =>
       WithMeSortedWithEmails(
         OtherUser(me, userLogins.rawIps.toSet, userLogins.rawFps.toSet) :: userLogins.otherUsers,
         emailMap

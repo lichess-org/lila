@@ -28,8 +28,8 @@ object Question:
       val proportion     = 0.01 // probability density function, i.e. proportion of players
       val (lower, upper) = (cdf - proportion, cdf + proportion)
       Range(
-        peerDistribution.inverseCdf(lower atLeast 0).toInt atLeast 0,
-        peerDistribution.inverseCdf(upper atMost 1).toInt atMost 4000
+        peerDistribution.inverseCdf(lower.atLeast(0)).toInt.atLeast(0),
+        peerDistribution.inverseCdf(upper.atMost(1)).toInt.atMost(4000)
       )
     def showRatingRange =
       val rr = ratingRange

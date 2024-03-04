@@ -72,9 +72,11 @@ object search:
       )
 
   private def userAgentsBox(uas: List[String])(using Context) =
-    isGranted(_.Admin) option div(cls := "box__pad")(
-      h2("User agents"),
-      ul(cls := "mod-search__user-agents")(uas.map(li(_)))
+    isGranted(_.Admin).option(
+      div(cls := "box__pad")(
+        h2("User agents"),
+        ul(cls := "mod-search__user-agents")(uas.map(li(_)))
+      )
     )
 
   def ip(
@@ -108,7 +110,7 @@ object search:
           ),
           div(cls := "mod-search__ip-data box__pad")(
             p(
-              isGranted(_.Admin) option frag("Location: ", data.location.toString, br),
+              isGranted(_.Admin).option(frag("Location: ", data.location.toString, br)),
               "Proxy: ",
               data.proxy.toString
             )
@@ -149,28 +151,30 @@ object search:
           ),
           br,
           br,
-          classes.nonEmpty option table(cls := "slist slist-pad")(
-            thead(
-              tr(
-                th("Id"),
-                th("Name"),
-                th("Created"),
-                th("Archived"),
-                th("Teachers (first is owner)")
-              )
-            ),
-            tbody(
-              classes.map(c =>
+          classes.nonEmpty.option(
+            table(cls := "slist slist-pad")(
+              thead(
                 tr(
-                  td(a(href := clasRoutes.show(c.id.value))(s"${c.id}")),
-                  td(c.name),
-                  td(momentFromNow(c.created.at)),
-                  c.archived match
-                    case None => td("No")
-                    case Some(lila.clas.Clas.Recorded(closerId, at)) =>
-                      td(userIdLink(closerId.some), nbsp, momentFromNow(at))
-                  ,
-                  td(c.teachers.toList.map(id => teacherLink(id)))
+                  th("Id"),
+                  th("Name"),
+                  th("Created"),
+                  th("Archived"),
+                  th("Teachers (first is owner)")
+                )
+              ),
+              tbody(
+                classes.map(c =>
+                  tr(
+                    td(a(href := clasRoutes.show(c.id.value))(s"${c.id}")),
+                    td(c.name),
+                    td(momentFromNow(c.created.at)),
+                    c.archived match
+                      case None => td("No")
+                      case Some(lila.clas.Clas.Recorded(closerId, at)) =>
+                        td(userIdLink(closerId.some), nbsp, momentFromNow(at))
+                    ,
+                    td(c.teachers.toList.map(id => teacherLink(id)))
+                  )
                 )
               )
             )

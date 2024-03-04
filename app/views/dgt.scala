@@ -98,7 +98,7 @@ object dgt:
       form(cls := "form3", id := "dgt-config")(
         st.section(
           h2(dgtBoardConnectivity()),
-          "dgt-livechess-url" pipe { name =>
+          "dgt-livechess-url".pipe { name =>
             div(cls := "form-group")(
               st.label(`for` := name, cls := "form-label")(
                 webSocketUrl(s"LiveChess $liveChessVersion")
@@ -125,7 +125,7 @@ object dgt:
               List((false, trans.no.txt()), (true, trans.yes.txt()))
             )
           ),
-          "dgt-speech-voice" pipe { name =>
+          "dgt-speech-voice".pipe { name =>
             div(cls := "form-group")(
               st.label(`for` := name, cls := "form-label")(
                 speechSynthesisVoice()
@@ -153,7 +153,7 @@ object dgt:
               moveFormatDescription()
             )
           ),
-          "dgt-speech-keywords" pipe { name =>
+          "dgt-speech-keywords".pipe { name =>
             div(cls := "form-group")(
               st.label(`for` := name, cls := "form-label")(keywords()),
               st.textarea(

@@ -19,7 +19,7 @@ case class SimulClock(
 
   def hostExtraMinutes = LimitMinutes(hostExtraTime.value / 60)
   def hostExtraTimePerPlayerForDisplay: Option[Either[LimitMinutes, LimitSeconds]] =
-    hostExtraTimePerPlayer > 0 option (
+    (hostExtraTimePerPlayer > 0).option(
       if hostExtraTimePerPlayer.value % 60 == 0 then Left(LimitMinutes(hostExtraTimePerPlayer.value / 60))
       else Right(LimitSeconds(hostExtraTimePerPlayer.value))
     )

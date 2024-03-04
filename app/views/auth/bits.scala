@@ -18,16 +18,16 @@ object bits:
       form3.group(
         username,
         if register then trans.username() else trans.usernameOrEmail(),
-        help = register option trans.signupUsernameHint()
+        help = register.option(trans.signupUsernameHint())
       ): f =>
         frag(
           form3.input(f)(autofocus, required, autocomplete := "username"),
-          register option p(cls := "error username-exists none")(trans.usernameAlreadyUsed())
+          register.option(p(cls := "error username-exists none")(trans.usernameAlreadyUsed()))
         ),
       form3.passwordModified(password, trans.password())(
         autocomplete := (if register then "new-password" else "current-password")
       ),
-      register option form3.passwordComplexityMeter(trans.newPasswordStrength()),
+      register.option(form3.passwordComplexityMeter(trans.newPasswordStrength())),
       email.map { email =>
         form3.group(email, trans.email(), help = trans.signupEmailHint().some)(
           form3.input(_, typ = "email")(required)
@@ -45,7 +45,7 @@ object bits:
       main(cls := "auth auth-signup box box-pad")(
         boxTop(
           h1(
-            fail option span(cls := "is-red", dataIcon := licon.X),
+            fail.option(span(cls := "is-red", dataIcon := licon.X)),
             trans.passwordReset()
           )
         ),
@@ -113,7 +113,7 @@ object bits:
       main(cls := "auth auth-signup box box-pad")(
         boxTop(
           h1(
-            fail option span(cls := "is-red", dataIcon := licon.X),
+            fail.option(span(cls := "is-red", dataIcon := licon.X)),
             "Log in by email"
           )
         ),

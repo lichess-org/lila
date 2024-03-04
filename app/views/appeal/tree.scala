@@ -374,7 +374,7 @@ object tree:
 
   def apply(me: User, playban: Boolean, ublogIsVisible: Boolean)(using ctx: PageContext) =
     bits.layout("Appeal a moderation decision") {
-      val query = isGranted(_.Appeals) so ctx.req.queryString.toMap.pp
+      val query = isGranted(_.Appeals).so(ctx.req.queryString.toMap.pp)
       val isMarked =
         playban || me.marks.engine || me.marks.boost || me.marks.troll || me.marks.rankban || me.marks.arenaBan || me.marks.prizeban || !ublogIsVisible
       main(cls := "page page-small box box-pad appeal force-ltr")(

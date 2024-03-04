@@ -10,10 +10,10 @@ final private class PuzzleCountApi(
 )(using Executor):
 
   def countsByTheme: Fu[Map[PuzzleTheme.Key, Int]] =
-    byThemeCache get {}
+    byThemeCache.get {}
 
   def byTheme(theme: PuzzleTheme.Key): Fu[Int] =
-    countsByTheme dmap { _.getOrElse(theme, 0) }
+    countsByTheme.dmap { _.getOrElse(theme, 0) }
 
   def byAngle(angle: PuzzleAngle): Fu[Int] = angle match
     case PuzzleAngle.Theme(theme)    => byTheme(theme)
@@ -32,8 +32,8 @@ final private class PuzzleCountApi(
         .map: objs =>
           for
             obj   <- objs
-            key   <- obj string "_id"
-            count <- obj int "nb"
+            key   <- obj.string("_id")
+            count <- obj.int("nb")
           yield PuzzleTheme.Key(key) -> count
         .flatMap: themed =>
           colls

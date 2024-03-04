@@ -54,12 +54,12 @@ final class RoundMobile(
     for
       initialFen <- gameRepo.initialFen(game)
       myPlayer = id.playerId.flatMap(game.player(_))
-      users        <- game.userIdPair.traverse(_ so lightUserGet)
+      users        <- game.userIdPair.traverse(_.so(lightUserGet))
       prefs        <- prefApi.byId(game.userIdPair)
       takebackable <- takebacker.isAllowedIn(game, Preload(prefs))
       moretimeable <- moretimer.isAllowedIn(game, Preload(prefs))
-      chat         <- use.chat so getPlayerChat(game, myPlayer.exists(_.hasUser))
-      chatLines    <- chat.map(_.chat) soFu lila.chat.JsonView.asyncLines
+      chat         <- use.chat.so(getPlayerChat(game, myPlayer.exists(_.hasUser)))
+      chatLines    <- chat.map(_.chat).soFu(lila.chat.JsonView.asyncLines)
     yield
       def playerJson(color: Color) =
         val pov = Pov(game, color)
@@ -92,7 +92,7 @@ final class RoundMobile(
         .add("takebackable" -> takebackable)
         .add("moretimeable" -> moretimeable)
         .add("youAre", myPlayer.map(_.color))
-        .add("prefs", use.prefs so myPlayer.map(p => prefs(p.color)).map(prefsJson(game, _)))
+        .add("prefs", use.prefs.so(myPlayer.map(p => prefs(p.color)).map(prefsJson(game, _))))
         .add(
           "chat",
           chat.map: c =>
@@ -114,6 +114,6 @@ final class RoundMobile(
   private def getPlayerChat(game: Game, isAuth: Boolean): Fu[Option[Chat.Restricted]] =
     game.hasChat.so:
       for
-        chat  <- chatApi.playerChat.findIf(game.id into ChatId, !game.justCreated)
+        chat  <- chatApi.playerChat.findIf(game.id.into(ChatId), !game.justCreated)
         lines <- lila.chat.JsonView.asyncLines(chat)
       yield Chat.Restricted(chat, lines, restricted = game.fromLobby && !isAuth).some

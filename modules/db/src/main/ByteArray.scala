@@ -8,12 +8,14 @@ case class ByteArray(value: Array[Byte]):
 
   def isEmpty = value.lengthIs == 0
 
-  def toHexStr = ByteArray.hex hex2Str value
+  def toHexStr = ByteArray.hex.hex2Str(value)
 
   def showBytes: String =
-    value map { b =>
-      "%08d" format { b & 0xff }.toBinaryString.toInt
-    } mkString ","
+    value
+      .map { b =>
+        "%08d".format({ b & 0xff }.toBinaryString.toInt)
+      }
+      .mkString(",")
 
   override def toString = toHexStr
 
@@ -22,7 +24,7 @@ object ByteArray:
   val empty = ByteArray(Array())
 
   def fromHexStr(hexStr: String): Try[ByteArray] =
-    Try(ByteArray(hex str2Hex hexStr))
+    Try(ByteArray(hex.str2Hex(hexStr)))
 
   given byteArrayHandler: BSONHandler[ByteArray] = dsl.quickHandler[ByteArray](
     { case v: BSONBinary => ByteArray(v.byteArray) },
@@ -41,7 +43,7 @@ object ByteArray:
       s.charAt(i) match
         case '1' => sum += mult
         case '0' =>
-        case x   => sys error s"invalid binary literal: $x in $s"
+        case x   => sys.error(s"invalid binary literal: $x in $s")
       mult *= 2
       i -= 1
     sum.toByte

@@ -46,7 +46,7 @@ final private class Finisher(
     else if game.player(!game.player.color).isOfferingDraw then
       apply(game, _.Draw, None, Messenger.SystemMessage.Persistent(trans.drawOfferAccepted.txt()).some)
     else
-      val winner = Some(!game.player.color) ifFalse game.situation.opponentHasInsufficientMaterial
+      val winner = Some(!game.player.color).ifFalse(game.situation.opponentHasInsufficientMaterial)
       apply(game, _.Outoftime, winner).andDo:
         winner.foreach: w =>
           playban.flag(game, !w)
@@ -65,7 +65,7 @@ final private class Finisher(
       winner: Option[Color],
       message: Option[Messenger.SystemMessage] = None
   )(using GameProxy): Fu[Events] =
-    apply(game, status, winner, message) andDo playban.other(game, status, winner)
+    apply(game, status, winner, message).andDo(playban.other(game, status, winner))
 
   private def recordLagStats(game: Game) = for
     clock  <- game.clock
@@ -86,7 +86,7 @@ final private class Finisher(
     // wikipedia.org/wiki/Coefficient_of_variation#Estimation
     lRec.coefVar.record(Math.round((1000f + 250f / moves) * sd / mean))
     lRec.uncomped(quotaStr).record(uncompAvg)
-    lt.uncompStats.stdDev foreach { v =>
+    lt.uncompStats.stdDev.foreach { v =>
       lRec.uncompStdDev(quotaStr).record(Math.round(10 * v))
     }
     lt.lagEstimator match
@@ -103,7 +103,7 @@ final private class Finisher(
     val status = makeStatus(Status)
     val prog   = lila.game.Progress(prev, prev.finish(status, winnerC))
     val game   = prog.game
-    if game.nonAi && game.isCorrespondence then Color.all foreach notifier.gameEnd(prog.game)
+    if game.nonAi && game.isCorrespondence then Color.all.foreach(notifier.gameEnd(prog.game))
     lila.mon.game
       .finish(
         variant = game.variant.key.value,
@@ -118,7 +118,7 @@ final private class Finisher(
       gameRepo.finish(
         id = game.id,
         winnerColor = winnerC,
-        winnerId = winnerC flatMap (game.player(_).userId),
+        winnerId = winnerC.flatMap(game.player(_).userId),
         status = prog.game.status
       ) >>
       userApi
@@ -127,8 +127,8 @@ final private class Finisher(
           val finish = FinishGame(game, users)
           updateCountAndPerfs(finish).map: ratingDiffs =>
             message.foreach { messenger(game, _) }
-            gameRepo game game.id foreach { newGame =>
-              newGame foreach proxy.setFinishedGame
+            gameRepo.game(game.id).foreach { newGame =>
+              newGame.foreach(proxy.setFinishedGame)
               val newFinish = finish.copy(game = newGame | game)
               Bus.publish(newFinish, "finishGame")
               game.userIds.foreach: userId =>
@@ -138,19 +138,21 @@ final private class Finisher(
 
   private def updateCountAndPerfs(finish: FinishGame): Fu[Option[RatingDiffs]] =
     (!finish.isVsSelf && !finish.game.aborted).so:
-      finish.users.tupled.so { (white, black) =>
-        crosstableApi.add(finish.game) zip perfsUpdater.save(finish.game, white, black) dmap (_._2)
-      } zip
-        (finish.white so incNbGames(finish.game)) zip
-        (finish.black so incNbGames(finish.game)) dmap (_._1._1)
+      finish.users.tupled
+        .so { (white, black) =>
+          crosstableApi.add(finish.game).zip(perfsUpdater.save(finish.game, white, black)).dmap(_._2)
+        }
+        .zip(finish.white.so(incNbGames(finish.game)))
+        .zip(finish.black.so(incNbGames(finish.game)))
+        .dmap(_._1._1)
 
   private def incNbGames(game: Game)(user: User.WithPerfs): Funit =
-    game.finished so { user.noBot || game.nonAi } so {
-      val totalTime = (game.hasClock && user.playTime.isDefined) so game.durationSeconds
-      val tvTime    = totalTime ifTrue recentTvGames.get(game.id)
+    game.finished.so { user.noBot || game.nonAi }.so {
+      val totalTime = (game.hasClock && user.playTime.isDefined).so(game.durationSeconds)
+      val tvTime    = totalTime.ifTrue(recentTvGames.get(game.id))
       val result =
-        if game.winnerUserId has user.id then 1
-        else if game.loserUserId has user.id then -1
+        if game.winnerUserId.has(user.id) then 1
+        else if game.loserUserId.has(user.id) then -1
         else 0
       userRepo
         .incNbGames(user.id, game.rated, game.hasAi, result = result, totalTime = totalTime, tvTime = tvTime)

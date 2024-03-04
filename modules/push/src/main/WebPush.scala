@@ -16,14 +16,14 @@ final private class WebPush(
 )(using Executor):
 
   def apply(userId: UserId, data: LazyFu[PushApi.Data]): Funit =
-    webSubscriptionApi.getSubscriptions(5)(userId) flatMap sendTo(data)
+    webSubscriptionApi.getSubscriptions(5)(userId).flatMap(sendTo(data))
 
   def apply(userIds: Iterable[UserId], data: LazyFu[PushApi.Data]): Funit =
-    webSubscriptionApi.getSubscriptions(userIds, 5) flatMap sendTo(data)
+    webSubscriptionApi.getSubscriptions(userIds, 5).flatMap(sendTo(data))
 
   private def sendTo(data: LazyFu[PushApi.Data])(subs: List[WebSubscription]): Funit =
     subs.toNel.so: subs =>
-      data.value flatMap send(subs)
+      data.value.flatMap(send(subs))
 
   private def send(subscriptions: NonEmptyList[WebSubscription])(data: PushApi.Data): Funit =
     ws.url(config.url)
@@ -53,10 +53,11 @@ final private class WebPush(
           "urgency" -> data.urgency.key,
           "ttl"     -> 43200
         )
-      ) flatMap {
-      case res if res.status == 200 => funit
-      case res                      => fufail(s"[push] web: ${res.status} ${res.body}")
-    }
+      )
+      .flatMap {
+        case res if res.status == 200 => funit
+        case res                      => fufail(s"[push] web: ${res.status} ${res.body}")
+      }
 
 private object WebPush:
 

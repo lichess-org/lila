@@ -9,8 +9,8 @@ object AnalyseBsonHandlers:
 
   given BSON[Analysis] with
     def reads(r: BSON.Reader) =
-      val startPly = Ply(r intD "ply")
-      val raw      = r str "data"
+      val startPly = Ply(r.intD("ply"))
+      val raw      = r.str("data")
       def id =
         def getId[Id: BSONReader]: Id = r.get[Id]("_id")
         r.getO[StudyId]("studyId") match
@@ -18,10 +18,10 @@ object AnalyseBsonHandlers:
           case None          => Analysis.Id(getId[GameId])
       Analysis(
         id = id,
-        infos = Info.decodeList(raw, startPly) err s"Invalid analysis data $raw",
+        infos = Info.decodeList(raw, startPly).err(s"Invalid analysis data $raw"),
         startPly = startPly,
-        date = r date "date",
-        fk = r strO "fk"
+        date = r.date("date"),
+        fk = r.strO("fk")
       )
     def writes(w: BSON.Writer, a: Analysis) =
       BSONDocument(

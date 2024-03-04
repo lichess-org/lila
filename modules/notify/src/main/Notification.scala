@@ -119,7 +119,7 @@ object Notification:
       expiresIn: Option[FiniteDuration] = none
   ): Notification =
     Notification(
-      id = ThreadLocalRandom nextString 8,
+      id = ThreadLocalRandom.nextString(8),
       notifies = to.id,
       content = content,
       read = NotificationRead(false),

@@ -4,7 +4,7 @@ sealed abstract class Permission(val key: String, val children: List[Permission]
 
   def this(key: String, name: String) = this(key, Nil, name)
 
-  final def is(p: Permission): Boolean = this == p || children.exists(_ is p)
+  final def is(p: Permission): Boolean = this == p || children.exists(_.is(p))
 
   val dbKey = s"ROLE_$key"
 
@@ -318,13 +318,13 @@ object Permission:
   lazy val nonModPermissions: Set[Permission] =
     Set(Beta, Coach, Teacher, Developer, Verified, ContentTeam, ApiHog, Relay)
 
-  lazy val modPermissions: Set[Permission] = all diff nonModPermissions
+  lazy val modPermissions: Set[Permission] = all.diff(nonModPermissions)
 
   lazy val allByDbKey: Map[String, Permission] = all.mapBy(_.dbKey)
 
-  def apply(dbKey: String): Option[Permission] = allByDbKey get dbKey
+  def apply(dbKey: String): Option[Permission] = allByDbKey.get(dbKey)
 
-  def apply(dbKeys: Seq[String]): Set[Permission] = dbKeys flatMap allByDbKey.get toSet
+  def apply(dbKeys: Seq[String]): Set[Permission] = dbKeys.flatMap(allByDbKey.get).toSet
 
   def expanded(dbKeys: Seq[String]): Set[Permission] =
     val level0 = apply(dbKeys)
@@ -333,7 +333,7 @@ object Permission:
     level0 ++ level1 ++ level2
 
   def findGranterPackage(perms: Set[Permission], perm: Permission): Option[Permission] =
-    !perms(perm) so perms.find(_ is perm)
+    (!perms(perm)).so(perms.find(_.is(perm)))
 
   def diff(orig: Set[Permission], dest: Set[Permission]): Map[Permission, Boolean] = {
     orig.diff(dest).map(_ -> false) ++ dest.diff(orig).map(_ -> true)

@@ -21,8 +21,10 @@ final class RelayPlayerTour(
           colls.round.distinctEasy[RelayTour.Id, List]("tourId", $inIds(studyIds))
 
   def playerTours(player: FidePlayer, page: Int): Fu[Paginator[RelayTour.WithLastRound]] =
-    tourIdsCache.get(player.id) flatMap:
-      pager.byIds(_, page)
+    tourIdsCache
+      .get(player.id)
+      .flatMap:
+        pager.byIds(_, page)
 
   guessAndDenormalizeFideIds() // needs only run once. Can be removed then.
 
@@ -36,7 +38,7 @@ final class RelayPlayerTour(
       coll
         .find(
           $doc(
-            "tags" $regex "^(White|Black):",
+            "tags".$regex("^(White|Black):"),
             // "relay"            -> $exists(true),
             "relay.fideIds"    -> $exists(false),
             "relay.lastMoveAt" -> $exists(true) // rare; and breaks the bson reader
@@ -47,19 +49,22 @@ final class RelayPlayerTour(
         .documentSource()
         .via(lila.common.LilaStream.logRate("relay round fide ids")(logger))
         .mapAsync(4): chap =>
-          (chap.tags.names zip chap.tags.titles)
+          (chap.tags.names
+            .zip(chap.tags.titles))
             .traverse: (name, title) =>
-              playerApi.guessPlayer(none, name, UserTitle from title)
+              playerApi.guessPlayer(none, name, UserTitle.from(title))
             .map:
               _.mapList(_.so(_.id.value))
             .flatMap: fideIds =>
-              fideIds.exists(_ > 0) so:
-                coll.update
-                  .one(
-                    $id(chap.id),
-                    $set("relay.fideIds" -> fideIds, "relay.fideIdsGuess" -> true)
-                  )
-                  .void
+              fideIds
+                .exists(_ > 0)
+                .so:
+                  coll.update
+                    .one(
+                      $id(chap.id),
+                      $set("relay.fideIds" -> fideIds, "relay.fideIdsGuess" -> true)
+                    )
+                    .void
         .runWith(LilaStream.sinkCount)
         .map: nb =>
           println(s"Denormalized Fide IDs of $nb rounds")

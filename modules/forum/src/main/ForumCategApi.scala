@@ -45,25 +45,25 @@ final class ForumCategApi(
     )
     categRepo.coll.insert.one(categ).void >>
       postRepo.coll.insert.one(post).void >>
-      topicRepo.coll.insert.one(topic withPost post).void >>
+      topicRepo.coll.insert.one(topic.withPost(post)).void >>
       categRepo.coll.update.one($id(categ.id), categ.withPost(topic, post)).void
 
   def show(
       id: ForumCategId,
       page: Int
   )(using Option[Me]): Fu[Option[(ForumCateg, Paginator[TopicView])]] =
-    categRepo byId id flatMapz { categ =>
-      paginator.categTopics(categ, page) dmap { (categ, _).some }
+    categRepo.byId(id).flatMapz { categ =>
+      paginator.categTopics(categ, page).dmap { (categ, _).some }
     }
 
   def denormalize(categ: ForumCateg): Funit =
     for
-      nbTopics      <- topicRepo countByCateg categ
-      nbPosts       <- postRepo countByCateg categ
-      lastPost      <- postRepo lastByCateg categ
-      nbTopicsTroll <- topicRepo.unsafe countByCateg categ
-      nbPostsTroll  <- postRepo.unsafe countByCateg categ
-      lastPostTroll <- postRepo.unsafe lastByCateg categ
+      nbTopics      <- topicRepo.countByCateg(categ)
+      nbPosts       <- postRepo.countByCateg(categ)
+      lastPost      <- postRepo.lastByCateg(categ)
+      nbTopicsTroll <- topicRepo.unsafe.countByCateg(categ)
+      nbPostsTroll  <- postRepo.unsafe.countByCateg(categ)
+      lastPostTroll <- postRepo.unsafe.lastByCateg(categ)
       _ <-
         categRepo.coll.update
           .one(

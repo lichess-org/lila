@@ -36,14 +36,14 @@ final private class VerifyMail(
       .distinctEasy[String, List](
         "_id",
         $doc(
-          "_id" $regex s"^$prefix:",
+          "_id".$regex(s"^$prefix:"),
           "v" -> false
         ),
         _.sec
       )
       .map: ids =>
         val dropSize = prefix.length + 1
-        ids.map(_ drop dropSize)
+        ids.map(_.drop(dropSize))
 
   private val prefix = "security:check_mail"
 
@@ -62,7 +62,7 @@ final private class VerifyMail(
         (for
           js <- res.body[JsValue].asOpt[JsObject]
           if res.status == 200
-          block <- js boolean "block"
+          block <- js.boolean("block")
           disposable = ~js.boolean("disposable")
           privacy    = ~js.boolean("privacy")
         yield
@@ -71,5 +71,5 @@ final private class VerifyMail(
             s"VerifyMail $domain = $ok {block:$block,disposable:$disposable,privacy:$privacy}"
           ok
         ).getOrElse:
-          throw lila.base.LilaException(s"$url ${res.status} ${res.body[String] take 200}")
+          throw lila.base.LilaException(s"$url ${res.status} ${res.body[String].take(200)}")
       .monTry(res => _.security.verifyMailApi.fetch(res.isSuccess, res.getOrElse(true)))

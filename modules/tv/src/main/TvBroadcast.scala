@@ -43,7 +43,7 @@ final private class TvBroadcast(
           queue.watchCompletion().addEffectAnyway {
             self ! Remove(client)
           }
-          featured ifFalse compat foreach { f =>
+          featured.ifFalse(compat).foreach { f =>
             client.queue.offer(Socket.makeMessage("featured", f.dataWithFen))
           }
         }
@@ -52,10 +52,10 @@ final private class TvBroadcast(
     case Remove(client) => clients = clients - client
 
     case TvSelect(gameId, speed, chanKey, data) if chanKey == channel.key =>
-      gameProxyRepo game gameId map2 { game =>
+      gameProxyRepo.game(gameId).map2 { game =>
         unsubscribeFromFeaturedId()
-        Bus.subscribe(self, MoveGameEvent makeChan gameId)
-        val pov = Pov naturalOrientation game
+        Bus.subscribe(self, MoveGameEvent.makeChan(gameId))
+        val pov = Pov.naturalOrientation(game)
         val feat = Featured(
           gameId,
           Json.obj(
@@ -70,7 +70,7 @@ final private class TvBroadcast(
                 .add("rating" -> p.rating)
                 .add("seconds" -> game.clock.map(_.remainingTime(pov.color).roundSeconds))
           ),
-          fen = Fen write game.situation
+          fen = Fen.write(game.situation)
         )
         clients.foreach: client =>
           client.queue.offer:
@@ -90,14 +90,14 @@ final private class TvBroadcast(
           .add("wc" -> game.clock.map(_.remainingTime(chess.White).roundSeconds))
           .add("bc" -> game.clock.map(_.remainingTime(chess.Black).roundSeconds))
       )
-      clients.foreach(_.queue offer msg)
-      featured foreach { f =>
+      clients.foreach(_.queue.offer(msg))
+      featured.foreach { f =>
         featured = f.copy(fen = fen).some
       }
 
   def unsubscribeFromFeaturedId() =
-    featured foreach { previous =>
-      Bus.unsubscribe(self, MoveGameEvent makeChan previous.id)
+    featured.foreach { previous =>
+      Bus.unsubscribe(self, MoveGameEvent.makeChan(previous.id))
     }
 
 object TvBroadcast:

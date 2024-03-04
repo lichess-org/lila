@@ -21,7 +21,7 @@ case class Appeal(
   def isMuted  = status == Appeal.Status.Muted
   def isUnread = status == Appeal.Status.Unread
 
-  def isAbout(userId: UserId) = id is userId
+  def isAbout(userId: UserId) = id.is(userId)
 
   def post(text: String, by: User) =
     val msg = AppealMsg(
@@ -43,9 +43,9 @@ case class Appeal(
 
   def canAddMsg: Boolean =
     val recentWithoutMod = msgs.foldLeft(Vector.empty[AppealMsg]):
-      case (_, msg) if isByMod(msg)                              => Vector.empty
-      case (acc, msg) if msg.at isAfter nowInstant.minusWeeks(1) => acc :+ msg
-      case (acc, _)                                              => acc
+      case (_, msg) if isByMod(msg)                               => Vector.empty
+      case (acc, msg) if msg.at.isAfter(nowInstant.minusWeeks(1)) => acc :+ msg
+      case (acc, _)                                               => acc
 
     val recentSize = recentWithoutMod.foldLeft(0)(_ + _.text.size)
     recentSize < Appeal.maxLength
@@ -93,7 +93,7 @@ object Appeal:
   object Filter extends TotalWrapper[Filter, Option[UserMark]]:
     given Eq[Filter] = Eq.fromUniversalEquals
     extension (filter: Filter)
-      def toggle(to: Filter) = to != filter option to
+      def toggle(to: Filter) = (to != filter).option(to)
       def is(mark: UserMark) = filter.contains(mark)
       def key                = filter.fold("clean")(_.key)
 

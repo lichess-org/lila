@@ -19,7 +19,7 @@ final class RacerApi(
   private val store = cacheApi.notLoadingSync[RacerRace.Id, RacerRace](2048, "racer.race"):
     _.expireAfterAccess(30 minutes).build()
 
-  def get(id: Id): Option[RacerRace] = store getIfPresent id
+  def get(id: Id): Option[RacerRace] = store.getIfPresent(id)
 
   def playerId(sessionId: String, user: Option[User]) = user match
     case Some(u) => RacerPlayer.Id.User(u.id)
@@ -62,7 +62,7 @@ final class RacerApi(
       fuccess(found.id)
     case None =>
       rematchQueue:
-        createKeepOwnerAndJoin(race, player) map { rematchId =>
+        createKeepOwnerAndJoin(race, player).map { rematchId =>
           save(race.copy(rematch = rematchId.some))
           rematchId
         }
@@ -72,15 +72,14 @@ final class RacerApi(
 
   def join(id: RacerRace.Id, playerId: RacerPlayer.Id): Option[RacerRace] =
     val player = makePlayer(playerId)
-    get(id).flatMap(_ join player) map { r =>
-      val race = (r.isLobby so doStart(r)) | r
+    get(id).flatMap(_.join(player)).map { r =>
+      val race = (r.isLobby.so(doStart(r))) | r
       saveAndPublish(race)
       race
     }
 
-  private[racer] def manualStart(race: RacerRace): Unit = !race.isLobby so {
-    doStart(race) foreach saveAndPublish
-  }
+  private[racer] def manualStart(race: RacerRace): Unit = (!race.isLobby).so:
+    doStart(race).foreach(saveAndPublish)
 
   private def doStart(race: RacerRace): Option[RacerRace] =
     race.startCountdown.map: starting =>
@@ -93,7 +92,7 @@ final class RacerApi(
       lila.mon.racer.players(lobby = race.isLobby).record(race.players.size)
       race.players.foreach: player =>
         lila.mon.racer.score(lobby = race.isLobby, auth = player.user.isDefined).record(player.score)
-        player.user.ifTrue(player.score > 0) foreach { user =>
+        player.user.ifTrue(player.score > 0).foreach { user =>
           Bus.publish(lila.hub.actorApi.puzzle.RacerRun(user.id, player.score), "racerRun")
           perfsRepo.addRacerRun(user.id, player.score)
         }
@@ -101,7 +100,7 @@ final class RacerApi(
 
   def registerPlayerScore(id: RacerRace.Id, player: RacerPlayer.Id, score: Int): Unit =
     if score > 160 then logger.warn(s"$id $player score: $score")
-    else get(id).flatMap(_.registerScore(player, score)) foreach saveAndPublish
+    else get(id).flatMap(_.registerScore(player, score)).foreach(saveAndPublish)
 
   private def save(race: RacerRace): Unit =
     store.put(race.id, race)
@@ -110,7 +109,7 @@ final class RacerApi(
     save(race)
     publish(race)
   private def publish(race: RacerRace): Unit =
-    socket.foreach(_ publishState race)
+    socket.foreach(_.publishState(race))
 
   // work around circular dependency
   private var socket: Option[RacerSocket]           = None

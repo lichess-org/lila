@@ -15,8 +15,8 @@ final class GameSearchApi(
     extends SearchReadApi[Game, Query]:
 
   def search(query: Query, from: From, size: Size): Fu[List[Game]] =
-    client.search(query, from, size) flatMap { res =>
-      gameRepo gamesFromSecondary GameId.from(res.ids)
+    client.search(query, from, size).flatMap { res =>
+      gameRepo.gamesFromSecondary(GameId.from(res.ids))
     }
 
   def count(query: Query) =
@@ -27,10 +27,10 @@ final class GameSearchApi(
 
   def store(game: Game) =
     storable(game).so:
-      gameRepo isAnalysed game.id flatMap { analysed =>
+      gameRepo.isAnalysed(game.id).flatMap { analysed =>
         lila.common.LilaFuture
           .retry(
-            () => client.store(game.id into Id, toDoc(game, analysed)),
+            () => client.store(game.id.into(Id), toDoc(game, analysed)),
             delay = 20.seconds,
             retries = 2,
             logger.some

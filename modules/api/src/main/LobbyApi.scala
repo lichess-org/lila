@@ -17,26 +17,31 @@ final class LobbyApi(
 )(using Executor):
 
   def apply(using me: Option[User.WithPerfs]): Fu[(JsObject, List[Pov])] =
-    me.foldUse(seekApi.forAnon)(seekApi.forMe).mon(_.lobby segment "seeks") zip
-      me.so(gameProxyRepo.urgentGames).mon(_.lobby segment "urgentGames") flatMap { (seeks, povs) =>
-        val displayedPovs = povs take 9
-        lightUserApi.preloadMany(displayedPovs.flatMap(_.opponent.userId)) inject
-          Json
-            .obj(
-              "seeks"        -> seeks.map(_.render),
-              "nowPlaying"   -> displayedPovs.map(nowPlaying),
-              "nbNowPlaying" -> povs.size,
-              "counters" -> Json.obj(
-                "members" -> lobbySocket.counters.members,
-                "rounds"  -> lobbySocket.counters.rounds
+    me.foldUse(seekApi.forAnon)(seekApi.forMe)
+      .mon(_.lobby.segment("seeks"))
+      .zip(me.so(gameProxyRepo.urgentGames).mon(_.lobby.segment("urgentGames")))
+      .flatMap { (seeks, povs) =>
+        val displayedPovs = povs.take(9)
+        lightUserApi
+          .preloadMany(displayedPovs.flatMap(_.opponent.userId))
+          .inject(
+            Json
+              .obj(
+                "seeks"        -> seeks.map(_.render),
+                "nowPlaying"   -> displayedPovs.map(nowPlaying),
+                "nbNowPlaying" -> povs.size,
+                "counters" -> Json.obj(
+                  "members" -> lobbySocket.counters.members,
+                  "rounds"  -> lobbySocket.counters.rounds
+                )
               )
-            )
-            .add("ratingMap", me.map(_.perfs).map(ratingMap))
-            .add(
-              "me",
-              me.map: u =>
-                Json.obj("username" -> u.username).add("isBot" -> u.isBot)
-            ) -> displayedPovs
+              .add("ratingMap", me.map(_.perfs).map(ratingMap))
+              .add(
+                "me",
+                me.map: u =>
+                  Json.obj("username" -> u.username).add("isBot" -> u.isBot)
+              ) -> displayedPovs
+          )
       }
 
   def nowPlaying(pov: Pov) = gameJson.ownerPreview(pov)(using lightUserApi.sync)

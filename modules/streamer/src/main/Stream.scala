@@ -14,8 +14,8 @@ trait Stream:
   val streamer: Streamer
   val lang: Lang
 
-  def is(s: Streamer): Boolean    = streamer is s
-  def is(userId: UserId): Boolean = streamer is userId
+  def is(s: Streamer): Boolean    = streamer.is(s)
+  def is(userId: UserId): Boolean = streamer.is(userId)
   def twitch                      = serviceName == "twitch"
   def youTube                     = serviceName == "youTube"
   def language                    = Language(lang)
@@ -57,7 +57,7 @@ object Stream:
             item.snippet.title.value.toLowerCase.contains(keyword.toLowerCase)
           }
           .flatMap { item =>
-            streamers.find(s => s.youTube.exists(_.channelId == item.snippet.channelId)) map {
+            streamers.find(s => s.youTube.exists(_.channelId == item.snippet.channelId)).map {
               Stream(
                 item.snippet.channelId,
                 unescapeHtml(item.snippet.title),

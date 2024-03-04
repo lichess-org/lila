@@ -20,13 +20,13 @@ final class ForumPaginator(
     Paginator(
       Adapter[ForumPost](
         collection = postRepo.coll,
-        selector = postRepo.forUser(me) selectTopic topic.id,
+        selector = postRepo.forUser(me).selectTopic(topic.id),
         projection = none,
         sort = postRepo.sortQuery
       ),
       currentPage = page,
       maxPerPage = config.postMaxPerPage
-    ).flatMap(_ mapFutureList textExpand.manyPosts)
+    ).flatMap(_.mapFutureList(textExpand.manyPosts))
 
   def categTopics(
       categ: ForumCateg,
@@ -38,7 +38,7 @@ final class ForumPaginator(
       adapter = new AdapterLike[TopicView]:
 
         def nbResults: Fu[Int] =
-          if categ.isTeam then topicRepo.coll countSel selector
+          if categ.isTeam then topicRepo.coll.countSel(selector)
           else fuccess(1000)
 
         def slice(offset: Int, length: Int): Fu[Seq[TopicView]] =
@@ -62,7 +62,7 @@ final class ForumPaginator(
                 doc   <- docs
                 topic <- doc.asOpt[ForumTopic]
                 post = doc.getAsOpt[List[ForumPost]]("post").flatMap(_.headOption)
-              yield TopicView(categ, topic, post, topic lastPage config.postMaxPerPage, me)
+              yield TopicView(categ, topic, post, topic.lastPage(config.postMaxPerPage), me)
 
-        private def selector = topicRepo.forUser(me) byCategNotStickyQuery categ
+        private def selector = topicRepo.forUser(me).byCategNotStickyQuery(categ)
     )

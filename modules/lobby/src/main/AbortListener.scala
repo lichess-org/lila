@@ -10,9 +10,10 @@ final private class AbortListener(
 )(using Executor):
 
   def apply(pov: Pov): Funit =
-    (pov.game.isCorrespondence so recreateSeek(pov)) andDo
-      cancelColorIncrement(pov) andDo
-      lobbyActor.registerAbortedGame(pov.game)
+    (pov.game.isCorrespondence
+      .so(recreateSeek(pov)))
+      .andDo(cancelColorIncrement(pov))
+      .andDo(lobbyActor.registerAbortedGame(pov.game))
 
   private def cancelColorIncrement(pov: Pov): Unit =
     if pov.game.source.exists: s =>
@@ -26,14 +27,14 @@ final private class AbortListener(
 
   private def recreateSeek(pov: Pov): Funit =
     pov.player.userId.so: aborterId =>
-      seekApi.findArchived(pov.gameId) flatMapz { seek =>
+      seekApi.findArchived(pov.gameId).flatMapz { seek =>
         (seek.user.id != aborterId).so:
           worthRecreating(seek).flatMapz:
-            seekApi.insert(Seek renew seek)
+            seekApi.insert(Seek.renew(seek))
       }
 
   private def worthRecreating(seek: Seek): Fu[Boolean] =
-    userRepo byId seek.user.id map {
+    userRepo.byId(seek.user.id).map {
       _.exists: u =>
         u.enabled.yes && !u.lame
     }

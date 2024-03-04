@@ -89,12 +89,12 @@ object config:
 
   given [A](using l: ConfigLoader[A]): ConfigLoader[List[A]] =
     ConfigLoader { c => k =>
-      c.getConfigList(k).asScala.toList map { l.load(_) }
+      c.getConfigList(k).asScala.toList.map { l.load(_) }
     }
 
   given [A](using loader: ConfigLoader[A]): ConfigLoader[Option[A]] =
     ConfigLoader[Option[A]](c => k => if c.hasPath(k) then Some(loader.load(c, k)) else None)
 
-  def strLoader[A](f: String => A): ConfigLoader[A]   = ConfigLoader.stringLoader map f
-  def intLoader[A](f: Int => A): ConfigLoader[A]      = ConfigLoader.intLoader map f
-  def boolLoader[A](f: Boolean => A): ConfigLoader[A] = ConfigLoader.booleanLoader map f
+  def strLoader[A](f: String => A): ConfigLoader[A]   = ConfigLoader.stringLoader.map(f)
+  def intLoader[A](f: Int => A): ConfigLoader[A]      = ConfigLoader.intLoader.map(f)
+  def boolLoader[A](f: Boolean => A): ConfigLoader[A] = ConfigLoader.booleanLoader.map(f)

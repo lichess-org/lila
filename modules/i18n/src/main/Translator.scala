@@ -20,18 +20,20 @@ object Translator:
         quantity: I18nQuantity,
         args: Seq[Matchable]
     ): RawFrag =
-      findTranslation(key, lang) flatMap { translation =>
-        val htmlArgs = escapeArgs(args)
-        try
-          translation match
-            case literal: Simple  => Some(literal.format(htmlArgs))
-            case literal: Escaped => Some(literal.format(htmlArgs))
-            case plurals: Plurals => plurals.format(quantity, htmlArgs)
-        catch
-          case e: Exception =>
-            logger.warn(s"Failed to format html $lang/$key -> $translation (${args.toList})", e)
-            Some(RawFrag(key.value))
-      } getOrElse RawFrag(key.value)
+      findTranslation(key, lang)
+        .flatMap { translation =>
+          val htmlArgs = escapeArgs(args)
+          try
+            translation match
+              case literal: Simple  => Some(literal.format(htmlArgs))
+              case literal: Escaped => Some(literal.format(htmlArgs))
+              case plurals: Plurals => plurals.format(quantity, htmlArgs)
+          catch
+            case e: Exception =>
+              logger.warn(s"Failed to format html $lang/$key -> $translation (${args.toList})", e)
+              Some(RawFrag(key.value))
+        }
+        .getOrElse(RawFrag(key.value))
 
     private def escapeArgs(args: Seq[Matchable]): Seq[RawFrag] = args.map:
       case s: String     => escapeHtml(Html(s))
@@ -53,18 +55,19 @@ object Translator:
         quantity: I18nQuantity,
         args: Seq[Any]
     ): String =
-      findTranslation(key, lang) flatMap { translation =>
-        try
-          translation match
-            case literal: Simple  => Some(literal.formatTxt(args))
-            case literal: Escaped => Some(literal.formatTxt(args))
-            case plurals: Plurals => plurals.formatTxt(quantity, args)
-        catch
-          case e: Exception =>
-            logger.warn(s"Failed to format txt $lang/$key -> $translation (${args.toList})", e)
-            Some(key.value)
-      } getOrElse key.value
+      findTranslation(key, lang)
+        .flatMap { translation =>
+          try
+            translation match
+              case literal: Simple  => Some(literal.formatTxt(args))
+              case literal: Escaped => Some(literal.formatTxt(args))
+              case plurals: Plurals => plurals.formatTxt(quantity, args)
+          catch
+            case e: Exception =>
+              logger.warn(s"Failed to format txt $lang/$key -> $translation (${args.toList})", e)
+              Some(key.value)
+        }
+        .getOrElse(key.value)
 
   private[i18n] def findTranslation(key: I18nKey, lang: Lang): Option[Translation] =
-    Registry.all.get(lang).flatMap(t => Option(t get key)) orElse
-      Option(Registry.default.get(key))
+    Registry.all.get(lang).flatMap(t => Option(t.get(key))).orElse(Option(Registry.default.get(key)))

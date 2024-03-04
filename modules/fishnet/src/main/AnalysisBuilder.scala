@@ -11,7 +11,7 @@ import Evaluation.EvalOrSkip
 final private class AnalysisBuilder(evalCache: IFishnetEvalCache)(using Executor):
 
   def apply(client: Client, work: Work.Analysis, evals: List[EvalOrSkip]): Fu[Analysis] =
-    partial(client, work, evals map some, isPartial = false)
+    partial(client, work, evals.map(some), isPartial = false)
 
   def partial(
       client: Client,
@@ -19,7 +19,7 @@ final private class AnalysisBuilder(evalCache: IFishnetEvalCache)(using Executor
       evals: List[Option[EvalOrSkip]],
       isPartial: Boolean = true
   ): Fu[Analysis] =
-    evalCache.evals(work) flatMap { cachedFull =>
+    evalCache.evals(work).flatMap { cachedFull =>
       /* remove first eval in partial analysis
        * to prevent the mobile app from thinking it's complete
        * https://github.com/lichess-org/lichobile/issues/722
@@ -37,7 +37,7 @@ final private class AnalysisBuilder(evalCache: IFishnetEvalCache)(using Executor
                 id = Analysis.Id(work.game.studyId, work.game.id),
                 infos = makeInfos(mergeEvalsAndCached(work, evals, cached), work.game.uciList, work.startPly),
                 startPly = work.startPly,
-                fk = !client.lichess option client.key.value,
+                fk = (!client.lichess).option(client.key.value),
                 date = nowInstant
               )
             )
@@ -57,10 +57,10 @@ final private class AnalysisBuilder(evalCache: IFishnetEvalCache)(using Executor
       cached: Map[Int, Evaluation]
   ): List[Option[Evaluation]] =
     evals.mapWithIndex:
-      case (None, i)                             => cached get i
+      case (None, i)                             => cached.get(i)
       case (Some(EvalOrSkip.Evaluated(eval)), i) => cached.getOrElse(i, eval).some
       case (_, i) =>
-        cached get i orElse {
+        cached.get(i).orElse {
           logger.error(s"Missing cached eval for skipped position at index $i in $work")
           none[Evaluation]
         }

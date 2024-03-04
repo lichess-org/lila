@@ -27,7 +27,7 @@ final class AppealApi(
       case None =>
         val appeal =
           Appeal(
-            id = me.userId into Appeal.Id,
+            id = me.userId.into(Appeal.Id),
             msgs = Vector(
               AppealMsg(
                 by = me,
@@ -40,24 +40,24 @@ final class AppealApi(
             updatedAt = nowInstant,
             firstUnrepliedAt = nowInstant
           )
-        coll.insert.one(appeal) inject appeal
+        coll.insert.one(appeal).inject(appeal)
       case Some(prev) =>
         val appeal = prev.post(text, me)
-        coll.update.one($id(appeal.id), appeal) inject appeal
+        coll.update.one($id(appeal.id), appeal).inject(appeal)
 
   def reply(text: String, prev: Appeal, preset: Option[String])(using me: Me) =
     val appeal = prev.post(text, me.value)
-    coll.update.one($id(appeal.id), appeal) >> {
+    (coll.update.one($id(appeal.id), appeal) >> {
       preset.so: note =>
-        userRepo.byId(appeal.id) flatMapz {
+        userRepo.byId(appeal.id).flatMapz {
           noteApi.write(_, s"Appeal reply: $note", modOnly = true, dox = false)
         }
-    } inject appeal
+    }).inject(appeal)
 
   def countUnread = coll.countSel($doc("status" -> Appeal.Status.Unread.key))
 
   def myQueue(filter: Option[Filter])(using me: Me) =
-    bothQueues(filter, snoozer snoozedKeysOf me.userId map (_.appealId.userId))
+    bothQueues(filter, snoozer.snoozedKeysOf(me.userId).map(_.appealId.userId))
 
   private def bothQueues(
       filter: Option[Filter],
@@ -65,18 +65,18 @@ final class AppealApi(
   ): Fu[List[Appeal.WithUser]] =
     fetchQueue(
       selector = $doc("status" -> Appeal.Status.Unread.key) ++ {
-        exceptIds.nonEmpty so $doc("_id" $nin exceptIds)
+        exceptIds.nonEmpty.so($doc("_id".$nin(exceptIds)))
       },
       filter = filter,
       ascending = true,
       nb = 50
-    ) flatMap { unreads =>
+    ).flatMap { unreads =>
       fetchQueue(
-        selector = $doc("status" $ne Appeal.Status.Unread.key),
+        selector = $doc("status".$ne(Appeal.Status.Unread.key)),
         filter = filter,
         ascending = false,
         nb = 60 - unreads.size
-      ) map { unreads ::: _ }
+      ).map { unreads ::: _ }
     }
 
   private def fetchQueue(
@@ -113,8 +113,8 @@ final class AppealApi(
   def filterSelector(filter: Filter) =
     import User.BSONFields as F
     filter.value match
-      case Some(mark) => $doc(F.marks $in List(mark.key))
-      case None       => $doc(F.marks $nin UserMark.bannable)
+      case Some(mark) => $doc(F.marks.$in(List(mark.key)))
+      case None       => $doc(F.marks.$nin(UserMark.bannable))
 
   def setRead(appeal: Appeal) =
     coll.update.one($id(appeal.id), appeal.read).void
@@ -126,10 +126,10 @@ final class AppealApi(
     coll.update.one($id(appeal.id), appeal.toggleMute).void
 
   def setReadById(userId: UserId) =
-    byId(userId) flatMapz setRead
+    byId(userId).flatMapz(setRead)
 
   def setUnreadById(userId: UserId) =
-    byId(userId) flatMapz setUnread
+    byId(userId).flatMapz(setUnread)
 
   def onAccountClose(user: User) = setReadById(user.id)
 

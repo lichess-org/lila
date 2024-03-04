@@ -19,7 +19,7 @@ final class Practice(
   def index = Open:
     pageHit
     Ok.pageAsync:
-      api.get(ctx.me) map { html.practice.index(_) }
+      api.get(ctx.me).map { html.practice.index(_) }
     .map(_.noCache)
 
   def show(sectionId: String, studySlug: String, studyId: StudyId) = Open:
@@ -73,7 +73,7 @@ final class Practice(
   private def analysisJson(us: UserStudy)(using Context): Fu[(JsObject, JsObject)] =
     us match
       case UserStudy(_, _, chapters, WithChapter(study, chapter), _) =>
-        env.study.jsonView(study, chapters, chapter, ctx.me) map { studyJson =>
+        env.study.jsonView(study, chapters, chapter, ctx.me).map { studyJson =>
           val initialFen = chapter.root.fen.some
           val pov        = userAnalysisC.makePov(initialFen, chapter.setup.variant)
           val baseData = env.round.jsonView
@@ -94,11 +94,11 @@ final class Practice(
         }
 
   def complete(chapterId: StudyChapterId, nbMoves: Int) = Auth { ctx ?=> me ?=>
-    api.progress.setNbMoves(me, chapterId, lila.practice.PracticeProgress.NbMoves(nbMoves)) inject NoContent
+    api.progress.setNbMoves(me, chapterId, lila.practice.PracticeProgress.NbMoves(nbMoves)).inject(NoContent)
   }
 
   def reset = AuthBody { _ ?=> me ?=>
-    api.progress.reset(me) inject Redirect(routes.Practice.index)
+    api.progress.reset(me).inject(Redirect(routes.Practice.index))
   }
 
   def config = Secure(_.PracticeConfig) { ctx ?=> _ ?=>
@@ -115,9 +115,7 @@ final class Practice(
         renderAsync:
           api.structure.get.map(html.practice.config(_, err))
       } { text =>
-        ~api.config.set(text).toOption >>
-          env.mod.logApi.practiceConfig andDo
-          api.structure.clear() inject
-          Redirect(routes.Practice.config)
+        (~api.config.set(text).toOption >>
+          env.mod.logApi.practiceConfig).andDo(api.structure.clear()).inject(Redirect(routes.Practice.config))
       }
   }

@@ -28,11 +28,13 @@ object topnav:
         div(role := "group")(
           if ctx.noBot then a(href := s"${langHref("/")}?any#hook")(trans.createAGame())
           else a(href := "/?any#friend")(trans.playWithAFriend()),
-          ctx.noBot option frag(
-            a(href := langHref(routes.Tournament.home))(trans.arena.arenaTournaments()),
-            a(href := langHref(routes.Swiss.home))(trans.swiss.swissTournaments()),
-            a(href := langHref(routes.Simul.home))(trans.simultaneousExhibitions()),
-            ctx.pref.hasDgt option a(href := routes.DgtCtrl.index)(trans.dgt.dgtBoard())
+          ctx.noBot.option(
+            frag(
+              a(href := langHref(routes.Tournament.home))(trans.arena.arenaTournaments()),
+              a(href := langHref(routes.Swiss.home))(trans.swiss.swissTournaments()),
+              a(href := langHref(routes.Simul.home))(trans.simultaneousExhibitions()),
+              ctx.pref.hasDgt.option(a(href := routes.DgtCtrl.index)(trans.dgt.dgtBoard()))
+            )
           )
         )
       ),
@@ -52,14 +54,16 @@ object topnav:
       st.section(
         linkTitle(routes.Learn.index.url, trans.learnMenu()),
         div(role := "group")(
-          ctx.noBot option frag(
-            a(href := langHref(routes.Learn.index))(trans.chessBasics()),
-            a(href := routes.Practice.index)(trans.practice()),
-            a(href := langHref(routes.Coordinate.home))(trans.coordinates.coordinates())
+          ctx.noBot.option(
+            frag(
+              a(href := langHref(routes.Learn.index))(trans.chessBasics()),
+              a(href := routes.Practice.index)(trans.practice()),
+              a(href := langHref(routes.Coordinate.home))(trans.coordinates.coordinates())
+            )
           ),
           a(href := langHref(routes.Study.allDefault()))(trans.studyMenu()),
-          ctx.kid.no option a(href := langHref(routes.Coach.all(1)))(trans.coaches()),
-          canSeeClasMenu option a(href := clasRoutes.index)(trans.clas.lichessClasses())
+          ctx.kid.no.option(a(href := langHref(routes.Coach.all(1)))(trans.coaches())),
+          canSeeClasMenu.option(a(href := clasRoutes.index)(trans.clas.lichessClasses()))
         )
       ),
       st.section:
@@ -69,9 +73,9 @@ object topnav:
           div(role := "group")(
             a(href := tvUrl)("Lichess TV"),
             a(href := routes.Tv.games)(trans.currentGames()),
-            (ctx.kid.no && ctx.noBot) option a(href := routes.Streamer.index())(trans.streamersMenu()),
+            (ctx.kid.no && ctx.noBot).option(a(href := routes.Streamer.index())(trans.streamersMenu())),
             a(href := routes.RelayTour.index())(trans.broadcast.broadcasts()),
-            ctx.noBot option a(href := routes.Video.index)(trans.videoLibrary())
+            ctx.noBot.option(a(href := routes.Video.index)(trans.videoLibrary()))
           )
         )
       ,
@@ -81,10 +85,10 @@ object topnav:
           a(href := routes.User.list)(trans.players()),
           ctx.me.map(me => a(href := routes.Relation.following(me.username))(trans.friends())),
           a(href := teamRoutes.home())(trans.team.teams()),
-          ctx.kid.no option a(href := routes.ForumCateg.index)(trans.forum()),
-          ctx.kid.no option a(href := langHref(routes.Ublog.communityAll()))(trans.blog()),
-          ctx.kid.no && ctx.me.exists(_.isPatron) option
-            a(cls := "community-patron", href := routes.Plan.index)(trans.patron.donate())
+          ctx.kid.no.option(a(href := routes.ForumCateg.index)(trans.forum())),
+          ctx.kid.no.option(a(href := langHref(routes.Ublog.communityAll()))(trans.blog())),
+          (ctx.kid.no && ctx.me.exists(_.isPatron))
+            .option(a(cls := "community-patron", href := routes.Plan.index)(trans.patron.donate()))
         )
       ),
       st.section(

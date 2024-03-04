@@ -74,35 +74,39 @@ object inquiry:
             in.allReports.map(renderReport)
           )
         ),
-        isGranted(_.ModLog) option div(
-          cls := List(
-            "dropper counter history" -> true,
-            "empty"                   -> in.history.isEmpty
-          )
-        )(
-          span(
-            countTag(in.history.size),
-            "Mod log"
-          ),
-          in.history.nonEmpty option div(
-            ul(
-              in.history.map: e =>
-                li(
-                  userIdLink(e.mod.userId.some, withOnline = false),
-                  " ",
-                  b(e.showAction),
-                  " ",
-                  e.details,
-                  " ",
-                  momentFromNow(e.date)
+        isGranted(_.ModLog).option(
+          div(
+            cls := List(
+              "dropper counter history" -> true,
+              "empty"                   -> in.history.isEmpty
+            )
+          )(
+            span(
+              countTag(in.history.size),
+              "Mod log"
+            ),
+            in.history.nonEmpty.option(
+              div(
+                ul(
+                  in.history.map: e =>
+                    li(
+                      userIdLink(e.mod.userId.some, withOnline = false),
+                      " ",
+                      b(e.showAction),
+                      " ",
+                      e.details,
+                      " ",
+                      momentFromNow(e.date)
+                    )
                 )
+              )
             )
           )
         ),
         noteZone(in.user.user, in.notes)
       ),
       div(cls := "links")(
-        isGranted(_.MarkBooster) option {
+        isGranted(_.MarkBooster).option {
           val searchUrl = routes.User.games(in.user.username, "search")
           div(cls := "dropper view-games")(
             a(href := routes.GameMod.index(in.user.username))("View", br, "Games"),
@@ -115,33 +119,37 @@ object inquiry:
                 cls := "fbt",
                 href := s"$searchUrl?turnsMax=5&mode=1&players.winner=${in.user.id}&sort.field=d&sort.order=desc"
               )("Quick rated wins"),
-              boostOpponents(in.report, in.allReports, in.user.user) map { opponents =>
+              boostOpponents(in.report, in.allReports, in.user.user).map { opponents =>
                 a(
                   cls  := "fbt",
-                  href := s"${routes.GameMod.index(in.user.id)}?opponents=${opponents.toList mkString ", "}"
+                  href := s"${routes.GameMod.index(in.user.id)}?opponents=${opponents.toList.mkString(", ")}"
                 )("With these opponents")
               }
             )
           )
         },
-        isGranted(_.Shadowban) option a(href := routes.Mod.communicationPublic(in.user.id))(
-          "View",
-          br,
-          "Comms"
+        isGranted(_.Shadowban).option(
+          a(href := routes.Mod.communicationPublic(in.user.id))(
+            "View",
+            br,
+            "Comms"
+          )
         ),
-        in.report.isAppeal option a(href := appealRoutes.show(in.user.id))("View", br, "Appeal")
+        in.report.isAppeal.option(a(href := appealRoutes.show(in.user.id))("View", br, "Appeal"))
       ),
       div(cls := "actions")(
-        isGranted(_.ModMessage) option div(cls := "dropper warn buttons")(
-          iconTag(licon.Envelope),
-          div:
-            env.mod.presets.getPmPresetsOpt.value.map: preset =>
-              postForm(action := routes.Mod.warn(in.user.username, preset.name))(
-                submitButton(cls := "fbt", title := preset.text)(preset.name),
-                autoNextInput
-              )
+        isGranted(_.ModMessage).option(
+          div(cls := "dropper warn buttons")(
+            iconTag(licon.Envelope),
+            div:
+              env.mod.presets.getPmPresetsOpt.value.map: preset =>
+                postForm(action := routes.Mod.warn(in.user.username, preset.name))(
+                  submitButton(cls := "fbt", title := preset.text)(preset.name),
+                  autoNextInput
+                )
+          )
         ),
-        isGranted(_.MarkEngine) option {
+        isGranted(_.MarkEngine).option {
           val url = routes.Mod.engine(in.user.username, !in.user.marks.engine).url
           div(cls := "dropper engine buttons")(
             postForm(action := url, cls := "main", title := "Mark as cheat")(
@@ -151,7 +159,7 @@ object inquiry:
             thenForms(url, markButton(false))
           )
         },
-        isGranted(_.MarkBooster) option {
+        isGranted(_.MarkBooster).option {
           val url = routes.Mod.booster(in.user.username, !in.user.marks.boost).url
           div(cls := "dropper booster buttons")(
             postForm(action := url, cls := "main", title := "Mark as booster or sandbagger")(
@@ -161,7 +169,7 @@ object inquiry:
             thenForms(url, markButton(false))
           )
         },
-        isGranted(_.Shadowban) option {
+        isGranted(_.Shadowban).option {
           val url = routes.Mod.troll(in.user.username, !in.user.marks.troll).url
           div(cls := "dropper shadowban buttons")(
             postForm(
@@ -175,7 +183,7 @@ object inquiry:
             thenForms(url, markButton(false))
           )
         },
-        isGranted(_.CloseAccount) option {
+        isGranted(_.CloseAccount).option {
           val url = routes.Mod.alt(in.user.username, !in.user.marks.alt).url
           div(cls := "dropper alt buttons")(
             postForm(action := url, cls := "main", title := "Close alt account")(
@@ -188,7 +196,7 @@ object inquiry:
         div(cls := "dropper more buttons")(
           iconTag(licon.MoreTriangle),
           div(
-            isGranted(_.SendToZulip) option {
+            isGranted(_.SendToZulip).option {
               val url =
                 if in.report.isAppeal then appealRoutes.sendToZulip(in.user.username)
                 else routes.Mod.inquiryToZulip
@@ -196,12 +204,12 @@ object inquiry:
                 submitButton(cls := "fbt")("Send to Zulip")
               )
             },
-            isGranted(_.SendToZulip) option {
+            isGranted(_.SendToZulip).option {
               postForm(action := routes.Mod.askUsertableCheck(in.user.username))(
                 submitButton(cls := "fbt")("Ask for usertable check")
               )
             },
-            isGranted(_.SendToZulip) option {
+            isGranted(_.SendToZulip).option {
               postForm(action := routes.Mod.createNameCloseVote(in.user.username))(
                 submitButton(cls := "fbt")("Create name-close vote")
               )
@@ -241,7 +249,7 @@ object inquiry:
           title  := "Cancel the inquiry, re-instore the report",
           cls    := "cancel"
         )(
-          submitButton(dataIcon := licon.X, cls := "fbt")(in.alreadyMarked option disabled)
+          submitButton(dataIcon := licon.X, cls := "fbt")(in.alreadyMarked.option(disabled))
         )
       )
     )
@@ -263,15 +271,19 @@ object inquiry:
         ),
         div(cls := "submission")(
           submitButton(cls := "button thin", name := "noteType", value := "mod")("SEND"),
-          isGranted(_.Admin) option submitButton(cls := "button thin", name := "noteType", value := "dox")(
-            "SEND DOX"
+          isGranted(_.Admin).option(
+            submitButton(cls := "button thin", name := "noteType", value := "dox")(
+              "SEND DOX"
+            )
           )
         )
       ),
-      notes map { note =>
-        (!note.dox || isGranted(_.Admin)) option div(cls := "doc note")(
-          h3("by ", userIdLink(note.from.some, withOnline = false), ", ", momentFromNow(note.date)),
-          p(richText(note.text, expandImg = false))
+      notes.map { note =>
+        (!note.dox || isGranted(_.Admin)).option(
+          div(cls := "doc note")(
+            h3("by ", userIdLink(note.from.some, withOnline = false), ", ", momentFromNow(note.date)),
+            p(richText(note.text, expandImg = false))
+          )
         )
       }
     )
@@ -286,7 +298,7 @@ object inquiry:
       allReports: List[Report],
       reportee: User
   ): Option[NonEmptyList[UserId]] =
-    (report.reason == Reason.Boost || reportee.marks.boost) so {
+    (report.reason == Reason.Boost || reportee.marks.boost).so {
       allReports
         .filter(_.reason == Reason.Boost)
         .flatMap(_.atoms.toList)

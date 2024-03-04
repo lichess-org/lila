@@ -28,8 +28,8 @@ object Title:
 
   def titleName(title: UserTitle): String = names.getOrElse(title, title.value)
 
-  def get(str: String): Option[UserTitle]      = UserTitle(str.toUpperCase).some filter names.contains
-  def get(strs: List[String]): List[UserTitle] = strs flatMap { get(_) }
+  def get(str: String): Option[UserTitle]      = UserTitle(str.toUpperCase).some.filter(names.contains)
+  def get(strs: List[String]): List[UserTitle] = strs.flatMap { get(_) }
 
   object fromUrl:
 
@@ -37,7 +37,9 @@ object Title:
     private val FideProfileUrlRegex = """(?:https?://)?ratings\.fide\.com/card\.phtml\?event=(\d+)""".r
     // >&nbsp;FIDE title</td><td colspan=3 bgcolor=#efefef>&nbsp;Grandmaster</td>
     private val FideProfileTitleRegex =
-      s"""<div class="profile-top-info__block__row__data">(${names.values mkString "|"})</div>""".r.unanchored
+      s"""<div class="profile-top-info__block__row__data">(${names.values.mkString(
+          "|"
+        )})</div>""".r.unanchored
 
     // https://ratings.fide.com/profile/740411
     private val NewFideProfileUrlRegex = """(?:https?://)?ratings\.fide\.com/profile/(\d+)""".r
@@ -51,10 +53,10 @@ object Title:
         case _                          => none
 
     def apply(url: String)(using ws: StandaloneWSClient): Fu[Option[UserTitle]] =
-      toFideId(url) so fromFideProfile
+      toFideId(url).so(fromFideProfile)
 
     private def fromFideProfile(id: Int)(using ws: StandaloneWSClient): Fu[Option[UserTitle]] =
-      ws.url(s"""https://ratings.fide.com/profile/$id""").get().dmap(_.body) dmap {
-        case FideProfileTitleRegex(name) => fromNames get name
+      ws.url(s"""https://ratings.fide.com/profile/$id""").get().dmap(_.body).dmap {
+        case FideProfileTitleRegex(name) => fromNames.get(name)
         case _                           => none
       }

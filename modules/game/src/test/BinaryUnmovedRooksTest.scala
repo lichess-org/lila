@@ -10,9 +10,9 @@ class BinaryUnmovedRooksTest extends munit.FunSuite:
   val _0_ = "00000000"
   val _1_ = "11111111"
   def write(all: UnmovedRooks): List[String] =
-    (BinaryFormat.unmovedRooks write all).showBytes.split(',').toList
+    (BinaryFormat.unmovedRooks.write(all)).showBytes.split(',').toList
   def read(bytes: List[String]): UnmovedRooks =
-    BinaryFormat.unmovedRooks read ByteArray.parseBytes(bytes)
+    BinaryFormat.unmovedRooks.read(ByteArray.parseBytes(bytes))
 
   test("write") {
     assertEquals(write(UnmovedRooks(Set(A1, H1, A8, H8))), List("10000001", "10000001"))

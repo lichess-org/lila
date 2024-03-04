@@ -84,12 +84,12 @@ object StudyAction:
 
   // copy/pasted from JsonView
   private given Reads[Square] = Reads: v =>
-    (v.asOpt[String] flatMap { Square.fromKey(_) }).fold[JsResult[Square]](JsError(Nil))(JsSuccess(_))
+    (v.asOpt[String].flatMap { Square.fromKey(_) }).fold[JsResult[Square]](JsError(Nil))(JsSuccess(_))
   private[study] given Reads[Shape] = Reads: js =>
     js.asOpt[JsObject]
       .flatMap { o =>
         for
-          brush <- o str "brush"
+          brush <- o.str("brush")
           orig  <- o.get[Square]("orig")
         yield o.get[Square]("dest") match
           case Some(dest) => Shape.Arrow(brush, orig, dest)

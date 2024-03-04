@@ -49,7 +49,7 @@ final class RemoteSocket(redisClient: RedisClient, shutdown: CoordinatedShutdown
     case In.Ping(id)                     => send(Out.pong(id))
     case In.WsBoot =>
       logger.warn("Remote socket boot")
-      onlineUserIds set initialUserIds
+      onlineUserIds.set(initialUserIds)
 
   Bus.subscribeFun(
     "socketUsers",
@@ -64,13 +64,13 @@ final class RemoteSocket(redisClient: RedisClient, shutdown: CoordinatedShutdown
     "onlineApiUsers"
   ) {
     case SendTos(userIds, payload) =>
-      val connectedUsers = userIds intersect onlineUserIds.get
+      val connectedUsers = userIds.intersect(onlineUserIds.get)
       if connectedUsers.nonEmpty then send(Out.tellUsers(connectedUsers, payload))
     case SendTo(userId, payload) =>
       if onlineUserIds.get.contains(userId) then send(Out.tellUser(userId, payload))
     case SendToOnlineUser(userId, makePayload) =>
       if onlineUserIds.get.contains(userId) then
-        makePayload() foreach { payload =>
+        makePayload().foreach { payload =>
           send(Out.tellUser(userId, payload))
         }
     case Announce(_, _, json) =>
@@ -82,7 +82,7 @@ final class RemoteSocket(redisClient: RedisClient, shutdown: CoordinatedShutdown
     case TellSriOut(sri, payload) =>
       send(Out.tellSri(Sri(sri), payload))
     case TellSrisOut(sris, payload) =>
-      send(Out.tellSris(Sri from sris, payload))
+      send(Out.tellSris(Sri.from(sris), payload))
     case CloseAccount(userId) =>
       send(Out.disconnectUser(userId))
     case lila.hub.actorApi.mod.Shadowban(userId, v) =>
@@ -120,7 +120,7 @@ final class RemoteSocket(redisClient: RedisClient, shutdown: CoordinatedShutdown
       RawMsg(str) match
         case None => logger.error(s"Invalid $channel $str")
         case Some(msg) =>
-          reader(msg) collect handler match
+          reader(msg).collect(handler) match
             case Some(_) => // processed
             case None    => logger.warn(s"Unhandled $channel $str")
 
@@ -179,10 +179,10 @@ object RemoteSocket:
     final class RawMsg(val path: String, val args: Args):
       def get(nb: Int)(f: PartialFunction[Array[String], Option[In]]): Option[In] =
         f.applyOrElse(args.split(" ", nb), (_: Array[String]) => None)
-      def all = args split ' '
+      def all = args.split(' ')
     def RawMsg(msg: String): Option[RawMsg] =
       val parts = msg.split(" ", 2)
-      parts.headOption map {
+      parts.headOption.map {
         new RawMsg(_, ~parts.lift(1))
       }
 
@@ -209,24 +209,24 @@ object RemoteSocket:
         raw.path match
           case "connect/user"     => ConnectUser(UserId(raw.args)).some
           case "connect/users"    => ConnectUsers(UserId.from(commas(raw.args))).some
-          case "disconnect/users" => DisconnectUsers(UserId from commas(raw.args)).some
+          case "disconnect/users" => DisconnectUsers(UserId.from(commas(raw.args))).some
           case "connect/sris" =>
             ConnectSris {
-              commas(raw.args) map (_ split ' ') map { s =>
-                (Sri(s(0)), UserId.from(s lift 1))
+              commas(raw.args).map(_.split(' ')).map { s =>
+                (Sri(s(0)), UserId.from(s.lift(1)))
               }
             }.some
-          case "disconnect/sris" => DisconnectSris(commas(raw.args) map { Sri(_) }).some
-          case "notified/batch"  => NotifiedBatch(UserId from commas(raw.args)).some
+          case "disconnect/sris" => DisconnectSris(commas(raw.args).map { Sri(_) }).some
+          case "notified/batch"  => NotifiedBatch(UserId.from(commas(raw.args))).some
           case "lag" =>
-            raw.all pipe { s =>
-              Centis.from(s lift 1 flatMap (_.toIntOption)) map { Lag(UserId(s(0)), _) }
+            raw.all.pipe { s =>
+              Centis.from(s.lift(1).flatMap(_.toIntOption)).map { Lag(UserId(s(0)), _) }
             }
           case "lags" =>
             Lags(commas(raw.args).flatMap {
-              _ split ':' match
+              _.split(':') match
                 case Array(user, l) =>
-                  l.toIntOption map { lag =>
+                  l.toIntOption.map { lag =>
                     UserId(user) -> Centis(lag)
                   }
                 case _ => None
@@ -236,12 +236,12 @@ object RemoteSocket:
             raw.get(2) { case Array(user, payload) =>
               for
                 obj <- Json.parse(payload).asOpt[JsObject]
-                typ <- obj str "t"
+                typ <- obj.str("t")
               yield TellUser(UserId(user), typ, obj)
             }
           case "req/response" =>
             raw.get(2) { case Array(reqId, response) =>
-              reqId.toIntOption map { ReqResponse(_, response) }
+              reqId.toIntOption.map { ReqResponse(_, response) }
             }
           case "ping" => Ping(raw.args).some
           case "boot" => WsBoot.some
@@ -250,27 +250,27 @@ object RemoteSocket:
       def tellSriMapper: PartialFunction[Array[String], Option[TellSri]] = { case Array(sri, user, payload) =>
         for
           obj <- Json.parse(payload).asOpt[JsObject]
-          typ <- obj str "t"
-        yield TellSri(Sri(sri), UserId from optional(user), typ, obj)
+          typ <- obj.str("t")
+        yield TellSri(Sri(sri), UserId.from(optional(user)), typ, obj)
       }
 
-      def commas(str: String): Array[String]    = if str == "-" then Array.empty else str split ','
+      def commas(str: String): Array[String]    = if str == "-" then Array.empty else str.split(',')
       def boolean(str: String): Boolean         = str == "+"
       def optional(str: String): Option[String] = if str == "-" then None else Some(str)
 
     object Out:
       def tellUser(userId: UserId, payload: JsObject) =
-        s"tell/users $userId ${Json stringify payload}"
+        s"tell/users $userId ${Json.stringify(payload)}"
       def tellUsers(userIds: Set[UserId], payload: JsObject) =
-        s"tell/users ${commas(userIds)} ${Json stringify payload}"
+        s"tell/users ${commas(userIds)} ${Json.stringify(payload)}"
       def tellAll(payload: JsObject) =
-        s"tell/all ${Json stringify payload}"
+        s"tell/all ${Json.stringify(payload)}"
       def tellFlag(flag: String, payload: JsObject) =
-        s"tell/flag $flag ${Json stringify payload}"
+        s"tell/flag $flag ${Json.stringify(payload)}"
       def tellSri(sri: Sri, payload: JsValue) =
-        s"tell/sri $sri ${Json stringify payload}"
+        s"tell/sri $sri ${Json.stringify(payload)}"
       def tellSris(sris: Iterable[Sri], payload: JsValue) =
-        s"tell/sris ${commas(sris)} ${Json stringify payload}"
+        s"tell/sris ${commas(sris)} ${Json.stringify(payload)}"
       def mlat(millis: Int) =
         s"mlat ${millis}"
       def disconnectUser(userId: UserId) =
@@ -282,14 +282,14 @@ object RemoteSocket:
       def follow(u1: UserId, u2: UserId)         = s"rel/follow $u1 $u2"
       def unfollow(u1: UserId, u2: UserId)       = s"rel/unfollow $u1 $u2"
       def apiUserOnline(u: UserId, v: Boolean)   = s"api/online $u ${boolean(v)}"
-      def respond(reqId: Int, payload: JsObject) = s"req/response $reqId ${Json stringify payload}"
+      def respond(reqId: Int, payload: JsObject) = s"req/response $reqId ${Json.stringify(payload)}"
       def boot                                   = "boot"
       def pong(id: String)                       = s"pong $id"
       def stop(reqId: Int)                       = s"lila/stop $reqId"
 
-      def commas(strs: Iterable[Any]): String = if strs.isEmpty then "-" else strs mkString ","
+      def commas(strs: Iterable[Any]): String = if strs.isEmpty then "-" else strs.mkString(",")
       def boolean(v: Boolean): String         = if v then "+" else "-"
-      def optional(str: Option[String])       = str getOrElse "-"
+      def optional(str: Option[String])       = str.getOrElse("-")
       def color(c: Color): String             = c.fold("w", "b")
       def color(c: Option[Color]): String     = optional(c.map(_.fold("w", "b")))
 

@@ -24,7 +24,7 @@ final class UserForm:
     )
   ).fill(user.username)
 
-  def usernameOf(user: User) = username(user) fill user.username
+  def usernameOf(user: User) = username(user).fill(user.username)
 
   val profile: Form[Profile] = Form:
     mapping(
@@ -33,7 +33,7 @@ final class UserForm:
       "bio"        -> optional(cleanNonEmptyText(maxLength = 400)),
       "firstName"  -> nameField,
       "lastName"   -> nameField,
-      "fideRating" -> optional(number(min = 1000, max = 3000)),
+      "fideRating" -> optional(number(min = 1400, max = 3000)),
       "uscfRating" -> optional(number(min = 100, max = 3000)),
       "ecfRating"  -> optional(number(min = 0, max = 3000)),
       "rcfRating"  -> optional(number(min = 0, max = 3000)),
@@ -42,7 +42,7 @@ final class UserForm:
       "links"      -> optional(cleanNonEmptyText(maxLength = 3000))
     )(Profile.apply)(unapply)
 
-  def profileOf(user: User) = profile fill user.profileOrDefault
+  def profileOf(user: User) = profile.fill(user.profileOrDefault)
 
   def flair(using Me) = Form[Option[Flair]]:
     single(FlairApi.formPair())
@@ -71,8 +71,8 @@ object UserForm:
   val title = Form(single("title" -> optional(of[UserTitle])))
 
   lazy val historicalUsernameConstraints = Seq(
-    Constraints minLength 2,
-    Constraints maxLength 30,
+    Constraints.minLength(2),
+    Constraints.maxLength(30),
     Constraints.pattern(regex = User.historicalUsernameRegex)
   )
   lazy val historicalUsernameField =

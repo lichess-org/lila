@@ -39,7 +39,7 @@ case class Perf(
       deviation = r.ratingDeviation,
       volatility = r.volatility
     )
-    newGlicko.sanityCheck option add(newGlicko, date)
+    newGlicko.sanityCheck.option(add(newGlicko, date))
 
   def addOrReset(
       monitor: lila.mon.CounterPath,
@@ -52,7 +52,7 @@ case class Perf(
     }
 
   def refund(points: Int): Perf =
-    val newGlicko = glicko refund points
+    val newGlicko = glicko.refund(points)
     copy(
       glicko = newGlicko,
       recent = updateRecentWith(newGlicko)
@@ -60,7 +60,7 @@ case class Perf(
 
   private def updateRecentWith(glicko: Glicko) =
     if nb < 10 then recent
-    else (glicko.intRating :: recent) take Perf.recentMaxSize
+    else (glicko.intRating :: recent).take(Perf.recentMaxSize)
 
   def clearRecent = copy(recent = Nil)
 
@@ -102,7 +102,7 @@ case object Perf:
     val score: Int
     val runs: Int
     def nonEmpty = runs > 0
-    def option   = nonEmpty option this
+    def option   = nonEmpty.option(this)
 
   case class Storm(score: Int, runs: Int) extends PuzPerf
   object Storm:
@@ -123,8 +123,8 @@ case object Perf:
     def reads(r: BSON.Reader): Perf =
       val p = Perf(
         glicko = r.getO[Glicko]("gl") | Glicko.default,
-        nb = r intD "nb",
-        latest = r dateO "la",
+        nb = r.intD("nb"),
+        latest = r.dateO("la"),
         recent = ~r.getO[List[IntRating]]("re")
       )
       p.copy(glicko = p.glicko.copy(deviation = Glicko.liveDeviation(p, reverse = false)))

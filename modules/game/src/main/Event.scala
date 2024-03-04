@@ -171,8 +171,8 @@ object Event:
         var first = true
         moves.foreach: (orig, dests) =>
           if first then first = false
-          else sb append " "
-          sb append orig.key
+          else sb.append(" ")
+          sb.append(orig.key)
           dests.foreach(s => sb.append(s.key))
         JsString(sb.toString)
 
@@ -302,9 +302,9 @@ object Event:
   object Clock:
     def apply(clock: ChessClock): Clock =
       Clock(
-        clock remainingTime Color.White,
-        clock remainingTime Color.Black,
-        clock lagCompEstimate clock.color
+        clock.remainingTime(Color.White),
+        clock.remainingTime(Color.Black),
+        clock.lagCompEstimate(clock.color)
       )
 
   case class Berserk(color: Color) extends Event:

@@ -20,7 +20,7 @@ final class PaginatorBuilder(
 
   final class UserAdapter(user: User) extends AdapterLike[Game]:
 
-    def nbResults: Fu[Int] = coll countSel selector
+    def nbResults: Fu[Int] = coll.countSel(selector)
 
     def slice(offset: Int, length: Int): Fu[Seq[Game]] =
       coll

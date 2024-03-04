@@ -45,20 +45,22 @@ object StreamerForm:
   )
 
   def userForm(streamer: Streamer) =
-    emptyUserForm fill UserData(
-      name = streamer.name,
-      headline = streamer.headline,
-      description = streamer.description,
-      twitch = streamer.twitch.map(_.userId),
-      youTube = streamer.youTube.map(_.channelId),
-      listed = streamer.listed,
-      approval = ApprovalData(
-        granted = streamer.approval.granted,
-        tier = streamer.approval.tier.some,
-        requested = streamer.approval.requested,
-        ignored = streamer.approval.ignored,
-        chat = streamer.approval.chatEnabled
-      ).some
+    emptyUserForm.fill(
+      UserData(
+        name = streamer.name,
+        headline = streamer.headline,
+        description = streamer.description,
+        twitch = streamer.twitch.map(_.userId),
+        youTube = streamer.youTube.map(_.channelId),
+        listed = streamer.listed,
+        approval = ApprovalData(
+          granted = streamer.approval.granted,
+          tier = streamer.approval.tier.some,
+          requested = streamer.approval.requested,
+          ignored = streamer.approval.ignored,
+          chat = streamer.approval.chatEnabled
+        ).some
+      )
     )
 
   case class UserData(
@@ -95,7 +97,7 @@ object StreamerForm:
               },
               ignored = m.ignored && !m.granted,
               chatEnabled = m.chat,
-              lastGrantedAt = m.granted.option(nowInstant) orElse streamer.approval.lastGrantedAt
+              lastGrantedAt = m.granted.option(nowInstant).orElse(streamer.approval.lastGrantedAt)
             )
           case _ =>
             streamer.approval.copy(

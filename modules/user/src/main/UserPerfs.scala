@@ -84,7 +84,7 @@ case class UserPerfs(
   def bestStandardRating: IntRating = bestRatingIn(PerfType.standard)
 
   def bestRatingIn(types: List[PerfType]): IntRating =
-    val ps = types map apply match
+    val ps = types.map(apply) match
       case Nil => List(standard)
       case x   => x
     val minNb = ps.foldLeft(0)(_ + _.nb) / 10
@@ -136,9 +136,9 @@ case class UserPerfs(
     Perf.Key("puzzle")         -> puzzle
   )
 
-  def ratingOf(pt: Perf.Key): Option[IntRating] = perfsMap get pt map (_.intRating)
+  def ratingOf(pt: Perf.Key): Option[IntRating] = perfsMap.get(pt).map(_.intRating)
 
-  def apply(key: Perf.Key): Option[Perf] = perfsMap get key
+  def apply(key: Perf.Key): Option[Perf] = perfsMap.get(key)
 
   def apply(perfType: PerfType): Perf = perfType match
     case PerfType.Standard       => standard
@@ -187,9 +187,9 @@ case class UserPerfs(
     perfsMap.values
       .flatMap(_.latest)
       .foldLeft(none[Instant]):
-        case (None, date)                          => date.some
-        case (Some(acc), date) if date isAfter acc => date.some
-        case (acc, _)                              => acc
+        case (None, date)                           => date.some
+        case (Some(acc), date) if date.isAfter(acc) => date.some
+        case (acc, _)                               => acc
 
   def dubiousPuzzle = UserPerfs.dubiousPuzzle(puzzle, standard)
 
@@ -292,7 +292,7 @@ object UserPerfs:
     import Perf.given
 
     def reads(r: BSON.Reader): UserPerfs =
-      inline def perf(key: String) = r.getO[Perf](key) getOrElse Perf.default
+      inline def perf(key: String) = r.getO[Perf](key).getOrElse(Perf.default)
       UserPerfs(
         id = r.get[UserId]("_id"),
         standard = perf("standard"),
@@ -311,12 +311,12 @@ object UserPerfs:
         classical = perf("classical"),
         correspondence = perf("correspondence"),
         puzzle = perf("puzzle"),
-        storm = r.getO[Perf.Storm]("storm") getOrElse Perf.Storm.default,
-        racer = r.getO[Perf.Racer]("racer") getOrElse Perf.Racer.default,
-        streak = r.getO[Perf.Streak]("streak") getOrElse Perf.Streak.default
+        storm = r.getO[Perf.Storm]("storm").getOrElse(Perf.Storm.default),
+        racer = r.getO[Perf.Racer]("racer").getOrElse(Perf.Racer.default),
+        streak = r.getO[Perf.Streak]("streak").getOrElse(Perf.Streak.default)
       )
 
-    private inline def notNew(p: Perf): Option[Perf] = p.nonEmpty option p
+    private inline def notNew(p: Perf): Option[Perf] = p.nonEmpty.option(p)
 
     def writes(w: BSON.Writer, o: UserPerfs) =
       BSONDocument(

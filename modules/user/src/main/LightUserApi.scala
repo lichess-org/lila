@@ -17,19 +17,19 @@ final class LightUserApi(repo: UserRepo, cacheApi: CacheApi)(using Executor) ext
     if User.isGhost(id) then fuccess(LightUser.ghost.some) else cache.async(id)
   val asyncFallback = LightUser.GetterFallback: id =>
     if User.isGhost(id) then fuccess(LightUser.ghost)
-    else cache.async(id).dmap(_ | LightUser.fallback(id into UserName))
+    else cache.async(id).dmap(_ | LightUser.fallback(id.into(UserName)))
   val sync = LightUser.GetterSync: id =>
     if User.isGhost(id) then LightUser.ghost.some else cache.sync(id)
   val syncFallback = LightUser.GetterSyncFallback: id =>
-    if User.isGhost(id) then LightUser.ghost else cache.sync(id) | LightUser.fallback(id into UserName)
+    if User.isGhost(id) then LightUser.ghost else cache.sync(id) | LightUser.fallback(id.into(UserName))
 
   export cache.{ asyncMany, invalidate, preloadOne, preloadMany }
 
   def asyncFallbackName(name: UserName) = async(name.id).dmap(_ | LightUser.fallback(name))
 
-  def asyncManyFallback(ids: Seq[UserId]): Fu[Seq[LightUser]] = ids traverse asyncFallback
+  def asyncManyFallback(ids: Seq[UserId]): Fu[Seq[LightUser]] = ids.traverse(asyncFallback)
 
-  def asyncManyOptions(ids: Seq[Option[UserId]]): Fu[Seq[Option[LightUser]]] = ids.traverse(_ so async)
+  def asyncManyOptions(ids: Seq[Option[UserId]]): Fu[Seq[Option[LightUser]]] = ids.traverse(_.so(async))
 
   val isBotSync: LightUser.IsBotSync = LightUser.IsBotSync(id => sync(id).exists(_.isBot))
 
@@ -40,26 +40,31 @@ final class LightUserApi(repo: UserRepo, cacheApi: CacheApi)(using Executor) ext
     name = "user.light",
     initialCapacity = 1024 * 1024,
     compute = id =>
-      if User isGhost id then fuccess(LightUser.ghost.some)
+      if User.isGhost(id) then fuccess(LightUser.ghost.some)
       else
-        repo.coll.find($id(id), projection).one[LightUser] recover:
-          case _: reactivemongo.api.bson.exceptions.BSONValueNotFoundException => LightUser.ghost.some
+        repo.coll
+          .find($id(id), projection)
+          .one[LightUser]
+          .recover:
+            case _: reactivemongo.api.bson.exceptions.BSONValueNotFoundException => LightUser.ghost.some
     ,
-    default = id => LightUser(id, id into UserName, None, None, isPatron = false).some,
+    default = id => LightUser(id, id.into(UserName), None, None, isPatron = false).some,
     strategy = Syncache.Strategy.WaitAfterUptime(10 millis),
     expireAfter = Syncache.ExpireAfter.Write(20 minutes)
   )
 
   private given BSONDocumentReader[LightUser] with
     def readDocument(doc: BSONDocument) =
-      doc.getAsTry[UserName](F.username) map: name =>
-        LightUser(
-          id = name.id,
-          name = name,
-          title = doc.getAsOpt[UserTitle](F.title),
-          flair = doc.getAsOpt[Flair](F.flair).filter(FlairApi.exists),
-          isPatron = ~doc.child(F.plan).flatMap(_.getAsOpt[Boolean]("active"))
-        )
+      doc
+        .getAsTry[UserName](F.username)
+        .map: name =>
+          LightUser(
+            id = name.id,
+            name = name,
+            title = doc.getAsOpt[UserTitle](F.title),
+            flair = doc.getAsOpt[Flair](F.flair).filter(FlairApi.exists),
+            isPatron = ~doc.child(F.plan).flatMap(_.getAsOpt[Boolean]("active"))
+          )
 
   private val projection =
     $doc(
@@ -73,5 +78,5 @@ final class LightUserApi(repo: UserRepo, cacheApi: CacheApi)(using Executor) ext
 object LightUserApi:
 
   def mock: ILightUserApi = new:
-    def sync  = LightUser.GetterSync(id => LightUser.fallback(id into UserName).some)
+    def sync  = LightUser.GetterSync(id => LightUser.fallback(id.into(UserName)).some)
     def async = LightUser.Getter(id => fuccess(sync(id)))

@@ -9,7 +9,7 @@ class TranslationTest extends munit.FunSuite:
     val en     = Registry.all.get(defaultLang).get
     var tested = 0
     val errors: List[String] = LangList.all.flatMap { (lang, name) =>
-      Registry.all.get(lang).get.asScala.toMap flatMap { (k, v) =>
+      Registry.all.get(lang).get.asScala.toMap.flatMap { (k, v) =>
         try
           val enTrans: String = en.get(k) match
             case literal: Simple  => literal.message
@@ -24,7 +24,7 @@ class TranslationTest extends munit.FunSuite:
               tested = tested + 1
               literal.formatTxt(args)
             case plurals: Plurals =>
-              plurals.messages.keys foreach { qty =>
+              plurals.messages.keys.foreach { qty =>
                 tested = tested + 1
                 assert(plurals.formatTxt(qty, args).nonEmpty)
               }

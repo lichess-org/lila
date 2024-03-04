@@ -27,7 +27,7 @@ package socket:
     def apply[A: Writes](userId: UserId, typ: String, data: A): SendTo =
       SendTo(userId, Json.obj("t" -> typ, "d" -> data))
     def onlineUser[A: Writes](userId: UserId, typ: String, data: () => Fu[A]): SendToOnlineUser =
-      SendToOnlineUser(userId, () => data() dmap { d => Json.obj("t" -> typ, "d" -> d) })
+      SendToOnlineUser(userId, () => data().dmap { d => Json.obj("t" -> typ, "d" -> d) })
   case class SendTos(userIds: Set[UserId], message: JsObject)
   object SendTos:
     def apply[A: Writes](userIds: Set[UserId], typ: String, data: A): SendTos =

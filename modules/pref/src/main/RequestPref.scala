@@ -16,7 +16,7 @@ object RequestPref:
     val qs = req.queryString
     if qs.isEmpty && req.session.isEmpty then default
     else
-      def paramOrSession(name: String): Option[String] = queryParam(qs, name) orElse req.session.get(name)
+      def paramOrSession(name: String): Option[String] = queryParam(qs, name).orElse(req.session.get(name))
       default.copy(
         bg = paramOrSession("bg").flatMap(Pref.Bg.fromString.get) | default.bg,
         theme = paramOrSession("theme") | default.theme,
@@ -25,7 +25,7 @@ object RequestPref:
         pieceSet3d = paramOrSession("pieceSet3d") | default.pieceSet3d,
         soundSet = paramOrSession("soundSet") | default.soundSet,
         bgImg = paramOrSession("bgImg"),
-        is3d = paramOrSession("is3d") has "true"
+        is3d = paramOrSession("is3d").has("true")
       )
 
   private def queryParam(queryString: Map[String, Seq[String]], name: String): Option[String] =

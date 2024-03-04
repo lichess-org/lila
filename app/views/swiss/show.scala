@@ -26,12 +26,12 @@ object show:
       streamers: List[UserId],
       isLocalMod: Boolean
   )(using ctx: PageContext): Frag =
-    val isDirector       = ctx is s.createdBy
+    val isDirector       = ctx.is(s.createdBy)
     val hasScheduleInput = isDirector && s.settings.manualRounds && s.isNotFinished
     views.html.base.layout(
       title = fullName(s, team),
       moreJs = frag(
-        hasScheduleInput option jsModule("flatpickr"),
+        hasScheduleInput.option(jsModule("flatpickr")),
         jsModuleInit(
           "swiss",
           Json
@@ -57,7 +57,7 @@ object show:
       ),
       moreCss = frag(
         cssTag("swiss.show"),
-        hasScheduleInput option cssTag("flatpickr")
+        hasScheduleInput.option(cssTag("flatpickr"))
       ),
       openGraph = lila.app.ui
         .OpenGraph(
@@ -101,8 +101,8 @@ object show:
             tr(cls := "paginated")(
               td(a(href := routes.Round.watcher(p.gameId, "white"), cls := "glpt")(s"#${p.gameId}")),
               td(userIdLink(p.white.some)),
-              td(p strResultOf chess.White),
-              td(p strResultOf chess.Black),
+              td(p.strResultOf(chess.White)),
+              td(p.strResultOf(chess.Black)),
               td(userIdLink(p.black.some))
             )
         ),

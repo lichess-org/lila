@@ -21,7 +21,7 @@ final private class Captcher(gameRepo: GameRepo)(using Executor) extends Actor:
 
     case actorApi.NewCaptcha => Impl.refresh
 
-    case ValidCaptcha(id, solution) => Impl.get(id).map(_ valid solution).pipeTo(sender())
+    case ValidCaptcha(id, solution) => Impl.get(id).map(_.valid(solution)).pipeTo(sender())
 
   private object Impl:
 
@@ -44,23 +44,23 @@ final private class Captcher(gameRepo: GameRepo)(using Executor) extends Actor:
     private var challenges = NonEmptyList.one(Captcha.default)
 
     private def add(c: Captcha): Unit =
-      if find(c.gameId).isEmpty then challenges = NonEmptyList(c, challenges.toList take capacity)
+      if find(c.gameId).isEmpty then challenges = NonEmptyList(c, challenges.toList.take(capacity))
 
     private def find(id: GameId): Option[Captcha] =
       challenges.find(_.gameId == id)
 
     private def createFromDb: Fu[Option[Captcha]] =
-      findCheckmateInDb(10) orElse findCheckmateInDb(1) flatMapz fromGame
+      findCheckmateInDb(10).orElse(findCheckmateInDb(1)).flatMapz(fromGame)
 
     private def findCheckmateInDb(distribution: Int): Fu[Option[Game]] =
-      gameRepo findRandomStandardCheckmate distribution
+      gameRepo.findRandomStandardCheckmate(distribution)
 
     private def getFromDb(id: GameId): Fu[Option[Captcha]] =
-      gameRepo game id flatMapz fromGame
+      gameRepo.game(id).flatMapz(fromGame)
 
     private def fromGame(game: Game): Fu[Option[Captcha]] =
-      gameRepo getOptionPgn game.id map {
-        _ flatMap { makeCaptcha(game, _) }
+      gameRepo.getOptionPgn(game.id).map {
+        _.flatMap { makeCaptcha(game, _) }
       }
 
     private def makeCaptcha(game: Game, moves: Vector[SanStr]): Option[Captcha] =
@@ -75,7 +75,7 @@ final private class Captcher(gameRepo: GameRepo)(using Executor) extends Actor:
       game.situation.moves.view
         .flatMap: (_, moves) =>
           moves.filter: move =>
-            (move.after situationOf !game.player).checkMate
+            (move.after.situationOf(!game.player)).checkMate
         .to(List)
         .map: move =>
           s"${move.orig.key} ${move.dest.key}"
@@ -88,7 +88,8 @@ final private class Captcher(gameRepo: GameRepo)(using Executor) extends Actor:
           sans => Sans(safeInit(sans.value)),
           tags = Tags.empty
         )
-        .flatMap(_.valid) map (_.state) toOption
+        .flatMap(_.valid)
+        .map(_.state) toOption
 
     private def safeInit[A](list: List[A]): List[A] =
       list match
@@ -96,4 +97,4 @@ final private class Captcher(gameRepo: GameRepo)(using Executor) extends Actor:
         case x :: xs  => x :: safeInit(xs)
         case _        => Nil
 
-    private def fenOf(game: ChessGame) = Fen writeBoard game.board
+    private def fenOf(game: ChessGame) = Fen.writeBoard(game.board)

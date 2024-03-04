@@ -20,9 +20,9 @@ case class Profile(
   def nonEmptyRealName =
     List(ne(firstName), ne(lastName)).flatten match
       case Nil   => none
-      case names => (names mkString " ").some
+      case names => (names.mkString(" ")).some
 
-  def flagInfo = flag flatMap Flags.info
+  def flagInfo = flag.flatMap(Flags.info)
 
   def nonEmptyLocation = ne(location)
 
@@ -33,24 +33,25 @@ case class Profile(
   def completionPercent: Int =
     100 * List(flag, bio, firstName, lastName).count(_.isDefined) / 4
 
-  def actualLinks: List[Link] = links so Links.make
+  def actualLinks: List[Link] = links.so(Links.make)
 
   import Profile.OfficialRating
 
   def officialRating: Option[OfficialRating] =
-    fideRating.map { OfficialRating("fide", _) } orElse
-      uscfRating.map { OfficialRating("uscf", _) } orElse
-      ecfRating.map { OfficialRating("ecf", _) } orElse
-      rcfRating.map { OfficialRating("rcf", _) } orElse
-      cfcRating.map { OfficialRating("cfc", _) } orElse
-      dsbRating.map { OfficialRating("dsb", _) }
+    fideRating
+      .map { OfficialRating("fide", _) }
+      .orElse(uscfRating.map { OfficialRating("uscf", _) })
+      .orElse(ecfRating.map { OfficialRating("ecf", _) })
+      .orElse(rcfRating.map { OfficialRating("rcf", _) })
+      .orElse(cfcRating.map { OfficialRating("cfc", _) })
+      .orElse(dsbRating.map { OfficialRating("dsb", _) })
 
   def filterTroll(troll: Boolean) = copy(
-    bio = bio ifFalse troll,
-    firstName = firstName ifFalse troll,
-    lastName = lastName ifFalse troll,
-    location = location ifFalse troll,
-    links = links ifFalse troll
+    bio = bio.ifFalse(troll),
+    firstName = firstName.ifFalse(troll),
+    lastName = lastName.ifFalse(troll),
+    location = location.ifFalse(troll),
+    links = links.ifFalse(troll)
   )
 
   private def ne(str: Option[String]) = str.filter(_.nonEmpty)

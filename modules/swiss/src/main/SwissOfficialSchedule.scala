@@ -48,10 +48,10 @@ final private class SwissOfficialSchedule(mongo: SwissMongo, cache: SwissCache)(
       .mapWithIndex { (config, position) =>
         val hour    = position / 2
         val minute  = (position % 2) * 30
-        val startAt = dayStart plusHours hour plusMinutes minute
-        mongo.swiss.exists($doc("teamId" -> lichessTeamId, "startsAt" -> startAt)) flatMap {
+        val startAt = dayStart.plusHours(hour).plusMinutes(minute)
+        mongo.swiss.exists($doc("teamId" -> lichessTeamId, "startsAt" -> startAt)).flatMap {
           if _ then fuFalse
-          else mongo.swiss.insert.one(BsonHandlers.addFeaturable(makeSwiss(config, startAt))) inject true
+          else mongo.swiss.insert.one(BsonHandlers.addFeaturable(makeSwiss(config, startAt))).inject(true)
         }
       }
       .parallel

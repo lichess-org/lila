@@ -21,14 +21,14 @@ final class PuzzleActivity(
 
   def stream(config: Config): Source[JsObject, ?] =
     val perSecond = MaxPerSecond(20)
-    Source futureSource:
+    Source.futureSource:
       colls.round.map:
         _.find(
           $doc(PuzzleRound.BSONFields.user -> config.user.id) ++
             config.before.so: before =>
-              $doc(PuzzleRound.BSONFields.date $lt before)
+              $doc(PuzzleRound.BSONFields.date.$lt(before))
         )
-          .sort($sort desc PuzzleRound.BSONFields.date)
+          .sort($sort.desc(PuzzleRound.BSONFields.date))
           .batchSize(perSecond.value)
           .cursor[PuzzleRound](ReadPref.sec)
           .documentSource(config.max | Int.MaxValue)

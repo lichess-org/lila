@@ -13,9 +13,9 @@ case class StormPuzzle(
 
   lazy val fenAfterInitialMove: Fen.Epd = {
     for
-      sit1 <- Fen read fen
+      sit1 <- Fen.read(fen)
       sit2 <- sit1.move(line.head).toOption.map(_.situationAfter)
-    yield Fen write sit2
-  } err s"Can't apply puzzle $id first move"
+    yield Fen.write(sit2)
+  }.err(s"Can't apply puzzle $id first move")
 
   def color = !fen.colorOrWhite

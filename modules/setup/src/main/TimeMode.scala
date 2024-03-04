@@ -12,7 +12,7 @@ object TimeMode:
   val ids  = values.map(_.id)
   val byId = values.mapBy(_.id)
 
-  def apply(id: Int): Option[TimeMode] = byId get id
+  def apply(id: Int): Option[TimeMode] = byId.get(id)
 
   def orDefault(id: Int) = apply(id) | default
 

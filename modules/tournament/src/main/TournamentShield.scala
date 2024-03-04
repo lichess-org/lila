@@ -23,16 +23,16 @@ final class TournamentShieldApi(
       maxPerCateg.fold(h)(h.take)
 
   def byCategKey(k: String): Fu[Option[(Category, List[Award])]] =
-    Category.byKey.get(k) so { categ =>
+    Category.byKey.get(k).so { categ =>
       cache.getUnit.dmap:
-        _.value get categ map {
+        _.value.get(categ).map {
           categ -> _
         }
     }
 
   def currentOwner(tour: Tournament): Fu[Option[UserId]] =
     tour.isShield.so:
-      Category.of(tour) so { cat =>
+      Category.of(tour).so { cat =>
         history(none).map(_.current(cat).map(_.owner))
       }
 
@@ -50,13 +50,13 @@ final class TournamentShieldApi(
             "schedule.freq" -> (Schedule.Freq.Shield: Schedule.Freq),
             "status"        -> (Status.Finished: Status)
           )
-        .sort($sort asc "startsAt")
+        .sort($sort.asc("startsAt"))
         .cursor[Tournament](ReadPref.priTemp)
         .listAll()
         .map: tours =>
           for
             tour   <- tours
-            categ  <- Category of tour
+            categ  <- Category.of(tour)
             winner <- tour.winnerId
           yield Award(
             categ = categ,
@@ -82,14 +82,14 @@ object TournamentShield:
 
     def sorted: List[(Category, List[Award])] =
       Category.list.map: categ =>
-        categ -> ~(value get categ)
+        categ -> ~(value.get(categ))
 
     def userIds: List[UserId] = value.values.flatMap(_.map(_.owner)).toList
 
-    def current(cat: Category): Option[Award] = value get cat flatMap (_.headOption)
+    def current(cat: Category): Option[Award] = value.get(cat).flatMap(_.headOption)
 
     def take(max: Int) =
-      copy(value = value.view.mapValues(_ take max).toMap)
+      copy(value = value.view.mapValues(_.take(max)).toMap)
 
   private type SpeedOrVariant = Either[Schedule.Speed, chess.variant.Variant]
 
@@ -123,7 +123,7 @@ object TournamentShield:
   object Category:
     val list                                = values.toList
     val byKey                               = values.mapBy(_.key)
-    def of(t: Tournament): Option[Category] = list.find(_ matches t)
+    def of(t: Tournament): Option[Category] = list.find(_.matches(t))
 
   def make(name: String)(t: Tournament) = t.copy(
     name = s"$name Shield",

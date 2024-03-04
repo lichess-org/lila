@@ -48,13 +48,13 @@ case class Pairing(
   def draw: Boolean                    = finished && winner.isEmpty
 
   def colorOf(userId: UserId): Option[Color] =
-    if userId is user1 then Color.White.some
-    else if userId is user2 then Color.Black.some
+    if userId.is(user1) then Color.White.some
+    else if userId.is(user2) then Color.Black.some
     else none
 
   def berserkOf(userId: UserId): Boolean =
-    if userId is user1 then berserk1
-    else if userId is user2 then berserk2
+    if userId.is(user1) then berserk1
+    else if userId.is(user2) then berserk2
     else false
 
   def berserkOf(color: Color) = color.fold(berserk1, berserk2)

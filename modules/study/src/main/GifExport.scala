@@ -36,13 +36,14 @@ final class GifExport(
           "piece"  -> piece.|("cburnett")
         )
       )
-      .stream() flatMap {
-      case res if res.status == 200 => fuccess(res.bodyAsSource)
-      case res if res.status == 400 => fufail(LilaInvalid(res.body))
-      case res =>
-        logger.warn(s"GifExport study ${chapter.studyId}/${chapter._id} ${res.status}")
-        fufail(res.statusText)
-    }
+      .stream()
+      .flatMap {
+        case res if res.status == 200 => fuccess(res.bodyAsSource)
+        case res if res.status == 400 => fufail(LilaInvalid(res.body))
+        case res =>
+          logger.warn(s"GifExport study ${chapter.studyId}/${chapter._id} ${res.status}")
+          fufail(res.statusText)
+      }
 
   @annotation.tailrec
   private def framesRec(nodes: List[Node], arr: JsArray): JsArray =
@@ -54,6 +55,6 @@ final class GifExport(
             .obj("fen" -> node.fen.value)
             .add("check", node.check)
             .add("lastMove", node.moveOption.map(_.uci.uci))
-            .add("delay", tail.isEmpty option 500) // more delay for last frame
+            .add("delay", tail.isEmpty.option(500)) // more delay for last frame
         )
       case _ => arr

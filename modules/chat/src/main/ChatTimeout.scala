@@ -18,10 +18,10 @@ final class ChatTimeout(
   private val global = new lila.memo.ExpireSetMemo[UserId](duration)
 
   def add(chat: UserChat, mod: User, user: User, reason: Reason, scope: Scope): Fu[Boolean] =
-    isActive(chat.id, user.id) flatMap {
+    isActive(chat.id, user.id).flatMap {
       if _ then fuccess(false)
       else
-        if scope == Scope.Global then global put user.id
+        if scope == Scope.Global then global.put(user.id)
         coll.insert
           .one(
             $doc(
@@ -33,7 +33,8 @@ final class ChatTimeout(
               "createdAt" -> nowInstant,
               "expiresAt" -> nowInstant.plusSeconds(duration.toSeconds.toInt)
             )
-          ) inject true
+          )
+          .inject(true)
     }
 
   def isActive(chatId: ChatId, userId: UserId): Fu[Boolean] =
@@ -41,21 +42,23 @@ final class ChatTimeout(
       $doc(
         "chat" -> chatId,
         "user" -> userId,
-        "expiresAt" $exists true
+        "expiresAt".$exists(true)
       )
 
   def history(user: User, nb: Int): Fu[List[UserEntry]] =
-    coll.find($doc("user" -> user.id)).sort($sort desc "createdAt").cursor[UserEntry]().list(nb)
+    coll.find($doc("user" -> user.id)).sort($sort.desc("createdAt")).cursor[UserEntry]().list(nb)
 
   def checkExpired: Fu[List[Reinstate]] =
-    coll.list[Reinstate](
-      $doc(
-        "expiresAt" $lt nowInstant
+    coll
+      .list[Reinstate](
+        $doc(
+          "expiresAt".$lt(nowInstant)
+        )
       )
-    ) flatMap {
-      case Nil  => fuccess(Nil)
-      case objs => coll.unsetField($inIds(objs.map(_._id)), "expiresAt", multi = true) inject objs
-    }
+      .flatMap {
+        case Nil  => fuccess(Nil)
+        case objs => coll.unsetField($inIds(objs.map(_._id)), "expiresAt", multi = true).inject(objs)
+      }
 
 object ChatTimeout:
 
@@ -70,7 +73,7 @@ object ChatTimeout:
     def apply(key: String) = all.find(_.key == key)
 
   given BSONHandler[Reason] = tryHandler(
-    { case BSONString(value) => Reason(value) toTry s"Invalid reason $value" },
+    { case BSONString(value) => Reason(value).toTry(s"Invalid reason $value") },
     x => BSONString(x.key)
   )
 
