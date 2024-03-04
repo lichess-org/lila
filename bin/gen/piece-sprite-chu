@@ -17,6 +17,7 @@ themes = [
   ['Chu_Ryoko_1Kanji', 'svg'],
   ['Chu_Intl', 'svg'],
   ['Chu_Eigetsu_Gyoryu', 'png'],
+  ['Chu_FCZ', 'svg'],
 ]
 types = {
   'svg' => 'svg+xml;base64,',
