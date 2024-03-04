@@ -53,8 +53,13 @@ private class RelayPlayersTextarea(val text: String):
     val v2 = (line: String) =>
       line.split('=').map(_.trim) match
         case Array(name, fideId) =>
-          fideId.toIntOption.map: id =>
-            name -> RelayPlayer(name.some, none, none, FideId(id).some)
+          fideId.split('/').map(_.trim) match
+            case Array(fideId, title) => 
+              fideId.toIntOption.map: id =>
+                name -> RelayPlayer(name.some, none, lila.user.Title.get(title), FideId(id).some)
+            case _ =>
+              fideId.toIntOption.map: id =>
+                name -> RelayPlayer(name.some, none, none, FideId(id).some)
         case _ =>
           val arr = line.split('/').map(_.trim)
           arr
@@ -75,9 +80,13 @@ private class RelayPlayersTextarea(val text: String):
         tags(color.name)
           .flatMap(findMatching)
           .so: rp =>
-            rp.fideId match
-              case Some(fideId) => List(Tag(_.fideIds(color), fideId.toString))
-              case None =>
+            (rp.fideId, rp.title) match
+              case (Some(fideId), None) => List(Tag(_.fideIds(color), fideId.toString))
+              case (Some(fideId), Some(title)) => List (
+                Tag(_.fideIds(color), fideId.toString),
+                Tag(_.titles(color), title.value)
+              )
+              case _ =>
                 List(
                   rp.name.map(name => Tag(_.names(color), name)),
                   rp.rating.map { rating => Tag(_.elos(color), rating.toString) },
