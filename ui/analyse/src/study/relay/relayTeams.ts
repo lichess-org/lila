@@ -7,7 +7,7 @@ import { GetCloudEval, MultiCloudEval, renderScore } from '../multiCloudEval';
 import { spinnerVdom as spinner } from 'common/spinner';
 import { defined } from 'common';
 import { playerFed } from '../playerBars';
-import { gameLinkProps } from './relayTourView';
+import { gameLinkProps, gameLinksListener } from './relayTourView';
 
 interface TeamWithPoints {
   name: string;
@@ -73,7 +73,12 @@ export const teamsView = (ctrl: RelayTeams) =>
     'div.relay-tour__team-table',
     {
       class: { loading: ctrl.loading, nodata: !ctrl.teams },
-      hook: { insert: () => ctrl.loadFromXhr(true) },
+      hook: {
+        insert: vnode => {
+          gameLinksListener(ctrl.setChapter)(vnode);
+          ctrl.loadFromXhr(true);
+        },
+      },
     },
     ctrl.teams ? renderTeams(ctrl.teams, ctrl) : [spinner()],
   );
@@ -93,7 +98,7 @@ const renderTeams = (teams: TeamTable, ctrl: RelayTeams): MaybeVNodes =>
       h(
         'div.relay-tour__team-match__games',
         row.games.map(game =>
-          h('a.relay-tour__team-match__game', gameLinkProps(ctrl.roundPath, ctrl.setChapter, game), [
+          h('a.relay-tour__team-match__game', gameLinkProps(ctrl.roundPath, game), [
             playerView(game.players[0]),
             statusView(game, ctrl.multiCloudEval.showEval() ? ctrl.multiCloudEval.getCloudEval : undefined),
             playerView(game.players[1]),

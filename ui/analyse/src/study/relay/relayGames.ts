@@ -3,7 +3,7 @@ import { clockIsRunning, formatMs } from 'common/clock';
 import { ChapterPreview, isChapterPreview } from '../interfaces';
 import { StudyCtrl } from '../studyDeps';
 import RelayCtrl from './relayCtrl';
-import { gameLinkProps } from './relayTourView';
+import { gameLinkProps, gameLinksListener } from './relayTourView';
 import { userTitle } from 'common/userLink';
 import { computeTimeLeft } from '../multiBoard';
 import { fenColor } from 'common/miniBoard';
@@ -15,19 +15,11 @@ export const gamesList = (study: StudyCtrl, relay: RelayCtrl) => {
     'div.relay-games',
     {
       hook: {
-        insert(vnode) {
-          vnode.data!.current = null;
-          // (vnode.elm as HTMLElement).addEventListener('click', e => {
-          //   const target = e.target as HTMLElement;
-          //   const id =
-          //     (target.parentNode as HTMLElement).getAttribute('data-id') || target.getAttribute('data-id');
-          // }
-        },
+        insert: gameLinksListener(study.setChapter),
         postpatch(old, vnode) {
           const currentId = study.data.chapter.id;
-          if (old.data!.current !== currentId) {
+          if (old.data!.current !== currentId)
             scrollToInnerSelector(vnode.elm as HTMLElement, '.relay-game--current');
-          }
           vnode.data!.current = currentId;
         },
       },
@@ -44,7 +36,7 @@ export const gamesList = (study: StudyCtrl, relay: RelayCtrl) => {
           return h(
             `a.relay-game.relay-game--${c.id}`,
             {
-              ...gameLinkProps(relay.roundPath, study.setChapter, c),
+              ...gameLinkProps(relay.roundPath, c),
               class: { 'relay-game--current': c.id === study.data.chapter.id },
             },
             [

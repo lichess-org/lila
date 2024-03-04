@@ -144,22 +144,24 @@ const roundSelect = (relay: RelayCtrl, study: StudyCtrl) =>
     ),
   ]);
 
-export const gameLinkProps = (
-  roundPath: () => string,
-  setChapter: (id: ChapterId) => void,
-  game: { id: ChapterId },
-) => ({
-  attrs: { href: `${roundPath()}/${game.id}` },
-  hook: bind(
-    'click',
-    () => {
-      setChapter(game.id);
-      return false;
-    },
-    undefined,
-    false,
-  ),
+export const gameLinkProps = (roundPath: () => string, game: { id: ChapterId }) => ({
+  attrs: {
+    href: `${roundPath()}/${game.id}`,
+    'data-id': game.id,
+  },
 });
+export const gameLinksListener = (setChapter: (id: ChapterId) => void) => (vnode: VNode) =>
+  (vnode.elm as HTMLElement).addEventListener(
+    'click',
+    e => {
+      e.preventDefault();
+      let target = e.target as HTMLElement;
+      while (target.tagName !== 'A') target = target.parentNode as HTMLElement;
+      const id = target.dataset['id'];
+      if (id) setChapter(id);
+    },
+    { passive: false },
+  );
 
 const games = (relay: RelayCtrl, study: StudyCtrl, ctrl: AnalyseCtrl) => [
   h('div.box.relay-tour__box', [...header(relay, ctrl), multiBoardView(study.multiBoard, study)]),
