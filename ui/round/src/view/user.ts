@@ -99,7 +99,7 @@ export function userHtml(ctrl: RoundController, player: Player, position: Positi
         },
       }),
       h('name', player.ai ? engineNameFromCode(player.aiCode) : player.name || 'Anonymous'),
-      player.ai ? h('rating', ctrl.trans('levelX', player.ai)) : null,
+      player.ai ? h('div.ai-level', ctrl.trans('levelX', player.ai)) : null,
     ]
   );
 }

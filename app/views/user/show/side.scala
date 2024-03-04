@@ -112,7 +112,7 @@ object side {
       cls      := s"perf-item ai-level ai-level-$level",
       span(
         h3(variantName(variant)),
-        st.rating(
+        div(cls := "ai-level")(
           trans.defeatedAiNameAiLevel.txt("AI", level)
         )
       )
