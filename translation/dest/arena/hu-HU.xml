@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+  <string name="arena">Aréna</string>
   <string name="arenaTournaments">Aréna versenyek</string>
   <string name="isItRated">Rangsorolt?</string>
   <string name="willBeNotified">Értesítünk amikor a verseny elkezdődik, ezért várakozás alatt nyugodtan játszhatsz másik fülön.</string>
@@ -59,4 +60,12 @@ Játssz gyorsan, térj vissza a lobbiba további játszmákért, hogy több pont
   <string name="averagePerformance">Átlagos teljesítmény</string>
   <string name="averageScore">Átlagos pontszám</string>
   <string name="myTournaments">Versenyeim</string>
+  <string name="pickYourTeam">Válaszd ki a csapatodat</string>
+  <string name="whichTeamWillYouRepresentInThisBattle">Melyik csapatot fogod reprezentálni ebben a versenyben?</string>
+  <string name="youMustJoinOneOfTheseTeamsToParticipate">Csatlakozz az egyik csapathoz hogy részt vehess!</string>
+  <string name="recentlyPlayed">Nemrég játszott</string>
+  <string name="bestResults">Legjobb eredmények</string>
+  <string name="stats">Statisztika</string>
+  <string name="pointsSum">Összes pont</string>
+  <string name="rankAvg">Átlag helyezés</string>
 </resources>
