@@ -7,12 +7,31 @@ import { gameLinkProps } from './relayTourView';
 import { userTitle } from 'common/userLink';
 import { computeTimeLeft } from '../multiBoard';
 import { fenColor } from 'common/miniBoard';
-import { defined } from 'common';
+import { defined, scrollToInnerSelector } from 'common';
 
 export const gamesList = (study: StudyCtrl, relay: RelayCtrl) => {
   const chapters = study.chapters.list().filter(isChapterPreview);
   return h(
     'div.relay-games',
+    {
+      hook: {
+        insert(vnode) {
+          vnode.data!.current = null;
+          // (vnode.elm as HTMLElement).addEventListener('click', e => {
+          //   const target = e.target as HTMLElement;
+          //   const id =
+          //     (target.parentNode as HTMLElement).getAttribute('data-id') || target.getAttribute('data-id');
+          // }
+        },
+        postpatch(old, vnode) {
+          const currentId = study.data.chapter.id;
+          if (old.data!.current !== currentId) {
+            scrollToInnerSelector(vnode.elm as HTMLElement, '.relay-game--current');
+          }
+          vnode.data!.current = currentId;
+        },
+      },
+    },
     chapters.length == 1 && chapters[0].name == 'Chapter 1'
       ? []
       : chapters.map(c => {
