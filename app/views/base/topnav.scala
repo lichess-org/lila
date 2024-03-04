@@ -98,7 +98,8 @@ object topnav:
           a(href := routes.Opening.index())(trans.openings()),
           a(href := routes.Editor.index)(trans.boardEditor()),
           a(href := routes.Importer.importGame)(trans.importGame()),
-          a(href := routes.Search.index())(trans.search.advancedSearch())
+          a(href := routes.Search.index())(trans.search.advancedSearch()),
+          a(href := routes.Fide.index())("FIDE")
         )
       )
     )
