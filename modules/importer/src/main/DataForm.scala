@@ -109,6 +109,7 @@ case class ImportData(notation: String, analyse: Option[String]) {
               .some
           )
           .sloppy
+          .copy(loadClockHistory = _ => None)
           .start pipe { dbGame =>
           // apply the result from the board or the tags
           game.situation.status match {
