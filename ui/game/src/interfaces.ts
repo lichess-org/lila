@@ -1,3 +1,5 @@
+import { EngineCode } from 'common/engineName';
+
 export interface GameData {
   game: Game;
   player: Player;

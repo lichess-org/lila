@@ -1,6 +1,7 @@
 import { CevalCtrl, NodeEvals } from 'ceval';
 import { Prop } from 'common/common';
 import { Deferred } from 'common/defer';
+import { EngineCode } from 'common/engineName';
 import { StoredBooleanProp } from 'common/storage';
 import { Api as SgApi } from 'shogiground/api';
 import { Config as SgConfig } from 'shogiground/config';

@@ -1,12 +1,11 @@
 import { Result } from '@badrap/result';
 import { prop } from 'common/common';
-import { engineName } from 'common/engineName';
+import { EngineCode, engineCode, engineName } from 'common/engineName';
 import { isImpasse } from 'common/impasse';
 import { isAndroid, isIOS, isIPad } from 'common/mobile';
 import { storedProp } from 'common/storage';
 import throttle from 'common/throttle';
 import { parseSfen } from 'shogiops/sfen';
-import { Position } from 'shogiops/variant/position';
 import { defaultPosition } from 'shogiops/variant/variant';
 import { Cache } from './cache';
 import { CevalCtrl, CevalOpts, CevalTechnology, Hovering, PvBoard, Started, Step, Work } from './types';
@@ -58,22 +57,6 @@ function enabledAfterDisable() {
   return enabledAfter === disable;
 }
 
-function isStandardMaterial(pos: Position) {
-  const board = pos.board,
-    hands = pos.hands.color('sente').combine(pos.hands.color('gote'));
-  return (
-    board.role('pawn').size() + board.role('tokin').size() + hands.get('pawn') <= 18 &&
-    board.role('lance').size() + board.role('promotedlance').size() + hands.get('lance') <= 4 &&
-    board.role('knight').size() + board.role('promotedknight').size() + hands.get('knight') <= 4 &&
-    board.role('silver').size() + board.role('promotedsilver').size() + hands.get('silver') <= 4 &&
-    board.role('gold').size() + hands.get('gold') <= 4 &&
-    board.role('rook').size() + board.role('dragon').size() + hands.get('rook') <= 2 &&
-    board.role('bishop').size() + board.role('horse').size() + hands.get('bishop') <= 2 &&
-    board.role('king').size() == 2 &&
-    board.role('king').intersect(board.color('sente')).size() === 1
-  );
-}
-
 export default function (opts: CevalOpts): CevalCtrl {
   const storageKey = (k: string) => {
     return opts.storageKeyPrefix ? `${opts.storageKeyPrefix}.${k}` : k;
@@ -87,7 +70,9 @@ export default function (opts: CevalOpts): CevalCtrl {
   const analysable = pos.isOk && !unsupportedVariants.includes(opts.variant.key);
 
   // select nnue > hce > none
-  const useYaneuraou = opts.variant.key === 'standard' && (!analysable || isStandardMaterial(pos.value)),
+  const useYaneuraou =
+      (!analysable && opts.variant.key === 'standard') ||
+      engineCode('standard', opts.initialSfen) === EngineCode.YaneuraOu,
     fairySupports = !useYaneuraou && analysable;
   let supportsNnue = false,
     technology: CevalTechnology = 'none',

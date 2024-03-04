@@ -251,8 +251,6 @@ interface Variant {
   name: string;
 }
 
-declare type EngineCode = 'yn' | 'fs';
-
 interface Paginator<A> {
   currentPage: number;
   maxPerPage: number;

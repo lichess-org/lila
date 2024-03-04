@@ -1,8 +1,8 @@
 package lila.game
 
 import shogi.format.forsyth.Sfen
-import shogi.variant.Variant
-import shogi.Handicap
+import shogi.variant.{ Standard, Variant }
+import shogi.{ Handicap, Role }
 
 case class EngineConfig(
     level: Int,
@@ -41,7 +41,7 @@ object EngineConfig {
       if (
         variant.standard && level.fold(true)(_ > 1) && initialSfen
           .filterNot(_.initialOf(variant))
-          .fold(true)(sf => Handicap.isHandicap(sf, variant))
+          .fold(true)(sf => Handicap.isHandicap(sf, variant) || reachableFromStandardInitialPosition(sf))
       ) YaneuraOu
       else Fairy
   }
@@ -52,4 +52,15 @@ object EngineConfig {
       engine = Engine(sfen, variant, level.some)
     )
 
+  def reachableFromStandardInitialPosition(sfen: Sfen): Boolean =
+    sfen.toSituation(Standard).exists { sit =>
+      val default = Standard.pieces.values.map(_.role)
+      def countHands(r: Role): Int =
+        ~Standard.handRoles.find(_ == r).map(hr => sit.hands.sente(hr) + sit.hands.gote(hr))
+      sit.playable(strict = true, withImpasse = true) &&
+      Standard.allRoles.filterNot(r => Standard.unpromote(r).isDefined).forall { r =>
+        default
+          .count(_ == r) == (sit.board.count(r) + ~Standard.promote(r).map(sit.board.count) + countHands(r))
+      }
+    }
 }
