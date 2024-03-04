@@ -67,7 +67,8 @@
     margin-top: 6px;
     .button {
       display: inline-block;
-      padding: 0 8px;
+      padding: 4px 8px;
+      background: $c-bad;
     }
     .button::before {
       font-size: 1.2em;
