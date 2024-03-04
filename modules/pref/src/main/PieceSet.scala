@@ -40,6 +40,7 @@ object PieceSet extends PieceSetBase {
     new PieceSet("1Kanji_3D", "Kanji 3D"),
     new PieceSet("2Kanji_3D", "2-Kanji 3D"),
     new PieceSet("Shogi_cz", "Shogi.cz"),
+    new PieceSet("Shogi_FCZ", "Czech"),
     new PieceSet("Engraved_cz", "Engraved Shogi.cz"),
     new PieceSet("Kanji_Guide_Shadowed", "Kanji Guide Shadowed"),
     new PieceSet("Valdivia", "Valdivia"),
@@ -70,6 +71,7 @@ object ChuPieceSet extends PieceSetBase {
     default,
     new PieceSet("Chu_Eigetsu_Gyoryu", "Eigetsu Gyoryu"),
     new PieceSet("Chu_Intl", "International"),
+    new PieceSet("Chu_FCZ", "Czech"),
     new PieceSet("Chu_Intl_BnW", "International - black and white"),
     new PieceSet("Chu_Mnemonic", "Mnemonic")
   )
