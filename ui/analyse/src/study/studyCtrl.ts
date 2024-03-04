@@ -458,6 +458,7 @@ export default class StudyCtrl {
     this.vm.nextChapterId = id;
     this.vm.justSetChapterId = id;
     this.redraw();
+    window.scrollTo(0, 0);
   };
 
   private deltaChapter = (delta: number): StudyChapterMeta | undefined => {
