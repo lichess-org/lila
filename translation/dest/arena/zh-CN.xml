@@ -58,4 +58,5 @@
   <string name="averageScore">平均分数</string>
   <string name="myTournaments">我的锦标赛</string>
   <string name="editTournament">编辑锦标赛</string>
+  <string name="medians" comment="Part of a longer sentence,  &quot;All averages on this page are %s.&quot; (where %s is this word, medians)">中位数</string>
 </resources>
