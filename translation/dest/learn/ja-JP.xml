@@ -12,6 +12,8 @@
 	<string name="introBasics">基本を学びましょう</string>
 	<string name="introIntro">あなたの旅はここから始まります。</string>
 	<string name="clickHereAfterYouveChosen">好きなピースデザインを選択したら、ここをクリックしてください。</string>
+	<string name="tellYourPiecesApart">It\'s important that you can tell your pieces apart, so make sure you choose the right piece set.</string>
+	<string name="howToSelectPieceSet">駒を選ぶ方法は？</string>
 	<string name="choosePieceDesign">駒の区別がつくことが大切なので、自分が気に入った駒のデザインを選択しましょう。そのために右上にある歯車かユーザ名をクリックし、そこから「駒のデザイン」をクリックします。</string>
 	<string name="promotionZone">いくつかの駒は相手の陣地 3 列内に入り、または出たときに、成ることを選択して強くすることができます。</string>
 	<string name="senteGoesFirst">将棋では最初に指す人を先手と呼び、次に指す人を後手と呼びます。先手は黒で、後手は白で表されることがあります。続けるには先手として好きな手を指してください。</string>
@@ -133,15 +135,15 @@
 王手から逃れられる。</string>
 	<string name="thisKnightIsCheckingThroughYourDefenses">桂馬は守りの駒を跳びこえて
 王手してくる！</string>
-	<string name="getOutOfCheck">Get out of check!</string>
-	<string name="watchOutForYourOpponentsReply">Watch out for your opponent\'s reply!</string>
+	<string name="getOutOfCheck">王手から抜け出してください！</string>
+	<string name="watchOutForYourOpponentsReply">相手の返信に気を付けてください！</string>
 	<string name="escapeOrBlock">王将/玉将を逃がすか
 合駒で防いでください！</string>
 	<string name="outOfCheckComplete">おめでとうございます！王将/玉将を取られたらおしまいなので、王手が来たら必ず防ぐこと！</string>
 	<string name="mateInOne">1 手で詰み</string>
 	<string name="defeatTheOpponentsKing">相手の王将/玉将を詰ませる</string>
 	<string name="mateInOneIntro">相手が王手を防げなくなれば、あなたの勝ちです。</string>
-	<string name="toWinInShogi">To win in shogi, check your opponent\'s king such that they cannot defend. This is mate, or tsume.</string>
+	<string name="toWinInShogi">将棋で勝つには、相手が守れないように相手の王将を攻撃してください。これはメイト、または詰みと呼ばれます。</string>
 	<string name="dropsCommonDeliverMate">Drops are a very common way to deliver mate.</string>
 	<string name="attackYourOpponentsKing">防げないような
 王手をかけて！</string>

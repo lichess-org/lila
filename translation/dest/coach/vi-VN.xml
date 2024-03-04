@@ -25,11 +25,4 @@
 	<string name="teachingMethod">Phương pháp giảng dạy</string>
 	<string name="publicStudies">Nghiên cứu công khai</string>
 	<string name="youtubeVideos">Các video trên YouTube</string>
-	<plurals name="studentReviews">
-		<item quantity="other">%s học viên đánh giá</item>
-	</plurals>
-	<string name="thankYouForReview">Cảm ơn đánh giá của bạn!</string>
-	<string name="xWillApproveIt">%s sẽ được công nhận sớm, hoặc một quản trị viên sẽ kiểm tra nó.</string>
-	<string name="reviewCoach">Đánh giá huấn luyện viên này</string>
-	<string name="describeExperienceWith">Mô tả kinh nghiệm huấn luyện với %s</string>
 </resources>

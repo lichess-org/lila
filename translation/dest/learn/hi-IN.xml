@@ -12,6 +12,8 @@
 	<string name="introBasics">आइए जानें कुछ मूल बातें</string>
 	<string name="introIntro">आपकी यात्रा यहाँ से शुरू होती है।</string>
 	<string name="clickHereAfterYouveChosen">अपनी पसंद का डिज़ाइन चुनने के बाद यहां क्लिक करें।</string>
+	<string name="tellYourPiecesApart">It\'s important that you can tell your pieces apart, so make sure you choose the right piece set.</string>
+	<string name="howToSelectPieceSet">How to select your piece set?</string>
 	<string name="choosePieceDesign">यह महत्वपूर्ण है कि आप अपने टुकड़ों को अलग-अलग बता सकें, इसलिए सुनिश्चित करें कि आप सही टुकड़ा सेट चुनें।
 ऐसा करने के लिए कॉग व्हील (cog wheel) या अपने उपयोगकर्ता नाम (ऊपरी दाएं कोने) पर क्लिक करें और फिर \'टुकड़ा सेट\' पर क्लिक करें।</string>
 	<string name="promotionZone">जब आपके कुछ टुकड़े पहुंचते हैं या अपने प्रतिद्वंद्वी के क्षेत्र में पहले तीन रैंक छोड़ते हैं तो आप अपने टुकड़े को बढ़ावा देने और इसे मजबूत बनाने के लिए चुन सकते हैं।</string>

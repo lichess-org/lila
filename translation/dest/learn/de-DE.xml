@@ -12,6 +12,8 @@
 	<string name="introBasics">Lass uns ein paar Grundlagen lernen.</string>
 	<string name="introIntro">Deine Reise beginnt hier.</string>
 	<string name="clickHereAfterYouveChosen">Klicke hier, nachdem du dein gewünschtes Figurendesign ausgewählt hast</string>
+	<string name="tellYourPiecesApart">Es ist wichtig die Figuren voneinander unterscheiden zu können. Also such dir das richtige Figurenset aus.</string>
+	<string name="howToSelectPieceSet">Wie wähle ich ein Figurenset aus?</string>
 	<string name="choosePieceDesign">Es ist wichtig, dass du deine Figuren voneinander unterscheiden kannst, also stell sicher, dass du den richtigen Figurenstil wählst.
 Um das zu tun, klicke auf das Zahnrad oder deinen Benutzernamen (oben rechts) und klicke dann auf \'Figurenstil\'.</string>
 	<string name="promotionZone">Wenn einige deiner Figuren eine der ersten drei Reihen im Territorium deines Gegners erreichen oder verlassen, kannst die gezogene Figur befördern und sie somit stärker machen.</string>
@@ -144,7 +146,7 @@ Um das zu tun, klicke auf das Zahnrad oder deinen Benutzernamen (oben rechts) un
 	<string name="howTheGameStarts">Wie das Spiel beginnt</string>
 	<string name="boardSetupIntro">Die beiden Armeen stehen einander gegenüber, bereit für die Schlacht.</string>
 	<string name="thisIsTheInitialPosition">Dies ist die Ausgangsposition jeder Shogi-Partie. Mache einen beliebigen Zug, um fortzufahren.</string>
-	<string name="firstPlaceTheKing">There are two traditional ways of setting up pieces before a game. We will be teaching the Oohashi (大橋) style, most commonly used by professionals. The king goes first. Move the king to the back rank’s center square.</string>
+	<string name="firstPlaceTheKing">Es gibt zwei traditionelle Wege die Figuren vor einem Spiel aufzustellen. Wir benutzen den Oohashi-Stil (大橋), der auch von Profis verwendet wird. Der König wird zuerst aufgestellt. Setze den König auf das mittlere Feld der ersten Reihe!</string>
 	<string name="dropAGold">Setze einen Goldgeneral auf die linke Seite auf den König, platziere dann ein weiteren Goldgeneral auf der rechten Seite.</string>
 	<string name="thenPlaceASilver">Platziere einen Silbergeneral neben dem linken Goldgeneral und einen weiteren neben dem rechten.</string>
 	<string name="dropTheKnights">Setze die Springer auf die gleiche Art, wie die silbernen Generäle ein. Dein Gegner wird den Itou-Stil machen.</string>
@@ -154,31 +156,31 @@ Um das zu tun, klicke auf das Zahnrad oder deinen Benutzernamen (oben rechts) un
 	<string name="pushingThe3rdPawn">Den 3. Bauern für die Läuferdiagonale zu öffnen, ist der Häufigste erste Zug. Mache diesen Zug, um fortzufahren.</string>
 	<string name="boardSetupComplete">Herzlichen Glückwunsch! Du weißt jetzt, wie man die Shogi-Figuren aufstellt.</string>
 	<string name="repetition">Wiederholung</string>
-	<string name="fourfoldRepetitionIsADrawExcept">Fourfold repetition is a draw, EXCEPT...</string>
+	<string name="fourfoldRepetitionIsADrawExcept">Vierfache Zugwiederholung ist ein Remis, AUẞER...</string>
 	<string name="repetitionIntro">Fourfold repetition is a draw Perpetual check is a loss.</string>
 	<string name="ifTheSamePositionOccurs">If the same position occurs 4 times in Shogi, it is an automatic draw. This situation is called sennichite (千日手). Make the only legal move.</string>
 	<string name="perpetualCheckIsALoss">But, perpetually checking the opponent’s king is a loss for the checking side. Unfortunately for your opponent, they don’t know! Make the only legal move.</string>
 	<string name="boardFlippedFindBestMove">The board was just flipped. What is the best move here?</string>
-	<string name="repetitionComplete">The idea behind perpetual check being a loss is to prevent anyone from forcing a draw.</string>
+	<string name="repetitionComplete">Die Idee dahinter, dass Dauerschach verliert, ist es das Erzwingen eines Remis zu verhindern.</string>
 	<string name="advanced">Fortgeschritten</string>
 	<string name="pieceValue">Figurenwerte</string>
 	<string name="evaluatePieceStrength">Bewerte die Stärke der Figuren</string>
-	<string name="pieceValueIntroNew">Pieces with high mobility have a higher value.
-The king is priceless! Losing it means losing the game.</string>
+	<string name="pieceValueIntroNew">Figuren mit höherer Mobilität haben einen höheren Wert.
+Der König ist unendlich viel wert! Wenn du ihn verlierst, verlierst du das Spiel.</string>
 	<string name="queenOverBishop">Schlage die Figur
 mit dem höchsten Wert!
 Dame &gt; Läufer</string>
-	<string name="pawnsAreTheLeastValuable">Pawns are the least valuable piece, followed by lances. Knights are slightly more valuable than lances.
-Take the most valuable piece.</string>
+	<string name="pawnsAreTheLeastValuable">Bauern sind am wenigsten wert. Danach kommen die Lanzen. Springer sind etwas mehr wert als Lanzen.
+Schlage die wertvollste Figur.</string>
 	<string name="knightSilverGold">Springer &lt; Silbergeneral &lt; Goldgeneral
 Nimm die wertvollsten Figuren, ohne deine eigenen zu verlieren.</string>
 	<string name="goldBishopRook">Goldgenerale &lt; Läufer &lt; Türme
 Nimm die wertvollsten Figuren.</string>
-	<string name="takeAllThePiecesStartingFromTheMost">Take all the pieces in order, starting from the most valuable until the least valuable!</string>
+	<string name="takeAllThePiecesStartingFromTheMost">Schlage die Figuren der Reihenfolge nach. Fang mit der wertvollsten an!</string>
 	<string name="anExchangeIs">Ein Abtausch ist, wenn du eine Figur schlägst und die eine andere verlierst. Was ist ein besserer Abtausch? Silbergeneral für einen Turm oder Goldgeneral für einen Springer?</string>
-	<string name="theOpponentJustGaveAway">The opponent just gave away his valuable rook for free! Do you take it?</string>
-	<string name="yourKingsValueIsInfinite">The king\'s value is infinite, compared to a rook. What is the best move here?</string>
-	<string name="twoGeneralsAreBetter">Two generals can be worth more than one major piece. A knight and lance can be better than a general. Find a way to sacrifice the bishop and win two generals.</string>
+	<string name="theOpponentJustGaveAway">Dein Gegner hat gerade seinen wertvollen Turm verschenkt! Nimmst du ihn?</string>
+	<string name="yourKingsValueIsInfinite">Im Vergleich zum Turm ist der Wert des Königs unendlich. Welcher Zug ist hier am besten?</string>
+	<string name="twoGeneralsAreBetter">Zwei Generäle können mehr wert sein als eine Schwerfigur. Ein Springer und eine Lanze können besser sein als ein General. Finde also einen Weg den Läufer zu opfern und zwei Generäle zu gewinnen!</string>
 	<string name="rememberWhichPieceIsTheMostValuable">Erinnerst du dich noch, welche Figur die wertvollste ist?</string>
 	<string name="takeThePieceWithTheHighestValue">Schlage die Figur 
 mit dem höchsten Wert!</string>
@@ -197,7 +199,7 @@ mit dem höchsten Wert!</string>
 	<string name="puzzles">Taktikaufgaben</string>
 	<string name="exerciseYourTacticalSkills">Trainiere deine taktischen Fähigkeiten</string>
 	<string name="shogiResources">Shogi-Ressourcen</string>
-	<string name="curatedShogiResources">See our curated list of shogi resources</string>
+	<string name="curatedShogiResources">Schau dir unsere Liste mit Shogi Lernmaterialien an</string>
 	<string name="videos">Videos</string>
 	<string name="watchInstructiveShogiVideos">Sieh dir lehrreiche Shogi-Videos an</string>
 	<string name="playPeople">Online spielen</string>

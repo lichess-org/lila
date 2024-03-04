@@ -11,11 +11,13 @@
   <string name="outcomes" comment="win/draw/loss">Resultados</string>
   <string name="color" comment="Meaning sente or gote">Cor</string>
   <string name="termination" comment="Checkmate, repetition, timeout, etc">Terminación</string>
+  <string name="resign" comment="Game termination status">Abandono</string>
+  <string name="noStart" comment="Game termination status - game didn't start">A partida non comezou</string>
   <string name="speed" comment="Bulltet, blitz, rapid, etc.">Control de tempo</string>
   <string name="game">Partida</string>
   <string name="opponents">Adversarios</string>
   <string name="averageOpponentRating">Puntuación media dos adversarios</string>
-  <string name="averageOpponentRatingDiff">Diferencia de puntuación media dos adversarios</string>
+  <string name="averageOpponentRatingDiff">Diferenza de puntuación media dos adversarios</string>
   <string name="mostPlayedOpponents">Adversarios cos que máis xogas</string>
   <string name="averageAccuracy">Precisión media</string>
   <string name="wins">Vitorias</string>
@@ -24,10 +26,10 @@
   <string name="accuracyByMoveNumber">Precisión por quenda de xogo</string>
   <string name="accuracyByPiece">Precisión por peza</string>
   <string name="times" comment="Move and drop times">Tempos</string>
-  <string name="totalTimeSpentThinking">Tempo total pensando</string>
-  <string name="averageTimePerGame">Tempo medio por partida</string>
+  <string name="totalTimeSpentThinking">Tempo total empregado na quenda do xogador</string>
+  <string name="averageTimePerGame">Tempo medio empregado na quenda do xogador por partida</string>
   <string name="averageTimePerMoveOrDrop">Tempo medio por movemento ou guindada</string>
-  <string name="timeSpentThinkingByPiece">Tempo pensando por peza</string>
+  <string name="timeSpentThinkingByPiece">Tempo empregado por peza</string>
   <string name="movesAndDropsByPiece">Movementos e guindadas por peza</string>
   <string name="capturesByPiece">Pezas capturadas</string>
   <string name="promotionsByPiece">Pezas coroadas</string>
@@ -35,12 +37,12 @@
   <string name="openingMoves">Movementos na apertura</string>
   <string name="insightsUpdate">As estatísticas actualízanse cada poucas horas.</string>
   <string name="accuracy">Precisión</string>
-  <string name="nbOfMovesAndDrops">Número de movementos e guindadas</string>
-  <string name="nbOfMovesAndDropsPerGame">Número de movementos e guindadas por partida</string>
+  <string name="nbOfMovesAndDrops">Número de movementos e guindadas feitos por xogador</string>
+  <string name="nbOfMovesAndDropsPerGame">Número de movementos e guindadas feitos polo xogador na partida</string>
   <string name="nbOfCaptures">Número de pezas capturadas</string>
   <string name="nbOfPromotions">Número de pezas coroadas</string>
   <string name="opponentRating">Puntuación do adversario</string>
-  <string name="opponentRatingDiff">Diferencia de puntuación do adversario</string>
+  <string name="opponentRatingDiff">Diferenza de puntuación do adversario</string>
   <string name="totalTimeOfMovesAndDrops">Tempo total de movementos e guindadas</string>
   <string name="nbOfGames">Número de partidas</string>
   <string name="weekday">Día da semana</string>

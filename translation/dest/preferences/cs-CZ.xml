@@ -46,4 +46,5 @@
 	<string name="kitaoKawasakiNotation">Kitao-Kawasaki notace</string>
 	<string name="kifNotation">Kif notace</string>
 	<string name="yourPreferencesHaveBeenSaved">Vaše předvolby byly uloženy.</string>
+	<string name="smallMoveList">Smaller move list for games</string>
 </resources>

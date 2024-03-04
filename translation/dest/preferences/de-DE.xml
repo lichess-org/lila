@@ -3,8 +3,8 @@
 	<string name="preferences">Einstellungen</string>
 	<string name="gameDisplay">Spieldarstellung</string>
 	<string name="boardLayout">Brettformat</string>
-	<string name="clearHands">Hide ghosts of pieces in hand</string>
-	<string name="handsBackground">Show background behind pieces in hand</string>
+	<string name="clearHands">Verstecke die Schattierungen von Figuren, die auf der Hand liegen</string>
+	<string name="handsBackground">Zeige den Hintergrund von Figuren, die auf der Hand liegen</string>
 	<string name="pieceAnimation">Figurenanimation</string>
 	<string name="materialDifference">Materialunterschied</string>
 	<string name="boardHighlightsLastDests">Markierungen auf dem Brett - letzter Zug und Schach</string>
@@ -46,4 +46,5 @@
 	<string name="kitaoKawasakiNotation">Kitao-Kawasaki Notation</string>
 	<string name="kifNotation">KIF Notation</string>
 	<string name="yourPreferencesHaveBeenSaved">Deine Einstellungen wurden gespeichert.</string>
+	<string name="smallMoveList">Kleinere Notation in Spielen</string>
 </resources>

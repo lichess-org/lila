@@ -12,6 +12,8 @@
 	<string name="introBasics">La oss lære litt grunleggende.</string>
 	<string name="introIntro">Your journey begins here.</string>
 	<string name="clickHereAfterYouveChosen">Trykk her etter å ha valgt brikken du liker best.</string>
+	<string name="tellYourPiecesApart">It\'s important that you can tell your pieces apart, so make sure you choose the right piece set.</string>
+	<string name="howToSelectPieceSet">How to select your piece set?</string>
 	<string name="choosePieceDesign">Det er viktig å skille mellom brikkene dine, så hver sikker på at du valgte det riktige brikkesettet. For å velge et, trykk på tannhjulet eller på brukernavnet (øverste høyre hjørnet) og velg \"brikkeset\".</string>
 	<string name="promotionZone">Noen av brikkene kan man velge å forvandle for å bli sterkere når de kommer inn i eller går ut av fiendes tre første linjer.</string>
 	<string name="senteGoesFirst">I shogi, så er spilleren som går først kallt Sente og den andre - Gote. Sente kan bli representert av fargen sort, og Gote av hvit. Gjør et trekk for å gå videre.</string>

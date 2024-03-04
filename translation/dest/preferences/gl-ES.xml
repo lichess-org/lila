@@ -3,8 +3,8 @@
 	<string name="preferences">Preferencias</string>
 	<string name="gameDisplay">Configuración do taboleiro</string>
 	<string name="boardLayout">Deseño do taboleiro</string>
-	<string name="clearHands">Agochar as pantasmas das pezas en man</string>
-	<string name="handsBackground">Amosar o fondo tras as pezas en man</string>
+	<string name="clearHands">Agochar as pantasmas das pezas na man</string>
+	<string name="handsBackground">Amosar o fondo tras as pezas na man</string>
 	<string name="pieceAnimation">Animación das pezas</string>
 	<string name="materialDifference">Diferenza de material</string>
 	<string name="boardHighlightsLastDests">Resaltar no taboleiro - última xogada e pezas guindadas</string>
@@ -12,7 +12,7 @@
 	<string name="pieceDestinations">Destino das pezas (xogadas válidas e premovementos)</string>
 	<string name="dropDestinations">Destino das guindadas (xogadas válidas e anticipadas)</string>
 	<string name="boardCoordinates">Coordenadas do taboleiro</string>
-	<string name="moveListWhilePlaying">Listaxe de xogadas durante o xogo</string>
+	<string name="moveListWhilePlaying">Lista de xogadas durante o xogo</string>
 	<string name="colorName">Nome usado para os xogadores individuais</string>
 	<string name="displayTouchSquareOverlay">Resalto das casas sobreposto en dispositivos táctiles</string>
 	<string name="zenMode">Modo Zen</string>
@@ -46,4 +46,5 @@
 	<string name="kitaoKawasakiNotation">Notación Kitao-Kawasaki</string>
 	<string name="kifNotation">Notación kifu</string>
 	<string name="yourPreferencesHaveBeenSaved">As túas preferencias gardáronse.</string>
+	<string name="smallMoveList">Lista de xogadas máis pequena para as partidas</string>
 </resources>

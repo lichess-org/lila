@@ -12,8 +12,10 @@
 	<string name="introBasics">Pojďme se naučit nějaké základy.</string>
 	<string name="introIntro">Vaše jízda začíná zde.</string>
 	<string name="clickHereAfterYouveChosen">Klikněte zde poté, co jste si vybrali vzhled kamenů, který se vám líbí.</string>
-	<string name="choosePieceDesign">Je důležité rozeznat své kameny, ujistětit se že si zvolíte správnou sadu.
-Chcete-li tak učinit, klikněte na ozubené kolo nebo vašem uživatelském jméně (vpravo nahoře) a poté klikněte na \'sada kamenů\'.</string>
+	<string name="tellYourPiecesApart">It\'s important that you can tell your pieces apart, so make sure you choose the right piece set.</string>
+	<string name="howToSelectPieceSet">How to select your piece set?</string>
+	<string name="choosePieceDesign">Je důležité rozeznat své kameny, ujistěte se že si zvolíte správnou sadu.
+Chcete-li tak učinit, klikněte na ozubené kolečko nebo na vaše uživatelské jméno (vpravo nahoře) a poté klikněte na \'vzhled kamenů\'.</string>
 	<string name="promotionZone">Když některé z tvých kamenů dosáhnou nebo opustí první tři řady na území soupeře, můžeš se rozhodnout povýšit svůj kámen a posílit jej.</string>
 	<string name="senteGoesFirst">V shogi je hráč, který jde jako první, nazýván \"sente\" a hráč, který táhne po něm, nazýván \"gote\". Sente je někdy reprezentován černou barvou a gote bílou barvou. Udělejte jakýkoliv pohyb abyste mohli pokračovat.</string>
 	<string name="introComplete">Nyní znáš některé základy, ale tato část výukového kurzu je stále ve vyvíjení. Zatím se dozvíš, jak se jednotlivé kameny pohybují.</string>

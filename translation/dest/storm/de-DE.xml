@@ -23,7 +23,7 @@
   <string name="combo">Combo</string>
   <string name="time">Zeit</string>
   <string name="timePerMove">Zeit pro Zug</string>
-  <string name="highestSolved">Highest solved</string>
+  <string name="highestSolved">Schwierigste gelöste Aufgabe</string>
   <string name="puzzlesPlayed">Gespielte Puzzle</string>
   <string name="newRun">Neuer Durchlauf (Kurzbefehl: Leertaste)</string>
   <string name="endRun">Letzter Durchlauf (Kurzbefehl: Enter)</string>

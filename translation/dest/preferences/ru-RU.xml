@@ -46,4 +46,5 @@
 	<string name="kitaoKawasakiNotation">Китайская</string>
 	<string name="kifNotation">Нотация кифу</string>
 	<string name="yourPreferencesHaveBeenSaved">Ваши настройки сохранены.</string>
+	<string name="smallMoveList">Smaller move list for games</string>
 </resources>

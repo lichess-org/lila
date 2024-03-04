@@ -12,6 +12,8 @@
 	<string name="introBasics">Hãy học những thứ cơ bản.</string>
 	<string name="introIntro">Cuộc hành trình của bạn bắt đầu từ đây</string>
 	<string name="clickHereAfterYouveChosen">Click here after you\'ve chosen the piece design you like</string>
+	<string name="tellYourPiecesApart">Điều quan trọng là bạn có thể phân biệt các quân của mình, vì vậy hãy đảm bảo bạn chọn đúng bộ cờ.</string>
+	<string name="howToSelectPieceSet">Làm thế nào để chọn bộ cờ của bạn?</string>
 	<string name="choosePieceDesign">Việc bạn nhớ mặt quân rất quan trọng, nên hãy chắc chắn bạn chọn bộ cờ phù hợp.
 Để làm điều đó, nhấn vào hình bánh răng cưa hoặc vào tên người dùng của bạn ở góc trên phải rồi chọn bộ cờ.</string>
 	<string name="promotionZone">Khi một quân của bạn chạm tới hoặc rời khỏi ba hàng đầu trong phần sân của đối phương, bạn có thể lựa chọn phong cấp quân và khiến chúng mạnh hơn.</string>

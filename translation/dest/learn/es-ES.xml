@@ -12,6 +12,8 @@
 	<string name="introBasics">Aprendamos algunos conceptos básicos.</string>
 	<string name="introIntro">Tu viaje empieza aquí.</string>
 	<string name="clickHereAfterYouveChosen">Haz clic aquí después de haber elegido el diseño de piezas que te gusta.</string>
+	<string name="tellYourPiecesApart">It\'s important that you can tell your pieces apart, so make sure you choose the right piece set.</string>
+	<string name="howToSelectPieceSet">How to select your piece set?</string>
 	<string name="choosePieceDesign">Es importante que puedas diferenciar tus piezas, así que asegúrate de elegir el conjunto de piezas correcto.
 Para hacerlo, pulsa en la rueda del engranaje o en tu nombre de usuario (esquina superior derecha) y luego haz clic en \"estilo de piezas\".</string>
 	<string name="promotionZone">Cuando alguna de tus piezas alcancen o dejen las primeras tres filas en el territorio de tu oponente, puedes elegir promocionar tu pieza y hacerla más fuerte.</string>

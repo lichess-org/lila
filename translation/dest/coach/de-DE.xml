@@ -25,12 +25,4 @@
 	<string name="teachingMethod">Lehrmethode</string>
 	<string name="publicStudies">Öffentliche Studien</string>
 	<string name="youtubeVideos">Youtube-Videos</string>
-	<plurals name="studentReviews">
-		<item quantity="one">Eine Schülerbewertung</item>
-		<item quantity="other">%s Schülerbewertungen</item>
-	</plurals>
-	<string name="thankYouForReview">Danke für deine Bewertung!</string>
-	<string name="xWillApproveIt">%s wird sie bald freischalten oder ein Moderator wird einen Blick darauf werfen.</string>
-	<string name="reviewCoach">Bewerte diesen Coach</string>
-	<string name="describeExperienceWith">Beschreibe deine Trainingserfahrung mit %s</string>
 </resources>

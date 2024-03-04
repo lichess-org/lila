@@ -11,6 +11,8 @@
   <string name="outcomes" comment="win/draw/loss">Výsledky</string>
   <string name="color" comment="Meaning sente or gote">Strana</string>
   <string name="termination" comment="Checkmate, repetition, timeout, etc">Ukončení</string>
+  <string name="resign" comment="Game termination status">Resignation</string>
+  <string name="noStart" comment="Game termination status - game didn't start">No start</string>
   <string name="speed" comment="Bulltet, blitz, rapid, etc.">Rychlost</string>
   <string name="game">Hra</string>
   <string name="opponents">Protihráči</string>

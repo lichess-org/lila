@@ -46,4 +46,5 @@
 	<string name="kitaoKawasakiNotation">किताओ-कावासाकी (Kitao-Kawasaki)</string>
 	<string name="kifNotation">Kif notation</string>
 	<string name="yourPreferencesHaveBeenSaved">आपकी प्राथमिकताएं सेव कर ली गई हैं</string>
+	<string name="smallMoveList">Smaller move list for games</string>
 </resources>

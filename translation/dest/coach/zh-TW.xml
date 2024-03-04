@@ -25,11 +25,4 @@
 	<string name="teachingMethod">教學方式</string>
 	<string name="publicStudies">公開研究</string>
 	<string name="youtubeVideos">在 Youtube 上的影片</string>
-	<plurals name="studentReviews">
-		<item quantity="other">%s student reviews</item>
-	</plurals>
-	<string name="thankYouForReview">謝謝您的評論！</string>
-	<string name="xWillApproveIt">%s will approve it very soon, or a moderator will have a look at it.</string>
-	<string name="reviewCoach">給這個教練評論</string>
-	<string name="describeExperienceWith">描述您接受%s訓練的經驗</string>
 </resources>

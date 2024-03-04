@@ -11,7 +11,9 @@
 	<string name="theIntroduction">Introdución</string>
 	<string name="introBasics">Aprendamos algúns conceptos básicos.</string>
 	<string name="introIntro">O teu viaxe comeza aquí.</string>
-	<string name="clickHereAfterYouveChosen">Fai clic aquí despois de elixir o deseño de pezas que che guste.</string>
+	<string name="clickHereAfterYouveChosen">Preme aquí ou fai un movemento despois de elixir o deseño de pezas que che guste.</string>
+	<string name="tellYourPiecesApart">É importante que saibas distinguir as pezas, así que asegúrate de escoller o estilo de pezas axeitado.</string>
+	<string name="howToSelectPieceSet">Como escoller o estilo das pezas?</string>
 	<string name="choosePieceDesign">É importante que saibas distinguir as pezas, así que asegúrate de escoller o conxunto de pezas axeitado.
 Para facelo, preme na engrenaxe ou no teu nome de usuario (recanto superior dereito) e logo pulsa en \"Estilo das pezas\".</string>
 	<string name="promotionZone">Cando algunhas das túas pezas chegan ou saen das tres primeiras ringleiras do territorio do teu rival, podes escoller coroar a túa peza e facela máis forte.</string>

@@ -25,12 +25,4 @@
 	<string name="teachingMethod">Μεθοδολογία διδασκαλίας</string>
 	<string name="publicStudies">Δημόσιες σπουδές</string>
 	<string name="youtubeVideos">Βίντεο Youtube</string>
-	<plurals name="studentReviews">
-		<item quantity="one">Κριτική μαθητή</item>
-		<item quantity="other">%s κριτικές μαθητών</item>
-	</plurals>
-	<string name="thankYouForReview">Σας ευχαριστώ για την κριτική!</string>
-	<string name="xWillApproveIt">%s θα εγκριθεί σύντομα, ή ένας διαχειριστής θα το εξετάσει.</string>
-	<string name="reviewCoach">Κριτική για προπονητή</string>
-	<string name="describeExperienceWith">Περιγράψτε την προπονητική σας εμπειρία με %s</string>
 </resources>

@@ -8,8 +8,9 @@
 	<string name="waitingForOpponent">Agardando un rival</string>
 	<string name="waiting">Agardando</string>
 	<string name="yourTurn">A túa quenda</string>
-	<string name="aiNameLevelAiLevel">%1$s nivel %2$s</string>
+	<string name="defeatedAiNameAiLevel" comment="Example: Defeated Stockfish level 3">Derrotou a %1$s nivel %2$s</string>
 	<string name="level">Nivel</string>
+	<string name="levelX" comment="Engine difficulty level">Level %s</string>
 	<string name="strength">Forza</string>
 	<string name="toggleTheChat">(Des)activar a sala de conversa</string>
 	<string name="toggleSound">(Des)activar o son</string>
@@ -69,6 +70,7 @@
 	<string name="analysis">Taboleiro de análise</string>
 	<string name="analysisDescription">Analiza as posicións e variantes nun taboleiro de shogi interactivo</string>
 	<string name="depthX">Profundidade %s</string>
+	<string name="serverAnalysis">Server analysis</string>
 	<string name="usingServerAnalysis">Usando análise do servidor</string>
 	<string name="loadingEngine">Cargando o motor de análise...</string>
 	<string name="cloudAnalysis">Análise no servidor</string>
@@ -131,7 +133,12 @@
 	<string name="flipBoard">Xirar o taboleiro</string>
 	<string name="claimADraw">Reclamar táboas</string>
 	<string name="offerDraw">Ofrecer táboas</string>
+	<string name="offerAdjournment">Ofrecer adiamento</string>
+	<string name="offerResumption">Ofrecer retomar a partida</string>
+	<string name="acceptResumption">Aceptar retomar a partida</string>
 	<string name="draw">Táboas</string>
+	<string name="gameAdjourned">A partida foi adiada</string>
+	<string name="gameResumed">Retomouse a partida</string>
 	<plurals name="nbPlayers">
 		<item quantity="one">%s xogador</item>
 		<item quantity="other">%s xogadores</item>
@@ -213,9 +220,22 @@
 	<string name="drawOfferDeclined">Oferta de táboas rexeitada</string>
 	<string name="drawOfferAccepted">Oferta de táboas aceptada</string>
 	<string name="drawOfferCanceled">Oferta de táboas cancelada</string>
+	<string name="adjournmentOfferSent">Oferta de adiamento enviada</string>
+	<string name="adjournmentOfferCanceled">Oferta de adiamento cancelada</string>
+	<string name="adjournmentOfferAccepted">Oferta de adiamento aceptada</string>
+	<string name="resumptionOfferSent">Oferta de continuación enviada</string>
+	<string name="resumptionOfferCanceled">Oferta de continuación cancelada</string>
 	<string name="xOffersDraw" comment="%s - sente(black)/gote(white)">%s ofrece as táboas</string>
 	<string name="xDeclinesDraw" comment="%s - sente(black)/gote(white)">%s rexeita as táboas</string>
 	<string name="yourOpponentOffersADraw">O teu rival ofrece as táboas</string>
+	<string name="xOffersAdjournment" comment="%s - sente(black)/gote(white)">%s ofrece o adiamento</string>
+	<string name="xDeclinesAdjournment" comment="%s - sente(black)/gote(white)">%s rexeita o adiamento</string>
+	<string name="yourOpponentOffersAnAdjournment">O teu rival ofrece un adiamento</string>
+	<string name="xOffersResumption" comment="%s - sente(black)/gote(white)">%s propón retomar a partida</string>
+	<string name="xDeclinesResumption" comment="%s - sente(black)/gote(white)">%s rexeita retomar a partida</string>
+	<string name="yourOpponentProposesResumption">O teu rival propón retomar a partida</string>
+	<string name="makeASealedMove">Fai un movemento: será efectuado cando a partida se retome</string>
+	<string name="waitingForASealedMove">Agardando a que o rival faga un movemento selado</string>
 	<string name="accept">Aceptar</string>
 	<string name="decline">Rexeitar</string>
 	<string name="playingRightNow">Xogando agora mesmo</string>
@@ -289,6 +309,10 @@
 	<plurals name="nbPlaying">
 		<item quantity="one">%s en xogo</item>
 		<item quantity="other">%s en xogo</item>
+	</plurals>
+	<plurals name="nbAdjourned" comment="Paused games">
+		<item quantity="one">%s adiada</item>
+		<item quantity="other">%s adiadas</item>
 	</plurals>
 	<string name="exportGames">Exportar partidas</string>
 	<string name="export">Exportar</string>
@@ -580,7 +604,9 @@
 	<string name="xAnsweredY">%1$s respondeu %2$s</string>
 	<string name="xCommentedY">%1$s comentou %2$s</string>
 	<string name="victory">Vitoria</string>
+	<string name="youWon">Gañaches</string>
 	<string name="defeat">Derrota</string>
+	<string name="youLost">Perdiches</string>
 	<string name="victoryVsYInZ">%1$s contra %2$s en %3$s</string>
 	<string name="defeatVsYInZ">%1$s contra %2$s en %3$s</string>
 	<string name="drawVsYInZ">%1$s contra %2$s en %3$s</string>
@@ -761,6 +787,7 @@
 	<string name="xCreatesStudyY">%1$s creou o estudo %2$s</string>
 	<string name="quickPairing">Emparellamento rápido</string>
 	<string name="lobby">Sala de espera</string>
+	<string name="presets" comment="Tab in lobby, try to keep it short">Axustes</string>
 	<string name="anonymous">Anónimo</string>
 	<string name="yourScore">A túa puntuación: %s</string>
 	<string name="language">Lingua</string>
@@ -778,7 +805,7 @@
 	<string name="gridSlim">Fina</string>
 	<string name="gridThick">Grosa</string>
 	<string name="gridVeryThick">Moi grosa</string>
-	<string name="hands" comment="Title in custom board theme editor">Mans</string>
+	<string name="hands" comment="Title in custom board theme editor">Na man</string>
 	<string name="boardTheme">Tema do taboleiro</string>
 	<string name="boardSize">Tamaño do taboleiro</string>
 	<string name="pieceSet">Estilo das pezas</string>
@@ -881,6 +908,9 @@
 	<string name="agreeWithX">Estou de acordo con: %s</string>
 	<string name="searchOrStartNewDiscussion">Busca ou comeza unha nova conversa</string>
 	<string name="edit">Editar</string>
+	<string name="ultrabullet" comment="Translate only if it sounds good in your language, otherwise we can just keep the english name">UltraBala</string>
+	<string name="bullet" comment="Translate only if it sounds good in your language, otherwise we can just keep the english name">Bala</string>
+	<string name="blitz" comment="Translate only if it sounds good in your language, otherwise we can just keep the english name">Lóstrego</string>
 	<string name="rapid">Rápida</string>
 	<string name="classical">Clásica</string>
 	<string name="ultraBulletDesc">Partidas incriblemente rápidas: menos de 1 minuto</string>
@@ -941,5 +971,6 @@
 	<string name="analyse" comment="Verb; After clicking on button saying this, we expect to analyse the position">Analizar</string>
 	<string name="back" comment="As in: go back">Volver</string>
 	<string name="preview">Vista previa</string>
-	<string name="variantNotSupported">Variante non admitida</string>
+	<string name="variantNotSupported" comment="Used in engine evaluation for variants like chushogi, annanshogi, etc.">Variante non admitida</string>
+	<string name="readyToPlay" comment="Used as a help on a game that can be immediately started without waiting (ai games for example, or timecontrol where another player is already waiting)">Listo para xogar</string>
 </resources>

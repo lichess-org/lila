@@ -11,6 +11,8 @@
   <string name="outcomes" comment="win/draw/loss">Outcomes</string>
   <string name="color" comment="Meaning sente or gote">Kolor</string>
   <string name="termination" comment="Checkmate, repetition, timeout, etc">Zakończenie</string>
+  <string name="resign" comment="Game termination status">Resignation</string>
+  <string name="noStart" comment="Game termination status - game didn't start">No start</string>
   <string name="speed" comment="Bulltet, blitz, rapid, etc.">Szybkość</string>
   <string name="game">Partia</string>
   <string name="opponents">Przeciwnicy</string>

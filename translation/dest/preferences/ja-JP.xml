@@ -46,4 +46,5 @@
 	<string name="kitaoKawasakiNotation">Kitao-Kawasaki 形式</string>
 	<string name="kifNotation">KIF(柿木) 形式</string>
 	<string name="yourPreferencesHaveBeenSaved">設定が保存されました。</string>
+	<string name="smallMoveList">Smaller move list for games</string>
 </resources>

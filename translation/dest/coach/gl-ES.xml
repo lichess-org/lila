@@ -25,12 +25,4 @@
 	<string name="teachingMethod">Metodoloxía de adestramento</string>
 	<string name="publicStudies">Estudos públicos</string>
 	<string name="youtubeVideos">Vídeos do YouTube</string>
-	<plurals name="studentReviews">
-		<item quantity="one">Unha revisión dos estudantes</item>
-		<item quantity="other">%s revisións dos estudantes</item>
-	</plurals>
-	<string name="thankYouForReview">Gracias pola revisión!</string>
-	<string name="xWillApproveIt">%s vaina aprobar deseguido ou un moderador botaralle unha ollada.</string>
-	<string name="reviewCoach">Revisa a este adestrador</string>
-	<string name="describeExperienceWith">Describe a túa experiencia de adestramento con %s</string>
 </resources>

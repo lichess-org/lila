@@ -25,14 +25,4 @@
 	<string name="teachingMethod">Metodologia nauczania</string>
 	<string name="publicStudies">Publiczne opracowania</string>
 	<string name="youtubeVideos">Filmy z YouTube</string>
-	<plurals name="studentReviews">
-		<item quantity="one">Jedna opinia ucznia</item>
-		<item quantity="few">%s opinie uczniów</item>
-		<item quantity="many">%s opinii uczniów</item>
-		<item quantity="other">%s opinii uczniów</item>
-	</plurals>
-	<string name="thankYouForReview">Dziękujemy za opinię!</string>
-	<string name="xWillApproveIt">%s wkrótce ją zatwierdzi, lub zajmie się nią moderator.</string>
-	<string name="reviewCoach">Oceń tego trenera</string>
-	<string name="describeExperienceWith">Opisz swoje doświadczenie trenerskie z %s</string>
 </resources>

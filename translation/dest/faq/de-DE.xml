@@ -30,7 +30,7 @@
 	<string name="howBulletBlitzEtcDecided">Wie wird entschieden, was Bullet, Blitz und andere Zeitkontrollen sind?</string>
 	<string name="basedOnGameDuration">Lishogi Zeitkontrollen basieren auf der erwarteten Spieldauer = %1$s
 Zum Beispiel berechnet sich die erwartete Spieldauer einer 5+3 Partie zu 5 * 60 + 40 * 3 = 420 Sekunden.</string>
-	<string name="formulaOfDuration">60 × (clock initial time in minutes) + 60 × (clock increment) + 25 × (clock byoyomi) × (clock periods)</string>
+	<string name="formulaOfDuration">60 × (Uhr Anfangszeit in Minuten) + 60 × (Uhr Inkrement) + 25 × (Byoyomi) × (Spielabschnitt)</string>
 	<string name="inferiorThanXsEqualYtimeControl">≤ %1$ss = %2$s</string>
 	<string name="superiorThanXsEqualYtimeControl">≥ %1$ss = %2$s</string>
 	<string name="whatVariantsCanIplay">Welche Varianten kann ich auf Lishogi spielen?</string>
@@ -94,7 +94,7 @@ Ein weiterer Punkt ist, dass sich das Konfidenzintervall im Laufe der Zeit erhö
 	<string name="ratingLeaderboards">Wertungs-Ranglisten</string>
 	<string name="havePlayedMoreThanThirtyGamesInThatRating">mindestens 30 gewertete Partien in einer bestimmten Kategorie gespielt haben,</string>
 	<string name="havePlayedARatedGameAtLeastOneWeekAgo">in der letzten Woche eine gewertete Partie in dieser Kategorie gespielt haben,</string>
-	<string name="ratingDeviationLowerThanXinShogiYinVariants">have a rating deviation lower than %1$s, in standard shogi, and lower than %2$s in variants,</string>
+	<string name="ratingDeviationLowerThanXinShogiYinVariants">eine Wertungsabweichung kleiner als %1$s im Standardshogi und niedriger als %2$s in Varianten besitzen,</string>
 	<string name="beInTopTen">in den Top 10 dieser Wertungskategorie sein.</string>
 	<string name="secondRequirementToStopOldPlayersTrustingLeaderboards">Die zweite Bedingung dient dazu, dass Spieler, welche ihre Konten nicht mehr verwenden, aufhören in Ranglisten aufzutauchen.</string>
 	<string name="whyAreRatingHigher">Warum sind die Wertungen im Vergleich zu anderen Websites und Organisationen wie FIDE, USCF und dem ICC höher?</string>

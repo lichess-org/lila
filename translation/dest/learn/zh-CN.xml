@@ -12,6 +12,8 @@
 	<string name="introBasics">让我们学习基础知识。</string>
 	<string name="introIntro">将棋之旅由此展开。</string>
 	<string name="clickHereAfterYouveChosen">在您选择了您喜欢的棋子设计后，点击此处。</string>
+	<string name="tellYourPiecesApart">It\'s important that you can tell your pieces apart, so make sure you choose the right piece set.</string>
+	<string name="howToSelectPieceSet">How to select your piece set?</string>
 	<string name="choosePieceDesign">为了确保您能分辨棋子，请做好棋子设定。
 点击右上方的齿轮或您的用户名，再点击棋子设定。</string>
 	<string name="promotionZone">在己方棋子出入敌阵（靠近对手的三段）时，可以选择是否升变。</string>

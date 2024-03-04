@@ -12,6 +12,8 @@
 	<string name="introBasics">Vamos aprender alguns conceitos básicos.</string>
 	<string name="introIntro">Sua jornada começa aqui.</string>
 	<string name="clickHereAfterYouveChosen">Clique aqui após escolher o desenho das peças que você gostar.</string>
+	<string name="tellYourPiecesApart">It\'s important that you can tell your pieces apart, so make sure you choose the right piece set.</string>
+	<string name="howToSelectPieceSet">How to select your piece set?</string>
 	<string name="choosePieceDesign">É importante que você consiga identificar as suas peças, então certifique-se de escolher o conjunto certo. Para fazer isso clique no seu nome de usuário (canto superior direito) e, em seguida clique em \'Peças\'.</string>
 	<string name="promotionZone">Quando algumas das suas peças alcançam ou deixam as três primeiras fileiras no território do seu oponente, você pode escolher promover a sua peça e torná-la mais forte.</string>
 	<string name="senteGoesFirst">No shogi, o jogador que faz o primeiro lance é chamado de sente e o jogador que faz o segundo lance é chamado de gote. Sente às vezes é representado pela cor preta e gote pela cor branca. Faça qualquer lance como sente para continuar.</string>

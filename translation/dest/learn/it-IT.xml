@@ -12,6 +12,8 @@
 	<string name="introBasics">Impariamo alcune basi.</string>
 	<string name="introIntro">Il tuo viaggio inizia qui.</string>
 	<string name="clickHereAfterYouveChosen">Clicca qui dopo aver scelto il set di pezzi che ti piace.</string>
+	<string name="tellYourPiecesApart">It\'s important that you can tell your pieces apart, so make sure you choose the right piece set.</string>
+	<string name="howToSelectPieceSet">How to select your piece set?</string>
 	<string name="choosePieceDesign">È importante che tu possa distinguere i tuoi pezzi, quindi assicurati di scegliere il giusto set di pezzi.
 Per far ciò, clicca sulla rotella a ingranaggio o sul tuo nome utente (angolo in alto a destra) e poi clicca su \'set di pezzi\'.</string>
 	<string name="promotionZone">Quando alcuni dei tuoi pezzi raggiungono o lasciano i primi tre ranghi nel territorio del tuo avversario puoi scegliere di promuovere il tuo pezzo e renderlo più forte.</string>

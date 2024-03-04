@@ -46,4 +46,5 @@
 	<string name="kitaoKawasakiNotation">Kitao-Kawasaki notation</string>
 	<string name="kifNotation">Kif notation</string>
 	<string name="yourPreferencesHaveBeenSaved">Your preferences have been saved.</string>
+	<string name="smallMoveList">Smaller move list for games</string>
 </resources>

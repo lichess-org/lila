@@ -25,11 +25,4 @@
 	<string name="teachingMethod">教练方式</string>
 	<string name="publicStudies">公开研究</string>
 	<string name="youtubeVideos">Youtube 视频</string>
-	<plurals name="studentReviews">
-		<item quantity="other">%s 学生评论</item>
-	</plurals>
-	<string name="thankYouForReview">感谢你的评论 ！</string>
-	<string name="xWillApproveIt">%s 将在近日批准，或者版主将会查看。</string>
-	<string name="reviewCoach">评论此教练</string>
-	<string name="describeExperienceWith">描述你和 %s 的教练经验</string>
 </resources>

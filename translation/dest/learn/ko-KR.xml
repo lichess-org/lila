@@ -11,7 +11,9 @@
 	<string name="theIntroduction">입문하기</string>
 	<string name="introBasics">쇼기의 기초를 배워봅시다</string>
 	<string name="introIntro">당신의 여정은 지금부터 시작입니다</string>
-	<string name="clickHereAfterYouveChosen">Click here after you\'ve chosen the piece design you like.</string>
+	<string name="clickHereAfterYouveChosen">Click here or make a move after you\'ve chosen the piece design you like.</string>
+	<string name="tellYourPiecesApart">It\'s important that you can tell your pieces apart, so make sure you choose the right piece set.</string>
+	<string name="howToSelectPieceSet">How to select your piece set?</string>
 	<string name="choosePieceDesign">자신의 기물을 구분할 수 있는 것이 중요하므로 반드시 자신에게 맞는 기물을 골라보세요.
 톱니바퀴 또는 사용자 이름(오른쪽 상단 모서리)을 클릭한 다음 \'기물 세트\'를 클릭합니다.</string>
 	<string name="promotionZone">당신의 말중 몇 종류는 상대편 진영의 3줄 안에 들어갔을때, 말을 승급시켜서 더 강하게 만들 수 있습니다.</string>

@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="pawn">Pawn</string>
-  <string name="lance">Lance</string>
-  <string name="knight">Knight</string>
-  <string name="silver">Silver</string>
-  <string name="gold">Gold</string>
-  <string name="bishop">Bishop</string>
-  <string name="rook">Rook</string>
-  <string name="king">King</string>
+  <string name="pawn">歩兵</string>
+  <string name="lance">香車</string>
+  <string name="knight">桂馬</string>
+  <string name="silver">銀将</string>
+  <string name="gold">金将</string>
+  <string name="bishop">角行</string>
+  <string name="rook">飛車</string>
+  <string name="king">玉将</string>
   <string name="tokin">Tokin</string>
   <string name="promotedlance">Promoted lance</string>
   <string name="promotedknight">Promoted knight</string>

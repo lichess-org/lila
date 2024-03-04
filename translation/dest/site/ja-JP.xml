@@ -8,8 +8,9 @@
 	<string name="waitingForOpponent">相手を待っています</string>
 	<string name="waiting">待機中</string>
 	<string name="yourTurn">あなたの手番です</string>
-	<string name="aiNameLevelAiLevel">%1$s レベル %2$s</string>
+	<string name="defeatedAiNameAiLevel" comment="Example: Defeated Stockfish level 3">Defeated %1$s level %2$s</string>
 	<string name="level">レベル</string>
+	<string name="levelX" comment="Engine difficulty level">Level %s</string>
 	<string name="strength">強さ</string>
 	<string name="toggleTheChat">チャットのオン・オフ</string>
 	<string name="toggleSound">音声のオン・オフ</string>
@@ -18,7 +19,7 @@
 	<string name="resign">投了</string>
 	<string name="checkmate">詰み</string>
 	<string name="stalemate">ステイルメイト</string>
-	<string name="check">Check</string>
+	<string name="check">王手</string>
 	<string name="impasse">持将棋</string>
 	<string name="repetition" comment="Status of a game ending due to repeated positions">千日手</string>
 	<string name="perpetualCheck">連続王手の千日手</string>
@@ -68,6 +69,7 @@
 	<string name="analysis">棋譜解析</string>
 	<string name="analysisDescription">Analyse shogi positions and variations on an interactive shogi board</string>
 	<string name="depthX">深度 %s</string>
+	<string name="serverAnalysis">Server analysis</string>
 	<string name="usingServerAnalysis">サーバー解析を使用</string>
 	<string name="loadingEngine">エンジン読み込み中…</string>
 	<string name="cloudAnalysis">クラウド解析</string>
@@ -129,7 +131,12 @@
 	<string name="flipBoard">盤の上下反転</string>
 	<string name="claimADraw">引き分けの申し立て</string>
 	<string name="offerDraw">引き分けの提案</string>
+	<string name="offerAdjournment">Offer adjournment</string>
+	<string name="offerResumption">Offer resumption</string>
+	<string name="acceptResumption">Accept resumption</string>
 	<string name="draw">引き分け</string>
+	<string name="gameAdjourned">Game was adjourned</string>
+	<string name="gameResumed">Game was resumed</string>
 	<plurals name="nbPlayers">
 		<item quantity="other">%s人接続中</item>
 	</plurals>
@@ -203,9 +210,22 @@
 	<string name="drawOfferDeclined">引き分けの申し込みは拒否されました</string>
 	<string name="drawOfferAccepted">引き分けの申し込みに合意しました</string>
 	<string name="drawOfferCanceled">引き分けの申し込みをキャンセルしました</string>
+	<string name="adjournmentOfferSent">Adjournment offer sent</string>
+	<string name="adjournmentOfferCanceled">Adjournment offer cancelled</string>
+	<string name="adjournmentOfferAccepted">Adjournment offer accepted</string>
+	<string name="resumptionOfferSent">Resumption offer sent</string>
+	<string name="resumptionOfferCanceled">Resumption offer cancelled</string>
 	<string name="xOffersDraw" comment="%s - sente(black)/gote(white)">%sが引き分けを申し込んでいます</string>
 	<string name="xDeclinesDraw" comment="%s - sente(black)/gote(white)">%sが引き分けを拒否しました</string>
 	<string name="yourOpponentOffersADraw">相手が引き分けを申し込みました</string>
+	<string name="xOffersAdjournment" comment="%s - sente(black)/gote(white)">%s offers adjournment</string>
+	<string name="xDeclinesAdjournment" comment="%s - sente(black)/gote(white)">%s declines adjournment</string>
+	<string name="yourOpponentOffersAnAdjournment">Your opponent offers an adjournment</string>
+	<string name="xOffersResumption" comment="%s - sente(black)/gote(white)">%s proposes resumption</string>
+	<string name="xDeclinesResumption" comment="%s - sente(black)/gote(white)">%s declines resumption</string>
+	<string name="yourOpponentProposesResumption">Your opponent proposes resumption</string>
+	<string name="makeASealedMove">Make a move, that will be played after the game is resumed</string>
+	<string name="waitingForASealedMove">Waiting for the opponent to make a sealed move</string>
 	<string name="accept">承諾</string>
 	<string name="decline">拒否</string>
 	<string name="playingRightNow">現在対局中</string>
@@ -274,6 +294,9 @@
 	</plurals>
 	<plurals name="nbPlaying">
 		<item quantity="other">%s 局進行中</item>
+	</plurals>
+	<plurals name="nbAdjourned" comment="Paused games">
+		<item quantity="other">%s adjourned</item>
 	</plurals>
 	<string name="exportGames">対局をエクスポートする</string>
 	<string name="export">エクスポート</string>
@@ -552,7 +575,9 @@
 	<string name="xAnsweredY">%1$s が %2$s と答えました。</string>
 	<string name="xCommentedY">%1$s が %2$s とコメントしました。</string>
 	<string name="victory">勝ち</string>
+	<string name="youWon">You won</string>
 	<string name="defeat">負け</string>
+	<string name="youLost">You lost</string>
 	<string name="victoryVsYInZ">%1$s 対 %2$s、%3$s</string>
 	<string name="defeatVsYInZ">%1$s 対 %2$s、%3$s で</string>
 	<string name="drawVsYInZ">%1$s 対 %2$s、%3$s で</string>
@@ -728,6 +753,7 @@
 	<string name="xCreatesStudyY">%1$s が研究 %2$s を作成</string>
 	<string name="quickPairing">自動ペアリング</string>
 	<string name="lobby">ロビー</string>
+	<string name="presets" comment="Tab in lobby, try to keep it short">プリセット</string>
 	<string name="anonymous">匿名</string>
 	<string name="yourScore">通算成績：%s</string>
 	<string name="language">言語</string>
@@ -845,6 +871,9 @@
 	<string name="agreeWithX">%s に賛成</string>
 	<string name="searchOrStartNewDiscussion">検索または新しいトピックを始める</string>
 	<string name="edit">編集</string>
+	<string name="ultrabullet" comment="Translate only if it sounds good in your language, otherwise we can just keep the english name">UltraBullet</string>
+	<string name="bullet" comment="Translate only if it sounds good in your language, otherwise we can just keep the english name">ブレット</string>
+	<string name="blitz" comment="Translate only if it sounds good in your language, otherwise we can just keep the english name">ブリッツ</string>
 	<string name="rapid">ラピッド</string>
 	<string name="classical">クラシカル</string>
 	<string name="ultraBulletDesc">極早指し戦：30 秒未満</string>
@@ -905,5 +934,6 @@
 	<string name="analyse" comment="Verb; After clicking on button saying this, we expect to analyse the position">Analyse</string>
 	<string name="back" comment="As in: go back">Back</string>
 	<string name="preview">Preview</string>
-	<string name="variantNotSupported">Variant not supported</string>
+	<string name="variantNotSupported" comment="Used in engine evaluation for variants like chushogi, annanshogi, etc.">Variant not supported</string>
+	<string name="readyToPlay" comment="Used as a help on a game that can be immediately started without waiting (ai games for example, or timecontrol where another player is already waiting)">Ready to play</string>
 </resources>

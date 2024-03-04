@@ -11,6 +11,8 @@
   <string name="outcomes" comment="win/draw/loss">输出</string>
   <string name="color" comment="Meaning sente or gote">颜色</string>
   <string name="termination" comment="Checkmate, repetition, timeout, etc">终止</string>
+  <string name="resign" comment="Game termination status">Resignation</string>
+  <string name="noStart" comment="Game termination status - game didn't start">No start</string>
   <string name="speed" comment="Bulltet, blitz, rapid, etc.">速度</string>
   <string name="game">棋局</string>
   <string name="opponents">对手</string>

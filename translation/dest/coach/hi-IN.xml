@@ -25,12 +25,4 @@
 	<string name="teachingMethod">शिक्षण पद्धति</string>
 	<string name="publicStudies">सार्वजनिक अध्ययन</string>
 	<string name="youtubeVideos">यूट्यूब वीडियो</string>
-	<plurals name="studentReviews">
-		<item quantity="one">एक छात्र की समीक्षा</item>
-		<item quantity="other">%s छात्र समीक्षा</item>
-	</plurals>
-	<string name="thankYouForReview">समीक्षा के लिए धन्यवाद!</string>
-	<string name="xWillApproveIt">%s इसे बहुत जल्द मंजूरी दे देगा, या एक मध्यस्थ की नजर इस पर होगी।</string>
-	<string name="reviewCoach">इस कोच की समीक्षा करें</string>
-	<string name="describeExperienceWith">%s के साथ अपने कोचिंग अनुभव का वर्णन करें</string>
 </resources>

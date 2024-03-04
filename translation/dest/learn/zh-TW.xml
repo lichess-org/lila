@@ -11,7 +11,9 @@
 	<string name="theIntroduction">介紹</string>
 	<string name="introBasics">讓我們從基礎開始。</string>
 	<string name="introIntro">您的旅程從這裡開始</string>
-	<string name="clickHereAfterYouveChosen">Click here after you\'ve chosen the piece design you like.</string>
+	<string name="clickHereAfterYouveChosen">Click here or make a move after you\'ve chosen the piece design you like.</string>
+	<string name="tellYourPiecesApart">It\'s important that you can tell your pieces apart, so make sure you choose the right piece set.</string>
+	<string name="howToSelectPieceSet">How to select your piece set?</string>
 	<string name="choosePieceDesign">可以分辨不同的棋子是很重要的，所以請確認您使用適合的「棋子」外觀。如果要調整，請點選您的用戶名稱以及齒輪圖案，然後再點選「棋子」。</string>
 	<string name="promotionZone">當您的某些棋子走到，或離開棋盤前三行的範圍（又稱作敵陣）時，您可以選擇升級它們，使它們變得更強。</string>
 	<string name="senteGoesFirst">一場將棋對局中，先走的一方稱為「先手」，而讓先的一方稱為「後手」。先手有時會以「黑方」表示，而後手以「白方」表示。以「先手」方走棋吧。</string>
