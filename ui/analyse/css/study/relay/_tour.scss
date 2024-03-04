@@ -39,6 +39,7 @@
     @extend %flex-center-nowrap;
     background: $c-bg-zebra;
     gap: 2em;
+    padding-right: var(--box-padding);
 
     &__image {
       // overflow: hidden;
@@ -63,6 +64,7 @@
 
     &__content {
       @extend %flex-column;
+      flex: 1;
       gap: 1em;
       margin: 1em 0;
     }
@@ -97,7 +99,7 @@
         }
         .time,
         .status {
-          font-size: 0.8rem;
+          font-size: 0.9rem;
           color: $c-font-dim;
         }
         .time {
