@@ -254,16 +254,14 @@ function renderPlayer(player: ChapterPreviewPlayer | undefined): VNode | undefin
 
 export const computeTimeLeft = (preview: ChapterPreview, color: Color): number | undefined => {
   const player = preview.players && preview.players[color];
-  if (player && player.clock) {
+  if (player?.clock) {
     if (preview.lastMoveAt && fenColor(preview.fen) == color) {
       const spent = (Date.now() - preview.lastMoveAt) / 1000;
       return Math.max(0, player.clock / 100 - spent);
     } else {
       return player.clock / 100;
     }
-  } else {
-    return;
-  }
+  } else return;
 };
 
 const boardPlayer = (preview: ChapterPreview, color: Color) => {

@@ -1,4 +1,5 @@
 import { looseH as h } from 'common/snabbdom';
+import { clockIsRunning, formatMs } from 'common/clock';
 import { ChapterPreview, isChapterPreview } from '../interfaces';
 import { StudyCtrl } from '../studyDeps';
 import RelayCtrl from './relayCtrl';
@@ -57,23 +58,10 @@ const renderClocks = (chapter: ChapterPreview) => {
   const turnColor = fenColor(chapter.fen);
   return ['white', 'black'].map((color: Color) => {
     const timeleft = computeTimeLeft(chapter, color);
-    const ticking =
-      turnColor == color &&
-      (color == 'white'
-        ? !chapter.fen.includes('PPPPPPPP/RNBQKBNR')
-        : !chapter.fen.startsWith('rnbqkbnr/pppppppp'));
-    return timeleft ? renderClock(color, timeleft, ticking) : '*';
+    const ticking = turnColor == color && clockIsRunning(chapter.fen, color);
+    return timeleft ? renderClock(timeleft, ticking) : '*';
   });
 };
 
-export const renderClock = (color: Color, time: number, ticking: boolean) =>
-  h(`span.mini-game__clock.mini-game__clock--${color}`, {
-    hook: {
-      postpatch(_, vnode) {
-        site.clockWidget(vnode.elm as HTMLElement, {
-          time: time,
-          pause: !ticking,
-        });
-      },
-    },
-  });
+export const renderClock = (time: number, ticking: boolean) =>
+  h('span.mini-game__clock.mini-game__clock', { class: { 'clock--run': ticking } }, formatMs(time * 1000));

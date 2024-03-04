@@ -7,7 +7,6 @@ import {
   StudyChapter,
   StudyChapterRelay,
 } from '../interfaces';
-import { isFinished } from '../studyChapters';
 import { StudyMemberCtrl } from '../studyMembers';
 import { AnalyseSocketSend } from '../../socket';
 import { Prop, Toggle, prop, toggle } from 'common';
@@ -22,7 +21,6 @@ export type RelayTab = (typeof relayTabs)[number];
 export default class RelayCtrl {
   log: LogEvent[] = [];
   cooldown = false;
-  clockInterval?: number;
   tourShow: Toggle;
   tab: Prop<RelayTab>;
   teams?: RelayTeams;
@@ -53,6 +51,7 @@ export default class RelayCtrl {
           () => chapter.setup.variant.key,
         )
       : undefined;
+    setInterval(this.redraw, 1000);
   }
 
   openTab = (t: RelayTab) => {
@@ -70,12 +69,10 @@ export default class RelayCtrl {
 
   // only modifies the chapter
   applyChapterRelay = (c: StudyChapter, r?: StudyChapterRelay) => {
-    if (this.clockInterval) clearInterval(this.clockInterval);
     if (r) {
       if (typeof r.secondsSinceLastMove !== 'undefined' && !r.lastMoveAt)
         r.lastMoveAt = Date.now() - r.secondsSinceLastMove * 1000;
       c.relay = r;
-      if (!isFinished(c)) this.clockInterval = setInterval(this.redraw, 1000);
     }
   };
   private findChapterPreview = (id: ChapterId) => this.chapters().find(cp => cp.id == id);
