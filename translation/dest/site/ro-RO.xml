@@ -5,13 +5,13 @@
   <string name="toInviteSomeoneToPlayGiveThisUrl">Pentru a invita pe cineva să joace, folosiți acest URL</string>
   <string name="gameOver">Partidă încheiată</string>
   <string name="waitingForOpponent">Se așteaptă adversarul</string>
-  <string name="orLetYourOpponentScanQrCode">Sau lăsați oponentul să scaneze acest cod QR</string>
+  <string name="orLetYourOpponentScanQrCode">Sau lăsați adversarul să scaneze acest cod QR</string>
   <string name="waiting">Se așteaptă</string>
   <string name="yourTurn">Rândul tău</string>
   <string name="aiNameLevelAiLevel">%1$s nivel %2$s</string>
   <string name="level">Nivel</string>
   <string name="strength">Putere</string>
-  <string name="toggleTheChat">Arată/Ascunde discuţia</string>
+  <string name="toggleTheChat">Arată/ascunde discuția</string>
   <string name="chat">Discuţie</string>
   <string name="resign">Abandonează</string>
   <string name="checkmate">Şah mat</string>
