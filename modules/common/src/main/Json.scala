@@ -23,8 +23,10 @@ object Json:
   // ): Format[T] =
   //   format.bimap(bts.apply, stb.apply)
 
-  given [A](using bts: SameRuntime[A, String]): KeyWrites[A] with
-    def writeKey(key: A) = bts(key)
+  given [A](using Show[A]): KeyWrites[A] with
+    def writeKey(key: A) = key.show
+
+  given [A](using Show[A]): Writes[A] = a => JsString(a.show)
 
   private val stringFormatBase: Format[String] = Format(Reads.StringReads, Writes.StringWrites)
   private val intFormatBase: Format[Int]       = Format(Reads.IntReads, Writes.IntWrites)
@@ -84,8 +86,6 @@ object Json:
   given Writes[Instant] = writeAs(_.toMillis)
 
   given Writes[chess.Color] = writeAs(_.name)
-
-  given Writes[chess.PlayerTitle] = writeAs(_.value)
 
   given Reads[Uci] = Reads
     .of[String]
