@@ -25,7 +25,7 @@ private class RelayPlayersTextarea(val text: String):
 
   // With tokenized player names
   private lazy val tokenizedPlayers: Map[PlayerToken, RelayPlayer] =
-    players.mapKeys(FidePlayer.tokenize)
+    players.mapKeys(name => FidePlayer.tokenize(name.value))
 
   // With player names combinations.
   // For example, if the tokenized player name is "A B C D", the combinations will be:
@@ -81,5 +81,5 @@ private class RelayPlayersTextarea(val text: String):
     players
       .get(name)
       .orElse:
-        val token = FidePlayer.tokenize(name)
+        val token = FidePlayer.tokenize(name.value)
         tokenizedPlayers.get(token).orElse(combinationPlayers.get(token))

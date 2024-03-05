@@ -47,7 +47,7 @@ final class FidePaginator(repo: FideRepo)(using Executor):
     )
 
   def best(page: Int, query: String): Fu[Paginator[FidePlayer]] =
-    val search = FidePlayer.tokenize(chess.PlayerName(query)).some.filter(_.size > 1)
+    val search = FidePlayer.tokenize(query).some.filter(_.size > 1)
     Paginator(
       adapter = search match
         case Some(search) =>

@@ -48,6 +48,7 @@ trait Lila
   trait StringValue extends Any:
     def value: String
     override def toString = value
+  given cats.Show[StringValue] = cats.Show.show(_.value)
 
   // replaces Product.unapply in play forms
   def unapply[P <: Product](p: P)(using m: scala.deriving.Mirror.ProductOf[P]): Option[m.MirroredElemTypes] =

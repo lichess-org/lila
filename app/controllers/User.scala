@@ -502,13 +502,13 @@ final class User(
   )(f: UserModel => Fu[Result])(using Context, Me) =
     Found(meOrFetch(username)): user =>
       val isMod = data.mod && isGranted(_.ModNote)
-      val dox   = isMod && (data.dox || lila.fide.FideWebsite.urlToFideId(text).isDefined)
+      val dox   = isMod && (data.dox || lila.fide.FideWebsite.urlToFideId(data.text).isDefined)
       for
         _        <- env.user.noteApi.write(user, data.text, isMod, dox)
-        newTitle <- modOnly.so(Title.fromUrl(text))
-        _        <- newTitle.so(userRepo.setTitle(to.id, _))
-        _        <- f(user)
-      yield ()
+        newTitle <- isMod.so(env.fide.playerApi.urlToTitle(data.text))
+        _        <- newTitle.so(env.user.repo.setTitle(user.id, _))
+        result   <- f(user)
+      yield result
 
   def deleteNote(id: String) = Auth { ctx ?=> me ?=>
     Found(env.user.noteApi.byId(id)): note =>

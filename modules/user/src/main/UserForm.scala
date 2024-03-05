@@ -70,7 +70,7 @@ object UserForm:
   case class NoteData(text: String, mod: Boolean, dox: Boolean)
 
   val title = Form:
-    single("title" -> optional(of[String].transform[Option[PlayerTitle]](PlayerTitle.get, _.so(_.value))))
+    single("title" -> of[String].transform[Option[PlayerTitle]](PlayerTitle.get, _.so(_.value)))
 
   lazy val historicalUsernameConstraints = Seq(
     Constraints.minLength(2),
