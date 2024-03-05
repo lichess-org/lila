@@ -578,7 +578,6 @@
   <string name="automaticallyProceedToNextGameAfterMoving">Аўтаматычна пераходзіць да наступнай гульні пасля ходу</string>
   <string name="autoSwitch">Аўтапераключэнне</string>
   <string name="puzzles">Задачы</string>
-  <string name="tournamentWinners">Пераможцы турніраў</string>
   <string name="name">Назва</string>
   <string name="description">Апісанне</string>
   <string name="descPrivate">Прыватнае апісанне</string>
@@ -984,8 +983,6 @@
   <string name="minimumRatedGames">Мінімальная колькасць рэйтынгавый партый</string>
   <string name="minimumRating">Мінімальны рэйтынг</string>
   <string name="maximumWeeklyRating">Максімальны рэйтынг на працягу тыдня</string>
-  <string name="onlyTitled">Толькі тытулаваныя гульцы</string>
-  <string name="onlyTitledHelp">Патрабаваць афіцыйнага тытулу, каб далучыцца да турніру</string>
   <string name="positionInputHelp">Устаўце дакладны FEN, каб пачынаць кожную гульню з зададзенай пазіцыі.
 Працуе толькі ў стандартных шахматах, не ў варыянтах.
 Можаце выкарыстаць %s для генерацыі пазіцыі FEN, а потым уставіць тут.

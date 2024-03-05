@@ -10,7 +10,7 @@ import controllers.routes
 object importGame:
 
   private def analyseHelp(using ctx: Context) =
-    ctx.isAnon option a(cls := "blue", href := routes.Auth.signup)(trans.youNeedAnAccountToDoThat())
+    ctx.isAnon.option(a(cls := "blue", href := routes.Auth.signup)(trans.youNeedAnAccountToDoThat()))
 
   def apply(form: play.api.data.Form[?])(using ctx: PageContext) =
     views.html.base.layout(
@@ -36,7 +36,7 @@ object importGame:
         standardFlash,
         postForm(cls := "form3 import", action := routes.Importer.sendGame)(
           form3.group(form("pgn"), trans.pasteThePgnStringHere())(form3.textarea(_)()),
-          form("pgn").value flatMap { pgn =>
+          form("pgn").value.flatMap { pgn =>
             lila.importer
               .ImportData(PgnStr(pgn), none)
               .preprocess(none)

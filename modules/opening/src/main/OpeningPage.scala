@@ -14,7 +14,7 @@ case class OpeningPage(
   export query.{ closestOpening, exactOpening, name, openingAndExtraMoves }
 
   def nameParts: NamePart.NamePartList = openingAndExtraMoves match
-    case (op, moves) => (op so NamePart.from) ::: NamePart.from(moves)
+    case (op, moves) => (op.so(NamePart.from)) ::: NamePart.from(moves)
 
 case object NamePart:
   type NamePartList = List[Either[SanStr, (NameSection, Option[OpeningKey])]]
@@ -72,7 +72,7 @@ object OpeningPage:
   ): OpeningPage =
     OpeningPage(
       query = query,
-      exploredPosition map { exp =>
+      exploredPosition.map { exp =>
         OpeningExplored(
           result = ResultCounts(exp.white, exp.draws, exp.black),
           games = games,
@@ -82,13 +82,13 @@ object OpeningPage:
                 uci  <- Uci.Move(m.uci)
                 move <- query.position.move(uci).toOption
                 result  = ResultCounts(m.white, m.draws, m.black)
-                fen     = Fen writeOpening move.situationAfter
-                opening = OpeningDb findByStandardFen fen
+                fen     = Fen.writeOpening(move.situationAfter)
+                opening = OpeningDb.findByStandardFen(fen)
               yield OpeningNext(
                 m.san,
                 uci,
                 fen,
-                query.copy(replay = query.replay addMove move),
+                query.copy(replay = query.replay.addMove(move)),
                 result,
                 (result.sum * 100d / exp.movesSum),
                 opening,

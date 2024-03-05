@@ -38,7 +38,7 @@ final class RelayTourForm:
 
   def create = form
 
-  def edit(t: RelayTour.WithGroupTours) = form fill Data.make(t)
+  def edit(t: RelayTour.WithGroupTours) = form.fill(Data.make(t))
 
 object RelayTourForm:
 
@@ -61,7 +61,7 @@ object RelayTourForm:
           name = name,
           description = description,
           markup = markup,
-          tier = tier ifTrue Granter(_.Relay),
+          tier = tier.ifTrue(Granter(_.Relay)),
           autoLeaderboard = autoLeaderboard,
           teamTable = teamTable,
           players = players,
@@ -76,7 +76,7 @@ object RelayTourForm:
         description = description,
         markup = markup,
         ownerId = me,
-        tier = tier ifTrue Granter(_.Relay),
+        tier = tier.ifTrue(Granter(_.Relay)),
         active = false,
         createdAt = nowInstant,
         syncedAt = none,

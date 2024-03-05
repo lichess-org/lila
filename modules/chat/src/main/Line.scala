@@ -9,7 +9,7 @@ sealed trait Line:
   def deleted: Boolean
   def isSystem    = author == User.lichessName.value
   def isHuman     = !isSystem
-  def humanAuthor = isHuman option author
+  def humanAuthor = isHuman.option(author)
   def troll: Boolean
   def flair: Boolean
   def userIdMaybe: Option[UserId]
@@ -33,7 +33,7 @@ case class UserLine(
 
   def isVisible = !troll && !deleted
 
-  def isLichess = userId is User.lichessId
+  def isLichess = userId.is(User.lichessId)
 
 case class PlayerLine(color: Color, text: String) extends Line:
   def deleted     = false
@@ -53,12 +53,12 @@ object Line:
     UserLine(UserName(""), None, false, false, "[invalid character]", troll = false, deleted = true)
 
   private[chat] given BSONHandler[UserLine] = BSONStringHandler.as[UserLine](
-    v => strToUserLine(v) getOrElse invalidLine,
+    v => strToUserLine(v).getOrElse(invalidLine),
     userLineToStr
   )
 
   private[chat] given BSONHandler[Line] = BSONStringHandler.as[Line](
-    v => strToLine(v) getOrElse invalidLine,
+    v => strToLine(v).getOrElse(invalidLine),
     lineToStr
   )
 
@@ -76,8 +76,8 @@ object Line:
       val deleted = sep == deletedChar
       val patron  = sep == patronChar || sep == patronFlairChar
       val flair   = sep == flairChar || sep == patronFlairChar
-      val (title, name) = username split titleSep match
-        case Array(title, name) => (Title get title, UserName(name))
+      val (title, name) = username.split(titleSep) match
+        case Array(title, name) => (Title.get(title), UserName(name))
         case _                  => (none, UserName(username))
       UserLine(name, title, patron, flair, text, troll = troll, deleted = deleted).some
     case _ => none
@@ -92,9 +92,9 @@ object Line:
     s"$tit${x.username}$sep${x.text}"
 
   def strToLine(str: String): Option[Line] =
-    strToUserLine(str) orElse {
-      str.headOption flatMap Color.apply map { color =>
-        PlayerLine(color, str drop 2)
+    strToUserLine(str).orElse {
+      str.headOption.flatMap(Color.apply).map { color =>
+        PlayerLine(color, str.drop(2))
       }
     }
   def lineToStr(x: Line) =

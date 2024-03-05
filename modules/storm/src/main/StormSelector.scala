@@ -57,8 +57,8 @@ final class StormSelector(colls: PuzzleColls, cacheApi: CacheApi)(using Executor
                 rating.toString -> List(
                   Match:
                     $doc(
-                      "min" $lte f"${theme}${sep}${tier}${sep}${rating}%04d",
-                      "max" $gte f"${theme}${sep}${tier}${sep}${rating}%04d"
+                      "min".$lte(f"${theme}${sep}${tier}${sep}${rating}%04d"),
+                      "max".$gte(f"${theme}${sep}${tier}${sep}${rating}%04d")
                     )
                   ,
                   Sample(1),
@@ -111,13 +111,13 @@ final class StormSelector(colls: PuzzleColls, cacheApi: CacheApi)(using Executor
     lila.mon.storm.selector.count.record(nb)
     if nb < poolSize * 0.9 then logger.warn(s"Selector wanted $poolSize puzzles, only got $nb")
     if nb > 1 then
-      val rest = puzzles.toVector drop 1
-      lila.common.Maths.mean(IntRating raw rest.map(_.rating)) foreach { r =>
+      val rest = puzzles.toVector.drop(1)
+      lila.common.Maths.mean(IntRating.raw(rest.map(_.rating))).foreach { r =>
         lila.mon.storm.selector.rating.record(r.toInt)
       }
-      (0 to poolSize by 10) foreach { i =>
-        val slice = rest drop i take 10
-        lila.common.Maths.mean(IntRating raw slice.map(_.rating)) foreach { r =>
+      (0 to poolSize by 10).foreach { i =>
+        val slice = rest.drop(i).take(10)
+        lila.common.Maths.mean(IntRating.raw(slice.map(_.rating))).foreach { r =>
           lila.mon.storm.selector.ratingSlice(i).record(r.toInt)
         }
       }

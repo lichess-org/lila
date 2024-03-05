@@ -34,7 +34,7 @@ final private class RelationRepo(colls: Colls, userRepo: lila.user.UserRepo)(usi
               )
             )
           ),
-          Match("follower" $ne $arr()),
+          Match("follower".$ne($arr())),
           Group(BSONNull)("ids" -> PushField("u1"))
         )
       .map(~_.flatMap(_.getAsOpt[List[UserId]]("ids")))
@@ -44,7 +44,7 @@ final private class RelationRepo(colls: Colls, userRepo: lila.user.UserRepo)(usi
       "u2",
       $doc(
         "u1" -> userId,
-        "u2" $startsWith term.value,
+        "u2".$startsWith(term.value),
         "r" -> Follow
       )
     )
@@ -72,7 +72,7 @@ final private class RelationRepo(colls: Colls, userRepo: lila.user.UserRepo)(usi
   def unblock(u1: UserId, u2: UserId): Funit  = remove(u1, u2)
 
   def unfollowMany(u1: UserId, u2s: Iterable[UserId]): Funit =
-    coll.delete.one($inIds(u2s map { makeId(u1, _) })).void
+    coll.delete.one($inIds(u2s.map { makeId(u1, _) })).void
 
   def unfollowAll(u1: UserId): Funit = coll.delete.one($doc("u1" -> u1)).void
 
@@ -97,12 +97,13 @@ final private class RelationRepo(colls: Colls, userRepo: lila.user.UserRepo)(usi
       .list(nb)
       .dmap {
         _.flatMap { _.string("_id") }
-      } flatMap { ids =>
-      coll.delete.one($inIds(ids)).void
-    }
+      }
+      .flatMap { ids =>
+        coll.delete.one($inIds(ids)).void
+      }
 
   def filterBlocked(by: UserId, candidates: Iterable[UserId]): Fu[Set[UserId]] =
-    coll.distinctEasy[UserId, Set]("u2", $doc("u2" $in candidates, "u1" -> by, "r" -> Block))
+    coll.distinctEasy[UserId, Set]("u2", $doc("u2".$in(candidates), "u1" -> by, "r" -> Block))
 
 object RelationRepo:
 

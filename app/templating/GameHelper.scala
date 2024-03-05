@@ -32,7 +32,7 @@ trait GameHelper:
 
   def titleGame(g: Game) =
     val speed   = chess.Speed(g.clock.map(_.config)).name
-    val variant = g.variant.exotic so s" ${g.variant.name}"
+    val variant = g.variant.exotic.so(s" ${g.variant.name}")
     s"$speed$variant Chess • ${playerText(g.whitePlayer)} vs ${playerText(g.blackPlayer)}"
 
   def describePov(pov: Pov) =
@@ -73,9 +73,9 @@ trait GameHelper:
 
   def shortClockName(game: Game)(using lang: Lang): Frag =
     game.correspondenceClock
-      .map(c => trans.nbDays(c.daysPerTurn)) orElse
-      game.clock.map(_.config).map(shortClockName) getOrElse
-      trans.unlimited()
+      .map(c => trans.nbDays(c.daysPerTurn))
+      .orElse(game.clock.map(_.config).map(shortClockName))
+      .getOrElse(trans.unlimited())
 
   def modeName(mode: Mode)(using lang: Lang): String =
     mode match
@@ -94,16 +94,18 @@ trait GameHelper:
       user
         .fold[Frag](trans.anonymous.txt()): user =>
           frag(
-            titleTag(user.title ifTrue withTitle),
+            titleTag(user.title.ifTrue(withTitle)),
             user.name,
-            user.flair map userFlair,
-            withRating option frag(
-              " (",
-              player.rating.fold(frag("?")): rating =>
-                if player.provisional.yes then
-                  abbr(title := trans.perfStat.notEnoughRatedGames.txt())(rating, "?")
-                else rating,
-              ")"
+            user.flair.map(userFlair),
+            withRating.option(
+              frag(
+                " (",
+                player.rating.fold(frag("?")): rating =>
+                  if player.provisional.yes then
+                    abbr(title := trans.perfStat.notEnoughRatedGames.txt())(rating, "?")
+                  else rating,
+                ")"
+              )
             )
           )
     ): level =>
@@ -129,7 +131,7 @@ trait GameHelper:
       link: Boolean = true
   )(using ctx: Context): Frag =
     given Lang     = ctx.lang
-    val statusIcon = (withBerserk && player.berserk) option berserkIconSpan
+    val statusIcon = (withBerserk && player.berserk).option(berserkIconSpan)
     player.userId.flatMap(lightUser) match
       case None =>
         val klass = cssClass.so(" " + _)
@@ -139,22 +141,22 @@ trait GameHelper:
             case (_, Some(name))  => name
             case _                => trans.anonymous()
           ,
-          player.rating.ifTrue(withRating && ctx.pref.showRatings) map { rating => s" ($rating)" },
+          player.rating.ifTrue(withRating && ctx.pref.showRatings).map { rating => s" ($rating)" },
           statusIcon
         )
       case Some(user) =>
         frag(
           (if link then a else span) (
-            cls                               := userClass(user.id, cssClass, withOnline),
-            (if link then href else dataHref) := s"${routes.User show user.name}${if mod then "?mod" else ""}"
+            cls := userClass(user.id, cssClass, withOnline),
+            (if link then href else dataHref) := s"${routes.User.show(user.name)}${if mod then "?mod" else ""}"
           )(
-            withOnline option frag(lineIcon(user), " "),
+            withOnline.option(frag(lineIcon(user), " ")),
             playerUsername(
               player.light,
               user.some,
               withRating = withRating && ctx.pref.showRatings
             ),
-            (player.ratingDiff.ifTrue(withDiff && ctx.pref.showRatings)) map { d =>
+            (player.ratingDiff.ifTrue(withDiff && ctx.pref.showRatings)).map { d =>
               frag(" ", showRatingDiff(d))
             },
             tosMark(engine)
@@ -173,28 +175,28 @@ trait GameHelper:
       mod: Boolean = false,
       link: Boolean = true
   )(using ctx: Context): Frag =
-    val statusIcon = (withBerserk && player.berserk) option berserkIconSpan
+    val statusIcon = (withBerserk && player.berserk).option(berserkIconSpan)
     player.userId.flatMap(lightUser) match
       case None =>
         val klass = cssClass.so(" " + _)
         span(cls := s"user-link$klass")(
           player.aiLevel.fold(trans.anonymous())(aiNameFrag),
-          player.rating.ifTrue(withRating && ctx.pref.showRatings) map { rating => s" ($rating)" },
+          player.rating.ifTrue(withRating && ctx.pref.showRatings).map { rating => s" ($rating)" },
           statusIcon
         )
       case Some(user) =>
         frag(
           (if link then a else span) (
-            cls                               := userClass(user.id, cssClass, withOnline),
-            (if link then href else dataHref) := s"${routes.User show user.name}${if mod then "?mod" else ""}"
+            cls := userClass(user.id, cssClass, withOnline),
+            (if link then href else dataHref) := s"${routes.User.show(user.name)}${if mod then "?mod" else ""}"
           )(
-            withOnline option frag(lineIcon(user), " "),
+            withOnline.option(frag(lineIcon(user), " ")),
             playerUsername(
               player,
               user.some,
               withRating = withRating && ctx.pref.showRatings
             ),
-            (player.ratingDiff.ifTrue(withDiff && ctx.pref.showRatings)) map { d =>
+            (player.ratingDiff.ifTrue(withDiff && ctx.pref.showRatings)).map { d =>
               frag(" ", showRatingDiff(d))
             },
             tosMark(engine)
@@ -203,7 +205,7 @@ trait GameHelper:
         )
 
   private def tosMark(mark: Boolean)(using Lang): Option[Tag] =
-    mark option span(cls := "tos_violation", title := trans.thisAccountViolatedTos.txt())
+    mark.option(span(cls := "tos_violation", title := trans.thisAccountViolatedTos.txt()))
 
   def gameEndStatus(game: Game)(using lang: Lang): String =
     game.status match
@@ -245,15 +247,15 @@ trait GameHelper:
       case _ => ""
 
   def gameTitle(game: Game, color: Color): String =
-    val u1 = playerText(game player color, withRating = true)
-    val u2 = playerText(game opponent color, withRating = true)
+    val u1 = playerText(game.player(color), withRating = true)
+    val u2 = playerText(game.opponent(color), withRating = true)
     val clock = game.clock.so: c =>
       " • " + c.config.show
-    val variant = game.variant.exotic so s" • ${game.variant.name}"
+    val variant = game.variant.exotic.so(s" • ${game.variant.name}")
     s"$u1 vs $u2$clock$variant"
 
   def gameResult(game: Game) =
-    Outcome.showResult(game.finished option Outcome(game.winnerColor))
+    Outcome.showResult(game.finished.option(Outcome(game.winnerColor)))
 
   def gameLink(
       game: Game,
@@ -261,11 +263,11 @@ trait GameHelper:
       ownerLink: Boolean = false,
       tv: Boolean = false
   )(using ctx: Context): String = {
-    val owner = ownerLink so ctx.me.flatMap(game.player)
+    val owner = ownerLink.so(ctx.me.flatMap(game.player))
     if tv then routes.Tv.index
     else
       owner.fold(routes.Round.watcher(game.id, color.name)): o =>
-        routes.Round.player(game fullIdOf o.color)
+        routes.Round.player(game.fullIdOf(o.color))
   }.toString
 
   def gameLink(pov: Pov)(using Context): String = gameLink(pov.game, pov.color)
@@ -274,14 +276,14 @@ trait GameHelper:
     val speed = c.clock.map(_.config).fold(chess.Speed.Correspondence.name) { clock =>
       s"${chess.Speed(clock).name} (${clock.show})"
     }
-    val variant = c.variant.exotic so s" ${c.variant.name}"
+    val variant = c.variant.exotic.so(s" ${c.variant.name}")
     val challenger = c.challengerUser.fold(trans.anonymous.txt()(using ctx.lang)): reg =>
-      s"${titleNameOrId(reg.id)}${ctx.pref.showRatings so s" (${reg.rating.show})"}"
+      s"${titleNameOrId(reg.id)}${ctx.pref.showRatings.so(s" (${reg.rating.show})")}"
     val players =
       if c.isOpen then "Open challenge"
       else
         c.destUser.fold(s"Challenge from $challenger"): dest =>
-          s"$challenger challenges ${titleNameOrId(dest.id)}${ctx.pref.showRatings so s" (${dest.rating.show})"}"
+          s"$challenger challenges ${titleNameOrId(dest.id)}${ctx.pref.showRatings.so(s" (${dest.rating.show})")}"
     s"$speed$variant ${c.mode.name} Chess • $players"
 
   def challengeOpenGraph(c: lila.challenge.Challenge)(using Context) =

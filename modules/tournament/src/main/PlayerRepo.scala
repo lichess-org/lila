@@ -17,7 +17,7 @@ final class PlayerRepo(coll: Coll)(using Executor):
       "tid" -> tourId,
       "uid" -> userId
     )
-  private val selectActive   = $doc("w" $ne true)
+  private val selectActive   = $doc("w".$ne(true))
   private val selectWithdraw = $doc("w" -> true)
   private val bestSort       = $doc("m" -> -1)
 
@@ -27,7 +27,7 @@ final class PlayerRepo(coll: Coll)(using Executor):
       playerIds: List[TourPlayerId],
       page: Int
   ): Fu[RankedPlayers] =
-    coll.find($inIds(playerIds)).cursor[Player]().listAll() map { players =>
+    coll.find($inIds(playerIds)).cursor[Player]().listAll().map { players =>
       playerIds
         .flatMap(id => players.find(_._id == id))
         .mapWithIndex: (player, index) =>
@@ -99,17 +99,18 @@ final class PlayerRepo(coll: Coll)(using Executor):
           yield new RankedTeam(0, teamId, leaders)
         .sorted.mapWithIndex: (rt, pos) =>
           rt.updateRank(pos + 1)
-      } map { ranked =>
-      if ranked.sizeIs == battle.teams.size then ranked
-      else
-        ranked ::: battle.teams
-          .foldLeft(List.empty[RankedTeam]) {
-            case (missing, team) if !ranked.exists(_.teamId == team) =>
-              new RankedTeam(missing.headOption.fold(ranked.size)(_.rank) + 1, team, Nil, 0) :: missing
-            case (acc, _) => acc
-          }
-          .reverse
-    }
+      }
+      .map { ranked =>
+        if ranked.sizeIs == battle.teams.size then ranked
+        else
+          ranked ::: battle.teams
+            .foldLeft(List.empty[RankedTeam]) {
+              case (missing, team) if !ranked.exists(_.teamId == team) =>
+                new RankedTeam(missing.headOption.fold(ranked.size)(_.rank) + 1, team, Nil, 0) :: missing
+              case (acc, _) => acc
+            }
+            .reverse
+      }
 
   // very expensive
   private[tournament] def teamInfo(
@@ -149,14 +150,14 @@ final class PlayerRepo(coll: Coll)(using Executor):
       .dmap(_ | TeamBattle.TeamInfo(teamId, 0, 0, 0, 0, Nil))
 
   def bestTeamPlayers(tourId: TourId, teamId: TeamId, nb: Int): Fu[List[Player]] =
-    coll.find($doc("tid" -> tourId, "t" -> teamId)).sort($sort desc "m").cursor[Player]().list(nb)
+    coll.find($doc("tid" -> tourId, "t" -> teamId)).sort($sort.desc("m")).cursor[Player]().list(nb)
 
   def countTeamPlayers(tourId: TourId, teamId: TeamId): Fu[Int] =
     coll.countSel($doc("tid" -> tourId, "t" -> teamId))
 
   def teamsOfPlayers(tourId: TourId, userIds: Seq[UserId]): Fu[List[(UserId, TeamId)]] =
     coll
-      .find($doc("tid" -> tourId, "uid" $in userIds), $doc("_id" -> false, "uid" -> true, "t" -> true).some)
+      .find($doc("tid" -> tourId, "uid".$in(userIds)), $doc("_id" -> false, "uid" -> true, "t" -> true).some)
       .cursor[Bdoc]()
       .listAll()
       .map: doc =>
@@ -168,7 +169,7 @@ final class PlayerRepo(coll: Coll)(using Executor):
 
   def teamVs(tourId: TourId, game: lila.game.Game): Fu[Option[TeamBattle.TeamVs]] =
     game.twoUserIds.so: (w, b) =>
-      teamsOfPlayers(tourId, List(w, b)).dmap(_.toMap) map { m =>
+      teamsOfPlayers(tourId, List(w, b)).dmap(_.toMap).map { m =>
         (m.get(w), m.get(b)).mapN: (wt, bt) =>
           TeamBattle.TeamVs(chess.ByColor(wt, bt))
       }
@@ -181,7 +182,7 @@ final class PlayerRepo(coll: Coll)(using Executor):
     coll.delete.one(selectTourUser(tourId, userId)).void
 
   def removeNotInTeams(tourId: TourId, teamIds: Set[TeamId]) =
-    coll.delete.one(selectTour(tourId) ++ $doc("t" $nin teamIds)).void
+    coll.delete.one(selectTour(tourId) ++ $doc("t".$nin(teamIds))).void
 
   def existsActive(tourId: TourId, userId: UserId) =
     coll.exists(selectTourUser(tourId, userId) ++ selectActive)
@@ -202,7 +203,7 @@ final class PlayerRepo(coll: Coll)(using Executor):
     coll.find(selectTourUser(tourId, userId)).one[Player]
 
   def update(tourId: TourId, userId: UserId)(f: Player => Fu[Player]): Funit =
-    find(tourId, userId) orFail s"No such player: $tourId/$userId" flatMap f flatMap update
+    find(tourId, userId).orFail(s"No such player: $tourId/$userId").flatMap(f).flatMap(update)
 
   def update(player: Player): Funit = coll.update.one($id(player._id), player).void
 
@@ -221,7 +222,7 @@ final class PlayerRepo(coll: Coll)(using Executor):
 
   private[tournament] def withPoints(tourId: TourId): Fu[List[Player]] =
     coll.list[Player]:
-      selectTour(tourId) ++ $doc("m" $gt 0)
+      selectTour(tourId) ++ $doc("m".$gt(0))
 
   private[tournament] def nbActivePlayers(tourId: TourId): Fu[Int] =
     coll.countSel(selectTour(tourId) ++ selectActive)
@@ -268,7 +269,7 @@ final class PlayerRepo(coll: Coll)(using Executor):
       }
 
   def computeRankOf(player: Player): Fu[Rank] =
-    Rank from coll.countSel(selectTour(player.tourId) ++ $doc("m" $gt player.magicScore))
+    Rank.from(coll.countSel(selectTour(player.tourId) ++ $doc("m".$gt(player.magicScore))))
 
   // expensive, cache it
   private[tournament] def averageRating(tourId: TourId): Fu[Int] =
@@ -277,13 +278,14 @@ final class PlayerRepo(coll: Coll)(using Executor):
         import framework.*
         List(Match(selectTour(tourId)), Group(BSONNull)("rating" -> AvgField("r")))
       }
-      .headOption map {
-      ~_.flatMap(_.double("rating").map(_.toInt))
-    }
+      .headOption
+      .map {
+        ~_.flatMap(_.double("rating").map(_.toInt))
+      }
 
   def byTourAndUserIds(tourId: TourId, userIds: Iterable[UserId]): Fu[List[Player]] =
     coll
-      .list[Player](selectTour(tourId) ++ $doc("uid" $in userIds))
+      .list[Player](selectTour(tourId) ++ $doc("uid".$in(userIds)))
       .chronometer
       .logIfSlow(200, logger) { players =>
         s"PlayerRepo.byTourAndUserIds $tourId ${userIds.size} user IDs, ${players.size} players"
@@ -291,7 +293,7 @@ final class PlayerRepo(coll: Coll)(using Executor):
       .result
 
   def pairByTourAndUserIds(tourId: TourId, id1: UserId, id2: UserId): Fu[Option[(Player, Player)]] =
-    byTourAndUserIds(tourId, List(id1, id2)) map {
+    byTourAndUserIds(tourId, List(id1, id2)).map {
       case List(p1, p2) if p1.is(id1) && p2.is(id2) => Some(p1 -> p2)
       case List(p1, p2) if p1.is(id2) && p2.is(id1) => Some(p2 -> p1)
       case _                                        => none
@@ -303,7 +305,7 @@ final class PlayerRepo(coll: Coll)(using Executor):
   private def rankPlayers(players: List[Player], ranking: Ranking): RankedPlayers =
     players
       .flatMap { p =>
-        ranking get p.userId map { RankedPlayer(_, p) }
+        ranking.get(p.userId).map { RankedPlayer(_, p) }
       }
       .sortBy(_.rank)(using intOrdering)
 
@@ -324,9 +326,9 @@ final class PlayerRepo(coll: Coll)(using Executor):
     coll.primitive[UserId](
       selector = $doc(
         "tid" -> tourId,
-        "uid" $startsWith term.value
+        "uid".$startsWith(term.value)
       ),
-      sort = $sort desc "m",
+      sort = $sort.desc("m"),
       nb = nb,
       field = "uid"
     )
@@ -341,6 +343,6 @@ final class PlayerRepo(coll: Coll)(using Executor):
   ): AkkaStreamCursor[Player] =
     coll
       .find(selectTour(tournamentId))
-      .sort($sort desc "m")
+      .sort($sort.desc("m"))
       .batchSize(batchSize)
       .cursor[Player](readPref)

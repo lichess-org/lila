@@ -276,6 +276,7 @@
   <string name="abortGame">Avbryt partiet</string>
   <string name="gameAborted">Partiet blei avbrote</string>
   <string name="standard">Standard</string>
+  <string name="customPosition">Brukardefinert stilling</string>
   <string name="unlimited">Uavgrensa</string>
   <string name="mode">Modus</string>
   <string name="casual">Urangert</string>
@@ -532,7 +533,7 @@ få en computeranalyse, chatte eller dele ein URL.</string>
   <string name="automaticallyProceedToNextGameAfterMoving">Gå automatisk til neste parti etter trekk</string>
   <string name="autoSwitch">Hopp automatisk til neste parti</string>
   <string name="puzzles">Sjakknøtter</string>
-  <string name="tournamentWinners">Turneringsvinnarar</string>
+  <string name="onlineBots">Online botar</string>
   <string name="name">Namn</string>
   <string name="description">Forklaring</string>
   <string name="descPrivate">Privat omtale</string>
@@ -941,8 +942,6 @@ og påverkar rangeringa til spelarane</string>
   <string name="minimumRatedGames">Minste antal rangerte parti</string>
   <string name="minimumRating">Lågaste rating</string>
   <string name="maximumWeeklyRating">Høgste rating siste veke</string>
-  <string name="onlyTitled">Berre spelarar med sjakktittel</string>
-  <string name="onlyTitledHelp">Krev ein offisiell sjakktittel for å delta med i turneringa</string>
   <string name="positionInputHelp">Sett inn ein gyldig FEN for å starte kvart parti frå gjeven stilling.
 Det fungerar berre for standardparti, ikke for variantar.
 Du kan bruke %s for å generere en FEN-stilling, som du limar inn her.
@@ -991,4 +990,5 @@ La feltet stå tomt for å starte partia frå den normale utgangsstillinga.</str
   <string name="showMeEverything">Vis alt</string>
   <string name="lichessPatronInfo">Lichess er ein velgjerdsorganisasjon basert på fritt tilgjengeleg open-kjeldekode-programvare.
 Alle kostnader for drift, utvikling og innhald vert finansiert eine og åleine av brukardonasjonar.</string>
+  <string name="nothingToSeeHere">Ikkje noko å sjå nett no.</string>
 </resources>

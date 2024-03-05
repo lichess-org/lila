@@ -18,8 +18,8 @@ object SetupForm:
   val filter = Form(single("local" -> text))
 
   def aiFilled(fen: Option[Fen.Epd]): Form[AiConfig] =
-    ai fill fen.foldLeft(AiConfig.default): (config, f) =>
-      config.copy(fen = f.some, variant = chess.variant.FromPosition)
+    ai.fill(fen.foldLeft(AiConfig.default): (config, f) =>
+      config.copy(fen = f.some, variant = chess.variant.FromPosition))
 
   lazy val ai = Form:
     mapping(
@@ -36,8 +36,8 @@ object SetupForm:
       .verifying("Can't play that time control from a position", _.timeControlFromPosition)
 
   def friendFilled(fen: Option[Fen.Epd])(using Option[Me]): Form[FriendConfig] =
-    friend fill fen.foldLeft(FriendConfig.default): (config, f) =>
-      config.copy(fen = f.some, variant = chess.variant.FromPosition)
+    friend.fill(fen.foldLeft(FriendConfig.default): (config, f) =>
+      config.copy(fen = f.some, variant = chess.variant.FromPosition))
 
   def friend(using me: Option[Me]) = Form:
     mapping(
@@ -56,7 +56,7 @@ object SetupForm:
       .verifying("invalidFen", _.validFen)
 
   def hookFilled(timeModeString: Option[String])(using me: Option[Me]): Form[HookConfig] =
-    hook fill HookConfig.default(me.isDefined).withTimeModeString(timeModeString)
+    hook.fill(HookConfig.default(me.isDefined).withTimeModeString(timeModeString))
 
   def hook(using me: Option[Me]) = Form:
     mapping(
@@ -128,7 +128,7 @@ object SetupForm:
     )
 
     def user(using from: Me) =
-      Form(challengeMapping.verifying("Invalid speed", _ validSpeed from.isBot))
+      Form(challengeMapping.verifying("Invalid speed", _.validSpeed(from.isBot)))
 
     def admin = Form(challengeMapping)
 

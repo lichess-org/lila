@@ -36,7 +36,7 @@ object show:
               timeout = c.timeout,
               public = true,
               resourceId = lila.chat.Chat.ResourceId(s"tournament/${c.chat.id}"),
-              localMod = ctx.userId has tour.createdBy,
+              localMod = ctx.userId.has(tour.createdBy),
               writeable = !c.locked
             ),
           "showRatings" -> ctx.pref.showRatings
@@ -66,6 +66,7 @@ object show:
           tournament.side(tour, verdicts, streamers, shieldOwner, chatOption.isDefined)
         ,
         div(cls := "tour__main")(div(cls := "box")),
-        tour.isCreated option div(cls := "tour__faq"):
+        tour.isCreated.option(div(cls := "tour__faq"):
           faq(tour.mode.rated.some, tour.isPrivate.option(tour.id))
+        )
       )

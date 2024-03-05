@@ -26,7 +26,7 @@ final private class DeviceApi(coll: Coll)(using Executor):
       .list(max)
 
   private[push] def findLastOneByUserId(platform: String)(userId: UserId): Fu[Option[Device]] =
-    findLastManyByUserId(platform, 1)(userId) dmap (_.headOption)
+    findLastManyByUserId(platform, 1)(userId).dmap(_.headOption)
 
   def register(user: User, platform: String, deviceId: String)(using req: RequestHeader) =
     lila.mon.push.register.in(platform).increment()

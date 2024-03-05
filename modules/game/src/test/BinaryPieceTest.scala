@@ -10,7 +10,7 @@ class BinaryPieceTest extends munit.FunSuite:
 
   val noop = "00000000"
   def write(all: PieceMap): List[String] =
-    (BinaryFormat.piece write all).showBytes.split(',').toList
+    (BinaryFormat.piece.write(all)).showBytes.split(',').toList
   def read(bytes: List[String]): PieceMap =
     BinaryFormat.piece.read(ByteArray.parseBytes(bytes), Standard)
 

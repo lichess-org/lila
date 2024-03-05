@@ -9,19 +9,19 @@ case class TutorFullReport(
     perfs: List[TutorPerfReport]
 ):
   def apply(perfType: PerfType) = perfs.find(_.perf == perfType)
-  def isFresh = at isAfter nowInstant.minusMinutes(TutorFullReport.freshness.toMinutes.toInt)
+  def isFresh = at.isAfter(nowInstant.minusMinutes(TutorFullReport.freshness.toMinutes.toInt))
 
   lazy val nbGames = perfs.toList.map(_.stats.totalNbGames).sum
   lazy val totalTime: FiniteDuration =
     perfs.toList.flatMap(_.estimateTotalTime).foldLeft(0.minutes)(_ + _)
 
-  def favouritePerfs: List[TutorPerfReport] = perfs.headOption so {
+  def favouritePerfs: List[TutorPerfReport] = perfs.headOption.so {
     _ :: perfs.tailSafe.takeWhile: perf =>
       perf.estimateTotalTime.exists(_ > totalTime * 0.25)
   }
 
   def percentTimeOf(perf: PerfType): Option[GoodPercent] =
-    apply(perf).flatMap(_.estimateTotalTime) map { time =>
+    apply(perf).flatMap(_.estimateTotalTime).map { time =>
       GoodPercent(time.toSeconds.toDouble, totalTime.toSeconds.toDouble)
     }
 
@@ -33,13 +33,15 @@ case class TutorFullReport(
   def ponderedHighlights(compFilter: AnyComparison => Boolean)(nb: Int): List[(AnyComparison, PerfType)] =
     perfs
       .flatMap: p =>
-        TutorCompare.sortAndPreventRepetitions(
-          p.relevantComparisons.filter(compFilter)
-        )(Math.ceil(nb.toDouble * p.stats.totalNbGames / nbGames).toInt) map (_ -> p.perf)
+        TutorCompare
+          .sortAndPreventRepetitions(
+            p.relevantComparisons.filter(compFilter)
+          )(Math.ceil(nb.toDouble * p.stats.totalNbGames / nbGames).toInt)
+          .map(_ -> p.perf)
       .sortBy(-_._1.grade.abs)
       .take(nb)
 
-  override def toString = s"Report($user, $at, ${perfs.map(_.perf.key) mkString "+"})"
+  override def toString = s"Report($user, $at, ${perfs.map(_.perf.key).mkString("+")})"
 
 object TutorFullReport:
 

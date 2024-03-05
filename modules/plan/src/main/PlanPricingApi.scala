@@ -4,7 +4,7 @@ import java.util.Currency
 
 case class PlanPricing(suggestions: List[Money], min: Money, max: Money, lifetime: Money):
 
-  val default = suggestions.lift(1) orElse suggestions.headOption getOrElse min
+  val default = suggestions.lift(1).orElse(suggestions.headOption).getOrElse(min)
 
   def currency     = min.currency
   def currencyCode = currency.getCurrencyCode
@@ -45,12 +45,12 @@ final class PlanPricingApi(currencyApi: CurrencyApi)(using Executor):
   def pricingOrDefault(currency: Currency): Fu[PlanPricing] = pricingFor(currency).dmap(_ | usdPricing)
 
   def isLifetime(money: Money): Fu[Boolean] =
-    pricingFor(money.currency) map {
+    pricingFor(money.currency).map {
       _.exists(_.lifetime.amount <= money.amount)
     }
 
   private def convertAndRound(money: Money, to: Currency): Fu[Option[Money]] =
-    currencyApi.convert(money, to) map2 { case Money(amount, locale) =>
+    currencyApi.convert(money, to).map2 { case Money(amount, locale) =>
       Money(PlanPricingApi.nicelyRound(amount), locale)
     }
 
@@ -61,7 +61,7 @@ object PlanPricingApi:
     val scale    = math.floor(math.log10(double));
     val fraction = if scale > 1 then 2d else 1d
     math.round(double * fraction * math.pow(10, -scale)) / fraction / math.pow(10, -scale)
-  } atLeast 1
+  }.atLeast(1)
 
   import play.api.libs.json.*
   val pricingWrites = OWrites[PlanPricing] { p =>

@@ -12,9 +12,9 @@ object page:
     views.html.base.layout(
       moreCss = cssTag("page"),
       title = p.title,
-      moreJs = p.key == CmsPage.Key("fair-play") option embedJsUnsafeLoadThen("""$('.slist td').each(function() {
+      moreJs = (p.key == CmsPage.Key("fair-play")).option(embedJsUnsafeLoadThen("""$('.slist td').each(function() {
 if (this.innerText == 'YES') this.style.color = 'green'; else if (this.innerText == 'NO') this.style.color = 'red';
-})""")
+})"""))
     ):
       main(cls := "page-small box box-pad page force-ltr")(pageContent(p))
 

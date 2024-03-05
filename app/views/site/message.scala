@@ -20,8 +20,8 @@ object message:
     views.html.base.layout(title = title, moreCss = ~moreCss):
       main(cls := "box box-pad")(
         boxTop(
-          h1(dataIcon := icon ifTrue back.isEmpty, cls := List("text" -> (icon.isDefined && back.isEmpty)))(
-            back map { url =>
+          h1(dataIcon := icon.ifTrue(back.isEmpty), cls := List("text" -> (icon.isDefined && back.isEmpty)))(
+            back.map { url =>
               a(href := url, dataIcon := licon.LessThan, cls := "text")
             },
             title
@@ -57,8 +57,10 @@ object message:
       back = routes.Study.allDefault().url.some
     )(
       "Sorry! This study is private, you cannot access it.",
-      isGranted(_.StudyAdmin) option postForm(action := routes.Study.admin(study.id))(
-        submitButton("View as admin")(cls := "button button-red")
+      isGranted(_.StudyAdmin).option(
+        postForm(action := routes.Study.admin(study.id))(
+          submitButton("View as admin")(cls := "button button-red")
+        )
       )
     )
 

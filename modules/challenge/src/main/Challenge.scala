@@ -72,8 +72,8 @@ case class Challenge(
 
   def setChallenger(u: GameUser, secret: Option[String]) =
     copy(
-      challenger = u.map(toRegistered) orElse
-        secret.map(Challenger.Anonymous.apply) getOrElse Challenger.Open
+      challenger =
+        u.map(toRegistered).orElse(secret.map(Challenger.Anonymous.apply)).getOrElse(Challenger.Open)
     )
   def setDestUser(u: User.WithPerf) = copy(destUser = toRegistered(u).some)
 
@@ -99,7 +99,7 @@ case class Challenge(
   def isBoardCompatible: Boolean = speed >= Speed.Blitz
   def isBotCompatible: Boolean   = speed >= Speed.Bullet
 
-  def nonEmptyRules = rules.nonEmpty option rules
+  def nonEmptyRules = rules.nonEmpty.option(rules)
 
 object Challenge:
 
@@ -155,7 +155,7 @@ object Challenge:
     def realTime: Option[chess.Clock.Config] = none
   object TimeControl:
     def make(clock: Option[chess.Clock.Config], days: Option[Days]) =
-      clock.map(Clock.apply).orElse(days map Correspondence.apply).getOrElse(Unlimited)
+      clock.map(Clock.apply).orElse(days.map(Correspondence.apply)).getOrElse(Unlimited)
     case object Unlimited                 extends TimeControl
     case class Correspondence(days: Days) extends TimeControl
     case class Clock(config: chess.Clock.Config) extends TimeControl:
@@ -177,8 +177,8 @@ object Challenge:
     def colorFor(requestedColor: Option[Color])(using me: Option[Me]): Option[ColorChoice] =
       userIds.fold(requestedColor.fold(ColorChoice.Random)(ColorChoice.apply).some): (u1, u2) =>
         me.flatMap: m =>
-          if m is u1 then ColorChoice.White.some
-          else if m is u2 then ColorChoice.Black.some
+          if m.is(u1) then ColorChoice.White.some
+          else if m.is(u2) then ColorChoice.Black.some
           else none
 
   private def speedOf(timeControl: TimeControl) = timeControl match
@@ -190,7 +190,7 @@ object Challenge:
 
   private val idSize = 8
 
-  private def randomId = ThreadLocalRandom nextString idSize
+  private def randomId = ThreadLocalRandom.nextString(idSize)
 
   def toRegistered(u: User.WithPerf): Challenger.Registered =
     Challenger.Registered(u.id, Rating(u.perf))
@@ -229,20 +229,20 @@ object Challenge:
         else if variant == Chess960 then
           initialFen.filter: fen =>
             Chess960.positionNumber(fen).isDefined
-        else !variant.standardInitialPosition option variant.initialFen,
+        else (!variant.standardInitialPosition).option(variant.initialFen),
       timeControl = timeControl,
       mode = finalMode,
       colorChoice = colorChoice,
       finalColor = finalColor,
       challenger = challenger,
-      destUser = destUser map toRegistered,
+      destUser = destUser.map(toRegistered),
       rematchOf = rematchOf,
       createdAt = nowInstant,
-      seenAt = !isOpen option nowInstant,
+      seenAt = (!isOpen).option(nowInstant),
       expiresAt = expiresAt | {
         if isOpen then nowInstant.plusDays(1) else inTwoWeeks
       },
-      open = isOpen option Open(openToUserIds),
+      open = isOpen.option(Open(openToUserIds)),
       name = name,
       rules = rules
     )

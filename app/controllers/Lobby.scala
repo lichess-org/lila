@@ -29,14 +29,15 @@ final class Lobby(env: Env) extends LilaController(env):
     )
 
   private def serveHtmlHome(using ctx: Context) =
-    env.pageCache { () =>
-      keyPages.homeHtml.map: html =>
-        Ok(html).withCanonical("").noCache
-    } map env.lilaCookie.ensure(ctx.req)
+    env
+      .pageCache { () =>
+        keyPages.homeHtml.map: html =>
+          Ok(html).withCanonical("").noCache
+      }
+      .map(env.lilaCookie.ensure(ctx.req))
 
   def homeLang(lang: String) =
-    staticRedirect(lang).map(Action.async(_)) getOrElse
-      LangPage("/")(serveHtmlHome)(lang)
+    staticRedirect(lang).map(Action.async(_)).getOrElse(LangPage("/")(serveHtmlHome)(lang))
 
   def handleStatus(status: Results.Status)(using RequestHeader): Fu[Result] =
     makeContext.flatMap: ctx =>
@@ -44,7 +45,7 @@ final class Lobby(env: Env) extends LilaController(env):
 
   def seeks = OpenOrScoped():
     negotiateJson:
-      ctx.me.fold(env.lobby.seekApi.forAnon)(me => env.lobby.seekApi.forMe(using me)) map { seeks =>
+      ctx.me.fold(env.lobby.seekApi.forAnon)(me => env.lobby.seekApi.forMe(using me)).map { seeks =>
         Ok(JsArray(seeks.map(_.render))).withHeaders(CACHE_CONTROL -> s"max-age=10")
       }
 

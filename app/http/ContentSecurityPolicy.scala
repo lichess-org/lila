@@ -95,7 +95,7 @@ case class ContentSecurityPolicy(
       "script-src "  -> scriptSrc,
       "font-src "    -> fontSrc,
       "base-uri "    -> baseUri
-    ) collect {
+    ).collect {
       case (directive, sources) if sources.nonEmpty =>
         sources.mkString(directive, " ", ";")
-    } mkString " "
+    }.mkString(" ")

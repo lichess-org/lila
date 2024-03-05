@@ -24,7 +24,7 @@ final private class TournamentBusHandler(
     case lila.hub.actorApi.mod.MarkCheater(userId, true) =>
       ejectFromEnterable(userId) >>
         leaderboard
-          .getAndDeleteRecent(userId, nowInstant minusDays 30)
+          .getAndDeleteRecent(userId, nowInstant.minusDays(30))
           .flatMap {
             _.map {
               api.removePlayerAndRewriteHistory(_, userId)
@@ -41,7 +41,7 @@ final private class TournamentBusHandler(
     case lila.playban.SittingDetected(game, player)          => api.sittingDetected(game, player)
 
   private def ejectFromEnterable(userId: UserId) =
-    tournamentRepo.withdrawableIds(userId, reason = "ejectFromEnterable") flatMap {
+    tournamentRepo.withdrawableIds(userId, reason = "ejectFromEnterable").flatMap {
       _.traverse_ {
         api.ejectLameFromEnterable(_, userId)
       }

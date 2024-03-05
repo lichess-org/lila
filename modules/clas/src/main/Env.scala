@@ -46,11 +46,11 @@ final class Env(
     },
     "clas" -> {
       case lila.hub.actorApi.clas.IsTeacherOf(teacher, student, promise) =>
-        promise completeWith api.clas.isTeacherOf(teacher, student)
+        promise.completeWith(api.clas.isTeacherOf(teacher, student))
       case lila.hub.actorApi.clas.AreKidsInSameClass(kid1, kid2, promise) =>
-        promise completeWith api.clas.areKidsInSameClass(kid1, kid2)
+        promise.completeWith(api.clas.areKidsInSameClass(kid1, kid2))
       case lila.hub.actorApi.clas.ClasMatesAndTeachers(kid, promise) =>
-        promise completeWith matesCache.get(kid.id)
+        promise.completeWith(matesCache.get(kid.id))
     }
   )
 

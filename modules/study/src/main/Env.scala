@@ -36,7 +36,7 @@ final class Env(
   private lazy val studyDb = mongo.asyncDb("study", appConfig.get[String]("study.mongodb.uri"))
 
   def version(studyId: StudyId): Fu[SocketVersion] =
-    socket.rooms.ask[SocketVersion](studyId into RoomId)(GetVersion.apply)
+    socket.rooms.ask[SocketVersion](studyId.into(RoomId))(GetVersion.apply)
 
   def isConnected(studyId: StudyId, userId: UserId): Fu[Boolean] =
     socket.isPresent(studyId, userId)

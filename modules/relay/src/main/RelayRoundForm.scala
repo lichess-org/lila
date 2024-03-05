@@ -51,15 +51,15 @@ final class RelayRoundForm:
     )
   )
 
-  def edit(r: RelayRound) = Form(roundMapping) fill Data.make(r)
+  def edit(r: RelayRound) = Form(roundMapping).fill(Data.make(r))
 
 object RelayRoundForm:
 
   case class GameIds(ids: List[GameId])
 
   private def toGameIds(ids: String): Option[GameIds] =
-    val list = ids.split(' ').view.flatMap(i => GameId from i.trim).toList
-    (list.sizeIs > 0 && list.sizeIs <= Study.maxChapters) option GameIds(list)
+    val list = ids.split(' ').view.flatMap(i => GameId.from(i.trim)).toList
+    (list.sizeIs > 0 && list.sizeIs <= Study.maxChapters).option(GameIds(list))
 
   private def validSource(source: String): Boolean =
     cleanUrl(source).isDefined || toGameIds(source).isDefined
@@ -112,11 +112,11 @@ object RelayRoundForm:
       delay: Option[Seconds] = None
   ):
 
-    def requiresRound = syncUrl exists RelayRound.Sync.UpstreamUrl.LccRegex.matches
+    def requiresRound = syncUrl.exists(RelayRound.Sync.UpstreamUrl.LccRegex.matches)
 
     def roundMissing = requiresRound && syncUrlRound.isEmpty
 
-    def gameIds = syncUrl flatMap toGameIds
+    def gameIds = syncUrl.flatMap(toGameIds)
 
     def update(relay: RelayRound)(using me: Me) =
       relay.copy(
@@ -130,14 +130,17 @@ object RelayRoundForm:
 
     private def makeSync(user: User) =
       RelayRound.Sync(
-        upstream = syncUrl.flatMap(cleanUrl).map { u =>
-          RelayRound.Sync.UpstreamUrl(s"$u${syncUrlRound.so(" " +)}")
-        } orElse gameIds.map { ids =>
-          RelayRound.Sync.UpstreamIds(ids.ids)
-        },
+        upstream = syncUrl
+          .flatMap(cleanUrl)
+          .map { u =>
+            RelayRound.Sync.UpstreamUrl(s"$u${syncUrlRound.so(" " +)}")
+          }
+          .orElse(gameIds.map { ids =>
+            RelayRound.Sync.UpstreamIds(ids.ids)
+          }),
         until = none,
         nextAt = none,
-        period = period ifTrue Granter.of(_.StudyAdmin)(user),
+        period = period.ifTrue(Granter.of(_.StudyAdmin)(user)),
         delay = delay,
         log = SyncLog.empty
       )
@@ -162,13 +165,13 @@ object RelayRoundForm:
       Data(
         name = relay.name,
         caption = relay.caption,
-        syncUrl = relay.sync.upstream map {
+        syncUrl = relay.sync.upstream.map {
           case url: RelayRound.Sync.UpstreamUrl => url.withRound.url
-          case RelayRound.Sync.UpstreamIds(ids) => ids mkString " "
+          case RelayRound.Sync.UpstreamIds(ids) => ids.mkString(" ")
         },
         syncUrlRound = relay.sync.upstream.flatMap(_.asUrl).flatMap(_.withRound.round),
         startsAt = relay.startsAt,
-        finished = relay.finished option true,
+        finished = relay.finished.option(true),
         period = relay.sync.period,
         delay = relay.sync.delay
       )

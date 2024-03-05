@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+  <string name="swiss">Suís</string>
   <string name="swissTournaments">Tornejos suïssos</string>
   <plurals name="viewAllXRounds" comment="viewAllXRounds [one] [other]&#10;&#10;%s is the number of rounds in the Swiss tournament.">
     <item quantity="one">Veure la ronda</item>
@@ -38,6 +39,16 @@
   <string name="roundInterval">Interval entre rondes</string>
   <string name="forbiddenPairings">Emparellaments prohibits</string>
   <string name="forbiddenPairingsHelp">Nom d\'usuari dels jugadors que no han de jugar junts (Germans, per exemple). Dos noms d\'usuari per línia, separats per un espai.</string>
+  <string name="manualPairings">Emparellament manual la següent ronda</string>
+  <string name="manualPairingsHelp">Especifiqueu manualment els aparellaments de la següent ronda. Una parella de jugadors per línia. Exemple:
+JugadorA JugadorB
+JugadorC JugadorD
+Per donar un descans (1 punt) a un jugador en lloc d\'aparellar-lo, afegiu una línia com aquesta:
+JugadorE 1
+Els jugadors desapareguts seran considerats absents i obtindran zero punts.
+Deixeu aquest camp buit perquè Lichess creï aparellaments automàticament.</string>
+  <string name="mustHavePlayedTheirLastSwissGame">Han d\'haver jugat les seves últimes partides suïsses</string>
+  <string name="mustHavePlayedTheirLastSwissGameHelp">Deixeu entrar només jugadors que han completat les seves últimes partides suïsses. Si no s\'han presentat a un torneig suïs recent no podran entrar el vostre. Resulta en una millor experiència per als jugadors que realment es presenten als tornejos.</string>
   <string name="newSwiss">Nou torneig Suís</string>
   <string name="swissVsArenaQ">Quan utilitzar tornejos suïssos en comptes de tornejos arena?</string>
   <string name="swissVsArenaA">En un torneig suïs tots els participants juguen el mateix nombre de partides i només poden jugar una vegada contra el mateix rival.
@@ -114,4 +125,7 @@ El més a prop que pots arribar a un emparellament de tots contra tots en línia
   <string name="predefinedUsers">Permet només entrar usuaris predefinits</string>
   <string name="forbiddedUsers">Si aquesta llista no es buida els noms d\'usuaris que no estan a la llista no podran entrar al torneig. Un nom d\'usuari per línia.</string>
   <string name="playYourGames">Juga les teves partides</string>
+  <string name="byes">Descansos</string>
+  <string name="absences">Absències</string>
+  <string name="tieBreak">Desempat</string>
 </resources>

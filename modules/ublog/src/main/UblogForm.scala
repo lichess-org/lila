@@ -68,7 +68,7 @@ object UblogForm:
         intro = intro,
         markdown = markdown,
         language = language.orElse(user.language) | defaultLanguage,
-        topics = topics so UblogTopic.fromStrList,
+        topics = topics.so(UblogTopic.fromStrList),
         image = none,
         live = false,
         discuss = Option(false),
@@ -89,11 +89,11 @@ object UblogForm:
         image = prev.image.map: i =>
           i.copy(alt = imageAlt, credit = imageCredit),
         language = language | prev.language,
-        topics = topics so UblogTopic.fromStrList,
+        topics = topics.so(UblogTopic.fromStrList),
         live = live,
         discuss = Option(discuss),
         updated = UblogPost.Recorded(user.id, nowInstant).some,
-        lived = prev.lived orElse live.option(UblogPost.Recorded(user.id, nowInstant))
+        lived = prev.lived.orElse(live.option(UblogPost.Recorded(user.id, nowInstant)))
       )
 
   private val tierMapping =

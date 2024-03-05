@@ -106,20 +106,22 @@ object RawHtml:
           lazy val url     = (if isHttp then "http://" else "https://") + allButScheme
           lazy val text    = if isHttp then url else allButScheme
 
-          sb append {
+          sb.append {
             if isTldInternal then
-              linkRender flatMap { _(allButScheme, text).map(_.render) } getOrElse s"""<a href="${
-                  if allButScheme.isEmpty then "/"
-                  else allButScheme
-                }">${allButScheme match
-                  case USER_LINK(user) => "@" + user
-                  case _               => s"${netDomain}$allButScheme"
-                }</a>"""
+              linkRender
+                .flatMap { _(allButScheme, text).map(_.render) }
+                .getOrElse(s"""<a href="${
+                    if allButScheme.isEmpty then "/"
+                    else allButScheme
+                  }">${allButScheme match
+                    case USER_LINK(user) => "@" + user
+                    case _               => s"${netDomain}$allButScheme"
+                  }</a>""")
             else
               {
                 if (end < sArr.length && sArr(end) == '"') || !expandImg then None
                 else imgUrl(url)
-              } getOrElse {
+              }.getOrElse {
                 s"""<a rel="nofollow noopener noreferrer" href="$url" target="_blank">$text</a>"""
               }
           }
@@ -132,7 +134,7 @@ object RawHtml:
         sb.toString
     } match
       case one :: Nil => Html(one)
-      case many       => Html(many mkString "")
+      case many       => Html(many.mkString(""))
 
   private[this] def adjustUrlEnd(sArr: Array[Char], start: Int, end: Int): Int =
     var last = end - 1
@@ -168,22 +170,23 @@ object RawHtml:
   private[this] val postimgRegex = """https://(?:i\.)?postimg\.cc/([\w/-]+)(?:\.jpe?g|\.png|\.gif)?""".r
 
   private[this] def imgUrl(url: String): Option[Html] =
-    url match {
-      case imgurRegex(id)   => Some(s"""https://i.imgur.com/$id.jpg""")
-      case giphyRegex(id)   => Some(s"""https://media.giphy.com/media/$id/giphy.gif""")
-      case postimgRegex(id) => Some(s"""https://i.postimg.cc/$id.jpg""")
-      case _                => None
-    } map { img =>
-      Html(s"""<img class="embed" src="$img" alt="$url"/>""")
-    }
+    url
+      .match
+        case imgurRegex(id)   => Some(s"""https://i.imgur.com/$id.jpg""")
+        case giphyRegex(id)   => Some(s"""https://media.giphy.com/media/$id/giphy.gif""")
+        case postimgRegex(id) => Some(s"""https://i.postimg.cc/$id.jpg""")
+        case _                => None
+      .map { img =>
+        Html(s"""<img class="embed" src="$img" alt="$url"/>""")
+      }
 
   private[this] val markdownLinkRegex = """\[([^]]++)\]\((https?://[^)]++)\)""".r
   def justMarkdownLinks(escapedHtml: Html): Html = Html {
     markdownLinkRegex.replaceAllIn(
       escapedHtml.value,
       m =>
-        val content = Matcher.quoteReplacement(m group 1)
-        val href    = removeUrlTrackingParameters(m group 2)
+        val content = Matcher.quoteReplacement(m.group(1))
+        val href    = removeUrlTrackingParameters(m.group(2))
         s"""<a rel="nofollow noopener noreferrer" href="$href">$content</a>"""
     )
   }

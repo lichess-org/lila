@@ -25,7 +25,7 @@ final class ClasForm(
           str =>
             val ids = readTeacherIds(str)
             ids.nonEmpty && ids.sizeIs <= 10 && ids.forall { id =>
-              blockingFetchUser(id into UserStr).isDefined
+              blockingFetchUser(id.into(UserStr)).isDefined
             }
         )
       )(ClasData.apply)(unapply)
@@ -34,10 +34,12 @@ final class ClasForm(
     def create = form
 
     def edit(c: Clas) =
-      form fill ClasData(
-        name = c.name,
-        desc = c.desc,
-        teachers = c.teachers.toList mkString "\n"
+      form.fill(
+        ClasData(
+          name = c.name,
+          desc = c.desc,
+          teachers = c.teachers.toList.mkString("\n")
+        )
       )
 
     def wall = Form(single("wall" -> text(maxLength = 100_000).into[Markdown]))
@@ -54,9 +56,11 @@ final class ClasForm(
 
     def generate(using Lang): Fu[Form[CreateStudent]] =
       nameGenerator().map: username =>
-        create fill CreateStudent(
-          username = username | UserName(""),
-          realName = ""
+        create.fill(
+          CreateStudent(
+            username = username | UserName(""),
+            realName = ""
+          )
         )
 
     def invite(c: Clas) = Form:
@@ -72,7 +76,7 @@ final class ClasForm(
         "realName" -> cleanNonEmptyText,
         "notes"    -> text(maxLength = 20000)
       )(StudentData.apply)(unapply)
-    ) fill StudentData(s.realName, s.notes)
+    ).fill(StudentData(s.realName, s.notes))
 
     def release = Form(single("email" -> securityForms.signup.emailField))
 
@@ -123,4 +127,4 @@ object ClasForm:
 
   case class ManyNewStudent(realNamesText: String):
     def realNames =
-      realNamesText.linesIterator.map(_.trim take realNameMaxSize).filter(_.nonEmpty).distinct.toList
+      realNamesText.linesIterator.map(_.trim.take(realNameMaxSize)).filter(_.nonEmpty).distinct.toList

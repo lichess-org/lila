@@ -38,7 +38,7 @@ object PuzzleHistory:
               Sort(Descending("d")),
               Skip(offset),
               Limit(length),
-              PipelineOperator(PuzzleRound puzzleLookup colls),
+              PipelineOperator(PuzzleRound.puzzleLookup(colls)),
               Unwind("puzzle")
             )
 
@@ -58,7 +58,7 @@ object PuzzleHistory:
         case (Nil, round) => List(PuzzleSession(round.theme, NonEmptyList(round, Nil)))
         case (last :: sessions, r) =>
           if last.puzzles.head.theme == r.theme &&
-            r.round.date.isAfter(last.puzzles.head.round.date minusHours 1)
+            r.round.date.isAfter(last.puzzles.head.round.date.minusHours(1))
           then last.copy(puzzles = r :: last.puzzles) :: sessions
           else PuzzleSession(r.theme, NonEmptyList(r, Nil)) :: last :: sessions
       .reverse

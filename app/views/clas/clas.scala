@@ -54,12 +54,14 @@ object clas:
       ),
       if current.isEmpty then frag(hr, p(cls := "box__pad classes__empty")(trans.clas.noClassesYet()))
       else renderClasses(current),
-      (closed || others.nonEmpty) option div(cls := "clas-index__others")(
-        a(href := s"${clasRoutes.index}?closed=${!closed}")(
-          others.size.localize,
-          " ",
-          if closed then "active" else "archived",
-          if others.size == 1 then " class" else " classes"
+      (closed || others.nonEmpty).option(
+        div(cls := "clas-index__others")(
+          a(href := s"${clasRoutes.index}?closed=${!closed}")(
+            others.size.localize,
+            " ",
+            if closed then "active" else "archived",
+            if others.size == 1 then " class" else " classes"
+          )
         )
       )
     )
@@ -106,12 +108,14 @@ object clas:
       div(cls := "box-pad")(
         innerForm(form, c.some),
         hr,
-        c.isActive option postForm(
-          action := clasRoutes.archive(c.id.value, v = true),
-          cls    := "clas-edit__archive"
-        )(
-          form3.submit(trans.clas.closeClass(), icon = none)(
-            cls := "confirm button-red button-empty"
+        c.isActive.option(
+          postForm(
+            action := clasRoutes.archive(c.id.value, v = true),
+            cls    := "clas-edit__archive"
+          )(
+            form3.submit(trans.clas.closeClass(), icon = none)(
+              cls := "confirm button-red button-empty"
+            )
           )
         )
       )
@@ -149,7 +153,7 @@ object clas:
         help = trans.clas.visibleByBothStudentsAndTeachers().some
       )(form3.textarea(_)(rows := 5)),
       clas match
-        case None => form3.hidden(form("teachers"), UserId raw ctx.userId)
+        case None => form3.hidden(form("teachers"), UserId.raw(ctx.userId))
         case Some(_) =>
           form3.group(
             form("teachers"),

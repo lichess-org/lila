@@ -10,9 +10,9 @@ final class AsyncColl(val name: CollName, resolve: () => Fu[Coll])(using Executo
 
   def get: Fu[Coll] = resolve()
 
-  def apply[A](f: Coll => Fu[A]) = get flatMap f
+  def apply[A](f: Coll => Fu[A]) = get.flatMap(f)
 
-  def map[A](f: Coll => A): Fu[A] = get map f
+  def map[A](f: Coll => A): Fu[A] = get.map(f)
 
   def failingSilently(timeout: FiniteDuration = 500 millis)(using Scheduler) =
     AsyncCollFailingSilently(this, timeout)

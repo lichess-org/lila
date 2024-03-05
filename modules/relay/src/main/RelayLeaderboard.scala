@@ -36,20 +36,20 @@ final class RelayLeaderboardApi(
   import BSONHandlers.given
 
   def apply(tour: RelayTour): Fu[Option[RelayLeaderboard]] = tour.autoLeaderboard.soFu:
-    cache get tour.id
+    cache.get(tour.id)
 
   private val invalidateDebouncer =
     lila.common.Debouncer[RelayTour.Id](10 seconds, 64)(id => cache.put(id, compute(id)))
 
-  def invalidate(id: RelayTour.Id) = invalidateDebouncer push id
+  def invalidate(id: RelayTour.Id) = invalidateDebouncer.push(id)
 
   private val cache = cacheApi[RelayTour.Id, RelayLeaderboard](256, "relay.leaderboard"):
     _.expireAfterWrite(10 minutes).buildAsyncFuture(compute)
 
   private def compute(id: RelayTour.Id): Fu[RelayLeaderboard] = for
-    tour     <- tourRepo.coll.byId[RelayTour](id) orFail s"No such relay tour $id"
+    tour     <- tourRepo.coll.byId[RelayTour](id).orFail(s"No such relay tour $id")
     roundIds <- roundRepo.idsByTourOrdered(tour)
-    tags     <- chapterRepo.tagsByStudyIds(roundIds.map(_ into StudyId))
+    tags     <- chapterRepo.tagsByStudyIds(roundIds.map(_.into(StudyId)))
     players = tags.foldLeft(Map.empty[String, (Double, Int, Option[Int], Option[UserTitle], Option[FideId])]):
       (lead, game) =>
         chess.Color.all.foldLeft(lead): (lead, color) =>
@@ -65,12 +65,14 @@ final class RelayLeaderboardApi(
               (
                 prevScore + score,
                 prevPlayed + played,
-                game.elos(color) orElse prevRating,
-                prevTitle orElse UserTitle.from(game.titles(color)),
-                prevFideId orElse game.fideIds(color)
+                game.elos(color).orElse(prevRating),
+                prevTitle.orElse(UserTitle.from(game.titles(color))),
+                prevFideId.orElse(game.fideIds(color))
               )
             )
   yield RelayLeaderboard:
-    players.toList.sortBy(-_._2._1) map:
-      case (name, (score, played, rating, title, fideId)) =>
-        RelayLeaderboard.Player(name, score, played, rating, title, fideId)
+    players.toList
+      .sortBy(-_._2._1)
+      .map:
+        case (name, (score, played, rating, title, fideId)) =>
+          RelayLeaderboard.Player(name, score, played, rating, title, fideId)

@@ -37,15 +37,17 @@ final private class RelayFormatApi(
         guessFormat(url)(using proxy)
 
   def get(upstream: UpstreamUrl.WithRound)(using proxy: CanProxy): Fu[RelayFormat] =
-    cache get (upstream -> proxy)
+    cache.get(upstream -> proxy)
 
   def refresh(upstream: UpstreamUrl.WithRound): Unit =
-    CanProxy.from(List(false, true)) foreach: proxy =>
-      cache invalidate (upstream -> proxy)
+    CanProxy
+      .from(List(false, true))
+      .foreach: proxy =>
+        cache.invalidate(upstream -> proxy)
 
   private def guessFormat(upstream: UpstreamUrl.WithRound)(using CanProxy): Fu[RelayFormat] = {
 
-    val originalUrl = URL parse upstream.url
+    val originalUrl = URL.parse(upstream.url)
 
     // http://view.livechesscloud.com/ed5fb586-f549-4029-a470-d590f8e30c76
     def guessLcc(url: URL)(using CanProxy): Fu[Option[RelayFormat]] =
@@ -59,9 +61,11 @@ final private class RelayFormatApi(
     def guessSingleFile(url: URL)(using CanProxy): Fu[Option[RelayFormat]] =
       List(
         url.some,
-        !url.pathSegments.contains(mostCommonSingleFileName) option addPart(url, mostCommonSingleFileName)
-      ).flatten.distinct.findM(looksLikePgn) dmap2: (u: URL) =>
-        SingleFile(pgnDoc(u))
+        (!url.pathSegments.contains(mostCommonSingleFileName)).option(addPart(url, mostCommonSingleFileName))
+      ).flatten.distinct
+        .findM(looksLikePgn)
+        .dmap2: (u: URL) =>
+          SingleFile(pgnDoc(u))
 
     def guessManyFiles(url: URL)(using CanProxy): Fu[Option[RelayFormat]] =
       (List(url) ::: mostCommonIndexNames
@@ -71,15 +75,17 @@ final private class RelayFormatApi(
         .flatMapz: index =>
           val jsonUrl = (n: Int) => jsonDoc(replaceLastPart(index, s"game-$n.json"))
           val pgnUrl  = (n: Int) => pgnDoc(replaceLastPart(index, s"game-$n.pgn"))
-          looksLikeJson(jsonUrl(1).url).map(_ option jsonUrl) orElse
-            looksLikePgn(pgnUrl(1).url).map(_ option pgnUrl) dmap2:
+          looksLikeJson(jsonUrl(1).url)
+            .map(_.option(jsonUrl))
+            .orElse(looksLikePgn(pgnUrl(1).url).map(_.option(pgnUrl)))
+            .dmap2:
               ManyFiles(index, _)
 
-    guessLcc(originalUrl) orElse
-      guessSingleFile(originalUrl) orElse
-      guessManyFiles(originalUrl) orFailWith
-      LilaInvalid(s"No games found at $originalUrl")
-  } addEffect { format =>
+    guessLcc(originalUrl)
+      .orElse(guessSingleFile(originalUrl))
+      .orElse(guessManyFiles(originalUrl))
+      .orFailWith(LilaInvalid(s"No games found at $originalUrl"))
+  }.addEffect { format =>
     logger.info(s"guessed format of $upstream: $format")
   }
 
@@ -95,7 +101,7 @@ final private class RelayFormatApi(
   private def responseHeaderCharset(res: StandaloneWSResponse): Option[java.nio.charset.Charset] =
     import play.shaded.ahc.org.asynchttpclient.util.HttpUtils
     Option(HttpUtils.extractContentTypeCharsetAttribute(res.contentType)).orElse:
-      res.contentType.startsWith("text/") option java.nio.charset.StandardCharsets.ISO_8859_1
+      res.contentType.startsWith("text/").option(java.nio.charset.StandardCharsets.ISO_8859_1)
 
   private def httpGetResponse(url: URL)(using CanProxy): Future[StandaloneWSResponse] =
     val (req, proxy) = addProxy(url):
@@ -126,14 +132,19 @@ final private class RelayFormatApi(
     server.foldLeft(ws)(_ withProxyServer _) -> server.map(_.host)
 
   private def looksLikePgn(body: String)(using CanProxy): Boolean =
-    MultiPgn.split(PgnStr(body), Max(1)).value.headOption so: pgn =>
-      lila.study.PgnImport(pgn, Nil).isRight
-  private def looksLikePgn(url: URL)(using CanProxy): Fu[Boolean] = httpGet(url) map looksLikePgn
+    MultiPgn
+      .split(PgnStr(body), Max(1))
+      .value
+      .headOption
+      .so: pgn =>
+        lila.study.PgnImport(pgn, Nil).isRight
+
+  private def looksLikePgn(url: URL)(using CanProxy): Fu[Boolean] = httpGet(url).map(looksLikePgn)
 
   private def looksLikeJson(body: String): Boolean =
     try Json.parse(body) != JsNull
     catch case _: Exception => false
-  private def looksLikeJson(url: URL)(using CanProxy): Fu[Boolean] = httpGet(url) map looksLikeJson
+  private def looksLikeJson(url: URL)(using CanProxy): Fu[Boolean] = httpGet(url).map(looksLikeJson)
 
 sealed private trait RelayFormat
 

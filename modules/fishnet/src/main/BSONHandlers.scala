@@ -9,7 +9,7 @@ import lila.analyse.Analysis
 private object BSONHandlers:
 
   given BSONHandler[Client.Skill] = tryHandler(
-    { case BSONString(v) => Client.Skill byKey v toTry s"Invalid client skill $v" },
+    { case BSONString(v) => Client.Skill.byKey(v).toTry(s"Invalid client skill $v") },
     x => BSONString(x.key)
   )
 

@@ -64,7 +64,8 @@ final class JsonView(
         "name"        -> c.name,
         "orientation" -> c.setup.orientation
       )
-      .add("description", c.description) pipe addChapterMode(c)
+      .add("description", c.description)
+      .pipe(addChapterMode(c))
 
   def pagerData(s: Study.WithChaptersAndLiked) =
     Json.obj(
@@ -89,7 +90,7 @@ final class JsonView(
     Json.obj("user" -> lightUserApi.syncFallback(m.id), "role" -> m.role)
 
   private[study] given Writes[StudyMembers] = Writes: m =>
-    Json toJson m.members
+    Json.toJson(m.members)
 
   private given OWrites[Study] = OWrites: s =>
     Json
@@ -164,7 +165,7 @@ object JsonView:
     )
 
   private given Reads[Square] = Reads: v =>
-    (v.asOpt[String] flatMap { Square.fromKey(_) }).fold[JsResult[Square]](JsError(Nil))(JsSuccess(_))
+    (v.asOpt[String].flatMap { Square.fromKey(_) }).fold[JsResult[Square]](JsError(Nil))(JsSuccess(_))
   private[study] given Writes[Sri]              = writeAs(_.value)
   private[study] given Writes[Study.Visibility] = writeAs(_.key)
   private[study] given Writes[Study.From] = Writes:
@@ -179,7 +180,7 @@ object JsonView:
     _.asOpt[JsObject]
       .flatMap { o =>
         for
-          brush <- o str "brush"
+          brush <- o.str("brush")
           orig  <- o.get[Square]("orig")
         yield o.get[Square]("dest") match
           case Some(dest) => Shape.Arrow(brush, orig, dest)
@@ -192,7 +193,7 @@ object JsonView:
   given Writes[chess.format.pgn.Tag] = Writes: t =>
     Json.arr(t.name.toString, t.value)
   given Writes[chess.format.pgn.Tags] = Writes: tags =>
-    JsArray(tags.value map Json.toJson)
+    JsArray(tags.value.map(Json.toJson))
   private given OWrites[Chapter.Setup] = Json.writes
 
   given OWrites[Chapter.Metadata] = OWrites: c =>

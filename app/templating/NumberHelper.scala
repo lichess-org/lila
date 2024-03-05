@@ -18,5 +18,5 @@ trait NumberHelper:
 
   def showMillis(millis: Int)(using Lang) = formatter.format((millis / 100).toDouble / 10)
 
-  extension (e: Int) def localize(using Lang): String  = formatter format e
-  extension (e: Long) def localize(using Lang): String = formatter format e
+  extension (e: Int) def localize(using Lang): String  = formatter.format(e)
+  extension (e: Long) def localize(using Lang): String = formatter.format(e)

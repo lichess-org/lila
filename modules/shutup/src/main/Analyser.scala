@@ -11,7 +11,7 @@ object Analyser:
         ruBigRegex.findAllMatchIn(lower).toList
       TextAnalysis(lower, matches.map(_.toString))
     .mon(_.shutup.analyzer)
-    .logIfSlow(100, logger)(_ => s"Slow shutup analyser ${raw take 400}")
+    .logIfSlow(100, logger)(_ => s"Slow shutup analyser ${raw.take(400)}")
     .result
 
   def isCritical(raw: String) =
@@ -30,7 +30,7 @@ object Analyser:
       def tag(word: String) = s"<bad>$word</bad>"
       raw(regex.replaceAllIn(escapeHtmlRaw(text), m => tag(m.toString)))
 
-  private val logger = lila log "security" branch "shutup"
+  private val logger = lila.log("security").branch("shutup")
 
   private def latinify(text: String): String =
     text.map:
@@ -46,17 +46,17 @@ object Analyser:
 
   private def latinWordsRegexes =
     Dictionary.en.map { word =>
-      word + (if word endsWith "e" then "s?+" else "(es|s|)")
+      word + (if word.endsWith("e") then "s?+" else "(es|s|)")
     } ++
       Dictionary.es.map { word =>
-        word + (if word endsWith "e" then "" else "e?+") + "s?+"
+        word + (if word.endsWith("e") then "" else "e?+") + "s?+"
       } ++
       Dictionary.hi ++
       Dictionary.fr.map { word =>
         word + "[sx]?+"
       } ++
       Dictionary.de.map { word =>
-        word + (if word endsWith "e" then "" else "e?+") + "[nrs]?+"
+        word + (if word.endsWith("e") then "" else "e?+") + "[nrs]?+"
       } ++
       Dictionary.tr ++
       Dictionary.it ++

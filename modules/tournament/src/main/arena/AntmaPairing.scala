@@ -29,7 +29,7 @@ private object AntmaPairing:
               Math.abs(a.player.rating.value - b.player.rating.value)
 
       def battleScore(a: RPlayer, b: RPlayer): Option[Int] =
-        (a.player.team != b.player.team) so pairScore(a, b)
+        (a.player.team != b.player.team).so(pairScore(a, b))
 
       def duelScore: (RPlayer, RPlayer) => Option[Int] = (_, _) => Some(1)
 

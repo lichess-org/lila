@@ -21,21 +21,23 @@ final private class FishnetRepo(
 
   def getEnabledClient(key: Client.Key) = clientCache.get(key).dmap { _.filter(_.enabled) }
   def getOfflineClient: Fu[Client] =
-    getEnabledClient(Client.offline.key) getOrElse fuccess(Client.offline)
+    getEnabledClient(Client.offline.key).getOrElse(fuccess(Client.offline))
   def updateClientInstance(client: Client, instance: Client.Instance): Fu[Client] =
     client
       .updateInstance(instance)
       .fold(fuccess(client)): updated =>
-        clientColl.update.one($id(client.key), $set("instance" -> updated.instance)) andDo
-          clientCache.invalidate(client.key) inject updated
+        clientColl.update
+          .one($id(client.key), $set("instance" -> updated.instance))
+          .andDo(clientCache.invalidate(client.key))
+          .inject(updated)
   def addClient(client: Client)     = clientColl.insert.one(client)
-  def deleteClient(key: Client.Key) = clientColl.delete.one($id(key)) andDo clientCache.invalidate(key)
+  def deleteClient(key: Client.Key) = clientColl.delete.one($id(key)).andDo(clientCache.invalidate(key))
   def enableClient(key: Client.Key, v: Boolean): Funit =
-    clientColl.update.one($id(key), $set("enabled" -> v)).void andDo clientCache.invalidate(key)
+    clientColl.update.one($id(key), $set("enabled" -> v)).void.andDo(clientCache.invalidate(key))
   def allRecentClients =
     clientColl.list[Client]:
       $doc:
-        "instance.seenAt" $gt Client.Instance.recentSince
+        "instance.seenAt".$gt(Client.Instance.recentSince)
 
   def addAnalysis(ana: Work.Analysis)    = analysisColl.insert.one(ana).void
   def getAnalysis(id: Work.Id)           = analysisColl.byId[Work.Analysis](id)
@@ -49,14 +51,14 @@ final private class FishnetRepo(
 
   object status:
     private def system(v: Boolean)   = $doc("sender.system" -> v)
-    private def acquired(v: Boolean) = $doc("acquired" $exists v)
+    private def acquired(v: Boolean) = $doc("acquired".$exists(v))
     private def oldestSeconds(system: Boolean): Fu[Int] =
       analysisColl
         .find($doc("sender.system" -> system) ++ acquired(false), $doc("createdAt" -> true).some)
-        .sort($sort asc "createdAt")
+        .sort($sort.asc("createdAt"))
         .one[Bdoc]
         .map(~_.flatMap(_.getAsOpt[Instant]("createdAt").map { date =>
-          (nowSeconds - date.toSeconds).toInt atLeast 0
+          (nowSeconds - date.toSeconds).toInt.atLeast(0)
         }))
 
     def compute = for
@@ -77,10 +79,13 @@ final private class FishnetRepo(
     analysisColl.one[Work.Analysis]($doc("game.id" -> work.game.id))
 
   private[fishnet] def toKey(keyOrUser: String): Fu[Client.Key] =
-    clientColl.primitiveOne[String](
-      $or(
-        "_id" $eq keyOrUser,
-        "userId" $eq UserStr(keyOrUser).id
-      ),
-      "_id"
-    ) orFail "client not found" map { Client.Key(_) }
+    clientColl
+      .primitiveOne[String](
+        $or(
+          "_id".$eq(keyOrUser),
+          "userId".$eq(UserStr(keyOrUser).id)
+        ),
+        "_id"
+      )
+      .orFail("client not found")
+      .map { Client.Key(_) }

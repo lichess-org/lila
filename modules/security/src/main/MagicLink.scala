@@ -18,29 +18,31 @@ final class MagicLink(
   import Mailer.html.*
 
   def send(user: User, email: EmailAddress): Funit =
-    tokener make user.id flatMap { token =>
+    tokener.make(user.id).flatMap { token =>
       lila.mon.email.send.magicLink.increment()
       val url                  = s"$baseUrl/auth/magic-link/login/$token"
       given play.api.i18n.Lang = user.realLang | lila.i18n.defaultLang
-      mailer send Mailer.Message(
-        to = email,
-        subject = trans.logInToLichess.txt(user.username),
-        text = Mailer.txt.addServiceNote(s"""
+      mailer.send(
+        Mailer.Message(
+          to = email,
+          subject = trans.logInToLichess.txt(user.username),
+          text = Mailer.txt.addServiceNote(s"""
 ${trans.passwordReset_clickOrIgnore.txt()}
 
 $url
 
 ${trans.common_orPaste.txt()}"""),
-        htmlBody = emailMessage(
-          p(trans.passwordReset_clickOrIgnore()),
-          potentialAction(metaName("Log in"), Mailer.html.url(url)),
-          serviceNote
-        ).some
+          htmlBody = emailMessage(
+            p(trans.passwordReset_clickOrIgnore()),
+            potentialAction(metaName("Log in"), Mailer.html.url(url)),
+            serviceNote
+          ).some
+        )
       )
     }
 
   def confirm(token: String): Fu[Option[User]] =
-    tokener read token flatMapz userRepo.enabledById map {
+    tokener.read(token).flatMapz(userRepo.enabledById).map {
       _.filter(_.canFullyLogin)
     }
 
@@ -75,5 +77,5 @@ object MagicLink:
   ): Fu[A] =
     rateLimitPerUser(user.id, default):
       rateLimitPerEmail(email.value, default):
-        rateLimitPerIP(HTTPRequest ipAddress req, default):
+        rateLimitPerIP(HTTPRequest.ipAddress(req), default):
           run

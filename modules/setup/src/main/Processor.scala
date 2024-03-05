@@ -16,18 +16,18 @@ final private[setup] class Processor(
 
   def ai(config: AiConfig)(using me: Option[Me]): Fu[Pov] = for
     me  <- me.map(_.value).soFu(perfsRepo.withPerf(_, config.perfType))
-    pov <- config pov me
-    _   <- gameRepo insertDenormalized pov.game
+    pov <- config.pov(me)
+    _   <- gameRepo.insertDenormalized(pov.game)
     _ = onStart(pov.gameId)
-    _ <- pov.game.player.isAi so fishnetPlayer(pov.game)
+    _ <- pov.game.player.isAi.so(fishnetPlayer(pov.game))
   yield pov
 
   def apiAi(config: ApiAiConfig)(using me: Me): Fu[Pov] = for
     me  <- perfsRepo.withPerf(me, config.perfType)
-    pov <- config pov me.some
-    _   <- gameRepo insertDenormalized pov.game
+    pov <- config.pov(me.some)
+    _   <- gameRepo.insertDenormalized(pov.game)
     _ = onStart(pov.gameId)
-    _ <- pov.game.player.isAi so fishnetPlayer(pov.game)
+    _ <- pov.game.player.isAi.so(fishnetPlayer(pov.game))
   yield pov
 
   def hook(
@@ -47,7 +47,7 @@ final private[setup] class Processor(
       case _                 => fuccess(Refused)
 
   def createSeekIfAllowed(seek: Seek, owner: UserId): Fu[Processor.HookResult] =
-    gameCache.nbPlaying(owner) map { nbPlaying =>
+    gameCache.nbPlaying(owner).map { nbPlaying =>
       import Processor.HookResult.*
       if nbPlaying >= lila.game.Game.maxPlaying
       then Refused

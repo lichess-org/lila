@@ -7,7 +7,7 @@ import lila.common.{ EmailAddress, IpAddress }
 import lila.user.{ User, Me }
 
 case class Dated[V](value: V, date: Instant) extends Ordered[Dated[V]]:
-  def compare(other: Dated[V]) = other.date compareTo date
+  def compare(other: Dated[V]) = other.date.compareTo(date)
   def map[X](f: V => X)        = copy(value = f(value))
   def seconds                  = date.toSeconds
 

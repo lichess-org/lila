@@ -57,7 +57,7 @@ final private class FidePlayerSync(repo: FideRepo, api: FidePlayerApi, ws: Stand
                   Group(BSONString(s"$tc-top"))("v" -> AvgField(tc.toString))
                 ),
                 "count" -> List(
-                  Match(tc.toString $exists true),
+                  Match(tc.toString.$exists(true)),
                   Group(BSONString(s"$tc-count"))("v" -> SumAll)
                 )
               )
@@ -89,34 +89,40 @@ final private class FidePlayerSync(repo: FideRepo, api: FidePlayerApi, ws: Stand
               updatedAt = nowInstant
             )
       ranked = FideTC.values.foldLeft(federations.flatten): (acc, tc) =>
-        acc.sortBy(-_.stats(tc).get.top10Rating).zipWithIndex map: (fed, index) =>
-          fed.stats(tc).modify(_.copy(rank = index + 1))
+        acc
+          .sortBy(-_.stats(tc).get.top10Rating)
+          .zipWithIndex
+          .map: (fed, index) =>
+            fed.stats(tc).modify(_.copy(rank = index + 1))
       _ <- ranked.traverse(repo.federation.upsert)
     yield ()
 
   private object playersFromHttpFile:
     def apply(): Funit =
-      ws.url("http://ratings.fide.com/download/players_list.zip").stream() flatMap:
-        case res if res.status == 200 =>
-          val startAt = nowInstant
-          ZipInputStreamSource: () =>
-            ZipInputStream(res.bodyAsSource.runWith(StreamConverters.asInputStream()))
-          .map(_._2)
-            .via(Framing.delimiter(akka.util.ByteString("\r\n"), maximumFrameLength = 200))
-            .map(_.utf8String)
-            .drop(1) // first line is a header
-            .map(parseLine)
-            .mapConcat(_.toList)
-            .grouped(100)
-            .mapAsync(1)(upsert)
-            .runWith(lila.common.LilaStream.sinkCount)
-            .monSuccess(_.relay.fidePlayers.update)
-            .flatMap: nb =>
-              lila.mon.relay.fidePlayers.nb.update(nb)
-              setDeletedFlags(startAt) map: deleted =>
-                logger.info(s"RelayFidePlayerApi.update upserted: $nb, deleted: $nb")
+      ws.url("http://ratings.fide.com/download/players_list.zip")
+        .stream()
+        .flatMap:
+          case res if res.status == 200 =>
+            val startAt = nowInstant
+            ZipInputStreamSource: () =>
+              ZipInputStream(res.bodyAsSource.runWith(StreamConverters.asInputStream()))
+            .map(_._2)
+              .via(Framing.delimiter(akka.util.ByteString("\r\n"), maximumFrameLength = 200))
+              .map(_.utf8String)
+              .drop(1) // first line is a header
+              .map(parseLine)
+              .mapConcat(_.toList)
+              .grouped(100)
+              .mapAsync(1)(upsert)
+              .runWith(lila.common.LilaStream.sinkCount)
+              .monSuccess(_.fideSync.time)
+              .flatMap: nb =>
+                lila.mon.fideSync.players.update(nb)
+                setDeletedFlags(startAt).map: deleted =>
+                  lila.mon.fideSync.deleted.update(nb)
+                  logger.info(s"RelayFidePlayerApi.update upserted: $nb, deleted: $nb")
 
-        case res => fufail(s"RelayFidePlayerApi.pull ${res.status} ${res.statusText}")
+          case res => fufail(s"RelayFidePlayerApi.pull ${res.status} ${res.statusText}")
 
     /*
   6502938        Acevedo Mendez, Lisseth                                      ISL F   WIM  WIM                     1795  0   20 1767  14  20 1740  0   20 1993  w
@@ -128,8 +134,8 @@ final private class FidePlayerSync(repo: FideRepo, api: FidePlayerApi, ws: Stand
       for
         id   <- number(0, 15)
         name <- string(15, 76)
-        title  = UserTitle from string(84, 89)
-        wTitle = UserTitle from string(89, 105)
+        title  = UserTitle.from(string(84, 89))
+        wTitle = UserTitle.from(string(89, 105))
         year   = number(152, 156).filter(_ > 1000)
         flags  = string(158, 159)
       yield FidePlayer(
@@ -142,7 +148,7 @@ final private class FidePlayerSync(repo: FideRepo, api: FidePlayerApi, ws: Stand
         rapid = number(126, 132),
         blitz = number(139, 145),
         year = year,
-        inactive = flags.contains("i") option true,
+        inactive = flags.contains("i").option(true),
         fetchedAt = nowInstant
       )
 
@@ -170,13 +176,13 @@ final private class FidePlayerSync(repo: FideRepo, api: FidePlayerApi, ws: Stand
             u = repo.player.handler.writeOpt(p).get,
             upsert = true
           )
-        _ <- elements.nonEmpty so update.many(elements).void
+        _ <- elements.nonEmpty.so(update.many(elements).void)
       yield ()
 
     private def setDeletedFlags(date: Instant): Fu[Int] = for
       nbDeleted <- repo.playerColl.update
-        .one($doc("deleted" $ne true, "fetchedAt" $lt date), $set("deleted" -> true), multi = true)
+        .one($doc("deleted".$ne(true), "fetchedAt".$lt(date)), $set("deleted" -> true), multi = true)
         .map(_.n)
       _ <- repo.playerColl.update
-        .one($doc("deleted" -> true, "fetchedAt" $gte date), $unset("deleted"), multi = true)
+        .one($doc("deleted" -> true, "fetchedAt".$gte(date)), $unset("deleted"), multi = true)
     yield nbDeleted

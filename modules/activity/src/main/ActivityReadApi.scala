@@ -35,17 +35,17 @@ final class ActivityReadApi(
     activities <-
       coll(
         _.find(regexId(u.id))
-          .sort($sort desc "_id")
+          .sort($sort.desc("_id"))
           .cursor[Activity]()
           .vector(Activity.recentNb)
       ).dmap(_.filterNot(_.isEmpty))
-        .mon(_.user segment "activity.raws")
+        .mon(_.user.segment("activity.raws"))
     practiceStructure <- activities
       .exists(_.practice.isDefined)
       .soFu(practiceApi.structure.get)
     views <- activities
       .map: a =>
-        one(practiceStructure, a).mon(_.user segment "activity.view")
+        one(practiceStructure, a).mon(_.user.segment("activity.view"))
       .parallel
     _ <- preloadAll(views)
   yield addSignup(u.createdAt, views)
@@ -60,7 +60,7 @@ final class ActivityReadApi(
       allForumPosts <- a.forumPosts.soFu: p =>
         forumPostApi
           .liteViewsByIds(p.value)
-          .mon(_.user segment "activity.posts")
+          .mon(_.user.segment("activity.posts"))
       hiddenForumTeamIds <- teamRepo.filterHideForum(
         (~allForumPosts).flatMap(_.topic.possibleTeamId).distinct
       )
@@ -71,13 +71,13 @@ final class ActivityReadApi(
         .soFu: p =>
           ublogApi
             .liveLightsByIds(p.value)
-            .mon(_.user segment "activity.ublogs")
+            .mon(_.user.segment("activity.ublogs"))
         .dmap(_.filter(_.nonEmpty))
       practice = for
         p      <- a.practice
         struct <- practiceStructure
       yield p.value.flatMap { (studyId, nb) =>
-        struct study studyId map (_ -> nb)
+        struct.study(studyId).map(_ -> nb)
       }.toMap
       forumPostView = forumPosts
         .map: p =>
@@ -97,12 +97,12 @@ final class ActivityReadApi(
       simuls <-
         a.simuls
           .soFu: simuls =>
-            simulApi byIds simuls.value
+            simulApi.byIds(simuls.value)
           .dmap(_.filter(_.nonEmpty))
       studies <-
         a.studies
           .soFu: studies =>
-            studyApi publicIdNames studies.value
+            studyApi.publicIdNames(studies.value)
           .dmap(_.filter(_.nonEmpty))
       tours <- a.games
         .exists(_.hasNonCorres)
@@ -111,13 +111,15 @@ final class ActivityReadApi(
           tourLeaderApi
             .timeRange(a.id.userId, dateRange)
             .dmap: entries =>
-              entries.nonEmpty option ActivityView.Tours(
-                nb = entries.size,
-                best = Heapsort.topN(entries, activities.maxSubEntries)(using
-                  Ordering.by[LeaderboardApi.Entry, Double](-_.rankRatio.value)
+              entries.nonEmpty.option(
+                ActivityView.Tours(
+                  nb = entries.size,
+                  best = Heapsort.topN(entries, activities.maxSubEntries)(using
+                    Ordering.by[LeaderboardApi.Entry, Double](-_.rankRatio.value)
+                  )
                 )
               )
-            .mon(_.user segment "activity.tours")
+            .mon(_.user.segment("activity.tours"))
       swisses <-
         a.swisses.so: swisses =>
           toSwissesView(swisses.value).dmap(_.some.filter(_.nonEmpty))
@@ -145,8 +147,8 @@ final class ActivityReadApi(
 
   def recentSwissRanks(userId: UserId): Fu[List[(Swiss.IdName, Rank)]] =
     coll(
-      _.find(regexId(userId) ++ $doc(BSONHandlers.ActivityFields.swisses $exists true))
-        .sort($sort desc "_id")
+      _.find(regexId(userId) ++ $doc(BSONHandlers.ActivityFields.swisses.$exists(true)))
+        .sort($sort.desc("_id"))
         .cursor[Activity]()
         .list(10)
     ).flatMap { activities =>
@@ -158,7 +160,7 @@ final class ActivityReadApi(
       .idNames(swisses.map(_.id))
       .map {
         _.flatMap { idName =>
-          swisses.find(_.id == idName.id) map { s =>
+          swisses.find(_.id == idName.id).map { s =>
             (idName, s.rank)
           }
         }
@@ -171,7 +173,7 @@ final class ActivityReadApi(
     }
     if !found && views.sizeIs < Activity.recentNb && nowInstant.minusDays(8).isBefore(at) then
       views :+ ActivityView(
-        interval = TimeInterval(at.withTimeAtStartOfDay, at.withTimeAtStartOfDay plusDays 1),
+        interval = TimeInterval(at.withTimeAtStartOfDay, at.withTimeAtStartOfDay.plusDays(1)),
         signup = true
       )
     else views

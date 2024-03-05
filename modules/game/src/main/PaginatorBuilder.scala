@@ -14,7 +14,7 @@ final class PaginatorBuilder(gameRepo: GameRepo)(using Executor):
 
   def apply(selector: Bdoc, sort: Bdoc, nb: Option[Int] = None)(page: Int): Fu[Paginator[Game]] =
     apply(nb.fold[AdapterLike[Game]](noCacheAdapter(selector, sort)) { cached =>
-      noCacheAdapter(selector, sort) withNbResults fuccess(cached)
+      noCacheAdapter(selector, sort).withNbResults(fuccess(cached))
     })(page)
 
   private def apply(adapter: AdapterLike[Game])(page: Int): Fu[Paginator[Game]] =

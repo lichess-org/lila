@@ -7,8 +7,8 @@ object EmailAddress extends OpaqueString[EmailAddress]:
 
     def username = e.takeWhile(_ != '@')
 
-    def conceal = e split '@' match
-      case Array(name, domain) => s"${name take 3}*****@$domain"
+    def conceal = e.split('@') match
+      case Array(name, domain) => s"${name.take(3)}*****@$domain"
       case _                   => e
 
     def normalize = NormalizedEmailAddress: // changing normalization requires database migration!
@@ -22,8 +22,8 @@ object EmailAddress extends OpaqueString[EmailAddress]:
         case _ => lower
 
     def domain: Option[Domain] =
-      e split '@' match
-        case Array(_, domain) => Domain from domain.toLowerCase
+      e.split('@') match
+        case Array(_, domain) => Domain.from(domain.toLowerCase)
         case _                => none
 
     def similarTo(other: EmailAddress) = e.normalize == other.normalize
@@ -49,7 +49,7 @@ object EmailAddress extends OpaqueString[EmailAddress]:
     str.sizeIs < maxLength &&
       regex.matches(str) && !str.contains("..") && !str.contains(".@") && !str.startsWith(".")
 
-  def from(str: String): Option[EmailAddress] = isValid(str) option EmailAddress(str)
+  def from(str: String): Option[EmailAddress] = isValid(str).option(EmailAddress(str))
 
   val clasIdRegex = """^noreply\.class\.(\w{8})\.[\w-]+@lichess\.org""".r
 

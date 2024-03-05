@@ -314,5 +314,5 @@ object Flags:
     "_earth"
   )
 
-  def info(code: Code): Option[Flag] = map get code
+  def info(code: Code): Option[Flag] = map.get(code)
   def name(flag: Flag): Name         = nameMap.getOrElse(flag, flag.name)

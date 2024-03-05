@@ -32,7 +32,7 @@ object JsonView:
       "url"   -> us.url,
       "completion" -> JsObject {
         us.practiceStudy.chapters.flatMap { c =>
-          us.practice.progress.chapters collectFirst {
+          us.practice.progress.chapters.collectFirst {
             case (id, nbMoves) if id == c.id => id.value -> Json.toJson(nbMoves)
           }
         }

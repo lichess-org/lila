@@ -18,7 +18,7 @@ final class RelayPgnStream(
     roundRepo
       .idsByTourOrdered(tour)
       .flatMap: ids =>
-        studyRepo.byOrderedIds(StudyId.from[List, RelayRoundId](ids)) map { studies =>
+        studyRepo.byOrderedIds(StudyId.from[List, RelayRoundId](ids)).map { studies =>
           val visible = studies.filter(_.canView(me.map(_.id)))
           Source(visible).flatMapConcat { studyPgnDump.chaptersOf(_, flags) }.throttle(16, 1.second)
         }
@@ -31,7 +31,7 @@ final class RelayPgnStream(
     orientation = false
   )
   private val fileR         = """[\s,]""".r
-  private val dateFormatter = java.time.format.DateTimeFormatter ofPattern "yyyy.MM.dd"
+  private val dateFormatter = java.time.format.DateTimeFormatter.ofPattern("yyyy.MM.dd")
 
   def filename(tour: RelayTour): String =
     val date = dateFormatter.print(tour.syncedAt | tour.createdAt)
@@ -40,17 +40,19 @@ final class RelayPgnStream(
   def streamRoundGames(rs: RelayRound.WithStudy): Source[PgnStr, ?] = {
     if rs.relay.hasStarted then studyPgnDump.chaptersOf(rs.study, flags).throttle(16, 1 second)
     else Source.empty[PgnStr]
-  } concat Source
-    .queue[Set[StudyChapterId]](8, akka.stream.OverflowStrategy.dropHead)
-    .mapMaterializedValue: queue =>
-      val chan = SyncResult busChannel rs.relay.id
-      val sub = Bus.subscribeFun(chan) { case SyncResult.Ok(chapters, _) =>
-        queue.offer(chapters.view.filter(c => c.tagUpdate || c.newMoves > 0).map(_.id).toSet)
-      }
-      queue
-        .watchCompletion()
-        .addEffectAnyway:
-          Bus.unsubscribe(sub, chan)
-    .flatMapConcat(studyChapterRepo.byIdsSource)
-    .throttle(16, 1 second)
-    .mapAsync(1)(studyPgnDump.ofChapter(rs.study, flags))
+  }.concat(
+    Source
+      .queue[Set[StudyChapterId]](8, akka.stream.OverflowStrategy.dropHead)
+      .mapMaterializedValue: queue =>
+        val chan = SyncResult.busChannel(rs.relay.id)
+        val sub = Bus.subscribeFun(chan) { case SyncResult.Ok(chapters, _) =>
+          queue.offer(chapters.view.filter(c => c.tagUpdate || c.newMoves > 0).map(_.id).toSet)
+        }
+        queue
+          .watchCompletion()
+          .addEffectAnyway:
+            Bus.unsubscribe(sub, chan)
+      .flatMapConcat(studyChapterRepo.byIdsSource)
+      .throttle(16, 1 second)
+      .mapAsync(1)(studyPgnDump.ofChapter(rs.study, flags))
+  )

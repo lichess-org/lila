@@ -52,14 +52,14 @@ object UserInfo:
     def apply(u: User)(using ctx: Context): Fu[Social] =
       given scala.concurrent.ExecutionContext = scala.concurrent.ExecutionContext.parasitic
       (
-        ctx.userId.so(relationApi.fetchRelation(_, u.id).mon(_.user segment "relation")),
-        ctx.me.soUse(_ ?=> fetchNotes(u).mon(_.user segment "notes")),
-        ctx.isAuth.so(prefApi.followable(u.id).mon(_.user segment "followable")),
-        ctx.userId.so(myId => relationApi.fetchBlocks(u.id, myId).mon(_.user segment "blocks"))
+        ctx.userId.so(relationApi.fetchRelation(_, u.id).mon(_.user.segment("relation"))),
+        ctx.me.soUse(_ ?=> fetchNotes(u).mon(_.user.segment("notes"))),
+        ctx.isAuth.so(prefApi.followable(u.id).mon(_.user.segment("followable"))),
+        ctx.userId.so(myId => relationApi.fetchBlocks(u.id, myId).mon(_.user.segment("blocks")))
       ).mapN(Social.apply)
 
     def fetchNotes(u: User)(using Me) =
-      noteApi.get(u, Granter(_.ModNote)) dmap {
+      noteApi.get(u, Granter(_.ModNote)).dmap {
         _.filter: n =>
           (!n.dox || Granter(_.Admin))
       }
@@ -80,12 +80,14 @@ object UserInfo:
     def apply(u: User, withCrosstable: Boolean)(using me: Option[Me]): Fu[NbGames] =
       given scala.concurrent.ExecutionContext = scala.concurrent.ExecutionContext.parasitic
       (
-        withCrosstable so me
-          .filter(u.isnt(_))
-          .soFu(me => crosstableApi.withMatchup(me.userId, u.id).mon(_.user segment "crosstable")),
-        gameCached.nbPlaying(u.id).mon(_.user segment "nbPlaying"),
-        gameCached.nbImportedBy(u.id).mon(_.user segment "nbImported"),
-        bookmarkApi.countByUser(u).mon(_.user segment "nbBookmarks")
+        withCrosstable.so(
+          me
+            .filter(u.isnt(_))
+            .soFu(me => crosstableApi.withMatchup(me.userId, u.id).mon(_.user.segment("crosstable")))
+        ),
+        gameCached.nbPlaying(u.id).mon(_.user.segment("nbPlaying")),
+        gameCached.nbImportedBy(u.id).mon(_.user.segment("nbImported")),
+        bookmarkApi.countByUser(u).mon(_.user.segment("nbBookmarks"))
       ).mapN(NbGames.apply)
 
   final class UserInfoApi(
@@ -108,19 +110,19 @@ object UserInfo:
     def apply(user: User, nbs: NbGames, withUblog: Boolean = true)(using ctx: Context): Fu[UserInfo] =
       (
         perfsRepo.withPerfs(user),
-        userApi.getTrophiesAndAwards(user).mon(_.user segment "trophies"),
-        (nbs.playing > 0).so(isHostingSimul(user.id).mon(_.user segment "simul")),
-        ((ctx.noBlind && ctx.pref.showRatings) so ratingChartApi(user)).mon(_.user segment "ratingChart"),
+        userApi.getTrophiesAndAwards(user).mon(_.user.segment("trophies")),
+        (nbs.playing > 0).so(isHostingSimul(user.id).mon(_.user.segment("simul"))),
+        ((ctx.noBlind && ctx.pref.showRatings).so(ratingChartApi(user))).mon(_.user.segment("ratingChart")),
         (!user.is(User.lichessId) && !user.isBot).so {
-          postApi.nbByUser(user.id).mon(_.user segment "nbForumPosts")
+          postApi.nbByUser(user.id).mon(_.user.segment("nbForumPosts"))
         },
-        withUblog so ublogApi.userBlogPreviewFor(user, 3),
-        studyRepo.countByOwner(user.id).recoverDefault.mon(_.user segment "nbStudies"),
-        simulApi.countHostedByUser.get(user.id).mon(_.user segment "nbSimuls"),
-        relayApi.countOwnedByUser.get(user.id).mon(_.user segment "nbBroadcasts"),
-        teamApi.joinedTeamIdsOfUserAsSeenBy(user).mon(_.user segment "teamIds"),
-        streamerApi.isActualStreamer(user).mon(_.user segment "streamer"),
-        coachApi.isListedCoach(user).mon(_.user segment "coach"),
+        withUblog.so(ublogApi.userBlogPreviewFor(user, 3)),
+        studyRepo.countByOwner(user.id).recoverDefault.mon(_.user.segment("nbStudies")),
+        simulApi.countHostedByUser.get(user.id).mon(_.user.segment("nbSimuls")),
+        relayApi.countOwnedByUser.get(user.id).mon(_.user.segment("nbBroadcasts")),
+        teamApi.joinedTeamIdsOfUserAsSeenBy(user).mon(_.user.segment("teamIds")),
+        streamerApi.isActualStreamer(user).mon(_.user.segment("streamer")),
+        coachApi.isListedCoach(user).mon(_.user.segment("coach")),
         (user.count.rated >= 10).so(insightShare.grant(user))
       ).mapN(UserInfo(nbs, _, _, _, _, _, _, _, _, _, _, _, _, _))
 

@@ -36,8 +36,8 @@ trait Handlers:
   )
 
   def isoHandler[A, B](using iso: Iso[B, A])(using handler: BSONHandler[B]): BSONHandler[A] = new:
-    def readTry(x: BSONValue) = handler.readTry(x) map iso.from
-    def writeTry(x: A)        = handler writeTry iso.to(x)
+    def readTry(x: BSONValue) = handler.readTry(x).map(iso.from)
+    def writeTry(x: A)        = handler.writeTry(iso.to(x))
   def isoHandler[A, B](to: A => B, from: B => A)(using handler: BSONHandler[B]): BSONHandler[A] =
     isoHandler(using Iso(from, to))(using handler)
 
@@ -94,15 +94,15 @@ trait Handlers:
       rightHandler: BSONHandler[R]
   ): BSONHandler[Either[L, R]] = new:
     def readTry(bson: BSONValue) =
-      leftHandler.readTry(bson).map(Left.apply) orElse rightHandler.readTry(bson).map(Right.apply)
+      leftHandler.readTry(bson).map(Left.apply).orElse(rightHandler.readTry(bson).map(Right.apply))
     def writeTry(e: Either[L, R]) = e.fold(leftHandler.writeTry, rightHandler.writeTry)
 
   def stringMapHandler[V](using
       reader: BSONReader[Map[String, V]],
       writer: BSONWriter[Map[String, V]]
   ): BSONHandler[Map[String, V]] = new:
-    def readTry(bson: BSONValue)    = reader readTry bson
-    def writeTry(v: Map[String, V]) = writer writeTry v
+    def readTry(bson: BSONValue)    = reader.readTry(bson)
+    def writeTry(v: Map[String, V]) = writer.writeTry(v)
 
   def typedMapHandler[K, V: BSONHandler](using sr: SameRuntime[K, String], rs: SameRuntime[String, K]) =
     stringMapHandler[V].as[Map[K, V]](_.mapKeys(rs(_)), _.mapKeys(sr(_)))
@@ -118,7 +118,7 @@ trait Handlers:
     tryHandler[NonEmptyList[T]](
       { case array: BSONArray =>
         listReader.readTry(array).flatMap {
-          _.toNel toTry s"BSONArray is empty, can't build NonEmptyList"
+          _.toNel.toTry(s"BSONArray is empty, can't build NonEmptyList")
         }
       },
       nel => listWriter.writeTry(nel.toList).get
@@ -149,11 +149,11 @@ trait Handlers:
 
   import lila.common.{ LilaOpeningFamily, SimpleOpening }
   given BSONHandler[SimpleOpening] = tryHandler[SimpleOpening](
-    { case BSONString(key) => SimpleOpening find key toTry s"No such opening: $key" },
+    { case BSONString(key) => SimpleOpening.find(key).toTry(s"No such opening: $key") },
     o => BSONString(o.key.value)
   )
   given BSONHandler[LilaOpeningFamily] = tryHandler[LilaOpeningFamily](
-    { case BSONString(key) => LilaOpeningFamily find key toTry s"No such opening family: $key" },
+    { case BSONString(key) => LilaOpeningFamily.find(key).toTry(s"No such opening family: $key") },
     o => BSONString(o.key.value)
   )
 
@@ -167,7 +167,7 @@ trait Handlers:
   given NoDbHandler[chess.Square] with {} // no default opaque handler for chess.Square
 
   def chessPosKeyHandler: BSONHandler[chess.Square] = tryHandler(
-    { case BSONString(str) => chess.Square.fromKey(str) toTry s"No such key $str" },
+    { case BSONString(str) => chess.Square.fromKey(str).toTry(s"No such key $str") },
     pos => BSONString(pos.key)
   )
 
@@ -175,13 +175,13 @@ trait Handlers:
 
   val variantByKeyHandler: BSONHandler[Variant] = quickHandler[Variant](
     {
-      case BSONString(v) => Variant orDefault Variant.LilaKey(v)
+      case BSONString(v) => Variant.orDefault(Variant.LilaKey(v))
       case _             => Variant.default
     },
     v => BSONString(v.key.value)
   )
   val variantByIdHandler: BSONHandler[Variant] = tryHandler(
-    { case BSONInteger(v) => Variant(Variant.Id(v)) toTry s"No such variant: $v" },
+    { case BSONInteger(v) => Variant(Variant.Id(v)).toTry(s"No such variant: $v") },
     x => BSONInteger(x.id.value)
   )
 
@@ -206,7 +206,7 @@ trait Handlers:
   def valueMapHandler[K, V](mapping: Map[K, V])(toKey: V => K)(using
       keyHandler: BSONHandler[K]
   ): BSONHandler[V] = new:
-    def readTry(bson: BSONValue) = keyHandler.readTry(bson) flatMap { k =>
-      mapping.get(k) toTry s"No such value in mapping: $k"
+    def readTry(bson: BSONValue) = keyHandler.readTry(bson).flatMap { k =>
+      mapping.get(k).toTry(s"No such value in mapping: $k")
     }
-    def writeTry(v: V) = keyHandler writeTry toKey(v)
+    def writeTry(v: V) = keyHandler.writeTry(toKey(v))

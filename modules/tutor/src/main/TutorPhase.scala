@@ -9,7 +9,7 @@ case class TutorPhase(
     awareness: TutorBothValueOptions[GoodPercent]
 ):
 
-  def mix: TutorBothValueOptions[GoodPercent] = accuracy.map(_ into GoodPercent) mix awareness
+  def mix: TutorBothValueOptions[GoodPercent] = accuracy.map(_.into(GoodPercent)).mix(awareness)
 
 private object TutorPhases:
 
@@ -28,6 +28,6 @@ private object TutorPhases:
       .map: phase =>
         TutorPhase(
           phase,
-          accuracy = AccuracyPercent.from(accuracy valueMetric phase),
-          awareness = GoodPercent.from(awareness valueMetric phase)
+          accuracy = AccuracyPercent.from(accuracy.valueMetric(phase)),
+          awareness = GoodPercent.from(awareness.valueMetric(phase))
         )

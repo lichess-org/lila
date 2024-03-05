@@ -667,7 +667,6 @@
   <string name="automaticallyProceedToNextGameAfterMoving">الإنتقال تلقائيًا للمباراة التالية بعد النقل</string>
   <string name="autoSwitch">تبديل تلقائي</string>
   <string name="puzzles">الألغاز</string>
-  <string name="tournamentWinners">الفائزون بالبطولات</string>
   <string name="name">الاسم</string>
   <string name="description">الوصف</string>
   <string name="descPrivate">وصف خاص</string>
@@ -1107,8 +1106,6 @@
   <string name="minimumRatedGames">الحد الأدنى للالعاب المصنفة</string>
   <string name="minimumRating">أقل تصنيف</string>
   <string name="maximumWeeklyRating">الحد الاقصى للتصنيف الاسبوعي</string>
-  <string name="onlyTitled">فقط اللاعبين حملة الألقاب</string>
-  <string name="onlyTitledHelp">يتطلب لقب رسمي للمشاركة</string>
   <string name="positionInputHelp">لصق FEN صالح لبدء كل لعبة من موقع معين.
 إنه يعمل فقط للألعاب العادية، وليس مع المتغيرات.
 يمكنك استخدام %s لإنشاء موضع FEN، ثم لصقه هنا.

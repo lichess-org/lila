@@ -38,33 +38,41 @@ final class TrophyApi(
       isContentTeam: Boolean
   ): List[Trophy] =
     List(
-      isPublicMod option Trophy(
-        _id = "",
-        user = user.id,
-        kind = kindCache sync TrophyKind.moderator,
-        date = nowInstant,
-        url = none
+      isPublicMod.option(
+        Trophy(
+          _id = "",
+          user = user.id,
+          kind = kindCache.sync(TrophyKind.moderator),
+          date = nowInstant,
+          url = none
+        )
       ),
-      isDev option Trophy(
-        _id = "",
-        user = user.id,
-        kind = kindCache sync TrophyKind.developer,
-        date = nowInstant,
-        url = none
+      isDev.option(
+        Trophy(
+          _id = "",
+          user = user.id,
+          kind = kindCache.sync(TrophyKind.developer),
+          date = nowInstant,
+          url = none
+        )
       ),
-      isVerified option Trophy(
-        _id = "",
-        user = user.id,
-        kind = kindCache sync TrophyKind.verified,
-        date = nowInstant,
-        url = none
+      isVerified.option(
+        Trophy(
+          _id = "",
+          user = user.id,
+          kind = kindCache.sync(TrophyKind.verified),
+          date = nowInstant,
+          url = none
+        )
       ),
-      isContentTeam option Trophy(
-        _id = "",
-        user = user.id,
-        kind = kindCache sync TrophyKind.contentTeam,
-        date = nowInstant,
-        url = none
+      isContentTeam.option(
+        Trophy(
+          _id = "",
+          user = user.id,
+          kind = kindCache.sync(TrophyKind.contentTeam),
+          date = nowInstant,
+          url = none
+        )
       )
     ).flatten
 

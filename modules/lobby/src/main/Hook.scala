@@ -25,11 +25,11 @@ case class Hook(
     boardApi: Boolean
 ):
 
-  val realColor = Color orDefault color
+  val realColor = Color.orDefault(color)
 
   val realVariant = Variant.orDefault(variant)
 
-  val realMode = Mode orDefault mode
+  val realMode = Mode.orDefault(mode)
 
   val isAuth = user.nonEmpty
 
@@ -38,16 +38,16 @@ case class Hook(
       mode == h.mode &&
       variant == h.variant &&
       clock == h.clock &&
-      (realColor compatibleWith h.realColor) &&
+      (realColor.compatibleWith(h.realColor)) &&
       ratingRangeCompatibleWith(h) && h.ratingRangeCompatibleWith(this) &&
       (userId.isEmpty || userId != h.userId)
 
   private def ratingRangeCompatibleWith(h: Hook) =
     !isAuth || {
-      h.rating so ratingRangeOrDefault.contains
+      h.rating.so(ratingRangeOrDefault.contains)
     }
 
-  private lazy val manualRatingRange = isAuth.so(RatingRange noneIfDefault ratingRange)
+  private lazy val manualRatingRange = isAuth.so(RatingRange.noneIfDefault(ratingRange))
 
   private def nonWideRatingRange =
     val r = rating | lila.rating.Glicko.default.intRating
@@ -55,9 +55,7 @@ case class Hook(
       _ != RatingRange(r - 500, r + 500)
 
   lazy val ratingRangeOrDefault: RatingRange =
-    nonWideRatingRange orElse
-      rating.map(RatingRange.defaultFor) getOrElse
-      RatingRange.default
+    nonWideRatingRange.orElse(rating.map(RatingRange.defaultFor)).getOrElse(RatingRange.default)
 
   def userId   = user.map(_.id)
   def username = user.fold(User.anonymous)(_.username)
@@ -128,7 +126,7 @@ object Hook:
       boardApi: Boolean = false
   ): Hook =
     new Hook(
-      id = ThreadLocalRandom nextString idSize,
+      id = ThreadLocalRandom.nextString(idSize),
       sri = sri,
       variant = variant.id,
       clock = clock,

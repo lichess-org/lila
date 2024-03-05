@@ -59,8 +59,8 @@ final private[team] class PaginatorBuilder(
   private trait MembersAdapter:
     val team: Team
     val nbResults = fuccess(team.nbMembers)
-    val sorting   = $sort desc "date"
-    val selector  = memberRepo teamQuery team.id
+    val sorting   = $sort.desc("date")
+    val selector  = memberRepo.teamQuery(team.id)
 
   final private class TeamAdapter(val team: Team) extends AdapterLike[LightUser] with MembersAdapter:
     def slice(offset: Int, length: Int): Fu[Seq[LightUser]] =
@@ -73,7 +73,7 @@ final private[team] class PaginatorBuilder(
             .cursor[Bdoc]()
             .list(length)
         userIds = docs.flatMap(_.getAsOpt[UserId]("user"))
-        users <- lightUserApi asyncManyFallback userIds
+        users <- lightUserApi.asyncManyFallback(userIds)
       yield users
 
   final private class TeamAdapterWithDate(val team: Team)
@@ -90,8 +90,8 @@ final private[team] class PaginatorBuilder(
             .list(length)
         userIds = docs.flatMap(_.getAsOpt[UserId]("user"))
         dates   = docs.flatMap(_.getAsOpt[Instant]("date"))
-        users <- lightUserApi asyncManyFallback userIds
-      yield users.zip(dates) map TeamMember.UserAndDate.apply
+        users <- lightUserApi.asyncManyFallback(userIds)
+      yield users.zip(dates).map(TeamMember.UserAndDate.apply)
 
   def declinedRequests(team: Team, page: Int): Fu[Paginator[RequestWithUser]] =
     Paginator(
@@ -100,9 +100,9 @@ final private[team] class PaginatorBuilder(
       maxRequestsPerPage
     )
   final private class DeclinedRequestAdapter(team: Team) extends AdapterLike[RequestWithUser]:
-    val nbResults        = requestRepo countDeclinedByTeam team.id
-    private def selector = requestRepo teamDeclinedQuery team.id
-    private def sorting  = $sort desc "date"
+    val nbResults        = requestRepo.countDeclinedByTeam(team.id)
+    private def selector = requestRepo.teamDeclinedQuery(team.id)
+    private def sorting  = $sort.desc("date")
 
     def slice(offset: Int, length: Int): Fu[Seq[RequestWithUser]] =
       for

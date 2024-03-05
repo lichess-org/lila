@@ -27,7 +27,7 @@ object event:
           h1(
             a(href := routes.Event.show(event.id))(event.title),
             span("Created by ", titleNameOrId(event.createdBy), " ", momentFromNow(event.createdAt)),
-            event.updatedBy map { updatedBy =>
+            event.updatedBy.map { updatedBy =>
               span("Updated by ", titleNameOrId(updatedBy), " ", event.updatedAt.map(momentFromNow(_)))
             }
           ),
@@ -65,7 +65,7 @@ object event:
         else if e.isNow then a(href := e.url, cls := "button button-fat")(trans.eventInProgress())
         else
           ul(cls := "countdown", dataSeconds := (~e.secondsToStart + 1)):
-            List("Days", "Hours", "Minutes", "Seconds") map: t =>
+            List("Days", "Hours", "Minutes", "Seconds").map: t =>
               li(span(cls := t.toLowerCase), t)
       )
 

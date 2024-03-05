@@ -26,7 +26,7 @@ sealed trait Work:
   def nonAcquired                  = !isAcquired
   def canAcquire(client: Client)   = lastTryByKey.forall(client.key !=)
 
-  def acquiredBefore(date: Instant) = acquiredAt.so(_ isBefore date)
+  def acquiredBefore(date: Instant) = acquiredAt.so(_.isBefore(date))
 
 object Work:
 
@@ -49,7 +49,7 @@ object Work:
       moves: String
   ):
 
-    def uciList: List[Uci] = ~(Uci readList moves)
+    def uciList: List[Uci] = ~(Uci.readList(moves))
 
   case class Sender(
       userId: UserId,
@@ -108,4 +108,4 @@ object Work:
     override def toString =
       s"id:$id game:${game.id} variant:${game.variant} plies: ${game.moves.count(' ' ==)} tries:$tries requestedBy:$sender acquired:$acquired"
 
-  def makeId = Id(ThreadLocalRandom nextString 8)
+  def makeId = Id(ThreadLocalRandom.nextString(8))

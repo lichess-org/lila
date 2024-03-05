@@ -65,8 +65,7 @@ object TeamBattle:
       )
 
     def edit(teams: List[String], nbLeaders: Int) =
-      Form(fields) fill
-        Setup(s"${teams mkString "\n"}\n", nbLeaders)
+      Form(fields).fill(Setup(s"${teams.mkString("\n")}\n", nbLeaders))
 
     def empty = Form(fields)
 

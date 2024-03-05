@@ -55,5 +55,5 @@ case class OpenGraph(
         "title"       -> title,
         "description" -> description
       ).map(tupledTag) :::
-        (twitterImage orElse image).map { tag("image", _) }.toList :::
+        (twitterImage.orElse(image)).map { tag("image", _) }.toList :::
         more.map(tupledTag)

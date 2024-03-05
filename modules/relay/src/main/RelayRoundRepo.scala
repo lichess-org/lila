@@ -39,7 +39,7 @@ final private class RelayRoundRepo(val coll: Coll)(using Executor):
 
   def lastByTour(tour: RelayTour): Fu[Option[RelayRound]] =
     coll
-      .find(selectors tour tour.id)
+      .find(selectors.tour(tour.id))
       .sort(sort.reverseChrono)
       .one[RelayRound]
 
@@ -47,7 +47,7 @@ final private class RelayRoundRepo(val coll: Coll)(using Executor):
     coll.delete.one(selectors.tour(tour.id)).void
 
   def studyIdsOf(tourId: RelayTour.Id): Fu[List[StudyId]] =
-    coll.distinctEasy[StudyId, List]("_id", selectors tour tourId)
+    coll.distinctEasy[StudyId, List]("_id", selectors.tour(tourId))
 
 private object RelayRoundRepo:
 

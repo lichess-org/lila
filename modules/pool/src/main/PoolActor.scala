@@ -44,10 +44,10 @@ final private class PoolActor(
           if members.sizeIs >= config.wave.players.value then self ! FullWave
         case Some(member) if member.ratingRange != joiner.ratingRange =>
           members = members.map: m =>
-            if m == member then m withRange joiner.ratingRange else m
+            if m == member then m.withRange(joiner.ratingRange) else m
         case _ => // no change
     case Leave(userId) =>
-      members.find(_.userId == userId) foreach { member =>
+      members.find(_.userId == userId).foreach { member =>
         members = members.filter(member !=)
       }
 
@@ -61,7 +61,7 @@ final private class PoolActor(
 
     case RunWave =>
       nextWave.cancel()
-      hookThieve.candidates(config.clock) pipeTo self
+      hookThieve.candidates(config.clock).pipeTo(self)
       ()
 
     case HookThieve.PoolHooks(hooks) =>

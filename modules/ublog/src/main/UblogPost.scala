@@ -26,7 +26,7 @@ case class UblogPost(
     pinned: Option[Boolean]
 ) extends UblogPost.BasePost:
 
-  def isBy[U: UserIdOf](u: U) = created.by is u
+  def isBy[U: UserIdOf](u: U) = created.by.is(u)
 
   def indexable = live && topics.exists(UblogTopic.chessExists)
   def allText   = s"$title $intro $markdown"
@@ -51,7 +51,7 @@ object UblogPost:
   case class Create(post: UblogPost) extends AnyVal
 
   case class LightPost(@Key("_id") id: UblogPostId, title: String):
-    def slug = UblogPost slug title
+    def slug = UblogPost.slug(title)
 
   trait BasePost:
     val id: UblogPostId
@@ -61,8 +61,8 @@ object UblogPost:
     val image: Option[UblogImage]
     val created: Recorded
     val lived: Option[Recorded]
-    def slug      = UblogPost slug title
-    def isLichess = created.by is User.lichessId
+    def slug      = UblogPost.slug(title)
+    def isLichess = created.by.is(User.lichessId)
 
   case class PreviewPost(
       @Key("_id") id: UblogPostId,
@@ -78,10 +78,10 @@ object UblogPost:
   case class BlogPreview(nbPosts: Int, latests: List[PreviewPost])
 
   def slug(title: String) =
-    val s = lila.common.String slugify title
+    val s = lila.common.String.slugify(title)
     if s.isEmpty then "-" else s
 
-  def randomId = UblogPostId(ornicar.scalalib.ThreadLocalRandom nextString 8)
+  def randomId = UblogPostId(ornicar.scalalib.ThreadLocalRandom.nextString(8))
 
   object thumbnail:
     enum Size(val width: Int):

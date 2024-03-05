@@ -6,7 +6,7 @@ import lila.db.dsl.{ given, * }
 
 final class RequesterApi(coll: Coll)(using Executor):
 
-  private val formatter = DateTimeFormatter ofPattern "yyyy-MM-dd"
+  private val formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd")
 
   def add(requester: UserId, ownGame: Boolean): Funit =
     coll.update
@@ -30,7 +30,7 @@ final class RequesterApi(coll: Coll)(using Executor):
         }
       )
       .map { doc =>
-        val daily = doc.flatMap(_ int formatter.print(now))
+        val daily = doc.flatMap(_.int(formatter.print(now)))
         val weekly = doc.so:
           _.values.foldLeft(0):
             case (acc, BSONInteger(v)) => acc + v

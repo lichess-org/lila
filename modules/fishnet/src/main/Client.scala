@@ -19,11 +19,11 @@ case class Client(
   def fullId = s"$userId:$key"
 
   def updateInstance(i: Client.Instance): Option[Client] =
-    instance.fold(i.some)(_ update i) map { newInstance =>
+    instance.fold(i.some)(_.update(i)).map { newInstance =>
       copy(instance = newInstance.some)
     }
 
-  def lichess = this is lila.user.User.lichessId
+  def lichess = this.is(lila.user.User.lichessId)
 
   def offline = key == Client.offline.key
 
@@ -54,10 +54,10 @@ object Client:
     def update(i: Instance): Option[Instance] =
       if i.version != version then i.some
       else if i.ip != ip then i.some
-      else if i.seenAt isAfter seenAt.plusMinutes(5) then i.some
+      else if i.seenAt.isAfter(seenAt.plusMinutes(5)) then i.some
       else none
 
-    def seenRecently = seenAt isAfter Instance.recentSince
+    def seenRecently = seenAt.isAfter(Instance.recentSince)
 
   object Instance:
 

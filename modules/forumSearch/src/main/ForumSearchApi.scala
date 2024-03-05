@@ -15,16 +15,16 @@ final class ForumSearchApi(
     extends SearchReadApi[PostView, Query]:
 
   def search(query: Query, from: From, size: Size) =
-    client.search(query, from, size) flatMap { res =>
-      postApi.viewsFromIds(ForumPostId from res.ids)
+    client.search(query, from, size).flatMap { res =>
+      postApi.viewsFromIds(ForumPostId.from(res.ids))
     }
 
   def count(query: Query) =
     client.count(query).dmap(_.value)
 
   def store(post: ForumPost) =
-    postApi liteView post flatMapz { view =>
-      client.store(view.post.id into Id, toDoc(view))
+    postApi.liteView(post).flatMapz { view =>
+      client.store(view.post.id.into(Id), toDoc(view))
     }
 
   private def toDoc(view: PostLiteView) = Json.obj(

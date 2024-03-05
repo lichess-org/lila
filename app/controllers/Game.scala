@@ -13,16 +13,16 @@ import lila.common.HTTPRequest
 final class Game(env: Env, apiC: => Api) extends LilaController(env):
 
   def bookmark(gameId: GameId) = Auth { _ ?=> me ?=>
-    env.bookmark.api.toggle(gameId, me) inject NoContent
+    env.bookmark.api.toggle(gameId, me).inject(NoContent)
   }
 
   def delete(gameId: GameId) = Auth { _ ?=> me ?=>
-    Found(env.game.gameRepo game gameId): game =>
+    Found(env.game.gameRepo.game(gameId)): game =>
       if game.pgnImport.flatMap(_.user).exists(me.is(_)) then
         for
           _ <- env.bookmark.api.removeByGameId(game.id)
-          _ <- env.game.gameRepo remove game.id
-          _ <- env.analyse.analysisRepo remove game.id
+          _ <- env.game.gameRepo.remove(game.id)
+          _ <- env.analyse.analysisRepo.remove(game.id)
           _ <- env.game.cached.clearNbImportedByCache(me)
         yield Redirect(routes.User.show(me.username))
       else Redirect(routes.Round.watcher(game.id, game.naturalOrientation.name))
@@ -32,21 +32,25 @@ final class Game(env: Env, apiC: => Api) extends LilaController(env):
     exportGame(id.gameId)
 
   private[controllers] def exportGame(gameId: GameId)(using Context): Fu[Result] =
-    env.round.proxyRepo.gameIfPresent(gameId) orElse env.game.gameRepo.game(gameId) flatMap {
+    env.round.proxyRepo.gameIfPresent(gameId).orElse(env.game.gameRepo.game(gameId)).flatMap {
       case None => NotFound
       case Some(game) =>
         val config = GameApiV2.OneConfig(
-          format = if HTTPRequest acceptsJson req then GameApiV2.Format.JSON else GameApiV2.Format.PGN,
+          format = if HTTPRequest.acceptsJson(req) then GameApiV2.Format.JSON else GameApiV2.Format.PGN,
           imported = getBool("imported"),
           flags = requestPgnFlags(extended = true),
           playerFile = get("players")
         )
-        env.api.gameApiV2.exportOne(game, config) flatMap: content =>
-          env.api.gameApiV2.filename(game, config.format) map: filename =>
-            Ok(content)
-              .pipe(asAttachment(filename))
-              .withHeaders(headersForApiOrApp*)
-              .as(gameContentType(config))
+        env.api.gameApiV2
+          .exportOne(game, config)
+          .flatMap: content =>
+            env.api.gameApiV2
+              .filename(game, config.format)
+              .map: filename =>
+                Ok(content)
+                  .pipe(asAttachment(filename))
+                  .withHeaders(headersForApiOrApp*)
+                  .as(gameContentType(config))
     }
 
   def exportByUser(username: UserStr)    = OpenOrScoped()(handleExport(username))
@@ -54,14 +58,14 @@ final class Game(env: Env, apiC: => Api) extends LilaController(env):
 
   private def handleExport(username: UserStr)(using ctx: Context) =
     meOrFetch(username).flatMap:
-      _.filter(u => u.enabled.yes || ctx.is(u) || isGrantedOpt(_.GamesModView)) so: user =>
-        val format = GameApiV2.Format byRequest req
+      _.filter(u => u.enabled.yes || ctx.is(u) || isGrantedOpt(_.GamesModView)).so: user =>
+        val format = GameApiV2.Format.byRequest(req)
         import lila.rating.{ Perf, PerfType }
         WithVs: vs =>
           env.security.ipTrust
             .throttle(MaxPerSecond:
-              if ctx is lila.user.User.explorerId then env.apiExplorerGamesPerSecond.get()
-              else if ctx is user then 60
+              if ctx.is(lila.user.User.explorerId) then env.apiExplorerGamesPerSecond.get()
+              else if ctx.is(user) then 60
               else if ctx.isOAuth then 30 // bonus for oauth logged in only (not for CSRF)
               else 25
             )
@@ -73,14 +77,14 @@ final class Game(env: Env, apiC: => Api) extends LilaController(env):
                 vs = vs,
                 since = getTimestamp("since"),
                 until = getTimestamp("until"),
-                max = getInt("max").map(_ atLeast 1),
+                max = getInt("max").map(_.atLeast(1)),
                 rated = getBoolOpt("rated"),
-                perfType = (~get("perfType") split "," map { Perf.Key(_) } flatMap PerfType.apply).toSet,
-                color = get("color") flatMap chess.Color.fromName,
+                perfType = ((~get("perfType")).split(",").map { Perf.Key(_) }.flatMap(PerfType.apply)).toSet,
+                color = get("color").flatMap(chess.Color.fromName),
                 analysed = getBoolOpt("analysed"),
                 flags = requestPgnFlags(extended = false),
                 sort =
-                  if get("sort") has "dateAsc" then GameApiV2.GameSort.DateAsc
+                  if get("sort").has("dateAsc") then GameApiV2.GameSort.DateAsc
                   else GameApiV2.GameSort.DateDesc,
                 perSecond = perSecond,
                 playerFile = get("players"),
@@ -102,7 +106,7 @@ final class Game(env: Env, apiC: => Api) extends LilaController(env):
                           s"lichess_${user.username}_${fileDate}.${format.toString.toLowerCase}"
                       .as(gameContentType(config))
 
-  private def fileDate = DateTimeFormatter ofPattern "yyyy-MM-dd" print nowInstant
+  private def fileDate = DateTimeFormatter.ofPattern("yyyy-MM-dd").print(nowInstant)
 
   def apiExportByUserImportedGames() = AuthOrScoped() { ctx ?=> me ?=>
     apiC.GlobalConcurrencyLimitPerIpAndUserOption(me.some)(
@@ -116,8 +120,8 @@ final class Game(env: Env, apiC: => Api) extends LilaController(env):
   def exportByIds = AnonOrScopedBody(parse.tolerantText)(): ctx ?=>
     val (limit, perSec) = if ctx.me.exists(_.isVerifiedOrChallengeAdmin) then (600, 100) else (300, 30)
     val config = GameApiV2.ByIdsConfig(
-      ids = GameId from ctx.body.body.split(',').view.take(limit).toSeq,
-      format = GameApiV2.Format byRequest req,
+      ids = GameId.from(ctx.body.body.split(',').view.take(limit).toSeq),
+      format = GameApiV2.Format.byRequest(req),
       flags = requestPgnFlags(extended = false),
       perSecond = MaxPerSecond(perSec),
       playerFile = get("players")
@@ -159,7 +163,8 @@ final class Game(env: Env, apiC: => Api) extends LilaController(env):
           case _                      => ndJson.contentType
 
   private[controllers] def preloadUsers(game: lila.game.Game): Funit =
-    env.user.lightUserApi preloadMany game.userIds
+    env.user.lightUserApi.preloadMany(game.userIds)
   private[controllers] def preloadUsers(users: lila.user.GameUsers): Unit =
-    env.user.lightUserApi preloadUsers users.all.collect:
+    env.user.lightUserApi.preloadUsers(users.all.collect:
       case Some(lila.user.User.WithPerf(u, _)) => u
+    )

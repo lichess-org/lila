@@ -53,17 +53,19 @@ object publicChat:
     frag(
       titleFragment,
       div(cls := "chat"):
-        chat.lines.filter(_.isVisible) map: line =>
-          div(
-            cls := List(
-              "line"    -> true,
-              "lichess" -> line.isLichess
+        chat.lines
+          .filter(_.isVisible)
+          .map: line =>
+            div(
+              cls := List(
+                "line"    -> true,
+                "lichess" -> line.isLichess
+              )
+            )(
+              userIdLink(UserStr(line.author).id.some, withOnline = false, withTitle = false),
+              " ",
+              lila.shutup.Analyser.highlightBad(line.text)
             )
-          )(
-            userIdLink(UserStr(line.author).id.some, withOnline = false, withTitle = false),
-            " ",
-            lila.shutup.Analyser.highlightBad(line.text)
-          )
     )
 
   private def swissTitle(swiss: lila.swiss.Swiss) =

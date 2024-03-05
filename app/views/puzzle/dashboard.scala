@@ -23,11 +23,11 @@ object dashboard:
       days = days,
       path = "dashboard",
       title =
-        if ctx is user then trans.puzzle.puzzleDashboard.txt()
+        if ctx.is(user) then trans.puzzle.puzzleDashboard.txt()
         else s"${user.username} ${trans.puzzle.puzzleDashboard.txt()}",
       subtitle = trans.puzzle.puzzleDashboardDescription.txt(),
       dashOpt = dashOpt,
-      moreJs = dashOpt so { dash =>
+      moreJs = dashOpt.so { dash =>
         val mostPlayed = dash.mostPlayed.sortBy { case (key, _) => PuzzleTheme(key).name.txt() }
         jsModuleInit(
           "puzzle.dashboard",
@@ -49,11 +49,12 @@ object dashboard:
         )
       }
     ) { dash =>
-      dash.mostPlayed.size > 2 option
+      (dash.mostPlayed.size > 2).option(
         div(cls := s"${baseClass}__global")(
           metricsOf(days, PuzzleTheme.mix.key, dash.global),
           canvas(cls := s"${baseClass}__radar")
         )
+      )
     }
 
   def improvementAreas(user: User, dashOpt: Option[PuzzleDashboard], days: Int)(using ctx: PageContext) =
@@ -62,12 +63,12 @@ object dashboard:
       days = days,
       "improvementAreas",
       title =
-        if ctx is user then trans.puzzle.improvementAreas.txt()
+        if ctx.is(user) then trans.puzzle.improvementAreas.txt()
         else s"${user.username} ${trans.puzzle.improvementAreas.txt()}",
       subtitle = trans.puzzle.improvementAreasDescription.txt(),
       dashOpt = dashOpt
     ) { dash =>
-      dash.weakThemes.nonEmpty option themeSelection(days, dash.weakThemes)
+      dash.weakThemes.nonEmpty.option(themeSelection(days, dash.weakThemes))
     }
 
   def strengths(user: User, dashOpt: Option[PuzzleDashboard], days: Int)(using ctx: PageContext) =
@@ -76,12 +77,12 @@ object dashboard:
       days = days,
       "strengths",
       title =
-        if ctx is user then trans.puzzle.strengths.txt()
+        if ctx.is(user) then trans.puzzle.strengths.txt()
         else s"${user.username} ${trans.puzzle.strengths.txt()}",
       subtitle = trans.puzzle.strengthDescription.txt(),
       dashOpt = dashOpt
     ) { dash =>
-      dash.strongThemes.nonEmpty option themeSelection(days, dash.strongThemes)
+      dash.strongThemes.nonEmpty.option(themeSelection(days, dash.strongThemes))
     }
 
   private def dashboardLayout(
@@ -111,7 +112,7 @@ object dashboard:
             views.html.base.bits.mselect(
               s"${baseClass}__day-select box__top__actions",
               span(trans.nbDays.pluralSame(days)),
-              PuzzleDashboard.dayChoices map { d =>
+              PuzzleDashboard.dayChoices.map { d =>
                 a(
                   cls  := (d == days).option("current"),
                   href := routes.Puzzle.dashboard(d, path, user.username.some)
@@ -149,9 +150,11 @@ object dashboard:
       div(cls := s"$metricClass $metricClass--played")(
         trans.puzzle.nbPlayed.plural(results.nb, strong(results.nb.localize))
       ),
-      ctx.pref.showRatings option div(cls := s"$metricClass $metricClass--perf")(
-        strong(results.performance, results.unclear so "?"),
-        span(trans.performance())
+      ctx.pref.showRatings.option(
+        div(cls := s"$metricClass $metricClass--perf")(
+          strong(results.performance, results.unclear.so("?")),
+          span(trans.performance())
+        )
       ),
       div(
         cls   := s"$metricClass $metricClass--win",
@@ -163,8 +166,10 @@ object dashboard:
         cls  := s"$metricClass $metricClass--fix",
         href := results.canReplay.option(routes.Puzzle.replay(days, theme).url)
       )(
-        results.canReplay option span(cls := s"$metricClass--fix__text")(
-          trans.puzzle.nbToReplay.plural(results.unfixed, strong(results.unfixed))
+        results.canReplay.option(
+          span(cls := s"$metricClass--fix__text")(
+            trans.puzzle.nbToReplay.plural(results.unfixed, strong(results.unfixed))
+          )
         ),
         iconTag(if results.canReplay then licon.PlayTriangle else licon.Checkmark)
       )

@@ -30,8 +30,8 @@ final class Feed(env: Env) extends LilaController(env):
       .fold(
         err => BadRequest.pageAsync(html.feed.create(err)),
         data =>
-          val up = data toUpdate none
-          api.set(up) inject Redirect(routes.Feed.edit(up.id)).flashSuccess
+          val up = data.toUpdate(none)
+          api.set(up).inject(Redirect(routes.Feed.edit(up.id)).flashSuccess)
       )
   }
 
@@ -47,15 +47,16 @@ final class Feed(env: Env) extends LilaController(env):
         .bindFromRequest()
         .fold(
           err => BadRequest.pageAsync(html.feed.edit(err, from)),
-          data => api.set(data toUpdate from.id.some) inject Redirect(routes.Feed.edit(from.id)).flashSuccess
+          data =>
+            api.set(data.toUpdate(from.id.some)).inject(Redirect(routes.Feed.edit(from.id)).flashSuccess)
         )
   }
 
   def delete(id: String) = Secure(_.Feed) { _ ?=> _ ?=>
     Found(api.get(id)): up =>
-      api.delete(up.id) inject Redirect(routes.Feed.index(1)).flashSuccess
+      api.delete(up.id).inject(Redirect(routes.Feed.index(1)).flashSuccess)
   }
 
   def atom = Anon:
-    api.recentPublished map: ups =>
-      Ok(html.feed.atom(ups)) as XML
+    api.recentPublished.map: ups =>
+      Ok(html.feed.atom(ups)).as(XML)

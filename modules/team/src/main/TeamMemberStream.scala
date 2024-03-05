@@ -17,11 +17,11 @@ final class TeamMemberStream(
       .mapAsync(1): members =>
         userApi
           .listWithPerfs(members.view.map(_._1).toList)
-          .map(_ zip members.map(_._2))
+          .map(_.zip(members.map(_._2)))
       .mapConcat(identity)
 
   def subscribedIds(team: Team, perSecond: MaxPerSecond): Source[UserId, ?] =
-    idsBatches(team, perSecond, $doc("unsub" $ne true))
+    idsBatches(team, perSecond, $doc("unsub".$ne(true)))
       .map(_.map(_._1))
       .mapConcat(identity)
 
@@ -32,7 +32,7 @@ final class TeamMemberStream(
   ): Source[Seq[(UserId, Instant)], ?] =
     memberRepo.coll
       .find($doc("team" -> team.id) ++ selector, $doc("user" -> true, "date" -> true).some)
-      .sort($sort desc "date")
+      .sort($sort.desc("date"))
       .batchSize(perSecond.value)
       .cursor[Bdoc](ReadPref.priTemp)
       .documentSource()

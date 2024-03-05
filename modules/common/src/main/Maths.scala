@@ -8,7 +8,7 @@ import ornicar.scalalib.ThreadLocalRandom
 object Maths:
 
   def mean[T](a: Iterable[T])(using n: Numeric[T]): Option[Double] =
-    a.nonEmpty option (n.toDouble(a.sum) / a.size)
+    a.nonEmpty.option(n.toDouble(a.sum) / a.size)
 
   def median[T: ClassTag](a: Iterable[T])(using n: Numeric[T]): Option[Double] =
     a.nonEmpty.option:
@@ -27,7 +27,7 @@ object Maths:
   def weightedMean(a: Iterable[(Double, Double)]): Option[Double] =
     a.nonEmpty.so:
       a.foldLeft(0d -> 0d) { case ((av, aw), (v, w)) => (av + v * w, aw + w) } match
-        case (v, w) => w != 0 option v / w
+        case (v, w) => (w != 0).option(v / w)
 
   def arithmeticAndHarmonicMean(a: Iterable[Double]): Option[Double] = for
     arithmetic <- mean(a)
@@ -44,7 +44,7 @@ object Maths:
     ((2 * v + mult) / (2 * mult)) * mult
 
   def divideRoundUp(a: Int, b: Int): Option[Int] =
-    b != 0 option Math.ceil(a.toDouble / b).toInt
+    (b != 0).option(Math.ceil(a.toDouble / b).toInt)
 
   /* Moderates distribution with a factor,
    * and retries when value is outside the mean+deviation box.

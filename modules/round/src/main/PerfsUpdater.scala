@@ -19,7 +19,7 @@ final class PerfsUpdater(
 
   // returns rating diffs
   def save(game: Game, white: User.WithPerfs, black: User.WithPerfs): Fu[Option[RatingDiffs]] =
-    botFarming(game) flatMap {
+    botFarming(game).flatMap {
       if _ then fuccess(none)
       else
         game.ratingPerfType.so: mainPerf =>
@@ -64,13 +64,15 @@ final class PerfsUpdater(
             val ratingDiffs = ByColor(
               ratingOf(perfsW) - ratingOf(white.perfs),
               ratingOf(perfsB) - ratingOf(black.perfs)
-            ).map(_ into IntRatingDiff)
-            gameRepo.setRatingDiffs(game.id, ratingDiffs) zip
-              userApi.updatePerfs(ByColor(white.perfs -> perfsW, black.perfs -> perfsB), game.perfType) zip
-              historyApi.add(white.user, game, perfsW) zip
-              historyApi.add(black.user, game, perfsB) zip
-              rankingApi.save(white.user, game.perfType, perfsW) zip
-              rankingApi.save(black.user, game.perfType, perfsB) inject ratingDiffs.some
+            ).map(_.into(IntRatingDiff))
+            gameRepo
+              .setRatingDiffs(game.id, ratingDiffs)
+              .zip(userApi.updatePerfs(ByColor(white.perfs -> perfsW, black.perfs -> perfsB), game.perfType))
+              .zip(historyApi.add(white.user, game, perfsW))
+              .zip(historyApi.add(black.user, game, perfsB))
+              .zip(rankingApi.save(white.user, game.perfType, perfsW))
+              .zip(rankingApi.save(black.user, game.perfType, perfsB))
+              .inject(ratingDiffs.some)
     }
 
   private case class Ratings(
@@ -131,7 +133,7 @@ final class PerfsUpdater(
           if cond then
             val p = perf.addOrReset(_.round.error.glicko, s"game ${game.id}")(rating, game.movedAt)
             if isHumanVsMachine
-            then p.copy(glicko = p.glicko average perf.glicko) // halve rating diffs for human
+            then p.copy(glicko = p.glicko.average(perf.glicko)) // halve rating diffs for human
             else p
           else perf
         val perfs1 = perfs.copy(

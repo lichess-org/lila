@@ -9,8 +9,8 @@ import chess.opening.{ Opening, OpeningDb, OpeningFamily }
 // - Barnes Opening
 case class LilaOpeningFamily(ref: OpeningFamily, fullOrSubstitute: Either[Opening, Opening]):
   import LilaOpeningFamily.*
-  val name                = ref.name into Name
-  def key                 = ref.key into Key
+  val name                = ref.name.into(Name)
+  def key                 = ref.key.into(Key)
   def as(color: Color)    = LilaOpeningFamily.AsColor(this, color)
   def full                = fullOrSubstitute.left.toOption
   def substitute          = fullOrSubstitute.toOption
@@ -26,7 +26,7 @@ object LilaOpeningFamily:
 
   case class AsColor(family: LilaOpeningFamily, color: Color)
 
-  def apply(key: Key): Option[LilaOpeningFamily]   = families get key
+  def apply(key: Key): Option[LilaOpeningFamily]   = families.get(key)
   def find(key: String): Option[LilaOpeningFamily] = apply(Key(key))
 
   lazy val families: Map[Key, LilaOpeningFamily] = OpeningDb.all

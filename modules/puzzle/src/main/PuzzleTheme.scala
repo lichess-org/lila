@@ -232,7 +232,7 @@ object PuzzleTheme:
 
   def apply(key: Key): PuzzleTheme = byKey.getOrElse(key, mix)
 
-  def find(key: String) = byLowerKey get key.toLowerCase
+  def find(key: String) = byLowerKey.get(key.toLowerCase)
 
   def findOrMix(key: Key) = find(key) | mix
 

@@ -37,8 +37,8 @@ object View:
 
     def reads(r: BSON.Reader): View =
       View(
-        id = r str id,
-        videoId = r str videoId,
+        id = r.str(id),
+        videoId = r.str(videoId),
         userId = r.get[UserId](userId),
         date = r.get[Instant](date)
       )

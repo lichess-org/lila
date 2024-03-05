@@ -7,7 +7,7 @@ object SemVer:
     val (nums, extras) =
       bits.take(3).foldLeft((Nil: List[Long], Nil: List[String])) { case ((num, extra), bit) =>
         import scala.util.control.Exception.*
-        allCatch opt bit.toLong match
+        allCatch.opt(bit.toLong) match
           case Some(long) => (long :: num, extra)
           case None       => (num, bit :: extra)
       }
@@ -70,8 +70,8 @@ case class SemVer(major: Long, minor: Long, point: Long, extra: Option[String], 
     else if point != o.point then point.compare(o.point)
     else
       import scala.util.control.Exception.*
-      val thsNumPrefix: Option[Long] = allCatch opt extra.get.takeWhile(_.isDigit).toLong
-      val thtNumPrefix: Option[Long] = allCatch opt o.extra.get.takeWhile(_.isDigit).toLong
+      val thsNumPrefix: Option[Long] = allCatch.opt(extra.get.takeWhile(_.isDigit).toLong)
+      val thtNumPrefix: Option[Long] = allCatch.opt(o.extra.get.takeWhile(_.isDigit).toLong)
       (extra, thsNumPrefix, o.extra, thtNumPrefix) match
         case (Some(ths), _, Some(tht), _) if ths == "SNAPSHOT" || tht == "SNAPSHOT" =>
           0 // At least one SNAPSHOT: Can't decide

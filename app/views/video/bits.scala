@@ -10,7 +10,7 @@ object bits:
 
   private[video] def card(vv: lila.video.VideoView, control: lila.video.UserControl) =
     a(cls := "card paginated", href := s"${routes.Video.show(vv.video.id)}?${control.queryStringUnlessBot}")(
-      vv.view option span(cls := "view")("watched"),
+      vv.view.option(span(cls := "view")("watched")),
       span(cls := "duration")(vv.video.durationString),
       span(cls := "img", style := s"background-image: url(${vv.video.thumbnail})"),
       span(cls := "info")(

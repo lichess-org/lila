@@ -16,18 +16,18 @@ final private class GameJson(
 )(using Executor):
 
   def apply(gameId: GameId, plies: Ply, bc: Boolean): Fu[JsObject] =
-    (if bc then bcCache else cache) get writeKey(gameId, plies)
+    (if bc then bcCache else cache).get(writeKey(gameId, plies))
 
   def noCache(game: Game, plies: Ply): Fu[JsObject] =
-    lightUserApi preloadMany game.userIds inject generate(game, plies)
+    lightUserApi.preloadMany(game.userIds).inject(generate(game, plies))
 
   def noCacheBc(game: Game, plies: Ply): Fu[JsObject] =
-    lightUserApi preloadMany game.userIds inject generateBc(game, plies)
+    lightUserApi.preloadMany(game.userIds).inject(generateBc(game, plies))
 
   private def readKey(k: String): (GameId, Ply) =
     k.drop(GameId.size).toIntOption match
-      case Some(ply) => (GameId take k, Ply(ply))
-      case _         => sys error s"puzzle.GameJson invalid key: $k"
+      case Some(ply) => (GameId.take(k), Ply(ply))
+      case _         => sys.error(s"puzzle.GameJson invalid key: $k")
   private def writeKey(id: GameId, ply: Ply) = s"$id$ply"
 
   private val cache = cacheApi[String, JsObject](4096, "puzzle.gameJson"):
@@ -45,8 +45,8 @@ final private class GameJson(
         generate(id, plies, true)
 
   private def generate(gameId: GameId, plies: Ply, bc: Boolean): Fu[JsObject] =
-    gameRepo gameFromSecondary gameId orFail s"Missing puzzle game $gameId!" flatMap { game =>
-      lightUserApi preloadMany game.userIds map { _ =>
+    gameRepo.gameFromSecondary(gameId).orFail(s"Missing puzzle game $gameId!").flatMap { game =>
+      lightUserApi.preloadMany(game.userIds).map { _ =>
         if bc then generateBc(game, plies)
         else generate(game, plies)
       }

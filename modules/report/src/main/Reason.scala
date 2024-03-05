@@ -31,7 +31,7 @@ object Reason:
 
   given Iso.StringIso[Reason] = Iso.string(k => byKey.getOrElse(k, Other), _.key)
 
-  def apply(key: String): Option[Reason] = byKey get key
+  def apply(key: String): Option[Reason] = byKey.get(key)
 
   trait WithReason:
     def reason: Reason

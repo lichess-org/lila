@@ -32,15 +32,15 @@ object GameFilterMenu:
     val filters: NonEmptyList[GameFilter] = NonEmptyList(
       All,
       List(
-        (~nbs.withMe > 0) option Me,
-        (user.count.rated > 0) option Rated,
-        (user.count.win > 0) option Win,
-        (user.count.loss > 0) option Loss,
-        (user.count.draw > 0) option Draw,
-        (nbs.playing > 0) option Playing,
-        (nbs.bookmark > 0) option Bookmark,
-        (nbs.imported > 0) option Imported,
-        (isAuth && user.count.game > 0) option Search
+        (~nbs.withMe > 0).option(Me),
+        (user.count.rated > 0).option(Rated),
+        (user.count.win > 0).option(Win),
+        (user.count.loss > 0).option(Loss),
+        (user.count.draw > 0).option(Draw),
+        (nbs.playing > 0).option(Playing),
+        (nbs.bookmark > 0).option(Bookmark),
+        (nbs.imported > 0).option(Imported),
+        (isAuth && user.count.game > 0).option(Search)
       ).flatten
     )
 
@@ -89,29 +89,29 @@ object GameFilterMenu:
         case Bookmark => bookmarkApi.gamePaginatorByUser(user, page)
         case Imported =>
           pagBuilder(
-            selector = Query imported user.id,
-            sort = $sort desc "pgni.ca",
+            selector = Query.imported(user.id),
+            sort = $sort.desc("pgni.ca"),
             nb = nb
           )(page)
         case All =>
-          std(Query started user.id) flatMap {
+          std(Query.started(user.id)).flatMap {
             _.mapFutureResults(gameProxyRepo.upgradeIfPresent)
           }
         case Me    => std(Query.opponents(user, me | user))
-        case Rated => std(Query rated user.id)
-        case Win   => std(Query win user.id)
-        case Loss  => std(Query loss user.id)
-        case Draw  => std(Query draw user.id)
+        case Rated => std(Query.rated(user.id))
+        case Win   => std(Query.win(user.id))
+        case Loss  => std(Query.loss(user.id))
+        case Draw  => std(Query.draw(user.id))
         case Playing =>
           pagBuilder(
-            selector = Query nowPlaying user.id,
+            selector = Query.nowPlaying(user.id),
             sort = $empty,
             nb = nb
           )(page)
             .flatMap:
               _.mapFutureResults(gameProxyRepo.upgradeIfPresent)
             .addEffect: p =>
-              p.currentPageResults.filter(_.finishedOrAborted) foreach gameRepo.unsetPlayingUids
+              p.currentPageResults.filter(_.finishedOrAborted).foreach(gameRepo.unsetPlayingUids)
         case Search => userGameSearch(user, page)
 
   def searchForm(

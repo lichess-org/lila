@@ -44,7 +44,7 @@ final class Mailer(
                 from = config.sender,
                 to = Seq(msg.to.value),
                 bodyText = msg.text.some,
-                bodyHtml = msg.htmlBody map { body => Mailer.html.wrap(msg.subject, body).render }
+                bodyHtml = msg.htmlBody.map { body => Mailer.html.wrap(msg.subject, body).render }
               )
 
 object Mailer:
@@ -138,7 +138,7 @@ $serviceNote"""
       frag(
         meta(itemprop := "url", content := u),
         p(a(itemprop := "target", href := u)(u)),
-        clickOrPaste option p(trans.common_orPaste())
+        clickOrPaste.option(p(trans.common_orPaste()))
       )
 
     private[Mailer] def wrap(subject: String, htmlBody: Frag): Frag =

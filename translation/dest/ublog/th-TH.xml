@@ -24,4 +24,5 @@
   <string name="imageCredit">เครดิตภาพ</string>
   <string name="deleteImage">ลบรูปภาพ</string>
   <string name="discussThisBlogPostInTheForum">หารือเรื่องบล็อกโพสต์ในฟอรั่ม</string>
+  <string name="youBlockedByBlogAuthor">คุณถูกปิดกั้นโดยผู้เขียนบล็อก</string>
 </resources>

@@ -18,7 +18,7 @@ object index:
   def drafts(user: User, posts: Paginator[UblogPost.PreviewPost])(using PageContext) =
     views.html.base.layout(
       moreCss = frag(cssTag("ublog")),
-      moreJs = posts.hasNextPage option infiniteScrollTag,
+      moreJs = posts.hasNextPage.option(infiniteScrollTag),
       title = trans.ublog.drafts.txt()
     ) {
       main(cls := "page-menu")(
@@ -33,7 +33,7 @@ object index:
           ),
           if posts.nbResults > 0 then
             div(cls := "ublog-index__posts ublog-index__posts--drafts ublog-post-cards infinite-scroll")(
-              posts.currentPageResults map { postView.card(_, postView.editUrlOfPost) },
+              posts.currentPageResults.map { postView.card(_, postView.editUrlOfPost) },
               pagerNext(posts, np => routes.Ublog.drafts(user.username, np).url)
             )
           else
@@ -73,7 +73,7 @@ object index:
   def community(language: Option[Language], posts: Paginator[UblogPost.PreviewPost])(using ctx: PageContext) =
     views.html.base.layout(
       moreCss = cssTag("ublog"),
-      moreJs = posts.hasNextPage option infiniteScrollTag,
+      moreJs = posts.hasNextPage.option(infiniteScrollTag),
       title = "Community blogs",
       atomLinkTag = link(
         href     := routes.Ublog.communityAtom(language.fold("all")(_.value)),
@@ -110,7 +110,7 @@ object index:
           ),
           if posts.nbResults > 0 then
             div(cls := "ublog-index__posts ublog-post-cards infinite-scroll")(
-              posts.currentPageResults map { postView.card(_, showAuthor = ShowAt.top) },
+              posts.currentPageResults.map { postView.card(_, showAuthor = ShowAt.top) },
               pagerNext(
                 posts,
                 p =>
@@ -141,7 +141,7 @@ object index:
                   span(cls := "ublog-topics__topic__nb")(trans.ublog.viewAllNbPosts(nb), " »")
                 ),
                 span(cls := "ublog-topics__topic__posts ublog-post-cards")(
-                  posts map postView.miniCard
+                  posts.map(postView.miniCard)
                 )
               )
             }
@@ -159,7 +159,7 @@ object index:
   )(using PageContext) =
     views.html.base.layout(
       moreCss = cssTag("ublog"),
-      moreJs = posts.hasNextPage option infiniteScrollTag,
+      moreJs = posts.hasNextPage.option(infiniteScrollTag),
       title = title
     ) {
       main(cls := "page-menu")(
@@ -171,14 +171,14 @@ object index:
               span(
                 "Sort by ",
                 span(cls := "btn-rack")(
-                  a(cls := s"btn-rack__btn${!v so " active"}", href := route(1, false.some))("rank"),
-                  a(cls := s"btn-rack__btn${v so " active"}", href := route(1, true.some))("date")
+                  a(cls := s"btn-rack__btn${(!v).so(" active")}", href := route(1, false.some))("rank"),
+                  a(cls := s"btn-rack__btn${v.so(" active")}", href := route(1, true.some))("date")
                 )
               )
           ),
           if posts.nbResults > 0 then
             div(cls := "ublog-index__posts ublog-post-cards infinite-scroll")(
-              posts.currentPageResults map { postView.card(_, showAuthor = ShowAt.top) },
+              posts.currentPageResults.map { postView.card(_, showAuthor = ShowAt.top) },
               pagerNext(posts, np => route(np, byDate).url)
             )
           else div(cls := "ublog-index__posts--empty")(onEmpty)

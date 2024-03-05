@@ -533,7 +533,6 @@ zum bewise dass du en Mänsch bisch.</string>
   <string name="automaticallyProceedToNextGameAfterMoving">Nach em Zug automatisch zur nächschte Partie</string>
   <string name="autoSwitch">Automatische Wächsel</string>
   <string name="puzzles">Ufgabe</string>
-  <string name="tournamentWinners">Turnier Sieger</string>
   <string name="name">Name</string>
   <string name="description">Beschribig</string>
   <string name="descPrivate">Privati Beschribig</string>
@@ -949,8 +948,6 @@ und beiflussed dini Wertig</string>
   <string name="minimumRatedGames">Minimum gwerteti Partie</string>
   <string name="minimumRating">Minimali Wertig</string>
   <string name="maximumWeeklyRating">Maximali wüchentlichi Wertig</string>
-  <string name="onlyTitled">Nur für Schpiller mit Titel</string>
-  <string name="onlyTitledHelp">Für das Turnier muesch en offizielle Titel ha</string>
   <string name="positionInputHelp">E gültigi FEN schtartet jedes Schpiel ab ere beschtimmte Schtellig. 
 Das funktioniert nur für Schtandardschpiel und nöd für Variante!
 Du chasch mit %s so e FEN-Schtellig generiere und 
