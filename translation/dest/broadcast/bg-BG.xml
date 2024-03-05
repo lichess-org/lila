@@ -8,6 +8,7 @@
   </plurals>
   <string name="liveBroadcasts">Излъчвания на турнир на живо</string>
   <string name="newBroadcast">Нови предавания на живо</string>
+  <string name="subscribedBroadcasts">Излчвания които следя</string>
   <string name="addRound">Добави рунд</string>
   <string name="ongoing">Текущи</string>
   <string name="upcoming">Предстоящи</string>
@@ -34,4 +35,5 @@
   <string name="deleteAllGamesOfThisRound">Изтрийте този рунд и всичките му игри. Източникът трябва да е активен за да можете да ги възстановите.</string>
   <string name="deleteTournament">Изтрий този турнир</string>
   <string name="definitivelyDeleteTournament">Окончателно изтрий целия турнир, всичките му рундове и игри.</string>
+  <string name="replacePlayerTags">По избор: промени имената на играчите, рейтингите и титлите</string>
 </resources>

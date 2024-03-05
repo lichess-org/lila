@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+  <string name="swiss">Svizzero</string>
   <string name="swissTournaments">Tornei svizzeri</string>
   <plurals name="viewAllXRounds" comment="viewAllXRounds [one] [other]&#10;&#10;%s is the number of rounds in the Swiss tournament.">
     <item quantity="one">Visualizza il round</item>
@@ -113,4 +114,5 @@ Un modo per simulare un Round Robin online è giocare un torneo svizzero con un 
   <string name="predefinedUsers">Permetti solo a degli utenti prefissati di partecipare</string>
   <string name="forbiddedUsers">Se questa lista non è vuota, gli utenti che non compaiono in questa lista non potranno partecipare. Un nome utente per ogni linea.</string>
   <string name="playYourGames">Gioca le tue partite</string>
+  <string name="tieBreak">Spareggio</string>
 </resources>

@@ -306,6 +306,7 @@
   <string name="abortGame">Przerwij partię</string>
   <string name="gameAborted">Partia została przerwana</string>
   <string name="standard">Standard</string>
+  <string name="customPosition">Niestandardowa pozycja</string>
   <string name="unlimited">Bez limitu</string>
   <string name="mode">Rodzaj</string>
   <string name="casual">Towarzyska</string>
@@ -599,7 +600,7 @@
   <string name="automaticallyProceedToNextGameAfterMoving">Po ruchu automatycznie przejdź do kolejnej partii</string>
   <string name="autoSwitch">Przełącz po ruchu</string>
   <string name="puzzles">Zadania szachowe</string>
-  <string name="tournamentWinners">Zwycięzcy turniejów</string>
+  <string name="onlineBots">Boty online</string>
   <string name="name">Nazwa</string>
   <string name="description">Opis</string>
   <string name="descPrivate">Prywatny opis</string>
@@ -1024,8 +1025,6 @@ na ranking graczy</string>
   <string name="minimumRatedGames">Minimalna liczba partii rankingowych</string>
   <string name="minimumRating">Minimalny ranking</string>
   <string name="maximumWeeklyRating">Maksymalny tygodniowy ranking</string>
-  <string name="onlyTitled">Tylko gracze z tytułem</string>
-  <string name="onlyTitledHelp">Wymagaj oficjalnego tytułu, aby dołączyć do turnieju</string>
   <string name="positionInputHelp">Wklej poprawny FEN, aby rozpocząć każdą partię z danej pozycji.
 Działa tylko dla standardowych gier, nie działa dla wariantów.
 Możesz użyć %s , aby wygenerować pozycję FEN, a następnie wkleić ją tutaj.
@@ -1074,4 +1073,5 @@ Pozostaw puste, aby rozpoczynać partie z normalnej pozycji początkowej.</strin
   <string name="showMeEverything">Pokaż mi wszystko</string>
   <string name="lichessPatronInfo">Lichess jest organizacją niedochodową i całkowicie darmowym otwartym oprogramowaniem.
 Wszystkie koszty operacyjne, rozwój i treści są finansowane wyłącznie z darowizn użytkowników.</string>
+  <string name="nothingToSeeHere">W tej chwili nie ma nic do zobaczenia.</string>
 </resources>

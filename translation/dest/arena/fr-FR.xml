@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+  <string name="arena">Arène</string>
   <string name="arenaTournaments">Tournois Arène</string>
   <string name="isItRated">Est-ce classé ?</string>
   <string name="willBeNotified">Vous serez notifié lorsque le tournoi commencera, vous pouvez donc jouer dans un autre onglet en attendant.</string>
@@ -41,7 +42,7 @@ Jouez vite et retournez à la page d\'accueil du tournoi pour jouer plus de part
   <string name="variant">Variante</string>
   <string name="minimumGameLength">Nombre de coups minimum de la partie</string>
   <string name="history">Historique des tournois d\'arène</string>
-  <plurals name="viewAllXTeams" comment="%s is the number of teams that can be viewed.&#10;&#10;Appears in team battles that feature lots of teams. As of the time of writing, Lichess lists up to 10 teams at a time, so this button lets you view all teams.">
+  <plurals name="viewAllXTeams" comment="viewAllXTeams [one] [other]&#10;&#10;%s is the number of teams that can be viewed">
     <item quantity="one">Voir l\'équipe</item>
     <item quantity="other">Voir toutes les équipes %s</item>
   </plurals>
@@ -54,8 +55,32 @@ Jouez vite et retournez à la page d\'accueil du tournoi pour jouer plus de part
   <string name="arenaStreaks">Série de victoires dans l\'arène</string>
   <string name="arenaStreaksHelp">Après 2 victoires, des victoires consécutives donnent 4 points au lieu de 2.</string>
   <string name="noBerserkAllowed">Aucune partie Berserk autorisée</string>
-  <string name="noArenaStreaks" comment="A possible setting when creating an arena tournament.&#10;When enabled: After 2 wins, consecutive wins grant 4 points instead of 2.">Pas de streak dans le tournoi Arène</string>
+  <string name="noArenaStreaks">Pas de streak dans le tournoi Arène</string>
   <string name="averagePerformance">Performance moyenne</string>
   <string name="averageScore">Score moyen</string>
   <string name="myTournaments">Mes tournois</string>
+  <string name="editTournament">Modifier le tournoi</string>
+  <string name="editTeamBattle">Modifier la bataille en équipe</string>
+  <string name="defender" comment="In this context, this is the current holder of a shield trophy, who are defending their trophy in the next shield tournament of that variant. https://lichess.org/tournament/shields">Défenseur</string>
+  <string name="pickYourTeam">Choisissez votre équipe</string>
+  <string name="whichTeamWillYouRepresentInThisBattle">Quelle équipe représenterez-vous dans cette bataille?</string>
+  <string name="youMustJoinOneOfTheseTeamsToParticipate">Vous devez rejoindre l\'une de ces équipes pour participer!</string>
+  <string name="created">Créé</string>
+  <string name="recentlyPlayed">Joué récemment</string>
+  <string name="bestResults">Meilleurs résultats</string>
+  <string name="stats">Statistiques</string>
+  <string name="tournamentStats">Statistiques du tournoi</string>
+  <string name="rankAvgHelp">Le classement moyen est un pourcentage de votre classement. Plus il est bas, mieux c\'est.
+
+Par exemple, être classé 3e dans un tournoi de 100 joueurs = 3 %. Être classé 10e dans un tournoi de 1 000 joueurs = 1 %.</string>
+  <string name="medians" comment="Part of a longer sentence,  &quot;All averages on this page are %s.&quot; (where %s is this word, medians)">médianes</string>
+  <string name="allAveragesAreX" comment="The full sentence says 'All averages on this page are medians.' (as in median averages)&#10;&#10;%s is the word 'medians', which is available for translation separately.">Toutes les moyennes sur cette page sont des %s.</string>
+  <string name="total">Total</string>
+  <string name="pointsAvg">Moyenne des points</string>
+  <string name="pointsSum">Somme des points</string>
+  <string name="rankAvg">Classement moyen</string>
+  <string name="tournamentWinners">Vainqueurs du tournoi</string>
+  <string name="tournamentShields">Tournoi des Boucliers</string>
+  <string name="onlyTitled">Uniquement les joueurs titrés</string>
+  <string name="onlyTitledHelp">Un titre officiel est requis pour participer au tournoi</string>
 </resources>

@@ -508,7 +508,6 @@ arvutianalüüsi, mängu jututoa ning jagatava URL-i.</string>
   <string name="automaticallyProceedToNextGameAfterMoving">Liigu automaatselt järgmise mängu juurde pärast käiku</string>
   <string name="autoSwitch">Automaatne siirdumine</string>
   <string name="puzzles">Pusled</string>
-  <string name="tournamentWinners">Turniiri võitjad</string>
   <string name="name">Nimi</string>
   <string name="description">Kirjeldus</string>
   <string name="descPrivate">Privaatne kirjeldus</string>
@@ -896,8 +895,6 @@ ja mõjutavad mängijate reitinguid</string>
   <string name="minimumRatedGames">Minimaalne reitinguga mängude arv</string>
   <string name="minimumRating">Minimaalne reiting</string>
   <string name="maximumWeeklyRating">Minimaalne nädalane reiting</string>
-  <string name="onlyTitled">Ainult tiitliga mängijad</string>
-  <string name="onlyTitledHelp">Turniiriga liitumiseks vajalik ametlik tiitel</string>
   <string name="positionInputHelp">Sisesta kehtiv FEN, et alustada iga mängu antud positsioonilt.
 See töötab ainult standardmängude, mitte variantide puhul.
 FEN-i genereerimiseks on kasutada %s, seejärel saab selle siia kleepida.

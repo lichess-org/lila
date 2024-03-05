@@ -491,7 +491,6 @@
   <string name="automaticallyProceedToNextGameAfterMoving">Otomatis memproses permainan berikutnya setelah melangkah</string>
   <string name="autoSwitch">Pindah otomatis</string>
   <string name="puzzles">Taktik</string>
-  <string name="tournamentWinners">Pemenang turnamen</string>
   <string name="name">Nama</string>
   <string name="description">Keterangan</string>
   <string name="descPrivate">Deskripsi pribadi</string>
@@ -878,8 +877,6 @@ dan berdampak pada peringkat pemain</string>
   <string name="minimumRatedGames">Permainan di nilai minimum</string>
   <string name="minimumRating">Peringkat minimum</string>
   <string name="maximumWeeklyRating">Peringkat mingguan maksimum</string>
-  <string name="onlyTitled">Hanya pemain yang memiliki gelar</string>
-  <string name="onlyTitledHelp">Diperlukan sebuah gelar resmi untuk mengikuti turnamen</string>
   <string name="positionInputHelp">Tempelkan sebuah FEN yang valid untuk memulai setiap game dari posisi yang diberikan.
 Ini hanya berfungsi untuk game standar, bukan yang dengan variasi.
 Anda dapat menggunakan %s untuk menghasilkan sebuah posisi FEN, lalu tempel di sini.

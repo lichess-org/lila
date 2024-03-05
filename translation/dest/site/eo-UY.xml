@@ -531,7 +531,6 @@
   <string name="automaticallyProceedToNextGameAfterMoving">Aŭtomate iri al la sekvanta ludo post movi</string>
   <string name="autoSwitch">Aŭtomata ludŝanĝado</string>
   <string name="puzzles">Puzloj</string>
-  <string name="tournamentWinners">Turniro-venkistoj</string>
   <string name="name">Nomo</string>
   <string name="description">Priskribo</string>
   <string name="descPrivate">Privata priskribo</string>
@@ -939,8 +938,6 @@ kaj influas la rangojn de ludantoj</string>
   <string name="minimumRatedGames">Minimumo de rangaj ludoj</string>
   <string name="minimumRating">Minimuma rango</string>
   <string name="maximumWeeklyRating">Maksimuma ĉiusemajna rango</string>
-  <string name="onlyTitled">Nuraj titolaj ludantoj</string>
-  <string name="onlyTitledHelp">Necesigi la oficiala titolo por aliĝi al la turniro</string>
   <string name="positionInputHelp">Alglui validan FEN por komenci ĉiujn ludojn el donita pozicio.
 Tio nur funkcias por normaj ludoj, ne kun variantoj.
 Vi povas uzi la %s por krei FEN pozicio, tiam alglui ĝin ĉi tie.

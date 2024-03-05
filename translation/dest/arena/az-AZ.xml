@@ -39,7 +39,7 @@ Daha çox oyun oynamaq və daha çox xal qazanmaq üçün sürətli oynayın və
   <string name="thisIsPrivate">Bu özəl turnirdir</string>
   <string name="shareUrl">Dəvət etmək üçün, linki paylaş: %s</string>
   <string name="history">Arena Keçmişi</string>
-  <plurals name="viewAllXTeams" comment="%s is the number of teams that can be viewed.&#10;&#10;Appears in team battles that feature lots of teams. As of the time of writing, Lichess lists up to 10 teams at a time, so this button lets you view all teams.">
+  <plurals name="viewAllXTeams" comment="viewAllXTeams [one] [other]&#10;&#10;%s is the number of teams that can be viewed">
     <item quantity="one">Komandaya bax</item>
     <item quantity="other">Bütün %s komandaya bax</item>
   </plurals>
