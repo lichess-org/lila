@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+  <string name="arena">Arena</string>
   <string name="arenaTournaments">Torneos Arena</string>
   <string name="isItRated">É puntuado?</string>
   <string name="willBeNotified">Serás notificado cando comece o torneo, polo que podes xogar sen problema noutra lapela mentres agardas.</string>
@@ -42,7 +43,7 @@ Xoga rápido e volta á sala de espera para xogar máis partidas e gañar máis 
   <string name="variant">Variante</string>
   <string name="minimumGameLength">Duración mínima da partida</string>
   <string name="history">Historial de torneos Arena</string>
-  <plurals name="viewAllXTeams" comment="%s is the number of teams that can be viewed.&#10;&#10;Appears in team battles that feature lots of teams. As of the time of writing, Lichess lists up to 10 teams at a time, so this button lets you view all teams.">
+  <plurals name="viewAllXTeams" comment="viewAllXTeams [one] [other]&#10;&#10;%s is the number of teams that can be viewed">
     <item quantity="one">Ver o equipo</item>
     <item quantity="other">Ver todos os %s equipos</item>
   </plurals>
@@ -55,8 +56,32 @@ Xoga rápido e volta á sala de espera para xogar máis partidas e gañar máis 
   <string name="arenaStreaks">Secuencia de vitorias na Arena</string>
   <string name="arenaStreaksHelp">Tras 2 vitorias, as seguintes vitorias consecutivas dan 4 puntos en lugar de 2.</string>
   <string name="noBerserkAllowed">Non está permitido facer o Berserk</string>
-  <string name="noArenaStreaks" comment="A possible setting when creating an arena tournament.&#10;When enabled: After 2 wins, consecutive wins grant 4 points instead of 2.">Arena sen secuencias de vitorias</string>
+  <string name="noArenaStreaks">Arena sen secuencias de vitorias</string>
   <string name="averagePerformance">Rendemento medio</string>
   <string name="averageScore">Puntuación media</string>
   <string name="myTournaments">Os meus torneos</string>
+  <string name="editTournament">Editar o torneo</string>
+  <string name="editTeamBattle">Editar a batalla por equipos</string>
+  <string name="defender" comment="In this context, this is the current holder of a shield trophy, who are defending their trophy in the next shield tournament of that variant. https://lichess.org/tournament/shields">Defensor</string>
+  <string name="pickYourTeam">Escolle o teu equipo</string>
+  <string name="whichTeamWillYouRepresentInThisBattle">A que equipo representarás nesta batalla?</string>
+  <string name="youMustJoinOneOfTheseTeamsToParticipate">Tes que unirte a algún destes equipos para participar!</string>
+  <string name="created">Creado</string>
+  <string name="recentlyPlayed">Xogado recentemente</string>
+  <string name="bestResults">Mellores resultados</string>
+  <string name="stats">Estatísticas</string>
+  <string name="tournamentStats">Estatísticas do torneo</string>
+  <string name="rankAvgHelp">A clasificación media é unha porcentaxe da túa clasificación. Canto máis baixa, mellor.
+
+Por exemplo, ficar en 3º lugar nun torneo de 100 xogadores = 3%. Ficar 10º nun torneo de 1000 xogadores = 1%.</string>
+  <string name="medians" comment="Part of a longer sentence,  &quot;All averages on this page are %s.&quot; (where %s is this word, medians)">medianas</string>
+  <string name="allAveragesAreX" comment="The full sentence says 'All averages on this page are medians.' (as in median averages)&#10;&#10;%s is the word 'medians', which is available for translation separately.">Todas as medias nesta páxina son %s.</string>
+  <string name="total">Total</string>
+  <string name="pointsAvg">Media de puntos</string>
+  <string name="pointsSum">Suma dos puntos</string>
+  <string name="rankAvg">Clasificación media</string>
+  <string name="tournamentWinners">Gañadores do torneo</string>
+  <string name="tournamentShields">Torneos de Escudo</string>
+  <string name="onlyTitled">Só xogadores titulados</string>
+  <string name="onlyTitledHelp">Esixir un título oficial para unirse ó torneo</string>
 </resources>

@@ -276,6 +276,7 @@
   <string name="abortGame">Annuler la partie</string>
   <string name="gameAborted">Partie annulée</string>
   <string name="standard">Standard</string>
+  <string name="customPosition">Position personnalisée</string>
   <string name="unlimited">Illimité</string>
   <string name="mode">Mode</string>
   <string name="casual">Amical</string>
@@ -531,7 +532,7 @@
   <string name="automaticallyProceedToNextGameAfterMoving">Aller automatiquement à la prochaine partie après chaque coup</string>
   <string name="autoSwitch">Changement automatique</string>
   <string name="puzzles">Problèmes</string>
-  <string name="tournamentWinners">Vainqueurs de tournois</string>
+  <string name="onlineBots">Bots en ligne</string>
   <string name="name">Nom</string>
   <string name="description">Description</string>
   <string name="descPrivate">Description privée</string>
@@ -940,8 +941,6 @@ et ont un impact sur le classement des joueurs</string>
   <string name="minimumRatedGames">Nombre minimum de parties classées</string>
   <string name="minimumRating">Classement minimal</string>
   <string name="maximumWeeklyRating">Classement hebdomadaire maximal</string>
-  <string name="onlyTitled">Joueurs titrés seulement</string>
-  <string name="onlyTitledHelp">Titre officiel requis pour participer à un tournoi</string>
   <string name="positionInputHelp">Collez un FEN valide pour commencer chaque partie à partir d\'une position donnée.
 Cela ne fonctionne que pour les parties normales, pas avec les variantes.
 Vous pouvez utiliser le %s pour créer une position FEN puis la coller ici.
@@ -990,4 +989,5 @@ Laissez vide pour commencer les parties à partir de la position initiale normal
   <string name="showMeEverything">Tout afficher</string>
   <string name="lichessPatronInfo">Lichess est une association à but non lucratif et un logiciel open source entièrement libre.
 Tous les coûts d\'exploitation, le développement et le contenu sont financés uniquement par les dons des utilisateurs.</string>
+  <string name="nothingToSeeHere">Rien à voir ici pour le moment.</string>
 </resources>

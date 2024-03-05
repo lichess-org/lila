@@ -56,9 +56,28 @@
   <string name="entryCodeDescriptionForLeader">(אופציונלי) סיסמא שמשתמשים חדשים יצטרכו לדעת כדי להצטרף לקבוצה זו.</string>
   <string name="incorrectEntryCode">סיסמא שגויה.</string>
   <string name="teamAlreadyExists">שם הקבוצה תפוס.</string>
-  <string name="upcomingTourns">טורנירים קרובים</string>
+  <string name="upcomingTournaments">טורנירים שמתחילים בקרוב</string>
   <string name="completedTourns">טורנירים שהושלמו</string>
   <string name="declinedRequests">בקשות שנדחתו</string>
   <string name="joinLichessVariantTeam">הצטרפו לקבוצת %s הרשמית של ליצ\'ס כדי לקבל עדכונים על חדשות ואירועים</string>
   <string name="teamPage">עמוד הקבוצה</string>
+  <string name="thisTeamBattleIsOver">הטורניר הזה הסתיים ולא ניתן לעדכן יותר את הקבוצות.</string>
+  <string name="listTheTeamsThatWillCompete">רשימה של הקבוצות שישתתפו בקרב הזה.</string>
+  <string name="oneTeamPerLine">קבוצה אחת בכל שורה. ניתן להשתמש בהשלמה האוטומטית.</string>
+  <string name="oneTeamPerLineHelp">ניתן להעתיק ולהדביק את הרשימה הזו מטורניר אחד לאחר. לא ניתן להסיר קבוצה אם אחד משחקניה כבר הצטרף.</string>
+  <string name="numberOfLeadsPerTeam">מספר המובילים בכל קבוצה. סך הנקודות שלהם הוא הניקוד שהקבוצה תשיג.</string>
+  <string name="numberOfLeadsPerTeamHelp">מאוד לא מומלץ לשנות את הערך הזה לאחר תחילת הטורניר!</string>
+  <string name="innerTeam">קבוצה פנימית</string>
+  <plurals name="battleOfNbTeams">
+    <item quantity="one">קרב של קבוצה %s</item>
+    <item quantity="two">קרב של %s קבוצות</item>
+    <item quantity="many">קרב של %s קבוצות</item>
+    <item quantity="other">קרב של %s קבוצות</item>
+  </plurals>
+  <plurals name="nbLeadersPerTeam">
+    <item quantity="one">מנהיג אחד בכל קבוצה</item>
+    <item quantity="two">%s מנהיגים בכל קבוצה</item>
+    <item quantity="many">%s מנהיגים בכל קבוצה</item>
+    <item quantity="other">%s מנהיגים בכל קבוצה</item>
+  </plurals>
 </resources>

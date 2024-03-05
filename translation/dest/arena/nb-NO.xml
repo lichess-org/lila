@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+  <string name="arena">Arena</string>
   <string name="arenaTournaments">Arenaturneringer</string>
   <string name="isItRated">Er den ratet?</string>
   <string name="willBeNotified">Du vil bli varslet når turneringen starter, så det er trygt å spille i en annen fane mens du venter.</string>
@@ -36,7 +37,7 @@ Berserk gir ett ekstrapoeng bare om du spiller minst 7 trekk i partiet.</string>
   <string name="variant">Variant</string>
   <string name="minimumGameLength">Minste partilengde</string>
   <string name="history">Arena-historikk</string>
-  <plurals name="viewAllXTeams" comment="%s is the number of teams that can be viewed.&#10;&#10;Appears in team battles that feature lots of teams. As of the time of writing, Lichess lists up to 10 teams at a time, so this button lets you view all teams.">
+  <plurals name="viewAllXTeams" comment="viewAllXTeams [one] [other]&#10;&#10;%s is the number of teams that can be viewed">
     <item quantity="one">Vis laget</item>
     <item quantity="other">Vis alle %s lagene</item>
   </plurals>
@@ -49,8 +50,32 @@ Berserk gir ett ekstrapoeng bare om du spiller minst 7 trekk i partiet.</string>
   <string name="arenaStreaks">Arenarekker</string>
   <string name="arenaStreaksHelp">Etter 2 seiere gir påfølgende seiere 4 poeng i stedet for 2.</string>
   <string name="noBerserkAllowed">Berserk er ikke tillatt</string>
-  <string name="noArenaStreaks" comment="A possible setting when creating an arena tournament.&#10;When enabled: After 2 wins, consecutive wins grant 4 points instead of 2.">Ingen arenarekker</string>
+  <string name="noArenaStreaks">Ingen arenarekker</string>
   <string name="averagePerformance">Gjennomsnittlig prestasjon</string>
   <string name="averageScore">Gjennomsnittlig poengsum</string>
   <string name="myTournaments">Mine turneringer</string>
+  <string name="editTournament">Rediger turnering</string>
+  <string name="editTeamBattle">Rediger lagkamp</string>
+  <string name="defender">Forsvarer</string>
+  <string name="pickYourTeam">Velg lag</string>
+  <string name="whichTeamWillYouRepresentInThisBattle">Hvilket lag vil du spille for i denne kampen?</string>
+  <string name="youMustJoinOneOfTheseTeamsToParticipate">Du må bli med i et av disse lagene for å kunne delta!</string>
+  <string name="created">Opprettet</string>
+  <string name="recentlyPlayed">Nylig spilt</string>
+  <string name="bestResults">Beste resultater</string>
+  <string name="stats">Statistikk</string>
+  <string name="tournamentStats">Turneringsstatistikk</string>
+  <string name="rankAvgHelp">Prosentrangering er plasseringen din uttrykt som en prosentverdi. Lavere er bedre.
+
+For eksempel tilsvarer en tredjeplass i en turnering med 100 spillere 3 %. En tiendeplass i en turnering med 1000 spillere tilsvarer 1 %.</string>
+  <string name="medians">medianer</string>
+  <string name="allAveragesAreX">Alle snittverdiene på denne siden er %s.</string>
+  <string name="total">Totalt</string>
+  <string name="pointsAvg">Poengsnitt</string>
+  <string name="pointsSum">Poengsum</string>
+  <string name="rankAvg">Prosentrangering</string>
+  <string name="tournamentWinners">Turneringsvinnere</string>
+  <string name="tournamentShields">Turneringsskjold</string>
+  <string name="onlyTitled">Kun spillere med sjakktittel</string>
+  <string name="onlyTitledHelp">Krev en offisiell sjakktittel for å kunne bli med i turneringen</string>
 </resources>

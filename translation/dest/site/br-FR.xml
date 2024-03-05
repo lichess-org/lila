@@ -602,7 +602,6 @@
   <string name="automaticallyProceedToNextGameAfterMoving">Cheñch krogad en un doare emgefreek goude ur fiñvadenn</string>
   <string name="autoSwitch">Cheñch tu emgefreek</string>
   <string name="puzzles">Poelladennoù</string>
-  <string name="tournamentWinners">Ar re zo bet trec\'h e tournamantoù zo</string>
   <string name="name">Anv</string>
   <string name="description">Deskrivadur</string>
   <string name="descPrivate">Deskrivadur prevez</string>
@@ -1010,7 +1009,6 @@
   <string name="noRestriction">Harz ebet</string>
   <string name="minimumRatedGames">Niver a grogadoù renket rekis</string>
   <string name="minimumRating">Renkadur bihanañ</string>
-  <string name="onlyTitled">C\'hoarierien titlet hepken</string>
   <string name="simulHostcolor">Liv an ostiz evit pep krogad</string>
   <string name="simulDescriptionHelp">Un dra bennak da lâret d\'ar re a gemero perzh?</string>
   <string name="noChat">Flap ebet</string>
