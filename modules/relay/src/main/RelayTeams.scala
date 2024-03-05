@@ -12,12 +12,17 @@ private class RelayTeamsTextarea(val text: String):
 
   def sortedText = text.linesIterator.toList.sorted.mkString("\n")
 
-  lazy val teams: Map[TeamName, List[PlayerName | FideId]] = text.linesIterator
+  /* We need this because `PlayerName | FideId` doesn't work
+   * the compilear can't differentiate between the two types
+   * at runtime using pattern matching. */
+  private type PlayerNameStr = String
+
+  lazy val teams: Map[TeamName, List[PlayerNameStr | FideId]] = text.linesIterator
     .take(1000)
     .toList
     .flatMap: line =>
       line.split(';').map(_.trim) match
-        case Array(team, player) => Some(team -> (player.toIntOption.fold(PlayerName(player))(FideId(_))))
+        case Array(team, player) => Some(team -> (player.toIntOption.fold(player)(FideId(_))))
         case _                   => none
     .groupBy(_._1)
     .view
@@ -27,11 +32,12 @@ private class RelayTeamsTextarea(val text: String):
   private lazy val tokenizedPlayerTeams: Map[PlayerToken | FideId, TeamName] =
     playerTeams.mapKeys(tokenizePlayer)
 
-  private val tokenizePlayer: PlayerName | FideId => PlayerToken | FideId =
-    case name: PlayerName => FidePlayer.tokenize(name)
-    case fideId: FideId   => fideId
+  private val tokenizePlayer: PlayerNameStr | FideId => PlayerToken | FideId =
+    case name: PlayerNameStr => FidePlayer.tokenize(name)
+    // typing with `fideId: FideId` results in a compiler warning. The current code however is ok.
+    case fideId => fideId
 
-  private lazy val playerTeams: Map[PlayerName | FideId, TeamName] =
+  private lazy val playerTeams: Map[PlayerNameStr | FideId, TeamName] =
     teams.flatMap: (team, players) =>
       players.map(_ -> team)
 
@@ -40,11 +46,14 @@ private class RelayTeamsTextarea(val text: String):
 
   private def update(tags: Tags): Tags =
     chess.Color.all.foldLeft(tags): (tags, color) =>
-      val found = tags.fideIds(color).flatMap(findMatching).orElse(tags.names(color).flatMap(findMatching))
+      val found = tags
+        .fideIds(color)
+        .flatMap(findMatching)
+        .orElse(PlayerName.raw(tags.names(color)).flatMap(findMatching))
       found.fold(tags): team =>
         tags + Tag(_.teams(color), team)
 
-  private def findMatching(player: PlayerName | FideId): Option[TeamName] =
+  private def findMatching(player: PlayerNameStr | FideId): Option[TeamName] =
     playerTeams.get(player).orElse(tokenizedPlayerTeams.get(tokenizePlayer(player)))
 
 final class RelayTeamTable(

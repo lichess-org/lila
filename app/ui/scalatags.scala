@@ -4,10 +4,9 @@ package ui
 import alleycats.Zero
 import scalatags.Text.all.*
 import scalatags.text.Builder
-import scalatags.Text.GenericAttr
-import scalatags.Text.{ Aggregate, Cap }
+import scalatags.Text.{ Aggregate, Cap, GenericAttr }
+import chess.PlayerTitle
 
-import lila.user.Title
 import lila.common.licon.Icon
 
 // collection of lila attrs
@@ -68,11 +67,11 @@ trait ScalatagsSnippets:
 
   def rawHtml(html: Html) = raw(html.value)
 
-  def userTitleTag(t: UserTitle) =
+  def userTitleTag(t: PlayerTitle) =
     span(
       cls := "utitle",
-      (t == lila.user.Title.BOT).option(dataBotAttr),
-      title := Title.titleName(t)
+      (t == PlayerTitle.BOT).option(dataBotAttr),
+      title := PlayerTitle.titleName(t)
     )(t)
 
   val utcLink =
@@ -120,20 +119,15 @@ object ScalatagsTemplate extends ScalatagsTemplate
 // generic extensions
 trait ScalatagsExtensions:
 
-  given Conversion[StringValue, scalatags.Text.Frag] = sv => StringFrag(sv.value)
+  given [A](using Show[A]): Conversion[A, scalatags.Text.Frag] = a => StringFrag(a.show)
 
-  given opaqueStringFrag[A](using r: StringRuntime[A]): Conversion[A, Frag] = a => stringFrag(r(a))
-  given opaqueIntFrag[A](using r: IntRuntime[A]): Conversion[A, Frag]       = a => intFrag(r(a))
+  given opaqueIntFrag[A](using r: IntRuntime[A]): Conversion[A, Frag] = a => intFrag(r(a))
 
-  given opaqueStringAttr[A](using bts: StringRuntime[A]): AttrValue[A] with
-    def apply(t: Builder, a: Attr, v: A): Unit = stringAttr(t, a, bts(v))
+  given [A](using Show[A]): AttrValue[A] with
+    def apply(t: Builder, a: Attr, v: A): Unit = stringAttr(t, a, v.show)
 
   given opaqueIntAttr[A](using bts: SameRuntime[A, Int]): AttrValue[A] with
     def apply(t: Builder, a: Attr, v: A): Unit = intAttr(t, a, bts(v))
-
-  given AttrValue[StringValue] with
-    def apply(t: Builder, a: Attr, v: StringValue): Unit =
-      t.setAttr(a.name, Builder.GenericAttrValueSource(v.value))
 
   given GenericAttr[Char]       = GenericAttr[Char]
   given GenericAttr[BigDecimal] = GenericAttr[BigDecimal]

@@ -150,10 +150,12 @@ final class Mod(
       .fold(
         _ => redirect(username, mod = true),
         title =>
-          (modApi.setTitle(username, title) >>
-            env.mailer.automaticEmail.onTitleSet(username))
-            .andDo(env.user.lightUserApi.invalidate(username.id))
-            .inject(redirect(username, mod = false))
+          for
+            _ <- modApi.setTitle(username, title)
+            _ <- env.mailer.automaticEmail.onTitleSet(username)
+          yield
+            env.user.lightUserApi.invalidate(username.id)
+            redirect(username, mod = false)
       )
   }
 

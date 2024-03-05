@@ -29,11 +29,11 @@ case class FidePlayer(
 object FidePlayer:
   private val nonLetterRegex = """[^a-zA-Z0-9\s]+""".r
   private val splitRegex     = """\W""".r
-  def tokenize(name: PlayerName): PlayerToken =
+  def tokenize(str: String): PlayerToken =
     splitRegex
       .split:
         Normalizer
-          .normalize(name.value.trim, Normalizer.Form.NFD)
+          .normalize(str.trim, Normalizer.Form.NFD)
           .replaceAllIn(nonLetterRegex, "")
           .toLowerCase
       .toList
