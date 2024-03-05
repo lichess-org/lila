@@ -2,6 +2,7 @@ package lila.app
 package ui
 
 import alleycats.Zero
+import ornicar.scalalib.Render
 import scalatags.Text.all.*
 import scalatags.text.Builder
 import scalatags.Text.{ Aggregate, Cap, GenericAttr }
@@ -119,12 +120,12 @@ object ScalatagsTemplate extends ScalatagsTemplate
 // generic extensions
 trait ScalatagsExtensions:
 
-  given [A](using Show[A]): Conversion[A, scalatags.Text.Frag] = a => StringFrag(a.show)
+  given [A](using Render[A]): Conversion[A, scalatags.Text.Frag] = a => StringFrag(a.render)
 
   given opaqueIntFrag[A](using r: IntRuntime[A]): Conversion[A, Frag] = a => intFrag(r(a))
 
-  given [A](using Show[A]): AttrValue[A] with
-    def apply(t: Builder, a: Attr, v: A): Unit = stringAttr(t, a, v.show)
+  given [A](using Render[A]): AttrValue[A] with
+    def apply(t: Builder, a: Attr, v: A): Unit = stringAttr(t, a, v.render)
 
   given opaqueIntAttr[A](using bts: SameRuntime[A, Int]): AttrValue[A] with
     def apply(t: Builder, a: Attr, v: A): Unit = intAttr(t, a, bts(v))
