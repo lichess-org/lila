@@ -52,7 +52,7 @@ final class RelayPlayerTour(
           (chap.tags.names
             .zip(chap.tags.titles))
             .traverse: (name, title) =>
-              playerApi.guessPlayer(none, name, UserTitle.from(title))
+              playerApi.guessPlayer(none, name, title)
             .map:
               _.mapList(_.so(_.id.value))
             .flatMap: fideIds =>

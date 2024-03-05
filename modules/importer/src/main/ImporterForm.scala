@@ -90,11 +90,7 @@ case class ImportData(pgn: PgnStr, analyse: Option[String]):
               .make(
                 chess = game,
                 players = ByColor: c =>
-                  Player.makeImported(
-                    c,
-                    parsed.tags.names(c),
-                    IntRating.from(parsed.tags.elos(c))
-                  ),
+                  Player.makeImported(c, parsed.tags.names(c), parsed.tags.elos(c)),
                 mode = Mode.Casual,
                 source = Source.Import,
                 pgnImport = PgnImport.make(user = user, date = date, pgn = pgn).some

@@ -2,8 +2,8 @@ package lila.common
 
 import play.api.libs.json.{ Json as PlayJson, * }
 import chess.format.{ Uci }
-import scala.util.NotGiven
 import chess.variant.Crazyhouse
+import scala.util.NotGiven
 
 object Json:
 
@@ -84,6 +84,8 @@ object Json:
   given Writes[Instant] = writeAs(_.toMillis)
 
   given Writes[chess.Color] = writeAs(_.name)
+
+  given Writes[chess.PlayerTitle] = writeAs(_.value)
 
   given Reads[Uci] = Reads
     .of[String]

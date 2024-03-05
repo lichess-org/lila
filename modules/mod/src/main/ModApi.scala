@@ -4,6 +4,7 @@ import lila.common.{ Bus, EmailAddress }
 import lila.report.{ Mod, ModId, Room, Suspect, SuspectId }
 import lila.security.{ Granter, Permission }
 import lila.user.{ Me, LightUserApi, Title, User, UserRepo }
+import chess.PlayerTitle
 
 final class ModApi(
     userRepo: UserRepo,
@@ -105,16 +106,18 @@ final class ModApi(
           (!isKid).so:
             userRepo.setKid(user, true) >> logApi.setKidMode(mod, user.id)
 
-  def setTitle(username: UserStr, title: Option[UserTitle])(using Me): Funit =
+  def setTitle(username: UserStr, title: Option[PlayerTitle])(using Me): Funit =
     withUser(username): user =>
       title match
         case None =>
           (userRepo.removeTitle(user.id) >>
             logApi.removeTitle(user.id)).andDo(lightUserApi.invalidate(user.id))
         case Some(t) =>
-          Title.names.get(t).so { tFull =>
-            (userRepo.addTitle(user.id, t) >>
-              logApi.addTitle(user.id, s"$t ($tFull)")).andDo(lightUserApi.invalidate(user.id))
+          PlayerTitle.names.get(t).so { tFull =>
+            for
+              _ <- userRepo.setTitle(user.id, t)
+              _ <- logApi.setTitle(user.id, s"$t ($tFull)")
+            yield lightUserApi.invalidate(user.id)
           }
 
   def setEmail(username: UserStr, email: EmailAddress)(using Me): Funit =

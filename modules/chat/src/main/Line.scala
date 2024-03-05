@@ -1,6 +1,6 @@
 package lila.chat
 
-import chess.Color
+import chess.{ Color, PlayerTitle }
 import lila.user.{ Title, User }
 
 sealed trait Line:
@@ -16,7 +16,7 @@ sealed trait Line:
 
 case class UserLine(
     username: UserName,
-    title: Option[UserTitle],
+    title: Option[PlayerTitle],
     patron: Boolean,
     flair: Boolean,
     text: String,
@@ -77,7 +77,7 @@ object Line:
       val patron  = sep == patronChar || sep == patronFlairChar
       val flair   = sep == flairChar || sep == patronFlairChar
       val (title, name) = username.split(titleSep) match
-        case Array(title, name) => (Title.get(title), UserName(name))
+        case Array(title, name) => (PlayerTitle.get(title), UserName(name))
         case _                  => (none, UserName(username))
       UserLine(name, title, patron, flair, text, troll = troll, deleted = deleted).some
     case _ => none
