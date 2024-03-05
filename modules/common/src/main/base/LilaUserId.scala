@@ -26,8 +26,7 @@ trait LilaUserId:
   // Properly cased for display
   opaque type UserName = String
   object UserName extends OpaqueString[UserName]:
-    given UserIdOf[UserName]  = n => UserId(n.value.toLowerCase)
-    given cats.Show[UserName] = _.value
+    given UserIdOf[UserName] = n => UserId(n.value.toLowerCase)
 
   // maybe an Id, maybe a Name... something that's probably cased wrong
   opaque type UserStr = String
