@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+  <string name="swiss">スイス式</string>
   <string name="swissTournaments">スイス式トーナメント</string>
   <plurals name="viewAllXRounds" comment="viewAllXRounds [one] [other]&#10;&#10;%s is the number of rounds in the Swiss tournament.">
     <item quantity="other">%s ラウンドを表示</item>
@@ -31,6 +32,17 @@
   <string name="roundInterval">ラウンド間のインターバル時間</string>
   <string name="forbiddenPairings">禁止ペアリング</string>
   <string name="forbiddenPairingsHelp">対戦しないプレイヤーのユーザー名（兄弟姉妹など）。1 行につき 2 つのユーザー名を半角スペースで区切って並べます。</string>
+  <string name="manualPairings">次のラウンドは手動ペアリング</string>
+  <string name="manualPairingsHelp">次ラウンドのペアリングをすべて手動で指定します。1 行に 1 対戦。
+例：
+プレイヤーA プレイヤーB
+プレイヤーC プレイヤーD
+1 ポイントのバイを与える場合には次のようにします：
+プレイヤーE 1
+いないプレイヤーは不在として 0 ポイントになります。
+このフィールドが空白だと Lichess が自動でペアリングします。</string>
+  <string name="mustHavePlayedTheirLastSwissGame">前回のスイス式完了を義務とする</string>
+  <string name="mustHavePlayedTheirLastSwissGameHelp">最後のスイス式の対局を完了した人だけを参加させます。直近のスイス式イベントで最後まで指さなかった人はあなたのイベントに参加できません。これによって最後まで指す人が安心して参加できるようになります。</string>
   <string name="newSwiss">新しいスイス式トーナメント</string>
   <string name="swissVsArenaQ">アリーナよりスイス式のほうがいいのはどんな時？</string>
   <string name="swissVsArenaA">スイス式トーナメントでは全参加者が同じ局数をプレイし、また同じ相手とは一度だけ対戦します。
@@ -107,4 +119,6 @@
   <string name="predefinedUsers">事前に指定したユーザーだけが参加できる</string>
   <string name="forbiddedUsers">このリストにユーザー名を入力すると、それ以外のユーザーは参加できません。1 行ごとに 1 人です。</string>
   <string name="playYourGames">対局は最後まで</string>
+  <string name="byes">バイ</string>
+  <string name="tieBreak">タイブレーク</string>
 </resources>

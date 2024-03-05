@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+  <string name="swiss">Szwajcarski</string>
   <string name="swissTournaments">System szwajcarski</string>
   <plurals name="viewAllXRounds" comment="viewAllXRounds [one] [other]&#10;&#10;%s is the number of rounds in the Swiss tournament.">
     <item quantity="one">Zobacz rundę</item>
@@ -52,6 +53,16 @@
   <string name="roundInterval">Interwał między rundami</string>
   <string name="forbiddenPairings">Zabronione pary</string>
   <string name="forbiddenPairingsHelp">Nazwy graczy, którzy nie mogą grać ze sobą (na przykład rodzeństwo). Dwie nazwy graczy w linii, oddzielone spacją.</string>
+  <string name="manualPairings">Ręczne parowanie w następnej rundzie</string>
+  <string name="manualPairingsHelp">Określ ręcznie wszystkie pary następnej rundy. Jedna para graczy na linię. Przykład:
+GraczA GraczB
+GraczC GraczD
+Aby przyznać graczowi 1 punkt zamiast pary, dodaj linię taką jak ta:
+GraczE 1
+Brakujących graczy uważamy za nieobecnych i nie dostaną oni punktów.
+Pozostaw to pole puste, aby umożliwić automatyczne parowania.</string>
+  <string name="mustHavePlayedTheirLastSwissGame">Wymagane rozegranie swojej poprzedniej partii w turnieju szwajcarskim</string>
+  <string name="mustHavePlayedTheirLastSwissGameHelp">Pozwól dołączyć graczom tylko wtedy, gdy rozegrali swoją ostatnią partię w turnieju szwajcarskim. Jeśli w ostatnim turnieju szwajcarskim opuszczali partie, nie będą mogli dołączyć do Twojego turnieju. Dzięki temu do turnieju dołączą gracze, którzy stawiają się na wszystkie swoje partie.</string>
   <string name="newSwiss">Nowy turniej systemem szwajcarskim</string>
   <string name="swissVsArenaQ">Kiedy używać systemu szwajcarskiego zamiast aren?</string>
   <string name="swissVsArenaA">W systemie szwajcarskim wszyscy uczestnicy grają tę samą liczbę partii i mogą grać ze sobą tylko raz.
@@ -128,4 +139,7 @@ Najbardziej zbliżoną formą do systemu kołowego jest właśnie system szwajca
   <string name="predefinedUsers">Zezwalaj na dołączenie do turnieju tylko wstępnie zdefiniowanym użytkownikom</string>
   <string name="forbiddedUsers">Jeśli ta lista nie jest pusta, nazwy użytkowników nieobecne na niej nie będą mogły dołączyć do turnieju. Jedna nazwa użytkownika na linię.</string>
   <string name="playYourGames">Rozegraj swoje partie</string>
+  <string name="byes">Punkty bez gry</string>
+  <string name="absences">Nieobecności</string>
+  <string name="tieBreak">Tie break</string>
 </resources>

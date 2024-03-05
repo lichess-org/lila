@@ -528,7 +528,6 @@
   <string name="automaticallyProceedToNextGameAfterMoving">Pasar automaticament a la siguient partida dimpués de mover</string>
   <string name="autoSwitch">Cambio automatico</string>
   <string name="puzzles">Problemas</string>
-  <string name="tournamentWinners">Ganadors de torneyos</string>
   <string name="name">Nombre</string>
   <string name="description">Descripción</string>
   <string name="descPrivate">Descripción privada</string>
@@ -935,8 +934,6 @@
   <string name="minimumRatedGames">Numero minimo de partidas per puntos</string>
   <string name="minimumRating">Puntuación minima</string>
   <string name="maximumWeeklyRating">Maxima puntuación semanal</string>
-  <string name="onlyTitled">Nomás chugadors titulaus</string>
-  <string name="onlyTitledHelp">Cal tener un titol oficial pa unir-se a lo torneyo</string>
   <string name="positionInputHelp">Pega un FEN valido pa iniciar totas las partidas dende una posición dada. Nomás funciona con o chuego standard, no pas con variants. Puez fer servir l\'%s pa chenerar una posición FEN, y dimpués pegar-la aquí. Deixa-lo vuedo si quiers que las partidas empecipien dende a posición inicial normal.</string>
   <string name="cancelSimul">Cancelar las simultanias</string>
   <string name="simulHostcolor">Color de l\'anfitrión en cada partida</string>

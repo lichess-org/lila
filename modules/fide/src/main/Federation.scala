@@ -38,13 +38,13 @@ object Federation:
   def name(id: Id): Name = names.getOrElse(id, id)
 
   def find(str: String): Option[Id] =
-    names
-      .contains(str.toUpperCase)
-      .option(str.toUpperCase)
-      .orElse(bySlug.get(str).orElse(bySlug.get(nameToSlug(str))))
+    str.toUpperCase.some
+      .filter(names.contains)
+      .orElse(bySlug.get(str))
+      .orElse(bySlug.get(nameToSlug(str)))
 
-  lazy val bySlug: Map[String, Id] = names
-    .map: (id, name) =>
+  lazy val bySlug: Map[String, Id] =
+    names.map: (id, name) =>
       nameToSlug(name) -> id
 
   val names: Map[Id, Name] = Map(

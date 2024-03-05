@@ -48,7 +48,6 @@
   <string name="entryCodeDescriptionForLeader">(Optional) En Zuegangscode, wo neui Mitglider känne müend, wänns dem Team wänd biträte.</string>
   <string name="incorrectEntryCode">Falsche Bitrittscode.</string>
   <string name="teamAlreadyExists">Das Team exischtiert scho.</string>
-  <string name="upcomingTourns">Kommendi Turnier</string>
   <string name="completedTourns">Beendeti Turnier</string>
   <string name="declinedRequests">Abglähnti Afrage</string>
   <string name="joinLichessVariantTeam">Chumm is offizielli %s Team für Neuigkeite und Ereignis</string>

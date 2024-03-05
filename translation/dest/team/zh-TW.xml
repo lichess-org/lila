@@ -46,7 +46,6 @@
   <string name="entryCodeDescriptionForLeader">(可選) 新成員加入此團隊必須知道的進入代碼。</string>
   <string name="incorrectEntryCode">輸入代碼不正確。</string>
   <string name="teamAlreadyExists">此隊伍已存在。</string>
-  <string name="upcomingTourns">即將開始的錦標賽</string>
   <string name="completedTourns">已結束的錦標賽</string>
   <string name="declinedRequests">拒絕的請求</string>
   <string name="joinLichessVariantTeam">加入官方的 %s團隊以獲取最新消息和參加活動</string>

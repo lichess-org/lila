@@ -518,7 +518,6 @@
   <string name="automaticallyProceedToNextGameAfterMoving">По влечењето потег преминете автоматски кон наредната игра</string>
   <string name="autoSwitch">Префрли автоматски</string>
   <string name="puzzles">Проблеми</string>
-  <string name="tournamentWinners">Победници на турнири</string>
   <string name="name">Име</string>
   <string name="description">Опис</string>
   <string name="descPrivate">Приватен опис</string>
@@ -910,8 +909,6 @@
   <string name="minimumRatedGames">Минимум рангирани игри</string>
   <string name="minimumRating">Минимален рејтинг</string>
   <string name="maximumWeeklyRating">Максимум неделен рејтинг</string>
-  <string name="onlyTitled">Само играчи со титула</string>
-  <string name="onlyTitledHelp">Потребна е официјална титула за учество на турнирот</string>
   <string name="positionInputHelp">Ставете валиден FEN за да ја започнете секоја игра од одредена позиција.
 Работи само за стандардни игри, не за варијации.
 Можете да го користите %s за да генерирате FEN позиција, а потоа да ја ставите овде.
