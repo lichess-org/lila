@@ -10,8 +10,8 @@ object Dependencies {
     else
       ("linux", "epoll")
 
-  val lilaMaven = "lila-maven" at "https://raw.githubusercontent.com/lichess-org/lila-maven/master"
-  val sonashots = "sonashots" at "https://oss.sonatype.org/content/repositories/snapshots"
+  val lilaMaven = "lila-maven".at("https://raw.githubusercontent.com/lichess-org/lila-maven/master")
+  val sonashots = "sonashots".at("https://oss.sonatype.org/content/repositories/snapshots")
 
   val cats        = "org.typelevel"                %% "cats-core"                       % "2.10.0"
   val alleycats   = "org.typelevel"                %% "alleycats-core"                  % "2.10.0"
@@ -85,7 +85,7 @@ object Dependencies {
   }
 
   object kamon {
-    val version    = "2.7.0"
+    val version    = "2.7.1"
     val core       = "io.kamon" %% "kamon-core"           % version
     val influxdb   = "io.kamon" %% "kamon-influxdb"       % version
     val metrics    = "io.kamon" %% "kamon-system-metrics" % version

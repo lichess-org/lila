@@ -85,4 +85,5 @@ disposable test msumain.edu.ph
 disposable reload msumain.edu.ph
 video sheet
 puzzle issue {id} {issue}
+fide player sync
 """
