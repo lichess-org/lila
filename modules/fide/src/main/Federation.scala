@@ -31,7 +31,7 @@ object Federation:
 
   type ByFideIds = Map[FideId, Id]
 
-  export FidePlayer.nameToSlug
+  def nameToSlug(name: Name) = FidePlayer.nameToSlug(chess.PlayerName(name))
 
   def idToSlug(id: Id): String = nameToSlug(name(id))
 

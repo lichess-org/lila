@@ -1,10 +1,12 @@
 package lila.user
 
 import play.api.i18n.Lang
+import reactivemongo.api.bson.{ BSONDocument, BSONDocumentHandler, Macros }
+import chess.PlayerTitle
+
 import lila.i18n.Language
 import lila.common.{ EmailAddress, LightUser, NormalizedEmailAddress }
 import lila.rating.{ Perf, PerfType }
-import reactivemongo.api.bson.{ BSONDocument, BSONDocumentHandler, Macros }
 
 case class User(
     id: UserId,
@@ -15,7 +17,7 @@ case class User(
     profile: Option[Profile] = None,
     toints: Int = 0,
     playTime: Option[User.PlayTime],
-    title: Option[UserTitle] = None,
+    title: Option[PlayerTitle] = None,
     createdAt: Instant,
     seenAt: Option[Instant],
     kid: Boolean,
@@ -51,7 +53,7 @@ case class User(
 
   def countRated = count.rated
 
-  def hasTitle = title.exists(Title.BOT !=)
+  def hasTitle = title.exists(PlayerTitle.BOT != _)
 
   lazy val seenRecently: Boolean = timeNoSee < User.seenRecently
 
@@ -83,7 +85,7 @@ case class User(
 
   def createdSinceDays(days: Int) = createdAt.isBefore(nowInstant.minusDays(days))
 
-  def isBot = title.has(Title.BOT)
+  def isBot = title.contains(PlayerTitle.BOT)
   def noBot = !isBot
 
   def rankable = enabled.yes && noBot && !marks.rankban
@@ -192,13 +194,13 @@ object User:
 
   case class Speaker(
       username: UserName,
-      title: Option[UserTitle],
+      title: Option[PlayerTitle],
       flair: Option[Flair],
       enabled: Boolean,
       plan: Option[Plan],
       marks: Option[UserMarks]
   ):
-    def isBot    = title.has(Title.BOT)
+    def isBot    = title.contains(PlayerTitle.BOT)
     def isTroll  = marks.exists(_.troll)
     def isPatron = plan.exists(_.active)
 
@@ -293,7 +295,6 @@ object User:
     import TotpSecret.given
 
     def reads(r: BSON.Reader): User =
-      val userTitle = r.getO[UserTitle](title)
       User(
         id = r.get[UserId](id),
         username = r.get[UserName](username),
@@ -307,7 +308,7 @@ object User:
         seenAt = r.dateO(seenAt),
         kid = r.boolD(kid),
         lang = r.strO(lang),
-        title = userTitle,
+        title = r.getO[PlayerTitle](title),
         plan = r.getO[Plan](plan) | Plan.empty,
         totpSecret = r.getO[TotpSecret](totpSecret),
         flair = r.getO[Flair](flair).filter(FlairApi.exists),

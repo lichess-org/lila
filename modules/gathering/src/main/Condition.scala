@@ -33,9 +33,7 @@ object Condition:
   case object Titled extends Condition with FlatCond:
     def name(pt: PerfType)(using Lang) = trans.arena.onlyTitled.txt()
     def apply(pt: PerfType)(using me: Me, perf: Perf) =
-      if me.title.exists(_ != Title.LM) && me.noBot
-      then Accepted
-      else Refused(name(pt)(using _))
+      if me.title.exists(_.isFederation) then Accepted else Refused(name(pt)(using _))
 
   case class NbRatedGame(nb: Int) extends Condition with FlatCond:
     def apply(pt: PerfType)(using me: Me, perf: Perf) =

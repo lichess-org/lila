@@ -43,11 +43,9 @@ case class LiveStreams(streams: List[Stream]):
 
 object LiveStreams:
 
-  case class WithTitles(live: LiveStreams, titles: Map[UserId, UserTitle]):
+  case class WithTitles(live: LiveStreams, titles: Map[UserId, chess.PlayerTitle]):
     def titleName(s: Stream) = s"${titles.get(s.streamer.userId).fold("")(_.value + " ")}${s.streamer.name}"
-    def excludeUsers(userIds: List[UserId]) = copy(
-      live = live.excludeUsers(userIds)
-    )
+    def excludeUsers(userIds: List[UserId]) = copy(live = live.excludeUsers(userIds))
 
   given alleycats.Zero[WithTitles] = alleycats.Zero(WithTitles(LiveStreams(Nil), Map.empty))
 

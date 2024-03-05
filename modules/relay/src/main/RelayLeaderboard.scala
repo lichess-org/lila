@@ -3,17 +3,17 @@ package lila.relay
 import lila.db.dsl.{ *, given }
 import lila.memo.CacheApi
 import lila.study.ChapterRepo
-import chess.{ Outcome, FideId }
+import chess.{ Outcome, FideId, PlayerName, PlayerTitle, Elo }
 
 case class RelayLeaderboard(players: List[RelayLeaderboard.Player])
 
 object RelayLeaderboard:
   case class Player(
-      name: String,
+      name: PlayerName,
       score: Double,
       played: Int,
-      rating: Option[Int],
-      title: Option[UserTitle],
+      rating: Option[Elo],
+      title: Option[PlayerTitle],
       fideId: Option[FideId]
   )
 
@@ -50,10 +50,13 @@ final class RelayLeaderboardApi(
     tour     <- tourRepo.coll.byId[RelayTour](id).orFail(s"No such relay tour $id")
     roundIds <- roundRepo.idsByTourOrdered(tour)
     tags     <- chapterRepo.tagsByStudyIds(roundIds.map(_.into(StudyId)))
-    players = tags.foldLeft(Map.empty[String, (Double, Int, Option[Int], Option[UserTitle], Option[FideId])]):
-      (lead, game) =>
-        chess.Color.all.foldLeft(lead): (lead, color) =>
-          game(color.name).fold(lead): name =>
+    players = tags.foldLeft(
+      Map.empty[PlayerName, (Double, Int, Option[Elo], Option[PlayerTitle], Option[FideId])]
+    ): (lead, game) =>
+      chess.Color.all.foldLeft(lead): (lead, color) =>
+        game
+          .names(color)
+          .fold(lead): name =>
             val (score, played) = game.outcome.fold((0d, 0)):
               case Outcome(None)                            => (0.5, 1)
               case Outcome(Some(winner)) if winner == color => (1d, 1)
@@ -66,7 +69,7 @@ final class RelayLeaderboardApi(
                 prevScore + score,
                 prevPlayed + played,
                 game.elos(color).orElse(prevRating),
-                prevTitle.orElse(UserTitle.from(game.titles(color))),
+                prevTitle.orElse(game.titles(color)),
                 prevFideId.orElse(game.fideIds(color))
               )
             )

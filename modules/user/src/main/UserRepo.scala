@@ -4,6 +4,7 @@ import reactivemongo.akkastream.{ cursorProducer, AkkaStreamCursor }
 import reactivemongo.api.*
 import reactivemongo.api.bson.*
 import ornicar.scalalib.ThreadLocalRandom
+import chess.PlayerTitle
 
 import lila.common.{ ApiVersion, EmailAddress, LightUser, NormalizedEmailAddress }
 import lila.db.dsl.{ *, given }
@@ -104,7 +105,9 @@ final class UserRepo(val coll: Coll)(using Executor):
   def enabledTitledCursor(proj: Option[Bdoc]) =
     coll
       .find(
-        enabledSelect ++ $doc(F.title -> $doc("$exists" -> true, "$nin" -> List(Title.LM, Title.BOT))),
+        enabledSelect ++ $doc(
+          F.title -> $doc("$exists" -> true, "$nin" -> List(PlayerTitle.LM, PlayerTitle.BOT))
+        ),
         proj
       )
       .cursor[Bdoc](ReadPref.priTemp)
@@ -178,7 +181,7 @@ final class UserRepo(val coll: Coll)(using Executor):
         }
     else fufail(s"Proposed username $name does not match old username $id")
 
-  def addTitle(id: UserId, title: UserTitle): Funit =
+  def setTitle(id: UserId, title: PlayerTitle): Funit =
     coll.updateField($id(id), F.title, title).void
 
   def removeTitle(id: UserId): Funit =
@@ -197,7 +200,7 @@ final class UserRepo(val coll: Coll)(using Executor):
   val lame         = $doc(F.marks.$in(List(UserMark.Engine.key, UserMark.Boost.key)))
   val lameOrTroll  = $doc(F.marks.$in(List(UserMark.Engine.key, UserMark.Boost.key, UserMark.Troll.key)))
   val notLame      = $doc(F.marks.$nin(List(UserMark.Engine.key, UserMark.Boost.key)))
-  val enabledNoBotSelect = enabledSelect ++ $doc(F.title.$ne(Title.BOT))
+  val enabledNoBotSelect = enabledSelect ++ $doc(F.title.$ne(PlayerTitle.BOT))
   val patronSelect       = $doc(s"${F.plan}.active" -> true)
 
   val sortCreatedAtDesc = $sort.desc(F.createdAt)
@@ -423,17 +426,17 @@ final class UserRepo(val coll: Coll)(using Executor):
   def isManaged(id: UserId): Fu[Boolean] = email(id).dmap(_.exists(_.isNoReply))
 
   def botSelect(v: Boolean) =
-    if v then $doc(F.title -> Title.BOT)
-    else $doc(F.title      -> $ne(Title.BOT))
+    if v then $doc(F.title -> PlayerTitle.BOT)
+    else $doc(F.title      -> $ne(PlayerTitle.BOT))
 
   def botWithBioSelect = botSelect(true) ++ $doc(s"${F.profile}.bio" -> $exists(true))
 
   private[user] def botIds =
     coll.distinctEasy[UserId, Set]("_id", botSelect(true) ++ enabledSelect, _.sec)
 
-  def getTitle(id: UserId): Fu[Option[UserTitle]] = coll.primitiveOne[UserTitle]($id(id), F.title)
+  def getTitle(id: UserId): Fu[Option[PlayerTitle]] = coll.primitiveOne[PlayerTitle]($id(id), F.title)
 
-  def hasTitle(id: UserId): Fu[Boolean] = getTitle(id).dmap(_.exists(Title.BOT !=))
+  def hasTitle(id: UserId): Fu[Boolean] = getTitle(id).dmap(_.exists(PlayerTitle.BOT != _))
 
   def setPlan(user: User, plan: Plan): Funit =
     import Plan.given

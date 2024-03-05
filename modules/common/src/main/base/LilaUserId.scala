@@ -35,7 +35,7 @@ trait LilaUserId:
     given UserIdOf[UserStr] = n => UserId(n.value.toLowerCase)
     def read(str: String): Option[UserStr] =
       val clean = str.trim.takeWhile(' ' !=)
-      if clean.lengthIs > 1 then Some(UserStr(clean)) else None
+      Option.when(clean.lengthIs > 1)(UserStr(clean))
 
   // the prefix, or entirety, of a user name.
   // "chess-" is a valid username prefix, but not a valid username

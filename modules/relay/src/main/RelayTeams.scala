@@ -2,9 +2,9 @@ package lila.relay
 
 import chess.format.pgn.*
 import chess.format.Fen
-import chess.FideId
+import chess.{ FideId, PlayerName, PlayerTitle, Elo }
 
-import lila.fide.{ FidePlayerApi, PlayerName, PlayerToken, FidePlayer, Federation }
+import lila.fide.{ FidePlayerApi, PlayerToken, FidePlayer, Federation }
 
 type TeamName = String
 
@@ -17,7 +17,7 @@ private class RelayTeamsTextarea(val text: String):
     .toList
     .flatMap: line =>
       line.split(';').map(_.trim) match
-        case Array(team, player) => Some(team -> (player.toIntOption.fold(player)(FideId(_))))
+        case Array(team, player) => Some(team -> (player.toIntOption.fold(PlayerName(player))(FideId(_))))
         case _                   => none
     .groupBy(_._1)
     .view
@@ -29,7 +29,7 @@ private class RelayTeamsTextarea(val text: String):
 
   private val tokenizePlayer: PlayerName | FideId => PlayerToken | FideId =
     case name: PlayerName => FidePlayer.tokenize(name)
-    case fideId           => fideId
+    case fideId: FideId   => fideId
 
   private lazy val playerTeams: Map[PlayerName | FideId, TeamName] =
     teams.flatMap: (team, players) =>
@@ -119,7 +119,12 @@ function(root, tags) {
           case None               => 0.5f
           case _                  => 0
         ))
-    case class TeamPlayer(name: String, title: Option[String], rating: Option[Int], fed: Option[String])
+    case class TeamPlayer(
+        name: PlayerName,
+        title: Option[PlayerTitle],
+        rating: Option[Elo],
+        fed: Option[String]
+    )
     case class Pair[A](a: A, b: A):
       def is(p: Pair[A])                 = (a == p.a && b == p.b) || (a == p.b && b == p.a)
       def map[B](f: A => B)              = Pair(f(a), f(b))
@@ -132,7 +137,7 @@ function(root, tags) {
         outcome: Option[Outcome],
         fen: Option[Fen.Epd]
     ):
-      def ratingSum = ~players.a.rating + ~players.b.rating
+      def ratingSum = players.a.rating.so(_.value) + players.b.rating.so(_.value)
     case class TeamMatch(teams: Pair[TeamWithPoints], games: List[TeamGame]):
       def is(teamNames: Pair[TeamName]) = teams.map(_.name).is(teamNames)
       def add(chap: Chapter, playerAndTeam: Pair[(TeamPlayer, TeamName)], outcome: Option[Outcome]) =

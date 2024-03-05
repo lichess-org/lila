@@ -1,9 +1,9 @@
 package lila.tv
 
-import lila.common.licon
-import lila.common.LightUser
+import lila.common.{ licon, LightUser }
 import lila.game.{ Game, GameRepo, Pov }
 import lila.hub.SyncActor
+import chess.PlayerTitle
 
 final class Tv(
     gameRepo: GameRepo,
@@ -206,15 +206,15 @@ object Tv:
   } // rematch time
   private def hasMinRating(g: Game, min: Int) = g.players.exists(_.rating.exists(_ >= min))
 
-  private[tv] val titleScores: Map[UserTitle, Int] = Map(
-    UserTitle("GM")  -> 500,
-    UserTitle("WGM") -> 500,
-    UserTitle("IM")  -> 300,
-    UserTitle("WIM") -> 300,
-    UserTitle("FM")  -> 200,
-    UserTitle("WFM") -> 200,
-    UserTitle("NM")  -> 100,
-    UserTitle("CM")  -> 100,
-    UserTitle("WCM") -> 100,
-    UserTitle("WNM") -> 100
+  private[tv] val titleScores: Map[PlayerTitle, Int] = Map(
+    PlayerTitle.GM  -> 500,
+    PlayerTitle.WGM -> 500,
+    PlayerTitle.IM  -> 300,
+    PlayerTitle.WIM -> 300,
+    PlayerTitle.FM  -> 200,
+    PlayerTitle.WFM -> 200,
+    PlayerTitle.NM  -> 100,
+    PlayerTitle.CM  -> 100,
+    PlayerTitle.WCM -> 100,
+    PlayerTitle.WNM -> 100
   )
