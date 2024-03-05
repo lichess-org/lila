@@ -20,7 +20,7 @@ object layout:
       openGraph = openGraph
     ):
       main(cls := "video page-menu force-ltr")(
-        st.aside(cls := "page-menu__menu")(
+        st.aside(cls := "page-menu__menu", style := "overflow-x: scroll")(
           views.html.site.bits.subnav(
             control.tags.map: t =>
               val checked = control.filter.tags contains t.tag
