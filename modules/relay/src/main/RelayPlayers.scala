@@ -4,6 +4,7 @@ import play.api.data.Forms.*
 import chess.format.pgn.{ Tag, Tags }
 import chess.FideId
 
+import lila.user.Title
 import lila.fide.{ PlayerName, PlayerToken, FidePlayer }
 
 // used to change names and ratings of broadcast players
@@ -45,7 +46,7 @@ private class RelayPlayersTextarea(val text: String):
     val v1 = (line: String) =>
       line.split(';').map(_.trim) match
         case Array(id, name, rating, title) =>
-          Some(id -> RelayPlayer(name.some, rating.toIntOption, lila.user.Title.get(title)))
+          Some(id -> RelayPlayer(name.some, rating.toIntOption, Title.get(title)))
         case Array(id, name, rating) => Some(id -> RelayPlayer(name.some, rating.toIntOption, none))
         case Array(id, name)         => Some(id -> RelayPlayer(name.some, none, none))
         case _                       => none
@@ -53,13 +54,12 @@ private class RelayPlayersTextarea(val text: String):
     val v2 = (line: String) =>
       line.split('=').map(_.trim) match
         case Array(name, fideId) =>
-          fideId.split('/').map(_.trim) match
-            case Array(fideId, title) => 
-              fideId.toIntOption.map: id =>
-                name -> RelayPlayer(name.some, none, lila.user.Title.get(title), FideId(id).some)
-            case _ =>
-              fideId.toIntOption.map: id =>
-                name -> RelayPlayer(name.some, none, none, FideId(id).some)
+          val parts = fideId.split('/').map(_.trim)
+          parts
+            .lift(0)
+            .flatMap(_.toIntOption)
+            .map: id =>
+              name -> RelayPlayer(name.some, none, parts.lift(1).flatMap(Title.get), FideId(id).some)
         case _ =>
           val arr = line.split('/').map(_.trim)
           arr
@@ -68,7 +68,7 @@ private class RelayPlayersTextarea(val text: String):
               fromName -> RelayPlayer(
                 name = arr.lift(3).filter(_.nonEmpty),
                 rating = arr.lift(1).flatMap(_.toIntOption),
-                title = arr.lift(2).flatMap(lila.user.Title.get)
+                title = arr.lift(2).flatMap(Title.get)
               )
 
   def update(games: RelayGames): RelayGames = games.map: game =>
@@ -80,18 +80,12 @@ private class RelayPlayersTextarea(val text: String):
         tags(color.name)
           .flatMap(findMatching)
           .so: rp =>
-            (rp.fideId, rp.title) match
-              case (Some(fideId), None) => List(Tag(_.fideIds(color), fideId.toString))
-              case (Some(fideId), Some(title)) => List (
-                Tag(_.fideIds(color), fideId.toString),
-                Tag(_.titles(color), title.value)
-              )
-              case _ =>
-                List(
-                  rp.name.map(name => Tag(_.names(color), name)),
-                  rp.rating.map { rating => Tag(_.elos(color), rating.toString) },
-                  rp.title.map { title => Tag(_.titles(color), title.value) }
-                ).flatten
+            List(
+              rp.fideId.map(id => Tag(_.fideIds(color), id.toString)),
+              rp.name.map(name => Tag(_.names(color), name)),
+              rp.rating.map(rating => Tag(_.elos(color), rating.toString)),
+              rp.title.map(title => Tag(_.titles(color), title.value))
+            ).flatten
 
   private def findMatching(name: PlayerName): Option[RelayPlayer] =
     players
