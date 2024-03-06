@@ -136,7 +136,7 @@ export function make(root: AnalyseCtrl, playableDepth: () => number): PracticeCt
   }
 
   function isMyTurn(): boolean {
-    return root.turnColor() === root.playerColor(); // root.data.game.player;
+    return root.turnColor() === root.playerColor();
   }
 
   function checkCeval() {
