@@ -1,7 +1,6 @@
 package lila.playban
 
 import chess.{ Centis, Color, Status }
-import play.api.Mode
 import reactivemongo.api.bson.*
 
 import lila.common.{ Bus, Uptime }
@@ -18,7 +17,7 @@ final class PlaybanApi(
     noteApi: NoteApi,
     cacheApi: lila.memo.CacheApi,
     messenger: MsgApi
-)(using ec: Executor, mode: Mode):
+)(using ec: Executor, mode: play.api.Mode):
 
   private given BSONHandler[Outcome] = tryHandler(
     { case BSONInteger(v) => Outcome(v).toTry(s"No such playban outcome: $v") },
@@ -36,38 +35,35 @@ final class PlaybanApi(
     }
 
   private def IfBlameable[A: alleycats.Zero](game: Game)(f: => Fu[A]): Fu[A] =
-    (mode != Mode.Prod || Uptime.startedSinceMinutes(10)).so {
+    (mode.notProd || Uptime.startedSinceMinutes(10)).so:
       blameable(game).flatMapz(f)
-    }
 
   def abort(pov: Pov, isOnGame: Set[Color]): Funit =
-    IfBlameable(pov.game) {
-      pov.player.userId.ifTrue(isOnGame(pov.opponent.color)).so { userId =>
-        save(Outcome.Abort, userId, RageSit.Update.Reset, pov.game.source).andDo(feedback.abort(pov))
-      }
-    }
+    IfBlameable(pov.game):
+      pov.player.userId
+        .ifTrue(isOnGame(pov.opponent.color))
+        .so: userId =>
+          save(Outcome.Abort, userId, RageSit.Update.Reset, pov.game.source).andDo(feedback.abort(pov))
 
   def noStart(pov: Pov): Funit =
-    IfBlameable(pov.game) {
-      pov.player.userId.so { userId =>
+    IfBlameable(pov.game):
+      pov.player.userId.so: userId =>
         save(Outcome.NoPlay, userId, RageSit.Update.Reset, pov.game.source).andDo(feedback.noStart(pov))
-      }
-    }
 
   def rageQuit(game: Game, quitterColor: Color): Funit =
-    IfBlameable(game) {
-      game.player(quitterColor).userId.so { userId =>
-        save(Outcome.RageQuit, userId, RageSit.imbalanceInc(game, quitterColor), game.source)
-          .andDo(feedback.rageQuit(Pov(game, quitterColor)))
-      }
-    }
+    IfBlameable(game):
+      game
+        .player(quitterColor)
+        .userId
+        .so: userId =>
+          save(Outcome.RageQuit, userId, RageSit.imbalanceInc(game, quitterColor), game.source)
+            .andDo(feedback.rageQuit(Pov(game, quitterColor)))
 
   def flag(game: Game, flaggerColor: Color): Funit =
 
     def unreasonableTime =
-      game.clock.map { c =>
+      game.clock.map: c =>
         (c.estimateTotalSeconds / 10).atLeast(30).atMost(3 * 60)
-      }
 
     // flagged after waiting a long time
     def sitting: Option[Funit] =

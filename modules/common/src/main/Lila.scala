@@ -56,3 +56,9 @@ trait Lila
 
   // move somewhere else when we have more Eqs
   given cats.Eq[play.api.i18n.Lang] = cats.Eq.fromUniversalEquals
+
+  import play.api.Mode
+  extension (mode: Mode)
+    def isDev   = mode == Mode.Dev
+    def isProd  = mode == Mode.Prod
+    def notProd = mode != Mode.Prod
