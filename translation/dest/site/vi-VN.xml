@@ -346,10 +346,10 @@
   <plurals name="needNbMoreGames">
     <item quantity="other">Bạn cần chơi thêm %s ván xếp hạng</item>
   </plurals>
-  <string name="yourPerfRatingIsProvisional">Hệ số %s của bạn là tạm thời</string>
-  <string name="yourPerfRatingIsTooHigh">Hệ số %1$s (%2$s) của bạn quá cao</string>
-  <string name="yourTopWeeklyPerfRatingIsTooHigh">Hệ số %1$s hàng tuần của bạn quá cao (%2$s)</string>
-  <string name="yourPerfRatingIsTooLow">Hệ số %1$s (%2$s) của bạn quá thấp</string>
+  <string name="yourPerfRatingIsProvisional">Hệ số Elo %s của bạn là tạm thời</string>
+  <string name="yourPerfRatingIsTooHigh">Hệ số Elo %1$s (%2$s) của bạn quá cao</string>
+  <string name="yourTopWeeklyPerfRatingIsTooHigh">Hệ số Elo %1$s hàng tuần của bạn quá cao (%2$s)</string>
+  <string name="yourPerfRatingIsTooLow">Hệ số Elo %1$s (%2$s) của bạn quá thấp</string>
   <string name="ratedMoreThanInPerf">Hệ số %2$s ≥ %1$s</string>
   <string name="ratedLessThanInPerf">Xếp hạng %2$s tuần trước ≤ %1$s</string>
   <string name="mustBeInTeam">Phải ở trong đội %s</string>
@@ -680,7 +680,7 @@ trò chuyện trong ván đấu và có một URL có thể chia sẻ công khai
   <string name="tournamentDoesNotExist">Giải đấu này không tồn tại.</string>
   <string name="tournamentMayHaveBeenCanceled">Giải đấu có thể đã bị huỷ, nếu tất cả người chơi rời giải trước khi giải đấu bắt đầu.</string>
   <string name="returnToTournamentsHomepage">Trở về trang chủ các giải đấu</string>
-  <string name="weeklyPerfTypeRatingDistribution">Phân bố xếp hạng %s theo tuần</string>
+  <string name="weeklyPerfTypeRatingDistribution">Phân bố hệ số Elo %s hàng tuần</string>
   <plurals name="nbPerfTypePlayersThisWeek">
     <item quantity="other">%1$s người chơi %2$s tuần này.</item>
   </plurals>
@@ -688,8 +688,8 @@ trò chuyện trong ván đấu và có một URL có thể chia sẻ công khai
   <string name="youAreBetterThanPercentOfPerfTypePlayers">Bạn giỏi hơn %1$s người chơi %2$s.</string>
   <string name="userIsBetterThanPercentOfPerfTypePlayers">%1$s giỏi hơn %2$s người chơi %3$s.</string>
   <string name="betterThanPercentPlayers">Bạn giỏi hơn %1$s người chơi %2$s</string>
-  <string name="youDoNotHaveAnEstablishedPerfTypeRating">Bạn chưa có xếp hạng %s.</string>
-  <string name="yourRating">Xếp hạng của bạn</string>
+  <string name="youDoNotHaveAnEstablishedPerfTypeRating">Bạn chưa có hệ số Elo %s.</string>
+  <string name="yourRating">Hệ số Elo của bạn</string>
   <string name="cumulative">Giỏi hơn so với còn lại</string>
   <string name="glicko2Rating">Xếp hạng Glicko-2</string>
   <string name="checkYourEmail">Kiểm tra Email của bạn</string>
@@ -771,7 +771,7 @@ trò chuyện trong ván đấu và có một URL có thể chia sẻ công khai
   <string name="custom">Tuỳ chỉnh</string>
   <string name="notifications">Thông báo</string>
   <string name="notificationsX">Số thông báo: %1$s</string>
-  <string name="perfRatingX">Hệ số: %s</string>
+  <string name="perfRatingX">Hệ số Elo: %s</string>
   <plurals name="nbSecondsToPlayTheFirstMove">
     <item quantity="other">%s giây còn lại để đi nước đầu tiên</item>
   </plurals>
@@ -883,8 +883,8 @@ trò chuyện trong ván đấu và có một URL có thể chia sẻ công khai
   <string name="congratsYouWon">Chúc mừng, bạn đã giành chiến thắng!</string>
   <string name="gameVsX">Ván đấu với %1$s</string>
   <string name="resVsX">%1$s với %2$s</string>
-  <string name="lostAgainstTOSViolator">Bạn đã mất điểm xếp hạng vào người vi phạm Điều hhoản Dịch vụ của Lichess</string>
-  <string name="refundXpointsTimeControlY">Hoàn lại: %1$s điểm xếp hạng %2$s.</string>
+  <string name="lostAgainstTOSViolator">Bạn đã mất điểm Elo vào người vi phạm Điều khoản Dịch vụ của Lichess</string>
+  <string name="refundXpointsTimeControlY">Hoàn lại: %1$s điểm Elo %2$s.</string>
   <string name="timeAlmostUp">Thời gian sắp hết!</string>
   <string name="clickToRevealEmailAddress">[Nhấp để tiết lộ địa chỉ email]</string>
   <string name="download">Tải về</string>
@@ -897,8 +897,8 @@ trò chuyện trong ván đấu và có một URL có thể chia sẻ công khai
   <string name="onlyMembersOfTeam">Chỉ thành viên của đội</string>
   <string name="noRestriction">Không giới hạn</string>
   <string name="minimumRatedGames">Số ván đã xếp hạng tối thiểu</string>
-  <string name="minimumRating">Elo tối thiểu</string>
-  <string name="maximumWeeklyRating">Elo cao nhất trong tuần</string>
+  <string name="minimumRating">Hệ số Elo tối thiểu</string>
+  <string name="maximumWeeklyRating">Hệ số Elo cao nhất trong tuần</string>
   <string name="positionInputHelp">Dán một FEN hợp lệ để bắt đầu tất cả ván đấu bằng một thế cờ nhất định đó.
 Nó chỉ dùng được cho cờ vua tiêu chuẩn, không được với các biến thể.
 Bạn có thể dùng %s để tạo ra một FEN rồi dán ở đây.
