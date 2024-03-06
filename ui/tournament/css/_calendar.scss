@@ -147,3 +147,7 @@
     }
   }
 }
+
+#main-wrap {
+  --main-max-width: min(90vw, 100vw - 140px);
+}
