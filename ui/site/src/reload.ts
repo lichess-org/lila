@@ -36,7 +36,8 @@ export const unload = {
   expected: false,
 };
 
-export const reload = () => {
+export const reload = (err?: any) => {
+  if (err) console.warn(err);
   if (redirectInProgress) return;
   unload.expected = true;
   site.socket.disconnect();
