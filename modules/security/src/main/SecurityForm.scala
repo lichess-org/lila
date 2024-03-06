@@ -1,6 +1,5 @@
 package lila.security
 
-import play.api.Mode
 import play.api.data.*
 import play.api.data.Forms.*
 import play.api.data.validation.Constraints
@@ -95,7 +94,7 @@ final class SecurityForm(
           "agreement" -> agreement,
           "fp"        -> optional(nonEmptyText)
         )(SignupData.apply)(_ => None)
-          .verifying(PasswordCheck.errorSame, x => mode != Mode.Prod || x.password != x.username.value)
+          .verifying(PasswordCheck.errorSame, x => mode.notProd || x.password != x.username.value)
       )
     )
 
@@ -105,7 +104,7 @@ final class SecurityForm(
         "password" -> newPasswordField,
         "email"    -> emailField
       )(MobileSignupData.apply)(_ => None)
-        .verifying(PasswordCheck.errorSame, x => mode != Mode.Prod || x.password != x.username.value)
+        .verifying(PasswordCheck.errorSame, x => mode.notProd || x.password != x.username.value)
     )
 
   def passwordReset(using RequestHeader) = hcaptcha.form(

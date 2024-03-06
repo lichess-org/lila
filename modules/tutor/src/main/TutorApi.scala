@@ -62,7 +62,7 @@ final class TutorApi(
     }
 
   private val cache = cacheApi[UserId, Option[TutorFullReport]](256, "tutor.report"):
-    // _.expireAfterAccess(if (mode == Mode.Prod) 5 minutes else 1 second)
+    // _.expireAfterAccess(if (mode.isProd) 5 minutes else 1 second)
     _.expireAfterAccess(3.minutes)
       .maximumSize(1024)
       .buildAsyncFuture(findLatest)

@@ -2,7 +2,6 @@ package lila.fide
 
 import com.softwaremill.macwire.*
 import play.api.libs.ws.StandaloneWSClient
-import play.api.Mode
 
 import lila.db.dsl.Coll
 import lila.memo.CacheApi
@@ -12,7 +11,7 @@ import lila.common.config.CollName
 final class Env(db: lila.db.Db, cacheApi: CacheApi, ws: StandaloneWSClient)(using
     Executor,
     akka.stream.Materializer
-)(using mode: Mode, scheduler: Scheduler):
+)(using mode: play.api.Mode, scheduler: Scheduler):
 
   val repo =
     FideRepo(playerColl = db(CollName("fide_player")), federationColl = db(CollName("fide_federation")))
@@ -25,7 +24,7 @@ final class Env(db: lila.db.Db, cacheApi: CacheApi, ws: StandaloneWSClient)(usin
 
   private lazy val fideSync = wire[FidePlayerSync]
 
-  if mode == Mode.Prod then
+  if mode.isProd then
     scheduler.scheduleWithFixedDelay(1.hour, 1.hour): () =>
       if nowDateTime.getDayOfWeek == java.time.DayOfWeek.SUNDAY && nowDateTime.getHour == 4
       then fideSync()

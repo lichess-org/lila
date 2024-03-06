@@ -25,7 +25,7 @@ final class Env(
 
   lazy val api: IrcApi = wire[IrcApi]
 
-  if mode == Mode.Prod then
+  if mode.isProd then
     api.publishInfo("Lichess has started!")
     Lilakka.shutdown(shutdown, _.PhaseBeforeServiceUnbind, "Tell IRC"): () =>
       api.stop()
