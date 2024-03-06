@@ -382,8 +382,8 @@ final private class StudySocket(
         "w"     -> who
       )
     )
-  private[study] def reloadChapters(chapters: Seq[Chapter.Metadata]) = version("chapters", chapters)
-  def reloadAll                                                      = version("reload", JsNull)
+  private[study] def reloadChapters(chapters: JsonView.Chapters) = version("chapters", chapters)
+  def reloadAll                                                  = version("reload", JsNull)
   def changeChapter(pos: Position.Ref, who: Who) = version("changeChapter", Json.obj("p" -> pos, "w" -> who))
   def updateChapter(chapterId: StudyChapterId, who: Who) =
     version("updateChapter", Json.obj("chapterId" -> chapterId, "w" -> who))

@@ -37,8 +37,14 @@ final class StudyMultiBoard(
 
   private val playingSelector = $doc("tags" -> "Result:*", "relay.path".$ne(""))
 
-  def list(studyId: StudyId): Fu[Seq[ChapterPreview]] =
-    fetch(studyId, 1, false, MaxPerPage(64)).map(_.currentPageResults)
+  private val listCache: AsyncLoadingCache[StudyId, JsValue] =
+    cacheApi.scaffeine
+      .expireAfterWrite(10 seconds)
+      .buildAsyncFuture[StudyId, JsValue]: studyId =>
+        fetch(studyId, 1, false, MaxPerPage(64)).map: pager =>
+          Json.toJson(pager.currentPageResults)
+
+  def list(studyId: StudyId): Fu[JsValue] = listCache.get(studyId)
 
   def fetch(studyId: StudyId, page: Int, playing: Boolean, max: MaxPerPage = maxPerPage): Fu[Paginator[ChapterPreview]] =
     Paginator[ChapterPreview](

@@ -180,9 +180,11 @@ final class StudyApi(
     chapters.headOption match
       case Some(c) if study.isOld && study.position != c.initialPosition =>
         val newStudy = study.rewindTo(c)
-        studyRepo.updateSomeFields(newStudy).zip(chapterRepo.byId(c.id)).map { (_, chapter) =>
-          newStudy -> chapter
-        }
+        studyRepo
+          .updateSomeFields(newStudy)
+          .zip(chapterRepo.byId(c.id))
+          .map: (_, chapter) =>
+            newStudy -> chapter
       case _ => fuccess(study -> none)
 
   def talk(userId: UserId, studyId: StudyId, text: String) =
@@ -823,9 +825,8 @@ final class StudyApi(
     val chapters =
       if study.isRelay then multiboard.list(study.id)
       else chapterRepo.orderedMetadataMin(study.id)
-    chapters.foreach { chapters =>
+    chapters.foreach: chapters =>
       sendTo(study.id)(_.reloadChapters(chapters))
-    }
 
   private def canActAsOwner(study: Study, userId: UserId): Fu[Boolean] =
     fuccess(study.isOwner(userId)) >>| studyRepo.isAdminMember(study, userId)

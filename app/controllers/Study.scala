@@ -201,12 +201,14 @@ final class Study(
       ctx: Context
   ): Fu[(WithChapter, JsData)] =
     for
-      chapters <-
+      (study, chapter, chapters) <-
         if sc.study.isRelay
-        then env.study.multiBoard.list(sc.study.id)
-        else env.study.chapterRepo.orderedMetadataMin(sc.study.id)
-      (study, resetToChapter) <- env.study.api.resetIfOld(sc.study, chapters)
-      chapter = resetToChapter | sc.chapter
+        then env.study.multiBoard.list(sc.study.id).map((sc.study, sc.chapter, _))
+        else
+          for
+            chapters                <- env.study.chapterRepo.orderedMetadataMin(sc.study.id)
+            (study, resetToChapter) <- env.study.api.resetIfOld(sc.study, chapters)
+          yield (study, resetToChapter | sc.chapter, chapters)
       _ <- env.user.lightUserApi.preloadMany(study.members.ids.toList)
       pov = userAnalysisC.makePov(chapter.root.fen.some, chapter.setup.variant)
       analysis <- chapter.serverEval

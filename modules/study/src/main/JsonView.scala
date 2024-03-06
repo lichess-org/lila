@@ -15,9 +15,14 @@ final class JsonView(
     fidePlayerApi: lila.fide.FidePlayerApi
 )(using Executor):
 
-  import JsonView.given
+  import JsonView.{ Chapters, given }
 
-  def apply(study: Study, chapters: Seq[Chapter.Metadata], currentChapter: Chapter, me: Option[User]) =
+  def apply(
+      study: Study,
+      chapters: Chapters,
+      currentChapter: Chapter,
+      me: Option[User]
+  ) =
 
     def allowed(selection: Settings => Settings.UserSelection): Boolean =
       Settings.UserSelection.allows(selection(study.settings), study, me.map(_.id))
@@ -122,6 +127,12 @@ object JsonView:
     "createdAt" -> study.createdAt,
     "updatedAt" -> study.updatedAt
   )
+
+  private[study] type Chapters = Seq[Chapter.Metadata] | JsValue
+
+  private[study] given Writes[Chapters] = Writes:
+    case a: JsValue => a
+    case s          => Json.toJson(s)
 
   def glyphs(lang: play.api.i18n.Lang): JsObject =
     import lila.tree.Node.given
