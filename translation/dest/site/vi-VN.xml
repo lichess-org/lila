@@ -190,7 +190,7 @@
     <item quantity="other">%s phút</item>
   </plurals>
   <string name="time">Thời gian</string>
-  <string name="rating">Hệ số</string>
+  <string name="rating">Hệ số Elo</string>
   <string name="ratingStats">Thống kê Elo</string>
   <string name="username">Tên đăng nhập</string>
   <string name="usernameOrEmail">Tên đăng nhập hoặc email</string>
