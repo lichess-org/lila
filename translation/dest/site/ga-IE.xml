@@ -608,7 +608,6 @@ anailís ríomhaire, comhrá cluiche agus URL inroinnte.</string>
   <string name="automaticallyProceedToNextGameAfterMoving">Téigh ar aghaidh chuig an chéad cluiche eile go huathoibríoch i ndiaidh bogadh</string>
   <string name="autoSwitch">Athrú uathoibríoch</string>
   <string name="puzzles">Tomhais</string>
-  <string name="tournamentWinners">Buaiteoirí comórtais</string>
   <string name="name">Ainm</string>
   <string name="description">Cur síos</string>
   <string name="descPrivate">Cur síos príobháideach</string>
@@ -1018,8 +1017,6 @@ agus rátálacha imreoirí tionchair</string>
   <string name="minimumRatedGames">Cluichí rátáilte íosta</string>
   <string name="minimumRating">Rátáil íosta</string>
   <string name="maximumWeeklyRating">Uasráta seachtainiúil</string>
-  <string name="onlyTitled">Imreoirí dar teideal amháin</string>
-  <string name="onlyTitledHelp">Teideal oifigiúil a éileamh chun páirt a ghlacadh sa chomórtas</string>
   <string name="positionInputHelp">Greamaigh FEN bailí chun gach cluiche a thosú ó áit ar leith.
 Ní oibríonn sé ach le haghaidh cluichí caighdeánacha, ní le leaganacha.
 Is féidir leat an %s a úsáid chun suíomh FEN a ghiniúint, ansin é a ghreamú anseo.

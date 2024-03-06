@@ -305,6 +305,7 @@
   <string name="abortGame">Opusti igro</string>
   <string name="gameAborted">Igra je opuščena</string>
   <string name="standard">Običajno</string>
+  <string name="customPosition">Položaj po meri</string>
   <string name="unlimited">Neomejeno</string>
   <string name="mode">Način</string>
   <string name="casual">Nerangirano</string>
@@ -598,7 +599,7 @@
   <string name="automaticallyProceedToNextGameAfterMoving">Po vsaki potezi samodejno preklopi na naslednjo partijo</string>
   <string name="autoSwitch">Samodejno preklopi</string>
   <string name="puzzles">Šahovski problemi</string>
-  <string name="tournamentWinners">Zmagovalci turnirjev</string>
+  <string name="onlineBots">Spletni roboti</string>
   <string name="name">Ime</string>
   <string name="description">Opis</string>
   <string name="descPrivate">Zasebni opis</string>
@@ -1015,8 +1016,6 @@ in vplivajo na rejtinge igralcev</string>
   <string name="minimumRatedGames">Najmanjše število rangiranih iger</string>
   <string name="minimumRating">Najmanjši rejting</string>
   <string name="maximumWeeklyRating">Najvišji tedenski rejting</string>
-  <string name="onlyTitled">Samo igralci z nazivom</string>
-  <string name="onlyTitledHelp">Za pridružitev turnirju zahtevajte uradni naziv</string>
   <string name="positionInputHelp">Prilepite veljaven FEN, da začnete vsako igro z določenega položaja.
 Deluje samo za standardne igre, ne pa tudi z različicami.
 %s lahko ustvarite položaj FEN, nato pa ga prilepite sem.
@@ -1063,4 +1062,5 @@ Pustite prazno, da začnete igre iz običajnega začetnega položaja.</string>
   <string name="ourEventTips">Naši nasveti za organizacijo dogodkov</string>
   <string name="lichessPatronInfo">Lichess je dobrodelna in popolnoma brezplačna odprtokodna programska oprema.
 Vsi operativni stroški, razvoj in vsebina se financirajo izključno iz donacij uporabnikov.</string>
+  <string name="nothingToSeeHere">Tukaj trenutno ni ničesar za videti.</string>
 </resources>

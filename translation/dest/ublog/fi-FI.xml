@@ -52,4 +52,5 @@
   <string name="inappropriateContentAccountClosed">Epäasiallisen sisällön julkaisu voi johtaa käyttäjätunnuksesi sulkemiseen.</string>
   <string name="blogTips">Yksinkertaiset vinkkimme erinomaisten blogikirjoitusten laatimiseen</string>
   <string name="discussThisBlogPostInTheForum">Keskustele tästä blogikirjoituksesta foorumissa</string>
+  <string name="youBlockedByBlogAuthor">Blogin tekijä on estänyt sinut.</string>
 </resources>

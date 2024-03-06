@@ -555,7 +555,6 @@
   <string name="automaticallyProceedToNextGameAfterMoving">Pēc gājiena automātiski pāriet uz nākamo spēli</string>
   <string name="autoSwitch">Pašpārslēgšanās</string>
   <string name="puzzles">Uzdevumi</string>
-  <string name="tournamentWinners">Turnīra uzvarētāji</string>
   <string name="name">Nosaukums</string>
   <string name="description">Apraksts</string>
   <string name="descPrivate">Privātais apraksts</string>
@@ -955,8 +954,6 @@
   <string name="minimumRatedGames">Minimālais vērtēto spēļu skaits</string>
   <string name="minimumRating">Minimālais reitings</string>
   <string name="maximumWeeklyRating">Maksimālais nedēļas reitings</string>
-  <string name="onlyTitled">Tikai spēlētāji ar tituliem</string>
-  <string name="onlyTitledHelp">Pieprasīt titulu pirms pievienošanās turnīram</string>
   <string name="positionInputHelp">Ielīmējiet derīgu FEN, lai sāktu katru spēli no dotās pozīcijas.
 Šis darbojas tikai ar standarta spēlēm nevis variantiem.
 Varat izmantot rīku \"%s\", lai izveidotu FEN pozīciju, tad ielīmējiet to šeit.

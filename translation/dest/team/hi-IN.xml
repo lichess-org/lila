@@ -50,7 +50,6 @@
   <string name="entryCodeDescriptionForLeader">(वैकल्पिक) एक कुंजिका जिसे नए सदस्यों को इस टीम में शामिल होने के लिए पता होना चाहिए।</string>
   <string name="incorrectEntryCode">अवैध प्रवेश कूट</string>
   <string name="teamAlreadyExists">यह टीम पहले से मौजूद है।</string>
-  <string name="upcomingTourns">आगामी प्रतियोगिता</string>
   <string name="completedTourns">पूर्ण किए गए प्रतियोगिता</string>
   <string name="declinedRequests">अस्वीकृत अनुरोध</string>
   <string name="joinLichessVariantTeam">समाचार और घटनाओं के लिए आधिकारिक %s टीम में शामिल हों</string>

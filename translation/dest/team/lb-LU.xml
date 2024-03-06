@@ -27,8 +27,10 @@
   <string name="closeTeamDescription">Léist d\'Ekipp fir ëmmer op.</string>
   <string name="incorrectEntryCode">Falsche Bäitrëttscode.</string>
   <string name="teamAlreadyExists">Dës Ekipp gëtt et schonn.</string>
-  <string name="upcomingTourns">Nächst Turnéieren</string>
+  <string name="upcomingTournaments">Nächst Turnéieren</string>
   <string name="completedTourns">Vergaangen Turnéieren</string>
   <string name="declinedRequests">Ofgeleenten Ufroen</string>
   <string name="teamPage">Ekippensäit</string>
+  <string name="thisTeamBattleIsOver">Dëst Turnéier ass eriwwer an d\'Ekippe kënnen net méi aktualiséiert ginn.</string>
+  <string name="numberOfLeadsPerTeamHelp">Du sollts dëse Wäert wierklech net änneren, nodeems d\'Turnéier ugefaangen huet!</string>
 </resources>

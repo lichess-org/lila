@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+  <string name="arena">Arenë</string>
   <string name="arenaTournaments">Turne Arenë</string>
   <string name="isItRated">A është me vlerësim?</string>
   <string name="willBeNotified">Ju do të njoftoheni kur fillon turneu, kështu që është e sigurt të luhet në një tab tjetër gjatë pritjes.</string>
@@ -43,7 +44,7 @@ Luani shpejt dhe kthehuni në holl, që të luani më shumë lojëra dhe të fit
   <string name="variant">Variant</string>
   <string name="minimumGameLength">Kohëzgjatje minimum e lojës</string>
   <string name="history">Historik Arene</string>
-  <plurals name="viewAllXTeams" comment="%s is the number of teams that can be viewed.&#10;&#10;Appears in team battles that feature lots of teams. As of the time of writing, Lichess lists up to 10 teams at a time, so this button lets you view all teams.">
+  <plurals name="viewAllXTeams" comment="viewAllXTeams [one] [other]&#10;&#10;%s is the number of teams that can be viewed">
     <item quantity="one">Shihni ekipin</item>
     <item quantity="other">Shihni krejt ekipet %s</item>
   </plurals>
@@ -57,4 +58,27 @@ Luani shpejt dhe kthehuni në holl, që të luani më shumë lojëra dhe të fit
   <string name="averagePerformance">Mesatare rezultatesh</string>
   <string name="averageScore">Pikë mesatarisht</string>
   <string name="myTournaments">Turnetë e mia</string>
+  <string name="editTournament">Përpunoni turne</string>
+  <string name="editTeamBattle">Përpunoni ndeshje ekipesh</string>
+  <string name="defender">Mbrojtës</string>
+  <string name="pickYourTeam">Zgjidhni ekipin tuaj</string>
+  <string name="whichTeamWillYouRepresentInThisBattle">Cilin ekip do të përfaqësoni në këtë ndeshje?</string>
+  <string name="youMustJoinOneOfTheseTeamsToParticipate">Që të merrni pjesë, duhet të bëheni pjesë e njërit prej këtyre ekipeve!</string>
+  <string name="created">Të krijuar</string>
+  <string name="recentlyPlayed">Luajtur së fundi</string>
+  <string name="bestResults">Përfundimet më të mira</string>
+  <string name="stats">Statistika</string>
+  <string name="tournamentStats">Statistika turneu</string>
+  <string name="rankAvgHelp">Renditja mesatare është një përqindje e renditjes tuaj. Sa më e ulët, aq më mirë.
+
+Për shembull, të qenët i renditur i 3-i në një turne me 100 lojtarë = 3%. Renditja si i 10-it në një turne me 1000 lojtarë = 1%.</string>
+  <string name="medians">mesatare</string>
+  <string name="allAveragesAreX">Krejt mesataret në këtë faqe janë %s.</string>
+  <string name="total">Gjithsej</string>
+  <string name="pointsAvg">Mesatare pikësh</string>
+  <string name="pointsSum">Shumë pikësh</string>
+  <string name="rankAvg">Mesatare renditjeje</string>
+  <string name="tournamentWinners">Fitues turnesh</string>
+  <string name="onlyTitled">Vetëm lojtarë me titull</string>
+  <string name="onlyTitledHelp">Për të marrë pjesë në turne, kërko doemos një titull zyrtar</string>
 </resources>

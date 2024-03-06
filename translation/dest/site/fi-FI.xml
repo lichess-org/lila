@@ -276,6 +276,7 @@
   <string name="abortGame">Keskeytä peli</string>
   <string name="gameAborted">Peli keskeytetty</string>
   <string name="standard">Tavallinen</string>
+  <string name="customPosition">Itse määritetty asema</string>
   <string name="unlimited">Rajaton</string>
   <string name="mode">Tyyppi</string>
   <string name="casual">Rento</string>
@@ -531,7 +532,7 @@
   <string name="automaticallyProceedToNextGameAfterMoving">Avaa heti seuraavan pelisi tehtyäsi siirron</string>
   <string name="autoSwitch">Automaattinen siirtyminen</string>
   <string name="puzzles">Tehtävät</string>
-  <string name="tournamentWinners">Turnausvoittajat</string>
+  <string name="onlineBots">Online-botit</string>
   <string name="name">Nimi</string>
   <string name="description">Kuvaus</string>
   <string name="descPrivate">Yksityinen kuvaus</string>
@@ -939,8 +940,6 @@ vaikutus pelaajien vahvuuslukuihin</string>
   <string name="minimumRatedGames">Pisteytettyjä pelejä vähintään</string>
   <string name="minimumRating">Vahvuusluku vähintään</string>
   <string name="maximumWeeklyRating">Viikoittainen vahvuusluku enintään</string>
-  <string name="onlyTitled">Vain arvonimen saaneet pelaajat</string>
-  <string name="onlyTitledHelp">Turnaukseen osallistuminen edellyttää virallista arvonimeä</string>
   <string name="positionInputHelp">Liitä tähän FEN-koodi, jos haluat jokaisen pelin alkavan tietystä asemasta.
 Se toimii vain tavallisissa peleissä, ei varianteissa.
 Voit luoda aseman %slla ja kopioida FEN-koodin sieltä tänne.
@@ -989,4 +988,5 @@ Jätä kenttä tyhjäksi, jos haluat pelien alkavan normaalista alkuasemasta.</s
   <string name="showMeEverything">Näytä kaikki</string>
   <string name="lichessPatronInfo">Lichess on hyväntekeväisyysjärjestö ja täysin ilmainen avoimen lähdekoodin ohjelmisto.
 Kaikki toimintakustannukset, kehitystyö ja sisältö rahoitetaan yksinomaan käyttäjien lahjoituksilla.</string>
+  <string name="nothingToSeeHere">Täällä ei ole tällä hetkellä mitään nähtävää.</string>
 </resources>

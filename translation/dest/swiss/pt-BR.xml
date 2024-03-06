@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+  <string name="swiss">Suíço</string>
   <string name="swissTournaments">Torneios Suíços</string>
   <plurals name="viewAllXRounds" comment="viewAllXRounds [one] [other]&#10;&#10;%s is the number of rounds in the Swiss tournament.">
     <item quantity="one">Ver a rodada</item>
@@ -38,6 +39,7 @@
   <string name="roundInterval">Intervalo entre rodadas</string>
   <string name="forbiddenPairings">Pareamentos proibidos</string>
   <string name="forbiddenPairingsHelp">Nomes de usuários de jogadores que não devem jogar juntos (irmãos, por exemplo). Dois nomes por linha, separados por espaço.</string>
+  <string name="manualPairings">Pareamentos manuais na próxima rodada</string>
   <string name="newSwiss">Novo torneio suíço</string>
   <string name="swissVsArenaQ">Quando usar torneios suíços em vez de arenas?</string>
   <string name="swissVsArenaA">Em um torneio suíço, todos os participantes jogam o mesmo número de partidas, e só podem enfrentar o mesmo adversário uma vez.
@@ -114,4 +116,7 @@ O mais próximo que se pode ter de um round robin online, é jogar um torneio su
   <string name="predefinedUsers">Permitir apenas usuários predefinidos</string>
   <string name="forbiddedUsers">Se a lista não estiver vazia, usuários não listados não poderão entrar no torneio. Um usuário por linha.</string>
   <string name="playYourGames">Jogue seus jogos</string>
+  <string name="byes">Byes</string>
+  <string name="absences">Ausências</string>
+  <string name="tieBreak">Desempate</string>
 </resources>
