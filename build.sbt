@@ -34,6 +34,7 @@ Compile / RoutesKeys.routes / sources ++= {
   val dirs = (Compile / unmanagedResourceDirectories).value
   (dirs * "routes").get ++ (dirs * "*.routes").get
 }
+
 target                      := baseDirectory.value / "target"
 Compile / sourceDirectory   := baseDirectory.value / "app"
 Test / sourceDirectory      := baseDirectory.value / "test"

@@ -104,7 +104,8 @@ final class JsonView(
       studyData: lila.study.JsonView.JsData,
       group: Option[RelayGroup.WithTours],
       canContribute: Boolean,
-      isSubscribed: Option[Boolean] = none[Boolean]
+      isSubscribed: Option[Boolean] = none[Boolean],
+      iframeUrl: Option[String] = none
   ) = leaderboardApi(trs.tour).map: leaderboard =>
     JsonView.JsData(
       relay = apply(trs)

@@ -36,6 +36,8 @@ import * as Prefs from 'common/prefs';
 import StudyCtrl from '../study/studyCtrl';
 import { dispatchChessgroundResize } from 'common/resize';
 
+import { streamerView } from './streamerView';
+
 window.addEventListener('popstate', () => window.location.reload());
 
 function makeConcealOf(ctrl: AnalyseCtrl): ConcealOf | undefined {
@@ -396,6 +398,7 @@ export default function (deps?: typeof studyDeps) {
               ...(menuIsOpen
                 ? [actionMenu(ctrl)]
                 : [
+                    streamerView(ctrl),
                     ...cevalView.renderCeval(ctrl),
                     showCevalPvs && cevalView.renderPvs(ctrl),
                     renderAnalyse(ctrl, concealOf),

@@ -17,7 +17,8 @@ final class StreamerApi(
     picfitApi: PicfitApi,
     notifyApi: lila.notify.NotifyApi,
     subsRepo: lila.relation.SubscriptionRepo,
-    ytApi: YouTubeApi
+    ytApi: YouTubeApi,
+    net: lila.common.config.NetConfig
 )(using Executor):
 
   import BsonHandlers.given
@@ -173,6 +174,14 @@ final class StreamerApi(
         multi = true
       )
       .void
+
+  def iframeUrl(s: Streamer.WithUserAndStream): Option[String] =
+    s.stream match
+      case Some(Stream.YouTube.Stream(_, _, videoId, _, _)) =>
+        s"https://www.youtube.com/embed/$videoId&embed_domain=${net.domain}".some
+      case _ =>
+        s.streamer.twitch.map: twitch =>
+          s"https://twitch.tv/embed/${twitch.userId}?parent=${net.domain}"
 
   object approval:
 
