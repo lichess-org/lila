@@ -260,7 +260,7 @@ object Flags:
     C("TM", "Turkmenistan"),
     C("TN", "Tunisia"),
     C("TO", "Tonga"),
-    C("TR", "Turkey"),
+    C("TR", "Turkiye"),
     C("TT", "Trinidad and Tobago"),
     C("TV", "Tuvalu"),
     C("TW", "Taiwan"),
