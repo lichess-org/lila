@@ -597,6 +597,8 @@ export default class StudyCtrl {
         sticky = d.s;
       this.setMemberActive(who);
       if (this.vm.toolTab() == 'multiBoard') this.multiBoard.addNode(d.p, d.n);
+      if (this.data.chapter.id == d.p.chapterId) this.relay?.applyChapterRelay(this.data.chapter, d.relay);
+      this.relay?.addNodeToChapterPreview(d);
       if (sticky && !this.vm.mode.sticky) this.vm.behind++;
       if (this.wrongChapter(d)) {
         if (sticky && !this.vm.mode.sticky) this.redraw();
@@ -606,8 +608,6 @@ export default class StudyCtrl {
         this.data.position.path = position.path + node.id;
         return;
       }
-      if (this.data.chapter.id == d.p.chapterId) this.relay?.applyChapterRelay(this.data.chapter, d.relay);
-      this.relay?.addNodeToChapterPreview(d);
       const newPath = this.ctrl.tree.addNode(node, position.path);
       if (!newPath) return this.xhrReload();
       this.ctrl.tree.addDests(d.d, newPath);
