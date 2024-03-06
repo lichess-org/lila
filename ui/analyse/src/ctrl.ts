@@ -277,6 +277,10 @@ export default class AnalyseCtrl {
     return opposite(this.bottomColor());
   }
 
+  playerColor(): Color {
+    return this.data.game.player;
+  }
+
   bottomColor(): Color {
     if (this.data.game.variant.key === 'racingKings') return this.flipped ? 'black' : 'white';
     return this.flipped ? opposite(this.data.orientation) : this.data.orientation;
