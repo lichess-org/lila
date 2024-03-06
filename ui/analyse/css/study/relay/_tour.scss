@@ -201,6 +201,7 @@
   flex: 1 1 auto;
   overflow-y: auto;
   font-size: 0.9em;
+  position: relative;
 }
 .relay-game {
   @extend %flex-center-nowrap;
