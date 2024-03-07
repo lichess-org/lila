@@ -33,7 +33,7 @@ object Translator:
               logger.warn(s"Failed to format html $lang/$key -> $translation (${args.toList})", e)
               Some(RawFrag(key.value))
         }
-        .getOrElse(RawFrag(key.value))
+        .getOrElse(RawFrag(key.value).pp)
 
     private def escapeArgs(args: Seq[Matchable]): Seq[RawFrag] = args.map:
       case s: String     => escapeHtml(Html(s))
@@ -70,4 +70,7 @@ object Translator:
         .getOrElse(key.value)
 
   private[i18n] def findTranslation(key: I18nKey, lang: Lang): Option[Translation] =
-    Registry.all.get(lang).flatMap(t => Option(t.get(key))).orElse(Option(Registry.default.get(key)))
+    Registry.all
+      .get(lang)
+      .flatMap(t => t.get(key.value))
+      .orElse(Registry.default.get(key.value))

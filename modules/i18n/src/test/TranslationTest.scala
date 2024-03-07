@@ -9,12 +9,15 @@ class TranslationTest extends munit.FunSuite:
     val en     = Registry.all.get(defaultLang).get
     var tested = 0
     val errors: List[String] = LangList.all.flatMap { (lang, name) =>
-      Registry.all.get(lang).get.asScala.toMap.flatMap { (k, v) =>
+      Registry.all.get(lang).get.toMap.flatMap { (k, v) =>
         try
           val enTrans: String = en.get(k) match
-            case literal: Simple  => literal.message
-            case literal: Escaped => literal.message
-            case plurals: Plurals => plurals.messages.getOrElse(I18nQuantity.Other, plurals.messages.head._2)
+            case Some(literal: Simple)  => literal.message
+            case Some(literal: Escaped) => literal.message
+            case Some(plurals: Plurals) =>
+              plurals.messages.getOrElse(I18nQuantity.Other, plurals.messages.head._2)
+            case _ =>
+              throw new Exception(s"Missing translation for $k")
           val args = argsForKey(enTrans)
           v match
             case literal: Simple =>
