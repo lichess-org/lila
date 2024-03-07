@@ -127,7 +127,8 @@ import play.api.i18n.Lang
 // format: OFF
 private object Registry {
 
-  val all = Map[Lang, MessageMap](\n$content)
+  val all = lila.common.Chronometer.syncEffect(Map[Lang, MessageMap](\n$content)): lap =>
+    logger.info("Loaded " + lap.result.size + " langs in " + lap.showDuration)
 
   val default: MessageMap = all(defaultLang)
 
