@@ -45,11 +45,11 @@ object I18n {
             val key = toKey(e, db)
             e.label match {
               case "string" =>
-                result.put(key, e.text)
+                result.put(key, unescapeQuotes(e.text))
               case "plurals" =>
                 val plurals = new HashMap[String, String]()
                 e.child.filter(_.label == "item").foreach { i =>
-                  plurals.put(i.\("@quantity").toString, i.text)
+                  plurals.put(i.\("@quantity").toString, unescapeQuotes(i.text))
                 }
                 result.put(key, plurals)
               case _ =>
@@ -62,6 +62,9 @@ object I18n {
     }
     result
   }
+
+  private def unescapeQuotes(s: String): String =
+    s.replace("\\\"", "\"").replace("\\'", "'")
 
   private def toKey(e: scala.xml.Node, db: String): String =
     if (db == "site") e.\("@name").toString
