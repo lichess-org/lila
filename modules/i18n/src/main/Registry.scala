@@ -10,12 +10,12 @@ object Registry:
 
   val all: Map[Lang, MessageMap] =
     val istream = new ObjectInputStream(getClass.getClassLoader.getResourceAsStream("I18n.ser"))
-    val i18nMap = istream.readObject().asInstanceOf[JMap[String, JMap[String, Object]]].asScala
+    val javaMap = istream.readObject().asInstanceOf[JMap[String, JMap[String, Object]]].asScala
     istream.close()
 
-    i18nMap.toMap.map:
-      case (langCode, i18nMap) =>
-        Lang(langCode) -> i18nMap.asScala.toMap
+    javaMap.toMap.map:
+      case (langCode, messageMap) =>
+        Lang(langCode) -> messageMap.asScala
           .map:
             case (key, value) =>
               key -> (value match
