@@ -40,19 +40,17 @@ object Registry:
   val langs: Set[Lang] = all.keySet
 
   private def escapeHtml(s: String) =
-    if badChars.matcher(s).find then
-      val sb = new java.lang.StringBuilder(s.length + 10) // wet finger style
-      var i  = 0
-      while i < s.length do
-        s.charAt(i) match
-          case '<'  => sb.append("&lt;")
-          case '>'  => sb.append("&gt;")
-          case '&'  => sb.append("&amp;")
-          case '"'  => sb.append("&quot;")
-          case '\'' => sb.append("&#39;")
-          case '\r' => ()
-          case '\n' => sb.append("<br>")
-          case c    => sb.append(c)
-        i += 1
-      sb.toString.replace("\\&quot;", "&quot;")
-    else s
+    val sb = new java.lang.StringBuilder(s.length + 10) // wet finger style
+    var i = 0 // i'm not sure what wet finger style is and i do not want to know
+    while i < s.length do
+      s.charAt(i) match
+        case '<'  => sb.append("&lt;")
+        case '>'  => sb.append("&gt;")
+        case '&'  => sb.append("&amp;")
+        case '"'  => sb.append("&quot;")
+        case '\'' => sb.append("&#39;")
+        case '\r' => ()
+        case '\n' => sb.append("<br>")
+        case c    => sb.append(c)
+      i += 1
+    sb.toString.replace("\\&quot;", "&quot;")
