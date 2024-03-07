@@ -278,7 +278,7 @@ export default class AnalyseCtrl {
   }
 
   playerColor(): Color {
-    return this.data.game.player;
+    return this.flipped ?  opposite(this.data.game.player) : this.data.game.player;
   }
 
   bottomColor(): Color {
