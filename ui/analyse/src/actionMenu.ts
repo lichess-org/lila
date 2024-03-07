@@ -1,4 +1,5 @@
 import { isEmpty } from 'common/common';
+import { editor, encodeSfen, setup } from 'common/links';
 import { MaybeVNodes, bind, bindNonPassive, dataIcon } from 'common/snabbdom';
 import { cont as contRoute } from 'game/router';
 import { Hooks, VNode, h } from 'snabbdom';
@@ -178,8 +179,8 @@ export function view(ctrl: AnalyseCtrl): VNode {
             {
               attrs: {
                 href: d.userAnalysis
-                  ? '/editor?sfen=' + ctrl.encodeNodeSfen()
-                  : '/' + d.game.id + '/edit?sfen=' + ctrl.encodeNodeSfen(),
+                  ? editor(d.game.variant.key, ctrl.node.sfen, ctrl.shogiground.state.orientation)
+                  : '/' + d.game.id + '/edit?sfen=' + encodeSfen(ctrl.node.sfen, true),
                 rel: 'nofollow',
                 target: ctrl.embed ? '_blank' : '',
                 'data-icon': 'm',
@@ -390,8 +391,8 @@ export function view(ctrl: AnalyseCtrl): VNode {
                 {
                   attrs: {
                     href: d.userAnalysis
-                      ? '/?sfen=' + ctrl.encodeNodeSfen() + '#ai'
-                      : contRoute(d, 'ai') + '?sfen=' + ctrl.encodeNodeSfen(),
+                      ? setup('/', ctrl.data.game.variant.key, ctrl.node.sfen, 'ai')
+                      : setup(contRoute(d, 'ai'), ctrl.data.game.variant.key, ctrl.node.sfen),
                     rel: 'nofollow',
                   },
                 },
@@ -402,8 +403,8 @@ export function view(ctrl: AnalyseCtrl): VNode {
                 {
                   attrs: {
                     href: d.userAnalysis
-                      ? '/?sfen=' + ctrl.encodeNodeSfen() + '#friend'
-                      : contRoute(d, 'friend') + '?sfen=' + ctrl.encodeNodeSfen(),
+                      ? setup('/', ctrl.data.game.variant.key, ctrl.node.sfen, 'friend')
+                      : setup(contRoute(d, 'friend'), ctrl.data.game.variant.key, ctrl.node.sfen),
                     rel: 'nofollow',
                   },
                 },

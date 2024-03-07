@@ -1,8 +1,8 @@
 import * as game from 'game';
 import { VNode, h } from 'snabbdom';
 import { defined } from 'common/common';
-import AnalyseCtrl from './ctrl';
 import { engineNameFromCode } from 'common/engineName';
+import AnalyseCtrl from './ctrl';
 
 export default function renderClocks(ctrl: AnalyseCtrl, withNames: boolean): [VNode, VNode] | undefined {
   if (ctrl.embed || (ctrl.data.game.status.name === 'started' && !ctrl.imported)) return;

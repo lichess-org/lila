@@ -1,4 +1,5 @@
 import { VNode, h } from 'snabbdom';
+import { setup } from 'common/links';
 import { EditorState } from '../interfaces';
 import EditorCtrl from '../ctrl';
 
@@ -48,11 +49,7 @@ function continueWith(ctrl: EditorCtrl, state: EditorState): VNode {
               disabled: ['chushogi', 'annansogi'].includes(ctrl.rules),
             },
             attrs: {
-              href:
-                '/?sfen=' +
-                ctrl.encodeSfen(state.legalSfen || '') +
-                `&variant=${ctrl.encodeVariant(ctrl.rules)}` +
-                '#ai',
+              href: setup('/', ctrl.rules, state.legalSfen || '', 'ai'),
               rel: 'nofollow',
             },
           },
@@ -62,11 +59,7 @@ function continueWith(ctrl: EditorCtrl, state: EditorState): VNode {
           'a.button.text',
           {
             attrs: {
-              href:
-                '/?sfen=' +
-                ctrl.encodeSfen(state.legalSfen || '') +
-                `&variant=${ctrl.encodeVariant(ctrl.rules)}` +
-                '#friend',
+              href: setup('/', ctrl.rules, state.legalSfen || '', 'friend'),
               rel: 'nofollow',
             },
           },

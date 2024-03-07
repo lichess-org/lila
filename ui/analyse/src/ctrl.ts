@@ -3,6 +3,7 @@ import { CevalCtrl, EvalMeta, ctrl as cevalCtrl, isEvalBetter } from 'ceval';
 import { Prop, defined, prop } from 'common/common';
 import { makeNotation } from 'common/notation';
 import { isImpasse as impasse } from 'common/impasse';
+import { analysis } from 'common/links';
 import { getPerfIcon } from 'common/perfIcons';
 import { StoredBooleanProp, storedProp } from 'common/storage';
 import throttle from 'common/throttle';
@@ -478,11 +479,7 @@ export default class AnalyseCtrl {
 
   changeSfen(sfen: Sfen): void {
     this.redirecting = true;
-    window.location.href =
-      '/analysis/' +
-      this.data.game.variant.key +
-      '/' +
-      encodeURIComponent(sfen).replace(/%20/g, '_').replace(/%2F/g, '/');
+    window.location.href = analysis(this.data.game.variant.key, sfen);
   }
 
   userDrop = (piece: Piece, key: Key, prom: boolean): void => {
@@ -631,10 +628,6 @@ export default class AnalyseCtrl {
     this.showGround();
     this.justPlayedUsi = undefined;
     this.redraw();
-  }
-
-  encodeNodeSfen(): Sfen {
-    return this.node.sfen.replace(/\s/g, '_').replace(/\+/g, '%2B');
   }
 
   currentEvals() {
