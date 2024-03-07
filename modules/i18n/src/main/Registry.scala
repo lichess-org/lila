@@ -8,7 +8,10 @@ import scala.jdk.CollectionConverters.*
 object Registry:
   private val badChars = """[<>&"'\r\n]""".r.pattern
 
-  val all: Map[Lang, MessageMap] =
+  val all: Map[Lang, MessageMap] = lila.common.Chronometer.syncEffect(loadSerialized): lap =>
+    logger.info(s"Loaded ${lap.result.size} langs in ${lap.showDuration}")
+
+  private def loadSerialized: Map[Lang, MessageMap] =
     val istream = new ObjectInputStream(getClass.getClassLoader.getResourceAsStream("I18n.ser"))
     val javaMap = istream.readObject().asInstanceOf[JMap[String, JMap[String, Object]]].asScala
     istream.close()
