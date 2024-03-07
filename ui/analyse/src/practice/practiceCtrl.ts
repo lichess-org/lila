@@ -136,7 +136,11 @@ export function make(root: AnalyseCtrl, playableDepth: () => number): PracticeCt
   }
 
   function isMyTurn(): boolean {
-    return root.turnColor() === root.playerColor();
+    if (root.data.game.variant.key === 'racingKings'){
+      return root.turnColor() === root.playerColor();
+    } else {
+      return root.turnColor() === root.bottomColor();
+    }
   }
 
   function checkCeval() {
