@@ -13,12 +13,12 @@ import lila.db.ByteArray
 
 object BinaryFormat {
   object usi {
-    def write(moves: UsiMoves, variant: Variant): ByteArray =
+    def write(usis: Usis, variant: Variant): ByteArray =
       ByteArray {
-        shogi.format.usi.Binary.encodeMoves(moves, variant)
+        shogi.format.usi.Binary.encodeMoves(usis, variant)
       }
 
-    def read(ba: ByteArray, variant: Variant): UsiMoves =
+    def read(ba: ByteArray, variant: Variant): Usis =
       shogi.format.usi.Binary.decodeMoves(ba.value.toList, variant, Game.maxPlies(variant))
 
   }
@@ -220,7 +220,7 @@ object BinaryFormat {
 
   object pieces {
     def read(
-        usis: UsiMoves,
+        usis: Usis,
         initialSfen: Option[Sfen],
         variant: Variant
     ): PieceMap = {

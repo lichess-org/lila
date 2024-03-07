@@ -56,7 +56,7 @@ final class GifExport(
         "white"       -> Namer.playerTextBlocking(game.gotePlayer, withRating = true)(lightUserApi.sync),
         "orientation" -> game.firstColor.engName
       ) ::: List(
-        game.lastMoveKeys.map { "lastMove" -> _ },
+        game.lastUsiStr.map { "lastMove" -> _ },
         game.situation.checkSquares.headOption.map { "check" -> _.key }
       ).flatten
 
@@ -74,12 +74,12 @@ final class GifExport(
     } else fuccess(none)
   }
 
-  def thumbnail(sfen: Sfen, lastMove: Option[String], orientation: Color): Fu[Source[ByteString, _]] = {
+  def thumbnail(sfen: Sfen, lastUsi: Option[String], orientation: Color): Fu[Source[ByteString, _]] = {
     val query = List(
       "sfen"        -> sfen.value,
       "orientation" -> orientation.engName
     ) ::: List(
-      lastMove.map { "lastMove" -> _ }
+      lastUsi.map { "lastMove" -> _ }
     ).flatten
 
     ws.url(s"${url}/image.gif")
@@ -110,12 +110,12 @@ final class GifExport(
 
   private def frames(game: Game) = {
     Replay.gamesWhileValid(
-      game.usiMoves,
+      game.usis,
       game.initialSfen,
       game.variant
     ) match {
       case (games, _) =>
-        val steps = (games.head, None) :: games.tail.zip(game.usiMoves.map(_.some))
+        val steps = (games.head, None) :: games.tail.zip(game.usis.map(_.some))
         framesRec(
           steps.zip(scaleMoveTimes(~game.moveTimes).map(_.some).padTo(steps.length, None)),
           Json.arr()

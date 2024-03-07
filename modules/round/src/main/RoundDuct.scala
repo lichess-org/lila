@@ -398,11 +398,11 @@ final private[round] class RoundDuct(
         }
       }
 
-    case ForecastPlay(lastMove) =>
+    case ForecastPlay(lastUsi) =>
       handle { game =>
-        forecastApi.nextMove(game, lastMove) map { mOpt =>
-          mOpt foreach { move =>
-            this ! HumanPlay(PlayerId(game.player.id), move, false)
+        forecastApi.nextMove(game, lastUsi) map { usiOpt =>
+          usiOpt foreach { usi =>
+            this ! HumanPlay(PlayerId(game.player.id), usi, false)
           }
           Nil
         }

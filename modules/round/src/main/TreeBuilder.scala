@@ -26,7 +26,7 @@ object TreeBuilder {
       withFlags: WithFlags
   ): Root = {
     val withClocks: Option[Vector[Centis]] = withFlags.clocks ?? game.bothClockStates
-    shogi.Replay.gamesWhileValid(game.usiMoves, game.initialSfen, game.variant) match {
+    shogi.Replay.gamesWhileValid(game.usis, game.initialSfen, game.variant) match {
       case (gamesWithInit, error) =>
         error foreach logShogiError(game.id)
         val init                = gamesWithInit.head
@@ -78,7 +78,7 @@ object TreeBuilder {
             }
           } getOrElse branch
         }
-        games.zip(game.usiMoves).zipWithIndex.reverse match {
+        games.zip(game.usis).zipWithIndex.reverse match {
           case Nil => root
           case ((g, m), i) :: rest =>
             root prependChild rest.foldLeft(makeBranch(i + 1, g, m)) { case (node, ((g, m), i)) =>

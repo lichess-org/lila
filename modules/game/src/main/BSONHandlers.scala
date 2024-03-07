@@ -69,8 +69,8 @@ object BSONHandlers {
         )
         .getOrElse(PeriodEntries.default)
 
-      val usiMoves = BinaryFormat.usi.read(r bytesD F.usiMoves, gameVariant)
-      val pieces   = BinaryFormat.pieces.read(usiMoves, initialSfen, gameVariant)
+      val usis   = BinaryFormat.usi.read(r bytesD F.usis, gameVariant)
+      val pieces = BinaryFormat.pieces.read(usis, initialSfen, gameVariant)
 
       val positionHashes = r.getO[shogi.PositionHash](F.positionHashes) | Array.empty
       val hands          = r.strO(F.hands) flatMap { Sfen.makeHandsFromString(_, gameVariant) }
@@ -84,7 +84,7 @@ object BSONHandlers {
           hands = hands.getOrElse(Hands.empty),
           color = plyColor,
           history = ShogiHistory(
-            lastMove = usiMoves.lastOption,
+            lastUsi = usis.lastOption,
             lastLionCapture = lastLionCapture,
             consecutiveAttacks = ConsecutiveAttacks(~counts.headOption, ~counts.lastOption),
             positionHashes = positionHashes,
@@ -92,7 +92,7 @@ object BSONHandlers {
           ),
           variant = gameVariant
         ),
-        usiMoves = usiMoves,
+        usis = usis,
         clock = r.getO[Color => Clock](F.clock) {
           clockBSONReader(createdAt, periodEntries, light.sentePlayer.berserk, light.gotePlayer.berserk)
         } map (_(clockColor)),
@@ -181,7 +181,7 @@ object BSONHandlers {
         F.analysed           -> w.boolO(o.metadata.analysed),
         F.positionHashes     -> o.history.positionHashes,
         F.hands              -> Sfen.handsToString(o.hands, o.variant),
-        F.usiMoves           -> BinaryFormat.usi.write(o.usiMoves, o.variant)
+        F.usis               -> BinaryFormat.usi.write(o.usis, o.variant)
       )
   }
 

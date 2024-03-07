@@ -138,7 +138,7 @@ object NotationImport {
           prev(parsedMove).fold(
             _ => none, // illegal move; stop here.
             game =>
-              game.history.lastMove flatMap { usi =>
+              game.history.lastUsi flatMap { usi =>
                 parseComments(parsedMove.metas.comments, annotator) match {
                   case (shapes, comments) =>
                     Node(

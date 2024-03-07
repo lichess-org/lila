@@ -130,7 +130,7 @@ final private class StudyMaker(
   // Make the potential next chapters reasonably long in case the game is close to Node.MAX_PLIES
   // and allow making moves at the chapter end
   private def chapterNodeLimit(pov: Pov): Int =
-    if (pov.game.usiMoves.sizeIs < Node.MAX_PLIES) Node.MAX_PLIES
+    if (pov.game.usis.sizeIs < Node.MAX_PLIES) Node.MAX_PLIES
     else Node.MAX_PLIES - 50
 
   private def makeClocks(pov: Pov): Option[Vector[Centis]] =
@@ -142,18 +142,18 @@ final private class StudyMaker(
   // studies are limited to 400 nodes, split longer games into multiple roots
   private def makeRoots(pov: Pov): List[Node.Root] = {
     val nodeLimit = chapterNodeLimit(pov)
-    val usiMovesList =
-      if (pov.game.usiMoves.nonEmpty)
-        pov.game.usiMoves.grouped(nodeLimit)
+    val usisList =
+      if (pov.game.usis.nonEmpty)
+        pov.game.usis.grouped(nodeLimit)
       else Iterator(Vector.empty[shogi.format.usi.Usi])
     val clocks = makeClocks(pov).map(_.grouped(nodeLimit).toVector)
-    usiMovesList
+    usisList
       .foldLeft(List.empty[Node.Root]) { case (acc, cur) =>
         val gm = Node.GameMainline(
           id = pov.game.id,
           part = acc.size,
           variant = pov.game.variant,
-          usiMoves = cur,
+          usis = cur,
           initialSfen = acc.headOption.map(_.lastMainlineNode.sfen).orElse(pov.game.initialSfen),
           clocks = clocks.flatMap(_.lift(acc.size))
         )

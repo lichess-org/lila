@@ -64,7 +64,7 @@ final private class GameJson(
         "perf"    -> perfJson(game),
         "rated"   -> game.rated,
         "players" -> playersJson(game),
-        "moves"   -> game.shogi.usiMoves.take(plies + 1).map(_.usi).mkString(" ")
+        "moves"   -> game.shogi.usis.take(plies + 1).map(_.usi).mkString(" ")
       )
       .add("clock", game.clock.map(_.config.show))
 
@@ -98,11 +98,11 @@ final private class GameJson(
         "players" -> playersJson(game),
         "rated"   -> game.rated,
         "treeParts" -> {
-          val usiMoves = game.usiMoves.take(plies + 1)
+          val usis = game.usis.take(plies + 1)
           for {
-            usi <- usiMoves.lastOption
+            usi <- usis.lastOption
             situation = shogi.Replay
-              .situations(usiMoves, None, shogi.variant.Standard)
+              .situations(usis, None, shogi.variant.Standard)
               .valueOr { err =>
                 sys.error(s"GameJson.generateBc ${game.id} $err")
               }

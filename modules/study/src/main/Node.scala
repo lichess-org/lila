@@ -240,7 +240,7 @@ object Node {
       id: lila.game.Game.ID,
       part: Int, // if game was partitioned into multiple parts
       variant: Variant,
-      usiMoves: Vector[Usi],
+      usis: Vector[Usi],
       initialSfen: Option[Sfen],
       clocks: Option[Vector[Centis]]
   )
@@ -359,7 +359,7 @@ object Node {
     def isGameRoot = gameMainline.isDefined
 
     def gameMainlinePath: Option[Path] =
-      gameMainline.map(gm => mainlinePath.take(gm.usiMoves.size))
+      gameMainline.map(gm => mainlinePath.take(gm.usis.size))
 
     def hasMultipleCommentAuthors: Boolean = (comments.authors ::: children.commentAuthors).toSet.sizeIs > 1
 
@@ -400,7 +400,7 @@ object Node {
     val gameId      = "id"
     val part        = "pt"
     val variant     = "v"
-    val usiMoves    = "um"
+    val usis        = "um"
     val initialSfen = "is"
     val clocks      = "cl"
   }

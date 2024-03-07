@@ -58,7 +58,7 @@ final class Player(
               initialSfen = game.initialSfen,
               studyId = none,
               variant = game.variant,
-              moves = game.usiMoves.map(_.usi) mkString " "
+              moves = game.usis.map(_.usi) mkString " "
             ),
             level = ec.level,
             engine = ec.engine.name,

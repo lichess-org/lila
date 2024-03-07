@@ -12,20 +12,20 @@ import lila.puzzle.{ PuzzleDifficulty, PuzzleTheme }
 
 object bits {
 
-  private val dataLastmove = attr("data-lastmove")
+  private val dataLastUsi = attr("data-lastmove")
 
-  def miniTag(sfen: shogi.format.forsyth.Sfen, color: shogi.Color = shogi.Sente, lastMove: String = "")(
+  def miniTag(sfen: shogi.format.forsyth.Sfen, color: shogi.Color = shogi.Sente, lastUsi: String = "")(
       tag: Tag
   ): Tag =
     tag(
-      cls          := "mini-board parse-sfen",
-      dataColor    := color.name,
-      dataSfen     := sfen.value,
-      dataLastmove := lastMove
-    )(div(cls      := s"sg-wrap d-9x9 orientation-${color.name}"))
+      cls         := "mini-board parse-sfen",
+      dataColor   := color.name,
+      dataSfen    := sfen.value,
+      dataLastUsi := lastUsi
+    )(div(cls     := s"sg-wrap d-9x9 orientation-${color.name}"))
 
-  def daily(p: lila.puzzle.Puzzle, sfen: shogi.format.forsyth.Sfen, lastMove: String) =
-    miniTag(sfen, p.color, lastMove)(span)
+  def daily(p: lila.puzzle.Puzzle, sfen: shogi.format.forsyth.Sfen, lastUsi: String) =
+    miniTag(sfen, p.color, lastUsi)(span)
 
   def jsI18n(implicit lang: Lang) = i18nJsObject(i18nKeys)
 

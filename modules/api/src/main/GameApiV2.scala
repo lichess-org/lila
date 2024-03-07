@@ -267,7 +267,7 @@ final class GameApiV2(
       .add("initialSfen" -> g.initialSfen)
       .add("winner" -> g.winnerColor.map(_.name))
       .add("moves" -> withFlags.moves.option {
-        withFlags keepDelayIf g.playable applyDelay g.usiMoves.map(_.usi) mkString " "
+        withFlags keepDelayIf g.playable applyDelay g.usis.map(_.usi) mkString " "
       })
       .add("notation" -> notation)
       .add("daysPerTurn" -> g.daysPerTurn)

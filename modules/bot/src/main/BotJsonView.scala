@@ -52,7 +52,7 @@ final class BotJsonView(
     Json
       .obj(
         "type"   -> "gameState",
-        "moves"  -> game.usiMoves.map(_.usi).mkString(" "),
+        "moves"  -> game.usis.map(_.usi).mkString(" "),
         "btime"  -> millisOf(game.sentePov),
         "wtime"  -> millisOf(game.gotePov),
         "binc"   -> game.clock.??(_.config.increment.millis),
@@ -64,7 +64,7 @@ final class BotJsonView(
       )
       .add(
         "fairyMoves" -> (game.variant.kyotoshogi option Kyoto
-          .makeFairyUsiList(game.usiMoves, game.initialSfen)
+          .makeFairyUsiList(game.usis, game.initialSfen)
           .mkString(" "))
       )
       .add("winner" -> game.winnerColor)

@@ -46,7 +46,7 @@ final class NotationDump(
         )
         val clockOffset = game.startColor.fold(0, 1)
         val extendedMoves = Replay.usiWithRoleWhilePossible(
-          game.usiMoves,
+          game.usis,
           game.initialSfen,
           game.variant
         )

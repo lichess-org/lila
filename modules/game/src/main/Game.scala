@@ -38,7 +38,7 @@ case class Game(
   def variant   = shogi.variant
   def plies     = shogi.plies
   def clock     = shogi.clock
-  def usiMoves  = shogi.usiMoves
+  def usis      = shogi.usis
 
   def initialSfen = history.initialSfen
 
@@ -176,9 +176,9 @@ case class Game(
   def bothClockStates: Option[Vector[Centis]] =
     clockHistory.map(_.bothClockStates(startColor, clock ?? (_.byoyomi)))
 
-  def usiMoves(color: Color): UsiMoves = {
+  def usis(color: Color): Usis = {
     val pivot = if (color == startColor) 0 else 1
-    usiMoves.zipWithIndex.collect {
+    usis.zipWithIndex.collect {
       case (e, i) if (i % 2) == pivot => e
     }
   }
@@ -188,7 +188,7 @@ case class Game(
     else {
       val newShogi = sealedUsi.flatMap(u => shogi(u).toOption).getOrElse(shogi)
       val sealedUsiApplied =
-        newShogi.usiMoves.lastOption.exists(_.some == sealedUsi && plies < newShogi.plies)
+        newShogi.usis.lastOption.exists(_.some == sealedUsi && plies < newShogi.plies)
       val pSeconds = (nowSeconds - movedAt.getSeconds).toInt atLeast 0
       val resumed = copy(
         // clock was already updated, make sure proper color is set
@@ -263,7 +263,7 @@ case class Game(
       movedAt = DateTime.now
     )
 
-    val event = newShogi.usiMoves.lastOption.ifFalse(reload).fold[Event](Event.Reload) { usi =>
+    val event = newShogi.usis.lastOption.ifFalse(reload).fold[Event](Event.Reload) { usi =>
       Event.UsiEvent(
         usi = usi,
         situation = newShogi.situation,
@@ -282,8 +282,8 @@ case class Game(
     Progress(this, updated, List(event))
   }
 
-  def lastMoveKeys: Option[String] =
-    history.lastMove map (_.usi)
+  def lastUsiStr: Option[String] =
+    history.lastUsi map (_.usi)
 
   def updatePlayer(color: Color, f: Player => Player) =
     color.fold(
@@ -803,7 +803,7 @@ object Game {
     val playerIds          = "is"
     val playerUids         = "us"
     val playingUids        = "pl"
-    val usiMoves           = "um"
+    val usis               = "um"
     val status             = "s"
     val plies              = "t"
     val clock              = "c"
@@ -877,7 +877,7 @@ case class ClockHistory(
     val initiatePeriods = clock.config.startsAtZero && periodEntries(color).isEmpty
     val isUsingByoyomi  = curClock.periods > 0 && !initiatePeriods
 
-    val timeToStore = if (isUsingByoyomi) clock.lastMoveTimeOf(color) else curClock.time
+    val timeToStore = if (isUsingByoyomi) clock.lastTimeOf(color) else curClock.time
 
     update(color, _ :+ timeToStore)
       .updatePeriods(

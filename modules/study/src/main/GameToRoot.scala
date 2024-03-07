@@ -22,7 +22,7 @@ object GameToRoot {
         id = game.id,
         part = 0,
         variant = game.variant,
-        usiMoves = game.usiMoves,
+        usis = game.usis,
         initialSfen = game.initialSfen,
         clocks = clocks
       )
@@ -32,8 +32,8 @@ object GameToRoot {
   def apply(
       gm: Node.GameMainline
   ): Node.Root = {
-    val usiMoves = gm.usiMoves.take(Node.MAX_PLIES)
-    shogi.Replay.gamesWhileValid(usiMoves, gm.initialSfen, gm.variant) match {
+    val usis = gm.usis.take(Node.MAX_PLIES)
+    shogi.Replay.gamesWhileValid(usis, gm.initialSfen, gm.variant) match {
       case (gamesWithInit, error) =>
         error foreach logShogiError(gm.id)
         val init  = gamesWithInit.head
@@ -58,7 +58,7 @@ object GameToRoot {
             children = Node.emptyChildren
           )
 
-        games.zip(usiMoves).reverse match {
+        games.zip(usis).reverse match {
           case Nil => root
           case (g, m) :: rest =>
             root addChild rest.foldLeft(makeNode(g, m)) { case (node, (g, m)) =>

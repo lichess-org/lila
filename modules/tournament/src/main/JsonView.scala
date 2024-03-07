@@ -281,7 +281,7 @@ final class JsonView(
       "id"       -> game.id,
       "sfen"     -> game.situation.toSfen,
       "color"    -> game.firstColor.name,
-      "lastMove" -> ~game.lastMoveKeys,
+      "lastMove" -> ~game.lastUsiStr,
       "variant"  -> game.variant.key,
       "sente"    -> ofPlayer(featured.sente, game player shogi.Sente),
       "gote"     -> ofPlayer(featured.gote, game player shogi.Gote)

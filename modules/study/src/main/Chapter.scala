@@ -74,7 +74,7 @@ case class Chapter(
 
   def isGameChapter          = root.isGameRoot
   def isFirstGameRootChapter = root.gameMainline.exists(_.part == 0)
-  def gameMainlineLength     = root.gameMainline.map(_.usiMoves.size)
+  def gameMainlineLength     = root.gameMainline.map(_.usis.size)
 
   def withoutChildren = copy(root = root.withoutChildren)
 

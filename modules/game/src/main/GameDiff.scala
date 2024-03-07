@@ -75,9 +75,9 @@ object GameDiff {
       }
 
     d(
-      usiMoves,
-      _.usiMoves,
-      (usis: UsiMoves) => w.bytes(BinaryFormat.usi.write(usis, a.variant).value)
+      usis,
+      _.usis,
+      (usis: Usis) => w.bytes(BinaryFormat.usi.write(usis, a.variant).value)
     )
     d(positionHashes, _.history.positionHashes, w.bytes)
     d(

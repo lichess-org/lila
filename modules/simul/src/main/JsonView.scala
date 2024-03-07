@@ -133,7 +133,7 @@ final class JsonView(
       "status"   -> g.status.id,
       "variant"  -> g.variant.key,
       "sfen"     -> g.situation.toSfen,
-      "lastMove" -> ~g.lastMoveKeys,
+      "lastMove" -> ~g.lastUsiStr,
       "orient"   -> g.playerByUserId(hostId).map(_.color)
     )
 

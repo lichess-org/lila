@@ -72,9 +72,9 @@ final private class Captcher(gameRepo: GameRepo)(implicit ec: scala.concurrent.E
         _ flatMap { makeCaptcha(game, _) }
       }
 
-    private def makeCaptcha(game: Game, moves: UsiMoves): Option[Captcha] =
+    private def makeCaptcha(game: Game, usis: Usis): Option[Captcha] =
       for {
-        rewinded  <- rewind(moves)
+        rewinded  <- rewind(usis)
         solutions <- solve(rewinded)
         moves = rewinded.situation.moveDestinations map { case (from, dests) =>
           from.key -> dests.mkString
@@ -95,7 +95,7 @@ final private class Captcher(gameRepo: GameRepo)(implicit ec: scala.concurrent.E
         s"${usi.orig} ${usi.dest}"
       } toNel
 
-    private def rewind(moves: UsiMoves): Option[ShogiGame] =
+    private def rewind(moves: Usis): Option[ShogiGame] =
       Reader
         .fromUsi(
           moves.dropRight(1),

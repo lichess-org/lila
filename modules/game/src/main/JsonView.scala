@@ -31,7 +31,7 @@ final class JsonView(rematches: Rematches) {
       .add("boosted" -> game.boosted)
       .add("tournamentId" -> game.tournamentId)
       .add("winner" -> game.winnerColor)
-      .add("lastMove" -> game.lastMoveKeys)
+      .add("lastMove" -> game.lastUsiStr)
       .add("check" -> game.situation.check)
       .add("rematch" -> rematches.of(game.id))
       .add("postGameStudy" -> game.postGameStudy)

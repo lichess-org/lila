@@ -40,7 +40,7 @@ final class LobbyApi(
         "gameId"   -> pov.gameId,
         "sfen"     -> pov.game.situation.toSfen,
         "color"    -> pov.color.name,
-        "lastMove" -> ~pov.game.lastMoveKeys,
+        "lastMove" -> ~pov.game.lastUsiStr,
         "variant" -> Json.obj(
           "key"  -> pov.game.variant.key,
           "name" -> pov.game.variant.name

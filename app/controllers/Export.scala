@@ -61,7 +61,7 @@ final class Export(env: Env) extends LilaController(env) {
         OptionFuResult(env.puzzle.api.puzzle find Id(id)) { puzzle =>
           env.game.gifExport.thumbnail(
             sfen = puzzle.sfenAfterInitialMove,
-            lastMove = Usi(puzzle.lastMove).orElse(UciToUsi(puzzle.lastMove)) map { _.usi },
+            lastUsi = Usi(puzzle.lastUsi).orElse(UciToUsi(puzzle.lastUsi)) map { _.usi },
             orientation = puzzle.color
           ) map { source =>
             Ok.chunked(source)

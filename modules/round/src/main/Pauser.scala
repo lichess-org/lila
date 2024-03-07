@@ -85,7 +85,7 @@ final private[round] class Pauser(
           val prog = Progress(g, g.resume, List(Event.Reload))
           proxy.save(prog) >>
             gameRepo.resume(prog.game.id, prog.game.pausedSeconds, prog.game.userIds.distinct) inject (
-              prog.game.usiMoves.lastOption
+              prog.game.usis.lastOption
                 .filter(usi => Some(usi) == g.sealedUsi && g.plies < prog.game.plies)
                 .fold {
                   messenger.system(g, "Couldn't play sealed move") // should never happen

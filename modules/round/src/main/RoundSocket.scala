@@ -8,7 +8,7 @@ import scala.concurrent.ExecutionContext
 import actorApi._
 import actorApi.round._
 import shogi.format.usi.{ UciToUsi, Usi }
-import shogi.{ Centis, Color, Gote, MoveMetrics, Sente, Speed }
+import shogi.{ Centis, Color, Gote, LagMetrics, Sente, Speed }
 import lila.chat.{ BusChan, Chat }
 import lila.common.{ Bus, IpAddress, Lilakka }
 import lila.game.Game.{ FullId, PlayerId }
@@ -236,9 +236,9 @@ object RoundSocket {
 
     object In {
 
-      case class PlayerOnlines(onlines: Iterable[(Game.Id, Option[RoomCrowd])])        extends P.In
-      case class PlayerDo(fullId: FullId, tpe: String)                                 extends P.In
-      case class PlayerMove(fullId: FullId, usi: Usi, blur: Boolean, lag: MoveMetrics) extends P.In
+      case class PlayerOnlines(onlines: Iterable[(Game.Id, Option[RoomCrowd])])       extends P.In
+      case class PlayerDo(fullId: FullId, tpe: String)                                extends P.In
+      case class PlayerMove(fullId: FullId, usi: Usi, blur: Boolean, lag: LagMetrics) extends P.In
       case class PlayerChatSay(gameId: Game.Id, userIdOrColor: Either[User.ID, Color], msg: String)
           extends P.In
       case class WatcherChatSay(gameId: Game.Id, userId: User.ID, msg: String)                    extends P.In
@@ -272,7 +272,7 @@ object RoundSocket {
           case "r/move" =>
             raw.get(5) { case Array(fullId, usiS, blurS, lagS, mtS) =>
               Usi(usiS).orElse(UciToUsi(usiS)) map { usi =>
-                PlayerMove(FullId(fullId), usi, P.In.boolean(blurS), MoveMetrics(centis(lagS), centis(mtS)))
+                PlayerMove(FullId(fullId), usi, P.In.boolean(blurS), LagMetrics(centis(lagS), centis(mtS)))
               }
             }
           case "chat/say" =>

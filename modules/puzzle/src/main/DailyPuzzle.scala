@@ -33,7 +33,7 @@ final private[puzzle] class DailyPuzzle(
 
   private def makeDaily(puzzle: Puzzle): Fu[Option[DailyPuzzle.WithHtml]] = {
     import makeTimeout.short
-    renderer.actor ? DailyPuzzle.Render(puzzle, puzzle.sfenAfterInitialMove, puzzle.lastMove) map {
+    renderer.actor ? DailyPuzzle.Render(puzzle, puzzle.sfenAfterInitialMove, puzzle.lastUsi) map {
       case html: String => DailyPuzzle.WithHtml(puzzle, html).some
     }
   } recover { case e: Exception =>
@@ -102,5 +102,5 @@ object DailyPuzzle {
 
   case class WithHtml(puzzle: Puzzle, html: String)
 
-  case class Render(puzzle: Puzzle, sfen: shogi.format.forsyth.Sfen, lastMove: String)
+  case class Render(puzzle: Puzzle, sfen: shogi.format.forsyth.Sfen, lastUsi: String)
 }

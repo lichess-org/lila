@@ -13,21 +13,21 @@ case class Forecast(
     date: DateTime
 ) {
 
-  def apply(g: Game, lastMove: Usi): Option[(Forecast, Usi)] =
-    nextMove(g, lastMove) map { move =>
+  def apply(g: Game, lastUsi: Usi): Option[(Forecast, Usi)] =
+    nextUsi(g, lastUsi) map { usi =>
       copy(
         steps = steps.collect {
           case (fst :: snd :: rest)
-              if rest.nonEmpty && g.plies == fst.ply && fst.is(lastMove) && snd.is(move) =>
+              if rest.nonEmpty && g.plies == fst.ply && fst.is(lastUsi) && snd.is(usi) =>
             rest
         },
         date = DateTime.now
-      ) -> move
+      ) -> usi
     }
   // accept up to 30 lines of 30 moves each
   def truncate = copy(steps = steps.take(30).map(_ take 30))
 
-  private def nextMove(g: Game, last: Usi) =
+  private def nextUsi(g: Game, last: Usi) =
     steps.foldLeft(none[Usi]) {
       case (None, fst :: snd :: _) if g.plies == fst.ply && fst.is(last) => snd.usiMove
       case (move, _)                                                     => move

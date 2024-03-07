@@ -63,7 +63,7 @@ object submitted {
                           views.html.puzzle.bits.miniTag(
                             sfen = puzzle.sfenAfterInitialMove,
                             color = puzzle.color,
-                            lastMove = puzzle.lastMove
+                            lastUsi = puzzle.lastUsi
                           )(
                             a(
                               cls  := s"puzzle-of-player__puzzle__board",

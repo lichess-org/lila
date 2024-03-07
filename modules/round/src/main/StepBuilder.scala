@@ -13,11 +13,11 @@ object StepBuilder {
 
   def apply(
       id: String,
-      usiMoves: Vector[Usi],
+      usis: Vector[Usi],
       variant: Variant,
       initialSfen: Option[Sfen]
   ): JsArray = {
-    shogi.Replay.gamesWhileValid(usiMoves, initialSfen, variant) match {
+    shogi.Replay.gamesWhileValid(usis, initialSfen, variant) match {
       case (games, error) =>
         error foreach logShogiError(id)
         val init = games.head
@@ -28,7 +28,7 @@ object StepBuilder {
             sfen = init.toSfen,
             check = init.situation.check
           )
-          val moveSteps = games.tail.zip(usiMoves).map { case (g, u) =>
+          val moveSteps = games.tail.zip(usis).map { case (g, u) =>
             Step(
               ply = g.plies,
               usi = u.some,

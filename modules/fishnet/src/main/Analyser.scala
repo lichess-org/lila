@@ -138,7 +138,7 @@ final class Analyser(
         initialSfen = game.initialSfen,
         studyId = none,
         variant = game.variant,
-        moves = game.usiMoves.take(maxPlies).map(_.usi).mkString(" ")
+        moves = game.usis.take(maxPlies).map(_.usi).mkString(" ")
       ),
       startPly = game.shogi.startedAtPly,
       puzzleWorthy = game.userRatings.exists(_ > 1600),

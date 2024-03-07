@@ -15,11 +15,11 @@ import lila.user.{ Title, User }
 trait GameHelper {
   self: I18nHelper with UserHelper with StringHelper with ShogigroundHelper with ColorNameHelper =>
 
-  private val dataLive     = attr("data-live")
-  private val dataColor    = attr("data-color")
-  private val dataSfen     = attr("data-sfen")
-  private val dataLastmove = attr("data-lastmove")
-  private val dataVariant  = attr("data-variant")
+  private val dataLive    = attr("data-live")
+  private val dataColor   = attr("data-color")
+  private val dataSfen    = attr("data-sfen")
+  private val dataLastUsi = attr("data-lastmove")
+  private val dataVariant = attr("data-variant")
 
   def netBaseUrl: String
   def cdnUrl(path: String): String
@@ -277,14 +277,14 @@ trait GameHelper {
     val variant = game.variant
     val tag     = if (withLink) a else span
     tag(
-      href         := withLink.option(gameLink(game, pov.color, ownerLink, tv)),
-      title        := withTitle.option(gameTitle(game, pov.color)),
-      cls          := miniBoardCls(game.id, variant, isLive),
-      dataLive     := isLive.option(game.id),
-      dataColor    := pov.color.name,
-      dataSfen     := game.situation.toSfen.value,
-      dataLastmove := ~game.lastMoveKeys,
-      dataVariant  := variant.key
+      href        := withLink.option(gameLink(game, pov.color, ownerLink, tv)),
+      title       := withTitle.option(gameTitle(game, pov.color)),
+      cls         := miniBoardCls(game.id, variant, isLive),
+      dataLive    := isLive.option(game.id),
+      dataColor   := pov.color.name,
+      dataSfen    := game.situation.toSfen.value,
+      dataLastUsi := ~game.lastUsiStr,
+      dataVariant := variant.key
     )(shogigroundEmpty(variant, pov.color))
   }
 
@@ -292,15 +292,15 @@ trait GameHelper {
     val isLive  = pov.game.isBeingPlayed
     val variant = pov.game.variant
     a(
-      href         := (if (tv) routes.Tv.index else routes.Round.watcher(pov.gameId, pov.color.name)),
-      title        := gameTitle(pov.game, pov.color)(defaultLang),
-      cls          := miniBoardCls(pov.gameId, variant, isLive),
-      dataLive     := isLive.option(pov.gameId),
-      dataColor    := pov.color.name,
-      dataSfen     := pov.game.situation.toSfen.value,
-      dataLastmove := ~pov.game.lastMoveKeys,
-      dataVariant  := variant.key,
-      target       := blank.option("_blank")
+      href        := (if (tv) routes.Tv.index else routes.Round.watcher(pov.gameId, pov.color.name)),
+      title       := gameTitle(pov.game, pov.color)(defaultLang),
+      cls         := miniBoardCls(pov.gameId, variant, isLive),
+      dataLive    := isLive.option(pov.gameId),
+      dataColor   := pov.color.name,
+      dataSfen    := pov.game.situation.toSfen.value,
+      dataLastUsi := ~pov.game.lastUsiStr,
+      dataVariant := variant.key,
+      target      := blank.option("_blank")
     )(shogigroundEmpty(variant, pov.color))
   }
 

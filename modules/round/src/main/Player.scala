@@ -1,7 +1,7 @@
 package lila.round
 
 import shogi.format.usi.Usi
-import shogi.{ Centis, MoveMetrics, Status }
+import shogi.{ Centis, LagMetrics, Status }
 
 import actorApi.round.{ DrawNo, ForecastPlay, HumanPlay, PauseNo, TakebackNo, TooManyPlies }
 import lila.game.actorApi.{ MoveGameEvent, PauseGame }
@@ -116,14 +116,14 @@ final private class Player(
       else fuccess(round ! actorApi.round.ResignAi)
     }
 
-  private val fishnetLag = MoveMetrics(clientLag = Centis(5).some)
-  private val botLag     = MoveMetrics(clientLag = Centis(10).some)
+  private val fishnetLag = LagMetrics(clientLag = Centis(5).some)
+  private val botLag     = LagMetrics(clientLag = Centis(10).some)
 
   private def applyUsi(
       game: Game,
       usi: Usi,
       blur: Boolean,
-      metrics: MoveMetrics
+      metrics: LagMetrics
   ): Validated[String, UsiResult] =
     game.shogi(usi, metrics) map { nsg =>
       if (nsg.clock.exists(_.outOfTime(game.turnColor, withGrace = false))) Flagged

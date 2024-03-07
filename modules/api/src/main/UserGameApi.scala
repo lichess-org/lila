@@ -61,7 +61,7 @@ final class UserGameApi(
       )
       .add("bookmarked" -> bookmarked)
       .add("analysed" -> g.metadata.analysed)
-      .add("lastMove" -> g.lastMoveKeys)
+      .add("lastMove" -> g.lastUsiStr)
       .add("clock" -> g.clock)
       .add("correspondence" -> g.daysPerTurn.map { d =>
         Json.obj("daysPerTurn" -> d)

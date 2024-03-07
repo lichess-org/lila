@@ -91,8 +91,8 @@ final class StudyMultiBoard(
             tags    = doc.getAsOpt[Tags]("tags")
             variant = doc.getAsOpt[Int]("variant").flatMap(v => Variant(v)) | Standard
             comp <- doc.getAsOpt[Bdoc]("comp")
-            lastMove = comp.getAsOpt[Usi]("usi")
-            sfen     = comp.getAsOpt[Sfen]("sfen").getOrElse(variant.initialSfen)
+            lastUsi = comp.getAsOpt[Usi]("usi")
+            sfen    = comp.getAsOpt[Sfen]("sfen").getOrElse(variant.initialSfen)
           } yield ChapterPreview(
             id = id,
             name = name,
@@ -100,8 +100,8 @@ final class StudyMultiBoard(
             variant = variant,
             orientation = doc.getAsOpt[Color]("orientation") | Color.Sente,
             sfen = sfen,
-            lastMove = lastMove,
-            playing = lastMove.isDefined && tags.flatMap(_(_.Result)).has("*")
+            lastUsi = lastUsi,
+            playing = lastUsi.isDefined && tags.flatMap(_(_.Result)).has("*")
           )
         }
   }
@@ -133,7 +133,7 @@ object StudyMultiBoard {
       variant: Variant,
       orientation: Color,
       sfen: Sfen,
-      lastMove: Option[Usi],
+      lastUsi: Option[Usi],
       playing: Boolean
   )
 

@@ -91,10 +91,10 @@ final class PlaybanApi(
     def sitMoving: Option[Funit] =
       game.player(flaggerColor).userId.ifTrue {
         ~(for {
-          movetimes    <- game moveTimes flaggerColor
-          lastMovetime <- movetimes.lastOption
-          limit        <- unreasonableTime
-        } yield lastMovetime.toSeconds >= limit)
+          movetimes   <- game moveTimes flaggerColor
+          lastUsiTime <- movetimes.lastOption
+          limit       <- unreasonableTime
+        } yield lastUsiTime.toSeconds >= limit)
       } map { userId =>
         save(Outcome.SitMoving, userId, RageSit.imbalanceInc(game, flaggerColor)) >>-
           feedback.sitting(Pov(game, flaggerColor)) >>

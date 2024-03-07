@@ -240,8 +240,8 @@ object BSONHandlers {
           id = r strD F.gameId,
           part = r intD F.part,
           variant = variant,
-          usiMoves = shogi.format.usi.Binary.decodeMoves(
-            (r bytesD F.usiMoves).value.toList,
+          usis = shogi.format.usi.Binary.decodeMoves(
+            (r bytesD F.usis).value.toList,
             variant,
             Node.MAX_PLIES
           ),
@@ -287,8 +287,8 @@ object BSONHandlers {
             F.gameId  -> gm.id,
             F.part    -> gm.part.some.filter(_ > 0),
             F.variant -> gm.variant,
-            F.usiMoves -> lila.db.ByteArray {
-              shogi.format.usi.Binary.encodeMoves(gm.usiMoves, gm.variant)
+            F.usis -> lila.db.ByteArray {
+              shogi.format.usi.Binary.encodeMoves(gm.usis, gm.variant)
             },
             F.initialSfen -> gm.initialSfen,
             F.clocks      -> gm.clocks

@@ -44,7 +44,7 @@ case class Puzzle(
       case None    => sfen.color.getOrElse(shogi.Sente)
     }
 
-  def lastMove: String =
+  def lastUsi: String =
     gameId match {
       case Some(_) => line.head.usi
       case None    => ""

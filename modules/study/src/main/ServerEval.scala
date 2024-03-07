@@ -127,7 +127,7 @@ object ServerEval {
     def divisionOf(chapter: Chapter) =
       divider(
         id = chapter.id.value,
-        usiMoves = chapter.root.mainline.map(_.usi).toVector,
+        usis = chapter.root.mainline.map(_.usi).toVector,
         variant = chapter.setup.variant,
         initialSfen = chapter.root.sfen.some
       )
