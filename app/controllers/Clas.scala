@@ -11,6 +11,7 @@ import lila.app.{ given, * }
 
 import lila.clas.ClasInvite
 import lila.clas.Clas.{ Id as ClasId }
+import lila.clas.ClasForm.ClasData
 
 final class Clas(env: Env, authC: Auth) extends LilaController(env):
 
@@ -52,18 +53,34 @@ final class Clas(env: Env, authC: Auth) extends LilaController(env):
     Ok.page(views.html.clas.clas.home)
 
   def form = Secure(_.Teacher) { ctx ?=> _ ?=>
-    Ok.page(html.clas.clas.create(env.clas.forms.clas.create))
+    Ok.pageAsync:
+      renderCreate(none)
   }
 
   def create = SecureBody(_.Teacher) { ctx ?=> me ?=>
     SafeTeacher:
-      env.clas.forms.clas.create
-        .bindFromRequest()
-        .fold(
-          err => BadRequest.page(html.clas.clas.create(err)),
-          data => env.clas.api.clas.create(data, me.value).map(redirectTo)
-        )
+      env.clas.forms.clas.create.flatMap:
+        _.form
+          .bindFromRequest()
+          .fold(
+            err => renderCreate(err.some).map(BadRequest(_)),
+            data =>
+              env.security.hcaptcha
+                .verify()
+                .flatMap: captcha =>
+                  if captcha.ok
+                  then env.clas.api.clas.create(data, me.value).map(redirectTo)
+                  else renderCreate(data.some).map(BadRequest(_))
+          )
   }
+
+  private def renderCreate(from: Option[Form[ClasData] | ClasData])(using ctx: Context) =
+    renderAsync:
+      env.clas.forms.clas.create.map: baseForm =>
+        html.clas.clas.create:
+          from.fold(baseForm):
+            case data: ClasData       => baseForm.fill(data)
+            case form: Form[ClasData] => baseForm.withForm(form)
 
   private def preloadStudentUsers(students: List[lila.clas.Student.WithUser]): Unit =
     env.user.lightUserApi.preloadUsers(students.map(_.user))
