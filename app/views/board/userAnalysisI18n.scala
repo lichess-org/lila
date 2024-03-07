@@ -11,7 +11,8 @@ object userAnalysisI18n {
       withCeval: Boolean = true,
       withExplorer: Boolean = true,
       withForecast: Boolean = false,
-      withAdvantageChart: Boolean = false
+      withAdvantageChart: Boolean = false,
+      withNvui: Boolean = false
   )(implicit lang: Lang) =
     i18nJsObject(
       baseTranslations ++ {
@@ -22,6 +23,8 @@ object userAnalysisI18n {
         withForecast ?? forecastTranslations
       } ++ {
         withAdvantageChart ?? advantageChartTranslations
+      } ++ {
+        withNvui ?? nvuiTranslations
       }
     )
 
