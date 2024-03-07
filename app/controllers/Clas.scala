@@ -58,20 +58,21 @@ final class Clas(env: Env, authC: Auth) extends LilaController(env):
   }
 
   def create = SecureBody(_.Teacher) { ctx ?=> me ?=>
-    SafeTeacher:
-      env.clas.forms.clas.create.flatMap:
-        _.form
-          .bindFromRequest()
-          .fold(
-            err => renderCreate(err.some).map(BadRequest(_)),
-            data =>
-              env.security.hcaptcha
-                .verify()
-                .flatMap: captcha =>
-                  if captcha.ok
-                  then env.clas.api.clas.create(data, me.value).map(redirectTo)
-                  else renderCreate(data.some).map(BadRequest(_))
-          )
+    NoTor:
+      SafeTeacher:
+        env.clas.forms.clas.create.flatMap:
+          _.form
+            .bindFromRequest()
+            .fold(
+              err => renderCreate(err.some).map(BadRequest(_)),
+              data =>
+                env.security.hcaptcha
+                  .verify()
+                  .flatMap: captcha =>
+                    if captcha.ok
+                    then env.clas.api.clas.create(data, me.value).map(redirectTo)
+                    else renderCreate(data.some).map(BadRequest(_))
+            )
   }
 
   private def renderCreate(from: Option[Form[ClasData] | ClasData])(using ctx: Context) =
