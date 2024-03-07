@@ -41,7 +41,7 @@ object EngineConfig {
       if (
         variant.standard && level.fold(true)(_ > 1) && initialSfen
           .filterNot(_.initialOf(variant))
-          .fold(true)(sf => Handicap.isHandicap(sf, variant) || reachableFromStandardInitialPosition(sf))
+          .fold(true)(sf => Handicap.isHandicap(sf, variant) || isStandardMaterial(sf))
       ) YaneuraOu
       else Fairy
   }
@@ -52,15 +52,15 @@ object EngineConfig {
       engine = Engine(sfen, variant, level.some)
     )
 
-  def reachableFromStandardInitialPosition(sfen: Sfen): Boolean =
+  def isStandardMaterial(sfen: Sfen): Boolean =
     sfen.toSituation(Standard).exists { sit =>
       val default = Standard.pieces.values.map(_.role)
       def countHands(r: Role): Int =
-        ~Standard.handRoles.find(_ == r).map(hr => sit.hands.sente(hr) + sit.hands.gote(hr))
+        ~Standard.handRoles.find(_ == r).map(hr => sit.hands.count(hr))
       sit.playable(strict = true, withImpasse = true) &&
       Standard.allRoles.filterNot(r => Standard.unpromote(r).isDefined).forall { r =>
         default
-          .count(_ == r) == (sit.board.count(r) + ~Standard.promote(r).map(sit.board.count) + countHands(r))
+          .count(_ == r) >= (sit.board.count(r) + ~Standard.promote(r).map(sit.board.count) + countHands(r))
       }
     }
 }
