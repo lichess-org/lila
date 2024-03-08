@@ -55,7 +55,7 @@ window.lishogi.AnalyseNVUI = function (redraw: Redraw) {
           ...['sente', 'gote'].map((color: Color) =>
             h('p', [color + ' player: ', renderPlayer(ctrl, playerByColor(d, color))])
           ),
-          h('p', `${noarg(d.game.rated ? 'rated' : 'casual')} ${d.game.perf}`),
+          h('p', `${noarg(d.game.rated ? 'rated' : 'casual')}`),
           d.clock
             ? h('p', noarg('clock') + `: ${d.clock.initial / 60} + ${d.clock.increment} | ${d.clock.byoyomi})`)
             : null,
