@@ -43,6 +43,11 @@ object show {
           )}""")
       )
     ) {
+      val handicap = (for {
+        variant  <- sim.variants.headOption.ifFalse(sim.variantRich)
+        sfen     <- sim.position
+        handicap <- lila.tournament.Thematic.bySfen(sfen, variant)
+      } yield (handicap))
       main(
         cls := List(
           "simul"         -> true,
@@ -73,18 +78,12 @@ object show {
               br,
               trans.hostColorX(sim.hostColor match {
                 case Some(color) => {
-                  val sColorName = standardColorName(color)
-                  val hColorName = handicapColorName(color)
-                  if (hColorName != sColorName) s"$sColorName/${handicapColorName(color)}"
-                  else sColorName
+                  if (handicap.isDefined) handicapColorName(color)
+                  else standardColorName(color)
                 }
                 case _ => trans.randomColor()
               }),
-              (for {
-                sfen     <- sim.position
-                variant  <- sim.variants.headOption
-                handicap <- lila.tournament.Thematic.bySfen(sfen, variant)
-              } yield (handicap)) map { h =>
+              handicap map { h =>
                 frag(
                   br,
                   strong(h.japanese),
