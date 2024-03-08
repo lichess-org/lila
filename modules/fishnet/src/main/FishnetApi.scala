@@ -219,11 +219,12 @@ final class FishnetApi(
           Monitor.notFound(workId, "verified puzzle", client)
           fufail(WorkNotFound)
         case Some(work) if work isAcquiredBy client =>
-          data.result.fold {
-            logger.info(
-              s"Couldn't verify ${work._id} with sfen: ${work.game.initialSfen.getOrElse("Initial")}, ${work.game.moves}"
+          repo.deletePuzzle(work) >> data.result.fold {
+            fuccess(
+              logger.info(
+                s"Couldn't verify ${work._id} with sfen: ${work.game.initialSfen.getOrElse("Initial")}, ${work.game.moves}"
+              )
             )
-            repo.deletePuzzle(work)
           } { res =>
             puzzles.submissions.addNew(
               sfen = res.sfen,
