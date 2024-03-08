@@ -60,7 +60,7 @@ LishogiEditor(document.getElementById('editor-app'), data);"""
     Json.obj(
       "sfen"    -> sit.toSfen.truncate.value,
       "variant" -> sit.variant.key,
-      "baseUrl" -> s"$netBaseUrl${routes.Editor.index}",
+      "baseUrl" -> netBaseUrl,
       "options" -> Json.obj(
         "orientation" -> orientation.name
       ),
