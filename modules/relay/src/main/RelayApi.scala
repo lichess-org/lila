@@ -9,7 +9,7 @@ import scala.util.chaining.*
 import lila.common.config.{ Max, MaxPerSecond }
 import lila.db.dsl.{ *, given }
 import lila.memo.{ PicfitApi, CacheApi }
-import lila.study.{ Settings, Study, StudyApi, StudyId, StudyMaker, StudyMultiBoard, StudyRepo, StudyTopic }
+import lila.study.{ Settings, Study, StudyApi, StudyId, StudyMaker, StudyRepo, StudyTopic, ChapterPreviewApi }
 import lila.security.Granter
 import lila.user.{ User, Me, MyId }
 import lila.relay.RelayRound.WithTour
@@ -21,11 +21,11 @@ final class RelayApi(
     colls: RelayColls,
     studyApi: StudyApi,
     studyRepo: StudyRepo,
-    multiboard: StudyMultiBoard,
     jsonView: JsonView,
     formatApi: RelayFormatApi,
     cacheApi: CacheApi,
     leaderboard: RelayLeaderboardApi,
+    preview: ChapterPreviewApi,
     picfitApi: PicfitApi
 )(using Executor, akka.stream.Materializer):
 
@@ -255,16 +255,15 @@ final class RelayApi(
 
   def reset(old: RelayRound)(using me: Me): Funit =
     WithRelay(old.id) { relay =>
-      (studyApi.deleteAllChapters(relay.studyId, me) >> {
-        old.hasStartedEarly.so(
+      for
+        _ <- studyApi.deleteAllChapters(relay.studyId, me)
+        _ <- old.hasStartedEarly.so:
           roundRepo.coll.update
             .one($id(relay.id), $set("finished" -> false) ++ $unset("startedAt"))
             .void
-        )
-      }).andDo {
-        multiboard.invalidate(relay.studyId)
+      yield
+        preview.invalidate(relay.studyId)
         leaderboard.invalidate(relay.tourId)
-      }
     } >> requestPlay(old.id, v = true)
 
   def deleteRound(roundId: RelayRoundId): Fu[Option[RelayTour]] =

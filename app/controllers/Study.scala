@@ -534,12 +534,6 @@ final class Study(
             }
         }(privateUnauthorizedFu(study), privateForbiddenFu(study))
 
-  def multiBoard(id: StudyId, page: Int) = Open:
-    Found(env.study.api.byId(id)): study =>
-      CanView(study) {
-        env.study.multiBoard.json(study.id, page, getBool("playing")).map(JsonOk)
-      }(privateUnauthorizedJson, privateForbiddenJson)
-
   def topicAutocomplete = Anon:
     get("term").filter(_.nonEmpty) match
       case None => BadRequest("No search term provided")

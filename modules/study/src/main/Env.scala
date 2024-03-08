@@ -72,8 +72,6 @@ final class Env(
 
   lazy val pager = wire[StudyPager]
 
-  lazy val multiBoard = wire[StudyMultiBoard]
-
   lazy val preview = wire[ChapterPreviewApi]
 
   lazy val pgnDump = wire[PgnDump]

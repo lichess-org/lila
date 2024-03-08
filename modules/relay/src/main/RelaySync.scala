@@ -8,7 +8,7 @@ import lila.tree.Branch
 
 final private class RelaySync(
     studyApi: StudyApi,
-    multiboard: StudyMultiBoard,
+    preview: ChapterPreviewApi,
     chapterRepo: ChapterRepo,
     tourRepo: RelayTourRepo,
     leaderboard: RelayLeaderboardApi,
@@ -171,59 +171,56 @@ final private class RelaySync(
       }).inject(true)
     }
 
-  private def onChapterEnd(tour: RelayTour, study: Study, chapter: Chapter): Funit =
-    (chapterRepo.setRelayPath(chapter.id, UciPath.root) >> {
-      (tour.official && chapter.root.mainline.sizeIs > 10).so(
-        studyApi.analysisRequest(
-          studyId = study.id,
-          chapterId = chapter.id,
-          userId = study.ownerId,
-          unlimited = true
-        )
-      )
-    }).andDo {
-      multiboard.invalidate(study.id)
-      studyApi.reloadChapters(study)
-      leaderboard.invalidate(tour.id)
-    }
-
-  private def createChapter(study: Study, game: RelayGame): Fu[Chapter] =
-    chapterRepo.nextOrderByStudy(study.id).flatMap { order =>
-      val name = {
-        for
-          w <- game.tags(_.White)
-          b <- game.tags(_.Black)
-        yield s"$w - $b"
-      }.orElse(game.tags("board")).getOrElse("?")
-      val chapter = Chapter.make(
+  private def onChapterEnd(tour: RelayTour, study: Study, chapter: Chapter): Funit = for
+    _ <- chapterRepo.setRelayPath(chapter.id, UciPath.root)
+    _ <- (tour.official && chapter.root.mainline.sizeIs > 10).so:
+      studyApi.analysisRequest(
         studyId = study.id,
-        name = StudyChapterName(name),
-        setup = Chapter.Setup(
-          none,
-          game.variant,
-          chess.Color.White
-        ),
-        root = game.root,
-        tags = game.tags,
-        order = order,
-        ownerId = study.ownerId,
-        practice = false,
-        gamebook = false,
-        conceal = none,
-        relay = Chapter
-          .Relay(
-            index = game.index,
-            path = game.root.mainlinePath,
-            lastMoveAt = nowInstant,
-            fideIds = game.fideIdsPair
-          )
-          .some
+        chapterId = chapter.id,
+        userId = study.ownerId,
+        unlimited = true
       )
-      studyApi
-        .doAddChapter(study, chapter, sticky = false, who(study.ownerId))
-        .andDo(multiboard.invalidate(study.id))
-        .inject(chapter)
-    }
+  yield
+    preview.invalidate(study.id)
+    studyApi.reloadChapters(study)
+    leaderboard.invalidate(tour.id)
+
+  private def createChapter(study: Study, game: RelayGame): Fu[Chapter] = for
+    order <- chapterRepo.nextOrderByStudy(study.id)
+    name = {
+      for
+        w <- game.tags(_.White)
+        b <- game.tags(_.Black)
+      yield s"$w - $b"
+    }.orElse(game.tags("board")).getOrElse("?")
+    chapter = Chapter.make(
+      studyId = study.id,
+      name = StudyChapterName(name),
+      setup = Chapter.Setup(
+        none,
+        game.variant,
+        chess.Color.White
+      ),
+      root = game.root,
+      tags = game.tags,
+      order = order,
+      ownerId = study.ownerId,
+      practice = false,
+      gamebook = false,
+      conceal = none,
+      relay = Chapter
+        .Relay(
+          index = game.index,
+          path = game.root.mainlinePath,
+          lastMoveAt = nowInstant,
+          fideIds = game.fideIdsPair
+        )
+        .some
+    )
+    _ <- studyApi.doAddChapter(study, chapter, sticky = false, who(study.ownerId))
+  yield
+    preview.invalidate(study.id)
+    chapter
 
   private val moveOpts = MoveOpts(
     write = true,
