@@ -1,4 +1,4 @@
-import { prop, Prop, scrollToInnerSelector } from 'common';
+import { defined, prop, Prop, scrollToInnerSelector } from 'common';
 import * as licon from 'common/licon';
 import { bind, dataIcon, iconTag, looseH as h } from 'common/snabbdom';
 import { VNode } from 'snabbdom';
@@ -13,6 +13,7 @@ import {
   ChapterPreview,
   TagArray,
   ServerNodeMsg,
+  ChapterPreviewFromServer,
 } from './interfaces';
 import StudyCtrl from './studyCtrl';
 import { opposite } from 'chessops/util';
@@ -25,16 +26,23 @@ export default class StudyChaptersCtrl {
   localPaths: LocalPaths = {};
 
   constructor(
-    initChapters: ChapterPreview[],
+    initChapters: ChapterPreviewFromServer[],
     readonly send: StudySocketSend,
     setTab: () => void,
     chapterConfig: (id: string) => Promise<StudyChapterConfig>,
     root: AnalyseCtrl,
   ) {
-    this.list = prop(initChapters);
+    this.loadFromServer(initChapters);
     this.newForm = new StudyChapterNewForm(send, this.list, setTab, root);
     this.editForm = new StudyChapterEditForm(send, chapterConfig, root.trans, root.redraw);
   }
+
+  private convertFromServer = (c: ChapterPreviewFromServer): ChapterPreview => ({
+    ...c,
+    orientation: c.orientation || 'white',
+    playing: defined(c.lastMove) && c.status === '*',
+    lastMoveAt: defined(c.thinkTime) ? Date.now() - 1000 * c.thinkTime : undefined,
+  });
 
   get = (id: string) => this.list().find(c => c.id === id);
   sort = (ids: string[]) => this.send('sortChapters', ids);
@@ -47,6 +55,9 @@ export default class StudyChaptersCtrl {
     const cs = this.list();
     return cs.length == 1 && cs[0].name == 'Chapter 1';
   };
+  loadFromServer = (chapters: ChapterPreviewFromServer[]) => {
+    this.list(chapters.map(this.convertFromServer));
+  };
   addNode = (d: ServerNodeMsg) => {
     const pos = d.p,
       node = d.n;
@@ -54,12 +65,9 @@ export default class StudyChaptersCtrl {
     if (cp) {
       cp.fen = node.fen;
       cp.lastMove = node.uci;
-      if (cp.playing) {
+      if (cp.lastMove && cp.status == '*') {
         const playerWhoMoved = cp.players && cp.players[opposite(fenColor(cp.fen))];
         playerWhoMoved && (playerWhoMoved.clock = node.clock);
-        // at this point `(cp: ChapterPreview).lastMoveAt` becomes outdated but should be ok since not in use anymore
-        // to mitigate bad usage, setting it as `undefined`
-        cp.lastMoveAt = undefined;
         // this.multiCloudEval.sendRequest();
         // this.redraw();
       }

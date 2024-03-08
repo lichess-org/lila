@@ -22,7 +22,6 @@ import {
   Tab,
   ToolTab,
   TagTypes,
-  StudyData,
   ReloadData,
   WithWhoAndPos,
   WithChapterId,
@@ -35,6 +34,7 @@ import {
   ServerNodeMsg,
   ServerClockMsg,
   ChapterPreview,
+  StudyDataFromServer,
 } from './interfaces';
 import GamebookPlayCtrl from './gamebook/gamebookPlayCtrl';
 import { DescriptionCtrl } from './description';
@@ -103,7 +103,7 @@ export default class StudyCtrl {
   gamebookPlay?: GamebookPlayCtrl;
 
   constructor(
-    readonly data: StudyData,
+    readonly data: StudyDataFromServer,
     readonly ctrl: AnalyseCtrl,
     tagTypes: TagTypes,
     practiceData?: StudyPracticeData,
@@ -158,7 +158,7 @@ export default class StudyCtrl {
         this.redrawAndUpdateAddressBar,
         this.members,
         this.data.chapter,
-        this.chapters.list as Prop<ChapterPreview[]>,
+        this.chapters.list,
         this.chapters.looksNew(),
         (id: ChapterId) => this.setChapter(id),
       );
@@ -330,7 +330,7 @@ export default class StudyCtrl {
     this.studyDesc.set(this.data.description);
     document.title = this.data.name;
     this.members.dict(s.members);
-    this.chapters.list(s.chapters);
+    this.chapters.loadFromServer(s.chapters);
     this.ctrl.flipped = this.chapterFlipMapProp(this.data.chapter.id);
 
     const merge = !this.vm.mode.write && sameChapter;
@@ -690,7 +690,7 @@ export default class StudyCtrl {
       this.redraw();
     },
     chapters: d => {
-      this.chapters.list(d);
+      this.chapters.loadFromServer(d);
       if (!this.currentChapter()) {
         this.vm.chapterId = d[0].id;
         if (!this.vm.mode.sticky) this.xhrReload();

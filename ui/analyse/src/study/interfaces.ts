@@ -49,13 +49,16 @@ export interface StudyData {
   isNew?: boolean;
   liked: boolean;
   features: StudyFeatures;
-  chapters: ChapterPreview[];
   chapter: StudyChapter;
   secondsSinceUpdate: number;
   description?: string;
   topics?: Topic[];
   admin: boolean;
   hideRatings?: boolean;
+}
+
+export interface StudyDataFromServer extends StudyData {
+  chapters: ChapterPreviewFromServer[];
 }
 
 export type Topic = string;
@@ -74,7 +77,7 @@ export interface StudySettings {
 
 export interface ReloadData {
   analysis: AnalyseData;
-  study: StudyData;
+  study: StudyDataFromServer;
 }
 
 export interface Position {
@@ -162,17 +165,26 @@ export interface LocalPaths {
   [chapterId: string]: Tree.Path;
 }
 
-export interface ChapterPreview {
+export interface ChapterPreviewBase {
   id: ChapterId;
   name: string;
   status?: StatusStr;
   players?: ChapterPreviewPlayers;
-  orientation?: Color; // defaults to white
   fen: string;
   lastMove?: string;
-  lastMoveAt?: number;
-  playing?: boolean;
 }
+
+export interface ChapterPreviewFromServer extends ChapterPreviewBase {
+  thinkTime?: number; // seconds since last move
+  orientation?: Color; // defaults to white
+}
+
+export interface ChapterPreview extends ChapterPreviewBase {
+  lastMoveAt?: number;
+  orientation: Color;
+  playing: boolean;
+}
+
 export interface ChapterPreviewPlayers {
   white: ChapterPreviewPlayer;
   black: ChapterPreviewPlayer;

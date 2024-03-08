@@ -148,12 +148,12 @@ export const renderClock = (chapter: ChapterPreview, color: Color) => {
 
 const computeTimeLeft = (preview: ChapterPreview, color: Color): number | undefined => {
   const player = preview.players && preview.players[color];
-  if (player?.clock) {
-    if (preview.lastMoveAt && fenColor(preview.fen) == color) {
-      const spent = (Date.now() - preview.lastMoveAt) / 1000;
-      return Math.max(0, player.clock / 100 - spent);
+  if (defined(player?.clock)) {
+    if (defined(preview.lastMoveAt) && fenColor(preview.fen) == color) {
+      const spent = (Date.now() - preview.lastMoveAt!) / 1000;
+      return Math.max(0, player!.clock / 100 - spent);
     } else {
-      return player.clock / 100;
+      return player!.clock / 100;
     }
   } else return;
 };

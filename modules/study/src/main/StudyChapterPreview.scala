@@ -24,7 +24,7 @@ case class ChapterPreview(
      */
     result: Option[Option[Outcome]]
 ):
-  def playing = lastMove.isDefined && result.contains(None)
+  def secondsSinceLastMove = lastMoveAt.map(at => (nowSeconds - at.toSeconds).toInt)
 
 final class ChapterPreviewApi(chapterRepo: ChapterRepo, cacheApi: lila.memo.CacheApi)(using Executor):
 
@@ -33,9 +33,12 @@ final class ChapterPreviewApi(chapterRepo: ChapterRepo, cacheApi: lila.memo.Cach
   import ChapterPreview.json.given
 
   object jsonList:
+    // Can't be higher without skewing the clocks
+    // because of Preview.secondsSinceLastMove
+    private val cacheDuration = 1 second
     private[ChapterPreviewApi] val cache =
       cacheApi[StudyId, AsJsons](256, "study.chapterPreview.json"):
-        _.expireAfterWrite(3 seconds).buildAsyncFuture: studyId =>
+        _.expireAfterWrite(cacheDuration).buildAsyncFuture: studyId =>
           listAll(studyId).map(Json.toJson)
 
     def apply(studyId: StudyId): Fu[AsJsons] = cache.get(studyId)
@@ -43,7 +46,7 @@ final class ChapterPreviewApi(chapterRepo: ChapterRepo, cacheApi: lila.memo.Cach
   object dataList:
     private[ChapterPreviewApi] val cache =
       cacheApi[StudyId, List[ChapterPreview]](256, "study.chapterPreview.data"):
-        _.expireAfterWrite(3 seconds).buildAsyncFuture(listAll)
+        _.expireAfterWrite(1 minute).buildAsyncFuture(listAll)
 
     def apply(studyId: StudyId): Fu[List[ChapterPreview]] = cache.get(studyId)
 
@@ -108,9 +111,8 @@ object ChapterPreview:
         )
         .add("orientation", c.orientation.some.filter(_.black))
         .add("lastMove", c.lastMove)
-        .add("lastMoveAt", c.lastMoveAt)
+        .add("thinkTime", c.secondsSinceLastMove)
         .add("status", c.result.map(o => Outcome.showResult(o).replace("1/2", "½")))
-        .add("playing", c.playing)
 
   object bson:
     import BSONHandlers.given
