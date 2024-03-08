@@ -173,19 +173,36 @@ final class StudyApi(
       .toMat(Sink.reduce[Chapter] { (prev, _) => prev })(Keep.right)
       .run()
       .flatMap: first =>
-        val study = study1.rewindTo(first)
+        val study = study1.rewindTo(first.id)
         studyRepo.insert(study).inject(study)
 
-  def resetIfOld(study: Study, chapters: Seq[Chapter.Metadata]): Fu[(Study, Option[Chapter])] =
-    chapters.headOption match
-      case Some(c) if study.isOld && study.position != c.initialPosition =>
-        val newStudy = study.rewindTo(c)
-        studyRepo
-          .updateSomeFields(newStudy)
-          .zip(chapterRepo.byId(c.id))
-          .map: (_, chapter) =>
-            newStudy -> chapter
-      case _ => fuccess(study -> none)
+  export preview.dataList.{ apply as chapterPreviews }
+
+  def maybeResetAndGetChapterPreviews(
+      study: Study,
+      chapter: Chapter
+  ): Fu[(Study, Chapter, ChapterPreview.AsJsons)] =
+    preview
+      .jsonList(study.id)
+      .flatMap: previews =>
+        val defaultResult = (study, chapter, previews)
+        if study.isRelay || !study.isOld || study.position == chapter.initialPosition
+        then fuccess(defaultResult)
+        else
+          ChapterPreview.json.readFirstId(previews) match
+            case Some(firstId) =>
+              val newStudy = study.rewindTo(firstId)
+              if newStudy != study then fuccess(defaultResult)
+              else
+                logger.info(s"Reset study ${study.id} to chapter $firstId")
+                studyRepo
+                  .updateSomeFields(newStudy)
+                  .zip(chapterRepo.byId(firstId))
+                  .map: (_, newChapter) =>
+                    (newStudy, newChapter | chapter, previews)
+            case None =>
+              logger.warn(s"Couldn't reset study ${study.id}, no first chapter id found?!")
+              fuccess(defaultResult)
 
   def talk(userId: UserId, studyId: StudyId, text: String) =
     byId(studyId).foreach:
@@ -821,11 +838,10 @@ final class StudyApi(
     sendTo(study.id)(_.reloadSriBecauseOf(sri, chapterId))
 
   def reloadChapters(study: Study) =
-    val chapters =
-      if study.isRelay then preview.list(study.id)
-      else chapterRepo.orderedMetadataMin(study.id)
-    chapters.foreach: chapters =>
-      sendTo(study.id)(_.reloadChapters(chapters))
+    preview
+      .jsonList(study.id)
+      .foreach: previews =>
+        sendTo(study.id)(_.reloadChapters(previews))
 
   private def canActAsOwner(study: Study, userId: UserId): Fu[Boolean] =
     fuccess(study.isOwner(userId)) >>| studyRepo.isAdminMember(study, userId)

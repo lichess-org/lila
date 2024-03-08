@@ -3,7 +3,7 @@ package lila.practice
 import lila.common.Bus
 import lila.db.dsl.{ *, given }
 import lila.memo.CacheApi.*
-import lila.study.{ Chapter, Study }
+import lila.study.{ ChapterPreview, Study }
 import lila.user.User
 
 final class PracticeApi(
@@ -22,7 +22,7 @@ final class PracticeApi(
 
   def getStudyWithFirstOngoingChapter(user: Option[User], studyId: StudyId): Fu[Option[UserStudy]] = for
     up       <- get(user)
-    chapters <- studyApi.chapterMetadatas(studyId)
+    chapters <- studyApi.chapterPreviews(studyId)
     chapter = up.progress.firstOngoingIn(chapters)
     studyOption <- chapter.fold(studyApi.byIdWithFirstChapter(studyId)) { chapter =>
       studyApi.byIdWithChapterOrFallback(studyId, chapter.id)
@@ -35,27 +35,27 @@ final class PracticeApi(
       chapterId: StudyChapterId
   ): Fu[Option[UserStudy]] = for
     up          <- get(user)
-    chapters    <- studyApi.chapterMetadatas(studyId)
+    chapters    <- studyApi.chapterPreviews(studyId)
     studyOption <- studyApi.byIdWithChapterOrFallback(studyId, chapterId)
   yield makeUserStudy(studyOption, up, chapters)
 
   private def makeUserStudy(
       studyOption: Option[Study.WithChapter],
       up: UserPractice,
-      chapters: List[Chapter.MetadataMin]
+      chapters: List[ChapterPreview]
   ) = for
     rawSc <- studyOption
     sc = rawSc.copy(
-      study = rawSc.study.rewindTo(rawSc.chapter).withoutMembers,
+      study = rawSc.study.rewindTo(rawSc.chapter.id).withoutMembers,
       chapter = rawSc.chapter.withoutChildrenIfPractice
     )
     practiceStudy <- up.structure.study(sc.study.id)
     section       <- up.structure.findSection(sc.study.id)
-    publishedChapters = chapters.filterNot { c =>
+    publishedChapters = chapters.filterNot: c =>
       PracticeStructure.isChapterNameCommented(c.name)
-    }
     if publishedChapters.exists(_.id == sc.chapter.id)
-  yield UserStudy(up, practiceStudy, publishedChapters, sc, section)
+    previews = ChapterPreview.json.write(publishedChapters)
+  yield UserStudy(up, practiceStudy, previews, sc, section)
 
   object config:
     def get  = configStore.get.dmap(_ | PracticeConfig.empty)

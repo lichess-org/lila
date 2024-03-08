@@ -41,10 +41,10 @@ case class Study(
 
   def isCurrent(c: Chapter.Like) = c.id == position.chapterId
 
-  def withChapter(c: Chapter.Like): Study = if isCurrent(c) then this else rewindTo(c)
+  def withChapter(c: Chapter.Like): Study = if isCurrent(c) then this else rewindTo(c.id)
 
-  def rewindTo(c: Chapter.Like): Study =
-    copy(position = Position.Ref(chapterId = c.id, path = UciPath.root))
+  def rewindTo(chapterId: StudyChapterId): Study =
+    copy(position = Position.Ref(chapterId = chapterId, path = UciPath.root))
 
   def isPublic   = visibility == Study.Visibility.Public
   def isUnlisted = visibility == Study.Visibility.Unlisted

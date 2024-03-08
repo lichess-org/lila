@@ -22,41 +22,64 @@ case class ChapterPreview(
 ) extends Chapter.Metadata:
   def playing = lastMove.isDefined && result.contains(None)
 
-final class ChapterPreviewApi( chapterRepo: ChapterRepo, cacheApi: lila.memo.CacheApi)(using Executor):
+final class ChapterPreviewApi(chapterRepo: ChapterRepo, cacheApi: lila.memo.CacheApi)(using Executor):
 
-  import ChapterPreview.bson.{projection, given}
+  import ChapterPreview.AsJsons
+  import ChapterPreview.bson.{ projection, given }
   import ChapterPreview.json.given
 
-  private val listCache: AsyncLoadingCache[StudyId, JsValue] =
-    cacheApi.scaffeine
-      .expireAfterWrite(3 seconds)
-      .buildAsyncFuture[StudyId, JsValue]: studyId =>
-        chapterRepo.coll:
-          _.find(chapterRepo.$studyId(studyId))
-            .sort(chapterRepo.$sortOrder)
-            .cursor[ChapterPreview]()
-            .listAll()
-            .map(Json.toJson)
+  object jsonList:
+    private[ChapterPreviewApi] val cache =
+      cacheApi[StudyId, AsJsons](256, "study.chapterPreview.json"):
+        _.expireAfterWrite(3 seconds).buildAsyncFuture: studyId =>
+          listAll(studyId).map(Json.toJson)
 
-  def list(studyId: StudyId): Fu[JsValue] = listCache.get(studyId)
+    def apply(studyId: StudyId): Fu[AsJsons] = cache.get(studyId)
+
+  object dataList:
+    private[ChapterPreviewApi] val cache =
+      cacheApi[StudyId, List[ChapterPreview]](256, "study.chapterPreview.data"):
+        _.expireAfterWrite(3 seconds).buildAsyncFuture(listAll)
+
+    def apply(studyId: StudyId): Fu[List[ChapterPreview]] = cache.get(studyId)
+
+  private def listAll(studyId: StudyId): Fu[List[ChapterPreview]] =
+    chapterRepo.coll:
+      _.find(chapterRepo.$studyId(studyId)).sort(chapterRepo.$sortOrder).cursor[ChapterPreview]().listAll()
 
   def invalidate(studyId: StudyId): Unit =
-    listCache.synchronous().invalidate(studyId)
+    jsonList.cache.synchronous().invalidate(studyId)
+    dataList.cache.synchronous().invalidate(studyId)
 
 object ChapterPreview:
 
-  case class Player(name: PlayerName, title: Option[PlayerTitle], rating: Option[Elo], clock: Option[Centis])
-
   type Players = ByColor[Player]
+  type AsJsons = JsValue
+
+  case class Player(name: PlayerName, title: Option[PlayerTitle], rating: Option[Elo], clock: Option[Centis])
 
   def players(clocks: ByColor[Option[Centis]])(tags: Tags): Option[Players] =
     val names = tags.names
-    names.exists(_.isDefined) option:
-      names zip tags.titles zip tags.elos zip clocks map:
-        case (((n, t), e), c) => Player(n | PlayerName("Unknown player"), t, e, c)
+    names
+      .exists(_.isDefined)
+      .option:
+        names
+          .zip(tags.titles)
+          .zip(tags.elos)
+          .zip(clocks)
+          .map:
+            case (((n, t), e), c) => Player(n | PlayerName("Unknown player"), t, e, c)
 
   object json:
     import lila.common.Json.{ writeAs, given }
+
+    def readFirstId(js: AsJsons): Option[StudyChapterId] = for
+      arr <- js.asOpt[JsArray]
+      obj <- arr.value.headOption
+      id  <- obj.asOpt[StudyChapterId]
+    yield id
+
+    def write(chapters: List[ChapterPreview]): AsJsons = Json.toJson(chapters)
 
     given Writes[ChapterPreview.Player] = Writes[ChapterPreview.Player]: p =>
       Json

@@ -201,14 +201,8 @@ final class Study(
       ctx: Context
   ): Fu[(WithChapter, JsData)] =
     for
-      (study, chapter, chapters) <-
-        if sc.study.isRelay
-        then env.study.preview.list(sc.study.id).map((sc.study, sc.chapter, _))
-        else
-          for
-            chapters                <- env.study.chapterRepo.orderedMetadataMin(sc.study.id)
-            (study, resetToChapter) <- env.study.api.resetIfOld(sc.study, chapters)
-          yield (study, resetToChapter | sc.chapter, chapters)
+      (study, chapter, previews) <-
+        env.study.api.maybeResetAndGetChapterPreviews(sc.study, sc.chapter)
       _ <- env.user.lightUserApi.preloadMany(study.members.ids.toList)
       pov = userAnalysisC.makePov(chapter.root.fen.some, chapter.setup.variant)
       analysis <- chapter.serverEval
@@ -226,7 +220,7 @@ final class Study(
           division = division
         )
       )
-      studyJson <- env.study.jsonView(study, chapters, chapter, ctx.me)
+      studyJson <- env.study.jsonView(study, previews, chapter, ctx.me)
     yield WithChapter(study, chapter) -> JsData(
       study = studyJson,
       analysis = baseData
