@@ -148,6 +148,10 @@
     .spinner {
       width: 45px;
       height: 55px;
+      @include breakpoint($mq-col1) {
+        width: 36px;
+        height: 44px;
+      }
       path {
         stroke: white;
       }
@@ -256,6 +260,8 @@
     }
     span {
       display: block;
+      position: relative;
+      z-index: 2; // blurs pieces otherwise
       animation: rubber-band 5s infinite;
     }
   }
