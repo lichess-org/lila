@@ -18,8 +18,12 @@ case class ChapterPreview(
     fen: Fen.Epd,
     lastMove: Option[Uci],
     lastMoveAt: Option[Instant],
+    /* None = No Result PGN tag, the chapter may not be a game
+     * Some(None) = Result PGN tag is "*", the game is ongoing
+     * Some(Some(Outcome)) = Game is over with a result
+     */
     result: Option[Option[Outcome]]
-) extends Chapter.Metadata:
+):
   def playing = lastMove.isDefined && result.contains(None)
 
 final class ChapterPreviewApi(chapterRepo: ChapterRepo, cacheApi: lila.memo.CacheApi)(using Executor):
@@ -91,19 +95,19 @@ object ChapterPreview:
     given Writes[ChapterPreview.Players] = Writes[ChapterPreview.Players]: players =>
       Json.obj("white" -> players.white, "black" -> players.black)
 
-    given Writes[Outcome] = writeAs(_.toString.replace("1/2", "½"))
-
     given chapterPreviewWrites: OWrites[ChapterPreview] = c =>
-      Json.obj(
-        "id"          -> c.id,
-        "name"        -> c.name,
-        "players"     -> c.players,
-        "orientation" -> c.orientation,
-        "fen"         -> c.fen,
-        "lastMove"    -> c.lastMove,
-        "lastMoveAt"  -> c.lastMoveAt,
-        "status"      -> c.statusStr
-      )
+      Json
+        .obj(
+          "id"      -> c.id,
+          "name"    -> c.name,
+          "players" -> c.players,
+          "fen"     -> c.fen
+        )
+        .add("orientation", c.orientation.some.filter(_.black))
+        .add("lastMove", c.lastMove)
+        .add("lastMoveAt", c.lastMoveAt)
+        .add("status", c.result.map(o => Outcome.showResult(o).replace("1/2", "½")))
+        .add("playing", c.playing)
 
   object bson:
     import BSONHandlers.given
@@ -111,7 +115,7 @@ object ChapterPreview:
     val projection = $doc(
       "name"        -> true,
       "denorm"      -> true,
-      "tags"        -> true,
+      "tags"        -> $doc("$elemMatch" -> $doc("$regex" -> "^Result:")),
       "lastMoveAt"  -> "$relay.lastMoveAt",
       "orientation" -> "$setup.orientation"
     )

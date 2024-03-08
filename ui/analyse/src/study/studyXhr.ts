@@ -13,7 +13,7 @@ export const glyphs = () =>
   xhr.json(`/study/glyphs/${document.documentElement!.lang}.json`, { cache: 'default' });
 
 export const chapterConfig = (studyId: string, chapterId: string): Promise<StudyChapterConfig> =>
-  xhr.json(`/study/${studyId}/${chapterId}/meta`);
+  xhr.json(`/study/${studyId}/${chapterId}/config`);
 
 export const practiceComplete = (chapterId: string, nbMoves: number) =>
   xhr.text(`/practice/complete/${chapterId}/${nbMoves}`, {

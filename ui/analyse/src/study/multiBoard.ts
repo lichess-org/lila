@@ -7,7 +7,7 @@ import { VNode } from 'snabbdom';
 import { multiBoard as xhrLoad } from './studyXhr';
 import { opposite as CgOpposite } from 'chessground/util';
 import { opposite as oppositeColor } from 'chessops/util';
-import { ChapterPreview, ChapterPreviewPlayer, Position, StudyChapterMeta } from './interfaces';
+import { ChapterPreview, ChapterPreviewPlayer, Position } from './interfaces';
 import StudyCtrl from './studyCtrl';
 import { GetCloudEval, MultiCloudEval, renderEvalToggle, renderScore } from './multiCloudEval';
 
@@ -44,7 +44,7 @@ export class MultiBoardCtrl {
     }
   };
 
-  addResult = (metas: StudyChapterMeta[]) => {
+  addResult = (metas: ChapterPreview[]) => {
     let changed = false;
     for (const meta of metas) {
       const cp = this.pager && this.pager.currentPageResults.find(cp => cp.id == meta.id);
@@ -205,12 +205,12 @@ const makePreview = (study: StudyCtrl, cloudEval?: GetCloudEval) => (preview: Ch
       },
     },
     [
-      boardPlayer(preview, CgOpposite(preview.orientation)),
+      boardPlayer(preview, CgOpposite(preview.orientation || 'white')),
       h('span.cg-gauge', [
         h('span.mini-game__board', h('span.cg-wrap')),
         cloudEval && evalGauge(preview, cloudEval),
       ]),
-      boardPlayer(preview, preview.orientation),
+      boardPlayer(preview, preview.orientation || 'white'),
     ],
   );
 

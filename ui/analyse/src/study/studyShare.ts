@@ -5,7 +5,7 @@ import { text as xhrText, url as xhrUrl } from 'common/xhr';
 import { VNode } from 'snabbdom';
 import { renderIndexAndMove } from '../view/moveView';
 import { baseUrl } from '../view/util';
-import { StudyChapterMeta, StudyData } from './interfaces';
+import { ChapterPreview, StudyData } from './interfaces';
 import RelayCtrl from './relay/relayCtrl';
 
 function fromPly(ctrl: StudyShare): VNode {
@@ -30,7 +30,7 @@ export class StudyShare {
 
   constructor(
     readonly data: StudyData,
-    readonly currentChapter: () => StudyChapterMeta,
+    readonly currentChapter: () => ChapterPreview,
     readonly currentNode: () => Tree.Node,
     readonly onMainline: () => boolean,
     readonly bottomColor: () => Color,

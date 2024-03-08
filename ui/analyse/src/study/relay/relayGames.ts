@@ -1,6 +1,6 @@
 import { looseH as h } from 'common/snabbdom';
 import { clockIsRunning, formatMs } from 'common/clock';
-import { ChapterPreview, isChapterPreview } from '../interfaces';
+import { ChapterPreview } from '../interfaces';
 import { StudyCtrl } from '../studyDeps';
 import RelayCtrl from './relayCtrl';
 import { gameLinkProps, gameLinksListener } from './relayTourView';
@@ -10,7 +10,7 @@ import { fenColor } from 'common/miniBoard';
 import { defined, scrollToInnerSelector } from 'common';
 
 export const gamesList = (study: StudyCtrl, relay: RelayCtrl) => {
-  const chapters = study.chapters.list().filter(isChapterPreview);
+  const chapters = study.chapters.list();
   return h(
     'div.relay-games',
     {

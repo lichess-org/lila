@@ -329,7 +329,7 @@ final class RelayApi(
               me,
               s,
               _.copy(
-                _id = round.studyId,
+                id = round.studyId,
                 visibility = Study.Visibility.Public
               )
             ) >>

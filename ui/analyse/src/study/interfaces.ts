@@ -49,7 +49,7 @@ export interface StudyData {
   isNew?: boolean;
   liked: boolean;
   features: StudyFeatures;
-  chapters: StudyChapterMeta[];
+  chapters: ChapterPreview[];
   chapter: StudyChapter;
   secondsSinceUpdate: number;
   description?: string;
@@ -89,19 +89,12 @@ export interface StudyFeatures {
   sticky: boolean;
 }
 
-export interface StudyChapterMeta {
-  id: ChapterId;
-  name: string;
-  status?: StatusStr;
-  playing?: boolean; // only set by ChapterPreview
-}
-
-export interface StudyChapterMetaMin extends StudyChapterMeta {}
-
 export type RelayPlayer = [string?, string?, number?];
 
-export interface StudyChapterConfig extends StudyChapterMetaMin {
-  orientation: Color;
+export interface StudyChapterConfig {
+  id: string;
+  name: string;
+  orientation?: Color; // defaults to white
   description?: string;
   practice: boolean;
   gamebook: boolean;
@@ -169,18 +162,16 @@ export interface LocalPaths {
   [chapterId: string]: Tree.Path;
 }
 
-export interface ChapterPreview extends StudyChapterMeta {
+export interface ChapterPreview {
   id: ChapterId;
   name: string;
+  status?: StatusStr;
   players?: ChapterPreviewPlayers;
-  orientation: Color;
+  orientation?: Color; // defaults to white
   fen: string;
   lastMove?: string;
   lastMoveAt?: number;
-  playing: boolean;
-}
-export function isChapterPreview(c: StudyChapterMeta): c is ChapterPreview {
-  return 'fen' in c;
+  playing?: boolean;
 }
 export interface ChapterPreviewPlayers {
   white: ChapterPreviewPlayer;

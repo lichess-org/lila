@@ -1,15 +1,14 @@
 package lila.study
 
+import reactivemongo.api.bson.Macros.Annotations.Key
 import chess.format.pgn.{ Glyph, Tags }
 import chess.format.{ UciPath, Uci, Fen }
 import chess.opening.{ Opening, OpeningDb }
 import chess.variant.Variant
 import chess.{ Ply, Centis, Color, Outcome, ByColor }
-import ornicar.scalalib.ThreadLocalRandom
 
 import lila.tree.{ Root, Branch, Branches }
 import lila.tree.Node.{ Comment, Gamebook, Shapes }
-import reactivemongo.api.bson.Macros.Annotations.Key
 
 case class Chapter(
     @Key("_id") id: StudyChapterId,
@@ -80,9 +79,14 @@ case class Chapter(
       createdAt = nowInstant
     )
 
-  def metadataMin = Chapter.MetadataMin(
+  def preview = ChapterPreview(
     id = id,
     name = name,
+    players = ChapterPreview.players(denorm.so(_.clocksByColor))(tags),
+    orientation = setup.orientation,
+    fen = denorm.fold(Fen.initial)(_.fen),
+    lastMove = denorm.flatMap(_.uci),
+    lastMoveAt = relay.map(_.lastMoveAt),
     result = tags.outcome.isDefined.option(tags.outcome)
   )
 
@@ -138,25 +142,10 @@ object Chapter:
 
   /* Last position of the main line.
    * Used for chapter previews. */
-  case class LastPosDenorm(fen: Fen.Epd, uci: Option[Uci], clocks: Option[PairOf[Option[Centis]]])
+  case class LastPosDenorm(fen: Fen.Epd, uci: Option[Uci], clocks: Option[PairOf[Option[Centis]]]):
+    def clocksByColor: ByColor[Option[Centis]] = clocks.so(ByColor.fromPair)
 
-  trait Metadata extends Like:
-    val id: StudyChapterId
-    val name: StudyChapterName
-    /* None = No Result PGN tag, the chapter may not be a game
-     * Some(None) = Result PGN tag is "*", the game is ongoing
-     * Some(Some(Outcome)) = Game is over with a result
-     */
-    val result: Option[Option[Outcome]]
-    def statusStr: Option[String] = result.map(o => Outcome.showResult(o).replace("1/2", "½"))
-
-  case class MetadataMin(
-      @Key("_id") id: StudyChapterId,
-      name: StudyChapterName,
-      result: Option[Option[Outcome]]
-  ) extends Metadata
-
-  case class IdName(id: StudyChapterId, name: StudyChapterName)
+  case class IdName(@Key("_id") id: StudyChapterId, name: StudyChapterName)
 
   def defaultName(order: Int) = StudyChapterName(s"Chapter $order")
 
@@ -165,7 +154,7 @@ object Chapter:
 
   def fixName(n: StudyChapterName) = StudyChapterName(lila.common.String.softCleanUp(n.value).take(80))
 
-  def makeId = StudyChapterId(ThreadLocalRandom.nextString(8))
+  def makeId = StudyChapterId(ornicar.scalalib.ThreadLocalRandom.nextString(8))
 
   def make(
       studyId: StudyId,

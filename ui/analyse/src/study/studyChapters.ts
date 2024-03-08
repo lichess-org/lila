@@ -6,17 +6,17 @@ import AnalyseCtrl from '../ctrl';
 import { StudySocketSend } from '../socket';
 import { StudyChapterEditForm } from './chapterEditForm';
 import { StudyChapterNewForm } from './chapterNewForm';
-import { LocalPaths, StudyChapter, StudyChapterConfig, StudyChapterMeta, TagArray } from './interfaces';
+import { LocalPaths, StudyChapter, StudyChapterConfig, ChapterPreview, TagArray } from './interfaces';
 import StudyCtrl from './studyCtrl';
 
 export default class StudyChaptersCtrl {
   newForm: StudyChapterNewForm;
   editForm: StudyChapterEditForm;
-  list: Prop<StudyChapterMeta[]>;
+  list: Prop<ChapterPreview[]>;
   localPaths: LocalPaths = {};
 
   constructor(
-    initChapters: StudyChapterMeta[],
+    initChapters: ChapterPreview[],
     readonly send: StudySocketSend,
     setTab: () => void,
     chapterConfig: (id: string) => Promise<StudyChapterConfig>,

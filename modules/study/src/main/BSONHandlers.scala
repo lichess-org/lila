@@ -56,8 +56,8 @@ object BSONHandlers:
     x => BSONString(x.toString)
   )
 
-  import Study.IdName
-  given idNameHandler: BSONDocumentHandler[IdName] = Macros.handler
+  given studyIdNameHandler: BSONDocumentHandler[Study.IdName]     = Macros.handler
+  given chapterIdNameHandler: BSONDocumentHandler[Chapter.IdName] = Macros.handler
 
   given BSONHandler[Comment.Author] = quickHandler[Comment.Author](
     {
@@ -412,15 +412,3 @@ object BSONHandlers:
           contributors = doc.getAsOpt[StudyMembers]("members").so(_.contributorIds)
         )
       )
-
-  given BSONDocumentReader[Chapter.MetadataMin] with
-    def readDocument(doc: Bdoc) = for
-      id   <- doc.getAsTry[StudyChapterId]("_id")
-      name <- doc.getAsTry[StudyChapterName]("name")
-      result = doc
-        .getAsOpt[List[String]]("tags")
-        .flatMap:
-          _.headOption // because only the Result: tag is fetched by metadataProjection
-            .map(_.drop(7))
-            .map(Outcome.fromResult)
-    yield Chapter.MetadataMin(id, name, result)

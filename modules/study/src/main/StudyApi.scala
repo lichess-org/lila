@@ -34,7 +34,6 @@ final class StudyApi(
   import sequencer.*
 
   export studyRepo.{ byId, byOrderedIds as byIds, publicIdNames }
-  export chapterRepo.{ orderedMetadataMin as chapterMetadatas }
 
   def publicByIds(ids: Seq[StudyId]) = byIds(ids).map { _.filter(_.isPublic) }
 
@@ -707,7 +706,7 @@ final class StudyApi(
     sequenceStudy(studyId): study =>
       Contribute(who.u, study):
         chapterRepo.byIdAndStudy(chapterId, studyId).flatMapz { chapter =>
-          chapterRepo.orderedMetadataMin(studyId).flatMap { chaps =>
+          chapterRepo.idNames(studyId).flatMap { chaps =>
             // deleting the only chapter? Automatically create an empty one
             if chaps.sizeIs < 2 then
               chapterMaker(

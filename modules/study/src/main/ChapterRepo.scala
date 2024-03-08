@@ -41,19 +41,6 @@ final class ChapterRepo(val coll: AsyncColl)(using Executor, akka.stream.Materia
   def existsByStudy(studyId: StudyId): Fu[Boolean] =
     coll(_.exists($studyId(studyId)))
 
-  private val metadataMinProjection =
-    $doc(
-      "name" -> true,
-      "tags" -> $doc("$elemMatch" -> $doc("$regex" -> "^Result:"))
-    ).some
-
-  def orderedMetadataMin(studyId: StudyId): Fu[List[Chapter.MetadataMin]] =
-    coll:
-      _.find($studyId(studyId), metadataMinProjection)
-        .sort($sortOrder)
-        .cursor[Chapter.MetadataMin]()
-        .list(300)
-
   def orderedByStudySource(studyId: StudyId): Source[Chapter, ?] =
     Source.futureSource:
       coll.map:
@@ -212,7 +199,7 @@ final class ChapterRepo(val coll: AsyncColl)(using Executor, akka.stream.Materia
               case Some(chapters) if chapters.sizeIs >= nbChaptersPerStudy => hash
               case maybe =>
                 val chapters = ~maybe
-                hash + (studyId -> readIdName(doc).fold(chapters)(chapters :+ _))
+                hash + (studyId -> chapterIdNameHandler.readOpt(doc).fold(chapters)(chapters :+ _))
           }
         }
       })
@@ -221,15 +208,8 @@ final class ChapterRepo(val coll: AsyncColl)(using Executor, akka.stream.Materia
     coll:
       _.find($studyId(studyId), $doc("_id" -> true, "name" -> true).some)
         .sort($sortOrder)
-        .cursor[Bdoc]()
+        .cursor[Chapter.IdName]()
         .list(Study.maxChapters.value)
-    .dmap(_.flatMap(readIdName))
-
-  private def readIdName(doc: Bdoc) =
-    for
-      id   <- doc.getAsOpt[StudyChapterId]("_id")
-      name <- doc.getAsOpt[StudyChapterName]("name")
-    yield Chapter.IdName(id, name)
 
   def tagsByStudyIds(studyIds: Iterable[StudyId]): Fu[List[Tags]] =
     studyIds.nonEmpty.so(coll { _.primitive[Tags]("studyId".$in(studyIds), "tags") })
@@ -252,9 +232,9 @@ final class ChapterRepo(val coll: AsyncColl)(using Executor, akka.stream.Materia
   def countByStudyId(studyId: StudyId): Fu[Int] =
     coll(_.countSel($studyId(studyId)))
 
-  def insert(s: Chapter): Funit = coll(_.insert.one(s)).void
+  def insert(s: Chapter): Funit = coll(_.insert.one(s.updateDenorm)).void
 
-  def update(c: Chapter): Funit = coll(_.update.one($id(c.id), c)).void
+  def update(c: Chapter): Funit = coll(_.update.one($id(c.id), c.updateDenorm)).void
 
   def delete(id: StudyChapterId): Funit = coll(_.delete.one($id(id))).void
   def delete(c: Chapter): Funit         = delete(c.id)

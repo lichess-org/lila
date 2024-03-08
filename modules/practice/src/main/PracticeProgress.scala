@@ -1,6 +1,6 @@
 package lila.practice
 
-import lila.study.Chapter
+import lila.study.ChapterPreview
 
 case class PracticeProgress(
     _id: UserId,
@@ -27,14 +27,13 @@ case class PracticeProgress(
   def countDone(chapterIds: List[StudyChapterId]): Int =
     chapterIds.count(chapters.contains)
 
-  def firstOngoingIn(metas: List[Chapter.Metadata]): Option[Chapter.Metadata] =
+  def firstOngoingIn(metas: List[ChapterPreview]): Option[ChapterPreview] =
     metas
-      .find { c =>
+      .find: c =>
         !chapters.contains(c.id) && !PracticeStructure.isChapterNameCommented(c.name)
-      }
-      .orElse(metas.find { c =>
-        !PracticeStructure.isChapterNameCommented(c.name)
-      })
+      .orElse:
+        metas.find: c =>
+          !PracticeStructure.isChapterNameCommented(c.name)
 
 object PracticeProgress:
 

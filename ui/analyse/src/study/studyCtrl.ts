@@ -23,7 +23,6 @@ import {
   ToolTab,
   TagTypes,
   StudyData,
-  StudyChapterMeta,
   ReloadData,
   WithWhoAndPos,
   WithChapterId,
@@ -63,7 +62,7 @@ interface Handlers {
   glyphs(d: WithWhoAndPos & { g: Tree.Glyph[] }): void;
   clock(d: ServerClockMsg): void;
   forceVariation(d: WithWhoAndPos & { force: boolean }): void;
-  chapters(d: StudyChapterMeta[]): void;
+  chapters(d: ChapterPreview[]): void;
   reload(d: null | WithChapterId): void;
   changeChapter(d: WithWhoAndPos): void;
   updateChapter(d: WithWhoAndChap): void;
@@ -265,7 +264,7 @@ export default class StudyCtrl {
     this.redraw();
   };
 
-  currentChapter = (): StudyChapterMeta => this.chapters.get(this.vm.chapterId)!;
+  currentChapter = (): ChapterPreview => this.chapters.get(this.vm.chapterId)!;
 
   isChapterOwner = (): boolean => this.ctrl.opts.userId === this.data.chapter.ownerId;
 
@@ -461,7 +460,7 @@ export default class StudyCtrl {
     window.scrollTo(0, 0);
   };
 
-  private deltaChapter = (delta: number): StudyChapterMeta | undefined => {
+  private deltaChapter = (delta: number): ChapterPreview | undefined => {
     const chs = this.chapters.list();
     const i = chs.findIndex(ch => ch.id === this.vm.chapterId);
     return i < 0 ? undefined : chs[i + delta];

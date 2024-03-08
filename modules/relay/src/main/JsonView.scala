@@ -4,7 +4,7 @@ import play.api.libs.json.*
 
 import lila.common.config.BaseUrl
 import lila.common.Json.{ writeAs, given }
-import lila.study.Chapter
+import lila.study.ChapterPreview
 import lila.user.Me
 import lila.memo.PicfitUrl
 
@@ -79,13 +79,10 @@ final class JsonView(
       .obj("url" -> s"$baseUrl${rt.path}")
       .add("tour" -> withTour.option(rt.tour))
 
-  def withUrlAndGames(rt: RelayRound.WithTourAndStudy, games: List[Chapter.Metadata])(using
+  def withUrlAndPreviews(rt: RelayRound.WithTourAndStudy, previews: ChapterPreview.AsJsons)(using
       Option[Me]
   ): JsObject =
-    myRound(rt) ++
-      Json.obj("games" -> games.map { g =>
-        Json.toJsObject(g) + ("url" -> JsString(s"$baseUrl${rt.path}/${g.id}"))
-      })
+    myRound(rt) ++ Json.obj("games" -> previews)
 
   def sync(round: RelayRound) = Json.toJsObject(round.sync)
 

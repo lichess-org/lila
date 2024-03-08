@@ -118,8 +118,7 @@ object JsonView:
 
   case class JsData(study: JsObject, analysis: JsObject)
 
-  given OWrites[Study.IdName] = OWrites: s =>
-    Json.obj("id" -> s._id, "name" -> s.name)
+  given OWrites[Study.IdName] = Json.writes
 
   def metadata(study: Study) = Json.obj(
     "id"        -> study.id,
@@ -200,14 +199,6 @@ object JsonView:
   given Writes[chess.format.pgn.Tags] = Writes: tags =>
     JsArray(tags.value.map(Json.toJson))
   private given OWrites[Chapter.Setup] = Json.writes
-
-  val metadataMinWrites: OWrites[Chapter.MetadataMin] = OWrites: c =>
-    Json
-      .obj("id" -> c.id, "name" -> c.name)
-      .add("status" -> c.statusStr)
-  given OWrites[Chapter.Metadata] = OWrites:
-    case c: Chapter.MetadataMin => metadataMinWrites.writes(c)
-    case c: ChapterPreview      => ChapterPreview.json.chapterPreviewWrites.writes(c)
 
   private[study] given Writes[Position.Ref] = Json.writes
   private[study] given Writes[Study.Liking] = Json.writes

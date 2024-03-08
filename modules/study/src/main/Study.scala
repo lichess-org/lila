@@ -1,5 +1,6 @@
 package lila.study
 
+import reactivemongo.api.bson.Macros.Annotations.Key
 import ornicar.scalalib.ThreadLocalRandom
 import chess.format.UciPath
 
@@ -7,7 +8,7 @@ import lila.user.User
 import lila.common.config.Max
 
 case class Study(
-    _id: StudyId,
+    @Key("_id") id: StudyId,
     name: StudyName,
     members: StudyMembers,
     position: Position.Ref,
@@ -21,10 +22,7 @@ case class Study(
     createdAt: Instant,
     updatedAt: Instant
 ):
-
   import Study.*
-
-  inline def id = _id
 
   def owner = members.get(ownerId)
 
@@ -61,7 +59,7 @@ case class Study(
   def cloneFor(user: User): Study =
     val owner = StudyMember(id = user.id, role = StudyMember.Role.Write)
     copy(
-      _id = Study.makeId,
+      id = Study.makeId,
       members = StudyMembers(Map(user.id -> owner)),
       ownerId = owner.id,
       visibility = Study.Visibility.Private,
@@ -91,8 +89,7 @@ object Study:
   val previewNbMembers  = 4
   val previewNbChapters = 4
 
-  case class IdName(_id: StudyId, name: StudyName):
-    inline def id = _id
+  case class IdName(@Key("_id") id: StudyId, name: StudyName)
 
   def toName(str: String) = StudyName(lila.common.String.fullCleanUp(str).take(100))
 
@@ -160,7 +157,7 @@ object Study:
   ) =
     val owner = StudyMember(id = user.id, role = StudyMember.Role.Write)
     Study(
-      _id = id | makeId,
+      id = id | makeId,
       name = name | StudyName(s"${user.username}'s Study"),
       members = StudyMembers(Map(user.id -> owner)),
       position = Position.Ref(StudyChapterId(""), UciPath.root),

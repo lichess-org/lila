@@ -250,12 +250,9 @@ final class Study(
                   else showQuery(fuccess(none))
             case sc => showQuery(fuccess(sc))
 
-  def chapterMeta(id: StudyId, chapterId: StudyChapterId) = Open:
-    env.study.chapterRepo
-      .byId(chapterId)
-      .map(_.filter(_.studyId == id))
-      .orNotFound: chapter =>
-        Ok(env.study.jsonView.chapterConfig(chapter))
+  def chapterConfig(id: StudyId, chapterId: StudyChapterId) = Open:
+    Found(env.study.chapterRepo.byIdAndStudy(chapterId, id)): chapter =>
+      Ok(env.study.jsonView.chapterConfig(chapter))
 
   private[controllers] def chatOf(study: lila.study.Study)(using ctx: Context) = {
     ctx.kid.no && ctx.noBot &&               // no public chats for kids and bots
@@ -361,8 +358,8 @@ final class Study(
         jsonFormError,
         data =>
           doImportPgn(id, data, Socket.Sri("api")): chapters =>
-            import lila.study.JsonView.given
-            JsonOk(Json.obj("chapters" -> chapters.map(_.metadataMin)))
+            import lila.study.ChapterPreview.json.given
+            JsonOk(Json.obj("chapters" -> chapters.map(_.preview)))
       )
   }
 
