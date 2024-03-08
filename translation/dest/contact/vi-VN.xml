@@ -24,7 +24,7 @@
   <string name="changeUsernameCase">Xem trang này để thay đổi chữ cái tên người dùng</string>
   <string name="cantChangeMore">Chúng tôi không thể đổi nhiều chữ cái hơn. Vì lý do kỹ thuật, điều đó dứt khoát không thể.</string>
   <string name="orCloseAccount">Tuy nhiên, bạn có thể đóng tài khoản hiện tại của mình và tạo một tài khoản mới.</string>
-  <string name="wantClearHistory">Tôi muốn xóa lịch sử hoặc hệ số</string>
+  <string name="wantClearHistory">Tôi muốn xóa lịch sử hoặc hệ số Elo</string>
   <string name="cantClearHistory">Bạn không thể xóa lịch sử các ván đấu, câu đố hay hệ số.</string>
   <string name="wantReport">Tôi muốn báo cáo một người chơi</string>
   <string name="toReportAPlayerUseForm">Để báo cáo một người chơi, dùng mẫu báo cáo</string>

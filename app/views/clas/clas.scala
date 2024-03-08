@@ -95,18 +95,35 @@ object clas:
         fragList(clas.teachers.toList.map(t => userIdLink(t.some)))
       )
     )
-
-  def create(form: Form[ClasData])(using PageContext) =
-    bits.layout(trans.clas.newClass.txt(), Right("newClass"))(
+  def create(form: lila.security.HcaptchaForm[ClasData])(using PageContext) =
+    bits.layout(
+      trans.clas.newClass.txt(),
+      Right("newClass"),
+      moreJs = views.html.base.hcaptcha.script(form),
+      csp = defaultCsp.withHcaptcha.some
+    )(
       cls := "box-pad",
       h1(cls := "box__top")(trans.clas.newClass()),
-      innerForm(form, none)
+      postForm(cls := "form3", action := clasRoutes.create)(
+        innerForm(form.form, none),
+        views.html.base.hcaptcha.tag(form),
+        form3.actions(
+          a(href := clasRoutes.index)(trans.cancel()),
+          form3.submit(trans.apply())
+        )
+      )
     )
 
   def edit(c: lila.clas.Clas, students: List[Student.WithUser], form: Form[ClasData])(using PageContext) =
     teacherDashboard.layout(c, students, "edit")(
       div(cls := "box-pad")(
-        innerForm(form, c.some),
+        postForm(cls := "form3", action := clasRoutes.update(c.id.value))(
+          innerForm(form, c.some),
+          form3.actions(
+            a(href := clasRoutes.show(c.id.value))(trans.cancel()),
+            form3.submit(trans.apply())
+          )
+        ),
         hr,
         c.isActive.option(
           postForm(
@@ -144,7 +161,7 @@ object clas:
     )
 
   private def innerForm(form: Form[ClasData], clas: Option[Clas])(using ctx: Context) =
-    postForm(cls := "form3", action := clas.fold(clasRoutes.create)(c => clasRoutes.update(c.id.value)))(
+    frag(
       form3.globalError(form),
       form3.group(form("name"), trans.clas.className())(form3.input(_)(autofocus)),
       form3.group(
@@ -160,9 +177,4 @@ object clas:
             trans.clas.teachersOfTheClass(),
             help = trans.clas.addLichessUsernames().some
           )(form3.textarea(_)(rows := 4))
-      ,
-      form3.actions(
-        a(href := clas.fold(clasRoutes.index)(c => clasRoutes.show(c.id.value)))(trans.cancel()),
-        form3.submit(trans.apply())
-      )
     )

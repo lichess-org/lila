@@ -99,7 +99,7 @@ final class Env(
   scheduler.scheduleAtFixedRate(10 minutes, 1 day): () =>
     tagger.addAllMissing
 
-  if mode == play.api.Mode.Prod then
+  if mode.isProd then
     scheduler.scheduleAtFixedRate(1 hour, 1 hour): () =>
       pathApi.isStale.foreach: stale =>
         if stale then logger.error("Puzzle paths appear to be stale! check that the regen cron is up")

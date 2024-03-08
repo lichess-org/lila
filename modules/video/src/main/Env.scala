@@ -1,7 +1,6 @@
 package lila.video
 
 import play.api.libs.ws.StandaloneWSClient
-import play.api.Mode
 import com.softwaremill.macwire.*
 import lila.common.autoconfig.{ *, given }
 import play.api.Configuration
@@ -26,7 +25,7 @@ final class Env(
     scheduler: Scheduler,
     db: lila.db.Db,
     cacheApi: lila.memo.CacheApi,
-    mode: Mode
+    mode: play.api.Mode
 )(using Executor):
 
   private val config = appConfig.get[VideoConfig]("video")(AutoConfig.loader)
@@ -52,7 +51,7 @@ final class Env(
       case "video" :: "sheet" :: Nil =>
         sheet.fetchAll.map { nb => s"Processed $nb videos" }
 
-  if mode == Mode.Prod then
+  if mode.isProd then
     scheduler.scheduleWithFixedDelay(config.sheetDelay, config.sheetDelay): () =>
       sheet.fetchAll.logFailure(logger)
 

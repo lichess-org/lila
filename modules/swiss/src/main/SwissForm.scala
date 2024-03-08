@@ -6,12 +6,11 @@ import chess.format.Fen
 import chess.variant.Variant
 import play.api.data.*
 import play.api.data.Forms.*
-import play.api.Mode
 
 import lila.common.Form.{ *, given }
 import lila.user.User
 
-final class SwissForm(using mode: Mode):
+final class SwissForm(using mode: play.api.Mode):
 
   import SwissForm.*
 
@@ -61,7 +60,7 @@ final class SwissForm(using mode: Mode):
         name = none,
         clock = ClockConfig(LimitSeconds(180), IncrementSeconds(0)),
         startsAt = Some(nowInstant.plusSeconds {
-          if mode == Mode.Prod then 60 * 10 else 20
+          if mode.isProd then 60 * 10 else 20
         }),
         variant = Variant.default.key.some,
         rated = true.some,

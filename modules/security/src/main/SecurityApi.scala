@@ -4,7 +4,6 @@ import com.softwaremill.tagging.*
 import play.api.data.*
 import play.api.data.Forms.*
 import play.api.data.validation.{ Constraint, Invalid, Valid as FormValid, ValidationError }
-import play.api.Mode
 import play.api.mvc.RequestHeader
 import reactivemongo.api.bson.*
 import ornicar.scalalib.SecureRandom
@@ -28,7 +27,7 @@ final class SecurityApi(
     oAuthServer: OAuthServer,
     ip2proxy: Ip2Proxy,
     proxy2faSetting: lila.memo.SettingStore[lila.common.Strings] @@ Proxy2faSetting
-)(using ec: Executor, mode: Mode):
+)(using ec: Executor, mode: play.api.Mode):
 
   val AccessUri = "access_uri"
 
@@ -102,7 +101,7 @@ final class SecurityApi(
       if result == BlankedPassword then
         lila.common.Bus.publish(c.user, "loginWithBlankedPassword")
         BlankedPassword
-      else if mode == Mode.Prod && result.success && PasswordCheck.isWeak(password, login.value) then
+      else if mode.isProd && result.success && PasswordCheck.isWeak(password, login.value) then
         lila.common.Bus.publish(c.user, "loginWithWeakPassword")
         WeakPassword
       else result
@@ -167,7 +166,7 @@ final class SecurityApi(
     else scoped.copy(me = stripRolesOf(scoped.me))
 
   private def stripRolesOfCookieUser(me: Me) =
-    if mode == Mode.Prod && me.totpSecret.isEmpty then stripRolesOf(me)
+    if mode.isProd && me.totpSecret.isEmpty then stripRolesOf(me)
     else me
 
   private def stripRolesOf(me: Me) =

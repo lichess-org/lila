@@ -16,6 +16,7 @@
   <string name="ongoing">进行中</string>
   <string name="upcoming">即将举行</string>
   <string name="completed">已完成</string>
+  <string name="completedHelp">Lichess基于源游戏检测游戏的完成状态。如果没有源，请使用此选项。</string>
   <string name="roundName">轮次名称</string>
   <string name="roundNumber">轮数</string>
   <string name="tournamentName">锦标赛名称</string>
