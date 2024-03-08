@@ -11,19 +11,21 @@ import scala.xml.XML
 import scala.concurrent.duration.*
 
 object Registry:
-  private val workers = 4
+  private val workers = 1 // TODO add to config
 
-  val all: Map[Lang, Map[MessageKey, Translation]] =
+  val all: Messages =
+    lila.common.Chronometer.syncEffect(loadSerialized): lap =>
+      logger.info(s"Loaded ${lap.result.size} langs in ${lap.showDuration}")
+
+  private def loadSerialized: Messages =
 
     val zipFile = new ZipFile(new java.io.File(getClass.getClassLoader.getResource("I18n.zip").toURI))
 
     val batches = zipFile
       .entries()
       .asScala
-      .toList
-      .filterNot(_.isDirectory)
       .collect:
-        case entry if entry.getSize > 0 => (entry, zipFile.getInputStream(entry))
+        case entry if !entry.isDirectory && entry.getSize > 0 => (entry, zipFile.getInputStream(entry))
       .toMap
       .grouped(workers)
       .map: batch =>
@@ -39,7 +41,7 @@ object Registry:
               }
           }
           .map(_.toMap)
-      .foldLeft(fuccess(Map.empty[Lang, Map[MessageKey, Translation]])) { (acc, batchResult) =>
+      .foldLeft(fuccess(Map.empty[Lang, MessageMap])) { (acc, batchResult) =>
         for
           accMap   <- acc
           batchMap <- batchResult
@@ -49,7 +51,7 @@ object Registry:
       }
       .recover { case e: Throwable =>
         logger.error(s"Failed to process batch", e)
-        Map.empty[Lang, Map[MessageKey, Translation]]
+        Map.empty[Lang, MessageMap]
       }
 
     val result = Await.result(batches, Duration.Inf)
