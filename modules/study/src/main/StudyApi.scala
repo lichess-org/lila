@@ -191,7 +191,7 @@ final class StudyApi(
           ChapterPreview.json.readFirstId(previews) match
             case Some(firstId) =>
               val newStudy = study.rewindTo(firstId)
-              if newStudy != study then fuccess(defaultResult)
+              if newStudy == study then fuccess(defaultResult)
               else
                 logger.info(s"Reset study ${study.id} to chapter $firstId")
                 studyRepo

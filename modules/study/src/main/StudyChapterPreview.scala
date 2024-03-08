@@ -80,7 +80,7 @@ object ChapterPreview:
     def readFirstId(js: AsJsons): Option[StudyChapterId] = for
       arr <- js.asOpt[JsArray]
       obj <- arr.value.headOption
-      id  <- obj.asOpt[StudyChapterId]
+      id  <- obj.get[StudyChapterId]("id")
     yield id
 
     def write(chapters: List[ChapterPreview]): AsJsons = Json.toJson(chapters)
