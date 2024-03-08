@@ -337,7 +337,7 @@ export default function (deps?: typeof studyDeps) {
                 ctrl.redraw();
               });
             }
-            if (!relay) makeChat(ctrl, elm.appendChild);
+            if (!relay) makeChat(ctrl, c => elm.appendChild(c));
             gridHacks.start(elm);
           },
           update(_, _2) {
