@@ -4,6 +4,7 @@ import ornicar.scalalib.ThreadLocalRandom
 import chess.format.UciPath
 
 import lila.user.User
+import lila.common.config.Max
 
 case class Study(
     _id: StudyId,
@@ -85,7 +86,7 @@ case class Study(
 
 object Study:
 
-  val maxChapters = 64
+  val maxChapters = Max(64)
 
   val previewNbMembers  = 4
   val previewNbChapters = 4

@@ -39,7 +39,7 @@ final private class RelaySync(
         chapterRepo
           .countByStudyId(study.id)
           .flatMap:
-            case nb if RelayFetch.maxChapters(rt.tour) <= nb => fuccess(none)
+            case nb if RelayFetch.maxChapters <= nb => fuccess(none)
             case _ =>
               createChapter(study, game).flatMap: chapter =>
                 chapters

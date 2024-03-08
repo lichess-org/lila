@@ -58,7 +58,7 @@ final class RelayPush(sync: RelaySync, api: RelayApi, irc: lila.irc.IrcApi)(usin
 
   private def pgnToGames(rt: RelayRound.WithTour, pgnBody: PgnStr): List[Either[Failure, RelayGame]] =
     MultiPgn
-      .split(pgnBody, Max(lila.study.Study.maxChapters * (if rt.tour.official then 2 else 1)))
+      .split(pgnBody, RelayFetch.maxChapters)
       .value
       .map: pgn =>
         validate(pgn).flatMap: tags =>

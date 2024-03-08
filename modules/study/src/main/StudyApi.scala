@@ -576,7 +576,7 @@ final class StudyApi(
             chapterRepo
               .countByStudyId(study.id)
               .flatMap: count =>
-                if count >= Study.maxChapters then fuccess(Nil)
+                if Study.maxChapters <= count then fuccess(Nil)
                 else
                   for
                     _ <- data.initial.so:
@@ -787,7 +787,7 @@ final class StudyApi(
     }
 
   def chapterIdNames(studyIds: List[StudyId]): Fu[Map[StudyId, Vector[Chapter.IdName]]] =
-    chapterRepo.idNamesByStudyIds(studyIds, Study.maxChapters)
+    chapterRepo.idNamesByStudyIds(studyIds, Study.maxChapters.value)
 
   def withLiked(me: Option[User])(studies: Seq[Study]): Fu[Seq[Study.WithLiked]] =
     me.so: u =>

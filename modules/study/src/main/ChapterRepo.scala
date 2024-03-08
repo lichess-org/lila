@@ -47,7 +47,7 @@ final class ChapterRepo(val coll: AsyncColl)(using Executor, akka.stream.Materia
   def orderedMetadataMin(studyId: StudyId): Fu[List[Chapter.MetadataMin]] =
     coll:
       _.find($studyId(studyId), metadataMinProjection)
-        .sort($sort asc "order")
+        .sort($sort.asc("order"))
         .cursor[Chapter.MetadataMin]()
         .list(300)
 
@@ -201,7 +201,7 @@ final class ChapterRepo(val coll: AsyncColl)(using Executor, akka.stream.Materia
       .map { docs =>
         docs.foldLeft(Map.empty[StudyId, Vector[Chapter.IdName]]) { case (hash, doc) =>
           doc.getAsOpt[StudyId]("studyId").fold(hash) { studyId =>
-            hash get studyId match
+            hash.get(studyId) match
               case Some(chapters) if chapters.sizeIs >= nbChaptersPerStudy => hash
               case maybe =>
                 val chapters = ~maybe
@@ -215,7 +215,7 @@ final class ChapterRepo(val coll: AsyncColl)(using Executor, akka.stream.Materia
       _.find($studyId(studyId), $doc("_id" -> true, "name" -> true).some)
         .sort($sort.asc("order"))
         .cursor[Bdoc]()
-        .list(Study.maxChapters * 2)
+        .list(Study.maxChapters.value)
     .dmap(_.flatMap(readIdName))
 
   private def readIdName(doc: Bdoc) =

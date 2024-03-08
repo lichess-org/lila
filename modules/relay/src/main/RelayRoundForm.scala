@@ -59,7 +59,7 @@ object RelayRoundForm:
 
   private def toGameIds(ids: String): Option[GameIds] =
     val list = ids.split(' ').view.flatMap(i => GameId.from(i.trim)).toList
-    (list.sizeIs > 0 && list.sizeIs <= Study.maxChapters).option(GameIds(list))
+    (list.sizeIs > 0 && list.sizeIs <= RelayFetch.maxChapters.value).option(GameIds(list))
 
   private def validSource(source: String): Boolean =
     cleanUrl(source).isDefined || toGameIds(source).isDefined
