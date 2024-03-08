@@ -31,7 +31,6 @@ final class StudyMultiBoard(
 
   def invalidate(studyId: StudyId): Unit =
     firstPageCache.synchronous().invalidate(studyId)
-    listCache.synchronous().invalidate(studyId)
 
   private val firstPageCache: AsyncLoadingCache[StudyId, Paginator[ChapterPreview]] =
     cacheApi.scaffeine
@@ -40,15 +39,6 @@ final class StudyMultiBoard(
       .buildAsyncFuture[StudyId, Paginator[ChapterPreview]] { fetch(_, 1, playing = false) }
 
   private val playingSelector = $doc("tags" -> "Result:*", "relay.path".$ne(""))
-
-  private val listCache: AsyncLoadingCache[StudyId, JsValue] =
-    cacheApi.scaffeine
-      .expireAfterWrite(10 seconds)
-      .buildAsyncFuture[StudyId, JsValue]: studyId =>
-        fetch(studyId, 1, false, Study.maxChapters.into(MaxPerPage)).map: pager =>
-          Json.toJson(pager.currentPageResults)
-
-  def list(studyId: StudyId): Fu[JsValue] = listCache.get(studyId)
 
   def fetch(
       studyId: StudyId,

@@ -203,7 +203,7 @@ final class Study(
     for
       (study, chapter, chapters) <-
         if sc.study.isRelay
-        then env.study.multiBoard.list(sc.study.id).map((sc.study, sc.chapter, _))
+        then env.study.preview.list(sc.study.id).map((sc.study, sc.chapter, _))
         else
           for
             chapters                <- env.study.chapterRepo.orderedMetadataMin(sc.study.id)

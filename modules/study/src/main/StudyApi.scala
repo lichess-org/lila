@@ -28,7 +28,7 @@ final class StudyApi(
     chatApi: ChatApi,
     timeline: lila.hub.actors.Timeline,
     serverEvalRequester: ServerEval.Requester,
-    multiboard: StudyMultiBoard
+    preview: ChapterPreviewApi
 )(using Executor, akka.stream.Materializer):
 
   import sequencer.*
@@ -822,7 +822,7 @@ final class StudyApi(
 
   def reloadChapters(study: Study) =
     val chapters =
-      if study.isRelay then multiboard.list(study.id)
+      if study.isRelay then preview.list(study.id)
       else chapterRepo.orderedMetadataMin(study.id)
     chapters.foreach: chapters =>
       sendTo(study.id)(_.reloadChapters(chapters))

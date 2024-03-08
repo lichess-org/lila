@@ -8,6 +8,7 @@ import play.api.libs.json.*
 import reactivemongo.api.bson.*
 
 import lila.db.dsl.{ *, given }
+import com.github.blemale.scaffeine.AsyncLoadingCache
 
 case class ChapterPreview(
     id: StudyChapterId,
@@ -22,7 +23,25 @@ case class ChapterPreview(
   def playing = lastMove.isDefined && result.contains(None)
 
 final class ChapterPreviewApi( chapterRepo: ChapterRepo, cacheApi: lila.memo.CacheApi)(using Executor):
-  ???
+
+  import ChapterPreview.bson.{projection, given}
+  import ChapterPreview.json.given
+
+  private val listCache: AsyncLoadingCache[StudyId, JsValue] =
+    cacheApi.scaffeine
+      .expireAfterWrite(3 seconds)
+      .buildAsyncFuture[StudyId, JsValue]: studyId =>
+        chapterRepo.coll:
+          _.find(chapterRepo.$studyId(studyId))
+            .sort(chapterRepo.$sortOrder)
+            .cursor[ChapterPreview]()
+            .listAll()
+            .map(Json.toJson)
+
+  def list(studyId: StudyId): Fu[JsValue] = listCache.get(studyId)
+
+  def invalidate(studyId: StudyId): Unit =
+    listCache.synchronous().invalidate(studyId)
 
 object ChapterPreview:
 

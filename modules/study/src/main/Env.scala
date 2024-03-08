@@ -74,6 +74,8 @@ final class Env(
 
   lazy val multiBoard = wire[StudyMultiBoard]
 
+  lazy val preview = wire[ChapterPreviewApi]
+
   lazy val pgnDump = wire[PgnDump]
 
   lazy val gifExport = GifExport(ws, appConfig.get[String]("game.gifUrl"))
