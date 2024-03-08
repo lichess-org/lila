@@ -255,7 +255,6 @@ lishogi.StrongSocket = function (url, version, settings) {
   };
 
   connect();
-  window.addEventListener('unload', destroy);
 
   return {
     disconnect: disconnect,
