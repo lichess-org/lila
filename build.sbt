@@ -86,7 +86,7 @@ lazy val i18n = module("i18n",
   tests.bundle ++ Seq(scalatags)
 ).settings(
   Compile / resourceGenerators += Def.task {
-    val outputFile = (Compile / resourceManaged).value / "I18n.zip"
+    val outputFile = (Compile / resourceManaged).value / "I18n.ser"
     I18n.serialize(
       sourceDir = new File("translation/source"),
       destDir = new File("translation/dest"),
