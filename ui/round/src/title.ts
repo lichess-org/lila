@@ -1,5 +1,5 @@
 import { isPlayerTurn } from 'game';
-import { aborted, finished } from 'game/status';
+import { aborted, finished, paused } from 'game/status';
 import RoundController from './ctrl';
 
 const initialTitle = document.title;
@@ -40,6 +40,8 @@ export function set(ctrl: RoundController, text?: string) {
   if (!text) {
     if (aborted(ctrl.data) || finished(ctrl.data)) {
       text = ctrl.trans('gameOver');
+    } else if (paused(ctrl.data)) {
+      text = ctrl.trans('gameAdjourned');
     } else if (isPlayerTurn(ctrl.data)) {
       text = ctrl.trans('yourTurn');
       if (!document.hasFocus()) startTicker();
