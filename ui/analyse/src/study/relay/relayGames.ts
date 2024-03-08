@@ -52,7 +52,7 @@ export const gamesList = (study: StudyCtrl, relay: RelayCtrl) => {
               ]),
               h(
                 'span.relay-game__players',
-                [players.white, players.black].map((p, i) => {
+                [players.black, players.white].map((p, i) => {
                   const s = status[i];
                   return h('span.relay-game__player', [
                     h('player', [userTitle(p), p.name]),
@@ -68,9 +68,10 @@ export const gamesList = (study: StudyCtrl, relay: RelayCtrl) => {
 
 const renderClocks = (chapter: ChapterPreview) => {
   const turnColor = fenColor(chapter.fen);
-  return ['white', 'black'].map((color: Color) => {
+  return ['black', 'white'].map((color: Color) => {
     const timeleft = computeTimeLeft(chapter, color);
     const ticking = turnColor == color && clockIsRunning(chapter.fen, color);
+    console.log(color, timeleft, ticking);
     return defined(timeleft) ? renderClock(timeleft, ticking) : '*';
   });
 };
