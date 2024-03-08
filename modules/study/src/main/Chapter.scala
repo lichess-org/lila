@@ -31,7 +31,14 @@ case class Chapter(
 
   def updateDenorm: Chapter =
     val node = relay.map(_.path).flatMap(root.nodeAt) | root.lastMainlineNode
-    copy(denorm = Chapter.LastPosDenorm(node.fen, node.moveOption.map(_.uci), clocks = none).some)
+    val clocks = relay.map: r =>
+      val path        = r.path
+      val parentPath  = path.parent.some.filter(_ != path)
+      val parentNode  = parentPath.flatMap(root.nodeAt)
+      val clocks      = ByColor(node.clock, parentNode.flatMap(_.clock).orElse(node.clock))
+      val colorClocks = if node.color.black then clocks else clocks.swap
+      colorClocks.toPair
+    copy(denorm = Chapter.LastPosDenorm(node.fen, node.moveOption.map(_.uci), clocks = clocks).some)
 
   def updateRoot(f: Root => Option[Root]) =
     f(root).map: newRoot =>

@@ -49,7 +49,10 @@ final class ChapterPreviewApi(chapterRepo: ChapterRepo, cacheApi: lila.memo.Cach
 
   private def listAll(studyId: StudyId): Fu[List[ChapterPreview]] =
     chapterRepo.coll:
-      _.find(chapterRepo.$studyId(studyId)).sort(chapterRepo.$sortOrder).cursor[ChapterPreview]().listAll()
+      _.find(chapterRepo.$studyId(studyId), projection.some)
+        .sort(chapterRepo.$sortOrder)
+        .cursor[ChapterPreview]()
+        .listAll()
 
   def invalidate(studyId: StudyId): Unit =
     jsonList.cache.synchronous().invalidate(studyId)
@@ -115,7 +118,7 @@ object ChapterPreview:
     val projection = $doc(
       "name"        -> true,
       "denorm"      -> true,
-      "tags"        -> $doc("$elemMatch" -> $doc("$regex" -> "^Result:")),
+      "tags"        -> true,
       "lastMoveAt"  -> "$relay.lastMoveAt",
       "orientation" -> "$setup.orientation"
     )
@@ -125,19 +128,16 @@ object ChapterPreview:
         id   <- doc.getAsOpt[StudyChapterId]("_id")
         name <- doc.getAsOpt[StudyChapterName]("name")
         lastMoveAt  = doc.getAsOpt[Instant]("lastMoveAt")
-        denorm      = doc.child("denorm")
-        fen         = denorm.flatMap(_.getAsOpt[Fen.Epd]("fen"))
-        lastMove    = denorm.flatMap(_.getAsOpt[Uci]("uci"))
+        lastPos     = doc.getAsOpt[Chapter.LastPosDenorm]("denorm")
         tags        = doc.getAsOpt[Tags]("tags")
         orientation = doc.getAsOpt[Color]("orientation") | Color.White
-        clocks      = ByColor[Option[Centis]](_ => none)
       yield ChapterPreview(
         id = id,
         name = name,
-        players = tags.flatMap(ChapterPreview.players(clocks)),
+        players = tags.flatMap(ChapterPreview.players(lastPos.so(_.clocksByColor))),
         orientation = orientation,
-        fen = fen | Fen.initial,
-        lastMove = lastMove,
+        fen = lastPos.fold(Fen.initial)(_.fen),
+        lastMove = lastPos.flatMap(_.uci),
         lastMoveAt = lastMoveAt,
         result = tags.flatMap(_(_.Result)).map(Outcome.fromResult)
       )
