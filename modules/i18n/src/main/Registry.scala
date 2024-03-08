@@ -11,11 +11,11 @@ object Registry:
     logger.info(s"Loaded ${lap.result.size} langs in ${lap.showDuration}")
 
   private def loadSerialized: Map[Lang, MessageMap] =
-    val istream = new ObjectInputStream(getClass.getClassLoader.getResourceAsStream("I18n.ser"))
-    val javaMap = istream.readObject().asInstanceOf[JMap[String, JMap[String, Object]]].asScala
+    val istream      = new ObjectInputStream(getClass.getClassLoader.getResourceAsStream("I18n.ser"))
+    val unserialized = istream.readObject().asInstanceOf[JMap[String, JMap[String, Object]]].asScala.toMap
     istream.close()
 
-    javaMap.toMap.map:
+    unserialized.map:
       case (langCode, messageMap) =>
         Lang(langCode) -> messageMap.asScala
           .map:
@@ -42,18 +42,31 @@ object Registry:
   val langs: Set[Lang] = all.keySet
 
   private def singleOrEscaped(s: String) =
-    val sb = new java.lang.StringBuilder(s.length + 10) // wet finger style
-    var i     = 0 // i'm not sure what wet finger style is and i do not want to know
+    val sb = new java.lang.StringBuilder(s.length + 10)
+
     var dirty = false
+    var i     = 0
     while i < s.length do
       s.charAt(i) match
-        case '<'  => sb.append("&lt;"); dirty = true
-        case '>'  => sb.append("&gt;"); dirty = true
-        case '&'  => sb.append("&amp;"); dirty = true
-        case '"'  => sb.append("&quot;"); dirty = true
-        case '\'' => sb.append("&#39;"); dirty = true
+        case '<' =>
+          sb.append("&lt;")
+          dirty = true
+        case '>' =>
+          sb.append("&gt;")
+          dirty = true
+        case '&' =>
+          sb.append("&amp;")
+          dirty = true
+        case '"' =>
+          sb.append("&quot;")
+          dirty = true
+        case '\'' =>
+          sb.append("&#39;")
+          dirty = true
+        case '\n' =>
+          sb.append("<br>")
+          dirty = true
         case '\r' => dirty = true
-        case '\n' => sb.append("<br>"); dirty = true
         case c    => sb.append(c)
       i += 1
     if dirty then Escaped(s, sb.toString.replace("\\&quot;", "&quot;"))

@@ -51,7 +51,7 @@ object I18n {
                 plurals.put(i.\("@quantity").toString, unescapeQuotes(i.text))
               }
               result.put(key, plurals)
-            case _ => // how does one log something in a resource generator?
+            case _ =>
           }
         }
       }
