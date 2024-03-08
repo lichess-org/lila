@@ -32,6 +32,9 @@ final class PuzzleApi(
     def existsBySfen(sfen: Sfen): Fu[Boolean] =
       colls.puzzle(_.exists($doc(F.sfen -> sfen.value)))
 
+    def fromGame(gameId: lila.game.Game.ID): Fu[List[Puzzle]] =
+      colls.puzzle(_.list[Puzzle]($doc(F.gameId -> gameId), 5))
+
     def delete(id: Puzzle.Id): Funit =
       colls.puzzle(_.delete.one($id(id.value))).void
 
@@ -213,7 +216,15 @@ final class PuzzleApi(
         validLine     <- fuccess(line.toNel) orFail "No moveline"
         alreadyExists <- puzzle.existsBySfen(validSfen)
         _             <- alreadyExists ?? fufail[Unit]("Puzzle with the same position already present")
-        id            <- makeId
+        similarExists <- source.fold(
+          _ => fuccess(false),
+          gameId =>
+            puzzle
+              .fromGame(gameId)
+              .map(_.exists(p => Math.abs(~p.sfen.moveNumber - ~validSfen.moveNumber) >= 10))
+        )
+        _  <- similarExists ?? fufail[Unit](s"Similar puzzle exists (~${source.map(_.toString)})")
+        id <- makeId
       } yield Puzzle(
         id = id,
         sfen = validSfen,
