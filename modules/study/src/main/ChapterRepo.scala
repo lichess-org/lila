@@ -16,6 +16,9 @@ final class ChapterRepo(val coll: AsyncColl)(using Executor, akka.stream.Materia
 
   import BSONHandlers.{ writeBranch, given }
 
+  val $sortOrder     = $sort.asc("order")
+  val $sortOrderDesc = $sort.desc("order")
+
   def byId(id: StudyChapterId): Fu[Option[Chapter]] = coll(_.byId[Chapter](id))
 
   def studyIdOf(chapterId: StudyChapterId): Fu[Option[StudyId]] =
@@ -30,10 +33,10 @@ final class ChapterRepo(val coll: AsyncColl)(using Executor, akka.stream.Materia
     coll(_.one($id(id) ++ $studyId(studyId)))
 
   def firstByStudy(studyId: StudyId): Fu[Option[Chapter]] =
-    coll(_.find($studyId(studyId)).sort($sort.asc("order")).one[Chapter])
+    coll(_.find($studyId(studyId)).sort($sortOrder).one[Chapter])
 
   private[study] def lastByStudy(studyId: StudyId): Fu[Option[Chapter]] =
-    coll(_.find($studyId(studyId)).sort($sort.desc("order")).one[Chapter])
+    coll(_.find($studyId(studyId)).sort($sortOrderDesc).one[Chapter])
 
   def existsByStudy(studyId: StudyId): Fu[Boolean] =
     coll(_.exists($studyId(studyId)))
@@ -47,7 +50,7 @@ final class ChapterRepo(val coll: AsyncColl)(using Executor, akka.stream.Materia
   def orderedMetadataMin(studyId: StudyId): Fu[List[Chapter.MetadataMin]] =
     coll:
       _.find($studyId(studyId), metadataMinProjection)
-        .sort($sort.asc("order"))
+        .sort($sortOrder)
         .cursor[Chapter.MetadataMin]()
         .list(300)
 
@@ -55,7 +58,7 @@ final class ChapterRepo(val coll: AsyncColl)(using Executor, akka.stream.Materia
     Source.futureSource:
       coll.map:
         _.find($studyId(studyId))
-          .sort($sort.asc("order"))
+          .sort($sortOrder)
           .cursor[Chapter]()
           .documentSource()
 
@@ -70,7 +73,7 @@ final class ChapterRepo(val coll: AsyncColl)(using Executor, akka.stream.Materia
   def orderedByStudyLoadingAllInMemory(studyId: StudyId): Fu[List[Chapter]] =
     coll:
       _.find($studyId(studyId))
-        .sort($sort.asc("order"))
+        .sort($sortOrder)
         .cursor[Chapter]()
         .list(300)
 
@@ -198,7 +201,7 @@ final class ChapterRepo(val coll: AsyncColl)(using Executor, akka.stream.Materia
         $doc("studyId".$in(studyIds)),
         $doc("studyId" -> true, "_id" -> true, "name" -> true).some
       )
-        .sort($sort.asc("order"))
+        .sort($sortOrder)
         .cursor[Bdoc]()
         .list(nbChaptersPerStudy * studyIds.size)
     }
@@ -217,7 +220,7 @@ final class ChapterRepo(val coll: AsyncColl)(using Executor, akka.stream.Materia
   def idNames(studyId: StudyId): Fu[List[Chapter.IdName]] =
     coll:
       _.find($studyId(studyId), $doc("_id" -> true, "name" -> true).some)
-        .sort($sort.asc("order"))
+        .sort($sortOrder)
         .cursor[Bdoc]()
         .list(Study.maxChapters.value)
     .dmap(_.flatMap(readIdName))

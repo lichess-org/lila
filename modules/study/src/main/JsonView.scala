@@ -212,8 +212,8 @@ object JsonView:
       .obj("id" -> c.id, "name" -> c.name)
       .add("status" -> c.statusStr)
   given OWrites[Chapter.Metadata] = OWrites:
-    case c: Chapter.MetadataMin            => metadataMinWrites.writes(c)
-    case c: StudyMultiBoard.ChapterPreview => StudyMultiBoard.chapterPreviewWrites.writes(c)
+    case c: Chapter.MetadataMin => metadataMinWrites.writes(c)
+    case c: ChapterPreview      => ChapterPreview.json.chapterPreviewWrites.writes(c)
 
   private[study] given Writes[Position.Ref] = Json.writes
   private[study] given Writes[Study.Liking] = Json.writes
