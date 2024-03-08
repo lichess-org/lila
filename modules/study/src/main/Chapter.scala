@@ -1,7 +1,7 @@
 package lila.study
 
 import chess.format.pgn.{ Glyph, Tags }
-import chess.format.UciPath
+import chess.format.{ UciPath, Uci, Fen }
 import chess.opening.{ Opening, OpeningDb }
 import chess.variant.Variant
 import chess.{ Ply, Centis, Color, Outcome, ByColor }
@@ -26,8 +26,13 @@ case class Chapter(
     description: Option[String] = None,
     relay: Option[Chapter.Relay] = None,
     serverEval: Option[Chapter.ServerEval] = None,
+    denorm: Option[Chapter.LastPosDenorm] = None,
     createdAt: Instant
 ) extends Chapter.Like:
+
+  def updateDenorm: Chapter =
+    val node = relay.map(_.path).flatMap(root.nodeAt) | root.lastMainlineNode
+    copy(denorm = Chapter.LastPosDenorm(node.fen, node.moveOption.map(_.uci), clocks = none).some)
 
   def updateRoot(f: Root => Option[Root]) =
     f(root).map: newRoot =>
@@ -37,7 +42,7 @@ case class Chapter(
     updateRoot:
       _.withChildren(_.addNodeAt(node, path))
     .map:
-      _.copy(relay = newRelay.orElse(relay))
+      _.copy(relay = newRelay.orElse(relay)).updateDenorm
 
   def setShapes(shapes: Shapes, path: UciPath): Option[Chapter] =
     updateRoot(_.setShapesAt(shapes, path))
@@ -131,7 +136,9 @@ object Chapter:
             tags.clockConfig.fold(40)(_.limitInMinutes.toInt / 2 atLeast 15 atMost 60)
     def looksOver = !looksAlive
 
-  type TeamName = String
+  /* Last position of the main line.
+   * Used for chapter previews. */
+  case class LastPosDenorm(fen: Fen.Epd, uci: Option[Uci], clocks: Option[PairOf[Option[Centis]]])
 
   trait Metadata extends Like:
     val id: StudyChapterId

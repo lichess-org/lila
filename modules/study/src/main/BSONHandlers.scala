@@ -317,13 +317,20 @@ object BSONHandlers:
   )
   given (using handler: BSONHandler[List[Tag]]): BSONHandler[Tags] = handler.as[Tags](Tags.apply, _.value)
   private given BSONDocumentHandler[Chapter.Setup]                 = Macros.handler
-  given BSONHandler[Option[FideId]] = quickHandler(
-    { case BSONInteger(v) => (v > 0).option(FideId(v)) },
-    id => BSONInteger(id.so(_.value))
-  )
-  given BSONDocumentHandler[Chapter.Relay]      = Macros.handler
+  given BSONDocumentHandler[Chapter.Relay] =
+    given BSONHandler[Option[FideId]] = quickHandler(
+      { case BSONInteger(v) => (v > 0).option(FideId(v)) },
+      id => BSONInteger(id.so(_.value))
+    )
+    Macros.handler
   given BSONDocumentHandler[Chapter.ServerEval] = Macros.handler
-  given BSONDocumentHandler[Chapter]            = Macros.handler
+  given BSONDocumentHandler[Chapter.LastPosDenorm] =
+    given BSONHandler[Option[Centis]] = quickHandler(
+      { case BSONInteger(v) => Centis(v).some },
+      c => c.fold(BSONNull)(c => BSONInteger(c.value))
+    )
+    Macros.handler
+  given BSONDocumentHandler[Chapter] = Macros.handler
 
   given BSONDocumentReader[Chapter.RelayAndTags] with
     def readDocument(doc: Bdoc) = for

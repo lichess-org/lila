@@ -10,6 +10,8 @@ import lila.common.{ EmailAddress, IpAddress, Iso, NormalizedEmailAddress }
 
 trait Handlers:
 
+  def toBdoc[A](a: A)(using writer: BSONDocumentWriter[A]): Option[BSONDocument] = writer.writeOpt(a)
+
   // free handlers for all types with TotalWrapper
   // unless they are given an instance of lila.db.NoDbHandler[T]
   given opaqueHandler[T, A](using

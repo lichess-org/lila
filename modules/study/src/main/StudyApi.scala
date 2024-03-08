@@ -251,8 +251,7 @@ final class StudyApi(
             parent.children.get(singleNode.id).so { node =>
               val newPosition = position.ref + node
               for
-                _ <- chapterRepo.addSubTree(node, parent, position.path)(chapter)
-                _ <- relay.so { chapterRepo.setRelay(chapter.id, _) }
+                _ <- chapterRepo.addSubTree(chapter, node, position.path, relay)
                 _ <-
                   if opts.sticky
                   then studyRepo.setPosition(study.id, newPosition)
@@ -267,7 +266,7 @@ final class StudyApi(
           }
 
   private def updateConceal(study: Study, chapter: Chapter, position: Position.Ref) =
-    chapter.conceal.so { conceal =>
+    chapter.conceal.so: conceal =>
       chapter.root.lastMainlinePlyOf(position.path).some.filter(_ > conceal).so { newConceal =>
         if newConceal >= chapter.root.lastMainlinePly then
           chapterRepo.removeConceal(chapter.id).andDo(sendTo(study.id)(_.setConceal(position, none)))
@@ -276,7 +275,6 @@ final class StudyApi(
             .setConceal(chapter.id, newConceal)
             .andDo(sendTo(study.id)(_.setConceal(position, newConceal.some)))
       }
-    }
 
   def deleteNodeAt(studyId: StudyId, position: Position.Ref)(who: Who) =
     sequenceStudyWithChapter(studyId, position.chapterId):
@@ -580,9 +578,10 @@ final class StudyApi(
                 else
                   for
                     _ <- data.initial.so:
-                      chapterRepo.firstByStudy(study.id).flatMap {
-                        _.filter(_.isEmptyInitial).so(chapterRepo.delete)
-                      }
+                      chapterRepo
+                        .firstByStudy(study.id)
+                        .flatMap:
+                          _.filter(_.isEmptyInitial).so(chapterRepo.delete)
                     order   <- chapterRepo.nextOrderByStudy(study.id)
                     chapter <- chapterMaker(study, data, order, who.u, withRatings)
                     _       <- doAddChapter(study, chapter, sticky, who)
@@ -606,14 +605,14 @@ final class StudyApi(
       addChapter(studyId, _, sticky, withRatings)(who)
     .map(_.flatten)
 
-  def doAddChapter(study: Study, chapter: Chapter, sticky: Boolean, who: Who): Funit =
-    (chapterRepo.insert(chapter) >> {
-      val newStudy = study.withChapter(chapter)
-      (sticky
-        .so(studyRepo.updateSomeFields(newStudy)))
-        .andDo(sendTo(study.id)(_.addChapter(newStudy.position, sticky, who)))
-    } >>
-      studyRepo.updateNow(study)).andDo(indexStudy(study))
+  def doAddChapter(study: Study, chapter: Chapter, sticky: Boolean, who: Who): Funit = for
+    _ <- chapterRepo.insert(chapter)
+    newStudy = study.withChapter(chapter)
+    _ <- sticky.so(studyRepo.updateSomeFields(newStudy))
+    _ <- studyRepo.updateNow(study)
+  yield
+    sendTo(study.id)(_.addChapter(newStudy.position, sticky, who))
+    indexStudy(study)
 
   def setChapter(studyId: StudyId, chapterId: StudyChapterId)(who: Who) =
     sequenceStudy(studyId): study =>

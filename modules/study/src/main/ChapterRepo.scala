@@ -100,9 +100,6 @@ final class ChapterRepo(val coll: AsyncColl)(using Executor, akka.stream.Materia
   def removeConceal(chapterId: StudyChapterId) =
     coll(_.unsetField($id(chapterId), "conceal")).void
 
-  def setRelay(chapterId: StudyChapterId, relay: Chapter.Relay) =
-    coll(_.updateField($id(chapterId), "relay", relay)).void
-
   def setRelayPath(chapterId: StudyChapterId, path: UciPath) =
     coll(_.updateField($id(chapterId), "relay.path", path)).void
 
@@ -125,18 +122,25 @@ final class ChapterRepo(val coll: AsyncColl)(using Executor, akka.stream.Materia
   def forceVariation(force: Boolean) = setNodeValue(F.forceVariation, force.option(true))
 
   // insert node and its children
-  // and sets the parent order field
-  def addSubTree(subTree: Branch, newParent: lila.tree.Node, parentPath: UciPath)(chapter: Chapter): Funit =
-    val set = $doc(subTreeToBsonElements(parentPath, subTree))
+  // and updates chapter denormalization
+  private[study] def addSubTree(
+      chapter: Chapter,
+      subTree: Branch,
+      parentPath: UciPath,
+      relay: Option[Chapter.Relay]
+  ): Funit =
+    val set = $doc(subTreeToBsonElements(parentPath, subTree)) ++
+      $doc("denorm" -> chapter.denorm) ++
+      relay.flatMap(toBdoc).so(r => $doc("relay" -> r))
     coll(_.update.one($id(chapter.id), $set(set))).void
 
   private def subTreeToBsonElements(parentPath: UciPath, subTree: Branch): List[(String, Bdoc)] =
-    (parentPath.depth < Node.MAX_PLIES).so {
+    (parentPath.depth < Node.MAX_PLIES).so:
       val path = parentPath + subTree.id
-      subTree.children.nodes.flatMap(subTreeToBsonElements(path, _)).appended {
-        path.toDbField -> writeBranch(subTree)
-      }
-    }
+      subTree.children.nodes
+        .flatMap(subTreeToBsonElements(path, _))
+        .appended:
+          path.toDbField -> writeBranch(subTree)
 
   // overrides all children sub-nodes in DB! Make the tree merge beforehand.
   def setChildren(children: Branches)(chapter: Chapter, path: UciPath): Funit =
