@@ -163,7 +163,7 @@ export default class StudyCtrl {
         (id: ChapterId) => this.setChapter(id),
       );
     this.multiBoard = new MultiBoardCtrl(
-      this.data.id,
+      this.chapters,
       this.redraw,
       this.ctrl.trans,
       this.ctrl.socket.send,
@@ -595,9 +595,8 @@ export default class StudyCtrl {
         who = d.w,
         sticky = d.s;
       this.setMemberActive(who);
-      if (this.vm.toolTab() == 'multiBoard') this.multiBoard.addNode(d.p, d.n);
       if (this.data.chapter.id == d.p.chapterId) this.relay?.applyChapterRelay(this.data.chapter, d.relay);
-      this.relay?.addNodeToChapterPreview(d);
+      this.chapters.addNode(d);
       if (sticky && !this.vm.mode.sticky) this.vm.behind++;
       if (this.wrongChapter(d)) {
         if (sticky && !this.vm.mode.sticky) this.redraw();
@@ -692,7 +691,6 @@ export default class StudyCtrl {
     },
     chapters: d => {
       this.chapters.list(d);
-      if (this.vm.toolTab() == 'multiBoard' || this.relay?.tourShow()) this.multiBoard.addResult(d);
       if (!this.currentChapter()) {
         this.vm.chapterId = d[0].id;
         if (!this.vm.mode.sticky) this.xhrReload();

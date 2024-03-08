@@ -72,7 +72,6 @@ final class RelayListing(
           .filterNot(_.display.finished)
           .filter: tr =>
             tr.display.hasStarted || tr.display.startsAt.exists(_.isBefore(nowInstant.plusMinutes(30)))
-          .take(2)
         active
 
   val upcoming = cacheApi.unit[List[RelayTour.WithLastRound]]:

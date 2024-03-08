@@ -1,12 +1,5 @@
 import { RelayData, LogEvent, RelaySync, RelayRound, RoundId } from './interfaces';
-import {
-  ChapterId,
-  ChapterPreview,
-  ServerClockMsg,
-  ServerNodeMsg,
-  StudyChapter,
-  StudyChapterRelay,
-} from '../interfaces';
+import { ChapterId, ChapterPreview, ServerClockMsg, StudyChapter, StudyChapterRelay } from '../interfaces';
 import { StudyMemberCtrl } from '../studyMembers';
 import { AnalyseSocketSend } from '../../socket';
 import { Prop, Toggle, prop, toggle } from 'common';
@@ -76,23 +69,6 @@ export default class RelayCtrl {
     }
   };
   private findChapterPreview = (id: ChapterId) => this.chapters().find(cp => cp.id == id);
-  addNodeToChapterPreview = (msg: ServerNodeMsg) => {
-    const cp = this.findChapterPreview(msg.p.chapterId),
-      node = msg.n;
-    if (!cp) console.warn(`ChapterPreview not found for addNode ${msg}`);
-    else {
-      cp.fen = node.fen;
-      cp.lastMove = node.uci;
-      const playerWhoMoved = cp.players && cp.players[opposite(fenColor(cp.fen))];
-      playerWhoMoved && (playerWhoMoved.clock = node.clock);
-      // at this point `(cp: ChapterPreview).lastMoveAt` becomes outdated but should be ok since not in use anymore
-      // to mitigate bad usage, setting it as `undefined`
-      cp.lastMoveAt = undefined;
-      // TODO ugh? request all? what about broadcasts with 128 boards?
-      // this.multiCloudEval.sendRequest();
-      this.redraw();
-    }
-  };
   setClockToChapterPreview = (msg: ServerClockMsg) => {
     const cp = this.findChapterPreview(msg.p.chapterId);
     if (cp && cp.players) cp.players[opposite(fenColor(cp.fen))].clock = msg.c;

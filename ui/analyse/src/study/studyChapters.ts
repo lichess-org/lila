@@ -6,8 +6,17 @@ import AnalyseCtrl from '../ctrl';
 import { StudySocketSend } from '../socket';
 import { StudyChapterEditForm } from './chapterEditForm';
 import { StudyChapterNewForm } from './chapterNewForm';
-import { LocalPaths, StudyChapter, StudyChapterConfig, ChapterPreview, TagArray } from './interfaces';
+import {
+  LocalPaths,
+  StudyChapter,
+  StudyChapterConfig,
+  ChapterPreview,
+  TagArray,
+  ServerNodeMsg,
+} from './interfaces';
 import StudyCtrl from './studyCtrl';
+import { opposite } from 'chessops/util';
+import { fenColor } from 'common/miniBoard';
 
 export default class StudyChaptersCtrl {
   newForm: StudyChapterNewForm;
@@ -37,6 +46,24 @@ export default class StudyChaptersCtrl {
   looksNew = () => {
     const cs = this.list();
     return cs.length == 1 && cs[0].name == 'Chapter 1';
+  };
+  addNode = (d: ServerNodeMsg) => {
+    const pos = d.p,
+      node = d.n;
+    const cp = this.get(pos.chapterId);
+    if (cp) {
+      cp.fen = node.fen;
+      cp.lastMove = node.uci;
+      if (cp.playing) {
+        const playerWhoMoved = cp.players && cp.players[opposite(fenColor(cp.fen))];
+        playerWhoMoved && (playerWhoMoved.clock = node.clock);
+        // at this point `(cp: ChapterPreview).lastMoveAt` becomes outdated but should be ok since not in use anymore
+        // to mitigate bad usage, setting it as `undefined`
+        cp.lastMoveAt = undefined;
+        // this.multiCloudEval.sendRequest();
+        // this.redraw();
+      }
+    }
   };
 }
 

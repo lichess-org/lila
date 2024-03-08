@@ -1,13 +1,11 @@
 import { looseH as h } from 'common/snabbdom';
-import { clockIsRunning, formatMs } from 'common/clock';
-import { ChapterPreview } from '../interfaces';
 import { StudyCtrl } from '../studyDeps';
 import RelayCtrl from './relayCtrl';
 import { gameLinkProps, gameLinksListener } from './relayTourView';
 import { userTitle } from 'common/userLink';
-import { computeTimeLeft } from '../multiBoard';
-import { fenColor } from 'common/miniBoard';
-import { defined, scrollToInnerSelector } from 'common';
+import { scrollToInnerSelector } from 'common';
+import { renderClock } from '../multiBoard';
+import { ChapterPreview } from '../interfaces';
 
 export const gamesList = (study: StudyCtrl, relay: RelayCtrl) => {
   const chapters = study.chapters.list();
@@ -67,14 +65,5 @@ export const gamesList = (study: StudyCtrl, relay: RelayCtrl) => {
 };
 
 const renderClocks = (chapter: ChapterPreview) => {
-  const turnColor = fenColor(chapter.fen);
-  return ['black', 'white'].map((color: Color) => {
-    const timeleft = computeTimeLeft(chapter, color);
-    const ticking = turnColor == color && clockIsRunning(chapter.fen, color);
-    console.log(color, timeleft, ticking);
-    return defined(timeleft) ? renderClock(timeleft, ticking) : '*';
-  });
+  return ['black', 'white'].map((color: Color) => renderClock(chapter, color));
 };
-
-export const renderClock = (time: number, ticking: boolean) =>
-  h('span.mini-game__clock.mini-game__clock', { class: { 'clock--run': ticking } }, formatMs(time * 1000));
