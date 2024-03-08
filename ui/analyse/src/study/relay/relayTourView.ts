@@ -156,8 +156,8 @@ export const gameLinksListener = (setChapter: (id: ChapterId) => void) => (vnode
     e => {
       e.preventDefault();
       let target = e.target as HTMLElement;
-      while (target.tagName !== 'A') target = target.parentNode as HTMLElement;
-      const id = target.dataset['id'];
+      while (target && target.tagName !== 'A') target = target.parentNode as HTMLElement;
+      const id = target?.dataset['id'];
       if (id) setChapter(id);
     },
     { passive: false },
