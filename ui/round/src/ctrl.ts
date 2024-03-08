@@ -771,7 +771,7 @@ export default class RoundController {
       this.data.game.variant.key === 'chushogi' &&
       !!this.data.opponent.user &&
       !!document.body.dataset.user &&
-      (this.data.clock?.initial || 0) > 60 * 15
+      ((this.data.clock?.initial || 0) >= 60 * 15 || (this.data.clock?.byoyomi || 0) >= 30)
     );
   };
 

@@ -383,7 +383,9 @@ case class Game(
       started && playable && nonAi &&
       plies >= 20 && players.forall(_.hasUser) &&
       !player(color).isOfferingPause &&
-      clock.exists(_.config.limitSeconds >= 60 * 15) // only real time - for now
+      clock.exists(c =>
+        c.config.limitSeconds >= 60 * 15 || c.config.byoyomiSeconds >= 30
+      ) // only real time - for now
 
   def playerCouldRematch =
     finishedOrAborted &&
