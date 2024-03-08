@@ -85,8 +85,8 @@ final class SecurityForm(
       "policy"     -> agreementBool
     )(AgreementData.apply)(unapply)
 
-    def website(using RequestHeader) = hcaptcha.form(
-      Form(
+    def website(using RequestHeader) = hcaptcha.form:
+      Form:
         mapping(
           "username"  -> username,
           "password"  -> newPasswordField,
@@ -95,25 +95,20 @@ final class SecurityForm(
           "fp"        -> optional(nonEmptyText)
         )(SignupData.apply)(_ => None)
           .verifying(PasswordCheck.errorSame, x => mode.notProd || x.password != x.username.value)
-      )
-    )
 
-    val mobile = Form(
+    val mobile = Form:
       mapping(
         "username" -> username,
         "password" -> newPasswordField,
         "email"    -> emailField
       )(MobileSignupData.apply)(_ => None)
         .verifying(PasswordCheck.errorSame, x => mode.notProd || x.password != x.username.value)
-    )
 
-  def passwordReset(using RequestHeader) = hcaptcha.form(
-    Form(
+  def passwordReset(using RequestHeader) = hcaptcha.form:
+    Form:
       mapping(
         "email" -> sendableEmail // allow unacceptable emails for BC
       )(PasswordReset.apply)(_ => None)
-    )
-  )
 
   case class PasswordResetConfirm(newPasswd1: String, newPasswd2: String):
     def samePasswords = newPasswd1 == newPasswd2

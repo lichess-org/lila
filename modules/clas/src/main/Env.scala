@@ -18,6 +18,7 @@ final class Env(
     securityForms: lila.security.SecurityForm,
     authenticator: lila.user.Authenticator,
     cacheApi: lila.memo.CacheApi,
+    hcaptcha: lila.security.Hcaptcha,
     baseUrl: BaseUrl
 )(using Executor, Scheduler, akka.stream.Materializer, play.api.Mode):
 

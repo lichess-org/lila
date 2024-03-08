@@ -5,18 +5,22 @@ import controllers.clas.routes
 import lila.app.templating.Environment.{ given, * }
 import lila.app.ui.ScalatagsTemplate.{ *, given }
 import lila.clas.{ Clas, Student }
+import lila.app.ContentSecurityPolicy
 
 object bits:
 
   def layout(
       title: String,
       active: Either[Clas.WithStudents, String],
-      student: Option[Student] = none
+      student: Option[Student] = none,
+      moreJs: Option[Frag] = none,
+      csp: Option[ContentSecurityPolicy] = none
   )(body: Modifier*)(using PageContext) =
     views.html.base.layout(
       title = title,
       moreCss = cssTag("clas"),
-      moreJs = jsModule("clas")
+      moreJs = frag(jsModule("clas"), moreJs),
+      csp = csp
     )(
       if isGranted(_.Teacher) then
         main(cls := "page-menu")(
