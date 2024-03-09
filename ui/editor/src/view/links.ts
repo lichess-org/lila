@@ -46,7 +46,7 @@ function continueWith(ctrl: EditorCtrl, state: EditorState): VNode {
           {
             class: {
               button: true,
-              disabled: ['chushogi', 'annansogi'].includes(ctrl.rules),
+              disabled: ['chushogi', 'annanshogi'].includes(ctrl.rules),
             },
             attrs: {
               href: setup('/', ctrl.rules, state.legalSfen || '', 'ai'),
