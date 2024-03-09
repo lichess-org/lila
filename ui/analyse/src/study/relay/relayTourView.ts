@@ -37,7 +37,7 @@ export const tourSide = (ctrl: AnalyseCtrl, study: StudyCtrl, relay: RelayCtrl) 
     h(
       'a.relay-tour__side__name',
       { hook: bind('click', relay.tourShow.toggle, relay.redraw) },
-      relay.data.tour.name,
+      study.data.name,
     ),
     gamesList(study, relay),
     h('div.chat__members', {
