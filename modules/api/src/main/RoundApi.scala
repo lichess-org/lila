@@ -177,9 +177,7 @@ final private[api] class RoundApi(
       analysis: Option[Analysis],
       initialFen: Option[Fen.Epd],
       withFlags: WithFlags
-  )(
-      obj: JsObject
-  ) =
+  )(obj: JsObject) =
     obj + ("treeParts" -> partitionTreeJsonWriter.writes(
       lila.round.TreeBuilder(pov.game, analysis, initialFen | pov.game.variant.initialFen, withFlags)
     ))

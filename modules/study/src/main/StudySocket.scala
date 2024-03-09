@@ -306,7 +306,6 @@ final private class StudySocket(
           "p" -> pos,
           "w" -> who,
           "d" -> dests.dests,
-          "o" -> dests.opening,
           "s" -> sticky
         )
         .add("relayPath", relay.map(_.path))
