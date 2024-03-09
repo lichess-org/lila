@@ -845,9 +845,8 @@ final class StudyApi(
   private def canActAsOwner(study: Study, userId: UserId): Fu[Boolean] =
     fuccess(study.isOwner(userId)) >>| studyRepo.isAdminMember(study, userId)
 
-  import alleycats.Zero
-  private def Contribute[A](userId: UserId, study: Study)(f: => A)(using default: Zero[A]): A =
-    if study.canContribute(userId) then f else default.zero
+  private def Contribute[A](userId: UserId, study: Study)(f: => A)(using alleycats.Zero[A]): A =
+    study.canContribute(userId).so(f)
 
   // work around circular dependency
   private var socket: Option[StudySocket]           = None

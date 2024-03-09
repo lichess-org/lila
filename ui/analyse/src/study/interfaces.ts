@@ -115,18 +115,25 @@ export interface StudyChapter {
   gamebook: boolean;
   features: StudyChapterFeatures;
   description?: string;
-  relay?: StudyChapterRelay;
+  relayPath?: Tree.Path;
   serverEval?: StudyChapterServerEval;
   feds?: [string?, string?];
+}
+
+export interface StudyChapterFromServer extends StudyChapter {
+  relay?: StudyChapterRelayFromServer;
 }
 
 export interface StudyChapterServerEval {
   path: string;
 }
 
+export interface StudyChapterRelayFromServer {
+  path: Tree.Path;
+  thinkTime?: number; // seconds since last move
+}
 export interface StudyChapterRelay {
   path: Tree.Path;
-  secondsSinceLastMove?: number;
   lastMoveAt?: number;
 }
 
@@ -250,7 +257,7 @@ export interface ServerNodeMsg extends WithWhoAndPos {
   n: Tree.Node;
   o: Opening;
   s: boolean;
-  relay?: StudyChapterRelay;
+  relay?: StudyChapterRelayFromServer;
 }
 export interface ServerClockMsg extends WithWhoAndPos {
   c?: number;

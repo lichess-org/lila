@@ -1,6 +1,6 @@
 import { Config as CgConfig } from 'chessground/config';
 import { DrawShape } from 'chessground/draw';
-import { prop, defined, Prop } from 'common';
+import { prop, defined } from 'common';
 import throttle, { throttlePromiseDelay } from 'common/throttle';
 import debounce from 'common/debounce';
 import AnalyseCtrl from '../ctrl';
@@ -35,6 +35,7 @@ import {
   ServerClockMsg,
   ChapterPreview,
   StudyDataFromServer,
+  StudyData,
 } from './interfaces';
 import GamebookPlayCtrl from './gamebook/gamebookPlayCtrl';
 import { DescriptionCtrl } from './description';
@@ -83,6 +84,7 @@ export default class StudyCtrl {
   relayRecProp = storedBooleanProp('analyse.relay.rec', true);
   nonRelayRecMapProp = storedMap<boolean>('study.rec', 100, () => true);
   chapterFlipMapProp = storedMap<boolean>('chapter.flip', 400, () => false);
+  data: StudyData;
   vm: StudyVm;
   notif: NotifCtrl;
   members: StudyMemberCtrl;
@@ -103,12 +105,13 @@ export default class StudyCtrl {
   gamebookPlay?: GamebookPlayCtrl;
 
   constructor(
-    readonly data: StudyDataFromServer,
+    data: StudyDataFromServer,
     readonly ctrl: AnalyseCtrl,
     tagTypes: TagTypes,
     practiceData?: StudyPracticeData,
     private readonly relayData?: RelayData,
   ) {
+    this.data = data;
     this.notif = new NotifCtrl(ctrl.redraw);
     const isManualChapter = data.chapter.id !== data.position.chapterId;
     const sticked = data.features.sticky && !ctrl.initialPath && !isManualChapter && !practiceData;
@@ -160,7 +163,7 @@ export default class StudyCtrl {
         this.data.chapter,
         this.chapters.list,
         this.chapters.looksNew(),
-        (id: ChapterId) => this.setChapter(id),
+        id => this.setChapter(id),
       );
     this.multiBoard = new MultiBoardCtrl(
       this.chapters,
@@ -236,8 +239,8 @@ export default class StudyCtrl {
     this.practice = practiceData && new StudyPractice(ctrl, data, practiceData);
 
     if (this.vm.mode.sticky && !this.isGamebookPlay()) this.ctrl.userJump(this.data.position.path);
-    else if (this.data.chapter.relay && !defined(this.ctrl.requestInitialPly))
-      this.ctrl.userJump(this.data.chapter.relay.path);
+    else if (this.data.chapter.relayPath && !defined(this.ctrl.requestInitialPly))
+      this.ctrl.userJump(this.data.chapter.relayPath);
 
     this.configureAnalysis();
 
@@ -278,7 +281,7 @@ export default class StudyCtrl {
     return (this.vm.mode.sticky = false);
   };
 
-  addChapterId = <T>(req: T): T & { ch: string } => ({
+  addChapterId = <T>(req: T): T & { ch: ChapterId } => ({
     ...req,
     ch: this.vm.chapterId,
   });
@@ -340,7 +343,6 @@ export default class StudyCtrl {
     this.vm.loading = false;
 
     this.instanciateGamebookPlay();
-    this.relay?.applyChapterRelay(this.data.chapter, s.chapter.relay);
 
     let nextPath: Tree.Path;
 
@@ -352,9 +354,7 @@ export default class StudyCtrl {
     } else {
       nextPath = sameChapter
         ? prevPath
-        : this.data.chapter.relay
-        ? this.data.chapter.relay!.path
-        : this.chapters.localPaths[this.vm.chapterId] || treePath.root;
+        : this.data.chapter.relayPath || this.chapters.localPaths[this.vm.chapterId] || treePath.root;
     }
 
     // path could be gone (because of subtree deletion), go as far as possible
@@ -419,6 +419,7 @@ export default class StudyCtrl {
   };
 
   wrongChapter = (serverData: WithPosition & { s?: boolean }): boolean => {
+    // #TODO why vm.chapterId when we have data.chapter.id
     if (serverData.p.chapterId !== this.vm.chapterId) {
       // sticky should really be on the same chapter
       if (this.vm.mode.sticky && serverData.s) this.xhrReload();
@@ -595,17 +596,17 @@ export default class StudyCtrl {
         who = d.w,
         sticky = d.s;
       this.setMemberActive(who);
-      if (this.data.chapter.id == d.p.chapterId) this.relay?.applyChapterRelay(this.data.chapter, d.relay);
       this.chapters.addNode(d);
       if (sticky && !this.vm.mode.sticky) this.vm.behind++;
       if (this.wrongChapter(d)) {
         if (sticky && !this.vm.mode.sticky) this.redraw();
         return;
       }
-      if (sticky && who && who.s === site.sri) {
+      if (sticky && who?.s === site.sri) {
         this.data.position.path = position.path + node.id;
         return;
       }
+      this.data.chapter.relayPath = d.relay?.path;
       const newPath = this.ctrl.tree.addNode(node, position.path);
       if (!newPath) return this.xhrReload();
       this.ctrl.tree.addDests(d.d, newPath);

@@ -64,6 +64,5 @@ export const gamesList = (study: StudyCtrl, relay: RelayCtrl) => {
   );
 };
 
-const renderClocks = (chapter: ChapterPreview) => {
-  return ['black', 'white'].map((color: Color) => renderClock(chapter, color));
-};
+const renderClocks = (chapter: ChapterPreview) =>
+  ['black', 'white'].map((color: Color) => renderClock(chapter, color));

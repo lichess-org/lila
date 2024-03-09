@@ -1,5 +1,5 @@
 import { RelayData, LogEvent, RelaySync, RelayRound, RoundId } from './interfaces';
-import { ChapterId, ChapterPreview, ServerClockMsg, StudyChapter, StudyChapterRelay } from '../interfaces';
+import { ChapterId, ChapterPreview, ServerClockMsg, StudyChapter } from '../interfaces';
 import { StudyMemberCtrl } from '../studyMembers';
 import { AnalyseSocketSend } from '../../socket';
 import { Prop, Toggle, prop, toggle } from 'common';
@@ -29,7 +29,6 @@ export default class RelayCtrl {
     looksNew: boolean,
     setChapter: (id: ChapterId) => void,
   ) {
-    this.applyChapterRelay(chapter, chapter.relay);
     this.tourShow = toggle((location.pathname.match(/\//g) || []).length < 5);
     const locationTab = location.hash.replace(/^#/, '') as RelayTab;
     const initialTab = relayTabs.includes(locationTab) ? locationTab : looksNew ? 'overview' : 'boards';
@@ -53,6 +52,11 @@ export default class RelayCtrl {
     this.redraw();
   };
 
+  lastMoveAt = (id: ChapterId): number | undefined => {
+    const cp = this.chapters().find(c => c.id == id);
+    return cp?.lastMoveAt;
+  };
+
   setSync = (v: boolean) => {
     this.send('relaySync', v);
     this.redraw();
@@ -60,14 +64,6 @@ export default class RelayCtrl {
 
   loading = () => !this.cooldown && this.data.sync?.ongoing;
 
-  // only modifies the chapter
-  applyChapterRelay = (c: StudyChapter, r?: StudyChapterRelay) => {
-    if (r) {
-      if (typeof r.secondsSinceLastMove !== 'undefined' && !r.lastMoveAt)
-        r.lastMoveAt = Date.now() - r.secondsSinceLastMove * 1000;
-      c.relay = r;
-    }
-  };
   private findChapterPreview = (id: ChapterId) => this.chapters().find(cp => cp.id == id);
   setClockToChapterPreview = (msg: ServerClockMsg) => {
     const cp = this.findChapterPreview(msg.p.chapterId);
