@@ -8,17 +8,17 @@ function miniPairing(ctrl) {
     var player = pairing.player;
     var result =
       pairing.game.status >= status.ids.mate
-        ? pairing.winnerColor === 'sente'
-          ? '1-0'
-          : pairing.winnerColor === 'gote'
-            ? '0-1'
-            : '½/½'
+        ? pairing.winnerColor
+          ? pairing.winnerColor === pairing.hostColor
+            ? ctrl.trans('xWon', ctrl.data.host.name)
+            : ctrl.trans('xLost', ctrl.data.host.name)
+          : ctrl.trans.noarg('draw')
         : '*';
     return m(
       'a',
       {
         href: '/' + game.id + '/' + game.orient,
-        class: ctrl.data.host.gameId === game.id ? 'host' : '',
+        class: ctrl.data.host.gameId === game.id && ctrl.data.isRunning ? 'host' : '',
       },
       [
         m(
