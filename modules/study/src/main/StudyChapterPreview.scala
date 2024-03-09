@@ -136,7 +136,7 @@ object ChapterPreview:
       yield ChapterPreview(
         id = id,
         name = name,
-        players = tags.flatMap(ChapterPreview.players(lastPos.so(_.clocksByColor))),
+        players = tags.flatMap(ChapterPreview.players(lastPos.so(_.clocks))),
         orientation = orientation,
         fen = lastPos.fold(Fen.initial)(_.fen),
         lastMove = lastPos.flatMap(_.uci),

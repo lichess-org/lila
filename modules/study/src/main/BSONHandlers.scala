@@ -333,12 +333,12 @@ object BSONHandlers:
     def reads(r: Reader) = Chapter.LastPosDenorm(
       fen = r.getO[Fen.Epd]("fen") | Fen.initial,
       uci = r.getO[Uci]("uci"),
-      clocks = r.getO[PairOf[Option[Centis]]]("clocks")
+      clocks = r.getO[PairOf[Option[Centis]]]("clocks").so(ByColor.fromPair)
     )
     def writes(w: Writer, l: Chapter.LastPosDenorm) = $doc(
       "fen"    -> l.fen.some.filterNot(Fen.Epd.isInitial),
       "uci"    -> l.uci,
-      "clocks" -> l.clocks
+      "clocks" -> l.clocks.toPair.some.filter(_.exists(_.isDefined))
     )
 
   given BSONDocumentHandler[Chapter] = Macros.handler

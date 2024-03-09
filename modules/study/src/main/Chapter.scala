@@ -31,13 +31,12 @@ case class Chapter(
 
   def updateDenorm: Chapter =
     val node = relay.map(_.path).flatMap(root.nodeAt) | root.lastMainlineNode
-    val clocks = relay.map: r =>
-      val path        = r.path
-      val parentPath  = path.parent.some.filter(_ != path)
-      val parentNode  = parentPath.flatMap(root.nodeAt)
-      val clocks      = ByColor(node.clock, parentNode.flatMap(_.clock).orElse(node.clock))
-      val colorClocks = if node.color.black then clocks else clocks.swap
-      colorClocks.toPair
+    val clocks = relay.so: r =>
+      val path       = r.path
+      val parentPath = path.parent.some.filter(_ != path)
+      val parentNode = parentPath.flatMap(root.nodeAt)
+      val clockSwap  = ByColor(node.clock, parentNode.flatMap(_.clock).orElse(node.clock))
+      if node.color.black then clockSwap else clockSwap.swap
     copy(denorm = Chapter.LastPosDenorm(node.fen, node.moveOption.map(_.uci), clocks = clocks).some)
 
   def updateRoot(f: Root => Option[Root]) =
@@ -89,7 +88,7 @@ case class Chapter(
   def preview = ChapterPreview(
     id = id,
     name = name,
-    players = ChapterPreview.players(denorm.so(_.clocksByColor))(tags),
+    players = ChapterPreview.players(denorm.so(_.clocks))(tags),
     orientation = setup.orientation,
     fen = denorm.fold(Fen.initial)(_.fen),
     lastMove = denorm.flatMap(_.uci),
@@ -149,8 +148,7 @@ object Chapter:
 
   /* Last position of the main line.
    * Used for chapter previews. */
-  case class LastPosDenorm(fen: Fen.Epd, uci: Option[Uci], clocks: Option[PairOf[Option[Centis]]]):
-    def clocksByColor: ByColor[Option[Centis]] = clocks.so(ByColor.fromPair)
+  case class LastPosDenorm(fen: Fen.Epd, uci: Option[Uci], clocks: ByColor[Option[Centis]])
 
   case class IdName(@Key("_id") id: StudyChapterId, name: StudyChapterName)
 
