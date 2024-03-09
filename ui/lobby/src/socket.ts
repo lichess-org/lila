@@ -1,3 +1,4 @@
+import throttle from 'common/throttle';
 import LobbyController from './ctrl';
 import * as hookRepo from './hookRepo';
 import { Hook } from './interfaces';
@@ -42,7 +43,7 @@ export default class LobbySocket {
       },
       reload_seeks() {
         if (ctrl.tab === 'seeks') xhr.seeks().then(ctrl.setSeeks);
-        else if (ctrl.tab === 'presets') window.lishogi.debounce(() => xhr.seeks().then(ctrl.setSeeks), 5000)();
+        else if (ctrl.tab === 'presets') throttle(7500, () => xhr.seeks().then(ctrl.setSeeks))();
       },
     };
 
