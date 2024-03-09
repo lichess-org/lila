@@ -97,6 +97,7 @@ export default function (
 
   const form: StudyFormCtrl = studyFormCtrl(
     (d, isNew) => {
+      vm.mode.sticky = d.sticky === 'true';
       send('editStudy', d);
       if (
         isNew &&
