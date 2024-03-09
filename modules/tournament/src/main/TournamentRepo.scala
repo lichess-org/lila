@@ -114,7 +114,7 @@ final class TournamentRepo(val coll: Coll, playerCollName: CollName)(using Execu
         sort = $sort.desc("startsAt"),
         _.sec
       )
-      .withNbResults(fuccess(Int.MaxValue))
+      .withLotsOfResults
 
   def isUnfinished(tourId: TourId): Fu[Boolean] =
     coll.exists($id(tourId) ++ unfinishedSelect)
