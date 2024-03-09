@@ -93,7 +93,7 @@ final private class RelaySync(
   private type NbMoves = Int
   private def updateChapterTree(study: Study, chapter: Chapter, game: RelayGame): Fu[NbMoves] =
     val by = who(chapter.ownerId)
-    game.root.mainline.foldLeft(UciPath.root -> none[Branch]) {
+    val (path, newNode) = game.root.mainline.foldLeft(UciPath.root -> none[Branch]):
       case ((parentPath, None), gameNode) =>
         val path = parentPath + gameNode.id
         chapter.root.nodeAt(path) match
@@ -109,38 +109,38 @@ final private class RelaySync(
                 )(by)
             path -> none
       case (found, _) => found
-    } match
-      case (path, newNode) =>
-        (!path.isMainline(chapter.root)).so {
-          logger.info(s"Change mainline ${showSC(study, chapter)} $path")
-          studyApi.promote(
-            studyId = study.id,
-            position = Position(chapter, path).ref,
-            toMainline = true
-          )(by) >> chapterRepo.setRelayPath(chapter.id, path)
-        } >> newNode.so: node =>
-          node.mainline
-            .foldM(Position(chapter, path).ref): (position, n) =>
-              studyApi
-                .addNode(
-                  studyId = study.id,
-                  position = position,
-                  node = n,
-                  opts = moveOpts.copy(clock = n.clock),
-                  relay = Chapter
-                    .Relay(
-                      index = game.index,
-                      path = position.path + n.id,
-                      lastMoveAt = nowInstant,
-                      fideIds = game.fideIdsPair
-                    )
-                    .some
-                )(by)
-                .inject(position + n)
-            .inject:
-              if chapter.root.children.nodes.isEmpty && node.mainline.nonEmpty then
-                studyApi.reloadChapters(study)
-              node.mainline.size
+    for
+      _ <- (!path.isMainline(chapter.root)).so {
+        logger.info(s"Change mainline ${showSC(study, chapter)} $path")
+        studyApi.promote(
+          studyId = study.id,
+          position = Position(chapter, path).ref,
+          toMainline = true
+        )(by) >> chapterRepo.setRelayPath(chapter.id, path)
+      }
+      nbMoves <- newNode.so: node =>
+        node.mainline
+          .foldM(Position(chapter, path).ref): (position, n) =>
+            val relay = Chapter.Relay(
+              index = game.index,
+              path = position.path + n.id,
+              lastMoveAt = nowInstant,
+              fideIds = game.fideIdsPair
+            )
+            studyApi
+              .addNode(
+                studyId = study.id,
+                position = position,
+                node = n,
+                opts = moveOpts.copy(clock = n.clock),
+                relay = relay.some
+              )(by)
+              .inject(position + n)
+          .inject:
+            // if chapter.root.children.nodes.isEmpty && node.mainline.nonEmpty then
+            //   studyApi.reloadChapters(study)
+            node.mainline.size
+    yield nbMoves
 
   private def updateChapterTags(
       tour: RelayTour,
