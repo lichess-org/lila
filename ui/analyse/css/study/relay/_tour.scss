@@ -174,21 +174,32 @@
   }
 
   &__leaderboard {
+    table {
+      width: auto;
+      margin: 0 auto;
+    }
     thead {
       background: none;
       th {
         border: none;
       }
     }
-    th,
-    td {
-      text-align: $end-direction;
+    th {
       &:first-child {
+        width: 1px;
+      }
+      &:first-child,
+      &:nth-child(2) {
         text-align: $start-direction;
+      }
+      &:nth-child(2) {
+        padding-right: 2rem;
       }
     }
     td {
-      &:nth-child(3) {
+      text-align: $end-direction;
+      padding: 1rem 2rem;
+      &:nth-child(4) {
         font-weight: bold;
       }
     }
