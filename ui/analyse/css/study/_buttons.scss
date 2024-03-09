@@ -21,6 +21,9 @@ $c-study-button: $c-accent;
       @extend %flex-center-nowrap, %box-radius-top;
       transition: background-color 150ms;
       padding: 0 0.5em;
+      &:hover:not(.disabled):not([disabled]) {
+        background: $c-primary;
+      }
     }
     &:empty {
       display: none;
