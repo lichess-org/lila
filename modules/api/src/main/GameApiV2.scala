@@ -51,7 +51,8 @@ final class GameApiV2(
           realPlayers      <- config.playerFile.??(realPlayerApi.apply)
           (game, analysis) <- enrich(config.flags)(game)
           notationExport <- config.format match {
-            case Format.JSON => toJson(game, analysis, config.flags) dmap Json.stringify
+            case Format.JSON =>
+              toJson(game, analysis, config.flags, realPlayers = realPlayers) dmap Json.stringify
             case Format.NOTATION =>
               notationDump(
                 game,
@@ -223,7 +224,7 @@ final class GameApiV2(
         teams: Option[GameTeams],
         realPlayers: Option[RealPlayers]
     ) =>
-      toJson(game, analysis, flags, teams) dmap { json =>
+      toJson(game, analysis, flags, teams, realPlayers) dmap { json =>
         s"${Json.stringify(json)}\n"
       }
 
@@ -231,13 +232,14 @@ final class GameApiV2(
       g: Game,
       analysisOption: Option[Analysis],
       withFlags: WithFlags,
-      teams: Option[GameTeams] = None
+      teams: Option[GameTeams] = None,
+      realPlayers: Option[RealPlayers] = None
   ): Fu[JsObject] =
     for {
       lightUsers <- gameLightUsers(g) dmap { case (wu, bu) => List(wu, bu) }
       notation <-
         withFlags.notationInJson ?? notationDump
-          .apply(g, analysisOption, withFlags)
+          .apply(g, analysisOption, withFlags, realPlayers = realPlayers)
           .dmap(notationDump.toNotationString)
           .dmap(some)
     } yield Json

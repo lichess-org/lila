@@ -111,7 +111,7 @@ final class NotationDump(
   def tags(
       game: Game,
       timeControlTag: Tag,
-      teams: Option[Color.Map[String]] = None
+      @scala.annotation.unused teams: Option[Color.Map[String]] = None
   ): Fu[Tags] =
     gameLightUsers(game) map { case (sente, gote) =>
       Tags {

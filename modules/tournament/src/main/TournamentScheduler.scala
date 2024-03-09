@@ -6,7 +6,6 @@ import org.joda.time.DateTimeConstants._
 import scala.util.chaining._
 
 final private class TournamentScheduler(
-    api: TournamentApi,
     tournamentRepo: TournamentRepo
 ) extends Actor {
 

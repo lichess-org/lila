@@ -18,7 +18,9 @@ trait ShogigroundHelper {
   private val sgHandBottom = tag("sg-hand-wrap")(cls := "hand-bottom")
   private val sgHand       = tag("sg-hand")
 
-  def shogiground(sit: Situation, orient: Color, lastUsi: List[Pos] = Nil)(implicit ctx: Context): Frag =
+  def shogiground(sit: Situation, orient: Color, @scala.annotation.unused lastUsi: List[Pos] = Nil)(implicit
+      ctx: Context
+  ): Frag =
     sgWrap(sit.variant, orient) {
       frag(
         sit.variant.supportsDrops option sgHandTop(

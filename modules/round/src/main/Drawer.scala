@@ -1,16 +1,13 @@
 package lila.round
 
 import lila.game.{ Event, Game, Pov, Progress }
-import lila.pref.PrefApi
 import lila.i18n.{ defaultLang, I18nKeys => trans }
 
 import lila.common.Bus
 
 final private[round] class Drawer(
     messenger: Messenger,
-    finisher: Finisher,
-    prefApi: PrefApi,
-    isBotSync: lila.common.LightUser.IsBotSync
+    finisher: Finisher
 )(implicit ec: scala.concurrent.ExecutionContext) {
 
   implicit private val chatLang = defaultLang

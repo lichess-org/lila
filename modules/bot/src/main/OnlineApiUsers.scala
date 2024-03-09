@@ -10,7 +10,7 @@ import lila.socket.IsOnline
 final class OnlineApiUsers(
     isOnline: IsOnline,
     scheduler: akka.actor.Scheduler
-)(implicit ec: scala.concurrent.ExecutionContext, mode: play.api.Mode) {
+)(implicit ec: scala.concurrent.ExecutionContext) {
 
   private val cache = new ExpireCallbackMemo(
     scheduler,

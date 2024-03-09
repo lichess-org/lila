@@ -1,7 +1,7 @@
 package lila.mod
 
 import lila.common.{ Bus, EmailAddress }
-import lila.report.{ Mod, ModId, Room, Suspect, SuspectId }
+import lila.report.{ Mod, Room, Suspect, SuspectId }
 import lila.security.{ Granter, Permission }
 import lila.user.{ LightUserApi, Title, User, UserRepo }
 
@@ -41,17 +41,13 @@ final class ModApi(
       }
     }
 
-  def autoMark(suspectId: SuspectId, modId: ModId): Funit =
+  def autoMark(suspectId: SuspectId): Funit =
     for {
       sus       <- reportApi.getSuspect(suspectId.value) orFail s"No such suspect $suspectId"
       unengined <- logApi.wasUnengined(sus)
       _ <- (!sus.user.isBot && !unengined) ?? {
-        reportApi.getMod(modId.value) flatMap {
-          _ ?? { mod =>
-            lila.mon.cheat.autoMark.increment()
-            logApi.alert("Auto-mark suggestion (good player or engine)")
-          }
-        }
+        lila.mon.cheat.autoMark.increment()
+        logApi.alert("Auto-mark suggestion (good player or engine)")
       }
     } yield ()
 

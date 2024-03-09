@@ -22,7 +22,7 @@ final class EvalCacheApi(
 
   def getEvalJson(variant: Variant, sfen: Sfen, multiPv: Int): Fu[Option[JsObject]] =
     getEval(
-      id = Id(variant, SmallSfen.make(variant, sfen)),
+      id = Id(variant, SmallSfen.make(sfen)),
       multiPv = multiPv
     ) map {
       _.map { JsonHandlers.writeEval(_, sfen) }
@@ -35,12 +35,12 @@ final class EvalCacheApi(
 
   def getSinglePvEval(variant: Variant, sfen: Sfen): Fu[Option[Eval]] =
     getEval(
-      id = Id(variant, SmallSfen.make(variant, sfen)),
+      id = Id(variant, SmallSfen.make(sfen)),
       multiPv = 1
     )
 
   private[evalCache] def drop(variant: Variant, sfen: Sfen): Funit = {
-    val id = Id(variant, SmallSfen.make(variant, sfen))
+    val id = Id(variant, SmallSfen.make(sfen))
     coll.delete.one($id(id)).void >>- cache.invalidate(id)
   }
 

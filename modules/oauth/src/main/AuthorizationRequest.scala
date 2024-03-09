@@ -66,7 +66,7 @@ object AuthorizationRequest {
         clientId      <- clientId.map(ClientId.apply).toValid(Error.ClientIdRequired)
         scopes        <- validScopes
         codeChallenge <- codeChallenge.map(CodeChallenge.apply).toValid(Error.CodeChallengeRequired)
-        responseType  <- responseType.toValid(Error.ResponseTypeRequired).andThen(ResponseType.from)
+        _  <- responseType.toValid(Error.ResponseTypeRequired).andThen(ResponseType.from)
         codeChallengeMethod <- codeChallengeMethod
           .toValid(Error.CodeChallengeMethodRequired)
           .andThen(CodeChallengeMethod.from)

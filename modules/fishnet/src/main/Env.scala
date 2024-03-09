@@ -38,8 +38,7 @@ final class Env(
     db: lila.db.Db,
     cacheApi: lila.memo.CacheApi,
     sink: lila.analyse.Analyser,
-    puzzle: lila.puzzle.PuzzleApi,
-    shutdown: akka.actor.CoordinatedShutdown
+    puzzle: lila.puzzle.PuzzleApi
 )(implicit
     ec: scala.concurrent.ExecutionContext,
     system: ActorSystem

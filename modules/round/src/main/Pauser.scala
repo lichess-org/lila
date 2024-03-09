@@ -103,7 +103,7 @@ final private[round] class Pauser(
       case _ => fuccess(Left(List(Event.ReloadOwner)))
     }
 
-  def resumeNo(pov: Pov)(implicit proxy: GameProxy): Fu[Events] =
+  def resumeNo(pov: Pov): Fu[Events] =
     if (pov.game.paused) {
       if (isOfferingResumeFromPov(pov)) {
         messenger.system(pov.game, trans.resumptionOfferCanceled.txt())

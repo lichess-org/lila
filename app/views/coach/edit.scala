@@ -13,8 +13,7 @@ import controllers.routes
 
 object edit {
 
-  private val dataTab   = attr("data-tab")
-  private val dataValue = attr("data-value")
+  private val dataTab = attr("data-tab")
 
   private lazy val jsonLanguages = safeJsonValue {
     Json toJson LangList.popularNoRegion.map { l =>

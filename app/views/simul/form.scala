@@ -90,7 +90,8 @@ object form {
                 )(_.variants.map(_.toString))
                 .toSet
             )
-          )
+          ),
+          errMsg(f)
         )
       },
       form3.split(

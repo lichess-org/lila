@@ -1,14 +1,12 @@
 package lila.coach
 
 import com.softwaremill.macwire._
-import play.api.Configuration
 
 import lila.common.config._
 import lila.security.Permission
 
 @Module
 final class Env(
-    appConfig: Configuration,
     userRepo: lila.user.UserRepo,
     cacheApi: lila.memo.CacheApi,
     db: lila.db.Db,

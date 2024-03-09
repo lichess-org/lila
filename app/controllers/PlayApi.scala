@@ -107,7 +107,7 @@ final class PlayApi(
   }
 
   def boardCommandGet(cmd: String) =
-    ScopedBody(_.Board.Play) { implicit req => me =>
+    ScopedBody(_.Board.Play) { _ => me =>
       cmd.split('/') match {
         case Array("game", id, "chat") => WithPovAsBoard(id, me)(getChat)
         case _                         => notFoundJson("No such command")
@@ -115,7 +115,7 @@ final class PlayApi(
     }
 
   def botCommandGet(cmd: String) =
-    ScopedBody(_.Bot.Play) { implicit req => me =>
+    ScopedBody(_.Bot.Play) { _ => me =>
       cmd.split('/') match {
         case Array("game", id, "chat") => WithPovAsBot(id, me)(getChat)
         case _                         => notFoundJson("No such command")

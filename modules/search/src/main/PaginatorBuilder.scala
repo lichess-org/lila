@@ -5,6 +5,7 @@ import lila.common.paginator._
 
 import play.api.libs.json.Writes
 
+@scala.annotation.nowarn
 final class PaginatorBuilder[A, Q: Writes](
     searchApi: SearchReadApi[A, Q],
     maxPerPage: MaxPerPage

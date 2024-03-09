@@ -125,7 +125,6 @@ object EmailConfirm {
 
   import scala.concurrent.duration._
   import play.api.mvc.RequestHeader
-  import ornicar.scalalib.Zero
   import lila.memo.RateLimit
   import lila.common.{ HTTPRequest, IpAddress }
 
@@ -147,7 +146,7 @@ object EmailConfirm {
     key = "email.confirms.email"
   )
 
-  def rateLimit[A: Zero](userEmail: UserEmail, req: RequestHeader)(run: => Fu[A])(default: => Fu[A]): Fu[A] =
+  def rateLimit[A](userEmail: UserEmail, req: RequestHeader)(run: => Fu[A])(default: => Fu[A]): Fu[A] =
     rateLimitPerUser(userEmail.username, cost = 1) {
       rateLimitPerEmail(userEmail.email.value, cost = 1) {
         rateLimitPerIP(HTTPRequest lastRemoteAddress req, cost = 1) {

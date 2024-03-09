@@ -2,7 +2,12 @@ package lila.security
 
 import lila.common.IpAddress
 
-final class IpTrust(proxyApi: Ip2Proxy, geoApi: GeoIP, torApi: Tor, firewallApi: Firewall) {
+final class IpTrust(
+    @scala.annotation.unused proxyApi: Ip2Proxy,
+    geoApi: GeoIP,
+    torApi: Tor,
+    firewallApi: Firewall
+) {
 
   def isSuspicious(ip: IpAddress): Fu[Boolean] =
     if (firewallApi blocksIp ip) fuTrue

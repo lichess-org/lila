@@ -3,9 +3,9 @@ package lila.mod
 import lila.db.dsl._
 import lila.report.{ Mod, ModId, Report, Suspect }
 import lila.security.Permission
-import lila.user.{ User, UserRepo }
+import lila.user.User
 
-final class ModlogApi(repo: ModlogRepo, userRepo: UserRepo)(implicit
+final class ModlogApi(repo: ModlogRepo)(implicit
     ec: scala.concurrent.ExecutionContext
 ) {
 

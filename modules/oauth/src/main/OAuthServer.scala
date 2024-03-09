@@ -7,8 +7,7 @@ import lila.user.UserRepo
 
 final class OAuthServer(
     tokenApi: AccessTokenApi,
-    userRepo: UserRepo,
-    cacheApi: lila.memo.CacheApi
+    userRepo: UserRepo
 )(implicit ec: scala.concurrent.ExecutionContext) {
 
   import OAuthServer._

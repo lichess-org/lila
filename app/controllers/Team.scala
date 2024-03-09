@@ -52,7 +52,7 @@ final class Team(
         env.teamSearch(text, page) map { html.team.list.search(text, _) }
     }
 
-  private def renderTeam(team: TeamModel, page: Int = 1)(implicit ctx: Context) =
+  private def renderTeam(team: TeamModel, page: Int)(implicit ctx: Context) =
     for {
       info    <- env.teamInfo(team, ctx.me)
       members <- paginator.teamMembers(team, page)

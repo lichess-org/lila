@@ -215,7 +215,7 @@ final class Mod(
   private def communications(username: String, priv: Boolean) =
     Secure { perms =>
       if (priv) perms.ViewPrivateComms else perms.Shadowban
-    } { implicit ctx => me =>
+    } { implicit ctx => _ =>
       OptionFuOk(env.user.repo named username) { user =>
         env.game.gameRepo
           .recentPovsByUserFromSecondary(user, 80)
@@ -266,9 +266,9 @@ final class Mod(
     s"${routes.User.show(username).url}${mod ?? "?mod"}"
 
   def refreshUserAssess(username: String) =
-    Secure(_.MarkEngine) { implicit ctx => me =>
+    Secure(_.MarkEngine) { implicit ctx => _ =>
       OptionFuResult(env.user.repo named username) { user =>
-        assessApi.refreshAssessByUsername(username) >>
+        assessApi.refreshAssessOf(user) >>
           userC.renderModZoneActions(username)
       }
     }
@@ -431,7 +431,7 @@ final class Mod(
     }
 
   def chatPanicPost =
-    OAuthMod(_.Shadowban) { req => me =>
+    OAuthMod(_.Shadowban) { req => _ =>
       val v = getBool("v", req)
       env.chat.panic.set(v)
       fuccess(().some)

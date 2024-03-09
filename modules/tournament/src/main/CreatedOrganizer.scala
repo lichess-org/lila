@@ -6,8 +6,7 @@ import scala.concurrent.duration._
 
 final private class CreatedOrganizer(
     api: TournamentApi,
-    tournamentRepo: TournamentRepo,
-    playerRepo: PlayerRepo
+    tournamentRepo: TournamentRepo
 )(implicit
     ec: scala.concurrent.ExecutionContext,
     mat: akka.stream.Materializer

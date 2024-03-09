@@ -245,7 +245,6 @@ final class StudyApi(
                   _.addNode(
                     position.ref,
                     node,
-                    chapter.setup.variant,
                     sticky = opts.sticky,
                     who
                   )

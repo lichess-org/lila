@@ -14,8 +14,7 @@ import lila.memo.ExpireCallbackMemo
  * and listening to new evals stored.
  */
 final private class EvalCacheUpgrade(scheduler: akka.actor.Scheduler)(implicit
-    ec: scala.concurrent.ExecutionContext,
-    mode: play.api.Mode
+    ec: scala.concurrent.ExecutionContext
 ) {
   import EvalCacheUpgrade._
 
@@ -88,7 +87,7 @@ private object EvalCacheUpgrade {
   }
 
   private def makeSetupId(variant: Variant, sfen: Sfen, multiPv: Int): SetupId =
-    s"${variant.id}${EvalCacheEntry.SmallSfen.make(variant, sfen).value}^$multiPv"
+    s"${variant.id}${EvalCacheEntry.SmallSfen.make(sfen).value}^$multiPv"
 
   private case class WatchingMember(push: Push, setupId: SetupId, path: String)
 }

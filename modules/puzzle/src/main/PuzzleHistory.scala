@@ -8,7 +8,6 @@ import lila.common.config.MaxPerPage
 import lila.common.paginator.AdapterLike
 import lila.common.paginator.Paginator
 import lila.db.dsl._
-import lila.memo.CacheApi
 import lila.user.User
 
 object PuzzleHistory {
@@ -76,8 +75,7 @@ object PuzzleHistory {
 }
 
 final class PuzzleHistoryApi(
-    colls: PuzzleColls,
-    cacheApi: CacheApi
+    colls: PuzzleColls
 )(implicit ec: ExecutionContext) {
 
   import PuzzleHistory._

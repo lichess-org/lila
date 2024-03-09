@@ -6,8 +6,7 @@ import lila.common.config._
 
 @Module
 final class Env(
-    db: lila.db.Db,
-    userRepo: lila.user.UserRepo
+    db: lila.db.Db
 )(implicit ec: scala.concurrent.ExecutionContext) {
 
   private val coll = db(CollName("appeal"))

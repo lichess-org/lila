@@ -32,7 +32,7 @@ final class Streamer(
     env.streamer.liveStreamApi.all
       .map { streams =>
         val max      = env.streamer.homepageMaxSetting.get()
-        val featured = streams.homepage(max, req, none) withTitles env.user.lightUserApi
+        val featured = streams.homepage(max) withTitles env.user.lightUserApi
         JsonOk {
           featured.live.streams.map { s =>
             Json.obj(

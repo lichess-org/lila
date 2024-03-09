@@ -14,7 +14,7 @@ import lila.evaluation.{
   PlayerFlags
 }
 import lila.game.{ Game, Player, Pov, Source }
-import lila.report.{ ModId, SuspectId }
+import lila.report.SuspectId
 import lila.user.User
 
 import org.joda.time.DateTime
@@ -88,17 +88,15 @@ final class AssessApi(
       case Some(pag) => withGames(pag).map(_.some)
     }
 
-  def refreshAssessByUsername(username: String): Funit =
-    withUser(username) { user =>
-      !user.isBot ??
-        (gameRepo.gamesForAssessment(user.id, 100) flatMap { gs =>
-          (gs map { g =>
-            analysisRepo.byGame(g) flatMap {
-              _ ?? { onAnalysisReady(g, _, false) }
-            }
-          }).sequenceFu.void
-        }) >> assessUser(user.id)
-    }
+  def refreshAssessOf(user: User): Funit =
+    !user.isBot ??
+      (gameRepo.gamesForAssessment(user.id, 100) flatMap { gs =>
+        (gs map { g =>
+          analysisRepo.byGame(g) flatMap {
+            _ ?? { onAnalysisReady(g, _, false) }
+          }
+        }).sequenceFu.void
+      }) >> assessUser(user.id)
 
   def onAnalysisReady(game: Game, analysis: Analysis, thenAssessUser: Boolean = true): Funit =
     gameRepo holdAlerts game flatMap { holdAlerts =>
@@ -130,7 +128,7 @@ final class AssessApi(
         playerAggregateAssessment.action match {
           case AccountAction.Engine | AccountAction.EngineAndBan =>
             userRepo.getTitle(userId).flatMap {
-              case None => modApi.autoMark(SuspectId(userId), ModId.lishogi)
+              case None => modApi.autoMark(SuspectId(userId))
               case Some(_) =>
                 fuccess {
                   reporter ! lila.hub.actorApi.report.Cheater(userId, playerAggregateAssessment.reportText(3))
@@ -226,8 +224,5 @@ final class AssessApi(
       }
     }
   }
-
-  private def withUser[A](username: String)(op: User => Fu[A]): Fu[A] =
-    userRepo named username orFail s"[mod] missing user $username" flatMap op
 
 }

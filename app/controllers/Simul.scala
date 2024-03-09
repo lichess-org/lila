@@ -180,7 +180,7 @@ final class Simul(
 
   def edit(id: String) =
     Auth { implicit ctx => me =>
-      WithEditableSimul(id, me) { simul =>
+      WithEditableSimul(id) { simul =>
         apiC.teamsIBelongTo(me) map { teams =>
           Ok(html.simul.form.edit(forms.edit(me, simul), teams, simul))
         }
@@ -189,7 +189,7 @@ final class Simul(
 
   def update(id: String) =
     AuthBody { implicit ctx => me =>
-      WithEditableSimul(id, me) { simul =>
+      WithEditableSimul(id) { simul =>
         implicit val req = ctx.body
         forms
           .edit(me, simul)
@@ -211,7 +211,7 @@ final class Simul(
       case _                                                                       => fuccess(Unauthorized)
     }
 
-  private def WithEditableSimul(id: String, me: lila.user.User)(
+  private def WithEditableSimul(id: String)(
       f: Sim => Fu[Result]
   )(implicit ctx: Context): Fu[Result] =
     AsHost(id) { sim =>

@@ -134,9 +134,7 @@ final class JsonView(
 
   object bc {
 
-    def apply(puzzle: Puzzle, user: Option[User])(implicit
-        lang: Lang
-    ): Fu[JsObject] = {
+    def apply(puzzle: Puzzle, user: Option[User]): Fu[JsObject] = {
       puzzle.gameId.fold(fuccess(otherSourcesJson(puzzle))) { gid =>
         gameJson(
           gameId = gid,
@@ -153,9 +151,7 @@ final class JsonView(
       }
     }
 
-    def batch(puzzles: Seq[Puzzle], user: Option[User])(implicit
-        lang: Lang
-    ): Fu[JsObject] = for {
+    def batch(puzzles: Seq[Puzzle], user: Option[User]): Fu[JsObject] = for {
       games <- gameRepo.gameOptionsFromSecondary(puzzles.map(_.gameId.get))
       jsons <- (puzzles zip games).collect { case (puzzle, Some(game)) =>
         gameJson.noCacheBc(game, puzzle.initialPly) map { gameJson =>

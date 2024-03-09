@@ -13,7 +13,7 @@ import lila.user.User
 
 object history {
 
-  def apply(user: User, page: Int, pager: Paginator[PuzzleSession])(implicit ctx: Context) =
+  def apply(user: User, pager: Paginator[PuzzleSession])(implicit ctx: Context) =
     views.html.base.layout(
       title = trans.puzzle.history.txt(),
       moreCss = cssTag("puzzle.dashboard"),

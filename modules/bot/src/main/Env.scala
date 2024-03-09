@@ -13,8 +13,7 @@ final class Env(
     isOnline: IsOnline
 )(implicit
     ec: scala.concurrent.ExecutionContext,
-    system: akka.actor.ActorSystem,
-    mode: play.api.Mode
+    system: akka.actor.ActorSystem
 ) {
 
   private def scheduler = system.scheduler

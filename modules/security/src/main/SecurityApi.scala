@@ -26,10 +26,7 @@ final class SecurityApi(
     emailValidator: EmailAddressValidator,
     oAuthServer: OAuthServer,
     tor: Tor
-)(implicit
-    ec: scala.concurrent.ExecutionContext,
-    system: akka.actor.ActorSystem
-) {
+)(implicit ec: scala.concurrent.ExecutionContext) {
 
   val AccessUri = "access_uri"
 

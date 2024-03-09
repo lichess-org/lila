@@ -1,7 +1,6 @@
 package views.html
 
 import controllers.routes
-import play.api.i18n.Lang
 import play.api.libs.json._
 
 import lila.api.Context
@@ -55,7 +54,7 @@ object storm {
       )
     }
 
-  private def renderHigh(high: StormHigh)(implicit lang: Lang) =
+  private def renderHigh(high: StormHigh) =
     frag(
       List(
         (high.allTime, "All-time"),

@@ -6,13 +6,12 @@ import play.api.libs.json._
 import lila.common.Json.jodaWrites
 import lila.game.FairyConversion.Kyoto
 import lila.game.JsonView._
-import lila.game.{ Game, GameRepo, Pov }
+import lila.game.{ Game, Pov }
 
 final class BotJsonView(
     lightUserApi: lila.user.LightUserApi,
-    gameRepo: GameRepo,
     rematches: lila.game.Rematches
-)(implicit ec: scala.concurrent.ExecutionContext) {
+) {
 
   def gameFull(game: Game)(implicit lang: Lang): JsObject =
     gameImmutable(game) ++ Json.obj(

@@ -126,7 +126,6 @@ object bits {
 
   private[round] def side(
       pov: Pov,
-      data: play.api.libs.json.JsObject,
       tour: Option[lila.tournament.TourAndTeamVs],
       simul: Option[lila.simul.Simul],
       userTv: Option[lila.user.User] = None,

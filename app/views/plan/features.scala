@@ -157,8 +157,6 @@ object features {
   private def check(implicit lang: Lang) =
     span(dataIcon := "E", cls := "is is-green text check")(trans.yes())
 
-  private def custom(str: String) = span(dataIcon := "E", cls := "is is-green text check")(str)
-
   private def all(content: Frag) = frag(td(content), td(content))
 
   private def tr(value: Frag)(text: Frag*) = st.tr(th(text), all(value))

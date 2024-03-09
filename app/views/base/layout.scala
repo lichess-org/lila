@@ -70,7 +70,7 @@ object layout {
         s"""type="$t" """
       )}${crossorigin ?? "crossorigin"}>""")
 
-  private def fontPreload(implicit ctx: Context) = frag(
+  private val fontPreload = frag(
     preload(assetUrl("font/lishogi.woff2"), "font", crossorigin = true, "font/woff2".some),
     preload(assetUrl("font/lishogi.shogi.woff2"), "font", crossorigin = true, "font/woff2".some)
   )
@@ -235,7 +235,6 @@ object layout {
   private val dataDate          = attr("data-date")
   private val dataSocketDomains = attr("data-socket-domains")
   private val dataPreload       = attr("data-preload")
-  private val dataI18n          = attr("data-i18n")
   private val dataNonce         = attr("data-nonce")
   private val dataAnnounce      = attr("data-announce")
   private val dataColorName     = attr("data-color-name")

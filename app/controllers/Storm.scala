@@ -5,7 +5,7 @@ import play.api.mvc._
 import lila.api.Context
 import lila.app._
 
-final class Storm(env: Env)(implicit mat: akka.stream.Materializer) extends LilaController(env) {
+final class Storm(env: Env) extends LilaController(env) {
 
   def home =
     Open { implicit ctx =>
@@ -61,7 +61,7 @@ final class Storm(env: Env)(implicit mat: akka.stream.Materializer) extends Lila
     }
 
   def apiDashboardOf(username: String, days: Int) =
-    Open { implicit ctx =>
+    Open { _ =>
       val userId = lila.user.User normalize username
       if (days < 0 || days > 365) notFoundJson("Invalid days parameter")
       else

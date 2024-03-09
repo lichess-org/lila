@@ -11,7 +11,7 @@ import lila.common.Json.jodaWrites
 import lila.game.Game
 import lila.user.User
 
-final class GamesByUsersStream(gameRepo: lila.game.GameRepo)(implicit
+final class GamesByUsersStream()(implicit
     ec: scala.concurrent.ExecutionContext
 ) {
 

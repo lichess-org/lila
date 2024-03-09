@@ -3,11 +3,13 @@ package lila.blog
 import play.api.i18n.Lang
 
 import lila.memo.{ CacheApi, Syncache }
+import lila.hub.actorApi.timeline.BlogPost
+import lila.timeline.EntryApi
 
 final class LastPostCache(
     api: BlogApi,
-    notifier: Notifier,
     config: BlogConfig,
+    timelineApi: EntryApi,
     cacheApi: CacheApi
 )(implicit ec: scala.concurrent.ExecutionContext) {
 
@@ -35,7 +37,7 @@ final class LastPostCache(
   // Blogs need to be published while server is up so the timeline entry can be inserted
   private def maybeNotifyLastPost(lang: BlogLang)(posts: List[MiniPost]): Unit =
     posts.headOption.filter(_ => lang == BlogLang.default) foreach { last =>
-      if (lastNotifiedId.fold(false)(last.id !=)) notifier(last.id)
+      if (lastNotifiedId.fold(false)(last.id !=)) timelineApi.broadcast.insert(BlogPost(last.id))
       lastNotifiedId = last.id.some
     }
 

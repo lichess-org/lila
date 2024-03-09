@@ -338,7 +338,7 @@ final class Puzzle(
         .flatMap { user =>
           Reasonable(page) {
             env.puzzle.history(user, page) map { history =>
-              Ok(views.html.puzzle.history(user, page, history))
+              Ok(views.html.puzzle.history(user, history))
             }
           }
         }
@@ -409,7 +409,7 @@ final class Puzzle(
     Auth { implicit ctx => _ =>
       negotiate(
         html = notFound,
-        api = v => {
+        api = _ => {
           val nb = getInt("nb") getOrElse 15 atLeast 1 atMost 30
           env.puzzle.batch.nextFor(ctx.me, nb) flatMap { puzzles =>
             env.puzzle.jsonView.bc.batch(puzzles, ctx.me)
@@ -423,7 +423,7 @@ final class Puzzle(
     AuthBody(parse.json) { implicit ctx => me =>
       negotiate(
         html = notFound,
-        api = v => {
+        api = _ => {
           import lila.puzzle.PuzzleForm.bc._
           ctx.body.body
             .validate[SolveData]
@@ -453,7 +453,7 @@ final class Puzzle(
     AuthBody { implicit ctx => me =>
       negotiate(
         html = notFound,
-        api = v => {
+        api = _ => {
           implicit val req = ctx.body
           env.puzzle.forms.bc.vote
             .bindFromRequest()

@@ -76,7 +76,7 @@ final class MoveDB(implicit system: ActorSystem) {
             data.move.usi(move.game.variant) match {
               case Some(usi) =>
                 coll -= move.id
-                Monitor.move(move, client).unit
+                Monitor.move(client).unit
                 Bus.publish(Tell(move.game.id, FishnetPlay(usi, move.game.ply)), "roundSocket")
               case _ =>
                 sender() ! None

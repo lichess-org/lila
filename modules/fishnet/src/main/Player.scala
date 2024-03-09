@@ -6,12 +6,11 @@ import org.joda.time.DateTime
 import shogi.{ Clock, Gote, Sente }
 
 import lila.common.Future
-import lila.game.{ Game, GameRepo }
+import lila.game.Game
 import ornicar.scalalib.Random.approximately
 
 final class Player(
     moveDb: MoveDB,
-    gameRepo: GameRepo,
     val maxPlies: Int
 )(implicit
     ec: scala.concurrent.ExecutionContext,

@@ -20,7 +20,6 @@ final private[api] class RoundApi(
     noteApi: lila.round.NoteApi,
     forecastApi: lila.round.ForecastApi,
     bookmarkApi: lila.bookmark.BookmarkApi,
-    gameRepo: lila.game.GameRepo,
     tourApi: lila.tournament.TournamentApi,
     simulApi: lila.simul.SimulApi,
     getTeamName: lila.team.GetTeamName,

@@ -26,7 +26,7 @@ final class Blog(
       }
     }
 
-  def show(id: String, ref: Option[String]) =
+  def show(id: String, @scala.annotation.unused ref: Option[String]) =
     WithPrismic { implicit ctx => implicit prismic =>
       pageHit
       blogApi.one(prismic, id) flatMap {

@@ -37,7 +37,9 @@ final class Ip2Proxy(
         Set.empty
       }
 
-  private def batch(ips: Seq[IpAddress]): Fu[Seq[Boolean]] = fuccess(Seq.empty[Boolean])
+  private def batch(@scala.annotation.unused ips: Seq[IpAddress]): Fu[Seq[Boolean]] = fuccess(
+    Seq.empty[Boolean]
+  )
   // ips.take(50) match { // 50 * ipv6 length < max url length
   //   case Nil      => fuccess(Seq.empty[Boolean])
   //   case List(ip) => apply(ip).dmap(Seq(_))

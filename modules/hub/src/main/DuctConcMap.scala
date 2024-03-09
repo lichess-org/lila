@@ -65,5 +65,6 @@ final class DuctConcMap[D <: Duct](
   }
 
   // used to remove entries
+  @scala.annotation.nowarn
   private[this] var nullD: D = _
 }

@@ -25,30 +25,12 @@ final class Page(
   val kif = notationExplanation("kif")
   val csa = notationExplanation("csa")
 
-  private def helpBookmark(name: String) =
-    Open { implicit ctx =>
-      pageHit
-      OptionOk(prismicC getBookmark name) { case (doc, resolver) =>
-        views.html.site.help.page(name, doc, resolver)
-      }
-    }
-
   private def helpDocument(uid: String) =
     Open { implicit ctx =>
       pageHit
       OptionOk(prismicC.getPage("doc", uid)) {
         case (doc, resolver) => {
           views.html.site.help.page(uid, doc, resolver)
-        }
-      }
-    }
-
-  private def singleDocument(uid: String) =
-    Open { implicit ctx =>
-      pageHit
-      OptionOk(prismicC.getPage("doc", uid)) {
-        case (doc, resolver) => {
-          views.html.site.page(doc, resolver)
         }
       }
     }

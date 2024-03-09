@@ -66,7 +66,7 @@ LishogiRound.boot(${safeJsonValue(
     )(
       main(cls := s"round ${mainVariantClass(pov.game.variant)}")(
         st.aside(cls := "round__side")(
-          bits.side(pov, data, tour.map(_.tourAndTeamVs), simul, bookmarked = bookmarked),
+          bits.side(pov, tour.map(_.tourAndTeamVs), simul, bookmarked = bookmarked),
           chatOption.map(_ => chat.frag)
         ),
         bits.roundAppPreload(pov, true),

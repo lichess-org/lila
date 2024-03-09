@@ -14,7 +14,6 @@ import views._
 
 final class Main(
     env: Env,
-    prismicC: Prismic,
     assetsC: ExternalAssets
 ) extends LilaController(env) {
 

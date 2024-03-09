@@ -107,7 +107,7 @@ object show {
                   )
                 else ctx.isAuth option joinButton(t)
               ),
-              ctx.userId.ifTrue(t.enabled && info.mine) map { myId =>
+              (t.enabled && info.mine) option {
                 postForm(
                   cls    := "team-show__subscribe form3",
                   action := routes.Team.subscribe(t.id)
@@ -224,6 +224,4 @@ object show {
       submitButton(cls := "button button-green")(joinTeam())
     )
 
-  private def joinAt(url: String)(implicit ctx: Context) =
-    a(cls := "button button-green", href := url)(joinTeam())
 }

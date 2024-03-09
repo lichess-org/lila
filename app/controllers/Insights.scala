@@ -7,7 +7,7 @@ import views.html
 final class Insights(env: Env) extends LilaController(env) {
 
   def index =
-    Auth { implicit ctx => me =>
+    Auth { _ => me =>
       fuccess(Redirect(routes.Insights.user(me.username, "")))
     }
 

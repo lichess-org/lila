@@ -3,8 +3,6 @@ package lila.streamer
 import akka.actor._
 import akka.pattern.ask
 import makeTimeout.short
-import play.api.i18n.Lang
-import play.api.mvc.RequestHeader
 import scala.concurrent.duration._
 
 import lila.memo.CacheApi._
@@ -19,13 +17,12 @@ case class LiveStreams(streams: List[Stream]) {
 
   def get(streamer: Streamer) = streams.find(_ is streamer)
 
-  def homepage(max: Int, req: RequestHeader, userLang: Option[Lang]) =
+  def homepage(max: Int) =
     LiveStreams {
-      // val langs = req.acceptLanguages.view.map(_.language).toSet + "en" ++ userLang.toSet
       streams
         .takeWhile(_.streamer.approval.tier > 0)
         .foldLeft(Vector.empty[Stream]) {
-          case (selected, s) if { // langs(s.lang) && {
+          case (selected, s) if {
                 selected.sizeIs < max || s.streamer.approval.tier == Streamer.maxTier
               } && {
                 s.streamer.approval.tier > 1 || selected.sizeIs < 2

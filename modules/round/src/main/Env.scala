@@ -56,9 +56,8 @@ final class Env(
     scheduler: akka.actor.Scheduler
 ) {
 
-  implicit private val moretimeLoader  = durationLoader(MoretimeDuration.apply)
-  implicit private val animationLoader = durationLoader(AnimationDuration.apply)
-  private val config                   = appConfig.get[RoundConfig]("round")(AutoConfig.loader)
+  implicit private val moretimeLoader = durationLoader(MoretimeDuration.apply)
+  private val config                  = appConfig.get[RoundConfig]("round")(AutoConfig.loader)
 
   private val defaultGoneWeight                      = fuccess(1f)
   private def goneWeight(userId: User.ID): Fu[Float] = playban.getRageSit(userId).dmap(_.goneWeight)

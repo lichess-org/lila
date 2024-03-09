@@ -320,7 +320,7 @@ final class Study(
     }
 
   def postGameStudyWithOpponent(gameId: String) =
-    AuthBody { implicit ctx => me =>
+    AuthBody { _ => me =>
       env.study.postGameStudyApi.getGameOfUser(gameId, me) flatMap {
         _.fold(
           BadRequest(

@@ -269,7 +269,6 @@ final private class StudySocket(
   def addNode(
       pos: Position.Ref,
       node: Node,
-      variant: shogi.variant.Variant,
       sticky: Boolean,
       who: Who
   ) =

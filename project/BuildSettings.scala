@@ -88,11 +88,12 @@ object BuildSettings {
     "-Wextra-implicit",
     // "-Wnumeric-widen",
     "-Wunused:imports",
-    //"-Wunused:locals",
+    "-Wunused:locals",
     "-Wunused:patvars",
-    // "-Wunused:privates",  // unfortunately doesn't work with wire macros
-    // "-Wunused:implicits", // unfortunately doesn't work with wire macros
-    // "-Wunused:params"     // unfortunately doesn't work with wire macros
+    "-Wunused:privates",
+    "-Wunused:implicits",
+    "-Wunused:explicits",
+    "-Wmacros:after",
     "-Wvalue-discard"
   )
 

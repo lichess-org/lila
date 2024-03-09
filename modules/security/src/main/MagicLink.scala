@@ -52,7 +52,6 @@ object MagicLink {
 
   import scala.concurrent.duration._
   import play.api.mvc.RequestHeader
-  import ornicar.scalalib.Zero
   import lila.memo.RateLimit
   import lila.common.{ HTTPRequest, IpAddress }
 
@@ -74,7 +73,7 @@ object MagicLink {
     key = "email.confirms.email"
   )
 
-  def rateLimit[A: Zero](user: User, email: EmailAddress, req: RequestHeader)(
+  def rateLimit[A](user: User, email: EmailAddress, req: RequestHeader)(
       run: => Fu[A]
   )(default: => Fu[A]): Fu[A] =
     rateLimitPerUser(user.id, cost = 1) {

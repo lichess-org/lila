@@ -25,7 +25,5 @@ final class Env(
 
   lazy val api = wire[BlogApi]
 
-  private lazy val notifier = wire[Notifier]
-
   lazy val lastPostCache = wire[LastPostCache]
 }
