@@ -452,7 +452,7 @@ final class StudyApi(
         val onRelayPath = sc.chapter.relay.exists(_.path == position.path)
         chapterRepo
           .setClock(clock)(newChapter, position.path)
-          .andDo(sendTo(sc.study.id)(_.setClock(position, clock, onRelayPath, who)))
+          .andDo(sendTo(sc.study.id)(_.setClock(position, clock, onRelayPath)))
       case None =>
         fufail(s"Invalid setClock $position $clock").andDo:
           reloadSriBecauseOf(sc.study, who.sri, position.chapterId)

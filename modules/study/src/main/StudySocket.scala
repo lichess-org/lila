@@ -304,10 +304,10 @@ final private class StudySocket(
         .obj(
           "n" -> defaultNodeJsonWriter.writes(TreeBuilder.toBranch(node, variant)),
           "p" -> pos,
-          "w" -> who,
           "d" -> dests.dests,
           "s" -> sticky
         )
+        .add("w", Option.when(relay.isEmpty)(who))
         .add("relayPath", relay.map(_.path))
     )
   def deleteNode(pos: Position.Ref, who: Who) = version("deleteNode", Json.obj("p" -> pos, "w" -> who))
@@ -361,14 +361,13 @@ final private class StudySocket(
         "w" -> who
       )
     )
-  def setClock(pos: Position.Ref, clock: Option[Centis], onRelayPath: Boolean, who: Who) =
+  def setClock(pos: Position.Ref, clock: Option[Centis], onRelayPath: Boolean) =
     version(
       "clock",
       Json
         .obj(
           "p" -> pos,
-          "c" -> clock,
-          "w" -> who
+          "c" -> clock
         )
         .add("onRelayPath", onRelayPath)
     )
