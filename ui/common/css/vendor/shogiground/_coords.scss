@@ -143,6 +143,16 @@ coords {
         font-size: calc(1.4vh * var(--board-scale, 1));
       }
     }
+    .board-editor .spare {
+      border-top: $edge-size solid transparent;
+      border-bottom: $edge-size solid transparent;
+      &-bottom {
+        border-right: calc(#{$edge-size} / 9 * 4) solid transparent;
+      }
+      &-top {
+        border-left: calc(#{$edge-size} / 9 * 4) solid transparent;
+      }
+    }
   }
 }
 
