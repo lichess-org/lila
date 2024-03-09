@@ -85,13 +85,15 @@ lazy val i18n = module("i18n",
   Seq(db, hub),
   tests.bundle ++ Seq(scalatags)
 ).settings(
-  Compile / sourceGenerators += Def.task {
-    MessageCompiler(
+  Compile / resourceGenerators += Def.task {
+    val outputFile = (Compile / resourceManaged).value / "I18n.ser"
+    I18n.serialize(
       sourceDir = new File("translation/source"),
       destDir = new File("translation/dest"),
       dbs = "site arena emails learn activity coordinates study class contact patron coach broadcast streamer tfa settings preferences team perfStat search tourname faq lag swiss puzzle puzzleTheme challenge storm ublog insight keyboardMove timeago oauthScope dgt voiceCommands onboarding".split(' ').toList,
-      compileTo = (Compile / sourceManaged).value
+      outputFile
     )
+    Seq(outputFile)
   }.taskValue
 )
 
