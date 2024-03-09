@@ -70,10 +70,8 @@ export default function (opts: CevalOpts): CevalCtrl {
   const analysable = pos.isOk && !unsupportedVariants.includes(opts.variant.key);
 
   // select nnue > hce > none
-  const useYaneuraou =
-      (!analysable && opts.variant.key === 'standard') ||
-      engineCode('standard', opts.initialSfen) === EngineCode.YaneuraOu,
-    fairySupports = !useYaneuraou && analysable;
+  const useYaneuraou = analysable && engineCode(opts.variant.key, opts.initialSfen) === EngineCode.YaneuraOu,
+    fairySupports = analysable && !useYaneuraou;
   let supportsNnue = false,
     technology: CevalTechnology = 'none',
     growableSharedMem = false;
