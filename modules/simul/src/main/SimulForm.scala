@@ -33,12 +33,7 @@ object SimulForm {
   val periodsDefault = 1
   val periodsChoices = options(periods, "%d period{s}")
 
-  val colors = List("sente", "random", "gote")
-  val colorChoices = List(
-    "sente"  -> "Sente/Shitate",
-    "random" -> "Random",
-    "gote"   -> "Gote/Uwate"
-  )
+  val colors       = List("sente", "random", "gote")
   val colorDefault = "gote"
 
   private def nameType(host: User) =
@@ -122,7 +117,7 @@ object SimulForm {
           )
         }.verifying("At least one variant", _.nonEmpty),
         "position"         -> optional(lila.common.Form.sfen.clean),
-        "color"            -> stringIn(colorChoices),
+        "color"            -> stringIn(colors.toSet),
         "text"             -> cleanText,
         "estimatedStartAt" -> optional(inTheFuture(ISODateTimeOrTimestamp.isoDateTimeOrTimestamp)),
         "team"             -> optional(nonEmptyText)

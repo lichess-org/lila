@@ -128,7 +128,16 @@ object form {
           form3.select(_, clockExtraChoices)
         ),
         form3.group(form("color"), trans.hostColorForEachGame(), half = true)(
-          form3.select(_, colorChoices) // todo
+          form3.select(
+            _,
+            colors.map { c =>
+              c -> (c match {
+                case "sente" => s"${standardColorName(shogi.Sente)}/${handicapColorName(shogi.Sente)}"
+                case "gote"  => s"${standardColorName(shogi.Gote)}/${handicapColorName(shogi.Gote)}"
+                case _       => trans.randomColor.txt()
+              })
+            }
+          )
         )
       ),
       form3.split(
