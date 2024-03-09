@@ -173,7 +173,7 @@ export function view(ctrl: StudyFormCtrl): VNode {
               })
             ),
             h(
-              'div.form-group.form-half',
+              'div.form-group.form-half.none',
               select({
                 key: 'explorer',
                 name: ctrl.trans.noarg('openingExplorer'),
