@@ -140,8 +140,14 @@ object bits {
       bookmarked = bookmarked
     )
 
+  private def roundAppClasses(implicit ctx: Context) = List(
+    "round__app"     -> true,
+    "compact-layout" -> (ctx.pref.boardLayout == 1),
+    "small-moves"    -> ctx.pref.smallMoves
+  )
+
   def roundAppPreload(pov: Pov, controls: Boolean)(implicit ctx: Context) =
-    div(cls := "round__app")(
+    div(cls := roundAppClasses)(
       div(cls := s"round__app__board main-board ${variantClass(pov.game.variant)}")(shogiground(pov)),
       div(cls := "round__app__table"),
       div(cls := "ruser ruser-top user-link")(i(cls := "line"), a(cls := "text")(playerText(pov.opponent))),

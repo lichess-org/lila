@@ -13,7 +13,7 @@ export function main(ctrl: RoundController): VNode {
   return ctrl.nvui
     ? ctrl.nvui.render(ctrl)
     : h(
-        'div.round__app',
+        'div.' + ctrl.opts.klasses.join('.'),
         {
           class: { 'move-confirm': !!ctrl.usiToSubmit },
         },

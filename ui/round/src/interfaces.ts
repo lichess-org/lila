@@ -62,6 +62,7 @@ export interface RoundOpts {
   socketSend: SocketSend;
   onChange(d: RoundData): void;
   element: HTMLElement;
+  klasses: string[];
   crosstableEl: HTMLElement;
   i18n: any;
   chat?: Chat;

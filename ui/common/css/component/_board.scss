@@ -111,16 +111,3 @@
     }
   }
 }
-
-.compact-layout {
-  @include breakpoint($mq-col2-uniboard) {
-    .main-board.v-minishogi,
-    .main-board.v-kyotoshogi {
-      padding-bottom: calc((100% - #{$hands-gap}) / 11 * 9 / 11 * 12);
-      .sg-wrap {
-        height: calc(100% / 9 * 5 / 7 * 11);
-        top: calc(100% / 9 * 5 / 7);
-      }
-    }
-  }
-}

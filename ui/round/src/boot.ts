@@ -61,6 +61,7 @@ export default function (opts: RoundOpts): void {
     return;
   }
   opts.element = element;
+  opts.klasses = Array.from(element.classList);
   opts.socketSend = li.socket.send;
   if (!data.tournament && !data.simul)
     opts.onChange = (d: RoundData) => {
