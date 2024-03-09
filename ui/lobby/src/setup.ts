@@ -541,15 +541,18 @@ export default class Setup {
     });
 
     const initForm = (): void => {
-      if (this.root.opts.sfen) $sfenInput.val(this.root.opts.sfen.replace(/_/g, ' '));
+      const $variantOption = $variantSelect.find(`option[value="${this.root.opts.variant}"]`),
+        sfen = !!$variantOption.length ? this.root.opts.sfen : undefined;
+
+      if (sfen) $sfenInput.val(sfen.replace(/_/g, ' '));
 
       let hasSfen = !!$sfenInput.val();
       if (this.root.opts.variant) {
-        if (hasSfen && !this.root.opts.sfen) {
+        if (hasSfen && !sfen) {
           $sfenInput.val('');
           hasSfen = false;
         }
-        $variantSelect.find(`option[value="${this.root.opts.variant}"]`).prop('selected', true);
+        $variantOption.prop('selected', true);
       }
       if (hasSfen) {
         $fromPosition.click();
