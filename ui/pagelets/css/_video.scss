@@ -63,13 +63,8 @@
 
     .title {
       font-weight: bold;
+      display: block;
       height: 40px;
-      -webkit-line-clamp: 2;
-      display: -webkit-box;
-      -webkit-box-orient: vertical;
-      text-overflow: ellipsis;
-      white-space: normal;
-      overflow: hidden;
     }
 
     .reveal {
