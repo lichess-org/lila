@@ -235,14 +235,17 @@
   &__players {
     @extend %flex-column;
     flex: 1;
+    overflow: hidden;
   }
   &__player {
     @extend %flex-between-nowrap;
-    // font-weight: bold;
     color: $c-font;
     good,
     bad {
       font-weight: bold;
+    }
+    player {
+      @extend %nowrap-ellipsis;
     }
   }
   &__gauge {
