@@ -122,7 +122,8 @@ object ChapterPreview:
       "denorm"      -> true,
       "tags"        -> true,
       "lastMoveAt"  -> "$relay.lastMoveAt",
-      "orientation" -> "$setup.orientation"
+      "orientation" -> "$setup.orientation",
+      "rootFen"     -> "$root._.f"
     )
 
     given BSONDocumentReader[ChapterPreview] = BSONDocumentReader.option[ChapterPreview]: doc =>
@@ -138,7 +139,7 @@ object ChapterPreview:
         name = name,
         players = tags.flatMap(ChapterPreview.players(lastPos.so(_.clocks))),
         orientation = orientation,
-        fen = lastPos.fold(Fen.initial)(_.fen),
+        fen = lastPos.map(_.fen).orElse(doc.getAsOpt[Fen.Epd]("rootFen")).getOrElse(Fen.initial),
         lastMove = lastPos.flatMap(_.uci),
         lastMoveAt = lastMoveAt,
         result = tags.flatMap(_(_.Result)).map(Outcome.fromResult)

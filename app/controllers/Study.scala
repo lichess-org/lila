@@ -446,7 +446,7 @@ final class Study(
             )
     }
 
-  private def doPgn(study: StudyModel)(using RequestHeader)(using me: Option[Me]) =
+  private def doPgn(study: StudyModel)(using RequestHeader, Option[Me]) =
     Ok.chunked(env.study.pgnDump.chaptersOf(study, requestPgnFlags).throttle(16, 1.second))
       .pipe(asAttachmentStream(s"${env.study.pgnDump.filename(study)}.pgn"))
       .as(pgnContentType)
