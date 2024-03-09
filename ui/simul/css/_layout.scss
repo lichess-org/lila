@@ -12,6 +12,12 @@
   }
   &__main {
     grid-area: main;
+    .box__top__actions {
+      margin-left: unset;
+      .button {
+        min-width: 10rem;
+      }
+    }
   }
   .chat__members {
     grid-area: uchat;
@@ -25,6 +31,7 @@
   grid-gap: $block-gap;
 
   @include breakpoint($mq-col2) {
+    min-width: 600px;
     &:not(.simul-created) {
       grid-template-columns: $col2-uniboard-default-width $col2-uniboard-table;
       grid-template-rows: auto max-content;
