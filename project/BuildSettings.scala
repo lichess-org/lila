@@ -65,7 +65,7 @@ object BuildSettings {
     "-language:postfixOps",
     "-Ymacro-annotations",
     // Warnings as errors!
-    //"-Xfatal-warnings",
+    "-Xfatal-warnings",
     // Linting options
     "-unchecked",
     "-Xcheckinit",
