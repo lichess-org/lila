@@ -57,24 +57,30 @@ const leaderboard = (relay: RelayCtrl, ctrl: AnalyseCtrl): VNode[] => {
         h('table.slist.slist-invert.slist-pad', [
           h(
             'thead',
-            h('tr', [h('th'), withRating ? h('th', 'Elo') : undefined, h('th', 'Score'), h('th', 'Games')]),
+            h('tr', [
+              h('th'),
+              h('th'),
+              withRating ? h('th', 'Elo') : undefined,
+              h('th', 'Score'),
+              h('th', 'Games'),
+            ]),
           ),
           h(
             'tbody',
-            players.map(player => {
-              const fullName = [userTitle(player), player.name];
-              return h('tr', [
+            players.map(player =>
+              h('tr', [
+                h('th', userTitle(player)),
                 h(
                   'th',
                   player.fideId
-                    ? h('a', { attrs: { href: `/fide/${player.fideId}/redirect` } }, fullName)
-                    : fullName,
+                    ? h('a', { attrs: { href: `/fide/${player.fideId}/redirect` } }, player.name)
+                    : player.name,
                 ),
                 h('td', withRating && player.rating ? `${player.rating}` : undefined),
                 h('td', `${player.score}`),
                 h('td', `${player.played}`),
-              ]);
-            }),
+              ]),
+            ),
           ),
         ]),
       ]),
