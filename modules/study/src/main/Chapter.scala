@@ -30,14 +30,17 @@ case class Chapter(
 ) extends Chapter.Like:
 
   def updateDenorm: Chapter =
-    val node = relay.map(_.path).flatMap(root.nodeAt) | root.lastMainlineNode
-    val clocks = relay.so: r =>
-      val path       = r.path
-      val parentPath = path.parent.some.filter(_ != path)
-      val parentNode = parentPath.flatMap(root.nodeAt)
-      val clockSwap  = ByColor(node.clock, parentNode.flatMap(_.clock).orElse(node.clock))
-      if node.color.black then clockSwap else clockSwap.swap
-    copy(denorm = Chapter.LastPosDenorm(node.fen, node.moveOption.map(_.uci), clocks = clocks).some)
+    val looksLikeGame = tags.names.exists(_.isDefined) || tags.outcome.isDefined
+    val newDenorm = looksLikeGame.option:
+      val node = relay.map(_.path).flatMap(root.nodeAt) | root.lastMainlineNode
+      val clocks = relay.so: r =>
+        val path       = r.path
+        val parentPath = path.parent.some.filter(_ != path)
+        val parentNode = parentPath.flatMap(root.nodeAt)
+        val clockSwap  = ByColor(node.clock, parentNode.flatMap(_.clock).orElse(node.clock))
+        if node.color.black then clockSwap else clockSwap.swap
+      Chapter.LastPosDenorm(node.fen, node.moveOption.map(_.uci), clocks = clocks)
+    copy(denorm = newDenorm)
 
   def updateRoot(f: Root => Option[Root]) =
     f(root).map: newRoot =>
