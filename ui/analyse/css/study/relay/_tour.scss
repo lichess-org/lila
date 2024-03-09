@@ -49,10 +49,16 @@
     @extend %flex-center-nowrap;
     background: $c-bg-zebra;
     gap: 2em;
-    padding-right: var(--box-padding);
+    padding: 0 var(--box-padding);
+    @include breakpoint($mq-x-small) {
+      padding-left: 0;
+    }
 
     &__image {
-      // overflow: hidden;
+      display: none;
+      @include breakpoint($mq-x-small) {
+        display: block;
+      }
       flex: 0 0 38%;
       line-height: 0;
       img {
