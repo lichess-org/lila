@@ -12,12 +12,6 @@ final class VariationValidationTest extends Specification {
 
   private val now = org.joda.time.DateTime.now
 
-  private def evenIncomplete(result: Reader.Result): Replay =
-    result match {
-      case Reader.Result.Complete(replay)      => replay
-      case Reader.Result.Incomplete(replay, _) => replay
-    }
-
   "verify USI analysis" should {
     "work :)" in {
       val usiAnalysis = Analysis(
