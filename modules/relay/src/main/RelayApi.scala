@@ -261,9 +261,7 @@ final class RelayApi(
           roundRepo.coll.update
             .one($id(relay.id), $set("finished" -> false) ++ $unset("startedAt"))
             .void
-      yield
-        preview.invalidate(relay.studyId)
-        leaderboard.invalidate(relay.tourId)
+      yield leaderboard.invalidate(relay.tourId)
     } >> requestPlay(old.id, v = true)
 
   def deleteRound(roundId: RelayRoundId): Fu[Option[RelayTour]] =

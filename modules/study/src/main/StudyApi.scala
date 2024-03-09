@@ -825,7 +825,7 @@ final class StudyApi(
   def deleteAllChapters(studyId: StudyId, by: User) =
     sequenceStudy(studyId): study =>
       Contribute(by.id, study):
-        chapterRepo.deleteByStudy(study)
+        chapterRepo.deleteByStudy(study).andDo(preview.invalidate(study.id))
 
   def becomeAdmin(studyId: StudyId, me: MyId): Funit =
     sequenceStudy(studyId)(inviter.becomeAdmin(me))
