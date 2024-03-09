@@ -22,7 +22,7 @@ import { fenColor } from 'common/miniBoard';
 export default class StudyChaptersCtrl {
   newForm: StudyChapterNewForm;
   editForm: StudyChapterEditForm;
-  list: Prop<ChapterPreview[]>;
+  list: Prop<ChapterPreview[]> = prop([]);
   localPaths: LocalPaths = {};
 
   constructor(
