@@ -309,7 +309,7 @@ final private class StudySocket(
           "o" -> dests.opening,
           "s" -> sticky
         )
-        .add("relay", relay)
+        .add("relayPath", relay.map(_.path))
     )
   def deleteNode(pos: Position.Ref, who: Who) = version("deleteNode", Json.obj("p" -> pos, "w" -> who))
   def promote(pos: Position.Ref, toMainline: Boolean, who: Who) =

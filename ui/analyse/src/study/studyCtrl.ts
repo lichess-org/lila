@@ -606,7 +606,7 @@ export default class StudyCtrl {
         this.data.position.path = position.path + node.id;
         return;
       }
-      this.data.chapter.relayPath = d.relay?.path;
+      this.data.chapter.relayPath = d.relayPath;
       const newPath = this.ctrl.tree.addNode(node, position.path);
       if (!newPath) return this.xhrReload();
       this.ctrl.tree.addDests(d.d, newPath);

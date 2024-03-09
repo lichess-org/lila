@@ -120,18 +120,10 @@ export interface StudyChapter {
   feds?: [string?, string?];
 }
 
-export interface StudyChapterFromServer extends StudyChapter {
-  relay?: StudyChapterRelayFromServer;
-}
-
 export interface StudyChapterServerEval {
   path: string;
 }
 
-export interface StudyChapterRelayFromServer {
-  path: Tree.Path;
-  thinkTime?: number; // seconds since last move
-}
 export interface StudyChapterRelay {
   path: Tree.Path;
   lastMoveAt?: number;
@@ -257,7 +249,7 @@ export interface ServerNodeMsg extends WithWhoAndPos {
   n: Tree.Node;
   o: Opening;
   s: boolean;
-  relay?: StudyChapterRelayFromServer;
+  relayPath?: Tree.Path;
 }
 export interface ServerClockMsg extends WithWhoAndPos {
   c?: number;
