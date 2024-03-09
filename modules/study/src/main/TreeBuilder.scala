@@ -20,14 +20,12 @@ object TreeBuilder:
   // DEBUG should be done in BSONHandler
   def toBranch(node: Branch, variant: Variant): Branch =
     node.copy(
-      opening = Variant.list.openingSensibleVariants(variant).so(OpeningDb.findByEpdFen(node.fen)),
       children = toBranches(node.children, variant)
     )
 
   // DEBUG should be done in BSONHandler
   def makeRoot(root: Root, variant: Variant): Root =
     root.copy(
-      opening = Variant.list.openingSensibleVariants(variant).so(OpeningDb.findByEpdFen(root.fen)),
       children = toBranches(root.children, variant)
     )
 
