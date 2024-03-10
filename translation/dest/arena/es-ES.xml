@@ -76,7 +76,7 @@ Juega rápido y vuelve al recibidor para jugar más partidas y ganar más puntos
 
 Por ejemplo, ocupar el puesto 3 en un torneo de 100 jugadores = 3%. Estar en el puesto 10 en un torneo de 1000 jugadores = 1%.</string>
   <string name="medians" comment="Part of a longer sentence,  &quot;All averages on this page are %s.&quot; (where %s is this word, medians)">medianas</string>
-  <string name="allAveragesAreX" comment="%s is the word 'medians', which is available for translation separately.">Todos los promedios en esta página son %s.</string>
+  <string name="allAveragesAreX" comment="The full sentence says 'All averages on this page are medians.' (as in median averages)&#10;&#10;%s is the word 'medians', which is available for translation separately.">Todos los promedios en esta página son %s.</string>
   <string name="total">Total</string>
   <string name="pointsAvg">Promedio de puntos</string>
   <string name="pointsSum">Suma de puntos</string>
