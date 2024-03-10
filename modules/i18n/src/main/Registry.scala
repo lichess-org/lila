@@ -4,20 +4,23 @@ import java.io.{ File, FileInputStream, ObjectInputStream }
 import java.util.{ Map as JMap }
 import play.api.i18n.Lang
 import scala.jdk.CollectionConverters.*
+import lila.common.Chronometer
 
 object Registry:
 
-  val all: Map[Lang, MessageMap] = lila.common.Chronometer.syncEffect(loadSerialized): lap =>
-    logger.info(s"Loaded ${lap.result.size} langs in ${lap.showDuration}")
+  val all: JMap[Lang, MessageMap] = new java.util.HashMap[Lang, MessageMap]()
 
-  private def loadSerialized: Map[Lang, MessageMap] =
-    val istream      = ObjectInputStream(getClass.getClassLoader.getResourceAsStream("I18n.ser"))
-    val unserialized = istream.readObject().asInstanceOf[JMap[String, JMap[String, Object]]].asScala.toMap
+  def loadSerialized() =
+    val istream = ObjectInputStream(getClass.getClassLoader.getResourceAsStream("I18n.ser"))
+    val unserialized =
+      Chronometer.syncEffect(istream.readObject().asInstanceOf[JMap[String, JMap[String, Object]]]): lap =>
+        logger.info(s"Unserialized I18n.ser in ${lap.showDuration}")
     istream.close()
 
-    unserialized.map:
-      case (langCode, messageMap) =>
-        Lang(langCode) -> messageMap.asScala
+    unserialized.forEach: (langCode, messageMap) =>
+      all.put(
+        Lang(langCode),
+        messageMap.asScala
           .map: (key, value) =>
             key -> value.match
               case s: String => singleOrEscaped(s)
@@ -33,8 +36,9 @@ object Registry:
                 Plurals(plurals.toMap)
               case _ => throw Exception(s"i18n oh noes $key: $value")
           .asJava
+      )
 
-  val default: MessageMap = all.getOrElse(defaultLang, java.util.HashMap[MessageKey, Translation])
+  val default: MessageMap = all.getOrDefault(defaultLang, java.util.HashMap[MessageKey, Translation])
 
   private def singleOrEscaped(s: String) =
     val sb = java.lang.StringBuilder(s.length + 10)

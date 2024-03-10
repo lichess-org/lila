@@ -144,3 +144,8 @@ final class Env(
     // ensure the Lichess user is online
     socketEnv.remoteSocket.onlineUserIds.getAndUpdate(_ + User.lichessId)
     userEnv.repo.setSeenAt(User.lichessId)
+
+  Future:
+    import lila.i18n.Registry
+    lila.common.Chronometer.syncEffect(Registry.loadSerialized()): lap =>
+      logger.info(s"Loaded ${Registry.all.size} langs in ${lap.showDuration}")

@@ -70,4 +70,4 @@ object Translator:
         .getOrElse(key.value)
 
   private[i18n] def findTranslation(key: I18nKey, lang: Lang): Option[Translation] =
-    Registry.all.get(lang).flatMap(t => Option(t.get(key))).orElse(Option(Registry.default.get(key)))
+    Option(Registry.all.get(lang)).flatMap(t => Option(t.get(key))).orElse(Option(Registry.default.get(key)))
