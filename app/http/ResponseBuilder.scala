@@ -73,9 +73,9 @@ trait ResponseBuilder(using Executor)
   def negotiateApi(html: => Fu[Result], api: ApiVersion => Fu[Result])(using ctx: Context): Fu[Result] =
     lila.security.Mobile.Api
       .requestVersion(ctx.req)
-      .fold(html): v =>
-        api(v).dmap(_.as(JSON))
-      .dmap(_.withHeaders(VARY -> "Accept"))
+      .match
+        case Some(v) => api(v).dmap(_.withHeaders(VARY -> "Accept").as(JSON))
+        case None    => negotiate(html, api(ApiVersion.mobile))
 
   def negotiate(html: => Fu[Result], json: => Fu[Result])(using ctx: Context): Fu[Result] =
     if HTTPRequest.acceptsJson(ctx.req) || ctx.isOAuth
