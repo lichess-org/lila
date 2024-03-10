@@ -9,7 +9,7 @@ private object Dictionary:
   def en = dict("""
 (burn|die) in hell
 (f++|ph)(u++|e++|a++)c?k(er|r|u|k|t|ing?|ign|en|tard?|face|off?|e?d|)
-(f|ph)agg?([oi]t|)
+(f|ph)a++gg?([oi]t|)
 (kill|hang|neck) my ?self
 [ck]um(shot|)
 [ck]unt(ing|)
@@ -325,7 +325,7 @@ wi(chs|x++)er
 """)
 
   def tr = dict("""
-am[iı]na ((koy?dum)|(koya(y[iı]m|m))|(soka(y[iı]m|m))|([cç]aka(y[iı]m|m)))  
+am[iı]na ((koy?dum)|(koya(y[iı]m|m))|(soka(y[iı]m|m))|([cç]aka(y[iı]m|m)))
 amc[iı]k
 anan[iı]n am[iı]
 ((ann?an[iı](z[iı])?)|(kar[iı]n[iı](z[iı])?)|(avrad[iı]n[iı](z[iı])?)|(bac[ıi]n[iı](z[iı])?)) (s[ii̇]k[ei](yim|cem|rim|m))
