@@ -65,7 +65,7 @@ Speel snel en ga terug naar de toernooilobby om meer partijen te spelen en meer 
   <string name="bestResults">Beste resultaten</string>
   <string name="stats">Statistieken</string>
   <string name="tournamentStats">Toernooi statistieken</string>
-  <string name="allAveragesAreX">Alle gemiddelden op deze pagina zijn %s.</string>
+  <string name="allAveragesAreX" comment="The full sentence says 'All averages on this page are medians.' (as in median averages)&#10;&#10;%s is the word 'medians', which is available for translation separately.">Alle gemiddelden op deze pagina zijn %s.</string>
   <string name="total">Totaal</string>
   <string name="pointsAvg">Gemiddeld punten</string>
   <string name="pointsSum">Aantal punten</string>
