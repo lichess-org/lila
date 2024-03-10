@@ -1,7 +1,7 @@
 import * as licon from 'common/licon';
 import { clockIsRunning, formatMs } from 'common/clock';
 import { fenColor } from 'common/miniBoard';
-import { MaybeVNode, bind, looseH as h } from 'common/snabbdom';
+import { MaybeVNode, VNode, bind, looseH as h } from 'common/snabbdom';
 import { opposite as CgOpposite, uciToMove } from 'chessground/util';
 import { ChapterPreview, ChapterPreviewPlayer } from './interfaces';
 import StudyCtrl from './studyCtrl';
@@ -28,11 +28,15 @@ export class MultiBoardCtrl {
     this.multiCloudEval = new MultiCloudEval(redraw, send, variant, currentFens);
   }
 
+  private chapterFilter = (c: ChapterPreview) => !this.playing() || c.playing;
+
   pager = (): Paginator<ChapterPreview> => {
-    const currentPageResults = this.chapters
-      .list()
-      .slice((this.page - 1) * this.maxPerPage, this.page * this.maxPerPage);
-    const nbResults = this.chapters.list().length;
+    const filteredResults = this.chapters.list().filter(this.chapterFilter);
+    const currentPageResults = filteredResults.slice(
+      (this.page - 1) * this.maxPerPage,
+      this.page * this.maxPerPage,
+    );
+    const nbResults = filteredResults.length;
     const nbPages = Math.floor((nbResults + this.maxPerPage - 1) / this.maxPerPage);
     return {
       currentPage: this.page,
@@ -52,7 +56,7 @@ export class MultiBoardCtrl {
   };
   nextPage = () => this.setPage(this.page + 1);
   prevPage = () => this.setPage(this.page - 1);
-  lastPage = () => this.setPage(this.pager.nbPages);
+  lastPage = () => this.setPage(this.pager().nbPages);
 }
 
 export function view(ctrl: MultiBoardCtrl, study: StudyCtrl): MaybeVNode {
