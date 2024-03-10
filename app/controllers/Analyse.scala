@@ -43,7 +43,7 @@ final class Analyse(
         res <- RedirectAtFen(pov, initialFen):
           (
             env.analyse.analyser.get(pov.game),
-            !pov.game.metadata.analysed.so(env.fishnet.api.userAnalysisExists(pov.gameId)),
+            (!pov.game.metadata.analysed).so(env.fishnet.api.userAnalysisExists(pov.gameId)),
             pov.game.simulId.so(env.simul.repo.find),
             roundC.getWatcherChat(pov.game),
             ctx.noBlind.so(env.game.crosstableApi.withMatchup(pov.game)),
