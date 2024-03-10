@@ -23,7 +23,7 @@ final class GameSearchApi(
     client.count(query).dmap(_.value)
 
   def validateAccounts(query: Query, forMod: Boolean): Fu[Boolean] =
-    fuccess(forMod) >>| !userRepo.containsDisabled(query.userIds)
+    fuccess(forMod) >>| userRepo.containsDisabled(query.userIds).not
 
   def store(game: Game) =
     storable(game).so:

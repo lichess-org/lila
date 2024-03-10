@@ -30,12 +30,14 @@ final private class FishnetLimiter(
     sender match
       case Work.Sender(_, _, mod, system) if mod || system => fuTrue
       case Work.Sender(userId, ip, _, _) =>
-        !analysisColl.exists(
-          $or(
-            $doc("sender.ip"     -> ip),
-            $doc("sender.userId" -> userId)
+        analysisColl
+          .exists(
+            $or(
+              $doc("sender.ip"     -> ip),
+              $doc("sender.userId" -> userId)
+            )
           )
-        )
+          .not
 
   private def perDayCheck(sender: Work.Sender): Fu[Analyser.Result] =
     sender match

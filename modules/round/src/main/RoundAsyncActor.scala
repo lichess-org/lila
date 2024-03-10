@@ -66,7 +66,7 @@ final private class RoundAsyncActor(
 
     def isLongGone: Fu[Boolean] = {
       !botConnected && offlineSince.exists(_ < (nowMillis - timeoutMillis))
-    }.so(!isHostingSimul)
+    }.so(isHostingSimul.not)
 
     def showMillisToGone: Fu[Option[Long]] =
       if botConnected then fuccess(none)

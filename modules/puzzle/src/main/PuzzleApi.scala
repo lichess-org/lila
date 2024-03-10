@@ -152,6 +152,6 @@ final class PuzzleApi(
     private def key(user: User, id: PuzzleId) = CacheKey(s"${user.id}:${id}")
 
     def setCasualIfNotYetPlayed(user: User, puzzle: Puzzle): Funit =
-      (!round.exists(user, puzzle.id)).mapz(store.put(key(user, puzzle.id)))
+      round.exists(user, puzzle.id).not.mapz(store.put(key(user, puzzle.id)))
 
     def apply(user: User, id: PuzzleId) = store.get(key(user, id))
