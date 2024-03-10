@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+  <string name="arena">Arena</string>
   <string name="arenaTournaments">Areny</string>
   <string name="isItRated">Czy turniej jest rankingowy?</string>
   <string name="willBeNotified">Zostaniesz powiadomiony o rozpoczęciu turnieju, możesz więc bez przeszkód rozgrywać inne partie w innej karcie.</string>
@@ -44,7 +45,7 @@ Graj szybko i wracaj do poczekalni, by rozegrać więcej partii i zdobyć więce
   <string name="variant">Wariant</string>
   <string name="minimumGameLength">Minimalna liczba posunięć</string>
   <string name="history">Historyczne areny</string>
-  <plurals name="viewAllXTeams" comment="%s is the number of teams that can be viewed.&#10;&#10;Appears in team battles that feature lots of teams. As of the time of writing, Lichess lists up to 10 teams at a time, so this button lets you view all teams.">
+  <plurals name="viewAllXTeams" comment="viewAllXTeams [one] [other]&#10;&#10;%s is the number of teams that can be viewed">
     <item quantity="one">Zobacz zespół</item>
     <item quantity="few">Zobacz wszystkie %s zespoły</item>
     <item quantity="many">Zobacz wszystkie %s zespołów</item>
@@ -59,8 +60,32 @@ Graj szybko i wracaj do poczekalni, by rozegrać więcej partii i zdobyć więce
   <string name="arenaStreaks">Serie aren</string>
   <string name="arenaStreaksHelp">Po dwóch zwycięstwach, kolejne zwycięstwa dają 4 punkty zamiast 2.</string>
   <string name="noBerserkAllowed">Berserk niedozwolony</string>
-  <string name="noArenaStreaks" comment="A possible setting when creating an arena tournament.&#10;When enabled: After 2 wins, consecutive wins grant 4 points instead of 2.">Bez premii za serię zwycięstw</string>
+  <string name="noArenaStreaks">Bez premii za serię zwycięstw</string>
   <string name="averagePerformance">Średni wynik</string>
   <string name="averageScore">Średnia ocena</string>
   <string name="myTournaments">Moje turnieje</string>
+  <string name="editTournament">Edytuj turniej</string>
+  <string name="editTeamBattle">Edytuj bitwę drużyn</string>
+  <string name="defender" comment="In this context, this is the current holder of a shield trophy, who are defending their trophy in the next shield tournament of that variant. https://lichess.org/tournament/shields">Obrońca</string>
+  <string name="pickYourTeam">Wybierz swoją drużynę</string>
+  <string name="whichTeamWillYouRepresentInThisBattle">Którą drużynę będziesz reprezentował w tej bitwie?</string>
+  <string name="youMustJoinOneOfTheseTeamsToParticipate">Musisz dołączyć do jednej z tych drużyn aby wziąć udział!</string>
+  <string name="created">Utworzono</string>
+  <string name="recentlyPlayed">Ostatnio rozegrane</string>
+  <string name="bestResults">Najlepsze wyniki</string>
+  <string name="stats">Statystyki</string>
+  <string name="tournamentStats">Statystyki turniejowe</string>
+  <string name="rankAvgHelp">Średnia ranga to procent twojego rankingu. Niższa jest lepsza.
+
+Na przykład, będąc 3 w rankingu turnieju liczącym 100 graczy = 3%. Będąc 10 w rankingu turnieju liczącym 1000 graczy = 1%.</string>
+  <string name="medians" comment="Part of a longer sentence,  &quot;All averages on this page are %s.&quot; (where %s is this word, medians)">mediany</string>
+  <string name="allAveragesAreX" comment="The full sentence says 'All averages on this page are medians.' (as in median averages)&#10;&#10;%s is the word 'medians', which is available for translation separately.">Wszystkie średnie na tej stronie to %s.</string>
+  <string name="total">Ogółem</string>
+  <string name="pointsAvg">Średnia liczba punktów</string>
+  <string name="pointsSum">Suma punktów</string>
+  <string name="rankAvg">Średni ranking</string>
+  <string name="tournamentWinners">Zwycięzcy turnieju</string>
+  <string name="tournamentShields">Tarcze turniejowe</string>
+  <string name="onlyTitled">Tylko gracze z tytułem</string>
+  <string name="onlyTitledHelp">Wymagany oficjalny tytuł, aby dołączyć do turnieju</string>
 </resources>

@@ -19,11 +19,11 @@ case class CmsPage(
 object CmsPage:
 
   opaque type Id = String
-  object Id extends TotalWrapper[Id, String]:
+  object Id extends OpaqueString[Id]:
     def random = Id(ornicar.scalalib.ThreadLocalRandom.nextString(6))
 
   opaque type Key = String
-  object Key extends TotalWrapper[Key, String]
+  object Key extends OpaqueString[Key]
 
   case class Render(page: CmsPage, html: Html):
     export page.*

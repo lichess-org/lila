@@ -97,7 +97,7 @@ final class StudySearchApi(
     cs.value.map(_.text.value).mkString(" ")
 
   private def getChapters(s: Study): Fu[Study.WithActualChapters] =
-    chapterRepo.orderedByStudy(s.id).map { Study.WithActualChapters(s, _) }
+    chapterRepo.orderedByStudyLoadingAllInMemory(s.id).map { Study.WithActualChapters(s, _) }
 
   private val multiSpaceRegex            = """\s{2,}""".r
   private def noMultiSpace(text: String) = multiSpaceRegex.replaceAllIn(text, " ")

@@ -19,7 +19,7 @@ final private class RelayFidePlayerApi(playerApi: FidePlayerApi)(using Executor)
       .zip(tags.names)
       .zip(tags.titles))
       .traverse:
-        case ((fideId, name), title) => playerApi.guessPlayer(fideId, name, UserTitle.from(title))
+        case ((fideId, name), title) => playerApi.guessPlayer(fideId, name, title)
       .map:
         update(tags, tc, _)
 

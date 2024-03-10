@@ -17,7 +17,7 @@ final private class RelaySync(
 
   def updateStudyChapters(rt: RelayRound.WithTour, games: RelayGames): Fu[SyncResult.Ok] = for
     study          <- studyApi.byId(rt.round.studyId).orFail("Missing relay study!")
-    chapters       <- chapterRepo.orderedByStudy(study.id)
+    chapters       <- chapterRepo.orderedByStudyLoadingAllInMemory(study.id)
     sanitizedGames <- RelayInputSanity(chapters, games).fold(x => fufail(x.msg), fuccess)
     nbGames = sanitizedGames.size
     chapterUpdates <- sanitizedGames.traverse(createOrUpdateChapter(_, rt, study, chapters, nbGames))

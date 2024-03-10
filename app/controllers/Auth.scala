@@ -308,9 +308,8 @@ final class Auth(
 
   private def renderPasswordReset(form: Option[Form[PasswordReset]], fail: Boolean)(using ctx: Context) =
     renderAsync:
-      env.security.forms.passwordReset.map { baseForm =>
+      env.security.forms.passwordReset.map: baseForm =>
         html.auth.bits.passwordReset(form.foldLeft(baseForm)(_ withForm _), fail)
-      }
 
   def passwordReset = Open:
     renderPasswordReset(none, fail = false).map { Ok(_) }
@@ -333,11 +332,9 @@ final class Auth(
                         lila.mon.user.auth.passwordResetRequest("success").increment()
                         env.security.passwordReset
                           .send(user, storedEmail)
-                          .inject(
-                            Redirect(
+                          .inject:
+                            Redirect:
                               routes.Auth.passwordResetSent(storedEmail.conceal)
-                            )
-                          )
                       case _ =>
                         lila.mon.user.auth.passwordResetRequest("noEmail").increment()
                         Redirect(routes.Auth.passwordResetSent(data.email.conceal))

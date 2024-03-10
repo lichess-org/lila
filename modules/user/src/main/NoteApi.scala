@@ -57,26 +57,21 @@ final class NoteApi(userRepo: UserRepo, coll: Coll)(using
       .cursor[Note]()
       .list(100)
 
-  def write(to: User, text: String, modOnly: Boolean, dox: Boolean)(using me: Me) = {
+  def write(to: User, text: String, modOnly: Boolean, dox: Boolean)(using me: Me): Funit =
     val note = Note(
       _id = ThreadLocalRandom.nextString(8),
       from = me,
       to = to.id,
       text = text,
       mod = modOnly,
-      dox = modOnly && (dox || Title.fromUrl.toFideId(text).isDefined),
+      dox = modOnly && dox,
       date = nowInstant
     )
     Future
       .fromTry(bsonHandler.writeTry(note))
       .flatMap: base =>
         val bson = if note.searchable then base ++ searchableBsonFlag else base
-        coll.insert.one(bson)
-  } >> {
-    modOnly.so(Title.fromUrl(text)).flatMap {
-      _.so { userRepo.addTitle(to.id, _) }
-    }
-  }
+        coll.insert.one(bson).void
 
   def lichessWrite(to: User, text: String) =
     userRepo.lichess.flatMapz: lichess =>

@@ -493,7 +493,6 @@
   <string name="automaticallyProceedToNextGameAfterMoving">Нүүсний дараа дараагийн тоглолт руу шууд шилжих</string>
   <string name="autoSwitch">Автоматаар шилжих</string>
   <string name="puzzles">Таавар бодлого</string>
-  <string name="tournamentWinners">Ялагчид</string>
   <string name="name">Нэр</string>
   <string name="description">Багийн танилцуулга</string>
   <string name="descPrivate">Хувийн тодорхойлолт</string>
@@ -829,8 +828,6 @@
   <string name="minimumRatedGames">Чансаатай өрөг бага</string>
   <string name="minimumRating">Доод хэмжээний үнэлгээ</string>
   <string name="maximumWeeklyRating">Долоо хоногийн дээд үнэлгээ</string>
-  <string name="onlyTitled">Зөвхөн цолтой тоглогч нар</string>
-  <string name="onlyTitledHelp">Тэмцээнд ороход заавал албан ёсны цол шаардлагатай</string>
   <string name="tournChat">Тэмцээний холбоо</string>
   <string name="noChat">Харилцахгүй</string>
   <string name="onlyTeamLeaders">Зөвхөн багийн удирдагчид</string>

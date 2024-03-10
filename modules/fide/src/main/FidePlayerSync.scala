@@ -8,7 +8,7 @@ import play.api.libs.ws.StandaloneWSClient
 import java.io.InputStream
 import java.util.zip.ZipInputStream
 import chess.format.pgn.{ Tag, Tags }
-import chess.{ FideId, ByColor }
+import chess.{ FideId, ByColor, PlayerTitle, PlayerName }
 
 import lila.db.dsl.{ *, given }
 
@@ -132,18 +132,20 @@ final private class FidePlayerSync(repo: FideRepo, api: FidePlayerApi, ws: Stand
       def string(start: Int, end: Int) = line.substring(start, end).trim.some.filter(_.nonEmpty)
       def number(start: Int, end: Int) = string(start, end).flatMap(_.toIntOption)
       for
-        id   <- number(0, 15)
-        name <- string(15, 76)
-        title  = UserTitle.from(string(84, 89))
-        wTitle = UserTitle.from(string(89, 105))
+        id    <- number(0, 15)
+        name1 <- string(15, 76)
+        name = name1.filterNot(_.isDigit).trim
+        if name.sizeIs > 2
+        title  = string(84, 89).flatMap(PlayerTitle.get)
+        wTitle = string(89, 105).flatMap(PlayerTitle.get)
         year   = number(152, 156).filter(_ > 1000)
         flags  = string(158, 159)
       yield FidePlayer(
         id = FideId(id),
-        name = name.filterNot(_.isDigit).trim,
+        name = PlayerName(name),
         token = FidePlayer.tokenize(name),
         fed = string(76, 79),
-        title = mostValuable(title, wTitle),
+        title = PlayerTitle.mostValuable(title, wTitle),
         standard = number(113, 117),
         rapid = number(126, 132),
         blitz = number(139, 145),
@@ -151,21 +153,6 @@ final private class FidePlayerSync(repo: FideRepo, api: FidePlayerApi, ws: Stand
         inactive = flags.contains("i").option(true),
         fetchedAt = nowInstant
       )
-
-    // ordered by difficulty to achieve
-    // if a player has multiple titles, the most valuable one is used
-    private val titleRank: Map[UserTitle, Int] = UserTitle
-      .from:
-        List("GM", "IM", "WGM", "FM", "WIM", "WFM", "NM", "CM", "WCM", "WNM")
-      .zipWithIndex
-      .toMap
-
-    private def mostValuable(t1: Option[UserTitle], t2: Option[UserTitle]): Option[UserTitle] =
-      t1.flatMap(titleRank.get)
-        .fold(t2): v1 =>
-          t2.flatMap(titleRank.get)
-            .fold(t1): v2 =>
-              if v1 < v2 then t1 else t2
 
     private def upsert(ps: Seq[FidePlayer]) =
       val update = repo.playerColl.update(ordered = false)

@@ -126,7 +126,7 @@ final class MsgApi(
                 msgPre.copy(text = spam.replace(msgPre.text))
               else msgPre
             val msgWrite = colls.msg.insert.one(writeMsg(msg, threadId))
-            val threadWrite =
+            def threadWrite =
               if isNew then
                 colls.thread.insert.one:
                   writeThread(
@@ -148,19 +148,18 @@ final class MsgApi(
                     // keep maskWith.date always valid (though sometimes redundant)
                     // unset "deleted by receiver" unless the message is muted
                   )
-            (msgWrite
-              .zip(threadWrite))
-              .void
-              .andDo {
-                import MsgSecurity.*
-                import lila.hub.actorApi.socket.SendTo
-                import lila.socket.Socket.makeMessage
-                if send == Ok || send == TrollFriend then
-                  notifier.onPost(threadId)
-                  Bus.publish(SendTo(dest, makeMessage("msgNew", json.renderMsg(msg))), "socketUsers")
-                if send == Ok then shutup ! lila.hub.actorApi.shutup.RecordPrivateMessage(orig, dest, text)
-              }
-              .inject(PostResult.Success)
+            for
+              _ <- msgWrite
+              _ <- threadWrite
+            yield
+              import MsgSecurity.*
+              import lila.hub.actorApi.socket.SendTo
+              import lila.socket.Socket.makeMessage
+              if send == Ok || send == TrollFriend then
+                notifier.onPost(threadId)
+                Bus.publish(SendTo(dest, makeMessage("msgNew", json.renderMsg(msg))), "socketUsers")
+              if send == Ok then shutup ! lila.hub.actorApi.shutup.RecordPrivateMessage(orig, dest, text)
+              PostResult.Success
       yield res
     }
 

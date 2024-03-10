@@ -1,7 +1,5 @@
 package lila.ublog
 
-import play.api.Mode
-
 import lila.common.config
 import lila.common.{ Bus, LpvEmbed, Markdown, MarkdownRender }
 import lila.hub.actorApi.lpv.AllPgnsFromText
@@ -14,7 +12,7 @@ final class UblogMarkup(
     cacheApi: CacheApi,
     netDomain: config.NetDomain,
     assetDomain: config.AssetDomain
-)(using Executor, Scheduler)(using mode: Mode):
+)(using Executor, Scheduler)(using mode: play.api.Mode):
 
   type PgnSourceId = String
 
@@ -41,7 +39,7 @@ final class UblogMarkup(
 
   private val cache = cacheApi[(UblogPostId, Markdown), Html](2048, "ublog.markup"):
     _.maximumSize(2048)
-      .expireAfterWrite(if mode == Mode.Prod then 15 minutes else 1 second)
+      .expireAfterWrite(if mode.isProd then 15 minutes else 1 second)
       .buildAsyncFuture: (id, markdown) =>
         Bus
           .ask("lpv")(AllPgnsFromText(markdown.value, _))

@@ -19,7 +19,7 @@ object Namer:
     player.aiLevel match
       case Some(level) => s"Stockfish level $level"
       case None =>
-        user.fold(player.name | "Anon."): u =>
+        user.fold(player.name.fold("Anon.")(_.value)): u =>
           ratingString(player)
             .ifTrue(withRating)
             .fold(u.titleName): rating =>

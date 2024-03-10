@@ -48,6 +48,7 @@ trait Lila
   trait StringValue extends Any:
     def value: String
     override def toString = value
+  given cats.Show[StringValue] = cats.Show.show(_.value)
 
   // replaces Product.unapply in play forms
   def unapply[P <: Product](p: P)(using m: scala.deriving.Mirror.ProductOf[P]): Option[m.MirroredElemTypes] =
@@ -55,3 +56,9 @@ trait Lila
 
   // move somewhere else when we have more Eqs
   given cats.Eq[play.api.i18n.Lang] = cats.Eq.fromUniversalEquals
+
+  import play.api.Mode
+  extension (mode: Mode)
+    def isDev   = mode == Mode.Dev
+    def isProd  = mode == Mode.Prod
+    def notProd = mode != Mode.Prod

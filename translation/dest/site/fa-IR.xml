@@ -362,8 +362,8 @@
     <item quantity="other">بیشتر از %s بازی رسمی</item>
   </plurals>
   <plurals name="moreThanNbPerfRatedGames">
-    <item quantity="one">بیشتر از%1$s بازی رسمی%2$s</item>
-    <item quantity="other">بیشتر از%1$s بازی رسمی%2$s</item>
+    <item quantity="one">بیشتر از %1$s بازی رسمی %2$s</item>
+    <item quantity="other">بیشتر از %1$s بازی رسمی %2$s</item>
   </plurals>
   <plurals name="needNbMorePerfGames">
     <item quantity="one">شما باید%1$s بازی رسمی%2$s انجام دهید.</item>
@@ -379,8 +379,8 @@
   <string name="yourPerfRatingIsTooLow">درجه‌بندی %1$s شما (%2$s) بیش از حد پایین است</string>
   <string name="ratedMoreThanInPerf">امتیاز %2$s بالاتر از %1$s لازم است.</string>
   <string name="ratedLessThanInPerf">برای ورود،امتیاز%2$s شما باید کمتر از%1$s باشد.</string>
-  <string name="mustBeInTeam">باید در تیمه %s باشید</string>
-  <string name="youAreNotInTeam">شما در تیمه %s نیستید</string>
+  <string name="mustBeInTeam">باید در تیم %s باشید</string>
+  <string name="youAreNotInTeam">شما در تیم %s نیستید</string>
   <string name="backToGame">بازگشت به بازی</string>
   <string name="siteDescription">شطرنج آنلاین رایگان. همین حالا شطرنج بازی کنید. بدون نیاز به ثبت نام، بدون تبلیغات، بدون نیاز به افزونه. بازی با کامپیوتر، دوستان و یا حریفان تصادفی.</string>
   <string name="xJoinedTeamY">%1$s به تیم %2$s پیوست</string>
@@ -531,7 +531,6 @@
   <string name="automaticallyProceedToNextGameAfterMoving">حرکت کردن اتوماتیک برای بازی بعدی بعد از حرکت کردن</string>
   <string name="autoSwitch">تعویض خودکار</string>
   <string name="puzzles">معماها</string>
-  <string name="tournamentWinners">برندگان مسابقات</string>
   <string name="name">نام</string>
   <string name="description">شرح</string>
   <string name="descPrivate">توضیحات خصوصی</string>
@@ -940,8 +939,6 @@
   <string name="minimumRatedGames">حداقل بازی های ریتد</string>
   <string name="minimumRating">حداقل درجه‌بندی</string>
   <string name="maximumWeeklyRating">حداکثر درجه‌بندی هفتگی</string>
-  <string name="onlyTitled">تنها بازیکنان عنوان دار</string>
-  <string name="onlyTitledHelp">نیاز به یک عنوان رسمی برای پیوستن به مسابقه است</string>
   <string name="positionInputHelp">برای شروع هر بازی از یک پوزیشن مشخص یک FEN معتبر را جایگذاری کنید.
 این عمل فقط برای بازی های استاندارد امکان پذیر است، نه با واریانت ها.
 شما می توانید %s را جهت ساخت یک پوزیشن FEN استفاده کنید و سپس اینجا جایگذاری کنید.

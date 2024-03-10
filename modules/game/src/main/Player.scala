@@ -1,7 +1,7 @@
 package lila.game
 
 import cats.derived.*
-import chess.{ Ply, Color, ByColor }
+import chess.{ Ply, Elo, Color, ByColor, PlayerName }
 
 import lila.user.User
 
@@ -21,7 +21,7 @@ case class Player(
     blurs: Blurs = Blurs.zeroBlurs.zero,
     berserk: Boolean = false,
     blindfold: Boolean = false,
-    name: Option[String] = None
+    name: Option[PlayerName] = None
 ) derives Eq:
 
   def playerUser =
@@ -56,10 +56,12 @@ case class Player(
 
   def isProposingTakeback = proposeTakebackAt > 0
 
-  def nameSplit: Option[(String, Option[Int])] =
-    name.map:
-      case Player.nameSplitRegex(n, r) => n.trim -> r.toIntOption
-      case n                           => n      -> none
+  def nameSplit: Option[(PlayerName, Option[Int])] =
+    PlayerName
+      .raw(name)
+      .map:
+        case Player.nameSplitRegex(n, r) => PlayerName(n.trim) -> r.toIntOption
+        case n                           => PlayerName(n)      -> none
 
   def before(other: Player) =
     ((rating, id), (other.rating, other.id)) match
@@ -113,15 +115,15 @@ object Player:
 
   def makeImported(
       color: Color,
-      name: Option[String],
-      rating: Option[IntRating]
+      name: Option[PlayerName],
+      rating: Option[Elo]
   ): Player =
     Player(
       id = IdGenerator.player(color),
       color = color,
       aiLevel = none,
-      name = name.orElse("?".some),
-      rating = rating
+      name = name.orElse(PlayerName("?").some),
+      rating = rating.map(_.into(IntRating))
     )
 
   case class HoldAlert(ply: Ply, mean: Int, sd: Int):
@@ -170,7 +172,7 @@ object Player:
       blurs = doc.getAsOpt[Blurs](blursBits).getOrElse(Blurs.zeroBlurs.zero),
       berserk = p.berserk,
       blindfold = ~doc.getAsOpt[Boolean](blindfold),
-      name = doc.string(name)
+      name = doc.getAsOpt[PlayerName](name)
     )
 
   def playerWrite(p: Player) =

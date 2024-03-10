@@ -108,7 +108,7 @@ export function side(ctrl: StudyCtrl): VNode {
         hook: bindNonPassive('click', e => {
           e.preventDefault();
           const target = e.target as HTMLElement,
-            id = (target.parentNode as HTMLElement).getAttribute('data-id') || target.getAttribute('data-id');
+            id = (target.parentNode as HTMLElement).dataset['id'] || target.dataset['id'];
           if (id) ctrl.setChapter(id, true);
           return false;
         }),

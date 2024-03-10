@@ -1,7 +1,7 @@
 package lila.fide
 
 import reactivemongo.api.bson.*
-import chess.{ ByColor, FideId }
+import chess.{ ByColor, FideId, PlayerTitle, PlayerName }
 
 import lila.db.dsl.{ given, * }
 
@@ -29,14 +29,17 @@ final class FidePlayerApi(repo: FideRepo, cacheApi: lila.memo.CacheApi)(using Ex
   private val idToPlayerCache = cacheApi[FideId, Option[FidePlayer]](1024, "player.fidePlayer.byId"):
     _.expireAfterWrite(3.minutes).buildAsyncFuture(repo.player.fetch)
 
+  def urlToTitle(url: String): Fu[Option[PlayerTitle]] =
+    FideWebsite.urlToFideId(url).so(fetch).map(_.flatMap(_.title))
+
   object guessPlayer:
 
-    private case class TitleName(title: Option[UserTitle], name: PlayerName)
+    private case class TitleName(title: Option[PlayerTitle], name: PlayerName)
 
     def apply(
         fideId: Option[FideId],
         name: Option[PlayerName],
-        title: Option[UserTitle]
+        title: Option[PlayerTitle]
     ): Fu[Option[FidePlayer]] = fideId match
       case Some(fideId) => idToPlayerCache.get(fideId)
       case None         => name.map(TitleName(title, _)).so(cache.get)
@@ -45,7 +48,7 @@ final class FidePlayerApi(repo: FideRepo, cacheApi: lila.memo.CacheApi)(using Ex
       cacheApi[TitleName, Option[FidePlayer]](1024, "player.fidePlayer.byName"):
         _.expireAfterWrite(3.minutes).buildAsyncFuture: p =>
           repo.playerColl
-            .find($doc("token" -> FidePlayer.tokenize(p.name), "title" -> p.title))
+            .find($doc("token" -> FidePlayer.tokenize(p.name.value), "title" -> p.title))
             .cursor[FidePlayer]()
             .list(2)
             .map:

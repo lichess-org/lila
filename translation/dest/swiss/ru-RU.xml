@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+  <string name="swiss">Швейцарский</string>
   <string name="swissTournaments">Турниры по Швейцарской системе</string>
   <plurals name="viewAllXRounds" comment="viewAllXRounds [one] [other]&#10;&#10;%s is the number of rounds in the Swiss tournament.">
     <item quantity="one">Посмотреть раунд</item>
@@ -52,6 +53,16 @@
   <string name="roundInterval">Перерыв между турами</string>
   <string name="forbiddenPairings">Запрещённые пары</string>
   <string name="forbiddenPairingsHelp">Имена игроков, которые не должны играть вместе (например, родственники). По два имени в строке, разделённые пробелами.</string>
+  <string name="manualPairings">Ручной подбор пар в следующем раунде</string>
+  <string name="manualPairingsHelp">Укажите все пары следующего раунда вручную. Одна пара игроков на строку. Например:
+PlayerA PlayerB
+PlayerC PlayerD
+Чтобы дать автопобеду (1 очко) игроку вместо указания пары, добавьте строку в таком виде:
+PlayerE 1
+Пропущенные игроки считаются отсутствующими и получают по ноль очков.
+Оставьте это поле пустым, чтобы lichess создал пары автоматически.</string>
+  <string name="mustHavePlayedTheirLastSwissGame">Должен был сыграть в последнем швейцарском турнире</string>
+  <string name="mustHavePlayedTheirLastSwissGameHelp">Разрешить участие только тем игрокам, которые играли в последнем швейцарском турнире. Если они не смогли принять участие в таком турнире, они не смогут участвовать и в вашем. Это приводит к более приятному ощущению игроков, которые реально играют в швейцарских турнирах.</string>
   <string name="newSwiss">Новый турнир по Швейцарской системе</string>
   <string name="swissVsArenaQ">Когда использовать турниры по Швейцарской системе вместо Арен?</string>
   <string name="swissVsArenaA">В турнирах по Швейцарской системе все участники играют одинаковое количество партий и могут играть друг с другом только один раз.
@@ -125,4 +136,7 @@
   <string name="predefinedUsers">Разрешить участие только перечисленным игрокам</string>
   <string name="forbiddedUsers">Если список не пустой, тогда только игроки из списка смогут участвовать. По одному игроку в строке.</string>
   <string name="playYourGames">Играйте ваши партии</string>
+  <string name="byes">Автопобеды</string>
+  <string name="absences">Отсутствие</string>
+  <string name="tieBreak">Тай-брейк</string>
 </resources>

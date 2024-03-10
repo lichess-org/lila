@@ -76,7 +76,7 @@ final class ChapterRepo(val coll: AsyncColl)(using Executor, akka.stream.Materia
           .documentSource()
 
   // loads all study chapters in memory!
-  def orderedByStudy(studyId: StudyId): Fu[List[Chapter]] =
+  def orderedByStudyLoadingAllInMemory(studyId: StudyId): Fu[List[Chapter]] =
     coll:
       _.find($studyId(studyId))
         .sort($sort.asc("order"))

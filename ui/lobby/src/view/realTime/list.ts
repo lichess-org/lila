@@ -105,7 +105,7 @@ export const render = (ctrl: LobbyController, allHooks: Hook[]) => {
             let el = e.target as HTMLElement;
             do {
               el = el.parentNode as HTMLElement;
-              if (el.nodeName === 'TR') return ctrl.clickHook(el.getAttribute('data-id')!);
+              if (el.nodeName === 'TR') return ctrl.clickHook(el.dataset['id']!);
             } while (el.nodeName !== 'TABLE');
           },
           ctrl.redraw,

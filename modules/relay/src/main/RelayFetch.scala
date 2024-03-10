@@ -6,7 +6,6 @@ import chess.format.pgn.{ Tag, Tags, SanStr, PgnStr }
 import com.github.blemale.scaffeine.LoadingCache
 import io.mola.galimatias.URL
 import play.api.libs.json.*
-import play.api.Mode
 
 import lila.base.LilaInvalid
 import lila.common.{ Seconds, LilaScheduler }
@@ -29,23 +28,23 @@ final private class RelayFetch(
     gameRepo: GameRepo,
     pgnDump: PgnDump,
     gameProxy: GameProxyRepo
-)(using Executor, Scheduler)(using mode: Mode):
+)(using Executor, Scheduler)(using mode: play.api.Mode):
 
   import RelayFetch.*
 
   LilaScheduler(
     "RelayFetch.official",
-    _.Every(if mode == Mode.Dev then 2.seconds else 500 millis),
+    _.Every(if mode.isDev then 2.seconds else 500 millis),
     _.AtMost(15 seconds),
-    _.Delay(if mode == Mode.Dev then 1.second else 21 seconds)
+    _.Delay(if mode.isDev then 1.second else 21 seconds)
   ):
     syncRelays(official = true)
 
   LilaScheduler(
     "RelayFetch.user",
-    _.Every(if mode == Mode.Dev then 2.seconds else 750 millis),
+    _.Every(if mode.isDev then 2.seconds else 750 millis),
     _.AtMost(10 seconds),
-    _.Delay(if mode == Mode.Dev then 2.second else 33 seconds)
+    _.Delay(if mode.isDev then 2.second else 33 seconds)
   ):
     syncRelays(official = false)
 

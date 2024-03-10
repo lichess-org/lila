@@ -106,7 +106,7 @@ final private class RelayFormatApi(
   private def httpGetResponse(url: URL)(using CanProxy): Future[StandaloneWSResponse] =
     val (req, proxy) = addProxy(url):
       ws.url(url.toString)
-        .withRequestTimeout(4.seconds)
+        .withRequestTimeout(5.seconds)
         .withFollowRedirects(false)
     req
       .get()

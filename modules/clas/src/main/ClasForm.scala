@@ -5,18 +5,22 @@ import play.api.data.Forms.*
 import play.api.i18n.Lang
 
 import lila.common.Form.{ cleanNonEmptyText, cleanText, into }
+import lila.security.Hcaptcha
+import play.api.mvc.RequestHeader
+import lila.security.HcaptchaForm
 
 final class ClasForm(
     lightUserAsync: lila.common.LightUser.Getter,
     securityForms: lila.security.SecurityForm,
-    nameGenerator: NameGenerator
+    nameGenerator: NameGenerator,
+    hcaptcha: Hcaptcha
 )(using Executor):
 
   import ClasForm.*
 
   object clas:
 
-    val form = Form(
+    val form: Form[ClasData] = Form:
       mapping(
         "name" -> cleanText(minLength = 3, maxLength = 100),
         "desc" -> cleanText(minLength = 0, maxLength = 2000),
@@ -24,22 +28,18 @@ final class ClasForm(
           "Invalid teacher list",
           str =>
             val ids = readTeacherIds(str)
-            ids.nonEmpty && ids.sizeIs <= 10 && ids.forall { id =>
+            ids.nonEmpty && ids.sizeIs <= 10 && ids.forall: id =>
               blockingFetchUser(id.into(UserStr)).isDefined
-            }
         )
       )(ClasData.apply)(unapply)
-    )
 
-    def create = form
+    def create(using RequestHeader): Fu[HcaptchaForm[ClasData]] = hcaptcha.form(form)
 
-    def edit(c: Clas) =
-      form.fill(
-        ClasData(
-          name = c.name,
-          desc = c.desc,
-          teachers = c.teachers.toList.mkString("\n")
-        )
+    def edit(c: Clas): Form[ClasData] = form.fill:
+      ClasData(
+        name = c.name,
+        desc = c.desc,
+        teachers = c.teachers.toList.mkString("\n")
       )
 
     def wall = Form(single("wall" -> text(maxLength = 100_000).into[Markdown]))
@@ -56,12 +56,11 @@ final class ClasForm(
 
     def generate(using Lang): Fu[Form[CreateStudent]] =
       nameGenerator().map: username =>
-        create.fill(
+        create.fill:
           CreateStudent(
             username = username | UserName(""),
             realName = ""
           )
-        )
 
     def invite(c: Clas) = Form:
       mapping(

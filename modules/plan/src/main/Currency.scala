@@ -6,7 +6,6 @@ import play.api.i18n.Lang
 import play.api.libs.json.*
 import play.api.libs.ws.JsonBodyReadables.*
 import play.api.libs.ws.StandaloneWSClient
-import play.api.Mode
 import scala.util.Try
 
 import lila.common.config
@@ -18,7 +17,7 @@ final class CurrencyApi(
     ws: StandaloneWSClient,
     mongoCache: lila.memo.MongoCache.Api,
     config: CurrencyApi.Config
-)(using ec: Executor, mode: Mode):
+)(using ec: Executor, mode: play.api.Mode):
 
   import CurrencyApi.*
 
@@ -26,7 +25,7 @@ final class CurrencyApi(
 
   private val ratesCache = mongoCache.unit[Map[String, Double]](
     "currency:rates",
-    if mode == Mode.Prod then 120 minutes // i.e. 377/month, under the 1000/month limit of free OER plan
+    if mode.isProd then 120 minutes // i.e. 377/month, under the 1000/month limit of free OER plan
     else 1 day
   ) { loader =>
     _.refreshAfterWrite(121 minutes)
