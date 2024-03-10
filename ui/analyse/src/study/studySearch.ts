@@ -1,4 +1,4 @@
-import { Prop, propWithEffect } from 'common';
+import { Prop, Toggle, propWithEffect, toggle } from 'common';
 import * as licon from 'common/licon';
 import { bind, dataIcon, onInsert } from 'common/snabbdom';
 import { h, VNode } from 'snabbdom';
@@ -6,7 +6,7 @@ import { Redraw } from '../interfaces';
 import { ChapterPreview } from './interfaces';
 
 export class SearchCtrl {
-  open: Prop<boolean>;
+  open: Toggle;
   query: Prop<string> = propWithEffect('', this.redraw);
 
   constructor(
@@ -15,7 +15,7 @@ export class SearchCtrl {
     readonly rootSetChapter: (id: string) => void,
     readonly redraw: Redraw,
   ) {
-    this.open = propWithEffect(false, () => this.query(''));
+    this.open = toggle(false, () => this.query(''));
     site.pubsub.on('study.search.open', () => this.open(true));
   }
 

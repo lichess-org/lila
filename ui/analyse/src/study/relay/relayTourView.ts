@@ -34,11 +34,17 @@ export default function (ctrl: AnalyseCtrl): VNode | undefined {
 
 export const tourSide = (ctrl: AnalyseCtrl, study: StudyCtrl, relay: RelayCtrl) =>
   h('aside.relay-tour__side', [
-    h(
-      'a.relay-tour__side__name',
-      { hook: bind('click', relay.tourShow.toggle, relay.redraw) },
-      study.data.name,
-    ),
+    h('div.relay-tour__side__header', [
+      h(
+        'button.relay-tour__side__name',
+        { hook: bind('click', relay.tourShow.toggle, relay.redraw) },
+        study.data.name,
+      ),
+      h('button.relay-tour__side__search', {
+        attrs: { 'data-icon': licon.Search, title: 'Search' },
+        hook: bind('click', study.search.open.toggle),
+      }),
+    ]),
     gamesList(study, relay),
     h('div.chat__members', {
       hook: onInsert(el => {

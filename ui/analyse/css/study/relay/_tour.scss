@@ -2,23 +2,44 @@
   &__side {
     @extend %flex-column;
     user-select: none;
-    &__name {
-      @extend %flex-center-nowrap, %box-radius-top, %metal;
+    &__header {
+      @extend %flex-center-nowrap, %box-radius-top;
+      overflow: hidden;
+      align-items: stretch;
       flex: 0 0 auto;
+      button {
+        @extend %flex-center-nowrap, %metal;
+        border: none;
+        outline: none;
+        &:hover,
+        &:hover::before {
+          background: $c-primary !important;
+          color: $c-primary-over;
+          text-shadow: none;
+        }
+      }
+    }
+    &__search {
+      flex: 0 0 auto;
+      border-left: $border !important;
+      padding: 1em 1.5em;
+    }
+    &__name {
+      flex: 1;
       padding: 1em;
-      gap: 1em;
+      gap: 0.7em;
+      font-weight: bold;
       &::before {
         @extend %data-icon;
         content: $licon-LessThan;
-        font-size: 1.6em;
+        font-size: 1.5em;
+        color: $c-font-dim;
       }
       main.has-relay-tour &::before {
         content: $licon-RadioTower;
       }
-      main.has-relay-tour &,
-      &:hover {
-        background: $c-primary;
-        color: $c-primary-over;
+      main.has-relay-tour & {
+        background: $c-bg-zebra;
       }
     }
     .chat__members {
