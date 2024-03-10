@@ -34,32 +34,42 @@ final class RelayPlayerTour(
     import lila.study.Chapter
     import lila.study.BSONHandlers.given
     import lila.common.LilaStream
-    chapterRepo.coll: coll =>
-      coll
-        .find(
-          $doc(
-            "tags".$regex("^(White|Black):"),
-            // "relay"            -> $exists(true),
-            "relay.fideIds"    -> $exists(false),
-            "relay.lastMoveAt" -> $exists(true) // rare; and breaks the bson reader
-          ),
-          $doc("relay" -> true, "tags" -> true).some
-        )
-        .cursor[Chapter.RelayAndTags]()
+    chapterRepo.coll: chapterColl =>
+      colls.tour
+        .find($doc("tier" -> $exists(true)), $doc("_id" -> true).some)
+        .cursor[Bdoc]()
         .documentSource()
-        .via(lila.common.LilaStream.logRate("relay round fide ids")(logger))
+        .mapConcat:
+          _.getAsOpt[RelayTour.Id]("_id").toList
+        .mapAsync(1): tourId =>
+          colls.round.distinctEasy[RelayRoundId, List]("_id", $doc("tourId" -> tourId))
+        .mapAsync(1): roundIds =>
+          roundIds.nonEmpty.so:
+            chapterColl
+              .find(
+                $doc(
+                  "studyId".$in(roundIds),
+                  "tags".$regex("^(White|Black):"),
+                  "relay.fideIds".$exists(false),
+                  "relay.lastMoveAt".$exists(true) // rare; and breaks the bson reader
+                ),
+                $doc("relay" -> true, "tags" -> true).some
+              )
+              .cursor[Chapter.RelayAndTags]()
+              .listAll()
+        .mapConcat(identity)
         .mapAsync(4): chap =>
-          (chap.tags.names
-            .zip(chap.tags.titles))
+          chap.tags.names
+            .zip(chap.tags.titles)
             .traverse: (name, title) =>
-              playerApi.guessPlayer(none, name, UserTitle.from(title))
+              playerApi.guessPlayer(none, name, title)
             .map:
               _.mapList(_.so(_.id.value))
             .flatMap: fideIds =>
               fideIds
                 .exists(_ > 0)
                 .so:
-                  coll.update
+                  chapterColl.update
                     .one(
                       $id(chap.id),
                       $set("relay.fideIds" -> fideIds, "relay.fideIdsGuess" -> true)
@@ -67,4 +77,4 @@ final class RelayPlayerTour(
                     .void
         .runWith(LilaStream.sinkCount)
         .map: nb =>
-          println(s"Denormalized Fide IDs of $nb rounds")
+          println(s"Denormalized Fide IDs of $nb chapters")

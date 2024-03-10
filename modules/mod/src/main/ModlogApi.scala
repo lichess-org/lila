@@ -80,7 +80,7 @@ final class ModlogApi(repo: ModlogRepo, userRepo: UserRepo, ircApi: IrcApi, pres
   def reopenAccount(user: UserId)(using Me) = add:
     Modlog(user.some, Modlog.reopenAccount)
 
-  def addTitle(user: UserId, title: String)(using Me) = add:
+  def setTitle(user: UserId, title: String)(using Me) = add:
     Modlog(user.some, Modlog.setTitle, title.some)
 
   def removeTitle(user: UserId)(using Me) = add:

@@ -20,7 +20,7 @@ final private class TeamSocket(
     roomId => _.Team(roomId.into(TeamId)).some,
     localTimeout = Some: (roomId, modId, suspectId) =>
       api.hasPerm(roomId.into(TeamId), modId, _.Comm) >>&
-        !api.hasPerm(roomId.into(TeamId), suspectId, _.Comm),
+        api.hasPerm(roomId.into(TeamId), suspectId, _.Comm).not,
     chatBusChan = _.Team
   )
 

@@ -4,10 +4,10 @@ package templating
 import controllers.routes
 import mashup.*
 import play.api.i18n.Lang
+import chess.PlayerTitle
 
 import lila.app.ui.ScalatagsTemplate.{ *, given }
-import lila.common.licon
-import lila.common.LightUser
+import lila.common.{ licon, LightUser }
 import lila.i18n.{ I18nKey, I18nKeys as trans }
 import lila.rating.{ Perf, PerfType }
 import lila.user.{ User, UserPerfs, FlairApi }
@@ -162,7 +162,7 @@ trait UserHelper extends HasEnv:
       user.flair.map(userFlair)
     )
 
-  def titleTag(title: Option[UserTitle]): Option[Frag] =
+  def titleTag(title: Option[PlayerTitle]): Option[Frag] =
     title.map: t =>
       frag(userTitleTag(t), nbsp)
   def titleTag(lu: LightUser): Frag = titleTag(lu.title)
@@ -174,7 +174,7 @@ trait UserHelper extends HasEnv:
       cssClass: Option[String],
       withOnline: Boolean,
       truncate: Option[Int],
-      title: Option[UserTitle],
+      title: Option[PlayerTitle],
       flair: Option[Flair],
       params: String,
       modIcon: Boolean

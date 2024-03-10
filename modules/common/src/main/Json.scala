@@ -1,9 +1,10 @@
 package lila.common
 
 import play.api.libs.json.{ Json as PlayJson, * }
+import ornicar.scalalib.Render
 import chess.format.{ Uci }
-import scala.util.NotGiven
 import chess.variant.Crazyhouse
+import scala.util.NotGiven
 
 object Json:
 
@@ -23,8 +24,10 @@ object Json:
   // ): Format[T] =
   //   format.bimap(bts.apply, stb.apply)
 
-  given [A](using bts: SameRuntime[A, String]): KeyWrites[A] with
-    def writeKey(key: A) = bts(key)
+  given [A](using Render[A]): KeyWrites[A] with
+    def writeKey(key: A) = key.render
+
+  given [A](using Render[A]): Writes[A] = a => JsString(a.render)
 
   private val stringFormatBase: Format[String] = Format(Reads.StringReads, Writes.StringWrites)
   private val intFormatBase: Format[Int]       = Format(Reads.IntReads, Writes.IntWrites)

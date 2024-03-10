@@ -104,8 +104,7 @@ export function view(ctrl: StudyCtrl): VNode {
         insert(vnode) {
           (vnode.elm as HTMLElement).addEventListener('click', e => {
             const target = e.target as HTMLElement;
-            const id =
-              (target.parentNode as HTMLElement).getAttribute('data-id') || target.getAttribute('data-id');
+            const id = (target.parentNode as HTMLElement).dataset['id'] || target.dataset['id'];
             if (!id) return;
             if (target.className === 'act') {
               const chapter = ctrl.chapters.get(id);

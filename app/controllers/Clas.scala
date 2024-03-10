@@ -27,7 +27,7 @@ final class Clas(env: Env, authC: Auth) extends LilaController(env):
             }
         case Some(me) =>
           for
-            hasClas <- fuccess(env.clas.studentCache.isStudent(me)) >>| !couldBeTeacher
+            hasClas <- fuccess(env.clas.studentCache.isStudent(me)) >>| couldBeTeacher.not
             res <-
               if hasClas
               then
@@ -510,7 +510,7 @@ final class Clas(env: Env, authC: Auth) extends LilaController(env):
     if me.isBot then fuFalse
     else if ctx.kid.yes then fuFalse
     else if env.clas.hasClas then fuTrue
-    else !env.mod.logApi.wasUnteachered(me)
+    else env.mod.logApi.wasUnteachered(me).not
 
   def invitation(id: lila.clas.ClasInvite.Id) = Auth { _ ?=> me ?=>
     FoundPage(env.clas.api.invite.view(id, me)): (invite, clas) =>

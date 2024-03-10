@@ -4,45 +4,45 @@ import java.io.{ File, FileInputStream, ObjectInputStream }
 import java.util.{ Map as JMap }
 import play.api.i18n.Lang
 import scala.jdk.CollectionConverters.*
+import lila.common.Chronometer
 
 object Registry:
 
-  val all: Map[Lang, MessageMap] = lila.common.Chronometer.syncEffect(loadSerialized): lap =>
+  val all: Map[Lang, MessageMap] = Chronometer.syncEffect(loadSerialized): lap =>
     logger.info(s"Loaded ${lap.result.size} langs in ${lap.showDuration}")
 
   private def loadSerialized: Map[Lang, MessageMap] =
-    val istream      = new ObjectInputStream(getClass.getClassLoader.getResourceAsStream("I18n.ser"))
-    val unserialized = istream.readObject().asInstanceOf[JMap[String, JMap[String, Object]]].asScala.toMap
+    val istream = ObjectInputStream(getClass.getClassLoader.getResourceAsStream("I18n.ser"))
+    val unserialized =
+      Chronometer.syncEffect(
+        istream.readObject().asInstanceOf[JMap[String, JMap[String, Object]]].asScala.toMap
+      ): lap =>
+        logger.info(s"Unserialized I18n.ser in ${lap.showDuration}")
     istream.close()
 
     unserialized.map:
       case (langCode, messageMap) =>
         Lang(langCode) -> messageMap.asScala
-          .map:
-            case (key, value) =>
-              key -> (value match
-                case s: String => singleOrEscaped(s)
-                case m: JMap[?, ?] =>
-                  val plurals = m
-                    .asInstanceOf[JMap[String, String]]
-                    .asScala
-                    .flatMap:
-                      case (q, i: String) =>
-                        I18nQuantity
-                          .fromString(q)
-                          .map: quantity =>
-                            quantity -> i
-                  Plurals(plurals.toMap)
-                case _ => throw new Exception(s"i18n oh noes $key: $value")
-              )
+          .map: (key, value) =>
+            key -> value.match
+              case s: String => singleOrEscaped(s)
+              case m: JMap[?, ?] =>
+                val plurals = m
+                  .asInstanceOf[JMap[String, String]]
+                  .asScala
+                  .flatMap: (q, i) =>
+                    I18nQuantity
+                      .fromString(q)
+                      .map: quantity =>
+                        quantity -> i
+                Plurals(plurals.toMap)
+              case _ => throw Exception(s"i18n oh noes $key: $value")
           .asJava
 
-  val default: MessageMap = all.getOrElse(defaultLang, new java.util.HashMap[MessageKey, Translation])
-
-  val langs: Set[Lang] = all.keySet
+  val default: MessageMap = all.getOrElse(defaultLang, java.util.HashMap[MessageKey, Translation])
 
   private def singleOrEscaped(s: String) =
-    val sb = new java.lang.StringBuilder(s.length + 10)
+    val sb = java.lang.StringBuilder(s.length + 10)
 
     var dirty = false
     var i     = 0

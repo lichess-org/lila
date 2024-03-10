@@ -40,7 +40,7 @@ final class MentionNotifier(
     for
       existingUsers    <- userRepo.filterExists(candidates.take(10)).map(_.take(5).toSet)
       mentionableUsers <- prefApi.mentionableIds(existingUsers)
-      users            <- mentionableUsers.toList.filterA(!relationApi.fetchBlocks(_, mentionedBy))
+      users            <- mentionableUsers.toList.filterA(relationApi.fetchBlocks(_, mentionedBy).not)
     yield users
 
   private def extractMentionedUsers(post: ForumPost): Set[UserId] =

@@ -97,7 +97,7 @@ final class GarbageCollector(
 
   private def collect(user: User, email: EmailAddress, msg: => String, quickly: Boolean): Funit =
     justOnce(user.id).so:
-      (!hasBeenCollectedBefore(user)).map {
+      hasBeenCollectedBefore(user).not.map {
         if _ then
           val armed = isArmed()
           val wait  = if quickly then 3.seconds else (30 + ThreadLocalRandom.nextInt(300)).seconds

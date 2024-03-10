@@ -75,7 +75,7 @@ final private class ChapterMaker(
       .getOrElse(data.name)
 
   private def resolveOrientation(data: Data, root: Root, userId: UserId, tags: Tags = Tags.empty): Color =
-    def isMe(name: Option[String]) = name.flatMap(UserStr.read).exists(_.id == userId)
+    def isMe(name: Option[chess.PlayerName]) = name.flatMap(n => UserStr.read(n.value)).exists(_.id == userId)
     data.orientation match
       case Orientation.Fixed(color)    => color
       case _ if isMe(tags.names.white) => Color.white

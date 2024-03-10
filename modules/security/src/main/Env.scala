@@ -76,7 +76,7 @@ final class Env(
 
   lazy val garbageCollector =
     def mk: (() => Boolean) => GarbageCollector = isArmed => wire[GarbageCollector]
-    mk((() => ugcArmedSetting.get()))
+    mk(() => ugcArmedSetting.get())
 
   lazy val emailConfirm: EmailConfirm =
     if config.emailConfirm.enabled then

@@ -2,14 +2,14 @@ package lila.fide
 
 import reactivemongo.api.bson.Macros.Annotations.Key
 import java.text.Normalizer
-import chess.FideId
+import chess.{ FideId, PlayerTitle, PlayerName }
 
 case class FidePlayer(
     @Key("_id") id: FideId,
     name: PlayerName,
     token: PlayerToken,
     fed: Option[Federation.Id],
-    title: Option[UserTitle],
+    title: Option[PlayerTitle],
     standard: Option[Int],
     rapid: Option[Int],
     blitz: Option[Int],
@@ -29,11 +29,11 @@ case class FidePlayer(
 object FidePlayer:
   private val nonLetterRegex = """[^a-zA-Z0-9\s]+""".r
   private val splitRegex     = """\W""".r
-  def tokenize(name: PlayerName): PlayerToken =
+  def tokenize(str: String): PlayerToken =
     splitRegex
       .split:
         Normalizer
-          .normalize(name.trim, Normalizer.Form.NFD)
+          .normalize(str.trim, Normalizer.Form.NFD)
           .replaceAllIn(nonLetterRegex, "")
           .toLowerCase
       .toList
@@ -52,7 +52,7 @@ object FidePlayer:
         multiSpaceRegex.replaceAllIn(
           splitAccentRegex.replaceAllIn(
             // split an accented letter in the base letter and the accent
-            Normalizer.normalize(name, Normalizer.Form.NFD),
+            Normalizer.normalize(name.value, Normalizer.Form.NFD),
             ""
           ),
           "_"

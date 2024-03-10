@@ -216,7 +216,7 @@ object mod:
         postForm(cls := "fide-title", action := routes.Mod.setTitle(u.username))(
           form3.select(
             lila.user.UserForm.title.fill(u.title)("title"),
-            lila.user.Title.acronyms.map(t => t -> t.value),
+            chess.PlayerTitle.acronyms.map(t => t -> t.value),
             "No title".some
           )
         )

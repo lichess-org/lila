@@ -55,7 +55,7 @@ object RelayTourForm:
       grouping: Option[RelayGroup.form.Data]
   ):
 
-    def update(tour: RelayTour)(using Me) =
+    def update(tour: RelayTour)(using me: Me) =
       tour
         .copy(
           name = name,
@@ -68,6 +68,8 @@ object RelayTourForm:
           teams = teams,
           spotlight = spotlight.filterNot(_.isEmpty)
         )
+        .giveOfficialToBroadcasterIf:
+          Granter(_.StudyAdmin) && tour.ownerId.is(me)
 
     def make(using me: Me) =
       RelayTour(
@@ -85,7 +87,7 @@ object RelayTourForm:
         players = players,
         teams = teams,
         spotlight = spotlight.filterNot(_.isEmpty)
-      ).giveToBroadcasterIf(Granter(_.StudyAdmin))
+      ).giveOfficialToBroadcasterIf(Granter(_.StudyAdmin))
 
   object Data:
 

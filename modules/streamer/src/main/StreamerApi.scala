@@ -149,7 +149,7 @@ final class StreamerApi(
     cache.candidateIds.getUnit.dmap(_ contains user.id.into(Streamer.Id))
 
   def isActualStreamer(user: User): Fu[Boolean] =
-    isPotentialStreamer(user) >>& !isCandidateStreamer(user)
+    isPotentialStreamer(user) >>& isCandidateStreamer(user).not
 
   def uploadPicture(s: Streamer, picture: PicfitApi.FilePart, by: User): Funit =
     picfitApi

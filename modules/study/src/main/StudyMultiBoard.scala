@@ -1,7 +1,7 @@
 package lila.study
 
 import BSONHandlers.given
-import chess.{ ByColor, Centis, Color, Outcome }
+import chess.{ ByColor, Centis, Color, Outcome, PlayerName, PlayerTitle, Elo }
 import chess.format.pgn.Tags
 import chess.format.{ Fen, Uci }
 import com.github.blemale.scaffeine.AsyncLoadingCache
@@ -160,14 +160,11 @@ object StudyMultiBoard:
 
   object ChapterPreview:
 
-    case class Player(name: String, title: Option[String], rating: Option[Int], clock: Option[Centis])
+    case class Player(name: PlayerName, title: Option[PlayerTitle], rating: Option[Elo], clock: Option[Centis])
 
     type Players = ByColor[Player]
 
     def players(clocks: ByColor[Option[Centis]])(tags: Tags): Option[Players] =
-      val names = chess.ByColor[Option[String]](tags.names(_))
-      names
-        .exists(_.isDefined)
-        .option:
-          (names, tags.titles, tags.elos, clocks).mapN:
-            case (n, t, e, c) => Player(n | "Unknown player", t, e, c)
+      val names = tags.names
+      names.exists(_.isDefined) option:
+        (names, tags.titles, tags.elos, clocks).mapN((n, t, e, c) => Player(n | PlayerName("Unknown player"), t, e, c))
