@@ -130,24 +130,20 @@ final private class Player(
       blur: Boolean,
       metrics: MoveMetrics
   ): Either[ErrorStr, MoveResult] =
-    (uci match
-      case Uci.Move(orig, dest, prom) =>
-        game.chess.moveWithCompensated(orig, dest, prom, metrics).map { (ncg, move) =>
-          ncg -> move
-        }
-      case Uci.Drop(role, pos) =>
-        game.chess.drop(role, pos, metrics).map { (ncg, drop) =>
-          Clock.WithCompensatedLag(ncg, None) -> drop
-        }
-    ).map {
-      case (ncg, _) if ncg.value.clock.exists(_.outOfTime(game.turnColor, withGrace = false)) => Flagged
-      case (ncg, moveOrDrop: MoveOrDrop) =>
-        MoveApplied(
-          game.update(ncg.value, moveOrDrop, blur),
-          moveOrDrop,
-          ncg.compensated
-        )
-    }
+    uci
+      .match
+        case Uci.Move(orig, dest, prom) =>
+          game.chess.moveWithCompensated(orig, dest, prom, metrics)
+        case Uci.Drop(role, pos) =>
+          game.chess.drop(role, pos, metrics).map((ncg, drop) => Clock.WithCompensatedLag(ncg, None) -> drop)
+      .map:
+        case (ncg, _) if ncg.value.clock.exists(_.outOfTime(game.turnColor, withGrace = false)) => Flagged
+        case (ncg, moveOrDrop: MoveOrDrop) =>
+          MoveApplied(
+            game.update(ncg.value, moveOrDrop, blur),
+            moveOrDrop,
+            ncg.compensated
+          )
 
   private def notifyMove(moveOrDrop: MoveOrDrop, game: Game): Unit =
     import lila.hub.actorApi.round.{ CorresMoveEvent, MoveEvent, SimulMoveEvent }
