@@ -4,15 +4,20 @@ import java.io.{ File, FileInputStream, ObjectInputStream }
 import java.util.{ Map as JMap }
 import play.api.i18n.Lang
 import scala.jdk.CollectionConverters.*
+import lila.common.Chronometer
 
 object Registry:
 
-  val all: Map[Lang, MessageMap] = lila.common.Chronometer.syncEffect(loadSerialized): lap =>
+  val all: Map[Lang, MessageMap] = Chronometer.syncEffect(loadSerialized): lap =>
     logger.info(s"Loaded ${lap.result.size} langs in ${lap.showDuration}")
 
   private def loadSerialized: Map[Lang, MessageMap] =
-    val istream      = ObjectInputStream(getClass.getClassLoader.getResourceAsStream("I18n.ser"))
-    val unserialized = istream.readObject().asInstanceOf[JMap[String, JMap[String, Object]]].asScala.toMap
+    val istream = ObjectInputStream(getClass.getClassLoader.getResourceAsStream("I18n.ser"))
+    val unserialized =
+      Chronometer.syncEffect(
+        istream.readObject().asInstanceOf[JMap[String, JMap[String, Object]]].asScala.toMap
+      ): lap =>
+        logger.info(s"Unserialized I18n.ser in ${lap.showDuration}")
     istream.close()
 
     unserialized.map:
