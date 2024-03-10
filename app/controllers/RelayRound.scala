@@ -206,8 +206,8 @@ final class RelayRound(
         stream <- streamer match
           case Some(s) => env.streamer.liveStreamApi.of(s).map(_.some)
           case none    => fuccess(None: Option[WithUserAndStream])
-        streamEmbedUrl =
-          "https://www.youtube.com/embed/eRzQDyw5C3M?embed_domain=schlawg.org".some // stream.flatMap(env.streamer.api.streamEmbedUrl(_))
+        streamEmbedUrl = stream.flatMap(env.streamer.api.streamEmbedUrl(_))
+        // "https://www.youtube.com/embed/eRzQDyw5C3M?embed_domain=schlawg.org".some // stream.flatMap(env.streamer.api.streamEmbedUrl(_))
         data <- env.relay.jsonView.makeData(
           rt.tour.withRounds(rounds.map(_.round)),
           rt.round.id,

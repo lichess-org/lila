@@ -10,20 +10,19 @@ export function streamPlayerView(ctrl: AnalyseCtrl): MaybeVNode {
   if (!document.body.contains(iframeEl)) document.body.appendChild(iframeEl);
   return h('div.stream-player-placeholder', {
     hook: {
-      insert: (vnode: VNode) => place(vnode),
-      update: (_, vnode: VNode) => place(vnode),
+      insert: (vnode: VNode) => place(vnode.elm as HTMLElement),
+      update: (_, vnode: VNode) => place(vnode.elm as HTMLElement),
     },
   });
 }
 
-function place(vnode: VNode) {
-  const el = vnode.elm as HTMLElement;
+function place(el: HTMLElement | null) {
   iframeEl.style.display = '';
   iframeEl.style.zIndex = '1000';
-  iframeEl.style.left = `${el.offsetLeft}px`;
-  iframeEl.style.top = `${el.offsetTop}px`;
-  iframeEl.style.width = `${el.offsetWidth}px`;
-  iframeEl.style.height = `${el.offsetHeight}px`;
+  iframeEl.style.left = `${el?.offsetLeft}px`;
+  iframeEl.style.top = `${el?.offsetTop}px`;
+  iframeEl.style.width = `${el?.offsetWidth}px`;
+  iframeEl.style.height = `${el?.offsetHeight}px`;
   iframeEl.style.border = 'none';
   iframeEl.style.willChange = 'transform';
 }
@@ -34,4 +33,5 @@ function init(embedSrc: string) {
   iframeEl.allow = 'autoplay';
   iframeEl.style.position = 'absolute';
   iframeEl.style.display = 'none';
+  window.addEventListener('resize', () => place(document.body.querySelector('.stream-player-placeholder')));
 }
