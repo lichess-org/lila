@@ -63,7 +63,7 @@ To Berserk δεν ισχύει για παρτίδες με μηδενικό α�
   <string name="myTournaments">Τα τουρνουά μου</string>
   <string name="editTournament">Επεξεργασία τουρνουά</string>
   <string name="editTeamBattle">Επεξεργασία ομαδικής μάχης</string>
-  <string name="defender" comment="In this context, this is the current holder of a shield trophy, who are defending their trophy in the next shield tournament of that variant. https://lichess.org/tournament/shields">Αμυνόμενος</string>
+  <string name="defender" comment="In this context, this is the current holder of a shield trophy, who is defending their trophy in the next shield tournament of that variant. https://lichess.org/tournament/shields">Υπερασπιστής</string>
   <string name="pickYourTeam">Διαλέξτε την ομάδα σας</string>
   <string name="whichTeamWillYouRepresentInThisBattle">Ποια ομάδα θα αντιπροσωπεύσετε σε αυτή τη μάχη;</string>
   <string name="youMustJoinOneOfTheseTeamsToParticipate">Πρέπει να μπείτε σε μία από αυτές τις ομάδες για να συμμετάσχετε!</string>
