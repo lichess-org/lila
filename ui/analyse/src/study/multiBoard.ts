@@ -66,10 +66,6 @@ export function view(ctrl: MultiBoardCtrl, study: StudyCtrl): MaybeVNode {
     h('div.study__multiboard__top', [
       renderPagerNav(pager, ctrl),
       h('div.study__multiboard__options', [
-        h('button.fbt', {
-          attrs: { 'data-icon': licon.Search, title: 'Search' },
-          hook: bind('click', () => site.pubsub.emit('study.search.open')),
-        }),
         h('label.eval', [renderEvalToggle(ctrl.multiCloudEval), ctrl.trans.noarg('showEvalBar')]),
         renderPlayingToggle(ctrl),
       ]),
@@ -88,10 +84,6 @@ function renderPagerNav(pager: Paginator<ChapterPreview>, ctrl: MultiBoardCtrl):
     h('span.page', `${from}-${to} / ${pager.nbResults}`),
     pagerButton('next', licon.JumpNext, ctrl.nextPage, page < pager.nbPages, ctrl),
     pagerButton('last', licon.JumpLast, ctrl.lastPage, page < pager.nbPages, ctrl),
-    h('button.fbt', {
-      attrs: { 'data-icon': licon.Search, title: 'Search' },
-      hook: bind('click', () => site.pubsub.emit('study.search.open')),
-    }),
   ]);
 }
 
