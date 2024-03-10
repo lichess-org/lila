@@ -12,6 +12,8 @@ import { Color } from 'chessops';
 
 export class MultiBoardCtrl {
   playing: Toggle;
+  page: number = 1;
+  maxPerPage: number = 12;
   multiCloudEval: MultiCloudEval;
 
   constructor(
@@ -25,12 +27,40 @@ export class MultiBoardCtrl {
     const currentFens = () => [];
     this.multiCloudEval = new MultiCloudEval(redraw, send, variant, currentFens);
   }
+
+  pager = (): Paginator<ChapterPreview> => {
+    const currentPageResults = this.chapters
+      .list()
+      .slice((this.page - 1) * this.maxPerPage, this.page * this.maxPerPage);
+    const nbResults = this.chapters.list().length;
+    const nbPages = Math.floor((nbResults + this.maxPerPage - 1) / this.maxPerPage);
+    return {
+      currentPage: this.page,
+      maxPerPage: this.maxPerPage,
+      currentPageResults,
+      nbResults,
+      previousPage: this.page > 1 ? this.page - 1 : undefined,
+      nextPage: this.page < nbPages && currentPageResults.length ? this.page + 1 : undefined,
+      nbPages,
+    };
+  };
+  setPage = (page: number) => {
+    if (this.page != page) {
+      this.page = page;
+      this.redraw();
+    }
+  };
+  nextPage = () => this.setPage(this.page + 1);
+  prevPage = () => this.setPage(this.page - 1);
+  lastPage = () => this.setPage(this.pager.nbPages);
 }
 
 export function view(ctrl: MultiBoardCtrl, study: StudyCtrl): MaybeVNode {
+  const pager = ctrl.pager();
   const cloudEval = ctrl.multiCloudEval.showEval() ? ctrl.multiCloudEval.getCloudEval : undefined;
   return h('div.study__multiboard', [
     h('div.study__multiboard__top', [
+      renderPagerNav(pager, ctrl),
       h('div.study__multiboard__options', [
         h('button.fbt', {
           attrs: { 'data-icon': licon.Search, title: 'Search' },
@@ -40,8 +70,38 @@ export function view(ctrl: MultiBoardCtrl, study: StudyCtrl): MaybeVNode {
         renderPlayingToggle(ctrl),
       ]),
     ]),
-    h('div.now-playing', ctrl.chapters.list().map(makePreview(study, cloudEval))),
+    h('div.now-playing', pager.currentPageResults.map(makePreview(study, cloudEval))),
   ]);
+}
+
+function renderPagerNav(pager: Paginator<ChapterPreview>, ctrl: MultiBoardCtrl): VNode {
+  const page = ctrl.page,
+    from = Math.min(pager.nbResults, (page - 1) * pager.maxPerPage + 1),
+    to = Math.min(pager.nbResults, page * pager.maxPerPage);
+  return h('div.study__multiboard__pager', [
+    pagerButton('first', licon.JumpFirst, () => ctrl.setPage(1), page > 1, ctrl),
+    pagerButton('previous', licon.JumpPrev, ctrl.prevPage, page > 1, ctrl),
+    h('span.page', `${from}-${to} / ${pager.nbResults}`),
+    pagerButton('next', licon.JumpNext, ctrl.nextPage, page < pager.nbPages, ctrl),
+    pagerButton('last', licon.JumpLast, ctrl.lastPage, page < pager.nbPages, ctrl),
+    h('button.fbt', {
+      attrs: { 'data-icon': licon.Search, title: 'Search' },
+      hook: bind('click', () => site.pubsub.emit('study.search.open')),
+    }),
+  ]);
+}
+
+function pagerButton(
+  transKey: string,
+  icon: string,
+  click: () => void,
+  enable: boolean,
+  ctrl: MultiBoardCtrl,
+): VNode {
+  return h('button.fbt', {
+    attrs: { 'data-icon': icon, disabled: !enable, title: ctrl.trans.noarg(transKey) },
+    hook: bind('mousedown', click, ctrl.redraw),
+  });
 }
 
 const renderPlayingToggle = (ctrl: MultiBoardCtrl): MaybeVNode =>
@@ -55,7 +115,7 @@ const renderPlayingToggle = (ctrl: MultiBoardCtrl): MaybeVNode =>
 
 const makePreview = (study: StudyCtrl, cloudEval?: GetCloudEval) => (preview: ChapterPreview) => {
   const orientation = preview.orientation || 'white';
-  return h(`a.mini-game.is2d`, [
+  return h(`a.mini-game.is2d.chap-${preview.id}`, [
     boardPlayer(preview, CgOpposite(orientation)),
     h('span.cg-gauge', [
       h(
