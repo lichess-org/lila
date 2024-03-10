@@ -41,7 +41,7 @@ final private class RelaySync(
           .flatMap:
             case nb if RelayFetch.maxChapters(rt.tour) <= nb => fuccess(none)
             case _ =>
-              createChapter(study, game).flatMap: chapter =>
+              createChapter(study, game)(using rt.tour).flatMap: chapter =>
                 chapters
                   .find(_.isEmptyInitial)
                   .ifTrue(chapter.order == 2)
@@ -79,7 +79,7 @@ final private class RelaySync(
   ): Fu[SyncResult.ChapterResult] = for
     chapter   <- updateInitialPosition(study.id, chapter, game)
     tagUpdate <- updateChapterTags(tour, study, chapter, game)
-    nbMoves   <- updateChapterTree(study, chapter, game)
+    nbMoves   <- updateChapterTree(study, chapter, game)(using tour)
   yield SyncResult.ChapterResult(chapter.id, tagUpdate, nbMoves)
 
   private def updateInitialPosition(studyId: StudyId, chapter: Chapter, game: RelayGame): Fu[Chapter] =
@@ -91,7 +91,9 @@ final private class RelaySync(
         .dmap(_ | chapter)
 
   private type NbMoves = Int
-  private def updateChapterTree(study: Study, chapter: Chapter, game: RelayGame): Fu[NbMoves] =
+  private def updateChapterTree(study: Study, chapter: Chapter, game: RelayGame)(using
+      RelayTour
+  ): Fu[NbMoves] =
     val by = who(chapter.ownerId)
     game.root.mainline.foldLeft(UciPath.root -> none[Branch]) {
       case ((parentPath, None), gameNode) =>
@@ -127,7 +129,7 @@ final private class RelaySync(
                   position = position,
                   node = n,
                   opts = moveOpts.copy(clock = n.clock),
-                  relay = makeRelayFor(game, position.path + n.id, study).some
+                  relay = makeRelayFor(game, position.path + n.id).some
                 )(by)
                 .inject(position + n)
             .inject:
@@ -180,14 +182,15 @@ final private class RelaySync(
       leaderboard.invalidate(tour.id)
     }
 
-  private def makeRelayFor(game: RelayGame, path: UciPath, study: Study) = Chapter.Relay(
-    index = game.index,
-    path = path,
-    lastMoveAt = nowInstant,
-    fideIds = study.isOwner(lila.user.User.broadcasterId).so(game.fideIdsPair)
-  )
+  private def makeRelayFor(game: RelayGame, path: UciPath)(using tour: RelayTour) =
+    Chapter.Relay(
+      index = game.index,
+      path = path,
+      lastMoveAt = nowInstant,
+      fideIds = tour.official.so(game.fideIdsPair)
+    )
 
-  private def createChapter(study: Study, game: RelayGame): Fu[Chapter] =
+  private def createChapter(study: Study, game: RelayGame)(using RelayTour): Fu[Chapter] =
     chapterRepo.nextOrderByStudy(study.id).flatMap { order =>
       val name = {
         for
@@ -210,7 +213,7 @@ final private class RelaySync(
         practice = false,
         gamebook = false,
         conceal = none,
-        relay = makeRelayFor(game, game.root.mainlinePath, study).some
+        relay = makeRelayFor(game, game.root.mainlinePath).some
       )
       studyApi
         .doAddChapter(study, chapter, sticky = false, who(study.ownerId))
