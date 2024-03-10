@@ -143,10 +143,23 @@ function metadata(ctrl: StudyCtrl): VNode {
   ]);
 }
 
-export function side(ctrl: StudyCtrl): VNode {
+export function side(ctrl: StudyCtrl): MaybeVNodes {
   const activeTab = ctrl.vm.tab(),
     tourShow = ctrl.relay?.tourShow,
     tourShown = !!tourShow && tourShow();
+
+  const streams =
+    ctrl.relay?.streams &&
+    h(
+      'div.context-streamers',
+      ctrl.relay?.streams.map(([id, name]) =>
+        h(
+          'button.context-streamer.text.button-empty',
+          { hook: bind('click', () => ctrl.relay?.showStream(id)) },
+          name,
+        ),
+      ),
+    );
 
   const makeTab = (key: Tab, name: string) =>
     h(
@@ -198,7 +211,7 @@ export function side(ctrl: StudyCtrl): VNode {
     ? relayTourRounds(ctrl)
     : (activeTab === 'members' ? memberView : chapterView)(ctrl);
 
-  return h('div.study__side', [tabs, content]);
+  return [h('div.study__side', [tabs, content]), streams];
 }
 
 export function contextMenu(ctrl: StudyCtrl, path: Tree.Path, node: Tree.Node): VNode[] {

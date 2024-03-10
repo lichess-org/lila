@@ -12,6 +12,7 @@ import { toggle } from 'common/controls';
 import * as xhr from 'common/xhr';
 import { teamsView } from './relayTeams';
 import { userTitle } from 'common/userLink';
+import { streamPlayerView } from '../../view/streamPlayerView';
 
 export default function (ctrl: AnalyseCtrl): VNode | undefined {
   const study = ctrl.study;
@@ -47,10 +48,10 @@ export default function (ctrl: AnalyseCtrl): VNode | undefined {
       ? schedule(relay, ctrl)
       : leaderboard(relay, ctrl);
 
-  return h('div.relay-tour', [tabs, ...content]);
+  return h('div.relay-tour', [tabs, streamPlayerView(ctrl), ...content]);
 }
 
-const leaderboard = (relay: RelayCtrl, ctrl: AnalyseCtrl): VNode[] => {
+const leaderboard = (relay: RelayCtrl, ctrl: AnalyseCtrl): MaybeVNodes => {
   const players = relay.data.leaderboard || [];
   const withRating = !!players.find(p => p.rating);
   return [
@@ -165,6 +166,9 @@ const teams = (relay: RelayCtrl, ctrl: AnalyseCtrl) =>
 const header = (relay: RelayCtrl, ctrl: AnalyseCtrl, pad: boolean = false) => {
   const d = relay.data;
   return h(`div.relay-tour__header${pad ? '.box-pad' : ''}`, [
+    d.streamEmbedUrl
+      ? h('a.relay-tour__iframe', { attrs: { href: d.streamEmbedUrl, target: '_blank' } }, 'Open in new tab')
+      : undefined,
     relay.data.group ? groupSelect(relay, relay.data.group) : h('h1', d.tour.name),
     ...(defined(d.isSubscribed)
       ? [

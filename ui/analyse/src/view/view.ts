@@ -36,7 +36,7 @@ import * as Prefs from 'common/prefs';
 import StudyCtrl from '../study/studyCtrl';
 import { dispatchChessgroundResize } from 'common/resize';
 
-import { streamerView } from './streamerView';
+import { streamPlayerView } from './streamPlayerView';
 
 window.addEventListener('popstate', () => window.location.reload());
 
@@ -398,7 +398,7 @@ export default function (deps?: typeof studyDeps) {
               ...(menuIsOpen
                 ? [actionMenu(ctrl)]
                 : [
-                    streamerView(ctrl),
+                    streamPlayerView(ctrl),
                     ...cevalView.renderCeval(ctrl),
                     showCevalPvs && cevalView.renderPvs(ctrl),
                     renderAnalyse(ctrl, concealOf),
@@ -428,13 +428,13 @@ export default function (deps?: typeof studyDeps) {
               {
                 hook: onInsert(elm => {
                   ctrl.opts.$side && ctrl.opts.$side.length && $(elm).replaceWith(ctrl.opts.$side);
-                  $(elm).append($('.context-streamers').clone().removeClass('none'));
+                  //$(elm).append($('.context-streamers').clone().removeClass('none'));
                 }),
               },
               ctrl.studyPractice
                 ? [deps?.studyPracticeView.side(study!)]
                 : study
-                ? [deps?.studyView.side(study)]
+                ? deps?.studyView.side(study)
                 : [
                     ctrl.forecast && forecastView(ctrl, ctrl.forecast),
                     !ctrl.synthetic &&

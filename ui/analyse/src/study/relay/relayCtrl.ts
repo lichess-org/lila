@@ -17,6 +17,7 @@ export default class RelayCtrl {
   tourShow: Toggle;
   tab: Prop<RelayTab>;
   teams?: RelayTeams;
+  streams: [string, string][] = [];
 
   constructor(
     readonly id: RoundId,
@@ -43,6 +44,13 @@ export default class RelayCtrl {
           () => chapter.setup.variant.key,
         )
       : undefined;
+    site.pubsub.on('socket.in.crowd', d => {
+      const s = d.streams as [string, string][];
+      if (s === undefined) return;
+      if (this.streams.length === s.length && this.streams.every(([id], i) => id === s[i][0])) return;
+      this.streams = s;
+      this.redraw();
+    });
   }
 
   setSync = (v: boolean) => {
@@ -76,6 +84,12 @@ export default class RelayCtrl {
     // when jumping from a tour tab to another page, remember which tour tab we were on.
     if (!this.tourShow() && location.href.includes('#')) history.pushState({}, '', url);
     else history.replaceState({}, '', url);
+  };
+
+  showStream = (id: string) => {
+    const url = new URL(location.href);
+    url.searchParams.set('embed', id);
+    location.replace(url);
   };
 
   private convertDate = (r: StudyChapterRelay): StudyChapterRelay => {

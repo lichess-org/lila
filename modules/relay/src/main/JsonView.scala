@@ -105,14 +105,15 @@ final class JsonView(
       group: Option[RelayGroup.WithTours],
       canContribute: Boolean,
       isSubscribed: Option[Boolean] = none[Boolean],
-      iframeUrl: Option[String] = none
+      streamEmbedUrl: Option[String] = none
   ) = leaderboardApi(trs.tour).map: leaderboard =>
     JsonView.JsData(
       relay = apply(trs)
         .add("sync" -> (canContribute.so(trs.rounds.find(_.id == currentRoundId).map(_.sync))))
         .add("leaderboard" -> leaderboard)
         .add("group" -> group)
-        .add("isSubscribed" -> isSubscribed),
+        .add("isSubscribed" -> isSubscribed)
+        .add("streamEmbedUrl" -> streamEmbedUrl),
       study = studyData.study,
       analysis = studyData.analysis
     )

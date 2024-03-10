@@ -29,6 +29,10 @@ main.has-relay-tour {
 .relay-tour {
   grid-area: relay-tour;
 
+  .stream-player-placeholder {
+    height: 400px;
+  }
+
   &__round {
     @extend %box-padding-horiz, %flex-between-nowrap;
     padding-top: 1em;

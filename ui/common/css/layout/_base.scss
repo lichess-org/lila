@@ -2,6 +2,7 @@ $vp-min-width: 320px;
 $vp-max-width: 1200px;
 
 body {
+  position: relative;
   --site-header-height: #{$site-header-short-height};
 
   @include breakpoint($mq-site-header-tall) {

@@ -175,10 +175,10 @@ final class StreamerApi(
       )
       .void
 
-  def iframeUrl(s: Streamer.WithUserAndStream): Option[String] =
+  def streamEmbedUrl(s: Streamer.WithUserAndStream): Option[String] =
     s.stream match
       case Some(Stream.YouTube.Stream(_, _, videoId, _, _)) =>
-        s"https://www.youtube.com/embed/$videoId&embed_domain=${net.domain}".some
+        s"https://www.youtube.com/embed/$videoId?embed_domain=${net.domain}&autoplay=1".some
       case _ =>
         s.streamer.twitch.map: twitch =>
           s"https://twitch.tv/embed/${twitch.userId}?parent=${net.domain}"

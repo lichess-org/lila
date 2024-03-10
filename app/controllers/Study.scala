@@ -535,7 +535,7 @@ final class Study(
             }
         }(privateUnauthorizedFu(study), privateForbiddenFu(study))
 
-  def multiBoard(id: StudyId, page: Int, embed: Option[UserStr]) = Open:
+  def multiBoard(id: StudyId, page: Int) = Open:
     Found(env.study.api.byId(id)): study =>
       CanView(study) {
         env.study.multiBoard.json(study.id, page, getBool("playing")).map(JsonOk)

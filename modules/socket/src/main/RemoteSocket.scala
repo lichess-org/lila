@@ -61,7 +61,8 @@ final class RemoteSocket(redisClient: RedisClient, shutdown: CoordinatedShutdown
     "shadowban",
     "impersonate",
     "relation",
-    "onlineApiUsers"
+    "onlineApiUsers",
+    "streamersOnline"
   ) {
     case SendTos(userIds, payload) =>
       val connectedUsers = userIds.intersect(onlineUserIds.get)
@@ -94,6 +95,8 @@ final class RemoteSocket(redisClient: RedisClient, shutdown: CoordinatedShutdown
       if value then onlineUserIds.getAndUpdate(_ + userId)
     case Follow(u1, u2)   => send(Out.follow(u1, u2))
     case UnFollow(u1, u2) => send(Out.unfollow(u1, u2))
+    case lila.hub.actorApi.streamer.StreamersOnline(streamers) =>
+      send(Out.streamersOnline(streamers))
   }
 
   final class StoppableSender(val conn: PubSub[String, String], channel: Channel) extends Sender:
@@ -279,9 +282,11 @@ object RemoteSocket:
         s"mod/troll/set $userId ${boolean(v)}"
       def impersonate(userId: UserId, by: Option[UserId]) =
         s"mod/impersonate $userId ${optional(by.map(_.value))}"
-      def follow(u1: UserId, u2: UserId)         = s"rel/follow $u1 $u2"
-      def unfollow(u1: UserId, u2: UserId)       = s"rel/unfollow $u1 $u2"
-      def apiUserOnline(u: UserId, v: Boolean)   = s"api/online $u ${boolean(v)}"
+      def follow(u1: UserId, u2: UserId)       = s"rel/follow $u1 $u2"
+      def unfollow(u1: UserId, u2: UserId)     = s"rel/unfollow $u1 $u2"
+      def apiUserOnline(u: UserId, v: Boolean) = s"api/online $u ${boolean(v)}"
+      def streamersOnline(streamers: Iterable[(UserId, String)]) =
+        s"streamers/online ${streamers.map { case (u, s) => s"$u:$s" }.mkString(",")}"
       def respond(reqId: Int, payload: JsObject) = s"req/response $reqId ${Json.stringify(payload)}"
       def boot                                   = "boot"
       def pong(id: String)                       = s"pong $id"
