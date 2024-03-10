@@ -229,69 +229,61 @@ final class Mod(
           .recentPovsByUserFromSecondary(user, 80)
           .mon(_.mod.comm.segment("recentPovs"))
           .flatMap: povs =>
-            priv
-              .so {
+            (
+              priv.so:
                 env.chat.api.playerChat
                   .optionsByOrderedIds(povs.map(_.gameId.into(ChatId)))
                   .mon(_.mod.comm.segment("playerChats"))
-              }
-              .zip(priv.so {
+              ,
+              priv.so:
                 env.msg.api
                   .recentByForMod(user, 30)
                   .mon(_.mod.comm.segment("pms"))
-              })
-              .zip(
-                (env.shutup.api
-                  .getPublicLines(user.id))
-                  .mon(_.mod.comm.segment("publicChats"))
-              )
-              .zip(
-                env.user.noteApi
-                  .byUserForMod(user.id)
-                  .mon(_.mod.comm.segment("notes"))
-              )
-              .zip(
-                env.mod.logApi
-                  .userHistory(user.id)
-                  .mon(_.mod.comm.segment("history"))
-              )
-              .zip(
-                env.report.api.inquiries
-                  .ofModId(me.id)
-                  .mon(_.mod.comm.segment("inquiries"))
-              )
-              .zip(env.security.userLogins(user, 100).flatMap {
+              ,
+              env.shutup.api
+                .getPublicLines(user.id)
+                .mon(_.mod.comm.segment("publicChats")),
+              env.user.noteApi
+                .byUserForMod(user.id)
+                .mon(_.mod.comm.segment("notes")),
+              env.mod.logApi
+                .userHistory(user.id)
+                .mon(_.mod.comm.segment("history")),
+              env.report.api.inquiries
+                .ofModId(me.id)
+                .mon(_.mod.comm.segment("inquiries")),
+              env.security.userLogins(user, 100).flatMap {
                 userC.loginsTableData(user, _, 100)
-              })
-              .flatMap { case ((((((chats, convos), publicLines), notes), history), inquiry), logins) =>
-                if priv && !inquiry.so(_.isRecentCommOf(Suspect(user))) then
-                  env.irc.api.commlog(user = user, inquiry.map(_.oldestAtom.by.userId))
-                  if isGranted(_.MonitoredCommMod) then
-                    env.irc.api.monitorMod(
-                      "eyes",
-                      s"spontaneously checked out @${user.username}'s private comms",
-                      lila.irc.IrcApi.ModDomain.Comm
-                    )
-                env.appeal.api
-                  .byUserIds(user.id :: logins.userLogins.otherUserIds)
-                  .map: appeals =>
-                    html.mod.communication(
-                      me,
-                      user,
-                      povs
-                        .zip(chats)
-                        .collect:
-                          case (p, Some(c)) if c.nonEmpty => p -> c
-                        .take(15),
-                      convos,
-                      publicLines,
-                      notes.filter(_.from != lila.user.User.irwinId),
-                      history,
-                      logins,
-                      appeals,
-                      priv
-                    )
               }
+            ).flatMapN { (chats, convos, publicLines, notes, history, inquiry, logins) =>
+              if priv && !inquiry.so(_.isRecentCommOf(Suspect(user))) then
+                env.irc.api.commlog(user = user, inquiry.map(_.oldestAtom.by.userId))
+                if isGranted(_.MonitoredCommMod) then
+                  env.irc.api.monitorMod(
+                    "eyes",
+                    s"spontaneously checked out @${user.username}'s private comms",
+                    lila.irc.IrcApi.ModDomain.Comm
+                  )
+              env.appeal.api
+                .byUserIds(user.id :: logins.userLogins.otherUserIds)
+                .map: appeals =>
+                  html.mod.communication(
+                    me,
+                    user,
+                    povs
+                      .zip(chats)
+                      .collect:
+                        case (p, Some(c)) if c.nonEmpty => p -> c
+                      .take(15),
+                    convos,
+                    publicLines,
+                    notes.filter(_.from != lila.user.User.irwinId),
+                    history,
+                    logins,
+                    appeals,
+                    priv
+                  )
+            }
     }
 
   def communicationPublic(username: UserStr)  = communications(username, priv = false)

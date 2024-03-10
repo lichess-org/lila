@@ -48,14 +48,15 @@ final private[api] class RoundApi(
       users      <- users.orLoad(userApi.gamePlayers(pov.game.userIdPair, pov.game.perfType))
       prefs      <- prefApi.get(users.map(_.map(_.user)), pov.color, ctx.pref)
       given Lang = ctx.lang
-      (((((json, simul), swiss), note), forecast), bookmarked) <-
-        jsonView
-          .playerJson(pov, prefs, users, initialFen, ctxFlags)
-          .zip(pov.game.simulId.so(simulApi.find))
-          .zip(swissApi.gameView(pov))
-          .zip(ctx.myId.ifTrue(ctx.isMobileApi).so(noteApi.get(pov.gameId, _)))
-          .zip(forecastApi.loadForDisplay(pov))
-          .zip(bookmarkApi.exists(pov.game, ctx.me))
+      (json, simul, swiss, note, forecast, bookmarked) <-
+        (
+          jsonView.playerJson(pov, prefs, users, initialFen, ctxFlags),
+          pov.game.simulId.so(simulApi.find),
+          swissApi.gameView(pov),
+          ctx.myId.ifTrue(ctx.isMobileApi).so(noteApi.get(pov.gameId, _)),
+          forecastApi.loadForDisplay(pov),
+          bookmarkApi.exists(pov.game, ctx.me)
+        ).tupled
     yield (
       withTournament(pov, tour)
         .compose(withSwiss(swiss))
@@ -78,13 +79,14 @@ final private[api] class RoundApi(
     for
       initialFen <- initialFenO.fold(gameRepo.initialFen(pov.game))(fuccess)
       given Lang = ctx.lang
-      ((((json, simul), swiss), note), bookmarked) <-
-        jsonView
-          .watcherJson(pov, users, ctx.pref.some, ctx.me, tv, initialFen, ctxFlags)
-          .zip(pov.game.simulId.so(simulApi.find))
-          .zip(swissApi.gameView(pov))
-          .zip(ctx.me.ifTrue(ctx.isMobileApi).so(noteApi.get(pov.gameId, _)))
-          .zip(bookmarkApi.exists(pov.game, ctx.me))
+      (json, simul, swiss, note, bookmarked) <-
+        (
+          jsonView.watcherJson(pov, users, ctx.pref.some, ctx.me, tv, initialFen, ctxFlags),
+          pov.game.simulId.so(simulApi.find),
+          swissApi.gameView(pov),
+          ctx.me.ifTrue(ctx.isMobileApi).so(noteApi.get(pov.gameId, _)),
+          bookmarkApi.exists(pov.game, ctx.me)
+        ).tupled
     yield (
       withTournament(pov, tour)
         .compose(withSwiss(swiss))
@@ -113,8 +115,8 @@ final private[api] class RoundApi(
       owner: Boolean = false
   )(using ctx: Context): Fu[JsObject] = withExternalEngines(ctx.me) {
     given Lang = ctx.lang
-    jsonView
-      .watcherJson(
+    (
+      jsonView.watcherJson(
         pov,
         users,
         ctx.pref.some,
@@ -122,29 +124,30 @@ final private[api] class RoundApi(
         tv,
         initialFen = initialFen,
         flags = withFlags.copy(blurs = Granter.opt(_.ViewBlurs))
-      )
-      .zip(tourApi.gameView.analysis(pov.game))
-      .zip(pov.game.simulId.so(simulApi.find))
-      .zip(swissApi.gameView(pov))
-      .zip(ctx.me.ifTrue(ctx.isMobileApi).so {
-        noteApi.get(pov.gameId, _)
-      })
-      .zip(owner.so(forecastApi.loadForDisplay(pov)))
-      .zip(withFlags.puzzles.so(pov.game.opening.map(_.opening)).so(puzzleOpeningApi.getClosestTo))
-      .zip(bookmarkApi.exists(pov.game, ctx.me))
-      .map { case (((((((json, tour), simul), swiss), note), fco), puzzleOpening), bookmarked) =>
-        (
-          withTournament(pov, tour)
-            .compose(withSwiss(swiss))
-            .compose(withSimul(simul))
-            .compose(withNote(note))
-            .compose(withBookmark(bookmarked))
-            .compose(withTree(pov, analysis, initialFen, withFlags))
-            .compose(withAnalysis(pov.game, analysis))
-            .compose(withForecast(pov, owner, fco))
-            .compose(withPuzzleOpening(puzzleOpening))
-        )(json)
-      }
+      ),
+      tourApi.gameView.analysis(pov.game),
+      pov.game.simulId.so(simulApi.find),
+      swissApi.gameView(pov),
+      ctx.me
+        .ifTrue(ctx.isMobileApi)
+        .so:
+          noteApi.get(pov.gameId, _)
+      ,
+      owner.so(forecastApi.loadForDisplay(pov)),
+      withFlags.puzzles.so(pov.game.opening.map(_.opening)).so(puzzleOpeningApi.getClosestTo),
+      bookmarkApi.exists(pov.game, ctx.me)
+    ).mapN: (json, tour, simul, swiss, note, fco, puzzleOpening, bookmarked) =>
+      (
+        withTournament(pov, tour)
+          .compose(withSwiss(swiss))
+          .compose(withSimul(simul))
+          .compose(withNote(note))
+          .compose(withBookmark(bookmarked))
+          .compose(withTree(pov, analysis, initialFen, withFlags))
+          .compose(withAnalysis(pov.game, analysis))
+          .compose(withForecast(pov, owner, fco))
+          .compose(withPuzzleOpening(puzzleOpening))
+      )(json)
   }
     .mon(_.round.api.watcher)
 

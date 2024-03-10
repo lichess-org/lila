@@ -37,14 +37,15 @@ final class Round(
           else
             PreventTheft(pov):
               for
-                (((((simul, chatOption), crosstable), playing), bookmarked), data) <-
-                  (pov.game.simulId
-                    .so(env.simul.repo.find))
-                    .zip(getPlayerChat(pov.game, tour.map(_.tour)))
-                    .zip(ctx.noBlind.so(env.game.crosstableApi.withMatchup(pov.game)))
-                    .zip(pov.game.isSwitchable.so(otherPovs(pov.game)))
-                    .zip(env.bookmark.api.exists(pov.game, ctx.me))
-                    .zip(env.api.roundApi.player(pov, Preload(users), tour))
+                (simul, chatOption, crosstable, playing, bookmarked, data) <-
+                  (
+                    pov.game.simulId.so(env.simul.repo.find),
+                    getPlayerChat(pov.game, tour.map(_.tour)),
+                    ctx.noBlind.so(env.game.crosstableApi.withMatchup(pov.game)),
+                    pov.game.isSwitchable.so(otherPovs(pov.game)),
+                    env.bookmark.api.exists(pov.game, ctx.me),
+                    env.api.roundApi.player(pov, Preload(users), tour)
+                  ).tupled
                 _ = simul.foreach(env.simul.api.onPlayerConnection(pov.game, ctx.me))
                 page <- renderPage(
                   html.round.player(
@@ -245,15 +246,14 @@ final class Round(
 
   def sides(gameId: GameId, color: String) = Open:
     FoundPage(proxyPov(gameId, color)): pov =>
-      env.tournament.api.gameView
-        .withTeamVs(pov.game)
-        .zip(pov.game.simulId.so(env.simul.repo.find))
-        .zip(env.game.gameRepo.initialFen(pov.game))
-        .zip(env.game.crosstableApi.withMatchup(pov.game))
-        .zip(env.bookmark.api.exists(pov.game, ctx.me))
-        .flatMap { case ((((tour, simul), initialFen), crosstable), bookmarked) =>
-          html.game.bits.sides(pov, initialFen, tour, crosstable, simul, bookmarked = bookmarked)
-        }
+      (
+        env.tournament.api.gameView.withTeamVs(pov.game),
+        pov.game.simulId.so(env.simul.repo.find),
+        env.game.gameRepo.initialFen(pov.game),
+        env.game.crosstableApi.withMatchup(pov.game),
+        env.bookmark.api.exists(pov.game, ctx.me)
+      ).flatMapN: (tour, simul, initialFen, crosstable, bookmarked) =>
+        html.game.bits.sides(pov, initialFen, tour, crosstable, simul, bookmarked = bookmarked)
 
   def writeNote(gameId: GameId) = AuthBody { ctx ?=> me ?=>
     import play.api.data.Forms.*
