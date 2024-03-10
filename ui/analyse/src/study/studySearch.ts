@@ -82,8 +82,9 @@ export function view(ctrl: SearchCtrl) {
               },
               c.name,
             ),
-            c.playing ? h('ongoing', { attrs: { ...dataIcon(licon.DiscBig), title: 'Ongoing' } }) : null,
-            c.status && h('res', c.status),
+            c.playing
+              ? h('ongoing', { attrs: { ...dataIcon(licon.DiscBig), title: 'Ongoing' } })
+              : c.status && h('res', c.status),
           ]),
         ),
       ),
