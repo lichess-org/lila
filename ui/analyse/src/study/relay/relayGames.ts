@@ -38,16 +38,16 @@ export const gamesList = (study: StudyCtrl, relay: RelayCtrl) => {
               class: { 'relay-game--current': c.id === study.data.chapter.id },
             },
             [
-              h('span.relay-game__gauge', [
-                h('span.relay-game__gauge__black', {
-                  hook: {
-                    postpatch() {
-                      // do the magic here, like in multiboard.ts
-                    },
-                  },
-                }),
-                h('tick'),
-              ]),
+              // h('span.relay-game__gauge', [
+              //   h('span.relay-game__gauge__black', {
+              //     hook: {
+              //       postpatch() {
+              //         // do the magic here, like in multiboard.ts
+              //       },
+              //     },
+              //   }),
+              //   h('tick'),
+              // ]),
               h(
                 'span.relay-game__players',
                 [players.black, players.white].map((p, i) => {
