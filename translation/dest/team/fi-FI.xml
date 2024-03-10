@@ -58,6 +58,9 @@ Pelaajat, jotka eivät mielellään ota vastaan viestejäsi, saattavat lähteä 
   <string name="thisTeamBattleIsOver">Tämä turnaus on ohi, eikä joukkueita voi enää päivittää.</string>
   <string name="listTheTeamsThatWillCompete">Listaa tässä taistossa kilpailevat joukkueet.</string>
   <string name="oneTeamPerLine">Yksi joukkue riviä kohti. Käytä automaattista täydennystä.</string>
+  <string name="oneTeamPerLineHelp">Voit kopioida tämän listan turnauksesta toiseen!
+
+Et voi poistaa joukkuetta, jos pelaaja on jo liittynyt turnaukseen sen kanssa.</string>
   <string name="numberOfLeadsPerTeam">Johtajien määrä kussakin joukkueessa. Heidän pisteidensä summa muodostaa joukkueen pistemäärän.</string>
   <string name="numberOfLeadsPerTeamHelp">Tätä arvoa ei todellakaan tulisi muuttaa turnauksen jo käynnistyttyä!</string>
 </resources>
