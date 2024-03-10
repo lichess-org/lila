@@ -42,7 +42,7 @@
   <string name="discoveredAttackDescription">حرکت دادن یک مهره (مانند اسب)، که قبلا جلوی حمله مهره خودمان به یکی از مهره های دور حریف (مانند رخ)، از جلوی راه مهره حمله کننده.</string>
   <string name="doubleCheck">کیش دوگانه</string>
   <string name="doubleCheckDescription">کیش دادن به حریف با دو مهره به صورت هم زمان در نتیجهء یک حمله برخاستی که در آن هم مهره برخاست کننده و هم مهره پشت سر آن به شاه حریف حمله می کنند.</string>
-  <string name="endgame">آخر بازی</string>
+  <string name="endgame">آخربازی</string>
   <string name="endgameDescription">یک تاکتیک در لحظات آخر بازی.</string>
   <string name="enPassantDescription">گرفتن پیاده در حال عبور با پیاده دیگر.</string>
   <string name="exposedKing">شاه در معرض خطر</string>
@@ -57,8 +57,8 @@
   <string name="interferenceDescription">حرکت دادن یک مهره و حمله کردن به دو مهره هم زمان که بتوان یکی از مهره ها را گرفت، مانند حمله یک اسب به به دو تا رخ بصورت هم زمان.</string>
   <string name="intermezzo">زوگزوانگ</string>
   <string name="intermezzoDescription">به جای انجام حرکت مورد انتظار، ابتدا حرکت دیگری را وارد کنید که تهدیدی فوری است که حریف باید به آن پاسخ دهد. به عنوان \"Zwischenzug\" شناخته میشود.</string>
-  <string name="knightEndgame">آخر بازی اسب</string>
-  <string name="knightEndgameDescription">یک آخر بازی تنها با اسب ها و پیاده ها.</string>
+  <string name="knightEndgame">آخربازی اسب</string>
+  <string name="knightEndgameDescription">آخربازی، تنها با اسب‌ها و پیاده‌ها.</string>
   <string name="long">معمای طولانی</string>
   <string name="longDescription">سه حرکت برای پیروزی.</string>
   <string name="master">بازی‌های اساتید</string>
@@ -83,7 +83,7 @@
   <string name="oneMoveDescription">یک معما که فقط یک حرکت طول می‌کشد.</string>
   <string name="opening">گشایش</string>
   <string name="openingDescription">تاکتیک در مرحله اول بازی.</string>
-  <string name="pawnEndgame">پایان بازی با پیاده</string>
+  <string name="pawnEndgame">آخربازی پیاده</string>
   <string name="pawnEndgameDescription">یک آخر بازی تنها با پیاده‌ها.</string>
   <string name="pin">آچمزی</string>
   <string name="pinDescription">راهکنش آچمزی، که یک مهره نمی‌تواند حرکت کند، مگر اینکه به مهره ارزشمندتر پشتش حمله می‌شود.</string>
