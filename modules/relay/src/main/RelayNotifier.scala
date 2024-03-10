@@ -3,8 +3,9 @@ package lila.relay
 final private class RelayNotifier(notifyApi: lila.notify.NotifyApi, tourRepo: RelayTourRepo)(using Executor):
 
   def roundBegin(rt: RelayRound.WithTour): Funit =
-    (!tourRepo
-      .hasNotified(rt))
+    tourRepo
+      .hasNotified(rt)
+      .not
       .flatMapz:
         tourRepo.setNotified(rt) >>
           tourRepo

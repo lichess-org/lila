@@ -17,27 +17,27 @@ final class Simul(env: Env) extends LilaController(env):
   def homeLang = LangPage(routes.Simul.home)(serveHome)
 
   private def serveHome(using ctx: Context) = NoBot:
-    fetchSimuls.flatMap { case (((pending, created), started), finished) =>
-      env.simul.api.checkOngoingSimuls(started) >>
-        Ok.page(html.simul.home(pending, created, started, finished))
-    }
+    for
+      (pending, created, started, finished) <- fetchSimuls
+      _                                     <- env.simul.api.checkOngoingSimuls(started)
+      page                                  <- Ok.page(html.simul.home(pending, created, started, finished))
+    yield page
 
   val apiList = OpenOrScoped(): ctx ?=>
-    fetchSimuls.flatMap { case (((pending, created), started), finished) =>
+    fetchSimuls.flatMap: (pending, created, started, finished) =>
       env.simul.jsonView.apiAll(pending, created, started, finished).map(JsonOk)
-    }
 
   val homeReload = Open:
-    fetchSimuls.flatMap { case (((pending, created), started), finished) =>
+    fetchSimuls.flatMap: (pending, created, started, finished) =>
       Ok.page(html.simul.homeInner(pending, created, started, finished))
-    }
 
-  private def fetchSimuls(using me: Option[lila.user.Me]) =
-    me.so { u =>
-      env.simul.repo.findPending(u.userId)
-    }.zip(env.simul.allCreatedFeaturable.get {})
-      .zip(env.simul.repo.allStarted)
-      .zip(env.simul.repo.allFinishedFeaturable(20))
+  private def fetchSimuls(using me: Option[lila.user.Me]): Fu[(List[Sim], List[Sim], List[Sim], List[Sim])] =
+    (
+      me.so(u => env.simul.repo.findPending(u.userId)),
+      env.simul.allCreatedFeaturable.get {},
+      env.simul.repo.allStarted,
+      env.simul.repo.allFinishedFeaturable(20)
+    ).tupled
 
   def show(id: SimulId) = Open:
     env.simul.repo.find(id).flatMap {

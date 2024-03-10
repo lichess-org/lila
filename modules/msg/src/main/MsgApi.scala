@@ -107,7 +107,7 @@ final class MsgApi(
       val threadId = MsgThread.id(orig, dest)
       for
         contacts <- userRepo.contacts(orig, dest).orFail(s"Missing convo contact user $orig->$dest")
-        isNew    <- !colls.thread.exists($id(threadId))
+        isNew    <- colls.thread.exists($id(threadId)).not
         verdict <-
           if ignoreSecurity then fuccess(MsgSecurity.Ok)
           else security.can.post(contacts, msgPre.text, isNew, unlimited = multi)

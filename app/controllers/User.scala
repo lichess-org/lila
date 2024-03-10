@@ -163,27 +163,26 @@ final class User(
     Found(env.user.api.withPerfs(username)): user =>
       if user.enabled.yes || isGrantedOpt(_.UserModView)
       then
-        ctx.userId
-          .so(relationApi.fetchBlocks(user.id, _))
-          .zip(ctx.userId.soFu(env.game.crosstableApi(user.id, _)))
-          .zip(ctx.isAuth.so(env.pref.api.followable(user.id)))
-          .zip(ctx.userId.so(relationApi.fetchRelation(_, user.id)))
-          .flatMap { case (((blocked, crosstable), followable), relation) =>
-            val ping = env.socket.isOnline(user.id).so(UserLagCache.getLagRating(user.id))
-            negotiate(
-              html = (ctx.isnt(user)).so(currentlyPlaying(user.user)).flatMap { pov =>
-                Ok.page(html.user.mini(user, pov, blocked, followable, relation, ping, crosstable))
-                  .map(_.withHeaders(CACHE_CONTROL -> "max-age=5"))
-              },
-              json =
-                import lila.game.JsonView.given
-                Ok:
-                  Json.obj(
-                    "crosstable" -> crosstable,
-                    "perfs"      -> lila.user.JsonView.perfsJson(user.perfs, user.perfs.best8Perfs)
-                  )
-            )
-          }
+        (
+          ctx.userId.so(relationApi.fetchBlocks(user.id, _)),
+          ctx.userId.soFu(env.game.crosstableApi(user.id, _)),
+          ctx.isAuth.so(env.pref.api.followable(user.id)),
+          ctx.userId.so(relationApi.fetchRelation(_, user.id))
+        ).flatMapN: (blocked, crosstable, followable, relation) =>
+          val ping = env.socket.isOnline(user.id).so(UserLagCache.getLagRating(user.id))
+          negotiate(
+            html = (ctx.isnt(user)).so(currentlyPlaying(user.user)).flatMap { pov =>
+              Ok.page(html.user.mini(user, pov, blocked, followable, relation, ping, crosstable))
+                .map(_.withHeaders(CACHE_CONTROL -> "max-age=5"))
+            },
+            json =
+              import lila.game.JsonView.given
+              Ok:
+                Json.obj(
+                  "crosstable" -> crosstable,
+                  "perfs"      -> lila.user.JsonView.perfsJson(user.perfs, user.perfs.best8Perfs)
+                )
+          )
       else Ok.page(html.user.bits.miniClosed(user.user))
 
   def online = Anon:

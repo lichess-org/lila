@@ -119,9 +119,11 @@ final private class MsgSecurity(
       contacts.orig.isTroll.so(fuccess(Troll.some))
 
     private def isDirt(user: User.Contact, text: String, isNew: Boolean): Fu[Option[Verdict]] =
-      (isNew && Analyser(text).dirty).so(!userRepo.isCreatedSince(user.id, nowInstant.minusDays(30))).dmap {
-        _.option(Dirt)
-      }
+      (isNew && Analyser(text).dirty)
+        .so(userRepo.isCreatedSince(user.id, nowInstant.minusDays(30)).not)
+        .dmap {
+          _.option(Dirt)
+        }
 
     private def destFollowsOrig(contacts: User.Contacts): Fu[Boolean] =
       relationApi.fetchFollows(contacts.dest.id, contacts.orig.id)
@@ -134,7 +136,7 @@ final private class MsgSecurity(
     def post(contacts: User.Contacts, isNew: Boolean): Fu[Boolean] =
       fuccess(!contacts.dest.isLichess) >>& {
         fuccess(Granter.byRoles(_.PublicMod)(~contacts.orig.roles)) >>| {
-          !relationApi.fetchBlocks(contacts.dest.id, contacts.orig.id) >>&
+          relationApi.fetchBlocks(contacts.dest.id, contacts.orig.id).not >>&
             (create(contacts) >>| reply(contacts)) >>&
             chatPanic.allowed(contacts.orig.id, userRepo.byId) >>&
             kidCheck(contacts, isNew) >>&

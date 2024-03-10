@@ -280,7 +280,8 @@ trait LilaLibraryExtensions extends LilaTypes:
     def mapz[B](fb: => B)(using zero: Zero[B]): Fu[B] =
       fua.map { if _ then fb else zero.zero }(EC.parasitic)
 
-    inline def unary_! = fua.map { !_ }(EC.parasitic)
+    // inline def unary_! = fua.map { !_ }(EC.parasitic)
+    inline def not = fua.map { !_ }(EC.parasitic)
 
   extension [A](fua: Fu[Option[A]])
 

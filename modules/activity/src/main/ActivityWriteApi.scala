@@ -111,9 +111,12 @@ final class ActivityWriteApi(
       .byId(id)
       .flatMap:
         _.filter(_.isPublic).so: s =>
-          (!userRepo.isTroll(s.ownerId)).flatMapz:
-            update(s.ownerId): a =>
-              $doc(ActivityFields.studies -> { ~a.studies + s.id })
+          userRepo
+            .isTroll(s.ownerId)
+            .not
+            .flatMapz:
+              update(s.ownerId): a =>
+                $doc(ActivityFields.studies -> { ~a.studies + s.id })
 
   def team(id: TeamId, userId: UserId) =
     update(userId): a =>

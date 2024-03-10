@@ -46,7 +46,7 @@ final private class RelayTourRepo(val coll: Coll)(using Executor):
     coll.byOrderedIds[IdName, Id](ids, $doc("name" -> true).some)(_.id)
 
   def isOwnerOfAll(u: UserId, ids: List[Id]): Fu[Boolean] =
-    !coll.exists($doc($inIds(ids), "ownerId".$ne(u)))
+    coll.exists($doc($inIds(ids), "ownerId".$ne(u))).not
 
 private object RelayTourRepo:
   object selectors:

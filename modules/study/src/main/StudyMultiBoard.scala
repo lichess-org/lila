@@ -167,5 +167,4 @@ object StudyMultiBoard:
     def players(clocks: ByColor[Option[Centis]])(tags: Tags): Option[Players] =
       val names = tags.names
       names.exists(_.isDefined) option:
-        names zip tags.titles zip tags.elos zip clocks map:
-          case (((n, t), e), c) => Player(n | PlayerName("Unknown player"), t, e, c)
+        (names, tags.titles, tags.elos, clocks).mapN((n, t, e, c) => Player(n | PlayerName("Unknown player"), t, e, c))

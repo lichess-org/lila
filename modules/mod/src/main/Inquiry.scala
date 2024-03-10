@@ -27,15 +27,15 @@ final class InquiryApi(
 
   def forMod(using mod: Me)(using Executor): Fu[Option[Inquiry]] =
     lila.security.Granter(_.SeeReport).so {
-      reportApi.inquiries.ofModId(mod).flatMapz { report =>
-        reportApi
-          .moreLike(report, 10)
-          .zip(userApi.withPerfs(report.user))
-          .zip(noteApi.byUserForMod(report.user))
-          .zip(logApi.userHistory(report.user))
-          .map { case (((moreReports, userOption), notes), history) =>
+      reportApi.inquiries
+        .ofModId(mod)
+        .flatMapz: report =>
+          (
+            reportApi.moreLike(report, 10),
+            userApi.withPerfs(report.user),
+            noteApi.byUserForMod(report.user),
+            logApi.userHistory(report.user)
+          ).mapN: (moreReports, userOption, notes, history) =>
             userOption.map: user =>
               Inquiry(mod.light, report, moreReports, notes, history, user)
-          }
-      }
     }

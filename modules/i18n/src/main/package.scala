@@ -7,7 +7,6 @@ export lila.Lila.{ *, given }
 private type Count      = Long
 private type MessageKey = String
 private type MessageMap = java.util.Map[MessageKey, Translation]
-private type Messages   = Map[Lang, MessageMap]
 
 private val logger = lila.log("i18n")
 
