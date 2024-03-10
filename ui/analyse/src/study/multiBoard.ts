@@ -207,7 +207,7 @@ export const renderClock = (chapter: ChapterPreview, color: Color) => {
         { class: { 'clock--run': ticking } },
         formatMs(timeleft * 1000),
       )
-    : '*';
+    : undefined;
 };
 
 const computeTimeLeft = (preview: ChapterPreview, color: Color): number | undefined => {
