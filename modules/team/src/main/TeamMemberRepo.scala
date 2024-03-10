@@ -42,7 +42,7 @@ final class TeamMemberRepo(val coll: Coll)(using Executor):
     )
 
   def isSubscribed[U: UserIdOf](team: Team, user: U): Fu[Boolean] =
-    !coll.exists(selectId(team.id, user) ++ $doc("unsub" -> true))
+    coll.exists(selectId(team.id, user) ++ $doc("unsub" -> true)).not
 
   def subscribe(teamId: TeamId, userId: UserId, v: Boolean): Funit =
     coll.update

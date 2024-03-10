@@ -210,7 +210,7 @@ final class TeamApi(
                 _.map(_.user).foreach(cached.nbRequests.invalidate)
 
   def doJoin(team: Team)(using me: Me): Funit = {
-    (!belongsTo(team.id, me)).flatMapz {
+    belongsTo(team.id, me).not.flatMapz {
       (memberRepo.add(team.id, me) >>
         teamRepo.incMembers(team.id, +1)).andDo {
         cached.invalidateTeamIds(me)

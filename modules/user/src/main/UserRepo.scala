@@ -248,7 +248,7 @@ final class UserRepo(val coll: Coll)(using Executor):
       mustConfirmEmail: Boolean,
       lang: Option[String] = None
   ): Fu[Option[User]] =
-    (!exists(name)).flatMapz {
+    exists(name).not.flatMapz {
       val doc = newUser(name, passwordHash, email, blind, mobileApiVersion, mustConfirmEmail, lang) ++
         ("len" -> BSONInteger(name.value.length))
       coll.insert.one(doc) >> byId(name.id)
