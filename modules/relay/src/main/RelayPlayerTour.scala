@@ -38,8 +38,8 @@ final class RelayPlayerTour(
       coll
         .find(
           $doc(
+            "ownerId" -> lila.user.User.broadcasterId,
             "tags".$regex("^(White|Black):"),
-            // "relay"            -> $exists(true),
             "relay.fideIds"    -> $exists(false),
             "relay.lastMoveAt" -> $exists(true) // rare; and breaks the bson reader
           ),
