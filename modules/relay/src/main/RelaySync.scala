@@ -127,14 +127,7 @@ final private class RelaySync(
                   position = position,
                   node = n,
                   opts = moveOpts.copy(clock = n.clock),
-                  relay = Chapter
-                    .Relay(
-                      index = game.index,
-                      path = position.path + n.id,
-                      lastMoveAt = nowInstant,
-                      fideIds = game.fideIdsPair
-                    )
-                    .some
+                  relay = makeRelayFor(game, position.path + n.id, study).some
                 )(by)
                 .inject(position + n)
             .inject:
@@ -187,6 +180,13 @@ final private class RelaySync(
       leaderboard.invalidate(tour.id)
     }
 
+  private def makeRelayFor(game: RelayGame, path: UciPath, study: Study) = Chapter.Relay(
+    index = game.index,
+    path = path,
+    lastMoveAt = nowInstant,
+    fideIds = study.isOwner(lila.user.User.broadcasterId).so(game.fideIdsPair)
+  )
+
   private def createChapter(study: Study, game: RelayGame): Fu[Chapter] =
     chapterRepo.nextOrderByStudy(study.id).flatMap { order =>
       val name = {
@@ -210,14 +210,7 @@ final private class RelaySync(
         practice = false,
         gamebook = false,
         conceal = none,
-        relay = Chapter
-          .Relay(
-            index = game.index,
-            path = game.root.mainlinePath,
-            lastMoveAt = nowInstant,
-            fideIds = game.fideIdsPair
-          )
-          .some
+        relay = makeRelayFor(game, game.root.mainlinePath, study).some
       )
       studyApi
         .doAddChapter(study, chapter, sticky = false, who(study.ownerId))
