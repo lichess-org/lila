@@ -187,10 +187,7 @@ final class JsonView(
           )
           (game, branch :: branches)
       }
-      branchList.foldLeft[Option[tree.Branch]](None) {
-        case (None, branch)        => branch.some
-        case (Some(child), branch) => Some(branch.addChild(child))
-      }
+      branchList.reduceOption((child, branch) => branch.addChild(child))
 
 object JsonView:
 
