@@ -36,8 +36,6 @@ object Registry:
 
   val default: MessageMap = all.getOrElse(defaultLang, java.util.HashMap[MessageKey, Translation])
 
-  val langs: Set[Lang] = all.keySet
-
   private def singleOrEscaped(s: String) =
     val sb = java.lang.StringBuilder(s.length + 10)
 
