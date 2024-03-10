@@ -1,17 +1,17 @@
 package lila.study
 
+import reactivemongo.api.bson.Macros.Annotations.Key
 import chess.format.pgn.{ Glyph, Tags }
-import chess.format.UciPath
+import chess.format.{ UciPath, Uci, Fen }
 import chess.opening.{ Opening, OpeningDb }
 import chess.variant.Variant
-import chess.{ Ply, Centis, Color, Outcome }
-import ornicar.scalalib.ThreadLocalRandom
+import chess.{ Ply, Centis, Color, Outcome, ByColor }
 
 import lila.tree.{ Root, Branch, Branches }
 import lila.tree.Node.{ Comment, Gamebook, Shapes }
 
 case class Chapter(
-    _id: StudyChapterId,
+    @Key("_id") id: StudyChapterId,
     studyId: StudyId,
     name: StudyChapterName,
     setup: Chapter.Setup,
@@ -25,8 +25,22 @@ case class Chapter(
     description: Option[String] = None,
     relay: Option[Chapter.Relay] = None,
     serverEval: Option[Chapter.ServerEval] = None,
+    denorm: Option[Chapter.LastPosDenorm] = None,
     createdAt: Instant
 ) extends Chapter.Like:
+
+  def updateDenorm: Chapter =
+    val looksLikeGame = tags.names.exists(_.isDefined) || tags.outcome.isDefined
+    val newDenorm = looksLikeGame.option:
+      val node = relay.map(_.path).flatMap(root.nodeAt) | root.lastMainlineNode
+      val clocks = relay.so: r =>
+        val path       = r.path
+        val parentPath = path.parent.some.filter(_ != path)
+        val parentNode = parentPath.flatMap(root.nodeAt)
+        val clockSwap  = ByColor(node.clock, parentNode.flatMap(_.clock).orElse(node.clock))
+        if node.color.black then clockSwap else clockSwap.swap
+      Chapter.LastPosDenorm(node.fen, node.moveOption.map(_.uci), clocks = clocks)
+    copy(denorm = newDenorm)
 
   def updateRoot(f: Root => Option[Root]) =
     f(root).map: newRoot =>
@@ -36,7 +50,7 @@ case class Chapter(
     updateRoot:
       _.withChildren(_.addNodeAt(node, path))
     .map:
-      _.copy(relay = newRelay.orElse(relay))
+      _.copy(relay = newRelay.orElse(relay)).updateDenorm
 
   def setShapes(shapes: Shapes, path: UciPath): Option[Chapter] =
     updateRoot(_.setShapesAt(shapes, path))
@@ -68,19 +82,21 @@ case class Chapter(
 
   def cloneFor(study: Study) =
     copy(
-      _id = Chapter.makeId,
+      id = Chapter.makeId,
       studyId = study.id,
       ownerId = study.ownerId,
       createdAt = nowInstant
     )
 
-  def metadata = Chapter.Metadata(
-    _id = _id,
+  def preview = ChapterPreview(
+    id = id,
     name = name,
-    setup = setup,
-    outcome = tags.outcome.isDefined.option(tags.outcome),
-    teams = tags(_.WhiteTeam).zip(tags(_.BlackTeam)),
-    hasRelayPath = relay.exists(!_.path.isEmpty)
+    players = ChapterPreview.players(denorm.so(_.clocks))(tags),
+    orientation = setup.orientation,
+    fen = denorm.fold(Fen.initial)(_.fen),
+    lastMove = denorm.flatMap(_.uci),
+    lastMoveAt = relay.map(_.lastMoveAt),
+    result = tags.outcome.isDefined.option(tags.outcome)
   )
 
   def isPractice = ~practice
@@ -102,11 +118,8 @@ object Chapter:
   val maxNodes = 3000
 
   trait Like:
-    val _id: StudyChapterId
+    val id: StudyChapterId
     val name: StudyChapterName
-    val setup: Chapter.Setup
-    inline def id = _id
-
     def initialPosition = Position.Ref(id, UciPath.root)
 
   case class Setup(
@@ -136,22 +149,11 @@ object Chapter:
             tags.clockConfig.fold(40)(_.limitInMinutes.toInt / 2 atLeast 15 atMost 60)
     def looksOver = !looksAlive
 
-  type TeamName = String
+  /* Last position of the main line.
+   * Used for chapter previews. */
+  case class LastPosDenorm(fen: Fen.Epd, uci: Option[Uci], clocks: ByColor[Option[Centis]])
 
-  case class Metadata(
-      _id: StudyChapterId,
-      name: StudyChapterName,
-      setup: Setup,
-      outcome: Option[Option[Outcome]],
-      teams: Option[(TeamName, TeamName)],
-      hasRelayPath: Boolean
-  ) extends Like:
-
-    def looksOngoing = outcome.exists(_.isEmpty) && hasRelayPath
-
-    def resultStr: Option[String] = outcome.map(o => Outcome.showResult(o).replace("1/2", "½"))
-
-  case class IdName(id: StudyChapterId, name: StudyChapterName)
+  case class IdName(@Key("_id") id: StudyChapterId, name: StudyChapterName)
 
   def defaultName(order: Int) = StudyChapterName(s"Chapter $order")
 
@@ -160,7 +162,7 @@ object Chapter:
 
   def fixName(n: StudyChapterName) = StudyChapterName(lila.common.String.softCleanUp(n.value).take(80))
 
-  def makeId = StudyChapterId(ThreadLocalRandom.nextString(8))
+  def makeId = StudyChapterId(ornicar.scalalib.ThreadLocalRandom.nextString(8))
 
   def make(
       studyId: StudyId,
@@ -176,7 +178,7 @@ object Chapter:
       relay: Option[Relay] = None
   ) =
     Chapter(
-      _id = makeId,
+      id = makeId,
       studyId = studyId,
       name = fixName(name),
       setup = setup,

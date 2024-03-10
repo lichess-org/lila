@@ -16,6 +16,9 @@ final class ChapterRepo(val coll: AsyncColl)(using Executor, akka.stream.Materia
 
   import BSONHandlers.{ writeBranch, given }
 
+  val $sortOrder     = $sort.asc("order")
+  val $sortOrderDesc = $sort.desc("order")
+
   def byId(id: StudyChapterId): Fu[Option[Chapter]] = coll(_.byId[Chapter](id))
 
   def studyIdOf(chapterId: StudyChapterId): Fu[Option[StudyId]] =
@@ -30,41 +33,19 @@ final class ChapterRepo(val coll: AsyncColl)(using Executor, akka.stream.Materia
     coll(_.one($id(id) ++ $studyId(studyId)))
 
   def firstByStudy(studyId: StudyId): Fu[Option[Chapter]] =
-    coll(_.find($studyId(studyId)).sort($sort.asc("order")).one[Chapter])
+    coll(_.find($studyId(studyId)).sort($sortOrder).one[Chapter])
 
   private[study] def lastByStudy(studyId: StudyId): Fu[Option[Chapter]] =
-    coll(_.find($studyId(studyId)).sort($sort.desc("order")).one[Chapter])
+    coll(_.find($studyId(studyId)).sort($sortOrderDesc).one[Chapter])
 
   def existsByStudy(studyId: StudyId): Fu[Boolean] =
     coll(_.exists($studyId(studyId)))
-
-  private val metadataProjection =
-    $doc(
-      "name"       -> true,
-      "setup"      -> true,
-      "relay.path" -> true,
-      "tags" -> $doc(
-        "$filter" -> $doc(
-          "input" -> "$tags",
-          "as"    -> "ts",
-          "cond" -> $doc:
-            "$regexMatch" -> $doc("input" -> "$$ts", "regex" -> "^(Result|WhiteTeam|BlackTeam):")
-        )
-      )
-    ).some
-
-  def orderedMetadataByStudy(studyId: StudyId): Fu[List[Chapter.Metadata]] =
-    coll:
-      _.find($studyId(studyId), metadataProjection)
-        .sort($sort.asc("order"))
-        .cursor[Chapter.Metadata]()
-        .list(300)
 
   def orderedByStudySource(studyId: StudyId): Source[Chapter, ?] =
     Source.futureSource:
       coll.map:
         _.find($studyId(studyId))
-          .sort($sort.asc("order"))
+          .sort($sortOrder)
           .cursor[Chapter]()
           .documentSource()
 
@@ -79,7 +60,7 @@ final class ChapterRepo(val coll: AsyncColl)(using Executor, akka.stream.Materia
   def orderedByStudyLoadingAllInMemory(studyId: StudyId): Fu[List[Chapter]] =
     coll:
       _.find($studyId(studyId))
-        .sort($sort.asc("order"))
+        .sort($sortOrder)
         .cursor[Chapter]()
         .list(300)
 
@@ -109,9 +90,6 @@ final class ChapterRepo(val coll: AsyncColl)(using Executor, akka.stream.Materia
   def removeConceal(chapterId: StudyChapterId) =
     coll(_.unsetField($id(chapterId), "conceal")).void
 
-  def setRelay(chapterId: StudyChapterId, relay: Chapter.Relay) =
-    coll(_.updateField($id(chapterId), "relay", relay)).void
-
   def setRelayPath(chapterId: StudyChapterId, path: UciPath) =
     coll(_.updateField($id(chapterId), "relay.path", path)).void
 
@@ -134,18 +112,25 @@ final class ChapterRepo(val coll: AsyncColl)(using Executor, akka.stream.Materia
   def forceVariation(force: Boolean) = setNodeValue(F.forceVariation, force.option(true))
 
   // insert node and its children
-  // and sets the parent order field
-  def addSubTree(subTree: Branch, newParent: lila.tree.Node, parentPath: UciPath)(chapter: Chapter): Funit =
-    val set = $doc(subTreeToBsonElements(parentPath, subTree))
+  // and updates chapter denormalization
+  private[study] def addSubTree(
+      chapter: Chapter,
+      subTree: Branch,
+      parentPath: UciPath,
+      relay: Option[Chapter.Relay]
+  ): Funit =
+    val set = $doc(subTreeToBsonElements(parentPath, subTree)) ++
+      $doc("denorm" -> chapter.denorm) ++
+      relay.flatMap(toBdoc).so(r => $doc("relay" -> r))
     coll(_.update.one($id(chapter.id), $set(set))).void
 
   private def subTreeToBsonElements(parentPath: UciPath, subTree: Branch): List[(String, Bdoc)] =
-    (parentPath.depth < Node.MAX_PLIES).so {
+    (parentPath.depth < Node.MAX_PLIES).so:
       val path = parentPath + subTree.id
-      subTree.children.nodes.flatMap(subTreeToBsonElements(path, _)).appended {
-        path.toDbField -> writeBranch(subTree)
-      }
-    }
+      subTree.children.nodes
+        .flatMap(subTreeToBsonElements(path, _))
+        .appended:
+          path.toDbField -> writeBranch(subTree)
 
   // overrides all children sub-nodes in DB! Make the tree merge beforehand.
   def setChildren(children: Branches)(chapter: Chapter, path: UciPath): Funit =
@@ -203,7 +188,7 @@ final class ChapterRepo(val coll: AsyncColl)(using Executor, akka.stream.Materia
         $doc("studyId".$in(studyIds)),
         $doc("studyId" -> true, "_id" -> true, "name" -> true).some
       )
-        .sort($sort.asc("order"))
+        .sort($sortOrder)
         .cursor[Bdoc]()
         .list(nbChaptersPerStudy * studyIds.size)
     }
@@ -214,7 +199,7 @@ final class ChapterRepo(val coll: AsyncColl)(using Executor, akka.stream.Materia
               case Some(chapters) if chapters.sizeIs >= nbChaptersPerStudy => hash
               case maybe =>
                 val chapters = ~maybe
-                hash + (studyId -> readIdName(doc).fold(chapters)(chapters :+ _))
+                hash + (studyId -> chapterIdNameHandler.readOpt(doc).fold(chapters)(chapters :+ _))
           }
         }
       })
@@ -222,16 +207,9 @@ final class ChapterRepo(val coll: AsyncColl)(using Executor, akka.stream.Materia
   def idNames(studyId: StudyId): Fu[List[Chapter.IdName]] =
     coll:
       _.find($studyId(studyId), $doc("_id" -> true, "name" -> true).some)
-        .sort($sort.asc("order"))
-        .cursor[Bdoc]()
-        .list(Study.maxChapters * 2)
-    .dmap(_.flatMap(readIdName))
-
-  private def readIdName(doc: Bdoc) =
-    for
-      id   <- doc.getAsOpt[StudyChapterId]("_id")
-      name <- doc.getAsOpt[StudyChapterName]("name")
-    yield Chapter.IdName(id, name)
+        .sort($sortOrder)
+        .cursor[Chapter.IdName]()
+        .list(Study.maxChapters.value)
 
   def tagsByStudyIds(studyIds: Iterable[StudyId]): Fu[List[Tags]] =
     studyIds.nonEmpty.so(coll { _.primitive[Tags]("studyId".$in(studyIds), "tags") })
@@ -254,9 +232,9 @@ final class ChapterRepo(val coll: AsyncColl)(using Executor, akka.stream.Materia
   def countByStudyId(studyId: StudyId): Fu[Int] =
     coll(_.countSel($studyId(studyId)))
 
-  def insert(s: Chapter): Funit = coll(_.insert.one(s)).void
+  def insert(s: Chapter): Funit = coll(_.insert.one(s.updateDenorm)).void
 
-  def update(c: Chapter): Funit = coll(_.update.one($id(c.id), c)).void
+  def update(c: Chapter): Funit = coll(_.update.one($id(c.id), c.updateDenorm)).void
 
   def delete(id: StudyChapterId): Funit = coll(_.delete.one($id(id))).void
   def delete(c: Chapter): Funit         = delete(c.id)

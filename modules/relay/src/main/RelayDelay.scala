@@ -14,12 +14,12 @@ final private class RelayDelay(colls: RelayColls)(using Executor):
 
   def apply(
       url: UpstreamUrl,
-      rt: RelayRound.WithTour,
+      round: RelayRound,
       doFetchUrl: (UpstreamUrl, Max) => Fu[RelayGames]
   ): Fu[RelayGames] =
-    dedupCache(url, rt.round, () => doFetchUrl(url, RelayFetch.maxChapters(rt.tour)))
+    dedupCache(url, round, () => doFetchUrl(url, RelayFetch.maxChapters))
       .flatMap: latest =>
-        rt.round.sync.delay match
+        round.sync.delay match
           case Some(delay) if delay > 0 => store.get(url, delay).map(_ | latest.map(_.resetToSetup))
           case _                        => fuccess(latest)
 

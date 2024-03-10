@@ -304,12 +304,11 @@ final private class StudySocket(
         .obj(
           "n" -> defaultNodeJsonWriter.writes(TreeBuilder.toBranch(node, variant)),
           "p" -> pos,
-          "w" -> who,
           "d" -> dests.dests,
-          "o" -> dests.opening,
           "s" -> sticky
         )
-        .add("relay", relay)
+        .add("w", Option.when(relay.isEmpty)(who))
+        .add("relayPath", relay.map(_.path))
     )
   def deleteNode(pos: Position.Ref, who: Who) = version("deleteNode", Json.obj("p" -> pos, "w" -> who))
   def promote(pos: Position.Ref, toMainline: Boolean, who: Who) =
@@ -362,14 +361,15 @@ final private class StudySocket(
         "w" -> who
       )
     )
-  def setClock(pos: Position.Ref, clock: Option[Centis], who: Who) =
+  def setClock(pos: Position.Ref, clock: Option[Centis], onRelayPath: Boolean) =
     version(
       "clock",
-      Json.obj(
-        "p" -> pos,
-        "c" -> clock,
-        "w" -> who
-      )
+      Json
+        .obj(
+          "p" -> pos,
+          "c" -> clock
+        )
+        .add("onRelayPath", onRelayPath)
     )
   def forceVariation(pos: Position.Ref, force: Boolean, who: Who) =
     version(
@@ -380,7 +380,7 @@ final private class StudySocket(
         "w"     -> who
       )
     )
-  private[study] def reloadChapters(chapters: List[Chapter.Metadata]) = version("chapters", chapters)
+  private[study] def reloadChapters(previews: ChapterPreview.AsJsons) = version("chapters", previews)
   def reloadAll                                                       = version("reload", JsNull)
   def changeChapter(pos: Position.Ref, who: Who) = version("changeChapter", Json.obj("p" -> pos, "w" -> who))
   def updateChapter(chapterId: StudyChapterId, who: Who) =

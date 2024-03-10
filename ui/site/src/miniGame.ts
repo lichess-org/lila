@@ -4,6 +4,7 @@ import { type Chessground } from 'chessground';
 import * as domData from 'common/data';
 import clockWidget from './clockWidget';
 import StrongSocket from './socket';
+import { clockIsRunning } from 'common/clock';
 
 export const init = (node: Element, withCg?: typeof Chessground) => {
   const [fen, color, lm] = node.getAttribute('data-state')!.split(','),
@@ -38,9 +39,6 @@ export const init = (node: Element, withCg?: typeof Chessground) => {
   );
   return node.getAttribute('data-live');
 };
-
-const clockIsRunning = (fen: string, color: Color) =>
-  color == 'white' ? !fen.includes('PPPPPPPP/RNBQKBNR') : !fen.startsWith('rnbqkbnr/pppppppp');
 
 export const initAll = (parent?: HTMLElement) => {
   const nodes = Array.from((parent || document).getElementsByClassName('mini-game--init')),

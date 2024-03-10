@@ -8,6 +8,21 @@ export interface RelayData {
   streamEmbedUrl?: string;
 }
 
+export interface RelayGame {
+  id: string;
+  white: RelayPlayer;
+  black: RelayPlayer;
+}
+
+export interface RelayPlayer {
+  name: string;
+  rating?: number;
+  title?: string;
+  fideId?: number;
+}
+
+export interface RelayGamePlayer extends RelayPlayer {}
+
 export interface RelayGroup {
   name: string;
   tours: RelayTourIdName[];
@@ -29,13 +44,9 @@ export interface RelayRound {
   startsAt?: number;
 }
 
-export interface LeadPlayer {
-  name: string;
+export interface LeadPlayer extends RelayPlayer {
   score: number;
   played: number;
-  rating?: number;
-  title?: string;
-  fideId?: number;
 }
 
 export interface RelayTour {

@@ -118,10 +118,10 @@ final class RelayRound(
     Found(env.relay.api.byIdWithTour(id)): rt =>
       Found(env.study.studyRepo.byId(rt.round.studyId)): study =>
         studyC.CanView(study)(
-          env.study.chapterRepo
-            .orderedMetadataByStudy(rt.round.studyId)
-            .map: games =>
-              JsonOk(env.relay.jsonView.withUrlAndGames(rt.withStudy(study), games))
+          env.study.preview
+            .jsonList(study.id)
+            .map: previews =>
+              JsonOk(env.relay.jsonView.withUrlAndPreviews(rt.withStudy(study), previews))
         )(studyC.privateUnauthorizedJson, studyC.privateForbiddenJson)
 
   def pgn(ts: String, rs: String, id: StudyId) = studyC.pgn(id)
@@ -222,7 +222,9 @@ final class RelayRound(
         streamers <- studyC.streamersOf(sc.study)
         page      <- renderPage(html.relay.show(rt.withStudy(sc.study), data, chat, sVersion, streamers))
         _ = if HTTPRequest.isHuman(req) then lila.mon.http.path(rt.tour.path).increment()
-      yield if streamEmbedUrl.isDefined then Ok(page) else Ok(page).enableSharedArrayBuffer
+      yield streamEmbedUrl.isDefined match
+        case true  => Ok(page) // we can't have cross site isolation with iframes
+        case false => Ok(page).enableSharedArrayBuffer
     )(
       studyC.privateUnauthorizedFu(oldSc.study),
       studyC.privateForbiddenFu(oldSc.study)

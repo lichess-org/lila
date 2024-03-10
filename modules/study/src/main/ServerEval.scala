@@ -92,7 +92,7 @@ object ServerEval:
             analysisLine(parent, chapter.setup.variant, info).map: subTree =>
               parent.addChild(subTree) -> subTree
           .so: (newParent, subTree) =>
-            chapterRepo.addSubTree(subTree, newParent, path)(chapter)
+            chapterRepo.addSubTree(chapter, subTree, path, none)
 
       def saveInfoAdvice() =
         import BSONHandlers.given

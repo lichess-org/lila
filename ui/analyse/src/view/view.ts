@@ -35,6 +35,7 @@ import { renderNextChapter } from '../study/nextChapter';
 import * as Prefs from 'common/prefs';
 import StudyCtrl from '../study/studyCtrl';
 import { dispatchChessgroundResize } from 'common/resize';
+import { tourSide } from '../study/relay/relayTourView';
 
 import { streamPlayerView } from './streamPlayerView';
 
@@ -265,6 +266,18 @@ function renderPlayerStrips(ctrl: AnalyseCtrl): [VNode, VNode] | undefined {
   ];
 }
 
+export function makeChat(ctrl: AnalyseCtrl, insert: (chat: HTMLElement) => void) {
+  if (ctrl.opts.chat) {
+    const chatEl = document.createElement('section');
+    chatEl.classList.add('mchat');
+    insert(chatEl);
+    const chatOpts = ctrl.opts.chat;
+    chatOpts.instance?.then(c => c.destroy());
+    chatOpts.parseMoves = true;
+    chatOpts.instance = site.makeChat(chatOpts);
+  }
+}
+
 export default function (deps?: typeof studyDeps) {
   function renderResult(ctrl: AnalyseCtrl): VNode[] {
     const render = (result: string, status: VNodeKids) => [h('div.result', result), h('div.status', status)];
@@ -310,7 +323,8 @@ export default function (deps?: typeof studyDeps) {
       playerStrips = !playerBars && renderPlayerStrips(ctrl),
       gaugeOn = ctrl.showEvalGauge(),
       needsInnerCoords = ctrl.data.pref.showCaptured || !!gaugeOn || !!playerBars,
-      tour = deps?.relayTour(ctrl);
+      relay = study?.relay,
+      tourUi = deps?.relayTour(ctrl);
 
     return h(
       'main.analyse.variant-' + ctrl.data.game.variant.key,
@@ -325,15 +339,7 @@ export default function (deps?: typeof studyDeps) {
                 ctrl.redraw();
               });
             }
-            if (ctrl.opts.chat) {
-              const chatEl = document.createElement('section');
-              chatEl.classList.add('mchat');
-              elm.appendChild(chatEl);
-              const chatOpts = ctrl.opts.chat;
-              chatOpts.instance?.then(c => c.destroy());
-              chatOpts.parseMoves = true;
-              chatOpts.instance = site.makeChat(chatOpts);
-            }
+            if (!relay) makeChat(ctrl, c => elm.appendChild(c));
             gridHacks.start(elm);
           },
           update(_, _2) {
@@ -349,7 +355,8 @@ export default function (deps?: typeof studyDeps) {
           'gauge-on': gaugeOn,
           'has-players': !!playerBars,
           'gamebook-play': !!gamebookPlayView,
-          'has-relay-tour': !!tour,
+          'has-relay-tour': !!tourUi,
+          'is-relay': !!relay,
           'analyse-hunter': ctrl.opts.hunter,
           'analyse--wiki': !!ctrl.wiki && !ctrl.study,
         },
@@ -357,7 +364,7 @@ export default function (deps?: typeof studyDeps) {
       [
         ctrl.keyboardHelp && keyboardView(ctrl),
         study && deps?.studyView.overboard(study),
-        tour ||
+        tourUi ||
           h(
             addChapterId(study, 'div.analyse__board.main-board'),
             {
@@ -390,10 +397,10 @@ export default function (deps?: typeof studyDeps) {
               ctrl.promotion.view(ctrl.data.game.variant.key === 'antichess'),
             ],
           ),
-        gaugeOn && !tour && cevalView.renderGauge(ctrl),
-        !menuIsOpen && !tour && crazyView(ctrl, ctrl.topColor(), 'top'),
+        gaugeOn && !tourUi && cevalView.renderGauge(ctrl),
+        !menuIsOpen && !tourUi && crazyView(ctrl, ctrl.topColor(), 'top'),
         gamebookPlayView ||
-          (!tour &&
+          (!tourUi &&
             h(addChapterId(study, 'div.analyse__tools'), [
               ...(menuIsOpen
                 ? [actionMenu(ctrl)]
@@ -407,9 +414,9 @@ export default function (deps?: typeof studyDeps) {
                     retroView(ctrl) || practiceView(ctrl) || explorerView(ctrl),
                   ]),
             ])),
-        !menuIsOpen && !tour && crazyView(ctrl, ctrl.bottomColor(), 'bottom'),
-        !gamebookPlayView && !tour && controls(ctrl),
-        !tour &&
+        !menuIsOpen && !tourUi && crazyView(ctrl, ctrl.bottomColor(), 'bottom'),
+        !gamebookPlayView && !tourUi && controls(ctrl),
+        !tourUi &&
           h(
             'div.analyse__underboard',
             {
@@ -420,21 +427,17 @@ export default function (deps?: typeof studyDeps) {
             },
             study ? deps?.studyView.underboard(ctrl) : [inputs(ctrl)],
           ),
-        !tour && trainingView(ctrl),
+        !tourUi && trainingView(ctrl),
         ctrl.studyPractice
           ? deps?.studyPracticeView.side(study!)
+          : relay
+          ? tourSide(ctrl, study, relay)
           : h(
               'aside.analyse__side',
-              {
-                hook: onInsert(elm => {
-                  ctrl.opts.$side && ctrl.opts.$side.length && $(elm).replaceWith(ctrl.opts.$side);
-                  //$(elm).append($('.context-streamers').clone().removeClass('none'));
-                }),
-              },
               ctrl.studyPractice
                 ? [deps?.studyPracticeView.side(study!)]
                 : study
-                ? deps?.studyView.side(study)
+                ? deps?.studyView.side(study, true)
                 : [
                     ctrl.forecast && forecastView(ctrl, ctrl.forecast),
                     !ctrl.synthetic &&
@@ -454,8 +457,9 @@ export default function (deps?: typeof studyDeps) {
                       ),
                   ],
             ),
-        study && study.relay && deps?.relayManager(study.relay),
-        h('div.chat__members.none', { hook: onInsert(site.watchers) }),
+        relay && deps
+          ? deps.relayManager(relay, study)
+          : h('div.chat__members.none', { hook: onInsert(site.watchers) }),
       ],
     );
   };

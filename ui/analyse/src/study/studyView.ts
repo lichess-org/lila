@@ -6,7 +6,6 @@ import { VNode } from 'snabbdom';
 import * as licon from 'common/licon';
 import { iconTag, bind, dataIcon, MaybeVNodes, looseH as h } from 'common/snabbdom';
 import { playButtons as gbPlayButtons, overrideButton as gbOverrideButton } from './gamebook/gamebookButtons';
-import { rounds as relayTourRounds } from './relay/relayTourView';
 import { Tab, ToolTab } from './interfaces';
 import { view as chapterEditFormView } from './chapterEditForm';
 import { view as chapterNewFormView } from './chapterNewForm';
@@ -143,10 +142,44 @@ function metadata(ctrl: StudyCtrl): VNode {
   ]);
 }
 
-export function side(ctrl: StudyCtrl): MaybeVNodes {
-  const activeTab = ctrl.vm.tab(),
-    tourShow = ctrl.relay?.tourShow,
-    tourShown = !!tourShow && tourShow();
+export function side(ctrl: StudyCtrl, withSearch: boolean): MaybeVNodes {
+  const activeTab = ctrl.vm.tab();
+
+  const makeTab = (key: Tab, name: string) =>
+    h(
+      `span.${key}`,
+      {
+        class: { active: activeTab === key },
+        attrs: { role: 'tab' },
+        hook: bind('mousedown', () => ctrl.setTab(key)),
+      },
+      name,
+    );
+
+  const chaptersTab =
+    (ctrl.chapters.looksNew() && !ctrl.members.canContribute()) ||
+    makeTab(
+      'chapters',
+      ctrl.trans.pluralSame(ctrl.relay ? 'nbGames' : 'nbChapters', ctrl.chapters.list().length),
+    );
+
+  const tabs = h('div.tabs-horiz', { attrs: { role: 'tablist' } }, [
+    chaptersTab,
+    (ctrl.members.canContribute() || ctrl.data.admin) &&
+      makeTab('members', ctrl.trans.pluralSame('nbMembers', ctrl.members.size())),
+    withSearch &&
+      h('span.search.narrow', {
+        attrs: { ...dataIcon(licon.Search), title: 'Search' },
+        hook: bind('click', () => ctrl.search.open(true)),
+      }),
+    ctrl.members.isOwner() &&
+      h('span.more.narrow', {
+        attrs: { ...dataIcon(licon.Hamburger), title: 'Edit study' },
+        hook: bind('click', () => ctrl.form.open(!ctrl.form.open()), ctrl.redraw),
+      }),
+  ]);
+
+  const content = (activeTab === 'members' ? memberView : chapterView)(ctrl);
 
   const streams =
     ctrl.relay?.streams &&
@@ -160,56 +193,6 @@ export function side(ctrl: StudyCtrl): MaybeVNodes {
         ),
       ),
     );
-
-  const makeTab = (key: Tab, name: string) =>
-    h(
-      `span.${key}`,
-      {
-        class: { active: !tourShown && activeTab === key },
-        attrs: { role: 'tab' },
-        hook: bind('mousedown', () => ctrl.setTab(key)),
-      },
-      name,
-    );
-
-  const tourTab =
-    tourShow &&
-    h(
-      'span.relay-tour.text',
-      {
-        class: { active: tourShown },
-        hook: bind('mousedown', () => tourShow(true), ctrl.redrawAndUpdateAddressBar),
-        attrs: { ...dataIcon(licon.RadioTower), role: 'tab' },
-      },
-      'Broadcast',
-    );
-
-  const chaptersTab =
-    (tourShow && ctrl.looksNew() && !ctrl.members.canContribute()) ||
-    makeTab(
-      'chapters',
-      ctrl.trans.pluralSame(ctrl.relay ? 'nbGames' : 'nbChapters', ctrl.chapters.list().length),
-    );
-
-  const tabs = h('div.tabs-horiz', { attrs: { role: 'tablist' } }, [
-    tourTab,
-    chaptersTab,
-    (!tourTab || ctrl.members.canContribute() || ctrl.data.admin) &&
-      makeTab('members', ctrl.trans.pluralSame('nbMembers', ctrl.members.size())),
-    h('span.search.narrow', {
-      attrs: { ...dataIcon(licon.Search), title: 'Search' },
-      hook: bind('click', () => ctrl.search.open(true)),
-    }),
-    ctrl.members.isOwner() &&
-      h('span.more.narrow', {
-        attrs: { ...dataIcon(licon.Hamburger), title: 'Edit study' },
-        hook: bind('click', () => ctrl.form.open(!ctrl.form.open()), ctrl.redraw),
-      }),
-  ]);
-
-  const content = tourShown
-    ? relayTourRounds(ctrl)
-    : (activeTab === 'members' ? memberView : chapterView)(ctrl);
 
   return [h('div.study__side', [tabs, content]), streams];
 }

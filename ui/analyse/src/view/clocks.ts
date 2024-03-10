@@ -12,12 +12,13 @@ export default function renderClocks(ctrl: AnalyseCtrl): [VNode, VNode] | undefi
     isWhiteTurn = node.ply % 2 === 0,
     centis: Array<number | undefined> = isWhiteTurn ? [parentClock, clock] : [clock, parentClock];
 
-  const study = ctrl.study,
-    relay = study && study.data.chapter.relay;
+  const study = ctrl.study;
 
-  const lastMoveAt =
-    (relay?.path === ctrl.path && ctrl.path !== '' && !isFinished(study!.data.chapter) && relay.lastMoveAt) ||
-    ctrl.autoplay.lastMoveAt;
+  const lastMoveAt = study
+    ? study?.data.chapter.relayPath !== ctrl.path || ctrl.path === '' || isFinished(study.data.chapter)
+      ? undefined
+      : study.relay?.lastMoveAt(study.vm.chapterId)
+    : ctrl.autoplay.lastMoveAt;
 
   if (lastMoveAt) {
     const spent = (Date.now() - lastMoveAt) / 10;
@@ -25,7 +26,7 @@ export default function renderClocks(ctrl: AnalyseCtrl): [VNode, VNode] | undefi
     if (centis[i]) centis[i] = Math.max(0, centis[i]! - spent);
   }
 
-  const showTenths = !ctrl.study || !ctrl.study.relay;
+  const showTenths = !study || !study.relay;
 
   return [
     renderClock(centis[0], isWhiteTurn, whitePov ? 'bottom' : 'top', showTenths),

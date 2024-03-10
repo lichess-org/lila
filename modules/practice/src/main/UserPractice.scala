@@ -1,6 +1,6 @@
 package lila.practice
 
-import lila.study.{ Chapter, Study }
+import lila.study.{ ChapterPreview, Study }
 
 case class UserPractice(
     structure: PracticeStructure,
@@ -21,11 +21,10 @@ case class UserPractice(
 case class UserStudy(
     practice: UserPractice,
     practiceStudy: PracticeStudy,
-    chapters: List[Chapter.Metadata],
+    chapters: ChapterPreview.AsJsons,
     study: Study.WithChapter,
     section: PracticeSection
 ):
-
   def url = s"/practice/${section.id}/${practiceStudy.slug}/${study.study.id}"
 
 case class Completion(done: Int, total: Int):

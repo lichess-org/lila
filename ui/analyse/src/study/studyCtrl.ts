@@ -22,8 +22,6 @@ import {
   Tab,
   ToolTab,
   TagTypes,
-  StudyData,
-  StudyChapterMeta,
   ReloadData,
   WithWhoAndPos,
   WithChapterId,
@@ -31,9 +29,13 @@ import {
   WithWho,
   WithPosition,
   TagArray,
-  StudyChapterRelay,
   StudyTour,
   ChapterId,
+  ServerNodeMsg,
+  ServerClockMsg,
+  ChapterPreview,
+  StudyDataFromServer,
+  StudyData,
 } from './interfaces';
 import GamebookPlayCtrl from './gamebook/gamebookPlayCtrl';
 import { DescriptionCtrl } from './description';
@@ -41,7 +43,6 @@ import RelayCtrl from './relay/relayCtrl';
 import { RelayData } from './relay/interfaces';
 import { MultiBoardCtrl } from './multiBoard';
 import { StudySocketSendParams } from '../socket';
-import { Opening } from '../explorer/interfaces';
 import { storedMap, storedBooleanProp } from 'common/storage';
 import { opposite } from 'chessops/util';
 import StudyChaptersCtrl from './studyChapters';
@@ -51,9 +52,7 @@ import { EvalHitMulti, EvalHitMultiArray } from '../interfaces';
 
 interface Handlers {
   path(d: WithWhoAndPos): void;
-  addNode(
-    d: WithWhoAndPos & { d: string; n: Tree.Node; o: Opening; s: boolean; relay?: StudyChapterRelay },
-  ): void;
+  addNode(d: ServerNodeMsg): void;
   deleteNode(d: WithWhoAndPos): void;
   promote(d: WithWhoAndPos & { toMainline: boolean }): void;
   liking(d: WithWho & { l: { likes: number; me: boolean } }): void;
@@ -62,9 +61,9 @@ interface Handlers {
   setComment(d: WithWhoAndPos & { c: Tree.Comment }): void;
   deleteComment(d: WithWhoAndPos & { id: string }): void;
   glyphs(d: WithWhoAndPos & { g: Tree.Glyph[] }): void;
-  clock(d: WithWhoAndPos & { c?: number }): void;
+  clock(d: ServerClockMsg): void;
   forceVariation(d: WithWhoAndPos & { force: boolean }): void;
-  chapters(d: StudyChapterMeta[]): void;
+  chapters(d: ChapterPreview[]): void;
   reload(d: null | WithChapterId): void;
   changeChapter(d: WithWhoAndPos): void;
   updateChapter(d: WithWhoAndChap): void;
@@ -85,6 +84,7 @@ export default class StudyCtrl {
   relayRecProp = storedBooleanProp('analyse.relay.rec', true);
   nonRelayRecMapProp = storedMap<boolean>('study.rec', 100, () => true);
   chapterFlipMapProp = storedMap<boolean>('chapter.flip', 400, () => false);
+  data: StudyData;
   vm: StudyVm;
   notif: NotifCtrl;
   members: StudyMemberCtrl;
@@ -105,18 +105,19 @@ export default class StudyCtrl {
   gamebookPlay?: GamebookPlayCtrl;
 
   constructor(
-    readonly data: StudyData,
+    data: StudyDataFromServer,
     readonly ctrl: AnalyseCtrl,
     tagTypes: TagTypes,
     practiceData?: StudyPracticeData,
     private readonly relayData?: RelayData,
   ) {
+    this.data = data;
     this.notif = new NotifCtrl(ctrl.redraw);
     const isManualChapter = data.chapter.id !== data.position.chapterId;
     const sticked = data.features.sticky && !ctrl.initialPath && !isManualChapter && !practiceData;
     this.vm = {
       loading: false,
-      tab: prop<Tab>(relayData || data.chapters.length > 1 ? 'chapters' : 'members'),
+      tab: prop<Tab>(!relayData && data.chapters.length > 1 ? 'chapters' : 'members'),
       toolTab: prop<ToolTab>('tags'),
       chapterId: sticked ? data.position.chapterId : data.chapter.id,
       // path is at ctrl.path
@@ -160,11 +161,12 @@ export default class StudyCtrl {
         this.redrawAndUpdateAddressBar,
         this.members,
         this.data.chapter,
-        this.looksNew(),
-        (id: ChapterId) => this.setChapter(id),
+        this.chapters.list,
+        this.chapters.looksNew(),
+        id => this.setChapter(id),
       );
     this.multiBoard = new MultiBoardCtrl(
-      this.data.id,
+      this.chapters,
       this.redraw,
       this.ctrl.trans,
       this.ctrl.socket.send,
@@ -237,8 +239,8 @@ export default class StudyCtrl {
     this.practice = practiceData && new StudyPractice(ctrl, data, practiceData);
 
     if (this.vm.mode.sticky && !this.isGamebookPlay()) this.ctrl.userJump(this.data.position.path);
-    else if (this.data.chapter.relay && !defined(this.ctrl.requestInitialPly))
-      this.ctrl.userJump(this.data.chapter.relay.path);
+    else if (this.data.chapter.relayPath && !defined(this.ctrl.requestInitialPly))
+      this.ctrl.userJump(this.data.chapter.relayPath);
 
     this.configureAnalysis();
 
@@ -261,12 +263,11 @@ export default class StudyCtrl {
   };
 
   setTab = (tab: Tab) => {
-    this.relay?.tourShow(false);
     this.vm.tab(tab);
     this.redraw();
   };
 
-  currentChapter = (): StudyChapterMeta => this.chapters.get(this.vm.chapterId)!;
+  currentChapter = (): ChapterPreview => this.chapters.get(this.vm.chapterId)!;
 
   isChapterOwner = (): boolean => this.ctrl.opts.userId === this.data.chapter.ownerId;
 
@@ -280,7 +281,7 @@ export default class StudyCtrl {
     return (this.vm.mode.sticky = false);
   };
 
-  addChapterId = <T>(req: T): T & { ch: string } => ({
+  addChapterId = <T>(req: T): T & { ch: ChapterId } => ({
     ...req,
     ch: this.vm.chapterId,
   });
@@ -332,7 +333,7 @@ export default class StudyCtrl {
     this.studyDesc.set(this.data.description);
     document.title = this.data.name;
     this.members.dict(s.members);
-    this.chapters.list(s.chapters);
+    this.chapters.loadFromServer(s.chapters);
     this.ctrl.flipped = this.chapterFlipMapProp(this.data.chapter.id);
 
     const merge = !this.vm.mode.write && sameChapter;
@@ -342,7 +343,6 @@ export default class StudyCtrl {
     this.vm.loading = false;
 
     this.instanciateGamebookPlay();
-    this.relay?.applyChapterRelay(this.data.chapter, s.chapter.relay);
 
     let nextPath: Tree.Path;
 
@@ -354,9 +354,7 @@ export default class StudyCtrl {
     } else {
       nextPath = sameChapter
         ? prevPath
-        : this.data.chapter.relay
-        ? this.data.chapter.relay!.path
-        : this.chapters.localPaths[this.vm.chapterId] || treePath.root;
+        : this.data.chapter.relayPath || this.chapters.localPaths[this.vm.chapterId] || treePath.root;
     }
 
     // path could be gone (because of subtree deletion), go as far as possible
@@ -421,6 +419,7 @@ export default class StudyCtrl {
   };
 
   wrongChapter = (serverData: WithPosition & { s?: boolean }): boolean => {
+    // #TODO why vm.chapterId when we have data.chapter.id
     if (serverData.p.chapterId !== this.vm.chapterId) {
       // sticky should really be on the same chapter
       if (this.vm.mode.sticky && serverData.s) this.xhrReload();
@@ -459,9 +458,10 @@ export default class StudyCtrl {
     this.vm.nextChapterId = id;
     this.vm.justSetChapterId = id;
     this.redraw();
+    window.scrollTo(0, 0);
   };
 
-  private deltaChapter = (delta: number): StudyChapterMeta | undefined => {
+  private deltaChapter = (delta: number): ChapterPreview | undefined => {
     const chs = this.chapters.list();
     const i = chs.findIndex(ch => ch.id === this.vm.chapterId);
     return i < 0 ? undefined : chs[i + delta];
@@ -550,7 +550,6 @@ export default class StudyCtrl {
   explorerGame = (gameId: string, insert: boolean) =>
     this.makeChange('explorerGame', this.withPosition({ gameId, insert }));
   onPremoveSet = () => this.gamebookPlay?.onPremoveSet();
-  looksNew = () => this.chapters.looksNew() && !this.currentChapter().ongoing;
   updateAddressBar = () => {
     const current = location.href;
     const studyIdOffset = current.indexOf(`/${this.data.id}`);
@@ -597,17 +596,17 @@ export default class StudyCtrl {
         who = d.w,
         sticky = d.s;
       this.setMemberActive(who);
-      if (this.vm.toolTab() == 'multiBoard' || this.relay?.tourShow()) this.multiBoard.addNode(d.p, d.n);
+      this.chapters.addNode(d);
       if (sticky && !this.vm.mode.sticky) this.vm.behind++;
       if (this.wrongChapter(d)) {
         if (sticky && !this.vm.mode.sticky) this.redraw();
         return;
       }
-      if (sticky && who && who.s === site.sri) {
+      if (sticky && who?.s === site.sri) {
         this.data.position.path = position.path + node.id;
         return;
       }
-      this.relay?.applyChapterRelay(this.data.chapter, d.relay);
+      this.data.chapter.relayPath = d.relayPath;
       const newPath = this.ctrl.tree.addNode(node, position.path);
       if (!newPath) return this.xhrReload();
       this.ctrl.tree.addDests(d.d, newPath);
@@ -692,8 +691,7 @@ export default class StudyCtrl {
       this.redraw();
     },
     chapters: d => {
-      this.chapters.list(d);
-      if (this.vm.toolTab() == 'multiBoard' || this.relay?.tourShow()) this.multiBoard.addResult(d);
+      this.chapters.loadFromServer(d);
       if (!this.currentChapter()) {
         this.vm.chapterId = d[0].id;
         if (!this.vm.mode.sticky) this.xhrReload();
@@ -748,6 +746,7 @@ export default class StudyCtrl {
       const position = d.p,
         who = d.w;
       this.setMemberActive(who);
+      if (d.onRelayPath) this.relay?.setClockToChapterPreview(d);
       if (this.wrongChapter(d)) return;
       this.ctrl.tree.setClockAt(d.c, position.path);
       this.redraw();

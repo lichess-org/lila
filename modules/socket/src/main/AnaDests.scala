@@ -23,18 +23,12 @@ case class AnaDests(
       val sit = chess.Game(variant.some, fen.some).situation
       sit.playable(false).so(destString(sit.destinations))
 
-  lazy val opening = Variant.list.openingSensibleVariants(variant).so {
-    OpeningDb.findByEpdFen(fen)
-  }
-
-  def json =
-    Json
-      .obj(
-        "dests" -> dests,
-        "path"  -> path
-      )
-      .add("opening" -> opening)
-      .add("ch", chapterId)
+  def json = Json
+    .obj(
+      "dests" -> dests,
+      "path"  -> path
+    )
+    .add("ch", chapterId)
 
 object AnaDests:
 

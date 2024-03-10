@@ -2,20 +2,14 @@ import * as chapterForm from './chapterNewForm';
 import { bind, bindSubmit, onInsert } from 'common/snabbdom';
 import { spinnerVdom as spinner } from 'common/spinner';
 import { option, emptyRedButton } from '../view/util';
-import {
-  ChapterMode,
-  EditChapterData,
-  Orientation,
-  StudyChapterConfig,
-  StudyChapterMeta,
-} from './interfaces';
+import { ChapterMode, EditChapterData, Orientation, StudyChapterConfig, ChapterPreview } from './interfaces';
 import { defined, prop } from 'common';
 import { h, VNode } from 'snabbdom';
 import { Redraw } from '../interfaces';
 import { StudySocketSend } from '../socket';
 
 export class StudyChapterEditForm {
-  current = prop<StudyChapterMeta | StudyChapterConfig | null>(null);
+  current = prop<ChapterPreview | StudyChapterConfig | null>(null);
 
   constructor(
     private readonly send: StudySocketSend,
@@ -24,8 +18,8 @@ export class StudyChapterEditForm {
     readonly redraw: Redraw,
   ) {}
 
-  open = (data: StudyChapterMeta) => {
-    this.current({ id: data.id, name: data.name });
+  open = (data: ChapterPreview) => {
+    this.current(data);
     this.chapterConfig(data.id).then(d => {
       this.current(d!);
       this.redraw();
@@ -34,7 +28,7 @@ export class StudyChapterEditForm {
 
   isEditing = (id: string) => this.current()?.id === id;
 
-  toggle = (data: StudyChapterMeta) => {
+  toggle = (data: ChapterPreview) => {
     if (this.isEditing(data.id)) this.current(null);
     else this.open(data);
   };
@@ -105,7 +99,7 @@ export function view(ctrl: StudyChapterEditForm): VNode | undefined {
     : undefined;
 }
 
-const isLoaded = (data: StudyChapterMeta | StudyChapterConfig): data is StudyChapterConfig =>
+const isLoaded = (data: ChapterPreview | StudyChapterConfig): data is StudyChapterConfig =>
   'orientation' in data;
 
 function viewLoaded(ctrl: StudyChapterEditForm, data: StudyChapterConfig): VNode[] {
