@@ -1,9 +1,9 @@
-import { looseH as h, MaybeVNode, VNode } from 'common/snabbdom';
+import { h, VNode } from 'snabbdom';
 import AnalyseCtrl from '../ctrl';
 
 let iframeEl: HTMLIFrameElement;
 
-export function videoPlayerView(ctrl: AnalyseCtrl): MaybeVNode {
+export function videoPlayerView(ctrl: AnalyseCtrl): VNode | null {
   const embedSrc = ctrl.study?.relay?.data.videoEmbedSrc;
   if (!embedSrc) return null;
   if (!iframeEl) init(embedSrc);

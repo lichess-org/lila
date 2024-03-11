@@ -147,7 +147,7 @@ const roundSelect = (relay: RelayCtrl, study: StudyCtrl) =>
       relay.data.rounds.map(round =>
         h(`tr${round.id == study.data.id ? '.current-round' : ''}`, [
           h('td.name', h('a', { attrs: { href: relay.roundPath(round) } }, round.name)),
-          h('td.time', !!round.startsAt ? site.dateFormat()(new Date(round.startsAt)) : '-'),
+          h('td.time', round.startsAt ? site.dateFormat()(new Date(round.startsAt)) : '-'),
           h(
             'td.status',
             roundStateIcon(round) || (round.startsAt ? site.timeago(round.startsAt) : undefined),
@@ -208,24 +208,21 @@ const header = (relay: RelayCtrl, ctrl: AnalyseCtrl) => {
           group && groupSelect(relay, group),
           roundSelect(relay, study),
         ]),
-        ...(defined(d.isSubscribed)
-          ? [
-              toggle(
-                {
-                  name: 'Subscribe',
-                  id: 'tour-subscribe',
-                  checked: d.isSubscribed,
-                  change: (v: boolean) => {
-                    xhr.text(`/broadcast/${d.tour.id}/subscribe?set=${v}`, { method: 'post' });
-                    d.isSubscribed = v;
-                    ctrl.redraw();
-                  },
-                },
-                ctrl.trans,
-                ctrl.redraw,
-              ),
-            ]
-          : []),
+        defined(d.isSubscribed) &&
+          toggle(
+            {
+              name: 'Subscribe',
+              id: 'tour-subscribe',
+              checked: d.isSubscribed,
+              change: (v: boolean) => {
+                xhr.text(`/broadcast/${d.tour.id}/subscribe?set=${v}`, { method: 'post' });
+                d.isSubscribed = v;
+                ctrl.redraw();
+              },
+            },
+            ctrl.trans,
+            ctrl.redraw,
+          ),
       ]),
     ]),
     makeTabs(ctrl),

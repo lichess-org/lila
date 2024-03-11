@@ -49,6 +49,10 @@ export default class RelayCtrl {
       const s = d.streams as [string, string][];
       if (s === undefined) return;
       if (this.streams.length === s.length && this.streams.every(([id], i) => id === s[i][0])) return;
+      if (this.streams.length === 0) {
+        // this hack is here until the cloned element from lila snuck into snabbdom is addressed
+        $('.context-streamers').remove();
+      }
       this.streams = s;
       this.redraw();
     });

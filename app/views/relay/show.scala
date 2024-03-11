@@ -3,8 +3,9 @@ package relay
 
 import play.api.libs.json.Json
 
+import controllers.routes
 import lila.app.templating.Environment.{ given, * }
-import lila.app.ui.ScalatagsTemplate.*
+import lila.app.ui.ScalatagsTemplate.{ *, given }
 import lila.common.String.html.safeJsonValue
 import lila.common.Json.given
 import lila.socket.SocketVersion
@@ -17,6 +18,7 @@ object show:
       data: lila.relay.JsonView.JsData,
       chatOption: Option[lila.chat.UserChat.Mine],
       socketVersion: SocketVersion,
+      streamers: List[UserId],
       crossSiteIsolation: Boolean = true
   )(using ctx: PageContext) =
     views.html.base.layout(
@@ -62,5 +64,14 @@ object show:
         )
         .some
     )(
-      main(cls := "analyse")
+      frag(
+        main(cls := "analyse"),
+        streamers.nonEmpty.option(div(cls := "context-streamers"):
+          streamers.map: userId =>
+            a(href := routes.Streamer.redirect(userId.value), targetBlank, noFollow)(
+              strong(titleNameOrId(userId))
+            )
+        )
+        // these redirect links are replaced clientside by embed links on the first crowd tell.
+      )
     )

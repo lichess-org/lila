@@ -220,9 +220,12 @@ final class RelayRound(
           isSubscribed,
           embedSrc
         )
-        chat     <- studyC.chatOf(sc.study)
-        sVersion <- env.study.version(sc.study.id)
-        page <- renderPage(html.relay.show(rt.withStudy(sc.study), data, chat, sVersion, crossSiteIsolation))
+        chat      <- studyC.chatOf(sc.study)
+        sVersion  <- env.study.version(sc.study.id)
+        streamers <- studyC.streamersOf(sc.study)
+        page <- renderPage(
+          html.relay.show(rt.withStudy(sc.study), data, chat, sVersion, streamers, crossSiteIsolation)
+        )
         _ = if HTTPRequest.isHuman(req) then lila.mon.http.path(rt.tour.path).increment()
       yield if crossSiteIsolation then Ok(page).enforceCrossSiteIsolation else Ok(page)
     )(
