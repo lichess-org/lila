@@ -1,9 +1,7 @@
-import throttle from 'common/throttle';
 import LobbyController from './ctrl';
 import * as hookRepo from './hookRepo';
 import { Hook } from './interfaces';
 import { action } from './util';
-import * as xhr from './xhr';
 
 interface Handlers {
   [key: string]: (data: any) => void;
@@ -42,8 +40,9 @@ export default class LobbySocket {
         ctrl.redraw();
       },
       reload_seeks() {
-        if (ctrl.tab === 'seeks') xhr.seeks().then(ctrl.setSeeks);
-        else if (ctrl.tab === 'presets') throttle(7500, () => xhr.seeks().then(ctrl.setSeeks))();
+        if (ctrl.tab === 'seeks') ctrl.seeksNow();
+        else if (ctrl.tab === 'presets') ctrl.seeksEventually();
+        else ctrl.reloadSeeks = true;
       },
     };
 

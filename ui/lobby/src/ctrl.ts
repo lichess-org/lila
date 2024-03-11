@@ -1,3 +1,4 @@
+import throttle from 'common/throttle';
 import Filter from './filter';
 import * as hookRepo from './hookRepo';
 import { Hook, LobbyData, LobbyOpts, Mode, Preset, PresetOpts, Seek, Sort, Tab } from './interfaces';
@@ -14,6 +15,7 @@ const li = window.lishogi;
 export default class LobbyController {
   data: LobbyData;
   playban: any;
+  isAnon: boolean;
   isBot: boolean;
   socket: LobbySocket;
   stores: Stores;
@@ -22,13 +24,14 @@ export default class LobbyController {
   sort: Sort;
   stepHooks: Hook[] = [];
   stepping: boolean = false;
+  reloadSeeks: boolean = false;
   redirecting: boolean = false;
   trans: Trans;
   filter: Filter;
   setup: Setup;
   presetOpts: PresetOpts;
   allPresets: Preset[];
-  currentPresetId: string | undefined;
+  currentPresetId: string | undefined; // real time only
 
   private flushHooksTimeout?: number;
   private alreadyWatching: string[] = [];
@@ -41,8 +44,9 @@ export default class LobbyController {
     this.data.hooks = [];
     this.playban = opts.playban;
     this.isBot = opts.data.me && opts.data.me.isBot;
+    this.isAnon = !opts.data.me;
     this.presetOpts = {
-      isAnon: !opts.data.me,
+      isAnon: this.isAnon,
       isNewPlayer: !!opts.data.me?.isNewPlayer,
       aiLevel: opts.data.me?.aiLevel && parseInt(opts.data.me.aiLevel),
       rating: opts.data.me?.rating && parseInt(opts.data.me.rating),
@@ -69,7 +73,7 @@ export default class LobbyController {
     } else {
       setInterval(() => {
         if (hookRepo.tabs.includes(this.tab) && !this.data.hooks.length) this.socket.realTimeIn();
-      }, 10 * 1000);
+      }, 15 * 1000);
     }
 
     li.pubsub.on('socket.open', () => {
@@ -132,12 +136,13 @@ export default class LobbyController {
 
   setTab = (tab: Tab, store = true) => {
     if (tab !== this.tab) {
-      if (tab === 'seeks') xhr.seeks().then(this.setSeeks);
+      if (tab === 'seeks') this.seeksNow();
       else if (hookRepo.tabs.includes(tab) && !hookRepo.tabs.includes(this.tab)) this.socket.realTimeIn();
       else if (hookRepo.tabs.includes(this.tab) && !hookRepo.tabs.includes(tab)) {
         this.socket.realTimeOut();
         this.data.hooks = [];
       }
+      if (tab === 'presets' && this.reloadSeeks) this.seeksEventually();
       if (store) this.tab = this.stores.tab.set(tab);
       else this.tab = tab;
     }
@@ -171,11 +176,16 @@ export default class LobbyController {
     const seek = seekRepo.find(this, id);
     if (!seek || this.redirecting) return;
     const act = action(seek);
-    if (act === 'cancel' || variantConfirm(seek.variant || 'standard', this.trans.noarg))
+    if (this.isAnon) window.location.href = '/signup';
+    else if (act === 'cancel' || variantConfirm(seek.variant || 'standard', this.trans.noarg))
       this.socket.send(act + 'Seek', seek.id);
   };
 
+  seeksNow = throttle(100, () => xhr.seeks().then(this.setSeeks));
+  seeksEventually = throttle(7000, () => xhr.seeks().then(this.setSeeks));
+
   setSeeks = (seeks: Seek[]) => {
+    this.reloadSeeks = false;
     this.data.seeks = seeks;
     this.redraw();
   };
@@ -185,9 +195,11 @@ export default class LobbyController {
     if (preset.ai) {
       this.setRedirecting();
     } else {
-      this.currentPresetId = preset.id;
       if (preset.timeMode === 2) this.setTab('seeks', false);
-      else this.setTab('real_time', false);
+      else {
+        this.currentPresetId = preset.id;
+        this.setTab('real_time', false);
+      }
     }
   };
 
@@ -222,14 +234,14 @@ export default class LobbyController {
       case 'presets':
         this.data.hooks = [];
         this.socket.realTimeIn();
-        xhr.seeks().then(this.setSeeks);
+        this.seeksNow();
         break;
       case 'real_time':
         this.data.hooks = [];
         this.socket.realTimeIn();
         break;
       case 'seeks':
-        xhr.seeks().then(this.setSeeks);
+        this.seeksNow();
         break;
     }
   };

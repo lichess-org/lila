@@ -88,7 +88,7 @@ function isSameSeek(p: Preset, s: Seek, ctrl: LobbyController): boolean {
 function isSameHook(h: Hook, clk: string, ctrl: LobbyController): boolean {
   return (
     h.clock === clk &&
-    h.ra === 1 &&
+    (h.ra === 1 || ctrl.isAnon) &&
     !h.variant &&
     h.sri !== window.lishogi.sri &&
     ratingInRange(h.rr, h.rating, ctrl.presetOpts)

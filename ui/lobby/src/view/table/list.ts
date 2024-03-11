@@ -40,7 +40,7 @@ function renderHookOrSeek(ctrl: LobbyController, hs: Hook | Seek) {
             username
           )
         : 'Anonymous',
-      (hs.rating ? hs.rating : '') + ((isHook(hs) ? hs.prov : hs.provisional) ? '?' : ''),
+      (hs.rating ? hs.rating : '-') + ((isHook(hs) ? hs.prov : hs.provisional) ? '?' : ''),
       isHook(hs) ? hs.clock : hs.days ? ctrl.trans.plural('nbDays', hs.days) : '∞',
       h(
         'span',
