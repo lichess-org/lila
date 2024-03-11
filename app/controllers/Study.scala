@@ -594,26 +594,24 @@ final class Study(
   private[controllers] def streamersOf(study: StudyModel) = streamerCache.get(study.id)
 
   private val streamerCache =
-    env.memo.cacheApi[StudyId, List[UserId]](64, "study.streamers"):
-      _.refreshAfterWrite(15.seconds)
-        .maximumSize(512)
-        .buildAsyncFuture: studyId =>
-          env.study.studyRepo
-            .membersById(studyId)
-            .flatMap:
-              _.map(_.members.keys)
-                .filter(_.nonEmpty)
-                .so: members =>
-                  env.streamer.liveStreamApi.all.flatMap:
-                    _.streams
-                      .filter: s =>
-                        members.exists(s.streamer.is(_))
-                      .traverse: stream =>
-                        env.study
-                          .isConnected(studyId, stream.streamer.userId)
-                          .map:
-                            _.option(stream.streamer.userId)
-                      .dmap(_.flatten)
+    env.memo.cacheApi[StudyId, List[UserId]](1024, "study.streamers"):
+      _.refreshAfterWrite(5.seconds).buildAsyncFuture: studyId =>
+        env.study.studyRepo
+          .membersById(studyId)
+          .flatMap:
+            _.map(_.members.keys)
+              .filter(_.nonEmpty)
+              .so: members =>
+                env.streamer.liveStreamApi.all.flatMap:
+                  _.streams
+                    .filter: s =>
+                      members.exists(s.streamer.is(_))
+                    .traverse: stream =>
+                      env.study
+                        .isConnected(studyId, stream.streamer.userId)
+                        .map:
+                          _.option(stream.streamer.userId)
+                    .dmap(_.flatten)
 
   def glyphs(lang: String) = Anon:
     play.api.i18n.Lang
