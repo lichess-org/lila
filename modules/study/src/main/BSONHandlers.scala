@@ -326,10 +326,7 @@ object BSONHandlers:
   given BSONDocumentHandler[Chapter.ServerEval] = Macros.handler
 
   given BSON[Chapter.LastPosDenorm] with
-    given BSONHandler[Option[Centis]] = quickHandler(
-      { case BSONInteger(v) => Centis(v).some },
-      c => c.fold(BSONNull)(c => BSONInteger(c.value))
-    )
+    given BSONHandler[PairOf[Option[Centis]]] = optionPairHandler
     def reads(r: Reader) = Chapter.LastPosDenorm(
       fen = r.getO[Fen.Epd]("fen") | Fen.initial,
       uci = r.getO[Uci]("uci"),
