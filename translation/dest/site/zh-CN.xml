@@ -453,9 +453,9 @@
   <string name="performance">表现评分</string>
   <string name="tournamentComplete">锦标赛结束</string>
   <string name="movesPlayed">步数</string>
-  <string name="whiteWins">白方胜</string>
-  <string name="blackWins">黑方胜</string>
-  <string name="drawRate">绘制速率</string>
+  <string name="whiteWins">白方胜率</string>
+  <string name="blackWins">黑方胜率</string>
+  <string name="drawRate">平局率</string>
   <string name="draws">和棋</string>
   <string name="nextXTournament">下一个 %s 锦标赛：</string>
   <string name="averageOpponent">对手平均等级分</string>
