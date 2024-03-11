@@ -129,7 +129,7 @@
 
     &.compact-layout {
       grid-template-rows: fit-content(0) fit-content(0) 1fr fit-content(0);
-      grid-template-columns: var(--col3-uniboard-main-size) $block-gap $col3-uniboard-table;
+      grid-template-columns: var(--col2-uniboard-main-size) $block-gap $col2-uniboard-table;
       grid-template-areas:
         'user-top . expi-top'
         'board    . moves'
