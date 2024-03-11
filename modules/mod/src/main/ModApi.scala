@@ -47,7 +47,7 @@ final class ModApi(
       unengined <- logApi.wasUnengined(sus)
       _ <- (!sus.user.isBot && !unengined) ?? {
         lila.mon.cheat.autoMark.increment()
-        logApi.alert("Auto-mark suggestion (good player or engine)")
+        logApi.alert(s"Auto-mark suggestion (good player or engine) - ${suspectId}")
       }
     } yield ()
 
