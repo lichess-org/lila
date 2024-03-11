@@ -716,6 +716,10 @@
   <string name="keyNextInaccuracy">Следећа непрецизност</string>
   <string name="keyPreviousBranch">Претходна грана</string>
   <string name="keyNextBranch">Следећа грана</string>
+  <string name="toggleVariationArrows">Приказивање стрелица за варијације</string>
+  <string name="cyclePreviousOrNextVariation">Тренутна/претходна варијација</string>
+  <string name="toggleGlyphAnnotations">Анотација потеза</string>
+  <string name="togglePositionAnnotations">Анотација позиције</string>
   <string name="newTournament">Нови турнир</string>
   <string name="tournamentHomeTitle">Шаховски турнир који комбинује различита временска ограничења и варијанте</string>
   <string name="tournamentHomeDescription">Играјте брзи турнир у шаху! Придружите се званичном организованом турниру или направите свој. Буллет, Блитз, Цлассицал, Цхесс960, Кинг оф тхе Хилл, Тхреецхецк и друге опције су доступне за неограничену шаховску забаву.</string>
