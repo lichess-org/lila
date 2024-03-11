@@ -8,6 +8,8 @@ case class StudyMember(id: UserId, role: StudyMember.Role):
 
 object StudyMember:
 
+  given UserIdOf[StudyMember] = _.id
+
   type MemberMap = Map[UserId, StudyMember]
 
   def make(user: User) = StudyMember(id = user.id, role = Role.Read)

@@ -601,19 +601,18 @@ final class Study(
           env.study.studyRepo
             .membersById(studyId)
             .flatMap:
-              _.map(_.members)
+              _.map(_.members.keys)
                 .filter(_.nonEmpty)
                 .so: members =>
                   env.streamer.liveStreamApi.all.flatMap:
                     _.streams
                       .filter: s =>
-                        members.exists(m => s.is(m._2.id))
-                      .map: stream =>
+                        members.exists(s.streamer.is(_))
+                      .traverse: stream =>
                         env.study
                           .isConnected(studyId, stream.streamer.userId)
                           .map:
                             _.option(stream.streamer.userId)
-                      .parallel
                       .dmap(_.flatten)
 
   def glyphs(lang: String) = Anon:
