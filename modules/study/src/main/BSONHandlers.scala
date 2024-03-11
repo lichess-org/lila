@@ -335,7 +335,7 @@ object BSONHandlers:
     def writes(w: Writer, l: Chapter.LastPosDenorm) = $doc(
       "fen"    -> l.fen.some.filterNot(Fen.Epd.isInitial),
       "uci"    -> l.uci,
-      "clocks" -> l.clocks.toPair.some.filter(_.exists(_.isDefined))
+      "clocks" -> l.clocks.some.filter(_.exists(_.isDefined)).map(_.toPair)
     )
 
   given BSONDocumentHandler[Chapter] = Macros.handler
