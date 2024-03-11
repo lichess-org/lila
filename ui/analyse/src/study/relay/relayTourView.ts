@@ -191,7 +191,7 @@ const header = (relay: RelayCtrl, ctrl: AnalyseCtrl) => {
     h('div.relay-tour__header', [
       h('div.relay-tour__header__image', [
         d.videoEmbedSrc
-          ? videoPlayerView(ctrl)
+          ? videoPlayerView(relay)
           : d.tour.image
           ? h('img', { attrs: { src: d.tour.image } })
           : study.members.isOwner()

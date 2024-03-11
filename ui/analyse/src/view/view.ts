@@ -405,7 +405,7 @@ export default function (deps?: typeof studyDeps) {
               ...(menuIsOpen
                 ? [actionMenu(ctrl)]
                 : [
-                    videoPlayerView(ctrl),
+                    relay && videoPlayerView(relay),
                     ...cevalView.renderCeval(ctrl),
                     showCevalPvs && cevalView.renderPvs(ctrl),
                     renderAnalyse(ctrl, concealOf),

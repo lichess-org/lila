@@ -1,10 +1,10 @@
 import { h, VNode } from 'snabbdom';
-import AnalyseCtrl from '../ctrl';
+import RelayCtrl from '../study/relay/relayCtrl';
 
 let iframeEl: HTMLIFrameElement;
 
-export function videoPlayerView(ctrl: AnalyseCtrl): VNode | null {
-  const embedSrc = ctrl.study?.relay?.data.videoEmbedSrc;
+export function videoPlayerView(relay: RelayCtrl): VNode | null {
+  const embedSrc = relay.data.videoEmbedSrc;
   if (!embedSrc) return null;
   if (!iframeEl) init(embedSrc);
   if (!document.body.contains(iframeEl)) document.body.appendChild(iframeEl);
