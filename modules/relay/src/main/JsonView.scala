@@ -101,7 +101,7 @@ final class JsonView(
       studyData: lila.study.JsonView.JsData,
       group: Option[RelayGroup.WithTours],
       canContribute: Boolean,
-      isSubscribed: Option[Boolean] = none[Boolean],
+      isSubscribed: Option[Boolean] = none,
       videoEmbedSrc: Option[String] = none
   ) = leaderboardApi(trs.tour).map: leaderboard =>
     JsonView.JsData(

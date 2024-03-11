@@ -176,12 +176,11 @@ final class StreamerApi(
       .void
 
   def videoEmbedSrc(s: Streamer.WithUserAndStream): Option[String] =
-    s.stream match
-      case Some(Stream.YouTube.Stream(_, _, videoId, _, _)) =>
-        s"https://www.youtube.com/embed/$videoId?autoplay=1&disablekb=1&color=white".some
-      case _ =>
-        s.streamer.twitch.map: twitch =>
-          s"https://twitch.tv/embed/${twitch.userId}?parent=${net.domain}"
+    s.stream.map:
+      case yt: Stream.YouTube.Stream =>
+        s"https://www.youtube.com/embed/${yt.videoId}?autoplay=1&disablekb=1&color=white"
+      case twitch: Stream.Twitch.Stream =>
+        s"https://twitch.tv/embed/${twitch.userId}?parent=${net.domain}"
 
   object approval:
 

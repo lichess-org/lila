@@ -286,7 +286,7 @@ object RemoteSocket:
       def unfollow(u1: UserId, u2: UserId)     = s"rel/unfollow $u1 $u2"
       def apiUserOnline(u: UserId, v: Boolean) = s"api/online $u ${boolean(v)}"
       def streamersOnline(streamers: Iterable[(UserId, String)]) =
-        s"streamers/online ${streamers.map { case (u, s) => s"$u:$s" }.mkString(",")}"
+        s"streamers/online ${commas(streamers.map { (u, s) => s"$u:$s" })}"
       def respond(reqId: Int, payload: JsObject) = s"req/response $reqId ${Json.stringify(payload)}"
       def boot                                   = "boot"
       def pong(id: String)                       = s"pong $id"
