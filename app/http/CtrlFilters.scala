@@ -121,7 +121,7 @@ trait CtrlFilters extends ControllerHelpers with ResponseBuilder with CtrlConver
     if HTTPRequest.isCrawler(ctx.req).yes then notFound else result
 
   def NoCrawlers[A](computation: => A)(using ctx: Context, default: Zero[A]): A =
-    if HTTPRequest.isCrawler(ctx.req).yes then computation else default.zero
+    if HTTPRequest.isCrawler(ctx.req).yes then default.zero else computation
 
   def NotManaged(result: => Fu[Result])(using ctx: Context)(using Executor): Fu[Result] =
     ctx.me.so(env.clas.api.student.isManaged(_)).flatMap {
