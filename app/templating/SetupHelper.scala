@@ -109,16 +109,15 @@ trait SetupHelper { self: I18nHelper =>
       (Mode.Rated.id.toString, trans.rated.txt(), none)
     )
 
-  def translatedByoyomiChoices(implicit lang: Lang) =
+  def translatedBooleanFilterChoices(implicit lang: Lang) =
     List(
       (1, trans.yes.txt(), none),
       (0, trans.no.txt(), none)
     )
 
-  def translatedIncrementChoices(implicit lang: Lang) =
+  def translatedBooleanYesFilterChoice(implicit lang: Lang) =
     List(
-      (1, trans.yes.txt(), none),
-      (0, trans.no.txt(), none)
+      (1, trans.yes.txt(), none)
     )
 
   def translatedModeChoicesTournament(implicit lang: Lang) =

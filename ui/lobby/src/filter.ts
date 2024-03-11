@@ -53,7 +53,7 @@ export default class Filter {
   filter = (hooks: Hook[]): Filtered => {
     if (!this.data) return { visible: hooks, hidden: 0 };
     const f = this.data.filter,
-      ratingRange = f.ratingRange?.split('-').map(r => parseInt(r, 10)),
+      ratingRange = f.ratingRange && f.ratingRange.split('-').map(r => parseInt(r, 10)),
       visible: Hook[] = [];
     let variant: string,
       hidden = 0;
@@ -67,7 +67,8 @@ export default class Filter {
           (f.mode?.length == 1 && f.mode[0] != (hook.ra || 0).toString()) ||
           (f.increment?.length == 1 && f.increment[0] != hook.i.toString()) ||
           (f.byoyomi?.length == 1 && f.byoyomi[0] != hook.b.toString()) ||
-          (ratingRange && (!hook.rating || hook.rating < ratingRange[0] || hook.rating > ratingRange[1]))
+          (ratingRange && hook.rating && (hook.rating < ratingRange[0] || hook.rating > ratingRange[1])) ||
+          (!hook.u && (!f.anonymous || f.anonymous.length == 0))
         ) {
           hidden++;
         } else {

@@ -36,7 +36,7 @@ object filter {
                 renderCheckboxes(
                   form,
                   "byoyomi",
-                  translatedByoyomiChoices
+                  translatedBooleanFilterChoices
                 )
               )
             ),
@@ -46,7 +46,7 @@ object filter {
                 renderCheckboxes(
                   form,
                   "increment",
-                  translatedIncrementChoices
+                  translatedBooleanFilterChoices
                 )
               )
             ),
@@ -57,6 +57,16 @@ object filter {
             ctx.isAuth option tr(cls := "inline")(
               td(trans.mode()),
               td(renderCheckboxes(form, "mode", translatedModeChoices))
+            ),
+            ctx.isAuth option tr(cls := "inline f-real_time")(
+              td(trans.anonymous()),
+              td(
+                renderCheckboxes(
+                  form,
+                  "anonymous",
+                  translatedBooleanYesFilterChoice
+                )
+              )
             ),
             ctx.isAuth option tr(
               td(trans.ratingRange()),
