@@ -271,6 +271,7 @@
   <string name="abortGame">Прекините партију</string>
   <string name="gameAborted">Партија прекинута</string>
   <string name="standard">Стандардно</string>
+  <string name="customPosition">Произвољна позиција</string>
   <string name="unlimited">Неограничено</string>
   <string name="mode">Начин</string>
   <string name="casual">Неформална</string>
@@ -541,6 +542,7 @@
   <string name="automaticallyProceedToNextGameAfterMoving">Аутоматско пребацивање у следећу партију после потеза</string>
   <string name="autoSwitch">Аутоматско пребацивање</string>
   <string name="puzzles">Проблеми</string>
+  <string name="onlineBots">Онлајн ботови</string>
   <string name="name">Назив</string>
   <string name="description">Опис</string>
   <string name="descPrivate">Приватни опис</string>
@@ -707,6 +709,13 @@
   <string name="keyCycleSelectedVariation">Излистај одабрану варијанту</string>
   <string name="keyShowOrHideComments">покажи/сакриј коментаре</string>
   <string name="keyEnterOrExitVariation">отвори/затвори варијанту</string>
+  <string name="keyRequestComputerAnalysis">Затражите компјутерску анализу, научите из својих грешака</string>
+  <string name="keyNextLearnFromYourMistakes">Даље (Учите из својих грешака)</string>
+  <string name="keyNextBlunder">Следећа тешка грешка</string>
+  <string name="keyNextMistake">Следећа грешка</string>
+  <string name="keyNextInaccuracy">Следећа непрецизност</string>
+  <string name="keyPreviousBranch">Претходна грана</string>
+  <string name="keyNextBranch">Следећа грана</string>
   <string name="newTournament">Нови турнир</string>
   <string name="tournamentHomeTitle">Шаховски турнир који комбинује различита временска ограничења и варијанте</string>
   <string name="tournamentHomeDescription">Играјте брзи турнир у шаху! Придружите се званичном организованом турниру или направите свој. Буллет, Блитз, Цлассицал, Цхесс960, Кинг оф тхе Хилл, Тхреецхецк и друге опције су доступне за неограничену шаховску забаву.</string>
