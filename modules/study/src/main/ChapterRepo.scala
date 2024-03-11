@@ -109,7 +109,10 @@ final class ChapterRepo(val coll: AsyncColl)(using Executor, akka.stream.Materia
 
   def setClockAndDenorm(chapter: Chapter, path: UciPath, clock: chess.Centis) =
     val update = chapter.relay
-      .exists(_.path == path)
+      .map(_.path)
+      .exists: relayPath =>
+        // update denorm is clock is on the last move or the previous one
+        (relayPath == path || relayPath.parent == path)
       .so(chapter.updateDenorm.denorm)
       .map(denorm => $doc("denorm" -> denorm))
       .foldLeft($doc(pathToField(path, F.clock) -> clock))(_ ++ _)
