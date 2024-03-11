@@ -14,6 +14,7 @@ import lila.mod.{ ModPreset, ModPresets, UserWithModlog }
 import lila.report.Report.Inquiry
 import lila.report.Suspect
 import lila.user.{ Me, User }
+import trans.punishments
 
 object discussion:
 
@@ -142,12 +143,12 @@ object discussion:
 
   private def renderMark(suspect: User)(using ctx: PageContext) =
     val query = isGranted(_.Appeals).so(ctx.req.queryString.toMap)
-    if suspect.enabled.no || query.contains("alt") then tree.closedByModerators
-    else if suspect.marks.engine || query.contains("engine") then tree.engineMarked
-    else if suspect.marks.boost || query.contains("boost") then tree.boosterMarked
-    else if suspect.marks.troll || query.contains("shadowban") then tree.accountMuted
-    else if suspect.marks.rankban || query.contains("rankban") then tree.excludedFromLeaderboards
-    else tree.cleanAllGood
+    if suspect.enabled.no || query.contains("alt") then punishments.closedByModerators()
+    else if suspect.marks.engine || query.contains("engine") then punishments.engineMarked()
+    else if suspect.marks.boost || query.contains("boost") then punishments.boosterMarked()
+    else if suspect.marks.troll || query.contains("shadowban") then punishments.accountMuted()
+    else if suspect.marks.rankban || query.contains("rankban") then punishments.excludedFromLeaderboards()
+    else punishments.cleanAllGood()
 
   private def renderUser(appeal: Appeal, userId: UserId, asMod: Boolean)(using PageContext) =
     if appeal.isAbout(userId) then userIdLink(userId.some, params = asMod.so("?mod"))

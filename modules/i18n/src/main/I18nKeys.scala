@@ -1501,6 +1501,25 @@ object I18nKeys:
     val `sendEmailAt` = I18nKey("contact:sendEmailAt")
     val `explainYourRequest` = I18nKey("contact:explainYourRequest")
 
+  object punishments:
+    val `cleanAllGood` = I18nKey("punishments:cleanAllGood")
+    val `engineMarked` = I18nKey("punishments:engineMarked")
+    val `engineMarkedInfo` = I18nKey("punishments:engineMarkedInfo")
+    val `arenaBanned` = I18nKey("punishments:arenaBanned")
+    val `prizeBanned` = I18nKey("punishments:prizeBanned")
+    val `boosterMarked` = I18nKey("punishments:boosterMarked")
+    val `boosterMarkedInfo` = I18nKey("punishments:boosterMarkedInfo")
+    val `accountMuted` = I18nKey("punishments:accountMuted")
+    val `accountMutedInfo` = I18nKey("punishments:accountMutedInfo")
+    val `excludedFromLeaderboards` = I18nKey("punishments:excludedFromLeaderboards")
+    val `excludedFromLeaderboardsInfo` = I18nKey("punishments:excludedFromLeaderboardsInfo")
+    val `closedByModerators` = I18nKey("punishments:closedByModerators")
+    val `hiddenBlog` = I18nKey("punishments:hiddenBlog")
+    val `hiddenBlogInfo` = I18nKey("punishments:hiddenBlogInfo")
+    val `playTimeout` = I18nKey("punishments:playTimeout")
+    val `communicationGuidelines` = I18nKey("punishments:communicationGuidelines")
+    val `blogRules` = I18nKey("punishments:blogRules")
+
   object patron:
     val `donate` = I18nKey("patron:donate")
     val `donateAsX` = I18nKey("patron:donateAsX")
