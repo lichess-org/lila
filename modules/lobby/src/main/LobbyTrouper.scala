@@ -17,6 +17,7 @@ final private class LobbyTrouper(
     seekApi: SeekApi,
     biter: Biter,
     gameCache: lila.game.Cached,
+    gameRepo: lila.game.GameRepo,
     maxPlaying: Max,
     playbanApi: lila.playban.PlaybanApi,
     onStart: lila.round.OnStart
@@ -34,22 +35,22 @@ final private class LobbyTrouper(
     // solve circular reference
     case SetSocket(trouper) => socket = trouper
 
-    case msg @ AddHook(hook, autoPairing) =>
+    case msg @ AddHook(hook) =>
       lila.mon.lobby.hook.create.increment()
       HookRepo bySri hook.sri foreach remove
       hook.sid ?? { sid =>
         HookRepo bySid sid foreach remove
       }
-      (autoPairing ?? findCompatible(hook)) match {
+      findCompatibleHook(hook) match {
         case Some(h) => biteHook(h.id, hook.sri, hook.user)
         case None =>
           HookRepo save msg.hook
           socket ! msg
       }
 
-    case msg @ AddSeek(seek, autoPairing) =>
+    case msg @ AddSeek(seek) =>
       lila.mon.lobby.seek.create.increment()
-      (autoPairing ?? findCompatible(seek)) foreach {
+      findCompatibleSeek(seek) foreach {
         case Some(s) => this ! BiteSeek(s.id, seek.user)
         case None    => this ! SaveSeek(msg)
       }
@@ -89,10 +90,9 @@ final private class LobbyTrouper(
       socket ! msg
       remove(hook)
 
-    case msg @ JoinSeek(userId, seek, game, _) =>
+    case msg @ JoinSeek(_, seek, game, _) =>
       onStart(game.id)
       seekApi.archive(seek, game.id)
-      recentlySeekMatchedUserIdPairs register (userId, seek.user.id)
       socket ! msg
       socket ! RemoveSeek(seek.id)
 
@@ -147,7 +147,7 @@ final private class LobbyTrouper(
       biter(hook, sri, user) foreach this.!
     }
 
-  private def findCompatible(hook: Hook): Option[Hook] =
+  private def findCompatibleHook(hook: Hook): Option[Hook] =
     HookRepo findCompatible hook find { existing =>
       biter.canJoin(existing, hook.user) && !(
         (existing.user, hook.user).mapN((_, _)) ?? { case (u1, u2) =>
@@ -170,17 +170,14 @@ final private class LobbyTrouper(
     def exists(u1: User.ID, u2: User.ID) = cache.get(makeKey(u1, u2))
   }
 
-  private object recentlySeekMatchedUserIdPairs {
-    private val cache                                     = new lila.memo.ExpireSetMemo(1 hour)
-    private def makeKey(u1: User.ID, u2: User.ID): String = if (u1 < u2) s"$u1/$u2" else s"$u2/$u1"
-    def register(u1: User.ID, u2: User.ID)                = cache.put(makeKey(u1, u2))
-    def exists(u1: User.ID, u2: User.ID)                  = cache.get(makeKey(u1, u2))
-  }
-
-  private def findCompatible(seek: Seek): Fu[Option[Seek]] =
-    seekApi.forUser(seek.user) map { ls =>
-      ls.find(s => s.compatibleWith(seek) && !recentlySeekMatchedUserIdPairs.exists(s.user.id, seek.user.id))
-    }
+  private def findCompatibleSeek(seek: Seek): Fu[Option[Seek]] =
+    for {
+      candidates <- seekApi.forUser(seek.user).map(_.filter(_.compatibleWith(seek)))
+      currentplyPlaying <- candidates.nonEmpty ?? gameRepo.playingCorresOpponentsOfVariant(
+        seek.user.id,
+        seek.realVariant
+      )
+    } yield (candidates.find(c => !currentplyPlaying.contains(c.user.id)))
 
   private def remove(hook: Hook) = {
     HookRepo remove hook

@@ -32,7 +32,7 @@ final class BoardApiHookStream(
       override def preStart(): Unit = {
         super.preStart()
         Bus.subscribe(self, classifiers)
-        trouper ! actorApi.AddHook(hook, true)
+        trouper ! actorApi.AddHook(hook)
       }
 
       override def postStop() = {

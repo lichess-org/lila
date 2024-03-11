@@ -22,15 +22,19 @@ final class SeekApi(
 
   private def allCursor =
     coll.ext
-      .find($empty)
+      .find(
+        $doc(
+          "createdAt" $gt DateTime.now.minusDays(14) // expire index in db for older entries
+        )
+      )
       .sort($sort desc "createdAt")
       .cursor[Seek]()
 
   private val cache = cacheApi[CacheKey, List[Seek]](2, "lobby.seek.list") {
-    _.refreshAfterWrite(3 seconds)
+    _.refreshAfterWrite(5 seconds)
       .buildAsyncFuture {
         case ForAnon => allCursor.list(maxPerPage.value)
-        case ForUser => allCursor.list()
+        case ForUser => allCursor.list(maxHard.value + 100)
       }
   }
 
@@ -119,7 +123,7 @@ private object SeekApi {
       val coll: Coll,
       val archiveColl: Coll,
       val maxPerPage: MaxPerPage,
-      val maxHard: Max,
-      val maxPerUser: Max
+      val maxPerUser: Max,
+      val maxHard: Max
   )
 }

@@ -208,8 +208,7 @@ final class Setup(
                       userConfig withinLimits ctx.me,
                       Sri(sri),
                       HTTPRequest sid req,
-                      blocking,
-                      autoPairing = !getBool("noAutoPairing")
+                      blocking
                     ) map hookResponse
                   }
               )
@@ -235,8 +234,7 @@ final class Setup(
                         hookConfig,
                         Sri(sri),
                         HTTPRequest sid ctx.req,
-                        blocking ++ sameOpponents,
-                        autoPairing = true
+                        blocking ++ sameOpponents
                       )
                 } yield hookResponse(hookResult)
               }

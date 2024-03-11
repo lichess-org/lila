@@ -184,6 +184,20 @@ final class GameRepo(val coll: Coll)(implicit ec: scala.concurrent.ExecutionCont
       ReadPreference.secondaryPreferred
     )
 
+  def playingCorresOpponentsOfVariant(userId: User.ID, variant: shogi.variant.Variant): Fu[List[User.ID]] =
+    coll
+      .find(
+        Query.nowPlaying(userId) ++ Query.variant(variant) ++ Query.clock(false) ++ Query.noAi,
+        $doc(F.playingUids -> true)
+      )
+      .cursor[Bdoc]()
+      .list(200)
+      .map {
+        _.foldLeft[List[String]](List.empty) { case (acc, doc) =>
+          doc.getAsOpt[List[String]](F.playingUids).getOrElse(Nil).find(_ != userId).fold(acc)(_ :: acc)
+        }
+      }
+
   def lastPlayedPlayingId(userId: User.ID): Fu[Option[Game.ID]] =
     coll
       .find(Query recentlyPlaying userId, $id(true).some)
