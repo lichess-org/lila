@@ -24,8 +24,8 @@ trait CtrlExtensions extends ControllerHelpers:
     def withCanonical(url: Call): Result = withCanonical(url.url)
     def enforceCrossSiteIsolation(using req: RequestHeader): Result =
       val coep =
-        if HTTPRequest
-            .isChrome96Plus(req) || (HTTPRequest.isFirefox119Plus(req) && !HTTPRequest.isMobileBrowser(req))
+        if HTTPRequest.isChrome96Plus(req) ||
+          (HTTPRequest.isFirefox119Plus(req) && !HTTPRequest.isMobileBrowser(req))
         then "credentialless"
         else "require-corp"
       result.withHeaders(

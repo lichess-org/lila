@@ -202,14 +202,12 @@ final class RelayRound(
         group           <- env.relay.api.withTours.get(rt.tour.id)
         isSubscribed <- ctx.me.soFu: me =>
           env.relay.api.isSubscribed(rt.tour.id, me.userId)
-        streamer <- embed.so(sid => env.streamer.api.find(sid))
-        stream <- streamer match
-          case Some(s) => env.streamer.liveStreamApi.of(s).map(_.some)
-          case none    => fuccess(None: Option[WithUserAndStream])
+        streamer <- embed.so(env.streamer.api.find)
+        stream   <- streamer.soFu(env.streamer.liveStreamApi.of)
         embedSrc =
           if embed.exists(_.value == "fake") then
             "https://www.youtube.com/embed/KLuTLF3x9sA?autoplay=1&disablekb=1".some
-          else stream.flatMap(env.streamer.api.videoEmbedSrc(_))
+          else stream.flatMap(env.streamer.api.videoEmbedSrc)
         crossSiteIsolation = embedSrc.isEmpty
         data <- env.relay.jsonView.makeData(
           rt.tour.withRounds(rounds.map(_.round)),
