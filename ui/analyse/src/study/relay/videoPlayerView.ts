@@ -1,5 +1,5 @@
 import { h, VNode } from 'snabbdom';
-import RelayCtrl from '../study/relay/relayCtrl';
+import RelayCtrl from './relayCtrl';
 
 let iframeEl: HTMLIFrameElement;
 

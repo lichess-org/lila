@@ -36,8 +36,7 @@ import * as Prefs from 'common/prefs';
 import StudyCtrl from '../study/studyCtrl';
 import { dispatchChessgroundResize } from 'common/resize';
 import { tourSide } from '../study/relay/relayTourView';
-
-import { videoPlayerView } from './videoPlayerView';
+import { videoPlayerView } from '../study/relay/videoPlayerView';
 
 window.addEventListener('popstate', () => window.location.reload());
 

@@ -12,10 +12,10 @@ import { toggle } from 'common/controls';
 import * as xhr from 'common/xhr';
 import { teamsView } from './relayTeams';
 import { userTitle } from 'common/userLink';
-import { videoPlayerView } from '../../view/videoPlayerView';
 import { ChapterId } from '../interfaces';
 import { makeChat } from '../../view/view';
 import { gamesList } from './relayGames';
+import { videoPlayerView } from './videoPlayerView';
 
 export default function (ctrl: AnalyseCtrl): VNode | undefined {
   const study = ctrl.study,
