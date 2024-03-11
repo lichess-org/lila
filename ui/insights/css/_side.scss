@@ -1,5 +1,6 @@
 aside {
-  h2.title-username {
+  h2.title-username a {
+    color: $c-font;
     display: none;
     padding: 0.5rem;
     text-align: center;
