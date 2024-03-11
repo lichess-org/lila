@@ -107,7 +107,16 @@ final class ChapterRepo(val coll: AsyncColl)(using Executor, akka.stream.Materia
 
   def setGlyphs(glyphs: chess.format.pgn.Glyphs) = setNodeValue(F.glyphs, glyphs.nonEmpty)
 
-  def setClock(clock: Option[chess.Centis]) = setNodeValue(F.clock, clock)
+  def setClockAndDenorm(chapter: Chapter, path: UciPath, clock: chess.Centis) =
+    val update = chapter.relay
+      .exists(_.path == path)
+      .so(chapter.updateDenorm.denorm)
+      .map(denorm => $doc("denorm" -> denorm))
+      .foldLeft($doc(pathToField(path, F.clock) -> clock))(_ ++ _)
+    coll:
+      _.update
+        .one($id(chapter.id) ++ $doc(path.toDbField.$exists(true)), $set(update))
+        .void
 
   def forceVariation(force: Boolean) = setNodeValue(F.forceVariation, force.option(true))
 

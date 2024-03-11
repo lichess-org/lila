@@ -107,7 +107,7 @@ final private class RelaySync(
                 studyApi.setClock(
                   studyId = study.id,
                   position = Position(chapter, path).ref,
-                  clock = c.some
+                  clock = c
                 )(by)
             path -> none
       case (found, _) => found

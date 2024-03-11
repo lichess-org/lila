@@ -439,20 +439,21 @@ final class StudyApi(
                   reloadSriBecauseOf(study, who.sri, chapter.id)
                 )
 
-  def setClock(studyId: StudyId, position: Position.Ref, clock: Option[Centis])(who: Who): Funit =
+  def setClock(studyId: StudyId, position: Position.Ref, clock: Centis)(who: Who): Funit =
     sequenceStudyWithChapter(studyId, position.chapterId):
       doSetClock(_, position, clock)(who)
 
-  private def doSetClock(sc: Study.WithChapter, position: Position.Ref, clock: Option[Centis])(
+  private def doSetClock(sc: Study.WithChapter, position: Position.Ref, clock: Centis)(
       who: Who
   ): Funit =
-    sc.chapter.setClock(clock, position.path) match
+    sc.chapter.setClock(clock.some, position.path) match
       case Some(newChapter) =>
         studyRepo.updateNow(sc.study)
         val onRelayPath = sc.chapter.relay.exists(_.path == position.path)
         chapterRepo
-          .setClock(clock)(newChapter, position.path)
-          .andDo(sendTo(sc.study.id)(_.setClock(position, clock, onRelayPath)))
+          .setClockAndDenorm(newChapter, position.path, clock)
+          .andDo:
+            sendTo(sc.study.id)(_.setClock(position, clock.some, onRelayPath))
       case None =>
         fufail(s"Invalid setClock $position $clock").andDo:
           reloadSriBecauseOf(sc.study, who.sri, position.chapterId)
@@ -475,7 +476,8 @@ final class StudyApi(
       .so {
         (chapterRepo.setTagsFor(chapter) >> {
           PgnTags.setRootClockFromTags(chapter).so { c =>
-            doSetClock(Study.WithChapter(study, c), Position(c, UciPath.root).ref, c.root.clock)(who)
+            c.root.clock.so: clock =>
+              doSetClock(Study.WithChapter(study, c), Position(c, UciPath.root).ref, clock)(who)
           }
         }).andDo(sendTo(study.id)(_.setTags(chapter.id, chapter.tags, who)))
       }
