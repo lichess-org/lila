@@ -30,7 +30,6 @@ object DataForm {
         "colorName"          -> checkedNumber(Pref.ColorName.choices),
         "zen"                -> optional(booleanNumber),
         "resizeHandle"       -> optional(checkedNumber(Pref.ResizeHandle.choices)),
-        "smallMoves"         -> booleanNumber,
         "blindfold"          -> checkedNumber(Pref.Blindfold.choices)
       )(DisplayData.apply)(DisplayData.unapply),
       "behavior" -> mapping(
@@ -70,7 +69,6 @@ object DataForm {
       colorName: Int,
       zen: Option[Int],
       resizeHandle: Option[Int],
-      smallMoves: Int,
       blindfold: Int
   )
 
@@ -132,7 +130,6 @@ object DataForm {
         keyboardMove = behavior.keyboardMove | pref.keyboardMove,
         zen = display.zen | pref.zen,
         resizeHandle = display.resizeHandle | pref.resizeHandle,
-        smallMoves = display.smallMoves == 1,
         moveEvent = behavior.moveEvent | pref.moveEvent
       )
   }
@@ -155,8 +152,7 @@ object DataForm {
           colorName = pref.colorName,
           blindfold = pref.blindfold,
           zen = pref.zen.some,
-          resizeHandle = pref.resizeHandle.some,
-          smallMoves = if (pref.smallMoves) 1 else 0
+          resizeHandle = pref.resizeHandle.some
         ),
         behavior = BehaviorData(
           moveEvent = pref.moveEvent.some,

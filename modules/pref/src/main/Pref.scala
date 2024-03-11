@@ -44,7 +44,6 @@ case class Pref(
     moveEvent: Int,
     notation: Int,
     resizeHandle: Int,
-    smallMoves: Boolean,
     tags: Map[String, String] = Map.empty
 ) {
 
@@ -233,10 +232,12 @@ object Pref {
   object BoardLayout {
     val DEFAULT = 0
     val COMPACT = 1
+    val SMALL   = 2
 
     val choices = Seq(
       DEFAULT,
-      COMPACT
+      COMPACT,
+      SMALL
     )
   }
 
@@ -428,7 +429,6 @@ object Pref {
     moveEvent = MoveEvent.BOTH,
     notation = Notations.western.index,
     resizeHandle = ResizeHandle.INITIAL,
-    smallMoves = false,
     tags = Map.empty
   )
 

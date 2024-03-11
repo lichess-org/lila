@@ -1675,7 +1675,7 @@ export type I18nKey =
 'kitaoKawasakiNotation'|
 'kifNotation'|
 'yourPreferencesHaveBeenSaved'|
-'smallMoveList'|
+'smallMoves'|
 'team'|
 'teams'|
 'allTeams'|

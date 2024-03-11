@@ -1721,7 +1721,7 @@ val `japaneseNotation` = new I18nKey("preferences:japaneseNotation")
 val `kitaoKawasakiNotation` = new I18nKey("preferences:kitaoKawasakiNotation")
 val `kifNotation` = new I18nKey("preferences:kifNotation")
 val `yourPreferencesHaveBeenSaved` = new I18nKey("preferences:yourPreferencesHaveBeenSaved")
-val `smallMoveList` = new I18nKey("preferences:smallMoveList")
+val `smallMoves` = new I18nKey("preferences:smallMoves")
 }
 
 object team {

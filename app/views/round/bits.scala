@@ -142,7 +142,7 @@ object bits {
   private def roundAppClasses(implicit ctx: Context) = List(
     "round__app"     -> true,
     "compact-layout" -> (ctx.pref.boardLayout == 1),
-    "small-moves"    -> ctx.pref.smallMoves
+    "small-moves"    -> (ctx.pref.boardLayout == 2)
   )
 
   def roundAppPreload(pov: Pov, controls: Boolean)(implicit ctx: Context) =

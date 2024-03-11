@@ -106,10 +106,6 @@ object pref {
               radios(form("display.resizeHandle"), translatedBoardResizeHandleChoices)
             ),
             setting(
-              smallMoveList(),
-              radios(form("display.smallMoves"), booleanChoices)
-            ),
-            setting(
               blindfoldShogi(),
               radios(form("display.blindfold"), translatedBlindfoldChoices)
             )
