@@ -148,15 +148,13 @@
         }
         .status {
           padding: 0.5em 1.5rem 0.5em 0;
+          text-align: $end-direction;
         }
         ongoing {
           color: $c-red;
         }
         finished {
           color: $c-good;
-        }
-        .status {
-          text-align: $end-direction;
         }
       }
     }
