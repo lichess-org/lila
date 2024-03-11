@@ -37,7 +37,7 @@ import StudyCtrl from '../study/studyCtrl';
 import { dispatchChessgroundResize } from 'common/resize';
 import { tourSide } from '../study/relay/relayTourView';
 
-import { streamPlayerView } from './streamPlayerView';
+import { videoPlayerView } from './videoPlayerView';
 
 window.addEventListener('popstate', () => window.location.reload());
 
@@ -405,7 +405,7 @@ export default function (deps?: typeof studyDeps) {
               ...(menuIsOpen
                 ? [actionMenu(ctrl)]
                 : [
-                    streamPlayerView(ctrl),
+                    videoPlayerView(ctrl),
                     ...cevalView.renderCeval(ctrl),
                     showCevalPvs && cevalView.renderPvs(ctrl),
                     renderAnalyse(ctrl, concealOf),
@@ -434,6 +434,11 @@ export default function (deps?: typeof studyDeps) {
           ? tourSide(ctrl, study, relay)
           : h(
               'aside.analyse__side',
+              {
+                hook: onInsert(elm => {
+                  ctrl.opts.$side && ctrl.opts.$side.length && $(elm).replaceWith(ctrl.opts.$side);
+                }),
+              },
               ctrl.studyPractice
                 ? [deps?.studyPracticeView.side(study!)]
                 : study

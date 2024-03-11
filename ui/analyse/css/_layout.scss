@@ -11,6 +11,13 @@ body {
   }
 }
 
+#video-player {
+  z-index: z('video-player');
+  display: none;
+  position: absolute;
+  border: 0;
+}
+
 .analyse {
   grid-area: main;
   display: grid;
@@ -57,7 +64,7 @@ body {
     grid-area: uchat;
   }
 
-  .stream-player-placeholder {
+  .video-player-placeholder {
     width: 100%;
     aspect-ratio: 16/9;
   }

@@ -22,7 +22,7 @@ trait CtrlExtensions extends ControllerHelpers:
     def withCanonical(url: String): Result =
       result.withHeaders(LINK -> s"<${env.net.baseUrl}${url}>; rel=\"canonical\"")
     def withCanonical(url: Call): Result = withCanonical(url.url)
-    def enableSharedArrayBuffer(using req: RequestHeader): Result =
+    def enforceCrossSiteIsolation(using req: RequestHeader): Result =
       val coep =
         if HTTPRequest
             .isChrome96Plus(req) || (HTTPRequest.isFirefox119Plus(req) && !HTTPRequest.isMobileBrowser(req))

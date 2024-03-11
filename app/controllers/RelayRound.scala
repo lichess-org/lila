@@ -206,8 +206,11 @@ final class RelayRound(
         stream <- streamer match
           case Some(s) => env.streamer.liveStreamApi.of(s).map(_.some)
           case none    => fuccess(None: Option[WithUserAndStream])
-        streamEmbedUrl = stream.flatMap(env.streamer.api.streamEmbedUrl(_))
-        // "https://www.youtube.com/embed/eRzQDyw5C3M?embed_domain=schlawg.org".some // stream.flatMap(env.streamer.api.streamEmbedUrl(_))
+        embedSrc =
+          if embed.exists(_.value == "fake") then
+            "https://www.youtube.com/embed/KLuTLF3x9sA?autoplay=1&disablekb=1".some
+          else stream.flatMap(env.streamer.api.videoEmbedSrc(_))
+        crossSiteIsolation = embedSrc.isEmpty
         data <- env.relay.jsonView.makeData(
           rt.tour.withRounds(rounds.map(_.round)),
           rt.round.id,
@@ -215,16 +218,13 @@ final class RelayRound(
           group,
           ctx.userId.exists(sc.study.canContribute),
           isSubscribed,
-          streamEmbedUrl
+          embedSrc
         )
-        chat      <- studyC.chatOf(sc.study)
-        sVersion  <- env.study.version(sc.study.id)
-        streamers <- studyC.streamersOf(sc.study)
-        page      <- renderPage(html.relay.show(rt.withStudy(sc.study), data, chat, sVersion, streamers))
+        chat     <- studyC.chatOf(sc.study)
+        sVersion <- env.study.version(sc.study.id)
+        page <- renderPage(html.relay.show(rt.withStudy(sc.study), data, chat, sVersion, crossSiteIsolation))
         _ = if HTTPRequest.isHuman(req) then lila.mon.http.path(rt.tour.path).increment()
-      yield streamEmbedUrl.isDefined match
-        case true  => Ok(page) // we can't have cross site isolation with iframes
-        case false => Ok(page).enableSharedArrayBuffer
+      yield if crossSiteIsolation then Ok(page).enforceCrossSiteIsolation else Ok(page)
     )(
       studyC.privateUnauthorizedFu(oldSc.study),
       studyC.privateForbiddenFu(oldSc.study)

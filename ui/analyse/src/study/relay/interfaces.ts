@@ -5,7 +5,7 @@ export interface RelayData {
   leaderboard?: LeadPlayer[];
   group?: RelayGroup;
   isSubscribed?: boolean; // undefined if anon
-  streamEmbedUrl?: string;
+  videoEmbedSrc?: string;
 }
 
 export interface RelayGame {

@@ -88,7 +88,7 @@ final class Analyse(
                     chat,
                     bookmarked = bookmarked
                   )
-                ).map(_.enableSharedArrayBuffer)
+                ).map(_.enforceCrossSiteIsolation)
       yield res
 
   def embed(gameId: GameId, color: String) = embedReplayGame(gameId, color)

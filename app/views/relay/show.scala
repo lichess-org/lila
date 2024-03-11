@@ -17,7 +17,7 @@ object show:
       data: lila.relay.JsonView.JsData,
       chatOption: Option[lila.chat.UserChat.Mine],
       socketVersion: SocketVersion,
-      streamers: List[UserId]
+      crossSiteIsolation: Boolean = true
   )(using ctx: PageContext) =
     views.html.base.layout(
       title = rt.fullName,
@@ -53,7 +53,7 @@ object show:
         )
       ),
       zoomable = true,
-      csp = defaultCsp.withExternalAnalysisApis.some,
+      csp = (if crossSiteIsolation then analysisCsp else defaultCsp).withExternalAnalysisApis.some,
       openGraph = lila.app.ui
         .OpenGraph(
           title = rt.fullName,
@@ -62,8 +62,5 @@ object show:
         )
         .some
     )(
-      frag(
-        main(cls := "analyse"),
-        views.html.study.bits.streamers(streamers)
-      )
+      main(cls := "analyse")
     )

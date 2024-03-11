@@ -102,7 +102,7 @@ final class JsonView(
       group: Option[RelayGroup.WithTours],
       canContribute: Boolean,
       isSubscribed: Option[Boolean] = none[Boolean],
-      streamEmbedUrl: Option[String] = none
+      videoEmbedSrc: Option[String] = none
   ) = leaderboardApi(trs.tour).map: leaderboard =>
     JsonView.JsData(
       relay = apply(trs)
@@ -110,7 +110,7 @@ final class JsonView(
         .add("leaderboard" -> leaderboard)
         .add("group" -> group)
         .add("isSubscribed" -> isSubscribed)
-        .add("streamEmbedUrl" -> streamEmbedUrl),
+        .add("videoEmbedSrc" -> videoEmbedSrc),
       study = studyData.study,
       analysis = studyData.analysis
     )

@@ -12,7 +12,7 @@ import { toggle } from 'common/controls';
 import * as xhr from 'common/xhr';
 import { teamsView } from './relayTeams';
 import { userTitle } from 'common/userLink';
-import { streamPlayerView } from '../../view/streamPlayerView';
+import { videoPlayerView } from '../../view/videoPlayerView';
 import { ChapterId } from '../interfaces';
 import { makeChat } from '../../view/view';
 import { gamesList } from './relayGames';
@@ -29,7 +29,7 @@ export default function (ctrl: AnalyseCtrl): VNode | undefined {
       : relay.tab() == 'teams'
       ? teams(relay, ctrl)
       : leaderboard(relay, ctrl);
-  return h('div.relay-tour', [streamPlayerView(ctrl), content]);
+  return h('div.relay-tour', content);
 }
 
 export const tourSide = (ctrl: AnalyseCtrl, study: StudyCtrl, relay: RelayCtrl) =>
@@ -190,7 +190,9 @@ const header = (relay: RelayCtrl, ctrl: AnalyseCtrl) => {
   return [
     h('div.relay-tour__header', [
       h('div.relay-tour__header__image', [
-        d.tour.image
+        d.videoEmbedSrc
+          ? videoPlayerView(ctrl)
+          : d.tour.image
           ? h('img', { attrs: { src: d.tour.image } })
           : study.members.isOwner()
           ? h(

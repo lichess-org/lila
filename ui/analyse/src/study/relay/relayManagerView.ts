@@ -32,7 +32,7 @@ export default function (ctrl: RelayCtrl, study: StudyCtrl): MaybeVNode {
               renderLog(ctrl),
             ])
           : undefined,
-        contributor || study.data.admin ? studyViewSide(study, false) : undefined,
+        ...(contributor || study.data.admin ? studyViewSide(study, false) : []),
       ])
     : undefined;
 }

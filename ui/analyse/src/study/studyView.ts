@@ -181,18 +181,18 @@ export function side(ctrl: StudyCtrl, withSearch: boolean): MaybeVNodes {
 
   const content = (activeTab === 'members' ? memberView : chapterView)(ctrl);
 
-  const streams =
-    ctrl.relay?.streams &&
-    h(
-      'div.context-streamers',
-      ctrl.relay?.streams.map(([id, name]) =>
-        h(
-          'button.context-streamer.text.button-empty',
-          { hook: bind('click', () => ctrl.relay?.showStream(id)) },
-          name,
+  const streams = ctrl.relay?.streams
+    ? h(
+        'div.context-streamers',
+        ctrl.relay?.streams.map(([id, name]) =>
+          h(
+            'button.context-streamer.text.button-empty',
+            { hook: bind('click', () => ctrl.relay?.showStream(id)) },
+            name,
+          ),
         ),
-      ),
-    );
+      )
+    : null;
 
   return [h('div.study__side', [tabs, content]), streams];
 }
