@@ -4,11 +4,10 @@ package http
 import play.api.http.*
 import play.api.mvc.*
 import play.api.libs.json.JsNumber
+import alleycats.Zero
 
 import lila.security.{ Permission, Granter }
-
-import lila.common.HTTPRequest
-import lila.common.config
+import lila.common.{ config, HTTPRequest }
 
 trait CtrlFilters extends ControllerHelpers with ResponseBuilder with CtrlConversions:
 
@@ -120,6 +119,9 @@ trait CtrlFilters extends ControllerHelpers with ResponseBuilder with CtrlConver
 
   def NoCrawlers(result: => Fu[Result])(using ctx: Context): Fu[Result] =
     if HTTPRequest.isCrawler(ctx.req).yes then notFound else result
+
+  def NoCrawlers[A](computation: => A)(using ctx: Context, default: Zero[A]): A =
+    if HTTPRequest.isCrawler(ctx.req).yes then computation else default.zero
 
   def NotManaged(result: => Fu[Result])(using ctx: Context)(using Executor): Fu[Result] =
     ctx.me.so(env.clas.api.student.isManaged(_)).flatMap {

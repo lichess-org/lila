@@ -176,9 +176,9 @@ final class Study(
           res <- negotiate(
             html =
               for
-                chat      <- chatOf(sc.study)
-                sVersion  <- env.study.version(sc.study.id)
-                streamers <- streamersOf(sc.study)
+                chat      <- NoCrawlers(chatOf(sc.study))
+                sVersion  <- NoCrawlers(env.study.version(sc.study.id))
+                streamers <- NoCrawlers(streamersOf(sc.study.id))
                 page      <- renderPage(html.study.show(sc.study, data, chat, sVersion, streamers))
               yield Ok(page)
                 .withCanonical(routes.Study.chapter(sc.study.id, sc.chapter.id))
@@ -591,30 +591,26 @@ final class Study(
       case Some(me) if study.members.contains(me.value) => withUserSelection
       case _                                            => forbidden
 
-  private[controllers] def streamersOf(study: StudyModel) = streamerCache.get(study.id)
-
   private val streamerCache =
-    env.memo.cacheApi[StudyId, List[UserId]](64, "study.streamers"):
-      _.refreshAfterWrite(15.seconds)
-        .maximumSize(512)
-        .buildAsyncFuture: studyId =>
-          env.study.studyRepo
-            .membersById(studyId)
-            .flatMap:
-              _.map(_.members)
-                .filter(_.nonEmpty)
-                .so: members =>
-                  env.streamer.liveStreamApi.all.flatMap:
-                    _.streams
-                      .filter: s =>
-                        members.exists(m => s.is(m._2.id))
-                      .map: stream =>
-                        env.study
-                          .isConnected(studyId, stream.streamer.userId)
-                          .map:
-                            _.option(stream.streamer.userId)
-                      .parallel
-                      .dmap(_.flatten)
+    env.memo.cacheApi[StudyId, List[UserId]](1024, "study.streamers"):
+      _.refreshAfterWrite(5.seconds).buildAsyncFuture: studyId =>
+        env.study.studyRepo
+          .membersById(studyId)
+          .flatMap:
+            _.map(_.members.keys)
+              .filter(_.nonEmpty)
+              .so: members =>
+                env.streamer.liveStreamApi.all.flatMap:
+                  _.streams
+                    .filter: s =>
+                      members.exists(s.streamer.is(_))
+                    .traverse: stream =>
+                      env.study
+                        .isConnected(studyId, stream.streamer.userId)
+                        .map:
+                          _.option(stream.streamer.userId)
+                    .dmap(_.flatten)
+  export streamerCache.{ get as streamersOf }
 
   def glyphs(lang: String) = Anon:
     play.api.i18n.Lang
