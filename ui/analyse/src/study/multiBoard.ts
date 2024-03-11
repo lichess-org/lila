@@ -206,10 +206,10 @@ const computeTimeLeft = (preview: ChapterPreview, color: Color): number | undefi
   const player = preview.players && preview.players[color];
   if (defined(player?.clock)) {
     if (defined(preview.lastMoveAt) && fenColor(preview.fen) == color) {
-      const spent = (Date.now() - preview.lastMoveAt!) / 1000;
-      return Math.max(0, player!.clock / 100 - spent);
+      const spent = (Date.now() - preview.lastMoveAt) / 1000;
+      return Math.max(0, player.clock / 100 - spent);
     } else {
-      return player!.clock / 100;
+      return player.clock / 100;
     }
   } else return;
 };
