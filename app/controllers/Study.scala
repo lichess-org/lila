@@ -176,9 +176,9 @@ final class Study(
           res <- negotiate(
             html =
               for
-                chat      <- chatOf(sc.study)
-                sVersion  <- env.study.version(sc.study.id)
-                streamers <- streamersOf(sc.study)
+                chat      <- NoCrawlers(chatOf(sc.study))
+                sVersion  <- NoCrawlers(env.study.version(sc.study.id))
+                streamers <- NoCrawlers(streamersOf(sc.study.id))
                 page      <- renderPage(html.study.show(sc.study, data, chat, sVersion, streamers))
               yield Ok(page)
                 .withCanonical(routes.Study.chapter(sc.study.id, sc.chapter.id))
@@ -591,8 +591,6 @@ final class Study(
       case Some(me) if study.members.contains(me.value) => withUserSelection
       case _                                            => forbidden
 
-  private[controllers] def streamersOf(study: StudyModel) = streamerCache.get(study.id)
-
   private val streamerCache =
     env.memo.cacheApi[StudyId, List[UserId]](1024, "study.streamers"):
       _.refreshAfterWrite(5.seconds).buildAsyncFuture: studyId =>
@@ -612,6 +610,7 @@ final class Study(
                         .map:
                           _.option(stream.streamer.userId)
                     .dmap(_.flatten)
+  export streamerCache.{ get as streamersOf }
 
   def glyphs(lang: String) = Anon:
     play.api.i18n.Lang

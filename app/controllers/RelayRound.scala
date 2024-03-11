@@ -206,9 +206,9 @@ final class RelayRound(
           ctx.userId.exists(sc.study.canContribute),
           isSubscribed
         )
-        chat      <- studyC.chatOf(sc.study)
-        sVersion  <- env.study.version(sc.study.id)
-        streamers <- studyC.streamersOf(sc.study)
+        chat      <- NoCrawlers(studyC.chatOf(sc.study))
+        sVersion  <- NoCrawlers(env.study.version(sc.study.id))
+        streamers <- NoCrawlers(studyC.streamersOf(sc.study.id))
         page      <- renderPage(html.relay.show(rt.withStudy(sc.study), data, chat, sVersion, streamers))
         _ = if HTTPRequest.isHuman(req) then lila.mon.http.path(rt.tour.path).increment()
       yield Ok(page).enableSharedArrayBuffer
