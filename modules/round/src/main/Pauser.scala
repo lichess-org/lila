@@ -95,11 +95,11 @@ final private[round] class Pauser(
                   Right((usi, prog)).withLeft[Events]
                 }
             )
-        } else {
+        } else if (!isOfferingResume(g.id, color)) {
           resumeOffers.put(g.id, Pauser.ResumeOffers(sente = color.sente, gote = color.gote))
           messenger.system(g, trans.xOffersResumption.txt(color))
           fuccess(Left(List(Event.ResumeOffer(by = color.some))))
-        }
+        } else fuccess(Left(List(Event.ReloadOwner)))
       case _ => fuccess(Left(List(Event.ReloadOwner)))
     }
 
