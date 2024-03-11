@@ -5,6 +5,7 @@
   <string name="toInviteSomeoneToPlayGiveThisUrl">રમવા માટે કોઈને આમંત્રણ આપવા, આ URL આપો</string>
   <string name="gameOver">રમત પુરી</string>
   <string name="waitingForOpponent">વિરોધિ માટે રાહ જુએ છે</string>
+  <string name="orLetYourOpponentScanQrCode">અથવા તમારા પ્રતિસ્પર્ધીને આ QR કોડ સ્કેન કરવા દો</string>
   <string name="waiting">રાહ જુએ છે</string>
   <string name="yourTurn">તમરો વારો</string>
   <string name="aiNameLevelAiLevel">%1$s સ્તર %2$s</string>
@@ -74,6 +75,7 @@
   <string name="makeMainLine">મેઈન લાઈન બનાવો</string>
   <string name="deleteFromHere">અહીંથી ડિલીટ કરો</string>
   <string name="forceVariation">ફોર્સ વેરિએશન</string>
+  <string name="copyVariationPgn">PGN ની વિવિધતા ની નકલ કરો</string>
   <string name="move">ચાલ</string>
   <string name="variantLoss">Variant હાર</string>
   <string name="variantWin">Variant જીત</string>
@@ -97,11 +99,13 @@
   </plurals>
   <string name="dtzWithRounding">DTZ50\'\' રાઉન્ડિંગ સાથે, આગામી કેપ્ચર અથવા પ્યાદાની ચાલ સુધી અર્ધ-ચાલની સંખ્યાના આધારે</string>
   <string name="noGameFound">ડેટાબેઝમાં આવી કોઈ રમત નથી</string>
+  <string name="maxDepthReached">મહત્તમ ઊંડાઈ પહોંચી!</string>
   <string name="maybeIncludeMoreGamesFromThePreferencesMenu">પસંદગી મેનૂમાંથી વધુ રમતો શામેલ કરીને જોવો?</string>
   <string name="openings">શરુઆતી ચાલો</string>
   <string name="openingExplorer">રમત પ્રારંભ સંશોધક</string>
   <string name="openingEndgameExplorer">ઓપનિંગ/એન્ડગેમ એક્સપ્લોરર</string>
   <string name="xOpeningExplorer">%s રમત પ્રારંભ સંશોધક</string>
+  <string name="playFirstOpeningEndgameExplorerMove">પ્રથમ ઓપનિંગ/એન્ડગેમ-એક્સપ્લોરર ચાલ રમો</string>
   <string name="winPreventedBy50MoveRule">જીતને 50-ચાલના નિયમ દ્વારા અટકાવવામાં આવી છે</string>
   <string name="lossSavedBy50MoveRule">50-ચાલના નિયમ દ્વારા હાર અટકાવવામાં આવી છે</string>
   <string name="winOr50MovesByPriorMistake">અગાઉની ભૂલથી જીત અથવા 50 ચાલ</string>
@@ -117,6 +121,7 @@
   <string name="openStudy">અભ્યાસ ખોલો</string>
   <string name="enable">સક્ષમ કરો</string>
   <string name="bestMoveArrow">શ્રેષ્ઠ ચાલ નિર્દેશ</string>
+  <string name="showVariationArrows">વિવિધતા તીરો બતાવો</string>
   <string name="evaluationGauge">મૂલ્યાંકન ગેજ</string>
   <string name="multipleLines">બહુવિધ લીટી</string>
   <string name="cpus">સીપીયુ</string>
@@ -209,6 +214,22 @@
   <string name="passwordSuggestion">કોઈ બીજા દ્વારા સૂચવવામાં આવેલ પાસવર્ડ સેટ કરશો નહીં. તેઓ તેનો ઉપયોગ તમારું એકાઉન્ટ ચોરી કરવા માટે કરશે.</string>
   <string name="emailSuggestion">કોઈ બીજા દ્વારા સૂચવવામાં આવેલ ઈમેલ સરનામું સેટ કરશો નહીં. તેઓ તેનો ઉપયોગ તમારું એકાઉન્ટ ચોરી કરવા માટે કરશે.</string>
   <string name="emailConfirmHelp">ઈમેલની ખાતરીમાં મદદ કરશો</string>
+  <string name="emailConfirmNotReceived">સાઇન અપ કર્યા પછી તમારો પુષ્ટિકરણ ઇમેઇલ પ્રાપ્ત થયો નથી?</string>
+  <string name="whatSignupUsername">તમે સાઇન અપ કરવા માટે કયા વપરાશકર્તાનામનો ઉપયોગ કર્યો?</string>
+  <string name="usernameNotFound">અમે આ નામના કોઈપણ વપરાશકર્તાને શોધી શક્યા નથી: %s.</string>
+  <string name="usernameCanBeUsedForNewAccount">તમે નવું એકાઉન્ટ બનાવવા માટે આ વપરાશકર્તાનામનો ઉપયોગ કરી શકો છો</string>
+  <string name="emailSent">અમે %s ને એક ઈમેલ મોકલ્યો છે.</string>
+  <string name="emailCanTakeSomeTime">તેને પહોંચવામાં થોડો સમય લાગી શકે છે.</string>
+  <string name="refreshInboxAfterFiveMinutes">5 મિનિટ રાહ જુઓ અને તમારા ઇમેઇલ ઇનબોક્સને તાજું કરો.</string>
+  <string name="checkSpamFolder">તમારું સ્પામ ફોલ્ડર પણ તપાસો, તે ત્યાં જ સમાપ્ત થઈ શકે છે. જો એમ હોય, તો તેને સ્પામ નથી તરીકે ચિહ્નિત કરો.</string>
+  <string name="emailForSignupHelp">જો બીજું બધું નિષ્ફળ જાય, તો અમને આ ઇમેઇલ મોકલો:</string>
+  <string name="copyTextToEmail">ઉપરોક્ત ટેક્સ્ટ કોપી અને પેસ્ટ કરો અને તેને %s પર મોકલો</string>
+  <string name="waitForSignupHelp">તમારું સાઇનઅપ પૂર્ણ કરવામાં તમારી મદદ કરવા અમે ટૂંક સમયમાં તમારી પાસે પાછા આવીશું.</string>
+  <string name="accountConfirmed">વપરાશકર્તા %s સફળતાપૂર્વક પુષ્ટિ થયેલ છે.</string>
+  <string name="accountCanLogin">તમે હમણાં %s તરીકે લૉગિન કરી શકો છો.</string>
+  <string name="accountConfirmationEmailNotNeeded">તમારે પુષ્ટિકરણ ઇમેઇલની જરૂર નથી.</string>
+  <string name="accountClosed">ખાતું %s બંધ છે.</string>
+  <string name="accountRegisteredWithoutEmail">એકાઉન્ટ %s ઇમેઇલ વિના નોંધાયેલું હતું.</string>
   <string name="rank">શ્રેણી</string>
   <string name="rankX">શ્રેણી %s</string>
   <string name="gamesPlayed">રમતો રમ્યા</string>
@@ -220,6 +241,13 @@
   <string name="whiteTimeOut">સફેદની સમય મર્યાદા પૂરી</string>
   <string name="blackTimeOut">કાળાની સમય મર્યાદા પૂરી</string>
   <string name="drawOfferSent">ડ્રો ઓફર મોકલી</string>
+  <string name="drawOfferAccepted">ડ્રો ઓફર સ્વીકારી</string>
+  <string name="drawOfferCanceled">ડ્રો ઓફર રદ કરી</string>
+  <string name="whiteOffersDraw">સફેદ ઓફર ડ્રો</string>
+  <string name="blackOffersDraw">બ્લેક ઓફર ડ્રો</string>
+  <string name="whiteDeclinesDraw">સફેદ ડ્રો માટે ના કહે છે</string>
+  <string name="blackDeclinesDraw">કાળો ડ્રો માટે ના કહે છે</string>
+  <string name="yourOpponentOffersADraw">તમારો પ્રતિસ્પર્ધી ડ્રો ઓફર કરે છે</string>
   <string name="accept">સ્વીકારો</string>
   <string name="decline">નકારો</string>
   <string name="playingRightNow">અત્યારે રમાય છે</string>
@@ -228,6 +256,7 @@
   <string name="abortGame">રમતનો ત્યાગ કરો</string>
   <string name="gameAborted">રમતનો ત્યાગ કર્યો</string>
   <string name="standard">સામાન્ય</string>
+  <string name="customPosition">કસ્ટમ પોઝિશન</string>
   <string name="unlimited">અમર્યાદિત</string>
   <string name="mode">પ્રકાર</string>
   <string name="casual">અનિયત</string>
@@ -246,8 +275,10 @@
   <string name="play">રમો</string>
   <string name="inbox">ઇનબૉક્સ</string>
   <string name="chatRoom">વાતચીતની જગ્યા</string>
+  <string name="loginToChat">ચેટ કરવા માટે સાઇન ઇન કરો</string>
   <string name="youHaveBeenTimedOut">તમારી સમય મર્યાદા પૂરી થઈ ગઈ.</string>
   <string name="spectatorRoom">દર્શકોનો ખંડ</string>
+  <string name="composeMessage">સંદેશ લખો</string>
   <string name="subject">વિષય</string>
   <string name="send">મોકલો</string>
   <string name="incrementInSeconds">સેકંડોમાં વૃદ્ધિ</string>
