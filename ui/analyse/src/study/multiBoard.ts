@@ -216,7 +216,7 @@ const computeTimeLeft = (preview: ChapterPreview, color: Color): number | undefi
 
 const boardPlayer = (preview: ChapterPreview, color: Color) => {
   const outcome = preview.status && preview.status !== '*' ? preview.status : undefined;
-  const player = preview.players && preview.players[color],
+  const player = preview.players?.[color],
     score = outcome?.split('-')[color === 'white' ? 0 : 1];
   return h('span.mini-game__player', [
     h('span.mini-game__user', renderPlayer(player)),

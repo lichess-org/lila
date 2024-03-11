@@ -67,7 +67,7 @@ export default class RelayCtrl {
   private findChapterPreview = (id: ChapterId) => this.chapters().find(cp => cp.id == id);
   setClockToChapterPreview = (msg: ServerClockMsg) => {
     const cp = this.findChapterPreview(msg.p.chapterId);
-    if (cp && cp.players) cp.players[opposite(fenColor(cp.fen))].clock = msg.c;
+    if (cp?.players) cp.players[opposite(fenColor(cp.fen))].clock = msg.c;
   };
 
   roundById = (id: string) => this.data.rounds.find(r => r.id == id);
