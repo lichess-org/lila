@@ -186,10 +186,9 @@ case class Game(
   def resume =
     if (!paused) this
     else {
-      val newShogi = sealedUsi.flatMap(u => shogi(u).toOption).getOrElse(shogi)
-      val sealedUsiApplied =
-        newShogi.usis.lastOption.exists(_.some == sealedUsi && plies < newShogi.plies)
-      val pSeconds = (nowSeconds - movedAt.getSeconds).toInt atLeast 0
+      val shogiAfterSealedUsi = sealedUsi.flatMap(u => shogi(u).toOption)
+      val newShogi            = shogiAfterSealedUsi.getOrElse(shogi)
+      val pSeconds            = (nowSeconds - movedAt.getSeconds).toInt atLeast 0
       val resumed = copy(
         // clock was already updated, make sure proper color is set
         shogi = newShogi.copy(clock = clock.map(_.copy(color = newShogi.situation.color).start)),
@@ -199,7 +198,7 @@ case class Game(
         movedAt = DateTime.now
       )
 
-      if (sealedUsiApplied) resumed
+      if (shogiAfterSealedUsi.isDefined) resumed
       else
         resumed.copy(
           binaryMoveTimes = binaryMoveTimes.map { binary =>
