@@ -5,8 +5,8 @@
       background-size: cover;
       background-position: center;
       .no-square {
-        width: 75px;
-        height: calc(75px / 11 * 12);
+        width: 56.25px;
+        height: calc(56.25px / 11 * 12);
         position: relative;
         &:hover {
           background: rgba(20, 85, 30, 0.3);
