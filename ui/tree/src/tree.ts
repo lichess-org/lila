@@ -1,6 +1,6 @@
 import * as treePath from './path';
 import * as ops from './ops';
-import { defined } from 'common';
+import { defined, notNull } from 'common';
 
 export type MaybeNode = Tree.Node | undefined;
 
@@ -179,13 +179,8 @@ export function build(root: Tree.Node): TreeWrapper {
   const parentNode = (path: Tree.Path): Tree.Node => nodeAtPath(treePath.init(path));
 
   function getParentClock(node: Tree.Node, path: Tree.Path): Tree.Clock | undefined {
-    if (!('parentClock' in node)) {
-      const par = path && parentNode(path);
-      if (!par) node.parentClock = node.clock;
-      else if (!('clock' in par)) node.parentClock = undefined;
-      else node.parentClock = par.clock;
-    }
-    return node.parentClock;
+    const parent = path && parentNode(path);
+    return parent ? parent.clock : node.clock;
   }
 
   return {
