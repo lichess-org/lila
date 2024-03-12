@@ -19,10 +19,20 @@ import StudyCtrl from './studyCtrl';
 import { opposite } from 'chessops/util';
 import { fenColor } from 'common/miniBoard';
 
+/* read-only interface for external use */
+export class StudyChapters {
+  constructor(private readonly list: Prop<ChapterPreview[]>) {}
+  all = () => this.list();
+  get = (id: string) => this.list().find(c => c.id === id);
+  size = () => this.list().length;
+  first = () => this.list()[0];
+}
+
 export default class StudyChaptersCtrl {
+  store: Prop<ChapterPreview[]> = prop([]);
+  list: StudyChapters;
   newForm: StudyChapterNewForm;
   editForm: StudyChapterEditForm;
-  list: Prop<ChapterPreview[]> = prop([]);
   localPaths: LocalPaths = {};
 
   constructor(
@@ -32,36 +42,34 @@ export default class StudyChaptersCtrl {
     chapterConfig: (id: string) => Promise<StudyChapterConfig>,
     root: AnalyseCtrl,
   ) {
+    this.list = new StudyChapters(this.store);
     this.loadFromServer(initChapters);
     this.newForm = new StudyChapterNewForm(send, this.list, setTab, root);
     this.editForm = new StudyChapterEditForm(send, chapterConfig, root.trans, root.redraw);
   }
 
-  private convertFromServer = (c: ChapterPreviewFromServer): ChapterPreview => ({
-    ...c,
-    orientation: c.orientation || 'white',
-    playing: defined(c.lastMove) && c.status === '*',
-    lastMoveAt: defined(c.thinkTime) ? Date.now() - 1000 * c.thinkTime : undefined,
-  });
-
-  get = (id: string) => this.list().find(c => c.id === id);
   sort = (ids: string[]) => this.send('sortChapters', ids);
-  firstChapterId = () => this.list()[0].id;
   toggleNewForm = () => {
-    if (this.newForm.isOpen() || this.list().length < 64) this.newForm.toggle();
+    if (this.newForm.isOpen() || this.list.size() < 64) this.newForm.toggle();
     else alert('You have reached the limit of 64 chapters per study. Please create a new study.');
   };
   looksNew = () => {
-    const cs = this.list();
+    const cs = this.list.all();
     return cs.length == 1 && cs[0].name == 'Chapter 1';
   };
-  loadFromServer = (chapters: ChapterPreviewFromServer[]) => {
-    this.list(chapters.map(this.convertFromServer));
-  };
+  loadFromServer = (chapters: ChapterPreviewFromServer[]) =>
+    this.store(
+      chapters.map(c => ({
+        ...c,
+        orientation: c.orientation || 'white',
+        playing: defined(c.lastMove) && c.status === '*',
+        lastMoveAt: defined(c.thinkTime) ? Date.now() - 1000 * c.thinkTime : undefined,
+      })),
+    );
   addNode = (d: ServerNodeMsg) => {
     const pos = d.p,
       node = d.n;
-    const cp = this.get(pos.chapterId);
+    const cp = this.list.get(pos.chapterId);
     if (cp) {
       const onRelayPath = d.relayPath == d.p.path + d.n.id;
       if (onRelayPath || !d.relayPath) {
@@ -108,11 +116,11 @@ export function view(ctrl: StudyCtrl): VNode {
   const canContribute = ctrl.members.canContribute(),
     current = ctrl.currentChapter();
   function update(vnode: VNode) {
-    const newCount = ctrl.chapters.list().length,
+    const newCount = ctrl.chapters.list.size(),
       vData = vnode.data!.li!,
       el = vnode.elm as HTMLElement;
     if (vData.count !== newCount) {
-      if (current.id !== ctrl.chapters.firstChapterId()) {
+      if (current.id !== ctrl.chapters.list.first().id) {
         scrollToInnerSelector(el, '.active');
       }
     } else if (ctrl.vm.loading && vData.loadingId !== ctrl.vm.nextChapterId) {
@@ -125,9 +133,7 @@ export function view(ctrl: StudyCtrl): VNode {
         vData.sortable = window.Sortable.create(el, {
           draggable: '.draggable',
           handle: 'ontouchstart' in window ? 'span' : undefined,
-          onSort() {
-            ctrl.chapters.sort(vData.sortable.toArray());
-          },
+          onSort: () => ctrl.chapters.sort(vData.sortable.toArray()),
         });
       };
       if (window.Sortable) makeSortable();
@@ -145,7 +151,7 @@ export function view(ctrl: StudyCtrl): VNode {
             const id = (target.parentNode as HTMLElement).dataset['id'] || target.dataset['id'];
             if (!id) return;
             if (target.className === 'act') {
-              const chapter = ctrl.chapters.get(id);
+              const chapter = ctrl.chapters.list.get(id);
               if (chapter) ctrl.chapters.editForm.toggle(chapter);
             } else ctrl.setChapter(id);
           });
@@ -163,8 +169,8 @@ export function view(ctrl: StudyCtrl): VNode {
         },
       },
     },
-    ctrl.chapters
-      .list()
+    ctrl.chapters.list
+      .all()
       .map((chapter, i) => {
         const editing = ctrl.chapters.editForm.isEditing(chapter.id),
           loading = ctrl.vm.loading && chapter.id === ctrl.vm.nextChapterId,

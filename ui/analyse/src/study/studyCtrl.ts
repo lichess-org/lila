@@ -166,7 +166,7 @@ export default class StudyCtrl {
         id => this.setChapter(id),
       );
     this.multiBoard = new MultiBoardCtrl(
-      this.chapters,
+      this.chapters.list,
       this.redraw,
       this.ctrl.trans,
       this.ctrl.socket.send,
@@ -267,7 +267,7 @@ export default class StudyCtrl {
     this.redraw();
   };
 
-  currentChapter = (): ChapterPreview => this.chapters.get(this.vm.chapterId)!;
+  currentChapter = (): ChapterPreview => this.chapters.list.get(this.vm.chapterId)!;
 
   isChapterOwner = (): boolean => this.ctrl.opts.userId === this.data.chapter.ownerId;
 
@@ -462,14 +462,14 @@ export default class StudyCtrl {
   };
 
   private deltaChapter = (delta: number): ChapterPreview | undefined => {
-    const chs = this.chapters.list();
+    const chs = this.chapters.list.all();
     const i = chs.findIndex(ch => ch.id === this.vm.chapterId);
     return i < 0 ? undefined : chs[i + delta];
   };
   prevChapter = () => this.deltaChapter(-1);
   nextChapter = () => this.deltaChapter(+1);
   hasNextChapter = () => {
-    const chs = this.chapters.list();
+    const chs = this.chapters.list.all();
     return chs[chs.length - 1].id != this.vm.chapterId;
   };
 

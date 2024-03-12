@@ -185,9 +185,7 @@ export function build(root: Tree.Node): TreeWrapper {
 
   return {
     root,
-    lastPly(): number {
-      return lastNode()?.ply || root.ply;
-    },
+    lastPly: (): number => lastNode()?.ply || root.ply,
     nodeAtPath,
     getNodeList,
     longestValidPath: (path: string) => longestValidPathFrom(root, path),

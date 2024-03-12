@@ -8,7 +8,7 @@ import { renderClock } from '../multiBoard';
 import { ChapterPreview } from '../interfaces';
 
 export const gamesList = (study: StudyCtrl, relay: RelayCtrl) => {
-  const chapters = study.chapters.list();
+  const chapters = study.chapters.list.all();
   return h(
     'div.relay-games',
     {

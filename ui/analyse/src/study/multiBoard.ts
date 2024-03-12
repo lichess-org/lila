@@ -7,8 +7,8 @@ import { ChapterPreview, ChapterPreviewPlayer } from './interfaces';
 import StudyCtrl from './studyCtrl';
 import { GetCloudEval, MultiCloudEval, renderEvalToggle, renderScore } from './multiCloudEval';
 import { Toggle, defined, notNull, toggle } from 'common';
-import StudyChaptersCtrl from './studyChapters';
 import { Color } from 'chessops';
+import { StudyChapters } from './studyChapters';
 
 export class MultiBoardCtrl {
   playing: Toggle;
@@ -17,7 +17,7 @@ export class MultiBoardCtrl {
   multiCloudEval: MultiCloudEval;
 
   constructor(
-    readonly chapters: StudyChaptersCtrl,
+    readonly chapters: StudyChapters,
     readonly redraw: () => void,
     readonly trans: Trans,
     send: SocketSend,
@@ -31,7 +31,7 @@ export class MultiBoardCtrl {
   private chapterFilter = (c: ChapterPreview) => !this.playing() || c.playing;
 
   pager = (): Paginator<ChapterPreview> => {
-    const filteredResults = this.chapters.list().filter(this.chapterFilter);
+    const filteredResults = this.chapters.all().filter(this.chapterFilter);
     const currentPageResults = filteredResults.slice(
       (this.page - 1) * this.maxPerPage,
       this.page * this.maxPerPage,
