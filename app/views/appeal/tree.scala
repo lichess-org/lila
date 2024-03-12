@@ -12,14 +12,14 @@ object tree:
 
   import trans.closingAccountWithdrawAppeal
   import trans.contact.doNotMessageModerators
-  import trans.punishments
+  import trans.appeal
   import views.html.base.navTree.*
   import views.html.base.navTree.Node.*
 
   private def cleanMenu(using PageContext): Branch =
     Branch(
       "root",
-      punishments.cleanAllGood(),
+      appeal.cleanAllGood(),
       List(
         Leaf(
           "clean-other-account",
@@ -68,7 +68,7 @@ object tree:
       "I deny having used external assistance in my games."
     Branch(
       "root",
-      punishments.engineMarked(),
+      appeal.engineMarked(),
       List(
         Leaf(
           "engine-accept",
@@ -98,7 +98,7 @@ object tree:
           )
         )
       ),
-      content = punishments.engineMarkedInfo().some
+      content = appeal.engineMarkedInfo().some
     )
 
   private def boostMenu(using PageContext): Branch =
@@ -111,7 +111,7 @@ object tree:
       "I deny having manipulated my rating. I have never lost rated games on purpose, or played several games with someone who does."
     Branch(
       "root",
-      punishments.boosterMarked(),
+      appeal.boosterMarked(),
       List(
         Leaf(
           "boost-accept",
@@ -130,7 +130,7 @@ object tree:
           )
         )
       ),
-      content = punishments.boosterMarkedInfo().some
+      content = appeal.boosterMarkedInfo().some
     )
 
   private def muteMenu(using PageContext): Branch =
@@ -141,7 +141,7 @@ object tree:
       "I have followed the communication guidelines"
     Branch(
       "root",
-      punishments.accountMuted(),
+      appeal.accountMuted(),
       List(
         Leaf(
           "mute-accept",
@@ -167,7 +167,7 @@ object tree:
           )
         )
       ),
-      content = punishments.accountMuted(a(href := routes.Cms.lonePage("communication-guidelines"))(punishments.communicationGuidelines())).some
+      content = appeal.accountMuted(a(href := routes.Cms.lonePage("communication-guidelines"))(appeal.communicationGuidelines())).some
     )
 
   private def rankBanMenu(using PageContext): Branch =
@@ -176,7 +176,7 @@ object tree:
       "I deny having manipulated my account to get on the leaderboard."
     Branch(
       "root",
-      punishments.excludedFromLeaderboards(),
+      appeal.excludedFromLeaderboards(),
       List(
         Leaf(
           "rankban-accept",
@@ -195,7 +195,7 @@ object tree:
           )
         )
       ),
-      content = punishments.excludedFromLeaderboardsInfo().some
+      content = appeal.excludedFromLeaderboardsInfo().some
     )
 
   private def arenaBanMenu(using PageContext): Branch =
@@ -204,7 +204,7 @@ object tree:
     val deny    = "I have followed fair-play and arenas rules"
     Branch(
       "root",
-      punishments.arenaBanned(),
+      appeal.arenaBanned(),
       List(
         Leaf(
           "arena-ban-no-play",
@@ -240,7 +240,7 @@ object tree:
       "I deny having broken the blog rules."
     Branch(
       "root",
-      punishments.hiddenBlog(),
+      appeal.hiddenBlog(),
       List(
         Leaf(
           "hidden-blog-accept",
@@ -259,7 +259,7 @@ object tree:
           )
         )
       ),
-      content = punishments.hiddenBlogInfo(a(href := routes.Cms.lonePage("blog-etiquette"))(punishments.blogRules())).some
+      content = appeal.hiddenBlogInfo(a(href := routes.Cms.lonePage("blog-etiquette"))(appeal.blogRules())).some
     )
 
   private def prizebanMenu(using PageContext): Branch =
@@ -267,7 +267,7 @@ object tree:
     val deny            = "I reject any allegation of wrongdoing that may have prompted a prizeban."
     Branch(
       "root",
-      punishments.prizeBanned(),
+      appeal.prizeBanned(),
       List(
         Leaf(
           "prizeban-expired",
@@ -288,10 +288,10 @@ object tree:
       )
     )
 
-  private def playbanMenu(using PageContext): Branch =
+  private def playbanMenu(using Context): Branch =
     Branch(
       "root",
-      punishments.playTimeout(),
+      appeal.playTimeout(),
       List(
         Leaf(
           "playban-abort",
@@ -335,7 +335,7 @@ object tree:
     )
 
   private def altScreen(using PageContext) = div(cls := "leaf")(
-    h2(punishments.closedByModerators()),
+    h2(appeal.closedByModerators()),
     div(cls := "content")(
       p("Did you create multiple accounts? If so, remember that you promised not to, on the sign up page."),
       p(
