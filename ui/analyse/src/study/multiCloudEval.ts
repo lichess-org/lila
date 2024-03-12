@@ -9,7 +9,7 @@ import { StudyChapters } from './studyChapters';
 import debounce from 'common/debounce';
 import { ServerNodeMsg } from './interfaces';
 
-interface CloudEval extends EvalHitMulti {
+export interface CloudEval extends EvalHitMulti {
   chances: number;
 }
 export type GetCloudEval = (fen: FEN) => CloudEval | undefined;
@@ -100,3 +100,5 @@ export const renderEvalToggle = (ctrl: MultiCloudEval): VNode =>
 
 export const renderScore = (s: EvalScore) =>
   s.mate ? '#' + s.mate : defined(s.cp) ? `${s.cp >= 0 ? '+' : ''}${s.cp / 100}` : '?';
+
+export const renderScoreAtDepth = (cev: CloudEval) => `${renderScore(cev)} at depth ${cev.depth}`;

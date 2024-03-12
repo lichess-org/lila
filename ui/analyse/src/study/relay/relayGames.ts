@@ -4,14 +4,14 @@ import RelayCtrl from './relayCtrl';
 import { gameLinkAttrs, gameLinksListener } from './relayTourView';
 import { userTitle } from 'common/userLink';
 import { scrollToInnerSelector } from 'common';
-import { renderClock } from '../multiBoard';
+import { renderClock, verticalEvalGauge } from '../multiBoard';
 import { ChapterPreview } from '../interfaces';
 
 export const gamesList = (study: StudyCtrl, relay: RelayCtrl) => {
   const chapters = study.chapters.list.all();
   const cloudEval = study.multiCloudEval.thisIfShowEval();
   return h(
-    'div.relay-games',
+    `div.relay-games${cloudEval ? '.relay-games__eval' : ''}`,
     {
       hook: {
         insert: gameLinksListener(study.setChapter),
@@ -43,16 +43,7 @@ export const gamesList = (study: StudyCtrl, relay: RelayCtrl) => {
               class: { 'relay-game--current': c.id === study.data.chapter.id },
             },
             [
-              // h('span.relay-game__gauge', [
-              //   h('span.relay-game__gauge__black', {
-              //     hook: {
-              //       postpatch() {
-              //         // do the magic here, like in multiboard.ts
-              //       },
-              //     },
-              //   }),
-              //   h('tick'),
-              // ]),
+              cloudEval && verticalEvalGauge(c, cloudEval.getCloudEval),
               h(
                 'span.relay-game__players',
                 [players.black, players.white].map((p, i) => {

@@ -244,6 +244,9 @@
   align-items: stretch;
   gap: 0.5em;
   padding: 0.5em 1em;
+  .relay-games__eval & {
+    padding-left: 0.5em;
+  }
   border-bottom: $border;
   &:hover {
     background: mix($c-primary, $c-bg-box, 10%);
@@ -267,55 +270,11 @@
       @extend %nowrap-ellipsis;
     }
   }
-  &__gauge {
-    $white: #a0a0a0;
-    $black: #606060;
-    @if $theme-light {
-      $white: #fff;
-      $black: #888;
-    }
-    position: relative;
-    flex: 0 0 1em;
-    border: $border;
-    border-left: 0;
-    margin-top: -1px;
-    overflow: hidden;
+  .mini-game__gauge {
     @extend %box-radius;
-
-    &__black {
-      display: none;
-      width: 100%;
-      height: 50%;
-      background: $black;
-      transition: height 1s;
-    }
-
-    opacity: 0.7;
-    background: linear-gradient(to top, $white, $black);
-    &--set {
-      opacity: 1;
-      background: $white;
-      .mini-game__gauge__black {
-        display: block;
-      }
-      &::after {
-        content: '';
-        display: block;
-        position: absolute;
-        top: 0;
-        bottom: 0;
-        #{$start-direction}: 0;
-        #{$end-direction}: 0;
-        box-shadow: 0 0 5px rgba(0, 0, 0, 0.7) inset;
-      }
-      tick {
-        position: absolute;
-        width: 100%;
-        top: 2.5px;
-        opacity: 1;
-        border-bottom: 5px solid fade-out($c-accent, 0.5);
-        height: 50%;
-      }
+    tick {
+      top: 1.5px;
+      border-bottom-width: 3px;
     }
   }
 }

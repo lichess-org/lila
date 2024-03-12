@@ -5,7 +5,13 @@ import { MaybeVNode, VNode, bind, onInsert, looseH as h } from 'common/snabbdom'
 import { opposite as CgOpposite, uciToMove } from 'chessground/util';
 import { ChapterPreview, ChapterPreviewPlayer } from './interfaces';
 import StudyCtrl from './studyCtrl';
-import { GetCloudEval, MultiCloudEval, renderEvalToggle, renderScore } from './multiCloudEval';
+import {
+  CloudEval,
+  GetCloudEval,
+  MultiCloudEval,
+  renderEvalToggle,
+  renderScoreAtDepth,
+} from './multiCloudEval';
 import { Toggle, defined, notNull, toggle } from 'common';
 import { Color } from 'chessops';
 import { StudyChapters } from './studyChapters';
@@ -150,26 +156,26 @@ const makePreview = (study: StudyCtrl, cloudEval?: MultiCloudEval) => (preview: 
             },
           }),
         ),
-        cloudEval && evalGauge(preview, cloudEval?.getCloudEval),
+        cloudEval && verticalEvalGauge(preview, cloudEval.getCloudEval),
       ]),
       boardPlayer(preview, orientation),
     ],
   );
 };
 
-const evalGauge = (chap: ChapterPreview, cloudEval: GetCloudEval): MaybeVNode =>
+export const verticalEvalGauge = (chap: ChapterPreview, cloudEval: GetCloudEval): MaybeVNode =>
   h('span.mini-game__gauge', [
     h('span.mini-game__gauge__black', {
       hook: {
         postpatch(old, vnode) {
-          const prevNodeCloud = old.data?.cloud;
+          const prevNodeCloud: CloudEval | undefined = old.data?.cloud;
           const cev = cloudEval(chap.fen) || prevNodeCloud;
           if (cev?.chances != prevNodeCloud?.chances) {
             const elm = vnode.elm as HTMLElement;
             const gauge = elm.parentNode as HTMLElement;
             elm.style.height = `${((1 - (cev?.chances || 0)) / 2) * 100}%`;
             if (cev) {
-              gauge.title = `${renderScore(cev)} at depth ${cev.depth}`;
+              gauge.title = renderScoreAtDepth(cev);
               gauge.classList.add('mini-game__gauge--set');
             }
           }
