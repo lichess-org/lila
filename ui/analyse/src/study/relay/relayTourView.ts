@@ -26,7 +26,7 @@ export default function (ctrl: AnalyseCtrl): VNode | undefined {
       : relay.tab() == 'boards'
       ? games(relay, study, ctrl)
       : relay.tab() == 'teams'
-      ? teams(relay, ctrl)
+      ? teams(relay, study, ctrl)
       : leaderboard(relay, ctrl);
 
   return h('div.relay-tour', content);
@@ -177,8 +177,10 @@ const games = (relay: RelayCtrl, study: StudyCtrl, ctrl: AnalyseCtrl) => [
   h('div.box.relay-tour__box', [...header(relay, ctrl), multiBoardView(study.multiBoard, study)]),
 ];
 
-const teams = (relay: RelayCtrl, ctrl: AnalyseCtrl) =>
-  relay.teams ? [h('div.box.relay-tour__box', [...header(relay, ctrl), teamsView(relay.teams)])] : [];
+const teams = (relay: RelayCtrl, study: StudyCtrl, ctrl: AnalyseCtrl) =>
+  relay.teams
+    ? [h('div.box.relay-tour__box', [...header(relay, ctrl), teamsView(relay.teams, study.chapters.list)])]
+    : [];
 
 const header = (relay: RelayCtrl, ctrl: AnalyseCtrl) => {
   const d = relay.data,

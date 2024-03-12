@@ -3,10 +3,11 @@ import * as xhr from 'common/xhr';
 import { RoundId } from './interfaces';
 import { ChapterId } from '../interfaces';
 import { Color } from 'chessops';
-import { GetCloudEval, MultiCloudEval } from '../multiCloudEval';
+import { GetCloudEval, MultiCloudEval, renderScore } from '../multiCloudEval';
 import { spinnerVdom as spinner } from 'common/spinner';
 import { playerFed } from '../playerBars';
 import { gameLinkAttrs, gameLinksListener } from './relayTourView';
+import { StudyChapters } from '../studyChapters';
 
 interface TeamWithPoints {
   name: string;
@@ -54,7 +55,7 @@ export default class RelayTeams {
   };
 }
 
-export const teamsView = (ctrl: RelayTeams) =>
+export const teamsView = (ctrl: RelayTeams, chapters: StudyChapters) =>
   h(
     'div.relay-tour__team-table',
     {
@@ -66,10 +67,15 @@ export const teamsView = (ctrl: RelayTeams) =>
         },
       },
     },
-    ctrl.teams ? renderTeams(ctrl.teams, ctrl, ctrl.multiCloudEval.thisIfShowEval()) : [spinner()],
+    ctrl.teams ? renderTeams(ctrl.teams, ctrl, chapters, ctrl.multiCloudEval.thisIfShowEval()) : [spinner()],
   );
 
-const renderTeams = (teams: TeamTable, ctrl: RelayTeams, cloudEval?: MultiCloudEval): MaybeVNodes =>
+const renderTeams = (
+  teams: TeamTable,
+  ctrl: RelayTeams,
+  chapters: StudyChapters,
+  cloudEval?: MultiCloudEval,
+): MaybeVNodes =>
   teams.table.map(row =>
     h('div.relay-tour__team-match', [
       h('div.relay-tour__team-match__teams', [
@@ -95,7 +101,7 @@ const renderTeams = (teams: TeamTable, ctrl: RelayTeams, cloudEval?: MultiCloudE
             },
             [
               playerView(game.players[0]),
-              statusView(game, ctrl.multiCloudEval.showEval() ? ctrl.multiCloudEval.getCloudEval : undefined),
+              statusView(game, chapters, cloudEval?.getCloudEval),
               playerView(game.players[1]),
             ],
           ),
@@ -110,7 +116,7 @@ const playerView = (p: TeamPlayer) =>
     p.rating && h('rating', `${p.rating}`),
   ]);
 
-const statusView = (g: TeamGame, cloudEval?: GetCloudEval) =>
+const statusView = (g: TeamGame, chapters: StudyChapters, cloudEval?: GetCloudEval) =>
   h(
     'span.relay-tour__team-match__game__status',
     g.outcome
@@ -120,28 +126,29 @@ const statusView = (g: TeamGame, cloudEval?: GetCloudEval) =>
         ? '1-0'
         : '0-1'
       : cloudEval
-      ? evalGauge(g, cloudEval)
+      ? evalGauge(g, chapters, cloudEval)
       : '*',
   );
 
-const evalGauge = (game: TeamGame, _cloudEval: GetCloudEval): VNode =>
+const evalGauge = (game: TeamGame, chapters: StudyChapters, cloudEval: GetCloudEval): VNode =>
   h(`span.eval-gauge-horiz.pov-${game.p0Color}`, [
     h(`span.eval-gauge-horiz__black`, {
       hook: {
-        // postpatch(old, vnode) {
-        // const prevNodeCloud = old.data?.cloud;
-        // const cev = (game.fen && cloudEval(game.fen)) || prevNodeCloud;
-        // if (cev?.chances != prevNodeCloud?.chances) {
-        //   const elm = vnode.elm as HTMLElement;
-        //   const gauge = elm.parentNode as HTMLElement;
-        //   elm.style.width = `${((1 - (cev?.chances || 0)) / 2) * 100}%`;
-        //   if (cev) {
-        //     gauge.title = `${renderScore(cev)} at depth ${cev.depth}`;
-        //     gauge.classList.add('eval-gauge-horiz--set');
-        //   }
-        // }
-        // vnode.data!.cloud = cev;
-        // },
+        postpatch(old, vnode) {
+          const prevNodeCloud = old.data?.cloud;
+          const fen = chapters.get(game.id)?.fen;
+          const cev = (fen && cloudEval(fen)) || prevNodeCloud;
+          if (cev?.chances != prevNodeCloud?.chances) {
+            const elm = vnode.elm as HTMLElement;
+            const gauge = elm.parentNode as HTMLElement;
+            elm.style.width = `${((1 - (cev?.chances || 0)) / 2) * 100}%`;
+            if (cev) {
+              gauge.title = `${renderScore(cev)} at depth ${cev.depth}`;
+              gauge.classList.add('eval-gauge-horiz--set');
+            }
+          }
+          vnode.data!.cloud = cev;
+        },
       },
     }),
     h('tick.zero'),
