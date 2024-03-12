@@ -174,7 +174,7 @@ trait GameHelper {
         val klass = cssClass.??(" " + _)
         span(cls := s"user-link$klass")(
           (player.engineConfig, player.name) match {
-            case (Some(ec), _)   => engineText(ec, withRating).replace(" ", "&nbsp;")
+            case (Some(ec), _)   => engineText(ec, withRating)
             case (_, Some(name)) => name
             case _               => User.anonymous
           },
