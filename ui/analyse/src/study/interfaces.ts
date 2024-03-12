@@ -13,6 +13,8 @@ export type ChapterId = string;
 export type TeamName = string;
 export type OutcomeStr = '1-0' | '0-1' | '½-½';
 export type StatusStr = OutcomeStr | '*';
+export type ClockCentis = number;
+export type BothClocks = [ClockCentis?, ClockCentis?];
 
 export interface StudyTour {
   study(ctrl: AnalyseCtrl): void;
@@ -193,7 +195,7 @@ export interface ChapterPreviewPlayer {
   name: string;
   title?: string;
   rating?: number;
-  clock?: number;
+  clock?: ClockCentis;
 }
 
 export type Orientation = 'black' | 'white' | 'auto';
@@ -253,7 +255,7 @@ export interface ServerNodeMsg extends WithWhoAndPos {
 }
 export interface ServerClockMsg extends WithWhoAndPos {
   c?: number;
-  onRelayPath?: boolean;
+  relayClocks?: [ClockCentis, ClockCentis];
 }
 
 export interface WithWho {

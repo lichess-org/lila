@@ -1,12 +1,10 @@
 import { RelayData, LogEvent, RelaySync, RelayRound, RoundId } from './interfaces';
-import { ChapterId, ChapterPreview, ServerClockMsg, StudyChapter } from '../interfaces';
+import { BothClocks, ChapterId, ChapterPreview, ServerClockMsg, StudyChapter } from '../interfaces';
 import { StudyMemberCtrl } from '../studyMembers';
 import { AnalyseSocketSend } from '../../socket';
-import { Prop, Toggle, prop, toggle } from 'common';
+import { Prop, Toggle, notNull, prop, toggle } from 'common';
 import RelayTeams from './relayTeams';
 import { Redraw } from 'common/snabbdom';
-import { fenColor } from 'common/miniBoard';
-import { opposite } from 'chessops/util';
 
 export const relayTabs = ['overview', 'boards', 'teams', 'leaderboard'] as const;
 export type RelayTab = (typeof relayTabs)[number];
@@ -65,9 +63,13 @@ export default class RelayCtrl {
   loading = () => !this.cooldown && this.data.sync?.ongoing;
 
   private findChapterPreview = (id: ChapterId) => this.chapters().find(cp => cp.id == id);
-  setClockToChapterPreview = (msg: ServerClockMsg) => {
+  setClockToChapterPreview = (msg: ServerClockMsg, clocks: BothClocks) => {
     const cp = this.findChapterPreview(msg.p.chapterId);
-    if (cp && cp.players) cp.players[opposite(fenColor(cp.fen))].clock = msg.c;
+    if (cp?.players)
+      ['white', 'black'].forEach((color: Color, i) => {
+        const clock = clocks[i];
+        if (notNull(clock)) cp.players![color].clock = clock;
+      });
   };
 
   roundById = (id: string) => this.data.rounds.find(r => r.id == id);

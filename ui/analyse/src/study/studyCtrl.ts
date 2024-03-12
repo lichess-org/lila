@@ -746,7 +746,7 @@ export default class StudyCtrl {
       const position = d.p,
         who = d.w;
       this.setMemberActive(who);
-      if (d.onRelayPath) this.relay?.setClockToChapterPreview(d);
+      if (d.relayClocks) this.relay?.setClockToChapterPreview(d, d.relayClocks);
       if (this.wrongChapter(d)) return;
       this.ctrl.tree.setClockAt(d.c, position.path);
       this.redraw();

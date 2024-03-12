@@ -3,6 +3,7 @@ package lila.study
 import akka.stream.scaladsl.*
 import chess.format.pgn.Tags
 import chess.format.UciPath
+import chess.{ Centis, ByColor }
 import reactivemongo.akkastream.cursorProducer
 import reactivemongo.api.bson.*
 
@@ -107,18 +108,20 @@ final class ChapterRepo(val coll: AsyncColl)(using Executor, akka.stream.Materia
 
   def setGlyphs(glyphs: chess.format.pgn.Glyphs) = setNodeValue(F.glyphs, glyphs.nonEmpty)
 
-  def setClockAndDenorm(chapter: Chapter, path: UciPath, clock: chess.Centis) =
-    val update = chapter.relay
-      .map(_.path)
-      .exists: relayPath =>
-        // update denorm is clock is on the last move or the previous one
-        (relayPath == path || relayPath.parent == path)
-      .so(chapter.updateDenorm.denorm)
-      .map(denorm => $doc("denorm" -> denorm))
-      .foldLeft($doc(pathToField(path, F.clock) -> clock))(_ ++ _)
+  def setClockAndDenorm(
+      chapter: Chapter,
+      path: UciPath,
+      clock: chess.Centis,
+      denorm: Option[Chapter.BothClocks]
+  ) =
+    val updateNode   = $doc(pathToField(path, F.clock) -> clock)
+    val updateDenorm = denorm.map(clocks => $doc("denorm.clocks" -> clocks))
     coll:
       _.update
-        .one($id(chapter.id) ++ $doc(path.toDbField.$exists(true)), $set(update))
+        .one(
+          $id(chapter.id) ++ $doc(path.toDbField.$exists(true)),
+          $set(updateDenorm.foldLeft(updateNode)(_ ++ _))
+        )
         .void
 
   def forceVariation(force: Boolean) = setNodeValue(F.forceVariation, force.option(true))

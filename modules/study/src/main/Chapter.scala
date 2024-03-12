@@ -29,6 +29,8 @@ case class Chapter(
     createdAt: Instant
 ) extends Chapter.Like:
 
+  import Chapter.BothClocks
+
   def updateDenorm: Chapter =
     val looksLikeGame = tags.names.exists(_.isDefined) || tags.outcome.isDefined
     val newDenorm = looksLikeGame.option:
@@ -67,8 +69,14 @@ case class Chapter(
   def toggleGlyph(glyph: Glyph, path: UciPath): Option[Chapter] =
     updateRoot(_.toggleGlyphAt(glyph, path))
 
-  def setClock(clock: Option[Centis], path: UciPath): Option[Chapter] =
+  def setClock(
+      clock: Option[Centis],
+      path: UciPath
+  ): Option[(Chapter, Option[BothClocks])] =
     updateRoot(_.setClockAt(clock, path))
+      .map(_.updateDenorm)
+      .map: chapter =>
+        chapter -> chapter.denorm.map(_.clocks).filter(chapter.denorm != _)
 
   def forceVariation(force: Boolean, path: UciPath): Option[Chapter] =
     updateRoot(_.forceVariationAt(force, path))
@@ -149,9 +157,11 @@ object Chapter:
             tags.clockConfig.fold(40)(_.limitInMinutes.toInt / 2 atLeast 15 atMost 60)
     def looksOver = !looksAlive
 
+  type BothClocks = ByColor[Option[Centis]]
+
   /* Last position of the main line.
    * Used for chapter previews. */
-  case class LastPosDenorm(fen: Fen.Epd, uci: Option[Uci], clocks: ByColor[Option[Centis]])
+  case class LastPosDenorm(fen: Fen.Epd, uci: Option[Uci], clocks: BothClocks)
 
   case class IdName(@Key("_id") id: StudyChapterId, name: StudyChapterName)
 

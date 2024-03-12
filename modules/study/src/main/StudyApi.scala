@@ -447,13 +447,12 @@ final class StudyApi(
       who: Who
   ): Funit =
     sc.chapter.setClock(clock.some, position.path) match
-      case Some(newChapter) =>
+      case Some(chapter, newCurrentClocks) =>
         studyRepo.updateNow(sc.study)
-        val onRelayPath = sc.chapter.relay.exists(_.path == position.path)
         chapterRepo
-          .setClockAndDenorm(newChapter, position.path, clock)
+          .setClockAndDenorm(chapter, position.path, clock, newCurrentClocks)
           .andDo:
-            sendTo(sc.study.id)(_.setClock(position, clock.some, onRelayPath))
+            sendTo(sc.study.id)(_.setClock(position, clock.some, newCurrentClocks))
       case None =>
         fufail(s"Invalid setClock $position $clock").andDo:
           reloadSriBecauseOf(sc.study, who.sri, position.chapterId)

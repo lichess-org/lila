@@ -1,7 +1,7 @@
 package lila.study
 
 import actorApi.Who
-import chess.Centis
+import chess.{ Color, Centis }
 import chess.format.pgn.{ Glyph, Glyphs }
 import chess.format.UciPath
 import play.api.libs.json.*
@@ -361,7 +361,7 @@ final private class StudySocket(
         "w" -> who
       )
     )
-  def setClock(pos: Position.Ref, clock: Option[Centis], onRelayPath: Boolean) =
+  def setClock(pos: Position.Ref, clock: Option[Centis], relayDenorm: Option[Chapter.BothClocks]) =
     version(
       "clock",
       Json
@@ -369,7 +369,11 @@ final private class StudySocket(
           "p" -> pos,
           "c" -> clock
         )
-        .add("onRelayPath", onRelayPath)
+        .add(
+          "relayClocks",
+          relayDenorm.map: clocks =>
+            Json.arr(clocks.white, clocks.black)
+        )
     )
   def forceVariation(pos: Position.Ref, force: Boolean, who: Who) =
     version(

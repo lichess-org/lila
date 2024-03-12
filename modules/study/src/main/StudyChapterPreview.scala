@@ -68,7 +68,7 @@ object ChapterPreview:
 
   case class Player(name: PlayerName, title: Option[PlayerTitle], rating: Option[Elo], clock: Option[Centis])
 
-  def players(clocks: ByColor[Option[Centis]])(tags: Tags): Option[Players] =
+  def players(clocks: Chapter.BothClocks)(tags: Tags): Option[Players] =
     val names = tags.names
     names
       .exists(_.isDefined)
