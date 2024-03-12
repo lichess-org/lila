@@ -325,17 +325,18 @@ object BSONHandlers:
     Macros.handler
   given BSONDocumentHandler[Chapter.ServerEval] = Macros.handler
 
+  private val clockPair: BSONHandler[PairOf[Option[Centis]]] = optionPairHandler
+  given BSONHandler[Chapter.BothClocks] = clockPair.as[Chapter.BothClocks](ByColor.fromPair, _.toPair)
   given BSON[Chapter.LastPosDenorm] with
-    given BSONHandler[PairOf[Option[Centis]]] = optionPairHandler
     def reads(r: Reader) = Chapter.LastPosDenorm(
       fen = r.getO[Fen.Epd]("fen") | Fen.initial,
       uci = r.getO[Uci]("uci"),
-      clocks = r.getO[PairOf[Option[Centis]]]("clocks").so(ByColor.fromPair)
+      clocks = ~r.getO[Chapter.BothClocks]("clocks")
     )
     def writes(w: Writer, l: Chapter.LastPosDenorm) = $doc(
       "fen"    -> l.fen.some.filterNot(Fen.Epd.isInitial),
       "uci"    -> l.uci,
-      "clocks" -> l.clocks.some.filter(_.exists(_.isDefined)).map(_.toPair)
+      "clocks" -> l.clocks.some.filter(_.exists(_.isDefined))
     )
 
   given BSONDocumentHandler[Chapter] = Macros.handler
