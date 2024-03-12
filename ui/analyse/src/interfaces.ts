@@ -6,7 +6,7 @@ import { StudyPracticeData, Goal as PracticeGoal } from './study/practice/interf
 import { RelayData } from './study/relay/interfaces';
 import { ChatCtrl } from 'chat';
 import { ExplorerOpts } from './explorer/interfaces';
-import { StudyData } from './study/interfaces';
+import { StudyDataFromServer } from './study/interfaces';
 import { AnalyseSocketSend } from './socket';
 import { ExternalEngineInfo } from 'ceval';
 import * as Prefs from 'common/prefs';
@@ -146,7 +146,7 @@ export interface AnalyseOpts {
   explorer: ExplorerOpts;
   socketSend: AnalyseSocketSend;
   trans: Trans;
-  study?: StudyData;
+  study?: StudyDataFromServer;
   tagTypes?: string;
   practice?: StudyPracticeData;
   relay?: RelayData;

@@ -1,8 +1,8 @@
-import { StudyChapterConfig, ReloadData, ChapterPreview } from './interfaces';
+import { StudyChapterConfig, ReloadData } from './interfaces';
 import * as xhr from 'common/xhr';
 
 export const reload = (baseUrl: string, id: string, chapterId?: string): Promise<ReloadData> => {
-  let url = '/' + baseUrl + '/' + id;
+  let url = `/${baseUrl}/${id}`;
   if (chapterId) url += '/' + chapterId;
   return xhr.json(url);
 };
@@ -13,7 +13,7 @@ export const glyphs = () =>
   xhr.json(`/study/glyphs/${document.documentElement!.lang}.json`, { cache: 'default' });
 
 export const chapterConfig = (studyId: string, chapterId: string): Promise<StudyChapterConfig> =>
-  xhr.json(`/study/${studyId}/${chapterId}/meta`);
+  xhr.json(`/study/${studyId}/${chapterId}/config`);
 
 export const practiceComplete = (chapterId: string, nbMoves: number) =>
   xhr.text(`/practice/complete/${chapterId}/${nbMoves}`, {
@@ -25,10 +25,3 @@ export const importPgn = (studyId: string, data: any) =>
     method: 'POST',
     body: xhr.form(data),
   });
-
-export const multiBoard = (
-  studyId: string,
-  page: number,
-  playing: boolean,
-): Promise<Paginator<ChapterPreview>> =>
-  xhr.json(`/study/${studyId}/multi-board?page=${page}&playing=${playing}`);

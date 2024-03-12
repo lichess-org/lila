@@ -44,8 +44,9 @@ class StudyIntegrationTest extends munit.FunSuite:
       None,
       None,
       None,
+      None,
       studyInstant
-    )
+    ).updateDenorm
 
   def defaultNewChapter(variant: Variant): NewChapter =
     val root = NewRoot.default(variant)

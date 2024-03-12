@@ -56,8 +56,8 @@ object BSONHandlers:
     x => BSONString(x.toString)
   )
 
-  import Study.IdName
-  given idNameHandler: BSONDocumentHandler[IdName] = Macros.handler
+  given studyIdNameHandler: BSONDocumentHandler[Study.IdName]     = Macros.handler
+  given chapterIdNameHandler: BSONDocumentHandler[Chapter.IdName] = Macros.handler
 
   given BSONHandler[Comment.Author] = quickHandler[Comment.Author](
     {
@@ -317,14 +317,34 @@ object BSONHandlers:
   )
   given (using handler: BSONHandler[List[Tag]]): BSONHandler[Tags] = handler.as[Tags](Tags.apply, _.value)
   private given BSONDocumentHandler[Chapter.Setup]                 = Macros.handler
-  given BSONDocumentHandler[Chapter.Relay]                         = Macros.handler
-  given BSONDocumentHandler[Chapter.ServerEval]                    = Macros.handler
-  given BSONDocumentHandler[Chapter]                               = Macros.handler
-  given BSONDocumentHandler[NewChapter]                            = Macros.handler
   given BSONHandler[Option[FideId]] = quickHandler(
     { case BSONInteger(v) => (v > 0).option(FideId(v)) },
     id => BSONInteger(id.so(_.value))
   )
+  given BSONDocumentHandler[Chapter.Relay] =
+    given BSONHandler[Option[FideId]] = quickHandler(
+      { case BSONInteger(v) => (v > 0).option(FideId(v)) },
+      id => BSONInteger(id.so(_.value))
+    )
+    Macros.handler
+  given BSONDocumentHandler[Chapter.ServerEval] = Macros.handler
+
+  private val clockPair: BSONHandler[PairOf[Option[Centis]]] = optionPairHandler
+  given BSONHandler[Chapter.BothClocks] = clockPair.as[Chapter.BothClocks](ByColor.fromPair, _.toPair)
+  given BSON[Chapter.LastPosDenorm] with
+    def reads(r: Reader) = Chapter.LastPosDenorm(
+      fen = r.getO[Fen.Epd]("fen") | Fen.initial,
+      uci = r.getO[Uci]("uci"),
+      clocks = ~r.getO[Chapter.BothClocks]("clocks")
+    )
+    def writes(w: Writer, l: Chapter.LastPosDenorm) = $doc(
+      "fen"    -> l.fen.some.filterNot(Fen.Epd.isInitial),
+      "uci"    -> l.uci,
+      "clocks" -> l.clocks.some.filter(_.exists(_.isDefined))
+    )
+
+  given BSONDocumentHandler[Chapter] = Macros.handler
+  given BSONDocumentHandler[NewChapter]                            = Macros.handler
 
   given BSONDocumentReader[Chapter.RelayAndTags] with
     def readDocument(doc: Bdoc) = for
@@ -406,18 +426,3 @@ object BSONHandlers:
           contributors = doc.getAsOpt[StudyMembers]("members").so(_.contributorIds)
         )
       )
-
-  given BSONDocumentReader[Chapter.Metadata] with
-    def readDocument(doc: Bdoc) = for
-      id    <- doc.getAsTry[StudyChapterId]("_id")
-      name  <- doc.getAsTry[StudyChapterName]("name")
-      setup <- doc.getAsTry[Chapter.Setup]("setup")
-      tags    = ~doc.getAsOpt[List[String]]("tags")
-      outcome = tags.find(_.startsWith("Result:")).map(_.drop(7)).map(Outcome.fromResult)
-      teams =
-        tags
-          .find(_.startsWith("WhiteTeam:"))
-          .map(_.drop(10))
-          .zip(tags.find(_.startsWith("BlackTeam:")).map(_.drop(10)))
-      hasRelayPath = doc.getAsOpt[Bdoc]("relay").flatMap(_.string("path")).exists(_.nonEmpty)
-    yield Chapter.Metadata(id, name, setup, outcome, teams, hasRelayPath)

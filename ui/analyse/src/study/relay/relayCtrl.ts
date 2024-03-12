@@ -1,19 +1,17 @@
 import { RelayData, LogEvent, RelaySync, RelayRound, RoundId } from './interfaces';
-import { ChapterId, StudyChapter, StudyChapterRelay } from '../interfaces';
-import { isFinished } from '../studyChapters';
+import { BothClocks, ChapterId, ChapterPreview, ServerClockMsg, StudyChapter } from '../interfaces';
 import { StudyMemberCtrl } from '../studyMembers';
 import { AnalyseSocketSend } from '../../socket';
-import { Prop, Toggle, prop, toggle } from 'common';
+import { Prop, Toggle, notNull, prop, toggle } from 'common';
 import RelayTeams from './relayTeams';
 import { Redraw } from 'common/snabbdom';
 
-export const relayTabs = ['overview', 'games', 'teams', 'schedule', 'leaderboard'] as const;
+export const relayTabs = ['overview', 'boards', 'teams', 'leaderboard'] as const;
 export type RelayTab = (typeof relayTabs)[number];
 
 export default class RelayCtrl {
   log: LogEvent[] = [];
   cooldown = false;
-  clockInterval?: number;
   tourShow: Toggle;
   tab: Prop<RelayTab>;
   teams?: RelayTeams;
@@ -25,13 +23,13 @@ export default class RelayCtrl {
     readonly redraw: Redraw,
     readonly members: StudyMemberCtrl,
     chapter: StudyChapter,
+    private readonly chapters: Prop<ChapterPreview[]>,
     looksNew: boolean,
     setChapter: (id: ChapterId) => void,
   ) {
-    this.applyChapterRelay(chapter, chapter.relay);
     this.tourShow = toggle((location.pathname.match(/\//g) || []).length < 5);
     const locationTab = location.hash.replace(/^#/, '') as RelayTab;
-    const initialTab = relayTabs.includes(locationTab) ? locationTab : looksNew ? 'overview' : 'games';
+    const initialTab = relayTabs.includes(locationTab) ? locationTab : looksNew ? 'overview' : 'boards';
     this.tab = prop<RelayTab>(initialTab);
     this.teams = data.tour.teamTable
       ? new RelayTeams(
@@ -43,7 +41,19 @@ export default class RelayCtrl {
           () => chapter.setup.variant.key,
         )
       : undefined;
+    setInterval(this.redraw, 1000);
   }
+
+  openTab = (t: RelayTab) => {
+    this.tab(t);
+    this.tourShow(true);
+    this.redraw();
+  };
+
+  lastMoveAt = (id: ChapterId): number | undefined => {
+    const cp = this.chapters().find(c => c.id == id);
+    return cp?.lastMoveAt;
+  };
 
   setSync = (v: boolean) => {
     this.send('relaySync', v);
@@ -52,12 +62,14 @@ export default class RelayCtrl {
 
   loading = () => !this.cooldown && this.data.sync?.ongoing;
 
-  applyChapterRelay = (c: StudyChapter, r?: StudyChapterRelay) => {
-    if (this.clockInterval) clearInterval(this.clockInterval);
-    if (r) {
-      c.relay = this.convertDate(r);
-      if (!isFinished(c)) this.clockInterval = setInterval(this.redraw, 1000);
-    }
+  private findChapterPreview = (id: ChapterId) => this.chapters().find(cp => cp.id == id);
+  setClockToChapterPreview = (msg: ServerClockMsg, clocks: BothClocks) => {
+    const cp = this.findChapterPreview(msg.p.chapterId);
+    if (cp?.players)
+      ['white', 'black'].forEach((color: Color, i) => {
+        const clock = clocks[i];
+        if (notNull(clock)) cp.players![color].clock = clock;
+      });
   };
 
   roundById = (id: string) => this.data.rounds.find(r => r.id == id);
@@ -76,13 +88,6 @@ export default class RelayCtrl {
     // when jumping from a tour tab to another page, remember which tour tab we were on.
     if (!this.tourShow() && location.href.includes('#')) history.pushState({}, '', url);
     else history.replaceState({}, '', url);
-  };
-
-  private convertDate = (r: StudyChapterRelay): StudyChapterRelay => {
-    if (typeof r.secondsSinceLastMove !== 'undefined' && !r.lastMoveAt) {
-      r.lastMoveAt = Date.now() - r.secondsSinceLastMove * 1000;
-    }
-    return r;
   };
 
   private socketHandlers = {

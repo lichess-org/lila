@@ -68,8 +68,7 @@ object RelayTourForm:
           teams = teams,
           spotlight = spotlight.filterNot(_.isEmpty)
         )
-        .giveOfficialToBroadcasterIf:
-          Granter(_.StudyAdmin) && tour.ownerId.is(me)
+        .giveOfficialToBroadcasterIf(Granter(_.StudyAdmin))
 
     def make(using me: Me) =
       RelayTour(

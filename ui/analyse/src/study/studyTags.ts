@@ -10,7 +10,7 @@ import StudyCtrl from './studyCtrl';
 export class TagsForm {
   selectedType = prop<string | undefined>(undefined);
   constructor(
-    private readonly root: StudyCtrl, // TODO should be root: StudyCtrl
+    private readonly root: StudyCtrl,
     readonly types: string[],
   ) {}
 
