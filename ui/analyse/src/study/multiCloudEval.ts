@@ -5,8 +5,9 @@ import { povChances } from 'ceval/src/winningChances';
 import { bind, looseH as h } from 'common/snabbdom';
 import { VNode } from 'snabbdom';
 import { FEN } from 'chessground/types';
-import { ChapterId } from './interfaces';
 import { StudyChapters } from './studyChapters';
+import debounce from 'common/debounce';
+import { ServerNodeMsg } from './interfaces';
 
 interface CloudEval extends EvalHitMulti {
   chances: number;
@@ -16,14 +17,15 @@ export type GetCloudEval = (fen: FEN) => CloudEval | undefined;
 export class MultiCloudEval {
   showEval: Prop<boolean>;
 
-  private observed: Set<ChapterId> = new Set();
+  private observed: Set<HTMLElement> = new Set();
   private observer = new IntersectionObserver(
     entries =>
       entries.forEach(entry => {
-        const id = (entry.target as HTMLElement).dataset['id']!;
-        if (entry.isIntersecting) this.observed.add(id);
-        else this.observed.delete(id);
-        console.log(this.observed.size);
+        const el = entry.target as HTMLElement;
+        if (entry.isIntersecting) {
+          this.observed.add(el);
+          this.requestNewEvals();
+        } else this.observed.delete(el);
       }),
     { threshold: 0.2 },
   );
@@ -36,19 +38,24 @@ export class MultiCloudEval {
   ) {
     this.showEval = storedBooleanPropWithEffect('analyse.multiboard.showEval', true, () => {
       this.redraw();
-      this.sendRequest();
+      this.requestNewEvals();
     });
-
-    setInterval(() => console.log(this.observed), 2000);
   }
 
   thisIfShowEval = (): MultiCloudEval | undefined => (this.showEval() ? this : undefined);
 
   observe = (el: HTMLElement) => this.observer.observe(el);
 
-  sendRequest = () => {
-    const chapters = this.chapters.all().filter(c => this.observed.has(c.id));
-    if (chapters.length && this.showEval()) {
+  private observedIds = () => new Set(Array.from(this.observed).map(el => el.dataset.id));
+
+  private sendRequestNow = () => {
+    if (!this.showEval()) return;
+    const ids = this.observedIds();
+    const chapters = this.chapters
+      .all()
+      .filter(c => ids.has(c.id))
+      .slice(0, 32);
+    if (chapters.length) {
       const variant = chapters[0].variant; // lila-ws only supports one variant for all fens
       this.send('evalGetMulti', {
         fens: chapters.map(c => c.fen),
@@ -56,6 +63,8 @@ export class MultiCloudEval {
       });
     }
   };
+
+  private requestNewEvals = debounce(this.sendRequestNow, 1000);
 
   onCloudEval = (d: EvalHitMulti) => {
     this.cloudEvals.set(d.fen, { ...d, chances: povChances('white', d) });
@@ -69,6 +78,10 @@ export class MultiCloudEval {
   };
 
   getCloudEval: GetCloudEval = (fen: FEN): CloudEval | undefined => this.cloudEvals.get(fen);
+
+  addNode = (d: ServerNodeMsg) => {
+    if (this.observedIds().has(d.p.chapterId)) this.requestNewEvals();
+  };
 }
 
 export const renderEvalToggle = (ctrl: MultiCloudEval): VNode =>

@@ -51,7 +51,6 @@ export default class RelayTeams {
     }
     this.teams = await xhr.json(`/broadcast/${this.roundId}/teams`);
     this.redraw();
-    this.multiCloudEval.sendRequest();
   };
 }
 
