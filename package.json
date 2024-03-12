@@ -34,12 +34,14 @@
     "chessground": "^9.0.4",
     "eslint": "^8.54.0",
     "lint-staged": "^15.1.0",
+    "onchange": "^7.1.0",
     "prettier": "3.0.2",
     "typescript": "^5.2.2"
   },
   "scripts": {
     "format": "prettier --write --log-level warn .",
     "check-format": "prettier --check --log-level warn .",
+    "watch-format": "onchange \"**/*\" -- prettier --write --log-level warn {{changed}}",
     "add-hooks": "git config --add core.hooksPath bin/git-hooks",
     "remove-hooks": "git config --unset core.hooksPath bin/git-hooks",
     "lint": "eslint . --ext .ts",
