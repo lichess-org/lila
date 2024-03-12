@@ -66,6 +66,6 @@ $forumPost
     """
 
   def newPermissions(by: UserId, team: LightTeam, perms: Iterable[String], baseUrl: BaseUrl) =
-    s"""@${by} has changed your leader permissions in the team "${team.name}".
+    s"""@$by has changed your leader permissions in the team "${team.name}".
 Your new permissions are: ${perms.mkString(", ")}.
 $baseUrl/team/${team.id}"""
