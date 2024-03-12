@@ -73,7 +73,7 @@ final class RelayTeamTable(
 
     import chess.{ Color, Outcome }
 
-    case class Chapter(id: StudyChapterId, tags: Tags, fen: Fen.Epd)
+    case class Chapter(id: StudyChapterId, tags: Tags)
 
     def makeJson(studyId: StudyId): Fu[JsonStr] = for
       chapters    <- aggregateChapters(studyId)
@@ -82,6 +82,7 @@ final class RelayTeamTable(
       import json.given
       JsonStr(Json.stringify(Json.obj("table" -> makeTable(chapters, federations))))
 
+    // #TODO is this still necessary now that we have chapter previews?
     def aggregateChapters(studyId: StudyId, max: Int = 300): Fu[List[Chapter]] =
       import reactivemongo.api.bson.*
       import lila.db.dsl.{ *, given }
@@ -107,7 +108,7 @@ function(root, tags) {
       ([node, path], i) => root[i].p > node.p && i.startsWith(path) ? [root[i], i] : [node, path],
       [root['_'], '']
     )[0] : root['_'];
-  return { fen: node.f, tags };
+  return { tags };
 }""".stripMargin
                     )
             )
@@ -117,9 +118,8 @@ function(root, tags) {
             doc  <- r
             id   <- doc.getAsOpt[StudyChapterId]("_id")
             comp <- doc.getAsOpt[Bdoc]("comp")
-            fen  <- comp.getAsOpt[Fen.Epd]("fen")
             tags <- comp.getAsOpt[Tags]("tags")
-          yield Chapter(id, tags, fen)
+          yield Chapter(id, tags)
 
     case class TeamWithPoints(name: String, points: Float = 0):
       def add(o: Option[Outcome], as: Color) =
@@ -143,8 +143,7 @@ function(root, tags) {
         id: StudyChapterId,
         players: Pair[TeamPlayer],
         p0Color: Color,
-        outcome: Option[Outcome],
-        fen: Option[Fen.Epd]
+        outcome: Option[Outcome]
     ):
       def ratingSum = players.a.rating.so(_.value) + players.b.rating.so(_.value)
     case class TeamMatch(teams: Pair[TeamWithPoints], games: List[TeamGame]):
@@ -153,8 +152,7 @@ function(root, tags) {
         val t0Color = Color.fromWhite(playerAndTeam.a._2 == teams.a.name)
         val sorted  = if t0Color.white then playerAndTeam else playerAndTeam.reverse
         copy(
-          games =
-            TeamGame(chap.id, sorted.map(_._1), t0Color, outcome, outcome.isEmpty.option(chap.fen)) :: games,
+          games = TeamGame(chap.id, sorted.map(_._1), t0Color, outcome) :: games,
           teams = teams.bimap(_.add(outcome, t0Color), _.add(outcome, !t0Color))
         )
 

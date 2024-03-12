@@ -1,13 +1,12 @@
-import { MaybeVNodes, Redraw, VNode, looseH as h } from 'common/snabbdom';
+import { MaybeVNodes, Redraw, VNode, onInsert, looseH as h } from 'common/snabbdom';
 import * as xhr from 'common/xhr';
 import { RoundId } from './interfaces';
 import { ChapterId } from '../interfaces';
 import { Color } from 'chessops';
-import { GetCloudEval, MultiCloudEval, renderScore } from '../multiCloudEval';
+import { GetCloudEval, MultiCloudEval } from '../multiCloudEval';
 import { spinnerVdom as spinner } from 'common/spinner';
 import { playerFed } from '../playerBars';
-import { gameLinkProps, gameLinksListener } from './relayTourView';
-import { FEN } from 'chessground/types';
+import { gameLinkAttrs, gameLinksListener } from './relayTourView';
 
 interface TeamWithPoints {
   name: string;
@@ -23,7 +22,6 @@ interface TeamGame {
   id: ChapterId;
   players: [TeamPlayer, TeamPlayer];
   p0Color: Color;
-  fen?: FEN;
   outcome?: Color | 'draw';
 }
 interface TeamRow {
@@ -69,10 +67,10 @@ export const teamsView = (ctrl: RelayTeams) =>
         },
       },
     },
-    ctrl.teams ? renderTeams(ctrl.teams, ctrl) : [spinner()],
+    ctrl.teams ? renderTeams(ctrl.teams, ctrl, ctrl.multiCloudEval.thisIfShowEval()) : [spinner()],
   );
 
-const renderTeams = (teams: TeamTable, ctrl: RelayTeams): MaybeVNodes =>
+const renderTeams = (teams: TeamTable, ctrl: RelayTeams, cloudEval?: MultiCloudEval): MaybeVNodes =>
   teams.table.map(row =>
     h('div.relay-tour__team-match', [
       h('div.relay-tour__team-match__teams', [
@@ -87,11 +85,21 @@ const renderTeams = (teams: TeamTable, ctrl: RelayTeams): MaybeVNodes =>
       h(
         'div.relay-tour__team-match__games',
         row.games.map(game =>
-          h('a.relay-tour__team-match__game', gameLinkProps(ctrl.roundPath, game), [
-            playerView(game.players[0]),
-            statusView(game, ctrl.multiCloudEval.showEval() ? ctrl.multiCloudEval.getCloudEval : undefined),
-            playerView(game.players[1]),
-          ]),
+          h(
+            'a.relay-tour__team-match__game',
+            {
+              attrs: {
+                ...gameLinkAttrs(ctrl.roundPath, game),
+                'data-id': game.id,
+              },
+              hook: cloudEval && onInsert(el => cloudEval.observe(el)),
+            },
+            [
+              playerView(game.players[0]),
+              statusView(game, ctrl.multiCloudEval.showEval() ? ctrl.multiCloudEval.getCloudEval : undefined),
+              playerView(game.players[1]),
+            ],
+          ),
         ),
       ),
     ]),
@@ -117,24 +125,24 @@ const statusView = (g: TeamGame, cloudEval?: GetCloudEval) =>
       : '*',
   );
 
-const evalGauge = (game: TeamGame, cloudEval: GetCloudEval): VNode =>
+const evalGauge = (game: TeamGame, _cloudEval: GetCloudEval): VNode =>
   h(`span.eval-gauge-horiz.pov-${game.p0Color}`, [
     h(`span.eval-gauge-horiz__black`, {
       hook: {
-        postpatch(old, vnode) {
-          const prevNodeCloud = old.data?.cloud;
-          const cev = (game.fen && cloudEval(game.fen)) || prevNodeCloud;
-          if (cev?.chances != prevNodeCloud?.chances) {
-            const elm = vnode.elm as HTMLElement;
-            const gauge = elm.parentNode as HTMLElement;
-            elm.style.width = `${((1 - (cev?.chances || 0)) / 2) * 100}%`;
-            if (cev) {
-              gauge.title = `${renderScore(cev)} at depth ${cev.depth}`;
-              gauge.classList.add('eval-gauge-horiz--set');
-            }
-          }
-          vnode.data!.cloud = cev;
-        },
+        // postpatch(old, vnode) {
+        // const prevNodeCloud = old.data?.cloud;
+        // const cev = (game.fen && cloudEval(game.fen)) || prevNodeCloud;
+        // if (cev?.chances != prevNodeCloud?.chances) {
+        //   const elm = vnode.elm as HTMLElement;
+        //   const gauge = elm.parentNode as HTMLElement;
+        //   elm.style.width = `${((1 - (cev?.chances || 0)) / 2) * 100}%`;
+        //   if (cev) {
+        //     gauge.title = `${renderScore(cev)} at depth ${cev.depth}`;
+        //     gauge.classList.add('eval-gauge-horiz--set');
+        //   }
+        // }
+        // vnode.data!.cloud = cev;
+        // },
       },
     }),
     h('tick.zero'),

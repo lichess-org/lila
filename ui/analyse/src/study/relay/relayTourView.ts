@@ -156,11 +156,9 @@ const roundSelect = (relay: RelayCtrl, study: StudyCtrl) =>
     ),
   ]);
 
-export const gameLinkProps = (roundPath: () => string, game: { id: ChapterId }) => ({
-  attrs: {
-    href: `${roundPath()}/${game.id}`,
-    'data-id': game.id,
-  },
+export const gameLinkAttrs = (roundPath: () => string, game: { id: ChapterId }) => ({
+  href: `${roundPath()}/${game.id}`,
+  'data-id': game.id,
 });
 export const gameLinksListener = (setChapter: (id: ChapterId) => void) => (vnode: VNode) =>
   (vnode.elm as HTMLElement).addEventListener(

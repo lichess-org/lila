@@ -16,8 +16,8 @@ export type GetCloudEval = (fen: FEN) => CloudEval | undefined;
 export class MultiCloudEval {
   showEval: Prop<boolean>;
 
-  observed: Set<ChapterId> = new Set();
-  observer = new IntersectionObserver(
+  private observed: Set<ChapterId> = new Set();
+  private observer = new IntersectionObserver(
     entries =>
       entries.forEach(entry => {
         const id = (entry.target as HTMLElement).dataset['id']!;
@@ -27,7 +27,6 @@ export class MultiCloudEval {
       }),
     { threshold: 0.2 },
   );
-
   private cloudEvals: Map<FEN, CloudEval> = new Map();
 
   constructor(
@@ -42,6 +41,10 @@ export class MultiCloudEval {
 
     setInterval(() => console.log(this.observed), 2000);
   }
+
+  thisIfShowEval = (): MultiCloudEval | undefined => (this.showEval() ? this : undefined);
+
+  observe = (el: HTMLElement) => this.observer.observe(el);
 
   sendRequest = () => {
     const chapters = this.chapters.all().filter(c => this.observed.has(c.id));
