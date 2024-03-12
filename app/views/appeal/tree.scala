@@ -98,7 +98,7 @@ object tree:
           )
         )
       ),
-      content = appeal.engineMarkedInfo().some
+      content = appeal.engineMarkedInfo(a(href := routes.Cms.lonePage("fair-play"))(appeal.fairPlay())).some
     )
 
   private def boostMenu(using PageContext): Branch =

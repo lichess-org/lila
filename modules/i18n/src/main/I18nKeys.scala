@@ -1519,6 +1519,7 @@ object I18nKeys:
     val `playTimeout` = I18nKey("appeal:playTimeout")
     val `communicationGuidelines` = I18nKey("appeal:communicationGuidelines")
     val `blogRules` = I18nKey("appeal:blogRules")
+    val `fairPlay` = I18nKey("appeal:fairPlay")
 
   object patron:
     val `donate` = I18nKey("patron:donate")
