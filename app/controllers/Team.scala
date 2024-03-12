@@ -164,7 +164,7 @@ final class Team(env: Env, apiC: => Api) extends LilaController(env):
   }
 
   def permissions(id: TeamId) = AuthBody { ctx ?=> me ?=>
-    WithOwnedTeamEnabled(id, _.Admin): team =>
+    WithOwnedTeamEnabledWithModInfo(id, _.Admin): (team, asMod) =>
       api
         .withLeaders(team)
         .flatMap: team =>
@@ -182,7 +182,12 @@ final class Team(env: Env, apiC: => Api) extends LilaController(env):
                         env.msg.api.systemPost(
                           change.user,
                           lila.msg.MsgPreset
-                            .newPermissions(me, team.team.light, change.perms.map(_.name), env.net.baseUrl)
+                            .newPermissions(
+                              if asMod then UserModel.lichessId else me.userId,
+                              team.team.light,
+                              change.perms.map(_.name),
+                              env.net.baseUrl
+                            )
                         )
                       .inject:
                         Redirect(routes.Team.leaders(team.id)).flashSuccess
@@ -491,19 +496,31 @@ final class Team(env: Env, apiC: => Api) extends LilaController(env):
   }
 
   private def WithOwnedTeam(teamId: TeamId, perm: TeamSecurity.Permission.Selector)(
-      f: TeamModel => Fu[Result]
+      f: (TeamModel, AsMod) => Fu[Result]
   )(using Context): Fu[Result] =
     Found(api.team(teamId)): team =>
-      ctx.user
-        .so(api.isGranted(team.id, _, perm))
-        .flatMap:
-          if _ then f(team)
+      ctx.userId
+        .so(api.hasPerm(team.id, _, perm))
+        .flatMap: isGrantedLeader =>
+          val asMod = !isGrantedLeader && isGrantedOpt(_.ManageTeam)
+          if isGrantedLeader || asMod then f(team, asMod)
           else Redirect(routes.Team.show(team.id))
+
+  private def WithOwnedTeamEnabledWithModInfo(
+      teamId: TeamId,
+      perm: TeamSecurity.Permission.Selector
+  )(f: (TeamModel, AsMod) => Fu[Result])(using Context): Fu[Result] =
+    WithOwnedTeam(teamId, perm): (team, asMod) =>
+      if team.enabled || isGrantedOpt(_.ManageTeam) then f(team, asMod)
+      else notFound
 
   private def WithOwnedTeamEnabled(
       teamId: TeamId,
       perm: TeamSecurity.Permission.Selector
   )(f: TeamModel => Fu[Result])(using Context): Fu[Result] =
-    WithOwnedTeam(teamId, perm): team =>
+    WithOwnedTeamEnabledWithModInfo(teamId, perm): (team, _) =>
       if team.enabled || isGrantedOpt(_.ManageTeam) then f(team)
       else notFound
+
+  opaque type AsMod = Boolean
+  object AsMod extends TotalWrapper[AsMod, Boolean]
