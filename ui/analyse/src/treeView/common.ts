@@ -90,14 +90,10 @@ export function nodeClasses(ctx: Ctx, node: Tree.Node, path: Tree.Path): NodeCla
   };
 }
 
-export function findCurrentPath(c: AnalyseCtrl): Tree.Path | undefined {
-  let cur;
-  return (
-    (!c.synthetic && playable(c.data) && c.initialPath) ||
-    (c.retro && (cur = c.retro.current()) && cur.prev.path) ||
-    (c.study && c.study.data.chapter.relay && c.study.data.chapter.relay.path)
-  );
-}
+export const findCurrentPath = (c: AnalyseCtrl): Tree.Path | undefined =>
+  (!c.synthetic && playable(c.data) && c.initialPath) ||
+  c.retro?.current()?.prev.path ||
+  c.study?.data.chapter.relayPath;
 
 export const truncatedComment = (path: string, ctx: Ctx): Hooks => ({
   insert(vnode: VNode) {

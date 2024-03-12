@@ -13,7 +13,7 @@ import lila.study.Study
 import lila.user.{ User, Me }
 import lila.common.Seconds
 
-final class RelayRoundForm:
+final class RelayRoundForm(using mode: play.api.Mode):
 
   import RelayRoundForm.*
   import lila.common.Form.ISOInstantOrTimestamp
@@ -25,7 +25,7 @@ final class RelayRoundForm:
       "syncUrl" -> optional {
         cleanText(minLength = 8, maxLength = 600)
           .verifying("Invalid source", validSource)
-          .verifying("The source URL cannot specify a port", validSourcePort)
+          .verifying("The source URL cannot specify a port", url => mode.notProd || validSourcePort(url))
       },
       "syncUrlRound" -> optional(number(min = 1, max = 999)),
       "startsAt"     -> optional(ISOInstantOrTimestamp.mapping),
@@ -59,7 +59,7 @@ object RelayRoundForm:
 
   private def toGameIds(ids: String): Option[GameIds] =
     val list = ids.split(' ').view.flatMap(i => GameId.from(i.trim)).toList
-    (list.sizeIs > 0 && list.sizeIs <= Study.maxChapters).option(GameIds(list))
+    (list.sizeIs > 0 && list.sizeIs <= RelayFetch.maxChapters.value).option(GameIds(list))
 
   private def validSource(source: String): Boolean =
     cleanUrl(source).isDefined || toGameIds(source).isDefined

@@ -183,7 +183,7 @@ final private class RelayFetch(
           }
           .flatMap(multiPgnToGames(_).toFuture)
       case url: UpstreamUrl =>
-        delayer(url, rt, fetchFromUpstream(using CanProxy(rt.tour.official)))
+        delayer(url, rt.round, fetchFromUpstream(using CanProxy(rt.tour.official)))
 
   private def fetchFromUpstream(using canProxy: CanProxy)(upstream: UpstreamUrl, max: Max): Fu[RelayGames] =
     import DgtJson.*
@@ -233,8 +233,7 @@ final private class RelayFetch(
 
 private object RelayFetch:
 
-  def maxChapters(tour: RelayTour) = Max:
-    lila.study.Study.maxChapters * (if tour.official then 2 else 1)
+  export lila.study.Study.maxChapters
 
   private[relay] object DgtJson:
     case class PairingPlayer(

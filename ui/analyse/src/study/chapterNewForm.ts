@@ -9,7 +9,7 @@ import AnalyseCtrl from '../ctrl';
 import { StudySocketSend } from '../socket';
 import { spinnerVdom as spinner } from 'common/spinner';
 import { option } from '../view/util';
-import { ChapterData, ChapterMode, ChapterTab, Orientation, StudyChapterMeta, StudyTour } from './interfaces';
+import { ChapterData, ChapterMode, ChapterTab, Orientation, ChapterPreview, StudyTour } from './interfaces';
 import { importPgn, variants as xhrVariants } from './studyXhr';
 
 export const modeChoices = [
@@ -39,7 +39,7 @@ export class StudyChapterNewForm {
 
   constructor(
     private readonly send: StudySocketSend,
-    readonly chapters: Prop<StudyChapterMeta[]>,
+    readonly chapters: Prop<ChapterPreview[]>,
     readonly setTab: () => void,
     readonly root: AnalyseCtrl,
   ) {

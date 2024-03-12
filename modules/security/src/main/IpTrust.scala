@@ -10,6 +10,7 @@ final class IpTrust(proxyApi: Ip2Proxy, geoApi: GeoIP, firewallApi: Firewall):
 
   private[security] def isSuspicious(ip: IpAddress): Fu[Boolean] =
     if firewallApi.blocksIp(ip) then fuTrue
+    else if geoApi.isSuspicious(ip) then fuTrue
     else proxyApi(ip).dmap(_.is)
 
   private[security] def isSuspicious(ipData: UserLogins.IPData): Fu[Boolean] =

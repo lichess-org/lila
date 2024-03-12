@@ -17,7 +17,12 @@ final class JsonView(
 
   import JsonView.given
 
-  def apply(study: Study, chapters: List[Chapter.Metadata], currentChapter: Chapter, me: Option[User]) =
+  def apply(
+      study: Study,
+      previews: ChapterPreview.AsJsons,
+      currentChapter: Chapter,
+      me: Option[User]
+  ) =
 
     def allowed(selection: Settings => Settings.UserSelection): Boolean =
       Settings.UserSelection.allows(selection(study.settings), study, me.map(_.id))
@@ -37,7 +42,7 @@ final class JsonView(
           "description" -> study.settings.description
         ),
         "topics"   -> study.topicsOrEmpty,
-        "chapters" -> chapters,
+        "chapters" -> previews,
         "chapter" -> Json
           .obj(
             "id"      -> currentChapter.id,
@@ -51,7 +56,7 @@ final class JsonView(
           )
           .add("description", currentChapter.description)
           .add("serverEval", currentChapter.serverEval)
-          .add("relay", currentChapter.relay)
+          .add("relayPath", currentChapter.relay.map(_.path))
           .add("feds" -> feds)
           .pipe(addChapterMode(currentChapter))
       )
@@ -113,8 +118,7 @@ object JsonView:
 
   case class JsData(study: JsObject, analysis: JsObject)
 
-  given OWrites[Study.IdName] = OWrites: s =>
-    Json.obj("id" -> s._id, "name" -> s.name)
+  given OWrites[Study.IdName] = Json.writes
 
   def metadata(study: Study) = Json.obj(
     "id"        -> study.id,
@@ -196,20 +200,13 @@ object JsonView:
     JsArray(tags.value.map(Json.toJson))
   private given OWrites[Chapter.Setup] = Json.writes
 
-  given OWrites[Chapter.Metadata] = OWrites: c =>
-    Json
-      .obj("id" -> c._id, "name" -> c.name)
-      .add("ongoing", c.looksOngoing)
-      .add("res" -> c.resultStr)
-      .add("teams" -> c.teams.map((w, b) => Json.arr(w, b)))
-
   private[study] given Writes[Position.Ref] = Json.writes
   private[study] given Writes[Study.Liking] = Json.writes
 
   given OWrites[Chapter.Relay] = OWrites: r =>
     Json.obj(
-      "path"                 -> r.path,
-      "secondsSinceLastMove" -> r.secondsSinceLastMove
+      "path"      -> r.path,
+      "thinkTime" -> r.secondsSinceLastMove
     )
 
   private[study] given Writes[Chapter.ServerEval] = Json.writes

@@ -10,6 +10,8 @@ import lila.common.{ EmailAddress, IpAddress, Iso, NormalizedEmailAddress }
 
 trait Handlers:
 
+  def toBdoc[A](a: A)(using writer: BSONDocumentWriter[A]): Option[BSONDocument] = writer.writeOpt(a)
+
   // free handlers for all types with TotalWrapper
   // unless they are given an instance of lila.db.NoDbHandler[T]
   given opaqueHandler[T, A](using
@@ -216,3 +218,8 @@ trait Handlers:
       mapping.get(k).toTry(s"No such value in mapping: $k")
     }
     def writeTry(v: V) = keyHandler.writeTry(toKey(v))
+
+  def optionPairHandler[A](using handler: BSONHandler[A]): BSONHandler[PairOf[Option[A]]] = quickHandler(
+    { case BSONArray(els) => (els.headOption.flatMap(_.asOpt[A]), els.lift(1).flatMap(_.asOpt[A])) },
+    { (a, b) => BSONArray(Seq(a.flatMap(handler.writeOpt), b.flatMap(handler.writeOpt)).map(_ | BSONNull)) }
+  )

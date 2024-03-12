@@ -11,6 +11,10 @@ export type ToolTab = 'tags' | 'comments' | 'glyphs' | 'serverEval' | 'share' | 
 export type Visibility = 'public' | 'unlisted' | 'private';
 export type ChapterId = string;
 export type TeamName = string;
+export type OutcomeStr = '1-0' | '0-1' | '½-½';
+export type StatusStr = OutcomeStr | '*';
+export type ClockCentis = number;
+export type BothClocks = [ClockCentis?, ClockCentis?];
 
 export interface StudyTour {
   study(ctrl: AnalyseCtrl): void;
@@ -47,13 +51,16 @@ export interface StudyData {
   isNew?: boolean;
   liked: boolean;
   features: StudyFeatures;
-  chapters: StudyChapterMeta[];
   chapter: StudyChapter;
   secondsSinceUpdate: number;
   description?: string;
   topics?: Topic[];
   admin: boolean;
   hideRatings?: boolean;
+}
+
+export interface StudyDataFromServer extends StudyData {
+  chapters: ChapterPreviewFromServer[];
 }
 
 export type Topic = string;
@@ -72,7 +79,7 @@ export interface StudySettings {
 
 export interface ReloadData {
   analysis: AnalyseData;
-  study: StudyData;
+  study: StudyDataFromServer;
 }
 
 export interface Position {
@@ -87,16 +94,12 @@ export interface StudyFeatures {
   sticky: boolean;
 }
 
-export interface StudyChapterMeta {
-  id: ChapterId;
-  name: string;
-  ongoing?: boolean;
-  res?: '1-0' | '0-1' | '½-½' | '*';
-  teams?: [string, string];
-}
+export type RelayPlayer = [string?, string?, number?];
 
-export interface StudyChapterConfig extends StudyChapterMeta {
-  orientation: Color;
+export interface StudyChapterConfig {
+  id: string;
+  name: string;
+  orientation?: Color; // defaults to white
   description?: string;
   practice: boolean;
   gamebook: boolean;
@@ -114,7 +117,7 @@ export interface StudyChapter {
   gamebook: boolean;
   features: StudyChapterFeatures;
   description?: string;
-  relay?: StudyChapterRelay;
+  relayPath?: Tree.Path;
   serverEval?: StudyChapterServerEval;
   feds?: [string?, string?];
 }
@@ -125,7 +128,6 @@ export interface StudyChapterServerEval {
 
 export interface StudyChapterRelay {
   path: Tree.Path;
-  secondsSinceLastMove?: number;
   lastMoveAt?: number;
 }
 
@@ -164,26 +166,36 @@ export interface LocalPaths {
   [chapterId: string]: Tree.Path;
 }
 
-export interface ChapterPreview {
+export interface ChapterPreviewBase {
   id: ChapterId;
   name: string;
-  players?: {
-    white: ChapterPreviewPlayer;
-    black: ChapterPreviewPlayer;
-  };
-  orientation: Color;
+  status?: StatusStr;
+  players?: ChapterPreviewPlayers;
   fen: string;
   lastMove?: string;
+}
+
+export interface ChapterPreviewFromServer extends ChapterPreviewBase {
+  thinkTime?: number; // seconds since last move
+  orientation?: Color; // defaults to white
+}
+
+export interface ChapterPreview extends ChapterPreviewBase {
   lastMoveAt?: number;
+  orientation: Color;
   playing: boolean;
-  outcome?: '1-0' | '0-1' | '½-½';
+}
+
+export interface ChapterPreviewPlayers {
+  white: ChapterPreviewPlayer;
+  black: ChapterPreviewPlayer;
 }
 
 export interface ChapterPreviewPlayer {
   name: string;
   title?: string;
   rating?: number;
-  clock?: number;
+  clock?: ClockCentis;
 }
 
 export type Orientation = 'black' | 'white' | 'auto';
@@ -234,6 +246,18 @@ export interface AnaDrop {
   path: string;
   ch?: string;
 }
+export interface ServerNodeMsg extends WithWhoAndPos {
+  d: string;
+  n: Tree.Node;
+  o: Opening;
+  s: boolean;
+  relayPath?: Tree.Path;
+}
+export interface ServerClockMsg extends WithWhoAndPos {
+  c?: number;
+  relayClocks?: [ClockCentis, ClockCentis];
+}
+
 export interface WithWho {
   w: {
     s: string;

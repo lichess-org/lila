@@ -1,4 +1,4 @@
-import { prop, Prop, scrollToInnerSelector } from 'common';
+import { defined, prop, Prop, scrollToInnerSelector } from 'common';
 import * as licon from 'common/licon';
 import { bind, dataIcon, iconTag, looseH as h } from 'common/snabbdom';
 import { VNode } from 'snabbdom';
@@ -6,26 +6,43 @@ import AnalyseCtrl from '../ctrl';
 import { StudySocketSend } from '../socket';
 import { StudyChapterEditForm } from './chapterEditForm';
 import { StudyChapterNewForm } from './chapterNewForm';
-import { LocalPaths, StudyChapter, StudyChapterConfig, StudyChapterMeta, TagArray } from './interfaces';
+import {
+  LocalPaths,
+  StudyChapter,
+  StudyChapterConfig,
+  ChapterPreview,
+  TagArray,
+  ServerNodeMsg,
+  ChapterPreviewFromServer,
+} from './interfaces';
 import StudyCtrl from './studyCtrl';
+import { opposite } from 'chessops/util';
+import { fenColor } from 'common/miniBoard';
 
 export default class StudyChaptersCtrl {
   newForm: StudyChapterNewForm;
   editForm: StudyChapterEditForm;
-  list: Prop<StudyChapterMeta[]>;
+  list: Prop<ChapterPreview[]> = prop([]);
   localPaths: LocalPaths = {};
 
   constructor(
-    initChapters: StudyChapterMeta[],
+    initChapters: ChapterPreviewFromServer[],
     readonly send: StudySocketSend,
     setTab: () => void,
     chapterConfig: (id: string) => Promise<StudyChapterConfig>,
     root: AnalyseCtrl,
   ) {
-    this.list = prop(initChapters);
+    this.loadFromServer(initChapters);
     this.newForm = new StudyChapterNewForm(send, this.list, setTab, root);
     this.editForm = new StudyChapterEditForm(send, chapterConfig, root.trans, root.redraw);
   }
+
+  private convertFromServer = (c: ChapterPreviewFromServer): ChapterPreview => ({
+    ...c,
+    orientation: c.orientation || 'white',
+    playing: defined(c.lastMove) && c.status === '*',
+    lastMoveAt: defined(c.thinkTime) ? Date.now() - 1000 * c.thinkTime : undefined,
+  });
 
   get = (id: string) => this.list().find(c => c.id === id);
   sort = (ids: string[]) => this.send('sortChapters', ids);
@@ -37,6 +54,27 @@ export default class StudyChaptersCtrl {
   looksNew = () => {
     const cs = this.list();
     return cs.length == 1 && cs[0].name == 'Chapter 1';
+  };
+  loadFromServer = (chapters: ChapterPreviewFromServer[]) => {
+    this.list(chapters.map(this.convertFromServer));
+  };
+  addNode = (d: ServerNodeMsg) => {
+    const pos = d.p,
+      node = d.n;
+    const cp = this.get(pos.chapterId);
+    if (cp) {
+      const onRelayPath = d.relayPath == d.p.path + d.n.id;
+      if (onRelayPath || !d.relayPath) {
+        cp.fen = node.fen;
+        cp.lastMove = node.uci;
+      }
+      if (onRelayPath) {
+        cp.lastMoveAt = Date.now();
+        const playerWhoMoved = cp.players?.[opposite(fenColor(cp.fen))];
+        if (playerWhoMoved) playerWhoMoved.clock = node.clock;
+      }
+      // this.multiCloudEval.sendRequest();
+    }
   };
 }
 
@@ -141,8 +179,7 @@ export function view(ctrl: StudyCtrl): VNode {
           [
             h('span', loading ? h('span.ddloader') : ['' + (i + 1)]),
             h('h3', chapter.name),
-            chapter.ongoing && h('ongoing', { attrs: { ...dataIcon(licon.DiscBig), title: 'Ongoing' } }),
-            !chapter.ongoing && chapter.res && h('res', chapter.res),
+            chapter.status && h('res', chapter.status),
             canContribute && h('i.act', { attrs: { ...dataIcon(licon.Gear), title: 'Edit chapter' } }),
           ],
         );

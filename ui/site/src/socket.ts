@@ -271,7 +271,7 @@ export default class StrongSocket {
       case false:
         break;
       case 'resync':
-        reload();
+        reload('lila-ws resync');
         break;
       case 'ack':
         this.ackable.onServerAck(m.d);

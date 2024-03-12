@@ -121,7 +121,9 @@ final private class RelayFormatApi(
     def server = for
       hostPort <- proxyHostPort.get()
       if allowed.yes
-      if proxyDomainRegex.get().unanchored.matches(url.host.toString)
+      proxyRegex = proxyDomainRegex.get()
+      if proxyRegex.toString.nonEmpty
+      if proxyRegex.unanchored.matches(url.host.toString)
       creds = proxyCredentials.get()
     yield DefaultWSProxyServer(
       host = hostPort.host,

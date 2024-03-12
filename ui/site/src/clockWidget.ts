@@ -1,4 +1,5 @@
 import * as data from 'common/data';
+import { formatMs } from 'common/clock';
 
 interface Opts {
   pause?: boolean;
@@ -36,13 +37,3 @@ class ClockWidget {
     } else clearInterval(this.interval);
   };
 }
-
-const formatMs = (msTime: number) => {
-  const date = new Date(Math.max(0, msTime + 500)),
-    hours = date.getUTCHours(),
-    minutes = date.getUTCMinutes(),
-    seconds = date.getUTCSeconds();
-  return hours > 0 ? hours + ':' + pad(minutes) + ':' + pad(seconds) : minutes + ':' + pad(seconds);
-};
-
-const pad = (x: number) => (x < 10 ? '0' : '') + x;
