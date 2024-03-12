@@ -26,7 +26,7 @@ export default function renderClocks(ctrl: AnalyseCtrl): [VNode, VNode] | undefi
     if (centis[i]) centis[i] = Math.max(0, centis[i]! - spent);
   }
 
-  const showTenths = !study || !study.relay;
+  const showTenths = !study?.relay;
 
   return [
     renderClock(centis[0], isWhiteTurn, whitePov ? 'bottom' : 'top', showTenths),

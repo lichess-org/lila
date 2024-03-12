@@ -206,17 +206,17 @@ const computeTimeLeft = (preview: ChapterPreview, color: Color): number | undefi
   const player = preview.players && preview.players[color];
   if (defined(player?.clock)) {
     if (defined(preview.lastMoveAt) && fenColor(preview.fen) == color) {
-      const spent = (Date.now() - preview.lastMoveAt!) / 1000;
-      return Math.max(0, player!.clock / 100 - spent);
+      const spent = (Date.now() - preview.lastMoveAt) / 1000;
+      return Math.max(0, player.clock / 100 - spent);
     } else {
-      return player!.clock / 100;
+      return player.clock / 100;
     }
   } else return;
 };
 
 const boardPlayer = (preview: ChapterPreview, color: Color) => {
   const outcome = preview.status && preview.status !== '*' ? preview.status : undefined;
-  const player = preview.players && preview.players[color],
+  const player = preview.players?.[color],
     score = outcome?.split('-')[color === 'white' ? 0 : 1];
   return h('span.mini-game__player', [
     h('span.mini-game__user', renderPlayer(player)),

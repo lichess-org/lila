@@ -63,11 +63,16 @@ export default class StudyChaptersCtrl {
       node = d.n;
     const cp = this.get(pos.chapterId);
     if (cp) {
-      cp.fen = node.fen;
-      cp.lastMove = node.uci;
-      if (d.relayPath == d.p.path + d.n.id) cp.lastMoveAt = Date.now();
-      const playerWhoMoved = cp.players && cp.players[opposite(fenColor(cp.fen))];
-      playerWhoMoved && (playerWhoMoved.clock = node.clock);
+      const onRelayPath = d.relayPath == d.p.path + d.n.id;
+      if (onRelayPath || !d.relayPath) {
+        cp.fen = node.fen;
+        cp.lastMove = node.uci;
+      }
+      if (onRelayPath) {
+        cp.lastMoveAt = Date.now();
+        const playerWhoMoved = cp.players && cp.players[opposite(fenColor(cp.fen))];
+        if (playerWhoMoved) playerWhoMoved.clock = node.clock;
+      }
       // this.multiCloudEval.sendRequest();
       // this.redraw();
     }
