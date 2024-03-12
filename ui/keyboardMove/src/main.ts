@@ -7,7 +7,7 @@ import { MoveRootCtrl, MoveUpdate } from 'chess/moveRootCtrl';
 import { load as loadKeyboardMove } from './plugins/keyboardMove';
 import KeyboardChecker from './plugins/keyboardChecker';
 
-export type KeyboardMoveHandler = (fen: Fen, dests?: cg.Dests, yourMove?: boolean) => void;
+export type KeyboardMoveHandler = (fen: cg.FEN, dests?: cg.Dests, yourMove?: boolean) => void;
 
 export interface KeyboardMove {
   drop(key: cg.Key, piece: string): void;

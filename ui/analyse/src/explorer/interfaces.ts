@@ -1,5 +1,7 @@
+import { FEN } from 'chessground/types';
+
 export interface Hovering {
-  fen: Fen;
+  fen: FEN;
   uci: Uci;
 }
 
@@ -19,7 +21,7 @@ export interface ExplorerOpts {
 }
 
 export interface ExplorerData {
-  fen: Fen;
+  fen: FEN;
   moves: MoveStats[];
   isOpening?: true;
   tablebase?: true;
@@ -114,7 +116,7 @@ export function isTablebase(m: ExplorerData): m is TablebaseData {
 }
 
 export interface SimpleTablebaseHit {
-  fen: Fen;
+  fen: FEN;
   best?: Uci; // no move if checkmate/stalemate
   winner: Color | undefined;
 }

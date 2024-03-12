@@ -10,6 +10,7 @@ import { prop, readonlyProp, Prop, Toggle, toggle } from 'common';
 import { Result } from '@badrap/result';
 import { storedIntProp } from 'common/storage';
 import { Rules } from 'chessops';
+import { FEN } from 'chessground/types';
 
 const cevalDisabledSentinel = '1';
 
@@ -210,7 +211,7 @@ export default class CevalCtrl {
     this.opts.onSelectEngine?.();
   };
 
-  setHovering = (fen: Fen, uci?: Uci) => {
+  setHovering = (fen: FEN, uci?: Uci) => {
     this.hovering(uci ? { fen, uci } : null);
     this.opts.setAutoShapes();
   };

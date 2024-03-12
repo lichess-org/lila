@@ -5,6 +5,8 @@ import { povChances } from 'ceval/src/winningChances';
 import { bind, looseH as h } from 'common/snabbdom';
 import { VNode } from 'snabbdom';
 import { FEN } from 'chessground/types';
+import { ChapterId } from './interfaces';
+import { StudyChapters } from './studyChapters';
 
 interface CloudEval extends EvalHitMulti {
   chances: number;
@@ -14,27 +16,42 @@ export type GetCloudEval = (fen: FEN) => CloudEval | undefined;
 export class MultiCloudEval {
   showEval: Prop<boolean>;
 
-  private cloudEvals: Map<Fen, CloudEval> = new Map();
+  observed: Set<ChapterId> = new Set();
+  observer = new IntersectionObserver(
+    entries =>
+      entries.forEach(entry => {
+        const id = (entry.target as HTMLElement).dataset['id']!;
+        if (entry.isIntersecting) this.observed.add(id);
+        else this.observed.delete(id);
+        console.log(this.observed.size);
+      }),
+    { threshold: 0.2 },
+  );
+
+  private cloudEvals: Map<FEN, CloudEval> = new Map();
 
   constructor(
     readonly redraw: () => void,
+    private readonly chapters: StudyChapters,
     private readonly send: SocketSend,
-    private readonly variant: () => VariantKey,
-    private readonly currentFens: () => Fen[],
   ) {
     this.showEval = storedBooleanPropWithEffect('analyse.multiboard.showEval', true, () => {
       this.redraw();
       this.sendRequest();
     });
+
+    setInterval(() => console.log(this.observed), 2000);
   }
 
   sendRequest = () => {
-    const fens = this.currentFens();
-    if (fens.length && this.showEval())
+    const chapters = this.chapters.all().filter(c => this.observed.has(c.id));
+    if (chapters.length && this.showEval()) {
+      const variant = chapters[0].variant; // lila-ws only supports one variant for all fens
       this.send('evalGetMulti', {
-        fens,
-        ...(this.variant() != 'standard' ? { variant: this.variant() } : {}),
+        fens: chapters.map(c => c.fen),
+        ...(variant != 'standard' ? { variant } : {}),
       });
+    }
   };
 
   onCloudEval = (d: EvalHitMulti) => {

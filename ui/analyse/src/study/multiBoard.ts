@@ -1,7 +1,7 @@
 import * as licon from 'common/licon';
 import { clockIsRunning, formatMs } from 'common/clock';
 import { fenColor } from 'common/miniBoard';
-import { MaybeVNode, VNode, bind, looseH as h } from 'common/snabbdom';
+import { MaybeVNode, VNode, bind, onInsert, looseH as h } from 'common/snabbdom';
 import { opposite as CgOpposite, uciToMove } from 'chessground/util';
 import { ChapterPreview, ChapterPreviewPlayer } from './interfaces';
 import StudyCtrl from './studyCtrl';
@@ -14,18 +14,14 @@ export class MultiBoardCtrl {
   playing: Toggle;
   page: number = 1;
   maxPerPage: number = 12;
-  multiCloudEval: MultiCloudEval;
 
   constructor(
     readonly chapters: StudyChapters,
+    readonly multiCloudEval: MultiCloudEval,
     readonly redraw: () => void,
     readonly trans: Trans,
-    send: SocketSend,
-    variant: () => VariantKey,
   ) {
     this.playing = toggle(false, this.redraw);
-    const currentFens = () => [];
-    this.multiCloudEval = new MultiCloudEval(redraw, send, variant, currentFens);
   }
 
   private chapterFilter = (c: ChapterPreview) => !this.playing() || c.playing;
@@ -61,7 +57,7 @@ export class MultiBoardCtrl {
 
 export function view(ctrl: MultiBoardCtrl, study: StudyCtrl): MaybeVNode {
   const pager = ctrl.pager();
-  const cloudEval = ctrl.multiCloudEval.showEval() ? ctrl.multiCloudEval.getCloudEval : undefined;
+  const cloudEval = ctrl.multiCloudEval.showEval() ? ctrl.multiCloudEval : undefined;
   return h('div.study__multiboard', [
     h('div.study__multiboard__top', [
       renderPagerNav(pager, ctrl),
@@ -109,49 +105,56 @@ const renderPlayingToggle = (ctrl: MultiBoardCtrl): MaybeVNode =>
     ctrl.trans.noarg('playing'),
   ]);
 
-const makePreview = (study: StudyCtrl, cloudEval?: GetCloudEval) => (preview: ChapterPreview) => {
+const makePreview = (study: StudyCtrl, cloudEval?: MultiCloudEval) => (preview: ChapterPreview) => {
   const orientation = preview.orientation || 'white';
-  return h(`a.mini-game.is2d.chap-${preview.id}`, [
-    boardPlayer(preview, CgOpposite(orientation)),
-    h('span.cg-gauge', [
-      h(
-        'span.mini-game__board',
-        h('span.cg-wrap', {
-          hook: {
-            insert(vnode) {
-              const el = vnode.elm as HTMLElement;
-              vnode.data!.cg = site.makeChessground(el, {
-                coordinates: false,
-                viewOnly: true,
-                fen: preview.fen,
-                orientation,
-                lastMove: uciToMove(preview.lastMove),
-                drawable: {
-                  enabled: false,
-                  visible: false,
-                },
-              });
-              vnode.data!.fen = preview.fen;
-              // TODO defer click to parent, and add proper href. See relay/gameList.ts
-              el.addEventListener('mousedown', _ => study.setChapter(preview.id));
-            },
-            postpatch(old, vnode) {
-              if (old.data!.fen !== preview.fen) {
-                old.data!.cg?.set({
+  return h(
+    `a.mini-game.is2d.chap-${preview.id}`,
+    {
+      attrs: { 'data-id': preview.id, 'data-fen': preview.fen },
+      hook: cloudEval && onInsert(el => cloudEval.observer.observe(el)),
+    },
+    [
+      boardPlayer(preview, CgOpposite(orientation)),
+      h('span.cg-gauge', [
+        h(
+          'span.mini-game__board',
+          h('span.cg-wrap', {
+            hook: {
+              insert(vnode) {
+                const el = vnode.elm as HTMLElement;
+                vnode.data!.cg = site.makeChessground(el, {
+                  coordinates: false,
+                  viewOnly: true,
                   fen: preview.fen,
+                  orientation,
                   lastMove: uciToMove(preview.lastMove),
+                  drawable: {
+                    enabled: false,
+                    visible: false,
+                  },
                 });
-              }
-              vnode.data!.fen = preview.fen;
-              vnode.data!.cg = old.data!.cg;
+                vnode.data!.fen = preview.fen;
+                // TODO defer click to parent, and add proper href. See relay/gameList.ts
+                el.addEventListener('mousedown', _ => study.setChapter(preview.id));
+              },
+              postpatch(old, vnode) {
+                if (old.data!.fen !== preview.fen) {
+                  old.data!.cg?.set({
+                    fen: preview.fen,
+                    lastMove: uciToMove(preview.lastMove),
+                  });
+                }
+                vnode.data!.fen = preview.fen;
+                vnode.data!.cg = old.data!.cg;
+              },
             },
-          },
-        }),
-      ),
-      cloudEval && evalGauge(preview, cloudEval),
-    ]),
-    boardPlayer(preview, orientation),
-  ]);
+          }),
+        ),
+        cloudEval && evalGauge(preview, cloudEval?.getCloudEval),
+      ]),
+      boardPlayer(preview, orientation),
+    ],
+  );
 };
 
 const evalGauge = (chap: ChapterPreview, cloudEval: GetCloudEval): MaybeVNode =>

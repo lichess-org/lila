@@ -19,10 +19,11 @@ import {
 } from './interfaces';
 import { ExplorerConfigCtrl } from './explorerConfig';
 import { clearLastShow } from './explorerView';
+import { FEN } from 'chessground/types';
 
 export const MAX_DEPTH = 50;
 
-function pieceCount(fen: Fen) {
+function pieceCount(fen: FEN) {
   const parts = fen.split(/\s/);
   return parts[0].split(/[nbrqkp]/i).length - 1;
 }
@@ -41,7 +42,7 @@ function tablebasePieces(variant: VariantKey) {
   }
 }
 
-export const tablebaseGuaranteed = (variant: VariantKey, fen: Fen) =>
+export const tablebaseGuaranteed = (variant: VariantKey, fen: FEN) =>
   pieceCount(fen) <= tablebasePieces(variant);
 
 export default class ExplorerCtrl {
@@ -160,7 +161,7 @@ export default class ExplorerCtrl {
     opening: this.root.data.game.opening,
   };
 
-  private tablebaseRelevant = (variant: VariantKey, fen: Fen) =>
+  private tablebaseRelevant = (variant: VariantKey, fen: FEN) =>
     pieceCount(fen) - 1 <= tablebasePieces(variant) && this.root.ceval.possible;
 
   setNode = () => {
@@ -196,7 +197,7 @@ export default class ExplorerCtrl {
       this.root.autoScroll();
     }
   };
-  setHovering = (fen: Fen, uci: Uci | null) => {
+  setHovering = (fen: FEN, uci: Uci | null) => {
     this.root.fork.hover(uci);
     this.hovering(uci ? { fen, uci } : null);
     this.root.setAutoShapes();
@@ -208,7 +209,7 @@ export default class ExplorerCtrl {
     }
   };
   isIndexing = () => !!this.lastStream && !defined(this.lastStream.sync);
-  fetchMasterOpening = async (fen: Fen): Promise<OpeningData> => {
+  fetchMasterOpening = async (fen: FEN): Promise<OpeningData> => {
     const deferred = defer<OpeningData>();
     await xhr.opening(
       {
@@ -222,7 +223,7 @@ export default class ExplorerCtrl {
     );
     return await deferred.promise;
   };
-  fetchTablebaseHit = async (fen: Fen): Promise<SimpleTablebaseHit> => {
+  fetchTablebaseHit = async (fen: FEN): Promise<SimpleTablebaseHit> => {
     const res = await xhr.tablebase(this.opts.tablebaseEndpoint, this.effectiveVariant, fen);
     const move = res.moves[0];
     if (move && move.dtz == null) throw 'unknown tablebase position';

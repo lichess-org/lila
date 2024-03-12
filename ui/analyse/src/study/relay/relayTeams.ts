@@ -5,9 +5,9 @@ import { ChapterId } from '../interfaces';
 import { Color } from 'chessops';
 import { GetCloudEval, MultiCloudEval, renderScore } from '../multiCloudEval';
 import { spinnerVdom as spinner } from 'common/spinner';
-import { defined } from 'common';
 import { playerFed } from '../playerBars';
 import { gameLinkProps, gameLinksListener } from './relayTourView';
+import { FEN } from 'chessground/types';
 
 interface TeamWithPoints {
   name: string;
@@ -23,7 +23,7 @@ interface TeamGame {
   id: ChapterId;
   players: [TeamPlayer, TeamPlayer];
   p0Color: Color;
-  fen?: Fen;
+  fen?: FEN;
   outcome?: Color | 'draw';
 }
 interface TeamRow {
@@ -37,25 +37,14 @@ type TeamTable = {
 export default class RelayTeams {
   loading = false;
   teams?: TeamTable;
-  multiCloudEval: MultiCloudEval;
 
   constructor(
     private readonly roundId: RoundId,
+    readonly multiCloudEval: MultiCloudEval,
     readonly setChapter: (id: ChapterId) => void,
     readonly roundPath: () => string,
     private readonly redraw: Redraw,
-    send: SocketSend,
-    variant: () => VariantKey,
-  ) {
-    const currentFens = () =>
-      this.teams
-        ? this.teams.table
-            .map(r => r.games.map(g => g.fen))
-            .flat()
-            .filter(defined)
-        : [];
-    this.multiCloudEval = new MultiCloudEval(redraw, send, variant, currentFens);
-  }
+  ) {}
 
   loadFromXhr = async (onInsert?: boolean) => {
     if (this.teams && !onInsert) {

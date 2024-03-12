@@ -12,6 +12,7 @@ import { option } from '../view/util';
 import { ChapterData, ChapterMode, ChapterTab, Orientation, StudyTour } from './interfaces';
 import { importPgn, variants as xhrVariants } from './studyXhr';
 import { StudyChapters } from './studyChapters';
+import { FEN } from 'chessground/types';
 
 export const modeChoices = [
   ['normal', 'normalAnalysis'],
@@ -35,7 +36,7 @@ export class StudyChapterNewForm {
     v => v,
   );
   editor: LichessEditor | null = null;
-  editorFen: Prop<Fen | null> = prop(null);
+  editorFen: Prop<FEN | null> = prop(null);
   isDefaultName = toggle(true);
 
   constructor(

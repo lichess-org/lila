@@ -26,6 +26,10 @@ export class StudyChapters {
   get = (id: string) => this.list().find(c => c.id === id);
   size = () => this.list().length;
   first = () => this.list()[0];
+  looksNew = () => {
+    const cs = this.all();
+    return cs.length == 1 && cs[0].name == 'Chapter 1';
+  };
 }
 
 export default class StudyChaptersCtrl {
@@ -53,15 +57,12 @@ export default class StudyChaptersCtrl {
     if (this.newForm.isOpen() || this.list.size() < 64) this.newForm.toggle();
     else alert('You have reached the limit of 64 chapters per study. Please create a new study.');
   };
-  looksNew = () => {
-    const cs = this.list.all();
-    return cs.length == 1 && cs[0].name == 'Chapter 1';
-  };
   loadFromServer = (chapters: ChapterPreviewFromServer[]) =>
     this.store(
       chapters.map(c => ({
         ...c,
         orientation: c.orientation || 'white',
+        variant: c.variant || 'standard',
         playing: defined(c.lastMove) && c.status === '*',
         lastMoveAt: defined(c.thinkTime) ? Date.now() - 1000 * c.thinkTime : undefined,
       })),

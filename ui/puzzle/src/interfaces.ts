@@ -3,6 +3,7 @@ import { VNode } from 'snabbdom';
 import * as Prefs from 'common/prefs';
 import perfIcons from 'common/perfIcons';
 import PuzzleCtrl from './ctrl';
+import { FEN } from 'chessground/types';
 
 export type PuzzleId = string;
 
@@ -131,6 +132,6 @@ export interface PuzzleRound {
 
 export interface MoveTest {
   move: Move;
-  fen: Fen;
+  fen: FEN;
   path: Tree.Path;
 }

@@ -49,6 +49,7 @@ import StudyChaptersCtrl from './studyChapters';
 import { SearchCtrl } from './studySearch';
 import { GamebookOverride } from './gamebook/interfaces';
 import { EvalHitMulti, EvalHitMultiArray } from '../interfaces';
+import { MultiCloudEval } from './multiCloudEval';
 
 interface Handlers {
   path(d: WithWhoAndPos): void;
@@ -90,6 +91,7 @@ export default class StudyCtrl {
   members: StudyMemberCtrl;
   chapters: StudyChaptersCtrl;
   relay?: RelayCtrl;
+  multiCloudEval: MultiCloudEval;
   multiBoard: MultiBoardCtrl;
   form: StudyForm;
   commentForm: CommentForm;
@@ -152,6 +154,7 @@ export default class StudyCtrl {
       chapterId => xhr.chapterConfig(data.id, chapterId),
       this.ctrl,
     );
+    this.multiCloudEval = new MultiCloudEval(this.redraw, this.chapters.list, this.send);
     this.relay =
       relayData &&
       new RelayCtrl(
@@ -160,17 +163,15 @@ export default class StudyCtrl {
         this.send,
         this.redrawAndUpdateAddressBar,
         this.members,
-        this.data.chapter,
         this.chapters.list,
-        this.chapters.looksNew(),
+        this.multiCloudEval,
         id => this.setChapter(id),
       );
     this.multiBoard = new MultiBoardCtrl(
       this.chapters.list,
+      this.multiCloudEval,
       this.redraw,
       this.ctrl.trans,
-      this.ctrl.socket.send,
-      () => this.data.chapter.setup.variant.key,
     );
     this.form = new StudyForm(
       (d, isNew) => {

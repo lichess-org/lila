@@ -1,3 +1,4 @@
+import { FEN } from 'chessground/types';
 import { Ctrl } from '../interfaces';
 
 function bishopOnColor(expandedFen: string, offset: 0 | 1): boolean {
@@ -9,7 +10,7 @@ function bishopOnColor(expandedFen: string, offset: 0 | 1): boolean {
   return false;
 }
 
-function insufficientMaterial(variant: VariantKey, fullFen: Fen): boolean {
+function insufficientMaterial(variant: VariantKey, fullFen: FEN): boolean {
   // TODO: atomic and antichess
   if (
     variant === 'horde' ||

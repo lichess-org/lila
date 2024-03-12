@@ -1,11 +1,12 @@
 import { RelayData, LogEvent, RelaySync, RelayRound, RoundId } from './interfaces';
-import { BothClocks, ChapterId, ServerClockMsg, StudyChapter } from '../interfaces';
+import { BothClocks, ChapterId, ServerClockMsg } from '../interfaces';
 import { StudyMemberCtrl } from '../studyMembers';
 import { AnalyseSocketSend } from '../../socket';
 import { Prop, Toggle, notNull, prop, toggle } from 'common';
 import RelayTeams from './relayTeams';
 import { Redraw } from 'common/snabbdom';
 import { StudyChapters } from '../studyChapters';
+import { MultiCloudEval } from '../multiCloudEval';
 
 export const relayTabs = ['overview', 'boards', 'teams', 'leaderboard'] as const;
 export type RelayTab = (typeof relayTabs)[number];
@@ -23,24 +24,20 @@ export default class RelayCtrl {
     readonly send: AnalyseSocketSend,
     readonly redraw: Redraw,
     readonly members: StudyMemberCtrl,
-    chapter: StudyChapter,
     private readonly chapters: StudyChapters,
-    looksNew: boolean,
+    private readonly multiCloudEval: MultiCloudEval,
     setChapter: (id: ChapterId) => void,
   ) {
     this.tourShow = toggle((location.pathname.match(/\//g) || []).length < 5);
     const locationTab = location.hash.replace(/^#/, '') as RelayTab;
-    const initialTab = relayTabs.includes(locationTab) ? locationTab : looksNew ? 'overview' : 'boards';
+    const initialTab = relayTabs.includes(locationTab)
+      ? locationTab
+      : this.chapters.looksNew()
+      ? 'overview'
+      : 'boards';
     this.tab = prop<RelayTab>(initialTab);
     this.teams = data.tour.teamTable
-      ? new RelayTeams(
-          id,
-          setChapter,
-          () => this.roundPath(),
-          redraw,
-          send,
-          () => chapter.setup.variant.key,
-        )
+      ? new RelayTeams(id, this.multiCloudEval, setChapter, this.roundPath, redraw)
       : undefined;
     setInterval(this.redraw, 1000);
   }

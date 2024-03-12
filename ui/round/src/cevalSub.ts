@@ -2,10 +2,11 @@ import { lastStep } from './round';
 import RoundController from './ctrl';
 import { ApiMove, RoundData } from './interfaces';
 import * as xhr from 'common/xhr';
+import { FEN } from 'chessground/types';
 
 let found = false;
 
-const truncateFen = (fen: Fen): string => fen.split(' ')[0];
+const truncateFen = (fen: FEN): FEN => fen.split(' ')[0];
 
 export function subscribe(ctrl: RoundController): void {
   // allow everyone to cheat against the AI

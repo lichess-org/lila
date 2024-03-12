@@ -75,7 +75,7 @@ export interface ServerEvalData {
 }
 
 export interface EvalHit {
-  fen: Fen;
+  fen: cg.FEN;
   knodes: number;
   depth: number;
   pvs: Tree.PvDataServer[];
@@ -83,7 +83,7 @@ export interface EvalHit {
 }
 
 export interface EvalHitMulti extends EvalScore {
-  fen: Fen;
+  fen: cg.FEN;
   depth: number;
 }
 
@@ -97,7 +97,7 @@ export interface Game {
   status: Status;
   player: Color;
   turns: number;
-  fen: Fen;
+  fen: cg.FEN;
   startedAtTurn?: number;
   source: Source;
   speed: Speed;
@@ -167,7 +167,7 @@ export interface JustCaptured extends cg.Piece {
 }
 
 export interface EvalGetData {
-  fen: Fen;
+  fen: cg.FEN;
   path: string;
   variant?: VariantKey;
   mpv?: number;

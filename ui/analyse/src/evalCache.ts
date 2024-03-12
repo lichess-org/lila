@@ -2,6 +2,7 @@ import { defined, prop } from 'common';
 import throttle from 'common/throttle';
 import { EvalHit, EvalGetData, EvalPutData } from './interfaces';
 import { AnalyseSocketSend } from './socket';
+import { FEN } from 'chessground/types';
 
 export interface EvalCacheOpts {
   variant: VariantKey;
@@ -66,7 +67,7 @@ type AwaitingEval = null;
 const awaitingEval: AwaitingEval = null;
 
 export default class EvalCache {
-  private fetchedByFen: Map<Fen, EvalHit | AwaitingEval> = new Map();
+  private fetchedByFen: Map<FEN, EvalHit | AwaitingEval> = new Map();
   private upgradable = prop(false);
 
   constructor(readonly opts: EvalCacheOpts) {

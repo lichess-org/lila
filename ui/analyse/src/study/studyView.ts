@@ -157,7 +157,7 @@ export function side(ctrl: StudyCtrl, withSearch: boolean): VNode {
     );
 
   const chaptersTab =
-    (ctrl.chapters.looksNew() && !ctrl.members.canContribute()) ||
+    (ctrl.chapters.list.looksNew() && !ctrl.members.canContribute()) ||
     makeTab(
       'chapters',
       ctrl.trans.pluralSame(ctrl.relay ? 'nbGames' : 'nbChapters', ctrl.chapters.list.size()),
