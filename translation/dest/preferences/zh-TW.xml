@@ -46,5 +46,5 @@
 	<string name="kitaoKawasakiNotation">北尾-川崎記法</string>
 	<string name="kifNotation">Kif notation</string>
 	<string name="yourPreferencesHaveBeenSaved">已儲存您的設定。</string>
-	<string name="smallMoveList">Smaller move list for games</string>
+	<string name="smallMoves">Small moves</string>
 </resources>

@@ -3,12 +3,12 @@
   <string name="insights" comment="Feel free to translate to something more natural (like statistics) in your language if insights seems awkward">Chi tiết</string>
   <string name="moves">Nước đi</string>
   <string name="drops">Thả</string>
-  <string name="movesAndDrops">Moves and drops</string>
+  <string name="movesAndDrops">Các nước đi và nước thả quân</string>
   <string name="total" comment="Usually in chart legend or tooltip summing other bars">Tổng</string>
-  <string name="count" comment="Example: Count: 11 moves">Count</string>
+  <string name="count" comment="Example: Count: 11 moves">Tổng số</string>
   <string name="average">Trung bình</string>
   <string name="percentage">Tỉ lệ phần trăm</string>
-  <string name="outcomes" comment="win/draw/loss">Outcomes</string>
+  <string name="outcomes" comment="win/draw/loss">Kết quả</string>
   <string name="color" comment="Meaning sente or gote">Màu quân</string>
   <string name="termination" comment="Checkmate, repetition, timeout, etc">Hết cờ</string>
   <string name="resign" comment="Game termination status">Chịu thua</string>
@@ -23,29 +23,29 @@
   <string name="wins">Thắng</string>
   <string name="draws">Hoà</string>
   <string name="losses">Thua</string>
-  <string name="accuracyByMoveNumber">Accuracy by game turn</string>
-  <string name="accuracyByPiece">Accuracy by piece</string>
+  <string name="accuracyByMoveNumber">Độ chính xác trong mỗi nước đi</string>
+  <string name="accuracyByPiece">Độ chính xác theo quân</string>
   <string name="times" comment="Move and drop times">Số lần</string>
-  <string name="totalTimeSpentThinking">Total time spent on player\'s turn</string>
-  <string name="averageTimePerGame">Average time spent on player\'s turn per game</string>
-  <string name="averageTimePerMoveOrDrop">Average time per move or drop</string>
-  <string name="timeSpentThinkingByPiece">Time spent by piece</string>
-  <string name="movesAndDropsByPiece">Moves and drops by piece</string>
+  <string name="totalTimeSpentThinking">Tổng thời gian dành cho nước đi</string>
+  <string name="averageTimePerGame">Thời gian trung bình dành cho một nước mỗi ván</string>
+  <string name="averageTimePerMoveOrDrop">Thời gian trung bình mỗi nước hoặc nước thả quân</string>
+  <string name="timeSpentThinkingByPiece">Thời gian sử dụng theo quân</string>
+  <string name="movesAndDropsByPiece">Số nước đi và thả theo quân</string>
   <string name="capturesByPiece">Quân bị ăn</string>
   <string name="promotionsByPiece">Quân được phong cấp</string>
   <string name="mostPlayedOpenings">Những khai cuộc được chơi nhiều nhất</string>
   <string name="openingMoves">Nước đi khai cuộc</string>
   <string name="insightsUpdate">Thông tin chi tiết được làm mới vài giờ một lần.</string>
   <string name="accuracy">Độ chính xác</string>
-  <string name="nbOfMovesAndDrops">Number of moves and drops made by player</string>
-  <string name="nbOfMovesAndDropsPerGame">Number of moves and drops made by player per game</string>
-  <string name="nbOfCaptures">Number of pieces captured</string>
-  <string name="nbOfPromotions">Number of promoted pieces</string>
+  <string name="nbOfMovesAndDrops">Số nước đi và nước thả quân được người chơi thực hiện</string>
+  <string name="nbOfMovesAndDropsPerGame">Số nước đi và nước thả quân được người chơi thực hiện mỗi ván</string>
+  <string name="nbOfCaptures">Số quân đã bắt</string>
+  <string name="nbOfPromotions">Số quân đã phong cấp</string>
   <string name="opponentRating">Hệ số Elo đối thủ trung bình</string>
   <string name="opponentRatingDiff">Chênh lệch hệ số Elo đối thủ</string>
-  <string name="totalTimeOfMovesAndDrops">Total time of moves and drops</string>
+  <string name="totalTimeOfMovesAndDrops">Tổng thời gian các nước đi và nước thả quân</string>
   <string name="nbOfGames">Số ván cờ</string>
   <string name="weekday">Ngày trong tuần</string>
   <string name="timeOfDay" comment="Morning,afternoon, evening, night">Thời gian của ngày</string>
-  <string name="earlyBishopExchange" comment="Were bishops exchanged by the players early in the game">Early bishop exchange</string>
+  <string name="earlyBishopExchange" comment="Were bishops exchanged by the players early in the game">Đổi Tượng sớm</string>
 </resources>

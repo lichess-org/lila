@@ -2,7 +2,7 @@
 <resources>
 	<string name="preferences">Asetukset</string>
 	<string name="gameDisplay">Ulkoasu</string>
-	<string name="boardLayout">Board layout</string>
+	<string name="boardLayout">Game board layout</string>
 	<string name="clearHands">Hide ghosts of pieces in hand</string>
 	<string name="handsBackground">Show background behind pieces in hand</string>
 	<string name="pieceAnimation">Nappuloiden animaatio</string>
@@ -46,5 +46,5 @@
 	<string name="kitaoKawasakiNotation">Kitao-Kawasaki notation</string>
 	<string name="kifNotation">Kif notation</string>
 	<string name="yourPreferencesHaveBeenSaved">Asetuksesi on tallennettu.</string>
-	<string name="smallMoveList">Smaller move list for games</string>
+	<string name="smallMoves">Small moves</string>
 </resources>

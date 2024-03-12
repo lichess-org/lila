@@ -46,5 +46,5 @@
 	<string name="kitaoKawasakiNotation">Notación Kitao-Kawasaki</string>
 	<string name="kifNotation">Notación kifu</string>
 	<string name="yourPreferencesHaveBeenSaved">As túas preferencias gardáronse.</string>
-	<string name="smallMoveList">Lista de xogadas máis pequena para as partidas</string>
+	<string name="smallMoves">Small moves</string>
 </resources>

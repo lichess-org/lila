@@ -8,12 +8,12 @@
   <string name="bishop">角行</string>
   <string name="rook">飛車</string>
   <string name="king">玉将</string>
-  <string name="tokin">Tokin</string>
-  <string name="promotedlance">Promoted lance</string>
-  <string name="promotedknight">Promoted knight</string>
-  <string name="promotedsilver">Promoted silver</string>
-  <string name="horse">Horse</string>
-  <string name="dragon">Dragon</string>
+  <string name="tokin">と金</string>
+  <string name="promotedlance">成香</string>
+  <string name="promotedknight">成桂</string>
+  <string name="promotedsilver">成銀</string>
+  <string name="horse">竜馬</string>
+  <string name="dragon">竜王</string>
   <string comment="Chushogi piece - not tokin" name="promotedpawn">Promoted pawn</string>
   <string comment="Chushogi piece, low priority for translation" name="leopard">Leopard</string>
   <string comment="Chushogi piece, low priority for translation" name="copper">Copper</string>

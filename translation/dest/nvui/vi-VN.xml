@@ -1,15 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="textualRepresentation">Textual representation</string>
+  <string name="textualRepresentation">Thể hiện bằng chữ</string>
   <string name="gameInfo">Thông tin ván cờ</string>
   <string name="pieces">Quân cờ</string>
   <string name="board">Bàn cờ</string>
-  <string name="hands">Hands</string>
+  <string name="hands">Quân trên tay</string>
   <string name="none" comment="No pieces in hand">Trống</string>
   <string name="moves" comment="Followed by list of moves">Nước đi</string>
   <string name="currentPosition">Thế cờ hiện tại</string>
-  <string name="moveForm">Move form</string>
-  <string name="commandInput">Command input</string>
+  <string name="moveForm">Cách đi quân</string>
+  <string name="commandInput">Nhập lệnh</string>
   <string name="commands">Các lệnh</string>
   <string name="useArrowKeys">Sử dụng các phím mũi tên để xem các nước đi trong ván cờ</string>
 </resources>

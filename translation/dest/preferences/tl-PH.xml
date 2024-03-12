@@ -2,7 +2,7 @@
 <resources>
 	<string name="preferences">Mga preperensiya</string>
 	<string name="gameDisplay">Game display</string>
-	<string name="boardLayout">Board layout</string>
+	<string name="boardLayout">Game board layout</string>
 	<string name="clearHands">Hide ghosts of pieces in hand</string>
 	<string name="handsBackground">Show background behind pieces in hand</string>
 	<string name="pieceAnimation">Piece animation</string>
@@ -46,5 +46,5 @@
 	<string name="kitaoKawasakiNotation">Kitao-Kawasaki notation</string>
 	<string name="kifNotation">Kif notation</string>
 	<string name="yourPreferencesHaveBeenSaved">Your preferences have been saved.</string>
-	<string name="smallMoveList">Smaller move list for games</string>
+	<string name="smallMoves">Small moves</string>
 </resources>
