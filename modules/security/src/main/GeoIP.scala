@@ -33,6 +33,8 @@ final class GeoIP(config: GeoIP.Config):
 
   def orUnknown(ip: IpAddress): Location = apply(ip) | Location.unknown
 
+  def isSuspicious(ip: IpAddress): Boolean = apply(ip).exists(Location.isSuspicious)
+
 object GeoIP:
   case class Config(
       file: String,
@@ -58,8 +60,6 @@ object Location:
 
   val unknown = Location("Solar System", none, none, none)
 
-  val tor = Location("Tor exit node", none, none, none)
-
   def apply(res: CityResponse): Location =
     Location(
       Option(res.getCountry).flatMap(c => Option(c.getName)) | unknown.country,
@@ -67,5 +67,9 @@ object Location:
       Option(res.getMostSpecificSubdivision).flatMap(s => Option(s.getName())),
       Option(res.getCity).flatMap(c => Option(c.getName))
     )
+
+  def isSuspicious(loc: Location) =
+    loc == unknown ||
+      loc.region.has("Kirov Oblast")
 
   case class WithProxy(location: Location, proxy: IsProxy)
