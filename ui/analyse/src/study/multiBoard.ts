@@ -6,7 +6,7 @@ import { opposite as CgOpposite, uciToMove } from 'chessground/util';
 import { ChapterPreview, ChapterPreviewPlayer } from './interfaces';
 import StudyCtrl from './studyCtrl';
 import { GetCloudEval, MultiCloudEval, renderEvalToggle, renderScore } from './multiCloudEval';
-import { Toggle, defined, toggle } from 'common';
+import { Toggle, defined, notNull, toggle } from 'common';
 import StudyChaptersCtrl from './studyChapters';
 import { Color } from 'chessops';
 
@@ -203,13 +203,13 @@ export const renderClock = (chapter: ChapterPreview, color: Color) => {
 };
 
 const computeTimeLeft = (preview: ChapterPreview, color: Color): number | undefined => {
-  const player = preview.players && preview.players[color];
-  if (defined(player?.clock)) {
+  const clock = preview.players?.[color]?.clock;
+  if (notNull(clock)) {
     if (defined(preview.lastMoveAt) && fenColor(preview.fen) == color) {
       const spent = (Date.now() - preview.lastMoveAt) / 1000;
-      return Math.max(0, player.clock / 100 - spent);
+      return Math.max(0, clock / 100 - spent);
     } else {
-      return player.clock / 100;
+      return clock / 100;
     }
   } else return;
 };

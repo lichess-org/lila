@@ -70,11 +70,10 @@ export default class StudyChaptersCtrl {
       }
       if (onRelayPath) {
         cp.lastMoveAt = Date.now();
-        const playerWhoMoved = cp.players && cp.players[opposite(fenColor(cp.fen))];
+        const playerWhoMoved = cp.players?.[opposite(fenColor(cp.fen))];
         if (playerWhoMoved) playerWhoMoved.clock = node.clock;
       }
       // this.multiCloudEval.sendRequest();
-      // this.redraw();
     }
   };
 }
