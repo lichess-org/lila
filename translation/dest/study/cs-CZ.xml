@@ -59,6 +59,7 @@
   <string name="allSyncMembersRemainOnTheSamePosition">Všichni SYNCHRONIZOVANÍ členové zůstávají na stejné pozici</string>
   <string name="shareChanges">Sdílet změny s diváky a uložit je na server</string>
   <string name="playing">Probíhající</string>
+  <string name="showEvalBar">Lišta hodnotící pozici</string>
   <string name="first">První</string>
   <string name="previous">Předchozí</string>
   <string name="next">Další</string>
