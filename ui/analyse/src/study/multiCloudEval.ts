@@ -48,6 +48,8 @@ export class MultiCloudEval {
 
   private observedIds = () => new Set(Array.from(this.observed).map(el => el.dataset.id));
 
+  private lastRequestedFens: Set<FEN> = new Set();
+
   private sendRequestNow = () => {
     if (!this.showEval()) return;
     const ids = this.observedIds();
@@ -56,11 +58,16 @@ export class MultiCloudEval {
       .filter(c => ids.has(c.id))
       .slice(0, 32);
     if (chapters.length) {
-      const variant = chapters[0].variant; // lila-ws only supports one variant for all fens
-      this.send('evalGetMulti', {
-        fens: chapters.map(c => c.fen),
-        ...(variant != 'standard' ? { variant } : {}),
-      });
+      const fensToRequest = new Set(chapters.map(c => c.fen));
+      const sameFens = [...fensToRequest].every(f => this.lastRequestedFens.has(f));
+      if (!sameFens) {
+        this.lastRequestedFens = fensToRequest;
+        const variant = chapters[0].variant; // lila-ws only supports one variant for all fens
+        this.send('evalGetMulti', {
+          fens: Array.from(fensToRequest),
+          ...(variant != 'standard' ? { variant } : {}),
+        });
+      }
     }
   };
 
