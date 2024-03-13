@@ -24,6 +24,7 @@
   <string name="noSuitableOauthToken">Немає створеного підхожого токена OAuth.</string>
   <string name="dgtBoardConnectivity">З\'єднання з DGT-дошкою</string>
   <string name="clickToGenerateOne">Натисніть, щоб згенерувати</string>
+  <string name="textToSpeech">Синтез мовлення</string>
   <string name="keywords">Ключові слова</string>
   <string name="keywordFormatDescription">Ключові слова є у форматі JSON. Вони використовуються, щоб перекладати ходи та результати на вашу мову. Англійська за замовчуванням, але ви можете змінити її.</string>
   <string name="debug">Налагодження</string>
