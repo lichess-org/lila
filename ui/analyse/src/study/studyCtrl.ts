@@ -36,6 +36,7 @@ import {
   ChapterPreview,
   StudyDataFromServer,
   StudyData,
+  ChapterPreviewFromServer,
 } from './interfaces';
 import GamebookPlayCtrl from './gamebook/gamebookPlayCtrl';
 import { DescriptionCtrl } from './description';
@@ -64,7 +65,7 @@ interface Handlers {
   glyphs(d: WithWhoAndPos & { g: Tree.Glyph[] }): void;
   clock(d: ServerClockMsg): void;
   forceVariation(d: WithWhoAndPos & { force: boolean }): void;
-  chapters(d: ChapterPreview[]): void;
+  chapters(d: ChapterPreviewFromServer[]): void;
   reload(d: null | WithChapterId): void;
   changeChapter(d: WithWhoAndPos): void;
   updateChapter(d: WithWhoAndChap): void;

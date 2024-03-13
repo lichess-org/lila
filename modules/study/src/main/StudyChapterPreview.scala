@@ -85,11 +85,9 @@ object ChapterPreview:
 
   def players(clocks: Chapter.BothClocks)(tags: Tags): Option[Players] =
     val names = tags.names
-    names
-      .exists(_.isDefined)
-      .option:
-        (names, tags.fideIds, tags.titles, tags.elos, clocks).mapN: (n, f, t, e, c) =>
-          Player(n | PlayerName("Unknown player"), t, e, c, f)
+    Option.when(names.exists(_.isDefined)):
+      (names, tags.fideIds, tags.titles, tags.elos, clocks).mapN: (n, f, t, e, c) =>
+        Player(n | PlayerName("Unknown player"), t, e, c, f)
 
   object json:
     import lila.common.Json.{ writeAs, given }

@@ -62,6 +62,7 @@ export default class StudyChaptersCtrl {
     this.store(
       chapters.map(c => ({
         ...c,
+        players: c.players ? { white: c.players[0], black: c.players[1] } : undefined,
         orientation: c.orientation || 'white',
         variant: c.variant || 'standard',
         playing: defined(c.lastMove) && c.status === '*',
