@@ -73,12 +73,8 @@ object ChapterPreview:
     names
       .exists(_.isDefined)
       .option:
-        names
-          .zip(tags.titles)
-          .zip(tags.elos)
-          .zip(clocks)
-          .map:
-            case (((n, t), e), c) => Player(n | PlayerName("Unknown player"), t, e, c)
+        (names, tags.titles, tags.elos, clocks).mapN:
+          case (n, t, e, c) => Player(n | PlayerName("Unknown player"), t, e, c)
 
   object json:
     import lila.common.Json.{ writeAs, given }
