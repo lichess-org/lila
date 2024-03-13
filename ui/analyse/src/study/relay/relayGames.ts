@@ -27,7 +27,7 @@ export const gamesList = (study: StudyCtrl, relay: RelayCtrl) => {
     },
     chapters.length == 1 && chapters[0].name == 'Chapter 1'
       ? []
-      : chapters.map(c => {
+      : chapters.map((c, i) => {
           const players = c.players || {
             white: { name: 'Unknown player' },
             black: { name: 'Unknown player' },
@@ -44,6 +44,7 @@ export const gamesList = (study: StudyCtrl, relay: RelayCtrl) => {
               class: { 'relay-game--current': c.id === study.data.chapter.id },
             },
             [
+              h('span.relay-game__number', `${i + 1}`),
               cloudEval && verticalEvalGauge(c, cloudEval),
               h(
                 'span.relay-game__players',

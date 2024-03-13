@@ -255,24 +255,37 @@
   @extend %flex-center-nowrap;
   align-items: stretch;
   gap: 0.5em;
-  padding: 0.5em 1em;
-  .relay-games__eval & {
-    padding-left: 0.5em;
-  }
+  padding: 0.5em 0.5em 0.5em 0.2em;
   border-bottom: $border;
+  border-left: 3px solid transparent;
   &:hover {
     background: mix($c-primary, $c-bg-box, 10%);
+    color: $c-font-clearer;
     .mini-game__flag {
       opacity: 1;
     }
+    border-left-color: $c-primary;
   }
   &--current {
     background: mix($c-primary, $c-bg-box, 20%);
+    border-left-color: $c-primary;
   }
   &__players {
     @extend %flex-column;
     flex: 1;
     overflow: hidden;
+  }
+  &__number {
+    font-size: 0.9em;
+    font-weight: bold;
+    align-self: center;
+    width: 2ch;
+    text-align: center;
+    color: $c-font-dimmer;
+    .relay-game--current &,
+    .relay-game:hover & {
+      color: $c-primary;
+    }
   }
   &__player {
     @extend %flex-between-nowrap;
@@ -281,7 +294,7 @@
     bad {
       font-weight: bold;
     }
-    .mini-game__user {
+    .mini-game__user .name {
       @extend %nowrap-ellipsis;
     }
   }
