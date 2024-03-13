@@ -71,7 +71,7 @@
   &__header {
     @extend %flex-center-nowrap;
     background: $c-bg-zebra;
-    gap: 2em;
+    gap: calc(var(--box-padding) / 1.5);
     padding: 0 var(--box-padding);
     @include breakpoint($mq-x-small) {
       padding-left: 0;
@@ -98,13 +98,17 @@
 
     h1 {
       flex: auto;
-      @include fluid-size('font-size', 14px, 24px);
+      @include fluid-size('font-size', 14px, 32px);
+      color: $c-brag;
     }
 
     &__content {
       @extend %flex-column;
       flex: 1;
       gap: 1em;
+      @include breakpoint($mq-col3) {
+        gap: calc(var(--box-padding) / 3);
+      }
       margin: 1em 0;
     }
 
@@ -114,7 +118,7 @@
     }
     &__mselect {
       flex: auto;
-      @include fluid-size('font-size', 12px, 18px);
+      @include fluid-size('font-size', 12px, 20px);
       .mselect__list a {
         gap: 1em;
       }
@@ -172,9 +176,22 @@
     }
   }
 
+  &__nav {
+    @extend %flex-between;
+    margin: 2em var(--box-padding);
+    gap: 1em;
+    user-select: none;
+  }
+  &__subscribe {
+    @extend %flex-center-nowrap;
+    gap: 1ch;
+    label {
+      cursor: pointer;
+    }
+  }
+
   &__tabs {
     @extend %flex-center-nowrap;
-    margin: 2em var(--box-padding);
     gap: 1em;
     span {
       @extend %box-radius;

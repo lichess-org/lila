@@ -181,29 +181,32 @@ const header = (relay: RelayCtrl, ctrl: AnalyseCtrl) => {
           group && groupSelect(relay, group),
           roundSelect(relay, study),
         ]),
-        ...(defined(d.isSubscribed)
-          ? [
-              toggle(
-                {
-                  name: 'Subscribe',
-                  id: 'tour-subscribe',
-                  checked: d.isSubscribed,
-                  change: (v: boolean) => {
-                    xhr.text(`/broadcast/${d.tour.id}/subscribe?set=${v}`, { method: 'post' });
-                    d.isSubscribed = v;
-                    ctrl.redraw();
-                  },
-                },
-                ctrl.trans,
-                ctrl.redraw,
-              ),
-            ]
-          : []),
       ]),
     ]),
-    makeTabs(ctrl),
+    h('div.relay-tour__nav', [makeTabs(ctrl), ...subscribe(relay, ctrl)]),
   ];
 };
+
+const subscribe = (relay: RelayCtrl, ctrl: AnalyseCtrl) =>
+  defined(relay.data.isSubscribed)
+    ? [
+        toggle(
+          {
+            name: 'Subscribe',
+            id: 'tour-subscribe',
+            cls: 'relay-tour__subscribe',
+            checked: relay.data.isSubscribed,
+            change: (v: boolean) => {
+              xhr.text(`/broadcast/${relay.data.tour.id}/subscribe?set=${v}`, { method: 'post' });
+              relay.data.isSubscribed = v;
+              ctrl.redraw();
+            },
+          },
+          ctrl.trans,
+          ctrl.redraw,
+        ),
+      ]
+    : [];
 
 const makeTabs = (ctrl: AnalyseCtrl) => {
   const study = ctrl.study,
