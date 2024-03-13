@@ -29,7 +29,7 @@ export default function (ctrl: AnalyseCtrl): VNode | undefined {
       ? teams(relay, study, ctrl)
       : leaderboard(relay, ctrl);
 
-  return h(`div.box.relay-tour.relay-tour--${tab}`, content);
+  return h('div.box.relay-tour', content);
 }
 
 export const tourSide = (ctrl: AnalyseCtrl, study: StudyCtrl, relay: RelayCtrl) =>
@@ -58,7 +58,7 @@ const leaderboard = (relay: RelayCtrl, ctrl: AnalyseCtrl): MaybeVNodes => {
   const withRating = !!players.find(p => p.rating);
   return [
     ...header(relay, ctrl),
-    h('table.slist.slist-invert.slist-pad', [
+    h('table.relay-tour__leaderboard.slist.slist-invert.slist-pad', [
       h(
         'thead',
         h('tr', [

@@ -212,11 +212,9 @@
     margin: 3em var(--box-padding);
   }
 
-  &--leaderboard {
-    table {
-      width: auto;
-      margin: 0 auto 1rem;
-    }
+  &__leaderboard {
+    width: auto;
+    margin: 0 auto 1rem;
     thead {
       background: none;
       th {
