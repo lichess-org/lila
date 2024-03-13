@@ -1,4 +1,4 @@
-import { looseH as h, onInsert } from 'common/snabbdom';
+import { looseH as h } from 'common/snabbdom';
 import { StudyCtrl } from '../studyDeps';
 import RelayCtrl from './relayCtrl';
 import { userTitle } from 'common/userLink';
@@ -40,11 +40,10 @@ export const gamesList = (study: StudyCtrl, relay: RelayCtrl) => {
                 ...gameLinkAttrs(basePath, c),
                 'data-id': c.id,
               },
-              hook: cloudEval && onInsert(el => cloudEval.observe(el)),
               class: { 'relay-game--current': c.id === study.data.chapter.id },
             },
             [
-              cloudEval && verticalEvalGauge(c, cloudEval.getCloudEval),
+              cloudEval && verticalEvalGauge(c, cloudEval),
               h(
                 'span.relay-game__players',
                 [players.black, players.white].map((p, i) => {

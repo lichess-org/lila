@@ -3,7 +3,7 @@ import * as xhr from 'common/xhr';
 import { RoundId } from './interfaces';
 import { ChapterId } from '../interfaces';
 import { Color } from 'chessops';
-import { GetCloudEval, MultiCloudEval, renderScoreAtDepth } from '../multiCloudEval';
+import { MultiCloudEval, renderScoreAtDepth } from '../multiCloudEval';
 import { spinnerVdom as spinner } from 'common/spinner';
 import { playerFed } from '../playerBars';
 import { gameLinkAttrs, gameLinksListener } from '../studyChapters';
@@ -99,13 +99,8 @@ const renderTeams = (
                 ...gameLinkAttrs(basePath, game),
                 'data-id': game.id,
               },
-              hook: cloudEval && onInsert(el => cloudEval.observe(el)),
             },
-            [
-              playerView(game.players[0]),
-              statusView(game, chapters, cloudEval?.getCloudEval),
-              playerView(game.players[1]),
-            ],
+            [playerView(game.players[0]), statusView(game, chapters, cloudEval), playerView(game.players[1])],
           ),
         ),
       ),
@@ -118,7 +113,7 @@ const playerView = (p: TeamPlayer) =>
     p.rating && h('rating', `${p.rating}`),
   ]);
 
-const statusView = (g: TeamGame, chapters: StudyChapters, cloudEval?: GetCloudEval) =>
+const statusView = (g: TeamGame, chapters: StudyChapters, cloudEval?: MultiCloudEval) =>
   h(
     'span.relay-tour__team-match__game__status',
     g.outcome
@@ -132,26 +127,33 @@ const statusView = (g: TeamGame, chapters: StudyChapters, cloudEval?: GetCloudEv
       : '*',
   );
 
-const evalGauge = (game: TeamGame, chapters: StudyChapters, cloudEval: GetCloudEval): VNode =>
-  h(`span.eval-gauge-horiz.pov-${game.p0Color}`, [
-    h(`span.eval-gauge-horiz__black`, {
-      hook: {
-        postpatch(old, vnode) {
-          const prevNodeCloud = old.data?.cloud;
-          const fen = chapters.get(game.id)?.fen;
-          const cev = (fen && cloudEval(fen)) || prevNodeCloud;
-          if (cev?.chances != prevNodeCloud?.chances) {
-            const elm = vnode.elm as HTMLElement;
-            const gauge = elm.parentNode as HTMLElement;
-            elm.style.width = `${((1 - (cev?.chances || 0)) / 2) * 100}%`;
-            if (cev) {
-              gauge.title = renderScoreAtDepth(cev);
-              gauge.classList.add('eval-gauge-horiz--set');
+const evalGauge = (game: TeamGame, chapters: StudyChapters, cloudEval: MultiCloudEval): VNode =>
+  h(
+    `span.eval-gauge-horiz.pov-${game.p0Color}`,
+    {
+      attrs: { 'data-id': game.id },
+      hook: onInsert(cloudEval.observe),
+    },
+    [
+      h(`span.eval-gauge-horiz__black`, {
+        hook: {
+          postpatch(old, vnode) {
+            const prevNodeCloud = old.data?.cloud;
+            const fen = chapters.get(game.id)?.fen;
+            const cev = (fen && cloudEval.getCloudEval(fen)) || prevNodeCloud;
+            if (cev?.chances != prevNodeCloud?.chances) {
+              const elm = vnode.elm as HTMLElement;
+              const gauge = elm.parentNode as HTMLElement;
+              elm.style.width = `${((1 - (cev?.chances || 0)) / 2) * 100}%`;
+              if (cev) {
+                gauge.title = renderScoreAtDepth(cev);
+                gauge.classList.add('eval-gauge-horiz--set');
+              }
             }
-          }
-          vnode.data!.cloud = cev;
+            vnode.data!.cloud = cev;
+          },
         },
-      },
-    }),
-    h('tick.zero'),
-  ]);
+      }),
+      h('tick.zero'),
+    ],
+  );
