@@ -167,7 +167,7 @@ object tree:
           )
         )
       ),
-      content = appeal.accountMuted(a(href := routes.Cms.lonePage("communication-guidelines"))(appeal.communicationGuidelines())).some
+      content = appeal.accountMutedInfo(a(href := routes.Cms.lonePage("communication-guidelines"))(appeal.communicationGuidelines())).some
     )
 
   private def rankBanMenu(using PageContext): Branch =
