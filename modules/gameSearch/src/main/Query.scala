@@ -13,7 +13,7 @@ case class Query(
     winner: Option[UserId] = None,
     loser: Option[UserId] = None,
     winnerColor: Option[Int] = None,
-    perf: Range[Int] = Range.none,
+    perf: List[Int] = List.empty,
     source: Option[Int] = None,
     status: Option[Int] = None,
     turns: Range[Int] = Range.none,

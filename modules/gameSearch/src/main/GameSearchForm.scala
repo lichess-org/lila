@@ -89,7 +89,7 @@ private[gameSearch] case class SearchData(
       winner = players.cleanWinner,
       loser = players.cleanLoser,
       winnerColor = winnerColor,
-      perf = if (perf.exists(_ == 5)) Range(1.some, 6.some) else Range(perf,perf),
+      perf = if(perf.exists(_==5)) List(1,2,3,4,6) else perf.toList,// 1,2,3,4,6 are the perf types for standard games
       source = source,
       rated = mode.flatMap(Mode.apply).map(_.rated),
       turns = Range(turnsMin, turnsMax),
@@ -106,7 +106,7 @@ private[gameSearch] case class SearchData(
       sorting = Sorting(sortOrDefault.field, sortOrDefault.order)
     )
 
-  def nonEmptyQuery = Some(query).filter(_.nonEmpty)
+  def nonEmptyQuery = Some(query.pp).filter(_.nonEmpty)
 
 private[gameSearch] case class SearchPlayer(
     a: Option[UserStr] = None,
