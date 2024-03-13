@@ -50,15 +50,15 @@ final class BoundedAsyncActor(maxSize: Max, name: String, logging: Boolean = tru
    * Busy: Some(Queue.empty)
    * Busy with backlog: Some(Queue.nonEmpty)
    */
-  private[this] val stateRef: AtomicReference[State] = new AtomicReference(None)
+  private val stateRef: AtomicReference[State] = new AtomicReference(None)
 
-  private[this] def run(msg: Matchable): Unit =
+  private def run(msg: Matchable): Unit =
     process.applyOrElse(msg, fallback).onComplete(postRun)
 
-  private[this] val postRun = (_: Matchable) =>
+  private val postRun = (_: Matchable) =>
     stateRef.getAndUpdate(postRunUpdate).flatMap(_.headOption).foreach(run)
 
-  private[this] lazy val fallback = (msg: Any) =>
+  private lazy val fallback = (msg: Any) =>
     lila.log("asyncActor").warn(s"[$name] unhandled msg: $msg")
     funit
 

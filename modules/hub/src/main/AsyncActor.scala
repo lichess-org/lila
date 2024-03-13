@@ -29,12 +29,12 @@ abstract class AsyncActor(using Executor) extends lila.common.Tellable:
    * Busy: Some(Queue.empty)
    * Busy with backlog: Some(Queue.nonEmpty)
    */
-  private[this] val stateRef: AtomicReference[State] = new AtomicReference(None)
+  private val stateRef: AtomicReference[State] = new AtomicReference(None)
 
-  private[this] def run(msg: Matchable): Unit =
+  private def run(msg: Matchable): Unit =
     process.applyOrElse(msg, AsyncActor.fallback).onComplete(postRun)
 
-  private[this] val postRun = (_: Matchable) =>
+  private val postRun = (_: Matchable) =>
     stateRef.getAndUpdate(postRunUpdate).flatMap(_.headOption).foreach(run)
 
 object AsyncActor:

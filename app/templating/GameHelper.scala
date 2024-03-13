@@ -12,12 +12,12 @@ import lila.common.LightUser
 
 trait GameHelper:
   self: RouterHelper
-    with I18nHelper
-    with UserHelper
-    with AiHelper
-    with StringHelper
-    with NumberHelper
-    with ChessgroundHelper =>
+    & I18nHelper
+    & UserHelper
+    & AiHelper
+    & StringHelper
+    & NumberHelper
+    & ChessgroundHelper =>
 
   def netBaseUrl: String
   def cdnUrl(path: String): String

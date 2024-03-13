@@ -456,7 +456,7 @@ object RoundSocket:
   )(using Executor):
     import java.util.concurrent.ConcurrentHashMap
 
-    private[this] val terminations = ConcurrentHashMap[GameId, Cancellable](65536)
+    private val terminations = ConcurrentHashMap[GameId, Cancellable](65536)
 
     def schedule(gameId: GameId): Unit =
       terminations.compute(

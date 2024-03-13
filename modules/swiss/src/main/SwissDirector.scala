@@ -69,7 +69,7 @@ final private class SwissDirector(
           yield swiss.some
       }
       .recover { case PairingSystem.BBPairingException(msg, input) =>
-        if msg contains "The number of rounds is larger than the reported number of rounds." then none
+        if msg `contains` "The number of rounds is larger than the reported number of rounds." then none
         else
           logger.warn(s"BBPairing ${from.id} $msg")
           logger.info(s"BBPairing ${from.id} $input")

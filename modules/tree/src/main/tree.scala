@@ -294,7 +294,7 @@ case class Root(
     eval = n.eval.orElse(eval),
     clock = n.clock.orElse(clock),
     crazyData = n.crazyData.orElse(crazyData),
-    children = n.children.nodes.foldLeft(children)(_ addNode _)
+    children = n.children.nodes.foldLeft(children)(_ `addNode` _)
   )
 
   override def toString = s"$ply $children"
@@ -567,7 +567,7 @@ object Node:
       if first then first = false
       else sb.append(" ")
       sb.append(orig.asChar)
-      dests.foreach(sb append _.asChar)
+      dests.foreach(sb `append` _.asChar)
     sb.toString
 
   given Writes[Map[Square, Bitboard]] = Writes: dests =>

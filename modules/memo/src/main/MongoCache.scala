@@ -31,7 +31,7 @@ final class MongoCache[K, V: BSONHandler] private (
               $id(dbKey),
               Entry(dbKey, v, nowInstant.plus(dbTtl)),
               upsert = true
-            ) inject v
+            ) `inject` v
           }
           .mon(_.mongoCache.compute(name))
       case Some(entry) =>
@@ -43,7 +43,7 @@ final class MongoCache[K, V: BSONHandler] private (
   def get = cache.get
 
   def invalidate(key: K): Funit =
-    coll.delete.one($id(makeDbKey(key))).void andDo
+    coll.delete.one($id(makeDbKey(key))).void `andDo`
       cache.invalidate(key)
 
   private def makeDbKey(key: K) = s"$name:${keyToString(key)}"

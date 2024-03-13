@@ -30,11 +30,11 @@ final class OAuthServer(
         monitorAuth(res.isRight)
 
   def auth(tokenId: Bearer, accepted: EndpointScopes, andLogReq: Option[RequestHeader]): Fu[AccessResult] =
-    getTokenFromSignedBearer(tokenId) orFailWith NoSuchToken flatMap {
+    getTokenFromSignedBearer(tokenId) `orFailWith` NoSuchToken flatMap {
       case at if !accepted.isEmpty && !accepted.compatible(at.scopes) =>
         fufail(MissingScope(at.scopes))
       case at =>
-        userRepo me at.userId flatMap {
+        userRepo `me` at.userId flatMap {
           case None => fufail(NoSuchUser)
           case Some(u) =>
             val blocked =
@@ -46,11 +46,11 @@ final class OAuthServer(
                 }
               .foreach: req =>
                 logger.debug:
-                  s"${if blocked then "block" else "auth"} ${at.clientOrigin | "-"} as ${u.username} ${HTTPRequest print req take 200}"
+                  s"${if blocked then "block" else "auth"} ${at.clientOrigin | "-"} as ${u.username} ${HTTPRequest `print` req take 200}"
             if blocked then fufail(OriginBlocked)
             else fuccess(OAuthScope.Access(OAuthScope.Scoped(u, at.scopes), at.tokenId))
         }
-    } dmap Right.apply recover { case e: AuthError =>
+    } `dmap` Right.apply recover { case e: AuthError =>
       Left(e)
     }
 
@@ -64,7 +64,7 @@ final class OAuthServer(
     user1 <- auth1
     user2 <- auth2
     result <-
-      if user1.me is user2.me
+      if user1.me `is` user2.me
       then Left(OneUserWithTwoTokens)
       else Right(user1.user -> user2.user)
   yield result

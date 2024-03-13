@@ -42,9 +42,9 @@ case class Pairing(
     case ThreeCheck | Atomic | RacingKings      => 20
   ))
 
-  def wonBy(user: UserId): Boolean     = winner.exists(user is _)
-  def lostBy(user: UserId): Boolean    = winner.exists(user isnt _)
-  def notLostBy(user: UserId): Boolean = winner.forall(user is _)
+  def wonBy(user: UserId): Boolean     = winner.exists(user `is` _)
+  def lostBy(user: UserId): Boolean    = winner.exists(user `isnt` _)
+  def notLostBy(user: UserId): Boolean = winner.forall(user `is` _)
   def draw: Boolean                    = finished && winner.isEmpty
 
   def colorOf(userId: UserId): Option[Color] =

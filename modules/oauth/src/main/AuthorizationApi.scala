@@ -9,7 +9,7 @@ final class AuthorizationApi(val coll: Coll)(using Executor):
   def create(request: AuthorizationRequest.Authorized): Fu[Protocol.AuthorizationCode] =
     val code = Protocol.AuthorizationCode.random()
     coll.insert.one(
-      PendingAuthorizationBSONHandler write PendingAuthorization(
+      PendingAuthorizationBSONHandler `write` PendingAuthorization(
         code.hashed,
         request.clientId,
         request.user,
@@ -18,7 +18,7 @@ final class AuthorizationApi(val coll: Coll)(using Executor):
         request.scopes,
         nowInstant.plusSeconds(120)
       )
-    ) inject code
+    ) `inject` code
 
   def consume(
       request: AccessTokenRequest.Prepared

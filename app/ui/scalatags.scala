@@ -43,7 +43,7 @@ trait ScalatagsAttrs:
 
 // collection of lila snippets
 trait ScalatagsSnippets:
-  this: ScalatagsExtensions with ScalatagsAttrs =>
+  this: ScalatagsExtensions & ScalatagsAttrs =>
 
   import scalatags.Text.all.*
 

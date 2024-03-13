@@ -43,7 +43,7 @@ object HTTPRequest:
   val isMobileBrowser                              = UaMatcher("""(?i)iphone|ipad|ipod|android.+mobile""")
   def isLichessMobile(ua: UserAgent): Boolean      = ua.value.startsWith("Lichess Mobile/")
   def isLichessMobile(req: RequestHeader): Boolean = userAgent(req).exists(isLichessMobile)
-  def isLichobile(req: RequestHeader)              = userAgent(req).exists(_.value contains "Lichobile/")
+  def isLichobile(req: RequestHeader)              = userAgent(req).exists(_.value `contains` "Lichobile/")
   def isLichobileDev(req: RequestHeader) = // lichobile in a browser can't set its user-agent
     isLichobile(req) || (appOrigin(req).isDefined && !isLichessMobile(req))
   def isAndroid                     = UaMatcher("Android")
@@ -78,7 +78,7 @@ object HTTPRequest:
 
   def isHuman(req: RequestHeader) = isCrawler(req).no && !isFishnet(req)
 
-  private[this] val fileExtensionRegex = """\.(?<!^\.)[a-zA-Z0-9]{2,4}$""".r
+  private val fileExtensionRegex = """\.(?<!^\.)[a-zA-Z0-9]{2,4}$""".r
 
   def hasFileExtension(req: RequestHeader) = fileExtensionRegex.find(req.path)
 

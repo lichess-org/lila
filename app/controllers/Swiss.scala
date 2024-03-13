@@ -90,7 +90,7 @@ final class Swiss(
         case _           => notFoundJson()
 
   private def isUserInTheTeam(teamId: lila.team.TeamId)(user: UserId) =
-    env.team.cached.teamIds(user).dmap(_ contains teamId)
+    env.team.cached.teamIds(user).dmap(_ `contains` teamId)
 
   private def cachedSwissAndTeam(id: SwissId): Fu[Option[(SwissModel, LightTeam)]] =
     env.swiss.cache.swissCache

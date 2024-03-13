@@ -130,7 +130,7 @@ final class Env(
       promise.completeWith(chatFreshness.of(source))
     },
     "announce" -> {
-      case Announce(msg, date, _) if msg contains "will restart" => pagerDuty.lilaRestart(date)
+      case Announce(msg, date, _) if msg `contains` "will restart" => pagerDuty.lilaRestart(date)
     },
     "lpv" -> {
       case AllPgnsFromText(text, p)       => p.completeWith(textLpvExpand.allPgnsFromText(text))

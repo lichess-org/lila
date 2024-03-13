@@ -219,7 +219,7 @@ trait LilaLibraryExtensions extends LilaTypes:
 
     def withTimeoutError(
         duration: FiniteDuration,
-        error: => Exception with util.control.NoStackTrace
+        error: => Exception & util.control.NoStackTrace
     )(using Executor)(using scheduler: Scheduler): Fu[A] =
       Future.firstCompletedOf(
         Seq(

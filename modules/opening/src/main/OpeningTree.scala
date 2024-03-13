@@ -38,5 +38,5 @@ object OpeningTree:
           )
       }
       .toList
-      .foldLeft(emptyNode)(_ update _)
+      .foldLeft(emptyNode)(_ `update` _)
       .toTree
