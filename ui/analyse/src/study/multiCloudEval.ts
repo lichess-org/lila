@@ -18,17 +18,19 @@ export class MultiCloudEval {
   showEval: Prop<boolean>;
 
   private observed: Set<HTMLElement> = new Set();
-  private observer = new IntersectionObserver(
-    entries =>
-      entries.forEach(entry => {
-        const el = entry.target as HTMLElement;
-        if (entry.isIntersecting) {
-          this.observed.add(el);
-          this.requestNewEvals();
-        } else this.observed.delete(el);
-      }),
-    { threshold: 0.2 },
-  );
+  private observer: IntersectionObserver | undefined =
+    window.IntersectionObserver &&
+    new IntersectionObserver(
+      entries =>
+        entries.forEach(entry => {
+          const el = entry.target as HTMLElement;
+          if (entry.isIntersecting) {
+            this.observed.add(el);
+            this.requestNewEvals();
+          } else this.observed.delete(el);
+        }),
+      { threshold: 0.2 },
+    );
   private cloudEvals: Map<FEN, CloudEval> = new Map();
 
   constructor(
@@ -44,7 +46,7 @@ export class MultiCloudEval {
 
   thisIfShowEval = (): MultiCloudEval | undefined => (this.showEval() ? this : undefined);
 
-  observe = (el: HTMLElement) => this.observer.observe(el);
+  observe = (el: HTMLElement) => this.observer?.observe(el);
 
   private observedIds = () => new Set(Array.from(this.observed).map(el => el.dataset.id));
 
