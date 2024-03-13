@@ -280,7 +280,7 @@
   border-bottom: $border;
   border-left: 3px solid transparent;
   &:hover {
-    background: mix($c-primary, $c-bg-box, 10%);
+    background: mix($c-primary, $c-bg-box, 12%);
     color: $c-font-clearer;
     .mini-game__flag {
       opacity: 1;

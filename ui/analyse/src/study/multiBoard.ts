@@ -3,7 +3,7 @@ import { clockIsRunning, formatMs } from 'common/clock';
 import { fenColor } from 'common/miniBoard';
 import { MaybeVNode, VNode, bind, onInsert, looseH as h } from 'common/snabbdom';
 import { opposite as CgOpposite, uciToMove } from 'chessground/util';
-import { ChapterPreview, ChapterPreviewPlayer } from './interfaces';
+import { ChapterId, ChapterPreview, ChapterPreviewPlayer } from './interfaces';
 import StudyCtrl from './studyCtrl';
 import { CloudEval, MultiCloudEval, renderEvalToggle, renderScoreAtDepth } from './multiCloudEval';
 import { Toggle, defined, notNull, toggle } from 'common';
@@ -76,7 +76,7 @@ export function view(ctrl: MultiBoardCtrl, study: StudyCtrl): MaybeVNode {
           insert: gameLinksListener(study.setChapter),
         },
       },
-      pager.currentPageResults.map(makePreview(basePath, cloudEval)),
+      pager.currentPageResults.map(makePreview(basePath, study.vm.chapterId, cloudEval)),
     ),
   ]);
 }
@@ -116,57 +116,59 @@ const renderPlayingToggle = (ctrl: MultiBoardCtrl): MaybeVNode =>
     ctrl.trans.noarg('playing'),
   ]);
 
-const makePreview = (basePath: string, cloudEval?: MultiCloudEval) => (preview: ChapterPreview) => {
-  const orientation = preview.orientation || 'white';
-  return h(
-    `a.mini-game.is2d.chap-${preview.id}`,
-    {
-      attrs: {
-        ...gameLinkAttrs(basePath, preview),
-        'data-id': preview.id,
+const makePreview =
+  (basePath: string, current: ChapterId, cloudEval?: MultiCloudEval) => (preview: ChapterPreview) => {
+    const orientation = preview.orientation || 'white';
+    return h(
+      `a.mini-game.is2d.chap-${preview.id}`,
+      {
+        class: { active: preview.id === current },
+        attrs: {
+          ...gameLinkAttrs(basePath, preview),
+          'data-id': preview.id,
+        },
       },
-    },
-    [
-      boardPlayer(preview, CgOpposite(orientation)),
-      h('span.cg-gauge', [
-        h(
-          'span.mini-game__board',
-          h('span.cg-wrap', {
-            hook: {
-              insert(vnode) {
-                const el = vnode.elm as HTMLElement;
-                vnode.data!.cg = site.makeChessground(el, {
-                  coordinates: false,
-                  viewOnly: true,
-                  fen: preview.fen,
-                  orientation,
-                  lastMove: uciToMove(preview.lastMove),
-                  drawable: {
-                    enabled: false,
-                    visible: false,
-                  },
-                });
-                vnode.data!.fen = preview.fen;
-              },
-              postpatch(old, vnode) {
-                if (old.data!.fen !== preview.fen) {
-                  old.data!.cg?.set({
+      [
+        boardPlayer(preview, CgOpposite(orientation)),
+        h('span.cg-gauge', [
+          h(
+            'span.mini-game__board',
+            h('span.cg-wrap', {
+              hook: {
+                insert(vnode) {
+                  const el = vnode.elm as HTMLElement;
+                  vnode.data!.cg = site.makeChessground(el, {
+                    coordinates: false,
+                    viewOnly: true,
                     fen: preview.fen,
+                    orientation,
                     lastMove: uciToMove(preview.lastMove),
+                    drawable: {
+                      enabled: false,
+                      visible: false,
+                    },
                   });
-                }
-                vnode.data!.fen = preview.fen;
-                vnode.data!.cg = old.data!.cg;
+                  vnode.data!.fen = preview.fen;
+                },
+                postpatch(old, vnode) {
+                  if (old.data!.fen !== preview.fen) {
+                    old.data!.cg?.set({
+                      fen: preview.fen,
+                      lastMove: uciToMove(preview.lastMove),
+                    });
+                  }
+                  vnode.data!.fen = preview.fen;
+                  vnode.data!.cg = old.data!.cg;
+                },
               },
-            },
-          }),
-        ),
-        cloudEval && verticalEvalGauge(preview, cloudEval),
-      ]),
-      boardPlayer(preview, orientation),
-    ],
-  );
-};
+            }),
+          ),
+          cloudEval && verticalEvalGauge(preview, cloudEval),
+        ]),
+        boardPlayer(preview, orientation),
+      ],
+    );
+  };
 
 export const verticalEvalGauge = (chap: ChapterPreview, cloudEval: MultiCloudEval): MaybeVNode =>
   h(
