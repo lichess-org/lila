@@ -24,7 +24,9 @@ case class Federation(
 // all=[];$('#federations_table').find('tbody tr').each(function(){all.push([$(this).find('img').attr('src').slice(5,8),$(this).find('a,strong').text().trim()])})
 object Federation:
 
-  type Id   = String
+  opaque type Id = String
+  object Id extends OpaqueString[Id]
+
   type Name = String
 
   case class Stats(rank: Int, nbPlayers: Int, top10Rating: Int)

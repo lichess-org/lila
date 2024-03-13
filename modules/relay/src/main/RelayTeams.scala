@@ -132,7 +132,7 @@ function(root, tags) {
         name: PlayerName,
         title: Option[PlayerTitle],
         rating: Option[Elo],
-        fed: Option[String]
+        fed: Option[Federation.Id]
     )
     case class Pair[A](a: A, b: A):
       def is(p: Pair[A])                 = (a == p.a && b == p.b) || (a == p.b && b == p.a)
@@ -161,8 +161,8 @@ function(root, tags) {
         (for
           teams <- chap.tags.teams.tupled.map(Pair.apply)
           names <- chess.ByColor(chap.tags.names(_))
-          players = (names, chap.tags.titles, chap.tags.elos, chap.tags.fideIds).mapN:
-            case (n, t, e, id) => TeamPlayer(n, t, e, id.flatMap(federations.get))
+          players = (names, chap.tags.titles, chap.tags.elos, chap.tags.fideIds).mapN: (n, t, e, id) =>
+            TeamPlayer(n, t, e, id.flatMap(federations.get))
           m0       = table.find(_.is(teams)) | TeamMatch(teams.map(TeamWithPoints(_)), Nil)
           m1       = m0.add(chap, Pair(players.white -> teams.a, players.black -> teams.b), chap.tags.outcome)
           newTable = m1 :: table.filterNot(_.is(teams))

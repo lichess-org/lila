@@ -34,7 +34,7 @@ object federation:
       tbody(cls := "infinite-scroll")(
         feds.currentPageResults.map: fed =>
           tr(cls := "paginated")(
-            td(a(href := routes.Fide.federation(fed.slug))(flag(fed.id, fed.id), fed.name)),
+            td(a(href := routes.Fide.federation(fed.slug))(flag(fed.id, none), fed.name)),
             td(fed.nbPlayers.localize),
             ratingCell(fed.standard),
             ratingCell(fed.rapid),
@@ -44,9 +44,9 @@ object federation:
       )
     )
 
-  def flag(id: Federation.Id, title: String) = img(
+  def flag(id: Federation.Id, title: Option[String]) = img(
     cls      := "flag",
-    st.title := title,
+    st.title := title.getOrElse(id.value),
     src      := assetUrl(s"images/fide-fed/${id}.svg")
   )
 
@@ -57,9 +57,9 @@ object federation:
     bits.layout(s"${fed.name} - FIDE federation", "federations")(
       cls := "fide-federation",
       div(cls := "box__top fide-federation__head")(
-        flag(fed.id, fed.id),
+        flag(fed.id, none),
         div(h1(fed.name), p(trans.nbPlayers.plural(fed.nbPlayers, fed.nbPlayers.localize))),
-        (fed.id == "KOS").option(p(cls := "fide-federation__kosovo")(kosovoText))
+        (fed.id.value == "KOS").option(p(cls := "fide-federation__kosovo")(kosovoText))
       ),
       div(cls := "fide-cards fide-federation__cards box__pad")(
         bits.tcTrans.map: (tc, name) =>
