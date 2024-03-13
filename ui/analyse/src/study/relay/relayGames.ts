@@ -49,7 +49,7 @@ export const gamesList = (study: StudyCtrl, relay: RelayCtrl) => {
               h(
                 'span.relay-game__players',
                 [players.black, players.white].map((p, i) => {
-                  const s = status[i];
+                  const s = status[1 - i];
                   return h('span.relay-game__player', [
                     h('span.mini-game__user', [
                       p.fed && playerFed(p.fed),
