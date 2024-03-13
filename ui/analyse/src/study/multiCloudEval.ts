@@ -9,7 +9,7 @@ import { StudyChapters } from './studyChapters';
 import debounce from 'common/debounce';
 import { ServerNodeMsg } from './interfaces';
 
-interface CloudEval extends EvalHitMulti {
+export interface CloudEval extends EvalHitMulti {
   chances: number;
 }
 export type GetCloudEval = (fen: FEN) => CloudEval | undefined;
@@ -59,8 +59,9 @@ export class MultiCloudEval {
       .slice(0, 32);
     if (chapters.length) {
       const fensToRequest = new Set(chapters.map(c => c.fen));
-      const sameFens = [...fensToRequest].every(f => this.lastRequestedFens.has(f));
-      if (!sameFens) {
+      const alreadyHasAllFens = [...fensToRequest].every(f => this.lastRequestedFens.has(f));
+      const worthSending = !alreadyHasAllFens || fensToRequest.size < this.lastRequestedFens.size / 1.5;
+      if (worthSending) {
         this.lastRequestedFens = fensToRequest;
         const variant = chapters[0].variant; // lila-ws only supports one variant for all fens
         this.send('evalGetMulti', {
@@ -99,3 +100,5 @@ export const renderEvalToggle = (ctrl: MultiCloudEval): VNode =>
 
 export const renderScore = (s: EvalScore) =>
   s.mate ? '#' + s.mate : defined(s.cp) ? `${s.cp >= 0 ? '+' : ''}${s.cp / 100}` : '?';
+
+export const renderScoreAtDepth = (cev: CloudEval) => `${renderScore(cev)} at depth ${cev.depth}`;

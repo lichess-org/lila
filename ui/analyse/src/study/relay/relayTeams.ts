@@ -3,7 +3,7 @@ import * as xhr from 'common/xhr';
 import { RoundId } from './interfaces';
 import { ChapterId } from '../interfaces';
 import { Color } from 'chessops';
-import { GetCloudEval, MultiCloudEval, renderScore } from '../multiCloudEval';
+import { GetCloudEval, MultiCloudEval, renderScoreAtDepth } from '../multiCloudEval';
 import { spinnerVdom as spinner } from 'common/spinner';
 import { playerFed } from '../playerBars';
 import { gameLinkAttrs, gameLinksListener } from './relayTourView';
@@ -143,7 +143,7 @@ const evalGauge = (game: TeamGame, chapters: StudyChapters, cloudEval: GetCloudE
             const gauge = elm.parentNode as HTMLElement;
             elm.style.width = `${((1 - (cev?.chances || 0)) / 2) * 100}%`;
             if (cev) {
-              gauge.title = `${renderScore(cev)} at depth ${cev.depth}`;
+              gauge.title = renderScoreAtDepth(cev);
               gauge.classList.add('eval-gauge-horiz--set');
             }
           }
