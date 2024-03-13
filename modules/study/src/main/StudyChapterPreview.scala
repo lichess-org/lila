@@ -1,6 +1,6 @@
 package lila.study
 
-import chess.Color
+import chess.{ Color, FideId }
 import chess.format.pgn.Tags
 import chess.format.{ Fen, Uci }
 import chess.{ ByColor, Centis, Color, Outcome, PlayerName, PlayerTitle, Elo }
@@ -9,6 +9,7 @@ import reactivemongo.api.bson.*
 
 import lila.db.dsl.{ *, given }
 import com.github.blemale.scaffeine.AsyncLoadingCache
+import lila.fide.Federation
 
 case class ChapterPreview(
     id: StudyChapterId,
@@ -24,9 +25,14 @@ case class ChapterPreview(
      */
     result: Option[Option[Outcome]]
 ):
-  def secondsSinceLastMove = lastMoveAt.map(at => (nowSeconds - at.toSeconds).toInt)
+  def secondsSinceLastMove  = lastMoveAt.map(at => (nowSeconds - at.toSeconds).toInt)
+  def fideIds: List[FideId] = players.so(_.mapList(_.fideId)).flatten
 
-final class ChapterPreviewApi(chapterRepo: ChapterRepo, cacheApi: lila.memo.CacheApi)(using Executor):
+final class ChapterPreviewApi(
+    chapterRepo: ChapterRepo,
+    fidePlayerApi: lila.fide.FidePlayerApi,
+    cacheApi: lila.memo.CacheApi
+)(using Executor):
 
   import ChapterPreview.AsJsons
   import ChapterPreview.bson.{ projection, given }
@@ -39,7 +45,10 @@ final class ChapterPreviewApi(chapterRepo: ChapterRepo, cacheApi: lila.memo.Cach
     private[ChapterPreviewApi] val cache =
       cacheApi[StudyId, AsJsons](256, "study.chapterPreview.json"):
         _.expireAfterWrite(cacheDuration).buildAsyncFuture: studyId =>
-          listAll(studyId).map(Json.toJson)
+          for
+            chapters    <- listAll(studyId)
+            federations <- fidePlayerApi.federationsOf(chapters.flatMap(_.fideIds))
+          yield ChapterPreview.json.write(chapters)(using federations)
 
     def apply(studyId: StudyId): Fu[AsJsons] = cache.get(studyId)
 
@@ -66,15 +75,21 @@ object ChapterPreview:
   type Players = ByColor[Player]
   type AsJsons = JsValue
 
-  case class Player(name: PlayerName, title: Option[PlayerTitle], rating: Option[Elo], clock: Option[Centis])
+  case class Player(
+      name: PlayerName,
+      title: Option[PlayerTitle],
+      rating: Option[Elo],
+      clock: Option[Centis],
+      fideId: Option[FideId]
+  )
 
   def players(clocks: Chapter.BothClocks)(tags: Tags): Option[Players] =
     val names = tags.names
     names
       .exists(_.isDefined)
       .option:
-        (names, tags.titles, tags.elos, clocks).mapN:
-          case (n, t, e, c) => Player(n | PlayerName("Unknown player"), t, e, c)
+        (names, tags.fideIds, tags.titles, tags.elos, clocks).mapN: (n, f, t, e, c) =>
+          Player(n | PlayerName("Unknown player"), t, e, c, f)
 
   object json:
     import lila.common.Json.{ writeAs, given }
@@ -85,26 +100,26 @@ object ChapterPreview:
       id  <- obj.get[StudyChapterId]("id")
     yield id
 
-    def write(chapters: List[ChapterPreview]): AsJsons = Json.toJson(chapters)
+    def write(chapters: List[ChapterPreview])(using Federation.ByFideIds): AsJsons =
+      given OWrites[ChapterPreview] = writesWithFederations
+      Json.toJson(chapters)
 
-    given Writes[ChapterPreview.Player] = Writes[ChapterPreview.Player]: p =>
+    private def playerWithFederations(p: ChapterPreview.Player)(using federations: Federation.ByFideIds) =
       Json
         .obj("name" -> p.name)
         .add("title" -> p.title)
         .add("rating" -> p.rating)
         .add("clock" -> p.clock)
+        .add("fed" -> p.fideId.flatMap(federations.get))
 
-    given Writes[ChapterPreview.Players] = Writes[ChapterPreview.Players]: players =>
-      Json.obj("white" -> players.white, "black" -> players.black)
-
-    given chapterPreviewWrites: OWrites[ChapterPreview] = c =>
+    private def writesWithFederations(using Federation.ByFideIds): OWrites[ChapterPreview] = c =>
       Json
         .obj(
-          "id"      -> c.id,
-          "name"    -> c.name,
-          "players" -> c.players,
-          "fen"     -> c.fen
+          "id"   -> c.id,
+          "name" -> c.name,
+          "fen"  -> c.fen
         )
+        .add("players", c.players.map(_.mapList(playerWithFederations)))
         .add("orientation", c.orientation.some.filter(_.black))
         .add("lastMove", c.lastMove)
         .add("thinkTime", c.secondsSinceLastMove)

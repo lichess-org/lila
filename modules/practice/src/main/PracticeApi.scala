@@ -54,7 +54,7 @@ final class PracticeApi(
     publishedChapters = chapters.filterNot: c =>
       PracticeStructure.isChapterNameCommented(c.name)
     if publishedChapters.exists(_.id == sc.chapter.id)
-    previews = ChapterPreview.json.write(publishedChapters)
+    previews = ChapterPreview.json.write(publishedChapters)(using Map.empty)
   yield UserStudy(up, practiceStudy, previews, sc, section)
 
   object config:

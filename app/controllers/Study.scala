@@ -358,8 +358,8 @@ final class Study(
         jsonFormError,
         data =>
           doImportPgn(id, data, Socket.Sri("api")): chapters =>
-            import lila.study.ChapterPreview.json.given
-            JsonOk(Json.obj("chapters" -> chapters.map(_.preview)))
+            import lila.study.ChapterPreview.json.write
+            JsonOk(Json.obj("chapters" -> write(chapters.map(_.preview))(using Map.empty)))
       )
   }
 
