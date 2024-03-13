@@ -1,5 +1,5 @@
 import * as licon from 'common/licon';
-import { clockIsRunning, formatMs } from 'common/clock';
+import { otbClockIsRunning, formatMs } from 'common/clock';
 import { fenColor } from 'common/miniBoard';
 import { MaybeVNode, VNode, bind, onInsert, looseH as h } from 'common/snabbdom';
 import { opposite as CgOpposite, uciToMove } from 'chessground/util';
@@ -210,7 +210,7 @@ const renderUser = (player: ChapterPreviewPlayer): VNode =>
 export const renderClock = (chapter: ChapterPreview, color: Color) => {
   const turnColor = fenColor(chapter.fen);
   const timeleft = computeTimeLeft(chapter, color);
-  const ticking = turnColor == color && clockIsRunning(chapter.fen, color);
+  const ticking = turnColor == color && otbClockIsRunning(chapter.fen);
   return defined(timeleft)
     ? h(
         'span.mini-game__clock.mini-game__clock',
