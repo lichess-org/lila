@@ -156,7 +156,10 @@ const roundSelect = (relay: RelayCtrl, study: StudyCtrl) =>
   ]);
 
 const games = (relay: RelayCtrl, study: StudyCtrl, ctrl: AnalyseCtrl) => [
-  h('div.box.relay-tour__box', [...header(relay, ctrl), multiBoardView(study.multiBoard, study)]),
+  h('div.box.relay-tour__box', [
+    ...header(relay, ctrl),
+    study.chapters.list.looksNew() ? undefined : multiBoardView(study.multiBoard, study),
+  ]),
 ];
 
 const teams = (relay: RelayCtrl, study: StudyCtrl, ctrl: AnalyseCtrl) =>
