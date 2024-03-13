@@ -6,7 +6,7 @@ import { Color } from 'chessops';
 import { GetCloudEval, MultiCloudEval, renderScoreAtDepth } from '../multiCloudEval';
 import { spinnerVdom as spinner } from 'common/spinner';
 import { playerFed } from '../playerBars';
-import { gameLinkAttrs, gameLinksListener } from './relayTourView';
+import { gameLinkAttrs, gameLinksListener } from '../studyChapters';
 import { StudyChapters } from '../studyChapters';
 
 interface TeamWithPoints {
@@ -67,13 +67,15 @@ export const teamsView = (ctrl: RelayTeams, chapters: StudyChapters) =>
         },
       },
     },
-    ctrl.teams ? renderTeams(ctrl.teams, ctrl, chapters, ctrl.multiCloudEval.thisIfShowEval()) : [spinner()],
+    ctrl.teams
+      ? renderTeams(ctrl.teams, chapters, ctrl.roundPath(), ctrl.multiCloudEval.thisIfShowEval())
+      : [spinner()],
   );
 
 const renderTeams = (
   teams: TeamTable,
-  ctrl: RelayTeams,
   chapters: StudyChapters,
+  basePath: string,
   cloudEval?: MultiCloudEval,
 ): MaybeVNodes =>
   teams.table.map(row =>
@@ -94,7 +96,7 @@ const renderTeams = (
             'a.relay-tour__team-match__game',
             {
               attrs: {
-                ...gameLinkAttrs(ctrl.roundPath, game),
+                ...gameLinkAttrs(basePath, game),
                 'data-id': game.id,
               },
               hook: cloudEval && onInsert(el => cloudEval.observe(el)),

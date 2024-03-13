@@ -14,7 +14,7 @@ import {
 } from './multiCloudEval';
 import { Toggle, defined, notNull, toggle } from 'common';
 import { Color } from 'chessops';
-import { StudyChapters } from './studyChapters';
+import { StudyChapters, gameLinkAttrs, gameLinksListener } from './studyChapters';
 
 export class MultiBoardCtrl {
   playing: Toggle;
@@ -64,6 +64,7 @@ export class MultiBoardCtrl {
 export function view(ctrl: MultiBoardCtrl, study: StudyCtrl): MaybeVNode {
   const pager = ctrl.pager();
   const cloudEval = ctrl.multiCloudEval.thisIfShowEval();
+  const basePath = study.relay?.roundPath() || study.baseUrl();
   return h('div.study__multiboard', [
     h('div.study__multiboard__top', [
       renderPagerNav(pager, ctrl),
@@ -72,7 +73,15 @@ export function view(ctrl: MultiBoardCtrl, study: StudyCtrl): MaybeVNode {
         renderPlayingToggle(ctrl),
       ]),
     ]),
-    h('div.now-playing', pager.currentPageResults.map(makePreview(study, cloudEval))),
+    h(
+      'div.now-playing',
+      {
+        hook: {
+          insert: gameLinksListener(study.setChapter),
+        },
+      },
+      pager.currentPageResults.map(makePreview(study, basePath, cloudEval)),
+    ),
   ]);
 }
 
@@ -111,57 +120,59 @@ const renderPlayingToggle = (ctrl: MultiBoardCtrl): MaybeVNode =>
     ctrl.trans.noarg('playing'),
   ]);
 
-const makePreview = (study: StudyCtrl, cloudEval?: MultiCloudEval) => (preview: ChapterPreview) => {
-  const orientation = preview.orientation || 'white';
-  return h(
-    `a.mini-game.is2d.chap-${preview.id}`,
-    {
-      attrs: { 'data-id': preview.id },
-      hook: cloudEval && onInsert(el => cloudEval.observe(el)),
-    },
-    [
-      boardPlayer(preview, CgOpposite(orientation)),
-      h('span.cg-gauge', [
-        h(
-          'span.mini-game__board',
-          h('span.cg-wrap', {
-            hook: {
-              insert(vnode) {
-                const el = vnode.elm as HTMLElement;
-                vnode.data!.cg = site.makeChessground(el, {
-                  coordinates: false,
-                  viewOnly: true,
-                  fen: preview.fen,
-                  orientation,
-                  lastMove: uciToMove(preview.lastMove),
-                  drawable: {
-                    enabled: false,
-                    visible: false,
-                  },
-                });
-                vnode.data!.fen = preview.fen;
-                // TODO defer click to parent, and add proper href. See relay/gameList.ts
-                el.addEventListener('mousedown', _ => study.setChapter(preview.id));
-              },
-              postpatch(old, vnode) {
-                if (old.data!.fen !== preview.fen) {
-                  old.data!.cg?.set({
+const makePreview =
+  (study: StudyCtrl, basePath: string, cloudEval?: MultiCloudEval) => (preview: ChapterPreview) => {
+    const orientation = preview.orientation || 'white';
+    return h(
+      `a.mini-game.is2d.chap-${preview.id}`,
+      {
+        attrs: {
+          ...gameLinkAttrs(basePath, preview),
+          'data-id': preview.id,
+        },
+        hook: cloudEval && onInsert(el => cloudEval.observe(el)),
+      },
+      [
+        boardPlayer(preview, CgOpposite(orientation)),
+        h('span.cg-gauge', [
+          h(
+            'span.mini-game__board',
+            h('span.cg-wrap', {
+              hook: {
+                insert(vnode) {
+                  const el = vnode.elm as HTMLElement;
+                  vnode.data!.cg = site.makeChessground(el, {
+                    coordinates: false,
+                    viewOnly: true,
                     fen: preview.fen,
+                    orientation,
                     lastMove: uciToMove(preview.lastMove),
+                    drawable: {
+                      enabled: false,
+                      visible: false,
+                    },
                   });
-                }
-                vnode.data!.fen = preview.fen;
-                vnode.data!.cg = old.data!.cg;
+                  vnode.data!.fen = preview.fen;
+                },
+                postpatch(old, vnode) {
+                  if (old.data!.fen !== preview.fen) {
+                    old.data!.cg?.set({
+                      fen: preview.fen,
+                      lastMove: uciToMove(preview.lastMove),
+                    });
+                  }
+                  vnode.data!.fen = preview.fen;
+                  vnode.data!.cg = old.data!.cg;
+                },
               },
-            },
-          }),
-        ),
-        cloudEval && verticalEvalGauge(preview, cloudEval.getCloudEval),
-      ]),
-      boardPlayer(preview, orientation),
-    ],
-  );
-};
+            }),
+          ),
+          cloudEval && verticalEvalGauge(preview, cloudEval.getCloudEval),
+        ]),
+        boardPlayer(preview, orientation),
+      ],
+    );
+  };
 
 export const verticalEvalGauge = (chap: ChapterPreview, cloudEval: GetCloudEval): MaybeVNode =>
   h('span.mini-game__gauge', [

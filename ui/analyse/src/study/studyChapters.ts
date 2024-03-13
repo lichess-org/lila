@@ -14,6 +14,7 @@ import {
   TagArray,
   ServerNodeMsg,
   ChapterPreviewFromServer,
+  ChapterId,
 } from './interfaces';
 import StudyCtrl from './studyCtrl';
 import { opposite } from 'chessops/util';
@@ -112,6 +113,23 @@ export function resultOf(tags: TagArray[], isWhite: boolean): string | undefined
       return;
   }
 }
+
+export const gameLinkAttrs = (basePath: string, game: { id: ChapterId }) => ({
+  href: `${basePath}/${game.id}`,
+  'data-id': game.id,
+});
+export const gameLinksListener = (setChapter: (id: ChapterId) => void) => (vnode: VNode) =>
+  (vnode.elm as HTMLElement).addEventListener(
+    'click',
+    e => {
+      e.preventDefault();
+      let target = e.target as HTMLElement;
+      while (target && target.tagName !== 'A') target = target.parentNode as HTMLElement;
+      const id = target?.dataset['id'];
+      if (id) setChapter(id);
+    },
+    { passive: false },
+  );
 
 export function view(ctrl: StudyCtrl): VNode {
   const canContribute = ctrl.members.canContribute(),

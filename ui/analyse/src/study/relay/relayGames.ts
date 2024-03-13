@@ -1,15 +1,16 @@
 import { looseH as h, onInsert } from 'common/snabbdom';
 import { StudyCtrl } from '../studyDeps';
 import RelayCtrl from './relayCtrl';
-import { gameLinkAttrs, gameLinksListener } from './relayTourView';
 import { userTitle } from 'common/userLink';
 import { scrollToInnerSelector } from 'common';
 import { renderClock, verticalEvalGauge } from '../multiBoard';
 import { ChapterPreview } from '../interfaces';
+import { gameLinkAttrs, gameLinksListener } from '../studyChapters';
 
 export const gamesList = (study: StudyCtrl, relay: RelayCtrl) => {
   const chapters = study.chapters.list.all();
   const cloudEval = study.multiCloudEval.thisIfShowEval();
+  const basePath = relay.roundPath();
   return h(
     `div.relay-games${cloudEval ? '.relay-games__eval' : ''}`,
     {
@@ -36,7 +37,7 @@ export const gamesList = (study: StudyCtrl, relay: RelayCtrl) => {
             `a.relay-game.relay-game--${c.id}`,
             {
               attrs: {
-                ...gameLinkAttrs(relay.roundPath, c),
+                ...gameLinkAttrs(basePath, c),
                 'data-id': c.id,
               },
               hook: cloudEval && onInsert(el => cloudEval.observe(el)),

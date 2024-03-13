@@ -551,14 +551,16 @@ export default class StudyCtrl {
   explorerGame = (gameId: string, insert: boolean) =>
     this.makeChange('explorerGame', this.withPosition({ gameId, insert }));
   onPremoveSet = () => this.gamebookPlay?.onPremoveSet();
-  updateAddressBar = () => {
+  baseUrl = () => {
     const current = location.href;
     const studyIdOffset = current.indexOf(`/${this.data.id}`);
-    if (studyIdOffset === -1) return;
-    const studyUrl = current.slice(0, studyIdOffset + 9);
+    return studyIdOffset === -1 ? `/study/${this.data.id}` : current.slice(0, studyIdOffset + 9);
+  };
+  updateAddressBar = () => {
+    const studyUrl = this.baseUrl();
     const chapterUrl = `${studyUrl}/${this.vm.chapterId}`;
     if (this.relay) this.relay.updateAddressBar(studyUrl, chapterUrl);
-    else if (chapterUrl !== current) history.replaceState({}, '', chapterUrl);
+    else if (chapterUrl !== location.href) history.replaceState({}, '', chapterUrl);
   };
   redrawAndUpdateAddressBar = () => {
     this.redraw();

@@ -74,7 +74,7 @@ export default class RelayCtrl {
   tourPath = () => `/broadcast/${this.data.tour.slug}/${this.data.tour.id}`;
   roundPath = (round?: RelayRound) => {
     const r = round || this.currentRound();
-    return r && `/broadcast/${this.data.tour.slug}/${r.slug}/${r.id}`;
+    return `/broadcast/${this.data.tour.slug}/${r.slug}/${r.id}`;
   };
 
   updateAddressBar = (tourUrl: string, roundUrl: string) => {

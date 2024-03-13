@@ -12,7 +12,6 @@ import { toggle } from 'common/controls';
 import * as xhr from 'common/xhr';
 import { teamsView } from './relayTeams';
 import { userTitle } from 'common/userLink';
-import { ChapterId } from '../interfaces';
 import { makeChat } from '../../view/view';
 import { gamesList } from './relayGames';
 
@@ -155,23 +154,6 @@ const roundSelect = (relay: RelayCtrl, study: StudyCtrl) =>
       ),
     ),
   ]);
-
-export const gameLinkAttrs = (roundPath: () => string, game: { id: ChapterId }) => ({
-  href: `${roundPath()}/${game.id}`,
-  'data-id': game.id,
-});
-export const gameLinksListener = (setChapter: (id: ChapterId) => void) => (vnode: VNode) =>
-  (vnode.elm as HTMLElement).addEventListener(
-    'click',
-    e => {
-      e.preventDefault();
-      let target = e.target as HTMLElement;
-      while (target && target.tagName !== 'A') target = target.parentNode as HTMLElement;
-      const id = target?.dataset['id'];
-      if (id) setChapter(id);
-    },
-    { passive: false },
-  );
 
 const games = (relay: RelayCtrl, study: StudyCtrl, ctrl: AnalyseCtrl) => [
   h('div.box.relay-tour__box', [...header(relay, ctrl), multiBoardView(study.multiBoard, study)]),
