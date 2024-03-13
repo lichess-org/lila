@@ -8,7 +8,7 @@ import play.api.mvc.*
 import views.*
 
 import lila.app.{ given, * }
-import lila.common.{ config, HTTPRequest, IpAddress }
+import lila.common.{ config, HTTPRequest, IpAddress, LightUser }
 import lila.team.{ Requesting, Team as TeamModel, TeamMember }
 import lila.user.{ User as UserModel }
 import lila.team.TeamSecurity
@@ -181,13 +181,12 @@ final class Team(env: Env, apiC: => Api) extends LilaController(env):
                       .traverse: change =>
                         env.msg.api.systemPost(
                           change.user,
-                          lila.msg.MsgPreset
-                            .newPermissions(
-                              if asMod then UserModel.lichessId else me.userId,
-                              team.team.light,
-                              change.perms.map(_.name),
-                              env.net.baseUrl
-                            )
+                          lila.msg.MsgPreset.newPermissions(
+                            if asMod then LightUser.fallback(UserModel.lichessName) else me.light,
+                            team.team.light,
+                            change.perms.map(_.name),
+                            env.net.baseUrl
+                          )
                         )
                       .inject:
                         Redirect(routes.Team.leaders(team.id)).flashSuccess
