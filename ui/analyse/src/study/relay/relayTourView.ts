@@ -1,7 +1,7 @@
 import AnalyseCtrl from '../../ctrl';
 import RelayCtrl, { RelayTab } from './relayCtrl';
 import * as licon from 'common/licon';
-import { bind, dataIcon, onInsert, looseH as h } from 'common/snabbdom';
+import { bind, dataIcon, onInsert, looseH as h, MaybeVNodes } from 'common/snabbdom';
 import { VNode } from 'snabbdom';
 import { innerHTML } from 'common/richText';
 import { RelayGroup, RelayRound } from './interfaces';
@@ -19,16 +19,17 @@ export default function (ctrl: AnalyseCtrl): VNode | undefined {
   const study = ctrl.study,
     relay = study?.relay;
   if (!study || !relay?.tourShow()) return undefined;
+  const tab = relay.tab();
   const content =
-    relay.tab() == 'overview'
+    tab == 'overview'
       ? overview(relay, ctrl)
-      : relay.tab() == 'boards'
+      : tab == 'boards'
       ? games(relay, study, ctrl)
-      : relay.tab() == 'teams'
+      : tab == 'teams'
       ? teams(relay, study, ctrl)
       : leaderboard(relay, ctrl);
 
-  return h('div.relay-tour', content);
+  return h(`div.box.relay-tour.relay-tour--${tab}`, content);
 }
 
 export const tourSide = (ctrl: AnalyseCtrl, study: StudyCtrl, relay: RelayCtrl) =>
@@ -52,56 +53,50 @@ export const tourSide = (ctrl: AnalyseCtrl, study: StudyCtrl, relay: RelayCtrl) 
       }),
     }),
   ]);
-const leaderboard = (relay: RelayCtrl, ctrl: AnalyseCtrl): VNode[] => {
+const leaderboard = (relay: RelayCtrl, ctrl: AnalyseCtrl): MaybeVNodes => {
   const players = relay.data.leaderboard || [];
   const withRating = !!players.find(p => p.rating);
   return [
-    h('div.box.relay-tour__box', [
-      ...header(relay, ctrl),
-      h('div.relay-tour__leaderboard', [
-        h('table.slist.slist-invert.slist-pad', [
-          h(
-            'thead',
-            h('tr', [
-              h('th'),
-              h('th'),
-              withRating ? h('th', 'Elo') : undefined,
-              h('th', 'Score'),
-              h('th', 'Games'),
-            ]),
-          ),
-          h(
-            'tbody',
-            players.map(player =>
-              h('tr', [
-                h('th', userTitle(player)),
-                h(
-                  'th',
-                  player.fideId
-                    ? h('a', { attrs: { href: `/fide/${player.fideId}/redirect` } }, player.name)
-                    : player.name,
-                ),
-                h('td', withRating && player.rating ? `${player.rating}` : undefined),
-                h('td', `${player.score}`),
-                h('td', `${player.played}`),
-              ]),
-            ),
-          ),
+    ...header(relay, ctrl),
+    h('table.slist.slist-invert.slist-pad', [
+      h(
+        'thead',
+        h('tr', [
+          h('th'),
+          h('th'),
+          withRating ? h('th', 'Elo') : undefined,
+          h('th', 'Score'),
+          h('th', 'Games'),
         ]),
-      ]),
+      ),
+      h(
+        'tbody',
+        players.map(player =>
+          h('tr', [
+            h('th', userTitle(player)),
+            h(
+              'th',
+              player.fideId
+                ? h('a', { attrs: { href: `/fide/${player.fideId}/redirect` } }, player.name)
+                : player.name,
+            ),
+            h('td', withRating && player.rating ? `${player.rating}` : undefined),
+            h('td', `${player.score}`),
+            h('td', `${player.played}`),
+          ]),
+        ),
+      ),
     ]),
   ];
 };
 
 const overview = (relay: RelayCtrl, ctrl: AnalyseCtrl) => [
-  h('div.box.relay-tour__box.relay-tour__overview', [
-    ...header(relay, ctrl),
-    relay.data.tour.markup
-      ? h('div.relay-tour__markup', {
-          hook: innerHTML(relay.data.tour.markup, () => relay.data.tour.markup!),
-        })
-      : h('div.relay-tour__markup', relay.data.tour.description),
-  ]),
+  ...header(relay, ctrl),
+  relay.data.tour.markup
+    ? h('div.relay-tour__markup', {
+        hook: innerHTML(relay.data.tour.markup, () => relay.data.tour.markup!),
+      })
+    : h('div.relay-tour__markup', relay.data.tour.description),
 ];
 
 const groupSelect = (relay: RelayCtrl, group: RelayGroup) =>
@@ -156,16 +151,12 @@ const roundSelect = (relay: RelayCtrl, study: StudyCtrl) =>
   ]);
 
 const games = (relay: RelayCtrl, study: StudyCtrl, ctrl: AnalyseCtrl) => [
-  h('div.box.relay-tour__box', [
-    ...header(relay, ctrl),
-    study.chapters.list.looksNew() ? undefined : multiBoardView(study.multiBoard, study),
-  ]),
+  ...header(relay, ctrl),
+  study.chapters.list.looksNew() ? undefined : multiBoardView(study.multiBoard, study),
 ];
 
 const teams = (relay: RelayCtrl, study: StudyCtrl, ctrl: AnalyseCtrl) =>
-  relay.teams
-    ? [h('div.box.relay-tour__box', [...header(relay, ctrl), teamsView(relay.teams, study.chapters.list)])]
-    : [];
+  relay.teams && [...header(relay, ctrl), teamsView(relay.teams, study.chapters.list)];
 
 const header = (relay: RelayCtrl, ctrl: AnalyseCtrl) => {
   const d = relay.data,

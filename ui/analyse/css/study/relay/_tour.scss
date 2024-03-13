@@ -1,4 +1,6 @@
 .relay-tour {
+  @extend %box-neat-force;
+  background: $c-bg-box;
   &__side {
     @extend %flex-column;
     user-select: none;
@@ -188,17 +190,12 @@
     }
   }
 
-  &__box {
-    @extend %box-neat-force;
-    background: $c-bg-box;
-  }
-
   &__markup {
     @include rendered-markdown(2em, 50vh);
     margin: 3em var(--box-padding);
   }
 
-  &__leaderboard {
+  &--leaderboard {
     table {
       width: auto;
       margin: 0 auto 1rem;
