@@ -106,7 +106,7 @@ private[gameSearch] case class SearchData(
       sorting = Sorting(sortOrDefault.field, sortOrDefault.order)
     )
 
-  def nonEmptyQuery = Some(query.pp).filter(_.nonEmpty)
+  def nonEmptyQuery = Some(query).filter(_.nonEmpty)
 
 private[gameSearch] case class SearchPlayer(
     a: Option[UserStr] = None,
