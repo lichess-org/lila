@@ -247,6 +247,9 @@
   border-bottom: $border;
   &:hover {
     background: mix($c-primary, $c-bg-box, 10%);
+    .mini-game__flag {
+      opacity: 1;
+    }
   }
   &--current {
     background: mix($c-primary, $c-bg-box, 20%);
@@ -263,7 +266,7 @@
     bad {
       font-weight: bold;
     }
-    player {
+    .mini-game__user {
       @extend %nowrap-ellipsis;
     }
   }

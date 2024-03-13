@@ -6,6 +6,7 @@ import { scrollToInnerSelector } from 'common';
 import { renderClock, verticalEvalGauge } from '../multiBoard';
 import { ChapterPreview } from '../interfaces';
 import { gameLinkAttrs, gameLinksListener } from '../studyChapters';
+import { playerFed } from '../playerBars';
 
 export const gamesList = (study: StudyCtrl, relay: RelayCtrl) => {
   const chapters = study.chapters.list.all();
@@ -49,7 +50,10 @@ export const gamesList = (study: StudyCtrl, relay: RelayCtrl) => {
                 [players.black, players.white].map((p, i) => {
                   const s = status[i];
                   return h('span.relay-game__player', [
-                    h('player', [userTitle(p), p.name]),
+                    h('span.mini-game__user', [
+                      p.fed && playerFed(p.fed),
+                      h('span.name', [userTitle(p), p.name]),
+                    ]),
                     h(s == '1' ? 'good' : s == '0' ? 'bad' : 'status', [s]),
                   ]);
                 }),
