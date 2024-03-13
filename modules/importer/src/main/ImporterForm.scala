@@ -77,12 +77,12 @@ case class ImportData(pgn: PgnStr, analyse: Option[String]):
               .map(Fen.write)
 
             val status = parsed.tags(_.Termination).map(_.toLowerCase) match
-              case Some("normal")                          => game.situation.status | Status.Resign
-              case Some("abandoned")                       => Status.Aborted
-              case Some("time forfeit")                    => Status.Outoftime
-              case Some("rules infraction")                => Status.Cheat
+              case Some("normal")                            => game.situation.status | Status.Resign
+              case Some("abandoned")                         => Status.Aborted
+              case Some("time forfeit")                      => Status.Outoftime
+              case Some("rules infraction")                  => Status.Cheat
               case Some(txt) if txt `contains` "won on time" => Status.Outoftime
-              case _                                       => Status.UnknownFinish
+              case _                                         => Status.UnknownFinish
 
             val date = parsed.tags.anyDate
 
