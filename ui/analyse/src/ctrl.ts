@@ -465,7 +465,7 @@ export default class AnalyseCtrl {
     return undefined;
   }
 
-  changeFen(fen: Fen): void {
+  changeFen(fen: cg.FEN): void {
     this.redirecting = true;
     window.location.href =
       '/analysis/' +
@@ -599,7 +599,7 @@ export default class AnalyseCtrl {
     this.redraw();
   }
 
-  encodeNodeFen(): Fen {
+  encodeNodeFen(): cg.FEN {
     return this.node.fen.replace(/\s/g, '_');
   }
 
@@ -635,8 +635,7 @@ export default class AnalyseCtrl {
           this.retro?.onCeval();
           this.practice?.onCeval();
           this.studyPractice?.onCeval();
-          this.study?.multiBoard.multiCloudEval.onLocalCeval(node, ev);
-          this.study?.relay?.teams?.multiCloudEval.onLocalCeval(node, ev);
+          this.study?.multiCloudEval.onLocalCeval(node, ev);
           this.evalCache.onLocalCeval();
         }
         this.redraw();

@@ -51,7 +51,7 @@
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(170px, 1fr));
     @include breakpoint($mq-x-small) {
-      grid-template-columns: repeat(3, 1fr);
+      grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
     }
 
     a {
@@ -59,25 +59,19 @@
 
       color: $c-font;
       padding: 0.5em;
+      border: 1px solid transparent;
 
-      @include transition(background);
-
-      background: fade-out($c-bg-box, 0.6);
       overflow: hidden;
 
-      &:nth-child(even) {
-        background: $c-bg-zebra2;
-      }
-
-      &:hover {
-        background: fade-out($c-link, 0.6);
+      &.active {
+        background: mix($c-primary, $c-bg-box, 20%);
         color: $c-font-clear;
+        border-color: mix($c-primary, $c-bg-box, 40%);
       }
-
-      &.active,
-      &:active {
-        background: $c-secondary;
-        color: $c-secondary-over;
+      &:hover {
+        background: mix($c-primary, $c-bg-box, 12%);
+        color: $c-font-clear;
+        border-color: mix($c-primary, $c-bg-box, 50%);
       }
 
       cg-board {

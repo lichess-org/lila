@@ -88,6 +88,6 @@ function renderPlayer(
 }
 
 export const playerFed = (fed: string) =>
-  h('img.flag', {
+  h('img.mini-game__flag', {
     attrs: { src: site.asset.url(`images/fide-fed/${fed}.svg`) },
   });

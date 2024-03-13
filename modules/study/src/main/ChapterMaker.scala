@@ -234,7 +234,7 @@ private[study] object ChapterMaker:
 
     def manyGames =
       game
-        .so(_.linesIterator.take(Study.maxChapters).toList)
+        .so(_.linesIterator.take(Study.maxChapters.value).toList)
         .map(_.trim)
         .filter(_.nonEmpty)
         .map { g => copy(game = g.some) }

@@ -232,11 +232,10 @@ POST  /study/$id<\w{8}>/delete         controllers.Study.delete(id)
 GET   /study/$id<\w{8}>/clone          controllers.Study.cloneStudy(id)
 POST  /study/$id<\w{8}>/cloneApply     controllers.Study.cloneApply(id)
 GET   /study/$id<\w{8}>/$chapterId<\w{8}>        controllers.Study.chapter(id, chapterId)
-GET   /study/$id<\w{8}>/$chapterId<\w{8}>/meta   controllers.Study.chapterMeta(id, chapterId)
+GET   /study/$id<\w{8}>/$chapterId<\w{8}>/config controllers.Study.chapterConfig(id, chapterId)
 GET   /study/embed/$id<\w{8}>/$chapterId<\w{8}>  controllers.Study.embed(id, chapterId)
 POST  /study/$id<\w{8}>/clear-chat     controllers.Study.clearChat(id)
 POST  /study/$id<\w{8}>/import-pgn     controllers.Study.importPgn(id)
-GET   /study/$id<\w{8}>/multi-board    controllers.Study.multiBoard(id, page: Int ?= 1)
 POST  /study/$id<\w{8}>/admin          controllers.Study.admin(id)
 GET   /study/topic                     controllers.Study.topics
 POST  /study/topic                     controllers.Study.setTopics
@@ -279,6 +278,7 @@ POST  /broadcast/round/$roundId<\w{8}>/push   controllers.RelayRound.push(roundI
 POST  /api/broadcast/round/$roundId<\w{8}>/push controllers.RelayRound.push(roundId)
 GET   /broadcast/:ts/:rs/$roundId<\w{8}>.pgn  controllers.RelayRound.pgn(ts, rs, roundId)
 GET   /broadcast/$roundId<\w{8}>/teams        controllers.RelayRound.teamsView(roundId)
+GET   /broadcast/$tourId<\w{8}>/leaderboard   controllers.RelayTour.leaderboardView(tourId)
 GET   /api/broadcast/round/$roundId<\w{8}>.pgn controllers.RelayRound.apiPgn(roundId)
 GET   /api/stream/broadcast/round/$roundId<\w{8}>.pgn controllers.RelayRound.stream(roundId)
 GET   /api/broadcast                          controllers.RelayTour.apiIndex

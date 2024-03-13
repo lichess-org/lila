@@ -17,6 +17,7 @@ import {
 } from './interfaces';
 import ExplorerCtrl, { MAX_DEPTH } from './explorerCtrl';
 import { showTablebase } from './tablebaseView';
+import { FEN } from 'chessground/types';
 
 function resultBar(move: OpeningMoveStats): VNode {
   const sum = move.white + move.draws + move.black;
@@ -97,7 +98,7 @@ const showResult = (winner?: Color): VNode =>
     ? h('result.black', '0-1')
     : h('result.draws', '½-½');
 
-function showGameTable(ctrl: AnalyseCtrl, fen: Fen, title: string, games: OpeningGame[]): VNode | null {
+function showGameTable(ctrl: AnalyseCtrl, fen: FEN, title: string, games: OpeningGame[]): VNode | null {
   if (!ctrl.explorer.withGames || !games.length) return null;
   const openedId = ctrl.explorer.gameMenu(),
     isMasters = ctrl.explorer.db() == 'masters';
@@ -382,7 +383,7 @@ function showFailing(ctrl: AnalyseCtrl) {
   ]);
 }
 
-let lastFen: Fen = '';
+let lastFen: FEN = '';
 
 export default function (ctrl: AnalyseCtrl): VNode | undefined {
   const explorer = ctrl.explorer;

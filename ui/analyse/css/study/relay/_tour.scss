@@ -1,33 +1,56 @@
-main.has-relay-tour {
-  grid-template-areas:
-    'relay-tour'
-    'side'
-    'chat'
-    'uchat'
-    'round-training';
-
-  @include breakpoint($mq-col2) {
-    grid-template-columns: minmax(230px, 350px) minmax(70%, 800px);
-    grid-template-rows: auto auto 2.5em;
-    grid-template-areas:
-      'side  relay-tour'
-      'chat  relay-tour'
-      'uchat relay-tour'
-      'round-training relay-tour'
-      '. relay-tour';
-    grid-column-gap: $block-gap;
-
-    .analyse__side {
-      margin-top: 0;
+.relay-tour {
+  @extend %box-neat-force;
+  background: $c-bg-box;
+  &__side {
+    @extend %flex-column;
+    user-select: none;
+    &__header {
+      @extend %flex-center-nowrap, %box-radius-top;
+      overflow: hidden;
+      align-items: stretch;
+      flex: 0 0 auto;
+      button {
+        @extend %flex-center-nowrap, %metal;
+        border: none;
+        outline: none;
+        &:hover,
+        &:hover::before {
+          background: $c-primary !important;
+          color: $c-primary-over;
+          text-shadow: none;
+        }
+      }
     }
-    .mchat {
-      height: 48vh;
+    &__search {
+      flex: 0 0 auto;
+      border-left: $border !important;
+      padding: 1em 1.5em;
+    }
+    &__name {
+      flex: 1;
+      padding: 1em;
+      gap: 0.7em;
+      font-weight: bold;
+      &::before {
+        @extend %data-icon;
+        content: $licon-LessThan;
+        font-size: 1.5em;
+        color: $c-font-dim;
+      }
+      main.has-relay-tour &::before {
+        content: $licon-RadioTower;
+      }
+      main.has-relay-tour & {
+        background: $c-bg-zebra;
+      }
+    }
+    .chat__members {
+      flex: 0 0 auto;
+      height: unset;
+      line-height: 1.3em;
+      min-height: 1.3em;
     }
   }
-}
-
-.relay-tour {
-  grid-area: relay-tour;
 
   &__round {
     @extend %box-padding-horiz, %flex-between-nowrap;
@@ -45,39 +68,101 @@ main.has-relay-tour {
     }
   }
 
-  &__tabs {
-    margin-left: 5px;
-  }
-
-  &__image {
-    width: 100%;
-    aspect-ratio: 2/1;
-  }
-  &__image-upload {
-    margin-top: 3em;
-    text-align: center;
-  }
-
-  &__group-title {
-    @extend %flex-center-nowrap;
-    gap: 1ch;
-  }
-
-  &__group-select {
-    flex: auto;
-    @include fluid-size('font-size', 12px, 20px);
-    .mselect__list > a {
-      gap: 1em;
-    }
-  }
-
   &__header {
-    @extend %flex-between-nowrap;
-    gap: 1em;
+    @extend %flex-center-nowrap;
+    background: $c-bg-zebra;
+    gap: calc(var(--box-padding) / 1.5);
+    padding: 0 var(--box-padding);
+    @include breakpoint($mq-x-small) {
+      padding-left: 0;
+    }
+
+    &__image {
+      display: none;
+      @include breakpoint($mq-x-small) {
+        display: block;
+      }
+      flex: 0 0 38%;
+      line-height: 0;
+      img {
+        width: 100%;
+        aspect-ratio: 2/1;
+        @include broken-img(2 / 1);
+      }
+      text-align: center;
+    }
+    &__image-upload {
+      margin: 3em auto;
+      line-height: 2em;
+    }
 
     h1 {
       flex: auto;
-      @include fluid-size('font-size', 14px, 24px);
+      @include fluid-size('font-size', 14px, 32px);
+      color: $c-brag;
+    }
+
+    &__content {
+      @extend %flex-column;
+      flex: 1;
+      gap: 1em;
+      @include breakpoint($mq-col3) {
+        gap: calc(var(--box-padding) / 3);
+      }
+      margin: 1em 0;
+    }
+
+    &__selectors {
+      @extend %flex-center;
+      gap: 1em;
+    }
+    &__mselect {
+      flex: auto;
+      @include fluid-size('font-size', 12px, 20px);
+      .mselect__list a {
+        gap: 1em;
+      }
+    }
+    &__round-select {
+      .mselect__list {
+        display: table;
+        left: unset;
+        right: 0;
+        tr {
+          display: table-row;
+          &.current-round {
+            background: $c-bg-zebra;
+          }
+        }
+        td {
+          cursor: pointer;
+        }
+        .name {
+          padding: 0.3em 1em;
+        }
+        .time,
+        .status {
+          font-size: 0.9rem;
+          color: $c-font-dim;
+        }
+        .time {
+          @extend %roboto;
+          padding: 0.5em 1em;
+        }
+        tr:hover * {
+          color: $c-primary-over;
+        }
+        .status {
+          padding: 0.5em 1.5rem 0.5em 0;
+          text-align: $end-direction;
+        }
+        ongoing {
+          color: $c-red;
+        }
+        finished {
+          color: $c-good;
+        }
+      }
     }
 
     .setting {
@@ -91,49 +176,165 @@ main.has-relay-tour {
     }
   }
 
-  &__box {
-    @extend %box-neat-force;
-    background: $c-bg-box;
+  &__nav {
+    @extend %flex-between;
+    margin: 2em var(--box-padding);
+    gap: 1em;
+    user-select: none;
+  }
+  &__subscribe {
+    @extend %flex-center-nowrap;
+    gap: 1ch;
+    label {
+      cursor: pointer;
+    }
+  }
+
+  &__tabs {
+    @extend %flex-center-nowrap;
+    gap: 1em;
+    span {
+      @extend %box-radius;
+      cursor: pointer;
+      padding: 0.8em 1.5em;
+      border: $border;
+      &:hover {
+        @extend %metal;
+      }
+      &.active {
+        @extend %metal, %box-shadow;
+      }
+    }
   }
 
   &__markup {
     @include rendered-markdown(2em, 50vh);
-  }
-
-  &__schedule {
-    td:nth-child(3) {
-      text-align: center;
-    }
+    margin: 3em var(--box-padding);
   }
 
   &__leaderboard {
+    width: auto;
+    margin: 0 auto 1rem;
     thead {
       background: none;
       th {
         border: none;
       }
     }
-    th,
-    td {
-      text-align: $end-direction;
-      &:first-child {
+    thead {
+      th {
+        text-align: $end-direction;
+        padding: 0 2rem 0.5rem 2rem;
+      }
+    }
+    th {
+      &:nth-child(1) {
         text-align: $start-direction;
+        padding-right: 2rem;
+      }
+      a {
+        @extend %flex-center-nowrap;
+        .mini-game__flag {
+          margin-#{$end-direction}: 1em;
+          opacity: 0.7;
+        }
+        color: $c-font;
+        &:hover {
+          color: $c-primary;
+        }
       }
     }
     td {
-      &:nth-child(3) {
+      text-align: $end-direction;
+      padding: 1rem 2rem;
+      &:last-child {
         font-weight: bold;
       }
     }
   }
 
-  .slist {
-    border-bottom: 0;
-    ongoing {
-      color: $c-red;
+  .study__multiboard {
+    @include breakpoint($mq-xx-large) {
+      margin: 0 calc(var(--box-padding) - 1em);
+      .now-playing a {
+        padding: 0.8em 1em;
+      }
     }
-    finished {
-      color: $c-good;
+  }
+  .now-playing {
+    grid-template-columns: repeat(1, 1fr);
+    @include breakpoint($mq-small) {
+      grid-template-columns: repeat(2, 1fr);
+    }
+    @include breakpoint($mq-large) {
+      grid-template-columns: repeat(3, 1fr);
+    }
+    @include breakpoint($mq-xx-large) {
+      grid-template-columns: repeat(4, 1fr);
+    }
+  }
+}
+
+.relay-games {
+  @extend %flex-column, %box-radius-bottom, %box-shadow;
+  background: $c-bg-box;
+  flex: 1 1 auto;
+  overflow-y: auto;
+  font-size: 0.9em;
+  position: relative;
+}
+.relay-game {
+  @extend %flex-center-nowrap;
+  align-items: stretch;
+  gap: 0.5em;
+  padding: 0.5em 0.7em 0.5em 0.2em;
+  border-bottom: $border;
+  border-left: 3px solid transparent;
+  &:hover {
+    background: mix($c-primary, $c-bg-box, 12%);
+    color: $c-font-clearer;
+    .mini-game__flag {
+      opacity: 1;
+    }
+    border-left-color: $c-primary;
+  }
+  &--current {
+    background: mix($c-primary, $c-bg-box, 20%);
+    border-left-color: $c-primary;
+  }
+  &__players {
+    @extend %flex-column;
+    flex: 1;
+    overflow: hidden;
+  }
+  &__number {
+    font-size: 0.9em;
+    font-weight: bold;
+    align-self: center;
+    width: 2ch;
+    text-align: center;
+    color: $c-font-dimmer;
+    .relay-game--current &,
+    .relay-game:hover & {
+      color: $c-primary;
+    }
+  }
+  &__player {
+    @extend %flex-between-nowrap;
+    color: $c-font;
+    good,
+    bad {
+      font-weight: bold;
+    }
+    .mini-game__user .name {
+      @extend %nowrap-ellipsis;
+    }
+  }
+  .mini-game__gauge {
+    @extend %box-radius;
+    tick {
+      top: 1.5px;
+      border-bottom-width: 3px;
     }
   }
 }

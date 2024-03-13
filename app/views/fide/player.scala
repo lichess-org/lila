@@ -60,7 +60,7 @@ object player:
             withFlag.option(td:
               player.fed.map: fed =>
                 a(href := routes.Fide.federation(Federation.name(fed))):
-                  federation.flag(fed, Federation.name(fed))
+                  federation.flag(fed, Federation.names.get(fed))
             ),
             td(player.standard),
             td(player.rapid),
@@ -83,7 +83,7 @@ object player:
           card(
             "Federation",
             a(cls := "fide-player__federation", href := routes.Fide.federation(Federation.idToSlug(fed)))(
-              federation.flag(fed, fed),
+              federation.flag(fed, none),
               Federation.name(fed)
             )
           ),

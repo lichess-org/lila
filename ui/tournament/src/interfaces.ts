@@ -1,3 +1,5 @@
+import { FEN } from 'chessground/types';
+
 export interface StandingPlayer extends SimplePlayer {
   id: string;
   withdraw?: boolean;
@@ -100,7 +102,7 @@ export interface TournamentData {
 
 export interface FeaturedGame {
   id: string;
-  fen: Fen;
+  fen: FEN;
   orientation: Color;
   lastMove: string;
   white: FeaturedPlayer;

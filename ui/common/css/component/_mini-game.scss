@@ -20,7 +20,18 @@
   }
 
   &__user {
+    @extend %flex-center-nowrap;
+    gap: 1ch;
     overflow: hidden;
+  }
+
+  &__flag {
+    width: 1.3em;
+    vertical-align: middle;
+    opacity: 0.7;
+    .mini-game:hover & {
+      opacity: 1;
+    }
   }
 
   .name {
@@ -32,7 +43,6 @@
     @extend %roboto;
 
     font-size: 0.9em;
-    margin-#{$start-direction}: 1ch;
   }
 
   &__clock {

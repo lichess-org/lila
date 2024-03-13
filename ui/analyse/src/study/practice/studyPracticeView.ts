@@ -113,9 +113,9 @@ export function side(ctrl: StudyCtrl): VNode {
           return false;
         }),
       },
-      ctrl.chapters
-        .list()
-        .map(function (chapter) {
+      ctrl.chapters.list
+        .all()
+        .map(chapter => {
           const loading = ctrl.vm.loading && chapter.id === ctrl.vm.nextChapterId,
             active = !ctrl.vm.loading && current && current.id === chapter.id,
             completion = data.completion[chapter.id] >= 0 ? 'done' : 'ongoing';

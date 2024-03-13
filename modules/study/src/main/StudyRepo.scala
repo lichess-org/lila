@@ -240,7 +240,7 @@ final class StudyRepo(private[study] val coll: AsyncColl)(using
       .map: docs =>
         for
           doc        <- docs
-          idName     <- idNameHandler.readOpt(doc)
+          idName     <- studyIdNameHandler.readOpt(doc)
           nbChapters <- doc.int("chapters")
         yield (idName, nbChapters)
 

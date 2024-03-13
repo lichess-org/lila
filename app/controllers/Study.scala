@@ -8,6 +8,7 @@ import lila.app.{ given, * }
 import lila.analyse.Analysis
 import lila.common.paginator.{ Paginator, PaginatorJson }
 import lila.common.{ Bus, HTTPRequest, IpAddress, LpvEmbed }
+import lila.common.config.MaxPerPage
 import lila.socket.Socket
 import lila.study.actorApi.{ BecomeStudyAdmin, Who }
 import lila.study.JsonView.JsData
@@ -155,7 +156,7 @@ final class Study(
       env.study.jsonView.pagerData
     Ok(Json.obj("paginator" -> PaginatorJson(pager)))
 
-  private def orRelay(id: StudyId, chapterId: Option[StudyChapterId] = None)(
+  private def orRelayRedirect(id: StudyId, chapterId: Option[StudyChapterId] = None)(
       f: => Fu[Result]
   )(using ctx: Context): Fu[Result] =
     if HTTPRequest.isRedirectable(ctx.req)
@@ -175,9 +176,9 @@ final class Study(
           res <- negotiate(
             html =
               for
-                chat      <- chatOf(sc.study)
-                sVersion  <- env.study.version(sc.study.id)
-                streamers <- streamersOf(sc.study)
+                chat      <- NoCrawlers(chatOf(sc.study))
+                sVersion  <- NoCrawlers(env.study.version(sc.study.id))
+                streamers <- NoCrawlers(streamersOf(sc.study.id))
                 page      <- renderPage(html.study.show(sc.study, data, chat, sVersion, streamers))
               yield Ok(page)
                 .withCanonical(routes.Study.chapter(sc.study.id, sc.chapter.id))
@@ -196,11 +197,12 @@ final class Study(
       }(privateUnauthorizedFu(oldSc.study), privateForbiddenFu(oldSc.study))
     .dmap(_.noCache)
 
-  private[controllers] def getJsonData(sc: WithChapter)(using ctx: Context): Fu[(WithChapter, JsData)] =
+  private[controllers] def getJsonData(sc: WithChapter)(using
+      ctx: Context
+  ): Fu[(WithChapter, JsData)] =
     for
-      chapters                <- env.study.chapterRepo.orderedMetadataByStudy(sc.study.id)
-      (study, resetToChapter) <- env.study.api.resetIfOld(sc.study, chapters)
-      chapter = resetToChapter | sc.chapter
+      (study, chapter, previews) <-
+        env.study.api.maybeResetAndGetChapterPreviews(sc.study, sc.chapter)
       _ <- env.user.lightUserApi.preloadMany(study.members.ids.toList)
       pov = userAnalysisC.makePov(chapter.root.fen.some, chapter.setup.variant)
       analysis <- chapter.serverEval
@@ -218,7 +220,7 @@ final class Study(
           division = division
         )
       )
-      studyJson <- env.study.jsonView(study, chapters, chapter, ctx.me)
+      studyJson <- env.study.jsonView(study, previews, chapter, ctx.me)
     yield WithChapter(study, chapter) -> JsData(
       study = studyJson,
       analysis = baseData
@@ -231,12 +233,12 @@ final class Study(
     )
 
   def show(id: StudyId) = Open:
-    orRelay(id):
+    orRelayRedirect(id):
       showQuery(env.study.api.byIdWithChapter(id))
 
   def chapter(id: StudyId, chapterId: StudyChapterId) =
     Open:
-      orRelay(id, chapterId.some):
+      orRelayRedirect(id, chapterId.some):
         env.study.api
           .byIdWithChapter(id, chapterId)
           .flatMap:
@@ -248,12 +250,9 @@ final class Study(
                   else showQuery(fuccess(none))
             case sc => showQuery(fuccess(sc))
 
-  def chapterMeta(id: StudyId, chapterId: StudyChapterId) = Open:
-    env.study.chapterRepo
-      .byId(chapterId)
-      .map(_.filter(_.studyId == id))
-      .orNotFound: chapter =>
-        Ok(env.study.jsonView.chapterConfig(chapter))
+  def chapterConfig(id: StudyId, chapterId: StudyChapterId) = Open:
+    Found(env.study.chapterRepo.byIdAndStudy(chapterId, id)): chapter =>
+      Ok(env.study.jsonView.chapterConfig(chapter))
 
   private[controllers] def chatOf(study: lila.study.Study)(using ctx: Context) = {
     ctx.kid.no && ctx.noBot &&               // no public chats for kids and bots
@@ -359,8 +358,8 @@ final class Study(
         jsonFormError,
         data =>
           doImportPgn(id, data, Socket.Sri("api")): chapters =>
-            import lila.study.JsonView.given
-            JsonOk(Json.obj("chapters" -> chapters.map(_.metadata)))
+            import lila.study.ChapterPreview.json.write
+            JsonOk(Json.obj("chapters" -> write(chapters.map(_.preview))(using Map.empty)))
       )
   }
 
@@ -447,7 +446,7 @@ final class Study(
             )
     }
 
-  private def doPgn(study: StudyModel)(using RequestHeader)(using me: Option[Me]) =
+  private def doPgn(study: StudyModel)(using RequestHeader, Option[Me]) =
     Ok.chunked(env.study.pgnDump.chaptersOf(study, requestPgnFlags).throttle(16, 1.second))
       .pipe(asAttachmentStream(s"${env.study.pgnDump.filename(study)}.pgn"))
       .as(pgnContentType)
@@ -535,12 +534,6 @@ final class Study(
             }
         }(privateUnauthorizedFu(study), privateForbiddenFu(study))
 
-  def multiBoard(id: StudyId, page: Int) = Open:
-    Found(env.study.api.byId(id)): study =>
-      CanView(study) {
-        env.study.multiBoard.json(study.id, page, getBool("playing")).map(JsonOk)
-      }(privateUnauthorizedJson, privateForbiddenJson)
-
   def topicAutocomplete = Anon:
     get("term").filter(_.nonEmpty) match
       case None => BadRequest("No search term provided")
@@ -598,30 +591,26 @@ final class Study(
       case Some(me) if study.members.contains(me.value) => withUserSelection
       case _                                            => forbidden
 
-  private[controllers] def streamersOf(study: StudyModel) = streamerCache.get(study.id)
-
   private val streamerCache =
-    env.memo.cacheApi[StudyId, List[UserId]](64, "study.streamers"):
-      _.refreshAfterWrite(15.seconds)
-        .maximumSize(512)
-        .buildAsyncFuture: studyId =>
-          env.study.studyRepo
-            .membersById(studyId)
-            .flatMap:
-              _.map(_.members)
-                .filter(_.nonEmpty)
-                .so: members =>
-                  env.streamer.liveStreamApi.all.flatMap:
-                    _.streams
-                      .filter: s =>
-                        members.exists(m => s.is(m._2.id))
-                      .map: stream =>
-                        env.study
-                          .isConnected(studyId, stream.streamer.userId)
-                          .map:
-                            _.option(stream.streamer.userId)
-                      .parallel
-                      .dmap(_.flatten)
+    env.memo.cacheApi[StudyId, List[UserId]](1024, "study.streamers"):
+      _.refreshAfterWrite(5.seconds).buildAsyncFuture: studyId =>
+        env.study.studyRepo
+          .membersById(studyId)
+          .flatMap:
+            _.map(_.members.keys)
+              .filter(_.nonEmpty)
+              .so: members =>
+                env.streamer.liveStreamApi.all.flatMap:
+                  _.streams
+                    .filter: s =>
+                      members.exists(s.streamer.is(_))
+                    .traverse: stream =>
+                      env.study
+                        .isConnected(studyId, stream.streamer.userId)
+                        .map:
+                          _.option(stream.streamer.userId)
+                    .dmap(_.flatten)
+  export streamerCache.{ get as streamersOf }
 
   def glyphs(lang: String) = Anon:
     play.api.i18n.Lang

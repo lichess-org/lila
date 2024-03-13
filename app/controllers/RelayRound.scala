@@ -117,10 +117,10 @@ final class RelayRound(
     Found(env.relay.api.byIdWithTour(id)): rt =>
       Found(env.study.studyRepo.byId(rt.round.studyId)): study =>
         studyC.CanView(study)(
-          env.study.chapterRepo
-            .orderedMetadataByStudy(rt.round.studyId)
-            .map: games =>
-              JsonOk(env.relay.jsonView.withUrlAndGames(rt.withStudy(study), games))
+          env.study.preview
+            .jsonList(study.id)
+            .map: previews =>
+              JsonOk(env.relay.jsonView.withUrlAndPreviews(rt.withStudy(study), previews))
         )(studyC.privateUnauthorizedJson, studyC.privateForbiddenJson)
 
   def pgn(ts: String, rs: String, id: StudyId) = studyC.pgn(id)
@@ -161,9 +161,10 @@ final class RelayRound(
   }
 
   def teamsView(id: RelayRoundId) = Open:
-    Found(env.relay.api.byIdWithStudy(id)): rt =>
+    Found(env.relay.api.byIdWithTourAndStudy(id)): rt =>
       studyC.CanView(rt.study) {
-        env.relay.teamTable.tableJson(rt.relay).map(JsonStrOk)
+        rt.tour.teamTable.so:
+          env.relay.teamTable.tableJson(rt.relay).map(JsonStrOk)
       }(Unauthorized, Forbidden)
 
   private def WithRoundAndTour(@nowarn ts: String, @nowarn rs: String, id: RelayRoundId)(
@@ -198,7 +199,7 @@ final class RelayRound(
         group           <- env.relay.api.withTours.get(rt.tour.id)
         isSubscribed <- ctx.me.soFu: me =>
           env.relay.api.isSubscribed(rt.tour.id, me.userId)
-        data <- env.relay.jsonView.makeData(
+        data = env.relay.jsonView.makeData(
           rt.tour.withRounds(rounds.map(_.round)),
           rt.round.id,
           studyData,
@@ -206,9 +207,9 @@ final class RelayRound(
           ctx.userId.exists(sc.study.canContribute),
           isSubscribed
         )
-        chat      <- studyC.chatOf(sc.study)
-        sVersion  <- env.study.version(sc.study.id)
-        streamers <- studyC.streamersOf(sc.study)
+        chat      <- NoCrawlers(studyC.chatOf(sc.study))
+        sVersion  <- NoCrawlers(env.study.version(sc.study.id))
+        streamers <- NoCrawlers(studyC.streamersOf(sc.study.id))
         page      <- renderPage(html.relay.show(rt.withStudy(sc.study), data, chat, sVersion, streamers))
         _ = if HTTPRequest.isHuman(req) then lila.mon.http.path(rt.tour.path).increment()
       yield Ok(page).enableSharedArrayBuffer

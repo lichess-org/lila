@@ -103,7 +103,7 @@ export interface ChatOpts {
 
 export interface Step {
   ply: Ply;
-  fen: Fen;
+  fen: cg.FEN;
   san: San;
   uci: Uci;
   check?: boolean;
