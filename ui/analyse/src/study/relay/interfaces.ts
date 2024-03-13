@@ -18,6 +18,7 @@ export interface RelayPlayer {
   rating?: number;
   title?: string;
   fideId?: number;
+  fed: string;
 }
 
 export interface RelayGamePlayer extends RelayPlayer {}

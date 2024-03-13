@@ -4,7 +4,7 @@ import chess.format.pgn.*
 import chess.format.Fen
 import chess.{ FideId, PlayerName, PlayerTitle, Elo }
 
-import lila.fide.{ FidePlayerApi, PlayerToken, FidePlayer, Federation }
+import lila.fide.{ PlayerToken, FidePlayer }
 import lila.study.ChapterPreview
 
 type TeamName = String
@@ -59,8 +59,7 @@ private class RelayTeamsTextarea(val text: String):
 
 final class RelayTeamTable(
     chapterPreviewApi: lila.study.ChapterPreviewApi,
-    cacheApi: lila.memo.CacheApi,
-    fidePlayerApi: FidePlayerApi
+    cacheApi: lila.memo.CacheApi
 )(using Executor):
 
   import play.api.libs.json.*

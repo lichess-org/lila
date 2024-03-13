@@ -14,6 +14,7 @@ import { teamsView } from './relayTeams';
 import { userTitle } from 'common/userLink';
 import { makeChat } from '../../view/view';
 import { gamesList } from './relayGames';
+import { playerFed } from '../playerBars';
 
 export default function (ctrl: AnalyseCtrl): VNode | undefined {
   const study = ctrl.study,
@@ -53,6 +54,7 @@ export const tourSide = (ctrl: AnalyseCtrl, study: StudyCtrl, relay: RelayCtrl) 
       }),
     }),
   ]);
+
 const leaderboard = (relay: RelayCtrl, ctrl: AnalyseCtrl): MaybeVNodes => {
   const players = relay.data.leaderboard || [];
   const withRating = !!players.find(p => p.rating);
@@ -61,23 +63,20 @@ const leaderboard = (relay: RelayCtrl, ctrl: AnalyseCtrl): MaybeVNodes => {
     h('table.relay-tour__leaderboard.slist.slist-invert.slist-pad', [
       h(
         'thead',
-        h('tr', [
-          h('th'),
-          h('th'),
-          withRating ? h('th', 'Elo') : undefined,
-          h('th', 'Score'),
-          h('th', 'Games'),
-        ]),
+        h('tr', [h('th'), withRating ? h('th', 'Elo') : undefined, h('th', 'Score'), h('th', 'Games')]),
       ),
       h(
         'tbody',
         players.map(player =>
           h('tr', [
-            h('th', userTitle(player)),
             h(
               'th',
               player.fideId
-                ? h('a', { attrs: { href: `/fide/${player.fideId}/redirect` } }, player.name)
+                ? h('a', { attrs: { href: `/fide/${player.fideId}/redirect` } }, [
+                    player.fed && playerFed(player.fed),
+                    userTitle(player),
+                    player.name,
+                  ])
                 : player.name,
             ),
             h('td', withRating && player.rating ? `${player.rating}` : undefined),
