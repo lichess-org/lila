@@ -6,8 +6,7 @@ import { Color } from 'chessops';
 import { MultiCloudEval, renderScoreAtDepth } from '../multiCloudEval';
 import { spinnerVdom as spinner } from 'common/spinner';
 import { playerFed } from '../playerBars';
-import { gameLinkAttrs, gameLinksListener } from '../studyChapters';
-import { StudyChapters } from '../studyChapters';
+import { gameLinkAttrs, gameLinksListener, StudyChapters } from '../studyChapters';
 import { userTitle } from 'common/userLink';
 
 interface TeamWithPoints {
