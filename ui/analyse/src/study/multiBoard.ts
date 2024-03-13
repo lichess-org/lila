@@ -9,6 +9,8 @@ import { CloudEval, MultiCloudEval, renderEvalToggle, renderScoreAtDepth } from 
 import { Toggle, defined, notNull, toggle } from 'common';
 import { Color } from 'chessops';
 import { StudyChapters, gameLinkAttrs, gameLinksListener } from './studyChapters';
+import { playerFed } from './playerBars';
+import { userTitle } from 'common/userLink';
 
 export class MultiBoardCtrl {
   playing: Toggle;
@@ -196,16 +198,11 @@ export const verticalEvalGauge = (chap: ChapterPreview, cloudEval: MultiCloudEva
     ],
   );
 
-const userName = (u: ChapterPreviewPlayer) =>
-  u.title ? [h('span.utitle', u.title), ' ' + u.name] : [u.name];
-
-const renderPlayer = (player?: ChapterPreviewPlayer): MaybeVNode =>
-  player &&
-  h('span.mini-game__player', [
-    h('span.mini-game__user', [
-      h('span.name', userName(player)),
-      player.rating && h('span.rating', ' ' + player.rating),
-    ]),
+const renderUser = (player: ChapterPreviewPlayer): VNode =>
+  h('span.mini-game__user', [
+    player.fed && playerFed(player.fed),
+    h('span.name', [userTitle(player), player.name]),
+    player.rating && h('span.rating', ' ' + player.rating),
   ]);
 
 export const renderClock = (chapter: ChapterPreview, color: Color) => {
@@ -238,7 +235,7 @@ const boardPlayer = (preview: ChapterPreview, color: Color) => {
   const player = preview.players?.[color],
     score = outcome?.split('-')[color === 'white' ? 0 : 1];
   return h('span.mini-game__player', [
-    h('span.mini-game__user', renderPlayer(player)),
+    player && renderUser(player),
     score ? h('span.mini-game__result', score) : renderClock(preview, color),
   ]);
 };

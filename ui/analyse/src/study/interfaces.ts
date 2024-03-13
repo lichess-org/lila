@@ -199,6 +199,7 @@ export interface ChapterPreviewPlayer {
   title?: string;
   rating?: number;
   clock?: ClockCentis;
+  fed?: string;
 }
 
 export type Orientation = 'black' | 'white' | 'auto';

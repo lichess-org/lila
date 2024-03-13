@@ -49,6 +49,9 @@
       &:hover {
         background: mix($c-bg-box, $c-link, 90%);
         color: $c-font-clearer;
+        .mini-game__flag {
+          opacity: 1;
+        }
       }
       &__status {
         padding: 0.4em 1em;
@@ -60,11 +63,6 @@
       &__player {
         @extend %flex-between-nowrap;
         padding: 0.4em 2em;
-        .flag {
-          width: 1.3em;
-          margin-#{$end-direction}: 1ch;
-          vertical-align: middle;
-        }
       }
     }
   }

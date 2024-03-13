@@ -113,9 +113,10 @@ $player-height: 1.6rem;
     flex: 2;
     color: $c-font-dim;
   }
-  .flag {
+  .mini-game__flag {
     height: 1em;
     margin-#{$end-direction}: 1ch;
+    margin-top: unset;
   }
 
   .elo {
