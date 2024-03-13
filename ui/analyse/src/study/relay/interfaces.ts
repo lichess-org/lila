@@ -2,7 +2,6 @@ export interface RelayData {
   tour: RelayTour;
   rounds: RelayRound[];
   sync?: RelaySync;
-  leaderboard?: LeadPlayer[];
   group?: RelayGroup;
   isSubscribed?: boolean; // undefined if anon
 }
@@ -44,11 +43,6 @@ export interface RelayRound {
   startsAt?: number;
 }
 
-export interface LeadPlayer extends RelayPlayer {
-  score: number;
-  played: number;
-}
-
 export interface RelayTour {
   id: string;
   name: string;
@@ -58,6 +52,7 @@ export interface RelayTour {
   markup?: string;
   image?: string;
   teamTable?: boolean;
+  leaderboard?: boolean;
 }
 
 export interface RelaySync {

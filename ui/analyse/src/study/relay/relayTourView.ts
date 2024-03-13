@@ -1,7 +1,7 @@
 import AnalyseCtrl from '../../ctrl';
 import RelayCtrl, { RelayTab } from './relayCtrl';
 import * as licon from 'common/licon';
-import { bind, dataIcon, onInsert, looseH as h, MaybeVNodes } from 'common/snabbdom';
+import { bind, dataIcon, onInsert, looseH as h } from 'common/snabbdom';
 import { VNode } from 'snabbdom';
 import { innerHTML } from 'common/richText';
 import { RelayGroup, RelayRound } from './interfaces';
@@ -11,10 +11,9 @@ import StudyCtrl from '../studyCtrl';
 import { toggle } from 'common/controls';
 import * as xhr from 'common/xhr';
 import { teamsView } from './relayTeams';
-import { userTitle } from 'common/userLink';
 import { makeChat } from '../../view/view';
 import { gamesList } from './relayGames';
-import { playerFed } from '../playerBars';
+import { leaderboardView } from './relayLeaderboard';
 
 export default function (ctrl: AnalyseCtrl): VNode | undefined {
   const study = ctrl.study,
@@ -55,39 +54,10 @@ export const tourSide = (ctrl: AnalyseCtrl, study: StudyCtrl, relay: RelayCtrl) 
     }),
   ]);
 
-const leaderboard = (relay: RelayCtrl, ctrl: AnalyseCtrl): MaybeVNodes => {
-  const players = relay.data.leaderboard || [];
-  const withRating = !!players.find(p => p.rating);
-  return [
-    ...header(relay, ctrl),
-    h('table.relay-tour__leaderboard.slist.slist-invert.slist-pad', [
-      h(
-        'thead',
-        h('tr', [h('th'), withRating ? h('th', 'Elo') : undefined, h('th', 'Score'), h('th', 'Games')]),
-      ),
-      h(
-        'tbody',
-        players.map(player =>
-          h('tr', [
-            h(
-              'th',
-              player.fideId
-                ? h('a', { attrs: { href: `/fide/${player.fideId}/redirect` } }, [
-                    player.fed && playerFed(player.fed),
-                    userTitle(player),
-                    player.name,
-                  ])
-                : player.name,
-            ),
-            h('td', withRating && player.rating ? `${player.rating}` : undefined),
-            h('td', `${player.score}`),
-            h('td', `${player.played}`),
-          ]),
-        ),
-      ),
-    ]),
-  ];
-};
+const leaderboard = (relay: RelayCtrl, ctrl: AnalyseCtrl) => [
+  ...header(relay, ctrl),
+  relay.leaderboard && leaderboardView(relay.leaderboard),
+];
 
 const overview = (relay: RelayCtrl, ctrl: AnalyseCtrl) => [
   ...header(relay, ctrl),
@@ -154,8 +124,10 @@ const games = (relay: RelayCtrl, study: StudyCtrl, ctrl: AnalyseCtrl) => [
   study.chapters.list.looksNew() ? undefined : multiBoardView(study.multiBoard, study),
 ];
 
-const teams = (relay: RelayCtrl, study: StudyCtrl, ctrl: AnalyseCtrl) =>
-  relay.teams && [...header(relay, ctrl), teamsView(relay.teams, study.chapters.list)];
+const teams = (relay: RelayCtrl, study: StudyCtrl, ctrl: AnalyseCtrl) => [
+  ...header(relay, ctrl),
+  relay.teams && teamsView(relay.teams, study.chapters.list),
+];
 
 const header = (relay: RelayCtrl, ctrl: AnalyseCtrl) => {
   const d = relay.data,
@@ -226,7 +198,7 @@ const makeTabs = (ctrl: AnalyseCtrl) => {
     makeTab('overview', 'Overview'),
     makeTab('boards', 'Boards'),
     relay.teams && makeTab('teams', 'Teams'),
-    relay.data.leaderboard ? makeTab('leaderboard', 'Leaderboard') : undefined,
+    relay.data.tour.leaderboard ? makeTab('leaderboard', 'Leaderboard') : undefined,
   ]);
 };
 

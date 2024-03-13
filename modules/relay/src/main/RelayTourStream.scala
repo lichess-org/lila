@@ -19,7 +19,7 @@ final class RelayTourStream(
   import BSONHandlers.given
   import JsonView.given
 
-  def officialTourStream(perSecond: MaxPerSecond, nb: Max, withLeaderboards: Boolean): Source[JsObject, ?] =
+  def officialTourStream(perSecond: MaxPerSecond, nb: Max): Source[JsObject, ?] =
 
     val roundLookup = $lookup.pipeline(
       from = colls.round,
@@ -59,8 +59,5 @@ final class RelayTourStream(
           .toList
       .throttle(perSecond.value, 1 second)
       .take(nb.value)
-      .mapAsync(1): t =>
-        withLeaderboards.so(leaderboard(t.tour)).map(t -> _)
-      .map: (t, l) =>
-        jsonView(t, withUrls = true, leaderboard = l)
+      .map(jsonView(_))
   end officialTourStream

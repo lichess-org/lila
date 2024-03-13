@@ -39,16 +39,23 @@ final class RelayLeaderboardApi(
 
   import BSONHandlers.given
 
-  def apply(tour: RelayTour): Fu[Option[RelayLeaderboard]] = tour.autoLeaderboard.soFu:
+  import play.api.libs.json.*
+  import lila.common.Json.{ writeAs, given }
+  private given Writes[RelayLeaderboard] = writeAs(_.players)
+
+  def apply(tour: RelayTour): Fu[Option[JsonStr]] = tour.autoLeaderboard.soFu:
     cache.get(tour.id)
 
   private val invalidateDebouncer =
-    lila.common.Debouncer[RelayTour.Id](10 seconds, 64)(id => cache.put(id, compute(id)))
+    lila.common.Debouncer[RelayTour.Id](10 seconds, 64)(id => cache.put(id, computeJson(id)))
 
   def invalidate(id: RelayTour.Id) = invalidateDebouncer.push(id)
 
-  private val cache = cacheApi[RelayTour.Id, RelayLeaderboard](256, "relay.leaderboard"):
-    _.expireAfterWrite(10 minutes).buildAsyncFuture(compute)
+  private val cache = cacheApi[RelayTour.Id, JsonStr](256, "relay.leaderboard"):
+    _.expireAfterWrite(10 minutes).buildAsyncFuture(computeJson)
+
+  private def computeJson(id: RelayTour.Id): Fu[JsonStr] =
+    compute(id).map(lead => JsonStr(Json.stringify(Json.toJson(lead))))
 
   private def compute(id: RelayTour.Id): Fu[RelayLeaderboard] = for
     tour     <- tourRepo.coll.byId[RelayTour](id).orFail(s"No such relay tour $id")
