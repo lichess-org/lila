@@ -200,6 +200,7 @@ export interface ChapterPreviewPlayer {
   rating?: number;
   clock?: ClockCentis;
   fed?: string;
+  team?: string;
 }
 
 export type Orientation = 'black' | 'white' | 'auto';
