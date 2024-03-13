@@ -307,7 +307,7 @@
   <string name="gameAborted">Hra bola zrušená</string>
   <string name="standard">Štandard</string>
   <string name="unlimited">Bez času</string>
-  <string name="mode">Režim hry</string>
+  <string name="mode">Režim partie</string>
   <string name="casual">Priateľská</string>
   <string name="rated">Hodnotená</string>
   <string name="casualTournament">Priateľská</string>
