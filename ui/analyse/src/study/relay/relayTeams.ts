@@ -8,6 +8,7 @@ import { spinnerVdom as spinner } from 'common/spinner';
 import { playerFed } from '../playerBars';
 import { gameLinkAttrs, gameLinksListener } from '../studyChapters';
 import { StudyChapters } from '../studyChapters';
+import { userTitle } from 'common/userLink';
 
 interface TeamWithPoints {
   name: string;
@@ -109,7 +110,7 @@ const renderTeams = (
 
 const playerView = (p: TeamPlayer) =>
   h('span.relay-tour__team-match__game__player', [
-    h('span', [p.fed && playerFed(p.fed), `${p.title ? p.title + ' ' : ''}${p.name}`]),
+    h('span', [p.fed && playerFed(p.fed), userTitle(p), p.name]),
     p.rating && h('rating', `${p.rating}`),
   ]);
 
