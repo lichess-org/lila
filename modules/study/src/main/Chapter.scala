@@ -154,7 +154,7 @@ object Chapter:
       tags.outcome.isEmpty &&
         relay.lastMoveAt.isAfter:
           nowInstant.minusMinutes:
-            tags.clockConfig.fold(40)(_.limitInMinutes.toInt / 2 atLeast 15 atMost 60)
+            tags.clockConfig.fold(40)(_.limitInMinutes.toInt / 2.atLeast(15).atMost(60))
     def looksOver = !looksAlive
 
   type BothClocks = ByColor[Option[Centis]]
