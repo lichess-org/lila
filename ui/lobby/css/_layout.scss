@@ -1,6 +1,8 @@
 $mq-col2: $mq-xx-small;
-$mq-col3: $mq-small;
-$mq-col4: $mq-x-large;
+$mq-col3:
+  $mq-small $mq-landscape,
+  $mq-width-large;
+$mq-col4: $mq-x-large $mq-landscape;
 
 $mq-not-col3: $mq-not-small;
 
