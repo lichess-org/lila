@@ -15,6 +15,9 @@
       display: inline-block;
       padding-#{$end-direction}: 5px;
       max-width: 140px;
+      @include breakpoint($mq-x-large) {
+        max-width: 200px;
+      }
     }
   }
 
