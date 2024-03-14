@@ -14,6 +14,7 @@
     "gulp": "^4",
     "gulp-babel": "^8.0.0",
     "gulp-concat": "^2.6",
+    "gulp-rename": "^2",
     "gulp-size": "^3",
     "gulp-terser": "^1",
     "request": "^2",

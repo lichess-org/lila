@@ -8,6 +8,7 @@ const babelify = require('babelify');
 const terser = require('gulp-terser');
 const tsify = require('tsify');
 const concat = require('gulp-concat');
+const rename = require('gulp-rename');
 const execSync = require('child_process').execSync;
 const fs = require('fs');
 const path = require('path');
@@ -81,7 +82,8 @@ const shogiground = () =>
       cwd: path.dirname(require.resolve('shogiground/package.json')),
       cwdbase: true,
     })
-    .pipe(gulp.dest('../../public/vendor/javascripts/vendor/'));
+    .pipe(rename({ dirname: '' }))
+    .pipe(gulp.dest('../../public/javascripts/vendor'));
 
 const prodSource = () =>
   browserify(browserifyOpts('src/index.ts', false))
