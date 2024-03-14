@@ -115,7 +115,6 @@ object EmailConfirm:
         UserEmail(UserName(username), EmailAddress(email))
       }
 
-  import play.api.mvc.RequestHeader
   import lila.memo.RateLimit
   import lila.common.{ HTTPRequest, IpAddress }
 
