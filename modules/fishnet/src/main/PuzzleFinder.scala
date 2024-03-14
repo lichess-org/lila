@@ -32,7 +32,7 @@ private object PuzzleFinder {
         .zipWithIndex
         .drop(10) // no need to look at the first few positions
         .collect {
-          case (List(prev, next), index) if (shouldInvestigate(prev, next).pp(s"AT: $index]\n[")) =>
+          case (List(prev, next), index) if (shouldInvestigate(prev, next)) =>
             index + 1
         }
         .toList
