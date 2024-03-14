@@ -10,9 +10,13 @@ import { onClickAway, isReadonlyProp } from 'common';
 
 const searchTicks: [number, string][] = [
   [4000, '4s'],
+  [6000, '6s'],
   [8000, '8s'],
+  [10000, '10s'],
   [12000, '12s'],
+  [15000, '15s'],
   [20000, '20s'],
+  [30000, '30s'],
   [Number.POSITIVE_INFINITY, '∞'],
 ];
 
