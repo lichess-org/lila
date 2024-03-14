@@ -30,8 +30,14 @@ object Registry:
             if i < 1 || mode.isProd
             then logger.info(s"Loaded ${langs.size} languages in ${lap.showDuration}")
 
+  // for tests
+  private[i18n] def syncLoadLanguages(): Unit =
+    LangList.popular.foreach: lang =>
+      all = all + (lang -> loadSerialized(lang))
+
   private def loadSerialized(lang: Lang): MessageMap = try
-    val istream    = ObjectInputStream(getClass.getClassLoader.getResourceAsStream(s"i18n.${lang.code}.ser"))
+    val file       = s"i18n.${lang.code}.ser"
+    val istream    = ObjectInputStream(getClass.getClassLoader.getResourceAsStream(file))
     val messageMap = istream.readObject().asInstanceOf[JMap[String, Object]]
     istream.close()
     messageMap.asScala.toMap
