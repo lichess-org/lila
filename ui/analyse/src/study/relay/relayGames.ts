@@ -34,7 +34,7 @@ export const gamesList = (study: StudyCtrl, relay: RelayCtrl) => {
             black: { name: 'Unknown player' },
           };
           const status =
-            !c.status || c.status == '*' ? renderClocks(c) : [c.status.slice(0, 1), c.status.slice(2, 3)];
+            !c.status || c.status == '*' ? renderClocks(c) : [c.status.slice(2, 3), c.status.slice(0, 1)];
           return h(
             `a.relay-game.relay-game--${c.id}`,
             {
@@ -50,7 +50,7 @@ export const gamesList = (study: StudyCtrl, relay: RelayCtrl) => {
               h(
                 'span.relay-game__players',
                 [players.black, players.white].map((p, i) => {
-                  const s = status[1 - i];
+                  const s = status[i];
                   return h('span.relay-game__player', [
                     h('span.mini-game__user', [
                       p.fed && playerFed(p.fed),
