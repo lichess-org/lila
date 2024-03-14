@@ -68,7 +68,7 @@ final class JsonView(
               t.theme.value -> JsBoolean(t.vote)
         )
 
-    def api = base _
+    def api = base
     private def base(round: PuzzleRound, ratingDiff: IntRatingDiff) = Json.obj(
       "id"         -> round.id.puzzleId,
       "win"        -> round.win,

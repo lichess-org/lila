@@ -10,7 +10,7 @@ import lila.hub.LightTeam
 import lila.team.Team
 
 trait TeamHelper:
-  self: HasEnv with RouterHelper with AssetHelper =>
+  self: HasEnv & RouterHelper & AssetHelper =>
 
   def isMyTeamSync(teamId: TeamId)(using ctx: Context): Boolean =
     ctx.userId.exists { env.team.api.syncBelongsTo(teamId, _) }

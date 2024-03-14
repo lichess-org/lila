@@ -6,7 +6,7 @@ object BuildSettings {
   import Dependencies._
 
   val lilaVersion        = "4.0"
-  val globalScalaVersion = "3.3.3"
+  val globalScalaVersion = "3.4.0"
 
   def buildSettings =
     Defaults.coreDefaultSettings ++ Seq(
@@ -47,7 +47,7 @@ object BuildSettings {
   val compilerOptions = Seq(
     // "-nowarn", // during migration
     // "-rewrite",
-    // "-source:future-migration",
+    // "-source:3.4-migration",
     "-indent",
     // "-explaintypes",
     // "-explain",

@@ -29,7 +29,7 @@ case class Report(
   def add(atom: Atom) =
     atomBy(atom.by)
       .fold(copy(atoms = atom :: atoms)): existing =>
-        if existing.text contains atom.text then this
+        if existing.text.contains(atom.text) then this
         else
           copy(
             atoms = {

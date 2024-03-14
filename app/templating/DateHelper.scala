@@ -10,7 +10,7 @@ import lila.app.ui.ScalatagsTemplate.*
 import lila.i18n.PeriodLocales
 
 trait DateHelper:
-  self: I18nHelper with StringHelper with NumberHelper =>
+  self: I18nHelper & StringHelper & NumberHelper =>
 
   export PeriodLocales.showDuration
 

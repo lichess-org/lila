@@ -275,7 +275,7 @@ final class Plan(env: Env) extends LilaController(env):
                     JsonOk(Json.obj("subscription" -> Json.obj("id" -> sub.id.value)))
               else
                 for
-                  gifted <- checkout.giftTo.filterNot(ctx is _).so(env.user.repo.enabledById)
+                  gifted <- checkout.giftTo.filterNot(ctx.is(_)).so(env.user.repo.enabledById)
                   // customer <- env.plan.api.userCustomer(me)
                   order <- env.plan.api.payPal.createOrder(checkout, me, gifted)
                 yield JsonOk(Json.obj("order" -> Json.obj("id" -> order.id.value)))

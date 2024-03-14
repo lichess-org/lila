@@ -167,7 +167,7 @@ object EmailConfirm:
         case Some(User.WithEmails(user, emails)) =>
           if user.enabled.no then fuccess(Closed(user.username))
           else
-            (userRepo mustConfirmEmail user.id).dmap {
+            userRepo.mustConfirmEmail(user.id).dmap {
               if _ then
                 emails.current match
                   case None        => NoEmail(user.username)

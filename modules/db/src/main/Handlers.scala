@@ -21,6 +21,12 @@ trait Handlers:
   )(using NotGiven[NoDbHandler[T]]): BSONHandler[T] =
     handler.as(sr.apply, rs.apply)
 
+  given listHandler[T: BSONHandler]: BSONHandler[List[T]] with
+    val reader                                 = collectionReader[List, T]
+    val writer                                 = BSONWriter.collectionWriter[T, List[T]]
+    def readTry(bson: BSONValue): Try[List[T]] = reader.readTry(bson)
+    def writeTry(t: List[T]): Try[BSONValue]   = writer.writeTry(t)
+
   given userIdOfWriter[U: UserIdOf, T](using writer: BSONWriter[UserId]): BSONWriter[U] with
     inline def writeTry(u: U) = writer.writeTry(u.id)
 
@@ -125,12 +131,6 @@ trait Handlers:
       },
       nel => listWriter.writeTry(nel.toList).get
     )
-
-  given listHandler[T: BSONHandler]: BSONHandler[List[T]] with
-    val reader                                 = collectionReader[List, T]
-    val writer                                 = BSONWriter.collectionWriter[T, List[T]]
-    def readTry(bson: BSONValue): Try[List[T]] = reader.readTry(bson)
-    def writeTry(t: List[T]): Try[BSONValue]   = writer.writeTry(t)
 
   given vectorHandler[T: BSONHandler]: BSONHandler[Vector[T]] with
     val reader                                   = collectionReader[Vector, T]

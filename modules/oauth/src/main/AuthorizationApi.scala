@@ -8,22 +8,25 @@ final class AuthorizationApi(val coll: Coll)(using Executor):
 
   def create(request: AuthorizationRequest.Authorized): Fu[Protocol.AuthorizationCode] =
     val code = Protocol.AuthorizationCode.random()
-    coll.insert.one(
-      PendingAuthorizationBSONHandler write PendingAuthorization(
-        code.hashed,
-        request.clientId,
-        request.user,
-        request.redirectUri,
-        request.challenge,
-        request.scopes,
-        nowInstant.plusSeconds(120)
+    coll.insert
+      .one(
+        PendingAuthorizationBSONHandler.write:
+          PendingAuthorization(
+            code.hashed,
+            request.clientId,
+            request.user,
+            request.redirectUri,
+            request.challenge,
+            request.scopes,
+            nowInstant.plusSeconds(120)
+          )
       )
-    ) inject code
+      .inject(code)
 
   def consume(
       request: AccessTokenRequest.Prepared
   ): Fu[Either[Protocol.Error, AccessTokenRequest.Granted]] =
-    coll.findAndModify($doc(F.hashedCode -> request.code.hashed), coll.removeModifier) map { doc =>
+    coll.findAndModify($doc(F.hashedCode -> request.code.hashed), coll.removeModifier).map { doc =>
       for
         pending <- doc
           .result[PendingAuthorization]
@@ -40,7 +43,7 @@ final class AuthorizationApi(val coll: Coll)(using Executor):
             request.codeVerifier
               .toRight(LegacyClientApi.CodeVerifierIgnored)
               .ensure(Protocol.Error.MismatchingCodeVerifier)(_.matches(codeChallenge))
-      yield AccessTokenRequest.Granted(pending.userId, pending.scopes into TokenScopes, pending.redirectUri)
+      yield AccessTokenRequest.Granted(pending.userId, pending.scopes.into(TokenScopes), pending.redirectUri)
     }
 
 private object AuthorizationApi:

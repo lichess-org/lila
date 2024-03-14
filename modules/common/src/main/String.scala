@@ -11,8 +11,8 @@ object String:
 
   export RawHtml.hasLinks
 
-  private[this] val slugR              = """[^\w-]""".r
-  private[this] val slugMultiDashRegex = """-{2,}""".r
+  private val slugR              = """[^\w-]""".r
+  private val slugMultiDashRegex = """-{2,}""".r
 
   def lcfirst(str: String) = s"${str(0).toLower}${str.drop(1)}"
 

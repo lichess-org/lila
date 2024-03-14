@@ -20,7 +20,7 @@ final class SyncActorMap[Id, T <: SyncActor](
 
   def ask[A](id: Id)(makeMsg: Promise[A] => Matchable): Fu[A] = getOrMake(id).ask(makeMsg)
 
-  private[this] val actors: LoadingCache[Id, T] =
+  private val actors: LoadingCache[Id, T] =
     lila.common.LilaCache.scaffeine
       .expireAfterAccess(accessTimeout)
       .removalListener((id: Id, actor: T, cause: RemovalCause) => actor.stop())

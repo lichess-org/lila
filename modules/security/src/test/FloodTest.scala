@@ -6,7 +6,7 @@ class FloodTest extends munit.FunSuite:
 
   import Flood.*
 
-  private def isDup = duplicateMessage _
+  private def isDup = duplicateMessage
 
   private def m(s: String) = Message(s, Instant.now)
 

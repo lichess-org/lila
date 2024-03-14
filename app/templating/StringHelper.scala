@@ -5,7 +5,7 @@ import play.api.i18n.Lang
 import ui.ScalatagsTemplate.*
 
 trait StringHelper:
-  self: I18nHelper with NumberHelper =>
+  self: I18nHelper & NumberHelper =>
 
   export lila.common.String.{ slugify, shorten, urlencode, addQueryParam, addQueryParams, underscoreFen }
 

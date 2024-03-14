@@ -82,7 +82,7 @@ final class AccessTokenApi(
                     createdAt = nowInstant.some,
                     scopes = TokenScopes(List(scope)),
                     clientOrigin = setup.description.some,
-                    expires = Some(nowInstant plusMonths 6)
+                    expires = Some(nowInstant.plusMonths(6))
                   )
               .map(user.id -> _)
           .map(_.toMap)
@@ -94,7 +94,7 @@ final class AccessTokenApi(
           F.userId       -> user.id,
           F.clientOrigin -> $exists(false)
         )
-      .sort($sort desc F.createdAt) // c.f. isBrandNew
+      .sort($sort.desc(F.createdAt)) // c.f. isBrandNew
       .cursor[AccessToken]()
       .list(100)
 
@@ -103,10 +103,10 @@ final class AccessTokenApi(
       .find:
         $doc(
           F.scopes -> OAuthScope.Board.Play.key,
-          F.usedAt $exists true,
+          F.usedAt.$exists(true),
           F.userId -> user.id
         )
-      .sort($sort desc F.createdAt)
+      .sort($sort.desc(F.createdAt))
       .cursor[AccessToken]()
       .list(30)
 
@@ -122,7 +122,7 @@ final class AccessTokenApi(
       $doc(
         F.userId       -> user.id,
         F.clientOrigin -> $exists(false),
-        F.scopes $all scopes.value
+        F.scopes.$all(scopes.value)
       )
 
   def listClients(user: User, limit: Int): Fu[List[AccessTokenApi.Client]] =
@@ -158,7 +158,7 @@ final class AccessTokenApi(
           F.id     -> id,
           F.userId -> user.id
         )
-      .void andDo onRevoke(id)
+      .void.andDo(onRevoke(id))
 
   def revokeByClientOrigin(clientOrigin: String, user: User): Funit =
     coll
@@ -169,7 +169,7 @@ final class AccessTokenApi(
         ),
         $doc(F.id -> 1).some
       )
-      .sort($sort desc F.usedAt)
+      .sort($sort.desc(F.usedAt))
       .cursor[Bdoc]()
       .list(100)
       .flatMap: invalidate =>
@@ -182,8 +182,8 @@ final class AccessTokenApi(
           .map(_ => invalidate.flatMap(_.getAsOpt[AccessToken.Id](F.id)).foreach(onRevoke))
 
   def revoke(bearer: Bearer) =
-    val id = AccessToken.Id from bearer
-    coll.delete.one($id(id)) andDo onRevoke(id)
+    val id = AccessToken.Id.from(bearer)
+    coll.delete.one($id(id)).andDo(onRevoke(id))
 
   private[oauth] def get(bearer: Bearer) = accessTokenCache.get(AccessToken.Id.from(bearer))
 

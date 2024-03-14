@@ -45,3 +45,8 @@ eea12a89f8550d74518f19ec9cda404e3f73b3d0
 
 # scalafmt AvoidInfix rewrite // https://github.com/lichess-org/lila/pull/14777
 7b84562ada7f2985bdc8bff6c190b503ffda8524
+
+# Scala 3.4.0 migration
+f5e7d4a6633b060f0ad6ee2cdd5e4161f16b30a2
+1ef606c9ecd40f896851f082ba7f14e042bcaef3
+c8059e97d696d0bc3056f42d3001ab240a408cba
