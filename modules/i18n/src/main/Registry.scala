@@ -27,9 +27,10 @@ object Registry:
             val lap = Chronometer.sync:
               langs.foreach: lang =>
                 all = all + (lang -> loadSerialized(lang))
-            logger.info(s"Loaded ${langs.size} languages in ${lap.showDuration}")
+            if i < 1 || mode.isProd
+            then logger.info(s"Loaded ${langs.size} languages in ${lap.showDuration}")
 
-  private def loadSerialized(lang: Lang)(using mode: Mode): MessageMap = try
+  private def loadSerialized(lang: Lang): MessageMap = try
     val istream    = ObjectInputStream(getClass.getClassLoader.getResourceAsStream(s"i18n.${lang.code}.ser"))
     val messageMap = istream.readObject().asInstanceOf[JMap[String, Object]]
     istream.close()
