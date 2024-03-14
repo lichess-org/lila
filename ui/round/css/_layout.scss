@@ -55,6 +55,14 @@
     &__app__board {
       align-self: center;
     }
+    &__underboard {
+      width: var(--col2-uniboard-main-size);
+    }
+    &.main-v-chushogi {
+      .round__underboard {
+        width: var(--col2-uniboard-main-size-no-hands);
+      }
+    }
   }
 
   @include breakpoint($mq-col3) {
