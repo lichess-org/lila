@@ -142,10 +142,11 @@ export function renderGauge(ctrl: ParentCtrl): VNode | undefined {
     ev = winningChances.povChances('white', bestEv);
     gaugeLast = ev;
   } else ev = gaugeLast;
-  return h('div.eval-gauge', { class: { empty: ev === null, reverse: ctrl.getOrientation() === 'black' } }, [
-    h('div.black', { attrs: { style: `height: ${100 - (ev + 1) * 50}%` } }),
-    ...gaugeTicks,
-  ]);
+  return h(
+    'div.eval-gauge',
+    { class: { empty: !defined(bestEv), reverse: ctrl.getOrientation() === 'black' } },
+    [h('div.black', { attrs: { style: `height: ${100 - (ev + 1) * 50}%` } }), ...gaugeTicks],
+  );
 }
 
 export function renderCeval(ctrl: ParentCtrl): LooseVNodes {

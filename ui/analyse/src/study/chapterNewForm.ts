@@ -9,8 +9,10 @@ import AnalyseCtrl from '../ctrl';
 import { StudySocketSend } from '../socket';
 import { spinnerVdom as spinner } from 'common/spinner';
 import { option } from '../view/util';
-import { ChapterData, ChapterMode, ChapterTab, Orientation, ChapterPreview, StudyTour } from './interfaces';
+import { ChapterData, ChapterMode, ChapterTab, Orientation, StudyTour } from './interfaces';
 import { importPgn, variants as xhrVariants } from './studyXhr';
+import { StudyChapters } from './studyChapters';
+import { FEN } from 'chessground/types';
 
 export const modeChoices = [
   ['normal', 'normalAnalysis'],
@@ -34,12 +36,12 @@ export class StudyChapterNewForm {
     v => v,
   );
   editor: LichessEditor | null = null;
-  editorFen: Prop<Fen | null> = prop(null);
+  editorFen: Prop<FEN | null> = prop(null);
   isDefaultName = toggle(true);
 
   constructor(
     private readonly send: StudySocketSend,
-    readonly chapters: Prop<ChapterPreview[]>,
+    readonly chapters: StudyChapters,
     readonly setTab: () => void,
     readonly root: AnalyseCtrl,
   ) {
@@ -163,7 +165,7 @@ export function view(ctrl: StudyChapterNewForm): VNode {
               attrs: { minlength: 2, maxlength: 80 },
               hook: onInsert<HTMLInputElement>(el => {
                 if (!el.value) {
-                  el.value = trans('chapterX', ctrl.initial() ? 1 : ctrl.chapters().length + 1);
+                  el.value = trans('chapterX', ctrl.initial() ? 1 : ctrl.chapters.size() + 1);
                   el.onchange = () => ctrl.isDefaultName(false);
                   el.select();
                   el.focus();

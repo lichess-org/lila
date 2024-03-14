@@ -132,6 +132,10 @@ final class RelayTour(env: Env, apiC: => Api) extends LilaController(env):
         case None => env.relay.api.image.delete(tg.tour) >> Ok
   }
 
+  def leaderboardView(id: TourModel.Id) = Open:
+    WithTour(id): tour =>
+      tour.autoLeaderboard.so(env.relay.leaderboard(tour)).map(_.fold(notFoundJson())(JsonStrOk))
+
   def subscribe(id: TourModel.Id, isSubscribed: Boolean) = Auth { _ ?=> me ?=>
     env.relay.api.subscribe(id, me.userId, isSubscribed).inject(jsonOkResult)
   }
@@ -164,10 +168,10 @@ final class RelayTour(env: Env, apiC: => Api) extends LilaController(env):
 
   def apiShow(id: TourModel.Id) = Open:
     Found(env.relay.api.tourById(id)): tour =>
-      for
-        trs         <- env.relay.api.withRounds(tour)
-        leaderboard <- getBool("leaderboard").so(env.relay.leaderboard(tour))
-      yield Ok(env.relay.jsonView(trs, withUrls = true, leaderboard))
+      env.relay.api
+        .withRounds(tour)
+        .map: trs =>
+          Ok(env.relay.jsonView(trs, withUrls = true))
 
   def pgn(id: TourModel.Id) = OpenOrScoped(): ctx ?=>
     Found(env.relay.api.tourById(id)): tour =>
@@ -181,11 +185,7 @@ final class RelayTour(env: Env, apiC: => Api) extends LilaController(env):
   def apiIndex = Anon:
     apiC.jsonDownload:
       env.relay.tourStream
-        .officialTourStream(
-          MaxPerSecond(20),
-          Max(getInt("nb") | 20).atMost(100),
-          withLeaderboards = getBool("leaderboard")
-        )
+        .officialTourStream(MaxPerSecond(20), Max(getInt("nb") | 20).atMost(100))
 
   private def WithTour(id: TourModel.Id)(f: TourModel => Fu[Result])(using Context): Fu[Result] =
     Found(env.relay.api.tourById(id))(f)

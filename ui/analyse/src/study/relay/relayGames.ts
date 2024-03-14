@@ -1,17 +1,21 @@
 import { looseH as h } from 'common/snabbdom';
 import { StudyCtrl } from '../studyDeps';
 import RelayCtrl from './relayCtrl';
-import { gameLinkProps, gameLinksListener } from './relayTourView';
 import { userTitle } from 'common/userLink';
-import { scrollToInnerSelector } from 'common';
-import { renderClock } from '../multiBoard';
+import { defined, scrollToInnerSelector } from 'common';
+import { renderClock, verticalEvalGauge } from '../multiBoard';
 import { ChapterPreview } from '../interfaces';
+import { gameLinkAttrs, gameLinksListener } from '../studyChapters';
+import { playerFed } from '../playerBars';
 
 export const gamesList = (study: StudyCtrl, relay: RelayCtrl) => {
-  const chapters = study.chapters.list();
+  const chapters = study.chapters.list.all();
+  const cloudEval = study.multiCloudEval.thisIfShowEval();
+  const basePath = relay.roundPath();
   return h(
     'div.relay-games',
     {
+      class: { 'relay-games__eval': defined(cloudEval) },
       hook: {
         insert: gameLinksListener(study.setChapter),
         postpatch(old, vnode) {
@@ -24,7 +28,7 @@ export const gamesList = (study: StudyCtrl, relay: RelayCtrl) => {
     },
     chapters.length == 1 && chapters[0].name == 'Chapter 1'
       ? []
-      : chapters.map(c => {
+      : chapters.map((c, i) => {
           const players = c.players || {
             white: { name: 'Unknown player' },
             black: { name: 'Unknown player' },
@@ -34,26 +38,24 @@ export const gamesList = (study: StudyCtrl, relay: RelayCtrl) => {
           return h(
             `a.relay-game.relay-game--${c.id}`,
             {
-              ...gameLinkProps(relay.roundPath, c),
+              attrs: {
+                ...gameLinkAttrs(basePath, c),
+                'data-id': c.id,
+              },
               class: { 'relay-game--current': c.id === study.data.chapter.id },
             },
             [
-              // h('span.relay-game__gauge', [
-              //   h('span.relay-game__gauge__black', {
-              //     hook: {
-              //       postpatch() {
-              //         // do the magic here, like in multiboard.ts
-              //       },
-              //     },
-              //   }),
-              //   h('tick'),
-              // ]),
+              h('span.relay-game__number', `${i + 1}`),
+              cloudEval && verticalEvalGauge(c, cloudEval),
               h(
                 'span.relay-game__players',
                 [players.black, players.white].map((p, i) => {
-                  const s = status[i];
+                  const s = status[1 - i];
                   return h('span.relay-game__player', [
-                    h('player', [userTitle(p), p.name]),
+                    h('span.mini-game__user', [
+                      p.fed && playerFed(p.fed),
+                      h('span.name', [userTitle(p), p.name]),
+                    ]),
                     h(s == '1' ? 'good' : s == '0' ? 'bad' : 'status', [s]),
                   ]);
                 }),

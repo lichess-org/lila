@@ -136,7 +136,7 @@ final private class RelaySync(
                 studyId = study.id,
                 position = position,
                 node = n,
-                opts = moveOpts.copy(clock = n.clock),
+                opts = moveOpts,
                 relay = relay.some
               )(by)
               .inject(position + n)
@@ -230,8 +230,7 @@ final private class RelaySync(
   private val moveOpts = MoveOpts(
     write = true,
     sticky = false,
-    promoteToMainline = true,
-    clock = none
+    promoteToMainline = true
   )
 
   private val sri                 = Sri("")

@@ -27,7 +27,7 @@ function renderMaterialDiff(
 export function renderMaterialDiffs(
   showCaptured: boolean,
   bottomColor: Color,
-  fen: Fen,
+  fen: cg.FEN,
   showChecks: boolean,
   checkStates: CheckState[],
   ply: Ply,

@@ -4,6 +4,7 @@ import { bind, dataIcon, onInsert } from 'common/snabbdom';
 import { h, VNode } from 'snabbdom';
 import { Redraw } from '../interfaces';
 import { ChapterPreview } from './interfaces';
+import { StudyChapters } from './studyChapters';
 
 export class SearchCtrl {
   open: Toggle;
@@ -11,7 +12,7 @@ export class SearchCtrl {
 
   constructor(
     readonly studyName: string,
-    readonly chapters: Prop<ChapterPreview[]>,
+    readonly chapters: StudyChapters,
     readonly rootSetChapter: (id: string) => void,
     readonly redraw: Redraw,
   ) {
@@ -23,7 +24,7 @@ export class SearchCtrl {
 
   results = () => {
     const q = this.cleanQuery();
-    return q ? this.chapters().filter(this.match(q)) : this.chapters();
+    return q ? this.chapters.all().filter(this.match(q)) : this.chapters.all();
   };
 
   setChapter = (id: string) => {

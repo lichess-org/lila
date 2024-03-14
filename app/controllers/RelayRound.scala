@@ -161,9 +161,10 @@ final class RelayRound(
   }
 
   def teamsView(id: RelayRoundId) = Open:
-    Found(env.relay.api.byIdWithStudy(id)): rt =>
+    Found(env.relay.api.byIdWithTourAndStudy(id)): rt =>
       studyC.CanView(rt.study) {
-        env.relay.teamTable.tableJson(rt.relay).map(JsonStrOk)
+        rt.tour.teamTable.so:
+          env.relay.teamTable.tableJson(rt.relay).map(JsonStrOk)
       }(Unauthorized, Forbidden)
 
   private def WithRoundAndTour(@nowarn ts: String, @nowarn rs: String, id: RelayRoundId)(
@@ -198,7 +199,7 @@ final class RelayRound(
         group           <- env.relay.api.withTours.get(rt.tour.id)
         isSubscribed <- ctx.me.soFu: me =>
           env.relay.api.isSubscribed(rt.tour.id, me.userId)
-        data <- env.relay.jsonView.makeData(
+        data = env.relay.jsonView.makeData(
           rt.tour.withRounds(rounds.map(_.round)),
           rt.round.id,
           studyData,

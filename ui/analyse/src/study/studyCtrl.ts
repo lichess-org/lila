@@ -36,6 +36,7 @@ import {
   ChapterPreview,
   StudyDataFromServer,
   StudyData,
+  ChapterPreviewFromServer,
 } from './interfaces';
 import GamebookPlayCtrl from './gamebook/gamebookPlayCtrl';
 import { DescriptionCtrl } from './description';
@@ -49,6 +50,7 @@ import StudyChaptersCtrl from './studyChapters';
 import { SearchCtrl } from './studySearch';
 import { GamebookOverride } from './gamebook/interfaces';
 import { EvalHitMulti, EvalHitMultiArray } from '../interfaces';
+import { MultiCloudEval } from './multiCloudEval';
 
 interface Handlers {
   path(d: WithWhoAndPos): void;
@@ -63,7 +65,7 @@ interface Handlers {
   glyphs(d: WithWhoAndPos & { g: Tree.Glyph[] }): void;
   clock(d: ServerClockMsg): void;
   forceVariation(d: WithWhoAndPos & { force: boolean }): void;
-  chapters(d: ChapterPreview[]): void;
+  chapters(d: ChapterPreviewFromServer[]): void;
   reload(d: null | WithChapterId): void;
   changeChapter(d: WithWhoAndPos): void;
   updateChapter(d: WithWhoAndChap): void;
@@ -90,6 +92,7 @@ export default class StudyCtrl {
   members: StudyMemberCtrl;
   chapters: StudyChaptersCtrl;
   relay?: RelayCtrl;
+  multiCloudEval: MultiCloudEval;
   multiBoard: MultiBoardCtrl;
   form: StudyForm;
   commentForm: CommentForm;
@@ -152,6 +155,7 @@ export default class StudyCtrl {
       chapterId => xhr.chapterConfig(data.id, chapterId),
       this.ctrl,
     );
+    this.multiCloudEval = new MultiCloudEval(this.redraw, this.chapters.list, this.send);
     this.relay =
       relayData &&
       new RelayCtrl(
@@ -160,17 +164,15 @@ export default class StudyCtrl {
         this.send,
         this.redrawAndUpdateAddressBar,
         this.members,
-        this.data.chapter,
         this.chapters.list,
-        this.chapters.looksNew(),
+        this.multiCloudEval,
         id => this.setChapter(id),
       );
     this.multiBoard = new MultiBoardCtrl(
-      this.chapters,
+      this.chapters.list,
+      this.multiCloudEval,
       this.redraw,
       this.ctrl.trans,
-      this.ctrl.socket.send,
-      () => this.data.chapter.setup.variant.key,
     );
     this.form = new StudyForm(
       (d, isNew) => {
@@ -267,7 +269,7 @@ export default class StudyCtrl {
     this.redraw();
   };
 
-  currentChapter = (): ChapterPreview => this.chapters.get(this.vm.chapterId)!;
+  currentChapter = (): ChapterPreview => this.chapters.list.get(this.vm.chapterId)!;
 
   isChapterOwner = (): boolean => this.ctrl.opts.userId === this.data.chapter.ownerId;
 
@@ -371,7 +373,7 @@ export default class StudyCtrl {
   };
 
   xhrReload = throttlePromiseDelay(
-    () => 700,
+    () => 500,
     () => {
       this.vm.loading = true;
       return xhr
@@ -462,14 +464,14 @@ export default class StudyCtrl {
   };
 
   private deltaChapter = (delta: number): ChapterPreview | undefined => {
-    const chs = this.chapters.list();
+    const chs = this.chapters.list.all();
     const i = chs.findIndex(ch => ch.id === this.vm.chapterId);
     return i < 0 ? undefined : chs[i + delta];
   };
   prevChapter = () => this.deltaChapter(-1);
   nextChapter = () => this.deltaChapter(+1);
   hasNextChapter = () => {
-    const chs = this.chapters.list();
+    const chs = this.chapters.list.all();
     return chs[chs.length - 1].id != this.vm.chapterId;
   };
 
@@ -550,14 +552,16 @@ export default class StudyCtrl {
   explorerGame = (gameId: string, insert: boolean) =>
     this.makeChange('explorerGame', this.withPosition({ gameId, insert }));
   onPremoveSet = () => this.gamebookPlay?.onPremoveSet();
-  updateAddressBar = () => {
+  baseUrl = () => {
     const current = location.href;
     const studyIdOffset = current.indexOf(`/${this.data.id}`);
-    if (studyIdOffset === -1) return;
-    const studyUrl = current.slice(0, studyIdOffset + 9);
+    return studyIdOffset === -1 ? `/study/${this.data.id}` : current.slice(0, studyIdOffset + 9);
+  };
+  updateAddressBar = () => {
+    const studyUrl = this.baseUrl();
     const chapterUrl = `${studyUrl}/${this.vm.chapterId}`;
     if (this.relay) this.relay.updateAddressBar(studyUrl, chapterUrl);
-    else if (chapterUrl !== current) history.replaceState({}, '', chapterUrl);
+    else if (chapterUrl !== location.href) history.replaceState({}, '', chapterUrl);
   };
   redrawAndUpdateAddressBar = () => {
     this.redraw();
@@ -597,6 +601,7 @@ export default class StudyCtrl {
         sticky = d.s;
       this.setMemberActive(who);
       this.chapters.addNode(d);
+      this.multiCloudEval.addNode(d);
       if (sticky && !this.vm.mode.sticky) this.vm.behind++;
       if (this.wrongChapter(d)) {
         if (sticky && !this.vm.mode.sticky) this.redraw();

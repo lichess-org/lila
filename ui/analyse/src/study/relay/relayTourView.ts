@@ -11,25 +11,25 @@ import StudyCtrl from '../studyCtrl';
 import { toggle } from 'common/controls';
 import * as xhr from 'common/xhr';
 import { teamsView } from './relayTeams';
-import { userTitle } from 'common/userLink';
-import { ChapterId } from '../interfaces';
 import { makeChat } from '../../view/view';
 import { gamesList } from './relayGames';
+import { leaderboardView } from './relayLeaderboard';
 
 export default function (ctrl: AnalyseCtrl): VNode | undefined {
   const study = ctrl.study,
     relay = study?.relay;
   if (!study || !relay?.tourShow()) return undefined;
+  const tab = relay.tab();
   const content =
-    relay.tab() == 'overview'
+    tab == 'overview'
       ? overview(relay, ctrl)
-      : relay.tab() == 'boards'
+      : tab == 'boards'
       ? games(relay, study, ctrl)
-      : relay.tab() == 'teams'
-      ? teams(relay, ctrl)
+      : tab == 'teams'
+      ? teams(relay, study, ctrl)
       : leaderboard(relay, ctrl);
 
-  return h('div.relay-tour', content);
+  return h('div.box.relay-tour', content);
 }
 
 export const tourSide = (ctrl: AnalyseCtrl, study: StudyCtrl, relay: RelayCtrl) =>
@@ -53,56 +53,19 @@ export const tourSide = (ctrl: AnalyseCtrl, study: StudyCtrl, relay: RelayCtrl) 
       }),
     }),
   ]);
-const leaderboard = (relay: RelayCtrl, ctrl: AnalyseCtrl): VNode[] => {
-  const players = relay.data.leaderboard || [];
-  const withRating = !!players.find(p => p.rating);
-  return [
-    h('div.box.relay-tour__box', [
-      ...header(relay, ctrl),
-      h('div.relay-tour__leaderboard', [
-        h('table.slist.slist-invert.slist-pad', [
-          h(
-            'thead',
-            h('tr', [
-              h('th'),
-              h('th'),
-              withRating ? h('th', 'Elo') : undefined,
-              h('th', 'Score'),
-              h('th', 'Games'),
-            ]),
-          ),
-          h(
-            'tbody',
-            players.map(player =>
-              h('tr', [
-                h('th', userTitle(player)),
-                h(
-                  'th',
-                  player.fideId
-                    ? h('a', { attrs: { href: `/fide/${player.fideId}/redirect` } }, player.name)
-                    : player.name,
-                ),
-                h('td', withRating && player.rating ? `${player.rating}` : undefined),
-                h('td', `${player.score}`),
-                h('td', `${player.played}`),
-              ]),
-            ),
-          ),
-        ]),
-      ]),
-    ]),
-  ];
-};
+
+const leaderboard = (relay: RelayCtrl, ctrl: AnalyseCtrl) => [
+  ...header(relay, ctrl),
+  relay.leaderboard && leaderboardView(relay.leaderboard),
+];
 
 const overview = (relay: RelayCtrl, ctrl: AnalyseCtrl) => [
-  h('div.box.relay-tour__box.relay-tour__overview', [
-    ...header(relay, ctrl),
-    relay.data.tour.markup
-      ? h('div.relay-tour__markup', {
-          hook: innerHTML(relay.data.tour.markup, () => relay.data.tour.markup!),
-        })
-      : h('div.relay-tour__markup', relay.data.tour.description),
-  ]),
+  ...header(relay, ctrl),
+  relay.data.tour.markup
+    ? h('div.relay-tour__markup', {
+        hook: innerHTML(relay.data.tour.markup, () => relay.data.tour.markup!),
+      })
+    : h('div.relay-tour__markup', relay.data.tour.description),
 ];
 
 const groupSelect = (relay: RelayCtrl, group: RelayGroup) =>
@@ -156,31 +119,15 @@ const roundSelect = (relay: RelayCtrl, study: StudyCtrl) =>
     ),
   ]);
 
-export const gameLinkProps = (roundPath: () => string, game: { id: ChapterId }) => ({
-  attrs: {
-    href: `${roundPath()}/${game.id}`,
-    'data-id': game.id,
-  },
-});
-export const gameLinksListener = (setChapter: (id: ChapterId) => void) => (vnode: VNode) =>
-  (vnode.elm as HTMLElement).addEventListener(
-    'click',
-    e => {
-      e.preventDefault();
-      let target = e.target as HTMLElement;
-      while (target && target.tagName !== 'A') target = target.parentNode as HTMLElement;
-      const id = target?.dataset['id'];
-      if (id) setChapter(id);
-    },
-    { passive: false },
-  );
-
 const games = (relay: RelayCtrl, study: StudyCtrl, ctrl: AnalyseCtrl) => [
-  h('div.box.relay-tour__box', [...header(relay, ctrl), multiBoardView(study.multiBoard, study)]),
+  ...header(relay, ctrl),
+  study.chapters.list.looksNew() ? undefined : multiBoardView(study.multiBoard, study),
 ];
 
-const teams = (relay: RelayCtrl, ctrl: AnalyseCtrl) =>
-  relay.teams ? [h('div.box.relay-tour__box', [...header(relay, ctrl), teamsView(relay.teams)])] : [];
+const teams = (relay: RelayCtrl, study: StudyCtrl, ctrl: AnalyseCtrl) => [
+  ...header(relay, ctrl),
+  relay.teams && teamsView(relay.teams, study.chapters.list),
+];
 
 const header = (relay: RelayCtrl, ctrl: AnalyseCtrl) => {
   const d = relay.data,
@@ -205,29 +152,32 @@ const header = (relay: RelayCtrl, ctrl: AnalyseCtrl) => {
           group && groupSelect(relay, group),
           roundSelect(relay, study),
         ]),
-        ...(defined(d.isSubscribed)
-          ? [
-              toggle(
-                {
-                  name: 'Subscribe',
-                  id: 'tour-subscribe',
-                  checked: d.isSubscribed,
-                  change: (v: boolean) => {
-                    xhr.text(`/broadcast/${d.tour.id}/subscribe?set=${v}`, { method: 'post' });
-                    d.isSubscribed = v;
-                    ctrl.redraw();
-                  },
-                },
-                ctrl.trans,
-                ctrl.redraw,
-              ),
-            ]
-          : []),
       ]),
     ]),
-    makeTabs(ctrl),
+    h('div.relay-tour__nav', [makeTabs(ctrl), ...subscribe(relay, ctrl)]),
   ];
 };
+
+const subscribe = (relay: RelayCtrl, ctrl: AnalyseCtrl) =>
+  defined(relay.data.isSubscribed)
+    ? [
+        toggle(
+          {
+            name: 'Subscribe',
+            id: 'tour-subscribe',
+            cls: 'relay-tour__subscribe',
+            checked: relay.data.isSubscribed,
+            change: (v: boolean) => {
+              xhr.text(`/broadcast/${relay.data.tour.id}/subscribe?set=${v}`, { method: 'post' });
+              relay.data.isSubscribed = v;
+              ctrl.redraw();
+            },
+          },
+          ctrl.trans,
+          ctrl.redraw,
+        ),
+      ]
+    : [];
 
 const makeTabs = (ctrl: AnalyseCtrl) => {
   const study = ctrl.study,
@@ -248,7 +198,7 @@ const makeTabs = (ctrl: AnalyseCtrl) => {
     makeTab('overview', 'Overview'),
     makeTab('boards', 'Boards'),
     relay.teams && makeTab('teams', 'Teams'),
-    relay.data.leaderboard ? makeTab('leaderboard', 'Leaderboard') : undefined,
+    relay.data.tour.leaderboard ? makeTab('leaderboard', 'Leaderboard') : undefined,
   ]);
 };
 

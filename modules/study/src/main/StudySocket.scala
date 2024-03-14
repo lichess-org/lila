@@ -263,12 +263,7 @@ final private class StudySocket(
         m.chapterId
           .ifTrue(opts.write)
           .foreach: chapterId =>
-            api.addNode(
-              studyId,
-              Position.Ref(chapterId, m.path),
-              branch.withClock(opts.clock),
-              opts
-            )(who)
+            api.addNode(studyId, Position.Ref(chapterId, m.path), branch, opts)(who)
 
   private lazy val send: String => Unit = remoteSocketApi.makeSender("study-out").apply
 

@@ -144,7 +144,7 @@ final private class FidePlayerSync(repo: FideRepo, api: FidePlayerApi, ws: Stand
         id = FideId(id),
         name = PlayerName(name),
         token = FidePlayer.tokenize(name),
-        fed = string(76, 79),
+        fed = Federation.Id.from(string(76, 79)),
         title = PlayerTitle.mostValuable(title, wTitle),
         standard = number(113, 117),
         rapid = number(126, 132),

@@ -170,19 +170,22 @@ export interface ChapterPreviewBase {
   id: ChapterId;
   name: string;
   status?: StatusStr;
-  players?: ChapterPreviewPlayers;
   fen: string;
   lastMove?: string;
 }
 
 export interface ChapterPreviewFromServer extends ChapterPreviewBase {
+  players?: [ChapterPreviewPlayer, ChapterPreviewPlayer];
   thinkTime?: number; // seconds since last move
   orientation?: Color; // defaults to white
+  variant?: VariantKey; // defaults to standard
 }
 
 export interface ChapterPreview extends ChapterPreviewBase {
+  players?: ChapterPreviewPlayers;
   lastMoveAt?: number;
   orientation: Color;
+  variant: VariantKey;
   playing: boolean;
 }
 
@@ -196,6 +199,8 @@ export interface ChapterPreviewPlayer {
   title?: string;
   rating?: number;
   clock?: ClockCentis;
+  fed?: string;
+  team?: string;
 }
 
 export type Orientation = 'black' | 'white' | 'auto';
@@ -205,7 +210,7 @@ export interface ChapterData {
   name: string;
   game?: string;
   variant?: VariantKey;
-  fen?: Fen | null;
+  fen?: cg.FEN | null;
   pgn?: string;
   orientation: Orientation;
   mode: ChapterMode;
@@ -231,7 +236,7 @@ export interface AnaDests {
 export interface AnaMove {
   orig: string;
   dest: string;
-  fen: Fen;
+  fen: cg.FEN;
   path: string;
   variant?: VariantKey;
   ch?: string;
@@ -242,7 +247,7 @@ export interface AnaDrop {
   role: cg.Role;
   pos: Key;
   variant?: VariantKey;
-  fen: Fen;
+  fen: cg.FEN;
   path: string;
   ch?: string;
 }

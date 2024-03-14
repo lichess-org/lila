@@ -2,10 +2,11 @@ import { h, VNode } from 'snabbdom';
 import AnalyseCtrl from '../ctrl';
 import { moveArrowAttributes, winnerOf } from './explorerUtil';
 import { TablebaseMoveStats } from './interfaces';
+import { FEN } from 'chessground/types';
 
 export function showTablebase(
   ctrl: AnalyseCtrl,
-  fen: Fen,
+  fen: FEN,
   title: string,
   tooltip: string | undefined,
   moves: TablebaseMoveStats[],
@@ -28,7 +29,7 @@ export function showTablebase(
   ];
 }
 
-function showDtm(ctrl: AnalyseCtrl, fen: Fen, move: TablebaseMoveStats) {
+function showDtm(ctrl: AnalyseCtrl, fen: FEN, move: TablebaseMoveStats) {
   if (move.dtm)
     return h(
       'result.' + winnerOf(fen, move),
@@ -40,7 +41,7 @@ function showDtm(ctrl: AnalyseCtrl, fen: Fen, move: TablebaseMoveStats) {
   return undefined;
 }
 
-function showDtz(ctrl: AnalyseCtrl, fen: Fen, move: TablebaseMoveStats): VNode | null {
+function showDtz(ctrl: AnalyseCtrl, fen: FEN, move: TablebaseMoveStats): VNode | null {
   const trans = ctrl.trans.noarg;
   if (move.checkmate) return h('result.' + winnerOf(fen, move), trans('checkmate'));
   else if (move.variant_win) return h('result.' + winnerOf(fen, move), trans('variantLoss'));
