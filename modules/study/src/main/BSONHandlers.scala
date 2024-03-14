@@ -341,13 +341,6 @@ object BSONHandlers:
 
   given BSONDocumentHandler[Chapter] = Macros.handler
 
-  given BSONDocumentReader[Chapter.RelayAndTags] with
-    def readDocument(doc: Bdoc) = for
-      id    <- doc.getAsTry[StudyChapterId]("_id")
-      relay <- doc.getAsTry[Chapter.Relay]("relay")
-      tags  <- doc.getAsTry[Tags]("tags")
-    yield Chapter.RelayAndTags(id, relay, tags)
-
   given BSONHandler[Position.Ref] = tryHandler(
     { case BSONString(v) => Position.Ref.decode(v).toTry(s"Invalid position $v") },
     x => BSONString(x.encode)

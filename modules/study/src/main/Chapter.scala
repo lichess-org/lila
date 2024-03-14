@@ -147,14 +147,6 @@ object Chapter:
 
   case class ServerEval(path: UciPath, done: Boolean)
 
-  case class RelayAndTags(id: StudyChapterId, relay: Relay, tags: Tags):
-    def looksAlive =
-      tags.outcome.isEmpty &&
-        relay.lastMoveAt.isAfter:
-          nowInstant.minusMinutes:
-            tags.clockConfig.fold(40)(_.limitInMinutes.toInt / 2 atLeast 15 atMost 60)
-    def looksOver = !looksAlive
-
   type BothClocks = ByColor[Option[Centis]]
 
   /* Last position of the main line.
