@@ -9,7 +9,7 @@ import { dimensions, handRoles } from 'shogiops/variant/util';
 import { makeUsi, parseUsi } from 'shogiops/util';
 import { toKanjiDigit } from 'shogiops/notation/util';
 import { makeKifBoard } from 'shogiops/notation/kif/kif';
-import { toMove } from 'keyboardMove/dist/plugins/util'; // todo better later
+import { toMoveOrDrop } from 'keyboardMove/dist/plugins/util'; // todo better later
 
 export type Style = 'usi' | 'literate' | 'nato' | 'anna' | 'japanese';
 
@@ -174,7 +174,7 @@ export function renderBoard(pieces: Pieces, pov: Color, variant: VariantKey, sty
 export function validUsi(moveString: string, sfen: Sfen, variant: VariantKey): Usi | undefined {
   const pos = parseSfen(variant, sfen, false);
   if (pos.isOk) {
-    const move = toMove(moveString.toLowerCase(), pos.value);
+    const move = toMoveOrDrop(moveString.toLowerCase(), pos.value);
     if (move) return makeUsi(move);
   }
   return undefined;
