@@ -221,22 +221,33 @@
         border: none;
       }
     }
+    thead {
+      th {
+        text-align: $end-direction;
+        padding: 0 2rem 0.5rem 2rem;
+      }
+    }
     th {
-      &:first-child {
-        width: 1px;
-      }
-      &:first-child,
-      &:nth-child(2) {
+      &:nth-child(1) {
         text-align: $start-direction;
-      }
-      &:nth-child(2) {
         padding-right: 2rem;
+      }
+      a {
+        @extend %flex-center-nowrap;
+        .mini-game__flag {
+          margin-#{$end-direction}: 1em;
+          opacity: 0.7;
+        }
+        color: $c-font;
+        &:hover {
+          color: $c-primary;
+        }
       }
     }
     td {
       text-align: $end-direction;
       padding: 1rem 2rem;
-      &:nth-child(4) {
+      &:last-child {
         font-weight: bold;
       }
     }
@@ -276,7 +287,7 @@
   @extend %flex-center-nowrap;
   align-items: stretch;
   gap: 0.5em;
-  padding: 0.5em 0.5em 0.5em 0.2em;
+  padding: 0.5em 0.7em 0.5em 0.2em;
   border-bottom: $border;
   border-left: 3px solid transparent;
   &:hover {

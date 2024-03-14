@@ -21,7 +21,6 @@
 
   &__user {
     @extend %flex-center-nowrap;
-    gap: 1ch;
     overflow: hidden;
   }
 
@@ -29,6 +28,7 @@
     width: 1.3em;
     vertical-align: middle;
     opacity: 0.7;
+    margin-#{$end-direction}: 1ch;
     .mini-game:hover & {
       opacity: 1;
     }
@@ -42,6 +42,7 @@
   .rating {
     @extend %roboto;
 
+    margin-#{$start-direction}: 1ch;
     font-size: 0.9em;
   }
 
@@ -58,6 +59,6 @@
 
   &__result {
     font-weight: bold;
-    margin-#{$end-direction}: 1ch;
+    margin: 0 1ch;
   }
 }

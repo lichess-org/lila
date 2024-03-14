@@ -91,9 +91,13 @@ final class RelayPager(
     forSelector($text(query) ++ $doc("tier".$exists(true)), page)
 
   def byIds(ids: List[RelayTour.Id], page: Int): Fu[Paginator[WithLastRound]] =
-    forSelector($inIds(ids) ++ $doc("tier".$exists(true)), page)
+    forSelector($inIds(ids) ++ $doc("tier".$exists(true)), page, List("syncedAt"))
 
-  private def forSelector(selector: Bdoc, page: Int): Fu[Paginator[WithLastRound]] =
+  private def forSelector(
+      selector: Bdoc,
+      page: Int,
+      sortFields: List[String] = List("tier", "syncedAt", "createdAt")
+  ): Fu[Paginator[WithLastRound]] =
     Paginator(
       adapter = new:
         def nbResults: Fu[Int] = tourRepo.coll.countSel(selector)
@@ -102,7 +106,7 @@ final class RelayPager(
             .aggregateList(length, _.sec): framework =>
               import framework.*
               Match(selector) -> {
-                List(Sort(Descending("tier"), Descending("syncedAt"), Descending("createdAt"))) :::
+                List(Sort(sortFields.map(Descending(_))*)) :::
                   aggregateRoundAndUnwind(framework) :::
                   List(Skip(offset), Limit(length))
               }

@@ -373,7 +373,7 @@ export default class StudyCtrl {
   };
 
   xhrReload = throttlePromiseDelay(
-    () => 700,
+    () => 500,
     () => {
       this.vm.loading = true;
       return xhr

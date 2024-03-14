@@ -4,6 +4,7 @@ import lila.db.dsl.{ *, given }
 import lila.memo.CacheApi
 import lila.study.ChapterRepo
 import chess.{ Outcome, FideId, PlayerName, PlayerTitle, Elo }
+import lila.fide.{ Federation, FidePlayerApi }
 
 case class RelayLeaderboard(players: List[RelayLeaderboard.Player])
 
@@ -14,7 +15,8 @@ object RelayLeaderboard:
       played: Int,
       rating: Option[Elo],
       title: Option[PlayerTitle],
-      fideId: Option[FideId]
+      fideId: Option[FideId],
+      fed: Option[Federation.Id]
   )
 
   import play.api.libs.json.*
@@ -25,26 +27,35 @@ object RelayLeaderboard:
       .add("rating", p.rating)
       .add("title", p.title)
       .add("fideId", p.fideId)
+      .add("fed", p.fed)
 
 final class RelayLeaderboardApi(
     tourRepo: RelayTourRepo,
     roundRepo: RelayRoundRepo,
     chapterRepo: ChapterRepo,
+    playerApi: FidePlayerApi,
     cacheApi: CacheApi
 )(using Executor, Scheduler):
 
   import BSONHandlers.given
 
-  def apply(tour: RelayTour): Fu[Option[RelayLeaderboard]] = tour.autoLeaderboard.soFu:
+  import play.api.libs.json.*
+  import lila.common.Json.{ writeAs, given }
+  private given Writes[RelayLeaderboard] = writeAs(_.players)
+
+  def apply(tour: RelayTour): Fu[Option[JsonStr]] = tour.autoLeaderboard.soFu:
     cache.get(tour.id)
 
   private val invalidateDebouncer =
-    lila.common.Debouncer[RelayTour.Id](10 seconds, 64)(id => cache.put(id, compute(id)))
+    lila.common.Debouncer[RelayTour.Id](10 seconds, 64)(id => cache.put(id, computeJson(id)))
 
   def invalidate(id: RelayTour.Id) = invalidateDebouncer.push(id)
 
-  private val cache = cacheApi[RelayTour.Id, RelayLeaderboard](256, "relay.leaderboard"):
-    _.expireAfterWrite(10 minutes).buildAsyncFuture(compute)
+  private val cache = cacheApi[RelayTour.Id, JsonStr](256, "relay.leaderboard"):
+    _.expireAfterWrite(10 minutes).buildAsyncFuture(computeJson)
+
+  private def computeJson(id: RelayTour.Id): Fu[JsonStr] =
+    compute(id).map(lead => JsonStr(Json.stringify(Json.toJson(lead))))
 
   private def compute(id: RelayTour.Id): Fu[RelayLeaderboard] = for
     tour     <- tourRepo.coll.byId[RelayTour](id).orFail(s"No such relay tour $id")
@@ -73,9 +84,11 @@ final class RelayLeaderboardApi(
                 prevFideId.orElse(game.fideIds(color))
               )
             )
+    federations <- playerApi.federationsOf(players.values.flatMap(_._5).toList)
   yield RelayLeaderboard:
     players.toList
       .sortBy(-_._2._1)
       .map:
         case (name, (score, played, rating, title, fideId)) =>
-          RelayLeaderboard.Player(name, score, played, rating, title, fideId)
+          val fed = fideId.flatMap(federations.get)
+          RelayLeaderboard.Player(name, score, played, rating, title, fideId, fed)

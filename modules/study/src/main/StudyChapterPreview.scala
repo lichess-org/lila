@@ -80,14 +80,15 @@ object ChapterPreview:
       title: Option[PlayerTitle],
       rating: Option[Elo],
       clock: Option[Centis],
-      fideId: Option[FideId]
+      fideId: Option[FideId],
+      team: Option[String]
   )
 
   def players(clocks: Chapter.BothClocks)(tags: Tags): Option[Players] =
     val names = tags.names
     Option.when(names.exists(_.isDefined)):
-      (names, tags.fideIds, tags.titles, tags.elos, clocks).mapN: (n, f, t, e, c) =>
-        Player(n | PlayerName("Unknown player"), t, e, c, f)
+      (names, tags.fideIds, tags.titles, tags.elos, tags.teams, clocks).mapN: (n, f, t, e, te, c) =>
+        Player(n | PlayerName("Unknown player"), t, e, c, f, te)
 
   object json:
     import lila.common.Json.{ writeAs, given }

@@ -4,6 +4,7 @@ import { StudyMemberCtrl } from '../studyMembers';
 import { AnalyseSocketSend } from '../../socket';
 import { Prop, Toggle, notNull, prop, toggle } from 'common';
 import RelayTeams from './relayTeams';
+import RelayLeaderboard from './relayLeaderboard';
 import { Redraw } from 'common/snabbdom';
 import { StudyChapters } from '../studyChapters';
 import { MultiCloudEval } from '../multiCloudEval';
@@ -17,6 +18,7 @@ export default class RelayCtrl {
   tourShow: Toggle;
   tab: Prop<RelayTab>;
   teams?: RelayTeams;
+  leaderboard?: RelayLeaderboard;
 
   constructor(
     readonly id: RoundId,
@@ -39,6 +41,7 @@ export default class RelayCtrl {
     this.teams = data.tour.teamTable
       ? new RelayTeams(id, this.multiCloudEval, setChapter, this.roundPath, redraw)
       : undefined;
+    this.leaderboard = data.tour.leaderboard ? new RelayLeaderboard(data.tour.id, redraw) : undefined;
     setInterval(this.redraw, 1000);
   }
 
