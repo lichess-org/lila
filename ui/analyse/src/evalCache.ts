@@ -11,6 +11,7 @@ export interface EvalCacheOpts {
   getNode(): Tree.Node;
   canPut(): boolean;
   canGet(): boolean;
+  upgradable: boolean;
 }
 
 const evalPutMinDepth = 20;
@@ -68,9 +69,10 @@ const awaitingEval: AwaitingEval = null;
 
 export default class EvalCache {
   private fetchedByFen: Map<FEN, EvalHit | AwaitingEval> = new Map();
-  private upgradable = prop(false);
+  upgradable = prop(false);
 
   constructor(readonly opts: EvalCacheOpts) {
+    this.upgradable(opts.upgradable);
     site.pubsub.on('socket.in.crowd', d => this.upgradable(d.nb > 2 && d.nb < 99999));
   }
 

@@ -62,10 +62,10 @@ final class Env(
     picfitApi: lila.memo.PicfitApi,
     cmsApi: lila.cms.CmsApi,
     cacheApi: lila.memo.CacheApi,
-    ws: StandaloneWSClient,
-    val mode: Mode
+    ws: StandaloneWSClient
 )(using
     ec: Executor,
+    val mode: Mode,
     system: ActorSystem,
     scheduler: Scheduler,
     materializer: akka.stream.Materializer
@@ -130,13 +130,15 @@ final class Env(
       promise.completeWith(chatFreshness.of(source))
     },
     "announce" -> {
-      case Announce(msg, date, _) if msg contains "will restart" => pagerDuty.lilaRestart(date)
+      case Announce(msg, date, _) if msg.contains("will restart") => pagerDuty.lilaRestart(date)
     },
     "lpv" -> {
       case AllPgnsFromText(text, p)       => p.completeWith(textLpvExpand.allPgnsFromText(text))
       case LpvLinkRenderFromText(text, p) => p.completeWith(textLpvExpand.linkRenderFromText(text))
     }
   )
+
+  lila.i18n.Registry.asyncLoadLanguages()
 
   scheduler.scheduleWithFixedDelay(1 minute, 1 minute): () =>
     lila.mon.bus.classifiers.update(lila.common.Bus.size())

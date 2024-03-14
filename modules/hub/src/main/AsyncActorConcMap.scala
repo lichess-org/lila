@@ -62,10 +62,10 @@ final class AsyncActorConcMap[Id, D <: AsyncActor](
         nullD
     )
 
-  private[this] val asyncActors = new ConcurrentHashMap[Id, D](initialCapacity)
+  private val asyncActors = ConcurrentHashMap[Id, D](initialCapacity)
 
   private val loadFunction = new Function[Id, D]:
     def apply(k: Id) = mkAsyncActor(k)
 
   // used to remove entries
-  private[this] var nullD: D = _
+  private var nullD: D = scala.compiletime.uninitialized

@@ -894,6 +894,7 @@ export default class AnalyseCtrl {
       getNode: () => this.node,
       send: this.opts.socketSend,
       receive: this.onNewCeval,
+      upgradable: this.evalCache?.upgradable(),
     });
   };
 

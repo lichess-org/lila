@@ -128,10 +128,17 @@
         display: table;
         left: unset;
         right: 0;
+        overflow: hidden;
         tr {
           display: table-row;
           &.current-round {
-            background: $c-bg-zebra;
+            background: mix($c-primary, $c-bg-box, 15%);
+            border: 1px solid mix($c-primary, $c-bg-box, 40%);
+            border-width: 1px 0;
+          }
+          &:hover * {
+            background: $c-primary;
+            color: $c-primary-over;
           }
         }
         td {
@@ -148,9 +155,6 @@
         .time {
           @extend %roboto;
           padding: 0.5em 1em;
-        }
-        tr:hover * {
-          color: $c-primary-over;
         }
         .status {
           padding: 0.5em 1.5rem 0.5em 0;

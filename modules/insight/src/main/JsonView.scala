@@ -130,6 +130,8 @@ final class JsonView:
       )
       .add("asMod" -> asMod)
 
+  given Writes[InsightPosition] = Writes(p => JsString(p.name))
+
   private given dimWrites[X](using lang: Lang): Writes[InsightDimension[X]] =
     Writes { d =>
       Json.obj(
@@ -149,8 +151,6 @@ final class JsonView:
       "position"    -> m.position
     )
   }
-
-  given Writes[InsightPosition] = Writes(p => JsString(p.name))
 
   private given Writes[Chart.Xaxis] = Json.writes
   private given Writes[Chart.Yaxis] = Json.writes

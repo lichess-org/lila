@@ -4,7 +4,7 @@ import { type Chessground } from 'chessground';
 import * as domData from 'common/data';
 import clockWidget from './clockWidget';
 import StrongSocket from './socket';
-import { clockIsRunning } from 'common/clock';
+import { lichessClockIsRunning } from 'common/clock';
 
 export const init = (node: Element, withCg?: typeof Chessground) => {
   const [fen, color, lm] = node.getAttribute('data-state')!.split(','),
@@ -33,7 +33,7 @@ export const init = (node: Element, withCg?: typeof Chessground) => {
     $el.find('.mini-game__clock--' + color).each(function (this: HTMLElement) {
       clockWidget(this, {
         time: parseInt(this.getAttribute('data-time')!),
-        pause: color != turnColor || !clockIsRunning(fen, color),
+        pause: color != turnColor || !lichessClockIsRunning(fen, color),
       });
     }),
   );
@@ -60,7 +60,7 @@ export const update = (node: HTMLElement, data: MiniGameUpdateData) => {
     if (!isNaN(time!))
       clockWidget($el[0]?.querySelector('.mini-game__clock--' + color) as HTMLElement, {
         time: time!,
-        pause: color != turnColor || !clockIsRunning(data.fen, color),
+        pause: color != turnColor || !lichessClockIsRunning(data.fen, color),
       });
   };
   updateClock(data.wc, 'white');

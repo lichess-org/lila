@@ -96,15 +96,10 @@ final class RelayRound(
     OpenOrScoped(_.Study.Read): ctx ?=>
       negotiate(
         html = WithRoundAndTour(ts, rs, id): rt =>
-          val sc =
-            if rt.round.sync.ongoing then
-              env.study.chapterRepo.relaysAndTagsByStudyId(rt.round.studyId).flatMap { chapters =>
-                chapters.find(_.looksAlive).orElse(chapters.headOption) match
-                  case Some(chapter) =>
-                    env.study.api.byIdWithChapterOrFallback(rt.round.studyId, chapter.id)
-                  case None => env.study.api.byIdWithChapter(rt.round.studyId)
-              }
-            else env.study.api.byIdWithChapter(rt.round.studyId)
+          val sc = env.study.preview
+            .firstId(rt.round.studyId)
+            .flatMapz:
+              env.study.api.byIdWithChapterOrFallback(rt.round.studyId, _)
           sc.orNotFound { doShow(rt, _) }
         ,
         json = doApiShow(id)

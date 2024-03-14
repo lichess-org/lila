@@ -12,9 +12,9 @@ final class Rating(
   import RatingCalculator.*
 
   // the following variables are used to hold values temporarily whilst running calculations
-  private[glicko2] var workingRating: Double          = _
-  private[glicko2] var workingRatingDeviation: Double = _
-  private[glicko2] var workingVolatility: Double      = _
+  private[glicko2] var workingRating: Double          = scala.compiletime.uninitialized
+  private[glicko2] var workingRatingDeviation: Double = scala.compiletime.uninitialized
+  private[glicko2] var workingVolatility: Double      = scala.compiletime.uninitialized
 
   /** Return the average skill value of the player scaled down to the scale used by the algorithm's internal
     * workings.

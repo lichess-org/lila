@@ -10,21 +10,19 @@ object I18n {
       dbs: List[String],
       outputFile: File
   ): Seq[File] = {
-    val locales = new ArrayList[String]()
-    locales.add("en-GB")
-    locales.addAll((destDir / "site").listFiles.map(_.getName.takeWhile(_ != '.')).sorted.toList.asJava)
-
-    val translationMap = new HashMap[String, java.util.Map[String, Object]]()
-    locales.forEach { locale =>
-      translationMap.put(locale, makeMap(locale, sourceDir, destDir, dbs.asJava))
-    }
+    val locales = "en-GB" :: (destDir / "site").listFiles.map(_.getName.takeWhile(_ != '.')).sorted.toList
 
     outputFile.getParentFile.mkdirs()
-    val out = new ObjectOutputStream(new FileOutputStream(outputFile))
-    out.writeObject(translationMap)
-    out.close()
 
-    Seq(outputFile)
+    val files = locales.map { locale =>
+      val file         = new File(outputFile.getParentFile, s"i18n.$locale.ser")
+      val translations = makeMap(locale, sourceDir, destDir, dbs.asJava)
+      val out          = new ObjectOutputStream(new FileOutputStream(file))
+      out.writeObject(translations)
+      out.close()
+      file
+    }
+    files
   }
 
   private def makeMap(

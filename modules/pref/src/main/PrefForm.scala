@@ -27,11 +27,11 @@ object PrefForm:
     number.verifying(Pref.BooleanPref.verify)
 
   object fields:
-    val theme      = "theme"      -> text.verifying(Theme contains _)
-    val theme3d    = "theme3d"    -> text.verifying(Theme3d contains _)
-    val pieceSet   = "pieceSet"   -> text.verifying(PieceSet contains _)
-    val pieceSet3d = "pieceSet3d" -> text.verifying(PieceSet3d contains _)
-    val soundSet   = "soundSet"   -> text.verifying(SoundSet contains _)
+    val theme      = "theme"      -> text.verifying(Theme.contains(_))
+    val theme3d    = "theme3d"    -> text.verifying(Theme3d.contains(_))
+    val pieceSet   = "pieceSet"   -> text.verifying(PieceSet.contains(_))
+    val pieceSet3d = "pieceSet3d" -> text.verifying(PieceSet3d.contains(_))
+    val soundSet   = "soundSet"   -> text.verifying(SoundSet.contains(_))
     val bg         = "bg"         -> stringIn(Pref.Bg.fromString.keySet)
     val bgImg = "bgImg" -> text(maxLength = 400).verifying(
       "URL must use https",

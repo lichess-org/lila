@@ -2,44 +2,61 @@ package lila.i18n
 
 import java.io.{ File, FileInputStream, ObjectInputStream }
 import java.util.{ Map as JMap }
+import java.util.concurrent.ConcurrentHashMap
+import play.api.Mode
 import play.api.i18n.Lang
 import scala.jdk.CollectionConverters.*
 import lila.common.Chronometer
 
 object Registry:
 
-  val all: Map[Lang, MessageMap] = Chronometer.syncEffect(loadSerialized): lap =>
-    logger.info(s"Loaded ${lap.result.size} langs in ${lap.showDuration}")
+  private var all = Map[Lang, MessageMap]()
 
-  private def loadSerialized: Map[Lang, MessageMap] =
-    val istream = ObjectInputStream(getClass.getClassLoader.getResourceAsStream("I18n.ser"))
-    val unserialized =
-      Chronometer.syncEffect(
-        istream.readObject().asInstanceOf[JMap[String, JMap[String, Object]]].asScala.toMap
-      ): lap =>
-        logger.info(s"Unserialized I18n.ser in ${lap.showDuration}")
+  inline def get(inline lang: Lang) = all.get(lang)
+
+  val empty: MessageMap   = java.util.HashMap[MessageKey, Translation]()
+  val default: MessageMap = get(defaultLang) | empty
+
+  def asyncLoadLanguages()(using Executor)(using scheduler: Scheduler, mode: Mode): Unit =
+    scheduler.scheduleOnce(2.seconds):
+      LangList.popular
+        .grouped(10)
+        .zipWithIndex
+        .foreach: (langs, i) =>
+          scheduler.scheduleOnce(i.seconds):
+            val lap = Chronometer.sync:
+              langs.foreach: lang =>
+                all = all + (lang -> loadSerialized(lang))
+            if i < 1 || mode.isProd
+            then logger.info(s"Loaded ${langs.size} languages in ${lap.showDuration}")
+
+  // for tests
+  private[i18n] def syncLoadLanguages(): Unit =
+    LangList.popular.foreach: lang =>
+      all = all + (lang -> loadSerialized(lang))
+
+  private def loadSerialized(lang: Lang): MessageMap = try
+    val file       = s"i18n.${lang.code}.ser"
+    val istream    = ObjectInputStream(getClass.getClassLoader.getResourceAsStream(file))
+    val messageMap = istream.readObject().asInstanceOf[JMap[String, Object]]
     istream.close()
-
-    unserialized.map:
-      case (langCode, messageMap) =>
-        Lang(langCode) -> messageMap.asScala
-          .map: (key, value) =>
-            key -> value.match
-              case s: String => singleOrEscaped(s)
-              case m: JMap[?, ?] =>
-                val plurals = m
-                  .asInstanceOf[JMap[String, String]]
-                  .asScala
-                  .flatMap: (q, i) =>
-                    I18nQuantity
-                      .fromString(q)
-                      .map: quantity =>
-                        quantity -> i
-                Plurals(plurals.toMap)
-              case _ => throw Exception(s"i18n oh noes $key: $value")
-          .asJava
-
-  val default: MessageMap = all.getOrElse(defaultLang, java.util.HashMap[MessageKey, Translation])
+    messageMap.asScala.toMap
+      .map: (key, value) =>
+        key -> value.match
+          case s: String => singleOrEscaped(s)
+          case m: JMap[?, ?] =>
+            val plurals = m
+              .asInstanceOf[JMap[String, String]]
+              .asScala
+              .flatMap: (q, i) =>
+                I18nQuantity.fromString(q).map(_ -> i)
+            Plurals(plurals.toMap)
+          case _ => throw Exception(s"i18n oh noes $key: $value")
+      .asJava
+  catch
+    case e: Exception =>
+      logger.error(s"Failed to load i18n for ${lang.code}", e)
+      empty
 
   private def singleOrEscaped(s: String) =
     val sb = java.lang.StringBuilder(s.length + 10)

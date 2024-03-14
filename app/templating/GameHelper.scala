@@ -11,13 +11,7 @@ import lila.i18n.{ defaultLang, I18nKeys as trans }
 import lila.common.LightUser
 
 trait GameHelper:
-  self: RouterHelper
-    with I18nHelper
-    with UserHelper
-    with AiHelper
-    with StringHelper
-    with NumberHelper
-    with ChessgroundHelper =>
+  self: RouterHelper & I18nHelper & UserHelper & AiHelper & StringHelper & NumberHelper & ChessgroundHelper =>
 
   def netBaseUrl: String
   def cdnUrl(path: String): String
@@ -94,7 +88,7 @@ trait GameHelper:
       user
         .fold[Frag](trans.anonymous.txt()): user =>
           frag(
-            titleTag(user.title.ifTrue(withTitle)),
+            titleTag(withTitle.so(user.title)),
             user.name,
             user.flair.map(userFlair),
             withRating.option(

@@ -9,7 +9,7 @@ import lila.common.AssetVersion
 import lila.common.String.html.safeJsonValue
 
 trait AssetHelper extends HasEnv:
-  self: I18nHelper with SecurityHelper =>
+  self: I18nHelper & SecurityHelper =>
 
   private lazy val netDomain      = env.net.domain
   private lazy val assetDomain    = env.net.assetDomain
@@ -110,7 +110,7 @@ if (window.matchMedia('(prefers-color-scheme: dark)').media === 'not all')
     )
 
   def defaultCsp(using ctx: PageContext): ContentSecurityPolicy =
-    ctx.nonce.foldLeft(basicCsp)(_ withNonce _)
+    ctx.nonce.foldLeft(basicCsp)(_.withNonce(_))
 
   def analysisCsp(using PageContext): ContentSecurityPolicy =
     defaultCsp.withWebAssembly.withExternalEngine(env.externalEngineEndpoint)

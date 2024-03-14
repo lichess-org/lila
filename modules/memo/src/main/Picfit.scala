@@ -65,20 +65,20 @@ final class PicfitApi(coll: Coll, val url: PicfitUrl, ws: StandaloneWSClient, co
             )
             picfitServer.store(image, part) >>
               deleteByRel(image.rel) >>
-              coll.insert.one(image) inject image
+              coll.insert.one(image).inject(image)
 
   def deleteByIdsAndUser(ids: Seq[Id], user: UserId): Funit =
     ids.nonEmpty so ids.traverse_ { id =>
       coll
         .findAndRemove($id(id) ++ $doc("user" -> user))
-        .flatMap { _.result[PicfitImage] so picfitServer.delete }
+        .flatMap { _.result[PicfitImage].so(picfitServer.delete) }
         .void
     }
 
   def deleteByRel(rel: String): Funit =
     coll
       .findAndRemove($doc("rel" -> rel))
-      .flatMap { _.result[PicfitImage] so picfitServer.delete }
+      .flatMap { _.result[PicfitImage].so(picfitServer.delete) }
       .void
 
   object bodyImage:

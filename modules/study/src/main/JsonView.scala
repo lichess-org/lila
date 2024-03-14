@@ -20,7 +20,7 @@ final class JsonView(
   def apply(
       study: Study,
       previews: ChapterPreview.AsJsons,
-      currentChapter: Chapter,
+      chapter: Chapter,
       me: Option[User]
   ) =
 
@@ -29,8 +29,12 @@ final class JsonView(
 
     for
       liked       <- me.so(studyRepo.liked(study, _))
-      fidePlayers <- fidePlayerApi.players(currentChapter.tags.fideIds)
+      fidePlayers <- fidePlayerApi.players(chapter.tags.fideIds)
       feds = fidePlayers.mapList(_.flatMap(_.fed)).some.filter(_.exists(_.isDefined))
+      relayPath = chapter.relay
+        .filter(_.secondsSinceLastMove < 3600 || chapter.tags.outcome.isEmpty)
+        .map(_.path)
+        .filterNot(_.isEmpty)
     yield Json.toJsObject(study) ++ Json
       .obj(
         "liked" -> liked,
@@ -45,20 +49,20 @@ final class JsonView(
         "chapters" -> previews,
         "chapter" -> Json
           .obj(
-            "id"      -> currentChapter.id,
-            "ownerId" -> currentChapter.ownerId,
-            "setup"   -> currentChapter.setup,
-            "tags"    -> currentChapter.tags,
+            "id"      -> chapter.id,
+            "ownerId" -> chapter.ownerId,
+            "setup"   -> chapter.setup,
+            "tags"    -> chapter.tags,
             "features" -> Json.obj(
               "computer" -> allowed(_.computer),
               "explorer" -> allowed(_.explorer)
             )
           )
-          .add("description", currentChapter.description)
-          .add("serverEval", currentChapter.serverEval)
-          .add("relayPath", currentChapter.relay.map(_.path))
+          .add("description", chapter.description)
+          .add("serverEval", chapter.serverEval)
+          .add("relayPath", relayPath)
           .add("feds" -> feds)
-          .pipe(addChapterMode(currentChapter))
+          .pipe(addChapterMode(chapter))
       )
       .add("description", study.description)
 

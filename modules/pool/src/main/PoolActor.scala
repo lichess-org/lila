@@ -19,7 +19,7 @@ final private class PoolActor(
 
   private var lastPairedUserIds = Set.empty[UserId]
 
-  var nextWave: Cancellable = _
+  var nextWave: Cancellable = scala.compiletime.uninitialized
 
   given Executor = context.dispatcher
 

@@ -147,7 +147,7 @@ object MarkdownRender:
           new:
             override def apply(options: DataHolder) = new NodeRenderer:
               override def getNodeRenderingHandlers() =
-                Set(NodeRenderingHandler(classOf[Image], render _)).asJava
+                Set(NodeRenderingHandler(classOf[Image], render(_, _, _))).asJava
 
       private def render(node: Image, context: NodeRendererContext, html: HtmlWriter): Unit =
         // Based on implementation in CoreNodeRenderer.
@@ -186,8 +186,8 @@ object MarkdownRender:
   private class PgnEmbedNodeRenderer(expander: PgnSourceExpand) extends NodeRenderer:
     override def getNodeRenderingHandlers() = java.util.HashSet:
       Arrays.asList(
-        NodeRenderingHandler(classOf[Link], renderLink _),
-        NodeRenderingHandler(classOf[AutoLink], renderAutoLink _)
+        NodeRenderingHandler(classOf[Link], renderLink(_, _, _)),
+        NodeRenderingHandler(classOf[AutoLink], renderAutoLink(_, _, _))
       )
 
     final class PgnRegexes(val game: Regex, val chapter: Regex)

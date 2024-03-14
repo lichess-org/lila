@@ -28,8 +28,8 @@ final class IdGenerator(gameRepo: GameRepo)(using Executor):
 
 object IdGenerator:
 
-  private[this] val whiteSuffixChars = ('0' to '4') ++ ('A' to 'Z') mkString
-  private[this] val blackSuffixChars = ('5' to '9') ++ ('a' to 'z') mkString
+  private val whiteSuffixChars = ('0' to '4') ++ ('A' to 'Z') mkString
+  private val blackSuffixChars = ('5' to '9') ++ ('a' to 'z') mkString
 
   def uncheckedGame = GameId(ThreadLocalRandom.nextString(GameId.size))
 
