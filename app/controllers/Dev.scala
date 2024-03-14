@@ -34,15 +34,7 @@ final class Dev(env: Env) extends LilaController(env) {
           .bindFromRequest()
           .fold(
             _ => BadRequest(html.dev.settings(settingsList)).fuccess,
-            v => {
-              setting.setString(v.toString) inject {
-                (setting.id, setting.get()) match {
-                  case ("friendListToggle", v: Boolean) => env.api.influxEvent.friendListToggle(v)
-                  case _                                =>
-                }
-                Redirect(routes.Dev.settings)
-              }
-            }
+            v => setting.setString(v.toString) inject Redirect(routes.Dev.settings)
           )
       }
     }
