@@ -9,7 +9,7 @@ import { Shogiground } from 'shogiground';
 import { Config as SgConfig } from 'shogiground/config';
 import { shogigroundDropDests, shogigroundMoveDests, usiToSquareNames } from 'shogiops/compat';
 import { makeSfen, parseSfen } from 'shogiops/sfen';
-import { Move, Outcome, Piece, Role } from 'shogiops/types';
+import { MoveOrDrop, Outcome, Piece, Role } from 'shogiops/types';
 import { makeUsi, parseSquareName, parseUsi } from 'shogiops/util';
 import { Shogi } from 'shogiops/variant/shogi';
 import { TreeWrapper, build as treeBuild, ops as treeOps, path as treePath } from 'tree';
@@ -147,7 +147,7 @@ export default function (opts: PuzzleOpts, redraw: Redraw): Controller {
   }
 
   function playUsi(usi: Usi): void {
-    sendMove(parseUsi(usi)!);
+    sendMoveOrDrop(parseUsi(usi)!);
   }
 
   function playUsiList(usiList: Usi[]): void {
@@ -155,7 +155,7 @@ export default function (opts: PuzzleOpts, redraw: Redraw): Controller {
   }
 
   function playUserMove(orig: Key, dest: Key, promotion: boolean): void {
-    sendMove({
+    sendMoveOrDrop({
       from: parseSquareName(orig)!,
       to: parseSquareName(dest)!,
       promotion,
@@ -163,28 +163,28 @@ export default function (opts: PuzzleOpts, redraw: Redraw): Controller {
   }
 
   function playUserDrop(piece: Piece, dest: Key): void {
-    sendMove({
+    sendMoveOrDrop({
       role: piece.role as Role,
       to: parseSquareName(dest)!,
     });
   }
 
-  function sendMove(move: Move): void {
-    sendMoveAt(vm.path, position(), move);
+  function sendMoveOrDrop(md: MoveOrDrop): void {
+    sendMoveOrDropAt(vm.path, position(), md);
   }
 
-  function sendMoveAt(path: Tree.Path, pos: Shogi, move: Move): void {
+  function sendMoveOrDropAt(path: Tree.Path, pos: Shogi, md: MoveOrDrop): void {
     const parent = tree.nodeAtPath(path),
-      lastMove = parent.usi ? parseUsi(parent.usi) : undefined,
-      capture = pos.board.get(move.to),
-      notationMove = makeNotationWithPosition(pos, move, lastMove);
-    pos.play(move);
+      lastUsi = parent.usi ? parseUsi(parent.usi) : undefined,
+      capture = pos.board.get(md.to),
+      notationMove = makeNotationWithPosition(pos, md, lastUsi);
+    pos.play(md);
     addNode(
       {
         ply: pos.moveNumber - 1,
         sfen: makeSfen(pos),
-        id: scalashogiCharPair(move),
-        usi: makeUsi(move),
+        id: scalashogiCharPair(md),
+        usi: makeUsi(md),
         notation: notationMove,
         check: pos.isCheck(),
         capture: !!capture,
@@ -248,7 +248,7 @@ export default function (opts: PuzzleOpts, redraw: Redraw): Controller {
       setTimeout(
         () => {
           const pos = parseSfen('standard', progress.sfen, false).unwrap() as Shogi;
-          sendMoveAt(progress.path, pos, progress.move);
+          sendMoveOrDropAt(progress.path, pos, progress.move);
         },
         opts.pref.animation.duration * (autoNext() ? 1 : 1.5)
       );

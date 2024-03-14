@@ -1,4 +1,4 @@
-import { Rules } from 'shogiops';
+import { Rules } from 'shogiops/types';
 import { isHandicap } from 'shogiops/handicaps';
 import { initialSfen, parseSfen } from 'shogiops/sfen';
 

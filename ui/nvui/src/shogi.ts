@@ -6,7 +6,7 @@ import { Piece, Role, isDrop } from 'shogiops/types';
 import { VNode, h } from 'snabbdom';
 import { Setting, makeSetting } from './setting';
 import { dimensions, handRoles } from 'shogiops/variant/util';
-import { makeUsi, parseUsi } from 'shogiops';
+import { makeUsi, parseUsi } from 'shogiops/util';
 import { toKanjiDigit } from 'shogiops/notation/util';
 import { makeKifBoard } from 'shogiops/notation/kif/kif';
 import { toMove } from 'keyboardMove/dist/plugins/util'; // todo better later

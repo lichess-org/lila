@@ -3850,7 +3850,7 @@ gulp-match@^1.1.0:
   dependencies:
     minimatch "^3.0.3"
 
-gulp-rename@^2.0.0:
+gulp-rename@^2, gulp-rename@^2.0.0:
   version "2.0.0"
   resolved "https://registry.yarnpkg.com/gulp-rename/-/gulp-rename-2.0.0.tgz#9bbc3962b0c0f52fc67cd5eaff6c223ec5b9cf6c"
   integrity sha512-97Vba4KBzbYmR5VBs9mWmK+HwIf5mj+/zioxfZhOKeXtx5ZjBk57KFlePf5nxq9QsTtFl0ejnHE3zTC9MHXqyQ==
@@ -6659,10 +6659,10 @@ shogiground@^0.8.4:
   resolved "https://registry.yarnpkg.com/shogiground/-/shogiground-0.8.4.tgz#a1b438fcdc341355ab4755764f1b8d9e7ddbbb74"
   integrity sha512-7DF+5SQITZOnQJSjmqBjdY0Tuyzu2Z5RUwbS1MWt7gspHpxf3PKM29Lz44x8WcmfFqmzX6UIQKwUzt+SmxQnKg==
 
-shogiops@^0.15.1:
-  version "0.15.1"
-  resolved "https://registry.yarnpkg.com/shogiops/-/shogiops-0.15.1.tgz#8c3f065131d0b1f22f6572252ae17b227073c251"
-  integrity sha512-sobwtqFVLAnbaox5KiXj7Skm1so2wyZFMNHiaCEuQvF35gcCboswC91vShRbUP7CL3Q+4uGVkAGCNhZl7nR/Gw==
+shogiops@^0.16.1:
+  version "0.16.1"
+  resolved "https://registry.yarnpkg.com/shogiops/-/shogiops-0.16.1.tgz#fd9f02f9f209dd9c302389d27f7a39fbd7633307"
+  integrity sha512-ArhaVtoSHB5jPM7tIMCU9nLwT5Ky7D1nub1eglF/qMUZeVRJhwq8Fdr1nOmGwZzZ2PrE5Zyu+4uIoMjvGWi76Q==
   dependencies:
     "@badrap/result" "^0.2"
 

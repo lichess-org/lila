@@ -8,7 +8,7 @@ import sign from 'puz/sign';
 import { getNow, puzzlePov, sound } from 'puz/util';
 import { Shogiground } from 'shogiground';
 import { Api as SgApi } from 'shogiground/api';
-import { Move, Piece, Role, isDrop, isNormal } from 'shogiops/types';
+import { MoveOrDrop, Piece, Role, isDrop, isMove } from 'shogiops/types';
 import { makeUsi, parseSquareName, parseUsi } from 'shogiops/util';
 import { pieceForcePromote } from 'shogiops/variant/util';
 import config from './config';
@@ -97,22 +97,22 @@ export default class StormCtrl {
     this.finishMoveOrDrop(move);
   };
 
-  private finishMoveOrDrop(move: Move) {
+  private finishMoveOrDrop(md: MoveOrDrop) {
     this.run.clock.start();
     this.run.moves++;
 
     const puzzle = this.run.current;
     const pos = puzzle.position();
-    const usi = makeUsi(move);
+    const usi = makeUsi(md);
 
-    let captureSound = pos.board.occupied.has(move.to);
+    let captureSound = pos.board.occupied.has(md.to);
 
-    pos.play(move);
+    pos.play(md);
     if (
       pos.isCheckmate() ||
       usi == puzzle.expectedMove() ||
-      (!isDrop(move) &&
-        this.isSameMove(usi, puzzle.expectedMove(), puzzle.isAmbPromotion(), pos.turn, pos.board.getRole(move.from)))
+      (!isDrop(md) &&
+        this.isSameMove(usi, puzzle.expectedMove(), puzzle.isAmbPromotion(), pos.turn, pos.board.getRole(md.from)))
     ) {
       puzzle.moveIndex++;
       this.run.combo.inc();
@@ -157,7 +157,7 @@ export default class StormCtrl {
       usi2 = parseUsi(u2)!;
     if (isDrop(usi1) && isDrop(usi2)) {
       return usi1.role === usi2.role && usi1.to === usi2.to;
-    } else if (isNormal(usi1) && isNormal(usi2)) {
+    } else if (isMove(usi1) && isMove(usi2)) {
       return (
         usi1.from === usi2.from &&
         usi1.to === usi2.to &&

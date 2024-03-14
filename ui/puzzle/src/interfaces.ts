@@ -5,7 +5,7 @@ import { EngineCode } from 'common/engineName';
 import { StoredBooleanProp } from 'common/storage';
 import { Api as SgApi } from 'shogiground/api';
 import { Config as SgConfig } from 'shogiground/config';
-import { Move, Outcome, Piece } from 'shogiops/types';
+import { MoveOrDrop, Outcome, Piece } from 'shogiops/types';
 import { Shogi } from 'shogiops/variant/shogi';
 import { TreeWrapper } from 'tree';
 import PuzzleSession from './session';
@@ -200,7 +200,7 @@ export interface PuzzleRound {
 }
 
 export interface MoveTest {
-  move: Move;
+  move: MoveOrDrop;
   sfen: Sfen;
   path: Tree.Path;
 }

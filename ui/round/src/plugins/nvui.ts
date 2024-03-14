@@ -210,7 +210,7 @@ function onSubmit(ctrl: RoundController, notify: (txt: string) => void, style: (
         ctrl.sendUsiData({
           u: usi,
         });
-      else notify(d.player.color === d.game.player ? `Invalid move: ${input}` : 'Not your turn');
+      else notify(d.player.color === d.game.player ? `Invalid move/drop: ${input}` : 'Not your turn');
     }
     $input.val('');
     return false;

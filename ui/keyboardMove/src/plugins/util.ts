@@ -2,8 +2,9 @@ import { Position } from 'shogiops/variant/position';
 import { forsythToRole } from 'shogiops/sfen';
 import { aimingAt, csaToRole, fromKanjiDigit, kanjiToRole } from 'shogiops/notation/util';
 import { parseSquareName } from 'shogiops/util';
-import { Move, Role, Square, SquareSet } from 'shogiops';
-import { makeJapaneseMove } from 'shogiops/notation/japanese';
+import { MoveOrDrop, Role, Square } from 'shogiops/types';
+import { SquareSet } from 'shogiops/squareSet';
+import { makeJapaneseMoveOrDrop } from 'shogiops/notation/japanese';
 import { pieceCanPromote } from 'shogiops/variant/util';
 
 export const fileR = new RegExp('(?:[１２３４５６７８９]|[一二三四五六七八九]|[1-9])'),
@@ -15,7 +16,7 @@ export const fileR = new RegExp('(?:[１２３４５６７８９]|[一二三四�
   ),
   KKlastDestR = new RegExp(`^(?:${allRolesR.source})x$`);
 
-export function toMove(str: string, pos: Position): Move | undefined {
+export function toMoveOrDrop(str: string, pos: Position): MoveOrDrop | undefined {
   const sqs = regexMatchAllSquares(str),
     unpromotion = str.includes('不成') || str.endsWith('='),
     forceDrop = str.includes('*') || str.includes('打');
@@ -61,7 +62,7 @@ export function toMove(str: string, pos: Position): Move | undefined {
           const amb = str.match(japaneseAmbiguitiesR)!;
 
           for (const c of candidates) {
-            const jpMove = makeJapaneseMove(pos, { from: c, to: sqs[0] })!;
+            const jpMove = makeJapaneseMoveOrDrop(pos, { from: c, to: sqs[0] })!;
             if (amb.every(a => jpMove.includes(a)))
               return {
                 from: c,

@@ -1,11 +1,12 @@
 import { Position } from 'shogiops/variant/position';
 import { parseSfen } from 'shogiops/sfen';
 import { KeyboardMove } from '../main';
+import { Board } from 'shogiops/board';
 import { makeSquareName, opposite } from 'shogiops/util';
-import { Board, RoleMap, Square, isDrop } from 'shogiops';
+import { RoleMap, Square, isDrop } from 'shogiops/types';
 import { DrawShape } from 'shogiground/draw';
 import { unpromote } from 'shogiops/variant/util';
-import { KKlastDestR, allCandidates, allRolesR, regexMatchAllSquares, toMove, toRole } from './util';
+import { KKlastDestR, allCandidates, allRolesR, regexMatchAllSquares, toMoveOrDrop, toRole } from './util';
 
 // NO chushogi support, because of - lion moves and three character long coords
 
@@ -54,7 +55,7 @@ window.lishogi.keyboardMove = function (opts: Opts) {
       else if (v.includes('同')) v = v.replace('同', lastKey);
     }
     const shapes: DrawShape[] = [],
-      move = pos && toMove(v, pos);
+      move = pos && toMoveOrDrop(v, pos);
 
     if (!submitOpts.submitCommand) {
       if (move) {

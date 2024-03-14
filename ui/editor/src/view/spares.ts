@@ -1,4 +1,4 @@
-import { Piece, Role } from 'shogiops';
+import { Piece, Role } from 'shogiops/types';
 import { VNode, h } from 'snabbdom';
 import { Selected, SpecialSelected, isSpecialSelected } from '../interfaces';
 import { allRoles, promote } from 'shogiops/variant/util';

@@ -3,8 +3,8 @@ import EditorCtrl from '../ctrl';
 import { EditorState } from '../interfaces';
 import { initialSfen } from 'shogiops/sfen';
 import { handRoles } from 'shogiops/variant/util';
+import { opposite } from 'shogiops/util';
 import { standardColorName, transWithColorName } from 'common/colorName';
-import { opposite } from 'shogiops';
 import { isHandicap } from 'shogiops/handicaps';
 
 export function actions(ctrl: EditorCtrl, state: EditorState): VNode {

@@ -502,14 +502,14 @@ export default class AnalyseCtrl {
   };
 
   sendUsi = (usi: string): void => {
-    const move: any = {
+    const socUsi: any = {
       usi: usi,
       variant: this.data.game.variant.key,
       sfen: this.node.sfen,
       path: this.path,
     };
     if (this.practice) this.practice.onUserMove();
-    this.socket.sendAnaUsi(move);
+    this.socket.sendAnaUsi(socUsi);
     this.preparePreMD();
     this.redraw();
   };

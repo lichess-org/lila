@@ -1,15 +1,15 @@
 import { VNode, h } from 'snabbdom';
+import { allRoles } from 'shogiops/variant/util';
+import { COLORS } from 'shogiops/types';
+import { initialSfen } from 'shogiops/sfen';
+import { bind } from 'common/snabbdom';
+import { colorName } from 'common/colorName';
+import { makeNotationLine } from 'common/notation';
 import InsightCtrl from '../../ctrl';
 import { horizontalBar, section, winrateTable } from '../util';
 import { barChart } from '../charts';
 import { accent, primary, total } from '../colors';
-import { COLORS } from 'shogiops';
 import { InsightFilter, MovesResult, WinRate } from '../../types';
-import { allRoles } from 'shogiops/variant/util';
-import { makeNotationLine } from 'common/notation';
-import { colorName } from 'common/colorName';
-import { initialSfen } from 'shogiops/sfen';
-import { bind } from 'common/snabbdom';
 import { toPercentage } from '../../util';
 
 export function moves(ctrl: InsightCtrl, data: MovesResult): VNode {

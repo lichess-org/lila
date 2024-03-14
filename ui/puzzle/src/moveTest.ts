@@ -1,6 +1,6 @@
 import { opposite } from 'shogiground/util';
 import { parseSfen } from 'shogiops/sfen';
-import { isDrop, isNormal } from 'shogiops/types';
+import { isDrop, isMove } from 'shogiops/types';
 import { parseUsi } from 'shogiops/util';
 import { Shogi } from 'shogiops/variant/shogi';
 import { pieceForcePromote } from 'shogiops/variant/util';
@@ -17,7 +17,7 @@ function sameMove(u1: string, u2: string, ignoreProm: boolean, shogi: Shogi): bo
     usi2 = parseUsi(u2)!;
   if (isDrop(usi1) && isDrop(usi2)) {
     return usi1.role === usi2.role && usi1.to === usi2.to;
-  } else if (isNormal(usi1) && isNormal(usi2)) {
+  } else if (isMove(usi1) && isMove(usi2)) {
     const role = shogi.board.getRole(usi1.to);
     return (
       usi1.from === usi2.from &&

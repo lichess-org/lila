@@ -1,10 +1,10 @@
-import { Handicap, RULES, Role, Rules } from 'shogiops';
+import { Handicap, RULES, Role, Rules } from 'shogiops/types';
 import { defaultPosition } from 'shogiops/variant/variant';
-import EditorCtrl from '../ctrl';
+import { findHandicaps, isHandicap } from 'shogiops/handicaps';
 import { VNode, h } from 'snabbdom';
 import { roleName } from 'common/notation';
+import EditorCtrl from '../ctrl';
 import { EditorState } from '../interfaces';
-import { findHandicaps, isHandicap } from 'shogiops/handicaps';
 
 export function tools(ctrl: EditorCtrl, state: EditorState): VNode {
   return h('div.tools', [variants(ctrl), positions(ctrl, state), !ctrl.data.embed ? pieceCounter(ctrl) : null]);

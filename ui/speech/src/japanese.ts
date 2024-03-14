@@ -58,8 +58,8 @@ function toHiragana(kanji: string | undefined): string | undefined {
 const jReg =
   /((?:[１２３４５６７８９][一二三四五六七八九])|同　)(歩|香|桂|銀|金|角|飛|と|成香|成桂|成銀|馬|龍|玉|王)(打|左|右|上|行|引|寄|直)*(成|不成)?/;
 
-export function renderMove(move: string): string | undefined {
-  const match = move.match(jReg);
+export function renderMoveOrDrop(md: string): string | undefined {
+  const match = md.match(jReg);
   if (match)
     return [match[1], match[2], match[3], match[4]]
       .map(toHiragana)

@@ -4,7 +4,7 @@ import stepwiseScroll from 'common/wheel';
 import { Config } from 'shogiground/config';
 import { usiToSquareNames } from 'shogiops/compat';
 import { forsythToRole, makeSfen, parseSfen, roleToForsyth } from 'shogiops/sfen';
-import { Move } from 'shogiops/types';
+import { MoveOrDrop } from 'shogiops/types';
 import { makeUsi, opposite, parseUsi } from 'shogiops/util';
 import { Position } from 'shogiops/variant/position';
 import { handRoles } from 'shogiops/variant/util';
@@ -328,7 +328,7 @@ export function renderPvs(ctrl: ParentCtrl): VNode | undefined {
   } else if (node.ceval) pvs = node.ceval.pvs;
   else pvs = [];
   if (position.isOk) {
-    if (node.usi) position.value.lastMove = parseUsi(node.usi);
+    if (node.usi) position.value.lastMoveOrDrop = parseUsi(node.usi);
     if (threat) {
       position.value.turn = opposite(position.value.turn);
       if (position.value.turn == 'sente') position.value.moveNumber += 1;
@@ -434,8 +434,8 @@ function renderPvWrapToggle(): VNode {
 function renderPvMoves(pos: Position, pv: Usi[]): VNode[] {
   let key = makeSfen(pos);
   const vnodes: VNode[] = [],
-    moves = pv.map(u => parseUsi(u)).filter((m): m is Move => defined(m)),
-    notationMoves = makeNotationLineWithPosition(pos, moves, pos.lastMove),
+    moves = pv.map(u => parseUsi(u)).filter((m): m is MoveOrDrop => defined(m)),
+    notationMoves = makeNotationLineWithPosition(pos, moves, pos.lastMoveOrDrop),
     addColorIcon = notationsWithColor();
 
   for (let i = 0; i < moves.length; i++) {

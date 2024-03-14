@@ -1,4 +1,4 @@
-import { renderMove as jRenderMove } from './japanese';
+import { renderMoveOrDrop as jRenderMoveOrDrop } from './japanese';
 
 function toRole(char: string): string | undefined {
   switch (char) {
@@ -103,10 +103,10 @@ function pronounce(str: string): string | undefined {
 // P-7f, G7i-7h
 // 歩-76, 金(79)-78
 // ７六歩, ７八金直
-function renderMove(move: string) {
+function renderMoveOrDrop(md: string) {
   // avoiding the collision
-  if (move[0] === '+' || move[0] === '成') move = '!' + move.substring(1);
-  return move
+  if (md[0] === '+' || md[0] === '成') md = '!' + md.substring(1);
+  return md
     .replace('不成', '=')
     .split('')
     .map(c => pronounce(c) || toRole(c) || toNumber(c) || toLetter(c))
@@ -117,8 +117,8 @@ function renderMove(move: string) {
 export function notation(notation: string | undefined, cut: boolean) {
   window.lishogi.sound.say(
     {
-      en: notation ? renderMove(notation) : 'Game start',
-      jp: notation ? jRenderMove(notation) : '開始',
+      en: notation ? renderMoveOrDrop(notation) : 'Game start',
+      jp: notation ? jRenderMoveOrDrop(notation) : '開始',
     },
     cut
   );

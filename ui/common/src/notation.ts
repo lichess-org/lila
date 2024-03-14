@@ -1,12 +1,12 @@
 import { Notation as sgNotation } from 'shogiground/types';
-import { makeJapaneseMove } from 'shogiops/notation/japanese';
-import { makeKifMove } from 'shogiops/notation/kif/kif';
-import { makeKitaoKawasakiMove } from 'shogiops/notation/kitaoKawasaki';
+import { makeJapaneseMoveOrDrop } from 'shogiops/notation/japanese';
+import { makeKifMoveOrDrop } from 'shogiops/notation/kif/kif';
+import { makeKitaoKawasakiMoveOrDrop } from 'shogiops/notation/kitaoKawasaki';
 import { roleToFullKanji, roleToKanji, roleToWestern } from 'shogiops/notation/util';
-import { makeWesternMove } from 'shogiops/notation/western';
-import { makeWesternEngineMove } from 'shogiops/notation/westernEngine';
+import { makeWesternMoveOrDrop } from 'shogiops/notation/western';
+import { makeWesternEngineMoveOrDrop } from 'shogiops/notation/westernEngine';
 import { parseSfen, roleToForsyth } from 'shogiops/sfen';
-import { Move, Role, Rules, Square } from 'shogiops/types';
+import { MoveOrDrop, Role, Rules, Square } from 'shogiops/types';
 import { makeUsi, parseUsi } from 'shogiops/util';
 import { Position } from 'shogiops/variant/position';
 
@@ -59,42 +59,46 @@ export function roleName(rules: Rules, role: Role): string {
   }
 }
 
-export function makeNotationWithPosition(pos: Position, move: Move, lastMove?: Move | { to: Square }): string {
+export function makeNotationWithPosition(
+  pos: Position,
+  md: MoveOrDrop,
+  lastMoveOrDrop?: MoveOrDrop | { to: Square }
+): string {
   switch (notationPref) {
     case Notation.Kawasaki:
-      return makeKitaoKawasakiMove(pos, move, lastMove?.to)!;
+      return makeKitaoKawasakiMoveOrDrop(pos, md, lastMoveOrDrop?.to)!;
     case Notation.Japanese:
-      return makeJapaneseMove(pos, move, lastMove?.to)!;
+      return makeJapaneseMoveOrDrop(pos, md, lastMoveOrDrop?.to)!;
     case Notation.WesternEngine:
-      return makeWesternEngineMove(pos, move)!;
+      return makeWesternEngineMoveOrDrop(pos, md)!;
     case Notation.Kif:
-      return makeKifMove(pos, move, lastMove?.to)!;
+      return makeKifMoveOrDrop(pos, md, lastMoveOrDrop?.to)!;
     case Notation.Usi:
-      return makeUsi(move);
+      return makeUsi(md);
     default:
-      return makeWesternMove(pos, move)!;
+      return makeWesternMoveOrDrop(pos, md)!;
   }
 }
 
 export function makeNotationLineWithPosition(
   pos: Position,
-  moves: Move[],
-  lastMove?: Move | { to: Square }
+  mds: MoveOrDrop[],
+  lastMoveOrDrop?: MoveOrDrop | { to: Square }
 ): MoveNotation[] {
   pos = pos.clone();
-  const moveLine = [];
-  for (const move of moves) {
-    moveLine.push(makeNotationWithPosition(pos, move, lastMove));
-    lastMove = move;
-    pos.play(move);
+  const line = [];
+  for (const md of mds) {
+    line.push(makeNotationWithPosition(pos, md, lastMoveOrDrop));
+    lastMoveOrDrop = md;
+    pos.play(md);
   }
-  return moveLine;
+  return line;
 }
 
 export function makeNotation(sfen: Sfen, variant: VariantKey, usi: Usi, lastUsi?: Usi): MoveNotation {
-  const pos = createPosition(sfen, variant);
-  const lastMove = lastUsi ? parseUsi(lastUsi)! : undefined;
-  return makeNotationWithPosition(pos, parseUsi(usi)!, lastMove);
+  const pos = createPosition(sfen, variant),
+    lastMoveOrDrop = lastUsi ? parseUsi(lastUsi) : undefined;
+  return makeNotationWithPosition(pos, parseUsi(usi)!, lastMoveOrDrop);
 }
 
 export function makeNotationLine(sfen: Sfen, variant: VariantKey, usis: Usi[], lastUsi?: Usi): MoveNotation[] {

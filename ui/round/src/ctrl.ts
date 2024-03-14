@@ -385,16 +385,16 @@ export default class RoundController {
   };
 
   sendUsi = (usi: Usi, meta: sg.MoveMetadata) => {
-    const move: SocketUsi = {
+    const socUsi: SocketUsi = {
       u: usi,
     };
-    if (blur.get()) move.b = 1;
+    if (blur.get()) socUsi.b = 1;
     this.resign(false);
     if (this.data.pref.submitMove && !meta.premade) {
-      this.usiToSubmit = move;
+      this.usiToSubmit = socUsi;
       this.redraw();
     } else {
-      this.sendUsiData(move, meta);
+      this.sendUsiData(socUsi, meta);
     }
   };
 

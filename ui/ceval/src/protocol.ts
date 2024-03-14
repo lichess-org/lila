@@ -1,5 +1,6 @@
 import { defined } from 'common/common';
-import { DropMove, isDrop, makeUsi, parseUsi } from 'shogiops';
+import { DropMove, isDrop } from 'shogiops/types';
+import { makeUsi, parseUsi } from 'shogiops/util';
 import { parseSfen } from 'shogiops/sfen';
 import { Config, Work } from './types';
 import { promote } from 'shogiops/variant/util';

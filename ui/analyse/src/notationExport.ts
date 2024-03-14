@@ -1,6 +1,6 @@
 import { defined } from 'common/common';
-import { makeCsaHeader, makeCsaMove } from 'shogiops/notation/csa/csa';
-import { makeKifHeader, makeKifMove } from 'shogiops/notation/kif/kif';
+import { makeCsaHeader, makeCsaMoveOrDrop } from 'shogiops/notation/csa/csa';
+import { makeKifHeader, makeKifMoveOrDrop } from 'shogiops/notation/kif/kif';
 import { initialSfen, parseSfen } from 'shogiops/sfen';
 import { Square } from 'shogiops/types';
 import { parseUsi } from 'shogiops/util';
@@ -35,7 +35,7 @@ function makeKifNodes(node: Tree.Node, pos: Position, offset: number): string[] 
     if (defined(m.usi)) {
       const move = parseUsi(m.usi);
       if (defined(move)) {
-        const kifMove = makeKifMove(pos, move, lastDest),
+        const kifMove = makeKifMoveOrDrop(pos, move, lastDest),
           kifTime = defined(m.clock) ? makeKifTime(m.clock, (timesSoFar[m.ply % 2] += m.clock)) : '',
           moveNumStr = pad((m.ply - offset).toString(), padding + 1) + moveNumberSuf;
         if (kifMove?.includes('\n')) {
@@ -167,7 +167,7 @@ function makeCsaMainline(node: Tree.Node, pos: Shogi): string[] {
     if (defined(m.usi)) {
       const move = parseUsi(m.usi);
       if (defined(move)) {
-        const csaMove = makeCsaMove(pos, move);
+        const csaMove = makeCsaMoveOrDrop(pos, move);
         const csaTime = defined(m.clock) ? makeCsaTime(m.clock) : '';
         res.push(csaMove + csaTime);
         pos.play(move);
