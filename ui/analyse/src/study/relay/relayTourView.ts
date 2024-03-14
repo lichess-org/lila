@@ -161,8 +161,8 @@ const header = (relay: RelayCtrl, ctrl: AnalyseCtrl) => {
       ]),
       h(
         'div.relay-tour__header__image',
-        { attrs: { style: d.videoEmbedSrc ? 'flex-basis: 50%' : '' } },
-        d.videoEmbedSrc
+        { attrs: { style: d.videoUrls ? 'flex-basis: 50%' : '' } },
+        d.videoUrls
           ? renderVideoPlayer(relay)
           : d.tour.image
           ? h('img', { attrs: { src: d.tour.image } })

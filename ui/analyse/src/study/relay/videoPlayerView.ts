@@ -4,8 +4,8 @@ import { looseH as h, MaybeVNode, VNode } from 'common/snabbdom';
 let player: VideoPlayer;
 
 export function renderVideoPlayer(relay: RelayCtrl): MaybeVNode {
-  if (!relay.data.videoEmbedSrc) return;
-  player ??= new VideoPlayer(relay.data.videoEmbedSrc);
+  if (!relay.data.videoUrls) return;
+  player ??= new VideoPlayer(relay.data.videoUrls[0]);
   return h('div#video-player-placeholder', {
     hook: {
       insert: (vnode: VNode) => player.cover(vnode.elm as HTMLElement),

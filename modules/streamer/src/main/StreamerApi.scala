@@ -17,8 +17,7 @@ final class StreamerApi(
     picfitApi: PicfitApi,
     notifyApi: lila.notify.NotifyApi,
     subsRepo: lila.relation.SubscriptionRepo,
-    ytApi: YouTubeApi,
-    net: lila.common.config.NetConfig
+    ytApi: YouTubeApi
 )(using Executor):
 
   import BsonHandlers.given
@@ -174,20 +173,6 @@ final class StreamerApi(
         multi = true
       )
       .void
-
-  def videoEmbedSrc(s: Streamer.WithUserAndStream): Option[String] =
-    s.stream.map:
-      case yt: Stream.YouTube.Stream =>
-        s"https://www.youtube.com/embed/${yt.videoId}?autoplay=1&disablekb=1&color=white"
-      case twitch: Stream.Twitch.Stream =>
-        s"https://player.twitch.tv/?channel=${twitch.userId}&parent=${net.domain}"
-
-  def videoRedirectSrc(s: Streamer.WithUserAndStream): Option[String] =
-    s.stream.map:
-      case yt: Stream.YouTube.Stream =>
-        s"https://www.youtube.com/watch?v=${yt.videoId}"
-      case twitch: Stream.Twitch.Stream =>
-        s"https://www.twitch.tv/${twitch.userId}"
 
   object approval:
 
