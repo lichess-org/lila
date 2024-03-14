@@ -96,24 +96,6 @@ final class Api(
       else fuccess(toApiResult(users.map(toJson)))
     }
 
-  lila.memo.RateLimit[IpAddress](
-    credits = 10 * 1000,
-    duration = 10.minutes,
-    key = "user_games.api.ip"
-  )
-
-  lila.memo.RateLimit[Option[UserAgent]](
-    credits = 10 * 1000,
-    duration = 5.minutes,
-    key = "user_games.api.ua"
-  )
-
-  lila.memo.RateLimit[String](
-    credits = 20 * 1000,
-    duration = 2.minute,
-    key = "user_games.api.global"
-  )
-
   private def gameFlagsFromRequest(using RequestHeader) =
     lila.api.GameApi.WithFlags(
       analysis = getBool("with_analysis"),

@@ -91,7 +91,7 @@ object ServerEval:
           .flatMap: parent =>
             analysisLine(parent, chapter.setup.variant, info).map: subTree =>
               parent.addChild(subTree) -> subTree
-          .so: (newParent, subTree) =>
+          .so: (_, subTree) =>
             chapterRepo.addSubTree(chapter, subTree, path, none)
 
       def saveInfoAdvice() =

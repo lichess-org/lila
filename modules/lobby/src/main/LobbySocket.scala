@@ -19,7 +19,6 @@ case class LobbyCounters(members: Int, rounds: Int)
 
 final class LobbySocket(
     biter: Biter,
-    userRepo: lila.user.UserRepo,
     perfsRepo: lila.user.UserPerfsRepo,
     userApi: lila.user.UserApi,
     remoteSocketApi: lila.socket.RemoteSocket,

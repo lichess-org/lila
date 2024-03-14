@@ -1,8 +1,7 @@
 package lila.appeal
 
-import lila.db.dsl.{*, given}
-import lila.memo.CacheApi
-import lila.user.{Me, NoteApi, User, UserMark, UserRepo}
+import lila.db.dsl.{ *, given }
+import lila.user.{ Me, NoteApi, User, UserMark, UserRepo }
 
 import Appeal.Filter
 
@@ -10,7 +9,6 @@ final class AppealApi(
     coll: Coll,
     userRepo: UserRepo,
     noteApi: NoteApi,
-    cacheApi: CacheApi,
     snoozer: lila.memo.Snoozer[Appeal.SnoozeKey]
 )(using Executor):
 

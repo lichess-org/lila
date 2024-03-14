@@ -17,8 +17,7 @@ final private[api] class Cli(
     video: lila.video.Env,
     puzzle: lila.puzzle.Env,
     team: lila.team.Env,
-    notify: lila.notify.Env,
-    accountClosure: AccountClosure
+    notify: lila.notify.Env
 )(using Executor)
     extends lila.common.Cli:
 

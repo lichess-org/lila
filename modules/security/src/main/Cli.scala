@@ -7,7 +7,6 @@ final private[security] class Cli(
     userRepo: UserRepo,
     emailValidator: EmailAddressValidator,
     verifyMail: VerifyMail,
-    ip2proxy: Ip2Proxy
 )(using ec: Executor)
     extends lila.common.Cli:
 

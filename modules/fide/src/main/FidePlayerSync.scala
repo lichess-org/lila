@@ -11,7 +11,7 @@ import java.util.zip.ZipInputStream
 
 import lila.db.dsl.{ *, given }
 
-final private class FidePlayerSync(repo: FideRepo, api: FidePlayerApi, ws: StandaloneWSClient)(using
+final private class FidePlayerSync(repo: FideRepo, ws: StandaloneWSClient)(using
     Executor,
     akka.stream.Materializer
 ):

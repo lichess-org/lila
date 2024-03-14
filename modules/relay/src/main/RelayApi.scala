@@ -12,21 +12,19 @@ import lila.db.dsl.{ *, given }
 import lila.memo.{CacheApi, PicfitApi}
 import lila.relay.RelayRound.WithTour
 import lila.security.Granter
-import lila.study.{ChapterPreviewApi, Settings, Study, StudyApi, StudyId, StudyMaker, StudyRepo, StudyTopic}
-import lila.user.{Me, MyId, User}
+import lila.study.{ Settings, Study, StudyApi, StudyId, StudyMaker, StudyRepo, StudyTopic }
+import lila.user.{ Me, MyId, User }
 
 final class RelayApi(
     roundRepo: RelayRoundRepo,
     tourRepo: RelayTourRepo,
     groupRepo: RelayGroupRepo,
-    colls: RelayColls,
     studyApi: StudyApi,
     studyRepo: StudyRepo,
     jsonView: JsonView,
     formatApi: RelayFormatApi,
     cacheApi: CacheApi,
     leaderboard: RelayLeaderboardApi,
-    preview: ChapterPreviewApi,
     picfitApi: PicfitApi
 )(using Executor, akka.stream.Materializer):
 

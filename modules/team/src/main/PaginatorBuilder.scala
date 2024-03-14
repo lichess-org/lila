@@ -22,19 +22,19 @@ final private[team] class PaginatorBuilder(
 
   def popularTeams(page: Int)(using me: Option[MyId]): Fu[Paginator[Team.WithMyLeadership]] =
     Paginator(
-      adapter = popularTeamsAdapter(page).mapFutureList(memberRepo.addMyLeadership),
+      adapter = popularTeamsAdapter.mapFutureList(memberRepo.addMyLeadership),
       page,
       maxPerPage
     )
 
   def popularTeamsWithPublicLeaders(page: Int): Fu[Paginator[Team.WithPublicLeaderIds]] =
     Paginator(
-      adapter = popularTeamsAdapter(page).mapFutureList(memberRepo.addPublicLeaderIds),
+      adapter = popularTeamsAdapter.mapFutureList(memberRepo.addPublicLeaderIds),
       page,
       maxPerPage
     )
 
-  private def popularTeamsAdapter(page: Int): Adapter[Team] =
+  private def popularTeamsAdapter: Adapter[Team] =
     Adapter[Team](
       collection = teamRepo.coll,
       selector = teamRepo.enabledSelect,

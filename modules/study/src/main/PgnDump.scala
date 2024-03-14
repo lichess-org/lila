@@ -108,9 +108,6 @@ object PgnDump:
   )
   val fullFlags = WithFlags(true, true, true, true, true)
 
-  private type Variations = List[Branch]
-  Nil
-
   def rootToPgn(root: Root, tags: Tags)(using WithFlags): Pgn =
     Pgn(
       tags,

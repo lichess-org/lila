@@ -8,8 +8,7 @@ import lila.user.User
 
 final class DisposableEmailAttempt(
     cacheApi: CacheApi,
-    disposableApi: DisposableEmailDomain,
-    irc: lila.irc.IrcApi
+    disposableApi: DisposableEmailDomain
 ):
 
   import DisposableEmailAttempt.*

@@ -6,11 +6,10 @@ import lila.game.{ Game, GameRepo, Query }
 import lila.perfStat.PerfStat
 import lila.rating.PerfType
 import lila.report.Suspect
-import lila.user.{RankingApi, User, UserApi, UserPerfsRepo, UserRepo}
+import lila.user.{ RankingApi, User, UserApi, UserPerfsRepo }
 
 final private class RatingRefund(
     gameRepo: GameRepo,
-    userRepo: UserRepo,
     perfsRepo: UserPerfsRepo,
     userApi: UserApi,
     scheduler: Scheduler,

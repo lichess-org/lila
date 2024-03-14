@@ -10,7 +10,6 @@ import lila.user.User
 final class GarbageCollector(
     userLogins: UserLoginsApi,
     ipTrust: IpTrust,
-    irc: lila.irc.IrcApi,
     noteApi: lila.user.NoteApi,
     isArmed: () => Boolean
 )(using

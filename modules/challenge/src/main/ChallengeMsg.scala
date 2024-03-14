@@ -3,9 +3,8 @@ package lila.challenge
 import chess.ByColor
 
 import lila.common.{ LightUser, Template }
-import lila.user.LightUserApi
 
-final class ChallengeMsg(msgApi: lila.msg.MsgApi, lightUserApi: LightUserApi)(using Executor):
+final class ChallengeMsg(msgApi: lila.msg.MsgApi)(using Executor):
 
   // bulk
   def onApiPair(gameId: GameId, users: ByColor[LightUser])(

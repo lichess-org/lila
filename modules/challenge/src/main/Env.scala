@@ -1,14 +1,12 @@
 package lila.challenge
 
 import com.softwaremill.macwire.*
-import play.api.Configuration
 
 import lila.common.config.*
 import lila.socket.{ GetVersion, SocketVersion }
 
 @Module
 final class Env(
-    appConfig: Configuration,
     gameRepo: lila.game.GameRepo,
     userRepo: lila.user.UserRepo,
     perfsRepo: lila.user.UserPerfsRepo,

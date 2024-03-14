@@ -34,7 +34,7 @@ object BSONHandlers:
 
   given BSONDocumentHandler[RelayRound] = Macros.handler
 
-  private given BSONHandler[play.api.i18n.Lang]     = langByCodeHandler
+  // private given BSONHandler[play.api.i18n.Lang]     = langByCodeHandler
   given BSONDocumentHandler[RelayTour.Spotlight]    = Macros.handler
   given tourHandler: BSONDocumentHandler[RelayTour] = Macros.handler
 

@@ -9,7 +9,6 @@ import lila.db.dsl.{ *, given }
 
 final private[team] class TeamForm(
     teamRepo: TeamRepo,
-    lightUserApi: lila.user.LightUserApi,
     val captcher: lila.hub.actors.Captcher
 )(using Executor)
     extends lila.hub.CaptchedForm:
