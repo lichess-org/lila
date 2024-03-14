@@ -247,3 +247,10 @@
     bottom: 0;
   }
 }
+
+// private view - todo add class
+#insights-app > div.page-menu__content > h1.text {
+  text-align: center;
+  background: $c-bg-box;
+  padding: 37vh 0;
+}
