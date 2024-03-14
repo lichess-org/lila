@@ -8,6 +8,7 @@ import RelayLeaderboard from './relayLeaderboard';
 import { Redraw } from 'common/snabbdom';
 import { StudyChapters } from '../studyChapters';
 import { MultiCloudEval } from '../multiCloudEval';
+import { init as initRelayView } from './relayView';
 
 export const relayTabs = ['overview', 'boards', 'teams', 'leaderboard'] as const;
 export type RelayTab = (typeof relayTabs)[number];
@@ -19,6 +20,8 @@ export default class RelayCtrl {
   tab: Prop<RelayTab>;
   teams?: RelayTeams;
   leaderboard?: RelayLeaderboard;
+  streams: [string, string][] = [];
+  showStreamerMenu = toggle(false);
 
   constructor(
     readonly id: RoundId,
@@ -43,6 +46,17 @@ export default class RelayCtrl {
       : undefined;
     this.leaderboard = data.tour.leaderboard ? new RelayLeaderboard(data.tour.id, redraw) : undefined;
     setInterval(this.redraw, 1000);
+    initRelayView(this);
+    site.pubsub.on('socket.in.crowd', d => {
+      const s = d.streams as [string, string][];
+      if (s === undefined) return;
+      if (this.streams.length === s.length && this.streams.every(([id], i) => id === s[i][0])) return;
+      this.streams = s;
+
+      for (const [id] of s) console.log(id);
+
+      this.redraw();
+    });
   }
 
   openTab = (t: RelayTab) => {
@@ -85,6 +99,16 @@ export default class RelayCtrl {
     // when jumping from a tour tab to another page, remember which tour tab we were on.
     if (!this.tourShow() && location.href.includes('#')) history.pushState({}, '', url);
     else history.replaceState({}, '', url);
+  };
+
+  showStream = (id: string) => {
+    const url = new URL(location.href);
+    url.searchParams.set('embed', id);
+    location.replace(url);
+  };
+
+  isStreamer = () => {
+    return this.streams.find(([id]) => id === document.body.dataset.user) !== undefined;
   };
 
   private socketHandlers = {

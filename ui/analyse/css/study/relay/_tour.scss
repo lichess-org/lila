@@ -1,3 +1,4 @@
+$hover-bg: if($theme == 'dark', rgba(#6ae, 0.3), rgba($c-primary, 0.05));
 .relay-tour {
   @extend %box-neat-force;
   background: $c-bg-box;
@@ -13,24 +14,23 @@
         @extend %flex-center-nowrap, %metal;
         border: none;
         outline: none;
-        &:hover,
+        &:hover {
+          background: $hover-bg;
+        }
         &:hover::before {
-          background: $c-primary !important;
-          color: $c-primary-over;
+          color: $c-font-clear;
           text-shadow: none;
         }
       }
-    }
-    &__search {
-      flex: 0 0 auto;
-      border-left: $border !important;
-      padding: 1em 1.5em;
     }
     &__name {
       flex: 1;
       padding: 1em;
       gap: 0.7em;
       font-weight: bold;
+      &:hover {
+        background: $hover-bg !important;
+      }
       &::before {
         @extend %data-icon;
         content: $licon-LessThan;
@@ -43,6 +43,10 @@
       main.has-relay-tour & {
         background: $c-bg-zebra;
       }
+    }
+    &__search {
+      padding: 12px;
+      font-size: 1.2em;
     }
     .chat__members {
       flex: 0 0 auto;
@@ -69,17 +73,14 @@
   }
 
   &__header {
-    @extend %flex-center-nowrap;
+    display: flex;
+    flex-flow: nowrap;
     background: $c-bg-zebra;
-    gap: calc(var(--box-padding) / 1.5);
-    padding: 0 var(--box-padding);
-    @include breakpoint($mq-x-small) {
-      padding-left: 0;
-    }
+    padding: 0;
 
     &__image {
       display: none;
-      @include breakpoint($mq-x-small) {
+      @include breakpoint($mq-width-x-large) {
         display: block;
       }
       flex: 0 0 38%;
@@ -97,19 +98,22 @@
     }
 
     h1 {
-      flex: auto;
       @include fluid-size('font-size', 14px, 32px);
       color: $c-brag;
     }
 
     &__content {
       @extend %flex-column;
+      justify-content: space-around;
+      padding: 0 2em;
+      min-height: 12vh;
       flex: 1;
-      gap: 1em;
-      @include breakpoint($mq-col3) {
-        gap: calc(var(--box-padding) / 3);
+
+      > span {
+        @extend %flex-between-nowrap;
+        gap: 1em;
+        align-items: start;
       }
-      margin: 1em 0;
     }
 
     &__selectors {
@@ -171,7 +175,7 @@
 
     .setting {
       @extend %flex-center-nowrap;
-      margin-#{$end-direction}: -1em;
+      margin-top: 0.5em;
       label {
         padding: 0 0.5em;
         cursor: pointer;
@@ -181,7 +185,8 @@
   }
 
   &__nav {
-    @extend %flex-between;
+    @extend %flex-center;
+    justify-content: center;
     margin: 2em var(--box-padding);
     gap: 1em;
     user-select: none;
@@ -196,6 +201,7 @@
 
   &__tabs {
     @extend %flex-center-nowrap;
+    align-self: center;
     gap: 1em;
     span {
       @extend %box-radius;
@@ -339,6 +345,82 @@
     tick {
       top: 1.5px;
       border-bottom-width: 3px;
+    }
+  }
+}
+
+.relay-tour__side {
+  button.streamer-show {
+    display: none;
+    position: relative;
+    padding: 12px;
+    font-size: 1.5em;
+    color: c-dimmer($c-font, 10%);
+
+    &.disabled {
+      display: none !important;
+    }
+
+    &.streaming {
+      color: $c-good;
+      pointer-events: none;
+    }
+
+    &.active {
+      color: #eee;
+      background: $c-primary;
+      text-shadow: none;
+
+      &:hover,
+      &:hover::before {
+        background: c-clearer($c-primary, 10%);
+        color: white;
+      }
+    }
+
+    &::after {
+      transform: translate(-80%, 80%);
+      background-color: $c-brag;
+    }
+  }
+
+  .streamer-menu-anchor {
+    position: relative;
+    height: 0;
+  }
+
+  .streamer-menu {
+    @extend %flex-column, %dropdown-shadow, %box-radius-bottom;
+    position: absolute;
+    max-height: 12em;
+    overflow-y: auto;
+    background: $c-bg-high;
+    z-index: z(mz-menu);
+    width: 100%;
+    padding: 0.5em 0;
+    border-top: $c-primary 2px solid;
+    border-bottom: $border;
+  }
+
+  .streamer {
+    width: 100%;
+    padding: 0.3em 1em;
+    font-size: 1.1em;
+    border: none;
+    outline: none;
+    background: none;
+    text-align: start;
+
+    &::before {
+      font-size: 1.4em;
+    }
+
+    &:hover {
+      color: $c-brag;
+    }
+
+    &:focus {
+      background: $c-primary;
     }
   }
 }

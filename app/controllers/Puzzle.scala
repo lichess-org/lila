@@ -47,7 +47,7 @@ final class Puzzle(env: Env, apiC: => Api) extends LilaController(env):
     prefJson = env.puzzle.jsonView.pref(ctx.pref)
     page <- renderPage:
       views.html.puzzle.show(puzzle, json, prefJson, settings | PuzzleSettings.default(color), langPath)
-  yield Ok(page).enableSharedArrayBuffer
+  yield Ok(page).enforceCrossSiteIsolation
 
   def daily = Open:
     NoBot:
@@ -212,7 +212,7 @@ final class Puzzle(env: Env, apiC: => Api) extends LilaController(env):
       val prefJson = env.puzzle.jsonView.pref(ctx.pref)
       val langPath = LangPath(routes.Puzzle.streak).some
       views.html.puzzle.show(puzzle, json, prefJson, PuzzleSettings.default, langPath)
-    .map(_.noCache.enableSharedArrayBuffer)
+    .map(_.noCache.enforceCrossSiteIsolation)
 
   private def streakJsonAndPuzzle(using Lang) =
     given Option[Me] = none

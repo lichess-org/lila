@@ -250,6 +250,8 @@ export default class StudyCtrl {
     if (this.members.canContribute()) this.form.openIfNew();
 
     this.instanciateGamebookPlay();
+
+    window.addEventListener('popstate', () => window.location.reload());
   }
 
   send = this.ctrl.socket.send;
