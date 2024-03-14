@@ -59,6 +59,9 @@ final class ChapterPreviewApi(
 
     def apply(studyId: StudyId): Fu[List[ChapterPreview]] = cache.get(studyId)
 
+  def firstId(studyId: StudyId): Fu[Option[StudyChapterId]] =
+    jsonList(studyId).map(ChapterPreview.json.readFirstId)
+
   private def listAll(studyId: StudyId): Fu[List[ChapterPreview]] =
     chapterRepo.coll:
       _.find(chapterRepo.$studyId(studyId), projection.some)
