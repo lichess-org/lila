@@ -34,7 +34,7 @@ case class Chapter(
   def updateDenorm: Chapter =
     val looksLikeGame = tags.names.exists(_.isDefined) || tags.outcome.isDefined
     val newDenorm = looksLikeGame.option:
-      val node = relay.map(_.path).flatMap(root.nodeAt) | root.lastMainlineNode
+      val node = relay.map(_.path).filterNot(_.isEmpty).flatMap(root.nodeAt) | root.lastMainlineNode
       val clocks = relay.so: r =>
         val path       = r.path
         val parentPath = path.parent.some.filter(_ != path)
@@ -114,8 +114,6 @@ case class Chapter(
   def withoutChildren = copy(root = root.withoutChildren)
 
   def withoutChildrenIfPractice = if isPractice then copy(root = root.withoutChildren) else this
-
-  def relayAndTags = relay.map { Chapter.RelayAndTags(id, _, tags) }
 
   def isOverweight = root.children.countRecursive >= Chapter.maxNodes
 
