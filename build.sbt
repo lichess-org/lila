@@ -478,3 +478,9 @@ lazy val hub = module("hub",
   Seq(common),
   Seq(scaffeine)
 )
+
+addCommandAlias("prepare", "scalafixAll; scalafmtAll")
+addCommandAlias(
+  "check",
+  "; scalafixAll --check ; scalafmtCheckAll",
+)
