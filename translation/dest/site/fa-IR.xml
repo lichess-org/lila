@@ -276,6 +276,7 @@
   <string name="abortGame">انصراف از بازی</string>
   <string name="gameAborted">بازی لغو شد</string>
   <string name="standard">استاندارد</string>
+  <string name="customPosition">وضعیت به‌دلخواه</string>
   <string name="unlimited">نامحدود</string>
   <string name="mode">نوع</string>
   <string name="casual">غیر رسمی</string>
@@ -531,6 +532,7 @@
   <string name="automaticallyProceedToNextGameAfterMoving">حرکت کردن اتوماتیک برای بازی بعدی بعد از حرکت کردن</string>
   <string name="autoSwitch">تعویض خودکار</string>
   <string name="puzzles">معماها</string>
+  <string name="onlineBots">ربات‌های بَرخط</string>
   <string name="name">نام</string>
   <string name="description">شرح</string>
   <string name="descPrivate">توضیحات خصوصی</string>
@@ -986,4 +988,5 @@
   <string name="instructions">راهنما</string>
   <string name="showMeEverything">همه چیز را به من نشان بده</string>
   <string name="lichessPatronInfo">لایچس یک خیریه و کاملا رایگان و نرم افزاری متن باز است. تمام هزینه های اجرا، توسعه و محتوا تنها بر پایه هدایای کاربران بنا شده است.</string>
+  <string name="nothingToSeeHere">فعلا هیچی اینجا نیست.</string>
 </resources>
