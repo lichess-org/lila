@@ -18,7 +18,8 @@ object BuildSettings {
       version                                := lilaVersion,
       Compile / doc / sources                := Seq.empty,
       Compile / packageDoc / publishArtifact := false,
-      Compile / packageSrc / publishArtifact := false
+      Compile / packageSrc / publishArtifact := false,
+      semanticdbEnabled := true // for scalafix
     )
 
   lazy val defaultLibs: Seq[ModuleID] =
@@ -55,8 +56,8 @@ object BuildSettings {
     "-language:postfixOps",
     "-language:implicitConversions",
     "-release:21",
+    "-Wunused:all",
     "-Wconf:msg=qualifier will be deprecated:s"
-    // "-Wunused:all"
   )
 
   val srcMain = Seq(
