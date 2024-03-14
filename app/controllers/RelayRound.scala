@@ -200,8 +200,8 @@ final class RelayRound(
           env.relay.api.isSubscribed(rt.tour.id, me.userId)
         streamer <- embed.so(env.streamer.api.find)
         stream   <- streamer.soFu(env.streamer.liveStreamApi.of)
-        embedSrc           = stream.flatMap(env.streamer.api.videoEmbedSrc)
-        crossSiteIsolation = embedSrc.isEmpty
+        videoUrls          = stream.flatMap(_.stream).map(_.urls(netDomain))
+        crossSiteIsolation = videoUrls.isEmpty
         data = env.relay.jsonView.makeData(
           rt.tour.withRounds(rounds.map(_.round)),
           rt.round.id,
@@ -209,17 +209,15 @@ final class RelayRound(
           group,
           ctx.userId.exists(sc.study.canContribute),
           isSubscribed,
-          embedSrc,
-          stream.flatMap(env.streamer.api.videoRedirectSrc)
+          videoUrls.map(_.toPair)
         )
         chat      <- NoCrawlers(studyC.chatOf(sc.study))
         sVersion  <- NoCrawlers(env.study.version(sc.study.id))
         streamers <- NoCrawlers(studyC.streamersOf(sc.study.id))
-        page <- renderPage(
+        page <- renderPage:
           html.relay.show(rt.withStudy(sc.study), data, chat, sVersion, streamers, crossSiteIsolation)
-        )
         _ = if HTTPRequest.isHuman(req) then lila.mon.http.path(rt.tour.path).increment()
-      yield if crossSiteIsolation then Ok(page).enforceCrossSiteIsolation else Ok(page)
+      yield if stream.isEmpty then Ok(page).enforceCrossSiteIsolation else Ok(page)
     )(
       studyC.privateUnauthorizedFu(oldSc.study),
       studyC.privateForbiddenFu(oldSc.study)

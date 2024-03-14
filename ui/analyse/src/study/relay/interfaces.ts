@@ -4,8 +4,7 @@ export interface RelayData {
   sync?: RelaySync;
   group?: RelayGroup;
   isSubscribed?: boolean; // undefined if anon
-  videoEmbedSrc?: string;
-  videoRedirectSrc?: string;
+  videoUrls?: [string, string];
 }
 
 export interface RelayGame {
