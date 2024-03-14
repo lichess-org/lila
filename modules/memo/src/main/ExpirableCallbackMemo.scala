@@ -27,6 +27,6 @@ final class ExpireCallbackMemo[K](
   )
 
   // does not call the expiration callback
-  def remove(key: K): Unit = Option(timeouts `remove` key).foreach(_.cancel())
+  def remove(key: K): Unit = Option(timeouts.remove(key)).foreach(_.cancel())
 
   def keySet: Set[K] = timeouts.keySet.asScala.toSet

@@ -191,7 +191,7 @@ final class Clas(env: Env, authC: Auth) extends LilaController(env):
             env.clas.api.student.activeWithUsers(clas).flatMap { students =>
               Reasonable(clas, students, "notify"):
                 val url  = routes.Clas.show(clas.id.value).url
-                val full = if text `contains` url then text else s"$text\n\n${env.net.baseUrl}$url"
+                val full = if text.contains(url) then text else s"$text\n\n${env.net.baseUrl}$url"
                 env.msg.api
                   .multiPost(Source(students.map(_.user.id)), full)
                   .addEffect: nb =>

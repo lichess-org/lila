@@ -72,10 +72,10 @@ object AccessToken:
         plain = r.get[Bearer](plain),
         userId = r.get[UserId](userId),
         createdAt = r.getO[Instant](createdAt),
-        description = r `strO` description,
+        description = r.strO(description),
         usedAt = r.getO[Instant](usedAt),
         scopes = r.get[TokenScopes](scopes),
-        clientOrigin = r `strO` clientOrigin,
+        clientOrigin = r.strO(clientOrigin),
         expires = r.getO[Instant](expires)
       )
 

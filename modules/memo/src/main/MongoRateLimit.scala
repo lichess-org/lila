@@ -17,7 +17,7 @@ final class MongoRateLimit[K](
   import MongoRateLimit.{ *, given }
   import RateLimit.Cost
 
-  private def makeClearAt = nowInstant `plus` duration
+  private def makeClearAt = nowInstant.plus(duration)
 
   private lazy val logger  = lila.log("ratelimit").branch("mongo").branch(name)
   private lazy val monitor = lila.mon.security.rateLimit(s"mongo.$name")

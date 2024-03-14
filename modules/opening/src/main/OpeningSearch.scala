@@ -106,7 +106,7 @@ private object OpeningSearch:
           score + remaining.map { t =>
             entry.tokens.map { e =>
               if e.startsWith(t) then t.size * 50
-              else if e `contains` t then t.size * 20
+              else if e.contains(t) then t.size * 20
               else 0
             }.sum
           }.sum

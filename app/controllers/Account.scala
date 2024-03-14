@@ -328,7 +328,7 @@ final class Account(
   ): Fu[Frag] =
     renderAsync:
       env.security.forms.reopen.map: baseForm =>
-        html.account.reopen.form(form.foldLeft(baseForm)(_ `withForm` _), msg)
+        html.account.reopen.form(form.foldLeft(baseForm)(_.withForm(_)), msg)
 
   def reopen = Open:
     auth.RedirectToProfileIfLoggedIn:

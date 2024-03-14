@@ -46,7 +46,7 @@ final class TextLpvExpand(
                 cls              := "lpv--autostart is2d",
                 attr("data-pgn") := pgn.value,
                 plyRe.findFirstIn(url).map(_.substring(1)).map(ply => attr("data-ply") := ply),
-                (url `contains` "/black").option(attr("data-orientation") := "black")
+                (url.contains("/black")).option(attr("data-orientation") := "black")
               )
 
   // used by blogs & ublogs to build game|chapter id -> pgn maps

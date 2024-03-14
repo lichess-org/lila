@@ -63,4 +63,4 @@ object RatingRange:
 
   def valid(from: String) = apply(from).isDefined
 
-  private def acceptable(rating: IntRating) = broad `contains` rating
+  private def acceptable(rating: IntRating) = broad.contains(rating)

@@ -67,7 +67,7 @@ case class Game(
   def opponent(c: Color): Player  = player(!c)
 
   lazy val naturalOrientation =
-    if variant.racingKings then White else Color.fromWhite(players.reduce(_ `before` _))
+    if variant.racingKings then White else Color.fromWhite(players.reduce(_.before(_)))
 
   def turnOf(p: Player): Boolean = p == player
   def turnOf(c: Color): Boolean  = c == turnColor

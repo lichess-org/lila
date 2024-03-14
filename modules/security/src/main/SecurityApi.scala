@@ -109,7 +109,7 @@ final class SecurityApi(
   def saveAuthentication(userId: UserId, apiVersion: Option[ApiVersion])(using
       req: RequestHeader
   ): Fu[String] =
-    (userRepo `mustConfirmEmail` userId).flatMap {
+    userRepo.mustConfirmEmail(userId).flatMap {
       if _ then fufail(SecurityApi.MustConfirmEmail(userId))
       else
         ip2proxy(HTTPRequest.ipAddress(req)).flatMap: proxy =>

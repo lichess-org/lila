@@ -28,7 +28,7 @@ case class Study(
 
   def isOwner[U: UserIdOf](u: U) = ownerId.is(u)
 
-  def isMember[U: UserIdOf](u: U) = members `contains` u.id
+  def isMember[U: UserIdOf](u: U) = members.contains(u.id)
 
   def canChat(id: UserId) = Settings.UserSelection.allows(settings.chat, this, id.some)
 

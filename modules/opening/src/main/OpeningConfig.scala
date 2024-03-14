@@ -29,7 +29,7 @@ case class OpeningConfig(ratings: Set[Int], speeds: Set[Speed]):
       val many = first :: rest
       val hash = many.mkString(",")
       if reference == hash then "All"
-      else if reference `contains` hash then s"$first to ${rest.lastOption | first}"
+      else if reference.contains(hash) then s"$first to ${rest.lastOption | first}"
       else many.mkString(", ")
 
 final class OpeningConfigStore(baker: LilaCookie):

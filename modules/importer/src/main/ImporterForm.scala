@@ -26,7 +26,7 @@ object ImporterForm:
 
   def catchOverflow(f: () => Either[ErrorStr, Preprocessed]): Either[ErrorStr, Preprocessed] = try f()
   catch
-    case e: RuntimeException if e.getMessage `contains` "StackOverflowError" =>
+    case e: RuntimeException if e.getMessage.contains("StackOverflowError") =>
       ErrorStr("This PGN seems too long or too complex!").asLeft
 
 private case class TagResult(status: Status, winner: Option[Color])
@@ -77,12 +77,12 @@ case class ImportData(pgn: PgnStr, analyse: Option[String]):
               .map(Fen.write)
 
             val status = parsed.tags(_.Termination).map(_.toLowerCase) match
-              case Some("normal")                            => game.situation.status | Status.Resign
-              case Some("abandoned")                         => Status.Aborted
-              case Some("time forfeit")                      => Status.Outoftime
-              case Some("rules infraction")                  => Status.Cheat
-              case Some(txt) if txt `contains` "won on time" => Status.Outoftime
-              case _                                         => Status.UnknownFinish
+              case Some("normal")                           => game.situation.status | Status.Resign
+              case Some("abandoned")                        => Status.Aborted
+              case Some("time forfeit")                     => Status.Outoftime
+              case Some("rules infraction")                 => Status.Cheat
+              case Some(txt) if txt.contains("won on time") => Status.Outoftime
+              case _                                        => Status.UnknownFinish
 
             val date = parsed.tags.anyDate
 

@@ -309,7 +309,7 @@ final class Auth(
   private def renderPasswordReset(form: Option[Form[PasswordReset]], fail: Boolean)(using ctx: Context) =
     renderAsync:
       env.security.forms.passwordReset.map: baseForm =>
-        html.auth.bits.passwordReset(form.foldLeft(baseForm)(_ `withForm` _), fail)
+        html.auth.bits.passwordReset(form.foldLeft(baseForm)(_.withForm(_)), fail)
 
   def passwordReset = Open:
     renderPasswordReset(none, fail = false).map { Ok(_) }
@@ -390,7 +390,7 @@ final class Auth(
   private def renderMagicLink(form: Option[Form[MagicLink]], fail: Boolean)(using Context) =
     renderAsync:
       env.security.forms.magicLink.map: baseForm =>
-        html.auth.bits.magicLink(form.foldLeft(baseForm)(_ `withForm` _), fail)
+        html.auth.bits.magicLink(form.foldLeft(baseForm)(_.withForm(_)), fail)
 
   def magicLink = Open:
     Firewall:

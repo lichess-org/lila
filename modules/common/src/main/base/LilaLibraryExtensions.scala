@@ -16,8 +16,8 @@ import scala.annotation.targetName
 trait LilaLibraryExtensions extends LilaTypes:
 
   extension (self: Long)
-    def atLeast(bottomValue: Long): Long       = max(self, bottomValue)
-    def atMost(topValue: Long): Long           = min(self, topValue)
+    infix def atLeast(bottomValue: Long): Long = max(self, bottomValue)
+    infix def atMost(topValue: Long): Long     = min(self, topValue)
     def squeeze(bottom: Long, top: Long): Long = max(min(self, top), bottom)
     def toSaturatedInt: Int =
       if self.toInt == self then self.toInt

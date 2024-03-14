@@ -67,7 +67,7 @@ object MatchMaking:
 
     // bonus if both players have rating ranges, and they're compatible
     private def rangeBonus(a: PoolMember, b: PoolMember) =
-      if a.ratingRange.exists(_ `contains` b.rating) && b.ratingRange.exists(_ `contains` a.rating)
+      if a.ratingRange.exists(_.contains(b.rating)) && b.ratingRange.exists(_.contains(a.rating))
       then 200
       else 0
 

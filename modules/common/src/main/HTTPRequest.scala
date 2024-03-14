@@ -43,7 +43,7 @@ object HTTPRequest:
   val isMobileBrowser                              = UaMatcher("""(?i)iphone|ipad|ipod|android.+mobile""")
   def isLichessMobile(ua: UserAgent): Boolean      = ua.value.startsWith("Lichess Mobile/")
   def isLichessMobile(req: RequestHeader): Boolean = userAgent(req).exists(isLichessMobile)
-  def isLichobile(req: RequestHeader)              = userAgent(req).exists(_.value `contains` "Lichobile/")
+  def isLichobile(req: RequestHeader)              = userAgent(req).exists(_.value.contains("Lichobile/"))
   def isLichobileDev(req: RequestHeader) = // lichobile in a browser can't set its user-agent
     isLichobile(req) || (appOrigin(req).isDefined && !isLichessMobile(req))
   def isAndroid                     = UaMatcher("Android")

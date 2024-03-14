@@ -31,7 +31,7 @@ final class SettingStore[A: BSONHandler: SettingStore.StringReader: SettingStore
 
   def form: Form[?] = summon[SettingStore.Formable[A]] form value
 
-  def setString(str: String): Funit = (summon[SettingStore.StringReader[A]] read str) `so` set
+  def setString(str: String): Funit = (summon[SettingStore.StringReader[A]] read str).so(set)
 
   private val dbId = $id(id)
 

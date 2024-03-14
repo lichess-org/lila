@@ -110,7 +110,7 @@ if (window.matchMedia('(prefers-color-scheme: dark)').media === 'not all')
     )
 
   def defaultCsp(using ctx: PageContext): ContentSecurityPolicy =
-    ctx.nonce.foldLeft(basicCsp)(_ `withNonce` _)
+    ctx.nonce.foldLeft(basicCsp)(_.withNonce(_))
 
   def analysisCsp(using PageContext): ContentSecurityPolicy =
     defaultCsp.withWebAssembly.withExternalEngine(env.externalEngineEndpoint)
