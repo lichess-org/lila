@@ -12,6 +12,9 @@
   .spinner {
     padding-top: 90px;
   }
+  @include breakpoint($mq-col2) {
+    min-width: var(--col2-uniboard-main-size);
+  }
 }
 $board-width: calc((100vh - 4vmin) * var(--board-scale) * 0.8 - #{$site-header-outer-height});
 .board-editor {
