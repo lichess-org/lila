@@ -13,7 +13,7 @@ import lila.common.licon
 import lila.common.Json.given
 
 trait TournamentHelper extends HasEnv:
-  self: I18nHelper with DateHelper with UserHelper with StringHelper with NumberHelper =>
+  self: I18nHelper & DateHelper & UserHelper & StringHelper & NumberHelper =>
 
   def netBaseUrl: String
 

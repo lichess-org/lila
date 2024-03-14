@@ -10,7 +10,7 @@ import lila.game.{ Game, GameRepo, Pov, Progress }
 final private class GameProxy(
     id: GameId,
     dependencies: GameProxy.Dependencies,
-    private[this] var cache: Fu[Option[Game]]
+    private var cache: Fu[Option[Game]]
 )(using Executor):
 
   import GameProxy.*

@@ -32,7 +32,7 @@ final private class PairingSystem(trf: SwissTrf, executable: String)(using
           command ! ProcessLogger(stdout append _, stderr append _)
       if status != 0 then
         val error = stderr.toString
-        if error contains "No valid pairing exists" then Nil
+        if error.contains("No valid pairing exists") then Nil
         else throw PairingSystem.BBPairingException(error, swiss)
       else stdout.toList
     }

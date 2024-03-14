@@ -354,10 +354,10 @@ final class TeamApi(
     }
 
   def syncBelongsTo(teamId: TeamId, userId: UserId): Boolean =
-    cached.syncTeamIds(userId) contains teamId
+    cached.syncTeamIds(userId).contains(teamId)
 
   def belongsTo[U: UserIdOf](teamId: TeamId, u: U): Fu[Boolean] =
-    cached.teamIds(u.id).dmap(_ contains teamId)
+    cached.teamIds(u.id).dmap(_.contains(teamId))
 
   def memberOf[U: UserIdOf](teamId: TeamId, u: U): Fu[Option[TeamMember]] =
     belongsTo(teamId, u).flatMapz:

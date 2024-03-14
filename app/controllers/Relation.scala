@@ -64,7 +64,7 @@ final class Relation(env: Env, apiC: => Api) extends LilaController(env):
           )
       }
   }
-  def followBc = follow _
+  def followBc = follow
 
   def unfollow(username: UserStr) = AuthOrScoped(_.Follow.Write, _.Web.Mobile) { ctx ?=> me ?=>
     RatelimitWith(username): user =>
@@ -73,7 +73,7 @@ final class Relation(env: Env, apiC: => Api) extends LilaController(env):
         jsonOkResult
       )
   }
-  def unfollowBc = unfollow _
+  def unfollowBc = unfollow
 
   def block(username: UserStr) = Auth { ctx ?=> me ?=>
     RatelimitWith(username): user =>

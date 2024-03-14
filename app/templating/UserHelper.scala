@@ -13,7 +13,7 @@ import lila.rating.{ Perf, PerfType }
 import lila.user.{ User, UserPerfs, FlairApi }
 
 trait UserHelper extends HasEnv:
-  self: I18nHelper with StringHelper with NumberHelper with DateHelper with AssetHelper =>
+  self: I18nHelper & StringHelper & NumberHelper & DateHelper & AssetHelper =>
 
   given Conversion[User.WithPerfs, User] = _.user
 

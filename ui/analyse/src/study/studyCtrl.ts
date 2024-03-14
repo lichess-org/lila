@@ -444,12 +444,13 @@ export default class StudyCtrl {
   likeToggler = debounce(() => this.send('like', { liked: this.data.liked }), 1000);
 
   setChapter = (id: string, force?: boolean) => {
-    const alreadySet = id === this.vm.chapterId && !force;
-    if (this.relay?.tourShow()) {
-      this.relay.tourShow(false);
-      if (alreadySet) this.redraw();
+    if (id === this.vm.chapterId && !force) {
+      if (this.relay?.tourShow()) {
+        this.relay?.tourShow(false);
+        this.redraw();
+      }
+      return;
     }
-    if (alreadySet) return;
     if (!this.vm.mode.sticky || !this.makeChange('setChapter', id)) {
       this.vm.mode.sticky = false;
       if (!this.vm.behind) this.vm.behind = 1;

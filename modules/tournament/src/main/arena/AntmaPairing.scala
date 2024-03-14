@@ -6,7 +6,7 @@ import PairingSystem.Data
 
 private object AntmaPairing:
 
-  private[this] val maxStrike = 3
+  private val maxStrike = 3
 
   private type RPlayer = RankedPlayerWithColorHistory
 
