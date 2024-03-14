@@ -35,14 +35,15 @@
       $col1-player-clock-height
       auto
       auto
-      auto;
+      $col1-player-clock-height;
 
     grid-template-areas:
-      'moves'
+      '.' // for move confirm
       'user-top'
       'board'
       'expi-bot'
       'user-bot'
+      'moves'
       'kb-move'
       'controls';
 
@@ -70,19 +71,19 @@
     .keyboard-move {
       margin-left: $block-gap;
     }
+    .rmoves {
+      margin-top: 1vmin;
+    }
 
     &.move-confirm {
-      // replace move list with move confirmation
       grid-template-areas:
         'controls'
         'user-top'
         'board'
         'expi-bot'
         'user-bot'
+        'moves'
         'kb-move';
-      .rmoves {
-        display: none;
-      }
     }
   }
 

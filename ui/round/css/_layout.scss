@@ -1,10 +1,8 @@
 #main-wrap {
   --main-max-width: auto;
   @include breakpoint($mq-col1) {
-    $vertical-total: 100vh - #{$site-header-outer-height} - #{$col1-player-clock-height * 2} - #{$col1-moves-height} - #{$hands-gap} -
-      3vmin;
-    $vertical-total-no-hands: 100vh - #{$site-header-outer-height} - #{$col1-player-clock-height * 2} - #{$col1-moves-height} -
-      1vmin;
+    $vertical-total: 100vh - #{$site-header-outer-height} - #{$col1-player-clock-height * 2} - #{$hands-gap} - 2vmin;
+    $vertical-total-no-hands: 100vh - #{$site-header-outer-height} - #{$col1-player-clock-height * 2} - 1vmin;
     --main-max-width: calc((#{$vertical-total}) / 12 * 9);
     &:has(.main-v-minishogi, .main-v-kyotoshogi) {
       --main-max-width: calc((#{$vertical-total}) / 7 * 5 / 12 * 11);
