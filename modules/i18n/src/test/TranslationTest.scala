@@ -5,11 +5,13 @@ import play.api.i18n.Lang
 
 class TranslationTest extends munit.FunSuite:
 
+  Registry.syncLoadLanguages()
+
   test("be valid") {
-    val en     = Registry.all.get(defaultLang).get
+    val en     = Registry.get(defaultLang).get
     var tested = 0
     val errors: List[String] = LangList.all.flatMap { (lang, name) =>
-      Registry.all.get(lang).get.asScala.toMap.flatMap { (k, v) =>
+      Registry.get(lang).get.asScala.toMap.flatMap { (k, v) =>
         try
           val enTrans: String = en.get(k) match
             case literal: Simple  => literal.message

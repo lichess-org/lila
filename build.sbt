@@ -93,7 +93,6 @@ lazy val i18n = module("i18n",
       dbs = "site arena emails learn activity coordinates study class contact patron coach broadcast streamer tfa settings preferences team perfStat search tourname faq lag swiss puzzle puzzleTheme challenge storm ublog insight keyboardMove timeago oauthScope dgt voiceCommands onboarding".split(' ').toList,
       outputFile
     )
-    Seq(outputFile)
   }.taskValue
 )
 

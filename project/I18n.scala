@@ -22,7 +22,6 @@ object I18n {
       out.close()
       file
     }
-
     files
   }
 
