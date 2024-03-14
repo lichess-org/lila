@@ -94,7 +94,7 @@ trait GameHelper:
       user
         .fold[Frag](trans.anonymous.txt()): user =>
           frag(
-            titleTag(user.title.ifTrue(withTitle)),
+            titleTag(withTitle.so(user.title)),
             user.name,
             user.flair.map(userFlair),
             withRating.option(
