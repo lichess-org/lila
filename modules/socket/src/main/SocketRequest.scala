@@ -1,7 +1,8 @@
 package lila.socket
 
-import java.util.concurrent.atomic.AtomicInteger
 import com.github.benmanes.caffeine.cache.RemovalCause
+
+import java.util.concurrent.atomic.AtomicInteger
 
 // send a request to lila-ws and await a response
 object SocketRequest:

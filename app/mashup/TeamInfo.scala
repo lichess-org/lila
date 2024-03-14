@@ -1,14 +1,14 @@
 package lila.app
 package mashup
 
-import concurrent.duration.DurationInt
-
 import lila.forum.MiniForumPost
-import lila.team.{ TeamSecurity, TeamRequest, TeamRequestRepo, RequestWithUser, Team, TeamMember, TeamApi }
+import lila.simul.{ Simul, SimulApi }
+import lila.swiss.{ Swiss, SwissApi }
+import lila.team.{RequestWithUser, Team, TeamApi, TeamMember, TeamRequest, TeamRequestRepo, TeamSecurity}
 import lila.tournament.{ Tournament, TournamentApi }
 import lila.user.User
-import lila.swiss.{ Swiss, SwissApi }
-import lila.simul.{ Simul, SimulApi }
+
+import concurrent.duration.DurationInt
 
 case class TeamInfo(
     withLeaders: Team.WithLeaders,

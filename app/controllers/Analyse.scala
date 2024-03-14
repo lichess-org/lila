@@ -5,11 +5,11 @@ import play.api.libs.json.JsArray
 import play.api.mvc.*
 import views.*
 
-import lila.app.{ given, * }
+import lila.app.{*, given}
 import lila.common.{ HTTPRequest, LpvEmbed }
 import lila.game.{ PgnDump, Pov }
-import lila.round.JsonView.WithFlags
 import lila.oauth.AccessToken
+import lila.round.JsonView.WithFlags
 
 final class Analyse(
     env: Env,

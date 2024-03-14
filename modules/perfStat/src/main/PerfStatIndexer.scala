@@ -1,9 +1,9 @@
 package lila.perfStat
 
+import lila.common.config.Max
 import lila.game.{ Game, GameRepo, Pov, Query }
 import lila.rating.PerfType
 import lila.user.User
-import lila.common.config.Max
 
 final class PerfStatIndexer(
     gameRepo: GameRepo,

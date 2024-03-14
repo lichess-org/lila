@@ -1,8 +1,9 @@
 package lila.fide
 
-import reactivemongo.api.bson.*
-import lila.db.dsl.{ given, * }
 import chess.FideId
+import reactivemongo.api.bson.*
+
+import lila.db.dsl.{*, given}
 
 final private class FideRepo(
     private[fide] val playerColl: Coll,

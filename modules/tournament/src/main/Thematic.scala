@@ -1,8 +1,8 @@
 package lila.tournament
 
 import chess.StartingPosition
-import chess.opening.Eco
 import chess.format.Fen
+import chess.opening.Eco
 
 object Thematic:
 

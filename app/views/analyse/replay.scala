@@ -1,6 +1,5 @@
 package views.html.analyse
 
-import bits.dataPanel
 import chess.format.Fen
 import chess.format.pgn.PgnStr
 import chess.variant.Crazyhouse
@@ -8,10 +7,11 @@ import controllers.routes
 import play.api.i18n.Lang
 import play.api.libs.json.Json
 
-import lila.app.templating.Environment.{ given, * }
+import lila.app.templating.Environment.{*, given}
 import lila.app.ui.ScalatagsTemplate.{ *, given }
-import lila.common.String.html.safeJsonValue
 import lila.game.Pov
+
+import bits.dataPanel
 
 object replay:
 

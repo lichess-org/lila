@@ -1,6 +1,7 @@
 package lila.cms
 
 import reactivemongo.api.bson.Macros.Annotations.Key
+
 import lila.i18n.Language
 
 case class CmsPage(

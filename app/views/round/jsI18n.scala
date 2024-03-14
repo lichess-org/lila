@@ -2,8 +2,8 @@ package views.html.round
 
 import play.api.i18n.Lang
 
-import lila.app.templating.Environment.{ given, * }
-import lila.i18n.{ I18nKeys as trans }
+import lila.app.templating.Environment.{*, given}
+import lila.i18n.I18nKeys as trans
 
 object jsI18n:
 

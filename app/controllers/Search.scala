@@ -1,12 +1,10 @@
 package controllers
 
+import play.api.i18n.Lang
 import views.*
 
-import play.api.i18n.Lang
-
-import lila.app.{ given, * }
-import lila.common.IpAddress
-import lila.common.config
+import lila.app.{*, given}
+import lila.common.{IpAddress, config}
 
 final class Search(env: Env) extends LilaController(env):
 

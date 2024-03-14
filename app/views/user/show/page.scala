@@ -4,7 +4,7 @@ import controllers.routes
 import play.api.data.Form
 
 import lila.app.mashup.UserInfo
-import lila.app.templating.Environment.{ given, * }
+import lila.app.templating.Environment.{*, given}
 import lila.app.ui.ScalatagsTemplate.{ *, given }
 import lila.game.Game
 import lila.user.User
@@ -75,7 +75,6 @@ object page:
 
   private def moreJs(info: UserInfo, withSearch: Boolean = false)(using PageContext) =
     import play.api.libs.json.Json
-    import lila.history.RatingChartApi
     frag(
       infiniteScrollTag,
       jsModuleInit("user", Json.obj("i18n" -> i18nJsObject(i18nKeys))),

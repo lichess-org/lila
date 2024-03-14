@@ -1,14 +1,14 @@
 package lila.setup
 
-import chess.{ Clock, ByColor }
 import chess.format.Fen
 import chess.variant.{ FromPosition, Variant }
+import chess.{ByColor, Clock}
 
 import lila.common.Days
 import lila.game.{ Game, IdGenerator, Player, Pov, Source }
 import lila.lobby.Color
-import lila.user.{ User, GameUser }
 import lila.rating.PerfType
+import lila.user.GameUser
 
 final case class ApiAiConfig(
     variant: Variant,
@@ -32,7 +32,7 @@ final case class ApiAiConfig(
 
   private def game(user: GameUser)(using IdGenerator): Fu[Game] =
     fenGame: chessGame =>
-      val pt = PerfType(chessGame.situation.board.variant, chess.Speed(chessGame.clock.map(_.config)))
+      PerfType(chessGame.situation.board.variant, chess.Speed(chessGame.clock.map(_.config)))
       Game
         .make(
           chess = chessGame,

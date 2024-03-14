@@ -3,12 +3,11 @@ package views.html.simul
 import controllers.routes
 import play.api.data.Form
 
-import lila.app.templating.Environment.{ given, * }
+import lila.app.templating.Environment.{*, given}
 import lila.app.ui.ScalatagsTemplate.{ *, given }
-import lila.hub.LightTeam
-import lila.simul.Simul
-import lila.simul.SimulForm
 import lila.gathering.ConditionForm
+import lila.hub.LightTeam
+import lila.simul.{Simul, SimulForm}
 
 object form:
 

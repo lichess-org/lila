@@ -1,10 +1,11 @@
 package lila.pool
 
+import chess.ByColor
+
+import lila.common.config.Max
 import lila.game.{ Game, GameRepo, IdGenerator, Player }
 import lila.rating.Perf
-import lila.user.{ UserRepo, UserPerfsRepo }
-import lila.common.config.Max
-import chess.ByColor
+import lila.user.{UserPerfsRepo, UserRepo}
 
 final private class GameStarter(
     userRepo: UserRepo,

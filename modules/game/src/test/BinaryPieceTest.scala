@@ -2,9 +2,9 @@ package lila.game
 
 import chess.*
 import chess.Square.*
+import chess.variant.Standard
 
 import lila.db.ByteArray
-import chess.variant.Standard
 
 class BinaryPieceTest extends munit.FunSuite:
 

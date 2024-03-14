@@ -5,8 +5,8 @@ import com.softwaremill.macwire.*
 
 import lila.common.Bus
 import lila.common.paginator.*
-import lila.hub.actorApi.study.RemoveStudy
 import lila.hub.LateMultiThrottler
+import lila.hub.actorApi.study.RemoveStudy
 import lila.search.*
 import lila.study.Study
 import lila.user.User

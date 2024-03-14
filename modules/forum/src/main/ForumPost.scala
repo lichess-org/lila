@@ -2,8 +2,8 @@ package lila.forum
 
 import ornicar.scalalib.ThreadLocalRandom
 
-import lila.user.{ Me, User }
 import lila.security.Granter
+import lila.user.{ Me, User }
 
 case class OldVersion(text: String, createdAt: Instant)
 

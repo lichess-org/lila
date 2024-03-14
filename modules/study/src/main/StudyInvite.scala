@@ -5,7 +5,7 @@ import lila.notify.{ InvitedToStudy, NotifyApi }
 import lila.pref.Pref
 import lila.relation.{ Block, Follow }
 import lila.security.Granter
-import lila.user.{ Me, User, MyId }
+import lila.user.{Me, MyId, User}
 
 final private class StudyInvite(
     studyRepo: StudyRepo,

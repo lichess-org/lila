@@ -1,7 +1,8 @@
 package lila.rating
 
+import chess.{Black, Color, White}
+
 import glicko2.*
-import chess.{ Color, White, Black }
 
 class RatingCalculatorTest extends lila.common.LilaTest:
 

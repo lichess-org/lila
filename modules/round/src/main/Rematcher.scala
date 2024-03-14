@@ -2,14 +2,15 @@ package lila.round
 
 import chess.format.Fen
 import chess.variant.*
-import chess.{ Board, Castles, Clock, ByColor, Color as ChessColor, Ply, Game as ChessGame, Situation }
-import ChessColor.{ Black, White }
+import chess.{ByColor, Clock, Color as ChessColor, Game as ChessGame, Ply, Situation}
 
 import lila.common.Bus
 import lila.game.{ AnonCookie, Event, Game, GameRepo, Pov, Rematches, Source }
+import lila.i18n.{I18nKeys as trans, defaultLang}
 import lila.memo.ExpireSetMemo
-import lila.user.{ User, UserApi, GameUsers }
-import lila.i18n.{ defaultLang, I18nKeys as trans }
+import lila.user.{GameUsers, UserApi}
+
+import ChessColor.White
 
 final private class Rematcher(
     gameRepo: GameRepo,

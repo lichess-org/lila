@@ -2,20 +2,21 @@ package lila.team
 
 import play.api.libs.json.{ JsSuccess, Json, Reads }
 import play.api.mvc.RequestHeader
-import scala.util.chaining.*
+
+import java.time.Period
 import scala.util.Try
+import scala.util.chaining.*
 
 import lila.chat.ChatApi
 import lila.common.Bus
 import lila.db.dsl.{ *, given }
+import lila.hub.LightTeam
 import lila.hub.actorApi.team.{ CreateTeam, JoinTeam, KickFromTeam, LeaveTeam }
 import lila.hub.actorApi.timeline.{ Propagate, TeamCreate, TeamJoin }
-import lila.hub.LightTeam
 import lila.memo.CacheApi.*
 import lila.mod.ModlogApi
-import lila.user.{ User, UserApi, UserRepo, Me, MyId }
 import lila.security.Granter
-import java.time.Period
+import lila.user.{Me, MyId, User, UserApi, UserRepo}
 
 final class TeamApi(
     teamRepo: TeamRepo,

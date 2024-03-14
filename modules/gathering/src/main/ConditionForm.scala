@@ -1,11 +1,11 @@
 package lila.gathering
 
 import play.api.data.Forms.*
-
-import lila.hub.LightTeam
-import lila.gathering.Condition.*
-import lila.common.Form.{ *, given }
 import play.api.data.Mapping
+
+import lila.common.Form.{ *, given }
+import lila.gathering.Condition.*
+import lila.hub.LightTeam
 
 object ConditionForm:
 

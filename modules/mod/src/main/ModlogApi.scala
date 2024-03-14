@@ -8,7 +8,7 @@ import lila.irc.IrcApi
 import lila.msg.MsgPreset
 import lila.report.{ Mod, ModId, Report, Suspect }
 import lila.security.Permission
-import lila.user.{ User, UserRepo, Me }
+import lila.user.{Me, User, UserRepo}
 
 final class ModlogApi(repo: ModlogRepo, userRepo: UserRepo, ircApi: IrcApi, presetsApi: ModPresetsApi)(using
     Executor

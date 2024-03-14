@@ -2,8 +2,8 @@ package lila.relay
 
 import reactivemongo.api.bson.*
 
-import lila.relay.RelayTour.ActiveWithSomeRounds
 import lila.db.dsl.{ *, given }
+import lila.relay.RelayTour.ActiveWithSomeRounds
 
 final class RelayListing(
     colls: RelayColls,
@@ -11,7 +11,7 @@ final class RelayListing(
 )(using Executor):
 
   import RelayListing.*
-  import BSONHandlers.{ readRoundWithTour, given }
+  import BSONHandlers.{ given }
 
   private var spotlightCache: List[RelayTour.ActiveWithSomeRounds] = Nil
 

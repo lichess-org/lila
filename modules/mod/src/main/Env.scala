@@ -4,8 +4,8 @@ import akka.actor.*
 import com.softwaremill.macwire.*
 
 import lila.common.config.*
-import lila.user.{ User, Me }
-import lila.report.{ ModId, SuspectId }
+import lila.report.SuspectId
+import lila.user.{Me, User}
 
 @Module
 final class Env(

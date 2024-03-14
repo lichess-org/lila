@@ -1,6 +1,6 @@
 package lila.swiss
 
-import chess.Clock.{ LimitSeconds, IncrementSeconds }
+import chess.Clock.{IncrementSeconds, LimitSeconds}
 
 import lila.db.dsl.{ *, given }
 import lila.gathering.Condition.NbRatedGame

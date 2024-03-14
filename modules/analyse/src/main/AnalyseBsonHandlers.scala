@@ -1,9 +1,10 @@
 package lila.analyse
 
+import chess.Ply
+import reactivemongo.api.bson.*
+
 import lila.db.BSON
 import lila.db.dsl.given
-import reactivemongo.api.bson.*
-import chess.Ply
 
 object AnalyseBsonHandlers:
 

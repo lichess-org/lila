@@ -1,13 +1,12 @@
 package lila.tournament
 
-import reactivemongo.akkastream.{ cursorProducer, AkkaStreamCursor }
+import reactivemongo.akkastream.{AkkaStreamCursor, cursorProducer}
 import reactivemongo.api.*
 import reactivemongo.api.bson.*
 
 import lila.db.dsl.{ *, given }
-import lila.rating.PerfType
-import lila.user.User
 import lila.tournament.BSONHandlers.given
+import lila.user.User
 
 final class PlayerRepo(coll: Coll)(using Executor):
 

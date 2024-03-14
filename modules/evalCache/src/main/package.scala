@@ -1,6 +1,6 @@
 package lila.evalCache
 
-import chess.format.{ Uci, Fen }
+import chess.format.{Fen, Uci}
 import chess.variant.Variant
 
 export lila.Lila.{ *, given }

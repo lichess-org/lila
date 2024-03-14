@@ -5,20 +5,20 @@ import chess.variant.Variant
 import chess.{ ByColor, Status }
 import play.api.libs.json.Json
 
+import lila.common.Json.given
+import lila.common.config.{ Max, MaxPerPage }
+import lila.common.paginator.Paginator
 import lila.common.{ Bus, Debouncer }
 import lila.db.dsl.{ *, given }
-import lila.game.{ Game, LightGame, GameRepo }
-import lila.hub.actorApi.timeline.{ Propagate, SimulCreate, SimulJoin }
-import lila.memo.CacheApi.*
-import lila.socket.SendToFlag
-import lila.user.{ User, Me, UserRepo, UserPerfsRepo, UserApi, UserPerfs }
-import lila.common.Json.given
-import lila.hub.LightTeam
+import lila.game.{Game, GameRepo, LightGame}
 import lila.gathering.Condition
 import lila.gathering.Condition.GetMyTeamIds
+import lila.hub.LightTeam
+import lila.hub.actorApi.timeline.{ Propagate, SimulCreate, SimulJoin }
+import lila.memo.CacheApi.*
 import lila.rating.{ Perf, PerfType }
-import lila.common.paginator.Paginator
-import lila.common.config.{ Max, MaxPerPage }
+import lila.socket.SendToFlag
+import lila.user.{Me, User, UserApi, UserPerfsRepo, UserRepo}
 
 final class SimulApi(
     userRepo: UserRepo,

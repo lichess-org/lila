@@ -1,15 +1,15 @@
 package lila.tournament
 
+import chess.Clock.{IncrementSeconds, LimitSeconds}
 import chess.format.Fen
 import chess.{ Clock, Mode }
-import chess.Clock.{ LimitSeconds, IncrementSeconds }
 import play.api.data.*
 import play.api.data.Forms.*
 
 import lila.common.Form.{ *, given }
+import lila.gathering.GatheringClock
 import lila.hub.LightTeam
 import lila.user.Me
-import lila.gathering.GatheringClock
 
 final class TournamentForm:
 

@@ -1,10 +1,10 @@
 package views.html.ublog
 
-import controllers.report.routes.{ Report as reportRoutes }
+import controllers.report.routes.Report as reportRoutes
 import controllers.routes
 import play.api.mvc.Call
 
-import lila.app.templating.Environment.{ given, * }
+import lila.app.templating.Environment.{*, given}
 import lila.app.ui.ScalatagsTemplate.{ *, given }
 import lila.ublog.{ UblogBlog, UblogPost, UblogRank }
 import lila.user.User

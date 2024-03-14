@@ -1,18 +1,19 @@
 package lila.lobby
 
-import actorApi.*
 import play.api.libs.json.*
 
+import lila.common.Json.given
 import lila.game.Pov
-import lila.hub.actorApi.timeline.*
 import lila.hub.SyncActor
+import lila.hub.actorApi.timeline.*
 import lila.pool.{ PoolApi, PoolConfig }
 import lila.rating.RatingRange
-import lila.socket.RemoteSocket.{ Protocol as P, * }
-import lila.socket.Socket.{ makeMessage, Sri, Sris }
 import lila.round.ChangeFeatured
-import lila.common.Json.given
+import lila.socket.RemoteSocket.{ Protocol as P, * }
+import lila.socket.Socket.{Sri, Sris, makeMessage}
 import lila.user.Me
+
+import actorApi.*
 
 case class LobbyCounters(members: Int, rounds: Int)
 

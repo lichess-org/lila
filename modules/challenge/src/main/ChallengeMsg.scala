@@ -1,8 +1,9 @@
 package lila.challenge
 
-import lila.common.{ LightUser, Template }
-import lila.user.{ LightUserApi, User }
 import chess.ByColor
+
+import lila.common.{ LightUser, Template }
+import lila.user.LightUserApi
 
 final class ChallengeMsg(msgApi: lila.msg.MsgApi, lightUserApi: LightUserApi)(using Executor):
 

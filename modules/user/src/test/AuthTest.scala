@@ -1,10 +1,12 @@
 package lila.user
 
 import java.util.Base64
-import Authenticator.AuthData
-import User.{ ClearPassword as P }
-import lila.common.config.Secret
 import scala.concurrent.ExecutionContext.Implicits.global
+
+import lila.common.config.Secret
+
+import Authenticator.AuthData
+import User.ClearPassword as P
 
 class AuthTest extends munit.FunSuite:
 

@@ -1,11 +1,10 @@
 package views.html.simul
 
+import controllers.routes
 import play.api.i18n.Lang
 
-import lila.app.templating.Environment.{ given, * }
+import lila.app.templating.Environment.{*, given}
 import lila.app.ui.ScalatagsTemplate.{ *, given }
-
-import controllers.routes
 
 object bits:
 

@@ -5,13 +5,14 @@ import akka.stream.scaladsl.*
 import chess.format.pgn.Tag
 import play.api.libs.json.*
 
+import java.time.LocalDate
+
+import lila.common.Json.given
 import lila.hub.LateMultiThrottler
 import lila.search.*
 import lila.study.{ Chapter, ChapterRepo, Study, StudyRepo }
 import lila.tree.Node
 import lila.tree.Node.Comments
-import lila.common.Json.given
-import java.time.LocalDate
 
 final class StudySearchApi(
     client: ESClient,

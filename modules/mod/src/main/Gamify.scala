@@ -3,11 +3,12 @@ package lila.mod
 import reactivemongo.api.*
 import reactivemongo.api.bson.*
 
+import java.time.{ Instant, LocalDateTime }
+
 import lila.db.dsl.{ *, given }
 import lila.memo.CacheApi.*
 import lila.report.Room
 import lila.user.User
-import java.time.{ Instant, LocalDateTime }
 
 final class Gamify(
     logRepo: ModlogRepo,

@@ -1,12 +1,11 @@
 package views.html.relay
 
 import controllers.routes
+import play.api.i18n.Lang
 
-import lila.app.templating.Environment.{ given, * }
+import lila.app.templating.Environment.{*, given}
 import lila.app.ui.ScalatagsTemplate.{ *, given }
 import lila.relay.RelayTour
-import play.api.i18n.Lang
-import scalatags.Text.TypedTag
 
 object bits:
 

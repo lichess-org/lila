@@ -1,13 +1,14 @@
 package lila.insight
 
-import chess.opening.OpeningDb
-import chess.{ Ply, Centis, Clock, Role, Situation, Stats }
 import chess.format.pgn.SanStr
+import chess.opening.OpeningDb
+import chess.{Centis, Clock, Ply, Role, Situation, Stats}
+
 import scala.util.chaining.*
 
-import lila.analyse.{ Analysis, AccuracyCP, AccuracyPercent, Advice, WinPercent }
-import lila.game.{ Game, Pov }
+import lila.analyse.{AccuracyCP, AccuracyPercent, Advice, Analysis, WinPercent}
 import lila.common.SimpleOpening
+import lila.game.{ Game, Pov }
 
 case class RichPov(
     pov: Pov,

@@ -1,13 +1,9 @@
 package lila.streamer
-
-import play.api.i18n.Lang
-
 import lila.common.licon
 import lila.db.dsl.{ *, given }
 import lila.memo.CacheApi.*
 import lila.memo.PicfitApi
-import lila.user.{ User, UserRepo, UserApi }
-import lila.user.Me
+import lila.user.{Me, User, UserApi, UserRepo}
 
 final class StreamerApi(
     coll: Coll,

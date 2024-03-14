@@ -1,10 +1,10 @@
 package lila.relay
 
 import akka.stream.scaladsl.*
-
-import lila.study.{ ChapterRepo, PgnDump, StudyRepo }
-import lila.common.Bus
 import chess.format.pgn.PgnStr
+
+import lila.common.Bus
+import lila.study.{ ChapterRepo, PgnDump, StudyRepo }
 import lila.user.User
 
 final class RelayPgnStream(

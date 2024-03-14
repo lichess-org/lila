@@ -1,15 +1,14 @@
 package lila.api
 
-import chess.format.Fen
+import chess.ByColor
 import chess.format.pgn.Pgn
+import chess.format.{EpdFen, Fen}
+import play.api.i18n.Lang
 
 import lila.analyse.{ Analysis, Annotator }
 import lila.game.Game
 import lila.game.PgnDump.WithFlags
 import lila.team.GameTeams
-import play.api.i18n.Lang
-import chess.ByColor
-import chess.format.EpdFen
 
 final class PgnDump(
     val dumper: lila.game.PgnDump,

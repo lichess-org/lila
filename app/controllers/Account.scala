@@ -1,18 +1,18 @@
 package controllers
 
+import play.api.data.Form
 import play.api.libs.json.*
 import play.api.mvc.*
-import play.api.data.Form
-import scala.util.chaining.*
-import views.html
 import scalatags.Text.Frag
+import views.html
+
+import scala.util.chaining.*
 
 import lila.api.AnnounceStore
-import lila.app.{ given, * }
+import lila.app.{*, given}
+import lila.common.HTTPRequest
 import lila.security.SecurityForm.Reopen
 import lila.user.{ TotpSecret, User as UserModel }
-import lila.i18n.I18nLangPicker
-import lila.common.HTTPRequest
 
 final class Account(
     env: Env,

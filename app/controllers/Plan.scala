@@ -1,25 +1,14 @@
 package controllers
 
-import java.util.Currency
 import play.api.libs.json.*
 import play.api.mvc.*
-
-import lila.app.{ given, * }
-import lila.common.EmailAddress
-import lila.plan.{
-  CreateStripeSession,
-  Freq,
-  Money,
-  CustomerInfo,
-  NextUrls,
-  PayPalOrderId,
-  PayPalSubscription,
-  PayPalSubscriptionId,
-  PlanCheckout,
-  StripeCustomer,
-  StripeCustomerId
-}
 import views.*
+
+import java.util.Currency
+
+import lila.app.{*, given}
+import lila.common.EmailAddress
+import lila.plan.{CreateStripeSession, CustomerInfo, Freq, Money, NextUrls, PayPalOrderId, PayPalSubscription, PayPalSubscriptionId, PlanCheckout, StripeCustomer, StripeCustomerId}
 
 final class Plan(env: Env) extends LilaController(env):
 

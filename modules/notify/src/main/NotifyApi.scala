@@ -8,9 +8,9 @@ import lila.common.paginator.Paginator
 import lila.db.dsl.{ *, given }
 import lila.db.paginator.Adapter
 import lila.hub.actorApi.socket.{ SendTo, SendTos }
+import lila.i18n.*
 import lila.memo.CacheApi.*
 import lila.user.{ User, UserRepo }
-import lila.i18n.*
 
 final class NotifyApi(
     jsonHandlers: JSONHandlers,

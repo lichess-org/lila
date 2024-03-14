@@ -1,6 +1,6 @@
 package lila.tournament
 
-import chess.Clock.{ Config as TournamentClock }
+import chess.Clock.Config as TournamentClock
 
 import lila.memo.ExpireSetMemo
 import lila.user.User

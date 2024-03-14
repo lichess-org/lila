@@ -1,13 +1,12 @@
 package lila.fishnet
 
-import chess.format.Fen
-import chess.format.Uci
+import chess.format.{Fen, Uci}
 import chess.{ Color, Speed }
 import com.softwaremill.tagging.*
+import ornicar.scalalib.ThreadLocalRandom
 import play.api.libs.json.*
 import play.api.libs.ws.JsonBodyReadables.*
 import play.api.libs.ws.StandaloneWSClient
-import ornicar.scalalib.ThreadLocalRandom
 
 import lila.common.Json.given
 import lila.game.Game

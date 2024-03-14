@@ -3,11 +3,10 @@ package views.html
 import controllers.routes
 import play.api.libs.json.*
 
-import lila.app.templating.Environment.{ given, * }
+import lila.app.templating.Environment.{*, given}
 import lila.app.ui.ScalatagsTemplate.{ *, given }
 import lila.common.LangPath
-import lila.common.String.html.safeJsonValue
-import lila.i18n.I18nKeys.{ storm as s }
+import lila.i18n.I18nKeys.storm as s
 
 object racer:
 

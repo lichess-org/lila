@@ -1,15 +1,16 @@
 package lila.forum
 
+import play.api.ConfigLoader
+import play.api.i18n.Lang
 import play.api.libs.json.*
-import play.api.libs.ws.StandaloneWSClient
 import play.api.libs.ws.DefaultBodyWritables.*
 import play.api.libs.ws.JsonBodyReadables.*
-import play.api.i18n.Lang
-import lila.common.autoconfig.*
+import play.api.libs.ws.StandaloneWSClient
+
 import scala.math.Ordering.Float.TotalOrdering
 
+import lila.common.autoconfig.*
 import lila.common.config.Secret
-import play.api.ConfigLoader
 
 // http://detectlanguage.com
 final class DetectLanguage(

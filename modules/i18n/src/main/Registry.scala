@@ -1,10 +1,12 @@
 package lila.i18n
 
-import java.io.{ File, FileInputStream, ObjectInputStream }
-import java.util.{ Map as JMap }
 import play.api.Mode
 import play.api.i18n.Lang
+
+import java.io.ObjectInputStream
+import java.util.Map as JMap
 import scala.jdk.CollectionConverters.*
+
 import lila.common.Chronometer
 
 object Registry:

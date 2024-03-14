@@ -5,7 +5,7 @@ import com.softwaremill.macwire.*
 import play.api.Configuration
 
 import lila.common.config.*
-import lila.user.{ UserRepo, UserApi }
+import lila.user.{UserApi, UserRepo}
 
 @Module
 final class Env(

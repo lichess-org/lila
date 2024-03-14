@@ -1,11 +1,12 @@
 package views.html.mod
 
-import controllers.GameMod
-import controllers.routes
+import controllers.{GameMod, routes}
 import play.api.data.Form
+import views.html.mod.userTable.sortNoneTh
+
 import scala.util.chaining.*
 
-import lila.app.templating.Environment.{ given, * }
+import lila.app.templating.Environment.{*, given}
 import lila.app.ui.ScalatagsTemplate.{ *, given }
 import lila.evaluation.PlayerAssessment
 import lila.game.Pov
@@ -13,7 +14,6 @@ import lila.rating.PerfType
 import lila.swiss.Swiss
 import lila.tournament.LeaderboardApi.TourEntry
 import lila.user.User
-import views.html.mod.userTable.sortNoneTh
 
 object games:
 

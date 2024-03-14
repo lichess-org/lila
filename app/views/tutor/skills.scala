@@ -4,8 +4,8 @@ import controllers.routes
 
 import lila.app.templating.Environment.{ *, given }
 import lila.app.ui.ScalatagsTemplate.{ *, given }
-import lila.tutor.TutorPerfReport
 import lila.insight.InsightPosition
+import lila.tutor.TutorPerfReport
 
 object skills:
 

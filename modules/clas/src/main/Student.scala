@@ -2,8 +2,8 @@ package lila.clas
 
 import ornicar.scalalib.SecureRandom
 
-import lila.user.{ User, UserPerfs }
 import lila.rating.Perf
+import lila.user.{ User, UserPerfs }
 
 case class Student(
     _id: Student.Id, // userId:clasId

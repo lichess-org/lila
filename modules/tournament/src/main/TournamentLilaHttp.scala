@@ -4,8 +4,8 @@ import akka.stream.scaladsl.*
 import io.lettuce.core.RedisClient
 import play.api.libs.json.*
 
-import lila.common.{ LilaScheduler, LilaStream }
 import lila.common.Json.given
+import lila.common.{ LilaScheduler, LilaStream }
 import lila.memo.{ ExpireSetMemo, FrequencyThreshold }
 
 final class TournamentLilaHttp(

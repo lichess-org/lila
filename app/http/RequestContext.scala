@@ -1,17 +1,15 @@
 package lila.app
 package http
 
-import play.api.mvc.*
 import play.api.i18n.Lang
-import play.api.http.Writeable
+import play.api.mvc.*
 
-import lila.user.Me
-import lila.api.{ Nonce, PageData, LoginContext }
+import lila.api.{LoginContext, Nonce, PageData}
+import lila.common.HTTPRequest
 import lila.i18n.I18nLangPicker
-import lila.common.{ HTTPRequest }
-import lila.security.{ Granter, FingerPrintedUser, AppealUser }
 import lila.oauth.OAuthScope
-import lila.pref.RequestPref
+import lila.security.{AppealUser, FingerPrintedUser}
+import lila.user.Me
 
 trait RequestContext(using Executor):
 

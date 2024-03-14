@@ -1,9 +1,9 @@
 package views.html.clas
 
-import controllers.clas.routes.{ Clas as clasRoutes }
+import controllers.clas.routes.Clas as clasRoutes
 import controllers.routes
 
-import lila.app.templating.Environment.{ given, * }
+import lila.app.templating.Environment.{*, given}
 import lila.app.ui.ScalatagsTemplate.{ *, given }
 import lila.clas.{ Clas, ClasInvite, ClasProgress, Student }
 import lila.common.String.html.richText

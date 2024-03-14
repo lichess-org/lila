@@ -1,15 +1,15 @@
 package lila.tutor
 
+import chess.format.pgn.PgnStr
+import com.softwaremill.tagging.*
 import reactivemongo.api.*
 import reactivemongo.api.bson.*
-import com.softwaremill.tagging.*
 
-import lila.db.dsl.{ *, given }
-import lila.user.{ User, LightUserApi }
 import lila.common.config.Max
+import lila.db.dsl.{ *, given }
 import lila.game.Pov
-import lila.memo.{ SettingStore, CacheApi }
-import chess.format.pgn.PgnStr
+import lila.memo.{CacheApi, SettingStore}
+import lila.user.{LightUserApi, User}
 
 final private class TutorQueue(
     colls: TutorColls,

@@ -1,8 +1,8 @@
 package lila.tv
 
-import akka.actor.{ ActorSystem, Props }
+import akka.actor.{ActorRef, ActorSystem, Props}
 import com.softwaremill.macwire.*
-import akka.actor.ActorRef
+
 import lila.tv.Tv.Channel
 
 @Module

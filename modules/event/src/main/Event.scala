@@ -1,6 +1,4 @@
 package lila.event
-
-import play.api.i18n.Lang
 import lila.i18n.Language
 
 case class Event(

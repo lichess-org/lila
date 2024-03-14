@@ -4,11 +4,11 @@ package tournament
 import controllers.routes
 import play.api.data.{ Field, Form }
 
-import lila.app.templating.Environment.{ given, * }
+import lila.app.templating.Environment.{*, given}
 import lila.app.ui.ScalatagsTemplate.{ *, given }
+import lila.gathering.{ ConditionForm, GatheringClock }
 import lila.hub.LightTeam
 import lila.tournament.{ Tournament, TournamentForm }
-import lila.gathering.{ ConditionForm, GatheringClock }
 
 object form:
   given prefix: FormPrefix = FormPrefix.empty
@@ -96,7 +96,7 @@ object form:
       moreCss = cssTag("tournament.form"),
       moreJs = jsModule("tourForm")
     ):
-      val fields = TourFields(form, tour.some)
+      TourFields(form, tour.some)
       main(cls := "page-small")(
         div(cls := "tour__form box box-pad")(
           h1(cls := "box__top")("Edit ", tour.name()),

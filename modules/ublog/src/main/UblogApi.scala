@@ -1,14 +1,13 @@
 package lila.ublog
 
-import reactivemongo.akkastream.{ cursorProducer, AkkaStreamCursor }
+import reactivemongo.akkastream.{AkkaStreamCursor, cursorProducer}
 import reactivemongo.api.*
 
 import lila.db.dsl.{ *, given }
-import lila.hub.actorApi.timeline.Propagate
 import lila.hub.actorApi.shutup.{ PublicSource, RecordPublicText }
+import lila.hub.actorApi.timeline.Propagate
 import lila.memo.PicfitApi
-import lila.security.Granter
-import lila.user.{ User, UserApi, Me }
+import lila.user.{Me, User, UserApi}
 
 final class UblogApi(
     colls: UblogColls,

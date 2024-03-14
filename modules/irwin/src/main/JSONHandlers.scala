@@ -2,6 +2,7 @@ package lila.irwin
 
 import play.api.libs.functional.syntax.*
 import play.api.libs.json.*
+
 import lila.common.Json.given
 
 object JSONHandlers:

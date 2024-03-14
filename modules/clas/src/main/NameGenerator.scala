@@ -1,7 +1,8 @@
 package lila.clas
 
-import lila.common.CuteNameGenerator
 import play.api.i18n.Lang
+
+import lila.common.CuteNameGenerator
 
 final class NameGenerator(userRepo: lila.user.UserRepo)(using Executor):
 

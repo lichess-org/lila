@@ -1,8 +1,9 @@
 package lila.racer
 
+import play.api.libs.json.{ JsObject, Json }
+
 import lila.room.RoomSocket.{ Protocol as RP, * }
 import lila.socket.RemoteSocket.{ Protocol as P, * }
-import play.api.libs.json.{ JsObject, Json }
 
 final private class RacerSocket(
     api: RacerApi,

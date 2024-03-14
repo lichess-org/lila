@@ -1,8 +1,8 @@
 package lila.activity
 
-import activities.*
-
 import lila.common.LichessDay
+
+import activities.*
 
 case class Activity(
     id: Activity.Id,

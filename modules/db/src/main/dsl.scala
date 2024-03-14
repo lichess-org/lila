@@ -19,6 +19,7 @@ package lila.db
 import alleycats.Zero
 import reactivemongo.api.*
 import reactivemongo.api.bson.*
+
 import scala.collection.Factory
 
 trait dsl:

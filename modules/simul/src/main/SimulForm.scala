@@ -1,5 +1,7 @@
 package lila.simul
 
+import chess.Clock
+import chess.Clock.{IncrementSeconds, LimitMinutes, LimitSeconds}
 import chess.format.Fen
 import chess.variant.Variant
 import play.api.data.*
@@ -9,8 +11,6 @@ import play.api.data.validation.Constraint
 import lila.common.Form.{ *, given }
 import lila.hub.LightTeam
 import lila.user.Me
-import chess.Clock
-import chess.Clock.{ LimitMinutes, LimitSeconds, IncrementSeconds }
 
 object SimulForm:
 

@@ -5,8 +5,7 @@
 
 package akka.stream.contrib
 
-import java.util.zip.{ ZipEntry, ZipInputStream }
-import akka.stream.Attributes.{ name, InputBuffer }
+import akka.stream.Attributes.{InputBuffer, name}
 import akka.stream.contrib.ZipInputStreamSource.ZipEntryData
 import akka.stream.impl.Stages.DefaultAttributes.IODispatcher
 import akka.stream.scaladsl.Source
@@ -14,6 +13,8 @@ import akka.stream.stage.{ GraphStageLogic, GraphStageWithMaterializedValue, Out
 import akka.stream.{ Attributes, Outlet, SourceShape }
 import akka.util.ByteString
 import akka.util.ByteString.ByteString1C
+
+import java.util.zip.{ ZipEntry, ZipInputStream }
 import scala.annotation.tailrec
 import scala.collection.immutable
 import scala.concurrent.{ Future, Promise }

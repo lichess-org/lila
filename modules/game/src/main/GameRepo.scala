@@ -1,19 +1,19 @@
 package lila.game
 
-import chess.{ Color, Status }
 import chess.format.Fen
 import chess.format.pgn.{ PgnStr, SanStr }
-import reactivemongo.akkastream.{ cursorProducer, AkkaStreamCursor }
+import chess.{ Color, Status }
+import ornicar.scalalib.ThreadLocalRandom
+import reactivemongo.akkastream.{AkkaStreamCursor, cursorProducer}
+import reactivemongo.api.bson.BSONNull
 import reactivemongo.api.commands.WriteResult
 import reactivemongo.api.{ Cursor, WriteConcern }
-import reactivemongo.api.bson.BSONNull
-import ornicar.scalalib.ThreadLocalRandom
 
+import lila.common.config
+import lila.common.config.Max
 import lila.db.dsl.{ *, given }
 import lila.db.isDuplicateKey
 import lila.user.User
-import lila.common.config
-import lila.common.config.Max
 
 final class GameRepo(val coll: Coll)(using Executor):
 

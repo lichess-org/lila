@@ -1,11 +1,11 @@
 package lila.study
 
-import reactivemongo.api.bson.Macros.Annotations.Key
-import ornicar.scalalib.ThreadLocalRandom
 import chess.format.UciPath
+import ornicar.scalalib.ThreadLocalRandom
+import reactivemongo.api.bson.Macros.Annotations.Key
 
-import lila.user.User
 import lila.common.config.Max
+import lila.user.User
 
 case class Study(
     @Key("_id") id: StudyId,

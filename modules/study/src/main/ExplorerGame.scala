@@ -1,12 +1,13 @@
 package lila.study
 
+import chess.format.pgn.Parser
+import chess.format.{ Fen, UciPath }
+
 import scala.util.chaining.*
 
-import chess.format.{ Fen, UciPath }
-import chess.format.pgn.Parser
 import lila.game.{ Game, Namer }
-import lila.tree.{ Branch, Root, Node }
 import lila.tree.Node.Comment
+import lila.tree.{Branch, Node, Root}
 
 final private class ExplorerGame(
     importer: lila.explorer.ExplorerImporter,

@@ -1,8 +1,8 @@
 package lila.msg
 
-import lila.hub.LightTeam
-import lila.common.config.BaseUrl
 import lila.common.LightUser
+import lila.common.config.BaseUrl
+import lila.hub.LightTeam
 
 case class MsgPreset(name: String, text: String)
 

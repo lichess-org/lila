@@ -5,10 +5,11 @@ import play.api.data.*
 import play.api.data.Forms.*
 import play.api.i18n.Lang
 
+import java.time.LocalDate
+
 import lila.common.Form.*
 import lila.search.Range
 import lila.user.UserForm.historicalUsernameField
-import java.time.LocalDate
 
 final private[gameSearch] class GameSearchForm:
 

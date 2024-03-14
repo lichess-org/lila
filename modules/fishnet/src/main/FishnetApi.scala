@@ -1,13 +1,15 @@
 package lila.fishnet
 
 import reactivemongo.api.bson.*
+
 import scala.util.{ Failure, Success, Try }
 
-import Client.Skill
-import lila.common.IpAddress
-import lila.db.dsl.{ *, given }
-import lila.common.config.Max
 import lila.base.LilaNoStackTrace
+import lila.common.IpAddress
+import lila.common.config.Max
+import lila.db.dsl.{ *, given }
+
+import Client.Skill
 
 final class FishnetApi(
     repo: FishnetRepo,

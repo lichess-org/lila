@@ -3,11 +3,11 @@ package controllers
 import play.api.mvc.*
 import views.*
 
-import lila.app.{ given, * }
-import lila.rating.{ Perf, PerfType }
-import lila.user.{ User as UserModel }
-import lila.tutor.{ TutorFullReport, TutorPerfReport, TutorQueue }
+import lila.app.{*, given}
 import lila.common.LilaOpeningFamily
+import lila.rating.{ Perf, PerfType }
+import lila.tutor.{ TutorFullReport, TutorPerfReport, TutorQueue }
+import lila.user.User as UserModel
 
 final class Tutor(env: Env) extends LilaController(env):
 

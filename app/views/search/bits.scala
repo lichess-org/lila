@@ -2,8 +2,9 @@ package views.html.search
 
 import play.api.data.Form
 import play.api.i18n.Lang
-import scala.util.chaining.*
+
 import java.time.format.DateTimeFormatter
+import scala.util.chaining.*
 
 import lila.app.templating.Environment.{ *, given }
 import lila.app.ui.ScalatagsTemplate.{ *, given }

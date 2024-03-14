@@ -1,7 +1,7 @@
 package lila.security
 
+import lila.common.{Domain, EmailAddress}
 import lila.user.{ User, UserRepo }
-import lila.common.{ Domain, IpAddress, EmailAddress }
 
 final private[security] class Cli(
     userRepo: UserRepo,

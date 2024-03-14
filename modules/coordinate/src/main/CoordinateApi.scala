@@ -1,9 +1,9 @@
 package lila.coordinate
 
+import chess.{ByColor, Color}
 import reactivemongo.api.bson.*
 
-import lila.db.dsl.{ given, * }
-import chess.{ Color, ByColor }
+import lila.db.dsl.{*, given}
 import lila.user.Me
 
 final class CoordinateApi(scoreColl: Coll)(using Executor):

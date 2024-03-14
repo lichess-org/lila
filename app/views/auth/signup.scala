@@ -3,7 +3,7 @@ package auth
 
 import controllers.routes
 
-import lila.app.templating.Environment.{ given, * }
+import lila.app.templating.Environment.{*, given}
 import lila.app.ui.ScalatagsTemplate.{ *, given }
 import lila.common.{ HTTPRequest, LangPath }
 import lila.security.PasswordCheck

@@ -1,6 +1,6 @@
 package lila.swiss
 
-import chess.{ Black, Color, White, ByColor }
+import chess.ByColor
 
 import lila.db.dsl.{ *, given }
 import lila.game.Game
@@ -101,5 +101,4 @@ final private class SwissDirector(
       .withSwissId(swiss.id)
       .start
 
-  private def makePlayer(color: Color, player: SwissPlayer) =
-    lila.game.Player.make(color, player.userId, player.rating, player.provisional)
+  

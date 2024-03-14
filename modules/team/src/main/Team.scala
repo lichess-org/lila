@@ -1,13 +1,14 @@
 package lila.team
 
-import reactivemongo.api.bson.Macros.Annotations.Key
-import java.security.MessageDigest
-import java.nio.charset.StandardCharsets.UTF_8
-import scala.util.chaining.*
 import ornicar.scalalib.ThreadLocalRandom
+import reactivemongo.api.bson.Macros.Annotations.Key
 
-import lila.user.User
+import java.nio.charset.StandardCharsets.UTF_8
+import java.security.MessageDigest
+import scala.util.chaining.*
+
 import lila.hub.LightTeam
+import lila.user.User
 
 case class Team(
     @Key("_id") id: TeamId, // also the url slug

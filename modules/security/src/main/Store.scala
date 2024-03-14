@@ -1,15 +1,16 @@
 package lila.security
 
 import play.api.mvc.RequestHeader
-import reactivemongo.akkastream.{ cursorProducer, AkkaStreamCursor }
+import reactivemongo.akkastream.{AkkaStreamCursor, cursorProducer}
 import reactivemongo.api.bson.{ BSONDocumentHandler, BSONDocumentReader, BSONNull, Macros }
+
 import scala.concurrent.blocking
 
 import lila.common.{ ApiVersion, HTTPRequest, IpAddress }
 import lila.db.dsl.{ *, given }
-import lila.user.User
-import lila.socket.Socket.Sri
 import lila.oauth.AccessToken
+import lila.socket.Socket.Sri
+import lila.user.User
 
 final class Store(val coll: Coll, cacheApi: lila.memo.CacheApi)(using Executor):
 

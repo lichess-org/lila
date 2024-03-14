@@ -3,14 +3,11 @@ package lila.coach
 import play.api.i18n.Lang
 import reactivemongo.api.*
 
-import lila.coach.CoachPager.Order.Alphabetical
-import lila.coach.CoachPager.Order.LichessRating
-import lila.coach.CoachPager.Order.Login
+import lila.coach.CoachPager.Order.{Alphabetical, LichessRating, Login}
 import lila.common.paginator.{ AdapterLike, Paginator }
 import lila.db.dsl.{ *, given }
 import lila.security.Permission
-import lila.user.{ Flag, User, UserMark, UserRepo, UserPerfsRepo }
-import lila.user.UserPerfs
+import lila.user.{Flag, User, UserMark, UserPerfs, UserPerfsRepo, UserRepo}
 
 final class CoachPager(
     userRepo: UserRepo,

@@ -1,9 +1,10 @@
 package controllers
 
-import lila.app.{ given, * }
+import views.*
+
+import lila.app.{*, given}
 import lila.common.HTTPRequest
 import lila.video.{ Filter, UserControl, View }
-import views.*
 
 final class Video(env: Env) extends LilaController(env):
 

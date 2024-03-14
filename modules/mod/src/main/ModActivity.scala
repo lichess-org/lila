@@ -1,6 +1,7 @@
 package lila.mod
 
 import play.api.libs.json.Json
+
 import scala.util.Try
 
 import lila.db.dsl.{ *, given }

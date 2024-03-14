@@ -1,15 +1,15 @@
 package controllers
 package report
 
-import play.api.mvc.{ AnyContentAsFormUrlEncoded, Result }
 import play.api.data.*
+import play.api.mvc.{ AnyContentAsFormUrlEncoded, Result }
 import views.*
 
-import lila.app.{ given, * }
+import lila.app.{*, given}
 import lila.common.HTTPRequest
+import lila.report.Report.Id as ReportId
 import lila.report.{ Mod as AsMod, Report as ReportModel, Reporter, Room, Suspect }
-import lila.report.Report.{ Id as ReportId }
-import lila.user.{ User as UserModel }
+import lila.user.User as UserModel
 
 final class Report(
     env: Env,

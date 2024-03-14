@@ -3,7 +3,6 @@ package lila.tournament
 import ornicar.scalalib.ThreadLocalRandom
 
 import lila.common.LightUser
-import lila.rating.PerfType
 import lila.user.User
 
 private[tournament] case class Player(

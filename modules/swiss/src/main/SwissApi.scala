@@ -1,25 +1,25 @@
 package lila.swiss
 
-import alleycats.Zero
 import akka.stream.scaladsl.*
-import java.nio.charset.StandardCharsets.UTF_8
-import java.security.MessageDigest
-import java.time.format.{ DateTimeFormatter, FormatStyle }
+import alleycats.Zero
 import reactivemongo.akkastream.cursorProducer
 import reactivemongo.api.*
 import reactivemongo.api.bson.*
+
+import java.nio.charset.StandardCharsets.UTF_8
+import java.security.MessageDigest
+import java.time.format.{ DateTimeFormatter, FormatStyle }
 import scala.util.chaining.*
 
-import lila.common.config.MaxPerSecond
+import lila.common.config.{Max, MaxPerSecond}
 import lila.common.{ Bus, LightUser }
 import lila.db.dsl.{ *, given }
 import lila.game.{ Game, Pov }
-import lila.round.actorApi.round.QuietFlag
-import lila.user.{ UserPerfs, Me, User, UserRepo, UserPerfsRepo, UserApi }
-import lila.common.config.Max
-import lila.gathering.GreatPlayer
 import lila.gathering.Condition.WithVerdicts
+import lila.gathering.GreatPlayer
 import lila.rating.Perf
+import lila.round.actorApi.round.QuietFlag
+import lila.user.{Me, User, UserApi, UserPerfsRepo, UserRepo}
 
 final class SwissApi(
     mongo: SwissMongo,

@@ -1,23 +1,23 @@
 package lila.api
 
 import akka.stream.scaladsl.*
+import chess.ByColor
 import chess.format.Fen
-import chess.format.pgn.{ Tag, PgnStr }
+import chess.format.pgn.{PgnStr, Tag}
 import play.api.libs.json.*
 
-import lila.analyse.{ Analysis, AccuracyPercent, JsonView as analysisJson }
-import lila.common.config.MaxPerSecond
+import lila.analyse.{AccuracyPercent, Analysis, JsonView as analysisJson}
 import lila.common.Json.given
+import lila.common.config.MaxPerSecond
 import lila.common.{ HTTPRequest, LightUser }
 import lila.db.dsl.{ *, given }
 import lila.game.JsonView.given
 import lila.game.PgnDump.WithFlags
-import lila.game.{ Game, Query, Pov, Divider }
+import lila.game.{Divider, Game, Pov, Query}
+import lila.round.GameProxyRepo
 import lila.team.GameTeams
 import lila.tournament.Tournament
 import lila.user.{ Me, User }
-import lila.round.GameProxyRepo
-import chess.ByColor
 
 final class GameApiV2(
     pgnDump: PgnDump,

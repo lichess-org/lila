@@ -1,6 +1,5 @@
 package lila.tournament
 
-import Schedule.Plan
 
 class SchedulerTest extends munit.FunSuite:
   def schedulesAt(date: Instant) =

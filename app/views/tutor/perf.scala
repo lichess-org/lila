@@ -5,11 +5,9 @@ import play.api.mvc.Call
 
 import lila.app.templating.Environment.{ *, given }
 import lila.app.ui.ScalatagsTemplate.{ *, given }
-import lila.common.Heapsort.topN
-import lila.tutor.{ TutorCompare, TutorPerfReport, TutorFullReport }
-import lila.tutor.TutorCompare.given
-import lila.user.User
 import lila.rating.PerfType
+import lila.tutor.{TutorCompare, TutorFullReport, TutorPerfReport}
+import lila.user.User
 
 object perf:
 

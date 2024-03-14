@@ -1,12 +1,12 @@
 package lila.security
 
 import com.softwaremill.macwire.*
-import lila.common.autoconfig.{ *, given }
+import play.api.ConfigLoader
 
+import lila.common.autoconfig.{ *, given }
 import lila.common.config.*
 
 import SecurityConfig.*
-import play.api.ConfigLoader
 
 @Module
 final private class SecurityConfig(

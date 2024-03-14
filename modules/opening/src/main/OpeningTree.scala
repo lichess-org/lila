@@ -1,6 +1,6 @@
 package lila.opening
 
-import chess.opening.{ Opening, OpeningDb, OpeningName, OpeningKey }
+import chess.opening.{Opening, OpeningDb, OpeningKey, OpeningName}
 
 case class OpeningTree(children: List[(OpeningTree.NameOrOpening, OpeningTree)])
 

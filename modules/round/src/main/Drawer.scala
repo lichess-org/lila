@@ -1,12 +1,12 @@
 package lila.round
 
 import chess.Centis
+import play.api.i18n.Lang
 
 import lila.common.Bus
 import lila.game.{ Event, Game, Pov, Progress }
-import lila.i18n.{ defaultLang, I18nKeys as trans }
+import lila.i18n.{I18nKeys as trans, defaultLang}
 import lila.pref.{ Pref, PrefApi }
-import play.api.i18n.Lang
 
 final private[round] class Drawer(
     messenger: Messenger,

@@ -1,7 +1,7 @@
 package lila.simul
 
+import chess.Clock.{LimitMinutes, LimitSeconds}
 import chess.{ Centis, Clock, Color }
-import chess.Clock.{ LimitSeconds, LimitMinutes }
 
 case class SimulClock(
     config: Clock.Config,

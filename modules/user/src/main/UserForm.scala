@@ -1,12 +1,12 @@
 package lila.user
 
-import play.api.data.*
-import play.api.data.validation.Constraints
-import play.api.data.Forms.*
 import chess.PlayerTitle
+import play.api.data.*
+import play.api.data.Forms.*
+import play.api.data.validation.Constraints
 
+import lila.common.Form.{cleanNonEmptyText, cleanText, into, trim, given}
 import lila.common.LameName
-import lila.common.Form.{ cleanNonEmptyText, cleanText, trim, into, given }
 
 final class UserForm:
 

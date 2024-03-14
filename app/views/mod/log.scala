@@ -1,6 +1,6 @@
 package views.html.mod
 
-import lila.app.templating.Environment.{ given, * }
+import lila.app.templating.Environment.{*, given}
 import lila.app.ui.ScalatagsTemplate.*
 
 object log:

@@ -1,27 +1,16 @@
 package lila.game
 
-import chess.variant.{ Crazyhouse, Variant }
-import chess.{
-  Ply,
-  HalfMoveClock,
-  CheckCount,
-  Clock,
-  Color,
-  ByColor,
-  Game as ChessGame,
-  History as ChessHistory,
-  Mode,
-  Status,
-  UnmovedRooks
-}
-import chess.format.Fen
 import chess.bitboard.Board as BBoard
+import chess.format.Fen
+import chess.variant.{ Crazyhouse, Variant }
+import chess.{ByColor, CheckCount, Clock, Color, Game as ChessGame, HalfMoveClock, History as ChessHistory, Mode, Ply, Status, UnmovedRooks}
 import reactivemongo.api.bson.*
+
 import scala.util.{ Success, Try }
 
+import lila.common.Days
 import lila.db.BSON
 import lila.db.dsl.{ *, given }
-import lila.common.Days
 
 object BSONHandlers:
 

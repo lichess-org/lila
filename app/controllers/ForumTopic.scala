@@ -2,7 +2,8 @@ package controllers
 
 import play.api.libs.json.*
 import views.*
-import lila.app.{ given, * }
+
+import lila.app.{*, given}
 import lila.common.IpAddress
 import lila.forum.ForumCateg.diagnosticId
 

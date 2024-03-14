@@ -2,10 +2,10 @@ package views.html.clas
 
 import controllers.clas.routes
 
-import lila.app.templating.Environment.{ given, * }
+import lila.app.ContentSecurityPolicy
+import lila.app.templating.Environment.{*, given}
 import lila.app.ui.ScalatagsTemplate.{ *, given }
 import lila.clas.{ Clas, Student }
-import lila.app.ContentSecurityPolicy
 
 object bits:
 

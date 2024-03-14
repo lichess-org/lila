@@ -7,7 +7,6 @@ import lila.common.config.*
 import lila.mod.ModlogApi
 import lila.notify.NotifyApi
 import lila.socket.{ GetVersion, SocketVersion }
-import lila.hub.LightTeam
 
 @Module
 @annotation.nowarn("msg=unused")

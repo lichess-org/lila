@@ -2,7 +2,7 @@ package views.html.site
 
 import play.api.i18n.Lang
 
-import lila.app.templating.Environment.{ *, given }
+import lila.app.templating.Environment.*
 import lila.app.ui.ScalatagsTemplate.{ *, given }
 
 object help:

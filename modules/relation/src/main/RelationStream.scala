@@ -4,7 +4,7 @@ import akka.stream.scaladsl.*
 import reactivemongo.akkastream.cursorProducer
 
 import lila.common.config.MaxPerSecond
-import lila.db.dsl.{ given, * }
+import lila.db.dsl.{*, given}
 import lila.user.{ User, UserApi }
 
 final class RelationStream(colls: Colls, userApi: UserApi)(using akka.stream.Materializer):

@@ -1,13 +1,11 @@
 package lila.study
 
-import chess.{ ErrorStr, Ply }
-import chess.format.pgn.{ Tags, PgnStr }
-
-import lila.common.LightUser
-import lila.tree.{ Root, Branch, Branches }
-import lila.tree.Node.{ Comment, Comments, Shapes }
+import chess.Ply
+import chess.format.pgn.{PgnStr, Tags}
 
 import scala.language.implicitConversions
+
+import lila.common.LightUser
 
 class PgnImportTest extends lila.common.LilaTest:
 

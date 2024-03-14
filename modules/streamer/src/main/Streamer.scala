@@ -2,9 +2,9 @@ package lila.streamer
 
 import cats.derived.*
 
+import lila.i18n.Language
 import lila.memo.PicfitImage
 import lila.user.User
-import lila.i18n.Language
 
 case class Streamer(
     _id: Streamer.Id,

@@ -5,7 +5,7 @@ import play.api.libs.json.{ JsValue, Json }
 import play.api.mvc.*
 import views.*
 
-import lila.app.{ given, * }
+import lila.app.{*, given}
 import lila.insight.{ InsightDimension, InsightMetric }
 import lila.user.User
 

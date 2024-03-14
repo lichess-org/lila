@@ -1,9 +1,9 @@
 package lila.study
 
 import akka.stream.scaladsl.*
-import chess.format.pgn.Tags
+import chess.Centis
 import chess.format.UciPath
-import chess.{ Centis, ByColor }
+import chess.format.pgn.Tags
 import reactivemongo.akkastream.cursorProducer
 import reactivemongo.api.bson.*
 
@@ -11,7 +11,7 @@ import lila.db.AsyncColl
 import lila.db.dsl.{ *, given }
 import lila.tree.{ Branch, Branches }
 
-import Node.{ BsonFields as F }
+import Node.BsonFields as F
 
 final class ChapterRepo(val coll: AsyncColl)(using Executor, akka.stream.Materializer):
 

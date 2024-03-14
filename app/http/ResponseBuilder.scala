@@ -1,13 +1,13 @@
 package lila.app
 package http
 
-import play.api.libs.json.*
-import play.api.http.*
-import play.api.mvc.*
-import alleycats.Zero
 import akka.stream.scaladsl.Source
+import alleycats.Zero
+import play.api.http.*
+import play.api.libs.json.*
+import play.api.mvc.*
 
-import lila.common.{ HTTPRequest, ApiVersion }
+import lila.common.{ApiVersion, HTTPRequest}
 
 trait ResponseBuilder(using Executor)
     extends ControllerHelpers

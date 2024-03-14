@@ -1,20 +1,21 @@
 package lila.challenge
 
 import akka.stream.scaladsl.*
+import chess.{ByColor, Clock, Speed}
 import reactivemongo.api.bson.*
+
 import scala.util.chaining.*
 
+import lila.common.config.Max
 import lila.common.{ Bus, Days, LilaStream, Template }
 import lila.db.dsl.{ *, given }
 import lila.game.{ Game, Player }
-import lila.hub.actorApi.map.TellMany
 import lila.hub.AsyncActorSequencers
+import lila.hub.actorApi.map.TellMany
 import lila.rating.PerfType
+import lila.round.actorApi.round.StartClock
 import lila.setup.SetupBulk.{ ScheduledBulk, ScheduledGame, maxBulks }
 import lila.user.User
-import chess.{ Clock, ByColor, Speed }
-import lila.common.config.Max
-import lila.round.actorApi.round.StartClock
 
 final class ChallengeBulkApi(
     colls: ChallengeColls,
@@ -90,7 +91,7 @@ final class ChallengeBulkApi(
     def timeControl =
       bulk.clock.fold(Challenge.TimeControl.Clock.apply, Challenge.TimeControl.Correspondence.apply)
     val (chessGame, state) = ChallengeJoiner.gameSetup(bulk.variant, timeControl, bulk.fen)
-    val perfType           = PerfType(bulk.variant, Speed(bulk.clock.left.toOption))
+    PerfType(bulk.variant, Speed(bulk.clock.left.toOption))
     Source(bulk.games)
       .mapAsyncUnordered(8): game =>
         userApi.gamePlayers

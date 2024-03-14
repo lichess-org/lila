@@ -1,9 +1,10 @@
 package lila.game
 
+import chess.{Centis, Ply}
+
 import scala.language.implicitConversions
 
 import lila.db.ByteArray
-import chess.{ Ply, Centis }
 
 class BinaryMoveTimeTest extends munit.FunSuite:
 

@@ -1,23 +1,15 @@
 package lila.study
 
-import monocle.syntax.all.*
-import chess.{ Centis, ErrorStr, Node as PgnNode, Outcome }
-import chess.format.pgn.{
-  Glyphs,
-  ParsedPgn,
-  ParsedPgnTree,
-  San,
-  Tags,
-  PgnStr,
-  PgnNodeData,
-  Comment as ChessComment
-}
-import chess.format.{ Fen, Uci, UciCharPair, UciPath }
 import chess.MoveOrDrop.*
-import lila.tree.Node.{ Comment, Comments, Shapes }
+import chess.format.pgn.{Glyphs, ParsedPgn, ParsedPgnTree, PgnNodeData, PgnStr, Tags}
+import chess.format.{ Fen, Uci, UciCharPair, UciPath }
+import chess.{ Centis, ErrorStr, Node as PgnNode, Outcome }
+import monocle.syntax.all.*
+
 import lila.common.LightUser
 import lila.importer.{ ImportData, Preprocessed }
-import lila.tree.{ NewRoot, NewTree, NewBranch, Metas }
+import lila.tree.Node.{Comment, Comments}
+import lila.tree.{Metas, NewBranch, NewRoot, NewTree}
 
 object NewPgnImport:
 
@@ -61,8 +53,7 @@ object NewPgnImport:
                 statusText = lila.game.StatusText(status, game.winnerColor, game.variant)
               )
             }
-            val commented =
-              if root.tree.map(_.lastMainlineNode).exists(_.value.metas.comments.value.nonEmpty) then root
+            if root.tree.map(_.lastMainlineNode).exists(_.value.metas.comments.value.nonEmpty) then root
               else
                 end.map(PgnImport.endComment).fold(root) { comment =>
                   root

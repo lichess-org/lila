@@ -2,7 +2,7 @@ package lila.setup
 
 import chess.Clock
 import chess.format.Fen
-import chess.variant.{ Variant, FromPosition }
+import chess.variant.{FromPosition, Variant}
 
 import lila.common.Days
 import lila.game.GameRule

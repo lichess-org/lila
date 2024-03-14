@@ -1,12 +1,11 @@
 package views.html.study
 
-import controllers.routes
 import chess.format.pgn.PgnStr
+import controllers.routes
 import play.api.libs.json.Json
 
-import lila.app.templating.Environment.{ given, * }
+import lila.app.templating.Environment.{*, given}
 import lila.app.ui.ScalatagsTemplate.{ *, given }
-import lila.common.String.html.safeJsonValue
 
 object embed:
 

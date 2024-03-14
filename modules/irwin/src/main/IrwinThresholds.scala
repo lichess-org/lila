@@ -1,11 +1,11 @@
 package lila.irwin
 
-import lila.memo.SettingStore.{ Formable, StringReader }
 import play.api.data.Form
 import play.api.data.Forms.{ single, text }
-import lila.common.Ints
 import reactivemongo.api.bson.BSONHandler
-import lila.common.Iso
+
+import lila.common.{Ints, Iso}
+import lila.memo.SettingStore.{ Formable, StringReader }
 
 case class IrwinThresholds(report: Int, mark: Int)
 

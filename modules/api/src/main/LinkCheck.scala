@@ -1,18 +1,15 @@
 package lila.api
 
+import scala.annotation.nowarn
+
 import lila.chat.UserLine
 import lila.common.config.NetDomain
 import lila.hub.actorApi.shutup.PublicSource
-import lila.simul.Simul
-import lila.simul.SimulApi
-import lila.swiss.Swiss
-import lila.swiss.SwissApi
+import lila.simul.{Simul, SimulApi}
+import lila.study.{Study, StudyRepo}
+import lila.swiss.{Swiss, SwissApi}
 import lila.team.{ Team, TeamApi }
-import lila.tournament.Tournament
-import lila.tournament.TournamentRepo
-import lila.study.Study
-import lila.study.StudyRepo
-import scala.annotation.nowarn
+import lila.tournament.{Tournament, TournamentRepo}
 
 /* Determine if a link to a lichess resource
  * can be posted from another lichess resource.

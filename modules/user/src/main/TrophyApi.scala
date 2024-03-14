@@ -1,9 +1,10 @@
 package lila.user
 
+import ornicar.scalalib.ThreadLocalRandom
+import reactivemongo.api.bson.*
+
 import lila.db.dsl.{ *, given }
 import lila.memo.*
-import reactivemongo.api.bson.*
-import ornicar.scalalib.ThreadLocalRandom
 
 final class TrophyApi(
     coll: Coll,

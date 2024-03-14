@@ -1,13 +1,14 @@
 package controllers
 
+import chess.format.pgn.PgnStr
 import play.api.libs.json.Json
-import scala.util.{ Either, Left, Right }
 import play.api.mvc.*
 import views.*
 
-import lila.app.{ given, * }
+import scala.util.{ Either, Left, Right }
+
+import lila.app.{*, given}
 import lila.common.{ HTTPRequest, IpAddress }
-import chess.format.pgn.PgnStr
 
 final class Importer(env: Env) extends LilaController(env):
 

@@ -1,7 +1,7 @@
 package lila.push
 
-import reactivemongo.api.bson.*
 import play.api.mvc.RequestHeader
+import reactivemongo.api.bson.*
 
 import lila.db.dsl.{ *, given }
 import lila.user.User

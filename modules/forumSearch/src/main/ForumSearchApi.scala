@@ -4,7 +4,7 @@ import akka.stream.scaladsl.*
 import play.api.libs.json.*
 
 import lila.common.Json.given
-import lila.forum.{ ForumPost, ForumPostApi, PostLiteView, ForumPostRepo, PostView }
+import lila.forum.{ForumPost, ForumPostApi, ForumPostRepo, PostLiteView, PostView}
 import lila.search.*
 
 final class ForumSearchApi(

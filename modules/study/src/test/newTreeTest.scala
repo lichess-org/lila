@@ -1,22 +1,16 @@
 package lila.study
 
-import chess.{ Centis, ErrorStr, Node as PgnNode }
-import chess.format.pgn.{ Glyphs, ParsedPgn, San, Tags, PgnStr, PgnNodeData, Comment as ChessComment }
-import chess.format.{ Fen, Uci, UciCharPair, UciPath }
-import chess.MoveOrDrop.*
-
-import lila.importer.{ ImportData, Preprocessed }
-import lila.tree.Node.{ Comment, Comments, Shapes }
+import chess.Node as PgnNode
+import chess.format.pgn.{PgnStr, Tags}
 
 import scala.language.implicitConversions
 
-import lila.tree.{ Branch, Branches, Root, Metas, NewTree, NewBranch, NewRoot, Node }
+import lila.tree.{NewBranch, NewRoot, Root}
 
 // in lila.study to have access to PgnImport
 class NewTreeTest extends munit.FunSuite:
 
   import PgnImport.*
-  import lila.tree.NewTree.*
   import Helpers.*
 
   given Conversion[String, PgnStr] = PgnStr(_)

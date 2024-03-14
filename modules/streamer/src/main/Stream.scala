@@ -1,11 +1,11 @@
 package lila.streamer
 
-import play.api.libs.json.*
 import play.api.i18n.Lang
+import play.api.libs.json.*
 
+import lila.common.Json.given
 import lila.common.String.html.unescapeHtml
 import lila.common.String.removeMultibyteSymbols
-import lila.common.Json.given
 import lila.i18n.Language
 
 trait Stream:

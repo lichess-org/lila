@@ -1,10 +1,10 @@
 package controllers
 
 import play.api.mvc.*
-
-import lila.app.{ given, * }
-import lila.coach.{ Coach as CoachModel, CoachPager, CoachProfileForm }
 import views.*
+
+import lila.app.{*, given}
+import lila.coach.{ Coach as CoachModel, CoachPager, CoachProfileForm }
 import lila.user.Flags
 
 final class Coach(env: Env) extends LilaController(env):

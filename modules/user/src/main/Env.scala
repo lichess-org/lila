@@ -2,12 +2,11 @@ package lila.user
 
 import com.softwaremill.macwire.*
 import com.softwaremill.tagging.*
-import lila.common.autoconfig.{ *, given }
 import play.api.Configuration
 import play.api.libs.ws.StandaloneWSClient
 
+import lila.common.autoconfig.*
 import lila.common.config.*
-import lila.db.dsl.Coll
 
 private class UserConfig(
     @ConfigName("online.ttl") val onlineTtl: FiniteDuration,

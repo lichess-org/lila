@@ -1,15 +1,15 @@
 package lila.importer
 
-import chess.format.pgn.{ ParsedPgn, PgnStr, Parser, Reader }
 import chess.format.Fen
-import chess.{ Color, ByColor, Mode, Outcome, Replay, Status, ErrorStr }
-import chess.format.pgn.Sans
+import chess.format.pgn.{ParsedPgn, Parser, PgnStr, Reader, Sans}
+import chess.{ByColor, Color, ErrorStr, Mode, Outcome, Replay, Status}
 import play.api.data.*
 import play.api.data.Forms.*
+
 import scala.util.chaining.*
 
-import lila.game.*
 import lila.common.Form.into
+import lila.game.*
 
 final class ImporterForm:
 

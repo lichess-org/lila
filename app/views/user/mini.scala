@@ -1,10 +1,10 @@
 package views.html.user
 
-import lila.app.templating.Environment.{ given, * }
+import controllers.routes
+
+import lila.app.templating.Environment.{*, given}
 import lila.app.ui.ScalatagsTemplate.{ *, given }
 import lila.user.User
-
-import controllers.routes
 
 object mini:
 

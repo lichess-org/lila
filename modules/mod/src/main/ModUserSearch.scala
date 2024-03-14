@@ -3,10 +3,8 @@ package lila.mod
 import play.api.data.*
 import play.api.data.Forms.*
 
-import lila.common.{ EmailAddress, IpAddress }
-import lila.user.{ User, UserRepo, UserApi }
-import lila.security.Ip2Proxy
-import lila.security.IsProxy
+import lila.common.EmailAddress
+import lila.user.{User, UserApi, UserRepo}
 
 final class ModUserSearch(userRepo: UserRepo, userApi: UserApi)(using Executor):
 

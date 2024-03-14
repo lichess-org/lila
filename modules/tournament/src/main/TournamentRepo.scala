@@ -1,7 +1,7 @@
 package lila.tournament
 
 import chess.variant.Variant
-import reactivemongo.akkastream.{ cursorProducer, AkkaStreamCursor }
+import reactivemongo.akkastream.{AkkaStreamCursor, cursorProducer}
 
 import lila.common.config.CollName
 import lila.db.dsl.{ *, given }

@@ -1,7 +1,7 @@
 package lila.game
 
 import cats.derived.*
-import chess.{ Ply, Elo, Color, ByColor, PlayerName }
+import chess.{ByColor, Color, Elo, PlayerName, Ply}
 
 import lila.user.User
 

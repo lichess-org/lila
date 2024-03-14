@@ -1,9 +1,10 @@
 package lila.tv
 
-import lila.common.{ licon, LightUser }
+import chess.PlayerTitle
+
+import lila.common.{LightUser, licon}
 import lila.game.{ Game, GameRepo, Pov }
 import lila.hub.SyncActor
-import chess.PlayerTitle
 
 final class Tv(
     gameRepo: GameRepo,

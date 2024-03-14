@@ -3,8 +3,8 @@ package lila.cms
 import play.api.data.*
 import play.api.data.Forms.*
 
-import lila.common.Form.{ cleanNonEmptyText, into, slugConstraint, given }
-import lila.i18n.{ Language, LangForm }
+import lila.common.Form.{cleanNonEmptyText, into, slugConstraint}
+import lila.i18n.{LangForm, Language}
 import lila.user.User
 
 object CmsForm:

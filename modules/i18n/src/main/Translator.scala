@@ -1,7 +1,7 @@
 package lila.i18n
 
-import scalatags.Text.all.*
 import play.api.i18n.Lang
+import scalatags.Text.all.*
 
 import lila.common.String.html.escapeHtml
 

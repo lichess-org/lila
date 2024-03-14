@@ -4,7 +4,7 @@ import lila.db.dsl.{ *, given }
 import lila.memo.PicfitApi
 import lila.notify.NotifyApi
 import lila.security.Granter
-import lila.user.{ Me, User, UserRepo, UserPerfsRepo }
+import lila.user.{Me, User, UserPerfsRepo, UserRepo}
 
 final class CoachApi(
     coachColl: Coll,
@@ -96,4 +96,4 @@ final class CoachApi(
 
   def countrySelection: Fu[CountrySelection] = countriesCache.get {}
 
-  private def withUser(user: User.WithPerfs)(coach: Coach) = Coach.WithUser(coach, user)
+  

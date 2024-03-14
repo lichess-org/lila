@@ -1,8 +1,9 @@
 package lila.api
 
-import play.api.libs.json.{ Json, JsArray }
-import lila.common.config.NetConfig
+import play.api.libs.json.{JsArray, Json}
+
 import lila.common.Json.given
+import lila.common.config.NetConfig
 
 object StaticContent:
 

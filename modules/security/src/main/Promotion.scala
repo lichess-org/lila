@@ -1,8 +1,9 @@
 package lila.security
 
 import com.github.blemale.scaffeine.Cache
-import lila.user.Me
+
 import lila.common.config.NetDomain
+import lila.user.Me
 
 final class PromotionApi(domain: NetDomain):
 

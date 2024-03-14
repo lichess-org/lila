@@ -4,10 +4,10 @@ import play.api.i18n.Lang
 import play.api.libs.json.*
 
 import lila.common.Json.given
-import lila.rating.PerfType
-import lila.user.LightUserApi
 import lila.gathering.Condition
 import lila.gathering.ConditionHandlers.JSONHandlers.given
+import lila.rating.PerfType
+import lila.user.LightUserApi
 
 final class ApiJsonView(lightUserApi: LightUserApi)(using Executor):
 

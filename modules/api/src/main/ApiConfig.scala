@@ -1,8 +1,9 @@
 package lila.api
 
-import lila.common.config.*
-import lila.common.LilaCookie
 import play.api.mvc.RequestHeader
+
+import lila.common.LilaCookie
+import lila.common.config.*
 
 final class ApiConfig(
     val apiToken: Secret,

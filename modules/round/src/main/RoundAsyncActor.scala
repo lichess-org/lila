@@ -1,16 +1,19 @@
 package lila.round
 
-import actorApi.*, round.*
 import alleycats.Zero
 import chess.{ Black, Centis, Color, White }
 import play.api.libs.json.*
+
 import scala.util.chaining.*
 
 import lila.game.{ Event, Game, GameRepo, Player as GamePlayer, Pov, Progress }
-import lila.hub.actorApi.round.{ Abort, BotPlay, FishnetPlay, FishnetStart, IsOnGame, Rematch, Resign }
 import lila.hub.AsyncActor
+import lila.hub.actorApi.round.{ Abort, BotPlay, FishnetPlay, FishnetStart, IsOnGame, Rematch, Resign }
 import lila.room.RoomSocket.{ Protocol as RP, * }
-import lila.socket.{ Socket, SocketVersion, SocketSend, GetVersion, UserLagCache }
+import lila.socket.{GetVersion, Socket, SocketSend, SocketVersion, UserLagCache}
+
+import actorApi.*
+import round.*
 
 final private class RoundAsyncActor(
     dependencies: RoundAsyncActor.Dependencies,

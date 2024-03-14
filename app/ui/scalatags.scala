@@ -2,11 +2,11 @@ package lila.app
 package ui
 
 import alleycats.Zero
+import chess.PlayerTitle
 import ornicar.scalalib.Render
 import scalatags.Text.all.*
-import scalatags.text.Builder
 import scalatags.Text.{ Aggregate, Cap, GenericAttr }
-import chess.PlayerTitle
+import scalatags.text.Builder
 
 import lila.common.licon.Icon
 

@@ -3,11 +3,10 @@ package views.html
 import controllers.routes
 import play.api.data.Form
 
-import lila.app.templating.Environment.{ given, * }
+import lila.app.templating.Environment.{*, given}
 import lila.app.ui.ScalatagsTemplate.{ *, given }
 import lila.common.{ Markdown, MarkdownRender }
 import lila.event.{ Event, EventForm }
-import lila.i18n.LangList
 
 object event:
 

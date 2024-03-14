@@ -1,21 +1,18 @@
 package controllers
 
-import play.api.libs.json.Json
-import play.api.mvc.Request
-import play.api.i18n.Lang
-
 import chess.format.Fen
+import play.api.libs.json.Json
+import play.api.mvc.{Request, Result}
+import views.*
 
-import lila.app.{ given, * }
-import lila.common.{ IpAddress, HTTPRequest, Preload }
+import lila.app.{*, given}
+import lila.common.{HTTPRequest, IpAddress, Preload}
 import lila.game.{ AnonCookie, Pov }
+import lila.memo.RateLimit
 import lila.rating.Perf
 import lila.setup.Processor.HookResult
 import lila.setup.ValidFen
 import lila.socket.Socket.Sri
-import lila.memo.RateLimit
-import views.*
-import play.api.mvc.Result
 
 final class Setup(
     env: Env,

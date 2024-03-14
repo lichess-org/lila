@@ -1,8 +1,8 @@
 package lila.swiss
 
 import lila.db.dsl.{ *, given }
-import lila.swiss.BsonHandlers.given
 import lila.game.Game
+import lila.swiss.BsonHandlers.given
 
 case class SwissBan(_id: UserId, until: Instant, hours: Int)
 

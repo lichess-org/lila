@@ -1,13 +1,12 @@
 package views.html.team
 
-import controllers.team.routes.{ Team as teamRoutes }
+import controllers.routes
+import controllers.team.routes.Team as teamRoutes
 import play.api.i18n.Lang
 
-import lila.app.templating.Environment.{ given, * }
-import lila.app.ui.ScalatagsTemplate.{ *, given }
 import lila.app.mashup.TeamInfo
-
-import controllers.routes
+import lila.app.templating.Environment.{*, given}
+import lila.app.ui.ScalatagsTemplate.{ *, given }
 
 object tournaments:
 

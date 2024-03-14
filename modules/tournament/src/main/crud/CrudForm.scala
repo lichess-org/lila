@@ -1,20 +1,16 @@
 package lila.tournament
 package crud
 
+import chess.variant.Variant
 import play.api.data.*
 import play.api.data.Forms.*
 
-import chess.variant.Variant
-import chess.format.Fen
-import chess.Clock.IncrementSeconds
-import lila.common.Form.{ given, * }
+import lila.common.Form.*
 import lila.user.Me
-import lila.gathering.GatheringClock
 
 final class CrudForm(repo: TournamentRepo, forms: TournamentForm):
 
   import CrudForm.*
-  import TournamentForm.*
 
   def apply(tour: Option[Tournament])(using me: Me) = Form(
     mapping(

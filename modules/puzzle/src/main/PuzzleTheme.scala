@@ -1,6 +1,6 @@
 package lila.puzzle
 
-import lila.i18n.I18nKeys.{ puzzleTheme as i }
+import lila.i18n.I18nKeys.puzzleTheme as i
 import lila.i18n.{ I18nKey, I18nKeys as trans }
 
 case class PuzzleTheme(key: PuzzleTheme.Key, name: I18nKey, description: I18nKey)

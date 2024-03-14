@@ -1,7 +1,7 @@
 package lila.simul
 
-import chess.{ Clock, Status }
 import chess.variant.Variant
+import chess.{ Clock, Status }
 import reactivemongo.api.bson.*
 
 import lila.db.BSON

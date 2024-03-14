@@ -1,11 +1,12 @@
 package lila.user
 
-import java.util.Base64
-import java.security.MessageDigest
-import javax.crypto.Cipher
-import javax.crypto.spec.{ IvParameterSpec, SecretKeySpec }
 import com.roundeights.hasher.Implicits.*
 import ornicar.scalalib.SecureRandom
+
+import java.security.MessageDigest
+import java.util.Base64
+import javax.crypto.Cipher
+import javax.crypto.spec.{ IvParameterSpec, SecretKeySpec }
 
 import lila.common.config.Secret
 

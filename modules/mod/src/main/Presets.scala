@@ -2,12 +2,12 @@ package lila.mod
 
 import play.api.data.Form
 import play.api.data.Forms.*
-
-import lila.memo.SettingStore.{ Formable, StringReader }
-import lila.user.Me
-import lila.security.{ Granter, Permission }
 import reactivemongo.api.bson.BSONHandler
+
 import lila.common.Iso
+import lila.memo.SettingStore.{ Formable, StringReader }
+import lila.security.{ Granter, Permission }
+import lila.user.Me
 
 final class ModPresetsApi(settingStore: lila.memo.SettingStore.Builder):
 

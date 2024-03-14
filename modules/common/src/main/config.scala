@@ -1,8 +1,10 @@
 package lila.common
 
-import lila.common.autoconfig.*
-import scala.jdk.CollectionConverters.*
 import play.api.ConfigLoader
+
+import scala.jdk.CollectionConverters.*
+
+import lila.common.autoconfig.*
 
 object config:
 

@@ -1,10 +1,11 @@
 package controllers
 
-import play.api.mvc.*
 import play.api.i18n.Lang
+import play.api.mvc.*
+
 import scala.util.chaining.*
 
-import lila.app.{ given, * }
+import lila.app.*
 import lila.game.Pov
 
 // both bot & board APIs

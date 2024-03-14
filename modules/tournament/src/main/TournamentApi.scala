@@ -2,22 +2,22 @@ package lila.tournament
 
 import akka.stream.scaladsl.*
 import com.roundeights.hasher.Algo
+import play.api.libs.json.*
+
 import java.nio.charset.StandardCharsets.UTF_8
 import java.security.MessageDigest
-import play.api.libs.json.*
 import scala.util.chaining.*
 
 import lila.common.config.{ MaxPerPage, MaxPerSecond }
 import lila.common.paginator.Paginator
 import lila.common.{ Bus, Debouncer }
 import lila.game.{ Game, GameRepo, LightPov, Pov }
-import lila.hub.LightTeam
-import lila.round.actorApi.round.{ AbortForce, GoBerserk }
-import lila.user.{ User, UserRepo, UserPerfsRepo }
 import lila.gathering.Condition
 import lila.gathering.Condition.GetMyTeamIds
-import lila.user.Me
+import lila.hub.LightTeam
+import lila.round.actorApi.round.{ AbortForce, GoBerserk }
 import lila.tournament.TeamBattle.TeamInfo
+import lila.user.{Me, User, UserPerfsRepo, UserRepo}
 
 final class TournamentApi(
     cached: TournamentCache,

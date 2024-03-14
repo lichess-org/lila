@@ -2,15 +2,12 @@ package lila.challenge
 
 import play.api.i18n.Lang
 
-import lila.i18n.I18nKeys.{ challenge as trans }
+import lila.Lila
+import lila.i18n.I18nKeys.challenge as trans
 import lila.pref.Pref
 import lila.rating.PerfType
 import lila.relation.{ Block, Follow }
-import lila.user.{ User, Me }
-import scala.util.Try
-import lila.user.UserPerfs
-import lila.rating.Perf
-import lila.Lila
+import lila.user.{Me, User}
 
 case class ChallengeDenied(dest: User, reason: ChallengeDenied.Reason)
 

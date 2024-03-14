@@ -1,13 +1,10 @@
 package views.html.team
-
-import controllers.routes
-import controllers.team.routes.{ Team as teamRoutes }
+import controllers.team.routes.Team as teamRoutes
 import play.api.data.Form
 
-import lila.app.templating.Environment.{ given, * }
+import lila.app.templating.Environment.{*, given}
 import lila.app.ui.ScalatagsTemplate.{ *, given }
 import lila.team.{ Team, TeamMember }
-import play.api.i18n.Lang
 
 object form:
 

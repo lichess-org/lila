@@ -1,18 +1,20 @@
 package lila.round
 
-import actorApi.SocketStatus
 import chess.format.Fen
-import chess.{ Speed, ByColor, Clock, Color }
+import chess.{ByColor, Clock, Color, Speed}
 import play.api.libs.json.*
+
 import scala.math
 
-import lila.common.{ Preload, ApiVersion, LightUser }
 import lila.common.Json.given
+import lila.common.{ApiVersion, LightUser, Preload}
 import lila.game.JsonView.given
 import lila.game.{ Game, Player as GamePlayer, Pov }
 import lila.pref.Pref
-import lila.user.{ User, GameUser, GameUsers }
-import lila.rating.{ PerfType, Perf }
+import lila.rating.Perf
+import lila.user.{GameUser, GameUsers, User}
+
+import actorApi.SocketStatus
 
 final class JsonView(
     lightUserGet: LightUser.Getter,

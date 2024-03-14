@@ -2,21 +2,19 @@ package controllers
 
 import chess.Color
 import play.api.data.Form
+import play.api.i18n.Lang
 import play.api.libs.json.*
 import play.api.mvc.*
-import scala.util.chaining.*
 import views.*
 
-import lila.app.{ given, * }
-import lila.common.ApiVersion
+import scala.util.chaining.*
+
+import lila.app.{*, given}
 import lila.common.Json.given
-import lila.common.config.MaxPerSecond
-import lila.puzzle.PuzzleForm
-import lila.puzzle.{ Puzzle as Puz, PuzzleAngle, PuzzleSettings, PuzzleStreak, PuzzleTheme, PuzzleDifficulty }
-import lila.user.User
-import lila.common.LangPath
-import play.api.i18n.Lang
+import lila.common.{ApiVersion, LangPath}
+import lila.puzzle.{Puzzle as Puz, PuzzleAngle, PuzzleDifficulty, PuzzleForm, PuzzleSettings, PuzzleStreak, PuzzleTheme}
 import lila.rating.{ Perf, PerfType }
+import lila.user.User
 
 final class Puzzle(env: Env, apiC: => Api) extends LilaController(env):
 

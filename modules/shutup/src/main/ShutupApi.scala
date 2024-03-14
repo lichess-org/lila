@@ -2,7 +2,7 @@ package lila.shutup
 
 import reactivemongo.api.bson.*
 
-import lila.db.dsl.{ given, * }
+import lila.db.dsl.{*, given}
 import lila.game.GameRepo
 import lila.hub.actorApi.shutup.PublicSource
 import lila.user.UserRepo

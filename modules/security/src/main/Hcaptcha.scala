@@ -1,5 +1,6 @@
 package lila.security
 
+import play.api.ConfigLoader
 import play.api.data.Forms.*
 import play.api.data.{ Form, FormBinding }
 import play.api.libs.json.*
@@ -11,7 +12,6 @@ import play.api.mvc.RequestHeader
 import lila.common.autoconfig.*
 import lila.common.config.*
 import lila.common.{ HTTPRequest, IpAddress }
-import play.api.ConfigLoader
 
 trait Hcaptcha:
 

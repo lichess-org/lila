@@ -2,7 +2,7 @@ package lila.mod
 
 import lila.common.LightUser
 import lila.report.{ Report, ReportApi }
-import lila.user.{ Note, NoteApi, User, UserApi, Me }
+import lila.user.{Me, Note, NoteApi, User, UserApi}
 
 case class Inquiry(
     mod: LightUser,

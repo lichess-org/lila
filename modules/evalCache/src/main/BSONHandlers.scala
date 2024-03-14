@@ -1,9 +1,10 @@
 package lila.evalCache
 
+import chess.format.Uci
 import reactivemongo.api.bson.*
+
 import scala.util.{ Success, Try }
 
-import chess.format.Uci
 import lila.db.dsl.{ *, given }
 import lila.tree.Score
 

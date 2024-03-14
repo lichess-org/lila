@@ -3,7 +3,7 @@ package lila.forum
 import lila.common.paginator.*
 import lila.db.dsl.{ *, given }
 import lila.db.paginator.Adapter
-import lila.user.{ User, Me }
+import lila.user.Me
 
 final class ForumPaginator(
     topicRepo: ForumTopicRepo,

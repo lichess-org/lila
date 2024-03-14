@@ -5,21 +5,22 @@ import play.api.http.ContentTypes
 import play.api.libs.EventSource
 import play.api.libs.json.*
 import play.api.mvc.*
-import scala.language.existentials
-import scala.util.chaining.*
 import scalatags.Text.Frag
 import views.*
 
-import lila.app.{ given, * }
+import scala.language.existentials
+import scala.util.chaining.*
+
 import lila.app.mashup.{ GameFilter, GameFilterMenu }
+import lila.app.{*, given}
 import lila.common.paginator.Paginator
 import lila.common.{ HTTPRequest, IpAddress }
 import lila.game.{ Game as GameModel, Pov }
-import lila.rating.{ Perf, PerfType }
-import lila.socket.UserLagCache
-import lila.user.{ User as UserModel }
-import lila.security.{ Granter, UserLogins }
 import lila.mod.UserWithModlog
+import lila.rating.{ Perf, PerfType }
+import lila.security.{ Granter, UserLogins }
+import lila.socket.UserLagCache
+import lila.user.User as UserModel
 
 final class User(
     override val env: Env,

@@ -1,23 +1,21 @@
 package lila.study
 
-import actorApi.Who
-import chess.{ Color, Centis }
-import chess.format.pgn.{ Glyph, Glyphs }
+import chess.Centis
 import chess.format.UciPath
+import chess.format.pgn.{ Glyph, Glyphs }
 import play.api.libs.json.*
 
 import lila.common.Bus
 import lila.common.Json.{ *, given }
 import lila.room.RoomSocket.{ Protocol as RP, * }
 import lila.socket.RemoteSocket.{ Protocol as P, * }
-import lila.socket.Socket.{ makeMessage, Sri }
+import lila.socket.Socket.{Sri, makeMessage}
 import lila.socket.{ AnaAny, AnaDests, AnaDrop, AnaMove }
-import lila.tree.Branch
-import lila.user.MyId
 import lila.tree.Branch
 import lila.tree.Node.{ Comment, Gamebook, Shape, Shapes }
 
 import actorApi.Who
+
 
 final private class StudySocket(
     api: StudyApi,

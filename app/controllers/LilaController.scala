@@ -1,17 +1,16 @@
 package controllers
 
-import play.api.data.Form
-import play.api.data.FormBinding
+import play.api.data.{Form, FormBinding}
 import play.api.http.*
 import play.api.i18n.Lang
-import play.api.libs.json.{ JsArray, JsNumber, JsObject, JsString, JsValue, Json, Writes }
+import play.api.libs.json.Writes
 import play.api.mvc.*
 
 import lila.app.{ *, given }
-import lila.common.{ ApiVersion, HTTPRequest, config }
-import lila.i18n.{ I18nKey, I18nLangPicker }
-import lila.oauth.{ OAuthScope, OAuthScopes, OAuthServer, EndpointScopes, TokenScopes }
-import lila.security.{ AppealUser, FingerPrintedUser, Granter, Permission }
+import lila.common.{HTTPRequest, config}
+import lila.i18n.I18nLangPicker
+import lila.oauth.{EndpointScopes, OAuthScope, OAuthScopes, OAuthServer, TokenScopes}
+import lila.security.Permission
 
 abstract private[controllers] class LilaController(val env: Env)
     extends BaseController

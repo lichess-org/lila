@@ -1,17 +1,16 @@
 package controllers
 package team
 
-import play.api.data.{ Forms, Form }
 import play.api.data.Forms.*
+import play.api.data.{Form, Forms}
 import play.api.libs.json.*
 import play.api.mvc.*
 import views.*
 
-import lila.app.{ given, * }
-import lila.common.{ config, HTTPRequest, IpAddress, LightUser }
-import lila.team.{ Requesting, Team as TeamModel, TeamMember }
-import lila.user.{ User as UserModel }
-import lila.team.TeamSecurity
+import lila.app.{*, given}
+import lila.common.{HTTPRequest, LightUser, config}
+import lila.team.{Requesting, Team as TeamModel, TeamMember, TeamSecurity}
+import lila.user.User as UserModel
 
 final class Team(env: Env, apiC: => Api) extends LilaController(env):
 

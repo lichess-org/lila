@@ -3,7 +3,8 @@ package lila.db
 import chess.variant.Variant
 import reactivemongo.api.bson.*
 import reactivemongo.api.bson.exceptions.TypeDoesNotMatchException
-import scala.util.{ Failure, Success, Try, NotGiven }
+
+import scala.util.{Failure, NotGiven, Success, Try}
 
 import lila.common.Iso.*
 import lila.common.{ EmailAddress, IpAddress, Iso, NormalizedEmailAddress }

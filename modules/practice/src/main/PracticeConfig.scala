@@ -1,7 +1,8 @@
 package lila.practice
 
-import lila.common.autoconfig.{ *, given }
 import play.api.ConfigLoader
+
+import lila.common.autoconfig.{ *, given }
 
 final class PracticeConfig(val sections: List[PracticeConfigSection]):
 

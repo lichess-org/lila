@@ -1,11 +1,10 @@
 package lila.relay
 
 import reactivemongo.api.bson.Macros.Annotations.Key
-import play.api.i18n.Lang
 
-import lila.user.User
 import lila.i18n.Language
-import lila.memo.{ PicfitUrl, PicfitImage }
+import lila.memo.{PicfitImage, PicfitUrl}
+import lila.user.User
 
 case class RelayTour(
     @Key("_id") id: RelayTour.Id,

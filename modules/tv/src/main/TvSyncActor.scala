@@ -1,6 +1,6 @@
 package lila.tv
 
-import akka.pattern.{ ask as actorAsk }
+import akka.pattern.ask as actorAsk
 import play.api.libs.json.Json
 
 import lila.common.Bus

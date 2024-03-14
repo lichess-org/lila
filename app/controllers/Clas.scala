@@ -7,11 +7,10 @@ import play.api.data.Forms.*
 import play.api.mvc.*
 import views.*
 
-import lila.app.{ given, * }
-
-import lila.clas.ClasInvite
-import lila.clas.Clas.{ Id as ClasId }
+import lila.app.{*, given}
+import lila.clas.Clas.Id as ClasId
 import lila.clas.ClasForm.ClasData
+import lila.clas.ClasInvite
 
 final class Clas(env: Env, authC: Auth) extends LilaController(env):
 

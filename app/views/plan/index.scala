@@ -1,10 +1,11 @@
 package views.html.plan
 
 import controllers.routes
-import java.util.Currency
 import play.api.i18n.Lang
 
-import lila.app.templating.Environment.{ given, * }
+import java.util.Currency
+
+import lila.app.templating.Environment.{*, given}
 import lila.app.ui.ScalatagsTemplate.{ *, given }
 import lila.common.String.html.safeJsonValue
 

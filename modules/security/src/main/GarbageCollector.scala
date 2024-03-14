@@ -1,7 +1,7 @@
 package lila.security
 
-import play.api.mvc.RequestHeader
 import ornicar.scalalib.ThreadLocalRandom
+import play.api.mvc.RequestHeader
 
 import lila.common.{ Bus, EmailAddress, HTTPRequest, IpAddress }
 import lila.user.User

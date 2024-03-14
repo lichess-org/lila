@@ -4,8 +4,8 @@ import chess.{ ByColor, Color }
 
 import lila.analyse.AccuracyPercent
 import lila.common.LilaOpeningFamily
-import lila.insight.{ Filter, InsightApi, InsightDimension, InsightMetric, Phase, Question }
 import lila.common.config.Max
+import lila.insight.{ Filter, InsightApi, InsightDimension, InsightMetric, Phase, Question }
 
 case class TutorColorOpenings(families: List[TutorOpeningFamily]):
   lazy val accuracyCompare = TutorCompare[LilaOpeningFamily, AccuracyPercent](

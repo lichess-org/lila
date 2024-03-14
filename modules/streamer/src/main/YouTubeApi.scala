@@ -1,15 +1,16 @@
 package lila.streamer
 
 import play.api.libs.json.*
-import play.api.libs.ws.JsonBodyReadables.*
 import play.api.libs.ws.DefaultBodyReadables.*
 import play.api.libs.ws.DefaultBodyWritables.*
+import play.api.libs.ws.JsonBodyReadables.*
 import play.api.libs.ws.StandaloneWSClient
 import reactivemongo.api.bson.*
 
-import lila.common.{ given, * }
 import lila.common.config.NetConfig
+import lila.common.{*, given}
 import lila.db.dsl.{ *, given }
+
 import Stream.YouTube
 
 final private class YouTubeApi(

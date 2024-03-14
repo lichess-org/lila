@@ -4,8 +4,7 @@ import play.api.libs.json.*
 import play.api.mvc.*
 import views.*
 
-import lila.app.{ *, given }
-
+import lila.app.*
 import lila.common.Json.given
 
 final class Lobby(env: Env) extends LilaController(env):

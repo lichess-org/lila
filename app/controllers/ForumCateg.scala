@@ -1,7 +1,8 @@
 package controllers
 
-import lila.app.{ given, * }
 import views.*
+
+import lila.app.{*, given}
 import lila.common.config
 import lila.forum.ForumCateg.{ diagnosticId, ublogId }
 import lila.team.Team

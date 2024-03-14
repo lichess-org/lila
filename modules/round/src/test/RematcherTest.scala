@@ -1,9 +1,10 @@
 package lila.round
 
-import Rematcher.*
 import chess.*
 import chess.format.Fen
 import chess.variant.*
+
+import Rematcher.*
 
 class RematcherTest extends munit.FunSuite:
 

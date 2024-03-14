@@ -2,12 +2,13 @@ package lila.tournament
 
 import akka.stream.Materializer
 import akka.stream.scaladsl.*
-import BSONHandlers.given
-import reactivemongo.akkastream.{ cursorProducer, AkkaStreamCursor }
+import reactivemongo.akkastream.{AkkaStreamCursor, cursorProducer}
 import reactivemongo.api.bson.*
 
 import lila.db.dsl.{ *, given }
 import lila.game.Game
+
+import BSONHandlers.given
 
 final class PairingRepo(coll: Coll)(using Executor, Materializer):
 

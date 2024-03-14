@@ -2,8 +2,7 @@ package lila.api
 
 import lila.common.Bus
 import lila.security.Granter
-import lila.user.Me
-import lila.user.{ User, Me }
+import lila.user.{Me, User}
 
 final class AccountClosure(
     userRepo: lila.user.UserRepo,

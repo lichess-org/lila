@@ -1,10 +1,11 @@
 package lila.relay
 
 import akka.actor.*
-import scala.util.matching.Regex
 import com.softwaremill.macwire.*
 import com.softwaremill.tagging.*
 import play.api.libs.ws.StandaloneWSClient
+
+import scala.util.matching.Regex
 
 import lila.common.config.*
 import lila.memo.SettingStore

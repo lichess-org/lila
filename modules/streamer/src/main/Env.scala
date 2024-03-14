@@ -2,9 +2,9 @@ package lila.streamer
 
 import akka.actor.*
 import com.softwaremill.macwire.*
-import lila.common.autoconfig.{ *, given }
 import play.api.{ ConfigLoader, Configuration }
 
+import lila.common.autoconfig.{ *, given }
 import lila.common.config.*
 
 @Module

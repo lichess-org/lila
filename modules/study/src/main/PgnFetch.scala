@@ -1,7 +1,7 @@
 package lila.study
 
-import play.api.libs.ws.StandaloneWSClient
 import chess.format.pgn.PgnStr
+import play.api.libs.ws.StandaloneWSClient
 
 final private class PgnFetch(ws: StandaloneWSClient):
 

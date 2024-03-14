@@ -1,12 +1,12 @@
 package controllers
 
 import play.api.libs.json.*
-import play.api.libs.ws.StandaloneWSClient
 import play.api.libs.ws.JsonBodyReadables.*
+import play.api.libs.ws.StandaloneWSClient
 
-import lila.app.{ given, * }
+import lila.app.{*, given}
 import lila.common.LightUser.lightUserWrites
-import lila.i18n.{ enLang, I18nKeys as trans, I18nLangPicker, LangList }
+import lila.i18n.{I18nKeys as trans, I18nLangPicker, LangList, enLang}
 
 final class Dasher(env: Env)(using ws: StandaloneWSClient) extends LilaController(env):
 

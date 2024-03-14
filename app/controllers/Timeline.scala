@@ -3,10 +3,10 @@ package controllers
 import play.api.libs.json.*
 import views.*
 
-import lila.app.{ given, * }
-import lila.common.config.Max
+import lila.app.{*, given}
 import lila.common.HTTPRequest
 import lila.common.Json.given
+import lila.common.config.Max
 import lila.timeline.Entry.given
 
 final class Timeline(env: Env) extends LilaController(env):

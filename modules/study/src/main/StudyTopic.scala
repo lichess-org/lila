@@ -4,10 +4,10 @@ import play.api.libs.json.*
 import reactivemongo.api.bson.*
 
 import lila.common.LilaFuture
+import lila.common.config.Max
 import lila.db.AsyncColl
 import lila.db.dsl.{ *, given }
 import lila.user.User
-import lila.common.config.Max
 
 opaque type StudyTopic = String
 object StudyTopic extends OpaqueString[StudyTopic]:

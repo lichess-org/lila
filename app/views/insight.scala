@@ -1,14 +1,12 @@
 package views.html
 
+import controllers.routes
+import play.api.i18n.Lang
 import play.api.libs.json.Json
 
-import lila.app.templating.Environment.{ given, * }
+import lila.app.templating.Environment.{*, given}
 import lila.app.ui.ScalatagsTemplate.{ *, given }
-import lila.common.String.html.safeJsonValue
 import lila.user.User
-import play.api.i18n.Lang
-
-import controllers.routes
 
 object insight:
 

@@ -3,8 +3,8 @@ package lila.simul
 import com.softwaremill.macwire.*
 import play.api.Configuration
 
-import lila.common.autoconfig.{ *, given }
 import lila.common.Bus
+import lila.common.autoconfig.{ *, given }
 import lila.common.config.*
 import lila.socket.{ GetVersion, SocketVersion }
 

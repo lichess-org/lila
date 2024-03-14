@@ -1,6 +1,6 @@
 package lila.analyse
 
-import chess.{ Ply, Color }
+import chess.{Color, Ply}
 
 case class Analysis(
     id: Analysis.Id,

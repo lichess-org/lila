@@ -3,6 +3,7 @@ package lila.team
 import reactivemongo.akkastream.cursorProducer
 import reactivemongo.api.*
 import reactivemongo.api.bson.*
+
 import java.time.Period
 
 import lila.db.dsl.{ *, given }

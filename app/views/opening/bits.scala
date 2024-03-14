@@ -1,13 +1,12 @@
 package views.html.opening
 
-import chess.opening.{ OpeningKey, Opening }
+import chess.opening.{Opening, OpeningKey}
 import controllers.routes
 import play.api.libs.json.Json
 import play.api.mvc.Call
 
-import lila.app.templating.Environment.{ given, * }
+import lila.app.templating.Environment.{*, given}
 import lila.app.ui.ScalatagsTemplate.{ *, given }
-import lila.common.String.html.safeJsonValue
 import lila.opening.OpeningQuery.Query
 import lila.opening.{ NameSection, OpeningConfig, OpeningPage, OpeningQuery, ResultCounts }
 

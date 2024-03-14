@@ -1,15 +1,14 @@
 package lila.tournament
 
 import cats.derived.*
-
+import chess.Clock.{IncrementSeconds, LimitSeconds}
 import chess.format.Fen
 import chess.variant.Variant
-import chess.Clock.{ LimitSeconds, IncrementSeconds }
 import play.api.i18n.Lang
 
+import lila.gathering.Condition
 import lila.i18n.I18nKeys
 import lila.rating.PerfType
-import lila.gathering.Condition
 
 case class Schedule(
     freq: Schedule.Freq,

@@ -3,9 +3,8 @@ package lila.notify
 import akka.stream.Materializer
 import akka.stream.scaladsl.*
 
-import lila.user.UserRepo
 import lila.db.dsl.{ *, given }
-import lila.common.LilaStream
+import lila.user.UserRepo
 
 final private class NotifyCli(api: NotifyApi, userRepo: UserRepo)(using Materializer, Executor)
     extends lila.common.Cli:

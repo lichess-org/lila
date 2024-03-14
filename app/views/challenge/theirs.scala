@@ -1,11 +1,11 @@
 package views.html.challenge
 
-import lila.app.templating.Environment.{ given, * }
+import controllers.routes
+
+import lila.app.templating.Environment.{*, given}
 import lila.app.ui.ScalatagsTemplate.{ *, given }
 import lila.challenge.Challenge
 import lila.challenge.Challenge.Status
-
-import controllers.routes
 
 object theirs:
 

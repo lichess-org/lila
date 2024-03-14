@@ -3,14 +3,14 @@ package lila.swiss
 import play.api.i18n.Lang
 import play.api.libs.json.*
 
-import lila.common.LightUser
 import lila.common.Json.given
+import lila.common.LightUser
 import lila.db.dsl.{ *, given }
-import lila.quote.Quote.given
-import lila.socket.{ SocketVersion, given }
-import lila.user.{ User, UserRepo, UserPerfsRepo }
 import lila.gathering.Condition.WithVerdicts
 import lila.gathering.GreatPlayer
+import lila.quote.Quote.given
+import lila.socket.{ SocketVersion, given }
+import lila.user.{User, UserPerfsRepo, UserRepo}
 
 final class SwissJson(
     mongo: SwissMongo,

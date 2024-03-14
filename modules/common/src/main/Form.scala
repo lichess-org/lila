@@ -2,15 +2,15 @@ package lila.common
 
 import chess.Color
 import chess.format.Fen
+import play.api.data.Forms.*
 import play.api.data.format.Formats.*
 import play.api.data.format.Formatter
-import play.api.data.Forms.*
 import play.api.data.validation.{ Constraint, Constraints }
-import play.api.data.{ Field, FormError, Mapping, Form as PlayForm }
-import play.api.data.validation as V
-import scala.util.Try
-import java.time.LocalDate
+import play.api.data.{Field, Form as PlayForm, FormError, Mapping, validation as V}
+
 import java.lang
+import java.time.LocalDate
+import scala.util.Try
 
 object Form:
 

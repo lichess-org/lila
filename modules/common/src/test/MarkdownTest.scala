@@ -1,7 +1,7 @@
 package lila.common
 
 import chess.format.pgn.PgnStr
-import lila.common.LpvEmbed
+
 import lila.common.config.AssetDomain
 
 class MarkdownTest extends munit.FunSuite:

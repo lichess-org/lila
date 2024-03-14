@@ -7,7 +7,7 @@ import lila.game.{ Game, GameRepo, Pov, Rematches }
 import lila.hub.actorApi.map.Tell
 import lila.hub.actorApi.round.{ Abort, Berserk, BotPlay, Rematch, Resign }
 import lila.round.actorApi.round.{ Draw, ResignForce, Takeback }
-import lila.user.{ User, Me }
+import lila.user.Me
 
 final class BotPlayer(
     chatApi: lila.chat.ChatApi,

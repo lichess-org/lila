@@ -1,6 +1,7 @@
 package lila.common
 
 import scala.util.Try
+
 import lila.Lila.Fu
 
 object Chronometer:

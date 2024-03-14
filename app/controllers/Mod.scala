@@ -7,13 +7,14 @@ import play.api.libs.json.Json
 import play.api.mvc.*
 import views.*
 
-import lila.app.{ given, * }
+import scala.annotation.nowarn
+
+import lila.app.{*, given}
 import lila.common.{ EmailAddress, HTTPRequest, IpAddress }
 import lila.mod.ModUserSearch
 import lila.report.{ Mod as AsMod, Suspect }
 import lila.security.{ FingerHash, Granter, Permission }
-import lila.user.{ User as UserModel }
-import scala.annotation.nowarn
+import lila.user.User as UserModel
 
 final class Mod(
     env: Env,

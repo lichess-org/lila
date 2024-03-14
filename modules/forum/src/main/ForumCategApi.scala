@@ -2,7 +2,7 @@ package lila.forum
 
 import lila.common.paginator.*
 import lila.db.dsl.{ *, given }
-import lila.user.{ User, Me }
+import lila.user.Me
 
 final class ForumCategApi(
     postRepo: ForumPostRepo,

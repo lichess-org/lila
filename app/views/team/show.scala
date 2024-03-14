@@ -1,19 +1,18 @@
 package views.html.team
 
 import controllers.routes
-import controllers.team.routes.{ Team as teamRoutes }
+import controllers.team.routes.Team as teamRoutes
 import play.api.libs.json.Json
 
 import lila.app.mashup.TeamInfo
-import lila.app.templating.Environment.{ given, * }
+import lila.app.templating.Environment.{*, given}
 import lila.app.ui.ScalatagsTemplate.{ *, given }
-import lila.common.paginator.Paginator
-import lila.common.String.html.safeJsonValue
 import lila.common.Json.given
-import lila.team.Team
+import lila.common.paginator.Paginator
 import lila.mod.Modlog
 import lila.socket.SocketVersion
 import lila.socket.SocketVersion.given
+import lila.team.Team
 
 object show:
 

@@ -1,17 +1,16 @@
 package controllers
 
-import play.api.i18n.Lang
-import play.api.data.Form
 import play.api.data.Forms.*
+import play.api.i18n.Lang
+import play.api.mvc.Result
 import views.*
 
-import lila.app.{ given, * }
+import lila.app.{*, given}
 import lila.common.config
 import lila.i18n.{ I18nLangPicker, LangList, Language }
 import lila.report.Suspect
 import lila.ublog.{ UblogBlog, UblogPost, UblogRank }
-import lila.user.{ User as UserModel }
-import play.api.mvc.Result
+import lila.user.User as UserModel
 
 final class Ublog(env: Env) extends LilaController(env):
 

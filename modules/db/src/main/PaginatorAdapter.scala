@@ -1,12 +1,14 @@
 package lila.db
 package paginator
 
-import dsl.*
 import reactivemongo.api.*
 import reactivemongo.api.bson.*
+
 import scala.util.chaining.*
 
 import lila.common.paginator.AdapterLike
+
+import dsl.*
 
 final class CachedAdapter[A](
     adapter: AdapterLike[A],

@@ -1,40 +1,32 @@
 package lila.common
 
+import chess.format.pgn.PgnStr
+import com.vladsch.flexmark.ast.{ AutoLink, Image, Link, LinkNode }
 import com.vladsch.flexmark.ext.autolink.AutolinkExtension
 import com.vladsch.flexmark.ext.gfm.strikethrough.StrikethroughExtension
-import com.vladsch.flexmark.ext.tables.{ TablesExtension, TableBlock }
+import com.vladsch.flexmark.ext.tables.{TableBlock, TablesExtension}
+import com.vladsch.flexmark.html.renderer.{AttributablePart, CoreNodeRenderer, LinkResolverContext, LinkType, NodeRenderer, NodeRendererContext, NodeRendererFactory, NodeRenderingHandler, ResolvedLink}
 import com.vladsch.flexmark.html.{
   AttributeProvider,
   HtmlRenderer,
   HtmlWriter,
   IndependentAttributeProviderFactory
 }
-import com.vladsch.flexmark.html.renderer.{
-  AttributablePart,
-  CoreNodeRenderer,
-  LinkResolverContext,
-  LinkType,
-  NodeRenderer,
-  NodeRendererContext,
-  NodeRendererFactory,
-  NodeRenderingHandler
-}
 import com.vladsch.flexmark.parser.Parser
 import com.vladsch.flexmark.util.ast.{ Node, TextCollectingVisitor }
 import com.vladsch.flexmark.util.data.{ DataHolder, MutableDataHolder, MutableDataSet }
 import com.vladsch.flexmark.util.html.MutableAttributes
-import com.vladsch.flexmark.ast.{ AutoLink, Image, Link, LinkNode }
+import com.vladsch.flexmark.util.misc.Extension
 import io.mola.galimatias.URL
+
 import java.util.Arrays
 import scala.collection.Set
 import scala.jdk.CollectionConverters.*
 import scala.util.Try
-import com.vladsch.flexmark.util.misc.Extension
-import lila.base.RawHtml
-import com.vladsch.flexmark.html.renderer.ResolvedLink
-import chess.format.pgn.PgnStr
-import lila.common.config.AssetDomain
 import scala.util.matching.Regex
+
+import lila.base.RawHtml
+import lila.common.config.AssetDomain
 
 final class MarkdownRender(
     autoLink: Boolean = true,

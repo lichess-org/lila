@@ -1,10 +1,11 @@
 package lila
 package team
 
-import lila.user.{ Me, User, UserRepo }
-import lila.security.Granter
-import lila.memo.CacheApi.*
 import cats.derived.*
+
+import lila.memo.CacheApi.*
+import lila.security.Granter
+import lila.user.{ Me, User, UserRepo }
 
 object TeamSecurity:
   enum Permission(val name: String, val desc: String) derives Eq:

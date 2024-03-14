@@ -1,11 +1,10 @@
 package views.html.auth
 
+import controllers.routes
 import play.api.data.Form
 
-import lila.app.templating.Environment.{ given, * }
+import lila.app.templating.Environment.{*, given}
 import lila.app.ui.ScalatagsTemplate.{ *, given }
-
-import controllers.routes
 
 object checkYourEmail:
 

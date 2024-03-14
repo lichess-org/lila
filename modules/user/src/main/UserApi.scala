@@ -1,16 +1,13 @@
 package lila.user
 
-import reactivemongo.akkastream.{ cursorProducer, AkkaStreamCursor }
-import reactivemongo.api.bson.*
-import akka.stream.scaladsl.*
 import chess.{ ByColor, PlayerTitle }
+import reactivemongo.akkastream.cursorProducer
+import reactivemongo.api.bson.*
 
-import lila.rating.{ Perf, PerfType }
-import lila.memo.CacheApi
 import lila.common.{ LightUser, NormalizedEmailAddress }
 import lila.db.dsl.{ *, given }
-import lila.db.BSON.Reader
-import lila.rating.Glicko
+import lila.memo.CacheApi
+import lila.rating.{Glicko, Perf, PerfType}
 import lila.user.User.userHandler
 
 final class UserApi(userRepo: UserRepo, perfsRepo: UserPerfsRepo, cacheApi: CacheApi)(using

@@ -1,7 +1,7 @@
 package lila.ublog
 
-import lila.user.{ Me, User }
 import lila.security.Granter
+import lila.user.{ Me, User }
 
 case class UblogBlog(
     _id: UblogBlog.Id,

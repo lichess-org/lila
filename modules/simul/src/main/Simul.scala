@@ -1,10 +1,9 @@
 package lila.simul
 
-import ornicar.scalalib.ThreadLocalRandom
-import chess.Color
 import chess.format.Fen
 import chess.variant.Variant
-import chess.Speed
+import chess.{Color, Speed}
+import ornicar.scalalib.ThreadLocalRandom
 
 import lila.rating.PerfType
 import lila.user.User

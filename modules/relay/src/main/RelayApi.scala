@@ -4,15 +4,16 @@ import akka.stream.scaladsl.*
 import alleycats.Zero
 import play.api.libs.json.*
 import reactivemongo.api.bson.*
+
 import scala.util.chaining.*
 
 import lila.common.config.{ Max, MaxPerSecond }
 import lila.db.dsl.{ *, given }
-import lila.memo.{ PicfitApi, CacheApi }
-import lila.study.{ Settings, Study, StudyApi, StudyId, StudyMaker, StudyRepo, StudyTopic, ChapterPreviewApi }
-import lila.security.Granter
-import lila.user.{ User, Me, MyId }
+import lila.memo.{CacheApi, PicfitApi}
 import lila.relay.RelayRound.WithTour
+import lila.security.Granter
+import lila.study.{ChapterPreviewApi, Settings, Study, StudyApi, StudyId, StudyMaker, StudyRepo, StudyTopic}
+import lila.user.{Me, MyId, User}
 
 final class RelayApi(
     roundRepo: RelayRoundRepo,

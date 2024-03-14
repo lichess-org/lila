@@ -1,13 +1,13 @@
 package controllers
 package appeal
 
+import play.api.data.Form
 import play.api.mvc.Result
 import views.*
 
-import lila.app.{ given, * }
-import lila.appeal.{ Appeal as AppealModel }
-import lila.report.{ Suspect, Mod }
-import play.api.data.Form
+import lila.app.{*, given}
+import lila.appeal.Appeal as AppealModel
+import lila.report.Suspect
 
 final class Appeal(env: Env, reportC: => report.Report, userC: => User) extends LilaController(env):
 

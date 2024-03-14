@@ -1,10 +1,11 @@
 package lila.swiss
 
 import akka.stream.scaladsl.*
-import BsonHandlers.given
 import reactivemongo.akkastream.cursorProducer
 
 import lila.db.dsl.{ *, given }
+
+import BsonHandlers.given
 
 private case class SwissSheet(outcomes: List[SwissSheet.Outcome]):
   import SwissSheet.*

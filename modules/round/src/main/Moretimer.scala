@@ -1,10 +1,10 @@
 package lila.round
 
-import chess.{ Color, ByColor }
+import chess.{ByColor, Color}
 
+import lila.common.Preload
 import lila.game.{ Event, Game, Pov, Progress }
 import lila.pref.{ Pref, PrefApi }
-import lila.common.Preload
 
 final class Moretimer(
     messenger: Messenger,

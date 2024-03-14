@@ -1,10 +1,10 @@
 package lila.security
 
-import play.api.libs.ws.StandaloneWSClient
-import play.api.libs.ws.JsonBodyReadables.*
-import play.api.libs.ws.DefaultBodyReadables.*
 import com.roundeights.hasher.Implicits.*
 import play.api.libs.json.JsValue
+import play.api.libs.ws.DefaultBodyReadables.*
+import play.api.libs.ws.JsonBodyReadables.*
+import play.api.libs.ws.StandaloneWSClient
 
 // https://github.com/lichess-org/lila-pwned
 final class Pwned(ws: StandaloneWSClient, url: String)(using Executor):

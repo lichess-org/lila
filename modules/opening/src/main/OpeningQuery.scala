@@ -1,11 +1,11 @@
 package lila.opening
 
-import chess.format.{ Fen, Uci }
-import chess.format.pgn.{ SanStr, PgnMovesStr, PgnStr }
-import chess.opening.{ Opening, OpeningDb, OpeningKey, OpeningName }
-import chess.Replay
-import chess.variant.Standard
 import chess.MoveOrDrop.*
+import chess.Replay
+import chess.format.pgn.{PgnMovesStr, PgnStr, SanStr}
+import chess.format.{ Fen, Uci }
+import chess.opening.{ Opening, OpeningDb, OpeningKey, OpeningName }
+import chess.variant.Standard
 
 case class OpeningQuery(replay: Replay, config: OpeningConfig):
   export replay.state.sans

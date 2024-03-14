@@ -1,10 +1,10 @@
 package views.html.user.show
 
-import lila.app.templating.Environment.{ given, * }
+import controllers.routes
+
+import lila.app.templating.Environment.{*, given}
 import lila.app.ui.ScalatagsTemplate.{ *, given }
 import lila.user.{ Trophy, TrophyKind }
-
-import controllers.routes
 
 object otherTrophies:
 

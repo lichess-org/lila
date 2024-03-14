@@ -4,10 +4,10 @@ import akka.actor.{ CoordinatedShutdown, Scheduler }
 import chess.{ Centis, Color }
 import io.lettuce.core.*
 import io.lettuce.core.pubsub.StatefulRedisPubSubConnection as PubSub
-import java.util.concurrent.atomic.AtomicReference
 import play.api.libs.json.*
+
+import java.util.concurrent.atomic.AtomicReference
 import scala.util.chaining.*
-import lila.socket.Socket.Sri
 
 import lila.common.{ Bus, Lilakka }
 import lila.hub.actorApi.Announce
@@ -16,6 +16,7 @@ import lila.hub.actorApi.round.Mlat
 import lila.hub.actorApi.security.CloseAccount
 import lila.hub.actorApi.socket.remote.{ TellSriIn, TellSriOut, TellSrisOut, TellUserIn }
 import lila.hub.actorApi.socket.{ ApiUserIsOnline, SendTo, SendToOnlineUser, SendTos }
+import lila.socket.Socket.Sri
 
 final class RemoteSocket(redisClient: RedisClient, shutdown: CoordinatedShutdown)(using Executor, Scheduler):
 

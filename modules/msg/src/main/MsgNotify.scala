@@ -1,11 +1,12 @@
 package lila.msg
 
 import akka.actor.Cancellable
+
 import java.util.concurrent.ConcurrentHashMap
 
-import lila.db.dsl.{ *, given }
-import lila.notify.{ PrivateMessage }
 import lila.common.String.shorten
+import lila.db.dsl.{ *, given }
+import lila.notify.PrivateMessage
 import lila.user.User
 
 final private class MsgNotify(

@@ -2,8 +2,8 @@ package lila.study
 
 import alleycats.Zero
 
-import lila.hub.AsyncActorSequencers
 import lila.common.config.Max
+import lila.hub.AsyncActorSequencers
 
 final private class StudySequencer(
     studyRepo: StudyRepo,

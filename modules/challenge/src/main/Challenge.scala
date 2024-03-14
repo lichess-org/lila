@@ -1,7 +1,6 @@
 package lila.challenge
 
 import cats.derived.*
-
 import chess.format.Fen
 import chess.variant.{ Chess960, FromPosition, Horde, RacingKings, Variant }
 import chess.{ Color, Mode, Speed }
@@ -11,7 +10,7 @@ import lila.common.Days
 import lila.game.{ Game, GameRule }
 import lila.i18n.{ I18nKey, I18nKeys }
 import lila.rating.PerfType
-import lila.user.{ Me, User, GameUser }
+import lila.user.{GameUser, Me, User}
 
 case class Challenge(
     _id: Challenge.Id,

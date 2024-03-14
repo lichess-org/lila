@@ -1,14 +1,15 @@
 package lila.round
 
-import scala.util.matching.Regex
 import akka.actor.*
 import com.softwaremill.macwire.*
 import com.softwaremill.tagging.*
 import play.api.Configuration
 
+import scala.util.matching.Regex
+
+import lila.common.autoconfig.{ *, given }
 import lila.common.config.*
 import lila.common.{ Bus, Uptime }
-import lila.common.autoconfig.{ *, given }
 import lila.game.{ Game, GameRepo, Pov }
 import lila.hub.actorApi.round.{ Abort, Resign }
 import lila.hub.actorApi.simul.GetHostIds

@@ -1,12 +1,12 @@
 package views.html.analyse
 
-import play.api.libs.json.{ Json, JsObject }
-
-import lila.app.templating.Environment.{ given, * }
-import lila.app.ui.ScalatagsTemplate.{ *, given }
-import lila.common.String.html.safeJsonValue
 import chess.Color
 import chess.format.pgn.PgnStr
+import play.api.libs.json.{JsObject, Json}
+
+import lila.app.templating.Environment.{*, given}
+import lila.app.ui.ScalatagsTemplate.{ *, given }
+import lila.common.String.html.safeJsonValue
 
 object embed:
 

@@ -1,11 +1,10 @@
 package lila.game
 
-import com.github.blemale.scaffeine.Cache
-
 import chess.Division
-import chess.variant.Variant
 import chess.format.Fen
 import chess.format.pgn.SanStr
+import chess.variant.Variant
+import com.github.blemale.scaffeine.Cache
 
 final class Divider:
 

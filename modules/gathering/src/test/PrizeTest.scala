@@ -1,6 +1,5 @@
 package lila.gathering
 
-import scalatags.Text.all.*
 
 class PrizeTest extends munit.FunSuite:
 

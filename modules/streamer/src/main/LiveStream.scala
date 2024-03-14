@@ -1,9 +1,6 @@
 package lila.streamer
-
-import play.api.mvc.RequestHeader
-
-import lila.memo.CacheApi.*
 import lila.i18n.Language
+import lila.memo.CacheApi.*
 
 case class LiveStreams(streams: List[Stream]):
 

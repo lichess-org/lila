@@ -2,6 +2,7 @@ package lila.app
 package templating
 
 import play.api.i18n.Lang
+
 import ui.ScalatagsTemplate.*
 
 trait StringHelper:

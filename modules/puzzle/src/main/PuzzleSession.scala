@@ -1,11 +1,12 @@
 package lila.puzzle
 
 import chess.Color
+
 import scala.util.chaining.*
 
 import lila.memo.CacheApi
-import lila.user.{ User, Me }
 import lila.rating.Perf
+import lila.user.{Me, User}
 
 private case class PuzzleSession(
     settings: PuzzleSettings,

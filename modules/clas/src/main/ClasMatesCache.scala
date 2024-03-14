@@ -4,7 +4,6 @@ import reactivemongo.api.bson.BSONNull
 
 import lila.db.dsl.{ *, given }
 import lila.memo.CacheApi
-import reactivemongo.core.errors.DatabaseException
 
 final class ClasMatesCache(colls: ClasColls, cacheApi: CacheApi, studentCache: ClasStudentCache)(using
     Executor

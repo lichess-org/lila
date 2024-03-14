@@ -1,14 +1,12 @@
 package lila.study
 
-import chess.{ Color, FideId }
 import chess.format.pgn.Tags
 import chess.format.{ Fen, Uci }
-import chess.{ ByColor, Centis, Color, Outcome, PlayerName, PlayerTitle, Elo }
+import chess.{ByColor, Centis, Color, Elo, FideId, Outcome, PlayerName, PlayerTitle}
 import play.api.libs.json.*
 import reactivemongo.api.bson.*
 
 import lila.db.dsl.{ *, given }
-import com.github.blemale.scaffeine.AsyncLoadingCache
 import lila.fide.Federation
 
 case class ChapterPreview(
@@ -36,7 +34,6 @@ final class ChapterPreviewApi(
 
   import ChapterPreview.AsJsons
   import ChapterPreview.bson.{ projection, given }
-  import ChapterPreview.json.given
 
   object jsonList:
     // Can't be higher without skewing the clocks
@@ -94,7 +91,7 @@ object ChapterPreview:
         Player(n | PlayerName("Unknown player"), t, e, c, f, te)
 
   object json:
-    import lila.common.Json.{ writeAs, given }
+    import lila.common.Json.{ given }
 
     def readFirstId(js: AsJsons): Option[StudyChapterId] = for
       arr <- js.asOpt[JsArray]

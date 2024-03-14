@@ -1,14 +1,14 @@
 package lila.app
 package templating
 
-import chess.{ Black, Clock, Color, Mode, Outcome, Ply, White, Status as S }
+import chess.{Black, Clock, Color, Mode, Outcome, Ply, Status as S, White}
 import controllers.routes
 import play.api.i18n.Lang
 
 import lila.app.ui.ScalatagsTemplate.{ *, given }
-import lila.game.{ Game, Namer, Player, LightPlayer, Pov }
-import lila.i18n.{ defaultLang, I18nKeys as trans }
 import lila.common.LightUser
+import lila.game.{Game, LightPlayer, Namer, Player, Pov}
+import lila.i18n.{I18nKeys as trans, defaultLang}
 
 trait GameHelper:
   self: RouterHelper & I18nHelper & UserHelper & AiHelper & StringHelper & NumberHelper & ChessgroundHelper =>

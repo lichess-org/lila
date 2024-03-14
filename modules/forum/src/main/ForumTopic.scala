@@ -1,7 +1,8 @@
 package lila.forum
 
-import scala.util.chaining.*
 import ornicar.scalalib.ThreadLocalRandom
+
+import scala.util.chaining.*
 
 import lila.common.config.MaxPerPage
 import lila.user.User
