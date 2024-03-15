@@ -27,6 +27,8 @@ on:
       - 'lila'
       - 'conf/application.conf.default'
       - '.sbtopts.default'
+env:
+  SBT_OPTS: '-Xmx2048M'
 
 jobs:
   build:
