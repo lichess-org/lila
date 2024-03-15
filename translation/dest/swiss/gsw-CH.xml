@@ -39,6 +39,16 @@
   <string name="roundInterval">Zitabschtand zwüschet de Runde</string>
   <string name="forbiddenPairings">Verboteni Paarig</string>
   <string name="forbiddenPairingsHelp">Benutzernäme vu Schpiller wo nöd gägenand schpille dörfed (z. B. Gschwüschter). Zwei Näme pro Zile, trännt dur e Leerschtell.</string>
+  <string name="manualPairings">Nächschti Rundi mit manueller Paarig</string>
+  <string name="manualPairingsHelp">Mach all Paarige vu de nächschte Rundi. 1 Paarig pro Zile. Bischpil:
+SchpilerA SchpilerB
+SchpilerC SchpilerD
+Wänn en Schpiler es Freilos hät (1 Punkt) machsch e Zile wie folgt...
+SchpilerE 1
+Fehlendi Schpiler werded als abwesend betrachtet und kassiered en Nuller.
+Lass das Fäld leer, dass Lichess automatisch Paarige erschtellt.</string>
+  <string name="mustHavePlayedTheirLastSwissGame">Muess scho Turnier nach Schweizer System g\'schpillt ha</string>
+  <string name="mustHavePlayedTheirLastSwissGameHelp">Lass nur Schpiler mitmache, wo scho Turnier nach Schweizer System g\'schpillt händ. Wänn sie das no nöd händ, sötteds au nöd bi dim Turnier mitschpille. Das hilft debi, dass die usgwählte Teilnehmer besseri Erfahrig mit em Schweizer System händ.</string>
   <string name="newSwiss">Neus Turnier nach \"Schweizer System\"</string>
   <string name="swissVsArenaQ">Wänn nach \"Schweizer System\" anstatt Arena Turnier?</string>
   <string name="swissVsArenaA">Bim Turnier nach \"Schweizer System\" schpilled alli Teilnehmer die glich Azahl Schpiel und mer trifft, 
@@ -127,4 +137,7 @@ mit ähnlichem Rang</string>
   <string name="predefinedUsers">Nur vordefinierte Benutzer s\'Mitmache erlaube</string>
   <string name="forbiddedUsers">Wänn die Lischte nöd leer isch, dörfed Benutzer, wo nöd uf dere Lischte stöhnd, nöd Teilneh. Nur ein Nutzername pro Zile.</string>
   <string name="playYourGames">Schpill dini Partie</string>
+  <string name="byes">Freilos</string>
+  <string name="absences">Absänze</string>
+  <string name="tieBreak">Tie Break</string>
 </resources>
