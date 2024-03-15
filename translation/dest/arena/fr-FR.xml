@@ -61,7 +61,7 @@ Jouez vite et retournez à la page d\'accueil du tournoi pour jouer plus de part
   <string name="myTournaments">Mes tournois</string>
   <string name="editTournament">Modifier le tournoi</string>
   <string name="editTeamBattle">Modifier la bataille en équipe</string>
-  <string name="defender" comment="In this context, this is the current holder of a shield trophy, who are defending their trophy in the next shield tournament of that variant. https://lichess.org/tournament/shields">Défenseur</string>
+  <string name="defender" comment="In this context, this is the current holder of a shield trophy, who is defending their trophy in the next shield tournament of that variant. https://lichess.org/tournament/shields">Défenseur</string>
   <string name="pickYourTeam">Choisissez votre équipe</string>
   <string name="whichTeamWillYouRepresentInThisBattle">Quelle équipe représenterez-vous dans cette bataille?</string>
   <string name="youMustJoinOneOfTheseTeamsToParticipate">Vous devez rejoindre l\'une de ces équipes pour participer!</string>
@@ -80,7 +80,7 @@ Par exemple, être classé 3e dans un tournoi de 100 joueurs = 3 %. Être class
   <string name="pointsSum">Somme des points</string>
   <string name="rankAvg">Classement moyen</string>
   <string name="tournamentWinners">Vainqueurs du tournoi</string>
-  <string name="tournamentShields">Tournoi des Boucliers</string>
+  <string name="tournamentShields">Tournois des Boucliers</string>
   <string name="onlyTitled">Uniquement les joueurs titrés</string>
   <string name="onlyTitledHelp">Un titre officiel est requis pour participer au tournoi</string>
 </resources>

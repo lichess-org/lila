@@ -58,12 +58,12 @@ Beachte, dass es mit einem einzelnen Springer oder Läufer möglich ist ein Matt
   <string name="discoveringEnPassant">Warum kann ein Bauer einen anderen Bauern schlagen, wenn er bereits vorbei gezogen ist? (en passant)</string>
   <string name="explainingEnPassant">Dies ist ein regelgemäßer Zug, bekannt als \"en passant\". Der Wikipedia-Artikel gibt einen %1$s.
 
-Dies wird in Abschnitt 3.7 der %2$s beschrieben.
+Abschnitte 3.7.3.1 and 3.7.3.2 des %2$s beschreiben die Regeln:
 
 \"Ein Bauer, der auf derselben Reihe auf einem unmittelbar angrenzenden Feld wie ein gegnerischer Bauer, der soeben zwei Felder von seiner Anfangsstellung vorgerückt ist, steht, darf diesen gegnerischen Bauern so schlagen, als ob letzterer nur um ein Feld vorgerückt wäre. Dieses Schlagen ist nur in dem unmittelbar nachfolgenden Zug regelgemäß und wird \'Schlagen en passant\' genannt.\"
 
 Siehe %3$s für etwas Übung mit dieser Art von Zug.</string>
-  <string name="goodIntroduction">guter ersten Eindruck</string>
+  <string name="goodIntroduction">guten ersten Eindruck</string>
   <string name="lichessTraining">Lichess-Training</string>
   <string name="watchIMRosenCheckmate">Sieh dir an, wie der internationale Meister Eric Rosen %s Matt setzt.</string>
   <string name="threefoldRepetition">Dreifache Stellungswiederholung</string>

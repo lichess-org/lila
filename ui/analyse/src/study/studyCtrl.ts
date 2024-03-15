@@ -162,7 +162,7 @@ export default class StudyCtrl {
         this.data.id,
         relayData,
         this.send,
-        this.redrawAndUpdateAddressBar,
+        (redrawOnly = false) => (redrawOnly ? this.redraw() : this.redrawAndUpdateAddressBar()),
         this.members,
         this.chapters.list,
         this.multiCloudEval,
@@ -250,6 +250,8 @@ export default class StudyCtrl {
     if (this.members.canContribute()) this.form.openIfNew();
 
     this.instanciateGamebookPlay();
+
+    window.addEventListener('popstate', () => window.location.reload());
   }
 
   send = this.ctrl.socket.send;

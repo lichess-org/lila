@@ -46,6 +46,7 @@ object BuildSettings {
       )
 
   val compilerOptions = Seq(
+    "-Ybackend-parallelism:16", // https://github.com/scala/scala3/pull/15392
     // "-nowarn", // during migration
     // "-rewrite",
     // "-source:3.4-migration",
