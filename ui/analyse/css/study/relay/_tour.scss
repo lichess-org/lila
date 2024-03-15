@@ -124,11 +124,18 @@
       }
     }
     &__round-select {
+      .fullscreen-mask {
+        display: block;
+      }
       .mselect__list {
         display: table;
         left: unset;
         right: 0;
         overflow: hidden;
+        transform: unset;
+        > * {
+          opacity: unset;
+        }
         tr {
           display: table-row;
           &.current-round {

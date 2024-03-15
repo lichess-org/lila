@@ -91,32 +91,35 @@ const groupSelect = (relay: RelayCtrl, group: RelayGroup) =>
 
 const roundSelect = (relay: RelayCtrl, study: StudyCtrl) =>
   h('div.mselect.relay-tour__header__mselect.relay-tour__header__round-select', [
-    h('input#mselect-relay-round.mselect__toggle.fullscreen-toggle', { attrs: { type: 'checkbox' } }),
     h(
       'label.mselect__label',
-      { attrs: { for: 'mselect-relay-round' } },
+      { hook: bind('click', relay.roundSelectShow.toggle, relay.redraw) },
       relay.data.rounds.find(r => r.id == study.data.id)?.name || study.data.name,
     ),
-    h('label.fullscreen-mask', { attrs: { for: 'mselect-relay-round' } }),
-    h(
-      'table.mselect__list',
-      {
-        hook: bind('click', (e: MouseEvent) => {
-          const target = e.target as HTMLElement;
-          if (target.tagName != 'A') site.redirect($(target).parents('tr').find('a').attr('href')!);
-        }),
-      },
-      relay.data.rounds.map(round =>
-        h(`tr${round.id == study.data.id ? '.current-round' : ''}`, [
-          h('td.name', h('a', { attrs: { href: relay.roundPath(round) } }, round.name)),
-          h('td.time', round.startsAt ? site.dateFormat()(new Date(round.startsAt)) : '-'),
+    ...(relay.roundSelectShow()
+      ? [
+          h('label.fullscreen-mask', { hook: bind('click', relay.roundSelectShow.toggle, relay.redraw) }),
           h(
-            'td.status',
-            roundStateIcon(round) || (round.startsAt ? site.timeago(round.startsAt) : undefined),
+            'table.mselect__list',
+            {
+              hook: bind('click', (e: MouseEvent) => {
+                const target = e.target as HTMLElement;
+                if (target.tagName != 'A') site.redirect($(target).parents('tr').find('a').attr('href')!);
+              }),
+            },
+            relay.data.rounds.map(round =>
+              h(`tr${round.id == study.data.id ? '.current-round' : ''}`, [
+                h('td.name', h('a', { attrs: { href: relay.roundPath(round) } }, round.name)),
+                h('td.time', round.startsAt ? site.dateFormat()(new Date(round.startsAt)) : '-'),
+                h(
+                  'td.status',
+                  roundStateIcon(round) || (round.startsAt ? site.timeago(round.startsAt) : undefined),
+                ),
+              ]),
+            ),
           ),
-        ]),
-      ),
-    ),
+        ]
+      : []),
   ]);
 
 const games = (relay: RelayCtrl, study: StudyCtrl, ctrl: AnalyseCtrl) => [
