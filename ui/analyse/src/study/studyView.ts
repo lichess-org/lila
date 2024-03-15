@@ -55,7 +55,8 @@ function buttons(root: AnalyseCtrl): VNode {
   const ctrl: StudyCtrl = root.study!,
     canContribute = ctrl.members.canContribute(),
     showSticky = ctrl.data.features.sticky && (canContribute || (ctrl.vm.behind && ctrl.isUpdatedRecently())),
-    noarg = root.trans.noarg;
+    noarg = root.trans.noarg,
+    gbButton = gbOverrideButton(ctrl);
   return h('div.study__buttons', [
     h('div.left-buttons.tabs-horiz', { attrs: { role: 'tablist' } }, [
       // distinct classes (sync, write) allow snabbdom to differentiate buttons
@@ -69,7 +70,7 @@ function buttons(root: AnalyseCtrl): VNode {
           },
           [ctrl.vm.behind ? h('span.behind', '' + ctrl.vm.behind) : h('i.is'), 'SYNC'],
         ),
-      ctrl.members.canContribute() &&
+      canContribute &&
         h(
           'a.mode.write',
           {
@@ -80,16 +81,17 @@ function buttons(root: AnalyseCtrl): VNode {
           [h('i.is'), 'REC'],
         ),
       toolButton({ ctrl, tab: 'tags', hint: noarg('pgnTags'), icon: iconTag(licon.Tag) }),
-      toolButton({
-        ctrl,
-        tab: 'comments',
-        hint: noarg('commentThisPosition'),
-        icon: iconTag(licon.BubbleSpeech),
-        onClick() {
-          ctrl.commentForm.start(ctrl.vm.chapterId, root.path, root.node);
-        },
-        count: (root.node.comments || []).length,
-      }),
+      canContribute &&
+        toolButton({
+          ctrl,
+          tab: 'comments',
+          hint: noarg('commentThisPosition'),
+          icon: iconTag(licon.BubbleSpeech),
+          onClick() {
+            ctrl.commentForm.start(ctrl.vm.chapterId, root.path, root.node);
+          },
+          count: (root.node.comments || []).length,
+        }),
       canContribute &&
         toolButton({
           ctrl,
@@ -98,13 +100,14 @@ function buttons(root: AnalyseCtrl): VNode {
           icon: h('i.glyph-icon'),
           count: (root.node.glyphs || []).length,
         }),
-      toolButton({
-        ctrl,
-        tab: 'serverEval',
-        hint: noarg('computerAnalysis'),
-        icon: iconTag(licon.BarChart),
-        count: root.data.analysis && '✓',
-      }),
+      (canContribute || root.data.analysis) &&
+        toolButton({
+          ctrl,
+          tab: 'serverEval',
+          hint: noarg('computerAnalysis'),
+          icon: iconTag(licon.BarChart),
+          count: root.data.analysis && '✓',
+        }),
       toolButton({ ctrl, tab: 'multiBoard', hint: 'Multiboard', icon: iconTag(licon.Multiboard) }),
       toolButton({ ctrl, tab: 'share', hint: noarg('shareAndExport'), icon: iconTag(licon.NodeBranching) }),
       !ctrl.relay &&
@@ -114,7 +117,7 @@ function buttons(root: AnalyseCtrl): VNode {
           hook: bind('click', ctrl.startTour),
         }),
     ]),
-    h('div.right', [gbOverrideButton(ctrl)]),
+    gbButton && h('div.right', gbButton),
   ]);
 }
 

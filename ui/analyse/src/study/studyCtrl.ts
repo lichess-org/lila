@@ -121,7 +121,7 @@ export default class StudyCtrl {
     this.vm = {
       loading: false,
       tab: prop<Tab>(!relayData && data.chapters.length > 1 ? 'chapters' : 'members'),
-      toolTab: prop<ToolTab>('tags'),
+      toolTab: prop<ToolTab>(relayData ? 'multiBoard' : 'tags'),
       chapterId: sticked ? data.position.chapterId : data.chapter.id,
       // path is at ctrl.path
       mode: {
