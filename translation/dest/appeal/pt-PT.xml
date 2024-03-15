@@ -10,5 +10,12 @@
   <string name="accountMuted">A tua conta foi silenciada.</string>
   <string name="accountMutedInfo">Leia as nossas %s. O não cumprimento das diretrizes de comunicação pode resultar no silenciamento das contas.</string>
   <string name="excludedFromLeaderboards">A tua conta foi excluída das tabelas de classificação.</string>
+  <string name="excludedFromLeaderboardsInfo">Definimos isto como a utilização de qualquer forma injusta para entrar na tabela de liderança.</string>
+  <string name="closedByModerators">A tua conta foi encerrada pelos moderadores.</string>
+  <string name="hiddenBlog">Os teus blogues foram ocultados pelos moderadores.</string>
+  <string name="hiddenBlogInfo">Certifica que leias novamente as nossas %s.</string>
+  <string name="playTimeout">Estás temporariamente impedido de jogar.</string>
+  <string name="communicationGuidelines">diretrizes de comunicação</string>
+  <string name="blogRules">regras do blogue</string>
   <string name="fairPlay">Jogo Justo</string>
 </resources>
