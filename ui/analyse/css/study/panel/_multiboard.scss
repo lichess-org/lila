@@ -142,10 +142,6 @@
       }
     }
   }
-  cg-container {
-    @extend %box-radius;
-    overflow: hidden;
-  }
   .mini-game__gauge ~ .mini-game__board cg-container {
     @extend %box-radius-left;
   }
