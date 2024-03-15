@@ -464,11 +464,19 @@ final class StudyApi(
         Contribute(who.u, study):
           doSetTags(study, chapter, PgnTags(chapter.tags + setTag.tag), who)
 
-  def setTags(studyId: StudyId, chapterId: StudyChapterId, tags: Tags)(who: Who) =
+  def setTagsAndRename(
+      studyId: StudyId,
+      chapterId: StudyChapterId,
+      tags: Tags,
+      newName: Option[StudyChapterName]
+  )(who: Who) =
     sequenceStudyWithChapter(studyId, chapterId):
       case Study.WithChapter(study, chapter) =>
         Contribute(who.u, study):
-          doSetTags(study, chapter, tags, who)
+          for
+            _ <- newName.so(chapterRepo.setName(chapterId, _))
+            _ <- doSetTags(study, chapter, tags, who)
+          yield ()
 
   private def doSetTags(study: Study, oldChapter: Chapter, tags: Tags, who: Who): Funit =
     val chapter = oldChapter.copy(tags = tags)

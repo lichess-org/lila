@@ -164,14 +164,17 @@ final private class RelaySync(
     (chapterNewTags != chapter.tags).so {
       if vs(chapterNewTags) != vs(chapter.tags) then
         logger.info(s"Update ${showSC(study, chapter)} tags '${vs(chapter.tags)}' -> '${vs(chapterNewTags)}'")
-      (studyApi.setTags(
-        studyId = study.id,
-        chapterId = chapter.id,
-        tags = chapterNewTags
-      )(who(chapter.ownerId)) >> {
-        val newEnd = chapter.tags.outcome.isEmpty && tags.outcome.isDefined
-        newEnd.so(onChapterEnd(tour, study, chapter))
-      }).inject(true)
+      val newName = chapterName(game)
+      for
+        _ <- studyApi.setTagsAndRename(
+          studyId = study.id,
+          chapterId = chapter.id,
+          tags = chapterNewTags,
+          newName = Option.when(newName != chapter.name)(newName)
+        )(who(chapter.ownerId))
+        newEnd = chapter.tags.outcome.isEmpty && tags.outcome.isDefined
+        _ <- newEnd.so(onChapterEnd(tour, study, chapter))
+      yield true
     }
 
   private def onChapterEnd(tour: RelayTour, study: Study, chapter: Chapter): Funit = for
@@ -196,17 +199,18 @@ final private class RelaySync(
       fideIds = tour.official.so(game.fideIdsPair)
     )
 
+  private def chapterName(game: RelayGame) = StudyChapterName:
+    game.tags.names
+      .mapN((w, b) => s"$w - $b")
+      .orElse(game.tags("board"))
+      .orElse(game.index.map(i => (i + 1).toString))
+      .getOrElse("?")
+
   private def createChapter(study: Study, game: RelayGame)(using RelayTour): Fu[Chapter] = for
     order <- chapterRepo.nextOrderByStudy(study.id)
-    name = {
-      for
-        w <- game.tags(_.White)
-        b <- game.tags(_.Black)
-      yield s"$w - $b"
-    }.orElse(game.tags("board")).getOrElse("?")
     chapter = Chapter.make(
       studyId = study.id,
-      name = StudyChapterName(name),
+      name = chapterName(game),
       setup = Chapter.Setup(
         none,
         game.variant,
