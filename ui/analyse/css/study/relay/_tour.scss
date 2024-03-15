@@ -203,10 +203,10 @@
       padding: 0.8em 1.5em;
       border: $border;
       &:hover {
-        @extend %metal;
+        @extend %box-shadow;
       }
       &.active {
-        @extend %metal, %box-shadow;
+        border: 1px solid $c-brag;
       }
     }
   }
