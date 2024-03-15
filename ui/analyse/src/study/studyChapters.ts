@@ -203,7 +203,7 @@ export function view(ctrl: StudyCtrl): VNode {
             class: { active, editing, loading, draggable: canContribute },
           },
           [
-            h('span', loading ? h('span.ddloader') : ['' + (i + 1)]),
+            h('span', (i + 1).toString()),
             h('h3', chapter.name),
             chapter.status && h('res', chapter.status),
             canContribute && h('i.act', { attrs: { ...dataIcon(licon.Gear), title: 'Edit chapter' } }),
