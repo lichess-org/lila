@@ -195,7 +195,7 @@
   }
 
   &__tabs {
-    @extend %flex-center-nowrap;
+    @extend %flex-center;
     gap: 1em;
     span {
       @extend %box-radius;
