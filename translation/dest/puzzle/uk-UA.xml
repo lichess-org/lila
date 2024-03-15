@@ -9,7 +9,7 @@
   <string name="lengths">Довжина</string>
   <string name="mates">Мати</string>
   <string name="goals">Цілі</string>
-  <string name="origin">Походження</string>
+  <string name="origin">Джерело</string>
   <string name="specialMoves">Спеціальні ходи</string>
   <string name="didYouLikeThisPuzzle">Вам сподобалась ця задача?</string>
   <string name="voteToLoadNextOne">Голосуйте, щоб перейти далі!</string>
@@ -18,7 +18,7 @@
   <string name="yourPuzzleRatingWillNotChange">Ваш рейтинг у задачах не зміниться. Зверніть увагу, що задачі - це не змагання. Ваш рейтинг допомагає підбирати задачі за вашими вміннями.</string>
   <string name="findTheBestMoveForWhite">Знайдіть найкращий хід за білих.</string>
   <string name="findTheBestMoveForBlack">Знайдіть найкращий хід за чорних.</string>
-  <string name="toGetPersonalizedPuzzles">Щоб отримати персоналізовані задачі:</string>
+  <string name="toGetPersonalizedPuzzles">Для отримання персоналізованих задач:</string>
   <string name="puzzleId">Задача %s</string>
   <string name="puzzleOfTheDay">Задача дня</string>
   <string name="dailyPuzzle">Щоденна задача</string>
@@ -27,7 +27,7 @@
   <string name="bestMove">Найкращий хід!</string>
   <string name="keepGoing">Продовжуйте...</string>
   <string name="puzzleSuccess">Успіх!</string>
-  <string name="puzzleComplete">Задача вирішена!</string>
+  <string name="puzzleComplete">Задачу вирішено!</string>
   <string name="byOpenings">За дебютами</string>
   <string name="puzzlesByOpenings">Задачі за дебютами</string>
   <string name="openingsYouPlayedTheMost">Дебюти, які ви грали найбільше в рейтингових іграх</string>
@@ -65,7 +65,7 @@
   </plurals>
   <string name="example">Приклад</string>
   <string name="addAnotherTheme">Додати іншу тему</string>
-  <string name="nextPuzzle">Наступна головоломка</string>
+  <string name="nextPuzzle">Наступна задача</string>
   <string name="jumpToNextPuzzleImmediately">Одразу перейти до наступної задачі</string>
   <string name="puzzleDashboard">Панель задач</string>
   <string name="improvementAreas">Слабкі сторони</string>
