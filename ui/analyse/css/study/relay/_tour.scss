@@ -369,6 +369,7 @@
     }
   }
   .mini-game__gauge {
+    order: 0;
     @extend %box-radius;
     tick {
       top: 1.5px;
