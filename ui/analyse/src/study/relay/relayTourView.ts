@@ -41,7 +41,7 @@ export const tourSide = (ctrl: AnalyseCtrl, study: StudyCtrl, relay: RelayCtrl) 
           h('div.relay-tour__side__header', [
             h(
               'button.relay-tour__side__name',
-              { hook: bind('click', relay.tourShow.toggle, relay.redraw) },
+              { hook: bind('mousedown', relay.tourShow.toggle, relay.redraw) },
               study.data.name,
             ),
             h('button.relay-tour__side__search', {
