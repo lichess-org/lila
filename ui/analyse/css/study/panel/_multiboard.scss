@@ -49,7 +49,7 @@
 
   .now-playing {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(min(100%/2, max(250px, 100%/4)), 1fr));
+    grid-template-columns: repeat(auto-fill, minmax(min(100%/2, max(250px, 100%/4)), 1fr));
 
     a {
       @extend %box-radius;
