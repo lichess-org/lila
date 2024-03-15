@@ -32,20 +32,29 @@ export default function (ctrl: AnalyseCtrl): VNode | undefined {
   return h('div.box.relay-tour', content);
 }
 
-export const tourSide = (ctrl: AnalyseCtrl, study: StudyCtrl, relay: RelayCtrl) =>
-  h('aside.relay-tour__side', [
-    h('div.relay-tour__side__header', [
-      h(
-        'button.relay-tour__side__name',
-        { hook: bind('click', relay.tourShow.toggle, relay.redraw) },
-        study.data.name,
-      ),
-      h('button.relay-tour__side__search', {
-        attrs: { 'data-icon': licon.Search, title: 'Search' },
-        hook: bind('click', study.search.open.toggle),
-      }),
-    ]),
-    gamesList(study, relay),
+export const tourSide = (ctrl: AnalyseCtrl, study: StudyCtrl, relay: RelayCtrl) => {
+  const empty = study.chapters.list.looksNew();
+  return h('aside.relay-tour__side', [
+    ...(empty
+      ? [
+          h('div.relay-tour__side__empty', { attrs: dataIcon(licon.RadioTower) }, [
+            'The broadcast will start soon.',
+          ]),
+        ]
+      : [
+          h('div.relay-tour__side__header', [
+            h(
+              'button.relay-tour__side__name',
+              { hook: bind('click', relay.tourShow.toggle, relay.redraw) },
+              study.data.name,
+            ),
+            h('button.relay-tour__side__search', {
+              attrs: { 'data-icon': licon.Search, title: 'Search' },
+              hook: bind('click', study.search.open.toggle),
+            }),
+          ]),
+        ]),
+    !empty && gamesList(study, relay),
     h('div.chat__members', {
       hook: onInsert(el => {
         makeChat(ctrl, chat => el.parentNode!.insertBefore(chat, el));
@@ -53,6 +62,7 @@ export const tourSide = (ctrl: AnalyseCtrl, study: StudyCtrl, relay: RelayCtrl) 
       }),
     }),
   ]);
+};
 
 const leaderboard = (relay: RelayCtrl, ctrl: AnalyseCtrl) => [
   ...header(relay, ctrl),

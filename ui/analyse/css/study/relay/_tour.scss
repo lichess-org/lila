@@ -21,6 +21,23 @@
         }
       }
     }
+    &__empty {
+      @extend %box-neat;
+      align-items: center;
+      justify-content: center;
+      background: $c-bg-box;
+      gap: 1em;
+      &::before {
+        font-size: 6em;
+        color: $c-font-dimmer;
+      }
+      padding: 1rem 0 2rem 0;
+      display: flex;
+      flex-flow: column;
+      @include breakpoint($mq-col2) {
+        display: flex;
+      }
+    }
     &__search {
       flex: 0 0 auto;
       border-left: $border !important;

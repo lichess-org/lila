@@ -30,7 +30,7 @@ export class StudyChapters {
   first = () => this.list()[0];
   looksNew = () => {
     const cs = this.all();
-    return cs.length == 1 && cs[0].name == 'Chapter 1';
+    return cs.length === 1 && cs[0].name == 'Chapter 1';
   };
 }
 
