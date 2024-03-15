@@ -40,6 +40,6 @@ function renderBoardView(ctx: RelayViewContext) {
     renderControls(ctrl),
     renderUnderboard(ctx),
     tourSide(ctrl, study, relay),
-    deps?.relayManager(relay, study),
+    deps.relayManager(relay, study),
   ];
 }
