@@ -71,10 +71,9 @@
         color: $c-font-clear;
         border-color: mix($c-primary, $c-bg-box, 50%);
       }
-
-      cg-board {
-        box-shadow: none;
-      }
+    }
+    cg-board {
+      box-shadow: none;
     }
   }
 }
@@ -98,6 +97,7 @@
     flex: 1 1 auto;
   }
   &__gauge {
+    order: 1;
     position: relative;
     flex: 0 0 4%;
     border: $border;
@@ -141,5 +141,12 @@
         height: 50%;
       }
     }
+  }
+  cg-container {
+    @extend %box-radius;
+    overflow: hidden;
+  }
+  .mini-game__gauge ~ .mini-game__board cg-container {
+    @extend %box-radius-left;
   }
 }
