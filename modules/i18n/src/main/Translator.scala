@@ -20,8 +20,9 @@ object Translator:
         quantity: I18nQuantity,
         args: Seq[Matchable]
     ): RawFrag =
-      findTranslation(key, lang)
-        .flatMap { translation =>
+      Registry
+        .translation(lang, key)
+        .flatMap: translation =>
           val htmlArgs = escapeArgs(args)
           try
             translation match
@@ -32,7 +33,6 @@ object Translator:
             case e: Exception =>
               logger.warn(s"Failed to format html $lang/$key -> $translation (${args.toList})", e)
               Some(RawFrag(key.value))
-        }
         .getOrElse(RawFrag(key.value))
 
     private def escapeArgs(args: Seq[Matchable]): Seq[RawFrag] = args.map:
@@ -55,8 +55,9 @@ object Translator:
         quantity: I18nQuantity,
         args: Seq[Any]
     ): String =
-      findTranslation(key, lang)
-        .flatMap { translation =>
+      Registry
+        .translation(lang, key)
+        .flatMap: translation =>
           try
             translation match
               case literal: Simple  => Some(literal.formatTxt(args))
@@ -66,8 +67,4 @@ object Translator:
             case e: Exception =>
               logger.warn(s"Failed to format txt $lang/$key -> $translation (${args.toList})", e)
               Some(key.value)
-        }
         .getOrElse(key.value)
-
-  private[i18n] def findTranslation(key: I18nKey, lang: Lang): Option[Translation] =
-    Registry.get(lang).flatMap(t => Option(t.get(key))).orElse(Option(Registry.default.get(key)))

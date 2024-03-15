@@ -34,4 +34,4 @@ object JsDump:
   def keysToObject(keys: Seq[I18nKey], lang: Lang): JsObject =
     JsObject:
       keys.flatMap: k =>
-        Translator.findTranslation(k, lang).fold[JsTrans](Nil) { translatedJs(k, _) }
+        Registry.translation(lang, k).fold[JsTrans](Nil) { translatedJs(k, _) }

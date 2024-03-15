@@ -2,7 +2,6 @@ package lila.i18n
 
 import java.io.{ File, FileInputStream, ObjectInputStream }
 import java.util.{ Map as JMap }
-import java.util.concurrent.ConcurrentHashMap
 import play.api.Mode
 import play.api.i18n.Lang
 import scala.jdk.CollectionConverters.*
@@ -10,12 +9,12 @@ import lila.common.Chronometer
 
 object Registry:
 
-  private var all = Map[Lang, MessageMap]()
+  private val empty: MessageMap          = java.util.HashMap[MessageKey, Translation]()
+  private var all: Map[Lang, MessageMap] = Map[Lang, MessageMap]()
+  private var default: MessageMap        = empty
 
-  inline def get(inline lang: Lang) = all.get(lang)
-
-  val empty: MessageMap   = java.util.HashMap[MessageKey, Translation]()
-  val default: MessageMap = get(defaultLang) | empty
+  def translation(lang: Lang, key: I18nKey): Option[Translation] =
+    all.get(lang).flatMap(t => Option(t.get(key))).orElse(Option(default.get(key)))
 
   def asyncLoadLanguages()(using Executor)(using scheduler: Scheduler, mode: Mode): Unit =
     scheduler.scheduleOnce(2.seconds):
@@ -26,14 +25,19 @@ object Registry:
           scheduler.scheduleOnce(i.seconds):
             val lap = Chronometer.sync:
               langs.foreach: lang =>
-                all = all + (lang -> loadSerialized(lang))
+                register(lang, loadSerialized(lang))
             if i < 1 || mode.isProd
             then logger.info(s"Loaded ${langs.size} languages in ${lap.showDuration}")
 
   // for tests
+  private[i18n] def getAll(lang: Lang): Option[MessageMap] = all.get(lang)
   private[i18n] def syncLoadLanguages(): Unit =
     LangList.popular.foreach: lang =>
-      all = all + (lang -> loadSerialized(lang))
+      register(lang, loadSerialized(lang))
+
+  private def register(lang: Lang, translations: MessageMap): Unit =
+    all = all + (lang -> translations)
+    if lang == defaultLang then default = translations
 
   private def loadSerialized(lang: Lang): MessageMap = try
     val file       = s"i18n.${lang.code}.ser"
