@@ -1,4 +1,3 @@
-import { looseH as h } from 'common/snabbdom';
 import { StudyCtrl } from '../studyDeps';
 import RelayCtrl from './relayCtrl';
 import { userTitle } from 'common/userLink';
@@ -7,6 +6,7 @@ import { renderClock, verticalEvalGauge } from '../multiBoard';
 import { ChapterPreview } from '../interfaces';
 import { gameLinkAttrs, gameLinksListener } from '../studyChapters';
 import { playerFed } from '../playerBars';
+import { h } from 'snabbdom';
 
 export const gamesList = (study: StudyCtrl, relay: RelayCtrl) => {
   const chapters = study.chapters.list.all();

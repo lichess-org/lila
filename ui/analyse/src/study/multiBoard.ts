@@ -1,7 +1,7 @@
 import * as licon from 'common/licon';
 import { otbClockIsRunning, formatMs } from 'common/clock';
 import { fenColor } from 'common/miniBoard';
-import { MaybeVNode, VNode, bind, onInsert, looseH as h } from 'common/snabbdom';
+import { MaybeVNode, VNode, bind, onInsert } from 'common/snabbdom';
 import { opposite as CgOpposite, uciToMove } from 'chessground/util';
 import { ChapterId, ChapterPreview, ChapterPreviewPlayer } from './interfaces';
 import StudyCtrl from './studyCtrl';
@@ -11,6 +11,7 @@ import { Color } from 'chessops';
 import { StudyChapters, gameLinkAttrs, gameLinksListener } from './studyChapters';
 import { playerFed } from './playerBars';
 import { userTitle } from 'common/userLink';
+import { h } from 'snabbdom';
 
 export class MultiBoardCtrl {
   playing: Toggle;
