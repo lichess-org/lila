@@ -182,7 +182,7 @@ final class Study(
                 page      <- renderPage(html.study.show(sc.study, data, chat, sVersion, streamers))
               yield Ok(page)
                 .withCanonical(routes.Study.chapter(sc.study.id, sc.chapter.id))
-                .enableSharedArrayBuffer,
+                .enforceCrossSiteIsolation,
             json = for
               chatOpt <- chatOf(sc.study)
               jsChat <- chatOpt.soFu: c =>

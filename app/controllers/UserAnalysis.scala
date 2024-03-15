@@ -51,7 +51,7 @@ final class UserAnalysis(
       page <- renderPage(html.board.userAnalysis(data, pov))
     yield Ok(page)
       .withCanonical(routes.UserAnalysis.index)
-      .enableSharedArrayBuffer
+      .enforceCrossSiteIsolation
 
   def pgn(pgn: String) = Open:
     val pov         = makePov(none, Standard)
@@ -62,7 +62,7 @@ final class UserAnalysis(
         .map { data =>
           html.board.userAnalysis(data, pov, inlinePgn = pgn.replace("_", " ").some)
         }
-    .map(_.enableSharedArrayBuffer)
+    .map(_.enforceCrossSiteIsolation)
 
   private[controllers] def makePov(fen: Option[Fen.Epd], variant: Variant): Pov =
     makePov:

@@ -58,7 +58,7 @@ final class Practice(
             )
           )
     .map:
-        _.noCache.enableSharedArrayBuffer.withCanonical(s"${us.url}/${us.study.chapter.id}")
+        _.noCache.enforceCrossSiteIsolation.withCanonical(s"${us.url}/${us.study.chapter.id}")
 
   def chapter(studyId: StudyId, chapterId: StudyChapterId) = Open:
     Found(api.getStudyWithChapter(ctx.me, studyId, chapterId)): us =>
