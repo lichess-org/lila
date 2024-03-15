@@ -1,7 +1,7 @@
 package lila.security
 
 import play.api.mvc.RequestHeader
-import reactivemongo.akkastream.{AkkaStreamCursor, cursorProducer}
+import reactivemongo.akkastream.{ AkkaStreamCursor, cursorProducer }
 import reactivemongo.api.bson.{ BSONDocumentHandler, BSONDocumentReader, BSONNull, Macros }
 
 import scala.concurrent.blocking

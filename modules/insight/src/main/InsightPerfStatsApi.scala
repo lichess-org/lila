@@ -1,6 +1,6 @@
 package lila.insight
 
-import chess.{ByColor, Centis}
+import chess.{ ByColor, Centis }
 import reactivemongo.api.bson.*
 
 import lila.common.config

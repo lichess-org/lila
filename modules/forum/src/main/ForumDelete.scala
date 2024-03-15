@@ -3,7 +3,7 @@ package lila.forum
 import akka.stream.scaladsl.*
 
 import lila.security.Granter as MasterGranter
-import lila.user.{Me, User}
+import lila.user.{ Me, User }
 
 final class ForumDelete(
     postRepo: ForumPostRepo,

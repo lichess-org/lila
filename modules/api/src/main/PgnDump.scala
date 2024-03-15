@@ -2,7 +2,7 @@ package lila.api
 
 import chess.ByColor
 import chess.format.pgn.Pgn
-import chess.format.{EpdFen, Fen}
+import chess.format.{ EpdFen, Fen }
 import play.api.i18n.Lang
 
 import lila.analyse.{ Analysis, Annotator }

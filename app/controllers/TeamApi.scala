@@ -3,9 +3,9 @@ package controllers
 import play.api.libs.json.*
 import play.api.mvc.*
 
-import lila.app.{*, given}
-import lila.common.{IpAddress, config}
-import lila.team.{Team as TeamModel, TeamSecurity}
+import lila.app.{ *, given }
+import lila.common.{ IpAddress, config }
+import lila.team.{ Team as TeamModel, TeamSecurity }
 
 import Api.ApiResult
 

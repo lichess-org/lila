@@ -6,9 +6,21 @@ import views.*
 
 import java.util.Currency
 
-import lila.app.{*, given}
+import lila.app.{ *, given }
 import lila.common.EmailAddress
-import lila.plan.{CreateStripeSession, CustomerInfo, Freq, Money, NextUrls, PayPalOrderId, PayPalSubscription, PayPalSubscriptionId, PlanCheckout, StripeCustomer, StripeCustomerId}
+import lila.plan.{
+  CreateStripeSession,
+  CustomerInfo,
+  Freq,
+  Money,
+  NextUrls,
+  PayPalOrderId,
+  PayPalSubscription,
+  PayPalSubscriptionId,
+  PlanCheckout,
+  StripeCustomer,
+  StripeCustomerId
+}
 
 final class Plan(env: Env) extends LilaController(env):
 

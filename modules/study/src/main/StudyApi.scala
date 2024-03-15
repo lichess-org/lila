@@ -3,7 +3,7 @@ package lila.study
 import akka.stream.scaladsl.*
 import chess.Centis
 import chess.format.UciPath
-import chess.format.pgn.{Glyph, Tags}
+import chess.format.pgn.{ Glyph, Tags }
 
 import lila.chat.ChatApi
 import lila.common.Bus
@@ -12,7 +12,7 @@ import lila.security.Granter
 import lila.socket.Socket.Sri
 import lila.tree.Branch
 import lila.tree.Node.{ Comment, Gamebook, Shapes }
-import lila.user.{MyId, User}
+import lila.user.{ MyId, User }
 
 import actorApi.Who
 

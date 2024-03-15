@@ -12,7 +12,7 @@ import lila.hub.actorApi.mailer.CorrespondenceOpponent
 import lila.hub.actorApi.msg.SystemMsg
 import lila.i18n.I18nKeys.emails as trans
 import lila.i18n.PeriodLocales.showDuration
-import lila.user.{User, UserApi, UserRepo}
+import lila.user.{ User, UserApi, UserRepo }
 
 final class AutomaticEmail(
     userRepo: UserRepo,

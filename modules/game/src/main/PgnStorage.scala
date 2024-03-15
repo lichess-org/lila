@@ -1,7 +1,7 @@
 package lila.game
 
 import chess.*
-import chess.bitboard.{Bitboard, Board as BBoard}
+import chess.bitboard.{ Bitboard, Board as BBoard }
 import chess.format.Uci
 import chess.format.pgn.SanStr
 

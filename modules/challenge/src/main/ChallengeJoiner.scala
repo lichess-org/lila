@@ -2,7 +2,7 @@ package lila.challenge
 
 import chess.format.Fen
 import chess.variant.Variant
-import chess.{ByColor, Mode, Situation}
+import chess.{ ByColor, Mode, Situation }
 
 import scala.util.chaining.*
 

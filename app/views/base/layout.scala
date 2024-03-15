@@ -6,7 +6,7 @@ import controllers.team.routes.Team as teamRoutes
 import play.api.i18n.Lang
 
 import lila.app.ContentSecurityPolicy
-import lila.app.templating.Environment.{*, given}
+import lila.app.templating.Environment.{ *, given }
 import lila.app.ui.ScalatagsTemplate.{ *, given }
 import lila.common.LangPath
 import lila.common.String.html.safeJsonValue

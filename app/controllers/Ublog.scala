@@ -5,7 +5,7 @@ import play.api.i18n.Lang
 import play.api.mvc.Result
 import views.*
 
-import lila.app.{*, given}
+import lila.app.{ *, given }
 import lila.common.config
 import lila.i18n.{ I18nLangPicker, LangList, Language }
 import lila.report.Suspect

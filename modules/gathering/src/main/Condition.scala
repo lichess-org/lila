@@ -4,7 +4,7 @@ import play.api.i18n.Lang
 
 import lila.hub.LightTeam.TeamName
 import lila.i18n.I18nKeys as trans
-import lila.rating.{Perf, PerfType}
+import lila.rating.{ Perf, PerfType }
 import lila.user.Me
 
 trait Condition:

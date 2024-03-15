@@ -2,7 +2,7 @@ package lila.analyse
 
 import chess.Ply
 import chess.format.Uci
-import chess.format.pgn.{Comment, SanStr}
+import chess.format.pgn.{ Comment, SanStr }
 
 import lila.tree.Eval
 

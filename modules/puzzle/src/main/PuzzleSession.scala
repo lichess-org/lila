@@ -6,7 +6,7 @@ import scala.util.chaining.*
 
 import lila.memo.CacheApi
 import lila.rating.Perf
-import lila.user.{Me, User}
+import lila.user.{ Me, User }
 
 private case class PuzzleSession(
     settings: PuzzleSettings,

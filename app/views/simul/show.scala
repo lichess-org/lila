@@ -3,7 +3,7 @@ package views.html.simul
 import controllers.routes
 import play.api.libs.json.Json
 
-import lila.app.templating.Environment.{*, given}
+import lila.app.templating.Environment.{ *, given }
 import lila.app.ui.ScalatagsTemplate.{ *, given }
 import lila.common.Json.given
 import lila.gathering.Condition

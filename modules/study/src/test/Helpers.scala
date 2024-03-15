@@ -2,11 +2,11 @@ package lila.study
 
 import chess.format.UciPath
 import chess.format.pgn.Tags
-import chess.{Node as PgnNode, Tree}
+import chess.{ Node as PgnNode, Tree }
 import monocle.syntax.all.*
 
-import lila.tree.Node.{Comment, Comments}
-import lila.tree.{Branch, Branches, Metas, NewBranch, NewRoot, NewTree, Node, Root}
+import lila.tree.Node.{ Comment, Comments }
+import lila.tree.{ Branch, Branches, Metas, NewBranch, NewRoot, NewTree, Node, Root }
 
 object Helpers:
   import lila.tree.NewTree.*

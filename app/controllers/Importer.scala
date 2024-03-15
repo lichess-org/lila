@@ -7,7 +7,7 @@ import views.*
 
 import scala.util.{ Either, Left, Right }
 
-import lila.app.{*, given}
+import lila.app.{ *, given }
 import lila.common.{ HTTPRequest, IpAddress }
 
 final class Importer(env: Env) extends LilaController(env):

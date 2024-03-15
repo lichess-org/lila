@@ -3,7 +3,7 @@ package lila.event
 import play.api.data.*
 import play.api.data.Forms.*
 
-import lila.common.Form.{PrettyDateTime, into, stringIn}
+import lila.common.Form.{ PrettyDateTime, into, stringIn }
 import lila.i18n.Language
 import lila.user.Me
 

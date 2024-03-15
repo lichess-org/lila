@@ -2,7 +2,7 @@ package views.html.team
 
 import controllers.team.routes.Team as teamRoutes
 
-import lila.app.templating.Environment.{*, given}
+import lila.app.templating.Environment.{ *, given }
 import lila.app.ui.ScalatagsTemplate.{ *, given }
 import lila.common.paginator.Paginator
 import lila.team.Team

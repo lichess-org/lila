@@ -1,7 +1,7 @@
 package lila.study
 
 import akka.stream.scaladsl.*
-import reactivemongo.akkastream.{AkkaStreamCursor, cursorProducer}
+import reactivemongo.akkastream.{ AkkaStreamCursor, cursorProducer }
 import reactivemongo.api.*
 import reactivemongo.api.bson.BSONDocument
 

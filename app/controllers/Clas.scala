@@ -7,7 +7,7 @@ import play.api.data.Forms.*
 import play.api.mvc.*
 import views.*
 
-import lila.app.{*, given}
+import lila.app.{ *, given }
 import lila.clas.Clas.Id as ClasId
 import lila.clas.ClasForm.ClasData
 import lila.clas.ClasInvite

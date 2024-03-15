@@ -17,7 +17,7 @@ import lila.gathering.Condition.GetMyTeamIds
 import lila.hub.LightTeam
 import lila.round.actorApi.round.{ AbortForce, GoBerserk }
 import lila.tournament.TeamBattle.TeamInfo
-import lila.user.{Me, User, UserPerfsRepo, UserRepo}
+import lila.user.{ Me, User, UserPerfsRepo, UserRepo }
 
 final class TournamentApi(
     cached: TournamentCache,

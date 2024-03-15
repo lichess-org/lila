@@ -1,6 +1,6 @@
 package lila.tournament
 
-import reactivemongo.akkastream.{AkkaStreamCursor, cursorProducer}
+import reactivemongo.akkastream.{ AkkaStreamCursor, cursorProducer }
 import reactivemongo.api.*
 import reactivemongo.api.bson.*
 

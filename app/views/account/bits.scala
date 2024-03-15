@@ -4,7 +4,7 @@ package account
 import controllers.routes
 import play.api.i18n.Lang
 
-import lila.app.templating.Environment.{*, given}
+import lila.app.templating.Environment.{ *, given }
 import lila.app.ui.ScalatagsTemplate.*
 import lila.pref.PrefCateg
 import lila.user.User

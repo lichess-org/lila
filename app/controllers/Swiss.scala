@@ -5,7 +5,7 @@ import views.*
 
 import scala.util.chaining.*
 
-import lila.app.{*, given}
+import lila.app.{ *, given }
 import lila.common.HTTPRequest
 import lila.hub.LightTeam
 import lila.swiss.Swiss.ChatFor

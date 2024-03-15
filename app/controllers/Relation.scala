@@ -4,10 +4,10 @@ import play.api.libs.json.{ Json, Writes }
 import play.api.mvc.Result
 import views.*
 
-import lila.app.{*, given}
+import lila.app.{ *, given }
 import lila.common.config.MaxPerSecond
 import lila.common.paginator.{ AdapterLike, Paginator, PaginatorJson }
-import lila.common.{LightUser, config}
+import lila.common.{ LightUser, config }
 import lila.relation.Related
 import lila.relation.RelationStream.*
 import lila.user.User as UserModel

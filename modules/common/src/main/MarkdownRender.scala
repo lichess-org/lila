@@ -4,8 +4,18 @@ import chess.format.pgn.PgnStr
 import com.vladsch.flexmark.ast.{ AutoLink, Image, Link, LinkNode }
 import com.vladsch.flexmark.ext.autolink.AutolinkExtension
 import com.vladsch.flexmark.ext.gfm.strikethrough.StrikethroughExtension
-import com.vladsch.flexmark.ext.tables.{TableBlock, TablesExtension}
-import com.vladsch.flexmark.html.renderer.{AttributablePart, CoreNodeRenderer, LinkResolverContext, LinkType, NodeRenderer, NodeRendererContext, NodeRendererFactory, NodeRenderingHandler, ResolvedLink}
+import com.vladsch.flexmark.ext.tables.{ TableBlock, TablesExtension }
+import com.vladsch.flexmark.html.renderer.{
+  AttributablePart,
+  CoreNodeRenderer,
+  LinkResolverContext,
+  LinkType,
+  NodeRenderer,
+  NodeRendererContext,
+  NodeRendererFactory,
+  NodeRenderingHandler,
+  ResolvedLink
+}
 import com.vladsch.flexmark.html.{
   AttributeProvider,
   HtmlRenderer,

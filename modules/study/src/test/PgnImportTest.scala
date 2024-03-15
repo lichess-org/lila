@@ -1,7 +1,7 @@
 package lila.study
 
 import chess.Ply
-import chess.format.pgn.{PgnStr, Tags}
+import chess.format.pgn.{ PgnStr, Tags }
 
 import scala.language.implicitConversions
 

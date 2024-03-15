@@ -1,6 +1,6 @@
 package lila.fishnet
 
-import chess.format.{Fen, Uci}
+import chess.format.{ Fen, Uci }
 import chess.{ Color, Speed }
 import com.softwaremill.tagging.*
 import ornicar.scalalib.ThreadLocalRandom

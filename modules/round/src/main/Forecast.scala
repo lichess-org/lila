@@ -1,8 +1,8 @@
 package lila.round
 
 import chess.format.pgn.SanStr
-import chess.format.{Fen, Uci}
-import chess.{Move, Ply}
+import chess.format.{ Fen, Uci }
+import chess.{ Move, Ply }
 import play.api.libs.json.*
 
 import lila.common.Json.given

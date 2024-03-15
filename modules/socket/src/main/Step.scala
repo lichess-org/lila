@@ -22,7 +22,6 @@ case class Step(
 
 object Step:
 
-
   given Writes[Step] = Writes { step =>
     import lila.common.Json.given
     import step.*

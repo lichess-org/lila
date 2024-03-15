@@ -1,7 +1,7 @@
 package lila.hub
 package actorApi
 
-import chess.format.{Fen, Uci}
+import chess.format.{ Fen, Uci }
 import play.api.libs.json.*
 
 import java.time.Duration

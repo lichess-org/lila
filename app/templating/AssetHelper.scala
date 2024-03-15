@@ -1,6 +1,6 @@
 package lila.app
 package templating
-import play.api.libs.json.{JsValue, Json}
+import play.api.libs.json.{ JsValue, Json }
 
 import lila.app.ui.ScalatagsTemplate.*
 import lila.common.AssetVersion

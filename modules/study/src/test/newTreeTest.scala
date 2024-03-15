@@ -1,11 +1,11 @@
 package lila.study
 
 import chess.Node as PgnNode
-import chess.format.pgn.{PgnStr, Tags}
+import chess.format.pgn.{ PgnStr, Tags }
 
 import scala.language.implicitConversions
 
-import lila.tree.{NewBranch, NewRoot, Root}
+import lila.tree.{ NewBranch, NewRoot, Root }
 
 // in lila.study to have access to PgnImport
 class NewTreeTest extends munit.FunSuite:

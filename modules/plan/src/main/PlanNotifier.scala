@@ -3,7 +3,7 @@ package lila.plan
 import akka.actor.*
 
 import lila.common.Bus
-import lila.hub.actorApi.timeline.{Atom, Propagate}
+import lila.hub.actorApi.timeline.{ Atom, Propagate }
 import lila.user.User
 
 final private[plan] class PlanNotifier(

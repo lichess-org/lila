@@ -1,9 +1,9 @@
 package lila.relay
 
 import chess.format.pgn.*
-import chess.{FideId, PlayerName}
+import chess.{ FideId, PlayerName }
 
-import lila.fide.{FidePlayer, PlayerToken}
+import lila.fide.{ FidePlayer, PlayerToken }
 import lila.study.ChapterPreview
 
 type TeamName = String

@@ -7,7 +7,7 @@ import play.api.http.*
 import play.api.libs.json.*
 import play.api.mvc.*
 
-import lila.common.{ApiVersion, HTTPRequest}
+import lila.common.{ ApiVersion, HTTPRequest }
 
 trait ResponseBuilder(using Executor)
     extends ControllerHelpers

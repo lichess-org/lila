@@ -4,7 +4,7 @@ package tournament
 import controllers.routes
 import play.api.data.{ Field, Form }
 
-import lila.app.templating.Environment.{*, given}
+import lila.app.templating.Environment.{ *, given }
 import lila.app.ui.ScalatagsTemplate.{ *, given }
 import lila.gathering.{ ConditionForm, GatheringClock }
 import lila.hub.LightTeam

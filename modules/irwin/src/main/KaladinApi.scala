@@ -7,10 +7,10 @@ import reactivemongo.api.bson.*
 import lila.common.config.Max
 import lila.db.AsyncColl
 import lila.db.dsl.{ *, given }
-import lila.game.{BinaryFormat, GameRepo}
+import lila.game.{ BinaryFormat, GameRepo }
 import lila.memo.CacheApi
-import lila.report.{Mod, ModId, Report, Reporter, Suspect, SuspectId}
-import lila.user.{Me, User, UserPerfsRepo, UserRepo}
+import lila.report.{ Mod, ModId, Report, Reporter, Suspect, SuspectId }
+import lila.user.{ Me, User, UserPerfsRepo, UserRepo }
 
 final class KaladinApi(
     coll: AsyncColl,

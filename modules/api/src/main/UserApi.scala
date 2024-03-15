@@ -7,7 +7,7 @@ import lila.common.Json.given
 import lila.common.config.*
 import lila.rating.{ PerfType, UserRankMap }
 import lila.security.Granter
-import lila.user.{Me, Trophy, User}
+import lila.user.{ Me, Trophy, User }
 
 final class UserApi(
     jsonView: lila.user.JsonView,

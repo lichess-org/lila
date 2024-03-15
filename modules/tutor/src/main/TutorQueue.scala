@@ -8,8 +8,8 @@ import reactivemongo.api.bson.*
 import lila.common.config.Max
 import lila.db.dsl.{ *, given }
 import lila.game.Pov
-import lila.memo.{CacheApi, SettingStore}
-import lila.user.{LightUserApi, User}
+import lila.memo.{ CacheApi, SettingStore }
+import lila.user.{ LightUserApi, User }
 
 final private class TutorQueue(
     colls: TutorColls,

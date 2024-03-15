@@ -1,6 +1,6 @@
 package lila.rating
 
-import chess.{Black, Color, White}
+import chess.{ Black, Color, White }
 
 import glicko2.*
 

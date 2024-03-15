@@ -8,7 +8,7 @@ object FideWebsite:
   private val FideProfileUrlRegex = """(?:https?://)?ratings\.fide\.com/card\.phtml\?event=(\d+)""".r
   // >&nbsp;FIDE title</td><td colspan=3 bgcolor=#efefef>&nbsp;Grandmaster</td>
   val names = PlayerTitle.names.values.mkString("|")
-    s"""<div class="profile-top-info__block__row__data">($names)</div>""".r.unanchored
+  s"""<div class="profile-top-info__block__row__data">($names)</div>""".r.unanchored
 
   // https://ratings.fide.com/profile/740411
   private val NewFideProfileUrlRegex = """(?:https?://)?ratings\.fide\.com/profile/(\d+)""".r

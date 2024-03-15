@@ -3,7 +3,7 @@ package views.html.relay
 import controllers.routes
 import play.api.mvc.Call
 
-import lila.app.templating.Environment.{*, given}
+import lila.app.templating.Environment.{ *, given }
 import lila.app.ui.ScalatagsTemplate.{ *, given }
 import lila.common.LightUser
 import lila.common.paginator.Paginator

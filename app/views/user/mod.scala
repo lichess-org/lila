@@ -6,7 +6,7 @@ import controllers.report.routes.Report as reportRoutes
 import controllers.routes
 import play.api.i18n.Lang
 
-import lila.app.templating.Environment.{*, given}
+import lila.app.templating.Environment.{ *, given }
 import lila.app.ui.ScalatagsTemplate.{ *, given }
 import lila.appeal.Appeal
 import lila.common.EmailAddress
@@ -14,7 +14,7 @@ import lila.evaluation.Display
 import lila.mod.IpRender.RenderIp
 import lila.mod.{ ModPresets, UserWithModlog }
 import lila.playban.RageSit
-import lila.security.{Dated, Granter, Permission, UserAgentParser, UserClient, UserLogins}
+import lila.security.{ Dated, Granter, Permission, UserAgentParser, UserClient, UserLogins }
 import lila.user.{ Me, User }
 
 object mod:

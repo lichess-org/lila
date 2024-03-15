@@ -8,7 +8,7 @@ import lila.common.paginator.{ AdapterLike, Paginator }
 import lila.db.dsl.{ *, given }
 import lila.db.paginator.Adapter
 import lila.i18n.Language
-import lila.user.{Me, User}
+import lila.user.{ Me, User }
 
 final class UblogPaginator(
     colls: UblogColls,

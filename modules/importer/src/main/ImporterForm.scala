@@ -1,8 +1,8 @@
 package lila.importer
 
 import chess.format.Fen
-import chess.format.pgn.{ParsedPgn, Parser, PgnStr, Reader, Sans}
-import chess.{ByColor, Color, ErrorStr, Mode, Outcome, Replay, Status}
+import chess.format.pgn.{ ParsedPgn, Parser, PgnStr, Reader, Sans }
+import chess.{ ByColor, Color, ErrorStr, Mode, Outcome, Replay, Status }
 import play.api.data.*
 import play.api.data.Forms.*
 

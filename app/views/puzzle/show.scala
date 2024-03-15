@@ -3,7 +3,7 @@ package views.html.puzzle
 import controllers.routes
 import play.api.libs.json.{ JsObject, Json }
 
-import lila.app.templating.Environment.{*, given}
+import lila.app.templating.Environment.{ *, given }
 import lila.app.ui.ScalatagsTemplate.*
 import lila.common.Json.given
 

@@ -1,11 +1,11 @@
 package lila.setup
 
 import chess.variant.Variant
-import chess.{Clock, Mode}
+import chess.{ Clock, Mode }
 
 import lila.common.Days
 import lila.lobby.{ Color, Hook, Seek }
-import lila.rating.{Perf, RatingRange}
+import lila.rating.{ Perf, RatingRange }
 import lila.user.{ Me, User }
 
 case class HookConfig(

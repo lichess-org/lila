@@ -1,15 +1,15 @@
 package lila.study
 
 import chess.MoveOrDrop.*
-import chess.format.pgn.{Glyphs, ParsedPgn, ParsedPgnTree, PgnNodeData, PgnStr, Tags}
+import chess.format.pgn.{ Glyphs, ParsedPgn, ParsedPgnTree, PgnNodeData, PgnStr, Tags }
 import chess.format.{ Fen, Uci, UciCharPair, UciPath }
 import chess.{ Centis, ErrorStr, Node as PgnNode, Outcome }
 import monocle.syntax.all.*
 
 import lila.common.LightUser
 import lila.importer.{ ImportData, Preprocessed }
-import lila.tree.Node.{Comment, Comments}
-import lila.tree.{Metas, NewBranch, NewRoot, NewTree}
+import lila.tree.Node.{ Comment, Comments }
+import lila.tree.{ Metas, NewBranch, NewRoot, NewTree }
 
 object NewPgnImport:
 
@@ -54,12 +54,12 @@ object NewPgnImport:
               )
             }
             if root.tree.map(_.lastMainlineNode).exists(_.value.metas.comments.value.nonEmpty) then root
-              else
-                end.map(PgnImport.endComment).fold(root) { comment =>
-                  root
-                    .focus(_.tree.some)
-                    .modify(_.modifyLastMainlineNode(_.focus(_.value.metas.comments).modify(_ + comment)))
-                }
+            else
+              end.map(PgnImport.endComment).fold(root) { comment =>
+                root
+                  .focus(_.tree.some)
+                  .modify(_.modifyLastMainlineNode(_.focus(_.value.metas.comments).modify(_ + comment)))
+              }
             Result(
               root = root,
               variant = game.variant,

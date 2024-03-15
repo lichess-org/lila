@@ -2,11 +2,11 @@ package controllers
 
 import chess.format.Fen
 import play.api.libs.json.Json
-import play.api.mvc.{Request, Result}
+import play.api.mvc.{ Request, Result }
 import views.*
 
-import lila.app.{*, given}
-import lila.common.{HTTPRequest, IpAddress, Preload}
+import lila.app.{ *, given }
+import lila.common.{ HTTPRequest, IpAddress, Preload }
 import lila.game.{ AnonCookie, Pov }
 import lila.memo.RateLimit
 import lila.rating.Perf

@@ -7,7 +7,7 @@ import play.api.libs.ws.DefaultBodyReadables.*
 import play.api.libs.ws.DefaultBodyWritables.*
 import play.api.libs.ws.JsonBodyReadables.*
 import play.api.libs.ws.JsonBodyWritables.*
-import play.api.libs.ws.{StandaloneWSClient, StandaloneWSResponse, WSAuthScheme}
+import play.api.libs.ws.{ StandaloneWSClient, StandaloneWSResponse, WSAuthScheme }
 
 import java.util.Currency
 

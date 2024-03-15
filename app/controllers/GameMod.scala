@@ -6,7 +6,7 @@ import play.api.data.Forms.{ list as formList, * }
 import scala.util.chaining.*
 
 import lila.api.GameApiV2
-import lila.app.{*, given}
+import lila.app.{ *, given }
 import lila.common.Form.{ stringIn, given }
 import lila.common.config
 import lila.db.dsl.{ *, given }

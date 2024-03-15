@@ -16,7 +16,7 @@ import lila.hub.actorApi.round.{ Abort, Berserk, Rematch, Resign, TourStanding }
 import lila.hub.actorApi.socket.remote.TellSriIn
 import lila.room.RoomSocket.{ Protocol as RP, * }
 import lila.socket.RemoteSocket.{ Protocol as P, * }
-import lila.socket.{Socket, SocketSend, SocketVersion}
+import lila.socket.{ Socket, SocketSend, SocketVersion }
 
 import actorApi.*
 import actorApi.round.*

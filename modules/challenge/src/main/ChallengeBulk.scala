@@ -1,7 +1,7 @@
 package lila.challenge
 
 import akka.stream.scaladsl.*
-import chess.{ByColor, Clock, Speed}
+import chess.{ ByColor, Clock, Speed }
 import reactivemongo.api.bson.*
 
 import scala.util.chaining.*

@@ -3,7 +3,7 @@ package views.html.mod
 import controllers.routes
 
 import lila.api.Context
-import lila.app.templating.Environment.{*, given}
+import lila.app.templating.Environment.{ *, given }
 import lila.app.ui.ScalatagsTemplate.{ *, given }
 import lila.security.Granter
 import lila.user.User

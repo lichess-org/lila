@@ -5,8 +5,8 @@ import alleycats.Zero
 import play.api.http.*
 import play.api.mvc.*
 
-import lila.common.{HTTPRequest, config}
-import lila.security.{Granter, Permission}
+import lila.common.{ HTTPRequest, config }
+import lila.security.{ Granter, Permission }
 
 trait CtrlFilters extends ControllerHelpers with ResponseBuilder with CtrlConversions:
 

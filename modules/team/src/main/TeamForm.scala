@@ -4,7 +4,15 @@ import play.api.data.*
 import play.api.data.Forms.*
 import play.api.data.validation.Constraints
 
-import lila.common.Form.{cleanNonEmptyText, cleanText, cleanTextWithSymbols, into, mustNotContainLichess, numberIn, given}
+import lila.common.Form.{
+  cleanNonEmptyText,
+  cleanText,
+  cleanTextWithSymbols,
+  into,
+  mustNotContainLichess,
+  numberIn,
+  given
+}
 import lila.db.dsl.{ *, given }
 
 final private[team] class TeamForm(

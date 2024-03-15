@@ -7,7 +7,7 @@ import controllers.routes
 import play.api.i18n.Lang
 import play.api.libs.json.Json
 
-import lila.app.templating.Environment.{*, given}
+import lila.app.templating.Environment.{ *, given }
 import lila.app.ui.ScalatagsTemplate.{ *, given }
 import lila.game.Pov
 

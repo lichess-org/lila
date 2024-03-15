@@ -6,7 +6,7 @@ import java.time.format.DateTimeFormatter
 import scala.util.chaining.*
 
 import lila.api.GameApiV2
-import lila.app.{*, given}
+import lila.app.{ *, given }
 import lila.common.HTTPRequest
 import lila.common.config.MaxPerSecond
 

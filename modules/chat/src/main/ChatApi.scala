@@ -9,7 +9,7 @@ import lila.db.dsl.{ *, given }
 import lila.hub.actorApi.shutup.{ PublicSource, RecordPrivateChat, RecordPublicText }
 import lila.memo.CacheApi.*
 import lila.security.{ Flood, Granter }
-import lila.user.{FlairApi, Me, User, UserRepo}
+import lila.user.{ FlairApi, Me, User, UserRepo }
 
 final class ChatApi(
     coll: Coll,

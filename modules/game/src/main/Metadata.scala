@@ -1,7 +1,7 @@
 package lila.game
 
 import chess.format.pgn.PgnStr
-import chess.{Color, Ply}
+import chess.{ Color, Ply }
 
 import java.nio.charset.StandardCharsets.UTF_8
 import java.security.MessageDigest

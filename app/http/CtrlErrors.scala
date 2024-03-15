@@ -3,10 +3,10 @@ package http
 
 import play.api.data.Form
 import play.api.i18n.Lang
-import play.api.libs.json.{JsArray, JsObject, JsString, Json, Reads, Writes}
+import play.api.libs.json.{ JsArray, JsObject, JsString, Json, Reads, Writes }
 import play.api.mvc.*
 
-import lila.i18n.{I18nKey, Translator}
+import lila.i18n.{ I18nKey, Translator }
 
 trait CtrlErrors extends ControllerHelpers:
 

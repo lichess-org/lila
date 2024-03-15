@@ -10,7 +10,7 @@ import scala.util.chaining.*
 import lila.common.Form.{ cleanText, into }
 import lila.common.Seconds
 import lila.security.Granter
-import lila.user.{Me, User}
+import lila.user.{ Me, User }
 
 final class RelayRoundForm(using mode: play.api.Mode):
 

@@ -10,7 +10,7 @@ import lila.game.{ Event, Game, GameRepo, Player as GamePlayer, Pov, Progress }
 import lila.hub.AsyncActor
 import lila.hub.actorApi.round.{ Abort, BotPlay, FishnetPlay, FishnetStart, IsOnGame, Rematch, Resign }
 import lila.room.RoomSocket.{ Protocol as RP, * }
-import lila.socket.{GetVersion, Socket, SocketSend, SocketVersion, UserLagCache}
+import lila.socket.{ GetVersion, Socket, SocketSend, SocketVersion, UserLagCache }
 
 import actorApi.*
 import round.*

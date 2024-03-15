@@ -4,9 +4,9 @@ import chess.format.pgn.PgnStr
 import scala.language.implicitConversions
 
 import lila.db.BSON
-import lila.db.BSON.{Reader, Writer}
+import lila.db.BSON.{ Reader, Writer }
 import lila.db.dsl.Bdoc
-import lila.tree.{NewRoot, Root}
+import lila.tree.{ NewRoot, Root }
 
 import BSONHandlers.given
 

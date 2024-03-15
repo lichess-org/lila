@@ -1,7 +1,7 @@
 package lila.relay
 
 import akka.actor.*
-import chess.format.pgn.{PgnStr, SanStr, Tag, Tags}
+import chess.format.pgn.{ PgnStr, SanStr, Tag, Tags }
 import chess.{ Outcome, Ply }
 import com.github.blemale.scaffeine.LoadingCache
 import io.mola.galimatias.URL
@@ -9,7 +9,7 @@ import play.api.libs.json.*
 
 import lila.base.LilaInvalid
 import lila.common.config.Max
-import lila.common.{LilaScheduler, Seconds}
+import lila.common.{ LilaScheduler, Seconds }
 import lila.game.{ GameRepo, PgnDump }
 import lila.memo.CacheApi
 import lila.round.GameProxyRepo

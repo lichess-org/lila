@@ -3,7 +3,7 @@ package controllers
 import play.api.libs.json.*
 import views.*
 
-import lila.app.{*, given}
+import lila.app.{ *, given }
 import lila.practice.JsonView.given
 import lila.practice.{ PracticeSection, PracticeStudy, UserStudy }
 import lila.study.Study.WithChapter

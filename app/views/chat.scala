@@ -2,7 +2,7 @@ package views.html
 
 import play.api.libs.json.Json
 
-import lila.app.templating.Environment.{*, given}
+import lila.app.templating.Environment.{ *, given }
 import lila.app.ui.ScalatagsTemplate.*
 import lila.common.Json.given
 import lila.i18n.I18nKeys

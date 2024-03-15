@@ -3,7 +3,7 @@ package controllers
 import play.api.mvc.*
 import views.html
 
-import lila.app.{*, given}
+import lila.app.{ *, given }
 import lila.common.HTTPRequest
 import lila.opening.OpeningQuery.queryFromUrl
 

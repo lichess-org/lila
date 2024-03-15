@@ -1,9 +1,9 @@
 package views.html.board
 
-import chess.format.{BoardFen, Fen, Uci}
+import chess.format.{ BoardFen, Fen, Uci }
 import play.api.libs.json.Json
 
-import lila.app.templating.Environment.{*, given}
+import lila.app.templating.Environment.{ *, given }
 import lila.app.ui.ScalatagsTemplate.*
 import lila.game.Pov
 

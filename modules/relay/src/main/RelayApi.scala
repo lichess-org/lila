@@ -9,7 +9,7 @@ import scala.util.chaining.*
 
 import lila.common.config.{ Max, MaxPerSecond }
 import lila.db.dsl.{ *, given }
-import lila.memo.{CacheApi, PicfitApi}
+import lila.memo.{ CacheApi, PicfitApi }
 import lila.relay.RelayRound.WithTour
 import lila.security.Granter
 import lila.study.{ Settings, Study, StudyApi, StudyId, StudyMaker, StudyRepo, StudyTopic }

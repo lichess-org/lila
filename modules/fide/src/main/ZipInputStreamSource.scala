@@ -5,7 +5,7 @@
 
 package akka.stream.contrib
 
-import akka.stream.Attributes.{InputBuffer, name}
+import akka.stream.Attributes.{ InputBuffer, name }
 import akka.stream.contrib.ZipInputStreamSource.ZipEntryData
 import akka.stream.impl.Stages.DefaultAttributes.IODispatcher
 import akka.stream.scaladsl.Source

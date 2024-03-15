@@ -10,7 +10,7 @@ import lila.pool.{ PoolApi, PoolConfig }
 import lila.rating.RatingRange
 import lila.round.ChangeFeatured
 import lila.socket.RemoteSocket.{ Protocol as P, * }
-import lila.socket.Socket.{Sri, Sris, makeMessage}
+import lila.socket.Socket.{ Sri, Sris, makeMessage }
 import lila.user.Me
 
 import actorApi.*

@@ -11,10 +11,10 @@ import reactivemongo.api.bson.*
 import lila.common.Form.into
 import lila.common.{ ApiVersion, EmailAddress, HTTPRequest, IpAddress }
 import lila.db.dsl.{ *, given }
-import lila.oauth.{AccessToken, OAuthScope, OAuthServer}
+import lila.oauth.{ AccessToken, OAuthScope, OAuthServer }
 import lila.user.User.LoginCandidate.Result
 import lila.user.User.{ ClearPassword, LoginCandidate }
-import lila.user.{Me, User, UserRepo}
+import lila.user.{ Me, User, UserRepo }
 
 final class SecurityApi(
     userRepo: UserRepo,

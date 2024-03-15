@@ -2,9 +2,21 @@ package lila.game
 
 import chess.bitboard.Bitboard
 import chess.format.pgn.SanStr
-import chess.format.{BoardFen, Fen}
+import chess.format.{ BoardFen, Fen }
 import chess.variant.Crazyhouse
-import chess.{Centis, Check, Clock as ChessClock, Color, Drop as ChessDrop, Move as ChessMove, Ply, PromotableRole, Situation, Square, Status}
+import chess.{
+  Centis,
+  Check,
+  Clock as ChessClock,
+  Color,
+  Drop as ChessDrop,
+  Move as ChessMove,
+  Ply,
+  PromotableRole,
+  Situation,
+  Square,
+  Status
+}
 import play.api.libs.json.*
 
 import lila.common.Json.given

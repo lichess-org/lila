@@ -1,6 +1,6 @@
 package lila.forum
 
-import reactivemongo.akkastream.{AkkaStreamCursor, cursorProducer}
+import reactivemongo.akkastream.{ AkkaStreamCursor, cursorProducer }
 
 import lila.db.dsl.{ *, given }
 import lila.user.User

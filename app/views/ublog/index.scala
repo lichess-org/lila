@@ -3,10 +3,10 @@ package views.html.ublog
 import controllers.routes
 import play.api.mvc.Call
 
-import lila.app.templating.Environment.{*, given}
+import lila.app.templating.Environment.{ *, given }
 import lila.app.ui.ScalatagsTemplate.{ *, given }
 import lila.common.paginator.Paginator
-import lila.i18n.{LangList, Language}
+import lila.i18n.{ LangList, Language }
 import lila.ublog.{ UblogPost, UblogTopic }
 import lila.user.User
 

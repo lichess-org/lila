@@ -2,10 +2,10 @@ package views.html.fide
 
 import controllers.routes
 
-import lila.app.templating.Environment.{*, given}
+import lila.app.templating.Environment.{ *, given }
 import lila.app.ui.ScalatagsTemplate.{ *, given }
 import lila.common.paginator.Paginator
-import lila.fide.{Federation, FidePlayer}
+import lila.fide.{ Federation, FidePlayer }
 
 object federation:
 

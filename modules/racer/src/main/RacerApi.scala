@@ -4,7 +4,7 @@ import lila.common.config.Max
 import lila.common.{ Bus, LightUser }
 import lila.memo.CacheApi
 import lila.storm.StormSelector
-import lila.user.{User, UserPerfsRepo, UserRepo}
+import lila.user.{ User, UserPerfsRepo, UserRepo }
 
 final class RacerApi(
     selector: StormSelector,

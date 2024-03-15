@@ -1,7 +1,7 @@
 package lila.insight
 
 import chess.format.pgn.SanStr
-import chess.{Centis, Clock, Ply, Role}
+import chess.{ Centis, Clock, Ply, Role }
 
 import lila.analyse.{ AccuracyPercent, WinPercent }
 import lila.common.{ LilaOpeningFamily, SimpleOpening }

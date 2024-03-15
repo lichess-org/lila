@@ -1,9 +1,21 @@
 package lila.fishnet
 
 import chess.MoveOrDrop.*
-import chess.format.pgn.{InitialComments, Move, ParsedPgn, ParsedPgnTree, Parser, Pgn, PgnNodeData, PgnStr, PgnTree, SanStr, Tags}
+import chess.format.pgn.{
+  InitialComments,
+  Move,
+  ParsedPgn,
+  ParsedPgnTree,
+  Parser,
+  Pgn,
+  PgnNodeData,
+  PgnStr,
+  PgnTree,
+  SanStr,
+  Tags
+}
 import chess.variant.Standard
-import chess.{ByColor, Clock, MoveOrDrop, Ply, Situation}
+import chess.{ ByColor, Clock, MoveOrDrop, Ply, Situation }
 import play.api.libs.json.Json
 
 import java.time.Instant

@@ -2,7 +2,7 @@ package lila.study
 
 import chess.format.pgn.Tags
 import chess.format.{ Fen, Uci }
-import chess.{ByColor, Centis, Color, Elo, FideId, Outcome, PlayerName, PlayerTitle}
+import chess.{ ByColor, Centis, Color, Elo, FideId, Outcome, PlayerName, PlayerTitle }
 import play.api.libs.json.*
 import reactivemongo.api.bson.*
 

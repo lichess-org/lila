@@ -7,7 +7,7 @@ import lila.i18n.I18nKeys.challenge as trans
 import lila.pref.Pref
 import lila.rating.PerfType
 import lila.relation.{ Block, Follow }
-import lila.user.{Me, User}
+import lila.user.{ Me, User }
 
 case class ChallengeDenied(dest: User, reason: ChallengeDenied.Reason)
 

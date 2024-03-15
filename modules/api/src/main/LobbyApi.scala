@@ -6,7 +6,7 @@ import lila.common.Json.given
 import lila.game.Pov
 import lila.lobby.{ LobbySocket, SeekApi }
 import lila.rating.Perf
-import lila.user.{User, UserPerfs}
+import lila.user.{ User, UserPerfs }
 
 final class LobbyApi(
     lightUserApi: lila.user.LightUserApi,

@@ -4,7 +4,7 @@ import reactivemongo.api.bson.{ BSONBoolean, BSONInteger }
 
 import java.time.format.DateTimeFormatter
 
-import lila.db.dsl.{*, given}
+import lila.db.dsl.{ *, given }
 
 final class RequesterApi(coll: Coll)(using Executor):
 

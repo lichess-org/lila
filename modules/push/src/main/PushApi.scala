@@ -5,7 +5,7 @@ import play.api.libs.json.*
 
 import lila.challenge.Challenge
 import lila.common.String.shorten
-import lila.common.{LazyFu, LightUser, LilaFuture}
+import lila.common.{ LazyFu, LightUser, LilaFuture }
 import lila.game.{ Game, Namer, Pov }
 import lila.hub.actorApi.map.Tell
 import lila.hub.actorApi.push.TourSoon

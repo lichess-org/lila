@@ -4,7 +4,7 @@ package mashup
 import lila.forum.MiniForumPost
 import lila.simul.{ Simul, SimulApi }
 import lila.swiss.{ Swiss, SwissApi }
-import lila.team.{RequestWithUser, Team, TeamApi, TeamMember, TeamRequest, TeamRequestRepo, TeamSecurity}
+import lila.team.{ RequestWithUser, Team, TeamApi, TeamMember, TeamRequest, TeamRequestRepo, TeamSecurity }
 import lila.tournament.{ Tournament, TournamentApi }
 import lila.user.User
 

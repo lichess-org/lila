@@ -1,7 +1,7 @@
 package lila.tournament
 
 import cats.derived.*
-import chess.Clock.{IncrementSeconds, LimitSeconds}
+import chess.Clock.{ IncrementSeconds, LimitSeconds }
 import chess.format.Fen
 import chess.variant.Variant
 import play.api.i18n.Lang

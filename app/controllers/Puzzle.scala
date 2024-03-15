@@ -9,10 +9,18 @@ import views.*
 
 import scala.util.chaining.*
 
-import lila.app.{*, given}
+import lila.app.{ *, given }
 import lila.common.Json.given
-import lila.common.{ApiVersion, LangPath}
-import lila.puzzle.{Puzzle as Puz, PuzzleAngle, PuzzleDifficulty, PuzzleForm, PuzzleSettings, PuzzleStreak, PuzzleTheme}
+import lila.common.{ ApiVersion, LangPath }
+import lila.puzzle.{
+  Puzzle as Puz,
+  PuzzleAngle,
+  PuzzleDifficulty,
+  PuzzleForm,
+  PuzzleSettings,
+  PuzzleStreak,
+  PuzzleTheme
+}
 import lila.rating.{ Perf, PerfType }
 import lila.user.User
 

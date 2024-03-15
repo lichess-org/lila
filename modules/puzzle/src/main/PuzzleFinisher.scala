@@ -8,8 +8,8 @@ import lila.common.Bus
 import lila.common.config.Max
 import lila.db.dsl.{ *, given }
 import lila.puzzle.PuzzleForm.batch.Solution
-import lila.rating.{Glicko, Perf, PerfType, glicko2}
-import lila.user.{Me, UserPerfsRepo, UserRepo}
+import lila.rating.{ Glicko, Perf, PerfType, glicko2 }
+import lila.user.{ Me, UserPerfsRepo, UserRepo }
 
 final private[puzzle] class PuzzleFinisher(
     api: PuzzleApi,

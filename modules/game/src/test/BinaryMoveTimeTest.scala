@@ -1,6 +1,6 @@
 package lila.game
 
-import chess.{Centis, Ply}
+import chess.{ Centis, Ply }
 
 import scala.language.implicitConversions
 

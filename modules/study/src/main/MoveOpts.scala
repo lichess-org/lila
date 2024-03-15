@@ -1,6 +1,5 @@
 package lila.study
 
-
 case class MoveOpts(
     write: Boolean,
     sticky: Boolean,

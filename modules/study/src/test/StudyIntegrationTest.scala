@@ -7,10 +7,10 @@ import play.api.libs.json.*
 
 import java.time.Instant
 
-import lila.socket.{AnaAny, AnaDrop, AnaMove}
+import lila.socket.{ AnaAny, AnaDrop, AnaMove }
 import lila.study.StudySocket.Protocol.In.AtPosition
 import lila.tree.Node.Comment.Text
-import lila.tree.Node.{Comment, Shape, Shapes}
+import lila.tree.Node.{ Comment, Shape, Shapes }
 import lila.tree.Root
 
 val studyId      = StudyId("studyId")

@@ -1,6 +1,6 @@
 package lila.forum
 
-import scalatags.Text.all.{Frag, raw}
+import scalatags.Text.all.{ Frag, raw }
 
 import lila.base.RawHtml
 import lila.common.config

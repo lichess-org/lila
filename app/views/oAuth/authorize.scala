@@ -3,10 +3,10 @@ package oAuth
 
 import controllers.routes
 
-import lila.app.templating.Environment.{*, given}
+import lila.app.templating.Environment.{ *, given }
 import lila.app.ui.ScalatagsTemplate.{ *, given }
 import lila.common.LightUser
-import lila.oauth.{AuthorizationRequest, OAuthScope}
+import lila.oauth.{ AuthorizationRequest, OAuthScope }
 import lila.user.User
 
 object authorize:

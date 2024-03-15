@@ -7,7 +7,7 @@ import lila.common.{ Bus, Heapsort }
 import lila.db.dsl.{ *, given }
 import lila.game.GameRepo
 import lila.memo.CacheApi.*
-import lila.user.{Me, User, UserApi, UserRepo}
+import lila.user.{ Me, User, UserApi, UserRepo }
 
 final class ReportApi(
     val coll: Coll,

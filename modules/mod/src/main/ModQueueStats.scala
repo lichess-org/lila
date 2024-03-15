@@ -5,7 +5,7 @@ import play.api.libs.json.*
 import scala.util.Try
 
 import lila.db.dsl.{ *, given }
-import lila.mod.ModActivity.{Period, dateFormat}
+import lila.mod.ModActivity.{ Period, dateFormat }
 import lila.report.Room
 
 final class ModQueueStats(

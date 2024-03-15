@@ -3,7 +3,7 @@ package lila.pref
 import reactivemongo.api.bson.*
 
 import lila.db.BSON
-import lila.db.dsl.{*, given}
+import lila.db.dsl.{ *, given }
 
 private object PrefHandlers:
 

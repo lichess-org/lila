@@ -1,6 +1,6 @@
 package lila.cms
 
-import lila.common.{Markdown, MarkdownRender, MarkdownToastUi, config}
+import lila.common.{ Markdown, MarkdownRender, MarkdownToastUi, config }
 import lila.memo.CacheApi
 
 final class CmsMarkup(

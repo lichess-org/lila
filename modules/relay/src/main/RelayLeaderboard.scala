@@ -1,6 +1,6 @@
 package lila.relay
 
-import chess.{Elo, FideId, Outcome, PlayerName, PlayerTitle}
+import chess.{ Elo, FideId, Outcome, PlayerName, PlayerTitle }
 
 import lila.db.dsl.{ *, given }
 import lila.fide.{ Federation, FidePlayerApi }

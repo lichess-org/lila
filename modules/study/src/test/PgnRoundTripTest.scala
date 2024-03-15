@@ -5,7 +5,7 @@ import scala.language.implicitConversions
 
 import lila.common.LightUser
 import lila.db.BSON
-import lila.db.BSON.{Reader, Writer}
+import lila.db.BSON.{ Reader, Writer }
 import lila.db.dsl.Bdoc
 import lila.tree.Root
 

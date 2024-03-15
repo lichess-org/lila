@@ -4,7 +4,7 @@ import play.api.ConfigLoader
 import play.api.libs.json.*
 import play.api.libs.ws.DefaultBodyWritables.*
 import play.api.libs.ws.JsonBodyReadables.*
-import play.api.libs.ws.{StandaloneWSClient, WSAuthScheme}
+import play.api.libs.ws.{ StandaloneWSClient, WSAuthScheme }
 
 import lila.common.String.urlencode
 import lila.common.config.Secret

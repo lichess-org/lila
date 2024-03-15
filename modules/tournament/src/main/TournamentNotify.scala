@@ -1,6 +1,6 @@
 package lila.tournament
 
-import lila.common.{Bus, LilaScheduler}
+import lila.common.{ Bus, LilaScheduler }
 import lila.hub.actorApi.push.TourSoon
 
 final private class TournamentNotify(repo: TournamentRepo, cached: TournamentCache)(using

@@ -1,15 +1,15 @@
 package lila.round
 
-import chess.{ByColor, Color}
-import play.api.libs.json.{JsArray, JsObject, Json}
+import chess.{ ByColor, Color }
+import play.api.libs.json.{ JsArray, JsObject, Json }
 
 import lila.chat.Chat
 import lila.common.Json.given
-import lila.common.{LightUser, Preload}
+import lila.common.{ LightUser, Preload }
 import lila.game.JsonView.given
-import lila.game.{Game, GameRepo, Pov}
+import lila.game.{ Game, GameRepo, Pov }
 import lila.pref.Pref
-import lila.round.actorApi.{GameAndSocketStatus, SocketStatus}
+import lila.round.actorApi.{ GameAndSocketStatus, SocketStatus }
 import lila.user.Me
 
 object RoundMobile:

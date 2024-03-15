@@ -4,11 +4,11 @@ package http
 import play.api.i18n.Lang
 import play.api.mvc.*
 
-import lila.api.{LoginContext, Nonce, PageData}
+import lila.api.{ LoginContext, Nonce, PageData }
 import lila.common.HTTPRequest
 import lila.i18n.I18nLangPicker
 import lila.oauth.OAuthScope
-import lila.security.{AppealUser, FingerPrintedUser}
+import lila.security.{ AppealUser, FingerPrintedUser }
 import lila.user.Me
 
 trait RequestContext(using Executor):

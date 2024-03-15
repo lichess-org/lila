@@ -9,7 +9,7 @@ import lila.common.LightUser
 import lila.common.config.*
 import lila.common.paginator.*
 import lila.db.dsl.{ *, given }
-import lila.user.{LightUserApi, Me, User}
+import lila.user.{ LightUserApi, Me, User }
 
 final class MsgCompat(
     api: MsgApi,

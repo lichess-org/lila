@@ -10,7 +10,7 @@ import lila.gathering.Condition.WithVerdicts
 import lila.gathering.GreatPlayer
 import lila.quote.Quote.given
 import lila.socket.{ SocketVersion, given }
-import lila.user.{User, UserPerfsRepo, UserRepo}
+import lila.user.{ User, UserPerfsRepo, UserRepo }
 
 final class SwissJson(
     mongo: SwissMongo,

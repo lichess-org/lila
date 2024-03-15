@@ -8,7 +8,7 @@ import lila.common.config.*
 import lila.common.{ EmailAddress, LilaCookie }
 import lila.i18n.I18nKeys.emails as trans
 import lila.mailer.Mailer
-import lila.user.{User, UserApi, UserRepo}
+import lila.user.{ User, UserApi, UserRepo }
 
 trait EmailConfirm:
 

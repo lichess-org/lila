@@ -5,12 +5,17 @@ import com.softwaremill.tagging.*
 import io.mola.galimatias.URL
 import play.api.libs.json.*
 import play.api.libs.ws.DefaultBodyReadables.*
-import play.api.libs.ws.{DefaultWSProxyServer, StandaloneWSClient, StandaloneWSRequest, StandaloneWSResponse}
+import play.api.libs.ws.{
+  DefaultWSProxyServer,
+  StandaloneWSClient,
+  StandaloneWSRequest,
+  StandaloneWSResponse
+}
 
 import scala.util.matching.Regex
 
 import lila.base.LilaInvalid
-import lila.common.config.{Credentials, HostPort, Max}
+import lila.common.config.{ Credentials, HostPort, Max }
 import lila.memo.CacheApi.*
 import lila.memo.{ CacheApi, SettingStore }
 import lila.study.MultiPgn

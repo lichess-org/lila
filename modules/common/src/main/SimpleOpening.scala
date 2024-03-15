@@ -1,7 +1,7 @@
 package lila.common
 
 import chess.opening.Opening.nameToKey
-import chess.opening.{Opening, OpeningDb, OpeningName, OpeningVariation}
+import chess.opening.{ Opening, OpeningDb, OpeningName, OpeningVariation }
 
 /*
  * Simple openings only keep one level of variation.

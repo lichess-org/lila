@@ -2,7 +2,7 @@ package views.html.account
 
 import controllers.routes
 
-import lila.app.templating.Environment.{*, given}
+import lila.app.templating.Environment.{ *, given }
 import lila.app.ui.ScalatagsTemplate.{ *, given }
 
 object layout:

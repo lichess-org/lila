@@ -3,7 +3,7 @@ package templating
 
 import lila.app.ui.ScalatagsTemplate.*
 import lila.security.{ Granter, Permission }
-import lila.user.{Me, User}
+import lila.user.{ Me, User }
 
 trait SecurityHelper:
 

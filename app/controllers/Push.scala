@@ -1,6 +1,6 @@
 package controllers
 
-import lila.app.{*, given}
+import lila.app.{ *, given }
 import lila.push.WebSubscription
 
 final class Push(env: Env) extends LilaController(env):

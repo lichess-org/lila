@@ -7,7 +7,7 @@ import reactivemongo.api.bson.*
 import lila.common.{ LightUser, NormalizedEmailAddress }
 import lila.db.dsl.{ *, given }
 import lila.memo.CacheApi
-import lila.rating.{Glicko, Perf, PerfType}
+import lila.rating.{ Glicko, Perf, PerfType }
 import lila.user.User.userHandler
 
 final class UserApi(userRepo: UserRepo, perfsRepo: UserPerfsRepo, cacheApi: CacheApi)(using

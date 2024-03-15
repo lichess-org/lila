@@ -4,7 +4,7 @@ import chess.variant.Standard
 
 import lila.common.LightUser
 import lila.db.BSON
-import lila.db.BSON.{Reader, Writer}
+import lila.db.BSON.{ Reader, Writer }
 import lila.db.dsl.Bdoc
 import lila.study.Helpers.*
 import lila.tree.Node.partitionTreeJsonWriter

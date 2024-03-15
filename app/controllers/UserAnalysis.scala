@@ -2,12 +2,12 @@ package controllers
 
 import chess.format.Fen
 import chess.variant.{ FromPosition, Standard, Variant }
-import chess.{ByColor, FullMoveNumber, Situation, White}
+import chess.{ ByColor, FullMoveNumber, Situation, White }
 import play.api.libs.json.Json
 import play.api.mvc.*
 import views.*
 
-import lila.app.{*, given}
+import lila.app.{ *, given }
 import lila.common.HTTPRequest
 import lila.game.Pov
 import lila.round.JsonView.WithFlags

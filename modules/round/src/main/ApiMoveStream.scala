@@ -2,7 +2,7 @@ package lila.round
 
 import akka.stream.scaladsl.*
 import chess.format.Fen
-import chess.{ByColor, Centis, Ply, Replay, Situation}
+import chess.{ ByColor, Centis, Ply, Replay, Situation }
 import play.api.libs.json.*
 
 import scala.util.chaining.*

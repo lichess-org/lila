@@ -16,7 +16,7 @@ import lila.hub.actorApi.timeline.{ Propagate, TeamCreate, TeamJoin }
 import lila.memo.CacheApi.*
 import lila.mod.ModlogApi
 import lila.security.Granter
-import lila.user.{Me, MyId, User, UserApi, UserRepo}
+import lila.user.{ Me, MyId, User, UserApi, UserRepo }
 
 final class TeamApi(
     teamRepo: TeamRepo,

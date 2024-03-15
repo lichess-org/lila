@@ -6,7 +6,7 @@ import reactivemongo.api.bson.*
 
 import lila.analyse.{ Analysis, AnalysisRepo }
 import lila.db.dsl.{ *, given }
-import lila.evaluation.{AccountAction, PlayerAggregateAssessment, PlayerAssessment, Statistics}
+import lila.evaluation.{ AccountAction, PlayerAggregateAssessment, PlayerAssessment, Statistics }
 import lila.game.{ Game, Player, Pov, Source }
 import lila.report.SuspectId
 import lila.user.User

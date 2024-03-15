@@ -2,7 +2,7 @@ package lila.relay
 
 import akka.actor.*
 import akka.pattern.after
-import chess.format.pgn.{Parser, PgnStr, San, Std, Tags}
+import chess.format.pgn.{ Parser, PgnStr, San, Std, Tags }
 import chess.{ ErrorStr, Game, Replay, Square }
 
 import scala.concurrent.duration.*

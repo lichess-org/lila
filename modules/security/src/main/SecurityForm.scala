@@ -8,7 +8,7 @@ import play.api.mvc.RequestHeader
 import lila.common.Form.*
 import lila.common.{ EmailAddress, Form as LilaForm, LameName }
 import lila.user.User.{ ClearPassword, TotpToken }
-import lila.user.{Me, TotpSecret, User, UserRepo}
+import lila.user.{ Me, TotpSecret, User, UserRepo }
 
 final class SecurityForm(
     userRepo: UserRepo,

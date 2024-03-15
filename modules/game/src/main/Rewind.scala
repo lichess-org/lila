@@ -1,7 +1,7 @@
 package lila.game
 
 import chess.ErrorStr
-import chess.format.{Fen, pgn as chessPgn}
+import chess.format.{ Fen, pgn as chessPgn }
 
 object Rewind:
 

@@ -3,8 +3,8 @@ package lila.game
 import akka.actor.*
 import akka.pattern.pipe
 import chess.Game as ChessGame
-import chess.format.pgn.{SanStr, Sans, Tags}
-import chess.format.{Fen, pgn}
+import chess.format.pgn.{ SanStr, Sans, Tags }
+import chess.format.{ Fen, pgn }
 
 import scala.util.Success
 

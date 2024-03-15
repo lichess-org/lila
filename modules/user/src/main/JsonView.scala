@@ -95,8 +95,6 @@ object JsonView:
 
   private val standardPerfKeys: Set[Perf.Key] = PerfType.standard.map(_.key).toSet
 
-  
-
   def perfTypedJson(p: Perf.Typed): JsObject =
     Json.obj(p.perfType.key.value -> p.perf)
 

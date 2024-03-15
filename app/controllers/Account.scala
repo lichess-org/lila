@@ -9,7 +9,7 @@ import views.html
 import scala.util.chaining.*
 
 import lila.api.AnnounceStore
-import lila.app.{*, given}
+import lila.app.{ *, given }
 import lila.common.HTTPRequest
 import lila.security.SecurityForm.Reopen
 import lila.user.{ TotpSecret, User as UserModel }

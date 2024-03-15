@@ -1,8 +1,8 @@
 package lila.analyse
-import chess.format.pgn.{InitialComments, Parser, Pgn, PgnStr, Tag, Tags}
-import chess.{ByColor, Ply}
+import chess.format.pgn.{ InitialComments, Parser, Pgn, PgnStr, Tag, Tags }
+import chess.{ ByColor, Ply }
 
-import lila.common.config.{BaseUrl, NetDomain}
+import lila.common.config.{ BaseUrl, NetDomain }
 import lila.game.PgnDump
 import lila.tree.Eval
 

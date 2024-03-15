@@ -7,7 +7,7 @@ import play.api.libs.json.*
 
 import lila.common.Days
 import lila.common.Json.given
-import lila.rating.{Perf, PerfType, RatingRange}
+import lila.rating.{ Perf, PerfType, RatingRange }
 import lila.user.User
 
 // correspondence chess, persistent

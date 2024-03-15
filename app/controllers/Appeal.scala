@@ -5,7 +5,7 @@ import play.api.data.Form
 import play.api.mvc.Result
 import views.*
 
-import lila.app.{*, given}
+import lila.app.{ *, given }
 import lila.appeal.Appeal as AppealModel
 import lila.report.Suspect
 

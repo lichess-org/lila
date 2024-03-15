@@ -3,7 +3,7 @@ package views.html
 import controllers.routes
 import play.api.libs.json.*
 
-import lila.app.templating.Environment.{*, given}
+import lila.app.templating.Environment.{ *, given }
 import lila.app.ui.ScalatagsTemplate.{ *, given }
 import lila.common.LangPath
 import lila.i18n.I18nKeys.storm as s

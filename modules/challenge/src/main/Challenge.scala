@@ -10,7 +10,7 @@ import lila.common.Days
 import lila.game.{ Game, GameRule }
 import lila.i18n.{ I18nKey, I18nKeys }
 import lila.rating.PerfType
-import lila.user.{GameUser, Me, User}
+import lila.user.{ GameUser, Me, User }
 
 case class Challenge(
     _id: Challenge.Id,

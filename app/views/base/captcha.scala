@@ -5,7 +5,7 @@ import play.api.libs.json.Json
 
 import scala.reflect.Selectable.reflectiveSelectable
 
-import lila.app.templating.Environment.{*, given}
+import lila.app.templating.Environment.{ *, given }
 import lila.app.ui.ScalatagsTemplate.{ *, given }
 import lila.common.String.html.safeJsonValue
 

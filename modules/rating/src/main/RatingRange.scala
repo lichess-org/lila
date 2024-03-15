@@ -1,6 +1,5 @@
 package lila.rating
 
-
 case class RatingRange(min: IntRating, max: IntRating):
 
   def contains(rating: IntRating) =

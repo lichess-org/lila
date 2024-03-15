@@ -9,7 +9,7 @@ import views.*
 
 import scala.annotation.nowarn
 
-import lila.app.{*, given}
+import lila.app.{ *, given }
 import lila.common.{ EmailAddress, HTTPRequest, IpAddress }
 import lila.mod.ModUserSearch
 import lila.report.{ Mod as AsMod, Suspect }

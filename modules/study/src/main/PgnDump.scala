@@ -2,12 +2,12 @@ package lila.study
 
 import akka.stream.scaladsl.*
 import chess.format.pgn as chessPgn
-import chess.format.pgn.{Comment, Glyphs, InitialComments, Pgn, PgnStr, PgnTree, Tag, Tags}
+import chess.format.pgn.{ Comment, Glyphs, InitialComments, Pgn, PgnStr, PgnTree, Tag, Tags }
 
 import lila.analyse.Analysis
 import lila.common.String.slugify
 import lila.tree.Node.{ Shape, Shapes }
-import lila.tree.{Branch, NewBranch, NewTree, Root}
+import lila.tree.{ NewBranch, NewTree, Root }
 
 final class PgnDump(
     chapterRepo: ChapterRepo,

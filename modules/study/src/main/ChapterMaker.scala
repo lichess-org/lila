@@ -7,7 +7,7 @@ import chess.variant.Variant
 
 import lila.chat.ChatApi
 import lila.game.{ Game, Namer }
-import lila.tree.{Branches, Root}
+import lila.tree.{ Branches, Root }
 
 final private class ChapterMaker(
     net: lila.common.config.NetConfig,

@@ -28,8 +28,8 @@ object TeamSecurity:
 
   case class NewPermissions(user: UserId, perms: Set[Permission])
 
-final class TeamSecurity(memberRepo: TeamMemberRepo, userRepo: UserRepo, cached: Cached)(
-    using Executor
+final class TeamSecurity(memberRepo: TeamMemberRepo, userRepo: UserRepo, cached: Cached)(using
+    Executor
 ):
 
   import TeamSecurity.*

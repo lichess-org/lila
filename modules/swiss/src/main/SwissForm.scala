@@ -1,6 +1,6 @@
 package lila.swiss
 
-import chess.Clock.{Config as ClockConfig, IncrementSeconds, LimitSeconds}
+import chess.Clock.{ Config as ClockConfig, IncrementSeconds, LimitSeconds }
 import chess.Speed
 import chess.format.Fen
 import chess.variant.Variant

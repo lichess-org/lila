@@ -2,7 +2,7 @@ package lila.tournament
 
 import akka.stream.Materializer
 import akka.stream.scaladsl.*
-import reactivemongo.akkastream.{AkkaStreamCursor, cursorProducer}
+import reactivemongo.akkastream.{ AkkaStreamCursor, cursorProducer }
 import reactivemongo.api.bson.*
 
 import lila.db.dsl.{ *, given }

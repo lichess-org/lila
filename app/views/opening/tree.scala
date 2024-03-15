@@ -2,9 +2,9 @@ package views.html.opening
 
 import controllers.routes
 
-import lila.app.templating.Environment.{*, given}
+import lila.app.templating.Environment.{ *, given }
 import lila.app.ui.ScalatagsTemplate.{ *, given }
-import lila.opening.{OpeningConfig, OpeningTree}
+import lila.opening.{ OpeningConfig, OpeningTree }
 
 object tree:
 

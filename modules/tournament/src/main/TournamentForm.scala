@@ -1,6 +1,6 @@
 package lila.tournament
 
-import chess.Clock.{IncrementSeconds, LimitSeconds}
+import chess.Clock.{ IncrementSeconds, LimitSeconds }
 import chess.format.Fen
 import chess.{ Clock, Mode }
 import play.api.data.*

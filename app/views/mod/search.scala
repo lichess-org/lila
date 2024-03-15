@@ -4,13 +4,13 @@ import controllers.clas.routes.Clas as clasRoutes
 import controllers.routes
 import play.api.data.Form
 
-import lila.app.templating.Environment.{*, given}
+import lila.app.templating.Environment.{ *, given }
 import lila.app.ui.ScalatagsTemplate.{ *, given }
 import lila.common.IpAddress
 import lila.common.String.html.richText
 import lila.common.paginator.Paginator
 import lila.mod.IpRender.RenderIp
-import lila.security.{FingerHash, IpTrust}
+import lila.security.{ FingerHash, IpTrust }
 import lila.user.{ Me, User }
 
 object search:

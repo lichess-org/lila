@@ -2,7 +2,7 @@ package controllers
 
 import play.api.mvc.*
 
-import lila.app.{*, given}
+import lila.app.{ *, given }
 import lila.forum.ForumTopic
 
 private[controllers] trait ForumController:

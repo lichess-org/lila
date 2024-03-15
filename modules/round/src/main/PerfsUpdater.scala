@@ -4,8 +4,8 @@ import chess.{ ByColor, Color, Speed }
 
 import lila.game.{ Game, GameRepo, RatingDiffs }
 import lila.history.HistoryApi
-import lila.rating.{Glicko, Perf, PerfType as PT, RatingFactors, RatingRegulator, glicko2}
-import lila.user.{RankingApi, User, UserApi, UserPerfs}
+import lila.rating.{ Glicko, Perf, PerfType as PT, RatingFactors, RatingRegulator, glicko2 }
+import lila.user.{ RankingApi, User, UserApi, UserPerfs }
 
 final class PerfsUpdater(
     gameRepo: GameRepo,

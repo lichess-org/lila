@@ -4,7 +4,7 @@ import play.api.libs.json.*
 import play.api.mvc.*
 import views.*
 
-import lila.app.{*, given}
+import lila.app.{ *, given }
 import lila.common.Json.given
 import lila.streamer.{ Streamer as StreamerModel, StreamerForm }
 

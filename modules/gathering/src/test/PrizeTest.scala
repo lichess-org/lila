@@ -1,6 +1,5 @@
 package lila.gathering
 
-
 class PrizeTest extends munit.FunSuite:
 
   test("richText prize regex not find btc >> url") {

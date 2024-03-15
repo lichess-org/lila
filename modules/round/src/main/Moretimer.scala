@@ -1,6 +1,6 @@
 package lila.round
 
-import chess.{ByColor, Color}
+import chess.{ ByColor, Color }
 
 import lila.common.Preload
 import lila.game.{ Event, Game, Pov, Progress }

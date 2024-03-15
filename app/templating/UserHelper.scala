@@ -6,10 +6,10 @@ import controllers.routes
 import play.api.i18n.Lang
 
 import lila.app.ui.ScalatagsTemplate.{ *, given }
-import lila.common.{LightUser, licon}
+import lila.common.{ LightUser, licon }
 import lila.i18n.{ I18nKey, I18nKeys as trans }
 import lila.rating.{ Perf, PerfType }
-import lila.user.{User, UserPerfs}
+import lila.user.{ User, UserPerfs }
 
 import mashup.*
 

@@ -6,7 +6,7 @@ import play.api.i18n.Lang
 import play.api.mvc.RequestHeader
 
 import lila.common.Form.{ cleanNonEmptyText, cleanText, into }
-import lila.security.{Hcaptcha, HcaptchaForm}
+import lila.security.{ Hcaptcha, HcaptchaForm }
 
 final class ClasForm(
     lightUserAsync: lila.common.LightUser.Getter,

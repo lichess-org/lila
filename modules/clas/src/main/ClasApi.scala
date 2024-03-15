@@ -9,7 +9,7 @@ import lila.common.{ EmailAddress, Markdown }
 import lila.db.dsl.{ *, given }
 import lila.msg.MsgApi
 import lila.rating.{ Perf, PerfType }
-import lila.user.{Authenticator, Me, User, UserPerfs, UserPerfsRepo, UserRepo}
+import lila.user.{ Authenticator, Me, User, UserPerfs, UserPerfsRepo, UserRepo }
 
 final class ClasApi(
     colls: ClasColls,

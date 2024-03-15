@@ -4,7 +4,7 @@ import chess.ByColor
 import chess.format.pgn.{ Tag, Tags }
 
 import lila.db.dsl.*
-import lila.fide.{FidePlayer, FidePlayerApi, FideTC}
+import lila.fide.{ FidePlayer, FidePlayerApi, FideTC }
 
 final private class RelayFidePlayerApi(playerApi: FidePlayerApi)(using Executor):
 

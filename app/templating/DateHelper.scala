@@ -3,7 +3,7 @@ package templating
 
 import play.api.i18n.Lang
 
-import java.time.format.{DateTimeFormatter, FormatStyle}
+import java.time.format.{ DateTimeFormatter, FormatStyle }
 import java.time.{ Duration, LocalDate }
 import java.util.concurrent.ConcurrentHashMap
 

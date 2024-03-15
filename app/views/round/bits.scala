@@ -6,7 +6,7 @@ import controllers.routes
 
 import scala.util.chaining.*
 
-import lila.app.templating.Environment.{*, given}
+import lila.app.templating.Environment.{ *, given }
 import lila.app.ui.ScalatagsTemplate.{ *, given }
 import lila.common.Json.given
 import lila.common.LangPath

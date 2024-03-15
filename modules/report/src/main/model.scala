@@ -1,6 +1,6 @@
 package lila.report
 
-import lila.user.{Me, User}
+import lila.user.{ Me, User }
 
 case class Mod(user: User) extends AnyVal:
   def id = user.id.into(ModId)

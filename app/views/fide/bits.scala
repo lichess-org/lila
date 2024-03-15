@@ -1,5 +1,5 @@
 package views.html.fide
-import lila.app.templating.Environment.{*, given}
+import lila.app.templating.Environment.{ *, given }
 import lila.app.ui.ScalatagsTemplate.*
 import lila.fide.FideTC
 

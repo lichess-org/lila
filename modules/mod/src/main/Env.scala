@@ -5,7 +5,7 @@ import com.softwaremill.macwire.*
 
 import lila.common.config.*
 import lila.report.SuspectId
-import lila.user.{Me, User}
+import lila.user.{ Me, User }
 
 @Module
 final class Env(
@@ -30,7 +30,7 @@ final class Env(
     noteApi: lila.user.NoteApi,
     cacheApi: lila.memo.CacheApi,
     ircApi: lila.irc.IrcApi,
-    msgApi: lila.msg.MsgApi,
+    msgApi: lila.msg.MsgApi
 )(using Executor, Scheduler):
   private lazy val logRepo        = ModlogRepo(db(CollName("modlog")))
   private lazy val assessmentRepo = AssessmentRepo(db(CollName("player_assessment")))

@@ -5,7 +5,7 @@ import play.api.i18n.Lang
 
 import lila.common.Bus
 import lila.game.{ Event, Game, Pov, Progress }
-import lila.i18n.{I18nKeys as trans, defaultLang}
+import lila.i18n.{ I18nKeys as trans, defaultLang }
 import lila.pref.{ Pref, PrefApi }
 
 final private[round] class Drawer(

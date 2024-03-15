@@ -11,7 +11,7 @@ import scala.util.chaining.*
 import lila.gathering.GreatPlayer
 import lila.i18n.defaultLang
 import lila.rating.PerfType
-import lila.user.{Me, User}
+import lila.user.{ Me, User }
 
 case class Tournament(
     id: TourId,

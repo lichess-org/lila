@@ -5,7 +5,7 @@ import play.api.data.*
 import play.api.data.Forms.*
 import play.api.data.validation.Constraints
 
-import lila.common.Form.{cleanNonEmptyText, cleanText, into, trim, given}
+import lila.common.Form.{ cleanNonEmptyText, cleanText, into, trim, given }
 import lila.common.LameName
 
 final class UserForm:

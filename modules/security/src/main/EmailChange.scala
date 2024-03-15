@@ -3,10 +3,10 @@ package lila.security
 import scalatags.Text.all.*
 
 import lila.common.config.*
-import lila.common.{EmailAddress, Iso}
+import lila.common.{ EmailAddress, Iso }
 import lila.i18n.I18nKeys.emails as trans
 import lila.mailer.Mailer
-import lila.user.{Me, User, UserRepo}
+import lila.user.{ Me, User, UserRepo }
 
 final class EmailChange(
     userRepo: UserRepo,

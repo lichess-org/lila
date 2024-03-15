@@ -3,7 +3,7 @@ package forum
 
 import controllers.routes
 
-import lila.app.templating.Environment.{*, given}
+import lila.app.templating.Environment.{ *, given }
 import lila.app.ui.ScalatagsTemplate.{ *, given }
 import lila.forum.ForumPost
 import lila.security.Granter

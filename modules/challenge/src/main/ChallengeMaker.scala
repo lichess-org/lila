@@ -1,7 +1,7 @@
 package lila.challenge
 
-import lila.game.{Game, GameRepo, Player, Pov, Rematches}
-import lila.user.{GameUser, User, UserApi, UserPerfsRepo}
+import lila.game.{ Game, GameRepo, Player, Pov, Rematches }
+import lila.user.{ GameUser, User, UserApi, UserPerfsRepo }
 
 import Challenge.TimeControl
 

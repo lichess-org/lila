@@ -1,8 +1,8 @@
 package lila.game
 
-import chess.format.pgn.{InitialComments, ParsedPgn, Parser, Pgn, PgnTree, SanStr, Tag, TagType, Tags}
-import chess.format.{Fen, pgn as chessPgn}
-import chess.{ByColor, Centis, Color, Outcome, Ply, Tree}
+import chess.format.pgn.{ InitialComments, ParsedPgn, Parser, Pgn, PgnTree, SanStr, Tag, TagType, Tags }
+import chess.format.{ Fen, pgn as chessPgn }
+import chess.{ ByColor, Centis, Color, Outcome, Ply, Tree }
 
 import lila.common.LightUser
 import lila.common.config.BaseUrl

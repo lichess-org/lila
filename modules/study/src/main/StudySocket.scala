@@ -9,13 +9,12 @@ import lila.common.Bus
 import lila.common.Json.{ *, given }
 import lila.room.RoomSocket.{ Protocol as RP, * }
 import lila.socket.RemoteSocket.{ Protocol as P, * }
-import lila.socket.Socket.{Sri, makeMessage}
+import lila.socket.Socket.{ Sri, makeMessage }
 import lila.socket.{ AnaAny, AnaDests, AnaDrop, AnaMove }
 import lila.tree.Branch
 import lila.tree.Node.{ Comment, Gamebook, Shape, Shapes }
 
 import actorApi.Who
-
 
 final private class StudySocket(
     api: StudyApi,

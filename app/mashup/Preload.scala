@@ -13,7 +13,7 @@ import lila.swiss.Swiss
 import lila.timeline.Entry
 import lila.tournament.{ Tournament, Winner }
 import lila.ublog.UblogPost
-import lila.user.{LightUserApi, Me, User}
+import lila.user.{ LightUserApi, Me, User }
 
 final class Preload(
     tv: lila.tv.Tv,

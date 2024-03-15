@@ -7,7 +7,7 @@ import lila.db.AsyncCollFailingSilently
 import lila.db.dsl.{ *, given }
 import lila.game.Game
 import lila.rating.{ Perf, PerfType }
-import lila.user.{User, UserApi, UserPerfs}
+import lila.user.{ User, UserApi, UserPerfs }
 
 final class HistoryApi(withColl: AsyncCollFailingSilently, userApi: UserApi, cacheApi: lila.memo.CacheApi)(
     using Executor

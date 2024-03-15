@@ -2,16 +2,16 @@ package controllers
 
 import chess.format.pgn.{ PgnStr, Tag }
 import play.api.data.Form
-import play.api.libs.json.{Json, OWrites}
+import play.api.libs.json.{ Json, OWrites }
 import play.api.mvc.*
 import views.*
 
 import scala.annotation.nowarn
 
-import lila.app.{*, given}
+import lila.app.{ *, given }
 import lila.common.HTTPRequest
 import lila.common.config.{ Max, MaxPerSecond }
-import lila.relay.{RelayRound as RoundModel, RelayTour as TourModel}
+import lila.relay.{ RelayRound as RoundModel, RelayTour as TourModel }
 
 final class RelayRound(
     env: Env,

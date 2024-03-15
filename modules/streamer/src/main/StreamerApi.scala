@@ -3,7 +3,7 @@ import lila.common.licon
 import lila.db.dsl.{ *, given }
 import lila.memo.CacheApi.*
 import lila.memo.PicfitApi
-import lila.user.{Me, User, UserApi, UserRepo}
+import lila.user.{ Me, User, UserApi, UserRepo }
 
 final class StreamerApi(
     coll: Coll,

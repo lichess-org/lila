@@ -1,6 +1,6 @@
 package controllers
 
-import lila.app.{*, given}
+import lila.app.{ *, given }
 
 final class DgtCtrl(env: Env) extends LilaController(env):
 

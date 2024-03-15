@@ -7,7 +7,7 @@ import play.api.libs.json.*
 import lila.analyse.{ Analysis, JsonView as analysisJson }
 import lila.api.Context.given
 import lila.common.Json.given
-import lila.common.{HTTPRequest, Preload}
+import lila.common.{ HTTPRequest, Preload }
 import lila.game.{ Game, Pov }
 import lila.pref.Pref
 import lila.puzzle.PuzzleOpening
@@ -18,7 +18,7 @@ import lila.simul.Simul
 import lila.swiss.GameView as SwissView
 import lila.tournament.GameView as TourView
 import lila.tree.Node.partitionTreeJsonWriter
-import lila.user.{GameUsers, User}
+import lila.user.{ GameUsers, User }
 
 final private[api] class RoundApi(
     jsonView: JsonView,

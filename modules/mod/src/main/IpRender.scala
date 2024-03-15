@@ -5,7 +5,7 @@ import ornicar.scalalib.ThreadLocalRandom
 
 import scala.jdk.CollectionConverters.*
 
-import lila.common.{CuteNameGenerator, IpAddress}
+import lila.common.{ CuteNameGenerator, IpAddress }
 import lila.memo.CacheApi
 import lila.security.Granter
 import lila.user.Me

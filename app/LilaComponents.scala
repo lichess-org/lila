@@ -2,14 +2,14 @@ package lila.app
 
 import akka.actor.ActorSystem
 import com.softwaremill.macwire.*
-import play.api.http.{FileMimeTypes, HttpRequestHandler}
+import play.api.http.{ FileMimeTypes, HttpRequestHandler }
 import play.api.inject.ApplicationLifecycle
 import play.api.libs.crypto.DefaultCookieSigner
 import play.api.libs.ws.StandaloneWSClient
 import play.api.mvc.*
 import play.api.mvc.request.*
 import play.api.routing.Router
-import play.api.{BuiltInComponents, Configuration, Environment}
+import play.api.{ BuiltInComponents, Configuration, Environment }
 
 final class LilaComponents(
     val environment: Environment,

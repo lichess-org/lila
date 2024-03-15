@@ -2,7 +2,7 @@ package lila.setup
 
 import chess.format.Fen
 import chess.variant.Variant
-import chess.{Clock, Mode}
+import chess.{ Clock, Mode }
 
 import lila.common.Days
 import lila.lobby.Color

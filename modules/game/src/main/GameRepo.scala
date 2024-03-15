@@ -4,7 +4,7 @@ import chess.format.Fen
 import chess.format.pgn.{ PgnStr, SanStr }
 import chess.{ Color, Status }
 import ornicar.scalalib.ThreadLocalRandom
-import reactivemongo.akkastream.{AkkaStreamCursor, cursorProducer}
+import reactivemongo.akkastream.{ AkkaStreamCursor, cursorProducer }
 import reactivemongo.api.bson.BSONNull
 import reactivemongo.api.commands.WriteResult
 import reactivemongo.api.{ Cursor, WriteConcern }

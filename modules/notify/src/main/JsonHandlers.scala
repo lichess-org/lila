@@ -5,7 +5,7 @@ import play.api.libs.json.*
 
 import lila.common.Json.given
 import lila.common.LightUser
-import lila.i18n.{I18nKeys as trans, JsDump}
+import lila.i18n.{ I18nKeys as trans, JsDump }
 
 final class JSONHandlers(getLightUser: LightUser.GetterSync):
 

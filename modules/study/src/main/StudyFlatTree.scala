@@ -1,11 +1,11 @@
 package lila.study
 
-import chess.format.{UciCharPair, UciPath}
+import chess.format.{ UciCharPair, UciPath }
 
 import lila.common.Chronometer
 import lila.db.dsl.*
 import lila.tree.NewTree.*
-import lila.tree.{Branch, Branches, NewBranch, NewRoot, NewTree, Root}
+import lila.tree.{ Branch, Branches, NewBranch, NewRoot, NewTree, Root }
 
 import BSONHandlers.{ readBranch, writeBranch, readNewBranch, writeNewBranch }
 

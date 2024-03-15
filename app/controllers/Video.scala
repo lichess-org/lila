@@ -2,7 +2,7 @@ package controllers
 
 import views.*
 
-import lila.app.{*, given}
+import lila.app.{ *, given }
 import lila.common.HTTPRequest
 import lila.video.{ Filter, UserControl, View }
 

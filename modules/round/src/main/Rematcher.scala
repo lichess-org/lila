@@ -2,13 +2,13 @@ package lila.round
 
 import chess.format.Fen
 import chess.variant.*
-import chess.{ByColor, Clock, Color as ChessColor, Game as ChessGame, Ply, Situation}
+import chess.{ ByColor, Clock, Color as ChessColor, Game as ChessGame, Ply, Situation }
 
 import lila.common.Bus
 import lila.game.{ AnonCookie, Event, Game, GameRepo, Pov, Rematches, Source }
-import lila.i18n.{I18nKeys as trans, defaultLang}
+import lila.i18n.{ I18nKeys as trans, defaultLang }
 import lila.memo.ExpireSetMemo
-import lila.user.{GameUsers, UserApi}
+import lila.user.{ GameUsers, UserApi }
 
 import ChessColor.White
 

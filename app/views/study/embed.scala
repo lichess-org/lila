@@ -4,7 +4,7 @@ import chess.format.pgn.PgnStr
 import controllers.routes
 import play.api.libs.json.Json
 
-import lila.app.templating.Environment.{*, given}
+import lila.app.templating.Environment.{ *, given }
 import lila.app.ui.ScalatagsTemplate.{ *, given }
 
 object embed:

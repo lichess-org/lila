@@ -1,9 +1,9 @@
 package lila.fide
 
-import chess.{ByColor, FideId, PlayerName, PlayerTitle}
+import chess.{ ByColor, FideId, PlayerName, PlayerTitle }
 import reactivemongo.api.bson.*
 
-import lila.db.dsl.{*, given}
+import lila.db.dsl.{ *, given }
 
 final class FidePlayerApi(repo: FideRepo, cacheApi: lila.memo.CacheApi)(using Executor):
 

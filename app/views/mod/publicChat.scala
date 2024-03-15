@@ -2,9 +2,9 @@ package views.html.mod
 
 import controllers.routes
 
-import lila.app.templating.Environment.{*, given}
+import lila.app.templating.Environment.{ *, given }
 import lila.app.ui.ScalatagsTemplate.{ *, given }
-import lila.chat.{ChatTimeout, UserChat}
+import lila.chat.{ ChatTimeout, UserChat }
 
 object publicChat:
 

@@ -100,5 +100,3 @@ final private class SwissDirector(
       .withId(pairing.gameId)
       .withSwissId(swiss.id)
       .start
-
-  

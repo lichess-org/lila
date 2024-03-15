@@ -1,7 +1,7 @@
 package lila.gathering
 
 import chess.Clock
-import chess.Clock.{IncrementSeconds, LimitSeconds}
+import chess.Clock.{ IncrementSeconds, LimitSeconds }
 
 import lila.common.Form.*
 

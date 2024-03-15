@@ -2,7 +2,7 @@ package lila.irwin
 
 import reactivemongo.api.bson.*
 
-import lila.analyse.{Analysis, AnalysisRepo}
+import lila.analyse.{ Analysis, AnalysisRepo }
 import lila.common.Bus
 import lila.db.dsl.{ *, given }
 import lila.game.{ Game, GameRepo, Pov, Query }

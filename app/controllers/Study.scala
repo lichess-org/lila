@@ -7,14 +7,14 @@ import views.*
 import scala.util.chaining.*
 
 import lila.analyse.Analysis
-import lila.app.{*, given}
+import lila.app.{ *, given }
 import lila.common.paginator.{ Paginator, PaginatorJson }
 import lila.common.{ Bus, HTTPRequest, IpAddress, LpvEmbed }
 import lila.socket.Socket
 import lila.study.JsonView.JsData
 import lila.study.Study.WithChapter
 import lila.study.actorApi.{ BecomeStudyAdmin, Who }
-import lila.study.{Chapter, Order, Settings, Study as StudyModel, StudyForm}
+import lila.study.{ Chapter, Order, Settings, Study as StudyModel, StudyForm }
 import lila.tree.Node.partitionTreeJsonWriter
 
 final class Study(
