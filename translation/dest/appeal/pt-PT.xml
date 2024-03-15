@@ -3,4 +3,6 @@
   <string name="cleanAllGood">A tua conta não está marcada ou restrita. Está tudo bem!</string>
   <string name="engineMarked">A tua conta está marcada por assistência externa em jogos.</string>
   <string name="engineMarkedInfo">Definimos isto como a utilização de qualquer ajuda externa para reforçar os teus conhecimentos e/ou capacidades de cálculo, de modo a obter uma vantagem injusta sobre o teu adversário. Vê a página %s para mais pormenores.</string>
+  <string name="arenaBanned">A tua conta está proibida de entrar nas arenas.</string>
+  <string name="fairPlay">Jogo Justo</string>
 </resources>
