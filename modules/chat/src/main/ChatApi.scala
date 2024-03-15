@@ -296,7 +296,7 @@ final class ChatApi(
           "$push" -> $doc(
             Chat.BSONFields.lines -> $doc(
               "$each"  -> List(line),
-              "$slice" -> -200
+              "$slice" -> -150
             )
           )
         ),
