@@ -576,7 +576,7 @@
   <string name="editProfile">Редагувати профіль</string>
   <string name="firstName">Ім\'я</string>
   <string name="lastName">Прізвище</string>
-  <string name="setFlair">Оберіть свій тотем</string>
+  <string name="setFlair">Оберіть свій емодзі</string>
   <string name="flair">Аватар</string>
   <string name="youCanHideFlair">Це налаштування вимикає аватари всіх користувачів сайту.</string>
   <string name="biography">Біографія</string>
