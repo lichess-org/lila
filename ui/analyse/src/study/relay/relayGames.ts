@@ -38,11 +38,13 @@ export const gamesList = (study: StudyCtrl, relay: RelayCtrl) => {
           return h(
             `a.relay-game.relay-game--${c.id}`,
             {
-              attrs: gameLinkAttrs(basePath, c),
+              attrs: {
+                ...gameLinkAttrs(basePath, c),
+                'data-n': i + 1,
+              },
               class: { 'relay-game--current': c.id === study.data.chapter.id },
             },
             [
-              h('span.relay-game__number', `${i + 1}`),
               cloudEval && verticalEvalGauge(c, cloudEval),
               h(
                 'span.relay-game__players',

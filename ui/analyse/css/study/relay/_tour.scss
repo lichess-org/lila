@@ -317,17 +317,18 @@
     flex: 1;
     overflow: hidden;
   }
-  &__number {
+  &::before {
+    content: attr(data-n);
     font-size: 0.9em;
     font-weight: bold;
     align-self: center;
     width: 2ch;
     text-align: center;
     color: $c-font-dimmer;
-    .relay-game--current &,
-    .relay-game:hover & {
-      color: $c-primary;
-    }
+  }
+  &--current::before,
+  &:hover::before {
+    color: $c-primary;
   }
   &__player {
     @extend %flex-between-nowrap;
