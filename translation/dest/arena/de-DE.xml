@@ -63,7 +63,7 @@ Spiele schnell und kehre zur Turnierübersicht zurück, um mehr Spiele zu spiele
   <string name="myTournaments">Meine Turniere</string>
   <string name="editTournament">Turnier bearbeiten</string>
   <string name="editTeamBattle">Teamkampf bearbeiten</string>
-  <string name="defender" comment="In this context, this is the current holder of a shield trophy, who are defending their trophy in the next shield tournament of that variant. https://lichess.org/tournament/shields">Verteidiger</string>
+  <string name="defender" comment="In this context, this is the current holder of a shield trophy, who is defending their trophy in the next shield tournament of that variant. https://lichess.org/tournament/shields">Verteidiger</string>
   <string name="pickYourTeam">Wähle dein Team</string>
   <string name="whichTeamWillYouRepresentInThisBattle">Welches Team wirst du in diesem Kampf repräsentieren?</string>
   <string name="youMustJoinOneOfTheseTeamsToParticipate">Du musst dich einem dieser Teams anschließen, um teilnehmen zu können!</string>

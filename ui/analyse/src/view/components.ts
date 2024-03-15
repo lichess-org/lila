@@ -48,6 +48,13 @@ export interface ViewContext {
   needsInnerCoords: boolean;
   tourUi?: VNode;
 }
+export interface StudyViewContext extends ViewContext {
+  study: StudyCtrl;
+  deps: typeof studyDeps;
+}
+export interface RelayViewContext extends StudyViewContext {
+  relay: RelayCtrl;
+}
 
 export function viewContext(ctrl: AnalyseCtrl, deps?: typeof studyDeps): ViewContext {
   const playerBars = deps?.renderPlayerBars(ctrl);

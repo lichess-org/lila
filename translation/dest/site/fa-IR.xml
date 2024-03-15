@@ -98,10 +98,10 @@
   <string name="maxDepthReached">عمق به حداکثر رسیده!</string>
   <string name="maybeIncludeMoreGamesFromThePreferencesMenu">شاید بازی‌های بیشتری با توجه به گزینگان ترجیحات، وجود داشته باشه؟</string>
   <string name="openings">گشایش</string>
-  <string name="openingExplorer">جویشگر حرکت گشاینده بازی</string>
-  <string name="openingEndgameExplorer">جویشگر حرکت گشاینده/پایان‌دهنده بازی</string>
+  <string name="openingExplorer">جستجوگر گشایش‌</string>
+  <string name="openingEndgameExplorer">جستجوگر گشایش/آخربازی</string>
   <string name="xOpeningExplorer">جستجوگر گشایش %s</string>
-  <string name="playFirstOpeningEndgameExplorerMove">اولین حرکت اکسپلورر شروع/آخر بازی را بازی کن</string>
+  <string name="playFirstOpeningEndgameExplorerMove">اولین حرکت گشایش/آخربازی را برو</string>
   <string name="winPreventedBy50MoveRule">قانون پنجاه حرکت از پیروزی جلوگیری کرد</string>
   <string name="lossSavedBy50MoveRule">قانون ۵۰ حرکت از شکست جلوگیری کرد</string>
   <string name="winOr50MovesByPriorMistake">برد یا ۵٠ حرکت بعد از اشتباه قبلی</string>
@@ -276,6 +276,7 @@
   <string name="abortGame">انصراف از بازی</string>
   <string name="gameAborted">بازی لغو شد</string>
   <string name="standard">استاندارد</string>
+  <string name="customPosition">وضعیت به‌دلخواه</string>
   <string name="unlimited">نامحدود</string>
   <string name="mode">نوع</string>
   <string name="casual">غیر رسمی</string>
@@ -329,7 +330,7 @@
     <item quantity="other">%s ثانیه اضافه کن</item>
   </plurals>
   <string name="thisAccountViolatedTos">این حساب قوانین را نقض کرده است</string>
-  <string name="openingExplorerAndTablebase">جستجوگر گشایش ها و جدول های مرجع آخربازی</string>
+  <string name="openingExplorerAndTablebase">جستجوگر گشایش و آخربازی</string>
   <string name="takeback">پس گرفتن حرکت</string>
   <string name="proposeATakeback">پیشنهاد پس گرفتن حرکت</string>
   <string name="takebackPropositionSent">پیشنهاد پس گرفتن حرکت فرستاده شد</string>
@@ -494,7 +495,7 @@
   <string name="boardEditor">مُهره‌چینی</string>
   <string name="setTheBoard">مهره‌ها را بچینید</string>
   <string name="popularOpenings">گشایش‌های محبوب</string>
-  <string name="endgamePositions">موقعیتهای پایان‌بخش بازی</string>
+  <string name="endgamePositions">آخربازی</string>
   <string name="chess960StartPosition">پوزیشن ابتدایی شطرنج960: %s</string>
   <string name="startPosition">موقعیت شروع</string>
   <string name="clearBoard">پاک کردن صفحه</string>
@@ -531,6 +532,7 @@
   <string name="automaticallyProceedToNextGameAfterMoving">حرکت کردن اتوماتیک برای بازی بعدی بعد از حرکت کردن</string>
   <string name="autoSwitch">تعویض خودکار</string>
   <string name="puzzles">معماها</string>
+  <string name="onlineBots">ربات‌های بَرخط</string>
   <string name="name">نام</string>
   <string name="description">شرح</string>
   <string name="descPrivate">توضیحات خصوصی</string>
@@ -853,7 +855,7 @@
   </plurals>
   <string name="opening">گشایش</string>
   <string name="middlegame">وسط بازی</string>
-  <string name="endgame">آخر بازی</string>
+  <string name="endgame">آخربازی</string>
   <string name="conditionalPremoves">پیش حرکت های شرطی</string>
   <string name="addCurrentVariation">اضافه کردن این نوع حرکات</string>
   <string name="playVariationToCreateConditionalPremoves">یک نوع حرکات را بازی کنید تا پیش حرکت های شرطی را بسازید</string>
@@ -986,4 +988,5 @@
   <string name="instructions">راهنما</string>
   <string name="showMeEverything">همه چیز را به من نشان بده</string>
   <string name="lichessPatronInfo">لایچس یک خیریه و کاملا رایگان و نرم افزاری متن باز است. تمام هزینه های اجرا، توسعه و محتوا تنها بر پایه هدایای کاربران بنا شده است.</string>
+  <string name="nothingToSeeHere">فعلا هیچی اینجا نیست.</string>
 </resources>

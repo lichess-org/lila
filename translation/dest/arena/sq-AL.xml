@@ -60,7 +60,7 @@ Luani shpejt dhe kthehuni në holl, që të luani më shumë lojëra dhe të fit
   <string name="myTournaments">Turnetë e mia</string>
   <string name="editTournament">Përpunoni turne</string>
   <string name="editTeamBattle">Përpunoni ndeshje ekipesh</string>
-  <string name="defender" comment="In this context, this is the current holder of a shield trophy, who are defending their trophy in the next shield tournament of that variant. https://lichess.org/tournament/shields">Mbrojtës</string>
+  <string name="defender" comment="In this context, this is the current holder of a shield trophy, who is defending their trophy in the next shield tournament of that variant. https://lichess.org/tournament/shields">Mbrojtës</string>
   <string name="pickYourTeam">Zgjidhni ekipin tuaj</string>
   <string name="whichTeamWillYouRepresentInThisBattle">Cilin ekip do të përfaqësoni në këtë ndeshje?</string>
   <string name="youMustJoinOneOfTheseTeamsToParticipate">Që të merrni pjesë, duhet të bëheni pjesë e njërit prej këtyre ekipeve!</string>

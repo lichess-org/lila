@@ -61,7 +61,7 @@ Spil hurtigt og vend tilbage til lobbyen for at spille flere partier og vinde fl
   <string name="myTournaments">Mine turneringer</string>
   <string name="editTournament">Rediger turnering</string>
   <string name="editTeamBattle">Rediger holdkamp</string>
-  <string name="defender" comment="In this context, this is the current holder of a shield trophy, who are defending their trophy in the next shield tournament of that variant. https://lichess.org/tournament/shields">Forsvarer</string>
+  <string name="defender" comment="In this context, this is the current holder of a shield trophy, who is defending their trophy in the next shield tournament of that variant. https://lichess.org/tournament/shields">Forsvarer</string>
   <string name="pickYourTeam">Vælg dit hold</string>
   <string name="whichTeamWillYouRepresentInThisBattle">Hvilket hold vil du repræsentere i denne kamp?</string>
   <string name="youMustJoinOneOfTheseTeamsToParticipate">Du skal være med på et af disse hold for at deltage!</string>

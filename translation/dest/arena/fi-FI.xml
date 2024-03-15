@@ -62,7 +62,7 @@ Pelaa nopeasti ja palaa aulaan, niin voit pelata lisää pelejä ja ansaita lis�
   <string name="myTournaments">Omat turnaukset</string>
   <string name="editTournament">Muokkaa turnausta</string>
   <string name="editTeamBattle">Muokkaa joukkuetaistoa</string>
-  <string name="defender" comment="In this context, this is the current holder of a shield trophy, who are defending their trophy in the next shield tournament of that variant. https://lichess.org/tournament/shields">Puolustaja</string>
+  <string name="defender" comment="In this context, this is the current holder of a shield trophy, who is defending their trophy in the next shield tournament of that variant. https://lichess.org/tournament/shields">Puolustaja</string>
   <string name="pickYourTeam">Valitse joukkueesi</string>
   <string name="whichTeamWillYouRepresentInThisBattle">Mitä joukkuetta edustat tässä taistossa?</string>
   <string name="youMustJoinOneOfTheseTeamsToParticipate">Sinun täytyy liittyä johonkin näistä joukkueista osallistuaksesi turnaukseen!</string>
