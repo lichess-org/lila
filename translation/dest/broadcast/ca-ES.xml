@@ -10,7 +10,6 @@
   <string name="newBroadcast">Nova retransmissió en directe</string>
   <string name="subscribedBroadcasts">Emissions que segueixo</string>
   <string name="aboutBroadcasts">Sobre les retransmissions</string>
-  <string name="noRoundsYet">Cap ronda encara.</string>
   <string name="howToUseLichessBroadcasts">Com utilitzar les retransmissions de Lichess.</string>
   <string name="theNewRoundHelp">La nova ronda tindrà els mateixos membres i contribuïdors que l\'anterior.</string>
   <string name="addRound">Afegir una ronda</string>
