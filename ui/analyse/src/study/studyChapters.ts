@@ -142,13 +142,13 @@ export function view(ctrl: StudyCtrl): VNode {
       if (current.id !== ctrl.chapters.list.first().id) {
         scrollToInnerSelector(el, '.active');
       }
-    } else if (ctrl.vm.loading && vData.loadingId !== ctrl.vm.nextChapterId) {
-      vData.loadingId = ctrl.vm.nextChapterId;
-      scrollToInnerSelector(el, '.loading');
+    } else if (vData.currentId !== ctrl.data.chapter.id) {
+      vData.currentId = ctrl.data.chapter.id;
+      scrollToInnerSelector(el, '.active');
     }
     vData.count = newCount;
     if (canContribute && newCount > 1 && !vData.sortable) {
-      const makeSortable = function () {
+      const makeSortable = () => {
         vData.sortable = window.Sortable.create(el, {
           draggable: '.draggable',
           handle: 'ontouchstart' in window ? 'span' : undefined,
@@ -192,14 +192,13 @@ export function view(ctrl: StudyCtrl): VNode {
       .all()
       .map((chapter, i) => {
         const editing = ctrl.chapters.editForm.isEditing(chapter.id),
-          loading = ctrl.vm.loading && chapter.id === ctrl.vm.nextChapterId,
           active = !ctrl.vm.loading && current?.id === chapter.id;
         return h(
           'div',
           {
             key: chapter.id,
             attrs: { 'data-id': chapter.id },
-            class: { active, editing, loading, draggable: canContribute },
+            class: { active, editing, draggable: canContribute },
           },
           [
             h('span', (i + 1).toString()),
