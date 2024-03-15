@@ -37,6 +37,7 @@ sg-squares {
   .d-12x12 & {
     grid-template: repeat(12, 1fr) / repeat(12, 1fr);
   }
+  top: 0.1px;
   pointer-events: none;
   sq {
     &.dest {
