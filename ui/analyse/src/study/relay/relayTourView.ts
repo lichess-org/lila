@@ -88,16 +88,17 @@ const overview = (relay: RelayCtrl, ctrl: AnalyseCtrl) => [
     : h('div.relay-tour__markup', relay.data.tour.description),
 ];
 
-const groupSelect = (relay: RelayCtrl, group: RelayGroup) =>
-  h('div.mselect.relay-tour__header__mselect.relay-tour__group-select', [
+const groupSelect = (relay: RelayCtrl, group: RelayGroup) => {
+  const clickHook = { hook: bind('click', relay.groupSelectShow.toggle, relay.redraw) };
+  return h('div.mselect.relay-tour__header__mselect.relay-tour__group-select', [
     h(
       'label.mselect__label',
-      { hook: bind('click', relay.groupSelectShow.toggle, relay.redraw) },
+      clickHook,
       group.tours.find(t => t.id == relay.data.tour.id)?.name || relay.data.tour.name,
     ),
     ...(relay.groupSelectShow()
       ? [
-          h('label.fullscreen-mask', { hook: bind('click', relay.groupSelectShow.toggle, relay.redraw) }),
+          h('label.fullscreen-mask', clickHook),
           h(
             'nav.mselect__list',
             group.tours.map(tour =>
@@ -111,17 +112,19 @@ const groupSelect = (relay: RelayCtrl, group: RelayGroup) =>
         ]
       : []),
   ]);
+};
 
-const roundSelect = (relay: RelayCtrl, study: StudyCtrl) =>
-  h('div.mselect.relay-tour__header__mselect.relay-tour__header__round-select', [
+const roundSelect = (relay: RelayCtrl, study: StudyCtrl) => {
+  const clickHook = { hook: bind('click', relay.roundSelectShow.toggle, relay.redraw) };
+  return h('div.mselect.relay-tour__header__mselect.relay-tour__header__round-select', [
     h(
       'label.mselect__label',
-      { hook: bind('click', relay.roundSelectShow.toggle, relay.redraw) },
+      clickHook,
       relay.data.rounds.find(r => r.id == study.data.id)?.name || study.data.name,
     ),
     ...(relay.roundSelectShow()
       ? [
-          h('label.fullscreen-mask', { hook: bind('click', relay.roundSelectShow.toggle, relay.redraw) }),
+          h('label.fullscreen-mask', clickHook),
           h(
             'table.mselect__list',
             {
@@ -144,6 +147,7 @@ const roundSelect = (relay: RelayCtrl, study: StudyCtrl) =>
         ]
       : []),
   ]);
+};
 
 const games = (relay: RelayCtrl, study: StudyCtrl, ctrl: AnalyseCtrl) => [
   ...header(relay, ctrl),
