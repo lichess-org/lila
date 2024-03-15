@@ -283,6 +283,7 @@ GET   /api/broadcast/round/$roundId<\w{8}>.pgn controllers.RelayRound.apiPgn(rou
 GET   /api/stream/broadcast/round/$roundId<\w{8}>.pgn controllers.RelayRound.stream(roundId)
 GET   /api/broadcast                          controllers.RelayTour.apiIndex
 GET   /api/broadcast/my-rounds                controllers.RelayRound.apiMyRounds
+GET   /$lang<\w\w\w?>/broadcast               controllers.RelayTour.indexLang(lang)
 
 # Learn
 GET   /learn                           controllers.Learn.index

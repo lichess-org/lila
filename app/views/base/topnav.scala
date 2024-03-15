@@ -67,7 +67,7 @@ object topnav:
         )
       ),
       st.section:
-        val broadcastUrl = routes.RelayTour.index().url
+        val broadcastUrl = langHref(routes.RelayTour.index())
         frag(
           linkTitle(broadcastUrl, trans.watch()),
           div(role := "group")(

@@ -11,6 +11,11 @@ import lila.relay.RelayTour as TourModel
 final class RelayTour(env: Env, apiC: => Api) extends LilaController(env):
 
   def index(page: Int, q: String) = Open:
+    indexResults(page, q)
+
+  def indexLang = LangPage(routes.RelayTour.index())(indexResults(1, ""))
+
+  private def indexResults(page: Int, q: String)(using ctx: Context) =
     Reasonable(page, config.Max(20)):
       q.trim.take(100).some.filter(_.nonEmpty) match
         case Some(query) =>
