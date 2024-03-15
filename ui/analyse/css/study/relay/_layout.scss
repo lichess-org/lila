@@ -25,7 +25,6 @@ main.is-relay.has-relay-tour {
   grid-template-areas:
     'relay-tour'
     'side'
-    'uchat'
     'relay-admin';
   .mchat {
     margin-top: 1em;
@@ -35,7 +34,6 @@ main.is-relay.has-relay-tour {
     grid-template-rows: 80vh;
     grid-template-areas:
       'relay-tour . side'
-      'relay-tour . uchat'
       'relay-tour . relay-admin';
     .mchat {
       flex: 5 0 30%;
@@ -47,7 +45,6 @@ main.is-relay.has-relay-tour {
     grid-template-rows: $mq-col3-side-height 2.5em;
     grid-template-areas:
       'side        . relay-tour relay-tour relay-tour'
-      'uchat       . relay-tour relay-tour relay-tour'
       'relay-admin . relay-tour relay-tour relay-tour';
   }
 }
