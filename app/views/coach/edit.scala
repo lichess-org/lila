@@ -12,7 +12,6 @@ import lila.i18n.LangList
 object edit:
 
   private val dataTab = attr("data-tab")
-  attr("data-value")
 
   private lazy val jsonLanguages = safeJsonValue {
     Json.toJson(LangList.popularNoRegion.map { l =>
