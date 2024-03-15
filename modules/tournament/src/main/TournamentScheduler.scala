@@ -1,11 +1,12 @@
 package lila.tournament
 
 import chess.StartingPosition
-import scala.util.chaining.*
-import java.time.{ LocalDate, LocalDateTime }
-import java.time.Month.*
+
 import java.time.DayOfWeek.*
+import java.time.Month.*
 import java.time.temporal.TemporalAdjusters
+import java.time.{ LocalDate, LocalDateTime }
+import scala.util.chaining.*
 
 import lila.common.LilaScheduler
 import lila.gathering.Condition

@@ -1,8 +1,7 @@
 package lila.tutor
 
 import lila.common.Heapsort.topN
-import lila.insight.InsightDimension
-import lila.insight.InsightPosition
+import lila.insight.{ InsightDimension, InsightPosition }
 
 case class TutorCompare[D, V](
     dimensionType: InsightDimension[D],
@@ -11,7 +10,6 @@ case class TutorCompare[D, V](
     color: Option[chess.Color] = None
 )(using number: TutorNumber[V]):
   import TutorCompare.*
-  import TutorNumber.*
 
   val totalCountMine = points.map(_._2.mine.so(_.count)).sum
 

@@ -2,10 +2,10 @@ package controllers
 
 import views.*
 
-import lila.app.{ given, * }
+import lila.app.{ *, given }
 import lila.common.IpAddress
+import lila.i18n.I18nKeys as trans
 import lila.msg.MsgPreset
-import lila.i18n.{ I18nKeys as trans }
 
 final class ForumPost(env: Env) extends LilaController(env) with ForumController:
 

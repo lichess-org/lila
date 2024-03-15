@@ -1,12 +1,11 @@
 package lila.socket
 
+import chess.format.Fen
+import chess.variant.Variant
 import play.api.libs.json.*
 
-import chess.format.Fen
-import chess.opening.*
-import chess.variant.Variant
-import lila.tree.Node.{ destString, given }
 import lila.common.Json.given
+import lila.tree.Node.destString
 
 case class AnaDests(
     variant: Variant,

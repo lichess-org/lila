@@ -4,8 +4,8 @@ import com.github.blemale.scaffeine.LoadingCache
 import com.roundeights.hasher.Algo
 import ornicar.scalalib.ThreadLocalRandom
 
-import lila.common.config.Secret
 import lila.common.Uptime
+import lila.common.config.Secret
 import lila.memo.CacheApi
 import lila.user.User
 

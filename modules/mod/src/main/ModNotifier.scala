@@ -1,7 +1,7 @@
 package lila.mod
 
 import lila.notify.NotifyApi
-import lila.report.{ Mod, Suspect, Victim }
+import lila.report.Suspect
 
 final private class ModNotifier(
     notifyApi: NotifyApi,

@@ -1,15 +1,15 @@
 package views.html.relay
 
-import play.api.mvc.Call
-import lila.app.templating.Environment.{ given, * }
-import lila.app.ui.ScalatagsTemplate.{ *, given }
-
 import controllers.routes
-import lila.relay.{ RelayRound, RelayTour }
-import lila.relay.RelayTour.WithLastRound
-import lila.common.LightUser
+import play.api.mvc.Call
+
+import lila.app.templating.Environment.{ *, given }
+import lila.app.ui.ScalatagsTemplate.{ *, given }
+import lila.common.{ LangPath, LightUser }
 import lila.common.paginator.Paginator
 import lila.memo.PicfitImage
+import lila.relay.RelayTour.WithLastRound
+import lila.relay.{ RelayRound, RelayTour }
 
 object tour:
 
@@ -25,7 +25,8 @@ object tour:
     views.html.base.layout(
       title = liveBroadcasts.txt(),
       moreCss = cssTag("relay.index"),
-      moreJs = infiniteScrollTag
+      moreJs = infiniteScrollTag,
+      withHrefLangs = LangPath(routes.RelayTour.index()).some
     ):
       def nonEmptyTier(selector: RelayTour.Tier.Selector, tier: String) =
         val selected = active.filter(_.tour.tierIs(selector))

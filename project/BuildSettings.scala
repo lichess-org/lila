@@ -56,8 +56,8 @@ object BuildSettings {
     "-language:postfixOps",
     "-language:implicitConversions",
     "-release:21",
+    // "-Wunused:all",
     "-Wconf:msg=qualifier will be deprecated:s"
-    // "-Wunused:all"
   )
 
   val srcMain = Seq(

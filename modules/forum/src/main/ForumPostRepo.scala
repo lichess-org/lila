@@ -1,10 +1,11 @@
 package lila.forum
 
-import Filter.*
-import reactivemongo.akkastream.{ cursorProducer, AkkaStreamCursor }
+import reactivemongo.akkastream.{ AkkaStreamCursor, cursorProducer }
 
 import lila.db.dsl.{ *, given }
 import lila.user.User
+
+import Filter.*
 
 final class ForumPostRepo(val coll: Coll, filter: Filter = Safe)(using
     Executor

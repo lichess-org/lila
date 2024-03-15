@@ -1,10 +1,11 @@
 package lila.tournament
 
 import chess.variant.Variant.given
+
 import lila.common.licon
 import lila.db.dsl.*
-import lila.user.User
 import lila.memo.CacheApi.*
+import lila.user.User
 
 final class TournamentShieldApi(
     tournamentRepo: TournamentRepo,

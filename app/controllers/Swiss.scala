@@ -1,17 +1,15 @@
 package controllers
-
-import play.api.i18n.Lang
-import play.api.libs.json.Json
+import controllers.team.routes.Team as teamRoutes
 import play.api.mvc.*
-import scala.util.chaining.*
 import views.*
 
-import controllers.team.routes.{ Team as teamRoutes }
-import lila.app.{ given, * }
+import scala.util.chaining.*
+
+import lila.app.{ *, given }
 import lila.common.HTTPRequest
+import lila.hub.LightTeam
 import lila.swiss.Swiss.ChatFor
 import lila.swiss.{ Swiss as SwissModel, SwissForm }
-import lila.hub.LightTeam
 
 final class Swiss(
     env: Env,

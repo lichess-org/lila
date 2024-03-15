@@ -1,10 +1,12 @@
 package lila.hub
 package actorApi
 
-import lila.common.LpvEmbed
-import chess.format.{ Uci, Fen }
-import java.time.Duration
+import chess.format.{ Fen, Uci }
 import play.api.libs.json.*
+
+import java.time.Duration
+
+import lila.common.LpvEmbed
 
 // announce something to all clients
 case class Announce(msg: String, date: Instant, json: JsObject)

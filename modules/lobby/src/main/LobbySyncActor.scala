@@ -1,11 +1,11 @@
 package lila.lobby
 
-import actorApi.*
-
 import lila.common.{ Bus, LilaScheduler }
 import lila.game.Game
 import lila.hub.SyncActor
 import lila.socket.Socket.{ Sri, Sris }
+
+import actorApi.*
 
 final private class LobbySyncActor(
     seekApi: SeekApi,

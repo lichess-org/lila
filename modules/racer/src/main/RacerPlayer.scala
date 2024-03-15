@@ -1,8 +1,7 @@
 package lila.racer
 
-import lila.common.CuteNameGenerator
+import lila.common.{ CuteNameGenerator, LightUser }
 import lila.user.User
-import lila.common.LightUser
 
 case class RacerPlayer(id: RacerPlayer.Id, user: Option[LightUser], createdAt: Instant, score: Int):
 

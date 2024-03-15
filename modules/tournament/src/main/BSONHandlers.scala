@@ -1,7 +1,7 @@
 package lila.tournament
 
-import chess.format.Fen
 import chess.Mode
+import chess.format.Fen
 import chess.variant.Variant
 import reactivemongo.api.bson.*
 

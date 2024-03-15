@@ -1,7 +1,7 @@
 package lila.puzzle
 
-import lila.common.paginator.Paginator
 import lila.common.config.{ Max, MaxPerPage }
+import lila.common.paginator.Paginator
 import lila.db.dsl.{ *, given }
 import lila.db.paginator.Adapter
 import lila.user.User

@@ -1,14 +1,13 @@
 package lila.irc
 
+import play.api.ConfigLoader
 import play.api.libs.json.*
 import play.api.libs.ws.DefaultBodyWritables.*
 import play.api.libs.ws.JsonBodyReadables.*
-import play.api.libs.ws.StandaloneWSClient
-import play.api.libs.ws.WSAuthScheme
+import play.api.libs.ws.{ StandaloneWSClient, WSAuthScheme }
 
-import lila.common.config.Secret
 import lila.common.String.urlencode
-import play.api.ConfigLoader
+import lila.common.config.Secret
 
 final private class ZulipClient(ws: StandaloneWSClient, config: ZulipClient.Config)(using
     Executor

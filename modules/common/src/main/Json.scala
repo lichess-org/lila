@@ -1,9 +1,10 @@
 package lila.common
 
-import play.api.libs.json.{ Json as PlayJson, * }
-import ornicar.scalalib.Render
-import chess.format.{ Uci }
+import chess.format.Uci
 import chess.variant.Crazyhouse
+import ornicar.scalalib.Render
+import play.api.libs.json.{ Json as PlayJson, * }
+
 import scala.util.NotGiven
 
 object Json:

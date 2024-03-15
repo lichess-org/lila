@@ -2,10 +2,9 @@ package lila.gameSearch
 
 import play.api.libs.json.*
 
-import lila.game.{ Game, GameRepo }
 import lila.common.Json.given
+import lila.game.{ Game, GameRepo }
 import lila.search.*
-import alleycats.Zero
 
 final class GameSearchApi(
     client: ESClient,

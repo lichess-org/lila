@@ -3,9 +3,10 @@ package lila.storm
 import chess.format.{ Fen, Uci }
 import reactivemongo.api.bson.*
 
-import lila.db.dsl.{ *, given }
 import scala.util.Success
+
 import lila.common.LichessDay
+import lila.db.dsl.{ *, given }
 
 object StormBsonHandlers:
 

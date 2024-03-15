@@ -1,7 +1,9 @@
 package lila.tournament
 
 import chess.variant.{ FromPosition, Standard, Variant }
+
 import lila.db.dsl.{ *, given }
+
 import Schedule.{ Freq, Speed }
 
 case class Winner(

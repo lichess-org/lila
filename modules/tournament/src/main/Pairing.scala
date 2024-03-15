@@ -1,9 +1,8 @@
 package lila.tournament
 
-import ornicar.scalalib.ThreadLocalRandom
-
 import chess.Color
 import chess.variant.*
+import ornicar.scalalib.ThreadLocalRandom
 
 case class Pairing(
     id: GameId,

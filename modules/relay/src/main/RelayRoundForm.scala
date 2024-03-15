@@ -3,15 +3,14 @@ package lila.relay
 import io.mola.galimatias.URL
 import play.api.data.*
 import play.api.data.Forms.*
+
 import scala.util.Try
 import scala.util.chaining.*
 
 import lila.common.Form.{ cleanText, into }
-import lila.game.Game
-import lila.security.Granter
-import lila.study.Study
-import lila.user.{ User, Me }
 import lila.common.Seconds
+import lila.security.Granter
+import lila.user.{ Me, User }
 
 final class RelayRoundForm(using mode: play.api.Mode):
 

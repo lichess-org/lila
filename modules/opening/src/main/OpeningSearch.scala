@@ -1,12 +1,13 @@
 package lila.opening
 
+import chess.format.pgn.PgnMovesStr
 import chess.opening.{ Opening, OpeningDb }
+
 import java.text.Normalizer
 
 import lila.common.Chronometer
 import lila.common.Heapsort.topN
 import lila.memo.CacheApi
-import chess.format.pgn.PgnMovesStr
 
 case class OpeningSearchResult(opening: Opening):
   def pgn   = OpeningSearch.removePgnMoveNumbers(opening.pgn)

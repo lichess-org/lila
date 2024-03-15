@@ -2,16 +2,17 @@ package lila.base
 
 import alleycats.Zero
 import com.typesafe.config.Config
-import java.util.concurrent.TimeUnit
-import java.lang.Math.{ max, min }
-import scala.concurrent.{ Await, ExecutionContext as EC }
-import scala.util.matching.Regex
-import scala.util.Try
-
-import java.util.Base64
-import lila.common.Chronometer
 import ornicar.scalalib.extensions.*
+
+import java.lang.Math.{ max, min }
+import java.util.Base64
+import java.util.concurrent.TimeUnit
 import scala.annotation.targetName
+import scala.concurrent.{ Await, ExecutionContext as EC }
+import scala.util.Try
+import scala.util.matching.Regex
+
+import lila.common.Chronometer
 
 trait LilaLibraryExtensions extends LilaTypes:
 

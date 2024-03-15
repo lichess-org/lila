@@ -1,8 +1,9 @@
 package lila.common
 
-import play.api.libs.json.*
-import lila.common.Json.given
 import chess.PlayerTitle
+import play.api.libs.json.*
+
+import lila.common.Json.given
 
 case class LightUser(
     id: UserId,

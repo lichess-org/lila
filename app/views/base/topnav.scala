@@ -1,10 +1,10 @@
 package views.html.base
 
-import controllers.clas.routes.{ Clas as clasRoutes }
-import controllers.team.routes.{ Team as teamRoutes }
+import controllers.clas.routes.Clas as clasRoutes
 import controllers.routes
+import controllers.team.routes.Team as teamRoutes
 
-import lila.app.templating.Environment.{ given, * }
+import lila.app.templating.Environment.{ *, given }
 import lila.app.ui.ScalatagsTemplate.{ *, given }
 
 object topnav:
@@ -67,14 +67,14 @@ object topnav:
         )
       ),
       st.section:
-        val tvUrl = langHref(routes.Tv.index)
+        val broadcastUrl = langHref(routes.RelayTour.index())
         frag(
-          linkTitle(tvUrl, trans.watch()),
+          linkTitle(broadcastUrl, trans.watch()),
           div(role := "group")(
-            a(href := tvUrl)("Lichess TV"),
+            a(href := routes.RelayTour.index())(trans.broadcast.broadcasts()),
+            a(href := langHref(routes.Tv.index))("Lichess TV"),
             a(href := routes.Tv.games)(trans.currentGames()),
             (ctx.kid.no && ctx.noBot).option(a(href := routes.Streamer.index())(trans.streamersMenu())),
-            a(href := routes.RelayTour.index())(trans.broadcast.broadcasts()),
             ctx.noBot.option(a(href := routes.Video.index)(trans.videoLibrary()))
           )
         )

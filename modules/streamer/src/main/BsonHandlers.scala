@@ -1,7 +1,8 @@
 package lila.streamer
 
-import lila.db.dsl.given
 import reactivemongo.api.bson.*
+
+import lila.db.dsl.given
 
 private object BsonHandlers:
 

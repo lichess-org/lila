@@ -1,23 +1,24 @@
 package lila.relay
 
-import io.mola.galimatias.URL
+import chess.format.pgn.PgnStr
 import com.softwaremill.tagging.*
-import scala.util.matching.Regex
+import io.mola.galimatias.URL
 import play.api.libs.json.*
+import play.api.libs.ws.DefaultBodyReadables.*
 import play.api.libs.ws.{
+  DefaultWSProxyServer,
   StandaloneWSClient,
   StandaloneWSRequest,
-  StandaloneWSResponse,
-  DefaultWSProxyServer
+  StandaloneWSResponse
 }
-import play.api.libs.ws.DefaultBodyReadables.*
-import chess.format.pgn.PgnStr
 
-import lila.study.MultiPgn
+import scala.util.matching.Regex
+
+import lila.base.LilaInvalid
+import lila.common.config.{ Credentials, HostPort, Max }
 import lila.memo.CacheApi.*
 import lila.memo.{ CacheApi, SettingStore }
-import lila.common.config.{ Max, Credentials, HostPort }
-import lila.base.LilaInvalid
+import lila.study.MultiPgn
 
 final private class RelayFormatApi(
     ws: StandaloneWSClient,

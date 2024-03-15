@@ -2,11 +2,11 @@ package lila.simul
 
 import play.api.libs.json.*
 
+import lila.common.Json.given
 import lila.game.{ Game, Pov }
 import lila.room.RoomSocket.{ Protocol as RP, * }
 import lila.socket.RemoteSocket.{ Protocol as P, * }
 import lila.socket.Socket.makeMessage
-import lila.common.Json.given
 
 final private class SimulSocket(
     repo: SimulRepo,

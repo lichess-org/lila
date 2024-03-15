@@ -1,9 +1,7 @@
 package lila.rating
 
 import cats.derived.*
-
-import chess.Centis
-import chess.Speed
+import chess.{ Centis, Speed }
 import play.api.i18n.Lang
 
 import lila.common.licon

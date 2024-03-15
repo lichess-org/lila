@@ -1,10 +1,9 @@
 package lila.game
 
+import chess.format.Fen
+import chess.{ Clock, Color }
 import play.api.libs.json.*
 
-import chess.format.Fen
-import chess.variant.Crazyhouse
-import chess.{ Clock, Color }
 import lila.common.Json.{ *, given }
 import lila.common.LightUser
 

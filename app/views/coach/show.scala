@@ -1,11 +1,11 @@
 package views.html
 package coach
 
-import lila.app.templating.Environment.{ given, * }
+import controllers.routes
+
+import lila.app.templating.Environment.{ *, given }
 import lila.app.ui.ScalatagsTemplate.{ *, given }
 import lila.common.String.html.richText
-
-import controllers.routes
 
 object show:
 

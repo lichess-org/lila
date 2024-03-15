@@ -2,11 +2,10 @@ package lila.msg
 
 import reactivemongo.api.bson.*
 
-import lila.common.LightUser
+import lila.common.{ Bus, KidMode, LightUser }
 import lila.db.dsl.{ *, given }
-import lila.user.Me
-import lila.common.{ KidMode, Bus }
 import lila.hub.actorApi.clas.ClasMatesAndTeachers
+import lila.user.Me
 
 final class MsgSearch(
     colls: MsgColls,

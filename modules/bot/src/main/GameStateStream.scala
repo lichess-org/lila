@@ -2,11 +2,13 @@ package lila.bot
 
 import akka.actor.*
 import akka.stream.scaladsl.*
+import ornicar.scalalib.ThreadLocalRandom
 import play.api.i18n.Lang
 import play.api.libs.json.*
-import ornicar.scalalib.ThreadLocalRandom
+import play.api.mvc.RequestHeader
 
 import lila.chat.{ Chat, UserLine }
+import lila.common.{ Bus, HTTPRequest }
 import lila.game.actorApi.{
   AbortedBy,
   BoardDrawOffer,
@@ -20,8 +22,6 @@ import lila.game.{ Game, Pov }
 import lila.hub.actorApi.map.Tell
 import lila.round.actorApi.BotConnected
 import lila.round.actorApi.round.QuietFlag
-import play.api.mvc.RequestHeader
-import lila.common.{ Bus, HTTPRequest }
 
 final class GameStateStream(
     onlineApiUsers: OnlineApiUsers,

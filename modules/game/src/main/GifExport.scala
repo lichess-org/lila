@@ -7,11 +7,12 @@ import chess.{ Centis, Color, Game as ChessGame, Replay, Situation }
 import play.api.libs.json.*
 import play.api.libs.ws.JsonBodyWritables.*
 import play.api.libs.ws.{ StandaloneWSClient, StandaloneWSResponse }
+
 import scala.util.chaining.*
 
-import lila.common.config.BaseUrl
 import lila.common.Json.given
 import lila.common.Maths
+import lila.common.config.BaseUrl
 
 object GifExport:
   case class UpstreamStatus(code: Int) extends lila.base.LilaException:

@@ -5,10 +5,10 @@ import com.softwaremill.tagging.*
 import play.api.Configuration
 
 import lila.common.config.*
+import lila.db.AsyncColl
+import lila.db.dsl.Coll
 import lila.report.Suspect
 import lila.tournament.TournamentApi
-import lila.db.dsl.Coll
-import lila.db.AsyncColl
 
 final class Env(
     appConfig: Configuration,

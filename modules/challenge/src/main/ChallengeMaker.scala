@@ -1,9 +1,9 @@
 package lila.challenge
 
+import lila.game.{ Game, GameRepo, Player, Pov, Rematches }
+import lila.user.{ GameUser, User, UserApi, UserPerfsRepo }
+
 import Challenge.TimeControl
-import lila.game.{ Game, GameRepo, Pov, Rematches }
-import lila.user.{ User, GameUser, UserApi, UserPerfsRepo }
-import lila.game.Player
 
 final class ChallengeMaker(
     userApi: UserApi,

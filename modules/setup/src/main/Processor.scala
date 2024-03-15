@@ -2,8 +2,8 @@ package lila.setup
 
 import lila.common.Bus
 import lila.game.{ GameRepo, IdGenerator, Pov }
-import lila.lobby.actorApi.{ AddHook, AddSeek }
 import lila.lobby.Seek
+import lila.lobby.actorApi.{ AddHook, AddSeek }
 import lila.user.{ Me, User, UserPerfsRepo }
 
 final private[setup] class Processor(

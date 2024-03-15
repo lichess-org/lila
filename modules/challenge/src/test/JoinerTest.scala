@@ -1,10 +1,7 @@
 package lila.challenge
 
-import chess.Ply
 import chess.variant.{ FromPosition, Standard }
-
-import lila.game.Game
-import chess.Clock
+import chess.{ Clock, Ply }
 
 final class JoinerTest extends munit.FunSuite:
 

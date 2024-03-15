@@ -1,9 +1,9 @@
 package lila.tournament
 
 import lila.common.Heapsort.topN
-import lila.user.{ User, Me }
 import lila.common.licon
 import lila.rating.Perf
+import lila.user.{ Me, User }
 
 case class Spotlight(
     headline: String,

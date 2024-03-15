@@ -1,10 +1,10 @@
 package views.html.report
 
+import controllers.appeal.routes.Appeal as appealRoutes
+import controllers.report.routes.Report as reportRoutes
 import controllers.routes
-import controllers.appeal.routes.{ Appeal as appealRoutes }
-import controllers.report.routes.{ Report as reportRoutes }
 
-import lila.app.templating.Environment.{ given, * }
+import lila.app.templating.Environment.{ *, given }
 import lila.app.ui.ScalatagsTemplate.{ *, given }
 import lila.report.Report.WithSuspect
 

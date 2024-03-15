@@ -4,7 +4,7 @@ import play.api.data.*
 import play.api.data.Forms.*
 import play.api.libs.json.Json
 
-import lila.app.{ given, * }
+import lila.app.{ *, given }
 
 final class I18n(env: Env) extends LilaController(env):
 

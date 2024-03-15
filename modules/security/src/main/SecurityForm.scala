@@ -5,10 +5,10 @@ import play.api.data.Forms.*
 import play.api.data.validation.Constraints
 import play.api.mvc.RequestHeader
 
-import lila.common.{ EmailAddress, Form as LilaForm, LameName }
 import lila.common.Form.*
+import lila.common.{ EmailAddress, Form as LilaForm, LameName }
 import lila.user.User.{ ClearPassword, TotpToken }
-import lila.user.{ TotpSecret, User, UserRepo, Me }
+import lila.user.{ Me, TotpSecret, User, UserRepo }
 
 final class SecurityForm(
     userRepo: UserRepo,

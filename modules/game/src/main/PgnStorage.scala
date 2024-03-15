@@ -1,10 +1,9 @@
 package lila.game
 
 import chess.*
+import chess.bitboard.{ Bitboard, Board as BBoard }
 import chess.format.Uci
 import chess.format.pgn.SanStr
-import chess.bitboard.Bitboard
-import chess.bitboard.Board as BBoard
 
 import lila.db.ByteArray
 

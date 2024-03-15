@@ -1,7 +1,7 @@
 import * as licon from 'common/licon';
 import { otbClockIsRunning, formatMs } from 'common/clock';
 import { fenColor } from 'common/miniBoard';
-import { MaybeVNode, VNode, bind, onInsert, looseH as h } from 'common/snabbdom';
+import { MaybeVNode, VNode, bind, onInsert } from 'common/snabbdom';
 import { opposite as CgOpposite, uciToMove } from 'chessground/util';
 import { ChapterId, ChapterPreview, ChapterPreviewPlayer } from './interfaces';
 import StudyCtrl from './studyCtrl';
@@ -11,6 +11,7 @@ import { Color } from 'chessops';
 import { StudyChapters, gameLinkAttrs, gameLinksListener } from './studyChapters';
 import { playerFed } from './playerBars';
 import { userTitle } from 'common/userLink';
+import { h } from 'snabbdom';
 
 export class MultiBoardCtrl {
   playing: Toggle;
@@ -123,14 +124,12 @@ const makePreview =
       `a.mini-game.is2d.chap-${preview.id}`,
       {
         class: { active: preview.id === current },
-        attrs: {
-          ...gameLinkAttrs(basePath, preview),
-          'data-id': preview.id,
-        },
+        attrs: gameLinkAttrs(basePath, preview),
       },
       [
         boardPlayer(preview, CgOpposite(orientation)),
         h('span.cg-gauge', [
+          cloudEval && verticalEvalGauge(preview, cloudEval),
           h(
             'span.mini-game__board',
             h('span.cg-wrap', {
@@ -163,7 +162,6 @@ const makePreview =
               },
             }),
           ),
-          cloudEval && verticalEvalGauge(preview, cloudEval),
         ]),
         boardPlayer(preview, orientation),
       ],
@@ -175,29 +173,26 @@ export const verticalEvalGauge = (chap: ChapterPreview, cloudEval: MultiCloudEva
     'span.mini-game__gauge',
     {
       attrs: { 'data-id': chap.id },
-      hook: onInsert(cloudEval.observe),
-    },
-    [
-      h('span.mini-game__gauge__black', {
-        hook: {
-          postpatch(old, vnode) {
-            const prevNodeCloud: CloudEval | undefined = old.data?.cloud;
-            const cev = cloudEval.getCloudEval(chap.fen) || prevNodeCloud;
-            if (cev?.chances != prevNodeCloud?.chances) {
-              const elm = vnode.elm as HTMLElement;
-              const gauge = elm.parentNode as HTMLElement;
-              elm.style.height = `${((1 - (cev?.chances || 0)) / 2) * 100}%`;
-              if (cev) {
-                gauge.title = renderScoreAtDepth(cev);
-                gauge.classList.add('mini-game__gauge--set');
-              }
+      hook: {
+        ...onInsert(cloudEval.observe),
+        postpatch(old, vnode) {
+          const prevNodeCloud: CloudEval | undefined = old.data?.cloud;
+          const cev = cloudEval.getCloudEval(chap.fen) || prevNodeCloud;
+          if (cev?.chances != prevNodeCloud?.chances) {
+            const elm = vnode.elm as HTMLElement;
+            (elm.firstChild as HTMLElement).style.height = `${Math.round(
+              ((1 - (cev?.chances || 0)) / 2) * 100,
+            )}%`;
+            if (cev) {
+              elm.title = renderScoreAtDepth(cev);
+              elm.classList.add('mini-game__gauge--set');
             }
-            vnode.data!.cloud = cev;
-          },
+          }
+          vnode.data!.cloud = cev;
         },
-      }),
-      h('tick'),
-    ],
+      },
+    },
+    [h('span.mini-game__gauge__black'), h('tick')],
   );
 
 const renderUser = (player: ChapterPreviewPlayer): VNode =>

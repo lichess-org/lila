@@ -1,13 +1,14 @@
 package router
 
-import lila.app.*
-import lila.rating.Perf
-import lila.puzzle.PuzzleTheme
-import lila.report.Report
-import lila.appeal.Appeal
 import chess.variant.Variant
-import lila.clas.{ Clas, ClasInvite }
+
+import lila.app.*
+import lila.appeal.Appeal
 import lila.challenge.Challenge
+import lila.clas.{ Clas, ClasInvite }
+import lila.puzzle.PuzzleTheme
+import lila.rating.Perf
+import lila.report.Report
 import lila.socket.Socket.Sri
 
 // These are only meant for the play router,

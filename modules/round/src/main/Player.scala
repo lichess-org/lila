@@ -1,14 +1,16 @@
 package lila.round
 
-import actorApi.round.{ Draw, ForecastPlay, HumanPlay, Takeback, TooManyPlies }
-import chess.format.{ Fen, Uci }
-import chess.{ Centis, Clock, MoveMetrics, MoveOrDrop, Status, ErrorStr }
 import chess.MoveOrDrop.*
+import chess.format.{ Fen, Uci }
+import chess.{ Centis, Clock, ErrorStr, MoveMetrics, MoveOrDrop, Status }
+
 import java.util.concurrent.TimeUnit
 
 import lila.common.Bus
 import lila.game.actorApi.MoveGameEvent
 import lila.game.{ Game, Pov, Progress, UciMemo }
+
+import actorApi.round.{ Draw, ForecastPlay, HumanPlay, Takeback, TooManyPlies }
 
 final private class Player(
     fishnetPlayer: lila.fishnet.FishnetPlayer,

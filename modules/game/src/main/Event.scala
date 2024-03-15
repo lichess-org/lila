@@ -1,28 +1,27 @@
 package lila.game
 
-import play.api.libs.json.*
-
+import chess.bitboard.Bitboard
+import chess.format.pgn.SanStr
+import chess.format.{ BoardFen, Fen }
 import chess.variant.Crazyhouse
 import chess.{
-  Ply,
-  Check,
   Centis,
+  Check,
   Clock as ChessClock,
   Color,
   Drop as ChessDrop,
   Move as ChessMove,
-  Square,
+  Ply,
   PromotableRole,
   Situation,
+  Square,
   Status
 }
-import chess.format.{ Fen, BoardFen }
-import chess.format.pgn.SanStr
-import chess.bitboard.Bitboard
-import JsonView.{ *, given }
-import lila.chat.{ PlayerLine, UserLine }
-import lila.common.ApiVersion
+import play.api.libs.json.*
+
 import lila.common.Json.given
+
+import JsonView.{ *, given }
 
 sealed trait Event:
   def typ: String

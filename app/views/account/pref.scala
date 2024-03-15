@@ -1,11 +1,11 @@
 package views.html
 package account
 
-import lila.app.templating.Environment.{ given, * }
+import controllers.routes
+
+import lila.app.templating.Environment.{ *, given }
 import lila.app.ui.ScalatagsTemplate.{ *, given }
 import lila.pref.PrefCateg
-
-import controllers.routes
 
 object pref:
   import bits.*

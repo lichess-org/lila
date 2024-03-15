@@ -1,14 +1,14 @@
 package lila.app
 package mashup
 
+import play.api.data.FormBinding
+import play.api.i18n.Lang
+import play.api.mvc.Request
+
 import lila.common.paginator.Paginator
 import lila.db.dsl.*
 import lila.game.{ Game, Query }
 import lila.user.User
-
-import play.api.mvc.Request
-import play.api.data.FormBinding
-import play.api.i18n.Lang
 
 enum GameFilter:
   val name = lila.common.String.lcfirst(toString)

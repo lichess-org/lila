@@ -1,7 +1,7 @@
 package lila.relay
 
-import reactivemongo.api.bson.Macros.Annotations.Key
 import ornicar.scalalib.ThreadLocalRandom
+import reactivemongo.api.bson.Macros.Annotations.Key
 
 case class RelayGroup(@Key("_id") id: RelayGroup.Id, name: RelayGroup.Name, tours: List[RelayTour.Id])
 

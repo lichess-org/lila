@@ -1,6 +1,7 @@
 package lila.db
 
 import alleycats.Zero
+
 import scala.util.{ Failure, Success }
 
 import lila.common.config.CollName

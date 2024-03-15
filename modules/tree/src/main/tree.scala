@@ -515,7 +515,7 @@ object Node:
 
   given defaultNodeJsonWriter: Writes[Node] = makeNodeJsonWriter(alwaysChildren = true)
 
-  val minimalNodeJsonWriter = makeNodeJsonWriter(alwaysChildren = false)
+  val minimalNodeJsonWriter: Writes[Node] = makeNodeJsonWriter(alwaysChildren = false)
 
   def nodeListJsonWriter(alwaysChildren: Boolean): Writes[List[Node]] =
     Writes: list =>

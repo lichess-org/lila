@@ -1,10 +1,10 @@
 package lila.relay
 
-import reactivemongo.api.bson.Macros.Annotations.Key
 import ornicar.scalalib.ThreadLocalRandom
+import reactivemongo.api.bson.Macros.Annotations.Key
 
-import lila.study.Study
 import lila.common.Seconds
+import lila.study.Study
 
 case class RelayRound(
     /* Same as the Study id it refers to */

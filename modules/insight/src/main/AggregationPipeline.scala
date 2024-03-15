@@ -2,9 +2,9 @@ package lila.insight
 
 import reactivemongo.api.bson.*
 
+import lila.common.config
 import lila.db.dsl.{ *, given }
 import lila.user.User
-import lila.common.config
 
 final private class AggregationPipeline(store: InsightStorage)(using
     ec: Executor

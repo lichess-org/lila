@@ -2,6 +2,7 @@ package lila.study
 
 import chess.opening.*
 import chess.variant.Variant
+
 import lila.tree.{ Branch, Branches, Root }
 
 object TreeBuilder:

@@ -2,7 +2,7 @@ package controllers
 
 import views.*
 
-import lila.app.{ given, * }
+import lila.app.{ *, given }
 import lila.oauth.{ AccessToken, OAuthTokenForm }
 
 final class OAuthToken(env: Env) extends LilaController(env):

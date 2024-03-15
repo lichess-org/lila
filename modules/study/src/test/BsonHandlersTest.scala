@@ -1,22 +1,14 @@
 package lila.study
-
-import monocle.syntax.all.*
-import chess.{ Centis, ErrorStr, Node as ChessNode }
-import chess.format.pgn.{ Glyphs, ParsedPgn, San, Tags, PgnStr, PgnNodeData, Comment as ChessComment }
-import chess.format.{ Fen, Uci, UciCharPair, UciPath }
-import chess.MoveOrDrop.*
-
-import lila.importer.{ ImportData, Preprocessed }
-import lila.tree.Node.{ Comment, Comments, Shapes }
+import chess.format.pgn.PgnStr
 
 import scala.language.implicitConversions
 
-import lila.tree.{ Branch, Branches, Root, Metas, NewTree, NewBranch, NewRoot, Node }
 import lila.db.BSON
-import BSONHandlers.given
-import lila.db.BSON.Writer
-import lila.db.BSON.Reader
+import lila.db.BSON.{ Reader, Writer }
 import lila.db.dsl.Bdoc
+import lila.tree.{ NewRoot, Root }
+
+import BSONHandlers.given
 
 // in lila.study to have access to PgnImport
 class BsonHandlersTest extends munit.FunSuite:

@@ -1,12 +1,13 @@
 package lila.study
 
-import chess.format.pgn.{ PgnStr, Tags }
+import chess.Color
 import chess.format.Fen
+import chess.format.pgn.{ PgnStr, Tags }
 import chess.variant.Variant
+
 import lila.chat.ChatApi
 import lila.game.{ Game, Namer }
-import chess.Color
-import lila.tree.{ Root, Branch, Branches }
+import lila.tree.{ Branches, Root }
 
 final private class ChapterMaker(
     net: lila.common.config.NetConfig,

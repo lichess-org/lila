@@ -49,13 +49,11 @@
 
   .now-playing {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(170px, 1fr));
-    @include breakpoint($mq-x-small) {
-      grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
-    }
+    grid-template-columns: repeat(auto-fill, minmax(min(100%/2, max(220px, 100%/4)), 1fr));
 
     a {
       @extend %box-radius;
+      container-type: inline-size;
 
       color: $c-font;
       padding: 0.5em;
@@ -73,11 +71,15 @@
         color: $c-font-clear;
         border-color: mix($c-primary, $c-bg-box, 50%);
       }
-
-      cg-board {
-        box-shadow: none;
-      }
     }
+    cg-board {
+      box-shadow: none;
+    }
+  }
+}
+@container (width < 250px) {
+  .now-playing .rating {
+    display: none;
   }
 }
 .mini-game {
@@ -95,6 +97,7 @@
     flex: 1 1 auto;
   }
   &__gauge {
+    order: 1;
     position: relative;
     flex: 0 0 4%;
     border: $border;
@@ -111,7 +114,7 @@
       transition: height 1s;
     }
 
-    opacity: 0.7;
+    opacity: 0.4;
     background: linear-gradient(to top, $white, $black);
     &--set {
       opacity: 1;
@@ -138,5 +141,8 @@
         height: 50%;
       }
     }
+  }
+  .mini-game__gauge ~ .mini-game__board cg-container {
+    @extend %box-radius-left;
   }
 }

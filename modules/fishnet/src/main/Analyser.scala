@@ -1,10 +1,10 @@
 package lila.fishnet
 
 import chess.Ply
+
 import lila.analyse.AnalysisRepo
-import lila.game.{ Game, UciMemo }
 import lila.common.config.Max
-import lila.analyse.Analysis
+import lila.game.{ Game, UciMemo }
 
 final class Analyser(
     repo: FishnetRepo,

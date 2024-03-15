@@ -4,9 +4,8 @@ import play.api.data.*
 import play.api.data.Forms.*
 import play.api.data.validation.*
 
-import lila.common.{ config, LightUser }
-import lila.common.Form.given
-import lila.user.{ User, Me }
+import lila.common.{ LightUser, config }
+import lila.user.{ Me, User }
 
 final private[report] class ReportForm(
     lightUserAsync: LightUser.Getter,

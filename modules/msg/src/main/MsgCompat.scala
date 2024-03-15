@@ -4,12 +4,12 @@ import play.api.data.*
 import play.api.data.Forms.*
 import play.api.libs.json.*
 
-import lila.common.config.*
 import lila.common.Json.given
 import lila.common.LightUser
+import lila.common.config.*
 import lila.common.paginator.*
 import lila.db.dsl.{ *, given }
-import lila.user.{ LightUserApi, User, Me }
+import lila.user.{ LightUserApi, Me, User }
 
 final class MsgCompat(
     api: MsgApi,

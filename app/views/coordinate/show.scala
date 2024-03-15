@@ -1,10 +1,9 @@
 package views.html.coordinate
 
-import lila.app.templating.Environment.{ given, * }
-import lila.app.ui.ScalatagsTemplate.*
-import lila.common.String.html.safeJsonValue
-
 import controllers.routes
+
+import lila.app.templating.Environment.{ *, given }
+import lila.app.ui.ScalatagsTemplate.*
 import lila.common.LangPath
 
 object show:

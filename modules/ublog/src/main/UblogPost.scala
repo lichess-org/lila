@@ -1,10 +1,10 @@
 package lila.ublog
 
+import reactivemongo.api.bson.Macros.Annotations.Key
+
+import lila.i18n.Language
 import lila.memo.{ PicfitImage, PicfitUrl }
 import lila.user.{ Me, User }
-import play.api.i18n.Lang
-import reactivemongo.api.bson.Macros.Annotations.Key
-import lila.i18n.Language
 
 case class UblogPost(
     @Key("_id") id: UblogPostId,

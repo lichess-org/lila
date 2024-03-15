@@ -1,8 +1,8 @@
 package lila.common
 
-import scala.jdk.CollectionConverters.*
-
 import akka.actor.{ ActorRef, Scheduler }
+
+import scala.jdk.CollectionConverters.*
 
 object Bus:
 

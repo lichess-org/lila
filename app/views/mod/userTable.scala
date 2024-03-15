@@ -1,11 +1,12 @@
 package views.html.mod
 
-import lila.api.Context
-import lila.app.templating.Environment.{ given, * }
-import lila.app.ui.ScalatagsTemplate.{ *, given }
-import lila.user.User
-import lila.security.Granter
 import controllers.routes
+
+import lila.api.Context
+import lila.app.templating.Environment.{ *, given }
+import lila.app.ui.ScalatagsTemplate.{ *, given }
+import lila.security.Granter
+import lila.user.User
 
 object userTable:
 

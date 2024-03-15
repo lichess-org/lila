@@ -1,15 +1,16 @@
 package controllers
 
 import play.api.http.ContentTypes
+import play.api.libs.json.*
+import play.api.mvc.Result
+import views.*
 
 import scala.util.chaining.*
-import play.api.mvc.Result
-import play.api.libs.json.*
-import views.*
+
 import lila.app.{ *, given }
+import lila.common.Json.given
 import lila.game.Pov
 import lila.tv.Tv.Channel
-import lila.common.Json.given
 
 final class Tv(env: Env, apiC: => Api, gameC: => Game) extends LilaController(env):
 

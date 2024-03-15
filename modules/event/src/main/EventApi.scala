@@ -1,11 +1,8 @@
 package lila.event
-
-import play.api.mvc.RequestHeader
-
 import lila.db.dsl.{ *, given }
+import lila.i18n.Language
 import lila.memo.CacheApi.*
 import lila.user.Me
-import lila.i18n.Language
 
 final class EventApi(coll: Coll, cacheApi: lila.memo.CacheApi)(using Executor):
 

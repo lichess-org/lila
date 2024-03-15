@@ -1,7 +1,8 @@
 package lila.user
 
-import java.nio.charset.StandardCharsets.UTF_8
 import org.mindrot.BCrypt
+
+import java.nio.charset.StandardCharsets.UTF_8
 
 class BCryptTest extends munit.FunSuite:
 

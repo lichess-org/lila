@@ -2,6 +2,7 @@ package lila.study
 package actorApi
 
 import chess.format.UciPath
+
 import lila.user.{ Me, MyId }
 
 case class StartStudy(studyId: StudyId)

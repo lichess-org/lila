@@ -1,6 +1,7 @@
 package lila.api
 
 import scala.util.matching.Regex
+
 import lila.common.config.NetDomain
 
 class LpvGameRegexTest extends munit.FunSuite:

@@ -1,11 +1,10 @@
 package lila.analyse
+import chess.format.pgn.{ InitialComments, Parser, Pgn, PgnStr, Tag, Tags }
+import chess.{ ByColor, Ply }
 
-import lila.common.Maths.isCloseTo
-import lila.common.config.{ NetDomain, BaseUrl }
-import lila.tree.Eval
-import chess.format.pgn.{ Pgn, PgnStr, InitialComments, Tag, Tags, Parser, PgnTree }
-import chess.{ Node, Move, ByColor, Color, Ply }
+import lila.common.config.{ BaseUrl, NetDomain }
 import lila.game.PgnDump
+import lila.tree.Eval
 
 class AnnotatorTest extends munit.FunSuite:
 

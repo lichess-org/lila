@@ -1,7 +1,8 @@
 package lila.hub
 
-import scala.util.chaining.*
 import akka.actor.*
+
+import scala.util.chaining.*
 
 import lila.log.Logger
 

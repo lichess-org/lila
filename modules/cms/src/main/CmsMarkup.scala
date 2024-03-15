@@ -1,7 +1,6 @@
 package lila.cms
 
-import lila.common.{ config, MarkdownToastUi, Bus, LpvEmbed, Markdown, MarkdownRender }
-import lila.hub.actorApi.lpv.AllPgnsFromText
+import lila.common.{ Markdown, MarkdownRender, MarkdownToastUi, config }
 import lila.memo.CacheApi
 
 final class CmsMarkup(

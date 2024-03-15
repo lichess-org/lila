@@ -1,7 +1,5 @@
 package lila.gathering
 
-import scalatags.Text.all.*
-
 class PrizeTest extends munit.FunSuite:
 
   test("richText prize regex not find btc >> url") {

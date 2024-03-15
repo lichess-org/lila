@@ -1,9 +1,10 @@
 package lila.common
 
+import ornicar.scalalib.ThreadLocalRandom
+
 import scala.Numeric.Implicits.*
 import scala.reflect.ClassTag
 import scala.util.Sorting
-import ornicar.scalalib.ThreadLocalRandom
 
 object Maths:
 

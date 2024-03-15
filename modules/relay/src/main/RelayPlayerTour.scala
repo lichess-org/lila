@@ -1,9 +1,9 @@
 package lila.relay
 
-import lila.study.ChapterRepo
-import lila.fide.FidePlayer
-import lila.db.dsl.{ *, given }
 import lila.common.paginator.Paginator
+import lila.db.dsl.{ *, given }
+import lila.fide.FidePlayer
+import lila.study.ChapterRepo
 
 final class RelayPlayerTour(
     colls: RelayColls,

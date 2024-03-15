@@ -8,7 +8,7 @@
   @extend %box-neat-force, %flex-column;
 
   background: $c-bg-box;
-  margin-top: $block-gap;
+  margin-top: 1em;
 
   h2 {
     @extend %flex-between;

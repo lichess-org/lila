@@ -1,8 +1,8 @@
 package lila.db
 
-import scala.util.Try
-
 import reactivemongo.api.bson.*
+
+import scala.util.Try
 
 case class ByteArray(value: Array[Byte]):
 

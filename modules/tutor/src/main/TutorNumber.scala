@@ -1,9 +1,10 @@
 package lila.tutor
 
-import lila.analyse.AccuracyPercent
-import lila.insight.ClockPercent
-import lila.common.Iso
 import alleycats.Zero
+
+import lila.analyse.AccuracyPercent
+import lila.common.Iso
+import lila.insight.ClockPercent
 
 trait TutorNumber[V]:
   val iso: Iso.DoubleIso[V]

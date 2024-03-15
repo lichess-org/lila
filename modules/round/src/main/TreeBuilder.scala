@@ -1,13 +1,15 @@
 package lila.round
 
-import chess.{ Centis, Color, Ply }
 import chess.format.pgn.{ Comment, Glyphs }
 import chess.format.{ Fen, Uci, UciCharPair }
 import chess.opening.*
 import chess.variant.Variant
-import JsonView.WithFlags
+import chess.{ Centis, Color, Ply }
+
 import lila.analyse.{ Advice, Analysis, Info }
 import lila.tree.*
+
+import JsonView.WithFlags
 
 object TreeBuilder:
 

@@ -1,6 +1,4 @@
 package lila.i18n
-
-import play.api.i18n.Lang
 import play.api.data.*
 import play.api.data.Forms.*
 

@@ -1,6 +1,7 @@
 package lila.puzzle
 
 import reactivemongo.api.bson.BSONNull
+
 import scala.util.chaining.*
 
 import lila.db.dsl.{ *, given }

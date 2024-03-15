@@ -19,6 +19,7 @@ import {
 import StudyCtrl from './studyCtrl';
 import { opposite } from 'chessops/util';
 import { fenColor } from 'common/miniBoard';
+import { initialFen } from 'chess';
 
 /* read-only interface for external use */
 export class StudyChapters {
@@ -29,7 +30,7 @@ export class StudyChapters {
   first = () => this.list()[0];
   looksNew = () => {
     const cs = this.all();
-    return cs.length == 1 && cs[0].name == 'Chapter 1';
+    return cs.length === 1 && cs[0].name == 'Chapter 1';
   };
 }
 
@@ -62,6 +63,7 @@ export default class StudyChaptersCtrl {
     this.store(
       chapters.map(c => ({
         ...c,
+        fen: c.fen || initialFen,
         players: c.players ? { white: c.players[0], black: c.players[1] } : undefined,
         orientation: c.orientation || 'white',
         variant: c.variant || 'standard',
@@ -84,7 +86,6 @@ export default class StudyChaptersCtrl {
         const playerWhoMoved = cp.players?.[opposite(fenColor(cp.fen))];
         if (playerWhoMoved) playerWhoMoved.clock = node.clock;
       }
-      // this.multiCloudEval.sendRequest();
     }
   };
 }
@@ -117,16 +118,15 @@ export function resultOf(tags: TagArray[], isWhite: boolean): string | undefined
 
 export const gameLinkAttrs = (basePath: string, game: { id: ChapterId }) => ({
   href: `${basePath}/${game.id}`,
-  'data-id': game.id,
 });
 export const gameLinksListener = (setChapter: (id: ChapterId) => void) => (vnode: VNode) =>
   (vnode.elm as HTMLElement).addEventListener(
     'click',
     e => {
       e.preventDefault();
-      let target = e.target as HTMLElement;
-      while (target && target.tagName !== 'A') target = target.parentNode as HTMLElement;
-      const id = target?.dataset['id'];
+      let target = e.target as HTMLLinkElement;
+      while (target && target.tagName !== 'A') target = target.parentNode as HTMLLinkElement;
+      const id = target?.href?.slice(-8);
       if (id) setChapter(id);
     },
     { passive: false },
@@ -143,13 +143,13 @@ export function view(ctrl: StudyCtrl): VNode {
       if (current.id !== ctrl.chapters.list.first().id) {
         scrollToInnerSelector(el, '.active');
       }
-    } else if (ctrl.vm.loading && vData.loadingId !== ctrl.vm.nextChapterId) {
-      vData.loadingId = ctrl.vm.nextChapterId;
-      scrollToInnerSelector(el, '.loading');
+    } else if (vData.currentId !== ctrl.data.chapter.id) {
+      vData.currentId = ctrl.data.chapter.id;
+      scrollToInnerSelector(el, '.active');
     }
     vData.count = newCount;
     if (canContribute && newCount > 1 && !vData.sortable) {
-      const makeSortable = function () {
+      const makeSortable = () => {
         vData.sortable = window.Sortable.create(el, {
           draggable: '.draggable',
           handle: 'ontouchstart' in window ? 'span' : undefined,
@@ -193,17 +193,16 @@ export function view(ctrl: StudyCtrl): VNode {
       .all()
       .map((chapter, i) => {
         const editing = ctrl.chapters.editForm.isEditing(chapter.id),
-          loading = ctrl.vm.loading && chapter.id === ctrl.vm.nextChapterId,
-          active = !ctrl.vm.loading && current && !ctrl.relay?.tourShow() && current.id === chapter.id;
+          active = !ctrl.vm.loading && current?.id === chapter.id;
         return h(
           'div',
           {
             key: chapter.id,
             attrs: { 'data-id': chapter.id },
-            class: { active, editing, loading, draggable: canContribute },
+            class: { active, editing, draggable: canContribute },
           },
           [
-            h('span', loading ? h('span.ddloader') : ['' + (i + 1)]),
+            h('span', (i + 1).toString()),
             h('h3', chapter.name),
             chapter.status && h('res', chapter.status),
             canContribute && h('i.act', { attrs: { ...dataIcon(licon.Gear), title: 'Edit chapter' } }),

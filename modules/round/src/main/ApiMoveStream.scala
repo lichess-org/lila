@@ -2,15 +2,15 @@ package lila.round
 
 import akka.stream.scaladsl.*
 import chess.format.Fen
-import chess.{ Centis, Replay, ByColor }
+import chess.{ ByColor, Centis, Ply, Replay, Situation }
 import play.api.libs.json.*
+
 import scala.util.chaining.*
 
 import lila.common.Bus
 import lila.common.Json.given
 import lila.game.actorApi.{ FinishGame, MoveGameEvent }
 import lila.game.{ Game, GameRepo }
-import chess.{ Ply, Situation }
 
 final class ApiMoveStream(
     gameRepo: GameRepo,

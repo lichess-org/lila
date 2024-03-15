@@ -1,10 +1,9 @@
 package lila.fishnet
 
-import lila.db.dsl.{ *, given }
+import chess.variant.Variant
 import reactivemongo.api.bson.*
 
-import chess.variant.Variant
-import lila.analyse.Analysis
+import lila.db.dsl.{ *, given }
 
 private object BSONHandlers:
 

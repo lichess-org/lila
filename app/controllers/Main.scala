@@ -1,14 +1,16 @@
 package controllers
 
 import akka.pattern.ask
-import play.api.data.*, Forms.*
+import play.api.data.*
 import play.api.libs.json.*
 import play.api.mvc.*
 import views.*
 
 import lila.app.{ *, given }
-import lila.hub.actorApi.captcha.ValidCaptcha
 import lila.common.HTTPRequest
+import lila.hub.actorApi.captcha.ValidCaptcha
+
+import Forms.*
 
 final class Main(
     env: Env,
@@ -153,7 +155,7 @@ final class Main(
 
   def devAsset(v: String, path: String, file: String) = assetsC.at(path, file)
 
-  private val ImageUploadRateLimitPerIp = lila.memo.RateLimit.composite[lila.common.IpAddress](
+  lila.memo.RateLimit.composite[lila.common.IpAddress](
     key = "image.upload.ip"
   )(
     ("fast", 10, 2.minutes),

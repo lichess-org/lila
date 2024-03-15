@@ -2,7 +2,7 @@ package controllers
 
 import play.api.mvc.*
 
-import lila.app.{ given, * }
+import lila.app.{ *, given }
 import lila.common.HTTPRequest
 
 final class Storm(env: Env) extends LilaController(env):

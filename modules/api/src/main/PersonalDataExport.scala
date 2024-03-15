@@ -4,11 +4,11 @@ import akka.stream.Materializer
 import akka.stream.scaladsl.*
 import reactivemongo.akkastream.cursorProducer
 
+import lila.coach.Coach
 import lila.db.dsl.{ *, given }
 import lila.game.Game
 import lila.streamer.Streamer
 import lila.user.User
-import lila.coach.Coach
 
 final class PersonalDataExport(
     securityEnv: lila.security.Env,

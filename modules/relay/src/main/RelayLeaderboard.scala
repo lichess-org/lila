@@ -1,10 +1,11 @@
 package lila.relay
 
+import chess.{ Elo, FideId, Outcome, PlayerName, PlayerTitle }
+
 import lila.db.dsl.{ *, given }
+import lila.fide.{ Federation, FidePlayerApi }
 import lila.memo.CacheApi
 import lila.study.ChapterRepo
-import chess.{ Outcome, FideId, PlayerName, PlayerTitle, Elo }
-import lila.fide.{ Federation, FidePlayerApi }
 
 case class RelayLeaderboard(players: List[RelayLeaderboard.Player])
 
@@ -40,7 +41,7 @@ final class RelayLeaderboardApi(
   import BSONHandlers.given
 
   import play.api.libs.json.*
-  import lila.common.Json.{ writeAs, given }
+  import lila.common.Json.writeAs
   private given Writes[RelayLeaderboard] = writeAs(_.players)
 
   def apply(tour: RelayTour): Fu[Option[JsonStr]] = tour.autoLeaderboard.soFu:

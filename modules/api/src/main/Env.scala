@@ -59,7 +59,6 @@ final class Env(
     activityWriteApi: lila.activity.ActivityWriteApi,
     ublogApi: lila.ublog.UblogApi,
     picfitUrl: lila.memo.PicfitUrl,
-    picfitApi: lila.memo.PicfitApi,
     cmsApi: lila.cms.CmsApi,
     cacheApi: lila.memo.CacheApi,
     ws: StandaloneWSClient

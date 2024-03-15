@@ -1,14 +1,14 @@
 package controllers
 
 import akka.stream.scaladsl.*
-import play.api.i18n.Lang
 import play.api.libs.json.*
 import play.api.mvc.*
+
 import scala.util.chaining.*
 
 import lila.api.GameApiV2
-import lila.app.{ given, * }
-import lila.common.config.{ MaxPerPage, MaxPerSecond }
+import lila.app.{ *, given }
+import lila.common.config.MaxPerSecond
 import lila.common.{ HTTPRequest, IpAddress, LightUser }
 import lila.gathering.Condition.GetMyTeamIds
 import lila.security.Mobile
@@ -95,24 +95,6 @@ final class Api(
           .map(toApiResult)
       else fuccess(toApiResult(users.map(toJson)))
     }
-
-  private val UserGamesRateLimitPerIP = lila.memo.RateLimit[IpAddress](
-    credits = 10 * 1000,
-    duration = 10.minutes,
-    key = "user_games.api.ip"
-  )
-
-  private val UserGamesRateLimitPerUA = lila.memo.RateLimit[Option[UserAgent]](
-    credits = 10 * 1000,
-    duration = 5.minutes,
-    key = "user_games.api.ua"
-  )
-
-  private val UserGamesRateLimitGlobal = lila.memo.RateLimit[String](
-    credits = 20 * 1000,
-    duration = 2.minute,
-    key = "user_games.api.global"
-  )
 
   private def gameFlagsFromRequest(using RequestHeader) =
     lila.api.GameApi.WithFlags(

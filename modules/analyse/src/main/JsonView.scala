@@ -1,11 +1,11 @@
 package lila.analyse
 
-import chess.{ Ply, Color, ByColor }
+import chess.{ ByColor, Color, Ply }
 import play.api.libs.json.*
 
+import lila.common.Json.given
 import lila.game.Game
 import lila.tree.JsonHandlers.*
-import lila.common.Json.given
 
 object JsonView:
 

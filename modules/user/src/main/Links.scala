@@ -1,6 +1,7 @@
 package lila.user
 
 import io.mola.galimatias.URL
+
 import scala.util.Try
 
 object Links:

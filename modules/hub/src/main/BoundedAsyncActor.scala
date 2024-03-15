@@ -3,6 +3,7 @@ package lila.hub
 import java.util.concurrent.atomic.AtomicReference
 import java.util.function.UnaryOperator
 import scala.collection.immutable.Queue
+
 import lila.common.config.Max
 
 /*

@@ -1,15 +1,15 @@
 package lila.plan
 
+import play.api.ConfigLoader
 import play.api.i18n.Lang
 import play.api.libs.json.*
 import play.api.libs.ws.DefaultBodyWritables.*
 import play.api.libs.ws.JsonBodyReadables.*
 import play.api.libs.ws.{ StandaloneWSClient, StandaloneWSResponse }
 
+import lila.common.EmailAddress
 import lila.common.config.Secret
 import lila.user.User
-import lila.common.EmailAddress
-import play.api.ConfigLoader
 
 final private class StripeClient(ws: StandaloneWSClient, config: StripeClient.Config)(using Executor):
 

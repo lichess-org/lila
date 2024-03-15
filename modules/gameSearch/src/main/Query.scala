@@ -2,10 +2,11 @@ package lila.gameSearch
 
 import chess.Status
 
+import java.time.LocalDate
+
 import lila.common.Json.given
 import lila.rating.RatingRange
 import lila.search.Range
-import java.time.LocalDate
 
 case class Query(
     user1: Option[UserId] = None,

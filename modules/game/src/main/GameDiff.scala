@@ -1,14 +1,15 @@
 package lila.game
 
-import chess.{ Black, CheckCount, Clock, Color, White }
-import Game.BSONFields.*
+import chess.{ Black, Centis, CheckCount, Clock, Color, White }
 import reactivemongo.api.bson.*
+
 import scala.util.Try
 
-import chess.Centis
-import lila.db.dsl.given
 import lila.db.ByteArray
 import lila.db.ByteArray.byteArrayHandler
+import lila.db.dsl.given
+
+import Game.BSONFields.*
 
 object GameDiff:
 

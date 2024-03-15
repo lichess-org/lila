@@ -1,13 +1,13 @@
 package lila.study
 
 import akka.stream.scaladsl.*
-import reactivemongo.akkastream.{ cursorProducer, AkkaStreamCursor }
+import reactivemongo.akkastream.{ AkkaStreamCursor, cursorProducer }
 import reactivemongo.api.*
+import reactivemongo.api.bson.BSONDocument
 
 import lila.db.AsyncColl
 import lila.db.dsl.{ *, given }
 import lila.user.User
-import reactivemongo.api.bson.BSONDocument
 
 final class StudyRepo(private[study] val coll: AsyncColl)(using
     Executor,

@@ -3,7 +3,6 @@ package lila.relation
 import reactivemongo.api.bson.*
 
 import lila.db.dsl.{ *, given }
-import lila.user.User
 
 final private class RelationRepo(colls: Colls, userRepo: lila.user.UserRepo)(using
     ec: Executor

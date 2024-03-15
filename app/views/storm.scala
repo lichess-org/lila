@@ -4,11 +4,10 @@ import controllers.routes
 import play.api.i18n.Lang
 import play.api.libs.json.*
 
-import lila.app.templating.Environment.{ given, * }
+import lila.app.templating.Environment.{ *, given }
 import lila.app.ui.ScalatagsTemplate.{ *, given }
 import lila.common.LangPath
 import lila.common.paginator.Paginator
-import lila.common.String.html.safeJsonValue
 import lila.storm.{ StormDay, StormHigh }
 import lila.user.User
 

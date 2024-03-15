@@ -2,10 +2,9 @@ package lila.event
 
 import play.api.data.*
 import play.api.data.Forms.*
-import play.api.i18n.Lang
 
-import lila.common.Form.{ stringIn, into, PrettyDateTime }
-import lila.i18n.{ Language, LangList }
+import lila.common.Form.{ PrettyDateTime, into, stringIn }
+import lila.i18n.Language
 import lila.user.Me
 
 object EventForm:

@@ -1,15 +1,14 @@
 package lila.ublog
 
 import reactivemongo.api.*
+import reactivemongo.api.bson.BSONNull
 
 import lila.common.config.MaxPerPage
 import lila.common.paginator.{ AdapterLike, Paginator }
 import lila.db.dsl.{ *, given }
 import lila.db.paginator.Adapter
-import lila.user.User
-import reactivemongo.api.bson.BSONNull
-import lila.user.Me
 import lila.i18n.Language
+import lila.user.{ Me, User }
 
 final class UblogPaginator(
     colls: UblogColls,

@@ -3,8 +3,8 @@ package lila.mod
 import akka.stream.scaladsl.*
 import play.api.libs.json.*
 
-import lila.common.{ Bus, HTTPRequest }
 import lila.common.Json.given
+import lila.common.{ Bus, HTTPRequest }
 import lila.security.UserSignup
 
 final class ModStream:

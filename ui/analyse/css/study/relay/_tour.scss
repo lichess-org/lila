@@ -4,9 +4,9 @@ $hover-bg: if($theme == 'dark', rgba(#6ae, 0.3), rgba($c-primary, 0.05));
   background: $c-bg-box;
   &__side {
     @extend %flex-column;
-    user-select: none;
     &__header {
       @extend %flex-center-nowrap, %box-radius-top;
+      user-select: none;
       overflow: hidden;
       align-items: stretch;
       flex: 0 0 auto;
@@ -80,7 +80,7 @@ $hover-bg: if($theme == 'dark', rgba(#6ae, 0.3), rgba($c-primary, 0.05));
 
     &__image {
       display: none;
-      @include breakpoint($mq-width-x-large) {
+      @include breakpoint($mq-x-small) {
         display: block;
       }
       flex: 0 0 38%;
@@ -104,78 +104,20 @@ $hover-bg: if($theme == 'dark', rgba(#6ae, 0.3), rgba($c-primary, 0.05));
 
     &__content {
       @extend %flex-column;
+      flex: 1;
       justify-content: space-around;
       padding: 0 2em;
       min-height: 12vh;
-      flex: 1;
-
-      > span {
-        @extend %flex-between-nowrap;
-        gap: 1em;
-        align-items: start;
-      }
     }
 
     &__selectors {
       @extend %flex-center;
       gap: 1em;
     }
-    &__mselect {
-      flex: auto;
-      @include fluid-size('font-size', 12px, 20px);
-      .mselect__list a {
-        gap: 1em;
-      }
-    }
-    &__round-select {
-      .mselect__list {
-        display: table;
-        left: unset;
-        right: 0;
-        overflow: hidden;
-        tr {
-          display: table-row;
-          &.current-round {
-            background: mix($c-primary, $c-bg-box, 15%);
-            border: 1px solid mix($c-primary, $c-bg-box, 40%);
-            border-width: 1px 0;
-          }
-          &:hover * {
-            background: $c-primary;
-            color: $c-primary-over;
-          }
-        }
-        td {
-          cursor: pointer;
-        }
-        .name {
-          padding: 0.3em 1em;
-        }
-        .time,
-        .status {
-          font-size: 0.9rem;
-          color: $c-font-dim;
-        }
-        .time {
-          @extend %roboto;
-          padding: 0.5em 1em;
-        }
-        .status {
-          padding: 0.5em 1.5rem 0.5em 0;
-          text-align: $end-direction;
-        }
-        ongoing {
-          color: $c-red;
-        }
-        finished {
-          color: $c-good;
-        }
-      }
-    }
 
     .setting {
       @extend %flex-center-nowrap;
-      margin-top: 0.5em;
+      margin-#{$end-direction}: -1em;
       label {
         padding: 0 0.5em;
         cursor: pointer;
@@ -184,9 +126,84 @@ $hover-bg: if($theme == 'dark', rgba(#6ae, 0.3), rgba($c-primary, 0.05));
     }
   }
 
+  &__mselect {
+    flex: auto;
+    @include fluid-size('font-size', 12px, 20px);
+    .fullscreen-mask {
+      display: block;
+    }
+    .mselect__list {
+      transform: unset;
+      > * {
+        opacity: unset;
+      }
+      a {
+        gap: 1em;
+      }
+    }
+  }
+  &__round-select {
+    &__name {
+      flex: 3 1 100%;
+    }
+    &__status {
+      font-size: 1rem;
+      margin-#{$end-direction}: 1ch;
+    }
+    &__label {
+      .round-state {
+        @extend %flex-center-nowrap;
+        gap: 1ch;
+      }
+    }
+    .ongoing::before {
+      color: $c-red;
+    }
+    .finished::before {
+      color: $c-good;
+    }
+    .mselect__list {
+      display: table;
+      left: unset;
+      right: 0;
+      overflow: hidden;
+      tr {
+        display: table-row;
+        &.current-round {
+          background: mix($c-primary, $c-bg-box, 15%);
+          border: 1px solid mix($c-primary, $c-bg-box, 40%);
+          border-width: 1px 0;
+        }
+        &:hover *,
+        &:hover .round-state::before {
+          background: $c-primary;
+          color: $c-primary-over;
+        }
+      }
+      td {
+        cursor: pointer;
+      }
+      .name {
+        padding: 0.3em 1em;
+      }
+      .time,
+      .status {
+        font-size: 0.9rem;
+        color: $c-font-dim;
+      }
+      .time {
+        @extend %roboto;
+        padding: 0.5em 1em;
+      }
+      .status {
+        padding: 0.5em 1.5rem 0.5em 0;
+        text-align: $end-direction;
+      }
+    }
+  }
+
   &__nav {
-    @extend %flex-center;
-    justify-content: center;
+    @extend %flex-between;
     margin: 2em var(--box-padding);
     gap: 1em;
     user-select: none;
@@ -200,8 +217,7 @@ $hover-bg: if($theme == 'dark', rgba(#6ae, 0.3), rgba($c-primary, 0.05));
   }
 
   &__tabs {
-    @extend %flex-center-nowrap;
-    align-self: center;
+    @extend %flex-center;
     gap: 1em;
     span {
       @extend %box-radius;
@@ -209,10 +225,10 @@ $hover-bg: if($theme == 'dark', rgba(#6ae, 0.3), rgba($c-primary, 0.05));
       padding: 0.8em 1.5em;
       border: $border;
       &:hover {
-        @extend %metal;
+        @extend %box-shadow;
       }
       &.active {
-        @extend %metal, %box-shadow;
+        border: 1px solid $c-brag;
       }
     }
   }
@@ -267,20 +283,8 @@ $hover-bg: if($theme == 'dark', rgba(#6ae, 0.3), rgba($c-primary, 0.05));
     @include breakpoint($mq-xx-large) {
       margin: 0 calc(var(--box-padding) - 1em);
       .now-playing a {
-        padding: 0.8em 1em;
+        padding: 0.8em;
       }
-    }
-  }
-  .now-playing {
-    grid-template-columns: repeat(1, 1fr);
-    @include breakpoint($mq-small) {
-      grid-template-columns: repeat(2, 1fr);
-    }
-    @include breakpoint($mq-large) {
-      grid-template-columns: repeat(3, 1fr);
-    }
-    @include breakpoint($mq-xx-large) {
-      grid-template-columns: repeat(4, 1fr);
     }
   }
 }
@@ -317,17 +321,18 @@ $hover-bg: if($theme == 'dark', rgba(#6ae, 0.3), rgba($c-primary, 0.05));
     flex: 1;
     overflow: hidden;
   }
-  &__number {
+  &::before {
+    content: attr(data-n);
     font-size: 0.9em;
     font-weight: bold;
     align-self: center;
-    width: 2ch;
-    text-align: center;
+    width: 1.8ch;
+    text-align: $end-direction;
     color: $c-font-dimmer;
-    .relay-game--current &,
-    .relay-game:hover & {
-      color: $c-primary;
-    }
+  }
+  &--current::before,
+  &:hover::before {
+    color: $c-primary;
   }
   &__player {
     @extend %flex-between-nowrap;
@@ -341,6 +346,7 @@ $hover-bg: if($theme == 'dark', rgba(#6ae, 0.3), rgba($c-primary, 0.05));
     }
   }
   .mini-game__gauge {
+    order: 0;
     @extend %box-radius;
     tick {
       top: 1.5px;

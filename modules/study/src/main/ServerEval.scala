@@ -5,12 +5,12 @@ import chess.format.{ Fen, Uci, UciCharPair, UciPath }
 import play.api.libs.json.*
 
 import lila.analyse.{ Advice, Analysis, Info }
+import lila.db.dsl.bsonWriteOpt
 import lila.hub.actorApi.fishnet.StudyChapterRequest
 import lila.security.Granter
-import lila.user.{ User, UserRepo }
-import lila.tree.{ Node, Root, Branch }
 import lila.tree.Node.Comment
-import lila.db.dsl.bsonWriteOpt
+import lila.tree.{ Branch, Node, Root }
+import lila.user.{ User, UserRepo }
 
 object ServerEval:
 
@@ -91,7 +91,7 @@ object ServerEval:
           .flatMap: parent =>
             analysisLine(parent, chapter.setup.variant, info).map: subTree =>
               parent.addChild(subTree) -> subTree
-          .so: (newParent, subTree) =>
+          .so: (_, subTree) =>
             chapterRepo.addSubTree(chapter, subTree, path, none)
 
       def saveInfoAdvice() =

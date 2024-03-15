@@ -1,7 +1,7 @@
 package lila.game
 
 import alleycats.Zero
-import chess.{ ByColor, PositionHash }
+import chess.ByColor
 
 export lila.Lila.{ *, given }
 

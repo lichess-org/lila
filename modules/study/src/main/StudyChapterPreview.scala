@@ -1,14 +1,12 @@
 package lila.study
 
-import chess.{ Color, FideId }
 import chess.format.pgn.Tags
 import chess.format.{ Fen, Uci }
-import chess.{ ByColor, Centis, Color, Outcome, PlayerName, PlayerTitle, Elo }
+import chess.{ ByColor, Centis, Color, Elo, FideId, Outcome, PlayerName, PlayerTitle }
 import play.api.libs.json.*
 import reactivemongo.api.bson.*
 
 import lila.db.dsl.{ *, given }
-import com.github.blemale.scaffeine.AsyncLoadingCache
 import lila.fide.Federation
 
 case class ChapterPreview(
@@ -25,7 +23,8 @@ case class ChapterPreview(
      */
     result: Option[Option[Outcome]]
 ):
-  def secondsSinceLastMove  = lastMoveAt.map(at => (nowSeconds - at.toSeconds).toInt)
+  def finished              = result.exists(_.isDefined)
+  def thinkTime             = (!finished).so(lastMoveAt.map(at => (nowSeconds - at.toSeconds).toInt))
   def fideIds: List[FideId] = players.so(_.mapList(_.fideId)).flatten
 
 final class ChapterPreviewApi(
@@ -36,7 +35,6 @@ final class ChapterPreviewApi(
 
   import ChapterPreview.AsJsons
   import ChapterPreview.bson.{ projection, given }
-  import ChapterPreview.json.given
 
   object jsonList:
     // Can't be higher without skewing the clocks
@@ -94,7 +92,7 @@ object ChapterPreview:
         Player(n | PlayerName("Unknown player"), t, e, c, f, te)
 
   object json:
-    import lila.common.Json.{ writeAs, given }
+    import lila.common.Json.{ given }
 
     def readFirstId(js: AsJsons): Option[StudyChapterId] = for
       arr <- js.asOpt[JsArray]
@@ -118,13 +116,13 @@ object ChapterPreview:
       Json
         .obj(
           "id"   -> c.id,
-          "name" -> c.name,
-          "fen"  -> c.fen
+          "name" -> c.name
         )
+        .add("fen", Option.when(!c.fen.isInitial)(c.fen))
         .add("players", c.players.map(_.mapList(playerWithFederations)))
         .add("orientation", c.orientation.some.filter(_.black))
         .add("lastMove", c.lastMove)
-        .add("thinkTime", c.secondsSinceLastMove)
+        .add("thinkTime", c.thinkTime)
         .add("status", c.result.map(o => Outcome.showResult(o).replace("1/2", "½")))
 
   object bson:

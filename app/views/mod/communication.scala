@@ -2,16 +2,15 @@ package views.html.mod
 
 import controllers.routes
 
-import lila.app.templating.Environment.{ given, * }
+import lila.app.templating.Environment.{ *, given }
 import lila.app.ui.ScalatagsTemplate.{ *, given }
 import lila.common.String.html.richText
-import lila.common.base.StringUtils.escapeHtmlRaw
 import lila.hub.actorApi.shutup.PublicSource
 import lila.mod.IpRender.RenderIp
 import lila.mod.UserWithModlog
 import lila.relation.Follow
-import lila.user.{ Me, User }
 import lila.shutup.Analyser
+import lila.user.{ Me, User }
 
 object communication:
 

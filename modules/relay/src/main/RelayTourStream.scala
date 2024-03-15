@@ -5,10 +5,8 @@ import play.api.libs.json.*
 import reactivemongo.akkastream.cursorProducer
 import reactivemongo.api.bson.*
 
-import lila.common.config.MaxPerSecond
+import lila.common.config.{ Max, MaxPerSecond }
 import lila.db.dsl.{ *, given }
-import lila.common.config.Max
-import lila.relay.RelayRound.WithTour
 
 final class RelayTourStream(
     colls: RelayColls,
@@ -17,7 +15,6 @@ final class RelayTourStream(
 )(using Executor, akka.stream.Materializer):
 
   import BSONHandlers.given
-  import JsonView.given
 
   def officialTourStream(perSecond: MaxPerSecond, nb: Max): Source[JsObject, ?] =
 

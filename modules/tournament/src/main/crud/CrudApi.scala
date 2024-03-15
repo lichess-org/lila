@@ -1,15 +1,14 @@
 package lila.tournament
 package crud
 
-import chess.{ Clock, Mode }
-import chess.format.Fen
+import chess.Mode
 
 import lila.common.config.MaxPerPage
 import lila.common.paginator.Paginator
 import lila.db.dsl.*
 import lila.db.paginator.Adapter
-import lila.user.{ User, Me }
 import lila.tournament.BSONHandlers.given
+import lila.user.Me
 
 final class CrudApi(tournamentRepo: TournamentRepo, tourApi: TournamentApi, crudForm: CrudForm):
 

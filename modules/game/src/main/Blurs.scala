@@ -1,6 +1,7 @@
 package lila.game
 
 import alleycats.Zero
+
 import scala.util.Success
 
 opaque type Blurs = Long

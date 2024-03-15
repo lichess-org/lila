@@ -6,8 +6,7 @@ import lila.analyse.AccuracyPercent
 import lila.common.LilaOpeningFamily
 import lila.insight.*
 import lila.rating.PerfType
-import lila.tutor.TutorCompare.AnyComparison
-import lila.tutor.TutorCompare.Comparison
+import lila.tutor.TutorCompare.{ AnyComparison, Comparison }
 
 // for simplicity, all metrics should be positive: higher is better
 case class TutorPerfReport(

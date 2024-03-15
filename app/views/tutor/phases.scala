@@ -4,8 +4,8 @@ import controllers.routes
 
 import lila.app.templating.Environment.{ *, given }
 import lila.app.ui.ScalatagsTemplate.{ *, given }
+import lila.insight.{ InsightPosition, Phase }
 import lila.tutor.TutorPerfReport
-import lila.insight.{ Phase, InsightPosition }
 
 object phases:
 

@@ -1,10 +1,10 @@
 package views.html
 package appeal
 
+import controllers.appeal.routes.Appeal as appealRoutes
 import controllers.routes
-import controllers.appeal.routes.{ Appeal as appealRoutes }
 
-import lila.app.templating.Environment.{ given, * }
+import lila.app.templating.Environment.{ *, given }
 import lila.app.ui.ScalatagsTemplate.{ *, given }
 import lila.user.User
 
@@ -167,7 +167,11 @@ object tree:
           )
         )
       ),
-      content = appeal.accountMutedInfo(a(href := routes.Cms.lonePage("communication-guidelines"))(appeal.communicationGuidelines())).some
+      content = appeal
+        .accountMutedInfo(
+          a(href := routes.Cms.lonePage("communication-guidelines"))(appeal.communicationGuidelines())
+        )
+        .some
     )
 
   private def rankBanMenu(using PageContext): Branch =
@@ -259,7 +263,8 @@ object tree:
           )
         )
       ),
-      content = appeal.hiddenBlogInfo(a(href := routes.Cms.lonePage("blog-etiquette"))(appeal.blogRules())).some
+      content =
+        appeal.hiddenBlogInfo(a(href := routes.Cms.lonePage("blog-etiquette"))(appeal.blogRules())).some
     )
 
   private def prizebanMenu(using PageContext): Branch =

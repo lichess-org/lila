@@ -2,20 +2,20 @@ package controllers
 
 import play.api.libs.json.*
 import play.api.mvc.*
+import views.*
+
 import scala.util.chaining.*
 
-import lila.app.{ given, * }
 import lila.analyse.Analysis
+import lila.app.{ *, given }
 import lila.common.paginator.{ Paginator, PaginatorJson }
 import lila.common.{ Bus, HTTPRequest, IpAddress, LpvEmbed }
-import lila.common.config.MaxPerPage
 import lila.socket.Socket
-import lila.study.actorApi.{ BecomeStudyAdmin, Who }
 import lila.study.JsonView.JsData
 import lila.study.Study.WithChapter
-import lila.study.{ Chapter, Order, Settings, StudyForm, Study as StudyModel }
+import lila.study.actorApi.{ BecomeStudyAdmin, Who }
+import lila.study.{ Chapter, Order, Settings, Study as StudyModel, StudyForm }
 import lila.tree.Node.partitionTreeJsonWriter
-import views.*
 
 final class Study(
     env: Env,

@@ -1,11 +1,12 @@
 package lila.user
 
+import org.apache.commons.codec.binary.Base32
+import ornicar.scalalib.SecureRandom
+import reactivemongo.api.bson.*
+
+import java.nio.ByteBuffer
 import javax.crypto.Mac
 import javax.crypto.spec.SecretKeySpec
-import java.nio.ByteBuffer
-import org.apache.commons.codec.binary.Base32
-import reactivemongo.api.bson.*
-import ornicar.scalalib.SecureRandom
 
 import User.TotpToken
 

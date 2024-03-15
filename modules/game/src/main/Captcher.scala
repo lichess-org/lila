@@ -2,9 +2,10 @@ package lila.game
 
 import akka.actor.*
 import akka.pattern.pipe
-import chess.format.pgn.{ Sans, Tags, SanStr }
-import chess.format.{ pgn, Fen }
-import chess.{ Game as ChessGame }
+import chess.Game as ChessGame
+import chess.format.pgn.{ SanStr, Sans, Tags }
+import chess.format.{ Fen, pgn }
+
 import scala.util.Success
 
 import lila.common.Captcha

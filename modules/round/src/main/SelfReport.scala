@@ -1,8 +1,9 @@
 package lila.round
 
 import com.softwaremill.tagging.*
-import scala.util.matching.Regex
 import ornicar.scalalib.ThreadLocalRandom
+
+import scala.util.matching.Regex
 
 import lila.common.{ IpAddress, IpAddressStr }
 import lila.game.Game

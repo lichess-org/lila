@@ -1,16 +1,12 @@
 package lila.ublog
-
-import java.time.Duration;
-import akka.stream.scaladsl.*
-import play.api.i18n.Lang
 import reactivemongo.akkastream.cursorProducer
 import reactivemongo.api.*
 import reactivemongo.api.bson.*
 
 import lila.db.dsl.{ *, given }
 import lila.hub.actorApi.timeline.{ Propagate, UblogPostLike }
-import lila.user.{ Me, User }
 import lila.i18n.Language
+import lila.user.{ Me, User }
 
 object UblogRank:
 

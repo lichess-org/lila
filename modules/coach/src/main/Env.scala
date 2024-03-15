@@ -1,11 +1,10 @@
 package lila.coach
 
+import akka.actor.ActorSystem
 import com.softwaremill.macwire.*
-import lila.common.autoconfig.{ *, given }
 import play.api.Configuration
 
 import lila.common.config.*
-import akka.actor.ActorSystem
 
 @Module
 final class Env(

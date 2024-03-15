@@ -1,7 +1,5 @@
 package lila.rating
 
-import lila.common.Maths.closestMultipleOf
-
 case class RatingRange(min: IntRating, max: IntRating):
 
   def contains(rating: IntRating) =

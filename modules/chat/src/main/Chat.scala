@@ -1,8 +1,9 @@
 package lila.chat
 
+import reactivemongo.api.bson.BSONDocumentHandler
+
 import lila.hub.actorApi.shutup.PublicSource
 import lila.user.{ Me, User }
-import reactivemongo.api.bson.BSONDocumentHandler
 
 sealed trait AnyChat:
   def id: ChatId

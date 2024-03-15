@@ -1,22 +1,23 @@
 package lila.relay
 
 import akka.actor.*
+import chess.format.pgn.{ PgnStr, SanStr, Tag, Tags }
 import chess.{ Outcome, Ply }
-import chess.format.pgn.{ Tag, Tags, SanStr, PgnStr }
 import com.github.blemale.scaffeine.LoadingCache
 import io.mola.galimatias.URL
 import play.api.libs.json.*
 
 import lila.base.LilaInvalid
-import lila.common.{ Seconds, LilaScheduler }
+import lila.common.config.Max
+import lila.common.{ LilaScheduler, Seconds }
 import lila.game.{ GameRepo, PgnDump }
 import lila.memo.CacheApi
 import lila.round.GameProxyRepo
 import lila.study.MultiPgn
 import lila.tree.Node.Comments
+
 import RelayRound.Sync.{ UpstreamIds, UpstreamUrl }
 import RelayFormat.CanProxy
-import lila.common.config.Max
 
 final private class RelayFetch(
     sync: RelaySync,

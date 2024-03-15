@@ -1,10 +1,10 @@
 package lila.user
 
-import reactivemongo.akkastream.{ cursorProducer, AkkaStreamCursor }
+import chess.PlayerTitle
+import ornicar.scalalib.ThreadLocalRandom
+import reactivemongo.akkastream.cursorProducer
 import reactivemongo.api.*
 import reactivemongo.api.bson.*
-import ornicar.scalalib.ThreadLocalRandom
-import chess.PlayerTitle
 
 import lila.common.{ ApiVersion, EmailAddress, LightUser, NormalizedEmailAddress }
 import lila.db.dsl.{ *, given }

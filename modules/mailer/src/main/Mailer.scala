@@ -1,18 +1,19 @@
 package lila.mailer
 
 import akka.actor.ActorSystem
-import lila.common.autoconfig.*
+import ornicar.scalalib.ThreadLocalRandom
+import play.api.ConfigLoader
 import play.api.i18n.Lang
 import play.api.libs.mailer.{ Email, SMTPConfiguration, SMTPMailer }
-import scala.concurrent.blocking
 import scalatags.Text.all.{ html as htmlTag, * }
-import scalatags.Text.tags2.{ title as titleTag }
-import ornicar.scalalib.ThreadLocalRandom
+import scalatags.Text.tags2.title as titleTag
+
+import scala.concurrent.blocking
 
 import lila.common.String.html.nl2br
+import lila.common.autoconfig.*
 import lila.common.{ Chronometer, EmailAddress }
-import lila.i18n.I18nKeys.{ emails as trans }
-import play.api.ConfigLoader
+import lila.i18n.I18nKeys.emails as trans
 
 final class Mailer(
     config: Mailer.Config,

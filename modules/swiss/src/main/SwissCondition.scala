@@ -1,14 +1,13 @@
 package lila.swiss
 
+import alleycats.Zero
 import play.api.i18n.Lang
 
-import lila.rating.PerfType
-import lila.user.{ Me, UserPerfs }
-import lila.gathering.{ Condition, ConditionList }
 import lila.gathering.Condition.*
-import alleycats.Zero
-import lila.i18n.{ I18nKeys as trans }
-import lila.rating.Perf
+import lila.gathering.{ Condition, ConditionList }
+import lila.i18n.I18nKeys as trans
+import lila.rating.{ Perf, PerfType }
+import lila.user.Me
 
 object SwissCondition:
 

@@ -2,8 +2,8 @@ package lila.irwin
 
 import reactivemongo.api.bson.*
 
-import lila.db.dsl.{ *, given }
 import lila.db.BSON
+import lila.db.dsl.{ *, given }
 
 object BSONHandlers:
 

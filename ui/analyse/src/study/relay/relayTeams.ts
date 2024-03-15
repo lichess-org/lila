@@ -91,20 +91,11 @@ const renderTeams = (
             game.pov == 'white' ? [players.white, players.black] : [players.black, players.white];
           return (
             chap &&
-            h(
-              'a.relay-tour__team-match__game',
-              {
-                attrs: {
-                  ...gameLinkAttrs(basePath, chap),
-                  'data-id': chap.id,
-                },
-              },
-              [
-                playerView(sortedPlayers[0]),
-                statusView(chap, game.pov, chapters, cloudEval),
-                playerView(sortedPlayers[1]),
-              ],
-            )
+            h('a.relay-tour__team-match__game', { attrs: gameLinkAttrs(basePath, chap) }, [
+              playerView(sortedPlayers[0]),
+              statusView(chap, game.pov, chapters, cloudEval),
+              playerView(sortedPlayers[1]),
+            ])
           );
         }),
       ),

@@ -1,6 +1,6 @@
 package views.html.site
 
-import lila.app.templating.Environment.{ given, * }
+import lila.app.templating.Environment.{ *, given }
 import lila.app.ui.ScalatagsTemplate.*
 
 object lag:

@@ -1,6 +1,6 @@
 package lila.tournament
 
-import chess.{ Black, Color, White, ByColor }
+import chess.{ Black, ByColor, Color, White }
 
 import lila.game.{ Game, GameRepo, Player as GamePlayer, Source }
 

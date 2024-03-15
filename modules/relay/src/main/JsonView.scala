@@ -2,11 +2,11 @@ package lila.relay
 
 import play.api.libs.json.*
 
+import lila.common.Json.given
 import lila.common.config.BaseUrl
-import lila.common.Json.{ writeAs, given }
+import lila.memo.PicfitUrl
 import lila.study.ChapterPreview
 import lila.user.Me
-import lila.memo.PicfitUrl
 
 final class JsonView(
     baseUrl: BaseUrl,
@@ -16,7 +16,6 @@ final class JsonView(
 )(using Executor):
 
   import JsonView.given
-  import lila.study.JsonView.given
 
   given Writes[Option[RelayTour.Tier]] = Writes: t =>
     JsString(t.flatMap(RelayTour.Tier.keys.get) | "user")

@@ -4,8 +4,8 @@ import akka.actor.*
 import com.softwaremill.macwire.*
 
 import lila.common.config.*
-import lila.user.{ User, Me }
-import lila.report.{ ModId, SuspectId }
+import lila.report.SuspectId
+import lila.user.{ Me, User }
 
 @Module
 final class Env(
@@ -16,7 +16,6 @@ final class Env(
     settingStore: lila.memo.SettingStore.Builder,
     reportApi: lila.report.ReportApi,
     lightUserApi: lila.user.LightUserApi,
-    securityApi: lila.security.SecurityApi,
     tournamentApi: lila.tournament.TournamentApi,
     swissFeature: lila.swiss.SwissFeature,
     gameRepo: lila.game.GameRepo,
@@ -31,8 +30,7 @@ final class Env(
     noteApi: lila.user.NoteApi,
     cacheApi: lila.memo.CacheApi,
     ircApi: lila.irc.IrcApi,
-    msgApi: lila.msg.MsgApi,
-    ip2proxy: lila.security.Ip2Proxy
+    msgApi: lila.msg.MsgApi
 )(using Executor, Scheduler):
   private lazy val logRepo        = ModlogRepo(db(CollName("modlog")))
   private lazy val assessmentRepo = AssessmentRepo(db(CollName("player_assessment")))

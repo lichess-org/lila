@@ -1,13 +1,13 @@
 package lila.app
 package http
 
-import play.api.mvc.*
 import play.api.libs.json.Json
+import play.api.mvc.*
 import scalatags.Text.all.Frag
+import views.*
 
 import lila.app.{ *, given }
 import lila.memo.CacheApi.*
-import views.*
 
 final class KeyPages(val env: Env)(using Executor)
     extends ResponseWriter

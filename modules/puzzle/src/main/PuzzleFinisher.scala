@@ -1,15 +1,15 @@
 package lila.puzzle
 
-import lila.rating.glicko2
+import chess.Mode
+
 import scala.util.chaining.*
 
 import lila.common.Bus
-import lila.db.dsl.{ *, given }
-import lila.rating.{ Glicko, Perf, PerfType }
-import lila.user.{ Me, UserRepo, UserPerfsRepo }
-import chess.Mode
 import lila.common.config.Max
+import lila.db.dsl.{ *, given }
 import lila.puzzle.PuzzleForm.batch.Solution
+import lila.rating.{ Glicko, Perf, PerfType, glicko2 }
+import lila.user.{ Me, UserPerfsRepo, UserRepo }
 
 final private[puzzle] class PuzzleFinisher(
     api: PuzzleApi,

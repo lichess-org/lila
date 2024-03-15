@@ -1,8 +1,9 @@
 package lila.forum
 
-import Filter.*
 import lila.db.dsl.{ *, given }
 import lila.user.User
+
+import Filter.*
 
 final private class ForumTopicRepo(val coll: Coll, filter: Filter = Safe)(using
     Executor

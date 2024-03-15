@@ -1,10 +1,11 @@
 package lila.streamer
 
-import scala.util.chaining.*
 import ornicar.scalalib.ThreadLocalRandom
+import play.api.i18n.Lang
+
+import scala.util.chaining.*
 
 import lila.common.{ Bus, LilaScheduler }
-import play.api.i18n.Lang
 
 final private class Streaming(
     api: StreamerApi,

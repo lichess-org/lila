@@ -5,6 +5,7 @@ let player: VideoPlayer;
 
 export function renderVideoPlayer(relay: RelayCtrl): VNode | undefined {
   if (!relay.data.videoUrls) return undefined;
+  console.log(relay.data.videoUrls[0]);
   player ??= new VideoPlayer(relay.data.videoUrls[0]);
   return h('div#video-player-placeholder', {
     hook: {
@@ -32,7 +33,8 @@ class VideoPlayer {
 
   cover(el?: HTMLElement) {
     cancelAnimationFrame(this.animationFrameId);
-    if (!el || Number(window.getComputedStyle(document.body).getPropertyValue('--cols')) !== 3) {
+    const display = window.getComputedStyle($as<HTMLElement>('.streamer-show')).getPropertyValue('display');
+    if (!el || display !== 'block') {
       if (document.body.contains(this.iframe)) document.body.removeChild(this.iframe);
       return;
     }

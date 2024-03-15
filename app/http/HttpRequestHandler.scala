@@ -26,4 +26,4 @@ final class HttpRequestHandler(
       then Results.NoContent.withHeaders(optionsHeaders*)
       else Results.NotFound
 
-  private val allowMethods = List("OPTIONS", "GET", "POST", "PUT", "DELETE").mkString(", ")
+  List("OPTIONS", "GET", "POST", "PUT", "DELETE").mkString(", ")

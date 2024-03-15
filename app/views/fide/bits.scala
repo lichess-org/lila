@@ -1,10 +1,7 @@
 package views.html.fide
-
-import controllers.routes
-
-import lila.app.templating.Environment.{ given, * }
-import lila.app.ui.ScalatagsTemplate.{ *, given }
-import lila.fide.{ FideTC, FidePlayer, Federation }
+import lila.app.templating.Environment.{ *, given }
+import lila.app.ui.ScalatagsTemplate.*
+import lila.fide.FideTC
 
 private object bits:
 

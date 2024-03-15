@@ -1,10 +1,10 @@
 package lila.relay
 
-import play.api.data.Forms.*
 import chess.format.pgn.{ Tag, Tags }
-import chess.{ FideId, PlayerName, PlayerTitle, Elo }
+import chess.{ Elo, FideId, PlayerName, PlayerTitle }
+import play.api.data.Forms.*
 
-import lila.fide.{ PlayerToken, FidePlayer }
+import lila.fide.{ FidePlayer, PlayerToken }
 
 // used to change names and ratings of broadcast players
 private case class RelayPlayer(

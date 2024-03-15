@@ -5,13 +5,13 @@ import play.api.libs.json.*
 import reactivemongo.api.bson.*
 
 import lila.analyse.{ Analysis, JsonView as analysisJson }
-import lila.common.config.*
 import lila.common.Json.given
+import lila.common.config.*
 import lila.common.paginator.{ Paginator, PaginatorJson }
 import lila.db.dsl.{ *, given }
 import lila.db.paginator.Adapter
 import lila.game.BSONHandlers.given
-import lila.game.Game.{ BSONFields as G }
+import lila.game.Game.BSONFields as G
 import lila.game.JsonView.given
 import lila.game.{ CrosstableApi, Game }
 import lila.user.User

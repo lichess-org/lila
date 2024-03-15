@@ -3,9 +3,11 @@ package lila.fishnet
 import chess.Ply
 import chess.format.Uci
 import chess.format.pgn.SanStr
-import JsonApi.Request.Evaluation
+
 import lila.analyse.{ Analysis, Info }
 import lila.tree.Eval
+
+import JsonApi.Request.Evaluation
 import Evaluation.EvalOrSkip
 
 final private class AnalysisBuilder(evalCache: IFishnetEvalCache)(using Executor):

@@ -2,11 +2,11 @@ package lila.api
 
 import play.api.libs.json.{ JsObject, Json, Writes }
 
+import lila.common.Json.given
 import lila.game.Pov
 import lila.lobby.{ LobbySocket, SeekApi }
-import lila.common.Json.given
-import lila.user.{ Me, User, UserPerfs }
 import lila.rating.Perf
+import lila.user.{ User, UserPerfs }
 
 final class LobbyApi(
     lightUserApi: lila.user.LightUserApi,

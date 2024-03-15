@@ -121,7 +121,7 @@ export default class StudyCtrl {
     this.vm = {
       loading: false,
       tab: prop<Tab>(!relayData && data.chapters.length > 1 ? 'chapters' : 'members'),
-      toolTab: prop<ToolTab>('tags'),
+      toolTab: prop<ToolTab>(relayData ? 'multiBoard' : 'tags'),
       chapterId: sticked ? data.position.chapterId : data.chapter.id,
       // path is at ctrl.path
       mode: {
@@ -598,7 +598,10 @@ export default class StudyCtrl {
     },
     addNode: d => {
       const position = d.p,
-        node = d.n,
+        node = {
+          ...d.n,
+          children: d.n.children || [],
+        },
         who = d.w,
         sticky = d.s;
       this.setMemberActive(who);

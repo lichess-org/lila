@@ -1,13 +1,13 @@
 package lila.push
 
-import lila.common.autoconfig.*
+import play.api.ConfigLoader
 import play.api.libs.json.*
 import play.api.libs.ws.JsonBodyWritables.*
 import play.api.libs.ws.StandaloneWSClient
 
-import play.api.ConfigLoader
-import lila.common.LazyFu
 import lila.common.Json.given
+import lila.common.LazyFu
+import lila.common.autoconfig.*
 
 final private class WebPush(
     webSubscriptionApi: WebSubscriptionApi,

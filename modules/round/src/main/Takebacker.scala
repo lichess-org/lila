@@ -1,10 +1,12 @@
 package lila.round
 
-import chess.{ Color, ByColor }
+import chess.{ ByColor, Color }
+
 import lila.common.{ Bus, Preload }
 import lila.game.{ Event, Game, GameRepo, Pov, Progress, Rewind, UciMemo }
+import lila.i18n.{ I18nKeys as trans, defaultLang }
 import lila.pref.{ Pref, PrefApi }
-import lila.i18n.{ defaultLang, I18nKeys as trans }
+
 import RoundAsyncActor.TakebackSituation
 
 final private class Takebacker(

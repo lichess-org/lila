@@ -1,8 +1,8 @@
 package lila.team
 
+import lila.common.LightUser
 import lila.common.config.MaxPerPage
 import lila.common.paginator.*
-import lila.common.LightUser
 import lila.db.dsl.{ *, given }
 import lila.db.paginator.*
 import lila.user.MyId
@@ -22,19 +22,19 @@ final private[team] class PaginatorBuilder(
 
   def popularTeams(page: Int)(using me: Option[MyId]): Fu[Paginator[Team.WithMyLeadership]] =
     Paginator(
-      adapter = popularTeamsAdapter(page).mapFutureList(memberRepo.addMyLeadership),
+      adapter = popularTeamsAdapter.mapFutureList(memberRepo.addMyLeadership),
       page,
       maxPerPage
     )
 
   def popularTeamsWithPublicLeaders(page: Int): Fu[Paginator[Team.WithPublicLeaderIds]] =
     Paginator(
-      adapter = popularTeamsAdapter(page).mapFutureList(memberRepo.addPublicLeaderIds),
+      adapter = popularTeamsAdapter.mapFutureList(memberRepo.addPublicLeaderIds),
       page,
       maxPerPage
     )
 
-  private def popularTeamsAdapter(page: Int): Adapter[Team] =
+  private def popularTeamsAdapter: Adapter[Team] =
     Adapter[Team](
       collection = teamRepo.coll,
       selector = teamRepo.enabledSelect,

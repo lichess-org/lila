@@ -1,10 +1,10 @@
 package lila.setup
 
 import chess.format.Fen
-import chess.{ variant as V, Mode, Clock }
-import play.api.data.format.Formats.doubleFormat
+import chess.{ Clock, Mode, variant as V }
 import play.api.data.Forms.*
 import play.api.data.Mapping
+import play.api.data.format.Formats.doubleFormat
 
 import lila.common.Days
 import lila.common.Form.{ *, given }

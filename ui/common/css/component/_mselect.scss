@@ -9,11 +9,10 @@ $c-mselect: $c-primary;
   }
 
   &__label {
-    @extend %box-neat, %metal, %flex-between;
+    @extend %box-neat, %metal, %flex-between-nowrap;
     @include padding-direction(0.3rem, 0.6rem, 0.3rem, 1rem);
 
-    flex-flow: row nowrap;
-
+    gap: 1ch;
     cursor: pointer;
 
     &:hover {

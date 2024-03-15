@@ -1,12 +1,13 @@
 package views.html
 package account
 
-import lila.app.templating.Environment.{ given, * }
+import controllers.routes
+import play.api.i18n.Lang
+
+import lila.app.templating.Environment.{ *, given }
 import lila.app.ui.ScalatagsTemplate.*
 import lila.pref.PrefCateg
 import lila.user.User
-import controllers.routes
-import play.api.i18n.Lang
 
 object bits:
 

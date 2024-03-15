@@ -1,8 +1,9 @@
 package lila.fishnet
 
-import scala.language.implicitConversions
+import chess.format.pgn.{ Reader, SanStr }
 import chess.{ Ply, Replay }
-import chess.format.pgn.{ SanStr, Reader }
+
+import scala.language.implicitConversions
 
 import lila.analyse.{ Analysis, Info }
 import lila.tree.Eval

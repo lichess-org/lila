@@ -1,13 +1,13 @@
 package lila.api
 
+import chess.format.pgn.PgnStr
 import scalatags.Text.all.*
 
 import lila.analyse.{ Analysis, AnalysisRepo }
-import lila.game.GameRepo
-import lila.memo.CacheApi
-import chess.format.pgn.{ Pgn, PgnStr }
 import lila.common.LpvEmbed
 import lila.common.config.NetDomain
+import lila.game.GameRepo
+import lila.memo.CacheApi
 
 final class TextLpvExpand(
     gameRepo: GameRepo,

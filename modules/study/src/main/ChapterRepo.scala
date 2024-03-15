@@ -1,9 +1,9 @@
 package lila.study
 
 import akka.stream.scaladsl.*
-import chess.format.pgn.Tags
+import chess.Centis
 import chess.format.UciPath
-import chess.{ Centis, ByColor }
+import chess.format.pgn.Tags
 import reactivemongo.akkastream.cursorProducer
 import reactivemongo.api.bson.*
 
@@ -11,7 +11,7 @@ import lila.db.AsyncColl
 import lila.db.dsl.{ *, given }
 import lila.tree.{ Branch, Branches }
 
-import Node.{ BsonFields as F }
+import Node.BsonFields as F
 
 final class ChapterRepo(val coll: AsyncColl)(using Executor, akka.stream.Materializer):
 
@@ -120,6 +120,8 @@ final class ChapterRepo(val coll: AsyncColl)(using Executor, akka.stream.Materia
 
   def forceVariation(force: Boolean) = setNodeValue(F.forceVariation, force.option(true))
 
+  def setName(id: StudyChapterId, name: StudyChapterName) = coll(_.updateField($id(id), "name", name)).void
+
   // insert node and its children
   // and updates chapter denormalization
   private[study] def addSubTree(
@@ -176,14 +178,13 @@ final class ChapterRepo(val coll: AsyncColl)(using Executor, akka.stream.Materia
     } match
       case Nil => funit
       case sets =>
-        coll {
+        coll:
           _.update
             .one(
               $id(chapter.id) ++ $doc(path.toDbField.$exists(true)),
               $set($doc(sets))
             )
             .void
-        }
 
   // root.path.subField
   private def pathToField(path: UciPath, subField: String): String = s"${path.toDbField}.$subField"
@@ -192,17 +193,17 @@ final class ChapterRepo(val coll: AsyncColl)(using Executor, akka.stream.Materia
       studyIds: Seq[StudyId],
       nbChaptersPerStudy: Int
   ): Fu[Map[StudyId, Vector[Chapter.IdName]]] =
-    studyIds.nonEmpty.so(coll {
-      _.find(
-        $doc("studyId".$in(studyIds)),
-        $doc("studyId" -> true, "_id" -> true, "name" -> true).some
-      )
-        .sort($sortOrder)
-        .cursor[Bdoc]()
-        .list(nbChaptersPerStudy * studyIds.size)
-    }
-      .map { docs =>
-        docs.foldLeft(Map.empty[StudyId, Vector[Chapter.IdName]]) { case (hash, doc) =>
+    studyIds.nonEmpty.so:
+      coll:
+        _.find(
+          $doc("studyId".$in(studyIds)),
+          $doc("studyId" -> true, "_id" -> true, "name" -> true).some
+        )
+          .sort($sortOrder)
+          .cursor[Bdoc]()
+          .list(nbChaptersPerStudy * studyIds.size)
+      .map: docs =>
+        docs.foldLeft(Map.empty[StudyId, Vector[Chapter.IdName]]): (hash, doc) =>
           doc.getAsOpt[StudyId]("studyId").fold(hash) { studyId =>
             hash.get(studyId) match
               case Some(chapters) if chapters.sizeIs >= nbChaptersPerStudy => hash
@@ -210,8 +211,6 @@ final class ChapterRepo(val coll: AsyncColl)(using Executor, akka.stream.Materia
                 val chapters = ~maybe
                 hash + (studyId -> chapterIdNameHandler.readOpt(doc).fold(chapters)(chapters :+ _))
           }
-        }
-      })
 
   def idNames(studyId: StudyId): Fu[List[Chapter.IdName]] =
     coll:

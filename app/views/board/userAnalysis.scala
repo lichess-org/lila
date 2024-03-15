@@ -1,15 +1,12 @@
 package views.html.board
 
+import chess.variant.{ Crazyhouse, FromPosition, Variant }
+import controllers.routes
 import play.api.libs.json.{ JsObject, Json }
 
-import chess.variant.{ Variant, FromPosition, Crazyhouse }
-
-import lila.app.templating.Environment.{ given, * }
+import lila.app.templating.Environment.{ *, given }
 import lila.app.ui.ScalatagsTemplate.{ *, given }
-import lila.common.String.html.safeJsonValue
 import lila.rating.PerfType.iconByVariant
-
-import controllers.routes
 
 object userAnalysis:
 

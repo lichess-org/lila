@@ -1,10 +1,9 @@
 package lila.rating
 
-import reactivemongo.api.bson.{ BSONDocument, Macros }
+import reactivemongo.api.bson.{ BSONDocument, BSONDocumentHandler, Macros }
 
 import lila.db.BSON
 import lila.db.dsl.given
-import reactivemongo.api.bson.BSONDocumentHandler
 
 case class Perf(
     glicko: Glicko,

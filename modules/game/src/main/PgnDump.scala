@@ -1,13 +1,11 @@
 package lila.game
 
-import chess.format.Fen
-import chess.format.pgn.{ InitialComments, ParsedPgn, Parser, Pgn, Tag, TagType, Tags, SanStr, PgnTree }
-import chess.format.{ pgn as chessPgn }
-import chess.{ Centis, Color, ByColor, Outcome, Ply, FullMoveNumber }
+import chess.format.pgn.{ InitialComments, ParsedPgn, Parser, Pgn, PgnTree, SanStr, Tag, TagType, Tags }
+import chess.format.{ Fen, pgn as chessPgn }
+import chess.{ ByColor, Centis, Color, Outcome, Ply, Tree }
 
-import lila.common.config.BaseUrl
 import lila.common.LightUser
-import chess.Tree
+import lila.common.config.BaseUrl
 
 final class PgnDump(
     baseUrl: BaseUrl,

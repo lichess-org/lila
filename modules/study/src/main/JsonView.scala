@@ -2,6 +2,7 @@ package lila.study
 
 import chess.Square
 import play.api.libs.json.*
+
 import scala.util.chaining.*
 
 import lila.common.Json.{ *, given }

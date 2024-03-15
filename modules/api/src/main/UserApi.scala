@@ -1,13 +1,13 @@
 package lila.api
 
+import play.api.i18n.Lang
 import play.api.libs.json.*
 
-import lila.common.config.*
-import lila.user.{ Trophy, Me, User }
-import lila.rating.{ PerfType, UserRankMap }
-import play.api.i18n.Lang
 import lila.common.Json.given
+import lila.common.config.*
+import lila.rating.{ PerfType, UserRankMap }
 import lila.security.Granter
+import lila.user.{ Me, Trophy, User }
 
 final class UserApi(
     jsonView: lila.user.JsonView,

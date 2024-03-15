@@ -1,16 +1,16 @@
 package views.html.base
 
-import controllers.report.routes.{ Report as reportRoutes }
-import controllers.team.routes.{ Team as teamRoutes }
+import controllers.report.routes.Report as reportRoutes
 import controllers.routes
+import controllers.team.routes.Team as teamRoutes
 import play.api.i18n.Lang
 
-import lila.app.templating.Environment.{ given, * }
 import lila.app.ContentSecurityPolicy
+import lila.app.templating.Environment.{ *, given }
 import lila.app.ui.ScalatagsTemplate.{ *, given }
-import lila.common.base.StringUtils.escapeHtmlRaw
-import lila.common.String.html.safeJsonValue
 import lila.common.LangPath
+import lila.common.String.html.safeJsonValue
+import lila.common.base.StringUtils.escapeHtmlRaw
 
 object layout:
 
@@ -456,6 +456,8 @@ object layout:
 
   object inlineJs:
 
+    def apply(nonce: Nonce)(using Lang) = embedJsUnsafe(jsCode, nonce)
+
     private val i18nKeys = List(
       trans.pause,
       trans.resume,
@@ -483,6 +485,9 @@ object layout:
     )
 
     private val cache = new java.util.concurrent.ConcurrentHashMap[Lang, String]
+    lila.common.Bus.subscribeFun("i18n.load"):
+      case lang: Lang => cache.remove(lang)
+
     private def jsCode(using lang: Lang) =
       cache.computeIfAbsent(
         lang,
@@ -491,6 +496,4 @@ object layout:
           val i18n = safeJsonValue(i18nJsObject(i18nKeys))
           s"""site={load:new Promise(r=>document.addEventListener("DOMContentLoaded",r)),quantity:$qty,siteI18n:$i18n}"""
       )
-    def apply(nonce: Nonce)(using Lang) =
-      embedJsUnsafe(jsCode, nonce)
   end inlineJs

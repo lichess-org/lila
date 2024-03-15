@@ -49,7 +49,7 @@
   &__clock {
     @extend %roboto;
 
-    padding-#{$start-direction}: 2ch;
+    padding-#{$start-direction}: 1ch;
 
     &.clock--run {
       color: $c-accent;
@@ -60,5 +60,10 @@
   &__result {
     font-weight: bold;
     margin: 0 1ch;
+  }
+
+  cg-container {
+    @extend %box-radius;
+    overflow: hidden;
   }
 }

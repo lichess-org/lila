@@ -1,9 +1,10 @@
 package lila.user
 
-import lila.db.dsl.{ *, given }
 import ornicar.scalalib.ThreadLocalRandom
-import lila.common.paginator.Paginator
+
 import lila.common.config.MaxPerPage
+import lila.common.paginator.Paginator
+import lila.db.dsl.{ *, given }
 
 case class Note(
     _id: String,

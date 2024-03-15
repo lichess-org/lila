@@ -1,13 +1,14 @@
 package lila.security
 
 import com.github.blemale.scaffeine.LoadingCache
-import lila.common.autoconfig.*
+import com.maxmind.geoip2.DatabaseReader
+import com.maxmind.geoip2.model.CityResponse
+import play.api.ConfigLoader
+
+import scala.util.Try
 
 import lila.common.IpAddress
-import com.maxmind.geoip2.DatabaseReader
-import scala.util.Try
-import play.api.ConfigLoader
-import com.maxmind.geoip2.model.CityResponse
+import lila.common.autoconfig.*
 
 final class GeoIP(config: GeoIP.Config):
 

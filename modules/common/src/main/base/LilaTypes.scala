@@ -1,8 +1,7 @@
 package lila.base
 
-import ornicar.scalalib.newtypes.*
-
 import alleycats.Zero
+import ornicar.scalalib.newtypes.*
 import play.api.libs.json.JsObject
 
 trait LilaTypes:

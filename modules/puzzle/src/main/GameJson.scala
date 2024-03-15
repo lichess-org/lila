@@ -4,10 +4,10 @@ import chess.Ply
 import chess.format.{ Fen, UciCharPair }
 import play.api.libs.json.*
 
-import lila.game.{ Game, GameRepo }
-import lila.i18n.defaultLang
 import lila.common.Json.given
 import lila.common.LightUser
+import lila.game.{ Game, GameRepo }
+import lila.i18n.defaultLang
 
 final private class GameJson(
     gameRepo: GameRepo,

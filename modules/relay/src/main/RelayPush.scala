@@ -1,15 +1,15 @@
 package lila.relay
 
-import scala.concurrent.duration.*
 import akka.actor.*
-import chess.format.pgn.{ PgnStr, Parser, Std, San, Tags }
-import chess.{ ErrorStr, Game, Replay, Square }
 import akka.pattern.after
+import chess.format.pgn.{ Parser, PgnStr, San, Std, Tags }
+import chess.{ ErrorStr, Game, Replay, Square }
 
-import lila.study.MultiPgn
-import lila.base.LilaInvalid
-import lila.hub.AsyncActorSequencers
+import scala.concurrent.duration.*
+
 import lila.common.config.Max
+import lila.hub.AsyncActorSequencers
+import lila.study.MultiPgn
 
 final class RelayPush(sync: RelaySync, api: RelayApi, irc: lila.irc.IrcApi)(using
     ActorSystem,

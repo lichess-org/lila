@@ -2,15 +2,13 @@ package lila.security
 
 import play.api.data.Form
 
-import lila.common.EmailAddress
-import lila.common.IpAddress
+import lila.common.{ EmailAddress, IpAddress }
 import lila.memo.CacheApi
 import lila.user.User
 
 final class DisposableEmailAttempt(
     cacheApi: CacheApi,
-    disposableApi: DisposableEmailDomain,
-    irc: lila.irc.IrcApi
+    disposableApi: DisposableEmailDomain
 ):
 
   import DisposableEmailAttempt.*

@@ -1,8 +1,10 @@
 package lila.analyse
 
 import chess.format.pgn.{ Comment, Glyph }
-import lila.tree.Eval.*
+
 import scala.util.chaining.*
+
+import lila.tree.Eval.*
 
 sealed trait Advice:
   val judgment: Advice.Judgement
