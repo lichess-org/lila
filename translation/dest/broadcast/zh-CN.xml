@@ -9,7 +9,6 @@
   <string name="newBroadcast">新建实况转播</string>
   <string name="subscribedBroadcasts">已订阅的转播</string>
   <string name="aboutBroadcasts">关于转播</string>
-  <string name="noRoundsYet">尚未有任何棋局</string>
   <string name="howToUseLichessBroadcasts">如何使用Lichess转播</string>
   <string name="theNewRoundHelp">新一轮的成员和贡献者将与前一轮相同。</string>
   <string name="addRound">添加一轮</string>
