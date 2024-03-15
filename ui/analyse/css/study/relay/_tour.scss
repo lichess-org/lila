@@ -322,8 +322,8 @@
     font-size: 0.9em;
     font-weight: bold;
     align-self: center;
-    width: 2ch;
-    text-align: center;
+    width: 1.8ch;
+    text-align: $end-direction;
     color: $c-font-dimmer;
   }
   &--current::before,
