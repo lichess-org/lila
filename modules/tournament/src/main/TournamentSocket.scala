@@ -2,12 +2,12 @@ package lila.tournament
 
 import akka.actor.*
 
+import lila.common.Json.given
 import lila.game.Game
 import lila.hub.LateMultiThrottler
 import lila.room.RoomSocket.{ Protocol as RP, * }
 import lila.socket.RemoteSocket.{ Protocol as P, * }
 import lila.socket.Socket.makeMessage
-import lila.common.Json.given
 
 final private class TournamentSocket(
     repo: TournamentRepo,

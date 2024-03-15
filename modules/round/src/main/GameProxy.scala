@@ -1,9 +1,10 @@
 package lila.round
 
 import akka.actor.{ Cancellable, Scheduler }
+import chess.Color
+
 import scala.util.Success
 
-import chess.Color
 import lila.game.{ Game, GameRepo, Pov, Progress }
 
 // NOT thread safe

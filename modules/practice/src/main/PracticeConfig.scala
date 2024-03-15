@@ -1,7 +1,8 @@
 package lila.practice
 
-import lila.common.autoconfig.{ *, given }
 import play.api.ConfigLoader
+
+import lila.common.autoconfig.{ *, given }
 
 final class PracticeConfig(val sections: List[PracticeConfigSection]):
 
@@ -10,9 +11,8 @@ final class PracticeConfig(val sections: List[PracticeConfigSection]):
 object PracticeConfig:
   val empty = PracticeConfig(Nil)
 
-  private given [A](using ConfigLoader[A]): ConfigLoader[Option[A]] = optionalConfig[A]
-  private given studyLoader: ConfigLoader[PracticeConfigStudy]      = AutoConfig.loader
-  private given ConfigLoader[PracticeConfigSection]                 = AutoConfig.loader
+  private given studyLoader: ConfigLoader[PracticeConfigStudy] = AutoConfig.loader
+  private given ConfigLoader[PracticeConfigSection]            = AutoConfig.loader
 
   given ConfigLoader[PracticeConfig] = AutoConfig.loader
 

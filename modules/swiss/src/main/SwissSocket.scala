@@ -1,7 +1,7 @@
 package lila.swiss
 
-import lila.hub.actorApi.team.IsLeaderWithCommPerm
 import lila.hub.LateMultiThrottler
+import lila.hub.actorApi.team.IsLeaderWithCommPerm
 import lila.room.RoomSocket.{ Protocol as RP, * }
 import lila.socket.RemoteSocket.{ Protocol as P, * }
 import lila.socket.Socket.makeMessage

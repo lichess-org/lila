@@ -1,7 +1,8 @@
 package lila.relay
 
-import chess.format.pgn.{ Tag, Tags }
 import chess.format.UciPath
+import chess.format.pgn.{ Tag, Tags }
+
 import lila.socket.Socket.Sri
 import lila.study.*
 import lila.tree.Branch

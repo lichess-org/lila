@@ -1,11 +1,11 @@
 package lila.msg
 
-import reactivemongo.api.bson.*
 import ornicar.scalalib.ThreadLocalRandom
+import reactivemongo.api.bson.*
 
-import lila.db.dsl.{ *, given }
 import lila.db.BSON
-import lila.user.{ User, Me }
+import lila.db.dsl.{ *, given }
+import lila.user.{ Me, User }
 
 private object BsonHandlers:
 

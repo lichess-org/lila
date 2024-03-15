@@ -1,9 +1,9 @@
 package lila.common
 
 import play.api.data.*
+import play.api.data.Forms.*
 import play.api.data.format.*
 import play.api.data.format.Formats.*
-import play.api.data.Forms.*
 import play.api.data.validation.*
 
 import lila.common.Form.*

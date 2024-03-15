@@ -1,15 +1,11 @@
 package views.html.streamer
-
-import controllers.routes
-
-import lila.app.templating.Environment.{ given, * }
-import lila.app.ui.ScalatagsTemplate.{ *, given }
+import lila.app.templating.Environment.*
+import lila.app.ui.ScalatagsTemplate.*
 import lila.streamer.Streamer
 import lila.user.User
 
 object picture:
 
-  import trans.streamer.*
   object thumbnail:
     def apply(s: Streamer, u: User) =
       img(

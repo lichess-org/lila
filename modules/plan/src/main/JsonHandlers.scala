@@ -1,11 +1,13 @@
 package lila.plan
 
-import play.api.libs.json.*
 import play.api.libs.functional.syntax.*
+import play.api.libs.json.*
+
 import java.util.Currency
 import scala.util.Try
-import lila.common.Json.given
+
 import lila.common.IpAddress
+import lila.common.Json.given
 
 private object JsonHandlers:
 

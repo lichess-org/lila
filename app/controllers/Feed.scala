@@ -2,11 +2,8 @@ package controllers
 
 import play.api.mvc.*
 import views.*
-import java.time.LocalDate
 
-import lila.app.{ given, * }
-import lila.common.config.Max
-import lila.feed.Feed.Update
+import lila.app.{ *, given }
 
 final class Feed(env: Env) extends LilaController(env):
 

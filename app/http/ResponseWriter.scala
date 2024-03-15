@@ -1,13 +1,12 @@
 package lila.app
 package http
 
-import lila.api.*
-
-import play.api.http.*
-import play.api.mvc.{ Result, Codec, RequestHeader }
-import scalatags.Text.Frag
 import chess.format.pgn.PgnStr
-import lila.common.HTTPRequest
+import play.api.http.*
+import play.api.mvc.Codec
+import scalatags.Text.Frag
+
+import lila.api.*
 
 trait ResponseWriter extends ContentTypes:
 

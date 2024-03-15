@@ -4,16 +4,16 @@ import play.api.libs.json.Json
 import play.api.mvc.{ RequestHeader, Result }
 import views.html
 
-import lila.app.{ given, * }
-import lila.challenge.{ Challenge as ChallengeModel }
-import lila.challenge.Challenge.{ Id as ChallengeId }
-import lila.common.{ Bearer, IpAddress, Template, Preload }
+import lila.app.{ *, given }
+import lila.challenge.Challenge as ChallengeModel
+import lila.challenge.Challenge.Id as ChallengeId
 import lila.common.config.Max
+import lila.common.{ Bearer, IpAddress, Preload }
 import lila.game.{ AnonCookie, Pov }
-import lila.oauth.{ OAuthScope, EndpointScopes }
+import lila.oauth.{ EndpointScopes, OAuthScope }
 import lila.setup.ApiConfig
 import lila.socket.SocketVersion
-import lila.user.{ User as UserModel }
+import lila.user.User as UserModel
 
 final class Challenge(
     env: Env,

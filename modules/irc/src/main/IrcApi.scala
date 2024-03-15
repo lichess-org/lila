@@ -1,10 +1,8 @@
 package lila.irc
 
-import lila.common.{ EmailAddress, Heapsort, IpAddress, LightUser }
+import lila.common.{ Heapsort, LightUser }
 import lila.hub.actorApi.irc.*
-import lila.user.Me
-import lila.user.User
-import lila.user.Me
+import lila.user.{ Me, User }
 
 final class IrcApi(
     zulip: ZulipClient,

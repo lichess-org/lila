@@ -1,11 +1,12 @@
 package lila.lobby
 
-import chess.{ Game as ChessGame, Situation, ByColor }
+import chess.{ ByColor, Game as ChessGame, Situation }
 
-import actorApi.{ JoinHook, JoinSeek }
 import lila.game.{ Game, Player }
 import lila.socket.Socket.Sri
-import lila.user.{ User, GameUsers }
+import lila.user.{ GameUsers, User }
+
+import actorApi.{ JoinHook, JoinSeek }
 
 final private class Biter(
     userRepo: lila.user.UserRepo,

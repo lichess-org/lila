@@ -1,12 +1,13 @@
 package lila.tournament
 
-import lila.gathering.{ Condition, ConditionList }
+import alleycats.Zero
+
 import lila.gathering.Condition.*
+import lila.gathering.{ Condition, ConditionList }
 import lila.history.HistoryApi
 import lila.hub.LightTeam
 import lila.rating.{ Perf, PerfType }
-import alleycats.Zero
-import lila.user.{ User, Me }
+import lila.user.{ Me, User }
 
 object TournamentCondition:
 

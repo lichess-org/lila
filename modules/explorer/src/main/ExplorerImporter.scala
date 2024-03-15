@@ -1,9 +1,10 @@
 package lila.explorer
 
+import chess.format.pgn.PgnStr
+import play.api.libs.ws.DefaultBodyReadables.*
+
 import lila.game.{ Game, GameRepo }
 import lila.importer.{ ImportData, Importer }
-import play.api.libs.ws.DefaultBodyReadables.*
-import chess.format.pgn.PgnStr
 
 final class ExplorerImporter(
     endpoint: InternalEndpoint,

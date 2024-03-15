@@ -1,7 +1,5 @@
 package lila.study
 
-import chess.Centis
-
 case class MoveOpts(
     write: Boolean,
     sticky: Boolean,

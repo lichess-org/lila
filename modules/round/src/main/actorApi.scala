@@ -1,9 +1,9 @@
 package lila.round
 package actorApi
 
-import play.api.libs.json.JsObject
 import chess.format.Uci
 import chess.{ Color, MoveMetrics }
+import play.api.libs.json.JsObject
 
 import lila.common.IpAddress
 import lila.socket.SocketVersion

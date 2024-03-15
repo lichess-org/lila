@@ -1,11 +1,10 @@
 package lila.insight
 
-import chess.{ Centis, ByColor }
+import chess.{ ByColor, Centis }
 import reactivemongo.api.bson.*
 
 import lila.common.config
 import lila.db.dsl.{ *, given }
-import lila.game.Game
 import lila.rating.{ Perf, PerfType }
 import lila.user.User
 

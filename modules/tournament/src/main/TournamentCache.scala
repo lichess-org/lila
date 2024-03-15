@@ -1,8 +1,8 @@
 package lila.tournament
 
+import chess.variant.Variant
 import play.api.i18n.Lang
 
-import chess.variant.Variant
 import lila.memo.*
 import lila.memo.CacheApi.*
 

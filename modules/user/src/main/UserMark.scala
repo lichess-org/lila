@@ -1,6 +1,7 @@
 package lila.user
 
 import reactivemongo.api.bson.BSONHandler
+
 import lila.db.dsl.*
 
 enum UserMark:

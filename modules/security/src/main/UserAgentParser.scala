@@ -1,7 +1,8 @@
 package lila.security
 
 import org.uaparser.scala.*
-import lila.common.{ UserAgent as UA }
+
+import lila.common.UserAgent as UA
 
 object UserAgentParser:
 

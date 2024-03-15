@@ -1,19 +1,19 @@
 package lila.setup
 
 import akka.stream.scaladsl.*
-import chess.variant.{ FromPosition, Variant }
 import chess.format.Fen
-import chess.{ Clock, Mode, ByColor }
+import chess.variant.{ FromPosition, Variant }
+import chess.{ ByColor, Clock, Mode }
+import ornicar.scalalib.ThreadLocalRandom
 import play.api.data.*
 import play.api.data.Forms.*
 import play.api.libs.json.Json
-import ornicar.scalalib.ThreadLocalRandom
 
 import lila.common.{ Bearer, Days, Template }
 import lila.game.{ GameRule, IdGenerator }
-import lila.oauth.{ OAuthScope, OAuthServer, EndpointScopes }
-import lila.user.User
+import lila.oauth.{ EndpointScopes, OAuthScope, OAuthServer }
 import lila.rating.PerfType
+import lila.user.User
 
 object SetupBulk:
 

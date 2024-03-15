@@ -2,11 +2,10 @@ package lila.gathering
 
 import play.api.i18n.Lang
 
-import lila.i18n.I18nKeys as trans
-import lila.rating.PerfType
-import lila.user.{ Title, User, Me, UserPerfs }
 import lila.hub.LightTeam.TeamName
-import lila.rating.Perf
+import lila.i18n.I18nKeys as trans
+import lila.rating.{ Perf, PerfType }
+import lila.user.Me
 
 trait Condition:
 

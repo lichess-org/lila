@@ -2,18 +2,15 @@ package lila.push
 
 import akka.actor.*
 import play.api.libs.json.*
-import play.api.libs.json.Json.obj
 
 import lila.challenge.Challenge
 import lila.common.String.shorten
-import lila.common.{ LilaFuture, LightUser, LazyFu }
-import lila.common.Json.given
+import lila.common.{ LazyFu, LightUser, LilaFuture }
 import lila.game.{ Game, Namer, Pov }
 import lila.hub.actorApi.map.Tell
 import lila.hub.actorApi.push.TourSoon
 import lila.hub.actorApi.round.{ IsOnGame, MoveEvent }
 import lila.notify.*
-import lila.notify.{ NotificationPref, NotifyAllows }
 
 final private class PushApi(
     firebasePush: FirebasePush,

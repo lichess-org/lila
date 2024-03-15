@@ -3,9 +3,10 @@ package lila.user
 import reactivemongo.api.bson.*
 
 import lila.common.LightUser
+import lila.db.dsl.{ *, given }
 import lila.memo.CacheApi.*
 import lila.rating.{ Perf, PerfType }
-import lila.db.dsl.{ given, * }
+
 import User.{ LightCount, LightPerf }
 
 final class Cached(

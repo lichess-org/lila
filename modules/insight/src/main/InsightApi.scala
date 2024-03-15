@@ -1,7 +1,7 @@
 package lila.insight
 
-import lila.common.config
 import lila.common.Heapsort.botN
+import lila.common.config
 import lila.game.{ Game, GameRepo, Pov }
 import lila.user.User
 

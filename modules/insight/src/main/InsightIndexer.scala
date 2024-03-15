@@ -5,11 +5,11 @@ import reactivemongo.api.*
 import reactivemongo.api.bson.*
 
 import lila.common.LilaStream
+import lila.common.config.Max
 import lila.db.dsl.{ *, given }
 import lila.game.BSONHandlers.gameBSONHandler
 import lila.game.{ Game, GameRepo, Query }
 import lila.user.User
-import lila.common.config.Max
 
 final private class InsightIndexer(
     povToEntry: PovToEntry,

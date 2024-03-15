@@ -4,9 +4,9 @@ import play.api.data.*
 import play.api.data.Forms.*
 
 import lila.common.Form.{ cleanText, formatter, into }
+import lila.i18n.LangForm
 import lila.security.Granter
 import lila.user.Me
-import lila.i18n.LangForm
 
 final class RelayTourForm:
 

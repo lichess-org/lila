@@ -5,7 +5,7 @@ import play.api.data.Forms.*
 import play.api.libs.json.*
 import views.html
 
-import lila.app.{ given, * }
+import lila.app.*
 
 final class Learn(env: Env) extends LilaController(env):
 

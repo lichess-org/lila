@@ -1,10 +1,10 @@
 package views.html.oAuth.token
 
-import lila.app.templating.Environment.{ given, * }
-import lila.app.ui.ScalatagsTemplate.{ *, given }
-
 import controllers.routes
-import lila.i18n.I18nKeys.{ oauthScope as ot }
+
+import lila.app.templating.Environment.{ *, given }
+import lila.app.ui.ScalatagsTemplate.{ *, given }
+import lila.i18n.I18nKeys.oauthScope as ot
 
 object index:
 

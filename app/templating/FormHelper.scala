@@ -3,12 +3,12 @@ package templating
 
 import play.api.data.*
 import play.api.i18n.Lang
-
-import lila.app.ui.ScalatagsTemplate.{ *, given }
-import lila.i18n.I18nKey
-import lila.common.licon
 import scalatags.generic.TypedTag
 import scalatags.text.Builder
+
+import lila.app.ui.ScalatagsTemplate.{ *, given }
+import lila.common.licon
+import lila.i18n.I18nKey
 
 trait FormHelper:
   self: I18nHelper =>

@@ -1,12 +1,10 @@
 package controllers
-
-import alleycats.Zero
 import play.api.data.{ Form, FormError }
 import play.api.libs.json.*
 import play.api.mvc.*
 import views.*
 
-import lila.app.{ given, * }
+import lila.app.{ *, given }
 import lila.common.{ EmailAddress, HTTPRequest, IpAddress }
 import lila.memo.RateLimit
 import lila.security.SecurityForm.{ MagicLink, PasswordReset }

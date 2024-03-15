@@ -1,15 +1,15 @@
 package views.html.relay
 
-import play.api.mvc.Call
-import lila.app.templating.Environment.{ given, * }
-import lila.app.ui.ScalatagsTemplate.{ *, given }
-
 import controllers.routes
-import lila.relay.{ RelayRound, RelayTour }
-import lila.relay.RelayTour.WithLastRound
+import play.api.mvc.Call
+
+import lila.app.templating.Environment.{ *, given }
+import lila.app.ui.ScalatagsTemplate.{ *, given }
 import lila.common.LightUser
 import lila.common.paginator.Paginator
 import lila.memo.PicfitImage
+import lila.relay.RelayTour.WithLastRound
+import lila.relay.{ RelayRound, RelayTour }
 
 object tour:
 

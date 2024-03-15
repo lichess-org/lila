@@ -1,14 +1,14 @@
 package lila.study
 
-import reactivemongo.api.bson.Macros.Annotations.Key
 import chess.format.pgn.{ Glyph, Tags }
-import chess.format.{ UciPath, Uci, Fen }
+import chess.format.{ Fen, Uci, UciPath }
 import chess.opening.{ Opening, OpeningDb }
 import chess.variant.Variant
-import chess.{ Ply, Centis, Color, Outcome, ByColor }
+import chess.{ ByColor, Centis, Color, Outcome, Ply }
+import reactivemongo.api.bson.Macros.Annotations.Key
 
-import lila.tree.{ Root, Branch, Branches }
 import lila.tree.Node.{ Comment, Gamebook, Shapes }
+import lila.tree.{ Branch, Root }
 
 case class Chapter(
     @Key("_id") id: StudyChapterId,

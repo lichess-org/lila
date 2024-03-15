@@ -1,6 +1,6 @@
 package lila
 
-import com.github.benmanes.caffeine.cache.{ Cache as CaffeineCache }
+import com.github.benmanes.caffeine.cache.Cache as CaffeineCache
 import kamon.metric.{ Counter, Timer }
 import kamon.tag.TagSet
 

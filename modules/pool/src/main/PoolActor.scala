@@ -1,9 +1,8 @@
 package lila.pool
 
-import ornicar.scalalib.ThreadLocalRandom
-
 import akka.actor.*
 import akka.pattern.pipe
+import ornicar.scalalib.ThreadLocalRandom
 
 import lila.socket.Socket.Sris
 

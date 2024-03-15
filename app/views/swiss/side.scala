@@ -3,12 +3,12 @@ package html.swiss
 
 import controllers.routes
 
-import lila.app.templating.Environment.{ given, * }
+import lila.app.templating.Environment.{ *, given }
 import lila.app.ui.ScalatagsTemplate.{ *, given }
 import lila.common.String.html.markdownLinksOrRichText
-import lila.swiss.Swiss
 import lila.gathering.Condition
 import lila.gathering.Condition.WithVerdicts
+import lila.swiss.Swiss
 
 object side:
 

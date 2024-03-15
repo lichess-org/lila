@@ -1,7 +1,7 @@
 package lila.puzzle
 
-import chess.format.{ Fen, Uci }
 import chess.Ply
+import chess.format.{ Fen, Uci }
 
 import lila.rating.Glicko
 

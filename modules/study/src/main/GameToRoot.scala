@@ -1,11 +1,12 @@
 package lila.study
 
+import chess.Outcome
 import chess.format.Fen
+
 import lila.game.Game
 import lila.round.JsonView.WithFlags
-import lila.tree.Root
 import lila.tree.Node.Comment
-import chess.Outcome
+import lila.tree.Root
 
 private object GameToRoot:
 

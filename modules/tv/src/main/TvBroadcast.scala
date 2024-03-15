@@ -3,6 +3,8 @@ package lila.tv
 import akka.actor.*
 import akka.stream.scaladsl.*
 import chess.format.Fen
+import play.api.libs.json.*
+
 import lila.Lila.{ GameId, none }
 import lila.common.Json.given
 import lila.common.{ Bus, LightUser }
@@ -10,7 +12,6 @@ import lila.game.Pov
 import lila.game.actorApi.MoveGameEvent
 import lila.round.actorApi.TvSelect
 import lila.socket.Socket
-import play.api.libs.json.*
 
 final private class TvBroadcast(
     lightUserSync: LightUser.GetterSync,

@@ -1,6 +1,7 @@
 package lila.fishnet
 
 import reactivemongo.api.bson.*
+
 import lila.db.dsl.{ *, given }
 import lila.memo.CacheApi.*
 

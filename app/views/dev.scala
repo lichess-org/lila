@@ -1,11 +1,10 @@
 package views.html
 
+import controllers.routes
 import play.api.data.Form
 
 import lila.app.templating.Environment.*
 import lila.app.ui.ScalatagsTemplate.{ *, given }
-
-import controllers.routes
 
 object dev:
 

@@ -2,9 +2,9 @@ package lila.history
 
 import play.api.libs.json.*
 
+import lila.common.Json.given
 import lila.rating.PerfType
 import lila.user.{ User, UserRepo }
-import lila.common.Json.given
 
 final class RatingChartApi(
     historyApi: HistoryApi,

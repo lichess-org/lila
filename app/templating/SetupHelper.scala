@@ -1,11 +1,11 @@
 package lila.app
 package templating
 
-import chess.{ Mode, Speed }
 import chess.variant.Variant
+import chess.{ Mode, Speed }
 import play.api.i18n.Lang
 
-import lila.i18n.{ I18nKeys as trans }
+import lila.i18n.I18nKeys as trans
 import lila.pref.Pref
 import lila.report.Reason
 import lila.setup.TimeMode

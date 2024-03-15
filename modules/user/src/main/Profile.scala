@@ -63,5 +63,4 @@ object Profile:
   val default = Profile()
 
   import reactivemongo.api.bson.*
-  import lila.db.dsl.given
   private[user] given BSONDocumentHandler[Profile] = Macros.handler[Profile]

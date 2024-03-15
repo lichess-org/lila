@@ -1,9 +1,9 @@
 package lila.security
 
 import play.api.libs.json.*
-import play.api.libs.ws.StandaloneWSClient
 import play.api.libs.ws.DefaultBodyReadables.*
 import play.api.libs.ws.JsonBodyReadables.*
+import play.api.libs.ws.StandaloneWSClient
 
 import lila.common.Domain
 import lila.db.dsl.*

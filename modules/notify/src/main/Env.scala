@@ -1,13 +1,13 @@
 package lila.notify
 
 import akka.actor.*
+import akka.stream.Materializer
 import com.softwaremill.macwire.*
 import play.api.Configuration
-import akka.stream.Materializer
 
-import lila.db.dsl.Coll
 import lila.common.Bus
 import lila.common.config.*
+import lila.db.dsl.Coll
 
 @Module
 @annotation.nowarn("msg=unused")

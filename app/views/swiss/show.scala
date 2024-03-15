@@ -4,14 +4,12 @@ package swiss
 import controllers.routes
 import play.api.libs.json.Json
 
-import lila.app.templating.Environment.{ given, * }
+import lila.app.templating.Environment.{ *, given }
 import lila.app.ui.ScalatagsTemplate.{ *, given }
-import lila.common.String.html.safeJsonValue
-import lila.swiss.{ Swiss, SwissRoundNumber }
 import lila.common.paginator.Paginator
-import lila.swiss.SwissPairing
 import lila.gathering.Condition.WithVerdicts
 import lila.hub.LightTeam
+import lila.swiss.{ Swiss, SwissPairing, SwissRoundNumber }
 
 object show:
 

@@ -1,10 +1,10 @@
 package lila.relay
 
+import chess.ByColor
 import chess.format.pgn.{ Tag, Tags }
-import chess.{ FideId, ByColor }
 
-import lila.db.dsl.{ *, given }
-import lila.fide.{ FideTC, FidePlayer, FidePlayerApi }
+import lila.db.dsl.*
+import lila.fide.{ FidePlayer, FidePlayerApi, FideTC }
 
 final private class RelayFidePlayerApi(playerApi: FidePlayerApi)(using Executor):
 

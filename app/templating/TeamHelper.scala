@@ -1,9 +1,9 @@
 package lila.app
 package templating
 
-import scalatags.Text.all.Tag
 import controllers.routes
-import controllers.team.routes.{ Team as teamRoutes }
+import controllers.team.routes.Team as teamRoutes
+import scalatags.Text.all.Tag
 
 import lila.app.ui.ScalatagsTemplate.{ *, given }
 import lila.hub.LightTeam

@@ -1,6 +1,7 @@
 package lila.team
 
 import reactivemongo.api.bson.Macros.Annotations.Key
+
 import lila.user.User
 
 case class TeamRequest(

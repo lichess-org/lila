@@ -1,6 +1,7 @@
 package lila.user
 
 import reactivemongo.api.bson.*
+
 import scala.util.Success
 
 import lila.db.AsyncCollFailingSilently

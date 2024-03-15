@@ -1,9 +1,9 @@
 package lila.puzzle
 
-import lila.db.dsl.{ *, given }
-import lila.user.Me
 import lila.common.Iso
+import lila.db.dsl.{ *, given }
 import lila.rating.Perf
+import lila.user.Me
 
 object PuzzlePath:
 

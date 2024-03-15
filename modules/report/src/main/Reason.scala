@@ -1,7 +1,7 @@
 package lila.report
 
-import lila.user.Me
 import lila.common.Iso
+import lila.user.Me
 
 sealed trait Reason:
 

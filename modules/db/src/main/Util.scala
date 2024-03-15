@@ -1,7 +1,8 @@
 package lila.db
 
-import dsl.*
 import reactivemongo.api.bson.BSONArray
+
+import dsl.*
 
 object Util:
 

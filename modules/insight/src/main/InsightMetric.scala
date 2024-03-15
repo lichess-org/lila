@@ -1,9 +1,10 @@
 package lila.insight
 
 import reactivemongo.api.bson.*
+
 import InsightMetric.DataType.*
 import InsightPosition.*
-import InsightEntry.{ BSONFields as F }
+import InsightEntry.BSONFields as F
 
 enum InsightMetric(
     val key: String,

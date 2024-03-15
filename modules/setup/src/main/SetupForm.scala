@@ -1,14 +1,14 @@
 package lila.setup
 
+import chess.Clock
 import chess.format.Fen
 import chess.variant.Variant
-import chess.Clock
 import play.api.data.*
 import play.api.data.Forms.*
 
-import lila.rating.RatingRange
-import lila.common.{ Days, Form as LilaForm }
 import lila.common.Form.{ *, given }
+import lila.common.{ Days, Form as LilaForm }
+import lila.rating.RatingRange
 import lila.user.Me
 
 object SetupForm:

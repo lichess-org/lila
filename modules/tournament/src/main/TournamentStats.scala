@@ -1,8 +1,8 @@
 package lila.tournament
 
+import chess.Color
 import reactivemongo.api.bson.*
 
-import chess.Color
 import lila.db.dsl.*
 
 final class TournamentStatsApi(

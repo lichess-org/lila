@@ -1,15 +1,16 @@
 package lila.plan
 
-import lila.common.autoconfig.AutoConfig
-import java.util.{ Currency, Locale }
+import play.api.ConfigLoader
 import play.api.i18n.Lang
 import play.api.libs.json.*
 import play.api.libs.ws.JsonBodyReadables.*
 import play.api.libs.ws.StandaloneWSClient
+
+import java.util.{ Currency, Locale }
 import scala.util.Try
 
+import lila.common.autoconfig.AutoConfig
 import lila.common.config
-import play.api.ConfigLoader
 
 case class CurrencyWithRate(currency: Currency, rate: Double)
 

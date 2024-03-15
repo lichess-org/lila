@@ -1,13 +1,13 @@
 package lila.lobby
 
-import chess.{ Mode, Speed }
 import chess.variant.Variant
-import play.api.libs.json.*
+import chess.{ Mode, Speed }
 import ornicar.scalalib.ThreadLocalRandom
+import play.api.libs.json.*
 
 import lila.common.Days
 import lila.common.Json.given
-import lila.rating.{ PerfType, Perf, RatingRange }
+import lila.rating.{ Perf, PerfType, RatingRange }
 import lila.user.User
 
 // correspondence chess, persistent

@@ -7,8 +7,8 @@ import play.api.mvc.Results.*
 import play.api.routing.*
 import play.api.{ Configuration, Environment, UsefulException }
 
-import lila.common.HTTPRequest
 import lila.api.{ LoginContext, PageContext }
+import lila.common.HTTPRequest
 
 final class ErrorHandler(
     environment: Environment,

@@ -1,9 +1,10 @@
 package lila.activity
 
-import model.*
 import alleycats.Zero
 
 import lila.rating.PerfType
+
+import model.*
 
 object activities:
 

@@ -1,10 +1,10 @@
 package lila.forum
 
 import com.softwaremill.macwire.*
-import lila.common.autoconfig.{ *, given }
 import play.api.Configuration
 import play.api.libs.ws.StandaloneWSClient
 
+import lila.common.autoconfig.{ *, given }
 import lila.common.config.*
 import lila.hub.actorApi.team.CreateTeam
 import lila.mod.ModlogApi

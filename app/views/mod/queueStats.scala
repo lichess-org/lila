@@ -3,11 +3,10 @@ package views.html.mod
 import controllers.routes
 import play.api.libs.json.Json
 
-import lila.app.templating.Environment.{ given, * }
+import lila.app.templating.Environment.{ *, given }
 import lila.app.ui.ScalatagsTemplate.{ *, given }
-import lila.common.String.html.safeJsonValue
-import lila.mod.ModQueueStats.*
 import lila.mod.ModActivity.Period
+import lila.mod.ModQueueStats.*
 
 object queueStats:
 

@@ -1,8 +1,9 @@
 package lila.notify
 
-import reactivemongo.api.bson.*
-import NotificationPref.*
 import alleycats.Zero
+import reactivemongo.api.bson.*
+
+import NotificationPref.*
 
 opaque type Allows = Int
 object Allows extends OpaqueInt[Allows]:

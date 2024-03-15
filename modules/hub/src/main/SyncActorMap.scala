@@ -1,7 +1,7 @@
 package lila.hub
 
-import com.github.blemale.scaffeine.LoadingCache
 import com.github.benmanes.caffeine.cache.RemovalCause
+import com.github.blemale.scaffeine.LoadingCache
 
 final class SyncActorMap[Id, T <: SyncActor](
     mkActor: Id => T,

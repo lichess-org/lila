@@ -1,18 +1,19 @@
 package lila.analyse
 
-import AnalyseBsonHandlers.given
 import chess.variant.Variant
 import com.roundeights.hasher.Algo
+import ornicar.scalalib.{ SecureRandom, ThreadLocalRandom }
 import play.api.data.*
 import play.api.data.Forms.*
 import play.api.libs.json.{ Json, OWrites }
-import ornicar.scalalib.{ SecureRandom, ThreadLocalRandom }
 
 import lila.common.Form.{ *, given }
 import lila.common.Json.given
 import lila.db.dsl.{ list as _, *, given }
 import lila.memo.CacheApi
 import lila.user.User
+
+import AnalyseBsonHandlers.given
 
 case class ExternalEngine(
     _id: String, // random

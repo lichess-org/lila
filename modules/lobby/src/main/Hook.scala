@@ -1,14 +1,13 @@
 package lila.lobby
 
-import chess.{ Clock, Mode, Speed }
 import chess.variant.Variant
-import play.api.libs.json.*
+import chess.{ Clock, Mode, Speed }
 import ornicar.scalalib.ThreadLocalRandom
+import play.api.libs.json.*
 
-import lila.rating.RatingRange
+import lila.rating.{ PerfType, RatingRange }
 import lila.socket.Socket.Sri
 import lila.user.User
-import lila.rating.PerfType
 
 // realtime chess, volatile
 case class Hook(

@@ -1,6 +1,7 @@
 package lila.activity
 
 import reactivemongo.api.bson.*
+
 import scala.util.Success
 
 import lila.common.{ Iso, LichessDay }

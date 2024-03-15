@@ -1,13 +1,11 @@
 package lila.notify
-
-import scala.concurrent.duration.Duration
-import reactivemongo.api.bson.Macros.Annotations.Key
-import ornicar.scalalib.ThreadLocalRandom
 import alleycats.Zero
+import ornicar.scalalib.ThreadLocalRandom
+import reactivemongo.api.bson.Macros.Annotations.Key
 
+import lila.common.licon
 import lila.common.paginator.Paginator
 import lila.notify.Notification.*
-import lila.common.licon
 
 sealed abstract class NotificationContent(val key: String)
 

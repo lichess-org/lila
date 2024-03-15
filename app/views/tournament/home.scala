@@ -3,12 +3,11 @@ package views.html.tournament
 import controllers.routes
 import play.api.libs.json.Json
 
-import lila.app.templating.Environment.{ given, * }
+import lila.app.templating.Environment.{ *, given }
 import lila.app.ui.ScalatagsTemplate.{ *, given }
-import lila.common.String.html.safeJsonValue
+import lila.common.LangPath
 import lila.tournament.Schedule.Freq
 import lila.tournament.Tournament
-import lila.common.LangPath
 
 object home:
 

@@ -1,7 +1,8 @@
 package lila.chat
 
 import chess.{ Color, PlayerTitle }
-import lila.user.{ Title, User }
+
+import lila.user.User
 
 sealed trait Line:
   def text: String

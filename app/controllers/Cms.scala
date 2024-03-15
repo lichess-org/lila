@@ -2,7 +2,8 @@ package controllers
 
 import play.api.mvc.*
 import views.*
-import lila.app.{ given, * }
+
+import lila.app.*
 import lila.cms.CmsPage
 
 final class Cms(env: Env) extends LilaController(env):

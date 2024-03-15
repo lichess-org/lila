@@ -3,14 +3,15 @@ package lila.tournament
 import chess.Clock.Config as ClockConfig
 import chess.format.Fen
 import chess.{ Mode, Speed }
-import play.api.i18n.Lang
-import scala.util.chaining.*
 import ornicar.scalalib.ThreadLocalRandom
+import play.api.i18n.Lang
 
+import scala.util.chaining.*
+
+import lila.gathering.GreatPlayer
 import lila.i18n.defaultLang
 import lila.rating.PerfType
-import lila.user.{ User, Me }
-import lila.gathering.GreatPlayer
+import lila.user.{ Me, User }
 
 case class Tournament(
     id: TourId,

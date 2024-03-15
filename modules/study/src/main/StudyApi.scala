@@ -1,19 +1,20 @@
 package lila.study
 
-import actorApi.Who
 import akka.stream.scaladsl.*
 import chess.Centis
 import chess.format.UciPath
-import chess.format.pgn.{ Glyph, Tags, Tag }
+import chess.format.pgn.{ Glyph, Tags }
 
 import lila.chat.ChatApi
 import lila.common.Bus
 import lila.hub.actorApi.timeline.{ Propagate, StudyLike }
 import lila.security.Granter
 import lila.socket.Socket.Sri
+import lila.tree.Branch
 import lila.tree.Node.{ Comment, Gamebook, Shapes }
-import lila.tree.{ Branch, Branches }
-import lila.user.{ Me, User, MyId }
+import lila.user.{ MyId, User }
+
+import actorApi.Who
 
 final class StudyApi(
     studyRepo: StudyRepo,

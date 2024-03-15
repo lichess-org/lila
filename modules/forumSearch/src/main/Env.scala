@@ -2,9 +2,9 @@ package lila.forumSearch
 
 import akka.actor.*
 import com.softwaremill.macwire.*
-import lila.common.autoconfig.{ *, given }
 import play.api.Configuration
 
+import lila.common.autoconfig.{ *, given }
 import lila.common.config.*
 import lila.search.*
 

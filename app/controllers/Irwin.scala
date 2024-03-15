@@ -1,6 +1,6 @@
 package controllers
 
-import lila.app.{ given, * }
+import lila.app.*
 
 final class Irwin(env: Env) extends LilaController(env):
 

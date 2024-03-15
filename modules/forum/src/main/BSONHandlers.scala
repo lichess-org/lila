@@ -1,8 +1,9 @@
 package lila.forum
 
-import lila.db.dsl.{ *, given }
 import reactivemongo.api.bson.*
+
 import lila.common.Iso
+import lila.db.dsl.{ *, given }
 
 private object BSONHandlers:
 

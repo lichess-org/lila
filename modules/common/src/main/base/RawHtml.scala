@@ -1,10 +1,11 @@
 package lila.base
 
+import scalatags.Text.all.*
+
 import java.lang.Character.isLetterOrDigit
 import java.lang.{ Math, StringBuilder as jStringBuilder }
 import java.util.regex.Matcher
 import scala.annotation.{ switch, tailrec }
-import scalatags.Text.all.*
 
 import lila.common.base.StringUtils.{ escapeHtmlRaw, escapeHtmlRawInPlace }
 import lila.common.{ Html, config }

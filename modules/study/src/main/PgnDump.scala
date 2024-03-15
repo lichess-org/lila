@@ -1,13 +1,13 @@
 package lila.study
 
 import akka.stream.scaladsl.*
-import chess.format.pgn.{ Glyphs, InitialComments, Pgn, Tag, Tags, PgnStr, Comment, PgnTree }
-import chess.format.{ pgn as chessPgn }
+import chess.format.pgn as chessPgn
+import chess.format.pgn.{ Comment, Glyphs, InitialComments, Pgn, PgnStr, PgnTree, Tag, Tags }
 
-import lila.common.String.slugify
-import lila.tree.{ Root, Branch, Branches, NewBranch, NewTree, NewRoot }
-import lila.tree.Node.{ Shape, Shapes }
 import lila.analyse.Analysis
+import lila.common.String.slugify
+import lila.tree.Node.{ Shape, Shapes }
+import lila.tree.{ NewBranch, NewTree, Root }
 
 final class PgnDump(
     chapterRepo: ChapterRepo,
@@ -107,9 +107,6 @@ object PgnDump:
       orientation: Boolean
   )
   val fullFlags = WithFlags(true, true, true, true, true)
-
-  private type Variations = List[Branch]
-  private val noVariations: Variations = Nil
 
   def rootToPgn(root: Root, tags: Tags)(using WithFlags): Pgn =
     Pgn(

@@ -1,12 +1,13 @@
 package lila.puzzle
 
 import akka.pattern.ask
-import Puzzle.{ BSONFields as F }
-import ornicar.scalalib.ThreadLocalRandom.odds
 import chess.format.{ BoardFen, Uci }
+import ornicar.scalalib.ThreadLocalRandom.odds
 
 import lila.db.dsl.{ *, given }
 import lila.memo.CacheApi.*
+
+import Puzzle.BSONFields as F
 
 final private[puzzle] class DailyPuzzle(
     colls: PuzzleColls,

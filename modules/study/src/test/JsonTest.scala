@@ -1,20 +1,17 @@
 package lila.study
 
-import lila.tree.Node.partitionTreeJsonWriter
-import lila.common.LightUser
-import PgnImport.*
-import lila.tree.Root
 import chess.variant.Standard
-import lila.tree.NewRoot
 
-import monocle.syntax.all.*
-import lila.study.Helpers.*
-
+import lila.common.LightUser
 import lila.db.BSON
-import BSONHandlers.given
-import lila.db.BSON.Writer
-import lila.db.BSON.Reader
+import lila.db.BSON.{ Reader, Writer }
 import lila.db.dsl.Bdoc
+import lila.study.Helpers.*
+import lila.tree.Node.partitionTreeJsonWriter
+import lila.tree.Root
+
+import PgnImport.*
+import BSONHandlers.given
 
 class JsonTest extends munit.FunSuite:
 

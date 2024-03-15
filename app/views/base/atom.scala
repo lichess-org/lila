@@ -2,9 +2,10 @@ package views.html.base
 
 import play.api.mvc.Call
 
+import java.time.LocalDate
+
 import lila.app.templating.Environment.*
 import lila.app.ui.ScalatagsTemplate.{ *, given }
-import java.time.LocalDate
 
 object atom:
 

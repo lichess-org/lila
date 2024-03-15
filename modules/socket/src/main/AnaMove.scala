@@ -1,13 +1,13 @@
 package lila.socket
 
+import chess.ErrorStr
 import chess.format.{ Fen, Uci, UciCharPair, UciPath }
 import chess.opening.*
 import chess.variant.Variant
-import chess.ErrorStr
 import play.api.libs.json.*
 
-import lila.tree.Branch
 import lila.common.Json.given
+import lila.tree.Branch
 
 trait AnaAny:
   def branch: Either[ErrorStr, Branch]

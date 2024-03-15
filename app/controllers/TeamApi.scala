@@ -3,11 +3,11 @@ package controllers
 import play.api.libs.json.*
 import play.api.mvc.*
 
-import lila.app.{ given, * }
-import lila.common.{ config, HTTPRequest, IpAddress }
-import lila.team.{ Team as TeamModel }
+import lila.app.{ *, given }
+import lila.common.{ IpAddress, config }
+import lila.team.{ Team as TeamModel, TeamSecurity }
+
 import Api.ApiResult
-import lila.team.TeamSecurity
 
 final class TeamApi(env: Env, apiC: => Api) extends LilaController(env):
 

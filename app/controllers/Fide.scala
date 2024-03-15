@@ -2,7 +2,8 @@ package controllers
 
 import play.api.mvc.*
 import views.*
-import lila.app.{ given, * }
+
+import lila.app.{ *, given }
 import lila.fide.Federation
 
 final class Fide(env: Env) extends LilaController(env):

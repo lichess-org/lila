@@ -3,13 +3,13 @@ package lila.chat
 import chess.Color
 
 import lila.common.Bus
-import lila.common.config.NetDomain
 import lila.common.String.{ fullCleanUp, noShouting }
-import lila.security.{ Flood, Granter }
+import lila.common.config.NetDomain
 import lila.db.dsl.{ *, given }
 import lila.hub.actorApi.shutup.{ PublicSource, RecordPrivateChat, RecordPublicText }
 import lila.memo.CacheApi.*
-import lila.user.{ Me, User, UserRepo, FlairApi }
+import lila.security.{ Flood, Granter }
+import lila.user.{ FlairApi, Me, User, UserRepo }
 
 final class ChatApi(
     coll: Coll,

@@ -1,12 +1,12 @@
 package views.html.swiss
 
-import lila.app.templating.Environment.{ given, * }
-import lila.app.ui.ScalatagsTemplate.{ *, given }
-import lila.i18n.{ I18nKeys as trans }
-import lila.swiss.Swiss
+import controllers.routes
 import play.api.i18n.Lang
 
-import controllers.routes
+import lila.app.templating.Environment.{ *, given }
+import lila.app.ui.ScalatagsTemplate.{ *, given }
+import lila.i18n.I18nKeys as trans
+import lila.swiss.Swiss
 
 object bits:
 

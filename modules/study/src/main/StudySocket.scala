@@ -1,20 +1,20 @@
 package lila.study
 
-import actorApi.Who
-import chess.{ Color, Centis }
-import chess.format.pgn.{ Glyph, Glyphs }
+import chess.Centis
 import chess.format.UciPath
+import chess.format.pgn.{ Glyph, Glyphs }
 import play.api.libs.json.*
 
 import lila.common.Bus
 import lila.common.Json.{ *, given }
 import lila.room.RoomSocket.{ Protocol as RP, * }
 import lila.socket.RemoteSocket.{ Protocol as P, * }
-import lila.socket.Socket.{ makeMessage, Sri }
+import lila.socket.Socket.{ Sri, makeMessage }
 import lila.socket.{ AnaAny, AnaDests, AnaDrop, AnaMove }
-import lila.tree.Node.{ defaultNodeJsonWriter, Comment, Gamebook, Shape, Shapes }
 import lila.tree.Branch
-import lila.user.MyId
+import lila.tree.Node.{ Comment, Gamebook, Shape, Shapes }
+
+import actorApi.Who
 
 final private class StudySocket(
     api: StudyApi,
@@ -35,6 +35,7 @@ final private class StudySocket(
       _ == "true"
     )
 
+  import lila.tree.Node.defaultNodeJsonWriter
   def onServerEval(studyId: StudyId, eval: ServerEval.Progress): Unit =
     import eval.*
     import lila.game.JsonView.given
@@ -276,7 +277,7 @@ final private class StudySocket(
 
   import JsonView.given
   import jsonView.given
-  import lila.tree.Node.{ defaultNodeJsonWriter, given }
+  import lila.tree.Node.given
   private type SendToStudy = StudyId => Unit
   private def version[A: Writes](tpe: String, data: A): SendToStudy =
     studyId => rooms.tell(studyId.into(RoomId), NotifyVersion(tpe, data))

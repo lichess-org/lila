@@ -1,14 +1,14 @@
 package lila.game
 
 import akka.actor.*
+import akka.stream.Materializer
 import com.softwaremill.macwire.*
 import com.softwaremill.tagging.*
-import lila.common.autoconfig.{ *, given }
 import play.api.Configuration
 import play.api.libs.ws.StandaloneWSClient
 
+import lila.common.autoconfig.{ *, given }
 import lila.common.config.*
-import akka.stream.Materializer
 
 final private class GameConfig(
     @ConfigName("collection.game") val gameColl: CollName,

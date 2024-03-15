@@ -1,8 +1,8 @@
 package lila.puzzle
 
 import lila.db.dsl.{ *, given }
-import lila.user.Me
 import lila.rating.Perf
+import lila.user.Me
 
 final class PuzzleSelector(
     colls: PuzzleColls,

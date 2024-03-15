@@ -1,13 +1,13 @@
 package views.html
 
 import controllers.routes
-
-import lila.app.templating.Environment.{ given, * }
-import lila.app.ui.ScalatagsTemplate.{ *, given }
-import lila.feed.Feed.Update
 import play.api.data.Form
 import play.api.i18n.Lang
+
+import lila.app.templating.Environment.{ *, given }
+import lila.app.ui.ScalatagsTemplate.{ *, given }
 import lila.common.paginator.Paginator
+import lila.feed.Feed.Update
 
 object feed:
 
@@ -153,7 +153,7 @@ object feed:
     )
 
   def atom(ups: List[Update])(using Lang) =
-    import views.html.base.atom.{ atomDate, category }
+    import views.html.base.atom.atomDate
     views.html.base.atom(
       elems = ups,
       htmlCall = routes.Feed.index(1),

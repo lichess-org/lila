@@ -1,11 +1,11 @@
 package views.html
 
-import lila.app.templating.Environment.{ given, * }
-import lila.app.ui.ScalatagsTemplate.{ *, given }
-
 import controllers.routes
-import lila.irwin.KaladinUser
 import play.api.i18n.Lang
+
+import lila.app.templating.Environment.{ *, given }
+import lila.app.ui.ScalatagsTemplate.{ *, given }
+import lila.irwin.KaladinUser
 
 object kaladin:
 

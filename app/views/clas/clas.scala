@@ -1,13 +1,13 @@
 package views.html.clas
 
-import controllers.clas.routes.{ Clas as clasRoutes }
+import controllers.clas.routes.Clas as clasRoutes
 import play.api.data.Form
 import play.api.i18n.Lang
 
-import lila.app.templating.Environment.{ given, * }
+import lila.app.templating.Environment.{ *, given }
 import lila.app.ui.ScalatagsTemplate.{ *, given }
-import lila.clas.{ Clas, Student }
 import lila.clas.ClasForm.ClasData
+import lila.clas.{ Clas, Student }
 
 object clas:
 

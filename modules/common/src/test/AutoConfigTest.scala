@@ -1,8 +1,9 @@
 package lila.common.autoconfig
 
-import scala.concurrent.duration.*
 import com.typesafe.config.*
 import play.api.{ ConfigLoader, Configuration }
+
+import scala.concurrent.duration.*
 
 class AutoConfigTest extends munit.FunSuite:
 

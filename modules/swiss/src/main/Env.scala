@@ -3,10 +3,10 @@ package lila.swiss
 import com.softwaremill.macwire.*
 import play.api.Configuration
 
-import lila.common.config.*
 import lila.common.LilaScheduler
-import lila.socket.{ GetVersion, SocketVersion }
+import lila.common.config.*
 import lila.db.dsl.Coll
+import lila.socket.{ GetVersion, SocketVersion }
 
 @Module
 final class Env(

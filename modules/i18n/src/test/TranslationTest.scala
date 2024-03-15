@@ -1,7 +1,8 @@
 package lila.i18n
 
-import scala.jdk.CollectionConverters.*
 import play.api.i18n.Lang
+
+import scala.jdk.CollectionConverters.*
 
 class TranslationTest extends munit.FunSuite:
 

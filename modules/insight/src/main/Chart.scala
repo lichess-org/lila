@@ -3,8 +3,8 @@ package lila.insight
 import play.api.i18n.Lang
 import play.api.libs.json.*
 
-import lila.common.LightUser
 import lila.common.Json.given
+import lila.common.LightUser
 
 case class Chart(
     question: JsonQuestion,

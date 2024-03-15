@@ -1,17 +1,18 @@
 package lila.mailer
 
 import play.api.i18n.Lang
-import scala.util.chaining.*
 import scalatags.Text.all.*
 
-import lila.common.config.BaseUrl
-import lila.common.EmailAddress
-import lila.hub.actorApi.msg.SystemMsg
-import lila.hub.actorApi.mailer.CorrespondenceOpponent
-import lila.i18n.PeriodLocales.showDuration
-import lila.i18n.I18nKeys.emails as trans
-import lila.user.{ User, UserRepo, UserApi }
+import scala.util.chaining.*
+
 import lila.base.LilaException
+import lila.common.EmailAddress
+import lila.common.config.BaseUrl
+import lila.hub.actorApi.mailer.CorrespondenceOpponent
+import lila.hub.actorApi.msg.SystemMsg
+import lila.i18n.I18nKeys.emails as trans
+import lila.i18n.PeriodLocales.showDuration
+import lila.user.{ User, UserApi, UserRepo }
 
 final class AutomaticEmail(
     userRepo: UserRepo,

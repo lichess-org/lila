@@ -1,15 +1,14 @@
 package lila.push
 
 import com.google.auth.oauth2.{ AccessToken, GoogleCredentials, ServiceAccountCredentials }
+import play.api.ConfigLoader
 import play.api.libs.json.*
 import play.api.libs.ws.JsonBodyWritables.*
 import play.api.libs.ws.StandaloneWSClient
-import scala.concurrent.blocking
 
+import lila.common.config.Max
 import lila.common.{ Chronometer, LazyFu }
 import lila.memo.FrequencyThreshold
-import play.api.ConfigLoader
-import lila.common.config.Max
 
 final private class FirebasePush(
     deviceApi: DeviceApi,

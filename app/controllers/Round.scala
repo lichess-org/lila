@@ -4,13 +4,13 @@ import play.api.libs.json.*
 import play.api.mvc.*
 import views.*
 
-import lila.app.{ given, * }
+import lila.app.{ *, given }
 import lila.chat.Chat
-import lila.common.{ Preload, HTTPRequest }
 import lila.common.Json.given
+import lila.common.{ HTTPRequest, Preload }
 import lila.game.{ Game as GameModel, PgnDump, Pov }
-import lila.tournament.{ Tournament as Tour }
-import lila.user.{ User as UserModel, FlairApi }
+import lila.tournament.Tournament as Tour
+import lila.user.{ FlairApi, User as UserModel }
 
 final class Round(
     env: Env,

@@ -1,8 +1,5 @@
 package lila.app
 package http
-
-import play.api.libs.json.*
-import play.api.http.*
 import play.api.mvc.*
 import scalatags.Text.Frag
 

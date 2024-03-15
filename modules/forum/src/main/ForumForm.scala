@@ -1,9 +1,9 @@
 package lila.forum
 
-import lila.common.Form.cleanText
 import play.api.data.*
 import play.api.data.Forms.*
-import lila.user.User
+
+import lila.common.Form.cleanText
 import lila.common.Form.given
 import lila.user.Me
 

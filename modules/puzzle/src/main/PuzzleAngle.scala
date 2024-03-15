@@ -1,8 +1,9 @@
 package lila.puzzle
 
+import chess.opening.{ Opening, OpeningDb, OpeningKey }
+
 import lila.common.{ Iso, LilaOpeningFamily, SimpleOpening }
 import lila.i18n.I18nKey
-import chess.opening.{ Opening, OpeningDb, OpeningKey }
 
 sealed abstract class PuzzleAngle(val key: String):
   val name: I18nKey

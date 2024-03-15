@@ -6,7 +6,7 @@ import lila.game.{ Game, Pov }
 import lila.hub.actorApi.socket.SendTo
 import lila.i18n.I18nLangPicker
 import lila.memo.CacheApi.*
-import lila.user.{ Me, LightUserApi, User, UserRepo, UserPerfsRepo }
+import lila.user.{ LightUserApi, Me, User, UserPerfsRepo, UserRepo }
 
 final class ChallengeApi(
     repo: ChallengeRepo,

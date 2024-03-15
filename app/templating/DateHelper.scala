@@ -1,10 +1,11 @@
 package lila.app
 package templating
 
-import java.util.concurrent.ConcurrentHashMap
 import play.api.i18n.Lang
-import java.time.format.{ FormatStyle, DateTimeFormatter }
+
+import java.time.format.{ DateTimeFormatter, FormatStyle }
 import java.time.{ Duration, LocalDate }
+import java.util.concurrent.ConcurrentHashMap
 
 import lila.app.ui.ScalatagsTemplate.*
 import lila.i18n.PeriodLocales

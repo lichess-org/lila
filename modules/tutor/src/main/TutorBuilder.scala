@@ -2,6 +2,7 @@ package lila.tutor
 
 import chess.Color
 
+import lila.common.config
 import lila.db.dsl.{ *, given }
 import lila.insight.{
   Answer as InsightAnswer,
@@ -15,7 +16,6 @@ import lila.insight.{
 }
 import lila.rating.PerfType
 import lila.user.{ User, UserApi }
-import lila.common.config
 
 final private class TutorBuilder(
     colls: TutorColls,

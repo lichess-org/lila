@@ -1,8 +1,8 @@
 package lila.socket
 
 import chess.format.{ Fen, Uci }
-import chess.{ Check, Ply, Square }
 import chess.variant.Crazyhouse
+import chess.{ Check, Ply, Square }
 import play.api.libs.json.*
 
 case class Step(
@@ -21,8 +21,6 @@ case class Step(
   def toJson = Json.toJson(this)
 
 object Step:
-
-  import lila.common.Json.given
 
   given Writes[Step] = Writes { step =>
     import lila.common.Json.given

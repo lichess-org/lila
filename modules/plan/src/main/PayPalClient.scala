@@ -1,20 +1,20 @@
 package lila.plan
 
+import play.api.ConfigLoader
+import play.api.i18n.Lang
 import play.api.libs.json.*
-import play.api.libs.ws.DefaultBodyWritables.*
 import play.api.libs.ws.DefaultBodyReadables.*
+import play.api.libs.ws.DefaultBodyWritables.*
 import play.api.libs.ws.JsonBodyReadables.*
 import play.api.libs.ws.JsonBodyWritables.*
-import play.api.libs.ws.WSAuthScheme
-import play.api.libs.ws.{ StandaloneWSClient, StandaloneWSResponse }
+import play.api.libs.ws.{ StandaloneWSClient, StandaloneWSResponse, WSAuthScheme }
 
-import lila.common.config
+import java.util.Currency
+
 import lila.common.Json.given
+import lila.common.config
 import lila.memo.CacheApi
 import lila.user.User
-import java.util.Currency
-import play.api.i18n.Lang
-import play.api.ConfigLoader
 
 final private class PayPalClient(
     ws: StandaloneWSClient,

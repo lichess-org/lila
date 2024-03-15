@@ -2,6 +2,7 @@ package lila.base
 
 import alleycats.Zero
 import ornicar.scalalib.newtypes.*
+
 import java.time.Instant
 
 trait LilaModel:

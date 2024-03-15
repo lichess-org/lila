@@ -1,11 +1,10 @@
 package lila.analyse
 
-import chess.format.pgn.{ Glyphs, Move, Pgn, Tag, PgnStr, Comment }
+import chess.format.pgn.{ Comment, Glyphs, Move, Pgn, PgnStr, Tag }
 import chess.opening.*
-import chess.{ Color, Tree, Variation, Status, Ply }
+import chess.{ Color, Ply, Status, Tree, Variation }
 
-import lila.game.GameDrawOffers
-import lila.game.Game
+import lila.game.{ Game, GameDrawOffers }
 
 final class Annotator(netDomain: lila.common.config.NetDomain):
 

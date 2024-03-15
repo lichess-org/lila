@@ -3,13 +3,14 @@ package round
 
 import chess.variant.{ Crazyhouse, Variant }
 import controllers.routes
+
 import scala.util.chaining.*
 
-import lila.app.templating.Environment.{ given, * }
+import lila.app.templating.Environment.{ *, given }
 import lila.app.ui.ScalatagsTemplate.{ *, given }
-import lila.game.{ Game, Pov }
-import lila.common.LangPath
 import lila.common.Json.given
+import lila.common.LangPath
+import lila.game.{ Game, Pov }
 
 object bits:
 

@@ -1,8 +1,9 @@
 package lila.chat
 
-import lila.user.User
-import lila.hub.actorApi.shutup.PublicSource
 import play.api.libs.json.JsArray
+
+import lila.hub.actorApi.shutup.PublicSource
+import lila.user.User
 
 case class UserModInfo(
     user: User,

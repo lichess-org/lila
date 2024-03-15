@@ -7,8 +7,7 @@ import lila.common.{ Bus, Uptime }
 import lila.db.dsl.{ *, given }
 import lila.game.{ Game, Pov, Source }
 import lila.msg.{ MsgApi, MsgPreset }
-import lila.user.NoteApi
-import lila.user.{ Me, UserRepo }
+import lila.user.{ NoteApi, UserRepo }
 
 final class PlaybanApi(
     coll: Coll,

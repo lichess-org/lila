@@ -1,12 +1,11 @@
 package views.html.search
 
+import controllers.routes
 import play.api.data.Form
 
-import lila.app.templating.Environment.{ given, * }
+import lila.app.templating.Environment.{ *, given }
 import lila.app.ui.ScalatagsTemplate.{ *, given }
 import lila.user.User
-
-import controllers.routes
 
 object user:
 

@@ -3,7 +3,6 @@ package lila.round
 import reactivemongo.api.bson.*
 
 import lila.db.dsl.{ *, given }
-import lila.game.Game
 
 final class NoteApi(coll: Coll)(using Executor):
 

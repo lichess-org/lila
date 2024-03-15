@@ -1,10 +1,10 @@
 package lila.fishnet
 
-import ornicar.scalalib.ThreadLocalRandom
-
 import chess.Ply
 import chess.format.{ Fen, Uci }
 import chess.variant.Variant
+import ornicar.scalalib.ThreadLocalRandom
+
 import lila.common.IpAddress
 
 sealed trait Work:

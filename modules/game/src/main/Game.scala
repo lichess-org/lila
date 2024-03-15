@@ -1,14 +1,13 @@
 package lila.game
 
 import chess.Color.{ Black, White }
-import chess.format.{ Fen, Uci }
+import chess.MoveOrDrop.{ color, fold }
 import chess.format.pgn.SanStr
+import chess.format.{ Fen, Uci }
 import chess.opening.{ Opening, OpeningDb }
 import chess.variant.{ FromPosition, Standard, Variant }
 import chess.{
-  Outcome,
   ByColor,
-  Ply,
   Castles,
   Centis,
   CheckCount,
@@ -17,10 +16,11 @@ import chess.{
   Game as ChessGame,
   Mode,
   MoveOrDrop,
+  Outcome,
+  Ply,
   Speed,
   Status
 }
-import chess.MoveOrDrop.{ fold, color }
 
 import lila.common.Days
 import lila.db.ByteArray

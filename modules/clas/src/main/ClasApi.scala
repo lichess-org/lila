@@ -1,15 +1,15 @@
 package lila.clas
 
-import reactivemongo.api.*
 import ornicar.scalalib.ThreadLocalRandom
 import play.api.i18n.Lang
+import reactivemongo.api.*
 
 import lila.common.config.BaseUrl
 import lila.common.{ EmailAddress, Markdown }
 import lila.db.dsl.{ *, given }
 import lila.msg.MsgApi
-import lila.user.{ Authenticator, Me, User, UserRepo, UserPerfs, UserPerfsRepo }
 import lila.rating.{ Perf, PerfType }
+import lila.user.{ Authenticator, Me, User, UserPerfs, UserPerfsRepo, UserRepo }
 
 final class ClasApi(
     colls: ClasColls,

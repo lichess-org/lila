@@ -1,6 +1,7 @@
 package lila.team
 
 import reactivemongo.api.bson.*
+
 import lila.db.dsl.{ *, given }
 import lila.user.User
 

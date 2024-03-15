@@ -1,12 +1,13 @@
 package lila.relay
 
-import lila.relay.RelayRound.Sync.UpstreamUrl
-import lila.memo.CacheApi
-import lila.common.Seconds
-import lila.db.dsl.{ *, given }
-import lila.study.MultiPgn
 import chess.format.pgn.PgnStr
+
+import lila.common.Seconds
 import lila.common.config.Max
+import lila.db.dsl.{ *, given }
+import lila.memo.CacheApi
+import lila.relay.RelayRound.Sync.UpstreamUrl
+import lila.study.MultiPgn
 
 final private class RelayDelay(colls: RelayColls)(using Executor):
 

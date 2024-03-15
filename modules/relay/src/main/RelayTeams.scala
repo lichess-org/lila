@@ -1,10 +1,9 @@
 package lila.relay
 
 import chess.format.pgn.*
-import chess.format.Fen
-import chess.{ FideId, PlayerName, PlayerTitle, Elo }
+import chess.{ FideId, PlayerName }
 
-import lila.fide.{ PlayerToken, FidePlayer }
+import lila.fide.{ FidePlayer, PlayerToken }
 import lila.study.ChapterPreview
 
 type TeamName = String
@@ -103,7 +102,7 @@ final class RelayTeamTable(
           outcome: Option[Outcome]
       ) =
         val t0Color = Color.fromWhite(playerAndTeam.a._2 == teams.a.name)
-        val sorted  = if t0Color.white then playerAndTeam else playerAndTeam.reverse
+        if t0Color.white then playerAndTeam else playerAndTeam.reverse
         copy(
           games = TeamGame(chap.id, t0Color) :: games,
           teams = teams.bimap(_.add(outcome, t0Color), _.add(outcome, !t0Color))

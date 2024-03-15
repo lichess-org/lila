@@ -1,8 +1,8 @@
 package lila.study
 
-import chess.Centis
-import chess.Square
-import chess.format.pgn.{ Comment as ChessComment }
+import chess.format.pgn.Comment as ChessComment
+import chess.{ Centis, Square }
+
 import lila.common.Maths
 import lila.tree.Node.{ Shape, Shapes }
 

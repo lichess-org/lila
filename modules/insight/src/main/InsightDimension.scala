@@ -6,13 +6,13 @@ import play.api.libs.json.*
 import reactivemongo.api.bson.*
 
 import lila.analyse.{ AccuracyPercent, WinPercent }
-import lila.common.{ LilaOpeningFamily, SimpleOpening }
 import lila.common.Json.given
+import lila.common.{ LilaOpeningFamily, SimpleOpening }
 import lila.db.dsl.{ *, given }
-import lila.rating.PerfType
-import lila.rating.BSONHandlers.perfTypeIdHandler
-import lila.insight.InsightEntry.{ BSONFields as F }
 import lila.insight.BSONHandlers.given
+import lila.insight.InsightEntry.BSONFields as F
+import lila.rating.BSONHandlers.perfTypeIdHandler
+import lila.rating.PerfType
 
 enum InsightDimension[A](
     val key: String,

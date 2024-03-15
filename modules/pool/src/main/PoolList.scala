@@ -1,7 +1,7 @@
 package lila.pool
 
-import play.api.libs.json.Json
 import chess.Clock
+import play.api.libs.json.Json
 
 object PoolList:
 

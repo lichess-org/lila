@@ -1,14 +1,14 @@
 package controllers
 
-import java.time.format.DateTimeFormatter
 import play.api.mvc.*
+
+import java.time.format.DateTimeFormatter
 import scala.util.chaining.*
 
 import lila.api.GameApiV2
-
-import lila.app.{ given, * }
-import lila.common.config.MaxPerSecond
+import lila.app.{ *, given }
 import lila.common.HTTPRequest
+import lila.common.config.MaxPerSecond
 
 final class Game(env: Env, apiC: => Api) extends LilaController(env):
 

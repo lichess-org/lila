@@ -4,8 +4,8 @@ import reactivemongo.api.bson.*
 import reactivemongo.api.commands.WriteResult
 
 import lila.db.dsl.{ *, given }
-import lila.user.{ MyId, User }
 import lila.team.TeamSecurity.Permission
+import lila.user.MyId
 
 final class TeamMemberRepo(val coll: Coll)(using Executor):
 

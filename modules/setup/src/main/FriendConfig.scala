@@ -1,12 +1,11 @@
 package lila.setup
 
 import chess.format.Fen
-import chess.{ Mode, Clock }
 import chess.variant.Variant
+import chess.{ Clock, Mode }
 
 import lila.common.Days
 import lila.lobby.Color
-import lila.rating.PerfType
 
 case class FriendConfig(
     variant: chess.variant.Variant,

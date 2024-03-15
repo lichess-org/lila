@@ -1,8 +1,9 @@
 package lila.common
 
-import java.text.Normalizer
 import play.api.libs.json.*
 import scalatags.Text.all.*
+
+import java.text.Normalizer
 
 import lila.base.RawHtml
 import lila.common.base.StringUtils.{ escapeHtmlRaw, safeJsonString }

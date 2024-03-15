@@ -1,7 +1,6 @@
 package lila.swiss
 
 import lila.common.LightUser
-import lila.rating.PerfType
 import lila.user.User
 
 case class SwissPlayer(

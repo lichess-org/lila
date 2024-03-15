@@ -1,8 +1,8 @@
 package lila.app
 package http
 
-import play.api.mvc.*
 import play.api.http.HeaderNames
+import play.api.mvc.*
 
 import lila.common.HTTPRequest
 

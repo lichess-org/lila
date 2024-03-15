@@ -1,12 +1,10 @@
 package views.html.learn
 
+import controllers.routes
 import play.api.libs.json.Json
 
-import lila.app.templating.Environment.{ given, * }
+import lila.app.templating.Environment.{ *, given }
 import lila.app.ui.ScalatagsTemplate.*
-import lila.common.String.html.safeJsonValue
-
-import controllers.routes
 import lila.common.LangPath
 
 object index:

@@ -1,16 +1,17 @@
 package lila.app
 package templating
 
-import controllers.routes
-import mashup.*
-import play.api.i18n.Lang
 import chess.PlayerTitle
+import controllers.routes
+import play.api.i18n.Lang
 
 import lila.app.ui.ScalatagsTemplate.{ *, given }
-import lila.common.{ licon, LightUser }
+import lila.common.{ LightUser, licon }
 import lila.i18n.{ I18nKey, I18nKeys as trans }
 import lila.rating.{ Perf, PerfType }
-import lila.user.{ User, UserPerfs, FlairApi }
+import lila.user.{ User, UserPerfs }
+
+import mashup.*
 
 trait UserHelper extends HasEnv:
   self: I18nHelper & StringHelper & NumberHelper & DateHelper & AssetHelper =>

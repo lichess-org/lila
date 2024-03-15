@@ -1,6 +1,7 @@
 package lila.fishnet
 
 import chess.format.Fen
+
 import JsonApi.Request.Evaluation
 
 trait IFishnetEvalCache:

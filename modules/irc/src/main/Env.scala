@@ -1,13 +1,12 @@
 package lila.irc
 
 import com.softwaremill.macwire.*
-import play.api.{ Configuration, Mode }
 import play.api.libs.ws.StandaloneWSClient
+import play.api.{ Configuration, Mode }
 
 import lila.common.Lilakka
-import lila.common.config.*
-import lila.hub.actorApi.plan.ChargeEvent
 import lila.hub.actorApi.irc.Event
+import lila.hub.actorApi.plan.ChargeEvent
 
 @Module
 final class Env(

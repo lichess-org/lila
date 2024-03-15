@@ -1,8 +1,9 @@
 package lila.clas
 
-import java.time.Duration
 import reactivemongo.api.*
 import reactivemongo.api.bson.*
+
+import java.time.Duration
 
 import lila.db.dsl.{ *, given }
 import lila.game.{ Game, GameRepo }

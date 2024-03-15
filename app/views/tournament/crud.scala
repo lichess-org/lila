@@ -4,12 +4,11 @@ package tournament
 import controllers.routes
 import play.api.data.Form
 
-import lila.app.templating.Environment.{ given, * }
+import lila.app.templating.Environment.{ *, given }
 import lila.app.ui.ScalatagsTemplate.{ *, given }
 import lila.common.paginator.Paginator
-import lila.tournament.crud.CrudForm
 import lila.tournament.Tournament
-import lila.gathering.GatheringClock
+import lila.tournament.crud.CrudForm
 
 object crud:
   given prefix: tournament.FormPrefix = tournament.FormPrefix.make("setup")

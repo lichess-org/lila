@@ -6,9 +6,9 @@ import scalatags.Text.all.*
 
 import lila.common.config.*
 import lila.common.{ EmailAddress, LilaCookie }
-import lila.i18n.I18nKeys.{ emails as trans }
-import lila.user.{ User, UserRepo, UserApi }
+import lila.i18n.I18nKeys.emails as trans
 import lila.mailer.Mailer
+import lila.user.{ User, UserApi, UserRepo }
 
 trait EmailConfirm:
 
@@ -115,7 +115,6 @@ object EmailConfirm:
         UserEmail(UserName(username), EmailAddress(email))
       }
 
-  import play.api.mvc.RequestHeader
   import lila.memo.RateLimit
   import lila.common.{ HTTPRequest, IpAddress }
 

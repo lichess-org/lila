@@ -3,10 +3,11 @@ package lila.common
 import chess.format.pgn.PgnStr
 import io.mola.galimatias.IPv4Address.parseIPv4Address
 import io.mola.galimatias.IPv6Address.parseIPv6Address
-import play.api.mvc.Call
-import scala.util.Try
-import java.net.InetAddress
 import ornicar.scalalib.SecureRandom
+import play.api.mvc.Call
+
+import java.net.InetAddress
+import scala.util.Try
 
 opaque type ApiVersion = Int
 object ApiVersion extends OpaqueInt[ApiVersion]:

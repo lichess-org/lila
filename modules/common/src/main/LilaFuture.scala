@@ -1,9 +1,10 @@
 package lila.common
 
 import akka.actor.Scheduler
-import scala.collection.BuildFrom
-import scala.concurrent.{ Future as ScalaFu, Promise }
+
 import scala.concurrent.duration.FiniteDuration
+import scala.concurrent.{ Future as ScalaFu, Promise }
+
 import lila.Lila.Fu
 
 object LilaFuture:

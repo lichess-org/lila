@@ -1,12 +1,13 @@
 package lila.plan
 
-import java.text.NumberFormat
-import java.util.{ Currency, Locale }
 import play.api.i18n.Lang
 import play.api.libs.json.{ JsArray, JsObject }
 
-import lila.user.User
+import java.text.NumberFormat
+import java.util.{ Currency, Locale }
+
 import lila.common.IpAddress
+import lila.user.User
 
 case class Source(value: String) extends AnyVal
 

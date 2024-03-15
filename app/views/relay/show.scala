@@ -3,9 +3,8 @@ package relay
 
 import play.api.libs.json.Json
 
-import lila.app.templating.Environment.{ given, * }
+import lila.app.templating.Environment.{ *, given }
 import lila.app.ui.ScalatagsTemplate.*
-import lila.common.String.html.safeJsonValue
 import lila.common.Json.given
 import lila.socket.SocketVersion
 import lila.socket.SocketVersion.given

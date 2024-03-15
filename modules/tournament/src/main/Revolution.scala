@@ -1,9 +1,10 @@
 package lila.tournament
 
 import chess.variant.Variant
+
 import lila.db.dsl.{ *, given }
-import lila.user.User
 import lila.memo.CacheApi.*
+import lila.user.User
 
 final class RevolutionApi(
     tournamentRepo: TournamentRepo,

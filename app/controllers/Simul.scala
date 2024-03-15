@@ -3,9 +3,9 @@ package controllers
 import play.api.mvc.*
 import views.*
 
-import lila.app.{ given, * }
+import lila.app.{ *, given }
 import lila.common.HTTPRequest
-import lila.simul.{ Simul as Sim }
+import lila.simul.Simul as Sim
 
 final class Simul(env: Env) extends LilaController(env):
 

@@ -1,10 +1,10 @@
 package views.html.tournament
 
-import lila.app.templating.Environment.{ given, * }
+import controllers.routes
+
+import lila.app.templating.Environment.{ *, given }
 import lila.app.ui.ScalatagsTemplate.{ *, given }
 import lila.tournament.TournamentShield
-
-import controllers.routes
 
 object shields:
 

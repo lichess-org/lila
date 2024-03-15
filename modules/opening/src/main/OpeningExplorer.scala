@@ -1,7 +1,7 @@
 package lila.opening
 
-import chess.format.pgn.SanStr
 import chess.format.Uci
+import chess.format.pgn.SanStr
 import chess.opening.Opening
 import com.softwaremill.tagging.*
 import play.api.libs.json.{ JsObject, JsValue, Json, Reads }

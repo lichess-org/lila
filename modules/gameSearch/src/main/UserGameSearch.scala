@@ -1,8 +1,8 @@
 package lila.gameSearch
 
 import play.api.data.FormBinding
-import play.api.mvc.Request
 import play.api.i18n.Lang
+import play.api.mvc.Request
 
 import lila.game.Game
 

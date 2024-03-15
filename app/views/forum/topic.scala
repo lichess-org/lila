@@ -1,12 +1,12 @@
 package views.html
 package forum
 
-import controllers.team.routes.{ Team as teamRoutes }
-import controllers.report.routes.{ Report as reportRoutes }
+import controllers.report.routes.Report as reportRoutes
 import controllers.routes
+import controllers.team.routes.Team as teamRoutes
 import play.api.data.Form
 
-import lila.app.templating.Environment.{ given, * }
+import lila.app.templating.Environment.{ *, given }
 import lila.app.ui.ScalatagsTemplate.{ *, given }
 import lila.common.Captcha
 import lila.common.paginator.Paginator

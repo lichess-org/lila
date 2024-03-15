@@ -1,7 +1,8 @@
 package lila.relay
 
-import chess.format.pgn.{ Tags, Tag, TagType }
-import lila.study.{ Chapter, MultiPgn, Node, PgnImport }
+import chess.format.pgn.{ Tag, TagType, Tags }
+
+import lila.study.{ MultiPgn, PgnImport }
 import lila.tree.Root
 
 case class RelayGame(

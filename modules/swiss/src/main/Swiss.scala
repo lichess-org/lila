@@ -1,8 +1,8 @@
 package lila.swiss
 
-import chess.Clock.{ Config as ClockConfig }
-import chess.format.Fen
+import chess.Clock.Config as ClockConfig
 import chess.Speed
+import chess.format.Fen
 import ornicar.scalalib.ThreadLocalRandom
 
 import lila.rating.PerfType

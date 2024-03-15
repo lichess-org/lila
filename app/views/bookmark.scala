@@ -1,9 +1,9 @@
 package views.html
 
+import controllers.routes
+
 import lila.app.templating.Environment.{ *, given }
 import lila.app.ui.ScalatagsTemplate.{ *, given }
-
-import controllers.routes
 
 object bookmark:
 

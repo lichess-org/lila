@@ -1,14 +1,14 @@
 package lila.study
 
-import chess.{ Centis, ErrorStr, Node as PgnNode, Status, Outcome }
-import chess.format.pgn.{ Glyphs, ParsedPgn, San, Tags, PgnStr, PgnNodeData, Comment as ChessComment }
-import chess.format.{ Fen, Uci, UciCharPair }
 import chess.MoveOrDrop.*
+import chess.format.pgn.{ Comment as ChessComment, Glyphs, ParsedPgn, PgnNodeData, PgnStr, Tags }
+import chess.format.{ Fen, Uci, UciCharPair }
+import chess.{ Centis, ErrorStr, Node as PgnNode, Outcome, Status }
 
 import lila.common.LightUser
 import lila.importer.{ ImportData, Preprocessed }
-import lila.tree.{ Root, Branch, Branches }
 import lila.tree.Node.{ Comment, Comments, Shapes }
+import lila.tree.{ Branch, Branches, Root }
 
 object PgnImport:
 

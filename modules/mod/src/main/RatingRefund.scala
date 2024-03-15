@@ -5,12 +5,11 @@ import lila.game.BSONHandlers.given
 import lila.game.{ Game, GameRepo, Query }
 import lila.perfStat.PerfStat
 import lila.rating.PerfType
-import lila.report.{ Suspect, Victim }
-import lila.user.{ User, UserApi, RankingApi, UserRepo, UserPerfsRepo }
+import lila.report.Suspect
+import lila.user.{ RankingApi, User, UserApi, UserPerfsRepo }
 
 final private class RatingRefund(
     gameRepo: GameRepo,
-    userRepo: UserRepo,
     perfsRepo: UserPerfsRepo,
     userApi: UserApi,
     scheduler: Scheduler,

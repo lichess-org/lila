@@ -6,9 +6,10 @@ import chess.Color
 import chess.format.{ Fen, Uci }
 import chess.variant.Variant
 import play.api.mvc.Result
+
 import scala.util.chaining.*
 
-import lila.app.{ given, * }
+import lila.app.*
 import lila.common.IpAddress
 import lila.game.Pov
 import lila.pref.{ PieceSet, Theme }

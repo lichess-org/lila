@@ -1,10 +1,9 @@
 package lila.api
 
 import lila.forum.{ ForumCateg, ForumTopic }
-import lila.security.{ Granter, Permission }
+import lila.security.Granter
 import lila.team.Team
-import lila.user.{ User, Me }
-import lila.relation.Block
+import lila.user.Me
 
 final class ForumAccess(
     teamApi: lila.team.TeamApi,
