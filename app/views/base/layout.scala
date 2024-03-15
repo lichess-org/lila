@@ -456,6 +456,8 @@ object layout:
 
   object inlineJs:
 
+    def apply(nonce: Nonce)(using Lang) = embedJsUnsafe(jsCode, nonce)
+
     private val i18nKeys = List(
       trans.pause,
       trans.resume,
@@ -483,6 +485,9 @@ object layout:
     )
 
     private val cache = new java.util.concurrent.ConcurrentHashMap[Lang, String]
+    lila.common.Bus.subscribeFun("i18n.load"):
+      case lang: Lang => cache.remove(lang)
+
     private def jsCode(using lang: Lang) =
       cache.computeIfAbsent(
         lang,
@@ -491,6 +496,4 @@ object layout:
           val i18n = safeJsonValue(i18nJsObject(i18nKeys))
           s"""site={load:new Promise(r=>document.addEventListener("DOMContentLoaded",r)),quantity:$qty,siteI18n:$i18n}"""
       )
-    def apply(nonce: Nonce)(using Lang) =
-      embedJsUnsafe(jsCode, nonce)
   end inlineJs
