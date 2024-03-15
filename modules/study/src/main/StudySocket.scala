@@ -13,6 +13,7 @@ import lila.socket.Socket.{ Sri, makeMessage }
 import lila.socket.{ AnaAny, AnaDests, AnaDrop, AnaMove }
 import lila.tree.Branch
 import lila.tree.Node.{ Comment, Gamebook, Shape, Shapes }
+import lila.tree.Node.{ defaultNodeJsonWriter, minimalNodeJsonWriter }
 
 import actorApi.Who
 
@@ -35,7 +36,6 @@ final private class StudySocket(
       _ == "true"
     )
 
-  import lila.tree.Node.defaultNodeJsonWriter
   def onServerEval(studyId: StudyId, eval: ServerEval.Progress): Unit =
     import eval.*
     import lila.game.JsonView.given
@@ -298,7 +298,7 @@ final private class StudySocket(
       "addNode",
       Json
         .obj(
-          "n" -> defaultNodeJsonWriter.writes(TreeBuilder.toBranch(node, variant)),
+          "n" -> minimalNodeJsonWriter.writes(TreeBuilder.toBranch(node, variant)),
           "p" -> pos,
           "d" -> dests.dests,
           "s" -> sticky

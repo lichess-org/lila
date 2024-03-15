@@ -598,7 +598,10 @@ export default class StudyCtrl {
     },
     addNode: d => {
       const position = d.p,
-        node = d.n,
+        node = {
+          ...d.n,
+          children: d.n.children || [],
+        },
         who = d.w,
         sticky = d.s;
       this.setMemberActive(who);

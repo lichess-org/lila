@@ -254,7 +254,7 @@ export interface AnaDrop {
 }
 export interface ServerNodeMsg extends WithWhoAndPos {
   d: string;
-  n: Tree.Node;
+  n: Tree.NodeFromServer;
   o: Opening;
   s: boolean;
   relayPath?: Tree.Path;

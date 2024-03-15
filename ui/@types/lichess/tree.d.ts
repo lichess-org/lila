@@ -40,13 +40,12 @@ declare namespace Tree {
     best?: Uci;
   }
 
-  export interface Node {
+  export interface NodeBase {
     // file://./../../tree/src/tree.ts
     id: string;
     ply: Ply;
     uci?: Uci;
     fen: CgFEN;
-    children: Node[];
     comments?: Comment[];
     gamebook?: Gamebook;
     dests?: string;
@@ -67,6 +66,12 @@ declare namespace Tree {
     fail?: boolean;
     puzzle?: 'win' | 'fail' | 'good' | 'retry';
     crazy?: NodeCrazy;
+  }
+  export interface NodeFromServer extends NodeBase {
+    children?: Node[];
+  }
+  export interface Node extends NodeBase {
+    children: Node[];
   }
 
   export interface NodeCrazy {
