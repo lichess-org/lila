@@ -140,6 +140,14 @@
     .more {
       margin-top: 2em;
       text-align: center;
+      @include breakpoint($mq-not-small) {
+        a.button {
+          width: 80vw;
+          display: block;
+          overflow: hidden;
+          text-overflow: ellipsis;
+        }
+      }
     }
   }
 
