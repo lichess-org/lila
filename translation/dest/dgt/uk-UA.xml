@@ -13,6 +13,8 @@
   <string name="configurationSection">розділі конфігурації</string>
   <string name="keepPlayPageOpen">Сторінка гри повинна бути відкритою у вашому браузері. Ви можете згорнути її чи розташувати поряд зі сторінкою Lichess, але не закривайте, інакше дошка не працюватиме.</string>
   <string name="boardWillAutoConnect">Дошка автоматично під\'єднуватиметься до гри, яка розпочинається чи триває. Можливість вибору гри з\'явиться незабаром.</string>
+  <string name="timeControlsForCasualGames">Контроль часу для дружніх ігор: лише Класичні, за листуванням та Швидкі.</string>
+  <string name="timeControlsForRatedGames">Контроль часу для рейтингових ігор: Класичні, за листуванням та деякі Швидкі включно з 15+10 і 20+0</string>
   <string name="whenReadySetupBoard">Коли готові, налаштуйте свою дошку та натисніть %s.</string>
   <string name="ifMoveNotDetected">Якщо хід не виявлено</string>
   <string name="checkYouHaveMadeOpponentsMove">Спершу перевірте, чи виконали хід суперника на DGT-дошці. Скасуйте свій хід. Зіграйте знову.</string>
@@ -21,11 +23,14 @@
   <string name="dgtConfigure">DGT — Налаштування</string>
   <string name="lichessConnectivity">З\'єднання з Lichess</string>
   <string name="validDgtOauthToken">У вас є підхожий токен OAuth для гри за DGT-дошкою.</string>
+  <string name="dgtPlayMenuEntryAdded">Елемент %s було додано до меню ГРАТИ вгорі.</string>
   <string name="noSuitableOauthToken">Немає створеного підхожого токена OAuth.</string>
   <string name="dgtBoardConnectivity">З\'єднання з DGT-дошкою</string>
   <string name="clickToGenerateOne">Натисніть, щоб згенерувати</string>
   <string name="webSocketUrl">%s адреса WebSocket</string>
+  <string name="useWebSocketUrl">Використайте \"%1$s\", якщо %2$s працює на іншому пристрої або іншому порті.</string>
   <string name="textToSpeech">Синтез мовлення</string>
+  <string name="configureVoiceNarration">Налаштуйте голос озвучення для зіграних ходів, щоб ви могли зосередитись на дошці.</string>
   <string name="enableSpeechSynthesis">Увімкнути синтез мовлення</string>
   <string name="speechSynthesisVoice">Голос синтезу мовлення</string>
   <string name="announceAllMoves">Оголошувати всі ходи</string>
@@ -36,6 +41,7 @@
   <string name="keywordFormatDescription">Ключові слова є у форматі JSON. Вони використовуються, щоб перекладати ходи та результати на вашу мову. Англійська за замовчуванням, але ви можете змінити її.</string>
   <string name="debug">Налагодження</string>
   <string name="verboseLogging">Розширене логування</string>
+  <string name="toSeeConsoleMessage">Щоб побачити повідомлення в консолі, натисніть Command + Option + C (Mac), або Control + Shift + C (Windows, Linux, Chrome OS)</string>
   <string name="playWithDgtBoard">Грати з DGT-дошкою</string>
   <string name="configure">Налаштування</string>
 </resources>
