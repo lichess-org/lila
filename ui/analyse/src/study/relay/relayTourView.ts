@@ -11,7 +11,7 @@ import StudyCtrl from '../studyCtrl';
 import { toggle } from 'common/controls';
 import * as xhr from 'common/xhr';
 import { teamsView } from './relayTeams';
-import { makeChat } from '../../view/view';
+import { makeChat } from '../../view/components';
 import { gamesList } from './relayGames';
 import { leaderboardView } from './relayLeaderboard';
 
