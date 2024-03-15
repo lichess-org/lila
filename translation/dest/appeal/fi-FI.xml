@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="cleanAllGood">Tiliäsi ei ole merkitty tai rajoitettu. Kaikki hyvin!</string>
+  <string name="engineMarked">Tilisi on merkitty ulkoisen avun käytöstä peleissä.</string>
+  <string name="arenaBanned">Tiliäsi on estetty liittymästä areenoihin.</string>
+  <string name="prizeBanned">Tiliäsi on estetty pelaamasta turnauksissa, joissa on oikeita palkintoja.</string>
+  <string name="boosterMarked">Tilisi on merkitty vahvuuslukumanipuloinnista.</string>
+  <string name="boosterMarkedInfo">Määrittelemme tämän tahallisena vahvuusluvun manipulointina häviämällä pelejä tarkoituksella tai pelaamalla sellaista tiliä vastaan, joka häviää pelejä tarkoituksella.</string>
+  <string name="accountMuted">Tilisi on mykistetty.</string>
+  <string name="excludedFromLeaderboards">Tiliäsi on estetty näkymästä pistetaulukoissa.</string>
+  <string name="excludedFromLeaderboardsInfo">Me määrittelemme tämän minä tahansa epäreiluna keinona päästä pistetaulukkoihin.</string>
+  <string name="closedByModerators">Tilisi on suljettu moderaattorien toimesta.</string>
+  <string name="hiddenBlog">Blogisi on piilotettu moderaattorien toimesta.</string>
+  <string name="hiddenBlogInfo">Ole hyvä ja lue uudelleen %s.</string>
+  <string name="playTimeout">Sinulle on asetettu pelitauko.</string>
+  <string name="blogRules">blogisäännöt</string>
+  <string name="fairPlay">Reilu peli</string>
+</resources>
