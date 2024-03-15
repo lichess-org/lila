@@ -9,7 +9,6 @@
   <string name="liveBroadcasts">Direktsända turneringar</string>
   <string name="newBroadcast">Ny direktsändning</string>
   <string name="aboutBroadcasts">Om sändningar</string>
-  <string name="noRoundsYet">Inga rundor än.</string>
   <string name="howToUseLichessBroadcasts">Hur man använder Lichess-Sändningar.</string>
   <string name="theNewRoundHelp">Den nya rundan kommer att ha samma medlemmar och bidragsgivare som den föregående.</string>
   <string name="addRound">Lägg till en omgång</string>
