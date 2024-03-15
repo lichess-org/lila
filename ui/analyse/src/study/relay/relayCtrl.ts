@@ -5,7 +5,6 @@ import { AnalyseSocketSend } from '../../socket';
 import { Prop, Toggle, notNull, prop, toggle } from 'common';
 import RelayTeams from './relayTeams';
 import RelayLeaderboard from './relayLeaderboard';
-import { Redraw } from 'common/snabbdom';
 import { StudyChapters } from '../studyChapters';
 import { MultiCloudEval } from '../multiCloudEval';
 
@@ -24,7 +23,7 @@ export default class RelayCtrl {
     readonly id: RoundId,
     public data: RelayData,
     readonly send: AnalyseSocketSend,
-    readonly redraw: Redraw,
+    readonly redraw: (redrawOnly?: boolean) => void,
     readonly members: StudyMemberCtrl,
     private readonly chapters: StudyChapters,
     private readonly multiCloudEval: MultiCloudEval,
@@ -42,7 +41,7 @@ export default class RelayCtrl {
       ? new RelayTeams(id, this.multiCloudEval, setChapter, this.roundPath, redraw)
       : undefined;
     this.leaderboard = data.tour.leaderboard ? new RelayLeaderboard(data.tour.id, redraw) : undefined;
-    setInterval(this.redraw, 1000);
+    setInterval(() => this.redraw(true), 1000);
   }
 
   openTab = (t: RelayTab) => {
