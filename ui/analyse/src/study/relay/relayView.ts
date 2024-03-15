@@ -4,7 +4,7 @@ import { view as keyboardView } from '../../keyboard';
 import type * as studyDeps from '../../study/studyDeps';
 import { tourSide } from '../../study/relay/relayTourView';
 import {
-  type ViewContext,
+  type RelayViewContext,
   viewContext,
   renderBoard,
   renderMain,
@@ -12,21 +12,26 @@ import {
   renderTools,
   renderUnderboard,
 } from '../../view/components';
+import RelayCtrl from './relayCtrl';
 
-export function relayView(ctrl: AnalyseCtrl, deps?: typeof studyDeps) {
-  const ctx = viewContext(ctrl, deps);
-  const { study, relay, tourUi } = ctx;
+export function relayView(
+  ctrl: AnalyseCtrl,
+  study: studyDeps.StudyCtrl,
+  relay: RelayCtrl,
+  deps: typeof studyDeps,
+) {
+  const ctx: RelayViewContext = { ...viewContext(ctrl, deps), study, deps, relay };
 
-  const renderTourView = () => [tourUi, tourSide(ctrl, study!, relay!), deps?.relayManager(relay!, study!)];
+  const renderTourView = () => [ctx.tourUi, tourSide(ctrl, study, relay), deps.relayManager(relay, study)];
 
   return renderMain(ctx, [
     ctrl.keyboardHelp && keyboardView(ctrl),
-    study && deps?.studyView.overboard(study),
-    ...(tourUi ? renderTourView() : renderBoardView(ctx)),
+    deps.studyView.overboard(study),
+    ...(ctx.tourUi ? renderTourView() : renderBoardView(ctx)),
   ]);
 }
 
-function renderBoardView(ctx: ViewContext) {
+function renderBoardView(ctx: RelayViewContext) {
   const { ctrl, deps, study, gaugeOn, relay } = ctx;
   return [
     renderBoard(ctx),
@@ -34,7 +39,7 @@ function renderBoardView(ctx: ViewContext) {
     renderTools(ctx),
     renderControls(ctrl),
     renderUnderboard(ctx),
-    tourSide(ctrl, study!, relay!),
-    deps?.relayManager(relay!, study!),
+    tourSide(ctrl, study, relay),
+    deps?.relayManager(relay, study),
   ];
 }

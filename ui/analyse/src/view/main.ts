@@ -23,7 +23,7 @@ import {
 export default function (deps?: typeof studyDeps) {
   return function (ctrl: AnalyseCtrl): VNode {
     if (ctrl.nvui) return ctrl.nvui.render();
-    else if (ctrl.study?.relay) return relayView(ctrl, deps);
+    else if (deps && ctrl.study?.relay) return relayView(ctrl, ctrl.study, ctrl.study.relay, deps);
     else return analyseView(ctrl, deps);
   };
 }
