@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="cleanAllGood">Dein Konto ist nicht markiert oder eingeschränkt. Alles in Ordnung!</string>
+  <string name="engineMarked">Dein Konto ist für externe Unterstützung in Partien markiert.</string>
+  <string name="engineMarkedInfo">Wir definieren dies als den Einsatz externer Hilfsmittel, mit dem Zweck dein Wissen und/oder deine Berechnungsfähigkeiten zu verbessern, um einen unfairen Vorteil gegenüber deinem Gegner zu erzielen. Weitere Details findest du auf der %s Seite.</string>
+  <string name="arenaBanned">Dein Benutzerkonto ist für die Teilnahme an Arena-Turnieren gesperrt.</string>
+  <string name="prizeBanned">Dein Benutzerkonto ist für die Teilnahme an Turnieren mit Echtgeldpreisen gesperrt.</string>
+  <string name="boosterMarked">Dein Benutzerkonto ist für die Manipulation der Wertungszahl markiert.</string>
+</resources>
