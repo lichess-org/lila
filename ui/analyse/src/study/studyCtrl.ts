@@ -162,7 +162,7 @@ export default class StudyCtrl {
         this.data.id,
         relayData,
         this.send,
-        this.redrawAndUpdateAddressBar,
+        (redrawOnly = false) => (redrawOnly ? this.redraw() : this.redrawAndUpdateAddressBar()),
         this.members,
         this.chapters.list,
         this.multiCloudEval,
