@@ -29,8 +29,8 @@ private val lichessCodes: Map[String, Lang] = Map(
 )
 
 val defaultLanguage: Language = "en"
-val enLang                    = Lang("en", "GB")
-val defaultLang               = enLang
+val enLang: Lang              = Lang("en", "GB")
+val defaultLang: Lang         = enLang
 
 // ffs
 def fixJavaLanguage(lang: Lang): Language =
