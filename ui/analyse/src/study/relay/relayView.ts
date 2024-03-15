@@ -78,7 +78,7 @@ export function renderStreamerMenu(relay: RelayCtrl) {
   );
 }
 
-function renderBoardView(ctx: ViewContext) {
+function renderBoardView(ctx: RelayViewContext) {
   const { ctrl, deps, study, gaugeOn, relay } = ctx;
   // no worries about FOUC when overriding grid constraints here, it's all snab
   const cols = Number(window.getComputedStyle(document.body).getPropertyValue('--cols'));
@@ -86,12 +86,12 @@ function renderBoardView(ctx: ViewContext) {
     return [
       renderBoard(ctx),
       gaugeOn && cevalView.renderGauge(ctrl),
-      cols === 3 && tourSide(ctrl, study!, relay!),
+      cols === 3 && tourSide(ctrl, study, relay),
       h('div.flex-side', [
-        cols === 3 ? renderVideoPlayer(relay!) : tourSide(ctrl, study!, relay!),
+        cols === 3 ? renderVideoPlayer(relay) : tourSide(ctrl, study, relay),
         renderTools(ctx),
         renderControls(ctrl),
-        deps?.relayManager(relay!, study!),
+        deps.relayManager(relay, study),
       ]),
       renderUnderboard(ctx),
     ];
@@ -102,7 +102,7 @@ function renderBoardView(ctx: ViewContext) {
       renderTools(ctx),
       renderControls(ctrl),
       renderUnderboard(ctx),
-      tourSide(ctrl, study!, relay!),
-      deps?.relayManager(relay!, study!),
+      tourSide(ctrl, study, relay),
+      deps.relayManager(relay, study),
     ];
 }
