@@ -173,10 +173,14 @@
       font-size: 1rem;
       margin-#{$end-direction}: 1ch;
     }
-    ongoing {
+    .round-state {
+      @extend %flex-center-nowrap;
+      gap: 1ch;
+    }
+    .ongoing::before {
       color: $c-red;
     }
-    finished {
+    .finished::before {
       color: $c-good;
     }
     .mselect__list {
@@ -191,7 +195,8 @@
           border: 1px solid mix($c-primary, $c-bg-box, 40%);
           border-width: 1px 0;
         }
-        &:hover * {
+        &:hover *,
+        &:hover .round-state::before {
           background: $c-primary;
           color: $c-primary-over;
         }

@@ -117,13 +117,14 @@ const groupSelect = (relay: RelayCtrl, group: RelayGroup) => {
 const roundSelect = (relay: RelayCtrl, study: StudyCtrl) => {
   const clickHook = { hook: bind('click', relay.roundSelectShow.toggle, relay.redraw) };
   const round = relay.currentRound();
+  const icon = roundStateIcon(round, true);
   return h('div.mselect.relay-tour__mselect.relay-tour__round-select', [
     h('label.mselect__label.relay-tour__round-select__label', clickHook, [
+      h('span.relay-tour__round-select__name', round.name),
       h(
         'span.relay-tour__round-select__status',
-        roundStateIcon(round) || (round.startsAt ? site.timeago(round.startsAt) : undefined),
+        icon || [round.startsAt ? site.timeago(round.startsAt) : undefined],
       ),
-      h('span.relay-tour__round-select__name', round.name),
     ]),
     ...(relay.roundSelectShow()
       ? [
@@ -142,7 +143,7 @@ const roundSelect = (relay: RelayCtrl, study: StudyCtrl) => {
                 h('td.time', round.startsAt ? site.dateFormat()(new Date(round.startsAt)) : '-'),
                 h(
                   'td.status',
-                  roundStateIcon(round) || (round.startsAt ? site.timeago(round.startsAt) : undefined),
+                  roundStateIcon(round, false) || (round.startsAt ? site.timeago(round.startsAt) : undefined),
                 ),
               ]),
             ),
@@ -235,7 +236,16 @@ const makeTabs = (ctrl: AnalyseCtrl) => {
   ]);
 };
 
-const roundStateIcon = (round: RelayRound) =>
+const roundStateIcon = (round: RelayRound, titleAsText: boolean) =>
   round.ongoing
-    ? h('ongoing', { attrs: { ...dataIcon(licon.DiscBig), title: 'Ongoing' } })
-    : round.finished && h('finished', { attrs: { ...dataIcon(licon.Checkmark), title: 'Finished' } });
+    ? h(
+        'span.round-state.ongoing',
+        { attrs: { ...dataIcon(licon.DiscBig), title: !titleAsText && 'Ongoing' } },
+        titleAsText && 'Ongoing',
+      )
+    : round.finished &&
+      h(
+        'span.round-state.finished',
+        { attrs: { ...dataIcon(licon.Checkmark), title: !titleAsText && 'Finished' } },
+        titleAsText && 'Finished',
+      );
