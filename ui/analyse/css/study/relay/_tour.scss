@@ -3,9 +3,9 @@
   background: $c-bg-box;
   &__side {
     @extend %flex-column;
-    user-select: none;
     &__header {
       @extend %flex-center-nowrap, %box-radius-top;
+      user-select: none;
       overflow: hidden;
       align-items: stretch;
       flex: 0 0 auto;
@@ -27,13 +27,17 @@
       justify-content: center;
       background: $c-bg-box;
       gap: 1em;
+      padding: 1.5rem 0 2rem 0;
+      display: flex;
+      flex-flow: column;
       &::before {
         font-size: 6em;
         color: $c-font-dimmer;
       }
-      padding: 1rem 0 2rem 0;
-      display: flex;
-      flex-flow: column;
+      strong {
+        font-size: 1.2em;
+        color: $c-font-dim;
+      }
       @include breakpoint($mq-col2) {
         display: flex;
       }

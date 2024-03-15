@@ -36,11 +36,7 @@ export const tourSide = (ctrl: AnalyseCtrl, study: StudyCtrl, relay: RelayCtrl) 
   const empty = study.chapters.list.looksNew();
   return h('aside.relay-tour__side', [
     ...(empty
-      ? [
-          h('div.relay-tour__side__empty', { attrs: dataIcon(licon.RadioTower) }, [
-            'The broadcast will start soon.',
-          ]),
-        ]
+      ? [startCountdown(relay)]
       : [
           h('div.relay-tour__side__header', [
             h(
@@ -62,6 +58,21 @@ export const tourSide = (ctrl: AnalyseCtrl, study: StudyCtrl, relay: RelayCtrl) 
       }),
     }),
   ]);
+};
+
+const startCountdown = (relay: RelayCtrl) => {
+  const round = relay.currentRound(),
+    startsAt = defined(round.startsAt) && new Date(round.startsAt),
+    date = startsAt && h('time', site.dateFormat()(startsAt));
+  return h(
+    'div.relay-tour__side__empty',
+    { attrs: dataIcon(licon.RadioTower) },
+    startsAt
+      ? startsAt.getTime() < Date.now() + 1000 * 10 * 60 // in the last 10 minutes, only say it's soon.
+        ? ['The broadcast will start very soon.', date]
+        : [h('strong', site.timeago(startsAt)), date]
+      : ['The broadcast has not yet started.'],
+  );
 };
 
 const leaderboard = (relay: RelayCtrl, ctrl: AnalyseCtrl) => [
