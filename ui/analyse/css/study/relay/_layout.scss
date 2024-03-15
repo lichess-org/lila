@@ -21,13 +21,16 @@ main.is-relay {
 
 /* tour overview */
 main.is-relay.has-relay-tour {
-  grid-template-rows: auto 30vh;
+  grid-template-rows: auto;
   grid-template-areas:
     'relay-tour'
     'side'
     'relay-admin';
   .mchat {
     margin-top: 1em;
+  }
+  .relay-games {
+    max-height: 40vh;
   }
 
   @include breakpoint($mq-col2) {
@@ -37,6 +40,9 @@ main.is-relay.has-relay-tour {
       'relay-tour . relay-admin';
     .mchat {
       flex: 5 0 30%;
+    }
+    .relay-games {
+      max-height: unset;
     }
   }
 
@@ -58,8 +64,8 @@ main.analyse.is-relay:not(.has-relay-tour) {
     'tools'
     '.'
     'side'
-    'under'
-    'relay-admin';
+    'relay-admin'
+    'under';
   .mchat,
   .chat__members {
     display: none;

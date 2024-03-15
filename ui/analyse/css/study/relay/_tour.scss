@@ -28,7 +28,7 @@
       background: $c-bg-box;
       gap: 1em;
       padding: 1.5rem 0 2rem 0;
-      display: flex;
+      display: none;
       flex-flow: column;
       &::before {
         font-size: 6em;
