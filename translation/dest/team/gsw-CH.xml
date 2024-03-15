@@ -57,6 +57,13 @@
   <string name="listTheTeamsThatWillCompete">Nänn alli Teams, wo du für de Kampf wottsch isetze.</string>
   <string name="oneTeamPerLine">Eis Team pro Zile. Benutz s\'Autousfülle.</string>
   <string name="oneTeamPerLineHelp">Du chasch die Lischte vu eim Turnier zume Andere kopiere-ifüege!</string>
+  <string name="numberOfLeadsPerTeam">Azahl Leader pro Team. D\'Summe vu ihre Pünkt isch d\'Punktzahl vum Team.</string>
+  <string name="numberOfLeadsPerTeamHelp">Du söttsch de Wert würklich nümme ändere, nachdem s\'Turnier agfange hät!</string>
+  <string name="innerTeam">Innerhalb vum Team</string>
+  <plurals name="battleOfNbTeams">
+    <item quantity="one">Schlacht mit %s Team</item>
+    <item quantity="other">Schlacht mit %s Teams</item>
+  </plurals>
   <plurals name="nbLeadersPerTeam">
     <item quantity="one">Ein Leader pro Team</item>
     <item quantity="other">%s Leader pro Team</item>
