@@ -53,6 +53,7 @@
 
     a {
       @extend %box-radius;
+      container-type: inline-size;
 
       color: $c-font;
       padding: 0.5em;
@@ -75,6 +76,11 @@
         box-shadow: none;
       }
     }
+  }
+}
+@container (width < 280px) {
+  .now-playing .rating {
+    display: none;
   }
 }
 .mini-game {
