@@ -1,5 +1,15 @@
 $mq-col3-side-height: calc(100vh - #{$site-header-outer-height} - #{$col1-uniboard-controls});
 
+body {
+  --cols: 1;
+  @include breakpoint($mq-col2) {
+    --cols: 2;
+  }
+  @include breakpoint($mq-col3) {
+    --cols: 3;
+  }
+}
+
 main.is-relay {
   .relay-tour {
     grid-area: relay-tour;
@@ -25,7 +35,6 @@ main.is-relay.has-relay-tour {
   grid-template-areas:
     'relay-tour'
     'side'
-    'uchat'
     'relay-admin';
   .mchat {
     margin-top: 1em;
@@ -35,7 +44,6 @@ main.is-relay.has-relay-tour {
     grid-template-rows: 80vh;
     grid-template-areas:
       'relay-tour . side'
-      'relay-tour . uchat'
       'relay-tour . relay-admin';
     .mchat {
       flex: 5 0 30%;
@@ -43,13 +51,17 @@ main.is-relay.has-relay-tour {
   }
 
   @include breakpoint($mq-col3) {
-    grid-template-columns: $col3-uniboard-side $block-gap var(--col3-uniboard-width) var(--gauge-gap) $col3-uniboard-table;
     grid-template-rows: $mq-col3-side-height 2.5em;
     grid-template-areas:
       'side        . relay-tour relay-tour relay-tour'
-      'uchat       . relay-tour relay-tour relay-tour'
       'relay-admin . relay-tour relay-tour relay-tour';
   }
+}
+
+.flex-side {
+  @extend %flex-column;
+  justify-content: stretch;
+  grid-area: flex-side;
 }
 
 /* game page */
@@ -67,21 +79,23 @@ main.analyse.is-relay:not(.has-relay-tour) {
   .chat__members {
     display: none;
   }
+
   @include breakpoint($mq-col2) {
-    grid-template-rows: 30vh 1em auto 2.5em;
+    grid-template-rows: var(--col2-uniboard-width) auto;
     grid-template-areas:
-      'board      gauge side'
-      'board      gauge .'
-      'board      gauge tools'
-      'under      .     controls'
-      'under      .     relay-admin';
+      'board      gauge flex-side'
+      'under      .     flex-side';
+    .analyse__moves {
+      flex-basis: calc(var(--col2-uniboard-width) - 48px);
+      max-height: 60vh;
+    }
   }
+
   @include breakpoint($mq-col3) {
-    grid-template-rows: var(--cg-height) 2.5em;
+    grid-template-rows: var(--col3-uniboard-width) auto;
     grid-template-areas:
-      'side    . board gauge tools'
-      'side    . under .     controls'
-      'side    . under .     relay-admin';
+      'side    . board gauge flex-side'
+      'side    . under .     flex-side';
     .relay-tour__side {
       max-height: $mq-col3-side-height;
     }
@@ -91,6 +105,21 @@ main.analyse.is-relay:not(.has-relay-tour) {
     }
     .mchat {
       flex: 5 0 30%;
+    }
+    .relay-admin {
+      margin-top: 0;
+    }
+    .analyse__moves {
+      flex-basis: calc(var(--col3-uniboard-width) - 48px);
+    }
+  }
+}
+
+@include breakpoint($mq-col3) {
+  main.is-relay {
+    grid-template-columns: $col3-uniboard-side $block-gap var(--col3-uniboard-width) var(--gauge-gap) $col3-uniboard-table;
+    button.streamer-show {
+      display: block;
     }
   }
 }

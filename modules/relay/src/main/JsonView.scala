@@ -95,13 +95,17 @@ final class JsonView(
       studyData: lila.study.JsonView.JsData,
       group: Option[RelayGroup.WithTours],
       canContribute: Boolean,
-      isSubscribed: Option[Boolean] = none[Boolean]
+      isSubscribed: Option[Boolean],
+      videoEmbedSrc: Option[String],
+      videoRedirectSrc: Option[String]
   ) =
     JsonView.JsData(
       relay = apply(trs)
         .add("sync" -> (canContribute.so(trs.rounds.find(_.id == currentRoundId).map(_.sync))))
         .add("group" -> group)
-        .add("isSubscribed" -> isSubscribed),
+        .add("isSubscribed" -> isSubscribed)
+        .add("videoEmbedSrc" -> videoEmbedSrc)
+        .add("videoRedirectSrc" -> videoRedirectSrc),
       study = studyData.study,
       analysis = studyData.analysis
     )
