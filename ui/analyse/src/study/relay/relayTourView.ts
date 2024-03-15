@@ -64,15 +64,14 @@ const startCountdown = (relay: RelayCtrl) => {
   const round = relay.currentRound(),
     startsAt = defined(round.startsAt) && new Date(round.startsAt),
     date = startsAt && h('time', site.dateFormat()(startsAt));
-  return h(
-    'div.relay-tour__side__empty',
-    { attrs: dataIcon(licon.RadioTower) },
-    startsAt
+  return h('div.relay-tour__side__empty', { attrs: dataIcon(licon.RadioTower) }, [
+    h('strong', round.name),
+    ...(startsAt
       ? startsAt.getTime() < Date.now() + 1000 * 10 * 60 // in the last 10 minutes, only say it's soon.
         ? ['The broadcast will start very soon.', date]
         : [h('strong', site.timeago(startsAt)), date]
-      : ['The broadcast has not yet started.'],
-  );
+      : ['The broadcast has not yet started.']),
+  ]);
 };
 
 const leaderboard = (relay: RelayCtrl, ctrl: AnalyseCtrl) => [
