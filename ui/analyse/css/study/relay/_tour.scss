@@ -84,6 +84,9 @@ $hover-bg: if($theme == 'dark', rgba(#6ae, 0.3), rgba($c-primary, 0.05));
         display: block;
       }
       flex: 0 0 38%;
+      &.video {
+        flex: 0 0 50%;
+      }
       line-height: 0;
       img {
         width: 100%;

@@ -1,5 +1,13 @@
 $mq-col3-side-height: calc(100vh - #{$site-header-outer-height} - #{$col1-uniboard-controls});
 
+body {
+  --allow-video: false;
+
+  @include breakpoint($mq-col3) {
+    --allow-video: true;
+  }
+}
+
 main.is-relay {
   .relay-tour {
     grid-area: relay-tour;
@@ -11,7 +19,9 @@ main.is-relay {
   .relay-admin__container {
     grid-area: relay-admin;
   }
+
   @include breakpoint($mq-col3) {
+    #video-player-placeholder,
     button.streamer-show {
       display: block;
     }

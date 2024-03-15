@@ -183,7 +183,8 @@ const teams = (relay: RelayCtrl, study: StudyCtrl, ctrl: AnalyseCtrl) => [
 const header = (relay: RelayCtrl, ctrl: AnalyseCtrl) => {
   const d = relay.data,
     study = ctrl.study!,
-    group = relay.data.group;
+    group = relay.data.group,
+    allowVideo = window.getComputedStyle(document.body).getPropertyValue('--allow-video') === 'true';
   return [
     h('div.relay-tour__header', [
       h('div.relay-tour__header__content', [
@@ -194,9 +195,8 @@ const header = (relay: RelayCtrl, ctrl: AnalyseCtrl) => {
         ]),
       ]),
       h(
-        'div.relay-tour__header__image',
-        { attrs: { style: d.videoUrls ? 'flex-basis: 50%' : '' } },
-        d.videoUrls
+        `div.relay-tour__header__image${allowVideo && d.videoUrls ? '.video' : ''}`,
+        allowVideo && d.videoUrls
           ? renderVideoPlayer(relay)
           : d.tour.image
           ? h('img', { attrs: { src: d.tour.image } })
