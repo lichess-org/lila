@@ -52,16 +52,15 @@ jobs:
           path: lila-3.0.tar.zst
           compression-level: 0 # already compressed
 
+  format:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: 21
+          cache: sbt
 
-  # format:
-  #   runs-on: ubuntu-latest
-  #   steps:
-  #     - uses: actions/checkout@v4
-  #     - uses: actions/setup-java@v4
-  #       with:
-  #         distribution: temurin
-  #         java-version: 21
-  #         cache: sbt
-  #
-  #     - name: Check Formatting
-  #       run: sbt check
+      - name: Check Formatting
+        run: sbt scalafmtCheckAll
