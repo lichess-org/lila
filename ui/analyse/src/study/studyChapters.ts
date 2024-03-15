@@ -116,16 +116,15 @@ export function resultOf(tags: TagArray[], isWhite: boolean): string | undefined
 
 export const gameLinkAttrs = (basePath: string, game: { id: ChapterId }) => ({
   href: `${basePath}/${game.id}`,
-  'data-id': game.id,
 });
 export const gameLinksListener = (setChapter: (id: ChapterId) => void) => (vnode: VNode) =>
   (vnode.elm as HTMLElement).addEventListener(
     'click',
     e => {
       e.preventDefault();
-      let target = e.target as HTMLElement;
-      while (target && target.tagName !== 'A') target = target.parentNode as HTMLElement;
-      const id = target?.dataset['id'];
+      let target = e.target as HTMLLinkElement;
+      while (target && target.tagName !== 'A') target = target.parentNode as HTMLLinkElement;
+      const id = target?.href?.slice(-8);
       if (id) setChapter(id);
     },
     { passive: false },

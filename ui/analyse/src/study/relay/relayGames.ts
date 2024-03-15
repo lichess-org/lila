@@ -38,10 +38,7 @@ export const gamesList = (study: StudyCtrl, relay: RelayCtrl) => {
           return h(
             `a.relay-game.relay-game--${c.id}`,
             {
-              attrs: {
-                ...gameLinkAttrs(basePath, c),
-                'data-id': c.id,
-              },
+              attrs: gameLinkAttrs(basePath, c),
               class: { 'relay-game--current': c.id === study.data.chapter.id },
             },
             [

@@ -124,10 +124,7 @@ const makePreview =
       `a.mini-game.is2d.chap-${preview.id}`,
       {
         class: { active: preview.id === current },
-        attrs: {
-          ...gameLinkAttrs(basePath, preview),
-          'data-id': preview.id,
-        },
+        attrs: gameLinkAttrs(basePath, preview),
       },
       [
         boardPlayer(preview, CgOpposite(orientation)),
