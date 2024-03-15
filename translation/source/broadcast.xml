@@ -10,7 +10,6 @@
   <string name="newBroadcast">New live broadcast</string>
   <string name="subscribedBroadcasts">Subscribed broadcasts</string>
   <string name="aboutBroadcasts">About broadcasts</string>
-  <string name="noRoundsYet">No rounds yet.</string>
   <string name="howToUseLichessBroadcasts">How to use Lichess Broadcasts.</string>
   <string name="theNewRoundHelp">The new round will have the same members and contributors as the previous one.</string>
   <string name="addRound">Add a round</string>

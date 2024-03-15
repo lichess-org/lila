@@ -1630,7 +1630,6 @@ object I18nKeys:
     val `newBroadcast` = I18nKey("broadcast:newBroadcast")
     val `subscribedBroadcasts` = I18nKey("broadcast:subscribedBroadcasts")
     val `aboutBroadcasts` = I18nKey("broadcast:aboutBroadcasts")
-    val `noRoundsYet` = I18nKey("broadcast:noRoundsYet")
     val `howToUseLichessBroadcasts` = I18nKey("broadcast:howToUseLichessBroadcasts")
     val `theNewRoundHelp` = I18nKey("broadcast:theNewRoundHelp")
     val `addRound` = I18nKey("broadcast:addRound")
