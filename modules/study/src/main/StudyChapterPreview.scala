@@ -23,7 +23,8 @@ case class ChapterPreview(
      */
     result: Option[Option[Outcome]]
 ):
-  def secondsSinceLastMove  = lastMoveAt.map(at => (nowSeconds - at.toSeconds).toInt)
+  def finished              = result.exists(_.isDefined)
+  def thinkTime             = (!finished).so(lastMoveAt.map(at => (nowSeconds - at.toSeconds).toInt))
   def fideIds: List[FideId] = players.so(_.mapList(_.fideId)).flatten
 
 final class ChapterPreviewApi(
@@ -121,7 +122,7 @@ object ChapterPreview:
         .add("players", c.players.map(_.mapList(playerWithFederations)))
         .add("orientation", c.orientation.some.filter(_.black))
         .add("lastMove", c.lastMove)
-        .add("thinkTime", c.secondsSinceLastMove)
+        .add("thinkTime", c.thinkTime)
         .add("status", c.result.map(o => Outcome.showResult(o).replace("1/2", "½")))
 
   object bson:
