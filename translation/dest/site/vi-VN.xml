@@ -178,7 +178,7 @@
   <string name="timeControl">Kiểu thời gian</string>
   <string name="realTime">Thời gian thực</string>
   <string name="correspondence">Cờ qua thư</string>
-  <string name="daysPerTurn">Ngày đến lượt đi</string>
+  <string name="daysPerTurn">Số ngày cho mỗi nước đi</string>
   <string name="oneDay">Một ngày</string>
   <plurals name="nbDays">
     <item quantity="other">%s ngày</item>
