@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="cleanAllGood">El teu compte no està marcat o reportat. Esteu molt bé!</string>
+  <string name="engineMarked">El teu compte està marcat per assistència externa en les partides.</string>
+  <string name="accountMuted">El teu compte està silenciat.</string>
+  <string name="accountMutedInfo">Llegiu la nostra %s. No respectar les normes de comunicació pot provocar que els comptes se silenciïn.</string>
+  <string name="excludedFromLeaderboards">El vostre compte ha estat exclòs de les classificacions.</string>
+  <string name="closedByModerators">El vostre compte ha estat tancat pels moderadors.</string>
+  <string name="hiddenBlog">Les vostres entrades del blog han estat amagades pels moderadors.</string>
+  <string name="hiddenBlogInfo">Assegureu-vos de llegir de nou la nostra %s.</string>
+  <string name="communicationGuidelines">guia de comunicació</string>
+  <string name="blogRules">normes del blog</string>
+</resources>
