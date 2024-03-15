@@ -49,7 +49,7 @@
   &__clock {
     @extend %roboto;
 
-    padding-#{$start-direction}: 2ch;
+    padding-#{$start-direction}: 1ch;
 
     &.clock--run {
       color: $c-accent;
