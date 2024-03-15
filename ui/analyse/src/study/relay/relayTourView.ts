@@ -90,7 +90,7 @@ const overview = (relay: RelayCtrl, ctrl: AnalyseCtrl) => [
 
 const groupSelect = (relay: RelayCtrl, group: RelayGroup) => {
   const clickHook = { hook: bind('click', relay.groupSelectShow.toggle, relay.redraw) };
-  return h('div.mselect.relay-tour__header__mselect.relay-tour__group-select', [
+  return h('div.mselect.relay-tour__mselect.relay-tour__group-select', [
     h(
       'label.mselect__label',
       clickHook,
@@ -116,12 +116,15 @@ const groupSelect = (relay: RelayCtrl, group: RelayGroup) => {
 
 const roundSelect = (relay: RelayCtrl, study: StudyCtrl) => {
   const clickHook = { hook: bind('click', relay.roundSelectShow.toggle, relay.redraw) };
-  return h('div.mselect.relay-tour__header__mselect.relay-tour__header__round-select', [
-    h(
-      'label.mselect__label',
-      clickHook,
-      relay.data.rounds.find(r => r.id == study.data.id)?.name || study.data.name,
-    ),
+  const round = relay.currentRound();
+  return h('div.mselect.relay-tour__mselect.relay-tour__round-select', [
+    h('label.mselect__label.relay-tour__round-select__label', clickHook, [
+      h(
+        'span.relay-tour__round-select__status',
+        roundStateIcon(round) || (round.startsAt ? site.timeago(round.startsAt) : undefined),
+      ),
+      h('span.relay-tour__round-select__name', round.name),
+    ]),
     ...(relay.roundSelectShow()
       ? [
           h('label.fullscreen-mask', clickHook),

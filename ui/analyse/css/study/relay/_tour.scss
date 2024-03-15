@@ -137,67 +137,6 @@
       @extend %flex-center;
       gap: 1em;
     }
-    &__mselect {
-      flex: auto;
-      @include fluid-size('font-size', 12px, 20px);
-      .fullscreen-mask {
-        display: block;
-      }
-      .mselect__list {
-        transform: unset;
-        > * {
-          opacity: unset;
-        }
-        a {
-          gap: 1em;
-        }
-      }
-    }
-    &__round-select {
-      .mselect__list {
-        display: table;
-        left: unset;
-        right: 0;
-        overflow: hidden;
-        tr {
-          display: table-row;
-          &.current-round {
-            background: mix($c-primary, $c-bg-box, 15%);
-            border: 1px solid mix($c-primary, $c-bg-box, 40%);
-            border-width: 1px 0;
-          }
-          &:hover * {
-            background: $c-primary;
-            color: $c-primary-over;
-          }
-        }
-        td {
-          cursor: pointer;
-        }
-        .name {
-          padding: 0.3em 1em;
-        }
-        .time,
-        .status {
-          font-size: 0.9rem;
-          color: $c-font-dim;
-        }
-        .time {
-          @extend %roboto;
-          padding: 0.5em 1em;
-        }
-        .status {
-          padding: 0.5em 1.5rem 0.5em 0;
-          text-align: $end-direction;
-        }
-        ongoing {
-          color: $c-red;
-        }
-        finished {
-          color: $c-good;
-        }
-      }
-    }
 
     .setting {
       @extend %flex-center-nowrap;
@@ -206,6 +145,75 @@
         padding: 0 0.5em;
         cursor: pointer;
         white-space: nowrap;
+      }
+    }
+  }
+
+  &__mselect {
+    flex: auto;
+    @include fluid-size('font-size', 12px, 20px);
+    .fullscreen-mask {
+      display: block;
+    }
+    .mselect__list {
+      transform: unset;
+      > * {
+        opacity: unset;
+      }
+      a {
+        gap: 1em;
+      }
+    }
+  }
+  &__round-select {
+    &__name {
+      flex: 3 1 100%;
+    }
+    &__status {
+      font-size: 1rem;
+      margin-#{$end-direction}: 1ch;
+    }
+    ongoing {
+      color: $c-red;
+    }
+    finished {
+      color: $c-good;
+    }
+    .mselect__list {
+      display: table;
+      left: unset;
+      right: 0;
+      overflow: hidden;
+      tr {
+        display: table-row;
+        &.current-round {
+          background: mix($c-primary, $c-bg-box, 15%);
+          border: 1px solid mix($c-primary, $c-bg-box, 40%);
+          border-width: 1px 0;
+        }
+        &:hover * {
+          background: $c-primary;
+          color: $c-primary-over;
+        }
+      }
+      td {
+        cursor: pointer;
+      }
+      .name {
+        padding: 0.3em 1em;
+      }
+      .time,
+      .status {
+        font-size: 0.9rem;
+        color: $c-font-dim;
+      }
+      .time {
+        @extend %roboto;
+        padding: 0.5em 1em;
+      }
+      .status {
+        padding: 0.5em 1.5rem 0.5em 0;
+        text-align: $end-direction;
       }
     }
   }
