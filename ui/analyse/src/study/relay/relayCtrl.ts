@@ -27,7 +27,7 @@ export default class RelayCtrl {
     readonly id: RoundId,
     public data: RelayData,
     readonly send: AnalyseSocketSend,
-    readonly redraw: Redraw,
+    readonly redraw: (redrawOnly?: boolean) => void,
     readonly members: StudyMemberCtrl,
     private readonly chapters: StudyChapters,
     private readonly multiCloudEval: MultiCloudEval,
@@ -45,7 +45,7 @@ export default class RelayCtrl {
       ? new RelayTeams(id, this.multiCloudEval, setChapter, this.roundPath, redraw)
       : undefined;
     this.leaderboard = data.tour.leaderboard ? new RelayLeaderboard(data.tour.id, redraw) : undefined;
-    setInterval(this.redraw, 1000);
+    setInterval(() => this.redraw(true), 1000);
     initRelayView(this);
     site.pubsub.on('socket.in.crowd', d => {
       const s = d.streams as [string, string][];
