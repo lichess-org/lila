@@ -266,10 +266,7 @@
     }
   }
   .now-playing {
-    grid-template-columns: repeat(1, 1fr);
-    @include breakpoint($mq-small) {
-      grid-template-columns: repeat(2, 1fr);
-    }
+    grid-template-columns: repeat(2, 1fr);
     @include breakpoint($mq-large) {
       grid-template-columns: repeat(3, 1fr);
     }
