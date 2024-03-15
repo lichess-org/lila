@@ -18,7 +18,7 @@
   <string name="studyWrite" comment="In the context of an access token, a setting that enables third party software to create, update or delete studies and broadcasts.">Створювати, поновлювати та видаляти дослідження й трансляції</string>
   <string name="tournamentWrite" comment="In the context of an access token, a setting that permits third party software to create, update or delete studies and join tournaments.">Створювати, поновлювати й брати участь у турнірах</string>
   <string name="racerWrite" comment="In the context of an access token, a setting which permits third party software to create, and join puzzle races (this is for the activity/minigame Puzzle Racer: https://lichess.org/racer)">Створювати та приєднуватись до пазлових перегонів</string>
-  <string name="puzzleRead" comment="In the context of an access token, a setting which permits third-party software to view the user's puzzle solving history.">Переглядати активність по задачах</string>
+  <string name="puzzleRead" comment="In the context of an access token, a setting which permits third-party software to view the user's puzzle solving history.">Перегляд активності в задачах</string>
   <string name="teamRead" comment="Gives permission to third-party software to *read* information that already exists. However it won't be able to write (create) private studies or broadcasts.">Переглядати інформацію приватних команд</string>
   <string name="teamWrite" comment="In the context of an access token, a setting that permits the third party software to join or leave teams on your behalf.">Приєднуватися та покидати команди</string>
   <string name="teamLead">Контролювати команди, які ви адмініструєте: відправляти приватні повідомлення, виганяти учасників</string>
