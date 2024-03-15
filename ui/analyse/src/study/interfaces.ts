@@ -170,11 +170,11 @@ export interface ChapterPreviewBase {
   id: ChapterId;
   name: string;
   status?: StatusStr;
-  fen: string;
   lastMove?: string;
 }
 
 export interface ChapterPreviewFromServer extends ChapterPreviewBase {
+  fen?: string; // defaults to initial
   players?: [ChapterPreviewPlayer, ChapterPreviewPlayer];
   thinkTime?: number; // seconds since last move
   orientation?: Color; // defaults to white
@@ -182,6 +182,7 @@ export interface ChapterPreviewFromServer extends ChapterPreviewBase {
 }
 
 export interface ChapterPreview extends ChapterPreviewBase {
+  fen: string;
   players?: ChapterPreviewPlayers;
   lastMoveAt?: number;
   orientation: Color;

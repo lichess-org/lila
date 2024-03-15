@@ -19,6 +19,7 @@ import {
 import StudyCtrl from './studyCtrl';
 import { opposite } from 'chessops/util';
 import { fenColor } from 'common/miniBoard';
+import { initialFen } from 'chess';
 
 /* read-only interface for external use */
 export class StudyChapters {
@@ -62,6 +63,7 @@ export default class StudyChaptersCtrl {
     this.store(
       chapters.map(c => ({
         ...c,
+        fen: c.fen || initialFen,
         players: c.players ? { white: c.players[0], black: c.players[1] } : undefined,
         orientation: c.orientation || 'white',
         variant: c.variant || 'standard',

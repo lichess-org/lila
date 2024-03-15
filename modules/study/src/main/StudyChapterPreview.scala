@@ -116,9 +116,9 @@ object ChapterPreview:
       Json
         .obj(
           "id"   -> c.id,
-          "name" -> c.name,
-          "fen"  -> c.fen
+          "name" -> c.name
         )
+        .add("fen", Option.when(!c.fen.isInitial)(c.fen))
         .add("players", c.players.map(_.mapList(playerWithFederations)))
         .add("orientation", c.orientation.some.filter(_.black))
         .add("lastMove", c.lastMove)
