@@ -67,14 +67,14 @@ object topnav:
         )
       ),
       st.section:
-        val tvUrl = langHref(routes.Tv.index)
+        val broadcastUrl = routes.RelayTour.index().url
         frag(
-          linkTitle(tvUrl, trans.watch()),
+          linkTitle(broadcastUrl, trans.watch()),
           div(role := "group")(
-            a(href := tvUrl)("Lichess TV"),
+            a(href := routes.RelayTour.index())(trans.broadcast.broadcasts()),
+            a(href := langHref(routes.Tv.index))("Lichess TV"),
             a(href := routes.Tv.games)(trans.currentGames()),
             (ctx.kid.no && ctx.noBot).option(a(href := routes.Streamer.index())(trans.streamersMenu())),
-            a(href := routes.RelayTour.index())(trans.broadcast.broadcasts()),
             ctx.noBot.option(a(href := routes.Video.index)(trans.videoLibrary()))
           )
         )
