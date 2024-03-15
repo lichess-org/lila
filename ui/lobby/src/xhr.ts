@@ -42,7 +42,16 @@ export function seekFromPreset(preset: Preset, opts: PresetOpts) {
       processData: false,
       data: d,
       success: function (data) {
-        window.location.href = data.redirect;
+        if (opts.isAnon)
+          window.lishogi.redirect({
+            url: data.redirect,
+            cookie: {
+              name: 'rk2',
+              value: data.redirect.slice(-4),
+              maxAge: 604800,
+            },
+          });
+        else window.lishogi.redirect(data.redirect);
       },
     });
   } else
