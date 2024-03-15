@@ -173,9 +173,11 @@
       font-size: 1rem;
       margin-#{$end-direction}: 1ch;
     }
-    .round-state {
-      @extend %flex-center-nowrap;
-      gap: 1ch;
+    &__label {
+      .round-state {
+        @extend %flex-center-nowrap;
+        gap: 1ch;
+      }
     }
     .ongoing::before {
       color: $c-red;
