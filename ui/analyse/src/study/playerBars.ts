@@ -1,7 +1,7 @@
 import { h, VNode } from 'snabbdom';
 import renderClocks from '../view/clocks';
 import AnalyseCtrl from '../ctrl';
-import { renderMaterialDiffs } from '../view/view';
+import { renderMaterialDiffs } from '../view/components';
 import { TagArray } from './interfaces';
 import { findTag, isFinished, looksLikeLichessGame, resultOf } from './studyChapters';
 import { userTitle } from 'common/userLink';

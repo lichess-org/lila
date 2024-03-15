@@ -1,6 +1,6 @@
 import makeCtrl from './ctrl';
 import menuHover from 'common/menuHover';
-import makeView from './view/view';
+import makeView from './view/main';
 import { AnalyseApi, AnalyseOpts } from './interfaces';
 import { VNode } from 'snabbdom';
 import type * as studyDeps from './study/studyDeps';
