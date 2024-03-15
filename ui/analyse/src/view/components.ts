@@ -110,6 +110,7 @@ export function renderMain(
         'gamebook-play': !!gamebookPlayView,
         'has-relay-tour': !!tourUi,
         'is-relay': ctrl.study?.relay !== undefined,
+        'with-video': ctrl.study?.relay?.data.videoUrls !== undefined,
         'analyse-hunter': ctrl.opts.hunter,
         'analyse--wiki': !!ctrl.wiki && !ctrl.study,
       },
@@ -118,8 +119,9 @@ export function renderMain(
   );
 }
 
-export function renderTools({ ctrl, deps, concealOf }: ViewContext) {
+export function renderTools({ ctrl, deps, concealOf }: ViewContext, videoPlayer?: VNode) {
   return h(addChapterId(ctrl.study, 'div.analyse__tools'), [
+    videoPlayer,
     ...(ctrl.actionMenu()
       ? [actionMenu(ctrl)]
       : [

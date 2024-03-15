@@ -1,15 +1,5 @@
 $mq-col3-side-height: calc(100vh - #{$site-header-outer-height} - #{$col1-uniboard-controls});
 
-body {
-  --cols: 1;
-  @include breakpoint($mq-col2) {
-    --cols: 2;
-  }
-  @include breakpoint($mq-col3) {
-    --cols: 3;
-  }
-}
-
 main.is-relay {
   .relay-tour {
     grid-area: relay-tour;
@@ -22,6 +12,9 @@ main.is-relay {
     grid-area: relay-admin;
   }
   @include breakpoint($mq-col3) {
+    button.streamer-show {
+      display: block;
+    }
     .mchat {
       flex: 1 1 50%;
       margin-top: 1em;
@@ -31,13 +24,16 @@ main.is-relay {
 
 /* tour overview */
 main.is-relay.has-relay-tour {
-  grid-template-rows: auto 30vh;
+  grid-template-rows: auto;
   grid-template-areas:
     'relay-tour'
     'side'
     'relay-admin';
   .mchat {
     margin-top: 1em;
+  }
+  .relay-games {
+    max-height: 40vh;
   }
 
   @include breakpoint($mq-col2) {
@@ -48,20 +44,18 @@ main.is-relay.has-relay-tour {
     .mchat {
       flex: 5 0 30%;
     }
+    .relay-games {
+      max-height: unset;
+    }
   }
 
   @include breakpoint($mq-col3) {
-    grid-template-rows: $mq-col3-side-height 2.5em;
+    grid-template-columns: $col3-uniboard-side var(--gauge-gap) var(--col3-uniboard-width) var(--gauge-gap) $col3-uniboard-table;
+    grid-template-rows: $mq-col3-side-height;
     grid-template-areas:
       'side        . relay-tour relay-tour relay-tour'
       'relay-admin . relay-tour relay-tour relay-tour';
   }
-}
-
-.flex-side {
-  @extend %flex-column;
-  justify-content: stretch;
-  grid-area: flex-side;
 }
 
 /* game page */
@@ -73,29 +67,28 @@ main.analyse.is-relay:not(.has-relay-tour) {
     'tools'
     '.'
     'side'
-    'under'
-    'relay-admin';
+    'relay-admin'
+    'under';
   .mchat,
   .chat__members {
     display: none;
   }
-
   @include breakpoint($mq-col2) {
-    grid-template-rows: var(--col2-uniboard-width) auto;
+    grid-template-rows: 30vh 1em auto 2.5em;
     grid-template-areas:
-      'board      gauge flex-side'
-      'under      .     flex-side';
-    .analyse__moves {
-      flex-basis: calc(var(--col2-uniboard-width) - 48px);
-      max-height: 60vh;
-    }
+      'board      gauge side'
+      'board      gauge .'
+      'board      gauge tools'
+      'under      .     controls'
+      'under      .     relay-admin';
   }
-
   @include breakpoint($mq-col3) {
-    grid-template-rows: var(--col3-uniboard-width) auto;
+    grid-template-rows: var(--cg-height) 2.5em;
     grid-template-areas:
-      'side    . board gauge flex-side'
-      'side    . under .     flex-side';
+      'side    . board gauge tools'
+      'side    . under .     controls'
+      'side    . under .     relay-admin'
+      'side    . under .     round-training';
     .relay-tour__side {
       max-height: $mq-col3-side-height;
     }
@@ -105,21 +98,6 @@ main.analyse.is-relay:not(.has-relay-tour) {
     }
     .mchat {
       flex: 5 0 30%;
-    }
-    .relay-admin {
-      margin-top: 0;
-    }
-    .analyse__moves {
-      flex-basis: calc(var(--col3-uniboard-width) - 48px);
-    }
-  }
-}
-
-@include breakpoint($mq-col3) {
-  main.is-relay {
-    grid-template-columns: $col3-uniboard-side $block-gap var(--col3-uniboard-width) var(--gauge-gap) $col3-uniboard-table;
-    button.streamer-show {
-      display: block;
     }
   }
 }

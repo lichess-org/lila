@@ -6,6 +6,7 @@ import AnalyseCtrl from '../../ctrl';
 import { view as keyboardView } from '../../keyboard';
 import type * as studyDeps from '../../study/studyDeps';
 import { tourSide } from '../../study/relay/relayTourView';
+import { render as renderTrainingView } from '../../view/roundTraining';
 import { renderVideoPlayer, resizeVideoPlayer } from './videoPlayerView';
 import {
   type RelayViewContext,
@@ -80,29 +81,14 @@ export function renderStreamerMenu(relay: RelayCtrl) {
 
 function renderBoardView(ctx: RelayViewContext) {
   const { ctrl, deps, study, gaugeOn, relay } = ctx;
-  // no worries about FOUC when overriding grid constraints here, it's all snab
-  const cols = Number(window.getComputedStyle(document.body).getPropertyValue('--cols'));
-  if (cols >= 2)
-    return [
-      renderBoard(ctx),
-      gaugeOn && cevalView.renderGauge(ctrl),
-      cols === 3 && tourSide(ctrl, study, relay),
-      h('div.flex-side', [
-        cols === 3 ? renderVideoPlayer(relay) : tourSide(ctrl, study, relay),
-        renderTools(ctx),
-        renderControls(ctrl),
-        deps.relayManager(relay, study),
-      ]),
-      renderUnderboard(ctx),
-    ];
-  else
-    return [
-      renderBoard(ctx),
-      gaugeOn && cevalView.renderGauge(ctrl),
-      renderTools(ctx),
-      renderControls(ctrl),
-      renderUnderboard(ctx),
-      tourSide(ctrl, study, relay),
-      deps.relayManager(relay, study),
-    ];
+  return [
+    renderBoard(ctx),
+    gaugeOn && cevalView.renderGauge(ctrl),
+    renderTools(ctx, renderVideoPlayer(relay)),
+    renderControls(ctrl),
+    renderUnderboard(ctx),
+    tourSide(ctrl, study, relay),
+    deps.relayManager(relay, study),
+    renderTrainingView(ctrl),
+  ];
 }

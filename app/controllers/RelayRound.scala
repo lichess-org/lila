@@ -217,7 +217,7 @@ final class RelayRound(
         page <- renderPage:
           html.relay.show(rt.withStudy(sc.study), data, chat, sVersion, streamers, crossSiteIsolation)
         _ = if HTTPRequest.isHuman(req) then lila.mon.http.path(rt.tour.path).increment()
-      yield if stream.isEmpty then Ok(page).enforceCrossSiteIsolation else Ok(page)
+      yield if crossSiteIsolation then Ok(page).enforceCrossSiteIsolation else Ok(page)
     )(
       studyC.privateUnauthorizedFu(oldSc.study),
       studyC.privateForbiddenFu(oldSc.study)

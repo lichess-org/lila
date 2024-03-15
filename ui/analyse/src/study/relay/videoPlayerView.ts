@@ -1,10 +1,10 @@
 import RelayCtrl from './relayCtrl';
-import { looseH as h, MaybeVNode, VNode } from 'common/snabbdom';
+import { looseH as h, VNode } from 'common/snabbdom';
 
 let player: VideoPlayer;
 
-export function renderVideoPlayer(relay: RelayCtrl): MaybeVNode {
-  if (!relay.data.videoUrls) return;
+export function renderVideoPlayer(relay: RelayCtrl): VNode | undefined {
+  if (!relay.data.videoUrls) return undefined;
   player ??= new VideoPlayer(relay.data.videoUrls[0]);
   return h('div#video-player-placeholder', {
     hook: {
