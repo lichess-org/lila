@@ -129,13 +129,6 @@ final class Env(
     default = false,
     text = "Use external piece images".some
   )
-  import lila.memo.SettingStore.Regex.given
-  import scala.util.matching.Regex
-  val credentiallessUaRegex = memo.settingStore[Regex](
-    "credentiallessUaRegex ",
-    default = """Chrome/(?:11[3-9]|1[2-9]\d)""".r,
-    text = "UA regex for credentialless (see #13030)".some
-  )
 
   lazy val preloader     = wire[mashup.Preload]
   lazy val socialInfo    = wire[mashup.UserInfo.SocialApi]
