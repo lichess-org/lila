@@ -84,7 +84,6 @@ export default class StudyChaptersCtrl {
         const playerWhoMoved = cp.players?.[opposite(fenColor(cp.fen))];
         if (playerWhoMoved) playerWhoMoved.clock = node.clock;
       }
-      // this.multiCloudEval.sendRequest();
     }
   };
 }
@@ -194,7 +193,7 @@ export function view(ctrl: StudyCtrl): VNode {
       .map((chapter, i) => {
         const editing = ctrl.chapters.editForm.isEditing(chapter.id),
           loading = ctrl.vm.loading && chapter.id === ctrl.vm.nextChapterId,
-          active = !ctrl.vm.loading && current && !ctrl.relay?.tourShow() && current.id === chapter.id;
+          active = !ctrl.vm.loading && current?.id === chapter.id;
         return h(
           'div',
           {
