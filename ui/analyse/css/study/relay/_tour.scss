@@ -270,17 +270,8 @@
     @include breakpoint($mq-xx-large) {
       margin: 0 calc(var(--box-padding) - 1em);
       .now-playing a {
-        padding: 0.8em 1em;
+        padding: 0.8em;
       }
-    }
-  }
-  .now-playing {
-    grid-template-columns: repeat(2, 1fr);
-    @include breakpoint($mq-large) {
-      grid-template-columns: repeat(3, 1fr);
-    }
-    @include breakpoint($mq-xx-large) {
-      grid-template-columns: repeat(4, 1fr);
     }
   }
 }
