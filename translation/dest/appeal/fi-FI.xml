@@ -2,6 +2,7 @@
 <resources>
   <string name="cleanAllGood">Tunnustasi ei ole merkitty tai rajoitettu. Kaikki hyvin!</string>
   <string name="engineMarked">Tunnukseesi on lisätty merkintä ulkoisen avun käytöstä peleissä.</string>
+  <string name="engineMarkedInfo">Määritelmämme mukaan tällä tarkoitetaan mitä tahansa ulkoista apua, jolla vahvistetaan tietojasi ja/tai laskentataitoasi ja tavoitellaan epäreilua etua vastustajaasi nähden. Lue lisää sivulta %s.</string>
   <string name="arenaBanned">Tunnuksesi on estetty liittymästä areenoihin.</string>
   <string name="prizeBanned">Tunnuksesi on estetty pelaamasta turnauksissa, joissa on oikeita palkintoja.</string>
   <string name="boosterMarked">Tunnukseesi on lisätty merkintä vahvuusluvun manipuloinnista.</string>
