@@ -70,23 +70,26 @@ const overview = (relay: RelayCtrl, ctrl: AnalyseCtrl) => [
 
 const groupSelect = (relay: RelayCtrl, group: RelayGroup) =>
   h('div.mselect.relay-tour__header__mselect.relay-tour__group-select', [
-    h('input#mselect-relay-group.mselect__toggle.fullscreen-toggle', { attrs: { type: 'checkbox' } }),
     h(
       'label.mselect__label',
-      { attrs: { for: 'mselect-relay-group' } },
+      { hook: bind('click', relay.groupSelectShow.toggle, relay.redraw) },
       group.tours.find(t => t.id == relay.data.tour.id)?.name || relay.data.tour.name,
     ),
-    h('label.fullscreen-mask', { attrs: { for: 'mselect-relay-group' } }),
-    h(
-      'nav.mselect__list',
-      group.tours.map(tour =>
-        h(
-          `a${tour.id == relay.data.tour.id ? '.current' : ''}`,
-          { attrs: { href: `/broadcast/-/${tour.id}` } },
-          tour.name,
-        ),
-      ),
-    ),
+    ...(relay.groupSelectShow()
+      ? [
+          h('label.fullscreen-mask', { hook: bind('click', relay.groupSelectShow.toggle, relay.redraw) }),
+          h(
+            'nav.mselect__list',
+            group.tours.map(tour =>
+              h(
+                `a${tour.id == relay.data.tour.id ? '.current' : ''}`,
+                { attrs: { href: `/broadcast/-/${tour.id}` } },
+                tour.name,
+              ),
+            ),
+          ),
+        ]
+      : []),
   ]);
 
 const roundSelect = (relay: RelayCtrl, study: StudyCtrl) =>

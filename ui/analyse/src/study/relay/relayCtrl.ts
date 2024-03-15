@@ -16,6 +16,7 @@ export default class RelayCtrl {
   cooldown = false;
   tourShow: Toggle;
   roundSelectShow = toggle(false);
+  groupSelectShow = toggle(false);
   tab: Prop<RelayTab>;
   teams?: RelayTeams;
   leaderboard?: RelayLeaderboard;
