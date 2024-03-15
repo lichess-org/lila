@@ -31,8 +31,12 @@ let cols = 0;
 
 /* Move the timeline to/from the bottom depending on screen width.
  * This must not cause any FOUC or layout shifting on page load. */
-const layoutHacks = () =>
-  requestAnimationFrame(() => {
+
+let animationFrameId: number;
+
+const layoutHacks = () => {
+  cancelAnimationFrame(animationFrameId); // avoid more than one call per frame
+  animationFrameId = requestAnimationFrame(() => {
     $('main.lobby').each(function (this: HTMLElement) {
       const newCols = Number(window.getComputedStyle(this).getPropertyValue('--cols'));
       if (newCols != cols) {
@@ -42,3 +46,4 @@ const layoutHacks = () =>
       }
     });
   });
+};
