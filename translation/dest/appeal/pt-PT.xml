@@ -4,5 +4,11 @@
   <string name="engineMarked">A tua conta está marcada por assistência externa em jogos.</string>
   <string name="engineMarkedInfo">Definimos isto como a utilização de qualquer ajuda externa para reforçar os teus conhecimentos e/ou capacidades de cálculo, de modo a obter uma vantagem injusta sobre o teu adversário. Vê a página %s para mais pormenores.</string>
   <string name="arenaBanned">A tua conta está proibida de entrar nas arenas.</string>
+  <string name="prizeBanned">A tua conta está banida dos torneios com prémios reais.</string>
+  <string name="boosterMarked">A tua conta está marcada por manipulação de classificação.</string>
+  <string name="boosterMarkedInfo">Definimos isto como manipular deliberadamente a classificação ao perder jogos de propósito ou ao jogar contra outra conta que esteja deliberadamente a perder jogos.</string>
+  <string name="accountMuted">A tua conta foi silenciada.</string>
+  <string name="accountMutedInfo">Leia as nossas %s. O não cumprimento das diretrizes de comunicação pode resultar no silenciamento das contas.</string>
+  <string name="excludedFromLeaderboards">A tua conta foi excluída das tabelas de classificação.</string>
   <string name="fairPlay">Jogo Justo</string>
 </resources>
