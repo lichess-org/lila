@@ -5,7 +5,6 @@ import { AnalyseSocketSend } from '../../socket';
 import { Prop, Toggle, notNull, prop, toggle } from 'common';
 import RelayTeams from './relayTeams';
 import RelayLeaderboard from './relayLeaderboard';
-import { Redraw } from 'common/snabbdom';
 import { StudyChapters } from '../studyChapters';
 import { MultiCloudEval } from '../multiCloudEval';
 import { init as initRelayView } from './relayView';
