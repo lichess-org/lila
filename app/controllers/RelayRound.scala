@@ -99,8 +99,10 @@ final class RelayRound(
         html = WithRoundAndTour(ts, rs, id): rt =>
           val sc = env.study.preview
             .firstId(rt.round.studyId)
-            .flatMapz:
-              env.study.api.byIdWithChapterOrFallback(rt.round.studyId, _)
+            .flatMap:
+              // there might be no chapter after a round reset, let a new one be created
+              case None              => env.study.api.byIdWithChapter(rt.round.studyId)
+              case Some(firstChapId) => env.study.api.byIdWithChapterOrFallback(rt.round.studyId, firstChapId)
           sc.orNotFound { doShow(rt, _, embed) }
         ,
         json = doApiShow(id)
