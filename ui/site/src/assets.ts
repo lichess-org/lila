@@ -4,13 +4,6 @@ import { memoize } from 'common';
 
 export const baseUrl = memoize(() => document.body.getAttribute('data-asset-url') || '');
 
-export const pageInitData = <A>(): A => {
-  const el = document.getElementById('page-init-data');
-  const data = el && JSON.parse(el!.innerHTML);
-  el?.remove();
-  return data as A;
-};
-
 const version = memoize(() => document.body.getAttribute('data-asset-version'));
 
 export const url = (path: string, opts: AssetUrlOpts = {}) => {
@@ -73,6 +66,15 @@ export async function loadEsm<T, ModuleOpts = any>(
   const module = await import(url(jsModule(name), opts?.url));
   return module.initModule ? module.initModule(opts?.init) : module.default(opts?.init);
 }
+
+export const loadPageEsm = async <T>(name: string): Promise<T> => {
+  const modulePromise = import(url(jsModule(name)));
+  const dataScript = document.getElementById('page-init-data');
+  const opts = dataScript && JSON.parse(dataScript!.innerHTML);
+  dataScript?.remove();
+  const module = await modulePromise;
+  return module.initModule ? module.initModule(opts) : module.default(opts);
+};
 
 export const userComplete = async (opts: UserCompleteOpts): Promise<UserComplete> => {
   const [userComplete] = await Promise.all([

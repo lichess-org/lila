@@ -17,7 +17,7 @@ object bits:
   def layout(
       variant: Variant,
       title: String,
-      jsModule: Option[JsModule],
+      jsModule: Option[PageModule],
       moreJs: Frag = emptyFrag,
       openGraph: Option[lila.app.ui.OpenGraph] = None,
       moreCss: Frag = emptyFrag,

@@ -8,8 +8,7 @@ export { patch };
 export const start = makeStart(patch, studyDeps);
 export const boot = makeBoot(start);
 
-export function initModule() {
-  const cfg = site.asset.pageInitData<any>();
+export function initModule(cfg: any) {
   site.socket = new site.StrongSocket(cfg.socketUrl || '/analysis/socket/v5', cfg.socketVersion, {
     receive: (t: string, d: any) => analyse.socketReceive(t, d),
   });

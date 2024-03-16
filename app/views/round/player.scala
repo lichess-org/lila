@@ -49,7 +49,7 @@ object player:
       title = s"${trans.play
           .txt()} ${if ctx.pref.isZen || ctx.pref.isZenAuto then "ZEN" else playerText(pov.opponent)}",
       moreJs = frag(roundNvuiTag),
-      jsModule = JsModule(
+      jsModule = PageModule(
         "round",
         Json
           .obj(

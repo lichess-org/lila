@@ -21,7 +21,7 @@ object index:
       variant = pov.game.variant,
       title = s"${channel.name} TV: ${playerText(pov.player)} vs ${playerText(pov.opponent)}",
       jsModule =
-        JsModule("round", Json.obj("data" -> data, "i18n" -> views.html.round.jsI18n(pov.game))).some,
+        PageModule("round", Json.obj("data" -> data, "i18n" -> views.html.round.jsI18n(pov.game))).some,
       moreCss = cssTag("tv.single"),
       openGraph = lila.app.ui
         .OpenGraph(

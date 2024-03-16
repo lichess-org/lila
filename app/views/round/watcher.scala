@@ -36,7 +36,7 @@ object watcher:
       variant = pov.game.variant,
       title = s"${gameVsText(pov.game, withRatings = ctx.pref.showRatings)} • spectator",
       moreJs = frag(roundNvuiTag),
-      jsModule = JsModule(
+      jsModule = PageModule(
         "round",
         Json.obj(
           "data" -> data,

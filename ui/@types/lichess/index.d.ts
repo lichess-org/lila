@@ -31,7 +31,6 @@ interface Site {
   spinnerHtml: string;
   asset: {
     // file://./../../site/src/assets.ts
-    pageInitData<A>(): A;
     baseUrl(): string;
     url(url: string, opts?: AssetUrlOpts): string;
     flairSrc(flair: Flair): string;
@@ -40,6 +39,7 @@ interface Site {
     jsModule(name: string): string;
     loadIife(path: string, opts?: AssetUrlOpts): Promise<void>;
     loadEsm<T, ModuleOpts = any>(name: string, opts?: { init?: ModuleOpts; url?: AssetUrlOpts }): Promise<T>;
+    loadPageEsm<T>(name: string): Promise<T>;
     hopscotch: any;
     userComplete(opts: UserCompleteOpts): Promise<UserComplete>;
   };

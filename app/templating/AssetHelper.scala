@@ -9,7 +9,7 @@ import lila.common.String.html.safeJsonValue
 trait AssetHelper extends HasEnv:
   self: I18nHelper & SecurityHelper =>
 
-  case class JsModule(name: String, data: JsValue)
+  case class PageModule(name: String, data: JsValue)
 
   private lazy val netDomain      = env.net.domain
   private lazy val assetDomain    = env.net.assetDomain
@@ -82,7 +82,11 @@ if (window.matchMedia('(prefers-color-scheme: dark)').media === 'not all')
   def jsModuleInit(name: String, json: JsValue, nonce: lila.api.Nonce) = frag(
     jsModule(name),
     embedJsUnsafeLoadThen(s"$loadEsmFunction('$name',{init:${safeJsonValue(json)}})", nonce)
-  )
+      )
+
+  def pageModule(name: String)(using PageContext) =
+    frag(jsModule(name), embedJsUnsafeLoadThen(s"site.asset.loadPageEsm('$name')"))
+
   def analyseInit(mode: String, json: JsValue)(using ctx: PageContext) =
     jsModuleInit("analysisBoard", Json.obj("mode" -> mode, "cfg" -> json))
 
