@@ -73,8 +73,8 @@ export interface StudySettings {
   cloneable: UserSelection;
   shareable: UserSelection;
   chat: UserSelection;
-  sticky: boolean;
-  description: boolean;
+  sticky?: boolean;
+  description?: boolean;
 }
 
 export interface ReloadData {

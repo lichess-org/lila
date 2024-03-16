@@ -8,7 +8,6 @@ import scala.util.chaining.*
 import lila.common.Json.{ *, given }
 import lila.socket.Socket.Sri
 import lila.tree.Node.Shape
-import lila.user.User
 
 final class JsonView(
     studyRepo: StudyRepo,
@@ -22,11 +21,11 @@ final class JsonView(
       study: Study,
       previews: ChapterPreview.AsJsons,
       chapter: Chapter,
-      me: Option[User]
-  ) =
+      withMembers: Boolean
+  )(using me: Option[lila.user.Me]) =
 
     def allowed(selection: Settings => Settings.UserSelection): Boolean =
-      Settings.UserSelection.allows(selection(study.settings), study, me.map(_.id))
+      Settings.UserSelection.allows(selection(study.settings), study, me.map(_.userId))
 
     for
       liked       <- me.so(studyRepo.liked(study, _))
@@ -36,16 +35,20 @@ final class JsonView(
         .filter(_.secondsSinceLastMove < 3600 || chapter.tags.outcome.isEmpty)
         .map(_.path)
         .filterNot(_.isEmpty)
-    yield Json.toJsObject(study) ++ Json
+      jsStudy =
+        if withMembers || me.exists(study.canContribute) then study
+        else study.copy(members = StudyMembers.empty)
+    yield Json.toJsObject(jsStudy) ++ Json
       .obj(
         "liked" -> liked,
-        "features" -> Json.obj(
-          "cloneable"   -> allowed(_.cloneable),
-          "shareable"   -> allowed(_.shareable),
-          "chat"        -> allowed(_.chat),
-          "sticky"      -> study.settings.sticky,
-          "description" -> study.settings.description
-        ),
+        "features" -> Json
+          .obj(
+            "cloneable" -> allowed(_.cloneable),
+            "shareable" -> allowed(_.shareable),
+            "chat"      -> allowed(_.chat)
+          )
+          .add("sticky", study.settings.sticky)
+          .add("description", study.settings.description),
         "topics"   -> study.topicsOrEmpty,
         "chapters" -> previews,
         "chapter" -> Json
