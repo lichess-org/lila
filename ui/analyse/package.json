@@ -15,9 +15,9 @@
   "license": "AGPL-3.0-or-later",
   "dependencies": {
     "@badrap/result": "^0.2.13",
-    "@types/debounce-promise": "^3.1.6",
-    "@types/yaireo__tagify": "^4.17.3",
-    "@yaireo/tagify": "^4.17.9",
+    "@types/debounce-promise": "^3.1.9",
+    "@types/yaireo__tagify": "^4.18.0",
+    "@yaireo/tagify": "^4.21.2",
     "ceval": "workspace:*",
     "chart": "workspace:*",
     "chat": "workspace:*",
@@ -29,7 +29,7 @@
     "nvui": "workspace:*",
     "prop-types": "^15.8.1",
     "shepherd.js": "^11.2.0",
-    "snabbdom": "^3.5.1",
+    "snabbdom": "3.5.1",
     "tree": "workspace:*"
   },
   "lichess": {

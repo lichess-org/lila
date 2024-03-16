@@ -12,10 +12,10 @@
   "author": "Thibault Duplessis",
   "license": "AGPL-3.0-or-later",
   "dependencies": {
-    "@types/dragscroll": "0.0.0",
+    "@types/dragscroll": "0.0.3",
     "common": "workspace:*",
     "dragscroll": "^0.0.8",
-    "snabbdom": "^3.5.1"
+    "snabbdom": "3.5.1"
   },
   "lichess": {
     "modules": {

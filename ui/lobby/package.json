@@ -14,12 +14,12 @@
   "author": "Thibault Duplessis",
   "license": "AGPL-3.0-or-later",
   "dependencies": {
-    "@types/debounce-promise": "^3.1.6",
+    "@types/debounce-promise": "^3.1.9",
     "common": "workspace:*",
     "dasher": "workspace:*",
     "debounce-promise": "^3.1.2",
     "setup": "workspace:*",
-    "snabbdom": "^3.5.1"
+    "snabbdom": "3.5.1"
   },
   "lichess": {
     "modules": {

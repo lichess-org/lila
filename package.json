@@ -26,8 +26,8 @@
   },
   "dependencies": {
     "@types/lichess": "workspace:*",
-    "@types/node": "^20.11.28",
-    "@types/web": "^0.0.142",
+    "@types/node": "20.11.28",
+    "@types/web": "0.0.142",
     "@typescript-eslint/eslint-plugin": "^7.2.0",
     "@typescript-eslint/parser": "^7.2.0",
     "ab": "github:lichess-org/ab-stub",

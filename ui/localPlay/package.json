@@ -12,7 +12,7 @@
     "game": "workspace:*",
     "libot": "workspace:*",
     "round": "workspace:*",
-    "snabbdom": "^3.5.1"
+    "snabbdom": "3.5.1"
   },
   "lichess": {
     "modules": {

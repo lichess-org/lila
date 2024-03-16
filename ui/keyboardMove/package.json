@@ -14,11 +14,11 @@
   "author": "Thibault Duplessis",
   "license": "AGPL-3.0-or-later",
   "dependencies": {
-    "@jest/globals": "^29.3.1",
+    "@jest/globals": "^29.7.0",
     "chess": "workspace:*",
     "common": "workspace:*",
     "game": "workspace:*",
-    "snabbdom": "^3.5.1"
+    "snabbdom": "3.5.1"
   },
   "lichess": {
     "modules": {

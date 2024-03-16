@@ -12,10 +12,10 @@ importers:
         specifier: workspace:*
         version: link:ui/@types/lichess
       '@types/node':
-        specifier: ^20.11.28
+        specifier: 20.11.28
         version: 20.11.28
       '@types/web':
-        specifier: ^0.0.142
+        specifier: 0.0.142
         version: 0.0.142
       '@typescript-eslint/eslint-plugin':
         specifier: ^7.2.0
@@ -74,13 +74,13 @@ importers:
         specifier: ^0.2.13
         version: 0.2.13
       '@types/debounce-promise':
-        specifier: ^3.1.6
+        specifier: ^3.1.9
         version: 3.1.9
       '@types/yaireo__tagify':
-        specifier: ^4.17.3
+        specifier: ^4.18.0
         version: 4.18.0
       '@yaireo/tagify':
-        specifier: ^4.17.9
+        specifier: ^4.21.2
         version: 4.21.2(prop-types@15.8.1)
       ceval:
         specifier: workspace:*
@@ -116,8 +116,8 @@ importers:
         specifier: ^11.2.0
         version: 11.2.0
       snabbdom:
-        specifier: ^3.5.1
-        version: 3.6.2
+        specifier: 3.5.1
+        version: 3.5.1
       tree:
         specifier: workspace:*
         version: link:../tree
@@ -128,8 +128,8 @@ importers:
         specifier: workspace:*
         version: link:../common
       snabbdom:
-        specifier: ^3.5.1
-        version: 3.6.2
+        specifier: 3.5.1
+        version: 3.5.1
 
   ui/ceval:
     dependencies:
@@ -149,8 +149,8 @@ importers:
         specifier: 0.0.3
         version: 0.0.3
       snabbdom:
-        specifier: ^3.5.1
-        version: 3.6.2
+        specifier: 3.5.1
+        version: 3.5.1
       stockfish-mv.wasm:
         specifier: ^0.6.1
         version: 0.6.1
@@ -170,8 +170,8 @@ importers:
         specifier: workspace:*
         version: link:../common
       snabbdom:
-        specifier: ^3.5.1
-        version: 3.6.2
+        specifier: 3.5.1
+        version: 3.5.1
 
   ui/chart:
     dependencies:
@@ -182,7 +182,7 @@ importers:
         specifier: workspace:*
         version: link:../ceval
       chart.js:
-        specifier: 4.4.0
+        specifier: '=4.4.0'
         version: 4.4.0
       chartjs-adapter-dayjs-4:
         specifier: ^1.0.4
@@ -212,8 +212,8 @@ importers:
         specifier: workspace:*
         version: link:../palantir
       snabbdom:
-        specifier: ^3.5.1
-        version: 3.6.2
+        specifier: 3.5.1
+        version: 3.5.1
 
   ui/chess:
     dependencies:
@@ -221,8 +221,8 @@ importers:
         specifier: workspace:*
         version: link:../common
       snabbdom:
-        specifier: ^3.5.1
-        version: 3.6.2
+        specifier: 3.5.1
+        version: 3.5.1
 
   ui/cli:
     dependencies:
@@ -239,8 +239,8 @@ importers:
         specifier: ^2.0.1
         version: 2.0.1
       snabbdom:
-        specifier: ^3.5.1
-        version: 3.6.2
+        specifier: 3.5.1
+        version: 3.5.1
       tablesort:
         specifier: ^5.3.0
         version: 5.3.0
@@ -251,14 +251,14 @@ importers:
         specifier: ^0.3.10
         version: 0.3.10
       '@types/fnando__sparkline':
-        specifier: ^0.3.4
+        specifier: ^0.3.7
         version: 0.3.7
       common:
         specifier: workspace:*
         version: link:../common
       snabbdom:
-        specifier: ^3.5.1
-        version: 3.6.2
+        specifier: 3.5.1
+        version: 3.5.1
       voice:
         specifier: workspace:*
         version: link:../voice
@@ -269,8 +269,8 @@ importers:
         specifier: workspace:*
         version: link:../common
       snabbdom:
-        specifier: ^3.5.1
-        version: 3.6.2
+        specifier: 3.5.1
+        version: 3.5.1
 
   ui/dgt:
     dependencies:
@@ -287,8 +287,8 @@ importers:
         specifier: workspace:*
         version: link:../common
       snabbdom:
-        specifier: ^3.5.1
-        version: 3.6.2
+        specifier: 3.5.1
+        version: 3.5.1
 
   ui/game:
     dependencies:
@@ -296,8 +296,8 @@ importers:
         specifier: workspace:*
         version: link:../common
       snabbdom:
-        specifier: ^3.5.1
-        version: 3.6.2
+        specifier: 3.5.1
+        version: 3.5.1
 
   ui/insight:
     dependencies:
@@ -306,21 +306,21 @@ importers:
         version: link:../chart
       chart.js:
         specifier: ^4.4.0
-        version: 4.4.0
+        version: 4.4.2
       chartjs-plugin-datalabels:
         specifier: ^2.2.0
-        version: 2.2.0(chart.js@4.4.0)
+        version: 2.2.0(chart.js@4.4.2)
       common:
         specifier: workspace:*
         version: link:../common
       snabbdom:
-        specifier: ^3.5.1
-        version: 3.6.2
+        specifier: 3.5.1
+        version: 3.5.1
 
   ui/keyboardMove:
     dependencies:
       '@jest/globals':
-        specifier: ^29.3.1
+        specifier: ^29.7.0
         version: 29.7.0
       chess:
         specifier: workspace:*
@@ -332,8 +332,8 @@ importers:
         specifier: workspace:*
         version: link:../game
       snabbdom:
-        specifier: ^3.5.1
-        version: 3.6.2
+        specifier: 3.5.1
+        version: 3.5.1
 
   ui/learn:
     dependencies:
@@ -365,7 +365,7 @@ importers:
   ui/lobby:
     dependencies:
       '@types/debounce-promise':
-        specifier: ^3.1.6
+        specifier: ^3.1.9
         version: 3.1.9
       common:
         specifier: workspace:*
@@ -380,8 +380,8 @@ importers:
         specifier: workspace:*
         version: link:../setup
       snabbdom:
-        specifier: ^3.5.1
-        version: 3.6.2
+        specifier: 3.5.1
+        version: 3.5.1
 
   ui/localPlay:
     dependencies:
@@ -410,22 +410,22 @@ importers:
         specifier: workspace:*
         version: link:../round
       snabbdom:
-        specifier: ^3.5.1
-        version: 3.6.2
+        specifier: 3.5.1
+        version: 3.5.1
 
   ui/mod:
     dependencies:
       '@types/debounce-promise':
-        specifier: ^3.1.6
+        specifier: ^3.1.9
         version: 3.1.9
       '@types/yaireo__tagify':
-        specifier: ^4.16.0
+        specifier: ^4.18.0
         version: 4.18.0
       '@yaireo/tagify':
-        specifier: ^4.17.6
+        specifier: ^4.21.2
         version: 4.21.2(prop-types@15.8.1)
       apexcharts:
-        specifier: ^3.36.3
+        specifier: ^3.37.0
         version: 3.47.0
       common:
         specifier: workspace:*
@@ -446,8 +446,8 @@ importers:
         specifier: workspace:*
         version: link:../common
       snabbdom:
-        specifier: ^3.5.1
-        version: 3.6.2
+        specifier: 3.5.1
+        version: 3.5.1
 
   ui/notify:
     dependencies:
@@ -455,8 +455,8 @@ importers:
         specifier: workspace:*
         version: link:../common
       snabbdom:
-        specifier: ^3.5.1
-        version: 3.6.2
+        specifier: 3.5.1
+        version: 3.5.1
 
   ui/nvui:
     dependencies:
@@ -467,13 +467,13 @@ importers:
         specifier: ^0.14.0
         version: 0.14.1
       snabbdom:
-        specifier: ^3.5.1
-        version: 3.6.2
+        specifier: 3.5.1
+        version: 3.5.1
 
   ui/opening:
     dependencies:
       '@types/debounce-promise':
-        specifier: ^3.1.6
+        specifier: ^3.1.9
         version: 3.1.9
       chart.js:
         specifier: '=4.4.0'
@@ -500,22 +500,22 @@ importers:
         specifier: ^0.3.10
         version: 0.3.10
       '@toast-ui/editor':
-        specifier: '=3.1.7'
-        version: 3.1.7
+        specifier: ^3.2.2
+        version: 3.2.2
       '@types/debounce-promise':
-        specifier: ^3.1.6
+        specifier: ^3.1.9
         version: 3.1.9
       '@types/fnando__sparkline':
-        specifier: ^0.3.4
+        specifier: ^0.3.7
         version: 0.3.7
       '@types/yaireo__tagify':
-        specifier: ^4.17.0
+        specifier: ^4.18.0
         version: 4.18.0
       '@types/zxcvbn':
-        specifier: ^4.4.1
+        specifier: ^4.4.4
         version: 4.4.4
       '@yaireo/tagify':
-        specifier: ^4.17.6
+        specifier: ^4.21.2
         version: 4.21.2(prop-types@15.8.1)
       chat:
         specifier: workspace:*
@@ -557,14 +557,14 @@ importers:
   ui/palantir:
     dependencies:
       '@types/webrtc':
-        specifier: ^0.0.33
-        version: 0.0.33
+        specifier: ^0.0.42
+        version: 0.0.42
       common:
         specifier: workspace:*
         version: link:../common
       snabbdom:
-        specifier: ^3.5.1
-        version: 3.6.2
+        specifier: 3.5.1
+        version: 3.5.1
 
   ui/puz:
     dependencies:
@@ -575,8 +575,8 @@ importers:
         specifier: workspace:*
         version: link:../common
       snabbdom:
-        specifier: ^3.5.1
-        version: 3.6.2
+        specifier: 3.5.1
+        version: 3.5.1
 
   ui/puzzle:
     dependencies:
@@ -605,8 +605,8 @@ importers:
         specifier: workspace:*
         version: link:../nvui
       snabbdom:
-        specifier: ^3.5.1
-        version: 3.6.2
+        specifier: 3.5.1
+        version: 3.5.1
       tree:
         specifier: workspace:*
         version: link:../tree
@@ -629,8 +629,8 @@ importers:
         specifier: workspace:*
         version: link:../puz
       snabbdom:
-        specifier: ^3.5.1
-        version: 3.6.2
+        specifier: 3.5.1
+        version: 3.5.1
 
   ui/round:
     dependencies:
@@ -656,8 +656,8 @@ importers:
         specifier: workspace:*
         version: link:../nvui
       snabbdom:
-        specifier: ^3.5.1
-        version: 3.6.2
+        specifier: 3.5.1
+        version: 3.5.1
       voice:
         specifier: workspace:*
         version: link:../voice
@@ -677,8 +677,8 @@ importers:
         specifier: workspace:*
         version: link:../libot
       snabbdom:
-        specifier: ^3.5.1
-        version: 3.6.2
+        specifier: 3.5.1
+        version: 3.5.1
 
   ui/simul:
     dependencies:
@@ -692,8 +692,8 @@ importers:
         specifier: workspace:*
         version: link:../game
       snabbdom:
-        specifier: ^3.5.1
-        version: 3.6.2
+        specifier: 3.5.1
+        version: 3.5.1
 
   ui/site:
     dependencies:
@@ -734,8 +734,8 @@ importers:
         specifier: workspace:*
         version: link:../puz
       snabbdom:
-        specifier: ^3.5.1
-        version: 3.6.2
+        specifier: 3.5.1
+        version: 3.5.1
 
   ui/swiss:
     dependencies:
@@ -752,8 +752,8 @@ importers:
         specifier: workspace:*
         version: link:../game
       snabbdom:
-        specifier: ^3.5.1
-        version: 3.6.2
+        specifier: 3.5.1
+        version: 3.5.1
 
   ui/tournament:
     dependencies:
@@ -767,8 +767,8 @@ importers:
         specifier: workspace:*
         version: link:../game
       snabbdom:
-        specifier: ^3.5.1
-        version: 3.6.2
+        specifier: 3.5.1
+        version: 3.5.1
 
   ui/tournamentCalendar:
     dependencies:
@@ -780,13 +780,13 @@ importers:
         version: 2.30.0
       snabbdom:
         specifier: ^3.5.1
-        version: 3.6.2
+        version: 3.5.1
 
   ui/tournamentSchedule:
     dependencies:
       '@types/dragscroll':
-        specifier: 0.0.0
-        version: 0.0.0
+        specifier: 0.0.3
+        version: 0.0.3
       common:
         specifier: workspace:*
         version: link:../common
@@ -794,8 +794,8 @@ importers:
         specifier: ^0.0.8
         version: 0.0.8
       snabbdom:
-        specifier: ^3.5.1
-        version: 3.6.2
+        specifier: 3.5.1
+        version: 3.5.1
 
   ui/tree:
     dependencies:
@@ -827,8 +827,8 @@ importers:
         specifier: workspace:*
         version: link:../common
       snabbdom:
-        specifier: ^3.5.1
-        version: 3.6.2
+        specifier: 3.5.1
+        version: 3.5.1
       vosk-browser:
         specifier: ^0.0.8
         version: 0.0.8
@@ -1579,8 +1579,8 @@ packages:
       '@sinonjs/commons': 3.0.1
     dev: false
 
-  /@toast-ui/editor@3.1.7:
-    resolution: {integrity: sha512-SEfahMrrphveuGhOQyYX3UwjJWjCRnnL6pVPc67uVDBS/JsOESJDG2kcfW9MHJhHnOv6m6WV1jRQW9kPatgumw==}
+  /@toast-ui/editor@3.2.2:
+    resolution: {integrity: sha512-ASX7LFjN2ZYQJrwmkUajPs7DRr9FsM1+RQ82CfTO0Y5ZXorBk1VZS4C2Dpxinx9kl55V4F8/A2h2QF4QMDtRbA==}
     dependencies:
       dompurify: 2.4.7
       prosemirror-commands: 1.5.2
@@ -1638,8 +1638,8 @@ packages:
     resolution: {integrity: sha512-awNxydYSU+E2vL7EiOAMtiSOfL5gUM5X4YSE2A92qpxDJQ/rXz6oMPYBFDcDywlUmvIDI6zsqgq17cGm5CITQw==}
     dev: false
 
-  /@types/dragscroll@0.0.0:
-    resolution: {integrity: sha512-rWr/ryzOUi9r/zUA2GK2qLWGBIBmDeIojBQXuvR76pulHUoEGMJ2A7NWShUaA5AE90ha+l9tlsyGz2UioQE9cg==}
+  /@types/dragscroll@0.0.3:
+    resolution: {integrity: sha512-Nti+uvpcVv2VAkqF1+XJivEdE1rxdvWmE4mtMydm9kYBaT0/QsvQSjzqA2G0SE62RoTjVmhC48ap8yfApl8YJw==}
     dev: false
 
   /@types/emscripten@1.39.10:
@@ -1733,8 +1733,8 @@ packages:
     resolution: {integrity: sha512-QWDvMW+P3sdq8rhiw3dNyBR64O5adSY80gBjRd2xI3BADGsAFpAglblWucsGUjKVKyPm4EbYZkvFs7BRxPsBOg==}
     dev: false
 
-  /@types/webrtc@0.0.33:
-    resolution: {integrity: sha512-xjN6BelzkY3lzXjIjXGqJVDS6XDleEsvp1bVIyNccXCcMoTH3wvUXFew4/qflwJdNqjmq98Zc5VcALV+XBKBvg==}
+  /@types/webrtc@0.0.42:
+    resolution: {integrity: sha512-YyrG3yzw/JvZs0q3f9SY+AiJr0FJw1qhBjvoQJEUy07udiyakAax2A87BHpB3qnaxsm2ExCvhyUvjTxdsn+qSw==}
     dev: false
 
   /@types/yaireo__tagify@4.18.0:
@@ -2229,6 +2229,13 @@ packages:
       '@kurkle/color': 0.3.2
     dev: false
 
+  /chart.js@4.4.2:
+    resolution: {integrity: sha512-6GD7iKwFpP5kbSD4MeRRRlTnQvxfQREy36uEtm1hzHzcOqwWx0YEHuspuoNlslu+nciLIB7fjjsHkUv/FzFcOg==}
+    engines: {pnpm: '>=8'}
+    dependencies:
+      '@kurkle/color': 0.3.2
+    dev: false
+
   /chartjs-adapter-dayjs-4@1.0.4(chart.js@4.4.0)(dayjs@1.11.10):
     resolution: {integrity: sha512-yy9BAYW4aNzPVrCWZetbILegTRb7HokhgospPoC3b5iZ5qdlqNmXts2KdSp6AqnjkPAp/YWyHDxLvIvwt5x81w==}
     engines: {node: '>=10'}
@@ -2246,6 +2253,14 @@ packages:
       chart.js: '>=3.0.0'
     dependencies:
       chart.js: 4.4.0
+    dev: false
+
+  /chartjs-plugin-datalabels@2.2.0(chart.js@4.4.2):
+    resolution: {integrity: sha512-14ZU30lH7n89oq+A4bWaJPnAG8a7ZTk7dKf48YAzMvJjQtjrgg5Dpk9f+LbjCF6bpx3RAGTeL13IXpKQYyRvlw==}
+    peerDependencies:
+      chart.js: '>=3.0.0'
+    dependencies:
+      chart.js: 4.4.2
     dev: false
 
   /chartjs-plugin-zoom@2.0.1(chart.js@4.4.0):
@@ -2268,9 +2283,8 @@ packages:
     resolution: {integrity: sha512-KeZd/kcXSKQOGO6LOKu/3bAyVSMh7hgPPharMF15HMfNlHfcBpIVZIDAQRO2PNaNMzPWl0LKc05uFHt0D+lZGA==}
     dev: false
 
-  /chessops@0.12.8:
-    resolution: {integrity: sha512-/9pkJa++RU1WiIa/pH4AdFh6ulcxeMlkYm7sc4xAb1jjcmu6MlsOSTjtOUhUXcw5aVJAIrWY2IwPNucNJLCpFw==}
-    deprecated: Version published from wrong branch
+  /chessops@0.12.7:
+    resolution: {integrity: sha512-ylWwKOudgTNJCDq7vx/Rs9fkZwPB3CEk0AJ8NtAfEYOoA3DGRQdS/Z/oQRsnQvs92rUu0yEobn4ZIPzLh8y9/w==}
     dependencies:
       '@badrap/result': 0.2.13
     dev: false
@@ -3757,8 +3771,8 @@ packages:
     dependencies:
       '@types/node': 20.11.28
       chessground: 9.0.4
-      chessops: 0.12.8
-      snabbdom: 3.6.2
+      chessops: 0.12.7
+      snabbdom: 3.5.1
     dev: false
 
   /lila-stockfish-web@0.0.3:
@@ -4439,9 +4453,9 @@ packages:
       is-fullwidth-code-point: 5.0.0
     dev: false
 
-  /snabbdom@3.6.2:
-    resolution: {integrity: sha512-ig5qOnCDbugFntKi6c7Xlib8bA6xiJVk8O+WdFrV3wxbMqeHO0hXFQC4nAhPVWfZfi8255lcZkNhtIBINCc4+Q==}
-    engines: {node: '>=12.17.0'}
+  /snabbdom@3.5.1:
+    resolution: {integrity: sha512-wHMNIOjkm/YNE5EM3RCbr/+DVgPg6AqQAX1eOxO46zYNvCXjKP5Y865tqQj3EXnaMBjkxmQA5jFuDpDK/dbfiA==}
+    engines: {node: '>=8.3.0'}
     dev: false
 
   /source-map-js@1.0.2:

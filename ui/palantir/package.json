@@ -14,9 +14,9 @@
   "author": "Thibault Duplessis",
   "license": "AGPL-3.0-or-later",
   "dependencies": {
-    "@types/webrtc": "^0.0.33",
+    "@types/webrtc": "^0.0.42",
     "common": "workspace:*",
-    "snabbdom": "^3.5.1"
+    "snabbdom": "3.5.1"
   },
   "lichess": {
     "modules": {

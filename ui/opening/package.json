@@ -6,7 +6,7 @@
   "author": "Thibault Duplessis",
   "license": "AGPL-3.0-or-later",
   "dependencies": {
-    "@types/debounce-promise": "^3.1.6",
+    "@types/debounce-promise": "^3.1.9",
     "chart.js": "=4.4.0",
     "chartjs-adapter-dayjs-4": "^1.0.4",
     "common": "workspace:*",
