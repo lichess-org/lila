@@ -159,14 +159,14 @@ private object RelayFormat:
   enum DocFormat:
     case Json, Pgn
 
-  case class Doc(url: URL, format: DocFormat)
+  case class RemoteDoc(url: URL, format: DocFormat)
 
-  def jsonDoc(url: URL) = Doc(url, DocFormat.Json)
-  def pgnDoc(url: URL)  = Doc(url, DocFormat.Pgn)
+  def jsonDoc(url: URL) = RemoteDoc(url, DocFormat.Json)
+  def pgnDoc(url: URL)  = RemoteDoc(url, DocFormat.Pgn)
 
-  case class SingleFile(doc: Doc) extends RelayFormat
+  case class SingleFile(doc: RemoteDoc) extends RelayFormat
 
-  type GameNumberToDoc = Int => Doc
+  type GameNumberToDoc = Int => RemoteDoc
 
   case class ManyFiles(jsonIndex: URL, game: GameNumberToDoc) extends RelayFormat:
     override def toString = s"Manyfiles($jsonIndex, ${game(0)})"
