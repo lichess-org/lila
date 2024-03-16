@@ -37,6 +37,11 @@ export function relayView(
 }
 
 export function renderStreamerMenu(relay: RelayCtrl) {
+  const makeUrl = (id: string) => {
+    const url = new URL(location.href);
+    url.searchParams.set('embed', id);
+    return url.toString();
+  };
   return h(
     'div.streamer-menu-anchor',
     h(
@@ -49,15 +54,8 @@ export function renderStreamerMenu(relay: RelayCtrl) {
           }),
         ),
       },
-      h(
-        'div',
-        relay.streams.map(([id, name]) =>
-          h(
-            'button.button-empty.streamer',
-            { attrs: { 'data-icon': licon.Mic }, hook: bind('click', () => relay.showStream(id)) },
-            name,
-          ),
-        ),
+      relay.streams.map(([id, name]) =>
+        h('a.streamer.text', { attrs: { 'data-icon': licon.Mic, href: makeUrl(id) } }, name),
       ),
     ),
   );

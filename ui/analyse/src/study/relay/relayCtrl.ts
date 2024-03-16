@@ -99,12 +99,6 @@ export default class RelayCtrl {
     else history.replaceState({}, '', url);
   };
 
-  showStream = (id: string) => {
-    const url = new URL(location.href);
-    url.searchParams.set('embed', id);
-    location.replace(url);
-  };
-
   isStreamer = () => this.streams.some(([id]) => id === document.body.dataset.user);
 
   private socketHandlers = {

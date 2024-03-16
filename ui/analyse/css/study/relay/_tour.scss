@@ -386,6 +386,9 @@ $hover-bg: mix($c-primary, $c-bg-box, 30%);
 }
 
 .relay-tour__side {
+  &__header {
+    position: relative;
+  }
   .streamer-show {
     display: none;
     position: relative;
@@ -429,33 +432,28 @@ $hover-bg: mix($c-primary, $c-bg-box, 30%);
     position: absolute;
     max-height: 12em;
     overflow-y: auto;
-    background: $c-bg-high;
+    background: $c-bg-zebra;
     z-index: z(mz-menu);
     width: 100%;
-    padding: 0.5em 0;
-    border-top: $c-primary 2px solid;
-    border-bottom: $border;
+    border: $c-primary 2px solid;
   }
 
   .streamer {
-    width: 100%;
-    padding: 0.3em 1em;
+    @extend %flex-center-nowrap;
+    padding: 0.7em 1em;
     font-size: 1.1em;
-    border: none;
-    outline: none;
-    background: none;
-    text-align: start;
+    color: $c-font;
 
     &::before {
-      font-size: 1.4em;
+      font-size: 1.3em;
     }
 
     &:hover {
-      color: $c-brag;
-    }
-
-    &:focus {
-      background: $c-primary;
+      background: mix($c-primary, $c-bg-box, 30%);
+      &,
+      &::before {
+        color: $c-font-clearer;
+      }
     }
   }
 }
