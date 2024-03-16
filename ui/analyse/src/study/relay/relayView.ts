@@ -6,7 +6,6 @@ import AnalyseCtrl from '../../ctrl';
 import { view as keyboardView } from '../../keyboard';
 import type * as studyDeps from '../../study/studyDeps';
 import { tourSide } from '../../study/relay/relayTourView';
-import { render as renderTrainingView } from '../../view/roundTraining';
 import { renderVideoPlayer } from './videoPlayerView';
 import {
   type RelayViewContext,
