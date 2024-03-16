@@ -36,7 +36,7 @@ object watcher:
       variant = pov.game.variant,
       title = s"${gameVsText(pov.game, withRatings = ctx.pref.showRatings)} • spectator",
       moreJs = frag(roundNvuiTag),
-      jsModule = PageModule(
+      pageModule = PageModule(
         "round",
         Json.obj(
           "data" -> data,
@@ -64,7 +64,7 @@ object watcher:
       variant = pov.game.variant,
       title = gameVsText(pov.game, withRatings = true),
       openGraph = povOpenGraph(pov).some,
-      jsModule = none
+      pageModule = none
     ):
       main(cls := "round")(
         st.aside(cls := "round__side")(

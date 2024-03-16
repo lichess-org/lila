@@ -23,7 +23,7 @@ object show:
       title = rt.fullName,
       moreCss = cssTag("analyse.relay"),
       moreJs = analyseNvuiTag,
-      jsModule = PageModule(
+      pageModule = PageModule(
         "analysisBoard.study",
         Json
           .obj(

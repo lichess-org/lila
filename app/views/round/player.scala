@@ -44,12 +44,12 @@ object player:
             resourceId = res
           )
 
+    val opponentNameOrZen = if ctx.pref.isZen || ctx.pref.isZenAuto then "ZEN" else playerText(pov.opponent)
     bits.layout(
       variant = pov.game.variant,
-      title = s"${trans.play
-          .txt()} ${if ctx.pref.isZen || ctx.pref.isZenAuto then "ZEN" else playerText(pov.opponent)}",
+      title = s"${trans.play.txt()} $opponentNameOrZen",
       moreJs = frag(roundNvuiTag),
-      jsModule = PageModule(
+      pageModule = PageModule(
         "round",
         Json
           .obj(

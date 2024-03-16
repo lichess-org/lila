@@ -82,9 +82,9 @@ if (window.matchMedia('(prefers-color-scheme: dark)').media === 'not all')
   def jsModuleInit(name: String, json: JsValue, nonce: lila.api.Nonce) = frag(
     jsModule(name),
     embedJsUnsafeLoadThen(s"$loadEsmFunction('$name',{init:${safeJsonValue(json)}})", nonce)
-      )
+  )
 
-  def pageModule(name: String)(using PageContext) =
+  def jsPageModule(name: String)(using PageContext) =
     frag(jsModule(name), embedJsUnsafeLoadThen(s"site.asset.loadPageEsm('$name')"))
 
   def analyseInit(mode: String, json: JsValue)(using ctx: PageContext) =
