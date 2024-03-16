@@ -419,7 +419,7 @@ object layout:
           Option.when(!ctx.isAppealUser)(topnavToggle),
           a(cls := "site-title", href := langHref("/"))(
             if ctx.kid.yes then span(title := trans.kidMode.txt(), cls := "kiddo")(":)")
-            else ctx.isBot option botImage,
+            else ctx.isBot.option(botImage),
             div(cls := "site-icon", dataIcon := licon.Logo),
             div(cls := "site-name")(siteNameFrag)
           ),
@@ -453,6 +453,8 @@ object layout:
       )
 
   object inlineJs:
+
+    def apply(nonce: Nonce)(using Lang) = embedJsUnsafe(jsCode, nonce)
 
     private val i18nKeys = List(
       trans.pause,
