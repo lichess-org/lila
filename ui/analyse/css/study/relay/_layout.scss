@@ -84,13 +84,16 @@ main.analyse.is-relay:not(.has-relay-tour) {
     display: none;
   }
   @include breakpoint($mq-col2) {
-    grid-template-rows: 30vh 1em auto 2.5em;
+    grid-template-rows: calc(var(--cg-height) / 2) calc(var(--cg-height) / 2) 2.5em;
     grid-template-areas:
-      'board      gauge side'
-      'board      gauge .'
-      'board      gauge tools'
-      'under      .     controls'
-      'under      .     relay-admin';
+      'board        gauge side'
+      'board        gauge tools'
+      'board        .     controls'
+      'under        under under'
+      'relay-admin  .     .';
+    .analyse__underboard {
+      margin-top: unset;
+    }
   }
   @include breakpoint($mq-col3) {
     grid-template-rows: var(--cg-height) 2.5em;
@@ -108,9 +111,6 @@ main.analyse.is-relay:not(.has-relay-tour) {
     }
     .mchat {
       flex: 5 0 30%;
-    }
-    .analyse__underboard {
-      margin-top: unset;
     }
   }
   .eval-chart-and-training {
