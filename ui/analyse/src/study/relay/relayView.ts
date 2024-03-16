@@ -71,6 +71,5 @@ function renderBoardView(ctx: RelayViewContext) {
     renderUnderboard(ctx),
     tourSide(ctrl, study, relay),
     deps.relayManager(relay, study),
-    renderTrainingView(ctrl),
   ];
 }
