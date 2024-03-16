@@ -6,7 +6,7 @@
   <string name="arenaBanned">Your account is banned from joining arenas.</string>
   <string name="prizeBanned">Your account is banned from tournaments with real prizes.</string>
   <string name="boosterMarked">Your account is marked for rating manipulation.</string>
-  <string name="boosterMarkedInfo">We define this as deliberately manipulating rating by losing games on purpose, or by playing against another account that is deliberately losing games.</string>
+  <string name="boosterMarkedInfo">We define this as deliberately manipulating rating by losing games on purpose or by playing against another account that is deliberately losing games.</string>
   <string name="accountMuted">Your account is muted.</string>
   <string name="accountMutedInfo">Read our %s. Failure to follow the communication guidelines can result in accounts being muted.</string>
   <string name="excludedFromLeaderboards">Your account has been excluded from leaderboards.</string>
