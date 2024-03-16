@@ -67,8 +67,7 @@ $hover-bg: if($theme == 'dark', rgba(#6ae, 0.3), rgba($c-primary, 0.05));
     }
     &__search {
       border-left: $border !important;
-      padding: 12px;
-      font-size: 1.2em;
+      padding: 0 1.2em;
     }
     .chat__members {
       flex: 0 0 auto;
