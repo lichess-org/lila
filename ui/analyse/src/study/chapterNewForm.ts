@@ -1,18 +1,18 @@
 import { parseFen } from 'chessops/fen';
 import { defined, prop, Prop, toggle } from 'common';
 import * as licon from 'common/licon';
-import { snabDialog } from 'common/dialog';
 import { bind, bindSubmit, onInsert, looseH as h } from 'common/snabbdom';
-import { storedStringProp } from 'common/storage';
+import { storedProp } from 'common/storage';
 import * as xhr from 'common/xhr';
 import { VNode } from 'snabbdom';
 import AnalyseCtrl from '../ctrl';
 import { StudySocketSend } from '../socket';
 import { spinnerVdom as spinner } from 'common/spinner';
 import { option } from '../view/util';
-import { ChapterData, ChapterMode, Orientation, StudyChapterMeta } from './interfaces';
-import { chapter as chapterTour } from './studyTour';
+import { ChapterData, ChapterMode, ChapterTab, Orientation, StudyTour } from './interfaces';
 import { importPgn, variants as xhrVariants } from './studyXhr';
+import { StudyChapters } from './studyChapters';
+import { FEN } from 'chessground/types';
 
 export const modeChoices = [
   ['normal', 'normalAnalysis'],
@@ -29,22 +29,27 @@ export class StudyChapterNewForm {
   variants: Variant[] = [];
   isOpen = toggle(false);
   initial = toggle(false);
-  tab = storedStringProp('analyse.study.form.tab', 'init');
+  tab = storedProp<ChapterTab>(
+    'analyse.study.form.tab',
+    'init',
+    str => str as ChapterTab,
+    v => v,
+  );
   editor: LichessEditor | null = null;
-  editorFen: Prop<Fen | null> = prop(null);
+  editorFen: Prop<FEN | null> = prop(null);
   isDefaultName = toggle(true);
 
   constructor(
     private readonly send: StudySocketSend,
-    readonly chapters: Prop<StudyChapterMeta[]>,
+    readonly chapters: StudyChapters,
     readonly setTab: () => void,
     readonly root: AnalyseCtrl,
   ) {
-    lichess.pubsub.on('analyse.close-all', () => this.isOpen(false));
+    site.pubsub.on('analyse.close-all', () => this.isOpen(false));
   }
 
   open = () => {
-    lichess.pubsub.emit('analyse.close-all');
+    site.pubsub.emit('analyse.close-all');
     this.isOpen(true);
     this.loadVariants();
     this.initial(false);
@@ -72,11 +77,17 @@ export class StudyChapterNewForm {
     this.isOpen(false);
     this.setTab();
   };
-  startTour = () =>
-    chapterTour(tab => {
+  startTour = async () => {
+    const [tour] = await Promise.all([
+      site.asset.loadEsm<StudyTour>('study.tour'),
+      site.asset.loadCssPath('shepherd'),
+    ]);
+
+    tour.chapter(tab => {
       this.tab(tab);
       this.redraw();
     });
+  };
   redraw = this.root.redraw;
 }
 
@@ -84,7 +95,7 @@ export function view(ctrl: StudyChapterNewForm): VNode {
   const trans = ctrl.root.trans,
     study = ctrl.root.study!;
   const activeTab = ctrl.tab();
-  const makeTab = (key: string, name: string, title: string) =>
+  const makeTab = (key: ChapterTab, name: string, title: string) =>
     h(
       'span.' + key,
       {
@@ -115,7 +126,7 @@ export function view(ctrl: StudyChapterNewForm): VNode {
     : 'normal';
   const noarg = trans.noarg;
 
-  return snabDialog({
+  return site.dialog.snab({
     class: 'chapter-new',
     onClose() {
       ctrl.isOpen(false);
@@ -154,7 +165,7 @@ export function view(ctrl: StudyChapterNewForm): VNode {
               attrs: { minlength: 2, maxlength: 80 },
               hook: onInsert<HTMLInputElement>(el => {
                 if (!el.value) {
-                  el.value = trans('chapterX', ctrl.initial() ? 1 : ctrl.chapters().length + 1);
+                  el.value = trans('chapterX', ctrl.initial() ? 1 : ctrl.chapters.size() + 1);
                   el.onchange = () => ctrl.isDefaultName(false);
                   el.select();
                   el.focus();
@@ -185,7 +196,7 @@ export function view(ctrl: StudyChapterNewForm): VNode {
                         onChange: ctrl.editorFen,
                         coordinates: true,
                       };
-                      ctrl.editor = await lichess.asset.loadEsm<LichessEditor>('editor', { init: data });
+                      ctrl.editor = await site.asset.loadEsm<LichessEditor>('editor', { init: data });
                       ctrl.editorFen(ctrl.editor.getFen());
                     });
                   },

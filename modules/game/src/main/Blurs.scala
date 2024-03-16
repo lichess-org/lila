@@ -1,6 +1,7 @@
 package lila.game
 
 import alleycats.Zero
+
 import scala.util.Success
 
 opaque type Blurs = Long
@@ -26,7 +27,7 @@ object Blurs extends OpaqueLong[Blurs]:
       if moveIndex < 0 || moveIndex > 63 then bits
       else Blurs(bits | (1L << moveIndex))
 
-    def asInt = ((bits >>> 32) == 0) option bits.toInt
+    def asInt = ((bits >>> 32) == 0).option(bits.toInt)
 
     def binaryString: String = java.lang.Long.toBinaryString(bits).reverse
 

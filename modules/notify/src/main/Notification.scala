@@ -1,12 +1,11 @@
 package lila.notify
-
-import reactivemongo.api.bson.Macros.Annotations.Key
-import ornicar.scalalib.ThreadLocalRandom
 import alleycats.Zero
+import ornicar.scalalib.ThreadLocalRandom
+import reactivemongo.api.bson.Macros.Annotations.Key
 
+import lila.common.licon
 import lila.common.paginator.Paginator
 import lila.notify.Notification.*
-import lila.common.licon
 
 sealed abstract class NotificationContent(val key: String)
 
@@ -76,6 +75,12 @@ case class GenericLink(
     icon: licon.Icon
 ) extends NotificationContent("genericLink")
 
+case class BroadcastRound(
+    url: String,
+    title: String,
+    text: String
+) extends NotificationContent("broadcastRound")
+
 case class PushNotification(
     to: Iterable[NotifyAllows],
     content: NotificationContent,
@@ -87,7 +92,8 @@ private[notify] case class Notification(
     notifies: UserId,
     content: NotificationContent,
     read: NotificationRead,
-    createdAt: Instant
+    createdAt: Instant,
+    expiresAt: Option[Instant] = None
 ):
   def to = notifies
 
@@ -105,7 +111,16 @@ object Notification:
 
   case class AndUnread(pager: Paginator[Notification], unread: UnreadCount)
 
-  def make[U](to: U, content: NotificationContent)(using userIdOf: UserIdOf[U]): Notification =
-    val idSize = 8
-    val id     = ThreadLocalRandom nextString idSize
-    Notification(id, userIdOf(to), content, NotificationRead(false), nowInstant)
+  def make[U: UserIdOf](
+      to: U,
+      content: NotificationContent,
+      expiresIn: Option[FiniteDuration] = none
+  ): Notification =
+    Notification(
+      id = ThreadLocalRandom.nextString(8),
+      notifies = to.id,
+      content = content,
+      read = NotificationRead(false),
+      createdAt = nowInstant,
+      expiresAt = expiresIn.map(nowInstant.plus(_))
+    )

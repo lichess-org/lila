@@ -4,8 +4,8 @@
   <string name="lichessStreamer">Личес агымчысы</string>
   <string name="live">ЯШӘ!</string>
   <string name="offline">ТОТАШМАГАН</string>
-  <string name="currentlyStreaming">Хәзерге агымлар: %s</string>
-  <string name="lastStream">Соңгы агым %s</string>
+  <string name="currentlyStreaming" comment="%s is the title of the stream, chosen by the streamer.">Хәзерге агымлар: %s</string>
+  <string name="lastStream" comment="%s is how long ago the stream was in relative time (e.g. 50 minutes ago). It is displayed in smaller type than the rest of the string.">Соңгы агым %s</string>
   <string name="becomeStreamer">Lichess агымы бул</string>
   <string name="doYouHaveStream">Сездә Twitch яки YouTube каналы бармы?</string>
   <string name="hereWeGo">Монда йөрибез!</string>
@@ -27,8 +27,8 @@
   <string name="pendingReview">Сезнең агым модераторлар тарафыннан карала.</string>
   <string name="pleaseFillIn">Зинһар, агымдагы мәгълүматны тутырыгыз һәм рәсем йөкләгез.</string>
   <string name="whenReady" comment="whenReady&#10;&#10;%s is &quot;request a moderator review&quot;">Сез Lichess агымы исемлегенә керергә әзер булгач, %s</string>
-  <string name="requestReview" comment="requestReview&#10;&#10;Used in the sense of: &quot;When you are ready to be listed as a Lichess streamer, request a moderator review&quot;">модератор раслауны карый</string>
-  <string name="twitchUsername">Сезнең Twitch кулланучы исеме яки URL</string>
+  <string name="requestReview" comment="requestReview&#10;&#10;Used as part of the longer sentence: &quot;When you are ready to be listed as a Lichess streamer, request a moderator review&quot;">модератор раслауны карый</string>
+  <string name="twitchUsername" comment="Appears on the form for setting up your Streamer page: https://lichess.org/streamer/edit&#10;&#10;Twitch is a proper noun and refers to the streaming service https://twitch.tv/. Please do not translate the word 'Twitch'.">Сезнең Twitch кулланучы исеме яки URL</string>
   <string name="optionalOrEmpty">Ихтимал. Әгәр дә булмаса, буш калдырыгыз</string>
   <string name="streamerName">Личесста сезнең агым исеме</string>
   <plurals name="keepItShort">

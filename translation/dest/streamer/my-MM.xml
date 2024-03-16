@@ -4,8 +4,8 @@
   <string name="lichessStreamer">Lichess ရုပ်လွှင့်သူ</string>
   <string name="live">LIVE!</string>
   <string name="offline">လိုင်းပေါ်တွင်မရှိ</string>
-  <string name="currentlyStreaming">ရုပ်လွှင့်နေသူများ %s</string>
-  <string name="lastStream">နောက်ဆုံးရုပ်လွှင့်ခဲ့ချိန် %s</string>
+  <string name="currentlyStreaming" comment="%s is the title of the stream, chosen by the streamer.">ရုပ်လွှင့်နေသူများ %s</string>
+  <string name="lastStream" comment="%s is how long ago the stream was in relative time (e.g. 50 minutes ago). It is displayed in smaller type than the rest of the string.">နောက်ဆုံးရုပ်လွှင့်ခဲ့ချိန် %s</string>
   <string name="becomeStreamer">Lichess ရုပ်လွှင့်သူ လုပ်ပါ</string>
   <string name="doYouHaveStream">သင့်တွင် Twitch (သို့) Youtube ချန်နယ်ရှိပါသလား?</string>
   <string name="hereWeGo">စလိုက်ကြရအောင်!</string>

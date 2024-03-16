@@ -85,7 +85,7 @@ export const timePickerAndSliders = (ctrl: SetupCtrl, allowAnonymous = false) =>
   const trans = ctrl.root.trans;
   return h(
     'div.time-mode-config.optional-config',
-    lichess.blindMode
+    site.blindMode
       ? renderBlindModeTimePickers(ctrl, allowAnonymous)
       : [
           renderTimeModePicker(ctrl, allowAnonymous),

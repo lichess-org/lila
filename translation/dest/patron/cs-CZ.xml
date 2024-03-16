@@ -84,4 +84,7 @@ Patroni se však blýsknou novou cool ikonou profilu.</string>
   <string name="nowOneMonth">Nyní jste Lichess Patronem na jeden měsíc!</string>
   <string name="downgradeNextMonth">Jeden měsíc Vám NEBUDE znovu účtován poplatek a váš Lichess účet bude ponížen na bezplatný.</string>
   <string name="changeCurrency">Změnit měnu</string>
+  <string name="paymentDetails">Detaily platby</string>
+  <string name="updatePaymentMethod">Aktualizovat způsob platby</string>
+  <string name="stripeManageSub">Spravujte své předplatné a stáhněte si své faktury a účtenky</string>
 </resources>

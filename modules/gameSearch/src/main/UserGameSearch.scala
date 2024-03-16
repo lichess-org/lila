@@ -1,8 +1,8 @@
 package lila.gameSearch
 
 import play.api.data.FormBinding
-import play.api.mvc.Request
 import play.api.i18n.Lang
+import play.api.mvc.Request
 
 import lila.game.Game
 
@@ -16,10 +16,10 @@ final class UserGameSearch(
       query = forms.search
         .bindFromRequest()
         .fold(
-          _ => SearchData(SearchPlayer(a = (user.id into UserStr).some)),
+          _ => SearchData(SearchPlayer(a = (user.id.into(UserStr)).some)),
           data =>
             data.copy(
-              players = data.players.copy(a = (user.id into UserStr).some)
+              players = data.players.copy(a = (user.id.into(UserStr)).some)
             )
         )
         .query,

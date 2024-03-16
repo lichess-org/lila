@@ -216,7 +216,7 @@
 
     position: absolute;
     top: 100%;
-    right: 0;
+    #{$end-direction}: 0;
     background-color: #000000bb;
 
     #images-viewport {

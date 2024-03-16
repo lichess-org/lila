@@ -3,7 +3,7 @@ import { SetupCtrl } from '../../ctrl';
 import { option } from './option';
 
 export const levelButtons = (ctrl: SetupCtrl) => {
-  return lichess.blindMode
+  return site.blindMode
     ? [
         h('label', { attrs: { for: 'sf_level' } }, ctrl.root.trans('strength')),
         h(

@@ -25,8 +25,7 @@
   <string name="longestStreak">Najdlhšia séria: %s</string>
   <string name="currentStreak">Súčasná séria: %s</string>
   <string name="bestRated">Najlepšie hodnotené víťazstvá</string>
-  <string name="worstRated">Najhoršie hodnotené víťazstvá</string>
-  <string name="gamesInARow">Hry hrané v rade</string>
+  <string name="gamesInARow">Séria partií po sebe</string>
   <string name="lessThanOneHour">Menej ako hodina medzi hrami</string>
   <string name="maxTimePlaying">Max čas strávený hraním</string>
   <string name="now">teraz</string>

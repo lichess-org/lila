@@ -1,7 +1,7 @@
 package lila.puzzle
 
-import chess.format.{ Fen, Uci }
 import chess.Ply
+import chess.format.{ Fen, Uci }
 
 import lila.rating.Glicko
 
@@ -19,12 +19,12 @@ case class Puzzle(
   def initialPly: Ply = Fen.readPly(fen) | Ply.initial
 
   def situationAfterInitialMove: Option[chess.Situation] = for
-    sit1 <- Fen read fen
+    sit1 <- Fen.read(fen)
     sit2 <- sit1.move(line.head).toOption.map(_.situationAfter)
   yield sit2
 
   lazy val fenAfterInitialMove: Fen.Epd =
-    situationAfterInitialMove map Fen.write err s"Can't apply puzzle $id first move"
+    situationAfterInitialMove.map(Fen.write).err(s"Can't apply puzzle $id first move")
 
   def color = !fen.colorOrWhite
 
@@ -34,7 +34,7 @@ object Puzzle:
 
   val idSize = 5
 
-  def toId(id: String) = id.size == idSize option PuzzleId(id)
+  def toId(id: String) = (id.size == idSize).option(PuzzleId(id))
 
   /* The mobile app requires numerical IDs.
    * We convert string ids from and to Longs using base 62
@@ -50,14 +50,14 @@ object Puzzle:
         l + charToInt(char) * pow
       }
 
-    def apply(l: Long): Option[PuzzleId] = (l > 130_000) so {
+    def apply(l: Long): Option[PuzzleId] = (l > 130_000).so {
       val str = powers.reverse
         .foldLeft(("", l)) { case ((id, rest), pow) =>
           val frac = rest / pow
           (s"${intToChar(frac.toInt)}$id", rest - frac * pow)
         }
         ._1
-      (str.size == idSize) option PuzzleId(str)
+      (str.size == idSize).option(PuzzleId(str))
     }
 
     private def charToInt(c: Char) =

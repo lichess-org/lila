@@ -27,10 +27,12 @@
       @include breakpoint($mq-x-small) {
         grid-area: 1 / 2 / 3 / 2;
       }
+
       &__recent {
         @extend %flex-center;
         margin-top: 1em;
         gap: 0.5em;
+
         .button {
           background: none;
           border: $border;
@@ -38,6 +40,7 @@
           text-transform: none;
         }
       }
+
       .error {
         color: $c-bad;
         margin-top: 1em;
@@ -57,6 +60,14 @@
       height: 13em;
       margin: 2em auto;
     }
+
+    .correspondence-waiting {
+      font-size: 1.5em;
+      margin: 2em auto;
+      &::before {
+        color: $c-good;
+      }
+    }
   }
 
   .cancel {
@@ -74,9 +85,11 @@
     padding: $block-gap 4vw;
     margin-bottom: 4rem;
     font-size: 1.5em;
+
     @include breakpoint($mq-xx-small) {
       font-size: 2em;
     }
+
     background: var(--c-bg);
     border: 1px solid var(--c-font);
 
@@ -88,6 +101,7 @@
         color: var(--c-font);
         font-size: 6rem;
         margin-#{$end-direction}: 0.2em;
+
         @include breakpoint($mq-not-xx-small) {
           display: none;
         }

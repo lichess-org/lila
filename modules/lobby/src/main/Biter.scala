@@ -1,11 +1,12 @@
 package lila.lobby
 
-import chess.{ Game as ChessGame, Situation, ByColor }
+import chess.{ ByColor, Game as ChessGame, Situation }
 
-import actorApi.{ JoinHook, JoinSeek }
 import lila.game.{ Game, Player }
 import lila.socket.Socket.Sri
-import lila.user.{ User, GameUsers }
+import lila.user.{ GameUsers, User }
+
+import actorApi.{ JoinHook, JoinSeek }
 
 final private class Biter(
     userRepo: lila.user.UserRepo,
@@ -32,7 +33,7 @@ final private class Biter(
         hook,
         ownerColor.fold(ByColor(owner, joiner), ByColor(joiner, owner))
       ).withUniqueId
-      _ <- gameRepo insertDenormalized game
+      _ <- gameRepo.insertDenormalized(game)
     yield
       lila.mon.lobby.hook.join.increment()
       rememberIfFixedColor(hook.realColor, game)
@@ -40,24 +41,26 @@ final private class Biter(
 
   private def join(seek: Seek, lobbyUser: LobbyUser): Fu[JoinSeek] =
     for
-      users <- userApi.gamePlayers.loggedIn(
-        ByColor(lobbyUser.id, seek.user.id),
-        seek.perfType
-      ) orFail s"No such seek users: $seek"
+      users <- userApi.gamePlayers
+        .loggedIn(
+          ByColor(lobbyUser.id, seek.user.id),
+          seek.perfType
+        )
+        .orFail(s"No such seek users: $seek")
       (joiner, owner) = users.toPair
       ownerColor <- assignCreatorColor(owner.some, joiner.some, seek.realColor)
       game <- makeGame(
         seek,
         ownerColor.fold(ByColor(owner, joiner), ByColor(joiner, owner)).map(some)
       ).withUniqueId
-      _ <- gameRepo insertDenormalized game
+      _ <- gameRepo.insertDenormalized(game)
     yield
       rememberIfFixedColor(seek.realColor, game)
       JoinSeek(joiner.id, seek, game, ownerColor)
 
   private def rememberIfFixedColor(color: Color, game: Game) =
     if color != Color.Random
-    then gameRepo.fixedColorLobbyCache put game.id
+    then gameRepo.fixedColorLobbyCache.put(game.id)
 
   private def assignCreatorColor(
       creatorUser: Option[User.WithPerf],
@@ -66,7 +69,7 @@ final private class Biter(
   ): Fu[chess.Color] =
     color match
       case Color.Random =>
-        userRepo.firstGetsWhite(creatorUser.map(_.id), joinerUser.map(_.id)) map { chess.Color.fromWhite(_) }
+        userRepo.firstGetsWhite(creatorUser.map(_.id), joinerUser.map(_.id)).map { chess.Color.fromWhite(_) }
       case Color.White => fuccess(chess.White)
       case Color.Black => fuccess(chess.Black)
 

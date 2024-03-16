@@ -70,24 +70,13 @@ case class ContentSecurityPolicy(
 
   def withPeer = copy(connectSrc = "wss://0.peerjs.com" :: connectSrc)
 
-  private def withPrismicEditor(maybe: Boolean): ContentSecurityPolicy =
-    if maybe then
-      copy(
-        scriptSrc = "https://static.cdn.prismic.io" :: scriptSrc,
-        frameSrc = "https://lichess.prismic.io" :: "https://lichess.cdn.prismic.io" :: frameSrc,
-        connectSrc = "https://lichess.prismic.io" :: "https://lichess.cdn.prismic.io" :: connectSrc
-      )
-    else this
-
-  def withPrismic(editor: Boolean): ContentSecurityPolicy = withPrismicEditor(editor).withTwitter
-
   def withAnyWs = copy(connectSrc = "ws:" :: "wss:" :: connectSrc)
 
   def withWikiBooks = copy(connectSrc = "en.wikibooks.org" :: connectSrc)
 
   // for extensions to use their cloud eval API
   // https://www.chessdb.cn/cloudbook_api_en.html
-  def withChessDbCn = copy(connectSrc = "chessdb.cn" :: connectSrc)
+  def withChessDbCn = copy(connectSrc = "www.chessdb.cn" :: connectSrc)
 
   def withExternalAnalysisApis = withWikiBooks.withChessDbCn
 
@@ -106,7 +95,7 @@ case class ContentSecurityPolicy(
       "script-src "  -> scriptSrc,
       "font-src "    -> fontSrc,
       "base-uri "    -> baseUri
-    ) collect {
+    ).collect {
       case (directive, sources) if sources.nonEmpty =>
         sources.mkString(directive, " ", ";")
-    } mkString " "
+    }.mkString(" ")

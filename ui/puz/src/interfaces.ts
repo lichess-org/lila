@@ -8,6 +8,7 @@ export interface PuzCtrl {
   run: Run;
   filters: PuzFilters;
   trans: Trans;
+  pref: PuzPrefs;
 }
 
 export interface PuzPrefs {
@@ -18,6 +19,7 @@ export interface PuzPrefs {
   moveEvent: number;
   highlight: boolean;
   animation: number;
+  ratings: boolean;
 }
 
 export type UserMove = (orig: Key, dest: Key) => void;

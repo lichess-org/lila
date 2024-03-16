@@ -51,6 +51,7 @@ export interface RoundData extends GameData {
   possibleMoves?: EncodedDests;
   possibleDrops?: string;
   forecastCount?: number;
+  opponentSignal?: number;
   crazyhouse?: CrazyData;
   correspondence?: CorresClockData;
   tv?: Tv;
@@ -105,7 +106,7 @@ export interface ChatOpts {
 
 export interface Step {
   ply: Ply;
-  fen: Fen;
+  fen: cg.FEN;
   san: San;
   uci: Uci;
   check?: boolean;

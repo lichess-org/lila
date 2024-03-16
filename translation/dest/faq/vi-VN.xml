@@ -6,7 +6,7 @@
   <string name="lichessCombinationLiveLightLibrePronounced">Lichess là một sự kết hợp của live/light/libre (trực tiếp/nhẹ/miễn phí) và chess (cờ vua). Nó được phát âm là %1$s.</string>
   <string name="leechess">lee-chess (ly-chess/ly-chét)</string>
   <string name="hearItPronouncedBySpecialist">Nghe cách phát âm chuẩn.</string>
-  <string name="whyLiveLightLibre">Luôn trực tiếp vì bạn có thể chơi và xem mọi lúc trong thời gian thực 24/7; light và libre (nhẹ nhàng và miễn phí) vì Lichess có mã nguồn mở và không có các vấn đề độc quyền làm ảnh hướng đến các trang web khác.</string>
+  <string name="whyLiveLightLibre">Luôn trực tiếp (live) vì bạn có thể chơi và xem mọi lúc trong thời gian thực 24/7; nhẹ nhàng và miễn phí (light và libre) vì Lichess có mã nguồn mở và không có các vấn đề độc quyền làm ảnh hướng đến các trang web khác.</string>
   <string name="whyIsLilaCalledLila">Tương tự, mã nguồn của Lichess: %1$s là viết tắt của li[chess trong sca]la, vì phần lớn Lichess được viết bằng %2$s, một ngôn ngữ lập trình trực quan.</string>
   <string name="howCanIContributeToLichess">Làm thế nào để tôi có thể đóng góp cho Lichess?</string>
   <string name="lichessPoweredByDonationsAndVolunteers">Lichess được hỗ trợ bởi sự đóng góp từ những người bảo trợ và nỗ lực của một nhóm tình nguyện viên.</string>
@@ -19,12 +19,12 @@
   <string name="keyboardShortcuts">Có những phím tắt nào?</string>
   <string name="keyboardShortcutsExplanation">Một số trang trên Lichess có phím tắt mà bạn có thể sử dụng. Hãy thử nhấn \'?\' ở trang nghiên cứu, phân tích, câu đố hoặc trang ván đấu để hiển thị các phím tắt khả dụng.</string>
   <string name="fairPlay">Chơi Công Bằng</string>
-  <string name="whenAmIEligibleRatinRefund">Khi nào thì tôi đủ điều kiện để được bồi thường xếp hạng tự động từ những kẻ gian lận?</string>
-  <string name="ratingRefundExplanation">Một phút sau khi một người chơi bị đánh dấu, 40 ván đấu tính Elo mới nhất của họ trong vòng 3 ngày qua sẽ được thực hiện. Nếu bạn là đối thủ của họ trong các ván đấu đó, bạn bị mất xếp hạng (do thua hoặc hòa) và Elo của bạn không phải là tạm thời, bạn sẽ được hoàn lại Elo. Điểm hoàn lại được giới hạn dựa trên Elo cao nhất của bạn và tiến độ Elo của bạn sau ván đấu. (Ví dụ: nếu Elo của bạn tăng lên đáng kể sau các ván đấu đó, bạn có thể không được hoàn điểm hoặc chỉ được hoàn lại một phần.) Khoản hoàn trả sẽ không bao giờ vượt quá 150 điểm.</string>
-  <string name="preventLeavingGameWithoutResigning">Chuyện gì sẽ xảy ra đối với những người chơi rời khỏi ván đấu thay vì chịu thua?</string>
+  <string name="whenAmIEligibleRatinRefund">Khi nào thì tôi đủ điều kiện để được bồi thường Elo tự động từ những kẻ gian lận?</string>
+  <string name="ratingRefundExplanation">Một phút sau khi một người chơi bị đánh dấu, 40 ván đấu tính Elo mới nhất của họ trong vòng 5 ngày qua sẽ được thực hiện. Nếu bạn là đối thủ của họ trong các ván đấu đó, bạn bị mất xếp hạng (do thua hoặc hòa) và Elo của bạn không phải là tạm thời, bạn sẽ được hoàn lại Elo. Điểm hoàn lại được giới hạn dựa trên Elo cao nhất của bạn và tiến độ Elo của bạn sau ván đấu. (Ví dụ: nếu Elo của bạn tăng lên đáng kể sau các ván đấu đó, bạn có thể không được hoàn điểm hoặc chỉ được hoàn lại một phần.) Khoản hoàn trả sẽ không bao giờ vượt quá 150 điểm.</string>
+  <string name="preventLeavingGameWithoutResigning">Chuyện gì sẽ xảy ra đối với những kỳ thủ rời khỏi ván đấu thay vì chịu thua?</string>
   <string name="leavingGameWithoutResigningExplanation">Nếu đối thủ của bạn thường xuyên hủy/rời khỏi ván cờ, họ sẽ bị \"cấm chơi\", có nghĩa là họ tạm thời bị cấm chơi. Điều này không được công khai trên hồ sơ của họ. Nếu hành vi vẫn tiếp tục, độ dài của thời gian cấm sẽ tăng lên - và hành vi này kéo dài có thể dẫn đến việc đóng tài khoản.</string>
-  <string name="howCanIBecomeModerator">Làm sao để tôi có thể trở thành một quản trị viên?</string>
-  <string name="youCannotApply">Rất tiếc là bạn không thể đăng ký để trở thành một quản trị viên. Nếu chúng tôi thấy ai đó mà chúng tôi nghĩ rằng sẽ là một quản trị viên tốt, chúng tôi sẽ liên hệ trực tiếp với họ.</string>
+  <string name="howCanIBecomeModerator">Làm sao để tôi có thể trở thành một điều hành viên?</string>
+  <string name="youCannotApply">Rất tiếc là bạn không thể đăng ký để trở thành một điều hành viên. Nếu chúng tôi thấy ai đó mà chúng tôi nghĩ rằng sẽ là một điều hành viên tốt, chúng tôi sẽ liên hệ trực tiếp với họ.</string>
   <string name="isCorrespondenceDifferent">Đánh cờ qua thư có khác với cờ vua bình thường?</string>
   <string name="pleaseReadFairPlayPage">Để biết thêm thông tin, vui lòng đọc %s</string>
   <string name="fairPlayPage">trang chơi công bằng</string>
@@ -39,7 +39,7 @@ Ví dụ: thời lượng ước tính của một ván cờ 5+3 là 5 × 60 + 4
   <string name="whatVariantsCanIplay">Tôi có thể chơi những loại biến thể nào trên Lichess?</string>
   <string name="lichessSupportChessAnd">Lichess hỗ trợ cờ vua tiêu chuẩn và %1$s.</string>
   <string name="eightVariants">8 biến thể cờ vua khác</string>
-  <string name="whatIsACPL">Phần trăm mất tốt trung bình (ACPL) là gì?</string>
+  <string name="whatIsACPL">Tỉ lệ mất tốt trung bình (ACPL) là gì?</string>
   <string name="acplExplanation">Phần trăm tốt là đơn vị đo lường được sử dụng trong cờ vua để đại diện cho lợi thế. Một phần trăm tốt bằng 1/100 tốt. Do đó 100 phần trăm tốt = 1 tốt. Những giá trị này không đóng vai trò chính thức trong ván đấu nhưng hữu ích cho người chơi, và rất cần thiết trong cờ vua trên máy tính, để đánh giá các thế cờ.
 
 Đẩy tốt lên cao sẽ có thể không làm mất phần trăm tốt, nhưng để tốt thấp sẽ làm giảm lợi thế, được đo bằng phần trăm tốt.
@@ -74,7 +74,7 @@ Xem %3$s về nước này để biết một cách thực hiện nó.</string>
   <string name="positions">những thế cờ</string>
   <string name="weRepeatedthreeTimesPosButNoDraw">Chúng tôi lặp cờ ba lần. Tại sao vẫn không được xử hòa?</string>
   <string name="threeFoldHasToBeClaimed">Sự lặp lại cần được xác nhận bởi một trong hai người chơi. Bạn có thể làm như vậy bằng cách nhấn vào nút được hiển thị hoặc bằng cách đề nghị hòa trước nước đi lặp lại cuối cùng của bạn, sẽ không thành vấn đề nếu đối thủ của bạn từ chối hòa, ván đấu vẫn sẽ được xử hòa theo luật lặp cờ ba lần. Bạn cũng có thể %1$s Lichess để tự động yêu cầu các lần lặp lại cho bạn. Ngoài ra, việc lặp lại năm lần luôn ngay lập tức kết thúc ván đấu.</string>
-  <string name="configure">thiết lập</string>
+  <string name="configure">cấu hình</string>
   <string name="accounts">Tài Khoản</string>
   <string name="titlesAvailableOnLichess">Có những danh hiệu nào trên Lichess?</string>
   <string name="lichessRecognizeAllOTBtitles">Lichess công nhận tất cả các danh hiệu do FIDE ghi nhận từ OTB (thi đấu bên ngoài), cũng như %1$s. Đây là danh sách các danh hiệu được FIDE công nhận:</string>
@@ -111,11 +111,11 @@ Về cơ bản, xếp hạng Glicko sử dụng \"khoảng tin cậy\" để tí
 Về cơ bản, hệ thống chắc chắn 90% rằng xếp hạng của bạn nằm trong khoảng 500 đến 2500. Điều này cực kỳ không chắc chắn. Do đó, khi một người chơi mới bắt đầu, xếp hạng của họ sẽ thay đổi rất đáng kể, có thể vài trăm điểm một lần. Nhưng sau một số trận đấu với những người chơi đã có uy tín, khoảng tin cậy sẽ thu hẹp lại  và số điểm đạt được/mất đi sau mỗi trận đấu sẽ giảm xuống.
 
 Một điểm cần lưu ý nữa là, khi thời gian trôi qua, khoảng tin cậy sẽ tăng lên. Điều này cho phép bạn tăng/giảm điểm nhanh hơn để phù hợp với bất kỳ thay đổi nào trong cấp độ kỹ năng của bạn trong thời gian đó.</string>
-  <string name="whatIsProvisionalRating">Tại sao lại có dấu chấm hỏi (?) bên cạnh xếp hạng?</string>
-  <string name="provisionalRatingExplanation">Dấu chấm hỏi có nghĩa là xếp hạng là tạm thời. Các lý do bao gồm:</string>
-  <string name="notPlayedEnoughRatedGamesAgainstX">Người chơi vẫn chưa hoàn thành đủ các ván đấu được xếp hạng so với %1$s trong danh mục xếp hạng.</string>
+  <string name="whatIsProvisionalRating">Tại sao lại có dấu chấm hỏi (?) bên cạnh hệ số Elo?</string>
+  <string name="provisionalRatingExplanation">Dấu chấm hỏi có nghĩa là hệ số Elo tạm thời. Các lý do bao gồm:</string>
+  <string name="notPlayedEnoughRatedGamesAgainstX">Người chơi vẫn chưa hoàn thành đủ các ván đấu có xếp hạng so với %1$s trong danh mục xếp hạng.</string>
   <string name="similarOpponents">đối thủ có năng lực tương đương</string>
-  <string name="notPlayedRecently">Người chơi không chơi đủ các ván đấu gần đây. Tùy thuộc vào số lượng ván đấu bạn đã chơi, có thể mất khoảng một năm không hoạt động để xếp hạng của bạn trở lại tạm thời.</string>
+  <string name="notPlayedRecently">Người chơi không chơi đủ các ván đấu gần đây. Tùy thuộc vào số lượng ván đấu bạn đã chơi, có thể mất khoảng một năm không hoạt động để hệ số Elo của bạn trở lại tạm thời.</string>
   <string name="ratingDeviationMorethanOneHundredTen">Cụ thể, điều đó có nghĩa là độ lệch Glicko-2 lớn hơn 110. Độ lệch là mức độ tin cậy của hệ thống trong xếp hạng. Độ lệch càng thấp, hệ số Elo càng ổn định.</string>
   <string name="howDoLeaderoardsWork">Thứ hạng và bảng thành tích hoạt động như thế nào?</string>
   <string name="inOrderToAppearsYouMust">Để nhận được %1$s, bạn phải:</string>
@@ -129,11 +129,11 @@ Một điểm cần lưu ý nữa là, khi thời gian trôi qua, khoảng tin c
   <string name="whyAreRatingHigherExplanation">Tốt nhất là không nên coi xếp hạng là con số tuyệt đối hoặc so sánh chúng với các tổ chức khác. Các tổ chức khác nhau có các cấp độ người chơi khác nhau, các hệ thống xếp hạng khác nhau (Elo, Glicko, Glicko-2 hoặc một phiên bản sửa đổi đã nói ở trên). Những yếu tố này có thể ảnh hưởng mạnh đến con số tuyệt đối (xếp hạng).
 
 Tốt nhất bạn nên coi xếp hạng là số liệu \"tương đối\" (trái ngược với số liệu \"tuyệt đối\"): Trong một nhóm người chơi, sự khác biệt tương đối về xếp hạng của họ sẽ giúp bạn ước tính ai sẽ thắng/hòa/thua và tần suất ra sao. Nói \"Tôi có xếp hạng X\" chẳng có nghĩa gì trừ khi có người chơi khác so sánh xếp hạng đó với bạn.</string>
-  <string name="howToHideRatingWhilePlaying">Làm thế nào để ẩn xếp hạng trong lúc chơi?</string>
+  <string name="howToHideRatingWhilePlaying">Làm thế nào để ẩn hệ số Elo trong lúc chơi?</string>
   <string name="enableZenMode">Bật chế độ Zen trong %1$s hoặc bằng cách nhấn %2$s trong khi chơi.</string>
   <string name="displayPreferences">tùy chọn hiển thị</string>
-  <string name="connexionLostCanIGetMyRatingBack">Tôi đã thua một ván đấu do lag/mất kết nối. Tôi có thể lấy lại điểm xếp hạng của mình không?</string>
-  <string name="weCannotDoThatEvenIfItIsServerSideButThatsRare">Rất tiếc, chúng tôi không thể trả lại điểm xếp hạng cho các ván đấu bị thua do lag hoặc mất kết nối, bất kể vấn đề là do bạn hay do chúng tôi. Tuy nhiên, trường hợp thứ hai là rất hiếm. Cũng lưu ý rằng khi Lichess khởi động lại và bạn thua do hết giờ vì điều đó, chúng tôi sẽ hủy trò chơi để tránh bị mất oan.</string>
+  <string name="connexionLostCanIGetMyRatingBack">Tôi đã thua một ván đấu do lag/mất kết nối. Tôi có thể lấy lại điểm Elo của mình không?</string>
+  <string name="weCannotDoThatEvenIfItIsServerSideButThatsRare">Rất tiếc, chúng tôi không thể trả lại điểm Elo cho các ván đấu bị thua do lag hoặc mất kết nối, bất kể vấn đề là do bạn hay do chúng tôi. Tuy nhiên, trường hợp thứ hai là rất hiếm. Cũng lưu ý rằng khi Lichess khởi động lại và bạn thua do hết giờ vì điều đó, chúng tôi sẽ hủy trò chơi để tránh bị mất oan.</string>
   <string name="howToThreeDots">Làm thế nào để...</string>
   <string name="enableDisableNotificationPopUps">Bật hoặc tắt cửa sổ thông báo?</string>
   <string name="viewSiteInformationPopUp">Xem cửa sổ thông tin trang web</string>
@@ -149,19 +149,19 @@ Biểu tượng tắt tiếng màu đỏ xuất hiện khi trình duyệt của 
 
 Chúng tôi hiển thị biểu tượng màu đỏ để cảnh báo bạn khi điều này xẩy ra. Thông thường, bạn có thể cho phép lichess.org phát âm thanh một cách rõ ràng. Dưới đây là hướng dẫn thực hiện trên các phiên bản gần đây của một số trình duyệt phổ biến.</string>
   <string name="desktop">máy tính để bàn</string>
-  <string name="enableAutoplayForSoundsFirefox" comment="Guidance for Mozilla Firefox users on how to enable audio auto-play if they have sound issues.&#10;&#10;Please keep 'i' lowercase, for two reasons:&#10;1. Capital L and capital I are hard to differentiate for users.&#10;2. So users don't press Ctrl+Shift+I to get a capital I. This is a different shortcut in the browser.">1. Truy cập vào lichess.org
+  <string name="enableAutoplayForSoundsFirefox">1. Truy cập vào lichess.org
 2. Nhấn tổ hợp phím Ctrl-i trên Windows/Linux hoặc cmd-i trên MacOS
 3. Nhấn vào tab Quyền (Permissions)
 4. Cho phép Video và Âm Thanh (Audio)</string>
-  <string name="enableAutoplayForSoundsChrome" comment="Guidance for Google Chrome users on how to enable audio auto-play if they have sound issues.">1. Truy cập vào lichess.org
+  <string name="enableAutoplayForSoundsChrome">1. Truy cập vào lichess.org
 2. Nhấn hình ổ khoá trên thanh tìm kiếm
 3. Nhấn Cài đặt trang web
 4. Cho phép Âm thanh</string>
-  <string name="enableAutoplayForSoundsSafari" comment="Guidance for Apple Safari users on how to enable audio auto-play if they have sound issues.">1. Truy cập vào lichess.org
+  <string name="enableAutoplayForSoundsSafari">1. Truy cập vào lichess.org
 2. Nhấn hình Safari trong thanh menu
 3. Nhấn vào Cài đặt cho lichess.org ...
 4. Cho phép Tất cả Tự động Phát</string>
-  <string name="enableAutoplayForSoundsMicrosoftEdge" comment="Guidance for Microsoft Edge users on desktop, for how to enable audio auto-play if they have sound issues.">1. Nhấp vào hình 3 dấu chấm ở góc bên phải
+  <string name="enableAutoplayForSoundsMicrosoftEdge">1. Nhấp vào hình 3 dấu chấm ở góc bên phải
 2. Nhấp vào Cài đặt
 3. Nhấn vào Cookie và Quyền của trang web
 4. Cuộn xuống và nhấn vào Phương tiện tự động phát (Media autoplay)

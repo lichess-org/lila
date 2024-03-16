@@ -6,7 +6,7 @@
   <string name="progressX">Përparim: %s</string>
   <string name="resetMyProgress">Rivendos përparimin tim</string>
   <string name="youWillLoseAllYourProgress">Ju do të humbni të gjithë përparimin tuaj!</string>
-  <string name="play">luaj!</string>
+  <string name="play" comment="play&#10;&#10;A small ribbon that appears on your current chapter in the Chess Basics course. Please keep this string short.">luaj!</string>
   <string name="chessPieces">Figurat e shahut</string>
   <string name="theRook">Torra</string>
   <string name="itMovesInStraightLines">Ajo lëviz në vija të drejta</string>

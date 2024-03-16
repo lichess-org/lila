@@ -12,7 +12,7 @@ case class ValueCount[V](value: V, count: Int):
   def reliableEnough         = count >= 50
   def relevantTo(total: Int) = reliableEnough && count * 10 > total
 
-  def double(using number: TutorNumber[V]) = ValueCount[Double](number double value, count)
+  def double(using number: TutorNumber[V]) = ValueCount[Double](number.double(value), count)
 
 case class TutorBothValuesAvailable[A](mine: ValueCount[A], peer: ValueCount[A])(using
     o: Ordering[A]
@@ -22,14 +22,14 @@ case class TutorBothValuesAvailable[A](mine: ValueCount[A], peer: ValueCount[A])
   def grade(using number: TutorNumber[A]): Grade = number.grade(mine.value, peer.value)
 
 case class TutorBothValues[A](mine: ValueCount[A], peer: Option[ValueCount[A]])(using o: Ordering[A]):
-  def map[B: Ordering](f: A => B) = TutorBothValues(mine map f, peer.map(_ map f))
+  def map[B: Ordering](f: A => B) = TutorBothValues(mine.map(f), peer.map(_.map(f)))
   def higher                      = peer.exists(p => o.compare(mine.value, p.value) >= 0)
   def toOption                    = TutorBothValueOptions(mine.some, peer)
 
 case class TutorBothValueOptions[A](mine: Option[ValueCount[A]], peer: Option[ValueCount[A]])(using
     o: Ordering[A]
 ):
-  def map[B: Ordering](f: A => B) = TutorBothValueOptions(mine.map(_ map f), peer.map(_ map f))
+  def map[B: Ordering](f: A => B) = TutorBothValueOptions(mine.map(_.map(f)), peer.map(_.map(f)))
   def higher                      = mine.exists(m => peer.exists(p => o.compare(m.value, p.value) >= 0))
   def asAvailable                 = for m <- mine; p <- peer yield TutorBothValuesAvailable(m, p)
   def grade(using TutorNumber[A]): Option[Grade] = asAvailable.map(_.grade)
@@ -75,10 +75,10 @@ case class Grade private (value: Double):
 
 object Grade:
   def percent[P](a: P, b: P)(using p: Percent[P]): Grade = apply((p.value(a) - p.value(b)) / 25)
-  def apply(value: Double): Grade                        = new Grade(value atLeast -1 atMost 1)
+  def apply(value: Double): Grade                        = new Grade(value.atLeast(-1).atMost(1))
 
   enum Wording(val id: Int, val value: String, val top: Double) extends Ordered[Wording]:
-    def compare(other: Wording) = top compare other.top
+    def compare(other: Wording) = top.compare(other.top)
     case MuchBetter     extends Wording(7, "much better than", 1)
     case Better         extends Wording(6, "better than", 0.6)
     case SlightlyBetter extends Wording(5, "slightly better than", 0.3)

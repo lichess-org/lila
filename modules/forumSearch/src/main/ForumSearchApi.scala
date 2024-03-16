@@ -4,7 +4,7 @@ import akka.stream.scaladsl.*
 import play.api.libs.json.*
 
 import lila.common.Json.given
-import lila.forum.{ ForumPost, ForumPostApi, PostLiteView, ForumPostRepo, PostView }
+import lila.forum.{ ForumPost, ForumPostApi, ForumPostRepo, PostLiteView, PostView }
 import lila.search.*
 
 final class ForumSearchApi(
@@ -15,16 +15,16 @@ final class ForumSearchApi(
     extends SearchReadApi[PostView, Query]:
 
   def search(query: Query, from: From, size: Size) =
-    client.search(query, from, size) flatMap { res =>
-      postApi.viewsFromIds(ForumPostId from res.ids)
+    client.search(query, from, size).flatMap { res =>
+      postApi.viewsFromIds(ForumPostId.from(res.ids))
     }
 
   def count(query: Query) =
     client.count(query).dmap(_.value)
 
   def store(post: ForumPost) =
-    postApi liteView post flatMapz { view =>
-      client.store(view.post.id into Id, toDoc(view))
+    postApi.liteView(post).flatMapz { view =>
+      client.store(view.post.id.into(Id), toDoc(view))
     }
 
   private def toDoc(view: PostLiteView) = Json.obj(
@@ -42,7 +42,7 @@ final class ForumSearchApi(
         c.putMapping >> {
           postRepo.nonGhostCursor
             .documentSource()
-            .via(lila.common.LilaStream.logRate[ForumPost]("forum index")(logger))
+            .via(lila.common.LilaStream.logRate("forum index")(logger))
             .grouped(200)
             .mapAsync(1)(postApi.liteViews)
             .map(_.map(v => v.post.id.into(Id) -> toDoc(v)))

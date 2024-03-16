@@ -25,7 +25,6 @@
   <string name="longestStreak">最長：%s</string>
   <string name="currentStreak">現在：%s</string>
   <string name="bestRated">勝った相手の最高</string>
-  <string name="worstRated">負けた相手の最低</string>
   <string name="gamesInARow">連続対局数</string>
   <string name="lessThanOneHour">ゲーム間隔 1 時間以内</string>
   <string name="maxTimePlaying">最長連続プレイ時間</string>

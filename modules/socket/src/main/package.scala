@@ -1,7 +1,7 @@
 package lila.socket
 
-import play.api.libs.json.*
 import alleycats.Zero
+import play.api.libs.json.*
 
 export lila.Lila.{ *, given }
 

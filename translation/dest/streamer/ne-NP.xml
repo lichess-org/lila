@@ -4,8 +4,8 @@
   <string name="lichessStreamer">Lichess streamer</string>
   <string name="live">लाइभ!</string>
   <string name="offline">अफलाइन</string>
-  <string name="currentlyStreaming">हालमा streaming गरिरहेकोः %s</string>
-  <string name="lastStream">अन्तिमको stream %s</string>
+  <string name="currentlyStreaming" comment="%s is the title of the stream, chosen by the streamer.">हालमा streaming गरिरहेकोः %s</string>
+  <string name="lastStream" comment="%s is how long ago the stream was in relative time (e.g. 50 minutes ago). It is displayed in smaller type than the rest of the string.">अन्तिमको stream %s</string>
   <string name="becomeStreamer">Lichess streamer बन्‍नुहोस्</string>
   <string name="doYouHaveStream">के तपाईंसँग Twitch या Youtube च्यानल छ?</string>
   <string name="hereWeGo">यो लिनुहोस्!</string>

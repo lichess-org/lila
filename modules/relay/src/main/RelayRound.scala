@@ -1,13 +1,14 @@
 package lila.relay
 
 import ornicar.scalalib.ThreadLocalRandom
+import reactivemongo.api.bson.Macros.Annotations.Key
 
-import lila.study.Study
 import lila.common.Seconds
+import lila.study.Study
 
 case class RelayRound(
     /* Same as the Study id it refers to */
-    _id: RelayRoundId,
+    @Key("_id") id: RelayRoundId,
     tourId: RelayTour.Id,
     name: RelayRoundName,
     caption: Option[RelayRound.Caption],
@@ -19,15 +20,13 @@ case class RelayRound(
     /* at least it *looks* finished... but maybe it's not
      * sync.nextAt is used for actually synchronising */
     finished: Boolean,
-    createdAt: Instant
+    createdAt: Instant,
+    crowd: Option[Int]
 ):
-
-  inline def id = _id
-
-  inline def studyId = id into StudyId
+  inline def studyId = id.into(StudyId)
 
   lazy val slug =
-    val s = lila.common.String slugify name.value
+    val s = lila.common.String.slugify(name.value)
     if s.isEmpty then "-" else s
 
   def finish =
@@ -42,15 +41,15 @@ case class RelayRound(
       sync = sync.play
     )
 
-  def ensureStarted     = copy(startedAt = startedAt orElse nowInstant.some)
+  def ensureStarted     = copy(startedAt = startedAt.orElse(nowInstant.some))
   def hasStarted        = startedAt.isDefined
-  def hasStartedEarly   = hasStarted && startsAt.exists(_ isAfter nowInstant)
-  def shouldHaveStarted = hasStarted || startsAt.exists(_ isBefore nowInstant)
+  def hasStartedEarly   = hasStarted && startsAt.exists(_.isAfter(nowInstant))
+  def shouldHaveStarted = hasStarted || startsAt.exists(_.isBefore(nowInstant))
 
   def shouldGiveUp =
     !hasStarted && startsAt.match
-      case Some(at) => at.isBefore(nowInstant minusHours 3)
-      case None     => createdAt.isBefore(nowInstant minusDays 1)
+      case Some(at) => at.isBefore(nowInstant.minusHours(3))
+      case None     => createdAt.isBefore(nowInstant.minusDays(1))
 
   def withSync(f: RelayRound.Sync => RelayRound.Sync) = copy(sync = f(sync))
 
@@ -60,7 +59,7 @@ case class RelayRound(
 
 object RelayRound:
 
-  def makeId = RelayRoundId(ThreadLocalRandom nextString 8)
+  def makeId = RelayRoundId(ThreadLocalRandom.nextString(8))
 
   opaque type Caption = String
   object Caption extends OpaqueString[Caption]
@@ -80,10 +79,10 @@ object RelayRound:
       if hasUpstream then copy(until = nowInstant.plusHours(1).some)
       else pause
 
-    def ongoing = until so nowInstant.isBefore
+    def ongoing = until.so(nowInstant.isBefore)
 
     def play =
-      if hasUpstream then renew.copy(nextAt = nextAt orElse nowInstant.plusSeconds(3).some)
+      if hasUpstream then renew.copy(nextAt = nextAt.orElse(nowInstant.plusSeconds(3).some))
       else pause
 
     def pause =
@@ -100,10 +99,11 @@ object RelayRound:
     def playing = nextAt.isDefined
     def paused  = !playing
 
-    def addLog(event: SyncLog.Event) = copy(log = log add event)
+    def addLog(event: SyncLog.Event) = copy(log = log.add(event))
     def clearLog                     = copy(log = SyncLog.empty)
 
-    def hasDelay = delay.exists(_.value > 0)
+    def hasDelay      = delay.exists(_.value > 0)
+    def nonEmptyDelay = delay.filter(_.value > 0)
 
     override def toString = upstream.toString
 
@@ -132,8 +132,20 @@ object RelayRound:
     def path: String =
       s"/broadcast/${tour.slug}/${if link.slug == tour.slug then "-" else link.slug}/${link.id}"
     def path(chapterId: StudyChapterId): String = s"$path/$chapterId"
+    def crowd                                   = display.crowd.orElse(link.crowd)
+
+  trait AndGroup:
+    def group: Option[RelayGroup.Name]
+
+  trait AndTourAndGroup extends AndTour with AndGroup
 
   case class WithTour(round: RelayRound, tour: RelayTour) extends AndTour:
+    def display                 = round
+    def link                    = round
+    def withStudy(study: Study) = WithTourAndStudy(round, tour, study)
+
+  case class WithTourAndGroup(round: RelayRound, tour: RelayTour, group: Option[RelayGroup.Name])
+      extends AndTourAndGroup:
     def display                 = round
     def link                    = round
     def withStudy(study: Study) = WithTourAndStudy(round, tour, study)
@@ -142,3 +154,5 @@ object RelayRound:
     def withTour = WithTour(relay, tour)
     def path     = withTour.path
     def fullName = withTour.fullName
+
+  case class WithStudy(relay: RelayRound, study: Study)

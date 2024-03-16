@@ -25,7 +25,6 @@
   <string name="longestStreak">Najduži niz: %s</string>
   <string name="currentStreak">Trenutni niz: %s</string>
   <string name="bestRated">Najbolje rangirane pobjede</string>
-  <string name="worstRated">Najgore rangirani porazi</string>
   <string name="gamesInARow">Igre odigrane za redom</string>
   <string name="lessThanOneHour">Manje od jednog sata između igara</string>
   <string name="maxTimePlaying">Vrijeme provedeno igrajući</string>

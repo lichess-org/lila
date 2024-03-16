@@ -2,7 +2,7 @@ package views.html.plan
 
 import controllers.routes
 
-import lila.app.templating.Environment.{ given, * }
+import lila.app.templating.Environment.{ *, given }
 import lila.app.ui.ScalatagsTemplate.{ *, given }
 
 object indexPayPal:
@@ -69,7 +69,7 @@ object indexPayPal:
               th("Gifts"),
               td(
                 a(href := s"${routes.Plan.list}?dest=gift")(giftPatronWings()),
-                gifts.nonEmpty option
+                gifts.nonEmpty.option(
                   table(cls := "slist gifts")(
                     tbody(
                       gifts.map { gift =>
@@ -80,6 +80,7 @@ object indexPayPal:
                       }
                     )
                   )
+                )
               )
             ),
             tr(

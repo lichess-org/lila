@@ -33,8 +33,8 @@
   <string name="weAreSmallTeam">ما یک تیم کوچک هستیم، بنابراین پشتیبانی شما تغییر بزرگی ایجاد می‌کند!</string>
   <string name="celebratedPatrons">پشتبان‌های ارجمند که Lichess را ممکن می‌سازند</string>
   <string name="whereMoneyGoes">پول به کجا می‌رود؟</string>
-  <string name="serversAndDeveloper">اول از همه، سرورهای قدرتمند.
-پس از آن ما به یک توسعه‌دهنده تمام‌وقت پرداخت می‌کنیم. %s، موسسِ Lichess.</string>
+  <string name="serversAndDeveloper">اول از همه، کارسازهای قدرتمند.
+سپس به یک توسعه‌دهنده تمام‌وقت پرداخت می‌کنیم: %s، بنیان‌گذارِ Lichess.</string>
   <string name="costBreakdown">جزئیات ساختار مخارج را مشاهده نمایید</string>
   <string name="officialNonProfit">آیا Lichess به صورت رسمی غیرانتفاعی است؟</string>
   <string name="actOfCreation">بله، مصوبه تاسیس (به زبان فرانسوی) این‌جا است</string>
@@ -45,10 +45,10 @@
   <string name="otherMethods">روشهای دیگر برای کمک مالی؟</string>
   <string name="lichessIsRegisteredWith">لیچس در %s ثبت شده است.</string>
   <string name="bankTransfers">ما انتقالهای بانکی را هم قبول می‌کنیم</string>
-  <string name="onlyDonationFromAbove">لطفاً توجه داشته باشید که دستیابی به وضعیت پاترون (حامی) تنها از طریق فرم کمک بالا امکان‌پذیر است.</string>
+  <string name="onlyDonationFromAbove">لطفاً توجه داشته باشید که فقط برگه کمک مالی بالا، جایگاه حامی را به ارمغان می‌آورد.</string>
   <string name="patronFeatures">آیا برخی ویژگیها فقط برای پشتیبان‌ها قابل دسترس است؟</string>
-  <string name="noPatronFeatures">نه، چرا که Lichess کاملاً رایگان است، برای همیشه، و برای همه. این یک تعهد و قول است.
-با این حال، پشتیبان‌ها با یک آیکون کاربری جدید و زیبا، حقوقی برای فخرفروشی و پز دادن دریافت می‌کنند.</string>
+  <string name="noPatronFeatures">نه، زیرا Lichess برای همیشه و برای همه، کاملا رایگان است. قول می‌دهیم.
+با این حال، حامیان با بال‌های معرکه‌ای که در نمایه‌شان نشان داده می‌شود، حق پُز دادن دارند.</string>
   <string name="featuresComparison">مقایسه جزئیاتِ ویژگیها را مشاهده کنید</string>
   <plurals name="patronForMonths">
     <item quantity="one">پشتیبانِ Lichess برای یک ماه</item>
@@ -75,9 +75,12 @@
   <string name="amount">مقدار</string>
   <string name="transactionCompleted">تراکنشِ شما تکمیل شد، و یک رسید برای کمک مالی شما برایتان ایمیل شد.</string>
   <string name="permanentPatron">شما هم‌اکنون یک حساب دائمی پشتیبان دارید.</string>
-  <string name="checkOutProfile">صفحه کاربری خود را بررسی کنید!</string>
+  <string name="checkOutProfile">به صفحه نمایه‌تان سَر بزنید!</string>
   <string name="nowLifetime">شما هم‌اکنون یک پشتیبانِ مادام‌العمرِ Lichess هستید!</string>
   <string name="nowOneMonth">شما هم‌اکنون برای یک ماه یک پشتیبانِ Lichess هستید!</string>
   <string name="downgradeNextMonth">طی یک ماه، دوباره برای شما بدهکاری ثبت نخواهد شد، و حساب کاربری Lichess شما به یک حساب کاربری معمولی برگردانده خواهد شد.</string>
   <string name="changeCurrency">تغییر واحد پول</string>
+  <string name="paymentDetails">جزئیات پرداخت</string>
+  <string name="updatePaymentMethod">به‌روزرسانی روش پرداخت</string>
+  <string name="stripeManageSub">اشتراک خود را مدیریت کنید و صورت‌حساب‌ها و رسیدهای خود را بارگیری کنید</string>
 </resources>

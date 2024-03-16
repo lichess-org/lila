@@ -15,11 +15,11 @@
   <string name="voteToLoadNextOne">Stimm ab, um die Nächscht z\'lade!</string>
   <string name="upVote">Die Ufgab positiv bewerte</string>
   <string name="downVote">Die Ufgab negativ bewerte</string>
-  <string name="yourPuzzleRatingWillNotChange">Dini Ufgabe Wertig änderet sich nöd. Die Ufgabe sind kein Wettbewerb. Dini Wertig hilft nur, um so Ufgabe uszwähle, wo zu dinere aktuelle Stärchi passed.</string>
+  <string name="yourPuzzleRatingWillNotChange">Dini Ufgabe-Wertig veränderet sich nöd. Eusi Ufgabe sind kein Wettbewerb. Dini Wertig hilft nur Ufgabe z\'wähle, wo zu dinere aktuelle Schpielstärchi passed.</string>
   <string name="findTheBestMoveForWhite">Find de bescht Zug für Wiss.</string>
   <string name="findTheBestMoveForBlack">Find de bescht Zug für Schwarz.</string>
   <string name="toGetPersonalizedPuzzles">Für personalisierti Ufgabe muesch:</string>
-  <string name="puzzleId" comment="%s is the ID of the puzzle, something like #a1b2c3.">Ufgab %s</string>
+  <string name="puzzleId">Ufgab %s</string>
   <string name="puzzleOfTheDay">Ufgab vom Tag</string>
   <string name="dailyPuzzle">Täglichi Ufgab</string>
   <string name="clickToSolve">Zum Löse klicke</string>
@@ -31,13 +31,13 @@
   <string name="byOpenings">Nach Eröffnige</string>
   <string name="puzzlesByOpenings">Ufgabe nach Eröffnige</string>
   <string name="openingsYouPlayedTheMost">Dini meischt-gschpillte Eröffnige, i gwertete Partie</string>
-  <string name="useFindInPage" comment="useFindInPage&#10;&#10;Appears on https://lichess.org/training/openings&#10;Encourages players to use the built-in browser feature (Ctrl+F on most desktop computers) to find the opening they want to practice.">Benutz im Browser \"Suchen...\", um dini bevorzugti Eröffnig z\'finde!</string>
+  <string name="useFindInPage">Benutz im Browser \"Suchen...\", um dini bevorzugti Eröffnig z\'finde!</string>
   <string name="useCtrlF">Find dini bevorzugti Eröffnig mit Ctrl+F !</string>
   <string name="notTheMove">Das isch nöd de Zug!</string>
   <string name="trySomethingElse">Probier öppis Anders.</string>
-  <string name="ratingX" comment="Appears on pages of individual puzzles.&#10;&#10;%s is either:&#10;1. The word 'hidden', if you have not completed the puzzle yet.&#10;2. The rating of the puzzle, if you have completed it or seen the solution.">Wertig: %s</string>
-  <string name="hidden" comment="Puzzle rating: hidden&#10;&#10;Appears while solving puzzles. Lichess only displays the rating of the puzzle after you have solved it or asked to see the solution.">verschteckt</string>
-  <plurals name="playedXTimes" comment="Appears on pages of individual puzzles.&#10;%s is the number of times the puzzle has been played.">
+  <string name="ratingX">Wertig: %s</string>
+  <string name="hidden">verschteckt</string>
+  <plurals name="playedXTimes">
     <item quantity="one">%s mal gschpillt</item>
     <item quantity="other">%s mal gschpillt</item>
   </plurals>
@@ -48,14 +48,14 @@
   <string name="easier">Eifacher</string>
   <string name="easiest">Am eifachschte</string>
   <plurals name="nbPointsBelowYourPuzzleRating">
-    <item quantity="one">1 Punkt under dinere Ufgabe Wertig</item>
-    <item quantity="other">%s Pünkt under dinere Ufgabe Wertig</item>
+    <item quantity="one">1 Punkt under dinere Ufgabe-Wertig</item>
+    <item quantity="other">%s Pünkt under dinere Ufgabe-Wertig</item>
   </plurals>
   <string name="harder">Schwieriger</string>
   <string name="hardest">Am schwierigschte</string>
   <plurals name="nbPointsAboveYourPuzzleRating">
-    <item quantity="one">1 Punkt über dinere Ufgabe Wertig</item>
-    <item quantity="other">%s Pünkt über diinere Ufgabe Wertig</item>
+    <item quantity="one">1 Punkt über dinere Ufgabe-Wertig</item>
+    <item quantity="other">%s Pünkt über dinere Ufgabe-Wertig</item>
   </plurals>
   <string name="example">Bischpil</string>
   <string name="addAnotherTheme">Es witers Motiv zuefüege</string>
@@ -90,7 +90,7 @@ Schpill schnälli und klassischi Partie, so erhöht sich d\'Chance, dass au Ufga
     <item quantity="other">%s widerhole</item>
   </plurals>
   <string name="percentSolved">%s glöst</string>
-  <string name="noPuzzlesToShow">Es git no nüt zum Zeige, lös zerscht es paar Ugabe!</string>
+  <string name="noPuzzlesToShow">Es git no nüt zum Zeige, lös zerscht es paar Ufgabe!</string>
   <string name="improvementAreasDescription">Trainier mit dene Ufgabe und optimier din Fortschritt!</string>
   <string name="strengthDescription">Dini Leischtig isch am beschte i dene Theme</string>
 </resources>

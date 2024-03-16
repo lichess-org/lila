@@ -243,7 +243,7 @@
   <string name="accountClosed">Kontoen %s er lukket.</string>
   <string name="accountRegisteredWithoutEmail">Kontoen %s blev registreret uden en e-mail.</string>
   <string name="rank">Rang</string>
-  <string name="rankX">Rang: %s</string>
+  <string name="rankX">Rangering: %s</string>
   <plurals name="rankIsUpdatedEveryNbMinutes">
     <item quantity="one">Ranking opdateres hvert minut</item>
     <item quantity="other">Ranking opdateres hvert %s minut</item>
@@ -276,6 +276,7 @@
   <string name="abortGame">Afbryd parti</string>
   <string name="gameAborted">Partiet blev afbrudt</string>
   <string name="standard">Standard</string>
+  <string name="customPosition">Brugerdefineret stilling</string>
   <string name="unlimited">Ubegrænset</string>
   <string name="mode">Variant</string>
   <string name="casual">Uformelt</string>
@@ -418,6 +419,7 @@
   <string name="blackCheckmatesInOneMove">Sort sætter mat i ét træk</string>
   <string name="retry">Prøv igen</string>
   <string name="reconnecting">Genopretter forbindelsen</string>
+  <string name="noNetwork">Offline</string>
   <plurals name="nbFriendsOnline">
     <item quantity="one">%s ven online</item>
     <item quantity="other">%s venner online</item>
@@ -530,7 +532,7 @@
   <string name="automaticallyProceedToNextGameAfterMoving">Automatisk videre til næste spil efter træk</string>
   <string name="autoSwitch">Autoskift</string>
   <string name="puzzles">Taktikopgaver</string>
-  <string name="tournamentWinners">Turneringsvindere</string>
+  <string name="onlineBots">Online bots</string>
   <string name="name">Navn</string>
   <string name="description">Beskrivelse</string>
   <string name="descPrivate">Privat beskrivelse</string>
@@ -703,7 +705,8 @@
   <string name="keyNextBranch">Næste gren</string>
   <string name="toggleVariationArrows">Slå variantpile til/fra</string>
   <string name="cyclePreviousOrNextVariation">Gennemgå forrige/næste variant</string>
-  <string name="toggleGlyphAnnotations">Slå glyf-annotationer til/fra</string>
+  <string name="toggleGlyphAnnotations">Slå træk-annotationer til/fra</string>
+  <string name="togglePositionAnnotations">Slå positionsannotationer til/fra</string>
   <string name="variationArrowsInfo">Variantpile lader dig navigere uden at bruge træklisten.</string>
   <string name="playSelectedMove">spil valgte træk</string>
   <string name="newTournament">Ny turnering</string>
@@ -938,8 +941,6 @@ og påvirker spilleres ratings</string>
   <string name="minimumRatedGames">Minimum ratede partier</string>
   <string name="minimumRating">Minimum rating</string>
   <string name="maximumWeeklyRating">Maksimal ugentlig rating</string>
-  <string name="onlyTitled">Kun spilere med titel</string>
-  <string name="onlyTitledHelp">Kræv en officiel titel for at deltage i turneringen</string>
   <string name="positionInputHelp">Indsæt en gyldig FEN for at starte hvert parti fra en given stilling.
 Det virker kun for standardspil, ikke med varianter.
 Du kan bruge %s til at generere en FEN-stilling og derefter indsætte den her.
@@ -988,4 +989,5 @@ Lad stå tomt for at starte partier fra den normale udgangsstilling.</string>
   <string name="showMeEverything">Vis mig alt</string>
   <string name="lichessPatronInfo">Lichess er en velgørenhedsorganisation og helt gratis/libre open source-software.
 Alle driftsomkostninger, udvikling og indhold finansieres udelukkende af brugerdonationer.</string>
+  <string name="nothingToSeeHere">Intet at se her i øjeblikket.</string>
 </resources>

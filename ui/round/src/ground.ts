@@ -46,7 +46,7 @@ export function makeConfig(ctrl: RoundController): Config {
       free: false,
       color: playing ? data.player.color : undefined,
       dests: playing ? util.parsePossibleMoves(data.possibleMoves) : new Map(),
-      showDests: data.pref.destination,
+      showDests: data.pref.destination && !ctrl.blindfold(),
       rookCastle: data.pref.rookCastle,
       events: {
         after: hooks.onUserMove,
@@ -59,7 +59,7 @@ export function makeConfig(ctrl: RoundController): Config {
     },
     premovable: {
       enabled: data.pref.enablePremove,
-      showDests: data.pref.destination,
+      showDests: data.pref.destination && !ctrl.blindfold(),
       castle: data.game.variant.key !== 'antichess',
       events: {
         set: hooks.onPremove,
@@ -84,7 +84,7 @@ export function makeConfig(ctrl: RoundController): Config {
     },
     drawable: {
       enabled: true,
-      defaultSnapToValidMove: lichess.storage.boolean('arrow.snap').getOrDefault(true),
+      defaultSnapToValidMove: site.storage.boolean('arrow.snap').getOrDefault(true),
     },
     disableContextMenu: true,
   };
@@ -103,5 +103,5 @@ export const boardOrientation = (data: RoundData, flip: boolean): Color =>
 
 export const render = (ctrl: RoundController) =>
   h('div.cg-wrap', {
-    hook: util.onInsert(el => ctrl.setChessground(lichess.makeChessground(el, makeConfig(ctrl)))),
+    hook: util.onInsert(el => ctrl.setChessground(site.makeChessground(el, makeConfig(ctrl)))),
   });

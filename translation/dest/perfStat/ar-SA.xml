@@ -25,7 +25,6 @@
   <string name="longestStreak">اطول سلسلة: %s</string>
   <string name="currentStreak">السلسلة الحالية: %s</string>
   <string name="bestRated">افضل الانتصارات المقيّمة</string>
-  <string name="worstRated">اسوء الهزائم المقيّمة</string>
   <string name="gamesInARow">مباريات لُعبت على التوالي</string>
   <string name="lessThanOneHour">اقل من ساعة واحدة بين المباريات</string>
   <string name="maxTimePlaying">اقصى وقت مقضي في اللعب</string>

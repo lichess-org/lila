@@ -1,8 +1,10 @@
 package lila.common
 
-import lila.common.autoconfig.*
-import scala.jdk.CollectionConverters.*
 import play.api.ConfigLoader
+
+import scala.jdk.CollectionConverters.*
+
+import lila.common.autoconfig.*
 
 object config:
 
@@ -74,6 +76,7 @@ object config:
       @ConfigName("stage.banner") stageBanner: Boolean,
       @ConfigName("site.name") siteName: String,
       @ConfigName("socket.domains") socketDomains: List[String],
+      @ConfigName("socket.alts") socketAlts: List[String],
       crawlable: Boolean,
       @ConfigName("ratelimit") rateLimit: RateLimit,
       email: EmailAddress
@@ -88,12 +91,12 @@ object config:
 
   given [A](using l: ConfigLoader[A]): ConfigLoader[List[A]] =
     ConfigLoader { c => k =>
-      c.getConfigList(k).asScala.toList map { l.load(_) }
+      c.getConfigList(k).asScala.toList.map { l.load(_) }
     }
 
   given [A](using loader: ConfigLoader[A]): ConfigLoader[Option[A]] =
     ConfigLoader[Option[A]](c => k => if c.hasPath(k) then Some(loader.load(c, k)) else None)
 
-  def strLoader[A](f: String => A): ConfigLoader[A]   = ConfigLoader.stringLoader map f
-  def intLoader[A](f: Int => A): ConfigLoader[A]      = ConfigLoader.intLoader map f
-  def boolLoader[A](f: Boolean => A): ConfigLoader[A] = ConfigLoader.booleanLoader map f
+  def strLoader[A](f: String => A): ConfigLoader[A]   = ConfigLoader.stringLoader.map(f)
+  def intLoader[A](f: Int => A): ConfigLoader[A]      = ConfigLoader.intLoader.map(f)
+  def boolLoader[A](f: Boolean => A): ConfigLoader[A] = ConfigLoader.booleanLoader.map(f)

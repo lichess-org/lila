@@ -2,10 +2,11 @@ package lila.app
 package templating
 
 import play.api.i18n.Lang
+
 import ui.ScalatagsTemplate.*
 
 trait StringHelper:
-  self: I18nHelper with NumberHelper =>
+  self: I18nHelper & NumberHelper =>
 
   export lila.common.String.{ slugify, shorten, urlencode, addQueryParam, addQueryParams, underscoreFen }
 
@@ -45,4 +46,4 @@ trait StringHelper:
 
   extension (e: String)
     def active(other: String, one: String = "active")  = if e == other then one else ""
-    def activeO(other: String, one: String = "active") = e == other option one
+    def activeO(other: String, one: String = "active") = (e == other).option(one)

@@ -1,17 +1,16 @@
 package controllers
 package team
 
-import play.api.data.{ Forms, Form }
 import play.api.data.Forms.*
+import play.api.data.{ Form, Forms }
 import play.api.libs.json.*
 import play.api.mvc.*
 import views.*
 
-import lila.app.{ given, * }
-import lila.common.{ config, HTTPRequest, IpAddress }
-import lila.team.{ Requesting, Team as TeamModel, TeamMember }
-import lila.user.{ User as UserModel }
-import lila.team.TeamSecurity
+import lila.app.{ *, given }
+import lila.common.{ HTTPRequest, LightUser, config }
+import lila.team.{ Requesting, Team as TeamModel, TeamMember, TeamSecurity }
+import lila.user.User as UserModel
 
 final class Team(env: Env, apiC: => Api) extends LilaController(env):
 
@@ -22,28 +21,32 @@ final class Team(env: Env, apiC: => Api) extends LilaController(env):
   def all(page: Int) = Open:
     Reasonable(page):
       Ok.pageAsync:
-        paginator popularTeams page map:
-          html.team.list.all(_)
+        paginator
+          .popularTeams(page)
+          .map:
+            html.team.list.all(_)
 
   def home(page: Int) = Open:
-    ctx.me.so(api.hasTeams(_)) map:
-      if _ then Redirect(routes.Team.mine)
-      else Redirect(routes.Team.all(page))
+    ctx.me
+      .so(api.hasTeams(_))
+      .map:
+        if _ then Redirect(routes.Team.mine)
+        else Redirect(routes.Team.all(page))
 
   def show(id: TeamId, page: Int, mod: Boolean) = Open:
     Reasonable(page):
-      Found(api team id) { renderTeam(_, page, mod && isGrantedOpt(_.ManageTeam)) }
+      Found(api.team(id)) { renderTeam(_, page, mod && canEnterModView) }
 
   def members(id: TeamId, page: Int) = Open:
     Reasonable(page, config.Max(50)):
-      Found(api teamEnabled id): team =>
+      Found(api.teamEnabled(id)): team =>
         val canSee =
           fuccess(team.publicMembers || isGrantedOpt(_.ManageTeam)) >>| ctx.userId.so:
             api.belongsTo(team.id, _)
         canSee.flatMap:
           if _ then
             Ok.pageAsync:
-              paginator.teamMembersWithDate(team, page) map {
+              paginator.teamMembersWithDate(team, page).map {
                 html.team.members(team, _)
               }
           else authorizationFailed
@@ -52,23 +55,29 @@ final class Team(env: Env, apiC: => Api) extends LilaController(env):
     Reasonable(page):
       Ok.pageAsync:
         if text.trim.isEmpty
-        then paginator popularTeams page map { html.team.list.all(_) }
+        then paginator.popularTeams(page).map { html.team.list.all(_) }
         else
-          env.teamSearch(text, page).flatMap(_.mapFutureList(env.team.memberRepo.addMyLeadership)) map:
-            html.team.list.search(text, _)
+          env
+            .teamSearch(text, page)
+            .flatMap(_.mapFutureList(env.team.memberRepo.addMyLeadership))
+            .map:
+              html.team.list.search(text, _)
 
   private def renderTeam(team: TeamModel, page: Int, asMod: Boolean)(using ctx: Context) = for
     team    <- api.withLeaders(team)
     info    <- env.teamInfo(team, ctx.me, withForum = canHaveForum(team.team, asMod))
     members <- paginator.teamMembers(team.team, page)
-    log     <- asMod.so(env.mod.logApi.teamLog(team.id))
+    log     <- (asMod && isGrantedOpt(_.ManageTeam)).so(env.mod.logApi.teamLog(team.id))
     hasChat = canHaveChat(info, asMod)
-    chat <- hasChat soFu env.chat.api.userChat.cached.findMine(ChatId(team.id))
+    chat <- hasChat.soFu(env.chat.api.userChat.cached.findMine(ChatId(team.id)))
     _ <- env.user.lightUserApi.preloadMany:
       info.publicLeaders.map(_.user) ::: info.userIds
-    version <- hasChat soFu env.team.version(team.id)
+    version <- hasChat.soFu(env.team.version(team.id))
     page    <- renderPage(html.team.show(team, members, info, chat, version, asMod, log))
   yield Ok(page).withCanonical(routes.Team.show(team.id))
+
+  private def canEnterModView(using Context) =
+    isGrantedOpt(_.Shusher) || isGrantedOpt(_.ManageTeam)
 
   private def canHaveChat(info: lila.app.mashup.TeamInfo, requestModView: Boolean)(using
       ctx: Context
@@ -77,7 +86,7 @@ final class Team(env: Env, apiC: => Api) extends LilaController(env):
     team.enabled && !team.isChatFor(_.NONE) && ctx.kid.no && HTTPRequest.isHuman(ctx.req) && {
       (team.isChatFor(_.LEADERS) && info.ledByMe) ||
       (team.isChatFor(_.MEMBERS) && info.mine) ||
-      (isGrantedOpt(_.Shusher) && requestModView)
+      (canEnterModView && requestModView)
     }
 
   private def canHaveForum(team: TeamModel, asMod: Boolean)(member: Option[TeamMember])(using
@@ -91,9 +100,11 @@ final class Team(env: Env, apiC: => Api) extends LilaController(env):
     }
 
   def tournaments(teamId: TeamId) = Open:
-    FoundPage(api teamEnabled teamId): team =>
-      env.teamInfo.tournaments(team, 30, 30) map:
-        html.team.tournaments.page(team, _)
+    FoundPage(api.teamEnabled(teamId)): team =>
+      env.teamInfo
+        .tournaments(team, 30, 30)
+        .map:
+          html.team.tournaments.page(team, _)
 
   private def renderEdit(team: TeamModel, form: Form[?])(using me: Me, ctx: PageContext) = for
     member <- env.team.memberRepo.get(team.id, me)
@@ -113,7 +124,7 @@ final class Team(env: Env, apiC: => Api) extends LilaController(env):
         .bindFromRequest()
         .fold(
           err => BadRequest.pageAsync(renderEdit(team, err)),
-          data => api.update(team, data) inject Redirect(routes.Team.show(team.id)).flashSuccess
+          data => api.update(team, data).inject(Redirect(routes.Team.show(team.id)).flashSuccess)
         )
   }
 
@@ -127,14 +138,20 @@ final class Team(env: Env, apiC: => Api) extends LilaController(env):
 
   def kick(id: TeamId) = AuthBody { ctx ?=> me ?=>
     WithOwnedTeamEnabled(id, _.Kick): team =>
-      forms.members.bindFromRequest().value so { api.kickMembers(team, _) } inject
-        Redirect(routes.Team.show(team.id)).flashSuccess
+      forms.members
+        .bindFromRequest()
+        .value
+        .so { api.kickMembers(team, _) }
+        .inject(Redirect(routes.Team.show(team.id)).flashSuccess)
   }
 
   def blocklist(id: TeamId) = AuthBody { ctx ?=> me ?=>
     WithOwnedTeamEnabled(id, _.Kick): team =>
-      forms.blocklist.bindFromRequest().value so { api.blocklist.set(team, _) } inject
-        Redirect(routes.Team.show(team.id)).flashSuccess
+      forms.blocklist
+        .bindFromRequest()
+        .value
+        .so { api.blocklist.set(team, _) }
+        .inject(Redirect(routes.Team.show(team.id)).flashSuccess)
   }
 
   def leaders(id: TeamId) = Auth { ctx ?=> _ ?=>
@@ -146,7 +163,7 @@ final class Team(env: Env, apiC: => Api) extends LilaController(env):
   }
 
   def permissions(id: TeamId) = AuthBody { ctx ?=> me ?=>
-    WithOwnedTeamEnabled(id, _.Admin): team =>
+    WithOwnedTeamEnabledWithModInfo(id, _.Admin): (team, asMod) =>
       api
         .withLeaders(team)
         .flatMap: team =>
@@ -159,12 +176,16 @@ final class Team(env: Env, apiC: => Api) extends LilaController(env):
                 env.team.security
                   .setPermissions(team, data)
                   .flatMap:
-                    _.filter(_.user isnt me)
+                    _.filter(_.user.isnt(me))
                       .traverse: change =>
                         env.msg.api.systemPost(
                           change.user,
-                          lila.msg.MsgPreset
-                            .newPermissions(me, team.team.light, change.perms.map(_.name), env.net.baseUrl)
+                          lila.msg.MsgPreset.newPermissions(
+                            if asMod then LightUser.fallback(UserModel.lichessName) else me.light,
+                            team.team.light,
+                            change.perms.map(_.name),
+                            env.net.baseUrl
+                          )
                         )
                       .inject:
                         Redirect(routes.Team.leaders(team.id)).flashSuccess
@@ -182,8 +203,9 @@ final class Team(env: Env, apiC: => Api) extends LilaController(env):
             .fold(
               err => BadRequest.page(leadersPage(team, err.some, None)),
               name =>
-                env.team.security.addLeader(team, name) inject
-                  Redirect(routes.Team.leaders(team.id)).flashSuccess
+                env.team.security
+                  .addLeader(team, name)
+                  .inject(Redirect(routes.Team.leaders(team.id)).flashSuccess)
             )
   }
 
@@ -198,7 +220,7 @@ final class Team(env: Env, apiC: => Api) extends LilaController(env):
   )
 
   def close(id: TeamId) = SecureBody(_.ManageTeam) { ctx ?=> me ?=>
-    Found(api team id): team =>
+    Found(api.team(id)): team =>
       forms.explain
         .bindFromRequest()
         .fold(
@@ -206,25 +228,25 @@ final class Team(env: Env, apiC: => Api) extends LilaController(env):
           explain =>
             api.delete(team, me.value, explain) >>
               env.mod.logApi.deleteTeam(team.id, explain)
-        ) inject Redirect(routes.Team all 1).flashSuccess
+        )
+        .inject(Redirect(routes.Team.all(1)).flashSuccess)
   }
 
   def disable(id: TeamId) = AuthBody { ctx ?=> me ?=>
     WithOwnedTeamEnabled(id, _.Admin): team =>
-      val redirect = Redirect(routes.Team show id)
+      val redirect = Redirect(routes.Team.show(id))
       forms.explain
         .bindFromRequest()
         .fold(
           _ => redirect.flashFailure,
           explain =>
-            api.toggleEnabled(team, explain) >>
-              env.mod.logApi.toggleTeam(team.id, team.enabled, explain) inject
-              redirect.flashSuccess
+            (api.toggleEnabled(team, explain) >>
+              env.mod.logApi.toggleTeam(team.id, team.enabled, explain)).inject(redirect.flashSuccess)
         )
   }
 
   private def LimitPerWeek[A <: Result](a: => Fu[A])(using ctx: Context, me: Me): Fu[Result] =
-    api.countCreatedRecently(me) flatMap { count =>
+    api.countCreatedRecently(me).flatMap { count =>
       val allow =
         isGrantedOpt(_.ManageTeam) ||
           (isGrantedOpt(_.Verified) && count < 100) ||
@@ -257,7 +279,7 @@ final class Team(env: Env, apiC: => Api) extends LilaController(env):
                   forms.anyCaptcha.map(html.team.form.create(err, _))
               ,
               data =>
-                api.create(data, me) map { team =>
+                api.create(data, me).map { team =>
                   Redirect(routes.Team.show(team.id))
                 }
             )
@@ -271,12 +293,12 @@ final class Team(env: Env, apiC: => Api) extends LilaController(env):
 
   private def tooManyTeamsHtml(using Context, Me): Fu[Result] =
     BadRequest.pageAsync:
-      api.mine map html.team.list.mine
+      api.mine.map(html.team.list.mine)
   private val tooManyTeamsJson = BadRequest(jsonError("You have joined too many teams"))
 
   def leader = Auth { ctx ?=> me ?=>
     Ok.pageAsync:
-      api.teamsLedBy(me) map html.team.list.ledByMe
+      api.teamsLedBy(me).map(html.team.list.ledByMe)
   }
 
   private def JoinLimit(tooMany: => Fu[Result])(f: => Fu[Result])(using Me) =
@@ -296,11 +318,13 @@ final class Team(env: Env, apiC: => Api) extends LilaController(env):
               .fold(
                 jsonFormError,
                 setup =>
-                  api.join(team, setup.message, setup.password) flatMap:
-                    case Requesting.Joined       => jsonOkResult
-                    case Requesting.NeedRequest  => BadRequest(jsonError("This team requires confirmation."))
-                    case Requesting.NeedPassword => BadRequest(jsonError("This team requires a password."))
-                    case Requesting.Blocklist    => BadRequest(jsonError("You cannot join this team."))
+                  api
+                    .join(team, setup.message, setup.password)
+                    .flatMap:
+                      case Requesting.Joined      => jsonOkResult
+                      case Requesting.NeedRequest => BadRequest(jsonError("This team requires confirmation."))
+                      case Requesting.NeedPassword => BadRequest(jsonError("This team requires a password."))
+                      case Requesting.Blocklist    => BadRequest(jsonError("You cannot join this team."))
               )
           )
   }
@@ -315,9 +339,9 @@ final class Team(env: Env, apiC: => Api) extends LilaController(env):
 
   def requests = Auth { _ ?=> me ?=>
     import lila.memo.CacheApi.*
-    env.team.cached.nbRequests invalidate me
+    env.team.cached.nbRequests.invalidate(me)
     Ok.pageAsync:
-      api requestsWithUsers me map html.team.request.all
+      api.requestsWithUsers(me).map(html.team.request.all)
   }
 
   def requestForm(id: TeamId) = Auth { _ ?=> me ?=>
@@ -338,12 +362,12 @@ final class Team(env: Env, apiC: => Api) extends LilaController(env):
                 if team.open then webJoin(team, request = none, password = setup.password)
                 else
                   setup.message.so: msg =>
-                    api.createRequest(team, msg) inject Redirect(routes.Team.show(team.id)).flashSuccess
+                    api.createRequest(team, msg).inject(Redirect(routes.Team.show(team.id)).flashSuccess)
             )
   }
 
   private def webJoin(team: TeamModel, request: Option[String], password: Option[String])(using Me) =
-    api.join(team, request = request, password = password) flatMap {
+    api.join(team, request = request, password = password).flatMap {
       case Requesting.Joined => Redirect(routes.Team.show(team.id)).flashSuccess
       case Requesting.NeedRequest | Requesting.NeedPassword =>
         Redirect(routes.Team.requestForm(team.id)).flashSuccess
@@ -353,34 +377,34 @@ final class Team(env: Env, apiC: => Api) extends LilaController(env):
 
   def requestProcess(requestId: String) = AuthBody { ctx ?=> me ?=>
     Found(for
-      requestOption <- api request requestId
-      teamOption    <- requestOption.so(req => env.team.teamRepo byId req.team)
+      requestOption <- api.request(requestId)
+      teamOption    <- requestOption.so(req => env.team.teamRepo.byId(req.team))
       isGranted <- teamOption.so: team =>
         api.isGranted(team.id, me, _.Request)
-    yield (teamOption ifTrue isGranted, requestOption).tupled): (team, request) =>
+    yield (teamOption.ifTrue(isGranted), requestOption).tupled): (team, request) =>
       forms.processRequest
         .bindFromRequest()
         .fold(
           _ => Redirect(routes.Team.show(team.id)),
-          (decision, url) => api.processRequest(team, request, decision) inject Redirect(url)
+          (decision, url) => api.processRequest(team, request, decision).inject(Redirect(url))
         )
   }
 
   def declinedRequests(id: TeamId, page: Int) = Auth { ctx ?=> _ ?=>
     WithOwnedTeamEnabled(id, _.Request): team =>
       Ok.pageAsync:
-        paginator.declinedRequests(team, page) map {
+        paginator.declinedRequests(team, page).map {
           html.team.declinedRequest.all(team, _)
         }
   }
 
   def quit(id: TeamId) = AuthOrScoped(_.Team.Write) { ctx ?=> me ?=>
-    Found(api team id): team =>
+    Found(api.team(id)): team =>
       api
         .withLeaders(team)
         .flatMap: t =>
           val admins = t.leaders.filter(_.hasPerm(_.Admin))
-          if admins.nonEmpty && admins.forall(_ is me)
+          if admins.nonEmpty && admins.forall(_.is(me))
           then
             val msg = lila.i18n.I18nKeys.team.onlyLeaderLeavesTeam.txt()
             negotiate(
@@ -401,7 +425,7 @@ final class Team(env: Env, apiC: => Api) extends LilaController(env):
       case Some(term) =>
         for
           teams <- api.autocomplete(term, 10)
-          _     <- env.user.lightUserApi preloadMany teams.map(_.createdBy)
+          _     <- env.user.lightUserApi.preloadMany(teams.map(_.createdBy))
         yield JsonOk:
           JsArray(teams.map: team =>
             Json.obj(
@@ -470,19 +494,31 @@ final class Team(env: Env, apiC: => Api) extends LilaController(env):
   }
 
   private def WithOwnedTeam(teamId: TeamId, perm: TeamSecurity.Permission.Selector)(
-      f: TeamModel => Fu[Result]
+      f: (TeamModel, AsMod) => Fu[Result]
   )(using Context): Fu[Result] =
-    Found(api team teamId): team =>
-      ctx.user
-        .so(api.isGranted(team.id, _, perm))
-        .flatMap:
-          if _ then f(team)
+    Found(api.team(teamId)): team =>
+      ctx.userId
+        .so(api.hasPerm(team.id, _, perm))
+        .flatMap: isGrantedLeader =>
+          val asMod = !isGrantedLeader && isGrantedOpt(_.ManageTeam)
+          if isGrantedLeader || asMod then f(team, asMod)
           else Redirect(routes.Team.show(team.id))
+
+  private def WithOwnedTeamEnabledWithModInfo(
+      teamId: TeamId,
+      perm: TeamSecurity.Permission.Selector
+  )(f: (TeamModel, AsMod) => Fu[Result])(using Context): Fu[Result] =
+    WithOwnedTeam(teamId, perm): (team, asMod) =>
+      if team.enabled || isGrantedOpt(_.ManageTeam) then f(team, asMod)
+      else notFound
 
   private def WithOwnedTeamEnabled(
       teamId: TeamId,
       perm: TeamSecurity.Permission.Selector
   )(f: TeamModel => Fu[Result])(using Context): Fu[Result] =
-    WithOwnedTeam(teamId, perm): team =>
+    WithOwnedTeamEnabledWithModInfo(teamId, perm): (team, _) =>
       if team.enabled || isGrantedOpt(_.ManageTeam) then f(team)
       else notFound
+
+  opaque type AsMod = Boolean
+  object AsMod extends TotalWrapper[AsMod, Boolean]

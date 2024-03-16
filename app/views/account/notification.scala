@@ -1,9 +1,10 @@
 package views.html
 package account
 
-import lila.app.templating.Environment.{ given, * }
-import lila.app.ui.ScalatagsTemplate.{ *, given }
 import controllers.routes
+
+import lila.app.templating.Environment.{ *, given }
+import lila.app.ui.ScalatagsTemplate.{ *, given }
 
 object notification:
   import bits.*
@@ -34,6 +35,7 @@ object notification:
                   notifyInboxMsg()                                        -> "privateMessage",
                   notifyChallenge()                                       -> "challenge",
                   notifyTournamentSoon()                                  -> "tournamentSoon",
+                  frag("Broadcasts")                                      -> "broadcastRound",
                   notifyGameEvent()                                       -> "gameEvent"
                 ).map(makeRow(form))
               )

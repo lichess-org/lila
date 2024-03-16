@@ -4,7 +4,7 @@ import { SetupCtrl } from '../../ctrl';
 import { speeds, variants } from '../../options';
 
 export const ratingView = (ctrl: SetupCtrl): MaybeVNode => {
-  if (lichess.blindMode || !ctrl.root.ratingMap) return null;
+  if (site.blindMode || !ctrl.root.ratingMap) return null;
 
   const selectedPerf = ctrl.selectedPerf();
 

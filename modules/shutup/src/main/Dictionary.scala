@@ -9,7 +9,7 @@ private object Dictionary:
   def en = dict("""
 (burn|die) in hell
 (f++|ph)(u++|e++|a++)c?k(er|r|u|k|t|ing?|ign|en|tard?|face|off?|e?d|)
-(f|ph)agg?([oi]t|)
+(f|ph)a++gg?([oi]t|)
 (kill|hang|neck) my ?self
 [ck]um(shot|)
 [ck]unt(ing|)
@@ -91,7 +91,7 @@ milf
 molest(er|ed|)
 mong
 monkey
-moron
+morr?on
 mother(fuc?k(er|)|)
 mthrfckr
 nazi
@@ -253,7 +253,7 @@ cobarde
 est[úu]pid[ao]
 gilipollas
 hdp
-hijo de put\w*
+hijo de (put\w*|per+a)
 idiota
 imbecil
 madre
@@ -263,6 +263,7 @@ mierda
 moduler[ao]
 payas[ao]
 pendejo
+po(ll|y)a
 put[ao]
 trampa
 trampos[ao]
@@ -320,14 +321,15 @@ schwanzlutscher
 schwuchtel
 trottel
 untermensch
-wichser
+wi(chs|x++)er
 """)
 
   def tr = dict("""
-am[iı]na ((koyay[iı]m|koy?dum)|(sokay[iı]m)|([cç]akay[iı]m))
+am[iı]na ((koy?dum)|(koya(y[iı]m|m))|(soka(y[iı]m|m))|([cç]aka(y[iı]m|m)))
 amc[iı]k
 anan[iı]n am[iı]
 ((ann?an[iı](z[iı])?)|(kar[iı]n[iı](z[iı])?)|(avrad[iı]n[iı](z[iı])?)|(bac[ıi]n[iı](z[iı])?)) (s[ii̇]k[ei](yim|cem|rim|m))
+((ann?an(a|[iı]za))|(kar[iı]n(a|[iı]za))|(avrad[iı]n(a|[iı]za))|(bac[ıi]n(a|[iı]za))) ((koya(y[iı]m|m))|(soka(y[iı]m|m))|([cç]aka(y[iı]m|m)))
 aptal
 beyinsiz
 bok yedin
@@ -342,9 +344,9 @@ piç(lik)?
 pu[sş]t
 salak
 s[ii̇]k[ei](yim|cem|rim|m|k)
-sikiyonuz
 s[ii̇]kt[ii̇]r
-yarra[gğ][iı] yediniz
+yar+a[gğ][iı] yediniz
+yar+ak kafa(l[iı]|s[iı])
 """)
 
   def critical = dict("""
@@ -359,7 +361,7 @@ get bombed
 k y s
 ky5
 (l|1|ı|\|)<ys
-nigg?er
+n[1i]gg?er
 rap(ed?|e?ing)
 subhuman
 """)

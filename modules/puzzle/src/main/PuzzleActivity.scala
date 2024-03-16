@@ -4,8 +4,8 @@ import akka.stream.scaladsl.*
 import play.api.libs.json.*
 import reactivemongo.akkastream.cursorProducer
 
-import lila.common.config.MaxPerSecond
 import lila.common.Json.given
+import lila.common.config.MaxPerSecond
 import lila.db.dsl.{ *, given }
 import lila.user.User
 
@@ -19,17 +19,16 @@ final class PuzzleActivity(
   import PuzzleActivity.*
   import BsonHandlers.given
 
-  def stream(config: Config): Source[String, ?] =
+  def stream(config: Config): Source[JsObject, ?] =
     val perSecond = MaxPerSecond(20)
-    Source futureSource:
+    Source.futureSource:
       colls.round.map:
         _.find(
           $doc(PuzzleRound.BSONFields.user -> config.user.id) ++
-            config.before.so { before =>
-              $doc(PuzzleRound.BSONFields.date $lt before)
-            }
+            config.before.so: before =>
+              $doc(PuzzleRound.BSONFields.date.$lt(before))
         )
-          .sort($sort desc PuzzleRound.BSONFields.date)
+          .sort($sort.desc(PuzzleRound.BSONFields.date))
           .batchSize(perSecond.value)
           .cursor[PuzzleRound](ReadPref.sec)
           .documentSource(config.max | Int.MaxValue)
@@ -37,8 +36,6 @@ final class PuzzleActivity(
           .throttle(1, 1 second)
           .mapAsync(1)(enrich(config))
           .mapConcat(identity)
-          .map: json =>
-            s"${Json.stringify(json)}\n"
 
   private def enrich(config: Config)(rounds: Seq[PuzzleRound]): Fu[Seq[JsObject]] =
     colls.puzzle:

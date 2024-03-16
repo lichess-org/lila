@@ -1,8 +1,7 @@
-import { domDialog } from 'common/dialog';
 import { load as loadDasher } from 'dasher';
 
 export function initModule({ input }: { input: HTMLInputElement }) {
-  lichess.asset.userComplete({
+  site.asset.userComplete({
     input,
     friend: true,
     focus: true,
@@ -47,15 +46,15 @@ function commandHelp(aliases: string, args: string, desc: string) {
     '<div class="command"><div>' +
     aliases
       .split(' ')
-      .map(a => `<p>${a} ${lichess.escapeHtml(args)}</p>`)
+      .map(a => `<p>${a} ${site.escapeHtml(args)}</p>`)
       .join('') +
     `</div> <span>${desc}<span></div>`
   );
 }
 
 function help() {
-  domDialog({
-    cssPath: 'clinput.help',
+  site.dialog.dom({
+    css: [{ themed: 'clinput.help' }],
     class: 'clinput-help',
     show: 'modal',
     htmlText:

@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+  <string name="arena">Arena</string>
   <string name="arenaTournaments">Torneig Arena</string>
   <string name="isItRated">És puntuat?</string>
   <string name="willBeNotified">Seràs notificat quan comenci el torneig, per tant és segur jugar en una altra pestanya mentre esperes.</string>
@@ -16,7 +17,7 @@ Per exemple, dos victòries seguides d’un empat valdrà 6 punts: 2 + 2 + (2 x 
   <string name="berserk">Mode Berserk</string>
   <string name="berserkAnswer">Quan un jugador clica el botó de berserk al principi d’una partida, perd la meitat del seu temps, però la victòria val un punt adicional.
 
-En controls de temps que tenen increment, l’opció berserk també cancel. la l’increment (1+2 és una excepció, ja que només es calcel. la l’increment, però no es parteix el temps a la meitat, resultant en 1+0).
+En controls de temps que tenen increment, l’opció berserk també canceŀla l’increment (1+2 és una excepció, ja que només es canceŀla l’increment, però no es parteix el temps a la meitat, resultant en 1+0).
 
 El mode berserk no està disponible en controls de temps amb temps inicial zero com (0+1 o 0+2).
 
@@ -58,4 +59,28 @@ Juga ràpid i torna al vestíbul per jugar més partits i guanyar més punts.</s
   <string name="averagePerformance">Rendiment mitjà</string>
   <string name="averageScore">Puntuació mitjana</string>
   <string name="myTournaments">Els meus tornejos</string>
+  <string name="editTournament">Edita el torneig</string>
+  <string name="editTeamBattle">Edita la batalla d\'equips</string>
+  <string name="defender" comment="In this context, this is the current holder of a shield trophy, who is defending their trophy in the next shield tournament of that variant. https://lichess.org/tournament/shields">Defensor</string>
+  <string name="pickYourTeam">Tria el teu equip</string>
+  <string name="whichTeamWillYouRepresentInThisBattle">Quin equip vols representar en aquesta batalla?</string>
+  <string name="youMustJoinOneOfTheseTeamsToParticipate">Heu d\'unir-vos a un d\'aquests equips per participar!</string>
+  <string name="created">Creat el</string>
+  <string name="recentlyPlayed">Jugat recentment</string>
+  <string name="bestResults">Millors resultats</string>
+  <string name="stats">Estadístiques</string>
+  <string name="tournamentStats">Estadístiques del torneig</string>
+  <string name="rankAvgHelp">El rànquing mitjà és un percentatge del vostre rànquing. Els valors més petits són millors.
+
+Per exemple, estar en el tercer lloc en un torneig de 100 jugadors = 3%. Ser classificat 10 en un torneig de 1000 jugadors = 1%.</string>
+  <string name="medians" comment="Part of a longer sentence,  &quot;All averages on this page are %s.&quot; (where %s is this word, medians)">mitjanes</string>
+  <string name="allAveragesAreX" comment="The full sentence says 'All averages on this page are medians.' (as in median averages)&#10;&#10;%s is the word 'medians', which is available for translation separately.">Totes les mitjanes d\'aquesta pàgina són %s.</string>
+  <string name="total">Total</string>
+  <string name="pointsAvg">Mitjana de punts</string>
+  <string name="pointsSum">Suma de punts</string>
+  <string name="rankAvg">Rànquing mitjà</string>
+  <string name="tournamentWinners">Guanyadors de tornejos</string>
+  <string name="tournamentShields">Insígnies de tornejos</string>
+  <string name="onlyTitled">Només jugadors titulats</string>
+  <string name="onlyTitledHelp">Demana un títol oficial per entrar al torneig</string>
 </resources>

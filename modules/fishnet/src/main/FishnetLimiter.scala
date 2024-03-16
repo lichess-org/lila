@@ -11,12 +11,14 @@ final private class FishnetLimiter(
   import FishnetLimiter.*
 
   def apply(sender: Work.Sender, ignoreConcurrentCheck: Boolean, ownGame: Boolean): Fu[Analyser.Result] =
-    (fuccess(ignoreConcurrentCheck) >>| concurrentCheck(sender)) flatMap {
-      if _ then perDayCheck(sender)
-      else fuccess(Analyser.Result.ConcurrentAnalysis)
-    } flatMap { result =>
-      (result.ok so requesterApi.add(sender.userId, ownGame)) inject result
-    }
+    (fuccess(ignoreConcurrentCheck) >>| concurrentCheck(sender))
+      .flatMap {
+        if _ then perDayCheck(sender)
+        else fuccess(Analyser.Result.ConcurrentAnalysis)
+      }
+      .flatMap { result =>
+        (result.ok.so(requesterApi.add(sender.userId, ownGame))).inject(result)
+      }
 
   private val RequestLimitPerIP = lila.memo.RateLimit[IpAddress](
     credits = 120,
@@ -28,12 +30,14 @@ final private class FishnetLimiter(
     sender match
       case Work.Sender(_, _, mod, system) if mod || system => fuTrue
       case Work.Sender(userId, ip, _, _) =>
-        !analysisColl.exists(
-          $or(
-            $doc("sender.ip"     -> ip),
-            $doc("sender.userId" -> userId)
+        analysisColl
+          .exists(
+            $or(
+              $doc("sender.ip"     -> ip),
+              $doc("sender.userId" -> userId)
+            )
           )
-        )
+          .not
 
   private def perDayCheck(sender: Work.Sender): Fu[Analyser.Result] =
     sender match

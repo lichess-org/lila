@@ -3,7 +3,6 @@ package lila.round
 import reactivemongo.api.bson.*
 
 import lila.db.dsl.{ *, given }
-import lila.game.Game
 
 final class NoteApi(coll: Coll)(using Executor):
 
@@ -11,7 +10,7 @@ final class NoteApi(coll: Coll)(using Executor):
   val noteField = "t"
 
   def get(gameId: GameId, userId: UserId): Fu[String] =
-    coll.primitiveOne[String]($id(makeId(gameId, userId)), noteField) dmap (~_)
+    coll.primitiveOne[String]($id(makeId(gameId, userId)), noteField).dmap(~_)
 
   def set(gameId: GameId, userId: UserId, text: String) = {
     if text.isEmpty then coll.delete.one($id(makeId(gameId, userId)))
@@ -24,7 +23,7 @@ final class NoteApi(coll: Coll)(using Executor):
   }.void
 
   def byGameIds(gameIds: Seq[GameId], userId: UserId): Fu[Map[GameId, String]] =
-    coll.byIds(gameIds.map(makeId(_, userId)), _.sec) map { docs =>
+    coll.byIds(gameIds.map(makeId(_, userId)), _.sec).map { docs =>
       (for
         doc    <- docs
         gameId <- doc.getAsOpt[GameId]("_id")

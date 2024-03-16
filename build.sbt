@@ -11,7 +11,7 @@ lazy val root = Project("lila", file("."))
   .dependsOn(api)
   .aggregate(api)
   .settings(buildSettings)
-  .settings(scalacOptions ++= Seq("-deprecation"))
+  .settings(scalacOptions ++= Seq("-unchecked", "-deprecation"))
 
 organization         := "org.lichess"
 Compile / run / fork := true
@@ -50,7 +50,7 @@ ThisBuild / libraryDependencySchemes ++= Seq(
 libraryDependencies ++= akka.bundle ++ playWs.bundle ++ macwire.bundle ++ Seq(
   play.json, play.server, play.netty, play.logback,
   chess, compression, scalalib, hasher,
-  reactivemongo.driver, /* reactivemongo.kamon, */ maxmind, prismic, scalatags,
+  reactivemongo.driver, /* reactivemongo.kamon, */ maxmind, scalatags,
   kamon.core, kamon.influxdb, kamon.metrics, kamon.prometheus,
   scaffeine, caffeine, lettuce, uaparser, nettyTransport, reactivemongo.shaded
 ) ++ tests.bundle
@@ -61,13 +61,13 @@ lazy val modules = Seq(
   gameSearch, timeline, forum, forumSearch, team, teamSearch,
   analyse, mod, round, pool, lobby, setup,
   importer, gathering, tournament, simul, relation, report, pref,
-  evaluation, chat, puzzle, tv, coordinate, blog,
+  evaluation, chat, puzzle, tv, coordinate, feed,
   history, video, shutup, push, appeal, mailer,
   playban, insight, perfStat, irc, challenge,
   study, studySearch, fishnet, explorer, learn, plan,
   event, coach, practice, evalCache, irwin,
   activity, relay, streamer, bot, clas, swiss, storm, racer,
-  ublog, tutor, opening
+  ublog, tutor, opening, cms, fide
 )
 
 lazy val moduleRefs = modules map projectToRef
@@ -75,7 +75,7 @@ lazy val moduleCPDeps = moduleRefs map { sbt.ClasspathDependency(_, None) }
 
 lazy val api = module("api",
   moduleCPDeps,
-  Seq(play.api, play.json, hasher, kamon.core, kamon.influxdb, lettuce) ++ reactivemongo.bundle ++ tests.bundle
+  Seq(play.api, play.json, hasher, kamon.core, kamon.influxdb, lettuce) ++ reactivemongo.bundle ++ tests.bundle ++ flexmark.bundle
 ).settings(
   Runtime / aggregate := false,
   Test / aggregate := true  // Test <: Runtime
@@ -85,14 +85,20 @@ lazy val i18n = module("i18n",
   Seq(db, hub),
   tests.bundle ++ Seq(scalatags)
 ).settings(
-  Compile / sourceGenerators += Def.task {
-    MessageCompiler(
+  Compile / resourceGenerators += Def.task {
+    val outputFile = (Compile / resourceManaged).value / "I18n.ser"
+    I18n.serialize(
       sourceDir = new File("translation/source"),
       destDir = new File("translation/dest"),
-      dbs = "site arena emails learn activity coordinates study class contact patron coach broadcast streamer tfa settings preferences team perfStat search tourname faq lag swiss puzzle puzzleTheme challenge storm ublog insight keyboardMove timeago oauthScope dgt voiceCommands onboarding".split(' ').toList,
-      compileTo = (Compile / sourceManaged).value
+      dbs = "site arena emails learn activity coordinates study class contact appeal patron coach broadcast streamer tfa settings preferences team perfStat search tourname faq lag swiss puzzle puzzleTheme challenge storm ublog insight keyboardMove timeago oauthScope dgt voiceCommands onboarding".split(' ').toList,
+      outputFile
     )
   }.taskValue
+)
+
+lazy val cms = module("cms",
+  Seq(user),
+  reactivemongo.bundle
 )
 
 lazy val puzzle = module("puzzle",
@@ -130,14 +136,14 @@ lazy val coordinate = module("coordinate",
   reactivemongo.bundle ++ macwire.bundle
 )
 
-lazy val blog = module("blog",
-  Seq(timeline),
-  Seq(prismic) ++ tests.bundle ++ reactivemongo.bundle
+lazy val feed = module("feed",
+  Seq(user),
+  reactivemongo.bundle
 )
 
 lazy val ublog = module("ublog",
   Seq(timeline),
-  Seq(bloomFilter) ++ tests.bundle ++ reactivemongo.bundle
+  Seq(bloomFilter) ++ reactivemongo.bundle
 )
 
 lazy val evaluation = module("evaluation",
@@ -333,13 +339,18 @@ lazy val challenge = module("challenge",
   Seq(scalatags, lettuce) ++ tests.bundle ++ reactivemongo.bundle
 )
 
+lazy val fide = module("fide",
+  Seq(memo),
+  reactivemongo.bundle
+)
+
 lazy val study = module("study",
-  Seq(explorer),
+  Seq(explorer, fide),
   Seq(scalatags, lettuce) ++ tests.bundle ++ reactivemongo.bundle
 ).dependsOn(common % "test->test")
 
 lazy val relay = module("relay",
-  Seq(study),
+  Seq(study, notifyModule),
   tests.bundle ++ Seq(galimatias) ++ reactivemongo.bundle
 )
 

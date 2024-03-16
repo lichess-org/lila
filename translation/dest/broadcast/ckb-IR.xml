@@ -3,12 +3,12 @@
   <string name="broadcasts">پەخشەکان.</string>
   <plurals name="nbBroadcasts">
     <item quantity="one">%s پەخش دەکرێت</item>
-    <item quantity="other">%s پەخش دەکرێت </item>
+    <item quantity="other">%s پەخش دەکرێت</item>
   </plurals>
   <string name="liveBroadcasts">پەخشی ڕاستەوخۆی پاڵەوانییەتیەکان</string>
   <string name="newBroadcast">پەخشێکی تازە</string>
+  <string name="subscribedBroadcasts">پەخشی بەشداربووان</string>
   <string name="aboutBroadcasts">دەربارەی پەخش</string>
-  <string name="noRoundsYet">هێشتا هیچ خولێک نییە.</string>
   <string name="howToUseLichessBroadcasts">چۆنیەتی بەکارهێنانی پەخشی لیچێس.</string>
   <string name="theNewRoundHelp">خولی نوێ هەمان ئەندام و بەشداربووانی پێشووی دەبێت.</string>
   <string name="addRound">زیادکردنی خولێکی تر</string>
@@ -38,4 +38,5 @@
   <string name="editRoundStudy">دەسکاری کردنی خولی فێربون</string>
   <string name="deleteTournament">ئەم پاڵەوانێتییە بسڕەوە</string>
   <string name="definitivelyDeleteTournament">بە دڵنیاییەوە تەواوی پاڵەوانێتییەکە و هەموو خولەکانی و هەموو یارییەکانی بسڕەوە.</string>
+  <string name="replacePlayerTags">ئارەزوومەندانە: گۆڕینی ناوی یاریزانان، هەڵسەنگاندن و نازناوەکان</string>
 </resources>

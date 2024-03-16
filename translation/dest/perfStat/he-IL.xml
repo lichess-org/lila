@@ -25,7 +25,6 @@
   <string name="longestStreak">הרצף הארוך ביותר: %s</string>
   <string name="currentStreak">רצף נוכחי: %s</string>
   <string name="bestRated">ניצחונות בדירוג הגבוה ביותר</string>
-  <string name="worstRated">הפסדים בדירוג הנמוך ביותר</string>
   <string name="gamesInARow">משחקים ששוחקו ברצף</string>
   <string name="lessThanOneHour">פחות משעה בין משחקים</string>
   <string name="maxTimePlaying">הכי הרבה זמן במשחק</string>

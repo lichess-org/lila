@@ -1,5 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+  <string name="communityBlogs">Gemenskapens bloggar</string>
+  <string name="friendBlogs">Vänners bloggar</string>
+  <string name="likedBlogs">Gillade blogginlägg</string>
+  <string name="blogTopics">Bloggämnen</string>
+  <string name="lichessOfficialBlog">Lichess officiella blogg</string>
+  <string name="continueReadingPost">Fortsätt läsa detta inlägg</string>
+  <string name="lichessBlogPostsFromXYear">Lichess blogginlägg i %s</string>
+  <string name="previousBlogPosts">Föregående blogginlägg</string>
   <string name="xBlog">%ss blogg</string>
   <string name="newPost">Nytt inlägg</string>
   <string name="editYourBlogPost">Redigera ditt blogginlägg</string>

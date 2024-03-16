@@ -5,6 +5,7 @@ $c-contours: mix($c-brag, $c-shade, 80%);
   @include hoverflow;
   background: $c-bg-box;
   overflow-y: auto;
+  min-height: 20em;
 }
 .daily-feed {
   &__updates {

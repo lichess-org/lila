@@ -6,7 +6,7 @@
   <string name="progressX">Progres: %s</string>
   <string name="resetMyProgress">Resetează progresul meu</string>
   <string name="youWillLoseAllYourProgress">Vei pierde tot progresul!</string>
-  <string name="play">joacă!</string>
+  <string name="play" comment="play&#10;&#10;A small ribbon that appears on your current chapter in the Chess Basics course. Please keep this string short.">joacă!</string>
   <string name="chessPieces">Piese de șah</string>
   <string name="theRook">Turn</string>
   <string name="itMovesInStraightLines">Se mișcă în linii drepte</string>

@@ -150,19 +150,19 @@ Det røde mute-ikon vises, når din browser forhindrer lichess.org i at afspille
 
 Vi viser det røde ikon for at advare dig, når dette sker. Ofte kan du udtrykkeligt tillade lichess.org at afspille lyde. Her er instruktioner til, hvordan du gør det i nyere versioner af nogle populære browsere.</string>
   <string name="desktop">desktop</string>
-  <string name="enableAutoplayForSoundsFirefox" comment="Guidance for Mozilla Firefox users on how to enable audio auto-play if they have sound issues.&#10;&#10;Please keep 'i' lowercase, for two reasons:&#10;1. Capital L and capital I are hard to differentiate for users.&#10;2. So users don't press Ctrl+Shift+I to get a capital I. This is a different shortcut in the browser.">1. Gå til lichess.org
+  <string name="enableAutoplayForSoundsFirefox">1. Gå til lichess.org
 2. Tryk Ctrl-i på Linux/Windows eller cmd-i på MacOS
 3. Klik på fanen Tilladelser
 4. Tillad lyd og video på lichess.org</string>
-  <string name="enableAutoplayForSoundsChrome" comment="Guidance for Google Chrome users on how to enable audio auto-play if they have sound issues.">1. Gå til lichess.org
+  <string name="enableAutoplayForSoundsChrome">1. Gå til lichess.org
 2. Klik på låseikonet i adresselinjen
 3. Klik på Webstedsindstillinger
 4. Tillad lyd</string>
-  <string name="enableAutoplayForSoundsSafari" comment="Guidance for Apple Safari users on how to enable audio auto-play if they have sound issues.">1. Gå til lichess.org
+  <string name="enableAutoplayForSoundsSafari">1. Gå til lichess.org
 2. Klik på Safari i menulinjen
 3. Klik på Indstillinger for lichess.org ...
 4. Tillad alle Auto-Play</string>
-  <string name="enableAutoplayForSoundsMicrosoftEdge" comment="Guidance for Microsoft Edge users on desktop, for how to enable audio auto-play if they have sound issues.">1. Klik på de tre prikker i øverste højre hjørne
+  <string name="enableAutoplayForSoundsMicrosoftEdge">1. Klik på de tre prikker i øverste højre hjørne
 2. Klik på Indstillinger
 3. Klik på Cookies og Website-tilladelser
 4. Rul ned og klik på Media autoplay

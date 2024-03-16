@@ -25,7 +25,6 @@
   <string name="longestStreak">Serie più lunga: %s</string>
   <string name="currentStreak">Serie attuale: %s</string>
   <string name="bestRated">Migliori vittorie classificate</string>
-  <string name="worstRated">Peggiori sconfitte classificate</string>
   <string name="gamesInARow">Partite giocate di fila</string>
   <string name="lessThanOneHour">Meno di un\'ora tra partite</string>
   <string name="maxTimePlaying">Tempo massimo trascorso giocando</string>

@@ -3,8 +3,8 @@
   <string name="lichessStreamer">लीचेस प्रसारक</string>
   <string name="live">सक्रिय!</string>
   <string name="offline">ऑफलाइन</string>
-  <string name="currentlyStreaming">आता %s प्रसारण करत आहे</string>
-  <string name="lastStream">शेवटचे प्रसारण %s</string>
+  <string name="currentlyStreaming" comment="%s is the title of the stream, chosen by the streamer.">आता %s प्रसारण करत आहे</string>
+  <string name="lastStream" comment="%s is how long ago the stream was in relative time (e.g. 50 minutes ago). It is displayed in smaller type than the rest of the string.">शेवटचे प्रसारण %s</string>
   <string name="becomeStreamer">लीचेस प्रसारक बना</string>
   <string name="doYouHaveStream">तुमचा ट्विच किंवा युट्यूब चॅनल आहे का?</string>
   <string name="hereWeGo">चला तर!</string>

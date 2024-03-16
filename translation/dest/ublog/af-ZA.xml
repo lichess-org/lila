@@ -48,4 +48,5 @@
   <string name="safeAndRespectfulContent">Plaas slegs veilige en bedagsame inhoud. Moenie iemand anders se inhoud kopieer nie.</string>
   <string name="inappropriateContentAccountClosed">Enigiets onvanpas kan lei tot die sluiting van jou rekening.</string>
   <string name="blogTips">Ons eenvoudige wenke vir goeie plasings</string>
+  <string name="youBlockedByBlogAuthor">Jy word deur die blog-outeur geblokkeer.</string>
 </resources>

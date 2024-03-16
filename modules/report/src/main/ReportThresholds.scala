@@ -2,10 +2,10 @@ package lila.report
 
 import play.api.data.Form
 import play.api.data.Forms.{ single, text }
+import reactivemongo.api.bson.BSONHandler
 
 import lila.common.{ Ints, Iso }
 import lila.memo.SettingStore.{ Formable, StringReader }
-import reactivemongo.api.bson.BSONHandler
 
 case class ScoreThresholds(mid: Int, high: Int)
 
@@ -27,7 +27,7 @@ private object ReportThresholds:
 
   given BSONHandler[ScoreThresholds]  = lila.db.dsl.isoHandler
   given StringReader[ScoreThresholds] = StringReader.fromIso
-  given Formable[ScoreThresholds]     = new Formable(t => Form(single("v" -> text)) fill iso.to(t))
+  given Formable[ScoreThresholds]     = new Formable(t => Form(single("v" -> text)).fill(iso.to(t)))
 
   def makeScoreSetting(store: lila.memo.SettingStore.Builder) =
     store[ScoreThresholds](
@@ -39,6 +39,6 @@ private object ReportThresholds:
   def makeDiscordSetting(store: lila.memo.SettingStore.Builder) =
     store[Int](
       "discordScoreThreshold",
-      default = 80,
-      text = "Discord score threshold. Comm reports with higher scores are notified in Discord".some
+      default = 150,
+      text = "Zulip score threshold. Comm reports with higher scores are notified in Zulip".some
     )

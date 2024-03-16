@@ -2,13 +2,16 @@
 <resources>
   <string name="twoFactorAuth">双重认证</string>
   <string name="twoFactorHelp">双重认证能增加你的账户安全性。</string>
+  <string name="twoFactorAppRecommend">获取双重验证应用。我们推荐下列应用：</string>
   <string name="scanTheCode">用 app 扫描 QR 码。</string>
   <string name="enterPassword">请输入你的账号密码和由 App 生成的验证码以完成设置。你在每次登录时都将需要新的验证码。</string>
   <string name="ifYouCannotScanEnterX">如果你不能扫描二维码，请把验证码 %s 输入到 App 中。</string>
   <string name="authenticationCode">授权码</string>
+  <string name="ifYouLoseAccessTwoFactor">注意：如果您无法再参考您的双重验证码，您可以通过电邮%s。</string>
   <string name="enableTwoFactor">启用双重认证</string>
   <string name="disableTwoFactor">禁用双重认证</string>
   <string name="twoFactorEnabled">双重验证已开启</string>
+  <string name="twoFactorToDisable">您需要您的密码和身份验证器应用的身份验证码来禁用双重身份验证。</string>
   <string name="openTwoFactorApp">打开你设备上的双重认证应用以查看双重验证码并识别你的身份。</string>
   <string name="setupReminder">请在 https://lichess.org/account/twofactor 启用双重验证以确保你的账户安全。
 你收到此消息是因为你的账户承担着特殊的责任，如队长、教练、老师或主播</string>

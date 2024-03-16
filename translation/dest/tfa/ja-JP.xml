@@ -7,6 +7,7 @@
   <string name="enterPassword">パスワードと、アプリが生成した認証コードを入力すれば準備完了です。認証コードはログインするたびに必要になります。</string>
   <string name="ifYouCannotScanEnterX">コードをスキャンできない場合は、秘密の %s をアプリに入力してください。</string>
   <string name="authenticationCode">認証コード</string>
+  <string name="ifYouLoseAccessTwoFactor">2 要素認証コードがわからなくなったら、Lichess にメールで連絡して %s することができます。</string>
   <string name="enableTwoFactor">2 要素認証を有効にする</string>
   <string name="disableTwoFactor">2 要素認証を無効にする</string>
   <string name="twoFactorEnabled">2 要素認証を有効にしました。</string>

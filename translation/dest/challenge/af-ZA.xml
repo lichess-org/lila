@@ -2,7 +2,7 @@
 <resources>
   <string name="challengesX">Uitdagings: %1$s</string>
   <string name="challengeToPlay">Daag uit tot \'n spel</string>
-  <string name="challengeDeclined">Uitdaging afgewys</string>
+  <string name="challengeDeclined">Uitdaging afgewys.</string>
   <string name="challengeAccepted">Uitdaging aanvaar!</string>
   <string name="challengeCanceled">Uitdaging gekanselleer.</string>
   <string name="registerToSendChallenges">Registreer om uitdagings te stuur.</string>

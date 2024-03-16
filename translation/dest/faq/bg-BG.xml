@@ -86,8 +86,12 @@
   <string name="asWellAsManyNMtitles">много титли Национален Шампион</string>
   <string name="verificationForm">форма за верификация</string>
   <string name="noUpperCaseDot">Не.</string>
+  <string name="whatUsernameCanIchoose">Какво може да бъде моето потребителско име?</string>
+  <string name="usernamesNotOffensive">Като цяло, потребителските имена не трябва да са обидни, представляващи другиго, или с цел реклама. Можете да прочетете повече в %1$s.</string>
+  <string name="guidelines">упътванията</string>
   <string name="canIChangeMyUsername">Мога ли да променя потребителското си име?</string>
   <string name="usernamesCannotBeChanged">Не, поради технични и практически причини, промяната на потребителски имена не е позволена. Потребителските имена се използват на прекалено много места: бази данни, изтеглени файлове, записи, и в паметта на хората. Разрешено е да се разменят главни и малки букви, но само веднъж.</string>
+  <string name="uniqueTrophies">Уникални трофеи</string>
   <string name="weCannotDoThatEvenIfItIsServerSideButThatsRare">За съжаление не можем да върнем точки за рейтинг игри, загубени поради забавяне или прекъсване на връзката, независимо дали проблемът е бил от ваша или от наша страна. Последното обаче се случва много рядко. Също така имайте предвид, че когато Lichess се рестартира и поради това загубите по време, ние прекъсваме играта, за да предотвратим несправедлива загуба.</string>
   <string name="howToThreeDots">Как да...</string>
   <string name="lichessCanOptionnalySendPopUps">Lichess може по желание да изпраща известия, например когато е ваш ред или сте получили лично съобщение.

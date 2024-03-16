@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="moveToStart">Gerak untuk mula</string>
-  <string name="youPlayTheWhitePiecesInAllPuzzles" comment="Appears in Puzzle Storm (https://lichess.org/storm) and Puzzle Racer (https://lichess.org/racer), before you start, letting you know which side you will be playing in all the puzzles that will be presented to you over the next few minutes.">Anda akan bermain dengan putih sepanjang masa</string>
+  <string name="youPlayTheWhitePiecesInAllPuzzles">Anda akan bermain dengan putih sepanjang masa</string>
 </resources>

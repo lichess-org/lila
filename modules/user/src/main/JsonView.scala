@@ -1,11 +1,12 @@
 package lila.user
 
 import play.api.libs.json.*
-import User.{ LightPerf, PlayTime }
 
 import lila.common.Json.{ writeAs, given }
 import lila.common.LightUser
 import lila.rating.{ Perf, PerfType }
+
+import User.{ LightPerf, PlayTime }
 
 final class JsonView(isOnline: lila.socket.IsOnline):
 
@@ -94,9 +95,6 @@ object JsonView:
 
   private val standardPerfKeys: Set[Perf.Key] = PerfType.standard.map(_.key).toSet
 
-  private def select(key: Perf.Key, perf: Perf) =
-    perf.nb > 0 || standardPerfKeys(key)
-
   def perfTypedJson(p: Perf.Typed): JsObject =
     Json.obj(p.perfType.key.value -> p.perf)
 
@@ -120,17 +118,20 @@ object JsonView:
         perfType.key.value -> perfWrites.writes(perfs(perfType))
 
   def notes(ns: List[Note])(using lightUser: LightUserApi) =
-    lightUser.preloadMany(ns.flatMap(_.userIds).distinct) inject JsArray:
-      ns.map: note =>
-        Json
-          .obj(
-            "from" -> lightUser.syncFallback(note.from),
-            "to"   -> lightUser.syncFallback(note.to),
-            "text" -> note.text,
-            "date" -> note.date
-          )
-          .add("mod", note.mod)
-          .add("dox", note.dox)
+    lightUser
+      .preloadMany(ns.flatMap(_.userIds).distinct)
+      .inject(JsArray:
+        ns.map: note =>
+          Json
+            .obj(
+              "from" -> lightUser.syncFallback(note.from),
+              "to"   -> lightUser.syncFallback(note.to),
+              "text" -> note.text,
+              "date" -> note.date
+            )
+            .add("mod", note.mod)
+            .add("dox", note.dox)
+      )
 
   given leaderboardsWrites(using OWrites[User.LightPerf]): OWrites[UserPerfs.Leaderboards] =
     OWrites: leaderboards =>

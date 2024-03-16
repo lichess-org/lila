@@ -19,7 +19,6 @@
   <string name="displayBoardResizeHandle">Regeler fir Brietgréisst ze änneren weisen</string>
   <string name="onlyOnInitialPosition">Just an Startpositioun</string>
   <string name="inGameOnly">Nëmmen während enger Partie</string>
-  <string name="blindfoldChess">Blanneschach (onsichtbar Figuren)</string>
   <string name="chessClock">Schachauer</string>
   <string name="tenthsOfSeconds">Zéngtelsekonnen</string>
   <string name="whenTimeRemainingLessThanTenSeconds" comment="whenTimeRemainingLessThanTenSeconds&#10;&#10;The &amp;lt; symbol is not required (you can write it as a word), just do NOT use &lt; in its place.&#10;&#10;Technical information: &lt; is a reserved character in HTML, which is why it cannot be used.">Wann verbleiwend Zäit &lt; 10 Sekonnen</string>

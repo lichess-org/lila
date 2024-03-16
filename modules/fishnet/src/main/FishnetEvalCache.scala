@@ -1,6 +1,7 @@
 package lila.fishnet
 
 import chess.format.Fen
+
 import JsonApi.Request.Evaluation
 
 trait IFishnetEvalCache:
@@ -19,7 +20,7 @@ final private class FishnetEvalCache(
     rawEvals(game).dmap(_.map(_._1))
 
   def evals(work: Work.Analysis): Fu[Map[Int, Evaluation]] =
-    rawEvals(work.game) map {
+    rawEvals(work.game).map {
       _.map { (i, eval) =>
         val pv = eval.pvs.head
         i -> Evaluation(
@@ -48,7 +49,7 @@ final private class FishnetEvalCache(
       .fold(
         _ => fuccess(Nil),
         _.mapWithIndex: (sit, index) =>
-          evalCacheApi.getSinglePvEval(game.variant, Fen write sit) dmap2 { index -> _ }
+          evalCacheApi.getSinglePvEval(game.variant, Fen.write(sit)).dmap2 { index -> _ }
         .parallel
           .map(_.flatten)
       )

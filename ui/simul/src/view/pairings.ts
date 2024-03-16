@@ -1,6 +1,6 @@
 import { h } from 'snabbdom';
 import { onInsert } from 'common/snabbdom';
-import { renderClock } from 'common/mini-board';
+import { renderClock } from 'common/miniBoard';
 import SimulCtrl from '../ctrl';
 import { Pairing } from '../interfaces';
 import { opposite } from 'chessground/util';
@@ -22,7 +22,7 @@ const miniPairing = (ctrl: SimulCtrl) => (pairing: Pairing) => {
         'data-state': `${game.fen},${game.orient},${game.lastMove}`,
         'data-live': game.clock ? game.id : '',
       },
-      hook: onInsert(lichess.powertip.manualUserIn),
+      hook: onInsert(site.powertip.manualUserIn),
     },
     [
       h('span.mini-game__player', [

@@ -44,4 +44,5 @@
   <string name="inappropriateContentAccountClosed">هەرشتێکی نەگوونجاو دەشێت ببێتە هۆی داخستنی هەژمارەکەت.</string>
   <string name="blogTips">پێشنیارە سادەکانی ئێمە بۆ نوسینی پەیامێکی کەسی بەهێز</string>
   <string name="discussThisBlogPostInTheForum">لە مەکۆدا باسی ئەم پۆستەی بلۆگەکە بکەن</string>
+  <string name="youBlockedByBlogAuthor">تۆ لەلایەن نووسەری بلۆگەکەوە بلۆک کراویت.</string>
 </resources>

@@ -1,11 +1,11 @@
 package views.html
 package account
 
-import lila.app.templating.Environment.{ given, * }
-import lila.app.ui.ScalatagsTemplate.{ *, given }
+import controllers.routes
 import play.api.i18n.Lang
 
-import controllers.routes
+import lila.app.templating.Environment.{ *, given }
+import lila.app.ui.ScalatagsTemplate.{ *, given }
 
 object profile:
 
@@ -26,11 +26,11 @@ object profile:
         postForm(cls := "form3 dirty-alert", action := routes.Account.profileApply)(
           div(cls := "form-group")(trans.allInformationIsPublicAndOptional()),
           form3.split(
-            ctx.kid.no option
+            ctx.kid.no.option(
               form3
                 .group(form("bio"), trans.biography(), half = true, help = trans.biographyDescription().some):
                   f => form3.textarea(f)(rows := 5)
-            ,
+            ),
             form3.flairPickerGroup(form("flair"), u.flair, label = trans.setFlair())(
               userSpan(u, withPowerTip = false, cssClass = "flair-container".some)
             ):

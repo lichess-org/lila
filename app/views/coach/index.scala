@@ -4,12 +4,12 @@ package coach
 import controllers.routes
 import play.api.i18n.Lang
 
-import lila.app.templating.Environment.{ given, * }
+import lila.app.templating.Environment.{ *, given }
 import lila.app.ui.ScalatagsTemplate.{ *, given }
+import lila.common.LangPath
 import lila.common.paginator.Paginator
 import lila.i18n.LangList
 import lila.user.{ Flag, Flags }
-import lila.common.LangPath
 
 object index:
 

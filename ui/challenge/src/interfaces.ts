@@ -1,21 +1,11 @@
+import { FEN } from 'chessground/types';
+
 export interface ChallengeOpts {
   el: Element;
   data?: ChallengeData;
   show(): void;
   setCount(nb: number): void;
   pulse(): void;
-}
-
-export interface Ctrl {
-  update(data: ChallengeData): void;
-  data(): ChallengeData;
-  trans(): (key: string) => string;
-  showRatings: boolean;
-  reasons(): Reasons;
-  decline(id: string, reason: string): void;
-  cancel(id: string): void;
-  onRedirect(): void;
-  redirecting(): boolean;
 }
 
 type ChallengeStatus = 'created' | 'offline' | 'canceled' | 'declined' | 'accepted';
@@ -48,7 +38,7 @@ export interface Challenge {
   challenger?: ChallengeUser;
   destUser?: ChallengeUser;
   variant: Variant;
-  initialFen: Fen;
+  initialFen: FEN;
   rated: boolean;
   timeControl: TimeControl;
   color: Color | 'random';

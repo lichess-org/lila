@@ -3,7 +3,7 @@
   <string name="live">tenpo ni!</string>
   <string name="offline">lon ala</string>
   <string name="hereWeGo">o open!</string>
-  <string name="youTubeChannelId">nanpa pi lipu Jutu sina</string>
+  <string name="youTubeChannelId" comment="Appears on the form for setting up your Streamer page: https://lichess.org/streamer/edit&#10;&#10;The Channel ID is a special alphanumeric string. See Google's guide here for how to retrieve it: https://support.google.com/youtube/answer/3250431&#10;&#10;We encourage translators to match what the Channel ID is called in your language's version of YouTube: https://www.youtube.com/account_advanced">nanpa pi lipu Jutu sina</string>
   <string name="headline">toki lawa</string>
   <string name="maxSize">suli li %s la suli li mute</string>
 </resources>

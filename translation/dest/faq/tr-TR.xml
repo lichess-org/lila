@@ -153,15 +153,15 @@ Kırmızı sustur simgesi, tarayıcınız lichess.org\'un ses oynatmasını enge
 
 Bu yaşandığında sizi uyarmak için kırmızı simgeyi gösteririz. Çoğunlukla lichess.org\'un ses oynatmasına tarayıcınızın ayarlarında izin verebilirsiniz. Bazı popüler tarayıcıların son sürümleri için talimatlar burada.</string>
   <string name="desktop">masaüstü</string>
-  <string name="enableAutoplayForSoundsFirefox" comment="Guidance for Mozilla Firefox users on how to enable audio auto-play if they have sound issues.&#10;&#10;Please keep 'i' lowercase, for two reasons:&#10;1. Capital L and capital I are hard to differentiate for users.&#10;2. So users don't press Ctrl+Shift+I to get a capital I. This is a different shortcut in the browser.">1. lichess.org\'a git
+  <string name="enableAutoplayForSoundsFirefox">1. lichess.org\'a git
 2. Linux/Windows\'da Ctrl-i ya da MacOS\'de cmd-i bas
 3. İzinler sekmesine tıkla
 4. lichess.org\'da Ses ve Video\'ya izin ver</string>
-  <string name="enableAutoplayForSoundsChrome" comment="Guidance for Google Chrome users on how to enable audio auto-play if they have sound issues.">1. Lichess.org\'a gidin
+  <string name="enableAutoplayForSoundsChrome">1. Lichess.org\'a gidin
 2. Adres çubuğundaki kilit simgesine tıklayın
 3. Site ayarlarına tıklayın
 4. Sese izin verin</string>
-  <string name="enableAutoplayForSoundsMicrosoftEdge" comment="Guidance for Microsoft Edge users on desktop, for how to enable audio auto-play if they have sound issues.">1. Sağ üst köşedeki üç noktaya tıklayın
+  <string name="enableAutoplayForSoundsMicrosoftEdge">1. Sağ üst köşedeki üç noktaya tıklayın
 2. Ayarlara tıklayın
 3. Sol taraftan Tanılama bilgileri ve site izinlerine tıklayın
 4. Aşağıya inin ve Medya otomatik yürütmeye tıklayın

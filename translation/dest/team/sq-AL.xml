@@ -50,9 +50,26 @@ Lojtarët të cilëve s’u pëlqen të marrin mesazhe nga ju, mund të dalin ng
   <string name="entryCodeDescriptionForLeader">(Opsionale) Një kod hyrjeje që anëtarët e rinj duhet ta dinë për të marrë pjesë në këtë ekip.</string>
   <string name="incorrectEntryCode">Kod hyrjeje i pasaktë.</string>
   <string name="teamAlreadyExists">Ky ekip ekziston tashmë.</string>
-  <string name="upcomingTourns">Turne të ardhshëm</string>
+  <string name="upcomingTournaments">Turne s’afërmi</string>
   <string name="completedTourns">Turne të plotësuar</string>
   <string name="declinedRequests">Kërkesa të Hedhura Poshtë</string>
   <string name="joinLichessVariantTeam">Bëhuni pjesë e ekipit zyrtar %s, për lajme dhe veprimtari</string>
   <string name="teamPage">Faqe ekipi</string>
+  <string name="thisTeamBattleIsOver">Ky turne ka përfunduar dhe ekipet s’mund të përditësohen më.</string>
+  <string name="listTheTeamsThatWillCompete">Radhitni ekipet që do të ndeshen në këtë ndeshje.</string>
+  <string name="oneTeamPerLine">Një ekip për rresht. Përdorni vetëplotësimin.</string>
+  <string name="oneTeamPerLineHelp">Mund ta kopjoni dhe ngjitni këtë listë nga një turne në një tjetër!
+
+S’mund të hiqni një ekip, nëse një lojtar ka marrë pjesë tashmë te turneu me të.</string>
+  <string name="numberOfLeadsPerTeam">Numër drejtuesish për ekip. Shuma e pikëve të tyre përbën pikët e ekipit.</string>
+  <string name="numberOfLeadsPerTeamHelp">S’duhet vërtet ta ndryshoni këtë vlerë, pasi të ketë filluar turneu!</string>
+  <string name="innerTeam">Ekipi i brendshëm</string>
+  <plurals name="battleOfNbTeams">
+    <item quantity="one">Ndeshje e %s ekipeve</item>
+    <item quantity="other">Ndeshje e %s ekipeve</item>
+  </plurals>
+  <plurals name="nbLeadersPerTeam">
+    <item quantity="one">Një drejtues për ekip</item>
+    <item quantity="other">%s drejtues për ekip</item>
+  </plurals>
 </resources>

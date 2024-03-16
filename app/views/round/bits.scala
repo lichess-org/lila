@@ -3,13 +3,14 @@ package round
 
 import chess.variant.{ Crazyhouse, Variant }
 import controllers.routes
+
 import scala.util.chaining.*
 
-import lila.app.templating.Environment.{ given, * }
+import lila.app.templating.Environment.{ *, given }
 import lila.app.ui.ScalatagsTemplate.{ *, given }
-import lila.game.{ Game, Pov }
-import lila.common.LangPath
 import lila.common.Json.given
+import lila.common.LangPath
+import lila.game.{ Game, Pov }
 
 object bits:
 
@@ -30,9 +31,9 @@ object bits:
       moreJs = moreJs,
       moreCss = frag(
         cssTag(if variant == Crazyhouse then "round.zh" else "round"),
-        ctx.pref.hasKeyboardMove option cssTag("keyboardMove"),
-        ctx.pref.hasVoice option cssTag("voice"),
-        ctx.blind option cssTag("round.nvui"),
+        ctx.pref.hasKeyboardMove.option(cssTag("keyboardMove")),
+        ctx.pref.hasVoice.option(cssTag("voice")),
+        ctx.blind.option(cssTag("round.nvui")),
         moreCss
       ),
       playing = playing,
@@ -50,22 +51,31 @@ object bits:
   def underchat(game: Game)(using ctx: Context) =
     frag(
       views.html.chat.spectatorsFrag,
-      isGranted(_.ViewBlurs) option div(cls := "round__mod")(
-        game.players.all.filter(p => game.playerBlurPercent(p.color) > 30) map { p =>
-          div(
-            playerLink(p, cssClass = s"is color-icon ${p.color.name}".some, withOnline = false, mod = true),
-            s" ${p.blurs.nb}/${game.playerMoves(p.color)} blurs ",
-            strong(game.playerBlurPercent(p.color), "%")
-          )
-        }
-        // game.players flatMap { p => p.holdAlert.map(p ->) } map {
-        //   case (p, h) => div(
-        //     playerLink(p, cssClass = s"is color-icon ${p.color.name}".some, mod = true, withOnline = false),
-        //     "hold alert",
-        //     br,
-        //     s"(ply: ${h.ply}, mean: ${h.mean} ms, SD: ${h.sd})"
-        //   )
-        // }
+      isGranted(_.ViewBlurs).option(
+        div(cls := "round__mod")(
+          game.players.all
+            .filter(p => game.playerBlurPercent(p.color) > 30)
+            .map { p =>
+              div(
+                playerLink(
+                  p,
+                  cssClass = s"is color-icon ${p.color.name}".some,
+                  withOnline = false,
+                  mod = true
+                ),
+                s" ${p.blurs.nb}/${game.playerMoves(p.color)} blurs ",
+                strong(game.playerBlurPercent(p.color), "%")
+              )
+            }
+            // game.players flatMap { p => p.holdAlert.map(p ->) } map {
+            //   case (p, h) => div(
+            //     playerLink(p, cssClass = s"is color-icon ${p.color.name}".some, mod = true, withOnline = false),
+            //     "hold alert",
+            //     br,
+            //     s"(ply: ${h.ply}, mean: ${h.mean} ms, SD: ${h.sd})"
+            //   )
+            // }
+        )
       )
     )
 
@@ -84,7 +94,7 @@ object bits:
             s.ongoing,
             " ongoing"
           ),
-        "round-toggle-autoswitch" pipe: id =>
+        "round-toggle-autoswitch".pipe: id =>
           span(cls := "move-on switcher", st.title := trans.automaticallyProceedToNextGameAfterMoving.txt())(
             label(`for` := id)(trans.autoSwitch()),
             span(cls := "switch")(form3.cmnToggle(id, id, checked = false))
@@ -92,27 +102,29 @@ object bits:
       ),
       div(cls := "now-playing"):
         val (myTurn, otherTurn) = playing.partition(_.isMyTurn)
-        (myTurn ++ otherTurn.take(6 - myTurn.size)) take 9 map: pov =>
-          a(href := routes.Round.player(pov.fullId), cls := pov.isMyTurn.option("my_turn"))(
-            span(
-              cls := s"mini-game mini-game--init ${pov.game.variant.key} is2d",
-              views.html.game.mini.renderState(pov)
-            )(views.html.game.mini.cgWrap),
-            span(cls := "meta")(
-              playerUsername(
-                pov.opponent.light,
-                pov.opponent.userId.flatMap(lightUser),
-                withRating = false,
-                withTitle = true
-              ),
-              span(cls := "indicator")(
-                if pov.isMyTurn then
-                  pov.remainingSeconds
-                    .fold[Frag](trans.yourTurn())(secondsFromNow(_, alwaysRelative = true))
-                else nbsp
+        (myTurn ++ otherTurn.take(6 - myTurn.size))
+          .take(9)
+          .map: pov =>
+            a(href := routes.Round.player(pov.fullId), cls := pov.isMyTurn.option("my_turn"))(
+              span(
+                cls := s"mini-game mini-game--init ${pov.game.variant.key} is2d",
+                views.html.game.mini.renderState(pov)
+              )(views.html.game.mini.cgWrap),
+              span(cls := "meta")(
+                playerUsername(
+                  pov.opponent.light,
+                  pov.opponent.userId.flatMap(lightUser),
+                  withRating = false,
+                  withTitle = true
+                ),
+                span(cls := "indicator")(
+                  if pov.isMyTurn then
+                    pov.remainingSeconds
+                      .fold[Frag](trans.yourTurn())(secondsFromNow(_, alwaysRelative = true))
+                  else nbsp
+                )
               )
             )
-          )
     )
 
   private[round] def side(

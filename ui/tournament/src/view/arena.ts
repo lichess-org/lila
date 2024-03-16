@@ -123,8 +123,8 @@ export function standing(ctrl: TournamentController, pag: Pagination, klass?: st
         'tbody',
         {
           hook: {
-            insert: vnode => lichess.powertip.manualUserIn(vnode.elm as HTMLElement),
-            update: (_, vnode) => lichess.powertip.manualUserIn(vnode.elm as HTMLElement),
+            insert: vnode => site.powertip.manualUserIn(vnode.elm as HTMLElement),
+            update: (_, vnode) => site.powertip.manualUserIn(vnode.elm as HTMLElement),
           },
         },
         tableBody,

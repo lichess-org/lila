@@ -1,4 +1,5 @@
 import { h } from 'snabbdom';
+import { toggle } from 'common';
 import { menu as menuDropdown } from 'board/menu';
 import { boolPrefXhrToggle } from 'common/controls';
 import PuzzleCtrl from '../ctrl';
@@ -8,6 +9,10 @@ export default function (ctrl: PuzzleCtrl) {
     h('section', [menu.flip(ctrl.trans.noarg('flipBoard'), ctrl.flipped(), ctrl.flip)]),
     h('section', [
       menu.zenMode(true),
+      menu.blindfold(
+        toggle(ctrl.blindfold(), v => ctrl.blindfold(v)),
+        true,
+      ),
       menu.voiceInput(boolPrefXhrToggle('voice', !!ctrl.voiceMove), true),
       menu.keyboardInput(boolPrefXhrToggle('keyboardMove', !!ctrl.keyboardMove), true),
     ]),

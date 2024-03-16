@@ -1,5 +1,5 @@
 import { Board, SwissOpts } from '../interfaces';
-import { renderClock } from 'common/mini-board';
+import { renderClock } from 'common/miniBoard';
 import { h, VNode } from 'snabbdom';
 import { opposite } from 'chessground/util';
 import { player as renderPlayer } from './util';
@@ -22,7 +22,7 @@ const renderBoard =
         attrs: { 'data-state': `${board.fen},${board.orientation},${board.lastMove}`, 'data-live': board.id },
         hook: {
           insert(vnode) {
-            lichess.powertip.manualUserIn(vnode.elm as HTMLElement);
+            site.powertip.manualUserIn(vnode.elm as HTMLElement);
           },
         },
       },

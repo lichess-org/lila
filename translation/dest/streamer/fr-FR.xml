@@ -4,8 +4,8 @@
   <string name="lichessStreamer">Lichess streamer</string>
   <string name="live">EN DIRECT !</string>
   <string name="offline">HORS LIGNE</string>
-  <string name="currentlyStreaming">En cours de streaming %s</string>
-  <string name="lastStream">Dernière diffusion %s</string>
+  <string name="currentlyStreaming" comment="%s is the title of the stream, chosen by the streamer.">En cours de streaming %s</string>
+  <string name="lastStream" comment="%s is how long ago the stream was in relative time (e.g. 50 minutes ago). It is displayed in smaller type than the rest of the string.">Dernière diffusion %s</string>
   <string name="becomeStreamer">Devenir un streamer sur Lichess</string>
   <string name="doYouHaveStream">Avez-vous une chaîne Twitch ou YouTube ?</string>
   <string name="hereWeGo">Allons-y !</string>
@@ -29,11 +29,11 @@
   <string name="pendingReview">Votre stream est en cours de révision par les modérateurs.</string>
   <string name="pleaseFillIn">Veuillez remplir vos informations de streamer et envoyer une photo.</string>
   <string name="whenReady" comment="whenReady&#10;&#10;%s is &quot;request a moderator review&quot;">Lorsque vous êtes prêt à être listé en tant que streamer Lichess, %s</string>
-  <string name="requestReview" comment="requestReview&#10;&#10;Used in the sense of: &quot;When you are ready to be listed as a Lichess streamer, request a moderator review&quot;">demander une revue par un modérateur</string>
+  <string name="requestReview" comment="requestReview&#10;&#10;Used as part of the longer sentence: &quot;When you are ready to be listed as a Lichess streamer, request a moderator review&quot;">demander une revue par un modérateur</string>
   <string name="streamerLanguageSettings">La page de diffusion en continu de Lichess cible votre public avec la langue fournie par votre plateforme de diffusion. Définissez la langue par défaut pour vos diffusions dans l\'application ou le service que vous utilisez.</string>
-  <string name="twitchUsername">Votre nom d\'utilisateur Twitch ou votre URL</string>
+  <string name="twitchUsername" comment="Appears on the form for setting up your Streamer page: https://lichess.org/streamer/edit&#10;&#10;Twitch is a proper noun and refers to the streaming service https://twitch.tv/. Please do not translate the word 'Twitch'.">Votre nom d\'utilisateur Twitch ou votre URL</string>
   <string name="optionalOrEmpty">Optionnel. Laisser vide si aucun</string>
-  <string name="youTubeChannelId">ID de votre chaîne YouTube</string>
+  <string name="youTubeChannelId" comment="Appears on the form for setting up your Streamer page: https://lichess.org/streamer/edit&#10;&#10;The Channel ID is a special alphanumeric string. See Google's guide here for how to retrieve it: https://support.google.com/youtube/answer/3250431&#10;&#10;We encourage translators to match what the Channel ID is called in your language's version of YouTube: https://www.youtube.com/account_advanced">ID de votre chaîne YouTube</string>
   <string name="streamerName">Votre nom de streamer sur Lichess</string>
   <plurals name="keepItShort">
     <item quantity="one">Restez brief %s caractère max</item>

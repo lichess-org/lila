@@ -1,6 +1,5 @@
 package lila.game
 
-import actorApi.{ FinishGame, StartGame }
 import akka.stream.scaladsl.*
 import play.api.libs.json.*
 
@@ -8,17 +7,16 @@ import lila.common.Bus
 import lila.common.Json.given
 import lila.db.dsl.given
 
-final class GamesByUsersStream(gameRepo: lila.game.GameRepo)(using
-    mat: akka.stream.Materializer,
-    ec: Executor
-):
+import actorApi.{ FinishGame, StartGame }
+
+final class GamesByUsersStream(gameRepo: lila.game.GameRepo)(using akka.stream.Materializer, Executor):
 
   private val chans = List("startGame", "finishGame")
 
   def apply(userIds: Set[UserId], withCurrentGames: Boolean): Source[JsValue, ?] =
     val initialGames = if withCurrentGames then currentGamesSource(userIds) else Source.empty
-    val startStream = Source.queue[Game](150, akka.stream.OverflowStrategy.dropHead) mapMaterializedValue {
-      queue =>
+    val startStream =
+      Source.queue[Game](150, akka.stream.OverflowStrategy.dropHead).mapMaterializedValue { queue =>
         def matches(game: Game) = game.userIds match
           case List(u1, u2) if u1 != u2 => userIds(u1) && userIds(u2)
           case _                        => false
@@ -29,7 +27,7 @@ final class GamesByUsersStream(gameRepo: lila.game.GameRepo)(using
           .watchCompletion()
           .addEffectAnyway:
             Bus.unsubscribe(sub, chans)
-    }
+      }
     initialGames
       .concat(startStream)
       .mapAsync(1)(gameRepo.withInitialFen)
@@ -43,7 +41,7 @@ final class GamesByUsersStream(gameRepo: lila.game.GameRepo)(using
       .aggregateWith[Game](readPreference = ReadPref.sec): framework =>
         import framework.*
         List(
-          Match($doc(Game.BSONFields.playingUids $in userIds)),
+          Match($doc(Game.BSONFields.playingUids.$in(userIds))),
           AddFields:
             $doc:
               "both" -> $doc("$setIsSubset" -> $arr("$" + Game.BSONFields.playingUids, userIds))

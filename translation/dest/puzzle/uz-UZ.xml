@@ -19,7 +19,7 @@
   <string name="findTheBestMoveForWhite">Oqlar uchun eng yaxshi yurishni toping.</string>
   <string name="findTheBestMoveForBlack">Qoralar uchun eng yaxshi yurishni toping.</string>
   <string name="toGetPersonalizedPuzzles">Shaxsiy jumboqlarni yaratish uchun:</string>
-  <string name="puzzleId" comment="%s is the ID of the puzzle, something like #a1b2c3.">%s boshqotirma</string>
+  <string name="puzzleId">%s boshqotirma</string>
   <string name="puzzleOfTheDay">Kun boshqotirmasi</string>
   <string name="dailyPuzzle">Kunlik boshqotirma</string>
   <string name="clickToSolve">Yechish uchun bosing</string>
@@ -31,13 +31,13 @@
   <string name="byOpenings">Debyutlar bo‘yicha</string>
   <string name="puzzlesByOpenings">Debyutlar bo‘yicha boshqotirmalar</string>
   <string name="openingsYouPlayedTheMost">Reytingli o‘yinlarda siz ko‘p o‘ynagan debyutlar</string>
-  <string name="useFindInPage" comment="useFindInPage&#10;&#10;Appears on https://lichess.org/training/openings&#10;Encourages players to use the built-in browser feature (Ctrl+F on most desktop computers) to find the opening they want to practice.">Yoqtirgan debyutlaringizni topish uchun brovzerning \"Find in page\" imkoniyatidan foydalaning!</string>
+  <string name="useFindInPage">Yoqtirgan debyutlaringizni topish uchun brovzerning \"Find in page\" imkoniyatidan foydalaning!</string>
   <string name="useCtrlF">Yoqtirgan debyutlaringizni topish uchun Ctrl+f dan foydalaning!</string>
   <string name="notTheMove">Bu yurish emas!</string>
   <string name="trySomethingElse">Yana urinib koʻring.</string>
-  <string name="ratingX" comment="Appears on pages of individual puzzles.&#10;&#10;%s is either:&#10;1. The word 'hidden', if you have not completed the puzzle yet.&#10;2. The rating of the puzzle, if you have completed it or seen the solution.">Reyting: %s</string>
-  <string name="hidden" comment="Puzzle rating: hidden&#10;&#10;Appears while solving puzzles. Lichess only displays the rating of the puzzle after you have solved it or asked to see the solution.">berkitilgan</string>
-  <plurals name="playedXTimes" comment="Appears on pages of individual puzzles.&#10;%s is the number of times the puzzle has been played.">
+  <string name="ratingX">Reyting: %s</string>
+  <string name="hidden">berkitilgan</string>
+  <plurals name="playedXTimes">
     <item quantity="one">%s vaqt o\'ynaldi</item>
     <item quantity="other">%s marta o\'ynaldi</item>
   </plurals>

@@ -1,4 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+  <string name="justNow">управо сада</string>
+  <plurals name="inNbSeconds">
+    <item quantity="one">за %s секунди</item>
+    <item quantity="few">за %s сати</item>
+    <item quantity="other">за %s дана</item>
+  </plurals>
   <string name="rightNow">управо сад</string>
+  <string name="completed">завршено</string>
 </resources>

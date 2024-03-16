@@ -522,7 +522,6 @@
   <string name="automaticallyProceedToNextGameAfterMoving">სვლის გაკეთების შემდეგ მომდევნო თამაშზე ავტომატური გადასვლა</string>
   <string name="autoSwitch">ავტო გადართვა</string>
   <string name="puzzles">ეტიუდები</string>
-  <string name="tournamentWinners">ტურნირის გამარჯვებულნი</string>
   <string name="name">სახელი</string>
   <string name="description">აღწერა</string>
   <string name="descPrivate">პრივატული აღწერილობა</string>
@@ -916,8 +915,6 @@
   <string name="minimumRatedGames">მინიმალური რეიტინგული თამაშები</string>
   <string name="minimumRating">მაქსიმალური რეიტინგი</string>
   <string name="maximumWeeklyRating">მაქსიმალური კვირეული რეიტინგი</string>
-  <string name="onlyTitled">მხოლოდ ტიტულოვანი მოთამაშეები</string>
-  <string name="onlyTitledHelp">მოითხოვეთ ოფიციალური ტიტული ტურნირში შესასვლელად</string>
   <string name="positionInputHelp">ჩასვით მოქმედი FEN, რათა დაიწყოთ ყველა თამაში მოცემული პოზიციიდან.
 ის მუშაობს მხოლოდ სტანდარტულ თამაშებზე და არა ვარიანტებზე.
 შეგიძლიათ გამოიყენოთ %s FEN პოზიციის შესაქმნელად, შემდეგ ჩასვით აქ.

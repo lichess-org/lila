@@ -296,8 +296,7 @@ export class SetupCtrl {
     this.root.redraw();
 
     let urlPath = `/setup/${this.gameType}`;
-    console.log(urlPath);
-    if (this.gameType === 'hook') urlPath += '/' + lichess.sri;
+    if (this.gameType === 'hook') urlPath += `/${site.sri}`;
     const urlParams = { user: this.friendUser || undefined };
     let response;
     try {

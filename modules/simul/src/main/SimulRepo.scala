@@ -1,7 +1,7 @@
 package lila.simul
 
-import chess.{ Clock, Status }
 import chess.variant.Variant
+import chess.{ Clock, Status }
 import reactivemongo.api.bson.*
 
 import lila.db.BSON
@@ -11,7 +11,7 @@ final private[simul] class SimulRepo(val coll: Coll)(using Executor):
 
   import lila.game.BSONHandlers.given
   private given BSONHandler[SimulStatus] = tryHandler(
-    { case BSONInteger(v) => SimulStatus(v) toTry s"No such simul status: $v" },
+    { case BSONInteger(v) => SimulStatus(v).toTry(s"No such simul status: $v") },
     x => BSONInteger(x.id)
   )
   private given BSONHandler[Variant]                = variantByIdHandler
@@ -25,7 +25,7 @@ final private[simul] class SimulRepo(val coll: Coll)(using Executor):
         player = r.get[SimulPlayer]("player"),
         gameId = r.get[GameId]("gameId"),
         status = r.get[Status]("status"),
-        wins = r boolO "wins",
+        wins = r.boolO("wins"),
         hostColor = r.strO("hostColor").flatMap(chess.Color.fromName) | chess.White
       )
     def writes(w: BSON.Writer, o: SimulPairing) =
@@ -44,7 +44,7 @@ final private[simul] class SimulRepo(val coll: Coll)(using Executor):
   private val createdSelect  = $doc("status" -> SimulStatus.Created.id)
   private val startedSelect  = $doc("status" -> SimulStatus.Started.id)
   private val finishedSelect = $doc("status" -> SimulStatus.Finished.id)
-  private val createdSort    = $sort desc "createdAt"
+  private val createdSort    = $sort.desc("createdAt")
 
   def find(id: SimulId): Fu[Option[Simul]] =
     coll.byId[Simul](id)
@@ -56,18 +56,18 @@ final private[simul] class SimulRepo(val coll: Coll)(using Executor):
     coll.exists($id(id))
 
   def findStarted(id: SimulId): Fu[Option[Simul]] =
-    find(id) map (_ filter (_.isStarted))
+    find(id).map(_.filter(_.isStarted))
 
   def findCreated(id: SimulId): Fu[Option[Simul]] =
-    find(id) map (_ filter (_.isCreated))
+    find(id).map(_.filter(_.isCreated))
 
   def findPending(hostId: UserId): Fu[List[Simul]] =
     coll.list[Simul](createdSelect ++ $doc("hostId" -> hostId))
 
   def byTeamLeaders[U: UserIdOf](teamId: TeamId, hostIds: Seq[U]): Fu[List[Simul]] =
     coll
-      .find(createdSelect ++ $doc("hostId" $in hostIds, "team" -> teamId))
-      .hint(coll hint $doc("hostId" -> 1))
+      .find(createdSelect ++ $doc("hostId".$in(hostIds), "team" -> teamId))
+      .hint(coll.hint($doc("hostId" -> 1)))
       .cursor[Simul]()
       .listAll()
 
@@ -92,36 +92,37 @@ final private[simul] class SimulRepo(val coll: Coll)(using Executor):
       .find(
         // hits partial index hostSeenAt_-1
         createdSelect ++ featurableSelect ++ $doc(
-          "hostSeenAt" $gte nowInstant.minusSeconds(12),
-          "createdAt" $gte nowInstant.minusHours(1)
+          "hostSeenAt".$gte(nowInstant.minusSeconds(12)),
+          "createdAt".$gte(nowInstant.minusHours(1))
         )
       )
       .sort(createdSort)
-      .hint(coll hint $doc("hostSeenAt" -> -1))
+      .hint(coll.hint($doc("hostSeenAt" -> -1)))
       .cursor[Simul]()
-      .list(50) map {
-      _.foldLeft(List.empty[Simul]) {
-        case (acc, sim) if acc.exists(_.hostId == sim.hostId) => acc
-        case (acc, sim)                                       => sim :: acc
-      }.reverse
-    }
+      .list(50)
+      .map {
+        _.foldLeft(List.empty[Simul]) {
+          case (acc, sim) if acc.exists(_.hostId == sim.hostId) => acc
+          case (acc, sim)                                       => sim :: acc
+        }.reverse
+      }
 
   def allStarted: Fu[List[Simul]] =
     coll
       .find(startedSelect)
       .sort(createdSort)
       .cursor[Simul]()
-      .list(100)
+      .list(50)
 
   def allFinishedFeaturable(max: Int): Fu[List[Simul]] =
     coll
       .find(finishedSelect ++ featurableSelect)
-      .sort($sort desc "finishedAt")
+      .sort($sort.desc("finishedAt"))
       .cursor[Simul]()
       .list(max)
 
   def allNotFinished =
-    coll.list[Simul]($doc("status" $ne SimulStatus.Finished.id))
+    coll.list[Simul]($doc("status".$ne(SimulStatus.Finished.id)))
 
   def create(simul: Simul): Funit =
     coll.insert.one(simul).void
@@ -165,6 +166,6 @@ final private[simul] class SimulRepo(val coll: Coll)(using Executor):
   def cleanup =
     coll.delete.one(
       createdSelect ++ $doc(
-        "createdAt" -> $doc("$lt" -> (nowInstant minusMinutes 60))
+        "createdAt" -> $doc("$lt" -> (nowInstant.minusMinutes(60)))
       )
     )

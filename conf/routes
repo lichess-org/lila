@@ -29,16 +29,19 @@ POST  /bookmark/$gameId<\w{8}>         controllers.Game.bookmark(gameId)
 
 # TV
 GET   /$lang<\w\w\w?>/tv               controllers.Tv.indexLang(lang)
-GET   /tv/frame                        controllers.Tv.frame
-GET   /tv/feed                         controllers.Tv.feed
+GET   /tv/frame                        controllers.Tv.frameDefault
+GET   /tv/feed                         controllers.Tv.feedDefault
 GET   /tv/channels                     controllers.Main.movedPermanently(to = "/api/tv/channels")
 GET   /tv/:chanKey                     controllers.Tv.onChannel(chanKey)
+GET   /tv/:chanKey/frame               controllers.Tv.frame(chanKey)
+GET   /tv/:chanKey/feed                controllers.Tv.feed(chanKey)
 GET   /tv/$gameId<\w{8}>/$color<white|black>/sides controllers.Tv.sides(gameId, color)
 GET   /games                           controllers.Tv.games
 GET   /games/:chanKey                  controllers.Tv.gamesChannel(chanKey)
 GET   /games/:chanKey/replacement/$gameId<\w{8}> controllers.Tv.gameChannelReplacement(chanKey, gameId, exclude: List[String])
 GET   /api/tv/channels                 controllers.Tv.channels
-GET   /api/tv/feed                     controllers.Tv.feed
+GET   /api/tv/feed                     controllers.Tv.feedDefault
+GET   /api/tv/:chanKey/feed            controllers.Tv.feed(chanKey)
 GET   /api/tv/:chanKey                 controllers.Tv.apiGamesChannel(chanKey)
 
 # Relation
@@ -71,8 +74,8 @@ GET   /@/:username/blog                controllers.Ublog.index(username, page: I
 GET   /@/:username/blog/:slug/:id      controllers.Ublog.post(username, slug, id)
 GET   /@/:username/blog/drafts         controllers.Ublog.drafts(username, page: Int ?= 1)
 GET   /@/:username/blog/new            controllers.Ublog.form(username)
+POST  /@/:username/blog/new            controllers.Ublog.create(username)
 GET   /@/:username/blog.atom           controllers.Ublog.userAtom(username)
-POST  /ublog/new                       controllers.Ublog.create
 GET   /ublog/$id<\w{8}>/discuss        controllers.Ublog.discuss(id)
 GET   /ublog/$id<\w{8}>/redirect       controllers.Ublog.redirect(id)
 GET   /ublog/$id<\w{8}>/edit           controllers.Ublog.edit(id)
@@ -105,33 +108,34 @@ GET   /player/online                   controllers.User.online
 GET   /api/player/autocomplete         controllers.User.autocomplete
 GET   /api/player                      controllers.User.apiList
 
+# FIDE Player
+GET   /fide                            controllers.Fide.index(page: Int ?= 1, q: Option[String] ?= None)
+GET   /fide/federation                 controllers.Fide.federations(page: Int ?= 1)
+GET   /fide/federation/:name           controllers.Fide.federation(name, page: Int ?= 1)
+GET   /fide/:fideId/:name              controllers.Fide.show(fideId: Int, name, page: Int ?= 1)
+
 GET   /dasher                          controllers.Dasher.get
 
 # Blog
-GET   /blog                            controllers.Blog.index(page: Int ?= 1)
-GET   /blog/$year<2\d{3}>              controllers.Blog.year(year: Int)
-GET   /blog/discuss/:id                controllers.Blog.discuss(id)
+GET   /blog                            controllers.Main.movedPermanently(to = "/@/Lichess/blog")
 GET   /blog/topic                      controllers.Ublog.topics
 GET   /blog/topic/:topic               controllers.Ublog.topic(topic, page: Int ?= 1, byDate: Boolean ?= false)
-GET   /blog.atom                       controllers.Blog.atom
-GET   /blog.txt                        controllers.Blog.sitemapTxt
+GET   /blog.atom                       controllers.Main.movedPermanently(to = "/@/Lichess/blog.atom")
 GET   /blog/friends                    controllers.Ublog.friends(page: Int ?= 1)
 GET   /blog/liked                      controllers.Ublog.liked(page: Int ?= 1)
 GET   /blog/community                  controllers.Ublog.communityAll(page: Int ?= 1)
 GET   /$lang<\w\w\w?>/blog/community   controllers.Ublog.communityLang(lang, page: Int ?= 1)
 GET   /blog/community.atom             controllers.Ublog.communityAtom(lang = "all")
 GET   /blog/community/$lang<[\w-]{2,6}>.atom controllers.Ublog.communityAtom(lang)
-GET   /blog/:id/:slug                  controllers.Blog.show(id, slug, ref: Option[String] ?= None)
-GET   /blog/prismic-preview            controllers.Blog.preview(token)
+GET   /blog/:id/:slug                  controllers.Ublog.historicalBlogPost(id, slug)
 
-GET   /feed                            controllers.DailyFeed.index
-GET   /feed/new                        controllers.DailyFeed.createForm
-POST  /feed/new                        controllers.DailyFeed.create
-GET   /feed/:id/edit                  controllers.DailyFeed.edit(id)
-GET   /feed/:id/edit                  controllers.DailyFeed.edit(id)
-POST  /feed/:id/edit                  controllers.DailyFeed.update(id)
-POST  /feed/:id/delete                controllers.DailyFeed.delete(id)
-GET   /feed.atom                       controllers.DailyFeed.atom
+GET   /feed                            controllers.Feed.index(page: Int ?= 1)
+GET   /feed/new                        controllers.Feed.createForm
+POST  /feed/new                        controllers.Feed.create
+GET   /feed/:id/edit                   controllers.Feed.edit(id)
+POST  /feed/:id/edit                   controllers.Feed.update(id)
+POST  /feed/:id/delete                 controllers.Feed.delete(id)
+GET   /feed.atom                       controllers.Feed.atom
 
 GET   /opening                         controllers.Opening.index(q: Option[String] ?= None)
 POST  /opening/config/:key             controllers.Opening.config(key)
@@ -228,11 +232,10 @@ POST  /study/$id<\w{8}>/delete         controllers.Study.delete(id)
 GET   /study/$id<\w{8}>/clone          controllers.Study.cloneStudy(id)
 POST  /study/$id<\w{8}>/cloneApply     controllers.Study.cloneApply(id)
 GET   /study/$id<\w{8}>/$chapterId<\w{8}>        controllers.Study.chapter(id, chapterId)
-GET   /study/$id<\w{8}>/$chapterId<\w{8}>/meta   controllers.Study.chapterMeta(id, chapterId)
+GET   /study/$id<\w{8}>/$chapterId<\w{8}>/config controllers.Study.chapterConfig(id, chapterId)
 GET   /study/embed/$id<\w{8}>/$chapterId<\w{8}>  controllers.Study.embed(id, chapterId)
 POST  /study/$id<\w{8}>/clear-chat     controllers.Study.clearChat(id)
 POST  /study/$id<\w{8}>/import-pgn     controllers.Study.importPgn(id)
-GET   /study/$id<\w{8}>/multi-board    controllers.Study.multiBoard(id, page: Int ?= 1)
 POST  /study/$id<\w{8}>/admin          controllers.Study.admin(id)
 GET   /study/topic                     controllers.Study.topics
 POST  /study/topic                     controllers.Study.setTopics
@@ -242,6 +245,7 @@ GET   /study/glyphs/:lang.json         controllers.Study.glyphs(lang)
 GET   /$lang<\w\w\w?>/study            controllers.Study.homeLang(lang)
 GET   /api/study/$id<\w{8}>.pgn        controllers.Study.apiPgn(id)
 GET   /api/study/$id<\w{8}>/$chapterId<\w{8}>.pgn controllers.Study.apiChapterPgn(id, chapterId)
+DELETE /api/study/$id<\w{8}>/$chapterId<\w{8}>    controllers.Study.apiChapterDelete(id, chapterId)
 GET   /api/study/by/:user              controllers.Study.apiListByOwner(user)
 POST  /api/study/$id<\w{8}>/import-pgn controllers.Study.apiImportPgn(id)
 
@@ -252,27 +256,34 @@ POST  /broadcast/new                          controllers.RelayTour.create
 GET   /broadcast/calendar                     controllers.RelayTour.calendar
 GET   /broadcast/help                         controllers.RelayTour.help
 GET   /broadcast/by/:user                     controllers.RelayTour.by(user, page: Int ?= 1)
-GET   /broadcast/:ts/$anyId<\w{8}>            controllers.RelayTour.show(ts, anyId)
+GET   /broadcast/subscribed                   controllers.RelayTour.subscribed(page: Int ?= 1)
+GET   /broadcast/:ts/$id<\w{8}>               controllers.RelayTour.show(ts, id)
+GET   /api/broadcast/$id<\w{8}>               controllers.RelayTour.apiShow(id)
 GET   /api/broadcast/$tourId<\w{8}>.pgn       controllers.RelayTour.pgn(tourId)
 GET   /broadcast/$tourId<\w{8}>/edit          controllers.RelayTour.edit(tourId)
 POST  /broadcast/$tourId<\w{8}>/edit          controllers.RelayTour.update(tourId)
 POST  /broadcast/$tourId<\w{8}>/delete        controllers.RelayTour.delete(tourId)
+POST  /upload/image/broadcast/$id<\w{8}>      controllers.RelayTour.image(id)
 POST  /broadcast/$tourId<\w{8}>/clone         controllers.RelayTour.cloneTour(tourId)
+POST  /broadcast/$tourId<\w{8}>/subscribe     controllers.RelayTour.subscribe(tourId, set: Boolean)
 GET   /broadcast/$tourId<\w{8}>/new           controllers.RelayRound.form(tourId)
 POST  /broadcast/$tourId<\w{8}>/new           controllers.RelayRound.create(tourId)
-GET   /broadcast/:ts/:rs/$roundId<\w{8}>      controllers.RelayRound.show(ts, rs, roundId)
+GET   /broadcast/:ts/:rs/$roundId<\w{8}>      controllers.RelayRound.show(ts, rs, roundId, embed: Option[String] ?= None)
 GET   /api/broadcast/:ts/:rs/$roundId<\w{8}>  controllers.RelayRound.apiShow(ts, rs, roundId)
-GET   /broadcast/:ts/:rs/$roundId<\w{8}>/$chapterId<\w{8}> controllers.RelayRound.chapter(ts, rs, roundId, chapterId)
+GET   /broadcast/:ts/:rs/$roundId<\w{8}>/$chapterId<\w{8}> controllers.RelayRound.chapter(ts, rs, roundId, chapterId, embed: Option[String] ?= None)
 GET   /broadcast/round/$roundId<\w{8}>/edit   controllers.RelayRound.edit(roundId)
 POST  /broadcast/round/$roundId<\w{8}>/edit   controllers.RelayRound.update(roundId)
 POST  /broadcast/round/$roundId<\w{8}>/reset  controllers.RelayRound.reset(roundId)
 POST  /broadcast/round/$roundId<\w{8}>/push   controllers.RelayRound.push(roundId)
 POST  /api/broadcast/round/$roundId<\w{8}>/push controllers.RelayRound.push(roundId)
 GET   /broadcast/:ts/:rs/$roundId<\w{8}>.pgn  controllers.RelayRound.pgn(ts, rs, roundId)
+GET   /broadcast/$roundId<\w{8}>/teams        controllers.RelayRound.teamsView(roundId)
+GET   /broadcast/$tourId<\w{8}>/leaderboard   controllers.RelayTour.leaderboardView(tourId)
 GET   /api/broadcast/round/$roundId<\w{8}>.pgn controllers.RelayRound.apiPgn(roundId)
 GET   /api/stream/broadcast/round/$roundId<\w{8}>.pgn controllers.RelayRound.stream(roundId)
 GET   /api/broadcast                          controllers.RelayTour.apiIndex
 GET   /api/broadcast/my-rounds                controllers.RelayRound.apiMyRounds
+GET   /$lang<\w\w\w?>/broadcast               controllers.RelayTour.indexLang(lang)
 
 # Learn
 GET   /learn                           controllers.Learn.index
@@ -319,11 +330,11 @@ GET   /streamer/edit                   controllers.Streamer.edit
 POST  /streamer/new                    controllers.Streamer.create
 POST  /streamer/edit                   controllers.Streamer.editApply
 POST  /streamer/approval/request       controllers.Streamer.approvalRequest
-GET   /streamer/picture/edit           controllers.Streamer.picture
 POST  /streamer/subscribe/:streamer    controllers.Streamer.subscribe(streamer, set: Boolean ?= true)
 POST  /upload/image/streamer           controllers.Streamer.pictureApply
 GET   /streamer/:username              controllers.Streamer.show(username)
 GET   /streamer/:username/redirect     controllers.Streamer.redirect(username)
+POST  /streamer/:username/check        controllers.Streamer.checkOnline(username)
 
 # LocalPlay
 GET   /local/vsbot                     controllers.LocalPlay.vsBot
@@ -593,10 +604,12 @@ GET   /forum/:categSlug/:slug          controllers.ForumTopic.show(categSlug, sl
 POST  /forum/:categSlug/:slug/close    controllers.ForumTopic.close(categSlug, slug)
 POST  /forum/:categSlug/:slug/sticky   controllers.ForumTopic.sticky(categSlug, slug)
 POST  /forum/:categSlug/:slug/new      controllers.ForumPost.create(categSlug, slug, page: Int ?= 1)
-POST  /forum/delete/:id     controllers.ForumPost.delete(id)
+POST  /forum/delete/:id                controllers.ForumPost.delete(id)
 POST  /forum/:categSlug/react/:id/:reaction/:v controllers.ForumPost.react(categSlug, id, reaction, v: Boolean)
 POST  /forum/post/:id                  controllers.ForumPost.edit(id)
 GET   /forum/redirect/post/:id         controllers.ForumPost.redirect(id)
+POST  /diagnostic                      controllers.ForumTopic.diagnostic
+POST  /diagnostic/clear/:slug          controllers.ForumTopic.clearDiagnostic(slug)
 
 # Msg compat
 POST  /inbox/new                       controllers.Msg.compatCreate
@@ -614,7 +627,6 @@ POST /inbox/:username/delete           controllers.Msg.convoDelete(username)
 GET   /coach                           controllers.Coach.all(page: Int ?= 1)
 GET   /coach/edit                      controllers.Coach.edit
 POST  /coach/edit                      controllers.Coach.editApply
-GET   /coach/picture/edit              controllers.Coach.picture
 POST  /upload/image/coach              controllers.Coach.pictureApply
 GET   /coach/:username                 controllers.Coach.show(username)
 GET   /coach/:lang/:country/:order     controllers.Coach.search(lang, order, country, page: Int ?= 1)
@@ -705,11 +717,12 @@ GET   /api/cloud-eval                  controllers.Api.cloudEval
 POST  /api/import                      controllers.Importer.apiSendGame
 GET   /api/bulk-pairing                controllers.BulkPairing.list
 POST  /api/bulk-pairing                controllers.BulkPairing.create
+GET   /api/bulk-pairing/:id            controllers.BulkPairing.show(id)
 DELETE /api/bulk-pairing/:id           controllers.BulkPairing.delete(id)
 POST  /api/bulk-pairing/:id/start-clocks  controllers.BulkPairing.startClocks(id)
 
 GET   /api/games/user/:username        controllers.Game.apiExportByUser(username)
-GET   /api/games/user/:username/imports controllers.Game.apiExportByUserImportedGames(username)
+GET   /api/games/export/imports        controllers.Game.apiExportByUserImportedGames()
 
 # Lichess Mobile
 GET   /api/mobile/my-games             controllers.Api.mobileGames
@@ -759,6 +772,8 @@ POST  /account/reopen/send             controllers.Account.reopenApply
 GET   /account/reopen/sent             controllers.Account.reopenSent
 GET   /account/reopen/login/:token     controllers.Account.reopenLogin(token)
 GET   /account/personal-data           controllers.Account.data
+GET   /account/network                 controllers.Account.network(usingAltSocket: Option[Boolean] ?= None)
+
 # App BC
 GET   /account/security                controllers.Account.security
 POST  /account/signout/:sessionId      controllers.Account.signout(sessionId)
@@ -798,6 +813,13 @@ GET   /event/manager/clone/$id<\w{8}>  controllers.Event.cloneE(id)
 GET   /event/manager/new               controllers.Event.form
 POST  /event/manager                   controllers.Event.create
 
+GET   /cms                            controllers.Cms.index
+GET   /cms/new                        controllers.Cms.createForm
+POST  /cms/new                        controllers.Cms.create
+GET   /cms/:id/edit                   controllers.Cms.edit(id)
+POST  /cms/:id/edit                   controllers.Cms.update(id)
+POST  /cms/:id/delete                 controllers.Cms.delete(id)
+
 # Misc
 GET   /captcha/$id<\w{8}>              controllers.Main.captchaCheck(id)
 GET   /developers                      controllers.Main.webmasters
@@ -810,7 +832,8 @@ GET   /costs                           controllers.Main.costs
 GET   /verify-title                    controllers.Main.verifyTitle
 GET   /InstantChess.com                controllers.Main.instantChess
 GET   /daily-puzzle-slack              controllers.Main.dailyPuzzleSlackApp
-GET   /temporarily-disabled            controllers.Main.temporarilyDisabled
+GET   /temporarily-disabled            controllers.Main.temporarilyDisabled(path = "")
+GET   /temporarily-disabled/*path      controllers.Main.temporarilyDisabled(path)
 POST  /upload/image/user/:rel          controllers.Main.uploadImage(rel)
 
 # Dev
@@ -826,23 +849,22 @@ POST  /mobile/unregister               controllers.Push.mobileUnregister
 POST  /push/subscribe                  controllers.Push.webSubscribe
 
 # Pages
-GET   /terms-of-service                controllers.ContentPage.tos
-GET   /$bookmark<privacy|thanks|about|ads|changelog> controllers.ContentPage.menuBookmark(bookmark)
+GET   /terms-of-service                controllers.Cms.tos
+GET   /$key<privacy|thanks|about|ads|changelog> controllers.Cms.menuPage(key)
 GET   /contact                         controllers.Main.contact
 GET   /faq                             controllers.Main.faq
-GET   /source                          controllers.ContentPage.source
+GET   /source                          controllers.Cms.source
 GET   /qa/:id/:slug                    controllers.Main.legacyQaQuestion(id: Int, slug)
-GET   /how-to-cheat                    controllers.ContentPage.loneBookmark(bookmark = "how-to-cheat")
-GET   /page/:bookmark                  controllers.ContentPage.loneBookmark(bookmark)
+GET   /how-to-cheat                    controllers.Cms.lonePage(key = "how-to-cheat")
+GET   /page/:key                       controllers.Cms.lonePage(key)
 
 # Variants
-GET   /variant                         controllers.ContentPage.variantHome
-GET   /variant/:key                    controllers.ContentPage.variant(key)
+GET   /variant                         controllers.Cms.variantHome
+GET   /variant/:key                    controllers.Cms.variant(key)
 
 # Help
-GET   /help/contribute                 controllers.ContentPage.help
-GET   /help/master                     controllers.ContentPage.master
-GET   /help/analyse/variation-arrow    controllers.Main.analyseVariationArrowHelp
+GET   /help/contribute                 controllers.Cms.help
+GET   /help/master                     controllers.Cms.master
 GET   /help/keyboard-move              controllers.Main.keyboardMoveHelp
 GET   /help/voice/:module              controllers.Main.voiceHelp(module)
 # DGT

@@ -56,14 +56,14 @@ Beachte, dass es mit einem einzelnen Springer oder Läufer möglich ist ein Matt
   <string name="fideHandbook">FIDE-Handbuch</string>
   <string name="fideHandbookX">FIDE-Handbuch %s</string>
   <string name="discoveringEnPassant">Warum kann ein Bauer einen anderen Bauern schlagen, wenn er bereits vorbei gezogen ist? (en passant)</string>
-  <string name="explainingEnPassant">Dies ist ein regelgemäßer Zug, bekannt als \"en passant\". Der Wikipedia-Artikel gibt einen %1$s.
+  <string name="explainingEnPassant">Dies ist ein legaler Zug, bekannt als \"en passant\". Der Wikipedia-Artikel gibt einen %1$s.
 
-Dies wird in Abschnitt 3.7 der %2$s beschrieben.
+Dies wird in den Abschnitten 3.7.3.1 und 3.7.3.2 der %2$s beschrieben.
 
-\"Ein Bauer, der auf derselben Reihe auf einem unmittelbar angrenzenden Feld wie ein gegnerischer Bauer, der soeben zwei Felder von seiner Anfangsstellung vorgerückt ist, steht, darf diesen gegnerischen Bauern so schlagen, als ob letzterer nur um ein Feld vorgerückt wäre. Dieses Schlagen ist nur in dem unmittelbar nachfolgenden Zug regelgemäß und wird \'Schlagen en passant\' genannt.\"
+\"Ein Bauer, der sich auf der selben Reihe und einer benachbarten Linie eines gegnerischen Bauern befindet, darf den gegnerischen Bauern schlagen, wenn dieser sich im letzten Zug zwei Felder von seiner Startposition bewegt hat, exakt so, als ob dieser sich nur ein einziges Feld bewegt hätte. Dieser Zug ist nur im direkt nächsten Zug möglich und wird \"en passant\"-Schlagen genannt.\"
 
 Siehe %3$s für etwas Übung mit dieser Art von Zug.</string>
-  <string name="goodIntroduction">guter ersten Eindruck</string>
+  <string name="goodIntroduction">guten ersten Eindruck</string>
   <string name="lichessTraining">Lichess-Training</string>
   <string name="watchIMRosenCheckmate">Sieh dir an, wie der internationale Meister Eric Rosen %s Matt setzt.</string>
   <string name="threefoldRepetition">Dreifache Stellungswiederholung</string>
@@ -149,19 +149,19 @@ Das rote Stummschaltungssymbol erscheint, wenn dein Browser verhindert, dass lic
 
 Wir zeigen das rote Symbol an, um darauf aufmerksam zu machen, wenn dies geschieht. Oft kann man lichess.org ausdrücklich erlauben, Töne abzuspielen. Hier findest du eine Anleitung, wie dies in den neuesten Versionen einiger gängiger Browser funktioniert.</string>
   <string name="desktop">Desktop</string>
-  <string name="enableAutoplayForSoundsFirefox" comment="Guidance for Mozilla Firefox users on how to enable audio auto-play if they have sound issues.&#10;&#10;Please keep 'i' lowercase, for two reasons:&#10;1. Capital L and capital I are hard to differentiate for users.&#10;2. So users don't press Ctrl+Shift+I to get a capital I. This is a different shortcut in the browser.">1. Gehe zu lichess.org
+  <string name="enableAutoplayForSoundsFirefox">1. Gehe zu lichess.org
 2. Drücke Strg-i unter Linux/Windows oder cmd-i auf MacOS
 3. Klicke auf die Registerkarte Berechtigungen
 4. Audio und Video auf lichess.org erlauben</string>
-  <string name="enableAutoplayForSoundsChrome" comment="Guidance for Google Chrome users on how to enable audio auto-play if they have sound issues.">1. Gehe zu lichess.org
+  <string name="enableAutoplayForSoundsChrome">1. Gehe zu lichess.org
 2. Klicke auf das Schloss-Symbol in der Adressleiste
 3. Klicke auf die Seiten-Einstellungen
 4. Ton zulassen</string>
-  <string name="enableAutoplayForSoundsSafari" comment="Guidance for Apple Safari users on how to enable audio auto-play if they have sound issues.">1. Gehe zu lichess.org
+  <string name="enableAutoplayForSoundsSafari">1. Gehe zu lichess.org
 2. Klicke auf Safari in der Menüleiste
 3. Klicke auf Einstellungen für lichess.org ...
 4. Alle Auto-Abspielen erlauben</string>
-  <string name="enableAutoplayForSoundsMicrosoftEdge" comment="Guidance for Microsoft Edge users on desktop, for how to enable audio auto-play if they have sound issues.">1. Klicke auf die drei Punkte in der oberen rechten Ecke
+  <string name="enableAutoplayForSoundsMicrosoftEdge">1. Klicke auf die drei Punkte in der oberen rechten Ecke
 2. Klicke auf Einstellungen
 3. Klicke auf Cookies und Website-Berechtigungen
 4. Scrolle nach unten und klicke auf Medien-Autoplay

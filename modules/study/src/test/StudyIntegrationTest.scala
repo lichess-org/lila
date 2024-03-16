@@ -1,23 +1,17 @@
 package lila.study
 
-import chess.{ Square, White }
-import chess.format.UciPath
 import chess.format.pgn.{ Glyph, Tags }
 import chess.variant.*
+import chess.{ Square, White }
+import play.api.libs.json.*
 
-import lila.socket.AnaMove
 import java.time.Instant
 
-import lila.tree.{ Branch, Root }
-import play.api.libs.json.*
+import lila.socket.{ AnaAny, AnaDrop, AnaMove }
 import lila.study.StudySocket.Protocol.In.AtPosition
-import lila.tree.Node.{ defaultNodeJsonWriter, Comment, Gamebook, Shape, Shapes }
-import lila.common.Json.given
 import lila.tree.Node.Comment.Text
-import lila.user.User
-import lila.socket.AnaDrop
-import chess.format.pgn.Glyph
-import lila.socket.AnaAny
+import lila.tree.Node.{ Comment, Shape, Shapes }
+import lila.tree.Root
 
 val studyId      = StudyId("studyId")
 val chapterId    = StudyChapterId("chapterId")
@@ -44,8 +38,9 @@ class StudyIntegrationTest extends munit.FunSuite:
       None,
       None,
       None,
+      None,
       studyInstant
-    )
+    ).updateDenorm
 
   import Helpers.*
   import StudyAction.*
@@ -84,12 +79,12 @@ object StudyAction:
 
   // copy/pasted from JsonView
   private given Reads[Square] = Reads: v =>
-    (v.asOpt[String] flatMap { Square.fromKey(_) }).fold[JsResult[Square]](JsError(Nil))(JsSuccess(_))
+    (v.asOpt[String].flatMap { Square.fromKey(_) }).fold[JsResult[Square]](JsError(Nil))(JsSuccess(_))
   private[study] given Reads[Shape] = Reads: js =>
     js.asOpt[JsObject]
       .flatMap { o =>
         for
-          brush <- o str "brush"
+          brush <- o.str("brush")
           orig  <- o.get[Square]("orig")
         yield o.get[Square]("dest") match
           case Some(dest) => Shape.Arrow(brush, orig, dest)

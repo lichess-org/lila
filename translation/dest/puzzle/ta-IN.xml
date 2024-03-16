@@ -19,7 +19,7 @@
   <string name="findTheBestMoveForWhite">வெள்ளைக்கு சிறந்த நகர்த்தலை கண்டறியுங்கள்.</string>
   <string name="findTheBestMoveForBlack">கருப்புக்குச் சிறந்த நகர்த்தலைக் கண்டறியுங்கள்.</string>
   <string name="toGetPersonalizedPuzzles">உங்களின் விருப்பத்திற்குரிய புதிர்களைப் பெற:</string>
-  <string name="puzzleId" comment="%s is the ID of the puzzle, something like #a1b2c3.">புதிர் %s</string>
+  <string name="puzzleId">புதிர் %s</string>
   <string name="puzzleOfTheDay">இன்றைய புதிர்</string>
   <string name="dailyPuzzle">தினமொரு புதிர்</string>
   <string name="clickToSolve">தீர்வுகாண அழுத்தவும்</string>
@@ -31,13 +31,13 @@
   <string name="byOpenings">தொடக்க ஆட்டத்தின்படி</string>
   <string name="puzzlesByOpenings">தொடக்க ஆட்டத்தின்படியான புதிர்கள்</string>
   <string name="openingsYouPlayedTheMost">மதிப்பிடப்பட்ட போட்டிகளில் நீங்கள் கூடுதலாகப் பாவித்த தொடக்க ஆட்டங்கள்</string>
-  <string name="useFindInPage" comment="useFindInPage&#10;&#10;Appears on https://lichess.org/training/openings&#10;Encourages players to use the built-in browser feature (Ctrl+F on most desktop computers) to find the opening they want to practice.">உங்களின் விருப்பமான தொடக்க ஆட்டத்தைக் கண்டுபிடிக்க உலாவியின் \"Find in page\" ஐப் பயன்படுத்துக!</string>
+  <string name="useFindInPage">உங்களின் விருப்பமான தொடக்க ஆட்டத்தைக் கண்டுபிடிக்க உலாவியின் \"Find in page\" ஐப் பயன்படுத்துக!</string>
   <string name="useCtrlF">உங்களின் விருப்பமான தொடக்க ஆட்டத்தைக் காண Ctrl+f ஐப் பயன்படுத்துக!</string>
   <string name="notTheMove">நகர்வு இதுவல்ல!</string>
   <string name="trySomethingElse">வேறு ஏதாவதை முயற்சிக்கவும்.</string>
-  <string name="ratingX" comment="Appears on pages of individual puzzles.&#10;&#10;%s is either:&#10;1. The word 'hidden', if you have not completed the puzzle yet.&#10;2. The rating of the puzzle, if you have completed it or seen the solution.">மதிப்பீடு: %s</string>
-  <string name="hidden" comment="Puzzle rating: hidden&#10;&#10;Appears while solving puzzles. Lichess only displays the rating of the puzzle after you have solved it or asked to see the solution.">மறைக்கப்பட்டுள்ளது</string>
-  <plurals name="playedXTimes" comment="Appears on pages of individual puzzles.&#10;%s is the number of times the puzzle has been played.">
+  <string name="ratingX">மதிப்பீடு: %s</string>
+  <string name="hidden">மறைக்கப்பட்டுள்ளது</string>
+  <plurals name="playedXTimes">
     <item quantity="one">%s முறை விளையாடப்பட்டுள்ளது</item>
     <item quantity="other">%s முறை விளையாடப்பட்டுள்ளது</item>
   </plurals>
@@ -68,7 +68,7 @@
   <string name="solved">தீர்க்கப்பட்டது</string>
   <string name="failed">தவறானது</string>
   <string name="streakDescription">படிப்படியாகக் கடினமான புதிர்களைத் தீர்த்து வெற்றியைத் தொடருங்கள். கடிகாரம் இல்லை, எனவே உங்களுக்கான நேரத்தை எடுத்துக் கொள்ளுங்கள். ஒரு தவறான நகர்த்தலால் விளையாட்டு முடிந்துவிடும்! ஆனால் ஒரு அமர்வுக்கு ஒரு நகர்வை நீங்கள் தவிர்க்கலாம்.</string>
-  <string name="yourStreakX" comment="%s is the number of puzzles you fully solved in a run of Puzzle Streak (https://lichess.org/streak).&#10;&#10;Appears once you make a wrong move or skip a puzzle, ending your streak. There is a counter always running on the left-hand side of the page without words.">உங்கள் தொடர்: %s</string>
+  <string name="yourStreakX">உங்கள் தொடர்: %s</string>
   <string name="streakSkipExplanation">உங்கள் தொடரைப் பாதுகாக்க இந்த நகர்த்தலைத் தவிர்க்கவும்! ஒரு ஓட்டத்திற்கு ஒரு முறை மட்டுமே வேலை செய்கிறது.</string>
   <string name="continueTheStreak">தொடரைத் தொடரவும்</string>
   <string name="newStreak">புதிய தொடர்</string>

@@ -2,9 +2,9 @@ package lila.streamer
 
 import cats.derived.*
 
+import lila.i18n.Language
 import lila.memo.PicfitImage
 import lila.user.User
-import lila.i18n.Language
 
 case class Streamer(
     _id: Streamer.Id,
@@ -43,7 +43,7 @@ object Streamer:
 
   def make(user: User) =
     Streamer(
-      _id = user.id into Id,
+      _id = user.id.into(Id),
       listed = Listed(true),
       approval = Approval(
         requested = false,
@@ -126,8 +126,10 @@ object Streamer:
   ) extends WithContext:
     def redirectToLiveUrl: Option[String] =
       stream.so: s =>
-        streamer.twitch.ifTrue(s.twitch).map(_.fullUrl) orElse
-          streamer.youTube.ifTrue(s.youTube).map(_.fullUrl)
+        streamer.twitch
+          .ifTrue(s.twitch)
+          .map(_.fullUrl)
+          .orElse(streamer.youTube.ifTrue(s.youTube).map(_.fullUrl))
 
   case class ModChange(list: Option[Boolean], tier: Option[Int], decline: Boolean)
 

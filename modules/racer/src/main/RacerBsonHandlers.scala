@@ -1,7 +1,6 @@
 package lila.racer
 
-import chess.format.Fen
-import chess.format.Uci
+import chess.format.{ Fen, Uci }
 import reactivemongo.api.bson.*
 
 import lila.db.dsl.{ *, given }

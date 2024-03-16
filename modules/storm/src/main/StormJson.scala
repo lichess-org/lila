@@ -2,8 +2,8 @@ package lila.storm
 
 import play.api.libs.json.*
 
-import lila.user.User
 import lila.pref.Pref
+import lila.user.User
 
 final class StormJson(sign: StormSign):
 
@@ -36,10 +36,10 @@ object StormJson:
 
   given OWrites[StormHigh] = Json.writes
 
-  private val dateFormatter = java.time.format.DateTimeFormatter ofPattern "Y/M/d"
+  private val dateFormatter = java.time.format.DateTimeFormatter.ofPattern("Y/M/d")
 
   given Writes[StormDay.Id] = Writes { id =>
-    JsString(dateFormatter print id.day.toDate)
+    JsString(dateFormatter.print(id.day.toDate))
   }
   given OWrites[StormDay] = Json.writes
 
@@ -60,6 +60,7 @@ object StormJson:
       "moveEvent"   -> p.moveEvent,
       "highlight"   -> p.highlight,
       "is3d"        -> p.is3d,
-      "animation"   -> p.animationMillisForSpeedPuzzles
+      "animation"   -> p.animationMillisForSpeedPuzzles,
+      "ratings"     -> p.showRatings
     )
   }

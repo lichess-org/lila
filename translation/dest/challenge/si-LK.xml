@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+  <string name="challengesX">අභියෝග%1$s</string>
   <string name="challengeToPlay">තරඟයට​ අභියෝග කරන්න</string>
   <string name="challengeDeclined">අභියෝගය ප්‍රතික්ෂේප කරනු ලැබුවා</string>
   <string name="challengeAccepted">අභියෝගය බාරගත්තා!</string>
@@ -21,4 +22,5 @@
   <string name="declineVariant">මම දැන් මෙම ප්‍රභේදය වාදනය කිරීමට කැමති නැත.</string>
   <string name="declineNoBot">මම බොට් වලින් අභියෝග භාර ගන්නේ නැහැ.</string>
   <string name="declineOnlyBot">මම පිළිගන්නේ බොට් වලින් ලැබෙන අභියෝග පමණි.</string>
+  <string name="inviteLichessUser">නැත්නම් Lichess පරිශීලකයෙකුට ආරාධනා කරන්න​:</string>
 </resources>

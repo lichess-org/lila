@@ -4,11 +4,10 @@ import controllers.routes
 import play.api.i18n.Lang
 import play.api.libs.json.*
 
-import lila.app.templating.Environment.{ given, * }
+import lila.app.templating.Environment.{ *, given }
 import lila.app.ui.ScalatagsTemplate.{ *, given }
 import lila.common.LangPath
 import lila.common.paginator.Paginator
-import lila.common.String.html.safeJsonValue
 import lila.storm.{ StormDay, StormHigh }
 import lila.user.User
 
@@ -28,7 +27,7 @@ object storm:
           div(cls := "storm__board main-board"),
           div(cls := "storm__side")
         ),
-        high map { h =>
+        high.map { h =>
           frag(
             div(cls := "storm-play-scores")(
               span(trans.storm.highscores()),
@@ -40,7 +39,7 @@ object storm:
           )
         },
         div(cls := "storm__about__link")(
-          a(href := routes.ContentPage.loneBookmark("storm"))(trans.aboutX("Puzzle Storm"))
+          a(href := routes.Cms.lonePage("storm"))(trans.aboutX("Puzzle Storm"))
         )
       )
     }
@@ -72,10 +71,14 @@ object storm:
         div(cls := "storm-dashboard__high box box-pad")(
           boxTop(
             h1(
-              !ctx.is(user) option frag(
-                userLink(user),
-                " • "
-              ),
+              ctx
+                .isnt(user)
+                .option(
+                  frag(
+                    userLink(user),
+                    " • "
+                  )
+                ),
               "Puzzle Storm • ",
               trans.storm.highscores()
             )
@@ -116,7 +119,7 @@ object storm:
                 history,
                 np =>
                   addQueryParam(
-                    if ctx is user then routes.Storm.dashboard().url
+                    if ctx.is(user) then routes.Storm.dashboard().url
                     else routes.Storm.dashboardOf(user.username).url,
                     "page",
                     np.toString

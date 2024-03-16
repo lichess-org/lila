@@ -1,10 +1,10 @@
 package views.html.game
 
-import lila.app.templating.Environment.{ given, * }
+import controllers.routes
+
+import lila.app.templating.Environment.{ *, given }
 import lila.app.ui.ScalatagsTemplate.{ *, given }
 import lila.game.Crosstable
-
-import controllers.routes
 
 object crosstable:
 
@@ -16,10 +16,10 @@ object crosstable:
   ): Frag =
     val matchup = trueMatchup.filter(_.users != ct.users)
     val matchupSepAt: Option[Int] = matchup.map: m =>
-      (ct.nbGames min Crosstable.maxGames) - m.users.nbGames
+      (ct.nbGames.min(Crosstable.maxGames)) - m.users.nbGames
 
     div(cls := "crosstable")(
-      ct.fillSize > 0 option raw(s"""<fill style="flex:${ct.fillSize * 0.75} 1 auto"></fill>"""),
+      (ct.fillSize > 0).option(raw(s"""<fill style="flex:${ct.fillSize * 0.75} 1 auto"></fill>""")),
       ct.results.mapWithIndex: (r, i) =>
         tag("povs")(
           cls := List(

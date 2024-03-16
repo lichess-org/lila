@@ -1,7 +1,9 @@
+import { FEN } from 'chessground/types';
 import { uciChar } from './uciChar';
 
 export * from './sanWriter';
-export const initialFen: Fen = 'rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1';
+export { type MoveRootCtrl } from './moveRootCtrl';
+export const initialFen: FEN = 'rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1';
 
 export function fixCrazySan(san: San): San {
   return san[0] === 'P' ? san.slice(1) : san;

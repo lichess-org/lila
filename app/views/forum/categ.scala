@@ -1,19 +1,21 @@
 package views.html
 package forum
 
-import controllers.team.routes.{ Team as teamRoutes }
-import lila.app.templating.Environment.{ given, * }
+import controllers.routes
+import controllers.team.routes.Team as teamRoutes
+
+import lila.app.templating.Environment.{ *, given }
 import lila.app.ui.ScalatagsTemplate.{ *, given }
 import lila.common.paginator.Paginator
-
-import controllers.routes
+import lila.forum.{ CategView, TopicView }
 
 object categ:
 
-  def index(categs: List[lila.forum.CategView])(using PageContext) =
+  def index(categs: List[CategView])(using PageContext) =
     views.html.base.layout(
       title = trans.forum.txt(),
       moreCss = cssTag("forum"),
+      csp = defaultCsp.withInlineIconFont.some,
       openGraph = lila.app.ui
         .OpenGraph(
           title = "Lichess community forum",
@@ -28,28 +30,33 @@ object categ:
           bits.searchForm()
         ),
         showCategs(categs.filterNot(_.categ.isTeam)),
-        categs.exists(_.categ.isTeam) option frag(
-          boxTop(h1("Your Team Boards")),
-          showCategs(categs.filter(_.categ.isTeam))
-        )
+        categs
+          .exists(_.categ.isTeam)
+          .option(
+            frag(
+              boxTop(h1("Your Team Boards")),
+              showCategs(categs.filter(_.categ.isTeam))
+            )
+          )
       )
 
   def show(
       categ: lila.forum.ForumCateg,
-      topics: Paginator[lila.forum.TopicView],
+      topics: Paginator[TopicView],
       canWrite: Boolean,
-      stickyPosts: List[lila.forum.TopicView]
+      stickyPosts: List[TopicView]
   )(using PageContext) =
 
-    val newTopicButton = canWrite option
+    val newTopicButton = canWrite.option(
       a(
         href     := routes.ForumTopic.form(categ.slug),
         cls      := "button button-empty button-green text",
         dataIcon := licon.Pencil
       ):
         trans.createANewTopic()
+    )
 
-    def showTopic(sticky: Boolean)(topic: lila.forum.TopicView) =
+    def showTopic(sticky: Boolean)(topic: TopicView) =
       tr(cls := List("sticky" -> sticky))(
         td(cls := "subject")(
           a(href := routes.ForumTopic.show(categ.slug, topic.slug))(topic.name)
@@ -71,6 +78,7 @@ object categ:
       title = categ.name,
       moreCss = cssTag("forum"),
       moreJs = infiniteScrollTag,
+      csp = defaultCsp.withInlineIconFont.some,
       openGraph = lila.app.ui
         .OpenGraph(
           title = s"Forum: ${categ.name}",
@@ -101,14 +109,14 @@ object categ:
             )
           ),
           tbody(cls := "infinite-scroll")(
-            stickyPosts map showTopic(sticky = true),
-            topics.currentPageResults map showTopic(sticky = false),
+            stickyPosts.map(showTopic(sticky = true)),
+            topics.currentPageResults.map(showTopic(sticky = false)),
             pagerNextTable(topics, n => routes.ForumCateg.show(categ.slug, n).url)
           )
         )
       )
 
-  private def showCategs(categs: List[lila.forum.CategView])(using PageContext) =
+  private def showCategs(categs: List[CategView])(using PageContext) =
     table(cls := "categs slist slist-pad")(
       thead(
         tr(
@@ -119,23 +127,18 @@ object categ:
         )
       ),
       tbody:
-        categs.map: categ =>
-          tr(
-            td(cls := "subject")(
-              h2(a(href := routes.ForumCateg.show(categ.slug))(categ.name)),
-              p(categ.desc)
-            ),
-            td(cls := "right")(categ.nbTopics.localize),
-            td(cls := "right")(categ.nbPosts.localize),
-            td(
-              categ.lastPost.map: (topic, post, page) =>
-                frag(
-                  a(href := s"${routes.ForumTopic.show(categ.slug, topic.slug, page)}#${post.number}")(
-                    momentFromNow(post.createdAt)
-                  ),
-                  br,
-                  trans.by(bits.authorLink(post))
-                )
+        val isMod = isGranted(_.ModerateForum)
+        categs.map: view =>
+          view.lastPost.map: (topic, post, page) =>
+            val canBrowse = isMod || !view.categ.hidden
+            val postUrl   = s"${routes.ForumTopic.show(view.slug, topic.slug, page)}#${post.number}"
+            val categUrl =
+              if canBrowse then routes.ForumCateg.show(view.slug).url
+              else routes.ForumTopic.show(view.slug, topic.slug, 1).url
+            tr(
+              td(cls := "subject")(h2(a(href := categUrl)(view.name)), p(view.desc)),
+              td(cls := "right")((if canBrowse then view.nbTopics else 1).localize),
+              td(cls := "right")((if canBrowse then view.nbPosts else topic.nbPosts).localize),
+              td(a(href := postUrl)(momentFromNow(post.createdAt)), br, trans.by(bits.authorLink(post)))
             )
-          )
     )

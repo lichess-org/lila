@@ -81,4 +81,7 @@ Aber en Lichess-Gönner chann sis Profil mit dem coole Flügel-Icon schmücke.</
   <string name="nowOneMonth">Du bisch jetzt für 1 Monet Lichess Gönner!</string>
   <string name="downgradeNextMonth">Nach 1 Monet wird dir nüt meh berächnet und dis Lichess Konto wird wieder in es regulärs Gratis Konto umgwandlet.</string>
   <string name="changeCurrency">Anderi Währig</string>
+  <string name="paymentDetails">Zahligs-Details</string>
+  <string name="updatePaymentMethod">Zahligsmodus aktualisiere</string>
+  <string name="stripeManageSub">Dis Abo verwalte und Rechnige oder Quittige abelade</string>
 </resources>

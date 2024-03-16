@@ -5,6 +5,7 @@
   <string name="toInviteSomeoneToPlayGiveThisUrl">За да поканите някого на игра, дайте му този адрес</string>
   <string name="gameOver">Край на партията</string>
   <string name="waitingForOpponent">Изчакване на противник</string>
+  <string name="orLetYourOpponentScanQrCode">Или дайте на противника си да сканира този QR код</string>
   <string name="waiting">Изчакване</string>
   <string name="yourTurn">Вашият ход</string>
   <string name="aiNameLevelAiLevel">%1$s ниво %2$s</string>
@@ -416,6 +417,7 @@
   <string name="blackCheckmatesInOneMove">Черните на ход, мат в един ход</string>
   <string name="retry">Опитай отново</string>
   <string name="reconnecting">Свързване</string>
+  <string name="noNetwork">Офлайн</string>
   <plurals name="nbFriendsOnline">
     <item quantity="one">%s приятел онлайн</item>
     <item quantity="other">%s приятели онлайн</item>
@@ -504,7 +506,10 @@
   <string name="editProfile">Редактирай профила</string>
   <string name="firstName">Име</string>
   <string name="lastName">Презиме</string>
+  <string name="setFlair">Изберете вашето емоджи</string>
+  <string name="flair">Емоджи</string>
   <string name="biography">Животопис</string>
+  <string name="countryRegion" comment="flag&#10;Appears when you edit your profile. Lets a player add a country/flag (not all flags are for countries) to their profile">Държава или регион</string>
   <string name="thankYou">Благодаря!</string>
   <string name="socialMediaLinks">Връзки към социални медии</string>
   <string name="oneUrlPerLine">Един URL на ред.</string>
@@ -523,7 +528,6 @@
   <string name="automaticallyProceedToNextGameAfterMoving">Автоматично преминаване към следващата игра след хода</string>
   <string name="autoSwitch">Автоматично превключване</string>
   <string name="puzzles">Задачи</string>
-  <string name="tournamentWinners">Победители от състезанията</string>
   <string name="name">Име</string>
   <string name="description">Описание</string>
   <string name="descPrivate">Вътрешно описание</string>
@@ -689,6 +693,9 @@
   <string name="keyNextBlunder">Следваща груба грешка</string>
   <string name="keyNextMistake">Следваща грешка</string>
   <string name="keyNextInaccuracy">Следваща неточност</string>
+  <string name="keyPreviousBranch">Предходен клон</string>
+  <string name="keyNextBranch">Следващ клон</string>
+  <string name="cyclePreviousOrNextVariation">Превключи между предходна/следваща вариация</string>
   <string name="newTournament">Нов турнир</string>
   <string name="tournamentHomeTitle">Шахматният турнир включва различни времеви контроли и варианти</string>
   <string name="tournamentHomeDescription">Играй в състезания по бърз шахмат! Участвай в разписаните състезания или създай свое собствено. Bullet, Blitz, Classical, Chess960, King of the Hill, Threecheck и още възможности предоставящи безкрайна шахматна забава.</string>
@@ -844,6 +851,7 @@
     <item quantity="one">и запиши %s като предварителен ход</item>
     <item quantity="other">и запиши %s като предварителен ход</item>
   </plurals>
+  <string name="clickHereToReadIt">Щракнете тук, за да го прочетете</string>
   <string name="sorry">Съжалявам :(</string>
   <string name="weHadToTimeYouOutForAWhile">Наложи се да Ви сложим в принудителна почивка за известно време.</string>
   <string name="why">Защо?</string>
@@ -865,6 +873,7 @@
   <string name="agreementPolicy">Съгласявам се, че ше спазвам всички правила на Lichess.</string>
   <string name="searchOrStartNewDiscussion">Търси или започни нов разговор</string>
   <string name="edit">Редактиране</string>
+  <string name="bullet" comment="Probably best left untranslated. Leave it as 'Bullet' unless your language has a better word for it.">Bullet</string>
   <string name="blitz" comment="Probably best left untranslated. Leave it as 'Blitz' unless your language has a better word for it.">Blitz</string>
   <string name="rapid">Ускорен</string>
   <string name="classical">Класически</string>
@@ -916,8 +925,6 @@
   <string name="minimumRatedGames">Минимален брой игри с рейтинг</string>
   <string name="minimumRating">Минимален рейтинг</string>
   <string name="maximumWeeklyRating">Максимален седмичен рейтинг</string>
-  <string name="onlyTitled">Само титулувани играчи</string>
-  <string name="onlyTitledHelp">Изискване на официална титла за участие в турнира</string>
   <string name="positionInputHelp">За започва всяка игра от зададена позиция, въведете валиден FEN код. 
 Това работи само за стандартни игри, но не с варианти. Можете да използвате %s за да създадете FEN позиция и след това да копирате кода тук.
 За да започват игрите от обичайната позиция, оставете полето празно.</string>
@@ -961,5 +968,7 @@
   <string name="switchSides">Смени страната</string>
   <string name="closingAccountWithdrawAppeal">Закриването на регистрацията Ви ще оттегли Вашето обжалване</string>
   <string name="ourEventTips">Нашите съвети за организиране на събития</string>
+  <string name="instructions">Инструкции</string>
+  <string name="showMeEverything">Покажи ми всичко</string>
   <string name="lichessPatronInfo">Lichess е благотворителна организация и работи с напълно безплатен софтуер и отворен код. Всички разходи за опериране, разработка и съдържание са финансирани единствено от дарения от потребителите ни.</string>
 </resources>

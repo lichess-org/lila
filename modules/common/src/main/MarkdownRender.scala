@@ -1,14 +1,10 @@
 package lila.common
 
+import chess.format.pgn.PgnStr
+import com.vladsch.flexmark.ast.{ AutoLink, Image, Link, LinkNode }
 import com.vladsch.flexmark.ext.autolink.AutolinkExtension
 import com.vladsch.flexmark.ext.gfm.strikethrough.StrikethroughExtension
-import com.vladsch.flexmark.ext.tables.{ TablesExtension, TableBlock }
-import com.vladsch.flexmark.html.{
-  AttributeProvider,
-  HtmlRenderer,
-  HtmlWriter,
-  IndependentAttributeProviderFactory
-}
+import com.vladsch.flexmark.ext.tables.{ TableBlock, TablesExtension }
 import com.vladsch.flexmark.html.renderer.{
   AttributablePart,
   CoreNodeRenderer,
@@ -17,24 +13,30 @@ import com.vladsch.flexmark.html.renderer.{
   NodeRenderer,
   NodeRendererContext,
   NodeRendererFactory,
-  NodeRenderingHandler
+  NodeRenderingHandler,
+  ResolvedLink
+}
+import com.vladsch.flexmark.html.{
+  AttributeProvider,
+  HtmlRenderer,
+  HtmlWriter,
+  IndependentAttributeProviderFactory
 }
 import com.vladsch.flexmark.parser.Parser
 import com.vladsch.flexmark.util.ast.{ Node, TextCollectingVisitor }
 import com.vladsch.flexmark.util.data.{ DataHolder, MutableDataHolder, MutableDataSet }
 import com.vladsch.flexmark.util.html.MutableAttributes
-import com.vladsch.flexmark.ast.{ AutoLink, Image, Link, LinkNode }
+import com.vladsch.flexmark.util.misc.Extension
 import io.mola.galimatias.URL
+
 import java.util.Arrays
 import scala.collection.Set
 import scala.jdk.CollectionConverters.*
 import scala.util.Try
-import com.vladsch.flexmark.util.misc.Extension
-import lila.base.RawHtml
-import com.vladsch.flexmark.html.renderer.ResolvedLink
-import chess.format.pgn.PgnStr
-import lila.common.config.AssetDomain
 import scala.util.matching.Regex
+
+import lila.base.RawHtml
+import lila.common.config.AssetDomain
 
 final class MarkdownRender(
     autoLink: Boolean = true,
@@ -62,18 +64,18 @@ final class MarkdownRender(
 
   private val options = MutableDataSet()
     .set(Parser.EXTENSIONS, extensions)
-    .set(HtmlRenderer.ESCAPE_HTML, Boolean box true)
+    .set(HtmlRenderer.ESCAPE_HTML, Boolean.box(true))
     .set(HtmlRenderer.SOFT_BREAK, "<br>")
     // always disabled
-    .set(Parser.HTML_BLOCK_PARSER, Boolean box false)
-    .set(Parser.INDENTED_CODE_BLOCK_PARSER, Boolean box false)
-    .set(Parser.FENCED_CODE_BLOCK_PARSER, Boolean box code)
+    .set(Parser.HTML_BLOCK_PARSER, Boolean.box(false))
+    .set(Parser.INDENTED_CODE_BLOCK_PARSER, Boolean.box(false))
+    .set(Parser.FENCED_CODE_BLOCK_PARSER, Boolean.box(code))
 
   // configurable
   if table then options.set(TablesExtension.CLASS_NAME, "slist")
-  if !header then options.set(Parser.HEADING_PARSER, Boolean box false)
-  if !blockQuote then options.set(Parser.BLOCK_QUOTE_PARSER, Boolean box false)
-  if !list then options.set(Parser.LIST_BLOCK_PARSER, Boolean box false)
+  if !header then options.set(Parser.HEADING_PARSER, Boolean.box(false))
+  if !blockQuote then options.set(Parser.BLOCK_QUOTE_PARSER, Boolean.box(false))
+  if !list then options.set(Parser.LIST_BLOCK_PARSER, Boolean.box(false))
 
   private val immutableOptions = options.toImmutable
 
@@ -129,7 +131,8 @@ object MarkdownRender:
         "i.ibb.co",
         "i.postimg.cc",
         "xkcd.com",
-        "images.prismic.io"
+        "image.lichess1.org",
+        "127.0.0.1"
       )
 
     private def whitelistedSrc(src: String, assetDomain: Option[AssetDomain]): Option[String] = for
@@ -146,7 +149,7 @@ object MarkdownRender:
           new:
             override def apply(options: DataHolder) = new NodeRenderer:
               override def getNodeRenderingHandlers() =
-                Set(NodeRenderingHandler(classOf[Image], render _)).asJava
+                Set(NodeRenderingHandler(classOf[Image], render(_, _, _))).asJava
 
       private def render(node: Image, context: NodeRendererContext, html: HtmlWriter): Unit =
         // Based on implementation in CoreNodeRenderer.
@@ -172,7 +175,7 @@ object MarkdownRender:
                 .attr("rel", rel)
                 .withAttr(resolvedLink)
                 .tag("a")
-                .text(altText)
+                .text(if altText.isEmpty then url else altText)
                 .tag("/a")
 
   private class PgnEmbedExtension(expander: PgnSourceExpand) extends HtmlRenderer.HtmlRendererExtension:
@@ -185,8 +188,8 @@ object MarkdownRender:
   private class PgnEmbedNodeRenderer(expander: PgnSourceExpand) extends NodeRenderer:
     override def getNodeRenderingHandlers() = java.util.HashSet:
       Arrays.asList(
-        NodeRenderingHandler(classOf[Link], renderLink _),
-        NodeRenderingHandler(classOf[AutoLink], renderAutoLink _)
+        NodeRenderingHandler(classOf[Link], renderLink(_, _, _)),
+        NodeRenderingHandler(classOf[AutoLink], renderAutoLink(_, _, _))
       )
 
     final class PgnRegexes(val game: Regex, val chapter: Regex)

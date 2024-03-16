@@ -1,12 +1,11 @@
 package lila.socket
 
+import chess.format.Fen
+import chess.variant.Variant
 import play.api.libs.json.*
 
-import chess.format.Fen
-import chess.opening.*
-import chess.variant.Variant
-import lila.tree.Node.{ destString, given }
 import lila.common.Json.given
+import lila.tree.Node.destString
 
 case class AnaDests(
     variant: Variant,
@@ -21,20 +20,14 @@ case class AnaDests(
     if isInitial then AnaDests.initialDests
     else
       val sit = chess.Game(variant.some, fen.some).situation
-      sit.playable(false) so destString(sit.destinations)
+      sit.playable(false).so(destString(sit.destinations))
 
-  lazy val opening = Variant.list.openingSensibleVariants(variant) so {
-    OpeningDb findByEpdFen fen
-  }
-
-  def json =
-    Json
-      .obj(
-        "dests" -> dests,
-        "path"  -> path
-      )
-      .add("opening" -> opening)
-      .add("ch", chapterId)
+  def json = Json
+    .obj(
+      "dests" -> dests,
+      "path"  -> path
+    )
+    .add("ch", chapterId)
 
 object AnaDests:
 
@@ -44,9 +37,9 @@ object AnaDests:
     import lila.common.Json.given
     import chess.variant.Variant
     for
-      d <- o obj "d"
+      d <- o.obj("d")
       variant = Variant.orDefault(d.get[Variant.LilaKey]("variant"))
       fen  <- d.get[Fen.Epd]("fen")
-      path <- d str "path"
+      path <- d.str("path")
       chapterId = d.get[StudyChapterId]("ch")
     yield AnaDests(variant = variant, fen = fen, path = path, chapterId = chapterId)

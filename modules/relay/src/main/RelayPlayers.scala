@@ -1,24 +1,64 @@
 package lila.relay
 
-import play.api.data.Forms.*
 import chess.format.pgn.{ Tag, Tags }
+import chess.{ Elo, FideId, PlayerName, PlayerTitle }
+import play.api.data.Forms.*
+
+import lila.fide.{ FidePlayer, PlayerToken }
 
 // used to change names and ratings of broadcast players
-private case class RelayPlayer(name: String, rating: Option[Int], title: Option[UserTitle])
+private case class RelayPlayer(
+    name: Option[PlayerName],
+    rating: Option[Elo],
+    title: Option[PlayerTitle],
+    fideId: Option[FideId] = none
+)
 
-private case class RelayPlayers(text: String):
+private class RelayPlayersTextarea(val text: String):
 
-  lazy val players: Map[String, RelayPlayer] = text.linesIterator
-    .take(1000)
-    .toList
-    .flatMap: line =>
-      line.split(';').map(_.trim) match
-        case Array(id, name, rating, title) =>
-          Some(id -> RelayPlayer(name, rating.toIntOption, lila.user.Title.get(title)))
-        case Array(id, name, rating) => Some(id -> RelayPlayer(name, rating.toIntOption, none))
-        case Array(id, name)         => Some(id -> RelayPlayer(name, none, none))
-        case _                       => none
-    .toMap
+  def sortedText = text.linesIterator.toList.sorted.mkString("\n")
+
+  private lazy val players: Map[PlayerName, RelayPlayer] =
+    val lines = text.linesIterator
+    lines.nonEmpty.so:
+      text.linesIterator.take(1000).toList.flatMap(parse).toMap
+
+  // With tokenized player names
+  private lazy val tokenizedPlayers: Map[PlayerToken, RelayPlayer] =
+    players.mapKeys(name => FidePlayer.tokenize(name.value))
+
+  // With player names combinations.
+  // For example, if the tokenized player name is "A B C D", the combinations will be:
+  // A B, A C, A D, B C, B D, C D, A B C, A B D, A C D, B C D
+  private lazy val combinationPlayers: Map[PlayerToken, RelayPlayer] =
+    tokenizedPlayers.flatMap: (fullToken, player) =>
+      val words = fullToken.split(' ').filter(_.sizeIs > 1).toList
+      for
+        size        <- 2 to words.length.atMost(4)
+        combination <- words.combinations(size)
+      yield combination.mkString(" ") -> player
+
+  // Original name / Optional rating / Optional title / Optional replacement name
+  private def parse(line: String): Option[(PlayerName, RelayPlayer)] =
+    line.split('=').map(_.trim) match
+      case Array(nameStr, fideId) =>
+        val name  = PlayerName(nameStr)
+        val parts = fideId.split('/').map(_.trim)
+        parts
+          .lift(0)
+          .flatMap(_.toIntOption)
+          .map: id =>
+            name -> RelayPlayer(name.some, none, parts.lift(1).flatMap(PlayerTitle.get), FideId(id).some)
+      case _ =>
+        val arr = line.split('/').map(_.trim)
+        arr
+          .lift(0)
+          .map: fromName =>
+            PlayerName(fromName) -> RelayPlayer(
+              name = PlayerName.from(arr.lift(3).filter(_.nonEmpty)),
+              rating = Elo.from(arr.lift(1).flatMap(_.toIntOption)),
+              title = arr.lift(2).flatMap(PlayerTitle.get)
+            )
 
   def update(games: RelayGames): RelayGames = games.map: game =>
     game.copy(tags = update(game.tags))
@@ -26,10 +66,20 @@ private case class RelayPlayers(text: String):
   private def update(tags: Tags): Tags =
     chess.Color.all.foldLeft(tags): (tags, color) =>
       tags ++ Tags:
-        tags(color.name).flatMap(players.get) so { rp =>
-          List(
-            Tag(color.fold(Tag.White, Tag.Black), rp.name).some,
-            rp.rating.map { rating => Tag(color.fold(Tag.WhiteElo, Tag.BlackElo), rating.toString) },
-            rp.title.map { title => Tag(color.fold(Tag.WhiteTitle, Tag.BlackTitle), title.value) }
-          ).flatten
-        }
+        tags
+          .names(color)
+          .flatMap(findMatching)
+          .so: rp =>
+            List(
+              rp.fideId.map(id => Tag(_.fideIds(color), id.toString)),
+              rp.name.map(name => Tag(_.names(color), name)),
+              rp.rating.map(rating => Tag(_.elos(color), rating.toString)),
+              rp.title.map(title => Tag(_.titles(color), title.value))
+            ).flatten
+
+  private def findMatching(name: PlayerName): Option[RelayPlayer] =
+    players
+      .get(name)
+      .orElse:
+        val token = FidePlayer.tokenize(name.value)
+        tokenizedPlayers.get(token).orElse(combinationPlayers.get(token))

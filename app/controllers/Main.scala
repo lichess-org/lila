@@ -1,18 +1,19 @@
 package controllers
 
 import akka.pattern.ask
-import play.api.data.*, Forms.*
+import play.api.data.*
 import play.api.libs.json.*
 import play.api.mvc.*
 import views.*
 
 import lila.app.{ *, given }
-import lila.hub.actorApi.captcha.ValidCaptcha
 import lila.common.HTTPRequest
+import lila.hub.actorApi.captcha.ValidCaptcha
+
+import Forms.*
 
 final class Main(
     env: Env,
-    prismicC: Prismic,
     assetsC: ExternalAssets
 ) extends LilaController(env):
 
@@ -38,7 +39,7 @@ final class Main(
 
   def captchaCheck(id: GameId) = Open:
     import makeTimeout.long
-    env.hub.captcher.actor ? ValidCaptcha(id, ~get("solution")) map { case valid: Boolean =>
+    (env.hub.captcher.actor ? ValidCaptcha(id, ~get("solution"))).map { case valid: Boolean =>
       Ok(if valid then 1 else 0)
     }
 
@@ -60,8 +61,7 @@ final class Main(
 
   private def serveMobile(using Context) =
     pageHit
-    FoundPage(prismicC getBookmark "mobile-apk"): (doc, resolver) =>
-      html.mobile(doc, resolver)
+    FoundPage(env.api.cmsRenderKey("mobile-apk"))(html.mobile.apply)
 
   def dailyPuzzleSlackApp = Open:
     Ok.page(html.site.dailyPuzzleSlackApp())
@@ -107,21 +107,17 @@ final class Main(
     pageHit
     Ok.page(html.site.faq())
 
-  def temporarilyDisabled = Open:
+  def temporarilyDisabled(path: String) = Open:
     pageHit
     NotImplemented.page(html.site.message.temporarilyDisabled)
-
-  def analyseVariationArrowHelp = Open:
-    Ok.page(html.site.help.analyseVariationArrow)
 
   def keyboardMoveHelp = Open:
     Ok.page(html.site.help.keyboardMove)
 
   def voiceHelp(module: String) = Open:
     module match
-      case "move"   => Ok.page(html.site.help.voiceMove)
-      case "coords" => Ok.page(html.site.help.voiceCoords)
-      case _        => NotFound(s"Unknown voice help module: $module")
+      case "move" => Ok.page(html.site.help.voiceMove)
+      case _      => NotFound(s"Unknown voice module: $module")
 
   def movedPermanently(to: String) = Anon:
     MovedPermanently(to)
@@ -152,14 +148,14 @@ final class Main(
         case 547  => s"$faq#leaving"
         case 259  => s"$faq#trophies"
         case 342  => s"$faq#provisional"
-        case 50   => routes.ContentPage.help.url
+        case 50   => routes.Cms.help.url
         case 46   => s"$faq#name"
         case 122  => s"$faq#marks"
         case _    => faq
 
   def devAsset(v: String, path: String, file: String) = assetsC.at(path, file)
 
-  private val ImageUploadRateLimitPerIp = lila.memo.RateLimit.composite[lila.common.IpAddress](
+  lila.memo.RateLimit.composite[lila.common.IpAddress](
     key = "image.upload.ip"
   )(
     ("fast", 10, 2.minutes),

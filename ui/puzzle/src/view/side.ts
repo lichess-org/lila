@@ -20,7 +20,7 @@ export function puzzleBox(ctrl: PuzzleCtrl): VNode {
 const angleImg = (ctrl: PuzzleCtrl): string => {
   const angle = ctrl.data.angle;
   const name = angle.opening ? 'opening' : angle.key.startsWith('mateIn') ? 'mate' : angle.key;
-  return lichess.asset.url(`images/puzzle-themes/${name}.svg`);
+  return site.asset.url(`images/puzzle-themes/${name}.svg`);
 };
 
 const puzzleInfos = (ctrl: PuzzleCtrl, puzzle: Puzzle): VNode =>

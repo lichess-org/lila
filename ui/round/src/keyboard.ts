@@ -1,13 +1,12 @@
 import RoundController from './ctrl';
 import { VNode } from 'snabbdom';
-import { snabDialog } from 'common/dialog';
 
 export const prev = (ctrl: RoundController) => ctrl.userJump(ctrl.ply - 1);
 
 export const next = (ctrl: RoundController) => ctrl.userJump(ctrl.ply + 1);
 
 export const init = (ctrl: RoundController) =>
-  lichess.mousetrap
+  site.mousetrap
     .bind(['left', 'k'], () => {
       prev(ctrl);
       ctrl.redraw();
@@ -25,14 +24,15 @@ export const init = (ctrl: RoundController) =>
       ctrl.redraw();
     })
     .bind('f', ctrl.flipNow)
-    .bind('z', () => lichess.pubsub.emit('zen'))
+    .bind('z', () => site.pubsub.emit('zen'))
+    .bind('B', () => ctrl.blindfold(!ctrl.blindfold()))
     .bind('?', () => {
       ctrl.keyboardHelp = !ctrl.keyboardHelp;
       ctrl.redraw();
     });
 
 export const view = (ctrl: RoundController): VNode =>
-  snabDialog({
+  site.dialog.snab({
     class: 'help',
     htmlUrl: '/round/help',
     onClose() {

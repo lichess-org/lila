@@ -1,28 +1,69 @@
-import { RelayData, LogEvent, RelaySync, RelayRound } from './interfaces';
-import { RelayTab, StudyChapter, StudyChapterRelay } from '../interfaces';
-import { isFinished } from '../studyChapters';
+import { RelayData, LogEvent, RelaySync, RelayRound, RoundId } from './interfaces';
+import { BothClocks, ChapterId, ServerClockMsg } from '../interfaces';
 import { StudyMemberCtrl } from '../studyMembers';
 import { AnalyseSocketSend } from '../../socket';
-import { Toggle, prop, toggle } from 'common';
+import { Prop, Toggle, notNull, prop, toggle } from 'common';
+import RelayTeams from './relayTeams';
+import RelayLeaderboard from './relayLeaderboard';
+import { StudyChapters } from '../studyChapters';
+import { MultiCloudEval } from '../multiCloudEval';
+import { onWindowResize as videoPlayerOnWindowResize } from './videoPlayerView';
+
+export const relayTabs = ['overview', 'boards', 'teams', 'leaderboard'] as const;
+export type RelayTab = (typeof relayTabs)[number];
 
 export default class RelayCtrl {
   log: LogEvent[] = [];
   cooldown = false;
-  clockInterval?: number;
   tourShow: Toggle;
-  tab = prop<RelayTab>('overview');
+  roundSelectShow = toggle(false);
+  groupSelectShow = toggle(false);
+  tab: Prop<RelayTab>;
+  teams?: RelayTeams;
+  leaderboard?: RelayLeaderboard;
+  streams: [string, string][] = [];
+  showStreamerMenu = toggle(false);
 
   constructor(
-    public id: string,
+    readonly id: RoundId,
     public data: RelayData,
     readonly send: AnalyseSocketSend,
-    readonly redraw: () => void,
+    readonly redraw: (redrawOnly?: boolean) => void,
     readonly members: StudyMemberCtrl,
-    chapter: StudyChapter,
+    private readonly chapters: StudyChapters,
+    private readonly multiCloudEval: MultiCloudEval,
+    setChapter: (id: ChapterId) => void,
   ) {
-    this.applyChapterRelay(chapter, chapter.relay);
     this.tourShow = toggle((location.pathname.match(/\//g) || []).length < 5);
+    const locationTab = location.hash.replace(/^#/, '') as RelayTab;
+    const initialTab = relayTabs.includes(locationTab)
+      ? locationTab
+      : this.chapters.looksNew()
+      ? 'overview'
+      : 'boards';
+    this.tab = prop<RelayTab>(initialTab);
+    this.teams = data.tour.teamTable
+      ? new RelayTeams(id, this.multiCloudEval, setChapter, this.roundPath, redraw)
+      : undefined;
+    this.leaderboard = data.tour.leaderboard ? new RelayLeaderboard(data.tour.id, redraw) : undefined;
+    setInterval(() => this.redraw(true), 1000);
+    if (data.videoUrls) videoPlayerOnWindowResize(this.redraw);
+    site.pubsub.on('socket.in.crowd', d => {
+      const s = d.streams as [string, string][];
+      if (!s) return;
+      if (this.streams.length === s.length && this.streams.every(([id], i) => id === s[i][0])) return;
+      this.streams = s;
+      this.redraw();
+    });
   }
+
+  openTab = (t: RelayTab) => {
+    this.tab(t);
+    this.tourShow(true);
+    this.redraw();
+  };
+
+  lastMoveAt = (id: ChapterId): number | undefined => this.chapters.get(id)?.lastMoveAt;
 
   setSync = (v: boolean) => {
     this.send('relaySync', v);
@@ -31,12 +72,13 @@ export default class RelayCtrl {
 
   loading = () => !this.cooldown && this.data.sync?.ongoing;
 
-  applyChapterRelay = (c: StudyChapter, r?: StudyChapterRelay) => {
-    if (this.clockInterval) clearInterval(this.clockInterval);
-    if (r) {
-      c.relay = this.convertDate(r);
-      if (!isFinished(c)) this.clockInterval = setInterval(this.redraw, 1000);
-    }
+  setClockToChapterPreview = (msg: ServerClockMsg, clocks: BothClocks) => {
+    const cp = this.chapters.get(msg.p.chapterId);
+    if (cp?.players)
+      ['white', 'black'].forEach((color: Color, i) => {
+        const clock = clocks[i];
+        if (notNull(clock)) cp.players![color].clock = clock;
+      });
   };
 
   roundById = (id: string) => this.data.rounds.find(r => r.id == id);
@@ -47,15 +89,17 @@ export default class RelayCtrl {
   tourPath = () => `/broadcast/${this.data.tour.slug}/${this.data.tour.id}`;
   roundPath = (round?: RelayRound) => {
     const r = round || this.currentRound();
-    return r && `/broadcast/${this.data.tour.slug}/${r.slug}/${r.id}`;
+    return `/broadcast/${this.data.tour.slug}/${r.slug}/${r.id}`;
   };
 
-  private convertDate = (r: StudyChapterRelay): StudyChapterRelay => {
-    if (typeof r.secondsSinceLastMove !== 'undefined' && !r.lastMoveAt) {
-      r.lastMoveAt = Date.now() - r.secondsSinceLastMove * 1000;
-    }
-    return r;
+  updateAddressBar = (tourUrl: string, roundUrl: string) => {
+    const url = this.tourShow() ? `${tourUrl}${this.tab() === 'overview' ? '' : `#${this.tab()}`}` : roundUrl;
+    // when jumping from a tour tab to another page, remember which tour tab we were on.
+    if (!this.tourShow() && location.href.includes('#')) history.pushState({}, '', url);
+    else history.replaceState({}, '', url);
   };
+
+  isStreamer = () => this.streams.some(([id]) => id === document.body.dataset.user);
 
   private socketHandlers = {
     relayData: (d: RelayData) => {
@@ -81,7 +125,7 @@ export default class RelayCtrl {
       }, 4500);
       this.redraw();
       if (event.error) {
-        if (this.data.sync.log.slice(-2).every(e => e.error)) lichess.sound.play('error');
+        if (this.data.sync.log.slice(-2).every(e => e.error)) site.sound.play('error');
         console.warn(`relay synchronisation error: ${event.error}`);
       }
     },

@@ -6,8 +6,8 @@ import com.softwaremill.tagging.*
 import play.api.Configuration
 import play.api.libs.ws.StandaloneWSClient
 
-import lila.common.config.*
 import lila.common.Strings
+import lila.common.config.*
 import lila.memo.SettingStore
 import lila.memo.SettingStore.Strings.given
 import lila.oauth.OAuthServer
@@ -21,7 +21,6 @@ final class Env(
     userRepo: UserRepo,
     authenticator: Authenticator,
     mailer: lila.mailer.Mailer,
-    irc: lila.irc.IrcApi,
     noteApi: lila.user.NoteApi,
     cacheApi: lila.memo.CacheApi,
     settingStore: lila.memo.SettingStore.Builder,
@@ -76,7 +75,7 @@ final class Env(
 
   lazy val garbageCollector =
     def mk: (() => Boolean) => GarbageCollector = isArmed => wire[GarbageCollector]
-    mk((() => ugcArmedSetting.get()))
+    mk(() => ugcArmedSetting.get())
 
   lazy val emailConfirm: EmailConfirm =
     if config.emailConfirm.enabled then
@@ -112,14 +111,14 @@ final class Env(
 
   private lazy val dnsApi: DnsApi = wire[DnsApi]
 
-  private lazy val checkMail: CheckMail = wire[CheckMail]
+  private lazy val verifyMail: VerifyMail = wire[VerifyMail]
 
   lazy val emailAddressValidator = wire[EmailAddressValidator]
 
   private lazy val disposableEmailDomain = DisposableEmailDomain(
     ws = ws,
     providerUrl = config.disposableEmail.providerUrl,
-    checkMailBlocked = () => checkMail.fetchAllBlocked
+    verifyMailBlocked = () => verifyMail.fetchAllBlocked
   )
 
   lazy val spamKeywordsSetting = settingStore[Strings](

@@ -56,7 +56,7 @@ export default async function (el: HTMLCanvasElement, data: AnalyseData, trans: 
   for (let i = 0; i <= firstPly; i++) {
     labels.push('');
   }
-  let showTotal = !hunter;
+  const showTotal = !hunter;
 
   const logC = Math.pow(Math.log(3), 2);
 
@@ -65,6 +65,7 @@ export default async function (el: HTMLCanvasElement, data: AnalyseData, trans: 
 
   moveCentis.forEach((centis: number, x: number) => {
     const node = tree[x + 1];
+    if (!tree[x]) return;
     const ply = node ? node.ply : tree[x].ply + 1;
     const san = node ? node.san : '-';
     // Current behaviour: Game-ending action is assigned to the next color
@@ -97,8 +98,7 @@ export default async function (el: HTMLCanvasElement, data: AnalyseData, trans: 
 
     let clock = node ? node.clock : undefined;
     if (clock == undefined) {
-      if (x < moveCentis.length - 1) showTotal = false;
-      else if (data.game.status.name === 'outoftime') clock = 0;
+      if (data.game.status.name === 'outoftime') clock = 0;
       else if (data.clock) {
         const prevClock = tree[x - 1].clock;
         if (prevClock) clock = prevClock + data.clock.increment - centis;
@@ -159,7 +159,6 @@ export default async function (el: HTMLCanvasElement, data: AnalyseData, trans: 
       }))
     : lineBuilder(moveSeries, true);
   const divisionLines = division(trans, data.game.division);
-
   const datasets: ChartDataset[] = [...moveSeriesSet];
   if (showTotal) datasets.push(...lineBuilder(totalSeries, false));
   datasets.push(plyLine(firstPly), ...divisionLines);
@@ -201,14 +200,14 @@ export default async function (el: HTMLCanvasElement, data: AnalyseData, trans: 
       onClick(_event, elements, _chart) {
         let blackOffset = elements[0].datasetIndex & 1;
         if ((firstPly & 1) != 0) blackOffset = blackOffset ^ 1;
-        lichess.pubsub.emit('analysis.chart.click', elements[0].index * 2 + blackOffset);
+        site.pubsub.emit('analysis.chart.click', elements[0].index * 2 + blackOffset);
       },
     },
   };
   const movetimeChart = new Chart(el, config) as PlyChart;
   movetimeChart.selectPly = selectPly.bind(movetimeChart);
-  lichess.pubsub.on('ply', movetimeChart.selectPly);
-  lichess.pubsub.emit('ply.trigger');
+  site.pubsub.on('ply', movetimeChart.selectPly);
+  site.pubsub.emit('ply.trigger');
   return movetimeChart;
 }
 

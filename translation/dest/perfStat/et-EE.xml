@@ -25,7 +25,6 @@
   <string name="longestStreak">Pikim seeria: %s</string>
   <string name="currentStreak">Praegune seeria: %s</string>
   <string name="bestRated">Parimad reitinguga võidud</string>
-  <string name="worstRated">Halvimad reitinguga kaotused</string>
   <string name="gamesInARow">Järjestikusi mänge</string>
   <string name="lessThanOneHour">Mängude vahel vähem kui tund</string>
   <string name="maxTimePlaying">Pikim aeg mängimas</string>

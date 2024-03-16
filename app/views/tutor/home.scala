@@ -2,7 +2,7 @@ package views.html.tutor
 
 import controllers.routes
 
-import lila.app.templating.Environment.{ given, * }
+import lila.app.templating.Environment.{ *, given }
 import lila.app.ui.ScalatagsTemplate.{ *, given }
 import lila.tutor.{ TutorFullReport, TutorPerfReport }
 import lila.user.User
@@ -31,7 +31,7 @@ object home:
         )
       ,
       div(cls := "tutor__perfs tutor-cards")(
-        full.report.perfs.toList map { perfReportCard(full.report, _, user) }
+        full.report.perfs.toList.map { perfReportCard(full.report, _, user) }
       )
     )
 

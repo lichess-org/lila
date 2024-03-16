@@ -1,7 +1,8 @@
 package controllers
 
-import lila.app.{ given, * }
 import views.*
+
+import lila.app.*
 
 final class TournamentCrud(env: Env) extends LilaController(env):
 
@@ -15,18 +16,18 @@ final class TournamentCrud(env: Env) extends LilaController(env):
   }
 
   def edit(id: TourId) = Secure(_.ManageTournament) { ctx ?=> _ ?=>
-    FoundPage(crud one id): tour =>
-      html.tournament.crud.edit(tour, crud editForm tour)
+    FoundPage(crud.one(id)): tour =>
+      html.tournament.crud.edit(tour, crud.editForm(tour))
   }
 
   def update(id: TourId) = SecureBody(_.ManageTournament) { ctx ?=> _ ?=>
-    Found(crud one id): tour =>
+    Found(crud.one(id)): tour =>
       crud
         .editForm(tour)
         .bindFromRequest()
         .fold(
           err => BadRequest.page(html.tournament.crud.edit(tour, err)),
-          data => crud.update(tour, data) inject Redirect(routes.TournamentCrud.edit(id)).flashSuccess
+          data => crud.update(tour, data).inject(Redirect(routes.TournamentCrud.edit(id)).flashSuccess)
         )
   }
 
@@ -40,7 +41,7 @@ final class TournamentCrud(env: Env) extends LilaController(env):
       .fold(
         err => BadRequest.page(html.tournament.crud.create(err)),
         data =>
-          crud.create(data) map { tour =>
+          crud.create(data).map { tour =>
             Redirect {
               if tour.isTeamBattle then routes.Tournament.teamBattleEdit(tour.id)
               else routes.TournamentCrud.edit(tour.id)
@@ -50,6 +51,6 @@ final class TournamentCrud(env: Env) extends LilaController(env):
   }
 
   def cloneT(id: TourId) = Secure(_.ManageTournament) { ctx ?=> _ ?=>
-    FoundPage(crud one id): old =>
-      html.tournament.crud.create(crud editForm crud.clone(old))
+    FoundPage(crud.one(id)): old =>
+      html.tournament.crud.create(crud.editForm(crud.clone(old)))
   }

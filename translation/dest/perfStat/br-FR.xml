@@ -24,7 +24,6 @@
   <string name="longestStreak">Brasañ niver da heul: %s</string>
   <string name="currentStreak">Niver a grogadoù da heul evit poent: %s</string>
   <string name="bestRated">Gwellañ trec\'hioù renket</string>
-  <string name="worstRated">Gwashañ lammoù renket</string>
   <string name="gamesInARow">Krogadoù c\'hoariet hep troc\'h</string>
   <string name="lessThanOneHour">Nebeutoc\'h evit un eur etre daou grogad</string>
   <string name="maxTimePlaying">Ar muiañ a amzer o c\'hoari dizehan</string>

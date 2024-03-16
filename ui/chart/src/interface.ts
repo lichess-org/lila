@@ -36,7 +36,7 @@ export interface AnalyseData {
     startedAtTurn?: number;
   };
   analysis?: {
-    partial: boolean;
+    partial?: boolean;
   };
   clock?: {
     running: boolean;

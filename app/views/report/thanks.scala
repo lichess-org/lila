@@ -1,9 +1,9 @@
 package views.html.report
 
-import lila.app.templating.Environment.{ given, * }
-import lila.app.ui.ScalatagsTemplate.{ *, given }
-
 import controllers.routes
+
+import lila.app.templating.Environment.{ *, given }
+import lila.app.ui.ScalatagsTemplate.{ *, given }
 
 object thanks:
 
@@ -26,13 +26,15 @@ fetch(this.dataset.action, {method:'post'})
         p("The moderators will review it very soon, and take appropriate action."),
         br,
         br,
-        !blocked option p(
-          "In the meantime, you can block this user: ",
-          submitButton(
-            attr("data-action") := routes.Relation.block(userId),
-            cls                 := "report-block button",
-            st.title            := trans.block.txt()
-          )(span(cls := "text", dataIcon := licon.NotAllowed)("Block ", titleNameOrId(userId)))
+        (!blocked).option(
+          p(
+            "In the meantime, you can block this user: ",
+            submitButton(
+              attr("data-action") := routes.Relation.block(userId),
+              cls                 := "report-block button",
+              st.title            := trans.block.txt()
+            )(span(cls := "text", dataIcon := licon.NotAllowed)("Block ", titleNameOrId(userId)))
+          )
         ),
         br,
         br,

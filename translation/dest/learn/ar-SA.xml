@@ -4,7 +4,7 @@
   <string name="byPlaying">بواسطة اللعب!</string>
   <string name="menu">القائمة</string>
   <string name="progressX">التقدم: %s</string>
-  <string name="resetMyProgress">إعادة ضبط تقدمي</string>
+  <string name="resetMyProgress">أعد ضبط تقدمي</string>
   <string name="youWillLoseAllYourProgress">سيتم محو كل سجلات تقييمك!</string>
   <string name="play" comment="play&#10;&#10;A small ribbon that appears on your current chapter in the Chess Basics course. Please keep this string short.">اِلعب!</string>
   <string name="chessPieces">قطع الشطرنج</string>

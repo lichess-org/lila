@@ -1,10 +1,11 @@
 import { TablebaseMoveStats } from './interfaces';
 import { opposite } from 'chessops/util';
-import { fenColor } from 'common/mini-board';
+import { fenColor } from 'common/miniBoard';
 import { VNode } from 'snabbdom';
 import AnalyseCtrl from '../ctrl';
+import { FEN } from 'chessground/types';
 
-export function winnerOf(fen: Fen, move: TablebaseMoveStats): Color | undefined {
+export function winnerOf(fen: FEN, move: TablebaseMoveStats): Color | undefined {
   const stm = fenColor(fen);
   if (move.checkmate || move.variant_loss || (move.dtz && move.dtz < 0)) return stm;
   if (move.variant_win || (move.dtz && move.dtz > 0)) return opposite(stm);
@@ -14,7 +15,7 @@ export function winnerOf(fen: Fen, move: TablebaseMoveStats): Color | undefined 
 export const ucfirst = (str: string) => `${str[0].toUpperCase()}${str.slice(1)}`;
 
 export interface MoveArrowOpts {
-  fen: Fen;
+  fen: FEN;
   onClick: (e: MouseEvent, uci: string | null) => void;
 }
 

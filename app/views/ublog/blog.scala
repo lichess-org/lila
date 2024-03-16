@@ -1,13 +1,13 @@
 package views.html.ublog
 
 import controllers.routes
+import play.api.mvc.Call
 
-import lila.app.templating.Environment.{ given, * }
+import lila.app.templating.Environment.{ *, given }
 import lila.app.ui.ScalatagsTemplate.{ *, given }
 import lila.common.paginator.Paginator
 import lila.ublog.{ UblogBlog, UblogPost }
 import lila.user.User
-import play.api.mvc.Call
 
 object blog:
 
@@ -18,8 +18,8 @@ object blog:
     views.html.base.layout(
       moreCss = cssTag("ublog"),
       moreJs = frag(
-        posts.hasNextPage option infiniteScrollTag,
-        ctx.isAuth option jsModule("ublog")
+        posts.hasNextPage.option(infiniteScrollTag),
+        ctx.isAuth.option(jsModule("ublog"))
       ),
       title = title,
       atomLinkTag = link(
@@ -27,29 +27,27 @@ object blog:
         st.title := title
       ).some,
       robots = netConfig.crawlable && blog.listed
-    ) {
+    ):
       main(cls := "page-menu")(
-        views.html.blog.bits.menu(none, (if ctx is user then "mine" else "community").some),
+        menu(Left(user.id)),
         div(cls := "page-menu__content box box-pad ublog-index")(
           boxTop(
             h1(trans.ublog.xBlog(userLink(user))),
             div(cls := "box__top__actions")(
-              if ctx is user then
+              blog.allows.moderate.option(tierForm(blog)),
+              blog.allows.create.option(
                 frag(
                   a(href := routes.Ublog.drafts(user.username))(trans.ublog.drafts()),
-                  postView.newPostLink
+                  postView.newPostLink(user)
                 )
-              else
-                frag(
-                  isGranted(_.ModerateBlog) option tierForm(blog),
-                  views.html.site.bits.atomLink(routes.Ublog.userAtom(user.username))
-                )
+              ),
+              views.html.site.bits.atomLink(routes.Ublog.userAtom(user.username))
             )
           ),
           standardFlash,
           if posts.nbResults > 0 then
             div(cls := "ublog-index__posts ublog-post-cards infinite-scroll")(
-              posts.currentPageResults map { postView.card(_) },
+              posts.currentPageResults.map { postView.card(_) },
               pagerNext(posts, np => s"${routes.Ublog.index(user.username, np).url}")
             )
           else
@@ -58,7 +56,6 @@ object blog:
             )
         )
       )
-    }
 
   def urlOfBlog(blog: UblogBlog): Call = urlOfBlog(blog.id)
   def urlOfBlog(blogId: UblogBlog.Id): Call = blogId match
@@ -68,6 +65,6 @@ object blog:
     val form = lila.ublog.UblogForm.tier.fill(blog.tier)
     frag(
       span(dataIcon := licon.Agent, cls := "text")("Set to:"),
-      form3.select(form("tier"), lila.ublog.UblogBlog.Tier.options)
+      form3.select(form("tier"), lila.ublog.UblogRank.Tier.options)
     )
   }

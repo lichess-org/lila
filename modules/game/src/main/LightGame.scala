@@ -14,6 +14,8 @@ case class LightGame(
   def players                                             = List(whitePlayer, blackPlayer)
   def playerByUserId(userId: UserId): Option[LightPlayer] = players.find(_.userId contains userId)
   def finished                                            = status >= Status.Mate
+  def winner: Option[LightPlayer]                         = win.map(_.fold(whitePlayer, blackPlayer))
+  def winnerUserId: Option[UserId]                        = winner.flatMap(_.userId)
 
 object LightGame:
 
@@ -46,7 +48,7 @@ object LightPlayer:
   private[game] type Builder = Color => Option[UserId] => LightPlayer
 
   private def safeRange[A](range: Range)(a: A)(using ir: IntRuntime[A]): Option[A] =
-    range.contains(ir(a)) option a
+    range.contains(ir(a)).option(a)
   private val ratingRange     = safeRange[IntRating](0 to 4000)
   private val ratingDiffRange = safeRange[IntRatingDiff](-1000 to 1000)
 
@@ -59,10 +61,10 @@ object LightPlayer:
       import Player.BSONFields.*
       LightPlayer(
         color = color,
-        aiLevel = doc int aiLevel,
+        aiLevel = doc.int(aiLevel),
         userId = userId,
-        rating = doc.getAsOpt[IntRating](rating) flatMap ratingRange,
-        ratingDiff = doc.getAsOpt[IntRatingDiff](ratingDiff) flatMap ratingDiffRange,
+        rating = doc.getAsOpt[IntRating](rating).flatMap(ratingRange),
+        ratingDiff = doc.getAsOpt[IntRatingDiff](ratingDiff).flatMap(ratingDiffRange),
         provisional = ~doc.getAsOpt[RatingProvisional](provisional),
-        berserk = doc booleanLike berserk getOrElse false
+        berserk = doc.booleanLike(berserk).getOrElse(false)
       )

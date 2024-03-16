@@ -3,10 +3,11 @@ package lila.common
 import chess.format.pgn.PgnStr
 import io.mola.galimatias.IPv4Address.parseIPv4Address
 import io.mola.galimatias.IPv6Address.parseIPv6Address
-import play.api.mvc.Call
-import scala.util.Try
-import java.net.InetAddress
 import ornicar.scalalib.SecureRandom
+import play.api.mvc.Call
+
+import java.net.InetAddress
+import scala.util.Try
 
 opaque type ApiVersion = Int
 object ApiVersion extends OpaqueInt[ApiVersion]:
@@ -21,7 +22,7 @@ object AssetVersion extends OpaqueString[AssetVersion]:
   def change() =
     stored = random
     Bus.publish(Changed(current), "assetVersion")
-  private def random = AssetVersion(SecureRandom nextString 6)
+  private def random = AssetVersion(SecureRandom.nextString(6))
   case class Changed(version: AssetVersion)
 
 opaque type Bearer = String
@@ -58,16 +59,16 @@ object Domain extends OpaqueString[Domain]:
     // tail.domain.com, tail.domain.co.uk, tail.domain.edu.au, etc.
     def withoutSubdomain: Option[Domain] =
       a.value.split('.').toList.reverse match
-        case tld :: sld :: tail :: _ if sld.lengthIs <= 3 => Domain from s"$tail.$sld.$tld"
-        case tld :: sld :: _                              => Domain from s"$sld.$tld"
+        case tld :: sld :: tail :: _ if sld.lengthIs <= 3 => Domain.from(s"$tail.$sld.$tld")
+        case tld :: sld :: _                              => Domain.from(s"$sld.$tld")
         case _                                            => none
     def lower = Domain.Lower(a.value.toLowerCase)
 
   // https://stackoverflow.com/a/26987741/1744715
   private val regex =
     """(?i)^_?[a-z0-9-]{1,63}+(?:\._?[a-z0-9-]{1,63}+)*$""".r
-  def isValid(str: String)              = regex.matches(str)
-  def from(str: String): Option[Domain] = isValid(str) option Domain(str)
+  def isValid(str: String)              = str.contains('.') && regex.matches(str)
+  def from(str: String): Option[Domain] = isValid(str).option(Domain(str))
   def unsafe(str: String): Domain       = Domain(str)
 
   opaque type Lower = String
@@ -97,7 +98,7 @@ object Preload:
 
 final class LazyFu[A](run: () => Fu[A]):
   lazy val value: Fu[A]             = run()
-  def dmap[B](f: A => B): LazyFu[B] = LazyFu(() => value dmap f)
+  def dmap[B](f: A => B): LazyFu[B] = LazyFu(() => value.dmap(f))
 object LazyFu:
   def sync[A](v: => A): LazyFu[A] = LazyFu(() => fuccess(v))
 

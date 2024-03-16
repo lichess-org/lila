@@ -1,11 +1,11 @@
 package lila.lobby
 
-import actorApi.*
-
 import lila.common.{ Bus, LilaScheduler }
 import lila.game.Game
 import lila.hub.SyncActor
 import lila.socket.Socket.{ Sri, Sris }
+
+import actorApi.*
 
 final private class LobbySyncActor(
     seekApi: SeekApi,
@@ -32,15 +32,15 @@ final private class LobbySyncActor(
 
     case msg @ AddHook(hook) =>
       lila.mon.lobby.hook.create.increment()
-      hookRepo bySri hook.sri foreach remove
+      hookRepo.bySri(hook.sri).foreach(remove)
       hook.sid.so: sid =>
-        hookRepo bySid sid foreach remove
-      !hook.compatibleWithPools so findCompatible(hook) match
+        hookRepo.bySid(sid).foreach(remove)
+      (!hook.compatibleWithPools).so(findCompatible(hook)) match
         case Some(h) =>
           biteHook(h.id, hook.sri, hook.user)
           publishRemoveHook(hook)
         case None =>
-          hookRepo save msg.hook
+          hookRepo.save(msg.hook)
           socket ! msg
 
     case msg @ AddSeek(seek) =>
@@ -54,7 +54,7 @@ final private class LobbySyncActor(
       socket ! msg
 
     case CancelHook(sri) =>
-      hookRepo bySri sri foreach remove
+      hookRepo.bySri(sri).foreach(remove)
 
     case CancelSeek(seekId, user) =>
       seekApi.removeBy(seekId, user.id)
@@ -66,12 +66,12 @@ final private class LobbySyncActor(
 
     case BiteSeek(seekId, user) =>
       NoPlayban(user.some):
-        gameCache.nbPlaying(user.id) foreach { nbPlaying =>
+        gameCache.nbPlaying(user.id).foreach { nbPlaying =>
           if lila.game.Game.maxPlaying > nbPlaying then
             lila.mon.lobby.seek.join.increment()
-            seekApi find seekId foreach {
+            seekApi.find(seekId).foreach {
               _.foreach: seek =>
-                biter(seek, user) foreach this.!
+                biter(seek, user).foreach(this.!)
             }
         }
 
@@ -101,15 +101,15 @@ final private class LobbySyncActor(
         .foreach { this ! WithPromise(_, promise) }
 
     case WithPromise(Sris(sris), promise) =>
-      poolApi socketIds Sris(sris)
-      val fewSecondsAgo = nowInstant minusSeconds 5
-      if remoteDisconnectAllAt isBefore fewSecondsAgo
+      poolApi.socketIds(Sris(sris))
+      val fewSecondsAgo = nowInstant.minusSeconds(5)
+      if remoteDisconnectAllAt.isBefore(fewSecondsAgo)
       then
         this ! RemoveHooks:
           hookRepo
             .notInSris(sris)
             .filter: h =>
-              !h.boardApi && (h.createdAt isBefore fewSecondsAgo)
+              !h.boardApi && (h.createdAt.isBefore(fewSecondsAgo))
             .toSet ++ hookRepo.cleanupOld
 
       lila.mon.lobby.socket.member.update(sris.size)
@@ -117,7 +117,7 @@ final private class LobbySyncActor(
       lila.mon.actor.queueSize("lobby").update(queueSize)
       promise.success(())
 
-    case RemoveHooks(hooks) => hooks foreach remove
+    case RemoveHooks(hooks) => hooks.foreach(remove)
 
     case Resync => socket ! HookIds(hookRepo.ids)
 
@@ -125,10 +125,10 @@ final private class LobbySyncActor(
       socket ! AllHooksFor(member, hookRepo.filter { biter.showHookTo(_, member) }.toSeq)
 
     case lila.pool.HookThieve.GetCandidates(clock, promise) =>
-      promise success lila.pool.HookThieve.PoolHooks(hookRepo poolCandidates clock)
+      promise.success(lila.pool.HookThieve.PoolHooks(hookRepo.poolCandidates(clock)))
 
     case lila.pool.HookThieve.StolenHookIds(ids) =>
-      hookRepo byIds ids.toSet foreach remove
+      hookRepo.byIds(ids.toSet).foreach(remove)
 
   private def NoPlayban(user: Option[LobbyUser])(f: => Unit): Unit =
     user
@@ -138,21 +138,21 @@ final private class LobbySyncActor(
         case _    =>
 
   private def biteHook(hookId: String, sri: Sri, user: Option[LobbyUser]) =
-    hookRepo byId hookId foreach { hook =>
+    hookRepo.byId(hookId).foreach { hook =>
       remove(hook)
-      hookRepo bySri sri foreach remove
-      biter(hook, sri, user) foreach this.!
+      hookRepo.bySri(sri).foreach(remove)
+      biter(hook, sri, user).foreach(this.!)
     }
 
   private def findCompatible(hook: Hook): Option[Hook] =
-    hookRepo.filter(_ compatibleWith hook).find { existing =>
+    hookRepo.filter(_.compatibleWith(hook)).find { existing =>
       biter.canJoin(existing, hook.user) &&
       !(existing.user, hook.user).tupled
         .so: (u1, u2) =>
           recentlyAbortedUserIdPairs.exists(u1.id, u2.id)
     }
 
-  def registerAbortedGame(g: Game) = recentlyAbortedUserIdPairs register g
+  def registerAbortedGame(g: Game) = recentlyAbortedUserIdPairs.register(g)
 
   private object recentlyAbortedUserIdPairs:
     private val cache = lila.memo.ExpireSetMemo[CacheKey](1 hour)
@@ -168,13 +168,13 @@ final private class LobbySyncActor(
     def exists(u1: UserId, u2: UserId) = cache.get(makeKey(u1, u2))
 
   private def findCompatible(seek: Seek): Fu[Option[Seek]] =
-    seekApi forUser seek.user map {
-      _.find(_ compatibleWith seek)
+    seekApi.forUser(seek.user).map {
+      _.find(_.compatibleWith(seek))
     }
 
   private def remove(hook: Hook) =
     if hookRepo.exists(hook) then
-      hookRepo remove hook
+      hookRepo.remove(hook)
       socket ! RemoveHook(hook.id)
       publishRemoveHook(hook)
 

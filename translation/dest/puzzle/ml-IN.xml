@@ -14,7 +14,7 @@
   <string name="voteToLoadNextOne">അടുത്തത് കാണിക്കുവാന്‍ വോട്ടു ചെയ്യുക!</string>
   <string name="findTheBestMoveForWhite">വെള്ളയുടെ ഏറ്റവും മികച്ച നീക്കം കണ്ടു പിടിക്കൂക.</string>
   <string name="findTheBestMoveForBlack">കറുപ്പിന്‍റെ ഏറ്റവും മികച്ച നീക്കം കണ്ടു പിടിക്കൂക.</string>
-  <string name="puzzleId" comment="%s is the ID of the puzzle, something like #a1b2c3.">%sമത്തെ പസ്സില്‍</string>
+  <string name="puzzleId">%sമത്തെ പസ്സില്‍</string>
   <string name="puzzleOfTheDay">ഇന്നത്തെ പസ്സില്‍</string>
   <string name="clickToSolve">ഉത്തരം കണ്ടുപിടിക്കാനായി ക്ലിക്ക് ചെയ്യുക</string>
   <string name="goodMove">നല്ല നീക്കം</string>
@@ -24,9 +24,9 @@
   <string name="puzzleComplete">പസ്സില്‍ പൂര്‍ത്തിയായി!</string>
   <string name="notTheMove">ശരിയായ നീക്കം അതല്ല!</string>
   <string name="trySomethingElse">മറ്റെന്തെങ്കിലും ശ്രമിച്ചുനോക്കുക.</string>
-  <string name="ratingX" comment="Appears on pages of individual puzzles.&#10;&#10;%s is either:&#10;1. The word 'hidden', if you have not completed the puzzle yet.&#10;2. The rating of the puzzle, if you have completed it or seen the solution.">റേറ്റിംഗ്: %s</string>
-  <string name="hidden" comment="Puzzle rating: hidden&#10;&#10;Appears while solving puzzles. Lichess only displays the rating of the puzzle after you have solved it or asked to see the solution.">മറച്ചിരിക്കുന്നു</string>
-  <plurals name="playedXTimes" comment="Appears on pages of individual puzzles.&#10;%s is the number of times the puzzle has been played.">
+  <string name="ratingX">റേറ്റിംഗ്: %s</string>
+  <string name="hidden">മറച്ചിരിക്കുന്നു</string>
+  <plurals name="playedXTimes">
     <item quantity="one">%s ആള്‍ ശ്രമിച്ചു</item>
     <item quantity="other">%s പേര്‍ ശ്രമിച്ചു</item>
   </plurals>

@@ -2,9 +2,9 @@ package views.html.opening
 
 import controllers.routes
 
-import lila.app.templating.Environment.{ given, * }
+import lila.app.templating.Environment.{ *, given }
 import lila.app.ui.ScalatagsTemplate.{ *, given }
-import lila.opening.{ OpeningTree, OpeningConfig }
+import lila.opening.{ OpeningConfig, OpeningTree }
 
 object tree:
 
@@ -33,7 +33,7 @@ object tree:
     }
 
   private def renderChildren(node: OpeningTree, level: Int): Frag =
-    node.children map { case (op, node) =>
+    node.children.map { case (op, node) =>
       val fold = level < 4 && node.children.nonEmpty
       val content = frag(
         (if fold then summary else div) (op match

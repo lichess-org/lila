@@ -20,7 +20,6 @@
   <string name="displayBoardResizeHandle">Afficher la poignée de redimensionnement de l\'échiquier</string>
   <string name="onlyOnInitialPosition">Seulement dans la position initiale</string>
   <string name="inGameOnly">Seulement durant la partie</string>
-  <string name="blindfoldChess">Échecs à l\'aveugle (pièces invisibles)</string>
   <string name="chessClock">Pendule</string>
   <string name="tenthsOfSeconds">Dixièmes de seconde</string>
   <string name="whenTimeRemainingLessThanTenSeconds" comment="whenTimeRemainingLessThanTenSeconds&#10;&#10;The &amp;lt; symbol is not required (you can write it as a word), just do NOT use &lt; in its place.&#10;&#10;Technical information: &lt; is a reserved character in HTML, which is why it cannot be used.">Quand il reste moins de 10 secondes</string>

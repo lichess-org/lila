@@ -10,7 +10,7 @@ export class PingCtrl {
     readonly trans: Trans,
     readonly redraw: Redraw,
   ) {
-    lichess.pubsub.on('dasher.toggle', v => (v ? this.connect() : this.disconnect()));
+    site.pubsub.on('dasher.toggle', v => (v ? this.connect() : this.disconnect()));
   }
 
   onLag = (lag: number) => {
@@ -23,14 +23,14 @@ export class PingCtrl {
   };
 
   connect = () => {
-    lichess.pubsub.emit('socket.send', 'moveLat', true);
-    lichess.pubsub.on('socket.lag', this.onLag);
-    lichess.pubsub.on('socket.in.mlat', this.onMlat);
+    site.pubsub.emit('socket.send', 'moveLat', true);
+    site.pubsub.on('socket.lag', this.onLag);
+    site.pubsub.on('socket.in.mlat', this.onMlat);
   };
 
   disconnect = () => {
-    lichess.pubsub.off('socket.lag', this.onLag);
-    lichess.pubsub.off('socket.in.mlat', this.onMlat);
+    site.pubsub.off('socket.lag', this.onLag);
+    site.pubsub.off('socket.in.mlat', this.onMlat);
   };
 }
 

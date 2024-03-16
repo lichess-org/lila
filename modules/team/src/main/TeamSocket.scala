@@ -17,15 +17,17 @@ final private class TeamSocket(
     rooms,
     chat,
     logger,
-    roomId => _.Team(roomId into TeamId).some,
+    roomId => _.Team(roomId.into(TeamId)).some,
     localTimeout = Some: (roomId, modId, suspectId) =>
-      api.hasPerm(roomId into TeamId, modId, _.Comm) >>&
-        !api.hasPerm(roomId into TeamId, suspectId, _.Comm),
+      api.hasPerm(roomId.into(TeamId), modId, _.Comm) >>&
+        api.hasPerm(roomId.into(TeamId), suspectId, _.Comm).not,
     chatBusChan = _.Team
   )
 
   private lazy val send: String => Unit = remoteSocketApi.makeSender("team-out").apply
 
-  remoteSocketApi.subscribe("team-in", RP.In.reader)(
-    handler orElse remoteSocketApi.baseHandler
-  ) andDo send(P.Out.boot)
+  remoteSocketApi
+    .subscribe("team-in", RP.In.reader)(
+      handler.orElse(remoteSocketApi.baseHandler)
+    )
+    .andDo(send(P.Out.boot))

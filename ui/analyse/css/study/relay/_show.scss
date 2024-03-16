@@ -1,8 +1,5 @@
+@import 'layout';
 @import 'tour';
 @import 'rounds';
-
-.study__side {
-  .relay-tour {
-    flex: 0 10 auto;
-  }
-}
+@import 'teams';
+@import 'video-player';

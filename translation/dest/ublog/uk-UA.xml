@@ -1,14 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="communityBlogs">Дописи спільноти</string>
-  <string name="friendBlogs">Дописи друзів</string>
-  <string name="likedBlogs">Вподобані публікації дописів</string>
+  <string name="communityBlogs">Блоги спільноти</string>
+  <string name="friendBlogs">Блоги друзів</string>
+  <string name="likedBlogs">Вподобані дописи</string>
   <string name="blogTopics">Теми дописів</string>
   <string name="lichessOfficialBlog">Офіційний блог Lichess</string>
   <string name="continueReadingPost">Продовжити читання цієї історії</string>
+  <string name="lichessBlogPostsFromXYear">Дописи блогу Lichess за %s</string>
+  <string name="previousBlogPosts">Попередні дописи блогу</string>
   <string name="xBlog">Блог %s</string>
   <string name="newPost">Новий допис</string>
-  <string name="editYourBlogPost">Редагувати ваш запис</string>
+  <string name="editYourBlogPost">Редагувати ваш допис</string>
   <string name="saveDraft">Зберегти чернетку</string>
   <string name="postTitle">Заголовок допису</string>
   <string name="postIntro">Вступ допису</string>
@@ -56,4 +58,5 @@
   <string name="inappropriateContentAccountClosed">Невідповідності в дописі можуть спричинити блокування профілю.</string>
   <string name="blogTips">Наші прості поради для написання хороших дописів</string>
   <string name="discussThisBlogPostInTheForum">Обговорити цей допис блогу на форумі</string>
+  <string name="youBlockedByBlogAuthor">Ви заблоковані автором блогу.</string>
 </resources>

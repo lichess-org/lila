@@ -19,7 +19,7 @@
   <string name="findTheBestMoveForWhite">جد أفضل نقلة للأبيض.</string>
   <string name="findTheBestMoveForBlack">جد أفضل نقلة للأسود.</string>
   <string name="toGetPersonalizedPuzzles">للحصول على ألغاز خاصة بك:</string>
-  <string name="puzzleId" comment="%s is the ID of the puzzle, something like #a1b2c3.">لغز %s</string>
+  <string name="puzzleId">لغز %s</string>
   <string name="puzzleOfTheDay">لغز اليوم</string>
   <string name="dailyPuzzle">اللغز اليومي</string>
   <string name="clickToSolve">انقر للحل</string>
@@ -31,13 +31,13 @@
   <string name="byOpenings">من الافتتاحات</string>
   <string name="puzzlesByOpenings">ألغاز من الافتتاحات</string>
   <string name="openingsYouPlayedTheMost">الافتتاحات التي استخدمتها في معظم المبارايات المقيمة</string>
-  <string name="useFindInPage" comment="useFindInPage&#10;&#10;Appears on https://lichess.org/training/openings&#10;Encourages players to use the built-in browser feature (Ctrl+F on most desktop computers) to find the opening they want to practice.">استخدم خاصية \"البحث في الصفحة\" في المتصفح للعثور على افتتاحك المفضل!</string>
+  <string name="useFindInPage">استخدم خاصية \"البحث في الصفحة\" في المتصفح للعثور على افتتاحك المفضل!</string>
   <string name="useCtrlF">أضغط Ctrl و f لتبحث عن افتتاحك المفضل!</string>
   <string name="notTheMove">هذه ليست الحركة الصحيحة!</string>
   <string name="trySomethingElse">جرب شيئا آخر.</string>
-  <string name="ratingX" comment="Appears on pages of individual puzzles.&#10;&#10;%s is either:&#10;1. The word 'hidden', if you have not completed the puzzle yet.&#10;2. The rating of the puzzle, if you have completed it or seen the solution.">التقييم: %s</string>
-  <string name="hidden" comment="Puzzle rating: hidden&#10;&#10;Appears while solving puzzles. Lichess only displays the rating of the puzzle after you have solved it or asked to see the solution.">مخفي</string>
-  <plurals name="playedXTimes" comment="Appears on pages of individual puzzles.&#10;%s is the number of times the puzzle has been played.">
+  <string name="ratingX">التقييم: %s</string>
+  <string name="hidden">مخفي</string>
+  <plurals name="playedXTimes">
     <item quantity="zero">لعبت %s مرة</item>
     <item quantity="one">لعبت %s مرة</item>
     <item quantity="two">لعبت %s مرة</item>

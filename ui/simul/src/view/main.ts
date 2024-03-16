@@ -15,12 +15,12 @@ export default function (ctrl: SimulCtrl) {
         $(el).replaceWith(ctrl.opts.$side);
         if (ctrl.opts.chat) {
           ctrl.opts.chat.data.hostIds = [ctrl.data.host.id];
-          lichess.makeChat(ctrl.opts.chat);
+          site.makeChat(ctrl.opts.chat);
         }
       }),
     }),
-    h('div.simul__main.box', { hook: { postpatch: () => lichess.miniGame.initAll() } }, handler(ctrl)),
-    h('div.chat__members.none', { hook: onInsert(lichess.watchers) }),
+    h('div.simul__main.box', { hook: { postpatch: () => site.miniGame.initAll() } }, handler(ctrl)),
+    h('div.chat__members.none', { hook: onInsert(site.watchers) }),
   ]);
 }
 

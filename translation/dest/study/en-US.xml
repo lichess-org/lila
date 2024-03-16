@@ -53,6 +53,7 @@
   <string name="allSyncMembersRemainOnTheSamePosition">All SYNC members remain on the same position</string>
   <string name="shareChanges">Share changes with spectators and save them on the server</string>
   <string name="playing">Playing</string>
+  <string name="showEvalBar">Evaluation gauge</string>
   <string name="first">First</string>
   <string name="previous">Previous</string>
   <string name="next">Next</string>
@@ -84,7 +85,7 @@
   <string name="pinnedChapterComment">Pinned chapter comment</string>
   <string name="saveChapter">Save chapter</string>
   <string name="clearAnnotations">Clear annotations</string>
-  <string name="clearVariations">Clear variations</string>
+  <string name="clearVariations" comment="Clear is used as a verb here. This erases the variations in the study (https://lichess.org/study) you are preparing.">Clear variations</string>
   <string name="deleteChapter">Delete chapter</string>
   <string name="deleteThisChapter">Delete this chapter? There is no going back!</string>
   <string name="clearAllCommentsInThisChapter">Clear all comments, glyphs and drawn shapes in this chapter?</string>

@@ -213,8 +213,11 @@
   <string name="forgotPassword">sina sona ala e nimi open len sina anu seme?</string>
   <string name="error.weakPassword">sina nimi awen wawa lili.</string>
   <string name="error.namePassword">o kepeken ala e nimi tawa nimi awen a.</string>
+  <string name="blankedPassword">sina kepeken e nimi awen sama lon lipu ante. awen la, lipu ante ni li pakala. o anu e nimi awen ante.</string>
   <string name="youAreLeavingLichess">sina tawa tan lipu Lichess</string>
+  <string name="neverTypeYourPassword">o sitelen ala e nimi awen sina pi ilo Lichess tawa lipu ante!</string>
   <string name="proceedToX">o tawa lipu %s</string>
+  <string name="passwordSuggestion">jan ante li pana e nimi awen tawa sina, la o kepeken ala e nimi awen ni. ante la, ona li lanpan e lipu jan sina.</string>
   <string name="emailConfirmNotReceived">sina pali e lipu jan. taso sina kama ala jo e lipu toki tan mi mute?</string>
   <string name="whatSignupUsername">sina pali e lipu jan la sina sitelen e nimi seme?</string>
   <string name="usernameNotFound">nimi \"%s\" la mi mute li alasa e lipu jan ala.</string>
@@ -222,6 +225,7 @@
   <string name="emailSent">mi mute li pini pana e lipu toki tawa %s.</string>
   <string name="emailCanTakeSomeTime">lipu toki li kepeken tenpo tawa kama la sina o awen.</string>
   <string name="refreshInboxAfterFiveMinutes">o awen lon tenpo Minuta kama 5. pini la o open sin e poki sina pi lipu toki.</string>
+  <string name="emailForSignupHelp">ale ante li pakala, la pana tawa mi e lipu toki ni:</string>
   <string name="copyTextToEmail">jasima en pana e sitelen sewi, en pana tawa %s</string>
   <string name="accountClosed">lipu jan %s lon ala.</string>
   <string name="rank">nanpa</string>
@@ -504,7 +508,6 @@ o musi lon lipu pona. sina wile ala pana e nimi li wile ala e ilo. sitelen esun 
   <string name="automaticallyProceedToNextGameAfterMoving">pali wan li pini la ilo sona o tawa musi poka</string>
   <string name="autoSwitch">ilo o tawa</string>
   <string name="puzzles">musi lili pi kama sona</string>
-  <string name="tournamentWinners">jan pi pini pona pi musi mute</string>
   <string name="name">nimi</string>
   <string name="description">toki pi kulupu</string>
   <string name="descPrivate">sitelen sona pi jan kulupu</string>
@@ -891,8 +894,6 @@ li ante e nanpa wawa</string>
   <string name="minimumRatedGames">o musi pi nanpa wawa lon mute ni</string>
   <string name="minimumRating">o jo e nanpa wawa ≥ ni</string>
   <string name="maximumWeeklyRating">o jo e nanpa wawa pi tenpo pali ≤ ni</string>
-  <string name="onlyTitled">jan pi nimi wawa taso</string>
-  <string name="onlyTitledHelp">ni li lon la, jan pi utala musi li wile jo e nimi wawa tan kulupu suli</string>
   <string name="positionInputHelp">sina wile open lon nasin ijo ante, o pana e lipu \"FEN\" kepeken poki pana.
 ni li pali ala lon musi pi nasin ante.
 sina ken pali e sona \"FEN\" kepeken %s.

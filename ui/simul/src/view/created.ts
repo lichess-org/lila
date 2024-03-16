@@ -5,7 +5,6 @@ import SimulCtrl from '../ctrl';
 import { Applicant } from '../interfaces';
 import xhr from '../xhr';
 import * as util from './util';
-import { domDialog } from 'common/dialog';
 
 export default function (showText: (ctrl: SimulCtrl) => VNode | false) {
   return (ctrl: SimulCtrl) => {
@@ -40,15 +39,17 @@ export default function (showText: (ctrl: SimulCtrl) => VNode | false) {
                           if (ctrl.data.variants.length === 1)
                             xhr.join(ctrl.data.id, ctrl.data.variants[0].key);
                           else
-                            domDialog({
-                              cash: $('.simul .continue-with'),
-                            }).then(dlg => {
-                              $('button.button', dlg.view).on('click', function (this: HTMLButtonElement) {
-                                xhr.join(ctrl.data.id, this.dataset.variant as VariantKey);
-                                dlg.close();
+                            site.dialog
+                              .dom({
+                                cash: $('.simul .continue-with'),
+                              })
+                              .then(dlg => {
+                                $('button.button', dlg.view).on('click', function (this: HTMLButtonElement) {
+                                  xhr.join(ctrl.data.id, this.dataset.variant as VariantKey);
+                                  dlg.close();
+                                });
+                                dlg.showModal();
                               });
-                              dlg.showModal();
-                            });
                         })
                       : {},
                   },
@@ -74,7 +75,7 @@ export default function (showText: (ctrl: SimulCtrl) => VNode | false) {
           h('p.instructions', 'Share this page URL to let people enter the simul!'),
       h(
         'div.halves',
-        { hook: { postpatch: (_old, vnode) => lichess.powertip.manualUserIn(vnode.elm as HTMLElement) } },
+        { hook: { postpatch: (_old, vnode) => site.powertip.manualUserIn(vnode.elm as HTMLElement) } },
         [
           h(
             'div.half.candidates',

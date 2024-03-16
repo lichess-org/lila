@@ -3,7 +3,7 @@
   <string name="findTheBestMoveForWhite">Шуррисемшӗн чи лайӑх ҫӳрени туп.</string>
   <string name="findTheBestMoveForBlack">Хурисемшӗн чи лайӑх ҫӳрени туп.</string>
   <string name="bestMove">Чи лайӑх ҫӳрени!</string>
-  <plurals name="playedXTimes" comment="Appears on pages of individual puzzles.&#10;%s is the number of times the puzzle has been played.">
+  <plurals name="playedXTimes">
     <item quantity="other">%s хут выльанӑ</item>
   </plurals>
   <string name="fromGameLink">%s партирен</string>

@@ -19,7 +19,7 @@
   <string name="findTheBestMoveForWhite">Find det bedste træk for hvid.</string>
   <string name="findTheBestMoveForBlack">Find det bedste træk for sort.</string>
   <string name="toGetPersonalizedPuzzles">For at få personlige taktikopgaver:</string>
-  <string name="puzzleId" comment="%s is the ID of the puzzle, something like #a1b2c3.">Taktikopgave %s</string>
+  <string name="puzzleId">Taktikopgave %s</string>
   <string name="puzzleOfTheDay">Dagens opgave</string>
   <string name="dailyPuzzle">Daglig taktikopgave</string>
   <string name="clickToSolve">Klik for at løse</string>
@@ -31,13 +31,13 @@
   <string name="byOpenings">Efter åbninger</string>
   <string name="puzzlesByOpenings">Taktikopgaver efter åbninger</string>
   <string name="openingsYouPlayedTheMost">Åbninger du har spillet mest i ratede partier</string>
-  <string name="useFindInPage" comment="useFindInPage&#10;&#10;Appears on https://lichess.org/training/openings&#10;Encourages players to use the built-in browser feature (Ctrl+F on most desktop computers) to find the opening they want to practice.">Brug \"Find på side\" i browsermenuen til at finde din foretrukne åbning!</string>
+  <string name="useFindInPage">Brug \"Find på side\" i browsermenuen til at finde din foretrukne åbning!</string>
   <string name="useCtrlF">Brug Ctrl+f til at finde din foretrukne åbning!</string>
   <string name="notTheMove">Ikke det rigtige træk!</string>
   <string name="trySomethingElse">Prøv noget andet.</string>
-  <string name="ratingX" comment="Appears on pages of individual puzzles.&#10;&#10;%s is either:&#10;1. The word 'hidden', if you have not completed the puzzle yet.&#10;2. The rating of the puzzle, if you have completed it or seen the solution.">Rating: %s</string>
-  <string name="hidden" comment="Puzzle rating: hidden&#10;&#10;Appears while solving puzzles. Lichess only displays the rating of the puzzle after you have solved it or asked to see the solution.">skjult</string>
-  <plurals name="playedXTimes" comment="Appears on pages of individual puzzles.&#10;%s is the number of times the puzzle has been played.">
+  <string name="ratingX">Rating: %s</string>
+  <string name="hidden">skjult</string>
+  <plurals name="playedXTimes">
     <item quantity="one">Spillet %s gang</item>
     <item quantity="other">Spillet %s gange</item>
   </plurals>
@@ -68,7 +68,7 @@
   <string name="solved">løst</string>
   <string name="failed">mislykket</string>
   <string name="streakDescription">Løs taktikopgaver af stigende sværhedsgrad og opbyg en sejrsstime. Der er intet ur, så tag dig god tid. Ét forkert træk og spillet er ovre! Men du kan springe ét træk over per session.</string>
-  <string name="yourStreakX" comment="%s is the number of puzzles you fully solved in a run of Puzzle Streak (https://lichess.org/streak).&#10;&#10;Appears once you make a wrong move or skip a puzzle, ending your streak. There is a counter always running on the left-hand side of the page without words.">Din stime: %s</string>
+  <string name="yourStreakX">Din stime: %s</string>
   <string name="streakSkipExplanation">Spring dette træk over for at bevare din stime! Virker kun én gang per gennemløb.</string>
   <string name="continueTheStreak">Fortsæt stimen</string>
   <string name="newStreak">Ny stime</string>

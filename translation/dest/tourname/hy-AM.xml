@@ -3,15 +3,15 @@
   <string name="hourlyRapidArena">Արագ շախմատի ամենժամյա Արենա</string>
   <string name="hourlyRapid">Ամենժամյա արագ շախմատ</string>
   <string name="hourlyXArena">Ամենժամյա %s Արենա</string>
-  <string name="hourlyX">Ամենժամյա %s</string>
+  <string name="hourlyX" comment="%s is a time control (like &quot;Blitz&quot;) or a variant (like &quot;Chess960&quot;)&#10;&#10;Used for tournaments. Please keep this string short and consistent with 'Hourly Rapid' and 'Hourly %s Arena'.">Ամենժամյա %s</string>
   <string name="dailyRapidArena">Արագ շախմատի ամենօրյա Արենա</string>
   <string name="dailyRapid">Ամենօրյա արագ շախմատ</string>
-  <string name="dailyClassicalArena">Դասական շախմատի ամենօրյա Արենա</string>
-  <string name="dailyClassical">Ամենօրյա դասական շախմատ</string>
-  <string name="dailyXArena">Ամենօրյա %s Արենա</string>
+  <string name="dailyClassicalArena" comment="dailyClassicalArena&#10;&#10;Used for tournaments. Please keep this string short and consistent with 'Daily Rapid' and 'Daily %s Arena'.">Դասական շախմատի ամենօրյա Արենա</string>
+  <string name="dailyClassical" comment="dailyClassical&#10;&#10;Used for tournaments. Please keep this string short and consistent with 'Daily Rapid' and 'Daily %s Arena'.">Ամենօրյա դասական շախմատ</string>
+  <string name="dailyXArena" comment="dailyXArena %s is a time control (like &quot;Blitz&quot;) or a variant (like &quot;Chess960&quot;)&#10;&#10;Used for tournaments. Please keep this string short and consistent with 'Daily %s'.">Ամենօրյա %s Արենա</string>
   <string name="dailyX">Ամենօրյա %s</string>
-  <string name="easternRapidArena">Արագ շախմատի արևելյան Արենա</string>
-  <string name="easternRapid">Արևելյան արագ շախմատ</string>
+  <string name="easternRapidArena" comment="easternRapidArena&#10;&#10;Eastern refers to the time zone these tournaments are scheduled in for, accommodating East Asia, Oceania and the Pacific.">Արագ շախմատի արևելյան Արենա</string>
+  <string name="easternRapid" comment="easternRapid&#10;Eastern refers to the time zone these tournaments are scheduled in for, accommodating East Asia, Oceania and the Pacific.&#10;&#10;Please keep this string short and consistent with 'Eastern Rapid Arena' and 'Eastern %s Arena'.">Արևելյան արագ շախմատ</string>
   <string name="easternClassicalArena">Դասական շախմատի արևելյան Արենա</string>
   <string name="easternClassical">Արևելյան դասական շախմատ</string>
   <string name="easternXArena">Արևելյան %s Արենա</string>

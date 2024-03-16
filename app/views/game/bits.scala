@@ -1,13 +1,12 @@
 package views.html.game
 
+import controllers.routes
 import play.api.i18n.Lang
 
-import lila.app.templating.Environment.{ given, * }
+import lila.app.templating.Environment.{ *, given }
 import lila.app.ui.ScalatagsTemplate.*
 import lila.game.{ Game, Pov }
 import lila.rating.PerfType.Correspondence
-
-import controllers.routes
 
 object bits:
 
@@ -52,7 +51,7 @@ object bits:
         href = variant match
           case chess.variant.FromPosition =>
             s"""${routes.Editor.index}?fen=${initialFen.so(_.value.replace(' ', '_'))}"""
-          case v => routes.ContentPage.variant(v.key).url
+          case v => routes.Cms.variant(v.key).url
         ,
         title = variant.title,
         name = (if shortName && variant == chess.variant.KingOfTheHill then variant.shortName

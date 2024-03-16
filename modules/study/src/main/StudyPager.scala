@@ -62,14 +62,14 @@ final class StudyPager(
 
   def mineMember(order: Order, page: Int)(using me: Me) =
     paginator(
-      selectMemberId(me) ++ $doc("ownerId" $ne me.userId),
+      selectMemberId(me) ++ $doc("ownerId".$ne(me.userId)),
       order,
       page
     )
 
   def mineLikes(order: Order, page: Int)(using me: Me) =
     paginator(
-      selectLiker(me) ++ accessSelect ++ $doc("ownerId" $ne me.userId),
+      selectLiker(me) ++ accessSelect ++ $doc("ownerId".$ne(me.userId)),
       order,
       page
     )
@@ -80,14 +80,14 @@ final class StudyPager(
       selectTopic(topic) ++ onlyMine.fold(accessSelect)(selectMemberId(_)),
       order,
       page,
-      hint = onlyMine.isDefined option $doc("uids" -> 1, "rank" -> -1)
+      hint = onlyMine.isDefined.option($doc("uids" -> 1, "rank" -> -1))
     )
 
   private def accessSelect(using me: Option[Me]) =
     me.fold(selectPublic): u =>
       $or(selectPublic, selectMemberId(u))
 
-  private val noRelaySelect = $doc("from" $ne "relay")
+  private val noRelaySelect = $doc("from".$ne("relay"))
 
   private def paginator(
       selector: Bdoc,
@@ -101,17 +101,17 @@ final class StudyPager(
       selector = selector,
       projection = studyRepo.projection.some,
       sort = order match
-        case Order.Hot          => $sort desc "rank"
-        case Order.Newest       => $sort desc "createdAt"
-        case Order.Oldest       => $sort asc "createdAt"
-        case Order.Updated      => $sort desc "updatedAt"
-        case Order.Popular      => $sort desc "likes"
-        case Order.Alphabetical => $sort asc "name"
+        case Order.Hot          => $sort.desc("rank")
+        case Order.Newest       => $sort.desc("createdAt")
+        case Order.Oldest       => $sort.asc("createdAt")
+        case Order.Updated      => $sort.desc("updatedAt")
+        case Order.Popular      => $sort.desc("likes")
+        case Order.Alphabetical => $sort.asc("name")
         // mine filter for topic view
-        case Order.Mine => $sort desc "rank"
+        case Order.Mine => $sort.desc("rank")
       ,
       hint = hint
-    ) mapFutureList withChaptersAndLiking(me)
+    ).mapFutureList(withChaptersAndLiking(me))
     Paginator(
       adapter = nbResults.fold(adapter): nb =>
         CachedAdapter(adapter, nb),
@@ -123,15 +123,15 @@ final class StudyPager(
       me: Option[User],
       nbChaptersPerStudy: Int = defaultNbChaptersPerStudy
   )(studies: Seq[Study]): Fu[Seq[Study.WithChaptersAndLiked]] =
-    withChapters(studies, nbChaptersPerStudy) flatMap withLiking(me)
+    withChapters(studies, nbChaptersPerStudy).flatMap(withLiking(me))
 
   private def withChapters(
       studies: Seq[Study],
       nbChaptersPerStudy: Int
   ): Fu[Seq[Study.WithChapters]] =
-    chapterRepo.idNamesByStudyIds(studies.map(_.id), nbChaptersPerStudy) map { chapters =>
+    chapterRepo.idNamesByStudyIds(studies.map(_.id), nbChaptersPerStudy).map { chapters =>
       studies.map { study =>
-        Study.WithChapters(study, (chapters get study.id) so (_ map (_.name)))
+        Study.WithChapters(study, (chapters.get(study.id)).so(_.map(_.name)))
       }
     }
 
@@ -140,7 +140,7 @@ final class StudyPager(
   )(studies: Seq[Study.WithChapters]): Fu[Seq[Study.WithChaptersAndLiked]] =
     me.so { u =>
       studyRepo.filterLiked(u, studies.map(_.study.id))
-    } map { liked =>
+    }.map { liked =>
       studies.map { case Study.WithChapters(study, chapters) =>
         Study.WithChaptersAndLiked(study, chapters, liked(study.id))
       }

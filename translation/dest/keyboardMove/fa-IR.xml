@@ -7,13 +7,13 @@
   <string name="kingsideCastle">قلعه جناح شاه</string>
   <string name="queensideCastle">قلعه جناح وزیر</string>
   <string name="promoteC8ToQueen">ارتقاء c8 به وزیر</string>
-  <string name="dropARookAtB4">قلعه را در b4 رها کنید</string>
+  <string name="dropARookAtB4">رُخ را در b4 رها کنید (فقط در شطرنج‌گونه دیوانه‌خانه)</string>
   <string name="offerOrAcceptDraw">پیشنهاد یا قبول تساوی</string>
   <string name="readOutClocks">اعلام ساعت</string>
   <string name="readOutOpponentName">نام حریف را بخوانید</string>
   <string name="otherCommands">سایر دستورات</string>
   <string name="tips">نکات</string>
-  <string name="ifTheAboveMoveNotationIsUnfamiliar">اگر با نماد حرکت فوق آسنا نیستید، اینجا بیشتر بیاموزید:</string>
+  <string name="ifTheAboveMoveNotationIsUnfamiliar">اگر با نشانه‌گذاری حرکات بالا آشنا نیستید، اینجا بیشتر بیاموزید:</string>
   <string name="includingAXToIndicateACapture">\"x\" نشان دهنده گرفتن اختیاری است</string>
   <string name="bothTheLetterOAndTheDigitZero">حرف o و عدد 0 نشان دهتده قلعه رفتن است</string>
   <string name="ifItIsLegalToCastleBothWays">اگر مجاز به قلعه رفتن در هر دو جهت هستید، از \"enter\" جهت قلعه جناح شاه استفاده کنید</string>

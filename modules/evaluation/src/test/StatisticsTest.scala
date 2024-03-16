@@ -1,6 +1,7 @@
 package lila.evaluation
 
 import chess.Centis
+
 import Statistics.*
 
 class StatisticsTest extends munit.FunSuite:

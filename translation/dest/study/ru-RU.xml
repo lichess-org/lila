@@ -59,6 +59,7 @@
   <string name="allSyncMembersRemainOnTheSamePosition">Все синхронизированные участники остаются на той же позиции</string>
   <string name="shareChanges">Поделиться изменениями со зрителями и сохранить их на сервере</string>
   <string name="playing">Активные</string>
+  <string name="showEvalBar">Шкалы оценки</string>
   <string name="first">Первая</string>
   <string name="previous">Назад</string>
   <string name="next">Дальше</string>
@@ -90,7 +91,7 @@
   <string name="pinnedChapterComment">Закреплённый комментарий главы</string>
   <string name="saveChapter">Сохранить главу</string>
   <string name="clearAnnotations">Очистить аннотацию</string>
-  <string name="clearVariations">Очистить варианты</string>
+  <string name="clearVariations" comment="Clear is used as a verb here. This erases the variations in the study (https://lichess.org/study) you are preparing.">Очистить варианты</string>
   <string name="deleteChapter">Удалить главу</string>
   <string name="deleteThisChapter">Удалить эту главу? Её нельзя будет вернуть!</string>
   <string name="clearAllCommentsInThisChapter">Очистить все комментарии и обозначения этой главы?</string>

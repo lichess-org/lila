@@ -1,14 +1,15 @@
 package lila.tutor
 
-import lila.analyse.AccuracyPercent
-import lila.insight.ClockPercent
-import lila.common.Iso
 import alleycats.Zero
+
+import lila.analyse.AccuracyPercent
+import lila.common.Iso
+import lila.insight.ClockPercent
 
 trait TutorNumber[V]:
   val iso: Iso.DoubleIso[V]
   def double(v: V)          = iso to v
-  given Zero[ValueCount[V]] = Zero(ValueCount[V](iso from 0, 0))
+  given Zero[ValueCount[V]] = Zero(ValueCount[V](iso.from(0), 0))
   def grade(a: V, b: V): Grade
   def mean(vs: Iterable[ValueCount[V]]): ValueCount[V] =
     vs.foldLeft((0d, 0)) { case ((sum, total), ValueCount(value, count)) =>
@@ -16,7 +17,7 @@ trait TutorNumber[V]:
     } match
       case (sum, total) => ValueCount(iso.from(if total > 0 then sum / total else 0), total)
   def mean(a: ValueCount[V], b: ValueCount[V]): ValueCount[V] =
-    if a.count < 1 && b.count < 1 then ValueCount(iso from 0, 0)
+    if a.count < 1 && b.count < 1 then ValueCount(iso.from(0), 0)
     else
       ValueCount(
         iso.from((double(a.value) * a.count + double(b.value) * b.count) / (a.count + b.count)),

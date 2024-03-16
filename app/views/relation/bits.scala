@@ -3,7 +3,7 @@ package views.html.relation
 import controllers.routes
 import play.api.mvc.Call
 
-import lila.app.templating.Environment.{ given, * }
+import lila.app.templating.Environment.{ *, given }
 import lila.app.ui.ScalatagsTemplate.{ *, given }
 import lila.common.paginator.Paginator
 import lila.game.FavoriteOpponents
@@ -49,7 +49,7 @@ object bits:
             sugs.map: r =>
               tr(
                 td(userLink(r.user)),
-                ctx.pref.showRatings option td(showBestPerf(r.user.perfs)),
+                ctx.pref.showRatings.option(td(showBestPerf(r.user.perfs))),
                 td:
                   r.nbGames.filter(_ > 0).map { nbGames =>
                     a(href := s"${routes.User.games(u.username, "search")}?players.b=${r.user.username}"):
@@ -79,7 +79,7 @@ object bits:
           pager.currentPageResults.map: r =>
             tr(cls := "paginated")(
               td(userLink(r.user)),
-              ctx.pref.showRatings option td(showBestPerf(r.user.perfs)),
+              ctx.pref.showRatings.option(td(showBestPerf(r.user.perfs))),
               td(trans.nbGames.plural(r.user.count.game, r.user.count.game.localize)),
               td(actions(r.user.light, relation = r.relation, followable = r.followable, blocked = false))
             ),

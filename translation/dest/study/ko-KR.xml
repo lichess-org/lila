@@ -50,6 +50,7 @@
   <string name="allSyncMembersRemainOnTheSamePosition">동기화된 모든 멤버들은 같은 포지션을 공유합니다</string>
   <string name="shareChanges">관전자와 변경 사항을 공유하고 서버에 저장</string>
   <string name="playing">플레이중</string>
+  <string name="showEvalBar">평가 막대</string>
   <string name="first">처음</string>
   <string name="previous">이전</string>
   <string name="next">다음</string>
@@ -81,7 +82,7 @@
   <string name="pinnedChapterComment">챕터 댓글 고정하기</string>
   <string name="saveChapter">챕터 저장</string>
   <string name="clearAnnotations">주석 지우기</string>
-  <string name="clearVariations">파생 초기화</string>
+  <string name="clearVariations" comment="Clear is used as a verb here. This erases the variations in the study (https://lichess.org/study) you are preparing.">파생 초기화</string>
   <string name="deleteChapter">챕터 지우기</string>
   <string name="deleteThisChapter">이 챕터를 지울까요? 되돌릴 수 없습니다!</string>
   <string name="clearAllCommentsInThisChapter">이 챕터의 모든 코멘트와 기호를 지울까요?</string>

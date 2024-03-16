@@ -1,12 +1,12 @@
 package lila.round
 
 import chess.Centis
+import play.api.i18n.Lang
 
 import lila.common.Bus
 import lila.game.{ Event, Game, Pov, Progress }
-import lila.i18n.{ defaultLang, I18nKeys as trans }
+import lila.i18n.{ I18nKeys as trans, defaultLang }
 import lila.pref.{ Pref, PrefApi }
-import play.api.i18n.Lang
 
 final private[round] class Drawer(
     messenger: Messenger,
@@ -22,14 +22,20 @@ final private[round] class Drawer(
       .map: pov =>
         if game.playerHasOfferedDrawRecently(pov.color) then fuccess(pov.some)
         else
-          pov.player.userId so { uid => prefApi.get(uid, _.autoThreefold) } map { autoThreefold =>
-            autoThreefold == Pref.AutoThreefold.ALWAYS || {
-              autoThreefold == Pref.AutoThreefold.TIME &&
-              game.clock.so { _.remainingTime(pov.color) < Centis.ofSeconds(30) }
-            } || pov.player.userId.exists(isBotSync)
-          } map (_ option pov)
+          pov.player.userId
+            .so { uid => prefApi.get(uid, _.autoThreefold) }
+            .map { autoThreefold =>
+              autoThreefold == Pref.AutoThreefold.ALWAYS || {
+                autoThreefold == Pref.AutoThreefold.TIME &&
+                game.clock.so { _.remainingTime(pov.color) < Centis.ofSeconds(30) }
+              } || pov.player.userId.exists(isBotSync)
+            }
+            .map(_.option(pov))
       .parallel
       .dmap(_.flatten.headOption)
+
+  def apply(pov: Pov, confirm: Boolean)(using GameProxy): Fu[Events] =
+    if confirm then yes(pov) else no(pov)
 
   def yes(pov: Pov)(using proxy: GameProxy): Fu[Events] = pov.game.drawable.so:
     pov match
@@ -42,36 +48,40 @@ final private[round] class Drawer(
           None,
           Messenger.SystemMessage.Persistent(trans.drawOfferAccepted.txt()).some
         )
-      case Pov(g, color) if g playerCanOfferDraw color =>
-        val progress = Progress(g) map { _ offerDraw color }
+      case Pov(g, color) if g.playerCanOfferDraw(color) =>
+        val progress = Progress(g).map { _.offerDraw(color) }
         messenger.system(g, color.fold(trans.whiteOffersDraw, trans.blackOffersDraw).txt())
-        proxy.save(progress) andDo
-          publishDrawOffer(progress.game) inject
-          List(Event.DrawOffer(by = color.some))
+        proxy
+          .save(progress)
+          .andDo(publishDrawOffer(progress.game))
+          .inject(List(Event.DrawOffer(by = color.some)))
       case _ => fuccess(List(Event.ReloadOwner))
 
   def no(pov: Pov)(using proxy: GameProxy): Fu[Events] = pov.game.drawable.so:
     pov match
       case Pov(g, color) if pov.player.isOfferingDraw =>
-        proxy.save {
-          messenger.system(g, trans.drawOfferCanceled.txt())
-          Progress(g) map { g =>
-            g.updatePlayer(color, _.removeDrawOffer)
+        proxy
+          .save {
+            messenger.system(g, trans.drawOfferCanceled.txt())
+            Progress(g).map { g =>
+              g.updatePlayer(color, _.removeDrawOffer)
+            }
           }
-        } inject List(Event.DrawOffer(by = none))
+          .inject(List(Event.DrawOffer(by = none)))
       case Pov(g, color) if pov.opponent.isOfferingDraw =>
-        proxy.save {
-          messenger.system(g, color.fold(trans.whiteDeclinesDraw, trans.blackDeclinesDraw).txt())
-          Progress(g) map { g =>
-            g.updatePlayer(!color, _.removeDrawOffer)
+        proxy
+          .save {
+            messenger.system(g, color.fold(trans.whiteDeclinesDraw, trans.blackDeclinesDraw).txt())
+            Progress(g).map { g =>
+              g.updatePlayer(!color, _.removeDrawOffer)
+            }
           }
-        } inject List(Event.DrawOffer(by = none))
+          .inject(List(Event.DrawOffer(by = none)))
       case _ => fuccess(List(Event.ReloadOwner))
     : Fu[Events]
 
   def claim(pov: Pov)(using GameProxy): Fu[Events] =
-    (pov.game.drawable && pov.game.history.threefoldRepetition) so
-      finisher.other(pov.game, _.Draw, None)
+    (pov.game.drawable && pov.game.history.threefoldRepetition).so(finisher.other(pov.game, _.Draw, None))
 
   def force(game: Game)(using GameProxy): Fu[Events] = finisher.other(game, _.Draw, None, None)
 
@@ -84,5 +94,5 @@ final private[round] class Drawer(
     if lila.game.Game.isBoardOrBotCompatible(game) then
       Bus.publish(
         lila.game.actorApi.BoardDrawOffer(game),
-        lila.game.actorApi.BoardDrawOffer makeChan game.id
+        lila.game.actorApi.BoardDrawOffer.makeChan(game.id)
       )

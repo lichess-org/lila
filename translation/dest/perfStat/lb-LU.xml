@@ -25,7 +25,6 @@
   <string name="longestStreak">Längsten Erfollegserie: %s</string>
   <string name="currentStreak">Aktuell Erfollegserie: %s</string>
   <string name="bestRated">Bescht gewäert Victoirë</string>
-  <string name="worstRated">Schlëmmst gewäert Defaiten</string>
   <string name="gamesInARow">Partien hannerteneen gespillt</string>
   <string name="lessThanOneHour">Manner wéi eng Stonn zwëschen den Partien</string>
   <string name="maxTimePlaying">Maximal Spillzäit</string>

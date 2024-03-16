@@ -1,8 +1,8 @@
 package lila.api
 
+import ornicar.scalalib.ThreadLocalRandom
 import play.api.libs.ws.DefaultBodyWritables.*
 import play.api.libs.ws.StandaloneWSClient
-import ornicar.scalalib.ThreadLocalRandom
 
 final class InfluxEvent(
     ws: StandaloneWSClient,

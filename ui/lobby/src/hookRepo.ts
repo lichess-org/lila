@@ -14,7 +14,7 @@ export function sort(ctrl: LobbyController, hooks: Hook[]) {
 }
 
 export function init(hook: Hook) {
-  hook.action = hook.sri === lichess.sri ? 'cancel' : 'join';
+  hook.action = hook.sri === site.sri ? 'cancel' : 'join';
   hook.variant = hook.variant || 'standard';
 }
 

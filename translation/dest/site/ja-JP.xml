@@ -261,6 +261,7 @@
   <string name="abortGame">対局を中止する</string>
   <string name="gameAborted">対局を中止しました</string>
   <string name="standard">スタンダード</string>
+  <string name="customPosition">自由配置局面</string>
   <string name="unlimited">無制限</string>
   <string name="mode">モード</string>
   <string name="casual">非レート戦</string>
@@ -390,6 +391,7 @@
   <string name="blackCheckmatesInOneMove">黒 1 手でチェックメイト</string>
   <string name="retry">もう一度</string>
   <string name="reconnecting">再接続</string>
+  <string name="noNetwork">オフライン</string>
   <plurals name="nbFriendsOnline">
     <item quantity="other">%s 人の友達が接続中</item>
   </plurals>
@@ -497,7 +499,7 @@
   <string name="automaticallyProceedToNextGameAfterMoving">指した後 自動的に次のゲームに切り替える</string>
   <string name="autoSwitch">自動切り替え</string>
   <string name="puzzles">タクティクス問題</string>
-  <string name="tournamentWinners">トーナメント優勝者</string>
+  <string name="onlineBots">オンラインのボット</string>
   <string name="name">名称</string>
   <string name="description">説明</string>
   <string name="descPrivate">非公開説明文</string>
@@ -895,8 +897,6 @@
   <string name="minimumRatedGames">必要対局数（レート戦）</string>
   <string name="minimumRating">レーティング下限</string>
   <string name="maximumWeeklyRating">レーティング上限（週内）</string>
-  <string name="onlyTitled">公式タイトル保持者のみ</string>
-  <string name="onlyTitledHelp">参加には公式タイトルを必須とする</string>
   <string name="positionInputHelp">有効な FEN をペーストすると全対局がその局面から始まります。
 通常ルールのチェスだけで、バリアントには使えません。
 %s を使えば FEN が作れます。それをここにペーストするだけです。
@@ -945,4 +945,5 @@
   <string name="showMeEverything">すべてを表示</string>
   <string name="lichessPatronInfo">Lichess は非営利組織であり、完全に無料/自由なオープンソースソフトウェアです。
 運営費、開発、コンテンツを支えているのはすべてユーザーの寄付です。</string>
+  <string name="nothingToSeeHere">今は何もありません。</string>
 </resources>

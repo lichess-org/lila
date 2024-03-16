@@ -50,7 +50,6 @@ Kontuz, agian mezurik jaso nahi ez duten erabiltzaileek taldea utziko dute-eta.<
   <string name="entryCodeDescriptionForLeader">(Aukerakoa) Taldera sartzeko taldekideek idatzi beharko duten kodea.</string>
   <string name="incorrectEntryCode">Sarrera-kode okerra.</string>
   <string name="teamAlreadyExists">Talde hau badago.</string>
-  <string name="upcomingTourns">Hurrengo Txapelketak</string>
   <string name="completedTourns">Amaitutako txapelketak</string>
   <string name="declinedRequests">Ukatutako eskaerak</string>
   <string name="joinLichessVariantTeam">Sartu %s talde ofizialera, albiste eta txapelketen berri izateko</string>

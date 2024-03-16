@@ -2,7 +2,7 @@ package lila.shutup
 
 import reactivemongo.api.bson.*
 
-import lila.db.dsl.{ given, * }
+import lila.db.dsl.{ *, given }
 import lila.game.GameRepo
 import lila.hub.actorApi.shutup.PublicSource
 import lila.user.UserRepo
@@ -31,10 +31,10 @@ final class ShutupApi(
     record(userId, text, TextType.of(source), source.some)
 
   def privateChat(chatId: String, userId: UserId, text: String) =
-    gameRepo.getSourceAndUserIds(GameId(chatId)) flatMap {
+    gameRepo.getSourceAndUserIds(GameId(chatId)).flatMap {
       case (source, _) if source.has(lila.game.Source.Friend) => funit // ignore challenges
       case (_, userIds) =>
-        record(userId, text, TextType.PrivateChat, none, userIds find (userId !=))
+        record(userId, text, TextType.PrivateChat, none, userIds.find(userId !=))
     }
 
   def privateMessage(userId: UserId, toUserId: UserId, text: String) =
@@ -47,16 +47,16 @@ final class ShutupApi(
       source: Option[PublicSource] = None,
       toUserId: Option[UserId] = None
   ): Funit =
-    userRepo isTroll userId flatMap {
+    userRepo.isTroll(userId).flatMap {
       if _ then funit
       else
-        toUserId so { relationApi.fetchFollows(_, userId) } flatMap {
+        toUserId.so { relationApi.fetchFollows(_, userId) }.flatMap {
           if _ then funit
           else
             Analyser(text)
               .removeEngineIfBot(userRepo.isBot(userId))
               .flatMap: analysed =>
-                val pushPublicLine = source.ifTrue(analysed.badWords.nonEmpty) so { source =>
+                val pushPublicLine = source.ifTrue(analysed.badWords.nonEmpty).so { source =>
                   $doc(
                     "pub" -> $doc(
                       "$each"  -> List(PublicLine.make(text, source)),
@@ -84,8 +84,8 @@ final class ShutupApi(
     }
 
   private def legiferate(userRecord: UserRecord, analysed: TextAnalysis): Funit =
-    (analysed.critical || userRecord.reports.exists(_.unacceptable)) so {
-      val text = (analysed.critical so "Critical comm alert\n") ++ {
+    (analysed.critical || userRecord.reports.exists(_.unacceptable)).so {
+      val text = (analysed.critical.so("Critical comm alert\n")) ++ {
         val repText = reportText(userRecord)
         if repText.isEmpty then analysed.badWords.mkString(", ") else repText
       }

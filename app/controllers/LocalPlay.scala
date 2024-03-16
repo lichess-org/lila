@@ -16,11 +16,11 @@ final class LocalPlay(env: Env) extends LilaController(env):
 
   def vsBot = Open:
     NoBot:
-      Ok.page(views.html.localPlay.vsBot.index).map(_.enableSharedArrayBuffer)
+      Ok.page(views.html.localPlay.vsBot.index).map(_.enforceCrossSiteIsolation)
 
   def botVsBot = Open:
     NoBot:
-      Ok.page(views.html.localPlay.botVsBot.index).map(_.enableSharedArrayBuffer)
+      Ok.page(views.html.localPlay.botVsBot.index).map(_.enforceCrossSiteIsolation)
 
   def setup = Open:
     NoBot:

@@ -5,12 +5,11 @@ import lila.game.BSONHandlers.given
 import lila.game.{ Game, GameRepo, Query }
 import lila.perfStat.PerfStat
 import lila.rating.PerfType
-import lila.report.{ Suspect, Victim }
-import lila.user.{ User, UserApi, RankingApi, UserRepo, UserPerfsRepo }
+import lila.report.Suspect
+import lila.user.{ RankingApi, User, UserApi, UserPerfsRepo }
 
 final private class RatingRefund(
     gameRepo: GameRepo,
-    userRepo: UserRepo,
     perfsRepo: UserPerfsRepo,
     userApi: UserApi,
     scheduler: Scheduler,
@@ -26,14 +25,14 @@ final private class RatingRefund(
   def schedule(sus: Suspect): Unit = scheduler.scheduleOnce(delay)(apply(sus))
 
   private def apply(sus: Suspect): Funit =
-    logApi.wasUnengined(sus) flatMap {
+    logApi.wasUnengined(sus).flatMap {
       if _ then funit
       else
         def lastGames =
           gameRepo.coll
             .find:
               Query.user(sus.user.id) ++ Query.rated ++ Query
-                .createdSince(nowInstant minusDays 3) ++ Query.finished
+                .createdSince(nowInstant.minusDays(5)) ++ Query.finished
             .sort(Query.sortCreated)
             .cursor[Game](ReadPref.sec)
             .list(40)
@@ -50,26 +49,26 @@ final private class RatingRefund(
             yield refs.add(victim, g.perfType, -diff, rating)) | refs
 
         def pointsToRefund(ref: Refund, curRating: IntRating, stats: PerfStat): Int = {
-          ref.diff.value - (ref.diff.value + curRating.value - ref.topRating.value atLeast 0) / 2 atMost
-            stats.highest.fold(100)(_.int.value - curRating.value + 20)
+          (ref.diff.value - ((ref.diff.value + curRating.value - ref.topRating.value).atLeast(0)) / 2)
+            .atMost(stats.highest.fold(100)(_.int.value - curRating.value + 20))
         }.squeeze(0, 150)
 
         def refundPoints(victim: User.WithPerf, pt: PerfType, points: Int): Funit =
-          val newPerf = victim.perf refund points
+          val newPerf = victim.perf.refund(points)
           perfsRepo.setPerf(victim.id, pt, newPerf) >>
             historyApi.setPerfRating(victim.user, pt, newPerf.intRating) >>
             rankingApi.save(victim.user, pt, newPerf) >>
             notifier.refund(victim.user, pt, points)
 
         def applyRefund(ref: Refund) =
-          userApi.withPerf(ref.victim, ref.perf) flatMapz { user =>
-            perfStat.get(user.user, ref.perf) flatMap { stats =>
+          userApi.withPerf(ref.victim, ref.perf).flatMapz { user =>
+            perfStat.get(user.user, ref.perf).flatMap { stats =>
               val points = pointsToRefund(ref, curRating = user.perf.intRating, stats = stats)
-              (points > 0) so refundPoints(user, ref.perf, points)
+              (points > 0).so(refundPoints(user, ref.perf, points))
             }
           }
 
-        lastGames map makeRefunds flatMap { _.all.map(applyRefund).parallel } void
+        lastGames.map(makeRefunds).flatMap { _.all.map(applyRefund).parallel } void
     }
 
 private object RatingRefund:
@@ -79,11 +78,11 @@ private object RatingRefund:
   case class Refund(victim: UserId, perf: PerfType, diff: IntRatingDiff, topRating: IntRating):
     def is(v: UserId, p: PerfType): Boolean = v == victim && p == perf
     def is(r: Refund): Boolean              = is(r.victim, r.perf)
-    def add(d: IntRatingDiff, r: IntRating) = copy(diff = diff + d, topRating = topRating atLeast r)
+    def add(d: IntRatingDiff, r: IntRating) = copy(diff = diff + d, topRating = topRating.atLeast(r))
 
   case class Refunds(all: List[Refund]):
     def add(victim: UserId, perf: PerfType, diff: IntRatingDiff, rating: IntRating) =
       copy(all = all.find(_.is(victim, perf)) match
         case None    => Refund(victim, perf, diff, rating) :: all
-        case Some(r) => r.add(diff, rating) :: all.filterNot(_ is r)
+        case Some(r) => r.add(diff, rating) :: all.filterNot(_.is(r))
       )

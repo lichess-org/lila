@@ -1,9 +1,10 @@
 package lila.common
 
 import akka.actor.Scheduler
-import scala.collection.BuildFrom
-import scala.concurrent.{ Future as ScalaFu, Promise }
+
 import scala.concurrent.duration.FiniteDuration
+import scala.concurrent.{ Future as ScalaFu, Promise }
+
 import lila.Lila.Fu
 
 object LilaFuture:
@@ -16,14 +17,14 @@ object LilaFuture:
 
   def sleep(duration: FiniteDuration)(using ec: Executor, scheduler: Scheduler): Funit =
     val p = Promise[Unit]()
-    scheduler.scheduleOnce(duration)(p success {})
+    scheduler.scheduleOnce(duration)(p.success {})
     p.future
 
   def makeItLast[A](
       duration: FiniteDuration
   )(run: => Fu[A])(using ec: Executor, scheduler: Scheduler): Fu[A] =
     if duration == 0.millis then run
-    else run zip akka.pattern.after(duration, scheduler)(funit) dmap (_._1)
+    else run.zip(akka.pattern.after(duration, scheduler)(funit)).dmap(_._1)
 
   def retry[T](op: () => Fu[T], delay: FiniteDuration, retries: Int, logger: Option[lila.log.Logger])(using
       ec: Executor,
@@ -31,5 +32,5 @@ object LilaFuture:
   ): Fu[T] =
     op().recoverWith:
       case e if retries > 0 =>
-        logger foreach { _.info(s"$retries retries - ${e.getMessage}") }
+        logger.foreach { _.info(s"$retries retries - ${e.getMessage}") }
         akka.pattern.after(delay, scheduler)(retry(op, delay, retries - 1, logger))

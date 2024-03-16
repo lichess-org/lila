@@ -80,4 +80,7 @@ Patroner kan like fullt briske seg med et tøft, nytt profilikon.</string>
   <string name="nowOneMonth">Du er nå Lichess-patron i en måned!</string>
   <string name="downgradeNextMonth">Om en måned blir du IKKE belastet på nytt, og Lichess-kontoen din blir tilbakestilt til gratis-nivået.</string>
   <string name="changeCurrency">Endre valuta</string>
+  <string name="paymentDetails">Betalingsdetaljer</string>
+  <string name="updatePaymentMethod">Oppdater betalingsmåte</string>
+  <string name="stripeManageSub">Administrer abonnementet ditt og last ned fakturaer og kvitteringer</string>
 </resources>

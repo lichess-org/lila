@@ -25,7 +25,6 @@
   <string name="longestStreak">Garākā sērija: %s</string>
   <string name="currentStreak">Pašreizējā sērija: %s</string>
   <string name="bestRated">Labākās vērtētās uzvaras</string>
-  <string name="worstRated">Smagākie vērtētie zaudējumi</string>
   <string name="gamesInARow">Pēc kārtas spēlētās spēles</string>
   <string name="lessThanOneHour">Mazāk par stundu starp spēlēm</string>
   <string name="maxTimePlaying">Ilgākais spēlējot pavadītais laiks</string>

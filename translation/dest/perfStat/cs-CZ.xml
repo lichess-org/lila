@@ -25,7 +25,6 @@
   <string name="longestStreak">Nejdelší série: %s</string>
   <string name="currentStreak">Aktuální série: %s</string>
   <string name="bestRated">Nejlépe hodnocená vítězství</string>
-  <string name="worstRated">Nejhůře hodnocené prohry</string>
   <string name="gamesInARow">Hry odehrané v řadě</string>
   <string name="lessThanOneHour">Méně než jedna hodina mezi hrami</string>
   <string name="maxTimePlaying">Maximální čas strávený hraním</string>

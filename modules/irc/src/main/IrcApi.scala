@@ -1,10 +1,8 @@
 package lila.irc
 
-import lila.common.{ EmailAddress, Heapsort, IpAddress, LightUser }
+import lila.common.{ Heapsort, LightUser }
 import lila.hub.actorApi.irc.*
-import lila.user.Me
-import lila.user.User
-import lila.user.Me
+import lila.user.{ Me, User }
 
 final class IrcApi(
     zulip: ZulipClient,
@@ -25,7 +23,7 @@ final class IrcApi(
       case _               => ZulipClient.stream.mod.adminGeneral
     noteApi
       .byUserForMod(user.id)
-      .map(_.headOption.filter(_.date isAfter nowInstant.minusMinutes(5)))
+      .map(_.headOption.filter(_.date.isAfter(nowInstant.minusMinutes(5))))
       .flatMap:
         case None =>
           zulip.sendAndGetLink(stream, "/" + user.username):
@@ -36,7 +34,7 @@ final class IrcApi(
           zulip.sendAndGetLink(stream, "/" + user.username):
             val link = markdown.userLink(user.username)
             s"${markdown.modLink(mod.username)} :pepenote: **$link** (${markdown.userNotesLink(user.username)}):\n" +
-              markdown.linkifyUsers(note.text take 2000)
+              markdown.linkifyUsers(note.text.take(2000))
       .flatMapz: zulipLink =>
         noteApi.write(
           user,
@@ -67,12 +65,12 @@ final class IrcApi(
   def commlog(user: User, reportBy: Option[UserId])(using mod: Me): Funit =
     zulip(_.mod.adminLog, "private comms checks"):
       val checkedOut =
-        val finalS = if user.username.value endsWith "s" then "" else "s"
-        s"**${markdown modLink mod.username}** checked out **${markdown userLink user.username}**'$finalS communications "
+        val finalS = if user.username.value.endsWith("s") then "" else "s"
+        s"**${markdown.modLink(mod.username)}** checked out **${markdown.userLink(user.username)}**'$finalS communications "
       checkedOut + reportBy
-        .filterNot(_ is mod)
+        .filterNot(_.is(mod))
         .fold("spontaneously"): by =>
-          s"while investigating a report created by ${markdown.userLink(by into UserName)}"
+          s"while investigating a report created by ${markdown.userLink(by.into(UserName))}"
 
   def monitorMod(icon: String, text: String, tpe: ModDomain)(using modId: Me.Id): Funit =
     lightUser(modId).flatMapz: mod =>
@@ -124,16 +122,16 @@ final class IrcApi(
     case Event.Victory(msg) => publishVictory(msg)
 
   private def publishError(msg: String): Funit =
-    zulip(_.general, "lila")(s":lightning: ${markdown linkifyUsers msg}")
+    zulip(_.general, "lila")(s":lightning: ${markdown.linkifyUsers(msg)}")
 
   private def publishWarning(msg: String): Funit =
-    zulip(_.general, "lila")(s":thinking: ${markdown linkifyUsers msg}")
+    zulip(_.general, "lila")(s":thinking: ${markdown.linkifyUsers(msg)}")
 
   private def publishVictory(msg: String): Funit =
-    zulip(_.general, "lila")(s":tada: ${markdown linkifyUsers msg}")
+    zulip(_.general, "lila")(s":tada: ${markdown.linkifyUsers(msg)}")
 
   private[irc] def publishInfo(msg: String): Funit =
-    zulip(_.general, "lila")(s":info: ${markdown linkifyUsers msg}")
+    zulip(_.general, "lila")(s":info: ${markdown.linkifyUsers(msg)}")
 
   object charge:
     import lila.hub.actorApi.plan.ChargeEvent
@@ -153,7 +151,7 @@ final class IrcApi(
             else firsts
           displayMessage {
             s"$patrons donated ${amount(amountSum)}. Monthly progress: ${buffer.last.percent}%"
-          } andDo {
+          }.andDo {
             buffer = Vector.empty
           }
 
@@ -181,15 +179,15 @@ object IrcApi:
     def userLink(user: User): String                = userLink(user.username)
     def userLinkNoNotes(name: UserName): String     = lichessLink(s"/@/$name?mod", name.value)
     def userIdLinks(ids: List[UserId]): String =
-      UserName.from[List, UserId](ids) map markdown.userLink mkString ", "
+      UserName.from[List, UserId](ids).map(markdown.userLink).mkString(", ")
     def modLink(name: UserName): String               = lichessLink(s"/@/$name", name.value)
     def gameLink(id: String)                          = lichessLink(s"/$id", s"#$id")
     def printLink(print: String)                      = lichessLink(s"/mod/print/$print", print)
     def ipLink(ip: String)                            = lichessLink(s"/mod/ip/$ip", ip)
     def userNotesLink(name: UserName)                 = lichessLink(s"/@/$name?notes", "notes")
     def broadcastLink(id: RelayRoundId, name: String) = lichessLink(s"/broadcast/-/-/$id", name)
-    def linkifyUsers(msg: String) = userRegex matcher msg replaceAll (m => userLink(UserName(m.group(1))))
+    def linkifyUsers(msg: String) = userRegex.matcher(msg).replaceAll(m => userLink(UserName(m.group(1))))
     val postReplace               = lichessLink("/forum/$1", "$1")
-    def linkifyPosts(msg: String) = postRegex matcher msg replaceAll postReplace
+    def linkifyPosts(msg: String) = postRegex.matcher(msg).replaceAll(postReplace)
     def linkifyPostsAndUsers(msg: String) = linkifyPosts(linkifyUsers(msg))
     def fixImageUrl(url: String)          = url.replace("/display?", "/display.jpg?")

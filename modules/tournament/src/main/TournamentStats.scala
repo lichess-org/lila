@@ -1,8 +1,8 @@
 package lila.tournament
 
+import chess.Color
 import reactivemongo.api.bson.*
 
-import chess.Color
 import lila.db.dsl.*
 
 final class TournamentStatsApi(
@@ -12,7 +12,7 @@ final class TournamentStatsApi(
 )(using Executor):
 
   def apply(tournament: Tournament): Fu[Option[TournamentStats]] =
-    tournament.isFinished soFu cache.get(tournament.id)
+    tournament.isFinished.soFu(cache.get(tournament.id))
 
   private given BSONDocumentHandler[TournamentStats] = Macros.handler
 

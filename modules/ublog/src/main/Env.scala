@@ -46,12 +46,18 @@ final class Env(
         val lookInto = 7
         val keep     = 3
         api
-          .latestPosts(lookInto)
+          .pinnedPosts(2)
+          .zip(
+            api
+              .latestPosts(lookInto)
+              .map:
+                _.groupBy(_.blog)
+                  .flatMap(_._2.headOption)
+              .map(ThreadLocalRandom.shuffle)
+              .map(_.take(keep).toList)
+          )
           .map:
-            _.groupBy(_.blog)
-              .flatMap(_._2.headOption)
-          .map(ThreadLocalRandom.shuffle)
-          .map(_.take(keep).toList)
+            case (pinned, shuffled) => pinned ++ shuffled
 
   lila.common.Bus.subscribeFun("shadowban"):
     case lila.hub.actorApi.mod.Shadowban(userId, v) =>

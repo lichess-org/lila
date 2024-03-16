@@ -18,7 +18,7 @@ export default function (ctrl: TournamentController): VNode | undefined {
   const nbLeaders = ctrl.data.teamStanding?.find(s => s.id == data.id)?.players.length || 0;
 
   const setup = (vnode: VNode) => {
-    lichess.powertip.manualUserIn(vnode.elm as HTMLElement);
+    site.powertip.manualUserIn(vnode.elm as HTMLElement);
   };
   return h(tag, { hook: { insert: setup, postpatch: (_, vnode) => setup(vnode) } }, [
     h('a.close', {
@@ -28,7 +28,7 @@ export default function (ctrl: TournamentController): VNode | undefined {
     h('div.stats', [
       h('h2', [teamTag]),
       h('table', [
-        numberRow('Players', data.nbPlayers),
+        numberRow(noarg('players'), data.nbPlayers),
         ...(data.rating
           ? [
               ctrl.opts.showRatings ? numberRow(noarg('averageElo'), data.rating, 'raw') : null,

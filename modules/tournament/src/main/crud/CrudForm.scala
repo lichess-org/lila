@@ -1,20 +1,16 @@
 package lila.tournament
 package crud
 
+import chess.variant.Variant
 import play.api.data.*
 import play.api.data.Forms.*
 
-import chess.variant.Variant
-import chess.format.Fen
-import chess.Clock.IncrementSeconds
-import lila.common.Form.{ given, * }
+import lila.common.Form.*
 import lila.user.Me
-import lila.gathering.GatheringClock
 
 final class CrudForm(repo: TournamentRepo, forms: TournamentForm):
 
   import CrudForm.*
-  import TournamentForm.*
 
   def apply(tour: Option[Tournament])(using me: Me) = Form(
     mapping(
@@ -25,16 +21,18 @@ final class CrudForm(repo: TournamentRepo, forms: TournamentForm):
       "teamBattle"    -> boolean,
       "setup"         -> forms.create(Nil).mapping
     )(Data.apply)(unapply)
-  ) fill Data(
-    id = Tournament.makeId,
-    homepageHours = 0,
-    image = "",
-    headline = "",
-    teamBattle = false,
-    setup = forms.empty()
+  ).fill(
+    Data(
+      id = Tournament.makeId,
+      homepageHours = 0,
+      image = "",
+      headline = "",
+      teamBattle = false,
+      setup = forms.empty()
+    )
   )
 
-  def edit(tour: Tournament)(using me: Me) = apply(tour.some) fill
+  def edit(tour: Tournament)(using me: Me) = apply(tour.some).fill(
     Data(
       id = tour.id,
       homepageHours = ~tour.spotlight.flatMap(_.homepageHours),
@@ -43,6 +41,7 @@ final class CrudForm(repo: TournamentRepo, forms: TournamentForm):
       teamBattle = tour.isTeamBattle,
       setup = forms.fillFromTour(tour)
     )
+  )
 
 object CrudForm:
 
@@ -92,5 +91,5 @@ object CrudForm:
           iconFont = none,
           iconImg = image.some.filter(_.nonEmpty)
         ).some,
-        teamBattle = teamBattle option (tour.teamBattle | TeamBattle(Set.empty, 10))
+        teamBattle = teamBattle.option(tour.teamBattle | TeamBattle(Set.empty, 10))
       )

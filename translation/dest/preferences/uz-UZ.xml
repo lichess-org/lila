@@ -19,7 +19,6 @@
   <string name="displayBoardResizeHandle">Doskani o\'lchamini o\'gartiruvchi uskunani namoyishi</string>
   <string name="onlyOnInitialPosition">Faqat boshlang\'ich holatda</string>
   <string name="inGameOnly">Faqat o‘yin ichida</string>
-  <string name="blindfoldChess">Ko\'zlar berklitilgan shahmat (sipohlar ko\'rinmas holda)</string>
   <string name="chessClock">Shaxmat Soati</string>
   <string name="tenthsOfSeconds">10 lab sekundlar</string>
   <string name="whenTimeRemainingLessThanTenSeconds" comment="whenTimeRemainingLessThanTenSeconds&#10;&#10;The &amp;lt; symbol is not required (you can write it as a word), just do NOT use &lt; in its place.&#10;&#10;Technical information: &lt; is a reserved character in HTML, which is why it cannot be used.">Qachonki vaqt tugashiga &lt; 10 sekundlar bo\'lsa</string>

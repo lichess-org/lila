@@ -53,6 +53,7 @@
   <string name="allSyncMembersRemainOnTheSamePosition">Senkronize edilen bütün üyeler aynı pozisyonda kalır</string>
   <string name="shareChanges">Değişiklikleri izleyiciler ile paylaşın ve sunucuya kaydedin</string>
   <string name="playing">Oynanıyor</string>
+  <string name="showEvalBar">Değerlendirme çubuğu</string>
   <string name="first">İlk</string>
   <string name="previous">Önceki</string>
   <string name="next">Sonraki</string>
@@ -84,7 +85,7 @@
   <string name="pinnedChapterComment">Bölüm üzerine yorumlar</string>
   <string name="saveChapter">Bölümü kaydet</string>
   <string name="clearAnnotations">Açıklamaları sil</string>
-  <string name="clearVariations">Varyasyonları sil</string>
+  <string name="clearVariations" comment="Clear is used as a verb here. This erases the variations in the study (https://lichess.org/study) you are preparing.">Varyasyonları sil</string>
   <string name="deleteChapter">Bölümü sil</string>
   <string name="deleteThisChapter">Bu bölüm silinsin mi? Bunun geri dönüşü yok!</string>
   <string name="clearAllCommentsInThisChapter">Bu bölümdeki bütün yorumlar ve işaretler temizlensin mi?</string>

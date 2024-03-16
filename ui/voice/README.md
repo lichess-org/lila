@@ -1,1 +1,1 @@
-# see readme at ui/voice/@build/README.md
+# see readme at ui/voice/.build/README.md

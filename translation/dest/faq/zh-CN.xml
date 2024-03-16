@@ -5,9 +5,9 @@
   <string name="whyIsLichessCalledLichess">为什么 Lichess 被称为 Lichess？</string>
   <string name="lichessCombinationLiveLightLibrePronounced">Lichess 是 live/light/libre 和 chess 的组合。它的发音是 %1$s。</string>
   <string name="leechess">lee-chess</string>
-  <string name="hearItPronouncedBySpecialist">听一位专家发音。</string>
+  <string name="hearItPronouncedBySpecialist">听一位专家的发音。</string>
   <string name="whyLiveLightLibre">Live，因为游戏全年无休实时的游玩与观看。 Light 和 Libre 代表 Lichess 开源且不被纠缠其它网站的专利垃圾打扰。</string>
-  <string name="whyIsLilaCalledLila">同样，Lichess 源代码 %1$s，表示 li[chess in sca]la，查看 Lichess 的主体是用 %2$s写的，这是一种直观的编程语言。</string>
+  <string name="whyIsLilaCalledLila">同样，Lichess 的源代码 %1$s，表示 li[chess in sca]la，因为 Lichess 的主体是用 %2$s，一种直观的编程语言写的。</string>
   <string name="howCanIContributeToLichess">我可以如何为 Lichess 做出贡献？</string>
   <string name="lichessPoweredByDonationsAndVolunteers">Lichess 由赞助者的捐赠和志愿者团队的努力驱动。</string>
   <string name="findMoreAndSeeHowHelp">你可以找到更多关于%1$s的信息 (包括%2$s)。如果你想通过贡献你的时间和技能来帮助 Lichess，这里有许多%3$s。</string>
@@ -25,7 +25,7 @@
   <string name="preventLeavingGameWithoutResigning">对没有认输就离开的玩家怎么处理？</string>
   <string name="leavingGameWithoutResigningExplanation">如果你的对手频繁中止或离开游戏，他们会被 “禁止游戏”，这意味着他们被暂时禁止参加对局。 这在他们的个人资料中不会说明。 如果这种行为继续下去，禁止游戏的期限就会延长――长期被禁止可能会导致账户的关闭。</string>
   <string name="howCanIBecomeModerator">如何成为仲裁人？</string>
-  <string name="youCannotApply">无法申请成为仲裁人。 如果我们看到我们认为会成为很好的仲裁人的人，我们将直接与他们联系。</string>
+  <string name="youCannotApply">你没有办法主动申请成为管理员。 如果有我们认为有能力担任管理员的人，我们会直接与他们联系。</string>
   <string name="isCorrespondenceDifferent">通讯棋是否不同于常规棋？</string>
   <string name="pleaseReadFairPlayPage">欲了解更多信息，请阅读我们的 %s</string>
   <string name="fairPlayPage">公平对弈页面</string>
@@ -41,7 +41,7 @@
   <string name="lichessSupportChessAnd">Lichess 支持标准国际象棋和 %1$s。</string>
   <string name="eightVariants">8种国际象棋变体</string>
   <string name="whatIsACPL">平均厘兵损失 (ACPL) 是什么？</string>
-  <string name="acplExplanation">厘兵是国际象棋计算优势所用的计量单位。1厘兵等于兵价值的1/100。也就是说，100厘兵=1兵。这些价值在游戏中不起正式作用，但对玩家有用，对电脑来评估局面也很重要。
+  <string name="acplExplanation">厘兵是国际象棋计算优势所用的计量单位。1厘兵等于兵价值的百分之一，也就是100厘兵=1兵。这些价值在游戏中不起正式作用，但对玩家有用，对电脑评估局面也很重要。
 
 最佳的电脑着法将会损失0厘兵，但较差的着法将导致厘兵计量下局面的恶化。
 
@@ -56,7 +56,7 @@ Lichess 上的电脑分析是基于 Stockfish 的。</string>
 注意，如果对方一只棋子阻挡自己的王，那么单马或者单象也有可能实现将杀。</string>
   <string name="fideHandbook">国际棋联手册</string>
   <string name="fideHandbookX">国际棋联手册 %s</string>
-  <string name="discoveringEnPassant">为什么兵能够吃掉另外一只已经经过了它控制格子的兵？(吃过路兵)</string>
+  <string name="discoveringEnPassant">为什么兵能够吃掉另外一只已经经过了它控制格子的兵？（吃过路兵）</string>
   <string name="explainingEnPassant">这是一个叫做“吃过路兵”的合法着法。维基百科文章给出了一个%1$s。
 
 在3.7 (d)节中作了描述在%2$s。
@@ -143,4 +143,28 @@ Lichess 上的电脑分析是基于 Stockfish 的。</string>
  点击你的浏览器网址栏中 lichess.org 地址旁的锁形图标。
 
  然后选择是否允许或拦截来自 Lichess 的提醒。</string>
+  <string name="enableAutoplayForSoundsQ">启用自动播放音频？</string>
+  <string name="enableAutoplayForSoundsA">大多数浏览器会在打开新加载的页面时通过阻止播放音频来保护用户。想象一下如果每个网站都使用带声音的广告来轰炸您的场景吧。
+
+当浏览器阻止 lichess.org 播放音频时，红色的静音标志会出现。通常来说这个限制会在您点击某些内容之后取消。在一些移动浏览器上，触摸拖动棋子不被视为点击。在这种情况下您必须在每盘对局开始前点击棋盘来允许声音播放。
+
+当这种情况发生时我们会通过红色的标志来提醒您。通常您可以直接设置允许 lichess.org 播放音频。以下是一些流行的浏览器的最新版本的设置方法。</string>
+  <string name="desktop">桌面端</string>
+  <string name="enableAutoplayForSoundsFirefox">1.前往lichess.org
+2.Linux与Windows系统请点击Ctrl键加i键，MacOS系统请点击cmd键加i键
+3.点击权限选项卡
+4.允许lichess.org的音频与视频权限</string>
+  <string name="enableAutoplayForSoundsChrome">1.前往lichess.org
+2.点击网址栏上的锁图标
+3.点击网站设置
+4.允许声音播放</string>
+  <string name="enableAutoplayForSoundsSafari">1. 登录lichess.org
+2. 点击Safari浏览器菜单栏
+3.点击lichess.org 设置
+4. 允许所有自动播放</string>
+  <string name="enableAutoplayForSoundsMicrosoftEdge">1. 点击右上角的三个小点
+2. 点击“设置”
+3. 点击“Cookie 和网站权限”
+4. 向下滑动页面，点击“媒体自动播放”
+5. 添加 lichess.org 至允许列表</string>
 </resources>

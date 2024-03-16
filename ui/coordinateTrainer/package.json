@@ -18,11 +18,6 @@
     "snabbdom": "^3.5.1",
     "voice": "workspace:*"
   },
-  "scripts": {
-    "compile": "tsc",
-    "dev": "tsc",
-    "prod": "tsc"
-  },
   "lichess": {
     "modules": {
       "esm": {

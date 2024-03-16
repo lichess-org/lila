@@ -1,11 +1,11 @@
 package views.html
 package user
 
-import lila.app.templating.Environment.{ given, * }
+import controllers.routes
+
+import lila.app.templating.Environment.{ *, given }
 import lila.app.ui.ScalatagsTemplate.{ *, given }
 import lila.user.User
-
-import controllers.routes
 
 object top:
 
@@ -32,9 +32,11 @@ object top:
               tr(
                 td(i + 1),
                 td(lightUserLink(u.user)),
-                ctx.pref.showRatings option frag(
-                  td(u.rating),
-                  td(ratingProgress(u.progress))
+                ctx.pref.showRatings.option(
+                  frag(
+                    td(u.rating),
+                    td(ratingProgress(u.progress))
+                  )
                 )
               )
           )

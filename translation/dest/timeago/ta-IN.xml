@@ -54,4 +54,9 @@
     <item quantity="one">%s ஆண்டுக்கு முன்</item>
     <item quantity="other">%s ஆண்டுகளுக்கு முன்பு</item>
   </plurals>
+  <plurals name="nbMinutesRemaining">
+    <item quantity="one">%s நிமிடம் மீதமுள்ளது</item>
+    <item quantity="other">%s நிமிடங்கள் மீதமுள்ளன</item>
+  </plurals>
+  <string name="completed">நிறைவுற்றது</string>
 </resources>

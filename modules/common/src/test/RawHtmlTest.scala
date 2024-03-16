@@ -1,6 +1,7 @@
 package lila.base
 
 import lila.common.{ Html, config }
+
 import RawHtml.*
 
 class RawHtmlTest extends munit.FunSuite:

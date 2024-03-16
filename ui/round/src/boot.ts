@@ -16,14 +16,14 @@ export default async function (opts: RoundOpts, roundMain: (opts: RoundOpts, nvu
   const socketUrl = opts.data.player.spectator
     ? `/watch/${data.game.id}/${data.player.color}/v6`
     : `/play/${data.game.id}${data.player.id}/v6`;
-  lichess.socket = new lichess.StrongSocket(socketUrl, data.player.version, {
+  site.socket = new site.StrongSocket(socketUrl, data.player.version, {
     params: { userTv: data.userTv && data.userTv.id },
     receive(t: string, d: any) {
       round.socketReceive(t, d);
     },
     events: {
       tvSelect(o: any) {
-        if (data.tv && data.tv.channel == o.channel) lichess.reload();
+        if (data.tv && data.tv.channel == o.channel) site.reload();
         else
           $('.tv-channels .' + o.channel + ' .champion').html(
             o.player
@@ -40,7 +40,7 @@ export default async function (opts: RoundOpts, roundMain: (opts: RoundOpts, nvu
           $meta.length && $('.game__meta').replaceWith($meta);
           $('.crosstable').replaceWith($html.find('.crosstable'));
           startTournamentClock();
-          lichess.contentLoaded();
+          site.contentLoaded();
         });
       },
       tourStanding(s: TourPlayer[]) {
@@ -56,7 +56,7 @@ export default async function (opts: RoundOpts, roundMain: (opts: RoundOpts, nvu
   const startTournamentClock = () => {
     if (data.tournament)
       $('.game__tournament .clock').each(function (this: HTMLElement) {
-        lichess.clockWidget(this, {
+        site.clockWidget(this, {
           time: parseFloat(this.dataset.time!),
         });
       });
@@ -68,11 +68,11 @@ export default async function (opts: RoundOpts, roundMain: (opts: RoundOpts, nvu
     return;
   };
   opts.element = document.querySelector('.round__app') as HTMLElement;
-  opts.socketSend = lichess.socket.send;
+  opts.socketSend = site.socket.send;
 
   const round: RoundApi = roundMain(
     opts,
-    lichess.blindMode ? await lichess.asset.loadEsm<NvuiPlugin>('round.nvui') : undefined,
+    site.blindMode ? await site.asset.loadEsm<NvuiPlugin>('round.nvui') : undefined,
   );
   const chatOpts = opts.chat;
   if (chatOpts) {
@@ -84,7 +84,7 @@ export default async function (opts: RoundOpts, roundMain: (opts: RoundOpts, nvu
       chatOpts.parseMoves = true;
     }
     if (chatOpts.noteId && (chatOpts.noteAge || 0) < 10) chatOpts.noteText = '';
-    chatOpts.instance = lichess.makeChat(chatOpts) as Promise<ChatCtrl>;
+    chatOpts.instance = site.makeChat(chatOpts) as Promise<ChatCtrl>;
     if (!data.tournament && !data.simul && !data.swiss)
       opts.onChange = (d: RoundData) =>
         chatOpts.instance!.then(chat => chat.preset.setGroup(getPresetGroup(d)));
@@ -94,16 +94,16 @@ export default async function (opts: RoundOpts, roundMain: (opts: RoundOpts, nvu
     .on('change', round.moveOn.toggle)
     .prop('checked', round.moveOn.get())
     .on('click', 'a', () => {
-      lichess.unload.expected = true;
+      site.unload.expected = true;
       return true;
     });
   if (location.pathname.lastIndexOf('/round-next/', 0) === 0)
     history.replaceState(null, '', '/' + data.game.id);
-  $('#zentog').on('click', () => lichess.pubsub.emit('zen'));
-  lichess.storage.make('reload-round-tabs').listen(lichess.reload);
+  $('#zentog').on('click', () => site.pubsub.emit('zen'));
+  site.storage.make('reload-round-tabs').listen(site.reload);
 
   if (!data.player.spectator && location.hostname != (document as any)['Location'.toLowerCase()].hostname) {
     alert(`Games cannot be played through a web proxy. Please use ${location.hostname} instead.`);
-    lichess.socket.destroy();
+    site.socket.destroy();
   }
 }

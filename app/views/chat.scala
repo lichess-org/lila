@@ -2,10 +2,10 @@ package views.html
 
 import play.api.libs.json.Json
 
-import lila.app.templating.Environment.{ given, * }
+import lila.app.templating.Environment.{ *, given }
 import lila.app.ui.ScalatagsTemplate.*
-import lila.i18n.I18nKeys
 import lila.common.Json.given
+import lila.i18n.I18nKeys
 
 object chat:
 
@@ -83,7 +83,7 @@ object chat:
       .add("kobold" -> ctx.troll)
       .add("blind" -> ctx.blind)
       .add("timeout" -> timeout)
-      .add("noteId" -> (withNoteAge.isDefined && ctx.noBlind).option(chat.id.value take 8))
+      .add("noteId" -> (withNoteAge.isDefined && ctx.noBlind).option(chat.id.value.take(8)))
       .add("noteAge" -> withNoteAge)
       .add(
         "timeoutReasons" -> (!localMod && (isGranted(_.ChatTimeout) || isGranted(_.BroadcastTimeout)))
@@ -96,8 +96,8 @@ object chat:
       I18nKeys.toggleTheChat.some,
       I18nKeys.loginToChat.some,
       I18nKeys.youHaveBeenTimedOut.some,
-      withNote option I18nKeys.notes,
-      withNote option I18nKeys.typePrivateNotesHere
+      withNote.option(I18nKeys.notes),
+      withNote.option(I18nKeys.typePrivateNotesHere)
     )
 
   val spectatorsFrag =

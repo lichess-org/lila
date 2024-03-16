@@ -2,7 +2,7 @@ package views.html.mod
 
 import controllers.routes
 
-import lila.app.templating.Environment.{ given, * }
+import lila.app.templating.Environment.{ *, given }
 import lila.app.ui.ScalatagsTemplate.{ *, given }
 
 object table:
@@ -32,7 +32,7 @@ object table:
                   td(userLink(user)),
                   td(
                     a(href := routes.Mod.permissions(user.username))(
-                      lila.security.Permission(user.roles).map(_.name) mkString ", "
+                      lila.security.Permission(user.roles).map(_.name).mkString(", ")
                     )
                   ),
                   td(dataSort := user.seenAt.map(_.toMillis.toString))(user.seenAt.map(momentFromNowOnce))

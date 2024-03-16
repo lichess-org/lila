@@ -1,12 +1,11 @@
 package views.html.relay
 
 import controllers.routes
+import play.api.i18n.Lang
 
-import lila.app.templating.Environment.{ given, * }
+import lila.app.templating.Environment.{ *, given }
 import lila.app.ui.ScalatagsTemplate.{ *, given }
 import lila.relay.RelayTour
-import play.api.i18n.Lang
-import scalatags.Text.TypedTag
 
 object bits:
 
@@ -25,7 +24,7 @@ object bits:
     )(
       i(cls := "img", dataIcon := licon.RadioTower),
       span(cls := "content")(
-        span(cls := "name")(tr.tour.spotlight.flatMap(_.title) | tr.tour.name),
+        span(cls := "name")(tr.tour.spotlight.flatMap(_.title) | tr.tour.name.value),
         span(cls := "more")(
           tr.display.caption.fold(tr.display.name.value)(_.value),
           " • ",

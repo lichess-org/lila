@@ -1,9 +1,11 @@
 package controllers
 
-import play.api.data.*, Forms.*
+import play.api.data.*
 import views.*
 
-import lila.app.{ given, * }
+import lila.app.*
+
+import Forms.*
 
 final class Dev(env: Env) extends LilaController(env):
 
@@ -32,8 +34,6 @@ final class Dev(env: Env) extends LilaController(env):
     env.tournament.reloadEndpointSetting,
     env.tutor.nbAnalysisSetting,
     env.tutor.parallelismSetting,
-    env.firefoxOriginTrial,
-    env.credentiallessUaRegex,
     env.relay.proxyDomainRegex,
     env.relay.proxyHostPort,
     env.relay.proxyCredentials
@@ -45,7 +45,7 @@ final class Dev(env: Env) extends LilaController(env):
   }
 
   def settingsPost(id: String) = SecureBody(_.Settings) { _ ?=> me ?=>
-    settingsList.find(_.id == id) so { setting =>
+    settingsList.find(_.id == id).so { setting =>
       setting.form
         .bindFromRequest()
         .fold(
@@ -54,7 +54,7 @@ final class Dev(env: Env) extends LilaController(env):
             lila
               .log("setting")
               .info(s"${me.username} changes $id from ${setting.get()} to ${v.toString}")
-            setting.setString(v.toString) inject Redirect(routes.Dev.settings)
+            setting.setString(v.toString).inject(Redirect(routes.Dev.settings))
         )
     }
   }
@@ -74,13 +74,13 @@ final class Dev(env: Env) extends LilaController(env):
         command =>
           Ok.pageAsync:
             runCommand(command).map: res =>
-              html.dev.cli(commandForm fill command, s"$command\n\n$res".some)
+              html.dev.cli(commandForm.fill(command), s"$command\n\n$res".some)
       )
   }
 
   def command = ScopedBody(parse.tolerantText)(Seq(_.Preference.Write)) { ctx ?=> me ?=>
     lila.security.Granter(_.Cli).so {
-      runCommand(ctx.body.body) map { Ok(_) }
+      runCommand(ctx.body.body).map { Ok(_) }
     }
   }
 

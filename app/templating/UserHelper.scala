@@ -1,19 +1,20 @@
 package lila.app
 package templating
 
+import chess.PlayerTitle
 import controllers.routes
-import mashup.*
 import play.api.i18n.Lang
 
 import lila.app.ui.ScalatagsTemplate.{ *, given }
-import lila.common.licon
-import lila.common.LightUser
+import lila.common.{ LightUser, licon }
 import lila.i18n.{ I18nKey, I18nKeys as trans }
 import lila.rating.{ Perf, PerfType }
-import lila.user.{ User, UserPerfs, FlairApi }
+import lila.user.{ User, UserPerfs }
+
+import mashup.*
 
 trait UserHelper extends HasEnv:
-  self: I18nHelper with StringHelper with NumberHelper with DateHelper with AssetHelper =>
+  self: I18nHelper & StringHelper & NumberHelper & DateHelper & AssetHelper =>
 
   given Conversion[User.WithPerfs, User] = _.user
 
@@ -51,7 +52,7 @@ trait UserHelper extends HasEnv:
       cls      := "text"
     )(
       if clueless then frag(nbsp, nbsp, nbsp, if nb < 1 then "-" else "?")
-      else frag(rating, provisional.yes option "?")
+      else frag(rating, provisional.yes.option("?"))
     )
 
   def showPerfRating(p: Perf.Typed)(using Lang): Frag =
@@ -66,7 +67,7 @@ trait UserHelper extends HasEnv:
     )
 
   def showPerfRating(perfs: UserPerfs, perfType: PerfType)(using Lang): Frag =
-    showPerfRating(perfs typed perfType)
+    showPerfRating(perfs.typed(perfType))
 
   def showPerfRating(perfs: UserPerfs, perfKey: Perf.Key)(using Lang): Option[Frag] =
     PerfType(perfKey).map(showPerfRating(perfs, _))
@@ -91,7 +92,7 @@ trait UserHelper extends HasEnv:
 
   def isOnline(userId: UserId) = env.socket.isOnline(userId)
 
-  def isStreaming(userId: UserId) = env.streamer.liveStreamApi isStreaming userId
+  def isStreaming(userId: UserId) = env.streamer.liveStreamApi.isStreaming(userId)
 
   def anonUserSpan(cssClass: Option[String] = None, modIcon: Boolean = false) =
     span(cls := List("offline" -> true, "user-link" -> true, ~cssClass -> cssClass.isDefined))(
@@ -115,7 +116,7 @@ trait UserHelper extends HasEnv:
           userId = user.id,
           username = user.name,
           isPatron = user.isPatron,
-          title = user.title ifTrue withTitle,
+          title = user.title.ifTrue(withTitle),
           flair = user.flair,
           cssClass = cssClass,
           withOnline = withOnline,
@@ -136,7 +137,7 @@ trait UserHelper extends HasEnv:
       userId = user.id,
       username = user.name,
       isPatron = user.isPatron,
-      title = user.title ifTrue withTitle,
+      title = user.title.ifTrue(withTitle),
       flair = user.flair,
       cssClass = cssClass,
       withOnline = withOnline,
@@ -156,13 +157,13 @@ trait UserHelper extends HasEnv:
       cls      := userClass(user.id, cssClass, withOnline),
       dataHref := userUrl(user.name)
     )(
-      withOnline so lineIcon(user.isPatron),
+      withOnline.so(lineIcon(user.isPatron)),
       titleTag(user.title),
       user.name,
       user.flair.map(userFlair)
     )
 
-  def titleTag(title: Option[UserTitle]): Option[Frag] =
+  def titleTag(title: Option[PlayerTitle]): Option[Frag] =
     title.map: t =>
       frag(userTitleTag(t), nbsp)
   def titleTag(lu: LightUser): Frag = titleTag(lu.title)
@@ -174,7 +175,7 @@ trait UserHelper extends HasEnv:
       cssClass: Option[String],
       withOnline: Boolean,
       truncate: Option[Int],
-      title: Option[UserTitle],
+      title: Option[PlayerTitle],
       flair: Option[Flair],
       params: String,
       modIcon: Boolean
@@ -183,7 +184,7 @@ trait UserHelper extends HasEnv:
       cls  := userClass(userId, cssClass, withOnline),
       href := userUrl(username, params = params)
     )(
-      withOnline so (if modIcon then moderatorIcon else lineIcon(isPatron)),
+      withOnline.so(if modIcon then moderatorIcon else lineIcon(isPatron)),
       titleTag(title),
       truncate.fold(username.value)(username.value.take),
       flair.map(userFlair)
@@ -225,8 +226,8 @@ trait UserHelper extends HasEnv:
       withPerfRating: Option[Perf | UserPerfs] = None,
       name: Option[Frag] = None
   )(using Lang) = frag(
-    withOnline so lineIcon(user),
-    withTitle option titleTag(user.title),
+    withOnline.so(lineIcon(user)),
+    withTitle.option(titleTag(user.title)),
     name | user.username,
     userFlair(user),
     withPerfRating.map(userRating(user, _))
@@ -234,12 +235,12 @@ trait UserHelper extends HasEnv:
 
   def userIdSpanMini(userId: UserId, withOnline: Boolean = false)(using Lang): Tag =
     val user = lightUser(userId)
-    val name = user.fold(userId into UserName)(_.name)
+    val name = user.fold(userId.into(UserName))(_.name)
     span(
       cls      := userClass(userId, none, withOnline),
       dataHref := userUrl(name)
     )(
-      withOnline so lineIcon(user),
+      withOnline.so(lineIcon(user)),
       user.map(titleTag),
       name
     )
@@ -249,7 +250,7 @@ trait UserHelper extends HasEnv:
   def userFlair(flair: Flair): Tag = img(cls := "uflair", src := flairSrc(flair))
 
   private def renderRating(perf: Perf): Frag =
-    frag(" (", perf.intRating, perf.provisional.yes option "?", ")")
+    frag(" (", perf.intRating, perf.provisional.yes.option("?"), ")")
 
   // UserPerfs selects the best perf
   private def userRating(user: User, perf: Perf | UserPerfs): Frag = perf match
@@ -257,7 +258,7 @@ trait UserHelper extends HasEnv:
     case p: UserPerfs => p.bestRatedPerf.so(p => renderRating(p.perf))
 
   def userUrl(username: UserName, params: String = ""): Option[String] =
-    !User.isGhost(username.id) option s"""${routes.User.show(username.value)}$params"""
+    (!User.isGhost(username.id)).option(s"""${routes.User.show(username.value)}$params""")
 
   def userClass(
       userId: UserId,
@@ -265,9 +266,9 @@ trait UserHelper extends HasEnv:
       withOnline: Boolean,
       withPowerTip: Boolean = true
   ): List[(String, Boolean)] =
-    if User isGhost userId then List("user-link" -> true, ~cssClass -> cssClass.isDefined)
+    if User.isGhost(userId) then List("user-link" -> true, ~cssClass -> cssClass.isDefined)
     else
-      (withOnline so List((if isOnline(userId) then "online" else "offline") -> true)) ::: List(
+      (withOnline.so(List((if isOnline(userId) then "online" else "offline") -> true))) ::: List(
         "user-link" -> true,
         ~cssClass   -> cssClass.isDefined,
         "ulpt"      -> withPowerTip
@@ -282,7 +283,7 @@ trait UserHelper extends HasEnv:
   def userGameFilterTitleNoTag(u: User, nbs: UserInfo.NbGames, filter: GameFilter)(using Lang): String =
     filter match
       case GameFilter.All      => transLocalize(trans.nbGames, u.count.game)
-      case GameFilter.Me       => nbs.withMe so { transLocalize(trans.nbGamesWithYou, _) }
+      case GameFilter.Me       => nbs.withMe.so { transLocalize(trans.nbGamesWithYou, _) }
       case GameFilter.Rated    => transLocalize(trans.nbRated, u.count.rated)
       case GameFilter.Win      => transLocalize(trans.nbWins, u.count.win)
       case GameFilter.Loss     => transLocalize(trans.nbLosses, u.count.loss)

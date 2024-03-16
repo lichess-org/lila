@@ -15,9 +15,9 @@ export function initModule({ mode, cfg }: { mode: 'userAnalysis' | 'replay'; cfg
 
 function userAnalysis(cfg: any) {
   cfg.$side = $('.analyse__side').clone();
-  lichess.socket = new lichess.StrongSocket(cfg.socketUrl || '/analysis/socket/v5', cfg.socketVersion, {
+  site.socket = new site.StrongSocket(cfg.socketUrl || '/analysis/socket/v5', cfg.socketVersion, {
     receive: (t: string, d: any) => analyse.socketReceive(t, d),
   });
-  cfg.socketSend = lichess.socket.send;
+  cfg.socketSend = site.socket.send;
   const analyse = start(cfg);
 }

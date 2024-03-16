@@ -1,12 +1,11 @@
 package views.html.tournament
 
+import controllers.routes
 import play.api.i18n.Lang
 
-import lila.app.templating.Environment.{ given, * }
+import lila.app.templating.Environment.{ *, given }
 import lila.app.ui.ScalatagsTemplate.{ *, given }
 import lila.rating.PerfType
-
-import controllers.routes
 
 object leaderboard:
 
@@ -75,7 +74,7 @@ object leaderboard:
       main(cls := "page-menu")(
         views.html.user.bits.communityMenu("tournament"),
         div(cls := "page-menu__content box box-pad")(
-          h1(cls := "box__top")("Tournament winners"),
+          h1(cls := "box__top")(trans.arena.tournamentWinners()),
           div(cls := "tournament-leaderboards")(
             eliteWinners,
             freqWinners(winners.hyperbullet, PerfType.Bullet, "HyperBullet"),
@@ -86,7 +85,7 @@ object leaderboard:
             marathonWinners,
             lila.tournament.WinnersApi.variants.map { v =>
               PerfType.byVariant(v).map { pt =>
-                winners.variants.get(pt.key into chess.variant.Variant.LilaKey).map {
+                winners.variants.get(pt.key.into(chess.variant.Variant.LilaKey)).map {
                   freqWinners(_, pt, v.name)
                 }
               }

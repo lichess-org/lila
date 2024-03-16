@@ -14,7 +14,7 @@
   <string name="goAsLongAsYouWant">Luyện tập vô tận, không có giới hạn thời gian!</string>
   <string name="showCoordinates">Hiện tọa độ</string>
   <string name="showPieces">Hiện quân cờ</string>
-  <string name="startTraining">Bắt đầu luyện</string>
+  <string name="startTraining">Bắt đầu tập luyện</string>
   <string name="findSquare">Tìm ô cờ</string>
   <string name="nameSquare">Điền tên ô cờ</string>
 </resources>

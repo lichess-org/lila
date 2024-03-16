@@ -2,8 +2,8 @@ package lila.forum
 
 import ornicar.scalalib.ThreadLocalRandom
 
-import lila.user.{ Me, User }
 import lila.security.Granter
+import lila.user.{ Me, User }
 
 case class OldVersion(text: String, createdAt: Instant)
 
@@ -43,7 +43,7 @@ case class ForumPost(
 
   def canBeEditedByMe(using me: Me): Boolean =
     userId match
-      case Some(userId) if me is userId => true
+      case Some(userId) if me.is(userId) => true
       case None if (Granter(_.PublicMod) || Granter(_.SeeReport)) && isAnonModPost =>
         true
       case _ => false
@@ -116,13 +116,13 @@ object ForumPost:
       categId: ForumCategId,
       userId: Option[UserId], // anon mod posts
       text: String,
-      number: Int,
-      lang: Option[String],
-      troll: Boolean,
-      modIcon: Option[Boolean] = None
+      number: Int = 1,
+      lang: Option[String] = none,
+      troll: Boolean = false,
+      modIcon: Option[Boolean] = none
   ): ForumPost =
     ForumPost(
-      _id = ForumPostId(ThreadLocalRandom nextString idSize),
+      _id = ForumPostId(ThreadLocalRandom.nextString(idSize)),
       topicId = topicId,
       author = none,
       userId = userId,

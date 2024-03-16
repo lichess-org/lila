@@ -2,7 +2,7 @@
   "extends": "../tsconfig.base.json",
   "compilerOptions": {
     "paths": { "chessground": ["./@types/chessground"] },
-    "types": ["lichess", "web", "cash"],
+    "types": ["lichess", "web"],
     "allowSyntheticDefaultImports": true,
     "skipLibCheck": true,
     "noEmit": true

@@ -1,17 +1,14 @@
 package lila.user
 
-import reactivemongo.akkastream.{ cursorProducer, AkkaStreamCursor }
+import chess.{ ByColor, PlayerTitle }
+import reactivemongo.akkastream.cursorProducer
 import reactivemongo.api.bson.*
-import akka.stream.scaladsl.*
 
-import lila.rating.{ Perf, PerfType }
-import lila.memo.CacheApi
 import lila.common.{ LightUser, NormalizedEmailAddress }
 import lila.db.dsl.{ *, given }
-import lila.db.BSON.Reader
-import lila.rating.Glicko
+import lila.memo.CacheApi
+import lila.rating.{ Glicko, Perf, PerfType }
 import lila.user.User.userHandler
-import chess.ByColor
 
 final class UserApi(userRepo: UserRepo, perfsRepo: UserPerfsRepo, cacheApi: CacheApi)(using
     Executor,
@@ -50,8 +47,10 @@ final class UserApi(userRepo: UserRepo, perfsRepo: UserPerfsRepo, cacheApi: Cach
 
   def updatePerfs(ups: ByColor[(UserPerfs, UserPerfs)], gamePerfType: PerfType) =
     import lila.memo.CacheApi.invalidate
-    ups.all.map(perfsRepo.updatePerfs).parallel andDo
-      gamePlayers.cache.invalidate(ups.map(_._1.id.some).toPair -> gamePerfType)
+    ups.all
+      .map(perfsRepo.updatePerfs)
+      .parallel
+      .andDo(gamePlayers.cache.invalidate(ups.map(_._1.id.some).toPair -> gamePerfType))
 
   def withPerfs(u: User): Fu[User.WithPerfs] = perfsRepo.withPerfs(u)
 
@@ -135,7 +134,7 @@ final class UserApi(userRepo: UserRepo, perfsRepo: UserPerfsRepo, cacheApi: Cach
       .map: docs =>
         for
           doc  <- docs
-          user <- r readOpt doc
+          user <- r.readOpt(doc)
         yield User.WithEmails(
           User.WithPerfs(user, perfs.get(user.id)),
           User.Emails(
@@ -152,7 +151,7 @@ final class UserApi(userRepo: UserRepo, perfsRepo: UserPerfsRepo, cacheApi: Cach
     if user.count.game > 0
     then fufail(lila.base.LilaInvalid("You already have games played. Make a new account."))
     else
-      userRepo.addTitle(user.id, Title.BOT) >>
+      userRepo.setTitle(user.id, PlayerTitle.BOT) >>
         userRepo.setRoles(user.id, Nil) >>
         perfsRepo.setBotInitialPerfs(user.id)
 
@@ -179,7 +178,7 @@ final class UserApi(userRepo: UserRepo, perfsRepo: UserPerfsRepo, cacheApi: Cach
         import framework.*
         import User.{ BSONFields as F }
         Match(
-          $inIds(ids) ++ $doc("standard.gl.d" $lt Glicko.provisionalDeviation)
+          $inIds(ids) ++ $doc("standard.gl.d".$lt(Glicko.provisionalDeviation))
         ) -> List(
           Sort(Descending("standard.gl.r")),
           Limit(nb * 5),
@@ -195,8 +194,8 @@ final class UserApi(userRepo: UserRepo, perfsRepo: UserPerfsRepo, cacheApi: Cach
           Match:
             $doc(
               s"user.${F.enabled}" -> true,
-              s"user.${F.marks}" $nin List(UserMark.Engine.key, UserMark.Boost.key),
-              s"user.${F.title}" $ne Title.BOT
+              s"user.${F.marks}".$nin(List(UserMark.Engine.key, UserMark.Boost.key)),
+              s"user.${F.title}".$ne(PlayerTitle.BOT)
             )
           ,
           Limit(nb)

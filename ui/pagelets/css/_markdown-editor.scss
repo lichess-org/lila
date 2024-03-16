@@ -1,0 +1,94 @@
+@use '../node_modules/@toast-ui/editor/dist/toastui-editor.css';
+@use '../node_modules/@toast-ui/editor/dist/theme/toastui-editor-dark.css';
+
+.markdown-editor {
+  height: 60vh;
+  margin-bottom: -1em;
+  .tab-item {
+    background: $c-bg-box;
+    &.active {
+      @extend %metal;
+    }
+  }
+  .toastui-editor {
+    &-defaultUI {
+      border: none;
+      &-toolbar {
+        @extend %metal, %box-radius-top;
+        border-radius: 3px 3px 0 0 !important;
+        border: 1px solid $c-border;
+        border-width: 1px 1px 0 1px;
+      }
+    }
+    &-toolbar {
+      &-icons {
+        border-color: $c-border;
+        &:not(:disabled) {
+          &:hover {
+            background-color: $c-bg-box;
+          }
+          &.active {
+            background-color: $c-bg-zebra;
+          }
+        }
+      }
+    }
+    &-md-tab-container {
+      background: none;
+    }
+    &-tabs {
+      @extend %flex-center;
+      align-content: flex-end;
+      margin: 0 1ch 0 0;
+      .tab-item {
+        height: 2em;
+        line-height: 2em;
+        margin: 0 0 -1px 0;
+      }
+    }
+    &-ww-container,
+    &-md-container {
+      border: 1px solid $c-border;
+      border-width: 0 1px 1px 1px;
+      border-radius: 0 0 3px 3px;
+    }
+    &.ww-mode,
+    &.md-mode,
+    &-md-preview {
+      @extend %base-font;
+      font-size: 1rem;
+      background: $c-bg-input;
+      color: $c-font;
+    }
+    &-contents {
+      font-size: 1rem;
+      & p,
+      & h2,
+      & h3,
+      & h4 {
+        color: $c-font;
+      }
+      & h2 {
+        border-color: $c-brag;
+      }
+      & h3 {
+        border: none;
+      }
+    }
+    .ProseMirror {
+      font-size: 1rem;
+      padding: 0.8em 1.2em;
+    }
+    &-mode-switch {
+      background: none;
+      border: none;
+    }
+    &-popup-body li[data-type='Heading'] {
+      &[data-level='1'],
+      &[data-level='5'],
+      &[data-level='6'] {
+        display: none;
+      }
+    }
+  }
+}

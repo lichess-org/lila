@@ -1,8 +1,8 @@
 package lila.app
 package http
 
-import play.api.mvc.*
 import play.api.http.HeaderNames
+import play.api.mvc.*
 
 import lila.common.HTTPRequest
 
@@ -28,8 +28,7 @@ trait ResponseHeaders extends HeaderNames:
         "Access-Control-Allow-Credentials" -> "true"
       )
     )
-
-  val allowMethods = List("OPTIONS", "GET", "POST", "PUT", "DELETE") mkString ", "
+  val allowMethods = List("OPTIONS", "GET", "POST", "PUT", "DELETE").mkString(", ")
   val optionsHeaders = List(
     "Allow"                  -> allowMethods,
     "Access-Control-Max-Age" -> "86400"
@@ -44,6 +43,13 @@ trait ResponseHeaders extends HeaderNames:
     "Cross-Origin-Opener-Policy"   -> "same-origin",
     "Cross-Origin-Embedder-Policy" -> "credentialless"
   )
+
+  val permissionsPolicyHeader =
+    "Permissions-Policy" -> List(
+      "screen-wake-lock=(self \"https://lichess1.org\")",
+      "microphone=(self)",
+      "fullscreen=(self)"
+    ).mkString(", ")
 
   val noProxyBufferHeader = "X-Accel-Buffering" -> "no"
 

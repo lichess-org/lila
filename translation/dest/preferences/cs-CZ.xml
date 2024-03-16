@@ -19,7 +19,6 @@
   <string name="displayBoardResizeHandle">Zobrazit tlačítko pro změnu velikosti šachovnice</string>
   <string name="onlyOnInitialPosition">Jen v základním postavení</string>
   <string name="inGameOnly">Pouze u partie</string>
-  <string name="blindfoldChess">Blindfold šachy (neviditelné figurky)</string>
   <string name="chessClock">Šachové hodiny</string>
   <string name="tenthsOfSeconds">Desetiny sekund</string>
   <string name="whenTimeRemainingLessThanTenSeconds" comment="whenTimeRemainingLessThanTenSeconds&#10;&#10;The &amp;lt; symbol is not required (you can write it as a word), just do NOT use &lt; in its place.&#10;&#10;Technical information: &lt; is a reserved character in HTML, which is why it cannot be used.">Když zbývající čas &lt; 10 sekund</string>

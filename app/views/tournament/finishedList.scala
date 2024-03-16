@@ -1,15 +1,15 @@
 package views.html.tournament
 
-import lila.app.templating.Environment.{ given, * }
+import controllers.routes
+
+import lila.app.templating.Environment.{ *, given }
 import lila.app.ui.ScalatagsTemplate.{ *, given }
 import lila.tournament.Tournament
-
-import controllers.routes
 
 object finishedList:
 
   def apply(finished: List[Tournament])(using PageContext): Tag =
-    tbody(finished map apply)
+    tbody(finished.map(apply))
 
   def apply(t: Tournament)(using PageContext): Tag =
     tr(cls := "paginated")(
@@ -33,7 +33,7 @@ object finishedList:
           t.clock.show,
           " • ",
           if t.variant.exotic then t.variant.name else t.perfType.trans,
-          t.position.isDefined option frag(" • ", trans.thematic()),
+          t.position.isDefined.option(frag(" • ", trans.thematic())),
           " • ",
           if t.mode.rated then trans.ratedTournament() else trans.casualTournament(),
           " • ",

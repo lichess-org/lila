@@ -255,7 +255,6 @@
     &-decline {
       @extend %flex-center-nowrap, %box-radius-right, %box-shadow;
 
-      background: $c-bg-zebra;
       justify-content: center;
       position: absolute;
       top: 0;

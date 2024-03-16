@@ -25,7 +25,6 @@
   <string name="longestStreak">Plej longa sinsekva rezulto: %s</string>
   <string name="currentStreak">Nuntempa sinsekva rezulto: %s</string>
   <string name="bestRated">Plej bonaj venkoj laŭ kontraŭula rango</string>
-  <string name="worstRated">Plej malbonaj malvenkoj laŭ kontraŭula rango</string>
   <string name="gamesInARow">Ludoj sinsekve luditaj</string>
   <string name="lessThanOneHour">Malpli ol unu horo inter ludoj</string>
   <string name="maxTimePlaying">Maksimuma tempo pasita ludante</string>

@@ -1,6 +1,7 @@
 package lila.user
 
 import reactivemongo.api.bson.BSONHandler
+
 import lila.db.dsl.*
 
 enum UserMark:
@@ -33,7 +34,7 @@ object UserMarks extends TotalWrapper[UserMarks, List[UserMark]]:
     def arenaBan: Boolean            = has(UserMark.ArenaBan)
     def alt: Boolean                 = has(UserMark.Alt)
 
-    def nonEmpty   = a.value.nonEmpty option a
+    def nonEmpty   = a.value.nonEmpty.option(a)
     def dirty      = a.value.exists(UserMark.bannable.contains)
     def clean      = !a.dirty
     def anyVisible = a.boost || a.engine

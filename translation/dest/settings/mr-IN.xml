@@ -2,6 +2,7 @@
 <resources>
   <string name="settings">सेटिंग्ज</string>
   <string name="closeAccount">खाते बंद करा</string>
+  <string name="managedAccountCannotBeClosed" comment="managedAccountCannotBeClosed&#10;&#10;A managed account is typically one that has been registered by a chess teacher. The teacher retains control over the account, but they can release this control.">तुमचे खाते व्यवस्थापित केले जाते आणि बंद केले जाऊ शकत नाही.</string>
   <string name="closingIsDefinitive">बंद करणे निश्चित आहे. पुन्हा मागे जाता येणार नाही? तुम्हाला खात्री आहे?</string>
   <string name="cantOpenSimilarAccount">तुम्हाला नवीन खाते त्याच नावाने पुन्हा चालू करता येणार नाही, जरी नावात capital किंवा small letter वापरले तरीही.</string>
   <string name="changedMindDoNotCloseAccount">मी माझे मत बदलत आहे, माझे खाते बंद करू नका</string>

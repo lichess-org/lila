@@ -63,7 +63,7 @@ export default class ForecastCtrl {
     this.loading(true);
     this.redraw();
     history.replaceState(null, '', '#last');
-    lichess.reload();
+    site.reload();
   };
 
   isCandidate = (fc: ForecastStep[]): boolean => {

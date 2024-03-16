@@ -1,12 +1,13 @@
 package views.html
 package site
 
-import controllers.appeal.routes.{ Appeal as appealRoutes }
-import controllers.report.routes.{ Report as reportRoutes }
+import controllers.appeal.routes.Appeal as appealRoutes
+import controllers.report.routes.Report as reportRoutes
 import controllers.routes
+
 import scala.util.chaining.*
 
-import lila.app.templating.Environment.{ given, * }
+import lila.app.templating.Environment.{ *, given }
 import lila.app.ui.ScalatagsTemplate.{ *, given }
 
 object contact:
@@ -98,7 +99,7 @@ object contact:
               "title",
               wantTitle(),
               p(
-                a(href := routes.ContentPage.master)(visitTitleConfirmation()),
+                a(href := routes.Cms.master)(visitTitleConfirmation()),
                 "."
               )
             ),
@@ -239,7 +240,7 @@ object contact:
             br,
             ifLegit()
           )
-        ) pipe { appealBase =>
+        ).pipe { appealBase =>
           Branch(
             "appeal",
             banAppeal(),

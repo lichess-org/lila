@@ -4,7 +4,6 @@
   "author": "T-Bone Duplexus",
   "license": "AGPL-3.0-or-later",
   "dependencies": {
-    "@types/cash": "workspace:*",
     "@types/lichess": "workspace:*",
     "ceval": "workspace:*",
     "chess": "workspace:*",

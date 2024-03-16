@@ -1,12 +1,12 @@
 package lila.puzzle
 
+import chess.Color
 import play.api.data.*
 import play.api.data.Forms.*
 import play.api.libs.json.*
 
 import lila.common.Form.{ numberIn, stringIn, given }
 import lila.common.Json.given
-import chess.Color
 
 object PuzzleForm:
 
@@ -20,7 +20,7 @@ object PuzzleForm:
       streakScore: Option[Int],
       color: Option[Color]
   ):
-    def streakPuzzleId = streakId flatMap Puzzle.toId
+    def streakPuzzleId = streakId.flatMap(Puzzle.toId)
     def mode           = chess.Mode(rated)
 
   val round = Form(

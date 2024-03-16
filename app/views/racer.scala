@@ -3,11 +3,10 @@ package views.html
 import controllers.routes
 import play.api.libs.json.*
 
-import lila.app.templating.Environment.{ given, * }
+import lila.app.templating.Environment.{ *, given }
 import lila.app.ui.ScalatagsTemplate.{ *, given }
 import lila.common.LangPath
-import lila.common.String.html.safeJsonValue
-import lila.i18n.I18nKeys.{ storm as s }
+import lila.i18n.I18nKeys.storm as s
 
 object racer:
 
@@ -28,7 +27,7 @@ object racer:
           )
         ),
         div(cls := "racer-home__about")(
-          a(href := routes.ContentPage.loneBookmark("racer"))(trans.aboutX("Puzzle Racer"))
+          a(href := routes.Cms.lonePage("racer"))(trans.aboutX("Puzzle Racer"))
         )
       )
     }

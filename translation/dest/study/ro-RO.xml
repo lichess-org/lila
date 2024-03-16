@@ -87,7 +87,7 @@
   <string name="pinnedChapterComment">Comentariu fixat</string>
   <string name="saveChapter">Salvează capitolul</string>
   <string name="clearAnnotations">Curățați adnotările</string>
-  <string name="clearVariations">Curățați variațiile</string>
+  <string name="clearVariations" comment="Clear is used as a verb here. This erases the variations in the study (https://lichess.org/study) you are preparing.">Curățați variațiile</string>
   <string name="deleteChapter">Ștergeți capitolul</string>
   <string name="deleteThisChapter">Ștergeți acest capitol? Nu există cale de întoarcere!</string>
   <string name="clearAllCommentsInThisChapter">Ștergeți toate comentariile, simbolurile și figurile desenate din acest capitol?</string>

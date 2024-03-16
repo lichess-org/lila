@@ -13,19 +13,18 @@ final case class SimulPairing(
   def finished = status >= chess.Status.Aborted
   def ongoing  = !finished
 
-  def is(userId: UserId): Boolean     = player is userId
-  def is(other: SimulPlayer): Boolean = player is other
+  def is(userId: UserId): Boolean     = player.is(userId)
+  def is(other: SimulPlayer): Boolean = player.is(other)
 
   def finish(s: chess.Status, w: Option[UserId]) =
     copy(
       status = s,
-      wins = w map player.is
+      wins = w.map(player.is)
     )
 
   def winnerColor =
-    wins.map { w =>
+    wins.map: w =>
       if w then !hostColor else hostColor
-    }
 
 private[simul] object SimulPairing:
 

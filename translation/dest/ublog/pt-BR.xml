@@ -2,11 +2,12 @@
 <resources>
   <string name="communityBlogs">Blogs da comunidade</string>
   <string name="friendBlogs">Blogs de amigos</string>
-  <string name="likedBlogs">Postagens curtidas</string>
+  <string name="likedBlogs">Curtidas em postagens de blogs</string>
   <string name="blogTopics">Tópicos de blog</string>
   <string name="lichessOfficialBlog">Blog oficial do Lichess</string>
   <string name="continueReadingPost">Continuar lendo a postagem</string>
-  <string name="previousBlogPosts">Postagens anteriores</string>
+  <string name="lichessBlogPostsFromXYear">Posts do lichess blog em %s</string>
+  <string name="previousBlogPosts">Postagens anteriores de blogs</string>
   <string name="xBlog">Blog do(a) %s</string>
   <string name="newPost">Nova postagem</string>
   <string name="editYourBlogPost">Editar sua postagem no blog</string>
@@ -51,4 +52,5 @@
   <string name="inappropriateContentAccountClosed">Qualquer coisa inapropriada pode levar ao encerramento da sua conta.</string>
   <string name="blogTips">Nossas dicas simples para escrever ótimas postagens</string>
   <string name="discussThisBlogPostInTheForum">Discutir esta postagem no fórum</string>
+  <string name="youBlockedByBlogAuthor">Você está bloqueado pelo autor do blog.</string>
 </resources>

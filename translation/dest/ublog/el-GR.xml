@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+  <string name="friendBlogs">Μπλογκ φίλων</string>
   <string name="xBlog">Ιστολόγιο του χρήστη %s</string>
   <string name="newPost">Νέα ανάρτηση</string>
   <string name="editYourBlogPost">Επεξεργασία δημοσίευσης</string>

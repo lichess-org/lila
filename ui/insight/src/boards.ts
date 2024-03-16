@@ -8,10 +8,10 @@ const miniGame = (game: Game) =>
       attrs: { 'data-state': `${game.fen},${game.color},${game.lastMove}` },
       hook: {
         insert(vnode) {
-          lichess.miniBoard.init(vnode.elm as HTMLElement);
+          site.miniBoard.init(vnode.elm as HTMLElement);
         },
         update(vnode) {
-          lichess.miniBoard.init(vnode.elm as HTMLElement);
+          site.miniBoard.init(vnode.elm as HTMLElement);
         },
       },
     }),

@@ -19,7 +19,7 @@
   <string name="findTheBestMoveForWhite">Trova la mossa migliore per il bianco.</string>
   <string name="findTheBestMoveForBlack">Trova la mossa migliore per il nero.</string>
   <string name="toGetPersonalizedPuzzles">Per ottenere problemi personalizzati:</string>
-  <string name="puzzleId" comment="%s is the ID of the puzzle, something like #a1b2c3.">Problema %s</string>
+  <string name="puzzleId">Problema %s</string>
   <string name="puzzleOfTheDay">Problema del giorno</string>
   <string name="dailyPuzzle">Tattica di oggi</string>
   <string name="clickToSolve">Clicca per provare a risolverla</string>
@@ -31,13 +31,13 @@
   <string name="byOpenings">Per apertura</string>
   <string name="puzzlesByOpenings">Problemi ordinati per apertura</string>
   <string name="openingsYouPlayedTheMost">Aperture che hai giocato di più nelle partite classificate</string>
-  <string name="useFindInPage" comment="useFindInPage&#10;&#10;Appears on https://lichess.org/training/openings&#10;Encourages players to use the built-in browser feature (Ctrl+F on most desktop computers) to find the opening they want to practice.">Usa \"Trova nella pagina\" nel menu del browser per trovare la tua apertura preferita!</string>
+  <string name="useFindInPage">Usa \"Trova nella pagina\" nel menu del browser per trovare la tua apertura preferita!</string>
   <string name="useCtrlF">Usa Ctrl+F per trovare la tua apertura preferita!</string>
   <string name="notTheMove">Non è la mossa esatta!</string>
   <string name="trySomethingElse">Prova qualcos\'altro.</string>
-  <string name="ratingX" comment="Appears on pages of individual puzzles.&#10;&#10;%s is either:&#10;1. The word 'hidden', if you have not completed the puzzle yet.&#10;2. The rating of the puzzle, if you have completed it or seen the solution.">Punteggio: %s</string>
-  <string name="hidden" comment="Puzzle rating: hidden&#10;&#10;Appears while solving puzzles. Lichess only displays the rating of the puzzle after you have solved it or asked to see the solution.">nascosto</string>
-  <plurals name="playedXTimes" comment="Appears on pages of individual puzzles.&#10;%s is the number of times the puzzle has been played.">
+  <string name="ratingX">Punteggio: %s</string>
+  <string name="hidden">nascosto</string>
+  <plurals name="playedXTimes">
     <item quantity="one">Giocato %s volte</item>
     <item quantity="other">Giocato %s volte</item>
   </plurals>
@@ -68,7 +68,7 @@
   <string name="solved">risolto</string>
   <string name="failed">sbagliato</string>
   <string name="streakDescription">Risolvi problemi progressivamente più difficili e accumula una serie di vittorie. Non c\'è orologio, quindi fa\' con calma. Appena fai una mossa sbagliata è finita! Puoi saltare una mossa per sessione.</string>
-  <string name="yourStreakX" comment="%s is the number of puzzles you fully solved in a run of Puzzle Streak (https://lichess.org/streak).&#10;&#10;Appears once you make a wrong move or skip a puzzle, ending your streak. There is a counter always running on the left-hand side of the page without words.">Punteggio: %s</string>
+  <string name="yourStreakX">Punteggio: %s</string>
   <string name="streakSkipExplanation">Salta questa mossa per mantenere il punteggio! È possibile farlo solo una volta per sessione.</string>
   <string name="continueTheStreak">Continua</string>
   <string name="newStreak">Nuova sessione</string>

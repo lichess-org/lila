@@ -6,7 +6,7 @@
   <string name="progressX">Progresso: %s</string>
   <string name="resetMyProgress">Azzera i progressi</string>
   <string name="youWillLoseAllYourProgress">Perderai tutti i tuoi progressi!</string>
-  <string name="play">gioca!</string>
+  <string name="play" comment="play&#10;&#10;A small ribbon that appears on your current chapter in the Chess Basics course. Please keep this string short.">gioca!</string>
   <string name="chessPieces">I pezzi degli scacchi</string>
   <string name="theRook">La torre</string>
   <string name="itMovesInStraightLines">Si muove in linea retta</string>

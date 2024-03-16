@@ -16,7 +16,6 @@
   <string name="showPlayerRatings">Diskouez renkadur ar c\'hoarier</string>
   <string name="displayBoardResizeHandle">Diskouez an arouez evit cheñch ment an dablez</string>
   <string name="onlyOnInitialPosition">Lec\'hiadur kentañ nemetken</string>
-  <string name="blindfoldChess">Echedoù dall (pezhioù diwelus)</string>
   <string name="chessClock">Horolaj echedoù</string>
   <string name="tenthsOfSeconds">Dekvedennoù an eilennoù</string>
   <string name="whenTimeRemainingLessThanTenSeconds" comment="whenTimeRemainingLessThanTenSeconds&#10;&#10;The &amp;lt; symbol is not required (you can write it as a word), just do NOT use &lt; in its place.&#10;&#10;Technical information: &lt; is a reserved character in HTML, which is why it cannot be used.">Pa chom nebeutoc\'h evit &lt; 10 eilenn</string>

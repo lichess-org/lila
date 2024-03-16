@@ -3,7 +3,6 @@ import { bind, MaybeVNode } from 'common/snabbdom';
 import { fullName, userFlair } from 'common/userLink';
 import { h, VNode } from 'snabbdom';
 import { TeamBattle, RankedTeam, LightTeam } from '../interfaces';
-import { snabDialog } from 'common/dialog';
 
 export function joinWithTeamSelector(ctrl: TournamentController) {
   const tb = ctrl.data.teamBattle!;
@@ -11,7 +10,7 @@ export function joinWithTeamSelector(ctrl: TournamentController) {
     ctrl.joinWithTeamSelector = false;
     ctrl.redraw();
   };
-  return snabDialog({
+  return site.dialog.snab({
     class: 'team-battle__choice',
     onInsert(dlg) {
       $('.team-picker__team', dlg.view).on('click', e => {
@@ -23,11 +22,11 @@ export function joinWithTeamSelector(ctrl: TournamentController) {
     onClose,
     vnodes: [
       h('div.team-picker', [
-        h('h2', 'Pick your team'),
+        h('h2', ctrl.trans.noarg('pickYourTeam')),
         h('br'),
         ...(tb.joinWith.length
           ? [
-              h('p', 'Which team will you represent in this battle?'),
+              h('p', ctrl.trans.noarg('whichTeamWillYouRepresentInThisBattle')),
               ...tb.joinWith.map(id =>
                 h(
                   'button.button.team-picker__team',
@@ -37,7 +36,7 @@ export function joinWithTeamSelector(ctrl: TournamentController) {
               ),
             ]
           : [
-              h('p', 'You must join one of these teams to participate!'),
+              h('p', ctrl.trans.noarg('youMustJoinOneOfTheseTeamsToParticipate')),
               h(
                 'ul',
                 shuffleArray(Object.keys(tb.teams)).map((id: string) =>

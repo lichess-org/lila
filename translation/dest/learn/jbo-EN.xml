@@ -4,7 +4,7 @@
   <string name="byPlaying">ta\'i lo nu kelci</string>
   <string name="menu">lo zilcuxste</string>
   <string name="resetMyProgress">xruti lo ve farvi be fo mi</string>
-  <string name="play">kelci</string>
+  <string name="play" comment="play&#10;&#10;A small ribbon that appears on your current chapter in the Chess Basics course. Please keep this string short.">kelci</string>
   <string name="chessPieces">lo keirmu\'u be ci\'e lo caxmati</string>
   <string name="theRook">lo slanydi\'u</string>
   <string name="itMovesInStraightLines">ti muvdu fo lo linji</string>

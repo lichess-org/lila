@@ -30,29 +30,33 @@ final class OAuthServer(
         monitorAuth(res.isRight)
 
   def auth(tokenId: Bearer, accepted: EndpointScopes, andLogReq: Option[RequestHeader]): Fu[AccessResult] =
-    getTokenFromSignedBearer(tokenId) orFailWith NoSuchToken flatMap {
-      case at if !accepted.isEmpty && !accepted.compatible(at.scopes) =>
-        fufail(MissingScope(at.scopes))
-      case at =>
-        userRepo me at.userId flatMap {
-          case None => fufail(NoSuchUser)
-          case Some(u) =>
-            val blocked =
-              at.clientOrigin.exists(origin => originBlocklist.get().value.exists(origin.contains))
-            andLogReq
-              .filter: req =>
-                blocked || {
-                  u.userId != User.explorerId && !HTTPRequest.looksLikeLichessBot(req)
-                }
-              .foreach: req =>
-                logger.debug:
-                  s"${if blocked then "block" else "auth"} ${at.clientOrigin | "-"} as ${u.username} ${HTTPRequest print req take 200}"
-            if blocked then fufail(OriginBlocked)
-            else fuccess(OAuthScope.Access(OAuthScope.Scoped(u, at.scopes), at.tokenId))
-        }
-    } dmap Right.apply recover { case e: AuthError =>
-      Left(e)
-    }
+    getTokenFromSignedBearer(tokenId)
+      .orFailWith(NoSuchToken)
+      .flatMap {
+        case at if !accepted.isEmpty && !accepted.compatible(at.scopes) =>
+          fufail(MissingScope(at.scopes))
+        case at =>
+          userRepo.me(at.userId).flatMap {
+            case None => fufail(NoSuchUser)
+            case Some(u) =>
+              val blocked =
+                at.clientOrigin.exists(origin => originBlocklist.get().value.exists(origin.contains))
+              andLogReq
+                .filter: req =>
+                  blocked || {
+                    u.userId != User.explorerId && !HTTPRequest.looksLikeLichessBot(req)
+                  }
+                .foreach: req =>
+                  logger.debug:
+                    s"${if blocked then "block" else "auth"} ${at.clientOrigin | "-"} as ${u.username} ${HTTPRequest.print(req).take(200)}"
+              if blocked then fufail(OriginBlocked)
+              else fuccess(OAuthScope.Access(OAuthScope.Scoped(u, at.scopes), at.tokenId))
+          }
+      }
+      .dmap(Right.apply)
+      .recover { case e: AuthError =>
+        Left(e)
+      }
 
   def authBoth(scopes: EndpointScopes, req: RequestHeader)(
       token1: Bearer,
@@ -64,7 +68,7 @@ final class OAuthServer(
     user1 <- auth1
     user2 <- auth2
     result <-
-      if user1.me is user2.me
+      if user1.me.is(user2.me)
       then Left(OneUserWithTwoTokens)
       else Right(user1.user -> user2.user)
   yield result
@@ -76,11 +80,11 @@ final class OAuthServer(
         case Some(UaUserRegex(u)) if a.me.isnt(UserStr(u)) => Left(UserAgentMismatch)
         case _                                             => Right(a)
 
-  private val bearerSigner = Algo hmac mobileSecret.value
+  private val bearerSigner = Algo.hmac(mobileSecret.value)
   private def getTokenFromSignedBearer(full: Bearer): Fu[Option[AccessToken.ForAuth]] =
     val (bearer, signed) = full.value.split(':') match
-      case Array(bearer, signed) if bearerSigner.sha1(bearer) hash_= signed => (Bearer(bearer), true)
-      case _                                                                => (full, false)
+      case Array(bearer, signed) if bearerSigner.sha1(bearer).hash_=(signed) => (Bearer(bearer), true)
+      case _                                                                 => (full, false)
     tokenApi
       .get(bearer)
       .mapz: token =>

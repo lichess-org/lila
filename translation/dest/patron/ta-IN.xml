@@ -1,2 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+  <string name="donate">நன்கொடையளி</string>
+  <string name="donateAsX">%s ஆகக் கொடையளி</string>
+  <string name="lichessPatron">Lichessன் புரவலர்</string>
+  <string name="freeAccount">இலவசக் கணக்கு</string>
+  <string name="newPatrons">புதிய புரவலர்கள்</string>
+  <string name="freeChess">அனைவருக்கும் இலவச சதுரங்கம், எப்பொழுதும்!</string>
+  <string name="thankYou">தங்கள் கொடைக்கு நன்றி!</string>
+  <string name="lifetime">வாழ்நாள் முழுதும்</string>
+  <string name="onetime">ஒருமுறை</string>
+  <string name="otherAmount">வேறு</string>
+</resources>

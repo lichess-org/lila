@@ -75,7 +75,7 @@
   <string name="mateIn3Description">Chiếu hết trong ba nước cờ.</string>
   <string name="mateIn4">Chiếu hết trong 4 nước</string>
   <string name="mateIn4Description">Chiếu hết trong bốn nước cờ.</string>
-  <string name="mateIn5">Chiếu hết trong 5 nước cờ hoặc hơn</string>
+  <string name="mateIn5">Chiếu hết trong 5 nước hoặc hơn</string>
   <string name="mateIn5Description">Tìm ra một chuỗi dài các nước cờ dẫn đến chiếu hết.</string>
   <string name="middlegame">Trung cuộc</string>
   <string name="middlegameDescription">Chiến thuật trong giai đoạn thứ hai của ván cờ.</string>
@@ -86,7 +86,7 @@
   <string name="pawnEndgame">Tàn cuộc Tốt</string>
   <string name="pawnEndgameDescription">Một thế tàn cuộc chỉ với tốt.</string>
   <string name="pin">Ghim</string>
-  <string name="pinDescription">Một chiến thuật khiến một quân cờ không thể di chuyển mà không làm lộ quân cờ đằng sau nó với giá trị lớn hơn.</string>
+  <string name="pinDescription">Một chiến thuật khiến một quân cờ không thể di chuyển mà không để lộ mục tiêu là quân cờ đằng sau nó với giá trị lớn hơn.</string>
   <string name="promotion">Phong cấp</string>
   <string name="promotionDescription">Phong cấp tốt của bạn thành quân hậu hoặc những quân phụ khác.</string>
   <string name="queenEndgame">Tàn cuộc Hậu</string>
@@ -108,7 +108,7 @@
   <string name="smotheredMate">Chiếu kiểu kẹt</string>
   <string name="smotheredMateDescription">Một nước chiếu hết với quân mã mà trong đó vua đối phương không thể di chuyển vì bị bao vây bởi chính các quân cờ khác của họ.</string>
   <string name="superGM">Các ván đấu từ Siêu Đại Kiện Tướng</string>
-  <string name="superGMDescription">Câu đố từ những ván đấu đã được chơi bởi những kì thủ giỏi nhất trên thế giới.</string>
+  <string name="superGMDescription">Câu đố từ những ván đấu đã được chơi bởi những kỳ thủ giỏi nhất trên thế giới.</string>
   <string name="trappedPiece">Quân bị bẫy</string>
   <string name="trappedPieceDescription">Một quân cờ không thể thoát khỏi việc bị ăn vì nó bị giới hạn các nước đi.</string>
   <string name="underPromotion">Phong cấp thấp</string>
@@ -121,7 +121,7 @@
   <string name="zugzwangDescription">Đối phương bị giới hạn các nước mà họ có thể đi và tất cả các nước đi ấy đều hại họ.</string>
   <string name="healthyMix">Phối hợp nhịp nhàng</string>
   <string name="healthyMixDescription">Mỗi thứ một chút. Bạn không biết được thứ gì đang chờ mình, vậy nên bạn cần phải sẵn sàng cho mọi thứ! Như một ván cờ thật vậy!</string>
-  <string name="playerGames">Ván đấu của các người chơi</string>
-  <string name="playerGamesDescription">Những câu đố từ các ván cờ của bạn hoặc từ các ván cờ của những người chơi khác.</string>
-  <string name="puzzleDownloadInformation">Những câu đố này nằm ở máy chủ công khai, bạn có thể tải xuống ở %s.</string>
+  <string name="playerGames">Các ván đấu của người chơi</string>
+  <string name="playerGamesDescription">Những câu đố từ những ván cờ của bạn hoặc từ các ván cờ của những người chơi khác.</string>
+  <string name="puzzleDownloadInformation">Những câu đố này thuộc phạm vi công khai và có thể tải về từ %s.</string>
 </resources>

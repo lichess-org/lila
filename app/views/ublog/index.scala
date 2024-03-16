@@ -3,13 +3,12 @@ package views.html.ublog
 import controllers.routes
 import play.api.mvc.Call
 
-import lila.app.templating.Environment.{ given, * }
+import lila.app.templating.Environment.{ *, given }
 import lila.app.ui.ScalatagsTemplate.{ *, given }
 import lila.common.paginator.Paginator
-import lila.i18n.LangList
+import lila.i18n.{ LangList, Language }
 import lila.ublog.{ UblogPost, UblogTopic }
 import lila.user.User
-import lila.i18n.Language
 
 object index:
 
@@ -18,28 +17,27 @@ object index:
   def drafts(user: User, posts: Paginator[UblogPost.PreviewPost])(using PageContext) =
     views.html.base.layout(
       moreCss = frag(cssTag("ublog")),
-      moreJs = posts.hasNextPage option infiniteScrollTag,
+      moreJs = posts.hasNextPage.option(infiniteScrollTag),
       title = trans.ublog.drafts.txt()
     ) {
       main(cls := "page-menu")(
-        views.html.blog.bits.menu(none, "mine".some),
+        menu(Left(user.id)),
         div(cls := "page-menu__content box box-pad ublog-index")(
           boxTop(
             h1(trans.ublog.drafts()),
             div(cls := "box__top__actions")(
               a(href := routes.Ublog.index(user.username))(trans.ublog.published()),
-              postView.newPostLink
+              postView.newPostLink(user)
             )
           ),
           if posts.nbResults > 0 then
             div(cls := "ublog-index__posts ublog-index__posts--drafts ublog-post-cards infinite-scroll")(
-              posts.currentPageResults map { postView.card(_, postView.editUrlOfPost) },
+              posts.currentPageResults.map { postView.card(_, postView.editUrlOfPost) },
               pagerNext(posts, np => routes.Ublog.drafts(user.username, np).url)
             )
           else
-            div(cls := "ublog-index__posts--empty")(
+            div(cls := "ublog-index__posts--empty"):
               trans.ublog.noDrafts()
-            )
         )
       )
     }
@@ -74,7 +72,7 @@ object index:
   def community(language: Option[Language], posts: Paginator[UblogPost.PreviewPost])(using ctx: PageContext) =
     views.html.base.layout(
       moreCss = cssTag("ublog"),
-      moreJs = posts.hasNextPage option infiniteScrollTag,
+      moreJs = posts.hasNextPage.option(infiniteScrollTag),
       title = "Community blogs",
       atomLinkTag = link(
         href     := routes.Ublog.communityAtom(language.fold("all")(_.value)),
@@ -88,7 +86,7 @@ object index:
           .map: l =>
             l.language -> LangList.name(l)
       main(cls := "page-menu")(
-        views.html.blog.bits.menu(none, "community".some),
+        menu(Right("community")),
         div(cls := "page-menu__content box box-pad ublog-index")(
           boxTop(
             h1(trans.ublog.communityBlogs()),
@@ -111,7 +109,7 @@ object index:
           ),
           if posts.nbResults > 0 then
             div(cls := "ublog-index__posts ublog-post-cards infinite-scroll")(
-              posts.currentPageResults map { postView.card(_, showAuthor = ShowAt.top) },
+              posts.currentPageResults.map { postView.card(_, showAuthor = ShowAt.top) },
               pagerNext(
                 posts,
                 p =>
@@ -129,9 +127,9 @@ object index:
     views.html.base.layout(
       moreCss = cssTag("ublog"),
       title = "All blog topics"
-    ) {
+    ):
       main(cls := "page-menu")(
-        views.html.blog.bits.menu(none, "topics".some),
+        menu(Right("topics")),
         div(cls := "page-menu__content box")(
           boxTop(h1(trans.ublog.blogTopics())),
           div(cls := "ublog-topics")(
@@ -142,14 +140,13 @@ object index:
                   span(cls := "ublog-topics__topic__nb")(trans.ublog.viewAllNbPosts(nb), " »")
                 ),
                 span(cls := "ublog-topics__topic__posts ublog-post-cards")(
-                  posts map postView.miniCard
+                  posts.map(postView.miniCard)
                 )
               )
             }
           )
         )
       )
-    }
 
   private def list(
       title: String,
@@ -161,11 +158,11 @@ object index:
   )(using PageContext) =
     views.html.base.layout(
       moreCss = cssTag("ublog"),
-      moreJs = posts.hasNextPage option infiniteScrollTag,
+      moreJs = posts.hasNextPage.option(infiniteScrollTag),
       title = title
     ) {
       main(cls := "page-menu")(
-        views.html.blog.bits.menu(none, menuItem.some),
+        menu(Right(menuItem)),
         div(cls := "page-menu__content box box-pad ublog-index")(
           boxTop(
             h1(title),
@@ -173,14 +170,14 @@ object index:
               span(
                 "Sort by ",
                 span(cls := "btn-rack")(
-                  a(cls := s"btn-rack__btn${!v so " active"}", href := route(1, false.some))("rank"),
-                  a(cls := s"btn-rack__btn${v so " active"}", href := route(1, true.some))("date")
+                  a(cls := s"btn-rack__btn${(!v).so(" active")}", href := route(1, false.some))("rank"),
+                  a(cls := s"btn-rack__btn${v.so(" active")}", href := route(1, true.some))("date")
                 )
               )
           ),
           if posts.nbResults > 0 then
             div(cls := "ublog-index__posts ublog-post-cards infinite-scroll")(
-              posts.currentPageResults map { postView.card(_, showAuthor = ShowAt.top) },
+              posts.currentPageResults.map { postView.card(_, showAuthor = ShowAt.top) },
               pagerNext(posts, np => route(np, byDate).url)
             )
           else div(cls := "ublog-index__posts--empty")(onEmpty)

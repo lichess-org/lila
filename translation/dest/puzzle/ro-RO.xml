@@ -19,7 +19,7 @@
   <string name="findTheBestMoveForWhite">Găsiți cea mai bună mutare pentru alb.</string>
   <string name="findTheBestMoveForBlack">Găsiți cea mai bună mutare pentru negru.</string>
   <string name="toGetPersonalizedPuzzles">Pentru a primi probleme de șah personalizate:</string>
-  <string name="puzzleId" comment="%s is the ID of the puzzle, something like #a1b2c3.">Problema de șah %s</string>
+  <string name="puzzleId">Problema de șah %s</string>
   <string name="puzzleOfTheDay">Problema zilei</string>
   <string name="dailyPuzzle">Puzzle Zilnic</string>
   <string name="clickToSolve">Dă click pentru a rezolva</string>
@@ -31,13 +31,13 @@
   <string name="byOpenings">După deschideri</string>
   <string name="puzzlesByOpenings">Puzzle-uri după deschidere</string>
   <string name="openingsYouPlayedTheMost">Deschideri pe care le-ai jucat cel mai mult în meciurile evaluate</string>
-  <string name="useFindInPage" comment="useFindInPage&#10;&#10;Appears on https://lichess.org/training/openings&#10;Encourages players to use the built-in browser feature (Ctrl+F on most desktop computers) to find the opening they want to practice.">Folosește \"Găsește în pagină\" în meniul browser-ului pentru a găsi deschiderea ta preferată!</string>
+  <string name="useFindInPage">Folosește \"Găsește în pagină\" în meniul browser-ului pentru a găsi deschiderea ta preferată!</string>
   <string name="useCtrlF">Folosește Ctrl+f pentru a găsi deschiderea favorită!</string>
   <string name="notTheMove">Nu este asta mișcarea!</string>
   <string name="trySomethingElse">Încercă altceva.</string>
-  <string name="ratingX" comment="Appears on pages of individual puzzles.&#10;&#10;%s is either:&#10;1. The word 'hidden', if you have not completed the puzzle yet.&#10;2. The rating of the puzzle, if you have completed it or seen the solution.">Scor: %s</string>
-  <string name="hidden" comment="Puzzle rating: hidden&#10;&#10;Appears while solving puzzles. Lichess only displays the rating of the puzzle after you have solved it or asked to see the solution.">ascuns</string>
-  <plurals name="playedXTimes" comment="Appears on pages of individual puzzles.&#10;%s is the number of times the puzzle has been played.">
+  <string name="ratingX">Scor: %s</string>
+  <string name="hidden">ascuns</string>
+  <plurals name="playedXTimes">
     <item quantity="one">Jucat %s dată</item>
     <item quantity="few">Jucat de %s ori</item>
     <item quantity="other">Jucat de %s ori</item>

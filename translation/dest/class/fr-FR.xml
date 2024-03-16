@@ -106,8 +106,8 @@ Voici le lien pour accéder à la classe.</string>
   <string name="createMultipleAccounts">Créez plusieurs comptes Lichess à la fois</string>
   <string name="multipleAccsFormDescription" comment="%s is a link and will be replaced with the translation of useThisForm. Make sure both strings fit together.">Vous pouvez également %s pour créer plusieurs comptes Lichess à partir d\'une liste de noms d\'élèves.</string>
   <string name="useThisForm" comment="Link text in multipleAccsFromDescription">utiliser ce formulaire</string>
-  <string name="maxStudentsNote" comment="%1$s will be replaced with a large number (currently 100).\n%2$s is a link and will be replaced with the translation of createMoreClasses. Make sure both strings fit together.">Prenez note qu\'une classe peut compter jusqu\'à %1$s éléves. Pour ajouter des élèves, %2$s.</string>
-  <string name="createMoreClasses" comment="Link text in maxStudentsNote">créez plus de classes.</string>
+  <string name="maxStudentsNote" comment="%1$s will be replaced with a large number (currently 100).\n%2$s is a link and will be replaced with the translation of createMoreClasses. Make sure both strings fit together.">Prenez note qu\'une classe peut compter jusqu\'à %1$s élèves. Pour ajouter des élèves, %2$s.</string>
+  <string name="createMoreClasses" comment="Link text in maxStudentsNote">créez plus de classes</string>
   <string name="studentsRealNamesOnePerLine">Noms réels des élèves, un par ligne</string>
   <string name="xisNowAStudentOfTheClass">%s est maintenant un élève de la classe</string>
   <string name="anInvitationHasBeenSentToX">Une invitation a été envoyée à %s</string>

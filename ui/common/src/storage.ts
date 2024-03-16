@@ -15,14 +15,14 @@ export function storedProp<V>(
   return function (replacement?: V) {
     if (defined(replacement) && replacement != cached) {
       cached = replacement;
-      lichess.storage.set(key, toStr(replacement));
+      site.storage.set(key, toStr(replacement));
     } else if (!defined(cached)) {
-      const compatValue = lichess.storage.get(compatKey);
+      const compatValue = site.storage.get(compatKey);
       if (notNull(compatValue)) {
-        lichess.storage.set(key, compatValue);
-        lichess.storage.remove(compatKey);
+        site.storage.set(key, compatValue);
+        site.storage.remove(compatKey);
       }
-      const str = lichess.storage.get(key);
+      const str = site.storage.get(key);
       cached = str === null ? defaultValue : fromStr(str);
     }
     return cached;
@@ -77,10 +77,10 @@ export const storedJsonProp =
   <V>(key: string, defaultValue: () => V): StoredJsonProp<V> =>
   (v?: V) => {
     if (defined(v)) {
-      lichess.storage.set(key, JSON.stringify(v));
+      site.storage.set(key, JSON.stringify(v));
       return v;
     }
-    const ret = JSON.parse(lichess.storage.get(key)!);
+    const ret = JSON.parse(site.storage.get(key)!);
     return ret !== null ? ret : defaultValue();
   };
 
@@ -127,12 +127,12 @@ export interface ToggleWithUsed extends Toggle {
 
 export const toggleWithUsed = (key: string, toggle: Toggle): ToggleWithUsed => {
   let value = toggle();
-  let used = !!lichess.storage.get(key);
+  let used = !!site.storage.get(key);
   const novTog = (v?: boolean) => {
     if (defined(v)) {
       value = v;
       if (!used) {
-        lichess.storage.set(key, '1');
+        site.storage.set(key, '1');
         used = true;
       }
       toggle.effect(v);

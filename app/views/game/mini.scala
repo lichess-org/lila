@@ -4,7 +4,7 @@ import chess.format.Fen
 import controllers.routes
 import play.api.i18n.Lang
 
-import lila.app.templating.Environment.{ given, * }
+import lila.app.templating.Environment.{ *, given }
 import lila.app.ui.ScalatagsTemplate.{ *, given }
 import lila.game.Pov
 import lila.i18n.defaultLang
@@ -29,15 +29,16 @@ object mini:
       showRatings = ctx.pref.showRatings
     )
 
-  def noCtx(pov: Pov, tv: Boolean = false): Tag =
-    val link = if tv then routes.Tv.index else routes.Round.watcher(pov.gameId, pov.color.name)
-    renderMini(pov, link.url.some)(using defaultLang)
+  def noCtx(pov: Pov, tv: Boolean = false, channelKey: Option[String] = None): Tag =
+    val link = if tv then channelKey.fold(routes.Tv.index) { routes.Tv.onChannel }
+    else routes.Round.watcher(pov.gameId, pov.color.name)
+    renderMini(pov, link.url.some)(using defaultLang, None)
 
   private def renderMini(
       pov: Pov,
       link: Option[String] = None,
       showRatings: Boolean = true
-  )(using Lang): Tag =
+  )(using Lang, Option[Me]): Tag =
     import pov.game
     val tag                                    = if link.isDefined then a else span
     def showTimeControl(c: chess.Clock.Config) = s"${c.limitSeconds}+${c.increment}"
@@ -53,14 +54,19 @@ object mini:
       renderPlayer(pov, withRating = showRatings)
     )
 
-  def renderState(pov: Pov) =
-    dataState := s"${Fen writeBoardAndColor pov.game.situation},${pov.color.name},${~pov.game.lastMoveKeys}"
+  def renderState(pov: Pov)(using me: Option[Me]) =
+    val fen =
+      if me.flatMap(pov.game.player).exists(_.blindfold) && pov.game.playable
+      then chess.format.BoardAndColorFen("8/8/8/8/8/8/8/8 w")
+      else Fen.writeBoardAndColor(pov.game.situation)
+
+    dataState := s"${fen},${pov.color.name},${~pov.game.lastMoveKeys}"
 
   private def renderPlayer(pov: Pov, withRating: Boolean)(using Lang) =
     span(cls := "mini-game__player")(
       span(cls := "mini-game__user")(
         playerUsername(pov.player.light, pov.player.userId.flatMap(lightUser), withRating = false),
-        withRating option span(cls := "rating")(lila.game.Namer ratingString pov.player)
+        withRating.option(span(cls := "rating")(lila.game.Namer.ratingString(pov.player)))
       ),
       if pov.game.finished then renderResult(pov)
       else pov.game.clock.map { renderClock(_, pov.color) }

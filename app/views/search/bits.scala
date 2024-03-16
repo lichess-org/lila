@@ -2,8 +2,9 @@ package views.html.search
 
 import play.api.data.Form
 import play.api.i18n.Lang
-import scala.util.chaining.*
+
 import java.time.format.DateTimeFormatter
+import scala.util.chaining.*
 
 import lila.app.templating.Environment.{ *, given }
 import lila.app.ui.ScalatagsTemplate.{ *, given }
@@ -41,7 +42,7 @@ private object bits:
       }
 
     def winner(hide: Boolean) =
-      form("players")("winner") pipe { field =>
+      form("players")("winner").pipe { field =>
         tr(cls := List("winner user-row" -> true, "none" -> hide))(
           th(label(`for` := form3.id(field))(trans.winner())),
           td(
@@ -53,7 +54,7 @@ private object bits:
       }
 
     def loser(hide: Boolean) =
-      form("players")("loser") pipe { field =>
+      form("players")("loser").pipe { field =>
         tr(cls := List("loser user-row" -> true, "none" -> hide))(
           th(label(`for` := form3.id(field))(trans.search.loser())),
           td(

@@ -1,11 +1,11 @@
 package lila.app
 package templating
 
-import chess.{ Mode, Speed }
 import chess.variant.Variant
+import chess.{ Mode, Speed }
 import play.api.i18n.Lang
 
-import lila.i18n.{ I18nKeys as trans }
+import lila.i18n.I18nKeys as trans
 import lila.pref.Pref
 import lila.report.Reason
 import lila.setup.TimeMode
@@ -61,7 +61,7 @@ trait SetupHelper:
 
   val clockIncrementChoices: List[SelectChoice] = {
     (0 to 20).toList ::: List(25, 30, 35, 40, 45, 60, 90, 120, 150, 180)
-  } map { s =>
+  }.map { s =>
     (s.toString, s.toString, none)
   }
 
@@ -160,7 +160,7 @@ trait SetupHelper:
       variantTupleId(chess.variant.FromPosition)
 
   def translatedSpeedChoices(using Lang) =
-    Speed.limited map { s =>
+    Speed.limited.map { s =>
       val minutes = s.range.max / 60 + 1
       (
         s.id.toString,
@@ -314,12 +314,6 @@ trait SetupHelper:
       (Pref.ResizeHandle.NEVER, trans.never.txt()),
       (Pref.ResizeHandle.INITIAL, trans.preferences.onlyOnInitialPosition.txt()),
       (Pref.ResizeHandle.ALWAYS, trans.always.txt())
-    )
-
-  def translatedBlindfoldChoices(using Lang) =
-    List(
-      Pref.Blindfold.NO  -> trans.no.txt(),
-      Pref.Blindfold.YES -> trans.yes.txt()
     )
 
   def translatedBooleanIntChoices(using Lang) =

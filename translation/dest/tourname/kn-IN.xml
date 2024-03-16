@@ -3,15 +3,15 @@
   <string name="hourlyRapidArena">ಗಂಟೆಯ ವೇಗದ ಅರೆನಾ</string>
   <string name="hourlyRapid">ಗಂಟೆಯ ಅರೆನಾ</string>
   <string name="hourlyXArena">ಗಂಟೆಯ %s ಅರೆನಾ</string>
-  <string name="hourlyX">ಗಂಟೆಯ %s</string>
+  <string name="hourlyX" comment="%s is a time control (like &quot;Blitz&quot;) or a variant (like &quot;Chess960&quot;)&#10;&#10;Used for tournaments. Please keep this string short and consistent with 'Hourly Rapid' and 'Hourly %s Arena'.">ಗಂಟೆಯ %s</string>
   <string name="dailyRapidArena">ಡೈಲಿ ರಾಪಿಡ್ ಅರೆನಾ</string>
   <string name="dailyRapid">ಡೈಲಿ ರಾಪಿಡ್</string>
-  <string name="dailyClassicalArena">ದೈನಂದಿನ ಶಾಸ್ತ್ರೀಯ ಅರೆನಾ</string>
-  <string name="dailyClassical">ದೈನಂದಿನ ಶಾಸ್ತ್ರೀಯ</string>
-  <string name="dailyXArena">ದೈನಂದಿನ %s ಅರೆನಾ</string>
+  <string name="dailyClassicalArena" comment="dailyClassicalArena&#10;&#10;Used for tournaments. Please keep this string short and consistent with 'Daily Rapid' and 'Daily %s Arena'.">ದೈನಂದಿನ ಶಾಸ್ತ್ರೀಯ ಅರೆನಾ</string>
+  <string name="dailyClassical" comment="dailyClassical&#10;&#10;Used for tournaments. Please keep this string short and consistent with 'Daily Rapid' and 'Daily %s Arena'.">ದೈನಂದಿನ ಶಾಸ್ತ್ರೀಯ</string>
+  <string name="dailyXArena" comment="dailyXArena %s is a time control (like &quot;Blitz&quot;) or a variant (like &quot;Chess960&quot;)&#10;&#10;Used for tournaments. Please keep this string short and consistent with 'Daily %s'.">ದೈನಂದಿನ %s ಅರೆನಾ</string>
   <string name="dailyX">ದೈನಂದಿನ %s</string>
-  <string name="easternRapidArena">ಈಸ್ಟರ್ನ್ ರಾಪಿಡ್ ಅರೆನಾ</string>
-  <string name="easternRapid">ಈಸ್ಟರ್ನ್ ರಾಪಿಡ್</string>
+  <string name="easternRapidArena" comment="easternRapidArena&#10;&#10;Eastern refers to the time zone these tournaments are scheduled in for, accommodating East Asia, Oceania and the Pacific.">ಈಸ್ಟರ್ನ್ ರಾಪಿಡ್ ಅರೆನಾ</string>
+  <string name="easternRapid" comment="easternRapid&#10;Eastern refers to the time zone these tournaments are scheduled in for, accommodating East Asia, Oceania and the Pacific.&#10;&#10;Please keep this string short and consistent with 'Eastern Rapid Arena' and 'Eastern %s Arena'.">ಈಸ್ಟರ್ನ್ ರಾಪಿಡ್</string>
   <string name="easternClassicalArena">ಈಸ್ಟರ್ನ್ ಶಾಸ್ತ್ರೀಯ ಅರೆನಾ</string>
   <string name="easternClassical">ಈಸ್ಟರ್ನ್ ಶಾಸ್ತ್ರೀಯ</string>
   <string name="easternXArena">ಈಸ್ಟರ್ನ್ %s ಅರೆನಾ</string>

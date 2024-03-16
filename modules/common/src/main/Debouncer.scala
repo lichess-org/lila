@@ -36,4 +36,4 @@ final class Debouncer[Id](duration: FiniteDuration, initialCapacity: Int = 64)(
         else nullToRemove
     )
 
-  private[this] var nullToRemove: Queued = _
+  private var nullToRemove: Queued = scala.compiletime.uninitialized

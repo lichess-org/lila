@@ -6,7 +6,7 @@
   <string name="progressX">অগ্রগতি: %s</string>
   <string name="resetMyProgress">আমার অগ্রগতি পুনারয় বসান</string>
   <string name="youWillLoseAllYourProgress">আপনি আপনার সকল অগ্রগতি হারাবেন!</string>
-  <string name="play">খেলুন!</string>
+  <string name="play" comment="play&#10;&#10;A small ribbon that appears on your current chapter in the Chess Basics course. Please keep this string short.">খেলুন!</string>
   <string name="chessPieces">দাবার টুকরা</string>
   <string name="theRook">দাবার নৌকা</string>
   <string name="itMovesInStraightLines">এটা সোজা রেখা গুলোতে সরান</string>

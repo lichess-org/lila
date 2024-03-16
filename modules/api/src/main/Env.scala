@@ -26,6 +26,7 @@ final class Env(
     fishnetEnv: lila.fishnet.Env,
     studyEnv: lila.study.Env,
     studySearchEnv: lila.studySearch.Env,
+    fideEnv: lila.fide.Env,
     coachEnv: lila.coach.Env,
     evalCacheEnv: lila.evalCache.Env,
     planEnv: lila.plan.Env,
@@ -53,20 +54,23 @@ final class Env(
     modEnv: lila.mod.Env,
     notifyEnv: lila.notify.Env,
     appealApi: lila.appeal.AppealApi,
+    shutupEnv: lila.shutup.Env,
+    modLogApi: lila.mod.ModlogApi,
     activityWriteApi: lila.activity.ActivityWriteApi,
     ublogApi: lila.ublog.UblogApi,
     picfitUrl: lila.memo.PicfitUrl,
+    cmsApi: lila.cms.CmsApi,
     cacheApi: lila.memo.CacheApi,
-    ws: StandaloneWSClient,
-    val mode: Mode
+    ws: StandaloneWSClient
 )(using
     ec: Executor,
+    val mode: Mode,
     system: ActorSystem,
     scheduler: Scheduler,
     materializer: akka.stream.Materializer
 ):
 
-  val config = ApiConfig loadFrom appConfig
+  val config = ApiConfig.loadFrom(appConfig)
   export config.{ apiToken, pagerDuty as pagerDutyConfig }
   export net.{ baseUrl, domain }
 
@@ -105,28 +109,35 @@ final class Env(
     endpoint = config.influxEventEndpoint,
     env = config.influxEventEnv
   )
-  if mode == Mode.Prod then scheduler.scheduleOnce(5 seconds)(influxEvent.start())
+  if mode.isProd then scheduler.scheduleOnce(5 seconds)(influxEvent.start())
 
   private lazy val linkCheck = wire[LinkCheck]
   lazy val chatFreshness     = wire[ChatFreshness]
 
   private lazy val pagerDuty = wire[PagerDuty]
 
+  import lila.cms.CmsPage
+  def cmsRender(key: CmsPage.Key)(using ctx: Context): Fu[Option[CmsPage.Render]] =
+    cmsApi.render(key)(ctx.req, ctx.lang)
+  def cmsRenderKey(key: String)(using Context) = cmsRender(CmsPage.Key(key))
+
   Bus.subscribeFuns(
     "chatLinkCheck" -> { case GetLinkCheck(line, source, promise) =>
-      promise completeWith linkCheck(line, source)
+      promise.completeWith(linkCheck(line, source))
     },
     "chatFreshness" -> { case IsChatFresh(source, promise) =>
-      promise completeWith chatFreshness.of(source)
+      promise.completeWith(chatFreshness.of(source))
     },
     "announce" -> {
-      case Announce(msg, date, _) if msg contains "will restart" => pagerDuty.lilaRestart(date)
+      case Announce(msg, date, _) if msg.contains("will restart") => pagerDuty.lilaRestart(date)
     },
     "lpv" -> {
-      case AllPgnsFromText(text, p)       => p completeWith textLpvExpand.allPgnsFromText(text)
-      case LpvLinkRenderFromText(text, p) => p completeWith textLpvExpand.linkRenderFromText(text)
+      case AllPgnsFromText(text, p)       => p.completeWith(textLpvExpand.allPgnsFromText(text))
+      case LpvLinkRenderFromText(text, p) => p.completeWith(textLpvExpand.linkRenderFromText(text))
     }
   )
+
+  lila.i18n.Registry.asyncLoadLanguages()
 
   scheduler.scheduleWithFixedDelay(1 minute, 1 minute): () =>
     lila.mon.bus.classifiers.update(lila.common.Bus.size())

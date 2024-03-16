@@ -1,11 +1,11 @@
 package views.html.mod
 
-import lila.app.templating.Environment.{ given, * }
-import lila.app.ui.ScalatagsTemplate.{ *, given }
-import lila.user.{ Me, User }
-import lila.security.Permission
-
 import controllers.routes
+
+import lila.app.templating.Environment.{ *, given }
+import lila.app.ui.ScalatagsTemplate.{ *, given }
+import lila.security.Permission
+import lila.user.{ Me, User }
 
 object permissions:
 
@@ -34,7 +34,7 @@ object permissions:
                     .map: perm =>
                       val id = s"permission-${perm.dbKey}"
                       div(
-                        cls := isGranted(perm, u) option "granted",
+                        cls := isGranted(perm, u).option("granted"),
                         title := isGranted(perm, u).so {
                           Permission.findGranterPackage(userPerms, perm).map { p =>
                             s"Granted by package: $p"

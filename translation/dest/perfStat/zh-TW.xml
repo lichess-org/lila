@@ -26,7 +26,6 @@
   <string name="longestStreak">最長紀錄：%s</string>
   <string name="currentStreak">目前記錄：%s</string>
   <string name="bestRated">積分賽勝場之最強對手</string>
-  <string name="worstRated">積分賽敗場之最弱對手</string>
   <string name="gamesInARow">連續奕棋場數</string>
   <string name="lessThanOneHour">兩場間距不到一小時</string>
   <string name="maxTimePlaying">最高奕棋時間</string>

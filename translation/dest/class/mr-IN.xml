@@ -25,6 +25,7 @@
   <string name="teachersOfTheClass">वर्गातील शिक्षक</string>
   <string name="addLichessUsernames">त्यांना शिक्षक म्हणून आमंत्रित करण्यासाठी लिचेस वापरकर्तानावे जोडा. प्रति ओळ एक.</string>
   <string name="resetPassword">पासवर्ड रिसेट करा</string>
+  <string name="makeSureToCopy">आता पासवर्ड कॉपी किंवा लिहून ठेवण्याची खात्री करा. आपण ते पुन्हा कधीही पाहू शकणार नाही!</string>
   <string name="passwordX">पासवर्ड: %s</string>
   <string name="generateANewPassword">या विद्यार्थी साठी नवीन पासवर्ड बनवा</string>
   <string name="invitedToXByY">%1$s ला %2$s द्वारे आमंत्रित केले आहे</string>
@@ -36,11 +37,21 @@
 वापरकर्तानाम: %2$s
 परवलीचा शब्द: %3$s</string>
   <string name="inviteALichessAccount">लिचेस खात्याला निमंत्रित करा</string>
+  <string name="inviteDesc1">विद्यार्थ्याकडे आधीपासूनच लिचेस खाते असल्यास, तुम्ही त्यांना वर्गात आमंत्रित करू शकता.</string>
+  <string name="inviteDesc2">त्यांना वर्गात सामील होण्यासाठी लिंकसह Lichess वर संदेश प्राप्त होईल.</string>
+  <string name="inviteDesc3">महत्त्वाचे: केवळ तुमच्या ओळखीच्या विद्यार्थ्यांना आमंत्रित करा आणि ज्यांना सक्रियपणे वर्गात सामील व्हायचे आहे.</string>
+  <string name="inviteDesc4">अनियंत्रित खेळाडूंना कधीही अनपेक्षित आमंत्रणे पाठवू नका.</string>
   <string name="createANewLichessAccount">नविन लिचेस खाते तयार करा</string>
+  <string name="createDesc1">विद्यार्थ्याकडे अद्याप Lichess खाते नसल्यास, तुम्ही त्यांच्यासाठी येथे एक तयार करू शकता.</string>
+  <string name="createDesc2">कोणताही ईमेल पत्ता आवश्यक नाही. एक पासवर्ड व्युत्पन्न केला जाईल, आणि तुम्हाला तो विद्यार्थ्याला पाठवावा लागेल जेणेकरून ते लॉग इन करू शकतील.</string>
+  <string name="createDesc3">महत्त्वाचे: विद्यार्थ्याकडे एकाधिक खाती नसावीत.</string>
+  <string name="createDesc4">त्यांच्याकडे आधीपासूनच एखादे असल्यास, त्याऐवजी आमंत्रण फॉर्म वापरा.</string>
+  <string name="createStudentWarning">केवळ वास्तविक विद्यार्थ्यांसाठी खाती तयार करा. स्वतःसाठी एकाधिक खाती बनवण्यासाठी याचा वापर करू नका. तुमच्यावर बंदी येईल.</string>
   <string name="lichessUsername">लीचेस वापरकर्तानाव</string>
   <string name="generateANewUsername">नविन वापरकर्तानाव</string>
   <string name="welcomeToClass">%s वर्गात तुमचे स्वागत आहे.
 वर्गात प्रवेशासाठी ही लिंक वापरा.</string>
+  <string name="invitationToClass">तुम्हाला \"%s\" वर्गात विद्यार्थी म्हणून सामील होण्यासाठी आमंत्रित केले आहे.</string>
   <string name="clickToViewInvitation">आमंत्रण पाहण्यासाठी लिंकवर क्लिक करा:</string>
   <plurals name="nbPendingInvitations">
     <item quantity="one">एक प्रलंबित आमंत्रण</item>
@@ -49,9 +60,17 @@
   <string name="onlyVisibleToTeachers">केवळ वर्ग शिक्षकांनाच दृश्यमान</string>
   <string name="lastActiveDate">सक्रिय</string>
   <string name="managed">व्यवस्थापित</string>
+  <string name="thisStudentAccountIsManaged">हे विद्यार्थी खाते व्यवस्थापित केले जाते</string>
+  <string name="upgradeFromManaged">व्यवस्थापित वरून स्वायत्त वर श्रेणीसुधारित करा</string>
+  <string name="release">पदवीधर</string>
+  <string name="releaseTheAccount">खाते पदवीधर करा जेणेकरून विद्यार्थी ते स्वायत्तपणे व्यवस्थापित करू शकेल.</string>
+  <string name="releaseDesc1">पदवीधर खाते पुन्हा व्यवस्थापित केले जाऊ शकत नाही. विद्यार्थी किड मोड टॉगल करू शकेल आणि पासवर्ड स्वतः रीसेट करू शकेल.</string>
+  <string name="releaseDesc2">विद्यार्थ्याचे खाते ग्रॅज्युएट झाल्यानंतर वर्गात राहील.</string>
+  <string name="realUniqueEmail">विद्यार्थ्याचा वास्तविक, अद्वितीय ईमेल पत्ता. आम्ही त्यावर खाते पदवीधर करण्यासाठी लिंकसह पुष्टीकरण ईमेल पाठवू.</string>
   <string name="closeStudent">खाते बंद करा</string>
   <string name="closeTheAccount">विद्यार्थ्याचे खाते कायमचे बंद करा.</string>
   <string name="closeDesc1">विद्यार्थी पुन्हा कधीही हे खाते वापरू शकणार नाही. समापन अंतिम आहे. विद्यार्थ्याला समजले आहे आणि ते सहमत आहे याची खात्री करा.</string>
+  <string name="closeDesc2">त्याऐवजी तुम्ही विद्यार्थ्याला खात्यावर नियंत्रण देऊ इच्छित असाल जेणेकरून ते ते वापरणे सुरू ठेवू शकतील.</string>
   <string name="teachers">शिक्षक</string>
   <plurals name="nbTeachers">
     <item quantity="one">शिक्षक</item>
@@ -65,15 +84,21 @@
   <string name="progress">प्रगती</string>
   <string name="noStudents">अजून शिकवणीत कोणताही विद्यार्थी नाही.</string>
   <string name="noRemovedStudents">काढलेले विद्यार्थी नाहीत.</string>
+  <string name="overDays">दिवसांत</string>
   <string name="timePlaying">खेळलेला वेळ</string>
   <string name="variantXOverLastY">%1$s मागील %2$s</string>
   <string name="winrate">जिंकण्याचे प्रमाण</string>
   <string name="na">लागू नाही</string>
   <string name="overview">आढावा</string>
+  <string name="news">बातमी</string>
   <string name="classNews">वर्गाबाबत बातम्या</string>
   <string name="editNews">बातमीत बदल</string>
   <string name="notifyAllStudents">सर्व विद्यार्थ्याना सूचित करा</string>
   <string name="nothingHere">अजून येथे काही नाही.</string>
+  <string name="newsEdit1">एकाच क्षेत्रात सर्व वर्गंनच्या बातम्या.</string>
+  <string name="newsEdit2">शीर्षस्थानी अलीकडील बातम्या जोडा. पूर्वीच्या बातम्या काढू नका.</string>
+  <string name="newsEdit3">यासह बातमी वेगळी करा ---
+ते क्षैतिज रेषा दर्शवेल.</string>
   <string name="invite">आमंत्रित करा</string>
   <string name="youHaveBeenInvitedByX">%s ने तुम्हाला आमंत्रित केले आहे.</string>
   <string name="youAcceptedThisInvitation">तुम्ही हे आमंत्रण स्वीकारले.</string>

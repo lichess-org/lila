@@ -150,19 +150,19 @@ L\'icono royo de silencio amaneix cuan lo tuyo navegador priva que lichess.org r
 
 Amostramos l\'icono royo pa avisar-te cuan ixo pasa. A sobén puez permitir que lichess.org reproduzca sonius explicitament. Aquí tiens las instruccions pa fer-lo en versions recients de bels navegadors populars.</string>
   <string name="desktop">escritorio</string>
-  <string name="enableAutoplayForSoundsFirefox" comment="Guidance for Mozilla Firefox users on how to enable audio auto-play if they have sound issues.&#10;&#10;Please keep 'i' lowercase, for two reasons:&#10;1. Capital L and capital I are hard to differentiate for users.&#10;2. So users don't press Ctrl+Shift+I to get a capital I. This is a different shortcut in the browser.">1. Dentra en lichess.org
+  <string name="enableAutoplayForSoundsFirefox">1. Dentra en lichess.org
 2. Preta Ctrl-i en Linux/Windows u cmd-i en MacOS
 3. Fe clic en a pestanya de permisos
 4. Permite audio y video en lichess.org</string>
-  <string name="enableAutoplayForSoundsChrome" comment="Guidance for Google Chrome users on how to enable audio auto-play if they have sound issues.">1. Dentra en lichess.org
+  <string name="enableAutoplayForSoundsChrome">1. Dentra en lichess.org
 2. Fe clic en l\'icono d\'o candau en a barra d\'adrezas
 3. Ves ta la configuración de puesto
 4. Permite l\'audio</string>
-  <string name="enableAutoplayForSoundsSafari" comment="Guidance for Apple Safari users on how to enable audio auto-play if they have sound issues.">1. Dentra en lichess.org
+  <string name="enableAutoplayForSoundsSafari">1. Dentra en lichess.org
 2. Fe clic en Safari en a barra de fayenas
 3. Ves ta la configuración pa lichess.org ... 
 4. Permite la reproducción automatica</string>
-  <string name="enableAutoplayForSoundsMicrosoftEdge" comment="Guidance for Microsoft Edge users on desktop, for how to enable audio auto-play if they have sound issues.">1. Fe clic en os tres puntos d\'a cantonada superior dreita
+  <string name="enableAutoplayForSoundsMicrosoftEdge">1. Fe clic en os tres puntos d\'a cantonada superior dreita
 2. Fe clic en Configuración
 3. Fe click en Cookies y Permisos d\'o puesto
 4. Desplaza-te enta alto y fe clic en Reproducción automatica de conteniu multimedia

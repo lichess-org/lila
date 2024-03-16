@@ -21,11 +21,10 @@ object OAuthTokenForm:
 
   case class Data(description: String, scopes: List[String])
 
-  def adminChallengeTokens = Form(
+  def adminChallengeTokens(max: Int = 1000) = Form(
     mapping(
       "description" -> descriptionField,
-      "users" -> cleanText
-        .verifying("No more than 500 users", _.split(',').size <= 500)
+      "users"       -> cleanText.verifying(s"No more than $max users", _.split(',').sizeIs <= max)
     )(AdminChallengeTokensData.apply)(unapply)
   )
 

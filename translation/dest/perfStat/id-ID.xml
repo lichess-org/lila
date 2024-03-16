@@ -25,7 +25,6 @@
   <string name="longestStreak">Beruntun terpanjang: %s</string>
   <string name="currentStreak">Beruntun saat ini: %s</string>
   <string name="bestRated">Kemenangan dirating terbaik</string>
-  <string name="worstRated">Kekalahan dirating terburuk</string>
   <string name="gamesInARow">Permainan yang dimainkan berturut-turut</string>
   <string name="lessThanOneHour">Kurang dari satu jam antar permainan</string>
   <string name="maxTimePlaying">Maksimal waktu bermain</string>

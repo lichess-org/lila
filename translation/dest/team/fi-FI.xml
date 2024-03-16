@@ -50,9 +50,17 @@ Pelaajat, jotka eivät mielellään ota vastaan viestejäsi, saattavat lähteä 
   <string name="entryCodeDescriptionForLeader">(Valinnainen) Sisäänpääsykoodi, joka uusien jäsenten on tiedettävä voidakseen liittyä joukkueeseen.</string>
   <string name="incorrectEntryCode">Virheellinen sisäänpääsykoodi.</string>
   <string name="teamAlreadyExists">Tämä joukkue on jo olemassa.</string>
-  <string name="upcomingTourns">Tulevat turnaukset</string>
+  <string name="upcomingTournaments">Tulevat turnaukset</string>
   <string name="completedTourns">Päättyneet turnaukset</string>
   <string name="declinedRequests">Hylätyt pyynnöt</string>
   <string name="joinLichessVariantTeam">Liity viralliseen %s-joukkueeseen saadaksesi sitä koskevia uutisia ja tapahtumia</string>
   <string name="teamPage">Joukkueen sivu</string>
+  <string name="thisTeamBattleIsOver">Tämä turnaus on ohi, eikä joukkueita voi enää päivittää.</string>
+  <string name="listTheTeamsThatWillCompete">Listaa tässä taistossa kilpailevat joukkueet.</string>
+  <string name="oneTeamPerLine">Yksi joukkue riviä kohti. Käytä automaattista täydennystä.</string>
+  <string name="oneTeamPerLineHelp">Voit kopioida tämän listan turnauksesta toiseen!
+
+Et voi poistaa joukkuetta, jos pelaaja on jo liittynyt turnaukseen sen kanssa.</string>
+  <string name="numberOfLeadsPerTeam">Johtajien määrä kussakin joukkueessa. Heidän pisteidensä summa muodostaa joukkueen pistemäärän.</string>
+  <string name="numberOfLeadsPerTeamHelp">Tätä arvoa ei todellakaan tulisi muuttaa turnauksen jo käynnistyttyä!</string>
 </resources>

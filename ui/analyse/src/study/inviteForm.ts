@@ -2,7 +2,6 @@ import * as licon from 'common/licon';
 import { bind, onInsert } from 'common/snabbdom';
 import { titleNameToId } from '../view/util';
 import { h, VNode } from 'snabbdom';
-import { snabDialog } from 'common/dialog';
 import { prop, Prop } from 'common';
 import { StudyMemberMap } from './interfaces';
 import { AnalyseSocketSend } from '../socket';
@@ -30,12 +29,12 @@ export function makeCtrl(
     spectators = prop<string[]>([]);
 
   const toggle = () => {
-    if (!open()) lichess.pubsub.emit('analyse.close-all');
+    if (!open()) site.pubsub.emit('analyse.close-all');
     open(!open());
     redraw();
   };
 
-  lichess.pubsub.on('analyse.close-all', () => open(false));
+  site.pubsub.on('analyse.close-all', () => open(false));
 
   const previouslyInvited = storedSet<string>('study.previouslyInvited', 10);
   return {
@@ -59,7 +58,7 @@ export function view(ctrl: ReturnType<typeof makeCtrl>): VNode {
   const candidates = [...new Set([...ctrl.spectators(), ...ctrl.previouslyInvited()])]
     .filter(s => !ctrl.members()[titleNameToId(s)]) // remove existing members
     .sort();
-  return snabDialog({
+  return site.dialog.snab({
     class: 'study__invite',
     onClose() {
       ctrl.open(false);
@@ -77,7 +76,7 @@ export function view(ctrl: ReturnType<typeof makeCtrl>): VNode {
         h('input', {
           attrs: { placeholder: ctrl.trans.noarg('searchByUsername'), spellcheck: 'false' },
           hook: onInsert<HTMLInputElement>(input =>
-            lichess.asset
+            site.asset
               .userComplete({
                 input,
                 tag: 'span',

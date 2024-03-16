@@ -1,7 +1,7 @@
 package lila.mod
 
 import lila.notify.NotifyApi
-import lila.report.{ Mod, Suspect, Victim }
+import lila.report.Suspect
 
 final private class ModNotifier(
     notifyApi: NotifyApi,
@@ -9,8 +9,8 @@ final private class ModNotifier(
 )(using Executor):
 
   def reporters(mod: ModId, sus: Suspect): Funit =
-    reportApi.recentReportersOf(sus) flatMap {
-      _.filterNot(_ is mod)
+    reportApi.recentReportersOf(sus).flatMap {
+      _.filterNot(_.is(mod))
         .map: reporterId =>
           notifyApi.notifyOne(reporterId, lila.notify.ReportedBanned)
         .parallel

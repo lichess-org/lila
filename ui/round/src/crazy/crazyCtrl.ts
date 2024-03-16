@@ -45,7 +45,7 @@ export function valid(data: RoundData, role: cg.Role, key: cg.Key): boolean {
 }
 
 export function onEnd() {
-  const store = lichess.storage.make('crazyKeyHist');
+  const store = site.storage.make('crazyKeyHist');
   if (dropWithKey) store.set(10);
   else if (dropWithDrag) {
     const cur = parseInt(store.get()!);
@@ -57,7 +57,7 @@ export function onEnd() {
 export const crazyKeys: Array<number> = [];
 
 export function init(ctrl: RoundController) {
-  const k = lichess.mousetrap;
+  const k = site.mousetrap;
 
   let activeCursor: string | undefined;
 
@@ -86,7 +86,7 @@ export function init(ctrl: RoundController) {
   // chessground.setDropMove(state, undefined) is called, which means
   // clicks on the board will not drop a piece.
   // If the piece becomes available, we call into chessground again.
-  lichess.pubsub.on('ply', () => {
+  site.pubsub.on('ply', () => {
     if (crazyKeys.length > 0) setDrop();
   });
 
@@ -130,7 +130,7 @@ export function init(ctrl: RoundController) {
     { capture: true },
   );
 
-  if (lichess.storage.get('crazyKeyHist') !== '0') preloadMouseIcons(ctrl.data);
+  if (site.storage.get('crazyKeyHist') !== '0') preloadMouseIcons(ctrl.data);
 }
 
 // zh keys has unacceptable jank when cursors need to dl,
@@ -138,6 +138,6 @@ export function init(ctrl: RoundController) {
 // Images are used in _zh.scss, which should be kept in sync.
 function preloadMouseIcons(data: RoundData) {
   const colorKey = data.player.color[0];
-  for (const pKey of 'PNBRQ') fetch(lichess.asset.url(`piece/cburnett/${colorKey}${pKey}.svg`));
+  for (const pKey of 'PNBRQ') fetch(site.asset.url(`piece/cburnett/${colorKey}${pKey}.svg`));
   mouseIconsLoaded = true;
 }

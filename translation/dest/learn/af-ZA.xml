@@ -6,7 +6,7 @@
   <string name="progressX">Vordering: %s</string>
   <string name="resetMyProgress">Herstel my vordering</string>
   <string name="youWillLoseAllYourProgress">Jy sal al jou vordering verloor!</string>
-  <string name="play">speel!</string>
+  <string name="play" comment="play&#10;&#10;A small ribbon that appears on your current chapter in the Chess Basics course. Please keep this string short.">speel!</string>
   <string name="chessPieces">Skaakstukke</string>
   <string name="theRook">Die toring</string>
   <string name="itMovesInStraightLines">Hy beweeg in reguit lyne</string>

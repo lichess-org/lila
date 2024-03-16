@@ -1,6 +1,6 @@
 package lila.tournament
 
-import chess.{ Black, Color, White, ByColor }
+import chess.{ Black, ByColor, Color, White }
 
 import lila.game.{ Game, GameRepo, Player as GamePlayer, Source }
 
@@ -13,7 +13,7 @@ final class AutoPairing(
 
   def apply(tour: Tournament, pairing: Pairing.WithPlayers, ranking: Ranking): Fu[Game] =
     val clock                             = tour.clock.toClock
-    val fen: Option[chess.format.Fen.Epd] = tour.position.map(_ into chess.format.Fen.Epd)
+    val fen: Option[chess.format.Fen.Epd] = tour.position.map(_.into(chess.format.Fen.Epd))
     val game = Game
       .make(
         chess = chess
@@ -33,17 +33,20 @@ final class AutoPairing(
       .withId(pairing.pairing.gameId)
       .withTournamentId(tour.id)
       .start
-    gameRepo.insertDenormalized(game) andDo {
-      onStart(game.id)
-      import lila.rating.intZero
-      duelStore.add(
-        tour = tour,
-        game = game,
-        p1 = usernameOf(pairing.player1) -> ~game.whitePlayer.rating,
-        p2 = usernameOf(pairing.player2) -> ~game.blackPlayer.rating,
-        ranking = ranking
-      )
-    } inject game
+    gameRepo
+      .insertDenormalized(game)
+      .andDo {
+        onStart(game.id)
+        import lila.rating.intZero
+        duelStore.add(
+          tour = tour,
+          game = game,
+          p1 = usernameOf(pairing.player1) -> ~game.whitePlayer.rating,
+          p2 = usernameOf(pairing.player2) -> ~game.blackPlayer.rating,
+          ranking = ranking
+        )
+      }
+      .inject(game)
 
   private def makePlayer(color: Color, player: Player) =
     GamePlayer.make(color, player.userId, player.rating, player.provisional)

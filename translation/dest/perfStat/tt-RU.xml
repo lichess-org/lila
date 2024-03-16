@@ -24,7 +24,6 @@
   <string name="longestStreak">Иң озын бер-артлы: %s</string>
   <string name="currentStreak">Хәзерге бер-артлы: %s</string>
   <string name="bestRated">Иң яхшы рейтинглы җиңүләр</string>
-  <string name="worstRated">Иң начар рейтинглы җиңелүләр</string>
   <string name="gamesInARow">Уеннар рәттән уйналды</string>
   <string name="lessThanOneHour">Уеннар арасында бер сәгатьтән дә азрак</string>
   <string name="maxTimePlaying">Бер-артлы уйнаган максималь вакыт</string>

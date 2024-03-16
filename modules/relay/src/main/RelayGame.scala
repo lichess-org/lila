@@ -1,15 +1,16 @@
 package lila.relay
 
-import chess.format.pgn.{ Tags, Tag, TagType }
-import lila.study.{ Chapter, MultiPgn, Node, PgnImport }
+import chess.format.pgn.{ Tag, TagType, Tags }
+
+import lila.study.{ MultiPgn, PgnImport }
 import lila.tree.Root
 
 case class RelayGame(
-    index: Int,
     tags: Tags,
     variant: chess.variant.Variant,
     root: Root,
-    ending: Option[PgnImport.End]
+    ending: Option[PgnImport.End],
+    index: Option[Int] = none
 ):
 
   def staticTagsMatch(chapterTags: Tags): Boolean =
@@ -24,6 +25,7 @@ case class RelayGame(
     chapterTags(tag) == tags(tag)
 
   def isEmpty = tags.value.isEmpty && root.children.nodes.isEmpty
+  def isPush  = index.isEmpty
 
   def resetToSetup = copy(
     root = root.withoutChildren,
@@ -31,9 +33,12 @@ case class RelayGame(
     tags = tags.copy(value = tags.value.filter(_.name != Tag.Result))
   )
 
+  def fideIdsPair: Option[PairOf[Option[chess.FideId]]] =
+    tags.fideIds.some.filter(_.forall(_.isDefined)).map(_.toPair)
+
   lazy val looksLikeLichess = tags(_.Site).exists: site =>
     RelayGame.lichessDomains.exists: domain =>
-      site startsWith s"https://$domain/"
+      site.startsWith(s"https://$domain/")
 
 private object RelayGame:
 
@@ -63,5 +68,5 @@ private object RelayGame:
               Pgn(g.tags, InitialComments.empty, lila.study.PgnDump.rootToTree(g.root)).render
             .toList
       ,
-      mul => RelayFetch.multiPgnToGames(mul).toOption.get
+      mul => RelayFetch.multiPgnToGames(mul).fold(e => throw e, identity)
     )

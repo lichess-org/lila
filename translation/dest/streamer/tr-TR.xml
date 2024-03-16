@@ -4,8 +4,8 @@
   <string name="lichessStreamer">Lichess yayıncısı</string>
   <string name="live">CANLI!</string>
   <string name="offline">ÇEVRİMDIŞI</string>
-  <string name="currentlyStreaming">Canlı yayında: %s</string>
-  <string name="lastStream">Son yayın: %s</string>
+  <string name="currentlyStreaming" comment="%s is the title of the stream, chosen by the streamer.">Canlı yayında: %s</string>
+  <string name="lastStream" comment="%s is how long ago the stream was in relative time (e.g. 50 minutes ago). It is displayed in smaller type than the rest of the string.">Son yayın: %s</string>
   <string name="becomeStreamer">Lichess yayıncısı ol</string>
   <string name="doYouHaveStream">Twitch veya YouTube yayınınız mı var?</string>
   <string name="hereWeGo">Başlayalım!</string>
@@ -29,11 +29,11 @@
   <string name="pendingReview">Yayın başvurunuz moderatörler tarafından gözden geçiriliyor.</string>
   <string name="pleaseFillIn">Lütfen yayıncı bilgilerini doldurun ve bir fotoğraf yükleyin.</string>
   <string name="whenReady" comment="whenReady&#10;&#10;%s is &quot;request a moderator review&quot;">Lichess yayıncısı olarak listelenmeye hazırsanız, %s</string>
-  <string name="requestReview" comment="requestReview&#10;&#10;Used in the sense of: &quot;When you are ready to be listed as a Lichess streamer, request a moderator review&quot;">moderatör incelemesi talep edin</string>
+  <string name="requestReview" comment="requestReview&#10;&#10;Used as part of the longer sentence: &quot;When you are ready to be listed as a Lichess streamer, request a moderator review&quot;">moderatör incelemesi talep edin</string>
   <string name="streamerLanguageSettings">Lichess yayıncı sayfası yayın platformunuz tarafından sunulan dile göre izleyici kitlenizi hedefler. Yayınlarınız için kullandığınız uygulama veya servis üzerinde satranç yayınlarınızın varsayılan dilini doğru ayarlayın.</string>
-  <string name="twitchUsername">Twitch kullanıcı adınız veya kanal bağlantınız</string>
+  <string name="twitchUsername" comment="Appears on the form for setting up your Streamer page: https://lichess.org/streamer/edit&#10;&#10;Twitch is a proper noun and refers to the streaming service https://twitch.tv/. Please do not translate the word 'Twitch'.">Twitch kullanıcı adınız veya kanal bağlantınız</string>
   <string name="optionalOrEmpty">İsteğe bağlı. Yoksa boş bırakın</string>
-  <string name="youTubeChannelId">Youtube kanal kimliğiniz</string>
+  <string name="youTubeChannelId" comment="Appears on the form for setting up your Streamer page: https://lichess.org/streamer/edit&#10;&#10;The Channel ID is a special alphanumeric string. See Google's guide here for how to retrieve it: https://support.google.com/youtube/answer/3250431&#10;&#10;We encourage translators to match what the Channel ID is called in your language's version of YouTube: https://www.youtube.com/account_advanced">Youtube kanal kimliğiniz</string>
   <string name="streamerName">Lichess üzerindeki yayıncı isminiz</string>
   <plurals name="keepItShort">
     <item quantity="one">Kısa tutun: En fazla %s karakter</item>

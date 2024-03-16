@@ -1,9 +1,9 @@
 package views.html.plan
 
-import lila.app.templating.Environment.{ given, * }
-import lila.app.ui.ScalatagsTemplate.{ *, given }
-
 import controllers.routes
+
+import lila.app.templating.Environment.{ *, given }
+import lila.app.ui.ScalatagsTemplate.{ *, given }
 
 object thanks:
 
@@ -39,7 +39,7 @@ object thanks:
                 pat.payPalCheckout.exists(_.renew) ||
                 stripeCustomer.exists(_.renew)
               then
-                ctx.me map { me =>
+                ctx.me.map { me =>
                   p(
                     permanentPatron(),
                     br,

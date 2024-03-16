@@ -19,7 +19,6 @@
   <string name="displayBoardResizeHandle">Átméretező sarok mutatása</string>
   <string name="onlyOnInitialPosition">Csak kezdőállásnál</string>
   <string name="inGameOnly">Csak játék közben</string>
-  <string name="blindfoldChess">Vakjátszma (láthatatlan bábuk)</string>
   <string name="chessClock">Sakkóra</string>
   <string name="tenthsOfSeconds">Tizedmásodpercek</string>
   <string name="whenTimeRemainingLessThanTenSeconds" comment="whenTimeRemainingLessThanTenSeconds&#10;&#10;The &amp;lt; symbol is not required (you can write it as a word), just do NOT use &lt; in its place.&#10;&#10;Technical information: &lt; is a reserved character in HTML, which is why it cannot be used.">Amikor a hátralévő idő &lt; 10 másodperc</string>

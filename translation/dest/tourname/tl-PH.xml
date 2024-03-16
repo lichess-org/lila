@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="hourlyXArena">Pang-oras-orasan%sPaligsahan</string>
-  <string name="hourlyX">Pang-oras-orasan%s</string>
-  <string name="dailyXArena">%sPaligsahang Pang-araw-araw</string>
+  <string name="hourlyX" comment="%s is a time control (like &quot;Blitz&quot;) or a variant (like &quot;Chess960&quot;)&#10;&#10;Used for tournaments. Please keep this string short and consistent with 'Hourly Rapid' and 'Hourly %s Arena'.">Pang-oras-orasan%s</string>
+  <string name="dailyXArena" comment="dailyXArena %s is a time control (like &quot;Blitz&quot;) or a variant (like &quot;Chess960&quot;)&#10;&#10;Used for tournaments. Please keep this string short and consistent with 'Daily %s'.">%sPaligsahang Pang-araw-araw</string>
   <string name="dailyX">Pang-araw-araw%s</string>
   <string name="easternXArena">Silangan%sPaligsahan</string>
   <string name="easternX">Silangan%s</string>

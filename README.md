@@ -31,7 +31,6 @@ Lichess talks to [Stockfish](https://stockfishchess.org/) deployed in an [AI clu
 It uses [MongoDB](https://www.mongodb.com) to store more than 4.7 billion games, which are indexed by [elasticsearch](https://github.com/elastic/elasticsearch).
 HTTP requests and WebSocket connections can be proxied by [nginx](https://nginx.org).
 The web client is written in [TypeScript](https://www.typescriptlang.org/) and [snabbdom](https://github.com/snabbdom/snabbdom), using [Sass](https://sass-lang.com/) to generate CSS.
-The [blog](https://lichess.org/blog) uses a free open content plan from [prismic.io](https://prismic.io).
 All rated games are published in a [free PGN database](https://database.lichess.org).
 Browser testing done with [Browserstack](https://www.browserstack.com).
 Proxy detection done with [IP2Proxy database](https://www.ip2location.com/database/ip2proxy).

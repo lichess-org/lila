@@ -25,7 +25,6 @@
   <string name="longestStreak">Langste reeks: %s</string>
   <string name="currentStreak">Huidige reeks: %s</string>
   <string name="bestRated">Hoogste gegradeerde oorwinnings</string>
-  <string name="worstRated">Laagste gegradeerde nederlaag</string>
   <string name="gamesInARow">Spelle gespeel in \'n ry</string>
   <string name="lessThanOneHour">Minder as een uur tussen spelle</string>
   <string name="maxTimePlaying">Maks tyd spandeer op speel</string>

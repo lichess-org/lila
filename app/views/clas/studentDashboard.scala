@@ -2,7 +2,7 @@ package views.html.clas
 
 import controllers.routes
 
-import lila.app.templating.Environment.{ given, * }
+import lila.app.templating.Environment.{ *, given }
 import lila.app.ui.ScalatagsTemplate.{ *, given }
 import lila.clas.{ Clas, Student }
 import lila.common.String.html.richText
@@ -16,13 +16,13 @@ object studentDashboard:
       teachers: List[User],
       students: List[Student.WithUserPerfs]
   )(using PageContext) =
-    bits.layout(c.name, Left(c withStudents Nil))(
+    bits.layout(c.name, Left(c.withStudents(Nil)))(
       cls := "clas-show dashboard dashboard-student",
       div(cls := "clas-show__top")(
         h1(dataIcon := licon.Group, cls := "text")(c.name),
-        c.desc.trim.nonEmpty option div(cls := "clas-show__desc")(richText(c.desc))
+        c.desc.trim.nonEmpty.option(div(cls := "clas-show__desc")(richText(c.desc)))
       ),
-      c.archived map { archived =>
+      c.archived.map { archived =>
         div(cls := "box__pad")(
           div(cls := "clas-show__archived archived")(bits.showArchived(archived))
         )
@@ -43,7 +43,7 @@ object studentDashboard:
                   user,
                   name = span(
                     strong(user.username),
-                    user.profile.flatMap(_.nonEmptyRealName) map { em(_) }
+                    user.profile.flatMap(_.nonEmptyRealName).map { em(_) }
                   ).some,
                   withTitle = false
                 )
@@ -55,7 +55,7 @@ object studentDashboard:
               challengeTd(user)
             )
       ),
-      c.wall.value.nonEmpty option div(cls := "box__pad clas-wall")(rawHtml(wall)),
+      c.wall.value.nonEmpty.option(div(cls := "box__pad clas-wall")(rawHtml(wall))),
       div(cls := "students")(studentList(students))
     )
 
@@ -95,7 +95,7 @@ object studentDashboard:
     )
 
   private def challengeTd(user: lila.user.User)(using ctx: PageContext) =
-    if ctx is user then td
+    if ctx.is(user) then td
     else
       val online = isOnline(user.id)
       td(
@@ -103,6 +103,6 @@ object studentDashboard:
           dataIcon := licon.Swords,
           cls      := List("button button-empty text" -> true, "disabled" -> !online),
           title    := trans.challenge.challengeToPlay.txt(),
-          href     := online option s"${routes.Lobby.home}?user=${user.username}#friend"
+          href     := online.option(s"${routes.Lobby.home}?user=${user.username}#friend")
         )(trans.play())
       )

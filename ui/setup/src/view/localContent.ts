@@ -41,7 +41,7 @@ class BotDeck {
     readonly view: HTMLDivElement,
     readonly select: (bot: Libot) => void,
   ) {
-    lichess.asset.loadEsm<Libots>('libot', { init: { stubs: true } }).then(bots => {
+    site.asset.loadEsm<Libots>('libot', { init: { stubs: true } }).then(bots => {
       this.view.innerHTML = '';
       this.bots = bots;
       for (const bot of this.bots.sort()) this.createCard(bot);

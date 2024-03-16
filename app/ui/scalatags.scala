@@ -2,12 +2,12 @@ package lila.app
 package ui
 
 import alleycats.Zero
+import chess.PlayerTitle
+import ornicar.scalalib.Render
 import scalatags.Text.all.*
+import scalatags.Text.{ Aggregate, Cap, GenericAttr }
 import scalatags.text.Builder
-import scalatags.Text.GenericAttr
-import scalatags.Text.{ Aggregate, Cap }
 
-import lila.user.Title
 import lila.common.licon.Icon
 
 // collection of lila attrs
@@ -38,12 +38,12 @@ trait ScalatagsAttrs:
     val credentialless  = attr("credentialless").empty
 
   val thSortNumber    = th(attr("data-sort-method") := "number")
-  val dataSort        = attr("data-sort")
-  val dataSortDefault = attr("data-sort-default").empty
+  val dataSort        = attrData("sort")
+  val dataSortDefault = attrData("sort-default").empty
 
 // collection of lila snippets
 trait ScalatagsSnippets:
-  this: ScalatagsExtensions with ScalatagsAttrs =>
+  this: ScalatagsExtensions & ScalatagsAttrs =>
 
   import scalatags.Text.all.*
 
@@ -68,11 +68,11 @@ trait ScalatagsSnippets:
 
   def rawHtml(html: Html) = raw(html.value)
 
-  def userTitleTag(t: UserTitle) =
+  def userTitleTag(t: PlayerTitle) =
     span(
       cls := "utitle",
-      t == lila.user.Title.BOT option dataBotAttr,
-      title := Title titleName t
+      (t == PlayerTitle.BOT).option(dataBotAttr),
+      title := PlayerTitle.titleName(t)
     )(t)
 
   val utcLink =
@@ -120,31 +120,26 @@ object ScalatagsTemplate extends ScalatagsTemplate
 // generic extensions
 trait ScalatagsExtensions:
 
-  given Conversion[StringValue, scalatags.Text.Frag] = sv => StringFrag(sv.value)
+  given [A](using Render[A]): Conversion[A, scalatags.Text.Frag] = a => StringFrag(a.render)
 
-  given opaqueStringFrag[A](using r: StringRuntime[A]): Conversion[A, Frag] = a => stringFrag(r(a))
-  given opaqueIntFrag[A](using r: IntRuntime[A]): Conversion[A, Frag]       = a => intFrag(r(a))
+  given opaqueIntFrag[A](using r: IntRuntime[A]): Conversion[A, Frag] = a => intFrag(r(a))
 
-  given opaqueStringAttr[A](using bts: StringRuntime[A]): AttrValue[A] with
-    def apply(t: Builder, a: Attr, v: A): Unit = stringAttr(t, a, bts(v))
+  given [A](using Render[A]): AttrValue[A] with
+    def apply(t: Builder, a: Attr, v: A): Unit = stringAttr(t, a, v.render)
 
   given opaqueIntAttr[A](using bts: SameRuntime[A, Int]): AttrValue[A] with
     def apply(t: Builder, a: Attr, v: A): Unit = intAttr(t, a, bts(v))
-
-  given AttrValue[StringValue] with
-    def apply(t: Builder, a: Attr, v: StringValue): Unit =
-      t.setAttr(a.name, Builder.GenericAttrValueSource(v.value))
 
   given GenericAttr[Char]       = GenericAttr[Char]
   given GenericAttr[BigDecimal] = GenericAttr[BigDecimal]
 
   given [A](using av: AttrValue[A]): AttrValue[Option[A]] with
-    def apply(t: Builder, a: Attr, v: Option[A]): Unit = v foreach { av.apply(t, a, _) }
+    def apply(t: Builder, a: Attr, v: Option[A]): Unit = v.foreach { av.apply(t, a, _) }
 
   /* for class maps such as List("foo" -> true, "active" -> isActive) */
   given AttrValue[List[(String, Boolean)]] with
     def apply(t: Builder, a: Attr, m: List[(String, Boolean)]): Unit =
-      val cls = m collect { case (s, true) => s } mkString " "
+      val cls = m.collect { case (s, true) => s }.mkString(" ")
       if cls.nonEmpty then t.setAttr(a.name, Builder.GenericAttrValueSource(cls))
 
   val emptyFrag: Frag = RawFrag("")

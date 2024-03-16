@@ -1,9 +1,9 @@
 package views.html.tv
 
-import lila.app.templating.Environment.{ given, * }
-import lila.app.ui.ScalatagsTemplate.{ *, given }
-
 import controllers.routes
+
+import lila.app.templating.Environment.{ *, given }
+import lila.app.ui.ScalatagsTemplate.{ *, given }
 
 object side:
 
@@ -49,7 +49,7 @@ object side:
         div(cls := "game__meta__infos", dataIcon := views.html.game.bits.gameIcon(game))(
           div(cls := "header")(
             div(cls := "setup")(
-              views.html.game.widgets showClock game,
+              views.html.game.widgets.showClock(game),
               separator,
               (if game.rated then trans.rated else trans.casual).txt(),
               separator,

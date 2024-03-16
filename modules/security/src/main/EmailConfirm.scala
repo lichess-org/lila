@@ -6,9 +6,9 @@ import scalatags.Text.all.*
 
 import lila.common.config.*
 import lila.common.{ EmailAddress, LilaCookie }
-import lila.i18n.I18nKeys.{ emails as trans }
-import lila.user.{ User, UserRepo, UserApi }
+import lila.i18n.I18nKeys.emails as trans
 import lila.mailer.Mailer
+import lila.user.{ User, UserApi, UserRepo }
 
 trait EmailConfirm:
 
@@ -23,7 +23,7 @@ final class EmailConfirmSkip(userRepo: UserRepo) extends EmailConfirm:
   def effective = false
 
   def send(user: User, email: EmailAddress)(using Lang) =
-    userRepo setEmailConfirmed user.id void
+    userRepo.setEmailConfirmed(user.id) void
 
   def confirm(token: String): Fu[EmailConfirm.Result] = fuccess(EmailConfirm.Result.NotFound)
 
@@ -42,15 +42,16 @@ final class EmailConfirmMailer(
   val maxTries = 3
 
   def send(user: User, email: EmailAddress)(using Lang): Funit =
-    !email.looksLikeFakeEmail so {
-      tokener make user.id flatMap { token =>
+    (!email.looksLikeFakeEmail).so {
+      tokener.make(user.id).flatMap { token =>
         lila.mon.email.send.confirmation.increment()
         val url = s"$baseUrl/signup/confirm/$token"
         lila.log("auth").info(s"Confirm URL ${user.username} ${email.value} $url")
-        mailer send Mailer.Message(
-          to = email,
-          subject = trans.emailConfirm_subject.txt(user.username),
-          text = Mailer.txt.addServiceNote(s"""
+        mailer.send(
+          Mailer.Message(
+            to = email,
+            subject = trans.emailConfirm_subject.txt(user.username),
+            text = Mailer.txt.addServiceNote(s"""
 ${trans.emailConfirm_click.txt()}
 
 $url
@@ -59,12 +60,13 @@ ${trans.common_orPaste.txt()}
 
 ${trans.emailConfirm_ignore.txt("https://lichess.org")}
 """),
-          htmlBody = emailMessage(
-            pDesc(trans.emailConfirm_click()),
-            potentialAction(metaName("Activate account"), Mailer.html.url(url)),
-            small(trans.emailConfirm_ignore()),
-            serviceNote
-          ).some
+            htmlBody = emailMessage(
+              pDesc(trans.emailConfirm_click()),
+              potentialAction(metaName("Activate account"), Mailer.html.url(url)),
+              small(trans.emailConfirm_ignore()),
+              serviceNote
+            ).some
+          )
         )
       }
     }
@@ -72,10 +74,10 @@ ${trans.emailConfirm_ignore.txt("https://lichess.org")}
   import EmailConfirm.Result
 
   def confirm(token: String): Fu[Result] =
-    tokener read token flatMapz userRepo.enabledById flatMap {
+    tokener.read(token).flatMapz(userRepo.enabledById).flatMap {
       _.fold[Fu[Result]](fuccess(Result.NotFound)) { user =>
-        userRepo.mustConfirmEmail(user.id) flatMap {
-          if _ then (userRepo setEmailConfirmed user.id) inject Result.JustConfirmed(user)
+        userRepo.mustConfirmEmail(user.id).flatMap {
+          if _ then (userRepo.setEmailConfirmed(user.id)).inject(Result.JustConfirmed(user))
           else fuccess(Result.AlreadyConfirmed(user))
         }
       }
@@ -83,7 +85,7 @@ ${trans.emailConfirm_ignore.txt("https://lichess.org")}
 
   private val tokener = new StringToken[UserId](
     secret = tokenerSecret,
-    getCurrentValue = id => userRepo email id dmap (_.so(_.value))
+    getCurrentValue = id => userRepo.email(id).dmap(_.so(_.value))
   )
 
 object EmailConfirm:
@@ -109,11 +111,10 @@ object EmailConfirm:
     def has(req: RequestHeader) = req.session.data contains name
 
     def get(req: RequestHeader): Option[UserEmail] =
-      req.session get name map (_.split(sep, 2)) collect { case Array(username, email) =>
+      req.session.get(name).map(_.split(sep, 2)).collect { case Array(username, email) =>
         UserEmail(UserName(username), EmailAddress(email))
       }
 
-  import play.api.mvc.RequestHeader
   import lila.memo.RateLimit
   import lila.common.{ HTTPRequest, IpAddress }
 
@@ -138,7 +139,7 @@ object EmailConfirm:
   def rateLimit[A](userEmail: UserEmail, req: RequestHeader, default: => Fu[A])(run: => Fu[A]): Fu[A] =
     rateLimitPerUser(userEmail.username.id, default):
       rateLimitPerEmail(userEmail.email.value, default):
-        rateLimitPerIP(HTTPRequest ipAddress req, default):
+        rateLimitPerIP(HTTPRequest.ipAddress(req), default):
           run
 
   object Help:
@@ -160,12 +161,12 @@ object EmailConfirm:
 
     def getStatus(userApi: UserApi, userRepo: UserRepo, u: UserStr)(using Executor): Fu[Status] =
       import Status.*
-      userApi withEmails u flatMap {
-        case None => fuccess(NoSuchUser(u into UserName))
+      userApi.withEmails(u).flatMap {
+        case None => fuccess(NoSuchUser(u.into(UserName)))
         case Some(User.WithEmails(user, emails)) =>
           if user.enabled.no then fuccess(Closed(user.username))
           else
-            userRepo mustConfirmEmail user.id dmap {
+            userRepo.mustConfirmEmail(user.id).dmap {
               if _ then
                 emails.current match
                   case None        => NoEmail(user.username)

@@ -16,7 +16,7 @@ final class JsonView(getLightUser: LightUser.GetterSync):
     val light = getLightUser(u)
     Json.obj(
       "id"    -> u.value,
-      "name"  -> light.fold(u into UserName)(_.name),
+      "name"  -> light.fold(u.into(UserName))(_.name),
       "title" -> light.flatMap(_.title)
     )
   }
@@ -45,21 +45,20 @@ object JsonView:
 
   import lila.rating.Glicko.given
 
-  private given Writes[Instant] = Writes { d =>
-    JsString(isoDateTimeFormatter print d)
-  }
-  given OWrites[User] = OWrites { u =>
+  private given Writes[Instant] = Writes: d =>
+    JsString(isoDateTimeFormatter.print(d))
+
+  given OWrites[User] = OWrites: u =>
     Json.obj("name" -> u.username)
-  }
-  given OWrites[Perf] = OWrites { p =>
+
+  given OWrites[Perf] = OWrites: p =>
     Json.obj("glicko" -> p.glicko, "nb" -> p.nb, "progress" -> p.progress)
-  }
-  private given Writes[Avg] = Writes { a =>
+
+  private given Writes[Avg] = Writes: a =>
     JsNumber(lila.common.Maths.roundDownAt(a.avg, 2))
-  }
-  given (using lang: Lang): OWrites[PerfType] = OWrites { pt =>
+
+  given (using lang: Lang): OWrites[PerfType] = OWrites: pt =>
     Json.obj(
       "key"  -> pt.key,
       "name" -> pt.trans
     )
-  }

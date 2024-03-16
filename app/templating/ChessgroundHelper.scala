@@ -13,7 +13,9 @@ trait ChessgroundHelper:
   private val cgBoard     = tag("cg-board")
   val cgWrapContent       = cgContainer(cgBoard)
 
-  def chessground(board: Board, orient: Color, lastMove: List[Square] = Nil)(using ctx: Context): Frag =
+  def chessground(board: Board, orient: Color, lastMove: List[Square] = Nil, blindfold: Boolean)(using
+      ctx: Context
+  ): Frag =
     wrap {
       cgBoard {
         raw {
@@ -21,29 +23,34 @@ trait ChessgroundHelper:
           else
             def top(p: Square)  = orient.fold(7 - p.rank.value, p.rank.value) * 12.5
             def left(p: Square) = orient.fold(p.file.value, 7 - p.file.value) * 12.5
-            val highlights = ctx.pref.highlight so lastMove.distinct.map { pos =>
-              s"""<square class="last-move" style="top:${top(pos)}%;left:${left(pos)}%"></square>"""
-            } mkString ""
+            val highlights = ctx.pref.highlight
+              .so(lastMove.distinct.map { pos =>
+                s"""<square class="last-move" style="top:${top(pos)}%;left:${left(pos)}%"></square>"""
+              })
+              .mkString("")
             val pieces =
-              if ctx.pref.isBlindfold then ""
+              if blindfold then ""
               else
-                board.pieces.map { case (pos, piece) =>
-                  val klass = s"${piece.color.name} ${piece.role.name}"
-                  s"""<piece class="$klass" style="top:${top(pos)}%;left:${left(pos)}%"></piece>"""
-                } mkString ""
+                board.pieces
+                  .map { case (pos, piece) =>
+                    val klass = s"${piece.color.name} ${piece.role.name}"
+                    s"""<piece class="$klass" style="top:${top(pos)}%;left:${left(pos)}%"></piece>"""
+                  }
+                  .mkString("")
             s"$highlights$pieces"
         }
       }
     }
 
-  def chessground(pov: Pov)(using ctx: Context): Frag =
+  def chessground(pov: Pov)(using Context): Frag =
     chessground(
       board = pov.game.board,
       orient = pov.color,
       lastMove = pov.game.history.lastMove
         .map(_.origDest)
         .so: (orig, dest) =>
-          List(orig, dest)
+          List(orig, dest),
+      blindfold = pov.player.blindfold
     )
 
   private def wrap(content: Frag): Frag =

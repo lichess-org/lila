@@ -19,7 +19,7 @@
   <string name="findTheBestMoveForWhite">دۆزینەوەی باشترین جوڵە بۆ سپی.</string>
   <string name="findTheBestMoveForBlack">دۆزینەوەی باشترین جوڵە بۆ ڕەش.</string>
   <string name="toGetPersonalizedPuzzles">بۆ بەدەستهێنانی مەتەڵی تایبەتی:</string>
-  <string name="puzzleId" comment="%s is the ID of the puzzle, something like #a1b2c3.">مەتەڵ %s</string>
+  <string name="puzzleId">مەتەڵ %s</string>
   <string name="puzzleOfTheDay">مەتەڵی ڕۆژ</string>
   <string name="dailyPuzzle">مەتەڵی ڕۆژانە</string>
   <string name="clickToSolve">کلیک بکە بۆ شیکارکردن</string>
@@ -31,13 +31,13 @@
   <string name="byOpenings">بەپێی دەستپێکەکان</string>
   <string name="puzzlesByOpenings">مەتەڵەکان بەپێی دەستپێک</string>
   <string name="openingsYouPlayedTheMost">ئەو کردنەوانەی زۆرترین یاریت پێکردوون لە یاریە ڕەیتیدەکان</string>
-  <string name="useFindInPage" comment="useFindInPage&#10;&#10;Appears on https://lichess.org/training/openings&#10;Encourages players to use the built-in browser feature (Ctrl+F on most desktop computers) to find the opening they want to practice.">\"دۆزینەوە لە پەڕە\" دا بەکاربهێنە لە گەڕان بۆ دۆزینەوەی کردنەوەی دڵخوازت!</string>
+  <string name="useFindInPage">\"دۆزینەوە لە پەڕە\" دا بەکاربهێنە لە گەڕان بۆ دۆزینەوەی کردنەوەی دڵخوازت!</string>
   <string name="useCtrlF">Ctrl+f بەکاربهێنە بۆ دۆزینەوەی ئۆپنینگی دڵخوازت!</string>
   <string name="notTheMove">ئەوە جوڵەکە نییە!</string>
   <string name="trySomethingElse">شتێکی دیقە تاقی بکەرەوە.</string>
-  <string name="ratingX" comment="Appears on pages of individual puzzles.&#10;&#10;%s is either:&#10;1. The word 'hidden', if you have not completed the puzzle yet.&#10;2. The rating of the puzzle, if you have completed it or seen the solution.">ئاست: %s</string>
-  <string name="hidden" comment="Puzzle rating: hidden&#10;&#10;Appears while solving puzzles. Lichess only displays the rating of the puzzle after you have solved it or asked to see the solution.">شاردراوە</string>
-  <plurals name="playedXTimes" comment="Appears on pages of individual puzzles.&#10;%s is the number of times the puzzle has been played.">
+  <string name="ratingX">ئاست: %s</string>
+  <string name="hidden">شاردراوە</string>
+  <plurals name="playedXTimes">
     <item quantity="one">%s جار یاریت کردووە</item>
     <item quantity="other">%s جار یاری کردووە</item>
   </plurals>

@@ -1,13 +1,14 @@
 package lila.insight
 
 import reactivemongo.api.bson.*
+
 import lila.db.dsl.{ *, given }
 
 object AggregationClusters:
 
   def apply[X](question: Question[X], aggDocs: List[Bdoc]): List[Cluster[X]] =
     postSort(question) {
-      if InsightMetric isStacked question.metric then stacked(question, aggDocs)
+      if InsightMetric.isStacked(question.metric) then stacked(question, aggDocs)
       else single(question, aggDocs)
     }
 
@@ -21,7 +22,7 @@ object AggregationClusters:
     yield Cluster(x, Insight.Single(Point(value)), nb, ids)
 
   private def getId[X](doc: Bdoc)(reader: BSONReader[X]): Option[X] =
-    doc.get("_id") flatMap reader.readOpt
+    doc.get("_id").flatMap(reader.readOpt)
 
   private case class StackEntry(metric: BSONValue, v: BSONNumberLike)
   private given BSONDocumentReader[StackEntry] = Macros.reader
@@ -29,7 +30,7 @@ object AggregationClusters:
   private def stacked[X](question: Question[X], aggDocs: List[Bdoc]): List[Cluster[X]] =
     for
       doc <- aggDocs
-      metricValues = InsightMetric valuesOf question.metric
+      metricValues = InsightMetric.valuesOf(question.metric)
       x     <- getId[X](doc)(question.dimension.bson)
       stack <- doc.getAsOpt[List[StackEntry]]("stack")
       points = metricValues.map { case InsightMetric.MetricValue(id, name) =>

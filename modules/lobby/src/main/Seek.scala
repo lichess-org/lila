@@ -1,13 +1,13 @@
 package lila.lobby
 
-import chess.{ Mode, Speed }
 import chess.variant.Variant
-import play.api.libs.json.*
+import chess.{ Mode, Speed }
 import ornicar.scalalib.ThreadLocalRandom
+import play.api.libs.json.*
 
 import lila.common.Days
 import lila.common.Json.given
-import lila.rating.{ PerfType, Perf, RatingRange }
+import lila.rating.{ Perf, PerfType, RatingRange }
 import lila.user.User
 
 // correspondence chess, persistent
@@ -24,16 +24,16 @@ case class Seek(
 
   inline def id = _id
 
-  val realColor = Color orDefault color
+  val realColor = Color.orDefault(color)
 
   val realVariant = Variant.orDefault(variant)
 
-  val realMode = Mode orDefault mode
+  val realMode = Mode.orDefault(mode)
 
   def compatibleWith(h: Seek) =
     user.id != h.user.id &&
       compatibilityProperties == h.compatibilityProperties &&
-      (realColor compatibleWith h.realColor) &&
+      (realColor.compatibleWith(h.realColor)) &&
       ratingRangeCompatibleWith(h) && h.ratingRangeCompatibleWith(this)
 
   private def ratingRangeCompatibleWith(s: Seek) =
@@ -41,7 +41,7 @@ case class Seek(
 
   private def compatibilityProperties = (variant, mode, daysPerTurn)
 
-  lazy val realRatingRange: Option[RatingRange] = RatingRange noneIfDefault ratingRange
+  lazy val realRatingRange: Option[RatingRange] = RatingRange.noneIfDefault(ratingRange)
 
   lazy val perfType = PerfType(realVariant, Speed.Correspondence)
 
@@ -77,7 +77,7 @@ object Seek:
       ratingRange: RatingRange,
       blocking: lila.pool.Blocking
   ): Seek = Seek(
-    _id = ThreadLocalRandom nextString idSize,
+    _id = ThreadLocalRandom.nextString(idSize),
     variant = variant.id,
     daysPerTurn = daysPerTurn,
     mode = mode.id,
@@ -88,7 +88,7 @@ object Seek:
   )
 
   def renew(seek: Seek) = Seek(
-    _id = ThreadLocalRandom nextString idSize,
+    _id = ThreadLocalRandom.nextString(idSize),
     variant = seek.variant,
     daysPerTurn = seek.daysPerTurn,
     mode = seek.mode,

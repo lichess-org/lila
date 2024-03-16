@@ -45,7 +45,7 @@ export function rangeConfig(read: () => number, write: (value: number) => void):
   };
 }
 
-export const boolPrefXhrToggle = (prefKey: string, val: boolean, effect: () => void = lichess.reload) =>
+export const boolPrefXhrToggle = (prefKey: string, val: boolean, effect: () => void = site.reload) =>
   baseToggle(val, async v => {
     await xhr.text(`/pref/${prefKey}`, { method: 'post', body: xhr.form({ [prefKey]: v ? '1' : '0' }) });
     effect();

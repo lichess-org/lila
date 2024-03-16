@@ -28,8 +28,8 @@ export default function (ctrl: SwissCtrl): VNode | undefined {
     h('div.stats', [
       h('h2', [h('span.rank', data.rank + '. '), renderPlayer(data, true, false)]),
       h('table', [
-        numberRow('Points', data.points, 'raw'),
-        numberRow('Tie break', data.tieBreak, 'raw'),
+        numberRow(noarg('points'), data.points, 'raw'),
+        numberRow(noarg('tieBreak'), data.tieBreak, 'raw'),
         ...(games
           ? [
               data.performance &&
@@ -93,7 +93,7 @@ function result(p: Pairing): string {
 
 function setup(vnode: VNode) {
   const el = vnode.elm as HTMLElement,
-    p = lichess.powertip;
+    p = site.powertip;
   p.manualUserIn(el);
   p.manualGameIn(el);
 }

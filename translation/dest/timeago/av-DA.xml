@@ -54,4 +54,13 @@
     <item quantity="one">%s соналда цебе</item>
     <item quantity="other">%s соналъ цебе</item>
   </plurals>
+  <plurals name="nbMinutesRemaining">
+    <item quantity="one">%s минут хутӀана</item>
+    <item quantity="other">%s минут хутӀана</item>
+  </plurals>
+  <plurals name="nbHoursRemaining">
+    <item quantity="one">%s сагӀат хутӀана</item>
+    <item quantity="other">%s сагӀат хутӀана</item>
+  </plurals>
+  <string name="completed">тӀубана</string>
 </resources>

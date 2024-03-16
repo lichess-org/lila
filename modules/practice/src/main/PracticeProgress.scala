@@ -1,6 +1,6 @@
 package lila.practice
 
-import lila.study.Chapter
+import lila.study.ChapterPreview
 
 case class PracticeProgress(
     _id: UserId,
@@ -14,7 +14,7 @@ case class PracticeProgress(
   inline def id = _id
 
   def apply(chapterId: StudyChapterId): Option[NbMoves] =
-    chapters get chapterId
+    chapters.get(chapterId)
 
   def withNbMoves(chapterId: StudyChapterId, nbMoves: PracticeProgress.NbMoves) =
     copy(
@@ -25,14 +25,15 @@ case class PracticeProgress(
     )
 
   def countDone(chapterIds: List[StudyChapterId]): Int =
-    chapterIds count chapters.contains
+    chapterIds.count(chapters.contains)
 
-  def firstOngoingIn(metas: List[Chapter.Metadata]): Option[Chapter.Metadata] =
-    metas.find { c =>
-      !chapters.contains(c.id) && !PracticeStructure.isChapterNameCommented(c.name)
-    } orElse metas.find { c =>
-      !PracticeStructure.isChapterNameCommented(c.name)
-    }
+  def firstOngoingIn(metas: List[ChapterPreview]): Option[ChapterPreview] =
+    metas
+      .find: c =>
+        !chapters.contains(c.id) && !PracticeStructure.isChapterNameCommented(c.name)
+      .orElse:
+        metas.find: c =>
+          !PracticeStructure.isChapterNameCommented(c.name)
 
 object PracticeProgress:
 

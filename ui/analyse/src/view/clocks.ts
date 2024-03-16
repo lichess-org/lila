@@ -1,23 +1,26 @@
 import { h, VNode } from 'snabbdom';
 import AnalyseCtrl from '../ctrl';
 import { isFinished } from '../study/studyChapters';
+import { notNull } from 'common';
 
 export default function renderClocks(ctrl: AnalyseCtrl): [VNode, VNode] | undefined {
   const node = ctrl.node,
     clock = node.clock;
-  if (!clock && clock !== 0) return;
 
   const whitePov = ctrl.bottomIsWhite(),
     parentClock = ctrl.tree.getParentClock(node, ctrl.path),
     isWhiteTurn = node.ply % 2 === 0,
     centis: Array<number | undefined> = isWhiteTurn ? [parentClock, clock] : [clock, parentClock];
 
-  const study = ctrl.study,
-    relay = study && study.data.chapter.relay;
+  if (!centis.some(notNull)) return;
 
-  const lastMoveAt =
-    (relay?.path === ctrl.path && ctrl.path !== '' && !isFinished(study!.data.chapter) && relay.lastMoveAt) ||
-    ctrl.autoplay.lastMoveAt;
+  const study = ctrl.study;
+
+  const lastMoveAt = study
+    ? study.data.chapter.relayPath !== ctrl.path || ctrl.path === '' || isFinished(study.data.chapter)
+      ? undefined
+      : study.relay?.lastMoveAt(study.vm.chapterId)
+    : ctrl.autoplay.lastMoveAt;
 
   if (lastMoveAt) {
     const spent = (Date.now() - lastMoveAt) / 10;
@@ -25,7 +28,7 @@ export default function renderClocks(ctrl: AnalyseCtrl): [VNode, VNode] | undefi
     if (centis[i]) centis[i] = Math.max(0, centis[i]! - spent);
   }
 
-  const showTenths = !ctrl.study || !ctrl.study.relay;
+  const showTenths = !study?.relay;
 
   return [
     renderClock(centis[0], isWhiteTurn, whitePov ? 'bottom' : 'top', showTenths),

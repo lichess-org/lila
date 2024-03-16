@@ -276,6 +276,7 @@
   <string name="abortGame">Cancelar partida</string>
   <string name="gameAborted">Partida cancelada</string>
   <string name="standard">Estándar</string>
+  <string name="customPosition">Posición personalizada</string>
   <string name="unlimited">Ilimitado</string>
   <string name="mode">Modo</string>
   <string name="casual">Amistosa</string>
@@ -418,6 +419,7 @@
   <string name="blackCheckmatesInOneMove">Juegan negras y dan mate en una</string>
   <string name="retry">Reintentar</string>
   <string name="reconnecting">Reconectando</string>
+  <string name="noNetwork">Sin conexión</string>
   <plurals name="nbFriendsOnline">
     <item quantity="one">%s amigo conectado</item>
     <item quantity="other">%s amigos conectados</item>
@@ -530,7 +532,7 @@
   <string name="automaticallyProceedToNextGameAfterMoving">Pasar automáticamente a la siguiente partida después de mover</string>
   <string name="autoSwitch">Cambio automático</string>
   <string name="puzzles">Ejercicios</string>
-  <string name="tournamentWinners">Ganadores del torneo</string>
+  <string name="onlineBots">Bots en línea</string>
   <string name="name">Nombre</string>
   <string name="description">Descripción</string>
   <string name="descPrivate">Descripción privada</string>
@@ -704,6 +706,7 @@
   <string name="toggleVariationArrows">Activar/Desactivar flechas de variantes</string>
   <string name="cyclePreviousOrNextVariation">Alterna entre la variante siguiente y la anterior</string>
   <string name="toggleGlyphAnnotations">Activa o desactiva la anotación de figurines</string>
+  <string name="togglePositionAnnotations">Alternar anotaciones de posición</string>
   <string name="variationArrowsInfo">Las flechas de variantes te permiten navegar sin usar la lista de movimientos.</string>
   <string name="playSelectedMove">hacer movimiento seleccionado</string>
   <string name="newTournament">Nuevo torneo</string>
@@ -885,7 +888,7 @@
   <string name="agreementPolicy">Me comprometo a seguir las normas de Lichess.</string>
   <string name="searchOrStartNewDiscussion">Buscar o empezar una nueva conversación</string>
   <string name="edit">Editar</string>
-  <string name="bullet" comment="Probably best left untranslated. Leave it as 'Bullet' unless your language has a better word for it.">Bala</string>
+  <string name="bullet" comment="Probably best left untranslated. Leave it as 'Bullet' unless your language has a better word for it.">Bullet</string>
   <string name="blitz" comment="Probably best left untranslated. Leave it as 'Blitz' unless your language has a better word for it.">Blitz</string>
   <string name="rapid">Rápida</string>
   <string name="classical">Clásica</string>
@@ -938,8 +941,6 @@ y afectan a la puntuación de los jugadores</string>
   <string name="minimumRatedGames">Mínimo de partidas por puntos</string>
   <string name="minimumRating">Puntuación mínima</string>
   <string name="maximumWeeklyRating">Puntuación máxima semanal</string>
-  <string name="onlyTitled">Sólo jugadores titulados</string>
-  <string name="onlyTitledHelp">Exigir un título oficial para participar en el torneo</string>
   <string name="positionInputHelp">Pega una descripción FEN para empezar todas las partidas con una posición específica.
 Sólo funciona con partidas estándar, no con las variantes.
 Puedes usar el %s para crear una posición FEN y pegarla aquí.
@@ -988,4 +989,5 @@ Déjalo vacío para empezar las partidas desde la posición inicial habitual.</s
   <string name="showMeEverything">Mostrarme todo</string>
   <string name="lichessPatronInfo">Lichess es una organización benéfica y un software totalmente libre y de código abierto.
 Todos los gastos de funcionamiento, desarrollo y contenidos se financian exclusivamente mediante las donaciones de sus usuarios.</string>
+  <string name="nothingToSeeHere">Nada que ver aquí por ahora.</string>
 </resources>

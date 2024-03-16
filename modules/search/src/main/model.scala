@@ -27,4 +27,4 @@ object CountResponse extends OpaqueInt[CountResponse]:
 
 object Date:
   val format    = "yyyy-MM-dd HH:mm:ss"
-  val formatter = java.time.format.DateTimeFormatter ofPattern format
+  val formatter = java.time.format.DateTimeFormatter.ofPattern(format)

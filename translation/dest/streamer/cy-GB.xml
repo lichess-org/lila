@@ -4,8 +4,8 @@
   <string name="lichessStreamer">Seren Lichess</string>
   <string name="live">Yn fyw!</string>
   <string name="offline">Ddim arlein</string>
-  <string name="currentlyStreaming">Yn ffrydio %s</string>
-  <string name="lastStream">Ffrwd diwethaf %s</string>
+  <string name="currentlyStreaming" comment="%s is the title of the stream, chosen by the streamer.">Yn ffrydio %s</string>
+  <string name="lastStream" comment="%s is how long ago the stream was in relative time (e.g. 50 minutes ago). It is displayed in smaller type than the rest of the string.">Ffrwd diwethaf %s</string>
   <string name="becomeStreamer">Dewch yn seren ffrydio Lichess</string>
   <string name="doYouHaveStream">Oes ganddoch chi ffrwd Twitch neu YouTube?</string>
   <string name="hereWeGo">Ffwrdd a ni!</string>

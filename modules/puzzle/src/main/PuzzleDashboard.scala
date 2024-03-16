@@ -76,7 +76,7 @@ object PuzzleDashboard:
     PuzzleTheme.masterVsMaster
   ).map(_.key)
 
-  val relevantThemes = PuzzleTheme.visible collect {
+  val relevantThemes = PuzzleTheme.visible.collect {
     case t if !irrelevantThemes.contains(t.key) => t.key
   }
 
@@ -106,7 +106,7 @@ final class PuzzleDashboardApi(
           "fixes"  -> Sum(countField("f")),
           "rating" -> AvgField("puzzle.rating")
         )
-        Match($doc("u" -> userId, "d" $gt nowInstant.minusDays(days))) -> List(
+        Match($doc("u" -> userId, "d".$gt(nowInstant.minusDays(days)))) -> List(
           Sort(Descending("d")),
           Limit(10_000),
           PipelineOperator(
@@ -138,7 +138,7 @@ final class PuzzleDashboardApi(
             byTheme = for
               doc      <- themeDocs
               themeStr <- doc.string("_id")
-              theme    <- PuzzleTheme find themeStr
+              theme    <- PuzzleTheme.find(themeStr)
               results  <- readResults(doc)
             yield theme.key -> results
           yield PuzzleDashboard(
@@ -158,4 +158,4 @@ final class PuzzleDashboardApi(
     rating <- doc.double("rating")
   yield Results(nb, wins, fixes, rating.toInt)
 
-  val relevantThemesSelect = $doc("puzzle.themes" $nin irrelevantThemes)
+  val relevantThemesSelect = $doc("puzzle.themes".$nin(irrelevantThemes))

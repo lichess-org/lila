@@ -51,7 +51,7 @@ export function makeConfig(ctrl: CgHost): CgConfig {
     },
     drawable: {
       enabled: true,
-      defaultSnapToValidMove: lichess.storage.boolean('arrow.snap').getOrDefault(true),
+      defaultSnapToValidMove: site.storage.boolean('arrow.snap').getOrDefault(true),
     },
     highlight: {
       lastMove: pref.highlight,

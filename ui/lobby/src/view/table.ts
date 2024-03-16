@@ -13,7 +13,7 @@ export default function table(ctrl: LobbyController) {
   return h('div.lobby__table', [
     h(
       'div.lobby__start',
-      (lichess.blindMode ? [h('h2', 'Play')] : []).concat(
+      (site.blindMode ? [h('h2', 'Play')] : []).concat(
         [
           ['hook', 'createAGame', hookDisabled],
           ['friend', 'playWithAFriend', hasOngoingRealTimeGame],
@@ -27,7 +27,11 @@ export default function table(ctrl: LobbyController) {
               attrs: { type: 'button' },
               hook: disabled
                 ? {}
-                : bind(lichess.blindMode ? 'click' : 'mousedown', () => ctrl.showSetupModal(gameType)),
+                : bind(
+                    site.blindMode ? 'click' : 'mousedown',
+                    () => ctrl.showSetupModal(gameType),
+                    ctrl.redraw,
+                  ),
             },
             trans(transKey),
           ),
@@ -40,10 +44,10 @@ export default function table(ctrl: LobbyController) {
       'div.lobby__counters',
       () =>
         h('div.lobby__counters', [
-          lichess.blindMode ? h('h2', 'Counters') : null,
+          site.blindMode ? h('h2', 'Counters') : null,
           h(
             'a',
-            { attrs: lichess.blindMode ? {} : { href: '/player' } },
+            { attrs: site.blindMode ? {} : { href: '/player' } },
             trans.vdomPlural(
               'nbPlayers',
               members,
@@ -61,7 +65,7 @@ export default function table(ctrl: LobbyController) {
           ),
           h(
             'a',
-            lichess.blindMode ? {} : { attrs: { href: '/games' } },
+            site.blindMode ? {} : { attrs: { href: '/games' } },
             trans.vdomPlural(
               'nbGamesInPlay',
               rounds,

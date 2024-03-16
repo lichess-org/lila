@@ -488,7 +488,6 @@
   <string name="automaticallyProceedToNextGameAfterMoving">चालीनंतर आपोआप पुढच्या खेळाकडे जा</string>
   <string name="autoSwitch">आपोआप बदला</string>
   <string name="puzzles">कोडी</string>
-  <string name="tournamentWinners">क्रीडासत्रातील विजेते</string>
   <string name="name">नाव</string>
   <string name="description">माहिती</string>
   <string name="descPrivate">खाजगी वर्णन</string>
@@ -878,8 +877,6 @@
   <string name="minimumRatedGames">किमान रेट केलेले खेळ</string>
   <string name="minimumRating">कमीत कमी मूल्यांकन</string>
   <string name="maximumWeeklyRating">जास्तीत जास्त आठवढ्यातील मूल्यांकन</string>
-  <string name="onlyTitled">फक्त पदवीधारक खेळाडूंसाठी</string>
-  <string name="onlyTitledHelp">स्पर्धेत भाग घेण्याकरिता अधिकृत पदवी गरजेची आहे</string>
   <string name="positionInputHelp">खेळ हव्या त्या स्थितीपासून सुरू करण्याकरिता वैध FEN पेस्ट करा.
 ही प्रक्रिया फक्त साध्या बुद्धिबळसाठी वापरता येईल, आणि इतर प्रकारच्या खेळांसाठी नाही.
 आपण %s वापरून FEN स्थिती तयार करून, नंतर ती इथे पेस्ट करू शकता.

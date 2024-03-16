@@ -1,6 +1,5 @@
 import type Tagify from '@yaireo/tagify';
 import { prop } from 'common';
-import { snabDialog } from 'common/dialog';
 import { bind, bindSubmit, onInsert } from 'common/snabbdom';
 import * as xhr from 'common/xhr';
 import { h, VNode } from 'snabbdom';
@@ -38,7 +37,7 @@ export const view = (ctrl: StudyCtrl): VNode =>
 let tagify: Tagify | undefined;
 
 export const formView = (ctrl: TopicsCtrl, userId?: string): VNode =>
-  snabDialog({
+  site.dialog.snab({
     class: 'study-topics',
     onClose() {
       ctrl.open(false);
@@ -74,8 +73,8 @@ export const formView = (ctrl: TopicsCtrl, userId?: string): VNode =>
   });
 
 function setupTagify(elm: HTMLInputElement | HTMLTextAreaElement, userId?: string) {
-  lichess.asset.loadCssPath('tagify');
-  lichess.asset.loadIife('npm/tagify/tagify.min.js').then(() => {
+  site.asset.loadCssPath('tagify');
+  site.asset.loadIife('npm/tagify/tagify.min.js').then(() => {
     const tagi = (tagify = new (window.Tagify as typeof Tagify)(elm, { pattern: /.{2,}/, maxTags: 30 }));
     let abortCtrl: AbortController | undefined; // for aborting the call
     tagi.on('input', e => {

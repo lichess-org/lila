@@ -1,12 +1,12 @@
 package lila.common
 
 import chess.format.pgn.PgnStr
-import lila.common.LpvEmbed
+
 import lila.common.config.AssetDomain
 
 class MarkdownTest extends munit.FunSuite:
 
-  val render: Markdown => Html = new MarkdownRender(assetDomain = AssetDomain("lichess1.org").some)("test") _
+  val render: Markdown => Html = new MarkdownRender(assetDomain = AssetDomain("lichess1.org").some)("test")
 
   test("autolinks add rel") {
     val md = Markdown("https://example.com")
@@ -37,7 +37,7 @@ class MarkdownTest extends munit.FunSuite:
   val pgns =
     Map(gameId.value -> LpvEmbed.PublicPgn(gamePgn), chapterId.value -> LpvEmbed.PublicPgn(chapterPgn))
   val expander = MarkdownRender.PgnSourceExpand(domain, pgns.get)
-  val mdRender = MarkdownRender(pgnExpand = expander.some)("test") _
+  val mdRender = MarkdownRender(pgnExpand = expander.some)("test")
 
   test("markdown game embeds full link") {
     val md = Markdown(s"foo [game]($gameUrl) bar")

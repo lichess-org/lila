@@ -2,10 +2,9 @@ package lila.gameSearch
 
 import play.api.libs.json.*
 
-import lila.game.{ Game, GameRepo }
 import lila.common.Json.given
+import lila.game.{ Game, GameRepo }
 import lila.search.*
-import alleycats.Zero
 
 final class GameSearchApi(
     client: ESClient,
@@ -15,22 +14,22 @@ final class GameSearchApi(
     extends SearchReadApi[Game, Query]:
 
   def search(query: Query, from: From, size: Size): Fu[List[Game]] =
-    client.search(query, from, size) flatMap { res =>
-      gameRepo gamesFromSecondary GameId.from(res.ids)
+    client.search(query, from, size).flatMap { res =>
+      gameRepo.gamesFromSecondary(GameId.from(res.ids))
     }
 
   def count(query: Query) =
     client.count(query).dmap(_.value)
 
   def validateAccounts(query: Query, forMod: Boolean): Fu[Boolean] =
-    fuccess(forMod) >>| !userRepo.containsDisabled(query.userIds)
+    fuccess(forMod) >>| userRepo.containsDisabled(query.userIds).not
 
   def store(game: Game) =
     storable(game).so:
-      gameRepo isAnalysed game.id flatMap { analysed =>
+      gameRepo.isAnalysed(game.id).flatMap { analysed =>
         lila.common.LilaFuture
           .retry(
-            () => client.store(game.id into Id, toDoc(game, analysed)),
+            () => client.store(game.id.into(Id), toDoc(game, analysed)),
             delay = 20.seconds,
             retries = 2,
             logger.some

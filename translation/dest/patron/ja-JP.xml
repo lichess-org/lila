@@ -78,4 +78,7 @@
   <string name="nowOneMonth">あなたはこれから 1 か月の間 Lichess パトロンです！</string>
   <string name="downgradeNextMonth">1 か月後にまた請求されることはなく、無料アカウントに戻ります。</string>
   <string name="changeCurrency">通貨を変更</string>
+  <string name="paymentDetails">支払いの詳細</string>
+  <string name="updatePaymentMethod">支払方法の更新</string>
+  <string name="stripeManageSub">サブスクリプションの管理、インボイスや領収書のダウンロード</string>
 </resources>

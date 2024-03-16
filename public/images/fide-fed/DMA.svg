@@ -1,0 +1,107 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="1200" height="600" viewBox="-7200 -3600 14400 7200" fill="#006b3f" stroke="#000" stroke-width="7">
+	<title>Flag of Dominica</title>
+	<g transform="scale(300)" stroke="none">
+		<path d="m-24-12h48v24h-48z"/>
+		<path fill="#fcd116" d="m-24-3h48v3h-48zm21-9h3v24h-3z"/>
+		<path fill="#fff" d="m-24 0h48v3h-48zM0-12h3v24H0z"/>
+		<path fill="#000" d="m-24-1h48v2h-48zm23-11h2v24h-2z"/>
+		<circle r="6" fill="#d41c30"/>
+	</g>
+	<g id="b">
+		<g id="a">
+			<path id="s" stroke-width="12" d="m0-1600.6 56.3 173.2h182L91-1320.4l56.3 173.1L0-1254.3l-147.3 107 56.3-173.1-147.3-107h182z"/>
+			<use xlink:href="#s" transform="rotate(36)"/>
+		</g>
+		<use xlink:href="#s" transform="rotate(72)"/>
+		<use xlink:href="#a" transform="rotate(108)"/>
+	</g>
+	<use xlink:href="#b" transform="scale(-1)"/>
+	<g transform="rotate(86)">
+		<ellipse cx="492" cy="-213" rx="530" ry="108"/>
+		<ellipse cx="498" cy="-318" rx="530" ry="114"/>
+		<ellipse cx="523" cy="-267" rx="586" ry="91"/>
+	</g>
+	<path fill="#9c4a00" d="m439 868c-161 17-865 25-895 3-30-22-75-115-75-120 92-4 52-53 99-79 46-27 112-9 132 23 20 33 4 65 29 66 26 0 526-24 710-11 30 2 53 29 53 59 0 30-23 56-53 59z"/>
+	<path id="c" fill="#fcd116" d="m-41 818c-1 70 101 50 103 108-3 61-172 4-174-109 7-112 172-167 174-103 2 53-101 35-103 104z"/>
+	<use xlink:href="#c" x="60"/>
+	<use xlink:href="#c" x="125"/>
+	<use xlink:href="#c" x="186"/>
+	<g transform="scale(.85,1.8)">
+		<g transform="rotate(48.1)">
+			<ellipse cx="317" cy="154" rx="68" ry="58"/>
+			<ellipse cx="245" cy="229" rx="68" ry="58"/>
+			<ellipse cx="148" cy="242" rx="68" ry="58"/>
+		</g>
+		<ellipse transform="rotate(63.2)" cx="251" cy="100" rx="73" ry="57"/>
+		<g transform="rotate(57.7)">
+			<ellipse cx="175" cy="124" rx="69" ry="57"/>
+			<ellipse cx="109" cy="192" rx="69" ry="57"/>
+		</g>
+	</g>
+	<path fill="#9461c9" d="m-177-632c0 0-176 152-156 565 22 416 389 611 389 611h58V-632z"/>
+	<g transform="scale(.85,1.8)">
+		<g transform="rotate(40.6)">
+			<ellipse cx="421" cy="95" rx="58" ry="68"/>
+			<ellipse cx="337" cy="151" rx="58" ry="68"/>
+			<ellipse cx="255" cy="132" rx="58" ry="68"/>
+		</g>
+		<ellipse transform="rotate(24.1)" cx="305" cy="161" rx="58" ry="73"/>
+		<g transform="rotate(29.9)">
+			<ellipse cx="450" cy="70" rx="57" ry="69"/>
+			<ellipse cx="375" cy="79" rx="57" ry="69"/>
+			<ellipse cx="279" cy="87" rx="57" ry="69"/>
+			<ellipse cx="192" cy="106" rx="57" ry="69"/>
+		</g>
+	</g>
+	<ellipse transform="rotate(66.5)" fill="#d41c30" stroke-width="4" cx="149" cy="-149" rx="456" ry="148"/>
+	<g transform="scale(1.25,.85)">
+		<ellipse cx="56" cy="-579" rx="49" ry="63"/>
+		<ellipse cx="50" cy="-658" rx="49" ry="63"/>
+		<ellipse cx="-18" cy="-563" rx="46" ry="67"/>
+		<ellipse cx="-4" cy="-649" rx="46" ry="66"/>
+		<ellipse cx="-80" cy="-647" rx="52" ry="67"/>
+		<ellipse cx="15" cy="-758" rx="49" ry="63"/>
+		<ellipse cx="-50" cy="-746" rx="46" ry="66"/>
+		<ellipse cx="-148" cy="-643" rx="46" ry="67"/>
+		<ellipse cx="-132" cy="-693" rx="46" ry="66"/>
+		<ellipse cx="-113" cy="-749" rx="46" ry="66"/>
+	</g>
+	<g transform="rotate(66.2)">
+		<ellipse cx="103" cy="-216" rx="543" ry="188"/>
+		<ellipse cx="245" cy="-323" rx="114" ry="36"/>
+	</g>
+	<path d="m378 94c153 187 134 306 118 406L279 267V33z"/>
+	<path d="m391 245c154 187 135 306 119 406L215 194v-307c23 60 23 171 176 358z"/>
+	<path d="m396 367c157 183 140 303 126 404-50-115-78-188-236-372-157-184-83-317-74-386 25 59 27 170 184 354z"/>
+	<ellipse transform="rotate(65)" cx="46" cy="-295" rx="202" ry="66"/>
+	<ellipse transform="rotate(65.7)" cx="112" cy="-197" rx="166" ry="58"/>
+	<ellipse transform="rotate(66.8)" cx="145" cy="-104" rx="166" ry="58"/>
+	<ellipse transform="rotate(62)" cx="-45" cy="-265" rx="127" ry="46"/>
+	<ellipse transform="rotate(65.6)" cx="-44" cy="-186" rx="127" ry="46"/>
+	<g stroke-linecap="round">
+		<path fill="none" d="m439 750a59 59 0 1 0 0 118"/>
+		<path d="m21-146a217 46 68 1 0 82-43"/>
+		<ellipse transform="rotate(65.6)" cx="-166" cy="-233" rx="127" ry="46"/>
+		<ellipse transform="rotate(66.8)" cx="-167" cy="-145" rx="127" ry="46"/>
+		<path d="m-30-299a155 33 59.7 1 0 54-41"/>
+		<path d="m1-349a140 32 59.8 1 0 65-21"/>
+		<path d="m117-323a214 46 59.3 1 0 75-56"/>
+		<path d="m48-388a161 34 62.4 1 0 53-45"/>
+	</g>
+	<g fill="#9461c9">
+		<path id="n" d="m97-553c-29 30 1 84 27 106 31 26 201 207 321 56-96-2-276-228-348-162z"/>
+		<use xlink:href="#n" x="-21" y="-89"/>
+		<use xlink:href="#n" x="-48" y="-174"/>
+		<use xlink:href="#n" x="-107" y="-271"/>
+		<path d="m-219-917c61-46 173-59 260-15 73 36 194 181 285 216-64 11-103 1-144-18-81 58-110 67-192 79-115 16-210-14-244-73-34-57-19-147 35-189z"/>
+	</g>
+	<g transform="scale(1.4,.7)">
+		<ellipse fill="#d41c30" cx="-64" cy="-1181" rx="38" ry="44"/>
+		<ellipse fill="#000" stroke="none" cx="-66" cy="-1184" rx="13" ry="23"/>
+	</g>
+	<g fill="#fcd116">
+		<ellipse transform="rotate(69.6)" cx="-747" cy="-11" rx="45" ry="73"/>
+		<path d="m-206-786c5 23-12 55-50 66-38 16-67 52-84 111-58-134-21-191 41-205 53-17 85-15 93 28z"/>
+	</g>
+	<circle fill="#000" stroke="none" cx="-262" cy="-756" r="13"/>
+</svg>

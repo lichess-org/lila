@@ -25,7 +25,6 @@
   <string name="longestStreak">Racha más larga: %s</string>
   <string name="currentStreak">Racha actual: %s</string>
   <string name="bestRated">Mejores victorias por puntos</string>
-  <string name="worstRated">Peores derrotas por puntos</string>
   <string name="gamesInARow">Partidas jugadas seguidas</string>
   <string name="lessThanOneHour">Menos de una hora entre partidas</string>
   <string name="maxTimePlaying">Tiempo máximo jugando</string>

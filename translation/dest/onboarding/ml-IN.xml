@@ -1,2 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+  <string name="welcome">സ്വാഗതം!</string>
+  <string name="thisIsYourProfilePage">ഇതാണ് നിങ്ങളുടെ പ്രൊഫൈൽ പേജ്.</string>
+  <string name="enabledKidModeSuggestion" comment="%s is 'Kid mode'.">ഈ അക്കൗണ്ട് ഒരു കുട്ടി ഉപയോഗിക്കുമൊ? നിങ്ങൾക്ക് %s ഓൺ ചെയ്യുന്നത് പരിഗണിക്കാവുന്നതാണ്.</string>
+  <string name="whatNowSuggestions">അടുത്തത് എന്ത്? ചില സൂചനകൾ ഇതാ:</string>
+  <string name="learnChessRules">ചെസ്സ് കളിക്കാൻ പഠിക്കാം</string>
+  <string name="improveWithChessTacticsPuzzles">ചെസ്സ് തന്ത്രങ്ങൾ പസിലുകൾ ഉപയോഗിച്ച് മെച്ചപ്പെടുത്തു.</string>
+</resources>

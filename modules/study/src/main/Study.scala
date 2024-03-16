@@ -1,12 +1,14 @@
 package lila.study
 
-import ornicar.scalalib.ThreadLocalRandom
 import chess.format.UciPath
+import ornicar.scalalib.ThreadLocalRandom
+import reactivemongo.api.bson.Macros.Annotations.Key
 
+import lila.common.config.Max
 import lila.user.User
 
 case class Study(
-    _id: StudyId,
+    @Key("_id") id: StudyId,
     name: StudyName,
     members: StudyMembers,
     position: Position.Ref,
@@ -20,16 +22,13 @@ case class Study(
     createdAt: Instant,
     updatedAt: Instant
 ):
-
   import Study.*
 
-  inline def id = _id
+  def owner = members.get(ownerId)
 
-  def owner = members get ownerId
+  def isOwner[U: UserIdOf](u: U) = ownerId.is(u)
 
-  def isOwner[U: UserIdOf](u: U) = ownerId is u
-
-  def isMember[U: UserIdOf](u: U) = members contains u.id
+  def isMember[U: UserIdOf](u: U) = members.contains(u.id)
 
   def canChat(id: UserId) = Settings.UserSelection.allows(settings.chat, this, id.some)
 
@@ -40,10 +39,10 @@ case class Study(
 
   def isCurrent(c: Chapter.Like) = c.id == position.chapterId
 
-  def withChapter(c: Chapter.Like): Study = if isCurrent(c) then this else rewindTo(c)
+  def withChapter(c: Chapter.Like): Study = if isCurrent(c) then this else rewindTo(c.id)
 
-  def rewindTo(c: Chapter.Like): Study =
-    copy(position = Position.Ref(chapterId = c.id, path = UciPath.root))
+  def rewindTo(chapterId: StudyChapterId): Study =
+    copy(position = Position.Ref(chapterId = chapterId, path = UciPath.root))
 
   def isPublic   = visibility == Study.Visibility.Public
   def isUnlisted = visibility == Study.Visibility.Unlisted
@@ -53,10 +52,14 @@ case class Study(
 
   def isOld = (nowSeconds - updatedAt.toSeconds) > 20 * 60
 
+  def isRelay = from match
+    case From.Relay(_) => true
+    case _             => false
+
   def cloneFor(user: User): Study =
     val owner = StudyMember(id = user.id, role = StudyMember.Role.Write)
     copy(
-      _id = Study.makeId,
+      id = Study.makeId,
       members = StudyMembers(Map(user.id -> owner)),
       ownerId = owner.id,
       visibility = Study.Visibility.Private,
@@ -81,15 +84,14 @@ case class Study(
 
 object Study:
 
-  val maxChapters = 64
+  val maxChapters = Max(64)
 
   val previewNbMembers  = 4
   val previewNbChapters = 4
 
-  case class IdName(_id: StudyId, name: StudyName):
-    inline def id = _id
+  case class IdName(@Key("_id") id: StudyId, name: StudyName)
 
-  def toName(str: String) = StudyName(lila.common.String.fullCleanUp(str) take 100)
+  def toName(str: String) = StudyName(lila.common.String.fullCleanUp(str).take(100))
 
   enum Visibility:
     case Private, Unlisted, Public
@@ -106,7 +108,7 @@ object Study:
   opaque type Rank = Instant
   object Rank extends OpaqueInstant[Rank]:
     def compute(likes: Likes, createdAt: Instant) =
-      Rank(createdAt plusHours likesToHours(likes))
+      Rank(createdAt.plusHours(likesToHours(likes)))
     private def likesToHours(likes: Likes): Int =
       if likes < 1 then 0
       else (5 * math.log(likes) + 1).toInt.min(likes) * 24
@@ -144,7 +146,7 @@ object Study:
 
   case class LightStudy(isPublic: Boolean, contributors: Set[UserId])
 
-  def makeId = StudyId(ThreadLocalRandom nextString 8)
+  def makeId = StudyId(ThreadLocalRandom.nextString(8))
 
   def make(
       user: User,
@@ -155,7 +157,7 @@ object Study:
   ) =
     val owner = StudyMember(id = user.id, role = StudyMember.Role.Write)
     Study(
-      _id = id | makeId,
+      id = id | makeId,
       name = name | StudyName(s"${user.username}'s Study"),
       members = StudyMembers(Map(user.id -> owner)),
       position = Position.Ref(StudyChapterId(""), UciPath.root),

@@ -4,8 +4,7 @@ import reactivemongo.api.*
 import reactivemongo.api.bson.*
 
 import lila.db.dsl.{ *, given }
-import lila.rating.{ Perf, PerfType }
-import lila.rating.Glicko
+import lila.rating.{ Glicko, Perf, PerfType }
 
 final class UserPerfsRepo(private[user] val coll: Coll)(using Executor):
 
@@ -55,8 +54,7 @@ final class UserPerfsRepo(private[user] val coll: Coll)(using Executor):
       if cur(pt).nb != prev(pt).nb
       bson <- wr.writeOpt(cur(pt))
     yield BSONElement(pt.key.value, bson)
-    diff.nonEmpty so
-      coll.update.one($id(cur.id), $doc("$set" -> $doc(diff*)), upsert = true).void
+    diff.nonEmpty.so(coll.update.one($id(cur.id), $doc("$set" -> $doc(diff*)), upsert = true).void)
 
   def setManagedUserInitialPerfs(id: UserId) =
     coll.update.one($id(id), UserPerfs.defaultManaged(id), upsert = true).void
@@ -71,7 +69,7 @@ final class UserPerfsRepo(private[user] val coll: Coll)(using Executor):
       .find($id(userId), $doc(s"${perfType.key}.gl" -> true).some)
       .one[Bdoc]
       .dmap:
-        _.flatMap(_ child perfType.key.value)
+        _.flatMap(_.child(perfType.key.value))
           .flatMap(_.getAsOpt[Glicko]("gl")) | Glicko.default
 
   def addStormRun  = addStormLikeRun("storm")

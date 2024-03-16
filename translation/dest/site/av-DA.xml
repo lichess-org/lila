@@ -521,7 +521,6 @@
   <string name="automaticallyProceedToNextGameAfterMoving">Хъурщаралдаса автоматик хадусеб хӀаялде жувазе</string>
   <string name="autoSwitch">Авто хиси</string>
   <string name="puzzles">Масъала</string>
-  <string name="tournamentWinners">Турниралда бергьарал</string>
   <string name="name">ЦӀар</string>
   <string name="description">Гьелъул хӀакъалъулъ хъвай</string>
   <string name="descPrivate">Бахчараб бицин</string>
@@ -681,6 +680,7 @@
   <string name="keyNextBlunder">Хадусеб кӀудияб гъалатӀ</string>
   <string name="keyNextMistake">Хадусеб гъалатӀ</string>
   <string name="keyNextInaccuracy">Хадусеб гьитӀинаб гъалатӀ</string>
+  <string name="playSelectedMove">бищараб хъурши гьабе</string>
   <string name="newTournament">ЦӀияб турнир</string>
   <string name="tournamentHomeTitle">БатӀи-батӀиял заманалда тӀад хъаравуллъиги варинталги ругел шахматазул турнирал</string>
   <string name="tournamentHomeDescription">Хехал шахматал турниразда хӀай! Расмияб турниралде лъугьа яги дурго гьабе. Гулла, Blitz, Килассик, Chess960, МугӀрул Къирал, Лъабго шах, гьединго цогидал дур кепалъе рагьарал шартӀал.</string>
@@ -723,6 +723,7 @@
   <string name="withFriends">Гьудулзабигун</string>
   <string name="withEverybody">Кинавгогун</string>
   <string name="kidMode">Лъимадул къагӀида</string>
+  <string name="kidModeIsEnabled">Лъимериляб къагIида биччан буго.</string>
   <string name="enableKidMode">Лъимадул къагӀида биччазе</string>
   <string name="disableKidMode">Лъимадул къагӀида свинабизе</string>
   <string name="security">ХӀинкъи гьечӀолъи</string>
@@ -828,6 +829,7 @@
   <string name="playVariationToCreateConditionalPremoves">ШартӀиял цереккунго хъурщиял гьаризе, вариантал гьаре</string>
   <string name="noConditionalPremoves">ШартӀиял гурел цереккунго хъурщиял</string>
   <string name="playX">%s гьабе</string>
+  <string name="clickHereToReadIt">Гьеб цIализе цуй гьаниб</string>
   <string name="sorry">ТӀаса лъугьа :(</string>
   <string name="weHadToTimeYouOutForAWhile">Дур хӀалтӀи заманалде гьоркьоб къотӀизабизе ккана.</string>
   <string name="why">Щай?</string>
@@ -847,6 +849,8 @@
   <string name="agreementMultipleAccounts" comment="%s will be replaced with the translation of 'termsOfService'">Дун рази вуго дица чанги аккаунт гьабичӀого тезе (%s-да рехсарал гӀиллабаз гурони).</string>
   <string name="agreementPolicy">Дун рази вуго Lichess-алъул къагӀидаби цӀунизе.</string>
   <string name="edit">Хисизе</string>
+  <string name="bullet" comment="Probably best left untranslated. Leave it as 'Bullet' unless your language has a better word for it.">Гулла</string>
+  <string name="blitz" comment="Probably best left untranslated. Leave it as 'Blitz' unless your language has a better word for it.">Блиц</string>
   <string name="rapid">Рапид</string>
   <string name="classical">Киласик</string>
   <string name="ultraBulletDesc">ХӀисаб тун хехал хӀаял: 30 секундалдаса дагьаб</string>
@@ -893,8 +897,6 @@
   <string name="minimumRatedGames">Бищун дагьаб рейтингалъул хӀай</string>
   <string name="minimumRating">Бишун дагьаб рейтинг</string>
   <string name="maximumWeeklyRating">Бищун гӀемераб щибаб анкьил рейтинг</string>
-  <string name="onlyTitled">ЦохӀо титул бугел хӀалел чагӀи</string>
-  <string name="onlyTitledHelp">Турниралде жувазе, расмияб титул къваригӀуна</string>
   <string name="positionInputHelp">Щибаб хӀай кьураб бакӀалдаса байбихьизе, битӀараб FEN лъей.
 Гьеб цохӀо гӀадатал хӀаязда хӀалтӀула, варианталгун гуро.
 Дуда %s хӀалтӀизабизе кӀола FEN бакӀ гьабизе цинги гьеб гьаниб лъезе.
@@ -938,6 +940,8 @@
   <string name="switchSides">Рахъ хизисе</string>
   <string name="closingAccountWithdrawAppeal">Дур аккаунт къаялъ дур хитӀаб нахъе ахӀула</string>
   <string name="ourEventTips">Тадбирал гьабизелъун нижер гӀакълаби</string>
+  <string name="instructions">Нухмалъи</string>
+  <string name="showMeEverything">Кинабго бихьизабизе</string>
   <string name="lichessPatronInfo">Lichess ккола лъикӀаб гьариги ругеб тӀубанго мухьги босулареб рагьараб кьучӀаб код бугеб программаялдалъун хьезари.
 Садакъа кьолел хӀалтӀизабулез киналго харжал, разработка, контент гӀарцудалъун хьезарула.</string>
 </resources>

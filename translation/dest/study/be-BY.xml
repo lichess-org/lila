@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="private">Прыватнае</string>
+  <string name="private">Прыватны</string>
   <string name="myStudies">Мае навучанні</string>
   <string name="studiesIContributeTo">Навучанні, якія я рэдагую</string>
   <string name="myPublicStudies">Мае публічныя навучанні</string>
@@ -59,6 +59,7 @@
   <string name="allSyncMembersRemainOnTheSamePosition">Усе сінхранізаваныя ўдзельнікі застаюцца на аднолькавай пазіцыі</string>
   <string name="shareChanges">Падзяліцца зменамі з гледачамі та захаваць іх на серверы</string>
   <string name="playing">Гуляецца</string>
+  <string name="showEvalBar">Шкалы ацэнкі</string>
   <string name="first">На першую</string>
   <string name="previous">Папярэдняя</string>
   <string name="next">Наступная</string>
@@ -68,6 +69,8 @@
   <string name="studyPgn">PGN навучання</string>
   <string name="downloadAllGames">Спампаваць усе гульні</string>
   <string name="chapterPgn">PGN раздзелу</string>
+  <string name="copyChapterPgn">Скапіраваць PGN</string>
+  <string name="copyChapterPgnDescription">Скапіраваць PGN главы ў буфер абмену.</string>
   <string name="downloadGame">Спампаваць гульню</string>
   <string name="studyUrl">URL навучання</string>
   <string name="currentChapterUrl">URL бягучага раздзелу</string>
@@ -88,7 +91,7 @@
   <string name="pinnedChapterComment">Замацаваны каментар раздзелу</string>
   <string name="saveChapter">Захаваць раздзел</string>
   <string name="clearAnnotations">Ачысціць анатацыі</string>
-  <string name="clearVariations">Ачысціць варыянты</string>
+  <string name="clearVariations" comment="Clear is used as a verb here. This erases the variations in the study (https://lichess.org/study) you are preparing.">Ачысціць варыянты</string>
   <string name="deleteChapter">Выдаліць раздзел</string>
   <string name="deleteThisChapter">Выдаліць гэты раздел? Гэта нельга будзе адмяніць!</string>
   <string name="clearAllCommentsInThisChapter">Выдаліць усе каментары, знакавыя анатацыі і намаляваныя фігуры ў гэтым раздзеле?</string>

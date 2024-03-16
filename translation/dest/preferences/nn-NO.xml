@@ -15,12 +15,11 @@
   <string name="pgnLetter">Bokstav (K, Q, R, B, N)</string>
   <string name="zenMode" comment="zenMode&#10;&#10;This is not the religious meaning. Turning this option on takes away make elements of the user interface.&#10;&#10;Can also translate as 'Focus mode' as one example.">Zen-modus</string>
   <string name="showPlayerRatings">Vis ratingen til spelarane</string>
-  <string name="showFlairs">Vis spelarikonar</string>
+  <string name="showFlairs">Vis symbol for talentet til spelarane</string>
   <string name="explainShowPlayerRatings">Denne innstillinga gjer det mogleg å gøyme alle ratingar frå nettsida. Dette for å hjelpa til med å fokusera på sjakken. Du kan framleis spela rangerte parti, dette handlar berre om kva du får sjå.</string>
   <string name="displayBoardResizeHandle">Vis handtak for brettstorleik</string>
   <string name="onlyOnInitialPosition">Berre for startstillinga</string>
   <string name="inGameOnly">Berre under eit parti</string>
-  <string name="blindfoldChess">Blindsjakk</string>
   <string name="chessClock">Sjakkur</string>
   <string name="tenthsOfSeconds">Tidels sekund</string>
   <string name="whenTimeRemainingLessThanTenSeconds" comment="whenTimeRemainingLessThanTenSeconds&#10;&#10;The &amp;lt; symbol is not required (you can write it as a word), just do NOT use &lt; in its place.&#10;&#10;Technical information: &lt; is a reserved character in HTML, which is why it cannot be used.">Når det er mindre enn 10 sekundar igjen</string>

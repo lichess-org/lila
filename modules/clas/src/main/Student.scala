@@ -2,8 +2,8 @@ package lila.clas
 
 import ornicar.scalalib.SecureRandom
 
-import lila.user.{ User, UserPerfs }
 import lila.rating.Perf
+import lila.user.{ User, UserPerfs }
 
 case class Student(
     _id: Student.Id, // userId:clasId
@@ -63,7 +63,7 @@ object Student:
 
     private val chars      = ('2' to '9') ++ (('a' to 'z').toSet - 'l') mkString
     private val nbChars    = chars.length
-    private def secureChar = chars(SecureRandom nextInt nbChars)
+    private def secureChar = chars(SecureRandom.nextInt(nbChars))
 
     def generate = User.ClearPassword:
       String(Array.fill(7)(secureChar))

@@ -85,7 +85,7 @@
   <string name="unknown">Ukjend</string>
   <string name="database">Database</string>
   <string name="whiteDrawBlack">Kvit / Remis / Svart</string>
-  <string name="averageRatingX">Gjennomsnittleg rating: %s</string>
+  <string name="averageRatingX">Snittrating: %s</string>
   <string name="recentGames">Nylege parti</string>
   <string name="topGames">Topp-parti</string>
   <string name="masterDbExplanation">Brettsjakkparti med spelarar som har FIDE-rating %1$s+ frå %2$s til %3$s</string>
@@ -245,7 +245,7 @@
   <string name="rank">Rangering</string>
   <string name="rankX">Plassering: %s</string>
   <plurals name="rankIsUpdatedEveryNbMinutes">
-    <item quantity="one">Rating blir oppdatert kvart minutt</item>
+    <item quantity="one">Rangeringa blir oppdatert kvart minutt</item>
     <item quantity="other">Rating blir oppdatert kvart %s. minutt</item>
   </plurals>
   <plurals name="nbPuzzles">
@@ -276,6 +276,7 @@
   <string name="abortGame">Avbryt partiet</string>
   <string name="gameAborted">Partiet blei avbrote</string>
   <string name="standard">Standard</string>
+  <string name="customPosition">Brukardefinert stilling</string>
   <string name="unlimited">Uavgrensa</string>
   <string name="mode">Modus</string>
   <string name="casual">Urangert</string>
@@ -374,7 +375,7 @@
     <item quantity="other">Du må spela endå %s rangerte parti</item>
   </plurals>
   <string name="yourPerfRatingIsProvisional">Ratinga di på %s er mellombels</string>
-  <string name="yourPerfRatingIsTooHigh">Ratinga di %1$s (%2$s) er for høg</string>
+  <string name="yourPerfRatingIsTooHigh">Ratinga di i %1$s (%2$s) er for høg</string>
   <string name="yourTopWeeklyPerfRatingIsTooHigh">Den beste vekesratinga di i %1$s (%2$s) er for høg</string>
   <string name="yourPerfRatingIsTooLow">Ratinga di i %1$s (%2$s) er for låg</string>
   <string name="ratedMoreThanInPerf">Rangert ≥ %1$s i %2$s</string>
@@ -387,7 +388,7 @@
   <string name="xCreatedTeamY">%1$s oppretta lag %2$s</string>
   <string name="startedStreaming">starta å strøyma</string>
   <string name="xStartedStreaming">%s starta å strøyme</string>
-  <string name="averageElo">Gjennomsnittleg rating</string>
+  <string name="averageElo">Snittrating</string>
   <string name="location">Stad</string>
   <string name="filterGames">Filtrer parti</string>
   <string name="reset">Attendestill</string>
@@ -419,6 +420,7 @@ få en computeranalyse, chatte eller dele ein URL.</string>
   <string name="blackCheckmatesInOneMove">Svart set matt i eitt trekk</string>
   <string name="retry">Prøv om att</string>
   <string name="reconnecting">Koplar til på ny</string>
+  <string name="noNetwork">Fråkopla</string>
   <plurals name="nbFriendsOnline">
     <item quantity="one">%s ven er innlogga</item>
     <item quantity="other">%s vener er innlogga</item>
@@ -508,9 +510,9 @@ få en computeranalyse, chatte eller dele ein URL.</string>
   <string name="editProfile">Rediger profilen</string>
   <string name="firstName">Førenamn</string>
   <string name="lastName">Etternamn</string>
-  <string name="setFlair">Vel ikonet ditt</string>
-  <string name="flair">Ikon</string>
-  <string name="youCanHideFlair">Det finst ei innstilling for å skjule alle brukarikonar på heile nettstaden.</string>
+  <string name="setFlair">Vel eit ikon som best representerer talentet ditt</string>
+  <string name="flair">Talent</string>
+  <string name="youCanHideFlair">Det finst ei innstilling for å skjule symbolet for spelarane sine talent på heile nettstaden.</string>
   <string name="biography">Biografi</string>
   <string name="countryRegion" comment="flag&#10;Appears when you edit your profile. Lets a player add a country/flag (not all flags are for countries) to their profile">Land eller region</string>
   <string name="thankYou">Takk!</string>
@@ -531,7 +533,7 @@ få en computeranalyse, chatte eller dele ein URL.</string>
   <string name="automaticallyProceedToNextGameAfterMoving">Gå automatisk til neste parti etter trekk</string>
   <string name="autoSwitch">Hopp automatisk til neste parti</string>
   <string name="puzzles">Sjakknøtter</string>
-  <string name="tournamentWinners">Turneringsvinnarar</string>
+  <string name="onlineBots">Online botar</string>
   <string name="name">Namn</string>
   <string name="description">Forklaring</string>
   <string name="descPrivate">Privat omtale</string>
@@ -705,6 +707,7 @@ få en computeranalyse, chatte eller dele ein URL.</string>
   <string name="toggleVariationArrows">Slå variantpilar på/av</string>
   <string name="cyclePreviousOrNextVariation">Gå gjennom førre/neste variant</string>
   <string name="toggleGlyphAnnotations">Slå symbol-merknadar på/av</string>
+  <string name="togglePositionAnnotations">Slå merknader for stillingar på/av</string>
   <string name="variationArrowsInfo">Med hjelp av variantpiler kan du navigere utan å bruka trekklista.</string>
   <string name="playSelectedMove">spel valde trekk</string>
   <string name="newTournament">Ny turnering</string>
@@ -723,7 +726,7 @@ få en computeranalyse, chatte eller dele ein URL.</string>
   <string name="youAreBetterThanPercentOfPerfTypePlayers">Du er betre enn %1$s av %2$s-spelarane.</string>
   <string name="userIsBetterThanPercentOfPerfTypePlayers">%1$s er betre enn %2$s av %3$s-spelarane.</string>
   <string name="betterThanPercentPlayers">Betre enn %1$s av %2$s spelarar</string>
-  <string name="youDoNotHaveAnEstablishedPerfTypeRating">Du har ikkje etablert ein %s rating.</string>
+  <string name="youDoNotHaveAnEstablishedPerfTypeRating">Du har ikkje etablert ein %s-rating.</string>
   <string name="yourRating">Ratinga di i er</string>
   <string name="cumulative">Akkumulert</string>
   <string name="glicko2Rating">Glicko-2 rating</string>
@@ -887,7 +890,7 @@ få en computeranalyse, chatte eller dele ein URL.</string>
   <string name="searchOrStartNewDiscussion">Søk eller start ein ny diskusjon</string>
   <string name="edit">Rediger</string>
   <string name="bullet" comment="Probably best left untranslated. Leave it as 'Bullet' unless your language has a better word for it.">Bullet</string>
-  <string name="blitz" comment="Probably best left untranslated. Leave it as 'Blitz' unless your language has a better word for it.">Blitz</string>
+  <string name="blitz" comment="Probably best left untranslated. Leave it as 'Blitz' unless your language has a better word for it.">Lyn</string>
   <string name="rapid">Snøggsjakk</string>
   <string name="classical">Langsjakk</string>
   <string name="ultraBulletDesc">Ekstremt snøgge parti: under 30 sekund</string>
@@ -922,7 +925,7 @@ få en computeranalyse, chatte eller dele ein URL.</string>
   <string name="congratsYouWon">Gratulerer, du vann!</string>
   <string name="gameVsX">Spel mot %1$s</string>
   <string name="resVsX">%1$s mot %2$s</string>
-  <string name="lostAgainstTOSViolator">Du tapte mot nokon som braut med Lichess TOS</string>
+  <string name="lostAgainstTOSViolator">Du tapte mot nokon som braut med Lichess\' sine vilkår</string>
   <string name="refundXpointsTimeControlY">Refundering: %1$s %2$s ratingpoeng.</string>
   <string name="timeAlmostUp">Tida er nesten ute!</string>
   <string name="clickToRevealEmailAddress">[Klikk for å visa epost-adresse]</string>
@@ -939,8 +942,6 @@ og påverkar rangeringa til spelarane</string>
   <string name="minimumRatedGames">Minste antal rangerte parti</string>
   <string name="minimumRating">Lågaste rating</string>
   <string name="maximumWeeklyRating">Høgste rating siste veke</string>
-  <string name="onlyTitled">Berre spelarar med sjakktittel</string>
-  <string name="onlyTitledHelp">Krev ein offisiell sjakktittel for å delta med i turneringa</string>
   <string name="positionInputHelp">Sett inn ein gyldig FEN for å starte kvart parti frå gjeven stilling.
 Det fungerar berre for standardparti, ikke for variantar.
 Du kan bruke %s for å generere en FEN-stilling, som du limar inn her.
@@ -989,4 +990,5 @@ La feltet stå tomt for å starte partia frå den normale utgangsstillinga.</str
   <string name="showMeEverything">Vis alt</string>
   <string name="lichessPatronInfo">Lichess er ein velgjerdsorganisasjon basert på fritt tilgjengeleg open-kjeldekode-programvare.
 Alle kostnader for drift, utvikling og innhald vert finansiert eine og åleine av brukardonasjonar.</string>
+  <string name="nothingToSeeHere">Ikkje noko å sjå nett no.</string>
 </resources>

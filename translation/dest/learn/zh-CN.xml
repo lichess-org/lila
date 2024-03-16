@@ -165,12 +165,12 @@
 王是无价的，如果你的王被将死你就输了这盘棋！</string>
   <string name="queenOverBishop">请吃掉价值大的棋子！
 后 &gt; 象</string>
-  <string name="pieceValueExchange">吃最高价值的棋子！
+  <string name="pieceValueExchange">吃掉最高价值的棋子！
 不要用价值高的棋子换价值低的棋子</string>
-  <string name="pieceValueLegal">吃最高价值的棋子！
-确保你走的棋是合法的！</string>
+  <string name="pieceValueLegal">吃掉最高价值的棋子！
+确保你走的棋步是合规的！</string>
   <string name="takeThePieceWithTheHighestValue">请吃掉价值高的棋子！</string>
-  <string name="pieceValueComplete">恭喜！你已经懂得子力价值！
+  <string name="pieceValueComplete">恭喜！你已经知道了子力的价值！
 后=9
 车=5
 象=3

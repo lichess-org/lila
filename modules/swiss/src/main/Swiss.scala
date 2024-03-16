@@ -1,8 +1,8 @@
 package lila.swiss
 
-import chess.Clock.{ Config as ClockConfig }
-import chess.format.Fen
+import chess.Clock.Config as ClockConfig
 import chess.Speed
+import chess.format.Fen
 import ornicar.scalalib.ThreadLocalRandom
 
 import lila.rating.PerfType
@@ -30,13 +30,13 @@ case class Swiss(
   def isStarted            = !isCreated && !isFinished
   def isFinished           = finishedAt.isDefined
   def isNotFinished        = !isFinished
-  def isNowOrSoon          = startsAt.isBefore(nowInstant plusMinutes 15) && !isFinished
+  def isNowOrSoon          = startsAt.isBefore(nowInstant.plusMinutes(15)) && !isFinished
   def finishedSinceSeconds = finishedAt.map(nowSeconds - _.toSeconds)
   def isRecentlyFinished   = finishedSinceSeconds.exists(_ < 30 * 60)
   def isEnterable =
     isNotFinished && round.value <= settings.nbRounds / 2 && nbPlayers < Swiss.maxPlayers
 
-  def allRounds: List[SwissRoundNumber] = SwissRoundNumber from (1 to round.value).toList
+  def allRounds: List[SwissRoundNumber] = SwissRoundNumber.from((1 to round.value).toList)
 
   def startRound =
     copy(
@@ -105,7 +105,7 @@ object Swiss:
   ):
     lazy val intervalSeconds = roundInterval.toSeconds.toInt
     def manualRounds         = intervalSeconds == Swiss.RoundInterval.manual
-    def dailyInterval = (!manualRounds && intervalSeconds >= 24 * 3600) option intervalSeconds / 3600 / 24
+    def dailyInterval = (!manualRounds && intervalSeconds >= 24 * 3600).option(intervalSeconds / 3600 / 24)
 
   type ChatFor = Int
   object ChatFor:
@@ -122,7 +122,7 @@ object Swiss:
   def makeScore(points: SwissPoints, tieBreak: TieBreak, perf: Performance) =
     Score((points.value * 10000000 + tieBreak * 10000 + perf).toInt)
 
-  def makeId = SwissId(ThreadLocalRandom nextString 8)
+  def makeId = SwissId(ThreadLocalRandom.nextString(8))
 
   case class PastAndNext(past: List[Swiss], next: List[Swiss])
 

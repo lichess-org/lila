@@ -5,6 +5,7 @@
   <string name="toInviteSomeoneToPlayGiveThisUrl">इस खेल में किसी को आमंत्रित करने के लिए उन्हें ये पता दें</string>
   <string name="gameOver">खेल समाप्त</string>
   <string name="waitingForOpponent">आप प्रतिद्वंदी की प्रतीक्षा कर रहे हैं</string>
+  <string name="orLetYourOpponentScanQrCode">या अपने प्रतिद्वंद्वी को इस क्यूआर कोड को स्कैन करने दें</string>
   <string name="waiting">प्रतिद्वंदी के चुनौती स्वीकार करने की प्रतीक्षा कर रहे हैं</string>
   <string name="yourTurn">आपकी चाल</string>
   <string name="aiNameLevelAiLevel">%1$s स्तर %2$s वाला</string>
@@ -70,6 +71,7 @@
   <string name="makeMainLine">मुख्य लाइन बनाएं</string>
   <string name="deleteFromHere">यहां से हटाओ</string>
   <string name="forceVariation">बल भिन्नता</string>
+  <string name="copyVariationPgn">प्रतिलिपि भिन्नता पीजीएन</string>
   <string name="move">चाल</string>
   <string name="variantLoss">प्रकार में हानि</string>
   <string name="variantWin">जीत का प्रकार</string>
@@ -122,6 +124,7 @@
   <string name="memory">स्मृति (मेमोरी)</string>
   <string name="infiniteAnalysis">अनंत विश्लेषण</string>
   <string name="removesTheDepthLimit">गहराई सीमा को निकालता है, और आपके कंप्यूटर को गर्म रखता है</string>
+  <string name="engineManager">इंजन प्रबंधक</string>
   <string name="blunder">भयंकर गलती</string>
   <string name="mistake">ग़लती</string>
   <string name="inaccuracy">गलती</string>
@@ -153,6 +156,10 @@
   <plurals name="nbGames">
     <item quantity="one">%s खेल</item>
     <item quantity="other">%s खेल</item>
+  </plurals>
+  <plurals name="ratingXOverYGames">
+    <item quantity="one">%1$s खेलों में %2$s रेटिंग</item>
+    <item quantity="other">%1$s खेलों में %2$s रेटिंग</item>
   </plurals>
   <plurals name="nbBookmarks">
     <item quantity="one">%s पृष्ठ स्मृतियाँ</item>
@@ -226,6 +233,7 @@
   <string name="emailSent">हम ने %s को ईमेल भेजा है|</string>
   <string name="emailCanTakeSomeTime">इसे आने में कुछ समय लग सकता है।</string>
   <string name="refreshInboxAfterFiveMinutes">5 मिनट प्रतीक्षा करें और अपना ईमेल इनबॉक्स रिफ्रेश करें।</string>
+  <string name="checkSpamFolder">अपना स्पैम फ़ोल्डर भी जांचें, हो सकता है कि वह वहां हो। यदि हां, तो इसे स्पैम नहीं के रूप में चिह्नित करें।</string>
   <string name="emailForSignupHelp">यदि बाकी सब विफल हो जाए तो हमें यह ईमेल भेजें</string>
   <string name="copyTextToEmail">उपरोक्त टेक्स्ट को कॉपी और पेस्ट करें और %s पर भेजें</string>
   <string name="waitForSignupHelp">आपका साइनअप पूरा करने में मदद करने के लिए हम जल्द ही आपके पास वापस आएंगे।</string>
@@ -514,7 +522,6 @@
   <string name="automaticallyProceedToNextGameAfterMoving">चाल चलने के बाद अपने आप अगले खेल पर जाएँ</string>
   <string name="autoSwitch">अपने आप खेल बदलें।</string>
   <string name="puzzles">पहेलियाँ</string>
-  <string name="tournamentWinners">टूर्नामेंट के विजेता</string>
   <string name="name">नाम</string>
   <string name="description">विवरण</string>
   <string name="descPrivate">टेक्स्ट जो केवल टीम के सदस्य देखेंगे। यदि सेट किया जाता है, तो टीम के सदस्यों के लिए सार्वजनिक विवरण को बदल देता है।</string>
@@ -898,8 +905,6 @@
   <string name="minimumRatedGames">न्यूनतम मूल्यांकित खेलों की संख्या</string>
   <string name="minimumRating">न्यूनतम मूल्यांकन</string>
   <string name="maximumWeeklyRating">न्यूनतम साप्ताहिक मूल्यांकन</string>
-  <string name="onlyTitled">केवल उपाधिप्राप्त खिलाड़ी</string>
-  <string name="onlyTitledHelp">प्रतियोगिता से जुड़ने के लिए आधिकारिक उपाधि आवश्यक</string>
   <string name="positionInputHelp">किसी निर्धारित स्थिति से खेल आरंभ करने के लिए एक वैध FEN डालें।
 यह केवल मूल खेलों के लिए काम करता है, रूपांतरण के साथ नहीं।
 आप %s का प्रयोग FEN स्थिति को प्राप्त करने के लिए कर सकते हैं फिर उसे यहाँ डाल दीजिए।

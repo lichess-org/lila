@@ -101,4 +101,5 @@
   <string name="streaksAndBerserk">Streaks και Berserk</string>
   <string name="similarToOTB">Όμοιο με τα διά ζώσης τουρνουά</string>
   <string name="unlimitedAndFree">Απεριόριστο και δωρεάν</string>
+  <string name="forbiddedUsers">Αν αυτή η λίστα δεν είναι κενή, τότε οι χρήστες που απουσιάζουν από αυτή τη λίστα θα απαγορεύεται να συμμετέχουν. Ένα όνομα χρήστη ανά γραμμή.</string>
 </resources>

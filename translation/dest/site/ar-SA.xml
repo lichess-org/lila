@@ -5,6 +5,7 @@
   <string name="toInviteSomeoneToPlayGiveThisUrl">لدعوة شخص ما للعب، أرسل له هذا الرابط</string>
   <string name="gameOver">انتهت المباراة</string>
   <string name="waitingForOpponent">في إنتظار المنافس</string>
+  <string name="orLetYourOpponentScanQrCode">أو أجعل خصمك يمسح رمز QR هذا</string>
   <string name="waiting">قيد الانتظار</string>
   <string name="yourTurn">دورك</string>
   <string name="aiNameLevelAiLevel">%1$s مستوى %2$s</string>
@@ -37,7 +38,7 @@
   <string name="whitePlays">دور الأبيض</string>
   <string name="blackPlays">دور الأسود</string>
   <plurals name="opponentLeftCounter">
-    <item quantity="zero">لقد غادر خصمك اللعبة. يمكنك المطالبة بالانتصار بعد %s ثانية.</item>
+    <item quantity="zero">انسحب خصمك من المباراة. يمكنك المطالبة بالفوز في غضون %s ثانية.</item>
     <item quantity="one">لقد غادر خصمك اللعبة. يمكنك الفوز بعد ثانية.</item>
     <item quantity="two">لقد غادر خصمك اللعبة. يمكنك الفوز بعد ثانيتين.</item>
     <item quantity="few">لقد غادر خصمك اللعبة. يمكنك الفوز بعد %s ثانية.</item>
@@ -53,7 +54,7 @@
   <string name="blackResigned">الأسود استسلم</string>
   <string name="whiteLeftTheGame">الأبيض ترك المباراة</string>
   <string name="blackLeftTheGame">الأسود ترك المباراة</string>
-  <string name="whiteDidntMove">لم يلعب الأبيض بعد</string>
+  <string name="whiteDidntMove">لم يقم الأبيض بالحركة</string>
   <string name="blackDidntMove">لم يلعب الأسود بعد</string>
   <string name="requestAComputerAnalysis">اطلب تحليل حاسب</string>
   <string name="computerAnalysis">تحليل الحاسوب</string>
@@ -68,10 +69,10 @@
   <string name="cloudAnalysis">تحليل سحابي</string>
   <string name="goDeeper">تحليل أعمق</string>
   <string name="showThreat">إظهار التهديد</string>
-  <string name="inLocalBrowser">باستخدام متصفحك</string>
+  <string name="inLocalBrowser">في متصفحك</string>
   <string name="toggleLocalEvaluation">التبديل للتحليل بالمتصفح</string>
   <string name="promoteVariation">رفع سلسلة الحركات</string>
-  <string name="makeMainLine">كتابة التفريع الرئيسي</string>
+  <string name="makeMainLine">رفع الى التسلسل الرئيسي</string>
   <string name="deleteFromHere">احذف من هنا</string>
   <string name="forceVariation">فرض التسلسل</string>
   <string name="copyVariationPgn">انسخ التفريع بصيغة PGN</string>
@@ -533,6 +534,7 @@
   <string name="blackCheckmatesInOneMove">كش مات للأسود في نقلة واحدة</string>
   <string name="retry">أعد المحاولة</string>
   <string name="reconnecting">إعادة الإتصال</string>
+  <string name="noNetwork">غير متصل</string>
   <plurals name="nbFriendsOnline">
     <item quantity="zero">%s أصدقاء متصلون</item>
     <item quantity="one">%s صديق متصل</item>
@@ -665,7 +667,6 @@
   <string name="automaticallyProceedToNextGameAfterMoving">الإنتقال تلقائيًا للمباراة التالية بعد النقل</string>
   <string name="autoSwitch">تبديل تلقائي</string>
   <string name="puzzles">الألغاز</string>
-  <string name="tournamentWinners">الفائزون بالبطولات</string>
   <string name="name">الاسم</string>
   <string name="description">الوصف</string>
   <string name="descPrivate">وصف خاص</string>
@@ -1105,8 +1106,6 @@
   <string name="minimumRatedGames">الحد الأدنى للالعاب المصنفة</string>
   <string name="minimumRating">أقل تصنيف</string>
   <string name="maximumWeeklyRating">الحد الاقصى للتصنيف الاسبوعي</string>
-  <string name="onlyTitled">فقط اللاعبين حملة الألقاب</string>
-  <string name="onlyTitledHelp">يتطلب لقب رسمي للمشاركة</string>
   <string name="positionInputHelp">لصق FEN صالح لبدء كل لعبة من موقع معين.
 إنه يعمل فقط للألعاب العادية، وليس مع المتغيرات.
 يمكنك استخدام %s لإنشاء موضع FEN، ثم لصقه هنا.

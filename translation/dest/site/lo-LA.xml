@@ -1,2 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+  <string name="playWithAFriend">ຫຼິ້ນກັບເພື່ອນ</string>
+  <string name="playWithTheMachine">ຫຼິ້ນກັບຄອມພິວເຕີ</string>
+  <string name="waitingForOpponent">​ກຳ​ລັງ​ລໍ​ຖ້າ opponent</string>
+  <string name="waiting">​ກຳ​ລັງ​ລໍ​ຖ້າ</string>
+  <string name="yourTurn">ຫັນຂອງທ່ານ</string>
+  <string name="chat">ສົນທະນາ</string>
+  <string name="resign">ລາອອກ</string>
+  <string name="cancel">ຍົກເລີກການ</string>
+  <string name="language">ພາສາ</string>
+</resources>

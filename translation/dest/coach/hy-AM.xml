@@ -5,7 +5,7 @@
   <string name="areYouCoach">Դուք գերազանց մարզի՞չ եք և ունեք %s։</string>
   <string name="nmOrFideTitle" comment="nmOrFideTitle&#10;&#10;Part of sentence &quot;Are you a great chess coach with a NM or FIDE title?&quot;&#10;&#10;The text links to our title verification page: https://lichess.org/help/master">ՖԻԴԵ-ի կամ ազգային վարպետի կոչում</string>
   <string name="confirmTitle">Հաստատեք Ձեր կոչումը, և մենք կքննենք Ձեր հայտը։</string>
-  <string name="sendApplication" comment="sendApplication&#10;&#10;%s is the lichess email adress">%s հասցեին ուղարկեք նամակ, և մենք կդիտարկենք Ձեր հայտը։</string>
+  <string name="sendApplication" comment="sendApplication&#10;&#10;%s is the lichess email address">%s հասցեին ուղարկեք նամակ, և մենք կդիտարկենք Ձեր հայտը։</string>
   <string name="location">Տեղակայում</string>
   <string name="languages">Լեզուներ</string>
   <string name="rating">Վարկանիշ</string>

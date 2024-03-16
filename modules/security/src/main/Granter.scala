@@ -20,7 +20,7 @@ object Granter:
     user.enabled.yes && apply(f(Permission), user.roles)
 
   def apply(permission: Permission, roles: Seq[String]): Boolean =
-    Permission(roles).exists(_ is permission)
+    Permission(roles).exists(_.is(permission))
 
   def byRoles(f: Permission.Selector)(roles: Seq[String]): Boolean =
     apply(f(Permission), roles)

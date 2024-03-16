@@ -4,7 +4,6 @@ import * as licon from 'common/licon';
 import { bind, dataIcon, iconTag, onInsert } from 'common/snabbdom';
 import { storedProp, storedJsonProp, StoredJsonProp, StoredProp, storedStringProp } from 'common/storage';
 import { ExplorerDb, ExplorerSpeed, ExplorerMode } from './interfaces';
-import { snabDialog } from 'common/dialog';
 import AnalyseCtrl from '../ctrl';
 import { perf } from 'game/perf';
 import { ucfirst } from './explorerUtil';
@@ -334,7 +333,7 @@ const playerModal = (ctrl: ExplorerConfigCtrl) => {
     }
     return '.button-metal';
   };
-  return snabDialog({
+  return site.dialog.snab({
     class: 'explorer__config__player__choice',
     onClose() {
       ctrl.data.playerName.open(false);
@@ -349,7 +348,7 @@ const playerModal = (ctrl: ExplorerConfigCtrl) => {
             spellcheck: 'false',
           },
           hook: onInsert<HTMLInputElement>(input =>
-            lichess.asset
+            site.asset
               .userComplete({ input, tag: 'span', onSelect: v => onSelect(v.name) })
               .then(() => input.focus()),
           ),

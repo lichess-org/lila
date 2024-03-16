@@ -36,8 +36,8 @@ export const fenInput = (ctrl: SetupCtrl) => {
             h('div.position.mini-board.cg-wrap.is2d', {
               attrs: { 'data-state': `${ctrl.lastValidFen},white` },
               hook: {
-                insert: vnode => lichess.miniBoard.init(vnode.elm as HTMLElement),
-                update: vnode => lichess.miniBoard.init(vnode.elm as HTMLElement),
+                insert: vnode => site.miniBoard.init(vnode.elm as HTMLElement),
+                update: vnode => site.miniBoard.init(vnode.elm as HTMLElement),
               },
             }),
           ),

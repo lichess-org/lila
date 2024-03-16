@@ -4,8 +4,8 @@ import controllers.routes
 
 import lila.app.templating.Environment.{ *, given }
 import lila.app.ui.ScalatagsTemplate.{ *, given }
-import lila.tutor.TutorPerfReport
 import lila.insight.InsightPosition
+import lila.tutor.TutorPerfReport
 
 object skills:
 
@@ -25,7 +25,7 @@ object skills:
         )
       ),
       bits.mascotSays(
-        ul(report skillHighlights 3 map compare.show)
+        ul(report.skillHighlights(3).map(compare.show))
       ),
       div(cls := "tutor__pad")(
         grade.peerGradeWithDetail(concept.accuracy, report.accuracy, InsightPosition.Move),

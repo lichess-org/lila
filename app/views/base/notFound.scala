@@ -1,19 +1,17 @@
 package views.html
 package base
 
-import lila.app.templating.Environment.{ given, * }
-import lila.app.ui.ScalatagsTemplate.{ *, given }
-
 import controllers.routes
+
+import lila.app.templating.Environment.{ *, given }
+import lila.app.ui.ScalatagsTemplate.{ *, given }
 
 object notFound:
 
   def apply()(using PageContext) =
     layout(
       title = "Page not found",
-      moreJs = prismicJs,
-      moreCss = cssTag("not-found"),
-      csp = isGranted(_.Prismic) option defaultCsp.withPrismic(true)
+      moreCss = cssTag("not-found")
     ):
       main(cls := "not-found page-small box box-pad")(
         header(

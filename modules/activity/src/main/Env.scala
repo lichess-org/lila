@@ -20,7 +20,8 @@ final class Env(
     teamRepo: lila.team.TeamRepo,
     swissApi: lila.swiss.SwissApi,
     getLightTeam: lila.hub.LightTeam.GetterSync,
-    lightUserApi: lila.user.LightUserApi
+    lightUserApi: lila.user.LightUserApi,
+    userRepo: lila.user.UserRepo
 )(using ec: Executor, scheduler: Scheduler):
 
   private lazy val coll = db(CollName("activity2")).failingSilently()

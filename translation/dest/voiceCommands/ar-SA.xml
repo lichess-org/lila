@@ -3,10 +3,10 @@
   <string name="voiceCommands">الأوامر الصوتية</string>
   <string name="watchTheVideoTutorial">شاهد الفيديو التوضيحي</string>
   <string name="instructions1">استخدم زر %1$s لتبديل الصوت، الزر %2$s لفتح حوار المساعدة، وقائمة %3$s لتغيير إعدادات الكلام.</string>
-  <string name="instructions2">تشير الأسهم إلى عدة نقلات حين لا نكون واثقين، حدد لون أو رَقْم السهم الذي يشير إلى النقلة لاختيارها.</string>
-  <string name="instructions3">إذا ظهرت علامة الرادار، فستُلعب نقلتك عند اكتمال الدائرة. خلال ذلك، يمكنك قول %1$s للعب النقلة على الفور، أو قول %2$s لإلغاء الحركة واختيار أخرى بلون/رقم سهم مختلف. يمكن تعديل هذا المؤقت أو إيقاف تشغيله في الإعدادات.</string>
-  <string name="instructions4">مكن %s إذا كنت في محيط صاخب. اضغط (shift) عندما يكون هذا الإعداد قيد التشغيل لتسجيل الأوامر.</string>
-  <string name="instructions5">استخدم الأبجدية الصوتية لتسهيل التعرف على أعمدة رقعة الشطرنج. </string>
+  <string name="instructions2" comment="Voice commands can be misheard and Lichess will not always be fully certain what you said. Several arrows will be shown to identify e.g. if the move was 'b4' or 'd4', which often sound similar.&#10;&#10;These arrows will be in different colours (green, blue, etc) or labelled 1, 2, 3....&#10;You can then say the colour of the arrow (e.g. 'green') - or its number (e.g. '1'), to select that move.&#10;Users can configure if they choose from multiple moves based on colours or numbers.">تشير الأسهم إلى عدة نقلات حين لا نكون واثقين، حدد لون أو رَقْم السهم الذي يشير إلى النقلة لاختيارها.</string>
+  <string name="instructions3" comment="This is a complicated concept more easy to understand in practice. Voice commands can be misheard and Lichess will not always be fully certain what you said. Several arrows will be shown to identify e.g. if the move was 'b4' or 'd4', which often sound similar.&#10;The most likely move the player wants will have a circle showing around it, but it will be possible to cancel before it is played (for example, by shouting 'no!').&#10;&#10;You can see a visual example here: https://lichess.org/@/schlawg/blog/how-to-lichess-voice/nWrypoWI">إذا ظهرت علامة الرادار، فستُلعب نقلتك عند اكتمال الدائرة. خلال ذلك، يمكنك قول %1$s للعب النقلة على الفور، أو قول %2$s لإلغاء الحركة واختيار أخرى بلون/رقم سهم مختلف. يمكن تعديل هذا المؤقت أو إيقاف تشغيله في الإعدادات.</string>
+  <string name="instructions4" comment="%s is Push to Talk.">مكن %s إذا كنت في محيط صاخب. اضغط (shift) عندما يكون هذا الإعداد قيد التشغيل لتسجيل الأوامر.</string>
+  <string name="instructions5" comment="The phonetic alphabet is also known as the NATO alphabet (where A = Alpha, B = Bravo, etc. This makes the sounds easier to differentiate through a microphone). It is for English specifically, which as of the time of writing, is the only language supported by the Voice Commands feature.">استخدم الأبجدية الصوتية لتسهيل التعرف على أعمدة رقعة الشطرنج. </string>
   <string name="instructions6">%s يشرح إعدادات الأوامر الصوتية بالتفصيل.</string>
   <string name="thisBlogPost">هذا المنشور</string>
   <string name="moveToE4OrSelectE4Piece">انقل إلى e4 أو أختر القطعة في مربع e4</string>
@@ -15,8 +15,8 @@
   <string name="castle">بيّت (في أي من الجناحين)</string>
   <string name="phoneticAlphabetIsBest">الأبجدية الصوتية هي الأفضل</string>
   <string name="cancelTimerOrDenyARequest">ألغ المؤقت أو أرفض الطلب</string>
-  <string name="playPreferredMoveOrConfirmSomething">لعب النقلة المفضلة أو التأكد من شيئ ما</string>
-  <string name="sleep">وضع النوم (إذا تم تمكين كلمة الاستيقاظ)</string>
+  <string name="playPreferredMoveOrConfirmSomething" comment="Used in voice commands. When it is unclear what the player said (e.g. 'b4' and 'd4' sound similar), both moves will be shown, with the more likely one highlighted in a certain colour. By default, a countdown begins, and if no action is taken, the likely move (e.g. b4) will be played. Players can end the countdown early/confirm their move by saying 'yes'.&#10;&#10;For more details see https://lichess.org/@/schlawg/blog/how-to-lichess-voice/nWrypoWI">لعب النقلة المفضلة أو التأكد من شيئ ما</string>
+  <string name="sleep" comment="Used for voice commands.&#10;&#10;By default, voice commands are always-on after the feature is enabled. Users can optionally set a word for listening to start, or say 'sleep' to disable listening.&#10;&#10;(Please note - this is not the same as recording, since the recording is never sent to Lichess; the speech technology is entirely offline)">وضع النوم (إذا تم تمكين كلمة الاستيقاظ)</string>
   <string name="turnOffVoiceRecognition">إيقاف التعرف على الصوت</string>
   <string name="showPuzzleSolution">إظهار حل اللغز</string>
 </resources>

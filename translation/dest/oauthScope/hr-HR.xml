@@ -12,25 +12,25 @@
   <string name="preferenceWrite" comment="In the context of an authentication token, this is a setting that gives a third-party app permission to edit/change the user's preferences.&#10;&#10;There is a separate setting to let applications only read preferences, but not to write (edit) them.">Napiši preferenciju</string>
   <string name="emailRead" comment="In the context of an authentication token, this is a setting that gives a third-party app permission to view the user's registered email address.">Pročitajte adrese e-pošte</string>
   <string name="challengeRead" comment="In the context of an authentication token, this is a setting that gives a third-party app permission to view game challenges from other players.&#10;&#10;There is a separate setting to let applications send, accept or reject challenges.">Pročitajte dolazne izazove</string>
-  <string name="challengeWrite">Šaljite, prihvaćajte i odbijajte izazove</string>
+  <string name="challengeWrite" comment="challengeWrite&#10;&#10;In the context of an authentication token, a setting that permits third party software to send, accept and reject challenges on behalf of the player.">Šaljite, prihvaćajte i odbijajte izazove</string>
   <string name="challengeBulk">Stvorite mnogo igara odjednom za druge igrače</string>
-  <string name="studyRead">Čitajte privatne studije i emisije</string>
-  <string name="studyWrite">Stvorite, ažurirajte, brišite studija i emisije</string>
-  <string name="tournamentWrite">Stvorite, ažurirajte i pridružite se turnirima</string>
-  <string name="racerWrite">Stvorite i pridružite se utrkama zagonetki</string>
-  <string name="puzzleRead">Čitanje zagonetke</string>
-  <string name="teamRead">Pročitajte informacije o privatnom timu</string>
-  <string name="teamWrite">Pridružite se, napustite i upravljajte timom</string>
+  <string name="studyRead" comment="Gives permission to third-party software to *read* information that already exists. However it won't be able to write (create) private studies or broadcasts.">Čitajte privatne studije i emisije</string>
+  <string name="studyWrite" comment="In the context of an access token, a setting that enables third party software to create, update or delete studies and broadcasts.">Stvorite, ažurirajte, brišite studija i emisije</string>
+  <string name="tournamentWrite" comment="In the context of an access token, a setting that permits third party software to create, update or delete studies and join tournaments.">Stvorite, ažurirajte i pridružite se turnirima</string>
+  <string name="racerWrite" comment="In the context of an access token, a setting which permits third party software to create, and join puzzle races (this is for the activity/minigame Puzzle Racer: https://lichess.org/racer)">Stvorite i pridružite se utrkama zagonetki</string>
+  <string name="puzzleRead" comment="In the context of an access token, a setting which permits third-party software to view the user's puzzle solving history.">Čitanje zagonetke</string>
+  <string name="teamRead" comment="Gives permission to third-party software to *read* information that already exists. However it won't be able to write (create) private studies or broadcasts.">Pročitajte informacije o privatnom timu</string>
+  <string name="teamWrite" comment="In the context of an access token, a setting that permits the third party software to join or leave teams on your behalf.">Pridružite se, napustite i upravljajte timom</string>
   <string name="teamLead">Upravljajte timovima koje vodite: šaljite osobne poruke, izbacite članove</string>
-  <string name="followRead">Pročitajte praćene igrače</string>
-  <string name="followWrite">Pratite i prestanite pratiti druge igrače</string>
-  <string name="msgWrite">Šaljite privatne poruke drugim igračima</string>
-  <string name="boardPlay">Igrajte igre s API-jem za ploču</string>
-  <string name="botPlay">Igrajte igre s Api-jem za ploču</string>
+  <string name="followRead" comment="In the context of an access token, a setting which permits third-party software to view (read) which players you are following.">Pročitajte praćene igrače</string>
+  <string name="followWrite" comment="In the context of an access token, a setting which permits third-party software to follow and unfollow other players on your behalf.">Pratite i prestanite pratiti druge igrače</string>
+  <string name="msgWrite" comment="In the context of an access token, a setting which permits third-party software to send messages on your behalf.">Šaljite privatne poruke drugim igračima</string>
+  <string name="boardPlay" comment="In the context of an access token, a setting which permits third-party software to play games using e-boards like DGT, through Lichess's board API.">Igrajte igre s API-jem za ploču</string>
+  <string name="botPlay" comment="In the context of an access token, a setting which permits third-party software to play games over the bot API. This is intended mainly for having an engine account e.g. the accounts featured on https://lichess.org/player/bots">Igrajte igre s Api-jem za ploču</string>
   <string name="engineRead">Pogledajte i koristite svoje vanjske motore</string>
   <string name="engineWrite">Stvorite i ažurirajte vanjske motore</string>
-  <string name="webLogin">Stvorite autentificirane sesije web stranice (omogućuje puni pristup!)</string>
-  <string name="webMod">Koristite moderatorske alate (unutar granica vašeg dopuštenja)</string>
+  <string name="webLogin" comment="In the context of an access token, a setting which permits third-party software to create authenticated sessions - meaning effectively unlimited access to your account, using it as if it is you, instead of a third party program. It will be unable to view your password but it will be able to do almost everything else.">Stvorite autentificirane sesije web stranice (omogućuje puni pristup!)</string>
+  <string name="webMod" comment="In the context of an access token, this is a setting which permits third-party software to use moderator tools on your behalf. Most players will not be able to see this option.">Koristite moderatorske alate (unutar granica vašeg dopuštenja)</string>
   <string name="personalAccessTokens">Osobni API pristupni bonovi</string>
   <string name="canMakeOauthRequests" comment="%s is 'authorisation code flow' (flow, as in a process).">Možeš zatražiti OAuth zahtijev bez da prolaziš kroz %s.</string>
   <string name="authorizationCodeFlow" comment="Part of longer string canMakeOauthRequests:&#10;You can make OAuth requests without going through the authorisation code flow.&#10;&#10;In this context, 'flow' means a process.&#10;&#10;This text is also a link which directs to https://lichess.org/api#section/Introduction/Authentication.">proces autorizacije koda</string>
@@ -43,7 +43,7 @@
   <string name="newToken">Novi pristupni bon</string>
   <string name="apiAccessTokens">Token za API pristup</string>
   <string name="created" comment="%s is relative time, e.g. 2 hours ago.">Stvoren %s</string>
-  <string name="lastUsed" comment="%s is relative time, e.g. 2 hours ago.">Zadnji put korišten %s</string>
+  <string name="lastUsed" comment="%s is relative time, e.g. 2 hours ago. 'Last used' in this context means 'You used this most recently %s time ago'.">Zadnji put korišten %s</string>
   <string name="alreadyHavePlayedGames">Već si igrao igre!</string>
   <string name="attentionOfDevelopers">Napomena za razvojne programere:</string>
   <string name="possibleToPrefill">Moguće je unaprijed ispuniti ovaj obrazac podešavanjem parametara upita URL-a.</string>

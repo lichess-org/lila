@@ -25,7 +25,6 @@
   <string name="longestStreak">Vijimësia më e gjatë: %s</string>
   <string name="currentStreak">Vijimësi aktuale: %s</string>
   <string name="bestRated">Fitoret më të mira</string>
-  <string name="worstRated">Humbjet më të dobëta</string>
   <string name="gamesInARow">Lojëra radhazi</string>
   <string name="lessThanOneHour">Më pak se një orë mes lojërave</string>
   <string name="maxTimePlaying">Maksimum kohe shpenzuar në lojë</string>

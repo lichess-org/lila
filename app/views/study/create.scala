@@ -1,16 +1,16 @@
 package views.html.study
 
-import lila.app.templating.Environment.{ given, * }
+import controllers.routes
+
+import lila.app.templating.Environment.{ *, given }
 import lila.app.ui.ScalatagsTemplate.{ *, given }
 import lila.study.Study
-
-import controllers.routes
 
 object create:
 
   private def studyButton(s: Study.IdName, chapterCount: Int) =
     val btn =
-      if chapterCount >= Study.maxChapters then submitButton(cls := "disabled", st.disabled)
+      if Study.maxChapters <= chapterCount then submitButton(cls := "disabled", st.disabled)
       else submitButton
 
     btn(name := "as", value := s.id, cls := "button submit")(s.name)

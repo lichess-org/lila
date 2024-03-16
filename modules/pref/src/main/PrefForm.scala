@@ -3,8 +3,7 @@ package lila.pref
 import play.api.data.*
 import play.api.data.Forms.*
 
-import lila.common.Form.{ numberIn, stringIn }
-import lila.common.Form.tolerantBoolean
+import lila.common.Form.{ numberIn, stringIn, tolerantBoolean }
 
 object PrefForm:
 
@@ -27,11 +26,11 @@ object PrefForm:
     number.verifying(Pref.BooleanPref.verify)
 
   object fields:
-    val theme      = "theme"      -> text.verifying(Theme contains _)
-    val theme3d    = "theme3d"    -> text.verifying(Theme3d contains _)
-    val pieceSet   = "pieceSet"   -> text.verifying(PieceSet contains _)
-    val pieceSet3d = "pieceSet3d" -> text.verifying(PieceSet3d contains _)
-    val soundSet   = "soundSet"   -> text.verifying(SoundSet contains _)
+    val theme      = "theme"      -> text.verifying(Theme.contains(_))
+    val theme3d    = "theme3d"    -> text.verifying(Theme3d.contains(_))
+    val pieceSet   = "pieceSet"   -> text.verifying(PieceSet.contains(_))
+    val pieceSet3d = "pieceSet3d" -> text.verifying(PieceSet3d.contains(_))
+    val soundSet   = "soundSet"   -> text.verifying(SoundSet.contains(_))
     val bg         = "bg"         -> stringIn(Pref.Bg.fromString.keySet)
     val bgImg = "bgImg" -> text(maxLength = 400).verifying(
       "URL must use https",
@@ -50,6 +49,7 @@ object PrefForm:
     val moretime      = "moretime"      -> checkedNumber(Pref.Moretime.choices)
     val ratings       = "ratings"       -> booleanNumber
     val flairs        = "flairs"        -> boolean
+    val follow        = "follow"        -> booleanNumber
 
   def pref(lichobile: Boolean) = Form(
     mapping(
@@ -62,8 +62,7 @@ object PrefForm:
         "replay"        -> checkedNumber(Pref.Replay.choices),
         "pieceNotation" -> optional(booleanNumber),
         fields.zen.map2(optional),
-        "resizeHandle" -> optional(checkedNumber(Pref.ResizeHandle.choices)),
-        "blindfold"    -> checkedNumber(Pref.Blindfold.choices)
+        "resizeHandle" -> optional(checkedNumber(Pref.ResizeHandle.choices))
       )(DisplayData.apply)(unapply),
       "behavior" -> mapping(
         "moveEvent" -> optional(numberIn(Set(0, 1, 2))),
@@ -87,7 +86,7 @@ object PrefForm:
         "sound"  -> booleanNumber,
         fields.moretime
       )(ClockData.apply)(unapply),
-      "follow"       -> booleanNumber,
+      fields.follow,
       "challenge"    -> checkedNumber(Pref.Challenge.choices),
       "message"      -> checkedNumber(Pref.Message.choices),
       "studyInvite"  -> optional(checkedNumber(Pref.StudyInvite.choices)),
@@ -106,8 +105,7 @@ object PrefForm:
       replay: Int,
       pieceNotation: Option[Int],
       zen: Option[Int],
-      resizeHandle: Option[Int],
-      blindfold: Int
+      resizeHandle: Option[Int]
   )
 
   case class BehaviorData(
@@ -157,7 +155,6 @@ object PrefForm:
         destination = display.destination == 1,
         coords = display.coords,
         replay = display.replay,
-        blindfold = display.blindfold,
         challenge = challenge,
         message = message,
         studyInvite = studyInvite | Pref.default.studyInvite,
@@ -188,7 +185,6 @@ object PrefForm:
           coords = pref.coords,
           replay = pref.replay,
           captured = if pref.captured then 1 else 0,
-          blindfold = pref.blindfold,
           zen = pref.zen.some,
           resizeHandle = pref.resizeHandle.some,
           pieceNotation = pref.pieceNotation.some

@@ -25,7 +25,6 @@
   <string name="longestStreak">Daugiausia iš eilės: %s</string>
   <string name="currentStreak">Kol kas iš eilės: %s</string>
   <string name="bestRated">Geriausios reitinguotos pergalės</string>
-  <string name="worstRated">Blogiausia reitinguoti pralaimėjimai</string>
   <string name="gamesInARow">Partijų žaista iš eilės</string>
   <string name="lessThanOneHour">Mažiau negu valanda tarp partijų</string>
   <string name="maxTimePlaying">Daugiausia laiko praleista žaidžiant</string>

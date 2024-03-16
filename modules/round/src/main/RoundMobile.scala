@@ -1,16 +1,16 @@
 package lila.round
 
-import lila.user.{ UserRepo, Me }
-import lila.game.{ Game, Pov, GameRepo }
-import lila.game.JsonView.given
-import lila.round.actorApi.{ SocketStatus, GameAndSocketStatus }
-import play.api.libs.json.{ Json, JsObject, JsArray }
-import lila.common.{ Bus, Preload, ApiVersion, LightUser }
-import lila.socket.Socket
-import lila.common.Json.given
-import chess.{ Color, ByColor }
-import lila.pref.Pref
+import chess.{ ByColor, Color }
+import play.api.libs.json.{ JsArray, JsObject, Json }
+
 import lila.chat.Chat
+import lila.common.Json.given
+import lila.common.{ LightUser, Preload }
+import lila.game.JsonView.given
+import lila.game.{ Game, GameRepo, Pov }
+import lila.pref.Pref
+import lila.round.actorApi.{ GameAndSocketStatus, SocketStatus }
+import lila.user.Me
 
 object RoundMobile:
 
@@ -54,12 +54,12 @@ final class RoundMobile(
     for
       initialFen <- gameRepo.initialFen(game)
       myPlayer = id.playerId.flatMap(game.player(_))
-      users        <- game.userIdPair.traverse(_ so lightUserGet)
+      users        <- game.userIdPair.traverse(_.so(lightUserGet))
       prefs        <- prefApi.byId(game.userIdPair)
       takebackable <- takebacker.isAllowedIn(game, Preload(prefs))
       moretimeable <- moretimer.isAllowedIn(game, Preload(prefs))
-      chat         <- use.chat so getPlayerChat(game, myPlayer.exists(_.hasUser))
-      chatLines    <- chat.map(_.chat) soFu lila.chat.JsonView.asyncLines
+      chat         <- use.chat.so(getPlayerChat(game, myPlayer.exists(_.hasUser)))
+      chatLines    <- chat.map(_.chat).soFu(lila.chat.JsonView.asyncLines)
     yield
       def playerJson(color: Color) =
         val pov = Pov(game, color)
@@ -92,7 +92,7 @@ final class RoundMobile(
         .add("takebackable" -> takebackable)
         .add("moretimeable" -> moretimeable)
         .add("youAre", myPlayer.map(_.color))
-        .add("prefs", use.prefs so myPlayer.map(p => prefs(p.color)).map(prefsJson(game, _)))
+        .add("prefs", use.prefs.so(myPlayer.map(p => prefs(p.color)).map(prefsJson(game, _))))
         .add(
           "chat",
           chat.map: c =>
@@ -114,6 +114,6 @@ final class RoundMobile(
   private def getPlayerChat(game: Game, isAuth: Boolean): Fu[Option[Chat.Restricted]] =
     game.hasChat.so:
       for
-        chat  <- chatApi.playerChat.findIf(game.id into ChatId, !game.justCreated)
+        chat  <- chatApi.playerChat.findIf(game.id.into(ChatId), !game.justCreated)
         lines <- lila.chat.JsonView.asyncLines(chat)
       yield Chat.Restricted(chat, lines, restricted = game.fromLobby && !isAuth).some

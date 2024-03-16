@@ -13,6 +13,6 @@
     "lib": ["es2019"],
     "esModuleInterop": true,
     "isolatedModules": true,
-    "types": ["lichess", "web", "cash"]
+    "types": ["lichess", "web"]
   }
 }

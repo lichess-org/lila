@@ -25,7 +25,6 @@
   <string name="longestStreak">Secuencia máis longa: %s</string>
   <string name="currentStreak">Secuencia actual: %s</string>
   <string name="bestRated">Mellores vitorias puntuadas</string>
-  <string name="worstRated">Peores derrotas puntuadas</string>
   <string name="gamesInARow">Partidas xogadas seguidas</string>
   <string name="lessThanOneHour">Menos dunha hora entre partidas</string>
   <string name="maxTimePlaying">Tempo máximo xogando</string>

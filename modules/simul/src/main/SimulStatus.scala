@@ -15,4 +15,4 @@ private object SimulStatus:
 
   val byId = values.mapBy(_.id)
 
-  def apply(id: Int): Option[SimulStatus] = byId get id
+  def apply(id: Int): Option[SimulStatus] = byId.get(id)

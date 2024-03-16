@@ -2,9 +2,9 @@ package lila.report
 
 import akka.actor.*
 import com.softwaremill.macwire.*
-import lila.common.autoconfig.{ *, given }
 import play.api.Configuration
 
+import lila.common.autoconfig.{ *, given }
 import lila.common.config.*
 
 @Module
@@ -38,9 +38,9 @@ final class Env(
 
   private lazy val reportColl = db(config.reportColl)
 
-  lazy val scoreThresholdsSetting = ReportThresholds makeScoreSetting settingStore
+  lazy val scoreThresholdsSetting = ReportThresholds.makeScoreSetting(settingStore)
 
-  lazy val discordScoreThresholdSetting = ReportThresholds makeDiscordSetting settingStore
+  lazy val discordScoreThresholdSetting = ReportThresholds.makeDiscordSetting(settingStore)
 
   private val thresholds = Thresholds(
     score = (() => scoreThresholdsSetting.get()),

@@ -29,10 +29,10 @@ final private class MsgSecurity(
     def apply(u: User.Contact): Int =
       if u.isApiHog then hog
       else if u.isVerified then verified
-      else if u isDaysOld 30 then normal
-      else if u isDaysOld 7 then normal * 2
-      else if u isDaysOld 3 then normal * 3
-      else if u isHoursOld 12 then normal * 4
+      else if u.isDaysOld(30) then normal
+      else if u.isDaysOld(7) then normal * 2
+      else if u.isDaysOld(3) then normal * 3
+      else if u.isHoursOld(12) then normal * 4
       else normal * 5
 
   private val CreateLimitPerUser = RateLimit[UserId](
@@ -66,12 +66,12 @@ final private class MsgSecurity(
           .flatMap:
             case false => fuccess(Block)
             case _ =>
-              isLimited(contacts, isNew, unlimited, text) orElse
-                isFakeTeamMessage(rawText, unlimited) orElse
-                isSpam(text) orElse
-                isTroll(contacts) orElse
-                isDirt(contacts.orig, text, isNew) getOrElse
-                fuccess(Ok)
+              isLimited(contacts, isNew, unlimited, text)
+                .orElse(isFakeTeamMessage(rawText, unlimited))
+                .orElse(isSpam(text))
+                .orElse(isTroll(contacts))
+                .orElse(isDirt(contacts.orig, text, isNew))
+                .getOrElse(fuccess(Ok))
           .flatMap:
             case Troll =>
               destFollowsOrig(contacts).dmap:
@@ -109,18 +109,21 @@ final private class MsgSecurity(
       else fuccess(limitWith(ReplyLimitPerUser))
 
     private def isFakeTeamMessage(text: String, unlimited: Boolean): Fu[Option[Verdict]] =
-      (!unlimited && text.contains("You received this because you are subscribed to messages of the team")) so
-        fuccess(FakeTeamMessage.some)
+      (!unlimited && text.contains("You received this because you are subscribed to messages of the team"))
+        .so(fuccess(FakeTeamMessage.some))
 
     private def isSpam(text: String): Fu[Option[Verdict]] =
-      spam.detect(text) so fuccess(Spam.some)
+      spam.detect(text).so(fuccess(Spam.some))
 
     private def isTroll(contacts: User.Contacts): Fu[Option[Verdict]] =
-      contacts.orig.isTroll so fuccess(Troll.some)
+      contacts.orig.isTroll.so(fuccess(Troll.some))
 
     private def isDirt(user: User.Contact, text: String, isNew: Boolean): Fu[Option[Verdict]] =
-      (isNew && Analyser(text).dirty) so
-        !userRepo.isCreatedSince(user.id, nowInstant.minusDays(30)) dmap { _ option Dirt }
+      (isNew && Analyser(text).dirty)
+        .so(userRepo.isCreatedSince(user.id, nowInstant.minusDays(30)).not)
+        .dmap {
+          _.option(Dirt)
+        }
 
     private def destFollowsOrig(contacts: User.Contacts): Fu[Boolean] =
       relationApi.fetchFollows(contacts.dest.id, contacts.orig.id)
@@ -128,12 +131,12 @@ final private class MsgSecurity(
   object may:
 
     def post(orig: UserId, dest: UserId, isNew: Boolean): Fu[Boolean] =
-      userRepo.contacts(orig, dest) flatMapz { post(_, isNew) }
+      userRepo.contacts(orig, dest).flatMapz { post(_, isNew) }
 
     def post(contacts: User.Contacts, isNew: Boolean): Fu[Boolean] =
       fuccess(!contacts.dest.isLichess) >>& {
         fuccess(Granter.byRoles(_.PublicMod)(~contacts.orig.roles)) >>| {
-          !relationApi.fetchBlocks(contacts.dest.id, contacts.orig.id) >>&
+          relationApi.fetchBlocks(contacts.dest.id, contacts.orig.id).not >>&
             (create(contacts) >>| reply(contacts)) >>&
             chatPanic.allowed(contacts.orig.id, userRepo.byId) >>&
             kidCheck(contacts, isNew) >>&
@@ -142,7 +145,7 @@ final private class MsgSecurity(
       }
 
     private def create(contacts: User.Contacts): Fu[Boolean] =
-      prefApi.get(contacts.dest.id, _.message) flatMap {
+      prefApi.get(contacts.dest.id, _.message).flatMap {
         case lila.pref.Pref.Message.NEVER  => fuccess(false)
         case lila.pref.Pref.Message.FRIEND => relationApi.fetchFollows(contacts.dest.id, contacts.orig.id)
         case lila.pref.Pref.Message.ALWAYS => fuccess(true)
@@ -154,7 +157,7 @@ final private class MsgSecurity(
     private def reply(contacts: User.Contacts): Fu[Boolean] =
       colls.thread.exists(
         $id(MsgThread.id(contacts.orig.id, contacts.dest.id)) ++
-          $doc("del" $ne contacts.dest.id)
+          $doc("del".$ne(contacts.dest.id))
       )
 
     private def kidCheck(contacts: User.Contacts, isNew: Boolean): Fu[Boolean] =

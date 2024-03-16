@@ -54,4 +54,13 @@
     <item quantity="one">%s वर्ष पहले</item>
     <item quantity="other">%s वर्षों पहले</item>
   </plurals>
+  <plurals name="nbMinutesRemaining">
+    <item quantity="one">%s मिनट बचा है</item>
+    <item quantity="other">%s मिनट बचे हैं</item>
+  </plurals>
+  <plurals name="nbHoursRemaining">
+    <item quantity="one">%s घंटा बचा है</item>
+    <item quantity="other">%s घंटे बचे हैं</item>
+  </plurals>
+  <string name="completed">पूर्ण</string>
 </resources>

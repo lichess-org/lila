@@ -3,7 +3,7 @@ package views.html.tutor
 import play.api.i18n.Lang
 import scalatags.Text
 
-import lila.app.templating.Environment.{ *, given }
+import lila.app.templating.Environment.*
 import lila.app.ui.ScalatagsTemplate.{ *, given }
 import lila.insight.InsightPosition
 import lila.tutor.{ TutorBothValueOptions, TutorBothValuesAvailable, TutorNumber }
@@ -15,9 +15,9 @@ object grade:
       metricOptions: TutorBothValueOptions[A],
       titleTag: Text.Tag = h3
   ): Option[Tag] =
-    metricOptions.asAvailable map { metric =>
+    metricOptions.asAvailable.map { metric =>
       div(cls := "tutor-grade")(
-        titleTag(cls := "tutor-grade__name")(concept show c),
+        titleTag(cls := "tutor-grade__name")(concept.show(c)),
         gradeVisual(c, metric)
       )
     }
@@ -28,10 +28,10 @@ object grade:
       position: InsightPosition,
       titleTag: Text.Tag = h2
   )(using Lang): Option[Tag] =
-    metricOptions.asAvailable map { metric =>
+    metricOptions.asAvailable.map { metric =>
       div(cls := "tutor-grade tutor-grade--detail")(
-        titleTag(cls := "tutor-grade__name")(concept show c),
-        c.description.nonEmpty option p(cls := "tutor-grade__concept")(c.description),
+        titleTag(cls := "tutor-grade__name")(concept.show(c)),
+        c.description.nonEmpty.option(p(cls := "tutor-grade__concept")(c.description)),
         gradeVisual(c, metric),
         div(cls := "tutor-grade__detail")(
           c.unit.html(metric.mine.value),
@@ -44,10 +44,12 @@ object grade:
           metric.mine.count.localize,
           " ",
           position.short,
-          !metric.mine.reliableEnough option frag(
-            " (",
-            em(cls := "text", dataIcon := licon.CautionTriangle)("small sample!"),
-            ")"
+          (!metric.mine.reliableEnough).option(
+            frag(
+              " (",
+              em(cls := "text", dataIcon := licon.CautionTriangle)("small sample!"),
+              ")"
+            )
           )
         )
       )

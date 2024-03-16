@@ -25,7 +25,6 @@
   <string name="longestStreak">Μεγαλύτερο Σερί: %s</string>
   <string name="currentStreak">Τρέχον σερί: %s</string>
   <string name="bestRated">Καλύτερες αξιολογήσιμες νίκες</string>
-  <string name="worstRated">Χειρότερες αξιολογήσιμες ήττες</string>
   <string name="gamesInARow">Συνεχόμενες παρτίδες</string>
   <string name="lessThanOneHour">Διάστημα λιγότερο από μία ώρα μεταξύ των παρτίδων</string>
   <string name="maxTimePlaying">Μέγιστος χρόνος που διατέθηκε παίζοντας</string>

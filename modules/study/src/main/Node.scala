@@ -2,7 +2,7 @@ package lila.study
 
 object Node:
 
-  val MAX_PLIES = 400
+  val MAX_PLIES = 600
 
   object BsonFields:
     val ply            = "p"
@@ -18,4 +18,3 @@ object Node:
     val clock          = "l"
     val crazy          = "z"
     val forceVariation = "fv"
-    val order          = "o"

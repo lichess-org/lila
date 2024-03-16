@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+  <string name="arena">یاریگا</string>
   <string name="arenaTournaments">پاڵەوانیەتەکانی ئارینا</string>
   <string name="isItRated">ئایا ڕیزبەندی کراوە؟</string>
   <string name="willBeNotified">کاتێک پاڵەوانێتییەکە دەستپێدەکات ئاگادار دەکرێیتەوە، بۆیە باشترە لە پەڕەیەکتردا یاری بکەیت لەکاتی چاوەڕوانیدا.</string>
@@ -53,4 +54,5 @@
   <string name="averagePerformance">تێکڕای هەوڵەکان</string>
   <string name="averageScore">تێکڕای خاڵ</string>
   <string name="myTournaments">پاڵەوانێتیەکانم</string>
+  <string name="editTournament">دەستکاریکردنی پاڵەوانێتی</string>
 </resources>

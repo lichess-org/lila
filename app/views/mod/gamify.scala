@@ -1,12 +1,11 @@
 package views.html.mod
 
+import controllers.routes
 import play.api.i18n.Lang
 
-import lila.app.templating.Environment.{ given, * }
+import lila.app.templating.Environment.{ *, given }
 import lila.app.ui.ScalatagsTemplate.{ *, given }
 import lila.mod.Gamify.Period
-
-import controllers.routes
 
 object gamify:
 
@@ -43,7 +42,7 @@ object gamify:
               },
               history.map { h =>
                 frag(
-                  h.date.getMonthValue == 12 option yearHeader(h.date.getYear),
+                  (h.date.getMonthValue == 12).option(yearHeader(h.date.getYear)),
                   tr(
                     th(h.date.getMonth.getDisplayName(java.time.format.TextStyle.FULL, ctx.lang.locale)),
                     th(userIdLink(h.champion.modId.some, withOnline = false)),
@@ -108,27 +107,29 @@ object gamify:
     div(cls := "champ")(
       st.img(src := assetUrl(s"images/mod/$img.png")),
       h2("Mod of the ", period.name),
-      champ.map { m =>
-        frag(
-          userIdLink(m.modId.some, withOnline = false),
-          table(
-            tbody(
-              tr(
-                th("Total score"),
-                td(m.score)
-              ),
-              tr(
-                th("Actions taken"),
-                td(m.action)
-              ),
-              tr(
-                th("Report points"),
-                td(m.report)
+      champ
+        .map { m =>
+          frag(
+            userIdLink(m.modId.some, withOnline = false),
+            table(
+              tbody(
+                tr(
+                  th("Total score"),
+                  td(m.score)
+                ),
+                tr(
+                  th("Actions taken"),
+                  td(m.action)
+                ),
+                tr(
+                  th("Report points"),
+                  td(m.report)
+                )
               )
             )
           )
-        )
-      } getOrElse "Nobody!",
+        }
+        .getOrElse("Nobody!"),
       a(cls := "button button-empty", href := routes.Mod.gamifyPeriod(period.name))(
         "View ",
         period.name,

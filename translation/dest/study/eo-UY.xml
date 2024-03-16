@@ -53,6 +53,7 @@
   <string name="allSyncMembersRemainOnTheSamePosition">Ĉiuj sinkronigitaj membroj restas ĉe la sama pozicio</string>
   <string name="shareChanges">Diskonigi ŝanĝojn al spektantoj kaj konservi tiujn ĉe la servilo</string>
   <string name="playing">Ludanta</string>
+  <string name="showEvalBar">Taksaj stangoj</string>
   <string name="first">Al la unua</string>
   <string name="previous">Antaŭa</string>
   <string name="next">Sekva</string>
@@ -84,7 +85,7 @@
   <string name="pinnedChapterComment">Alpinglita ĉapitra komento</string>
   <string name="saveChapter">Konservi ĉapitron</string>
   <string name="clearAnnotations">Forigi notojn</string>
-  <string name="clearVariations">Forigi variaĵojn</string>
+  <string name="clearVariations" comment="Clear is used as a verb here. This erases the variations in the study (https://lichess.org/study) you are preparing.">Forigi variaĵojn</string>
   <string name="deleteChapter">Forigi ĉapitron</string>
   <string name="deleteThisChapter">Ĉu forigi ĉi tiun ĉapitron? Tiun agon vi ne povos malfari!</string>
   <string name="clearAllCommentsInThisChapter">Forigi ĉiujn komentojn, signobildoj, kaj skribintaj formoj en ĉi tiu ĉapitro</string>

@@ -47,7 +47,7 @@
   <string name="castlingRules">请确认你了解王车易位的规则</string>
   <string name="tryCastling">玩这个迷你游戏来了解王车易位</string>
   <string name="castlingImported">如果你导入了棋局或从特定局面开始棋局，请确保你正确地设置了王车易位的权利。</string>
-  <string name="insufficientMaterial">战力不足</string>
+  <string name="insufficientMaterial">子力不足</string>
   <string name="fideMate">根据 FIDE 国际象棋规则 6.9 项，如果存在着终止于将死的合规着法顺序，棋局不能被判和。</string>
   <string name="knightMate">如果单方不只剩单王，对方就可能以单马或单象将死。</string>
   <string name="noRatingPoints">未获得等级分</string>

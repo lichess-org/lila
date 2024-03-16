@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="faqAbbreviation">Жиі қойылатын сұрақтар</string>
-  <string name="frequentlyAskedQuestions">Жиі қойылатын сұрақтар</string>
+  <string name="faqAbbreviation">Сұрақ-Жауап</string>
+  <string name="frequentlyAskedQuestions">Сұрақ-Жауап</string>
   <string name="whyIsLichessCalledLichess">Личес неге Личес деп аталады?</string>
   <string name="lichessCombinationLiveLightLibrePronounced">Личес деген live/light/libre деген сөз бен chess сөзінің қосындысы. Ол %1$s деп оқылады.</string>
   <string name="leechess">ли-чес</string>
@@ -146,19 +146,19 @@
 Браузер Личес-тегі дыбысқа тыйым етсе, қызыл \"үнсіз\" белгісі шығады. Жағдайдың көбінде қандай да бір жерге шертсеңіз бұл тыйым кетеді. Кейбір мобилді браузер тасты тартып жүргеніңізді шерту деп қабылдамайды, сондықтан дыбысқа рұқсат беру үшін әр ойын басында тақтаға бір шертуіңіз керек. Бұл кезде қызыл белгі шығады.
 Браузер Лическе тұрақты түрде дыбыс рұқсатын бере алады. Ол үшін танымал браузерлерді қамтитын келесідей нұсқаулықты қарап шығыңыз.</string>
   <string name="desktop">компьютер</string>
-  <string name="enableAutoplayForSoundsFirefox" comment="Guidance for Mozilla Firefox users on how to enable audio auto-play if they have sound issues.&#10;&#10;Please keep 'i' lowercase, for two reasons:&#10;1. Capital L and capital I are hard to differentiate for users.&#10;2. So users don't press Ctrl+Shift+I to get a capital I. This is a different shortcut in the browser.">1. lichess.org сайтын ашыңыз
+  <string name="enableAutoplayForSoundsFirefox">1. lichess.org сайтын ашыңыз
 2. Windows пен Linux үшін Cntr + i, MacOS үшін Cmd + i
 3. Рұқсаттар бөліміне өтіңіз
 4. lichess.org-та Аудио мен Видео рұқсат ету</string>
-  <string name="enableAutoplayForSoundsChrome" comment="Guidance for Google Chrome users on how to enable audio auto-play if they have sound issues.">1. lichess.org сайтын ашыңыз
+  <string name="enableAutoplayForSoundsChrome">1. lichess.org сайтын ашыңыз
 2. Мекенжай жолағында құлып белгісін басыңыз
 3. Сайт баптауларына өтіңіз
 4. Дыбысқа рұқсат беріңіз</string>
-  <string name="enableAutoplayForSoundsSafari" comment="Guidance for Apple Safari users on how to enable audio auto-play if they have sound issues.">1. lichess.org сайтын ашыңыз
+  <string name="enableAutoplayForSoundsSafari">1. lichess.org сайтын ашыңыз
 2. Мәзір жолағында Safari басыңыз
 3. lichess.org арналған баптаулар
 4. Бүкіл автоойнатуды рұқсат ету</string>
-  <string name="enableAutoplayForSoundsMicrosoftEdge" comment="Guidance for Microsoft Edge users on desktop, for how to enable audio auto-play if they have sound issues.">1. Төбенің оң жағында үш нүктеге басыңыз
+  <string name="enableAutoplayForSoundsMicrosoftEdge">1. Төбенің оң жағында үш нүктеге басыңыз
 2. Баптаулар
 3. Куки мен сайт рұқсаттарына кіріңіз
 4. Төмен түсіп, Медиа автоойнату

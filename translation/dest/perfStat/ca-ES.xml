@@ -25,7 +25,6 @@
   <string name="longestStreak">Ratxa més llarga: %s</string>
   <string name="currentStreak">Ratxa actual: %s</string>
   <string name="bestRated">Millors victòries puntuables</string>
-  <string name="worstRated">Pitjors derrotes puntuables</string>
   <string name="gamesInARow">Partides jugades seguides</string>
   <string name="lessThanOneHour">Menys d\'una hora entre partida i partida</string>
   <string name="maxTimePlaying">Temps màxim jugant</string>

@@ -1,10 +1,12 @@
 package lila.user
 
+import chess.PlayerTitle
 import play.api.i18n.Lang
-import lila.i18n.Language
-import lila.common.{ EmailAddress, LightUser, NormalizedEmailAddress }
-import lila.rating.{ Perf, PerfType }
 import reactivemongo.api.bson.{ BSONDocument, BSONDocumentHandler, Macros }
+
+import lila.common.{ EmailAddress, LightUser, NormalizedEmailAddress }
+import lila.i18n.Language
+import lila.rating.{ Perf, PerfType }
 
 case class User(
     id: UserId,
@@ -15,7 +17,7 @@ case class User(
     profile: Option[Profile] = None,
     toints: Int = 0,
     playTime: Option[User.PlayTime],
-    title: Option[UserTitle] = None,
+    title: Option[PlayerTitle] = None,
     createdAt: Instant,
     seenAt: Option[Instant],
     kid: Boolean,
@@ -23,7 +25,8 @@ case class User(
     plan: Plan,
     flair: Option[Flair] = None,
     totpSecret: Option[TotpSecret] = None,
-    marks: UserMarks = UserMarks.empty
+    marks: UserMarks = UserMarks.empty,
+    hasEmail: Boolean
 ):
 
   override def equals(other: Any) = other match
@@ -33,13 +36,13 @@ case class User(
   override def hashCode: Int = id.hashCode
 
   override def toString =
-    s"User $username games:${count.game}${marks.troll so " troll"}${marks.engine so " engine"}${enabled.no so " closed"}"
+    s"User $username games:${count.game}${marks.troll.so(" troll")}${marks.engine.so(" engine")}${enabled.no.so(" closed")}"
 
   def light = LightUser(id = id, name = username, title = title, flair = flair, isPatron = isPatron)
 
   def realNameOrUsername = profileOrDefault.nonEmptyRealName | username.value
 
-  def realLang: Option[Lang]     = lang flatMap Lang.get
+  def realLang: Option[Lang]     = lang.flatMap(Lang.get)
   def language: Option[Language] = realLang.map(Language.apply)
 
   def titleUsername: String = title.fold(username.value)(t => s"$t $username")
@@ -50,7 +53,7 @@ case class User(
 
   def countRated = count.rated
 
-  def hasTitle = title.exists(Title.BOT !=)
+  def hasTitle = title.exists(PlayerTitle.BOT != _)
 
   lazy val seenRecently: Boolean = timeNoSee < User.seenRecently
 
@@ -74,15 +77,15 @@ case class User(
 
   def isPatron = plan.active
 
-  def activePlan: Option[Plan] = plan.active option plan
+  def activePlan: Option[Plan] = plan.active.option(plan)
 
   def planMonths: Option[Int] = activePlan.map(_.months)
 
   def mapPlan(f: Plan => Plan) = copy(plan = f(plan))
 
-  def createdSinceDays(days: Int) = createdAt isBefore nowInstant.minusDays(days)
+  def createdSinceDays(days: Int) = createdAt.isBefore(nowInstant.minusDays(days))
 
-  def isBot = title has Title.BOT
+  def isBot = title.contains(PlayerTitle.BOT)
   def noBot = !isBot
 
   def rankable = enabled.yes && noBot && !marks.rankban
@@ -91,11 +94,12 @@ case class User(
 
   def addRole(role: String) = copy(roles = role :: roles)
 
-  def isVerified        = roles.exists(_ contains "ROLE_VERIFIED")
-  def isSuperAdmin      = roles.exists(_ contains "ROLE_SUPER_ADMIN")
-  def isAdmin           = roles.exists(_ contains "ROLE_ADMIN") || isSuperAdmin
-  def isApiHog          = roles.exists(_ contains "ROLE_API_HOG")
-  def isVerifiedOrAdmin = isVerified || isAdmin
+  def isVerified                 = roles.exists(_.contains("ROLE_VERIFIED"))
+  def isSuperAdmin               = roles.exists(_.contains("ROLE_SUPER_ADMIN"))
+  def isAdmin                    = roles.exists(_.contains("ROLE_ADMIN")) || isSuperAdmin
+  def isApiHog                   = roles.exists(_.contains("ROLE_API_HOG"))
+  def isVerifiedOrAdmin          = isVerified || isAdmin
+  def isVerifiedOrChallengeAdmin = isVerifiedOrAdmin || roles.exists(_.contains("ROLE_CHALLENGE_ADMIN"))
 
   def has2fa = totpSecret.isDefined
 
@@ -135,7 +139,7 @@ object User:
         else if check(p.password) then
           user.totpSecret.fold[Result](Result.Success(user)): tp =>
             p.token.fold[Result](Result.MissingTotpToken): token =>
-              if tp verify token then Result.Success(user) else Result.InvalidTotpToken
+              if tp.verify(token) then Result.Success(user) else Result.InvalidTotpToken
         else if isBlanked then Result.BlankedPassword
         else Result.InvalidUsernameOrPassword
       lila.mon.user.auth.count(res.success).increment()
@@ -165,7 +169,7 @@ object User:
   val challengermodeId                 = UserId("challengermode")
   val watcherbotId                     = UserId("watcherbot")
   val ghostId                          = UserId("ghost")
-  def isLichess[U: UserIdOf](user: U)  = lichessId is user
+  def isLichess[U: UserIdOf](user: U)  = lichessId.is(user)
   def isOfficial[U: UserIdOf](user: U) = isLichess(user) || broadcasterId.is(user)
 
   val seenRecently = 2.minutes
@@ -190,13 +194,13 @@ object User:
 
   case class Speaker(
       username: UserName,
-      title: Option[UserTitle],
+      title: Option[PlayerTitle],
       flair: Option[Flair],
       enabled: Boolean,
       plan: Option[Plan],
       marks: Option[UserMarks]
   ):
-    def isBot    = title has Title.BOT
+    def isBot    = title.contains(PlayerTitle.BOT)
     def isTroll  = marks.exists(_.troll)
     def isPatron = plan.exists(_.active)
 
@@ -212,8 +216,8 @@ object User:
     def isTroll                = marks.exists(_.troll)
     def isVerified             = roles.exists(_ contains "ROLE_VERIFIED")
     def isApiHog               = roles.exists(_ contains "ROLE_API_HOG")
-    def isDaysOld(days: Int)   = createdAt isBefore nowInstant.minusDays(days)
-    def isHoursOld(hours: Int) = createdAt isBefore nowInstant.minusHours(hours)
+    def isDaysOld(days: Int)   = createdAt.isBefore(nowInstant.minusDays(days))
+    def isHoursOld(hours: Int) = createdAt.isBefore(nowInstant.minusHours(hours))
     def isLichess              = _id == User.lichessId
   case class Contacts(orig: Contact, dest: Contact):
     def hasKid  = orig.isKid || dest.isKid
@@ -223,7 +227,7 @@ object User:
     import java.time.Duration
     def totalDuration      = Duration.ofSeconds(total)
     def tvDuration         = Duration.ofSeconds(tv)
-    def nonEmptyTvDuration = tv > 0 option tvDuration
+    def nonEmptyTvDuration = (tv > 0).option(tvDuration)
   given BSONDocumentHandler[PlayTime] = Macros.handler[PlayTime]
 
   // what existing usernames are like
@@ -237,7 +241,7 @@ object User:
 
   def couldBeUsername(str: UserStr) = noGhost(str.id) && historicalUsernameRegex.matches(str.value)
 
-  def validateId(str: UserStr): Option[UserId] = couldBeUsername(str) option str.id
+  def validateId(str: UserStr): Option[UserId] = couldBeUsername(str).option(str.id)
 
   def isGhost(id: UserId) = id == ghostId || id.value.startsWith("!")
 
@@ -291,7 +295,6 @@ object User:
     import TotpSecret.given
 
     def reads(r: BSON.Reader): User =
-      val userTitle = r.getO[UserTitle](title)
       User(
         id = r.get[UserId](id),
         username = r.get[UserName](username),
@@ -299,17 +302,18 @@ object User:
         enabled = r.get[UserEnabled](enabled),
         roles = ~r.getO[List[String]](roles),
         profile = r.getO[Profile](profile),
-        toints = r nIntD toints,
+        toints = r.nIntD(toints),
         playTime = r.getO[PlayTime](playTime),
-        createdAt = r date createdAt,
-        seenAt = r dateO seenAt,
-        kid = r boolD kid,
-        lang = r strO lang,
-        title = userTitle,
+        createdAt = r.date(createdAt),
+        seenAt = r.dateO(seenAt),
+        kid = r.boolD(kid),
+        lang = r.strO(lang),
+        title = r.getO[PlayerTitle](title),
         plan = r.getO[Plan](plan) | Plan.empty,
         totpSecret = r.getO[TotpSecret](totpSecret),
         flair = r.getO[Flair](flair).filter(FlairApi.exists),
-        marks = r.getO[UserMarks](marks) | UserMarks.empty
+        marks = r.getO[UserMarks](marks) | UserMarks.empty,
+        hasEmail = r.contains(email)
       )
 
     def writes(w: BSON.Writer, o: User) =

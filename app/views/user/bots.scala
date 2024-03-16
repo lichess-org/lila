@@ -3,7 +3,7 @@ package user
 
 import controllers.routes
 
-import lila.app.templating.Environment.{ given, * }
+import lila.app.templating.Environment.{ *, given }
 import lila.app.ui.ScalatagsTemplate.{ *, given }
 import lila.user.User
 
@@ -44,8 +44,9 @@ object bots:
         div(cls := "bots__list__entry__desc")(
           div(cls := "bots__list__entry__head")(
             userLink(u),
-            ctx.pref.showRatings option div(cls := "bots__list__entry__rating"):
+            ctx.pref.showRatings.option(div(cls := "bots__list__entry__rating"):
               u.perfs.bestAny3Perfs.map { showPerfRating(u.perfs, _) }
+            )
           ),
           u.profile
             .ifTrue(ctx.kid.no)

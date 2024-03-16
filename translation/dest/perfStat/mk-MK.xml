@@ -25,7 +25,6 @@
   <string name="longestStreak">Најдолга низа: %s</string>
   <string name="currentStreak">Сегашна низа: %s</string>
   <string name="bestRated">Најдобро рангирани победи</string>
-  <string name="worstRated">Најлошо рангирани порази</string>
   <string name="gamesInARow">Број одиграни партии во низа</string>
   <string name="lessThanOneHour">Помалку од еден час меѓу партии</string>
   <string name="maxTimePlaying">Макс. време поминато во играње</string>

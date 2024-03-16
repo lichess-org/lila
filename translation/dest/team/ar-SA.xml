@@ -62,7 +62,6 @@
   <string name="entryCodeDescriptionForLeader">(اختياري) كلمة مرور يجب أن يعرفها الأعضاء الجدد للانضمام إلى هذا الفريق.</string>
   <string name="incorrectEntryCode">رمز خاطئ.</string>
   <string name="teamAlreadyExists">هذا الفريق موجود بالفعل.</string>
-  <string name="upcomingTourns">البطولات القادمة</string>
   <string name="completedTourns">البطولات المنتهية</string>
   <string name="declinedRequests">الطلبات المرفوضة</string>
   <string name="joinLichessVariantTeam">انضم إلى فريق %s الرسمي للأخبار والأحداث</string>

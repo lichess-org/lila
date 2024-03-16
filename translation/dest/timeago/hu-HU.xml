@@ -54,4 +54,13 @@
     <item quantity="one">%s éve</item>
     <item quantity="other">%s éve</item>
   </plurals>
+  <plurals name="nbMinutesRemaining">
+    <item quantity="one">%s perc van hátra</item>
+    <item quantity="other">%s perc van hátra</item>
+  </plurals>
+  <plurals name="nbHoursRemaining">
+    <item quantity="one">%s óra van hátra</item>
+    <item quantity="other">%s óra van hátra</item>
+  </plurals>
+  <string name="completed">befejeződött</string>
 </resources>

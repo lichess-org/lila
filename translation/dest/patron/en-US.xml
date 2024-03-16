@@ -80,4 +80,7 @@ However, Patrons get bragging rights with a cool new profile icon.</string>
   <string name="nowOneMonth">You are now a Lichess Patron for one month!</string>
   <string name="downgradeNextMonth">In one month, you will NOT be charged again, and your Lichess account will revert to a regular account.</string>
   <string name="changeCurrency">Change currency</string>
+  <string name="paymentDetails">Payment details</string>
+  <string name="updatePaymentMethod">Update payment method</string>
+  <string name="stripeManageSub">Manage your subscription and download your invoices and receipts</string>
 </resources>

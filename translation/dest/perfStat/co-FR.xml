@@ -24,7 +24,6 @@
   <string name="longestStreak">A più longa seria:%s</string>
   <string name="currentStreak">Seria attuale: %s</string>
   <string name="bestRated">E vittorie contru à i ghjucadori cù a classifica a più alta</string>
-  <string name="worstRated">E scunfitte contru à i ghjucadori cù a classifica a più bassa</string>
   <string name="gamesInARow">Partite ghjucate à a fila</string>
   <string name="lessThanOneHour">Menu d\' una ora trà e partite</string>
   <string name="maxTimePlaying">Tempu massimu passatu à ghjucà</string>

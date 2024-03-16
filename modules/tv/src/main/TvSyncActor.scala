@@ -1,6 +1,6 @@
 package lila.tv
 
-import akka.pattern.{ ask as actorAsk }
+import akka.pattern.ask as actorAsk
 import play.api.libs.json.Json
 
 import lila.common.Bus
@@ -34,7 +34,7 @@ final private[tv] class TvSyncActor(
   private var channelChampions = Map[Tv.Channel, Tv.Champion]()
 
   private def forward[A](channel: Tv.Channel, msg: Any) =
-    channelActors get channel foreach { _ ! msg }
+    channelActors.get(channel).foreach { _ ! msg }
 
   protected val process: SyncActor.Receive =
 
@@ -50,14 +50,16 @@ final private[tv] class TvSyncActor(
     case GetReplacementGameId(channel, oldId, exclude, promise) =>
       forward(channel, ChannelSyncActor.GetReplacementGameId(oldId, exclude, promise))
 
-    case GetChampions(promise) => promise success Tv.Champions(channelChampions)
+    case GetChampions(promise) => promise.success(Tv.Champions(channelChampions))
 
     case lila.game.actorApi.StartGame(g) =>
       if g.hasClock then
         val candidate = Tv.Candidate(g, g.userIds.exists(lightUserApi.isBotSync))
-        channelActors collect {
-          case (chan, actor) if chan filter candidate => actor
-        } foreach (_ addCandidate g)
+        channelActors
+          .collect {
+            case (chan, actor) if chan.filter(candidate) => actor
+          }
+          .foreach(_.addCandidate(g))
 
     case s @ TvSyncActor.Select => channelActors.foreach(_._2 ! s)
 
@@ -69,7 +71,7 @@ final private[tv] class TvSyncActor(
           .flatMap(_.title)
           .flatMap(Tv.titleScores.get)
       val player = game.players.all.sorted.lastOption | game.player(game.naturalOrientation)
-      val user   = player.userId flatMap lightUserApi.sync
+      val user   = player.userId.flatMap(lightUserApi.sync)
       (user, player.rating).mapN: (u, r) =>
         channelChampions += (channel -> Tv.Champion(u, r, game.id, game.naturalOrientation))
       recentTvGames.put(game)
@@ -84,11 +86,11 @@ final private[tv] class TvSyncActor(
             "rating" -> player.rating
           )
       )
-      Bus.publish(lila.hub.actorApi.tv.TvSelect(game.id, game.speed, data), "tvSelect")
+      Bus.publish(lila.round.actorApi.TvSelect(game.id, game.speed, channel.key, data), "tvSelect")
       if channel == Tv.Channel.Best then
-        actorAsk(renderer.actor, RenderFeaturedJs(game))(makeTimeout(100 millis)) foreach {
+        actorAsk(renderer.actor, RenderFeaturedJs(game))(makeTimeout(100 millis)).foreach {
           case html: String =>
-            val pov = Pov naturalOrientation game
+            val pov = Pov.naturalOrientation(game)
             val event = lila.round.ChangeFeatured(
               pov,
               makeMessage(

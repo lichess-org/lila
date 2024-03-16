@@ -2,12 +2,10 @@ package lila.ublog
 
 import play.api.data.*
 import play.api.data.Forms.*
-import ornicar.scalalib.ThreadLocalRandom
 
-import lila.common.Form.{ cleanNonEmptyText, stringIn, into, given }
-import lila.i18n.{ defaultLanguage, LangList, Language, LangForm }
+import lila.common.Form.{ cleanNonEmptyText, into, given }
+import lila.i18n.{ LangForm, Language, defaultLanguage }
 import lila.user.User
-import play.api.i18n.Lang
 
 final class UblogForm(val captcher: lila.hub.actors.Captcher) extends lila.hub.CaptchedForm:
 
@@ -35,7 +33,7 @@ final class UblogForm(val captcher: lila.hub.actors.Captcher) extends lila.hub.C
     UblogPostData(
       title = post.title,
       intro = post.intro,
-      markdown = removeLatex(post.markdown),
+      markdown = lila.common.MarkdownToastUi.latex.removeFrom(post.markdown),
       imageAlt = post.image.flatMap(_.alt),
       imageCredit = post.image.flatMap(_.credit),
       language = post.language.some,
@@ -45,10 +43,6 @@ final class UblogForm(val captcher: lila.hub.actors.Captcher) extends lila.hub.C
       gameId = GameId(""),
       move = ""
     )
-
-  // $$something$$ breaks the TUI editor WYSIWYG
-  private val latexRegex                      = """\${2,}+([^\$]++)\${2,}+""".r
-  private def removeLatex(markdown: Markdown) = markdown.map(latexRegex.replaceAllIn(_, """\$\$ $1 \$\$"""))
 
 object UblogForm:
 
@@ -68,13 +62,13 @@ object UblogForm:
 
     def create(user: User) =
       UblogPost(
-        id = UblogPostId(ThreadLocalRandom nextString 8),
+        id = UblogPost.randomId,
         blog = UblogBlog.Id.User(user.id),
         title = title,
         intro = intro,
         markdown = markdown,
         language = language.orElse(user.language) | defaultLanguage,
-        topics = topics so UblogTopic.fromStrList,
+        topics = topics.so(UblogTopic.fromStrList),
         image = none,
         live = false,
         discuss = Option(false),
@@ -83,7 +77,8 @@ object UblogForm:
         lived = none,
         likes = UblogPost.Likes(1),
         views = UblogPost.Views(0),
-        rankAdjustDays = none
+        rankAdjustDays = none,
+        pinned = none
       )
 
     def update(user: User, prev: UblogPost) =
@@ -94,14 +89,24 @@ object UblogForm:
         image = prev.image.map: i =>
           i.copy(alt = imageAlt, credit = imageCredit),
         language = language | prev.language,
-        topics = topics so UblogTopic.fromStrList,
+        topics = topics.so(UblogTopic.fromStrList),
         live = live,
         discuss = Option(discuss),
         updated = UblogPost.Recorded(user.id, nowInstant).some,
-        lived = prev.lived orElse live.option(UblogPost.Recorded(user.id, nowInstant))
+        lived = prev.lived.orElse(live.option(UblogPost.Recorded(user.id, nowInstant)))
       )
+
+  private val tierMapping =
+    "tier" -> number(min = UblogRank.Tier.HIDDEN.value, max = UblogRank.Tier.BEST.value)
+      .into[UblogRank.Tier]
 
   val tier = Form:
     single:
-      "tier" -> number(min = UblogBlog.Tier.HIDDEN.value, max = UblogBlog.Tier.BEST.value)
-        .into[UblogBlog.Tier]
+      tierMapping
+
+  val adjust = Form:
+    tuple(
+      "pinned" -> boolean,
+      tierMapping,
+      "days" -> optional(number(min = -180, max = 180))
+    )

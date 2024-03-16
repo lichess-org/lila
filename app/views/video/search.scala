@@ -1,10 +1,10 @@
 package views.html.video
 
-import lila.app.templating.Environment.{ given, * }
+import controllers.routes
+
+import lila.app.templating.Environment.{ *, given }
 import lila.app.ui.ScalatagsTemplate.{ *, given }
 import lila.common.paginator.Paginator
-
-import controllers.routes
 
 object search:
 
@@ -16,13 +16,15 @@ object search:
       ),
       div(cls := "list infinitescroll box__pad")(
         videos.currentPageResults.map { bits.card(_, control) },
-        videos.currentPageResults.sizeIs < 4 option div(cls := s"not_much nb_${videos.nbResults}")(
-          if videos.currentPageResults.isEmpty then "No videos for this search:"
-          else "That's all we got for this search:",
-          s""""${~control.query}"""",
-          br,
-          br,
-          a(href := routes.Video.index, cls := "button")("Clear search")
+        (videos.currentPageResults.sizeIs < 4).option(
+          div(cls := s"not_much nb_${videos.nbResults}")(
+            if videos.currentPageResults.isEmpty then "No videos for this search:"
+            else "That's all we got for this search:",
+            s""""${~control.query}"""",
+            br,
+            br,
+            a(href := routes.Video.index, cls := "button")("Clear search")
+          )
         ),
         pagerNext(videos, np => s"${routes.Video.index}?${control.queryString}&page=$np")
       )

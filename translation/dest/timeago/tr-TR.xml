@@ -54,4 +54,5 @@
     <item quantity="one">%s yıl önce</item>
     <item quantity="other">%s yıl önce</item>
   </plurals>
+  <string name="completed">tamamlanmış</string>
 </resources>

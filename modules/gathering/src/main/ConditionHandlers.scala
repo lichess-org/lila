@@ -1,9 +1,11 @@
 package lila.gathering
 
-import lila.gathering.Condition.*
 import play.api.i18n.Lang
-import lila.rating.PerfType
+
 import java.time.format.{ DateTimeFormatter, FormatStyle }
+
+import lila.gathering.Condition.*
+import lila.rating.PerfType
 
 object ConditionHandlers:
 

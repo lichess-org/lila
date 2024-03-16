@@ -5,7 +5,7 @@
   <string name="areYouCoach">ئایا تۆ ڕاهێنەرێکی گەورەی شەترەنجیت کە %s ـت هەیە?</string>
   <string name="nmOrFideTitle" comment="nmOrFideTitle&#10;&#10;Part of sentence &quot;Are you a great chess coach with a NM or FIDE title?&quot;&#10;&#10;The text links to our title verification page: https://lichess.org/help/master">نازناوی پاڵەوانی نیشتمانی یان نازناوێک لە فیدراسیۆنی نێودەوڵەتی شەتڕنجەوە</string>
   <string name="confirmTitle">لێرەدا ناونیشانەکەت پشتڕاست بکەرەوە و ئێمە پێداچوونەوە بە داواکارییەکەتدا دەکەین.</string>
-  <string name="sendApplication" comment="sendApplication&#10;&#10;%s is the lichess email adress">ئیمەیڵێکمان بۆ بنێرە لە %s و ئێمە پێداچوونەوە بە داواکارییەکەت دەکەین.</string>
+  <string name="sendApplication" comment="sendApplication&#10;&#10;%s is the lichess email address">ئیمەیڵێکمان بۆ بنێرە لە %s و ئێمە پێداچوونەوە بە داواکارییەکەت دەکەین.</string>
   <string name="location">شوێن</string>
   <string name="languages">زمان</string>
   <string name="rating">ئاست</string>

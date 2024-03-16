@@ -1,13 +1,9 @@
 package lila.streamer
-
-import play.api.i18n.Lang
-
 import lila.common.licon
 import lila.db.dsl.{ *, given }
 import lila.memo.CacheApi.*
 import lila.memo.PicfitApi
-import lila.user.{ User, UserRepo, UserApi }
-import lila.user.Me
+import lila.user.{ Me, User, UserApi, UserRepo }
 
 final class StreamerApi(
     coll: Coll,
@@ -28,16 +24,16 @@ final class StreamerApi(
   def byIds(ids: Iterable[Streamer.Id]): Fu[List[Streamer]] = coll.byIds[Streamer, Streamer.Id](ids)
 
   def find(username: UserStr): Fu[Option[Streamer.WithUser]] =
-    userRepo byId username flatMapz find
+    userRepo.byId(username).flatMapz(find)
 
   def find(user: User): Fu[Option[Streamer.WithUser]] =
-    byId(user.id into Streamer.Id).mapz: streamer =>
+    byId(user.id.into(Streamer.Id)).mapz: streamer =>
       Streamer.WithUser(streamer, user).some
 
   def findOrInit(user: User): Fu[Option[Streamer.WithUser]] =
     find(user).orElse:
-      val s = Streamer.WithUser(Streamer make user, user)
-      coll.insert.one(s.streamer) inject s.some
+      val s = Streamer.WithUser(Streamer.make(user), user)
+      coll.insert.one(s.streamer).inject(s.some)
 
   def forSubscriber(streamerName: UserStr)(using me: Option[Me.Id]): Fu[Option[Streamer.WithContext]] =
     me.foldLeft(find(streamerName)): (streamerFu, me) =>
@@ -48,25 +44,26 @@ final class StreamerApi(
     users <- userRepo.byIds(live.streams.map(_.streamer.userId))
     subs  <- me.so(subsRepo.filterSubscribed(_, users.map(_.id)))
   yield live.streams.flatMap: s =>
-    users.find(_ is s.streamer) map {
+    users.find(_.is(s.streamer)).map {
       Streamer.WithUserAndStream(s.streamer, _, s.some, subs(s.streamer.userId))
     }
 
   def allListedIds: Fu[Set[Streamer.Id]] = cache.listedIds.getUnit
 
   def listed[U: UserIdOf](u: U): Fu[Option[Streamer]] =
-    val id = u.id into Streamer.Id
+    val id = u.id.into(Streamer.Id)
     cache.isListed(id).flatMapz(byId(id))
 
   def setSeenAt(user: User): Funit =
     cache.listedIds.getUnit.flatMap: ids =>
-      ids.contains(user.id into Streamer.Id) so
-        coll.update.one($id(user.id), $set("seenAt" -> nowInstant)).void
+      ids
+        .contains(user.id.into(Streamer.Id))
+        .so(coll.update.one($id(user.id), $set("seenAt" -> nowInstant)).void)
 
   def setLangLiveNow(streams: List[Stream]): Funit =
-    val update = coll.update(ordered = false)
+    val update: coll.UpdateBuilder = coll.update(ordered = false)
     for
-      elements <- streams.map { s =>
+      elements <- streams.traverse: s =>
         update.element(
           q = $id(s.streamer.id),
           u = $set(
@@ -74,32 +71,41 @@ final class StreamerApi(
             "lastStreamLang" -> s.language
           )
         )
-      }.parallel
-      _            <- elements.nonEmpty so update.many(elements).void
+      _            <- elements.nonEmpty.so(update.many(elements).void)
       candidateIds <- cache.candidateIds.getUnit
     yield if streams.map(_.streamer.id).exists(candidateIds.contains) then cache.candidateIds.invalidateUnit()
 
   def update(prev: Streamer, data: StreamerForm.UserData, asMod: Boolean): Fu[Streamer.ModChange] =
     val streamer = data(prev, asMod)
-    coll.update.one($id(streamer.id), streamer) andDo {
-      cache.listedIds.invalidateUnit()
-      streamer.youTube.foreach(tuber => ytApi.channelSubscribe(tuber.channelId, true))
-    } inject modChange(prev, streamer)
+    coll.update
+      .one($id(streamer.id), streamer)
+      .andDo {
+        cache.listedIds.invalidateUnit()
+        streamer.youTube.foreach(tuber => ytApi.channelSubscribe(tuber.channelId, true))
+      }
+      .inject(modChange(prev, streamer))
+
+  def forceCheck(uid: UserId): Funit =
+    byId(uid.into(Streamer.Id)).map:
+      _.filter(_.approval.granted).so: s =>
+        s.youTube.foreach(ytApi.forceCheckWithHtmlScraping)
 
   private def modChange(prev: Streamer, current: Streamer): Streamer.ModChange =
-    val list = prev.approval.granted != current.approval.granted option current.approval.granted
-    ~list so notifyApi.notifyOne(
-      current,
-      lila.notify.GenericLink(
-        url = "/streamer/edit",
-        title = "Listed on /streamer".some,
-        text = "Your streamer page is public".some,
-        icon = licon.Mic
+    val list = (prev.approval.granted != current.approval.granted).option(current.approval.granted)
+    (~list).so(
+      notifyApi.notifyOne(
+        current,
+        lila.notify.GenericLink(
+          url = "/streamer/edit",
+          title = "Listed on /streamer".some,
+          text = "Your streamer page is public".some,
+          icon = licon.Mic
+        )
       )
     )
     Streamer.ModChange(
       list = list,
-      tier = prev.approval.tier != current.approval.tier option current.approval.tier,
+      tier = (prev.approval.tier != current.approval.tier).option(current.approval.tier),
       decline = !current.approval.granted && !current.approval.requested && prev.approval.requested
     )
 
@@ -129,7 +135,7 @@ final class StreamerApi(
       )
 
   def create(u: User): Funit =
-    coll.insert.one(Streamer make u).void.recover(lila.db.ignoreDuplicateKey)
+    coll.insert.one(Streamer.make(u)).void.recover(lila.db.ignoreDuplicateKey)
 
   def isPotentialStreamer(user: User): Fu[Boolean] =
     cache.listedIds.getUnit.dmap(_ contains user.id.into(Streamer.Id))
@@ -138,22 +144,23 @@ final class StreamerApi(
     cache.candidateIds.getUnit.dmap(_ contains user.id.into(Streamer.Id))
 
   def isActualStreamer(user: User): Fu[Boolean] =
-    isPotentialStreamer(user) >>& !isCandidateStreamer(user)
+    isPotentialStreamer(user) >>& isCandidateStreamer(user).not
 
   def uploadPicture(s: Streamer, picture: PicfitApi.FilePart, by: User): Funit =
     picfitApi
-      .uploadFile(s"streamer:${s.id}", picture, userId = by.id) flatMap { pic =>
-      coll.update.one($id(s.id), $set("picture" -> pic.id)).void
-    }
+      .uploadFile(s"streamer:${s.id}", picture, userId = by.id)
+      .flatMap { pic =>
+        coll.update.one($id(s.id), $set("picture" -> pic.id)).void
+      }
 
   // unapprove after 6 weeks if you never streamed (was originally 1 week)
   def autoDemoteFakes: Funit =
     coll.update
       .one(
         $doc(
-          "liveAt" $exists false,
+          "liveAt".$exists(false),
           "approval.granted" -> true,
-          "approval.lastGrantedAt" $lt nowInstant.minusWeeks(6)
+          "approval.lastGrantedAt".$lt(nowInstant.minusWeeks(6))
         ),
         $set(
           "approval.granted" -> false,
@@ -166,8 +173,8 @@ final class StreamerApi(
   object approval:
 
     def request(user: User) =
-      find(user) flatMap {
-        _.filter(!_.streamer.approval.granted) so { s =>
+      find(user).flatMap {
+        _.filter(!_.streamer.approval.granted).so { s =>
           coll.updateField($id(s.streamer.id), "approval.requested", true).void
         }
       }
@@ -190,10 +197,10 @@ final class StreamerApi(
               $doc("youTube.channelId" -> t)
             }
           ).flatten,
-          "_id" $ne streamer.userId
+          "_id".$ne(streamer.userId)
         )
       )
-      .sort($sort desc "createdAt")
+      .sort($sort.desc("createdAt"))
       .cursor[Streamer](ReadPref.sec)
       .list(10)
 
@@ -215,5 +222,5 @@ final class StreamerApi(
       _.refreshAfterWrite(1 hour).buildAsyncFuture: _ =>
         coll.secondaryPreferred.distinctEasy[Streamer.Id, Set](
           "_id",
-          selectListedApproved ++ $doc("liveAt" $exists false)
+          selectListedApproved ++ $doc("liveAt".$exists(false))
         )

@@ -1,23 +1,28 @@
 .study__multiboard {
-  @extend %box-neat;
-
-  background: $c-bg-box;
+  .analyse__underboard & {
+    @extend %box-neat;
+    background: $c-bg-box;
+  }
 
   &.loading {
     opacity: 0.7;
   }
 
-  &.nopager {
+  &.nodata {
     padding: 2em;
   }
 
-  .top {
+  &__top {
     @extend %flex-between;
 
-    padding: 0.4em 1.5em;
+    padding: 0.4em 1em 0.4em 0.4em;
+  }
+  &__options {
+    @extend %flex-center;
+    gap: 1em;
   }
 
-  .pager {
+  &__pager {
     @extend %flex-center;
 
     .page {
@@ -31,55 +36,59 @@
     padding: 0.6em 1em;
   }
 
-  .playing {
+  .playing,
+  .eval {
     cursor: pointer;
   }
 
-  .playing input {
+  .playing input,
+  .eval input {
     vertical-align: middle;
     margin-#{$end-direction}: 3px;
   }
 
   .now-playing {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(170px, 1fr));
-    @include breakpoint($mq-x-small) {
-      grid-template-columns: repeat(3, 1fr);
-    }
+    grid-template-columns: repeat(auto-fill, minmax(min(100%/2, max(220px, 100%/4)), 1fr));
 
     a {
       @extend %box-radius;
+      container-type: inline-size;
 
       color: $c-font;
       padding: 0.5em;
+      border: 1px solid transparent;
 
-      @include transition(background);
-
-      background: fade-out($c-bg-box, 0.6);
       overflow: hidden;
 
-      &:nth-child(even) {
-        background: $c-bg-zebra2;
-      }
-
-      &:hover {
-        background: fade-out($c-link, 0.6);
+      &.active {
+        background: mix($c-primary, $c-bg-box, 20%);
         color: $c-font-clear;
+        border-color: mix($c-primary, $c-bg-box, 40%);
       }
-
-      &.active,
-      &:active {
-        background: $c-secondary;
-        color: $c-secondary-over;
+      &:hover {
+        background: mix($c-primary, $c-bg-box, 12%);
+        color: $c-font-clear;
+        border-color: mix($c-primary, $c-bg-box, 50%);
       }
-
-      cg-board {
-        box-shadow: none;
-      }
+    }
+    cg-board {
+      box-shadow: none;
     }
   }
 }
+@container (width < 250px) {
+  .now-playing .rating {
+    display: none;
+  }
+}
 .mini-game {
+  $white: #a0a0a0;
+  $black: #606060;
+  @if $theme-light {
+    $white: #fff;
+    $black: #888;
+  }
   .cg-gauge {
     display: flex;
     flex-flow: row nowrap;
@@ -88,31 +97,52 @@
     flex: 1 1 auto;
   }
   &__gauge {
+    order: 1;
     position: relative;
-    flex: 0 0 5%;
-    background: if($theme-light, #fff, #a0a0a0);
+    flex: 0 0 4%;
     border: $border;
     border-left: 0;
+    margin-top: -1px;
     overflow: hidden;
     @extend %box-radius-right;
 
-    &::after {
-      content: '';
-      display: block;
-      position: absolute;
-      top: 0;
-      bottom: 0;
-      #{$start-direction}: 0;
-      #{$end-direction}: 0;
-      box-shadow: 0 0 5px rgba(0, 0, 0, 0.7) inset;
-    }
-
     &__black {
-      display: block;
+      display: none;
       width: 100%;
       height: 50%;
-      background: if($theme-light, #888, #666);
+      background: $black;
       transition: height 1s;
     }
+
+    opacity: 0.4;
+    background: linear-gradient(to top, $white, $black);
+    &--set {
+      opacity: 1;
+      background: $white;
+      .mini-game__gauge__black {
+        display: block;
+      }
+      &::after {
+        content: '';
+        display: block;
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        #{$start-direction}: 0;
+        #{$end-direction}: 0;
+        box-shadow: 0 0 5px rgba(0, 0, 0, 0.7) inset;
+      }
+      tick {
+        position: absolute;
+        width: 100%;
+        top: 2.5px;
+        opacity: 1;
+        border-bottom: 5px solid fade-out($c-accent, 0.5);
+        height: 50%;
+      }
+    }
+  }
+  .mini-game__gauge ~ .mini-game__board cg-container {
+    @extend %box-radius-left;
   }
 }

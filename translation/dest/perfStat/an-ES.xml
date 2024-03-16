@@ -25,7 +25,6 @@
   <string name="longestStreak">Tongada mas larga: %s</string>
   <string name="currentStreak">Tongada actual: %s</string>
   <string name="bestRated">Millors victorias per puntos</string>
-  <string name="worstRated">Piors redotas per puntos</string>
   <string name="gamesInARow">Partidas chugadas seguidas</string>
   <string name="lessThanOneHour">Menos d\'una hora entre partidas</string>
   <string name="maxTimePlaying">Tiempo maximo chugando</string>

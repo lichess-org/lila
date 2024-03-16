@@ -54,4 +54,13 @@
     <item quantity="one">%s vit më parë</item>
     <item quantity="other">para %s viteve</item>
   </plurals>
+  <plurals name="nbMinutesRemaining">
+    <item quantity="one">Edhe %s minutë</item>
+    <item quantity="other">Edhe %s minuta</item>
+  </plurals>
+  <plurals name="nbHoursRemaining">
+    <item quantity="one">Edhe %s orë</item>
+    <item quantity="other">Edhe %s orë</item>
+  </plurals>
+  <string name="completed">mbaroi</string>
 </resources>

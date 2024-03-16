@@ -25,7 +25,6 @@
   <string name="longestStreak">Leghosszabb sorozat: %s</string>
   <string name="currentStreak">Jelenlegi sorozat: %s</string>
   <string name="bestRated">Legjobb győzelmek</string>
-  <string name="worstRated">Legrosszabb vereségek</string>
   <string name="gamesInARow">Egymás után játszott partik</string>
   <string name="lessThanOneHour">Kevesebb, mint egy óra játszmák között</string>
   <string name="maxTimePlaying">Legtöbb játékkal töltött idő</string>

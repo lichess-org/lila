@@ -1,12 +1,12 @@
 package views.html
 package userTournament
 
-import lila.app.templating.Environment.{ given, * }
+import controllers.routes
+
+import lila.app.templating.Environment.{ *, given }
 import lila.app.ui.ScalatagsTemplate.{ *, given }
 import lila.common.paginator.Paginator
 import lila.user.User
-
-import controllers.routes
 
 object bits:
 
@@ -39,20 +39,23 @@ object bits:
       main(cls := "page-menu")(
         views.html.site.bits.pageMenuSubnav(
           a(cls := path.active("created"), href := routes.UserTournament.path(u.username, "created"))(
-            "Created"
+            trans.arena.created()
           ),
-          ctx.is(u) option
-            a(cls := path.active("upcoming"), href := routes.UserTournament.path(u.username, "upcoming"))(
-              "Upcoming"
+          ctx
+            .is(u)
+            .option(
+              a(cls := path.active("upcoming"), href := routes.UserTournament.path(u.username, "upcoming"))(
+                trans.broadcast.upcoming()
+              )
             ),
           a(cls := path.active("recent"), href := routes.UserTournament.path(u.username, "recent"))(
-            "Recently played"
+            trans.arena.recentlyPlayed()
           ),
           a(cls := path.active("best"), href := routes.UserTournament.path(u.username, "best"))(
-            "Best results"
+            trans.arena.bestResults()
           ),
           a(cls := path.active("chart"), href := routes.UserTournament.path(u.username, "chart"))(
-            "Stats"
+            trans.arena.stats()
           )
         ),
         div(cls := "page-menu__content box")(body)

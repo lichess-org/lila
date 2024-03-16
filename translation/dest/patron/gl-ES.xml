@@ -80,4 +80,7 @@ Porén, os Patróns poden gabarse das súas novas e bárbaras ás de Patrón que
   <string name="nowOneMonth">Agora es un Patrón de Lichess durante un mes!</string>
   <string name="downgradeNextMonth">Nun mes, NON se che cobrará de novo, e a túa conta de Lichess reverterá á versión normal.</string>
   <string name="changeCurrency">Cambiar a moeda</string>
+  <string name="paymentDetails">Detalles do pagamento</string>
+  <string name="updatePaymentMethod">Actualizar o método de pagamento</string>
+  <string name="stripeManageSub">Xestionar a túa subscrición e descargar as túas facturas e recibos</string>
 </resources>

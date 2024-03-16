@@ -84,7 +84,7 @@
   <string name="pinnedChapterComment">ಪಿನ್ ಮಾಡಿದ ಅಧ್ಯಾಯ ಕಾಮೆಂಟ್</string>
   <string name="saveChapter">ಅಧ್ಯಾಯವನ್ನು ಉಳಿಸಿ</string>
   <string name="clearAnnotations">ಸ್ಪಷ್ಟ ಟಿಪ್ಪಣಿಗಳು</string>
-  <string name="clearVariations">ಸ್ಪಷ್ಟ ವ್ಯತ್ಯಾಸಗಳು</string>
+  <string name="clearVariations" comment="Clear is used as a verb here. This erases the variations in the study (https://lichess.org/study) you are preparing.">ಸ್ಪಷ್ಟ ವ್ಯತ್ಯಾಸಗಳು</string>
   <string name="deleteChapter">ಅಧ್ಯಾಯವನ್ನು ಅಳಿಸಿ</string>
   <string name="deleteThisChapter">ಈ ಅಧ್ಯಾಯವನ್ನು ಅಳಿಸಿ. ಹಿಂತಿರುಗಿ ಹೋಗುವುದಿಲ್ಲ!</string>
   <string name="clearAllCommentsInThisChapter">ಈ ಅಧ್ಯಾಯವನ್ನು ಅಳಿಸಿ. ಹಿಂತಿರುಗಿ ಹೋಗುವುದಿಲ್ಲ</string>

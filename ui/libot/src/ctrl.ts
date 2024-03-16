@@ -33,7 +33,7 @@ export async function makeCtrl(libots: Libots, zf: Zerofish): Promise<Ctrl> {
 }
 
 async function fetchNet(netName: string): Promise<Uint8Array> {
-  return fetch(lichess.asset.url(`lifat/bots/weights/${netName}`, { noVersion: true }))
+  return fetch(site.asset.url(`lifat/bots/weights/${netName}`, { noVersion: true }))
     .then(res => res.arrayBuffer())
     .then(buf => new Uint8Array(buf));
 }

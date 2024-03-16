@@ -1,9 +1,9 @@
 package views.html.mod
 
-import lila.app.templating.Environment.*
-import lila.app.ui.ScalatagsTemplate.{ given, * }
-
 import controllers.routes
+
+import lila.app.templating.Environment.*
+import lila.app.ui.ScalatagsTemplate.{ *, given }
 
 object chatPanic:
 
@@ -24,13 +24,15 @@ object chatPanic:
           ),
           p(
             "Current state: ",
-            state.map { s =>
-              frag(
-                goodTag(cls := "text", dataIcon := licon.Checkmark)(strong("ENABLED")),
-                ". Expires ",
-                momentFromNow(s)
-              )
-            } getOrElse badTag(cls := "text", dataIcon := licon.X)(strong("DISABLED"))
+            state
+              .map { s =>
+                frag(
+                  goodTag(cls := "text", dataIcon := licon.Checkmark)(strong("ENABLED")),
+                  ". Expires ",
+                  momentFromNow(s)
+                )
+              }
+              .getOrElse(badTag(cls := "text", dataIcon := licon.X)(strong("DISABLED")))
           ),
           div(cls := "forms")(
             if state.isDefined then

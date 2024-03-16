@@ -522,7 +522,6 @@
   <string name="automaticallyProceedToNextGameAfterMoving">Lépés után ugrás a következő játékra</string>
   <string name="autoSwitch">Automatikus váltás</string>
   <string name="puzzles">Feladvány</string>
-  <string name="tournamentWinners">Verseny győztesek</string>
   <string name="name">Név</string>
   <string name="description">Leírás</string>
   <string name="descPrivate">Privát leírás</string>
@@ -916,8 +915,6 @@ befolyásolják a játékosok értékszámát</string>
   <string name="minimumRatedGames">Legkevesebb értékelt játszma</string>
   <string name="minimumRating">Legalacsonyabb értékszám</string>
   <string name="maximumWeeklyRating">Legmagasabb heti értékszám</string>
-  <string name="onlyTitled">Csak címmel rendelkező játékosok</string>
-  <string name="onlyTitledHelp">A részvétel feltétele a hivatalos cím megléte</string>
   <string name="positionInputHelp">Illessz be egy FEN sort, hogy minden játszma adott állásból induljon.
 Csak hagyományos játszmákkal működik, variánsokkal nem.
 Használhatod a %s a FEN készítésére, azt illeszd be ide.

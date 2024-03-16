@@ -25,7 +25,6 @@
   <string name="longestStreak">Længste stime: %s</string>
   <string name="currentStreak">Aktuel stime: %s</string>
   <string name="bestRated">Bedst ratede sejre</string>
-  <string name="worstRated">Værst ratede nederlag</string>
   <string name="gamesInARow">Partier spillet i træk</string>
   <string name="lessThanOneHour">Mindre end en time mellem partier</string>
   <string name="maxTimePlaying">Maks tid brugt på at spille</string>

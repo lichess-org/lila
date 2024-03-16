@@ -1,7 +1,7 @@
 package lila.msg
 
-import lila.user.{ Me, User }
 import lila.common.LightUser
+import lila.user.{ Me, User }
 
 case class MsgThread(
     id: MsgThread.Id,

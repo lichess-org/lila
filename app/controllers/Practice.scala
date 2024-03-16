@@ -1,13 +1,13 @@
 package controllers
 
 import play.api.libs.json.*
+import views.*
 
-import lila.app.{ given, * }
+import lila.app.{ *, given }
 import lila.practice.JsonView.given
 import lila.practice.{ PracticeSection, PracticeStudy, UserStudy }
 import lila.study.Study.WithChapter
 import lila.tree.Node.partitionTreeJsonWriter
-import views.*
 
 final class Practice(
     env: Env,
@@ -19,7 +19,7 @@ final class Practice(
   def index = Open:
     pageHit
     Ok.pageAsync:
-      api.get(ctx.me) map { html.practice.index(_) }
+      api.get(ctx.me).map { html.practice.index(_) }
     .map(_.noCache)
 
   def show(sectionId: String, studySlug: String, studyId: StudyId) = Open:
@@ -58,7 +58,7 @@ final class Practice(
             )
           )
     .map:
-        _.noCache.enableSharedArrayBuffer.withCanonical(s"${us.url}/${us.study.chapter.id}")
+        _.noCache.enforceCrossSiteIsolation.withCanonical(s"${us.url}/${us.study.chapter.id}")
 
   def chapter(studyId: StudyId, chapterId: StudyChapterId) = Open:
     Found(api.getStudyWithChapter(ctx.me, studyId, chapterId)): us =>
@@ -70,35 +70,34 @@ final class Practice(
           )
         ).noCache
 
-  private def analysisJson(us: UserStudy)(using Context): Fu[(JsObject, JsObject)] =
-    us match
-      case UserStudy(_, _, chapters, WithChapter(study, chapter), _) =>
-        env.study.jsonView(study, chapters, chapter, ctx.me) map { studyJson =>
-          val initialFen = chapter.root.fen.some
-          val pov        = userAnalysisC.makePov(initialFen, chapter.setup.variant)
-          val baseData = env.round.jsonView
-            .userAnalysisJson(
-              pov,
-              ctx.pref,
-              initialFen,
-              chapter.setup.orientation,
-              owner = false
-            )
-          val analysis = baseData ++ Json.obj(
-            "treeParts" -> partitionTreeJsonWriter.writes {
-              lila.study.TreeBuilder(chapter.root, chapter.setup.variant)
-            },
-            "practiceGoal" -> lila.practice.PracticeGoal(chapter)
+  private def analysisJson(us: UserStudy)(using Context): Fu[(JsObject, JsObject)] = us match
+    case UserStudy(_, _, chapters, WithChapter(study, chapter), _) =>
+      env.study.jsonView(study, chapters, chapter, withMembers = false).map { studyJson =>
+        val initialFen = chapter.root.fen.some
+        val pov        = userAnalysisC.makePov(initialFen, chapter.setup.variant)
+        val baseData = env.round.jsonView
+          .userAnalysisJson(
+            pov,
+            ctx.pref,
+            initialFen,
+            chapter.setup.orientation,
+            owner = false
           )
-          (analysis, studyJson)
-        }
+        val analysis = baseData ++ Json.obj(
+          "treeParts" -> partitionTreeJsonWriter.writes {
+            lila.study.TreeBuilder(chapter.root, chapter.setup.variant)
+          },
+          "practiceGoal" -> lila.practice.PracticeGoal(chapter)
+        )
+        (analysis, studyJson)
+      }
 
   def complete(chapterId: StudyChapterId, nbMoves: Int) = Auth { ctx ?=> me ?=>
-    api.progress.setNbMoves(me, chapterId, lila.practice.PracticeProgress.NbMoves(nbMoves)) inject NoContent
+    api.progress.setNbMoves(me, chapterId, lila.practice.PracticeProgress.NbMoves(nbMoves)).inject(NoContent)
   }
 
   def reset = AuthBody { _ ?=> me ?=>
-    api.progress.reset(me) inject Redirect(routes.Practice.index)
+    api.progress.reset(me).inject(Redirect(routes.Practice.index))
   }
 
   def config = Secure(_.PracticeConfig) { ctx ?=> _ ?=>
@@ -115,9 +114,7 @@ final class Practice(
         renderAsync:
           api.structure.get.map(html.practice.config(_, err))
       } { text =>
-        ~api.config.set(text).toOption >>
-          env.mod.logApi.practiceConfig andDo
-          api.structure.clear() inject
-          Redirect(routes.Practice.config)
+        (~api.config.set(text).toOption >>
+          env.mod.logApi.practiceConfig).andDo(api.structure.clear()).inject(Redirect(routes.Practice.config))
       }
   }

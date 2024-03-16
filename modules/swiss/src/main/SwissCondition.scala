@@ -1,14 +1,13 @@
 package lila.swiss
 
+import alleycats.Zero
 import play.api.i18n.Lang
 
-import lila.rating.PerfType
-import lila.user.{ Me, UserPerfs }
-import lila.gathering.{ Condition, ConditionList }
 import lila.gathering.Condition.*
-import alleycats.Zero
-import lila.i18n.{ I18nKeys as trans }
-import lila.rating.Perf
+import lila.gathering.{ Condition, ConditionList }
+import lila.i18n.I18nKeys as trans
+import lila.rating.{ Perf, PerfType }
+import lila.user.Me
 
 object SwissCondition:
 
@@ -32,11 +31,14 @@ object SwissCondition:
         perfType: PerfType,
         getBannedUntil: GetBannedUntil
     )(using me: Me)(using Perf, Executor, GetMaxRating): Fu[WithVerdicts] =
-      list.map {
-        case PlayYourGames => getBannedUntil(me.userId) map PlayYourGames.withBan
-        case c: MaxRating  => c(perfType) map c.withVerdict
-        case c: FlatCond   => fuccess(c withVerdict c(perfType))
-      }.parallel dmap WithVerdicts.apply
+      list
+        .map {
+          case PlayYourGames => getBannedUntil(me.userId).map(PlayYourGames.withBan)
+          case c: MaxRating  => c(perfType).map(c.withVerdict)
+          case c: FlatCond   => fuccess(c.withVerdict(c(perfType)))
+        }
+        .parallel
+        .dmap(WithVerdicts.apply)
 
     def similar(other: All) = sameRatings(other) && titled == other.titled
 
@@ -62,7 +64,7 @@ object SwissCondition:
         "titled"      -> titled,
         "allowList"   -> allowList,
         "playYourGames" -> optional(boolean)
-          .transform(_.contains(true) option PlayYourGames, _.isDefined option true)
+          .transform(_.contains(true).option(PlayYourGames), _.isDefined.option(true))
       )(All.apply)(unapply).verifying("Invalid ratings", _.validRatings)
 
   import reactivemongo.api.bson.*

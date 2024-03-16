@@ -1,3 +1,4 @@
+import { bindChessgroundResize } from './resize';
 import throttle from './throttle';
 
 export const runner = (hacks: () => void, throttleMs = 100): void => {
@@ -23,6 +24,6 @@ let boundChessgroundResize = false;
 export const bindChessgroundResizeOnce = (f: () => void): void => {
   if (!boundChessgroundResize) {
     boundChessgroundResize = true;
-    document.body.addEventListener('chessground.resize', f);
+    bindChessgroundResize(f);
   }
 };

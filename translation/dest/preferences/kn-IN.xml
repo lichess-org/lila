@@ -19,7 +19,6 @@
   <string name="displayBoardResizeHandle">ಬೋರ್ಡ್ ಮರುಗಾತ್ರದ ಹ್ಯಾಂಡಲ್ ಅನ್ನು ತೋರಿಸಿ</string>
   <string name="onlyOnInitialPosition">ಆರಂಭಿಕ ಸ್ಥಾನದಲ್ಲಿ ಮಾತ್ರ</string>
   <string name="inGameOnly">ಆಟದಲ್ಲಿ ಮಾತ್ರ</string>
-  <string name="blindfoldChess">ಕಣ್ಣುಮುಚ್ಚಿ ಚೆಸ್ (ಅದೃಶ್ಯ ತುಣುಕುಗಳು)</string>
   <string name="chessClock">ಚೆಸ್ ಗಡಿಯಾರ</string>
   <string name="tenthsOfSeconds">ಹತ್ತನೇ ಸೆಕೆಂಡುಗಳು</string>
   <string name="whenTimeRemainingLessThanTenSeconds" comment="whenTimeRemainingLessThanTenSeconds&#10;&#10;The &amp;lt; symbol is not required (you can write it as a word), just do NOT use &lt; in its place.&#10;&#10;Technical information: &lt; is a reserved character in HTML, which is why it cannot be used.">ಸಮಯ ಉಳಿದಿರುವಾಗ &lt; 10 ಸೆಕೆಂಡುಗಳು</string>

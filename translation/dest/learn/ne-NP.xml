@@ -6,7 +6,7 @@
   <string name="progressX">प्रगति %s</string>
   <string name="resetMyProgress">फेरी शुरुबाट गरौ</string>
   <string name="youWillLoseAllYourProgress">तपाइको सबै प्रगति हराउने छ!</string>
-  <string name="play">खेलौ</string>
+  <string name="play" comment="play&#10;&#10;A small ribbon that appears on your current chapter in the Chess Basics course. Please keep this string short.">खेलौ</string>
   <string name="chessPieces">बुद्धिचाल को गोटीहरु</string>
   <string name="theRook">हात्ती</string>
   <string name="itMovesInStraightLines">यो सिधा रेखा मा चल्छ।</string>
@@ -225,6 +225,7 @@
   <string name="rightOn">सहि छ!</string>
   <string name="stageXComplete">तह %s सक्कियो</string>
   <string name="next">अर्को</string>
+  <string name="nextX">अर्को%s</string>
   <string name="backToMenu">मेनु मा फिर्ता</string>
   <string name="puzzleFailed">गलत जवाफ!</string>
   <string name="retry">पुन: प्रयास गर्नुहोस्</string>

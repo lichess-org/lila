@@ -32,7 +32,7 @@
   <string name="threeChecks">Três xeques</string>
   <string name="raceFinished">Corrida terminada</string>
   <string name="variantEnding">Fim da variante</string>
-  <string name="newOpponent">Novo adversário</string>
+  <string name="newOpponent">Novo oponente</string>
   <string name="yourOpponentWantsToPlayANewGameWithYou">Seu oponente quer jogar uma nova partida contra você</string>
   <string name="joinTheGame">Entrar no jogo</string>
   <string name="whitePlays">Brancas jogam</string>
@@ -41,7 +41,7 @@
     <item quantity="one">O seu adversário deixou a partida. Você pode reivindicar vitória em %s segundo.</item>
     <item quantity="other">O seu adversário deixou a partida. Você pode reivindicar vitória em %s segundos.</item>
   </plurals>
-  <string name="opponentLeftChoices">O seu adversário deixou a partida. Você pode reivindicar vitória, declarar empate ou aguardar.</string>
+  <string name="opponentLeftChoices">O seu oponente deixou a partida. Você pode reivindicar vitória, declarar empate ou aguardar.</string>
   <string name="forceResignation">Reivindicar vitória</string>
   <string name="forceDraw">Reivindicar empate</string>
   <string name="talkInChat">Por favor, seja gentil no chat!</string>
@@ -276,6 +276,7 @@
   <string name="abortGame">Cancelar partida</string>
   <string name="gameAborted">Partida cancelada</string>
   <string name="standard">Padrão</string>
+  <string name="customPosition">Posição personalizada</string>
   <string name="unlimited">Ilimitado</string>
   <string name="mode">Modo</string>
   <string name="casual">Amistosa</string>
@@ -418,6 +419,7 @@
   <string name="blackCheckmatesInOneMove">As pretas dão mate em um lance</string>
   <string name="retry">Tentar novamente</string>
   <string name="reconnecting">Reconectando</string>
+  <string name="noNetwork">Sem conexão</string>
   <plurals name="nbFriendsOnline">
     <item quantity="one">%s amigo online</item>
     <item quantity="other">%s amigos online</item>
@@ -530,7 +532,7 @@
   <string name="automaticallyProceedToNextGameAfterMoving">Passar automaticamente ao jogo seguinte após o lance</string>
   <string name="autoSwitch">Alternar automaticamente</string>
   <string name="puzzles">Quebra-cabeças</string>
-  <string name="tournamentWinners">Vencedores de torneios</string>
+  <string name="onlineBots">Bots online</string>
   <string name="name">Nome</string>
   <string name="description">Descrição</string>
   <string name="descPrivate">Descrição privada</string>
@@ -699,9 +701,14 @@
   <string name="keyNextBlunder">Próximo erro grave</string>
   <string name="keyNextMistake">Próximo erro</string>
   <string name="keyNextInaccuracy">Próxima imprecisão</string>
+  <string name="keyPreviousBranch">Branch anterior</string>
+  <string name="keyNextBranch">Próximo branch</string>
   <string name="toggleVariationArrows">Ativar/desativar setas</string>
   <string name="cyclePreviousOrNextVariation">Variante seguinte/anterior</string>
   <string name="toggleGlyphAnnotations">Ativar/desativar anotações</string>
+  <string name="togglePositionAnnotations">Ativar/desativar anotações de posição</string>
+  <string name="variationArrowsInfo">Setas de variação permitem navegar sem usar a lista de movimentos.</string>
+  <string name="playSelectedMove">jogar movimento selecionado</string>
   <string name="newTournament">Novo torneio</string>
   <string name="tournamentHomeTitle">Torneios de xadrez com diversos controles de tempo e variantes</string>
   <string name="tournamentHomeDescription">Jogue xadrez em ritmo acelerado! Entre em um torneio oficial agendado ou crie seu próprio. Bullet, Blitz, Clássico, Chess960, King of the Hill, Três Xeques e outras modalidades disponíveis para uma ilimitada diversão enxadrística.</string>
@@ -934,8 +941,6 @@ e afetam a classificação dos jogadores</string>
   <string name="minimumRatedGames">Mínimo de partidas ranqueadas</string>
   <string name="minimumRating">Classificação mínima</string>
   <string name="maximumWeeklyRating">Classificação máxima da semana</string>
-  <string name="onlyTitled">Apenas jogadores titulados</string>
-  <string name="onlyTitledHelp">Exigir um título oficial para entrar no torneio</string>
   <string name="positionInputHelp">Cole um FEN válido para iniciar as partidas a partir de uma posição específica.
 Só funciona com jogos padrão, e não com variantes.
 Use o %s para gerar uma posição FEN, e depois cole-a aqui.
@@ -983,4 +988,5 @@ Deixe em branco para começar as partidas na posição inicial padrão.</string>
   <string name="instructions">Instruções</string>
   <string name="showMeEverything">Mostrar tudo</string>
   <string name="lichessPatronInfo">Lichess é um software de código aberto, totalmente grátis e sem fins lucrativos. Todos os custos operacionais, de desenvolvimento, e os conteúdos são financiados unicamente através de doações de usuários.</string>
+  <string name="nothingToSeeHere">Nada para ver aqui no momento.</string>
 </resources>

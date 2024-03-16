@@ -306,6 +306,7 @@
   <string name="abortGame">ביטול המשחק</string>
   <string name="gameAborted">המשחק בוטל</string>
   <string name="standard">רגיל</string>
+  <string name="customPosition">עמדה מותאמת אישית</string>
   <string name="unlimited">בלתי מוגבל</string>
   <string name="mode">מצב</string>
   <string name="casual">לא מדורג</string>
@@ -476,6 +477,7 @@
   <string name="blackCheckmatesInOneMove">מט ב-1 לשחור</string>
   <string name="retry">נסו שוב</string>
   <string name="reconnecting">מתחבר מחדש</string>
+  <string name="noNetwork">לא מחובר</string>
   <plurals name="nbFriendsOnline">
     <item quantity="one">חבר %s מחובר</item>
     <item quantity="two">%s חברים מחוברים</item>
@@ -598,7 +600,7 @@
   <string name="automaticallyProceedToNextGameAfterMoving">המשיכו אוטומטית למשחק הבא אחרי שביצעתם מהלך</string>
   <string name="autoSwitch">החלפה אוטומטית</string>
   <string name="puzzles">חידות</string>
-  <string name="tournamentWinners">מנצחי הטורנירים</string>
+  <string name="onlineBots">בוטים מחוברים</string>
   <string name="name">שם</string>
   <string name="description">תיאור</string>
   <string name="descPrivate">תיאור פרטי</string>
@@ -778,6 +780,7 @@
   <string name="toggleVariationArrows">הפעלת חצי הווריאנטים</string>
   <string name="cyclePreviousOrNextVariation">מחזור הוריאנט הקודם/הבא</string>
   <string name="toggleGlyphAnnotations">הפעלת סמלי ההערות</string>
+  <string name="togglePositionAnnotations">הפעלת הערות עמדתיות</string>
   <string name="variationArrowsInfo">חצי הווריאנטים מאפשרים ניווט קל ללא צורך ברשימת המסעים.</string>
   <string name="playSelectedMove">שחקו את המהלך שנבחר</string>
   <string name="newTournament">טורניר חדש</string>
@@ -1023,8 +1026,6 @@
   <string name="minimumRatedGames">מספר משחקים מדורגים מינימלי</string>
   <string name="minimumRating">דירוג מינימלי</string>
   <string name="maximumWeeklyRating">דירוג שבועי מקסימלי</string>
-  <string name="onlyTitled">רק שחקנים עם תואר</string>
-  <string name="onlyTitledHelp">רק שחקנים עם תואר</string>
   <string name="positionInputHelp">הדביקו FEN חוקי כדי להתחיל כל משחק מעמדה נתונה.
 שדה זה עובד רק עבור משחקים סטנדרטיים, לא עבור וריאנטים.
 את/ה יכול/ה להשתמש ב%s כדי ליצור עמדת FEN, ואז להדביק אותה כאן.
@@ -1073,4 +1074,5 @@
   <string name="showMeEverything">הראו לי הכל</string>
   <string name="lichessPatronInfo">ליצ\'ס הוא ארגון לטובת הכלל ותוכנת קוד פתוח חינמית.
 כל עלויות התפעול, הפיתוח והתוכן ממומנות אך ורק על ידי תרומות משתמשים.</string>
+  <string name="nothingToSeeHere">אין כלום להצגה כאן, בינתיים.</string>
 </resources>

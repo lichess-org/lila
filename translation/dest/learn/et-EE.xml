@@ -6,7 +6,7 @@
   <string name="progressX">Edenemine: %s</string>
   <string name="resetMyProgress">Lähtesta saavutused</string>
   <string name="youWillLoseAllYourProgress">Kaotad kõik oma saavutused!</string>
-  <string name="play">mängi!</string>
+  <string name="play" comment="play&#10;&#10;A small ribbon that appears on your current chapter in the Chess Basics course. Please keep this string short.">mängi!</string>
   <string name="chessPieces">Malendid</string>
   <string name="theRook">Vanker</string>
   <string name="itMovesInStraightLines">Ta liigub sirgejooneliselt</string>
@@ -145,7 +145,7 @@ Sa pead kõigepealt malendid eest ära koristama.</string>
   <string name="castleQueenSideMovePiecesFirst">Vangerda liputiivale!
 Sa pead kõigepealt malendid eest ära koristama.</string>
   <string name="youCannotCastleIfMoved">Sa ei saa vangerdada
-siis kui kuningas või ratsud
+siis kui kuningas või vanker
 on juba käinud.</string>
   <string name="youCannotCastleIfAttacked">Sa ei saa vangerdada siis kui
 kuningas läbib tule all olevat välja.

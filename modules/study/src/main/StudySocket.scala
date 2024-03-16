@@ -1,20 +1,21 @@
 package lila.study
 
-import actorApi.Who
 import chess.Centis
-import chess.format.pgn.{ Glyph, Glyphs }
 import chess.format.UciPath
+import chess.format.pgn.{ Glyph, Glyphs }
 import play.api.libs.json.*
 
 import lila.common.Bus
 import lila.common.Json.{ *, given }
 import lila.room.RoomSocket.{ Protocol as RP, * }
 import lila.socket.RemoteSocket.{ Protocol as P, * }
-import lila.socket.Socket.{ makeMessage, Sri }
+import lila.socket.Socket.{ Sri, makeMessage }
 import lila.socket.{ AnaAny, AnaDests, AnaDrop, AnaMove }
-import lila.tree.Node.{ defaultNodeJsonWriter, Comment, Gamebook, Shape, Shapes }
 import lila.tree.Branch
-import lila.user.MyId
+import lila.tree.Node.{ Comment, Gamebook, Shape, Shapes }
+import lila.tree.Node.{ defaultNodeJsonWriter, minimalNodeJsonWriter }
+
+import actorApi.Who
 
 final private class StudySocket(
     api: StudyApi,
@@ -76,13 +77,13 @@ final private class StudySocket(
           AnaMove
             .parse(o)
             .foreach: move =>
-              applyWho(moveOrDrop(studyId, move, MoveOpts parse o))
+              applyWho(moveOrDrop(studyId, move, MoveOpts.parse(o)))
 
         case "anaDrop" =>
           AnaDrop
             .parse(o)
             .foreach: drop =>
-              applyWho(moveOrDrop(studyId, drop, MoveOpts parse o))
+              applyWho(moveOrDrop(studyId, drop, MoveOpts.parse(o)))
 
         case "deleteNode" =>
           reading[AtPosition](o): position =>
@@ -126,7 +127,7 @@ final private class StudySocket(
             (o \ "d" \ "shapes")
               .asOpt[List[Shape]]
               .foreach: shapes =>
-                applyWho(api.setShapes(studyId, position.ref, Shapes(shapes take 32)))
+                applyWho(api.setShapes(studyId, position.ref, Shapes(shapes.take(32))))
 
         case "addChapter" =>
           reading[ChapterMaker.Data](o): data =>
@@ -186,7 +187,7 @@ final private class StudySocket(
             (o \ "d" \ "text")
               .asOpt[String]
               .foreach: text =>
-                applyWho(api.setComment(studyId, position.ref, Comment sanitize text))
+                applyWho(api.setComment(studyId, position.ref, Comment.sanitize(text)))
 
         case "deleteComment" =>
           reading[AtPosition](o): position =>
@@ -250,8 +251,8 @@ final private class StudySocket(
     logger,
     _ => _ => none, // the "talk" event is handled by the study API
     localTimeout = Some { (roomId, modId, suspectId) =>
-      api.isContributor(roomId, modId) >>& !api.isMember(roomId, suspectId) >>&
-        !Bus.ask("isOfficialRelay") { actorApi.IsOfficialRelay(roomId, _) }
+      api.isContributor(roomId, modId) >>& api.isMember(roomId, suspectId).not >>&
+        Bus.ask("isOfficialRelay") { actorApi.IsOfficialRelay(roomId, _) }.not
     },
     chatBusChan = _.Study
   )
@@ -262,27 +263,24 @@ final private class StudySocket(
         m.chapterId
           .ifTrue(opts.write)
           .foreach: chapterId =>
-            api.addNode(
-              studyId,
-              Position.Ref(chapterId, m.path),
-              branch withClock opts.clock,
-              opts
-            )(who)
+            api.addNode(studyId, Position.Ref(chapterId, m.path), branch, opts)(who)
 
   private lazy val send: String => Unit = remoteSocketApi.makeSender("study-out").apply
 
-  remoteSocketApi.subscribe("study-in", RP.In.reader)(
-    studyHandler orElse rHandler orElse remoteSocketApi.baseHandler
-  ) andDo send(P.Out.boot)
+  remoteSocketApi
+    .subscribe("study-in", RP.In.reader)(
+      studyHandler.orElse(rHandler).orElse(remoteSocketApi.baseHandler)
+    )
+    .andDo(send(P.Out.boot))
 
   // send API
 
   import JsonView.given
   import jsonView.given
-  import lila.tree.Node.{ defaultNodeJsonWriter, given }
+  import lila.tree.Node.given
   private type SendToStudy = StudyId => Unit
   private def version[A: Writes](tpe: String, data: A): SendToStudy =
-    studyId => rooms.tell(studyId into RoomId, NotifyVersion(tpe, data))
+    studyId => rooms.tell(studyId.into(RoomId), NotifyVersion(tpe, data))
   private def notifySri[A: Writes](sri: Sri, tpe: String, data: A): SendToStudy =
     _ => send(P.Out.tellSri(sri, makeMessage(tpe, data)))
 
@@ -300,14 +298,13 @@ final private class StudySocket(
       "addNode",
       Json
         .obj(
-          "n" -> defaultNodeJsonWriter.writes(TreeBuilder.toBranch(node, variant)),
+          "n" -> minimalNodeJsonWriter.writes(TreeBuilder.toBranch(node, variant)),
           "p" -> pos,
-          "w" -> who,
           "d" -> dests.dests,
-          "o" -> dests.opening,
           "s" -> sticky
         )
-        .add("relay", relay)
+        .add("w", Option.when(relay.isEmpty)(who))
+        .add("relayPath", relay.map(_.path))
     )
   def deleteNode(pos: Position.Ref, who: Who) = version("deleteNode", Json.obj("p" -> pos, "w" -> who))
   def promote(pos: Position.Ref, toMainline: Boolean, who: Who) =
@@ -360,14 +357,19 @@ final private class StudySocket(
         "w" -> who
       )
     )
-  def setClock(pos: Position.Ref, clock: Option[Centis], who: Who) =
+  def setClock(pos: Position.Ref, clock: Option[Centis], relayDenorm: Option[Chapter.BothClocks]) =
     version(
       "clock",
-      Json.obj(
-        "p" -> pos,
-        "c" -> clock,
-        "w" -> who
-      )
+      Json
+        .obj(
+          "p" -> pos,
+          "c" -> clock
+        )
+        .add(
+          "relayClocks",
+          relayDenorm.map: clocks =>
+            Json.arr(clocks.white, clocks.black)
+        )
     )
   def forceVariation(pos: Position.Ref, force: Boolean, who: Who) =
     version(
@@ -378,7 +380,7 @@ final private class StudySocket(
         "w"     -> who
       )
     )
-  private[study] def reloadChapters(chapters: List[Chapter.Metadata]) = version("chapters", chapters)
+  private[study] def reloadChapters(previews: ChapterPreview.AsJsons) = version("chapters", previews)
   def reloadAll                                                       = version("reload", JsNull)
   def changeChapter(pos: Position.Ref, who: Who) = version("changeChapter", Json.obj("p" -> pos, "w" -> who))
   def updateChapter(chapterId: StudyChapterId, who: Who) =
@@ -432,12 +434,12 @@ final private class StudySocket(
     key = "study_invite.user"
   )
 
-  api registerSocket this
+  api.registerSocket(this)
 
 object StudySocket:
 
-  given Conversion[RoomId, StudyId] = _ into StudyId
-  given Conversion[StudyId, RoomId] = _ into RoomId
+  given Conversion[RoomId, StudyId] = _.into(StudyId)
+  given Conversion[StudyId, RoomId] = _.into(RoomId)
 
   object Protocol:
 
@@ -445,14 +447,16 @@ object StudySocket:
       import play.api.libs.functional.syntax.*
 
       def reading[A](o: JsValue)(f: A => Unit)(using reader: Reads[A]): Unit =
-        o obj "d" flatMap { d =>
-          reader.reads(d).asOpt
-        } foreach f
+        o.obj("d")
+          .flatMap { d =>
+            reader.reads(d).asOpt
+          }
+          .foreach(f)
 
       case class AtPosition(path: UciPath, chapterId: StudyChapterId):
         def ref = Position.Ref(chapterId, path)
       given Reads[AtPosition] =
-        ((__ \ "path").read[UciPath] and (__ \ "ch").read[StudyChapterId])(AtPosition.apply)
+        ((__ \ "path").read[UciPath].and((__ \ "ch").read[StudyChapterId]))(AtPosition.apply)
       case class SetRole(userId: UserId, role: String)
       given Reads[SetRole]                  = Json.reads
       given Reads[ChapterMaker.Mode]        = optRead(ChapterMaker.Mode.apply)

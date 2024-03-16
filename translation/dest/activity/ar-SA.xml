@@ -11,12 +11,12 @@
     <item quantity="other">دعم lichess.org لمدة %1$s أشهر ك %2$s</item>
   </plurals>
   <plurals name="practicedNbPositions">
-    <item quantity="zero">تم التدريب %1$s موقف على %2$s</item>
-    <item quantity="one">تدرّب على %1$s موقف في %2$s</item>
-    <item quantity="two">تم التدريب %1$s موقفان على %2$s</item>
-    <item quantity="few">تم التدريب عدد %1$s مواقف على %2$s</item>
-    <item quantity="many">تم التدريب عدد %1$s مواقف على %2$s</item>
-    <item quantity="other">تم التدريب عدد %1$s مواقف على %2$s</item>
+    <item quantity="zero">لقد تدربت على %1$s موقف تكتيكي من %2$s</item>
+    <item quantity="one">لقد تدربت على %1$s موقف تكتيكي من %2$s</item>
+    <item quantity="two">لقد تدربت على %1$s موقفين تكتيكيين من %2$s</item>
+    <item quantity="few">لقد تدربت على %1$s مواقف تكتيكية من %2$s</item>
+    <item quantity="many">لقد تدربت على %1$s موقفا تكتيكيا من %2$s</item>
+    <item quantity="other">لقد تدربت على %1$s موقفا تكتيكيا من %2$s</item>
   </plurals>
   <plurals name="solvedNbPuzzles">
     <item quantity="zero">تم حل %s لغز تكتيكي</item>

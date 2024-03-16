@@ -3,6 +3,7 @@ package actorApi
 
 import chess.format.Uci
 import chess.{ Color, MoveMetrics }
+import play.api.libs.json.JsObject
 
 import lila.common.IpAddress
 import lila.socket.SocketVersion
@@ -26,6 +27,8 @@ case class GameAndSocketStatus(game: lila.game.Game, socket: SocketStatus)
 case class RoomCrowd(white: Boolean, black: Boolean)
 case class BotConnected(color: Color, v: Boolean)
 
+case class TvSelect(gameId: GameId, speed: chess.Speed, channel: String, data: JsObject)
+
 package round:
 
   case class HumanPlay(
@@ -44,10 +47,9 @@ package round:
   case class ResignForce(playerId: GamePlayerId)
   case class DrawForce(playerId: GamePlayerId)
   case class DrawClaim(playerId: GamePlayerId)
-  case class DrawYes(playerId: GamePlayerId)
-  case class DrawNo(playerId: GamePlayerId)
-  case class TakebackYes(playerId: GamePlayerId)
-  case class TakebackNo(playerId: GamePlayerId)
+  case class Blindfold(playerId: GamePlayerId, blindfold: Boolean)
+  case class Draw(playerId: GamePlayerId, draw: Boolean)
+  case class Takeback(playerId: GamePlayerId, takeback: Boolean)
   object Moretime:
     val defaultDuration = 15.seconds
   case class Moretime(playerId: GamePlayerId, seconds: FiniteDuration = Moretime.defaultDuration)

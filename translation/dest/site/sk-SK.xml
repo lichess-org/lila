@@ -307,7 +307,7 @@
   <string name="gameAborted">Hra bola zrušená</string>
   <string name="standard">Štandard</string>
   <string name="unlimited">Bez času</string>
-  <string name="mode">Režim hry</string>
+  <string name="mode">Režim partie</string>
   <string name="casual">Priateľská</string>
   <string name="rated">Hodnotená</string>
   <string name="casualTournament">Priateľská</string>
@@ -476,6 +476,7 @@
   <string name="blackCheckmatesInOneMove">Čierny dá mat 1. ťahom</string>
   <string name="retry">Znova</string>
   <string name="reconnecting">Pripájanie</string>
+  <string name="noNetwork">Offline</string>
   <plurals name="nbFriendsOnline">
     <item quantity="one">%s priateľ online</item>
     <item quantity="few">%s priatelia online</item>
@@ -598,7 +599,6 @@
   <string name="automaticallyProceedToNextGameAfterMoving">po ťahu automaticky prejdite k ďalšej hre</string>
   <string name="autoSwitch">Prepnite automaticky</string>
   <string name="puzzles">Šachové úlohy</string>
-  <string name="tournamentWinners">Víťazi turnaja</string>
   <string name="name">Meno</string>
   <string name="description">Popis</string>
   <string name="descPrivate">Opis pre členov tímu</string>
@@ -740,6 +740,7 @@
   <string name="yourPendingSimuls">Vaše čakajúce simultánky</string>
   <string name="createdSimuls">Novovytvorené simultánky</string>
   <string name="hostANewSimul">Vytvoriť novú simultánku</string>
+  <string name="signUpToHostOrJoinASimul">Prihláste sa k zorganizovaniu alebo zapojeniu sa do simultánky</string>
   <string name="noSimulFound">Simultánka nenájdená</string>
   <string name="noSimulExplanation">Táto simultánna exhibícia neexistuje.</string>
   <string name="returnToSimulHomepage">Späť na Simultánku</string>
@@ -1010,8 +1011,6 @@ a ovplyvnia rating hráčov</string>
   <string name="minimumRatedGames">Minimum hodnotených partií</string>
   <string name="minimumRating">Minimálny rating</string>
   <string name="maximumWeeklyRating">Maximálny týždenný rating</string>
-  <string name="onlyTitled">Iba hráči s titulom</string>
-  <string name="onlyTitledHelp">Požadovať oficiálny šachový titul na prihlásenie sa do turnaja</string>
   <string name="positionInputHelp">Vložte platný FEN pre začatie každej partie z konkrétnej pozície!
 Funguje len pre štandardné partie, nie pre varianty.
 Môžete použiť %s na vygenerovanie FEN pozície a potom ju sem vložiť.

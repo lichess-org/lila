@@ -1,13 +1,12 @@
 package views.html.team
 
-import controllers.team.routes.{ Team as teamRoutes }
+import controllers.routes
+import controllers.team.routes.Team as teamRoutes
 import play.api.i18n.Lang
 
-import lila.app.templating.Environment.{ given, * }
-import lila.app.ui.ScalatagsTemplate.{ *, given }
 import lila.app.mashup.TeamInfo
-
-import controllers.routes
+import lila.app.templating.Environment.{ *, given }
+import lila.app.ui.ScalatagsTemplate.{ *, given }
 
 object tournaments:
 
@@ -31,7 +30,7 @@ object tournaments:
           ,
           div(cls := "team-events team-tournaments team-tournaments--both")(
             div(cls := "team-tournaments__next")(
-              h2(trans.team.upcomingTourns()),
+              h2(trans.team.upcomingTournaments()),
               table(cls := "slist slist-pad slist-invert")(
                 renderList(tours.next)
               )
@@ -65,7 +64,7 @@ object tournaments:
                     t.clock.show,
                     " • ",
                     if t.variant.exotic then t.variant.name else t.perfType.trans,
-                    t.position.isDefined option frag(" • ", trans.thematic()),
+                    t.position.isDefined.option(frag(" • ", trans.thematic())),
                     " • ",
                     if t.mode.rated then trans.ratedTournament() else trans.casualTournament(),
                     " • ",
@@ -89,16 +88,14 @@ object tournaments:
             any.value.fold(
               t =>
                 frag(
-                  t.teamBattle map { battle =>
-                    frag(battle.teams.size, " teams battle")
-                  } getOrElse "Inner team",
+                  t.teamBattle.fold(trans.team.innerTeam()): battle =>
+                    trans.team.battleOfNbTeams.plural(battle.teams.size, battle.teams.size.localize),
                   br,
                   renderStartsAt(any)
                 ),
               s =>
                 frag(
-                  s.settings.nbRounds,
-                  " rounds swiss",
+                  trans.swiss.xRoundsSwiss.plural(s.settings.nbRounds, s.settings.nbRounds.localize),
                   br,
                   renderStartsAt(any)
                 )

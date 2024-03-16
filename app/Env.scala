@@ -47,7 +47,7 @@ final class Env(
     val puzzle: lila.puzzle.Env,
     val coordinate: lila.coordinate.Env,
     val tv: lila.tv.Env,
-    val blog: lila.blog.Env,
+    val feed: lila.feed.Env,
     val history: lila.history.Env,
     val video: lila.video.Env,
     val playban: lila.playban.Env,
@@ -70,6 +70,7 @@ final class Env(
     val practice: lila.practice.Env,
     val irwin: lila.irwin.Env,
     val activity: lila.activity.Env,
+    val fide: lila.fide.Env,
     val relay: lila.relay.Env,
     val streamer: lila.streamer.Env,
     val oAuth: lila.oauth.Env,
@@ -82,6 +83,7 @@ final class Env(
     val ublog: lila.ublog.Env,
     val opening: lila.opening.Env,
     val tutor: lila.tutor.Env,
+    val cms: lila.cms.Env,
     val lilaCookie: lila.common.LilaCookie,
     val net: NetConfig,
     val controllerComponents: ControllerComponents
@@ -127,18 +129,6 @@ final class Env(
     default = false,
     text = "Use external piece images".some
   )
-  val firefoxOriginTrial = memo.settingStore[String](
-    "firefoxOriginTrial",
-    default = "",
-    text = "Firefox COEP:credentialless origin trial token. Empty to disable.".some
-  )
-  import lila.memo.SettingStore.Regex.given
-  import scala.util.matching.Regex
-  val credentiallessUaRegex = memo.settingStore[Regex](
-    "credentiallessUaRegex ",
-    default = """Chrome/(?:11[3-9]|1[2-9]\d)""".r,
-    text = "UA regex for credentialless (see #13030)".some
-  )
 
   lazy val preloader     = wire[mashup.Preload]
   lazy val socialInfo    = wire[mashup.UserInfo.SocialApi]
@@ -152,10 +142,11 @@ final class Env(
     Future {
       puzzle.daily.get
     }.flatMap(identity)
-      .withTimeoutDefault(50.millis, none) recover { case e: Exception =>
-      lila.log("preloader").warn("daily puzzle", e)
-      none
-    }
+      .withTimeoutDefault(50.millis, none)
+      .recover { case e: Exception =>
+        lila.log("preloader").warn("daily puzzle", e)
+        none
+      }
 
   system.actorOf(Props(new templating.RendererActor), name = config.get[String]("hub.actor.renderer"))
 end Env
@@ -215,7 +206,7 @@ final class EnvBoot(
   lazy val puzzle: lila.puzzle.Env           = wire[lila.puzzle.Env]
   lazy val coordinate: lila.coordinate.Env   = wire[lila.coordinate.Env]
   lazy val tv: lila.tv.Env                   = wire[lila.tv.Env]
-  lazy val blog: lila.blog.Env               = wire[lila.blog.Env]
+  lazy val feed: lila.feed.Env               = wire[lila.feed.Env]
   lazy val history: lila.history.Env         = wire[lila.history.Env]
   lazy val video: lila.video.Env             = wire[lila.video.Env]
   lazy val playban: lila.playban.Env         = wire[lila.playban.Env]
@@ -238,6 +229,7 @@ final class EnvBoot(
   lazy val practice: lila.practice.Env       = wire[lila.practice.Env]
   lazy val irwin: lila.irwin.Env             = wire[lila.irwin.Env]
   lazy val activity: lila.activity.Env       = wire[lila.activity.Env]
+  lazy val fide: lila.fide.Env               = wire[lila.fide.Env]
   lazy val relay: lila.relay.Env             = wire[lila.relay.Env]
   lazy val streamer: lila.streamer.Env       = wire[lila.streamer.Env]
   lazy val oAuth: lila.oauth.Env             = wire[lila.oauth.Env]
@@ -250,6 +242,7 @@ final class EnvBoot(
   lazy val ublog: lila.ublog.Env             = wire[lila.ublog.Env]
   lazy val opening: lila.opening.Env         = wire[lila.opening.Env]
   lazy val tutor: lila.tutor.Env             = wire[lila.tutor.Env]
+  lazy val cms: lila.cms.Env                 = wire[lila.cms.Env]
   lazy val api: lila.api.Env                 = wire[lila.api.Env]
   lazy val lilaCookie                        = wire[lila.common.LilaCookie]
 
@@ -258,4 +251,4 @@ final class EnvBoot(
     lila.log("boot").info(s"Loaded lila modules in ${c.showDuration}")
     c.result
 
-  templating.Environment setEnv env
+  templating.Environment.setEnv(env)

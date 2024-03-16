@@ -47,8 +47,11 @@ activity.lichess-blitz
 activity.lichess-bullet
 activity.lichess-classical
 activity.lichess-correspondence
+activity.lichess-glitchsey
 activity.lichess-hogger
 activity.lichess-horsey
+activity.lichess-horsey-yin-yang
+activity.lichess-mohawk
 activity.lichess-rapid
 activity.lichess-ultrabullet
 activity.lichess-variant-960

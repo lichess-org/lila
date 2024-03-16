@@ -4,12 +4,12 @@ import play.api.data.*
 import play.api.data.Forms.*
 import play.api.libs.json.*
 
-import lila.common.config.*
 import lila.common.Json.given
 import lila.common.LightUser
+import lila.common.config.*
 import lila.common.paginator.*
 import lila.db.dsl.{ *, given }
-import lila.user.{ LightUserApi, User, Me }
+import lila.user.{ LightUserApi, Me, User }
 
 final class MsgCompat(
     api: MsgApi,
@@ -23,12 +23,13 @@ final class MsgCompat(
   private val maxPerPage = MaxPerPage(25)
 
   def inbox(pageOpt: Option[Int])(using me: Me): Fu[JsObject] =
-    val page = pageOpt.fold(1)(_ atLeast 1 atMost 2)
+    val page = pageOpt.fold(1)(_.atLeast(1).atMost(2))
     api.myThreads.flatMap: allThreads =>
       val threads =
         allThreads.slice((page - 1) * maxPerPage.value, (page - 1) * maxPerPage.value + maxPerPage.value)
-      lightUserApi.preloadMany(threads.map(_ other me)) inject
-        PaginatorJson:
+      lightUserApi
+        .preloadMany(threads.map(_.other(me)))
+        .inject(PaginatorJson:
           Paginator
             .fromResults(
               currentPageResults = threads,
@@ -37,7 +38,7 @@ final class MsgCompat(
               maxPerPage = maxPerPage
             )
             .mapResults: t =>
-              val user = lightUserApi.syncFallback(t other me)
+              val user = lightUserApi.syncFallback(t.other(me))
               Json.obj(
                 "id"        -> user.id,
                 "author"    -> user.titleName,
@@ -45,6 +46,7 @@ final class MsgCompat(
                 "updatedAt" -> t.lastMsg.date,
                 "isUnread"  -> t.lastMsg.unreadBy(me)
               )
+        )
 
   def unreadCount(me: User): Fu[Int] = unreadCountCache.get(me.id)
 
@@ -54,10 +56,10 @@ final class MsgCompat(
         colls.thread
           .aggregateOne(_.sec): framework =>
             import framework.*
-            Match($doc("users" -> userId, "del" $ne userId)) -> List(
+            Match($doc("users" -> userId, "del".$ne(userId))) -> List(
               Sort(Descending("lastMsg.date")),
               Limit(maxPerPage.value),
-              Match($doc("lastMsg.read" -> false, "lastMsg.user" $ne userId)),
+              Match($doc("lastMsg.read" -> false, "lastMsg.user".$ne(userId))),
               Count("nb")
             )
           .map(~_.flatMap(_.getAsOpt[Int]("nb")))
@@ -95,7 +97,7 @@ final class MsgCompat(
     ).bindFromRequest()
       .fold(
         err => Left(err),
-        data => Right(api.post(me, data.user.id, s"${data.subject}\n${data.text}") inject data.user.id)
+        data => Right(api.post(me, data.user.id, s"${data.subject}\n${data.text}").inject(data.user.id))
       )
 
   def reply(userId: UserId)(using

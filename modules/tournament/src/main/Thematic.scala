@@ -1,12 +1,12 @@
 package lila.tournament
 
 import chess.StartingPosition
-import chess.opening.Eco
 import chess.format.Fen
+import chess.opening.Eco
 
 object Thematic:
 
-  def byFen(fen: Fen.Standard): Option[StartingPosition] = fenIndex get fen
+  def byFen(fen: Fen.Standard): Option[StartingPosition] = fenIndex.get(fen)
 
   def byEco = ecoIndexForBc.get
 

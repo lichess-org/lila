@@ -1,23 +1,15 @@
 package lila.study
 
-import monocle.syntax.all.*
-import chess.{ Centis, ErrorStr, Node as PgnNode, Outcome }
-import chess.format.pgn.{
-  Glyphs,
-  ParsedPgn,
-  ParsedPgnTree,
-  San,
-  Tags,
-  PgnStr,
-  PgnNodeData,
-  Comment as ChessComment
-}
-import chess.format.{ Fen, Uci, UciCharPair, UciPath }
 import chess.MoveOrDrop.*
-import lila.tree.Node.{ Comment, Comments, Shapes }
+import chess.format.pgn.{ Glyphs, ParsedPgn, ParsedPgnTree, PgnNodeData, PgnStr, Tags }
+import chess.format.{ Fen, Uci, UciCharPair, UciPath }
+import chess.{ Centis, ErrorStr, Node as PgnNode, Outcome }
+import monocle.syntax.all.*
+
 import lila.common.LightUser
 import lila.importer.{ ImportData, Preprocessed }
-import lila.tree.{ NewRoot, NewTree, NewBranch, Metas }
+import lila.tree.Node.{ Comment, Comments }
+import lila.tree.{ Metas, NewBranch, NewRoot, NewTree }
 
 object NewPgnImport:
 
@@ -53,7 +45,7 @@ object NewPgnImport:
                 ),
                 parsedPgn.tree.flatMap(makeTree(replay.setup, _, annotator))
               )
-            val end: Option[PgnImport.End] = (game.finished option game.status).map { status =>
+            val end: Option[PgnImport.End] = (game.finished.option(game.status)).map { status =>
               PgnImport.End(
                 status = status,
                 outcome = Outcome(game.winnerColor),
@@ -61,14 +53,13 @@ object NewPgnImport:
                 statusText = lila.game.StatusText(status, game.winnerColor, game.variant)
               )
             }
-            val commented =
-              if root.tree.map(_.lastMainlineNode).exists(_.value.metas.comments.value.nonEmpty) then root
-              else
-                end.map(PgnImport.endComment).fold(root) { comment =>
-                  root
-                    .focus(_.tree.some)
-                    .modify(_.modifyLastMainlineNode(_.focus(_.value.metas.comments).modify(_ + comment)))
-                }
+            if root.tree.map(_.lastMainlineNode).exists(_.value.metas.comments.value.nonEmpty) then root
+            else
+              end.map(PgnImport.endComment).fold(root) { comment =>
+                root
+                  .focus(_.tree.some)
+                  .modify(_.modifyLastMainlineNode(_.focus(_.value.metas.comments).modify(_ + comment)))
+              }
             Result(
               root = root,
               variant = game.variant,
@@ -113,7 +104,7 @@ object NewPgnImport:
                 forceVariation = false,
                 Metas(
                   ply = game.ply,
-                  fen = Fen write game,
+                  fen = Fen.write(game),
                   check = game.situation.check,
                   dests = None,
                   drops = None,

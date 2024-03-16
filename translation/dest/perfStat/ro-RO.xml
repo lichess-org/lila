@@ -25,7 +25,6 @@
   <string name="longestStreak">Cea mai lungă secvență: %s</string>
   <string name="currentStreak">Secvența curentă: %s</string>
   <string name="bestRated">Cele mai bune victorii oficiale</string>
-  <string name="worstRated">Cele mai rele înfrângeri oficiale</string>
   <string name="gamesInARow">Meciuri jucate consecutiv</string>
   <string name="lessThanOneHour">Mai puțin de o oră între meciuri</string>
   <string name="maxTimePlaying">Cel mai mult timp petrecut jucând</string>

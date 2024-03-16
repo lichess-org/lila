@@ -3,7 +3,6 @@ package lila.tournament
 import ornicar.scalalib.ThreadLocalRandom
 
 import lila.common.LightUser
-import lila.rating.PerfType
 import lila.user.User
 
 private[tournament] case class Player(
@@ -32,7 +31,7 @@ private[tournament] case class Player(
 
   def magicScore = score * 10000 + (performanceOption | rating.value)
 
-  def performanceOption = performance > 0 option performance
+  def performanceOption = (performance > 0).option(performance)
 
 private[tournament] object Player:
 

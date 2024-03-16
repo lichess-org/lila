@@ -2,6 +2,7 @@
 <resources>
   <string name="communityBlogs">Blogge vun der Communautéit</string>
   <string name="friendBlogs">Blogge vun de Kolleegen</string>
+  <string name="likedBlogs">Geliket Blog-Bäiträg</string>
   <string name="blogTopics">Blog-Theemen</string>
   <string name="lichessOfficialBlog">Offizielle Lichess-Blog</string>
   <string name="continueReadingPost">Virufuere mam Liese vun dësem Bäitrag</string>
@@ -14,7 +15,7 @@
   <string name="postTitle">Bäitragstitel</string>
   <string name="postIntro">Bäitragsaleedung</string>
   <string name="postBody">Bäitragsinhalt</string>
-  <string name="drafts">Entworf</string>
+  <string name="drafts">Entwërf</string>
   <string name="published">Verëffentlecht</string>
   <string name="createBlogDiscussion">Kommentaren erlaben</string>
   <string name="createBlogDiscussionHelp">Et gëtt ee Forentheema ugeluecht, fir datt d\'Leit däi Bäitrag kommentéiere kënnen</string>
@@ -51,4 +52,5 @@
   <string name="inappropriateContentAccountClosed">Alles, wat net ubruecht ass, kann dozou féieren, datt däi Kont zougemaach gëtt.</string>
   <string name="blogTips">Eis einfach Tuyaue fir flott Blog-Bäiträg ze schreiwen</string>
   <string name="discussThisBlogPostInTheForum">Iwwert dëse Blog-Bäitrag am Forum diskutéieren</string>
+  <string name="youBlockedByBlogAuthor">Du goufs vum Auteur vum Blog blockéiert.</string>
 </resources>

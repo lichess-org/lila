@@ -3,10 +3,10 @@
   <string name="voiceCommands">Talekommandoer</string>
   <string name="watchTheVideoTutorial">Vis videoveiledningen</string>
   <string name="instructions1">Bruk %1$s-knappen for å skru talegjenkjenning av eller på, %2$s-knappen for å åpne denne hjelpedialogen, og %3$s-menyen for å endre taleinnstillinger.</string>
-  <string name="instructions2">Vi viser piler for flere trekk når vi er usikre. Si fargen eller nummeret på en trekkpil for å velge den.</string>
-  <string name="instructions3">Hvis en pil viser en sveipende radar, vil det trekket bli spilt når sirkelen er fullført. I løpet av denne tiden kan du kun si %1$s for å spille trekket umiddelbart, %2$s for å avbryte, eller si fargen/nummeret på en annen pil. Denne timeren kan justeres eller skrus av i innstillingene.</string>
-  <string name="instructions4">Aktiver %s i støyende omgivelser. Hold inne Shift mens du gir kommandoer når dette er på.</string>
-  <string name="instructions5">Bruk det fonetiske alfabetet for å forbedre gjenkjenning av sjakkbrettets linjer.</string>
+  <string name="instructions2" comment="Voice commands can be misheard and Lichess will not always be fully certain what you said. Several arrows will be shown to identify e.g. if the move was 'b4' or 'd4', which often sound similar.&#10;&#10;These arrows will be in different colours (green, blue, etc) or labelled 1, 2, 3....&#10;You can then say the colour of the arrow (e.g. 'green') - or its number (e.g. '1'), to select that move.&#10;Users can configure if they choose from multiple moves based on colours or numbers.">Vi viser piler for flere trekk når vi er usikre. Si fargen eller nummeret på en trekkpil for å velge den.</string>
+  <string name="instructions3" comment="This is a complicated concept more easy to understand in practice. Voice commands can be misheard and Lichess will not always be fully certain what you said. Several arrows will be shown to identify e.g. if the move was 'b4' or 'd4', which often sound similar.&#10;The most likely move the player wants will have a circle showing around it, but it will be possible to cancel before it is played (for example, by shouting 'no!').&#10;&#10;You can see a visual example here: https://lichess.org/@/schlawg/blog/how-to-lichess-voice/nWrypoWI">Hvis en pil viser en sveipende radar, vil det trekket bli spilt når sirkelen er fullført. I løpet av denne tiden kan du kun si %1$s for å spille trekket umiddelbart, %2$s for å avbryte, eller si fargen/nummeret på en annen pil. Denne timeren kan justeres eller skrus av i innstillingene.</string>
+  <string name="instructions4" comment="%s is Push to Talk.">Aktiver %s i støyende omgivelser. Hold inne Shift mens du gir kommandoer når dette er på.</string>
+  <string name="instructions5" comment="The phonetic alphabet is also known as the NATO alphabet (where A = Alpha, B = Bravo, etc. This makes the sounds easier to differentiate through a microphone). It is for English specifically, which as of the time of writing, is the only language supported by the Voice Commands feature.">Bruk det fonetiske alfabetet for å forbedre gjenkjenning av sjakkbrettets linjer.</string>
   <string name="instructions6">%s forklarer innstillingene for stemmetrekk i detalj.</string>
   <string name="thisBlogPost">Dette blogginnlegget</string>
   <string name="moveToE4OrSelectE4Piece">Flytt til e4 eller velg brikken på e4</string>
@@ -15,8 +15,8 @@
   <string name="castle">Rokade (kort eller lang)</string>
   <string name="phoneticAlphabetIsBest">Det fonetiske alfabetet er best</string>
   <string name="cancelTimerOrDenyARequest">Avbryt timeren eller avslå en forespørsel</string>
-  <string name="playPreferredMoveOrConfirmSomething">Spill foretrukket trekk eller bekreft noe</string>
-  <string name="sleep">Sov (hvis vekkeord er aktivert)</string>
+  <string name="playPreferredMoveOrConfirmSomething" comment="Used in voice commands. When it is unclear what the player said (e.g. 'b4' and 'd4' sound similar), both moves will be shown, with the more likely one highlighted in a certain colour. By default, a countdown begins, and if no action is taken, the likely move (e.g. b4) will be played. Players can end the countdown early/confirm their move by saying 'yes'.&#10;&#10;For more details see https://lichess.org/@/schlawg/blog/how-to-lichess-voice/nWrypoWI">Spill foretrukket trekk eller bekreft noe</string>
+  <string name="sleep" comment="Used for voice commands.&#10;&#10;By default, voice commands are always-on after the feature is enabled. Users can optionally set a word for listening to start, or say 'sleep' to disable listening.&#10;&#10;(Please note - this is not the same as recording, since the recording is never sent to Lichess; the speech technology is entirely offline)">Sov (hvis vekkeord er aktivert)</string>
   <string name="turnOffVoiceRecognition">Skru av talegjenkjenning</string>
   <string name="showPuzzleSolution">Vis løsning for sjakknøtt</string>
 </resources>

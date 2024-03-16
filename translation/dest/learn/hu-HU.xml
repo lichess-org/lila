@@ -6,7 +6,7 @@
   <string name="progressX">Haladás: %s</string>
   <string name="resetMyProgress">Haladásom nullázása</string>
   <string name="youWillLoseAllYourProgress">Az összes eddigi haladásod el fog veszni!</string>
-  <string name="play">játssz!</string>
+  <string name="play" comment="play&#10;&#10;A small ribbon that appears on your current chapter in the Chess Basics course. Please keep this string short.">játssz!</string>
   <string name="chessPieces">Sakkfigurák</string>
   <string name="theRook">A bástya</string>
   <string name="itMovesInStraightLines">Egyenes vonalban mozog</string>

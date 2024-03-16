@@ -25,7 +25,6 @@
   <string name="longestStreak">최고 기록: %s</string>
   <string name="currentStreak">현재 기록: %s</string>
   <string name="bestRated">승리한 최고 레이팅</string>
-  <string name="worstRated">패배한 최저 레이팅</string>
   <string name="gamesInARow">연속 게임 플레이</string>
   <string name="lessThanOneHour">게임 사이가 1시간 미만인 경우</string>
   <string name="maxTimePlaying">게임을 한 최대 시간</string>

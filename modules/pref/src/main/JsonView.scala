@@ -15,7 +15,6 @@ object JsonView:
       "theme3d"       -> p.theme3d,
       "pieceSet3d"    -> p.pieceSet3d,
       "soundSet"      -> p.soundSet,
-      "blindfold"     -> p.blindfold,
       "autoQueen"     -> p.autoQueen,
       "autoThreefold" -> p.autoThreefold,
       "takeback"      -> p.takeback,

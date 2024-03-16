@@ -2,13 +2,13 @@ package lila.teamSearch
 
 import akka.actor.*
 import com.softwaremill.macwire.*
-import lila.common.autoconfig.*
 import play.api.Configuration
 
+import lila.common.autoconfig.*
 import lila.common.config.*
+import lila.common.paginator.Paginator
 import lila.search.*
 import lila.team.Team
-import lila.common.paginator.Paginator
 
 @Module
 private class TeamSearchConfig(
@@ -40,7 +40,7 @@ final class Env(
 
   def cli: lila.common.Cli = new:
     def process = { case "team" :: "search" :: "reset" :: Nil =>
-      api.reset inject "done"
+      api.reset.inject("done")
     }
 
   system.actorOf(
@@ -48,7 +48,7 @@ final class Env(
       import lila.team.{ InsertTeam, RemoveTeam }
       def receive =
         case InsertTeam(team) => api.store(team)
-        case RemoveTeam(id)   => client.deleteById(id into Id)
+        case RemoveTeam(id)   => client.deleteById(id.into(Id))
     ),
     name = config.actorName
   )

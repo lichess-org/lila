@@ -80,4 +80,7 @@ Tamen, Patronoj ekhavas rajtojn fiere uzi novan profilan ikonon.</string>
   <string name="nowOneMonth">Nun vi estas Lichess Patrono por unu monato!</string>
   <string name="downgradeNextMonth">En unu monato, vi NE estos ŝargita denove, kaj via Lichess konto revenos al regula konto.</string>
   <string name="changeCurrency">Ŝanĝi valuton</string>
+  <string name="paymentDetails">Pagaj detaloj</string>
+  <string name="updatePaymentMethod">Ĝisdatigi pagmanieron</string>
+  <string name="stripeManageSub">Administri vian abonon kaj elŝuti viajn fakturojn kaj kvitancojn</string>
 </resources>

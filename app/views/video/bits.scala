@@ -1,16 +1,16 @@
 package views.html.video
 
-import lila.app.templating.Environment.{ given, * }
+import controllers.routes
+
+import lila.app.templating.Environment.{ *, given }
 import lila.app.ui.ScalatagsTemplate.{ *, given }
 import lila.common.paginator.Paginator
-
-import controllers.routes
 
 object bits:
 
   private[video] def card(vv: lila.video.VideoView, control: lila.video.UserControl) =
     a(cls := "card paginated", href := s"${routes.Video.show(vv.video.id)}?${control.queryStringUnlessBot}")(
-      vv.view option span(cls := "view")("watched"),
+      vv.view.option(span(cls := "view")("watched")),
       span(cls := "duration")(vv.video.durationString),
       span(cls := "img", style := s"background-image: url(${vv.video.thumbnail})"),
       span(cls := "info")(
@@ -19,12 +19,7 @@ object bits:
       span(cls := "reveal")(
         span(cls := "full-title")(vv.video.title),
         span(cls := "author")(vv.video.author),
-        span(cls := "target")(vv.video.targets.map(lila.video.Target.name).mkString(", ")),
-        span(cls := "tags")(
-          vv.video.tags.map { tag =>
-            span(dataIcon := licon.Tag)(tag.capitalize)
-          }
-        )
+        span(cls := "target")(vv.video.targets.map(lila.video.Target.name).mkString(", "))
       )
     )
 

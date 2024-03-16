@@ -25,7 +25,6 @@
   <string name="longestStreak">Pisin putki: %s</string>
   <string name="currentStreak">Nykyinen putki: %s</string>
   <string name="bestRated">Korkeimman vahvuusluvun voitot</string>
-  <string name="worstRated">Alimman vahvuusluvun tappiot</string>
   <string name="gamesInARow">Peräjälkeen pelattuja pelejä</string>
   <string name="lessThanOneHour">Alle tunti pelien välissä</string>
   <string name="maxTimePlaying">Pisin yhtäjaksoinen peliaika</string>

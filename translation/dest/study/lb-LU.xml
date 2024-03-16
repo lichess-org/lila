@@ -84,7 +84,7 @@
   <string name="pinnedChapterComment">Ugepinnten Kapitelkommentar</string>
   <string name="saveChapter">Kapitel späicheren</string>
   <string name="clearAnnotations">Annotatiounen läschen</string>
-  <string name="clearVariations">Variatiounen läschen</string>
+  <string name="clearVariations" comment="Clear is used as a verb here. This erases the variations in the study (https://lichess.org/study) you are preparing.">Variatiounen läschen</string>
   <string name="deleteChapter">Kapitel läschen</string>
   <string name="deleteThisChapter">Kapitel läschen? Et gëtt keen zeréck!</string>
   <string name="clearAllCommentsInThisChapter">All Kommentarer, Symboler an Zeechnungsformen an dësem Kapitel läschen?</string>

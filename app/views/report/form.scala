@@ -1,10 +1,10 @@
 package views.html.report
 
-import controllers.report.routes.{ Report as reportRoutes }
+import controllers.report.routes.Report as reportRoutes
 import controllers.routes
 import play.api.data.Form
 
-import lila.app.templating.Environment.{ given, * }
+import lila.app.templating.Environment.{ *, given }
 import lila.app.ui.ScalatagsTemplate.{ *, given }
 import lila.user.User
 
@@ -20,7 +20,7 @@ object form:
           })"""
       )
     ):
-      val defaultReason = form("reason").value orElse translatedReasonChoices.headOption.map(_._1)
+      val defaultReason = form("reason").value.orElse(translatedReasonChoices.headOption.map(_._1))
       main(cls := "page-small box box-pad report")(
         h1(cls := "box__top")(trans.reportAUser()),
         postForm(
@@ -30,17 +30,21 @@ object form:
           div(cls := "form-group")(
             p(
               a(
-                href     := routes.ContentPage.loneBookmark("report-faq"),
+                href     := routes.Cms.lonePage("report-faq"),
                 dataIcon := licon.InfoCircle,
                 cls      := "text"
               ):
                 "Read more about Lichess reports"
             ),
-            ctx.req.queryString.contains("postUrl") option p(
-              "Here for DMCA or Intellectual Property Take Down Notice? ",
-              a(href := views.html.site.contact.dmcaUrl)("Complete this form instead"),
-              "."
-            )
+            ctx.req.queryString
+              .contains("postUrl")
+              .option(
+                p(
+                  "Here for DMCA or Intellectual Property Take Down Notice? ",
+                  a(href := views.html.site.contact.dmcaUrl)("Complete this form instead"),
+                  "."
+                )
+              )
           ),
           form3.globalError(form),
           form3.group(form("username"), trans.user(), klass = "field_to complete-parent"): f =>

@@ -16,7 +16,6 @@
   <string name="explainShowPlayerRatings">sina ken weka e nanpa wawa ale kepeken ni. ni la sina ken lawa pona mute. musi li nanpa kin taso sina lukin ala e nanpa wawa.</string>
   <string name="displayBoardResizeHandle">o pana lukin e ilo pi ante suli pi supa musi</string>
   <string name="onlyOnInitialPosition">lon tenpo open taso</string>
-  <string name="blindfoldChess">nasin musi pi lukin ala (sina ken ala lukin e ijo musi)</string>
   <string name="chessClock">ilo tenpo</string>
   <string name="tenthsOfSeconds">o pana lukin e wan lili pi tenpo Sekunta</string>
   <string name="whenTimeRemainingLessThanTenSeconds" comment="whenTimeRemainingLessThanTenSeconds&#10;&#10;The &amp;lt; symbol is not required (you can write it as a word), just do NOT use &lt; in its place.&#10;&#10;Technical information: &lt; is a reserved character in HTML, which is why it cannot be used.">tenpo tawa li lili tawa tenpo Sekunta 10</string>

@@ -20,7 +20,6 @@
   <string name="displayBoardResizeHandle">أظهر زر تعديل حجم الرقعة</string>
   <string name="onlyOnInitialPosition">خلال الوضع المبدئي فقط</string>
   <string name="inGameOnly">في اللعبة فقط</string>
-  <string name="blindfoldChess">الشطرنج الأعمى (القطع غير مرئية)</string>
   <string name="chessClock">مؤقت الشطرنج</string>
   <string name="tenthsOfSeconds">أجزاء الثانية</string>
   <string name="whenTimeRemainingLessThanTenSeconds" comment="whenTimeRemainingLessThanTenSeconds&#10;&#10;The &amp;lt; symbol is not required (you can write it as a word), just do NOT use &lt; in its place.&#10;&#10;Technical information: &lt; is a reserved character in HTML, which is why it cannot be used.">عندما يقل الوقت عن 10 ثوانٍ</string>

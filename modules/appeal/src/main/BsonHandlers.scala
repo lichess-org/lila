@@ -1,7 +1,8 @@
 package lila.appeal
 
-import lila.db.dsl.{ *, given }
 import reactivemongo.api.bson.*
+
+import lila.db.dsl.{ *, given }
 
 private[appeal] object BsonHandlers:
 

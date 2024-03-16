@@ -71,7 +71,7 @@
   <string name="makeMainLine">En faire la variante principale</string>
   <string name="deleteFromHere">Supprimer à partir d\'ici</string>
   <string name="forceVariation">Forcer la variante</string>
-  <string name="copyVariationPgn">Copier la variante PGN</string>
+  <string name="copyVariationPgn">Copier le PGN de la variante</string>
   <string name="move">Coup</string>
   <string name="variantLoss">Perte (variante)</string>
   <string name="variantWin">Gain (variante)</string>
@@ -95,7 +95,7 @@
   </plurals>
   <string name="dtzWithRounding">DTZ50\'\' arrondi, basé sur le nombre de demi-coups jusqu\'à la prochaine capture ou le prochain coup de pion</string>
   <string name="noGameFound">Aucune partie trouvée</string>
-  <string name="maxDepthReached">Profondeur maximale atteinte!</string>
+  <string name="maxDepthReached">Profondeur maximale atteinte !</string>
   <string name="maybeIncludeMoreGamesFromThePreferencesMenu">Peut-être inclure plus de parties depuis le menu préférences ?</string>
   <string name="openings">Ouvertures</string>
   <string name="openingExplorer">Explorateur d\'ouvertures</string>
@@ -209,7 +209,7 @@
   <string name="changeUsername">Modifier le nom d\'utilisateur</string>
   <string name="changeUsernameNotSame">Seules les majuscules et les minuscules peuvent être changées - ex. JeanDupont plutôt que jeandupont.</string>
   <string name="changeUsernameDescription">Modifiez votre nom d\'utilisateur. Vous pouvez le faire une fois seulement. Seule la casse des lettres peut être modifiée.</string>
-  <string name="signupUsernameHint">Assurez-vous de choisir un nom d\'utilisateur convenable. Vous ne pourrez pas le modifier et tout nom d\'utilisateur inapproprié entraînera la fermeture du compte.</string>
+  <string name="signupUsernameHint">Assurez-vous de choisir un nom d\'utilisateur convenable. Vous ne pourrez pas le modifier et tout nom d\'utilisateur inapproprié entraînera la fermeture du compte !</string>
   <string name="signupEmailHint">Nous l\'utiliserons uniquement pour la réinitialisation du mot de passe.</string>
   <string name="password">Mot de passe</string>
   <string name="changePassword">Changer votre mot de passe</string>
@@ -217,11 +217,11 @@
   <string name="email">Courriel</string>
   <string name="passwordReset">Réinitialisation du mot de passe</string>
   <string name="forgotPassword">Mot de passe oublié ?</string>
-  <string name="error.weakPassword">Ce mot de passe très courant est trop facile à deviner.</string>
+  <string name="error.weakPassword">Ce mot de passe est très courant et trop facile à deviner.</string>
   <string name="error.namePassword">N\'employez pas votre nom d\'utilisateur comme mot de passe.</string>
   <string name="blankedPassword">Vous avez utilisé le même mot de passe sur un autre site, et ce site a été compromis. Pour assurer la sécurité de votre compte Lichess, vous devez établir un nouveau mot de passe. Merci de votre compréhension.</string>
   <string name="youAreLeavingLichess">Vous quittez Lichess</string>
-  <string name="neverTypeYourPassword">N\'utilisez jamais votre mot de passe Lichess sur un autre site.</string>
+  <string name="neverTypeYourPassword">N\'utilisez jamais votre mot de passe Lichess sur un autre site !</string>
   <string name="proceedToX">Continuer vers %s</string>
   <string name="passwordSuggestion">N\'utilisez pas un mot de passe suggéré par une autre personne. Elle pourrait l\'utiliser pour voler votre compte.</string>
   <string name="emailSuggestion">N\'utilisez pas une adresse de courriel suggérée par une autre personne. Celle-ci pourrait l\'utiliser pour voler votre compte.</string>
@@ -276,6 +276,7 @@
   <string name="abortGame">Annuler la partie</string>
   <string name="gameAborted">Partie annulée</string>
   <string name="standard">Standard</string>
+  <string name="customPosition">Position personnalisée</string>
   <string name="unlimited">Illimité</string>
   <string name="mode">Mode</string>
   <string name="casual">Amical</string>
@@ -418,6 +419,7 @@
   <string name="blackCheckmatesInOneMove">Les Noirs matent en un coup</string>
   <string name="retry">Réessayer</string>
   <string name="reconnecting">Reconnexion en cours</string>
+  <string name="noNetwork">Hors ligne</string>
   <plurals name="nbFriendsOnline">
     <item quantity="one">%s ami en ligne</item>
     <item quantity="other">%s amis en ligne</item>
@@ -509,7 +511,7 @@
   <string name="lastName">Nom</string>
   <string name="setFlair">Choisir votre émoji</string>
   <string name="flair">Émoji</string>
-  <string name="youCanHideFlair">Un paramètre permet de cacher les émojis d\'un utilisateur sur tout le site.</string>
+  <string name="youCanHideFlair">Un paramètre permet de cacher les émojis des utilisateurs sur tout le site.</string>
   <string name="biography">Biographie</string>
   <string name="countryRegion" comment="flag&#10;Appears when you edit your profile. Lets a player add a country/flag (not all flags are for countries) to their profile">Pays ou région</string>
   <string name="thankYou">Merci !</string>
@@ -530,7 +532,7 @@
   <string name="automaticallyProceedToNextGameAfterMoving">Aller automatiquement à la prochaine partie après chaque coup</string>
   <string name="autoSwitch">Changement automatique</string>
   <string name="puzzles">Problèmes</string>
-  <string name="tournamentWinners">Vainqueurs de tournois</string>
+  <string name="onlineBots">Bots en ligne</string>
   <string name="name">Nom</string>
   <string name="description">Description</string>
   <string name="descPrivate">Description privée</string>
@@ -629,8 +631,8 @@
   <string name="error.email_acceptable">Cette adresse courriel est refusée. Double-cliquez dessus et réessayez.</string>
   <string name="error.email_unique">Adresse courriel invalide ou déjà utilisée</string>
   <string name="error.email_different">Vous utilisez déjà cette adresse courriel</string>
-  <string name="error.minLength">La longueur minimale est %s</string>
-  <string name="error.maxLength">La longueur maximale est %s</string>
+  <string name="error.minLength">Doit comporter au moins %s caractères</string>
+  <string name="error.maxLength">Doit comporter au plus %s caractères</string>
   <string name="error.min">Doit être supérieur(e) ou égal(e) à %s</string>
   <string name="error.max">Doit être inférieur(e) ou égal(e) à %s</string>
   <string name="ifRatingIsPlusMinusX">Si son niveau est ± %s</string>
@@ -704,6 +706,7 @@
   <string name="toggleVariationArrows">Activer/désactiver les flèches de variantes</string>
   <string name="cyclePreviousOrNextVariation">Variante précédente/suivante</string>
   <string name="toggleGlyphAnnotations">Activer/désactiver les annotations en symboles</string>
+  <string name="togglePositionAnnotations">Activer/désactiver les annotations de positions</string>
   <string name="variationArrowsInfo">Les flèches de variantes vous permettent de naviguer sans utiliser la liste des coups.</string>
   <string name="playSelectedMove">jouer le coup sélectionné</string>
   <string name="newTournament">Nouveau tournoi</string>
@@ -938,8 +941,6 @@ et ont un impact sur le classement des joueurs</string>
   <string name="minimumRatedGames">Nombre minimum de parties classées</string>
   <string name="minimumRating">Classement minimal</string>
   <string name="maximumWeeklyRating">Classement hebdomadaire maximal</string>
-  <string name="onlyTitled">Joueurs titrés seulement</string>
-  <string name="onlyTitledHelp">Titre officiel requis pour participer à un tournoi</string>
   <string name="positionInputHelp">Collez un FEN valide pour commencer chaque partie à partir d\'une position donnée.
 Cela ne fonctionne que pour les parties normales, pas avec les variantes.
 Vous pouvez utiliser le %s pour créer une position FEN puis la coller ici.
@@ -988,4 +989,5 @@ Laissez vide pour commencer les parties à partir de la position initiale normal
   <string name="showMeEverything">Tout afficher</string>
   <string name="lichessPatronInfo">Lichess est une association à but non lucratif et un logiciel open source entièrement libre.
 Tous les coûts d\'exploitation, le développement et le contenu sont financés uniquement par les dons des utilisateurs.</string>
+  <string name="nothingToSeeHere">Rien à voir ici pour le moment.</string>
 </resources>

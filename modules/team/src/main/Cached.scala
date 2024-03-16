@@ -3,8 +3,8 @@ package lila.team
 import reactivemongo.api.bson.BSONNull
 
 import lila.db.dsl.{ *, given }
-import lila.memo.Syncache
 import lila.hub.LightTeam
+import lila.memo.Syncache
 
 final class Cached(
     teamRepo: TeamRepo,
@@ -39,7 +39,7 @@ final class Cached(
       memberRepo.coll
         .aggregateOne(_.sec): framework =>
           import framework.*
-          Match($doc("_id" $startsWith s"$u@")) -> List(
+          Match($doc("_id".$startsWith(s"$u@"))) -> List(
             Project($doc("_id" -> $doc("$substr" -> $arr("$_id", u.value.size + 1, -1)))),
             PipelineOperator(
               $lookup.pipeline(
@@ -74,7 +74,7 @@ final class Cached(
       .buildAsyncFuture[UserId, Int]: userId =>
         for
           myTeams     <- teamIds(userId)
-          leaderTeams <- myTeams.nonEmpty so memberRepo.teamsWhereIsGrantedRequest(userId)
+          leaderTeams <- myTeams.nonEmpty.so(memberRepo.teamsWhereIsGrantedRequest(userId))
           nbReqs      <- requestRepo.countPendingForTeams(leaderTeams)
         yield nbReqs
 

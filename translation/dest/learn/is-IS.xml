@@ -6,7 +6,7 @@
   <string name="progressX">Framvinda: %s</string>
   <string name="resetMyProgress">Núllstilla framvindu</string>
   <string name="youWillLoseAllYourProgress">Þú munt tapa öllum skráðum árangri!</string>
-  <string name="play">spila!</string>
+  <string name="play" comment="play&#10;&#10;A small ribbon that appears on your current chapter in the Chess Basics course. Please keep this string short.">spila!</string>
   <string name="chessPieces">Taflmenn</string>
   <string name="theRook">Hrókurinn</string>
   <string name="itMovesInStraightLines">Hann ferðast eftir beinni línu</string>

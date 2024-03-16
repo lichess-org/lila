@@ -1,7 +1,8 @@
 package lila.report
 
-import lila.db.dsl.{ *, given }
 import reactivemongo.api.bson.*
+
+import lila.db.dsl.{ *, given }
 
 object BSONHandlers:
 

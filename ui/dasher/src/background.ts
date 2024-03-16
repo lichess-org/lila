@@ -43,10 +43,10 @@ export class BackgroundCtrl {
   }
 
   private announceFail = (err: string) =>
-    lichess.announce({ msg: `Failed to save background preference: ${err}` });
+    site.announce({ msg: `Failed to save background preference: ${err}` });
 
   private reloadAllTheThings = () => {
-    if ($('canvas').length || window.Highcharts) lichess.reload();
+    if ($('canvas').length) site.reload();
   };
 
   get = () => this.data.current;
@@ -169,7 +169,7 @@ function replaceStylesheet(old: HTMLLinkElement, oldKey: string, newKey: string,
   link.href = old.href.replace('.' + oldKey + '.', '.' + newKey + '.');
   if (media) link.media = `(prefers-color-scheme: ${media})`;
   link.onload = () => setTimeout(() => old.remove(), 100);
-  document.head.appendChild(link);
+  document.head.insertBefore(link, document.getElementById('piece-sprite'));
 }
 
 function galleryInput(ctrl: BackgroundCtrl) {
@@ -183,7 +183,7 @@ function galleryInput(ctrl: BackgroundCtrl) {
 
   const gallery = ctrl.data.gallery!;
   const cols = window.matchMedia('(min-width: 650px)').matches ? 4 : 2; // $mq-x-small
-  const montageUrl = lichess.asset.url(gallery[`montage${cols}`], { noVersion: true });
+  const montageUrl = site.asset.url(gallery[`montage${cols}`], { noVersion: true });
   // our layout is static due to the single image gallery optimization. set width here
   // and allow for the possibility of non-overlaid scrollbars
   const width = cols * (160 + 2) + (gallery.images.length > cols * 4 ? elementScrollBarWidth() : 0);
@@ -195,7 +195,7 @@ function galleryInput(ctrl: BackgroundCtrl) {
         'div#images-grid',
         { attrs: { style: `background-image: url(${montageUrl});` } },
         gallery.images.map(img => {
-          const assetUrl = lichess.asset.url(img, { noVersion: true });
+          const assetUrl = site.asset.url(img, { noVersion: true });
           const divClass = ctrl.data.image.endsWith(assetUrl) ? '.selected' : '';
           return h(`div#${urlId(assetUrl)}${divClass}`, { hook: bind('click', () => setImg(assetUrl)) });
         }),

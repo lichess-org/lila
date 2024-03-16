@@ -2,7 +2,7 @@ package views.html.plan
 
 import controllers.routes
 
-import lila.app.templating.Environment.{ given, * }
+import lila.app.templating.Environment.{ *, given }
 import lila.app.ui.ScalatagsTemplate.{ *, given }
 import lila.plan.CurrencyApi.zeroDecimalCurrencies
 
@@ -86,8 +86,8 @@ object indexStripe:
                       },
                       name := "amount",
                       value := {
-                        (info.subscription.item.price.currency == pricing.currency) so
-                          info.subscription.item.price.money.amount.toString
+                        (info.subscription.item.price.currency == pricing.currency)
+                          .so(info.subscription.item.price.money.amount.toString)
                       }
                     ),
                     submitButton(cls := "button")(trans.apply()),
@@ -102,9 +102,9 @@ object indexStripe:
               }
             ),
             tr(
-              th("Payment details"),
+              th(paymentDetails()),
               td(
-                info.paymentMethod.flatMap(_.card) map { m =>
+                info.paymentMethod.flatMap(_.card).map { m =>
                   frag(
                     m.brand.toUpperCase,
                     " - ",
@@ -117,14 +117,14 @@ object indexStripe:
                     br
                   )
                 },
-                a(cls := "update-payment-method")("Update payment method")
+                a(cls := "update-payment-method")(updatePaymentMethod())
               )
             ),
             tr(
               th("Gifts"),
               td(
                 a(href := s"${routes.Plan.list}?dest=gift")(giftPatronWings()),
-                gifts.nonEmpty option
+                gifts.nonEmpty.option(
                   table(cls := "slist gifts")(
                     tbody(
                       gifts.map { gift =>
@@ -135,13 +135,14 @@ object indexStripe:
                       }
                     )
                   )
+                )
               )
             ),
             tr(
               th("Stripe"),
               td:
                 a(href := "https://billing.stripe.com/p/login/fZefZ2dCK9zq7Ty6oo"):
-                  "Manage your subscription and download your invoices and receipts"
+                  stripeManageSub()
             ),
             tr(
               th,

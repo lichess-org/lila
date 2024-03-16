@@ -1,6 +1,6 @@
 package controllers
 
-import lila.app.{ given, * }
+import lila.app.*
 
 final class Irwin(env: Env) extends LilaController(env):
 
@@ -18,8 +18,9 @@ final class Irwin(env: Env) extends LilaController(env):
         .validate[lila.irwin.IrwinReport]
         .fold(
           err => BadRequest(err.toString).toFuccess,
-          report => env.irwin.irwinApi.reports.insert(report) inject Ok
-        ) map (_ as TEXT)
+          report => env.irwin.irwinApi.reports.insert(report).inject(Ok)
+        )
+        .map(_.as(TEXT))
   }
 
   def eventStream = Scoped() { _ ?=> me ?=>

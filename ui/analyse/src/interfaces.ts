@@ -6,7 +6,7 @@ import { StudyPracticeData, Goal as PracticeGoal } from './study/practice/interf
 import { RelayData } from './study/relay/interfaces';
 import { ChatCtrl } from 'chat';
 import { ExplorerOpts } from './explorer/interfaces';
-import { StudyData } from './study/interfaces';
+import { StudyDataFromServer } from './study/interfaces';
 import { AnalyseSocketSend } from './socket';
 import { ExternalEngineInfo } from 'ceval';
 import * as Prefs from 'common/prefs';
@@ -75,7 +75,7 @@ export interface ServerEvalData {
 }
 
 export interface EvalHit {
-  fen: Fen;
+  fen: cg.FEN;
   knodes: number;
   depth: number;
   pvs: Tree.PvDataServer[];
@@ -83,7 +83,7 @@ export interface EvalHit {
 }
 
 export interface EvalHitMulti extends EvalScore {
-  fen: Fen;
+  fen: cg.FEN;
   depth: number;
 }
 
@@ -97,7 +97,7 @@ export interface Game {
   status: Status;
   player: Color;
   turns: number;
-  fen: Fen;
+  fen: cg.FEN;
   startedAtTurn?: number;
   source: Source;
   speed: Speed;
@@ -127,7 +127,7 @@ export interface Analysis {
   id: string;
   white: AnalysisSide;
   black: AnalysisSide;
-  partial: boolean;
+  partial?: boolean;
 }
 
 export interface AnalysisSide {
@@ -146,7 +146,7 @@ export interface AnalyseOpts {
   explorer: ExplorerOpts;
   socketSend: AnalyseSocketSend;
   trans: Trans;
-  study?: StudyData;
+  study?: StudyDataFromServer;
   tagTypes?: string;
   practice?: StudyPracticeData;
   relay?: RelayData;
@@ -167,7 +167,7 @@ export interface JustCaptured extends cg.Piece {
 }
 
 export interface EvalGetData {
-  fen: Fen;
+  fen: cg.FEN;
   path: string;
   variant?: VariantKey;
   mpv?: number;

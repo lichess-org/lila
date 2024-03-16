@@ -1,13 +1,10 @@
 package views.html.team
-
-import controllers.routes
-import controllers.team.routes.{ Team as teamRoutes }
+import controllers.team.routes.Team as teamRoutes
 import play.api.data.Form
 
-import lila.app.templating.Environment.{ given, * }
+import lila.app.templating.Environment.{ *, given }
 import lila.app.ui.ScalatagsTemplate.{ *, given }
 import lila.team.{ Team, TeamMember }
-import play.api.i18n.Lang
 
 object form:
 
@@ -44,18 +41,20 @@ object form:
         div(cls := "page-menu__content box box-pad")(
           boxTop(h1("Edit team ", a(href := teamRoutes.show(t.id))(t.name))),
           standardFlash,
-          t.enabled option postForm(cls := "form3", action := teamRoutes.update(t.id))(
-            flairField(form, t),
-            entryFields(form, t.some),
-            textFields(form),
-            accessFields(form),
-            form3.actions(
-              a(href := teamRoutes.show(t.id))(trans.cancel()),
-              form3.submit(trans.apply())
+          t.enabled.option(
+            postForm(cls := "form3", action := teamRoutes.update(t.id))(
+              flairField(form, t),
+              entryFields(form, t.some),
+              textFields(form),
+              accessFields(form),
+              form3.actions(
+                a(href := teamRoutes.show(t.id))(trans.cancel()),
+                form3.submit(trans.apply())
+              )
             )
           ),
           hr,
-          (t.enabled && (member.exists(_.hasPerm(_.Admin)) || isGranted(_.ManageTeam))) option
+          (t.enabled && (member.exists(_.hasPerm(_.Admin)) || isGranted(_.ManageTeam))).option(
             postForm(cls := "inline", action := teamRoutes.disable(t.id))(
               explainInput,
               submitButton(
@@ -63,8 +62,9 @@ object form:
                 cls      := "submit button text explain button-empty button-red",
                 st.title := trans.team.closeTeamDescription.txt() // can actually be reverted
               )(closeTeam())
-            ),
-          isGranted(_.ManageTeam) option
+            )
+          ),
+          isGranted(_.ManageTeam).option(
             postForm(cls := "inline", action := teamRoutes.close(t.id))(
               explainInput,
               submitButton(
@@ -72,8 +72,9 @@ object form:
                 cls      := "text button button-empty button-red explain",
                 st.title := "Deletes the team and its memberships. Cannot be reverted!"
               )(trans.delete())
-            ),
-          (t.disabled && isGranted(_.ManageTeam)) option
+            )
+          ),
+          (t.disabled && isGranted(_.ManageTeam)).option(
             postForm(cls := "inline", action := teamRoutes.disable(t.id))(
               explainInput,
               submitButton(
@@ -81,13 +82,14 @@ object form:
                 st.title := "Re-enables the team and restores memberships"
               )("Re-enable")
             )
+          )
         )
       )
 
   private val explainInput = input(st.name := "explain", tpe := "hidden")
 
   private def flairField(form: Form[?], team: Team)(using Context) =
-    form3.flairPickerGroup(form("flair"), Flair from form("flair").value, label = trans.setFlair()):
+    form3.flairPickerGroup(form("flair"), Flair.from(form("flair").value), label = trans.setFlair()):
       span(cls := "flair-container".some)(team.name, teamFlair(team))
 
   private def textFields(form: Form[?])(using Context) = frag(

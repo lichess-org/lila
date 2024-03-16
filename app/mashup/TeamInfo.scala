@@ -1,14 +1,14 @@
 package lila.app
 package mashup
 
-import concurrent.duration.DurationInt
-
 import lila.forum.MiniForumPost
-import lila.team.{ TeamSecurity, TeamRequest, TeamRequestRepo, RequestWithUser, Team, TeamMember, TeamApi }
+import lila.simul.{ Simul, SimulApi }
+import lila.swiss.{ Swiss, SwissApi }
+import lila.team.{ RequestWithUser, Team, TeamApi, TeamMember, TeamRequest, TeamRequestRepo, TeamSecurity }
 import lila.tournament.{ Tournament, TournamentApi }
 import lila.user.User
-import lila.swiss.{ Swiss, SwissApi }
-import lila.simul.{ Simul, SimulApi }
+
+import concurrent.duration.DurationInt
 
 case class TeamInfo(
     withLeaders: Team.WithLeaders,
@@ -68,8 +68,10 @@ final class TeamInfoApi(
       duration = pmAllDays.days
     )
     def status(id: TeamId): Fu[(Int, Instant)] =
-      limiter.getSpent(id) map: entry =>
-        (pmAllCredits - entry.v / pmAllCost, entry.until)
+      limiter
+        .getSpent(id)
+        .map: entry =>
+          (pmAllCredits - entry.v / pmAllCost, entry.until)
 
   def apply(
       team: Team.WithLeaders,
@@ -77,10 +79,10 @@ final class TeamInfoApi(
       withForum: Option[TeamMember] => Boolean
   ): Fu[TeamInfo] = for
     member     <- me.so(api.memberOf(team.id, _))
-    requests   <- (team.enabled && member.exists(_.hasPerm(_.Request))) so api.requestsWithUsers(team.team)
-    myRequest  <- member.isEmpty so me.so(m => requestRepo.find(team.id, m.id))
+    requests   <- (team.enabled && member.exists(_.hasPerm(_.Request))).so(api.requestsWithUsers(team.team))
+    myRequest  <- member.isEmpty.so(me.so(m => requestRepo.find(team.id, m.id)))
     subscribed <- member.so(api.isSubscribed(team.team, _))
-    forumPosts <- withForum(member) soFu forumRecent(team.id)
+    forumPosts <- withForum(member).soFu(forumRecent(team.id))
     tours      <- tournaments(team.team, 5, 5)
     simuls     <- simulApi.byTeamLeaders(team.id, team.leaders.toSeq)
   yield TeamInfo(
@@ -95,7 +97,7 @@ final class TeamInfoApi(
   )
 
   def tournaments(team: Team, nbPast: Int, nbSoon: Int): Fu[PastAndNext] =
-    tourApi.visibleByTeam(team.id, nbPast, nbSoon) zip swissApi.visibleByTeam(team.id, nbPast, nbSoon) map {
+    tourApi.visibleByTeam(team.id, nbPast, nbSoon).zip(swissApi.visibleByTeam(team.id, nbPast, nbSoon)).map {
       case (tours, swisses) =>
         PastAndNext(
           past = {

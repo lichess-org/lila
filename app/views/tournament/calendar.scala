@@ -2,9 +2,8 @@ package views.html.tournament
 
 import play.api.libs.json.Json
 
-import lila.app.templating.Environment.*
+import lila.app.templating.Environment.{ *, given }
 import lila.app.ui.ScalatagsTemplate.*
-import lila.common.String.html.safeJsonValue
 
 object calendar:
 
@@ -15,7 +14,7 @@ object calendar:
       moreCss = cssTag("tournament.calendar")
     ) {
       main(cls := "box")(
-        h1(cls := "box__top")("Tournament calendar"),
+        h1(cls := "box__top")(trans.tournamentCalendar()),
         div(id := "tournament-calendar")
       )
     }

@@ -27,8 +27,8 @@ function renderPalantir(ctrl: ChatCtrl) {
         hook: bind('click', () => {
           if (!p.loaded) {
             p.loaded = true;
-            lichess.asset.loadIife('javascripts/vendor/peerjs.min.js').then(() => {
-              lichess.asset
+            site.asset.loadIife('javascripts/vendor/peerjs.min.js').then(() => {
+              site.asset
                 .loadEsm<palantir.Palantir>('palantir', {
                   init: { uid: ctrl.data.userId!, redraw: ctrl.redraw },
                 })

@@ -8,16 +8,15 @@ import lila.common.Form.{
   cleanNonEmptyText,
   cleanText,
   cleanTextWithSymbols,
+  into,
   mustNotContainLichess,
   numberIn,
-  into,
   given
 }
 import lila.db.dsl.{ *, given }
 
 final private[team] class TeamForm(
     teamRepo: TeamRepo,
-    lightUserApi: lila.user.LightUserApi,
     val captcher: lila.hub.actors.Captcher
 )(using Executor)
     extends lila.hub.CaptchedForm:
@@ -53,7 +52,7 @@ final private[team] class TeamForm(
       Fields.description,
       Fields.descPrivate,
       Fields.request,
-      lila.user.FlairApi.formPair,
+      lila.user.FlairApi.formPair(),
       Fields.gameId,
       Fields.move
     )(TeamSetup.apply)(unapply)
@@ -70,18 +69,20 @@ final private[team] class TeamForm(
       Fields.chat,
       Fields.forum,
       Fields.hideMembers,
-      lila.user.FlairApi.formPair
+      lila.user.FlairApi.formPair()
     )(TeamEdit.apply)(unapply)
-  ) fill TeamEdit(
-    password = team.password,
-    intro = team.intro,
-    description = team.description,
-    descPrivate = team.descPrivate,
-    request = !team.open,
-    chat = team.chat,
-    forum = team.forum,
-    hideMembers = team.hideMembers.has(true),
-    flair = team.flair
+  ).fill(
+    TeamEdit(
+      password = team.password,
+      intro = team.intro,
+      description = team.description,
+      descPrivate = team.descPrivate,
+      request = !team.open,
+      chat = team.chat,
+      forum = team.forum,
+      hideMembers = team.hideMembers.has(true),
+      flair = team.flair
+    )
   )
 
   def request(team: Team) = Form(
@@ -89,9 +90,11 @@ final private[team] class TeamForm(
       Fields.requestMessage(team),
       Fields.passwordCheck(team)
     )(RequestSetup.apply)(unapply)
-  ) fill RequestSetup(
-    message = TeamRequest.defaultMessage.some,
-    password = None
+  ).fill(
+    RequestSetup(
+      message = TeamRequest.defaultMessage.some,
+      password = None
+    )
   )
 
   def apiRequest(team: Team) = Form:
@@ -113,7 +116,7 @@ final private[team] class TeamForm(
   def createWithCaptcha(using lila.user.Me) = withCaptcha(create)
 
   val pmAll = Form:
-    single("message" -> cleanTextWithSymbols.verifying(Constraints minLength 3, Constraints maxLength 9000))
+    single("message" -> cleanTextWithSymbols.verifying(Constraints.minLength(3), Constraints.maxLength(9000)))
 
   val explain = Form:
     single("explain" -> cleanText(minLength = 3, maxLength = 9000))
@@ -128,7 +131,7 @@ final private[team] class TeamForm(
         .transform[String](_.split(sep).take(300).toList.flatMap(UserStr.read).mkString(sep), identity)
 
   private def teamExists(setup: TeamSetup) =
-    teamRepo.coll.exists($id(Team nameToId setup.name))
+    teamRepo.coll.exists($id(Team.nameToId(setup.name)))
 
 private[team] case class TeamSetup(
     name: String,

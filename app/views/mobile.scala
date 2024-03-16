@@ -2,18 +2,18 @@ package views.html
 
 import controllers.routes
 
-import lila.app.templating.Environment.{ given, * }
+import lila.app.templating.Environment.{ *, given }
 import lila.app.ui.ScalatagsTemplate.*
 import lila.common.LangPath
 
 object mobile:
 
-  def apply(apkDoc: io.prismic.Document, resolver: io.prismic.DocumentLinkResolver)(using PageContext) =
+  def apply(p: lila.cms.CmsPage.Render)(using PageContext) =
     views.html.base.layout(
       title = "Mobile",
       moreCss = cssTag("mobile"),
       withHrefLangs = LangPath(routes.Main.mobile).some
-    ) {
+    ):
       main(
         div(cls := "mobile page-small box box-pad")(
           h1(cls := "box__top")(trans.playChessEverywhere()),
@@ -23,9 +23,7 @@ object mobile:
                 googlePlayButton,
                 appleStoreButton
               ),
-              div(cls := "apk")(
-                raw(~apkDoc.getHtml("doc.content", resolver))
-              ),
+              div(cls := "apk")(views.html.cms.render(p)),
               h2(trans.asFreeAsLichess()),
               ul(cls := "block")(
                 li(trans.builtForTheLoveOfChessNotMoney()),
@@ -67,7 +65,6 @@ object mobile:
           )
         )
       )
-    }
 
   lazy val appleStoreButton = raw(
     """

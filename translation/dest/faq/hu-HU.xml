@@ -143,4 +143,5 @@ Jobb csak relatív összehasonlítási alapként tekinteni ezekre a számokra: a
 Kattints a lakat ikonra a böngésző címsorában, a lichess.org mellett.
 
 Utána válaszd ki, hogy engedélyezed vagy tiltod az Lichess értesítéseit.</string>
+  <string name="enableAutoplayForSoundsQ">Engedélyezed hangok automatikus lejátszását?</string>
 </resources>

@@ -25,7 +25,6 @@
   <string name="longestStreak">Längsta serie: %s</string>
   <string name="currentStreak">Nuvarande serie: %s</string>
   <string name="bestRated">Högst rankade segrar</string>
-  <string name="worstRated">Lägst rankade förluster</string>
   <string name="gamesInARow">Partier som spelats i rad</string>
   <string name="lessThanOneHour">Mindre än en timme mellan partierna</string>
   <string name="maxTimePlaying">Längsta speltid</string>

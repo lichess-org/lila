@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+  <string name="arena">Arena</string>
   <string name="arenaTournaments">Arena Turnier</string>
   <string name="isItRated">Isch es gwertet?</string>
-  <string name="willBeNotified">Du wirsch benachrichtiget, wänn\'s Turnier afangt. 
-Es isch also möglich, während de Wartezit ime andere Tab z\'schpille.</string>
+  <string name="willBeNotified">Du wirsch benachrichtiget, wänn\'s Turnier afangt. Es isch also möglich, während de Wartezit ime andere Tab z\'schpille.</string>
   <string name="isRated">Das Turnier isch gwertet und wird dini Wertig beiflusse.</string>
   <string name="isNotRated">Das Turnier isch *nöd* gwertet und wird dini Wertig *nöd* beiflusse.</string>
   <string name="someRated">Einigi Turnier sind gwertet und werded dini Wertig beiflusse.</string>
@@ -33,8 +33,7 @@ Wer schnäll schpillt und sofort zrugg id Turnierübersicht gaht, hät meh Schpi
   <string name="howDoesItEnd">Wie ändet es Turnier?</string>
   <string name="howDoesItEndAnswer">Es Turnier hät e \"Countdown Uhr\" - isch d\'Turnierzit abgloffe, werded alli Räng fix und de Sieger wird bekannt geh. Schpiel wo no am laufe sind, müend fertig gschpillt werde, sie zelled aber nümme fürs Turnier.</string>
   <string name="otherRules">Anderi wichtigi Regle</string>
-  <string name="thereIsACountdown">Es lauft en \"Countdown\" für de 1. Zug... 
-Isch nach 12 Sekunde nöd zoge worde, gits es Forfait für de Gägner.</string>
+  <string name="thereIsACountdown">Es lauft en \"Countdown\" für de 1. Zug... Isch nach 12 Sekunde nöd zoge worde, gits es Forfait für de Gägner.</string>
   <plurals name="drawingWithinNbMoves">
     <item quantity="one">Es Remis innerhalb vu de erschte %s Züg git für beidi Schpiller 0 Pünkt.</item>
     <item quantity="other">Es Remis innerhalb vu %s Züg git für beidi Schpiller 0 Pünkt.</item>
@@ -63,4 +62,28 @@ Isch nach 12 Sekunde nöd zoge worde, gits es Forfait für de Gägner.</string>
   <string name="averagePerformance">Durchschnittlichi Leischtig</string>
   <string name="averageScore">Durchschnittlichi Punktzahl</string>
   <string name="myTournaments">Mini Turnier</string>
+  <string name="editTournament">Turnier bearbeite</string>
+  <string name="editTeamBattle">Team - Schlacht bearbeite</string>
+  <string name="defender" comment="In this context, this is the current holder of a shield trophy, who is defending their trophy in the next shield tournament of that variant. https://lichess.org/tournament/shields">Verteidiger</string>
+  <string name="pickYourTeam">Wähl dis Team</string>
+  <string name="whichTeamWillYouRepresentInThisBattle">Welles Team vertrittsch du, i dere Schlacht?</string>
+  <string name="youMustJoinOneOfTheseTeamsToParticipate">Zum Mitschpille, muesch du dich eim vu dene Teams aschlüsse!</string>
+  <string name="created">Erschtellt</string>
+  <string name="recentlyPlayed">Chürzlich gschpillt</string>
+  <string name="bestResults">Die beschte Resultat</string>
+  <string name="stats">Schtatistike</string>
+  <string name="tournamentStats">Turnier - Schtatistike</string>
+  <string name="rankAvgHelp">De Rangdurchschnitt isch en Prozäntsatz vu dim Rang. Niedriger isch besser.
+
+Bischpil: Rang 3 ime Turnier mit 100 Schpiler = 3% oder Rang 10 bi 1000 Schpiler = 1 %.</string>
+  <string name="medians" comment="Part of a longer sentence,  &quot;All averages on this page are %s.&quot; (where %s is this word, medians)">mittleri Wert</string>
+  <string name="allAveragesAreX" comment="The full sentence says 'All averages on this page are medians.' (as in median averages)&#10;&#10;%s is the word 'medians', which is available for translation separately.">All Durchschnittswert uf dere Site sind %s.</string>
+  <string name="total">Total</string>
+  <string name="pointsAvg">Punktedurchschnitt</string>
+  <string name="pointsSum">Azahl Pünkt</string>
+  <string name="rankAvg">Rang - Durchschnitt</string>
+  <string name="tournamentWinners">Turnier - Sieger</string>
+  <string name="tournamentShields">Turnier - Schilder</string>
+  <string name="onlyTitled">Nur Schpiler mit Titel</string>
+  <string name="onlyTitledHelp">Für e Teilnahm a dem Turnier, isch en offizielle Titel erforderlich</string>
 </resources>

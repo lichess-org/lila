@@ -18,7 +18,6 @@
   <string name="explainShowPlayerRatings">Dit laat toe om alle graderings weg te steek om te help fokus op die skaak. Spelle kan steeds gegradeer word; dit is slegs oor wat jy kan sien.</string>
   <string name="displayBoardResizeHandle">Vertoon opsie om bord se groote te verander</string>
   <string name="onlyOnInitialPosition">Slegs by begin posisie</string>
-  <string name="blindfoldChess">Blinddoek skaak (onsigbare stukke)</string>
   <string name="chessClock">Skaakklok</string>
   <string name="tenthsOfSeconds">Tiendes van sekondes</string>
   <string name="whenTimeRemainingLessThanTenSeconds" comment="whenTimeRemainingLessThanTenSeconds&#10;&#10;The &amp;lt; symbol is not required (you can write it as a word), just do NOT use &lt; in its place.&#10;&#10;Technical information: &lt; is a reserved character in HTML, which is why it cannot be used.">&lt; 10 sekondes voor tyd uitloop</string>

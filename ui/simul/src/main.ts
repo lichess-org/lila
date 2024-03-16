@@ -9,10 +9,10 @@ import view from './view/main';
 export function initModule(opts: SimulOpts) {
   const element = document.querySelector('main.simul') as HTMLElement;
 
-  lichess.socket = new lichess.StrongSocket(`/simul/${opts.data.id}/socket/v4`, opts.socketVersion, {
+  site.socket = new site.StrongSocket(`/simul/${opts.data.id}/socket/v4`, opts.socketVersion, {
     receive: (t: string, d: any) => ctrl.socket.receive(t, d),
   });
-  opts.socketSend = lichess.socket.send;
+  opts.socketSend = site.socket.send;
   opts.element = element;
   opts.$side = $('.simul__side').clone();
 

@@ -1,19 +1,19 @@
 package lila.setup
 
 import akka.stream.scaladsl.*
-import chess.variant.{ FromPosition, Variant }
 import chess.format.Fen
-import chess.{ Clock, Mode, ByColor }
+import chess.variant.{ FromPosition, Variant }
+import chess.{ ByColor, Clock, Mode }
+import ornicar.scalalib.ThreadLocalRandom
 import play.api.data.*
 import play.api.data.Forms.*
 import play.api.libs.json.Json
-import ornicar.scalalib.ThreadLocalRandom
 
 import lila.common.{ Bearer, Days, Template }
 import lila.game.{ GameRule, IdGenerator }
-import lila.oauth.{ OAuthScope, OAuthServer, EndpointScopes }
-import lila.user.User
+import lila.oauth.{ EndpointScopes, OAuthScope, OAuthServer }
 import lila.rating.PerfType
+import lila.user.User
 
 object SetupBulk:
 
@@ -51,7 +51,7 @@ object SetupBulk:
     mapping(
       "players" -> nonEmptyText
         .verifying("Not enough tokens", t => extractTokenPairs(t).nonEmpty)
-        .verifying(s"Too many tokens (max: ${maxGames * 2})", t => extractTokenPairs(t).sizeIs < maxGames),
+        .verifying(s"Too many tokens (max: ${maxGames * 2})", t => extractTokenPairs(t).sizeIs <= maxGames),
       SetupForm.api.variant,
       SetupForm.api.clock,
       SetupForm.api.optionalDays,
@@ -80,9 +80,9 @@ object SetupBulk:
           clock,
           days,
           rated,
-          pairTs map millisToInstant,
-          clockTs map millisToInstant,
-          message map Template.apply,
+          pairTs.map(millisToInstant),
+          clockTs.map(millisToInstant),
+          message.map(Template.apply),
           ~rules,
           fen
         ).autoVariant
@@ -106,7 +106,7 @@ object SetupBulk:
     str
       .split(',')
       .view
-      .map(_ split ":")
+      .map(_.split(":"))
       .collect:
         case Array(w, b) =>
           w.trim -> b.trim
@@ -119,8 +119,10 @@ object SetupBulk:
   case class ScheduledGame(id: GameId, white: UserId, black: UserId):
     def userIds = ByColor(white, black)
 
+  type ID = String
+  import reactivemongo.api.bson.Macros.Annotations.Key
   case class ScheduledBulk(
-      _id: String,
+      @Key("_id") id: ID,
       by: UserId,
       games: List[ScheduledGame],
       variant: Variant,
@@ -138,7 +140,7 @@ object SetupBulk:
     def collidesWith(other: ScheduledBulk) = {
       pairAt == other.pairAt || startClocksAt.exists(other.startClocksAt.contains)
     } && userSet.exists(other.userSet.contains)
-    def nonEmptyRules = rules.nonEmpty option rules
+    def nonEmptyRules = rules.nonEmpty.option(rules)
     def perfType      = PerfType(variant, chess.Speed(clock.left.toOption))
 
   enum ScheduleError:
@@ -152,7 +154,7 @@ object SetupBulk:
     import lila.game.JsonView.given
     Json
       .obj(
-        "id" -> _id,
+        "id" -> id,
         "games" -> games.map: g =>
           Json.obj(
             "id"    -> g.id,
@@ -197,7 +199,7 @@ final class SetupBulkApi(oauthServer: OAuthServer, idGenerator: IdGenerator)(usi
       .mapConcat: (whiteToken, blackToken) =>
         List(whiteToken, blackToken) // flatten now, re-pair later!
       .mapAsync(8): token =>
-        oauthServer.auth(token, OAuthScope.select(_.Challenge.Write) into EndpointScopes, none) map {
+        oauthServer.auth(token, OAuthScope.select(_.Challenge.Write).into(EndpointScopes), none).map {
           _.left.map { BadToken(token, _) }
         }
       .runFold[Either[List[BadToken], List[UserId]]](Right(Nil)):
@@ -223,19 +225,19 @@ final class SetupBulkApi(oauthServer: OAuthServer, idGenerator: IdGenerator)(usi
               .collect { case List(w, b) => (w, b) }
               .toList
             val nbGames = pairs.size
-            val cost    = nbGames * (if me.isVerified || me.isApiHog then 1 else 3)
+            val cost    = nbGames * (if me.isVerifiedOrChallengeAdmin || me.isApiHog then 1 else 3)
             rateLimit(me.id, fuccess(Left(ScheduleError.RateLimited)), cost = cost):
               lila.mon.api.challenge.bulk.scheduleNb(me.id.value).increment(nbGames)
               idGenerator
                 .games(nbGames)
                 .map:
-                  _.toList zip pairs
+                  _.toList.zip(pairs)
                 .map:
                   _.map:
                     case (id, (w, b)) => ScheduledGame(id, w, b)
                 .dmap:
                   ScheduledBulk(
-                    _id = ThreadLocalRandom nextString 8,
+                    id = ThreadLocalRandom.nextString(8),
                     by = me.id,
                     _,
                     data.variant,
@@ -246,6 +248,6 @@ final class SetupBulkApi(oauthServer: OAuthServer, idGenerator: IdGenerator)(usi
                     message = data.message,
                     rules = data.rules,
                     scheduledAt = nowInstant,
-                    fen = data.fen
+                    fen = data.fen.filterNot(_.isInitial)
                   )
                 .dmap(Right.apply)

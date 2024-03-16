@@ -56,4 +56,9 @@
   <string name="allowChatHelp">खेळाडूंना संवाद खोलीमध्ये चर्चा करू द्या</string>
   <string name="arenaStreaks">आखाड्यातील विजयी मालिका</string>
   <string name="arenaStreaksHelp">2 विजयांनंतर, सलग विजय 2 ऐवजी 4 गुण देतात.</string>
+  <string name="noBerserkAllowed">Berserk ची परवानगी नाही</string>
+  <string name="noArenaStreaks">Arena Streaks नाहीत</string>
+  <string name="averagePerformance">सरासरी कामगिरी</string>
+  <string name="averageScore">सरासरी गुण</string>
+  <string name="myTournaments">माझ्या स्पर्धा</string>
 </resources>

@@ -53,6 +53,7 @@
   <string name="allSyncMembersRemainOnTheSamePosition">Alli synchronisierte Mitglider gsehnd die glich Schtellig</string>
   <string name="shareChanges">Teil Änderige mit de Zueschauer und speicher sie uf em Server</string>
   <string name="playing">Laufend</string>
+  <string name="showEvalBar">Bewertigs-Skala</string>
   <string name="first">zur erschte Site</string>
   <string name="previous">zrugg</string>
   <string name="next">nächschti</string>
@@ -62,12 +63,12 @@
   <string name="studyPgn">Schtudie PGN</string>
   <string name="downloadAllGames">Lad alli Partie abe</string>
   <string name="chapterPgn">Kapitel PGN</string>
-  <string name="copyChapterPgn" comment="A button which lets you copy the PGN text to your clipboard (i.e. similar to ⌘+C or Ctrl+C).">PGN kopiere</string>
+  <string name="copyChapterPgn">PGN kopiere</string>
   <string name="copyChapterPgnDescription">PGN-Kapitel id Zwüscheablag kopiere.</string>
   <string name="downloadGame">Lad die Partie abe</string>
   <string name="studyUrl">Schtudie URL</string>
   <string name="currentChapterUrl">URL aktuells Kapitel</string>
-  <string name="youCanPasteThisInTheForumToEmbed">Du chasch das, zum ibinde, im Forum oder i din Liches Blog ifüege</string>
+  <string name="youCanPasteThisInTheForumToEmbed">Du chasch das, zum ibinde, im Forum oder i dim Liches Tagebuech ifüege</string>
   <string name="startAtInitialPosition">Fang ab de Grundschtellig a</string>
   <string name="startAtX">Fang mit %s a</string>
   <string name="embedInYourWebsite">I dini Website ibinde</string>
@@ -84,7 +85,7 @@
   <string name="pinnedChapterComment">Aghänkte Kapitel Kommentar</string>
   <string name="saveChapter">Kapitel schpeichere</string>
   <string name="clearAnnotations">Amerkige lösche</string>
-  <string name="clearVariations">Variante lösche</string>
+  <string name="clearVariations" comment="Clear is used as a verb here. This erases the variations in the study (https://lichess.org/study) you are preparing.">Variante lösche</string>
   <string name="deleteChapter">Kapitel lösche</string>
   <string name="deleteThisChapter">Kapitel lösche? Das chann nöd rückgängig gmacht werde!</string>
   <string name="clearAllCommentsInThisChapter">Alli Kommentär, Symbol und Zeichnigsforme i dem Kapitel lösche?</string>

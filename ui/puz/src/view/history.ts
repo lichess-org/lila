@@ -1,4 +1,4 @@
-import * as miniBoard from 'common/mini-board';
+import * as miniBoard from 'common/miniBoard';
 import { PuzCtrl } from '../interfaces';
 import { Chess } from 'chessops/chess';
 import { h, VNode } from 'snabbdom';
@@ -62,7 +62,7 @@ export default (ctrl: PuzCtrl): VNode => {
             h('span.puz-history__round__meta', [
               h('span.puz-history__round__result', [
                 h(round.win ? 'good' : 'bad', Math.round(round.millis / 1000) + 's'),
-                h('rating', round.puzzle.rating),
+                ctrl.pref.ratings ? h('rating', round.puzzle.rating) : '',
               ]),
               h('span.puz-history__round__id', '#' + round.puzzle.id),
             ]),

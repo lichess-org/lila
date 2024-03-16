@@ -9,5 +9,5 @@
   <string name="enableSpeechSynthesis">Включване на синтезатор на говор</string>
   <string name="speechSynthesisVoice">Гласов синтезатор на говор</string>
   <string name="keywords">Ключови думи</string>
-  <string name="configure" comment="Heading for configuring a DGT board: https://lichess.org/dgt/config">Конфигуриране</string>
+  <string name="configure">Конфигуриране</string>
 </resources>

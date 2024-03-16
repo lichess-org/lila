@@ -26,7 +26,7 @@ object Duel:
     given UserIdOf[DuelPlayer] = _.name.id
 
   def tbUser(p: UsernameRating, ranking: Ranking) =
-    ranking get p._1.id map { rank =>
+    ranking.get(p._1.id).map { rank =>
       DuelPlayer(p._1, p._2, rank + 1)
     }
 
@@ -40,15 +40,15 @@ final private class DuelStore:
 
   private val byTourId = new ConcurrentHashMap[TourId, TreeSet[Duel]](256)
 
-  def get(tourId: TourId): Option[TreeSet[Duel]] = Option(byTourId get tourId)
+  def get(tourId: TourId): Option[TreeSet[Duel]] = Option(byTourId.get(tourId))
 
   def bestRated(tourId: TourId, nb: Int): List[Duel] =
-    get(tourId) so {
+    get(tourId).so {
       lila.common.Heapsort.topNToList(_, nb)(using ratingOrdering)
     }
 
   def find(tour: Tournament, user: User): Option[GameId] =
-    get(tour.id) flatMap { _.find(_ has user).map(_.gameId) }
+    get(tour.id).flatMap { _.find(_.has(user)).map(_.gameId) }
 
   def add(tour: Tournament, game: Game, p1: UsernameRating, p2: UsernameRating, ranking: Ranking): Unit =
     for

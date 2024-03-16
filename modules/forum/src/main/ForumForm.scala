@@ -1,9 +1,9 @@
 package lila.forum
 
-import lila.common.Form.cleanText
 import play.api.data.*
 import play.api.data.Forms.*
-import lila.user.User
+
+import lila.common.Form.cleanText
 import lila.common.Form.given
 import lila.user.Me
 
@@ -50,6 +50,8 @@ final private[forum] class ForumForm(
         "You have reached the daily maximum for links in forum posts.",
         t => inOwnTeam || promotion.test(t, previousText)
       )
+
+  val diagnostic = Form(single("text" -> nonEmptyText(maxLength = 100000)))
 
 object ForumForm:
 

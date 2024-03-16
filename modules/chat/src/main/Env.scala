@@ -1,9 +1,9 @@
 package lila.chat
 
 import com.softwaremill.macwire.*
-import lila.common.autoconfig.{ *, given }
 import play.api.Configuration
 
+import lila.common.autoconfig.{ *, given }
 import lila.common.config.*
 
 private case class ChatConfig(
@@ -45,4 +45,4 @@ final class Env(
   lazy val panic = wire[ChatPanic]
 
   scheduler.scheduleWithFixedDelay(timeoutCheckEvery, timeoutCheckEvery): () =>
-    timeout.checkExpired foreach api.userChat.reinstate
+    timeout.checkExpired.foreach(api.userChat.reinstate)

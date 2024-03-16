@@ -34,11 +34,11 @@
   <string name="yearlyClassical">Cờ chậm Hàng năm</string>
   <string name="yearlyXArena">Đấu trường %s Hàng năm</string>
   <string name="yearlyX">%s Hàng năm</string>
-  <string name="rapidShieldArena">Giải đấu Khiên Cờ nhanh</string>
+  <string name="rapidShieldArena">Đấu trường Khiên Cờ nhanh</string>
   <string name="rapidShield">Khiên Cờ nhanh</string>
   <string name="classicalShieldArena">Đấu trường Khiên Cờ chậm</string>
   <string name="classicalShield">Khiên Cờ chậm</string>
-  <string name="xShieldArena">Giải đấu Khiên %s</string>
+  <string name="xShieldArena">Đấu trường Khiên %s</string>
   <string name="xShield">Khiên %s</string>
   <string name="xTeamBattle">Giải đa Đội %s</string>
   <string name="eliteXArena">Đấu trường %s Chuyên Nghiệp</string>

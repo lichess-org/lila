@@ -58,4 +58,5 @@
   <string name="inappropriateContentAccountClosed">Każda niestosowna rzecz może spowodować zamknięcie Twojego konta.</string>
   <string name="blogTips">Nasze proste rady dotyczące pisania dobrych wpisów na blogu</string>
   <string name="discussThisBlogPostInTheForum">Omów ten wpis na forum</string>
+  <string name="youBlockedByBlogAuthor">Jesteś zablokowany przez autora bloga.</string>
 </resources>

@@ -276,6 +276,7 @@
   <string name="abortGame">Avortar la partida</string>
   <string name="gameAborted">Partida avortada</string>
   <string name="standard">Estàndard</string>
+  <string name="customPosition">Posició personalitzada</string>
   <string name="unlimited">Il·limitat</string>
   <string name="mode">Mode</string>
   <string name="casual">Amistosa</string>
@@ -325,8 +326,8 @@
   <string name="exportGames">Exporta les partides</string>
   <string name="ratingRange">Rang de puntuació</string>
   <plurals name="giveNbSeconds">
-    <item quantity="one">Dóna %s segons</item>
-    <item quantity="other">Dóna %s segons</item>
+    <item quantity="one">Dona %s segon</item>
+    <item quantity="other">Dona %s segons</item>
   </plurals>
   <string name="thisAccountViolatedTos">Aquest compte ha violat els Termes de Servei de Lichess</string>
   <string name="openingExplorerAndTablebase">Explorador d\'obertures &amp; taula de finals</string>
@@ -418,6 +419,7 @@
   <string name="blackCheckmatesInOneMove">Les negres fan escac i mat en una jugada</string>
   <string name="retry">Reintentar</string>
   <string name="reconnecting">S\'està reconnectant</string>
+  <string name="noNetwork">Desconnectat</string>
   <plurals name="nbFriendsOnline">
     <item quantity="one">%s amic connectat</item>
     <item quantity="other">%s amics connectats</item>
@@ -530,7 +532,7 @@
   <string name="automaticallyProceedToNextGameAfterMoving">Anar automàticament a la següent partida després de cada moviment</string>
   <string name="autoSwitch">Canvi automàtic</string>
   <string name="puzzles">Problemes</string>
-  <string name="tournamentWinners">Guanyadors de torneigs</string>
+  <string name="onlineBots">Bots en línia</string>
   <string name="name">Nom</string>
   <string name="description">Descripció</string>
   <string name="descPrivate">Descripció privada</string>
@@ -541,7 +543,7 @@
   <string name="createANewTopic">Crea un nou tema</string>
   <string name="topics">Temes</string>
   <string name="posts">Entrades</string>
-  <string name="lastPost">Darrer post</string>
+  <string name="lastPost">Última publicació</string>
   <string name="views">Visites</string>
   <string name="replies">Respostes</string>
   <string name="replyToThisTopic">Respon aquest tema</string>
@@ -642,7 +644,7 @@
   <string name="whiteCastlingKingside">Blanques O-O</string>
   <string name="blackCastlingKingside">Negres O-O</string>
   <plurals name="nbForumPosts">
-    <item quantity="one">%s Missatges al Fòrum</item>
+    <item quantity="one">%s Missatge al Fòrum</item>
     <item quantity="other">%s Missatges al Fòrum</item>
   </plurals>
   <string name="tpTimeSpentPlaying">Temps passat jugant: %s</string>
@@ -704,6 +706,7 @@
   <string name="toggleVariationArrows">Mostra/amaga les fletxes de les variants</string>
   <string name="cyclePreviousOrNextVariation">Canvia la variació següent/anterior</string>
   <string name="toggleGlyphAnnotations">Mostra/amaga les anotacions glif</string>
+  <string name="togglePositionAnnotations">Mostra/amaga les anotacions de la posició</string>
   <string name="variationArrowsInfo">Les fletxes de variants et permeten navegar sense utilitzar la llista de moviments.</string>
   <string name="playSelectedMove">juga el moviment seleccionat</string>
   <string name="newTournament">Nou torneig</string>
@@ -938,8 +941,6 @@ i impacten les puntuacions dels jugadors</string>
   <string name="minimumRatedGames">Mínims partits puntuats</string>
   <string name="minimumRating">Puntuació mínima</string>
   <string name="maximumWeeklyRating">Puntuació màxima aquesta setmana</string>
-  <string name="onlyTitled">Només jugadors titulats</string>
-  <string name="onlyTitledHelp">Es necessita un títol oficial per entrar en el torneig</string>
   <string name="positionInputHelp">Enganxa un FEN vàlid per començar cada joc d\'una posició donada.
 Només funciona per jocs estàndard, no per a variants.
 Pots utilitzar l\'%s per generar una posició FEN, i després enganxar-ho aquí.
@@ -988,4 +989,5 @@ Deixa-ho en blanc per començar els jocs de la posició inicial.</string>
   <string name="showMeEverything">Mostrar tot</string>
   <string name="lichessPatronInfo">Lichess és una entitat sense ànim de lucre i un programari totalment lliure i de codi obert.
 Les despeses de funcionament, desenvolupament i continguts es financen exclusivament amb donacions d\'usuaris.</string>
+  <string name="nothingToSeeHere">Res a veure per aquí de moment.</string>
 </resources>

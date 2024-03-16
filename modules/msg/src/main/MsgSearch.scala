@@ -2,11 +2,10 @@ package lila.msg
 
 import reactivemongo.api.bson.*
 
-import lila.common.LightUser
+import lila.common.{ Bus, KidMode, LightUser }
 import lila.db.dsl.{ *, given }
-import lila.user.Me
-import lila.common.{ KidMode, Bus }
 import lila.hub.actorApi.clas.ClasMatesAndTeachers
+import lila.user.Me
 
 final class MsgSearch(
     colls: MsgColls,
@@ -21,13 +20,13 @@ final class MsgSearch(
     if kid.yes then forKid(q)
     else
       val search = UserSearch.read(q)
-      searchThreads(q) zip search.so(searchFriends) zip search.so(searchUsers) map {
+      searchThreads(q).zip(search.so(searchFriends)).zip(search.so(searchUsers)).map {
         case ((threads, friends), users) =>
           MsgSearch
             .Result(
               threads,
-              friends.filterNot(f => threads.exists(_.other is f)) take 10,
-              users.filterNot(u => u.is(me) || friends.exists(_ is u)) take 10
+              friends.filterNot(f => threads.exists(_.other.is(f))).take(10),
+              users.filterNot(u => u.is(me) || friends.exists(_.is(u))).take(10)
             )
       }
 
@@ -35,8 +34,8 @@ final class MsgSearch(
     threads  <- searchThreads(q)
     allMates <- Bus.ask[Set[UserId]]("clas") { ClasMatesAndTeachers(me, _) }
     lower   = q.toLowerCase
-    mateIds = allMates.view.filter(_.value startsWith lower).toList take 15
-    mates <- lightUserApi asyncMany mateIds
+    mateIds = allMates.view.filter(_.value.startsWith(lower)).toList.take(15)
+    mates <- lightUserApi.asyncMany(mateIds)
   yield MsgSearch.Result(threads, mates.flatten, Nil)
 
   val empty = MsgSearch.Result(Nil, Nil, Nil)
@@ -51,20 +50,22 @@ final class MsgSearch(
           ),
           selectNotDeleted
         )
-      .sort($sort desc "lastMsg.date")
+      .sort($sort.desc("lastMsg.date"))
       .hint:
-        colls.thread hint $doc(
-          "users"        -> 1,
-          "lastMsg.date" -> -1
+        colls.thread.hint(
+          $doc(
+            "users"        -> 1,
+            "lastMsg.date" -> -1
+          )
         )
       .cursor[MsgThread](ReadPref.sec)
       .list(5)
 
   private def searchFriends(q: UserSearch)(using me: Me): Fu[List[LightUser]] =
-    relationApi.searchFollowedBy(me, q, 15) flatMap lightUserApi.asyncMany dmap (_.flatten)
+    relationApi.searchFollowedBy(me, q, 15).flatMap(lightUserApi.asyncMany).dmap(_.flatten)
 
   private def searchUsers(q: UserSearch): Fu[List[LightUser]] =
-    userCache.userIdsLike(q) flatMap lightUserApi.asyncMany dmap (_.flatten)
+    userCache.userIdsLike(q).flatMap(lightUserApi.asyncMany).dmap(_.flatten)
 
 object MsgSearch:
 

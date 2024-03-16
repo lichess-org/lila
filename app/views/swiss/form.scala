@@ -1,13 +1,13 @@
 package views.html.swiss
 
 import controllers.routes
-import controllers.team.routes.{ Team as teamRoutes }
+import controllers.team.routes.Team as teamRoutes
 import play.api.data.Form
 
-import lila.app.templating.Environment.{ given, * }
+import lila.app.templating.Environment.{ *, given }
 import lila.app.ui.ScalatagsTemplate.{ *, given }
-import lila.swiss.{ Swiss, SwissForm }
 import lila.gathering.{ ConditionForm, GatheringClock }
+import lila.swiss.{ Swiss, SwissForm }
 
 object form:
 
@@ -26,7 +26,7 @@ object form:
               a(
                 dataIcon := licon.InfoCircle,
                 cls      := "text",
-                href     := routes.ContentPage.loneBookmark("event-tips")
+                href     := routes.Cms.lonePage("event-tips")
               )(
                 trans.ourEventTips()
               )
@@ -66,7 +66,7 @@ object form:
             form3.split(fields.name, fields.nbRounds),
             form3.split(fields.description, fields.rated),
             fields.clock,
-            form3.split(fields.roundInterval, swiss.isCreated option fields.startsAt),
+            form3.split(fields.roundInterval, swiss.isCreated.option(fields.startsAt)),
             advancedSettings(
               form3.split(fields.variant, fields.position),
               form3.split(fields.chatFor, fields.entryCode),
@@ -89,8 +89,8 @@ object form:
       )
     }
 
-  private def advancedSettings(settings: Frag*) =
-    details(summary("Advanced settings"), settings)
+  private def advancedSettings(settings: Frag*)(using Context) =
+    details(summary(trans.advancedSettings()), settings)
 
   private def condition(form: Form[SwissForm.SwissData])(using ctx: PageContext) =
     frag(
@@ -98,11 +98,11 @@ object form:
         form3.group(form("conditions.nbRatedGame.nb"), trans.minimumRatedGames(), half = true)(
           form3.select(_, ConditionForm.nbRatedGameChoices)
         ),
-        (ctx.me.exists(_.hasTitle) || isGranted(_.ManageTournament)) so {
+        (ctx.me.exists(_.hasTitle) || isGranted(_.ManageTournament)).so {
           form3.checkbox(
             form("conditions.titled"),
-            trans.onlyTitled(),
-            help = trans.onlyTitledHelp().some,
+            trans.arena.onlyTitled(),
+            help = trans.arena.onlyTitledHelp().some,
             half = true
           )
         }
@@ -231,22 +231,8 @@ final private class SwissFields(form: Form[SwissForm.SwissData], swiss: Option[S
   def manualPairings =
     form3.group(
       form("manualPairings"),
-      "Manual pairings in next round",
-      help = frag(
-        "Specify all pairings of the next round manually. One player pair per line. Example:",
-        br,
-        "PlayerA PlayerB",
-        br,
-        "PlayerC PlayerD",
-        br,
-        "To give a bye (1 point) to a player instead of a pairing, add a line like so:",
-        br,
-        "PlayerE 1",
-        br,
-        "Missing players will be considered absent and get zero points.",
-        br,
-        "Leave this field empty to let lichess create pairings automatically."
-      ).some,
+      trans.swiss.manualPairings(),
+      help = trans.swiss.manualPairingsHelp().some,
       half = true
     )(form3.textarea(_)(rows := 4))
 
@@ -260,10 +246,8 @@ final private class SwissFields(form: Form[SwissForm.SwissData], swiss: Option[S
   def playYourGames = frag(
     form3.checkbox(
       form("conditions.playYourGames"),
-      "Must have played their last swiss game",
-      help = frag(
-        "Only let players join if they have played their last swiss game. If they failed to show up in a recent swiss event, they won't be able to enter yours. This results in a better swiss experience for the players who actually show up."
-      ).some,
+      trans.swiss.mustHavePlayedTheirLastSwissGame(),
+      help = trans.swiss.mustHavePlayedTheirLastSwissGameHelp().some,
       half = true
     ),
     form3.hiddenFalse(form("conditions.playYourGames"))

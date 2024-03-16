@@ -84,4 +84,7 @@ Patróni však majú vychvaľovacie práva so skvelou novou ikonou profilu.</str
   <string name="nowOneMonth">Odteraz ste Lichess Patron na jeden mesiac!</string>
   <string name="downgradeNextMonth">Za jeden mesiac, vám NEBUDE zaúčtovaný poplatok znova, a váš Lichess účet sa obnoví na bežný účet.</string>
   <string name="changeCurrency">Zmeniť menu</string>
+  <string name="paymentDetails">Platobné údaje</string>
+  <string name="updatePaymentMethod">Aktualizovať spôsob platby</string>
+  <string name="stripeManageSub">Spravovať predplatné a sťahovať faktúry a potvrdenia</string>
 </resources>

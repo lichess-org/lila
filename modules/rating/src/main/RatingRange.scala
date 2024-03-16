@@ -1,14 +1,12 @@
 package lila.rating
 
-import lila.common.Maths.closestMultipleOf
-
 case class RatingRange(min: IntRating, max: IntRating):
 
   def contains(rating: IntRating) =
     (min <= RatingRange.min || rating >= min) &&
       (max >= RatingRange.max || rating <= max)
 
-  def notBroad: Option[RatingRange] = (this != RatingRange.broad) option this
+  def notBroad: Option[RatingRange] = (this != RatingRange.broad).option(this)
 
   def withinLimits(rating: IntRating, delta: Int) =
     copy(
@@ -30,9 +28,9 @@ object RatingRange:
 
   def defaultFor(rating: IntRating) =
     val (rangeMin, rangeMax) = distribution.range(rating.value.toDouble, 0.2)
-    RatingRange(IntRating(rangeMin.toInt) atLeast min, IntRating(rangeMax.toInt) atMost max)
+    RatingRange(IntRating(rangeMin.toInt).atLeast(min), IntRating(rangeMax.toInt).atMost(max))
 
-  def readRating(str: String) = IntRating from str.toIntOption
+  def readRating(str: String) = IntRating.from(str.toIntOption)
 
   // ^\d{3,4}\-\d{3,4}$
   def apply(from: String): Option[RatingRange] = for
@@ -63,4 +61,4 @@ object RatingRange:
 
   def valid(from: String) = apply(from).isDefined
 
-  private def acceptable(rating: IntRating) = broad contains rating
+  private def acceptable(rating: IntRating) = broad.contains(rating)

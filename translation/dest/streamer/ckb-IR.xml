@@ -4,8 +4,8 @@
   <string name="lichessStreamer">پێشکەشکارانی lichess</string>
   <string name="live">ڕاستەوخۆ!</string>
   <string name="offline">دەرھێڵ</string>
-  <string name="currentlyStreaming">لە ئێستادا پێشکەش دەکرێت: %s</string>
-  <string name="lastStream">کۆتا پەخشکردن %s</string>
+  <string name="currentlyStreaming" comment="%s is the title of the stream, chosen by the streamer.">لە ئێستادا پێشکەش دەکرێت: %s</string>
+  <string name="lastStream" comment="%s is how long ago the stream was in relative time (e.g. 50 minutes ago). It is displayed in smaller type than the rest of the string.">کۆتا پەخشکردن %s</string>
   <string name="becomeStreamer">ببە بە پێشکەشکارێکی لیچێس</string>
   <string name="doYouHaveStream">کەناڵی Twitch یان Youtube\'ت هەیە?</string>
   <string name="hereWeGo">دەستمان پێکرد!</string>
@@ -29,11 +29,11 @@
   <string name="pendingReview">ستریمەکەت لەلایەن بەڕێوەبەرانەوە پێداچوونەوەی بۆ دەکرێت.</string>
   <string name="pleaseFillIn">تکایە زانیارییەکانی ستریمەرەکەت پڕبکەرەوە، و وێنەیەک دابنێ.</string>
   <string name="whenReady" comment="whenReady&#10;&#10;%s is &quot;request a moderator review&quot;">کاتێک ئامادە بوویت بۆ ئەوەی وەک ستریمەرێکی لیچێس تۆمار بکرێت، %s</string>
-  <string name="requestReview" comment="requestReview&#10;&#10;Used in the sense of: &quot;When you are ready to be listed as a Lichess streamer, request a moderator review&quot;">داوای پێداچوونەوەی بەڕێوەبەر بکە</string>
+  <string name="requestReview" comment="requestReview&#10;&#10;Used as part of the longer sentence: &quot;When you are ready to be listed as a Lichess streamer, request a moderator review&quot;">داوای پێداچوونەوەی بەڕێوەبەر بکە</string>
   <string name="streamerLanguageSettings">لاپەڕەی ستریمەری لیچێس ئەتوانێت چێژی زیاتر ببەخشێت بە بینەرەکانت بەو زمانەی کە لەلایەن پلاتفۆرمی ستریمەکەتەوە دابینکراوە. زمانی پێشوەختەی دروست بۆ ستریمەکانی شەترەنجەکەت لە ئەپ یان خزمەتگوزارییەکەدا دابنێ کە بۆ پەخشکردن بەکاری دەهێنیت.</string>
-  <string name="twitchUsername">ناوی بەکارهێنەر یان URL ی Twitch ی تۆ</string>
+  <string name="twitchUsername" comment="Appears on the form for setting up your Streamer page: https://lichess.org/streamer/edit&#10;&#10;Twitch is a proper noun and refers to the streaming service https://twitch.tv/. Please do not translate the word 'Twitch'.">ناوی بەکارهێنەر یان URL ی Twitch ی تۆ</string>
   <string name="optionalOrEmpty">ئارەزوومەندانە. ئەگەر هیچ نەبوو بە بەتاڵی بەجێی بهێڵە</string>
-  <string name="youTubeChannelId">ID کەناڵی یوتوبەکەت</string>
+  <string name="youTubeChannelId" comment="Appears on the form for setting up your Streamer page: https://lichess.org/streamer/edit&#10;&#10;The Channel ID is a special alphanumeric string. See Google's guide here for how to retrieve it: https://support.google.com/youtube/answer/3250431&#10;&#10;We encourage translators to match what the Channel ID is called in your language's version of YouTube: https://www.youtube.com/account_advanced">ID کەناڵی یوتوبەکەت</string>
   <string name="streamerName">ناوی پەخشەکەی تۆ لە لیچێس</string>
   <plurals name="keepItShort">
     <item quantity="one">کورتی بکەرەوە: زۆرترین پیت %s</item>

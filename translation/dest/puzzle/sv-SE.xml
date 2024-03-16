@@ -19,7 +19,7 @@
   <string name="findTheBestMoveForWhite">Hitta bästa draget för vit.</string>
   <string name="findTheBestMoveForBlack">Hitta bästa draget för svart.</string>
   <string name="toGetPersonalizedPuzzles">För att få personanpassade problem:</string>
-  <string name="puzzleId" comment="%s is the ID of the puzzle, something like #a1b2c3.">Problem %s</string>
+  <string name="puzzleId">Problem %s</string>
   <string name="puzzleOfTheDay">Dagens problem</string>
   <string name="dailyPuzzle">Dagens problem</string>
   <string name="clickToSolve">Klicka för att lösa</string>
@@ -31,13 +31,13 @@
   <string name="byOpenings">Efter öppningar</string>
   <string name="puzzlesByOpenings">Schackproblem efter öppningar</string>
   <string name="openingsYouPlayedTheMost">Öppningar som du spelade mest i rankade partier</string>
-  <string name="useFindInPage" comment="useFindInPage&#10;&#10;Appears on https://lichess.org/training/openings&#10;Encourages players to use the built-in browser feature (Ctrl+F on most desktop computers) to find the opening they want to practice.">Använd \"Hitta på sida\" i webbläsarmenyn för att hitta din favoritöppning!</string>
+  <string name="useFindInPage">Använd \"Hitta på sida\" i webbläsarmenyn för att hitta din favoritöppning!</string>
   <string name="useCtrlF">Använd Ctrl+f för att hitta din favoritöppning!</string>
   <string name="notTheMove">Det är inte rätt drag!</string>
   <string name="trySomethingElse">Prova något annat.</string>
-  <string name="ratingX" comment="Appears on pages of individual puzzles.&#10;&#10;%s is either:&#10;1. The word 'hidden', if you have not completed the puzzle yet.&#10;2. The rating of the puzzle, if you have completed it or seen the solution.">Rating: %s</string>
-  <string name="hidden" comment="Puzzle rating: hidden&#10;&#10;Appears while solving puzzles. Lichess only displays the rating of the puzzle after you have solved it or asked to see the solution.">gömd</string>
-  <plurals name="playedXTimes" comment="Appears on pages of individual puzzles.&#10;%s is the number of times the puzzle has been played.">
+  <string name="ratingX">Rating: %s</string>
+  <string name="hidden">gömd</string>
+  <plurals name="playedXTimes">
     <item quantity="one">Spelat %s gånger</item>
     <item quantity="other">Spelat %s gånger</item>
   </plurals>

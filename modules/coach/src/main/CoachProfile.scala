@@ -14,9 +14,9 @@ case class CoachProfile(
     publicStudies: Option[String] = None
 ):
 
-  lazy val youtubeUrls = youtubeVideos so UrlList.youtube.apply
+  lazy val youtubeUrls = youtubeVideos.so(UrlList.youtube.apply)
 
-  lazy val studyIds = publicStudies so UrlList.study.apply
+  lazy val studyIds = publicStudies.so(UrlList.study.apply)
 
   def textLines: List[String] = List(
     "headline"           -> headline,
@@ -30,6 +30,6 @@ case class CoachProfile(
     "youtubeVideos"      -> youtubeVideos,
     "youtubeChannel"     -> youtubeChannel,
     "publicStudies"      -> publicStudies
-  ) collect { case (k, Some(v)) =>
+  ).collect { case (k, Some(v)) =>
     s"$k: $v"
   }

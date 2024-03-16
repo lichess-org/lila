@@ -1,13 +1,12 @@
 package views.html.opening
 
-import chess.opening.{ OpeningKey, Opening }
+import chess.opening.{ Opening, OpeningKey }
 import controllers.routes
 import play.api.libs.json.Json
 import play.api.mvc.Call
 
-import lila.app.templating.Environment.{ given, * }
+import lila.app.templating.Environment.{ *, given }
 import lila.app.ui.ScalatagsTemplate.{ *, given }
-import lila.common.String.html.safeJsonValue
 import lila.opening.OpeningQuery.Query
 import lila.opening.{ NameSection, OpeningConfig, OpeningPage, OpeningQuery, ResultCounts }
 
@@ -83,7 +82,7 @@ object bits:
       case NonEmptyList(family, variations) =>
         frag(
           span(cls := "opening-name__family")(family),
-          variations.nonEmpty option ": ",
+          variations.nonEmpty.option(": "),
           fragList(
             variations.map: variation =>
               span(cls := "opening-name__variation")(variation),
@@ -102,7 +101,7 @@ object bits:
   def percentNumber(v: Double) = f"${v}%1.2f"
   def percentFrag(v: Double)   = frag(strong(percentNumber(v)), "%")
 
-  def resultSegments(result: ResultCounts) = result.sum > 0 option {
+  def resultSegments(result: ResultCounts) = (result.sum > 0).option {
     import result.*
     val (blackV, drawsV, whiteV) = exaggerateResults(result)
     frag(
@@ -119,7 +118,7 @@ object bits:
       cls   := key,
       style := s"height:${percentNumber(visualPercent)}%",
       title := s"$text $help"
-    )(visible option text)
+    )(visible.option(text))
 
   private def exaggerateResults(result: ResultCounts) =
     import result.*

@@ -2,7 +2,7 @@ package lila.setup
 
 import chess.Clock
 import chess.format.Fen
-import chess.variant.{ Variant, FromPosition }
+import chess.variant.{ FromPosition, Variant }
 
 import lila.common.Days
 import lila.game.GameRule
@@ -49,7 +49,7 @@ object OpenConfig:
       days = days,
       rated = rated,
       position = pos,
-      userIds = usernames.map(_.map(_.id)) collect { case List(w, b) =>
+      userIds = usernames.map(_.map(_.id)).collect { case List(w, b) =>
         (w, b)
       },
       rules = ~rules,

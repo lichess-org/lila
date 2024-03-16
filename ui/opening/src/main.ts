@@ -1,5 +1,5 @@
 import Lpv from 'lichess-pgn-viewer';
-import { initAll as initMiniBoards } from 'common/mini-board';
+import { initAll as initMiniBoards } from 'common/miniBoard';
 import { OpeningPage } from './interfaces';
 import { renderHistoryChart } from './chart';
 import { init as searchEngine } from './search';
@@ -34,7 +34,7 @@ function page(data: OpeningPage) {
     if (id == 'opening-panel-games') loadExampleGames();
   });
   searchEngine();
-  lichess.requestIdleCallback(() => {
+  site.requestIdleCallback(() => {
     renderHistoryChart(data);
     renderPlaceholderWiki(data);
   });

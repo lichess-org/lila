@@ -25,7 +25,6 @@
   <string name="longestStreak">Рекордная серия: %s</string>
   <string name="currentStreak">Текущая серия: %s</string>
   <string name="bestRated">Победы против лучших по рейтингу</string>
-  <string name="worstRated">Поражения худшим по рейтингу</string>
   <string name="gamesInARow">Сыгранные подряд игры</string>
   <string name="lessThanOneHour">Перерыв между играми менее часа</string>
   <string name="maxTimePlaying">Максимальное время за игрой</string>

@@ -150,19 +150,19 @@ Bozgorailu gorri bat agertzen da zure nabigatzaileak lichess.org-i horrelako soi
 
 Ikono gorria zu ohartarazteko erakusten dugu. Sarri lichess.org baimendu dezakezu soinuak entzun ahal izateko. Hemen dituzu horretarako argibideak.</string>
   <string name="desktop">mahaigaina</string>
-  <string name="enableAutoplayForSoundsFirefox" comment="Guidance for Mozilla Firefox users on how to enable audio auto-play if they have sound issues.&#10;&#10;Please keep 'i' lowercase, for two reasons:&#10;1. Capital L and capital I are hard to differentiate for users.&#10;2. So users don't press Ctrl+Shift+I to get a capital I. This is a different shortcut in the browser.">1. Joan lichess.org webgunera
+  <string name="enableAutoplayForSoundsFirefox">1. Joan lichess.org webgunera
 2. Sakatu Ctrl-i Linux/Windowsesn edo cmd-i MacOSen
 3. Sakatu Baimenen fitxa
 4. Baimendu Audioa eta Bideoa lichess.org-en</string>
-  <string name="enableAutoplayForSoundsChrome" comment="Guidance for Google Chrome users on how to enable audio auto-play if they have sound issues.">1. Joan lichess.org-era
+  <string name="enableAutoplayForSoundsChrome">1. Joan lichess.org-era
 2. Egin klik helbide barrako giltzarrapoan
 3. Egin klik Gunearen ezarpenetan
 4. Baimendu soinua</string>
-  <string name="enableAutoplayForSoundsSafari" comment="Guidance for Apple Safari users on how to enable audio auto-play if they have sound issues.">1. Joan lichess.org-era
+  <string name="enableAutoplayForSoundsSafari">1. Joan lichess.org-era
 2. Egin klik Safari menuan
 3. Egin klik lichess.org-en ezarpenetan
 4. Baimendu Auto-Play guztiak</string>
-  <string name="enableAutoplayForSoundsMicrosoftEdge" comment="Guidance for Microsoft Edge users on desktop, for how to enable audio auto-play if they have sound issues.">1. Egin klik goiko eskumako hiru puntuetan
+  <string name="enableAutoplayForSoundsMicrosoftEdge">1. Egin klik goiko eskumako hiru puntuetan
 2. Egin klik ezarpenetan
 3. Egin klik Cookieak eta Gunearen baimenetan
 4. Joan behera eta egin klik \"Media autoplay\" aukeran

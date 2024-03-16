@@ -3,15 +3,15 @@
   <string name="hourlyRapidArena">Ĉiuhora Rapida Areno</string>
   <string name="hourlyRapid">Ĉiuhora Areno</string>
   <string name="hourlyXArena">Ĉiuhora %s Areno</string>
-  <string name="hourlyX">Ĉiuhora %s</string>
+  <string name="hourlyX" comment="%s is a time control (like &quot;Blitz&quot;) or a variant (like &quot;Chess960&quot;)&#10;&#10;Used for tournaments. Please keep this string short and consistent with 'Hourly Rapid' and 'Hourly %s Arena'.">Ĉiuhora %s</string>
   <string name="dailyRapidArena">Taga Rapida Areno</string>
   <string name="dailyRapid">Taga Rapida</string>
-  <string name="dailyClassicalArena">Taga Klasika Areno</string>
-  <string name="dailyClassical">Taga Klasika</string>
-  <string name="dailyXArena">Taga %s Areno</string>
+  <string name="dailyClassicalArena" comment="dailyClassicalArena&#10;&#10;Used for tournaments. Please keep this string short and consistent with 'Daily Rapid' and 'Daily %s Arena'.">Taga Klasika Areno</string>
+  <string name="dailyClassical" comment="dailyClassical&#10;&#10;Used for tournaments. Please keep this string short and consistent with 'Daily Rapid' and 'Daily %s Arena'.">Taga Klasika</string>
+  <string name="dailyXArena" comment="dailyXArena %s is a time control (like &quot;Blitz&quot;) or a variant (like &quot;Chess960&quot;)&#10;&#10;Used for tournaments. Please keep this string short and consistent with 'Daily %s'.">Taga %s Areno</string>
   <string name="dailyX">Taga %s</string>
-  <string name="easternRapidArena">Orienta Rapida Areno</string>
-  <string name="easternRapid">Orienta Rapido</string>
+  <string name="easternRapidArena" comment="easternRapidArena&#10;&#10;Eastern refers to the time zone these tournaments are scheduled in for, accommodating East Asia, Oceania and the Pacific.">Orienta Rapida Areno</string>
+  <string name="easternRapid" comment="easternRapid&#10;Eastern refers to the time zone these tournaments are scheduled in for, accommodating East Asia, Oceania and the Pacific.&#10;&#10;Please keep this string short and consistent with 'Eastern Rapid Arena' and 'Eastern %s Arena'.">Orienta Rapido</string>
   <string name="easternClassicalArena">Orienta Klasika Areno</string>
   <string name="easternClassical">Orienta Klasika</string>
   <string name="easternXArena">Orienta %s Areno</string>

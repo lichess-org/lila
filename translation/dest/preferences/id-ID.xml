@@ -18,7 +18,6 @@
   <string name="explainShowPlayerRatings">Ini dapat menyembunyikan rating dari website, agar membantu fokus ke catur. Permainan tetap dapat dinilai, ini hanya untuk apa yang Anda lihat.</string>
   <string name="displayBoardResizeHandle">Tampilkan pengubah ukuran papan catur</string>
   <string name="onlyOnInitialPosition">Hanya di posisi awal</string>
-  <string name="blindfoldChess">Catur buta (buah catur disembunyikan)</string>
   <string name="chessClock">Jam catur</string>
   <string name="tenthsOfSeconds">Sepersepuluh detik</string>
   <string name="whenTimeRemainingLessThanTenSeconds" comment="whenTimeRemainingLessThanTenSeconds&#10;&#10;The &amp;lt; symbol is not required (you can write it as a word), just do NOT use &lt; in its place.&#10;&#10;Technical information: &lt; is a reserved character in HTML, which is why it cannot be used.">Ketika waktu tersisa &lt; 10 detik</string>

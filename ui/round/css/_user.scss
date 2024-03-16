@@ -3,6 +3,7 @@
 
   display: flex;
   justify-content: start;
+  align-items: center;
   font-size: 1.2em;
   padding: 0 0.3em;
 
@@ -31,6 +32,11 @@
     @extend %flex-center-nowrap;
 
     justify-content: center;
+  }
+
+  signal {
+    font-size: 0.8em;
+    margin-left: 0.3em;
   }
 
   @keyframes connecting {

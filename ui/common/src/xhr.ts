@@ -1,7 +1,7 @@
 import { defined } from './common';
 
 export const jsonHeader = {
-  Accept: 'application/vnd.lichess.v5+json',
+  Accept: 'application/web.lichess+json',
 };
 
 export const defaultInit: RequestInit = {

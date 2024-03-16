@@ -170,7 +170,7 @@ export default async function (
       },
       onClick(_event, elements, _chart) {
         const data = elements[elements.findIndex(element => element.datasetIndex == 0)];
-        if (data) lichess.pubsub.emit('analysis.chart.click', data.index);
+        if (data) site.pubsub.emit('analysis.chart.click', data.index);
       },
     },
   };
@@ -184,8 +184,8 @@ export default async function (
     if (!isPartial(data)) christmasTree(acplChart, mainline, adviceHoverColors);
     acplChart.update('none');
   };
-  lichess.pubsub.on('ply', acplChart.selectPly);
-  lichess.pubsub.emit('ply.trigger');
+  site.pubsub.on('ply', acplChart.selectPly);
+  site.pubsub.emit('ply.trigger');
   if (!isPartial(data)) christmasTree(acplChart, mainline, adviceHoverColors);
   return acplChart;
 }
@@ -209,12 +209,10 @@ function christmasTree(chart: AcplChart, mainline: Tree.Node[], hoverColors: str
       acplDataset.pointHoverBackgroundColor = hoverColors;
       acplDataset.pointBorderColor = hoverColors;
       const points = mainline
-        .map((node, i) =>
-          node.glyphs?.some(glyph => glyph.symbol == symbol) && (node.ply & 1) == playerColorBit
-            ? { datasetIndex: 0, index: i - 1 }
-            : { datasetIndex: 0, index: -1 },
+        .filter(
+          node => node.glyphs?.some(glyph => glyph.symbol == symbol) && (node.ply & 1) == playerColorBit,
         )
-        .filter(i => i.index >= 0);
+        .map(node => ({ datasetIndex: 0, index: node.ply - mainline[0].ply - 1 }));
       chart.setActiveElements(points);
       chart.update('none');
     }

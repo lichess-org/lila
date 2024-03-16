@@ -80,4 +80,7 @@ Het enige verschil? Patronen krijgen een cool nieuw profielpictogram als waarder
   <string name="nowOneMonth">Je bent nu een Lichess Patroon voor een maand!</string>
   <string name="downgradeNextMonth">Over een maand worden er GEEN extra kosten in rekening gebracht en je Lichess account wordt teruggezet naar een kosteloos account.</string>
   <string name="changeCurrency">Valuta wijzigen</string>
+  <string name="paymentDetails">Betaalgegevens</string>
+  <string name="updatePaymentMethod">Betaalwijze bijwerken</string>
+  <string name="stripeManageSub">Abonnement beheren en facturen en ontvangstbewijzen downloaden</string>
 </resources>

@@ -2,15 +2,14 @@ package lila.app
 
 import akka.actor.ActorSystem
 import com.softwaremill.macwire.*
-import play.api.{ Environment, Configuration, BuiltInComponents }
-import play.api.http.HttpRequestHandler
+import play.api.http.{ FileMimeTypes, HttpRequestHandler }
+import play.api.inject.ApplicationLifecycle
 import play.api.libs.crypto.DefaultCookieSigner
 import play.api.libs.ws.StandaloneWSClient
 import play.api.mvc.*
 import play.api.mvc.request.*
 import play.api.routing.Router
-import play.api.http.FileMimeTypes
-import play.api.inject.ApplicationLifecycle
+import play.api.{ BuiltInComponents, Configuration, Environment }
 
 final class LilaComponents(
     val environment: Environment,
@@ -99,8 +98,7 @@ final class LilaComponents(
   lazy val api: Api                       = wire[Api]
   lazy val appealC: appeal.Appeal         = wire[appeal.Appeal]
   lazy val auth: Auth                     = wire[Auth]
-  lazy val blog: Blog                     = wire[Blog]
-  lazy val dailyFeed: DailyFeed           = wire[DailyFeed]
+  lazy val feed: Feed                     = wire[Feed]
   lazy val playApi: PlayApi               = wire[PlayApi]
   lazy val challenge: Challenge           = wire[Challenge]
   lazy val coach: Coach                   = wire[Coach]
@@ -130,11 +128,9 @@ final class LilaComponents(
   lazy val notifyC: Notify                = wire[Notify]
   lazy val oAuth: OAuth                   = wire[OAuth]
   lazy val oAuthToken: OAuthToken         = wire[OAuthToken]
-  lazy val page: ContentPage              = wire[ContentPage]
   lazy val plan: Plan                     = wire[Plan]
   lazy val practice: Practice             = wire[Practice]
   lazy val pref: Pref                     = wire[Pref]
-  lazy val prismic: Prismic               = wire[Prismic]
   lazy val push: Push                     = wire[Push]
   lazy val puzzle: Puzzle                 = wire[Puzzle]
   lazy val relation: Relation             = wire[Relation]
@@ -165,6 +161,8 @@ final class LilaComponents(
   lazy val tutor: Tutor                   = wire[Tutor]
   lazy val bulkPairing: BulkPairing       = wire[BulkPairing]
   lazy val opening: Opening               = wire[Opening]
+  lazy val cms: Cms                       = wire[Cms]
+  lazy val fide: Fide                     = wire[Fide]
 
   // eagerly wire up all controllers
   private val appealRouter: _root_.router.appeal.Routes = wire[_root_.router.appeal.Routes]

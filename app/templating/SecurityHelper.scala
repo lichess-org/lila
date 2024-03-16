@@ -2,16 +2,12 @@ package lila.app
 package templating
 
 import lila.app.ui.ScalatagsTemplate.*
-
 import lila.security.{ Granter, Permission }
-import lila.user.{ User, Me }
+import lila.user.{ Me, User }
 
 trait SecurityHelper:
 
-  export Granter.canGrant
-
-  def isGranted(permission: Permission.Selector)(using ctx: Context): Boolean =
-    ctx.me soUse Granter.opt(permission)
+  export Granter.{ canGrant, opt as isGranted }
 
   def isGranted(permission: Permission.Selector, user: User): Boolean =
     isGranted(permission(Permission), user)
@@ -25,4 +21,4 @@ trait SecurityHelper:
   def reportScore(score: lila.report.Report.Score): Frag =
     span(cls := s"score ${score.color}")(score.value.toInt)
 
-  def canCloseAlt(using me: Option[Me]): Boolean = me soUse Granter.canCloseAlt
+  def canCloseAlt(using me: Option[Me]): Boolean = me.soUse(Granter.canCloseAlt)

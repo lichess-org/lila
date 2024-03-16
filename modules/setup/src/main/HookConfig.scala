@@ -1,13 +1,12 @@
 package lila.setup
 
-import chess.{ Mode, Clock }
 import chess.variant.Variant
+import chess.{ Clock, Mode }
 
 import lila.common.Days
 import lila.lobby.{ Color, Hook, Seek }
-import lila.rating.RatingRange
+import lila.rating.{ Perf, RatingRange }
 import lila.user.{ Me, User }
-import lila.rating.{ Perf, PerfType }
 
 case class HookConfig(
     variant: chess.variant.Variant,
@@ -80,14 +79,14 @@ case class HookConfig(
   def updateFrom(game: lila.game.Game) =
     copy(
       variant = game.variant,
-      timeMode = TimeMode ofGame game,
+      timeMode = TimeMode.ofGame(game),
       time = game.clock.map(_.limitInMinutes) | time,
       increment = game.clock.map(_.incrementSeconds) | increment,
       days = game.daysPerTurn | days,
       mode = game.mode
     )
 
-  def withRatingRange(ratingRange: String) = copy(ratingRange = RatingRange orDefault ratingRange)
+  def withRatingRange(ratingRange: String) = copy(ratingRange = RatingRange.orDefault(ratingRange))
   def withRatingRange(rating: Option[IntRating], deltaMin: Option[String], deltaMax: Option[String]) =
     copy(ratingRange = RatingRange.orDefault(rating, deltaMin, deltaMax))
 
@@ -106,13 +105,13 @@ object HookConfig extends BaseHumanConfig:
     val realMode = m.fold(Mode.default)(Mode.orDefault)
     new HookConfig(
       variant = chess.variant.Variant.orDefault(v),
-      timeMode = TimeMode(tm) err s"Invalid time mode $tm",
+      timeMode = TimeMode(tm).err(s"Invalid time mode $tm"),
       time = t,
       increment = i,
       days = d,
       mode = realMode,
       ratingRange = e.fold(RatingRange.default)(RatingRange.orDefault),
-      color = Color(c) err s"Invalid color $c"
+      color = Color(c).err(s"Invalid color $c")
     )
 
   def default(auth: Boolean): HookConfig = default.copy(mode = Mode(auth))
@@ -135,14 +134,14 @@ object HookConfig extends BaseHumanConfig:
 
     def reads(r: BSON.Reader): HookConfig =
       HookConfig(
-        variant = Variant idOrDefault r.getO[Variant.Id]("v"),
-        timeMode = TimeMode orDefault (r int "tm"),
-        time = r double "t",
-        increment = r get "i",
+        variant = Variant.idOrDefault(r.getO[Variant.Id]("v")),
+        timeMode = TimeMode.orDefault(r.int("tm")),
+        time = r.double("t"),
+        increment = r.get("i"),
         days = r.get("d"),
-        mode = Mode orDefault (r int "m"),
+        mode = Mode.orDefault(r.int("m")),
         color = Color.Random,
-        ratingRange = r strO "e" flatMap RatingRange.apply getOrElse RatingRange.default
+        ratingRange = r.strO("e").flatMap(RatingRange.apply).getOrElse(RatingRange.default)
       )
 
     def writes(w: BSON.Writer, o: HookConfig) =

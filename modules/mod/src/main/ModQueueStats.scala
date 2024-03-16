@@ -1,10 +1,11 @@
 package lila.mod
 
 import play.api.libs.json.*
+
 import scala.util.Try
 
 import lila.db.dsl.{ *, given }
-import lila.mod.ModActivity.{ dateFormat, Period }
+import lila.mod.ModActivity.{ Period, dateFormat }
 import lila.report.Room
 
 final class ModQueueStats(
@@ -31,7 +32,7 @@ final class ModQueueStats(
 
   private def compute(period: Period): Fu[Result] =
     repo.coll
-      .find($doc("_id" $gte dateFormat.print(Period dateSince period)))
+      .find($doc("_id".$gte(dateFormat.print(Period.dateSince(period)))))
       .cursor[Bdoc](ReadPref.priTemp)
       .listAll()
       .map: docs =>

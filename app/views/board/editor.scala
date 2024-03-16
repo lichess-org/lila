@@ -1,13 +1,11 @@
 package views.html.board
 
-import play.api.libs.json.{ Json, JsArray }
-import controllers.routes
-
 import chess.format.Fen
+import controllers.routes
+import play.api.libs.json.{ JsArray, Json }
 
-import lila.app.templating.Environment.{ given, * }
+import lila.app.templating.Environment.{ *, given }
 import lila.app.ui.ScalatagsTemplate.*
-import lila.common.String.html.safeJsonValue
 import lila.common.Json.given
 
 object editor:
@@ -29,7 +27,7 @@ object editor:
         .OpenGraph(
           title = "Chess board editor",
           url = s"$netBaseUrl${routes.Editor.index.url}",
-          description = "Load opening positions or create your own chess.Position on a chess board editor"
+          description = "Load opening positions or create your own chess position on a chess board editor"
         )
         .some
     )(

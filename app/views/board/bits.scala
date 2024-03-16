@@ -1,9 +1,9 @@
 package views.html.board
 
-import chess.format.{ Fen, Uci, BoardFen }
+import chess.format.{ BoardFen, Fen, Uci }
 import play.api.libs.json.Json
 
-import lila.app.templating.Environment.{ given, * }
+import lila.app.templating.Environment.{ *, given }
 import lila.app.ui.ScalatagsTemplate.*
 import lila.game.Pov
 
@@ -14,9 +14,11 @@ object bits:
   private def miniOrientation(pov: Pov): chess.Color =
     if pov.game.variant == chess.variant.RacingKings then chess.White else pov.player.color
 
-  def mini(pov: Pov): Tag => Tag =
+  def mini(pov: Pov)(using ctx: Context): Tag => Tag =
     mini(
-      Fen.writeBoard(pov.game.board),
+      if ctx.me.flatMap(pov.game.player).exists(_.blindfold) && pov.game.playable
+      then BoardFen("8/8/8/8/8/8/8/8")
+      else Fen.writeBoard(pov.game.board),
       miniOrientation(pov),
       pov.game.history.lastMove
     )

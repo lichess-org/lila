@@ -53,6 +53,7 @@
   <string name="allSyncMembersRemainOnTheSamePosition">Kide sinkronizatu guztiak posizio berean jarraitzen dute</string>
   <string name="shareChanges">Aldaketak ikusleekin partekatu eta zerbitzarian gorde</string>
   <string name="playing">Jokatzen</string>
+  <string name="showEvalBar">Ebaluazio barrak</string>
   <string name="first">Lehenengoa</string>
   <string name="previous">Aurrekoa</string>
   <string name="next">Hurrengoa</string>
@@ -84,7 +85,7 @@
   <string name="pinnedChapterComment">Kapituluaren iltzatutako iruzkina</string>
   <string name="saveChapter">Kapitulua gorde</string>
   <string name="clearAnnotations">Iruzkinak garbitu</string>
-  <string name="clearVariations">Garbitu aldaerak</string>
+  <string name="clearVariations" comment="Clear is used as a verb here. This erases the variations in the study (https://lichess.org/study) you are preparing.">Garbitu aldaerak</string>
   <string name="deleteChapter">Kapitulua ezabatu</string>
   <string name="deleteThisChapter">Kapitulu hau ezabatu egin nahi duzu? Ez dago atzera egiterik!</string>
   <string name="clearAllCommentsInThisChapter">Kapitulu honetako iruzkin guztiak ezabatu?</string>

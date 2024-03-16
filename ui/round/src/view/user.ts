@@ -31,7 +31,8 @@ export function userHtml(ctrl: RoundController, player: Player, position: Positi
   const d = ctrl.data,
     user = player.user,
     perf = (user?.perfs || {})[d.game.perf],
-    rating = player.rating || perf?.rating;
+    rating = player.rating || perf?.rating,
+    signal = user?.id === d.opponent.user?.id ? d.opponentSignal : undefined;
 
   if (user) {
     const connecting = !player.onGame && ctrl.firstSeconds && user.online;
@@ -62,7 +63,8 @@ export function userHtml(ctrl: RoundController, player: Player, position: Positi
           online: false,
           line: false,
         }),
-        !!rating && h('rating', `${rating + (player.provisional ? '?' : '')}`),
+        !!signal && signalBars(signal),
+        !!rating && h('rating', rating + (player.provisional ? '?' : '')),
         !!rating && ratingDiff(player),
         player.engine &&
           h('span', {
@@ -85,6 +87,12 @@ export function userHtml(ctrl: RoundController, player: Player, position: Positi
     ],
   );
 }
+
+const signalBars = (signal: number) => {
+  const bars = [];
+  for (let i = 1; i <= 4; i++) bars.push(h(i <= signal ? 'i' : 'i.off'));
+  return h('signal.q' + signal, bars);
+};
 
 export const userTxt = (ctrl: RoundController, player: Player) =>
   player.user

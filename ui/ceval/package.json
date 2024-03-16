@@ -26,11 +26,6 @@
     "stockfish-nnue.wasm": "1.0.0-1946a675.smolnet",
     "lila-stockfish-web": "0.0.3"
   },
-  "scripts": {
-    "compile": "tsc",
-    "dev": "tsc",
-    "prod": "tsc"
-  },
   "lichess": {
     "copy": [
       {

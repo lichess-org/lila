@@ -1,10 +1,9 @@
 package lila.game
 
+import chess.format.Fen
+import chess.{ Clock, Color }
 import play.api.libs.json.*
 
-import chess.format.Fen
-import chess.variant.Crazyhouse
-import chess.{ Clock, Color }
 import lila.common.Json.{ *, given }
 import lila.common.LightUser
 
@@ -52,7 +51,7 @@ final class JsonView(rematches: Rematches):
       .obj(
         "fullId"   -> pov.fullId,
         "gameId"   -> pov.gameId,
-        "fen"      -> Fen.write(pov.game.chess),
+        "fen"      -> maybeFen(pov),
         "color"    -> pov.color,
         "lastMove" -> (pov.game.lastMoveKeys | ""),
         "source"   -> pov.game.source,
@@ -83,6 +82,9 @@ final class JsonView(rematches: Rematches):
       .add("winner" -> pov.game.winnerColor)
       .add("ratingDiff" -> pov.player.ratingDiff)
 
+  def maybeFen(pov: Pov): Fen.Epd =
+    if pov.player.blindfold then Fen.Epd("8/8/8/8/8/8/8/8") else Fen.write(pov.game.chess)
+
   def player(p: Player, user: Option[LightUser]) =
     Json
       .obj()
@@ -92,6 +94,7 @@ final class JsonView(rematches: Rematches):
       .add("name", p.name)
       .add("provisional" -> p.provisional)
       .add("aiLevel" -> p.aiLevel)
+      .add("blindfold" -> p.blindfold)
 
 object JsonView:
 
@@ -162,10 +165,10 @@ object JsonView:
     )
 
   given OWrites[chess.Division] = OWrites: o =>
-    Json.obj(
-      "middle" -> o.middle,
-      "end"    -> o.end
-    )
+    Json
+      .obj()
+      .add("middle" -> o.middle)
+      .add("end" -> o.end)
 
   given Writes[Source]   = writeAs(_.name)
   given Writes[GameRule] = writeAs(_.key)

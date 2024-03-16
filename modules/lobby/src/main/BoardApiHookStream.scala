@@ -48,5 +48,5 @@ final class BoardApiHookStream(
         context.system.scheduler
           .scheduleOnce(3 second):
             // gotta send a message to check if the client has disconnected
-            queue offer None
+            queue.offer(None)
             self ! SetOnline

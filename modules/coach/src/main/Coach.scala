@@ -34,7 +34,7 @@ object Coach:
 
   def make(user: lila.user.User.WithPerfs) =
     Coach(
-      _id = user.id into Id,
+      _id = user.id.into(Id),
       listed = Listed(false),
       available = Available(true),
       profile = CoachProfile(),

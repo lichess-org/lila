@@ -54,4 +54,13 @@
     <item quantity="one">orain dela urte %s</item>
     <item quantity="other">orain dela %s urte</item>
   </plurals>
+  <plurals name="nbMinutesRemaining">
+    <item quantity="one">Minutu %s falta da</item>
+    <item quantity="other">%s minutu falta dira</item>
+  </plurals>
+  <plurals name="nbHoursRemaining">
+    <item quantity="one">Ordu %s falta da</item>
+    <item quantity="other">%s ordu falta dira</item>
+  </plurals>
+  <string name="completed">amaituta</string>
 </resources>

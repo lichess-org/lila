@@ -1,15 +1,14 @@
 package lila.ublog
 
 import reactivemongo.api.*
+import reactivemongo.api.bson.BSONNull
 
 import lila.common.config.MaxPerPage
 import lila.common.paginator.{ AdapterLike, Paginator }
 import lila.db.dsl.{ *, given }
 import lila.db.paginator.Adapter
-import lila.user.User
-import reactivemongo.api.bson.BSONNull
-import lila.user.Me
 import lila.i18n.Language
+import lila.user.{ Me, User }
 
 final class UblogPaginator(
     colls: UblogColls,
@@ -23,7 +22,7 @@ final class UblogPaginator(
 
   val maxPerPage = MaxPerPage(9)
 
-  def byUser(user: User, live: Boolean, page: Int): Fu[Paginator[PreviewPost]] =
+  def byUser[U: UserIdOf](user: U, live: Boolean, page: Int): Fu[Paginator[PreviewPost]] =
     byBlog(UblogBlog.Id.User(user.id), live, page)
 
   def byBlog(blog: UblogBlog.Id, live: Boolean, page: Int): Fu[Paginator[PreviewPost]] =
@@ -42,7 +41,7 @@ final class UblogPaginator(
   def liveByCommunity(language: Option[Language], page: Int): Fu[Paginator[PreviewPost]] =
     Paginator(
       adapter = new AdapterLike[PreviewPost]:
-        val select = $doc("live" -> true, "topics" $ne UblogTopic.offTopic) ++ language.so: l =>
+        val select = $doc("live" -> true, "topics".$ne(UblogTopic.offTopic)) ++ language.so: l =>
           $doc("language" -> l)
         def nbResults: Fu[Int]              = fuccess(10 * maxPerPage.value)
         def slice(offset: Int, length: Int) = aggregateVisiblePosts(select, offset, length)
@@ -57,7 +56,7 @@ final class UblogPaginator(
         collection = colls.post,
         selector = $doc("live" -> true, "likers" -> me.userId),
         projection = previewPostProjection.some,
-        sort = $sort desc "lived.at",
+        sort = $sort.desc("lived.at"),
         _.sec
       ),
       currentPage = page,
@@ -91,7 +90,7 @@ final class UblogPaginator(
               local = "blog",
               foreign = "_id",
               pipe = List(
-                $doc("$match"   -> $expr($doc("$gte" -> $arr("$tier", UblogBlog.Tier.LOW)))),
+                $doc("$match"   -> $expr($doc("$gte" -> $arr("$tier", UblogRank.Tier.LOW)))),
                 $doc("$project" -> $id(true))
               )
             )

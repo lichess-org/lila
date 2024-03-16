@@ -20,7 +20,6 @@
   <string name="displayBoardResizeHandle">Regler zum Ändern der Brettgröße anzeigen</string>
   <string name="onlyOnInitialPosition">Nur in der Anfangsstellung</string>
   <string name="inGameOnly">Nur während einer Partie</string>
-  <string name="blindfoldChess">Blindschach (unsichtbare Figuren)</string>
   <string name="chessClock">Schachuhr</string>
   <string name="tenthsOfSeconds">Zehntelsekunden</string>
   <string name="whenTimeRemainingLessThanTenSeconds" comment="whenTimeRemainingLessThanTenSeconds&#10;&#10;The &amp;lt; symbol is not required (you can write it as a word), just do NOT use &lt; in its place.&#10;&#10;Technical information: &lt; is a reserved character in HTML, which is why it cannot be used.">Wenn Restzeit &lt; 10 Sekunden</string>

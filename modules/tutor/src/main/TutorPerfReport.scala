@@ -6,8 +6,7 @@ import lila.analyse.AccuracyPercent
 import lila.common.LilaOpeningFamily
 import lila.insight.*
 import lila.rating.PerfType
-import lila.tutor.TutorCompare.AnyComparison
-import lila.tutor.TutorCompare.Comparison
+import lila.tutor.TutorCompare.{ AnyComparison, Comparison }
 
 // for simplicity, all metrics should be positive: higher is better
 case class TutorPerfReport(
@@ -23,7 +22,8 @@ case class TutorPerfReport(
     phases: List[TutorPhase],
     flagging: TutorFlagging
 ):
-  lazy val estimateTotalTime: Option[FiniteDuration] = (perf != PerfType.Correspondence) option stats.time * 2
+  lazy val estimateTotalTime: Option[FiniteDuration] =
+    (perf != PerfType.Correspondence).option(stats.time * 2)
 
   // Dimension comparison is not interesting for phase accuracy (opening always better)
   // But peer comparison is gold
@@ -90,7 +90,7 @@ case class TutorPerfReport(
 
   def openingCompares: List[TutorCompare[LilaOpeningFamily, ?]] = Color.all.flatMap: color =>
     val op = openings(color)
-    List(op.accuracyCompare, op.awarenessCompare, op.performanceCompare).map(_ as color)
+    List(op.accuracyCompare, op.awarenessCompare, op.performanceCompare).map(_.as(color))
 
   lazy val allCompares: List[TutorCompare[?, ?]] = openingCompares ::: phaseCompares
 
@@ -132,28 +132,28 @@ private object TutorPerfReport:
     for
       accuracy        <- answerManyPerfs(accuracyQuestion, users)
       awareness       <- answerManyPerfs(awarenessQuestion, users)
-      resourcefulness <- TutorResourcefulness compute users
-      conversion      <- TutorConversion compute users
+      resourcefulness <- TutorResourcefulness.compute(users)
+      conversion      <- TutorConversion.compute(users)
       clockUsers = users.filter(_.perfType != PerfType.Correspondence).toNel
       globalClock <- clockUsers.soFu(answerManyPerfs(globalClockQuestion, _))
       clockUsage  <- clockUsers.soFu(TutorClockUsage.compute)
-      perfReports <- Future sequence users.toList.map { user =>
+      perfReports <- Future.sequence(users.toList.map { user =>
         for
-          openings <- TutorOpening compute user
-          phases   <- TutorPhases compute user
-          flagging <- hasClock(user.perfType) so TutorFlagging.compute(user)
+          openings <- TutorOpening.compute(user)
+          phases   <- TutorPhases.compute(user)
+          flagging <- hasClock(user.perfType).so(TutorFlagging.compute(user))
         yield TutorPerfReport(
           user.perfType,
           user.perfStats,
-          accuracy = AccuracyPercent.from(accuracy valueMetric user.perfType),
-          awareness = GoodPercent.from(awareness valueMetric user.perfType),
-          resourcefulness = GoodPercent.from(resourcefulness valueMetric user.perfType),
-          conversion = GoodPercent.from(conversion valueMetric user.perfType),
-          globalClock = ClockPercent.from(globalClock.so(_ valueMetric user.perfType)),
-          clockUsage = ClockPercent.from(clockUsage.so(_ valueMetric user.perfType)),
+          accuracy = AccuracyPercent.from(accuracy.valueMetric(user.perfType)),
+          awareness = GoodPercent.from(awareness.valueMetric(user.perfType)),
+          resourcefulness = GoodPercent.from(resourcefulness.valueMetric(user.perfType)),
+          conversion = GoodPercent.from(conversion.valueMetric(user.perfType)),
+          globalClock = ClockPercent.from(globalClock.so(_.valueMetric(user.perfType))),
+          clockUsage = ClockPercent.from(clockUsage.so(_.valueMetric(user.perfType))),
           openings,
           phases,
           flagging
         )
-      }
+      })
     yield perfReports

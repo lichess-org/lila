@@ -1,5 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+  <string name="communityBlogs">Komunitateko blogak</string>
+  <string name="friendBlogs">Lagunen blogak</string>
+  <string name="likedBlogs">Atsegin dituzun sarrerak</string>
+  <string name="blogTopics">Blogeko gaiak</string>
+  <string name="lichessOfficialBlog">Lichessen Blog Ofiziala</string>
+  <string name="continueReadingPost">Jarraitu sarrera hau irakurtzen</string>
+  <string name="lichessBlogPostsFromXYear">%s urteko Lichessen blogeko sarrerak</string>
+  <string name="previousBlogPosts">Aurreko sarrerak</string>
   <string name="xBlog">%s erabiltzailearen Bloga</string>
   <string name="newPost">Sarrera berria</string>
   <string name="editYourBlogPost">Editatu blogeko sarrera</string>
@@ -44,4 +52,5 @@
   <string name="inappropriateContentAccountClosed">Errespetua galduz gero, zure kontua itxiko dugu.</string>
   <string name="blogTips">Blogeko sarrerak idazteko gure aholkuak</string>
   <string name="discussThisBlogPostInTheForum">Eztabaidatu artikulu honi buruz foroan</string>
+  <string name="youBlockedByBlogAuthor">Blogaren egileak blokeatu egin zaitu.</string>
 </resources>
