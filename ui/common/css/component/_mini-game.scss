@@ -61,9 +61,4 @@
     font-weight: bold;
     margin: 0 1ch;
   }
-
-  cg-container {
-    @extend %box-radius;
-    overflow: hidden;
-  }
 }

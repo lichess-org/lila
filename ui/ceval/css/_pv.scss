@@ -75,9 +75,8 @@
       .cg-wrap {
         @extend %abs-100;
       }
-      cg-container {
-        @extend %box-radius, %popup-shadow;
-        overflow: hidden;
+      cg-board {
+        @extend %popup-shadow;
       }
     }
   }

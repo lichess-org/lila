@@ -142,7 +142,7 @@
       }
     }
   }
-  .mini-game__gauge ~ .mini-game__board cg-container {
+  .mini-game__gauge ~ .mini-game__board cg-board {
     @extend %box-radius-left;
   }
 }
