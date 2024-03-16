@@ -98,13 +98,9 @@ $hover-bg: mix($c-primary, $c-bg-box, 30%);
     @extend %flex-center-nowrap;
 
     background: $c-bg-zebra;
-    min-height: 12vh;
 
     &__image {
       display: none;
-      @include breakpoint($mq-x-small) {
-        display: block;
-      }
       flex: 0 0 38%;
       &.video {
         flex: 0 0 50%;
@@ -120,6 +116,13 @@ $hover-bg: mix($c-primary, $c-bg-box, 30%);
     &__image-upload {
       margin: 3em auto;
       line-height: 2em;
+    }
+
+    @include breakpoint($mq-x-small) {
+      &__image {
+        display: block;
+      }
+      min-height: 12vh;
     }
 
     h1 {
