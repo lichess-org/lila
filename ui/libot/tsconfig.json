@@ -6,8 +6,7 @@
     "allowUnreachableCode": true,
     "outDir": "dist",
     "rootDir": "src",
-    "composite": true,
-    "isolatedModules": true
+    "composite": true
   },
   "references": [
     { "path": "../chess/tsconfig.json" },

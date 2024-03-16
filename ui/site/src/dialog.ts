@@ -112,7 +112,7 @@ class DialogWrapper implements Dialog {
     readonly view: HTMLElement,
     readonly o: DialogOpts,
   ) {
-    registerPolyfill?.(dialog); // ios < 15.4
+    if (dialogPolyfill) dialogPolyfill.registerDialog(dialog); // ios < 15.4
 
     const justThen = Date.now();
     const cancelOnInterval = () => Date.now() - justThen > 200 && this.close('cancel');
@@ -227,5 +227,3 @@ const focusQuery = ['button', 'input', 'select', 'textarea']
   .map(sel => `${sel}:not(:disabled)`)
   .concat(['[href]', '[tabindex="0"]', '[role="tab"]'])
   .join(',');
-
-let registerPolyfill: (dialog: HTMLDialogElement) => void;

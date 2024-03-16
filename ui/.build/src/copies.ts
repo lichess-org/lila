@@ -61,6 +61,7 @@ async function globCopy(cp: Copy): Promise<Set<string>> {
   watchDirs.add(path.join(cp.mod.root, globRoot));
   env.log(`[${c.grey(cp.mod.name)}] - Sync '${c.cyan(cp.src)}' to '${c.cyan(cp.dest)}'`);
   const fileCopies = [];
+
   for (const src of srcs) {
     const srcPath = path.join(cp.mod.root, src);
     watchDirs.add(path.dirname(srcPath));

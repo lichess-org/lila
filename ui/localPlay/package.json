@@ -7,7 +7,7 @@
     "@types/lichess": "workspace:*",
     "ceval": "workspace:*",
     "chess": "workspace:*",
-    "chessops": "^0.12.7",
+    "chessops": "^0.14.0",
     "common": "workspace:*",
     "game": "workspace:*",
     "libot": "workspace:*",
@@ -16,11 +16,6 @@
     "round": "workspace:*",
     "snabbdom": "^3.5.1",
     "tree": "workspace:*"
-  },
-  "scripts": {
-    "compile": "tsc",
-    "dev": "tsc",
-    "prod": "tsc"
   },
   "lichess": {
     "modules": {

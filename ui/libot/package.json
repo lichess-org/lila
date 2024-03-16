@@ -7,12 +7,11 @@
   "typings": "dist/main.d.ts",
   "dependencies": {
     "chess": "workspace:*",
-    "chessops": "^0.12.8",
+    "chessops": "^0.14.0",
     "common": "workspace:*",
     "tree": "workspace:*",
     "zerofish": "^0.0.18"
   },
-  "scripts": {},
   "lichess": {
     "modules": {
       "esm": {
