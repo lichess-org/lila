@@ -15,8 +15,8 @@
     <item quantity="other">%s intents</item>
   </plurals>
   <plurals name="playedNbRunsOfPuzzleStorm">
-    <item quantity="one">Has jugat una ronda de %2$s</item>
-    <item quantity="other">Has jugat %1$s rondes de %2$s</item>
+    <item quantity="one">Ha jugat una ronda de %2$s</item>
+    <item quantity="other">Ha jugat %1$s rondes de %2$s</item>
   </plurals>
   <string name="highscoreX">Récord de puntuació: %s</string>
   <string name="score">Puntuació</string>

@@ -19,6 +19,8 @@ const evalPutMinNodes = 3e6;
 const evalPutMaxMoves = 10;
 
 function qualityCheck(ev: Tree.ClientEval): boolean {
+  // quick mates may never reach the minimum nodes or depth
+  if (Math.abs(ev.mate ?? 99) < 15) return true;
   // below 500k nodes, the eval might come from an imminent threefold repetition
   // and should therefore be ignored
   return ev.nodes > 500000 && (ev.depth >= evalPutMinDepth || ev.nodes > evalPutMinNodes);

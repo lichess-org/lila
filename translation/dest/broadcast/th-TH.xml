@@ -6,7 +6,6 @@
   <string name="newBroadcast">ออกอากาศสดใหม่</string>
   <string name="subscribedBroadcasts">การออกอากาศที่สมัครรับข้อมูล</string>
   <string name="aboutBroadcasts">เกี่ยวกับการออกอากาศ</string>
-  <string name="noRoundsYet">ยังไม่มีรอบการแข่ง</string>
   <string name="howToUseLichessBroadcasts">วิธีใช้การออกอากาศของ Lichess</string>
   <string name="theNewRoundHelp">รอบใหม่จะมีสมาชิกและผู้มีส่วนร่วมเท่าเดิม</string>
   <string name="ongoing">ดำเนินอยู่</string>

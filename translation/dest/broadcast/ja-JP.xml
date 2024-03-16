@@ -9,7 +9,6 @@
   <string name="newBroadcast">新しいライブ中継</string>
   <string name="subscribedBroadcasts">登録した配信</string>
   <string name="aboutBroadcasts">中継について</string>
-  <string name="noRoundsYet">まだラウンドはありません。</string>
   <string name="howToUseLichessBroadcasts">Lichess 中継の使い方。</string>
   <string name="theNewRoundHelp">新ラウンドには前回と同じメンバーと投稿者が参加します。</string>
   <string name="addRound">ラウンドを追加</string>

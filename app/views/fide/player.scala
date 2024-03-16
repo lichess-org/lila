@@ -50,7 +50,7 @@ object player:
           th("Classic"),
           th("Rapid"),
           th("Blitz"),
-          th("Age")
+          th("Age this year")
         )
       ,
       tbody(cls := "infinite-scroll")(

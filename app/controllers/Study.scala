@@ -220,7 +220,7 @@ final class Study(
           division = division
         )
       )
-      studyJson <- env.study.jsonView(study, previews, chapter, ctx.me)
+      studyJson <- env.study.jsonView(study, previews, chapter, withMembers = !study.isRelay)
     yield WithChapter(study, chapter) -> JsData(
       study = studyJson,
       analysis = baseData

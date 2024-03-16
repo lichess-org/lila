@@ -38,7 +38,7 @@
   <string name="ratingX">Puntuació: %s</string>
   <string name="hidden">ocult</string>
   <plurals name="playedXTimes">
-    <item quantity="one">Jugat %s vegades</item>
+    <item quantity="one">Intentat %s vegada</item>
     <item quantity="other">Intentat %s vegades</item>
   </plurals>
   <string name="fromGameLink">De la partida %s</string>

@@ -12,7 +12,6 @@
   <string name="newBroadcast">Нова трансляція</string>
   <string name="subscribedBroadcasts">Обрані трансляції</string>
   <string name="aboutBroadcasts">Про трансляцію</string>
-  <string name="noRoundsYet">Поки що немає раундів.</string>
   <string name="howToUseLichessBroadcasts">Як користуватися Lichess трансляціями.</string>
   <string name="theNewRoundHelp">У новому раунді будуть ті самі учасники та редактори, що й у попередньому.</string>
   <string name="addRound">Додати тур</string>

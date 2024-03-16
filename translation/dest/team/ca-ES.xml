@@ -64,4 +64,12 @@ No podeu eliminar un equip si un dels seus jugadors s\'ha unit al torneig.</stri
   <string name="numberOfLeadsPerTeam">Nombre dels líders de l\'equip. La suma de la seva puntuació és la puntuació de l\'equip.</string>
   <string name="numberOfLeadsPerTeamHelp">No hauríeu de canviar aquest valor una vegada hagi començat el torneig!</string>
   <string name="innerTeam">Intern de l\'equip</string>
+  <plurals name="battleOfNbTeams">
+    <item quantity="one">Batalla d\'%s equip</item>
+    <item quantity="other">Batalla de %s equips</item>
+  </plurals>
+  <plurals name="nbLeadersPerTeam">
+    <item quantity="one">Un líder per equip</item>
+    <item quantity="other">%s Líders per equip</item>
+  </plurals>
 </resources>
