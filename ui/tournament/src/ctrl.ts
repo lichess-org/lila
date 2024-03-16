@@ -29,13 +29,13 @@ export default class TournamentController {
   redraw: () => void;
   nbWatchers = 0;
 
-  private lastStorage = lichess.storage.make('last-redirect');
+  private lastStorage = site.storage.make('last-redirect');
 
   constructor(opts: TournamentOpts, redraw: () => void) {
     this.opts = opts;
     this.data = opts.data;
     this.redraw = redraw;
-    this.trans = lichess.trans(opts.i18n);
+    this.trans = site.trans(opts.i18n);
     this.socket = makeSocket(opts.socketSend, this);
     this.page = this.data.standing.page;
     this.focusOnMe = this.isIn();
@@ -46,7 +46,7 @@ export default class TournamentController {
     sound.countDown(this.data);
     this.recountTeams();
     this.redirectToMyGame();
-    lichess.pubsub.on('socket.in.crowd', data => {
+    site.pubsub.on('socket.in.crowd', data => {
       this.nbWatchers = data.nb;
     });
   }
@@ -58,7 +58,7 @@ export default class TournamentController {
 
   reload = (data: TournamentData): void => {
     // we joined a private tournament! Reload the page to load the chat
-    if (!this.data.me && data.me && this.data.private) lichess.reload();
+    if (!this.data.me && data.me && this.data.private) site.reload();
     this.data = { ...this.data, ...data, ...{ me: data.me } }; // to account for removal on withdraw
     if (data.playerInfo?.player.id === this.playerInfo.id) this.playerInfo.data = data.playerInfo!;
     this.loadPage(data.standing);
@@ -87,7 +87,7 @@ export default class TournamentController {
     setTimeout(() => {
       if (this.lastStorage.get() !== gameId) {
         this.lastStorage.set(gameId);
-        lichess.redirect('/' + gameId, true);
+        site.redirect('/' + gameId, true);
       }
     }, delay);
   };

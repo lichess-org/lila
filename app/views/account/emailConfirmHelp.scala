@@ -1,13 +1,12 @@
 package views.html
 package account
 
+import controllers.routes
 import play.api.data.Form
 
-import lila.app.templating.Environment.{ given, * }
+import lila.app.templating.Environment.{ *, given }
 import lila.app.ui.ScalatagsTemplate.{ *, given }
 import lila.security.EmailConfirm.Help.Status
-
-import controllers.routes
 
 object emailConfirmHelp:
 
@@ -35,7 +34,7 @@ object emailConfirmHelp:
             )
           ),
           div(cls := "replies")(
-            status map {
+            status.map {
               case Status.NoSuchUser(name) =>
                 frag(
                   p(trans.usernameNotFound(strong(name))),

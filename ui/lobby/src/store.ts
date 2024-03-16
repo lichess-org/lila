@@ -43,11 +43,11 @@ function makeStore<A>(conf: Config<A>, userId?: string): Store<A> {
   return {
     set(v: string): A {
       const t: A = conf.fix(v);
-      lichess.storage.set(fullKey, ('' + t) as string);
+      site.storage.set(fullKey, ('' + t) as string);
       return t;
     },
     get(): A {
-      return conf.fix(lichess.storage.get(fullKey));
+      return conf.fix(site.storage.get(fullKey));
     },
   };
 }

@@ -1,11 +1,10 @@
 package views.html
 
+import controllers.routes
 import play.api.data.Form
 
 import lila.app.templating.Environment.*
 import lila.app.ui.ScalatagsTemplate.{ *, given }
-
-import controllers.routes
 
 object dev:
 
@@ -47,7 +46,7 @@ object dev:
             br,
             "Only use if you know exactly what you're doing."
           ),
-          res map { pre(_) },
+          res.map { pre(_) },
           postForm(action := routes.Dev.cliPost)(
             form3.input(form("command"))(autofocus),
             br,
@@ -85,4 +84,5 @@ disposable test msumain.edu.ph
 disposable reload msumain.edu.ph
 video sheet
 puzzle issue {id} {issue}
+fide player sync
 """

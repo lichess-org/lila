@@ -91,7 +91,7 @@
   <string name="pinnedChapterComment">Pripnutý komentár ku kapitole</string>
   <string name="saveChapter">Uložiť kapitolu</string>
   <string name="clearAnnotations">Vymazať anotácie</string>
-  <string name="clearVariations">Vymazať varianty</string>
+  <string name="clearVariations" comment="Clear is used as a verb here. This erases the variations in the study (https://lichess.org/study) you are preparing.">Vymazať varianty</string>
   <string name="deleteChapter">Vymazať kapitolu</string>
   <string name="deleteThisChapter">Chcete vymazať túto kapitolu? Táto akcia sa nedá vratit späť!</string>
   <string name="clearAllCommentsInThisChapter">Vymazať všetky komentáre, piktogramy a nakreslené tvary v tejto kapitole?</string>

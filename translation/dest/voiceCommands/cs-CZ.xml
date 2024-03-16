@@ -1,2 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+  <string name="voiceCommands">Hlasové příkazy</string>
+  <string name="watchTheVideoTutorial">Zhlédnout video tutoriál</string>
+  <string name="turnOffVoiceRecognition">Vypnout rozpoznávání hlasu</string>
+  <string name="showPuzzleSolution">Ukázat řešení</string>
+</resources>

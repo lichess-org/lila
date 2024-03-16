@@ -87,7 +87,7 @@
   <string name="pinnedChapterComment">Piesprausts nodaļas komentārs</string>
   <string name="saveChapter">Saglabāt nodaļu</string>
   <string name="clearAnnotations">Notīrīt piezīmes</string>
-  <string name="clearVariations">Notīrīt variantus</string>
+  <string name="clearVariations" comment="Clear is used as a verb here. This erases the variations in the study (https://lichess.org/study) you are preparing.">Notīrīt variantus</string>
   <string name="deleteChapter">Dzēst nodaļu</string>
   <string name="deleteThisChapter">Vai dzēst šo nodaļu? Atpakaļceļa nav!</string>
   <string name="clearAllCommentsInThisChapter">Notīrīt visus komentārus un figūras šajā nodaļā?</string>

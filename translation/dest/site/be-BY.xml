@@ -5,6 +5,7 @@
   <string name="toInviteSomeoneToPlayGiveThisUrl">Выкарыстайце гэтую спасылку каб запрасіць кагосьці да гульні</string>
   <string name="gameOver">Гульня скончана</string>
   <string name="waitingForOpponent">Чакаем апанента</string>
+  <string name="orLetYourOpponentScanQrCode">Або дазвольце апаненту адсканаваць гэты QR-код</string>
   <string name="waiting">Чакаем</string>
   <string name="yourTurn">Ваша чарга</string>
   <string name="aiNameLevelAiLevel">%1$s узровень %2$s</string>
@@ -72,6 +73,7 @@
   <string name="makeMainLine">Зрабіць асноўным варыянтам</string>
   <string name="deleteFromHere">Выдаліць з гэтага месца</string>
   <string name="forceVariation">Прасунуць варыянт</string>
+  <string name="copyVariationPgn">Скап\'яваць варыянт у фармаце PGN</string>
   <string name="move">Ход</string>
   <string name="variantLoss">Пройгрышны варыянт</string>
   <string name="variantWin">Пераможны варыянт</string>
@@ -576,7 +578,6 @@
   <string name="automaticallyProceedToNextGameAfterMoving">Аўтаматычна пераходзіць да наступнай гульні пасля ходу</string>
   <string name="autoSwitch">Аўтапераключэнне</string>
   <string name="puzzles">Задачы</string>
-  <string name="tournamentWinners">Пераможцы турніраў</string>
   <string name="name">Назва</string>
   <string name="description">Апісанне</string>
   <string name="descPrivate">Прыватнае апісанне</string>
@@ -982,8 +983,6 @@
   <string name="minimumRatedGames">Мінімальная колькасць рэйтынгавый партый</string>
   <string name="minimumRating">Мінімальны рэйтынг</string>
   <string name="maximumWeeklyRating">Максімальны рэйтынг на працягу тыдня</string>
-  <string name="onlyTitled">Толькі тытулаваныя гульцы</string>
-  <string name="onlyTitledHelp">Патрабаваць афіцыйнага тытулу, каб далучыцца да турніру</string>
   <string name="positionInputHelp">Устаўце дакладны FEN, каб пачынаць кожную гульню з зададзенай пазіцыі.
 Працуе толькі ў стандартных шахматах, не ў варыянтах.
 Можаце выкарыстаць %s для генерацыі пазіцыі FEN, а потым уставіць тут.

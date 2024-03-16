@@ -1,2 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+  <string name="welcome">Soo dhawow!</string>
+  <string name="welcomeToLichess">Ku soo dhawow lichess.org!</string>
+  <string name="thisIsYourProfilePage">Halkani waa boggaagii.</string>
+</resources>

@@ -2,15 +2,15 @@ package lila.game
 
 import chess.*
 import chess.Square.*
+import chess.variant.Standard
 
 import lila.db.ByteArray
-import chess.variant.Standard
 
 class BinaryPieceTest extends munit.FunSuite:
 
   val noop = "00000000"
   def write(all: PieceMap): List[String] =
-    (BinaryFormat.piece write all).showBytes.split(',').toList
+    (BinaryFormat.piece.write(all)).showBytes.split(',').toList
   def read(bytes: List[String]): PieceMap =
     BinaryFormat.piece.read(ByteArray.parseBytes(bytes), Standard)
 

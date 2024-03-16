@@ -1,13 +1,12 @@
 package lila.fishnet
 
-import chess.format.Fen
-import chess.format.Uci
+import chess.format.{ Fen, Uci }
 import chess.{ Color, Speed }
 import com.softwaremill.tagging.*
+import ornicar.scalalib.ThreadLocalRandom
 import play.api.libs.json.*
 import play.api.libs.ws.JsonBodyReadables.*
 import play.api.libs.ws.StandaloneWSClient
-import ornicar.scalalib.ThreadLocalRandom
 
 import lila.common.Json.given
 import lila.game.Game
@@ -45,7 +44,7 @@ final private class FishnetOpeningBook(
             for
               data <- res.body[JsValue].validate[Response].asOpt
               _ = if data.moves.isEmpty then outOfBook.put(game.id)
-              move <- data randomPonderedMove (game.turnColor, level)
+              move <- data.randomPonderedMove(game.turnColor, level)
             yield move.uci
         .recover { case _: java.util.concurrent.TimeoutException =>
           outOfBook.put(game.id)
@@ -74,7 +73,7 @@ object FishnetOpeningBook:
       moves
         .foldLeft((none[Move], 0L)) { case ((found, it), next) =>
           val nextIt = it + next.score(turn, level)
-          (found orElse (nextIt > rng).option(next), nextIt)
+          (found.orElse((nextIt > rng).option(next)), nextIt)
         }
         ._1
 

@@ -55,7 +55,7 @@ export default class LobbyController {
     this.me = opts.data.me;
     this.pools = opts.pools;
     this.playban = opts.playban;
-    this.filter = new Filter(lichess.storage.make('lobby.filter'), this);
+    this.filter = new Filter(site.storage.make('lobby.filter'), this);
     this.setupCtrl = new SetupController(this);
 
     hookRepo.initAll(this);
@@ -89,14 +89,14 @@ export default class LobbyController {
         forceOptions.variant = 'fromPosition';
       }
 
-      lichess.dialog.ready.then(() => {
+      site.dialog.ready.then(() => {
         this.setupCtrl.openModal(locationHash as GameType, forceOptions, friendUser);
         redraw();
       });
       history.replaceState(null, '', '/');
     }
 
-    this.poolInStorage = lichess.storage.make('lobby.pool-in');
+    this.poolInStorage = site.storage.make('lobby.pool-in');
     this.poolInStorage.listen(_ => {
       // when another tab joins a pool
       this.leavePool();
@@ -108,7 +108,7 @@ export default class LobbyController {
 
     if (this.playban) {
       if (this.playban.remainingSeconds < 86400)
-        setTimeout(lichess.reload, this.playban.remainingSeconds * 1000);
+        setTimeout(site.reload, this.playban.remainingSeconds * 1000);
     } else {
       setInterval(() => {
         if (this.poolMember) this.poolIn();
@@ -117,7 +117,7 @@ export default class LobbyController {
       this.joinPoolFromLocationHash();
     }
 
-    lichess.pubsub.on('socket.open', () => {
+    site.pubsub.on('socket.open', () => {
       if (this.tab === 'real_time') {
         this.data.hooks = [];
         this.socket.realTimeIn();
@@ -140,7 +140,7 @@ export default class LobbyController {
       if (!nb && nb !== 0) return;
       timeouts.forEach(clearTimeout);
       timeouts = [];
-      const interv = Math.abs(lichess.socket.pingInterval() / nbSteps);
+      const interv = Math.abs(site.socket.pingInterval() / nbSteps);
       const prev = previous || nb;
       previous = nb;
       for (let i = 0; i < nbSteps; i++)

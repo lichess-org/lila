@@ -1,12 +1,11 @@
 package lila.setup
 
 import chess.format.Fen
-import chess.{ Mode, Clock }
 import chess.variant.Variant
+import chess.{ Clock, Mode }
 
 import lila.common.Days
 import lila.lobby.Color
-import lila.rating.PerfType
 
 case class FriendConfig(
     variant: chess.variant.Variant,
@@ -40,12 +39,12 @@ object FriendConfig extends BaseHumanConfig:
   ) =
     new FriendConfig(
       variant = chess.variant.Variant.orDefault(v),
-      timeMode = TimeMode(tm) err s"Invalid time mode $tm",
+      timeMode = TimeMode(tm).err(s"Invalid time mode $tm"),
       time = t,
       increment = i,
       days = d,
       mode = m.fold(Mode.default)(Mode.orDefault),
-      color = Color(c) err "Invalid color " + c,
+      color = Color(c).err("Invalid color " + c),
       fen = fen
     )
 
@@ -66,14 +65,14 @@ object FriendConfig extends BaseHumanConfig:
 
     def reads(r: BSON.Reader): FriendConfig =
       FriendConfig(
-        variant = Variant idOrDefault r.getO[Variant.Id]("v"),
-        timeMode = TimeMode orDefault (r int "tm"),
-        time = r double "t",
-        increment = r get "i",
+        variant = Variant.idOrDefault(r.getO[Variant.Id]("v")),
+        timeMode = TimeMode.orDefault(r.int("tm")),
+        time = r.double("t"),
+        increment = r.get("i"),
         days = r.get("d"),
-        mode = Mode orDefault (r int "m"),
+        mode = Mode.orDefault(r.int("m")),
         color = Color.White,
-        fen = r.getO[Fen.Epd]("f") filter (_.value.nonEmpty)
+        fen = r.getO[Fen.Epd]("f").filter(_.value.nonEmpty)
       )
 
     def writes(w: BSON.Writer, o: FriendConfig) =

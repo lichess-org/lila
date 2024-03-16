@@ -1,10 +1,8 @@
 package views.html.team
-
-import controllers.routes
-import controllers.team.routes.{ Team as teamRoutes }
+import controllers.team.routes.Team as teamRoutes
 import play.api.data.Form
 
-import lila.app.templating.Environment.{ given, * }
+import lila.app.templating.Environment.{ *, given }
 import lila.app.ui.ScalatagsTemplate.{ *, given }
 
 object request:
@@ -25,12 +23,16 @@ object request:
           h1(cls := "box__top")(title),
           div(cls := "team-show__desc")(bits.markdown(t, t.description)),
           postForm(cls := "form3", action := teamRoutes.requestCreate(t.id))(
-            !t.open so frag(
-              form3.group(form("message"), trans.message())(form3.textarea(_)()),
-              p(willBeReviewed())
+            (!t.open).so(
+              frag(
+                form3.group(form("message"), trans.message())(form3.textarea(_)()),
+                p(willBeReviewed())
+              )
             ),
-            t.password.nonEmpty so form3.passwordModified(form("password"), entryCode())(
-              autocomplete := "new-password"
+            t.password.nonEmpty.so(
+              form3.passwordModified(form("password"), entryCode())(
+                autocomplete := "new-password"
+              )
             ),
             form3.globalError(form),
             form3.actions(

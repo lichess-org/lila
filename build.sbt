@@ -11,7 +11,7 @@ lazy val root = Project("lila", file("."))
   .dependsOn(api)
   .aggregate(api)
   .settings(buildSettings)
-  .settings(scalacOptions ++= Seq("-deprecation"))
+  .settings(scalacOptions ++= Seq("-unchecked", "-deprecation"))
 
 organization         := "org.lichess"
 Compile / run / fork := true
@@ -67,7 +67,7 @@ lazy val modules = Seq(
   study, studySearch, fishnet, explorer, learn, plan,
   event, coach, practice, evalCache, irwin,
   activity, relay, streamer, bot, clas, swiss, storm, racer,
-  ublog, tutor, opening, cms
+  ublog, tutor, opening, cms, fide
 )
 
 lazy val moduleRefs = modules map projectToRef
@@ -85,12 +85,13 @@ lazy val i18n = module("i18n",
   Seq(db, hub),
   tests.bundle ++ Seq(scalatags)
 ).settings(
-  Compile / sourceGenerators += Def.task {
-    MessageCompiler(
+  Compile / resourceGenerators += Def.task {
+    val outputFile = (Compile / resourceManaged).value / "I18n.ser"
+    I18n.serialize(
       sourceDir = new File("translation/source"),
       destDir = new File("translation/dest"),
-      dbs = "site arena emails learn activity coordinates study class contact patron coach broadcast streamer tfa settings preferences team perfStat search tourname faq lag swiss puzzle puzzleTheme challenge storm ublog insight keyboardMove timeago oauthScope dgt voiceCommands onboarding".split(' ').toList,
-      compileTo = (Compile / sourceManaged).value
+      dbs = "site arena emails learn activity coordinates study class contact appeal patron coach broadcast streamer tfa settings preferences team perfStat search tourname faq lag swiss puzzle puzzleTheme challenge storm ublog insight keyboardMove timeago oauthScope dgt voiceCommands onboarding".split(' ').toList,
+      outputFile
     )
   }.taskValue
 )
@@ -338,8 +339,13 @@ lazy val challenge = module("challenge",
   Seq(scalatags, lettuce) ++ tests.bundle ++ reactivemongo.bundle
 )
 
+lazy val fide = module("fide",
+  Seq(memo),
+  reactivemongo.bundle
+)
+
 lazy val study = module("study",
-  Seq(explorer),
+  Seq(explorer, fide),
   Seq(scalatags, lettuce) ++ tests.bundle ++ reactivemongo.bundle
 ).dependsOn(common % "test->test")
 

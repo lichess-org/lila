@@ -4,7 +4,7 @@ import chess.format.Fen
 import controllers.routes
 import play.api.i18n.Lang
 
-import lila.app.templating.Environment.{ given, * }
+import lila.app.templating.Environment.{ *, given }
 import lila.app.ui.ScalatagsTemplate.{ *, given }
 import lila.game.Pov
 import lila.i18n.defaultLang
@@ -29,8 +29,9 @@ object mini:
       showRatings = ctx.pref.showRatings
     )
 
-  def noCtx(pov: Pov, tv: Boolean = false): Tag =
-    val link = if tv then routes.Tv.index else routes.Round.watcher(pov.gameId, pov.color.name)
+  def noCtx(pov: Pov, tv: Boolean = false, channelKey: Option[String] = None): Tag =
+    val link = if tv then channelKey.fold(routes.Tv.index) { routes.Tv.onChannel }
+    else routes.Round.watcher(pov.gameId, pov.color.name)
     renderMini(pov, link.url.some)(using defaultLang, None)
 
   private def renderMini(
@@ -65,7 +66,7 @@ object mini:
     span(cls := "mini-game__player")(
       span(cls := "mini-game__user")(
         playerUsername(pov.player.light, pov.player.userId.flatMap(lightUser), withRating = false),
-        withRating option span(cls := "rating")(lila.game.Namer ratingString pov.player)
+        withRating.option(span(cls := "rating")(lila.game.Namer.ratingString(pov.player)))
       ),
       if pov.game.finished then renderResult(pov)
       else pov.game.clock.map { renderClock(_, pov.color) }

@@ -4,14 +4,13 @@ import reactivemongo.api.bson.BSONNull
 
 import lila.db.dsl.{ *, given }
 import lila.memo.CacheApi
-import reactivemongo.core.errors.DatabaseException
 
 final class ClasMatesCache(colls: ClasColls, cacheApi: CacheApi, studentCache: ClasStudentCache)(using
     Executor
 ):
 
   def get(studentId: UserId): Fu[Set[UserId]] =
-    studentCache.isStudent(studentId) so cache.get(studentId)
+    studentCache.isStudent(studentId).so(cache.get(studentId))
 
   private val cache = cacheApi[UserId, Set[UserId]](256, "clas.mates"):
     _.expireAfterWrite(5 minutes)

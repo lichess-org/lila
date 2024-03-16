@@ -1,10 +1,9 @@
 package lila.simul
 
-import ornicar.scalalib.ThreadLocalRandom
-import chess.Color
 import chess.format.Fen
 import chess.variant.Variant
-import chess.Speed
+import chess.{ Color, Speed }
+import ornicar.scalalib.ThreadLocalRandom
 
 import lila.rating.PerfType
 import lila.user.User
@@ -44,9 +43,9 @@ case class Simul(
 
   def isRunning = status == SimulStatus.Started
 
-  def hasApplicant(userId: UserId) = applicants.exists(_ is userId)
+  def hasApplicant(userId: UserId) = applicants.exists(_.is(userId))
 
-  def hasPairing(userId: UserId) = pairings.exists(_ is userId)
+  def hasPairing(userId: UserId) = pairings.exists(_.is(userId))
 
   def hasUser(userId: UserId) = hasApplicant(userId) || hasPairing(userId)
 
@@ -58,30 +57,32 @@ case class Simul(
 
   def removeApplicant(userId: UserId) =
     Created:
-      copy(applicants = applicants.filterNot(_ is userId))
+      copy(applicants = applicants.filterNot(_.is(userId)))
 
   def accept(userId: UserId, v: Boolean) =
     Created:
       copy(applicants = applicants.map: a =>
-        if a is userId then a.copy(accepted = v) else a)
+        if a.is(userId) then a.copy(accepted = v) else a)
 
   def removePairing(userId: UserId) =
-    copy(pairings = pairings.filterNot(_ is userId)).finishIfDone
+    copy(pairings = pairings.filterNot(_.is(userId))).finishIfDone
 
   def nbAccepted = applicants.count(_.accepted)
 
   def startable = isCreated && nbAccepted > 1
 
   def start =
-    startable option copy(
-      status = SimulStatus.Started,
-      startedAt = nowInstant.some,
-      applicants = Nil,
-      clock = clock.adjustedForPlayers(nbAccepted),
-      pairings = applicants collect {
-        case a if a.accepted => SimulPairing(a.player)
-      },
-      hostSeenAt = none
+    startable.option(
+      copy(
+        status = SimulStatus.Started,
+        startedAt = nowInstant.some,
+        applicants = Nil,
+        clock = clock.adjustedForPlayers(nbAccepted),
+        pairings = applicants.collect {
+          case a if a.accepted => SimulPairing(a.player)
+        },
+        hostSeenAt = none
+      )
     )
 
   def updatePairing(gameId: GameId, f: SimulPairing => SimulPairing) =
@@ -91,7 +92,7 @@ case class Simul(
     ).finishIfDone
 
   def ejectCheater(userId: UserId): Option[Simul] =
-    hasUser(userId) option removeApplicant(userId).removePairing(userId)
+    hasUser(userId).option(removeApplicant(userId).removePairing(userId))
 
   private def finishIfDone =
     if isStarted && pairings.forall(_.finished) then
@@ -110,18 +111,21 @@ case class Simul(
       PerfType(_, Speed(clock.config.some))
 
   def mainPerfType =
-    perfTypes.find(pt => PerfType.variantOf(pt).standard) orElse perfTypes.headOption getOrElse PerfType.Rapid
+    perfTypes
+      .find(pt => PerfType.variantOf(pt).standard)
+      .orElse(perfTypes.headOption)
+      .getOrElse(PerfType.Rapid)
 
   def applicantRatio = s"${applicants.count(_.accepted)}/${applicants.size}"
 
   def variantRich = variants.sizeIs > 3
 
-  def isHost(userOption: Option[User]): Boolean = userOption so isHost
+  def isHost(userOption: Option[User]): Boolean = userOption.so(isHost)
   def isHost(user: User): Boolean               = user.id == hostId
 
-  def playingPairings = pairings filterNot (_.finished)
+  def playingPairings = pairings.filterNot(_.finished)
 
-  def hostColor: Option[Color] = color flatMap chess.Color.fromName
+  def hostColor: Option[Color] = color.flatMap(chess.Color.fromName)
 
   def setPairingHostColor(gameId: GameId, hostColor: chess.Color) =
     updatePairing(gameId, _.copy(hostColor = hostColor))
@@ -133,7 +137,7 @@ case class Simul(
   def losses  = pairings.count(p => p.finished && p.wins.has(true))
   def ongoing = pairings.count(_.ongoing)
 
-  def pairingOf(userId: UserId) = pairings.find(_ is userId)
+  def pairingOf(userId: UserId) = pairings.find(_.is(userId))
 
 object Simul:
 
@@ -153,7 +157,7 @@ object Simul:
   ): Simul =
     val hostPerf = host.perfs.bestPerf(variants.map { PerfType(_, Speed(clock.config.some)) })
     Simul(
-      _id = SimulId(ThreadLocalRandom nextString 8),
+      _id = SimulId(ThreadLocalRandom.nextString(8)),
       name = name,
       status = SimulStatus.Created,
       clock = clock,

@@ -19,7 +19,7 @@ export default class ChallengeCtrl {
 
   update = (d: ChallengeData) => {
     this.data = d;
-    if (d.i18n) this.trans = lichess.trans(d.i18n).noarg;
+    if (d.i18n) this.trans = site.trans(d.i18n).noarg;
     if (d.reasons) this.reasons = d.reasons;
     this.opts.setCount(this.countActiveIn());
     this.notifyNew();
@@ -29,10 +29,10 @@ export default class ChallengeCtrl {
 
   notifyNew = () =>
     this.data.in.forEach(c => {
-      if (lichess.once('c-' + c.id)) {
-        if (!lichess.quietMode && this.data.in.length <= 3) {
+      if (site.once('c-' + c.id)) {
+        if (!site.quietMode && this.data.in.length <= 3) {
           this.opts.show();
-          lichess.sound.playOnce('newChallenge');
+          site.sound.playOnce('newChallenge');
         }
         this.opts.pulse();
       }
@@ -44,7 +44,7 @@ export default class ChallengeCtrl {
         c.declined = true;
         xhr
           .text(`/challenge/${id}/decline`, { method: 'post', body: xhr.form({ reason }) })
-          .catch(() => lichess.announce({ msg: 'Failed to send challenge decline' }));
+          .catch(() => site.announce({ msg: 'Failed to send challenge decline' }));
       }
     });
   cancel = (id: string) =>
@@ -53,7 +53,7 @@ export default class ChallengeCtrl {
         c.declined = true;
         xhr
           .text(`/challenge/${id}/cancel`, { method: 'post' })
-          .catch(() => lichess.announce({ msg: 'Failed to send challenge cancellation' }));
+          .catch(() => site.announce({ msg: 'Failed to send challenge cancellation' }));
       }
     });
   onRedirect = () => {

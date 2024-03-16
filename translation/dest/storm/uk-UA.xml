@@ -23,7 +23,7 @@
     <item quantity="other">Зіграно %1$s серій в %2$s</item>
   </plurals>
   <string name="highscoreX">Рекорд: %s</string>
-  <string name="score">Оцінка</string>
+  <string name="score">Рахунок</string>
   <string name="moves">Ходів</string>
   <string name="accuracy">Точність</string>
   <string name="combo">Комбо</string>

@@ -3,12 +3,15 @@ package lila.db
 import chess.variant.Variant
 import reactivemongo.api.bson.*
 import reactivemongo.api.bson.exceptions.TypeDoesNotMatchException
-import scala.util.{ Failure, Success, Try, NotGiven }
+
+import scala.util.{ Failure, NotGiven, Success, Try }
 
 import lila.common.Iso.*
 import lila.common.{ EmailAddress, IpAddress, Iso, NormalizedEmailAddress }
 
 trait Handlers:
+
+  def toBdoc[A](a: A)(using writer: BSONDocumentWriter[A]): Option[BSONDocument] = writer.writeOpt(a)
 
   // free handlers for all types with TotalWrapper
   // unless they are given an instance of lila.db.NoDbHandler[T]
@@ -18,6 +21,12 @@ trait Handlers:
       handler: BSONHandler[A]
   )(using NotGiven[NoDbHandler[T]]): BSONHandler[T] =
     handler.as(sr.apply, rs.apply)
+
+  given listHandler[T: BSONHandler]: BSONHandler[List[T]] with
+    val reader                                 = collectionReader[List, T]
+    val writer                                 = BSONWriter.collectionWriter[T, List[T]]
+    def readTry(bson: BSONValue): Try[List[T]] = reader.readTry(bson)
+    def writeTry(t: List[T]): Try[BSONValue]   = writer.writeTry(t)
 
   given userIdOfWriter[U: UserIdOf, T](using writer: BSONWriter[UserId]): BSONWriter[U] with
     inline def writeTry(u: U) = writer.writeTry(u.id)
@@ -36,8 +45,8 @@ trait Handlers:
   )
 
   def isoHandler[A, B](using iso: Iso[B, A])(using handler: BSONHandler[B]): BSONHandler[A] = new:
-    def readTry(x: BSONValue) = handler.readTry(x) map iso.from
-    def writeTry(x: A)        = handler writeTry iso.to(x)
+    def readTry(x: BSONValue) = handler.readTry(x).map(iso.from)
+    def writeTry(x: A)        = handler.writeTry(iso.to(x))
   def isoHandler[A, B](to: A => B, from: B => A)(using handler: BSONHandler[B]): BSONHandler[A] =
     isoHandler(using Iso(from, to))(using handler)
 
@@ -94,15 +103,15 @@ trait Handlers:
       rightHandler: BSONHandler[R]
   ): BSONHandler[Either[L, R]] = new:
     def readTry(bson: BSONValue) =
-      leftHandler.readTry(bson).map(Left.apply) orElse rightHandler.readTry(bson).map(Right.apply)
+      leftHandler.readTry(bson).map(Left.apply).orElse(rightHandler.readTry(bson).map(Right.apply))
     def writeTry(e: Either[L, R]) = e.fold(leftHandler.writeTry, rightHandler.writeTry)
 
   def stringMapHandler[V](using
       reader: BSONReader[Map[String, V]],
       writer: BSONWriter[Map[String, V]]
   ): BSONHandler[Map[String, V]] = new:
-    def readTry(bson: BSONValue)    = reader readTry bson
-    def writeTry(v: Map[String, V]) = writer writeTry v
+    def readTry(bson: BSONValue)    = reader.readTry(bson)
+    def writeTry(v: Map[String, V]) = writer.writeTry(v)
 
   def typedMapHandler[K, V: BSONHandler](using sr: SameRuntime[K, String], rs: SameRuntime[String, K]) =
     stringMapHandler[V].as[Map[K, V]](_.mapKeys(rs(_)), _.mapKeys(sr(_)))
@@ -118,17 +127,11 @@ trait Handlers:
     tryHandler[NonEmptyList[T]](
       { case array: BSONArray =>
         listReader.readTry(array).flatMap {
-          _.toNel toTry s"BSONArray is empty, can't build NonEmptyList"
+          _.toNel.toTry(s"BSONArray is empty, can't build NonEmptyList")
         }
       },
       nel => listWriter.writeTry(nel.toList).get
     )
-
-  given listHandler[T: BSONHandler]: BSONHandler[List[T]] with
-    val reader                                 = collectionReader[List, T]
-    val writer                                 = BSONWriter.collectionWriter[T, List[T]]
-    def readTry(bson: BSONValue): Try[List[T]] = reader.readTry(bson)
-    def writeTry(t: List[T]): Try[BSONValue]   = writer.writeTry(t)
 
   given vectorHandler[T: BSONHandler]: BSONHandler[Vector[T]] with
     val reader                                   = collectionReader[Vector, T]
@@ -149,11 +152,11 @@ trait Handlers:
 
   import lila.common.{ LilaOpeningFamily, SimpleOpening }
   given BSONHandler[SimpleOpening] = tryHandler[SimpleOpening](
-    { case BSONString(key) => SimpleOpening find key toTry s"No such opening: $key" },
+    { case BSONString(key) => SimpleOpening.find(key).toTry(s"No such opening: $key") },
     o => BSONString(o.key.value)
   )
   given BSONHandler[LilaOpeningFamily] = tryHandler[LilaOpeningFamily](
-    { case BSONString(key) => LilaOpeningFamily find key toTry s"No such opening family: $key" },
+    { case BSONString(key) => LilaOpeningFamily.find(key).toTry(s"No such opening family: $key") },
     o => BSONString(o.key.value)
   )
 
@@ -167,7 +170,7 @@ trait Handlers:
   given NoDbHandler[chess.Square] with {} // no default opaque handler for chess.Square
 
   def chessPosKeyHandler: BSONHandler[chess.Square] = tryHandler(
-    { case BSONString(str) => chess.Square.fromKey(str) toTry s"No such key $str" },
+    { case BSONString(str) => chess.Square.fromKey(str).toTry(s"No such key $str") },
     pos => BSONString(pos.key)
   )
 
@@ -175,13 +178,13 @@ trait Handlers:
 
   val variantByKeyHandler: BSONHandler[Variant] = quickHandler[Variant](
     {
-      case BSONString(v) => Variant orDefault Variant.LilaKey(v)
+      case BSONString(v) => Variant.orDefault(Variant.LilaKey(v))
       case _             => Variant.default
     },
     v => BSONString(v.key.value)
   )
   val variantByIdHandler: BSONHandler[Variant] = tryHandler(
-    { case BSONInteger(v) => Variant(Variant.Id(v)) toTry s"No such variant: $v" },
+    { case BSONInteger(v) => Variant(Variant.Id(v)).toTry(s"No such variant: $v") },
     x => BSONInteger(x.id.value)
   )
 
@@ -203,10 +206,21 @@ trait Handlers:
   val langByCodeHandler: BSONHandler[play.api.i18n.Lang] =
     stringAnyValHandler(_.code, play.api.i18n.Lang.apply)
 
+  import chess.PlayerTitle
+  given BSONHandler[PlayerTitle] = tryHandler(
+    { case BSONString(t) => PlayerTitle.get(t).toTry(s"No such player title: $t") },
+    t => BSONString(t.value)
+  )
+
   def valueMapHandler[K, V](mapping: Map[K, V])(toKey: V => K)(using
       keyHandler: BSONHandler[K]
   ): BSONHandler[V] = new:
-    def readTry(bson: BSONValue) = keyHandler.readTry(bson) flatMap { k =>
-      mapping.get(k) toTry s"No such value in mapping: $k"
+    def readTry(bson: BSONValue) = keyHandler.readTry(bson).flatMap { k =>
+      mapping.get(k).toTry(s"No such value in mapping: $k")
     }
-    def writeTry(v: V) = keyHandler writeTry toKey(v)
+    def writeTry(v: V) = keyHandler.writeTry(toKey(v))
+
+  def optionPairHandler[A](using handler: BSONHandler[A]): BSONHandler[PairOf[Option[A]]] = quickHandler(
+    { case BSONArray(els) => (els.headOption.flatMap(_.asOpt[A]), els.lift(1).flatMap(_.asOpt[A])) },
+    { (a, b) => BSONArray(Seq(a.flatMap(handler.writeOpt), b.flatMap(handler.writeOpt)).map(_ | BSONNull)) }
+  )

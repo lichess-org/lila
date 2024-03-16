@@ -2,10 +2,10 @@ package lila.msg
 
 import play.api.libs.json.*
 
-import lila.user.{ Me, User }
 import lila.common.Json.given
 import lila.common.LightUser
 import lila.relation.Relations
+import lila.user.Me
 
 final class MsgJson(
     lightUserApi: lila.user.LightUserApi,
@@ -16,7 +16,7 @@ final class MsgJson(
   private given relationsWrites: OWrites[Relations] = Json.writes
 
   def threads(threads: List[MsgThread])(using me: Me): Fu[JsArray] =
-    withContacts(threads) map { threads =>
+    withContacts(threads).map { threads =>
       JsArray(threads.map(renderThread))
     }
 
@@ -44,9 +44,13 @@ final class MsgJson(
       )
 
   private def withContacts(threads: List[MsgThread])(using me: Me): Fu[List[MsgThread.WithContact]] =
-    lightUserApi.asyncMany(threads.map(_.other)) map: users =>
-      threads.zip(users) map: (thread, userOption) =>
-        MsgThread.WithContact(thread, userOption | LightUser.fallback(thread.other into UserName))
+    lightUserApi
+      .asyncMany(threads.map(_.other))
+      .map: users =>
+        threads
+          .zip(users)
+          .map: (thread, userOption) =>
+            MsgThread.WithContact(thread, userOption | LightUser.fallback(thread.other.into(UserName)))
 
   private def renderThread(t: MsgThread.WithContact)(using me: Option[Me]) =
     Json.obj(

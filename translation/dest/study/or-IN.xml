@@ -57,7 +57,7 @@
   <string name="orientation">ଦିଗ</string>
   <string name="pinnedChapterComment">ପିନ୍ ହୋଇଥିବା ଅଧ୍ୟୟନ ମନ୍ତବ୍ୟ</string>
   <string name="saveChapter">ଅଧ୍ୟାୟ ସଞ୍ଚୟ କରନ୍ତୁ</string>
-  <string name="clearVariations">ଭିନ୍ନତା ସଫା କରନ୍ତୁ</string>
+  <string name="clearVariations" comment="Clear is used as a verb here. This erases the variations in the study (https://lichess.org/study) you are preparing.">ଭିନ୍ନତା ସଫା କରନ୍ତୁ</string>
   <string name="rightUnderTheBoard">ଠିକ୍ ବୋର୍ଡ ତଳେ</string>
   <string name="noPinnedComment">କିଛି ନୁହେଁ</string>
   <string name="editor">ସମ୍ପାଦକ</string>

@@ -84,7 +84,7 @@
   <string name="pinnedChapterComment">Bo\'lim mahkamlangan kommenti</string>
   <string name="saveChapter">Bo\'limni saqlash</string>
   <string name="clearAnnotations">Annotatsiyalarni tozalash</string>
-  <string name="clearVariations">Variantlarni tozalash</string>
+  <string name="clearVariations" comment="Clear is used as a verb here. This erases the variations in the study (https://lichess.org/study) you are preparing.">Variantlarni tozalash</string>
   <string name="deleteChapter">Bo\'limni o\'chirish</string>
   <string name="deleteThisChapter">Ushbu bo\'lim o\'chirilsinmi? Amalni ortga qaytarib bo\'lmaydi!</string>
   <string name="clearAllCommentsInThisChapter">Ushbu bo\'limdagi barcha kommentlar, rasmlar, sipohlar, shakllar tozalansinmi?</string>

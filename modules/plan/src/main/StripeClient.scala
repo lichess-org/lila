@@ -1,15 +1,15 @@
 package lila.plan
 
+import play.api.ConfigLoader
 import play.api.i18n.Lang
 import play.api.libs.json.*
 import play.api.libs.ws.DefaultBodyWritables.*
 import play.api.libs.ws.JsonBodyReadables.*
 import play.api.libs.ws.{ StandaloneWSClient, StandaloneWSResponse }
 
+import lila.common.EmailAddress
 import lila.common.config.Secret
 import lila.user.User
-import lila.common.EmailAddress
-import play.api.ConfigLoader
 
 final private class StripeClient(ws: StandaloneWSClient, config: StripeClient.Config)(using Executor):
 
@@ -28,7 +28,7 @@ final private class StripeClient(ws: StandaloneWSClient, config: StripeClient.Co
       "metadata[ipAddress]" -> data.ipOption.fold("?")(_.value)
     ) ::: {
       // https://stripe.com/docs/api/checkout/sessions/create#create_checkout_session-payment_method_types
-      (mode == StripeMode.setup) so List("payment_method_types[]" -> "card")
+      (mode == StripeMode.setup).so(List("payment_method_types[]" -> "card"))
     }
 
   def createOneTimeSession(data: CreateStripeSession)(using Lang): Fu[StripeSession] =
@@ -104,7 +104,7 @@ final private class StripeClient(ws: StandaloneWSClient, config: StripeClient.Co
     getOne[StripeInvoice]("invoices/upcoming", "customer" -> customerId.value)
 
   def getPaymentMethod(sub: StripeSubscription): Fu[Option[StripePaymentMethod]] =
-    sub.default_payment_method so { id =>
+    sub.default_payment_method.so { id =>
       getOne[StripePaymentMethod](s"payment_methods/$id")
     }
 
@@ -129,10 +129,10 @@ final private class StripeClient(ws: StandaloneWSClient, config: StripeClient.Co
   def setSubscriptionPaymentMethod(subscription: StripeSubscription, paymentMethod: String): Funit =
     postOne[JsObject](s"subscriptions/${subscription.id}", "default_payment_method" -> paymentMethod).void
 
-  private val logger = lila.plan.logger branch "stripe"
+  private val logger = lila.plan.logger.branch("stripe")
 
   private def getOne[A: Reads](url: String, queryString: (String, Matchable)*): Fu[Option[A]] =
-    get[A](url, queryString) dmap some recover {
+    get[A](url, queryString).dmap(some).recover {
       case _: NotFoundException => None
       case e: DeletedException =>
         logger.warn(e.getMessage)
@@ -149,15 +149,15 @@ final private class StripeClient(ws: StandaloneWSClient, config: StripeClient.Co
 
   private def get[A: Reads](url: String, queryString: Seq[(String, Matchable)]): Fu[A] =
     logger.debug(s"GET $url ${debugInput(queryString)}")
-    request(url).withQueryStringParameters(fixInput(queryString)*).get() flatMap response[A]
+    request(url).withQueryStringParameters(fixInput(queryString)*).get().flatMap(response[A])
 
   private def post[A: Reads](url: String, data: Seq[(String, Matchable)]): Fu[A] =
     logger.info(s"POST $url ${debugInput(data)}")
-    request(url).post(fixInput(data).toMap) flatMap response[A]
+    request(url).post(fixInput(data).toMap).flatMap(response[A])
 
   private def delete[A: Reads](url: String, data: Seq[(String, Matchable)]): Fu[A] =
     logger.info(s"DELETE $url ${debugInput(data)}")
-    request(url).withQueryStringParameters(fixInput(data)*).delete() flatMap response[A]
+    request(url).withQueryStringParameters(fixInput(data)*).delete().flatMap(response[A])
 
   private def request(url: String) =
     ws.url(s"${config.endpoint}/$url")
@@ -169,15 +169,17 @@ final private class StripeClient(ws: StandaloneWSClient, config: StripeClient.Co
   private def response[A: Reads](res: StandaloneWSResponse): Fu[A] =
     res.status match
       case 200 =>
-        (summon[Reads[A]] reads res.body[JsValue]).fold(
-          errs =>
-            fufail {
-              if isDeleted(res.body[JsValue]) then
-                new DeletedException(s"[stripe] Upstream resource was deleted: ${res.body}")
-              else new Exception(s"[stripe] Can't parse ${res.body} --- $errs")
-            },
-          fuccess
-        )
+        (summon[Reads[A]]
+          .reads(res.body[JsValue]))
+          .fold(
+            errs =>
+              fufail {
+                if isDeleted(res.body[JsValue]) then
+                  new DeletedException(s"[stripe] Upstream resource was deleted: ${res.body}")
+                else new Exception(s"[stripe] Can't parse ${res.body} --- $errs")
+              },
+            fuccess
+          )
       case 404 => fufail { new NotFoundException(res.status, s"[stripe] Not found") }
       case status if status >= 400 && status < 500 =>
         (res.body[JsValue] \ "error" \ "message").asOpt[String] match
@@ -186,7 +188,7 @@ final private class StripeClient(ws: StandaloneWSClient, config: StripeClient.Co
       case status => fufail { new StatusException(status, s"[stripe] Response status: $status") }
 
   private def isDeleted(js: JsValue): Boolean =
-    js.asOpt[JsObject] flatMap { o =>
+    js.asOpt[JsObject].flatMap { o =>
       (o \ "deleted").asOpt[Boolean]
     } contains true
 

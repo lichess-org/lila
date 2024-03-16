@@ -85,7 +85,7 @@
   <string name="pinnedChapterComment">Fastgjort kapitelkommentar</string>
   <string name="saveChapter">Gem kapitel</string>
   <string name="clearAnnotations">Ryd annoteringer</string>
-  <string name="clearVariations">Ryd varianter</string>
+  <string name="clearVariations" comment="Clear is used as a verb here. This erases the variations in the study (https://lichess.org/study) you are preparing.">Ryd varianter</string>
   <string name="deleteChapter">Slet kapitel</string>
   <string name="deleteThisChapter">Slet dette kapitel? Du kan ikke fortryde!</string>
   <string name="clearAllCommentsInThisChapter">Ryd alle kommentarer og figurer i dette kapitel?</string>

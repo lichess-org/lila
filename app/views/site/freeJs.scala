@@ -53,7 +53,7 @@ object freeJs:
           tr(List("Script File", "License", "Source Code").map(th(_)))
         ),
         tbody(
-          uiModules map { module =>
+          uiModules.map { module =>
             val name = renames.getOrElse(module, module)
             val file = s"$name.min.js"
             tr(

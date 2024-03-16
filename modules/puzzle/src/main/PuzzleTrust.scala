@@ -1,7 +1,7 @@
 package lila.puzzle
 
 import lila.db.dsl.{ *, given }
-import lila.user.{ UserPerfsRepo, User }
+import lila.user.{ User, UserPerfsRepo }
 
 final private class PuzzleTrustApi(colls: PuzzleColls, perfsRepo: UserPerfsRepo)(using Executor):
 
@@ -21,7 +21,7 @@ final private class PuzzleTrustApi(colls: PuzzleColls, perfsRepo: UserPerfsRepo)
                 .puzzle(_.primitiveOne[Float]($id(round.id.puzzleId), s"${Puzzle.BSONFields.glicko}.r"))
                 .map {
                   _.fold(-2) { puzzleRating =>
-                    (math.abs(puzzleRating - userRating.value) > 300) so -4
+                    (math.abs(puzzleRating - userRating.value) > 300).so(-4)
                   }
                 }
           .dmap(w +)
@@ -47,23 +47,24 @@ final private class PuzzleTrustApi(colls: PuzzleColls, perfsRepo: UserPerfsRepo)
   // 1 year = 3.46
   // 2 years = 4.89
   private def seniorityBonus(user: User) =
-    math.sqrt(daysBetween(user.createdAt, nowInstant).toDouble / 30) atMost 5
+    math.sqrt(daysBetween(user.createdAt, nowInstant).toDouble / 30).atMost(5)
 
-  private def titleBonus(user: User) = user.hasTitle so 20
+  private def titleBonus(user: User) = user.hasTitle.so(20)
 
   // 1000 = 0
   // 1500 = 0
   // 1800 = 1
   // 3000 = 5
-  private def ratingBonus(user: User.WithPerfs) = user.perfs.standard.glicko.establishedIntRating.so {
-    rating =>
+  private def ratingBonus(user: User.WithPerfs) = user.perfs.standard.glicko.establishedIntRating
+    .so { rating =>
       (rating.value - 1500) / 300
-  } atLeast 0
+    }
+    .atLeast(0)
 
-  private def patronBonus(user: User) = (~user.planMonths * 5) atMost 15
+  private def patronBonus(user: User) = (~user.planMonths * 5).atMost(15)
 
   private def modBonus(user: User) =
-    if user.roles.exists(_ contains "ROLE_PUZZLE_CURATOR") then 100
+    if user.roles.exists(_.contains("ROLE_PUZZLE_CURATOR")) then 100
     else if user.isAdmin then 50
     else if user.isVerified then 30
     else 0

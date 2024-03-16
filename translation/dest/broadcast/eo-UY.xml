@@ -10,7 +10,6 @@
   <string name="newBroadcast">Nova viva elsendo</string>
   <string name="subscribedBroadcasts">Abonitaj elsendoj</string>
   <string name="aboutBroadcasts">Pri elsendoj</string>
-  <string name="noRoundsYet">Ankoraŭ neniom raŭndojn.</string>
   <string name="howToUseLichessBroadcasts">Kiel uzi Lichess Elsendojn.</string>
   <string name="theNewRoundHelp">La nova raŭndo havos la samajn membrojn kaj kontribuantojn, kiom la antaŭa.</string>
   <string name="addRound">Aldoni raŭndon</string>
@@ -43,12 +42,6 @@
   <string name="definitivelyDeleteTournament">Sendube forigi la tuta turniro, kaj ĝiajn raŭndojn kaj ĉiujn ĝiajn ludojn.</string>
   <string name="automaticLeaderboard">Aŭtomata ĉampionejo</string>
   <string name="automaticLeaderboardHelp">Komputi kaj montri simplan ĉampionejon baze sur la ludrezultoj</string>
-  <string name="replace">Laŭvola: anstataŭi ludantaj nomoj, atingoj, kaj titoloj</string>
-  <string name="replaceHelp">Po unu lino por unu ludanto, aranĝita tiel:
-Origna namo; Anstataŭa namo; Laŭvola anstataŭa atingo; Laŭvola anstataŭa titolo
-Ekzamplo:
-DrNykterstein;Magnus Carlsen;2863
-AnishGiri;Anish Giri;2764;GM</string>
   <string name="periodInSeconds">Periodo kiel sekundoj</string>
   <string name="periodInSecondsHelp">Laŭvola, kiom tempo por atendi inter aliĝpetoj. Min 2s, Maks 60s. Defaŭlto estas aŭtamata baze sur la nombro de spektantoj.</string>
 </resources>

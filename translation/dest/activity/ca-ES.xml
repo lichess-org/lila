@@ -11,16 +11,16 @@
     <item quantity="other">Ha practicat %1$s posicions en %2$s</item>
   </plurals>
   <plurals name="solvedNbPuzzles">
-    <item quantity="one">Has resolt %s exercici de tàctica</item>
-    <item quantity="other">Has resolt %s exercicis de tàctica</item>
+    <item quantity="one">Ha resolt %s exercici de tàctica</item>
+    <item quantity="other">Ha resolt %s exercicis de tàctica</item>
   </plurals>
   <plurals name="playedNbGames">
     <item quantity="one">Has jugat %1$s partida %2$s</item>
-    <item quantity="other">Has jugat %1$s partides %2$s</item>
+    <item quantity="other">Ha jugat %1$s partides %2$s</item>
   </plurals>
   <plurals name="postedNbMessages">
-    <item quantity="one">Has publicat %1$s missatge a %2$s</item>
-    <item quantity="other">Has publicat %1$s missatges a %2$s</item>
+    <item quantity="one">Ha publicat %1$s missatge a %2$s</item>
+    <item quantity="other">Ha publicat %1$s missatges a %2$s</item>
   </plurals>
   <plurals name="playedNbMoves">
     <item quantity="one">Has fet %1$s moviment</item>
@@ -31,16 +31,16 @@
     <item quantity="other">en %1$s partides per correspondència</item>
   </plurals>
   <plurals name="completedNbGames">
-    <item quantity="one">Has jugat %s partida per correspondència</item>
-    <item quantity="other">Has jugat %s partides per correspondència</item>
+    <item quantity="one">Ha jugat %s partida per correspondència</item>
+    <item quantity="other">Ha jugat %s partides per correspondència</item>
   </plurals>
   <plurals name="followedNbPlayers">
     <item quantity="one">Segueixes a %s jugador</item>
     <item quantity="other">Segueixes a %s jugadors</item>
   </plurals>
   <plurals name="gainedNbFollowers">
-    <item quantity="one">Tens %s seguidor nou</item>
-    <item quantity="other">Tens %s seguidors nous</item>
+    <item quantity="one">Té %s seguidor nou</item>
+    <item quantity="other">Té %s seguidors nous</item>
   </plurals>
   <plurals name="hostedNbSimuls">
     <item quantity="one">Has ofert %s exhibició simultània</item>
@@ -63,8 +63,8 @@
     <item quantity="other">%1$sº en la classificació (dins dels %2$s%% millors) amb %3$s partides en %4$s</item>
   </plurals>
   <plurals name="competedInNbSwissTournaments">
-    <item quantity="one">Has jugat en %s tornejos suïssos</item>
-    <item quantity="other">Va competir en els tornejos %s suïssos</item>
+    <item quantity="one">Ha jugat en %s tornejos suïssos</item>
+    <item quantity="other">Ha jugat en %s tornejos suïssos</item>
   </plurals>
   <string name="rankedInSwissTournament">Classificat #%1$s en %2$s</string>
   <string name="signedUp">Registrat a Lichess</string>

@@ -2,11 +2,13 @@ package lila.bot
 
 import akka.actor.*
 import akka.stream.scaladsl.*
+import ornicar.scalalib.ThreadLocalRandom
 import play.api.i18n.Lang
 import play.api.libs.json.*
-import ornicar.scalalib.ThreadLocalRandom
+import play.api.mvc.RequestHeader
 
 import lila.chat.{ Chat, UserLine }
+import lila.common.{ Bus, HTTPRequest }
 import lila.game.actorApi.{
   AbortedBy,
   BoardDrawOffer,
@@ -20,8 +22,6 @@ import lila.game.{ Game, Pov }
 import lila.hub.actorApi.map.Tell
 import lila.round.actorApi.BotConnected
 import lila.round.actorApi.round.QuietFlag
-import play.api.mvc.RequestHeader
-import lila.common.{ Bus, HTTPRequest }
 
 final class GameStateStream(
     onlineApiUsers: OnlineApiUsers,
@@ -39,15 +39,17 @@ final class GameStateStream(
   ): Source[Option[JsObject], ?] =
 
     // terminate previous one if any
-    Bus.publish(PoisonPill, uniqChan(init.game pov as))
+    Bus.publish(PoisonPill, uniqChan(init.game.pov(as)))
 
     blueprint.mapMaterializedValue: queue =>
       val actor = system.actorOf(
         Props(mkActor(init, as, User(me, me.isBot), queue)),
-        name = s"GameStateStream:${init.game.id}:${ThreadLocalRandom nextString 8}"
+        name = s"GameStateStream:${init.game.id}:${ThreadLocalRandom.nextString(8)}"
       )
-      queue.watchCompletion() addEffectAnyway:
-        actor ! PoisonPill
+      queue
+        .watchCompletion()
+        .addEffectAnyway:
+          actor ! PoisonPill
 
   private def uniqChan(pov: Pov)(using req: RequestHeader) =
     s"gameStreamFor:${pov.fullId}:${HTTPRequest.userAgent(req) | "?"}"
@@ -64,23 +66,23 @@ final class GameStateStream(
     var gameOver = false
 
     private val classifiers = List(
-      MoveGameEvent makeChan id,
-      BoardDrawOffer makeChan id,
-      BoardTakeback makeChan id,
-      BoardGone makeChan id,
+      MoveGameEvent.makeChan(id),
+      BoardDrawOffer.makeChan(id),
+      BoardTakeback.makeChan(id),
+      BoardGone.makeChan(id),
       "finishGame",
       "abortGame",
-      uniqChan(init.game pov as),
-      Chat chanOf id.into(ChatId)
+      uniqChan(init.game.pov(as)),
+      Chat.chanOf(id.into(ChatId))
     ) :::
-      user.isBot.option(Chat chanOf ChatId(s"$id/w")).toList
+      user.isBot.option(Chat.chanOf(ChatId(s"$id/w"))).toList
 
     override def preStart(): Unit =
       super.preStart()
       Bus.subscribe(self, classifiers)
-      jsonView gameFull init foreach { json =>
+      jsonView.gameFull(init).foreach { json =>
         // prepend the full game JSON at the start of the stream
-        queue offer json.some
+        queue.offer(json.some)
         // close stream if game is over
         if init.game.finished then onGameOver(none)
         else self ! SetOnline
@@ -113,23 +115,24 @@ final class GameStateStream(
         context.system.scheduler
           .scheduleOnce(6 second):
             // gotta send a message to check if the client has disconnected
-            queue offer None
+            queue.offer(None)
             self ! SetOnline
             Bus.publish(Tell(id.value, QuietFlag), "roundSocket")
 
     def pushState(g: Game): Funit =
-      jsonView gameState Game.WithInitialFen(g, init.fen) dmap some flatMap queue.offer void
+      jsonView.gameState(Game.WithInitialFen(g, init.fen)).dmap(some).flatMap(queue.offer) void
 
     def pushChatLine(username: UserName, text: String, player: Boolean) =
-      queue offer jsonView.chatLine(username, text, player).some
+      queue.offer(jsonView.chatLine(username, text, player).some)
 
     def opponentGone(claimInSeconds: Option[Int]) = queue.offer:
       claimInSeconds.fold(jsonView.opponentGoneIsBack)(jsonView.opponentGoneClaimIn).some
 
     def onGameOver(g: Option[Game]) =
-      g.so(pushState) andDo:
-        gameOver = true
-        self ! PoisonPill
+      g.so(pushState)
+        .andDo:
+          gameOver = true
+          self ! PoisonPill
 
 private object GameStateStream:
 

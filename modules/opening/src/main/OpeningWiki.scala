@@ -16,7 +16,7 @@ case class OpeningWiki(
 ):
   def hasMarkup = markup.exists(_.value.nonEmpty)
   def markupForMove(move: String): Option[Html] =
-    markup map OpeningWiki.filterMarkupForMove(move)
+    markup.map(OpeningWiki.filterMarkupForMove(move))
 
 final class OpeningWikiApi(coll: Coll, explorer: OpeningExplorer, cacheApi: CacheApi)(using Executor):
 
@@ -26,10 +26,10 @@ final class OpeningWikiApi(coll: Coll, explorer: OpeningExplorer, cacheApi: Cach
   given BSONDocumentHandler[OpeningWiki] = Macros.handler
 
   def apply(op: Opening, withRevisions: Boolean): Fu[OpeningWiki] = for
-    wiki <- cache get op.key
-    revisions <- withRevisions so:
+    wiki <- cache.get(op.key)
+    revisions <- withRevisions.so:
       coll.primitiveOne[List[Revision]]($id(op.key), "revisions")
-  yield wiki.copy(revisions = (~revisions) take 25)
+  yield wiki.copy(revisions = (~revisions).take(25))
 
   def write(op: Opening, text: String, by: User): Funit =
     coll.update
@@ -46,7 +46,8 @@ final class OpeningWikiApi(coll: Coll, explorer: OpeningExplorer, cacheApi: Cach
         ),
         upsert = true
       )
-      .void andDo cache.put(op.key, compute(op.key))
+      .void
+      .andDo(cache.put(op.key, compute(op.key)))
 
   def popularOpeningsWithShortWiki: Fu[List[Opening]] =
     coll
@@ -54,7 +55,7 @@ final class OpeningWikiApi(coll: Coll, explorer: OpeningExplorer, cacheApi: Cach
         import framework.*
         Project($doc("popularity" -> true, "rev" -> $doc("$first" -> "$revisions"))) -> List(
           AddFields($doc("len" -> $doc("$strLenBytes" -> $doc("$ifNull" -> $arr("$rev.text", ""))))),
-          Match($doc("len" $lt 300)),
+          Match($doc("len".$lt(300))),
           Sort(Descending("popularity")),
           Project($doc("_id" -> true))
         )
@@ -62,7 +63,7 @@ final class OpeningWikiApi(coll: Coll, explorer: OpeningExplorer, cacheApi: Cach
         for
           doc <- docs
           id  <- doc.getAsOpt[OpeningKey]("_id")
-          op  <- OpeningDb.shortestLines get id
+          op  <- OpeningDb.shortestLines.get(id)
         yield op
 
   private object markdown:
@@ -92,11 +93,11 @@ final class OpeningWikiApi(coll: Coll, explorer: OpeningExplorer, cacheApi: Cach
     popularity <- updatePopularity(key)
     lastRev = docOpt.flatMap(_.getAsOpt[Revision]("lastRev"))
     text    = lastRev.map(_.text)
-  yield OpeningWiki(text map markdown.render(key), Nil, popularity)
+  yield OpeningWiki(text.map(markdown.render(key)), Nil, popularity)
 
   private def updatePopularity(key: OpeningKey): Fu[Long] =
-    OpeningDb.shortestLines.get(key) so { op =>
-      explorer.simplePopularity(op) flatMap {
+    OpeningDb.shortestLines.get(key).so { op =>
+      explorer.simplePopularity(op).flatMap {
         _.so { popularity =>
           coll.update
             .one(
@@ -119,12 +120,14 @@ object OpeningWiki:
   val form = Form(single("text" -> nonEmptyText(minLength = 10, maxLength = 10_000)))
 
   private val MoveLiRegex = """(?i)^<li>(\w{2,5}\+?):(.+)</li>""".r
-  private def filterMarkupForMove(move: String)(markup: Html) = markup map {
-    _.linesIterator collect {
-      case MoveLiRegex(m, content) =>
-        if m.toLowerCase == move.toLowerCase then s"<p>${content.trim}</p>" else ""
-      case html => html
-    } mkString "\n"
+  private def filterMarkupForMove(move: String)(markup: Html) = markup.map {
+    _.linesIterator
+      .collect {
+        case MoveLiRegex(m, content) =>
+          if m.toLowerCase == move.toLowerCase then s"<p>${content.trim}</p>" else ""
+        case html => html
+      }
+      .mkString("\n")
   }
 
   private val priorityByPopularityPercent = List(3, 0.5, 0.05, 0.005, 0)

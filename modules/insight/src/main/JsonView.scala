@@ -2,6 +2,7 @@ package lila.insight
 
 import play.api.i18n.Lang
 import play.api.libs.json.*
+
 import lila.common.{ LilaOpeningFamily, SimpleOpening }
 
 final class JsonView:
@@ -130,6 +131,8 @@ final class JsonView:
       )
       .add("asMod" -> asMod)
 
+  given Writes[InsightPosition] = Writes(p => JsString(p.name))
+
   private given dimWrites[X](using lang: Lang): Writes[InsightDimension[X]] =
     Writes { d =>
       Json.obj(
@@ -150,8 +153,6 @@ final class JsonView:
     )
   }
 
-  given Writes[InsightPosition] = Writes(p => JsString(p.name))
-
   private given Writes[Chart.Xaxis] = Json.writes
   private given Writes[Chart.Yaxis] = Json.writes
   private given Writes[Chart.Serie] = Json.writes
@@ -164,7 +165,7 @@ final class JsonView:
       "filters" -> (filters
         .split('/')
         .view
-        .map(_ split ':')
+        .map(_.split(':'))
         .collect { case Array(key, values) =>
           key -> JsArray(values.split(',').map(JsString.apply))
         }

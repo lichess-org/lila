@@ -1,8 +1,7 @@
 package lila.irwin
 
-import lila.report.SuspectId
-import lila.report.Suspect
 import lila.rating.{ Perf, PerfType }
+import lila.report.{ Suspect, SuspectId }
 
 case class KaladinUser(
     _id: UserId,
@@ -17,7 +16,7 @@ case class KaladinUser(
 
   def suspectId = SuspectId(_id)
 
-  def recentlyQueued = queuedAt isAfter nowInstant.minusWeeks(1)
+  def recentlyQueued = queuedAt.isAfter(nowInstant.minusWeeks(1))
 
   def queueAgain(by: KaladinUser.Requester): Option[KaladinUser] =
     if startedAt.isEmpty && by.priority > priority then
@@ -64,11 +63,11 @@ object KaladinUser:
 
     def note: String = {
       s"Kaladin activation: $percent in ${perf.fold("?")(_.trans(using lila.i18n.defaultLang))}, because:" :: insights
-    } mkString ", "
+    }.mkString(", ")
 
   case class Dashboard(recent: List[KaladinUser]):
 
-    def lastSeenAt = recent.view.map(_.response) collectFirst { case Some(response) =>
+    def lastSeenAt = recent.view.map(_.response).collectFirst { case Some(response) =>
       response.at
     }
 

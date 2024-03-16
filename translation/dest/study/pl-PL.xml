@@ -91,7 +91,7 @@
   <string name="pinnedChapterComment">Przypięty komentarz</string>
   <string name="saveChapter">Zapisz rozdział</string>
   <string name="clearAnnotations">Usuń adnotacje</string>
-  <string name="clearVariations">Wyczyść warianty</string>
+  <string name="clearVariations" comment="Clear is used as a verb here. This erases the variations in the study (https://lichess.org/study) you are preparing.">Wyczyść warianty</string>
   <string name="deleteChapter">Usuń rozdział</string>
   <string name="deleteThisChapter">Usunąć ten rozdział? Nie będzie można tego cofnąć!</string>
   <string name="clearAllCommentsInThisChapter">Usunąć wszystkie komentarze i oznaczenia w tym rozdziale?</string>

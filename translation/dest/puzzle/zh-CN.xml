@@ -34,7 +34,7 @@
   <string name="useFindInPage">在浏览器菜单中使用 “在页面中查找” 来找到你最爱的开局！</string>
   <string name="useCtrlF">使用 Ctrl + F 查找你最爱的开局！</string>
   <string name="notTheMove">不是最佳着法</string>
-  <string name="trySomethingElse">试试别的</string>
+  <string name="trySomethingElse">试试其他着法</string>
   <string name="ratingX">等级分：%s</string>
   <string name="hidden">已隐藏</string>
   <plurals name="playedXTimes">

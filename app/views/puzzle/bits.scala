@@ -1,14 +1,14 @@
 package views
 package html.puzzle
 
+import chess.format.{ BoardFen, Uci }
 import controllers.routes
 import play.api.i18n.Lang
-import play.api.libs.json.{ JsString, Json }
+import play.api.libs.json.Json
 
-import lila.app.templating.Environment.{ given, * }
+import lila.app.templating.Environment.{ *, given }
 import lila.app.ui.ScalatagsTemplate.{ *, given }
 import lila.puzzle.{ PuzzleDifficulty, PuzzleTheme }
-import chess.format.{ BoardFen, Uci }
 import lila.user.User
 
 object bits:

@@ -9,6 +9,12 @@ export type Tab = 'intro' | 'members' | 'chapters';
 export type ChapterTab = 'init' | 'edit' | 'game' | 'fen' | 'pgn';
 export type ToolTab = 'tags' | 'comments' | 'glyphs' | 'serverEval' | 'share' | 'multiBoard';
 export type Visibility = 'public' | 'unlisted' | 'private';
+export type ChapterId = string;
+export type TeamName = string;
+export type OutcomeStr = '1-0' | '0-1' | '½-½';
+export type StatusStr = OutcomeStr | '*';
+export type ClockCentis = number;
+export type BothClocks = [ClockCentis?, ClockCentis?];
 
 export interface StudyTour {
   study(ctrl: AnalyseCtrl): void;
@@ -17,11 +23,11 @@ export interface StudyTour {
 
 export interface StudyVm {
   loading: boolean;
-  nextChapterId?: string;
-  justSetChapterId?: string;
+  nextChapterId?: ChapterId;
+  justSetChapterId?: ChapterId;
   tab: Prop<Tab>;
   toolTab: Prop<ToolTab>;
-  chapterId: string;
+  chapterId: ChapterId;
   mode: {
     sticky: boolean;
     write: boolean;
@@ -45,13 +51,16 @@ export interface StudyData {
   isNew?: boolean;
   liked: boolean;
   features: StudyFeatures;
-  chapters: StudyChapterMeta[];
   chapter: StudyChapter;
   secondsSinceUpdate: number;
   description?: string;
   topics?: Topic[];
   admin: boolean;
   hideRatings?: boolean;
+}
+
+export interface StudyDataFromServer extends StudyData {
+  chapters: ChapterPreviewFromServer[];
 }
 
 export type Topic = string;
@@ -64,17 +73,17 @@ export interface StudySettings {
   cloneable: UserSelection;
   shareable: UserSelection;
   chat: UserSelection;
-  sticky: boolean;
-  description: boolean;
+  sticky?: boolean;
+  description?: boolean;
 }
 
 export interface ReloadData {
   analysis: AnalyseData;
-  study: StudyData;
+  study: StudyDataFromServer;
 }
 
 export interface Position {
-  chapterId: string;
+  chapterId: ChapterId;
   path: Tree.Path;
 }
 
@@ -85,15 +94,12 @@ export interface StudyFeatures {
   sticky: boolean;
 }
 
-export interface StudyChapterMeta {
+export type RelayPlayer = [string?, string?, number?];
+
+export interface StudyChapterConfig {
   id: string;
   name: string;
-  ongoing?: boolean;
-  res?: '1-0' | '0-1' | '½-½' | '*';
-}
-
-export interface StudyChapterConfig extends StudyChapterMeta {
-  orientation: Color;
+  orientation?: Color; // defaults to white
   description?: string;
   practice: boolean;
   gamebook: boolean;
@@ -101,7 +107,7 @@ export interface StudyChapterConfig extends StudyChapterMeta {
 }
 
 export interface StudyChapter {
-  id: string;
+  id: ChapterId;
   name: string;
   ownerId: string;
   setup: StudyChapterSetup;
@@ -111,8 +117,9 @@ export interface StudyChapter {
   gamebook: boolean;
   features: StudyChapterFeatures;
   description?: string;
-  relay?: StudyChapterRelay;
+  relayPath?: Tree.Path;
   serverEval?: StudyChapterServerEval;
+  feds?: [string?, string?];
 }
 
 export interface StudyChapterServerEval {
@@ -121,7 +128,6 @@ export interface StudyChapterServerEval {
 
 export interface StudyChapterRelay {
   path: Tree.Path;
-  secondsSinceLastMove?: number;
   lastMoveAt?: number;
 }
 
@@ -160,26 +166,42 @@ export interface LocalPaths {
   [chapterId: string]: Tree.Path;
 }
 
-export interface ChapterPreview {
-  id: string;
+export interface ChapterPreviewBase {
+  id: ChapterId;
   name: string;
-  players?: {
-    white: ChapterPreviewPlayer;
-    black: ChapterPreviewPlayer;
-  };
-  orientation: Color;
-  fen: string;
+  status?: StatusStr;
   lastMove?: string;
+}
+
+export interface ChapterPreviewFromServer extends ChapterPreviewBase {
+  fen?: string; // defaults to initial
+  players?: [ChapterPreviewPlayer, ChapterPreviewPlayer];
+  thinkTime?: number; // seconds since last move
+  orientation?: Color; // defaults to white
+  variant?: VariantKey; // defaults to standard
+}
+
+export interface ChapterPreview extends ChapterPreviewBase {
+  fen: string;
+  players?: ChapterPreviewPlayers;
   lastMoveAt?: number;
+  orientation: Color;
+  variant: VariantKey;
   playing: boolean;
-  outcome?: '1-0' | '0-1' | '½-½';
+}
+
+export interface ChapterPreviewPlayers {
+  white: ChapterPreviewPlayer;
+  black: ChapterPreviewPlayer;
 }
 
 export interface ChapterPreviewPlayer {
   name: string;
   title?: string;
   rating?: number;
-  clock?: number;
+  clock?: ClockCentis;
+  fed?: string;
+  team?: string;
 }
 
 export type Orientation = 'black' | 'white' | 'auto';
@@ -189,7 +211,7 @@ export interface ChapterData {
   name: string;
   game?: string;
   variant?: VariantKey;
-  fen?: Fen | null;
+  fen?: cg.FEN | null;
   pgn?: string;
   orientation: Orientation;
   mode: ChapterMode;
@@ -198,7 +220,7 @@ export interface ChapterData {
 }
 
 export interface EditChapterData {
-  id: string;
+  id: ChapterId;
   name: string;
   orientation: Orientation;
   mode: ChapterMode;
@@ -215,7 +237,7 @@ export interface AnaDests {
 export interface AnaMove {
   orig: string;
   dest: string;
-  fen: Fen;
+  fen: cg.FEN;
   path: string;
   variant?: VariantKey;
   ch?: string;
@@ -226,10 +248,22 @@ export interface AnaDrop {
   role: cg.Role;
   pos: Key;
   variant?: VariantKey;
-  fen: Fen;
+  fen: cg.FEN;
   path: string;
   ch?: string;
 }
+export interface ServerNodeMsg extends WithWhoAndPos {
+  d: string;
+  n: Tree.NodeFromServer;
+  o: Opening;
+  s: boolean;
+  relayPath?: Tree.Path;
+}
+export interface ServerClockMsg extends WithWhoAndPos {
+  c?: number;
+  relayClocks?: [ClockCentis, ClockCentis];
+}
+
 export interface WithWho {
   w: {
     s: string;
@@ -242,7 +276,7 @@ export interface WithPosition {
 }
 
 export interface WithChapterId {
-  chapterId: string;
+  chapterId: ChapterId;
 }
 
 export type WithWhoAndPos = WithWho & WithPosition;

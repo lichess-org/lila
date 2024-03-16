@@ -247,7 +247,7 @@ function controls(ctrl: EditorCtrl, state: EditorState): VNode {
                 class: { button: true, 'button-empty': true, disabled: !state.playable },
                 on: {
                   click: () => {
-                    if (state.playable) lichess.dialog.dom({ cash: $('.continue-with'), show: 'modal' });
+                    if (state.playable) site.dialog.dom({ cash: $('.continue-with'), show: 'modal' });
                   },
                 },
               },
@@ -405,7 +405,7 @@ function makeCursor(selected: Selected): string {
   if (selected === 'pointer') return 'pointer';
 
   const name = selected === 'trash' ? 'trash' : selected.join('-');
-  const url = lichess.asset.url('cursors/' + name + '.cur');
+  const url = site.asset.url('cursors/' + name + '.cur');
 
   return `url('${url}'), default !important`;
 }

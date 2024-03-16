@@ -13,9 +13,10 @@ final class AutoAnalysis(
   def apply(candidate: Report.Candidate): Funit =
     if candidate.isCheat then doItNow(candidate)
     else
-      candidate.isPrint so fuccess:
+      candidate.isPrint.so(fuccess:
         List(30, 90).foreach: minutes =>
           scheduler.scheduleOnce(minutes minutes) { doItNow(candidate) }
+      )
 
   private def doItNow(candidate: Report.Candidate) =
     gamesToAnalyse(candidate).map: games =>
@@ -29,12 +30,14 @@ final class AutoAnalysis(
     gameRepo
       .recentAnalysableGamesByUserId(candidate.suspect.user.id, 20)
       .flatMap: as =>
-        gameRepo.lastGamesBetween(
-          candidate.suspect.user,
-          candidate.reporter.user,
-          nowInstant.minusHours(2),
-          10
-        ) dmap { as ++ _ }
+        gameRepo
+          .lastGamesBetween(
+            candidate.suspect.user,
+            candidate.reporter.user,
+            nowInstant.minusHours(2),
+            10
+          )
+          .dmap { as ++ _ }
       .map:
         _.filter: g =>
           g.analysable && !g.metadata.analysed

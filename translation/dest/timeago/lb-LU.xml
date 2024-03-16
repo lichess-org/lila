@@ -62,4 +62,5 @@
     <item quantity="one">%s Stonn iwwereg</item>
     <item quantity="other">%s Stonnen iwwereg</item>
   </plurals>
+  <string name="completed">eriwwer</string>
 </resources>

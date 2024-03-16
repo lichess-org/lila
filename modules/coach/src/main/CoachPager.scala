@@ -3,14 +3,11 @@ package lila.coach
 import play.api.i18n.Lang
 import reactivemongo.api.*
 
-import lila.coach.CoachPager.Order.Alphabetical
-import lila.coach.CoachPager.Order.LichessRating
-import lila.coach.CoachPager.Order.Login
+import lila.coach.CoachPager.Order.{ Alphabetical, LichessRating, Login }
 import lila.common.paginator.{ AdapterLike, Paginator }
 import lila.db.dsl.{ *, given }
 import lila.security.Permission
-import lila.user.{ Flag, User, UserMark, UserRepo, UserPerfsRepo }
-import lila.user.UserPerfs
+import lila.user.{ Flag, User, UserMark, UserPerfs, UserPerfsRepo, UserRepo }
 
 final class CoachPager(
     userRepo: UserRepo,
@@ -59,10 +56,12 @@ final class CoachPager(
                 $doc(
                   s"_user.${User.BSONFields.roles}"   -> Permission.Coach.dbKey,
                   s"_user.${User.BSONFields.enabled}" -> true,
-                  s"_user.${User.BSONFields.marks}" $nin List(
-                    UserMark.Engine.key,
-                    UserMark.Boost.key,
-                    UserMark.Troll.key
+                  s"_user.${User.BSONFields.marks}".$nin(
+                    List(
+                      UserMark.Engine.key,
+                      UserMark.Boost.key,
+                      UserMark.Troll.key
+                    )
                   )
                 ) ++ country.so { c =>
                   $doc("_user.profile.country" -> c.code)
@@ -78,7 +77,7 @@ final class CoachPager(
               coach <- doc.asOpt[Coach]
               user  <- doc.getAsOpt[User]("_user")
               perfs = perfsRepo.aggregate.readFirst(doc, user)
-            yield coach withUser User.WithPerfs(user, perfs)
+            yield coach.withUser(User.WithPerfs(user, perfs))
 
     Paginator(
       adapter,

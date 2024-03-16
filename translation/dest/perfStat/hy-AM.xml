@@ -22,10 +22,9 @@
   <string name="fromXToY">%1$s-ից %2$s</string>
   <string name="winningStreak">Անընդմեջ հաղթանակներ</string>
   <string name="losingStreak">Անընդմեջ պարտություններ</string>
-  <string name="longestStreak" comment="%s is the string (number of games OR time spent playing, e.g. 4 hours non-stop play)&#10;String used to describe the longest consecutive winning &amp; losing streak of games. It is also used for a  streak of time spent playing.">Ամենաերկար շարքը` %s</string>
+  <string name="longestStreak">Ամենաերկար շարքը` %s</string>
   <string name="currentStreak">Ընթացիկ շարքը` %s</string>
   <string name="bestRated">Հաղթանակներ ամենաբարձր վարկանիշ ունեցողների նկատմամբ</string>
-  <string name="worstRated">Պարտություններ ամենացածր վարկանիշ ունեցողներից</string>
   <string name="gamesInARow">Անընդմեջ խաղացված պարտիաներ</string>
   <string name="lessThanOneHour">Պարտիաների միջև դադարը` մեկ ժամից պակաս</string>
   <string name="maxTimePlaying">Առավելագույն խաղաժամանակ</string>

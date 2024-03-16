@@ -1,15 +1,15 @@
 package lila.activity
 
-import activities.*
-import model.*
-
 import lila.game.LightPov
 import lila.practice.PracticeStudy
 import lila.simul.Simul
 import lila.study.Study
 import lila.swiss.Swiss
-import lila.tournament.LeaderboardApi.{ Entry as TourEntry }
+import lila.tournament.LeaderboardApi.Entry as TourEntry
 import lila.ublog.UblogPost
+
+import activities.*
+import model.*
 
 case class ActivityView(
     interval: TimeInterval,

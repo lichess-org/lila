@@ -23,7 +23,7 @@ export function initModule(opts: ChallengeOpts) {
   }
 
   if (opts.data) update(opts.data);
-  else json('/challenge').then(update, _ => lichess.announce({ msg: 'Failed to load challenges' }));
+  else json('/challenge').then(update, _ => site.announce({ msg: 'Failed to load challenges' }));
 
   return {
     update,

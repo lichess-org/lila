@@ -7,14 +7,14 @@ import { init as initSnabbdom, VNode, classModule, attributesModule } from 'snab
 const patch = initSnabbdom([classModule, attributesModule]);
 
 export function load() {
-  return lichess.asset.loadEsm<DasherCtrl>('dasher');
+  return site.asset.loadEsm<DasherCtrl>('dasher');
 }
 
 export async function initModule() {
   let vnode: VNode,
     ctrl: DasherCtrl | undefined = undefined;
 
-  const $el = $('#dasher_app').html(`<div class="initiating">${lichess.spinnerHtml}</div>`);
+  const $el = $('#dasher_app').html(`<div class="initiating">${site.spinnerHtml}</div>`);
   const element = $el.empty()[0] as HTMLElement;
   const toggle = $('#top .dasher')[0] as HTMLElement;
 
@@ -28,7 +28,7 @@ export async function initModule() {
   ctrl = new DasherCtrl(data, redraw);
   redraw();
 
-  new MutationObserver(_ => lichess.pubsub.emit('dasher.toggle', toggle.classList.contains('shown'))).observe(
+  new MutationObserver(_ => site.pubsub.emit('dasher.toggle', toggle.classList.contains('shown'))).observe(
     toggle,
     {
       attributes: true,

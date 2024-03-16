@@ -2,9 +2,8 @@ package views.html.lobby
 
 import controllers.routes
 
-import lila.app.templating.Environment.{ given, * }
+import lila.app.templating.Environment.{ *, given }
 import lila.app.ui.ScalatagsTemplate.{ *, given }
-import lila.ublog.UblogPost
 
 object bits:
 
@@ -20,38 +19,42 @@ object bits:
       tournamentWinners: List[lila.tournament.Winner]
   )(using ctx: Context) =
     frag(
-      ctx.pref.showRatings option div(cls := "lobby__leaderboard lobby__box")(
-        div(cls := "lobby__box__top")(
-          h2(cls := "title text", dataIcon := licon.CrownElite)(trans.leaderboard()),
-          a(cls := "more", href := routes.User.list)(trans.more(), " »")
-        ),
-        div(cls := "lobby__box__content"):
-          table:
-            tbody:
-              leaderboard.map: l =>
-                tr(
-                  td(lightUserLink(l.user)),
-                  lila.rating.PerfType(l.perfKey) map { pt =>
-                    td(cls := "text", dataIcon := pt.icon)(l.rating)
-                  },
-                  td(ratingProgress(l.progress))
-                )
+      ctx.pref.showRatings.option(
+        div(cls := "lobby__leaderboard lobby__box")(
+          div(cls := "lobby__box__top")(
+            h2(cls := "title text", dataIcon := licon.CrownElite)(trans.leaderboard()),
+            a(cls := "more", href := routes.User.list)(trans.more(), " »")
+          ),
+          div(cls := "lobby__box__content"):
+            table:
+              tbody:
+                leaderboard.map: l =>
+                  tr(
+                    td(lightUserLink(l.user)),
+                    lila.rating.PerfType(l.perfKey).map { pt =>
+                      td(cls := "text", dataIcon := pt.icon)(l.rating)
+                    },
+                    td(ratingProgress(l.progress))
+                  )
+        )
       ),
       div(cls := s"lobby__box ${if ctx.pref.showRatings then "lobby__winners" else "lobby__wide-winners"}")(
         div(cls := "lobby__box__top")(
-          h2(cls := "title text", dataIcon := licon.Trophy)(trans.tournamentWinners()),
+          h2(cls := "title text", dataIcon := licon.Trophy)(trans.arena.tournamentWinners()),
           a(cls := "more", href := routes.Tournament.leaderboard)(trans.more(), " »")
         ),
         div(cls := "lobby__box__content"):
           table:
             tbody:
-              tournamentWinners take 10 map: w =>
-                tr(
-                  td(userIdLink(w.userId.some)),
-                  td:
-                    a(title := w.tourName, href := routes.Tournament.show(w.tourId)):
-                      scheduledTournamentNameShortHtml(w.tourName)
-                )
+              tournamentWinners
+                .take(10)
+                .map: w =>
+                  tr(
+                    td(userIdLink(w.userId.some)),
+                    td:
+                      a(title := w.tourName, href := routes.Tournament.show(w.tourId)):
+                        scheduledTournamentNameShortHtml(w.tourName)
+                  )
       ),
       div(cls := "lobby__tournaments-simuls")(
         div(cls := "lobby__tournaments lobby__box")(
@@ -62,13 +65,15 @@ object bits:
           div(cls := "enterable_list lobby__box__content"):
             views.html.tournament.bits.enterable(tours)
         ),
-        simuls.nonEmpty option div(cls := "lobby__simuls lobby__box")(
-          a(cls := "lobby__box__top", href := routes.Simul.home)(
-            h2(cls := "title text", dataIcon := licon.Group)(trans.simultaneousExhibitions()),
-            span(cls := "more")(trans.more(), " »")
-          ),
-          div(cls := "enterable_list lobby__box__content"):
-            views.html.simul.bits.allCreated(simuls, withName = false)
+        simuls.nonEmpty.option(
+          div(cls := "lobby__simuls lobby__box")(
+            a(cls := "lobby__box__top", href := routes.Simul.home)(
+              h2(cls := "title text", dataIcon := licon.Group)(trans.simultaneousExhibitions()),
+              span(cls := "more")(trans.more(), " »")
+            ),
+            div(cls := "enterable_list lobby__box__content"):
+              views.html.simul.bits.allCreated(simuls, withName = false)
+          )
         )
       )
     )

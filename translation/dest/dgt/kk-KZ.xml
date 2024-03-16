@@ -18,7 +18,7 @@
   <string name="whenReadySetupBoard">Дайын болсаңыз, тақтаны пішіндеу үшін %s басыңыз.</string>
   <string name="ifMoveNotDetected">Егер жүріс анықталмаса</string>
   <string name="checkYouHaveMadeOpponentsMove">DGT тақтада қарсыластың жүрісін жасағаныңызды тексеріңіз. Жүрісті қайта қайтарып, тағы жүріп көріңіз.</string>
-  <string name="asALastResort">Ақырғы амал ретінде тақта күйін Лическе дәл келтіріп, %s</string>
+  <string name="asALastResort" comment="%s is 'Reload this page', a separate translatable string.&#10;&#10;Appears on DGT board pages. A DGT board is a digitally connected real life board which requires the player to set up the real life board to match what it is on the screen. Hence needing it to be set up identically to what is visible on Lichess.">Ақырғы амал ретінде тақта күйін Лическе дәл келтіріп, %s</string>
   <string name="reloadThisPage">Парақшаны жаңартып көріңіз</string>
   <string name="dgtConfigure">DGT пішіндемесі</string>
   <string name="lichessConnectivity">Личестің байланыс қабілеті</string>

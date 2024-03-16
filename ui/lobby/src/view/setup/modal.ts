@@ -14,7 +14,7 @@ import { levelButtons } from './components/levelButtons';
 export default function setupModal(ctrl: LobbyController): MaybeVNode {
   const { setupCtrl } = ctrl;
   if (!setupCtrl.gameType) return null;
-  return lichess.dialog.snab({
+  return site.dialog.snab({
     class: 'game-setup',
     css: [{ themed: 'lobby.setup' }],
     onClose: setupCtrl.closeModal,

@@ -1,11 +1,11 @@
 package views.html.challenge
 
-import lila.app.templating.Environment.{ given, * }
+import controllers.routes
+
+import lila.app.templating.Environment.{ *, given }
 import lila.app.ui.ScalatagsTemplate.{ *, given }
 import lila.challenge.Challenge
 import lila.challenge.Challenge.Status
-
-import controllers.routes
 
 object theirs:
 
@@ -32,7 +32,7 @@ object theirs:
                     user.fold[Frag]("Anonymous"): u =>
                       frag(
                         userLink(u.user),
-                        ctx.pref.showRatings option frag(" (", u.perf.glicko.display, ")")
+                        ctx.pref.showRatings.option(frag(" (", u.perf.glicko.display, ")"))
                       )
               ,
               bits.details(c, color),
@@ -51,8 +51,7 @@ object theirs:
                 )
               else if !c.mode.rated || ctx.isAuth then
                 frag(
-                  (c.mode.rated && c.unlimited) option
-                    badTag(trans.bewareTheGameIsRatedButHasNoClock()),
+                  (c.mode.rated && c.unlimited).option(badTag(trans.bewareTheGameIsRatedButHasNoClock())),
                   postForm(cls := "accept", action := routes.Challenge.accept(c.id, color.map(_.name)))(
                     submitButton(cls := "text button button-fat", dataIcon := licon.PlayTriangle)(
                       trans.joinTheGame()

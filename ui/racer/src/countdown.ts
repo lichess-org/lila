@@ -8,7 +8,7 @@ export class Countdown {
     readonly onStart: () => void,
     readonly redraw: () => void,
   ) {
-    for (let i = 10; i >= 0; i--) lichess.sound.load(`countDown${i}`);
+    for (let i = 10; i >= 0; i--) site.sound.load(`countDown${i}`);
   }
 
   start = (startsAt: Date, aloud: boolean): void => {
@@ -30,7 +30,7 @@ export class Countdown {
   private playOnce = (i: number) => {
     if (!this.played.has(i)) {
       this.played.add(i);
-      lichess.sound.play(`countDown${i}`);
+      site.sound.play(`countDown${i}`);
     }
   };
 }

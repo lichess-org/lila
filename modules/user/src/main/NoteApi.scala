@@ -1,9 +1,10 @@
 package lila.user
 
-import lila.db.dsl.{ *, given }
 import ornicar.scalalib.ThreadLocalRandom
-import lila.common.paginator.Paginator
+
 import lila.common.config.MaxPerPage
+import lila.common.paginator.Paginator
+import lila.db.dsl.{ *, given }
 
 case class Note(
     _id: String,
@@ -15,7 +16,7 @@ case class Note(
     date: Instant
 ):
   def userIds            = List(from, to)
-  def isFrom(user: User) = user.id is from
+  def isFrom(user: User) = user.id.is(from)
   def searchable = mod && from.isnt(User.lichessId) && from.isnt(User.watcherbotId) &&
     !text.startsWith("Appeal reply:")
 
@@ -39,44 +40,39 @@ final class NoteApi(userRepo: UserRepo, coll: Coll)(using
           else $doc("from" -> me, "mod" -> false)
         }
       )
-      .sort($sort desc "date")
+      .sort($sort.desc("date"))
       .cursor[Note]()
       .list(20)
 
   def byUserForMod(id: UserId): Fu[List[Note]] =
     coll
       .find($doc("to" -> id, "mod" -> true))
-      .sort($sort desc "date")
+      .sort($sort.desc("date"))
       .cursor[Note]()
       .list(50)
 
   def byUsersForMod(ids: List[UserId]): Fu[List[Note]] =
     coll
-      .find($doc("to" $in ids, "mod" -> true))
-      .sort($sort desc "date")
+      .find($doc("to".$in(ids), "mod" -> true))
+      .sort($sort.desc("date"))
       .cursor[Note]()
       .list(100)
 
-  def write(to: User, text: String, modOnly: Boolean, dox: Boolean)(using me: Me) = {
+  def write(to: User, text: String, modOnly: Boolean, dox: Boolean)(using me: Me): Funit =
     val note = Note(
-      _id = ThreadLocalRandom nextString 8,
+      _id = ThreadLocalRandom.nextString(8),
       from = me,
       to = to.id,
       text = text,
       mod = modOnly,
-      dox = modOnly && (dox || Title.fromUrl.toFideId(text).isDefined),
+      dox = modOnly && dox,
       date = nowInstant
     )
     Future
       .fromTry(bsonHandler.writeTry(note))
       .flatMap: base =>
         val bson = if note.searchable then base ++ searchableBsonFlag else base
-        coll.insert.one(bson)
-  } >> {
-    modOnly so Title.fromUrl(text) flatMap {
-      _ so { userRepo.addTitle(to.id, _) }
-    }
-  }
+        coll.insert.one(bson).void
 
   def lichessWrite(to: User, text: String) =
     userRepo.lichess.flatMapz: lichess =>

@@ -4,7 +4,7 @@ case class DateRange(min: Instant, max: Instant)
 
 case class Period(days: Int):
   def max = nowInstant
-  def min = max minusDays days
+  def min = max.minusDays(days)
 
   override def toString =
     days match
@@ -32,4 +32,4 @@ object Period:
     365 * 3,
     365 * 5,
     365 * 10
-  ) map Period.apply
+  ).map(Period.apply)

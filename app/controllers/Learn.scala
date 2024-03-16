@@ -5,7 +5,7 @@ import play.api.data.Forms.*
 import play.api.libs.json.*
 import views.html
 
-import lila.app.{ given, * }
+import lila.app.*
 
 final class Learn(env: Env) extends LilaController(env):
 
@@ -18,7 +18,7 @@ final class Learn(env: Env) extends LilaController(env):
     pageHit
     ctx.me
       .soFu: me =>
-        env.learn.api.get(me) map Json.toJson
+        env.learn.api.get(me).map(Json.toJson)
       .flatMap: progress =>
         Ok.page(html.learn.index(progress))
 
@@ -36,11 +36,11 @@ final class Learn(env: Env) extends LilaController(env):
         _ => BadRequest,
         (stage, level, s) =>
           val score = lila.learn.StageProgress.Score(s)
-          env.learn.api.setScore(me, stage, level, score) >>
-            env.activity.write.learn(me, stage) inject Ok(Json.obj("ok" -> true))
+          (env.learn.api.setScore(me, stage, level, score) >>
+            env.activity.write.learn(me, stage)).inject(Ok(Json.obj("ok" -> true)))
       )
   }
 
   def reset = AuthBody { _ ?=> me ?=>
-    env.learn.api.reset(me) inject Ok(Json.obj("ok" -> true))
+    env.learn.api.reset(me).inject(Ok(Json.obj("ok" -> true)))
   }

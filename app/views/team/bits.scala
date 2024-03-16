@@ -1,10 +1,7 @@
 package views.html.team
+import controllers.team.routes.Team as teamRoutes
 
-import controllers.routes
-import controllers.team.routes.{ Team as teamRoutes }
-import scala.util.chaining.*
-
-import lila.app.templating.Environment.{ given, * }
+import lila.app.templating.Environment.{ *, given }
 import lila.app.ui.ScalatagsTemplate.{ *, given }
 import lila.common.{ Markdown, MarkdownRender }
 import lila.team.Team
@@ -16,25 +13,29 @@ object bits:
   def menu(currentTab: Option[String])(using ctx: PageContext) =
     val tab = ~currentTab
     st.nav(cls := "page-menu__menu subnav")(
-      (ctx.teamNbRequests > 0) option
+      (ctx.teamNbRequests > 0).option(
         a(cls := tab.active("requests"), href := teamRoutes.requests)(
           xJoinRequests.pluralSame(ctx.teamNbRequests)
-        ),
-      ctx.isAuth option
+        )
+      ),
+      ctx.isAuth.option(
         a(cls := tab.active("mine"), href := teamRoutes.mine)(
           myTeams()
-        ),
-      ctx.isAuth option
+        )
+      ),
+      ctx.isAuth.option(
         a(cls := tab.active("leader"), href := teamRoutes.leader)(
           leaderTeams()
-        ),
+        )
+      ),
       a(cls := tab.active("all"), href := teamRoutes.all())(
         allTeams()
       ),
-      ctx.isAuth option
+      ctx.isAuth.option(
         a(cls := tab.active("form"), href := teamRoutes.form)(
           newTeam()
         )
+      )
     )
 
   private[team] object markdown:
@@ -58,15 +59,19 @@ object bits:
           href := teamRoutes.show(t.id)
         )(
           t.name,
-          t.flair map teamFlair,
-          t.amLeader option em("leader")
+          t.flair.map(teamFlair),
+          t.amLeader.option(em("leader"))
         ),
         ~t.intro: String
       ),
       td(cls := "info")(
         p(nbMembers.plural(t.nbMembers, t.nbMembers.localize)),
-        isMine option form(action := teamRoutes.quit(t.id), method := "post")(
-          submitButton(cls := "button button-empty button-red button-thin confirm team__quit")(quitTeam.txt())
+        isMine.option(
+          form(action := teamRoutes.quit(t.id), method := "post")(
+            submitButton(cls := "button button-empty button-red button-thin confirm team__quit")(
+              quitTeam.txt()
+            )
+          )
         )
       )
     )
@@ -74,11 +79,13 @@ object bits:
   private[team] def layout(
       title: String,
       openGraph: Option[lila.app.ui.OpenGraph] = None,
-      moreJs: Frag = emptyFrag
+      moreJs: Frag = emptyFrag,
+      robots: Boolean = netConfig.crawlable
   )(body: Frag)(using PageContext) =
     views.html.base.layout(
       title = title,
       moreCss = cssTag("team"),
       moreJs = frag(infiniteScrollTag, moreJs),
-      openGraph = openGraph
+      openGraph = openGraph,
+      robots = robots
     )(body)

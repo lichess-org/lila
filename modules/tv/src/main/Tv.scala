@@ -1,7 +1,8 @@
 package lila.tv
 
-import lila.common.licon
-import lila.common.LightUser
+import chess.PlayerTitle
+
+import lila.common.{ LightUser, licon }
 import lila.game.{ Game, GameRepo, Pov }
 import lila.hub.SyncActor
 
@@ -17,7 +18,7 @@ final class Tv(
   import gameProxyRepo.game as roundProxyGame
 
   def getGame(channel: Tv.Channel): Fu[Option[Game]] =
-    actor.ask[Option[GameId]](TvSyncActor.GetGameId(channel, _)) flatMapz roundProxyGame
+    actor.ask[Option[GameId]](TvSyncActor.GetGameId(channel, _)).flatMapz(roundProxyGame)
 
   def getReplacementGame(channel: Tv.Channel, oldId: GameId, exclude: List[GameId]): Fu[Option[Game]] =
     actor
@@ -25,29 +26,29 @@ final class Tv(
       .flatMapz(roundProxyGame)
 
   def getGameAndHistory(channel: Tv.Channel): Fu[Option[(Game, List[Pov])]] =
-    actor.ask[GameIdAndHistory](TvSyncActor.GetGameIdAndHistory(channel, _)) flatMap {
+    actor.ask[GameIdAndHistory](TvSyncActor.GetGameIdAndHistory(channel, _)).flatMap {
       case GameIdAndHistory(gameId, historyIds) =>
         for
-          game <- gameId so roundProxyGame
+          game <- gameId.so(roundProxyGame)
           games <-
             historyIds
               .map: id =>
-                roundProxyGame(id) orElse gameRepo.game(id)
+                roundProxyGame(id).orElse(gameRepo.game(id))
               .parallel
               .dmap(_.flatten)
-          history = games map Pov.naturalOrientation
-        yield game map (_ -> history)
+          history = games.map(Pov.naturalOrientation)
+        yield game.map(_ -> history)
     }
 
   def getGames(channel: Tv.Channel, max: Int): Fu[List[Game]] =
-    getGameIds(channel, max) flatMap {
+    getGameIds(channel, max).flatMap {
       _.map(roundProxyGame).parallel.map(_.flatten)
     }
 
   def getGameIds(channel: Tv.Channel, max: Int): Fu[List[GameId]] =
     actor.ask[List[GameId]](TvSyncActor.GetGameIds(channel, max, _))
 
-  def getBestGame = getGame(Tv.Channel.Best) orElse gameRepo.random
+  def getBestGame = getGame(Tv.Channel.Best).orElse(gameRepo.random)
 
   def getBestAndHistory = getGameAndHistory(Tv.Channel.Best)
 
@@ -206,15 +207,15 @@ object Tv:
   } // rematch time
   private def hasMinRating(g: Game, min: Int) = g.players.exists(_.rating.exists(_ >= min))
 
-  private[tv] val titleScores: Map[UserTitle, Int] = Map(
-    UserTitle("GM")  -> 500,
-    UserTitle("WGM") -> 500,
-    UserTitle("IM")  -> 300,
-    UserTitle("WIM") -> 300,
-    UserTitle("FM")  -> 200,
-    UserTitle("WFM") -> 200,
-    UserTitle("NM")  -> 100,
-    UserTitle("CM")  -> 100,
-    UserTitle("WCM") -> 100,
-    UserTitle("WNM") -> 100
+  private[tv] val titleScores: Map[PlayerTitle, Int] = Map(
+    PlayerTitle.GM  -> 500,
+    PlayerTitle.WGM -> 500,
+    PlayerTitle.IM  -> 300,
+    PlayerTitle.WIM -> 300,
+    PlayerTitle.FM  -> 200,
+    PlayerTitle.WFM -> 200,
+    PlayerTitle.NM  -> 100,
+    PlayerTitle.CM  -> 100,
+    PlayerTitle.WCM -> 100,
+    PlayerTitle.WNM -> 100
   )

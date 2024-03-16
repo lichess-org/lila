@@ -5,7 +5,7 @@ import play.api.data.*
 import play.api.data.Forms.*
 import play.api.mvc.RequestHeader
 
-import lila.common.Form.{ typeIn, numberIn, given }
+import lila.common.Form.{ numberIn, typeIn, given }
 import lila.common.LilaCookie
 
 case class OpeningConfig(ratings: Set[Int], speeds: Set[Speed]):
@@ -29,8 +29,8 @@ case class OpeningConfig(ratings: Set[Int], speeds: Set[Speed]):
       val many = first :: rest
       val hash = many.mkString(",")
       if reference == hash then "All"
-      else if reference contains hash then s"$first to ${rest.lastOption | first}"
-      else many mkString ", "
+      else if reference.contains(hash) then s"$first to ${rest.lastOption | first}"
+      else many.mkString(", ")
 
 final class OpeningConfigStore(baker: LilaCookie):
   import OpeningConfig.*
@@ -69,7 +69,7 @@ object OpeningConfig:
     val valueSep = '/'
     val fieldSep = '!'
 
-    def read(str: String): Option[OpeningConfig] = str split fieldSep match
+    def read(str: String): Option[OpeningConfig] = str.split(fieldSep) match
       case Array(r, s) =>
         OpeningConfig(
           ratings = r.split(valueSep).flatMap(_.toIntOption).toSet,
@@ -80,7 +80,7 @@ object OpeningConfig:
     def write(cfg: OpeningConfig): String = List(
       cfg.ratings.mkString(valueSep.toString),
       cfg.speeds.map(_.id).mkString(valueSep.toString)
-    ) mkString fieldSep.toString
+    ).mkString(fieldSep.toString)
 
   val form = Form(
     mapping(
@@ -89,5 +89,5 @@ object OpeningConfig:
     )(OpeningConfig.apply)(lila.common.unapply)
   )
 
-  val ratingChoices = allRatings zip allRatings.map(_.toString)
-  val speedChoices  = allSpeeds.map(_.id) zip allSpeeds.map(_.name)
+  val ratingChoices = allRatings.zip(allRatings.map(_.toString))
+  val speedChoices  = allSpeeds.map(_.id).zip(allSpeeds.map(_.name))

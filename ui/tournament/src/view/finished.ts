@@ -12,9 +12,9 @@ import { numberRow } from './util';
 import { MaybeVNodes } from 'common/snabbdom';
 
 function confetti(data: TournamentData): VNode | undefined {
-  if (data.me && data.isRecentlyFinished && lichess.once('tournament.end.canvas.' + data.id))
+  if (data.me && data.isRecentlyFinished && site.once('tournament.end.canvas.' + data.id))
     return h('canvas#confetti', {
-      hook: { insert: _ => lichess.asset.loadIife('javascripts/confetti.js') },
+      hook: { insert: _ => site.asset.loadIife('javascripts/confetti.js') },
     });
   return undefined;
 }
@@ -54,7 +54,7 @@ function stats(ctrl: TournamentController): VNode | undefined {
       h(
         'a.text',
         { attrs: { 'data-icon': licon.Download, href: `/api/tournament/${data.id}/games`, download: true } },
-        'Download all games',
+        noarg('downloadAllGames'),
       ),
       data.me &&
         h(

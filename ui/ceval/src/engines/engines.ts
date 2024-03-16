@@ -20,7 +20,7 @@ export class Engines {
   constructor(private ctrl: CevalCtrl) {
     if (
       ((getFirefoxMajorVersion() ?? 114) > 113 && !('brave' in navigator)) ||
-      lichess.storage.get('ceval.lsfw.forceEnable') === 'true'
+      site.storage.get('ceval.lsfw.forceEnable') === 'true'
     ) {
       this.browserSupport.push('allowLsfw'); // lsfw is https://github.com/lichess-org/lila-stockfish-web
     }

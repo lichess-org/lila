@@ -3,9 +3,10 @@ package lila.storm
 import chess.format.{ Fen, Uci }
 import reactivemongo.api.bson.*
 
-import lila.db.dsl.{ *, given }
 import scala.util.Success
+
 import lila.common.LichessDay
+import lila.db.dsl.{ *, given }
 
 object StormBsonHandlers:
 
@@ -22,7 +23,7 @@ object StormBsonHandlers:
     val sep = ':'
     tryHandler[StormDay.Id](
       { case BSONString(v) =>
-        v split sep match
+        v.split(sep) match
           case Array(userId, dayStr) =>
             Success(StormDay.Id(UserId(userId), LichessDay(Integer.parseInt(dayStr))))
           case _ => handlerBadValue(s"Invalid storm day id $v")

@@ -2,12 +2,12 @@ package lila.mod
 
 import play.api.data.Form
 import play.api.data.Forms.*
-
-import lila.memo.SettingStore.{ Formable, StringReader }
-import lila.user.Me
-import lila.security.{ Granter, Permission }
 import reactivemongo.api.bson.BSONHandler
+
 import lila.common.Iso
+import lila.memo.SettingStore.{ Formable, StringReader }
+import lila.security.{ Granter, Permission }
+import lila.user.Me
 
 final class ModPresetsApi(settingStore: lila.memo.SettingStore.Builder):
 
@@ -46,7 +46,7 @@ case class ModPresets(value: List[ModPreset]):
     value.find(_.text.filter(_.isLetter) == clean)
 
 case class ModPreset(name: String, text: String, permissions: Set[Permission]):
-  def isNameClose = name contains ModPresets.nameClosePresetName
+  def isNameClose = name.contains(ModPresets.nameClosePresetName)
 
 object ModPresets:
 
@@ -56,14 +56,16 @@ object ModPresets:
   private[mod] object setting:
 
     private def write(presets: ModPresets): String =
-      presets.value.map { case ModPreset(name, text, permissions) =>
-        s"${permissions.map(_.key) mkString ", "}\n\n$name\n\n$text"
-      } mkString "\n\n----------\n\n"
+      presets.value
+        .map { case ModPreset(name, text, permissions) =>
+          s"${permissions.map(_.key).mkString(", ")}\n\n$name\n\n$text"
+        }
+        .mkString("\n\n----------\n\n")
 
     private def read(s: String): ModPresets =
       ModPresets:
         "\n-{3,}\\s*\n".r
-          .split(s.linesIterator.map(_.trim).dropWhile(_.isEmpty) mkString "\n")
+          .split(s.linesIterator.map(_.trim).dropWhile(_.isEmpty).mkString("\n"))
           .toList
           .map(_.linesIterator.toList)
           .filter(_.nonEmpty)
@@ -75,7 +77,7 @@ object ModPresets:
                 text = cleanRest.tail
               yield ModPreset(
                 name,
-                text.dropWhile(_.isEmpty) mkString "\n",
+                text.dropWhile(_.isEmpty).mkString("\n"),
                 toPermisssions(perms)
               )
             case _ => none
@@ -89,4 +91,4 @@ object ModPresets:
     given Iso.StringIso[ModPresets] = Iso.string(read, write)
     given BSONHandler[ModPresets]   = lila.db.dsl.isoHandler
     given StringReader[ModPresets]  = StringReader.fromIso
-    given Formable[ModPresets]      = Formable(presets => Form(single("v" -> text)) fill write(presets))
+    given Formable[ModPresets]      = Formable(presets => Form(single("v" -> text)).fill(write(presets)))

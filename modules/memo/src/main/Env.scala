@@ -22,10 +22,9 @@ final class PicfitConfig(
 @Module
 final class Env(
     appConfig: Configuration,
-    mode: play.api.Mode,
     db: lila.db.Db,
     ws: play.api.libs.ws.StandaloneWSClient
-)(using Executor, Scheduler):
+)(using Executor, Scheduler, play.api.Mode):
 
   given ConfigLoader[PicfitConfig] = AutoConfig.loader
   private val config               = appConfig.get[MemoConfig]("memo")(AutoConfig.loader)

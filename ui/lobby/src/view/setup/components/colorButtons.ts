@@ -43,7 +43,7 @@ export const colorButtons = (ctrl: LobbyController) => {
 
   return h(
     'div.color-submits',
-    lichess.blindMode
+    site.blindMode
       ? renderBlindModeColorPicker(ctrl)
       : setupCtrl.loading
       ? spinnerVdom()

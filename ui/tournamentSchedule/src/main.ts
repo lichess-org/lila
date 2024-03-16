@@ -5,13 +5,13 @@ import { Opts, Tournament } from './interfaces';
 
 const patch = init([classModule, attributesModule]);
 export function initModule(opts: Opts) {
-  lichess.StrongSocket.defaultParams.flag = 'tournament';
+  site.StrongSocket.defaultParams.flag = 'tournament';
 
   const element = document.querySelector('.tour-chart') as HTMLElement;
 
   const ctrl = {
     data: () => opts.data,
-    trans: lichess.trans(opts.i18n),
+    trans: site.trans(opts.i18n),
   };
 
   let vnode: VNode;
@@ -23,7 +23,7 @@ export function initModule(opts: Opts) {
 
   setInterval(redraw, 3700);
 
-  lichess.pubsub.on('socket.in.reload', d => {
+  site.pubsub.on('socket.in.reload', d => {
     opts.data = {
       created: update(opts.data.created, d.created),
       started: update(opts.data.started, d.started),

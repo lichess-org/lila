@@ -50,7 +50,6 @@
   <string name="entryCodeDescriptionForLeader">(விரும்பினால்) இந்தக் குழுவில் சேர புதிய உறுப்பினர்கள் தெரிந்து கொள்ள வேண்டிய நுழைவுக் குறியீடு.</string>
   <string name="incorrectEntryCode">தவறான நுழைவு குறியீடு.</string>
   <string name="teamAlreadyExists">இந்தக் குழு ஏற்கனவே உள்ளது.</string>
-  <string name="upcomingTourns">வரவிருக்கும் போட்டிகள்</string>
   <string name="completedTourns">போட்டிகள் நிறைவடைந்தன</string>
   <string name="declinedRequests">நிராகரிக்கப்பட்ட கோரிக்கைகள்</string>
   <string name="joinLichessVariantTeam">செய்திகள் மற்றும் நிகழ்வுகளுக்கு அதிகாரப்பூர்வ %s குழுவில் சேரவும்</string>

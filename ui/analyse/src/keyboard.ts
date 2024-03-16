@@ -15,7 +15,7 @@ export const bind = (ctrl: AnalyseCtrl) => {
     }
     shiftAlone = 0;
   });
-  const kbd = window.lichess.mousetrap;
+  const kbd = window.site.mousetrap;
   kbd
     .bind(['left', 'k'], () => {
       control.prev(ctrl);
@@ -67,7 +67,7 @@ export const bind = (ctrl: AnalyseCtrl) => {
     .bind('f', ctrl.flip)
     .bind('?', () => {
       ctrl.keyboardHelp = !ctrl.keyboardHelp;
-      if (ctrl.keyboardHelp) lichess.pubsub.emit('analyse.close-all');
+      if (ctrl.keyboardHelp) site.pubsub.emit('analyse.close-all');
       ctrl.redraw();
     })
     .bind('l', ctrl.toggleCeval)
@@ -135,7 +135,7 @@ export const bind = (ctrl: AnalyseCtrl) => {
 };
 
 export function view(ctrl: AnalyseCtrl): VNode {
-  return lichess.dialog.snab({
+  return site.dialog.snab({
     class: 'help.keyboard-help',
     htmlUrl: xhr.url('/analysis/help', { study: !!ctrl.study }),
     onClose() {

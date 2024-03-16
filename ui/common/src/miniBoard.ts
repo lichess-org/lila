@@ -11,7 +11,7 @@ export const initWith = (node: HTMLElement, fen: string, orientation: Color, lm?
   domData.set(
     node,
     'chessground',
-    lichess.makeChessground(node, {
+    site.makeChessground(node, {
       orientation,
       coordinates: false,
       viewOnly: !node.getAttribute('data-playable'),

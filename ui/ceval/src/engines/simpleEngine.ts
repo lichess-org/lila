@@ -31,7 +31,7 @@ export class SimpleEngine implements CevalEngine {
     this.protocol.compute(work);
 
     if (!this.worker) {
-      this.worker = new Worker(lichess.asset.url(this.url, { sameDomain: true }));
+      this.worker = new Worker(site.asset.url(this.url, { sameDomain: true }));
       this.worker.addEventListener('message', e => this.protocol.received(e.data), true);
       this.worker.addEventListener(
         'error',

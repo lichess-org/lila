@@ -5,13 +5,13 @@
   <string name="toInviteSomeoneToPlayGiveThisUrl">Pentru a invita pe cineva să joace, folosiți acest URL</string>
   <string name="gameOver">Partidă încheiată</string>
   <string name="waitingForOpponent">Se așteaptă adversarul</string>
-  <string name="orLetYourOpponentScanQrCode">Sau lăsați oponentul să scaneze acest cod QR</string>
+  <string name="orLetYourOpponentScanQrCode">Sau lăsați adversarul să scaneze acest cod QR</string>
   <string name="waiting">Se așteaptă</string>
   <string name="yourTurn">Rândul tău</string>
   <string name="aiNameLevelAiLevel">%1$s nivel %2$s</string>
   <string name="level">Nivel</string>
   <string name="strength">Putere</string>
-  <string name="toggleTheChat">Arată/Ascunde discuţia</string>
+  <string name="toggleTheChat">Arată/ascunde discuția</string>
   <string name="chat">Discuţie</string>
   <string name="resign">Abandonează</string>
   <string name="checkmate">Şah mat</string>
@@ -57,7 +57,7 @@
   <string name="computerAnalysis">Analiza computer-ului</string>
   <string name="computerAnalysisAvailable">Analiză computerizată disponibilă</string>
   <string name="computerAnalysisDisabled">Analiză computerizată dezactivată</string>
-  <string name="analysis">Analiză</string>
+  <string name="analysis">Tablă de analiză</string>
   <string name="depthX">Profunzime %s</string>
   <string name="usingServerAnalysis">Utilizează analiză de server</string>
   <string name="loadingEngine">Se încarcă motorul de analiză...</string>
@@ -563,7 +563,6 @@
   <string name="automaticallyProceedToNextGameAfterMoving">Du-te automat la partida următoare după mutare</string>
   <string name="autoSwitch">Schimbă automat</string>
   <string name="puzzles">Probleme de șah</string>
-  <string name="tournamentWinners">Câștigători de turnee</string>
   <string name="name">Nume</string>
   <string name="description">Descriere</string>
   <string name="descPrivate">Descriere privată</string>
@@ -978,8 +977,6 @@
   <string name="minimumRatedGames">Numar minim de partide evaluate jucate</string>
   <string name="minimumRating">Rating minim</string>
   <string name="maximumWeeklyRating">Rating săptămânal maxim</string>
-  <string name="onlyTitled">Doar jucători titrati</string>
-  <string name="onlyTitledHelp">Solicitați un titlu oficial pentru a se alătura turneului</string>
   <string name="positionInputHelp">Lipiți un FEN valid pentru a începe fiecare joc dintr-o poziție dată.
 Funcționează doar pentru jocuri standard, nu si pentru variante.
 Puteți utiliza %s pentru a genera o poziție FEN, apoi lipiți-o aici.

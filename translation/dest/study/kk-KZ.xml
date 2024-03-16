@@ -84,7 +84,7 @@
   <string name="pinnedChapterComment">Қадаулы бөлім пікірі</string>
   <string name="saveChapter">Бөлімді сақтау</string>
   <string name="clearAnnotations">Түсіндірмені өшіру</string>
-  <string name="clearVariations">Тармақты өшіру</string>
+  <string name="clearVariations" comment="Clear is used as a verb here. This erases the variations in the study (https://lichess.org/study) you are preparing.">Тармақты өшіру</string>
   <string name="deleteChapter">Бөлімді жою</string>
   <string name="deleteThisChapter">Бөлімді жоясыз ба? Кері жол жоқ!</string>
   <string name="clearAllCommentsInThisChapter">Бөлімдегі бүкіл пікір, глиф пен сызбаларды өшіресіз бе?</string>

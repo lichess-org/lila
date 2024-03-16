@@ -15,13 +15,13 @@ final class TeamSearchApi(
 ) extends SearchReadApi[Team, Query]:
 
   def search(query: Query, from: From, size: Size) =
-    client.search(query, from, size) flatMap { res =>
-      teamRepo byOrderedIds TeamId.from(res.ids)
+    client.search(query, from, size).flatMap { res =>
+      teamRepo.byOrderedIds(TeamId.from(res.ids))
     }
 
   def count(query: Query) = client.count(query).dmap(_.value)
 
-  def store(team: Team) = client.store(team.id into Id, toDoc(team))
+  def store(team: Team) = client.store(team.id.into(Id), toDoc(team))
 
   private def toDoc(team: Team) =
     Json.obj(

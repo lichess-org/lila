@@ -22,10 +22,9 @@
   <string name="fromXToY">%1$s - %2$s</string>
   <string name="winningStreak">Garaipenen segida</string>
   <string name="losingStreak">Porroten segida</string>
-  <string name="longestStreak" comment="%s is the string (number of games OR time spent playing, e.g. 4 hours non-stop play)&#10;String used to describe the longest consecutive winning &amp; losing streak of games. It is also used for a  streak of time spent playing.">Segida luzeena: %s</string>
+  <string name="longestStreak">Segida luzeena: %s</string>
   <string name="currentStreak">Uneko segida: %s</string>
   <string name="bestRated">Garaipen onenak</string>
-  <string name="worstRated">Porrot txarrenak</string>
   <string name="gamesInARow">Jarraian jokatutako partida kopurua</string>
   <string name="lessThanOneHour">Partiden artean ordubete baino gutxiago</string>
   <string name="maxTimePlaying">Jokatzen emandako denbora gehiena</string>

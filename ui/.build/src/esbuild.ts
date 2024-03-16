@@ -25,12 +25,13 @@ export async function esbuild(): Promise<void> {
     }),
     __debug__: String(env.debug),
   };
-
   for (const mod of buildModules) {
     preModule(mod);
     for (const tpe in mod.bundles) {
       if (!typeBundles.has(tpe)) typeBundles.set(tpe, new Map());
-      for (const r of mod.bundles[tpe]) typeBundles.get(tpe)?.set(r.output, path.join(mod.root, r.input));
+      for (const r of mod.bundles[tpe]) {
+        typeBundles.get(tpe)?.set(r.output, path.join(mod.root, r.input));
+      }
     }
   }
   for (const [tpe, bundles] of typeBundles) {

@@ -6,7 +6,7 @@ import play.api.libs.json.*
 import lila.common.Json.given
 import lila.common.licon
 import lila.game.JsonView.given
-import lila.i18n.{ I18nKeys as trans }
+import lila.i18n.I18nKeys as trans
 import lila.socket.{ SocketVersion, UserLagCache }
 
 final class JsonView(
@@ -22,7 +22,7 @@ final class JsonView(
     Json
       .obj(
         "id"     -> r.id,
-        "name"   -> light.fold(r.id into UserName)(_.name),
+        "name"   -> light.fold(r.id.into(UserName))(_.name),
         "rating" -> r.rating.int
       )
       .add("title" -> light.map(_.title))

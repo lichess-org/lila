@@ -1,12 +1,8 @@
 package lila.ublog
 
-import play.api.Mode
-
-import lila.common.config
-import lila.common.{ Bus, LpvEmbed, Markdown, MarkdownRender }
+import lila.common.{ Bus, LpvEmbed, Markdown, MarkdownRender, MarkdownToastUi, config }
 import lila.hub.actorApi.lpv.AllPgnsFromText
 import lila.memo.CacheApi
-import lila.common.MarkdownToastUi
 
 final class UblogMarkup(
     baseUrl: config.BaseUrl,
@@ -14,7 +10,7 @@ final class UblogMarkup(
     cacheApi: CacheApi,
     netDomain: config.NetDomain,
     assetDomain: config.AssetDomain
-)(using Executor, Scheduler)(using mode: Mode):
+)(using Executor, Scheduler)(using mode: play.api.Mode):
 
   type PgnSourceId = String
 
@@ -41,17 +37,20 @@ final class UblogMarkup(
 
   private val cache = cacheApi[(UblogPostId, Markdown), Html](2048, "ublog.markup"):
     _.maximumSize(2048)
-      .expireAfterWrite(if mode == Mode.Prod then 15 minutes else 1 second)
+      .expireAfterWrite(if mode.isProd then 15 minutes else 1 second)
       .buildAsyncFuture: (id, markdown) =>
-        Bus.ask("lpv")(AllPgnsFromText(markdown.value, _)) andThen { case scala.util.Success(pgns) =>
-          pgnCache.putAll(pgns)
-        } inject process(id)(markdown)
+        Bus
+          .ask("lpv")(AllPgnsFromText(markdown.value, _))
+          .andThen { case scala.util.Success(pgns) =>
+            pgnCache.putAll(pgns)
+          }
+          .inject(process(id)(markdown))
 
-  private def process(id: UblogPostId): Markdown => Html = replaceGameGifs.apply andThen
-    MarkdownToastUi.unescapeAtUsername.apply andThen
-    renderer(s"ublog:${id}") andThen
-    MarkdownToastUi.imageParagraph andThen
-    MarkdownToastUi.unescapeUnderscoreInLinks.apply
+  private def process(id: UblogPostId): Markdown => Html = replaceGameGifs.apply
+    .andThen(MarkdownToastUi.unescapeAtUsername.apply)
+    .andThen(renderer(s"ublog:${id}"))
+    .andThen(MarkdownToastUi.imageParagraph)
+    .andThen(MarkdownToastUi.unescapeUnderscoreInLinks.apply)
 
   // replace game GIFs URLs with actual game URLs that can be embedded
   private object replaceGameGifs:

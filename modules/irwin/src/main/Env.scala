@@ -5,10 +5,10 @@ import com.softwaremill.tagging.*
 import play.api.Configuration
 
 import lila.common.config.*
+import lila.db.AsyncColl
+import lila.db.dsl.Coll
 import lila.report.Suspect
 import lila.tournament.TournamentApi
-import lila.db.dsl.Coll
-import lila.db.AsyncColl
 
 final class Env(
     appConfig: Configuration,
@@ -49,10 +49,12 @@ final class Env(
         suspects <-
           leaders.toList
             .traverse: (tour, top) =>
-              userRepo byIds top.value.zipWithIndex
-                .filter(_._2 <= tour.nbPlayers * 2 / 100)
-                .map(_._1.userId)
-                .take(20)
+              userRepo.byIds(
+                top.value.zipWithIndex
+                  .filter(_._2 <= tour.nbPlayers * 2 / 100)
+                  .map(_._1.userId)
+                  .take(20)
+              )
             .map(_.flatten.map(Suspect.apply))
         _ <- irwinApi.requests.fromTournamentLeaders(suspects)
         _ <- kaladinApi.tournamentLeaders(suspects)
@@ -60,7 +62,7 @@ final class Env(
     scheduler.scheduleWithFixedDelay(15 minutes, 15 minutes): () =>
       (for
         topOnline <- userCache.getTop50Online
-        suspects = topOnline.map(_.user) map Suspect.apply
+        suspects = topOnline.map(_.user).map(Suspect.apply)
         _ <- irwinApi.requests.topOnline(suspects)
         _ <- kaladinApi.topOnline(suspects)
       yield ())

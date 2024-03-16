@@ -5,11 +5,9 @@ import play.api.mvc.Call
 
 import lila.app.templating.Environment.{ *, given }
 import lila.app.ui.ScalatagsTemplate.{ *, given }
-import lila.common.Heapsort.topN
-import lila.tutor.{ TutorCompare, TutorPerfReport, TutorFullReport }
-import lila.tutor.TutorCompare.given
-import lila.user.User
 import lila.rating.PerfType
+import lila.tutor.{ TutorCompare, TutorFullReport, TutorPerfReport }
+import lila.user.User
 
 object perf:
 
@@ -32,7 +30,7 @@ object perf:
             frag(" played between ", showDate(dates.start), " and ", showDate(dates.end))
         ),
         timePercentAndRating(full, report),
-        ul(TutorCompare.mixedBag(report.relevantComparisons)(4) map compare.show)
+        ul(TutorCompare.mixedBag(report.relevantComparisons)(4).map(compare.show))
       ),
       div(cls := "tutor__perf__angles tutor-cards")(
         angleCard(
@@ -49,13 +47,13 @@ object perf:
           routes.Tutor.openings(user.username, report.perf.key).some
         )(
           chess.Color.all.map: color =>
-            report.openings(color).families.headOption map { fam =>
+            report.openings(color).families.headOption.map { fam =>
               grade.peerGrade(concept.adhoc(s"${fam.family.name} as $color"), fam.mix, h4)
             }
         ),
         angleCard(
           frag(report.perf.trans, " time management"),
-          report.perf != PerfType.Correspondence option routes.Tutor.time(user.username, report.perf.key)
+          (report.perf != PerfType.Correspondence).option(routes.Tutor.time(user.username, report.perf.key))
         )(
           if report.perf == PerfType.Correspondence then p("Not applicable.")
           else
@@ -78,7 +76,7 @@ object perf:
       report: TutorFullReport,
       perfReport: TutorPerfReport
   )(using Context) = p(
-    report percentTimeOf perfReport.perf map { percent =>
+    report.percentTimeOf(perfReport.perf).map { percent =>
       frag(
         perfReport.perf.trans,
         " games represent ",

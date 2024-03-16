@@ -1,19 +1,18 @@
 package views.html.search
 
+import controllers.routes
 import play.api.data.Form
 
-import lila.app.templating.Environment.{ given, * }
+import lila.app.templating.Environment.{ *, given }
 import lila.app.ui.ScalatagsTemplate.{ *, given }
 import lila.user.User
-
-import controllers.routes
 
 object user:
 
   import trans.search.*
 
   def apply(u: User, form: Form[?])(using Context) =
-    val commons = bits of form
+    val commons = bits.of(form)
     import commons.*
     st.form(
       noFollow,

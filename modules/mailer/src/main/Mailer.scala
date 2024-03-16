@@ -1,18 +1,19 @@
 package lila.mailer
 
 import akka.actor.ActorSystem
-import lila.common.autoconfig.*
+import ornicar.scalalib.ThreadLocalRandom
+import play.api.ConfigLoader
 import play.api.i18n.Lang
 import play.api.libs.mailer.{ Email, SMTPConfiguration, SMTPMailer }
-import scala.concurrent.blocking
 import scalatags.Text.all.{ html as htmlTag, * }
-import scalatags.Text.tags2.{ title as titleTag }
-import ornicar.scalalib.ThreadLocalRandom
+import scalatags.Text.tags2.title as titleTag
+
+import scala.concurrent.blocking
 
 import lila.common.String.html.nl2br
+import lila.common.autoconfig.*
 import lila.common.{ Chronometer, EmailAddress }
-import lila.i18n.I18nKeys.{ emails as trans }
-import play.api.ConfigLoader
+import lila.i18n.I18nKeys.emails as trans
 
 final class Mailer(
     config: Mailer.Config,
@@ -44,7 +45,7 @@ final class Mailer(
                 from = config.sender,
                 to = Seq(msg.to.value),
                 bodyText = msg.text.some,
-                bodyHtml = msg.htmlBody map { body => Mailer.html.wrap(msg.subject, body).render }
+                bodyHtml = msg.htmlBody.map { body => Mailer.html.wrap(msg.subject, body).render }
               )
 
 object Mailer:
@@ -138,7 +139,7 @@ $serviceNote"""
       frag(
         meta(itemprop := "url", content := u),
         p(a(itemprop := "target", href := u)(u)),
-        clickOrPaste option p(trans.common_orPaste())
+        clickOrPaste.option(p(trans.common_orPaste()))
       )
 
     private[Mailer] def wrap(subject: String, htmlBody: Frag): Frag =

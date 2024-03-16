@@ -1,13 +1,13 @@
 package lila.notify
 
 import akka.actor.*
+import akka.stream.Materializer
 import com.softwaremill.macwire.*
 import play.api.Configuration
-import akka.stream.Materializer
 
-import lila.db.dsl.Coll
 import lila.common.Bus
 import lila.common.config.*
+import lila.db.dsl.Coll
 
 @Module
 @annotation.nowarn("msg=unused")
@@ -46,7 +46,7 @@ final class Env(
               api.notifyOne(userId, CorresAlarm(gameId = pov.gameId, opponent = opponent))
     },
     "streamStart" -> { case lila.hub.actorApi.streamer.StreamStart(userId, streamerName) =>
-      subsRepo.subscribersOnlineSince(userId, 7) map { subs =>
+      subsRepo.subscribersOnlineSince(userId, 7).map { subs =>
         api.notifyMany(subs, StreamStart(userId, streamerName))
       }
     }

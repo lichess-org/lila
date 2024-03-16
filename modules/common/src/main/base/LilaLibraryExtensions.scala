@@ -2,22 +2,23 @@ package lila.base
 
 import alleycats.Zero
 import com.typesafe.config.Config
-import java.util.concurrent.TimeUnit
-import java.lang.Math.{ max, min }
-import scala.concurrent.{ Await, ExecutionContext as EC }
-import scala.util.matching.Regex
-import scala.util.Try
-
-import java.util.Base64
-import lila.common.Chronometer
 import ornicar.scalalib.extensions.*
+
+import java.lang.Math.{ max, min }
+import java.util.Base64
+import java.util.concurrent.TimeUnit
 import scala.annotation.targetName
+import scala.concurrent.{ Await, ExecutionContext as EC }
+import scala.util.Try
+import scala.util.matching.Regex
+
+import lila.common.Chronometer
 
 trait LilaLibraryExtensions extends LilaTypes:
 
   extension (self: Long)
-    def atLeast(bottomValue: Long): Long       = max(self, bottomValue)
-    def atMost(topValue: Long): Long           = min(self, topValue)
+    infix def atLeast(bottomValue: Long): Long = max(self, bottomValue)
+    infix def atMost(topValue: Long): Long     = min(self, topValue)
     def squeeze(bottom: Long, top: Long): Long = max(min(self, top), bottom)
     def toSaturatedInt: Int =
       if self.toInt == self then self.toInt
@@ -98,20 +99,20 @@ trait LilaLibraryExtensions extends LilaTypes:
     def tailOption: Option[List[A]] = list match
       case Nil       => None
       case _ :: rest => Some(rest)
-    def tailSafe: List[A]         = tailOption getOrElse Nil
-    def indexOption(a: A)         = Option(list indexOf a).filter(0 <= _)
+    def tailSafe: List[A]         = tailOption.getOrElse(Nil)
+    def indexOption(a: A)         = Option(list.indexOf(a)).filter(0 <= _)
     def previous(a: A): Option[A] = indexOption(a).flatMap(i => list.lift(i - 1))
     def next(a: A): Option[A]     = indexOption(a).flatMap(i => list.lift(i + 1))
 
   extension (self: Array[Byte]) def toBase64 = Base64.getEncoder.encodeToString(self)
 
   // run a collection of futures in parallel
-  extension [A](list: List[Fu[A]]) def parallel(using Executor): Fu[List[A]]         = Future sequence list
-  extension [A](vec: Vector[Fu[A]]) def parallel(using Executor): Fu[Vector[A]]      = Future sequence vec
-  extension [A](set: Set[Fu[A]]) def parallel(using Executor): Fu[Set[A]]            = Future sequence set
-  extension [A](seq: Seq[Fu[A]]) def parallel(using Executor): Fu[Seq[A]]            = Future sequence seq
-  extension [A](iter: Iterable[Fu[A]]) def parallel(using Executor): Fu[Iterable[A]] = Future sequence iter
-  extension [A](iter: Iterator[Fu[A]]) def parallel(using Executor): Fu[Iterator[A]] = Future sequence iter
+  extension [A](list: List[Fu[A]]) def parallel(using Executor): Fu[List[A]]         = Future.sequence(list)
+  extension [A](vec: Vector[Fu[A]]) def parallel(using Executor): Fu[Vector[A]]      = Future.sequence(vec)
+  extension [A](set: Set[Fu[A]]) def parallel(using Executor): Fu[Set[A]]            = Future.sequence(set)
+  extension [A](seq: Seq[Fu[A]]) def parallel(using Executor): Fu[Seq[A]]            = Future.sequence(seq)
+  extension [A](iter: Iterable[Fu[A]]) def parallel(using Executor): Fu[Iterable[A]] = Future.sequence(iter)
+  extension [A](iter: Iterator[Fu[A]]) def parallel(using Executor): Fu[Iterator[A]] = Future.sequence(iter)
 
   extension [A](fua: Fu[A])
 
@@ -122,13 +123,13 @@ trait LilaLibraryExtensions extends LilaTypes:
       fua.andThen:
         case _ => sideEffect
 
-    def >>[B](fub: => Fu[B])(using Executor): Fu[B] =
+    infix def >>[B](fub: => Fu[B])(using Executor): Fu[B] =
       fua.flatMap(_ => fub)
 
     inline def void: Fu[Unit] =
       dmap(_ => ())
 
-    inline def inject[B](b: => B): Fu[B] =
+    inline infix def inject[B](b: => B): Fu[B] =
       dmap(_ => b)
 
     def injectAnyway[B](b: => B)(using Executor): Fu[B] = fold(_ => b, _ => b)
@@ -140,10 +141,10 @@ trait LilaLibraryExtensions extends LilaTypes:
         case scala.util.Success(e)            => succ(e)
 
     def fold[B](fail: Exception => B, succ: A => B)(using Executor): Fu[B] =
-      fua map succ recover { case e: Exception => fail(e) }
+      fua.map(succ).recover { case e: Exception => fail(e) }
 
     def flatFold[B](fail: Exception => Fu[B], succ: A => Fu[B])(using Executor): Fu[B] =
-      fua flatMap succ recoverWith { case e: Exception => fail(e) }
+      fua.flatMap(succ).recoverWith { case e: Exception => fail(e) }
 
     def logFailure(logger: => lila.log.Logger, msg: Throwable => String)(using Executor): Fu[A] =
       addFailureEffect: e =>
@@ -157,7 +158,7 @@ trait LilaLibraryExtensions extends LilaTypes:
       fua
 
     def addEffect(effect: A => Unit)(using Executor): Fu[A] =
-      fua foreach effect
+      fua.foreach(effect)
       fua
 
     def addEffects(fail: Exception => Unit, succ: A => Unit)(using Executor): Fu[A] =
@@ -168,7 +169,7 @@ trait LilaLibraryExtensions extends LilaTypes:
       fua
 
     def addEffects(f: Try[A] => Unit)(using Executor): Fu[A] =
-      fua onComplete f
+      fua.onComplete(f)
       fua
 
     def addEffectAnyway(inAnyCase: => Unit)(using Executor): Fu[A] =
@@ -219,20 +220,24 @@ trait LilaLibraryExtensions extends LilaTypes:
 
     def withTimeoutError(
         duration: FiniteDuration,
-        error: => Exception with util.control.NoStackTrace
+        error: => Exception & util.control.NoStackTrace
     )(using Executor)(using scheduler: Scheduler): Fu[A] =
-      Future firstCompletedOf Seq(
-        fua,
-        akka.pattern.after(duration, scheduler)(Future failed error)
+      Future.firstCompletedOf(
+        Seq(
+          fua,
+          akka.pattern.after(duration, scheduler)(Future.failed(error))
+        )
       )
 
     def withTimeoutDefault(
         duration: FiniteDuration,
         default: => A
     )(using Executor)(using scheduler: Scheduler): Fu[A] =
-      Future firstCompletedOf Seq(
-        fua,
-        akka.pattern.after(duration, scheduler)(Future(default))
+      Future.firstCompletedOf(
+        Seq(
+          fua,
+          akka.pattern.after(duration, scheduler)(Future(default))
+        )
       )
 
     def delay(duration: FiniteDuration)(using Executor, Scheduler) =
@@ -250,7 +255,7 @@ trait LilaLibraryExtensions extends LilaTypes:
         .result
     def monValue(path: A => lila.mon.TimerPath): Fu[A] = chronometer.monValue(path).result
 
-    def logTime(name: String): Fu[A]                               = chronometer pp name
+    def logTime(name: String): Fu[A]                               = chronometer.pp(name)
     def logTimeIfGt(name: String, duration: FiniteDuration): Fu[A] = chronometer.ppIfGt(name, duration)
 
     def recoverDefault(using Executor)(using z: Zero[A]): Fu[A] = recoverDefault(z.zero)
@@ -265,18 +270,19 @@ trait LilaLibraryExtensions extends LilaTypes:
 
   extension (fua: Fu[Boolean])
 
-    def >>&(fub: => Fu[Boolean]): Fu[Boolean] =
+    infix def >>&(fub: => Fu[Boolean]): Fu[Boolean] =
       fua.flatMap { if _ then fub else fuFalse }(EC.parasitic)
 
-    def >>|(fub: => Fu[Boolean]): Fu[Boolean] =
+    infix def >>|(fub: => Fu[Boolean]): Fu[Boolean] =
       fua.flatMap { if _ then fuTrue else fub }(EC.parasitic)
 
-    def flatMapz[B](fub: => Fu[B])(using zero: Zero[B]): Fu[B] =
+    infix def flatMapz[B](fub: => Fu[B])(using zero: Zero[B]): Fu[B] =
       fua.flatMap { if _ then fub else fuccess(zero.zero) }(EC.parasitic)
     def mapz[B](fb: => B)(using zero: Zero[B]): Fu[B] =
       fua.map { if _ then fb else zero.zero }(EC.parasitic)
 
-    inline def unary_! = fua.map { !_ }(EC.parasitic)
+    // inline def unary_! = fua.map { !_ }(EC.parasitic)
+    inline def not = fua.map { !_ }(EC.parasitic)
 
   extension [A](fua: Fu[Option[A]])
 
@@ -293,17 +299,17 @@ trait LilaLibraryExtensions extends LilaTypes:
         _.fold(other): x =>
           fuccess(Some(x))
 
-    def getOrElse(other: => Fu[A])(using Executor): Fu[A] = fua flatMap { _.fold(other)(fuccess) }
+    def getOrElse(other: => Fu[A])(using Executor): Fu[A] = fua.flatMap { _.fold(other)(fuccess) }
     @targetName("orZeroFu")
-    def orZeroFu(using z: Zero[A]): Fu[A] = fua.map(_ getOrElse z.zero)(EC.parasitic)
+    def orZeroFu(using z: Zero[A]): Fu[A] = fua.map(_.getOrElse(z.zero))(EC.parasitic)
 
-    def map2[B](f: A => B)(using Executor): Fu[Option[B]] = fua.map(_ map f)
-    def dmap2[B](f: A => B): Fu[Option[B]]                = fua.map(_ map f)(EC.parasitic)
+    def map2[B](f: A => B)(using Executor): Fu[Option[B]] = fua.map(_.map(f))
+    def dmap2[B](f: A => B): Fu[Option[B]]                = fua.map(_.map(f))(EC.parasitic)
 
     def getIfPresent: Option[A] =
       fua.value match
         case Some(scala.util.Success(v)) => v
         case _                           => None
 
-    def mapz[B: Zero](fb: A => B)(using Executor): Fu[B]          = fua.map { _ so fb }
-    def flatMapz[B: Zero](fub: A => Fu[B])(using Executor): Fu[B] = fua.flatMap { _ so fub }
+    def mapz[B: Zero](fb: A => B)(using Executor): Fu[B]                = fua.map { _.so(fb) }
+    infix def flatMapz[B: Zero](fub: A => Fu[B])(using Executor): Fu[B] = fua.flatMap { _.so(fub) }

@@ -11,7 +11,7 @@
   <string name="playOpponentsFromAroundTheWorld">Dünyanın dört bir yanından rakiplerle oyna.</string>
   <string name="followYourFriendsOnLichess">Arkadaşlarını Lichess\'te takip et.</string>
   <string name="playInTournaments">Turnuvalarda oyna.</string>
-  <string name="learnFromXAndY">%1$s\'den ve %2$s\'den öğren.</string>
+  <string name="learnFromXAndY" comment="%1$s is Study&#10;%2$s is Videos&#10;&#10;They are both links to pages titled that way, and the title is used verbatim.">%1$s\'den ve %2$s\'den öğren.</string>
   <string name="configureLichess">Lichess\'i beğenilerinize göre yapılandırın.</string>
   <string name="exploreTheSiteAndHaveFun">Siteyi keşfedin ve eğlenmenize bakın :)</string>
 </resources>

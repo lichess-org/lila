@@ -1,13 +1,13 @@
 package views.html
 package user
 
-import lila.app.templating.Environment.{ given, * }
+import controllers.routes
+
+import lila.app.templating.Environment.{ *, given }
 import lila.app.ui.ScalatagsTemplate.{ *, given }
+import lila.common.licon
 import lila.rating.PerfType
 import lila.user.User
-import lila.common.licon
-
-import controllers.routes
 
 object list:
 
@@ -39,7 +39,7 @@ object list:
               online.map: u =>
                 li(
                   userLink(u),
-                  ctx.pref.showRatings option showBestPerf(u.perfs)
+                  ctx.pref.showRatings.option(showBestPerf(u.perfs))
                 )
           ),
           div(cls := "community__leaders")(
@@ -71,12 +71,16 @@ object list:
       h2(cls := "text", dataIcon := licon.Trophy)(
         a(href := routes.Tournament.leaderboard)(trans.tournament())
       ),
-      ol(winners take 10 map: w =>
-        li(
-          userIdLink(w.userId.some),
-          a(title := w.tourName, href := routes.Tournament.show(w.tourId)):
-            scheduledTournamentNameShortHtml(w.tourName)
-        ))
+      ol(
+        winners
+          .take(10)
+          .map: w =>
+            li(
+              userIdLink(w.userId.some),
+              a(title := w.tourName, href := routes.Tournament.show(w.tourId)):
+                scheduledTournamentNameShortHtml(w.tourName)
+            )
+      )
     )
 
   private def userTopPerf(users: List[User.LightPerf], perfType: PerfType)(using ctx: Context) =
@@ -87,7 +91,7 @@ object list:
       ol(users.map: l =>
         li(
           lightUserLink(l.user),
-          ctx.pref.showRatings option l.rating
+          ctx.pref.showRatings.option(l.rating)
         ))
     )
 

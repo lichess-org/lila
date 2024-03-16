@@ -21,7 +21,7 @@ object BsonHandlers:
         swissId = r.get(swissId),
         userId = r.get(userId),
         rating = r.get[IntRating](rating),
-        provisional = r yesnoD provisional,
+        provisional = r.yesnoD(provisional),
         points = r.get[SwissPoints](points),
         tieBreak = r.get[Swiss.TieBreak](tieBreak),
         performance = r.getO[Swiss.Performance](performance),
@@ -70,7 +70,7 @@ object BsonHandlers:
             status = r.getO[SwissPairing.Status](status) | Right(none),
             isForfeit = r.boolD(isForfeit)
           )
-        case _ => sys error "Invalid swiss pairing users"
+        case _ => sys.error("Invalid swiss pairing users")
     def writes(w: BSON.Writer, o: SwissPairing) =
       $doc(
         id        -> o.id,
@@ -116,9 +116,11 @@ object BsonHandlers:
   // "featurable" mostly means that the tournament isn't over yet
   def addFeaturable(s: Swiss): Bdoc =
     bsonWriteObjTry[Swiss](s).get ++ {
-      s.isNotFinished so $doc(
-        "featurable" -> true,
-        "garbage"    -> s.unrealisticSettings.option(true)
+      s.isNotFinished.so(
+        $doc(
+          "featurable" -> true,
+          "garbage"    -> s.unrealisticSettings.option(true)
+        )
       )
     }
 

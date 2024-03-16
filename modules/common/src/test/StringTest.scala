@@ -17,7 +17,7 @@ class StringTest extends munit.FunSuite:
     """יריבך עזב את המשחק. באפשרותך לכפות פרישה, להכריז על תיקו או להמתין לו."""
   )
 
-  val rms = String.removeMultibyteSymbols _
+  val rms = String.removeMultibyteSymbols
   test("remove multibyte garbage") {
     assertEquals(rms("""🕸Trampas en Aperturas🕸: INTRO👋"""), "Trampas en Aperturas: INTRO")
     assertEquals(

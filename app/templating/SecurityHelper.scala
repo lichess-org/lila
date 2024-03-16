@@ -2,9 +2,8 @@ package lila.app
 package templating
 
 import lila.app.ui.ScalatagsTemplate.*
-
 import lila.security.{ Granter, Permission }
-import lila.user.{ User, Me }
+import lila.user.{ Me, User }
 
 trait SecurityHelper:
 
@@ -22,4 +21,4 @@ trait SecurityHelper:
   def reportScore(score: lila.report.Report.Score): Frag =
     span(cls := s"score ${score.color}")(score.value.toInt)
 
-  def canCloseAlt(using me: Option[Me]): Boolean = me soUse Granter.canCloseAlt
+  def canCloseAlt(using me: Option[Me]): Boolean = me.soUse(Granter.canCloseAlt)

@@ -53,7 +53,7 @@ interface EmergSound {
 
 export class ClockController {
   emergSound: EmergSound = {
-    play: () => lichess.sound.play('lowTime'),
+    play: () => site.sound.play('lowTime'),
     delay: 20000,
     playable: {
       white: true,
@@ -185,7 +185,7 @@ export class ClockController {
         simplePlural(date.getUTCSeconds(), 'second');
       return `${color} ${msg}`;
     });
-    lichess.sound.say(msgs.join('. '));
+    site.sound.say(msgs.join('. '));
   };
 }
 

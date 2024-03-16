@@ -1,6 +1,7 @@
 package lila.user
 
 import java.nio.charset.StandardCharsets.UTF_8
+
 import User.TotpToken
 
 class TotpTest extends munit.FunSuite:

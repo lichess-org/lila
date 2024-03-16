@@ -53,7 +53,7 @@
   <string name="allSyncMembersRemainOnTheSamePosition">Tous les membres SYNC demeurent sur la même position</string>
   <string name="shareChanges">Partager les changements avec les spectateurs et les enregistrer sur le serveur</string>
   <string name="playing">En cours</string>
-  <string name="showEvalBar">Barres d’évaluation</string>
+  <string name="showEvalBar">Barre d’évaluation</string>
   <string name="first">Premier</string>
   <string name="previous">Précédent</string>
   <string name="next">Suivant</string>
@@ -85,7 +85,7 @@
   <string name="pinnedChapterComment">Commentaire du chapitre épinglé</string>
   <string name="saveChapter">Enregistrer le chapitre</string>
   <string name="clearAnnotations">Effacer les annotations</string>
-  <string name="clearVariations">Supprimer les variantes</string>
+  <string name="clearVariations" comment="Clear is used as a verb here. This erases the variations in the study (https://lichess.org/study) you are preparing.">Supprimer les variantes</string>
   <string name="deleteChapter">Supprimer le chapitre</string>
   <string name="deleteThisChapter">Supprimer ce chapitre ? Cette action est irréversible !</string>
   <string name="clearAllCommentsInThisChapter">Effacer tous les commentaires et annotations dans ce chapitre ?</string>

@@ -11,7 +11,9 @@ trait LilaUserId:
       inline def is[T: UserIdOf](other: T)         = u.id == other.id
       inline def isnt[T: UserIdOf](other: T)       = u.id != other.id
       inline def is[T: UserIdOf](other: Option[T]) = other.exists(_.id == u.id)
+      inline def isMe: Boolean                     = u.id == "me"
 
+  // the id of a user, always lowercased
   opaque type UserId = String
   object UserId extends OpaqueString[UserId]:
     given UserIdOf[UserId] = _.value
@@ -19,13 +21,12 @@ trait LilaUserId:
   // specialized UserIds like Coach.Id
   trait OpaqueUserId[A] extends OpaqueString[A]:
     given UserIdOf[A]                          = _.value
-    extension (a: A) inline def userId: UserId = a into UserId
+    extension (a: A) inline def userId: UserId = a.into(UserId)
 
   // Properly cased for display
   opaque type UserName = String
   object UserName extends OpaqueString[UserName]:
-    given UserIdOf[UserName]  = n => UserId(n.value.toLowerCase)
-    given cats.Show[UserName] = _.value
+    given UserIdOf[UserName] = n => UserId(n.value.toLowerCase)
 
   // maybe an Id, maybe a Name... something that's probably cased wrong
   opaque type UserStr = String
@@ -33,7 +34,7 @@ trait LilaUserId:
     given UserIdOf[UserStr] = n => UserId(n.value.toLowerCase)
     def read(str: String): Option[UserStr] =
       val clean = str.trim.takeWhile(' ' !=)
-      if clean.lengthIs > 1 then Some(UserStr(clean)) else None
+      Option.when(clean.lengthIs > 1)(UserStr(clean))
 
   // the prefix, or entirety, of a user name.
   // "chess-" is a valid username prefix, but not a valid username

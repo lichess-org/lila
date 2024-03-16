@@ -7,7 +7,7 @@ export default function makeCtrl(opts: NotifyOpts, redraw: Redraw): Ctrl {
     initiating = true,
     scrolling = false;
 
-  const readAllStorage = lichess.storage.make('notify-read-all');
+  const readAllStorage = site.storage.make('notify-read-all');
 
   readAllStorage.listen(_ => setAllRead(false));
 
@@ -29,15 +29,15 @@ export default function makeCtrl(opts: NotifyOpts, redraw: Redraw): Ctrl {
 
   function attention() {
     const id = data?.pager.currentPageResults.find(n => !n.read)?.content.user?.id;
-    const playBell = lichess.storage.boolean('playBellSound').getOrDefault(true);
-    if ((!lichess.quietMode || id == 'lichess') && playBell) lichess.sound.playOnce('newPM');
+    const playBell = site.storage.boolean('playBellSound').getOrDefault(true);
+    if ((!site.quietMode || id == 'lichess') && playBell) site.sound.playOnce('newPM');
     opts.pulse();
   }
 
   const loadPage = (page: number) =>
     xhr.json(xhr.url('/notify', { page: page || 1 })).then(
       d => update(d),
-      _ => lichess.announce({ msg: 'Failed to load notifications' }),
+      _ => site.announce({ msg: 'Failed to load notifications' }),
     );
 
   function nextPage() {
@@ -93,7 +93,7 @@ export default function makeCtrl(opts: NotifyOpts, redraw: Redraw): Ctrl {
   function clear() {
     xhr.text('/notify/clear', { method: 'post' }).then(
       _ => update(emptyNotifyData),
-      _ => lichess.announce({ msg: 'Failed to clear notifications' }),
+      _ => site.announce({ msg: 'Failed to clear notifications' }),
     );
   }
 

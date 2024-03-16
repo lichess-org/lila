@@ -69,7 +69,7 @@ export function roundSvg(url: string) {
 }
 
 export function withLinebreaks(text: string) {
-  return m.trust(lichess.escapeHtml(text).replace(/\n/g, '<br>'));
+  return m.trust(site.escapeHtml(text).replace(/\n/g, '<br>'));
 }
 
 export function decomposeUci(uci: string) {

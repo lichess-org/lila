@@ -1,15 +1,15 @@
 package lila.puzzle
 
-import lila.rating.glicko2
+import chess.Mode
+
 import scala.util.chaining.*
 
 import lila.common.Bus
-import lila.db.dsl.{ *, given }
-import lila.rating.{ Glicko, Perf, PerfType }
-import lila.user.{ Me, UserRepo, UserPerfsRepo }
-import chess.Mode
 import lila.common.config.Max
+import lila.db.dsl.{ *, given }
 import lila.puzzle.PuzzleForm.batch.Solution
+import lila.rating.{ Glicko, Perf, PerfType, glicko2 }
+import lila.user.{ Me, UserPerfsRepo, UserRepo }
 
 final private[puzzle] class PuzzleFinisher(
     api: PuzzleApi,
@@ -33,7 +33,7 @@ final private[puzzle] class PuzzleFinisher(
     solutions
       .foldM((perf, List.empty[(PuzzleRound, IntRatingDiff)])):
         case ((perf, rounds), sol) =>
-          apply(sol.id, angle, sol.win, sol.mode).map:
+          apply(sol.id, angle, sol.win, sol.mode)(using me, perf).map:
             case Some((round, newPerf)) =>
               val rDiff = IntRatingDiff(newPerf.intRating.value - perf.intRating.value)
               (newPerf, (round, rDiff) :: rounds)
@@ -48,17 +48,17 @@ final private[puzzle] class PuzzleFinisher(
       mode: Mode
   )(using me: Me, perf: Perf): Fu[Option[(PuzzleRound, Perf)]] =
     if api.casual(me.value, id) then
-      fuccess {
-        PuzzleRound(
-          id = PuzzleRound.Id(me.userId, id),
-          win = win,
-          fixedAt = none,
-          date = nowInstant
-        ) -> perf
-      } dmap some
+      fuccess:
+        some:
+          PuzzleRound(
+            id = PuzzleRound.Id(me.userId, id),
+            win = win,
+            fixedAt = none,
+            date = nowInstant
+          ) -> perf
     else
       sequencer(id):
-        api.round.find(me.value, id) zip api.puzzle.find(id) flatMap {
+        api.round.find(me.value, id).zip(api.puzzle.find(id)).flatMap {
           case (_, None) => fuccess(none)
           case (prevRound, Some(puzzle)) =>
             val now = nowInstant
@@ -79,7 +79,7 @@ final private[puzzle] class PuzzleFinisher(
                 case None =>
                   val userRating = perf.toRating
                   val puzzleRating = glicko2.Rating(
-                    puzzle.glicko.rating atLeast Glicko.minRating.value,
+                    puzzle.glicko.rating.atLeast(Glicko.minRating.value),
                     puzzle.glicko.deviation,
                     puzzle.glicko.volatility,
                     puzzle.plays,
@@ -89,22 +89,24 @@ final private[puzzle] class PuzzleFinisher(
                   perfsRepo
                     .dubiousPuzzle(me.userId, perf)
                     .map: dubiousPuzzleRating =>
-                      val newPuzzleGlicko = !dubiousPuzzleRating so ponder
-                        .puzzle(
-                          angle,
-                          win,
-                          puzzle.glicko -> Glicko(
-                            rating = puzzleRating.rating
-                              .atMost(puzzle.glicko.rating + Glicko.maxRatingDelta)
-                              .atLeast(puzzle.glicko.rating - Glicko.maxRatingDelta),
-                            deviation = puzzleRating.ratingDeviation,
-                            volatility = puzzleRating.volatility
-                          ).cap,
-                          player = perf.glicko
-                        )
-                        .some
-                        .filter(puzzle.glicko !=)
-                        .filter(_.sanityCheck)
+                      val newPuzzleGlicko = (!dubiousPuzzleRating).so(
+                        ponder
+                          .puzzle(
+                            angle,
+                            win,
+                            puzzle.glicko -> Glicko(
+                              rating = puzzleRating.rating
+                                .atMost(puzzle.glicko.rating + Glicko.maxRatingDelta)
+                                .atLeast(puzzle.glicko.rating - Glicko.maxRatingDelta),
+                              deviation = puzzleRating.ratingDeviation,
+                              volatility = puzzleRating.volatility
+                            ).cap,
+                            player = perf.glicko
+                          )
+                          .some
+                          .filter(puzzle.glicko !=)
+                          .filter(_.sanityCheck)
+                      )
                       val round =
                         PuzzleRound(
                           id = PuzzleRound.Id(me.userId, puzzle.id),
@@ -112,16 +114,15 @@ final private[puzzle] class PuzzleFinisher(
                           fixedAt = none,
                           date = now
                         )
-                      val userPerf =
-                        perf
-                          .addOrReset(_.puzzle.crazyGlicko, s"puzzle ${puzzle.id}")(userRating, now) pipe {
-                          p =>
-                            p.copy(glicko = ponder.player(angle, win, perf.glicko -> p.glicko, puzzle.glicko))
-                        }
+                      val userPerf = perf
+                        .addOrReset(_.puzzle.crazyGlicko, s"puzzle ${puzzle.id}")(userRating, now)
+                        .pipe: p =>
+                          p.copy(glicko = ponder.player(angle, win, perf.glicko -> p.glicko, puzzle.glicko))
                       (round, newPuzzleGlicko, userPerf)
               .flatMap: (round, newPuzzleGlicko, userPerf) =>
-                api.round.upsert(round, angle) zip
-                  colls.puzzle {
+                api.round
+                  .upsert(round, angle)
+                  .zip(colls.puzzle {
                     _.update
                       .one(
                         $id(puzzle.id),
@@ -130,11 +131,13 @@ final private[puzzle] class PuzzleFinisher(
                         }
                       )
                       .void
-                  } zip
-                  (userPerf != perf).so {
-                    perfsRepo.setPerf(me.userId, PerfType.Puzzle, userPerf.clearRecent) zip
-                      historyApi.addPuzzle(user = me.value, completedAt = now, perf = userPerf) void
-                  } andDo {
+                  })
+                  .zip((userPerf != perf).so {
+                    perfsRepo
+                      .setPerf(me.userId, PerfType.Puzzle, userPerf.clearRecent)
+                      .zip(historyApi.addPuzzle(user = me.value, completedAt = now, perf = userPerf)) void
+                  })
+                  .andDo {
                     if prevRound.isEmpty then
                       Bus.publish(
                         Puzzle
@@ -146,7 +149,8 @@ final private[puzzle] class PuzzleFinisher(
                           ),
                         "finishPuzzle"
                       )
-                  } inject (round -> userPerf).some
+                  }
+                  .inject((round -> userPerf).some)
         }
 
   private object ponder:
@@ -189,7 +193,7 @@ final private[puzzle] class PuzzleFinisher(
     def player(angle: PuzzleAngle, win: PuzzleWin, glicko: (Glicko, Glicko), puzzle: Glicko) =
       val provisionalPuzzle = puzzle.provisional.yes.so:
         if win.yes then -0.2f else -0.7f
-      glicko._1.average(glicko._2, (weightOf(angle, win) + provisionalPuzzle) atLeast 0.1f)
+      glicko._1.average(glicko._2, (weightOf(angle, win) + provisionalPuzzle).atLeast(0.1f))
 
     def puzzle(angle: PuzzleAngle, win: PuzzleWin, glicko: (Glicko, Glicko), player: Glicko) =
       if player.clueless then glicko._1

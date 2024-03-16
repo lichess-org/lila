@@ -26,21 +26,20 @@
     ol,
     ul {
       margin: $element-margin 0;
-      padding-#{$start-direction}: 0.5em;
+      padding-#{$start-direction}: 2em;
     }
 
     li ol,
     li ul {
       margin: 0;
-      padding-#{$start-direction}: 2em;
     }
 
     ol > li {
-      list-style: decimal inside;
+      list-style: decimal;
     }
 
     ul > li {
-      list-style: disc inside;
+      list-style: disc;
     }
 
     li p {

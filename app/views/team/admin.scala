@@ -1,11 +1,11 @@
 package views.html.team
 
 import controllers.routes
-import controllers.team.routes.{ Team as teamRoutes }
+import controllers.team.routes.Team as teamRoutes
 import play.api.data.{ Field, Form }
 import play.api.i18n.Lang
 
-import lila.app.templating.Environment.{ given, * }
+import lila.app.templating.Environment.{ *, given }
 import lila.app.ui.ScalatagsTemplate.{ *, given }
 import lila.team.{ Team, TeamSecurity }
 
@@ -141,24 +141,26 @@ $('#form3-message').val($('#form3-message').val() + e.target.dataset.copyurl + '
         div(cls := "page-menu__content box box-pad")(
           adminTop(t, messageAllMembers()),
           p(messageAllMembersLongDescription()),
-          tours.nonEmpty option div(cls := "tournaments")(
-            p(youWayWantToLinkOneOfTheseTournaments()),
-            p:
-              ul:
-                tours.map: t =>
-                  li(
-                    tournamentLink(t),
-                    " ",
-                    momentFromNow(t.startsAt),
-                    " ",
-                    a(
-                      dataIcon     := licon.Forward,
-                      cls          := "text copy-url-button",
-                      data.copyurl := s"${netConfig.domain}${routes.Tournament.show(t.id).url}"
+          tours.nonEmpty.option(
+            div(cls := "tournaments")(
+              p(youWayWantToLinkOneOfTheseTournaments()),
+              p:
+                ul:
+                  tours.map: t =>
+                    li(
+                      tournamentLink(t),
+                      " ",
+                      momentFromNow(t.startsAt),
+                      " ",
+                      a(
+                        dataIcon     := licon.Forward,
+                        cls          := "text copy-url-button",
+                        data.copyurl := s"${netConfig.domain}${routes.Tournament.show(t.id).url}"
+                      )
                     )
-                  )
-            ,
-            br
+              ,
+              br
+            )
           ),
           postForm(cls := "form3", action := teamRoutes.pmAllSubmit(t.id))(
             form3.group(
@@ -188,7 +190,7 @@ $('#form3-message').val($('#form3-message').val() + e.target.dataset.copyurl + '
                   ),
                   form3.actions(
                     a(href := teamRoutes.show(t.slug))(trans.cancel()),
-                    remaining > 0 option form3.submit(trans.send())
+                    (remaining > 0).option(form3.submit(trans.send()))
                   )
                 )
           )

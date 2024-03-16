@@ -3,7 +3,7 @@ package html.puzzle
 
 import controllers.routes
 
-import lila.app.templating.Environment.{ given, * }
+import lila.app.templating.Environment.{ *, given }
 import lila.app.ui.ScalatagsTemplate.{ *, given }
 import lila.common.paginator.Paginator
 import lila.puzzle.PuzzleHistory.{ PuzzleSession, SessionRound }
@@ -14,7 +14,7 @@ object history:
 
   def apply(user: User, pager: Paginator[PuzzleSession])(using ctx: PageContext) =
     val title =
-      if ctx is user then trans.puzzle.history.txt()
+      if ctx.is(user) then trans.puzzle.history.txt()
       else s"${user.username} ${trans.puzzle.history.txt()}"
     views.html.base.layout(
       title = title,
@@ -27,7 +27,7 @@ object history:
           h1(cls := "box__top")(title),
           div(cls := "puzzle-history")(
             div(cls := "infinite-scroll")(
-              pager.currentPageResults map renderSession,
+              pager.currentPageResults.map(renderSession),
               pagerNext(pager, np => routes.Puzzle.history(np, user.username.some).url)
             )
           )
@@ -41,7 +41,7 @@ object history:
         strong(PuzzleTheme(session.theme).name()),
         momentFromNow(session.puzzles.head.round.date)
       ),
-      div(cls := "puzzle-history__session__rounds")(session.puzzles.toList.reverse map renderRound)
+      div(cls := "puzzle-history__session__rounds")(session.puzzles.toList.reverse.map(renderRound))
     )
 
   private def renderRound(r: SessionRound)(using PageContext) =

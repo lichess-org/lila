@@ -21,10 +21,9 @@
   <string name="fromXToY">trà u %1$s è u %2$s</string>
   <string name="winningStreak">Seria di vittorie</string>
   <string name="losingStreak">Seria di scunfitte</string>
-  <string name="longestStreak" comment="%s is the string (number of games OR time spent playing, e.g. 4 hours non-stop play)&#10;String used to describe the longest consecutive winning &amp; losing streak of games. It is also used for a  streak of time spent playing.">A più longa seria:%s</string>
+  <string name="longestStreak">A più longa seria:%s</string>
   <string name="currentStreak">Seria attuale: %s</string>
   <string name="bestRated">E vittorie contru à i ghjucadori cù a classifica a più alta</string>
-  <string name="worstRated">E scunfitte contru à i ghjucadori cù a classifica a più bassa</string>
   <string name="gamesInARow">Partite ghjucate à a fila</string>
   <string name="lessThanOneHour">Menu d\' una ora trà e partite</string>
   <string name="maxTimePlaying">Tempu massimu passatu à ghjucà</string>

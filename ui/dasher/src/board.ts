@@ -23,7 +23,7 @@ export class BoardCtrl {
     () =>
       xhr
         .text('/pref/zoom?v=' + this.readZoom(), { method: 'post' })
-        .catch(() => lichess.announce({ msg: 'Failed to save zoom' })),
+        .catch(() => site.announce({ msg: 'Failed to save zoom' })),
     1000,
   );
 
@@ -31,7 +31,7 @@ export class BoardCtrl {
     this.data.is3d = v;
     xhr
       .text('/pref/is3d', { body: xhr.form({ is3d: v }), method: 'post' })
-      .then(lichess.reload, _ => lichess.announce({ msg: 'Failed to save geometry  preference' }));
+      .then(site.reload, _ => site.announce({ msg: 'Failed to save geometry  preference' }));
     this.redraw();
   };
 

@@ -85,7 +85,7 @@
   <string name="pinnedChapterComment">Koment kapitulli i fiksuar</string>
   <string name="saveChapter">Ruaje kapitullin</string>
   <string name="clearAnnotations">Spastro shënimet</string>
-  <string name="clearVariations">Spastroji variantet</string>
+  <string name="clearVariations" comment="Clear is used as a verb here. This erases the variations in the study (https://lichess.org/study) you are preparing.">Spastroji variantet</string>
   <string name="deleteChapter">Fshije kapitullin</string>
   <string name="deleteThisChapter">Të fshihet ky kapitull? S’ka kthim mbrapa!</string>
   <string name="clearAllCommentsInThisChapter">Të spastrohen krejt komentet, glifet dhe format e vizatuara në këtë kapitull?</string>

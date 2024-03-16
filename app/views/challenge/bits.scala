@@ -1,13 +1,11 @@
 package views.html.challenge
 
-import play.api.libs.json.{ Json, JsObject }
+import controllers.routes
+import play.api.libs.json.{ JsObject, Json }
 
-import lila.app.templating.Environment.{ given, * }
+import lila.app.templating.Environment.{ *, given }
 import lila.app.ui.ScalatagsTemplate.{ *, given }
 import lila.challenge.Challenge
-import lila.common.String.html.safeJsonValue
-
-import controllers.routes
 
 object bits:
 
@@ -39,7 +37,7 @@ object bits:
         )
       ),
       div(cls := "mode")(
-        c.open.fold(c.colorChoice.some)(_.colorFor(requestedColor)) map { colorChoice =>
+        c.open.fold(c.colorChoice.some)(_.colorFor(requestedColor)).map { colorChoice =>
           frag(colorChoice.trans(), br)
         },
         modeName(c.mode)

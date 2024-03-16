@@ -39,7 +39,7 @@ export default function (showText: (ctrl: SimulCtrl) => VNode | false) {
                           if (ctrl.data.variants.length === 1)
                             xhr.join(ctrl.data.id, ctrl.data.variants[0].key);
                           else
-                            lichess.dialog
+                            site.dialog
                               .dom({
                                 cash: $('.simul .continue-with'),
                               })
@@ -75,7 +75,7 @@ export default function (showText: (ctrl: SimulCtrl) => VNode | false) {
           h('p.instructions', 'Share this page URL to let people enter the simul!'),
       h(
         'div.halves',
-        { hook: { postpatch: (_old, vnode) => lichess.powertip.manualUserIn(vnode.elm as HTMLElement) } },
+        { hook: { postpatch: (_old, vnode) => site.powertip.manualUserIn(vnode.elm as HTMLElement) } },
         [
           h(
             'div.half.candidates',

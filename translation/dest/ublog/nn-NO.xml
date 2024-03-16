@@ -52,4 +52,5 @@
   <string name="inappropriateContentAccountClosed">Upassande innhald kan føre til at brukarkontoen din blir stengd.</string>
   <string name="blogTips">Våre enkle tips for å skriva gode blogginnlegg</string>
   <string name="discussThisBlogPostInTheForum">Diskuter dette blogginnlegget i forumet</string>
+  <string name="youBlockedByBlogAuthor">Bloggforfattaren har blokkert deg.</string>
 </resources>

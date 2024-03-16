@@ -1,9 +1,9 @@
 package views.html.video
 
-import lila.app.templating.Environment.{ given, * }
-import lila.app.ui.ScalatagsTemplate.{ *, given }
-
 import controllers.routes
+
+import lila.app.templating.Environment.{ *, given }
+import lila.app.ui.ScalatagsTemplate.{ *, given }
 
 object layout:
 
@@ -30,10 +30,11 @@ object layout:
                   "full"    -> (checked || t.nb > 0),
                   "empty"   -> !(checked || t.nb > 0)
                 ),
-                href := (checked || t.nb > 0) option s"${routes.Video.index}?${control.toggleTag(t.tag).queryString}"
+                href := (checked || t.nb > 0)
+                  .option(s"${routes.Video.index}?${control.toggleTag(t.tag).queryString}")
               )(
                 span(t.tag.capitalize),
-                (!checked && t.nb > 0) option em(t.nb)
+                (!checked && t.nb > 0).option(em(t.nb))
               )
           ),
           div(cls := "under-tags")(

@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+  <string name="swiss">Sveitsiläinen</string>
   <string name="swissTournaments">Sveitsiläiset turnaukset</string>
   <plurals name="viewAllXRounds" comment="viewAllXRounds [one] [other]&#10;&#10;%s is the number of rounds in the Swiss tournament.">
     <item quantity="one">Näytä kierros</item>
@@ -38,6 +39,8 @@
   <string name="roundInterval">Kierrosten välinen aika</string>
   <string name="forbiddenPairings">Kielletyt parit</string>
   <string name="forbiddenPairingsHelp">Määritä pelaajat, joiden ei tule pelata toisiaan vastaan (esim. sisarukset). Kirjoita kullekin riville kaksi käyttäjätunnusta välilyönnillä erotettuna.</string>
+  <string name="mustHavePlayedTheirLastSwissGame">Viimeisin sveitsiläisturnauspeli täytyy olla pelattu</string>
+  <string name="mustHavePlayedTheirLastSwissGameHelp">Anna vain niiden pelaajien liittyä, jotka pelasivat edellisen pelinsä sveitsiläisessä turnauksessa. Jos he eivät tulleet pelaamaan edeltävään sveitsiläiseen turnaukseen, he eivät myöskään pysty liittymään sinun turnaukseesi. Tällä tavoin sveitsiläisten turnausten pelikokemus on parempi niille pelaajille, jotka ilmoittauduttuaan myös tulevat pelaamaan.</string>
   <string name="newSwiss">Uusi sveitsiläinen turnaus</string>
   <string name="swissVsArenaQ">Milloin kannattaa pelata sveitsiläisiä turnauksia areenaturnauksien sijaan?</string>
   <string name="swissVsArenaA">Sveitsiläisessä turnauksessa kaikki osallistujat pelaavat saman määrän pelejä ja kohtaavat toisensa korkeintaan kerran.
@@ -96,7 +99,7 @@ Lähimmäksi täyskierrosturnausta pääsee pelaamalla sveitsiläisessä turnauk
   <string name="numberOfGamesPreDefined">Ennalta määritelty, kaikille pelaajille sama</string>
   <string name="pairingSystem">Parien muodostus</string>
   <string name="pairingSystemArena">Kuka tahansa vastustaja, jonka sijoitus on lähellä omaasi</string>
-  <string name="pairingSystemSwiss">Pisteiden ja muiden sijoituskriteerien perusteella sopivin pari</string>
+  <string name="pairingSystemSwiss">Pisteiden ja vertailupisteiden perusteella sopivin pari</string>
   <string name="pairingWaitTime">Parin odotusaika</string>
   <string name="pairingWaitTimeArena">Nopea: ei odota kaikkia pelaajia</string>
   <string name="pairingWaitTimeSwiss">Hidas: odottaa kaikkia pelaajia</string>
@@ -113,4 +116,6 @@ Lähimmäksi täyskierrosturnausta pääsee pelaamalla sveitsiläisessä turnauk
   <string name="predefinedUsers">Vain ennalta valitut pelaajat saavat osallistua</string>
   <string name="forbiddedUsers">Jos lista ei ole tyhjä, turnaukseen ei voi osallistua kukaan muu kuin listalla luetellut pelaajat. Yksi käyttäjätunnus riviä kohden.</string>
   <string name="playYourGames">Pelaa enemmän pelejä</string>
+  <string name="absences">Poisjäännit</string>
+  <string name="tieBreak">Vertailu</string>
 </resources>

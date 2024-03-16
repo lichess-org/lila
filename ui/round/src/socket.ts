@@ -45,7 +45,7 @@ function backoff(delay: number, factor: number, callback: Callback): Callback {
 }
 
 export function make(send: SocketSend, ctrl: RoundController): RoundSocket {
-  lichess.socket.sign(ctrl.sign);
+  site.socket.sign(ctrl.sign);
 
   const reload = (o?: Incoming, isRetry?: boolean) => {
     // avoid reload if possible!
@@ -54,13 +54,13 @@ export function make(send: SocketSend, ctrl: RoundController): RoundSocket {
       handlers[o.t]!(o.d);
     } else
       xhr.reload(ctrl).then(data => {
-        if (lichess.socket.getVersion() > data.player.version) {
+        if (site.socket.getVersion() > data.player.version) {
           // race condition! try to reload again
-          if (isRetry) lichess.reload();
+          if (isRetry) site.reload();
           // give up and reload the page
           else reload(o, true);
         } else ctrl.reload(data);
-      }, lichess.reload);
+      }, site.reload);
   };
 
   const handlers: SocketHandlers = {
@@ -139,12 +139,12 @@ export function make(send: SocketSend, ctrl: RoundController): RoundSocket {
         !game.isPlayerTurn(ctrl.data)
       ) {
         ctrl.setRedirecting();
-        lichess.sound.play('move');
+        site.sound.play('move');
         location.href = '/' + gameId;
       }
     },
     simulEnd(simul: game.Simul) {
-      lichess.dialog.dom({
+      site.dialog.dom({
         htmlText:
           '<div><p>Simul complete!</p><br /><br />' +
           `<a class="button" href="/simul/${simul.id}">Back to ${simul.name} simul</a></div>`,
@@ -152,7 +152,7 @@ export function make(send: SocketSend, ctrl: RoundController): RoundSocket {
     },
   };
 
-  lichess.pubsub.on('ab.rep', n => send('rep', { n }));
+  site.pubsub.on('ab.rep', n => send('rep', { n }));
 
   return {
     send,

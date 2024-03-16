@@ -276,6 +276,7 @@
   <string name="abortGame">Abortar partida</string>
   <string name="gameAborted">Partida abortada</string>
   <string name="standard">Estándar</string>
+  <string name="customPosition">Posición á medida</string>
   <string name="unlimited">Ilimitado</string>
   <string name="mode">Modo</string>
   <string name="casual">Amigable</string>
@@ -531,7 +532,7 @@
   <string name="automaticallyProceedToNextGameAfterMoving">Pasar automaticamente á seguinte partida despois de mover</string>
   <string name="autoSwitch">Auto-cambio</string>
   <string name="puzzles">Problemas</string>
-  <string name="tournamentWinners">Gañadores do torneo</string>
+  <string name="onlineBots">Bots en liña</string>
   <string name="name">Nome</string>
   <string name="description">Descrición</string>
   <string name="descPrivate">Descrición privada</string>
@@ -705,6 +706,7 @@
   <string name="toggleVariationArrows">Activar/desactivar as frechas das variantes</string>
   <string name="cyclePreviousOrNextVariation">Variante anterior/seguinte</string>
   <string name="toggleGlyphAnnotations">Activar/desactivar as anotacións con símbolos</string>
+  <string name="togglePositionAnnotations">Alternar anotaciones de posición</string>
   <string name="variationArrowsInfo">As frechas das variantes permítenche navegar sen usar a lista de movementos.</string>
   <string name="playSelectedMove">facer a xogada seleccionada</string>
   <string name="newTournament">Novo torneo</string>
@@ -939,8 +941,6 @@ e afectan ás puntuacións dos xogadores</string>
   <string name="minimumRatedGames">Mínimo de partidas puntuadas</string>
   <string name="minimumRating">Puntuación mínima</string>
   <string name="maximumWeeklyRating">Máxima puntuación semanal</string>
-  <string name="onlyTitled">Só xogadores con título</string>
-  <string name="onlyTitledHelp">É necesario un título oficial para unirse ó torneo</string>
   <string name="positionInputHelp">Pega un FEN válido para comezar as partidas dende unha posición determinada.
 Só funciona en partidas estándar, non en variantes.
 Podes empregar o %s para xerar unha posición FEN e despois pegala aquí.
@@ -989,4 +989,5 @@ Deixa en branco para comezar as partidas dende a posición inicial normal.</stri
   <string name="showMeEverything">Amósamo todo</string>
   <string name="lichessPatronInfo">Lichess é unha organización benéfica e un programa totalmente libre e de código aberto.
 Todos os custos de funcionamento, desenvolvemento e contidos fináncianse unicamente mediante as doazóns dos usuarios.</string>
+  <string name="nothingToSeeHere">Nada que ver aquí polo de agora.</string>
 </resources>

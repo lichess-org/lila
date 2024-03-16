@@ -21,7 +21,7 @@
   <string name="result">نتیجه</string>
   <string name="winnerColor">رنگ مهره های بازیکن برنده</string>
   <string name="date">تاریخ</string>
-  <string name="sortBy">مرتب کردن بر اساس</string>
+  <string name="sortBy">مرتب‌سازی بر اساس</string>
   <string name="analysis">برسی بازی</string>
   <string name="onlyAnalysed">فقط بازی هایی که تجزیه و تحلیل کامپیوتر در آنها موجود است</string>
   <string name="color">رنگ</string>
@@ -35,5 +35,5 @@
     <item quantity="one">%s بازی یافت شد</item>
     <item quantity="other">%s بازی یافت شد</item>
   </plurals>
-  <string name="ratingExplanation">میانگین ریتینگ هر دو بازیکن</string>
+  <string name="ratingExplanation">میانگین درجه‌بندی دو بازیکن</string>
 </resources>

@@ -11,7 +11,7 @@
   <string name="playOpponentsFromAroundTheWorld">Joacă împotriva adversarilor din întreaga lume.</string>
   <string name="followYourFriendsOnLichess">Urmărește-ți prietenii pe Lichess.</string>
   <string name="playInTournaments">Joacă în turnee.</string>
-  <string name="learnFromXAndY">Învață de la %1$s și %2$s.</string>
+  <string name="learnFromXAndY" comment="%1$s is Study&#10;%2$s is Videos&#10;&#10;They are both links to pages titled that way, and the title is used verbatim.">Învață de la %1$s și %2$s.</string>
   <string name="configureLichess">Configurează Lichess după preferințele tale.</string>
   <string name="exploreTheSiteAndHaveFun">Explorează site-ul și distrează-te :)</string>
 </resources>

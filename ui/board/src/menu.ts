@@ -51,7 +51,7 @@ export class BoardMenu {
       name: 'Zen mode',
       id: 'zen',
       checked: $('body').hasClass('zen'),
-      change: () => lichess.pubsub.emit('zen'),
+      change: () => site.pubsub.emit('zen'),
       disabled: !enabled,
     });
 

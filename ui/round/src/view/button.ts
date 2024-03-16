@@ -196,7 +196,7 @@ export function backToTournament(ctrl: RoundController) {
         ctrl.noarg('backToTournament'),
       ),
       h('form', { attrs: { method: 'post', action: '/tournament/' + d.tournament.id + '/withdraw' } }, [
-        h('button.text.fbt.weak', util.justIcon(licon.Pause), 'Pause'),
+        h('button.text.fbt.weak', util.justIcon(licon.Pause), ctrl.noarg('pause')),
       ]),
       analysisButton(ctrl),
     ])
@@ -286,4 +286,4 @@ export function watcherFollowUp(ctrl: RoundController) {
   return content.find(x => !!x) && h('div.follow-up', content);
 }
 
-const onSuggestionHook: Hooks = util.onInsert(el => lichess.pubsub.emit('round.suggestion', el.textContent));
+const onSuggestionHook: Hooks = util.onInsert(el => site.pubsub.emit('round.suggestion', el.textContent));

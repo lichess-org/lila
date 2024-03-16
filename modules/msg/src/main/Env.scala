@@ -3,8 +3,8 @@ package lila.msg
 import com.softwaremill.macwire.*
 
 import lila.common.Bus
-import lila.common.config.*
 import lila.common.Json.given
+import lila.common.config.*
 import lila.hub.actorApi.socket.remote.TellUserIn
 
 @Module
@@ -50,7 +50,7 @@ final class Env(
         api.cliMultiPost(
           UserStr(orig),
           UserId.from(dests.map(_.toLower).split(',').toIndexedSeq),
-          words mkString " "
+          words.mkString(" ")
         )
 
   Bus.subscribeFuns(
@@ -58,13 +58,13 @@ final class Env(
       api.systemPost(userId, text)
     },
     "remoteSocketIn:msgRead" -> { case TellUserIn(userId, msg) =>
-      msg.get[UserId]("d") foreach { api.setRead(userId, _) }
+      msg.get[UserId]("d").foreach { api.setRead(userId, _) }
     },
     "remoteSocketIn:msgSend" -> { case TellUserIn(userId, msg) =>
       for
-        obj  <- msg obj "d"
+        obj  <- msg.obj("d")
         dest <- obj.get[UserId]("dest")
-        text <- obj str "text"
+        text <- obj.str("text")
       yield api.post(userId, dest, text)
     }
   )

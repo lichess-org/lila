@@ -5,7 +5,7 @@ import lila.study.Chapter
 case class PracticeStructure(sections: List[PracticeSection]):
 
   def study(id: StudyId): Option[PracticeStudy] =
-    sections.flatMap(_ study id).headOption
+    sections.flatMap(_.study(id)).headOption
 
   lazy val studiesByIds: Map[StudyId, PracticeStudy] =
     sections.view
@@ -24,7 +24,7 @@ case class PracticeStructure(sections: List[PracticeSection]):
   lazy val nbUnhiddenChapters =
     sections.filterNot(_.hide).flatMap(_.studies).filterNot(_.hide).map(_.chapterIds.size).sum
 
-  def findSection(id: StudyId): Option[PracticeSection] = sectionsByStudyIds get id
+  def findSection(id: StudyId): Option[PracticeSection] = sectionsByStudyIds.get(id)
 
   def hasStudy(id: StudyId) = studiesByIds contains id
 
@@ -37,7 +37,7 @@ case class PracticeSection(
 
   lazy val studiesByIds: Map[StudyId, PracticeStudy] = studies.mapBy(_.id)
 
-  def study(id: StudyId): Option[PracticeStudy] = studiesByIds get id
+  def study(id: StudyId): Option[PracticeStudy] = studiesByIds.get(id)
 
 case class PracticeStudy(
     id: StudyId, // study ID
@@ -47,7 +47,7 @@ case class PracticeStudy(
     chapters: List[Chapter.IdName]
 ):
 
-  val slug = lila.common.String slugify name
+  val slug = lila.common.String.slugify(name)
 
   def chapterIds = chapters.map(_.id)
 

@@ -1,7 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="preferences">விருப்பங்கள்</string>
+  <string name="notifications">அறிவிப்புகள்</string>
+  <string name="pgnPieceNotation">நகர்த்தல்களின் குறிமுறை</string>
+  <string name="chessPieceSymbol">சதுரங்கக் காயின் சின்னம்</string>
   <string name="pgnLetter">எழுத்து (K, Q, R, B, N)</string>
+  <string name="showPlayerRatings">ஆட்டக்காரரின் மதிப்பீட்டைக் காட்டு</string>
   <string name="chessClock">செஸ் கடிகாரம்</string>
+  <string name="giveMoreTime">கூடுதல் நேரம் வழங்கு</string>
   <string name="yourPreferencesHaveBeenSaved">உங்கள் விருப்பங்களை சேமிக்கப்பட்டுள்ளது.</string>
 </resources>

@@ -3,17 +3,16 @@ package lila.relay
 import io.mola.galimatias.URL
 import play.api.data.*
 import play.api.data.Forms.*
+
 import scala.util.Try
 import scala.util.chaining.*
 
 import lila.common.Form.{ cleanText, into }
-import lila.game.Game
-import lila.security.Granter
-import lila.study.Study
-import lila.user.{ User, Me }
 import lila.common.Seconds
+import lila.security.Granter
+import lila.user.{ Me, User }
 
-final class RelayRoundForm:
+final class RelayRoundForm(using mode: play.api.Mode):
 
   import RelayRoundForm.*
   import lila.common.Form.ISOInstantOrTimestamp
@@ -25,7 +24,7 @@ final class RelayRoundForm:
       "syncUrl" -> optional {
         cleanText(minLength = 8, maxLength = 600)
           .verifying("Invalid source", validSource)
-          .verifying("The source URL cannot specify a port", validSourcePort)
+          .verifying("The source URL cannot specify a port", url => mode.notProd || validSourcePort(url))
       },
       "syncUrlRound" -> optional(number(min = 1, max = 999)),
       "startsAt"     -> optional(ISOInstantOrTimestamp.mapping),
@@ -51,15 +50,15 @@ final class RelayRoundForm:
     )
   )
 
-  def edit(r: RelayRound) = Form(roundMapping) fill Data.make(r)
+  def edit(r: RelayRound) = Form(roundMapping).fill(Data.make(r))
 
 object RelayRoundForm:
 
   case class GameIds(ids: List[GameId])
 
   private def toGameIds(ids: String): Option[GameIds] =
-    val list = ids.split(' ').view.flatMap(i => GameId from i.trim).toList
-    (list.sizeIs > 0 && list.sizeIs <= Study.maxChapters) option GameIds(list)
+    val list = ids.split(' ').view.flatMap(i => GameId.from(i.trim)).toList
+    (list.sizeIs > 0 && list.sizeIs <= RelayFetch.maxChapters.value).option(GameIds(list))
 
   private def validSource(source: String): Boolean =
     cleanUrl(source).isDefined || toGameIds(source).isDefined
@@ -112,11 +111,11 @@ object RelayRoundForm:
       delay: Option[Seconds] = None
   ):
 
-    def requiresRound = syncUrl exists RelayRound.Sync.UpstreamUrl.LccRegex.matches
+    def requiresRound = syncUrl.exists(RelayRound.Sync.UpstreamUrl.LccRegex.matches)
 
     def roundMissing = requiresRound && syncUrlRound.isEmpty
 
-    def gameIds = syncUrl flatMap toGameIds
+    def gameIds = syncUrl.flatMap(toGameIds)
 
     def update(relay: RelayRound)(using me: Me) =
       relay.copy(
@@ -130,21 +129,24 @@ object RelayRoundForm:
 
     private def makeSync(user: User) =
       RelayRound.Sync(
-        upstream = syncUrl.flatMap(cleanUrl).map { u =>
-          RelayRound.Sync.UpstreamUrl(s"$u${syncUrlRound.so(" " +)}")
-        } orElse gameIds.map { ids =>
-          RelayRound.Sync.UpstreamIds(ids.ids)
-        },
+        upstream = syncUrl
+          .flatMap(cleanUrl)
+          .map { u =>
+            RelayRound.Sync.UpstreamUrl(s"$u${syncUrlRound.so(" " +)}")
+          }
+          .orElse(gameIds.map { ids =>
+            RelayRound.Sync.UpstreamIds(ids.ids)
+          }),
         until = none,
         nextAt = none,
-        period = period ifTrue Granter.of(_.Relay)(user),
+        period = period.ifTrue(Granter.of(_.StudyAdmin)(user)),
         delay = delay,
         log = SyncLog.empty
       )
 
     def make(user: User, tour: RelayTour) =
       RelayRound(
-        _id = RelayRound.makeId,
+        id = RelayRound.makeId,
         tourId = tour.id,
         name = name,
         caption = caption,
@@ -162,13 +164,13 @@ object RelayRoundForm:
       Data(
         name = relay.name,
         caption = relay.caption,
-        syncUrl = relay.sync.upstream map {
+        syncUrl = relay.sync.upstream.map {
           case url: RelayRound.Sync.UpstreamUrl => url.withRound.url
-          case RelayRound.Sync.UpstreamIds(ids) => ids mkString " "
+          case RelayRound.Sync.UpstreamIds(ids) => ids.mkString(" ")
         },
         syncUrlRound = relay.sync.upstream.flatMap(_.asUrl).flatMap(_.withRound.round),
         startsAt = relay.startsAt,
-        finished = relay.finished option true,
+        finished = relay.finished.option(true),
         period = relay.sync.period,
         delay = relay.sync.delay
       )

@@ -4,7 +4,7 @@ import debounce from 'common/debounce';
 import { formToXhr } from 'common/xhr';
 import { checkBoxAll, expandCheckboxZone, shiftClickCheckboxRange } from './checkBoxes';
 
-lichess.load.then(() => {
+site.load.then(() => {
   setupTable();
   setupFilter();
   setupActionForm();
@@ -37,7 +37,7 @@ const setupActionForm = () => {
     () =>
       formToXhr(form).then(() => {
         const reload = confirm('Analysis completed. Reload the page?');
-        if (reload) lichess.reload();
+        if (reload) site.reload();
       }),
     1000,
   );

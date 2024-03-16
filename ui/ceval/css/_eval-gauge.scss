@@ -12,6 +12,9 @@ body {
     display: none;
   }
 
+  &.empty {
+    opacity: 0.5;
+  }
   &.reverse {
     transform: rotateX(180deg);
   }

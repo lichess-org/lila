@@ -3,7 +3,7 @@ package views.html.ublog
 import controllers.routes
 import play.api.data.Form
 
-import lila.app.templating.Environment.{ given, * }
+import lila.app.templating.Environment.{ *, given }
 import lila.app.ui.ScalatagsTemplate.{ *, given }
 import lila.common.Captcha
 import lila.ublog.UblogForm.UblogPostData
@@ -44,7 +44,7 @@ object form:
           standardFlash,
           boxTop(
             h1(
-              if ctx is post.created.by then trans.ublog.editYourBlogPost()
+              if ctx.is(post.created.by) then trans.ublog.editYourBlogPost()
               else s"Edit ${usernameOrId(post.created.by)}'s post"
             ),
             a(href := postView.urlOfPost(post), dataIcon := licon.Eye, cls := "text", targetBlank)("Preview")
@@ -70,7 +70,7 @@ object form:
         attr("draggable") := "true"
       ),
       div(
-        if ctx is post.created.by then
+        if ctx.is(post.created.by) then
           frag(
             p(strong(trans.ublog.uploadAnImageForYourPost())),
             p(
@@ -97,8 +97,9 @@ object form:
             action  := routes.Ublog.image(post.id),
             enctype := "multipart/form-data"
           )(
-            post.image.isDefined option submitButton(cls := "button button-red confirm"):
+            post.image.isDefined.option(submitButton(cls := "button button-red confirm"):
               trans.ublog.deleteImage()
+            )
           )
       )
     )
@@ -116,7 +117,7 @@ object form:
           form3.split(
             form3.group(form("imageAlt"), trans.ublog.imageAlt(), half = true)(form3.input(_)),
             form3.group(form("imageCredit"), trans.ublog.imageCredit(), half = true)(form3.input(_))
-          )(cls := s"ublog-post-form__image-text ${p.image.isDefined so "visible"}")
+          )(cls := s"ublog-post-form__image-text ${p.image.isDefined.so("visible")}")
         )
       },
       form3.group(form("title"), trans.ublog.postTitle())(form3.input(_)(autofocus)),

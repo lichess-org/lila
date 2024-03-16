@@ -1,11 +1,12 @@
 package lila.game
 
-import actorApi.{ FinishGame, StartGame }
 import akka.stream.scaladsl.*
 import play.api.libs.json.*
 
 import lila.common.Bus
 import lila.db.dsl.{ *, given }
+
+import actorApi.{ FinishGame, StartGame }
 
 final class GamesByIdsStream(gameRepo: lila.game.GameRepo)(using akka.stream.Materializer, Executor):
 
@@ -24,9 +25,9 @@ final class GamesByIdsStream(gameRepo: lila.game.GameRepo)(using akka.stream.Mat
             queue.offer(game)
             watchedIds = watchedIds - game.id
           case WatchGames(ids) =>
-            val newIds = ids diff watchedIds
-            watchedIds = (watchedIds ++ newIds) take maxGames
-            gameSource(newIds intersect watchedIds)
+            val newIds = ids.diff(watchedIds)
+            watchedIds = (watchedIds ++ newIds).take(maxGames)
+            gameSource(newIds.intersect(watchedIds))
               .runWith(Sink.foreach(g => queue.offer(g)))
         }
         queue

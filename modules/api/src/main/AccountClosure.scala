@@ -2,8 +2,7 @@ package lila.api
 
 import lila.common.Bus
 import lila.security.Granter
-import lila.user.Me
-import lila.user.{ User, Me }
+import lila.user.{ Me, User }
 
 final class AccountClosure(
     userRepo: lila.user.UserRepo,
@@ -36,7 +35,7 @@ final class AccountClosure(
 
   def close(u: User)(using me: Me): Funit = for
     playbanned <- playbanApi.hasCurrentBan(u)
-    selfClose = me is u
+    selfClose = me.is(u)
     modClose  = !selfClose && Granter(_.CloseAccount)
     badApple  = u.lameOrTrollOrAlt || modClose
     _       <- userRepo.disable(u, keepEmail = badApple || playbanned)
@@ -57,26 +56,26 @@ final class AccountClosure(
       if selfClose then modLogApi.selfCloseAccount(u.id, reports)
       else modLogApi.closeAccount(u.id)
     _ <- appealApi.onAccountClose(u)
-    _ <- u.marks.troll so relationApi.fetchFollowing(u.id).flatMap {
+    _ <- u.marks.troll.so(relationApi.fetchFollowing(u.id).flatMap {
       activityWrite.unfollowAll(u, _)
-    }
+    })
   yield Bus.publish(lila.hub.actorApi.security.CloseAccount(u.id), "accountClose")
 
   private def lichessClose(userId: UserId) =
-    userRepo.lichessAnd(userId) flatMapz { (lichess, user) => close(user)(using Me(lichess)) }
+    userRepo.lichessAnd(userId).flatMapz { (lichess, user) => close(user)(using Me(lichess)) }
 
   def eraseClosed(username: UserId): Fu[Either[String, String]] =
-    userRepo byId username map {
+    userRepo.byId(username).map {
       case None => Left("No such user.")
       case Some(user) =>
-        userRepo setEraseAt user
-        email gdprErase user
+        userRepo.setEraseAt(user)
+        email.gdprErase(user)
         lila.common.Bus.publish(lila.user.User.GDPRErase(user), "gdprErase")
         Right(s"Erasing all data about $username in 24h")
     }
 
   def closeThenErase(username: UserStr)(using Me): Fu[Either[String, String]] =
-    userRepo byId username flatMap {
+    userRepo.byId(username).flatMap {
       case None    => fuccess(Left("No such user."))
-      case Some(u) => (u.enabled.yes so close(u)) >> eraseClosed(u.id)
+      case Some(u) => (u.enabled.yes.so(close(u))) >> eraseClosed(u.id)
     }

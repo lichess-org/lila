@@ -170,7 +170,7 @@ export default async function (
       },
       onClick(_event, elements, _chart) {
         const data = elements[elements.findIndex(element => element.datasetIndex == 0)];
-        if (data) lichess.pubsub.emit('analysis.chart.click', data.index);
+        if (data) site.pubsub.emit('analysis.chart.click', data.index);
       },
     },
   };
@@ -184,8 +184,8 @@ export default async function (
     if (!isPartial(data)) christmasTree(acplChart, mainline, adviceHoverColors);
     acplChart.update('none');
   };
-  lichess.pubsub.on('ply', acplChart.selectPly);
-  lichess.pubsub.emit('ply.trigger');
+  site.pubsub.on('ply', acplChart.selectPly);
+  site.pubsub.emit('ply.trigger');
   if (!isPartial(data)) christmasTree(acplChart, mainline, adviceHoverColors);
   return acplChart;
 }

@@ -28,7 +28,7 @@ object Clas:
 
   def make(teacher: User, name: String, desc: String) =
     Clas(
-      _id = Id(ThreadLocalRandom nextString 8),
+      _id = Id(ThreadLocalRandom.nextString(8)),
       name = name,
       desc = desc,
       teachers = NonEmptyList.one(teacher.id),

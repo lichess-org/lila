@@ -1,14 +1,14 @@
 package lila.setup
 
 import chess.format.Fen
-import chess.{ Clock, ByColor }
 import chess.variant.Variant
+import chess.{ ByColor, Clock }
 
 import lila.common.Days
 import lila.game.{ Game, IdGenerator, Player, Pov, Source }
 import lila.lobby.Color
-import lila.user.{ User, GameUser }
 import lila.rating.PerfType
+import lila.user.GameUser
 
 case class AiConfig(
     variant: chess.variant.Variant,
@@ -28,7 +28,7 @@ case class AiConfig(
 
   private def game(user: GameUser)(using IdGenerator): Fu[Game] =
     fenGame: chessGame =>
-      val pt = PerfType(chessGame.situation.board.variant, chess.Speed(chessGame.clock.map(_.config)))
+      PerfType(chessGame.situation.board.variant, chess.Speed(chessGame.clock.map(_.config)))
       Game
         .make(
           chess = chessGame,
@@ -44,7 +44,7 @@ case class AiConfig(
         .withUniqueId
     .dmap(_.start)
 
-  def pov(user: GameUser)(using IdGenerator) = game(user) dmap { Pov(_, creatorColor) }
+  def pov(user: GameUser)(using IdGenerator) = game(user).dmap { Pov(_, creatorColor) }
 
   def timeControlFromPosition =
     timeMode != TimeMode.RealTime || variant != chess.variant.FromPosition || time >= 1
@@ -63,12 +63,12 @@ object AiConfig extends BaseConfig:
   ) =
     new AiConfig(
       variant = chess.variant.Variant.orDefault(v),
-      timeMode = TimeMode(tm) err s"Invalid time mode $tm",
+      timeMode = TimeMode(tm).err(s"Invalid time mode $tm"),
       time = t,
       increment = i,
       days = d,
       level = level,
-      color = Color(c) err "Invalid color " + c,
+      color = Color(c).err("Invalid color " + c),
       fen = fen
     )
 
@@ -84,7 +84,7 @@ object AiConfig extends BaseConfig:
 
   val levels = (1 to 8).toList
 
-  val levelChoices = levels map { l =>
+  val levelChoices = levels.map { l =>
     (l.toString, l.toString, none)
   }
 
@@ -95,12 +95,12 @@ object AiConfig extends BaseConfig:
 
     def reads(r: BSON.Reader): AiConfig =
       AiConfig(
-        variant = Variant idOrDefault r.getO[Variant.Id]("v"),
-        timeMode = TimeMode.orDefault(r int "tm"),
-        time = r double "t",
-        increment = r get "i",
+        variant = Variant.idOrDefault(r.getO[Variant.Id]("v")),
+        timeMode = TimeMode.orDefault(r.int("tm")),
+        time = r.double("t"),
+        increment = r.get("i"),
         days = r.get("d"),
-        level = r int "l",
+        level = r.int("l"),
         color = Color.White,
         fen = r.getO[Fen.Epd]("f").filter(_.value.nonEmpty)
       )

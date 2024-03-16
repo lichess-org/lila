@@ -43,6 +43,7 @@ case class Pref(
     pieceNotation: Int,
     resizeHandle: Int,
     agreement: Int,
+    usingAltSocket: Option[Boolean],
     tags: Map[String, String] = Map.empty
 ):
 
@@ -61,7 +62,7 @@ case class Pref(
 
   def realSoundSet = SoundSet(soundSet)
 
-  def coordsClass = Coords classOf coords
+  def coordsClass = Coords.classOf(coords)
 
   def hasDgt = tags contains Tag.dgt
 
@@ -94,7 +95,9 @@ case class Pref(
 
   def hasKeyboardMove = keyboardMove == KeyboardMove.YES
 
-  def hasVoice = voice.contains(Voice.YES)
+  def hasVoice = voice.has(Voice.YES)
+
+  def isUsingAltSocket = usingAltSocket.has(true)
 
   // atob("aHR0cDovL2NoZXNzLWNoZWF0LmNvbS9ob3dfdG9fY2hlYXRfYXRfbGljaGVzcy5odG1s")
   def botCompatible =
@@ -394,7 +397,7 @@ object Pref:
   object Agreement:
     val current    = 2
     val changedAt  = instantOf(2021, 12, 28, 8, 0)
-    val showPrompt = changedAt.isAfter(nowInstant minusMonths 6)
+    val showPrompt = changedAt.isAfter(nowInstant.minusMonths(6))
 
   object Zen:
     val NO        = 0
@@ -420,7 +423,7 @@ object Pref:
       if user.createdAt.isAfter(systemByDefaultSince) then Bg.SYSTEM
       else if user.createdAt.isAfter(darkByDefaultSince) then Bg.DARK
       else Bg.LIGHT,
-    agreement = if user.createdAt isAfter Agreement.changedAt then Agreement.current else 0
+    agreement = if user.createdAt.isAfter(Agreement.changedAt) then Agreement.current else 0
   )
 
   lazy val default = Pref(
@@ -464,6 +467,7 @@ object Pref:
     pieceNotation = PieceNotation.SYMBOL,
     resizeHandle = ResizeHandle.INITIAL,
     agreement = Agreement.current,
+    usingAltSocket = none,
     tags = Map.empty
   )
 

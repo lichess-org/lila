@@ -2,7 +2,7 @@ package lila.forum
 
 import lila.common.paginator.*
 import lila.db.dsl.{ *, given }
-import lila.user.{ User, Me }
+import lila.user.Me
 
 final class ForumCategApi(
     postRepo: ForumPostRepo,
@@ -13,11 +13,11 @@ final class ForumCategApi(
 
   import BSONHandlers.given
 
-  def makeTeam(teamId: TeamId, name: String): Funit =
+  def makeTeam(teamId: TeamId, name: String, author: UserId): Funit =
     val categ = ForumCateg(
       _id = ForumCateg.fromTeamId(teamId),
       name = name,
-      desc = "Forum of the team " + name,
+      desc = s"Forum of the team $name",
       team = teamId.some,
       nbTopics = 0,
       nbPosts = 0,
@@ -30,13 +30,13 @@ final class ForumCategApi(
       categId = categ.id,
       slug = s"$teamId-forum",
       name = name + " forum",
-      userId = User.lichessId,
+      userId = author,
       troll = false
     )
     val post = ForumPost.make(
       topicId = topic.id,
-      userId = User.lichessId.some,
-      text = "Welcome to the %s forum!" format name,
+      userId = author.some,
+      text = s"Welcome to the $name forum!",
       number = 1,
       troll = false,
       lang = "en".some,
@@ -45,25 +45,25 @@ final class ForumCategApi(
     )
     categRepo.coll.insert.one(categ).void >>
       postRepo.coll.insert.one(post).void >>
-      topicRepo.coll.insert.one(topic withPost post).void >>
+      topicRepo.coll.insert.one(topic.withPost(post)).void >>
       categRepo.coll.update.one($id(categ.id), categ.withPost(topic, post)).void
 
   def show(
       id: ForumCategId,
       page: Int
   )(using Option[Me]): Fu[Option[(ForumCateg, Paginator[TopicView])]] =
-    categRepo byId id flatMapz { categ =>
-      paginator.categTopics(categ, page) dmap { (categ, _).some }
+    categRepo.byId(id).flatMapz { categ =>
+      paginator.categTopics(categ, page).dmap { (categ, _).some }
     }
 
   def denormalize(categ: ForumCateg): Funit =
     for
-      nbTopics      <- topicRepo countByCateg categ
-      nbPosts       <- postRepo countByCateg categ
-      lastPost      <- postRepo lastByCateg categ
-      nbTopicsTroll <- topicRepo.unsafe countByCateg categ
-      nbPostsTroll  <- postRepo.unsafe countByCateg categ
-      lastPostTroll <- postRepo.unsafe lastByCateg categ
+      nbTopics      <- topicRepo.countByCateg(categ)
+      nbPosts       <- postRepo.countByCateg(categ)
+      lastPost      <- postRepo.lastByCateg(categ)
+      nbTopicsTroll <- topicRepo.unsafe.countByCateg(categ)
+      nbPostsTroll  <- postRepo.unsafe.countByCateg(categ)
+      lastPostTroll <- postRepo.unsafe.lastByCateg(categ)
       _ <-
         categRepo.coll.update
           .one(

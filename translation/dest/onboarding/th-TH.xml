@@ -11,7 +11,7 @@
   <string name="playOpponentsFromAroundTheWorld">เล่นกับคู่แข่งทั่วโลก</string>
   <string name="followYourFriendsOnLichess">ติดตามเพื่อนของคุณบน Lichess</string>
   <string name="playInTournaments">แข่งขันในทัวร์นาเมนต์</string>
-  <string name="learnFromXAndY">เรียนรู้จาก %1$s และ %2$s</string>
+  <string name="learnFromXAndY" comment="%1$s is Study&#10;%2$s is Videos&#10;&#10;They are both links to pages titled that way, and the title is used verbatim.">เรียนรู้จาก %1$s และ %2$s</string>
   <string name="configureLichess">ตั้งค่า Lichess ตามความชอบของคุณ</string>
   <string name="exploreTheSiteAndHaveFun">สำรวจเว็บไซต์ให้สนุกนะ :)</string>
 </resources>

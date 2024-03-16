@@ -1,6 +1,6 @@
 import { initWith as initMiniBoard } from 'common/miniBoard';
 
-lichess.load.then(() => {
+site.load.then(() => {
   const rootEl = document.querySelector('.puzzle-openings') as HTMLElement | undefined;
   if (rootEl && !('ontouchstart' in window)) loadBoardTips(rootEl);
 });

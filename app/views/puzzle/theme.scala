@@ -3,7 +3,7 @@ package html.puzzle
 
 import controllers.routes
 
-import lila.app.templating.Environment.{ given, * }
+import lila.app.templating.Environment.{ *, given }
 import lila.app.ui.ScalatagsTemplate.{ *, given }
 import lila.i18n.I18nKey
 import lila.puzzle.{ PuzzleAngle, PuzzleTheme }
@@ -22,10 +22,10 @@ object theme:
           h1(cls := "box__top")(trans.puzzle.puzzleThemes()),
           standardFlash.map(div(cls := "box__pad")(_)),
           div(cls := "puzzle-themes")(
-            all.themes take 2 map themeCategory,
+            all.themes.take(2).map(themeCategory),
             h2(id := "openings")("By game opening", a(href := routes.Puzzle.openings())(trans.more(), " »")),
-            opening.listOf(all.openings.families take 12),
-            all.themes drop 2 map themeCategory,
+            opening.listOf(all.openings.families.take(12)),
+            all.themes.drop(2).map(themeCategory),
             info
           )
         )
@@ -58,7 +58,7 @@ object theme:
             )
           )
         ,
-        cat.value == "puzzle:origin" option
+        (cat.value == "puzzle:origin").option(
           a(cls := "puzzle-themes__link", href := routes.Puzzle.ofPlayer())(
             img(src := assetUrl("images/puzzle-themes/playerGames.svg")),
             span(
@@ -66,6 +66,7 @@ object theme:
               span(trans.puzzleTheme.playerGamesDescription())
             )
           )
+        )
       )
     )
 

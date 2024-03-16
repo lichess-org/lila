@@ -50,7 +50,6 @@
   <string name="entryCodeDescriptionForLeader">(Міндетті емес) Топқа қосылу үшін жаңа ойыншыға құпиясөз керек.</string>
   <string name="incorrectEntryCode">Құпиясөз қате.</string>
   <string name="teamAlreadyExists">Осындай топ бұрыннан бар.</string>
-  <string name="upcomingTourns">Жуырдағы жарыстар</string>
   <string name="completedTourns">Аяқталған жарыстар</string>
   <string name="declinedRequests">Қабылданбаған сұранымдар</string>
   <string name="joinLichessVariantTeam">Жаңалық пен хабар үшін %s ресми тобына қосылыңыз</string>

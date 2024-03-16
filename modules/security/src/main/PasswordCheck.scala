@@ -1,8 +1,9 @@
 package lila.security
 
-import lila.user.User.ClearPassword
 import play.api.Mode
-import play.api.data.validation.{ Valid, Invalid, ValidationError, Constraint }
+import play.api.data.validation.{ Constraint, Invalid, Valid, ValidationError }
+
+import lila.user.User.ClearPassword
 
 object PasswordCheck:
 
@@ -13,12 +14,12 @@ object PasswordCheck:
     login == p.value || commonPasswords(p.value)
 
   def newConstraint(using mode: Mode) = Constraint[String] { (pass: String) =>
-    if mode == Mode.Prod && commonPasswords(pass) then Invalid(ValidationError(errorWeak))
+    if mode.isProd && commonPasswords(pass) then Invalid(ValidationError(errorWeak))
     else Valid
   }
 
   def sameConstraint(user: UserStr)(using mode: Mode) = Constraint[String]: pass =>
-    if mode == Mode.Prod && pass == user.value then Invalid(ValidationError(errorSame))
+    if mode.isProd && pass == user.value then Invalid(ValidationError(errorSame))
     else Valid
 
   // https://github.com/danielmiessler/SecLists/blob/master/Passwords/Common-Credentials/10-million-password-list-top-1000.txt

@@ -1,7 +1,9 @@
 package lila.tournament
 
 import chess.variant.{ FromPosition, Standard, Variant }
+
 import lila.db.dsl.{ *, given }
+
 import Schedule.{ Freq, Speed }
 
 case class Winner(
@@ -19,10 +21,14 @@ case class FreqWinners(
 ):
 
   lazy val top: Option[Winner] =
-    daily.filter(_.date isAfter nowInstant.minusHours(2)) orElse
-      weekly.filter(_.date isAfter nowInstant.minusDays(1)) orElse
-      monthly.filter(_.date isAfter nowInstant.minusDays(3)) orElse
-      yearly orElse monthly orElse weekly orElse daily
+    daily
+      .filter(_.date.isAfter(nowInstant.minusHours(2)))
+      .orElse(weekly.filter(_.date.isAfter(nowInstant.minusDays(1))))
+      .orElse(monthly.filter(_.date.isAfter(nowInstant.minusDays(3))))
+      .orElse(yearly)
+      .orElse(monthly)
+      .orElse(weekly)
+      .orElse(daily)
 
   def userIds = List(yearly, monthly, weekly, daily).flatten.map(_.userId)
 
@@ -41,7 +47,7 @@ case class AllWinners(
     List(hyperbullet, bullet, superblitz, blitz, rapid).flatMap(_.top),
     List(elite.headOption, marathon.headOption).flatten,
     WinnersApi.variants.flatMap { v =>
-      variants get v.key flatMap (_.top)
+      variants.get(v.key).flatMap(_.top)
     }
   ).flatten
 
@@ -68,10 +74,10 @@ final class WinnersApi(
       .find:
         $doc(
           "schedule.freq" -> freq.name,
-          "startsAt" $gt since.minusHours(12),
-          "winner" $exists true
+          "startsAt".$gt(since.minusHours(12)),
+          "winner".$exists(true)
         )
-      .sort($sort desc "startsAt")
+      .sort($sort.desc("startsAt"))
       .cursor[Tournament](ReadPref.sec)
       .list(Int.MaxValue)
 
@@ -106,8 +112,8 @@ final class WinnersApi(
         superblitz = standardFreqWinners(Speed.SuperBlitz),
         blitz = standardFreqWinners(Speed.Blitz),
         rapid = standardFreqWinners(Speed.Rapid),
-        elite = elites flatMap (_.winner) take 4,
-        marathon = marathons flatMap (_.winner) take 4,
+        elite = elites.flatMap(_.winner).take(4),
+        marathon = marathons.flatMap(_.winner).take(4),
         variants = WinnersApi.variants.view.map { v =>
           v.key -> FreqWinners(
             yearly = firstVariantWinner(yearlies, v),

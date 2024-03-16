@@ -2,15 +2,13 @@ package lila.security
 
 import play.api.data.Form
 
-import lila.common.EmailAddress
-import lila.common.IpAddress
+import lila.common.{ EmailAddress, IpAddress }
 import lila.memo.CacheApi
 import lila.user.User
 
 final class DisposableEmailAttempt(
     cacheApi: CacheApi,
-    disposableApi: DisposableEmailDomain,
-    irc: lila.irc.IrcApi
+    disposableApi: DisposableEmailDomain
 ):
 
   import DisposableEmailAttempt.*
@@ -24,10 +22,10 @@ final class DisposableEmailAttempt(
       _.expireAfterWrite(1 day).build()
 
   def onFail(form: Form[?], ip: IpAddress): Unit = for
-    email <- form("email").value flatMap EmailAddress.from
+    email <- form("email").value.flatMap(EmailAddress.from)
     if email.domain.exists(disposableApi.apply)
     str <- form("username").value
-    u   <- UserStr read str
+    u   <- UserStr.read(str)
   yield
     val attempt = Attempt(u.id, email, ip)
     byIp.underlying.asMap.compute(ip, (_, attempts) => ~Option(attempts) + attempt)

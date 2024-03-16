@@ -45,7 +45,7 @@ import { parseFen } from 'chessops/fen';
 import { setupPosition } from 'chessops/variant';
 import { plyToTurn } from '../util';
 
-const throttled = (sound: string) => throttle(100, () => lichess.sound.play(sound));
+const throttled = (sound: string) => throttle(100, () => site.sound.play(sound));
 const selectSound = throttled('select');
 const borderSound = throttled('outOfBound');
 const errorSound = throttled('error');
@@ -59,11 +59,11 @@ export function initModule(ctrl: AnalyseController) {
     boardStyle = boardSetting(),
     analysisInProgress = prop(false);
 
-  lichess.pubsub.on('analysis.server.progress', (data: AnalyseData) => {
+  site.pubsub.on('analysis.server.progress', (data: AnalyseData) => {
     if (data.analysis && !data.analysis.partial) notify.set('Server-side analysis complete');
   });
 
-  lichess.mousetrap.bind('c', () => notify.set(renderEvalAndDepth(ctrl)));
+  site.mousetrap.bind('c', () => notify.set(renderEvalAndDepth(ctrl)));
 
   return {
     render(): VNode {
@@ -71,7 +71,7 @@ export function initModule(ctrl: AnalyseController) {
       const d = ctrl.data,
         style = moveStyle.get();
       if (!ctrl.chessground)
-        ctrl.chessground = lichess.makeChessground(document.createElement('div'), {
+        ctrl.chessground = site.makeChessground(document.createElement('div'), {
           ...makeCgConfig(ctrl),
           animation: { enabled: false },
           drawable: { enabled: false },

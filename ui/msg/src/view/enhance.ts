@@ -50,7 +50,7 @@ const expandTeamMessage = (html: string) =>
   );
 
 export const enhance = (str: string) =>
-  expandTeamMessage(expandGameIds(expandMentions(expandUrls(lichess.escapeHtml(str))))).replace(
+  expandTeamMessage(expandGameIds(expandMentions(expandUrls(site.escapeHtml(str))))).replace(
     newLineRegex,
     '<br>',
   );
@@ -116,7 +116,7 @@ const expandGame = async (exp: Expandable) => {
   const $lpv = $('<div>');
   $(exp.element).parent().parent().addClass('has-embed');
   $(exp.element).replaceWith($('<div>').prepend($lpv));
-  await lichess.asset.loadEsm('lpv', {
+  await site.asset.loadEsm('lpv', {
     init: { el: $lpv[0] as HTMLElement, url: exp.link.src, lpvOpts: exp.link.opts },
   });
   scroller.auto();

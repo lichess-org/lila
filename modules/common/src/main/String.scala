@@ -1,8 +1,9 @@
 package lila.common
 
-import java.text.Normalizer
 import play.api.libs.json.*
 import scalatags.Text.all.*
+
+import java.text.Normalizer
 
 import lila.base.RawHtml
 import lila.common.base.StringUtils.{ escapeHtmlRaw, safeJsonString }
@@ -11,8 +12,8 @@ object String:
 
   export RawHtml.hasLinks
 
-  private[this] val slugR              = """[^\w-]""".r
-  private[this] val slugMultiDashRegex = """-{2,}""".r
+  private val slugR              = """[^\w-]""".r
+  private val slugMultiDashRegex = """-{2,}""".r
 
   def lcfirst(str: String) = s"${str(0).toLower}${str.drop(1)}"
 
@@ -128,9 +129,9 @@ object String:
     import java.util.Base64
     import java.nio.charset.StandardCharsets.UTF_8
     def encode(txt: String) =
-      Base64.getEncoder.encodeToString(txt getBytes UTF_8)
+      Base64.getEncoder.encodeToString(txt.getBytes(UTF_8))
     def decode(txt: String): Option[String] =
-      try Some(new String(Base64.getDecoder decode txt, UTF_8))
+      try Some(new String(Base64.getDecoder.decode(txt), UTF_8))
       catch case _: java.lang.IllegalArgumentException => none
 
   val atUsernameRegex    = RawHtml.atUsernameRegex

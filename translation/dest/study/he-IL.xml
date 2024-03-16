@@ -91,7 +91,7 @@
   <string name="pinnedChapterComment">תגובה מוצמדת לפרק</string>
   <string name="saveChapter">שמור פרק</string>
   <string name="clearAnnotations">נקה הערות</string>
-  <string name="clearVariations">נקה וריאציות</string>
+  <string name="clearVariations" comment="Clear is used as a verb here. This erases the variations in the study (https://lichess.org/study) you are preparing.">נקה וריאציות</string>
   <string name="deleteChapter">מחיקת הפרק</string>
   <string name="deleteThisChapter">למחוק את הפרק? אין דרך חזרה!</string>
   <string name="clearAllCommentsInThisChapter">ניקוי כל ההערות, הרישומים והציורים בפרק זה</string>

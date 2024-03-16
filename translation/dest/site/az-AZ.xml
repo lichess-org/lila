@@ -522,7 +522,6 @@
   <string name="automaticallyProceedToNextGameAfterMoving">Gedişdən sonra növbəti oyuna avtomatik keçid</string>
   <string name="autoSwitch">Avtomatik dəyiş</string>
   <string name="puzzles">Tapmacalar</string>
-  <string name="tournamentWinners">Turnirin qalibləri</string>
   <string name="name">Ad</string>
   <string name="description">Açıqlama</string>
   <string name="descPrivate">Özəl açıqlama</string>
@@ -880,8 +879,6 @@
   <string name="minimumRatedGames">Minimum reytinqli oyunlar</string>
   <string name="minimumRating">Minimum reyting</string>
   <string name="maximumWeeklyRating">Maksimum həftəlik reyting</string>
-  <string name="onlyTitled">Ancaq titullu oyunçular</string>
-  <string name="onlyTitledHelp">Turnirə qoşulmaq üçün rəsmi titul tələb edir</string>
   <string name="cancelSimul">Simulu ləğv et</string>
   <string name="tournChat">Turnir mesajı</string>
   <string name="noChat">Söhbətsiz</string>

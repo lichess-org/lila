@@ -1,7 +1,8 @@
 package lila.gameSearch
 
 import play.api.i18n.Lang
-import lila.i18n.{ I18nKeys as trans }
+
+import lila.i18n.I18nKeys as trans
 
 case class Sorting(f: String, order: String)
 

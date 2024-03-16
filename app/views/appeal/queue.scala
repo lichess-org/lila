@@ -1,15 +1,15 @@
 package views.html
 package appeal
 
+import controllers.appeal.routes.Appeal as appealRoutes
 import controllers.routes
-import controllers.appeal.routes.{ Appeal as appealRoutes }
 
-import lila.app.templating.Environment.{ given, * }
+import lila.app.templating.Environment.{ *, given }
 import lila.app.ui.ScalatagsTemplate.{ *, given }
 import lila.appeal.Appeal
-import Appeal.Filter
 import lila.report.Report.Inquiry
-import lila.user.UserMark
+
+import Appeal.Filter
 
 object queue:
 
@@ -28,7 +28,7 @@ object queue:
           tr(
             th("By"),
             th(filterMarks(filter)),
-            th(isGranted(_.Presets) option a(href := routes.Mod.presets("appeal"))("Presets"))
+            th(isGranted(_.Presets).option(a(href := routes.Mod.presets("appeal"))("Presets")))
           )
         ),
         tbody(
@@ -37,10 +37,14 @@ object queue:
               td(
                 userIdLink(appeal.id.some, params = "?mod"),
                 br,
-                markedByMe.contains(appeal.userId) option span(
-                  dataIcon := licon.CautionTriangle,
-                  cls      := "marked-by-me text"
-                )("My mark"),
+                markedByMe
+                  .contains(appeal.userId)
+                  .option(
+                    span(
+                      dataIcon := licon.CautionTriangle,
+                      cls      := "marked-by-me text"
+                    )("My mark")
+                  ),
                 views.html.user.mod.userMarks(user, None)
               ),
               td(appeal.msgs.lastOption.map: msg =>
@@ -52,7 +56,7 @@ object queue:
                 )),
               td(
                 a(href := appealRoutes.show(appeal.id), cls := "button button-empty")("View"),
-                inquiries.get(appeal.userId) map { i =>
+                inquiries.get(appeal.userId).map { i =>
                   frag(userIdLink(i.mod.some), nbsp, "is handling this")
                 }
               )

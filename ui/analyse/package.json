@@ -32,11 +32,6 @@
     "snabbdom": "^3.5.1",
     "tree": "workspace:*"
   },
-  "scripts": {
-    "compile": "tsc",
-    "dev": "tsc",
-    "prod": "tsc"
-  },
   "lichess": {
     "modules": {
       "esm": {
@@ -46,6 +41,10 @@
         "src/plugins/studyTopicForm.ts": "study.topic.form",
         "src/plugins/studyTour.ts": "study.tour"
       }
+    },
+    "copy": {
+      "src": "node_modules/@yaireo/tagify/dist/tagify.min.js",
+      "dest": "../../public/npm/tagify"
     }
   }
 }

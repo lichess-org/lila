@@ -28,7 +28,7 @@ function featured(game: FeaturedGame, opts: TournamentOpts): VNode {
     `div.tour__featured.mini-game.mini-game-${game.id}.mini-game--init.is2d`,
     {
       attrs: { 'data-state': `${game.fen},${game.orientation},${game.lastMove}`, 'data-live': game.id },
-      hook: onInsert(lichess.powertip.manualUserIn),
+      hook: onInsert(site.powertip.manualUserIn),
     },
     [
       featuredPlayer(game, opposite(game.orientation), opts),
@@ -60,7 +60,7 @@ function renderDuel(ctrl: TournamentController) {
     ]);
 }
 
-const initMiniGame = (node: VNode) => lichess.miniGame.initAll(node.elm as HTMLElement);
+const initMiniGame = (node: VNode) => site.miniGame.initAll(node.elm as HTMLElement);
 
 export default function (ctrl: TournamentController): VNode {
   return h('div.tour__table', { hook: { insert: initMiniGame, postpatch: initMiniGame } }, [
@@ -69,7 +69,7 @@ export default function (ctrl: TournamentController): VNode {
       h(
         'section.tour__duels',
         { hook: bind('click', _ => !ctrl.disableClicks) },
-        [h('h2', 'Top games')].concat(ctrl.data.duels.map(renderDuel(ctrl))),
+        [h('h2', ctrl.trans.noarg('topGames'))].concat(ctrl.data.duels.map(renderDuel(ctrl))),
       ),
   ]);
 }

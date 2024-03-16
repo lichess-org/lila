@@ -1,11 +1,17 @@
 package lila.app
 
-import java.io.*
-
-import play.api.{ Application, Environment, Play, Configuration, Mode }
-import play.core.server.{ RealServerProcess, ServerProcess, Server, ServerStartException, ServerConfig }
-import play.core.server.NettyServer
 import play.api.inject.DefaultApplicationLifecycle
+import play.api.{ Application, Configuration, Environment, Mode, Play }
+import play.core.server.{
+  NettyServer,
+  RealServerProcess,
+  Server,
+  ServerConfig,
+  ServerProcess,
+  ServerStartException
+}
+
+import java.io.*
 
 // The program entry point.
 // To run with bloop:

@@ -31,7 +31,7 @@ export default function (ctrl: ChatCtrl): Array<VNode | undefined> {
         hook: {
           insert(vnode) {
             const $el = $(vnode.elm as HTMLElement).on('click', 'a.jump', (e: Event) => {
-              lichess.pubsub.emit('jump', (e.target as HTMLElement).getAttribute('data-ply'));
+              site.pubsub.emit('jump', (e.target as HTMLElement).getAttribute('data-ply'));
             });
             if (hasMod)
               $el.on(
@@ -87,7 +87,7 @@ function renderInput(ctrl: ChatCtrl): VNode | undefined {
 let mouchListener: EventListener;
 
 const setupHooks = (ctrl: ChatCtrl, chatEl: HTMLInputElement) => {
-  const storage = lichess.tempStorage.make('chat.input');
+  const storage = site.tempStorage.make('chat.input');
   const previousText = storage.get();
   if (previousText) {
     chatEl.value = previousText;
@@ -129,7 +129,7 @@ const setupHooks = (ctrl: ChatCtrl, chatEl: HTMLInputElement) => {
     }),
   );
 
-  lichess.mousetrap.bind('c', () => chatEl.focus());
+  site.mousetrap.bind('c', () => chatEl.focus());
 
   // Ensure clicks remove chat focus.
   // See lichess-org/chessground#109

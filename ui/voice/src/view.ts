@@ -12,7 +12,7 @@ export function renderVoiceBar(ctrl: VoiceCtrl, redraw: () => void, cls?: string
         hook: onInsert(el => el.addEventListener('click', () => ctrl.toggle())),
       }),
       h('span#voice-status', {
-        hook: onInsert(el => lichess.mic.setController(voiceBarUpdater(ctrl, el))),
+        hook: onInsert(el => site.mic.setController(voiceBarUpdater(ctrl, el))),
       }),
       h('button#voice-help-button', {
         attrs: { 'data-icon': licon.InfoCircle, title: 'Voice help' },
@@ -46,11 +46,11 @@ function voiceBarUpdater(ctrl: VoiceCtrl, el: HTMLElement) {
 
   return (txt: string, tpe: Voice.MsgType) => {
     const classes: [string, boolean][] = [];
-    classes.push(['listening', lichess.mic.isListening]);
-    classes.push(['busy', lichess.mic.isBusy]);
-    classes.push(['push-to-talk', ctrl.pushTalk() && !lichess.mic.isListening && !lichess.mic.isBusy]);
+    classes.push(['listening', site.mic.isListening]);
+    classes.push(['busy', site.mic.isBusy]);
+    classes.push(['push-to-talk', ctrl.pushTalk() && !site.mic.isListening && !site.mic.isBusy]);
     classes.map(([clz, has]) => (has ? voiceBtn.addClass(clz) : voiceBtn.removeClass(clz)));
-    voiceBtn.attr('data-icon', lichess.mic.isBusy ? licon.Cancel : licon.Voice);
+    voiceBtn.attr('data-icon', site.mic.isBusy ? licon.Cancel : licon.Voice);
 
     if (tpe !== 'partial') el.innerText = txt;
   };
@@ -111,7 +111,7 @@ function deviceSelector(ctrl: VoiceCtrl, redraw: () => void) {
       {
         hook: onInsert((el: HTMLSelectElement) => {
           el.addEventListener('change', () => ctrl.micId(el.value));
-          lichess.mic.getMics().then(ds => {
+          site.mic.getMics().then(ds => {
             devices = ds.length ? ds : [nullMic];
             redraw();
           });
@@ -155,7 +155,7 @@ function renderHelpModal(ctrl: VoiceCtrl) {
     if (!dlg.open) dlg.showModal();
   };
 
-  return lichess.dialog.snab({
+  return site.dialog.snab({
     class: 'help.voice-move-help',
     htmlUrl: `/help/voice/${ctrl.moduleId}`,
     css: [{ themed: 'voiceMove.help' }],
@@ -168,7 +168,7 @@ function renderHelpModal(ctrl: VoiceCtrl) {
       const grammar =
         ctrl.moduleId === 'coords'
           ? []
-          : await xhr.jsonSimple(lichess.asset.url(`compiled/grammar/${ctrl.moduleId}-${ctrl.lang()}.json`));
+          : await xhr.jsonSimple(site.asset.url(`compiled/grammar/${ctrl.moduleId}-${ctrl.lang()}.json`));
 
       const valToWord = (val: string, phonetic: boolean) =>
         grammar.entries.find(

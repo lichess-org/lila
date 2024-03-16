@@ -1,6 +1,6 @@
 package lila.forum
 
-import scalatags.Text.all.{ raw, Frag }
+import scalatags.Text.all.{ Frag, raw }
 
 import lila.base.RawHtml
 import lila.common.config
@@ -21,6 +21,6 @@ final class ForumTextExpand(using Executor, Scheduler):
       .map(_.text)
       .traverse(one)
       .map:
-        _ zip posts map { (body, post) =>
+        _.zip(posts).map { (body, post) =>
           ForumPost.WithFrag(post, body)
         }

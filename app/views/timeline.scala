@@ -2,7 +2,7 @@ package views.html
 
 import controllers.routes
 
-import lila.app.templating.Environment.{ given, * }
+import lila.app.templating.Environment.{ *, given }
 import lila.app.ui.ScalatagsTemplate.{ *, given }
 import lila.hub.actorApi.timeline.*
 
@@ -10,7 +10,7 @@ object timeline:
 
   def entries(entries: Vector[lila.timeline.Entry])(using Context) =
     div(cls := "entries"):
-      filterEntries(entries) map: entry =>
+      filterEntries(entries).map: entry =>
         div(cls := "entry")(timeline.entry(entry))
 
   def more(entries: Vector[lila.timeline.Entry])(using PageContext) =
@@ -74,7 +74,7 @@ object timeline:
             a(href := routes.Simul.show(simulId))(simulName)
           )
         case GameEnd(playerId, opponent, win, perfKey) =>
-          lila.rating.PerfType(lila.rating.Perf.Key(perfKey)) map { perf =>
+          lila.rating.PerfType(lila.rating.Perf.Key(perfKey)).map { perf =>
             (win match
               case Some(true)  => trans.victoryVsYInZ
               case Some(false) => trans.defeatVsYInZ

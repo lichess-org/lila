@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+  <string name="arena">Арена</string>
   <string name="arenaTournaments">Турниры «Арена»</string>
   <string name="isItRated">Что будет с рейтингом?</string>
   <string name="willBeNotified">О начале турнира известит всплывающее уведомление, так что вы не пропустите его, если будете играть на другой вкладке.</string>
@@ -57,4 +58,28 @@
   <string name="averagePerformance">Средний перформанс</string>
   <string name="averageScore">Среднее количество очков</string>
   <string name="myTournaments">Мои турниры</string>
+  <string name="editTournament">Изменить турнир</string>
+  <string name="editTeamBattle">Изменить межклубный турнир</string>
+  <string name="defender" comment="In this context, this is the current holder of a shield trophy, who is defending their trophy in the next shield tournament of that variant. https://lichess.org/tournament/shields">Защищающийся</string>
+  <string name="pickYourTeam">Выберите свой клуб</string>
+  <string name="whichTeamWillYouRepresentInThisBattle">Какой клуб вы представляете в этом турнире?</string>
+  <string name="youMustJoinOneOfTheseTeamsToParticipate">Вы должны стать членом одного из этих клубов, чтобы участвовать!</string>
+  <string name="created">Создан</string>
+  <string name="recentlyPlayed">Недавно сыгранные</string>
+  <string name="bestResults">Лучшие результаты</string>
+  <string name="stats">Статистика</string>
+  <string name="tournamentStats">Турнирная статистика</string>
+  <string name="rankAvgHelp">Среднее занятое место (вхождение в процент лучших игроков). Чем ниже значение, тем лучше.
+
+Например, занятие 3 места в турнире из 100 игроков даёт 3 %. Занятие 10 места в турнире из 1000 игроков даёт 1 %.</string>
+  <string name="medians" comment="Part of a longer sentence,  &quot;All averages on this page are %s.&quot; (where %s is this word, medians)">медианы</string>
+  <string name="allAveragesAreX" comment="The full sentence says 'All averages on this page are medians.' (as in median averages)&#10;&#10;%s is the word 'medians', which is available for translation separately.">Средние значения по этой странице: %s.</string>
+  <string name="total">Всего</string>
+  <string name="pointsAvg">Очки в среднем</string>
+  <string name="pointsSum">Сумма очков</string>
+  <string name="rankAvg">Среднее занятое место</string>
+  <string name="tournamentWinners">Победители турнира</string>
+  <string name="tournamentShields">Щиты турниров</string>
+  <string name="onlyTitled">Только игроки со званиями</string>
+  <string name="onlyTitledHelp">Требуется официальное звание для участия в турнире</string>
 </resources>

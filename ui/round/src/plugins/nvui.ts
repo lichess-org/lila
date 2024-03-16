@@ -35,9 +35,9 @@ import { renderSetting } from 'nvui/setting';
 import { Notify } from 'nvui/notify';
 import { commands } from 'nvui/command';
 
-const selectSound = () => lichess.sound.play('select');
-const borderSound = () => lichess.sound.play('outOfBound');
-const errorSound = () => lichess.sound.play('error');
+const selectSound = () => site.sound.play('select');
+const borderSound = () => site.sound.play('outOfBound');
+const errorSound = () => site.sound.play('error');
 
 // esbuild
 export function initModule(): NvuiPlugin {
@@ -48,10 +48,10 @@ export function initModule(): NvuiPlugin {
     positionStyle = positionSetting(),
     boardStyle = boardSetting();
 
-  lichess.pubsub.on('socket.in.message', line => {
+  site.pubsub.on('socket.in.message', line => {
     if (line.u === 'lichess') notify.set(line.t);
   });
-  lichess.pubsub.on('round.suggestion', notify.set);
+  site.pubsub.on('round.suggestion', notify.set);
 
   return {
     premoveInput: '',
@@ -72,7 +72,7 @@ export function initModule(): NvuiPlugin {
           'Sorry, the variant ' + d.game.variant.key + ' is not supported in blind mode.';
       if (!ctrl.chessground) {
         ctrl.setChessground(
-          lichess.makeChessground(document.createElement('div'), {
+          site.makeChessground(document.createElement('div'), {
             ...makeCgConfig(ctrl),
             animation: { enabled: false },
             drawable: { enabled: false },

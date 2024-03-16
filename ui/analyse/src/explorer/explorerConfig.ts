@@ -333,7 +333,7 @@ const playerModal = (ctrl: ExplorerConfigCtrl) => {
     }
     return '.button-metal';
   };
-  return lichess.dialog.snab({
+  return site.dialog.snab({
     class: 'explorer__config__player__choice',
     onClose() {
       ctrl.data.playerName.open(false);
@@ -348,7 +348,7 @@ const playerModal = (ctrl: ExplorerConfigCtrl) => {
             spellcheck: 'false',
           },
           hook: onInsert<HTMLInputElement>(input =>
-            lichess.asset
+            site.asset
               .userComplete({ input, tag: 'span', onSelect: v => onSelect(v.name) })
               .then(() => input.focus()),
           ),

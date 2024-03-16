@@ -1,15 +1,15 @@
 package lila.relay
 
-import scala.concurrent.duration.*
 import akka.actor.*
-import chess.format.pgn.{ PgnStr, Parser, Std, San, Tags }
-import chess.{ ErrorStr, Game, Replay, Square }
 import akka.pattern.after
+import chess.format.pgn.{ Parser, PgnStr, San, Std, Tags }
+import chess.{ ErrorStr, Game, Replay, Square }
 
-import lila.study.MultiPgn
-import lila.base.LilaInvalid
-import lila.hub.AsyncActorSequencers
+import scala.concurrent.duration.*
+
 import lila.common.config.Max
+import lila.hub.AsyncActorSequencers
+import lila.study.MultiPgn
 
 final class RelayPush(sync: RelaySync, api: RelayApi, irc: lila.irc.IrcApi)(using
     ActorSystem,
@@ -31,7 +31,7 @@ final class RelayPush(sync: RelaySync, api: RelayApi, irc: lila.irc.IrcApi)(usin
     if rt.round.sync.hasUpstream
     then fuccess(List(Left(Failure(Tags.empty, "The relay has an upstream URL, and cannot be pushed to."))))
     else
-      val parsed   = pgnToGames(rt, pgn)
+      val parsed   = pgnToGames(pgn)
       val games    = parsed.collect { case Right(g) => g }.toVector
       val response = parsed.map(_.map(g => Success(g.tags, g.root.mainline.size)))
 
@@ -52,13 +52,13 @@ final class RelayPush(sync: RelaySync, api: RelayApi, irc: lila.irc.IrcApi)(usin
             irc.broadcastStart(rt.round.id, rt.fullName)
           api
             .update(rt.round): r1 =>
-              val r2 = r1.withSync(_ addLog event)
+              val r2 = r1.withSync(_.addLog(event))
               val r3 = if event.hasMoves then r2.ensureStarted.resume else r2
               r3.copy(finished = games.nonEmpty && games.forall(_.ending.isDefined))
 
-  private def pgnToGames(rt: RelayRound.WithTour, pgnBody: PgnStr): List[Either[Failure, RelayGame]] =
+  private def pgnToGames(pgnBody: PgnStr): List[Either[Failure, RelayGame]] =
     MultiPgn
-      .split(pgnBody, Max(lila.study.Study.maxChapters * (if rt.tour.official then 2 else 1)))
+      .split(pgnBody, RelayFetch.maxChapters)
       .value
       .map: pgn =>
         validate(pgn).flatMap: tags =>

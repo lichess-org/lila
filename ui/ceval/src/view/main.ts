@@ -142,10 +142,11 @@ export function renderGauge(ctrl: ParentCtrl): VNode | undefined {
     ev = winningChances.povChances('white', bestEv);
     gaugeLast = ev;
   } else ev = gaugeLast;
-  return h('div.eval-gauge', { class: { empty: ev === null, reverse: ctrl.getOrientation() === 'black' } }, [
-    h('div.black', { attrs: { style: `height: ${100 - (ev + 1) * 50}%` } }),
-    ...gaugeTicks,
-  ]);
+  return h(
+    'div.eval-gauge',
+    { class: { empty: !defined(bestEv), reverse: ctrl.getOrientation() === 'black' } },
+    [h('div.black', { attrs: { style: `height: ${100 - (ev + 1) * 50}%` } }), ...gaugeTicks],
+  );
 }
 
 export function renderCeval(ctrl: ParentCtrl): LooseVNodes {
@@ -296,7 +297,7 @@ function getElPvMoves(e: TouchEvent | MouseEvent): (string | null)[] {
 }
 
 function checkHover(el: HTMLElement, ceval: CevalCtrl): void {
-  lichess.requestIdleCallback(
+  site.requestIdleCallback(
     () => ceval.setHovering(getElFen(el), $(el).find('div.pv:hover').attr('data-uci') || undefined),
     500,
   );
@@ -468,7 +469,7 @@ function renderPvBoard(ctrl: ParentCtrl): VNode | undefined {
   };
   const cgVNode = h('div.cg-wrap.is2d', {
     hook: {
-      insert: (vnode: any) => (vnode.elm._cg = lichess.makeChessground(vnode.elm, cgConfig)),
+      insert: (vnode: any) => (vnode.elm._cg = site.makeChessground(vnode.elm, cgConfig)),
       update: (vnode: any) => vnode.elm._cg?.set(cgConfig),
       destroy: (vnode: any) => vnode.elm._cg?.destroy(),
     },

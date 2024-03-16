@@ -14,17 +14,20 @@ final class SwissTrf(
 
   private type Bits = List[(Int, String)]
 
-  def apply(swiss: Swiss, sorted: Boolean): Source[String, ?] = Source futureSource {
-    fetchPlayerIds(swiss) map { apply(swiss, _, sorted) }
+  def apply(swiss: Swiss, sorted: Boolean): Source[String, ?] = Source.futureSource {
+    fetchPlayerIds(swiss).map { apply(swiss, _, sorted) }
   }
 
   def apply(swiss: Swiss, playerIds: PlayerIds, sorted: Boolean): Source[String, ?] =
     SwissPlayer.fields { f =>
-      tournamentLines(swiss) concat
-        forbiddenPairings(swiss, playerIds) concat sheetApi
-          .source(swiss, sort = sorted.so($doc(f.rating -> -1)))
-          .map((playerLine(swiss, playerIds)).tupled)
-          .map(formatLine)
+      tournamentLines(swiss)
+        .concat(forbiddenPairings(swiss, playerIds))
+        .concat(
+          sheetApi
+            .source(swiss, sort = sorted.so($doc(f.rating -> -1)))
+            .map((playerLine(swiss, playerIds)).tupled)
+            .map(formatLine)
+        )
     }
 
   private def tournamentLines(swiss: Swiss) =
@@ -33,8 +36,8 @@ final class SwissTrf(
         s"012 ${swiss.name}",
         s"022 $baseUrl/swiss/${swiss.id}",
         s"032 Lichess",
-        s"042 ${dateFormatter print swiss.startsAt}",
-        s"052 ${swiss.finishedAt so dateFormatter.print}",
+        s"042 ${dateFormatter.print(swiss.startsAt)}",
+        s"052 ${swiss.finishedAt.so(dateFormatter.print)}",
         s"062 ${swiss.nbPlayers}",
         s"092 Individual: Swiss-System",
         s"102 $baseUrl/swiss",
@@ -55,10 +58,10 @@ final class SwissTrf(
       84                         -> f"${sheet.points.value}%1.1f"
     ) ::: {
       swiss.allRounds.zip(sheet.outcomes).flatMap { case (rn, outcome) =>
-        val pairing = pairings get rn
+        val pairing = pairings.get(rn)
         List(
-          95 -> pairing.map(_ opponentOf p.userId).flatMap(playerIds.get).so(_.toString),
-          97 -> pairing.map(_ colorOf p.userId).so(_.fold("w", "b")),
+          95 -> pairing.map(_.opponentOf(p.userId)).flatMap(playerIds.get).so(_.toString),
+          97 -> pairing.map(_.colorOf(p.userId)).so(_.fold("w", "b")),
           99 -> {
             import SwissSheet.Outcome.*
             outcome match

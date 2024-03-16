@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="900" height="600" viewBox="0 0 75 50" fill="none">
+	<title>Flag of Saint Kitts and Nevis</title>
+	<defs>
+		<clipPath id="f">
+			<path d="m0 0h75v50H0z"/>
+		</clipPath>
+	</defs>
+	<path fill="#009739" d="m0 50V0h75z"/>
+	<path fill="#c8102e" d="m75 0v50H0z"/>
+	<g clip-path="url(#f)">
+		<path stroke="#ffcd00" stroke-width="21" d="m0 50L75 0"/>
+		<path stroke="#000" stroke-width="15" d="m0 50L75 0"/>
+	</g>
+	<path fill="#fff" d="m19.565 29.347 10.448 8.254L16.709 37.065l11.078-7.386-4.621 12.487zm28.846-19.231 10.448 8.254L45.555 17.834l11.078-7.386-4.621 12.487z"/>
+</svg>

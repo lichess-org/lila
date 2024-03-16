@@ -83,21 +83,40 @@ $player-height: 1.6rem;
   }
 
   .info {
+    @extend %flex-center-nowrap;
     margin-#{$start-direction}: 10px;
-    display: flex;
     overflow: hidden;
 
-    > * {
+    .team,
+    .name {
       overflow: hidden;
       text-overflow: ellipsis;
       max-width: fit-content;
       flex: 1;
+    }
+    a.name {
+      color: $c-font;
+      &:hover {
+        color: $c-link;
+      }
     }
   }
 
   .name {
     margin-#{$start-direction}: 0.5ch;
     flex: 3;
+  }
+  .team {
+    @extend %roboto;
+    margin-#{$end-direction}: 1ch;
+    padding: 0 1ch;
+    flex: 2;
+    color: $c-font-dim;
+  }
+  .mini-game__flag {
+    height: 1em;
+    margin-#{$end-direction}: 1ch;
+    margin-top: unset;
   }
 
   .elo {

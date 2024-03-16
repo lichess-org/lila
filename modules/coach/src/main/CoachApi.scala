@@ -4,7 +4,7 @@ import lila.db.dsl.{ *, given }
 import lila.memo.PicfitApi
 import lila.notify.NotifyApi
 import lila.security.Granter
-import lila.user.{ Me, User, UserRepo, UserPerfsRepo }
+import lila.user.{ Me, User, UserPerfsRepo, UserRepo }
 
 final class CoachApi(
     coachColl: Coll,
@@ -20,28 +20,32 @@ final class CoachApi(
   def byId[U: UserIdOf](u: U): Fu[Option[Coach]] = coachColl.byId[Coach](u)
 
   def find(username: UserStr): Fu[Option[Coach.WithUser]] =
-    userRepo byId username flatMapz find
+    userRepo.byId(username).flatMapz(find)
 
   def canCoach = Granter.of(_.Coach)
 
   def find(user: User): Fu[Option[Coach.WithUser]] =
     canCoach(user).so:
       byId(user.id).flatMapz: coach =>
-        perfsRepo.withPerfs(user) dmap coach.withUser dmap some
+        perfsRepo.withPerfs(user).dmap(coach.withUser).dmap(some)
 
   def findOrInit(using me: Me): Fu[Option[Coach.WithUser]] =
     val user = me.value
     canCoach(user).so:
-      find(user) orElse perfsRepo.withPerfs(user).flatMap { user =>
+      find(user).orElse(perfsRepo.withPerfs(user).flatMap { user =>
         val c = Coach.make(user).withUser(user)
-        coachColl.insert.one(c.coach) inject c.some
-      }
+        coachColl.insert.one(c.coach).inject(c.some)
+      })
 
   def isListedCoach(user: User): Fu[Boolean] =
     canCoach(user).so:
-      user.enabled.yes so user.marks.clean so coachColl.exists(
-        $id(user.id) ++ $doc("listed" -> true)
-      )
+      user.enabled.yes
+        .so(user.marks.clean)
+        .so(
+          coachColl.exists(
+            $id(user.id) ++ $doc("listed" -> true)
+          )
+        )
 
   def setSeenAt(user: User): Funit =
     canCoach(user).so:
@@ -64,9 +68,10 @@ final class CoachApi(
 
   def uploadPicture(c: Coach.WithUser, picture: PicfitApi.FilePart): Funit =
     picfitApi
-      .uploadFile(s"coach:${c.coach.id}", picture, userId = c.user.id) flatMap { pic =>
-      coachColl.update.one($id(c.coach.id), $set("picture" -> pic.id)).void
-    }
+      .uploadFile(s"coach:${c.coach.id}", picture, userId = c.user.id)
+      .flatMap { pic =>
+        coachColl.update.one($id(c.coach.id), $set("picture" -> pic.id)).void
+      }
 
   private val languagesCache = cacheApi.unit[Set[String]]:
     _.refreshAfterWrite(1 hour).buildAsyncFuture: _ =>
@@ -90,5 +95,3 @@ final class CoachApi(
         .map(CountrySelection(_))
 
   def countrySelection: Fu[CountrySelection] = countriesCache.get {}
-
-  private def withUser(user: User.WithPerfs)(coach: Coach) = Coach.WithUser(coach, user)

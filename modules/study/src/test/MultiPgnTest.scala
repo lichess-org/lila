@@ -1,6 +1,7 @@
 package lila.study
 
 import chess.format.pgn.PgnStr
+
 import lila.common.config.Max
 
 class MultiPgnTest extends munit.FunSuite:

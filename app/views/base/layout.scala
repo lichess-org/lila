@@ -1,16 +1,16 @@
 package views.html.base
 
-import controllers.report.routes.{ Report as reportRoutes }
-import controllers.team.routes.{ Team as teamRoutes }
+import controllers.report.routes.Report as reportRoutes
 import controllers.routes
+import controllers.team.routes.Team as teamRoutes
 import play.api.i18n.Lang
 
-import lila.app.templating.Environment.{ given, * }
 import lila.app.ContentSecurityPolicy
+import lila.app.templating.Environment.{ *, given }
 import lila.app.ui.ScalatagsTemplate.{ *, given }
-import lila.common.base.StringUtils.escapeHtmlRaw
-import lila.common.String.html.safeJsonValue
 import lila.common.LangPath
+import lila.common.String.html.safeJsonValue
+import lila.common.base.StringUtils.escapeHtmlRaw
 
 object layout:
 
@@ -24,7 +24,7 @@ object layout:
     def metaCsp(csp: ContentSecurityPolicy): Frag = raw:
       s"""<meta http-equiv="Content-Security-Policy" content="$csp">"""
     def metaCsp(csp: Option[ContentSecurityPolicy])(using ctx: PageContext): Frag =
-      metaCsp(csp getOrElse defaultCsp)
+      metaCsp(csp.getOrElse(defaultCsp))
     def metaThemeColor(using ctx: PageContext): Frag =
       if ctx.pref.bg == lila.pref.Pref.Bg.SYSTEM then
         raw:
@@ -37,7 +37,7 @@ object layout:
     def pieceSprite(ps: lila.pref.PieceSet): Frag =
       link(
         id   := "piece-sprite",
-        href := assetUrl(s"piece-css/$ps.${env.pieceImageExternal.get() so "external."}css"),
+        href := assetUrl(s"piece-css/$ps.${env.pieceImageExternal.get().so("external.")}css"),
         rel  := "stylesheet"
       )
   import bits.*
@@ -47,7 +47,7 @@ object layout:
   private def preload(href: String, as: String, crossorigin: Boolean, tpe: Option[String] = None) =
     val linkType = tpe.so(t => s"""type="$t" """)
     raw:
-      s"""<link rel="preload" href="$href" as="$as" $linkType${crossorigin so "crossorigin"}>"""
+      s"""<link rel="preload" href="$href" as="$as" $linkType${crossorigin.so("crossorigin")}>"""
 
   private def fontPreload(using ctx: PageContext) = frag(
     preload(assetUrl("font/lichess.woff2"), "font", crossorigin = true, "font/woff2".some),
@@ -57,25 +57,30 @@ object layout:
       crossorigin = true,
       "font/woff2".some
     ),
-    !ctx.pref.pieceNotationIsLetter option
+    (!ctx.pref.pieceNotationIsLetter).option(
       preload(assetUrl("font/lichess.chess.woff2"), "font", crossorigin = true, "font/woff2".some)
+    )
   )
   private def boardPreload(using ctx: PageContext) = frag(
     preload(assetUrl(s"images/board/${ctx.pref.currentTheme.file}"), "image", crossorigin = false),
-    ctx.pref.is3d option
+    ctx.pref.is3d.option(
       preload(
         assetUrl(s"images/staunton/board/${ctx.pref.currentTheme3d.file}"),
         "image",
         crossorigin = false
       )
+    )
   )
   private def piecesPreload(using ctx: PageContext) =
-    env.pieceImageExternal.get() option raw:
-      (for
-        c <- List('w', 'b')
-        p <- List('K', 'Q', 'R', 'B', 'N', 'P')
-        href = staticAssetUrl(s"piece/${ctx.pref.currentPieceSet.name}/$c$p.svg")
-      yield s"""<link rel="preload" href="$href" as="image">""").mkString
+    env.pieceImageExternal
+      .get()
+      .option(raw:
+        (for
+          c <- List('w', 'b')
+          p <- List('K', 'Q', 'R', 'B', 'N', 'P')
+          href = staticAssetUrl(s"piece/${ctx.pref.currentPieceSet.name}/$c$p.svg")
+        yield s"""<link rel="preload" href="$href" as="image">""").mkString
+      )
 
   private val manifests = raw:
     """<link rel="manifest" href="/manifest.json"><meta name="twitter:site" content="@lichess">"""
@@ -176,12 +181,13 @@ object layout:
 
   private def loadScripts(moreJs: Frag)(using ctx: PageContext) =
     frag(
-      ctx.needsFp option fingerprintTag,
-      ctx.nonce map inlineJs.apply,
-      frag(cashTag, jsModule("lichess")),
+      ctx.needsFp.option(fingerprintTag),
+      ctx.nonce.map(inlineJs.apply),
+      frag(cashTag, jsModule("site")),
       moreJs,
-      ctx.data.inquiry.isDefined option jsModule("mod.inquiry"),
-      ctx.pref.bg == lila.pref.Pref.Bg.SYSTEM option embedJsUnsafe(systemThemePolyfillJs)
+      ctx.data.inquiry.isDefined.option(jsModule("mod.inquiry")),
+      (ctx.pref.bg == lila.pref.Pref.Bg.SYSTEM).option(embedJsUnsafe(systemThemePolyfillJs)),
+      (!netConfig.isProd).option(jsModule("devMode"))
     )
 
   private def hrefLang(langStr: String, path: String) =
@@ -196,8 +202,14 @@ object layout:
   }
 
   private def pageZoom(using ctx: Context): Int = {
-    def oldZoom = ctx.req.session get "zoom2" flatMap (_.toIntOption) map (_ - 100)
-    ctx.req.cookies get "zoom" map (_.value) flatMap (_.toIntOption) orElse oldZoom filter (0 <=) filter (100 >=)
+    def oldZoom = ctx.req.session.get("zoom2").flatMap(_.toIntOption).map(_ - 100)
+    ctx.req.cookies
+      .get("zoom")
+      .map(_.value)
+      .flatMap(_.toIntOption)
+      .orElse(oldZoom)
+      .filter(0 <=)
+      .filter(100 >=)
   } | 85
 
   private val spinnerMask = raw:
@@ -215,6 +227,7 @@ object layout:
 
   private val dataVapid         = attr("data-vapid")
   private val dataSocketDomains = attr("data-socket-domains") := netConfig.socketDomains.mkString(",")
+  private val dataSocketAlts    = attr("data-socket-alts")    := netConfig.socketAlts.mkString(",")
   private val dataNonce         = attr("data-nonce")
   private val dataAnnounce      = attr("data-announce")
   val dataSoundSet              = attr("data-sound-set")
@@ -251,16 +264,16 @@ object layout:
           viewport,
           metaCsp(csp),
           metaThemeColor,
-          st.headTitle {
+          st.headTitle:
             val prodTitle = fullTitle | s"$title • $siteName"
             if netConfig.isProd then prodTitle
             else s"${ctx.me.so(_.username + " ")} $prodTitle"
-          },
+          ,
           cssTag("site"),
-          pref.is3d option cssTag("board-3d"),
-          ctx.data.inquiry.isDefined option cssTagNoTheme("mod.inquiry"),
-          ctx.impersonatedBy.isDefined option cssTagNoTheme("mod.impersonate"),
-          ctx.blind option cssTagNoTheme("blind"),
+          pref.is3d.option(cssTag("board-3d")),
+          ctx.data.inquiry.isDefined.option(cssTagNoTheme("mod.inquiry")),
+          ctx.impersonatedBy.isDefined.option(cssTagNoTheme("mod.impersonate")),
+          ctx.blind.option(cssTagNoTheme("blind")),
           moreCss,
           pieceSprite,
           meta(
@@ -269,11 +282,11 @@ object layout:
           ),
           link(rel := "mask-icon", href := assetUrl("logo/lichess.svg"), attr("color") := "black"),
           favicons,
-          !robots option raw("""<meta content="noindex, nofollow" name="robots">"""),
+          (!robots).option(raw("""<meta content="noindex, nofollow" name="robots">""")),
           noTranslate,
           openGraph.map(_.frags),
           atomLinkTag | dailyNewsAtom,
-          pref.bg == lila.pref.Pref.Bg.TRANSPARENT option pref.bgImgOrDefault map { img =>
+          (pref.bg == lila.pref.Pref.Bg.TRANSPARENT).option(pref.bgImgOrDefault).map { img =>
             raw:
               s"""<style id="bg-data">body.transp::before{background-image:url("${escapeHtmlRaw(img)
                   .replace("&amp;", "&")}");}</style>"""
@@ -305,10 +318,11 @@ object layout:
             )
           },
           dataDev,
-          dataVapid    := (ctx.isAuth && env.lilaCookie.isRememberMe(ctx.req)) option vapidPublicKey,
+          dataVapid    := (ctx.isAuth && env.lilaCookie.isRememberMe(ctx.req)).option(vapidPublicKey),
           dataUser     := ctx.userId,
           dataSoundSet := pref.currentSoundSet.toString,
           dataSocketDomains,
+          pref.isUsingAltSocket.option(dataSocketAlts),
           dataAssetUrl,
           dataAssetVersion := assetVersion,
           dataNonce        := ctx.nonce.ifTrue(sameAssetDomain).map(_.value),
@@ -316,17 +330,17 @@ object layout:
           dataBoardTheme   := pref.currentTheme.name,
           dataPieceSet     := pref.currentPieceSet.name,
           dataAnnounce     := lila.api.AnnounceStore.get.map(a => safeJsonValue(a.json)),
-          style            := zoomable option s"--zoom:$pageZoom"
+          style            := zoomable.option(s"--zoom:$pageZoom")
         )(
           blindModeForm,
-          ctx.data.inquiry map { views.html.mod.inquiry(_) },
-          ctx.me ifTrue ctx.impersonatedBy.isDefined map { views.html.mod.impersonate(_) },
-          netConfig.stageBanner option views.html.base.bits.stage,
+          ctx.data.inquiry.map { views.html.mod.inquiry(_) },
+          ctx.me.ifTrue(ctx.impersonatedBy.isDefined).map { views.html.mod.impersonate(_) },
+          netConfig.stageBanner.option(views.html.base.bits.stage),
           lila.security.EmailConfirm.cookie
             .get(ctx.req)
             .ifTrue(ctx.isAnon)
             .map(views.html.auth.bits.checkYourEmailBanner(_)),
-          zenable option zenZone,
+          zenable.option(zenZone),
           siteHeader(zenable),
           div(
             id := "main-wrap",
@@ -336,16 +350,22 @@ object layout:
               "is3d"    -> pref.is3d
             )
           )(body),
-          ctx.me.exists(_.enabled.yes) option div(id := "friend_box")(
-            div(cls := "friend_box_title")(trans.nbFriendsOnline.plural(0, iconTag(licon.UpTriangle))),
-            div(cls := "content_wrap none")(
-              div(cls := "content list")
+          ctx.me
+            .exists(_.enabled.yes)
+            .option(
+              div(id := "friend_box")(
+                div(cls := "friend_box_title")(trans.nbFriendsOnline.plural(0, iconTag(licon.UpTriangle))),
+                div(cls := "content_wrap none")(
+                  div(cls := "content list")
+                )
+              )
+            ),
+          netConfig.socketDomains.nonEmpty.option(
+            a(
+              id       := "network-status",
+              cls      := "link text",
+              dataIcon := licon.ChasingArrows
             )
-          ),
-          netConfig.socketDomains.nonEmpty option a(
-            id       := "network-status",
-            cls      := "link text",
-            dataIcon := licon.ChasingArrows
           ),
           spinnerMask,
           loadScripts(moreJs)
@@ -376,15 +396,17 @@ object layout:
           dataIcon  := licon.Agent
         ).some
       else
-        isGranted(_.PublicChatView) option a(
-          cls      := "link",
-          title    := "Moderation",
-          href     := routes.Mod.publicChat,
-          dataIcon := licon.Agent
+        isGranted(_.PublicChatView).option(
+          a(
+            cls      := "link",
+            title    := "Moderation",
+            href     := routes.Mod.publicChat,
+            dataIcon := licon.Agent
+          )
         )
 
     private def teamRequests(using ctx: PageContext) =
-      ctx.teamNbRequests > 0 option
+      (ctx.teamNbRequests > 0).option(
         a(
           cls       := "link data-count link-center",
           href      := teamRoutes.requests,
@@ -392,40 +414,49 @@ object layout:
           dataIcon  := licon.Group,
           title     := trans.team.teams.txt()
         )
+      )
 
     def apply(zenable: Boolean)(using ctx: PageContext) =
       header(id := "top")(
         div(cls := "site-title-nav")(
-          !ctx.isAppealUser option topnavToggle,
+          (!ctx.isAppealUser).option(topnavToggle),
           h1(cls := "site-title")(
             if ctx.kid.yes then span(title := trans.kidMode.txt(), cls := "kiddo")(":)")
-            else ctx.isBot option botImage,
+            else ctx.isBot.option(botImage),
             a(href := langHref("/"))(siteNameFrag)
           ),
-          ctx.blind option h2("Navigation"),
-          !ctx.isAppealUser option frag(
-            topnav(),
-            ctx.kid.no && ctx.me.exists(!_.isPatron) && !zenable option a(cls := "site-title-nav__donate")(
-              href := routes.Plan.index
-            )(trans.patron.donate())
+          ctx.blind.option(h2("Navigation")),
+          (!ctx.isAppealUser).option(
+            frag(
+              topnav(),
+              (ctx.kid.no && ctx.me.exists(!_.isPatron) && !zenable).option(
+                a(cls := "site-title-nav__donate")(
+                  href := routes.Plan.index
+                )(trans.patron.donate())
+              )
+            )
           )
         ),
         div(cls := "site-buttons")(
           warnNoAutoplay,
-          !ctx.isAppealUser option clinput,
+          (!ctx.isAppealUser).option(clinput),
           reports,
           teamRequests,
           if ctx.isAppealUser then
             postForm(action := routes.Auth.logout):
               submitButton(cls := "button button-red link")(trans.logOut())
           else
-            ctx.me map { me =>
-              frag(allNotifications, dasher(me))
-            } getOrElse { !ctx.data.error option anonDasher }
+            ctx.me
+              .map { me =>
+                frag(allNotifications, dasher(me))
+              }
+              .getOrElse { (!ctx.data.error).option(anonDasher) }
         )
       )
 
   object inlineJs:
+
+    def apply(nonce: Nonce)(using Lang) = embedJsUnsafe(jsCode, nonce)
 
     private val i18nKeys = List(
       trans.pause,
@@ -454,14 +485,15 @@ object layout:
     )
 
     private val cache = new java.util.concurrent.ConcurrentHashMap[Lang, String]
+    lila.common.Bus.subscribeFun("i18n.load"):
+      case lang: Lang => cache.remove(lang)
+
     private def jsCode(using lang: Lang) =
       cache.computeIfAbsent(
         lang,
         _ =>
           val qty  = lila.i18n.JsQuantity(lang)
           val i18n = safeJsonValue(i18nJsObject(i18nKeys))
-          s"""lichess={load:new Promise(r=>document.addEventListener("DOMContentLoaded",r)),quantity:$qty,siteI18n:$i18n}"""
+          s"""site={load:new Promise(r=>document.addEventListener("DOMContentLoaded",r)),quantity:$qty,siteI18n:$i18n}"""
       )
-    def apply(nonce: Nonce)(using Lang) =
-      embedJsUnsafe(jsCode, nonce)
   end inlineJs

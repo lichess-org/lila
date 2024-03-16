@@ -7,8 +7,8 @@ export const getNow = (): number => Math.round(performance.now());
 export const puzzlePov = (puzzle: Puzzle) => opposite(parseFen(puzzle.fen).unwrap().turn);
 
 const loadSound = (file: string, volume?: number, delay?: number) => {
-  setTimeout(() => lichess.sound.load(file, `${lichess.sound.baseUrl}/${file}`), delay || 1000);
-  return () => lichess.sound.play(file, volume);
+  setTimeout(() => site.sound.load(file, `${site.sound.baseUrl}/${file}`), delay || 1000);
+  return () => site.sound.play(file, volume);
 };
 
 export const sound = {

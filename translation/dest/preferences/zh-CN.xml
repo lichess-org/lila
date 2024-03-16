@@ -9,7 +9,7 @@
   <string name="boardHighlights">棋盘高亮（最后一步与将军）</string>
   <string name="pieceDestinations">棋子走到位置（有效着与预先走棋）</string>
   <string name="boardCoordinates">棋盘坐标（A-H, 1-8）</string>
-  <string name="moveListWhilePlaying">对局进行时显示可走着</string>
+  <string name="moveListWhilePlaying">对局进行时显示可走着法</string>
   <string name="pgnPieceNotation">使用PGN字母(K,Q,R,B,N)或棋子图标来显示PGN棋谱</string>
   <string name="chessPieceSymbol">棋子图标</string>
   <string name="pgnLetter">字母 （K,Q,R,B,N）</string>
@@ -49,7 +49,7 @@
   <string name="castleByMovingOntoTheRook">将王移到车上</string>
   <string name="inputMovesWithTheKeyboard">用键盘输入棋步</string>
   <string name="inputMovesWithVoice">用语音输入着法</string>
-  <string name="snapArrowsToValidMoves" comment="snapArrowsToValidMoves&#10;&#10;The 'arrows' are for quick annotations you can do on the board, by holding right mouse button. With this setting enabled, it means the arrows will align themselves to places were pieces can move.">吸附箭头到有效着</string>
+  <string name="snapArrowsToValidMoves" comment="snapArrowsToValidMoves&#10;&#10;The 'arrows' are for quick annotations you can do on the board, by holding right mouse button. With this setting enabled, it means the arrows will align themselves to places were pieces can move.">将箭头吸附到有效着法上</string>
   <string name="sayGgWpAfterLosingOrDrawing" comment="sayGgWpAfterLosingOrDrawing&#10;&#10;When enabled, this setting will automatically send 'Good game, well played' to your opponent if you are lose or draw the game. It's meant as a courtesy message.&#10;&#10;The message will be sent in ENGLISH.&#10;&#10;It is up to you how to deal with this. For example, you may want to put '(message will be sent in English)' in your translated text as one example. Or you can leave the actual English text and put a brief translation in your own language.">输棋、和棋后自动发送：“厉害，玩得不错！”</string>
   <string name="yourPreferencesHaveBeenSaved">你的设置已保存。</string>
   <string name="scrollOnTheBoardToReplayMoves">在棋盘上滚动鼠标滚轮以回退</string>

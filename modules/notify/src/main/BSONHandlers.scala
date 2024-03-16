@@ -1,8 +1,9 @@
 package lila.notify
 
+import reactivemongo.api.bson.*
+
 import lila.db.BSON.{ Reader, Writer }
 import lila.db.dsl.{ *, given }
-import reactivemongo.api.bson.*
 
 private object BSONHandlers:
   private given BSONDocumentHandler[StreamStart]                       = Macros.handler

@@ -1,11 +1,11 @@
 package views.html.clas
 
-import controllers.clas.routes.{ Clas as clasRoutes }
+import controllers.clas.routes.Clas as clasRoutes
 import controllers.routes
 import play.api.data.Form
 import play.api.i18n.Lang
 
-import lila.app.templating.Environment.{ given, * }
+import lila.app.templating.Environment.{ *, given }
 import lila.app.ui.ScalatagsTemplate.{ *, given }
 import lila.clas.{ Clas, Student }
 import lila.common.String.html.richText
@@ -18,7 +18,7 @@ object student:
       s: Student.WithUserAndManagingClas,
       activities: Vector[lila.activity.ActivityView]
   )(using ctx: PageContext) =
-    bits.layout(s.user.username, Left(clas withStudents students), s.student.some)(
+    bits.layout(s.user.username, Left(clas.withStudents(students)), s.student.some)(
       cls := "student-show",
       top(clas, s.withUser),
       div(cls := "box__pad")(
@@ -31,7 +31,7 @@ object student:
             )
           )
         },
-        s.student.archived map { archived =>
+        s.student.archived.map { archived =>
           div(cls := "student-show__archived archived")(
             bits.showArchived(archived),
             div(cls := "student-show__archived__actions")(
@@ -46,32 +46,36 @@ object student:
             )
           )
         },
-        s.student.notes.nonEmpty option div(cls := "student-show__notes")(richText(s.student.notes)),
-        s.student.managed option div(cls := "student-show__managed")(
-          p(trans.clas.thisStudentAccountIsManaged()),
-          div(cls := "student-show__managed__actions")(
-            postForm(action := clasRoutes.studentResetPassword(clas.id.value, s.user.username))(
-              form3.submit(trans.clas.resetPassword(), icon = none)(
-                s.student.isArchived option disabled,
-                cls   := List("confirm button button-empty" -> true, "disabled" -> s.student.isArchived),
-                title := trans.clas.generateANewPassword.txt()
+        s.student.notes.nonEmpty.option(div(cls := "student-show__notes")(richText(s.student.notes))),
+        s.student.managed
+          .option(
+            div(cls := "student-show__managed")(
+              p(trans.clas.thisStudentAccountIsManaged()),
+              div(cls := "student-show__managed__actions")(
+                postForm(action := clasRoutes.studentResetPassword(clas.id.value, s.user.username))(
+                  form3.submit(trans.clas.resetPassword(), icon = none)(
+                    s.student.isArchived.option(disabled),
+                    cls   := List("confirm button button-empty" -> true, "disabled" -> s.student.isArchived),
+                    title := trans.clas.generateANewPassword.txt()
+                  )
+                ),
+                a(
+                  href  := clasRoutes.studentRelease(clas.id.value, s.user.username),
+                  cls   := "button button-empty",
+                  title := trans.clas.upgradeFromManaged.txt()
+                )(trans.clas.release())
               )
-            ),
-            a(
-              href  := clasRoutes.studentRelease(clas.id.value, s.user.username),
-              cls   := "button button-empty",
-              title := trans.clas.upgradeFromManaged.txt()
-            )(trans.clas.release())
-          )
-        ) orElse s.managingClas.map { managingClas =>
-          div(cls := "student-show__managed")(
-            p(trans.clas.thisStudentAccountIsManaged()),
-            a(href := clasRoutes.studentShow(managingClas.id.value, s.user.username))(
-              "Class: ",
-              managingClas.name
             )
           )
-        },
+          .orElse(s.managingClas.map { managingClas =>
+            div(cls := "student-show__managed")(
+              p(trans.clas.thisStudentAccountIsManaged()),
+              a(href := clasRoutes.studentShow(managingClas.id.value, s.user.username))(
+                "Class: ",
+                managingClas.name
+              )
+            )
+          }),
         views.html.activity(s.withPerfs, activities)
       )
     )
@@ -112,10 +116,12 @@ object student:
             href := routes.Puzzle.dashboard(7, "home", s.user.username.value.some),
             cls  := "button button-empty"
           )(trans.puzzle.puzzleDashboard()),
-          isGranted(_.Beta) option a(
-            href := routes.Tutor.user(s.user.username.value),
-            cls  := "button button-empty"
-          )("Tutor")
+          isGranted(_.Beta).option(
+            a(
+              href := routes.Tutor.user(s.user.username.value),
+              cls  := "button button-empty"
+            )("Tutor")
+          )
         )
       )
     )
@@ -135,7 +141,7 @@ object student:
       nbStudents: Int,
       created: Option[lila.clas.Student.WithPassword] = none
   )(using PageContext) =
-    bits.layout(trans.clas.addStudent.txt(), Left(clas withStudents students))(
+    bits.layout(trans.clas.addStudent.txt(), Left(clas.withStudents(students)))(
       cls := "box-pad student-add",
       boxTop(
         h1(
@@ -143,8 +149,8 @@ object student:
           s" ($nbStudents/${lila.clas.Clas.maxStudents})"
         )
       ),
-      nbStudents > (lila.clas.Clas.maxStudents / 2) option maxStudentsWarning,
-      created map { case Student.WithPassword(student, password) =>
+      (nbStudents > (lila.clas.Clas.maxStudents / 2)).option(maxStudentsWarning),
+      created.map { case Student.WithPassword(student, password) =>
         flashMessageWith(cls := "student-add__created")(
           strong(
             trans.clas.lichessProfileXCreatedForY(
@@ -159,60 +165,62 @@ object student:
         )
       },
       standardFlash,
-      (nbStudents < lila.clas.Clas.maxStudents) option frag(
-        div(cls := "student-add__choice")(
-          div(cls := "info")(
-            h2(trans.clas.inviteALichessAccount()),
-            p(trans.clas.inviteDesc1()),
-            p(trans.clas.inviteDesc2()),
-            p(
-              strong(trans.clas.inviteDesc3()),
-              br,
-              trans.clas.inviteDesc4()
-            )
-          ),
-          postForm(cls := "form3", action := clasRoutes.studentInvite(clas.id.value))(
-            form3.group(invite("username"), trans.clas.lichessUsername())(field =>
-              div(cls := "complete-parent")(
-                form3.input(field, klass = "user-autocomplete")(created.isEmpty option autofocus)(
-                  dataTag := "span"
-                )
+      (nbStudents < lila.clas.Clas.maxStudents).option(
+        frag(
+          div(cls := "student-add__choice")(
+            div(cls := "info")(
+              h2(trans.clas.inviteALichessAccount()),
+              p(trans.clas.inviteDesc1()),
+              p(trans.clas.inviteDesc2()),
+              p(
+                strong(trans.clas.inviteDesc3()),
+                br,
+                trans.clas.inviteDesc4()
               )
             ),
-            realNameField(invite),
-            form3.submit(trans.clas.invite(), icon = none)
-          )
-        ),
-        div(cls := "student-add__or")(trans.clas.orSeparator()),
-        div(cls := "student-add__choice")(
-          div(cls := "info")(
-            h2(trans.clas.createANewLichessAccount()),
-            p(trans.clas.createDesc1()),
-            p(trans.clas.createDesc2()),
-            p(strong(trans.clas.createDesc3()), br, trans.clas.createDesc4()),
-            badTag(strong(trans.clas.createStudentWarning()))
+            postForm(cls := "form3", action := clasRoutes.studentInvite(clas.id.value))(
+              form3.group(invite("username"), trans.clas.lichessUsername())(field =>
+                div(cls := "complete-parent")(
+                  form3.input(field, klass = "user-autocomplete")(created.isEmpty.option(autofocus))(
+                    dataTag := "span"
+                  )
+                )
+              ),
+              realNameField(invite),
+              form3.submit(trans.clas.invite(), icon = none)
+            )
           ),
-          postForm(cls := "form3", action := clasRoutes.studentCreate(clas.id.value))(
-            form3.group(
-              create("create-username"),
-              trans.clas.lichessUsername(),
-              help = a(cls := "name-regen", href := s"${clasRoutes.studentForm(clas.id.value)}?gen=1")(
-                trans.clas.generateANewUsername()
-              ).some
-            )(
-              form3.input(_)(created.isDefined option autofocus)
+          div(cls := "student-add__or")(trans.clas.orSeparator()),
+          div(cls := "student-add__choice")(
+            div(cls := "info")(
+              h2(trans.clas.createANewLichessAccount()),
+              p(trans.clas.createDesc1()),
+              p(trans.clas.createDesc2()),
+              p(strong(trans.clas.createDesc3()), br, trans.clas.createDesc4()),
+              badTag(strong(trans.clas.createStudentWarning()))
             ),
-            realNameField(create, "create-realName"),
-            form3.submit(trans.signUp(), icon = none)
-          )
-        ),
-        div(cls := "student-add__or")(trans.clas.orSeparator()),
-        div(cls := "student-add__choice")(
-          div(cls := "info")(
-            h2(trans.clas.createMultipleAccounts()),
-            trans.clas.multipleAccsFormDescription(
-              a(href := clasRoutes.studentManyForm(clas.id.value))(
-                trans.clas.useThisForm()
+            postForm(cls := "form3", action := clasRoutes.studentCreate(clas.id.value))(
+              form3.group(
+                create("create-username"),
+                trans.clas.lichessUsername(),
+                help = a(cls := "name-regen", href := s"${clasRoutes.studentForm(clas.id.value)}?gen=1")(
+                  trans.clas.generateANewUsername()
+                ).some
+              )(
+                form3.input(_)(created.isDefined.option(autofocus))
+              ),
+              realNameField(create, "create-realName"),
+              form3.submit(trans.signUp(), icon = none)
+            )
+          ),
+          div(cls := "student-add__or")(trans.clas.orSeparator()),
+          div(cls := "student-add__choice")(
+            div(cls := "info")(
+              h2(trans.clas.createMultipleAccounts()),
+              trans.clas.multipleAccsFormDescription(
+                a(href := clasRoutes.studentManyForm(clas.id.value))(
+                  trans.clas.useThisForm()
+                )
               )
             )
           )
@@ -227,49 +235,53 @@ object student:
       nbStudents: Int,
       created: Seq[lila.clas.Student.WithPassword] = Nil
   )(using PageContext) =
-    bits.layout(trans.clas.addStudent.txt(), Left(clas withStudents students))(
+    bits.layout(trans.clas.addStudent.txt(), Left(clas.withStudents(students)))(
       cls := "box-pad student-add-many",
       h1(cls := "box__top")(trans.clas.createMultipleAccounts()),
       maxStudentsWarning,
-      created.nonEmpty option frag(
-        flashMessageWith(cls := "student-add-many__created")(
-          s"${created.size} students accounts have been created."
-        ),
-        div(cls := "student-add-many__list")(
-          p(strong(trans.clas.makeSureToCopy())),
-          table(cls := "slist")(
-            thead(
-              tr(
-                th(trans.clas.realName()),
-                th(trans.clas.lichessUsername()),
-                th(trans.password())
-              )
-            ),
-            tbody(
-              created map { case Student.WithPassword(student, password) =>
-                tr(
-                  td(student.realName),
-                  td(titleNameOrId(student.userId)),
-                  td(password.value)
-                )
-              }
-            )
-          )
-        ),
-        br
-      ),
-      (nbStudents < lila.clas.Clas.maxStudents) option frag(
-        p(badTag(strong(trans.clas.createStudentWarning()))),
-        postForm(cls := "form3", action := clasRoutes.studentManyCreate(clas.id.value))(
-          form3.globalError(form),
-          form3.group(
-            form("realNames"),
-            trans.clas.studentsRealNamesOnePerLine(),
-            help = trans.clas.privateWillNeverBeShown().some
-          )(
-            form3.textarea(_)(autofocus, rows := 20)
+      created.nonEmpty.option(
+        frag(
+          flashMessageWith(cls := "student-add-many__created")(
+            s"${created.size} students accounts have been created."
           ),
-          form3.submit(trans.apply(), icon = none)
+          div(cls := "student-add-many__list")(
+            p(strong(trans.clas.makeSureToCopy())),
+            table(cls := "slist")(
+              thead(
+                tr(
+                  th(trans.clas.realName()),
+                  th(trans.clas.lichessUsername()),
+                  th(trans.password())
+                )
+              ),
+              tbody(
+                created.map { case Student.WithPassword(student, password) =>
+                  tr(
+                    td(student.realName),
+                    td(titleNameOrId(student.userId)),
+                    td(password.value)
+                  )
+                }
+              )
+            )
+          ),
+          br
+        )
+      ),
+      (nbStudents < lila.clas.Clas.maxStudents).option(
+        frag(
+          p(badTag(strong(trans.clas.createStudentWarning()))),
+          postForm(cls := "form3", action := clasRoutes.studentManyCreate(clas.id.value))(
+            form3.globalError(form),
+            form3.group(
+              form("realNames"),
+              trans.clas.studentsRealNamesOnePerLine(),
+              help = trans.clas.privateWillNeverBeShown().some
+            )(
+              form3.textarea(_)(autofocus, rows := 20)
+            ),
+            form3.submit(trans.apply(), icon = none)
+          )
         )
       )
     )
@@ -283,7 +295,7 @@ object student:
     )
 
   def edit(clas: Clas, students: List[Student], s: Student.WithUser, form: Form[?])(using PageContext) =
-    bits.layout(s.user.username, Left(clas withStudents students), s.student.some)(
+    bits.layout(s.user.username, Left(clas.withStudents(students)), s.student.some)(
       cls := "student-show student-edit",
       top(clas, s),
       div(cls := "box__pad")(
@@ -301,25 +313,28 @@ object student:
         ),
         hr,
         div(cls := "student-show__other-actions")(
-          s.student.isActive option
+          s.student.isActive.option(
             postForm(
               action := clasRoutes.studentArchive(clas.id.value, s.user.username, v = true)
             )(
               form3.submit(trans.clas.removeStudent(), icon = none)(
                 cls := "confirm button-red button-empty"
               )
-            ),
-          s.student.managed option a(
-            href  := clasRoutes.studentClose(clas.id.value, s.user.username),
-            cls   := "button button-empty button-red",
-            title := trans.clas.closeDesc1.txt()
-          )(trans.clas.closeStudent())
+            )
+          ),
+          s.student.managed.option(
+            a(
+              href  := clasRoutes.studentClose(clas.id.value, s.user.username),
+              cls   := "button button-empty button-red",
+              title := trans.clas.closeDesc1.txt()
+            )(trans.clas.closeStudent())
+          )
         )
       )
     )
 
   def release(clas: Clas, students: List[Student], s: Student.WithUser, form: Form[?])(using PageContext) =
-    bits.layout(s.user.username, Left(clas withStudents students), s.student.some)(
+    bits.layout(s.user.username, Left(clas.withStudents(students)), s.student.some)(
       cls := "student-show student-edit",
       top(clas, s),
       div(cls := "box__pad")(
@@ -345,7 +360,7 @@ object student:
     )
 
   def close(clas: Clas, students: List[Student], s: Student.WithUser)(using PageContext) =
-    bits.layout(s.user.username, Left(clas withStudents students), s.student.some)(
+    bits.layout(s.user.username, Left(clas.withStudents(students)), s.student.some)(
       cls := "student-show student-edit",
       top(clas, s),
       div(cls := "box__pad")(

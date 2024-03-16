@@ -3,12 +3,11 @@ package views.html.simul
 import controllers.routes
 import play.api.data.Form
 
-import lila.app.templating.Environment.{ given, * }
+import lila.app.templating.Environment.{ *, given }
 import lila.app.ui.ScalatagsTemplate.{ *, given }
-import lila.hub.LightTeam
-import lila.simul.Simul
-import lila.simul.SimulForm
 import lila.gathering.ConditionForm
+import lila.hub.LightTeam
+import lila.simul.{ Simul, SimulForm }
 
 object form:
 
@@ -136,10 +135,11 @@ object form:
       ),
       form3.fieldset("Entry conditions")(
         form3.split(
-          teams.nonEmpty option
+          teams.nonEmpty.option(
             form3.group(form("conditions.team.teamId"), trans.onlyMembersOfTeam(), half = true)(
               form3.select(_, List(("", trans.noRestriction.txt())) ::: teams.map(_.pair))
             )
+          )
         ),
         form3.split(
           form3.group(form("conditions.minRating.rating"), trans.minimumRating(), half = true)(
@@ -160,9 +160,13 @@ object form:
         trans.simulDescription(),
         help = trans.simulDescriptionHelp().some
       )(form3.textarea(_)(rows := 10)),
-      ctx.me.exists(_.canBeFeatured) option form3.checkbox(
-        form("featured"),
-        trans.simulFeatured("lichess.org/simul"),
-        help = trans.simulFeaturedHelp("lichess.org/simul").some
-      )
+      ctx.me
+        .exists(_.canBeFeatured)
+        .option(
+          form3.checkbox(
+            form("featured"),
+            trans.simulFeatured("lichess.org/simul"),
+            help = trans.simulFeaturedHelp("lichess.org/simul").some
+          )
+        )
     )

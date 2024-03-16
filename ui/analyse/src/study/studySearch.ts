@@ -1,29 +1,30 @@
-import { Prop, propWithEffect } from 'common';
+import { Prop, Toggle, propWithEffect, toggle } from 'common';
 import * as licon from 'common/licon';
 import { bind, dataIcon, onInsert } from 'common/snabbdom';
 import { h, VNode } from 'snabbdom';
 import { Redraw } from '../interfaces';
-import { StudyChapterMeta } from './interfaces';
+import { ChapterPreview } from './interfaces';
+import { StudyChapters } from './studyChapters';
 
 export class SearchCtrl {
-  open: Prop<boolean>;
+  open: Toggle;
   query: Prop<string> = propWithEffect('', this.redraw);
 
   constructor(
     readonly studyName: string,
-    readonly chapters: Prop<StudyChapterMeta[]>,
+    readonly chapters: StudyChapters,
     readonly rootSetChapter: (id: string) => void,
     readonly redraw: Redraw,
   ) {
-    this.open = propWithEffect(false, () => this.query(''));
-    lichess.pubsub.on('study.search.open', () => this.open(true));
+    this.open = toggle(false, () => this.query(''));
+    site.pubsub.on('study.search.open', () => this.open(true));
   }
 
   cleanQuery = () => this.query().toLowerCase().trim();
 
   results = () => {
     const q = this.cleanQuery();
-    return q ? this.chapters().filter(this.match(q)) : this.chapters();
+    return q ? this.chapters.all().filter(this.match(q)) : this.chapters.all();
   };
 
   setChapter = (id: string) => {
@@ -37,9 +38,9 @@ export class SearchCtrl {
     if (c) this.setChapter(c.id);
   };
 
-  private tokenize = (c: StudyChapterMeta) => c.name.toLowerCase().split(' ');
+  private tokenize = (c: ChapterPreview) => c.name.toLowerCase().split(' ');
 
-  private match = (q: string) => (c: StudyChapterMeta) =>
+  private match = (q: string) => (c: ChapterPreview) =>
     q.includes(' ') ? c.name.toLowerCase().includes(q) : this.tokenize(c).some(t => t.startsWith(q));
 }
 
@@ -48,7 +49,7 @@ const escapeRegExp = (s: string) => s.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'); //
 export function view(ctrl: SearchCtrl) {
   const cleanQuery = ctrl.cleanQuery();
   const highlightRegex = cleanQuery && new RegExp(escapeRegExp(cleanQuery), 'gi');
-  return lichess.dialog.snab({
+  return site.dialog.snab({
     class: 'study-search',
     onClose() {
       ctrl.open(false);
@@ -82,8 +83,9 @@ export function view(ctrl: SearchCtrl) {
               },
               c.name,
             ),
-            c.ongoing ? h('ongoing', { attrs: { ...dataIcon(licon.DiscBig), title: 'Ongoing' } }) : null,
-            !c.ongoing && c.res ? h('res', c.res) : null,
+            c.playing
+              ? h('ongoing', { attrs: { ...dataIcon(licon.DiscBig), title: 'Ongoing' } })
+              : c.status && h('res', c.status),
           ]),
         ),
       ),

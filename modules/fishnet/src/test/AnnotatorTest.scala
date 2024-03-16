@@ -1,28 +1,28 @@
 package lila.fishnet
 
+import chess.MoveOrDrop.*
+import chess.format.pgn.{
+  InitialComments,
+  Move,
+  ParsedPgn,
+  ParsedPgnTree,
+  Parser,
+  Pgn,
+  PgnNodeData,
+  PgnStr,
+  PgnTree,
+  SanStr,
+  Tags
+}
+import chess.variant.Standard
+import chess.{ ByColor, Clock, MoveOrDrop, Ply, Situation }
 import play.api.libs.json.Json
 
 import java.time.Instant
-import chess.format.pgn.{
-  SanStr,
-  PgnStr,
-  PgnNodeData,
-  Move,
-  Pgn,
-  InitialComments,
-  Parser,
-  Tags,
-  PgnTree,
-  ParsedPgnTree,
-  ParsedPgn
-}
-import chess.format.{ EpdFen, Uci }
-import chess.variant.{ Variant, Standard }
-import chess.{ Clock, Node, Ply, MoveOrDrop, Situation, ByColor }
-import chess.MoveOrDrop.*
 
-import lila.common.config.NetDomain
 import lila.analyse.{ Analysis, Annotator }
+import lila.common.config.NetDomain
+
 import JsonApi.*
 import readers.given
 
@@ -138,5 +138,5 @@ private def makeChessGame(tags: Tags) =
   )
   g.copy(
     startedAtPly = g.ply,
-    clock = tags.clockConfig map Clock.apply
+    clock = tags.clockConfig.map(Clock.apply)
   )

@@ -1,15 +1,15 @@
 package lila.tournament
 
+import chess.Clock.{ IncrementSeconds, LimitSeconds }
 import chess.format.Fen
 import chess.{ Clock, Mode }
-import chess.Clock.{ LimitSeconds, IncrementSeconds }
 import play.api.data.*
 import play.api.data.Forms.*
 
 import lila.common.Form.{ *, given }
+import lila.gathering.GatheringClock
 import lila.hub.LightTeam
 import lila.user.Me
-import lila.gathering.GatheringClock
 
 final class TournamentForm:
 
@@ -17,11 +17,11 @@ final class TournamentForm:
   import GatheringClock.*
 
   def create(leaderTeams: List[LightTeam], teamBattleId: Option[TeamId] = None)(using me: Me) =
-    form(leaderTeams, none) fill empty(teamBattleId)
+    form(leaderTeams, none).fill(empty(teamBattleId))
 
   private[tournament] def empty(teamBattleId: Option[TeamId] = None)(using me: Me) =
     TournamentSetup(
-      name = teamBattleId.isEmpty option me.titleUsername,
+      name = teamBattleId.isEmpty.option(me.titleUsername),
       clockTime = timeDefault,
       clockIncrement = incrementDefault,
       minutes = minuteDefault,
@@ -41,7 +41,7 @@ final class TournamentForm:
     )
 
   def edit(leaderTeams: List[LightTeam], tour: Tournament)(using Me) =
-    form(leaderTeams, tour.some) fill fillFromTour(tour)
+    form(leaderTeams, tour.some).fill(fillFromTour(tour))
 
   private[tournament] def fillFromTour(tour: Tournament) =
     TournamentSetup(
@@ -52,7 +52,7 @@ final class TournamentForm:
       waitMinutes = none,
       startDate = tour.startsAt.some,
       variant = tour.variant.id.toString.some,
-      position = tour.position.map(_ into Fen.Epd),
+      position = tour.position.map(_.into(Fen.Epd)),
       mode = none,
       rated = tour.mode.rated.some,
       password = tour.password,
@@ -229,7 +229,7 @@ private[tournament] case class TournamentSetup(
         variant = newVariant,
         startsAt = startDate | old.startsAt,
         password = password.fold(old.password)(_.some.filter(_.nonEmpty)),
-        position = newVariant.standard so {
+        position = newVariant.standard.so {
           if position.isDefined && (old.isCreated || old.position.isDefined) then realPosition
           else old.position
         },

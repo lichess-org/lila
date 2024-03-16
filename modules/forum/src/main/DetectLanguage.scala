@@ -1,15 +1,16 @@
 package lila.forum
 
+import play.api.ConfigLoader
+import play.api.i18n.Lang
 import play.api.libs.json.*
-import play.api.libs.ws.StandaloneWSClient
 import play.api.libs.ws.DefaultBodyWritables.*
 import play.api.libs.ws.JsonBodyReadables.*
-import play.api.i18n.Lang
-import lila.common.autoconfig.*
+import play.api.libs.ws.StandaloneWSClient
+
 import scala.math.Ordering.Float.TotalOrdering
 
+import lila.common.autoconfig.*
 import lila.common.config.Secret
-import play.api.ConfigLoader
 
 // http://detectlanguage.com
 final class DetectLanguage(
@@ -34,20 +35,24 @@ final class DetectLanguage(
             "key" -> config.key.value,
             "q"   -> message.take(messageMaxLength)
           )
-        ) map { response =>
-        (response.body[JsValue] \ "data" \ "detections").asOpt[List[Detection]] match
-          case None =>
-            lila.log("DetectLanguage").warn(s"Invalide service response ${response.body[JsValue]}")
-            None
-          case Some(res) =>
-            res
-              .filter(_.isReliable)
-              .sortBy(-_.confidence)
-              .headOption map (_.language) flatMap Lang.get
-      } recover { case e: Exception =>
-        lila.log("DetectLanguage").warn(e.getMessage, e)
-        defaultLang.some
-      }
+        )
+        .map { response =>
+          (response.body[JsValue] \ "data" \ "detections").asOpt[List[Detection]] match
+            case None =>
+              lila.log("DetectLanguage").warn(s"Invalide service response ${response.body[JsValue]}")
+              None
+            case Some(res) =>
+              res
+                .filter(_.isReliable)
+                .sortBy(-_.confidence)
+                .headOption
+                .map(_.language)
+                .flatMap(Lang.get)
+        }
+        .recover { case e: Exception =>
+          lila.log("DetectLanguage").warn(e.getMessage, e)
+          defaultLang.some
+        }
 
 object DetectLanguage:
 

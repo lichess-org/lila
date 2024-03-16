@@ -25,6 +25,7 @@
   <string name="hardest">Бищун захӀматаб</string>
   <string name="example">Мисал</string>
   <string name="nextPuzzle">Хадусеб масъала</string>
+  <string name="puzzleDashboard">Масъалабазул панел</string>
   <string name="strengths">Къуватал</string>
   <string name="searchPuzzles">Масъалаби ралагьизе</string>
 </resources>

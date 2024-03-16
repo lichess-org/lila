@@ -85,7 +85,7 @@
   <string name="pinnedChapterComment">අමුණන ලද පරිච්ඡේද අදහස</string>
   <string name="saveChapter">පරිච්ඡේදය සුරකින්න</string>
   <string name="clearAnnotations">විවරණ මකන්න​</string>
-  <string name="clearVariations">ප්‍රභේද මකන්න​</string>
+  <string name="clearVariations" comment="Clear is used as a verb here. This erases the variations in the study (https://lichess.org/study) you are preparing.">ප්‍රභේද මකන්න​</string>
   <string name="deleteChapter">පරිච්ඡේදය මකන්න​</string>
   <string name="deleteThisChapter">සම්පූර්ණ අධ්‍යයනය මකන්නද? ආපසු යාමක් නැත!</string>
   <string name="clearAllCommentsInThisChapter">මෙම පරිච්ඡේදයේ ඇති සියලුම අදහස්, ග්ලයිෆ් සහ අඳින ලද හැඩතල ඉවත් කරන්න</string>

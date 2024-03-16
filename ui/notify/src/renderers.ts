@@ -165,11 +165,7 @@ function generic(n: Notification, url: string | undefined, icon: string, content
 
 function drawTime(n: Notification) {
   const date = new Date(n.date);
-  return h(
-    'time.timeago',
-    { attrs: { title: date.toLocaleString(), datetime: n.date } },
-    lichess.timeago(date),
-  );
+  return h('time.timeago', { attrs: { title: date.toLocaleString(), datetime: n.date } }, site.timeago(date));
 }
 
 function userFullName(u?: LightUser) {

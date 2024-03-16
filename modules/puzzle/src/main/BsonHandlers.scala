@@ -2,6 +2,7 @@ package lila.puzzle
 
 import chess.format.{ Fen, Uci }
 import reactivemongo.api.bson.*
+
 import scala.util.{ Success, Try }
 
 import lila.db.BSON
@@ -31,12 +32,12 @@ object BsonHandlers:
       glicko = glicko,
       plays = plays,
       vote = vote,
-      themes = themes diff PuzzleTheme.hiddenThemes
+      themes = themes.diff(PuzzleTheme.hiddenThemes)
     )
 
   private[puzzle] given roundIdHandler: BSONHandler[PuzzleRound.Id] = tryHandler[PuzzleRound.Id](
     { case BSONString(v) =>
-      v split PuzzleRound.idSep match
+      v.split(PuzzleRound.idSep) match
         case Array(userId, puzzleId) => Success(PuzzleRound.Id(UserId(userId), PuzzleId(puzzleId)))
         case _                       => handlerBadValue(s"Invalid puzzle round id $v")
     },

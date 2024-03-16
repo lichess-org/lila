@@ -188,5 +188,5 @@ export default class {
       this.askQuestion();
     }
   }
-  // this.trans = lichess.trans(env.i18n);
+  // this.trans = site.trans(env.i18n);
 }

@@ -112,7 +112,7 @@ export default class RoundController implements MoveRootCtrl {
     }, 3000);
 
     this.socket = makeSocket(opts.socketSend, this);
-    this.blindfoldStorage = lichess.storage.boolean(`blindfold.${this.data.player.user?.id ?? 'anon'}`);
+    this.blindfoldStorage = site.storage.boolean(`blindfold.${this.data.player.user?.id ?? 'anon'}`);
 
     if (d.clock)
       this.clock = new ClockController(d, {
@@ -129,7 +129,7 @@ export default class RoundController implements MoveRootCtrl {
       f => f(this.chessground),
       () => {
         this.chessground.cancelPremove();
-        xhr.reload(this).then(this.reload, lichess.reload);
+        xhr.reload(this).then(this.reload, site.reload);
       },
       this.redraw,
       d.pref.autoQueen,
@@ -142,7 +142,7 @@ export default class RoundController implements MoveRootCtrl {
 
     this.menu = toggle(false, redraw);
 
-    this.trans = lichess.trans(opts.i18n);
+    this.trans = site.trans(opts.i18n);
     this.noarg = this.trans.noarg;
 
     setTimeout(this.delayedInit, 200);
@@ -152,12 +152,12 @@ export default class RoundController implements MoveRootCtrl {
     if (!document.referrer?.includes('/serviceWorker.')) setTimeout(this.showYourMoveNotification, 500);
 
     // at the end:
-    lichess.pubsub.on('jump', ply => {
+    site.pubsub.on('jump', ply => {
       this.jump(parseInt(ply));
       this.redraw();
     });
 
-    lichess.pubsub.on('zen', () => {
+    site.pubsub.on('zen', () => {
       const zen = $('body').toggleClass('zen').hasClass('zen');
       window.dispatchEvent(new Event('resize'));
       if (!$('body').hasClass('zen-auto')) {
@@ -188,10 +188,10 @@ export default class RoundController implements MoveRootCtrl {
   private onMove = (orig: cg.Key, dest: cg.Key, captured?: cg.Piece) => {
     if (captured || this.enpassant(orig, dest)) {
       if (this.data.game.variant.key === 'atomic') {
-        lichess.sound.play('explosion');
+        site.sound.play('explosion');
         atomic.capture(this, dest);
-      } else lichess.sound.move({ name: 'capture', filter: 'game' });
-    } else lichess.sound.move({ name: 'move', filter: 'game' });
+      } else site.sound.move({ name: 'capture', filter: 'game' });
+    } else site.sound.move({ name: 'move', filter: 'game' });
   };
 
   private startPromotion = (orig: cg.Key, dest: cg.Key, meta: cg.MoveMetadata) =>
@@ -213,7 +213,7 @@ export default class RoundController implements MoveRootCtrl {
 
   private onNewPiece = (piece: cg.Piece, key: cg.Key): void => {
     if (piece.role === 'pawn' && (key[1] === '1' || key[1] === '8')) return;
-    lichess.sound.move();
+    site.sound.move();
   };
 
   private onPredrop = (role: cg.Role | undefined, _?: Key) => {
@@ -247,7 +247,7 @@ export default class RoundController implements MoveRootCtrl {
   userJump = (ply: Ply): void => {
     this.cancelMove();
     this.chessground.selectSquare(null);
-    if (ply != this.ply && this.jump(ply)) lichess.sound.saySan(this.stepAt(this.ply).san, true);
+    if (ply != this.ply && this.jump(ply)) site.sound.saySan(this.stepAt(this.ply).san, true);
     else this.redraw();
   };
 
@@ -275,10 +275,10 @@ export default class RoundController implements MoveRootCtrl {
         dests: util.parsePossibleMoves(this.data.possibleMoves),
       };
     this.chessground.set(config);
-    if (s.san && isForwardStep) lichess.sound.move(s);
+    if (s.san && isForwardStep) site.sound.move(s);
     this.autoScroll();
     this.auxUpdate(s.fen);
-    lichess.pubsub.emit('ply', ply);
+    site.pubsub.emit('ply', ply);
     return true;
   };
 
@@ -450,9 +450,9 @@ export default class RoundController implements MoveRootCtrl {
         },
         check: !!o.check,
       });
-      if (o.check) lichess.sound.play('check');
+      if (o.check) site.sound.play('check');
       blur.onMove();
-      lichess.pubsub.emit('ply', this.ply);
+      site.pubsub.emit('ply', this.ply);
     }
     d.game.threefold = !!o.threefold;
     const step = {
@@ -501,8 +501,8 @@ export default class RoundController implements MoveRootCtrl {
     this.autoScroll();
     this.onChange();
     this.auxUpdate(step.fen);
-    lichess.sound.move({ ...o, filter: 'music' });
-    lichess.sound.saySan(step.san);
+    site.sound.move({ ...o, filter: 'music' });
+    site.sound.saySan(step.san);
     return true; // prevents default socket pubsub
   };
 
@@ -563,13 +563,13 @@ export default class RoundController implements MoveRootCtrl {
     }
     if (!d.player.spectator && d.game.turns > 1) {
       const key = o.winner ? (d.player.color === o.winner ? 'victory' : 'defeat') : 'draw';
-      lichess.sound.play(key);
+      site.sound.play(key);
       if (
         key != 'victory' &&
         d.game.turns > 6 &&
         !d.tournament &&
         !d.swiss &&
-        lichess.storage.boolean('courtesy').get()
+        site.storage.boolean('courtesy').get()
       )
         this.opts.chat?.instance?.then(c => c.post('Good game, well played'));
     }
@@ -584,18 +584,18 @@ export default class RoundController implements MoveRootCtrl {
     this.redraw();
     this.autoScroll();
     this.onChange();
-    if (d.tv) setTimeout(lichess.reload, 10000);
+    if (d.tv) setTimeout(site.reload, 10000);
     wakeLock.release();
-    if (this.data.game.status.name === 'started') lichess.sound.saySan(this.stepAt(this.ply).san, false);
-    else lichess.sound.say(viewStatus(this), false, false, true);
+    if (this.data.game.status.name === 'started') site.sound.saySan(this.stepAt(this.ply).san, false);
+    else site.sound.say(viewStatus(this), false, false, true);
   };
 
   challengeRematch = async () => {
     await xhr.challengeRematch(this.data.game.id);
-    lichess.pubsub.emit('challenge-app.open');
-    if (lichess.once('rematch-challenge'))
+    site.pubsub.emit('challenge-app.open');
+    if (site.once('rematch-challenge'))
       setTimeout(() => {
-        lichess.asset.hopscotch(function () {
+        site.asset.hopscotch(function () {
           window.hopscotch
             .configure({
               i18n: { doneBtn: 'OK, got it' },
@@ -629,10 +629,10 @@ export default class RoundController implements MoveRootCtrl {
   };
 
   private setQuietMode = () => {
-    const was = lichess.quietMode;
+    const was = site.quietMode;
     const is = this.isPlaying();
     if (was !== is) {
-      lichess.quietMode = is;
+      site.quietMode = is;
       $('body').toggleClass(
         'no-select',
         is && this.clock && this.clock.millisOf(this.data.player.color) <= 3e5,
@@ -704,13 +704,13 @@ export default class RoundController implements MoveRootCtrl {
     if (!game.berserkableBy(this.data)) return;
     if (this.goneBerserk[this.data.player.color]) return;
     this.socket.berserk();
-    lichess.sound.play('berserk');
+    site.sound.play('berserk');
   };
 
   setBerserk = (color: Color): void => {
     if (this.goneBerserk[color]) return;
     this.goneBerserk[color] = true;
-    if (color !== this.data.player.color) lichess.sound.play('berserk');
+    if (color !== this.data.player.color) site.sound.play('berserk');
     this.redraw();
     $(`<i data-icon="${licon.Berserk}">`).appendTo($(`.game__meta .player.${color} .user-link`));
   };
@@ -732,7 +732,7 @@ export default class RoundController implements MoveRootCtrl {
 
   setRedirecting = () => {
     this.redirecting = true;
-    lichess.unload.expected = true;
+    site.unload.expected = true;
     setTimeout(() => {
       this.redirecting = false;
       this.redraw();
@@ -745,7 +745,7 @@ export default class RoundController implements MoveRootCtrl {
     if (v && toSubmit) {
       if (this.moveToSubmit) this.actualSendMove('move', this.moveToSubmit);
       else this.actualSendMove('drop', this.dropToSubmit);
-      lichess.sound.play('confirmation');
+      site.sound.play('confirmation');
     } else this.jump(this.ply);
     this.cancelMove();
     if (toSubmit) this.setLoading(true, 300);
@@ -866,7 +866,7 @@ export default class RoundController implements MoveRootCtrl {
   };
 
   private delayedInit = () => {
-    lichess.requestIdleCallback(() => {
+    site.requestIdleCallback(() => {
       const d = this.data;
       if (this.isPlaying()) {
         if (!d.simul) blur.init(d.steps.length > 2);
@@ -878,7 +878,7 @@ export default class RoundController implements MoveRootCtrl {
 
         if (!this.nvui && d.clock && !d.opponent.ai && !this.isSimulHost())
           window.addEventListener('beforeunload', e => {
-            if (lichess.unload.expected || !this.isPlaying()) return;
+            if (site.unload.expected || !this.isPlaying()) return;
             this.socket.send('bye2');
             const msg = 'There is a game in progress!';
             (e || window.event).returnValue = msg;
@@ -886,7 +886,7 @@ export default class RoundController implements MoveRootCtrl {
           });
 
         if (!this.nvui && d.pref.submitMove) {
-          lichess.mousetrap
+          site.mousetrap
             .bind('esc', () => {
               this.submitMove(false);
               this.chessground.cancelMove();
@@ -898,9 +898,9 @@ export default class RoundController implements MoveRootCtrl {
 
       if (!this.nvui) keyboard.init(this);
       if (this.isPlaying() && d.steps.length === 1) {
-        if (lichess.storage.get('blindfold') === 'true') {
+        if (site.storage.get('blindfold') === 'true') {
           // TODO - delete this if block & storage.set once a few weeks pass
-          lichess.storage.remove('blindfold');
+          site.storage.remove('blindfold');
           this.blindfoldStorage.set(true);
         }
 
@@ -911,7 +911,7 @@ export default class RoundController implements MoveRootCtrl {
       setTimeout(() => {
         if ($('#KeyboardO,#show_btn,#shadowHostId').length) {
           alert('Play enhancement extensions are no longer allowed!');
-          lichess.socket.destroy();
+          site.socket.destroy();
           this.setRedirecting();
           location.href = '/page/play-extensions';
         }

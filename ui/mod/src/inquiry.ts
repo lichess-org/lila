@@ -2,9 +2,9 @@ import * as xhr from 'common/xhr';
 
 import { expandMentions } from 'common/richText';
 
-lichess.load.then(() => {
-  const noteStore = lichess.storage.make('inquiry-note');
-  const usernameNoteStore = lichess.storage.make('inquiry-note-user');
+site.load.then(() => {
+  const noteStore = site.storage.make('inquiry-note');
+  const usernameNoteStore = site.storage.make('inquiry-note-user');
   const username = $('#inquiry .meat > .user-link').text().split(' ')[0];
   if (username != usernameNoteStore.get()) noteStore.remove();
   usernameNoteStore.set(username);
@@ -46,7 +46,7 @@ lichess.load.then(() => {
     $('body').toggleClass('no-inquiry');
   });
 
-  const nextStore = lichess.storage.boolean('inquiry-auto-next');
+  const nextStore = site.storage.boolean('inquiry-auto-next');
 
   if (!nextStore.get()) {
     $('#inquiry .switcher input').prop('checked', false);
@@ -70,7 +70,7 @@ lichess.load.then(() => {
     }
   });
 
-  lichess.mousetrap.bind('d', () =>
+  site.mousetrap.bind('d', () =>
     $('#inquiry .actions.close form.process button[type="submit"]').trigger('click'),
   );
 

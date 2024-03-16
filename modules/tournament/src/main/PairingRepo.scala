@@ -2,12 +2,13 @@ package lila.tournament
 
 import akka.stream.Materializer
 import akka.stream.scaladsl.*
-import BSONHandlers.given
-import reactivemongo.akkastream.{ cursorProducer, AkkaStreamCursor }
+import reactivemongo.akkastream.{ AkkaStreamCursor, cursorProducer }
 import reactivemongo.api.bson.*
 
 import lila.db.dsl.{ *, given }
 import lila.game.Game
+
+import BSONHandlers.given
 
 final class PairingRepo(coll: Coll)(using Executor, Materializer):
 
@@ -18,8 +19,8 @@ final class PairingRepo(coll: Coll)(using Executor, Materializer):
       "tid" -> tourId,
       "u"   -> userId
     )
-  private val selectPlaying  = $doc("s" $lt chess.Status.Mate.id)
-  private val selectFinished = $doc("s" $gte chess.Status.Mate.id)
+  private val selectPlaying  = $doc("s".$lt(chess.Status.Mate.id))
+  private val selectFinished = $doc("s".$gte(chess.Status.Mate.id))
   private val recentSort     = $doc("d" -> -1)
   private val chronoSort     = $doc("d" -> 1)
 
@@ -30,34 +31,36 @@ final class PairingRepo(coll: Coll)(using Executor, Materializer):
       userIds: Set[UserId],
       max: Int
   ): Fu[Pairing.LastOpponents] =
-    userIds.nonEmpty.so {
-      val nbUsers = userIds.size
-      coll
-        .find(
-          selectTour(tourId) ++ $doc("u" $in userIds),
-          $doc("_id" -> false, "u" -> true).some
-        )
-        .sort(recentSort)
-        .batchSize(20)
-        .cursor[Bdoc]()
-        .documentSource(max)
-        .mapConcat(_.getAsOpt[List[UserId]]("u").toList)
-        .scan(Map.empty[UserId, UserId]) {
-          case (acc, List(u1, u2)) =>
-            val b1   = userIds.contains(u1)
-            val b2   = !b1 || userIds.contains(u2)
-            val acc1 = if !b1 || acc.contains(u1) then acc else acc.updated(u1, u2)
-            if !b2 || acc.contains(u2) then acc1 else acc1.updated(u2, u1)
-          case (acc, _) => acc
-        }
-        .takeWhile(
-          r => r.sizeIs < nbUsers,
-          inclusive = true
-        )
-        .toMat(Sink.lastOption)(Keep.right)
-        .run()
-        .dmap(~_)
-    } dmap Pairing.LastOpponents.apply
+    userIds.nonEmpty
+      .so {
+        val nbUsers = userIds.size
+        coll
+          .find(
+            selectTour(tourId) ++ $doc("u".$in(userIds)),
+            $doc("_id" -> false, "u" -> true).some
+          )
+          .sort(recentSort)
+          .batchSize(20)
+          .cursor[Bdoc]()
+          .documentSource(max)
+          .mapConcat(_.getAsOpt[List[UserId]]("u").toList)
+          .scan(Map.empty[UserId, UserId]) {
+            case (acc, List(u1, u2)) =>
+              val b1   = userIds.contains(u1)
+              val b2   = !b1 || userIds.contains(u2)
+              val acc1 = if !b1 || acc.contains(u1) then acc else acc.updated(u1, u2)
+              if !b2 || acc.contains(u2) then acc1 else acc1.updated(u2, u1)
+            case (acc, _) => acc
+          }
+          .takeWhile(
+            r => r.sizeIs < nbUsers,
+            inclusive = true
+          )
+          .toMat(Sink.lastOption)(Keep.right)
+          .run()
+          .dmap(~_)
+      }
+      .dmap(Pairing.LastOpponents.apply)
 
   def opponentsOf(tourId: TourId, userId: UserId): Fu[Set[UserId]] =
     coll
@@ -106,7 +109,7 @@ final class PairingRepo(coll: Coll)(using Executor, Materializer):
     coll
       .list[Pairing](selectTourUser(tourId, userId))
       .flatMap {
-        _.withFilter(_ notLostBy userId)
+        _.withFilter(_.notLostBy(userId))
           .map { p =>
             coll.update.one(
               $id(p.id),
@@ -168,7 +171,7 @@ final class PairingRepo(coll: Coll)(using Executor, Materializer):
     }.void
 
   def finishAndGet(g: Game): Fu[Option[Pairing]] =
-    if g.aborted then coll.delete.one($id(g.id)) inject none
+    if g.aborted then coll.delete.one($id(g.id)).inject(none)
     else
       coll.findAndUpdateSimplified[Pairing](
         selector = $id(g.id),
@@ -184,7 +187,7 @@ final class PairingRepo(coll: Coll)(using Executor, Materializer):
     if pairing.user1 == userId then "b1".some
     else if pairing.user2 == userId then "b2".some
     else none
-  } so { field =>
+  }.so { field =>
     coll.update
       .one(
         $id(pairing.id),

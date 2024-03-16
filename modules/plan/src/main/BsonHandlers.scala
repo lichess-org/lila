@@ -1,7 +1,8 @@
 package lila.plan
 
-import java.util.Currency
 import reactivemongo.api.bson.*
+
+import java.util.Currency
 
 import lila.db.dsl.{ *, given }
 

@@ -1,7 +1,7 @@
 package lila.common
 
-import play.api.mvc.*
 import ornicar.scalalib.SecureRandom
+import play.api.mvc.*
 
 import lila.common.config.NetDomain
 
@@ -11,7 +11,7 @@ final class LilaCookie(domain: NetDomain, baker: SessionCookieBaker):
 
   def makeSessionId(using RequestHeader): Cookie = session(LilaCookie.sessionId, generateSessionId())
 
-  def generateSessionId() = SecureRandom nextString 22
+  def generateSessionId() = SecureRandom.nextString(22)
 
   def session(name: String, value: String, remember: Boolean = true)(using RequestHeader): Cookie =
     withSession(remember):
@@ -42,8 +42,8 @@ final class LilaCookie(domain: NetDomain, baker: SessionCookieBaker):
     Cookie(
       name,
       value,
-      if maxAge has 0 then none
-      else maxAge orElse baker.maxAge orElse 86400.some,
+      if maxAge.has(0) then none
+      else maxAge.orElse(baker.maxAge).orElse(86400.some),
       "/",
       cookieDomain.some,
       baker.secure || req.headers.get("X-Forwarded-Proto").contains("https"),
@@ -57,15 +57,15 @@ final class LilaCookie(domain: NetDomain, baker: SessionCookieBaker):
 
   def ensure(req: RequestHeader)(res: Result): Result =
     if req.session.data.contains(LilaCookie.sessionId) then res
-    else res withCookies makeSessionId(using req)
+    else res.withCookies(makeSessionId(using req))
 
   def ensureAndGet(req: RequestHeader)(res: String => Fu[Result])(using Executor): Fu[Result] =
     req.session.data.get(LilaCookie.sessionId) match
       case Some(sessionId) => res(sessionId)
       case None =>
         val sid = generateSessionId()
-        res(sid) map {
-          _ withCookies session(LilaCookie.sessionId, sid)(using req)
+        res(sid).map {
+          _.withCookies(session(LilaCookie.sessionId, sid)(using req))
         }
 
 object LilaCookie:

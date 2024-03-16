@@ -2,6 +2,7 @@ package lila.swiss
 
 import akka.stream.scaladsl.*
 import akka.util.ByteString
+
 import java.io.File
 import scala.concurrent.blocking
 import scala.sys.process.*
@@ -12,8 +13,8 @@ final private class PairingSystem(trf: SwissTrf, executable: String)(using
 ):
 
   def apply(swiss: Swiss): Fu[List[SwissPairing.ByeOrPending]] =
-    trf.fetchPlayerIds(swiss) flatMap { playerIds =>
-      invoke(swiss, trf(swiss, playerIds, sorted = false)) map {
+    trf.fetchPlayerIds(swiss).flatMap { playerIds =>
+      invoke(swiss, trf(swiss, playerIds, sorted = false)).map {
         reader(playerIds.map(_.swap), _)
       }
     }
@@ -32,7 +33,7 @@ final private class PairingSystem(trf: SwissTrf, executable: String)(using
           command ! ProcessLogger(stdout append _, stderr append _)
       if status != 0 then
         val error = stderr.toString
-        if error contains "No valid pairing exists" then Nil
+        if error.contains("No valid pairing exists") then Nil
         else throw PairingSystem.BBPairingException(error, swiss)
       else stdout.toList
     }
@@ -40,16 +41,16 @@ final private class PairingSystem(trf: SwissTrf, executable: String)(using
   private def reader(idsToPlayers: IdPlayers, output: List[String]): List[SwissPairing.ByeOrPending] =
     output
       .drop(1) // first line is the number of pairings
-      .map(_ split ' ')
+      .map(_.split(' '))
       .collect:
         case Array(p, "0") =>
-          p.toIntOption flatMap idsToPlayers.get map { userId =>
+          p.toIntOption.flatMap(idsToPlayers.get).map { userId =>
             Left(SwissPairing.Bye(userId))
           }
         case Array(w, b) =>
           for
-            white <- w.toIntOption flatMap idsToPlayers.get
-            black <- b.toIntOption flatMap idsToPlayers.get
+            white <- w.toIntOption.flatMap(idsToPlayers.get)
+            black <- b.toIntOption.flatMap(idsToPlayers.get)
           yield Right(SwissPairing.Pending(white, black))
       .flatten
 

@@ -8,9 +8,9 @@ case class CategView(
     forUser: Option[User]
 ):
 
-  def nbTopics       = categ nbTopics forUser
-  def nbPosts        = categ nbPosts forUser
-  def lastPostId     = categ lastPostId forUser
+  def nbTopics       = categ.nbTopics(forUser)
+  def nbPosts        = categ.nbPosts(forUser)
+  def lastPostId     = categ.lastPostId(forUser)
   def lastPostUserId = lastPost.map(_._2).flatMap(_.userId)
 
   def slug = categ.slug
@@ -25,10 +25,10 @@ case class TopicView(
     forUser: Option[User]
 ):
 
-  def updatedAt      = topic updatedAt forUser
-  def nbPosts        = topic nbPosts forUser
-  def nbReplies      = topic nbReplies forUser
-  def lastPostId     = topic lastPostId forUser
+  def updatedAt      = topic.updatedAt(forUser)
+  def nbPosts        = topic.nbPosts(forUser)
+  def nbReplies      = topic.nbReplies(forUser)
+  def lastPostId     = topic.lastPostId(forUser)
   def lastPostUserId = lastPost.flatMap(_.userId)
 
   def id        = topic.id

@@ -1,7 +1,7 @@
 package lila.pool
 
-import lila.rating.RatingRange
 import lila.playban.RageSit
+import lila.rating.RatingRange
 
 case class PoolMember(
     userId: UserId,

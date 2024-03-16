@@ -47,8 +47,8 @@ final class AskPipeline[A](
       case State.Idle => // ?so
       case State.Processing(current, next) =>
         res.fold(
-          err => current.foreach(_ failure err),
-          res => current.foreach(_ success res)
+          err => current.foreach(_.failure(err)),
+          res => current.foreach(_.success(res))
         )
         if next.isEmpty
         then state = State.Idle

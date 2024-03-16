@@ -1,16 +1,17 @@
-import { initial as initialBoardFen } from 'chessground/fen';
+import { initial as initialBoardFEN } from 'chessground/fen';
 import { ops as treeOps } from 'tree';
 import AnalyseCtrl from './ctrl';
-import { EvalGetData, EvalPutData, ServerEvalData, EvalHitMulti, EvalHitMultiArray } from './interfaces';
+import { EvalGetData, EvalPutData, ServerEvalData } from './interfaces';
 import { AnaDests, AnaDrop, AnaMove, ChapterData, EditChapterData } from './study/interfaces';
 import { FormData as StudyFormData } from './study/studyForm';
+import { FEN } from 'chessground/types';
 
 interface DestsCache {
   [fen: string]: AnaDests;
 }
 
 interface AnaDestsReq {
-  fen: Fen;
+  fen: FEN;
   path: string;
   ch?: string;
   variant?: VariantKey;
@@ -28,7 +29,7 @@ export interface ReqPosition {
 
 interface GameUpdate {
   id: string;
-  fen: Fen;
+  fen: FEN;
   lm: Uci;
   wc?: number;
   bc?: number;
@@ -95,7 +96,7 @@ export function make(send: AnalyseSocketSend, ctrl: AnalyseCtrl): Socket {
 
   function clearCache() {
     anaDestsCache =
-      ctrl.data.game.variant.key === 'standard' && ctrl.tree.root.fen.split(' ', 1)[0] === initialBoardFen
+      ctrl.data.game.variant.key === 'standard' && ctrl.tree.root.fen.split(' ', 1)[0] === initialBoardFEN
         ? {
             '': {
               path: '',
@@ -164,9 +165,6 @@ export function make(send: AnalyseSocketSend, ctrl: AnalyseCtrl): Socket {
       ctrl.mergeAnalysisData(data);
     },
     evalHit: ctrl.evalCache.onCloudEval,
-    evalHitMulti(e: EvalHitMulti | EvalHitMultiArray) {
-      if (ctrl.study) ('multi' in e ? e.multi : [e]).forEach(ctrl.study.multiBoard.onCloudEval);
-    },
   };
 
   function withoutStandardVariant(obj: { variant?: VariantKey }) {
@@ -175,10 +173,7 @@ export function make(send: AnalyseSocketSend, ctrl: AnalyseCtrl): Socket {
 
   function sendAnaDests(req: AnaDestsReq) {
     clearTimeout(anaDestsTimeout);
-    if (anaDestsCache[req.path])
-      setTimeout(function () {
-        handlers.dests(anaDestsCache[req.path]);
-      }, 300);
+    if (anaDestsCache[req.path]) setTimeout(() => handlers.dests(anaDestsCache[req.path]), 300);
     else {
       withoutStandardVariant(req);
       addStudyData(req);
@@ -213,7 +208,7 @@ export function make(send: AnalyseSocketSend, ctrl: AnalyseCtrl): Socket {
         handler(data);
         return true;
       }
-      return !!ctrl.study && ctrl.study.socketHandler(type, data);
+      return !!ctrl.study?.socketHandler(type, data);
     },
     sendAnaMove,
     sendAnaDrop,

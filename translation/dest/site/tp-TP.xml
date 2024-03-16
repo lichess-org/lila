@@ -508,7 +508,6 @@ o musi lon lipu pona. sina wile ala pana e nimi li wile ala e ilo. sitelen esun 
   <string name="automaticallyProceedToNextGameAfterMoving">pali wan li pini la ilo sona o tawa musi poka</string>
   <string name="autoSwitch">ilo o tawa</string>
   <string name="puzzles">musi lili pi kama sona</string>
-  <string name="tournamentWinners">jan pi pini pona pi musi mute</string>
   <string name="name">nimi</string>
   <string name="description">toki pi kulupu</string>
   <string name="descPrivate">sitelen sona pi jan kulupu</string>
@@ -895,8 +894,6 @@ li ante e nanpa wawa</string>
   <string name="minimumRatedGames">o musi pi nanpa wawa lon mute ni</string>
   <string name="minimumRating">o jo e nanpa wawa ≥ ni</string>
   <string name="maximumWeeklyRating">o jo e nanpa wawa pi tenpo pali ≤ ni</string>
-  <string name="onlyTitled">jan pi nimi wawa taso</string>
-  <string name="onlyTitledHelp">ni li lon la, jan pi utala musi li wile jo e nimi wawa tan kulupu suli</string>
   <string name="positionInputHelp">sina wile open lon nasin ijo ante, o pana e lipu \"FEN\" kepeken poki pana.
 ni li pali ala lon musi pi nasin ante.
 sina ken pali e sona \"FEN\" kepeken %s.

@@ -1,7 +1,8 @@
 package lila.forum
 
-import scala.util.chaining.*
 import ornicar.scalalib.ThreadLocalRandom
+
+import scala.util.chaining.*
 
 import lila.common.config.MaxPerPage
 import lila.user.User
@@ -38,7 +39,7 @@ case class ForumTopic(
 
   def isTooBig = nbPosts > (if isTeam then 500 else 50)
 
-  def possibleTeamId = ForumCateg toTeamId categId
+  def possibleTeamId = ForumCateg.toTeamId(categId)
 
   def isSticky = ~sticky
 
@@ -59,10 +60,11 @@ case class ForumTopic(
 
   def incNbPosts = copy(nbPosts = nbPosts + 1)
 
-  def isOld = updatedAt isBefore nowInstant.minusMonths:
+  def isOld = updatedAt.isBefore(nowInstant.minusMonths:
     if isUblog then 12 * 5
     else if isTeam then 6
     else 1
+  )
 
   def lastPage(maxPerPage: MaxPerPage): Int =
     (nbPosts + maxPerPage.value - 1) / maxPerPage.value
@@ -70,9 +72,9 @@ case class ForumTopic(
 object ForumTopic:
 
   def nameToId(name: String) =
-    (lila.common.String slugify name) pipe { slug =>
+    (lila.common.String.slugify(name)).pipe { slug =>
       // if most chars are not latin, go for random slug
-      if slug.lengthIs > (name.lengthIs / 2) then slug else ThreadLocalRandom nextString 8
+      if slug.lengthIs > (name.lengthIs / 2) then slug else ThreadLocalRandom.nextString(8)
     }
 
   val idSize = 8
@@ -85,7 +87,7 @@ object ForumTopic:
       troll: Boolean = false,
       ublogId: Option[String] = None
   ): ForumTopic = ForumTopic(
-    _id = ForumTopicId(ThreadLocalRandom nextString idSize),
+    _id = ForumTopicId(ThreadLocalRandom.nextString(idSize)),
     categId = categId,
     slug = slug,
     name = name,

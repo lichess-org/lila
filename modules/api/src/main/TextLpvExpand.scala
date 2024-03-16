@@ -1,13 +1,13 @@
 package lila.api
 
+import chess.format.pgn.PgnStr
 import scalatags.Text.all.*
 
 import lila.analyse.{ Analysis, AnalysisRepo }
-import lila.game.GameRepo
-import lila.memo.CacheApi
-import chess.format.pgn.{ Pgn, PgnStr }
 import lila.common.LpvEmbed
 import lila.common.config.NetDomain
+import lila.game.GameRepo
+import lila.memo.CacheApi
 
 final class TextLpvExpand(
     gameRepo: GameRepo,
@@ -19,9 +19,9 @@ final class TextLpvExpand(
     net: lila.common.config.NetConfig
 )(using Executor):
 
-  def getPgn(id: GameId) = if notGames.contains(id.value) then fuccess(none) else gamePgnCache get id
-  def getChapterPgn(id: StudyChapterId) = chapterPgnCache get id
-  def getStudyPgn(id: StudyId)          = studyPgnCache get id
+  def getPgn(id: GameId) = if notGames.contains(id.value) then fuccess(none) else gamePgnCache.get(id)
+  def getChapterPgn(id: StudyChapterId) = chapterPgnCache.get(id)
+  def getStudyPgn(id: StudyId)          = studyPgnCache.get(id)
 
   // forum linkRenderFromText builds a LinkRender from relative game|chapter urls -> lpv div tags.
   // substitution occurs in common/../RawHtml.scala addLinks
@@ -46,7 +46,7 @@ final class TextLpvExpand(
                 cls              := "lpv--autostart is2d",
                 attr("data-pgn") := pgn.value,
                 plyRe.findFirstIn(url).map(_.substring(1)).map(ply => attr("data-ply") := ply),
-                (url contains "/black").option(attr("data-orientation") := "black")
+                (url.contains("/black")).option(attr("data-orientation") := "black")
               )
 
   // used by blogs & ublogs to build game|chapter id -> pgn maps
@@ -85,22 +85,30 @@ final class TextLpvExpand(
     _.expireAfterWrite(10 minutes).buildAsyncFuture(studyIdToPgn)
 
   private def gameIdToPgn(id: GameId): Fu[Option[LpvEmbed]] =
-    gameRepo gameWithInitialFen id flatMapz: g =>
-      analysisRepo.byId(Analysis.Id(id)) flatMap: analysis =>
-        pgnDump(g.game, g.fen, analysis, pgnFlags) map: pgn =>
-          LpvEmbed.PublicPgn(pgn.render).some
+    gameRepo
+      .gameWithInitialFen(id)
+      .flatMapz: g =>
+        analysisRepo
+          .byId(Analysis.Id(id))
+          .flatMap: analysis =>
+            pgnDump(g.game, g.fen, analysis, pgnFlags).map: pgn =>
+              LpvEmbed.PublicPgn(pgn.render).some
 
   private def studyChapterIdToPgn(id: StudyChapterId): Fu[Option[LpvEmbed]] =
     val flags = lila.study.PgnDump.fullFlags
-    studyApi.byChapterId(id) flatMapz: sc =>
-      if sc.study.isPrivate then fuccess(LpvEmbed.PrivateStudy.some)
-      else studyPgnDump.ofChapter(sc.study, flags)(sc.chapter) map LpvEmbed.PublicPgn.apply map some
+    studyApi
+      .byChapterId(id)
+      .flatMapz: sc =>
+        if sc.study.isPrivate then fuccess(LpvEmbed.PrivateStudy.some)
+        else studyPgnDump.ofChapter(sc.study, flags)(sc.chapter).map(LpvEmbed.PublicPgn.apply).map(_.some)
 
   private def studyIdToPgn(id: StudyId): Fu[Option[LpvEmbed]] =
     val flags = lila.study.PgnDump.fullFlags
-    studyApi.byId(id) flatMapz: s =>
-      if s.isPrivate then fuccess(LpvEmbed.PrivateStudy.some)
-      else studyPgnDump.ofFirstChapter(s, flags) map2 LpvEmbed.PublicPgn.apply
+    studyApi
+      .byId(id)
+      .flatMapz: s =>
+        if s.isPrivate then fuccess(LpvEmbed.PrivateStudy.some)
+        else studyPgnDump.ofFirstChapter(s, flags).map2(LpvEmbed.PublicPgn.apply)
 
 final class LpvGameRegex(domain: NetDomain):
 

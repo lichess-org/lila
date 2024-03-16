@@ -7,7 +7,6 @@
   </plurals>
   <string name="liveBroadcasts">Live Turnéier Iwwerdroungen</string>
   <string name="newBroadcast">Nei Live Iwwerdroung</string>
-  <string name="noRoundsYet">Nach keng Ronnen.</string>
   <string name="addRound">Ronn hinzufügen</string>
   <string name="ongoing">Am Gaang</string>
   <string name="upcoming">Demnächst</string>
@@ -35,5 +34,6 @@
   <string name="editRoundStudy">Ronnen-Etüd modifiéieren</string>
   <string name="deleteTournament">Dësen Turnéier läschen</string>
   <string name="definitivelyDeleteTournament">De ganzen Turnéier definitiv läschen, all seng Ronnen an all seng Partien.</string>
+  <string name="replacePlayerTags">Optional: Spillernimm, Wäertungen an Titelen ersetzen</string>
   <string name="periodInSeconds">Period a Sekonnen</string>
 </resources>

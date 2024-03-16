@@ -108,5 +108,5 @@ export function animation(duration: number): ChartOptions<'line'>['animations'] 
 }
 
 export function resizePolyfill() {
-  if ('ResizeObserver' in window === false) lichess.asset.loadEsm('chart.resizePolyfill');
+  if ('ResizeObserver' in window === false) site.asset.loadEsm('chart.resizePolyfill');
 }

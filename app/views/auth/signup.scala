@@ -3,7 +3,7 @@ package auth
 
 import controllers.routes
 
-import lila.app.templating.Environment.{ given, * }
+import lila.app.templating.Environment.{ *, given }
 import lila.app.ui.ScalatagsTemplate.{ *, given }
 import lila.common.{ HTTPRequest, LangPath }
 import lila.security.PasswordCheck
@@ -51,7 +51,7 @@ object signup:
               br
             )
           ),
-          agreement(form("agreement"), form.form.errors.exists(_.key startsWith "agreement.")),
+          agreement(form("agreement"), form.form.errors.exists(_.key.startsWith("agreement."))),
           views.html.base.hcaptcha.tag(form),
           button(cls := "submit button text big")(trans.signUp())
         )
@@ -60,10 +60,10 @@ object signup:
 
   private def agreement(form: play.api.data.Field, error: Boolean)(using Context) =
     div(cls := "agreement")(
-      error option p:
+      error.option(p:
         strong(cls := "error"):
           "You must agree to the Lichess policies listed below:"
-      ,
+      ),
       agreements.map: (field, text) =>
         form3.checkbox(form(field), text)
     )

@@ -75,7 +75,7 @@ export default function (ctrl: LobbyController): MaybeVNodes {
                   if (confirm(ctrl.trans('youNeedAnAccountToDoThat'))) location.href = '/signup';
                   return;
                 }
-                return ctrl.clickSeek(el.getAttribute('data-id')!);
+                return ctrl.clickSeek(el.dataset['id']!);
               }
             } while (el.nodeName !== 'TABLE');
           }),

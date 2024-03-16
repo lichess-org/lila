@@ -1,10 +1,10 @@
 package lila.plan
 
 import com.softwaremill.macwire.*
-import lila.common.autoconfig.{ *, given }
 import play.api.Configuration
 import play.api.libs.ws.StandaloneWSClient
 
+import lila.common.autoconfig.{ *, given }
 import lila.common.config.*
 import lila.db.dsl.Coll
 
@@ -88,10 +88,10 @@ final class Env(
   def cli = new lila.common.Cli:
     def process =
       case "patron" :: "lifetime" :: user :: Nil =>
-        userRepo byId UserStr(user) flatMapz api.setLifetime inject "ok"
+        userRepo.byId(UserStr(user)).flatMapz(api.setLifetime).inject("ok")
       case "patron" :: "month" :: user :: Nil =>
-        userRepo byId UserStr(user) flatMapz api.freeMonth inject "ok"
+        userRepo.byId(UserStr(user)).flatMapz(api.freeMonth).inject("ok")
       case "patron" :: "remove" :: user :: Nil =>
-        userRepo byId UserStr(user) flatMapz api.remove inject "ok"
+        userRepo.byId(UserStr(user)).flatMapz(api.remove).inject("ok")
 
 final private class PlanMongo(val patron: Coll, val charge: Coll)

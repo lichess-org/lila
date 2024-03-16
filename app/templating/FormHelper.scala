@@ -3,12 +3,12 @@ package templating
 
 import play.api.data.*
 import play.api.i18n.Lang
-
-import lila.app.ui.ScalatagsTemplate.{ *, given }
-import lila.i18n.I18nKey
-import lila.common.licon
 import scalatags.generic.TypedTag
 import scalatags.text.Builder
+
+import lila.app.ui.ScalatagsTemplate.{ *, given }
+import lila.common.licon
+import lila.i18n.I18nKey
 
 trait FormHelper:
   self: I18nHelper =>
@@ -21,13 +21,13 @@ trait FormHelper:
     p(cls := "error")(transKey(I18nKey(error.message), error.args))
 
   def errMsg(errors: Seq[FormError])(using Lang): Seq[Tag] =
-    errors map errMsg
+    errors.map(errMsg)
 
   def globalError(form: Form[?])(using Lang): Option[Tag] =
-    form.globalError map errMsg
+    form.globalError.map(errMsg)
 
   def globalErrorNamed(form: Form[?], name: String)(using Lang): Option[Frag] =
-    form.globalError.find(_.message == name) map errMsg
+    form.globalError.find(_.message == name).map(errMsg)
 
   val booleanChoices = Seq("true" -> "✓ Yes", "false" -> "✗ No")
 
@@ -52,7 +52,7 @@ trait FormHelper:
       div(
         st.input(
           st.id := s"$prefix$id",
-          checked(v._1) option st.checked,
+          checked(v._1).option(st.checked),
           tpe   := "checkbox",
           value := v._1.toString,
           name  := s"${field.name}[]"
@@ -70,7 +70,7 @@ trait FormHelper:
     private def groupLabel(field: Field) = label(cls := "form-label", `for` := id(field))
     private val helper                   = small(cls := "form-help")
 
-    private def errors(errs: Seq[FormError])(using Lang): Frag = errs.distinct map error
+    private def errors(errs: Seq[FormError])(using Lang): Frag = errs.distinct.map(error)
     private def errors(field: Field)(using Lang): Frag         = errors(field.errors)
     private def error(err: FormError)(using Lang): Frag =
       p(cls := "error")(transKey(I18nKey(err.message), err.args))
@@ -107,7 +107,7 @@ trait FormHelper:
         groupLabel(field)(labelContent),
         content(field),
         errors(field),
-        help map { helper(_) }
+        help.map { helper(_) }
       )
 
     def input(field: Field, typ: String = "", klass: String = "") /*: BaseTagType*/ =
@@ -138,7 +138,7 @@ trait FormHelper:
           ),
           groupLabel(field)(labelContent)
         ),
-        help map { helper(_) }
+        help.map { helper(_) }
       )
 
     def cmnToggle(
@@ -155,8 +155,8 @@ trait FormHelper:
           st.value := value,
           tpe      := "checkbox",
           cls      := "form-control cmn-toggle",
-          checked option st.checked,
-          disabled option st.disabled
+          checked.option(st.checked),
+          disabled.option(st.disabled)
         ),
         label(`for` := fieldId)
       )
@@ -172,16 +172,16 @@ trait FormHelper:
           st.id := id(field),
           name  := field.name,
           cls   := "form-control"
-        )(disabled option (st.disabled := true))(validationModifiers(field))(
-          default map { option(value := "")(_) },
-          options.toSeq map { (value, name) =>
+        )(disabled.option(st.disabled := true))(validationModifiers(field))(
+          default.map { option(value := "")(_) },
+          options.toSeq.map { (value, name) =>
             option(
               st.value := value.toString,
-              field.value.has(value.toString) option selected
+              field.value.has(value.toString).option(selected)
             )(name)
           }
         ),
-        disabled option hidden(field)
+        disabled.option(hidden(field))
       )
 
     def textarea(
@@ -287,8 +287,9 @@ trait FormHelper:
             (!ctx.me.exists(_.isAdmin) && !anyFlair).option(exceptEmojis)
           )
         ),
-        current.isDefined option p:
+        current.isDefined.option(p:
           button(cls := "button button-red button-thin button-empty text emoji-remove")(trans.delete())
+        )
       )
 
     object file:

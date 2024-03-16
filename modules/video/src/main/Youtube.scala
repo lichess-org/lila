@@ -1,9 +1,9 @@
 package lila.video
 
+import ornicar.scalalib.ThreadLocalRandom
 import play.api.libs.json.*
 import play.api.libs.ws.JsonBodyReadables.*
 import play.api.libs.ws.StandaloneWSClient
-import ornicar.scalalib.ThreadLocalRandom
 
 import lila.common.config.*
 
@@ -21,10 +21,10 @@ final private[video] class Youtube(
   private given Reads[Statistics]            = Json.reads
   private given Reads[ContentDetails]        = Json.reads
   private val readEntry: Reads[Entry]        = Json.reads
-  private val readEntries: Reads[Seq[Entry]] = (__ \ "items").read(Reads seq readEntry)
+  private val readEntries: Reads[Seq[Entry]] = (__ \ "items").read(Reads.seq(readEntry))
 
   def updateAll: Funit =
-    fetch flatMap { entries =>
+    fetch.flatMap { entries =>
       Future
         .traverse(entries) { entry =>
           api.video
@@ -48,21 +48,22 @@ final private[video] class Youtube(
     }
 
   private def fetch: Fu[List[Entry]] =
-    api.video.allIds flatMap { ids =>
+    api.video.allIds.flatMap { ids =>
       ws.url(url)
         .withQueryStringParameters(
           "id"   -> ThreadLocalRandom.shuffle(ids).take(max.value).mkString(","),
           "part" -> "id,statistics,snippet,contentDetails",
           "key"  -> apiKey.value
         )
-        .get() flatMap {
-        case res if res.status == 200 =>
-          readEntries reads res.body[JsValue] match
-            case JsError(err)          => fufail(err.toString)
-            case JsSuccess(entries, _) => fuccess(entries.toList)
-        case res =>
-          fufail(s"[video youtube] fetch ${res.status}")
-      }
+        .get()
+        .flatMap {
+          case res if res.status == 200 =>
+            readEntries.reads(res.body[JsValue]) match
+              case JsError(err)          => fufail(err.toString)
+              case JsSuccess(entries, _) => fuccess(entries.toList)
+          case res =>
+            fufail(s"[video youtube] fetch ${res.status}")
+        }
     }
 
 object Youtube:

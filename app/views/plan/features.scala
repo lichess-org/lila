@@ -1,16 +1,15 @@
 package views
 package html.plan
 
+import controllers.routes
 import play.api.i18n.Lang
 
-import lila.app.templating.Environment.{ given, * }
+import lila.app.templating.Environment.{ *, given }
 import lila.app.ui.ScalatagsTemplate.{ *, given }
-
-import controllers.routes
 
 object features:
 
-  val engineFullName = "Stockfish 16 NNUE"
+  val engineFullName = "Stockfish 16.1"
 
   def apply()(using PageContext) =
     views.html.base.layout(

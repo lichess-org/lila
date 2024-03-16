@@ -86,7 +86,7 @@
   <string name="pawnEndgame">Tàn cuộc Tốt</string>
   <string name="pawnEndgameDescription">Một thế tàn cuộc chỉ với tốt.</string>
   <string name="pin">Ghim</string>
-  <string name="pinDescription">Một chiến thuật khiến một quân cờ không thể di chuyển mà không làm lộ quân cờ đằng sau nó với giá trị lớn hơn.</string>
+  <string name="pinDescription">Một chiến thuật khiến một quân cờ không thể di chuyển mà không để lộ mục tiêu là quân cờ đằng sau nó với giá trị lớn hơn.</string>
   <string name="promotion">Phong cấp</string>
   <string name="promotionDescription">Phong cấp tốt của bạn thành quân hậu hoặc những quân phụ khác.</string>
   <string name="queenEndgame">Tàn cuộc Hậu</string>

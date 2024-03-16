@@ -53,6 +53,7 @@
   <string name="allSyncMembersRemainOnTheSamePosition">அனைத்து SYNC உறுப்பினர்களும் ஒரே நிலையில் உள்ளனர்</string>
   <string name="shareChanges">பார்வையாளர்களுடன் மாற்றங்களைப் பகிர்ந்து அவற்றைச் சேவையகத்தில் சேமிக்கவும்</string>
   <string name="playing">விளையாடுகிறார்</string>
+  <string name="showEvalBar">மதிப்பீட்டு பட்டிகள்</string>
   <string name="first">முதலாவது</string>
   <string name="previous">முந்தைய</string>
   <string name="next">அடுத்து</string>
@@ -84,7 +85,7 @@
   <string name="pinnedChapterComment">பலகையில் கீழ் எப்போதும் வரும் குறிப்புரை</string>
   <string name="saveChapter">அத்தியாயத்தைச் சேமிக்க</string>
   <string name="clearAnnotations">குறிப்புரைகளை நீக்க</string>
-  <string name="clearVariations">மாறுபாடு வரிகளை நீக்கு</string>
+  <string name="clearVariations" comment="Clear is used as a verb here. This erases the variations in the study (https://lichess.org/study) you are preparing.">மாறுபாடு வரிகளை நீக்கு</string>
   <string name="deleteChapter">அத்தியாயத்தை நீக்க</string>
   <string name="deleteThisChapter">இந்த அத்தியாயத்தை அழிக்கவும். அழித்தால் மீள்விக்க இயலாது!</string>
   <string name="clearAllCommentsInThisChapter">இந்த அத்தியாயத்திற்குரிய எல்லாக் குறிப்புரைகளையும் குறியீடுகளையும் வரையப்பட்ட உருவங்களையும் நீக்கவும்</string>

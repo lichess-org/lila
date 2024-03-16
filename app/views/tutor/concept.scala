@@ -42,8 +42,8 @@ object TutorUnit:
 
   val rating: TutorUnit = new:
     def html[V: TutorNumber](v: V)                  = strong(text(v))
-    def text[V](v: V)(using number: TutorNumber[V]) = f"${number double v}%1.0f"
+    def text[V](v: V)(using number: TutorNumber[V]) = f"${number.double(v)}%1.0f"
   val percent: TutorUnit = new:
     def html[V: TutorNumber](v: V)                       = frag(strong(number(v)), "%")
     def text[V: TutorNumber](v: V)                       = s"${number(v)}%"
-    private def number[V](v: V)(using n: TutorNumber[V]) = f"${n double v}%1.1f"
+    private def number[V](v: V)(using n: TutorNumber[V]) = f"${n.double(v)}%1.1f"

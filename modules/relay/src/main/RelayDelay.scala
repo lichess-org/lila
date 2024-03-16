@@ -1,12 +1,13 @@
 package lila.relay
 
-import lila.relay.RelayRound.Sync.UpstreamUrl
-import lila.memo.CacheApi
-import lila.common.Seconds
-import lila.db.dsl.{ *, given }
-import lila.study.MultiPgn
 import chess.format.pgn.PgnStr
+
+import lila.common.Seconds
 import lila.common.config.Max
+import lila.db.dsl.{ *, given }
+import lila.memo.CacheApi
+import lila.relay.RelayRound.Sync.UpstreamUrl
+import lila.study.MultiPgn
 
 final private class RelayDelay(colls: RelayColls)(using Executor):
 
@@ -14,12 +15,12 @@ final private class RelayDelay(colls: RelayColls)(using Executor):
 
   def apply(
       url: UpstreamUrl,
-      rt: RelayRound.WithTour,
+      round: RelayRound,
       doFetchUrl: (UpstreamUrl, Max) => Fu[RelayGames]
   ): Fu[RelayGames] =
-    dedupCache(url, rt.round, () => doFetchUrl(url, RelayFetch.maxChapters(rt.tour)))
+    dedupCache(url, round, () => doFetchUrl(url, RelayFetch.maxChapters))
       .flatMap: latest =>
-        rt.round.sync.delay match
+        round.sync.delay match
           case Some(delay) if delay > 0 => store.get(url, delay).map(_ | latest.map(_.resetToSetup))
           case _                        => fuccess(latest)
 
@@ -73,9 +74,11 @@ final private class RelayDelay(colls: RelayColls)(using Executor):
     private def getPgn(upstream: UpstreamUrl, delay: Seconds): Fu[Option[PgnStr]] =
       colls.delay:
         _.find(
-          $doc("_id" $gt idOf(upstream, longPast) $lte idOf(upstream, nowInstant.minusSeconds(delay.value))),
+          $doc(
+            "_id".$gt(idOf(upstream, longPast)).$lte(idOf(upstream, nowInstant.minusSeconds(delay.value)))
+          ),
           $doc("pgn" -> true).some
-        ).sort($sort desc "_id")
+        ).sort($sort.desc("_id"))
           .one[Bdoc]
           .map:
             _.flatMap(_.getAsOpt[PgnStr]("pgn"))

@@ -1,22 +1,24 @@
 package lila.security
 
-import lila.common.{ IpAddress, HTTPRequest }
 import play.api.mvc.RequestHeader
+
 import lila.common.config.MaxPerSecond
+import lila.common.{ HTTPRequest, IpAddress }
 
 final class IpTrust(proxyApi: Ip2Proxy, geoApi: GeoIP, firewallApi: Firewall):
 
   import IpTrust.*
 
   private[security] def isSuspicious(ip: IpAddress): Fu[Boolean] =
-    if firewallApi blocksIp ip then fuTrue
+    if firewallApi.blocksIp(ip) then fuTrue
+    else if geoApi.isSuspicious(ip) then fuTrue
     else proxyApi(ip).dmap(_.is)
 
   private[security] def isSuspicious(ipData: UserLogins.IPData): Fu[Boolean] =
     isSuspicious(ipData.ip.value)
 
   def data(ip: IpAddress): Fu[IpData] =
-    proxyApi(ip).dmap(IpData(_, geoApi orUnknown ip))
+    proxyApi(ip).dmap(IpData(_, geoApi.orUnknown(ip)))
 
   def isPubOrTor(ip: IpAddress): Fu[Boolean] = proxyApi(ip).dmap:
     case IsProxy.public | IsProxy.tor => true

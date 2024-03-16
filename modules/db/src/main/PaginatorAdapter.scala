@@ -1,12 +1,14 @@
 package lila.db
 package paginator
 
-import dsl.*
 import reactivemongo.api.*
 import reactivemongo.api.bson.*
+
 import scala.util.chaining.*
 
 import lila.common.paginator.AdapterLike
+
+import dsl.*
 
 final class CachedAdapter[A](
     adapter: AdapterLike[A],
@@ -36,14 +38,15 @@ final class Adapter[A: BSONDocumentReader](
       .skip(offset)
       .pipe: query =>
         hint.fold(query): h =>
-          query.hint(collection hint h)
+          query.hint(collection.hint(h))
       .cursor[A](readPref)
       .list(length)
 
-  def withNbResults(nb: Fu[Int]) = new CachedAdapter(this, nb)
+  def withNbResults(nb: Fu[Int]) = CachedAdapter(this, nb)
+  def withLotsOfResults          = withNbResults(fuccess(Int.MaxValue / 2))
 
 final class StaticAdapter[A](results: Seq[A])(using Executor) extends AdapterLike[A]:
 
   def nbResults = fuccess(results.size)
 
-  def slice(offset: Int, length: Int) = fuccess(results drop offset take length)
+  def slice(offset: Int, length: Int) = fuccess(results.drop(offset).take(length))

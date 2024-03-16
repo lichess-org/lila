@@ -1,10 +1,10 @@
 package views.html
 package game
 
-import lila.app.templating.Environment.{ given, * }
-import lila.app.ui.ScalatagsTemplate.{ *, given }
-
 import controllers.routes
+
+import lila.app.templating.Environment.{ *, given }
+import lila.app.ui.ScalatagsTemplate.{ *, given }
 
 object side:
 
@@ -20,9 +20,11 @@ object side:
       userTv: Option[lila.user.User] = None,
       bookmarked: Boolean
   )(using ctx: Context): Option[Frag] =
-    ctx.noBlind option frag(
-      meta(pov, initialFen, tour, simul, userTv, bookmarked),
-      pov.game.userIds.filter(isStreaming) map views.html.streamer.bits.contextual
+    ctx.noBlind.option(
+      frag(
+        meta(pov, initialFen, tour, simul, userTv, bookmarked),
+        pov.game.userIds.filter(isStreaming).map(views.html.streamer.bits.contextual)
+      )
     )
 
   def meta(
@@ -33,7 +35,7 @@ object side:
       userTv: Option[lila.user.User] = None,
       bookmarked: Boolean
   )(using ctx: Context): Option[Frag] =
-    ctx.noBlind option {
+    ctx.noBlind.option {
       import pov.*
       div(cls := "game__meta")(
         st.section(
@@ -50,7 +52,7 @@ object side:
                     )
                   else
                     frag(
-                      widgets showClock game,
+                      widgets.showClock(game),
                       separator,
                       (if game.rated then trans.rated else trans.casual).txt(),
                       separator,
@@ -64,12 +66,14 @@ object side:
                 .map: importedBy =>
                   small(
                     trans.importedByX(userIdLink(importedBy.some, None, withOnline = false)),
-                    ctx.is(importedBy) option
-                      form(cls := "delete", method := "post", action := routes.Game.delete(game.id)):
+                    ctx
+                      .is(importedBy)
+                      .option(form(cls := "delete", method := "post", action := routes.Game.delete(game.id)):
                         submitButton(
                           cls   := "button-link confirm",
                           title := trans.deleteThisImportedGame.txt()
                         )(trans.delete.txt())
+                      )
                   )
             )
           ),
@@ -79,28 +83,30 @@ object side:
                 div(cls := s"player color-icon is ${p.color.name} text")(
                   playerLink(p, withOnline = false, withDiff = true, withBerserk = true)
                 ),
-                tour.flatMap(_.teamVs).map(_.teams(p.color)) map {
+                tour.flatMap(_.teamVs).map(_.teams(p.color)).map {
                   teamLink(_, withIcon = false)(cls := "team")
                 }
               )
           )
         ),
-        game.finishedOrAborted option st.section(cls := "status")(
-          gameEndStatus(game),
-          game.winner.map: winner =>
-            frag(
-              separator,
-              winner.color.fold(trans.whiteIsVictorious, trans.blackIsVictorious)()
-            )
+        game.finishedOrAborted.option(
+          st.section(cls := "status")(
+            gameEndStatus(game),
+            game.winner.map: winner =>
+              frag(
+                separator,
+                winner.color.fold(trans.whiteIsVictorious, trans.blackIsVictorious)()
+              )
+          )
         ),
-        game.variant.chess960 so frag:
+        game.variant.chess960.so(frag:
           chess.variant.Chess960
             .positionNumber(initialFen | chess.format.Fen.initial)
             .map: number =>
               val url = routes.UserAnalysis
                 .parseArg(s"chess960/${underscoreFen(initialFen | chess.format.Fen.initial)}")
               st.section(trans.chess960StartPosition(a(href := url)(number)))
-        ,
+        ),
         userTv.map: u =>
           st.section(cls := "game__tv"):
             h2(cls := "top user-tv text", dataUserTv := u.id, dataIcon := licon.AnalogTv)(u.titleUsername)

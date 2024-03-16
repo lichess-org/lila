@@ -2,24 +2,46 @@ export interface RelayData {
   tour: RelayTour;
   rounds: RelayRound[];
   sync?: RelaySync;
-  leaderboard?: LeadPlayer[];
+  group?: RelayGroup;
   isSubscribed?: boolean; // undefined if anon
+  videoUrls?: [string, string];
 }
 
-export interface RelayRound {
+export interface RelayGame {
   id: string;
+  white: RelayPlayer;
+  black: RelayPlayer;
+}
+
+export interface RelayPlayer {
+  name: string;
+  rating?: number;
+  title?: string;
+  fideId?: number;
+  fed: string;
+}
+
+export interface RelayGamePlayer extends RelayPlayer {}
+
+export interface RelayGroup {
+  name: string;
+  tours: RelayTourIdName[];
+}
+
+export interface RelayTourIdName {
+  id: string;
+  name: string;
+}
+
+export type RoundId = string;
+
+export interface RelayRound {
+  id: RoundId;
   name: string;
   slug: string;
   finished?: boolean;
   ongoing?: boolean;
   startsAt?: number;
-}
-
-export interface LeadPlayer {
-  name: string;
-  score: number;
-  played: number;
-  rating?: number;
 }
 
 export interface RelayTour {
@@ -30,6 +52,8 @@ export interface RelayTour {
   official?: boolean;
   markup?: string;
   image?: string;
+  teamTable?: boolean;
+  leaderboard?: boolean;
 }
 
 export interface RelaySync {

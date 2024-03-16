@@ -23,7 +23,7 @@ export default class ChatCtrl {
 
   allTabs: Tab[] = ['discussion'];
   palantir: ChatPalantir;
-  tabStorage = lichess.storage.make('chat.tab');
+  tabStorage = site.storage.make('chat.tab');
   storedTab = this.tabStorage.get();
   moderation: ModerationCtrl | undefined;
   note: NoteCtrl | undefined;
@@ -43,8 +43,8 @@ export default class ChatCtrl {
       loaded: false,
       enabled: prop(!!this.data.palantir),
     };
-    this.trans = lichess.trans(this.opts.i18n);
-    const noChat = lichess.storage.get('nochat');
+    this.trans = site.trans(this.opts.i18n);
+    const noChat = site.storage.get('nochat');
     this.vm = {
       tab: this.allTabs.find(tab => tab === this.storedTab) || this.allTabs[0],
       enabled: opts.alwaysEnabled || !noChat,
@@ -85,7 +85,7 @@ export default class ChatCtrl {
       ['palantir.toggle', this.palantir.enabled],
     ];
 
-    this.subs.forEach(([eventName, callback]) => lichess.pubsub.on(eventName, callback));
+    this.subs.forEach(([eventName, callback]) => site.pubsub.on(eventName, callback));
 
     this.emitEnabled();
   }
@@ -102,7 +102,7 @@ export default class ChatCtrl {
       alert('Max length: 140 chars. ' + text.length + ' chars used.');
       return false;
     }
-    lichess.pubsub.emit('socket.send', 'talk', text);
+    site.pubsub.emit('socket.send', 'talk', text);
     return true;
   };
 
@@ -158,15 +158,15 @@ export default class ChatCtrl {
         resourceId: this.data.resourceId,
         redraw: this.redraw,
       });
-      lichess.asset.loadCssPath('chat.mod');
+      site.asset.loadCssPath('chat.mod');
     }
   };
 
   destroy = () => {
-    this.subs.forEach(([eventName, callback]) => lichess.pubsub.off(eventName, callback));
+    this.subs.forEach(([eventName, callback]) => site.pubsub.off(eventName, callback));
   };
 
-  emitEnabled = () => lichess.pubsub.emit('chat.enabled', this.vm.enabled);
+  emitEnabled = () => site.pubsub.emit('chat.enabled', this.vm.enabled);
 
   setTab = (t: Tab) => {
     this.vm.tab = t;
@@ -178,8 +178,8 @@ export default class ChatCtrl {
   setEnabled = (v: boolean) => {
     this.vm.enabled = v;
     this.emitEnabled();
-    if (!v) lichess.storage.set('nochat', '1');
-    else lichess.storage.remove('nochat');
+    if (!v) site.storage.set('nochat', '1');
+    else site.storage.remove('nochat');
     this.redraw();
   };
 }

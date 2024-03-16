@@ -2,7 +2,7 @@ import * as control from './control';
 import PuzzleCtrl from './ctrl';
 
 export default (ctrl: PuzzleCtrl) =>
-  lichess.mousetrap
+  site.mousetrap
     .bind(['left', 'k'], () => {
       control.prev(ctrl);
       ctrl.redraw();
@@ -27,14 +27,14 @@ export default (ctrl: PuzzleCtrl) =>
         else ctrl.toggleCeval();
       }
     })
-    .bind('z', () => lichess.pubsub.emit('zen'))
+    .bind('z', () => site.pubsub.emit('zen'))
     .bind('?', () => ctrl.keyboardHelp(!ctrl.keyboardHelp()))
     .bind('f', ctrl.flip)
     .bind('n', ctrl.nextPuzzle)
     .bind('B', () => ctrl.blindfold(!ctrl.blindfold()));
 
 export const view = (ctrl: PuzzleCtrl) =>
-  lichess.dialog.snab({
+  site.dialog.snab({
     class: 'help',
     htmlUrl: '/training/help',
     onClose: () => ctrl.keyboardHelp(false),

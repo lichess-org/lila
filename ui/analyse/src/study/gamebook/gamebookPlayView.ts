@@ -8,7 +8,7 @@ import { State } from './gamebookPlayCtrl';
 
 export function render(ctrl: GamebookPlayCtrl): VNode {
   const state = ctrl.state;
-  return h('div.gamebook', { hook: { insert: _ => lichess.asset.loadCssPath('analyse.gamebook.play') } }, [
+  return h('div.gamebook', { hook: { insert: _ => site.asset.loadCssPath('analyse.gamebook.play') } }, [
     (state.comment || state.feedback == 'play' || state.feedback == 'end') &&
       h('div.comment', { class: { hinted: state.showHint } }, [
         state.comment
@@ -24,7 +24,7 @@ export function render(ctrl: GamebookPlayCtrl): VNode {
     h('div.floor', [
       renderFeedback(ctrl, state),
       h('img.mascot', {
-        attrs: { width: 120, height: 120, src: lichess.asset.url('images/mascot/octopus.svg') },
+        attrs: { width: 120, height: 120, src: site.asset.url('images/mascot/octopus.svg') },
       }),
     ]),
   ]);

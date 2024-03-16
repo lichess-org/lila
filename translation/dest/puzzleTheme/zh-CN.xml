@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="advancedPawn">高兵</string>
+  <string name="advancedPawn">高位兵</string>
   <string name="advancedPawnDescription">你的兵已经深入对手的领地，可能威胁升变。</string>
   <string name="advantage">优势</string>
-  <string name="advantageDescription" comment="advantageDescription&#10;&#10;'cp' stands for centipawn (1/100th of a pawn). It is used in computer analysis to assess a position.&#10;'eval' is short for evaluation.">抓住能让你获得决定性优势的机会。(200厘兵 ≤ 评估 ≤ 600厘兵)。</string>
+  <string name="advantageDescription" comment="advantageDescription&#10;&#10;'cp' stands for centipawn (1/100th of a pawn). It is used in computer analysis to assess a position.&#10;'eval' is short for evaluation.">抓住能让你获得决定性优势的机会。(200厘兵 ≤ 评估 ≤ 600厘兵)</string>
   <string name="anastasiaMate">阿纳斯塔西亚杀法</string>
   <string name="anastasiaMateDescription">马与车或者后配合将对方的王将死在被同一方棋子卡住的边角。</string>
   <string name="arabianMate">阿拉伯杀法</string>

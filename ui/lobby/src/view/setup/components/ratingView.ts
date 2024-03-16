@@ -5,7 +5,7 @@ import { speeds, variants } from '../../../options';
 
 export const ratingView = (ctrl: LobbyController): MaybeVNode => {
   const { opts, data } = ctrl;
-  if (lichess.blindMode || !data.ratingMap) return null;
+  if (site.blindMode || !data.ratingMap) return null;
 
   const selectedPerf = ctrl.setupCtrl.selectedPerf();
 

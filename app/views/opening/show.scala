@@ -2,7 +2,7 @@ package views.html.opening
 
 import controllers.routes
 
-import lila.app.templating.Environment.{ given, * }
+import lila.app.templating.Environment.{ *, given }
 import lila.app.ui.ScalatagsTemplate.{ *, given }
 import lila.opening.OpeningPage
 
@@ -40,7 +40,7 @@ object show:
             page.nameParts.mapWithIndex: (part, i) =>
               frag(
                 part match
-                  case Left(move) => span(cls := "opening__name__move")(i > 0 option ", ", move)
+                  case Left(move) => span(cls := "opening__name__move")((i > 0).option(", "), move)
                   case Right((name, key)) =>
                     val className = s"opening__name__section opening__name__section--${i + 1}"
                     frag(
@@ -55,7 +55,7 @@ object show:
         ),
         div(cls := "opening__intro")(
           div(cls := "opening__intro__result-lpv")(
-            div(cls := "opening__intro__result result-bar")(page.explored map { exp =>
+            div(cls := "opening__intro__result result-bar")(page.explored.map { exp =>
               resultSegments(exp.result)
             }),
             div(
@@ -78,7 +78,7 @@ object show:
                 a(
                   cls      := "button text",
                   dataIcon := licon.Book,
-                  href     := s"${routes.UserAnalysis.pgn(page.query.sans mkString "_")}#explorer"
+                  href     := s"${routes.UserAnalysis.pgn(page.query.sans.mkString("_"))}#explorer"
                 )(trans.openingExplorer())
               ),
               if page.explored.so(_.history).nonEmpty then

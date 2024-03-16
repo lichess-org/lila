@@ -46,7 +46,7 @@ private[setup] trait Config:
 
   def clockHasTime = time + increment.value > 0
 
-  def makeClock = hasClock option justMakeClock
+  def makeClock = hasClock.option(justMakeClock)
 
   protected def justMakeClock =
     Clock.Config(
@@ -54,7 +54,7 @@ private[setup] trait Config:
       if clockHasTime then increment else Clock.IncrementSeconds(1)
     )
 
-  def makeDaysPerTurn: Option[Days] = (timeMode == TimeMode.Correspondence) option days
+  def makeDaysPerTurn: Option[Days] = (timeMode == TimeMode.Correspondence).option(days)
 
   def makeSpeed: Speed = chess.Speed(makeClock)
 
@@ -69,10 +69,10 @@ trait Positional:
 
   lazy val validFen = variant != FromPosition ||
     fen.exists: f =>
-      Fen.read(f).exists(_ playable strictFen)
+      Fen.read(f).exists(_.playable(strictFen))
 
   def fenGame(builder: ChessGame => Fu[Game]): Fu[Game] =
-    val baseState = fen.ifTrue(variant.fromPosition) flatMap {
+    val baseState = fen.ifTrue(variant.fromPosition).flatMap {
       Fen.readWithMoveNumber(FromPosition, _)
     }
     val (chessGame, state) = baseState.fold(makeGame -> none[Situation.AndFullMoveNumber]) {
@@ -86,7 +86,7 @@ trait Positional:
         if Fen.write(game).isInitial then makeGame(chess.variant.Standard) -> none
         else game                                                          -> baseState
     }
-    builder(chessGame) dmap { game =>
+    builder(chessGame).dmap { game =>
       state.fold(game) { case sit @ Situation.AndFullMoveNumber(Situation(board, _), _) =>
         game.copy(
           chess = game.chess.copy(

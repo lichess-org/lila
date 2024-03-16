@@ -53,7 +53,7 @@ export class StudyMemberCtrl {
       opts.redraw,
       opts.trans,
     );
-    lichess.pubsub.on('socket.in.crowd', d => {
+    site.pubsub.on('socket.in.crowd', d => {
       const names: string[] = d.users || [];
       this.inviteForm.spectators(names);
       this.spectatorIds = names.map(titleNameToId);
@@ -99,7 +99,7 @@ export class StudyMemberCtrl {
     const wasContrib = this.myMember() && this.canContribute();
     this.dict(members);
     if (wasViewer && this.canContribute()) {
-      if (lichess.once('study-tour')) this.opts.startTour();
+      if (site.once('study-tour')) this.opts.startTour();
       this.opts.onBecomingContributor();
       this.opts.notif.set({
         text: this.opts.trans.noarg('youAreNowAContributor'),
@@ -212,7 +212,7 @@ export function view(ctrl: StudyCtrl): VNode {
 
   const ordered: StudyMember[] = members.ordered();
 
-  return h('div.study__members', { hook: onInsert(() => lichess.pubsub.emit('chat.resize')) }, [
+  return h('div.study__members', { hook: onInsert(() => site.pubsub.emit('chat.resize')) }, [
     ...ordered
       .map(member => {
         const confing = members.confing() === member.user.id;

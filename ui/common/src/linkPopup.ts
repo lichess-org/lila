@@ -7,7 +7,7 @@ export const onClick = (a: HTMLLinkElement, trans: Trans): boolean => {
   const url = new URL(a.href);
   if (isPassList(url)) return true;
 
-  lichess.dialog
+  site.dialog
     .dom({
       class: 'link-popup',
       css: [{ themed: 'linkPopup' }],

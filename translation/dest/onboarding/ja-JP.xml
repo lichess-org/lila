@@ -11,7 +11,7 @@
   <string name="playOpponentsFromAroundTheWorld">世界中の人と対戦する。</string>
   <string name="followYourFriendsOnLichess">Lichess で友達をフォローする。</string>
   <string name="playInTournaments">トーナメントに参加する。</string>
-  <string name="learnFromXAndY">%1$s と %2$s から学びましょう。</string>
+  <string name="learnFromXAndY" comment="%1$s is Study&#10;%2$s is Videos&#10;&#10;They are both links to pages titled that way, and the title is used verbatim.">%1$s と %2$s から学びましょう。</string>
   <string name="configureLichess">Lichess の設定を好みに合わせて変える。</string>
   <string name="exploreTheSiteAndHaveFun">あれこれ触ってお楽しみを :)</string>
 </resources>

@@ -28,7 +28,7 @@ export class StockfishWebEngine implements CevalEngine {
 
   async boot() {
     const [version, root, js] = [this.info.assets.version, this.info.assets.root, this.info.assets.js];
-    const makeModule = await import(lichess.asset.url(`${root}/${js}`, { version }));
+    const makeModule = await import(site.asset.url(`${root}/${js}`, { version }));
 
     const module: StockfishWeb = await new Promise((resolve, reject) => {
       makeModule
@@ -36,7 +36,7 @@ export class StockfishWebEngine implements CevalEngine {
           wasmMemory: sharedWasmMemory(this.info.minMem!),
           onError: (msg: string) => reject(new Error(msg)),
           locateFile: (name: string) =>
-            lichess.asset.url(`${root}/${name}`, { version, sameDomain: name.endsWith('.worker.js') }),
+            site.asset.url(`${root}/${name}`, { version, sameDomain: name.endsWith('.worker.js') }),
         })
         .then(resolve)
         .catch(reject);
@@ -64,7 +64,7 @@ export class StockfishWebEngine implements CevalEngine {
       if (!nnueBuffer || nnueBuffer.byteLength < 128 * 1024) {
         const req = new XMLHttpRequest();
 
-        req.open('get', lichess.asset.url(`lifat/nnue/${nnueFilename}`, { noVersion: true }), true);
+        req.open('get', site.asset.url(`lifat/nnue/${nnueFilename}`, { noVersion: true }), true);
         req.responseType = 'arraybuffer';
         req.onprogress = e => this.status?.({ download: { bytes: e.loaded, total: e.total } });
 

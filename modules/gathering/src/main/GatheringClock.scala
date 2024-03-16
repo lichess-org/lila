@@ -1,7 +1,8 @@
 package lila.gathering
 
 import chess.Clock
-import chess.Clock.{ LimitSeconds, IncrementSeconds }
+import chess.Clock.{ IncrementSeconds, LimitSeconds }
+
 import lila.common.Form.*
 
 object GatheringClock:
@@ -16,8 +17,8 @@ object GatheringClock:
     }
   val timeChoices = optionsDouble(times, formatLimit)
 
-  val increments = IncrementSeconds from {
+  val increments = IncrementSeconds.from {
     (0 to 2 by 1) ++ (3 to 7) ++ (10 to 30 by 5) ++ (40 to 60 by 10)
   }
   val incrementDefault = IncrementSeconds(0)
-  val incrementChoices = options(IncrementSeconds raw increments, "%d second{s}")
+  val incrementChoices = options(IncrementSeconds.raw(increments), "%d second{s}")

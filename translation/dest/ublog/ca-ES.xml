@@ -52,4 +52,5 @@
   <string name="inappropriateContentAccountClosed">Qualsevol contingut inapropiat podria implicar el tancament del teu compte.</string>
   <string name="blogTips">Els nostres senzills consells per escriure bones entrades al blog</string>
   <string name="discussThisBlogPostInTheForum">Discuteix aquesta publicació del blog en el fòrum</string>
+  <string name="youBlockedByBlogAuthor">Estàs bloquejat per l\'autor del blog.</string>
 </resources>

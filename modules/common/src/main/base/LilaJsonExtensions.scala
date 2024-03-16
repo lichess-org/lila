@@ -1,7 +1,7 @@
 package lila.base
 
-import play.api.libs.json.*
 import ornicar.scalalib.newtypes.SameRuntime
+import play.api.libs.json.*
 
 trait JsonExtensions:
 
@@ -26,7 +26,7 @@ trait JsonExtensions:
       (js \ key).asOpt[JsArray]
 
     def arrAs[A](key: String)(as: JsValue => Option[A]): Option[List[A]] =
-      arr(key) map { j =>
+      arr(key).map { j =>
         j.value.iterator.map(as).to(List).flatten
       }
 
@@ -40,7 +40,7 @@ trait JsonExtensions:
       (js \ key).asOpt[A]
 
     def noNull = JsObject:
-      js.fields collect {
+      js.fields.collect {
         case (key, value) if value != JsNull => key -> value
       }
 

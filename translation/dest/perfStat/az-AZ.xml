@@ -22,10 +22,9 @@
   <string name="fromXToY">%1$s tarixindən %2$s tarixinə qədər</string>
   <string name="winningStreak">Qalibiyyət seriyası</string>
   <string name="losingStreak">Məğlubiyyət seriyası</string>
-  <string name="longestStreak" comment="%s is the string (number of games OR time spent playing, e.g. 4 hours non-stop play)&#10;String used to describe the longest consecutive winning &amp; losing streak of games. It is also used for a  streak of time spent playing.">Ən uzun seriya: %s</string>
+  <string name="longestStreak">Ən uzun seriya: %s</string>
   <string name="currentStreak">Hazırkı seriya: %s</string>
   <string name="bestRated">Ən yüksək reytinqli qələbələr</string>
-  <string name="worstRated">Ən pis xallı məğlubiyyətlər</string>
   <string name="gamesInARow">Ardıcıl oynanılan oyunlar</string>
   <string name="lessThanOneHour">Oyunlar arasında bir saatdan az ara olmalıdır</string>
   <string name="maxTimePlaying">Oyun üçün xərclənən ən uzun vaxt</string>

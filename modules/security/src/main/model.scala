@@ -1,13 +1,13 @@
 package lila.security
 
-import play.api.mvc.RequestHeader
 import play.api.data.Form
+import play.api.mvc.RequestHeader
 
 import lila.common.{ EmailAddress, IpAddress }
-import lila.user.{ User, Me }
+import lila.user.{ Me, User }
 
 case class Dated[V](value: V, date: Instant) extends Ordered[Dated[V]]:
-  def compare(other: Dated[V]) = other.date compareTo date
+  def compare(other: Dated[V]) = other.date.compareTo(date)
   def map[X](f: V => X)        = copy(value = f(value))
   def seconds                  = date.toSeconds
 
@@ -37,6 +37,7 @@ case class HcaptchaForm[A](form: Form[A], config: HcaptchaPublicConfig, skip: Bo
   def enabled                    = config.enabled && !skip
   def apply(key: String)         = form(key)
   def withForm[B](form: Form[B]) = HcaptchaForm(form, config, skip)
+  def fill[B](data: A)           = copy(form = form.fill(data))
 
 case class LameNameCheck(value: Boolean) extends AnyVal
 

@@ -87,6 +87,12 @@ body {
   margin-#{$end-direction}: 1ch;
 }
 
+.lobby__tv cg-container,
+.lobby__puzzle cg-container {
+  @extend %box-radius;
+  overflow: hidden;
+}
+
 .now-playing {
   .meta {
     @extend %flex-column;

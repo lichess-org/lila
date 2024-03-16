@@ -1,8 +1,10 @@
 package lila.analyse
 
 import chess.format.pgn.{ Comment, Glyph }
-import lila.tree.Eval.*
+
 import scala.util.chaining.*
+
+import lila.tree.Eval.*
 
 sealed trait Advice:
   val judgment: Advice.Judgement
@@ -12,7 +14,7 @@ sealed trait Advice:
   export info.{ ply, prevPly, prevMoveNumber, color, cp, mate }
 
   def makeComment(withEval: Boolean, withBestMove: Boolean): Comment = Comment {
-    withEval.so(evalComment so { c =>
+    withEval.so(evalComment.so { c =>
       s"($c) "
     }) +
       (this.match
@@ -25,8 +27,8 @@ sealed trait Advice:
   }
 
   def evalComment: Option[String] = {
-    List(prev.evalComment, info.evalComment).flatten mkString " → "
-  }.some filter (_.nonEmpty)
+    List(prev.evalComment, info.evalComment).flatten.mkString(" → ")
+  }.some.filter(_.nonEmpty)
 
 object Advice:
 
@@ -39,7 +41,7 @@ object Advice:
   object Judgement:
     val all = values.toList
 
-  def apply(prev: Info, info: Info): Option[Advice] = CpAdvice(prev, info) orElse MateAdvice(prev, info)
+  def apply(prev: Info, info: Info): Option[Advice] = CpAdvice(prev, info).orElse(MateAdvice(prev, info))
 
 private[analyse] case class CpAdvice(
     judgment: Advice.Judgement,
@@ -61,10 +63,10 @@ private[analyse] object CpAdvice:
       infoCp <- info.cp
       prevWinningChances    = WinPercent.winningChances(cp)
       currentWinningChances = WinPercent.winningChances(infoCp)
-      delta = (currentWinningChances - prevWinningChances) pipe { d =>
+      delta = (currentWinningChances - prevWinningChances).pipe { d =>
         info.color.fold(-d, d)
       }
-      judgement <- winningChanceJudgements find { case (d, _) => d <= delta } map (_._2)
+      judgement <- winningChanceJudgements.find { case (d, _) => d <= delta }.map(_._2)
     yield CpAdvice(judgement, info, prev)
 
 sealed abstract private[analyse] class MateSequence(val desc: String)
@@ -83,7 +85,7 @@ private[analyse] case object MateLost
 
 private[analyse] object MateSequence:
   def apply(prev: Option[Mate], next: Option[Mate]): Option[MateSequence] =
-    (prev, next).some collect {
+    (prev, next).some.collect {
       case (None, Some(n)) if n.negative                  => MateCreated
       case (Some(p), None) if p.positive                  => MateLost
       case (Some(p), Some(n)) if p.positive && n.negative => MateLost
@@ -98,11 +100,11 @@ private[analyse] case class MateAdvice(
 private[analyse] object MateAdvice:
 
   def apply(prev: Info, info: Info): Option[MateAdvice] =
-    def invertCp(cp: Cp)       = cp invertIf info.color.black
-    def invertMate(mate: Mate) = mate invertIf info.color.black
+    def invertCp(cp: Cp)       = cp.invertIf(info.color.black)
+    def invertMate(mate: Mate) = mate.invertIf(info.color.black)
     def prevCp                 = prev.cp.map(invertCp).so(_.centipawns)
     def nextCp                 = info.cp.map(invertCp).so(_.centipawns)
-    MateSequence(prev.mate map invertMate, info.mate map invertMate) flatMap { sequence =>
+    MateSequence(prev.mate.map(invertMate), info.mate.map(invertMate)).flatMap { sequence =>
       import Advice.Judgement.*
       val judgment: Option[Advice.Judgement] = sequence match
         case MateCreated if prevCp < -999 => Option(Inaccuracy)
@@ -112,5 +114,5 @@ private[analyse] object MateAdvice:
         case MateLost if nextCp > 700     => Option(Mistake)
         case MateLost                     => Option(Blunder)
         case MateDelayed                  => None
-      judgment map { MateAdvice(sequence, _, info, prev) }
+      judgment.map { MateAdvice(sequence, _, info, prev) }
     }

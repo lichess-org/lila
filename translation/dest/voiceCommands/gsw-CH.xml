@@ -7,7 +7,7 @@
   <string name="instructions4" comment="%s is Push to Talk.">Aktiviert %s in luter Umgebig. Bim Spräche vu Befehl d\'Umschalttaschte truckt halte, wänn die Funktion aktiviert isch.</string>
   <string name="instructions5" comment="The phonetic alphabet is also known as the NATO alphabet (where A = Alpha, B = Bravo, etc. This makes the sounds easier to differentiate through a microphone). It is for English specifically, which as of the time of writing, is the only language supported by the Voice Commands feature.">Benutz s\'Ponetischi-Alphabet, zum d\'Verständlichkeit verbessere. </string>
   <string name="instructions6">%s erchlärt d\'Ischtellige vu de Sprachschtürig im Detail.</string>
-  <string name="thisBlogPost">De Blog Bitrag</string>
+  <string name="thisBlogPost">De Tagebuech-Bitrag</string>
   <string name="moveToE4OrSelectE4Piece">Zug uf e4 oder Uswahl vu de Figur uf e4</string>
   <string name="selectOrCaptureABishop">En Läufer wähle oder schlah</string>
   <string name="takeRookWithQueen">Schlag de Turm mit de Dame</string>

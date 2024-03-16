@@ -22,10 +22,9 @@
   <string name="fromXToY">nga %1$s deri %2$s</string>
   <string name="winningStreak">Fitore radhazi</string>
   <string name="losingStreak">Humbje radhazi</string>
-  <string name="longestStreak" comment="%s is the string (number of games OR time spent playing, e.g. 4 hours non-stop play)&#10;String used to describe the longest consecutive winning &amp; losing streak of games. It is also used for a  streak of time spent playing.">Vijimësia më e gjatë: %s</string>
+  <string name="longestStreak">Vijimësia më e gjatë: %s</string>
   <string name="currentStreak">Vijimësi aktuale: %s</string>
   <string name="bestRated">Fitoret më të mira</string>
-  <string name="worstRated">Humbjet më të dobëta</string>
   <string name="gamesInARow">Lojëra radhazi</string>
   <string name="lessThanOneHour">Më pak se një orë mes lojërave</string>
   <string name="maxTimePlaying">Maksimum kohe shpenzuar në lojë</string>

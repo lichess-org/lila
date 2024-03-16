@@ -1,9 +1,10 @@
 package lila.app
 package templating
 
+import play.api.i18n.Lang
+
 import java.text.NumberFormat
 import java.util.concurrent.ConcurrentHashMap
-import play.api.i18n.Lang
 
 trait NumberHelper:
   self: I18nHelper =>
@@ -18,5 +19,5 @@ trait NumberHelper:
 
   def showMillis(millis: Int)(using Lang) = formatter.format((millis / 100).toDouble / 10)
 
-  extension (e: Int) def localize(using Lang): String  = formatter format e
-  extension (e: Long) def localize(using Lang): String = formatter format e
+  extension (e: Int) def localize(using Lang): String  = formatter.format(e)
+  extension (e: Long) def localize(using Lang): String = formatter.format(e)

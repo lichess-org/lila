@@ -1,9 +1,9 @@
 package views.html.user
 
-import lila.app.templating.Environment.{ given, * }
-import lila.app.ui.ScalatagsTemplate.{ *, given }
-
 import controllers.routes
+
+import lila.app.templating.Environment.{ *, given }
+import lila.app.ui.ScalatagsTemplate.{ *, given }
 import lila.user.User
 
 object download:
@@ -54,11 +54,15 @@ object download:
           ),
           br,
           br,
-          ctx is user option p(style := "text-align: right")(
-            a(href := routes.Game.apiExportByUserImportedGames())(
-              "Or download imported games as PGN"
+          ctx
+            .is(user)
+            .option(
+              p(style := "text-align: right")(
+                a(href := routes.Game.apiExportByUserImportedGames())(
+                  "Or download imported games as PGN"
+                )
+              )
             )
-          )
         )
       )
     }
@@ -130,7 +134,7 @@ object download:
       th(cls := "top")(label(`for` := "dl-perfs")(trans.variants())),
       td(
         div(id := "dl-perfs", cls := "toggle-columns")(
-          perfTypes map perfToggle
+          perfTypes.map(perfToggle)
         )
       )
     )

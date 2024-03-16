@@ -84,7 +84,7 @@
   <string name="pinnedChapterComment">Коментар на главата</string>
   <string name="saveChapter">Запази глава</string>
   <string name="clearAnnotations">Изтрий анотациите</string>
-  <string name="clearVariations">Изчисти вариациите</string>
+  <string name="clearVariations" comment="Clear is used as a verb here. This erases the variations in the study (https://lichess.org/study) you are preparing.">Изчисти вариациите</string>
   <string name="deleteChapter">Изтрий глава</string>
   <string name="deleteThisChapter">Изтриване на главата? Това е необратимо!</string>
   <string name="clearAllCommentsInThisChapter">Изтрий всички коментари, специални символи и нарисувани форми в главата?</string>

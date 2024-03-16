@@ -54,7 +54,7 @@ export default class RacerCtrl implements PuzCtrl {
     this.race = this.data.race;
     this.pref = opts.pref;
     this.filters = new PuzFilters(redraw, true);
-    this.trans = lichess.trans(opts.i18n);
+    this.trans = site.trans(opts.i18n);
     this.run = {
       pov: puzzlePov(this.data.puzzles[0]),
       moves: 0,
@@ -81,7 +81,7 @@ export default class RacerCtrl implements PuzCtrl {
     );
     this.promotion = new PromotionCtrl(this.withGround, this.setGround, this.redraw);
     this.serverUpdate(opts.data);
-    lichess.socket = new lichess.StrongSocket(`/racer/${this.race.id}`, false, {
+    site.socket = new site.StrongSocket(`/racer/${this.race.id}`, false, {
       events: {
         racerState: (data: UpdatableData) => {
           this.serverUpdate(data);
@@ -90,8 +90,8 @@ export default class RacerCtrl implements PuzCtrl {
         },
       },
     });
-    lichess.socket.sign(this.sign);
-    lichess.pubsub.on('zen', () => {
+    site.socket.sign(this.sign);
+    site.pubsub.on('zen', () => {
       const zen = $('body').toggleClass('zen').hasClass('zen');
       window.dispatchEvent(new Event('resize'));
       this.setZen(zen);
@@ -149,7 +149,7 @@ export default class RacerCtrl implements PuzCtrl {
     this.setGround();
     this.redraw();
     sound.end();
-    lichess.pubsub.emit('ply', 0); // restore resize handle
+    site.pubsub.emit('ply', 0); // restore resize handle
     $('body').toggleClass('playing'); // end zen
     this.redrawSlow();
     clearInterval(this.redrawInterval);
@@ -216,7 +216,7 @@ export default class RacerCtrl implements PuzCtrl {
       this.run.current.moveIndex = 0;
       this.setGround();
     }
-    lichess.pubsub.emit('ply', this.run.moves);
+    site.pubsub.emit('ply', this.run.moves);
   };
 
   private redrawQuick = () => setTimeout(this.redraw, 100);
@@ -259,7 +259,7 @@ export default class RacerCtrl implements PuzCtrl {
     this.redraw();
   };
 
-  private socketSend = (tpe: string, data?: any) => lichess.socket.send(tpe, data, { sign: this.sign });
+  private socketSend = (tpe: string, data?: any) => site.socket.send(tpe, data, { sign: this.sign });
 
   private setZen = throttlePromiseDelay(
     () => 1000,
@@ -270,7 +270,7 @@ export default class RacerCtrl implements PuzCtrl {
       }),
   );
 
-  private toggleZen = () => lichess.pubsub.emit('zen');
+  private toggleZen = () => site.pubsub.emit('zen');
 
-  private hotkeys = () => lichess.mousetrap.bind('f', this.flip).bind('z', this.toggleZen);
+  private hotkeys = () => site.mousetrap.bind('f', this.flip).bind('z', this.toggleZen);
 }

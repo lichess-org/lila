@@ -85,7 +85,7 @@
   <string name="pinnedChapterComment">Comentari del capítol fixat</string>
   <string name="saveChapter">Guarda el capítol</string>
   <string name="clearAnnotations">Netejar anotacions</string>
-  <string name="clearVariations">Netejar variacions</string>
+  <string name="clearVariations" comment="Clear is used as a verb here. This erases the variations in the study (https://lichess.org/study) you are preparing.">Netejar variacions</string>
   <string name="deleteChapter">Eliminar capítol</string>
   <string name="deleteThisChapter">Eliminar aquest capítol? No hi ha volta enrera!</string>
   <string name="clearAllCommentsInThisChapter">Esborrar tots els comentaris, signes i marques en aquest capítol?</string>

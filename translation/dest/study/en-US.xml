@@ -85,7 +85,7 @@
   <string name="pinnedChapterComment">Pinned chapter comment</string>
   <string name="saveChapter">Save chapter</string>
   <string name="clearAnnotations">Clear annotations</string>
-  <string name="clearVariations">Clear variations</string>
+  <string name="clearVariations" comment="Clear is used as a verb here. This erases the variations in the study (https://lichess.org/study) you are preparing.">Clear variations</string>
   <string name="deleteChapter">Delete chapter</string>
   <string name="deleteThisChapter">Delete this chapter? There is no going back!</string>
   <string name="clearAllCommentsInThisChapter">Clear all comments, glyphs and drawn shapes in this chapter?</string>

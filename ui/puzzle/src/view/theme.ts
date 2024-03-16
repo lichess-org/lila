@@ -14,7 +14,9 @@ export default function theme(ctrl: PuzzleCtrl): MaybeVNode {
   if (data.replay) return showEditor ? h('div.puzzle__side__theme', editor(ctrl)) : null;
   const puzzleMenu = (v: VNode): VNode =>
     h('a', { attrs: { href: router.withLang(`/training/${angle.opening ? 'openings' : 'themes'}`) } }, v);
-  return !ctrl.streak && ctrl.isDaily
+  return ctrl.streak
+    ? null
+    : ctrl.isDaily
     ? h(
         'div.puzzle__side__theme.puzzle__side__theme--daily',
         puzzleMenu(h('h2', ctrl.trans.noarg('dailyPuzzle'))),

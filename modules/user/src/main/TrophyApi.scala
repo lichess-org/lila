@@ -1,9 +1,10 @@
 package lila.user
 
+import ornicar.scalalib.ThreadLocalRandom
+import reactivemongo.api.bson.*
+
 import lila.db.dsl.{ *, given }
 import lila.memo.*
-import reactivemongo.api.bson.*
-import ornicar.scalalib.ThreadLocalRandom
 
 final class TrophyApi(
     coll: Coll,
@@ -38,33 +39,41 @@ final class TrophyApi(
       isContentTeam: Boolean
   ): List[Trophy] =
     List(
-      isPublicMod option Trophy(
-        _id = "",
-        user = user.id,
-        kind = kindCache sync TrophyKind.moderator,
-        date = nowInstant,
-        url = none
+      isPublicMod.option(
+        Trophy(
+          _id = "",
+          user = user.id,
+          kind = kindCache.sync(TrophyKind.moderator),
+          date = nowInstant,
+          url = none
+        )
       ),
-      isDev option Trophy(
-        _id = "",
-        user = user.id,
-        kind = kindCache sync TrophyKind.developer,
-        date = nowInstant,
-        url = none
+      isDev.option(
+        Trophy(
+          _id = "",
+          user = user.id,
+          kind = kindCache.sync(TrophyKind.developer),
+          date = nowInstant,
+          url = none
+        )
       ),
-      isVerified option Trophy(
-        _id = "",
-        user = user.id,
-        kind = kindCache sync TrophyKind.verified,
-        date = nowInstant,
-        url = none
+      isVerified.option(
+        Trophy(
+          _id = "",
+          user = user.id,
+          kind = kindCache.sync(TrophyKind.verified),
+          date = nowInstant,
+          url = none
+        )
       ),
-      isContentTeam option Trophy(
-        _id = "",
-        user = user.id,
-        kind = kindCache sync TrophyKind.contentTeam,
-        date = nowInstant,
-        url = none
+      isContentTeam.option(
+        Trophy(
+          _id = "",
+          user = user.id,
+          kind = kindCache.sync(TrophyKind.contentTeam),
+          date = nowInstant,
+          url = none
+        )
       )
     ).flatten
 

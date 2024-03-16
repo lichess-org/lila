@@ -1,7 +1,7 @@
 package lila.pool
 
-import play.api.libs.json.Json
 import chess.Clock
+import play.api.libs.json.Json
 
 object PoolList:
 
@@ -27,4 +27,4 @@ object PoolList:
 
   val clockStringSet: Set[String] = all.view.map(_.clock.show) to Set
 
-  val json = Json toJson all
+  val json = Json.toJson(all)

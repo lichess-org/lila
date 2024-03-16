@@ -4,7 +4,7 @@ package study
 import controllers.routes
 import play.api.mvc.Call
 
-import lila.app.templating.Environment.{ given, * }
+import lila.app.templating.Environment.{ *, given }
 import lila.app.ui.ScalatagsTemplate.{ *, given }
 import lila.common.LangPath
 import lila.common.paginator.Paginator
@@ -146,7 +146,7 @@ object list:
     val nonMineOrder = if order == Order.Mine then Order.Hot else order
     views.html.site.bits.pageMenuSubnav(
       a(cls := active.active("all"), href := routes.Study.all(nonMineOrder.key))(trans.study.allStudies()),
-      ctx.isAuth option bits.authLinks(active, nonMineOrder),
+      ctx.isAuth.option(bits.authLinks(active, nonMineOrder)),
       a(cls := List("active" -> active.startsWith("topic")), href := routes.Study.topics):
         trans.study.topics()
       ,
@@ -190,11 +190,11 @@ object list:
         menu(active, order, topics.so(_.value)),
         main(cls := "page-menu__content study-index box")(
           div(cls := "box__top")(
-            searchForm(title, s"$searchFilter${searchFilter.nonEmpty so " "}"),
+            searchForm(title, s"$searchFilter${searchFilter.nonEmpty.so(" ")}"),
             bits.orderSelect(order, active, url),
             bits.newForm()
           ),
-          topics map: ts =>
+          topics.map: ts =>
             div(cls := "box__pad"):
               views.html.study.topic.topicsList(ts, Order.Mine)
           ,

@@ -22,7 +22,7 @@ const renderBoard =
         attrs: { 'data-state': `${board.fen},${board.orientation},${board.lastMove}`, 'data-live': board.id },
         hook: {
           insert(vnode) {
-            lichess.powertip.manualUserIn(vnode.elm as HTMLElement);
+            site.powertip.manualUserIn(vnode.elm as HTMLElement);
           },
         },
       },

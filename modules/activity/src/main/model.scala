@@ -11,10 +11,10 @@ object model:
   object RatingProg:
     def add(rp1O: Option[RatingProg], rp2O: Option[RatingProg]) =
       (rp1O, rp2O) match
-        case (Some(rp1), Some(rp2)) => Some(rp1 add rp2)
-        case _                      => rp2O orElse rp1O
+        case (Some(rp1), Some(rp2)) => Some(rp1.add(rp2))
+        case _                      => rp2O.orElse(rp1O)
     def make(player: lila.game.LightPlayer) =
-      player.rating map { rating =>
+      player.rating.map { rating =>
         RatingProg(rating, rating.applyDiff(~player.ratingDiff))
       }
 
@@ -30,17 +30,19 @@ object model:
   object Score:
     def make(res: Option[Boolean], rp: Option[RatingProg]): Score =
       Score(
-        win = res.has(true) so 1,
-        loss = res.has(false) so 1,
-        draw = res.isEmpty so 1,
+        win = res.has(true).so(1),
+        loss = res.has(false).so(1),
+        draw = res.isEmpty.so(1),
         rp = rp
       )
     def make(povs: List[lila.game.LightPov]): Score =
       povs.foldLeft(summon[Zero[Score]].zero) {
         case (score, pov) if pov.game.finished =>
-          score add make(
-            res = pov.game.win.map(_ == pov.color),
-            rp = RatingProg.make(pov.player)
+          score.add(
+            make(
+              res = pov.game.win.map(_ == pov.color),
+              rp = RatingProg.make(pov.player)
+            )
           )
         case (score, _) => score
       }

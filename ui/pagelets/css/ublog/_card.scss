@@ -1,0 +1,89 @@
+.ublog-post-cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(22em, 1fr));
+  grid-gap: 2em;
+}
+.ublog-post-card {
+  @extend %box-neat-force;
+
+  @include transition(box-shadow);
+
+  background: $c-bg-zebra;
+  color: $c-font;
+  position: relative;
+  direction: ltr;
+  text-align: left;
+
+  &--link:hover {
+    box-shadow:
+      0 0 5px $c-link,
+      0 0 20px $c-link;
+  }
+
+  &__top {
+    display: block;
+    position: relative;
+    line-height: 0;
+  }
+
+  &__over-image {
+    position: absolute;
+    top: 0;
+    line-height: 1.3em;
+    &.pos-bottom {
+      top: unset;
+      bottom: 0;
+    }
+    @include padding-direction(0.2em, 0.5em, 0.3em, 0.5em);
+
+    @if $theme-dark {
+      background: rgba(0, 0, 0, 0.65);
+      color: #ddd;
+      text-shadow: 0 1px 1px black;
+    } @else {
+      background: rgba(255, 255, 255, 0.65);
+      color: #333;
+      text-shadow: 0 1px 1px white;
+    }
+    opacity: 1;
+  }
+  time {
+    #{$start-direction}: 0;
+    border-radius: 0 0 $box-radius-size 0;
+  }
+  .user-link {
+    #{$end-direction}: 0;
+    border-radius: 0 0 0 $box-radius-size;
+  }
+
+  &__image {
+    width: 100%;
+    height: auto;
+    &.ublog-post-image-default {
+      background-image: img-url('placeholder-margin.png');
+      background-size: cover;
+      background-position: center;
+    }
+    @include broken-img(16 / 10);
+  }
+
+  &__content {
+    padding: 3% 3% 4% 6%;
+    display: block;
+    max-height: 12em;
+  }
+
+  &__title {
+    font-size: 1.3em;
+    color: $c-font-clear;
+    display: block;
+  }
+
+  &__intro {
+    @extend %roboto, %break-word;
+
+    color: $c-font;
+    margin-top: 1em;
+    display: block;
+  }
+}

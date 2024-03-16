@@ -7,7 +7,6 @@ export lila.Lila.{ *, given }
 private type Count      = Long
 private type MessageKey = String
 private type MessageMap = java.util.Map[MessageKey, Translation]
-private type Messages   = Map[Lang, MessageMap]
 
 private val logger = lila.log("i18n")
 
@@ -30,8 +29,8 @@ private val lichessCodes: Map[String, Lang] = Map(
 )
 
 val defaultLanguage: Language = "en"
-val enLang                    = Lang("en", "GB")
-val defaultLang               = enLang
+val enLang: Lang              = Lang("en", "GB")
+val defaultLang: Lang         = enLang
 
 // ffs
 def fixJavaLanguage(lang: Lang): Language =

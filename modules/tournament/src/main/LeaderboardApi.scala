@@ -2,8 +2,8 @@ package lila.tournament
 
 import reactivemongo.api.bson.*
 
-import lila.common.config.MaxPerPage
 import lila.common.Maths
+import lila.common.config.MaxPerPage
 import lila.common.paginator.{ AdapterLike, Paginator }
 import lila.db.dsl.{ *, given }
 import lila.rating.{ Perf, PerfType }
@@ -28,10 +28,10 @@ final class LeaderboardApi(
       .find(
         $doc(
           "u" -> userId,
-          "d" $gt range.start $lt range.end
+          "d".$gt(range.start).$lt(range.end)
         )
       )
-      .sort($sort desc "d")
+      .sort($sort.desc("d"))
       .cursor[Entry]()
       .list(100)
 
@@ -43,12 +43,12 @@ final class LeaderboardApi(
           GroupField("v")("nb" -> SumAll, "points" -> PushField("s"), "ratios" -> PushField("w"))
         )
       .map:
-        _ flatMap leaderboardAggResult.readOpt
+        _.flatMap(leaderboardAggResult.readOpt)
       .map: aggs =>
         ChartData:
           aggs
             .flatMap: agg =>
-              PerfType.byId get agg._id map {
+              PerfType.byId.get(agg._id).map {
                 _ -> ChartData.PerfResult(
                   nb = agg.nb,
                   points = ChartData.Ints(agg.points),
@@ -58,14 +58,18 @@ final class LeaderboardApi(
             .sortLike(PerfType.leaderboardable, _._1)
 
   def getAndDeleteRecent(userId: UserId, since: Instant): Fu[List[TourId]] =
-    repo.coll.list[Entry](
-      $doc(
-        "u" -> userId,
-        "d" $gt since
+    repo.coll
+      .list[Entry](
+        $doc(
+          "u" -> userId,
+          "d".$gt(since)
+        )
       )
-    ) flatMap { entries =>
-      (entries.nonEmpty so repo.coll.delete.one($inIds(entries.map(_.id))).void) inject entries.map(_.tourId)
-    }
+      .flatMap { entries =>
+        (entries.nonEmpty
+          .so(repo.coll.delete.one($inIds(entries.map(_.id))).void))
+          .inject(entries.map(_.tourId))
+      }
 
   private def paginator(user: User, page: Int, sortBest: Boolean): Fu[Paginator[TourEntry]] =
     Paginator(
@@ -108,7 +112,7 @@ object LeaderboardApi:
 
   opaque type Ratio = Double
   object Ratio extends OpaqueDouble[Ratio]:
-    extension (a: Ratio) def percent = (a.value * 100).toInt atLeast 1
+    extension (a: Ratio) def percent = (a.value * 100).toInt.atLeast(1)
 
   case class Entry(
       id: TourPlayerId,
@@ -147,7 +151,7 @@ object LeaderboardApi:
 
     case class PerfResult(nb: Int, points: Ints, rank: Ints):
       private def rankPercent(n: Double) = (n * 100 / rankRatioMultiplier).toInt
-      def rankPercentMean                = rank.mean map rankPercent
-      def rankPercentMedian              = rank.median map rankPercent
+      def rankPercentMean                = rank.mean.map(rankPercent)
+      def rankPercentMedian              = rank.median.map(rankPercent)
 
     case class AggregationResult(_id: Perf.Id, nb: Int, points: List[Int], ratios: List[Int])

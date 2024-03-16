@@ -4,11 +4,11 @@ package tournament
 import controllers.routes
 import play.api.data.{ Field, Form }
 
-import lila.app.templating.Environment.{ given, * }
+import lila.app.templating.Environment.{ *, given }
 import lila.app.ui.ScalatagsTemplate.{ *, given }
+import lila.gathering.{ ConditionForm, GatheringClock }
 import lila.hub.LightTeam
 import lila.tournament.{ Tournament, TournamentForm }
-import lila.gathering.{ ConditionForm, GatheringClock }
 
 object form:
   given prefix: FormPrefix = FormPrefix.empty
@@ -63,7 +63,7 @@ object form:
           fields.startDate
         )
       ),
-      fields.isTeamBattle option form3.hidden(form.prefix("teamBattleByTeam"))
+      fields.isTeamBattle.option(form3.hidden(form.prefix("teamBattleByTeam")))
     )
 
   private[tournament] def setupEdit(tour: Tournament, form: Form[?], myTeams: List[LightTeam])(using
@@ -72,7 +72,7 @@ object form:
   ) =
     val fields = TourFields(form, tour.some)
     frag(
-      form3.split(fields.name, tour.isCreated option fields.startDate),
+      form3.split(fields.name, tour.isCreated.option(fields.startDate)),
       form3.split(fields.rated, fields.variant),
       fields.clock,
       form3.split(
@@ -96,7 +96,7 @@ object form:
       moreCss = cssTag("tournament.form"),
       moreJs = jsModule("tourForm")
     ):
-      val fields = TourFields(form, tour.some)
+      TourFields(form, tour.some)
       main(cls := "page-small")(
         div(cls := "tour__form box box-pad")(
           h1(cls := "box__top")("Edit ", tour.name()),
@@ -125,7 +125,7 @@ object form:
     frag(
       form3.split(
         fields.entryCode,
-        tour.isEmpty && teams.nonEmpty option {
+        (tour.isEmpty && teams.nonEmpty).option {
           val baseField = form.prefix("conditions.teamMember.teamId")
           val field = ctx.req.queryString
             .get("team")
@@ -156,11 +156,11 @@ object form:
         )(form3.textarea(_)(rows := 4))
       ),
       form3.split(
-        (ctx.me.exists(_.hasTitle) || isGranted(_.ManageTournament)) so {
+        (ctx.me.exists(_.hasTitle) || isGranted(_.ManageTournament)).so {
           form3.checkbox(
             form.prefix("conditions.titled"),
-            trans.onlyTitled(),
-            help = trans.onlyTitledHelp().some,
+            trans.arena.onlyTitled(),
+            help = trans.arena.onlyTitledHelp().some,
             half = true
           )
         },
@@ -204,7 +204,7 @@ final private class TourFields(form: Form[?], tour: Option[Tournament])(using
       div(
         form3.input(f),
         " ",
-        if isTeamBattle then "Team Battle" else "Arena",
+        if isTeamBattle then trans.team.teamBattle() else trans.arena.arena(),
         br,
         small(cls := "form-help")(
           trans.safeTournamentName(),

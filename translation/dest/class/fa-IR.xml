@@ -12,7 +12,7 @@
   <string name="teachersX">معلم‌ها: %s</string>
   <string name="newClass">کلاس جدید</string>
   <string name="closeClass">کلاس را ببندید</string>
-  <string name="removedByX">توسط %s پاک شد</string>
+  <string name="removedByX">توسط %s اخراج شد</string>
   <string name="reopen">بازگشایی</string>
   <string name="removeStudent">دانش‌جو را خارج کنید</string>
   <string name="removedStudents">حذف شده</string>

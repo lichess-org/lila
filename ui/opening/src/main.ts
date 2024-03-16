@@ -34,7 +34,7 @@ function page(data: OpeningPage) {
     if (id == 'opening-panel-games') loadExampleGames();
   });
   searchEngine();
-  lichess.requestIdleCallback(() => {
+  site.requestIdleCallback(() => {
     renderHistoryChart(data);
     renderPlaceholderWiki(data);
   });

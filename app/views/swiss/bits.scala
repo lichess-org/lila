@@ -1,12 +1,12 @@
 package views.html.swiss
 
-import lila.app.templating.Environment.{ given, * }
-import lila.app.ui.ScalatagsTemplate.{ *, given }
-import lila.i18n.{ I18nKeys as trans }
-import lila.swiss.Swiss
+import controllers.routes
 import play.api.i18n.Lang
 
-import controllers.routes
+import lila.app.templating.Environment.{ *, given }
+import lila.app.ui.ScalatagsTemplate.{ *, given }
+import lila.i18n.I18nKeys as trans
+import lila.swiss.Swiss
 
 object bits:
 
@@ -19,7 +19,7 @@ object bits:
       href     := routes.Swiss.show(swissId).url
     )(name)
 
-  def idToName(id: SwissId): String = env.swiss.getName sync id getOrElse "Tournament"
+  def idToName(id: SwissId): String = env.swiss.getName.sync(id).getOrElse("Tournament")
 
   def notFound()(using PageContext) =
     views.html.base.layout(
@@ -38,7 +38,7 @@ object bits:
   def forTeam(swisses: List[Swiss])(using PageContext) =
     table(cls := "slist")(
       tbody(
-        swisses map { s =>
+        swisses.map { s =>
           tr(
             cls := List(
               "enterable" -> s.isNotFinished,
@@ -104,7 +104,12 @@ object bits:
     trans.whiteWins,
     trans.blackWins,
     trans.drawRate,
+    trans.swiss.byes,
+    trans.swiss.absences,
+    trans.study.downloadAllGames,
     trans.winRate,
+    trans.points,
+    trans.swiss.tieBreak,
     trans.performance,
     trans.standByX,
     trans.averageOpponent,

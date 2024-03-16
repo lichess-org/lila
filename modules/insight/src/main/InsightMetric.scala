@@ -1,9 +1,10 @@
 package lila.insight
 
 import reactivemongo.api.bson.*
+
 import InsightMetric.DataType.*
 import InsightPosition.*
-import InsightEntry.{ BSONFields as F }
+import InsightEntry.BSONFields as F
 
 enum InsightMetric(
     val key: String,
@@ -19,7 +20,7 @@ enum InsightMetric(
       extends InsightMetric(
         "acpl",
         "Average centipawn loss",
-        F moves "c",
+        F.moves("c"),
         Move,
         Move,
         Average,
@@ -30,7 +31,7 @@ enum InsightMetric(
       extends InsightMetric(
         "cplBucket",
         "Centipawn loss bucket",
-        F moves "c",
+        F.moves("c"),
         Move,
         Move,
         Percent,
@@ -41,7 +42,7 @@ enum InsightMetric(
       extends InsightMetric(
         "accuracy",
         "Accuracy",
-        F moves "a",
+        F.moves("a"),
         Move,
         Move,
         Percent,
@@ -52,7 +53,7 @@ enum InsightMetric(
       extends InsightMetric(
         "movetime",
         "Move time",
-        F moves "t",
+        F.moves("t"),
         Move,
         Move,
         Seconds,
@@ -118,7 +119,7 @@ enum InsightMetric(
       extends InsightMetric(
         "nbMoves",
         "Moves per game",
-        F moves "r",
+        F.moves("r"),
         Move,
         Game,
         Average,
@@ -129,7 +130,7 @@ enum InsightMetric(
       extends InsightMetric(
         "piece",
         "Piece moved",
-        F moves "r",
+        F.moves("r"),
         Move,
         Move,
         Percent,
@@ -140,7 +141,7 @@ enum InsightMetric(
       extends InsightMetric(
         "awareness",
         "Tactical awareness",
-        F moves "o",
+        F.moves("o"),
         Move,
         Move,
         Percent,
@@ -151,7 +152,7 @@ enum InsightMetric(
       extends InsightMetric(
         "luck",
         "Luck",
-        F moves "l",
+        F.moves("l"),
         Move,
         Move,
         Percent,
@@ -162,7 +163,7 @@ enum InsightMetric(
       extends InsightMetric(
         "material",
         "Material imbalance",
-        F moves "i",
+        F.moves("i"),
         Move,
         Move,
         Average,
@@ -173,7 +174,7 @@ enum InsightMetric(
       extends InsightMetric(
         "clockPercent",
         "Time pressure",
-        F moves "s",
+        F.moves("s"),
         Move,
         Move,
         Average,
@@ -184,7 +185,7 @@ enum InsightMetric(
       extends InsightMetric(
         "blurs",
         "Blurs",
-        F moves "b",
+        F.moves("b"),
         Move,
         Move,
         Percent,
@@ -195,7 +196,7 @@ enum InsightMetric(
       extends InsightMetric(
         "timeVariance",
         "Time variance",
-        F moves "v",
+        F.moves("v"),
         Move,
         Move,
         Average,
@@ -218,11 +219,11 @@ object InsightMetric:
     case Result =>
       lila.insight.Result.values.map { r =>
         MetricValue(BSONInteger(r.id), MetricValueName(r.name))
-      }
+      }.toIndexedSeq
     case Termination =>
       lila.insight.Termination.values.map { r =>
         MetricValue(BSONInteger(r.id), MetricValueName(r.name))
-      }
+      }.toIndexedSeq
     case PieceRole =>
       chess.Role.all.reverse.map { r =>
         MetricValue(BSONString(r.forsyth.toString), MetricValueName(r.toString))

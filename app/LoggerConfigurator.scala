@@ -1,14 +1,14 @@
 package lila.app
 
-import java.io.File
-import java.net.URL
-
 import ch.qos.logback.classic.*
 import ch.qos.logback.classic.jul.LevelChangePropagator
 import ch.qos.logback.classic.util.ContextInitializer
 import ch.qos.logback.core.util.*
-import org.slf4j.{ LoggerFactory, ILoggerFactory }
 import org.slf4j.bridge.*
+import org.slf4j.{ ILoggerFactory, LoggerFactory }
+
+import java.io.File
+import java.net.URL
 
 private object LoggerConfigurator:
 

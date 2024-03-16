@@ -5,7 +5,7 @@ import lila.notify.{ InvitedToStudy, NotifyApi }
 import lila.pref.Pref
 import lila.relation.{ Block, Follow }
 import lila.security.Granter
-import lila.user.{ Me, User, MyId }
+import lila.user.{ Me, MyId, User }
 
 final private class StudyInvite(
     studyRepo: StudyRepo,
@@ -29,8 +29,8 @@ final private class StudyInvite(
       invitedUsername: UserStr,
       getIsPresent: UserId => Fu[Boolean]
   ): Fu[User] = for
-    _       <- (study.nbMembers >= maxMembers) so fufail[Unit](s"Max study members reached: $maxMembers")
-    inviter <- userRepo me byUserId orFail "No such inviter"
+    _       <- (study.nbMembers >= maxMembers).so(fufail[Unit](s"Max study members reached: $maxMembers"))
+    inviter <- userRepo.me(byUserId).orFail("No such inviter")
     given Me = inviter
     _ <- (!study.isOwner(inviter) && !Granter(_.StudyAdmin)).so:
       fufail[Unit]("Only the study owner can invite")
@@ -39,10 +39,11 @@ final private class StudyInvite(
         .enabledById(invitedUsername)
         .map(
           _.filterNot(u => User.lichessId.is(u) && !Granter(_.StudyAdmin))
-        ) orFail "No such invited"
-    _         <- study.members.contains(invited) so fufail[Unit]("Already a member")
+        )
+        .orFail("No such invited")
+    _         <- study.members.contains(invited).so(fufail[Unit]("Already a member"))
     relation  <- relationApi.fetchRelation(invited.id, byUserId)
-    _         <- relation.has(Block) so fufail[Unit]("This user does not want to join")
+    _         <- relation.has(Block).so(fufail[Unit]("This user does not want to join"))
     isPresent <- getIsPresent(invited.id)
     _ <-
       if isPresent || Granter(_.StudyAdmin) then funit
@@ -54,14 +55,14 @@ final private class StudyInvite(
             if relation.has(Follow) then funit
             else fufail("This user only accept study invitations from friends")
         }
-    _ <- studyRepo.addMember(study, StudyMember make invited)
+    _ <- studyRepo.addMember(study, StudyMember.make(invited))
     shouldNotify = !isPresent && (!inviter.marks.troll || relation.has(Follow))
     rateLimitCost =
       if Granter(_.StudyAdmin) then 1
-      else if relation has Follow then 5
+      else if relation.has(Follow) then 5
       else if inviter.hasTitle then 10
       else 100
-    _ <- shouldNotify so notifyRateLimit.zero(inviter.userId, rateLimitCost):
+    _ <- shouldNotify.so(notifyRateLimit.zero(inviter.userId, rateLimitCost):
       notifyApi
         .notifyOne(
           invited,
@@ -72,6 +73,7 @@ final private class StudyInvite(
           )
         )
         .void
+    )
   yield invited
 
   def becomeAdmin(me: MyId)(study: Study): Funit =

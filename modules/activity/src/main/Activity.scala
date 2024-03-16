@@ -1,8 +1,8 @@
 package lila.activity
 
-import activities.*
-
 import lila.common.LichessDay
+
+import activities.*
 
 case class Activity(
     id: Activity.Id,
@@ -27,7 +27,7 @@ case class Activity(
 
   def date = id.day.toDate
 
-  def interval = TimeInterval(date, date plusDays 1)
+  def interval = TimeInterval(date, date.plusDays(1))
 
   def isEmpty =
     !stream && List(
@@ -60,4 +60,4 @@ object Activity:
 
   case class WithUserId(activity: Activity, userId: UserId)
 
-  def make(userId: UserId) = Activity(Id today userId)
+  def make(userId: UserId) = Activity(Id.today(userId))

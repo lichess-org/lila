@@ -50,7 +50,6 @@
   <string name="entryCodeDescriptionForLeader">(ಐಚ್ಛಿಕ) ಈ ತಂಡವನ್ನು ಸೇರಲು ಹೊಸ ಸದಸ್ಯರು ತಿಳಿದಿರಬೇಕಾದ ಪ್ರವೇಶ ಕೋಡ್.</string>
   <string name="incorrectEntryCode">ತಪ್ಪಾದ ಪ್ರವೇಶ ಕೋಡ್.</string>
   <string name="teamAlreadyExists">ಈ ತಂಡ ಈಗಾಗಲೇ ಅಸ್ತಿತ್ವದಲ್ಲಿದೆ.</string>
-  <string name="upcomingTourns">ಮುಂಬರುವ ಪಂದ್ಯಾವಳಿಗಳು</string>
   <string name="completedTourns">ಪಂದ್ಯಾವಳಿಗಳನ್ನು ಪೂರ್ಣಗೊಳಿಸಿದೆ</string>
   <string name="declinedRequests">ನಿರಾಕರಿಸಿದ ವಿನಂತಿಗಳು</string>
   <string name="joinLichessVariantTeam">ಸುದ್ದಿ ಮತ್ತು ಈವೆಂಟ್‌ಗಳಿಗಾಗಿ ಅಧಿಕೃತ %s ತಂಡವನ್ನು ಸೇರಿ</string>

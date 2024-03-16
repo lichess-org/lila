@@ -3,10 +3,9 @@ package views.html.puzzle
 import controllers.routes
 import play.api.libs.json.{ JsObject, Json }
 
-import lila.app.templating.Environment.{ given, * }
+import lila.app.templating.Environment.{ *, given }
 import lila.app.ui.ScalatagsTemplate.*
 import lila.common.Json.given
-import lila.common.String.html.safeJsonValue
 
 object show:
 
@@ -22,9 +21,9 @@ object show:
       title = if isStreak then "Puzzle Streak" else trans.puzzles.txt(),
       moreCss = frag(
         cssTag("puzzle"),
-        ctx.pref.hasKeyboardMove option cssTag("keyboardMove"),
-        ctx.pref.hasVoice option cssTag("voice"),
-        ctx.blind option cssTag("round.nvui")
+        ctx.pref.hasKeyboardMove.option(cssTag("keyboardMove")),
+        ctx.pref.hasVoice.option(cssTag("voice")),
+        ctx.blind.option(cssTag("round.nvui"))
       ),
       moreJs = frag(
         puzzleNvuiTag,

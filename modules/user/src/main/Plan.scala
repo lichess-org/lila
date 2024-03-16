@@ -10,7 +10,7 @@ case class Plan(
     copy(
       months = months + 1,
       active = true,
-      since = since orElse nowInstant.some
+      since = since.orElse(nowInstant.some)
     )
 
   def disable = copy(active = false)
@@ -18,13 +18,13 @@ case class Plan(
   def enable =
     copy(
       active = true,
-      months = months atLeast 1,
-      since = since orElse nowInstant.some
+      months = months.atLeast(1),
+      since = since.orElse(nowInstant.some)
     )
 
   def isEmpty = months == 0
 
-  def nonEmpty = !isEmpty option this
+  def nonEmpty = (!isEmpty).option(this)
 
   def sinceDate = since | nowInstant
 

@@ -22,10 +22,9 @@
   <string name="fromXToY">dende %1$s dica %2$s</string>
   <string name="winningStreak">Tongada de victorias</string>
   <string name="losingStreak">Tongada de redotas</string>
-  <string name="longestStreak" comment="%s is the string (number of games OR time spent playing, e.g. 4 hours non-stop play)&#10;String used to describe the longest consecutive winning &amp; losing streak of games. It is also used for a  streak of time spent playing.">Tongada mas larga: %s</string>
+  <string name="longestStreak">Tongada mas larga: %s</string>
   <string name="currentStreak">Tongada actual: %s</string>
   <string name="bestRated">Millors victorias per puntos</string>
-  <string name="worstRated">Piors redotas per puntos</string>
   <string name="gamesInARow">Partidas chugadas seguidas</string>
   <string name="lessThanOneHour">Menos d\'una hora entre partidas</string>
   <string name="maxTimePlaying">Tiempo maximo chugando</string>

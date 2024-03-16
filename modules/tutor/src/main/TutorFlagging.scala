@@ -1,8 +1,9 @@
 package lila.tutor
 
+import alleycats.Zero
+
 import lila.common.config
 import lila.insight.*
-import alleycats.Zero
 
 case class TutorFlagging(win: TutorBothValueOptions[GoodPercent], loss: TutorBothValueOptions[GoodPercent])
 
@@ -17,8 +18,9 @@ object TutorFlagging:
   private[tutor] def compute(
       user: TutorUser
   )(using insightApi: InsightApi, ec: Executor): Fu[TutorFlagging] =
-    val question = Question(InsightDimension.Result, InsightMetric.Termination) filter
+    val question = Question(InsightDimension.Result, InsightMetric.Termination).filter(
       TutorBuilder.perfFilter(user.perfType)
+    )
     val clockFlagValueName = InsightMetric.MetricValueName(Termination.ClockFlag.name)
     for
       mine <- insightApi.ask(question, user.user, withPovs = false)

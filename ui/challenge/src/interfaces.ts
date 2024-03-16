@@ -1,3 +1,5 @@
+import { FEN } from 'chessground/types';
+
 export interface ChallengeOpts {
   el: Element;
   data?: ChallengeData;
@@ -36,7 +38,7 @@ export interface Challenge {
   challenger?: ChallengeUser;
   destUser?: ChallengeUser;
   variant: Variant;
-  initialFen: Fen;
+  initialFen: FEN;
   rated: boolean;
   timeControl: TimeControl;
   color: Color | 'random';

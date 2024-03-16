@@ -1,11 +1,11 @@
 package views.html
 package account
 
-import lila.app.templating.Environment.{ given, * }
-import lila.app.ui.ScalatagsTemplate.{ *, given }
-
 import controllers.routes
 import play.api.i18n.Lang
+
+import lila.app.templating.Environment.{ *, given }
+import lila.app.ui.ScalatagsTemplate.{ *, given }
 
 object security:
 
@@ -29,14 +29,16 @@ object security:
               a(href := routes.Account.passwd)("change your password"),
               "."
             ),
-            sessions.sizeIs > 1 option div(
-              "You can also ",
-              postForm(cls := "revoke-all", action := routes.Account.signout("all"))(
-                submitButton(cls := "button button-empty button-red confirm")(
-                  trans.revokeAllSessions()
-                )
-              ),
-              "."
+            (sessions.sizeIs > 1).option(
+              div(
+                "You can also ",
+                postForm(cls := "revoke-all", action := routes.Account.signout("all"))(
+                  submitButton(cls := "button button-empty button-red confirm")(
+                    trans.revokeAllSessions()
+                  )
+                ),
+                "."
+              )
             )
           ),
           table(sessions, curSessionId.some, clients, personalAccessTokens)
@@ -66,21 +68,22 @@ object security:
             s.session.date.map { date =>
               p(cls := "date")(
                 momentFromNow(date),
-                curSessionId has s.session.id option span(cls := "current")("[CURRENT]")
+                curSessionId.has(s.session.id).option(span(cls := "current")("[CURRENT]"))
               )
             }
           ),
           curSessionId.map { cur =>
             td(
-              s.session.id != cur option
+              (s.session.id != cur).option(
                 postForm(action := routes.Account.signout(s.session.id))(
                   submitButton(cls := "button button-red", title := trans.logOut.txt(), dataIcon := licon.X)
                 )
+              )
             )
           }
         )
       },
-      clients map { client =>
+      clients.map { client =>
         tr(
           td(cls := "icon")(span(cls := "is-green", dataIcon := licon.ThreeCheckStack)),
           td(cls := "info")(
@@ -93,7 +96,7 @@ object security:
                 )
               else frag("Third party application using only public data.")
             ),
-            client.usedAt map { usedAt =>
+            client.usedAt.map { usedAt =>
               p(cls := "date")(
                 "Last used ",
                 momentFromNow(usedAt)
@@ -108,18 +111,20 @@ object security:
           )
         )
       },
-      (personalAccessTokens > 0) option tr(
-        td(cls := "icon")(span(cls := "is-green", dataIcon := licon.Tools)),
-        td(cls := "info")(
-          strong("Personal access tokens"),
-          " can be used to access your account. Revoke any that you do not recognize."
-        ),
-        td(
-          a(
-            href     := routes.OAuthToken.index,
-            cls      := "button",
-            title    := trans.oauthScope.apiAccessTokens.txt(),
-            dataIcon := licon.Gear
+      (personalAccessTokens > 0).option(
+        tr(
+          td(cls := "icon")(span(cls := "is-green", dataIcon := licon.Tools)),
+          td(cls := "info")(
+            strong("Personal access tokens"),
+            " can be used to access your account. Revoke any that you do not recognize."
+          ),
+          td(
+            a(
+              href     := routes.OAuthToken.index,
+              cls      := "button",
+              title    := trans.oauthScope.apiAccessTokens.txt(),
+              dataIcon := licon.Gear
+            )
           )
         )
       )

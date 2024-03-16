@@ -3,9 +3,9 @@ package lila.notify
 import play.api.i18n.Lang
 import play.api.libs.json.*
 
-import lila.common.LightUser
 import lila.common.Json.given
-import lila.i18n.{ JsDump, I18nKeys as trans }
+import lila.common.LightUser
+import lila.i18n.{ I18nKeys as trans, JsDump }
 
 final class JSONHandlers(getLightUser: LightUser.GetterSync):
 

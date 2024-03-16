@@ -4,7 +4,7 @@ import extendTablesortNumber from 'common/tablesortNumber';
 import tablesort from 'tablesort';
 import { expandCheckboxZone, shiftClickCheckboxRange, selector } from './checkBoxes';
 
-lichess.load.then(() => {
+site.load.then(() => {
   const $toggle = $('.mod-zone-toggle'),
     $zone = $('.mod-zone-full');
   let nbOthers = 100;
@@ -26,7 +26,7 @@ lichess.load.then(() => {
   }
 
   function loadZone() {
-    $zone.html(lichess.spinnerHtml).removeClass('none');
+    $zone.html(site.spinnerHtml).removeClass('none');
     $('#main-wrap').addClass('full-screen-force');
     $zone.html('');
     streamLoad();
@@ -60,7 +60,7 @@ lichess.load.then(() => {
   const getLocationHash = (a: HTMLAnchorElement) => a.href.replace(/.+(#\w+)$/, '$1');
 
   function userMod($inZone: Cash) {
-    lichess.contentLoaded($inZone[0]);
+    site.contentLoaded($inZone[0]);
 
     const makeReady = (selector: string, f: (el: HTMLElement, i: number) => void, cls = 'ready') => {
       $inZone.find(selector + `:not(.${cls})`).each(function (this: HTMLElement, i: number) {
@@ -85,7 +85,7 @@ lichess.load.then(() => {
           const id = getLocationHash(this),
             n = '' + (i + 1);
           $(this).prepend(`<i>${n}</i>`);
-          lichess.mousetrap.bind(n, () => scrollTo(id));
+          site.mousetrap.bind(n, () => scrollTo(id));
         });
     });
 
@@ -197,7 +197,7 @@ lichess.load.then(() => {
 
   if (new URL(location.href).searchParams.has('mod')) $toggle.trigger('click');
 
-  lichess.mousetrap
+  site.mousetrap
     .bind('m', () => $toggle.trigger('click'))
     .bind('i', () => $zone.find('button.inquiry').trigger('click'));
 

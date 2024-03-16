@@ -1,14 +1,14 @@
 package lila.study
 
-import chess.{ Centis, ErrorStr, Node as PgnNode, Status, Outcome }
-import chess.format.pgn.{ Glyphs, ParsedPgn, San, Tags, PgnStr, PgnNodeData, Comment as ChessComment }
-import chess.format.{ Fen, Uci, UciCharPair }
 import chess.MoveOrDrop.*
+import chess.format.pgn.{ Comment as ChessComment, Glyphs, ParsedPgn, PgnNodeData, PgnStr, Tags }
+import chess.format.{ Fen, Uci, UciCharPair }
+import chess.{ Centis, ErrorStr, Node as PgnNode, Outcome, Status }
 
 import lila.common.LightUser
 import lila.importer.{ ImportData, Preprocessed }
-import lila.tree.{ Root, Branch, Branches }
 import lila.tree.Node.{ Comment, Comments, Shapes }
+import lila.tree.{ Branch, Branches, Root }
 
 object PgnImport:
 
@@ -43,19 +43,21 @@ object PgnImport:
               crazyData = replay.setup.situation.board.crazyData,
               children = parsedPgn.tree.fold(Branches.empty)(makeBranches(replay.setup, _, annotator))
             )
-            val end: Option[End] = (game.finished option game.status).map: status =>
-              val outcome = Outcome(game.winnerColor)
-              End(
-                status = status,
-                outcome = outcome,
-                resultText = chess.Outcome.showResult(outcome.some),
-                statusText = lila.game.StatusText(status, game.winnerColor, game.variant)
-              )
+            val end: Option[End] = (game.finished
+              .option(game.status))
+              .map: status =>
+                val outcome = Outcome(game.winnerColor)
+                End(
+                  status = status,
+                  outcome = outcome,
+                  resultText = chess.Outcome.showResult(outcome.some),
+                  statusText = lila.game.StatusText(status, game.winnerColor, game.variant)
+                )
             val commented =
               if root.mainline.lastOption.so(_.isCommented) then root
               else
                 end.map(endComment).fold(root) { comment =>
-                  root updateMainlineLast { _.setComment(comment) }
+                  root.updateMainlineLast { _.setComment(comment) }
                 }
             Result(
               root = commented,
@@ -66,13 +68,16 @@ object PgnImport:
     }
 
   def findAnnotator(pgn: ParsedPgn, contributors: List[LightUser]): Option[Comment.Author] =
-    pgn tags "annotator" map { a =>
+    pgn.tags("annotator").map { a =>
       val lowered = a.toLowerCase
-      contributors.find { c =>
-        c.id.value == lowered || c.titleName.toLowerCase == lowered || lowered.endsWith(s"/${c.id}")
-      } map { c =>
-        Comment.Author.User(c.id, c.titleName)
-      } getOrElse Comment.Author.External(a)
+      contributors
+        .find { c =>
+          c.id.value == lowered || c.titleName.toLowerCase == lowered || lowered.endsWith(s"/${c.id}")
+        }
+        .map { c =>
+          Comment.Author.User(c.id, c.titleName)
+        }
+        .getOrElse(Comment.Author.External(a))
     }
 
   def endComment(end: End): Comment =
@@ -89,7 +94,7 @@ object PgnImport:
         case CommentParser.ParsedComment(s, c, str) =>
           (
             (shapes ++ s),
-            c orElse clock,
+            c.orElse(clock),
             (str.trim match
               case "" => comments
               case com =>
@@ -128,7 +133,7 @@ object PgnImport:
                   id = UciCharPair(uci),
                   ply = game.ply,
                   move = Uci.WithSan(uci, sanStr),
-                  fen = Fen write game,
+                  fen = Fen.write(game),
                   check = game.situation.check,
                   shapes = shapes,
                   comments = comments,

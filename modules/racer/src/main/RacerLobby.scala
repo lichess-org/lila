@@ -24,7 +24,7 @@ final class RacerLobby(api: RacerApi)(using ec: Executor, scheduler: akka.actor.
 
   private var currentId: Fu[RacerRace.Id] = api.create(RacerPlayer.lichess, 10)
 
-  private def currentRace: Fu[RacerRace] = currentId.map(api.get) dmap { _ | fallbackRace }
+  private def currentRace: Fu[RacerRace] = currentId.map(api.get).dmap { _ | fallbackRace }
 
   private def makeNewRace(countdownSeconds: Int): Fu[RacerRace.Id] =
     currentId = api.create(RacerPlayer.lichess, countdownSeconds)

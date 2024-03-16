@@ -1,6 +1,7 @@
 package lila.evalCache
 
 import chess.variant.Variant
+
 import lila.tree.Score
 
 case class EvalCacheEntry(
@@ -15,7 +16,7 @@ case class EvalCacheEntry(
   def makeBestMultiPvEval(multiPv: MultiPv): Option[Eval] =
     evals
       .find(_.multiPv >= multiPv.atMost(nbMoves))
-      .map(_ takePvs multiPv)
+      .map(_.takePvs(multiPv))
       .orElse:
         evals.sortBy(-_.multiPv.value).headOption
 

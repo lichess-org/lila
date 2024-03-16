@@ -22,10 +22,9 @@
   <string name="fromXToY">dari %1$s ke %2$s</string>
   <string name="winningStreak">Kemenangan beruntun</string>
   <string name="losingStreak">Kekalahan beruntun</string>
-  <string name="longestStreak" comment="%s is the string (number of games OR time spent playing, e.g. 4 hours non-stop play)&#10;String used to describe the longest consecutive winning &amp; losing streak of games. It is also used for a  streak of time spent playing.">Beruntun terpanjang: %s</string>
+  <string name="longestStreak">Beruntun terpanjang: %s</string>
   <string name="currentStreak">Beruntun saat ini: %s</string>
   <string name="bestRated">Kemenangan dirating terbaik</string>
-  <string name="worstRated">Kekalahan dirating terburuk</string>
   <string name="gamesInARow">Permainan yang dimainkan berturut-turut</string>
   <string name="lessThanOneHour">Kurang dari satu jam antar permainan</string>
   <string name="maxTimePlaying">Maksimal waktu bermain</string>

@@ -1,10 +1,12 @@
 package lila.game
 
+import chess.format.pgn.PgnStr
+import chess.{ Color, Ply }
+
 import java.nio.charset.StandardCharsets.UTF_8
 import java.security.MessageDigest
+
 import lila.db.ByteArray
-import chess.{ Ply, Color }
-import chess.format.pgn.PgnStr
 
 private[game] case class Metadata(
     source: Option[Source],
@@ -24,7 +26,7 @@ private[game] case class Metadata(
   def isEmpty = this == Metadata.empty
 
   def hasRule(rule: GameRule.type => GameRule) = rules(rule(GameRule))
-  def nonEmptyRules                            = rules.nonEmpty option rules
+  def nonEmptyRules                            = rules.nonEmpty.option(rules)
 
 private[game] object Metadata:
 
@@ -36,13 +38,13 @@ case class GameDrawOffers(white: Set[Ply], black: Set[Ply]):
   def lastBy(color: Color): Option[Ply] = color.fold(white, black).maxOption(intOrdering)
 
   def add(color: Color, ply: Ply) =
-    color.fold(copy(white = white incl ply), copy(black = black incl ply))
+    color.fold(copy(white = white.incl(ply)), copy(black = black.incl(ply)))
 
   def isEmpty = this == GameDrawOffers.empty
 
   // lichess allows to offer draw on either turn,
   // normalize to pretend it was done on the opponent turn.
-  def normalize(color: Color): Set[Ply] = color.fold(white, black) map {
+  def normalize(color: Color): Set[Ply] = color.fold(white, black).map {
     case ply if ply.turn == color => ply + 1
     case ply                      => ply
   }
@@ -53,7 +55,7 @@ object GameDrawOffers:
 
 enum GameRule:
   case NoAbort, NoRematch, NoGiveTime, NoClaimWin, NoEarlyDraw
-  val key = lila.common.String lcfirst toString
+  val key = lila.common.String.lcfirst(toString)
 object GameRule:
   val byKey = values.mapBy(_.key)
 
@@ -68,14 +70,17 @@ case class PgnImport(
 object PgnImport:
 
   def hash(pgn: PgnStr) = ByteArray {
-    MessageDigest getInstance "MD5" digest {
-      pgn.value.linesIterator
-        .map(_.replace(" ", ""))
-        .filter(_.nonEmpty)
-        .to(List)
-        .mkString("\n")
-        .getBytes(UTF_8)
-    } take 12
+    MessageDigest
+      .getInstance("MD5")
+      .digest {
+        pgn.value.linesIterator
+          .map(_.replace(" ", ""))
+          .filter(_.nonEmpty)
+          .to(List)
+          .mkString("\n")
+          .getBytes(UTF_8)
+      }
+      .take(12)
   }
 
   def make(user: Option[UserId], date: Option[String], pgn: PgnStr) =

@@ -7,9 +7,9 @@ case class PoolConfig(
     wave: PoolConfig.Wave
 ):
 
-  val perfType = PerfType(chess.Speed(clock).key into Perf.Key) | PerfType.Classical
+  val perfType = PerfType(chess.Speed(clock).key.into(Perf.Key)) | PerfType.Classical
 
-  val id = PoolConfig clockToId clock
+  val id = PoolConfig.clockToId(clock)
 
 object PoolConfig:
 

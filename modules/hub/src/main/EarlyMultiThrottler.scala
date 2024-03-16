@@ -1,7 +1,8 @@
 package lila.hub
 
-import scala.util.chaining.*
 import akka.actor.*
+
+import scala.util.chaining.*
 
 import lila.log.Logger
 
@@ -35,7 +36,7 @@ final private class EarlyMultiThrottlerActor(logger: Logger)(using Executor) ext
   def receive: Receive =
 
     case work: Work if !running(work.id) =>
-      execute(work) addEffectAnyway {
+      execute(work).addEffectAnyway {
         self ! Done(work.id)
       }
       running = running + work.id
@@ -45,7 +46,7 @@ final private class EarlyMultiThrottlerActor(logger: Logger)(using Executor) ext
 
     case Done(id) =>
       running = running - id
-      planned get id foreach { work =>
+      planned.get(id).foreach { work =>
         self ! work
         planned = planned - work.id
       }

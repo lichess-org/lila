@@ -1,16 +1,17 @@
 package lila.app
 package templating
 
-import java.util.concurrent.ConcurrentHashMap
 import play.api.i18n.Lang
-import java.time.format.{ FormatStyle, DateTimeFormatter }
+
+import java.time.format.{ DateTimeFormatter, FormatStyle }
 import java.time.{ Duration, LocalDate }
+import java.util.concurrent.ConcurrentHashMap
 
 import lila.app.ui.ScalatagsTemplate.*
 import lila.i18n.PeriodLocales
 
 trait DateHelper:
-  self: I18nHelper with StringHelper with NumberHelper =>
+  self: I18nHelper & StringHelper & NumberHelper =>
 
   export PeriodLocales.showDuration
 
@@ -36,7 +37,7 @@ trait DateHelper:
     )
 
   def showInstant(instant: Instant)(using Lang): String =
-    dateTimeFormatter print instant
+    dateTimeFormatter.print(instant)
 
   def showDate(instant: Instant)(using Lang): String =
     showDate(instant.date)
@@ -44,10 +45,10 @@ trait DateHelper:
   def showDate(date: LocalDate)(using lang: Lang): String =
     if lang.language == "ar"
     then dateFormatter.print(date).replaceAll("\u200f", "")
-    else dateFormatter print date
+    else dateFormatter.print(date)
 
-  def showEnglishDate(instant: Instant): String    = englishDateFormatter print instant
-  def showEnglishInstant(instant: Instant): String = englishDateTimeFormatter print instant
+  def showEnglishDate(instant: Instant): String    = englishDateFormatter.print(instant)
+  def showEnglishInstant(instant: Instant): String = englishDateTimeFormatter.print(instant)
 
   def semanticDate(instant: Instant)(using lang: Lang): Tag =
     timeTag(datetimeAttr := isoDateTime(instant))(showDate(instant))
@@ -58,14 +59,14 @@ trait DateHelper:
   def showMinutes(minutes: Int)(using Lang): String =
     showDuration(Duration.ofMinutes(minutes))
 
-  def isoDateTime(instant: Instant): String = isoDateTimeFormatter print instant
+  def isoDateTime(instant: Instant): String = isoDateTimeFormatter.print(instant)
 
   private val oneDayMillis = 1000 * 60 * 60 * 24
 
   def momentFromNow(instant: Instant, alwaysRelative: Boolean = false, once: Boolean = false): Tag =
     if !alwaysRelative && (instant.toMillis - nowMillis) > oneDayMillis then
       absClientInstantEmpty(instant)(nbsp)
-    else timeTag(cls := s"timeago${once so " once"}", datetimeAttr := isoDateTime(instant))(nbsp)
+    else timeTag(cls := s"timeago${once.so(" once")}", datetimeAttr := isoDateTime(instant))(nbsp)
 
   def momentFromNowWithPreload(
       instant: Instant,
@@ -83,14 +84,14 @@ trait DateHelper:
   def momentFromNowOnce(instant: Instant): Tag = momentFromNow(instant, once = true)
 
   def secondsFromNow(seconds: Int, alwaysRelative: Boolean = false): Tag =
-    momentFromNow(nowInstant plusSeconds seconds, alwaysRelative)
+    momentFromNow(nowInstant.plusSeconds(seconds), alwaysRelative)
 
   def momentFromNowServer(instant: Instant)(using Lang): Frag =
     timeTag(title := f"${showInstant(instant)} UTC")(momentFromNowServerText(instant))
 
   def momentFromNowServerText(instant: Instant, inFuture: Boolean = false): String =
     val (dateSec, nowSec) = (instant.toMillis / 1000, nowSeconds)
-    val seconds           = (if inFuture then dateSec - nowSec else nowSec - dateSec).toInt atLeast 0
+    val seconds           = (if inFuture then dateSec - nowSec else nowSec - dateSec).toInt.atLeast(0)
     val minutes           = seconds / 60
     val hours             = minutes / 60
     val days              = hours / 24
@@ -107,4 +108,4 @@ trait DateHelper:
     else s"${pluralize("year", years)}$preposition"
 
   def timeRemaining(instant: Instant, once: Boolean = false): Tag =
-    timeTag(cls := s"timeago remaining${once so " once"}", datetimeAttr := isoDateTime(instant))(nbsp)
+    timeTag(cls := s"timeago remaining${once.so(" once")}", datetimeAttr := isoDateTime(instant))(nbsp)
