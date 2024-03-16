@@ -210,9 +210,8 @@ final private class RelayFetch(
                     case RelayFormat.DocFormat.Pgn => httpGetPgn(gameDoc.url)
                     case RelayFormat.DocFormat.Json =>
                       httpGetJson[GameJson](gameDoc.url)
-                        .recover { case _: Exception =>
-                          GameJson(moves = Nil, result = none)
-                        }
+                        .recover:
+                          case _: Exception => GameJson(moves = Nil, result = none)
                         .map { _.toPgn(pairing.tags) }
                   .recover: _ =>
                     PgnStr(s"${pairing.tags}\n\n${pairing.result}")
@@ -220,6 +219,12 @@ final private class RelayFetch(
               .parallel
               .map: results =>
                 MultiPgn(results.sortBy(_._1).map(_._2))
+        case RelayFormat.ManyFilesLater(indexUrl) =>
+          httpGetJson[RoundJson](indexUrl).map: round =>
+            MultiPgn:
+              round.pairings.map: pairing =>
+                PgnStr(s"${pairing.tags}\n\n${pairing.result}")
+
       }
       .flatMap { multiPgnToGames(_).toFuture }
 

@@ -14,7 +14,7 @@ import play.api.libs.ws.{
 
 import scala.util.matching.Regex
 
-import lila.base.LilaInvalid
+import lila.base.{ LilaInvalid, LilaException }
 import lila.common.config.{ Credentials, HostPort, Max }
 import lila.memo.CacheApi.*
 import lila.memo.{ CacheApi, SettingStore }
@@ -31,9 +31,8 @@ final private class RelayFormatApi(
   import RelayFormat.*
   import RelayRound.Sync.UpstreamUrl
 
-  private val cache = cacheApi[(UpstreamUrl.WithRound, CanProxy), RelayFormat](32, "relay.format"):
-    _.refreshAfterWrite(10 minutes)
-      .expireAfterAccess(20 minutes)
+  private val cache = cacheApi[(UpstreamUrl.WithRound, CanProxy), RelayFormat](64, "relay.format"):
+    _.expireAfterWrite(5 minutes)
       .buildAsyncFuture: (url, proxy) =>
         guessFormat(url)(using proxy)
 
@@ -77,10 +76,17 @@ final private class RelayFormatApi(
           val jsonUrl = (n: Int) => jsonDoc(replaceLastPart(index, s"game-$n.json"))
           val pgnUrl  = (n: Int) => pgnDoc(replaceLastPart(index, s"game-$n.pgn"))
           looksLikeJson(jsonUrl(1).url)
+            .recover:
+              case NotFound(_) => false
             .map(_.option(jsonUrl))
-            .orElse(looksLikePgn(pgnUrl(1).url).map(_.option(pgnUrl)))
+            .orElse:
+              looksLikePgn(pgnUrl(1).url)
+                .recover:
+                  case NotFound(_) => false
+                .map(_.option(pgnUrl))
             .dmap2:
               ManyFiles(index, _)
+            .dmap(_.orElse(ManyFilesLater(index).some))
 
     guessLcc(originalUrl)
       .orElse(guessSingleFile(originalUrl))
@@ -113,6 +119,7 @@ final private class RelayFormatApi(
       .get()
       .flatMap: res =>
         if res.status == 200 then fuccess(res)
+        else if res.status == 404 then fufail(NotFound(url.toString))
         else fufail(s"[${res.status}] $url")
       .monSuccess(_.relay.httpGet(url.host.toString, proxy))
 
@@ -171,8 +178,15 @@ private object RelayFormat:
   case class ManyFiles(jsonIndex: URL, game: GameNumberToDoc) extends RelayFormat:
     override def toString = s"Manyfiles($jsonIndex, ${game(0)})"
 
+  // there will be game files with names like "game-1.json" or "game-1.pgn"
+  // but not at the moment. The index is still useful.
+  case class ManyFilesLater(jsonIndex: URL) extends RelayFormat:
+    override def toString = s"ManyfilesLater($jsonIndex)"
+
   def addPart(url: URL, part: String)             = url.withPath(s"${url.path}/$part")
   def replaceLastPart(url: URL, withPart: String) = url.withPath(s"${url.path}/../$withPart")
 
   val mostCommonSingleFileName = "games.pgn"
   val mostCommonIndexNames     = List("round.json", "index.json")
+
+  case class NotFound(message: String) extends LilaException
