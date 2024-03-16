@@ -10,6 +10,11 @@
   <string name="accountMuted" comment="muted in the sense of: You cannot chat with your opponent anymore or post messages.">Kontoen din er gjort stum.</string>
   <string name="accountMutedInfo">Les våre %s. Hvis retningslinjene ikke blir fulgt, kan det føre til at kontoer blir gjort stumme.</string>
   <string name="excludedFromLeaderboards">Kontoen din er utelatt fra ledertabellene.</string>
+  <string name="excludedFromLeaderboardsInfo">Dette defineres som å bruke urettferdige metoder for å komme på ledertabellene.</string>
+  <string name="closedByModerators">Kontoen din ble avsluttet av moderatorene.</string>
+  <string name="hiddenBlog">Bloggene dine er blitt skjult av moderatorene.</string>
+  <string name="hiddenBlogInfo">Les våre %s.</string>
+  <string name="playTimeout" comment="play timeout = Lichess prevents you temporarily from playing any games">Du har fått timeout fra å spille.</string>
   <string name="communicationGuidelines">retningslinjer for kommunikasjon</string>
   <string name="blogRules">bloggregler</string>
   <string name="fairPlay">sportslig opptreden</string>
