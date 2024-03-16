@@ -90,7 +90,9 @@ private[gameSearch] case class SearchData(
       winner = players.cleanWinner,
       loser = players.cleanLoser,
       winnerColor = winnerColor,
-      perf = perf,
+      perf =
+        if perf.exists(_ == 5) then List(1, 2, 3, 4, 6)
+        else perf.toList, // 1,2,3,4,6 are the perf types for standard games
       source = source,
       rated = mode.flatMap(Mode.apply).map(_.rated),
       turns = Range(turnsMin, turnsMax),
