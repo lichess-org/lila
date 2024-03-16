@@ -7,7 +7,7 @@ import { view as keyboardView } from '../../keyboard';
 import type * as studyDeps from '../../study/studyDeps';
 import { tourSide } from '../../study/relay/relayTourView';
 import { render as renderTrainingView } from '../../view/roundTraining';
-import { renderVideoPlayer, resizeVideoPlayer } from './videoPlayerView';
+import { renderVideoPlayer } from './videoPlayerView';
 import {
   type RelayViewContext,
   viewContext,
@@ -34,22 +34,6 @@ export function relayView(
     deps.studyView.overboard(study),
     ...(ctx.tourUi ? renderTourView() : renderBoardView(ctx)),
   ]);
-}
-
-export function init(relay: RelayCtrl) {
-  let cols = 0;
-
-  window.addEventListener(
-    'resize',
-    () => {
-      resizeVideoPlayer();
-      const newCols = Number(window.getComputedStyle(document.body).getPropertyValue('--cols'));
-      if (newCols === cols) return;
-      cols = newCols;
-      relay.redraw();
-    },
-    { passive: true },
-  );
 }
 
 export function renderStreamerMenu(relay: RelayCtrl) {

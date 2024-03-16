@@ -1,5 +1,5 @@
 import RelayCtrl from './relayCtrl';
-import { looseH as h, VNode } from 'common/snabbdom';
+import { looseH as h, Redraw, VNode } from 'common/snabbdom';
 
 let player: VideoPlayer;
 
@@ -14,8 +14,19 @@ export function renderVideoPlayer(relay: RelayCtrl): VNode | undefined {
   });
 }
 
-export function resizeVideoPlayer(): void {
-  player?.cover(document.getElementById('video-player-placeholder') ?? undefined);
+export function onWindowResize(redraw: Redraw) {
+  let cols = 0;
+  window.addEventListener(
+    'resize',
+    () => {
+      player?.cover(document.getElementById('video-player-placeholder') ?? undefined);
+      const newCols = Number(window.getComputedStyle(document.body).getPropertyValue('--cols'));
+      if (newCols === cols) return;
+      cols = newCols;
+      redraw();
+    },
+    { passive: true },
+  );
 }
 
 class VideoPlayer {

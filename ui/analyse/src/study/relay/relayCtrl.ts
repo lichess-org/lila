@@ -7,7 +7,7 @@ import RelayTeams from './relayTeams';
 import RelayLeaderboard from './relayLeaderboard';
 import { StudyChapters } from '../studyChapters';
 import { MultiCloudEval } from '../multiCloudEval';
-import { init as initRelayView } from './relayView';
+import { onWindowResize as videoPlayerOnWindowResize } from './videoPlayerView';
 
 export const relayTabs = ['overview', 'boards', 'teams', 'leaderboard'] as const;
 export type RelayTab = (typeof relayTabs)[number];
@@ -47,7 +47,7 @@ export default class RelayCtrl {
       : undefined;
     this.leaderboard = data.tour.leaderboard ? new RelayLeaderboard(data.tour.id, redraw) : undefined;
     setInterval(() => this.redraw(true), 1000);
-    initRelayView(this);
+    if (data.videoUrls) videoPlayerOnWindowResize(this.redraw);
     site.pubsub.on('socket.in.crowd', d => {
       const s = d.streams as [string, string][];
       if (s === undefined) return;
