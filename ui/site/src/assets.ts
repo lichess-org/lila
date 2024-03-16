@@ -67,13 +67,13 @@ export async function loadEsm<T, ModuleOpts = any>(
   return module.initModule ? module.initModule(opts?.init) : module.default(opts?.init);
 }
 
-export const loadPageEsm = async <T>(name: string): Promise<T> => {
+export const loadPageEsm = async (name: string) => {
   const modulePromise = import(url(jsModule(name)));
   const dataScript = document.getElementById('page-init-data');
-  const opts = dataScript && JSON.parse(dataScript!.innerHTML);
+  const opts = dataScript && JSON.parse(dataScript.innerHTML);
   dataScript?.remove();
   const module = await modulePromise;
-  return module.initModule ? module.initModule(opts) : module.default(opts);
+  module.initModule ? module.initModule(opts) : module.default(opts);
 };
 
 export const userComplete = async (opts: UserCompleteOpts): Promise<UserComplete> => {

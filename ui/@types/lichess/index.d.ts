@@ -39,7 +39,6 @@ interface Site {
     jsModule(name: string): string;
     loadIife(path: string, opts?: AssetUrlOpts): Promise<void>;
     loadEsm<T, ModuleOpts = any>(name: string, opts?: { init?: ModuleOpts; url?: AssetUrlOpts }): Promise<T>;
-    loadPageEsm<T>(name: string): Promise<T>;
     hopscotch: any;
     userComplete(opts: UserCompleteOpts): Promise<UserComplete>;
   };
