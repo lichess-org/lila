@@ -50,7 +50,7 @@ export default class RelayCtrl {
     if (data.videoUrls) videoPlayerOnWindowResize(this.redraw);
     site.pubsub.on('socket.in.crowd', d => {
       const s = d.streams as [string, string][];
-      if (s === undefined) return;
+      if (!s) return;
       if (this.streams.length === s.length && this.streams.every(([id], i) => id === s[i][0])) return;
       this.streams = s;
       this.redraw();
@@ -105,9 +105,7 @@ export default class RelayCtrl {
     location.replace(url);
   };
 
-  isStreamer = () => {
-    return this.streams.find(([id]) => id === document.body.dataset.user) !== undefined;
-  };
+  isStreamer = () => this.streams.some(([id]) => id === document.body.dataset.user);
 
   private socketHandlers = {
     relayData: (d: RelayData) => {

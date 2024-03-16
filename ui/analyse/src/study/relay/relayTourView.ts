@@ -53,12 +53,7 @@ export const tourSide = (ctrl: AnalyseCtrl, study: StudyCtrl, relay: RelayCtrl) 
                 active: relay.showStreamerMenu(),
                 streaming: relay.isStreamer(),
               },
-              hook: bind(
-                'click',
-                () => relay.showStreamerMenu.toggle(),
-                () => relay.redraw(),
-                false,
-              ),
+              hook: bind('click', relay.showStreamerMenu.toggle, relay.redraw),
             }),
             h('button.relay-tour__side__search', {
               attrs: { 'data-icon': licon.Search, title: 'Search' },
