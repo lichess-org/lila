@@ -1,4 +1,5 @@
-$hover-bg: if($theme == 'dark', rgba(#6ae, 0.3), rgba($c-primary, 0.05));
+$hover-bg: mix($c-primary, $c-bg-box, 30%);
+
 .relay-tour {
   @extend %box-neat-force;
   background: $c-bg-box;
