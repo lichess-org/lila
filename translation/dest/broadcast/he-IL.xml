@@ -12,7 +12,6 @@
   <string name="newBroadcast">הקרנה ישירה חדשה</string>
   <string name="subscribedBroadcasts">הקרנות שנרשמת אליהן</string>
   <string name="aboutBroadcasts">הסבר על הקרנות</string>
-  <string name="noRoundsYet">טרם נוצרו סבבים.</string>
   <string name="howToUseLichessBroadcasts">איך להשתמש בהקרנות ב-Lichess.</string>
   <string name="theNewRoundHelp">הסבב החדש יכלול את אותם התורמים והחברים כמו בסבב הקודם.</string>
   <string name="addRound">הוספת סבב</string>

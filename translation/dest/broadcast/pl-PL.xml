@@ -12,7 +12,6 @@
   <string name="newBroadcast">Nowa transmisja na żywo</string>
   <string name="subscribedBroadcasts">Subskrybowane transmisje</string>
   <string name="aboutBroadcasts">O transmisji</string>
-  <string name="noRoundsYet">Nie ma jeszcze rund.</string>
   <string name="howToUseLichessBroadcasts">Jak korzystać z transmisji na Lichess.</string>
   <string name="theNewRoundHelp">Nowa runda będzie miała tych samych uczestników co poprzednia.</string>
   <string name="addRound">Dodaj rundę</string>

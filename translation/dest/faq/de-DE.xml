@@ -56,11 +56,11 @@ Beachte, dass es mit einem einzelnen Springer oder Läufer möglich ist ein Matt
   <string name="fideHandbook">FIDE-Handbuch</string>
   <string name="fideHandbookX">FIDE-Handbuch %s</string>
   <string name="discoveringEnPassant">Warum kann ein Bauer einen anderen Bauern schlagen, wenn er bereits vorbei gezogen ist? (en passant)</string>
-  <string name="explainingEnPassant">Dies ist ein regelgemäßer Zug, bekannt als \"en passant\". Der Wikipedia-Artikel gibt einen %1$s.
+  <string name="explainingEnPassant">Dies ist ein legaler Zug, bekannt als \"en passant\". Der Wikipedia-Artikel gibt einen %1$s.
 
-Abschnitte 3.7.3.1 and 3.7.3.2 des %2$s beschreiben die Regeln:
+Dies wird in den Abschnitten 3.7.3.1 und 3.7.3.2 der %2$s beschrieben.
 
-\"Ein Bauer, der auf derselben Reihe auf einem unmittelbar angrenzenden Feld wie ein gegnerischer Bauer, der soeben zwei Felder von seiner Anfangsstellung vorgerückt ist, steht, darf diesen gegnerischen Bauern so schlagen, als ob letzterer nur um ein Feld vorgerückt wäre. Dieses Schlagen ist nur in dem unmittelbar nachfolgenden Zug regelgemäß und wird \'Schlagen en passant\' genannt.\"
+\"Ein Bauer, der sich auf der selben Reihe und einer benachbarten Linie eines gegnerischen Bauern befindet, darf den gegnerischen Bauern schlagen, wenn dieser sich im letzten Zug zwei Felder von seiner Startposition bewegt hat, exakt so, als ob dieser sich nur ein einziges Feld bewegt hätte. Dieser Zug ist nur im direkt nächsten Zug möglich und wird \"en passant\"-Schlagen genannt.\"
 
 Siehe %3$s für etwas Übung mit dieser Art von Zug.</string>
   <string name="goodIntroduction">guten ersten Eindruck</string>

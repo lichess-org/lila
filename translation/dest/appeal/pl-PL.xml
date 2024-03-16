@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="accountMuted">Twoje konto jest wyciszone.</string>
+  <string name="closedByModerators">Twoje konto zostało zamknięte przez moderatorów.</string>
+  <string name="hiddenBlog">Twoje blogi zostały ukryte przez moderatorów.</string>
+  <string name="fairPlay">Fair Play</string>
+</resources>

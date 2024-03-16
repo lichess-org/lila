@@ -9,7 +9,6 @@
   <string name="liveBroadcasts">Suorat lähetykset turnauksista</string>
   <string name="newBroadcast">Uusi livelähetys</string>
   <string name="aboutBroadcasts">Lähetyksistä</string>
-  <string name="noRoundsYet">Ei vielä kierroksia.</string>
   <string name="howToUseLichessBroadcasts">Kuinka Lichess-lähetyksiä käytetään.</string>
   <string name="theNewRoundHelp">Uudella kierroksella on samat jäsenet ja osallistujat kuin edellisellä.</string>
   <string name="addRound">Lisää kierros</string>

@@ -9,7 +9,6 @@
   <string name="newBroadcast">Phát sóng trực tiếp mới</string>
   <string name="subscribedBroadcasts">Các phát sóng đã đăng ký theo dõi</string>
   <string name="aboutBroadcasts">Giới thiệu về phát sóng</string>
-  <string name="noRoundsYet">Chưa có vòng nào.</string>
   <string name="howToUseLichessBroadcasts">Cách sử dụng Phát sóng của Lichess.</string>
   <string name="theNewRoundHelp">Vòng mới sẽ có các thành viên và cộng tác viên giống như vòng trước.</string>
   <string name="addRound">Thêm vòng</string>

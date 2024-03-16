@@ -74,10 +74,15 @@
   <string name="bestResults">Найкращі результати</string>
   <string name="stats">Показники</string>
   <string name="tournamentStats">Показники турніру</string>
+  <string name="rankAvgHelp">Середній ранг - відсоток від вашого рейтингу. Нижчий - краще.
+
+Наприклад, посідаючи 3 місце на турнірі з 100 гравців = 3%. Маючи 10 місце в турнірі 1000 гравців = 1%.</string>
   <string name="medians" comment="Part of a longer sentence,  &quot;All averages on this page are %s.&quot; (where %s is this word, medians)">медіани</string>
+  <string name="allAveragesAreX" comment="The full sentence says 'All averages on this page are medians.' (as in median averages)&#10;&#10;%s is the word 'medians', which is available for translation separately.">Усі середні значення на цій сторінці є %s.</string>
   <string name="total">Загальні</string>
   <string name="pointsAvg">Середні значення очків</string>
   <string name="pointsSum">Сума очок</string>
+  <string name="rankAvg">Середнє місце</string>
   <string name="tournamentWinners">Переможці турніру</string>
   <string name="tournamentShields">Турнірні щити</string>
   <string name="onlyTitled">Тільки титуловані гравці</string>

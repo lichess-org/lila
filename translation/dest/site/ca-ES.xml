@@ -543,7 +543,7 @@
   <string name="createANewTopic">Crea un nou tema</string>
   <string name="topics">Temes</string>
   <string name="posts">Entrades</string>
-  <string name="lastPost">Darrer post</string>
+  <string name="lastPost">Última publicació</string>
   <string name="views">Visites</string>
   <string name="replies">Respostes</string>
   <string name="replyToThisTopic">Respon aquest tema</string>
@@ -644,7 +644,7 @@
   <string name="whiteCastlingKingside">Blanques O-O</string>
   <string name="blackCastlingKingside">Negres O-O</string>
   <plurals name="nbForumPosts">
-    <item quantity="one">%s Missatges al Fòrum</item>
+    <item quantity="one">%s Missatge al Fòrum</item>
     <item quantity="other">%s Missatges al Fòrum</item>
   </plurals>
   <string name="tpTimeSpentPlaying">Temps passat jugant: %s</string>
@@ -706,6 +706,7 @@
   <string name="toggleVariationArrows">Mostra/amaga les fletxes de les variants</string>
   <string name="cyclePreviousOrNextVariation">Canvia la variació següent/anterior</string>
   <string name="toggleGlyphAnnotations">Mostra/amaga les anotacions glif</string>
+  <string name="togglePositionAnnotations">Mostra/amaga les anotacions de la posició</string>
   <string name="variationArrowsInfo">Les fletxes de variants et permeten navegar sense utilitzar la llista de moviments.</string>
   <string name="playSelectedMove">juga el moviment seleccionat</string>
   <string name="newTournament">Nou torneig</string>
