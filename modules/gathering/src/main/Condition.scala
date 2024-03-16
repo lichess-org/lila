@@ -2,11 +2,10 @@ package lila.gathering
 
 import play.api.i18n.Lang
 
-import lila.i18n.I18nKeys as trans
-import lila.rating.PerfType
-import lila.user.{ Title, User, Me, UserPerfs }
 import lila.hub.LightTeam.TeamName
-import lila.rating.Perf
+import lila.i18n.I18nKeys as trans
+import lila.rating.{ Perf, PerfType }
+import lila.user.Me
 
 trait Condition:
 
@@ -31,11 +30,9 @@ object Condition:
   case class WithVerdict(condition: Condition, verdict: Verdict)
 
   case object Titled extends Condition with FlatCond:
-    def name(pt: PerfType)(using Lang) = "Only titled players"
+    def name(pt: PerfType)(using Lang) = trans.arena.onlyTitled.txt()
     def apply(pt: PerfType)(using me: Me, perf: Perf) =
-      if me.title.exists(_ != Title.LM) && me.noBot
-      then Accepted
-      else Refused(name(pt)(using _))
+      if me.title.exists(_.isFederation) then Accepted else Refused(name(pt)(using _))
 
   case class NbRatedGame(nb: Int) extends Condition with FlatCond:
     def apply(pt: PerfType)(using me: Me, perf: Perf) =

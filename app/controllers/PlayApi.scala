@@ -1,10 +1,11 @@
 package controllers
 
-import play.api.mvc.*
 import play.api.i18n.Lang
+import play.api.mvc.*
+
 import scala.util.chaining.*
 
-import lila.app.{ given, * }
+import lila.app.*
 import lila.game.Pov
 
 // both bot & board APIs
@@ -36,7 +37,7 @@ final class PlayApi(env: Env, apiC: => Api)(using akka.stream.Materializer) exte
                 _       <- env.pref.api.setBot(me)
                 _       <- env.streamer.api.delete(me)
               yield env.user.lightUserApi.invalidate(me)
-            } pipe toResult recover { case lila.base.LilaInvalid(msg) =>
+            }.pipe(toResult).recover { case lila.base.LilaInvalid(msg) =>
               BadRequest(jsonError(msg))
             }
     else impl.command(cmd)(WithPovAsBot)
@@ -62,11 +63,13 @@ final class PlayApi(env: Env, apiC: => Api)(using akka.stream.Materializer) exte
   private object impl:
 
     def gameStream(pov: Pov)(using Context, Me) =
-      env.game.gameRepo.withInitialFen(pov.game) map: wf =>
-        jsOptToNdJson(env.bot.gameStateStream(wf, pov.color))
+      env.game.gameRepo
+        .withInitialFen(pov.game)
+        .map: wf =>
+          jsOptToNdJson(env.bot.gameStateStream(wf, pov.color))
 
     def move(pov: Pov, uci: String, offeringDraw: Option[Boolean])(using Me) =
-      env.bot.player(pov, uci, offeringDraw) pipe toResult
+      env.bot.player(pov, uci, offeringDraw).pipe(toResult)
 
     def command(cmd: String)(
         as: Me ?=> GameAnyId => (Pov => Fu[Result]) => Fu[Result]
@@ -78,23 +81,24 @@ final class PlayApi(env: Env, apiC: => Api)(using akka.stream.Materializer) exte
               .bindFromRequest()
               .fold[Fu[Result]](
                 doubleJsonFormError,
-                res => env.bot.player.chat(pov.gameId, res) inject jsonOkResult
-              ) pipe catchClientError
+                res => env.bot.player.chat(pov.gameId, res).inject(jsonOkResult)
+              )
+              .pipe(catchClientError)
         case Array("game", id, "abort") =>
           as(GameAnyId(id)): pov =>
-            env.bot.player.abort(pov) pipe toResult
+            env.bot.player.abort(pov).pipe(toResult)
         case Array("game", id, "resign") =>
           as(GameAnyId(id)): pov =>
-            env.bot.player.resign(pov) pipe toResult
+            env.bot.player.resign(pov).pipe(toResult)
         case Array("game", id, "draw", bool) =>
           as(GameAnyId(id)): pov =>
-            fuccess(env.bot.player.setDraw(pov, lila.common.Form.trueish(bool))) pipe toResult
+            fuccess(env.bot.player.setDraw(pov, lila.common.Form.trueish(bool))).pipe(toResult)
         case Array("game", id, "takeback", bool) =>
           as(GameAnyId(id)): pov =>
-            fuccess(env.bot.player.setTakeback(pov, lila.common.Form.trueish(bool))) pipe toResult
+            fuccess(env.bot.player.setTakeback(pov, lila.common.Form.trueish(bool))).pipe(toResult)
         case Array("game", id, "claim-victory") =>
           as(GameAnyId(id)): pov =>
-            env.bot.player.claimVictory(pov) pipe toResult
+            env.bot.player.claimVictory(pov).pipe(toResult)
         case Array("game", id, "berserk") =>
           as(GameAnyId(id)): pov =>
             fuccess:
@@ -115,13 +119,13 @@ final class PlayApi(env: Env, apiC: => Api)(using akka.stream.Materializer) exte
   }
 
   private def getChat(pov: Pov) =
-    env.chat.api.userChat.find(ChatId(pov.game.id)) map lila.chat.JsonView.boardApi map JsonOk
+    env.chat.api.userChat.find(ChatId(pov.game.id)).map(lila.chat.JsonView.boardApi).map(JsonOk)
 
   // utils
 
-  private def toResult(f: Funit): Fu[Result] = catchClientError(f inject jsonOkResult)
+  private def toResult(f: Funit): Fu[Result] = catchClientError(f.inject(jsonOkResult))
   private def catchClientError(f: Fu[Result]): Fu[Result] =
-    f recover { case e: lila.round.BenignError =>
+    f.recover { case e: lila.round.BenignError =>
       BadRequest(jsonError(e.getMessage))
     }
 
@@ -143,7 +147,7 @@ final class PlayApi(env: Env, apiC: => Api)(using akka.stream.Materializer) exte
         else f(pov)
 
   private def WithPov(anyId: GameAnyId)(f: Pov => Fu[Result])(using me: Me) =
-    env.round.proxyRepo.game(anyId.gameId) flatMap {
+    env.round.proxyRepo.game(anyId.gameId).flatMap {
       case None       => NotFound(jsonError("No such game"))
       case Some(game) => Pov(game, me).fold(NotFound(jsonError("Not your game")).toFuccess)(f)
     }
@@ -164,7 +168,7 @@ final class PlayApi(env: Env, apiC: => Api)(using akka.stream.Materializer) exte
       Source
         .futureSource:
           getInt("nb")
-            .foldLeft(botsCache.get({}))((users, nb) => users.map(_ take nb))
+            .foldLeft(botsCache.get({}))((users, nb) => users.map(_.take(nb)))
             .map(Source(_))
         .map: u =>
           env.user.jsonView.full(u.user, u.perfs.some, withProfile = true)

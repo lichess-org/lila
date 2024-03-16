@@ -495,7 +495,6 @@
   <string name="automaticallyProceedToNextGameAfterMoving">স্বয়ংক্রিয় ভাবে পরবর্তী খেলায় যান</string>
   <string name="autoSwitch">স্বয়ংক্রিয় পরিবর্তন</string>
   <string name="puzzles">ধাঁধা</string>
-  <string name="tournamentWinners">Tournament বিজয়ীরা</string>
   <string name="name">নাম</string>
   <string name="description">বিবরণ</string>
   <string name="descPrivate">ব্যাক্তিগত বর্ননা</string>
@@ -875,8 +874,6 @@ Markdown links ব্যবহারযোগ্য: [name](https://url)</string
   <string name="minimumRatedGames">সর্বনিম্ন রেটেড খেলার সংখ্যা</string>
   <string name="minimumRating">সর্বনিম্ন রেটিং</string>
   <string name="maximumWeeklyRating">সর্বোচ্চ সাপ্তাহিক রেটিং</string>
-  <string name="onlyTitled">শুধুমাত্র খেতাবধারী দাবাড়ুগণ</string>
-  <string name="onlyTitledHelp">এই টুর্নামেন্টে যুক্ত হতে অফিসিয়াল খেতাব প্রয়োজন</string>
   <string name="cancelSimul">একত্রে খেলা বাতিল করুন</string>
   <string name="simulHostcolor">স্বাগতিক খেলোয়াড়ের ঘুটি/ piece এর রঙ</string>
   <string name="estimatedStart">আনুমানিক খেলা শুরুর সময়</string>

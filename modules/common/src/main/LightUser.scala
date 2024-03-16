@@ -1,12 +1,14 @@
 package lila.common
 
+import chess.PlayerTitle
 import play.api.libs.json.*
+
 import lila.common.Json.given
 
 case class LightUser(
     id: UserId,
     name: UserName,
-    title: Option[UserTitle],
+    title: Option[PlayerTitle],
     flair: Option[lila.Lila.Flair],
     isPatron: Boolean
 ):
@@ -27,7 +29,7 @@ object LightUser:
 
   def write(u: LightUser): JsObject = writeNoId(u) + ("id" -> JsString(u.id.value))
   def writeNoId(u: LightUser): JsObject = Json
-    .obj("name" -> u.name.value)
+    .obj("name" -> u.name)
     .add("title", u.title)
     .add("flair", u.flair)
     .add("patron", u.isPatron)

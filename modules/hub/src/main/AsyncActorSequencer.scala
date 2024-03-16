@@ -16,7 +16,7 @@ final class AsyncActorSequencer(maxSize: Max, timeout: FiniteDuration, name: Str
 
   def run[A <: Matchable](task: Task[A]): Fu[A] = asyncActor.ask[A](TaskWithPromise(task, _))
 
-  private[this] val asyncActor = BoundedAsyncActor(maxSize, name, logging):
+  private val asyncActor = BoundedAsyncActor(maxSize, name, logging):
     case TaskWithPromise(task, promise) =>
       promise.completeWith {
         task().withTimeout(timeout, s"AsyncActorSequencer $name")

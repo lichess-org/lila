@@ -3,9 +3,9 @@ package views.html.oAuth.token
 import controllers.routes
 import play.api.data.Form
 
-import lila.app.templating.Environment.{ given, * }
+import lila.app.templating.Environment.{ *, given }
 import lila.app.ui.ScalatagsTemplate.{ *, given }
-import lila.i18n.I18nKeys.{ oauthScope as ot }
+import lila.i18n.I18nKeys.oauthScope as ot
 
 object create:
 
@@ -44,19 +44,21 @@ object create:
                       isGranted(_.Shusher) || isGranted(_.BoostHunter) || isGranted(_.CheatHunter)
                     )
                   val id = s"oauth-scope-${scope.key.replace(":", "_")}"
-                  !hidden option div(cls := List("danger" -> lila.oauth.OAuthScope.dangerList.has(scope)))(
-                    span(
-                      form3.cmnToggle(
-                        id,
-                        s"${form("scopes").name}[]",
-                        value = scope.key,
-                        checked = form.value.exists(_.scopes.contains(scope.key)),
-                        disabled = disabled
+                  (!hidden).option(
+                    div(cls := List("danger" -> lila.oauth.OAuthScope.dangerList.has(scope)))(
+                      span(
+                        form3.cmnToggle(
+                          id,
+                          s"${form("scopes").name}[]",
+                          value = scope.key,
+                          checked = form.value.exists(_.scopes.contains(scope.key)),
+                          disabled = disabled
+                        )
+                      ),
+                      label(`for` := id, st.title := disabled.option(ot.alreadyHavePlayedGames.txt()))(
+                        scope.name(),
+                        em(scope.key)
                       )
-                    ),
-                    label(`for` := id, st.title := disabled.option(ot.alreadyHavePlayedGames.txt()))(
-                      scope.name(),
-                      em(scope.key)
                     )
                   )
               )

@@ -6,7 +6,7 @@ object BuildSettings {
   import Dependencies._
 
   val lilaVersion        = "4.0"
-  val globalScalaVersion = "3.3.1"
+  val globalScalaVersion = "3.4.0"
 
   def buildSettings =
     Defaults.coreDefaultSettings ++ Seq(
@@ -45,17 +45,19 @@ object BuildSettings {
       )
 
   val compilerOptions = Seq(
+    "-Ybackend-parallelism:16", // https://github.com/scala/scala3/pull/15392
     // "-nowarn", // during migration
     // "-rewrite",
-    // "-source:future-migration",
-    // "-indent",
+    // "-source:3.4-migration",
+    "-indent",
     // "-explaintypes",
     // "-explain",
     "-feature",
     "-language:postfixOps",
     "-language:implicitConversions",
-    "-release:21"
-    // "-Wunused:all"
+    "-release:21",
+    // "-Wunused:all",
+    "-Wconf:msg=qualifier will be deprecated:s"
   )
 
   val srcMain = Seq(

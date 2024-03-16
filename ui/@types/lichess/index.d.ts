@@ -1,5 +1,6 @@
 // eslint-disable-next-line
 /// <reference path="./tree.d.ts" />
+
 // eslint-disable-next-line
 /// <reference path="./chessground.d.ts" />
 // eslint-disable-next-line
@@ -251,7 +252,7 @@ interface LichessAnnouncement {
 }
 
 interface LichessEditor {
-  getFen(): string;
+  getFen(): CgFEN;
   setOrientation(o: Color): void;
 }
 
@@ -380,7 +381,6 @@ declare type Ranks = '1' | '2' | '3' | '4' | '5' | '6' | '7' | '8';
 declare type Key = 'a0' | `${Files}${Ranks}`;
 declare type Uci = string;
 declare type San = string;
-declare type Fen = string;
 declare type Ply = number;
 
 interface Variant {
@@ -406,7 +406,7 @@ interface EvalScore {
 }
 
 interface MiniGameUpdateData {
-  fen: Fen;
+  fen: CgFEN;
   lm: Uci;
   wc?: number;
   bc?: number;

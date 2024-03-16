@@ -1,8 +1,7 @@
 package lila.tutor
 
 import lila.common.Heapsort.topN
-import lila.insight.InsightDimension
-import lila.insight.InsightPosition
+import lila.insight.{ InsightDimension, InsightPosition }
 
 case class TutorCompare[D, V](
     dimensionType: InsightDimension[D],
@@ -11,7 +10,6 @@ case class TutorCompare[D, V](
     color: Option[chess.Color] = None
 )(using number: TutorNumber[V]):
   import TutorCompare.*
-  import TutorNumber.*
 
   val totalCountMine = points.map(_._2.mine.so(_.count)).sum
 
@@ -19,7 +17,7 @@ case class TutorCompare[D, V](
     val myPoints: List[(D, ValueCount[V])] =
       points.collect { case (dim, TutorBothValueOptions(Some(mine), _)) => dim -> mine }
     for
-      (dim1, met1) <- myPoints.filter(_._2 relevantTo totalCountMine)
+      (dim1, met1) <- myPoints.filter(_._2.relevantTo(totalCountMine))
       avg = number.mean(myPoints.filter(_._1 != dim1).map(_._2))
     yield Comparison(dimensionType, dim1, metric, met1, DimAvg(avg), color)
 
@@ -66,16 +64,16 @@ object TutorCompare:
     val half = ~lila.common.Maths.divideRoundUp(nb, 2)
     comparisons.partition(_.better) match
       case (positives, negatives) => positives.topN(half) ::: negatives.topN(half)
-  } sorted compOrder.reverse take nb
+  }.sorted(compOrder.reverse).take(nb)
 
   def sortAndPreventRepetitions(comparisons: List[AnyComparison])(nb: Int): List[AnyComparison] =
     comparisons
       .sorted(compOrder.reverse)
       .foldLeft(Vector.empty[AnyComparison]) {
-        case (Vector(), c)                         => Vector(c)
-        case (acc, _) if acc.size >= nb            => acc
-        case (acc, c) if acc.exists(_ similarTo c) => acc
-        case (acc, c)                              => acc :+ c
+        case (Vector(), c)                          => Vector(c)
+        case (acc, _) if acc.size >= nb             => acc
+        case (acc, c) if acc.exists(_.similarTo(c)) => acc
+        case (acc, c)                               => acc :+ c
       }
       .toList
 

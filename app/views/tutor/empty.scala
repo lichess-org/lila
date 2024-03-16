@@ -1,14 +1,14 @@
 package views.html.tutor
 
+import chess.format.pgn.PgnStr
 import controllers.routes
+import play.api.i18n.Lang
 
-import lila.app.templating.Environment.{ given, * }
+import lila.app.templating.Environment.{ *, given }
 import lila.app.ui.ScalatagsTemplate.{ *, given }
+import lila.game.Pov
 import lila.tutor.TutorQueue
 import lila.user.User
-import lila.game.Pov
-import play.api.i18n.Lang
-import chess.format.pgn.PgnStr
 
 object empty:
 
@@ -42,7 +42,7 @@ object empty:
           " players in the queue before you.",
           br,
           "You will get your results in about ",
-          showMinutes(in.eta.toMinutes.toInt atLeast 1),
+          showMinutes(in.eta.toMinutes.toInt.atLeast(1)),
           "."
         )
       ),

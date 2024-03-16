@@ -1,7 +1,7 @@
 package lila.analyse
 
-import lila.game.Pov
 import lila.game.Game.SideAndStart
+import lila.game.Pov
 import lila.tree.Eval.*
 
 object AccuracyCP:
@@ -14,7 +14,7 @@ object AccuracyCP:
     .collect { case List(e1, e2) =>
       for s1 <- e1.forceAsCp; s2 <- e2.forceAsCp yield {
         (s2.ceiled.value - s1.ceiled.value) * pov.color.fold(-1, 1)
-      } atLeast 0
+      }.atLeast(0)
     }
     .toList
 

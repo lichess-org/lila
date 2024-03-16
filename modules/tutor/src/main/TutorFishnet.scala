@@ -31,7 +31,8 @@ final private class TutorFishnet(
         gameRepo.unanalysedGames(ids, config.Max(s.stats.totalNbGames * maxToAnalyse.value / totalNbGames))
       }
       .parallel
-      .map(_.flatten) flatMap { games =>
-      games.foreach { analyser(_, sender, ignoreConcurrentCheck = true) }
-      awaiter(games.map(_.id), maxTime)
-    }
+      .map(_.flatten)
+      .flatMap { games =>
+        games.foreach { analyser(_, sender, ignoreConcurrentCheck = true) }
+        awaiter(games.map(_.id), maxTime)
+      }

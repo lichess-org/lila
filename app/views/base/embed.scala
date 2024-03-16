@@ -1,6 +1,6 @@
 package views.html.base
 
-import lila.app.templating.Environment.{ given, * }
+import lila.app.templating.Environment.{ *, given }
 import lila.app.ui.ScalatagsTemplate.*
 import lila.pref.SoundSet
 
@@ -17,7 +17,7 @@ object embed:
           st.headTitle(title),
           layout.bits.pieceSprite(ctx.pieceSet),
           cssTagWithDirAndTheme(cssModule, isRTL = lila.i18n.LangList.isRTL(ctx.lang), ctx.bg),
-          ctx.bg == "system" option embedJsUnsafe(systemThemePolyfillJs, ctx.nonce)
+          (ctx.bg == "system").option(embedJsUnsafe(systemThemePolyfillJs, ctx.nonce))
         ),
         st.body(cls := s"${ctx.bg} highlight ${ctx.boardClass}")(
           layout.dataSoundSet := SoundSet.silent.key,

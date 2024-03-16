@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="cleanAllGood">حساب‌تان محدود یا نشانه‌گذاری نشده، همه چیز خوب است.</string>
+  <string name="engineMarked">حساب‌تان به خاطر کمک‌گیری بیرونی در بازی‌ها، نشانه‌گذاری شده است.</string>
+  <string name="boosterMarked">حساب‌تان به خاطر دستکاری درجه‌بندی، نشانه‌گذاری شده است.</string>
+  <string name="accountMuted">حساب‌تان بی‌صداست.</string>
+  <string name="accountMutedInfo">%s ما را بخوانید. پیروی نکردن از راهنمای ارتباطات، می‌تواند منجر به بی‌صدایی حساب‌ها شود.</string>
+  <string name="excludedFromLeaderboards">از ورودتان به جدول رده‌بندی جلوگیری شده است.</string>
+  <string name="closedByModerators">ناظران حساب‌تان را بسته‌اند.</string>
+  <string name="hiddenBlog">ناظران وبنوشت‌تان را پنهان کرده‌اند.</string>
+  <string name="hiddenBlogInfo">حتما دوباره %s ما را بخوانید.</string>
+  <string name="playTimeout">یک وقت فنی دارید.</string>
+  <string name="communicationGuidelines">راهنمای ارتباطات</string>
+  <string name="blogRules">قواعد وبنوشت</string>
+  <string name="fairPlay">بازی منصفانه</string>
+</resources>

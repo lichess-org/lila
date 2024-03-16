@@ -1,12 +1,11 @@
 package views.html.search
 
+import controllers.routes
 import play.api.data.Form
 
-import lila.app.templating.Environment.{ given, * }
+import lila.app.templating.Environment.{ *, given }
 import lila.app.ui.ScalatagsTemplate.{ *, given }
 import lila.common.paginator.Paginator
-
-import controllers.routes
 
 object index:
 
@@ -15,7 +14,7 @@ object index:
   def apply(form: Form[?], paginator: Option[Paginator[lila.game.Game]] = None, nbGames: Long)(using
       ctx: PageContext
   ) =
-    val commons = bits of form
+    val commons = bits.of(form)
     import commons.*
     views.html.base.layout(
       title = searchInXGames.txt(nbGames.localize, nbGames),

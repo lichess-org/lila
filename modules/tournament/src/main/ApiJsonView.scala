@@ -4,10 +4,10 @@ import play.api.i18n.Lang
 import play.api.libs.json.*
 
 import lila.common.Json.given
-import lila.rating.PerfType
-import lila.user.LightUserApi
 import lila.gathering.Condition
 import lila.gathering.ConditionHandlers.JSONHandlers.given
+import lila.rating.PerfType
+import lila.user.LightUserApi
 
 final class ApiJsonView(lightUserApi: LightUserApi)(using Executor):
 
@@ -24,14 +24,14 @@ final class ApiJsonView(lightUserApi: LightUserApi)(using Executor):
   )
 
   def featured(tournaments: List[Tournament])(using Lang): Fu[JsObject] =
-    tournaments.map(fullJson).parallel map { objs =>
+    tournaments.map(fullJson).parallel.map { objs =>
       Json.obj("featured" -> objs)
     }
 
   def calendar(tournaments: List[Tournament])(using Lang): JsObject =
     Json.obj(
       "since"       -> tournaments.headOption.map(_.startsAt.withTimeAtStartOfDay),
-      "to"          -> tournaments.lastOption.map(_.finishesAt.withTimeAtStartOfDay plusDays 1),
+      "to"          -> tournaments.lastOption.map(_.finishesAt.withTimeAtStartOfDay.plusDays(1)),
       "tournaments" -> JsArray(tournaments.map(baseJson))
     )
 
@@ -65,7 +65,7 @@ final class ApiJsonView(lightUserApi: LightUserApi)(using Executor):
       .add("teamMember", tour.conditions.teamMember.map(_.teamId))
       .add("private", tour.isPrivate)
       .add("position", tour.position.map(positionJson))
-      .add("schedule", tour.schedule map scheduleJson)
+      .add("schedule", tour.schedule.map(scheduleJson))
       .add(
         "teamBattle",
         tour.teamBattle.map { battle =>
@@ -77,7 +77,7 @@ final class ApiJsonView(lightUserApi: LightUserApi)(using Executor):
       )
 
   def fullJson(tour: Tournament)(using Lang): Fu[JsObject] =
-    (tour.winnerId so lightUserApi.async) map { winner =>
+    (tour.winnerId.so(lightUserApi.async)).map { winner =>
       baseJson(tour).add("winner" -> winner.map(userJson))
     }
 

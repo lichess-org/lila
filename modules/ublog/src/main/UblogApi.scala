@@ -1,14 +1,13 @@
 package lila.ublog
 
-import reactivemongo.akkastream.{ cursorProducer, AkkaStreamCursor }
+import reactivemongo.akkastream.{ AkkaStreamCursor, cursorProducer }
 import reactivemongo.api.*
 
 import lila.db.dsl.{ *, given }
-import lila.hub.actorApi.timeline.Propagate
 import lila.hub.actorApi.shutup.{ PublicSource, RecordPublicText }
+import lila.hub.actorApi.timeline.Propagate
 import lila.memo.PicfitApi
-import lila.security.Granter
-import lila.user.{ User, UserApi, Me }
+import lila.user.{ Me, User, UserApi }
 
 final class UblogApi(
     colls: UblogColls,
@@ -24,18 +23,20 @@ final class UblogApi(
 
   def create(data: UblogForm.UblogPostData, author: User): Fu[UblogPost] =
     val post = data.create(author)
-    colls.post.insert.one(
-      bsonWriteObjTry[UblogPost](post).get ++ $doc("likers" -> List(author.id))
-    ) inject post
+    colls.post.insert
+      .one(
+        bsonWriteObjTry[UblogPost](post).get ++ $doc("likers" -> List(author.id))
+      )
+      .inject(post)
 
   def getByPrismicId(id: String): Fu[Option[UblogPost]] = colls.post.one[UblogPost]($doc("prismicId" -> id))
 
   def update(data: UblogForm.UblogPostData, prev: UblogPost)(using me: Me): Fu[UblogPost] =
-    getUserBlog(me.value, insertMissing = true) flatMap { blog =>
+    getUserBlog(me.value, insertMissing = true).flatMap { blog =>
       val post = data.update(me.value, prev)
-      colls.post.update.one($id(prev.id), $set(bsonWriteObjTry[UblogPost](post).get)) >> {
-        (post.live && prev.lived.isEmpty) so onFirstPublish(me.value, blog, post)
-      } inject post
+      (colls.post.update.one($id(prev.id), $set(bsonWriteObjTry[UblogPost](post).get)) >> {
+        (post.live && prev.lived.isEmpty).so(onFirstPublish(me.value, blog, post))
+      }).inject(post)
     }
 
   private def onFirstPublish(user: User, blog: UblogBlog, post: UblogPost): Funit =
@@ -53,12 +54,13 @@ final class UblogApi(
           if blog.modTier.isEmpty then sendPostToZulipMaybe(user, post)
 
   def getUserBlog(user: User, insertMissing: Boolean = false): Fu[UblogBlog] =
-    getBlog(UblogBlog.Id.User(user.id)) getOrElse
+    getBlog(UblogBlog.Id.User(user.id)).getOrElse(
       userApi
         .withPerfs(user)
         .flatMap: user =>
-          val blog = UblogBlog make user
-          (insertMissing so colls.blog.insert.one(blog).void) inject blog
+          val blog = UblogBlog.make(user)
+          (insertMissing.so(colls.blog.insert.one(blog).void)).inject(blog)
+    )
 
   def getBlog(id: UblogBlog.Id): Fu[Option[UblogBlog]] = colls.blog.byId[UblogBlog](id.full)
 
@@ -68,8 +70,10 @@ final class UblogApi(
   def getPost(id: UblogPostId): Fu[Option[UblogPost]] = colls.post.byId[UblogPost](id)
 
   def findEditableByMe(id: UblogPostId)(using me: Me): Fu[Option[UblogPost]] =
-    colls.post.byId[UblogPost](id) dmap:
-      _.filter(_.allows.edit)
+    colls.post
+      .byId[UblogPost](id)
+      .dmap:
+        _.filter(_.allows.edit)
 
   def findByIdAndBlog(id: UblogPostId, blog: UblogBlog.Id): Fu[Option[UblogPost]] =
     colls.post.one[UblogPost]($id(id) ++ $doc("blog" -> blog))
@@ -83,16 +87,17 @@ final class UblogApi(
 
   def userBlogPreviewFor(user: User, nb: Int)(using me: Option[Me]): Fu[Option[UblogPost.BlogPreview]] =
     val blogId = UblogBlog.Id.User(user.id)
-    val canView = fuccess(me.exists(_ is user)) >>|
+    val canView = fuccess(me.exists(_.is(user))) >>|
       colls.blog
-        .primitiveOne[UblogBlog.Tier]($id(blogId.full), "tier")
-        .dmap(_.exists(_ >= UblogBlog.Tier.VISIBLE))
-    canView flatMapz { blogPreview(blogId, nb).dmap(some) }
+        .primitiveOne[UblogRank.Tier]($id(blogId.full), "tier")
+        .dmap(_.exists(_ >= UblogRank.Tier.VISIBLE))
+    canView.flatMapz { blogPreview(blogId, nb).dmap(some) }
 
   def blogPreview(blogId: UblogBlog.Id, nb: Int): Fu[UblogPost.BlogPreview] =
-    colls.post.countSel($doc("blog" -> blogId, "live" -> true)) zip
-      latestPosts(blogId, nb) map
-      (UblogPost.BlogPreview.apply).tupled
+    colls.post
+      .countSel($doc("blog" -> blogId, "live" -> true))
+      .zip(latestPosts(blogId, nb))
+      .map((UblogPost.BlogPreview.apply).tupled)
 
   def pinnedPosts(nb: Int): Fu[List[UblogPost.PreviewPost]] =
     colls.post
@@ -104,7 +109,7 @@ final class UblogApi(
   def latestPosts(nb: Int): Fu[List[UblogPost.PreviewPost]] =
     colls.post
       .find(
-        $doc("live" -> true, "pinned" $ne true, "topics" $ne UblogTopic.offTopic),
+        $doc("live" -> true, "pinned".$ne(true), "topics".$ne(UblogTopic.offTopic)),
         previewPostProjection.some
       )
       .sort($doc("rank" -> -1))
@@ -113,7 +118,7 @@ final class UblogApi(
 
   def otherPosts(blog: UblogBlog.Id, post: UblogPost, nb: Int = 4): Fu[List[UblogPost.PreviewPost]] =
     colls.post
-      .find($doc("blog" -> blog, "live" -> true, "_id" $ne post.id), previewPostProjection.some)
+      .find($doc("blog" -> blog, "live" -> true, "_id".$ne(post.id)), previewPostProjection.some)
       .sort($doc("lived.at" -> -1))
       .cursor[UblogPost.PreviewPost](ReadPref.sec)
       .list(nb)
@@ -143,7 +148,7 @@ final class UblogApi(
     def deleteImage(post: UblogPost): Funit = picfitApi.deleteByRel(rel(post))
 
   private def sendPostToZulipMaybe(user: User, post: UblogPost): Funit =
-    (post.markdown.value.sizeIs > 1000) so
+    (post.markdown.value.sizeIs > 1000).so(
       irc.ublogPost(
         user,
         id = post.id,
@@ -151,6 +156,7 @@ final class UblogApi(
         title = post.title,
         intro = post.intro
       )
+    )
 
   def liveLightsByIds(ids: List[UblogPostId]): Fu[List[UblogPost.LightPost]] =
     colls.post
@@ -161,7 +167,7 @@ final class UblogApi(
   def delete(post: UblogPost): Funit =
     colls.post.delete.one($id(post.id)) >> image.deleteAll(post)
 
-  def setTier(blog: UblogBlog.Id, tier: UblogBlog.Tier): Funit =
+  def setTier(blog: UblogBlog.Id, tier: UblogRank.Tier): Funit =
     colls.blog.update
       .one($id(blog), $set("modTier" -> tier, "tier" -> tier), upsert = true)
       .void
@@ -173,8 +179,8 @@ final class UblogApi(
     colls.post.find($doc("blog" -> s"user:${user.id}")).cursor[UblogPost](ReadPref.priTemp)
 
   private[ublog] def setShadowban(userId: UserId, v: Boolean) = {
-    if v then fuccess(UblogBlog.Tier.HIDDEN)
-    else userApi.withPerfs(userId).map(_.fold(UblogBlog.Tier.HIDDEN)(UblogBlog.Tier.default))
+    if v then fuccess(UblogRank.Tier.HIDDEN)
+    else userApi.withPerfs(userId).map(_.fold(UblogRank.Tier.HIDDEN)(UblogRank.Tier.default))
   }.flatMap:
     setTier(UblogBlog.Id.User(userId), _)
 

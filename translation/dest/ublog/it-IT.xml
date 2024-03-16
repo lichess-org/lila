@@ -6,7 +6,7 @@
   <string name="blogTopics">Argomenti del blog</string>
   <string name="lichessOfficialBlog">Blog ufficiale di Lichess</string>
   <string name="continueReadingPost">Continua a leggere questo post</string>
-  <string name="lichessBlogPostsFromXYear" comment="Appears on a list of posts from the official Lichess Blog, which were published in a specific year.&#10;&#10;%s is the specific year of posts from the official blog (e.g. 2021).">Post del blog di Lichess nel %s</string>
+  <string name="lichessBlogPostsFromXYear">Post del blog di Lichess nel %s</string>
   <string name="previousBlogPosts">Post del blog precedenti</string>
   <string name="xBlog">Blog di %s</string>
   <string name="newPost">Nuovo post</string>
@@ -52,4 +52,5 @@
   <string name="inappropriateContentAccountClosed">Qualsiasi contenuto inappropriato potrebbe portare alla chiusura del tuo account.</string>
   <string name="blogTips">I nostri suggerimenti per scrivere ottimi messaggi sul blog</string>
   <string name="discussThisBlogPostInTheForum">Discuti di questo post del blog nel forum</string>
+  <string name="youBlockedByBlogAuthor">Sei stato bloccato dall\'autore del blog.</string>
 </resources>

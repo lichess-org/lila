@@ -28,7 +28,7 @@ final class SubscriptionRepo(colls: Colls, userRepo: lila.user.UserRepo)(using
               )
             )
           ),
-          Match("user" $ne $arr()),
+          Match("user".$ne($arr())),
           Group(BSONNull)(
             "ids" -> PushField("u")
           )
@@ -52,6 +52,6 @@ final class SubscriptionRepo(colls: Colls, userRepo: lila.user.UserRepo)(using
 
   // only use "_id", not "s", so that mongo can work entirely from the index
   def filterSubscribed(subscriber: UserId, streamerIds: List[UserId]): Fu[Set[UserId]] =
-    coll.distinctEasy[String, Set]("_id", $inIds(streamerIds.map(makeId(subscriber, _)))) map { ids =>
-      UserId from ids.flatMap(_.split('/').lift(1))
+    coll.distinctEasy[String, Set]("_id", $inIds(streamerIds.map(makeId(subscriber, _)))).map { ids =>
+      UserId.from(ids.flatMap(_.split('/').lift(1)))
     }

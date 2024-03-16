@@ -4,11 +4,11 @@ import akka.stream.Materializer
 import akka.stream.scaladsl.*
 import reactivemongo.akkastream.cursorProducer
 
+import lila.coach.Coach
 import lila.db.dsl.{ *, given }
 import lila.game.Game
 import lila.streamer.Streamer
 import lila.user.User
-import lila.coach.Coach
 
 final class PersonalDataExport(
     securityEnv: lila.security.Env,
@@ -35,14 +35,14 @@ final class PersonalDataExport(
   def apply(user: User): Source[String, ?] =
 
     val intro = Source.futureSource:
-      userRepo.currentOrPrevEmail(user.id) map { email =>
+      userRepo.currentOrPrevEmail(user.id).map { email =>
         Source(
           List(
             textTitle(s"Personal data export for ${user.username}"),
             "All dates are UTC",
             bigSep,
             s"Signup date: ${textDate(user.createdAt)}",
-            s"Last seen: ${user.seenAt so textDate}",
+            s"Last seen: ${user.seenAt.so(textDate)}",
             s"Public profile: ${user.profile.so(_.toString)}",
             s"Email: ${email.so(_.value)}"
           )
@@ -50,62 +50,71 @@ final class PersonalDataExport(
       }
 
     val connections =
-      Source(List(textTitle("Connections"))) concat
+      Source(List(textTitle("Connections"))).concat(
         securityEnv.store.allSessions(user.id).documentSource().throttle(lightPerSecond, 1 second).map { s =>
           s"${s.date.so(textDate)} ${s.ip} ${s.ua}"
         }
+      )
 
     val followedUsers = Source.futureSource:
-      relationEnv.api.fetchFollowing(user.id) map { userIds =>
+      relationEnv.api.fetchFollowing(user.id).map { userIds =>
         Source(List(textTitle("Followed players")) ++ userIds.map(_.value))
       }
 
     val streamer = Source.futureSource:
-      streamerApi.find(user) map {
-        _.map(_.streamer).so: s =>
-          List(textTitle("Streamer profile")) :::
-            List(
-              "name"     -> s.name,
-              "image"    -> s.picture.so(p => picfitUrl.thumbnail(p, Streamer.imageSize, Streamer.imageSize)),
-              "headline" -> s.headline.so(_.value),
-              "description" -> s.description.so(_.value),
-              "twitch"      -> s.twitch.so(_.fullUrl),
-              "youTube"     -> s.youTube.so(_.fullUrl),
-              "createdAt"   -> textDate(s.createdAt),
-              "updatedAt"   -> textDate(s.updatedAt),
-              "seenAt"      -> textDate(s.seenAt),
-              "liveAt"      -> s.liveAt.so(textDate)
-            ).map: (k, v) =>
-              s"$k: $v"
-      } map Source.apply
+      streamerApi
+        .find(user)
+        .map {
+          _.map(_.streamer).so: s =>
+            List(textTitle("Streamer profile")) :::
+              List(
+                "name"  -> s.name,
+                "image" -> s.picture.so(p => picfitUrl.thumbnail(p, Streamer.imageSize, Streamer.imageSize)),
+                "headline"    -> s.headline.so(_.value),
+                "description" -> s.description.so(_.value),
+                "twitch"      -> s.twitch.so(_.fullUrl),
+                "youTube"     -> s.youTube.so(_.fullUrl),
+                "createdAt"   -> textDate(s.createdAt),
+                "updatedAt"   -> textDate(s.updatedAt),
+                "seenAt"      -> textDate(s.seenAt),
+                "liveAt"      -> s.liveAt.so(textDate)
+              ).map: (k, v) =>
+                s"$k: $v"
+        }
+        .map(Source.apply)
 
     val coach = Source.futureSource:
-      coachApi.find(user) map {
-        _.map(_.coach).so: c =>
-          List(textTitle("Coach profile")) :::
-            c.profile.textLines :::
-            List(
-              "image"     -> c.picture.so(p => picfitUrl.thumbnail(p, Coach.imageSize, Coach.imageSize)),
-              "languages" -> c.languages.mkString(", "),
-              "createdAt" -> textDate(c.createdAt),
-              "updatedAt" -> textDate(c.updatedAt)
-            ).map: (k, v) =>
-              s"$k: $v"
-      } map Source.apply
+      coachApi
+        .find(user)
+        .map {
+          _.map(_.coach).so: c =>
+            List(textTitle("Coach profile")) :::
+              c.profile.textLines :::
+              List(
+                "image"     -> c.picture.so(p => picfitUrl.thumbnail(p, Coach.imageSize, Coach.imageSize)),
+                "languages" -> c.languages.mkString(", "),
+                "createdAt" -> textDate(c.createdAt),
+                "updatedAt" -> textDate(c.updatedAt)
+              ).map: (k, v) =>
+                s"$k: $v"
+        }
+        .map(Source.apply)
 
     val forumPosts =
-      Source(List(textTitle("Forum posts"))) concat
+      Source(List(textTitle("Forum posts"))).concat(
         forumEnv.postRepo.allByUserCursor(user).documentSource().throttle(heavyPerSecond, 1 second).map { p =>
           s"${textDate(p.createdAt)}\n${p.text}$bigSep"
         }
+      )
 
     val privateMessages =
-      Source(List(textTitle("Direct messages"))) concat
+      Source(List(textTitle("Direct messages"))).concat(
         msgEnv.api
           .allMessagesOf(user.id)
           .throttle(heavyPerSecond, 1 second)
           .map: (text, date) =>
             s"${textDate(date)}\n$text$bigSep"
+      )
 
     def gameChatsLookup(lookup: Bdoc) =
       gameEnv.gameRepo.coll
@@ -126,17 +135,17 @@ final class PersonalDataExport(
         .throttle(heavyPerSecond, 1 second)
 
     val spectatorGameChats =
-      Source(List(textTitle("Spectator game chat messages"))) concat
-        gameChatsLookup:
-          $lookup.pipelineFull(
-            from = chatEnv.coll.name,
-            as = "chat",
-            let = $doc("id" -> $doc("$concat" -> $arr("$_id", "/w"))),
-            pipe = List($doc("$match" -> $expr($doc("$eq" -> $arr("$_id", "$$id")))))
-          )
+      Source(List(textTitle("Spectator game chat messages"))).concat(gameChatsLookup:
+        $lookup.pipelineFull(
+          from = chatEnv.coll.name,
+          as = "chat",
+          let = $doc("id" -> $doc("$concat" -> $arr("$_id", "/w"))),
+          pipe = List($doc("$match" -> $expr($doc("$eq" -> $arr("$_id", "$$id")))))
+        )
+      )
 
     val gameNotes =
-      Source(List(textTitle("Game notes"))) concat
+      Source(List(textTitle("Game notes"))).concat(
         gameEnv.gameRepo.coll
           .aggregateWith[Bdoc](readPreference = ReadPref.priTemp): framework =>
             import framework.*
@@ -158,9 +167,10 @@ final class PersonalDataExport(
           .documentSource()
           .map { ~_.string("t") }
           .throttle(heavyPerSecond, 1 second)
+      )
 
     val ublogPosts =
-      Source(List(textTitle("Blog posts"))) concat
+      Source(List(textTitle("Blog posts"))).concat(
         ublogApi
           .postCursor(user)
           .documentSource()
@@ -176,6 +186,7 @@ final class PersonalDataExport(
               s"$k: $v"
             .mkString("\n") + bigSep
           .throttle(heavyPerSecond, 1 second)
+      )
 
     val appeals = Source.futureSource:
       appealApi
@@ -188,27 +199,33 @@ final class PersonalDataExport(
                 s"${textDate(msg.at)} by $author\n${msg.text}$bigSep"
 
     val reports = Source.futureSource:
-      reportEnv.api.personalExport(user) map: atoms =>
-        Source:
-          List(textTitle("Reports you created")) :::
-            atoms.map: a =>
-              s"${textDate(a.at)}\n${a.text}$bigSep"
+      reportEnv.api
+        .personalExport(user)
+        .map: atoms =>
+          Source:
+            List(textTitle("Reports you created")) :::
+              atoms.map: a =>
+                s"${textDate(a.at)}\n${a.text}$bigSep"
 
     val dubiousChats = Source.futureSource:
-      shutupEnv.api.getPublicLines(user.id) map: lines =>
-        Source:
-          List(textTitle("Dubious public chats")) :::
-            lines.map: l =>
-              s"${l.date.so(textDate)}\n${l.text}$bigSep"
+      shutupEnv.api
+        .getPublicLines(user.id)
+        .map: lines =>
+          Source:
+            List(textTitle("Dubious public chats")) :::
+              lines.map: l =>
+                s"${l.date.so(textDate)}\n${l.text}$bigSep"
 
     val timeouts = Source.futureSource:
-      modLogApi.timeoutPersonalExport(user.id) map: modlogs =>
-        Source:
-          List(textTitle("Messages you were timeouted for")) :::
-            modlogs.map: m =>
-              // do not export the reason of the timeout as not personal data
-              val timeoutMsg = m.details.so(_.split(":").drop(1).mkString(":").trim())
-              s"${textDate(m.date)}\n${timeoutMsg}$bigSep"
+      modLogApi
+        .timeoutPersonalExport(user.id)
+        .map: modlogs =>
+          Source:
+            List(textTitle("Messages you were timeouted for")) :::
+              modlogs.map: m =>
+                // do not export the reason of the timeout as not personal data
+                val timeoutMsg = m.details.so(_.split(":").drop(1).mkString(":").trim())
+                s"${textDate(m.date)}\n${timeoutMsg}$bigSep"
 
     val outro = Source(List(textTitle("End of data export.")))
 
@@ -238,4 +255,4 @@ final class PersonalDataExport(
   import java.time.format.{ DateTimeFormatter, FormatStyle }
   private val englishDateTimeFormatter =
     DateTimeFormatter.ofLocalizedDateTime(FormatStyle.MEDIUM, FormatStyle.MEDIUM)
-  private def textDate(date: Instant) = englishDateTimeFormatter print date
+  private def textDate(date: Instant) = englishDateTimeFormatter.print(date)

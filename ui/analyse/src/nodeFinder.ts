@@ -1,4 +1,5 @@
 import { winningChances } from 'ceval';
+import { FEN } from 'chessground/types';
 import { defined } from 'common';
 
 const hasCompChild = (node: Tree.Node): boolean => !!node.children.find(c => !!c.comp);
@@ -44,7 +45,7 @@ export function evalSwings(mainline: Tree.Node[], nodeFilter: (node: Tree.Node) 
   return found;
 }
 
-const threefoldFen = (fen: Fen) => fen.split(' ').slice(0, 4).join(' ');
+const threefoldFen = (fen: FEN) => fen.split(' ').slice(0, 4).join(' ');
 
 export function detectThreefold(nodeList: Tree.Node[], node: Tree.Node): void {
   if (defined(node.threefold)) return;

@@ -1,6 +1,7 @@
 package lila.common
 
 import scala.util.Try
+
 import lila.Lila.Fu
 
 object Chronometer:
@@ -61,11 +62,11 @@ object Chronometer:
       this
 
     def pp: Fu[A]                                            = lap.dmap(_.pp)
-    def pp(msg: String): Fu[A]                               = lap.dmap(_ pp msg)
+    def pp(msg: String): Fu[A]                               = lap.dmap(_.pp(msg))
     def ppIfGt(msg: String, duration: FiniteDuration): Fu[A] = lap.dmap(_.ppIfGt(msg, duration))
 
     def tap(f: Lap[A] => Unit) =
-      lap dforeach f
+      lap.dforeach(f)
       this
 
     def result = lap.dmap(_.result)
@@ -84,7 +85,7 @@ object Chronometer:
 
   def apply[A](f: Fu[A]): FuLap[A] =
     val start = nowNanos
-    FuLap(f dmap { Lap(_, nowNanos - start) })
+    FuLap(f.dmap { Lap(_, nowNanos - start) })
 
   def lapTry[A](f: Fu[A]): FuLapTry[A] =
     val start = nowNanos

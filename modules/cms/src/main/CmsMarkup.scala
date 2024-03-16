@@ -1,7 +1,6 @@
 package lila.cms
 
-import lila.common.{ config, MarkdownToastUi, Bus, LpvEmbed, Markdown, MarkdownRender }
-import lila.hub.actorApi.lpv.AllPgnsFromText
+import lila.common.{ Markdown, MarkdownRender, MarkdownToastUi, config }
 import lila.memo.CacheApi
 
 final class CmsMarkup(
@@ -28,7 +27,7 @@ final class CmsMarkup(
         fuccess(process(id)(markdown))
 
   private def process(id: CmsPage.Id): Markdown => Html =
-    MarkdownToastUi.unescapeAtUsername.apply andThen
-      renderer(s"cms:$id") andThen
-      MarkdownToastUi.imageParagraph andThen
-      MarkdownToastUi.unescapeUnderscoreInLinks.apply
+    MarkdownToastUi.unescapeAtUsername.apply
+      .andThen(renderer(s"cms:$id"))
+      .andThen(MarkdownToastUi.imageParagraph)
+      .andThen(MarkdownToastUi.unescapeUnderscoreInLinks.apply)

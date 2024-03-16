@@ -10,7 +10,7 @@ object UrlList:
     object Url extends OpaqueString[Url]
 
     def apply(text: String): List[Url] =
-      text.linesIterator.toList.view.map(_.trim).filter(_.nonEmpty) flatMap toUrl take max to List
+      text.linesIterator.toList.view.map(_.trim).filter(_.nonEmpty).flatMap(toUrl).take(max) to List
 
     private val UrlRegex = """(?:youtube\.com|youtu\.be)/(?:watch)?(?:\?v=)?([^"&?/ ]{11})""".r.unanchored
 
@@ -30,7 +30,7 @@ object UrlList:
     private val UrlRegex = """(?:lichess\.org)/study/(\w{8})""".r.unanchored
 
     def apply(text: String): List[StudyId] =
-      text.linesIterator.toList.view.map(_.trim).filter(_.nonEmpty) flatMap toId take max to List
+      text.linesIterator.toList.view.map(_.trim).filter(_.nonEmpty).flatMap(toId).take(max) to List
 
     private def toId(line: String): Option[StudyId] =
       line match

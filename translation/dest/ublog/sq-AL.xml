@@ -6,7 +6,7 @@
   <string name="blogTopics">Tema blogjesh</string>
   <string name="lichessOfficialBlog">Blogu Zyrtar i Lichess-it</string>
   <string name="continueReadingPost">Vazhdoni me leximin e këtij postimi</string>
-  <string name="lichessBlogPostsFromXYear" comment="Appears on a list of posts from the official Lichess Blog, which were published in a specific year.&#10;&#10;%s is the specific year of posts from the official blog (e.g. 2021).">Postime blogu Lichess në %s</string>
+  <string name="lichessBlogPostsFromXYear">Postime blogu Lichess në %s</string>
   <string name="previousBlogPosts">Postime të mëparshëm blogu</string>
   <string name="xBlog">Blogu i %s</string>
   <string name="newPost">Postim i ri</string>
@@ -52,4 +52,5 @@
   <string name="inappropriateContentAccountClosed">Çfarëdo gjëje e papërshtatshme mund të sjellë mbylljen e llogarisë tuaj.</string>
   <string name="blogTips">Ndihmëzat tona të thjeshta për shkrim postimesh të goditura blogu</string>
   <string name="discussThisBlogPostInTheForum">Diskutojeni në forum këtë postim blogu</string>
+  <string name="youBlockedByBlogAuthor">Jeni bllokuar nga autori i blogut.</string>
 </resources>

@@ -2,7 +2,7 @@ package controllers
 
 import play.api.mvc.*
 
-import lila.app.{ given, * }
+import lila.app.{ *, given }
 import lila.common.HTTPRequest
 
 final class Storm(env: Env) extends LilaController(env):
@@ -31,7 +31,9 @@ final class Storm(env: Env) extends LilaController(env):
         .fold(
           _ => fuccess(none),
           data => env.storm.dayApi.addRun(data, ctx.me, mobile = HTTPRequest.isLichessMobile(req))
-        ) map env.storm.json.newHigh map JsonOk
+        )
+        .map(env.storm.json.newHigh)
+        .map(JsonOk)
 
   def dashboard(page: Int) = Auth { ctx ?=> me ?=>
     renderDashboardOf(me, page)
@@ -51,7 +53,7 @@ final class Storm(env: Env) extends LilaController(env):
     lila.user.User.validateId(username).so { userId =>
       if days < 0 || days > 365 then notFoundJson("Invalid days parameter")
       else
-        ((days > 0) so env.storm.dayApi.apiHistory(userId, days)) zip env.storm.highApi.get(userId) map {
+        ((days > 0).so(env.storm.dayApi.apiHistory(userId, days))).zip(env.storm.highApi.get(userId)).map {
           case (history, high) => Ok(env.storm.json.apiDashboard(high, history))
         }
     }

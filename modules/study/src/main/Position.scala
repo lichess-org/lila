@@ -1,13 +1,14 @@
 package lila.study
 
 import chess.format.UciPath
-import lila.tree.{ Node, Branch }
+
+import lila.tree.{ Branch, Node }
 
 case class Position(chapter: Chapter, path: UciPath):
 
   def ref = Position.Ref(chapter.id, path)
 
-  def node: Option[Node] = chapter.root nodeAt path
+  def node: Option[Node] = chapter.root.nodeAt(path)
 
   override def toString = ref.toString
 

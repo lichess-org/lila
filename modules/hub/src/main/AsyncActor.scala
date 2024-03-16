@@ -16,7 +16,7 @@ abstract class AsyncActor(using Executor) extends lila.common.Tellable:
   protected val process: ReceiveAsync
 
   def !(msg: Matchable): Unit =
-    if stateRef.getAndUpdate(state => Some(state.fold(Queue.empty[Matchable])(_ enqueue msg))).isEmpty then
+    if stateRef.getAndUpdate(state => Some(state.fold(Queue.empty[Matchable])(_.enqueue(msg)))).isEmpty then
       run(msg)
 
   def ask[A](makeMsg: Promise[A] => Matchable): Fu[A] =
@@ -29,13 +29,13 @@ abstract class AsyncActor(using Executor) extends lila.common.Tellable:
    * Busy: Some(Queue.empty)
    * Busy with backlog: Some(Queue.nonEmpty)
    */
-  private[this] val stateRef: AtomicReference[State] = new AtomicReference(None)
+  private val stateRef: AtomicReference[State] = new AtomicReference(None)
 
-  private[this] def run(msg: Matchable): Unit =
-    process.applyOrElse(msg, AsyncActor.fallback) onComplete postRun
+  private def run(msg: Matchable): Unit =
+    process.applyOrElse(msg, AsyncActor.fallback).onComplete(postRun)
 
-  private[this] val postRun = (_: Matchable) =>
-    stateRef.getAndUpdate(postRunUpdate) flatMap (_.headOption) foreach run
+  private val postRun = (_: Matchable) =>
+    stateRef.getAndUpdate(postRunUpdate).flatMap(_.headOption).foreach(run)
 
 object AsyncActor:
 
@@ -45,7 +45,7 @@ object AsyncActor:
 
   private val postRunUpdate = new UnaryOperator[State]:
     override def apply(state: State): State =
-      state flatMap { q =>
+      state.flatMap { q =>
         if q.isEmpty then None else Some(q.tail)
       }
 

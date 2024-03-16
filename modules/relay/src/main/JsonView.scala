@@ -2,11 +2,11 @@ package lila.relay
 
 import play.api.libs.json.*
 
+import lila.common.Json.given
 import lila.common.config.BaseUrl
-import lila.common.Json.{ writeAs, given }
-import lila.study.Chapter
-import lila.user.Me
 import lila.memo.PicfitUrl
+import lila.study.ChapterPreview
+import lila.user.Me
 
 final class JsonView(
     baseUrl: BaseUrl,
@@ -16,7 +16,6 @@ final class JsonView(
 )(using Executor):
 
   import JsonView.given
-  import lila.study.JsonView.given
 
   given Writes[Option[RelayTour.Tier]] = Writes: t =>
     JsString(t.flatMap(RelayTour.Tier.keys.get) | "user")
@@ -53,24 +52,18 @@ final class JsonView(
       .add("ongoing" -> (r.hasStarted && !r.finished))
       .add("startsAt" -> r.startsAt.orElse(r.startedAt))
 
-  given Writes[RelayLeaderboard] = writeAs(_.players)
-
-  def apply(
-      trs: RelayTour.WithRounds,
-      withUrls: Boolean = false,
-      leaderboard: Option[RelayLeaderboard] = none
-  ): JsObject =
+  def apply(trs: RelayTour.WithRounds, withUrls: Boolean = false): JsObject =
     Json
       .obj(
         "tour" -> Json
           .toJsObject(trs.tour)
           .add("markup" -> trs.tour.markup.map(markup(trs.tour)))
           .add("url" -> withUrls.option(s"$baseUrl${trs.tour.path}"))
-          .add("teamTable" -> trs.tour.teamTable),
+          .add("teamTable" -> trs.tour.teamTable)
+          .add("leaderboard" -> trs.tour.autoLeaderboard),
         "rounds" -> trs.rounds.map: round =>
-          if withUrls then withUrl(round withTour trs.tour, withTour = false) else apply(round)
+          if withUrls then withUrl(round.withTour(trs.tour), withTour = false) else apply(round)
       )
-      .add("leaderboard" -> leaderboard)
 
   def apply(round: RelayRound): JsObject = Json.toJsObject(round)
 
@@ -79,15 +72,12 @@ final class JsonView(
       .obj("url" -> s"$baseUrl${rt.path}")
       .add("tour" -> withTour.option(rt.tour))
 
-  def withUrlAndGames(rt: RelayRound.WithTourAndStudy, games: List[Chapter.Metadata])(using
+  def withUrlAndPreviews(rt: RelayRound.WithTourAndStudy, previews: ChapterPreview.AsJsons)(using
       Option[Me]
   ): JsObject =
-    myRound(rt) ++
-      Json.obj("games" -> games.map { g =>
-        Json.toJsObject(g) + ("url" -> JsString(s"$baseUrl${rt.path}/${g._id}"))
-      })
+    myRound(rt) ++ Json.obj("games" -> previews)
 
-  def sync(round: RelayRound) = Json toJsObject round.sync
+  def sync(round: RelayRound) = Json.toJsObject(round.sync)
 
   def myRound(r: RelayRound.WithTourAndStudy)(using me: Option[Me]) = Json
     .obj(
@@ -104,14 +94,15 @@ final class JsonView(
       studyData: lila.study.JsonView.JsData,
       group: Option[RelayGroup.WithTours],
       canContribute: Boolean,
-      isSubscribed: Option[Boolean] = none[Boolean]
-  ) = leaderboardApi(trs.tour) map: leaderboard =>
+      isSubscribed: Option[Boolean],
+      videoUrls: Option[PairOf[String]]
+  ) =
     JsonView.JsData(
       relay = apply(trs)
-        .add("sync" -> (canContribute so trs.rounds.find(_.id == currentRoundId).map(_.sync)))
-        .add("leaderboard" -> leaderboard)
+        .add("sync" -> (canContribute.so(trs.rounds.find(_.id == currentRoundId).map(_.sync))))
         .add("group" -> group)
-        .add("isSubscribed" -> isSubscribed),
+        .add("isSubscribed" -> isSubscribed)
+        .add("videoUrls" -> videoUrls),
       study = studyData.study,
       analysis = studyData.analysis
     )

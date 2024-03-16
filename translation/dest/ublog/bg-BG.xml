@@ -43,4 +43,5 @@
   <string name="safeAndRespectfulContent">Моля, публикувайте само безопасно и уважително съдържание. Не копирайте чуждо съдържание.</string>
   <string name="inappropriateContentAccountClosed">За всяко неподходящо действие акаунтът ви може да бъде закрит.</string>
   <string name="blogTips">Нашите прости съвети за писане на страхотни публикации в блогове</string>
+  <string name="youBlockedByBlogAuthor">Блокирани сте от автора на блога.</string>
 </resources>

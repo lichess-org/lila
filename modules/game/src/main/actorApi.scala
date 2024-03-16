@@ -1,9 +1,10 @@
 package lila.game
 package actorApi
 
-import chess.format.Fen
-import lila.user.User
 import chess.ByColor
+import chess.format.Fen
+
+import lila.user.User
 
 case class StartGame(game: Game)
 

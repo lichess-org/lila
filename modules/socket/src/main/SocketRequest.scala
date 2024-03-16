@@ -1,7 +1,8 @@
 package lila.socket
 
-import java.util.concurrent.atomic.AtomicInteger
 import com.github.benmanes.caffeine.cache.RemovalCause
+
+import java.util.concurrent.atomic.AtomicInteger
 
 // send a request to lila-ws and await a response
 object SocketRequest:
@@ -20,7 +21,7 @@ object SocketRequest:
     sendReq(id)
     val promise = Promise[String]()
     inFlight.put(id, promise)
-    promise.future map readRes
+    promise.future.map(readRes)
 
   private[socket] def onResponse(reqId: Int, response: String): Unit =
-    asMap.remove(reqId).foreach(_ success response)
+    asMap.remove(reqId).foreach(_.success(response))

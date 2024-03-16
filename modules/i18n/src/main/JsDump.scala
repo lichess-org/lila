@@ -1,7 +1,7 @@
 package lila.i18n
 
-import play.api.libs.json.{ JsObject, JsString }
 import play.api.i18n.Lang
+import play.api.libs.json.{ JsObject, JsString }
 
 object JsDump:
 
@@ -34,4 +34,4 @@ object JsDump:
   def keysToObject(keys: Seq[I18nKey], lang: Lang): JsObject =
     JsObject:
       keys.flatMap: k =>
-        Translator.findTranslation(k, lang).fold[JsTrans](Nil) { translatedJs(k, _) }
+        Registry.translation(lang, k).fold[JsTrans](Nil) { translatedJs(k, _) }

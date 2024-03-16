@@ -40,7 +40,7 @@ final private class InsightStorage(val coll: AsyncColl)(using Executor):
     coll {
       _.aggregateOne() { framework =>
         import framework.*
-        Match(selectUserId(userId) ++ $doc(F.opening $exists true)) -> List(
+        Match(selectUserId(userId) ++ $doc(F.opening.$exists(true))) -> List(
           Facet(
             List(
               "families" -> List(
@@ -81,9 +81,9 @@ object InsightStorage:
 
   def selectId(id: String)               = $doc(F.id -> id)
   def selectUserId(id: UserId)           = $doc(F.userId -> id)
-  def selectPeers(peers: Question.Peers) = $doc(F.rating $inRange peers.ratingRange)
-  val sortChronological                  = $sort asc F.date
-  val sortAntiChronological              = $sort desc F.date
+  def selectPeers(peers: Question.Peers) = $doc(F.rating.$inRange(peers.ratingRange))
+  val sortChronological                  = $sort.asc(F.date)
+  val sortAntiChronological              = $sort.desc(F.date)
 
   def combineDocs(docs: List[BSONDocument]) =
     docs.foldLeft(BSONDocument()) { case (acc, doc) =>

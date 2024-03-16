@@ -4,9 +4,9 @@ import play.api.data.*
 import play.api.data.Forms.*
 
 import lila.common.Form.{ cleanText, formatter, into }
+import lila.i18n.LangForm
 import lila.security.Granter
 import lila.user.Me
-import lila.i18n.LangForm
 
 final class RelayTourForm:
 
@@ -25,8 +25,12 @@ final class RelayTourForm:
       "tier"            -> optional(number(min = RelayTour.Tier.NORMAL, max = RelayTour.Tier.BEST)),
       "autoLeaderboard" -> boolean,
       "teamTable"       -> boolean,
-      "players"   -> optional(of(formatter.stringFormatter[RelayPlayers](_.sortedText, RelayPlayers(_)))),
-      "teams"     -> optional(of(formatter.stringFormatter[RelayTeams](_.sortedText, RelayTeams(_)))),
+      "players" -> optional(
+        of(formatter.stringFormatter[RelayPlayersTextarea](_.sortedText, RelayPlayersTextarea(_)))
+      ),
+      "teams" -> optional(
+        of(formatter.stringFormatter[RelayTeamsTextarea](_.sortedText, RelayTeamsTextarea(_)))
+      ),
       "spotlight" -> optional(spotlightMapping),
       "grouping"  -> RelayGroup.form.mapping
     )(Data.apply)(unapply)
@@ -34,7 +38,7 @@ final class RelayTourForm:
 
   def create = form
 
-  def edit(t: RelayTour.WithGroupTours) = form fill Data.make(t)
+  def edit(t: RelayTour.WithGroupTours) = form.fill(Data.make(t))
 
 object RelayTourForm:
 
@@ -45,26 +49,26 @@ object RelayTourForm:
       tier: Option[RelayTour.Tier],
       autoLeaderboard: Boolean,
       teamTable: Boolean,
-      players: Option[RelayPlayers],
-      teams: Option[RelayTeams],
+      players: Option[RelayPlayersTextarea],
+      teams: Option[RelayTeamsTextarea],
       spotlight: Option[RelayTour.Spotlight],
       grouping: Option[RelayGroup.form.Data]
   ):
 
-    def update(tour: RelayTour)(using Me) =
+    def update(tour: RelayTour)(using me: Me) =
       tour
         .copy(
           name = name,
           description = description,
           markup = markup,
-          tier = tier ifTrue Granter(_.Relay),
+          tier = tier.ifTrue(Granter(_.Relay)),
           autoLeaderboard = autoLeaderboard,
           teamTable = teamTable,
           players = players,
           teams = teams,
           spotlight = spotlight.filterNot(_.isEmpty)
         )
-        .reAssignIfOfficial
+        .giveOfficialToBroadcasterIf(Granter(_.StudyAdmin))
 
     def make(using me: Me) =
       RelayTour(
@@ -73,7 +77,7 @@ object RelayTourForm:
         description = description,
         markup = markup,
         ownerId = me,
-        tier = tier ifTrue Granter(_.Relay),
+        tier = tier.ifTrue(Granter(_.Relay)),
         active = false,
         createdAt = nowInstant,
         syncedAt = none,
@@ -82,7 +86,7 @@ object RelayTourForm:
         players = players,
         teams = teams,
         spotlight = spotlight.filterNot(_.isEmpty)
-      ).reAssignIfOfficial
+      ).giveOfficialToBroadcasterIf(Granter(_.StudyAdmin))
 
   object Data:
 

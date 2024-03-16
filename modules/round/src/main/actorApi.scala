@@ -3,6 +3,7 @@ package actorApi
 
 import chess.format.Uci
 import chess.{ Color, MoveMetrics }
+import play.api.libs.json.JsObject
 
 import lila.common.IpAddress
 import lila.socket.SocketVersion
@@ -25,6 +26,8 @@ object SocketStatus:
 case class GameAndSocketStatus(game: lila.game.Game, socket: SocketStatus)
 case class RoomCrowd(white: Boolean, black: Boolean)
 case class BotConnected(color: Color, v: Boolean)
+
+case class TvSelect(gameId: GameId, speed: chess.Speed, channel: String, data: JsObject)
 
 package round:
 

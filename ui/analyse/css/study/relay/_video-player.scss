@@ -1,0 +1,12 @@
+#video-player {
+  z-index: z('video-player');
+  display: none;
+  position: absolute;
+  border: 0;
+}
+
+#video-player-placeholder {
+  aspect-ratio: 16/9;
+  width: 100%;
+  display: none;
+}

@@ -53,6 +53,7 @@
   <string name="allSyncMembersRemainOnTheSamePosition">Kaikki SYNC-jäsenet pysyvät samassa asemassa</string>
   <string name="shareChanges">Anna katsojien nähdä muutokset ja tallenna ne palvelimelle</string>
   <string name="playing">Meneillään</string>
+  <string name="showEvalBar">Arviopalkit</string>
   <string name="first">Alkuun</string>
   <string name="previous">Edellinen</string>
   <string name="next">Seuraava</string>

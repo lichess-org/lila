@@ -521,7 +521,6 @@
   <string name="automaticallyProceedToNextGameAfterMoving">ಒಂದು ನಡೆ ಆಡಿದ ನಂತರ ಸ್ವಯಂಚಾಲಿತವಾಗಿ ಮುಂದಿನ ಆಟಕ್ಕೆ ಹೋಗಿ</string>
   <string name="autoSwitch">ಸ್ವಯಂಚಾಲಿತವಾಗಿ ಬದಲಾಗಲಿ</string>
   <string name="puzzles">ಒಗಟುಗಳು</string>
-  <string name="tournamentWinners">ಪಂದ್ಯಾವಳಿಯ ವಿಜೇತರು</string>
   <string name="name">ಹೆಸರು</string>
   <string name="description">ವಿವರಣೆ</string>
   <string name="descPrivate">ಖಾಸಗಿ ವಿವರಣೆಗಳು</string>
@@ -913,8 +912,6 @@
   <string name="minimumRatedGames">ಬೇಕಾಗಿರುವ ಕನಿಷ್ಠ ಧಾರಣೆ-ಸಹಿತ ಆಟಗಳು</string>
   <string name="minimumRating">ಕನಿಷ್ಠ ಧಾರಣೆ</string>
   <string name="maximumWeeklyRating">ಗರಿಷ್ಠ ಸಾಪ್ತಾಹಿಕ ಧಾರಣೆ</string>
-  <string name="onlyTitled">ಬಿರುದಾಂಕಿತ ಆಟಗಾರರಿಗೆ ಮಾತ್ರ</string>
-  <string name="onlyTitledHelp">ಅಧಿಕೃತ ಬಿರುದು ಇದ್ದವರಿಗೆ ಮಾತ್ರ ಈ ಪಂದ್ಯಾವಳಿಯಲ್ಲಿ ಪ್ರವೇಶ ಸಿಗುವುದು</string>
   <string name="positionInputHelp">ಒಂದು ನಿರ್ಧಿಷ್ಟ ಸನ್ನಿವೇಶದಿಂದ ಪ್ರತಿ ಆತ ಆರಂಭಿಸಲು, ಸರಿಯಾದ FEN ಒಂದನ್ನು ಅಂಟಿಸಿ.
 ಇದು ಕೇವಲ ರೂಢಿಯಲ್ಲಿರುವ ಸಾಮಾನ್ಯ ಆಟದ ವಿಧಾನದಲ್ಲಿ ಮಾತ್ರ ಕೆಲಸ ಮಾಡುತ್ತದೆ. ಬೇರೆ ಯಾವುದೇ ಆವೃತ್ತಿಯ ಚೆಸ್ ಗೆ ಇದು ಸಾಧ್ಯವಿಲ್ಲ.
 ನೀವು %s ಬಳಸಿ ಹೊಸ FEN ಸನ್ನಿವೇಶಗಳನ್ನು ರಚಿಸಬಹುದು, ಹಾಗೂ ಅದನ್ನು ಇಲ್ಲಿ ಅಂಟಿಸಬಹುದು.

@@ -1,13 +1,16 @@
 import { h, VNode } from 'snabbdom';
 import renderClocks from '../view/clocks';
 import AnalyseCtrl from '../ctrl';
-import { renderMaterialDiffs } from '../view/view';
+import { renderMaterialDiffs } from '../view/components';
 import { TagArray } from './interfaces';
 import { findTag, isFinished, looksLikeLichessGame, resultOf } from './studyChapters';
+import { userTitle } from 'common/userLink';
 
 interface Player {
   name: string;
   team?: string;
+  fed?: string;
+  fideId?: string;
 }
 interface Players {
   white: Player;
@@ -18,9 +21,20 @@ export default function (ctrl: AnalyseCtrl): VNode[] | undefined {
   const study = ctrl.study;
   if (!study) return;
   const tags = study.data.chapter.tags,
+    feds = study.data.chapter.feds || [],
     players = {
-      white: { name: findTag(tags, 'white')!, team: findTag(tags, 'whiteteam')! },
-      black: { name: findTag(tags, 'black')!, team: findTag(tags, 'blackteam')! },
+      white: {
+        name: findTag(tags, 'white')!,
+        team: findTag(tags, 'whiteteam'),
+        fideId: findTag(tags, 'whitefideid'),
+        fed: feds[0],
+      },
+      black: {
+        name: findTag(tags, 'black')!,
+        team: findTag(tags, 'blackteam'),
+        fideId: findTag(tags, 'blackfideid'),
+        fed: feds[1],
+      },
     };
 
   const clocks = renderClocks(ctrl),
@@ -60,8 +74,11 @@ function renderPlayer(
       result && h('span.result', result),
       h('span.info', [
         player.team && h('span.team', player.team),
-        title && h('span.utitle', title == 'BOT' ? { attrs: { 'data-bot': true } } : {}, title + ' '),
-        h('span.name', player.name),
+        player.fed && playerFed(player.fed),
+        userTitle({ title }),
+        player.fideId
+          ? h('a.name', { attrs: { href: `/fide/${player.fideId}/redirect` } }, player.name)
+          : h('span.name', player.name),
         elo && h('span.elo', elo),
       ]),
     ]),
@@ -69,3 +86,8 @@ function renderPlayer(
     clocks?.[color === 'white' ? 0 : 1],
   ]);
 }
+
+export const playerFed = (fed: string) =>
+  h('img.mini-game__flag', {
+    attrs: { src: site.asset.url(`images/fide-fed/${fed}.svg`) },
+  });

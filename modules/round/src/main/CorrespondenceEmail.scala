@@ -1,11 +1,9 @@
 package lila.round
-
-import akka.stream.scaladsl.*
-import java.time.{ LocalTime, Duration }
 import reactivemongo.akkastream.cursorProducer
 
-import lila.common.Bus
-import lila.common.LilaStream
+import java.time.{ Duration, LocalTime }
+
+import lila.common.{ Bus, LilaStream }
 import lila.db.dsl.{ *, given }
 import lila.game.{ Game, GameRepo, Pov }
 import lila.hub.actorApi.mailer.*
@@ -18,7 +16,7 @@ final private class CorrespondenceEmail(gameRepo: GameRepo, userRepo: UserRepo, 
     akka.stream.Materializer
 ):
 
-  private val (runAfter, runBefore) = (LocalTime parse "05:00", LocalTime parse "05:10")
+  private val (runAfter, runBefore) = (LocalTime.parse("05:00"), LocalTime.parse("05:10"))
 
   def tick(): Unit =
     val now = LocalTime.now
@@ -70,7 +68,7 @@ final private class CorrespondenceEmail(gameRepo: GameRepo, userRepo: UserRepo, 
           povs = games
             .flatMap(Pov(_, userId))
             .filter(pov => pov.game.isCorrespondence && pov.game.nonAi && pov.isMyTurn)
-            .sortBy(_.remainingSeconds getOrElse Int.MaxValue)
+            .sortBy(_.remainingSeconds.getOrElse(Int.MaxValue))
           if !povs.isEmpty
           opponents = povs.map: pov =>
             CorrespondenceOpponent(

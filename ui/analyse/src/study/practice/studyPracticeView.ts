@@ -108,14 +108,14 @@ export function side(ctrl: StudyCtrl): VNode {
         hook: bindNonPassive('click', e => {
           e.preventDefault();
           const target = e.target as HTMLElement,
-            id = (target.parentNode as HTMLElement).getAttribute('data-id') || target.getAttribute('data-id');
+            id = (target.parentNode as HTMLElement).dataset['id'] || target.dataset['id'];
           if (id) ctrl.setChapter(id, true);
           return false;
         }),
       },
-      ctrl.chapters
-        .list()
-        .map(function (chapter) {
+      ctrl.chapters.list
+        .all()
+        .map(chapter => {
           const loading = ctrl.vm.loading && chapter.id === ctrl.vm.nextChapterId,
             active = !ctrl.vm.loading && current && current.id === chapter.id,
             completion = data.completion[chapter.id] >= 0 ? 'done' : 'ongoing';

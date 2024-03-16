@@ -1,10 +1,11 @@
 package lila.relay
 
 import akka.actor.*
-import scala.util.matching.Regex
 import com.softwaremill.macwire.*
 import com.softwaremill.tagging.*
 import play.api.libs.ws.StandaloneWSClient
+
+import scala.util.matching.Regex
 
 import lila.common.config.*
 import lila.memo.SettingStore
@@ -15,9 +16,10 @@ final class Env(
     ws: StandaloneWSClient,
     db: lila.db.Db,
     yoloDb: lila.db.AsyncDb @@ lila.db.YoloDb,
+    fidePlayerApi: lila.fide.FidePlayerApi,
     studyApi: lila.study.StudyApi,
-    multiboard: lila.study.StudyMultiBoard,
     studyRepo: lila.study.StudyRepo,
+    chapterPreview: lila.study.ChapterPreviewApi,
     chapterRepo: lila.study.ChapterRepo,
     studyPgnDump: lila.study.PgnDump,
     gameRepo: lila.game.GameRepo,
@@ -30,7 +32,7 @@ final class Env(
     notifyApi: lila.notify.NotifyApi,
     picfitApi: lila.memo.PicfitApi,
     picfitUrl: lila.memo.PicfitUrl
-)(using Executor, ActorSystem, akka.stream.Materializer)(using scheduler: Scheduler):
+)(using Executor, ActorSystem, akka.stream.Materializer, play.api.Mode)(using scheduler: Scheduler):
 
   lazy val roundForm = wire[RelayRoundForm]
 
@@ -66,6 +68,8 @@ final class Env(
 
   lazy val teamTable = wire[RelayTeamTable]
 
+  lazy val playerTour = wire[RelayPlayerTour]
+
   private lazy val sync = wire[RelaySync]
 
   private lazy val formatApi = wire[RelayFormatApi]
@@ -95,6 +99,8 @@ final class Env(
     text = "Broadcast: source domains that use a proxy, as a regex".some
   ).taggedWith[ProxyDomainRegex]
 
+  private val relayFidePlayerApi = wire[RelayFidePlayerApi]
+
   // start the sync scheduler
   wire[RelayFetch]
 
@@ -109,7 +115,7 @@ final class Env(
       studyApi
         .isContributor(id, who.u)
         .foreach:
-          _ so api.requestPlay(id into RelayRoundId, v)
+          _.so(api.requestPlay(id.into(RelayRoundId), v))
     },
     "kickStudy" -> { case lila.study.actorApi.Kick(studyId, userId, who) =>
       roundRepo.tourIdByStudyId(studyId).flatMapz(api.kickBroadcast(userId, _, who))
@@ -118,7 +124,7 @@ final class Env(
       api.becomeStudyAdmin(studyId, me)
     },
     "isOfficialRelay" -> { case lila.study.actorApi.IsOfficialRelay(studyId, promise) =>
-      promise completeWith api.isOfficial(studyId)
+      promise.completeWith(api.isOfficial(studyId))
     }
   )
 

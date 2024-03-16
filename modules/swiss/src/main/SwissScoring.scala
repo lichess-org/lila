@@ -18,10 +18,10 @@ final private class SwissScoring(mongo: SwissMongo)(using Scheduler, Executor):
   )
 
   private def recompute(id: SwissId): Fu[Option[SwissScoring.Result]] =
-    mongo.swiss.byId[Swiss](id) flatMap {
+    mongo.swiss.byId[Swiss](id).flatMap {
       _.so { swiss =>
         for
-          (prevPlayers, pairings) <- fetchPlayers(swiss) zip fetchPairings(swiss)
+          (prevPlayers, pairings) <- fetchPlayers(swiss).zip(fetchPairings(swiss))
           pairingMap = SwissPairing.toMap(pairings)
           sheets     = SwissSheet.many(swiss, prevPlayers, pairingMap)
           withSheets = prevPlayers.zip(sheets).map(SwissSheet.OfPlayer.withSheetPoints)
@@ -60,13 +60,13 @@ final private class SwissScoring(mongo: SwissMongo)(using Scheduler, Executor):
     SwissPlayer.fields: f =>
       mongo.player
         .find($doc(f.swissId -> swiss.id))
-        .sort($sort asc f.score)
+        .sort($sort.asc(f.score))
         .cursor[SwissPlayer]()
         .listAll()
 
   private def fetchPairings(swiss: Swiss) =
-    !swiss.isCreated so SwissPairing.fields: f =>
-      mongo.pairing.list[SwissPairing]($doc(f.swissId -> swiss.id))
+    (!swiss.isCreated).so(SwissPairing.fields: f =>
+      mongo.pairing.list[SwissPairing]($doc(f.swissId -> swiss.id)))
 
 private object SwissScoring:
 
@@ -97,10 +97,10 @@ private object SwissScoring:
               }
         val (tieBreak, perfSum) = pairingsAndByes.foldLeft(0f -> 0f):
           case ((tieBreak, perfSum), (round, Some(pairing: SwissPairing))) =>
-            val opponent       = playerMap.get(pairing opponentOf player.userId)
+            val opponent       = playerMap.get(pairing.opponentOf(player.userId))
             val opponentPoints = opponent.so(_.points.value)
             val result         = pairing.resultFor(player.userId)
-            val newTieBreak    = tieBreak + result.fold(opponentPoints / 2)(_ so opponentPoints)
+            val newTieBreak    = tieBreak + result.fold(opponentPoints / 2)(_.so(opponentPoints))
             val newPerf = perfSum + opponent.so(_.rating.value) + result.so:
               if _ then 500 else -500
             newTieBreak -> newPerf
@@ -123,6 +123,6 @@ private object SwissScoring:
         player
           .copy(
             tieBreak = Swiss.TieBreak(tieBreak),
-            performance = playerPairings.nonEmpty option Swiss.Performance(perfSum / playerPairings.size)
+            performance = playerPairings.nonEmpty.option(Swiss.Performance(perfSum / playerPairings.size))
           )
           .recomputeScore

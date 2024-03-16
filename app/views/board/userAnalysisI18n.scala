@@ -2,8 +2,8 @@ package views.html.board
 
 import play.api.i18n.Lang
 
-import lila.app.templating.Environment.{ given, * }
-import lila.i18n.{ I18nKeys as trans }
+import lila.app.templating.Environment.{ *, given }
+import lila.i18n.I18nKeys as trans
 
 object userAnalysisI18n:
 
@@ -15,13 +15,13 @@ object userAnalysisI18n:
   )(using Lang) =
     i18nJsObject(
       baseTranslations ++ {
-        withCeval so cevalTranslations
+        withCeval.so(cevalTranslations)
       } ++ {
-        withExplorer so explorerTranslations
+        withExplorer.so(explorerTranslations)
       } ++ {
-        withForecast so forecastTranslations
+        withForecast.so(forecastTranslations)
       } ++ {
-        withAdvantageChart so advantageTranslations
+        withAdvantageChart.so(advantageTranslations)
       }
     )
 

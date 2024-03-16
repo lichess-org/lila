@@ -11,7 +11,7 @@ final private class SwissRankingApi(
 )(using Executor):
 
   def apply(swiss: Swiss): Fu[Ranking] =
-    fuccess(scoreCache.getIfPresent(swiss.id)) getOrElse dbCache.get(swiss.id)
+    fuccess(scoreCache.getIfPresent(swiss.id)).getOrElse(dbCache.get(swiss.id))
 
   def update(res: SwissScoring.Result): Unit =
     scoreCache.put(
@@ -34,7 +34,7 @@ final private class SwissRankingApi(
   private def computeRanking(id: SwissId): Fu[Ranking] =
     SwissPlayer
       .fields: f =>
-        mongo.player.primitive[UserId]($doc(f.swissId -> id), $sort desc f.score, f.userId)
+        mongo.player.primitive[UserId]($doc(f.swissId -> id), $sort.desc(f.score), f.userId)
       .map:
         _.mapWithIndex: (user, i) =>
           (user, Rank(i + 1))

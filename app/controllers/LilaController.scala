@@ -1,17 +1,16 @@
 package controllers
 
-import play.api.data.Form
-import play.api.data.FormBinding
+import play.api.data.{ Form, FormBinding }
 import play.api.http.*
 import play.api.i18n.Lang
-import play.api.libs.json.{ JsArray, JsNumber, JsObject, JsString, JsValue, Json, Writes }
+import play.api.libs.json.Writes
 import play.api.mvc.*
 
 import lila.app.{ *, given }
-import lila.common.{ ApiVersion, HTTPRequest, config }
-import lila.i18n.{ I18nKey, I18nLangPicker }
-import lila.oauth.{ OAuthScope, OAuthScopes, OAuthServer, EndpointScopes, TokenScopes }
-import lila.security.{ AppealUser, FingerPrintedUser, Granter, Permission }
+import lila.common.{ HTTPRequest, config }
+import lila.i18n.I18nLangPicker
+import lila.oauth.{ EndpointScopes, OAuthScope, OAuthScopes, OAuthServer, TokenScopes }
+import lila.security.Permission
 
 abstract private[controllers] class LilaController(val env: Env)
     extends BaseController
@@ -31,7 +30,7 @@ abstract private[controllers] class LilaController(val env: Env)
   given Scheduler          = env.scheduler
   given FormBinding        = parse.formBinding(parse.DefaultMaxTextLength)
 
-  given lila.common.config.NetDomain = env.net.domain
+  given netDomain: lila.common.config.NetDomain = env.net.domain
 
   inline def ctx(using it: Context)       = it // `ctx` is shorter and nicer than `summon[Context]`
   inline def req(using it: RequestHeader) = it // `req` is shorter and nicer than `summon[RequestHeader]`
@@ -229,10 +228,10 @@ abstract private[controllers] class LilaController(val env: Env)
   private def handleScopedCommon(selectors: Seq[OAuthScope.Selector])(using req: RequestHeader)(
       f: OAuthScope.Scoped => Fu[Result]
   ) =
-    val accepted = OAuthScope.select(selectors) into EndpointScopes
+    val accepted = OAuthScope.select(selectors).into(EndpointScopes)
     env.security.api.oauthScoped(req, accepted).flatMap {
       case Left(e)       => handleScopedFail(accepted, e)
-      case Right(scoped) => f(scoped) map OAuthServer.responseHeaders(accepted, scoped.scopes)
+      case Right(scoped) => f(scoped).map(OAuthServer.responseHeaders(accepted, scoped.scopes))
     }
 
   def handleScopedFail(accepted: EndpointScopes, e: OAuthServer.AuthError)(using RequestHeader) = e match
@@ -295,7 +294,7 @@ abstract private[controllers] class LilaController(val env: Env)
     form
       .bindFromRequest()
       .fold(
-        form => err(form) dmap { BadRequest(_) },
+        form => err(form).dmap { BadRequest(_) },
         op
       )
 
@@ -330,6 +329,13 @@ abstract private[controllers] class LilaController(val env: Env)
     .soFu(me => env.user.api.withPerfs(me.value))
     .flatMap:
       f(using _)
+
+  def meOrFetch[U: UserIdOf](id: U)(using ctx: Context): Fu[Option[lila.user.User]] =
+    if id.isMe then fuccess(ctx.user)
+    else ctx.user.filter(_.is(id)).fold(env.user.repo.byId(id))(u => fuccess(u.some))
+
+  def meOrFetch[U: UserIdOf](id: Option[U])(using ctx: Context): Fu[Option[lila.user.User]] =
+    id.fold(fuccess(ctx.user))(meOrFetch)
 
   given (using req: RequestHeader): lila.chat.AllMessages = lila.chat.AllMessages(HTTPRequest.isLitools(req))
 

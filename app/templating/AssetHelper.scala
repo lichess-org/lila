@@ -1,15 +1,13 @@
 package lila.app
 package templating
-
-import play.api.mvc.RequestHeader
-import play.api.libs.json.{ Json, JsValue }
+import play.api.libs.json.{ JsValue, Json }
 
 import lila.app.ui.ScalatagsTemplate.*
 import lila.common.AssetVersion
 import lila.common.String.html.safeJsonValue
 
 trait AssetHelper extends HasEnv:
-  self: I18nHelper with SecurityHelper =>
+  self: I18nHelper & SecurityHelper =>
 
   private lazy val netDomain      = env.net.domain
   private lazy val assetDomain    = env.net.assetDomain
@@ -67,7 +65,7 @@ if (window.matchMedia('(prefers-color-scheme: dark)').media === 'not all')
 
   // jsModule is esm, no defer needed
   def jsModule(name: String): Frag =
-    script(tpe := "module", src := assetUrl(s"compiled/$name${minifiedAssets so ".min"}.js"))
+    script(tpe := "module", src := assetUrl(s"compiled/$name${minifiedAssets.so(".min")}.js"))
   def jsModuleInit(name: String)(using PageContext) =
     frag(jsModule(name), embedJsUnsafeLoadThen(s"$loadEsmFunction('$name')"))
   def jsModuleInit(name: String, text: String)(using PageContext) =
@@ -83,9 +81,9 @@ if (window.matchMedia('(prefers-color-scheme: dark)').media === 'not all')
   def analyseInit(mode: String, json: JsValue)(using ctx: PageContext) =
     jsModuleInit("analysisBoard", Json.obj("mode" -> mode, "cfg" -> json))
 
-  def analyseNvuiTag(using ctx: PageContext) = ctx.blind option jsModule("analysisBoard.nvui")
-  def puzzleNvuiTag(using ctx: PageContext)  = ctx.blind option jsModule("puzzle.nvui")
-  def roundNvuiTag(using ctx: PageContext)   = ctx.blind option jsModule("round.nvui")
+  def analyseNvuiTag(using ctx: PageContext) = ctx.blind.option(jsModule("analysisBoard.nvui"))
+  def puzzleNvuiTag(using ctx: PageContext)  = ctx.blind.option(jsModule("puzzle.nvui"))
+  def roundNvuiTag(using ctx: PageContext)   = ctx.blind.option(jsModule("round.nvui"))
   def infiniteScrollTag(using PageContext)   = jsModuleInit("infiniteScroll", "'.infinite-scroll'")
   def captchaTag                             = jsModule("captcha")
   def cashTag                                = iifeModule("javascripts/vendor/cash.min.js")
@@ -93,9 +91,9 @@ if (window.matchMedia('(prefers-color-scheme: dark)').media === 'not all')
   def chessgroundTag = script(tpe := "module", src := assetUrl("npm/chessground.min.js"))
 
   def basicCsp(using ctx: Context): ContentSecurityPolicy =
-    val sockets = socketDomains map { x => s"wss://$x${!ctx.req.secure so s" ws://$x"}" }
+    val sockets = socketDomains.map { x => s"wss://$x${(!ctx.req.secure).so(s" ws://$x")}" }
     // include both ws and wss when insecure because requests may come through a secure proxy
-    val localDev = !ctx.req.secure so List("http://127.0.0.1:3000")
+    val localDev = (!ctx.req.secure).so(List("http://127.0.0.1:3000"))
     ContentSecurityPolicy(
       defaultSrc = List("'self'", assetDomain.value),
       connectSrc =
@@ -110,7 +108,7 @@ if (window.matchMedia('(prefers-color-scheme: dark)').media === 'not all')
     )
 
   def defaultCsp(using ctx: PageContext): ContentSecurityPolicy =
-    ctx.nonce.foldLeft(basicCsp)(_ withNonce _)
+    ctx.nonce.foldLeft(basicCsp)(_.withNonce(_))
 
   def analysisCsp(using PageContext): ContentSecurityPolicy =
     defaultCsp.withWebAssembly.withExternalEngine(env.externalEngineEndpoint)

@@ -1,11 +1,11 @@
 package views.html.challenge
 
-import lila.app.templating.Environment.{ given, * }
+import controllers.routes
+
+import lila.app.templating.Environment.{ *, given }
 import lila.app.ui.ScalatagsTemplate.{ *, given }
 import lila.challenge.Challenge.Status
 import lila.common.LightUser
-
-import controllers.routes
 
 object mine:
 
@@ -36,80 +36,86 @@ object mine:
                 if c.isOpen then c.name | "Open challenge" else trans.challenge.challengeToPlay.txt()
               ),
               bits.details(c, color),
-              c.destUserId.map { destId =>
-                div(cls := "waiting")(
-                  userIdLink(destId.some, cssClass = "target".some),
-                  if !c.hasClock then
-                    div(cls := "correspondence-waiting text", dataIcon := licon.Checkmark):
-                      "Challenge sent"
-                  else spinner,
-                  p(trans.waitingForOpponent())
-                )
-              } getOrElse {
-                if c.isOpen then
+              c.destUserId
+                .map { destId =>
                   div(cls := "waiting")(
-                    spinner,
+                    userIdLink(destId.some, cssClass = "target".some),
+                    if !c.hasClock then
+                      div(cls := "correspondence-waiting text", dataIcon := licon.Checkmark):
+                        "Challenge sent"
+                    else spinner,
                     p(trans.waitingForOpponent())
                   )
-                else
-                  div(cls := "invite")(
-                    div(
-                      h2(cls := "ninja-title", trans.toInviteSomeoneToPlayGiveThisUrl()),
-                      br,
-                      p(cls := "challenge-id-form")(
-                        input(
-                          id         := "challenge-id",
-                          cls        := "copyable autoselect",
-                          spellcheck := "false",
-                          readonly,
-                          value := challengeLink,
-                          size  := challengeLink.length
+                }
+                .getOrElse {
+                  if c.isOpen then
+                    div(cls := "waiting")(
+                      spinner,
+                      p(trans.waitingForOpponent())
+                    )
+                  else
+                    div(cls := "invite")(
+                      div(
+                        h2(cls := "ninja-title", trans.toInviteSomeoneToPlayGiveThisUrl()),
+                        br,
+                        p(cls := "challenge-id-form")(
+                          input(
+                            id         := "challenge-id",
+                            cls        := "copyable autoselect",
+                            spellcheck := "false",
+                            readonly,
+                            value := challengeLink,
+                            size  := challengeLink.length
+                          ),
+                          button(
+                            title    := "Copy URL",
+                            cls      := "copy button",
+                            dataRel  := "challenge-id",
+                            dataIcon := licon.Link
+                          )
                         ),
-                        button(
-                          title    := "Copy URL",
-                          cls      := "copy button",
-                          dataRel  := "challenge-id",
-                          dataIcon := licon.Link
+                        p(trans.theFirstPersonToComeOnThisUrlWillPlayWithYou())
+                      ),
+                      ctx.isAuth.option(
+                        div(cls := "invite__user")(
+                          h2(cls := "ninja-title", trans.challenge.inviteLichessUser()),
+                          friends.nonEmpty.option(
+                            div(cls := "invite__user__recent")(
+                              friends.map: user =>
+                                button(cls := "button", dataUser := user.name):
+                                  lightUserSpan(user, withOnline = true)
+                            )
+                          ),
+                          br,
+                          postForm(
+                            cls    := "user-invite complete-parent",
+                            action := routes.Challenge.toFriend(c.id)
+                          )(
+                            input(
+                              name        := "username",
+                              cls         := "friend-autocomplete",
+                              placeholder := trans.search.search.txt()
+                            ),
+                            error.map { p(cls := "error")(_) }
+                          )
                         )
                       ),
-                      p(trans.theFirstPersonToComeOnThisUrlWillPlayWithYou())
-                    ),
-                    ctx.isAuth option div(cls := "invite__user")(
-                      h2(cls := "ninja-title", trans.challenge.inviteLichessUser()),
-                      friends.nonEmpty option div(cls := "invite__user__recent")(
-                        friends.map: user =>
-                          button(cls := "button", dataUser := user.name):
-                            lightUserSpan(user, withOnline = true)
-                      ),
-                      br,
-                      postForm(
-                        cls    := "user-invite complete-parent",
-                        action := routes.Challenge.toFriend(c.id)
-                      )(
-                        input(
-                          name        := "username",
-                          cls         := "friend-autocomplete",
-                          placeholder := trans.search.search.txt()
-                        ),
-                        error.map { p(cls := "error")(_) }
-                      )
-                    ),
-                    div(cls := "invite__qrcode")(
-                      h2(cls := "ninja-title", trans.orLetYourOpponentScanQrCode()),
-                      img(
-                        src := s"https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=$challengeLink",
-                        alt := "QR Code"
+                      div(cls := "invite__qrcode")(
+                        h2(cls := "ninja-title", trans.orLetYourOpponentScanQrCode()),
+                        img(
+                          src := s"https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=$challengeLink",
+                          alt := "QR Code"
+                        )
                       )
                     )
-                  )
-              },
+                },
               c.notableInitialFen.map { fen =>
                 frag(
                   br,
                   div(cls := "board-preview", views.html.board.bits.mini(fen.board, c.finalColor)(div))
                 )
               },
-              !c.isOpen option cancelForm
+              (!c.isOpen).option(cancelForm)
             )
           case Status.Declined =>
             div(cls := "follow-up")(

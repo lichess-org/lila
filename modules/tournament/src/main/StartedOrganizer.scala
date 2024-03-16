@@ -24,7 +24,7 @@ final private class StartedOrganizer(
         else 1000.some // always do massive tournaments
       .documentSource()
       .mapAsyncUnordered(4): tour =>
-        processTour(tour) recover { case e: Exception =>
+        processTour(tour).recover { case e: Exception =>
           logger.error(s"StartedOrganizer $tour", e)
           0
         }
@@ -37,22 +37,23 @@ final private class StartedOrganizer(
       .void
 
   private def processTour(tour: Tournament): Funit =
-    if tour.secondsToFinish <= 0 then api finish tour
+    if tour.secondsToFinish <= 0 then api.finish(tour)
     else if api.killSchedule contains tour.id then
-      api.killSchedule remove tour.id
-      api finish tour
+      api.killSchedule.remove(tour.id)
+      api.finish(tour)
     else if tour.nbPlayers < 2 then funit
     else if tour.nbPlayers < 30 then
-      playerRepo nbActivePlayers tour.id flatMap { nb =>
-        (nb >= 2) so startPairing(tour, nb.some)
+      playerRepo.nbActivePlayers(tour.id).flatMap { nb =>
+        (nb >= 2).so(startPairing(tour, nb.some))
       }
     else startPairing(tour)
 
   private def startPairing(tour: Tournament, smallTourNbActivePlayers: Option[Int] = None): Funit =
-    !tour.pairingsClosed so
+    (!tour.pairingsClosed).so(
       socket
         .getWaitingUsers(tour)
         .monSuccess(_.tournament.startedOrganizer.waitingUsers)
         .flatMap: waiting =>
           lila.mon.tournament.waitingPlayers.record(waiting.size)
           api.makePairings(tour, waiting, smallTourNbActivePlayers)
+    )

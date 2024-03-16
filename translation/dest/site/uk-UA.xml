@@ -306,6 +306,7 @@
   <string name="abortGame">Скасувати гру</string>
   <string name="gameAborted">Гру скасовано</string>
   <string name="standard">Стандартний</string>
+  <string name="customPosition">Користувацька позиція</string>
   <string name="unlimited">Необмежений</string>
   <string name="mode">Режим</string>
   <string name="casual">Дружня гра</string>
@@ -575,7 +576,7 @@
   <string name="editProfile">Редагувати профіль</string>
   <string name="firstName">Ім\'я</string>
   <string name="lastName">Прізвище</string>
-  <string name="setFlair">Оберіть свій тотем</string>
+  <string name="setFlair">Оберіть свій емодзі</string>
   <string name="flair">Аватар</string>
   <string name="youCanHideFlair">Це налаштування вимикає аватари всіх користувачів сайту.</string>
   <string name="biography">Біографія</string>
@@ -600,7 +601,7 @@
   <string name="automaticallyProceedToNextGameAfterMoving">Автоматично перейти до наступної гри після ходу</string>
   <string name="autoSwitch">Автоперехід</string>
   <string name="puzzles">Задачі</string>
-  <string name="tournamentWinners">Переможці турнірів</string>
+  <string name="onlineBots">Онлайн-боти</string>
   <string name="name">Назва</string>
   <string name="description">Опис</string>
   <string name="descPrivate">Приватний опис</string>
@@ -767,6 +768,7 @@
   <string name="keyboardShortcuts">Комбінації клавіш</string>
   <string name="keyMoveBackwardOrForward">хід назад/вперед</string>
   <string name="keyGoToStartOrEnd">перейти до початку/кінця</string>
+  <string name="keyCycleSelectedVariation">Прокрутити вибраний варіант</string>
   <string name="keyShowOrHideComments">показати/приховати коментарі</string>
   <string name="keyEnterOrExitVariation">зайти/вийти з варіанту</string>
   <string name="keyRequestComputerAnalysis">Зробити запит на комп\'ютерний аналіз, Учіться на своїх помилках</string>
@@ -777,6 +779,10 @@
   <string name="keyPreviousBranch">Попередній варіант</string>
   <string name="keyNextBranch">Наступний варіант</string>
   <string name="toggleVariationArrows">Показати стрілки варіантів</string>
+  <string name="cyclePreviousOrNextVariation">Прокрутити попередній/наступний варіант</string>
+  <string name="toggleGlyphAnnotations">Перемкнути анотації ходів</string>
+  <string name="togglePositionAnnotations">Перемкнути анотації позицій</string>
+  <string name="variationArrowsInfo">Стрілки варіантів дозволяють переміщуватись без використання списку ходів.</string>
   <string name="playSelectedMove">зіграти обраний хід</string>
   <string name="newTournament">Новий турнір</string>
   <string name="tournamentHomeTitle">Шаховий турнір із різними контролем часу та варіантами</string>
@@ -967,6 +973,7 @@
   <string name="agreementPolicy">Я погоджуюся, що я буду слідувати усім правилам Lichess.</string>
   <string name="searchOrStartNewDiscussion">Шукати або розпочати бесіду</string>
   <string name="edit">Змінити</string>
+  <string name="bullet" comment="Probably best left untranslated. Leave it as 'Bullet' unless your language has a better word for it.">Куля</string>
   <string name="blitz" comment="Probably best left untranslated. Leave it as 'Blitz' unless your language has a better word for it.">Бліц</string>
   <string name="rapid">Швидкі</string>
   <string name="classical">Класичні</string>
@@ -1018,8 +1025,6 @@
   <string name="minimumRatedGames">Мінімум рейтингових ігор</string>
   <string name="minimumRating">Мінімальний рейтинг</string>
   <string name="maximumWeeklyRating">Максимальний тижневий рейтинг</string>
-  <string name="onlyTitled">Лише титуловані гравці</string>
-  <string name="onlyTitledHelp">Вимагає офіційний титул щоб приєднатись до турніру</string>
   <string name="positionInputHelp">Вставте правильний FEN для початку кожної гри з даної позиції.
 Він працює тільки з стандартними іграми, а не з варіантами.
 Для генерації позиції FEN ви можете використати %s щоб вставити його тут.
@@ -1067,4 +1072,5 @@
   <string name="instructions">Інструкція</string>
   <string name="showMeEverything">Показати все</string>
   <string name="lichessPatronInfo">Lichess - це благодійне і абсолютно безкоштовне програмне забезпечення з відкритим кодом. Усі витрати на обслуговування, розробка та вміст фінансуються виключно за рахунок пожертвувань користувачів.</string>
+  <string name="nothingToSeeHere">Поки тут нічого немає.</string>
 </resources>

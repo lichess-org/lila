@@ -2,7 +2,7 @@ package views.html.site
 
 import controllers.routes
 
-import lila.app.templating.Environment.{ given, * }
+import lila.app.templating.Environment.{ *, given }
 import lila.app.ui.ScalatagsTemplate.{ *, given }
 import lila.cms.CmsPage
 
@@ -12,9 +12,9 @@ object page:
     views.html.base.layout(
       moreCss = cssTag("page"),
       title = p.title,
-      moreJs = p.key == CmsPage.Key("fair-play") option embedJsUnsafeLoadThen("""$('.slist td').each(function() {
+      moreJs = (p.key == CmsPage.Key("fair-play")).option(embedJsUnsafeLoadThen("""$('.slist td').each(function() {
 if (this.innerText == 'YES') this.style.color = 'green'; else if (this.innerText == 'NO') this.style.color = 'red';
-})""")
+})"""))
     ):
       main(cls := "page-small box box-pad page force-ltr")(pageContent(p))
 
@@ -98,7 +98,7 @@ $('#asset-version-message').text(site.info.message);"""
           h1(cls := "box__top")("HTTP API"),
           p(
             "Lichess exposes a RESTish HTTP/JSON API that you are welcome to use. Read the ",
-            a(href := "/api")("HTTP API documentation</a>"),
+            a(href := "/api")("HTTP API documentation"),
             "."
           )
         ),
@@ -123,7 +123,25 @@ $('#asset-version-message').text(site.info.message);"""
                   dataIcon := licon.Link
                 )
               ),
-              parameters
+              parameters,
+              p(
+                "You can also show the channel for a specific variant or time control by adding the channel key to the URL, corresponding to the channels available at ",
+                a(href := "/tv")("lichess.org/tv"),
+                ". If not included, the top rated game will be shown."
+              ),
+              p(cls := "copy-zone")(
+                input(
+                  id    := "tv-channel-embed-src",
+                  cls   := "copyable autoselect",
+                  value := s"""<iframe src="$netBaseUrl/tv/rapid/frame?theme=brown&bg=dark" $args></iframe>"""
+                ),
+                button(
+                  st.title := "Copy code",
+                  cls      := "copy button",
+                  dataRel  := "tv-channel-embed-src",
+                  dataIcon := licon.Link
+                )
+              )
             )
           )
         },

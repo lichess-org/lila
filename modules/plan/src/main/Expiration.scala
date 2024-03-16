@@ -14,22 +14,20 @@ final private class Expiration(
   def run: Funit =
     getExpired.flatMap:
       _.traverse_ { patron =>
-        patronColl.update.one($id(patron.id), patron.removePayPal) >>
-          disableUserPlanOf(patron) andDo
-          logger.info(s"Expired $patron")
+        (patronColl.update.one($id(patron.id), patron.removePayPal) >>
+          disableUserPlanOf(patron)).andDo(logger.info(s"Expired $patron"))
       }
 
   private def disableUserPlanOf(patron: Patron): Funit =
-    userRepo byId patron.userId flatMapz { user =>
-      userRepo.setPlan(user, user.plan.disable) andDo
-        notifier.onExpire(user)
+    userRepo.byId(patron.userId).flatMapz { user =>
+      userRepo.setPlan(user, user.plan.disable).andDo(notifier.onExpire(user))
     }
 
   private def getExpired =
     patronColl.list[Patron](
       $doc(
-        "expiresAt" $lt nowInstant,
-        "lifetime" $ne true
+        "expiresAt".$lt(nowInstant),
+        "lifetime".$ne(true)
       ),
       50
     )

@@ -1,9 +1,9 @@
 package lila.puzzle
 
 import com.softwaremill.macwire.*
-import lila.common.autoconfig.{ *, given }
 import play.api.Configuration
 
+import lila.common.autoconfig.{ *, given }
 import lila.common.config.*
 import lila.db.AsyncColl
 
@@ -91,13 +91,15 @@ final class Env(
         opening.recomputeAll
         fuccess("started in background")
       case "puzzle" :: "issue" :: id :: issue :: Nil =>
-        api.puzzle.setIssue(PuzzleId(id), issue) map: res =>
-          if res then "done" else "not found"
+        api.puzzle
+          .setIssue(PuzzleId(id), issue)
+          .map: res =>
+            if res then "done" else "not found"
 
   scheduler.scheduleAtFixedRate(10 minutes, 1 day): () =>
     tagger.addAllMissing
 
-  if mode == play.api.Mode.Prod then
+  if mode.isProd then
     scheduler.scheduleAtFixedRate(1 hour, 1 hour): () =>
       pathApi.isStale.foreach: stale =>
         if stale then logger.error("Puzzle paths appear to be stale! check that the regen cron is up")

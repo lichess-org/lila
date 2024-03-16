@@ -1,7 +1,7 @@
 package lila.insight
 
-import chess.{ Centis, Ply, Clock, Role }
 import chess.format.pgn.SanStr
+import chess.{ Centis, Clock, Ply, Role }
 
 import lila.analyse.{ AccuracyPercent, WinPercent }
 import lila.common.{ LilaOpeningFamily, SimpleOpening }
@@ -42,7 +42,7 @@ object ClockPercent extends OpaqueDouble[ClockPercent]:
   extension (a: ClockPercent) def toInt = Percent.toInt(a)
 
   def apply(clock: Clock.Config, timeLeft: Centis): ClockPercent = ClockPercent(
-    (100 * timeLeft.centis.toDouble / clock.estimateTotalTime.centis) atLeast 0 atMost 100
+    (100 * timeLeft.centis.toDouble / clock.estimateTotalTime.centis).atLeast(0).atMost(100)
   )
   inline def fromPercent(p: Double) = ClockPercent(p)
   inline def fromPercent(p: Int)    = ClockPercent(p.toDouble)
@@ -108,7 +108,7 @@ enum Castling(val id: Int, val name: String):
 object Castling:
   val byId = values.mapBy(_.id)
   def fromMoves(moves: Iterable[SanStr]) =
-    SanStr.raw(moves).find(_ startsWith "O") match
+    SanStr.raw(moves).find(_.startsWith("O")) match
       case Some("O-O")   => Kingside
       case Some("O-O-O") => Queenside
       case _             => None

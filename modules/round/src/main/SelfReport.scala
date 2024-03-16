@@ -1,8 +1,9 @@
 package lila.round
 
 import com.softwaremill.tagging.*
-import scala.util.matching.Regex
 import ornicar.scalalib.ThreadLocalRandom
+
+import scala.util.matching.Regex
 
 import lila.common.{ IpAddress, IpAddressStr }
 import lila.game.Game
@@ -25,7 +26,7 @@ final class SelfReport(
       fullId: GameFullId,
       name: String
   ): Funit =
-    userId so userApi.withPerfs map { user =>
+    userId.so(userApi.withPerfs).map { user =>
       val known = user.exists(_.marks.engine)
       // user.ifTrue(!known && name != "ceval") so { u =>
       //   Env.report.api.autoBotReport(u.id, referer, name)

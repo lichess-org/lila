@@ -1,11 +1,10 @@
 package lila.coach
 
+import akka.actor.ActorSystem
 import com.softwaremill.macwire.*
-import lila.common.autoconfig.{ *, given }
 import play.api.Configuration
 
 import lila.common.config.*
-import akka.actor.ActorSystem
 
 @Module
 final class Env(
@@ -27,5 +26,5 @@ final class Env(
   lila.common.Bus.subscribeFun("finishGame"):
     case lila.game.actorApi.FinishGame(game, users) if game.rated =>
       if lila.rating.PerfType.standard.has(game.perfType) then
-        users.white so api.setRating
-        users.black so api.setRating
+        users.white.so(api.setRating)
+        users.black.so(api.setRating)

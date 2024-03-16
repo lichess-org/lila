@@ -1,14 +1,12 @@
 package lila.challenge
 
 import com.softwaremill.macwire.*
-import play.api.Configuration
 
 import lila.common.config.*
 import lila.socket.{ GetVersion, SocketVersion }
 
 @Module
 final class Env(
-    appConfig: Configuration,
     gameRepo: lila.game.GameRepo,
     userRepo: lila.user.UserRepo,
     perfsRepo: lila.user.UserPerfsRepo,
@@ -34,7 +32,7 @@ final class Env(
   private val colls = wire[ChallengeColls]
 
   def version(challengeId: Challenge.Id): Fu[SocketVersion] =
-    socket.rooms.ask[SocketVersion](challengeId into RoomId)(GetVersion.apply)
+    socket.rooms.ask[SocketVersion](challengeId.into(RoomId))(GetVersion.apply)
 
   private lazy val joiner = wire[ChallengeJoiner]
 

@@ -1,8 +1,8 @@
 package lila.coordinate
 
+import chess.Color
 import play.api.data.*
 import play.api.data.Forms.*
-import chess.Color
 
 object CoordinateForm:
 

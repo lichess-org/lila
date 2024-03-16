@@ -10,14 +10,14 @@ object EvaluationBsonHandlers:
   given BSON[PlayerFlags] with
     def reads(r: BSON.Reader): PlayerFlags =
       PlayerFlags(
-        suspiciousErrorRate = r boolD "ser",
-        alwaysHasAdvantage = r boolD "aha",
-        highBlurRate = r boolD "hbr",
-        moderateBlurRate = r boolD "mbr",
-        highlyConsistentMoveTimes = r boolD "hcmt",
-        moderatelyConsistentMoveTimes = r boolD "cmt",
-        noFastMoves = r boolD "nfm",
-        suspiciousHoldAlert = r boolD "sha"
+        suspiciousErrorRate = r.boolD("ser"),
+        alwaysHasAdvantage = r.boolD("aha"),
+        highBlurRate = r.boolD("hbr"),
+        moderateBlurRate = r.boolD("mbr"),
+        highlyConsistentMoveTimes = r.boolD("hcmt"),
+        moderatelyConsistentMoveTimes = r.boolD("cmt"),
+        noFastMoves = r.boolD("nfm"),
+        suspiciousHoldAlert = r.boolD("sha")
       )
     def writes(w: BSON.Writer, o: PlayerFlags) =
       $doc(
@@ -35,28 +35,28 @@ object EvaluationBsonHandlers:
 
   given BSON[PlayerAssessment] with
     def reads(r: BSON.Reader): PlayerAssessment = PlayerAssessment(
-      _id = r str "_id",
+      _id = r.str("_id"),
       gameId = r.get[GameId]("gameId"),
       userId = r.get[UserId]("userId"),
-      color = chess.Color.fromWhite(r bool "white"),
+      color = chess.Color.fromWhite(r.bool("white")),
       assessment = r.get[GameAssessment]("assessment"),
-      date = r date "date",
+      date = r.date("date"),
       basics = PlayerAssessment.Basics(
         moveTimes = Statistics.IntAvgSd(
-          avg = r int "mtAvg",
-          sd = r int "mtSd"
+          avg = r.int("mtAvg"),
+          sd = r.int("mtSd")
         ),
-        hold = r bool "hold",
-        blurs = r int "blurs",
-        blurStreak = r intO "blurStreak",
-        mtStreak = r boolD "mtStreak"
+        hold = r.bool("hold"),
+        blurs = r.int("blurs"),
+        blurStreak = r.intO("blurStreak"),
+        mtStreak = r.boolD("mtStreak")
       ),
       analysis = Statistics.IntAvgSd(
-        avg = r int "sfAvg",
-        sd = r int "sfSd"
+        avg = r.int("sfAvg"),
+        sd = r.int("sfSd")
       ),
       flags = r.get[PlayerFlags]("flags"),
-      tcFactor = r doubleO "tcFactor"
+      tcFactor = r.doubleO("tcFactor")
     )
     def writes(w: BSON.Writer, o: PlayerAssessment) =
       $doc(

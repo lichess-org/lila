@@ -38,4 +38,5 @@
   <string name="editRoundStudy">Upraviť kolo štúdií</string>
   <string name="deleteTournament">Vymazať tento turnaj</string>
   <string name="definitivelyDeleteTournament">Definitívne odstrániť celý turnaj so všetkými kolami a všetkými partiami.</string>
+  <string name="replacePlayerTags">Voliteľné: nahradiť mená hráčov, hodnotenia a tituly</string>
 </resources>

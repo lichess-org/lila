@@ -1,9 +1,10 @@
 package lila.search
 
 import com.softwaremill.macwire.*
-import lila.common.autoconfig.*
 import play.api.Configuration
 import play.api.libs.ws.StandaloneWSClient
+
+import lila.common.autoconfig.*
 
 @Module
 private class SearchConfig(

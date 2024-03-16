@@ -19,12 +19,12 @@ object StepBuilder:
   ): JsArray =
     chess.Replay.gameMoveWhileValid(sans, initialFen, variant) match
       case (init, games, error) =>
-        error foreach logChessError(id.value)
+        error.foreach(logChessError(id.value))
         JsArray {
           val initStep = Step(
             ply = init.ply,
             move = none,
-            fen = Fen write init,
+            fen = Fen.write(init),
             check = init.situation.check,
             dests = None,
             drops = None,
@@ -34,7 +34,7 @@ object StepBuilder:
             Step(
               ply = g.ply,
               move = m.some,
-              fen = Fen write g,
+              fen = Fen.write(g),
               check = g.situation.check,
               dests = None,
               drops = None,

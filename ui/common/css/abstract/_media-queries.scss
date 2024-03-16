@@ -6,6 +6,7 @@ $mq-width-small: 800px;
 $mq-width-medium: 980px;
 $mq-width-large: 1120px;
 $mq-width-x-large: 1260px;
+$mq-width-xx-large: 1500px;
 
 $mq-xx-small: min-width ($mq-width-xx-small - 0.7px);
 $mq-x-small: min-width ($mq-width-x-small - 0.7px);
@@ -13,6 +14,7 @@ $mq-small: min-width ($mq-width-small - 0.7px);
 $mq-medium: min-width ($mq-width-medium - 0.7px);
 $mq-large: min-width ($mq-width-large - 0.7px);
 $mq-x-large: min-width ($mq-width-x-large - 0.7px);
+$mq-xx-large: min-width ($mq-width-xx-large - 0.7px);
 
 $mq-less-than-400: max-width 400px;
 $mq-not-xx-small: max-width ($mq-width-xx-small - 0.71px);

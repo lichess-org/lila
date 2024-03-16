@@ -46,9 +46,14 @@
         background: $c-bg-zebra;
       }
       color: $c-font;
+      border: 1px solid transparent;
       &:hover {
-        background: mix($c-bg-box, $c-link, 90%);
+        background: mix($c-link, $c-bg-box, 12%);
+        border-color: mix($c-link, $c-bg-box, 50%);
         color: $c-font-clearer;
+        .mini-game__flag {
+          opacity: 1;
+        }
       }
       &__status {
         padding: 0.4em 1em;

@@ -30,17 +30,17 @@ object Iso:
   def strings(sep: String): StringIso[Strings] =
     Iso[String, Strings](
       str => Strings(str.split(sep).iterator.map(_.trim).toList),
-      strs => strs.value mkString sep
+      strs => strs.value.mkString(sep)
     )
   def userIds(sep: String): StringIso[UserIds] =
     Iso[String, UserIds](
       str => UserIds(str.split(sep).iterator.map(_.trim.toLowerCase).toList),
-      strs => strs.value mkString sep
+      strs => strs.value.mkString(sep)
     )
   def ints(sep: String): StringIso[Ints] =
     Iso[String, Ints](
       str => Ints(str.split(sep).iterator.map(_.trim).flatMap(_.toIntOption).toList),
-      strs => strs.value mkString sep
+      strs => strs.value.mkString(sep)
     )
 
   given StringIso[IpAddress] = string[IpAddress](IpAddress.unchecked, _.value)

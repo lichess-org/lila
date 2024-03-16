@@ -1,10 +1,10 @@
 package lila.simul
 
-import lila.rating.{ Perf, PerfType }
-import lila.user.{ UserPerfs, Me }
-import lila.gathering.{ Condition, ConditionList }
 import lila.gathering.Condition.*
+import lila.gathering.{ Condition, ConditionList }
 import lila.hub.LightTeam
+import lila.rating.{ Perf, PerfType }
+import lila.user.Me
 
 object SimulCondition:
 
@@ -21,11 +21,14 @@ object SimulCondition:
         GetMaxRating,
         Executor
     ): Fu[WithVerdicts] =
-      list.map {
-        case c: MaxRating  => c(pt) map c.withVerdict
-        case c: TeamMember => c.apply map c.withVerdict
-        case c: FlatCond   => fuccess(c withVerdict c(pt))
-      }.parallel dmap WithVerdicts.apply
+      list
+        .map {
+          case c: MaxRating  => c(pt).map(c.withVerdict)
+          case c: TeamMember => c.apply.map(c.withVerdict)
+          case c: FlatCond   => fuccess(c.withVerdict(c(pt)))
+        }
+        .parallel
+        .dmap(WithVerdicts.apply)
 
   object All:
     val empty = All(none, none, none)

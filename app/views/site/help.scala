@@ -2,7 +2,7 @@ package views.html.site
 
 import play.api.i18n.Lang
 
-import lila.app.templating.Environment.{ *, given }
+import lila.app.templating.Environment.*
 import lila.app.ui.ScalatagsTemplate.{ *, given }
 
 object help:
@@ -97,14 +97,16 @@ object help:
           row(kbd("c"), trans.focusChat()),
           row(frag(kbd("shift"), kbd("C")), trans.keyShowOrHideComments()),
           helpDialog,
-          isStudy option frag(
-            header(trans.study.studyActions()),
-            row(kbd("d"), trans.study.commentThisPosition()),
-            row(kbd("g"), trans.study.annotateWithGlyphs()),
-            row(kbd("n"), trans.study.nextChapter()),
-            row(kbd("p"), trans.study.prevChapter()),
-            row(frag((1 to 6).map(kbd(_))), trans.toggleGlyphAnnotations()),
-            row(frag(kbd("shift"), (1 to 8).map(kbd(_))), trans.togglePositionAnnotations())
+          isStudy.option(
+            frag(
+              header(trans.study.studyActions()),
+              row(kbd("d"), trans.study.commentThisPosition()),
+              row(kbd("g"), trans.study.annotateWithGlyphs()),
+              row(kbd("n"), trans.study.nextChapter()),
+              row(kbd("p"), trans.study.prevChapter()),
+              row(frag((1 to 6).map(kbd(_))), trans.toggleGlyphAnnotations()),
+              row(frag(kbd("shift"), (1 to 8).map(kbd(_))), trans.togglePositionAnnotations())
+            )
           ),
           header(trans.mouseTricks()),
           tr(

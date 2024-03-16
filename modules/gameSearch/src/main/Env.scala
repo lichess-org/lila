@@ -1,12 +1,12 @@
 package lila.gameSearch
 
 import com.softwaremill.macwire.*
-import lila.common.autoconfig.{ *, given }
 import play.api.Configuration
 
+import lila.common.autoconfig.{ *, given }
+import lila.common.config.*
 import lila.game.actorApi.{ FinishGame, InsertGame }
 import lila.search.*
-import lila.common.config.*
 
 @Module
 private class GameSearchConfig(

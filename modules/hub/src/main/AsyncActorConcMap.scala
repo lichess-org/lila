@@ -1,8 +1,9 @@
 package lila.hub
 
+import alleycats.Zero
+
 import java.util.concurrent.ConcurrentHashMap
 import java.util.function.Function
-import alleycats.Zero
 import scala.jdk.CollectionConverters.*
 
 final class AsyncActorConcMap[Id, D <: AsyncActor](
@@ -14,19 +15,19 @@ final class AsyncActorConcMap[Id, D <: AsyncActor](
 
   def getOrMake(id: Id): D = asyncActors.computeIfAbsent(id, loadFunction)
 
-  def getIfPresent(id: Id): Option[D] = Option(asyncActors get id)
+  def getIfPresent(id: Id): Option[D] = Option(asyncActors.get(id))
 
-  def tellIfPresent(id: Id, msg: => Matchable): Unit = getIfPresent(id) foreach (_ ! msg)
+  def tellIfPresent(id: Id, msg: => Matchable): Unit = getIfPresent(id).foreach(_ ! msg)
 
   def tellAll(msg: Matchable) = asyncActors.forEachValue(16, _ ! msg)
 
-  def tellIds(ids: Seq[Id], msg: Matchable): Unit = ids foreach { tell(_, msg) }
+  def tellIds(ids: Seq[Id], msg: Matchable): Unit = ids.foreach { tell(_, msg) }
 
   def ask[A](id: Id)(makeMsg: Promise[A] => Matchable): Fu[A] = getOrMake(id).ask(makeMsg)
 
   def askIfPresent[A](id: Id)(makeMsg: Promise[A] => Matchable): Fu[Option[A]] =
     getIfPresent(id).soFu:
-      _ ask makeMsg
+      _.ask(makeMsg)
 
   def askIfPresentOrZero[A: Zero](id: Id)(makeMsg: Promise[A] => Matchable): Fu[A] =
     askIfPresent(id)(makeMsg).dmap(_.orZero)
@@ -38,7 +39,7 @@ final class AsyncActorConcMap[Id, D <: AsyncActor](
 
   def tellAllWithAck(makeMsg: Promise[Unit] => Matchable)(using Executor): Fu[Int] =
     asyncActors.values.asScala
-      .map(_ ask makeMsg)
+      .map(_.ask(makeMsg))
       .parallel
       .map(_.size)
 
@@ -62,10 +63,10 @@ final class AsyncActorConcMap[Id, D <: AsyncActor](
         nullD
     )
 
-  private[this] val asyncActors = new ConcurrentHashMap[Id, D](initialCapacity)
+  private val asyncActors = ConcurrentHashMap[Id, D](initialCapacity)
 
   private val loadFunction = new Function[Id, D]:
     def apply(k: Id) = mkAsyncActor(k)
 
   // used to remove entries
-  private[this] var nullD: D = _
+  private var nullD: D = scala.compiletime.uninitialized

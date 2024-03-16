@@ -1,7 +1,7 @@
 package views.html
 package game
 
-import lila.app.templating.Environment.{ given, * }
+import lila.app.templating.Environment.{ *, given }
 import lila.app.ui.ScalatagsTemplate.{ *, given }
 import lila.game.{ Game, Player, Pov }
 
@@ -15,8 +15,8 @@ object widgets:
       user: Option[lila.user.User] = None,
       ownerLink: Boolean = false
   )(using Context): Frag =
-    games map { g =>
-      val fromPlayer  = user flatMap g.player
+    games.map { g =>
+      val fromPlayer  = user.flatMap(g.player)
       val firstPlayer = fromPlayer | g.player(g.naturalOrientation)
       st.article(cls := "game-row paginated")(
         a(cls := "game-row__overlay", href := gameLink(g, firstPlayer.color, ownerLink)),
@@ -46,15 +46,16 @@ object widgets:
                   )
               ),
               g.pgnImport.flatMap(_.date).fold[Frag](momentFromNowWithPreload(g.createdAt))(frag(_)),
-              g.tournamentId.map { tourId =>
-                frag(separator, tournamentLink(tourId))
-              } orElse
-                g.simulId.map { simulId =>
-                  frag(separator, views.html.simul.bits.link(simulId))
-                } orElse
-                g.swissId.map { swissId =>
-                  frag(separator, views.html.swiss.bits.link(SwissId(swissId)))
+              g.tournamentId
+                .map { tourId =>
+                  frag(separator, tournamentLink(tourId))
                 }
+                .orElse(g.simulId.map { simulId =>
+                  frag(separator, views.html.simul.bits.link(simulId))
+                })
+                .orElse(g.swissId.map { swissId =>
+                  frag(separator, views.html.swiss.bits.link(SwissId(swissId)))
+                })
             )
           ),
           div(cls := "versus")(
@@ -78,24 +79,30 @@ object widgets:
           ),
           if g.playedTurns > 0 then
             div(cls := "opening")(
-              (!g.fromPosition so g.opening) map { opening =>
+              ((!g.fromPosition).so(g.opening)).map { opening =>
                 strong(opening.opening.name)
               },
               div(cls := "pgn")(
-                g.sans.take(6).grouped(2).zipWithIndex.map {
-                  case (Vector(w, b), i) => s"${i + 1}. $w $b"
-                  case (Vector(w), i)    => s"${i + 1}. $w"
-                  case _                 => ""
-                } mkString " ",
-                g.ply > 6 option s" ... ${1 + (g.ply.value - 1) / 2} moves "
+                g.sans
+                  .take(6)
+                  .grouped(2)
+                  .zipWithIndex
+                  .map {
+                    case (Vector(w, b), i) => s"${i + 1}. $w $b"
+                    case (Vector(w), i)    => s"${i + 1}. $w"
+                    case _                 => ""
+                  }
+                  .mkString(" "),
+                (g.ply > 6).option(s" ... ${1 + (g.ply.value - 1) / 2} moves ")
               )
             )
           else frag(br, br),
-          notes get g.id map { note =>
+          notes.get(g.id).map { note =>
             div(cls := "notes")(strong("Notes: "), note)
           },
-          g.metadata.analysed option
-            div(cls := "metadata text", dataIcon := licon.BarChart)(trans.computerAnalysisAvailable()),
+          g.metadata.analysed.option(
+            div(cls := "metadata text", dataIcon := licon.BarChart)(trans.computerAnalysisAvailable())
+          ),
           g.pgnImport.flatMap(_.user).map { user =>
             div(cls := "metadata")("PGN import by ", userIdLink(user.some))
           }
@@ -125,12 +132,14 @@ object widgets:
           frag(
             userIdLink(playerUser.id.some, withOnline = false),
             br,
-            player.berserk option berserkIconSpan,
-            ctx.pref.showRatings option frag(
-              playerUser.rating,
-              player.provisional.yes option "?",
-              playerUser.ratingDiff.map: d =>
-                frag(" ", showRatingDiff(d))
+            player.berserk.option(berserkIconSpan),
+            ctx.pref.showRatings.option(
+              frag(
+                playerUser.rating,
+                player.provisional.yes.option("?"),
+                playerUser.ratingDiff.map: d =>
+                  frag(" ", showRatingDiff(d))
+              )
             )
           )
         .getOrElse:

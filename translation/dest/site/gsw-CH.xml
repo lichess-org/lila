@@ -22,27 +22,27 @@
   <string name="asBlack">als Schwarz</string>
   <string name="randomColor">Farb zuefällig</string>
   <string name="createAGame">Erschtell e Partie</string>
-  <string name="whiteIsVictorious">Wiss gwünnt</string>
-  <string name="blackIsVictorious">Schwarz gwünnt</string>
+  <string name="whiteIsVictorious">Wiss günnt</string>
+  <string name="blackIsVictorious">Schwarz günnt</string>
   <string name="youPlayTheWhitePieces">Du schpillsch mit Wiss</string>
   <string name="youPlayTheBlackPieces">Du schpillsch mit Schwarz</string>
   <string name="itsYourTurn">Du bisch dra!</string>
   <string name="cheatDetected">Betrug bemerkt</string>
   <string name="kingInTheCenter">König im Zäntrum</string>
-  <string name="threeChecks">Three checks</string>
+  <string name="threeChecks">Drümal Schach</string>
   <string name="raceFinished">Ränne beändet</string>
   <string name="variantEnding">Variante ändet</string>
   <string name="newOpponent">En neue Gägner</string>
   <string name="yourOpponentWantsToPlayANewGameWithYou">Din Gägner wett es neus Schpil mit dir schpille</string>
   <string name="joinTheGame">Tritt de Partie bi</string>
   <string name="whitePlays">Wiss am Zug</string>
-  <string name="blackPlays">Schwarz isch am Zug</string>
+  <string name="blackPlays">Schwarz am Zug</string>
   <plurals name="opponentLeftCounter">
     <item quantity="one">Din Gägner hät d\'Partie verlah. Du chasch in %s Sekunde din Sieg beaschpruche</item>
     <item quantity="other">Din Gägner hät d\'Partie verlah, du chasch in %s Sekunde din Sieg beaschpruche</item>
   </plurals>
   <string name="opponentLeftChoices">Din Gägner hät s\'Schpiel verlah. Du chasch de Sieg beaschpruche, es Remis mache oder warte.</string>
-  <string name="forceResignation">De Sieg beaschpruche</string>
+  <string name="forceResignation">Sieg beaschpruche</string>
   <string name="forceDraw">Remis mälde</string>
   <string name="talkInChat">Bitte blib nett im Chat!</string>
   <string name="theFirstPersonToComeOnThisUrlWillPlayWithYou">Die erscht Person, wo die URL klickt, schpillt mit dir.</string>
@@ -52,15 +52,15 @@
   <string name="blackLeftTheGame">Schwarz hät d\'Partie verlah</string>
   <string name="whiteDidntMove">Wiss hät nöd zoge</string>
   <string name="blackDidntMove">Schwarz hät nöd zoge</string>
-  <string name="requestAComputerAnalysis">E Computeranalyse afordere</string>
+  <string name="requestAComputerAnalysis">Computer-Analyse afordere</string>
   <string name="computerAnalysis">Computer-Analyse</string>
   <string name="computerAnalysisAvailable">Computer-Analyse verfüegbar</string>
-  <string name="computerAnalysisDisabled">Computeranalyse deaktiviert</string>
+  <string name="computerAnalysisDisabled">Computer-Analyse deaktiviert</string>
   <string name="analysis">Analysebrätt</string>
   <string name="depthX">Tüfi: %s</string>
   <string name="usingServerAnalysis">Server-Analyse benutze</string>
   <string name="loadingEngine">Engine wird glade ...</string>
-  <string name="calculatingMoves">berächnet Züg</string>
+  <string name="calculatingMoves">Zugs-Berächnig...</string>
   <string name="engineFailed">Fähler bim Engine lade</string>
   <string name="cloudAnalysis">Cloud-Analyse</string>
   <string name="goDeeper">Gang tüfer</string>
@@ -79,8 +79,8 @@
   <string name="pawnMove">Pure-Zug</string>
   <string name="capture">Schlag-Zug</string>
   <string name="close">Schlüsse</string>
-  <string name="winning">Gwünnt</string>
-  <string name="losing">Verlürt</string>
+  <string name="winning">Gwünn-Zug</string>
+  <string name="losing">Verlore</string>
   <string name="drawn">Remis</string>
   <string name="unknown">Unbekannt</string>
   <string name="database">Datäbank</string>
@@ -277,6 +277,7 @@ Au vum Erschtelle vu mehrere Konte wird dringend abgrate - übermässigs Multiko
   <string name="abortGame">Partie abbräche</string>
   <string name="gameAborted">Partie abbroche</string>
   <string name="standard">Standard</string>
+  <string name="customPosition">Benutzerdefinierti Schtellig</string>
   <string name="unlimited">Unbegränzt</string>
   <string name="mode">Modus</string>
   <string name="casual">Ungwertet</string>
@@ -533,7 +534,7 @@ zum bewise dass du en Mänsch bisch.</string>
   <string name="automaticallyProceedToNextGameAfterMoving">Nach em Zug automatisch zur nächschte Partie</string>
   <string name="autoSwitch">Automatische Wächsel</string>
   <string name="puzzles">Ufgabe</string>
-  <string name="tournamentWinners">Turnier Sieger</string>
+  <string name="onlineBots">Online Roboter</string>
   <string name="name">Name</string>
   <string name="description">Beschribig</string>
   <string name="descPrivate">Privati Beschribig</string>
@@ -949,8 +950,6 @@ und beiflussed dini Wertig</string>
   <string name="minimumRatedGames">Minimum gwerteti Partie</string>
   <string name="minimumRating">Minimali Wertig</string>
   <string name="maximumWeeklyRating">Maximali wüchentlichi Wertig</string>
-  <string name="onlyTitled">Nur für Schpiller mit Titel</string>
-  <string name="onlyTitledHelp">Für das Turnier muesch en offizielle Titel ha</string>
   <string name="positionInputHelp">E gültigi FEN schtartet jedes Schpiel ab ere beschtimmte Schtellig. 
 Das funktioniert nur für Schtandardschpiel und nöd für Variante!
 Du chasch mit %s so e FEN-Schtellig generiere und 
@@ -1000,4 +999,5 @@ Fäld leer lah und all Schpiel normal schtarte.</string>
   <string name="showMeEverything">Zeig mer alles</string>
   <string name="lichessPatronInfo">Lichess isch e Wohltätigkeitsorganisation und e völlig choschtelosi/freii Open-Source-Software.
 Alli Betriebs-Choschte, d\'Entwicklig und d\'Inhält werded usschliesslich dur Benutzerschpände finanziert.</string>
+  <string name="nothingToSeeHere">Da gits im monumäntan nüt z\'gseh.</string>
 </resources>

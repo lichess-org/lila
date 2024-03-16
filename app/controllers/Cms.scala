@@ -2,7 +2,8 @@ package controllers
 
 import play.api.mvc.*
 import views.*
-import lila.app.{ given, * }
+
+import lila.app.*
 import lila.cms.CmsPage
 
 final class Cms(env: Env) extends LilaController(env):
@@ -27,8 +28,8 @@ final class Cms(env: Env) extends LilaController(env):
       .fold(
         err => BadRequest.pageAsync(html.cms.create(err)),
         data =>
-          val page = data create me
-          api.create(page) inject Redirect(routes.Cms.edit(page.id)).flashSuccess
+          val page = data.create(me)
+          api.create(page).inject(Redirect(routes.Cms.edit(page.id)).flashSuccess)
       )
   }
 
@@ -45,14 +46,16 @@ final class Cms(env: Env) extends LilaController(env):
         .fold(
           err => BadRequest.pageAsync(html.cms.edit(err, pages.head, pages.tail)),
           data =>
-            api.update(pages.head, data) map: page =>
-              Redirect(routes.Cms.edit(page.id)).flashSuccess
+            api
+              .update(pages.head, data)
+              .map: page =>
+                Redirect(routes.Cms.edit(page.id)).flashSuccess
         )
   }
 
   def delete(id: CmsPage.Id) = Secure(_.Pages) { _ ?=> _ ?=>
     Found(api.get(id)): up =>
-      api.delete(up.id) inject Redirect(routes.Cms.index).flashSuccess
+      api.delete(up.id).inject(Redirect(routes.Cms.index).flashSuccess)
   }
 
   // pages
@@ -77,12 +80,12 @@ final class Cms(env: Env) extends LilaController(env):
 
   def menuPage(key: CmsPage.Key) = Open:
     pageHit
-    FoundPage(env.api cmsRender key):
+    FoundPage(env.api.cmsRender(key)):
       views.html.site.page.withMenu(key.value, _)
 
   def source = Open:
     pageHit
-    FoundPage(env.api cmsRenderKey "source"):
+    FoundPage(env.api.cmsRenderKey("source")):
       views.html.site.page.source
 
   def variantHome = Open:
@@ -95,6 +98,6 @@ final class Cms(env: Env) extends LilaController(env):
   def variant(key: Variant.LilaKey) = Open:
     (for
       variant  <- Variant(key)
-      perfType <- lila.rating.PerfType byVariant variant
+      perfType <- lila.rating.PerfType.byVariant(variant)
     yield FoundPage(env.api.cmsRenderKey(s"variant-${variant.key}")): p =>
       views.html.site.variant.show(p, variant, perfType)) | notFound

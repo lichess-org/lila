@@ -1,11 +1,10 @@
 package views.html.simul
 
+import controllers.routes
 import play.api.i18n.Lang
 
-import lila.app.templating.Environment.{ given, * }
+import lila.app.templating.Environment.{ *, given }
 import lila.app.ui.ScalatagsTemplate.{ *, given }
-
-import controllers.routes
 
 object bits:
 
@@ -40,7 +39,7 @@ object bits:
       simuls.map: simul =>
         val url = routes.Simul.show(simul.id)
         tr(
-          withName option td(cls := "name")(a(href := url)(simul.fullName)),
+          withName.option(td(cls := "name")(a(href := url)(simul.fullName))),
           td:
             if withName then userIdLink(simul.hostId.some)
             else a(href := url)(userIdSpanMini(simul.hostId, true))

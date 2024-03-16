@@ -2,9 +2,9 @@ package lila.timeline
 
 import akka.actor.*
 import com.softwaremill.macwire.*
-import lila.common.autoconfig.{ *, given }
 import play.api.Configuration
 
+import lila.common.autoconfig.{ *, given }
 import lila.common.config.*
 import lila.user.Me
 
@@ -44,10 +44,10 @@ final class Env(
     unsubApi.get(channel, me)
 
   def status(channel: String)(using me: Me): Fu[Option[Boolean]] =
-    unsubApi.get(channel, me) flatMap {
+    unsubApi.get(channel, me).flatMap {
       if _ then fuccess(Some(true)) // unsubbed
       else
-        entryApi.channelUserIdRecentExists(channel, me) map {
+        entryApi.channelUserIdRecentExists(channel, me).map {
           if _ then Some(false) // subbed
           else None             // not applicable
         }

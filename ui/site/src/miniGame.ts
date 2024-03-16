@@ -4,6 +4,7 @@ import { type Chessground } from 'chessground';
 import * as domData from 'common/data';
 import clockWidget from './clockWidget';
 import StrongSocket from './socket';
+import { lichessClockIsRunning } from 'common/clock';
 
 export const init = (node: Element, withCg?: typeof Chessground) => {
   const [fen, color, lm] = node.getAttribute('data-state')!.split(','),
@@ -32,15 +33,12 @@ export const init = (node: Element, withCg?: typeof Chessground) => {
     $el.find('.mini-game__clock--' + color).each(function (this: HTMLElement) {
       clockWidget(this, {
         time: parseInt(this.getAttribute('data-time')!),
-        pause: color != turnColor || !clockIsRunning(fen, color),
+        pause: color != turnColor || !lichessClockIsRunning(fen, color),
       });
     }),
   );
   return node.getAttribute('data-live');
 };
-
-const clockIsRunning = (fen: string, color: Color) =>
-  color == 'white' ? !fen.includes('PPPPPPPP/RNBQKBNR') : !fen.startsWith('rnbqkbnr/pppppppp');
 
 export const initAll = (parent?: HTMLElement) => {
   const nodes = Array.from((parent || document).getElementsByClassName('mini-game--init')),
@@ -62,7 +60,7 @@ export const update = (node: HTMLElement, data: MiniGameUpdateData) => {
     if (!isNaN(time!))
       clockWidget($el[0]?.querySelector('.mini-game__clock--' + color) as HTMLElement, {
         time: time!,
-        pause: color != turnColor || !clockIsRunning(data.fen, color),
+        pause: color != turnColor || !lichessClockIsRunning(data.fen, color),
       });
   };
   updateClock(data.wc, 'white');

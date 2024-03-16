@@ -10,7 +10,6 @@
   <string name="newBroadcast">Nova transmissão ao vivo</string>
   <string name="subscribedBroadcasts">Transmissões em que você se inscreveu</string>
   <string name="aboutBroadcasts">Sobre as transmissões</string>
-  <string name="noRoundsYet">Sem rodadas ainda.</string>
   <string name="howToUseLichessBroadcasts">Como usar as transmissões do Lichess.</string>
   <string name="theNewRoundHelp">A nova rodada terá os mesmos membros e colaboradores que a anterior.</string>
   <string name="addRound">Adicionar uma rodada</string>
@@ -43,12 +42,7 @@
   <string name="definitivelyDeleteTournament">Excluir permanentemente todo o torneio, incluindo todas as rodadas e jogos.</string>
   <string name="automaticLeaderboard">Placar automático</string>
   <string name="automaticLeaderboardHelp">Calcula e exibe um placar simples baseado nos resultados dos jogos</string>
-  <string name="replace">Opcional: nomes de jogador, classificações e títulos alternativos</string>
-  <string name="replaceHelp">Uma linha por jogador, no seguinte formato:
-Nome original; Nome alternativo; Classificação alternativa opcional; Título alternativo opcional
-Exemplo:
-DrNykterstein;Magnus Carlsen;2863
-AnishGiri;Anish Giri;2764;GM</string>
+  <string name="replacePlayerTags">Opcional: substituir nomes de jogador, ratings e títulos</string>
   <string name="periodInSeconds">Período em segundos</string>
   <string name="periodInSecondsHelp">Opcional: tempo entre as solicitações. Mín. 2s, máx. 60s. Por padrão, é calculado com base no número de espectadores.</string>
 </resources>

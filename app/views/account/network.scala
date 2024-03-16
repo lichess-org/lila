@@ -1,10 +1,10 @@
 package views.html
 package account
 
-import lila.app.templating.Environment.{ given, * }
-import lila.app.ui.ScalatagsTemplate.{ *, given }
-
 import controllers.routes
+
+import lila.app.templating.Environment.{ *, given }
+import lila.app.ui.ScalatagsTemplate.{ *, given }
 
 object network:
 
@@ -28,16 +28,18 @@ object network:
         br,
         st.section(a(href := "#routing")(h2(id := "routing")("Network Routing")))(
           st.group(cls := "radio"):
-            List(("Use direct routing", false), ("Use CDN routing", true)) map: (key, value) =>
+            List(("Use direct routing", false), ("Use CDN routing", true)).map: (key, value) =>
               div(
-                a(value != usingCloudflare option (href := routes.Account.network(value.some)))(
-                  label(value == usingCloudflare option (cls := "active-soft"))(key)
+                a((value != usingCloudflare).option(href := routes.Account.network(value.some)))(
+                  label((value == usingCloudflare).option(cls := "active-soft"))(key)
                 )
               )
         ),
         br,
         br,
-        cfRouting.nonEmpty option p(cls := "saved text", dataIcon := licon.Checkmark)(
-          trans.preferences.yourPreferencesHaveBeenSaved()
+        cfRouting.nonEmpty.option(
+          p(cls := "saved text", dataIcon := licon.Checkmark)(
+            trans.preferences.yourPreferencesHaveBeenSaved()
+          )
         )
       )

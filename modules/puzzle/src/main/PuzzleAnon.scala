@@ -27,12 +27,12 @@ final class PuzzleAnon(
   private def selectWithColor(color: Color)(puzzles: Vector[Puzzle]): Option[Puzzle] =
     def nextTry(attempts: Int): Option[Puzzle] =
       if attempts < 10 then
-        ThreadLocalRandom oneOf puzzles filter (_.color == color) orElse nextTry(attempts + 1)
-      else ThreadLocalRandom oneOf puzzles.filter(_.color == color)
+        ThreadLocalRandom.oneOf(puzzles).filter(_.color == color).orElse(nextTry(attempts + 1))
+      else ThreadLocalRandom.oneOf(puzzles.filter(_.color == color))
     nextTry(1)
 
   def getBatchFor(angle: PuzzleAngle, diff: PuzzleDifficulty, nb: Int): Fu[Vector[Puzzle]] =
-    pool.get(angle -> diff).map(_ take nb).mon(_.puzzle.selector.anon.batch(nb))
+    pool.get(angle -> diff).map(_.take(nb)).mon(_.puzzle.selector.anon.batch(nb))
 
   private val poolSize = 150
 
@@ -43,7 +43,7 @@ final class PuzzleAnon(
     ) {
       _.expireAfterWrite(1 minute)
         .buildAsyncFuture: (angle, difficulty) =>
-          countApi byAngle angle flatMap { count =>
+          countApi.byAngle(angle).flatMap { count =>
             val tier =
               if count > 5000 then PuzzleTier.top
               else if count > 2000 then PuzzleTier.good

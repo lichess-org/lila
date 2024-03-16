@@ -1,11 +1,11 @@
 package lila.gathering
 
 import play.api.data.Forms.*
-
-import lila.hub.LightTeam
-import lila.gathering.Condition.*
-import lila.common.Form.{ *, given }
 import play.api.data.Mapping
+
+import lila.common.Form.{ *, given }
+import lila.gathering.Condition.*
+import lila.hub.LightTeam
 
 object ConditionForm:
 
@@ -39,7 +39,7 @@ object ConditionForm:
     mapping("rating" -> numberIn(minRatings).into[IntRating])(MinRating.apply)(_.rating.some)
 
   val titled: Mapping[Option[Titled.type]] =
-    optional(boolean).transform(_.contains(true) option Titled, _.isDefined option true)
+    optional(boolean).transform(_.contains(true).option(Titled), _.isDefined.option(true))
 
   def teamMember(leaderTeams: List[LightTeam]): Mapping[Option[TeamMember]] = optional:
     mapping(
@@ -49,6 +49,6 @@ object ConditionForm:
   def allowList = optional:
     nonEmptyText(maxLength = 100_1000)
       .transform[String](_.replace(',', '\n'), identity)
-      .transform[String](_.linesIterator.map(_.trim).filter(_.nonEmpty).distinct mkString "\n", identity)
+      .transform[String](_.linesIterator.map(_.trim).filter(_.nonEmpty).distinct.mkString("\n"), identity)
       .verifying("5000 usernames max", _.count('\n' == _) <= 5_000)
       .transform(AllowList(_), _.value)

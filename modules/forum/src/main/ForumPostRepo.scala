@@ -1,10 +1,11 @@
 package lila.forum
 
-import Filter.*
-import reactivemongo.akkastream.{ cursorProducer, AkkaStreamCursor }
+import reactivemongo.akkastream.{ AkkaStreamCursor, cursorProducer }
 
 import lila.db.dsl.{ *, given }
 import lila.user.User
+
+import Filter.*
 
 final class ForumPostRepo(val coll: Coll, filter: Filter = Safe)(using
     Executor
@@ -31,7 +32,7 @@ final class ForumPostRepo(val coll: Coll, filter: Filter = Safe)(using
     coll.countSel(selectTopic(topicId) ++ $doc("number" -> $lt(number)))
 
   def isFirstPost(topicId: ForumTopicId, postId: ForumPostId): Fu[Boolean] =
-    coll.primitiveOne[String](selectTopic(topicId), $sort.createdAsc, "_id") dmap { _ contains postId }
+    coll.primitiveOne[String](selectTopic(topicId), $sort.createdAsc, "_id").dmap { _ contains postId }
 
   def countByTopic(topic: ForumTopic): Fu[Int] =
     coll.countSel(selectTopic(topic.id))
@@ -73,18 +74,18 @@ final class ForumPostRepo(val coll: Coll, filter: Filter = Safe)(using
   def selectTopic(topicId: ForumTopicId) = $doc("topicId" -> topicId) ++ trollFilter
 
   def selectCateg(categId: ForumCategId)         = $doc("categId" -> categId) ++ trollFilter
-  def selectCategs(categIds: List[ForumCategId]) = $doc("categId" $in categIds) ++ trollFilter
+  def selectCategs(categIds: List[ForumCategId]) = $doc("categId".$in(categIds)) ++ trollFilter
 
-  val selectNotErased = $doc("erasedAt" $exists false)
+  val selectNotErased = $doc("erasedAt".$exists(false))
 
   def selectLangs(langs: List[String]) =
     if langs.isEmpty then $empty
-    else $doc("lang" $in langs)
+    else $doc("lang".$in(langs))
 
   def findDuplicate(post: ForumPost): Fu[Option[ForumPost]] =
     coll.one[ForumPost](
       $doc(
-        "createdAt" $gt nowInstant.minusHours(1),
+        "createdAt".$gt(nowInstant.minusHours(1)),
         "userId" -> post.userId,
         "text"   -> post.text
       )
@@ -104,5 +105,5 @@ final class ForumPostRepo(val coll: Coll, filter: Filter = Safe)(using
 
   def nonGhostCursor =
     coll
-      .find($doc("userId" $ne User.ghostId))
+      .find($doc("userId".$ne(User.ghostId)))
       .cursor[ForumPost](ReadPref.sec)

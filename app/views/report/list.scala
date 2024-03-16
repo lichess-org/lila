@@ -1,10 +1,10 @@
 package views.html.report
 
+import controllers.appeal.routes.Appeal as appealRoutes
+import controllers.report.routes.Report as reportRoutes
 import controllers.routes
-import controllers.appeal.routes.{ Appeal as appealRoutes }
-import controllers.report.routes.{ Report as reportRoutes }
 
-import lila.app.templating.Environment.{ given, * }
+import lila.app.templating.Environment.{ *, given }
 import lila.app.ui.ScalatagsTemplate.{ *, given }
 import lila.report.Report.WithSuspect
 
@@ -57,7 +57,7 @@ object list:
                       )(shorten(atom.text, 200))
                     )
                   },
-                  r.atoms.size > 3 option i(cls := "more")("And ", r.atoms.size - 3, " more")
+                  (r.atoms.size > 3).option(i(cls := "more")("And ", r.atoms.size - 3, " more"))
                 ),
                 td(
                   r.inquiry match
@@ -124,21 +124,24 @@ object list:
                   }
                   .toList
               }: List[Frag],
-              (appeals > 0 && isGranted(_.Appeals)) option a(
-                href := appealRoutes.queue(),
-                cls := List(
-                  "new"    -> true,
-                  "active" -> (filter == "appeal")
+              (appeals > 0 && isGranted(_.Appeals)).option(
+                a(
+                  href := appealRoutes.queue(),
+                  cls := List(
+                    "new"    -> true,
+                    "active" -> (filter == "appeal")
+                  )
+                )(
+                  countTag(appeals),
+                  "Appeals"
                 )
-              )(
-                countTag(appeals),
-                "Appeals"
               ),
-              (isGranted(_.Streamers) && streamers > 0) option
+              (isGranted(_.Streamers) && streamers > 0).option(
                 a(href := s"${routes.Streamer.index()}?requests=1", cls := "new")(
                   countTag(streamers),
                   "Streamers"
                 )
+              )
             )
           ),
           body

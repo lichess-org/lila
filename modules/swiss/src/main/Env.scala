@@ -3,10 +3,10 @@ package lila.swiss
 import com.softwaremill.macwire.*
 import play.api.Configuration
 
-import lila.common.config.*
 import lila.common.LilaScheduler
-import lila.socket.{ GetVersion, SocketVersion }
+import lila.common.config.*
 import lila.db.dsl.Coll
+import lila.socket.{ GetVersion, SocketVersion }
 
 @Module
 final class Env(
@@ -74,7 +74,7 @@ final class Env(
   private lazy val socket = wire[SwissSocket]
 
   def version(swissId: SwissId): Fu[SocketVersion] =
-    socket.rooms.ask[SocketVersion](swissId into RoomId)(GetVersion.apply)
+    socket.rooms.ask[SocketVersion](swissId.into(RoomId))(GetVersion.apply)
 
   lazy val standingApi = wire[SwissStandingApi]
 

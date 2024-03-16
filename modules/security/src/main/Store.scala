@@ -1,15 +1,16 @@
 package lila.security
 
 import play.api.mvc.RequestHeader
-import reactivemongo.akkastream.{ cursorProducer, AkkaStreamCursor }
+import reactivemongo.akkastream.{ AkkaStreamCursor, cursorProducer }
 import reactivemongo.api.bson.{ BSONDocumentHandler, BSONDocumentReader, BSONNull, Macros }
+
 import scala.concurrent.blocking
 
 import lila.common.{ ApiVersion, HTTPRequest, IpAddress }
 import lila.db.dsl.{ *, given }
-import lila.user.User
-import lila.socket.Socket.Sri
 import lila.oauth.AccessToken
+import lila.socket.Socket.Sri
+import lila.user.User
 
 final class Store(val coll: Coll, cacheApi: lila.memo.CacheApi)(using Executor):
 
@@ -23,19 +24,19 @@ final class Store(val coll: Coll, cacheApi: lila.memo.CacheApi)(using Executor):
         .one[Bdoc]
         .map:
           _.flatMap: doc =>
-            if doc.getAsOpt[Instant]("date").forall(_ isBefore nowInstant.minusHours(12)) then
+            if doc.getAsOpt[Instant]("date").forall(_.isBefore(nowInstant.minusHours(12))) then
               coll.updateFieldUnchecked($id(id), "date", nowInstant)
-            doc.getAsOpt[UserId]("user") map { AuthInfo(_, doc.contains("fp")) }
+            doc.getAsOpt[UserId]("user").map { AuthInfo(_, doc.contains("fp")) }
 
-  def authInfo(sessionId: String) = authCache get sessionId
+  def authInfo(sessionId: String) = authCache.get(sessionId)
 
   private val authInfoProjection = $doc("user" -> true, "fp" -> true, "date" -> true, "_id" -> false)
   private def uncache(sessionId: String) =
     blocking { blockingUncache(sessionId) }
   private def uncacheAllOf(userId: UserId): Funit =
-    coll.distinctEasy[String, Seq]("_id", $doc("user" -> userId)) map { ids =>
+    coll.distinctEasy[String, Seq]("_id", $doc("user" -> userId)).map { ids =>
       blocking:
-        ids foreach blockingUncache
+        ids.foreach(blockingUncache)
     }
   // blocks loading values! https://github.com/ben-manes/caffeine/issues/148
   private def blockingUncache(sessionId: String) =
@@ -121,7 +122,8 @@ final class Store(val coll: Coll, cacheApi: lila.memo.CacheApi)(using Executor):
         $id(sessionId),
         $set("up" -> false)
       )
-      .void andDo uncache(sessionId)
+      .void
+      .andDo(uncache(sessionId))
 
   def closeUserAndSessionId(userId: UserId, sessionId: String): Funit =
     coll.update
@@ -129,7 +131,8 @@ final class Store(val coll: Coll, cacheApi: lila.memo.CacheApi)(using Executor):
         $doc("user" -> userId, "_id" -> sessionId, "up" -> true),
         $set("up"   -> false)
       )
-      .void andDo uncache(sessionId)
+      .void
+      .andDo(uncache(sessionId))
 
   def closeUserExceptSessionId(userId: UserId, sessionId: String): Funit =
     coll.update
@@ -167,28 +170,31 @@ final class Store(val coll: Coll, cacheApi: lila.memo.CacheApi)(using Executor):
     FingerHash.from(fp) match
       case None => fufail(s"Can't hash $id's fingerprint $fp")
       case Some(hash) =>
-        coll.updateField($id(id), "fp", hash) andDo {
-          authInfo(id).foreach:
-            _.foreach: i =>
-              authCache.put(id, fuccess(i.copy(hasFp = true).some))
-        } inject hash
+        coll
+          .updateField($id(id), "fp", hash)
+          .andDo {
+            authInfo(id).foreach:
+              _.foreach: i =>
+                authCache.put(id, fuccess(i.copy(hasFp = true).some))
+          }
+          .inject(hash)
 
   def chronoInfoByUser(user: User): Fu[List[Info]] =
     coll
       .find(
         $doc(
           "user" -> user.id,
-          "date" $gt (user.createdAt atLeast nowInstant.minusYears(1))
+          "date".$gt(user.createdAt.atLeast(nowInstant.minusYears(1)))
         ),
         $doc("_id" -> false, "ip" -> true, "ua" -> true, "fp" -> true, "date" -> true).some
       )
-      .sort($sort desc "date")
+      .sort($sort.desc("date"))
       .cursor[Info]()
       .list(1000)
 
   // remains of never-confirmed accounts that got cleaned up
   private[security] def deletePreviousSessions(user: User) =
-    coll.delete.one($doc("user" -> user.id, "date" $lt user.createdAt)).void
+    coll.delete.one($doc("user" -> user.id, "date".$lt(user.createdAt))).void
 
   private case class DedupInfo(_id: String, ip: String, ua: String):
     def compositeKey = s"$ip $ua"
@@ -210,7 +216,7 @@ final class Store(val coll: Coll, cacheApi: lila.memo.CacheApi)(using Executor):
           .groupBy(_.compositeKey)
           .view
           .values
-          .flatMap(_ drop 1)
+          .flatMap(_.drop(1))
           .filter(_._id != keepSessionId)
           .map(_._id)
         coll.delete.one($inIds(olds)).void
@@ -219,7 +225,7 @@ final class Store(val coll: Coll, cacheApi: lila.memo.CacheApi)(using Executor):
   def shareAnIpOrFp(u1: UserId, u2: UserId): Fu[Boolean] =
     coll.aggregateExists(_.sec): framework =>
       import framework.*
-      Match($doc("user" $in List(u1, u2))) -> List(
+      Match($doc("user".$in(List(u1, u2)))) -> List(
         Limit(500),
         Project(
           $doc(
@@ -232,8 +238,8 @@ final class Store(val coll: Coll, cacheApi: lila.memo.CacheApi)(using Executor):
         GroupField("x")("users" -> AddFieldToSet("user")),
         Match(
           $doc(
-            "_id" $ne BSONNull,
-            "users.1" $exists true
+            "_id".$ne(BSONNull),
+            "users.1".$exists(true)
           )
         ),
         Limit(1)
@@ -244,12 +250,12 @@ final class Store(val coll: Coll, cacheApi: lila.memo.CacheApi)(using Executor):
 
   private[security] def recentByIpExists(ip: IpAddress, since: FiniteDuration): Fu[Boolean] =
     coll.secondaryPreferred.exists:
-      $doc("ip" -> ip, "date" -> $gt(nowInstant minusMinutes since.toMinutes.toInt))
+      $doc("ip" -> ip, "date" -> $gt(nowInstant.minusMinutes(since.toMinutes.toInt)))
 
   private[security] def recentByPrintExists(fp: FingerPrint): Fu[Boolean] =
     FingerHash.from(fp).so { hash =>
       coll.secondaryPreferred.exists:
-        $doc("fp" -> hash, "date" -> $gt(nowInstant minusDays 7))
+        $doc("fp" -> hash, "date" -> $gt(nowInstant.minusDays(7)))
     }
 
 object Store:

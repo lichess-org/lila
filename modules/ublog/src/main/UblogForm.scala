@@ -3,8 +3,8 @@ package lila.ublog
 import play.api.data.*
 import play.api.data.Forms.*
 
-import lila.common.Form.{ cleanNonEmptyText, stringIn, into, given }
-import lila.i18n.{ defaultLanguage, LangList, Language, LangForm }
+import lila.common.Form.{ cleanNonEmptyText, into, given }
+import lila.i18n.{ LangForm, Language, defaultLanguage }
 import lila.user.User
 
 final class UblogForm(val captcher: lila.hub.actors.Captcher) extends lila.hub.CaptchedForm:
@@ -68,7 +68,7 @@ object UblogForm:
         intro = intro,
         markdown = markdown,
         language = language.orElse(user.language) | defaultLanguage,
-        topics = topics so UblogTopic.fromStrList,
+        topics = topics.so(UblogTopic.fromStrList),
         image = none,
         live = false,
         discuss = Option(false),
@@ -89,20 +89,24 @@ object UblogForm:
         image = prev.image.map: i =>
           i.copy(alt = imageAlt, credit = imageCredit),
         language = language | prev.language,
-        topics = topics so UblogTopic.fromStrList,
+        topics = topics.so(UblogTopic.fromStrList),
         live = live,
         discuss = Option(discuss),
         updated = UblogPost.Recorded(user.id, nowInstant).some,
-        lived = prev.lived orElse live.option(UblogPost.Recorded(user.id, nowInstant))
+        lived = prev.lived.orElse(live.option(UblogPost.Recorded(user.id, nowInstant)))
       )
+
+  private val tierMapping =
+    "tier" -> number(min = UblogRank.Tier.HIDDEN.value, max = UblogRank.Tier.BEST.value)
+      .into[UblogRank.Tier]
 
   val tier = Form:
     single:
-      "tier" -> number(min = UblogBlog.Tier.HIDDEN.value, max = UblogBlog.Tier.BEST.value)
-        .into[UblogBlog.Tier]
+      tierMapping
 
   val adjust = Form:
     tuple(
-      "days"   -> optional(number(min = -180, max = 180)),
-      "pinned" -> boolean
+      "pinned" -> boolean,
+      tierMapping,
+      "days" -> optional(number(min = -180, max = 180))
     )

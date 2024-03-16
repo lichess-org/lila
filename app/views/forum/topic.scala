@@ -1,12 +1,12 @@
 package views.html
 package forum
 
-import controllers.team.routes.{ Team as teamRoutes }
-import controllers.report.routes.{ Report as reportRoutes }
+import controllers.report.routes.Report as reportRoutes
 import controllers.routes
+import controllers.team.routes.Team as teamRoutes
 import play.api.data.Form
 
-import lila.app.templating.Environment.{ given, * }
+import lila.app.templating.Environment.{ *, given }
 import lila.app.ui.ScalatagsTemplate.{ *, given }
 import lila.common.Captcha
 import lila.common.paginator.Paginator
@@ -55,12 +55,13 @@ object topic:
           views.html.base.captcha(form("post"), captcha),
           form3.actions(
             a(href := routes.ForumCateg.show(categ.slug))(trans.cancel()),
-            isGranted(_.PublicMod) option
+            isGranted(_.PublicMod).option(
               form3.submit(
                 frag("Create as a mod"),
                 nameValue = (form("post")("modIcon").name, "true").some,
                 icon = licon.Agent.some
-              ),
+              )
+            ),
             form3.submit(trans.createTheTopic())
           )
         )
@@ -73,13 +74,14 @@ object topic:
       formWithCaptcha: Option[FormWithCaptcha],
       unsub: Option[Boolean],
       canModCateg: Boolean,
-      formText: Option[String] = None
+      formText: Option[String] = None,
+      replyBlocked: Boolean = false
   )(using ctx: PageContext) =
     views.html.base.layout(
       title = s"${topic.name} • page ${posts.currentPage}/${posts.nbPages} • ${categ.name}",
       moreJs = frag(
         jsModule("forum"),
-        formWithCaptcha.isDefined option captchaTag,
+        formWithCaptcha.isDefined.option(captchaTag),
         jsModule("expandText")
       ),
       moreCss = cssTag("forum"),
@@ -106,8 +108,10 @@ object topic:
       main(cls := "forum forum-topic page-small box box-pad")(
         boxTop(
           h1(a(href := backUrl, dataIcon := licon.LessThan, cls := "text"), headerText),
-          isDiagnostic option postForm(action := routes.ForumTopic.clearDiagnostic(topic.slug))(
-            button(cls := "button button-red")("erase diagnostics")
+          isDiagnostic.option(
+            postForm(action := routes.ForumTopic.clearDiagnostic(topic.slug))(
+              button(cls := "button button-red")("erase diagnostics")
+            )
           )
         ),
         pager,
@@ -136,7 +140,8 @@ object topic:
                     a(href := teamRoutes.show(teamId))(trans.teamNamedX(teamLink(teamId, true)))
               .orElse:
                 if ctx.me.exists(_.isBot) then p("Bots cannot post in the forum.").some
-                else ctx.isAuth option p(trans.youCannotPostYetPlaySomeGames())
+                else if replyBlocked then p(trans.ublog.youBlockedByBlogAuthor()).some
+                else ctx.isAuth.option(p(trans.youCannotPostYetPlaySomeGames()))
           ,
           div(
             unsub.map: uns =>
@@ -150,19 +155,21 @@ object topic:
                 button(cls := "button button-empty text off", dataIcon := licon.Eye, bits.dataUnsub := "on"):
                   trans.unsubscribe()
               ),
-            canModCateg || (topic.isUblog && ctx.me.exists(topic.isAuthor)) option
+            (canModCateg || (topic.isUblog && ctx.me.exists(topic.isAuthor))).option(
               postForm(action := routes.ForumTopic.close(categ.slug, topic.slug))(
                 button(cls := "button button-empty button-red")(
                   if topic.closed then "Reopen" else "Close"
                 )
-              ),
-            canModCateg option
+              )
+            ),
+            canModCateg.option(
               postForm(action := routes.ForumTopic.sticky(categ.slug, topic.slug))(
                 button(cls := "button button-empty button-brag")(
                   if topic.isSticky then "Unsticky" else "Sticky"
                 )
-              ),
-            canModCateg || ctx.me.exists(topic.isAuthor) option deleteModal
+              )
+            ),
+            (canModCateg || ctx.me.exists(topic.isAuthor)).option(deleteModal)
           )
         ),
         formWithCaptcha.map: (form, captcha) =>
@@ -188,12 +195,13 @@ object topic:
             views.html.base.captcha(form, captcha),
             form3.actions(
               a(href := routes.ForumCateg.show(categ.slug))(trans.cancel()),
-              (isGranted(_.PublicMod) || isGranted(_.SeeReport)) option
+              (isGranted(_.PublicMod) || isGranted(_.SeeReport)).option(
                 form3.submit(
                   frag(s"Reply as a mod ${(!isGranted(_.PublicMod)).so("(anonymously)")}"),
                   nameValue = (form("modIcon").name, "true").some,
                   icon = licon.Agent.some
-                ),
+                )
+              ),
               form3.submit(trans.reply())
             )
           )

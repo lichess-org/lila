@@ -2,7 +2,7 @@ package views.html.tournament
 
 import controllers.routes
 
-import lila.app.templating.Environment.{ given, * }
+import lila.app.templating.Environment.{ *, given }
 import lila.app.ui.ScalatagsTemplate.{ *, given }
 import lila.common.paginator.Paginator
 import lila.tournament.Schedule.Freq
@@ -29,7 +29,7 @@ object history:
           div(cls := "arena-list")(
             table(cls := "slist slist-pad")(
               tbody(cls := "infinite-scroll")(
-                pager.currentPageResults map finishedList.apply,
+                pager.currentPageResults.map(finishedList.apply),
                 pagerNextTable(pager, p => routes.Tournament.history(freq.name, p).url)
               )
             )

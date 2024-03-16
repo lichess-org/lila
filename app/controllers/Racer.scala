@@ -1,12 +1,11 @@
 package controllers
 
+import play.api.libs.json.Json
 import play.api.mvc.*
 import views.*
 
-import lila.app.{ given, * }
-import lila.racer.RacerPlayer
-import lila.racer.RacerRace
-import play.api.libs.json.Json
+import lila.app.{ *, given }
+import lila.racer.{ RacerPlayer, RacerRace }
 
 final class Racer(env: Env) extends LilaController(env):
 
@@ -17,20 +16,23 @@ final class Racer(env: Env) extends LilaController(env):
     Ok.page(html.racer.home)
 
   def create = WithPlayerId { _ ?=> playerId =>
-    env.racer.api.createAndJoin(playerId) map { raceId =>
-      Redirect(routes.Racer.show(raceId.value))
-    }
+    AuthOrTrustedIp:
+      env.racer.api
+        .createAndJoin(playerId)
+        .map: raceId =>
+          Redirect(routes.Racer.show(raceId.value))
   }
 
   def apiCreate = Scoped(_.Racer.Write) { _ ?=> me ?=>
     me.noBot.so:
-      env.racer.api.createAndJoin(RacerPlayer.Id.User(me)) map { raceId =>
-        JsonOk:
-          Json.obj(
-            "id"  -> raceId.value,
-            "url" -> s"${env.net.baseUrl}${routes.Racer.show(raceId.value)}"
-          )
-      }
+      env.racer.api
+        .createAndJoin(RacerPlayer.Id.User(me))
+        .map: raceId =>
+          JsonOk:
+            Json.obj(
+              "id"  -> raceId.value,
+              "url" -> s"${env.net.baseUrl}${routes.Racer.show(raceId.value)}"
+            )
   }
 
   def show(id: String) = WithPlayerId { ctx ?=> playerId =>
@@ -43,23 +45,27 @@ final class Racer(env: Env) extends LilaController(env):
   }
 
   def rematch(id: String) = WithPlayerId { _ ?=> playerId =>
-    env.racer.api.get(RacerRace.Id(id)) match
-      case None => Redirect(routes.Racer.home)
-      case Some(race) =>
-        env.racer.api.rematch(race, playerId) map { rematchId =>
-          Redirect(routes.Racer.show(rematchId.value))
-        }
+    AuthOrTrustedIp:
+      env.racer.api.get(RacerRace.Id(id)) match
+        case None => Redirect(routes.Racer.home)
+        case Some(race) =>
+          env.racer.api
+            .rematch(race, playerId)
+            .map: rematchId =>
+              Redirect(routes.Racer.show(rematchId.value))
   }
 
-  def lobby = WithPlayerId { _ ?=> playerId =>
-    env.racer.lobby.join(playerId) map { raceId =>
-      Redirect(routes.Racer.show(raceId.value))
-    }
+  def lobby = WithPlayerId { ctx ?=> playerId =>
+    AuthOrTrustedIp:
+      env.racer.lobby
+        .join(playerId)
+        .map: raceId =>
+          Redirect(routes.Racer.show(raceId.value))
   }
 
   private def WithPlayerId(f: Context ?=> RacerPlayer.Id => Fu[Result]) = Open:
     NoBot:
-      ctx.req.sid map { env.racer.api.playerId(_, ctx.me) } match
+      ctx.req.sid.map { env.racer.api.playerId(_, ctx.me) } match
         case Some(id) => f(id)
         case None =>
           env.lilaCookie.ensureAndGet(ctx.req): sid =>

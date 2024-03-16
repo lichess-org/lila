@@ -1,28 +1,32 @@
 package views.html.user.show
 
-import lila.app.templating.Environment.{ given, * }
+import controllers.routes
+
+import lila.app.templating.Environment.{ *, given }
 import lila.app.ui.ScalatagsTemplate.{ *, given }
 import lila.user.{ Trophy, TrophyKind }
-
-import controllers.routes
 
 object otherTrophies:
 
   def apply(info: lila.app.mashup.UserInfo)(using ctx: Context) =
     frag(
-      info.trophies.trophies.filter(_.kind.klass.has("fire-trophy")).some.filter(_.nonEmpty) map { trophies =>
-        div(cls := "stacked")(
-          trophies.sorted.map { trophy =>
-            trophy.kind.icon.map { iconChar =>
-              a(
-                awardCls(trophy),
-                href := trophy.anyUrl,
-                ariaTitle(s"${trophy.kind.name}")
-              )(raw(iconChar))
+      info.trophies.trophies
+        .filter(_.kind.klass.has("fire-trophy"))
+        .some
+        .filter(_.nonEmpty)
+        .map { trophies =>
+          div(cls := "stacked")(
+            trophies.sorted.map { trophy =>
+              trophy.kind.icon.map { iconChar =>
+                a(
+                  awardCls(trophy),
+                  href := trophy.anyUrl,
+                  ariaTitle(s"${trophy.kind.name}")
+                )(raw(iconChar))
+              }
             }
-          }
-        )
-      },
+          )
+        },
       info.trophies.shields.map { shield =>
         a(
           cls := "shield-trophy combo-trophy",
@@ -57,13 +61,14 @@ object otherTrophies:
           )(raw(iconChar))
         }
       },
-      info.isCoach option
+      info.isCoach.option(
         a(
           href := routes.Coach.show(info.user.username),
           cls  := "trophy award icon3d coach",
           ariaTitle(trans.coach.lichessCoach.txt())
-        )(licon.GraduateCap),
-      (info.isStreamer && ctx.kid.no) option {
+        )(licon.GraduateCap)
+      ),
+      (info.isStreamer && ctx.kid.no).option {
         val streaming = isStreaming(info.user.id)
         views.html.streamer.bits.redirectLink(info.user.username, streaming.some)(
           cls := List(

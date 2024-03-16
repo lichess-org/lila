@@ -29,10 +29,10 @@ final class FishnetRedis(
   connIn.addListener:
     new RedisPubSubAdapter[String, String]:
       override def message(chan: String, msg: String): Unit =
-        msg split ' ' match
+        msg.split(' ') match
           case Array("start") => Bus.publish(TellAll(FishnetStart), "roundSocket")
           case Array(gameId, sign, uci) =>
-            Uci(uci) foreach { move =>
+            Uci(uci).foreach { move =>
               Bus.publish(Tell(gameId, FishnetPlay(move, sign)), "roundSocket")
             }
           case _ =>
@@ -46,15 +46,15 @@ final class FishnetRedis(
     List(
       work.game.id,
       work.level,
-      work.clock so writeClock,
+      work.clock.so(writeClock),
       work.game.variant.some.filter(_.exotic).so(_.key.value),
       work.game.initialFen.so(_.value),
       work.game.moves
-    ) mkString ";"
+    ).mkString(";")
 
   private def writeClock(clock: Work.Clock): String =
     List(
       clock.wtime,
       clock.btime,
       clock.inc
-    ) mkString " "
+    ).mkString(" ")

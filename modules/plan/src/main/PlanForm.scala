@@ -2,6 +2,7 @@ package lila.plan
 
 import play.api.data.*
 import play.api.data.Forms.*
+
 import lila.common.Form.into
 
 object PlanForm:
@@ -37,11 +38,11 @@ object PlanForm:
       countryCode: Option[String]
   ):
 
-    def name = (firstName, lastName) mapN { _ + " " + _ }
+    def name = (firstName, lastName).mapN { _ + " " + _ }
 
-    def country = Country from countryCode
+    def country = Country.from(countryCode)
 
-    def money = CurrencyApi currencyOption currencyCode map {
+    def money = CurrencyApi.currencyOption(currencyCode).map {
       Money(gross, _)
     }
 

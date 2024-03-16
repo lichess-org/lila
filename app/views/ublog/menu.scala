@@ -1,9 +1,9 @@
 package views.html.ublog
 
-import lila.app.templating.Environment.{ given, * }
-import lila.app.ui.ScalatagsTemplate.{ *, given }
-
 import controllers.routes
+
+import lila.app.templating.Environment.{ *, given }
+import lila.app.ui.ScalatagsTemplate.{ *, given }
 
 object menu:
 
@@ -14,19 +14,27 @@ object menu:
     val mine      = active.left.toOption.exists(ctx.is)
     views.html.site.bits.pageMenuSubnav(
       cls := "force-ltr",
-      ctx.kid.no option a(
-        cls  := community.option("active"),
-        href := langHref(routes.Ublog.communityAll())
-      )(trans.ublog.communityBlogs()),
-      ctx.kid.no option a(cls := isRight("topics").option("active"), href := routes.Ublog.topics)(
-        trans.ublog.blogTopics()
+      ctx.kid.no.option(
+        a(
+          cls  := community.option("active"),
+          href := langHref(routes.Ublog.communityAll())
+        )(trans.ublog.communityBlogs())
       ),
-      (ctx.isAuth && ctx.kid.no) option a(
-        cls  := isRight("friends").option("active"),
-        href := routes.Ublog.friends()
-      )(trans.ublog.friendBlogs()),
-      ctx.kid.no option a(cls := isRight("liked").option("active"), href := routes.Ublog.liked())(
-        trans.ublog.likedBlogs()
+      ctx.kid.no.option(
+        a(cls := isRight("topics").option("active"), href := routes.Ublog.topics)(
+          trans.ublog.blogTopics()
+        )
+      ),
+      (ctx.isAuth && ctx.kid.no).option(
+        a(
+          cls  := isRight("friends").option("active"),
+          href := routes.Ublog.friends()
+        )(trans.ublog.friendBlogs())
+      ),
+      ctx.kid.no.option(
+        a(cls := isRight("liked").option("active"), href := routes.Ublog.liked())(
+          trans.ublog.likedBlogs()
+        )
       ),
       ctx.me
         .ifTrue(ctx.kid.no)

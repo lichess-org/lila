@@ -1,8 +1,8 @@
 package lila.game
 
 import chess.*
-import chess.format.pgn.{ Move, SanStr }
 import chess.format.pgn.PgnTree.*
+import chess.format.pgn.{ Move, SanStr }
 
 class PgnDumpTest extends munit.FunSuite:
 

@@ -6,7 +6,7 @@ import play.api.libs.json.*
 
 import lila.common.Json.{ *, given }
 import lila.common.{ IpAddress, Maths }
-import lila.fishnet.{ Work as W }
+import lila.fishnet.Work as W
 import lila.tree.Eval.{ Cp, Mate }
 
 object JsonApi:
@@ -70,13 +70,13 @@ object JsonApi:
         nps: Option[Int],
         depth: Option[Depth]
     ):
-      val cappedNps = nps.map(_ min Evaluation.npsCeil)
+      val cappedNps = nps.map(_.min(Evaluation.npsCeil))
 
-      val cappedPv = pv take lila.analyse.Info.LineMaxPlies
+      val cappedPv = pv.take(lila.analyse.Info.LineMaxPlies)
 
-      def isCheckmate = score.mate has Mate(0)
+      def isCheckmate = score.mate.has(Mate(0))
       def mateFound   = score.mate.isDefined
-      def deadDraw    = score.cp has Cp(0)
+      def deadDraw    = score.cp.has(Cp(0))
 
     object Evaluation:
 
@@ -131,22 +131,24 @@ object JsonApi:
     given Reads[Request.Fishnet]          = Json.reads
     given Reads[Request.Acquire]          = Json.reads
     given Reads[Request.Evaluation.Score] = Json.reads
-    given Reads[List[Uci]] = Reads.of[String] map { str =>
+    given Reads[List[Uci]] = Reads.of[String].map { str =>
       ~Uci.readList(str)
     }
 
     given EvaluationReads: Reads[Request.Evaluation] = (
-      (__ \ "pv").readNullable[List[Uci]].map(~_) and
-        (__ \ "score").read[Request.Evaluation.Score] and
-        (__ \ "time").readNullable[Int] and
-        (__ \ "nodes").readNullable[Long].map(_.map(_.toSaturatedInt)) and
-        (__ \ "nps").readNullable[Long].map(_.map(_.toSaturatedInt)) and
-        (__ \ "depth").readNullable[Depth]
+      (__ \ "pv")
+        .readNullable[List[Uci]]
+        .map(~_)
+        .and((__ \ "score").read[Request.Evaluation.Score])
+        .and((__ \ "time").readNullable[Int])
+        .and((__ \ "nodes").readNullable[Long].map(_.map(_.toSaturatedInt)))
+        .and((__ \ "nps").readNullable[Long].map(_.map(_.toSaturatedInt)))
+        .and((__ \ "depth").readNullable[Depth])
     )(Request.Evaluation.apply)
     given Reads[Option[EvalOrSkip]] = Reads {
       case JsNull => JsSuccess(None)
       case obj =>
-        if ~(obj boolean "skipped") then JsSuccess(EvalOrSkip.Skipped.some)
+        if ~(obj.boolean("skipped")) then JsSuccess(EvalOrSkip.Skipped.some)
         else EvaluationReads.reads(obj).map(EvalOrSkip.Evaluated(_).some)
     }
     given Reads[Request.PostAnalysis] = Json.reads
@@ -162,11 +164,9 @@ object JsonApi:
               "type" -> "analysis",
               "id"   -> a.id,
               "nodes" -> Json.obj(
+                "sf16_1"    -> a.nodes,
                 "sf16"      -> a.nodes,
-                "sf15"      -> a.nodes,
-                "sf14"      -> a.nodes * 14 / 10,
-                "nnue"      -> a.nodes * 14 / 10, // bc fishnet <= 2.3.4
-                "classical" -> a.nodes * 28 / 10
+                "classical" -> a.nodes * 3
               ),
               "timeout" -> Cleaner.timeoutPerPly.toMillis
             ),

@@ -10,14 +10,14 @@ object Dependencies {
     else
       ("linux", "epoll")
 
-  val lilaMaven = "lila-maven" at "https://raw.githubusercontent.com/lichess-org/lila-maven/master"
-  val sonashots = "sonashots" at "https://oss.sonatype.org/content/repositories/snapshots"
+  val lilaMaven = "lila-maven".at("https://raw.githubusercontent.com/lichess-org/lila-maven/master")
+  val sonashots = "sonashots".at("https://oss.sonatype.org/content/repositories/snapshots")
 
   val cats        = "org.typelevel"                %% "cats-core"                       % "2.10.0"
   val alleycats   = "org.typelevel"                %% "alleycats-core"                  % "2.10.0"
-  val scalalib    = "com.github.ornicar"           %% "scalalib"                        % "9.5.5"
+  val scalalib    = "com.github.ornicar"           %% "scalalib"                        % "9.5.8"
   val hasher      = "com.roundeights"              %% "hasher"                          % "1.3.1"
-  val chess       = "org.lichess"                  %% "scalachess"                      % "15.7.9"
+  val chess       = "org.lichess"                  %% "scalachess"                      % "15.8.1"
   val compression = "org.lichess"                  %% "compression"                     % "1.10"
   val maxmind     = "com.maxmind.geoip2"            % "geoip2"                          % "4.0.1"
   val caffeine    = "com.github.ben-manes.caffeine" % "caffeine"                        % "3.1.8" % "compile"
@@ -25,14 +25,15 @@ object Dependencies {
   val googleOAuth = "com.google.auth"               % "google-auth-library-oauth2-http" % "1.23.0"
   val galimatias  = "io.mola.galimatias"            % "galimatias"                      % "0.2.2-NF"
   val scalatags   = "com.lihaoyi"                  %% "scalatags"                       % "0.12.0"
-  val lettuce     = "io.lettuce"                    % "lettuce-core"                    % "6.3.1.RELEASE"
-  val nettyTransport = "io.netty" % s"netty-transport-native-$notifier" % "4.1.107.Final" classifier s"$os-$arch"
+  val lettuce     = "io.lettuce"                    % "lettuce-core"                    % "6.3.2.RELEASE"
+  val nettyTransport =
+    ("io.netty" % s"netty-transport-native-$notifier" % "4.1.107.Final").classifier(s"$os-$arch")
   val munit       = "org.scalameta"              %% "munit"         % "1.0.0-M11" % Test
   val uaparser    = "org.uaparser"               %% "uap-scala"     % "0.16.0"
   val apacheText  = "org.apache.commons"          % "commons-text"  % "1.11.0"
   val apacheMath  = "org.apache.commons"          % "commons-math3" % "3.6.1"
   val bloomFilter = "com.github.alexandrnikitin" %% "bloom-filter"  % "0.13.1_lila-1"
-  val kittens     = "org.typelevel"              %% "kittens"       % "3.2.0"
+  val kittens     = "org.typelevel"              %% "kittens"       % "3.3.0"
 
   object tests {
     val bundle = Seq(munit)
@@ -74,14 +75,14 @@ object Dependencies {
   }
 
   object playWs {
-    val version = "2.2.5"
+    val version = "2.2.6"
     val ahc     = "com.typesafe.play" %% "play-ahc-ws-standalone"  % version
     val json    = "com.typesafe.play" %% "play-ws-standalone-json" % version
     val bundle  = Seq(ahc, json)
   }
 
   object kamon {
-    val version    = "2.7.0"
+    val version    = "2.7.1"
     val core       = "io.kamon" %% "kamon-core"           % version
     val influxdb   = "io.kamon" %% "kamon-influxdb"       % version
     val metrics    = "io.kamon" %% "kamon-system-metrics" % version

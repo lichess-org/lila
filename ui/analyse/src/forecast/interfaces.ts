@@ -1,3 +1,5 @@
+import { FEN } from 'chessground/types';
+
 export interface ForecastData {
   onMyTurn?: boolean;
   steps?: ForecastStep[][];
@@ -7,7 +9,7 @@ export interface ForecastStep {
   ply: Ply;
   uci: Uci;
   san: San;
-  fen: Fen;
+  fen: FEN;
   check?: Key;
 }
 

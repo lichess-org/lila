@@ -260,7 +260,7 @@ object Flags:
     C("TM", "Turkmenistan"),
     C("TN", "Tunisia"),
     C("TO", "Tonga"),
-    C("TR", "Turkey"),
+    C("TR", "Turkiye"),
     C("TT", "Trinidad and Tobago"),
     C("TV", "Tuvalu"),
     C("TW", "Taiwan"),
@@ -314,5 +314,5 @@ object Flags:
     "_earth"
   )
 
-  def info(code: Code): Option[Flag] = map get code
+  def info(code: Code): Option[Flag] = map.get(code)
   def name(flag: Flag): Name         = nameMap.getOrElse(flag, flag.name)

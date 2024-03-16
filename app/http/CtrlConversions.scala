@@ -3,6 +3,7 @@ package http
 
 import play.api.i18n.Lang
 import play.api.mvc.{ Request, RequestHeader }
+
 import lila.user.User
 
 trait CtrlConversions:

@@ -1,10 +1,10 @@
 package views.html
 package appeal
 
+import controllers.appeal.routes.Appeal as appealRoutes
 import controllers.routes
-import controllers.appeal.routes.{ Appeal as appealRoutes }
 
-import lila.app.templating.Environment.{ given, * }
+import lila.app.templating.Environment.{ *, given }
 import lila.app.ui.ScalatagsTemplate.{ *, given }
 import lila.user.User
 
@@ -12,23 +12,14 @@ object tree:
 
   import trans.closingAccountWithdrawAppeal
   import trans.contact.doNotMessageModerators
+  import trans.appeal
   import views.html.base.navTree.*
   import views.html.base.navTree.Node.*
-
-  val cleanAllGood             = "Your account is not marked or restricted. You're all good!";
-  val engineMarked             = "Your account is marked for external assistance in games.";
-  val arenaBanned              = "Your account is banned from joining arenas."
-  val prizeBanned              = "Your account is banned from tournaments with real prizes."
-  val boosterMarked            = "Your account is marked for rating manipulation.";
-  val accountMuted             = "Your account is muted.";
-  val excludedFromLeaderboards = "Your account has been excluded from leaderboards.";
-  val closedByModerators       = "Your account was closed by moderators.";
-  val hiddenBlog               = "Your blogs have been hidden by moderators."
 
   private def cleanMenu(using PageContext): Branch =
     Branch(
       "root",
-      cleanAllGood,
+      appeal.cleanAllGood(),
       List(
         Leaf(
           "clean-other-account",
@@ -77,7 +68,7 @@ object tree:
       "I deny having used external assistance in my games."
     Branch(
       "root",
-      engineMarked,
+      appeal.engineMarked(),
       List(
         Leaf(
           "engine-accept",
@@ -107,9 +98,7 @@ object tree:
           )
         )
       ),
-      content = frag(
-        "We define this as using any external assistance to strengthen your knowledge and, or, calculation ability to gain an unfair advantage over your opponent. Some examples would include computer engine assistance, opening books (except for correspondence games), endgame tablebases, and asking another player for help, although these aren’t the only things we would consider cheating."
-      ).some
+      content = appeal.engineMarkedInfo(a(href := routes.Cms.lonePage("fair-play"))(appeal.fairPlay())).some
     )
 
   private def boostMenu(using PageContext): Branch =
@@ -122,7 +111,7 @@ object tree:
       "I deny having manipulated my rating. I have never lost rated games on purpose, or played several games with someone who does."
     Branch(
       "root",
-      boosterMarked,
+      appeal.boosterMarked(),
       List(
         Leaf(
           "boost-accept",
@@ -141,9 +130,7 @@ object tree:
           )
         )
       ),
-      content = p(
-        "We define this as deliberately manipulating rating by losing games on purpose, or by playing against another account that is deliberately losing games."
-      ).some
+      content = appeal.boosterMarkedInfo().some
     )
 
   private def muteMenu(using PageContext): Branch =
@@ -154,7 +141,7 @@ object tree:
       "I have followed the communication guidelines"
     Branch(
       "root",
-      accountMuted,
+      appeal.accountMuted(),
       List(
         Leaf(
           "mute-accept",
@@ -180,11 +167,11 @@ object tree:
           )
         )
       ),
-      content = p(
-        "Read our ",
-        a(href := routes.Cms.lonePage("communication-guidelines"))("communication guidelines"),
-        ". Failure to follow the communication guidelines can result in accounts being muted."
-      ).some
+      content = appeal
+        .accountMutedInfo(
+          a(href := routes.Cms.lonePage("communication-guidelines"))(appeal.communicationGuidelines())
+        )
+        .some
     )
 
   private def rankBanMenu(using PageContext): Branch =
@@ -193,7 +180,7 @@ object tree:
       "I deny having manipulated my account to get on the leaderboard."
     Branch(
       "root",
-      excludedFromLeaderboards,
+      appeal.excludedFromLeaderboards(),
       List(
         Leaf(
           "rankban-accept",
@@ -212,9 +199,7 @@ object tree:
           )
         )
       ),
-      content = frag(
-        "We define this as using any unfair way to get on the leaderboard."
-      ).some
+      content = appeal.excludedFromLeaderboardsInfo().some
     )
 
   private def arenaBanMenu(using PageContext): Branch =
@@ -223,7 +208,7 @@ object tree:
     val deny    = "I have followed fair-play and arenas rules"
     Branch(
       "root",
-      arenaBanned,
+      appeal.arenaBanned(),
       List(
         Leaf(
           "arena-ban-no-play",
@@ -259,7 +244,7 @@ object tree:
       "I deny having broken the blog rules."
     Branch(
       "root",
-      hiddenBlog,
+      appeal.hiddenBlog(),
       List(
         Leaf(
           "hidden-blog-accept",
@@ -278,11 +263,8 @@ object tree:
           )
         )
       ),
-      content = frag(
-        "Make sure to read again our ",
-        a(href := routes.Cms.lonePage("blog-etiquette"))("blog rules"),
-        "."
-      ).some
+      content =
+        appeal.hiddenBlogInfo(a(href := routes.Cms.lonePage("blog-etiquette"))(appeal.blogRules())).some
     )
 
   private def prizebanMenu(using PageContext): Branch =
@@ -290,7 +272,7 @@ object tree:
     val deny            = "I reject any allegation of wrongdoing that may have prompted a prizeban."
     Branch(
       "root",
-      prizeBanned,
+      appeal.prizeBanned(),
       List(
         Leaf(
           "prizeban-expired",
@@ -311,10 +293,10 @@ object tree:
       )
     )
 
-  private def playbanMenu: Branch =
+  private def playbanMenu(using Context): Branch =
     Branch(
       "root",
-      "You have a play timeout.",
+      appeal.playTimeout(),
       List(
         Leaf(
           "playban-abort",
@@ -358,7 +340,7 @@ object tree:
     )
 
   private def altScreen(using PageContext) = div(cls := "leaf")(
-    h2(closedByModerators),
+    h2(appeal.closedByModerators()),
     div(cls := "content")(
       p("Did you create multiple accounts? If so, remember that you promised not to, on the sign up page."),
       p(
@@ -374,7 +356,7 @@ object tree:
 
   def apply(me: User, playban: Boolean, ublogIsVisible: Boolean)(using ctx: PageContext) =
     bits.layout("Appeal a moderation decision") {
-      val query = isGranted(_.Appeals) so ctx.req.queryString.toMap.pp
+      val query = isGranted(_.Appeals).so(ctx.req.queryString.toMap.pp)
       val isMarked =
         playban || me.marks.engine || me.marks.boost || me.marks.troll || me.marks.rankban || me.marks.arenaBan || me.marks.prizeban || !ublogIsVisible
       main(cls := "page page-small box box-pad appeal force-ltr")(

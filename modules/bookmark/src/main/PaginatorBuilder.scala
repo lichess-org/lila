@@ -2,8 +2,7 @@ package lila.bookmark
 
 import lila.common.paginator.*
 import lila.db.dsl.{ *, given }
-import lila.game.Game
-import lila.game.GameRepo
+import lila.game.{ Game, GameRepo }
 import lila.user.User
 
 final class PaginatorBuilder(
@@ -20,7 +19,7 @@ final class PaginatorBuilder(
 
   final class UserAdapter(user: User) extends AdapterLike[Game]:
 
-    def nbResults: Fu[Int] = coll countSel selector
+    def nbResults: Fu[Int] = coll.countSel(selector)
 
     def slice(offset: Int, length: Int): Fu[Seq[Game]] =
       coll

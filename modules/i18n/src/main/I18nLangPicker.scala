@@ -1,13 +1,13 @@
 package lila.i18n
 
-import play.api.mvc.RequestHeader
 import play.api.i18n.Lang
+import play.api.mvc.RequestHeader
 
 object I18nLangPicker:
 
   def apply(req: RequestHeader, userLang: Option[String] = None): Lang =
     userLang
-      .orElse(req.session get "lang")
+      .orElse(req.session.get("lang"))
       .flatMap(Lang.get)
       .flatMap(findCloser)
       .orElse(bestFromRequestHeaders(req))
@@ -24,7 +24,7 @@ object I18nLangPicker:
   }.distinct.toList
 
   def byStr(str: String): Option[Lang] =
-    Lang get str flatMap findCloser
+    Lang.get(str).flatMap(findCloser)
 
   def byStrOrDefault(str: Option[String]): Lang =
     str.flatMap(byStr) | defaultLang
@@ -45,9 +45,11 @@ object I18nLangPicker:
       .map(Language(_))
       .filter(candidates.contains)
       .orElse:
-        req.acceptLanguages.map(Language(_)) collectFirst:
-          case l if candidates.contains(l) => l
-      .orElse(candidates.contains(defaultLanguage) option defaultLanguage)
+        req.acceptLanguages
+          .map(Language(_))
+          .collectFirst:
+            case l if candidates.contains(l) => l
+      .orElse(candidates.contains(defaultLanguage).option(defaultLanguage))
 
   private val defaultByLanguage: Map[String, Lang] =
     LangList.all.keys
@@ -60,12 +62,10 @@ object I18nLangPicker:
 
   def findCloser(to: Lang): Option[Lang] =
     if LangList.all.keySet contains to then Some(to)
-    else
-      defaultByLanguage.get(to.language) orElse
-        lichessCodes.get(to.language)
+    else defaultByLanguage.get(to.language).orElse(lichessCodes.get(to.language))
 
   def byHref(code: String, req: RequestHeader): ByHref =
-    Lang get code flatMap findCloser match
+    Lang.get(code).flatMap(findCloser) match
       case Some(lang) if fixJavaLanguage(lang).value == code =>
         if req.acceptLanguages.isEmpty || req.acceptLanguages.exists(_.language == lang.language)
         then ByHref.Found(lang)

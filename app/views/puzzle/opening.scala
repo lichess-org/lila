@@ -3,7 +3,7 @@ package html.puzzle
 
 import controllers.routes
 
-import lila.app.templating.Environment.{ given, * }
+import lila.app.templating.Environment.{ *, given }
 import lila.app.ui.ScalatagsTemplate.{ *, given }
 import lila.common.LilaOpeningFamily
 import lila.puzzle.PuzzleOpening.Order
@@ -26,23 +26,25 @@ object opening:
             h1(trans.puzzle.puzzlesByOpenings()),
             orderSelect(order)
           ),
-          mine.isEmpty option frag(
-            p(cls := "help help-touchscreen")(
-              iconTag(licon.InfoCircle, trans.puzzle.useFindInPage())
-            ),
-            p(cls := "help help-keyboard")(iconTag(licon.InfoCircle, trans.puzzle.useCtrlF()))
+          mine.isEmpty.option(
+            frag(
+              p(cls := "help help-touchscreen")(
+                iconTag(licon.InfoCircle, trans.puzzle.useFindInPage())
+              ),
+              p(cls := "help help-keyboard")(iconTag(licon.InfoCircle, trans.puzzle.useCtrlF()))
+            )
           ),
           div(cls := "puzzle-themes")(
             div(cls := "puzzle-openings")(
-              mine.filter(_.families.nonEmpty) map { m =>
+              mine.filter(_.families.nonEmpty).map { m =>
                 div(cls := "puzzle-openings__mine")(
                   h2(trans.puzzle.openingsYouPlayedTheMost()),
-                  div(cls := "puzzle-openings__list")(m.families take 12 map {
+                  div(cls := "puzzle-openings__list")(m.families.take(12).map {
                     familyLink(_, mine)(cls := "puzzle-openings__link")
                   })
                 )
               },
-              treeOf(openings treeList order, mine),
+              treeOf(openings.treeList(order), mine),
               theme.info
             )
           )
@@ -62,7 +64,7 @@ object opening:
           familyLink(fam.family, mine),
           em(fam.count.localize)
         ),
-        openings.nonEmpty option div(cls := "puzzle-openings__list"):
+        openings.nonEmpty.option(div(cls := "puzzle-openings__list"):
           openings.map: op =>
             a(
               dataFen := op.opening.ref.fen,
@@ -73,6 +75,7 @@ object opening:
               href := routes.Puzzle.show(op.opening.key.value)
             ):
               h3(op.opening.variation, em(op.count.localize))
+        )
       )
 
   private def familyLink(family: LilaOpeningFamily, mine: Option[PuzzleOpening.Mine]): Tag = a(

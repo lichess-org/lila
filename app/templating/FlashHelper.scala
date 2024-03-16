@@ -7,7 +7,7 @@ trait FlashHelper:
   self: I18nHelper =>
 
   def standardFlash(using Context): Option[Tag] =
-    successFlash orElse warningFlash orElse failureFlash
+    successFlash.orElse(warningFlash).orElse(failureFlash)
 
   def successFlash(using ctx: Context): Option[Tag] =
     ctx.flash("success").map { msg =>

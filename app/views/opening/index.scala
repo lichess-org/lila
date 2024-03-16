@@ -3,7 +3,7 @@ package views.html.opening
 import chess.opening.Opening
 import controllers.routes
 
-import lila.app.templating.Environment.{ given, * }
+import lila.app.templating.Environment.{ *, given }
 import lila.app.ui.ScalatagsTemplate.{ *, given }
 import lila.opening.{ OpeningConfig, OpeningPage }
 
@@ -40,7 +40,7 @@ object index:
           )
         ),
         whatsNext(page) | p(cls := "opening__error")("Couldn't fetch the next moves, try again later."),
-        isGranted(_.OpeningWiki) option wiki.showMissing(wikiMissing)
+        isGranted(_.OpeningWiki).option(wiki.showMissing(wikiMissing))
       )
     }
 

@@ -17,20 +17,19 @@ final class HttpFilter(env: Env)(using val mat: Materializer)(using Executor)
     if HTTPRequest.isAssets(req) then serveAssets(req, handle(req))
     else
       val startTime = nowMillis
-      redirectWrongDomain(req) map fuccess getOrElse {
+      redirectWrongDomain(req).map(fuccess).getOrElse {
         handle(req).map: result =>
           monitoring(req, startTime):
             addContextualResponseHeaders(req):
-              addCrendentialless(req):
-                result
+              result
       }
 
   private def monitoring(req: RequestHeader, startTime: Long)(result: Result) =
-    val actionName = HTTPRequest actionName req
+    val actionName = HTTPRequest.actionName(req)
     val reqTime    = nowMillis - startTime
     val statusCode = result.header.status
     val mobile     = lila.security.Mobile.LichessMobileUa.parse(req)
-    val client     = if mobile.isDefined then "mobile" else HTTPRequest clientName req
+    val client     = if mobile.isDefined then "mobile" else HTTPRequest.clientName(req)
     lila.mon.http.time(actionName, client, req.method, statusCode).record(reqTime)
     if logRequests then logger.info(s"$statusCode $client $req $actionName ${reqTime}ms")
     mobile.foreach: m =>
@@ -47,16 +46,9 @@ final class HttpFilter(env: Env)(using val mat: Materializer)(using Executor)
     !HTTPRequest.isProgrammatic(req) &&
     // asset request going through the CDN, don't redirect
     !(req.host == env.net.assetDomain.value && HTTPRequest.hasFileExtension(req))
-  } option Results.MovedPermanently(s"http${if req.secure then "s" else ""}://${env.net.domain}${req.uri}")
+  }.option(Results.MovedPermanently(s"http${if req.secure then "s" else ""}://${env.net.domain}${req.uri}"))
 
   private def addContextualResponseHeaders(req: RequestHeader)(result: Result) =
     if HTTPRequest.isApiOrApp(req)
     then result.withHeaders(headersForApiOrApp(using req)*)
     else result.withHeaders(permissionsPolicyHeader)
-
-  private def addCrendentialless(req: RequestHeader)(result: Result): Result =
-    val actionName = HTTPRequest actionName req
-    if actionName != "Plan.index" && actionName != "Plan.list" &&
-      HTTPRequest.uaMatches(req, env.credentiallessUaRegex.get())
-    then result.withHeaders(credentiallessHeaders*)
-    else result

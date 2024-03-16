@@ -1,13 +1,14 @@
 package controllers
 
+import chess.format.pgn.PgnStr
 import play.api.libs.json.Json
-import scala.util.{ Either, Left, Right }
 import play.api.mvc.*
 import views.*
 
-import lila.app.{ given, * }
+import scala.util.{ Either, Left, Right }
+
+import lila.app.{ *, given }
 import lila.common.{ HTTPRequest, IpAddress }
-import chess.format.pgn.PgnStr
 
 final class Importer(env: Env) extends LilaController(env):
 
@@ -37,42 +38,49 @@ final class Importer(env: Env) extends LilaController(env):
           ),
         data =>
           ImportRateLimitPerIP(ctx.ip, rateLimited, cost = if ctx.isAuth then 1 else 2):
-            env.importer.importer(data) flatMap { game =>
-              ctx.me.so(env.game.cached.clearNbImportedByCache(_)) inject Right(game)
-            } recover { case _: Exception =>
-              Left("The PGN contains illegal and/or ambiguous moves.")
-            } flatMap {
-              case Right(game) =>
-                negotiate(
-                  html = ctx.me.filter(_ => data.analyse.isDefined && game.analysable) soUse { me ?=>
-                    env.fishnet
-                      .analyser(
-                        game,
-                        lila.fishnet.Work.Sender(
-                          userId = me,
-                          ip = ctx.ip.some,
-                          mod = isGranted(_.UserEvaluate) || isGranted(_.Relay),
-                          system = false
-                        )
-                      )
-                      .void
-                  } inject Redirect(routes.Round.watcher(game.id, "white")),
-                  json =
-                    if HTTPRequest.isLichobile(ctx.req)
-                    then Redirect(routes.Round.watcher(game.id, "white"))
-                    else
-                      JsonOk:
-                        Json.obj(
-                          "id"  -> game.id,
-                          "url" -> s"${env.net.baseUrl}/${game.id}"
-                        )
-                )
-              case Left(error) =>
-                negotiate(
-                  Redirect(routes.Importer.importGame).flashFailure(error),
-                  BadRequest(jsonError(error))
-                )
-            }
+            env.importer
+              .importer(data)
+              .flatMap { game =>
+                ctx.me.so(env.game.cached.clearNbImportedByCache(_)).inject(Right(game))
+              }
+              .recover { case _: Exception =>
+                Left("The PGN contains illegal and/or ambiguous moves.")
+              }
+              .flatMap {
+                case Right(game) =>
+                  negotiate(
+                    html = ctx.me
+                      .filter(_ => data.analyse.isDefined && game.analysable)
+                      .soUse { me ?=>
+                        env.fishnet
+                          .analyser(
+                            game,
+                            lila.fishnet.Work.Sender(
+                              userId = me,
+                              ip = ctx.ip.some,
+                              mod = isGranted(_.UserEvaluate),
+                              system = false
+                            )
+                          )
+                          .void
+                      }
+                      .inject(Redirect(routes.Round.watcher(game.id, "white"))),
+                    json =
+                      if HTTPRequest.isLichobile(ctx.req)
+                      then Redirect(routes.Round.watcher(game.id, "white"))
+                      else
+                        JsonOk:
+                          Json.obj(
+                            "id"  -> game.id,
+                            "url" -> s"${env.net.baseUrl}/${game.id}"
+                          )
+                  )
+                case Left(error) =>
+                  negotiate(
+                    Redirect(routes.Importer.importGame).flashFailure(error),
+                    BadRequest(jsonError(error))
+                  )
+              }
       )
 
   def masterGame(id: GameId, orientation: String) = Open:

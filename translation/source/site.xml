@@ -276,6 +276,7 @@
   <string name="abortGame">Abort game</string>
   <string name="gameAborted">Game aborted</string>
   <string name="standard">Standard</string>
+  <string name="customPosition">Custom position</string>
   <string name="unlimited">Unlimited</string>
   <string name="mode">Mode</string>
   <string name="casual">Casual</string>
@@ -531,7 +532,7 @@
   <string name="automaticallyProceedToNextGameAfterMoving">Automatically proceed to next game after moving</string>
   <string name="autoSwitch">Auto switch</string>
   <string name="puzzles">Puzzles</string>
-  <string name="tournamentWinners">Tournament winners</string>
+  <string name="onlineBots">Online bots</string>
   <string name="name">Name</string>
   <string name="description">Description</string>
   <string name="descPrivate">Private description</string>
@@ -940,8 +941,6 @@ and impact players ratings</string>
   <string name="minimumRatedGames">Minimum rated games</string>
   <string name="minimumRating">Minimum rating</string>
   <string name="maximumWeeklyRating">Maximum weekly rating</string>
-  <string name="onlyTitled">Only titled players</string>
-  <string name="onlyTitledHelp">Require an official title to join the tournament</string>
   <string name="positionInputHelp">Paste a valid FEN to start every game from a given position.
 It only works for standard games, not with variants.
 You can use the %s to generate a FEN position, then paste it here.
@@ -990,4 +989,5 @@ Leave empty to start games from the normal initial position.</string>
   <string name="showMeEverything">Show me everything</string>
   <string name="lichessPatronInfo">Lichess is a charity and entirely free/libre open source software.
 All operating costs, development, and content are funded solely by user donations.</string>
+  <string name="nothingToSeeHere">Nothing to see here at the moment.</string>
 </resources>

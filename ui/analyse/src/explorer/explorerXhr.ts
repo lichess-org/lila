@@ -2,13 +2,14 @@ import { ExplorerDb, OpeningData, TablebaseData } from './interfaces';
 import * as xhr from 'common/xhr';
 import { readNdJson } from 'common/ndjson';
 import { ExplorerConfigData } from './explorerConfig';
+import { FEN } from 'chessground/types';
 
 interface OpeningXhrOpts {
   endpoint: string;
   db: ExplorerDb;
-  rootFen: Fen;
+  rootFen: FEN;
   play: string[];
-  fen: Fen;
+  fen: FEN;
   variant?: VariantKey; // only lichess & player
   config: ExplorerConfigData;
   withGames?: boolean;
@@ -67,7 +68,7 @@ export async function opening(
 export async function tablebase(
   endpoint: string,
   variant: VariantKey,
-  fen: Fen,
+  fen: FEN,
   signal?: AbortSignal,
 ): Promise<TablebaseData> {
   const effectiveVariant = variant === 'fromPosition' || variant === 'chess960' ? 'standard' : variant;

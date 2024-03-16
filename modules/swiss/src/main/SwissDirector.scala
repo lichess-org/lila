@@ -1,6 +1,6 @@
 package lila.swiss
 
-import chess.{ Black, Color, White, ByColor }
+import chess.ByColor
 
 import lila.db.dsl.{ *, given }
 import lila.game.Game
@@ -56,8 +56,8 @@ final private class SwissDirector(
             _ <- SwissPlayer.fields { f =>
               mongo.player.update
                 .one(
-                  $doc(f.userId $in byes, f.swissId -> swiss.id),
-                  $addToSet(f.byes                  -> swiss.round),
+                  $doc(f.userId.$in(byes), f.swissId -> swiss.id),
+                  $addToSet(f.byes                   -> swiss.round),
                   multi = true
                 )
                 .void
@@ -65,11 +65,11 @@ final private class SwissDirector(
             _ <- mongo.pairing.insert.many(pairings).void
             games = pairings.map(makeGame(swiss, players.mapBy(_.userId)))
             _ <- games.traverse_ : game =>
-              gameRepo.insertDenormalized(game) andDo onStart(game.id)
+              gameRepo.insertDenormalized(game).andDo(onStart(game.id))
           yield swiss.some
       }
       .recover { case PairingSystem.BBPairingException(msg, input) =>
-        if msg contains "The number of rounds is larger than the reported number of rounds." then none
+        if msg.contains("The number of rounds is larger than the reported number of rounds.") then none
         else
           logger.warn(s"BBPairing ${from.id} $msg")
           logger.info(s"BBPairing ${from.id} $input")
@@ -90,7 +90,7 @@ final private class SwissDirector(
           )
           .copy(clock = swiss.clock.toClock.some),
         players = ByColor: c =>
-          val player = players get pairing(c) err s"Missing pairing $c $pairing"
+          val player = players.get(pairing(c)).err(s"Missing pairing $c $pairing")
           lila.game.Player.make(c, player.userId, player.rating, player.provisional)
         ,
         mode = chess.Mode(swiss.settings.rated),
@@ -100,6 +100,3 @@ final private class SwissDirector(
       .withId(pairing.gameId)
       .withSwissId(swiss.id)
       .start
-
-  private def makePlayer(color: Color, player: SwissPlayer) =
-    lila.game.Player.make(color, player.userId, player.rating, player.provisional)

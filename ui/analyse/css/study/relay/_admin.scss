@@ -1,14 +1,10 @@
-.analyse__acpl {
-  display: none;
-}
-
 .relay-admin {
   grid-area: round-training;
 
   @extend %box-neat-force, %flex-column;
 
   background: $c-bg-box;
-  margin-top: $block-gap;
+  margin-top: 1em;
 
   h2 {
     @extend %flex-between;
@@ -66,8 +62,8 @@
   .log {
     overflow-x: hidden;
     overflow-y: auto;
-    white-space: nowrap;
     padding: 0.3em 0.7em;
+    max-height: 20vh;
 
     > div {
       @extend %flex-center-nowrap;

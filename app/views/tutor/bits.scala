@@ -1,6 +1,6 @@
 package views.html.tutor
 
-import lila.app.templating.Environment.{ given, * }
+import lila.app.templating.Environment.{ *, given }
 import lila.app.ui.ScalatagsTemplate.{ *, given }
 import lila.tutor.TutorNumber
 
@@ -19,11 +19,11 @@ object bits:
 
   val seeMore = a(cls := "tutor-card__more")("Click to see more...")
 
-  def percentNumber[A](v: A)(using number: TutorNumber[A]) = f"${number double v}%1.1f"
+  def percentNumber[A](v: A)(using number: TutorNumber[A]) = f"${number.double(v)}%1.1f"
   def percentFrag[A](v: A)(using TutorNumber[A])           = frag(strong(percentNumber(v)), "%")
 
   private[tutor] def otherUser(user: lila.user.User)(using ctx: Context) =
-    !ctx.is(user) option userSpan(user, withOnline = false)
+    ctx.isnt(user).option(userSpan(user, withOnline = false))
 
   private[tutor] def layout(
       menu: Frag,

@@ -3,8 +3,7 @@ package lila.coach
 import play.api.data.*
 import play.api.data.Forms.*
 import play.api.i18n.Lang
-import play.api.libs.json.{ JsSuccess, Json }
-import play.api.libs.json.Reads
+import play.api.libs.json.{ JsSuccess, Json, Reads }
 
 import lila.common.Form.given
 
@@ -30,11 +29,13 @@ object CoachProfileForm:
           "publicStudies"      -> optional(nonEmptyText)
         )(CoachProfile.apply)(unapply)
       )(Data.apply)(unapply)
-    ) fill Data(
-      listed = coach.listed.value,
-      available = coach.available.value,
-      languages = "",
-      profile = coach.profile
+    ).fill(
+      Data(
+        listed = coach.listed.value,
+        available = coach.available.value,
+        languages = "",
+        profile = coach.profile
+      )
     )
 
   private case class TagifyLang(code: String)

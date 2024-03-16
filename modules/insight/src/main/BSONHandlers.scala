@@ -13,7 +13,7 @@ import lila.rating.PerfType
 object BSONHandlers:
 
   given BSONHandler[Role] = tryHandler(
-    { case BSONString(v) => Role.allByForsyth get v.head toTry s"Invalid role $v" },
+    { case BSONString(v) => Role.allByForsyth.get(v.head).toTry(s"Invalid role $v") },
     e => BSONString(e.forsyth.toString)
   )
   given BSONHandler[RelativeStrength]     = valueMapHandler(RelativeStrength.byId)(_.id)

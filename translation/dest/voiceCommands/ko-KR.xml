@@ -2,4 +2,21 @@
 <resources>
   <string name="voiceCommands">음성 명령어</string>
   <string name="watchTheVideoTutorial">튜토리얼 영상 보기</string>
+  <string name="instructions1">%1$s 버튼을 눌러 음성 인식을 켜거나 끌 수 있습니다. %2$s 버튼을 눌러 이 도움말을 볼 수 있습니다. %3$s 메뉴에서 음성 설정을 바꿀 수 있습니다.</string>
+  <string name="instructions2" comment="Voice commands can be misheard and Lichess will not always be fully certain what you said. Several arrows will be shown to identify e.g. if the move was 'b4' or 'd4', which often sound similar.&#10;&#10;These arrows will be in different colours (green, blue, etc) or labelled 1, 2, 3....&#10;You can then say the colour of the arrow (e.g. 'green') - or its number (e.g. '1'), to select that move.&#10;Users can configure if they choose from multiple moves based on colours or numbers.">인식 결과가 명확하지 않을 때에는, 여러 수가 화살표로 표시됩니다. 화살표를 선택하려면, 그 화살표의 색이나 번호를 말하세요.</string>
+  <string name="instructions3" comment="This is a complicated concept more easy to understand in practice. Voice commands can be misheard and Lichess will not always be fully certain what you said. Several arrows will be shown to identify e.g. if the move was 'b4' or 'd4', which often sound similar.&#10;The most likely move the player wants will have a circle showing around it, but it will be possible to cancel before it is played (for example, by shouting 'no!').&#10;&#10;You can see a visual example here: https://lichess.org/@/schlawg/blog/how-to-lichess-voice/nWrypoWI">화살표에 레이더 애니메이션이 표시 중이라면, 애니메이션이 완료되었을 때 그 수를 두게 됩니다. 이 때, %1$s라고 말해 즉시 기물을 움직이거나, %2$s라고 말해 취소하거나, 다른 화살표의 색깔/번호를 말하는 명령만 쓸 수 있습니다. 이 타이머는 설정에서 조절하거나 비활성화 할 수 있습니다.</string>
+  <string name="instructions4" comment="%s is Push to Talk.">주변에 소음이 많다면 %s 설정을 활성화하세요. 이 설정이 활성화되어 있을 때, 명령어를 말하려면 시프트 키를 누른 상태에서 말하면 됩니다.</string>
+  <string name="instructions5" comment="The phonetic alphabet is also known as the NATO alphabet (where A = Alpha, B = Bravo, etc. This makes the sounds easier to differentiate through a microphone). It is for English specifically, which as of the time of writing, is the only language supported by the Voice Commands feature.">포네틱 알파벳(음성 기호)을 사용하면 체스판 파일 이름의 인식률을 높일 수 있습니다. </string>
+  <string name="instructions6">%s에서 기물을 움직이는 음성 명령어에 대한 자세한 설명을 확인할 수 있습니다.</string>
+  <string name="thisBlogPost">이 블로그 게시글</string>
+  <string name="moveToE4OrSelectE4Piece">e4로 기물을 옮기거나, e4에 있는 기물 선택하기</string>
+  <string name="selectOrCaptureABishop">비숍을 선택하거나 잡기</string>
+  <string name="takeRookWithQueen">록을 퀸으로 잡기</string>
+  <string name="castle">캐슬링 (아무 쪽이나)</string>
+  <string name="phoneticAlphabetIsBest">포네틱 알파벳 (음성 기호) 사용 권장</string>
+  <string name="cancelTimerOrDenyARequest">타이머 취소 또는 요청 거절</string>
+  <string name="playPreferredMoveOrConfirmSomething" comment="Used in voice commands. When it is unclear what the player said (e.g. 'b4' and 'd4' sound similar), both moves will be shown, with the more likely one highlighted in a certain colour. By default, a countdown begins, and if no action is taken, the likely move (e.g. b4) will be played. Players can end the countdown early/confirm their move by saying 'yes'.&#10;&#10;For more details see https://lichess.org/@/schlawg/blog/how-to-lichess-voice/nWrypoWI">선호하는 수 플레이, 또는 무언가를 확인하기</string>
+  <string name="sleep" comment="Used for voice commands.&#10;&#10;By default, voice commands are always-on after the feature is enabled. Users can optionally set a word for listening to start, or say 'sleep' to disable listening.&#10;&#10;(Please note - this is not the same as recording, since the recording is never sent to Lichess; the speech technology is entirely offline)">슬리프 모드 (활성화 단어를 지정 한 경우)</string>
+  <string name="turnOffVoiceRecognition">음성 인식 끄기</string>
+  <string name="showPuzzleSolution">퍼즐 해답 보기</string>
 </resources>

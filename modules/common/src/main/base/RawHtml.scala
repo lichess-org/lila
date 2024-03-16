@@ -1,10 +1,11 @@
 package lila.base
 
+import scalatags.Text.all.*
+
 import java.lang.Character.isLetterOrDigit
 import java.lang.{ Math, StringBuilder as jStringBuilder }
 import java.util.regex.Matcher
 import scala.annotation.{ switch, tailrec }
-import scalatags.Text.all.*
 
 import lila.common.base.StringUtils.{ escapeHtmlRaw, escapeHtmlRawInPlace }
 import lila.common.{ Html, config }
@@ -23,7 +24,7 @@ object RawHtml:
         sb.append(char)
     Html(sb.toString)
 
-  private[this] val urlPattern = (
+  private val urlPattern = (
     """(?i)\b[a-z](?>""" +                                     // pull out first char for perf.
       """ttp(?<=http)s?://(\w[-\w.~!$&';=:@]{0,100})|""" +     // http(s) links
       """(?<![/@.-].)(?:\w{1,15}+\.){1,3}(?>com|org|edu))""" + // "lichess.org", etc
@@ -31,7 +32,7 @@ object RawHtml:
       """(?![\w/~$&*+=#@%])"""                                 // neg lookahead
   ).r.pattern
 
-  private[this] val USER_LINK = """/@/([\w-]{2,30}+)?""".r
+  private val USER_LINK = """/@/([\w-]{2,30}+)?""".r
 
   // Matches a lichess username with an '@' prefix if it is used as a single
   // word (i.e. preceded and followed by space or appropriate punctuation):
@@ -39,7 +40,7 @@ object RawHtml:
   // No: contact@lichess.org, @1, http://example.com/@happy0, @lichess.org
   val atUsernameRegex = """@(?<![\w@#/\[]@)([\w-]{2,30}+)(?![@\w-]|\.\w)""".r
 
-  private[this] val atUsernamePat = atUsernameRegex.pattern
+  private val atUsernamePat = atUsernameRegex.pattern
 
   def expandAtUser(text: String)(using netDomain: config.NetDomain): List[String] =
     val m = atUsernamePat.matcher(text)
@@ -106,20 +107,22 @@ object RawHtml:
           lazy val url     = (if isHttp then "http://" else "https://") + allButScheme
           lazy val text    = if isHttp then url else allButScheme
 
-          sb append {
+          sb.append {
             if isTldInternal then
-              linkRender flatMap { _(allButScheme, text).map(_.render) } getOrElse s"""<a href="${
-                  if allButScheme.isEmpty then "/"
-                  else allButScheme
-                }">${allButScheme match
-                  case USER_LINK(user) => "@" + user
-                  case _               => s"${netDomain}$allButScheme"
-                }</a>"""
+              linkRender
+                .flatMap { _(allButScheme, text).map(_.render) }
+                .getOrElse(s"""<a href="${
+                    if allButScheme.isEmpty then "/"
+                    else allButScheme
+                  }">${allButScheme match
+                    case USER_LINK(user) => "@" + user
+                    case _               => s"${netDomain}$allButScheme"
+                  }</a>""")
             else
               {
                 if (end < sArr.length && sArr(end) == '"') || !expandImg then None
                 else imgUrl(url)
-              } getOrElse {
+              }.getOrElse {
                 s"""<a rel="nofollow noopener noreferrer" href="$url" target="_blank">$text</a>"""
               }
           }
@@ -132,9 +135,9 @@ object RawHtml:
         sb.toString
     } match
       case one :: Nil => Html(one)
-      case many       => Html(many mkString "")
+      case many       => Html(many.mkString(""))
 
-  private[this] def adjustUrlEnd(sArr: Array[Char], start: Int, end: Int): Int =
+  private def adjustUrlEnd(sArr: Array[Char], start: Int, end: Int): Int =
     var last = end - 1
     while (sArr(last): @switch) match
         case '.' | ',' | '?' | '!' | ':' | ';' | '–' | '—' | '@' | '\'' | '(' => true
@@ -162,33 +165,34 @@ object RawHtml:
       do last -= 1
     last + 1
 
-  private[this] val imgurRegex = """https?://(?:i\.)?imgur\.com/(\w++)(?:\.jpe?g|\.png|\.gif)?""".r
-  private[this] val giphyRegex =
+  private val imgurRegex = """https?://(?:i\.)?imgur\.com/(\w++)(?:\.jpe?g|\.png|\.gif)?""".r
+  private val giphyRegex =
     """https://(?:media\.giphy\.com/media/|giphy\.com/gifs/(?:\w+-)*+)(\w+)(?:/giphy\.gif)?""".r
-  private[this] val postimgRegex = """https://(?:i\.)?postimg\.cc/([\w/-]+)(?:\.jpe?g|\.png|\.gif)?""".r
+  private val postimgRegex = """https://(?:i\.)?postimg\.cc/([\w/-]+)(?:\.jpe?g|\.png|\.gif)?""".r
 
-  private[this] def imgUrl(url: String): Option[Html] =
-    url match {
-      case imgurRegex(id)   => Some(s"""https://i.imgur.com/$id.jpg""")
-      case giphyRegex(id)   => Some(s"""https://media.giphy.com/media/$id/giphy.gif""")
-      case postimgRegex(id) => Some(s"""https://i.postimg.cc/$id.jpg""")
-      case _                => None
-    } map { img =>
-      Html(s"""<img class="embed" src="$img" alt="$url"/>""")
-    }
+  private def imgUrl(url: String): Option[Html] =
+    url
+      .match
+        case imgurRegex(id)   => Some(s"""https://i.imgur.com/$id.jpg""")
+        case giphyRegex(id)   => Some(s"""https://media.giphy.com/media/$id/giphy.gif""")
+        case postimgRegex(id) => Some(s"""https://i.postimg.cc/$id.jpg""")
+        case _                => None
+      .map { img =>
+        Html(s"""<img class="embed" src="$img" alt="$url"/>""")
+      }
 
-  private[this] val markdownLinkRegex = """\[([^]]++)\]\((https?://[^)]++)\)""".r
+  private val markdownLinkRegex = """\[([^]]++)\]\((https?://[^)]++)\)""".r
   def justMarkdownLinks(escapedHtml: Html): Html = Html {
     markdownLinkRegex.replaceAllIn(
       escapedHtml.value,
       m =>
-        val content = Matcher.quoteReplacement(m group 1)
-        val href    = removeUrlTrackingParameters(m group 2)
+        val content = Matcher.quoteReplacement(m.group(1))
+        val href    = removeUrlTrackingParameters(m.group(2))
         s"""<a rel="nofollow noopener noreferrer" href="$href">$content</a>"""
     )
   }
 
-  private[this] val trackingParametersRegex =
+  private val trackingParametersRegex =
     """(?i)(?:\?|&(?:amp;)?)(?:utm\\?_\w+|gclid|gclsrc|\\?_ga)=\w+""".r
   def removeUrlTrackingParameters(url: String): String =
     trackingParametersRegex.replaceAllIn(url, "")

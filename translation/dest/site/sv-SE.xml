@@ -530,7 +530,6 @@
   <string name="automaticallyProceedToNextGameAfterMoving">Fortsätt automatiskt till nästa parti efter att du gjort ett drag</string>
   <string name="autoSwitch">Automatiskt partibyte</string>
   <string name="puzzles">Schackproblem</string>
-  <string name="tournamentWinners">Turneringsvinnare</string>
   <string name="name">Namn</string>
   <string name="description">Beskrivning</string>
   <string name="descPrivate">Privat beskrivning</string>
@@ -938,8 +937,6 @@ och påverkar spelares rating</string>
   <string name="minimumRatedGames">Minst antal rankade partier</string>
   <string name="minimumRating">Lägsta rating</string>
   <string name="maximumWeeklyRating">Högsta vecko-rating</string>
-  <string name="onlyTitled">Endast betitlade spelare</string>
-  <string name="onlyTitledHelp">Kräv en officiell titel för att delta i turneringen</string>
   <string name="positionInputHelp">Klistra in en giltig FEN för att starta varje spel från en given position.
 Det fungerar endast för standardspel, inte med varianter.
 Du kan använda %s för att generera en FEN-position, sedan klistra in den här.

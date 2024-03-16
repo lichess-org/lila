@@ -73,7 +73,7 @@ final class Env(
     clearTrophyCache = (
         tour =>
           if tour.isShield then scheduler.scheduleOnce(10 seconds) { shieldApi.clear() }
-          else if Revolution is tour then scheduler.scheduleOnce(10 seconds) { revolutionApi.clear() }
+          else if Revolution.is(tour) then scheduler.scheduleOnce(10 seconds) { revolutionApi.clear() }
     ),
     indexLeaderboard = leaderboardIndexer.indexOne
   )
@@ -119,13 +119,13 @@ final class Env(
   wire[TournamentScheduler]
 
   scheduler.scheduleWithFixedDelay(1 minute, 1 minute): () =>
-    tournamentRepo.countCreated foreach { lila.mon.tournament.created.update(_) }
+    tournamentRepo.countCreated.foreach { lila.mon.tournament.created.update(_) }
 
-  private val redisClient = RedisClient create RedisURI.create(appConfig.get[String]("socket.redis.uri"))
+  private val redisClient = RedisClient.create(RedisURI.create(appConfig.get[String]("socket.redis.uri")))
   val lilaHttp            = wire[TournamentLilaHttp]
 
   def version(tourId: TourId): Fu[SocketVersion] =
-    socket.rooms.ask[SocketVersion](tourId into RoomId)(GetVersion.apply)
+    socket.rooms.ask[SocketVersion](tourId.into(RoomId))(GetVersion.apply)
 
   // is that user playing a game of this tournament
   // or hanging out in the tournament lobby (joined or not)
@@ -138,11 +138,11 @@ final class Env(
         // case "tournament" :: "leaderboard" :: "generate" :: Nil =>
         //   leaderboardIndexer.generateAll inject "Done!"
         case "tournament" :: "feature" :: id :: Nil =>
-          api.toggleFeaturing(TourId(id), true) inject "Done!"
+          api.toggleFeaturing(TourId(id), true).inject("Done!")
         case "tournament" :: "unfeature" :: id :: Nil =>
-          api.toggleFeaturing(TourId(id), false) inject "Done!"
+          api.toggleFeaturing(TourId(id), false).inject("Done!")
         case "tournament" :: "recompute" :: id :: Nil =>
-          api.recomputeEntireTournament(TourId(id)) inject "Done!"
+          api.recomputeEntireTournament(TourId(id)).inject("Done!")
 
 trait TournamentReloadDelay
 trait TournamentReloadEndpoint

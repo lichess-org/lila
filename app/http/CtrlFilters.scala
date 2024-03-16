@@ -1,14 +1,12 @@
 package lila.app
 package http
 
+import alleycats.Zero
 import play.api.http.*
 import play.api.mvc.*
-import play.api.libs.json.JsNumber
 
-import lila.security.{ Permission, Granter }
-
-import lila.common.HTTPRequest
-import lila.common.config
+import lila.common.{ HTTPRequest, config }
+import lila.security.{ Granter, Permission }
 
 trait CtrlFilters extends ControllerHelpers with ResponseBuilder with CtrlConversions:
 
@@ -32,7 +30,7 @@ trait CtrlFilters extends ControllerHelpers with ResponseBuilder with CtrlConver
     Forbidden(
       jsonError:
         s"You are already playing ${current.opponent}"
-    ) as JSON
+    ).as(JSON)
 
   def NoPlaybanOrCurrent(a: => Fu[Result])(using Context, Executor): Fu[Result] =
     NoPlayban(NoCurrentGame(a))
@@ -87,6 +85,15 @@ trait CtrlFilters extends ControllerHelpers with ResponseBuilder with CtrlConver
         _.fold(a): ban =>
           negotiate(keyPages.home(Results.Forbidden), playbanJsonError(ban))
 
+  def AuthOrTrustedIp(f: => Fu[Result])(using ctx: Context)(using Executor): Fu[Result] =
+    if ctx.isAuth then f
+    else
+      env.security
+        .ip2proxy(ctx.ip)
+        .flatMap: ip =>
+          if ip.in(_.empty, _.vpn) then f
+          else Redirect(controllers.routes.Auth.login)
+
   private val csrfForbiddenResult = Forbidden("Cross origin request forbidden")
 
   def CSRF(f: => Fu[Result])(using req: RequestHeader): Fu[Result] =
@@ -112,7 +119,10 @@ trait CtrlFilters extends ControllerHelpers with ResponseBuilder with CtrlConver
   def NoCrawlers(result: => Fu[Result])(using ctx: Context): Fu[Result] =
     if HTTPRequest.isCrawler(ctx.req).yes then notFound else result
 
+  def NoCrawlers[A](computation: => A)(using ctx: Context, default: Zero[A]): A =
+    if HTTPRequest.isCrawler(ctx.req).yes then default.zero else computation
+
   def NotManaged(result: => Fu[Result])(using ctx: Context)(using Executor): Fu[Result] =
-    ctx.me.so(env.clas.api.student.isManaged(_)) flatMap {
+    ctx.me.so(env.clas.api.student.isManaged(_)).flatMap {
       if _ then notFound else result
     }

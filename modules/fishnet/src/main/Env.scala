@@ -4,11 +4,11 @@ import akka.actor.*
 import com.softwaremill.macwire.*
 import com.softwaremill.tagging.*
 import io.lettuce.core.*
-import lila.common.autoconfig.{ *, given }
 import play.api.Configuration
 import play.api.libs.ws.StandaloneWSClient
 
 import lila.common.Bus
+import lila.common.autoconfig.{ *, given }
 import lila.common.config.*
 
 @Module
@@ -51,7 +51,7 @@ final class Env(
   private lazy val analysisColl = db(config.analysisColl)
 
   private lazy val redis = FishnetRedis(
-    RedisClient create RedisURI.create(config.redisUri),
+    RedisClient.create(RedisURI.create(config.redisUri)),
     "fishnet-in",
     "fishnet-out",
     shutdown
@@ -115,24 +115,24 @@ final class Env(
   )
 
   private def disable(keyOrUser: String) =
-    repo toKey keyOrUser flatMap { repo.enableClient(_, v = false) }
+    repo.toKey(keyOrUser).flatMap { repo.enableClient(_, v = false) }
 
   def cli = new lila.common.Cli:
     def process =
       case "fishnet" :: "client" :: "create" :: name :: Nil =>
-        userRepo.enabledById(UserStr(name)).map(_.exists(_.marks.clean)) flatMap {
+        userRepo.enabledById(UserStr(name)).map(_.exists(_.marks.clean)).flatMap {
           if _ then
-            api.createClient(UserStr(name).id) map { client =>
+            api.createClient(UserStr(name).id).map { client =>
               Bus.publish(lila.hub.actorApi.fishnet.NewKey(client.userId, client.key.value), "fishnet")
               s"Created key: ${client.key.value} for: $name"
             }
           else fuccess("User missing, closed, or banned")
         }
       case "fishnet" :: "client" :: "delete" :: key :: Nil =>
-        repo toKey key flatMap repo.deleteClient inject "done!"
+        repo.toKey(key).flatMap(repo.deleteClient).inject("done!")
       case "fishnet" :: "client" :: "enable" :: key :: Nil =>
-        repo toKey key flatMap { repo.enableClient(_, v = true) } inject "done!"
-      case "fishnet" :: "client" :: "disable" :: key :: Nil => disable(key) inject "done!"
+        repo.toKey(key).flatMap { repo.enableClient(_, v = true) }.inject("done!")
+      case "fishnet" :: "client" :: "disable" :: key :: Nil => disable(key).inject("done!")
 
   Bus.subscribeFun("adjustCheater", "adjustBooster", "shadowban"):
     case lila.hub.actorApi.mod.MarkCheater(userId, true) => disable(userId.value)

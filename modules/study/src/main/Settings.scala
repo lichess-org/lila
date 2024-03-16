@@ -37,6 +37,6 @@ object Settings:
     def allows(sel: UserSelection, study: Study, userId: Option[UserId]): Boolean = sel match
       case Nobody      => false
       case Everyone    => true
-      case Member      => userId so study.isMember
-      case Contributor => userId so study.canContribute
-      case Owner       => userId so study.isOwner
+      case Member      => userId.so(study.isMember)
+      case Contributor => userId.so(study.canContribute)
+      case Owner       => userId.so(study.isOwner)

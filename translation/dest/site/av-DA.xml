@@ -521,7 +521,6 @@
   <string name="automaticallyProceedToNextGameAfterMoving">Хъурщаралдаса автоматик хадусеб хӀаялде жувазе</string>
   <string name="autoSwitch">Авто хиси</string>
   <string name="puzzles">Масъала</string>
-  <string name="tournamentWinners">Турниралда бергьарал</string>
   <string name="name">ЦӀар</string>
   <string name="description">Гьелъул хӀакъалъулъ хъвай</string>
   <string name="descPrivate">Бахчараб бицин</string>
@@ -898,8 +897,6 @@
   <string name="minimumRatedGames">Бищун дагьаб рейтингалъул хӀай</string>
   <string name="minimumRating">Бишун дагьаб рейтинг</string>
   <string name="maximumWeeklyRating">Бищун гӀемераб щибаб анкьил рейтинг</string>
-  <string name="onlyTitled">ЦохӀо титул бугел хӀалел чагӀи</string>
-  <string name="onlyTitledHelp">Турниралде жувазе, расмияб титул къваригӀуна</string>
   <string name="positionInputHelp">Щибаб хӀай кьураб бакӀалдаса байбихьизе, битӀараб FEN лъей.
 Гьеб цохӀо гӀадатал хӀаязда хӀалтӀула, варианталгун гуро.
 Дуда %s хӀалтӀизабизе кӀола FEN бакӀ гьабизе цинги гьеб гьаниб лъезе.

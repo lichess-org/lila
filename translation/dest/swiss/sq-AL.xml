@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+  <string name="swiss">Zviceran</string>
   <string name="swissTournaments">Turne zvicerane</string>
   <plurals name="viewAllXRounds" comment="viewAllXRounds [one] [other]&#10;&#10;%s is the number of rounds in the Swiss tournament.">
     <item quantity="one">Shihni raundin</item>
@@ -34,6 +35,16 @@
   <string name="roundInterval">Interval mes raundesh</string>
   <string name="forbiddenPairings">Çiftime të ndaluara</string>
   <string name="forbiddenPairingsHelp">Emra përdoruesish lojtarësh që s’duhet të luajnë me njëri-tjetrin (vëllezër e motra, për shembull). Dy emra përdoruesish për rresht, ndarë nga një hapësirë.</string>
+  <string name="manualPairings">Çiftim dorazi në raundin pasues</string>
+  <string name="manualPairingsHelp">Specifikoni dorazi krejt dyshet për raundin pasues. Një dyshe lojtarësh për rresht. Shembull:
+LojtariA LojtariB
+LojtariC LojtariD
+Për t’i dhënë një “bye” (1 pikë) një lojtari, në vend se një dyshe, shtoni një rresht si ky:
+LojtariE 1
+Lojtarët që mungojnë do të konsiderohen jo të pranishëm dhe s’do të marrin pikë.
+Lëreni të zbrazët këtë fushë, për të lejuar lichess-in të krijojë automatikisht dyshe.</string>
+  <string name="mustHavePlayedTheirLastSwissGame">Duhet të ketë luajtur lojën e vet zvicerane të fundit</string>
+  <string name="mustHavePlayedTheirLastSwissGameHelp">Lëreni të marrë pjesë një lojtar vetëm nëse ka luajtur lojën e vet të fundit zvicerane. Nëse s’u paraqit në një veprimtari zvicerane së fundi, s’do të jenë të gjendje të marrë pjesë në tuajin. Kjo jep një zhvillim më të mirë turneu zviceran për lojtarët që marrin faktikisht pjesë.</string>
   <string name="newSwiss">Turne i ri zviceran</string>
   <string name="swissVsArenaQ">Kur të përdoren turne zviceranë, në vend se arena?</string>
   <string name="swissVsArenaA">Në një turne zviceran, krejt pjesëmarrësit luajnë një numër të njëjtë lojërash dhe mund të luajnë kundër njëri-tjetrit vetëm një herë.
@@ -100,4 +111,5 @@ Gjëja më e afërt e një Round Robin-i në internet është të luhet një tur
   <string name="similarToOTB">I ngjashëm me turne OTB</string>
   <string name="unlimitedAndFree">I pakufizuar dhe i lirë</string>
   <string name="playYourGames">Luani lojërat tuaja</string>
+  <string name="absences">Mungesa</string>
 </resources>

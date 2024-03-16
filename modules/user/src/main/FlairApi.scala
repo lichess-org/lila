@@ -33,18 +33,20 @@ final class FlairApi(lightUserApi: LightUserApi)(using Executor)(using scheduler
     lightUserApi.async(id).dmap(_.flatMap(_.flair))
 
   def flairsOf(ids: List[UserId]): Fu[Map[UserId, Flair]] =
-    lightUserApi.asyncMany(ids.distinct) map: users =>
-      val pairs = for
-        uOpt  <- users
-        user  <- uOpt
-        flair <- user.flair
-      yield user.id -> flair
-      pairs.toMap
+    lightUserApi
+      .asyncMany(ids.distinct)
+      .map: users =>
+        val pairs = for
+          uOpt  <- users
+          user  <- uOpt
+          flair <- user.flair
+        yield user.id -> flair
+        pairs.toMap
 
   private def refresh(): Unit =
     val source = scala.io.Source.fromFile("public/flair/list.txt", "UTF-8")
     try
-      db = Flair from source.getLines.toSet
+      db = Flair.from(source.getLines.toSet)
       logger.info(s"Updated flair db with ${db.size} flairs")
     finally source.close()
 

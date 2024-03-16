@@ -4,7 +4,7 @@ sealed abstract class Permission(val key: String, val children: List[Permission]
 
   def this(key: String, name: String) = this(key, Nil, name)
 
-  final def is(p: Permission): Boolean = this == p || children.exists(_ is p)
+  final def is(p: Permission): Boolean = this == p || children.exists(_.is(p))
 
   val dbKey = s"ROLE_$key"
 
@@ -65,19 +65,20 @@ object Permission:
   case object Impersonate      extends Permission("IMPERSONATE", "Impersonate")
   case object DisapproveCoachReview extends Permission("DISAPPROVE_COACH_REVIEW", "Disapprove coach review")
   case object PayPal                extends Permission("PAYPAL", "PayPal")
-  case object Relay                 extends Permission("RELAY", "Manage broadcasts")
-  case object Cli                   extends Permission("CLI", "Command line")
-  case object Settings              extends Permission("SETTINGS", "Lila settings")
-  case object Streamers             extends Permission("STREAMERS", "Manage streamers")
-  case object Verified              extends Permission("VERIFIED", "Verified badge")
-  case object Pages                 extends Permission("PAGES", "Lichess pages")
-  case object Feed                  extends Permission("DAILY_FEED", "Feed updates")
-  case object MonitoredCheatMod     extends Permission("MONITORED_MOD_CHEAT", "Monitored mod: cheat")
-  case object MonitoredBoostMod     extends Permission("MONITORED_MOD_BOOST", "Monitored mod: boost")
-  case object MonitoredCommMod      extends Permission("MONITORED_MOD_COMM", "Monitored mod: comms")
-  case object StudyAdmin            extends Permission("STUDY_ADMIN", "Study admin")
-  case object ApiHog                extends Permission("API_HOG", "API hog")
-  case object ApiChallengeAdmin     extends Permission("API_CHALLENGE_ADMIN", "API Challenge admin")
+  // Set the tier of own broadcasts, making them official. Group own broadcasts.
+  case object Relay             extends Permission("RELAY", "Broadcast official")
+  case object Cli               extends Permission("CLI", "Command line")
+  case object Settings          extends Permission("SETTINGS", "Lila settings")
+  case object Streamers         extends Permission("STREAMERS", "Manage streamers")
+  case object Verified          extends Permission("VERIFIED", "Verified badge")
+  case object Pages             extends Permission("PAGES", "Lichess pages")
+  case object Feed              extends Permission("DAILY_FEED", "Feed updates")
+  case object MonitoredCheatMod extends Permission("MONITORED_MOD_CHEAT", "Monitored mod: cheat")
+  case object MonitoredBoostMod extends Permission("MONITORED_MOD_BOOST", "Monitored mod: boost")
+  case object MonitoredCommMod  extends Permission("MONITORED_MOD_COMM", "Monitored mod: comms")
+  case object StudyAdmin        extends Permission("STUDY_ADMIN", List(Relay), "Study/Broadcast admin")
+  case object ApiHog            extends Permission("API_HOG", "API hog")
+  case object ApiChallengeAdmin extends Permission("API_CHALLENGE_ADMIN", "API Challenge admin")
 
   case object LichessTeam extends Permission("LICHESS_TEAM", Nil, "Lichess team")
 
@@ -196,7 +197,6 @@ object Permission:
           OpeningWiki,
           Presets,
           Pages,
-          Relay,
           Streamers,
           DisableTwoFactor,
           ChangePermission,
@@ -318,13 +318,13 @@ object Permission:
   lazy val nonModPermissions: Set[Permission] =
     Set(Beta, Coach, Teacher, Developer, Verified, ContentTeam, ApiHog, Relay)
 
-  lazy val modPermissions: Set[Permission] = all diff nonModPermissions
+  lazy val modPermissions: Set[Permission] = all.diff(nonModPermissions)
 
   lazy val allByDbKey: Map[String, Permission] = all.mapBy(_.dbKey)
 
-  def apply(dbKey: String): Option[Permission] = allByDbKey get dbKey
+  def apply(dbKey: String): Option[Permission] = allByDbKey.get(dbKey)
 
-  def apply(dbKeys: Seq[String]): Set[Permission] = dbKeys flatMap allByDbKey.get toSet
+  def apply(dbKeys: Seq[String]): Set[Permission] = dbKeys.flatMap(allByDbKey.get).toSet
 
   def expanded(dbKeys: Seq[String]): Set[Permission] =
     val level0 = apply(dbKeys)
@@ -333,7 +333,7 @@ object Permission:
     level0 ++ level1 ++ level2
 
   def findGranterPackage(perms: Set[Permission], perm: Permission): Option[Permission] =
-    !perms(perm) so perms.find(_ is perm)
+    (!perms(perm)).so(perms.find(_.is(perm)))
 
   def diff(orig: Set[Permission], dest: Set[Permission]): Map[Permission, Boolean] = {
     orig.diff(dest).map(_ -> false) ++ dest.diff(orig).map(_ -> true)

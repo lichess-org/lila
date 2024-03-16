@@ -21,7 +21,7 @@ case class ColorHistory(strike: Int, balance: Int) extends Ordered[ColorHistory]
 
   def inc(color: Color): ColorHistory =
     ColorHistory(
-      strike = color.fold((strike + 1) atLeast 1, (strike - 1) atMost -1),
+      strike = color.fold((strike + 1).atLeast(1), (strike - 1).atMost(-1)),
       balance = balance + color.fold(1, -1)
     )
 
@@ -47,4 +47,4 @@ final private class ColorHistoryApi(cacheApi: CacheApi):
 
   def get(playerId: TourPlayerId) = cache.getIfPresent(playerId) | default
 
-  def inc(playerId: TourPlayerId, color: Color) = cache.put(playerId, get(playerId) inc color)
+  def inc(playerId: TourPlayerId, color: Color) = cache.put(playerId, get(playerId).inc(color))

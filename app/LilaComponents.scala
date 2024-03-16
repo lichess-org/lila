@@ -2,15 +2,14 @@ package lila.app
 
 import akka.actor.ActorSystem
 import com.softwaremill.macwire.*
-import play.api.{ Environment, Configuration, BuiltInComponents }
-import play.api.http.HttpRequestHandler
+import play.api.http.{ FileMimeTypes, HttpRequestHandler }
+import play.api.inject.ApplicationLifecycle
 import play.api.libs.crypto.DefaultCookieSigner
 import play.api.libs.ws.StandaloneWSClient
 import play.api.mvc.*
 import play.api.mvc.request.*
 import play.api.routing.Router
-import play.api.http.FileMimeTypes
-import play.api.inject.ApplicationLifecycle
+import play.api.{ BuiltInComponents, Configuration, Environment }
 
 final class LilaComponents(
     val environment: Environment,
@@ -162,6 +161,7 @@ final class LilaComponents(
   lazy val bulkPairing: BulkPairing       = wire[BulkPairing]
   lazy val opening: Opening               = wire[Opening]
   lazy val cms: Cms                       = wire[Cms]
+  lazy val fide: Fide                     = wire[Fide]
 
   // eagerly wire up all controllers
   private val appealRouter: _root_.router.appeal.Routes = wire[_root_.router.appeal.Routes]

@@ -1,12 +1,11 @@
 package views.html.team
 
-import controllers.team.routes.{ Team as teamRoutes }
-import lila.app.templating.Environment.{ given, * }
+import controllers.team.routes.Team as teamRoutes
+
+import lila.app.templating.Environment.{ *, given }
 import lila.app.ui.ScalatagsTemplate.{ *, given }
 import lila.common.paginator.Paginator
 import lila.team.Team
-
-import controllers.routes
 
 object list:
 
@@ -34,7 +33,7 @@ object list:
         div(cls := "page-menu__content box")(
           h1(cls := "box__top")(myTeams()),
           standardFlash.map(div(cls := "box__pad")(_)),
-          ctx.me.filter(me => teams.size > Team.maxJoin(me)) map { me =>
+          ctx.me.filter(me => teams.size > Team.maxJoin(me)).map { me =>
             flashMessage("failure"):
               s"You have joined ${teams.size} out of ${Team.maxJoin(me)} teams. Leave some teams before you can join others."
           },
@@ -90,7 +89,7 @@ object list:
           table(cls := "slist slist-pad")(
             if teams.nbResults > 0 then
               tbody(cls := "infinite-scroll")(
-                teams.currentPageResults map bits.teamTr,
+                teams.currentPageResults.map(bits.teamTr),
                 pagerNextTable(teams, nextPageUrl)
               )
             else noTeam()

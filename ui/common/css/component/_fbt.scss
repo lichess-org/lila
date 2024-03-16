@@ -1,3 +1,5 @@
+$c-fbt-bg: $c-primary !default;
+
 .fbt {
   @extend %button-none;
 
@@ -8,13 +10,13 @@
 
   @media (hover: hover) {
     &:hover:not(.disabled):not([disabled]) {
-      background: mix($c-secondary, $c-bg-box, 75%);
+      background: mix($c-fbt-bg, $c-bg-box, 75%);
       color: #fff;
     }
   }
 
   &.active {
-    background: $c-secondary !important;
+    background: $c-fbt-bg !important;
     color: #fff;
   }
 

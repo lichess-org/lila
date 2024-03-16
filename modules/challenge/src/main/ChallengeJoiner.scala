@@ -2,7 +2,8 @@ package lila.challenge
 
 import chess.format.Fen
 import chess.variant.Variant
-import chess.{ Mode, Situation, ByColor }
+import chess.{ ByColor, Mode, Situation }
+
 import scala.util.chaining.*
 
 import lila.game.{ Game, Player, Pov, Source }
@@ -15,14 +16,18 @@ final private class ChallengeJoiner(
 )(using Executor):
 
   def apply(c: Challenge, destUser: GameUser): Fu[Either[String, Pov]] =
-    gameRepo exists c.id.into(GameId) flatMap {
+    gameRepo.exists(c.id.into(GameId)).flatMap {
       if _ then fuccess(Left("The challenge has already been accepted"))
       else
-        c.challengerUserId.so(userApi.withPerf(_, c.perfType)) flatMap: origUser =>
-          val game = ChallengeJoiner.createGame(c, origUser, destUser)
-          gameRepo.insertDenormalized(game) inject:
-            onStart(game.id)
-            Right(Pov(game, !c.finalColor))
+        c.challengerUserId
+          .so(userApi.withPerf(_, c.perfType))
+          .flatMap: origUser =>
+            val game = ChallengeJoiner.createGame(c, origUser, destUser)
+            gameRepo
+              .insertDenormalized(game)
+              .inject:
+                onStart(game.id)
+                Right(Pov(game, !c.finalColor))
     }
 
 private object ChallengeJoiner:
@@ -44,7 +49,7 @@ private object ChallengeJoiner:
         pgnImport = None,
         rules = c.rules
       )
-      .withId(c.id into GameId)
+      .withId(c.id.into(GameId))
       .pipe(addGameHistory(state))
       .start
 
@@ -57,7 +62,7 @@ private object ChallengeJoiner:
     def makeChess(variant: Variant): chess.Game =
       chess.Game(situation = Situation(variant), clock = tc.realTime.map(_.toClock))
 
-    val baseState = initialFen.ifTrue(variant.fromPosition || variant.chess960) flatMap {
+    val baseState = initialFen.ifTrue(variant.fromPosition || variant.chess960).flatMap {
       Fen.readWithMoveNumber(variant, _)
     }
 

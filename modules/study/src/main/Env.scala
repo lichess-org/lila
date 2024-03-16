@@ -19,6 +19,7 @@ final class Env(
     userRepo: lila.user.UserRepo,
     explorerImporter: lila.explorer.ExplorerImporter,
     notifyApi: lila.notify.NotifyApi,
+    fidePlayerApi: lila.fide.FidePlayerApi,
     prefApi: lila.pref.PrefApi,
     relationApi: lila.relation.RelationApi,
     remoteSocketApi: lila.socket.RemoteSocket,
@@ -35,7 +36,7 @@ final class Env(
   private lazy val studyDb = mongo.asyncDb("study", appConfig.get[String]("study.mongodb.uri"))
 
   def version(studyId: StudyId): Fu[SocketVersion] =
-    socket.rooms.ask[SocketVersion](studyId into RoomId)(GetVersion.apply)
+    socket.rooms.ask[SocketVersion](studyId.into(RoomId))(GetVersion.apply)
 
   def isConnected(studyId: StudyId, userId: UserId): Fu[Boolean] =
     socket.isPresent(studyId, userId)
@@ -71,7 +72,7 @@ final class Env(
 
   lazy val pager = wire[StudyPager]
 
-  lazy val multiBoard = wire[StudyMultiBoard]
+  lazy val preview = wire[ChapterPreviewApi]
 
   lazy val pgnDump = wire[PgnDump]
 

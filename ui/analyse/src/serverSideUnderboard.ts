@@ -4,6 +4,8 @@ import * as licon from 'common/licon';
 import { url as xhrUrl, textRaw as xhrTextRaw } from 'common/xhr';
 import { AnalyseData } from './interfaces';
 import { ChartGame, AcplChart } from 'chart';
+import { stockfishName } from 'common/spinner';
+import { FEN } from 'chessground/types';
 
 export default function (element: HTMLElement, ctrl: AnalyseCtrl) {
   $(element).replaceWith(ctrl.opts.$underboard!);
@@ -18,7 +20,7 @@ export default function (element: HTMLElement, ctrl: AnalyseCtrl) {
   let advChart: AcplChart;
   let timeChartLoaded = false;
 
-  const updateGifLinks = (fen: Fen) => {
+  const updateGifLinks = (fen: FEN) => {
     const ds = document.body.dataset;
     positionGifLink.href = xhrUrl(ds.assetUrl + '/export/fen.gif', {
       fen,
@@ -43,7 +45,7 @@ export default function (element: HTMLElement, ctrl: AnalyseCtrl) {
         $menu.find('span:not(.computer-analysis)').first().trigger('mousedown');
       }
     });
-    site.pubsub.on('analysis.change', (fen: Fen, _) => {
+    site.pubsub.on('analysis.change', (fen: FEN, _) => {
       const nextInputHash = `${fen}${ctrl.bottomColor()}`;
       if (fen && nextInputHash !== lastInputHash) {
         inputFen.value = fen;
@@ -59,7 +61,7 @@ export default function (element: HTMLElement, ctrl: AnalyseCtrl) {
   }
 
   const chartLoader = () =>
-    `<div id="acpl-chart-container-loader"><span>Stockfish 16<br>server analysis</span>${site.spinnerHtml}</div>`;
+    `<div id="acpl-chart-container-loader"><span>${stockfishName}<br>server analysis</span>${site.spinnerHtml}</div>`;
 
   function startAdvantageChart() {
     if (advChart || site.blindMode) return;

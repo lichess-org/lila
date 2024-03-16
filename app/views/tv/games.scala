@@ -2,7 +2,7 @@ package views.html.tv
 
 import controllers.routes
 
-import lila.app.templating.Environment.{ given, * }
+import lila.app.templating.Environment.{ *, given }
 import lila.app.ui.ScalatagsTemplate.*
 
 object games:
@@ -23,7 +23,7 @@ object games:
           side.channels(channel, champions, "/games")
         ),
         div(cls := "page-menu__content now-playing")(
-          povs map { views.html.game.mini(_) }
+          povs.map { views.html.game.mini(_) }
         )
       )
     }

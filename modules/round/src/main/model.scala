@@ -1,7 +1,8 @@
 package lila.round
 
-import lila.game.{ Game, Pov }
 import play.api.libs.json.JsObject
+
+import lila.game.{ Game, Pov }
 
 opaque type OnStart = GameId => Unit
 object OnStart extends FunctionWrapper[OnStart, GameId => Unit]

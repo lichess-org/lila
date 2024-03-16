@@ -1,6 +1,6 @@
 package lila.puzzle
 
-import lila.i18n.I18nKeys.{ puzzleTheme as i }
+import lila.i18n.I18nKeys.puzzleTheme as i
 import lila.i18n.{ I18nKey, I18nKeys as trans }
 
 case class PuzzleTheme(key: PuzzleTheme.Key, name: I18nKey, description: I18nKey)
@@ -232,7 +232,7 @@ object PuzzleTheme:
 
   def apply(key: Key): PuzzleTheme = byKey.getOrElse(key, mix)
 
-  def find(key: String) = byLowerKey get key.toLowerCase
+  def find(key: String) = byLowerKey.get(key.toLowerCase)
 
   def findOrMix(key: Key) = find(key) | mix
 

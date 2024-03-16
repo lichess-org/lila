@@ -1,19 +1,18 @@
 package lila.game
 
 import chess.Color
-import lila.user.User
 
 case class Pov(game: Game, color: Color):
 
   export game.{ id as gameId }
 
-  def player = game player color
+  def player = game.player(color)
 
   def playerId = player.id
 
-  def fullId = game fullIdOf color
+  def fullId = game.fullIdOf(color)
 
-  def opponent = game player !color
+  def opponent = game.player(!color)
 
   def unary_! = Pov(game, !color)
 
@@ -38,13 +37,13 @@ case class Pov(game: Game, color: Color):
       .orElse(game.correspondenceClock.map(_.remainingTime(color).toInt * 1000))
       .getOrElse(Int.MaxValue)
 
-  def hasMoved = game playerHasMoved color
+  def hasMoved = game.playerHasMoved(color)
 
-  def moves = game playerMoves color
+  def moves = game.playerMoves(color)
 
-  def win = game wonBy color
+  def win = game.wonBy(color)
 
-  def loss = game lostBy color
+  def loss = game.lostBy(color)
 
   def forecastable = game.forecastable && game.turnColor != color
 
@@ -65,15 +64,15 @@ object Pov:
   def apply(game: Game, player: Player) = new Pov(game, player.color)
 
   def apply(game: Game, playerId: GamePlayerId): Option[Pov] =
-    game player playerId map { apply(game, _) }
+    game.player(playerId).map { apply(game, _) }
 
   def apply[U: UserIdOf](game: Game, user: U): Option[Pov] =
-    game player user map { apply(game, _) }
+    game.player(user).map { apply(game, _) }
 
   def ofCurrentTurn(game: Game) = Pov(game, game.turnColor)
 
-  private inline def orInf(inline i: Option[Int]) = i getOrElse Int.MaxValue
-  private def isFresher(a: Pov, b: Pov)           = a.game.movedAt isAfter b.game.movedAt
+  private inline def orInf(inline i: Option[Int]) = i.getOrElse(Int.MaxValue)
+  private def isFresher(a: Pov, b: Pov)           = a.game.movedAt.isAfter(b.game.movedAt)
 
   def priority(a: Pov, b: Pov) =
     if !a.isMyTurn && !b.isMyTurn then isFresher(a, b)
@@ -101,12 +100,12 @@ object PlayerRef:
 
 case class LightPov(game: LightGame, color: Color):
   export game.{ id as gameId }
-  def player   = game player color
-  def opponent = game player !color
+  def player   = game.player(color)
+  def opponent = game.player(!color)
 
 object LightPov:
 
   def apply(game: LightGame, player: LightPlayer): LightPov = LightPov(game, player.color)
 
   def apply(game: LightGame, userId: UserId): Option[LightPov] =
-    game playerByUserId userId map { apply(game, _) }
+    game.playerByUserId(userId).map { apply(game, _) }

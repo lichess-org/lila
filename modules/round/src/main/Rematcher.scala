@@ -2,14 +2,15 @@ package lila.round
 
 import chess.format.Fen
 import chess.variant.*
-import chess.{ Board, Castles, Clock, ByColor, Color as ChessColor, Ply, Game as ChessGame, Situation }
-import ChessColor.{ Black, White }
+import chess.{ ByColor, Clock, Color as ChessColor, Game as ChessGame, Ply, Situation }
 
 import lila.common.Bus
 import lila.game.{ AnonCookie, Event, Game, GameRepo, Pov, Rematches, Source }
+import lila.i18n.{ I18nKeys as trans, defaultLang }
 import lila.memo.ExpireSetMemo
-import lila.user.{ User, UserApi, GameUsers }
-import lila.i18n.{ defaultLang, I18nKeys as trans }
+import lila.user.{ GameUsers, UserApi }
+
+import ChessColor.White
 
 final private class Rematcher(
     gameRepo: GameRepo,
@@ -32,7 +33,7 @@ final private class Rematcher(
 
   private val chess960 = ExpireSetMemo[GameId](3 hours)
 
-  def isOffering(pov: Pov): Boolean = rematches isOffering pov.ref
+  def isOffering(pov: Pov): Boolean = rematches.isOffering(pov.ref)
 
   def apply(pov: Pov, confirm: Boolean): Fu[Events] =
     if confirm then yes(pov) else no(pov)
@@ -53,17 +54,19 @@ final private class Rematcher(
         Bus.publish(lila.hub.actorApi.round.RematchCancel(pov.gameId), s"rematchFor:$forId")
       messenger.volatile(pov.game, trans.rematchOfferCanceled.txt())
     else if isOffering(!pov) then
-      declined put pov.fullId
+      declined.put(pov.fullId)
       messenger.volatile(pov.game, trans.rematchOfferDeclined.txt())
     rematches.drop(pov.gameId)
     fuccess(List(Event.RematchOffer(by = none)))
 
   private def rematchExists(pov: Pov)(nextId: GameId): Fu[Events] =
-    gameRepo game nextId flatMap:
-      _.fold(rematchJoin(pov))(g => fuccess(redirectEvents(g)))
+    gameRepo
+      .game(nextId)
+      .flatMap:
+        _.fold(rematchJoin(pov))(g => fuccess(redirectEvents(g)))
 
   private def rematchCreate(pov: Pov): Fu[Events] =
-    rematches.offer(pov.ref) map { _ =>
+    rematches.offer(pov.ref).map { _ =>
       messenger.volatile(pov.game, trans.rematchOfferSent.txt())
       pov.opponent.userId.foreach: forId =>
         Bus.publish(lila.hub.actorApi.round.RematchOffer(pov.gameId), s"rematchFor:$forId")
@@ -76,7 +79,7 @@ final private class Rematcher(
       nextGame <- returnGame(pov, withId).map(_.start)
       _ = rematches.accept(pov.gameId, nextGame.id)
       _ = if pov.game.variant == Chess960 && !chess960.get(pov.gameId) then chess960.put(nextGame.id)
-      _ <- gameRepo insertDenormalized nextGame
+      _ <- gameRepo.insertDenormalized(nextGame)
     yield
       messenger.volatile(pov.game, trans.rematchOfferAccepted.txt())
       onStart(nextGame.id)
@@ -84,12 +87,12 @@ final private class Rematcher(
 
     rematches.get(pov.gameId) match
       case None                                    => createGame(none)
-      case Some(Rematches.NextGame.Accepted(id))   => gameRepo game id mapz redirectEvents
+      case Some(Rematches.NextGame.Accepted(id))   => gameRepo.game(id).mapz(redirectEvents)
       case Some(Rematches.NextGame.Offered(_, id)) => createGame(id.some)
 
   private def returnGame(pov: Pov, withId: Option[GameId]): Fu[Game] =
     for
-      initialFen <- gameRepo initialFen pov.game
+      initialFen <- gameRepo.initialFen(pov.game)
       newGame = Rematcher.returnChessGame(
         pov.game.variant,
         pov.game.clock,
@@ -105,7 +108,7 @@ final private class Rematcher(
         daysPerTurn = pov.game.daysPerTurn,
         pgnImport = None
       )
-      game <- withId.fold(sloppy.withUniqueId) { id => fuccess(sloppy withId id) }
+      game <- withId.fold(sloppy.withUniqueId) { id => fuccess(sloppy.withId(id)) }
     yield game
 
   private def returnPlayer(game: Game, color: ChessColor, users: GameUsers): lila.game.Player =
@@ -115,7 +118,7 @@ final private class Rematcher(
 
   def redirectEvents(game: Game): Events =
     val ownerRedirects = ByColor: color =>
-      Event.RedirectOwner(!color, game fullIdOf color, AnonCookie.json(game pov color))
+      Event.RedirectOwner(!color, game.fullIdOf(color), AnonCookie.json(game.pov(color)))
     val spectatorRedirect = Event.RematchTaken(game.id)
     spectatorRedirect :: ownerRedirects.toList
 

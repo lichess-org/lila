@@ -2,17 +2,15 @@ package controllers
 
 import play.api.libs.json.{ Json, Writes }
 import play.api.mvc.Result
+import views.*
 
-import lila.app.{ given, * }
+import lila.app.{ *, given }
 import lila.common.config.MaxPerSecond
 import lila.common.paginator.{ AdapterLike, Paginator, PaginatorJson }
+import lila.common.{ LightUser, config }
 import lila.relation.Related
 import lila.relation.RelationStream.*
-import lila.user.{ User as UserModel }
-import views.*
-import lila.common.config
-import Api.ApiResult
-import lila.common.LightUser
+import lila.user.User as UserModel
 
 final class Relation(env: Env, apiC: => Api) extends LilaController(env):
 
@@ -21,7 +19,7 @@ final class Relation(env: Env, apiC: => Api) extends LilaController(env):
   private def renderActions(username: UserName, mini: Boolean)(using ctx: Context) = for
     user       <- env.user.lightUserApi.asyncFallbackName(username)
     relation   <- ctx.userId.so(api.fetchRelation(_, user.id))
-    followable <- ctx.isAuth.so(env.pref.api followable user.id)
+    followable <- ctx.isAuth.so(env.pref.api.followable(user.id))
     blocked    <- ctx.userId.so(api.fetchBlocks(user.id, _))
     res <- negotiate(
       Ok.page:
@@ -53,7 +51,7 @@ final class Relation(env: Env, apiC: => Api) extends LilaController(env):
 
   def follow(username: UserStr) = AuthOrScoped(_.Follow.Write, _.Web.Mobile) { ctx ?=> me ?=>
     RatelimitWith(username): user =>
-      api.reachedMaxFollowing(me) flatMap {
+      api.reachedMaxFollowing(me).flatMap {
         if _ then
           val msg = lila.msg.MsgPreset.maxFollow(me.username, env.relation.maxFollow.value)
           env.msg.api.postPreset(me, msg) >> rateLimited(msg.name)
@@ -64,7 +62,7 @@ final class Relation(env: Env, apiC: => Api) extends LilaController(env):
           )
       }
   }
-  def followBc = follow _
+  def followBc = follow
 
   def unfollow(username: UserStr) = AuthOrScoped(_.Follow.Write, _.Web.Mobile) { ctx ?=> me ?=>
     RatelimitWith(username): user =>
@@ -73,7 +71,7 @@ final class Relation(env: Env, apiC: => Api) extends LilaController(env):
         jsonOkResult
       )
   }
-  def unfollowBc = unfollow _
+  def unfollowBc = unfollow
 
   def block(username: UserStr) = Auth { ctx ?=> me ?=>
     RatelimitWith(username): user =>
@@ -87,22 +85,20 @@ final class Relation(env: Env, apiC: => Api) extends LilaController(env):
 
   def following(username: UserStr, page: Int) = Open:
     Reasonable(page, config.Max(20)):
-      Found(env.user.repo byId username): user =>
-        RelatedPager(api.followingPaginatorAdapter(user.id), page) flatMap { pag =>
+      Found(meOrFetch(username)): user =>
+        RelatedPager(api.followingPaginatorAdapter(user.id), page).flatMap: pag =>
           negotiate(
             if ctx.is(user) || isGrantedOpt(_.CloseAccount)
             then Ok.page(html.relation.bits.friends(user, pag))
             else Found(ctx.me)(me => Redirect(routes.Relation.following(me.username))),
             Ok(jsonRelatedPaginator(pag))
           )
-        }
 
   def followers(username: UserStr, page: Int) = Open:
     negotiateJson:
       Reasonable(page, config.Max(20)):
-        RelatedPager(api.followersPaginatorAdapter(username.id), page) flatMap { pag =>
+        RelatedPager(api.followersPaginatorAdapter(username.id), page).flatMap: pag =>
           Ok(jsonRelatedPaginator(pag))
-        }
 
   def apiFollowing = Scoped(_.Follow.Read, _.Web.Mobile) { ctx ?=> me ?=>
     apiC.jsonDownload:
@@ -124,14 +120,14 @@ final class Relation(env: Env, apiC: => Api) extends LilaController(env):
   def blocks(page: Int) = Auth { ctx ?=> me ?=>
     Reasonable(page, config.Max(20)):
       Ok.pageAsync:
-        RelatedPager(api.blockingPaginatorAdapter(me), page) map {
+        RelatedPager(api.blockingPaginatorAdapter(me), page).map {
           html.relation.bits.blocks(me, _)
         }
   }
 
   private def RelatedPager(adapter: AdapterLike[UserId], page: Int)(using Context) =
     Paginator(
-      adapter = adapter mapFutureList followship,
+      adapter = adapter.mapFutureList(followship),
       currentPage = page,
       maxPerPage = lila.common.config.MaxPerPage(30)
     )

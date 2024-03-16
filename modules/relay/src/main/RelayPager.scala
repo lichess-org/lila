@@ -2,9 +2,9 @@ package lila.relay
 
 import lila.common.config.MaxPerPage
 import lila.common.paginator.{ AdapterLike, Paginator }
-import lila.db.dsl.*
-import lila.relay.RelayTour.WithLastRound
+import lila.db.dsl.{ *, given }
 import lila.memo.CacheApi
+import lila.relay.RelayTour.WithLastRound
 
 final class RelayPager(
     tourRepo: RelayTourRepo,
@@ -88,16 +88,25 @@ final class RelayPager(
       )
 
   def search(query: String, page: Int): Fu[Paginator[WithLastRound]] =
+    forSelector($text(query) ++ $doc("tier".$exists(true)), page)
+
+  def byIds(ids: List[RelayTour.Id], page: Int): Fu[Paginator[WithLastRound]] =
+    forSelector($inIds(ids) ++ $doc("tier".$exists(true)), page, List("syncedAt"))
+
+  private def forSelector(
+      selector: Bdoc,
+      page: Int,
+      sortFields: List[String] = List("tier", "syncedAt", "createdAt")
+  ): Fu[Paginator[WithLastRound]] =
     Paginator(
       adapter = new:
-        private val selector   = $text(query) ++ $doc("tier" $exists true)
         def nbResults: Fu[Int] = tourRepo.coll.countSel(selector)
         def slice(offset: Int, length: Int): Fu[List[WithLastRound]] =
           tourRepo.coll
             .aggregateList(length, _.sec): framework =>
               import framework.*
               Match(selector) -> {
-                List(Sort(Descending("tier"), Descending("syncedAt"), Descending("createdAt"))) :::
+                List(Sort(sortFields.map(Descending(_))*)) :::
                   aggregateRoundAndUnwind(framework) :::
                   List(Skip(offset), Limit(length))
               }

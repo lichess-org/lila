@@ -4,9 +4,8 @@ import play.api.data.*
 import play.api.data.Forms.*
 import play.api.data.validation.*
 
-import lila.common.{ config, LightUser }
-import lila.common.Form.given
-import lila.user.{ User, Me }
+import lila.common.{ LightUser, config }
+import lila.user.{ Me, User }
 
 final private[report] class ReportForm(
     lightUserAsync: LightUser.Getter,
@@ -33,7 +32,7 @@ final private[report] class ReportForm(
       "text"   -> text(minLength = 5, maxLength = 2000)
     ) { (username, reason, text) =>
       ReportSetup(
-        user = blockingFetchUser(username) err "Unknown username " + username,
+        user = blockingFetchUser(username).err("Unknown username " + username),
         reason = reason,
         text = text
       )
@@ -67,4 +66,4 @@ case class ReportSetup(
 
   def suspect = SuspectId(user.id)
 
-  def values = (user.name into UserStr, reason, text)
+  def values = (user.name.into(UserStr), reason, text)

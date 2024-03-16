@@ -1,9 +1,9 @@
 package lila.challenge
 
+import lila.game.{ Game, GameRepo, Player, Pov, Rematches }
+import lila.user.{ GameUser, User, UserApi, UserPerfsRepo }
+
 import Challenge.TimeControl
-import lila.game.{ Game, GameRepo, Pov, Rematches }
-import lila.user.{ User, GameUser, UserApi, UserPerfsRepo }
-import lila.game.Player
 
 final class ChallengeMaker(
     userApi: UserApi,
@@ -13,24 +13,26 @@ final class ChallengeMaker(
 )(using Executor):
 
   def makeRematchFor(gameId: GameId, dest: User): Fu[Option[Challenge]] =
-    collectDataFor(gameId, dest) flatMapz: data =>
-      makeRematch(Pov(data.game, data.challenger), data.orig, data.dest) dmap some
+    collectDataFor(gameId, dest).flatMapz: data =>
+      makeRematch(Pov(data.game, data.challenger), data.orig, data.dest).dmap(some)
 
   def showCanceledRematchFor(gameId: GameId, dest: User, nextId: GameId): Fu[Option[Challenge]] =
-    collectDataFor(gameId, dest) flatMapz: data =>
-      toChallenge(Pov(data.game, data.challenger), data.orig, data.dest, nextId) dmap some
+    collectDataFor(gameId, dest).flatMapz: data =>
+      toChallenge(Pov(data.game, data.challenger), data.orig, data.dest, nextId).dmap(some)
 
   private case class Data(game: Game, challenger: Player, orig: GameUser, dest: User.WithPerf)
 
   private def collectDataFor(gameId: GameId, dest: User): Future[Option[Data]] =
-    gameRepo.game(gameId) flatMapz: game =>
-      game
-        .opponentOf(dest)
-        .so: challenger =>
-          for
-            orig <- challenger.userId.so(userApi.withPerf(_, game.perfType))
-            dest <- perfsRepo.withPerf(dest, game.perfType)
-          yield Data(game, challenger, orig, dest).some
+    gameRepo
+      .game(gameId)
+      .flatMapz: game =>
+        game
+          .opponentOf(dest)
+          .so: challenger =>
+            for
+              orig <- challenger.userId.so(userApi.withPerf(_, game.perfType))
+              dest <- perfsRepo.withPerf(dest, game.perfType)
+            yield Data(game, challenger, orig, dest).some
 
   private[challenge] def makeRematchOf(game: Game, challenger: User): Fu[Option[Challenge]] =
     Pov(game, challenger.id).so: pov =>
@@ -54,7 +56,7 @@ final class ChallengeMaker(
       dest: User.WithPerf,
       nextId: GameId
   ): Fu[Challenge] =
-    gameRepo initialFen pov.game map { initialFen =>
+    gameRepo.initialFen(pov.game).map { initialFen =>
       val timeControl = (pov.game.clock, pov.game.daysPerTurn) match
         case (Some(clock), _) => TimeControl.Clock(clock.config)
         case (_, Some(days))  => TimeControl.Correspondence(days)

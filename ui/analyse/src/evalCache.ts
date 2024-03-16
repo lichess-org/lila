@@ -2,6 +2,7 @@ import { defined, prop } from 'common';
 import throttle from 'common/throttle';
 import { EvalHit, EvalGetData, EvalPutData } from './interfaces';
 import { AnalyseSocketSend } from './socket';
+import { FEN } from 'chessground/types';
 
 export interface EvalCacheOpts {
   variant: VariantKey;
@@ -10,6 +11,7 @@ export interface EvalCacheOpts {
   getNode(): Tree.Node;
   canPut(): boolean;
   canGet(): boolean;
+  upgradable: boolean;
 }
 
 const evalPutMinDepth = 20;
@@ -17,6 +19,8 @@ const evalPutMinNodes = 3e6;
 const evalPutMaxMoves = 10;
 
 function qualityCheck(ev: Tree.ClientEval): boolean {
+  // quick mates may never reach the minimum nodes or depth
+  if (Math.abs(ev.mate ?? 99) < 15) return true;
   // below 500k nodes, the eval might come from an imminent threefold repetition
   // and should therefore be ignored
   return ev.nodes > 500000 && (ev.depth >= evalPutMinDepth || ev.nodes > evalPutMinNodes);
@@ -66,10 +70,11 @@ type AwaitingEval = null;
 const awaitingEval: AwaitingEval = null;
 
 export default class EvalCache {
-  private fetchedByFen: Map<Fen, EvalHit | AwaitingEval> = new Map();
-  private upgradable = prop(false);
+  private fetchedByFen: Map<FEN, EvalHit | AwaitingEval> = new Map();
+  upgradable = prop(false);
 
   constructor(readonly opts: EvalCacheOpts) {
+    this.upgradable(opts.upgradable);
     site.pubsub.on('socket.in.crowd', d => this.upgradable(d.nb > 2 && d.nb < 99999));
   }
 

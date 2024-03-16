@@ -2,7 +2,7 @@ package views.html.opening
 
 import controllers.routes
 
-import lila.app.templating.Environment.{ given, * }
+import lila.app.templating.Environment.{ *, given }
 import lila.app.ui.ScalatagsTemplate.{ *, given }
 import lila.opening.{ OpeningConfig, OpeningSearchResult }
 
@@ -26,7 +26,7 @@ object search:
 
   def resultsList(results: List[OpeningSearchResult]) =
     div(cls := List("opening__search__results" -> true, "none" -> results.isEmpty))(
-      results map { r =>
+      results.map { r =>
         a(cls := "opening__search__result", href := bits.queryUrl(r.query))(
           span(cls := "opening__search__result__title")(splitName(r.opening)),
           span(cls := "opening__search__result__board")(

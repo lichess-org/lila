@@ -306,6 +306,7 @@
   <string name="abortGame">Zrušit hru</string>
   <string name="gameAborted">Hra byla zrušena</string>
   <string name="standard">Standard</string>
+  <string name="customPosition">Vlastní pozice</string>
   <string name="unlimited">Bez hodin</string>
   <string name="mode">Režim hry</string>
   <string name="casual">Jen tak</string>
@@ -553,6 +554,7 @@
   <string name="movesPlayed">Odehráno tahů</string>
   <string name="whiteWins">Bílý vyhrál</string>
   <string name="blackWins">Černý vyhrál</string>
+  <string name="drawRate">Poměr remíz</string>
   <string name="draws">Remízy</string>
   <string name="nextXTournament">Příští %s turnaj:</string>
   <string name="averageOpponent">Průměrná síla soupeře</string>
@@ -573,6 +575,8 @@
   <string name="editProfile">Upravit profil</string>
   <string name="firstName">Jméno</string>
   <string name="lastName">Příjmení</string>
+  <string name="setFlair">Nastav si svou ikonu za jménem</string>
+  <string name="flair">Upravitelná ikona</string>
   <string name="biography">O mně</string>
   <string name="countryRegion" comment="flag&#10;Appears when you edit your profile. Lets a player add a country/flag (not all flags are for countries) to their profile">Země nebo region</string>
   <string name="thankYou">Děkujeme!</string>
@@ -595,7 +599,6 @@
   <string name="automaticallyProceedToNextGameAfterMoving">Automaticky přejdi k další hře po tahu</string>
   <string name="autoSwitch">Přepnout automaticky</string>
   <string name="puzzles">Puzzle</string>
-  <string name="tournamentWinners">Vítěz turnaje</string>
   <string name="name">Jméno</string>
   <string name="description">Popis</string>
   <string name="descPrivate">Soukromý popis</string>
@@ -1011,8 +1014,6 @@
   <string name="minimumRatedGames">Minimální počet her s ratingem</string>
   <string name="minimumRating">Minimální rating</string>
   <string name="maximumWeeklyRating">Maximální tydenní rating</string>
-  <string name="onlyTitled">Pouze hráči s oficiálním titulem</string>
-  <string name="onlyTitledHelp">Povolit registraci na turnaj pouze hráčům s oficiálním titulem</string>
   <string name="positionInputHelp">Vložte platný FEN popis šachovnice, pokud chcete, aby všechny hry začaly z dané pozice.
 Funguje to pouze pro standardní hry, ne pro varianty.
 Můžete použít %s pro vygenerování FEN popisu zadané pozice a potom ho sem vložit.

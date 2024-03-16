@@ -1,6 +1,7 @@
 package lila.i18n
 
 import play.api.i18n.Lang
+
 import java.time.Duration
 
 object PeriodLocales:

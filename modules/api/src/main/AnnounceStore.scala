@@ -1,6 +1,7 @@
 package lila.api
 
 import play.api.libs.json.Json
+
 import scala.util.Try
 
 import lila.hub.actorApi.Announce
@@ -24,9 +25,9 @@ object AnnounceStore:
     set(str.split(" ").toList match
       case length :: unit :: rest =>
         Try {
-          val msg     = rest mkString " "
-          val date    = nowInstant plusSeconds Duration(s"$length $unit").toSeconds.toInt
-          val isoDate = isoDateTimeFormatter print date
+          val msg     = rest.mkString(" ")
+          val date    = nowInstant.plusSeconds(Duration(s"$length $unit").toSeconds.toInt)
+          val isoDate = isoDateTimeFormatter.print(date)
           val json    = Json.obj("msg" -> msg, "date" -> isoDate)
           Announce(msg, date, json)
         }.toOption

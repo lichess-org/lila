@@ -2,8 +2,8 @@ package lila.team
 
 import reactivemongo.api.bson.*
 
-import lila.hub.LightTeam
 import lila.db.dsl.{ *, given }
+import lila.hub.LightTeam
 
 private object BSONHandlers:
 

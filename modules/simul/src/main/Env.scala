@@ -3,8 +3,8 @@ package lila.simul
 import com.softwaremill.macwire.*
 import play.api.Configuration
 
-import lila.common.autoconfig.{ *, given }
 import lila.common.Bus
+import lila.common.autoconfig.{ *, given }
 import lila.common.config.*
 import lila.socket.{ GetVersion, SocketVersion }
 
@@ -65,19 +65,19 @@ final class Env(
   )
 
   def version(simulId: SimulId) =
-    simulSocket.rooms.ask[SocketVersion](simulId into RoomId)(GetVersion.apply)
+    simulSocket.rooms.ask[SocketVersion](simulId.into(RoomId))(GetVersion.apply)
 
   Bus.subscribeFuns(
     "finishGame" -> { case lila.game.actorApi.FinishGame(game, _) =>
-      api finishGame game
+      api.finishGame(game)
       ()
     },
     "adjustCheater" -> { case lila.hub.actorApi.mod.MarkCheater(userId, true) =>
-      api ejectCheater userId
+      api.ejectCheater(userId)
       ()
     },
     "simulGetHosts" -> { case lila.hub.actorApi.simul.GetHostIds(promise) =>
-      promise completeWith api.currentHostIds
+      promise.completeWith(api.currentHostIds)
     },
     "moveEventSimul" -> { case lila.hub.actorApi.round.SimulMoveEvent(move, _, opponentUserId) =>
       import lila.common.Json.given

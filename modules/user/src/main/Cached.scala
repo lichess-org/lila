@@ -3,9 +3,10 @@ package lila.user
 import reactivemongo.api.bson.*
 
 import lila.common.LightUser
+import lila.db.dsl.{ *, given }
 import lila.memo.CacheApi.*
 import lila.rating.{ Perf, PerfType }
-import lila.db.dsl.{ given, * }
+
 import User.{ LightCount, LightPerf }
 
 final class Cached(
@@ -57,7 +58,7 @@ final class Cached(
   ): loader =>
     _.refreshAfterWrite(75 minutes).buildAsyncFuture:
       loader: _ =>
-        userRepo topNbGame 10 dmap (_.map(_.lightCount))
+        userRepo.topNbGame(10).dmap(_.map(_.lightCount))
 
   private val top50OnlineCache = cacheApi.unit[List[User.WithPerfs]]:
     _.refreshAfterWrite(1 minute).buildAsyncFuture: _ =>
@@ -65,7 +66,7 @@ final class Cached(
 
   def getTop50Online = top50OnlineCache.getUnit
 
-  def rankingsOf(userId: UserId): lila.rating.UserRankMap = rankingApi.weeklyStableRanking of userId
+  def rankingsOf(userId: UserId): lila.rating.UserRankMap = rankingApi.weeklyStableRanking.of(userId)
 
   private[user] val botIds = cacheApi.unit[Set[UserId]]:
     _.refreshAfterWrite(5 minutes).buildAsyncFuture(_ => userRepo.botIds)
@@ -77,5 +78,5 @@ final class Cached(
     _.expireAfterWrite(5 minutes).buildAsyncFuture(userIdsLikeFetch)
 
   def userIdsLike(text: UserSearch): Fu[List[UserId]] =
-    if text.value.lengthIs < 5 then userIdsLikeCache get text
+    if text.value.lengthIs < 5 then userIdsLikeCache.get(text)
     else userIdsLikeFetch(text)

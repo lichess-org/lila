@@ -19,7 +19,7 @@ case class Entry(
 
   def similarTo(other: Entry) = typ == other.typ && data == other.data
 
-  lazy val decode: Option[Atom] = atomBsonHandlers.handlers.get(typ).flatMap(_ readOpt data)
+  lazy val decode: Option[Atom] = atomBsonHandlers.handlers.get(typ).flatMap(_.readOpt(data))
 
   def userIds = decode.so(_.userIds)
 
@@ -105,21 +105,21 @@ object Entry:
     val ublogPostLikeWrite = Json.writes[UblogPostLike]
     val streamStartWrite   = Json.writes[StreamStart]
     given Writes[Atom] = Writes {
-      case d: Follow        => followWrite writes d
-      case d: TeamJoin      => teamJoinWrite writes d
-      case d: TeamCreate    => teamCreateWrite writes d
-      case d: ForumPost     => forumPostWrite writes d
-      case d: UblogPost     => ublogPostWrite writes d
-      case d: TourJoin      => tourJoinWrite writes d
-      case d: GameEnd       => gameEndWrite writes d
-      case d: SimulCreate   => simulCreateWrite writes d
-      case d: SimulJoin     => simulJoinWrite writes d
-      case d: StudyLike     => studyLikeWrite writes d
-      case d: PlanStart     => planStartWrite writes d
-      case d: PlanRenew     => planRenewWrite writes d
-      case d: BlogPost      => blogPostWrite writes d
-      case d: UblogPostLike => ublogPostLikeWrite writes d
-      case d: StreamStart   => streamStartWrite writes d
+      case d: Follow        => followWrite.writes(d)
+      case d: TeamJoin      => teamJoinWrite.writes(d)
+      case d: TeamCreate    => teamCreateWrite.writes(d)
+      case d: ForumPost     => forumPostWrite.writes(d)
+      case d: UblogPost     => ublogPostWrite.writes(d)
+      case d: TourJoin      => tourJoinWrite.writes(d)
+      case d: GameEnd       => gameEndWrite.writes(d)
+      case d: SimulCreate   => simulCreateWrite.writes(d)
+      case d: SimulJoin     => simulJoinWrite.writes(d)
+      case d: StudyLike     => studyLikeWrite.writes(d)
+      case d: PlanStart     => planStartWrite.writes(d)
+      case d: PlanRenew     => planRenewWrite.writes(d)
+      case d: BlogPost      => blogPostWrite.writes(d)
+      case d: UblogPostLike => ublogPostLikeWrite.writes(d)
+      case d: StreamStart   => streamStartWrite.writes(d)
     }
 
   given BSONDocumentHandler[Entry] = Macros.handler

@@ -167,7 +167,7 @@
   <string name="viewInFullSize">Προβολή σε πλήρες μέγεθος</string>
   <string name="logOut">Έξοδος</string>
   <string name="signIn">Είσοδος</string>
-  <string name="rememberMe">Απομνημόνευση των στοιχείων μου</string>
+  <string name="rememberMe">Απομνημόνευση των στοιχείων σύνδεσης</string>
   <string name="youNeedAnAccountToDoThat">Χρειάζεστε λογαριασμό για να το κάνετε αυτό</string>
   <string name="signUp">Εγγραφή</string>
   <string name="computersAreNotAllowedToPlay">Δεν επιτρέπουμε στους υπολογιστές και παίκτες με υποβοήθηση υπολογιστή να παίζουν στο Lichess. Παρακαλούμε μη δεχτείτε βοήθεια από σκακιστικούς υπολογιστές, βάσεις δεδομένων ή άλλους παίκτες όσο παίζετε εδώ. Επίσης σημειώστε πως αποθαρρύνουμε την δημιουργία πολλών λογαριασμών και υπερβολή σε αυτό θα καταλήξει σε αποκλεισμό.</string>
@@ -275,6 +275,7 @@
   <string name="abortGame">Εγκαταλείψτε το παιχνίδι</string>
   <string name="gameAborted">Παιχνίδι εγκατελήφθη</string>
   <string name="standard">Κανονικό</string>
+  <string name="customPosition">Προσαρμοσμένη θέση</string>
   <string name="unlimited">Απεριόριστου χρόνου</string>
   <string name="mode">Τύπος παιχνιδιού</string>
   <string name="casual">Φιλικό</string>
@@ -405,6 +406,7 @@
   <string name="importGameExplanation">Επικολλήστε PGN παιχνιδιού για να δημιουργήσετε περιηγήσιμη αναπαραγωγή, 
 ανάλυση από υπολογιστή, συνομιλία παιχνιδιού και κοινόχρηστο URL.</string>
   <string name="importGameCaveat">Οι παραλλαγές θα διαγραφούν. Για να τις κρατήσετε εισάγεται το PGN μέσω μιας μελέτης.</string>
+  <string name="importGameDataPrivacyWarning">Αυτό το PGN είναι προσβάσιμο από το κοινό. Για να εισαγάγετε ένα παιχνίδι ιδιωτικά, χρησιμοποιήστε μια μελέτη.</string>
   <plurals name="nbImportedGames">
     <item quantity="one">%s Εισαγόμενο παιχνίδι</item>
     <item quantity="other">%s Εισαγόμενα παιχνίδια</item>
@@ -417,6 +419,7 @@
   <string name="blackCheckmatesInOneMove">Παίζουν τα μαύρα, κάντε ματ με μια κίνηση</string>
   <string name="retry">Επανάληψη</string>
   <string name="reconnecting">Επανασύνδεση</string>
+  <string name="noNetwork">Εκτός σύνδεσης</string>
   <plurals name="nbFriendsOnline">
     <item quantity="one">%s φίλος συνδεδεμένος</item>
     <item quantity="other">%s φίλοι συνδεδεμένοι</item>
@@ -506,6 +509,9 @@
   <string name="editProfile">Επεξεργασία προφίλ</string>
   <string name="firstName">Όνομα</string>
   <string name="lastName">Επώνυμο</string>
+  <string name="setFlair">Ορίστε τη νιφάδα σας</string>
+  <string name="flair">Νιφάδα</string>
+  <string name="youCanHideFlair">Υπάρχει μια ρύθμιση για να κρύψει όλες τις νιφάδες χρήστη σε ολόκληρη την ιστοσελίδα.</string>
   <string name="biography">Βιογραφικό</string>
   <string name="countryRegion" comment="flag&#10;Appears when you edit your profile. Lets a player add a country/flag (not all flags are for countries) to their profile">Χώρα ή περιοχή</string>
   <string name="thankYou">Ευχαριστούμε!</string>
@@ -526,7 +532,7 @@
   <string name="automaticallyProceedToNextGameAfterMoving">Προχωρήστε αυτόματα στο επόμενο παιχνίδι μετά την κίνηση</string>
   <string name="autoSwitch">Αυτόματη εναλλαγή</string>
   <string name="puzzles">Γρίφοι</string>
-  <string name="tournamentWinners">Νικητές πρωταθλημάτων</string>
+  <string name="onlineBots">Συνδεδεμένα bot</string>
   <string name="name">Ονομασία</string>
   <string name="description">Περιγραφή</string>
   <string name="descPrivate">Ιδιωτική περιγραφή</string>
@@ -687,6 +693,7 @@
   <string name="keyboardShortcuts">Συντομεύσεις πληκτρολογίου</string>
   <string name="keyMoveBackwardOrForward">μετακίνηση προς τα πίσω / προς τα εμπρός</string>
   <string name="keyGoToStartOrEnd">πηγαίνετε στην έναρξη / λήξη</string>
+  <string name="keyCycleSelectedVariation">Επανάληψη επιλεγμένης βαριάντας</string>
   <string name="keyShowOrHideComments">εμφάνιση / απόκρυψη σχολίων</string>
   <string name="keyEnterOrExitVariation">είσοδος / έξοδος εκδοχής</string>
   <string name="keyRequestComputerAnalysis">Ζητήστε ανάλυση της θέσης από υπολογιστή, Μάθετε από τα λάθη σας</string>
@@ -696,6 +703,7 @@
   <string name="keyNextInaccuracy">Επόμενη ανακρίβεια</string>
   <string name="keyPreviousBranch">Προηγούμενος κλάδος</string>
   <string name="keyNextBranch">Επόμενος κλάδως</string>
+  <string name="toggleVariationArrows">Εμφάνισε βελάκια παραλλαγών</string>
   <string name="playSelectedMove">παίξε την επιλεγμένη κίνηση</string>
   <string name="newTournament">Νέο τουρνουά</string>
   <string name="tournamentHomeTitle">Σκακιστικά τουρνουά διαφόρων χρόνων και εκδοχών</string>
@@ -929,8 +937,6 @@
   <string name="minimumRatedGames">Ελάχιστος αριθμός βαθμολογημένων παιχνιδιών</string>
   <string name="minimumRating">Ελάχιστη βαθμολογία</string>
   <string name="maximumWeeklyRating">Μέγιστη εβδομαδιαία βαθμολογία</string>
-  <string name="onlyTitled">Μόνο τιτλούχοι παίκτες</string>
-  <string name="onlyTitledHelp">Να απαιτείται επίσημος τίτλος για τη συμμετοχή στο τουρνουά</string>
   <string name="positionInputHelp">Επικολλήστε ένα έγκυρο FEN για να ξεκινήσει κάθε παιχνίδι από μια συγκεκριμένη θέση.
 Λειτουργεί μόνο για κανονικά παιχνίδια, όχι για παραλλαγές.
 Μπορείτε να χρησιμοποιήσετε τον %s για να πάρετε το FEN μιας θέσης, και στη συνέχεια να την επικολλήστε το εδώ.
@@ -976,6 +982,8 @@
   <string name="closingAccountWithdrawAppeal">Αν απενεργοποιήσετε τον λογαριασμό σας θα χάσετε το δικαίωμα έφεσης</string>
   <string name="ourEventTips">Οι συμβουλές μας για τη διοργάνωση εκδηλώσεων</string>
   <string name="instructions">Οδηγίες</string>
+  <string name="showMeEverything">Εμφάνιση όλων</string>
   <string name="lichessPatronInfo">Το Lichess είναι ένα φιλανθρωπικό και εντελώς ελεύθερο λογισμικό ανοιχτού κώδικα.
 Όλα τα εξοδα λειτουργίας, ανάπτυξης και περιεχομένου καλύπτοναι αποκλειστικά από δωρεές χρηστών.</string>
+  <string name="nothingToSeeHere">Τίποτα για να δείτε εδώ αυτή τη στιγμή.</string>
 </resources>

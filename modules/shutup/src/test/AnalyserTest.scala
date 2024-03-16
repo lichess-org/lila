@@ -43,6 +43,7 @@ class AnalyserTest extends munit.FunSuite:
     assertEquals(find("fuk"), List("fuk"))
     assertEquals(find("well fuk me"), List("fuk"))
     assertEquals(find("foo ashole bar fukd"), List("ashole", "fukd"))
+    assertEquals(find("faaaaaaaaagg faaaagot fag"), List("faaaaaaaaagg", "faaaagot", "fag"))
 
   test("find variants"):
     assertEquals(find("cunt kunt cunting kawa kunting"), List("cunt", "kunt", "cunting", "kunting"))

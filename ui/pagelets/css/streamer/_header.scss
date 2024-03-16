@@ -11,6 +11,15 @@
     flex: auto;
     flex-flow: column;
     justify-content: space-between;
+
+    > span {
+      @extend %flex-between;
+    }
+
+    .online-check {
+      padding: 0.5em 1em;
+      margin-#{$end-direction}: 2em;
+    }
   }
 
   .metas {

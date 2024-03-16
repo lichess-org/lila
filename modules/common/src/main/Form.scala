@@ -2,15 +2,15 @@ package lila.common
 
 import chess.Color
 import chess.format.Fen
+import play.api.data.Forms.*
 import play.api.data.format.Formats.*
 import play.api.data.format.Formatter
-import play.api.data.Forms.*
 import play.api.data.validation.{ Constraint, Constraints }
-import play.api.data.{ Field, FormError, Mapping, Form as PlayForm }
-import play.api.data.validation as V
-import scala.util.Try
-import java.time.LocalDate
+import play.api.data.{ Field, Form as PlayForm, FormError, Mapping, validation as V }
+
 import java.lang
+import java.time.LocalDate
+import scala.util.Try
 
 object Form:
 
@@ -23,15 +23,15 @@ object Form:
 
   def options(it: Iterable[Int], pattern: String): Options[Int] =
     it.map: d =>
-      d -> (pluralize(pattern, d) format d)
+      d -> (pluralize(pattern, d).format(d))
 
   def options(it: Iterable[Int], transformer: Int => Int, pattern: String): Options[Int] =
     it.map: d =>
-      d -> (pluralize(pattern, transformer(d)) format transformer(d))
+      d -> (pluralize(pattern, transformer(d)).format(transformer(d)))
 
   def options(it: Iterable[Int], code: String, pattern: String): Options[String] =
     it.map: d =>
-      s"$d$code" -> (pluralize(pattern, d) format d)
+      s"$d$code" -> (pluralize(pattern, d).format(d))
 
   def options(it: Iterable[Int], format: Int => String): Options[Int] =
     it.map: d =>
@@ -41,7 +41,7 @@ object Form:
     it.map: d =>
       d -> format(d)
 
-  def mustBeOneOf[A](choices: Iterable[A]) = s"Must be one of: ${choices mkString ", "}"
+  def mustBeOneOf[A](choices: Iterable[A]) = s"Must be one of: ${choices.mkString(", ")}"
 
   def numberIn(choices: Options[Int]) =
     number.verifying(mustBeOneOf(choices.map(_._1)), hasKey(choices, _))
@@ -60,7 +60,7 @@ object Form:
       rs: SameRuntime[String, Id]
   ): Mapping[Id] =
     val field = text(minLength = size, maxLength = size)
-      .verifying("IDs must be made of ASCII letters and numbers", id => """(?i)^[a-z\d]+$""".r matches id)
+      .verifying("IDs must be made of ASCII letters and numbers", id => """(?i)^[a-z\d]+$""".r.matches(id))
       .into[Id]
     fixed match
       case Some(fixedId) => field.verifying("The ID cannot be changed now", id => id == fixedId)
@@ -85,9 +85,9 @@ object Form:
 
   def cleanText(minLength: Int = 0, maxLength: Int = Int.MaxValue): Mapping[String] =
     (minLength, maxLength) match
-      case (min, Int.MaxValue) => cleanText.verifying(Constraints minLength min)
-      case (0, max)            => cleanText.verifying(Constraints maxLength max)
-      case (min, max)          => cleanText.verifying(Constraints minLength min, Constraints maxLength max)
+      case (min, Int.MaxValue) => cleanText.verifying(Constraints.minLength(min))
+      case (0, max)            => cleanText.verifying(Constraints.maxLength(max))
+      case (min, max)          => cleanText.verifying(Constraints.minLength(min), Constraints.maxLength(max))
 
   val cleanNonEmptyText: Mapping[String] = cleanText.verifying(Constraints.nonEmpty)
   def cleanNonEmptyText(minLength: Int = 0, maxLength: Int = Int.MaxValue): Mapping[String] =
@@ -103,8 +103,8 @@ object Form:
 
     def apply(minLength: Int, maxLength: Int, verifiedUser: Boolean) =
       cleanText.verifying(
-        Constraints minLength minLength,
-        Constraints maxLength maxLength,
+        Constraints.minLength(minLength),
+        Constraints.maxLength(maxLength),
         Constraints.pattern(
           regex = """[\p{L}\p{N}-\s:.,;'°ª\+]+""".r,
           error = "Invalid characters; only letters, numbers, and common punctuation marks are accepted."
@@ -155,8 +155,8 @@ object Form:
     def string[A <: String](to: String => A): Formatter[A]                   = strBase.transform(to, identity)
     def stringFormatter[A](from: A => String, to: String => A): Formatter[A] = strBase.transform(to, from)
     def stringOptionFormatter[A](from: A => String, to: String => Option[A]): Formatter[A] = new:
-      def bind(key: String, data: Map[String, String]) = strBase.bind(key, data) flatMap { str =>
-        to(str) toRight Seq(FormError(key, s"Invalid value: $str", Nil))
+      def bind(key: String, data: Map[String, String]) = strBase.bind(key, data).flatMap { str =>
+        to(str).toRight(Seq(FormError(key, s"Invalid value: $str", Nil)))
       }
       def unbind(key: String, value: A) = strBase.unbind(key, from(value))
     def int[A <: Int](to: Int => A): Formatter[A]                   = intBase.transform(to, identity)
@@ -184,13 +184,13 @@ object Form:
   object fen:
     val mapping = trim(of[String]).into[Fen.Epd]
     def playable(strict: Boolean) = mapping
-      .verifying("Invalid position", fen => Fen.read(fen).exists(_ playable strict))
+      .verifying("Invalid position", fen => Fen.read(fen).exists(_.playable(strict)))
       .transform[Fen.Epd](if strict then truncateMoveNumber else identity, identity)
     val playableStrict = playable(strict = true)
     def truncateMoveNumber(fen: Fen.Epd) =
       Fen.readWithMoveNumber(fen).fold(fen) { g =>
         if g.fullMoveNumber >= 150 then
-          Fen write g.copy(fullMoveNumber = g.fullMoveNumber.map(_ % 100)) // keep the start ply low
+          Fen.write(g.copy(fullMoveNumber = g.fullMoveNumber.map(_ % 100))) // keep the start ply low
         else fen
       }
 
@@ -198,7 +198,7 @@ object Form:
     import io.mola.galimatias.{ StrictErrorHandler, URL, URLParsingSettings }
     private val parser = URLParsingSettings.create.withErrorHandler(StrictErrorHandler.getInstance)
     given Formatter[URL] with
-      def bind(key: String, data: Map[String, String]) = stringFormat.bind(key, data) flatMap { url =>
+      def bind(key: String, data: Map[String, String]) = stringFormat.bind(key, data).flatMap { url =>
         Try(URL.parse(parser, url)).fold(
           err => Left(Seq(FormError(key, s"Invalid URL: $err", Nil))),
           Right(_)
@@ -212,7 +212,7 @@ object Form:
       rs: SameRuntime[T, A],
       base: Formatter[A]
   ): Formatter[T] with
-    def bind(key: String, data: Map[String, String]) = base.bind(key, data) map sr.apply
+    def bind(key: String, data: Map[String, String]) = base.bind(key, data).map(sr.apply)
     def unbind(key: String, value: T)                = base.unbind(key, rs(value))
 
   given Formatter[chess.variant.Variant] =
@@ -221,7 +221,7 @@ object Form:
 
   extension [A](f: Formatter[A])
     def transform[B](to: A => B, from: B => A): Formatter[B] = new:
-      def bind(key: String, data: Map[String, String]) = f.bind(key, data) map to
+      def bind(key: String, data: Map[String, String]) = f.bind(key, data).map(to)
       def unbind(key: String, value: B)                = f.unbind(key, from(value))
     def into[B](using sr: SameRuntime[A, B], rs: SameRuntime[B, A]): Formatter[B] =
       transform(sr.apply, rs.apply)
@@ -235,7 +235,7 @@ object Form:
   object strings:
     def separator(sep: String) = of[List[String]]:
       formatter
-        .stringFormatter[List[String]](_ mkString sep, _.split(sep).map(_.trim).toList.filter(_.nonEmpty))
+        .stringFormatter[List[String]](_.mkString(sep), _.split(sep).map(_.trim).toList.filter(_.nonEmpty))
 
   def inTheFuture(m: Mapping[Instant]) =
     m.verifying("The date must be set in the future", _.isAfterNow)
@@ -273,12 +273,12 @@ object Form:
   object ISODateOrTimestamp:
     val format: Formatter[LocalDate] = new:
       def bind(key: String, data: Map[String, String]) =
-        ISODate.format.bind(key, data) orElse Timestamp.format.bind(key, data).map(_.date)
+        ISODate.format.bind(key, data).orElse(Timestamp.format.bind(key, data).map(_.date))
       def unbind(key: String, value: LocalDate) = ISODate.format.unbind(key, value)
     val mapping = of[LocalDate](format)
   object ISOInstantOrTimestamp:
     val format: Formatter[Instant] = new:
       def bind(key: String, data: Map[String, String]) =
-        ISOInstant.format.bind(key, data) orElse Timestamp.format.bind(key, data)
+        ISOInstant.format.bind(key, data).orElse(Timestamp.format.bind(key, data))
       def unbind(key: String, value: Instant) = ISOInstant.format.unbind(key, value)
     val mapping: Mapping[Instant] = of[Instant](format)

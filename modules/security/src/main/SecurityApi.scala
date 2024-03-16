@@ -1,22 +1,20 @@
 package lila.security
 
 import com.softwaremill.tagging.*
+import ornicar.scalalib.SecureRandom
 import play.api.data.*
 import play.api.data.Forms.*
 import play.api.data.validation.{ Constraint, Invalid, Valid as FormValid, ValidationError }
-import play.api.Mode
 import play.api.mvc.RequestHeader
 import reactivemongo.api.bson.*
-import ornicar.scalalib.SecureRandom
 
-import lila.common.{ ApiVersion, EmailAddress, HTTPRequest, IpAddress }
 import lila.common.Form.into
+import lila.common.{ ApiVersion, EmailAddress, HTTPRequest, IpAddress }
 import lila.db.dsl.{ *, given }
-import lila.oauth.{ OAuthScope, OAuthServer, AccessToken }
-import lila.user.User.{ ClearPassword, LoginCandidate }
-import lila.user.{ User, UserRepo, Me }
-import lila.socket.Socket.Sri
+import lila.oauth.{ AccessToken, OAuthScope, OAuthServer }
 import lila.user.User.LoginCandidate.Result
+import lila.user.User.{ ClearPassword, LoginCandidate }
+import lila.user.{ Me, User, UserRepo }
 
 final class SecurityApi(
     userRepo: UserRepo,
@@ -28,7 +26,7 @@ final class SecurityApi(
     oAuthServer: OAuthServer,
     ip2proxy: Ip2Proxy,
     proxy2faSetting: lila.memo.SettingStore[lila.common.Strings] @@ Proxy2faSetting
-)(using ec: Executor, mode: Mode):
+)(using ec: Executor, mode: play.api.Mode):
 
   val AccessUri = "access_uri"
 
@@ -53,7 +51,7 @@ final class SecurityApi(
         "password" -> loginPasswordMapping,
         "token"    -> optional(nonEmptyText)
       )(authenticateCandidate(candidate)) {
-        case Success(user) => (user.username into UserStrOrEmail, ClearPassword(""), none).some
+        case Success(user) => (user.username.into(UserStrOrEmail), ClearPassword(""), none).some
         case _             => none
       }.verifying(Constraint { (t: LoginCandidate.Result) =>
         t match
@@ -74,15 +72,15 @@ final class SecurityApi(
 
   private def must2fa(req: RequestHeader): Fu[Option[IsProxy]] =
     ip2proxy(HTTPRequest.ipAddress(req)).map: p =>
-      p.name.exists(proxy2faSetting.get().value.has(_)) option p
+      p.name.exists(proxy2faSetting.get().value.has(_)).option(p)
 
   def loadLoginForm(str: UserStrOrEmail)(using req: RequestHeader): Fu[Form[LoginCandidate.Result]] =
     EmailAddress
       .from(str.value)
       .match
         case Some(email) => authenticator.loginCandidateByEmail(email.normalize)
-        case None        => User.validateId(str into UserStr) so authenticator.loginCandidateById
-      .map(_.filter(_.user isnt User.lichessId))
+        case None        => User.validateId(str.into(UserStr)).so(authenticator.loginCandidateById)
+      .map(_.filter(_.user.isnt(User.lichessId)))
       .flatMap:
         _.so: candidate =>
           must2fa(req).map:
@@ -98,11 +96,11 @@ final class SecurityApi(
   ): LoginCandidate.Result =
     import LoginCandidate.Result.*
     candidate.fold[LoginCandidate.Result](InvalidUsernameOrPassword): c =>
-      val result = c(User.PasswordAndToken(password, token map User.TotpToken.apply))
+      val result = c(User.PasswordAndToken(password, token.map(User.TotpToken.apply)))
       if result == BlankedPassword then
         lila.common.Bus.publish(c.user, "loginWithBlankedPassword")
         BlankedPassword
-      else if mode == Mode.Prod && result.success && PasswordCheck.isWeak(password, login.value) then
+      else if mode.isProd && result.success && PasswordCheck.isWeak(password, login.value) then
         lila.common.Bus.publish(c.user, "loginWithWeakPassword")
         WeakPassword
       else result
@@ -110,31 +108,33 @@ final class SecurityApi(
   def saveAuthentication(userId: UserId, apiVersion: Option[ApiVersion])(using
       req: RequestHeader
   ): Fu[String] =
-    userRepo mustConfirmEmail userId flatMap {
-      if _ then fufail(SecurityApi MustConfirmEmail userId)
+    userRepo.mustConfirmEmail(userId).flatMap {
+      if _ then fufail(SecurityApi.MustConfirmEmail(userId))
       else
         ip2proxy(HTTPRequest.ipAddress(req)).flatMap: proxy =>
-          val sessionId = SecureRandom nextString 22
+          val sessionId = SecureRandom.nextString(22)
           proxy.name.foreach: p =>
             logger.info(s"Proxy login $p $userId")
-          store.save(sessionId, userId, req, apiVersion, up = true, fp = none, proxy = proxy) inject sessionId
+          store
+            .save(sessionId, userId, req, apiVersion, up = true, fp = none, proxy = proxy)
+            .inject(sessionId)
     }
 
   def saveSignup(userId: UserId, apiVersion: Option[ApiVersion], fp: Option[FingerPrint])(using
       req: RequestHeader
   ): Funit =
-    val sessionId = SecureRandom nextString 22
+    val sessionId = SecureRandom.nextString(22)
     store.save(s"SIG-$sessionId", userId, req, apiVersion, up = false, fp = fp)
 
   private type AppealOrUser = Either[AppealUser, FingerPrintedUser]
   def restoreUser(req: RequestHeader): Fu[Option[AppealOrUser]] =
-    firewall.accepts(req) so reqSessionId(req) so { sessionId =>
+    firewall.accepts(req).so(reqSessionId(req)).so { sessionId =>
       appeal.authenticate(sessionId) match
-        case Some(userId) => userRepo byId userId map2 { u => Left(AppealUser(Me(u))) }
+        case Some(userId) => userRepo.byId(userId).map2 { u => Left(AppealUser(Me(u))) }
         case None =>
-          store.authInfo(sessionId) flatMapz { d =>
-            userRepo me d.user dmap {
-              _ map { me => Right(FingerPrintedUser(stripRolesOfCookieUser(me), d.hasFp)) }
+          store.authInfo(sessionId).flatMapz { d =>
+            userRepo.me(d.user).dmap {
+              _.map { me => Right(FingerPrintedUser(stripRolesOfCookieUser(me), d.hasFp)) }
             }
           }
       : Fu[Option[AppealOrUser]]
@@ -165,7 +165,7 @@ final class SecurityApi(
     else scoped.copy(me = stripRolesOf(scoped.me))
 
   private def stripRolesOfCookieUser(me: Me) =
-    if mode == Mode.Prod && me.totpSecret.isEmpty then stripRolesOf(me)
+    if mode.isProd && me.totpSecret.isEmpty then stripRolesOf(me)
     else me
 
   private def stripRolesOf(me: Me) =
@@ -174,7 +174,7 @@ final class SecurityApi(
     else me
 
   def locatedOpenSessions(userId: UserId, nb: Int): Fu[List[LocatedSession]] =
-    store.openSessions(userId, nb) map {
+    store.openSessions(userId, nb).map {
       _.map: session =>
         LocatedSession(session, geoIP(session.ip))
     }
@@ -188,7 +188,7 @@ final class SecurityApi(
   val sessionIdKey = "sessionId"
 
   def reqSessionId(req: RequestHeader): Option[String] =
-    req.session.get(sessionIdKey) orElse req.headers.get(sessionIdKey)
+    req.session.get(sessionIdKey).orElse(req.headers.get(sessionIdKey))
 
   def recentUserIdsByFingerHash(fh: FingerHash) = recentUserIdsByField("fp")(fh.value)
 
@@ -207,7 +207,7 @@ final class SecurityApi(
       "user",
       $doc(
         field -> value,
-        "date" $gt nowInstant.minusYears(1)
+        "date".$gt(nowInstant.minusYears(1))
       ),
       _.sec
     )
@@ -223,10 +223,10 @@ final class SecurityApi(
       _.expireAfterAccess(2.days).build()
 
     def authenticate(sessionId: SessionId): Option[UserId] =
-      sessionId.startsWith(prefix) so store.getIfPresent(sessionId)
+      sessionId.startsWith(prefix).so(store.getIfPresent(sessionId))
 
     def saveAuthentication(userId: UserId): Fu[SessionId] =
-      val sessionId = s"$prefix${SecureRandom nextString 22}"
+      val sessionId = s"$prefix${SecureRandom.nextString(22)}"
       store.put(sessionId, userId)
       logger.info(s"Appeal login by $userId")
       fuccess(sessionId)

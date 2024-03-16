@@ -2,8 +2,8 @@ package lila.irwin
 
 import reactivemongo.api.bson.*
 
-import lila.db.dsl.{ *, given }
 import lila.db.BSON
+import lila.db.dsl.{ *, given }
 
 object BSONHandlers:
 
@@ -19,11 +19,11 @@ object BSONHandlers:
 
     def reads(r: BSON.Reader) =
       MoveReport(
-        activation = r intD activation,
-        rank = r intO rank,
-        ambiguity = r intD ambiguity,
-        odds = r intD odds,
-        loss = r intD loss
+        activation = r.intD(activation),
+        rank = r.intO(rank),
+        ambiguity = r.intD(ambiguity),
+        odds = r.intD(odds),
+        loss = r.intD(loss)
       )
 
     def writes(w: BSON.Writer, o: MoveReport) =

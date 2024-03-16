@@ -3,7 +3,7 @@ package views.html.relay
 import controllers.routes
 import play.api.data.Form
 
-import lila.app.templating.Environment.{ given, * }
+import lila.app.templating.Environment.{ *, given }
 import lila.app.ui.ScalatagsTemplate.{ *, given }
 import lila.relay.RelayRound.Sync.UpstreamUrl.LccRegex
 import lila.relay.RelayRoundForm.Data
@@ -62,20 +62,22 @@ object roundForm:
     postForm(cls := "form3", action := url)(
       div(cls := "form-group")(
         bits.howToUse,
-        (create && t.createdAt.isBefore(nowInstant minusMinutes 1)).option:
+        (create && t.createdAt.isBefore(nowInstant.minusMinutes(1))).option:
           p(dataIcon := licon.InfoCircle, cls := "text"):
             theNewRoundHelp()
       ),
       form3.globalError(form),
       form3.split(
         form3.group(form("name"), roundName(), half = true)(form3.input(_)(autofocus)),
-        isGranted(_.Relay) option form3.group(
-          form("caption"),
-          "Homepage spotlight custom round name",
-          help = raw("Leave empty to use the round name").some,
-          half = true
-        ):
-          form3.input(_)
+        isGranted(_.StudyAdmin).option(
+          form3.group(
+            form("caption"),
+            "Homepage spotlight custom round name",
+            help = raw("Leave empty to use the round name").some,
+            half = true
+          ):
+            form3.input(_)
+        )
       ),
       form3.group(
         form("syncUrl"),
@@ -117,13 +119,14 @@ object roundForm:
           ).some,
           half = true
         )(form3.input(_, typ = "number")),
-        isGranted(_.Relay) option
+        isGranted(_.StudyAdmin).option(
           form3.group(
             form("period"),
             periodInSeconds(),
             help = periodInSecondsHelp().some,
             half = true
           )(form3.input(_, typ = "number"))
+        )
       ),
       form3.actions(
         a(href := routes.RelayTour.show(t.slug, t.id))(trans.cancel()),

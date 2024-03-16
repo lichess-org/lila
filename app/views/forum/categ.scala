@@ -1,13 +1,13 @@
 package views.html
 package forum
 
-import controllers.team.routes.{ Team as teamRoutes }
-import lila.app.templating.Environment.{ given, * }
+import controllers.routes
+import controllers.team.routes.Team as teamRoutes
+
+import lila.app.templating.Environment.{ *, given }
 import lila.app.ui.ScalatagsTemplate.{ *, given }
 import lila.common.paginator.Paginator
 import lila.forum.{ CategView, TopicView }
-
-import controllers.routes
 
 object categ:
 
@@ -30,10 +30,14 @@ object categ:
           bits.searchForm()
         ),
         showCategs(categs.filterNot(_.categ.isTeam)),
-        categs.exists(_.categ.isTeam) option frag(
-          boxTop(h1("Your Team Boards")),
-          showCategs(categs.filter(_.categ.isTeam))
-        )
+        categs
+          .exists(_.categ.isTeam)
+          .option(
+            frag(
+              boxTop(h1("Your Team Boards")),
+              showCategs(categs.filter(_.categ.isTeam))
+            )
+          )
       )
 
   def show(
@@ -43,13 +47,14 @@ object categ:
       stickyPosts: List[TopicView]
   )(using PageContext) =
 
-    val newTopicButton = canWrite option
+    val newTopicButton = canWrite.option(
       a(
         href     := routes.ForumTopic.form(categ.slug),
         cls      := "button button-empty button-green text",
         dataIcon := licon.Pencil
       ):
         trans.createANewTopic()
+    )
 
     def showTopic(sticky: Boolean)(topic: TopicView) =
       tr(cls := List("sticky" -> sticky))(
@@ -104,8 +109,8 @@ object categ:
             )
           ),
           tbody(cls := "infinite-scroll")(
-            stickyPosts map showTopic(sticky = true),
-            topics.currentPageResults map showTopic(sticky = false),
+            stickyPosts.map(showTopic(sticky = true)),
+            topics.currentPageResults.map(showTopic(sticky = false)),
             pagerNextTable(topics, n => routes.ForumCateg.show(categ.slug, n).url)
           )
         )

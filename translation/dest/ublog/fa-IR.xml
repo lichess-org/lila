@@ -6,7 +6,7 @@
   <string name="blogTopics">موضوعات وبنوشت</string>
   <string name="lichessOfficialBlog">وبنوشت رسمی Lichess</string>
   <string name="continueReadingPost">ادامه مطلب</string>
-  <string name="lichessBlogPostsFromXYear" comment="Appears on a list of posts from the official Lichess Blog, which were published in a specific year.&#10;&#10;%s is the specific year of posts from the official blog (e.g. 2021).">بلاگ های لیچس در %s</string>
+  <string name="lichessBlogPostsFromXYear">بلاگ های لیچس در %s</string>
   <string name="previousBlogPosts">وبنوشته‌های قبلی</string>
   <string name="xBlog">وبلاگ %s</string>
   <string name="newPost">نوشتهٔ جدید</string>
@@ -52,4 +52,5 @@
   <string name="inappropriateContentAccountClosed">هر چیز نامناسبی می تواند حساب شما را ببندد.</string>
   <string name="blogTips">نکات پیشنهادی ما برای نوشتن پست های خوب وبلاگ</string>
   <string name="discussThisBlogPostInTheForum">راجع‌به این نوشته در انجمن بحث کنید</string>
+  <string name="youBlockedByBlogAuthor">نویسنده وبنوشت، شما را مسدود کرده است.</string>
 </resources>

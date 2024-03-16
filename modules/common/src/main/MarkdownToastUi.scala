@@ -23,8 +23,8 @@ object MarkdownToastUi:
     def apply(markup: Html) = Html:
       contentRegex.replaceAllIn(
         hrefRegex
-          .replaceAllIn(markup.value, m => s"""href="${Matcher.quoteReplacement(unescape(m group 1))}""""),
-        m => s""">${Matcher.quoteReplacement(unescape(m group 1))}</a>"""
+          .replaceAllIn(markup.value, m => s"""href="${Matcher.quoteReplacement(unescape(m.group(1)))}""""),
+        m => s""">${Matcher.quoteReplacement(unescape(m.group(1)))}</a>"""
       )
 
   // toastui editor escapes `_` as `\_` and it breaks @username
@@ -32,4 +32,4 @@ object MarkdownToastUi:
     // Same as `atUsernameRegex` in `RawHtmlTest.scala` but it also matches the '\' character.
     // Can't end with '\', which would be escaping something after the username, like '\)'
     private val atUsernameRegexEscaped = """@(?<![\w@#/]@)([\w\\-]{1,29}\w)(?![@\w-]|\.\w)""".r
-    def apply(m: Markdown) = m.map(atUsernameRegexEscaped.replaceAllIn(_, a => s"@${unescape(a group 1)}"))
+    def apply(m: Markdown) = m.map(atUsernameRegexEscaped.replaceAllIn(_, a => s"@${unescape(a.group(1))}"))

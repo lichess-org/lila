@@ -1,17 +1,18 @@
 package controllers
 
+import ornicar.scalalib.ThreadLocalRandom
 import play.api.data.Form
 import play.api.data.Forms.*
 import play.api.libs.json.{ JsNull, JsObject, JsValue, Json }
 import play.api.mvc.*
 import scalatags.Text.all.stringFrag
 import views.*
-import ornicar.scalalib.ThreadLocalRandom
 
-import lila.app.{ given, * }
-import lila.common.{ HTTPRequest, IpAddress, Bearer }
+import lila.app.*
 import lila.common.Json.given
+import lila.common.{ Bearer, HTTPRequest, IpAddress }
 import lila.oauth.{ AccessTokenRequest, AuthorizationRequest, OAuthScopes }
+
 import Api.ApiResult
 
 final class OAuth(env: Env, apiC: => Api) extends LilaController(env):
@@ -48,9 +49,9 @@ final class OAuth(env: Env, apiC: => Api) extends LilaController(env):
 
   def authorizeApply = Auth { _ ?=> me ?=>
     withPrompt: prompt =>
-      prompt.authorize(me, env.oAuth.legacyClientApi.apply) flatMap {
+      prompt.authorize(me, env.oAuth.legacyClientApi.apply).flatMap {
         case Right(authorized) =>
-          env.oAuth.authorizationApi.create(authorized) map { code =>
+          env.oAuth.authorizationApi.create(authorized).map { code =>
             SeeOther(authorized.redirectUrl(code))
           }
         case Left(error) => SeeOther(prompt.redirectUri.error(error, prompt.state))
@@ -74,9 +75,9 @@ final class OAuth(env: Env, apiC: => Api) extends LilaController(env):
   def tokenApply = AnonBodyOf(parse.form(accessTokenRequestForm)):
     _.prepare match
       case Right(prepared) =>
-        env.oAuth.authorizationApi.consume(prepared) flatMap {
+        env.oAuth.authorizationApi.consume(prepared).flatMap {
           case Right(granted) =>
-            env.oAuth.tokenApi.create(granted) map { token =>
+            env.oAuth.tokenApi.create(granted).map { token =>
               Ok(
                 Json
                   .obj(
@@ -91,11 +92,11 @@ final class OAuth(env: Env, apiC: => Api) extends LilaController(env):
       case Left(err) => BadRequest(err.toJson)
 
   def legacyTokenApply = AnonBodyOf(parse.form(accessTokenRequestForm)):
-    _.prepareLegacy(AccessTokenRequest.BasicAuth from req) match
+    _.prepareLegacy(AccessTokenRequest.BasicAuth.from(req)) match
       case Right(prepared) =>
-        env.oAuth.authorizationApi.consume(prepared) flatMap {
+        env.oAuth.authorizationApi.consume(prepared).flatMap {
           case Right(granted) =>
-            env.oAuth.tokenApi.create(granted) map { token =>
+            env.oAuth.tokenApi.create(granted).map { token =>
               Ok(
                 Json
                   .obj(
@@ -111,8 +112,8 @@ final class OAuth(env: Env, apiC: => Api) extends LilaController(env):
       case Left(err) => BadRequest(err.toJson)
 
   def tokenRevoke = Scoped() { ctx ?=> _ ?=>
-    HTTPRequest.bearer(ctx.req) so { token =>
-      env.oAuth.tokenApi.revoke(token) inject NoContent
+    HTTPRequest.bearer(ctx.req).so { token =>
+      env.oAuth.tokenApi.revoke(token).inject(NoContent)
     }
   }
 
@@ -123,7 +124,7 @@ final class OAuth(env: Env, apiC: => Api) extends LilaController(env):
       .bindFromRequest()
       .fold(
         _ => BadRequest,
-        origin => env.oAuth.tokenApi.revokeByClientOrigin(origin, me) inject NoContent
+        origin => env.oAuth.tokenApi.revokeByClientOrigin(origin, me).inject(NoContent)
       )
   }
 
@@ -149,9 +150,9 @@ final class OAuth(env: Env, apiC: => Api) extends LilaController(env):
     key = "api.token.test"
   )
   def testTokens = AnonBodyOf(parse.tolerantText): body =>
-    val bearers = Bearer from body.trim.split(',').view.take(1000).toList
+    val bearers = Bearer.from(body.trim.split(',').view.take(1000).toList)
     testTokenRateLimit(req.ipAddress, fuccess(ApiResult.Limited), cost = bearers.size):
-      env.oAuth.tokenApi.test(bearers) map { tokens =>
+      env.oAuth.tokenApi.test(bearers).map { tokens =>
         import lila.common.Json.given
         ApiResult.Data(JsObject(tokens.map { (bearer, token) =>
           bearer.value -> token.fold[JsValue](JsNull): t =>

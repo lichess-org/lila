@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+  <string name="arena">Aréna</string>
   <string name="arenaTournaments">Aréna versenyek</string>
   <string name="isItRated">Rangsorolt?</string>
   <string name="willBeNotified">Értesítünk amikor a verseny elkezdődik, ezért várakozás alatt nyugodtan játszhatsz másik fülön.</string>
@@ -42,7 +43,7 @@ Játssz gyorsan, térj vissza a lobbiba további játszmákért, hogy több pont
   <string name="variant">Variáns</string>
   <string name="minimumGameLength">Minimális lépésszám</string>
   <string name="history">Versenynapló</string>
-  <plurals name="viewAllXTeams" comment="%s is the number of teams that can be viewed.&#10;&#10;Appears in team battles that feature lots of teams. As of the time of writing, Lichess lists up to 10 teams at a time, so this button lets you view all teams.">
+  <plurals name="viewAllXTeams" comment="viewAllXTeams [one] [other]&#10;&#10;%s is the number of teams that can be viewed">
     <item quantity="one">Csapat megtekintése</item>
     <item quantity="other">Mind a %s csapat megtekintése</item>
   </plurals>
@@ -55,8 +56,16 @@ Játssz gyorsan, térj vissza a lobbiba további játszmákért, hogy több pont
   <string name="arenaStreaks">Aréna sorozatok</string>
   <string name="arenaStreaksHelp">A második nyert játszmát követően minden nyert játszma 4 pontot ér 2 helyett.</string>
   <string name="noBerserkAllowed">Berserk nem engedélyezett</string>
-  <string name="noArenaStreaks" comment="A possible setting when creating an arena tournament.&#10;When enabled: After 2 wins, consecutive wins grant 4 points instead of 2.">Nincsenek Aréna streak-ek</string>
+  <string name="noArenaStreaks">Nincsenek Aréna streak-ek</string>
   <string name="averagePerformance">Átlagos teljesítmény</string>
   <string name="averageScore">Átlagos pontszám</string>
   <string name="myTournaments">Versenyeim</string>
+  <string name="pickYourTeam">Válaszd ki a csapatodat</string>
+  <string name="whichTeamWillYouRepresentInThisBattle">Melyik csapatot fogod reprezentálni ebben a versenyben?</string>
+  <string name="youMustJoinOneOfTheseTeamsToParticipate">Csatlakozz az egyik csapathoz hogy részt vehess!</string>
+  <string name="recentlyPlayed">Nemrég játszott</string>
+  <string name="bestResults">Legjobb eredmények</string>
+  <string name="stats">Statisztika</string>
+  <string name="pointsSum">Összes pont</string>
+  <string name="rankAvg">Átlag helyezés</string>
 </resources>

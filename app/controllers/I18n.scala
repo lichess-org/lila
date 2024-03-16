@@ -4,7 +4,7 @@ import play.api.data.*
 import play.api.data.Forms.*
 import play.api.libs.json.Json
 
-import lila.app.{ given, * }
+import lila.app.{ *, given }
 
 final class I18n(env: Env) extends LilaController(env):
 
@@ -20,7 +20,7 @@ final class I18n(env: Env) extends LilaController(env):
       .fold(
         _ => notFound,
         code =>
-          val lang = toLang(code) err "Universe is collapsing"
+          val lang = toLang(code).err("Universe is collapsing")
           ctx.me.filterNot(_.lang contains lang.code).so {
             env.user.repo.setLang(_, lang)
           } >> negotiate(

@@ -1,9 +1,9 @@
 package lila.puzzle
 
-import lila.db.dsl.{ *, given }
-import lila.user.Me
 import lila.common.Iso
+import lila.db.dsl.{ *, given }
 import lila.rating.Perf
+import lila.user.Me
 
 object PuzzlePath:
 
@@ -11,7 +11,7 @@ object PuzzlePath:
 
   case class Id(value: String):
 
-    val parts = value split sep
+    val parts = value.split(sep)
 
     private[puzzle] def tier = PuzzleTier.from(~parts.lift(1))
 
@@ -43,7 +43,7 @@ final private class PuzzlePathApi(colls: PuzzleColls)(using Executor):
           val ratingFlex = (100 + math.abs(1500 - rating.value) / 4) * compromise.atMost(4)
           Match(
             select(angle, actualTier, (rating - ratingFlex).value to (rating + ratingFlex).value) ++
-              ((compromise != 5 && previousPaths.nonEmpty) so $doc("_id" $nin previousPaths))
+              ((compromise != 5 && previousPaths.nonEmpty).so($doc("_id".$nin(previousPaths))))
           ) -> List(
             Sample(1),
             Project($id(true))
@@ -61,8 +61,8 @@ final private class PuzzlePathApi(colls: PuzzleColls)(using Executor):
   }.mon(_.puzzle.path.nextFor(angle.key, tier.key, difficulty.key, previousPaths.size, compromise))
 
   def select(angle: PuzzleAngle, tier: PuzzleTier, rating: Range) = $doc(
-    "min" $lte f"${angle.key}${sep}${tier}${sep}${rating.max}%04d",
-    "max" $gte f"${angle.key}${sep}${tier}${sep}${rating.min}%04d"
+    "min".$lte(f"${angle.key}${sep}${tier}${sep}${rating.max}%04d"),
+    "max".$gte(f"${angle.key}${sep}${tier}${sep}${rating.min}%04d")
   )
 
   def isStale = colls

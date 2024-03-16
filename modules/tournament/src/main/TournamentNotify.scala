@@ -1,7 +1,6 @@
 package lila.tournament
 
-import lila.common.Bus
-import lila.common.LilaScheduler
+import lila.common.{ Bus, LilaScheduler }
 import lila.hub.actorApi.push.TourSoon
 
 final private class TournamentNotify(repo: TournamentRepo, cached: TournamentCache)(using
@@ -17,8 +16,8 @@ final private class TournamentNotify(repo: TournamentRepo, cached: TournamentCac
       .flatMap:
         _.traverse_ { tour =>
           lila.mon.tournament.notifier.tournaments.increment()
-          doneMemo put tour.id
-          cached ranking tour map { ranking =>
+          doneMemo.put(tour.id)
+          cached.ranking(tour).map { ranking =>
             if ranking.ranking.nonEmpty then
               Bus
                 .publish(

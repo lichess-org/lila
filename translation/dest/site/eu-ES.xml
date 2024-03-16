@@ -531,7 +531,6 @@
   <string name="automaticallyProceedToNextGameAfterMoving">Mugitu ondoren, hurrengo partidara joan</string>
   <string name="autoSwitch">Hurrengo partidara</string>
   <string name="puzzles">Ariketak</string>
-  <string name="tournamentWinners">Txapelketaren irabazleak</string>
   <string name="name">Izena</string>
   <string name="description">Deskribapena</string>
   <string name="descPrivate">Deskribapen pribatua</string>
@@ -705,6 +704,7 @@
   <string name="toggleVariationArrows">Aktibatu/desaktibatu ingurabidearen geziak</string>
   <string name="cyclePreviousOrNextVariation">Aldatu aurreko/hurrengo ingurabidean</string>
   <string name="toggleGlyphAnnotations">Aktibatu/Desaktibatu ikur bidezko oharrak</string>
+  <string name="togglePositionAnnotations">Aktibatu/Desaktibatu posizioko oharrak</string>
   <string name="variationArrowsInfo">Ingurabidearen geziek jokaldi zerrenda erabili gabe nabigatzen uzten dute.</string>
   <string name="playSelectedMove">jokatu aukeratutako jokaldia</string>
   <string name="newTournament">Txapelketa berria</string>
@@ -938,8 +938,6 @@
   <string name="minimumRatedGames">Gutxieneko partida kopurua</string>
   <string name="minimumRating">Gutxieneko sailkapena</string>
   <string name="maximumWeeklyRating">Asteroko gehieneko sailkapena</string>
-  <string name="onlyTitled">Tituludun jokalariak bakarrik</string>
-  <string name="onlyTitledHelp">Eskatu titulu ofiziala izatea txapelketan sartzeko</string>
   <string name="positionInputHelp">Partida guztiak posizio jakin batekin asteko sartu posizioaren FEN balioa.
 Xake-arrunteko partidekin bakarrik balio du, ez aldaerekin.
 %s erabili dezakezu FEN balioa lortzeko, eta ondoren hemen itsatsi.

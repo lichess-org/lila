@@ -17,8 +17,7 @@ object SwissCsv:
           "Performance"
         )
       )
-    ) concat
-      results.map(apply)
+    ).concat(results.map(apply))
 
   def apply(p: SwissPlayer.WithUserAndRank): String = toCsv(
     p.rank.toString,
@@ -30,4 +29,4 @@ object SwissCsv:
     p.player.performance.so(_.value.toString)
   )
 
-  private def toCsv(values: String*) = values mkString ","
+  private def toCsv(values: String*) = values.mkString(",")

@@ -4,24 +4,23 @@ import akka.stream.scaladsl.*
 import alleycats.Zero
 import play.api.libs.json.*
 import reactivemongo.api.bson.*
+
 import scala.util.chaining.*
 
 import lila.common.config.{ Max, MaxPerSecond }
 import lila.db.dsl.{ *, given }
-import lila.memo.{ PicfitApi, CacheApi }
-import lila.study.{ Settings, Study, StudyApi, StudyId, StudyMaker, StudyMultiBoard, StudyRepo, StudyTopic }
-import lila.security.Granter
-import lila.user.{ User, Me, MyId }
+import lila.memo.{ CacheApi, PicfitApi }
 import lila.relay.RelayRound.WithTour
+import lila.security.Granter
+import lila.study.{ Settings, Study, StudyApi, StudyId, StudyMaker, StudyRepo, StudyTopic }
+import lila.user.{ Me, MyId, User }
 
 final class RelayApi(
     roundRepo: RelayRoundRepo,
     tourRepo: RelayTourRepo,
     groupRepo: RelayGroupRepo,
-    colls: RelayColls,
     studyApi: StudyApi,
     studyRepo: StudyRepo,
-    multiboard: StudyMultiBoard,
     jsonView: JsonView,
     formatApi: RelayFormatApi,
     cacheApi: CacheApi,
@@ -39,30 +38,34 @@ final class RelayApi(
       .aggregateOne(): framework =>
         import framework.*
         Match($id(id)) -> List(
-          PipelineOperator(tourRepo lookup "tourId"),
+          PipelineOperator(tourRepo.lookup("tourId")),
           UnwindField("tour")
         )
-      .map(_ flatMap readRoundWithTour)
+      .map(_.flatMap(readRoundWithTour))
 
   def byIdAndContributor(id: RelayRoundId)(using me: Me): Fu[Option[WithTour]] =
     byIdWithTourAndStudy(id).map:
       _.collect:
         case RelayRound.WithTourAndStudy(relay, tour, study) if study.canContribute(me) =>
-          relay withTour tour
+          relay.withTour(tour)
 
   def byIdWithTourAndStudy(id: RelayRoundId): Fu[Option[RelayRound.WithTourAndStudy]] =
-    byIdWithTour(id) flatMapz { case WithTour(relay, tour) =>
-      studyApi.byId(relay.studyId) dmap2:
-        RelayRound.WithTourAndStudy(relay, tour, _)
+    byIdWithTour(id).flatMapz { case WithTour(relay, tour) =>
+      studyApi
+        .byId(relay.studyId)
+        .dmap2:
+          RelayRound.WithTourAndStudy(relay, tour, _)
     }
 
   def byIdWithStudy(id: RelayRoundId): Fu[Option[RelayRound.WithStudy]] =
-    byId(id) flatMapz: relay =>
-      studyApi.byId(relay.studyId) dmap2:
-        RelayRound.WithStudy(relay, _)
+    byId(id).flatMapz: relay =>
+      studyApi
+        .byId(relay.studyId)
+        .dmap2:
+          RelayRound.WithStudy(relay, _)
 
   def byTourOrdered(tour: RelayTour): Fu[List[WithTour]] =
-    roundRepo.byTourOrdered(tour).dmap(_.map(_ withTour tour))
+    roundRepo.byTourOrdered(tour).dmap(_.map(_.withTour(tour)))
 
   def roundIdsById(tourId: RelayTour.Id): Fu[List[StudyId]] =
     roundRepo.idsByTourId(tourId)
@@ -74,7 +77,7 @@ final class RelayApi(
   def withRounds(tour: RelayTour) = roundRepo.byTourOrdered(tour).dmap(tour.withRounds)
 
   def denormalizeTourActive(tourId: RelayTour.Id): Funit =
-    roundRepo.coll.exists(RelayRoundRepo.selectors.tour(tourId) ++ $doc("finished" -> false)) flatMap {
+    roundRepo.coll.exists(RelayRoundRepo.selectors.tour(tourId) ++ $doc("finished" -> false)).flatMap {
       tourRepo.setActive(tourId, _)
     }
 
@@ -88,7 +91,7 @@ final class RelayApi(
       .aggregateOne(): framework =>
         import framework.*
         Match($id(id)) -> List(
-          PipelineOperator(tourRepo lookup "tourId"),
+          PipelineOperator(tourRepo.lookup("tourId")),
           UnwindField("tour"),
           PipelineOperator($doc("$replaceWith" -> $doc("tier" -> "$tour.tier")))
         )
@@ -109,8 +112,8 @@ final class RelayApi(
     def invalidate(id: RelayTour.Id) = cache.underlying.synchronous.invalidate(id)
 
   private def toSyncSelect = $doc(
-    "sync.until" $exists true,
-    "sync.nextAt" $lt nowInstant
+    "sync.until".$exists(true),
+    "sync.nextAt".$lt(nowInstant)
   )
 
   private[relay] def toSyncOfficial(max: Max): Fu[List[WithTour]] =
@@ -118,22 +121,22 @@ final class RelayApi(
       .aggregateList(max.value, _.pri): framework =>
         import framework.*
         Match(toSyncSelect) -> List(
-          PipelineOperator(tourRepo lookup "tourId"),
+          PipelineOperator(tourRepo.lookup("tourId")),
           UnwindField("tour"),
-          Match($doc("tour.tier" $exists true)),
+          Match($doc("tour.tier".$exists(true))),
           Sort(Descending("tour.tier"), Ascending("sync.nextAt")),
           Limit(max.value)
         )
-      .map(_ flatMap readRoundWithTour)
+      .map(_.flatMap(readRoundWithTour))
 
   private[relay] def toSyncUser(max: Max, maxPerUser: Max = Max(5)): Fu[List[WithTour]] =
     roundRepo.coll
       .aggregateList(max.value, _.pri): framework =>
         import framework.*
         Match(toSyncSelect) -> List(
-          PipelineOperator(tourRepo lookup "tourId"),
+          PipelineOperator(tourRepo.lookup("tourId")),
           UnwindField("tour"),
-          Match($doc("tour.tier" $exists false)),
+          Match($doc("tour.tier".$exists(false))),
           Sort(Ascending("sync.nextAt")),
           GroupField("tour.ownerId")("relays" -> PushField("$ROOT")),
           Project:
@@ -146,14 +149,14 @@ final class RelayApi(
           ReplaceRootField("relays"),
           Limit(max.value)
         )
-      .map(_ flatMap readRoundWithTour)
+      .map(_.flatMap(readRoundWithTour))
 
   def tourCreate(data: RelayTourForm.Data)(using Me): Fu[RelayTour] =
     val tour = data.make
-    tourRepo.coll.insert.one(tour) inject tour
+    tourRepo.coll.insert.one(tour).inject(tour)
 
   def tourUpdate(prev: RelayTour, data: RelayTourForm.Data)(using Me): Funit =
-    val tour = data update prev
+    val tour = data.update(prev)
     import toBSONValueOption.given
     for
       _ <- tourRepo.coll.update.one(
@@ -171,46 +174,59 @@ final class RelayApi(
           "ownerId"         -> tour.ownerId.some
         )
       )
-      _ <- Granter(_.Relay).so(groupRepo.update(tour.id, data.grouping))
-    yield withTours.invalidate(tour.id)
+      _ <- data.grouping.so(updateGrouping(tour, _))
+    yield
+      leaderboard.invalidate(tour.id)
+      (tour.id :: data.grouping.so(_.tourIds)).foreach(withTours.invalidate)
+
+  private def updateGrouping(tour: RelayTour, data: RelayGroup.form.Data)(using me: Me): Funit =
+    Granter(_.Relay).so:
+      val canGroup = fuccess(Granter(_.StudyAdmin)) >>| tourRepo.isOwnerOfAll(me.userId, data.tourIds)
+      canGroup.flatMapz(groupRepo.update(tour.id, data))
 
   def create(data: RelayRoundForm.Data, tour: RelayTour)(using me: Me): Fu[RelayRound.WithTourAndStudy] =
-    roundRepo.lastByTour(tour) flatMapz { last =>
-      studyRepo.byId(last.studyId)
-    } flatMap { lastStudy =>
-      import lila.study.{ StudyMember, StudyMembers }
-      val relay = data.make(me, tour)
-      for
-        study <- studyApi.create(
-          StudyMaker.ImportGame(
-            id = relay.studyId.some,
-            name = relay.name.into(StudyName).some,
-            settings = lastStudy
-              .fold(
-                Settings.init
-                  .copy(
-                    chat = Settings.UserSelection.Everyone,
-                    sticky = false
-                  )
-              )(_.settings)
-              .some,
-            from = Study.From.Relay(none).some
-          ),
-          me,
-          withRatings = true,
-          _.copy(
-            members = lastStudy.fold(StudyMembers.empty)(_.members) + StudyMember(me, StudyMember.Role.Write)
-          )
-        ) orFail s"Can't create study for relay $relay"
-        _ <- roundRepo.coll.insert.one(relay)
-        _ <- tourRepo.setActive(tour.id, true)
-        _ <- studyApi.addTopics(relay.studyId, List(StudyTopic.broadcast.value))
-      yield relay.withTour(tour).withStudy(study.study)
-    }
+    roundRepo
+      .lastByTour(tour)
+      .flatMapz { last =>
+        studyRepo.byId(last.studyId)
+      }
+      .flatMap { lastStudy =>
+        import lila.study.{ StudyMember, StudyMembers }
+        val relay = data.make(me, tour)
+        for
+          study <- studyApi
+            .create(
+              StudyMaker.ImportGame(
+                id = relay.studyId.some,
+                name = relay.name.into(StudyName).some,
+                settings = lastStudy
+                  .fold(
+                    Settings.init
+                      .copy(
+                        chat = Settings.UserSelection.Everyone,
+                        sticky = false
+                      )
+                  )(_.settings)
+                  .some,
+                from = Study.From.Relay(none).some
+              ),
+              me,
+              withRatings = true,
+              _.copy(
+                members =
+                  lastStudy.fold(StudyMembers.empty)(_.members) + StudyMember(me, StudyMember.Role.Write)
+              )
+            )
+            .orFail(s"Can't create study for relay $relay")
+          _ <- roundRepo.coll.insert.one(relay)
+          _ <- tourRepo.setActive(tour.id, true)
+          _ <- studyApi.addTopics(relay.studyId, List(StudyTopic.broadcast.value))
+        yield relay.withTour(tour).withStudy(study.study)
+      }
 
   def requestPlay(id: RelayRoundId, v: Boolean): Funit =
     WithRelay(id): relay =>
-      relay.sync.upstream.flatMap(_.asUrl).map(_.withRound) foreach formatApi.refresh
+      relay.sync.upstream.flatMap(_.asUrl).map(_.withRound).foreach(formatApi.refresh)
       update(relay): r =>
         if v then r.withSync(_.play) else r.withSync(_.pause)
       .void
@@ -224,11 +240,11 @@ final class RelayApi(
     if round == from then fuccess(round)
     else
       for
-        _ <- (from.name != round.name) so studyApi.rename(round.studyId, round.name into StudyName)
+        _ <- (from.name != round.name).so(studyApi.rename(round.studyId, round.name.into(StudyName)))
         _ <- roundRepo.coll.update.one($id(round.id), round).void
-        _ <- (round.sync.playing != from.sync.playing) so
-          sendToContributors(round.id, "relaySync", jsonView sync round)
-        _ <- (round.finished != from.finished) so denormalizeTourActive(round.tourId)
+        _ <- (round.sync.playing != from.sync.playing)
+          .so(sendToContributors(round.id, "relaySync", jsonView.sync(round)))
+        _ <- (round.finished != from.finished).so(denormalizeTourActive(round.tourId))
       yield
         round.sync.log.events.lastOption
           .ifTrue(round.sync.log != from.sync.log)
@@ -238,20 +254,19 @@ final class RelayApi(
 
   def reset(old: RelayRound)(using me: Me): Funit =
     WithRelay(old.id) { relay =>
-      studyApi.deleteAllChapters(relay.studyId, me) >> {
-        old.hasStartedEarly so roundRepo.coll.update
-          .one($id(relay.id), $set("finished" -> false) ++ $unset("startedAt"))
-          .void
-      } andDo {
-        multiboard invalidate relay.studyId
-        leaderboard invalidate relay.tourId
-      }
+      for
+        _ <- studyApi.deleteAllChapters(relay.studyId, me)
+        _ <- old.hasStartedEarly.so:
+          roundRepo.coll.update
+            .one($id(relay.id), $set("finished" -> false) ++ $unset("startedAt"))
+            .void
+      yield leaderboard.invalidate(relay.tourId)
     } >> requestPlay(old.id, v = true)
 
   def deleteRound(roundId: RelayRoundId): Fu[Option[RelayTour]] =
     byIdWithTour(roundId).flatMapz: rt =>
-      roundRepo.coll.delete.one($id(rt.round.id)) >>
-        denormalizeTourActive(rt.tour.id) inject rt.tour.some
+      (roundRepo.coll.delete.one($id(rt.round.id)) >>
+        denormalizeTourActive(rt.tour.id)).inject(rt.tour.some)
 
   def deleteTourIfOwner(tour: RelayTour)(using me: Me): Fu[Boolean] =
     tour.ownerId
@@ -261,21 +276,24 @@ final class RelayApi(
           _      <- tourRepo.delete(tour)
           rounds <- roundRepo.idsByTourOrdered(tour)
           _      <- roundRepo.deleteByTour(tour)
-          _      <- rounds.map(_ into StudyId).traverse_(studyApi.deleteById)
+          _      <- rounds.map(_.into(StudyId)).traverse_(studyApi.deleteById)
         yield true
 
   def getOngoing(id: RelayRoundId): Fu[Option[WithTour]] =
-    roundRepo.coll.one[RelayRound]($doc("_id" -> id, "finished" -> false)) flatMapz { relay =>
-      tourById(relay.tourId) map2 relay.withTour
-    }
+    roundRepo.coll
+      .one[RelayRound]($doc("_id" -> id, "finished" -> false))
+      .flatMapz: relay =>
+        tourById(relay.tourId).map2(relay.withTour)
 
   def canUpdate(tour: RelayTour)(using me: Me): Fu[Boolean] =
     fuccess(Granter(_.StudyAdmin) || me.is(tour.ownerId)) >>|
-      roundRepo.coll.distinctEasy[StudyId, List]("_id", RelayRoundRepo.selectors tour tour.id).flatMap {
-        ids =>
-          studyRepo.membersByIds(ids) map:
-            _.exists(_ contributorIds me)
-      }
+      roundRepo
+        .studyIdsOf(tour.id)
+        .flatMap: ids =>
+          studyRepo
+            .membersByIds(ids)
+            .map:
+              _.exists(_.contributorIds(me))
 
   def cloneTour(from: RelayTour)(using me: Me): Fu[RelayTour] =
     val tour = from.copy(
@@ -307,7 +325,7 @@ final class RelayApi(
               me,
               s,
               _.copy(
-                _id = round.studyId,
+                id = round.studyId,
                 visibility = Study.Visibility.Public
               )
             ) >>
@@ -321,7 +339,7 @@ final class RelayApi(
     studyRepo
       .sourceByMember(me.userId, isMe = true, select = studyRepo.selectBroadcast)
       .mapAsync(1): study =>
-        byIdWithTour(study.id into RelayRoundId).map2(_.withStudy(study))
+        byIdWithTour(study.id.into(RelayRoundId)).map2(_.withStudy(study))
       .mapConcat(identity)
       .throttle(perSecond.value, 1 second)
       .take(max.fold(9999)(_.value))
@@ -347,10 +365,11 @@ final class RelayApi(
     roundRepo.coll
       .list[RelayRound](
         $doc(
-          "startsAt" $lt nowInstant.plusMinutes(30) // start 30 minutes early to fetch boards
-            $gt nowInstant.minusDays(1),            // bit late now
-          "startedAt" $exists false,
-          "sync.until" $exists false
+          "startsAt"
+            .$lt(nowInstant.plusMinutes(30)) // start 30 minutes early to fetch boards
+            .$gt(nowInstant.minusDays(1)),   // bit late now
+          "startedAt".$exists(false),
+          "sync.until".$exists(false)
         )
       )
       .flatMap:
@@ -363,12 +382,12 @@ final class RelayApi(
     roundRepo.coll
       .list[RelayRound]:
         $doc(
-          "sync.until" $exists false,
+          "sync.until".$exists(false),
           "finished" -> false,
-          "startedAt" $lt nowInstant.minusHours(3),
+          "startedAt".$lt(nowInstant.minusHours(3)),
           $or(
-            "startsAt" $exists false,
-            "startsAt" $lt nowInstant
+            "startsAt".$exists(false),
+            "startsAt".$lt(nowInstant)
           )
         )
       .flatMap:
@@ -378,10 +397,10 @@ final class RelayApi(
         }
 
   private[relay] def WithRelay[A: Zero](id: RelayRoundId)(f: RelayRound => Fu[A]): Fu[A] =
-    byId(id) flatMapz f
+    byId(id).flatMapz(f)
 
   private[relay] def onStudyRemove(studyId: StudyId) =
-    roundRepo.coll.delete.one($id(studyId into RelayRoundId)).void
+    roundRepo.coll.delete.one($id(studyId.into(RelayRoundId))).void
 
   private[relay] def becomeStudyAdmin(studyId: StudyId, me: Me): Funit =
     roundRepo
@@ -391,8 +410,8 @@ final class RelayApi(
           _.map(studyApi.becomeAdmin(_, me)).sequence.void
 
   private def sendToContributors(id: RelayRoundId, t: String, msg: JsObject): Funit =
-    studyApi members id.into(StudyId) map {
-      _.map(_.contributorIds).withFilter(_.nonEmpty) foreach { userIds =>
+    studyApi.members(id.into(StudyId)).map {
+      _.map(_.contributorIds).withFilter(_.nonEmpty).foreach { userIds =>
         import lila.hub.actorApi.socket.SendTos
         import lila.common.Json.given
         import lila.socket.Socket.makeMessage

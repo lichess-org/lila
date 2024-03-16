@@ -1,15 +1,18 @@
 package lila.i18n
 
-import scala.jdk.CollectionConverters.*
 import play.api.i18n.Lang
+
+import scala.jdk.CollectionConverters.*
 
 class TranslationTest extends munit.FunSuite:
 
+  Registry.syncLoadLanguages()
+
   test("be valid") {
-    val en     = Registry.all.get(defaultLang).get
+    val en     = Registry.getAll(defaultLang).get
     var tested = 0
     val errors: List[String] = LangList.all.flatMap { (lang, name) =>
-      Registry.all.get(lang).get.asScala.toMap flatMap { (k, v) =>
+      Registry.getAll(lang).get.asScala.toMap.flatMap { (k, v) =>
         try
           val enTrans: String = en.get(k) match
             case literal: Simple  => literal.message
@@ -24,7 +27,7 @@ class TranslationTest extends munit.FunSuite:
               tested = tested + 1
               literal.formatTxt(args)
             case plurals: Plurals =>
-              plurals.messages.keys foreach { qty =>
+              plurals.messages.keys.foreach { qty =>
                 tested = tested + 1
                 assert(plurals.formatTxt(qty, args).nonEmpty)
               }
@@ -64,9 +67,9 @@ Voir les link3 sur ce coup pour vous entraîner."""
   }
 
   private def argsForKey(k: String): List[String] =
-    if k contains "%s" then List("arg1")
-    else if k contains "%4$s" then List("arg1", "arg2", "arg3", "arg4")
-    else if k contains "%3$s" then List("arg1", "arg2", "arg3")
-    else if k contains "%2$s" then List("arg1", "arg2")
-    else if k contains "%1$s" then List("arg1")
+    if k.contains("%s") then List("arg1")
+    else if k.contains("%4$s") then List("arg1", "arg2", "arg3", "arg4")
+    else if k.contains("%3$s") then List("arg1", "arg2", "arg3")
+    else if k.contains("%2$s") then List("arg1", "arg2")
+    else if k.contains("%1$s") then List("arg1")
     else Nil

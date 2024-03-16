@@ -1,7 +1,7 @@
 package lila.relay
 
+import reactivemongo.akkastream.cursorProducer
 import reactivemongo.api.bson.*
-import reactivemongo.akkastream.{ cursorProducer, AkkaStreamCursor }
 
 import lila.db.dsl.{ *, given }
 
@@ -39,12 +39,15 @@ final private class RelayRoundRepo(val coll: Coll)(using Executor):
 
   def lastByTour(tour: RelayTour): Fu[Option[RelayRound]] =
     coll
-      .find(selectors tour tour.id)
+      .find(selectors.tour(tour.id))
       .sort(sort.reverseChrono)
       .one[RelayRound]
 
   def deleteByTour(tour: RelayTour): Funit =
     coll.delete.one(selectors.tour(tour.id)).void
+
+  def studyIdsOf(tourId: RelayTour.Id): Fu[List[StudyId]] =
+    coll.distinctEasy[StudyId, List]("_id", selectors.tour(tourId))
 
 private object RelayRoundRepo:
 

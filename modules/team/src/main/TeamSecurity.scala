@@ -1,10 +1,11 @@
 package lila
 package team
 
-import lila.user.{ Me, User, UserRepo }
-import lila.security.Granter
-import lila.memo.CacheApi.*
 import cats.derived.*
+
+import lila.memo.CacheApi.*
+import lila.security.Granter
+import lila.user.{ Me, User, UserRepo }
 
 object TeamSecurity:
   enum Permission(val name: String, val desc: String) derives Eq:
@@ -27,8 +28,8 @@ object TeamSecurity:
 
   case class NewPermissions(user: UserId, perms: Set[Permission])
 
-final class TeamSecurity(teamRepo: TeamRepo, memberRepo: TeamMemberRepo, userRepo: UserRepo, cached: Cached)(
-    using Executor
+final class TeamSecurity(memberRepo: TeamMemberRepo, userRepo: UserRepo, cached: Cached)(using
+    Executor
 ):
 
   import TeamSecurity.*
@@ -40,12 +41,12 @@ final class TeamSecurity(teamRepo: TeamRepo, memberRepo: TeamMemberRepo, userRep
     yield
       val changes = data.flatMap: d =>
         t.leaders
-          .find(_.user is d.name)
+          .find(_.user.is(d.name))
           .filter(_.perms != d.perms && d.perms.nonEmpty)
           .map: l =>
             NewPermissions(l.user, d.perms)
-      t.leaders.map(_.user) foreach cached.nbRequests.invalidate
-      data.map(_.name.id) foreach cached.nbRequests.invalidate
+      t.leaders.map(_.user).foreach(cached.nbRequests.invalidate)
+      data.map(_.name.id).foreach(cached.nbRequests.invalidate)
       logger.info(s"valid setLeaders ${t.id} by ${by.userId}: ${tableStr(data)}")
       changes.toList
 
@@ -69,7 +70,7 @@ final class TeamSecurity(teamRepo: TeamRepo, memberRepo: TeamMemberRepo, userRep
           )
           .verifying(
             "This user is already a team leader",
-            n => !t.leaders.exists(_ is n)
+            n => !t.leaders.exists(_.is(n))
           )
           .verifying(
             "This user is not part of the team",
@@ -90,8 +91,8 @@ final class TeamSecurity(teamRepo: TeamRepo, memberRepo: TeamMemberRepo, userRep
         .verifying(
           "You can't make Lichess a leader",
           Granter(_.ManageTeam) ||
-            !_.exists(_.name is User.lichessId) ||
-            t.leaders.exists(_ is User.lichessId)
+            !_.exists(_.name.is(User.lichessId)) ||
+            t.leaders.exists(_.is(User.lichessId))
         )
         .verifying(
           "There must be at least one leader able to manage permissions",
@@ -123,4 +124,4 @@ final class TeamSecurity(teamRepo: TeamRepo, memberRepo: TeamMemberRepo, userRep
               .await(1.second, "team leader kids")
               .isEmpty
         )
-    ).fill(t.leaders.map(m => LeaderData(m.user into UserStr, m.perms)))
+    ).fill(t.leaders.map(m => LeaderData(m.user.into(UserStr), m.perms)))

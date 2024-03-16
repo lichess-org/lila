@@ -3,7 +3,7 @@ package views.html.ublog
 import controllers.routes
 import play.api.i18n.Lang
 
-import lila.app.templating.Environment.{ given, * }
+import lila.app.templating.Environment.{ *, given }
 import lila.app.ui.ScalatagsTemplate.{ *, given }
 import lila.ublog.{ UblogBlog, UblogPost }
 import lila.user.User
@@ -41,7 +41,7 @@ object atom:
   private def renderPost(post: UblogPost.PreviewPost, authorName: String) =
     frag(
       tag("id")(post.id),
-      tag("published")(post.lived.map(_.at) map atomDate),
+      tag("published")(post.lived.map(_.at).map(atomDate)),
       link(
         rel  := "alternate",
         tpe  := "text/html",

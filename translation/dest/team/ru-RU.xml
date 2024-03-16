@@ -56,9 +56,30 @@
   <string name="entryCodeDescriptionForLeader">(Необязательно) Код, который должны знать новые члены клуба для вступления в него.</string>
   <string name="incorrectEntryCode">Неверный код для вступления.</string>
   <string name="teamAlreadyExists">Такой клуб уже существует.</string>
-  <string name="upcomingTourns">Предстоящие турниры</string>
+  <string name="upcomingTournaments">Предстоящие турниры</string>
   <string name="completedTourns">Завершённые турниры</string>
   <string name="declinedRequests">Отклонённые запросы</string>
   <string name="joinLichessVariantTeam">Вступайте в официальный клуб %s, чтобы узнавать его новости и события</string>
   <string name="teamPage">Страница клуба</string>
+  <string name="thisTeamBattleIsOver">Этот турнир закончился, вы не можете изменять клубы.</string>
+  <string name="listTheTeamsThatWillCompete">Список клубов, которые будут участвовать в этом турнире.</string>
+  <string name="oneTeamPerLine">По одному клубу в каждой строке. Работает автодополнение.</string>
+  <string name="oneTeamPerLineHelp">Вы можете скопировать этот список из этого турнира и вставить в другой!
+
+Вы не можете удалить клуб, если игрок из него уже присоединился к турниру.</string>
+  <string name="numberOfLeadsPerTeam">Количество лидеров в клубе. Сумма их баллов — это результат клуба.</string>
+  <string name="numberOfLeadsPerTeamHelp">Крайне не рекомендуется менять это значение после начала турнира!</string>
+  <string name="innerTeam">Внутренний клуб</string>
+  <plurals name="battleOfNbTeams">
+    <item quantity="one">Турнир на %s команду</item>
+    <item quantity="few">Турнир на %s команды</item>
+    <item quantity="many">Турнир на %s команд</item>
+    <item quantity="other">Турнир на %s команд</item>
+  </plurals>
+  <plurals name="nbLeadersPerTeam">
+    <item quantity="one">%s лидер на клуб</item>
+    <item quantity="few">%s лидера на клуб</item>
+    <item quantity="many">%s лидеров на клуб</item>
+    <item quantity="other">%s лидеров на клуб</item>
+  </plurals>
 </resources>

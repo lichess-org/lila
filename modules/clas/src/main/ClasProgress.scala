@@ -1,8 +1,9 @@
 package lila.clas
 
-import java.time.Duration
 import reactivemongo.api.*
 import reactivemongo.api.bson.*
+
+import java.time.Duration
 
 import lila.db.dsl.{ *, given }
 import lila.game.{ Game, GameRepo }
@@ -34,7 +35,7 @@ case class StudentProgress(
     millis: Long,
     rating: (IntRating, IntRating)
 ):
-  def ratingProgress = (rating._2 - rating._1) into IntRatingDiff
+  def ratingProgress = (rating._2 - rating._1).into(IntRatingDiff)
   def winRate        = if nb > 0 then wins * 100 / nb else 0
   def duration       = Duration.ofMillis(millis)
 
@@ -62,19 +63,21 @@ final class ClasProgressApi(
       progresses    <- historyApi.progresses(usersWithPerf, perfType, days)
     yield progresses
 
-    playStatsFu zip progressesFu map { case (playStats, progresses) =>
+    playStatsFu.zip(progressesFu).map { case (playStats, progresses) =>
       ClasProgress(
         perfType,
         days,
-        users zip progresses map { (u, rating) =>
-          val playStat = playStats get u.id
-          u.id -> StudentProgress(
-            nb = playStat.so(_.nb),
-            rating = rating,
-            wins = playStat.so(_.wins),
-            millis = playStat.so(_.millis)
-          )
-        } toMap
+        users
+          .zip(progresses)
+          .map { (u, rating) =>
+            val playStat = playStats.get(u.id)
+            u.id -> StudentProgress(
+              nb = playStat.so(_.nb),
+              rating = rating,
+              wins = playStat.so(_.wins),
+              millis = playStat.so(_.millis)
+            )
+          } toMap
       )
     }
 
@@ -84,8 +87,8 @@ final class ClasProgressApi(
         import framework.*
         Match(
           $doc(
-            PuzzleRound.BSONFields.user $in userIds,
-            PuzzleRound.BSONFields.date $gt nowInstant.minusDays(days)
+            PuzzleRound.BSONFields.user.$in(userIds),
+            PuzzleRound.BSONFields.date.$gt(nowInstant.minusDays(days))
           )
         ) -> List:
           GroupField("u")(
@@ -98,7 +101,7 @@ final class ClasProgressApi(
           )
       .map:
         _.flatMap: obj =>
-          obj.getAsOpt[UserId]("_id") map { id =>
+          obj.getAsOpt[UserId]("_id").map { id =>
             id -> PlayStats(
               nb = ~obj.int("nb"),
               wins = ~obj.int("win"),
@@ -119,8 +122,8 @@ final class ClasProgressApi(
         import framework.*
         Match(
           $doc(
-            F.playerUids $in userIds,
-            Query.createdSince(nowInstant minusDays days),
+            F.playerUids.$in(userIds),
+            Query.createdSince(nowInstant.minusDays(days)),
             F.perfType -> perfType.id
           )
         ) -> List(
@@ -133,7 +136,7 @@ final class ClasProgressApi(
             )
           ),
           UnwindField(F.playerUids),
-          Match($doc(F.playerUids $in userIds)),
+          Match($doc(F.playerUids.$in(userIds))),
           GroupField(F.playerUids)(
             "nb" -> SumAll,
             "win" -> Sum(
@@ -146,7 +149,7 @@ final class ClasProgressApi(
         )
       .map:
         _.flatMap: obj =>
-          obj.getAsOpt[UserId](F.id) map { id =>
+          obj.getAsOpt[UserId](F.id).map { id =>
             id -> PlayStats(
               nb = ~obj.int("nb"),
               wins = ~obj.int("win"),

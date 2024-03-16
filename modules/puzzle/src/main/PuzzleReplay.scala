@@ -1,6 +1,7 @@
 package lila.puzzle
 
 import reactivemongo.api.bson.BSONNull
+
 import scala.util.chaining.*
 
 import lila.db.dsl.{ *, given }
@@ -16,7 +17,7 @@ case class PuzzleReplay(
 
   def i = nb - remaining.size
 
-  def step = copy(remaining = remaining drop 1)
+  def step = copy(remaining = remaining.drop(1))
 
 final class PuzzleReplayApi(
     colls: PuzzleColls,
@@ -36,21 +37,27 @@ final class PuzzleReplayApi(
       maybeDays: Option[PuzzleDashboard.Days],
       theme: PuzzleTheme.Key
   ): Fu[Option[(Puzzle, PuzzleReplay)]] =
-    maybeDays map { days =>
-      replays.getFuture(user.id, _ => createReplayFor(user, days, theme)) flatMap { current =>
-        if current.days == days && current.theme == theme && current.remaining.nonEmpty then fuccess(current)
-        else createReplayFor(user, days, theme) tap { replays.put(user.id, _) }
-      } flatMap { replay =>
-        replay.remaining.headOption so { id =>
-          colls.puzzle(_.byId[Puzzle](id)) map2 (_ -> replay)
-        }
+    maybeDays
+      .map { days =>
+        replays
+          .getFuture(user.id, _ => createReplayFor(user, days, theme))
+          .flatMap { current =>
+            if current.days == days && current.theme == theme && current.remaining.nonEmpty then
+              fuccess(current)
+            else createReplayFor(user, days, theme).tap { replays.put(user.id, _) }
+          }
+          .flatMap { replay =>
+            replay.remaining.headOption.so { id =>
+              colls.puzzle(_.byId[Puzzle](id)).map2(_ -> replay)
+            }
+          }
       }
-    } getOrElse fuccess(None)
+      .getOrElse(fuccess(None))
 
   def onComplete(round: PuzzleRound, days: PuzzleDashboard.Days, angle: PuzzleAngle): Funit =
-    angle.asTheme so { theme =>
-      replays.getIfPresent(round.userId) so {
-        _ map { replay =>
+    angle.asTheme.so { theme =>
+      replays.getIfPresent(round.userId).so {
+        _.map { replay =>
           if replay.days == days && replay.theme == theme then replays.put(round.userId, fuccess(replay.step))
         }
       }
@@ -68,8 +75,8 @@ final class PuzzleReplayApi(
           Match(
             $doc(
               "u" -> user.id,
-              "d" $gt nowInstant.minusDays(days),
-              "w" $ne true
+              "d".$gt(nowInstant.minusDays(days)),
+              "w".$ne(true)
             )
           ) -> List(
             Sort(Ascending("d")),
@@ -105,6 +112,7 @@ final class PuzzleReplayApi(
       }
       .map {
         ~_.flatMap(_.getAsOpt[Vector[PuzzleId]]("ids"))
-      } map { ids =>
-      PuzzleReplay(days, theme, ids.size, ids)
-    }
+      }
+      .map { ids =>
+        PuzzleReplay(days, theme, ids.size, ids)
+      }

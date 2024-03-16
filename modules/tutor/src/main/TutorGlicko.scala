@@ -1,8 +1,6 @@
 package lila.tutor
 
-import lila.rating.Perf
-import lila.rating.Glicko
-import lila.rating.glicko2
+import lila.rating.{ Glicko, Perf, glicko2 }
 
 object TutorGlicko:
 
@@ -16,7 +14,7 @@ object TutorGlicko:
     val calculator = glicko2.RatingCalculator(VOLATILITY, TAU)
     val player     = perf.toRating
     val results = glicko2.FloatingRatingPeriodResults(
-      scores map { case (rating, score) =>
+      scores.map { case (rating, score) =>
         glicko2.FloatingResult(player, glicko2.Rating(rating, 60, 0.06, 10), score)
       }
     )

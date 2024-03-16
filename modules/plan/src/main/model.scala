@@ -1,12 +1,13 @@
 package lila.plan
 
-import java.text.NumberFormat
-import java.util.{ Currency, Locale }
 import play.api.i18n.Lang
 import play.api.libs.json.{ JsArray, JsObject }
 
-import lila.user.User
+import java.text.NumberFormat
+import java.util.{ Currency, Locale }
+
 import lila.common.IpAddress
+import lila.user.User
 
 case class Source(value: String) extends AnyVal
 
@@ -17,8 +18,8 @@ enum Freq(val renew: Boolean):
 case class Money(amount: BigDecimal, currency: Currency):
   def display(locale: Locale): String =
     val format = NumberFormat.getCurrencyInstance(locale)
-    format setCurrency currency
-    format format amount
+    format.setCurrency(currency)
+    format.format(amount)
   def display(using lang: Lang): String = display(lang.locale)
   def currencyCode                      = currency.getCurrencyCode
   def code                              = s"${currencyCode}_$amount"
@@ -53,7 +54,7 @@ object StripeAmount extends OpaqueInt[lila.plan.StripeAmount]:
   extension (e: StripeAmount)
     def toMoney(currency: Currency) =
       Money(
-        if CurrencyApi zeroDecimalCurrencies currency then e
+        if CurrencyApi.zeroDecimalCurrencies(currency) then e
         else BigDecimal(e) / 100,
         currency
       )
@@ -68,7 +69,7 @@ case class StripeItem(id: String, price: StripePrice)
 
 case class StripePrice(product: String, unit_amount: StripeAmount, currency: Currency):
   def amount = unit_amount
-  def money  = unit_amount toMoney currency
+  def money  = unit_amount.toMoney(currency)
 
 case class StripeSession(id: StripeSessionId)
 
@@ -121,7 +122,7 @@ case class StripeCharge(
     metadata: Map[String, String]
 ):
   def country                = billing_details.flatMap(_.address).flatMap(_.country)
-  def giftTo: Option[UserId] = UserId.from(metadata get "giftTo")
+  def giftTo: Option[UserId] = UserId.from(metadata.get("giftTo"))
   def ip: Option[IpAddress]  = metadata.get("ipAddress").flatMap(IpAddress.from)
 
 object StripeCharge:
@@ -135,7 +136,7 @@ case class StripeInvoice(
     created: Long,
     paid: Boolean
 ):
-  def money    = amount_due toMoney currency
+  def money    = amount_due.toMoney(currency)
   def dateTime = millisToInstant(created * 1000)
 
 case class StripePaymentMethod(card: Option[StripeCard])
@@ -150,8 +151,8 @@ case class StripeCompletedSession(
     currency: Currency
 ):
   def freq                   = if mode == "subscription" then Freq.Monthly else Freq.Onetime
-  def money                  = amount_total toMoney currency
-  def giftTo: Option[UserId] = UserId.from(metadata get "giftTo")
+  def money                  = amount_total.toMoney(currency)
+  def giftTo: Option[UserId] = UserId.from(metadata.get("giftTo"))
 
 case class StripeSetupIntent(payment_method: String)
 
@@ -182,7 +183,7 @@ case class PayPalOrder(
     case _                  => (none, none)
   def isCompleted        = status == "COMPLETED"
   def isCompletedCapture = isCompleted && intent == "CAPTURE"
-  def capturedMoney      = isCompletedCapture so purchase_units.headOption.map(_.amount.money)
+  def capturedMoney      = isCompletedCapture.so(purchase_units.headOption.map(_.amount.money))
   def country            = payer.address.flatMap(_.country_code)
 case class PayPalPayment(amount: PayPalAmount)
 case class PayPalBillingInfo(last_payment: PayPalPayment, next_billing_time: Instant)
@@ -215,7 +216,7 @@ case class PayPalEventId(value: String) extends AnyVal with StringValue
 case class PayPalEvent(id: PayPalEventId, event_type: String, resource_type: String, resource: JsObject):
   def tpe         = event_type
   def resourceTpe = resource_type
-  def resourceId  = resource str "id"
+  def resourceId  = resource.str("id")
 
 case class PayPalPlanId(value: String) extends AnyVal with StringValue
 case class PayPalPlan(id: PayPalPlanId, name: String, status: String, billing_cycles: JsArray):
@@ -223,7 +224,7 @@ case class PayPalPlan(id: PayPalPlanId, name: String, status: String, billing_cy
   def active = status == "ACTIVE"
   val currency = for
     cycle   <- billing_cycles.value.headOption
-    pricing <- cycle obj "pricing_scheme"
+    pricing <- cycle.obj("pricing_scheme")
     price   <- pricing.get[PayPalAmount]("fixed_price")
   yield price.money.currency
 case class PayPalTransactionId(value: String) extends AnyVal with StringValue
@@ -235,7 +236,7 @@ case class PayPalCapture(
     billing_agreement_id: Option[PayPalSubscriptionId]
 ):
   def isCompleted    = status.toUpperCase == "COMPLETED"
-  def capturedMoney  = isCompleted option amount.money
+  def capturedMoney  = isCompleted.option(amount.money)
   def userId         = UserId(custom_id)
   def subscriptionId = billing_agreement_id
 case class PayPalSaleAmount(total: BigDecimal, currency: Currency):

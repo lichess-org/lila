@@ -1,13 +1,11 @@
 package views.html
 package tv
 
+import controllers.routes
 import play.api.libs.json.Json
 
-import lila.app.templating.Environment.{ given, * }
+import lila.app.templating.Environment.{ *, given }
 import lila.app.ui.ScalatagsTemplate.*
-import lila.common.String.html.safeJsonValue
-
-import controllers.routes
 
 object index:
 
@@ -47,7 +45,7 @@ object index:
           div(cls := "tv-history")(
             h2(trans.previouslyOnLichessTV()),
             div(cls := "now-playing")(
-              history map { views.html.game.mini(_) }
+              history.map { views.html.game.mini(_) }
             )
           )
         )

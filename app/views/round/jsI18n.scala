@@ -2,8 +2,8 @@ package views.html.round
 
 import play.api.i18n.Lang
 
-import lila.app.templating.Environment.{ given, * }
-import lila.i18n.{ I18nKeys as trans }
+import lila.app.templating.Environment.{ *, given }
+import lila.i18n.I18nKeys as trans
 
 object jsI18n:
 
@@ -13,11 +13,11 @@ object jsI18n:
         if g.isCorrespondence then correspondenceTranslations
         else realtimeTranslations
       } ++ {
-        g.variant.exotic so variantTranslations
+        g.variant.exotic.so(variantTranslations)
       } ++ {
-        g.isTournament so tournamentTranslations
+        g.isTournament.so(tournamentTranslations)
       } ++ {
-        g.isSwiss so swissTranslations
+        g.isSwiss.so(swissTranslations)
       }
 
   private val correspondenceTranslations = Vector(
@@ -87,6 +87,7 @@ object jsI18n:
     trans.drawByMutualAgreement,
     trans.fiftyMovesWithoutProgress,
     trans.insufficientMaterial,
+    trans.pause,
     trans.withdraw,
     trans.rematch,
     trans.rematchOfferSent,

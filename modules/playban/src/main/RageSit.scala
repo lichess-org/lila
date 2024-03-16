@@ -1,8 +1,9 @@
 package lila.playban
 
 import chess.{ Color, Speed }
-import scala.math.{ log10, sqrt }
 import ornicar.scalalib.ThreadLocalRandom
+
+import scala.math.{ log10, sqrt }
 
 import lila.game.Game
 
@@ -18,7 +19,7 @@ object RageSit extends OpaqueInt[RageSit]:
 
     def goneWeight: Float =
       if !isBad then 1f
-      else (1 - 0.7 * sqrt(log10(-(a.counter / 10) - 3))).toFloat max 0.1f
+      else (1 - 0.7 * sqrt(log10(-(a.counter / 10) - 3))).toFloat.max(0.1f)
 
     def counterView = a.counter / 10
 

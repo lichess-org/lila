@@ -10,14 +10,14 @@ final private[api] class Cli(
     fishnet: lila.fishnet.Env,
     study: lila.study.Env,
     studySearch: lila.studySearch.Env,
+    fide: lila.fide.Env,
     evalCache: lila.evalCache.Env,
     plan: lila.plan.Env,
     msg: lila.msg.Env,
     video: lila.video.Env,
     puzzle: lila.puzzle.Env,
     team: lila.team.Env,
-    notify: lila.notify.Env,
-    accountClosure: AccountClosure
+    notify: lila.notify.Env
 )(using Executor)
     extends lila.common.Cli:
 
@@ -26,7 +26,7 @@ final private[api] class Cli(
   def apply(args: List[String]): Fu[String] =
     run(args)
       .map(_ + "\n")
-      .logFailure(logger, _ => args mkString " ")
+      .logFailure(logger, _ => args.mkString(" "))
 
   def process =
     case "uptime" :: Nil => fuccess(s"${lila.common.Uptime.seconds} seconds")
@@ -35,11 +35,11 @@ final private[api] class Cli(
       AssetVersion.change()
       fuccess(s"Changed to ${AssetVersion.current}")
     case "announce" :: "cancel" :: Nil =>
-      AnnounceStore set none
+      AnnounceStore.set(none)
       Bus.publish(AnnounceStore.cancel, "announce")
       fuccess("Removed announce")
     case "announce" :: msgWords =>
-      AnnounceStore.set(msgWords mkString " ") match
+      AnnounceStore.set(msgWords.mkString(" ")) match
         case Some(announce) =>
           Bus.publish(announce, "announce")
           fuccess(announce.json.toString)
@@ -52,24 +52,25 @@ final private[api] class Cli(
         s"${threads.map(_.total).sum} threads\n\n${threads.mkString("\n")}"
 
   private def run(args: List[String]): Fu[String] = {
-    (processors lift args) | fufail("Unknown command: " + args.mkString(" "))
-  } recover { case e: Exception =>
+    (processors.lift(args)) | fufail("Unknown command: " + args.mkString(" "))
+  }.recover { case e: Exception =>
     "ERROR " + e
   }
 
   private def processors =
-    security.cli.process orElse
-      teamSearch.cli.process orElse
-      forumSearch.cli.process orElse
-      tournament.cli.process orElse
-      fishnet.cli.process orElse
-      study.cli.process orElse
-      studySearch.cli.process orElse
-      evalCache.cli.process orElse
-      plan.cli.process orElse
-      puzzle.cli.process orElse
-      msg.cli.process orElse
-      video.cli.process orElse
-      team.cli.process orElse
-      notify.cli.process orElse
-      process
+    security.cli.process
+      .orElse(teamSearch.cli.process)
+      .orElse(forumSearch.cli.process)
+      .orElse(tournament.cli.process)
+      .orElse(fishnet.cli.process)
+      .orElse(study.cli.process)
+      .orElse(studySearch.cli.process)
+      .orElse(evalCache.cli.process)
+      .orElse(plan.cli.process)
+      .orElse(puzzle.cli.process)
+      .orElse(msg.cli.process)
+      .orElse(video.cli.process)
+      .orElse(team.cli.process)
+      .orElse(notify.cli.process)
+      .orElse(fide.cli.process)
+      .orElse(process)
