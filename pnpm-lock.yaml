@@ -95,8 +95,8 @@ importers:
         specifier: workspace:*
         version: link:../chess
       chessops:
-        specifier: ^0.12.8
-        version: 0.12.8
+        specifier: ^0.14.0
+        version: 0.14.1
       common:
         specifier: workspace:*
         version: link:../common
@@ -137,8 +137,8 @@ importers:
         specifier: ^0.2.13
         version: 0.2.13
       chessops:
-        specifier: ^0.12.8
-        version: 0.12.8
+        specifier: ^0.14.0
+        version: 0.14.1
       common:
         specifier: workspace:*
         version: link:../common
@@ -275,14 +275,14 @@ importers:
   ui/dgt:
     dependencies:
       chessops:
-        specifier: ^0.12.8
-        version: 0.12.8
+        specifier: ^0.14.0
+        version: 0.14.1
 
   ui/editor:
     dependencies:
       chessops:
-        specifier: ^0.12.8
-        version: 0.12.8
+        specifier: ^0.14.0
+        version: 0.14.1
       common:
         specifier: workspace:*
         version: link:../common
@@ -356,8 +356,8 @@ importers:
   ui/libot:
     dependencies:
       chessops:
-        specifier: ^0.12.8
-        version: 0.12.8
+        specifier: ^0.14.0
+        version: 0.14.1
       zerofish:
         specifier: ^0.0.18
         version: 0.0.18
@@ -395,8 +395,8 @@ importers:
         specifier: workspace:*
         version: link:../chess
       chessops:
-        specifier: ^0.12.8
-        version: 0.12.8
+        specifier: ^0.14.0
+        version: 0.14.1
       common:
         specifier: workspace:*
         version: link:../common
@@ -464,8 +464,8 @@ importers:
         specifier: workspace:*
         version: link:../chess
       chessops:
-        specifier: ^0.12.8
-        version: 0.12.8
+        specifier: ^0.14.0
+        version: 0.14.1
       snabbdom:
         specifier: ^3.5.1
         version: 3.6.2
@@ -569,8 +569,8 @@ importers:
   ui/puz:
     dependencies:
       chessops:
-        specifier: ^0.12.8
-        version: 0.12.8
+        specifier: ^0.14.0
+        version: 0.14.1
       common:
         specifier: workspace:*
         version: link:../common
@@ -593,8 +593,8 @@ importers:
         specifier: workspace:*
         version: link:../chess
       chessops:
-        specifier: ^0.12.8
-        version: 0.12.8
+        specifier: ^0.14.0
+        version: 0.14.1
       common:
         specifier: workspace:*
         version: link:../common
@@ -620,8 +620,8 @@ importers:
         specifier: workspace:*
         version: link:../chess
       chessops:
-        specifier: ^0.12.8
-        version: 0.12.8
+        specifier: ^0.14.0
+        version: 0.14.1
       common:
         specifier: workspace:*
         version: link:../common
@@ -725,8 +725,8 @@ importers:
         specifier: workspace:*
         version: link:../chess
       chessops:
-        specifier: ^0.12.8
-        version: 0.12.8
+        specifier: ^0.14.0
+        version: 0.14.1
       common:
         specifier: workspace:*
         version: link:../common
@@ -2271,6 +2271,12 @@ packages:
   /chessops@0.12.8:
     resolution: {integrity: sha512-/9pkJa++RU1WiIa/pH4AdFh6ulcxeMlkYm7sc4xAb1jjcmu6MlsOSTjtOUhUXcw5aVJAIrWY2IwPNucNJLCpFw==}
     deprecated: Version published from wrong branch
+    dependencies:
+      '@badrap/result': 0.2.13
+    dev: false
+
+  /chessops@0.14.1:
+    resolution: {integrity: sha512-CnMcfypDVrl/+MkErK0YMAEvivAAnUQ/2f32C54F9HbmDVEDjvoXJYLnS//+4HWGLqGA5+yDs+Y2T0gsxxLgpQ==}
     dependencies:
       '@badrap/result': 0.2.13
     dev: false
