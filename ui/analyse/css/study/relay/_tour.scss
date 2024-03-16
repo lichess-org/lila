@@ -23,6 +23,27 @@ $hover-bg: if($theme == 'dark', rgba(#6ae, 0.3), rgba($c-primary, 0.05));
         }
       }
     }
+    &__empty {
+      @extend %box-neat;
+      align-items: center;
+      justify-content: center;
+      background: $c-bg-box;
+      gap: 1em;
+      padding: 1.5rem 0 2rem 0;
+      display: none;
+      flex-flow: column;
+      &::before {
+        font-size: 6em;
+        color: $c-font-dimmer;
+      }
+      strong {
+        font-size: 1.2em;
+        color: $c-font-dim;
+      }
+      @include breakpoint($mq-col2) {
+        display: flex;
+      }
+    }
     &__name {
       flex: 1;
       padding: 1em;
