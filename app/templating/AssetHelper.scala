@@ -9,6 +9,8 @@ import lila.common.String.html.safeJsonValue
 trait AssetHelper extends HasEnv:
   self: I18nHelper & SecurityHelper =>
 
+  case class JsModule(name: String, data: JsValue)
+
   private lazy val netDomain      = env.net.domain
   private lazy val assetDomain    = env.net.assetDomain
   private lazy val assetBaseUrl   = env.net.assetBaseUrl

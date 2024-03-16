@@ -20,7 +20,8 @@ object index:
     views.html.round.bits.layout(
       variant = pov.game.variant,
       title = s"${channel.name} TV: ${playerText(pov.player)} vs ${playerText(pov.opponent)}",
-      moreJs = jsModuleInit("round", Json.obj("data" -> data, "i18n" -> views.html.round.jsI18n(pov.game))),
+      jsModule =
+        JsModule("round", Json.obj("data" -> data, "i18n" -> views.html.round.jsI18n(pov.game))).some,
       moreCss = cssTag("tv.single"),
       openGraph = lila.app.ui
         .OpenGraph(

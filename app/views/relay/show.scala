@@ -23,8 +23,9 @@ object show:
       title = rt.fullName,
       moreCss = cssTag("analyse.relay"),
       moreJs = analyseNvuiTag,
-      jsModule = some:
-        "analysisBoard.study" -> Json
+      jsModule = JsModule(
+        "analysisBoard.study",
+        Json
           .obj(
             "relay"    -> data.relay,
             "study"    -> data.study.add("admin" -> isGranted(_.StudyAdmin)),
@@ -48,9 +49,8 @@ object show:
                 ),
             "socketUrl"     -> views.html.study.show.socketUrl(rt.study.id),
             "socketVersion" -> socketVersion
-          )
-          .++(views.html.board.bits.explorerAndCevalConfig)
-      ,
+          ) ++ views.html.board.bits.explorerAndCevalConfig
+      ).some,
       zoomable = true,
       csp = (if crossSiteIsolation then analysisCsp else defaultCsp).withExternalAnalysisApis.some,
       openGraph = lila.app.ui

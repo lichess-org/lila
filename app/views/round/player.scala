@@ -48,20 +48,18 @@ object player:
       variant = pov.game.variant,
       title = s"${trans.play
           .txt()} ${if ctx.pref.isZen || ctx.pref.isZenAuto then "ZEN" else playerText(pov.opponent)}",
-      moreJs = frag(
-        roundNvuiTag,
-        jsModuleInit(
-          "round",
-          Json
-            .obj(
-              "data"   -> data,
-              "i18n"   -> jsI18n(pov.game),
-              "userId" -> ctx.userId,
-              "chat"   -> chatJson
-            )
-            .add("noab" -> ctx.me.exists(_.marks.engine))
-        )
-      ),
+      moreJs = frag(roundNvuiTag),
+      jsModule = JsModule(
+        "round",
+        Json
+          .obj(
+            "data"   -> data,
+            "i18n"   -> jsI18n(pov.game),
+            "userId" -> ctx.userId,
+            "chat"   -> chatJson
+          )
+          .add("noab" -> ctx.me.exists(_.marks.engine))
+      ).some,
       openGraph = povOpenGraph(pov).some,
       playing = pov.game.playable,
       zenable = true

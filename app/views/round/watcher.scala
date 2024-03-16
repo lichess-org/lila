@@ -35,17 +35,15 @@ object watcher:
     bits.layout(
       variant = pov.game.variant,
       title = s"${gameVsText(pov.game, withRatings = ctx.pref.showRatings)} • spectator",
-      moreJs = frag(
-        roundNvuiTag,
-        jsModuleInit(
-          "round",
-          Json.obj(
-            "data" -> data,
-            "i18n" -> jsI18n(pov.game),
-            "chat" -> chatJson
-          )
+      moreJs = frag(roundNvuiTag),
+      jsModule = JsModule(
+        "round",
+        Json.obj(
+          "data" -> data,
+          "i18n" -> jsI18n(pov.game),
+          "chat" -> chatJson
         )
-      ),
+      ).some,
       openGraph = povOpenGraph(pov).some,
       zenable = true
     ):
@@ -65,7 +63,8 @@ object watcher:
     bits.layout(
       variant = pov.game.variant,
       title = gameVsText(pov.game, withRatings = true),
-      openGraph = povOpenGraph(pov).some
+      openGraph = povOpenGraph(pov).some,
+      jsModule = none
     ):
       main(cls := "round")(
         st.aside(cls := "round__side")(

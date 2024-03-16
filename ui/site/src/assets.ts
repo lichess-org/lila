@@ -4,11 +4,11 @@ import { memoize } from 'common';
 
 export const baseUrl = memoize(() => document.body.getAttribute('data-asset-url') || '');
 
-export const pageInitData = (): any => {
+export const pageInitData = <A>(): A => {
   const el = document.getElementById('page-init-data');
   const data = el && JSON.parse(el!.innerHTML);
   el?.remove();
-  return data;
+  return data as A;
 };
 
 const version = memoize(() => document.body.getAttribute('data-asset-version'));
