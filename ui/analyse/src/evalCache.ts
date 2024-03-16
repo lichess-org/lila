@@ -95,6 +95,7 @@ export default class EvalCache {
   });
 
   fetch = (path: Tree.Path, multiPv: number): void => {
+    if (document.visibilityState === 'hidden') return;
     const node = this.opts.getNode();
     if ((node.ceval && node.ceval.cloud) || !this.opts.canGet()) return;
     const fetched = this.fetchedByFen.get(node.fen);
