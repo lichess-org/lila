@@ -15,14 +15,15 @@ export function renderVideoPlayer(relay: RelayCtrl): VNode | undefined {
 }
 
 export function onWindowResize(redraw: Redraw) {
-  let cols = 0;
+  let showingVideo = false;
   window.addEventListener(
     'resize',
     () => {
-      player?.cover(document.getElementById('video-player-placeholder') ?? undefined);
-      const newCols = Number(window.getComputedStyle(document.body).getPropertyValue('--cols'));
-      if (newCols === cols) return;
-      cols = newCols;
+      const allow = window.getComputedStyle(document.body).getPropertyValue('--allow-video') === 'true';
+      const placeholder = document.getElementById('video-player-placeholder') ?? undefined;
+      player?.cover(allow ? placeholder : undefined);
+      if (showingVideo === allow && !!placeholder) return;
+      showingVideo = allow && !!placeholder;
       redraw();
     },
     { passive: true },
@@ -47,18 +48,12 @@ class VideoPlayer {
       if (document.body.contains(this.iframe)) document.body.removeChild(this.iframe);
       return;
     }
-    const placement = {
-      left: el.offsetLeft,
-      top: el.offsetTop,
-      width: el.offsetWidth,
-      height: el.offsetHeight,
-    };
     this.animationFrameId = requestAnimationFrame(() => {
       this.iframe.style.display = 'block';
-      this.iframe.style.left = `${placement.left}px`;
-      this.iframe.style.top = `${placement.top}px`;
-      this.iframe.style.width = `${placement.width}px`;
-      this.iframe.style.height = `${placement.height}px`;
+      this.iframe.style.left = `${el!.offsetLeft}px`;
+      this.iframe.style.top = `${el!.offsetTop}px`;
+      this.iframe.style.width = `${el!.offsetWidth}px`;
+      this.iframe.style.height = `${el!.offsetHeight}px`;
       if (!document.body.contains(this.iframe)) document.body.appendChild(this.iframe);
     });
   }
