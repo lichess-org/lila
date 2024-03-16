@@ -13,7 +13,9 @@ export default class ServerEval {
   constructor(
     readonly root: AnalyseCtrl,
     readonly chapterId: () => string,
-  ) {}
+  ) {
+    site.pubsub.on('analysis.server.progress', this.updateChart);
+  }
 
   reset = () => {
     this.requested = false;
@@ -46,9 +48,8 @@ export function view(ctrl: ServerEval): VNode {
     }),
   });
 
-  site.pubsub.on('analysis.server.progress', ctrl.updateChart);
-
-  const loading = mainline.find(ctrl.root.partialAnalysisCallback);
+  const loading =
+    !ctrl.root.study?.data.chapter?.serverEval?.done && mainline.find(ctrl.root.partialAnalysisCallback);
   return h('div.study__server-eval.ready.', loading ? [chart, chartSpinner()] : chart);
 }
 
