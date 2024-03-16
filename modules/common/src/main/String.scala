@@ -179,9 +179,8 @@ object String:
         case JsArray(items) => items.map(safeJsonValue).mkString("[", ",", "]")
         case JsObject(fields) =>
           fields
-            .map { (k, v) =>
+            .map :(k, v) =>
               s"${safeJsonString(k)}:${safeJsonValue(v)}"
-            }
             .mkString("{", ",", "}")
 
   def underscoreFen(fen: chess.format.Fen.Epd) = fen.value.replace(" ", "_")

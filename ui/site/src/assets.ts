@@ -4,6 +4,13 @@ import { memoize } from 'common';
 
 export const baseUrl = memoize(() => document.body.getAttribute('data-asset-url') || '');
 
+export const pageInitData = (): any => {
+  const el = document.getElementById('page-init-data');
+  const data = el && JSON.parse(el!.innerHTML);
+  el?.remove();
+  return data;
+};
+
 const version = memoize(() => document.body.getAttribute('data-asset-version'));
 
 export const url = (path: string, opts: AssetUrlOpts = {}) => {

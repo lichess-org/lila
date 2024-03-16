@@ -31,6 +31,7 @@ interface Site {
   spinnerHtml: string;
   asset: {
     // file://./../../site/src/assets.ts
+    pageInitData(): any;
     baseUrl(): string;
     url(url: string, opts?: AssetUrlOpts): string;
     flairSrc(flair: Flair): string;

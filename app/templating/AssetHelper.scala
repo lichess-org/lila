@@ -53,6 +53,9 @@ trait AssetHelper extends HasEnv:
   private def cssAt(path: String): Tag =
     link(href := assetUrl(path), rel := "stylesheet")
 
+  def jsonScript(json: JsValue, id: String = "page-init-data") =
+    script(tpe := "application/json", st.id := id)(raw(safeJsonValue(json)))
+
   val systemThemePolyfillJs = """
 if (window.matchMedia('(prefers-color-scheme: dark)').media === 'not all')
     document.querySelectorAll('[media="(prefers-color-scheme: dark)"]').forEach(e=>e.media='')

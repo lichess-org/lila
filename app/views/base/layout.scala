@@ -245,6 +245,7 @@ object layout:
       robots: Boolean = netConfig.crawlable,
       moreCss: Frag = emptyFrag,
       moreJs: Frag = emptyFrag,
+      jsModule: Option[(String, play.api.libs.json.JsObject)] = None,
       playing: Boolean = false,
       openGraph: Option[lila.app.ui.OpenGraph] = None,
       zoomable: Boolean = false,
@@ -368,7 +369,9 @@ object layout:
             )
           ),
           spinnerMask,
-          loadScripts(moreJs)
+          loadScripts(moreJs),
+          jsModule.map: (name, json) =>
+            frag(jsonScript(json), jsModuleInit(name))
         )
       )
     )
