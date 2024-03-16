@@ -95,10 +95,10 @@ $hover-bg: mix($c-primary, $c-bg-box, 30%);
   }
 
   &__header {
-    display: flex;
-    flex-flow: nowrap;
+    @extend %flex-center-nowrap;
+
     background: $c-bg-zebra;
-    padding: 0;
+    min-height: 12vh;
 
     &__image {
       display: none;
@@ -130,9 +130,11 @@ $hover-bg: mix($c-primary, $c-bg-box, 30%);
     &__content {
       @extend %flex-column;
       flex: 1;
-      justify-content: space-around;
-      padding: 0 2em;
-      min-height: 12vh;
+      gap: 1em;
+      @include breakpoint($mq-col3) {
+        gap: calc(var(--box-padding) / 3);
+      }
+      margin: 1em 2em;
     }
 
     &__selectors {
