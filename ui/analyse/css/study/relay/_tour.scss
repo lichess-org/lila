@@ -68,7 +68,7 @@ $hover-bg: mix($c-primary, $c-bg-box, 30%);
     }
     &__search {
       border-left: $border !important;
-      padding: 0 1.2em;
+      padding: 0 1.2rem;
     }
     .chat__members {
       flex: 0 0 auto;
@@ -389,9 +389,9 @@ $hover-bg: mix($c-primary, $c-bg-box, 30%);
   .streamer-show {
     display: none;
     position: relative;
-    padding: 12px;
+    padding: 0 1.2rem;
     font-size: 1.5em;
-    color: c-dimmer($c-font, 10%);
+    color: $c-font-dim;
 
     &.disabled {
       display: none !important;
