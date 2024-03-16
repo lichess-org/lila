@@ -13,6 +13,7 @@ case class Announce(msg: String, date: Instant, json: JsObject)
 
 package streamer:
   case class StreamStart(userId: UserId, streamerName: String)
+  case class StreamersOnline(streamers: Iterable[(UserId, String)])
 
 package map:
   case class Tell(id: String, msg: Any)

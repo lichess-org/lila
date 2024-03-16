@@ -118,8 +118,9 @@ export function renderMain(
   );
 }
 
-export function renderTools({ ctrl, deps, concealOf }: ViewContext) {
+export function renderTools({ ctrl, deps, concealOf }: ViewContext, videoPlayer?: VNode) {
   return h(addChapterId(ctrl.study, 'div.analyse__tools'), [
+    videoPlayer,
     ...(ctrl.actionMenu()
       ? [actionMenu(ctrl)]
       : [

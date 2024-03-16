@@ -13,6 +13,8 @@ import * as xhr from 'common/xhr';
 import { teamsView } from './relayTeams';
 import { makeChat } from '../../view/components';
 import { gamesList } from './relayGames';
+import { renderStreamerMenu } from './relayView';
+import { renderVideoPlayer } from './videoPlayerView';
 import { leaderboardView } from './relayLeaderboard';
 
 export default function (ctrl: AnalyseCtrl): VNode | undefined {
@@ -44,12 +46,22 @@ export const tourSide = (ctrl: AnalyseCtrl, study: StudyCtrl, relay: RelayCtrl) 
               { hook: bind('mousedown', relay.tourShow.toggle, relay.redraw) },
               study.data.name,
             ),
+            h('button.streamer-show.data-count', {
+              attrs: { 'data-icon': licon.Mic, 'data-count': relay.streams.length, title: 'Streamers' },
+              class: {
+                disabled: !relay.streams.length,
+                active: relay.showStreamerMenu(),
+                streaming: relay.isStreamer(),
+              },
+              hook: bind('click', relay.showStreamerMenu.toggle, relay.redraw),
+            }),
             h('button.relay-tour__side__search', {
               attrs: { 'data-icon': licon.Search, title: 'Search' },
               hook: bind('click', study.search.open.toggle),
             }),
           ]),
         ]),
+    relay.showStreamerMenu() && renderStreamerMenu(relay),
     !empty && gamesList(study, relay),
     h('div.chat__members', {
       hook: onInsert(el => {
@@ -166,11 +178,23 @@ const teams = (relay: RelayCtrl, study: StudyCtrl, ctrl: AnalyseCtrl) => [
 const header = (relay: RelayCtrl, ctrl: AnalyseCtrl) => {
   const d = relay.data,
     study = ctrl.study!,
-    group = relay.data.group;
+    group = relay.data.group,
+    allowVideo =
+      d.videoUrls && window.getComputedStyle(document.body).getPropertyValue('--allow-video') === 'true';
   return [
     h('div.relay-tour__header', [
-      h('div.relay-tour__header__image', [
-        d.tour.image
+      h('div.relay-tour__header__content', [
+        h('h1', group?.name || d.tour.name),
+        h('div.relay-tour__header__selectors', [
+          group && groupSelect(relay, group),
+          roundSelect(relay, study),
+        ]),
+      ]),
+      h(
+        `div.relay-tour__header__image${allowVideo ? '.video' : ''}`,
+        allowVideo
+          ? renderVideoPlayer(relay)
+          : d.tour.image
           ? h('img', { attrs: { src: d.tour.image } })
           : study.members.isOwner()
           ? h(
@@ -179,14 +203,7 @@ const header = (relay: RelayCtrl, ctrl: AnalyseCtrl) => {
               'Upload tournament image',
             )
           : undefined,
-      ]),
-      h('div.relay-tour__header__content', [
-        h('h1', group?.name || d.tour.name),
-        h('div.relay-tour__header__selectors', [
-          group && groupSelect(relay, group),
-          roundSelect(relay, study),
-        ]),
-      ]),
+      ),
     ]),
     h('div.relay-tour__nav', [makeTabs(ctrl), ...subscribe(relay, ctrl)]),
   ];

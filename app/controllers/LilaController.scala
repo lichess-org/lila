@@ -30,7 +30,7 @@ abstract private[controllers] class LilaController(val env: Env)
   given Scheduler          = env.scheduler
   given FormBinding        = parse.formBinding(parse.DefaultMaxTextLength)
 
-  given lila.common.config.NetDomain = env.net.domain
+  given netDomain: lila.common.config.NetDomain = env.net.domain
 
   inline def ctx(using it: Context)       = it // `ctx` is shorter and nicer than `summon[Context]`
   inline def req(using it: RequestHeader) = it // `req` is shorter and nicer than `summon[RequestHeader]`

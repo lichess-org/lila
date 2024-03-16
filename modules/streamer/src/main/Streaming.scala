@@ -57,6 +57,11 @@ final private class Streaming(
   private val streamStartOnceEvery = lila.memo.OnceEvery[UserId](2 hour)
 
   private def publishStreams(streamers: List[Streamer], newStreams: LiveStreams) =
+    Bus.publish(
+      lila.hub.actorApi.streamer
+        .StreamersOnline(newStreams.streams.map(s => (s.streamer.userId, s.streamer.name.value))),
+      "streamersOnline"
+    )
     if newStreams != liveStreams then
       newStreams.streams
         .filterNot { s =>

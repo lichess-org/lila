@@ -1,3 +1,5 @@
+$hover-bg: mix($c-primary, $c-bg-box, 30%);
+
 .relay-tour {
   @extend %box-neat-force;
   background: $c-bg-box;
@@ -13,10 +15,11 @@
         @extend %flex-center-nowrap, %metal;
         border: none;
         outline: none;
-        &:hover,
+        &:hover {
+          background: $hover-bg;
+        }
         &:hover::before {
-          background: $c-primary !important;
-          color: $c-primary-over;
+          color: $c-font-clear;
           text-shadow: none;
         }
       }
@@ -42,16 +45,14 @@
         display: flex;
       }
     }
-    &__search {
-      flex: 0 0 auto;
-      border-left: $border !important;
-      padding: 1em 1.5em;
-    }
     &__name {
       flex: 1;
       padding: 1em;
       gap: 0.7em;
       font-weight: bold;
+      &:hover {
+        background: $hover-bg !important;
+      }
       &::before {
         @extend %data-icon;
         content: $licon-LessThan;
@@ -64,6 +65,10 @@
       main.has-relay-tour & {
         background: $c-bg-zebra;
       }
+    }
+    &__search {
+      border-left: $border !important;
+      padding: 0 1.2rem;
     }
     .chat__members {
       flex: 0 0 auto;
@@ -91,19 +96,15 @@
 
   &__header {
     @extend %flex-center-nowrap;
+
     background: $c-bg-zebra;
-    gap: calc(var(--box-padding) / 1.5);
-    padding: 0 var(--box-padding);
-    @include breakpoint($mq-x-small) {
-      padding-left: 0;
-    }
 
     &__image {
       display: none;
-      @include breakpoint($mq-x-small) {
-        display: block;
-      }
       flex: 0 0 38%;
+      &.video {
+        flex: 0 0 50%;
+      }
       line-height: 0;
       img {
         width: 100%;
@@ -117,8 +118,14 @@
       line-height: 2em;
     }
 
+    @include breakpoint($mq-x-small) {
+      &__image {
+        display: block;
+      }
+      min-height: 12vh;
+    }
+
     h1 {
-      flex: auto;
       @include fluid-size('font-size', 14px, 32px);
       color: $c-brag;
     }
@@ -130,7 +137,7 @@
       @include breakpoint($mq-col3) {
         gap: calc(var(--box-padding) / 3);
       }
-      margin: 1em 0;
+      margin: 1em 2em;
     }
 
     &__selectors {
@@ -374,6 +381,79 @@
     tick {
       top: 1.5px;
       border-bottom-width: 3px;
+    }
+  }
+}
+
+.relay-tour__side {
+  &__header {
+    position: relative;
+  }
+  .streamer-show {
+    display: none;
+    position: relative;
+    padding: 0 1.2rem;
+    font-size: 1.5em;
+    color: $c-font-dim;
+
+    &.disabled {
+      display: none !important;
+    }
+
+    &.streaming {
+      color: $c-good;
+    }
+
+    &.active {
+      color: #eee;
+      background: $c-primary;
+      text-shadow: none;
+
+      &:hover,
+      &:hover::before {
+        background: c-clearer($c-primary, 10%);
+        color: white;
+      }
+    }
+
+    &::after {
+      transform: translate(-80%, 80%);
+      background-color: $c-brag;
+    }
+  }
+
+  .streamer-menu-anchor {
+    position: relative;
+    height: 0;
+  }
+
+  .streamer-menu {
+    @extend %flex-column, %dropdown-shadow, %box-radius-bottom;
+    position: absolute;
+    max-height: 12em;
+    overflow-y: auto;
+    background: $c-bg-zebra;
+    z-index: z(mz-menu);
+    width: 100%;
+    border: $c-primary 2px solid;
+  }
+
+  .streamer {
+    @extend %flex-center-nowrap;
+    padding: 0.7em 1em;
+    font-size: 1.1em;
+    color: $c-font;
+
+    &::before {
+      font-size: 1.3em;
+    }
+
+    &:hover {
+      background: mix($c-primary, $c-bg-box, 30%);
+      &,
+      &::before {
+        color: $c-font-clearer;
+      }
     }
   }
 }

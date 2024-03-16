@@ -7,6 +7,7 @@ import RelayTeams from './relayTeams';
 import RelayLeaderboard from './relayLeaderboard';
 import { StudyChapters } from '../studyChapters';
 import { MultiCloudEval } from '../multiCloudEval';
+import { onWindowResize as videoPlayerOnWindowResize } from './videoPlayerView';
 
 export const relayTabs = ['overview', 'boards', 'teams', 'leaderboard'] as const;
 export type RelayTab = (typeof relayTabs)[number];
@@ -20,6 +21,8 @@ export default class RelayCtrl {
   tab: Prop<RelayTab>;
   teams?: RelayTeams;
   leaderboard?: RelayLeaderboard;
+  streams: [string, string][] = [];
+  showStreamerMenu = toggle(false);
 
   constructor(
     readonly id: RoundId,
@@ -44,6 +47,14 @@ export default class RelayCtrl {
       : undefined;
     this.leaderboard = data.tour.leaderboard ? new RelayLeaderboard(data.tour.id, redraw) : undefined;
     setInterval(() => this.redraw(true), 1000);
+    if (data.videoUrls) videoPlayerOnWindowResize(this.redraw);
+    site.pubsub.on('socket.in.crowd', d => {
+      const s = d.streams as [string, string][];
+      if (!s) return;
+      if (this.streams.length === s.length && this.streams.every(([id], i) => id === s[i][0])) return;
+      this.streams = s;
+      this.redraw();
+    });
   }
 
   openTab = (t: RelayTab) => {
@@ -87,6 +98,8 @@ export default class RelayCtrl {
     if (!this.tourShow() && location.href.includes('#')) history.pushState({}, '', url);
     else history.replaceState({}, '', url);
   };
+
+  isStreamer = () => this.streams.some(([id]) => id === document.body.dataset.user);
 
   private socketHandlers = {
     relayData: (d: RelayData) => {
