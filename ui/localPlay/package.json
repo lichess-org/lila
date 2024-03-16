@@ -11,11 +11,8 @@
     "common": "workspace:*",
     "game": "workspace:*",
     "libot": "workspace:*",
-    "nvui": "workspace:*",
-    "puz": "workspace:*",
     "round": "workspace:*",
-    "snabbdom": "^3.5.1",
-    "tree": "workspace:*"
+    "snabbdom": "^3.5.1"
   },
   "lichess": {
     "modules": {

@@ -6,10 +6,7 @@
   "types": "dist/main.d.ts",
   "typings": "dist/main.d.ts",
   "dependencies": {
-    "chess": "workspace:*",
     "chessops": "^0.14.0",
-    "common": "workspace:*",
-    "tree": "workspace:*",
     "zerofish": "^0.0.18"
   },
   "lichess": {

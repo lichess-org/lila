@@ -8,9 +8,5 @@
     "rootDir": "src",
     "composite": true
   },
-  "references": [
-    { "path": "../chess/tsconfig.json" },
-    { "path": "../common/tsconfig.json" },
-    { "path": "../tree/tsconfig.json" }
-  ]
+  "references": []
 }
