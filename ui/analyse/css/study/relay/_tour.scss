@@ -386,7 +386,7 @@ $hover-bg: mix($c-primary, $c-bg-box, 30%);
 }
 
 .relay-tour__side {
-  button.streamer-show {
+  .streamer-show {
     display: none;
     position: relative;
     padding: 12px;
@@ -399,7 +399,6 @@ $hover-bg: mix($c-primary, $c-bg-box, 30%);
 
     &.streaming {
       color: $c-good;
-      pointer-events: none;
     }
 
     &.active {
