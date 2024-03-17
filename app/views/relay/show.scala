@@ -4,7 +4,7 @@ package relay
 import play.api.libs.json.Json
 
 import lila.app.templating.Environment.{ *, given }
-import lila.app.ui.ScalatagsTemplate.*
+import lila.app.ui.ScalatagsTemplate.{ *, given }
 import lila.common.Json.given
 import lila.socket.SocketVersion
 import lila.socket.SocketVersion.given
@@ -59,4 +59,22 @@ object show:
           description = shorten(rt.tour.description, 152)
         )
         .some
-    )(main(cls := "analyse"))
+    ):
+      main(cls := "analyse is-relay has-relay-tour")(
+        div(cls := "box relay-tour")(
+          div(cls := "relay-tour__header")(
+            div(cls := "relay-tour__header__content")(
+              h1(rt.tour.name),
+              div(cls := "relay-tour__header__selectors")(
+                div(cls := "mselect relay-tour__mselect")(
+                  label(cls := "mselect__label")(
+                    span(cls := "relay-tour__round-select__name")(rt.relay.name)
+                  )
+                )
+              )
+            ),
+            div(cls := "relay-tour__header__image")(img(alt := "loading..."))
+          )
+        ),
+        st.aside(cls := "relay-tour__side")(div(cls := "relay-tour__side__preload"))
+      )
