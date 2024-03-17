@@ -56,7 +56,7 @@
     margin: 0.6em 0;
   }
 
-  @include breakpoint($mq-col1) {
+  @include mq-is-col1 {
     flex-flow: row wrap;
     justify-content: center;
     padding-bottom: $block-gap;

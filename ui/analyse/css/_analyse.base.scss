@@ -3,7 +3,7 @@
 %border-bottom-active {
   border-bottom: $border;
 
-  @include breakpoint($mq-col2) {
+  @include mq-at-least-col2 {
     border-bottom: 3px solid $c-secondary;
   }
 }

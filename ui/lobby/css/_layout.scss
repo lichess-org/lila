@@ -17,7 +17,7 @@
     min-height: 20em;
   }
 
-  @include breakpoint($mq-col2) {
+  @include mq-at-least-col2 {
     --cols: 2; // ui/lobby/src/main.ts
     grid-template-columns: repeat(2, 1fr);
     grid-template-rows: auto repeat(4, fit-content(0)) 20em;
@@ -40,7 +40,7 @@
     }
   }
 
-  @include breakpoint($mq-col3) {
+  @include mq-at-least-col3 {
     --cols: 3; // ui/lobby/src/main.ts
     grid-template-columns: repeat(3, 1fr);
     grid-template-rows: 12em repeat(2, fit-content(0)) auto fit-content(15em) repeat(2, fit-content(0)) minmax(
@@ -74,7 +74,7 @@
     }
   }
 
-  @include breakpoint($mq-col4) {
+  @include mq-at-least-col4 {
     --cols: 4; // ui/lobby/src/main.ts
     grid-template-columns: repeat(4, 1fr);
     grid-template-rows: repeat(2, fit-content(0)) auto repeat(6, fit-content(0));

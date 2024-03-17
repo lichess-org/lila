@@ -5,7 +5,7 @@
     flex: 1 1 auto;
     max-height: 50vh;
 
-    @include breakpoint($mq-col3-uniboard) {
+    @include mq-at-least-col3 {
       max-height: none;
     }
 

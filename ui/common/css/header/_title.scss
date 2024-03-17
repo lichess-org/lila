@@ -8,21 +8,21 @@
   margin: 0 0.5rem;
   display: none;
 
-  @include breakpoint($mq-xx-small) {
+  @media (min-width: at-least($xx-small)) {
     display: block;
   }
 
-  @include breakpoint($mq-topnav-hidden) {
+  @media (max-width: at-most($medium)) {
     /* move away from hamburger */
     margin-#{$start-direction}: calc(0.5rem + #{$site-header-height});
   }
 
-  @include breakpoint($mq-site-header-tall) {
+  @include mq-site-header-tall {
     font-size: 30px;
     line-height: #{$site-header-tall-height - 3};
   }
 
-  @include breakpoint($mq-topnav-visible $mq-site-header-tall) {
+  @media (min-width: at-least($medium)) and (min-height: at-least($tall)) {
     line-height: #{$site-header-tall-height - 5};
     margin: 0 1rem 0 1.5rem;
   }

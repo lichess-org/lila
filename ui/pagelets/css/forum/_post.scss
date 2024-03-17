@@ -65,7 +65,7 @@
       overflow: hidden;
       display: none;
 
-      @include breakpoint($mq-small) {
+      @media (min-width: at-least($small)) {
         display: block;
       }
     }

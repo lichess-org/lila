@@ -42,7 +42,7 @@ $col2-panel-height: 240px;
   &__panels {
     --panel-height: #{$col1-panel-height};
 
-    @include breakpoint($mq-col2) {
+    @include mq-at-least-col2 {
       --panel-height: #{$col2-panel-height};
     }
 

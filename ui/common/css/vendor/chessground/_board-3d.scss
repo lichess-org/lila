@@ -5,7 +5,7 @@ $td-outer-height-percent: $td-outer-height-ratio * 100%;
 $td-inner-height-ratio: 464.5 / 512;
 $td-inner-relative-percent: $td-inner-height-ratio / $td-outer-height-ratio * 100%;
 
-@include breakpoint($mq-col1-uniboard) {
+@include mq-is-col1 {
   .is3d {
     /* horiz scroll caused by 3d pieces overflowing the board */
     overflow-x: clip;
@@ -132,7 +132,7 @@ $piece-files: (
 .board-resize {
   $resize-width: 20px;
 
-  @include breakpoint($mq-col2-uniboard) {
+  @include mq-at-least-col2 {
     bottom: #{28px - $resize-width} !important;
   }
 }

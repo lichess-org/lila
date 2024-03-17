@@ -11,7 +11,7 @@ export default function () {
     };
 
   // On touchscreens, clicking the top menu element expands it. There's no top link.
-  // Only for $mq-topnav-hidden in ui/common/css/abstract/_media-queries.scss
+  // Only for mq-topnav-hidden in ui/common/css/abstract/_media-queries.scss
   if ('ontouchstart' in window && !window.matchMedia('(max-width: 979px)').matches)
     $('#topnav > section > a').removeAttr('href');
 

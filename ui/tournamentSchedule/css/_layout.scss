@@ -18,7 +18,7 @@
   grid-gap: $block-gap;
   grid-template-areas: 'schedule' 'side';
 
-  @include breakpoint($mq-medium) {
+  @media (min-width: at-least($medium)) {
     grid-template-columns: minmax(200px, 300px);
     grid-template-areas: 'side schedule' 'side list' 'side .';
 

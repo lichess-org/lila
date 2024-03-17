@@ -6,7 +6,7 @@ $user-list-width: 30ch;
   grid-gap: 2rem;
   grid-template-areas: 'online' 'leaders';
 
-  @include breakpoint($mq-xx-small) {
+  @media (min-width: at-least($xx-small)) {
     grid-template-columns: min-content 1fr;
     grid-template-rows: min-content;
     grid-template-areas: 'online leaders' 'online .';

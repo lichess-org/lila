@@ -62,7 +62,7 @@
     input {
       padding: 0.6em 0;
       margin: 0 1ch;
-      @include breakpoint($mq-not-xx-small) {
+      @media (max-width: at-most($xx-small)) {
         width: 26vw;
       }
     }
@@ -77,7 +77,7 @@
     }
   }
 
-  @include breakpoint($mq-not-xx-small) {
+  @media (max-width: at-most($xx-small)) {
     padding: $block-gap 1em;
 
     td {

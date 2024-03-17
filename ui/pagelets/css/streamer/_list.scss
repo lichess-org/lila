@@ -1,13 +1,17 @@
-$mq-picture: $mq-medium;
-
 @import 'header';
+
+@mixin mq-at-least-picture {
+  @media (min-width: at-least($medium)) {
+    @content;
+  }
+}
 
 .streamer-list {
   h1 {
     &::before {
       display: none;
 
-      @include breakpoint($mq-picture) {
+      @include mq-at-least-picture {
         display: inline;
       }
     }
@@ -19,7 +23,7 @@ $mq-picture: $mq-medium;
     display: flex;
 
     @include transition;
-    @include breakpoint($mq-subnav-top) {
+    @include mq-subnav-top {
       overflow-x: hidden;
     }
 
@@ -34,7 +38,7 @@ $mq-picture: $mq-medium;
         display: inline;
         margin-#{$end-direction}: 0.2em;
 
-        @include breakpoint($mq-picture) {
+        @include mq-at-least-picture {
           display: none;
         }
       }
@@ -62,7 +66,7 @@ $mq-picture: $mq-medium;
 
     display: none;
 
-    @include breakpoint($mq-picture) {
+    @include mq-at-least-picture {
       display: block;
     }
   }
@@ -92,7 +96,7 @@ $mq-picture: $mq-medium;
     margin: 5px 0 10px 0;
     display: none;
 
-    @include breakpoint($mq-large) {
+    @media (min-width: at-least($large)) {
       display: block;
     }
   }

@@ -62,7 +62,7 @@
   max-width: calc(100vw - var(--box-padding) * 2);
 
   .slist {
-    @include breakpoint($mq-not-x-small) {
+    @media (max-width: at-most($x-small)) {
       min-width: calc(650px - var(--box-padding) * 2);
     }
   }
@@ -70,7 +70,7 @@
 
 /* requires each td to have a data-label attribute */
 .slist.slist-resp {
-  @include breakpoint($mq-not-x-small) {
+  @media (max-width: at-most($x-small)) {
     border-collapse: collapse;
     table-layout: fixed;
     thead {

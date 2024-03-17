@@ -31,7 +31,7 @@ $pocket-height: 60px;
     'chat'
     'uchat';
 
-  @include breakpoint($mq-col2) {
+  @include mq-at-least-col2 {
     grid-template-rows: $pocket-height auto $pocket-height;
     grid-template-areas:
       'board      gauge pocket-top'
@@ -44,7 +44,7 @@ $pocket-height: 60px;
       'uchat      .     side';
   }
 
-  @include breakpoint($mq-col3) {
+  @include mq-at-least-col3 {
     grid-template-rows: $pocket-height $meta-height $chat-height $pocket-height;
     grid-template-areas:
       'side    . board gauge pocket-top'
@@ -56,7 +56,7 @@ $pocket-height: 60px;
   }
 }
 
-@include breakpoint($mq-col1) {
+@include mq-is-col1 {
   .pocket {
     &-top {
       margin-bottom: $block-gap;

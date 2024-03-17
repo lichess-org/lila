@@ -60,7 +60,7 @@
     }
   }
 
-  @include breakpoint($mq-not-small) {
+  @media (max-width: at-most($small)) {
     &__buttons {
       display: block;
     }

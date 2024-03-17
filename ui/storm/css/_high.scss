@@ -3,7 +3,7 @@
     display: flex;
     flex-flow: row wrap;
 
-    @include breakpoint($mq-xx-small) {
+    @media (min-width: at-least($xx-small)) {
       flex-flow: row nowrap;
     }
   }
@@ -18,7 +18,7 @@
     background: $c-bg-box;
     padding: 3em 1em 1.5em 1em;
 
-    @include breakpoint($mq-not-xx-small) {
+    @media (max-width: at-most($xx-small)) {
       flex: 48% 0;
       margin-bottom: 1vh;
 
@@ -32,7 +32,7 @@
       font-weight: normal;
       font-size: 3em;
 
-      @include breakpoint($mq-xx-small) {
+      @media (min-width: at-least($xx-small)) {
         font-size: 5em;
       }
     }
@@ -46,7 +46,7 @@
           font-size: 4em;
           line-height: 0.8em;
 
-          @include breakpoint($mq-xx-small) {
+          @media (min-width: at-least($xx-small)) {
             font-size: 9em;
           }
         }

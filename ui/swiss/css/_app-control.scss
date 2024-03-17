@@ -7,7 +7,7 @@
   .fbt {
     padding: 0.6em 0.8em;
 
-    @include breakpoint($mq-xx-small) {
+    @media (min-width: at-least($xx-small)) {
       padding: 0.6em 1em;
     }
 

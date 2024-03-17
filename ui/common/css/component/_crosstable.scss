@@ -85,7 +85,7 @@
       opacity: 0.2;
     }
 
-    @include breakpoint($mq-not-x-small) {
+    @media (max-width: at-most($x-small)) {
       display: none;
 
       &:nth-last-child(-n + 12) {

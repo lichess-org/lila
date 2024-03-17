@@ -1,7 +1,7 @@
 .dialog-content {
   min-width: 80vw;
 
-  @include breakpoint($mq-x-small) {
+  @media (min-width: at-least($x-small)) {
     min-width: 500px;
   }
 

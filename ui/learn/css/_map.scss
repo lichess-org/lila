@@ -15,7 +15,7 @@
   .categ_stages {
     --min-width: 100vw;
 
-    @include breakpoint($mq-xx-small) {
+    @media (min-width: at-least($xx-small)) {
       --min-width: 400px;
     }
 

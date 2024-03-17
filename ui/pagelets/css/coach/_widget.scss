@@ -4,7 +4,7 @@
   padding-bottom: 1rem;
 
   @include transition;
-  @include breakpoint($mq-picture) {
+  @include mq-at-least-picture {
     height: 300px;
   }
 
@@ -15,7 +15,7 @@
   .picture {
     display: none;
 
-    @include breakpoint($mq-picture) {
+    @include mq-at-least-picture {
       display: block;
     }
   }

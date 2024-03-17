@@ -10,7 +10,7 @@
     width: 160px;
     height: 160px;
     margin: -4em var(--box-padding) 1vh 1vw;
-    @include breakpoint($mq-not-x-small) {
+    @media (max-width: at-most($x-small)) {
       display: none;
       margin: 0;
     }

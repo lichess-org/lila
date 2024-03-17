@@ -20,7 +20,7 @@
   flex: 1 1 31%;
 }
 
-@include breakpoint($mq-xx-small) {
+@media (min-width: at-least($xx-small)) {
   .form-half,
   .form-third {
     flex-grow: 0;

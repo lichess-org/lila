@@ -1,12 +1,12 @@
 .arena-list {
   .slist {
     .date {
-      @include breakpoint($mq-not-x-small) {
+      @media (max-width: at-most($x-small)) {
         display: none;
       }
     }
     .players {
-      @include breakpoint($mq-not-xx-small) {
+      @media (max-width: at-most($xx-small)) {
         display: none;
       }
     }
@@ -59,7 +59,7 @@
       font-size: 1.5em;
       display: block;
 
-      @include breakpoint($mq-large) {
+      @media (min-width: at-least($large)) {
         letter-spacing: 3px;
       }
     }

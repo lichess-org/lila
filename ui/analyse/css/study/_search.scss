@@ -1,5 +1,5 @@
 .study-search {
-  @include breakpoint($mq-xx-small) {
+  @media (min-width: at-least($xx-small)) {
     width: 500px;
   }
   input {

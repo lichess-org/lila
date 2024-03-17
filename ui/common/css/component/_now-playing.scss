@@ -2,7 +2,7 @@
   display: grid;
   --np-min-width: 200px;
 
-  @include breakpoint($mq-not-xx-small) {
+  @media (max-width: at-most($xx-small)) {
     --np-min-width: 50%;
   }
 

@@ -116,7 +116,7 @@
     }
   }
 
-  @include breakpoint($mq-col1) {
+  @include mq-is-col1 {
     .abset-inline {
       display: none;
     }

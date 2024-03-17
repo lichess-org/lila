@@ -4,7 +4,7 @@
   flex: 2 1 auto;
   &__markup {
     max-height: 220px;
-    @include breakpoint($mq-small) {
+    @media (min-width: at-least($small)) {
       max-height: 300px;
     }
     overflow-y: auto;

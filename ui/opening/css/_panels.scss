@@ -7,7 +7,7 @@ $c-op-panels: $c-brag;
     &__tab {
       @extend %button-none, %box-radius;
       color: $c-op-panels;
-      @include breakpoint($op-col-many) {
+      @include mq-col-many {
         font-size: 1.3em;
       }
       padding: 0.4em 1em;

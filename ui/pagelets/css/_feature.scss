@@ -75,7 +75,7 @@
     text-transform: none;
   }
 
-  @include breakpoint($mq-not-small) {
+  @media (max-width: at-most($small)) {
     .is {
       font-size: 0;
 

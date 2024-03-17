@@ -11,7 +11,7 @@
   z-index: z('tour-reminder');
   width: 100%;
 
-  @include breakpoint($mq-xx-small) {
+  @media (min-width: at-least($xx-small)) {
     width: auto;
     border-top-right-radius: 3px;
   }

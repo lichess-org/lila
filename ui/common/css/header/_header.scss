@@ -14,7 +14,7 @@
   user-select: none;
   --dropdown-top: 40px;
 
-  @include breakpoint($mq-site-header-tall) {
+  @include mq-site-header-tall {
     --dropdown-top: 60px;
   }
 }
@@ -41,7 +41,7 @@
     margin-left: 1rem;
     text-transform: uppercase;
     line-height: $site-header-height;
-    @include breakpoint($mq-not-xx-small) {
+    @media (max-width: at-most($xx-small)) {
       display: none;
     }
   }

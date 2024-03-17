@@ -273,7 +273,7 @@
   .recent-patrons {
     display: none;
 
-    @include breakpoint($mq-medium) {
+    @media (min-width: at-least($medium)) {
       display: block;
     }
 

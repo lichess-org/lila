@@ -6,7 +6,7 @@ body {
 #main-wrap {
   --main-max-width: calc(100vh - #{$site-header-outer-height} - #{$col1-uniboard-controls});
 
-  @include breakpoint($mq-col2) {
+  @include mq-at-least-col2 {
     --main-max-width: auto;
   }
 }
@@ -40,7 +40,7 @@ body {
   &__underboard {
     grid-area: under;
 
-    @include breakpoint($mq-col1-uniboard) {
+    @include mq-is-col1 {
       overflow: hidden; // helps truncating long study names
     }
   }
@@ -78,7 +78,7 @@ body {
     'chat'
     'uchat';
 
-  @include breakpoint($mq-col2) {
+  @include mq-at-least-col2 {
     grid-template-columns: var(--col2-uniboard-width) var(--gauge-gap) $col2-uniboard-table;
     grid-template-rows: fit-content(0);
     grid-template-areas:
@@ -105,11 +105,11 @@ body {
     }
   }
 
-  @include breakpoint($mq-col2-uniboard-squeeze) {
+  @include mq-is-col2-squeeze {
     grid-template-columns: $col2-uniboard-squeeze-width var(--gauge-gap) $col2-uniboard-squeeze-table;
   }
 
-  @include breakpoint($mq-col3) {
+  @include mq-at-least-col3 {
     grid-template-columns: $col3-uniboard-side var(--gauge-gap) var(--col3-uniboard-width) var(--gauge-gap) $col3-uniboard-table;
     grid-template-rows: auto $chat-height 2.5em 1fr;
     grid-template-areas:

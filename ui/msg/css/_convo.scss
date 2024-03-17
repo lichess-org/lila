@@ -6,7 +6,7 @@
 
     flex: 1 1 100%;
 
-    @include breakpoint($mq-not-small) {
+    @media (max-width: at-most($small)) {
       flex: 1 0 100%;
       display: none;
 
@@ -36,7 +36,7 @@
         padding: 0 1em;
         font-size: 1.5em;
 
-        @include breakpoint($mq-small) {
+        @media (min-width: at-least($small)) {
           display: none;
         }
       }
@@ -120,7 +120,7 @@
       }
     }
 
-    @include breakpoint($mq-not-xx-small) {
+    @media (max-width: at-most($xx-small)) {
       &__head__back {
         padding: 0 0.5em;
       }

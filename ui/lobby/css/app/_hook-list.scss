@@ -59,7 +59,7 @@
       width: 110px;
     }
 
-    @include breakpoint($mq-not-xx-small) {
+    @media (max-width: at-most($xx-small)) {
       padding: 1em 0.4em;
 
       &:nth-child(3) {
@@ -97,7 +97,7 @@
       opacity: 0.6;
     }
 
-    @include breakpoint($mq-not-xx-small) {
+    @media (max-width: at-most($xx-small)) {
       padding: 0.5em 0.4em;
 
       &:first-child {

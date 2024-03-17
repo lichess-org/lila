@@ -10,7 +10,7 @@
     margin-#{$start-direction}: var(--box-padding);
     grid-template-columns: repeat(auto-fill, minmax(50ch, 1fr));
 
-    @include breakpoint($mq-not-xx-small) {
+    @media (max-width: at-most($xx-small)) {
       grid-template-columns: repeat(auto-fill, minmax(40ch, 1fr));
     }
 
@@ -39,7 +39,7 @@
       }
     }
 
-    @include breakpoint($mq-not-xx-small) {
+    @media (max-width: at-most($xx-small)) {
       &::before {
         display: none;
       }
@@ -89,7 +89,7 @@
         background: mix($c-bg-box, $c-good, 74%);
       }
 
-      @include breakpoint($mq-not-small) {
+      @media (max-width: at-most($small)) {
         margin: 2em var(--box-padding) 2em 0;
       }
     }

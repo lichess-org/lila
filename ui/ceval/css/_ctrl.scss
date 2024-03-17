@@ -191,10 +191,10 @@
   text-align: left;
   max-width: 60vw;
 
-  @media (max-width: $mq-width-medium) {
+  @media (max-width: at-most($medium)) {
     max-width: 80vw;
   }
-  @media (max-width: $mq-width-xx-small) {
+  @media (max-width: at-most($xx-small)) {
     max-width: unset;
     width: 96vw;
   }

@@ -8,7 +8,7 @@ body {
   background: if($theme-light, #fff, #a0a0a0);
   overflow: hidden;
 
-  @include breakpoint($mq-col1-uniboard) {
+  @include mq-is-col1 {
     display: none;
   }
 

@@ -24,7 +24,7 @@
     flex: 0 0 16rem;
     margin-#{$end-direction}: 1em;
 
-    @include breakpoint($mq-not-small) {
+    @media (max-width: at-most($small)) {
       display: none;
     }
   }

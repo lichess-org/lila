@@ -4,7 +4,7 @@ $vp-max-width: 1200px;
 body {
   --site-header-height: #{$site-header-short-height};
 
-  @include breakpoint($mq-site-header-tall) {
+  @include mq-site-header-tall {
     --site-header-height: #{$site-header-tall-height};
   }
 
@@ -16,7 +16,7 @@ body {
 
   --main-margin: 0;
 
-  @include breakpoint($mq-main-margin) {
+  @media (min-width: at-least($small)) {
     --main-margin: 1vw;
     margin-bottom: $block-gap;
   }

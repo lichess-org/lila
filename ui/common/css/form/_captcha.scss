@@ -3,7 +3,7 @@
 
   margin: 1em 0 0 -1em;
 
-  @include breakpoint($mq-xx-small) {
+  @media (min-width: at-least($xx-small)) {
     flex-wrap: nowrap;
   }
 

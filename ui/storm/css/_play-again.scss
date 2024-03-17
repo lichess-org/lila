@@ -29,12 +29,12 @@
   letter-spacing: 0.4em;
   padding: 1em 0;
 
-  @include breakpoint($mq-xx-small) {
+  @media (min-width: at-least($xx-small)) {
     font-size: 2em;
     padding: 1em 2em;
   }
 
-  @include breakpoint($mq-small) {
+  @media (min-width: at-least($small)) {
     justify-content: space-between;
     letter-spacing: 0.6em;
 

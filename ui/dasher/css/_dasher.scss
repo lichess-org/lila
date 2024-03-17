@@ -195,7 +195,7 @@
   .board .zoom {
     display: none;
 
-    @include breakpoint($mq-board-resizable) {
+    @include mq-board-resizable {
       display: block;
     }
 
@@ -227,7 +227,7 @@
     #images-grid {
       display: grid;
       grid-template-columns: repeat(2, 1fr);
-      @include breakpoint($mq-x-small) {
+      @media (min-width: at-least($x-small)) {
         grid-template-columns: repeat(4, 1fr);
       }
       background-attachment: scroll;

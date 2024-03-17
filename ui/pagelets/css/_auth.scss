@@ -6,7 +6,7 @@
   width: 100%;
   margin: auto;
 
-  @include breakpoint($mq-x-small) {
+  @media (min-width: at-least($x-small)) {
     width: 40em;
   }
 
@@ -24,7 +24,7 @@
   }
 
   &-login {
-    @include breakpoint($mq-xx-small) {
+    @media (min-width: at-least($xx-small)) {
       width: 30em;
     }
 
@@ -51,7 +51,7 @@
 }
 
 /* presumably the keyboard is up */
-@include breakpoint($mq-not-x-short) {
+@media (max-width: at-most($x-short)) {
   #top {
     display: none;
   }

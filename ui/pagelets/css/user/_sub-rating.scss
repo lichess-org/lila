@@ -98,7 +98,7 @@
     font-size: 1.2em;
   }
 
-  @include breakpoint($mq-not-medium) {
+  @media (max-width: at-most($medium)) {
     a {
       padding: 0.3em;
     }
@@ -112,7 +112,7 @@
     }
   }
 
-  @include breakpoint($mq-subnav-top) {
+  @include mq-subnav-top {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(9ch, 1fr));
 

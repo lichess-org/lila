@@ -1,7 +1,7 @@
 @import 'coords-in';
 
 /* handle outer coords */
-@include breakpoint($mq-col2-uniboard) {
+@include mq-at-least-col2 {
   .coords-out coords {
     text-shadow: none;
 

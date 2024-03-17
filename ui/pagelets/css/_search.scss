@@ -109,7 +109,7 @@
         flex-direction: row;
         margin: 0.3rem 0;
 
-        @include breakpoint($mq-x-small) {
+        @media (min-width: at-least($x-small)) {
           width: 50%;
         }
       }

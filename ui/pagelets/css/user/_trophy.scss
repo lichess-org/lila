@@ -9,7 +9,7 @@
   justify-content: flex-end;
   margin-top: 0 !important;
 
-  @include breakpoint($mq-not-small) {
+  @media (max-width: at-most($small)) {
     display: none;
   }
 }

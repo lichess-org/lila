@@ -4,7 +4,7 @@ $c-study: $c-primary;
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax($viewport-min-width, 1fr));
 
-  @include breakpoint($mq-medium) {
+  @media (min-width: at-least($medium)) {
     grid-template-columns: repeat(auto-fill, minmax(45ch, 1fr));
   }
 
@@ -79,7 +79,7 @@ $c-study: $c-primary;
         margin-#{$end-direction}: 0.2em;
 
         @include transition;
-        @include breakpoint($mq-not-xx-small) {
+        @media (max-width: at-most($xx-small)) {
           display: none;
         }
       }

@@ -6,7 +6,7 @@ $c-contours: mix($c-brag, $c-shade, 80%);
     margin-#{$start-direction}: 2rem;
     padding-top: 1rem;
 
-    @include breakpoint($mq-not-small) {
+    @media (max-width: at-most($small)) {
       margin-#{$end-direction}: 2em;
     }
   }
@@ -48,7 +48,7 @@ $c-contours: mix($c-brag, $c-shade, 80%);
     }
   }
 
-  @include breakpoint($mq-xx-small) {
+  @media (min-width: at-least($xx-small)) {
     .entries {
       margin: 30px 50px 0 50px;
       border-#{$start-direction}: 3px solid $c-contours;

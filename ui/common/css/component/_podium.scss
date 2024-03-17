@@ -21,7 +21,7 @@
 }
 
 .podium {
-  @include breakpoint($mq-not-xx-small) {
+  @media (max-width: at-most($xx-small)) {
     display: none;
   }
   > div {
@@ -81,7 +81,7 @@
     background-image: img-url('trophy/lichess-bronze-2.svg');
   }
 
-  @include breakpoint($mq-not-xx-small) {
+  @media (max-width: at-most($xx-small)) {
     .trophy {
       display: none;
     }

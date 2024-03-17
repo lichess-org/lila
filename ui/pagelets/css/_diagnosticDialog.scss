@@ -7,11 +7,11 @@
   max-height: 96vh;
   max-width: 72vw;
 
-  @media (max-width: $mq-width-medium) {
+  @media (max-width: $medium) {
     max-width: 84vw;
   }
 
-  @media (max-width: $mq-width-xx-small) {
+  @media (max-width: $xx-small) {
     max-width: unset;
     width: 96vw;
   }
