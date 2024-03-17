@@ -9,7 +9,7 @@ export const newLineRegex = /\n/g;
 export const userPattern = /(^|[^\w@#/])@([a-z0-9][a-z0-9_-]{0,28}[a-z0-9])/gi;
 
 // looks like it has a @mention or #gameid or a url.tld
-export const isMoreThanText = (str: string) => /(\n|(@|#|\.)\w{2,}|board \d)/.test(str);
+export const isMoreThanText = (str: string) => /(\n|(@|#|\.)\w{2,}|board \d)/i.test(str);
 
 export function toLink(url: string): string {
   if (!url.match(/^[A-Za-z]+:\/\//)) url = 'https://' + url;
