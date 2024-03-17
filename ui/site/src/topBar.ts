@@ -1,6 +1,6 @@
 import pubsub from './pubsub';
 import { loadCssPath, loadEsm } from './assets';
-import { memoize } from 'common';
+import { memoize, clamp } from 'common';
 
 export default function () {
   const initiatingHtml = `<div class="initiating">${site.spinnerHtml}</div>`,
@@ -11,13 +11,13 @@ export default function () {
     };
 
   // On touchscreens, clicking the top menu element expands it. There's no top link.
-  // Only for mq-topnav-hidden in ui/common/css/abstract/_media-queries.scss
-  if ('ontouchstart' in window && !window.matchMedia('(max-width: 979px)').matches)
+  // Only for mq-topnav-visible in ui/common/css/abstract/_media-queries.scss
+  if ('ontouchstart' in window && window.matchMedia('(min-width: 1020px)').matches)
     $('#topnav > section > a').removeAttr('href');
 
-  $('#tn-tg').on('change', e =>
-    document.body.classList.toggle('masked', (e.target as HTMLInputElement).checked),
-  );
+  $('#tn-tg').on('change', e => {
+    document.body.classList.toggle('masked', (e.target as HTMLInputElement).checked);
+  });
 
   $('#top').on('click', '.toggle', function (this: HTMLElement) {
     const $p = $(this).parent().toggleClass('shown');
@@ -168,5 +168,25 @@ export default function () {
         $input[0]!.focus();
       })
       .bind('s', () => $input[0]!.focus());
+  }
+
+  {
+    // stick top bar
+    let lastY = 0;
+    const header = document.getElementById('top')!;
+
+    window.addEventListener(
+      'scroll',
+      () => {
+        const y = window.scrollY;
+        if (y > lastY + 10) header.classList.add('hide');
+        else if (y <= clamp(lastY - 20, { min: 0, max: document.body.scrollHeight - window.innerHeight }))
+          header.classList.remove('hide');
+        else return;
+
+        lastY = Math.max(0, y);
+      },
+      { passive: true },
+    );
   }
 }

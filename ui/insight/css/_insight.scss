@@ -278,7 +278,7 @@
 
   .ms-drop {
     font-size: 0.9em;
-    max-height: calc(99vh - #{$site-header-height} - var(--header-height));
+    max-height: calc(99vh - $site-header-height - var(--header-height));
     overflow-y: auto;
 
     ul {

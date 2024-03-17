@@ -1,7 +1,6 @@
 #challenge-app {
   @extend %box-radius-left, %dropdown-shadow;
   overflow: hidden;
-  #{$end-direction}: 0;
   width: 270px;
   text-align: center;
 

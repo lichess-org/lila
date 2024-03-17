@@ -51,7 +51,7 @@
     display: none;
     position: absolute;
     #{$end-direction}: 0;
-    top: var(--dropdown-top);
+    top: $site-header-height;
     background: $c-bg-header-dropdown;
     z-index: z('dropdown');
 
@@ -62,6 +62,8 @@
   }
 
   .shown {
+    position: relative;
+
     .toggle {
       background: $c-bg-header-dropdown;
       color: $c-header-dropdown;
@@ -73,15 +75,8 @@
   }
 
   .signin {
-    margin: 0 1rem;
-
-    @if $theme == 'transp' {
-      &.button-empty {
-        @extend %metal;
-
-        color: $c-font-clear;
-      }
-    }
+    @extend %page-link;
+    text-transform: uppercase;
   }
 
   .link-center {
@@ -117,11 +112,36 @@
       color: c-clearer($c-bad, 20%);
     }
   }
+
+  .dasher {
+    @extend %flex-center-nowrap;
+
+    > a,
+    > button {
+      @extend %flex-center-nowrap;
+      margin: 0;
+      padding: 1rem;
+    }
+
+    > button {
+      font-size: 2rem;
+    }
+  }
 }
 
 #user_tag {
-  padding-#{$end-direction}: 1rem;
+  padding-#{$end-direction}: 0.75rem;
   white-space: nowrap;
+  gap: 0.5rem;
+
+  &::after {
+    @extend %data-icon;
+    content: $licon-AccountCircle;
+    font-size: 2.25rem;
+    @media (min-height: at-least($tall)) {
+      font-size: 2.75rem;
+    }
+  }
 }
 
 #notify-app .initiating {

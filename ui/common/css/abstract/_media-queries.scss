@@ -24,17 +24,22 @@
   }
 }
 @mixin mq-topnav-hidden {
-  @media (max-width: at-most($medium)) {
+  @media (max-width: at-most($topnav-visible)) {
     @content;
   }
 }
 @mixin mq-topnav-visible {
-  @media (min-width: at-least($medium)) {
+  @media (min-width: at-least($topnav-visible)) {
     @content;
   }
 }
 @mixin mq-topnav-visible-and-tall {
-  @media (min-width: at-least($medium)) and (min-height: at-least($tall)) {
+  @media (min-width: at-least($topnav-visible)) and (min-height: at-least($tall)) {
+    @content;
+  }
+}
+@mixin mq-sticky-header {
+  @media (prefers-reduced-motion: no-preference) and (min-height: $tall) {
     @content;
   }
 }
@@ -55,6 +60,11 @@
 }
 @mixin mq-board-resizable {
   @media (min-width: at-least($small)) {
+    @content;
+  }
+}
+@mixin mq-safari {
+  @supports (-webkit-touch-callout: none) {
     @content;
   }
 }
