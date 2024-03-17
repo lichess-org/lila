@@ -91,9 +91,11 @@ body {
     grid-row-gap: 0;
 
     &__side,
-    .chat__members,
     .mchat {
       margin: $block-gap 0 0 0;
+    }
+    .chat__members {
+      margin: calc($block-gap / 2) 0 0 0;
     }
 
     &__underboard {
