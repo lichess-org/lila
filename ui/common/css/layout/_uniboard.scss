@@ -1,7 +1,7 @@
 body {
   --board-scale: 1;
 
-  @include breakpoint($mq-zoom-enabled) {
+  @include mq-zoom-enabled {
     // --zoom: 80; defined in the HTML, loaded from server
     --board-scale: calc((var(--zoom) / 100) * 0.75 + 0.25);
   }
@@ -16,7 +16,7 @@ body {
   }
 }
 
-@include breakpoint($mq-col1-uniboard) {
+@include mq-is-col1 {
   body {
     --col1: 1;
   }

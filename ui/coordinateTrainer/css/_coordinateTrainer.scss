@@ -161,7 +161,8 @@
     grid-template-columns: 1fr 1fr;
     grid-template-areas: 'buttons buttons' 'voice voice' 'keyboard keyboard';
     grid-row-gap: 1vh;
-    @include breakpoint($mq-x-small) {
+
+    @media (min-width: at-least($x-small)) {
       grid-template-areas: 'keyboard voice' 'buttons buttons';
     }
   }

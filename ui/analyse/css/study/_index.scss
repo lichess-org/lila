@@ -34,7 +34,7 @@ $top-height: 3.2rem;
         height: $top-height;
         font-size: 1.1em;
 
-        @include breakpoint($mq-xx-small) {
+        @media (min-width: at-least($xx-small)) {
           font-size: 1.2em;
         }
       }

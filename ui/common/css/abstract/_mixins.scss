@@ -15,7 +15,7 @@
   #zoom-input {
     display: none;
 
-    @include breakpoint($mq-zoom-enabled) {
+    @include mq-zoom-enabled {
       display: block;
       position: fixed;
       bottom: 3px;

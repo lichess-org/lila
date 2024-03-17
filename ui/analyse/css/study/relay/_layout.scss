@@ -4,7 +4,7 @@ body {
   --site-header-margin: 1em;
   --allow-video: false;
 
-  @include breakpoint($mq-col3) {
+  @include mq-at-least-col3 {
     --allow-video: true;
   }
 }
@@ -21,7 +21,7 @@ main.is-relay {
     grid-area: relay-admin;
   }
 
-  @include breakpoint($mq-col3) {
+  @include mq-at-least-col3 {
     #video-player-placeholder,
     button.streamer-show {
       display: block;
@@ -43,7 +43,7 @@ main.is-relay.has-relay-tour {
     max-height: 40vh;
   }
 
-  @include breakpoint($mq-col2) {
+  @include mq-at-least-col2 {
     grid-template-rows: 80vh;
     grid-template-areas:
       'relay-tour . side'
@@ -57,7 +57,7 @@ main.is-relay.has-relay-tour {
     }
   }
 
-  @include breakpoint($mq-col3) {
+  @include mq-at-least-col3 {
     grid-template-columns: $col3-uniboard-side $block-gap-half var(--col3-uniboard-width) $block-gap-half $col3-uniboard-table;
     grid-template-rows: $mq-col3-side-height;
     grid-template-areas:
@@ -81,7 +81,7 @@ main.analyse.is-relay:not(.has-relay-tour) {
   .chat__members {
     display: none;
   }
-  @include breakpoint($mq-col2) {
+  @include mq-at-least-col2 {
     grid-template-rows: calc(var(--cg-height) / 2) calc(var(--cg-height) / 2) 2.5em;
     grid-template-areas:
       'board        gauge side'
@@ -93,7 +93,7 @@ main.analyse.is-relay:not(.has-relay-tour) {
       margin-top: unset;
     }
   }
-  @include breakpoint($mq-col3) {
+  @include mq-at-least-col3 {
     grid-template-rows: var(--cg-height) 2.5em;
     grid-template-areas:
       'side           . board gauge tools'

@@ -9,7 +9,7 @@
     margin-top: -0.5em;
   }
 
-  @include breakpoint($mq-col1) {
+  @include mq-is-col1 {
     &-top {
       grid-area: pocket-top;
     }
@@ -19,7 +19,7 @@
     }
   }
 
-  @include breakpoint($mq-col2-uniboard) {
+  @include mq-at-least-col2 {
     &-top {
       margin-bottom: $block-gap;
     }
@@ -30,14 +30,14 @@
   }
 }
 
-@include breakpoint($mq-col2) {
-  @include breakpoint($mq-short) {
+@include mq-at-least-col2 {
+  @media (min-height: at-least($short)) {
     #{$moves-tag} {
       display: none;
     }
   }
 
-  @include breakpoint($mq-tall) {
+  @media (min-height: at-least($tall)) {
     #{$moves-tag} {
       display: flex;
     }
@@ -45,7 +45,7 @@
 }
 
 .ricons {
-  @include breakpoint($mq-col1) {
+  @include mq-is-col1 {
     justify-content: flex-end;
   }
 }

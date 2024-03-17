@@ -1,5 +1,5 @@
 /* context: .rmoves */
-@include breakpoint($mq-col1) {
+@include mq-is-col1 {
   overflow: hidden;
 
   .col1-moves {

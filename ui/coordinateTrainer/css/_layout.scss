@@ -1,11 +1,25 @@
-$mq-col1: $mq-not-medium;
-$mq-col2: $mq-medium;
-$mq-col3: $mq-x-large;
+@mixin mq-is-col1 {
+  @media (max-width: at-most($medium)) {
+    @content;
+  }
+}
+
+@mixin mq-at-least-col2 {
+  @media (min-width: at-least($medium)) {
+    @content;
+  }
+}
+
+@mixin mq-at-least-col3 {
+  @media (min-width: at-least($x-large)) {
+    @content;
+  }
+}
 
 #main-wrap {
   --main-max-width: calc(100vh - #{$site-header-outer-height});
 
-  @include breakpoint($mq-col2) {
+  @include mq-at-least-col2 {
     --main-max-width: auto;
   }
 }
@@ -43,7 +57,7 @@ $mq-col3: $mq-x-large;
   grid-template-areas: 'board' 'progress' 'co-input' 'table' 'side';
   grid-row-gap: $block-gap;
 
-  @include breakpoint($mq-col2) {
+  @include mq-at-least-col2 {
     grid-template-columns: var(--col2-uniboard-width) $block-gap $col2-uniboard-table;
     grid-template-rows: fit-content(0);
     grid-template-areas:
@@ -54,7 +68,7 @@ $mq-col3: $mq-x-large;
       '.        . side';
   }
 
-  @include breakpoint($mq-col3) {
+  @include mq-at-least-col3 {
     grid-template-areas:
       'side . board    . table'
       'side . progress . .'
@@ -64,14 +78,14 @@ $mq-col3: $mq-x-large;
   }
 }
 
-@include breakpoint($mq-col1) {
+@include mq-is-col1 {
   .explanation {
     order: 2;
     margin: 2em 1em 0 1em;
   }
 }
 
-@include breakpoint($mq-col3) {
+@include mq-at-least-col3 {
   .box:first-child {
     margin-top: $block-gap;
   }

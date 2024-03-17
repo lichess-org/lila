@@ -1,7 +1,7 @@
 .puzzle__feedback.after {
   flex-flow: row nowrap;
 
-  @include breakpoint($mq-col2) {
+  @include mq-at-least-col2 {
     flex-flow: column;
   }
 
@@ -60,7 +60,7 @@
       }
     }
 
-    @include breakpoint($mq-col2) {
+    @include mq-at-least-col2 {
       display: flex;
     }
   }
@@ -82,7 +82,7 @@
       }
     }
 
-    @include breakpoint($mq-col2) {
+    @include mq-at-least-col2 {
       display: block;
       margin: 0 1em;
     }

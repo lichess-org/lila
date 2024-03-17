@@ -24,7 +24,7 @@
     }
 
     &__user {
-      @include breakpoint($mq-x-small) {
+      @media (min-width: at-least($x-small)) {
         grid-area: 1 / 2 / 3 / 2;
       }
 
@@ -86,7 +86,7 @@
     margin-bottom: 4rem;
     font-size: 1.5em;
 
-    @include breakpoint($mq-xx-small) {
+    @media (min-width: at-least($xx-small)) {
       font-size: 2em;
     }
 
@@ -102,7 +102,7 @@
         font-size: 6rem;
         margin-#{$end-direction}: 0.2em;
 
-        @include breakpoint($mq-not-xx-small) {
+        @media (max-width: at-most($xx-small)) {
           display: none;
         }
       }

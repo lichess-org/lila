@@ -77,7 +77,7 @@
   }
 }
 
-@include breakpoint($mq-not-xx-small) {
+@media (max-width: at-most($xx-small)) {
   .lreal_time,
   .lseeks .hooks__list {
     font-size: 0.9em;

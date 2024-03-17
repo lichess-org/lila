@@ -1,13 +1,5 @@
 /* Uniboard: keep the same page layout across pages */
 
-$mq-board-resizable: $mq-small;
-$mq-col1-uniboard: $mq-not-small $mq-portrait;
-$mq-col2-uniboard: $mq-small, $mq-landscape;
-$mq-col3-uniboard: $mq-x-large;
-
-/* when the width is appropriate for col1, but landscape prevents it */
-$mq-col2-uniboard-squeeze: $mq-not-small $mq-landscape;
-
 $scrollbar-width: 20px;
 
 $col3-uniboard-side-min: 250px;

@@ -1,4 +1,4 @@
-@include breakpoint($mq-topnav-hidden) {
+@include mq-topnav-hidden {
   .topnav-toggle {
     display: block;
     position: absolute;
@@ -27,7 +27,7 @@
         border-radius: 3px;
         background-color: $c-font-dim;
 
-        @include breakpoint($mq-site-header-tall) {
+        @include mq-site-header-tall {
           width: 34px;
           height: 3px;
         }
@@ -36,7 +36,7 @@
       top: 50%;
       #{$start-direction}: 8.5px;
 
-      @include breakpoint($mq-site-header-tall) {
+      @include mq-site-header-tall {
         #{$start-direction}: 13px;
       }
 
@@ -50,7 +50,7 @@
       &::before {
         top: -6px;
 
-        @include breakpoint($mq-site-header-tall) {
+        @include mq-site-header-tall {
           top: -9px;
         }
 
@@ -62,7 +62,7 @@
       &::after {
         bottom: -7px;
 
-        @include breakpoint($mq-site-header-tall) {
+        @include mq-site-header-tall {
           bottom: -10px;
         }
 
@@ -119,7 +119,7 @@
     border-radius: 0 3px 0 0;
     max-width: 80%;
 
-    @include breakpoint($mq-xx-small) {
+    @media (min-width: at-least($xx-small)) {
       max-width: 70%;
     }
 

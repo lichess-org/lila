@@ -34,7 +34,7 @@
     display: none;
 
     @media (hover: hover) {
-      @include breakpoint($mq-small) {
+      @media (min-width: at-least($small)) {
         display: block;
       }
     }

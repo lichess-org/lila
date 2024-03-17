@@ -1,5 +1,10 @@
 $c-opcfg: $c-accent;
-$op-details-large: $mq-small;
+
+@mixin mq-details-large {
+  @media (min-width: at-least($small)) {
+    @content;
+  }
+}
 
 .opening__config {
   @extend %box-neat;
@@ -7,10 +12,10 @@ $op-details-large: $mq-small;
   &[open] {
     flex: 1 0 auto;
   }
-  @include breakpoint($op-col-one) {
+  @include mq-col-one {
     display: none;
   }
-  @include breakpoint($op-details-large) {
+  @include mq-details-large {
     flex: 1 0 auto;
   }
   background: $c-bg-zebra;
@@ -31,13 +36,13 @@ $op-details-large: $mq-small;
       .opening__config[open] & {
         display: inline-block;
       }
-      @include breakpoint($op-details-large) {
+      @include mq-details-large {
         display: inline-block;
       }
     }
     &__short {
       display: inline-block;
-      @include breakpoint($op-details-large) {
+      @include mq-details-large {
         display: none;
       }
       .opening__config[open] & {

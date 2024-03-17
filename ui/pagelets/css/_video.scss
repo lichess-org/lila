@@ -184,7 +184,7 @@
         color: $c-font-dim;
         margin-left: 1em;
 
-        @include breakpoint($mq-subnav-top) {
+        @include mq-subnav-top {
           display: none;
         }
       }
@@ -207,7 +207,7 @@
           content: '-';
         }
 
-        @include breakpoint($mq-subnav-top) {
+        @include mq-subnav-top {
           background: $c-accent;
           color: $c-accent-over;
         }

@@ -273,7 +273,7 @@
   .recent-patrons {
     display: none;
 
-    @include breakpoint($mq-medium) {
+    @include mq-topnav-visible {
       display: block;
     }
 

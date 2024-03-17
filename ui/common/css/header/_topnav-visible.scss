@@ -1,4 +1,4 @@
-@include breakpoint($mq-topnav-visible) {
+@include mq-topnav-visible {
   .hbg,
   .site-title-nav .fullscreen-mask,
   .topnav-toggle {
@@ -9,7 +9,7 @@
     --nav-section: 26px;
     --nav-section-hover: 35px;
 
-    @include breakpoint($mq-site-header-tall) {
+    @include mq-site-header-tall {
       --nav-section: 48px;
       --nav-section-hover: 53px;
     }

@@ -9,7 +9,7 @@
     transition: color 0.3s;
     margin: 2vh 0;
 
-    @include breakpoint($mq-col2) {
+    @include mq-at-least-col2 {
       margin: 0 0 -0.2em 0;
     }
   }

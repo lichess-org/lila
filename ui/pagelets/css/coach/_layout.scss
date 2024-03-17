@@ -1,5 +1,8 @@
-$mq-picture: $mq-small;
-$mq-coach-col2: $mq-large;
+@mixin mq-at-least-picture {
+  @media (min-width: at-least($small)) {
+    @content;
+  }
+}
 
 main {
   .coach-main {
@@ -15,7 +18,7 @@ main {
     display: grid;
     grid-template-areas: 'main' 'side';
 
-    @include breakpoint($mq-coach-col2) {
+    @media (min-width: at-least($large)) {
       grid-template-columns: 300px auto;
       grid-template-areas: 'side main';
       grid-gap: 2rem;

@@ -40,7 +40,7 @@ $section-margin-more: 5vh;
   &__content {
     margin: 0 var(--box-padding);
 
-    @include breakpoint($mq-small) {
+    @media (min-width: at-least($small)) {
       display: flex;
 
       &__col1 {
@@ -100,7 +100,7 @@ $section-margin-more: 5vh;
   }
 
   &__members {
-    @include breakpoint($mq-not-small) {
+    @media (max-width: at-most($small)) {
       display: none;
     }
 

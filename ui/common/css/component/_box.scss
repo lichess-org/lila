@@ -42,7 +42,7 @@ $vp-max-width: 1200px;
   }
 }
 
-@include breakpoint($mq-main-margin) {
+@media (min-width: at-least($small)) {
   .box {
     @include box-radius;
   }

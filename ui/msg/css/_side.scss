@@ -4,11 +4,11 @@
 
     flex: 0 0 50ch;
 
-    @include breakpoint($mq-not-medium) {
+    @media (max-width: at-most($medium)) {
       flex: 0 0 40ch;
     }
 
-    @include breakpoint($mq-not-small) {
+    @media (max-width: at-most($small)) {
       flex: 1 0 100%;
       display: none;
 

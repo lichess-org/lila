@@ -4,13 +4,13 @@
   padding: 0.5em 1.5em;
   user-select: none;
 
-  @include breakpoint($mq-small) {
+  @media (min-width: at-least($small)) {
     position: absolute;
     right: 0;
     min-width: 100%;
     z-index: z(mz-menu);
   }
-  @include breakpoint($mq-not-small) {
+  @media (max-width: at-most($small)) {
     position: fixed;
     top: 50% !important;
     left: 50%;

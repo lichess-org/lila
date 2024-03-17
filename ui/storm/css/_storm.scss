@@ -1,5 +1,3 @@
-$mq-col2: $mq-col2-uniboard;
-
 @import 'play';
 @import 'end';
 @import 'high';
@@ -13,7 +11,7 @@ $mq-col2: $mq-col2-uniboard;
     color: $c-font-page;
     margin: 2vh 2vw;
 
-    @include breakpoint($mq-col2) {
+    @include mq-at-least-col2 {
       margin: 2vh 0.5rem;
     }
 
@@ -23,7 +21,7 @@ $mq-col2: $mq-col2-uniboard;
   }
 
   &-dashboard__high__periods {
-    @include breakpoint($mq-not-xx-small) {
+    @media (max-width: at-most($xx-small)) {
       display: none;
     }
 

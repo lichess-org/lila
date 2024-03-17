@@ -28,7 +28,7 @@
       }
     }
 
-    @include breakpoint($mq-not-small) {
+    @media (max-width: at-most($small)) {
       td,
       th {
         &:nth-child(3),
@@ -39,7 +39,7 @@
       }
     }
 
-    @include breakpoint($mq-not-xx-small) {
+    @media (max-width: at-most($xx-small)) {
       td,
       th {
         &:nth-child(3),

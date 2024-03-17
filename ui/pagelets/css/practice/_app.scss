@@ -14,7 +14,7 @@
   .studies {
     --min-width: 100vw;
 
-    @include breakpoint($mq-xx-small) {
+    @media (min-width: at-least($xx-small)) {
       --min-width: 400px;
     }
 
@@ -38,7 +38,7 @@
     font-size: 1.2em;
     overflow-x: hidden;
 
-    @include breakpoint($mq-main-margin) {
+    @media (min-width: at-least($small)) {
       overflow-x: visible;
 
       /* ribbon */

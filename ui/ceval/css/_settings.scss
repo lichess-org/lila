@@ -12,7 +12,7 @@
   gap: 1.5em;
   padding: 2em 1.5em;
 
-  @media (max-width: $mq-width-small) {
+  @media (max-width: at-most($small)) {
     gap: 1em;
     br {
       display: none;

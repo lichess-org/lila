@@ -5,7 +5,7 @@ $c-fork: $c-primary;
 
   flex: 0 0 auto;
 
-  @include breakpoint($mq-col1) {
+  @include mq-is-col1 {
     display: none;
   }
 

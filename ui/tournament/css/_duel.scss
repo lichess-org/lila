@@ -3,11 +3,11 @@
 
   margin: $block-gap 0 0 0;
 
-  @include breakpoint($mq-col2) {
+  @include mq-at-least-col2 {
     margin: 0 0 0 $block-gap;
   }
 
-  @include breakpoint($mq-col3) {
+  @include mq-at-least-col3 {
     margin: $block-gap 0 0 0;
   }
 

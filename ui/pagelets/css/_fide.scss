@@ -17,7 +17,7 @@
         // height: $top-height;
         font-size: 1.1em;
 
-        @include breakpoint($mq-xx-small) {
+        @media (min-width: at-least($xx-small)) {
           font-size: 1.2em;
         }
       }
@@ -37,7 +37,7 @@
   grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
   grid-gap: 1em;
   font-size: 1.5em;
-  @include breakpoint($mq-x-small) {
+  @media (min-width: at-least($x-small)) {
     grid-template-columns: repeat(auto-fill, minmax(30%, 1fr));
     font-size: 1.8em;
   }

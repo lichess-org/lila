@@ -9,7 +9,6 @@
   "author": "Thibault Duplessis",
   "license": "AGPL-3.0-or-later",
   "dependencies": {
-    "breakpoint-sass": "^3.0.0",
     "@types/jest": "^29.5.3",
     "jest": "^29.6.2",
     "jest-environment-jsdom": "^29.6.2"

@@ -39,7 +39,7 @@
         color: #fff;
       }
 
-      @include breakpoint($mq-small) {
+      @media (min-width: at-least($small)) {
         top: -12px;
         #{$end-direction}: -12px;
         background: $c-bg-popup;

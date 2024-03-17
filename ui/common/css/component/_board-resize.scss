@@ -7,7 +7,7 @@ cg-resize {
 
   display: none;
 
-  @include breakpoint($mq-board-resizable) {
+  @include mq-board-resizable {
     display: block;
     position: absolute;
     right: #{13px - $resize-width};

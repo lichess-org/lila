@@ -28,3 +28,17 @@ $site-header-height: var(--site-header-height);
 $site-header-margin: var(--site-header-margin);
 
 $site-header-outer-height: calc(#{$site-header-height} + #{$site-header-margin});
+
+$xxx-small: 400px;
+$xx-small: 500px;
+$x-small: 650px;
+$small: 800px;
+$medium: 980px;
+$large: 1120px;
+$x-large: 1260px;
+$xx-large: 1500px;
+
+$x-short: 400px;
+$short: 500px;
+$tall: 600px;
+$x-tall: 700px;

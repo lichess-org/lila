@@ -2,7 +2,7 @@
   width: 100%;
   margin: auto;
 
-  @include breakpoint($mq-x-small) {
+  @media (min-width: at-least($x-small)) {
     width: 40em;
   }
 

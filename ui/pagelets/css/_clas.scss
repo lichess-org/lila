@@ -17,7 +17,7 @@ $c-bg-clas-over-dim: mix($c-bg-clas-over, $c-bg-clas, 80%);
   white-space: normal;
   max-width: 22vw;
 
-  @include breakpoint($mq-medium) {
+  @include mq-topnav-visible {
     max-width: 15vw;
   }
 
@@ -36,7 +36,7 @@ $c-bg-clas-over-dim: mix($c-bg-clas-over, $c-bg-clas, 80%);
       display: none;
     }
 
-    @include breakpoint($mq-subnav-side) {
+    @include mq-subnav-side {
       font-weight: bold;
       padding: 0.4rem 2vw 0.4rem 0.8rem;
 
@@ -88,7 +88,7 @@ $c-bg-clas-over-dim: mix($c-bg-clas-over, $c-bg-clas, 80%);
         margin-#{$end-direction}: 0.4em;
 
         @include transition;
-        @include breakpoint($mq-not-xx-small) {
+        @media (max-width: at-most($xx-small)) {
           display: none;
         }
       }
@@ -220,7 +220,7 @@ $c-bg-clas-over-dim: mix($c-bg-clas-over, $c-bg-clas, 80%);
     justify-content: center;
     align-items: flex-end;
 
-    @include breakpoint($mq-not-xx-small) {
+    @media (max-width: at-most($xx-small)) {
       font-size: 0.9em;
     }
 

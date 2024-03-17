@@ -170,14 +170,14 @@
 
   .axis-form .by {
     margin: 0 8px;
-    @include breakpoint($mq-less-than-400) {
+    @media (max-width: at-most(400px)) {
       display: none;
     }
   }
 
   .axis-form .ms-choice {
     padding: calc(var(--header-height) / 2) 10px;
-    @include breakpoint($mq-not-xx-small) {
+    @media (max-width: at-most($xx-small)) {
       padding-left: 2px;
       padding-right: 2px;
     }

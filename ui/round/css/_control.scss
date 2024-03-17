@@ -98,7 +98,7 @@
       background: $c-bad;
     }
 
-    @include breakpoint($mq-col1) {
+    @include mq-is-col1 {
       a {
         line-height: 1.6em;
         flex: 0 0 2.5rem;
@@ -152,7 +152,7 @@
       height: 40px;
     }
 
-    @include breakpoint($mq-col1) {
+    @include mq-is-col1 {
       margin-top: $block-gap;
     }
   }
@@ -161,7 +161,7 @@
   .board-menu-toggle {
     display: none;
 
-    @include breakpoint($mq-col1) {
+    @include mq-is-col1 {
       display: block;
       margin-#{$start-direction}: 2em;
     }
@@ -269,7 +269,7 @@
 
       display: none;
 
-      @include breakpoint($mq-col2) {
+      @include mq-at-least-col2 {
         display: block;
       }
 

@@ -47,7 +47,7 @@
       }
     }
 
-    @include breakpoint($mq-not-xx-small) {
+    @media (max-width: at-most($xx-small)) {
       .rating {
         display: none;
       }
