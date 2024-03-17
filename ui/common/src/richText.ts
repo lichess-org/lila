@@ -84,11 +84,11 @@ export interface EnhanceOpts {
   boards?: boolean;
 }
 
-export function enhance(text: string, opts: EnhanceOpts): string {
+export function enhance(text: string, opts?: EnhanceOpts): string {
   const escaped = site.escapeHtml(text);
   const linked = escaped.replace(userPattern, userLinkReplacePawn).replace(linkPattern, linkReplace);
-  const plied = opts.plies && linked === escaped ? addPlies(linked) : linked;
-  const boarded = opts.boards && linked === escaped ? addBoards(plied) : linked;
+  const plied = opts?.plies && linked === escaped ? addPlies(linked) : linked;
+  const boarded = opts?.boards && linked === escaped ? addBoards(plied) : linked;
   return boarded;
 }
 
