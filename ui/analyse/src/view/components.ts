@@ -86,11 +86,8 @@ export function renderMain(
         insert: vn => {
           const elm = vn.elm as HTMLElement;
           forceInnerCoords(ctrl, needsInnerCoords);
-          if (!!playerBars != $('body').hasClass('header-margin')) {
-            requestAnimationFrame(() => {
-              $('body').toggleClass('header-margin', !!playerBars);
-              ctrl.redraw();
-            });
+          if (!!playerBars != document.body.classList.contains('header-margin')) {
+            requestAnimationFrame(() => $('body').toggleClass('header-margin', !!playerBars));
           }
           !tourUi && makeChat(ctrl, c => elm.appendChild(c));
           gridHacks.start(elm);
