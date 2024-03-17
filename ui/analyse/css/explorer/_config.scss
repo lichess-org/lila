@@ -1,12 +1,11 @@
 .explorer__config {
-  section,
-  .toggle {
-    margin: 0.4em $block-gap 0 $block-gap;
+  section {
+    margin: 0.4em $analyse-block-gap 0 $analyse-block-gap;
   }
 
   section.save {
     text-align: center;
-    padding: 15px 0 10px 0;
+    padding: 1em 0 0.7em 0;
   }
 
   label {

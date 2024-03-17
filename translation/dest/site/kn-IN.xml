@@ -2,9 +2,10 @@
 <resources>
   <string name="playWithAFriend">ಸ್ನೇಹಿತರೊಡನೆ ಆಡಿ</string>
   <string name="playWithTheMachine">ಕಂಪ್ಯೂಟರ್ ಜೊತೆ ಆಡಿ</string>
-  <string name="toInviteSomeoneToPlayGiveThisUrl">ಬೇರೆಯವರನ್ನು ಚೆಸ್ ಆಟಕ್ಕೆ ಆಹ್ವಾನಿಸಲು ಈ ಕೊಂಡಿಯನ್ನು ನೀಡಿ</string>
+  <string name="toInviteSomeoneToPlayGiveThisUrl">ಎದುರಾಳಿಯನ್ನು ಚೆಸ್ ಆಟಕ್ಕೆ ಆಹ್ವಾನಿಸಲು ಈ ಕೊಂಡಿಯನ್ನು ನೀಡಿ</string>
   <string name="gameOver">ಆಟ ಮುಗಿಯಿತು</string>
   <string name="waitingForOpponent">ಎದುರಾಳಿಯನ್ನು ನಿರೀಕ್ಷಿಸಲಾಗುತ್ತಿದೆ</string>
+  <string name="orLetYourOpponentScanQrCode">ಅಥವಾ ನಿಮ್ಮ ಎದುರಾಳಿಯು ಈ QR ಕೋಡ್ ಅನ್ನು ಸ್ಕ್ಯಾನ್ ಮಾಡಲು ಅವಕಾಶ ಮಾಡಿಕೊಡಿ</string>
   <string name="waiting">ಎದುರಾಳಿಯು ಸವಾಲು ಸ್ವೀಕರಿಸಲು ಕಾಯುತ್ತಿದ್ದೇವೆ</string>
   <string name="yourTurn">ನಿಮ್ಮ ಸರದಿ</string>
   <string name="aiNameLevelAiLevel">%1$s ಮಟ್ಟ %2$s</string>
@@ -12,7 +13,7 @@
   <string name="strength">ಶಕ್ತಿ</string>
   <string name="toggleTheChat">ಚಾಟ್ ಆನ್/ಆಫ್ ಮಾಡಲು</string>
   <string name="chat">ಚಾಟ್</string>
-  <string name="resign">ಸೋಲೊಪ್ಪು</string>
+  <string name="resign">ತ್ಯಜಿಸು</string>
   <string name="checkmate">ಚೆಕ್ ಮೇಟ್</string>
   <string name="stalemate">ಸ್ಟೇಲ್ಮೇಟ್</string>
   <string name="white">ಬಿಳಿ ದಳ</string>
@@ -58,7 +59,7 @@
   <string name="analysis">ವಿಶ್ಲೇಷಣಾ ಫಲಕ</string>
   <string name="depthX">ಆಳ %s</string>
   <string name="usingServerAnalysis">ಸರ್ವರ್ ವಿಶ್ಲೇಷಣೆ ಬಳಸಲಾಗುತ್ತಿದೆ</string>
-  <string name="loadingEngine">ಇಂಜಿನ್ ಶುರುವಾಗುತ್ತಿದೆ ...</string>
+  <string name="loadingEngine">ಇಂಜಿನ್ ಶುರುವಾಗುತ್ತಿದೆ...</string>
   <string name="calculatingMoves">ಲೆಕ್ಕಿಸುತ್ತಿದ್ದೇವೆ...</string>
   <string name="engineFailed">ಎಂಜಿನ್ ಲೋಡ್ ಆಗುವಾಗ ದೋಷ ಕಂಡಿದೆ</string>
   <string name="cloudAnalysis">ಕ್ಲೌಡ್ ವಿಶ್ಲೇಷಣೆ</string>
@@ -76,7 +77,7 @@
   <string name="insufficientMaterial">ಸಾಮಗ್ರಿಗಳ ಅಭಾವ</string>
   <string name="pawnMove">ಕಾಲಾಳು ನಡೆ</string>
   <string name="capture">ಸೆರೆಹಿಡಿತ</string>
-  <string name="close">ಮುಚ್ಚಿ</string>
+  <string name="close">ಮುಚ್ಚು</string>
   <string name="winning">ಗೆಲ್ಲುತ್ತಿದೆ</string>
   <string name="losing">ಸೋಲುತ್ತಿದೆ</string>
   <string name="drawn">ಡ್ರಾ</string>

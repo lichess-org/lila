@@ -21,10 +21,11 @@ object home:
       title = trans.tournaments.txt(),
       moreCss = cssTag("tournament.home"),
       wrapClass = "full-screen-force",
-      moreJs = frag(
-        infiniteScrollTag,
-        jsModuleInit("tournament.schedule", Json.obj("data" -> json, "i18n" -> bits.scheduleJsI18n))
-      ),
+      moreJs = infiniteScrollTag,
+      pageModule = PageModule(
+        "tournament.schedule",
+        Json.obj("data" -> json, "i18n" -> bits.scheduleJsI18n)
+      ).some,
       openGraph = lila.app.ui
         .OpenGraph(
           url = s"$netBaseUrl${routes.Tournament.home.url}",

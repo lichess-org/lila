@@ -7,14 +7,14 @@
   display: flex;
   flex-flow: column;
   overflow: auto;
-  padding: $block-gap;
+  padding: $analyse-block-gap;
 
   h2 {
     font-size: 1em;
     text-transform: uppercase;
     text-align: center;
     white-space: nowrap;
-    margin: $block-gap 0 3px 0;
+    margin: $analyse-block-gap 0 3px 0;
     display: table;
     padding: 0 10px;
 
@@ -88,7 +88,7 @@
     @extend %flex-center-nowrap;
 
     flex: 0 0 auto;
-    margin-top: $block-gap;
+    margin-top: $analyse-block-gap;
 
     label {
       flex: 4 1 auto;

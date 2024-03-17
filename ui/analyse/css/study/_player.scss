@@ -9,7 +9,7 @@ $player-height: 1.6rem;
 
   @include mq-at-least-col2 {
     .analyse__underboard {
-      margin-top: calc(#{$player-height / 2} + #{$block-gap / 2});
+      margin-top: calc(#{$player-height / 2} + #{$analyse-block-gap / 2});
     }
   }
 
