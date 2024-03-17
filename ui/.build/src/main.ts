@@ -20,6 +20,7 @@ const longArgs = [
   '--split',
   '--debug',
   '--clean',
+  '--clean-theme',
   '--update',
   '--no-install',
 ];
@@ -48,7 +49,8 @@ export function main() {
   env.prod = args.includes('--prod') || oneDashArgs.includes('p');
   env.split = args.includes('--split') || oneDashArgs.includes('s');
   env.debug = args.includes('--debug') || oneDashArgs.includes('d');
-  env.clean = args.includes('--clean') || oneDashArgs.includes('c');
+  env.clean = args.some(x => x.startsWith('--clean')) || oneDashArgs.includes('c');
+  env.cleanTheme = args.includes('--clean-theme');
   env.install = !args.includes('--no-install') && !oneDashArgs.includes('n');
 
   if (env.rebuild && !env.install) {
@@ -58,7 +60,7 @@ export function main() {
 
   if (args.length === 1 && (args[0] === '--help' || args[0] === '-h')) {
     console.log(fs.readFileSync(path.resolve(__dirname, '../readme'), 'utf8'));
-  } else if (args.length === 1 && (args[0] === '--clean' || args[0] === '-c')) {
+  } else if (args.length === 1 && (args[0].startsWith('--clean') || args[0] === '-c')) {
     clean();
   } else {
     build(args.filter(x => !x.startsWith('-')));
@@ -117,6 +119,7 @@ class Env {
   watch = false;
   rebuild = false;
   clean = false;
+  cleanTheme = false;
   prod = false;
   split = false;
   debug = false;

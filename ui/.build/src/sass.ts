@@ -89,16 +89,17 @@ async function buildThemedScss() {
     if (!match || match.length < 3) continue;
     const path = match[1];
     const partial = match[2];
+    fs.mkdirSync(`${path}/gen`, { recursive: true });
     for (const direction of ['ltr', 'rtl']) {
       for (const theme of ['light', 'dark', 'transp']) {
-        const themed = `${path}/${partial}.${direction}.${theme}.scss`;
+        const themed = `${path}/gen/${partial}.${direction}.${theme}.scss`;
         if (fs.existsSync(themed)) {
           continue;
         }
         const code =
-          `@import '../../../common/css/dir/${direction}';\n` +
-          `@import '../../../common/css/theme/${theme}';\n` +
-          `@import '${partial}';\n`;
+          `@import '../../../../common/css/dir/${direction}';\n` +
+          `@import '../../../../common/css/theme/${theme}';\n` +
+          `@import '../${partial}';\n`;
         try {
           await fs.promises.writeFile(themed, code);
         } catch (e) {
