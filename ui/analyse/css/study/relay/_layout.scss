@@ -107,6 +107,7 @@ main.analyse.is-relay:not(.has-relay-tour) {
       display: flex;
     }
     .mchat {
+      margin-top: $analyse-block-gap;
       flex: 5 0 30%;
     }
   }
