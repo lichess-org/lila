@@ -22,8 +22,8 @@
   <string name="asBlack">काले से</string>
   <string name="randomColor">कोई भी रंग</string>
   <string name="createAGame">नया खेल</string>
-  <string name="whiteIsVictorious">सफेद जीता</string>
-  <string name="blackIsVictorious">काला जीता</string>
+  <string name="whiteIsVictorious">सफेद विजयी हुआ</string>
+  <string name="blackIsVictorious">काला विजयी हुआ</string>
   <string name="youPlayTheWhitePieces">आप सफेद मोहरों से खेलेंगे</string>
   <string name="youPlayTheBlackPieces">आप काले मोहरों से खेलेंगे</string>
   <string name="itsYourTurn">यह आपकी बारी है!</string>
@@ -275,6 +275,7 @@
   <string name="abortGame">खेल रद्द करें</string>
   <string name="gameAborted">खेल रद्द किया गया</string>
   <string name="standard">साधारण</string>
+  <string name="customPosition">कस्टम स्थान</string>
   <string name="unlimited">असीमित</string>
   <string name="mode">प्रणाली</string>
   <string name="casual">मूल्यांकन के बिना</string>
@@ -415,6 +416,7 @@
   <string name="blackCheckmatesInOneMove">काला १ चाल में शहमात देगा</string>
   <string name="retry">फिर से कोशिश करें</string>
   <string name="reconnecting">फिर से जुड़ने की कोशिश (रीकनेक्ट)</string>
+  <string name="noNetwork">ऑफ़लाइन</string>
   <plurals name="nbFriendsOnline">
     <item quantity="one">%s मित्र ऑनलाइन</item>
     <item quantity="other">%s दोस्त ऑनलाइन</item>
@@ -522,6 +524,7 @@
   <string name="automaticallyProceedToNextGameAfterMoving">चाल चलने के बाद अपने आप अगले खेल पर जाएँ</string>
   <string name="autoSwitch">अपने आप खेल बदलें।</string>
   <string name="puzzles">पहेलियाँ</string>
+  <string name="onlineBots">ऑनलाइन बॉट</string>
   <string name="name">नाम</string>
   <string name="description">विवरण</string>
   <string name="descPrivate">टेक्स्ट जो केवल टीम के सदस्य देखेंगे। यदि सेट किया जाता है, तो टीम के सदस्यों के लिए सार्वजनिक विवरण को बदल देता है।</string>
