@@ -8,7 +8,7 @@ final class UciMemo(gameRepo: GameRepo)(using Executor):
   type UciVector = Vector[String]
 
   private val cache: Cache[GameId, UciVector] = lila.memo.CacheApi.scaffeineNoScheduler
-    .expireAfterAccess(5 minutes)
+    .expireAfterAccess(5.minutes)
     .build[GameId, UciVector]()
 
   private val hardLimit = 300
@@ -24,11 +24,12 @@ final class UciMemo(gameRepo: GameRepo)(using Executor):
     cache.put(game.id, uciMoves.toVector)
 
   def get(game: Game, max: Int = hardLimit): Fu[UciVector] =
-    cache.getIfPresent(game.id).filter { moves =>
-      moves.size.atMost(max) == game.sans.size.atMost(max)
-    } match
-      case Some(moves) => fuccess(moves)
-      case _           => compute(game, max).addEffect { set(game, _) }
+    cache
+      .getIfPresent(game.id)
+      .filter(_.size.atMost(max) == game.sans.size.atMost(max))
+      .match
+        case Some(moves) => fuccess(moves)
+        case _           => compute(game, max).addEffect(set(game, _))
 
   def drop(game: Game, nb: Int) =
     val current = ~cache.getIfPresent(game.id)
