@@ -1,3 +1,5 @@
+$puzzle-block-gap: $block-gap-half;
+
 #main-wrap {
   --main-max-width: calc(100vh - #{$site-header-outer-height} - #{$col1-uniboard-controls});
 
@@ -55,14 +57,14 @@
   }
 
   grid-template-areas: 'board' 'controls' 'tools' 'session' 'kb-move' 'side';
-  grid-row-gap: $block-gap;
+  grid-row-gap: $puzzle-block-gap;
 
   &__moves {
     display: none;
   }
 
   @include breakpoint($mq-col2) {
-    grid-template-columns: var(--col2-uniboard-width) var(--gauge-gap) $col2-uniboard-table;
+    grid-template-columns: var(--col2-uniboard-width) $puzzle-block-gap $col2-uniboard-table;
     grid-template-rows: fit-content(0);
     grid-template-areas:
       'board   gauge tools'
@@ -76,7 +78,7 @@
   }
 
   @include breakpoint($mq-col2-uniboard-squeeze) {
-    grid-template-columns: $col2-uniboard-squeeze-width var(--gauge-gap) $col2-uniboard-squeeze-table;
+    grid-template-columns: $col2-uniboard-squeeze-width $puzzle-block-gap $col2-uniboard-squeeze-table;
   }
 
   @include breakpoint($mq-col3) {
@@ -85,12 +87,12 @@
       'side    . session .     controls'
       'side    . kb-move .     controls'
       'side    . .       .     .';
-    grid-template-columns: $col3-uniboard-side $block-gap var(--col3-uniboard-width) var(--gauge-gap) $col3-uniboard-table;
+    grid-template-columns: $col3-uniboard-side $puzzle-block-gap var(--col3-uniboard-width) $block-gap-half $col3-uniboard-table;
   }
 
   &__side {
     display: grid;
-    grid-gap: $block-gap;
+    grid-gap: $puzzle-block-gap;
     grid-template-areas: 'user' 'theme' 'metas' 'config';
 
     .puzzle-replay & {

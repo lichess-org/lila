@@ -130,13 +130,13 @@
 
   position: relative;
   height: $col3-uniboard-controls;
-  margin-top: #{-$block-gap};
+  margin-top: #{-$puzzle-block-gap};
 
   @include breakpoint($mq-col1) {
     height: $col1-uniboard-controls;
   }
 
-  // height: calc(#{$puzzle-history-height} + #{$block-gap});
+  // height: calc(#{$puzzle-history-height} + #{$puzzle-block-gap});
   .jumps {
     position: relative;
     flex: 1 1 auto;

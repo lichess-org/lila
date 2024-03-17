@@ -59,11 +59,11 @@ $pocket-height: 60px;
 @include breakpoint($mq-col1) {
   .pocket {
     &-top {
-      margin-bottom: $analyse-block-gap;
+      margin-bottom: $block-gap-half;
     }
 
     &-bottom {
-      margin-top: $analyse-block-gap;
+      margin-top: $block-gap-half;
     }
   }
 }

@@ -1,3 +1,5 @@
+$analyse-block-gap: $block-gap-half;
+
 body {
   /* prevents scroll bar flicker on page height changes */
   overflow-y: scroll;
@@ -83,7 +85,7 @@ body {
     'uchat';
 
   @include breakpoint($mq-col2) {
-    grid-template-columns: var(--col2-uniboard-width) var(--gauge-gap) $col2-uniboard-table;
+    grid-template-columns: var(--col2-uniboard-width) $analyse-block-gap $col2-uniboard-table;
     grid-template-rows: fit-content(0);
     grid-template-areas:
       'board      gauge tools'
@@ -102,7 +104,7 @@ body {
     }
 
     &__underboard {
-      margin-top: 23px;
+      margin-top: $analyse-block-gap;
     }
 
     .eval-gauge {
@@ -111,11 +113,11 @@ body {
   }
 
   @include breakpoint($mq-col2-uniboard-squeeze) {
-    grid-template-columns: $col2-uniboard-squeeze-width var(--gauge-gap) $col2-uniboard-squeeze-table;
+    grid-template-columns: $col2-uniboard-squeeze-width $analyse-block-gap $col2-uniboard-squeeze-table;
   }
 
   @include breakpoint($mq-col3) {
-    grid-template-columns: $col3-uniboard-side var(--gauge-gap) var(--col3-uniboard-width) var(--gauge-gap) $col3-uniboard-table;
+    grid-template-columns: $col3-uniboard-side $analyse-block-gap var(--col3-uniboard-width) $analyse-block-gap $col3-uniboard-table;
     grid-template-rows: auto $chat-height 2.5em 1fr;
     grid-template-areas:
       'side    . board gauge tools'
@@ -128,6 +130,7 @@ body {
     }
 
     .mchat {
+      margin-top: 0;
       min-height: 10em;
     }
 
