@@ -99,6 +99,7 @@
   <string name="openingExplorer">오프닝 탐색기</string>
   <string name="openingEndgameExplorer">오프닝/엔드게임 탐색기</string>
   <string name="xOpeningExplorer">%s 오프닝 탐색기</string>
+  <string name="playFirstOpeningEndgameExplorerMove">첫 번째 오프닝/엔드게임 탐색기 수 두기</string>
   <string name="winPreventedBy50MoveRule">50수 규칙에 의하여 승리가 불가능합니다.</string>
   <string name="lossSavedBy50MoveRule">50수 규칙에 의하여 패배가 불가능합니다.</string>
   <string name="winOr50MovesByPriorMistake">승리 혹은 이전의 실수로 인한 50수 규칙 무승부</string>
@@ -260,6 +261,7 @@
   <string name="abortGame">게임 중단</string>
   <string name="gameAborted">게임 중단됨</string>
   <string name="standard">표준</string>
+  <string name="customPosition">사용자 지정 포지션</string>
   <string name="unlimited">무제한</string>
   <string name="mode">모드</string>
   <string name="casual">캐주얼</string>

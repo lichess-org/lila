@@ -61,12 +61,23 @@
         border: $border;
         border-width: 0 1px;
         font-weight: bold;
+        white-space: nowrap;
       }
       &__player {
         @extend %flex-between-nowrap;
         padding: 0.4em 2em;
+        container-type: inline-size;
+        .name {
+          @extend %nowrap-ellipsis;
+        }
       }
     }
+  }
+}
+
+@container (width < 250px) {
+  rating {
+    display: none;
   }
 }
 

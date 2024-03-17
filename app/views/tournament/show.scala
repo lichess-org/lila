@@ -20,7 +20,7 @@ object show:
   )(using ctx: PageContext) =
     views.html.base.layout(
       title = s"${tour.name()} #${tour.id}",
-      moreJs = jsModuleInit(
+      pageModule = PageModule(
         "tournament",
         Json.obj(
           "data"   -> data,
@@ -39,7 +39,7 @@ object show:
             ),
           "showRatings" -> ctx.pref.showRatings
         )
-      ),
+      ).some,
       moreCss = cssTag:
         if tour.isTeamBattle then "tournament.show.team-battle"
         else "tournament.show"

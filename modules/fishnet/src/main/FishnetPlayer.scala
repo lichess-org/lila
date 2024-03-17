@@ -14,10 +14,7 @@ final class FishnetPlayer(
     gameRepo: GameRepo,
     uciMemo: UciMemo,
     val maxPlies: Int
-)(using
-    ec: Executor,
-    scheduler: Scheduler
-):
+)(using Executor, Scheduler):
 
   def apply(game: Game): Funit =
     if game.finished then funit

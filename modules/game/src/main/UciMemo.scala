@@ -13,11 +13,12 @@ final class UciMemo(gameRepo: GameRepo)(using Executor):
 
   private val hardLimit = 300
 
-  def add(game: Game, uciMove: String): Unit =
-    val current = ~cache.getIfPresent(game.id)
-    cache.put(game.id, current :+ uciMove)
   def add(game: Game, move: chess.MoveOrDrop): Unit =
     add(game, UciDump.move(game.variant, force960Notation = true)(move))
+
+  private def add(game: Game, uciMove: String): Unit =
+    val current = ~cache.getIfPresent(game.id)
+    cache.put(game.id, current :+ uciMove)
 
   def set(game: Game, uciMoves: Seq[String]) =
     cache.put(game.id, uciMoves.toVector)

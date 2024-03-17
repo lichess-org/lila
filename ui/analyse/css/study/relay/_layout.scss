@@ -27,7 +27,6 @@ main.is-relay {
     }
     .mchat {
       flex: 1 1 50%;
-      margin-top: 1em;
     }
   }
 }
@@ -39,9 +38,6 @@ main.is-relay.has-relay-tour {
     'relay-tour'
     'side'
     'relay-admin';
-  .mchat {
-    margin-top: 1em;
-  }
   .relay-games {
     max-height: 40vh;
   }
@@ -52,6 +48,7 @@ main.is-relay.has-relay-tour {
       'relay-tour . side'
       'relay-tour . relay-admin';
     .mchat {
+      margin-top: $analyse-block-gap;
       flex: 5 0 30%;
     }
     .relay-games {
@@ -60,7 +57,7 @@ main.is-relay.has-relay-tour {
   }
 
   @include mq-at-least-col3 {
-    grid-template-columns: $col3-uniboard-side var(--gauge-gap) var(--col3-uniboard-width) var(--gauge-gap) $col3-uniboard-table;
+    grid-template-columns: $col3-uniboard-side $block-gap-half var(--col3-uniboard-width) $block-gap-half $col3-uniboard-table;
     grid-template-rows: $mq-col3-side-height;
     grid-template-areas:
       'side        . relay-tour relay-tour relay-tour'
@@ -110,12 +107,13 @@ main.analyse.is-relay:not(.has-relay-tour) {
       display: flex;
     }
     .mchat {
+      margin-top: $analyse-block-gap;
       flex: 5 0 30%;
     }
   }
   .eval-chart-and-training {
     @extend %flex-center-nowrap;
-    gap: var(--gauge-gap);
+    gap: $analyse-block-gap;
     .study__server-eval {
       flex: 1 1 100%;
     }
