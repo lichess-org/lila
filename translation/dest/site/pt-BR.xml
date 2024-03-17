@@ -158,7 +158,7 @@
     <item quantity="other">%s partidas</item>
   </plurals>
   <plurals name="ratingXOverYGames">
-    <item quantity="one">Classificação %1$s em %2$s jogo</item>
+    <item quantity="one">Rating %1$s em %2$s jogo</item>
     <item quantity="other">Rating %1$s após %2$s partidas</item>
   </plurals>
   <plurals name="nbBookmarks">
@@ -388,7 +388,7 @@
   <string name="xCreatedTeamY">%1$s criou a equipe %2$s</string>
   <string name="startedStreaming">começou uma transmissão ao vivo</string>
   <string name="xStartedStreaming">%s começou a transmitir</string>
-  <string name="averageElo">Média de classificação</string>
+  <string name="averageElo">Média de rating</string>
   <string name="location">Localização</string>
   <string name="filterGames">Filtrar partidas</string>
   <string name="reset">Reiniciar</string>
@@ -503,7 +503,7 @@
   <string name="isPrivate">Privado</string>
   <string name="reportXToModerators">Reportar %s aos moderadores</string>
   <string name="profileCompletion">Conclusão do perfil: %s</string>
-  <string name="xRating">Classificação %s</string>
+  <string name="xRating">%s de rating</string>
   <string name="ifNoneLeaveEmpty">Se nenhuma, deixe vazio</string>
   <string name="profile">Perfil</string>
   <string name="editProfile">Editar perfil</string>
@@ -809,7 +809,7 @@
   <string name="custom">Personalizado</string>
   <string name="notifications">Notificações</string>
   <string name="notificationsX">Notificações: %1$s</string>
-  <string name="perfRatingX">Classificação: %s</string>
+  <string name="perfRatingX">Rating: %s</string>
   <plurals name="nbSecondsToPlayTheFirstMove">
     <item quantity="one">%s segundo para fazer o primeiro lance</item>
     <item quantity="other">%s segundos para fazer o primeiro lance</item>
@@ -924,7 +924,7 @@
   <string name="congratsYouWon">Parabéns, você venceu!</string>
   <string name="gameVsX">Jogo vs %1$s</string>
   <string name="resVsX">%1$s vs %2$s</string>
-  <string name="lostAgainstTOSViolator">Você perdeu para alguém que violou os termos de serviço do Lichess</string>
+  <string name="lostAgainstTOSViolator">Você perdeu rating para alguém que violou os termos de serviço do Lichess</string>
   <string name="refundXpointsTimeControlY">Reembolso: %1$s %2$s pontos de classificação.</string>
   <string name="timeAlmostUp">O tempo está quase acabando!</string>
   <string name="clickToRevealEmailAddress">[Clique para revelar o endereço de e-mail]</string>
@@ -934,13 +934,13 @@
   <string name="cancelTournament">Cancelar o torneio</string>
   <string name="tournDescription">Descrição do torneio</string>
   <string name="tournDescriptionHelp">Algo especial que você queira dizer aos participantes? Tente ser breve. Links em Markdown disponíveis: [name](https://url)</string>
-  <string name="ratedFormHelp">Os jogos valem pontos
-e afetam a classificação dos jogadores</string>
+  <string name="ratedFormHelp">Os jogos valem classificação
+e afetam o rating dos jogadores</string>
   <string name="onlyMembersOfTeam">Apenas membros da equipe</string>
   <string name="noRestriction">Sem restrição</string>
   <string name="minimumRatedGames">Mínimo de partidas ranqueadas</string>
-  <string name="minimumRating">Classificação mínima</string>
-  <string name="maximumWeeklyRating">Classificação máxima da semana</string>
+  <string name="minimumRating">Rating mínimo</string>
+  <string name="maximumWeeklyRating">Rating máxima da semana</string>
   <string name="positionInputHelp">Cole um FEN válido para iniciar as partidas a partir de uma posição específica.
 Só funciona com jogos padrão, e não com variantes.
 Use o %s para gerar uma posição FEN, e depois cole-a aqui.
