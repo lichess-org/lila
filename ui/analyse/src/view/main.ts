@@ -75,5 +75,6 @@ function analyseView(ctrl: AnalyseCtrl, deps?: typeof studyDeps): VNode {
                   ),
               ],
         ),
+    h('div.chat__members.none', { hook: onInsert(site.watchers) }),
   ]);
 }

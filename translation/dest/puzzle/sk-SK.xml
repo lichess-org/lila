@@ -26,7 +26,7 @@
   <string name="goodMove">Dobrý ťah</string>
   <string name="bestMove">Najlepší ťah!</string>
   <string name="keepGoing">Pokračujte…</string>
-  <string name="puzzleSuccess">Úspech!</string>
+  <string name="puzzleSuccess">Vyriešené!</string>
   <string name="puzzleComplete">Úloha splnená!</string>
   <string name="byOpenings">Podľa otvorení</string>
   <string name="puzzlesByOpenings">Šachové úlohy podľa otvorení</string>

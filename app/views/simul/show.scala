@@ -24,7 +24,7 @@ object show:
     views.html.base.layout(
       moreCss = cssTag("simul.show"),
       title = sim.fullName,
-      moreJs = jsModuleInit(
+      pageModule = PageModule(
         "simul",
         Json.obj(
           "data"          -> data,
@@ -43,7 +43,7 @@ object show:
             ),
           "showRatings" -> ctx.pref.showRatings
         )
-      )
+      ).some
     ):
       main(cls := "simul")(
         st.aside(cls := "simul__side")(

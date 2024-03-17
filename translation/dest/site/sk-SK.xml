@@ -589,7 +589,7 @@
   <string name="onlinePlayers">Pripojení hráči</string>
   <string name="activePlayers">Najaktívnejší hráči</string>
   <string name="bewareTheGameIsRatedButHasNoClock">Pozor, partia je hodnotená, ale bez časového limitu!</string>
-  <string name="success">Úspešne vyriešené</string>
+  <string name="success">Hotovo</string>
   <plurals name="nbGamesInPlay">
     <item quantity="one">%s rozohraná partia</item>
     <item quantity="few">%s rozohrané partie</item>
