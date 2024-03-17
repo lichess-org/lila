@@ -1,6 +1,7 @@
 body {
   @include fluid-size('--gauge-gap', 8px, 17px);
 }
+$analyse-block-gap: var(--gauge-gap);
 
 .eval-gauge {
   width: var(--gauge-gap);

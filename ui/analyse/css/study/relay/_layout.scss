@@ -27,7 +27,6 @@ main.is-relay {
     }
     .mchat {
       flex: 1 1 50%;
-      margin-top: 1em;
     }
   }
 }
@@ -39,9 +38,6 @@ main.is-relay.has-relay-tour {
     'relay-tour'
     'side'
     'relay-admin';
-  .mchat {
-    margin-top: 1em;
-  }
   .relay-games {
     max-height: 40vh;
   }
@@ -115,7 +111,7 @@ main.analyse.is-relay:not(.has-relay-tour) {
   }
   .eval-chart-and-training {
     @extend %flex-center-nowrap;
-    gap: var(--gauge-gap);
+    gap: $analyse-block-gap;
     .study__server-eval {
       flex: 1 1 100%;
     }
