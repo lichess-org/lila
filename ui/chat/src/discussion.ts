@@ -170,13 +170,13 @@ function selectLines(ctrl: ChatCtrl): Array<Line> {
   return ls;
 }
 
-const updateText = (opts: enhance.EnhanceOpts) => (oldVnode: VNode, vnode: VNode) => {
+const updateText = (opts?: enhance.EnhanceOpts) => (oldVnode: VNode, vnode: VNode) => {
   if ((vnode.data as VNodeData).lichessChat !== (oldVnode.data as VNodeData).lichessChat) {
     (vnode.elm as HTMLElement).innerHTML = enhance.enhance((vnode.data as VNodeData).lichessChat, opts);
   }
 };
 
-function renderText(t: string, opts: enhance.EnhanceOpts) {
+function renderText(t: string, opts?: enhance.EnhanceOpts) {
   if (enhance.isMoreThanText(t)) {
     const hook = updateText(opts);
     return h('t', { lichessChat: t, hook: { create: hook, update: hook } });

@@ -11,7 +11,7 @@ export interface ChatOpts {
   kobold: boolean;
   blind: boolean;
   timeout: boolean;
-  enhance: EnhanceOpts;
+  enhance?: EnhanceOpts;
   public: boolean;
   permissions: Permissions;
   timeoutReasons?: ModerationReason[];
