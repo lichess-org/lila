@@ -51,7 +51,7 @@ object submitted {
                   p(
                     if (~count > 0)
                       s"Puzzles you have submitted are being verified (${~count} puzzles in queue). Thank you!"
-                    else "You have not submitted any puzzles, but you can awlays change that."
+                    else "You have not submitted any puzzles, but you can always change that."
                   )
                 else
                   frag(
