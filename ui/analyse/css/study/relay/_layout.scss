@@ -48,6 +48,7 @@ main.is-relay.has-relay-tour {
       'relay-tour . side'
       'relay-tour . relay-admin';
     .mchat {
+      margin-top: $analyse-block-gap;
       flex: 5 0 30%;
     }
     .relay-games {
