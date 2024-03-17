@@ -16,7 +16,6 @@ object show:
       data: lila.relay.JsonView.JsData,
       chatOption: Option[lila.chat.UserChat.Mine],
       socketVersion: SocketVersion,
-      streamers: List[UserId],
       crossSiteIsolation: Boolean = true
   )(using ctx: PageContext) =
     views.html.base.layout(

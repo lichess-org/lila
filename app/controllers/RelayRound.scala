@@ -213,11 +213,10 @@ final class RelayRound(
           isSubscribed,
           videoUrls.map(_.toPair)
         )
-        chat      <- NoCrawlers(studyC.chatOf(sc.study))
-        sVersion  <- NoCrawlers(env.study.version(sc.study.id))
-        streamers <- NoCrawlers(studyC.streamersOf(sc.study.id))
+        chat     <- NoCrawlers(studyC.chatOf(sc.study))
+        sVersion <- NoCrawlers(env.study.version(sc.study.id))
         page <- renderPage:
-          html.relay.show(rt.withStudy(sc.study), data, chat, sVersion, streamers, crossSiteIsolation)
+          html.relay.show(rt.withStudy(sc.study), data, chat, sVersion, crossSiteIsolation)
         _ = if HTTPRequest.isHuman(req) then lila.mon.http.path(rt.tour.path).increment()
       yield if crossSiteIsolation then Ok(page).enforceCrossSiteIsolation else Ok(page)
     )(
