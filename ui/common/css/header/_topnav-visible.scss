@@ -1,4 +1,4 @@
-@media (min-width: at-least($medium)) {
+@include mq-topnav-visible {
   .hbg,
   .site-title-nav .fullscreen-mask,
   .topnav-toggle {

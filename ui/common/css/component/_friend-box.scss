@@ -1,7 +1,7 @@
 #friend_box {
   display: none;
 
-  @media (min-width: at-least($medium)) and (min-height: at-least($tall)) {
+  @include mq-topnav-visible-and-tall {
     display: block;
   }
 

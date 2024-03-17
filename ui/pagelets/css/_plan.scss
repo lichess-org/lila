@@ -273,7 +273,7 @@
   .recent-patrons {
     display: none;
 
-    @media (min-width: at-least($medium)) {
+    @include mq-topnav-visible {
       display: block;
     }
 

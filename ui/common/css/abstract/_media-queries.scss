@@ -23,6 +23,21 @@
     @content;
   }
 }
+@mixin mq-topnav-hidden {
+  @media (max-width: at-most($medium)) {
+    @content;
+  }
+}
+@mixin mq-topnav-visible {
+  @media (min-width: at-least($medium)) {
+    @content;
+  }
+}
+@mixin mq-topnav-visible-and-tall {
+  @media (min-width: at-least($medium)) and (min-height: at-least($tall)) {
+    @content;
+  }
+}
 @mixin mq-subnav-top {
   @media (max-width: at-most($small)) {
     @content;

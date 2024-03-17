@@ -1,4 +1,4 @@
-@media (max-width: at-most($medium)) {
+@include mq-topnav-hidden {
   .topnav-toggle {
     display: block;
     position: absolute;

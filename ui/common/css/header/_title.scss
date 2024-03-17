@@ -12,7 +12,7 @@
     display: block;
   }
 
-  @media (max-width: at-most($medium)) {
+  @include mq-topnav-hidden {
     /* move away from hamburger */
     margin-#{$start-direction}: calc(0.5rem + #{$site-header-height});
   }
@@ -22,7 +22,7 @@
     line-height: #{$site-header-tall-height - 3};
   }
 
-  @media (min-width: at-least($medium)) and (min-height: at-least($tall)) {
+  @include mq-topnav-visible-and-tall {
     line-height: #{$site-header-tall-height - 5};
     margin: 0 1rem 0 1.5rem;
   }

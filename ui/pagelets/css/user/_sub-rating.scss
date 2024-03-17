@@ -98,7 +98,7 @@
     font-size: 1.2em;
   }
 
-  @media (max-width: at-most($medium)) {
+  @include mq-topnav-hidden {
     a {
       padding: 0.3em;
     }

@@ -17,7 +17,7 @@ $c-bg-clas-over-dim: mix($c-bg-clas-over, $c-bg-clas, 80%);
   white-space: normal;
   max-width: 22vw;
 
-  @media (min-width: at-least($medium)) {
+  @include mq-topnav-visible {
     max-width: 15vw;
   }
 
