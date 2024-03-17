@@ -4,7 +4,7 @@ import { userTitle } from 'common/userLink';
 import { defined, scrollToInnerSelector } from 'common';
 import { renderClock, verticalEvalGauge } from '../multiBoard';
 import { ChapterPreview } from '../interfaces';
-import { gameLinkAttrs, gameLinksListener } from '../studyChapters';
+import { gameLinkAttrs } from '../studyChapters';
 import { playerFed } from '../playerBars';
 import { h } from 'snabbdom';
 
@@ -17,7 +17,6 @@ export const gamesList = (study: StudyCtrl, relay: RelayCtrl) => {
     {
       class: { 'relay-games__eval': defined(cloudEval) },
       hook: {
-        insert: gameLinksListener(study.setChapter),
         postpatch(old, vnode) {
           const currentId = study.data.chapter.id;
           if (old.data!.current !== currentId)

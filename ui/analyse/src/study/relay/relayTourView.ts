@@ -16,6 +16,7 @@ import { gamesList } from './relayGames';
 import { renderStreamerMenu } from './relayView';
 import { renderVideoPlayer } from './videoPlayerView';
 import { leaderboardView } from './relayLeaderboard';
+import { gameLinksListener } from '../studyChapters';
 
 export default function (ctrl: AnalyseCtrl): VNode | undefined {
   const study = ctrl.study,
@@ -36,40 +37,48 @@ export default function (ctrl: AnalyseCtrl): VNode | undefined {
 
 export const tourSide = (ctrl: AnalyseCtrl, study: StudyCtrl, relay: RelayCtrl) => {
   const empty = study.chapters.list.looksNew();
-  return h('aside.relay-tour__side', [
-    ...(empty
-      ? [startCountdown(relay)]
-      : [
-          h('div.relay-tour__side__header', [
-            h(
-              'button.relay-tour__side__name',
-              { hook: bind('mousedown', relay.tourShow.toggle, relay.redraw) },
-              study.data.name,
-            ),
-            h('button.streamer-show.data-count', {
-              attrs: { 'data-icon': licon.Mic, 'data-count': relay.streams.length, title: 'Streamers' },
-              class: {
-                disabled: !relay.streams.length,
-                active: relay.showStreamerMenu(),
-                streaming: relay.isStreamer(),
-              },
-              hook: bind('click', relay.showStreamerMenu.toggle, relay.redraw),
-            }),
-            h('button.relay-tour__side__search', {
-              attrs: { 'data-icon': licon.Search, title: 'Search' },
-              hook: bind('click', study.search.open.toggle),
-            }),
+  return h(
+    'aside.relay-tour__side',
+    {
+      hook: {
+        insert: gameLinksListener(study.setChapter),
+      },
+    },
+    [
+      ...(empty
+        ? [startCountdown(relay)]
+        : [
+            h('div.relay-tour__side__header', [
+              h(
+                'button.relay-tour__side__name',
+                { hook: bind('mousedown', relay.tourShow.toggle, relay.redraw) },
+                study.data.name,
+              ),
+              h('button.streamer-show.data-count', {
+                attrs: { 'data-icon': licon.Mic, 'data-count': relay.streams.length, title: 'Streamers' },
+                class: {
+                  disabled: !relay.streams.length,
+                  active: relay.showStreamerMenu(),
+                  streaming: relay.isStreamer(),
+                },
+                hook: bind('click', relay.showStreamerMenu.toggle, relay.redraw),
+              }),
+              h('button.relay-tour__side__search', {
+                attrs: { 'data-icon': licon.Search, title: 'Search' },
+                hook: bind('click', study.search.open.toggle),
+              }),
+            ]),
           ]),
-        ]),
-    relay.showStreamerMenu() && renderStreamerMenu(relay),
-    !empty && gamesList(study, relay),
-    h('div.chat__members', {
-      hook: onInsert(el => {
-        makeChat(ctrl, chat => el.parentNode!.insertBefore(chat, el));
-        site.watchers(el);
+      relay.showStreamerMenu() && renderStreamerMenu(relay),
+      !empty && gamesList(study, relay),
+      h('div.chat__members', {
+        hook: onInsert(el => {
+          makeChat(ctrl, chat => el.parentNode!.insertBefore(chat, el));
+          site.watchers(el);
+        }),
       }),
-    }),
-  ]);
+    ],
+  );
 };
 
 const startCountdown = (relay: RelayCtrl) => {

@@ -170,20 +170,15 @@ function selectLines(ctrl: ChatCtrl): Array<Line> {
   return ls;
 }
 
-function updateText(parseMoves: boolean) {
-  return (oldVnode: VNode, vnode: VNode) => {
-    if ((vnode.data as VNodeData).lichessChat !== (oldVnode.data as VNodeData).lichessChat) {
-      (vnode.elm as HTMLElement).innerHTML = enhance.enhance(
-        (vnode.data as VNodeData).lichessChat,
-        parseMoves,
-      );
-    }
-  };
-}
+const updateText = (opts: enhance.EnhanceOpts) => (oldVnode: VNode, vnode: VNode) => {
+  if ((vnode.data as VNodeData).lichessChat !== (oldVnode.data as VNodeData).lichessChat) {
+    (vnode.elm as HTMLElement).innerHTML = enhance.enhance((vnode.data as VNodeData).lichessChat, opts);
+  }
+};
 
-function renderText(t: string, parseMoves: boolean) {
+function renderText(t: string, opts: enhance.EnhanceOpts) {
   if (enhance.isMoreThanText(t)) {
-    const hook = updateText(parseMoves);
+    const hook = updateText(opts);
     return h('t', { lichessChat: t, hook: { create: hook, update: hook } });
   }
   return h('t', t);
@@ -193,7 +188,7 @@ const userThunk = (name: string, title?: string, patron?: boolean, flair?: Flair
   userLink({ name, title, patron, line: !!patron, flair });
 
 function renderLine(ctrl: ChatCtrl, line: Line): VNode {
-  const textNode = renderText(line.t, ctrl.opts.parseMoves);
+  const textNode = renderText(line.t, ctrl.opts.enhance);
 
   if (line.u === 'lichess') return h('li.system', textNode);
 

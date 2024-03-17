@@ -6,6 +6,7 @@ import RoundController from './ctrl';
 import { ChatCtrl, ChatPlugin } from 'chat';
 import * as cg from 'chessground/types';
 import * as Prefs from 'common/prefs';
+import { EnhanceOpts } from 'common/richText';
 
 export interface Untyped {
   [key: string]: any;
@@ -92,7 +93,7 @@ export interface RoundOpts {
 
 export interface ChatOpts {
   preset: 'start' | 'end' | undefined;
-  parseMoves?: boolean;
+  enhance?: EnhanceOpts;
   plugin?: ChatPlugin;
   alwaysEnabled: boolean;
   noteId?: string;

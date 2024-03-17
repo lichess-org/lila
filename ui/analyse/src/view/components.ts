@@ -377,7 +377,7 @@ export function makeChat(ctrl: AnalyseCtrl, insert: (chat: HTMLElement) => void)
     insert(chatEl);
     const chatOpts = ctrl.opts.chat;
     chatOpts.instance?.then(c => c.destroy());
-    chatOpts.parseMoves = true;
+    chatOpts.enhance = { plies: true, boards: !!ctrl.study?.relay };
     chatOpts.instance = site.makeChat(chatOpts);
   }
 }

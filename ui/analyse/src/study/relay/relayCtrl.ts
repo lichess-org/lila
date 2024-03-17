@@ -32,7 +32,7 @@ export default class RelayCtrl {
     readonly members: StudyMemberCtrl,
     private readonly chapters: StudyChapters,
     private readonly multiCloudEval: MultiCloudEval,
-    setChapter: (id: ChapterId) => void,
+    setChapter: (id: ChapterId | number) => boolean,
   ) {
     this.tourShow = toggle((location.pathname.match(/\//g) || []).length < 5);
     const locationTab = location.hash.replace(/^#/, '') as RelayTab;

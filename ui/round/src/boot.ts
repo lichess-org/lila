@@ -81,7 +81,7 @@ export default async function (opts: RoundOpts, roundMain: (opts: RoundOpts, nvu
       chatOpts.alwaysEnabled = true;
     } else if (!data.simul && !data.swiss) {
       chatOpts.preset = getPresetGroup(data);
-      chatOpts.parseMoves = true;
+      chatOpts.enhance = { plies: true };
     }
     if (chatOpts.noteId && (chatOpts.noteAge || 0) < 10) chatOpts.noteText = '';
     chatOpts.instance = site.makeChat(chatOpts) as Promise<ChatCtrl>;

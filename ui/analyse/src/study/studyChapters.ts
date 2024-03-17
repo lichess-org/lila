@@ -25,7 +25,11 @@ import { initialFen } from 'chess';
 export class StudyChapters {
   constructor(private readonly list: Prop<ChapterPreview[]>) {}
   all = () => this.list();
-  get = (id: string) => this.list().find(c => c.id === id);
+  get = (id: ChapterId | number) => {
+    const str = id.toString();
+    const number = str.length < 4 && parseInt(str);
+    return number ? this.list()[number - 1] : this.list().find(c => c.id === id);
+  };
   size = () => this.list().length;
   first = () => this.list()[0];
   looksNew = () => {
@@ -119,15 +123,14 @@ export function resultOf(tags: TagArray[], isWhite: boolean): string | undefined
 export const gameLinkAttrs = (basePath: string, game: { id: ChapterId }) => ({
   href: `${basePath}/${game.id}`,
 });
-export const gameLinksListener = (setChapter: (id: ChapterId) => void) => (vnode: VNode) =>
+export const gameLinksListener = (setChapter: (id: ChapterId | number) => boolean) => (vnode: VNode) =>
   (vnode.elm as HTMLElement).addEventListener(
     'click',
     e => {
-      e.preventDefault();
       let target = e.target as HTMLLinkElement;
       while (target && target.tagName !== 'A') target = target.parentNode as HTMLLinkElement;
-      const id = target?.href?.slice(-8);
-      if (id) setChapter(id);
+      const id = target?.dataset['board'] || target?.href?.slice(-8);
+      if (id && setChapter(id)) e.preventDefault();
     },
     { passive: false },
   );

@@ -10,6 +10,7 @@ import { StudyDataFromServer } from './study/interfaces';
 import { AnalyseSocketSend } from './socket';
 import { ExternalEngineInfo } from 'ceval';
 import * as Prefs from 'common/prefs';
+import { EnhanceOpts } from 'common/richText';
 
 export type Seconds = number;
 
@@ -154,7 +155,7 @@ export interface AnalyseOpts {
   $underboard?: Cash;
   i18n: I18nDict;
   chat: {
-    parseMoves: boolean;
+    enhance: EnhanceOpts;
     instance?: Promise<ChatCtrl>;
   };
   wiki?: boolean;
