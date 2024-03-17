@@ -65,13 +65,10 @@ object show:
           div(cls := "relay-tour__header")(
             div(cls := "relay-tour__header__content")(
               h1(rt.tour.name),
-              div(cls := "relay-tour__header__selectors")(
-                div(cls := "mselect relay-tour__mselect")(
-                  label(cls := "mselect__label")(
+              div(cls := "relay-tour__header__selectors"):
+                div(cls := "mselect relay-tour__mselect"):
+                  label(cls := "mselect__label"):
                     span(cls := "relay-tour__round-select__name")(rt.relay.name)
-                  )
-                )
-              )
             ),
             div(cls := "relay-tour__header__image")(img(alt := "loading..."))
           )
