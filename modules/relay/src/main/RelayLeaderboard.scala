@@ -48,11 +48,11 @@ final class RelayLeaderboardApi(
     cache.get(tour.id)
 
   private val invalidateDebouncer =
-    lila.common.Debouncer[RelayTour.Id](10 seconds, 64)(id => cache.put(id, computeJson(id)))
+    lila.common.Debouncer[RelayTour.Id](3 seconds, 32)(id => cache.put(id, computeJson(id)))
 
   def invalidate(id: RelayTour.Id) = invalidateDebouncer.push(id)
 
-  private val cache = cacheApi[RelayTour.Id, JsonStr](256, "relay.leaderboard"):
+  private val cache = cacheApi[RelayTour.Id, JsonStr](32, "relay.leaderboard"):
     _.expireAfterWrite(10 minutes).buildAsyncFuture(computeJson)
 
   private def computeJson(id: RelayTour.Id): Fu[JsonStr] =
