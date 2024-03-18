@@ -14,13 +14,13 @@
   "dependencies": {
     "board": "workspace:*",
     "ceval": "workspace:*",
-    "chart.js": "=4.4.0",
+    "chart.js": "4.4.0",
     "chess": "workspace:*",
-    "chessops": "^0.13.0",
+    "chessops": "^0.14.1",
     "common": "workspace:*",
     "keyboardMove": "workspace:*",
     "nvui": "workspace:*",
-    "snabbdom": "^3.5.1",
+    "snabbdom": "3.5.1",
     "tree": "workspace:*",
     "voice": "workspace:*"
   },

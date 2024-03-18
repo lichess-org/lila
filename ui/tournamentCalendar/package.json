@@ -13,8 +13,8 @@
   "license": "AGPL-3.0-or-later",
   "dependencies": {
     "common": "workspace:*",
-    "date-fns": "^2.29.3",
-    "snabbdom": "^3.5.1"
+    "date-fns": "2.29.3",
+    "snabbdom": "3.5.1"
   },
   "lichess": {
     "modules": {

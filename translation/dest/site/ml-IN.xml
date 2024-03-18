@@ -59,8 +59,8 @@
   <string name="depthX">ആഴം %s</string>
   <string name="usingServerAnalysis">സെർവറിന്റെ സഹായത്താൽ വിശകലനം ചെയ്യുന്നു</string>
   <string name="loadingEngine">എൻജിൻ സജ്ജമാക്കുന്നു ...</string>
-  <string name="calculatingMoves">Hello...</string>
-  <string name="engineFailed">Hi</string>
+  <string name="calculatingMoves">നീക്കങ്ങൾ കണക്കുകൂട്ടുന്നു...</string>
+  <string name="engineFailed">ചെസ്സ് എഞ്ചിൻ ലോഡുചെയ്യുന്നതിൽ പിശക്</string>
   <string name="cloudAnalysis">ക്ലൗഡ് ഉപയോഗിച്ചുള്ള വിശകലനം</string>
   <string name="goDeeper">ആഴം കൂട്ടുക</string>
   <string name="showThreat">ഭീഷണി വെളിപ്പെടുത്തുക</string>
@@ -94,7 +94,7 @@
   <string name="dtzWithRounding">L</string>
   <string name="noGameFound">ഒരു ഗെയിമും കണ്ടെത്താൻ സാധിച്ചില്ല</string>
   <string name="maybeIncludeMoreGamesFromThePreferencesMenu">പരിഗണന മെനുവിൽ നിന്ന് കൂടുതൽ ഗെയിമുകൾ ഉൾപ്പെടുത്താണോ?</string>
-  <string name="openings">L</string>
+  <string name="openings">തുറക്കൽ നീക്കം</string>
   <string name="openingExplorer">എക്സ്പ്ലോററും ടേബിൾ ബേസും തുറക്കാം</string>
   <string name="openingEndgameExplorer">ഓപ്പണിങ്ങ്/എൻഡ്ഗെയിം എക്‌സ്‌പ്ലോറർ</string>
   <string name="xOpeningExplorer">%s ഓപ്പണിങ് എക്സ്പ്ലോറർ</string>
@@ -524,7 +524,7 @@
   <string name="always">നിരന്തരം</string>
   <string name="never">ഒരിക്കലും</string>
   <string name="xCompetesInY">%1$s %2$s-ൽ മത്സരിക്കുന്നു</string>
-  <string name="victory">വിജയം!</string>
+  <string name="victory">വിജയം</string>
   <string name="defeat">തോൽവി</string>
   <string name="victoryVsYInZ">%1$s vs %2$s %3$s-ൽ</string>
   <string name="defeatVsYInZ">%1$s vs %2$s %3$s-ൽ</string>
