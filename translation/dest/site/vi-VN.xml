@@ -15,7 +15,7 @@
   <string name="chat">Trò chuyện</string>
   <string name="resign">Chịu thua</string>
   <string name="checkmate">Chiếu hết</string>
-  <string name="stalemate">Hòa pat</string>
+  <string name="stalemate">Hết nước đi</string>
   <string name="white">Quân Trắng</string>
   <string name="black">Quân Đen</string>
   <string name="asWhite">khi chơi quân trắng</string>
@@ -47,8 +47,8 @@
   <string name="theFirstPersonToComeOnThisUrlWillPlayWithYou">Người đầu tiên sử dụng URL này sẽ bắt đầu chơi với bạn.</string>
   <string name="whiteResigned">Trắng chịu thua</string>
   <string name="blackResigned">Đen chịu thua</string>
-  <string name="whiteLeftTheGame">Trắng đã thoát khỏi ván cờ</string>
-  <string name="blackLeftTheGame">Đen đã thoát khỏi ván cờ</string>
+  <string name="whiteLeftTheGame">Trắng đã rời khỏi ván cờ</string>
+  <string name="blackLeftTheGame">Đen đã rời khỏi ván cờ</string>
   <string name="whiteDidntMove">Bên trắng không đi quân</string>
   <string name="blackDidntMove">Bên đen không đi quân</string>
   <string name="requestAComputerAnalysis">Yêu cầu máy tính phân tích</string>
@@ -57,7 +57,7 @@
   <string name="computerAnalysisDisabled">Phân tích máy tính bị vô hiệu hóa</string>
   <string name="analysis">Bàn cờ phân tích</string>
   <string name="depthX">Độ sâu %s</string>
-  <string name="usingServerAnalysis">Sử dụng phân tích bằng máy chủ</string>
+  <string name="usingServerAnalysis">Sử dụng phân tích nhờ máy chủ</string>
   <string name="loadingEngine">Đang tải động cơ máy tính...</string>
   <string name="calculatingMoves">Đang tính nước đi...</string>
   <string name="engineFailed">Lỗi khi đang tải động cơ</string>
@@ -71,12 +71,12 @@
   <string name="deleteFromHere">Xoá từ đây</string>
   <string name="forceVariation">Đổi biến</string>
   <string name="copyVariationPgn">Sao chép biến PGN</string>
-  <string name="move">Nước đi</string>
+  <string name="move">Nước cờ</string>
   <string name="variantLoss">Nước đi dẫn đến hết cờ</string>
   <string name="variantWin">Nước chiếu hết theo luật</string>
   <string name="insufficientMaterial">Thiếu quân để chiếu hết</string>
   <string name="pawnMove">Tiến tốt</string>
-  <string name="capture">Ăn</string>
+  <string name="capture">Ăn quân</string>
   <string name="close">Đóng</string>
   <string name="winning">Đang thắng dần</string>
   <string name="losing">Đang thua dần</string>
@@ -87,19 +87,19 @@
   <string name="averageRatingX">Hệ số Elo bình quân: %s</string>
   <string name="recentGames">Các ván cờ gần đây</string>
   <string name="topGames">Các ván đấu hàng đầu</string>
-  <string name="masterDbExplanation">Các ván đấu OTB của các kỳ thủ có hệ số Elo %1$s+ do FIDE xếp hạng từ năm %2$s đến %3$s</string>
+  <string name="masterDbExplanation">Các ván đấu OTB của các kỳ thủ có hệ số Elo FIDE %1$s+ từ năm %2$s đến %3$s</string>
   <plurals name="mateInXHalfMoves">
     <item quantity="other">Chiếu hết trong %s nước</item>
   </plurals>
   <string name="dtzWithRounding">DTZ50\" được làm tròn, dựa vào số nước đi quân cho tới nước ăn quân hoặc đi tiến tốt tiếp theo</string>
-  <string name="noGameFound">Không có ván đấu nào trùng khớp</string>
+  <string name="noGameFound">Không tìm thấy ván nào</string>
   <string name="maxDepthReached">Đã đạt độ sâu tối đa!</string>
   <string name="maybeIncludeMoreGamesFromThePreferencesMenu">Bạn có muốn thêm nhiều ván đấu hơn từ mục lục?</string>
   <string name="openings">Các khai cuộc</string>
   <string name="openingExplorer">Khám phá khai cuộc</string>
-  <string name="openingEndgameExplorer">Sách khai cuộc/tàn cuộc</string>
+  <string name="openingEndgameExplorer">Khám phá khai cuộc/tàn cuộc</string>
   <string name="xOpeningExplorer">Khám phá khai cuộc %s</string>
-  <string name="playFirstOpeningEndgameExplorerMove">Chơi nước đầu tiên của người khám phá khai cuộc/tàn cuộc</string>
+  <string name="playFirstOpeningEndgameExplorerMove">Chơi nước khám phá khai cuộc/tàn cuộc đầu tiên</string>
   <string name="winPreventedBy50MoveRule">Chiến thắng bị ngăn cản bởi luật 50 nước</string>
   <string name="lossSavedBy50MoveRule">Ván đấu được cứu thua bởi luật 50 nước</string>
   <string name="winOr50MovesByPriorMistake">Giành chiến thắng hoặc 50 nước đi do sai lầm trước</string>
@@ -117,11 +117,11 @@
   <string name="bestMoveArrow">Mũi tên chỉ nước đi tốt nhất</string>
   <string name="showVariationArrows">Hiển thị mũi tên biến</string>
   <string name="evaluationGauge">Thang đo lợi thế</string>
-  <string name="multipleLines">Phân tích nhiều hàng</string>
+  <string name="multipleLines">Số hàng phân tích</string>
   <string name="cpus">CPU</string>
   <string name="memory">Bộ nhớ</string>
   <string name="infiniteAnalysis">Phân tích vô hạn</string>
-  <string name="removesTheDepthLimit">Bỏ giới hạn độ sâu và làm máy tính của bạn mượt hơn</string>
+  <string name="removesTheDepthLimit">Bỏ giới hạn độ sâu và giữ máy tính của bạn mượt hơn</string>
   <string name="engineManager">Quản lý động cơ</string>
   <string name="blunder">Sai lầm nghiêm trọng</string>
   <string name="mistake">Sai lầm</string>
@@ -142,9 +142,9 @@
   <string name="offerDraw">Đề nghị hoà</string>
   <string name="draw">Hoà</string>
   <plurals name="nbPlayers">
-    <item quantity="other">%s người chơi</item>
+    <item quantity="other">%s kỳ thủ</item>
   </plurals>
-  <string name="drawByMutualAgreement">Hòa do đồng ý hai bên</string>
+  <string name="drawByMutualAgreement">Hòa theo thỏa thuận hai bên</string>
   <string name="fiftyMovesWithoutProgress">50 nước không có tiến triển</string>
   <string name="currentGames">Các ván cờ đang diễn ra</string>
   <plurals name="nbGames">

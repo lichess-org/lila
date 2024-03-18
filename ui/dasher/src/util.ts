@@ -12,7 +12,7 @@ export const header = (name: string, close: Close) =>
     name,
   );
 
-export const elementScrollBarWidth = memoize<number>(() => {
+export const elementScrollBarWidthSlowGuess = memoize<number>(() => {
   const ruler = document.createElement('div');
   ruler.style.position = 'absolute';
   ruler.style.overflow = 'scroll';

@@ -1,6 +1,6 @@
 import { h, VNode } from 'snabbdom';
 import * as xhr from 'common/xhr';
-import { header, Close, elementScrollBarWidth } from './util';
+import { header, Close, elementScrollBarWidthSlowGuess } from './util';
 import { bind, Redraw } from 'common/snabbdom';
 
 type Piece = string;
@@ -58,7 +58,7 @@ function pieceImage(t: Piece, is3d: boolean) {
 }
 
 const pieceView = (current: Piece, set: (t: Piece) => void, is3d: boolean) => (t: Piece) => {
-  const pieceSize = (222 - elementScrollBarWidth()) / 3;
+  const pieceSize = (222 - elementScrollBarWidthSlowGuess()) / 3;
   return h(
     'button.no-square',
     {
