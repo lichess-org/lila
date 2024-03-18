@@ -3,8 +3,6 @@
 @import 'title';
 @import 'buttons';
 
-$transition-duration: 0.3s;
-
 body > header {
   height: $site-header-height;
   display: flex;
