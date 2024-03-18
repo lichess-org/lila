@@ -1,6 +1,6 @@
 import pubsub from './pubsub';
 import { loadCssPath, loadEsm } from './assets';
-import { memoize } from 'common';
+import { memoize, clamp } from 'common';
 
 export default function () {
   const initiatingHtml = `<div class="initiating">${site.spinnerHtml}</div>`,
@@ -11,13 +11,18 @@ export default function () {
     };
 
   // On touchscreens, clicking the top menu element expands it. There's no top link.
-  // Only for mq-topnav-hidden in ui/common/css/abstract/_media-queries.scss
-  if ('ontouchstart' in window && !window.matchMedia('(max-width: 979px)').matches)
+  // Only for mq-topnav-visible in ui/common/css/abstract/_media-queries.scss
+  if ('ontouchstart' in window && window.matchMedia('(min-width: 1020px)').matches)
     $('#topnav > section > a').removeAttr('href');
 
-  $('#tn-tg').on('change', e =>
-    document.body.classList.toggle('masked', (e.target as HTMLInputElement).checked),
-  );
+  $('#tn-tg').on('change', e => {
+    const menuOpen = (e.target as HTMLInputElement).checked;
+    document.body.classList.toggle('masked', menuOpen);
+    const header = $as<HTMLElement>('#top');
+    // transp #top's blur filter creates a stacking context. turn it off so 'bottom: 0' matches screen height
+    if (menuOpen) header.style.backdropFilter = 'unset';
+    else setTimeout(() => (header.style.backdropFilter = ''), 200); // 200ms is slide transition duration
+  });
 
   $('#top').on('click', '.toggle', function (this: HTMLElement) {
     const $p = $(this).parent().toggleClass('shown');
@@ -168,5 +173,26 @@ export default function () {
         $input[0]!.focus();
       })
       .bind('s', () => $input[0]!.focus());
+  }
+
+  {
+    // stick top bar
+    let lastY = 0;
+    const header = document.getElementById('top')!;
+
+    const onScroll = () => {
+      console.log('scroll');
+      const y = window.scrollY;
+      header.classList.toggle('scrolled', y > 0);
+      if (y > lastY + 10) header.classList.add('hide');
+      else if (y <= clamp(lastY - 20, { min: 0, max: document.body.scrollHeight - window.innerHeight }))
+        header.classList.remove('hide');
+      else return;
+
+      lastY = Math.max(0, y);
+    };
+
+    window.addEventListener('scroll', onScroll);
+    requestAnimationFrame(() => window.scrollY > 0 && header.classList.add('scrolled'));
   }
 }

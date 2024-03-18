@@ -20,7 +20,7 @@ export async function clean() {
     'public/npm',
     'public/css/*.css*',
   ];
-  if (env.cleanTheme) globs.push('**/css/build/gen'); // will blow away mod.inquiry.scss
+  if (env.cleanTheme) globs.push('**/css/build/gen');
 
   for (const glob of globs) {
     env.log(`Cleaning '${c.cyan(glob)}'...`);

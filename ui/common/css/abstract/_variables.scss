@@ -15,19 +15,19 @@ $block-gap-w-half: 1vw;
 $box-radius-size: 4px;
 $box-padding-vert: 5vh;
 
-$site-header-tall-height: 60px;
-$site-header-short-height: 40px;
-
 $transition-duration: 150ms;
 
-$main-max-width: 1300px !default;
+$site-header-tall-height: 60px;
+$site-header-short-height: 40px;
+$site-header-sticky-max-width: 1780px;
+$site-header-height: var(--site-header-height);
+$site-header-margin: var(--site-header-margin);
+$site-header-outer-height: calc($site-header-height + $site-header-margin + var(--sticky-gap));
 
 $main-margin: var(--main-margin);
-$site-header-height: var(--site-header-height);
+$main-max-width: 1300px !default;
 
-$site-header-margin: var(--site-header-margin);
-
-$site-header-outer-height: calc(#{$site-header-height} + #{$site-header-margin});
+$topnav-visible: 1020px; // where topnav menu & WWWWWWWWWWWWWWWWWWWW both fit at 100%
 
 $xxx-small: 400px;
 $xx-small: 500px;
