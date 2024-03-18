@@ -1,5 +1,5 @@
 import { h, VNode } from 'snabbdom';
-import { Close, elementScrollBarWidth, header } from './util';
+import { Close, elementScrollBarWidthSlowGuess, header } from './util';
 import debounce from 'common/debounce';
 import * as licon from 'common/licon';
 import { bind, onInsert, Redraw } from 'common/snabbdom';
@@ -185,7 +185,7 @@ function galleryInput(ctrl: BackgroundCtrl) {
   const montageUrl = site.asset.url(gallery[`montage${cols}`], { noVersion: true });
   // our layout is static due to the single image gallery optimization. set width here
   // and allow for the possibility of non-overlaid scrollbars
-  const width = cols * (160 + 2) + (gallery.images.length > cols * 4 ? elementScrollBarWidth() : 0);
+  const width = cols * (160 + 2) + (gallery.images.length > cols * 4 ? elementScrollBarWidthSlowGuess() : 0);
 
   return h('div#gallery', { attrs: { style: `width: ${width}px` } }, [
     h(
