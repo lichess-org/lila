@@ -92,7 +92,7 @@ object player:
           a(href := s"https://ratings.fide.com/profile/${player.id}")(player.id)
         ),
         card(
-          "Age",
+          "Age this year",
           player.age
         ),
         bits.tcTrans.map: (tc, name) =>
