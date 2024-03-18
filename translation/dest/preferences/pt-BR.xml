@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="preferences">Preferências</string>
-  <string name="display">Mostrar</string>
+  <string name="display">Exibição</string>
   <string name="privacy">Privacidade</string>
   <string name="notifications">Notificações</string>
   <string name="pieceAnimation">Animação das peças</string>
