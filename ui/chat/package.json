@@ -9,7 +9,7 @@
   "dependencies": {
     "common": "workspace:*",
     "palantir": "workspace:*",
-    "snabbdom": "^3.5.1"
+    "snabbdom": "3.5.1"
   },
   "lichess": {
     "modules": {
