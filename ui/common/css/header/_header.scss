@@ -3,6 +3,8 @@
 @import 'title';
 @import 'buttons';
 
+$transition-duration: 0.3s;
+
 body > header {
   height: $site-header-height;
   display: flex;
@@ -19,7 +21,7 @@ body > header {
     top: 0;
     width: 100%;
     padding: 0 var(--site-header-sticky-padding);
-    transition: transform 0.3s ease-in-out;
+    transition: transform $transition-duration ease-in-out;
 
     @if $theme == 'transp' {
       @include back-blur(6px);
@@ -37,7 +39,7 @@ body > header {
       visibility: visible;
       pointer-events: auto;
       transition:
-        opacity 0.3s,
+        opacity $transition-duration,
         visibility 0s linear 0s;
     }
 
@@ -50,8 +52,8 @@ body > header {
         visibility: hidden;
         pointer-events: none;
         transition:
-          opacity 0.3s,
-          visibility 0s linear 0.3s;
+          opacity $transition-duration,
+          visibility 0s linear $transition-duration;
       }
     }
   }
