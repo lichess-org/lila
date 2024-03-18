@@ -24,12 +24,12 @@ body > header {
     @if $theme == 'transp' {
       @include back-blur(6px);
       background: hsla(0, 0, 60%, 0.14);
-    } @else if $theme == 'dark' {
-      background: $c-body-gradient;
-      border-bottom: $border-width $border-style black;
     } @else {
-      background: $c-bg-page;
-      border-bottom: $border;
+      background-image: linear-gradient(
+        to bottom,
+        $c-body-gradient,
+        mix($c-body-gradient, $c-bg-page, 50%) 60px
+      );
     }
 
     .dropdown {
