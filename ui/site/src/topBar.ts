@@ -16,7 +16,12 @@ export default function () {
     $('#topnav > section > a').removeAttr('href');
 
   $('#tn-tg').on('change', e => {
-    document.body.classList.toggle('masked', (e.target as HTMLInputElement).checked);
+    const menuOpen = (e.target as HTMLInputElement).checked;
+    document.body.classList.toggle('masked', menuOpen);
+    const header = $as<HTMLElement>('#top');
+    // transp #top's blur filter creates a stacking context. turn it off so 'bottom: 0' matches screen height
+    if (menuOpen) header.style.backdropFilter = 'unset';
+    else setTimeout(() => (header.style.backdropFilter = ''), 200); // 200ms is slide transition duration
   });
 
   $('#top').on('click', '.toggle', function (this: HTMLElement) {
