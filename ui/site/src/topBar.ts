@@ -175,18 +175,19 @@ export default function () {
     let lastY = 0;
     const header = document.getElementById('top')!;
 
-    window.addEventListener(
-      'scroll',
-      () => {
-        const y = window.scrollY;
-        if (y > lastY + 10) header.classList.add('hide');
-        else if (y <= clamp(lastY - 20, { min: 0, max: document.body.scrollHeight - window.innerHeight }))
-          header.classList.remove('hide');
-        else return;
+    const onScroll = () => {
+      console.log('scroll');
+      const y = window.scrollY;
+      header.classList.toggle('scrolled', y > 0);
+      if (y > lastY + 10) header.classList.add('hide');
+      else if (y <= clamp(lastY - 20, { min: 0, max: document.body.scrollHeight - window.innerHeight }))
+        header.classList.remove('hide');
+      else return;
 
-        lastY = Math.max(0, y);
-      },
-      { passive: true },
-    );
+      lastY = Math.max(0, y);
+    };
+
+    window.addEventListener('scroll', onScroll);
+    requestAnimationFrame(() => window.scrollY > 0 && header.classList.add('scrolled'));
   }
 }
