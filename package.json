@@ -26,17 +26,17 @@
   },
   "dependencies": {
     "@types/lichess": "workspace:*",
-    "@types/node": "^20.9.1",
-    "@types/web": "^0.0.119",
-    "@typescript-eslint/eslint-plugin": "^6.11.0",
-    "@typescript-eslint/parser": "^6.11.0",
+    "@types/node": "^20.11.28",
+    "@types/web": "^0.0.142",
+    "@typescript-eslint/eslint-plugin": "^7.2.0",
+    "@typescript-eslint/parser": "^7.2.0",
     "ab": "github:lichess-org/ab-stub",
     "chessground": "^9.0.4",
-    "eslint": "^8.54.0",
-    "lint-staged": "^15.1.0",
+    "eslint": "^8.57.0",
+    "lint-staged": "^15.2.2",
     "onchange": "^7.1.0",
     "prettier": "3.0.2",
-    "typescript": "^5.2.2"
+    "typescript": "^5.4.2"
   },
   "scripts": {
     "format": "prettier --write --log-level warn .",
@@ -49,6 +49,6 @@
     "metals": "tail -F .metals/metals.log | stdbuf -oL cut -c 21- | rg -v '(notification for request|handleCancellation)'",
     "serverlog": "pnpm journal & pnpm metals",
     "multilog": "pnpm serverlog & ui/build -r",
-    "minilog": "pnpm journal | grep -E -v fishnet & ui/build -dr"
+    "minilog": "pnpm journal | grep -E -v fishnet & ui/build -cdrs"
   }
 }
