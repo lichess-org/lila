@@ -88,7 +88,8 @@ final class RelayLeaderboardApi(
     federations <- playerApi.federationsOf(players.values.flatMap(_._5).toList)
   yield RelayLeaderboard:
     players.toList
-      .sortBy(-_._2._1)
+      .sortBy: (_, player) =>
+        (-player._1, -player._3.so(_.value))
       .map:
         case (name, (score, played, rating, title, fideId)) =>
           val fed = fideId.flatMap(federations.get)
