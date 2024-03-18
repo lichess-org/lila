@@ -1,2 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+  <string name="accountMuted" comment="muted in the sense of: You cannot chat with your opponent anymore or post messages.">あなたのアカウントはミュートされました。</string>
+  <string name="accountMutedInfo">%s をお読みください。コミュニケーション ガイドラインに従わないとアカウントがミュートされることがあります。</string>
+  <string name="excludedFromLeaderboards">あなたのアカウントはランキングから除外されました。</string>
+  <string name="closedByModerators">あなたのアカウントはモデレータが閉鎖しました。</string>
+  <string name="hiddenBlog">あなたのブログはモデレータが非表示にしました。</string>
+  <string name="hiddenBlogInfo">%s をもう一度お読みください。</string>
+  <string name="playTimeout" comment="play timeout = Lichess prevents you temporarily from playing any games">プレイ一時禁止中です。</string>
+  <string name="communicationGuidelines">コミュニケーション ガイドライン</string>
+  <string name="blogRules">ブログのルール</string>
+  <string name="fairPlay">フェアプレイ</string>
+</resources>
