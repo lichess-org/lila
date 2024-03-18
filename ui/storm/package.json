@@ -13,10 +13,10 @@
   "license": "AGPL-3.0-or-later",
   "dependencies": {
     "chess": "workspace:*",
-    "chessops": "^0.13.0",
+    "chessops": "^0.14.1",
     "common": "workspace:*",
     "puz": "workspace:*",
-    "snabbdom": "^3.5.1"
+    "snabbdom": "3.5.1"
   },
   "lichess": {
     "modules": {

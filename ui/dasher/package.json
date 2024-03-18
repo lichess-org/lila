@@ -9,7 +9,7 @@
   "types": "dist/main.d.ts",
   "dependencies": {
     "common": "workspace:*",
-    "snabbdom": "^3.5.1"
+    "snabbdom": "3.5.1"
   },
   "lichess": {
     "modules": {
