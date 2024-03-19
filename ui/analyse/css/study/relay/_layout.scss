@@ -137,6 +137,9 @@ main.analyse.is-relay:not(.has-relay-tour) {
             'side           . board .     controls uchat'
             'side           . under under under under'
             'relay-admin    . under under under under';
+          .analyse__tols {
+            margin-top: 0;
+          }
           #video-player-placeholder {
             margin-#{$start-direction}: $analyse-block-gap;
             height: 100%;
