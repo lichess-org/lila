@@ -173,8 +173,9 @@ object tour:
         img(
           cls     := "relay-image",
           widthA  := size(RelayTour.thumbnail).width,
-          heightA := size(RelayTour.thumbnail).height
-        )(src := url(id, size))
+          heightA := size(RelayTour.thumbnail).height,
+          src     := url(id, size)
+        )
     def fallback = iconTag(licon.RadioTower)(cls := "relay-image--fallback")
     def url(id: PicfitImage.Id, size: RelayTour.thumbnail.SizeSelector) =
       RelayTour.thumbnail(picfitUrl, id, size)
