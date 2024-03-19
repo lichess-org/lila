@@ -2,7 +2,6 @@ package lila.study
 
 import cats.syntax.all.*
 import monocle.syntax.all.*
-import chess.opening.*
 import chess.variant.Variant
 import lila.tree.{ Branch, Branches, Root }
 import lila.tree.NewRoot
@@ -19,9 +18,7 @@ object TreeBuilder:
         sit.playable(false).so(sit.destinations)
     root
       .focus(_.metas)
-      .modify(x => x.copy(dests = dests.some, opening = opening(variant, root.fen)))
-      .focus(_.tree.some)
-      .modify(tree => tree.map(x => x.focus(_.metas.opening).set(opening(variant, x.fen))))
+      .modify(x => x.copy(dests = dests.some))
 
   // DEBUG should be done in BSONHandler
   def apply(root: Root, variant: Variant): Root =
@@ -47,6 +44,3 @@ object TreeBuilder:
   private def toBranches(children: Branches, variant: Variant): Branches =
     // Note, view here was I think not doing anything since .ToList was set afterwards
     Branches(children.nodes.map(toBranch(_, variant)))
-
-  def opening(v: Variant, fen: chess.format.EpdFen): Option[Opening] =
-    Variant.list.openingSensibleVariants(v).so(OpeningDb.findByEpdFen(fen))
