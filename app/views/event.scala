@@ -48,7 +48,7 @@ object event:
     views.html.base.layout(
       title = e.title,
       moreCss = cssTag("event"),
-      moreJs = iifeModule("javascripts/event-countdown.js")
+      moreJs = jsModule("event.countdown")
     ):
       main(cls := "page-small event box box-pad")(
         boxTop(
