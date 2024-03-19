@@ -56,7 +56,7 @@ $puzzle-block-gap: $block-gap-half;
     grid-area: kb-move;
   }
 
-  grid-template-areas: 'board' 'controls' 'tools' 'session' 'kb-move' 'side';
+  grid-template-areas: 'board' 'controls' 'tools' 'session' 'side' 'kb-move';
   grid-row-gap: $puzzle-block-gap;
 
   &__moves {
