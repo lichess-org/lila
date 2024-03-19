@@ -1,4 +1,4 @@
-$puzzle-block-gap: $block-gap-half;
+$puzzle-block-gap: $block-gap;
 
 #main-wrap {
   --main-max-width: calc(100vh - #{$site-header-outer-height} - #{$col1-uniboard-controls});
@@ -87,7 +87,7 @@ $puzzle-block-gap: $block-gap-half;
       'side    . session .     controls'
       'side    . kb-move .     controls'
       'side    . .       .     .';
-    grid-template-columns: $col3-uniboard-side $puzzle-block-gap var(--col3-uniboard-width) $block-gap-half $col3-uniboard-table;
+    grid-template-columns: $col3-uniboard-side $puzzle-block-gap var(--col3-uniboard-width) $puzzle-block-gap $col3-uniboard-table;
   }
 
   &__side {
