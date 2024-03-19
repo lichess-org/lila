@@ -212,15 +212,15 @@ object mon:
       ) =
         counter("user.register.count").withTags:
           tags(
-            "email"   -> emailDomain.fold("?")(_.value),
-            "confirm" -> confirm,
-            "captcha" -> captcha,
-            "ipSusp"  -> ipSusp,
-            "fp"      -> fp,
-            "proxy"   -> proxy.getOrElse("no"),
-            "country" -> country,
+            "email"        -> emailDomain.fold("?")(_.value),
+            "confirm"      -> confirm,
+            "captcha"      -> captcha,
+            "ipSusp"       -> ipSusp,
+            "fp"           -> fp,
+            "proxy"        -> proxy.getOrElse("no"),
+            "country"      -> country,
             "dispAttempts" -> dispAttempts,
-            "api"     -> apiTag(api)
+            "api"          -> apiTag(api)
           )
       def mustConfirmEmail(v: String) = counter("user.register.mustConfirmEmail").withTag("type", v)
       def confirmEmailResult(success: Boolean) =
