@@ -41,30 +41,6 @@ export function initModule(opts: { i18n: I18nDict }): void {
     });
   });
 
-  if ($('#perfStat.correspondence .view_games').length && site.once('user-correspondence-view-games'))
-    site.asset.hopscotch().then(() => {
-      window.hopscotch
-        .configure({
-          i18n: {
-            nextBtn: 'OK, got it',
-          },
-        })
-        .startTour({
-          id: 'correspondence-games',
-          showPrevButton: true,
-          isTourBubble: false,
-          steps: [
-            {
-              title: 'Recently finished games',
-              content:
-                'Would you like to display the list of your correspondence games, sorted by completion date?',
-              target: $('#perfStat.correspondence .view_games')[0],
-              placement: 'bottom',
-            },
-          ],
-        });
-    });
-
   $('.user-show .angles').each(function (this: HTMLElement) {
     const $angles = $(this),
       $content = $('.angle-content'),
