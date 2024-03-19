@@ -5,6 +5,7 @@ import kamon.metric.{ Counter, Timer }
 import kamon.tag.TagSet
 
 import lila.common.ApiVersion
+import lila.common.Domain
 
 object mon:
 
@@ -198,8 +199,28 @@ object mon:
   object user:
     val online = gauge("user.online").withoutTags()
     object register:
-      def count(api: Option[ApiVersion]) = counter("user.register.count").withTag("api", apiTag(api))
-      def mustConfirmEmail(v: String)    = counter("user.register.mustConfirmEmail").withTag("type", v)
+      def count(
+          emailDomain: Option[Domain],
+          confirm: String,
+          captcha: String,
+          ipSusp: Boolean,
+          fp: Boolean,
+          proxy: Option[String],
+          country: String,
+          api: Option[ApiVersion]
+      ) =
+        counter("user.register.count").withTags:
+          tags(
+            "email"   -> emailDomain.fold("?")(_.value),
+            "confirm" -> confirm,
+            "captcha" -> captcha,
+            "ipSusp"  -> ipSusp,
+            "fp"      -> fp,
+            "proxy"   -> proxy.getOrElse("no"),
+            "country" -> country,
+            "api"     -> apiTag(api)
+          )
+      def mustConfirmEmail(v: String) = counter("user.register.mustConfirmEmail").withTag("type", v)
       def confirmEmailResult(success: Boolean) =
         counter("user.register.confirmEmail").withTag("success", successTag(success))
       val modConfirmEmail = counter("user.register.modConfirmEmail").withoutTags()
