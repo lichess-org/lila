@@ -20,7 +20,7 @@
   &__wide-winners {
     min-height: 20em;
   }
-  
+
   @include mq-at-least-col2 {
     --cols: 2; // ui/lobby/src/main.ts
     grid-template-columns: repeat(2, 1fr);
