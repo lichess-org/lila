@@ -44,9 +44,9 @@ z-index: 99;
     div(cls := "connect-links")(
       a(href := "https://mastodon.online/@lichess", targetBlank, rel := "me")("Mastodon"),
       a(href := "https://twitter.com/lichess", targetBlank, noFollow)("Twitter"),
-      a(href := "https://www.instagram.com/lichessdotorg", targetBlank, noFollow)("Instagram"),
+      a(href := "https://instagram.com/lichessdotorg", targetBlank, noFollow)("Instagram"),
       a(href := "https://discord.gg/lichess", targetBlank, noFollow)("Discord"),
-      a(href := "https://www.youtube.com/c/LichessDotOrg", targetBlank, noFollow)("YouTube"),
+      a(href := "https://youtube.com/c/LichessDotOrg", targetBlank, noFollow)("YouTube"),
       a(href := "https://www.twitch.tv/lichessdotorg", targetBlank, noFollow)("Twitch")
     )
 
